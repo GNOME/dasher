@@ -36,8 +36,14 @@ CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUp
 
   int iSymbol;
 
-  if(pUserData)
-    iSymbol = *((int *)pUserData);
+  if(pUserData) {
+    std::vector<symbol> vSymbols;
+    std::string strRootText(static_cast<char *>(pUserData));
+
+    m_pLanguageModel->SymbolAlphabet().GetAlphabetPointer()->GetSymbols(&vSymbols, &strRootText, false);
+
+    iSymbol = vSymbols[0];
+  }
   else
     iSymbol = 0;
 

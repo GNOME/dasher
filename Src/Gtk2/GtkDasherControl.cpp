@@ -194,8 +194,20 @@ void gtk_dasher_control_set_context(GtkDasherControl *pControl, const gchar *szC
   ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->SetContext(szContext);
 }
 
-void gtk_dasher_control_invalidate_context(GtkDasherControl *pControl, bool bForceStart) {
-  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->InvalidateContext(bForceStart);
+// void gtk_dasher_control_invalidate_context(GtkDasherControl *pControl, bool bForceStart) {
+//   ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->InvalidateContext(bForceStart);
+// }
+
+void gtk_dasher_control_set_buffer(GtkDasherControl *pControl, int iOffset) {
+  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->SetBuffer(iOffset);
+}
+
+void gtk_dasher_control_unset_buffer(GtkDasherControl *pControl) {
+  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->UnsetBuffer();
+}
+
+void gtk_dasher_control_set_offset(GtkDasherControl *pControl, int iOffset) {
+  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->SetOffset(iOffset);
 }
 
 void gtk_dasher_control_register_node(GtkDasherControl *pControl, int iID, const gchar *szLabel, int iColour) {

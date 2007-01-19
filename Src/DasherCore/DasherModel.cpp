@@ -38,11 +38,11 @@ static char THIS_FILE[] = __FILE__;
 
 // CDasherModel
 
-CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pDashIface, bool bGameMode, const std::string &strGameModeText)
+CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pDashIface, int iOffset, bool bGameMode, const std::string &strGameModeText)
 :CDasherComponent(pEventHandler, pSettingsStore), m_pDasherInterface(pDashIface) {
 
   m_Root = 0;
-  m_pLanguageModel =NULL; 
+  //  m_pLanguageModel =NULL; 
 
   m_Rootmin = 0;
   m_Rootmax = 0;
@@ -53,6 +53,8 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettin
   m_iTargetOffset = 0;
   m_dTotalNats = 0.0;
   m_bGameMode = bGameMode;
+
+  m_iOffset = iOffset;
  
   // TODO: Need to rationalise the require conversion methods
 
@@ -75,10 +77,13 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettin
 
   m_pNodeCreationManager = pNCManager;
 
-  m_pLanguageModel = m_pNodeCreationManager->GetLanguageModel();
+  //  m_pLanguageModel = m_pNodeCreationManager->GetLanguageModel();
   //  LearnContext = m_pNodeCreationManager->GetLearnContext();
 
   //  m_bContextSensitive = true;
+
+  // TODO: Do something sensible here
+  Start();
 }
 
 CDasherModel::~CDasherModel() {
@@ -125,7 +130,17 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
       break;
     }
   }
+  else if(pEvent->m_iEventType == 2) {
+    // Keep track of where we are in the buffer
+    CEditEvent *pEditEvent(static_cast < CEditEvent * >(pEvent));
 
+    if(pEditEvent->m_iEditType == 1) {
+      m_iOffset += pEditEvent->m_sText.size();
+    }
+    else if(pEditEvent->m_iEditType == 2) {
+      m_iOffset -= pEditEvent->m_sText.size();
+    }
+  }
 }
 
 void CDasherModel::Make_root(CDasherNode *pNewRoot) {
@@ -294,36 +309,78 @@ void CDasherModel::Start() {
 
 }
 
+void CDasherModel::DeleteTree() {
+  if(oldroots.size() > 0) {
+    delete oldroots[0];
+    oldroots.clear();
+    m_Root = NULL;
+  }
+
+  delete m_Root;
+}
+
+void CDasherModel::InitialiseAtOffset(int iOffset) {
+  DeleteTree();
+
+  if(iOffset == 0)
+    m_Root = GetRoot(0, NULL, 0,GetLongParameter(LP_NORMALIZATION), NULL);
+  else {
+    // Get the most recent character
+    std::string strContext = m_pDasherInterface->GetContext(iOffset - 1, 1);
+
+    char *szContext = new char[strContext.size() + 1];
+    strcpy(szContext, strContext.c_str());
+
+    m_Root = GetRoot(0, NULL, 0, GetLongParameter(LP_NORMALIZATION), szContext);
+
+    delete[] szContext;
+  }
+
+  // Create children of the root
+  // TODO: What about parents?
+
+  Recursive_Push_Node(m_Root, 0);
+
+  // Set the root coordinates so that the root node is an appropriate
+  // size and we're not in any of the children
+
+  double dFraction( 1 - (1 - m_Root->MostProbableChild() / static_cast<double>(GetLongParameter(LP_NORMALIZATION))) / 2.0 );
+
+  int iWidth( static_cast<int>( (GetLongParameter(LP_MAX_Y) / (2.0*dFraction)) ) );
+
+  m_Rootmin = GetLongParameter(LP_MAX_Y) / 2 - iWidth / 2;
+  m_Rootmax = GetLongParameter(LP_MAX_Y) / 2 + iWidth / 2;
+
+  m_iTargetOffset = 0;
+
+  m_pDasherInterface->ScheduleRedraw();
+
+
+}
+
 void CDasherModel::SetContext(std::string &sNewContext) {
   // TODO: This is probably the area most significantly in need of a
   // rethink. Get the language model out of here!  
   m_deGotoQueue.clear();
 
-  if(oldroots.size() > 0) {
-    delete oldroots[0];
-    oldroots.clear();
-    // At this point we have also deleted the root - so better NULL pointer
-    m_Root = NULL;
-  }
-  delete m_Root;
+  DeleteTree();
 
-
-  CLanguageModel::Context therootcontext = m_pLanguageModel->CreateEmptyContext();
+  // CLanguageModel::Context therootcontext = m_pLanguageModel->CreateEmptyContext();
 
   if(sNewContext.size() == 0) {
     m_Root = GetRoot(0, NULL, 0,GetLongParameter(LP_NORMALIZATION), NULL);
     
-    EnterText(therootcontext, ". ");  
+    //    EnterText(therootcontext, ". ");  
   }
   else {
     std::vector<symbol> vSymbols;
-    m_pLanguageModel->SymbolAlphabet().GetAlphabetPointer()->GetSymbols(&vSymbols, &sNewContext, false);
+    //    m_pLanguageModel->SymbolAlphabet().GetAlphabetPointer()->GetSymbols(&vSymbols, &sNewContext, false);
     
     int iRootSymbol(vSymbols[vSymbols.size()-1]);
     
     m_Root = GetRoot(0, NULL, 0,GetLongParameter(LP_NORMALIZATION), &iRootSymbol);
     
-    EnterText(therootcontext, sNewContext);  
+    //    EnterText(therootcontext, sNewContext);  
   }
 
   // TODO: Reimplement
@@ -896,11 +953,16 @@ void CDasherModel::LimitRoot(int iMaxWidth) {
   m_Rootmax = GetLongParameter(LP_MAX_Y) / 2 + iMaxWidth / 2;
 }
 
+void CDasherModel::SetOffset(int iLocation) {
+  if(iLocation == m_iOffset)
+    return; // We're already there
+  
+  // TODO: Special cases, ie this can be done without rebuilding the
+  // model
 
-CAlphabetManagerFactory::CTrainer *CDasherModel::GetTrainer() {
-  return m_pNodeCreationManager->GetTrainer();
-}
+  m_iOffset = iLocation;
 
-
-void CDasherModel::SetCursorLocation(int iLocation) {
+  // Now actually rebuild the model
+  InitialiseAtOffset(iLocation);
+  
 }

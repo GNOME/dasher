@@ -977,5 +977,10 @@ extern "C" void protect_cb(GtkDasherControl *pDasherControl, gpointer pUserData)
 
 // TODO: This should call back into editor, not directly into Dasher control
 extern "C" void context_changed_handler(GObject *pSource, gpointer pUserData) {
-    gtk_dasher_control_invalidate_context(GTK_DASHER_CONTROL(pDasherWidget), false);
+  // TODO: Need real offset
+  // TODO: Need to differentiate between buffer change and focus move
+
+  IDasherBufferSet *pBufferSet = IDASHER_BUFFER_SET(pSource);
+
+  gtk_dasher_control_set_offset(GTK_DASHER_CONTROL(pDasherWidget), idasher_buffer_set_get_offset(pBufferSet));
 }

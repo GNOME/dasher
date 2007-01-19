@@ -64,25 +64,33 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CDasherInterfaceBase::CDasherInterfaceBase()
-                  :m_Alphabet(0), m_pDasherModel(0), m_DasherScreen(0),
-		   m_pDasherView(0), m_pInput(0), m_AlphIO(0), m_ColourIO(0), m_pUserLog(NULL),
-		   m_pInputFilter(NULL) {
-
-  m_iCurrentState = ST_START;
-  m_iLockCount = 0;
-
+CDasherInterfaceBase::CDasherInterfaceBase() {
+  // Ensure that pointers to 'owned' objects are set to NULL.
+  m_Alphabet = 0;
+  m_pDasherModel = 0;
+  m_DasherScreen = 0;
+  m_pDasherView = 0;
+  m_pInput = 0;
+  m_AlphIO = 0;
+  m_ColourIO = 0;
+  m_pUserLog = 0;
+  m_pInputFilter = 0;
   m_pNCManager = 0;
+
+  // Various state variables
+  m_bRedrawScheduled = false;
   
+  m_iCurrentState = ST_START;
+  
+  m_iLockCount = 0;
   m_bGlobalLock = false;
 
-  m_bRedrawScheduled = false;
-
-  m_pEventHandler = new CEventHandler(this);
- 
+  // TODO: Are these actually needed?
   strCurrentContext = ". ";
-
   strTrainfileBuffer = "";
+
+  // Create an event handler.
+  m_pEventHandler = new CEventHandler(this);
 
   m_bLastChanged = true;
 
@@ -132,7 +140,7 @@ void CDasherInterfaceBase::Realize() {
   SetupActionButtons();
 
   // FIXME - need to rationalise this sort of thing.
-  InvalidateContext(true);
+  // InvalidateContext(true);
   ScheduleRedraw();
     
   // All the setup is done by now, so let the user log object know
@@ -140,6 +148,7 @@ void CDasherInterfaceBase::Realize() {
   if (m_pUserLog != NULL) 
     m_pUserLog->InitIsDone();
 
+  // TODO: Make things work when model is created latet
   ChangeState(TR_MODEL_INIT);
 }
 
@@ -242,7 +251,7 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
 	 SetStringParameter(SP_COLOUR_ID, GetStringParameter(SP_DEFAULT_COLOUR_ID));
       break;
     case LP_LANGUAGE_MODEL_ID:
-      CreateDasherModel();
+      CreateNCManager();
       break;
     case LP_LINE_WIDTH:
       ScheduleRedraw();
@@ -320,17 +329,36 @@ void CDasherInterfaceBase::WriteTrainFilePartial() {
   strTrainfileBuffer = strTrainfileBuffer.substr(100);
 }
 
-void CDasherInterfaceBase::CreateDasherModel() 
-{
+void CDasherInterfaceBase::CreateModel(int iOffset) {
+  // Creating a model without a node creation manager is a bad plan
+  if(!m_pNCManager)
+    return;
+
+  if(m_pDasherModel) {
+    delete m_pDasherModel;
+    m_pDasherModel = 0;
+  }
+  
+  if(m_deGameModeStrings.size() == 0) {
+    m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, m_pNCManager, this, iOffset);
+  }
+  else {
+    m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, m_pNCManager, this, iOffset, true, m_deGameModeStrings[0]);
+  }
+}
+
+void CDasherInterfaceBase::CreateNCManager() {
+  // TODO: Try and make this work without necessarilty rebuilding the model
+
   if(!m_AlphIO)
     return;
 
-  // TODO: Move training into model?
-  // TODO: Do we really need to check for a valid language model?
   int lmID = GetLongParameter(LP_LANGUAGE_MODEL_ID);
-  if( lmID != -1 ) {
 
-    // Train the new language model
+  if( lmID == -1 ) 
+    return;
+
+ // Train the new language model
     CLockEvent *pEvent;
     
     pEvent = new CLockEvent("Training Dasher", true, 0);
@@ -338,6 +366,13 @@ void CDasherInterfaceBase::CreateDasherModel()
     delete pEvent;
 
     AddLock(0);
+
+    int iOffset;
+
+    if(m_pDasherModel)
+      iOffset = m_pDasherModel->GetOffset();
+    else
+      iOffset = 0; // TODO: Is this right?
 
     // Delete the old model and create a new one
     if(m_pDasherModel) {
@@ -352,12 +387,9 @@ void CDasherInterfaceBase::CreateDasherModel()
       
     if(m_deGameModeStrings.size() == 0) {
       m_pNCManager = new CNodeCreationManager(m_pEventHandler, m_pSettingsStore, false, "", m_AlphIO);
-      m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, m_pNCManager, this);
     }
     else {
       m_pNCManager = new CNodeCreationManager(m_pEventHandler, m_pSettingsStore, true, m_deGameModeStrings[0], m_AlphIO);
-      m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, m_pNCManager, this, true, m_deGameModeStrings[0]);
-      //      m_deGameModeStrings.pop_front();
     }
 
     m_Alphabet = m_pNCManager->GetAlphabet();
@@ -381,34 +413,35 @@ void CDasherInterfaceBase::CreateDasherModel()
     pEvent = new CLockEvent("Training Dasher", false, 0);
     m_pEventHandler->InsertEvent(pEvent);
     delete pEvent;
-  }
 
-  Start();
-  Redraw(true);
+    ReleaseLock(0);
 
-  ReleaseLock(0);
+    // TODO: Eventually we'll not have to pass the NC manager to the model...
+    CreateModel(iOffset);
 }
 
-void CDasherInterfaceBase::Start() {
-  // TODO: Clarify the relationship between Start() and
-  // InvalidateContext() - I believe that they essentially do the same
-  // thing
-  PauseAt(0, 0);
-  if(m_pDasherModel != 0) {
-    m_pDasherModel->Start();
-  }
-  if(m_pDasherView != 0) {
-//     m_pDasherView->ResetSum();
-//     m_pDasherView->ResetSumCounter();
-//     m_pDasherView->ResetYAutoOffset();
-  }
+// void CDasherInterfaceBase::Start() {
+//   // TODO: Clarify the relationship between Start() and
+//   // InvalidateContext() - I believe that they essentially do the same
+//   // thing
+//   PauseAt(0, 0);
+//   if(m_pDasherModel != 0) {
+//     m_pDasherModel->Start();
+//   }
+//   if(m_pDasherView != 0) {
+// //     m_pDasherView->ResetSum();
+// //     m_pDasherView->ResetSumCounter();
+// //     m_pDasherView->ResetYAutoOffset();
+//   }
 
-  int iMinWidth;
+// TODO: Reimplement this sometime
+
+//   int iMinWidth;
   
-  if(m_pInputFilter && m_pInputFilter->GetMinWidth(iMinWidth)) {
-    m_pDasherModel->LimitRoot(iMinWidth);
-  }
-}
+//   if(m_pInputFilter && m_pInputFilter->GetMinWidth(iMinWidth)) {
+//     m_pDasherModel->LimitRoot(iMinWidth);
+//   }
+// }
 
 void CDasherInterfaceBase::PauseAt(int MouseX, int MouseY) {
   SetBoolParameter(BP_DASHER_PAUSED, true);
@@ -568,17 +601,7 @@ void CDasherInterfaceBase::ChangeAlphabet() {
 
   SetBoolParameter( BP_TRAINING, true );
 
-//   m_AlphInfo = m_AlphIO->GetInfo(NewAlphabetID);
-
-//   //AlphabetID = m_AlphInfo.AlphID.c_str();
-
-//   //  std::auto_ptr < CAlphabet > ptrOld(m_Alphabet);       // So we can delete the old alphabet later
-
-//   m_Alphabet = new CAlphabet(m_AlphInfo);
-
-  delete m_pDasherModel;
-  m_pDasherModel = 0;
-  CreateDasherModel();
+  CreateNCManager();
 
   // Let our user log object know about the new alphabet since
   // it needs to convert symbols into text for the log file.
@@ -628,10 +651,6 @@ void CDasherInterfaceBase::ChangeView() {
   }
 }
 
-void CDasherInterfaceBase::GetAlphabets(std::vector <std::string >*AlphabetList) {
-  m_AlphIO->GetAlphabets(AlphabetList);
-}
-
 const CAlphIO::AlphInfo & CDasherInterfaceBase::GetInfo(const std::string &AlphID) {
   return m_AlphIO->GetInfo(AlphID);
 }
@@ -642,10 +661,6 @@ void CDasherInterfaceBase::SetInfo(const CAlphIO::AlphInfo &NewInfo) {
 
 void CDasherInterfaceBase::DeleteAlphabet(const std::string &AlphID) {
   m_AlphIO->Delete(AlphID);
-}
-
-void CDasherInterfaceBase::GetColours(std::vector <std::string >*ColourList) {
-  m_ColourIO->GetColours(ColourList);
 }
 
 /*
@@ -672,7 +687,7 @@ int CDasherInterfaceBase::TrainFile(string Filename, int iTotalBytes, int iOffse
 
   vector < symbol > Symbols;
 
-  CAlphabetManagerFactory::CTrainer * pTrainer = m_pDasherModel->GetTrainer();
+  CAlphabetManagerFactory::CTrainer * pTrainer = m_pNCManager->GetTrainer();
   do {
     NumberRead = fread(InputBuffer, 1, BufferSize - 1, InputFile);
     InputBuffer[NumberRead] = '\0';
@@ -746,55 +761,57 @@ void CDasherInterfaceBase::ResetNats() {
 }
 
 
-void CDasherInterfaceBase::InvalidateContext(bool bForceStart) {
-  m_pDasherModel->m_strContextBuffer = "";
+// TODO: Check that none of this needs to be reimplemented
 
-  Dasher::CEditContextEvent oEvent(10);
-  m_pEventHandler->InsertEvent(&oEvent);
+// void CDasherInterfaceBase::InvalidateContext(bool bForceStart) {
+//   m_pDasherModel->m_strContextBuffer = "";
 
-   std::string strNewContext(m_pDasherModel->m_strContextBuffer);
+//   Dasher::CEditContextEvent oEvent(10);
+//   m_pEventHandler->InsertEvent(&oEvent);
 
-  // We keep track of an internal context and compare that to what
-  // we are given - don't restart Dasher if nothing has changed.
-  // This should really be integrated with DasherModel, which
-  // probably will be the case when we start to deal with being able
-  // to back off indefinitely. For now though we'll keep it in a
-  // separate string.
+//    std::string strNewContext(m_pDasherModel->m_strContextBuffer);
 
-   int iContextLength( 6 ); // The 'important' context length - should really get from language model
+//   // We keep track of an internal context and compare that to what
+//   // we are given - don't restart Dasher if nothing has changed.
+//   // This should really be integrated with DasherModel, which
+//   // probably will be the case when we start to deal with being able
+//   // to back off indefinitely. For now though we'll keep it in a
+//   // separate string.
 
-   // FIXME - use unicode lengths
+//    int iContextLength( 6 ); // The 'important' context length - should really get from language model
 
-   if(bForceStart || (strNewContext.substr( std::max(static_cast<int>(strNewContext.size()) - iContextLength, 0)) != strCurrentContext.substr( std::max(static_cast<int>(strCurrentContext.size()) - iContextLength, 0)))) {
+//    // FIXME - use unicode lengths
 
-     if(m_pDasherModel != NULL) {
-       // TODO: Reimplement this
-       //       if(m_pDasherModel->m_bContextSensitive || bForceStart) {
-       {
- 	m_pDasherModel->SetContext(strNewContext);
- 	PauseAt(0,0);
-       }
-     }
+//    if(bForceStart || (strNewContext.substr( std::max(static_cast<int>(strNewContext.size()) - iContextLength, 0)) != strCurrentContext.substr( std::max(static_cast<int>(strCurrentContext.size()) - iContextLength, 0)))) {
+
+//      if(m_pDasherModel != NULL) {
+//        // TODO: Reimplement this
+//        //       if(m_pDasherModel->m_bContextSensitive || bForceStart) {
+//        {
+//  	m_pDasherModel->SetContext(strNewContext);
+//  	PauseAt(0,0);
+//        }
+//      }
     
-     strCurrentContext = strNewContext;
-     WriteTrainFileFull();
-   }
+//      strCurrentContext = strNewContext;
+//      WriteTrainFileFull();
+//    }
 
-   if(bForceStart) {
-     int iMinWidth;
+//    if(bForceStart) {
+//      int iMinWidth;
 
-     if(m_pInputFilter && m_pInputFilter->GetMinWidth(iMinWidth)) {
-       m_pDasherModel->LimitRoot(iMinWidth);
-     }
-   }
+//      if(m_pInputFilter && m_pInputFilter->GetMinWidth(iMinWidth)) {
+//        m_pDasherModel->LimitRoot(iMinWidth);
+//      }
+//    }
 
-   if(m_pDasherView)
-     while( m_pDasherModel->CheckForNewRoot(m_pDasherView) ) {
-       // Do nothing
-     }
+//    if(m_pDasherView)
+//      while( m_pDasherModel->CheckForNewRoot(m_pDasherView) ) {
+//        // Do nothing
+//      }
 
-   ScheduleRedraw();
-}
+//    ScheduleRedraw();
+// }
 
 void CDasherInterfaceBase::SetContext(std::string strNewContext) {
   m_pDasherModel->m_strContextBuffer = strNewContext;
@@ -929,10 +946,12 @@ void CDasherInterfaceBase::GetPermittedValues(int iParameter, std::vector<std::s
   // TODO: Deprecate direct calls to these functions
   switch (iParameter) {
   case SP_ALPHABET_ID:
-    GetAlphabets(&vList);
+    if(m_AlphIO)
+      m_AlphIO->GetAlphabets(&vList);
     break;
   case SP_COLOUR_ID:
-    GetColours(&vList);
+    if(m_ColourIO)
+      m_ColourIO->GetColours(&vList);
     break;
   case SP_INPUT_FILTER:
     m_oModuleManager.ListModules(1, vList);
@@ -1120,3 +1139,21 @@ void CDasherInterfaceBase::ReleaseLock(int iLockFlags) {
   if(m_iLockCount == 0)
     ChangeState(TR_UNLOCK);
 }
+
+void CDasherInterfaceBase::SetBuffer(int iOffset) { 
+  CreateModel(iOffset);
+}
+
+void CDasherInterfaceBase::UnsetBuffer() {
+  // TODO: Write training file?
+  if(m_pDasherModel)
+    delete m_pDasherModel;
+
+  m_pDasherModel = 0;
+}
+
+void CDasherInterfaceBase::SetOffset(int iOffset) {
+  if(m_pDasherModel)
+    m_pDasherModel->SetOffset(iOffset);
+}
+

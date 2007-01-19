@@ -16,6 +16,7 @@ void dasher_internal_buffer_edit_delete(DasherInternalBuffer *pSelf, int iDirect
 void dasher_internal_buffer_edit_convert(DasherInternalBuffer *pSelf);
 void dasher_internal_buffer_edit_protect(DasherInternalBuffer *pSelf);
 void dasher_internal_buffer_conversion_mode(DasherInternalBuffer *pSelf, gboolean bMode);
+gint dasher_internal_buffer_get_offset(DasherInternalBuffer *pSelf);
 
 // Related signal handlers
 extern "C" void mark_set_handler(GtkWidget *widget, GtkTextIter *pIter, GtkTextMark *pMark, gpointer pUserData);
@@ -86,6 +87,7 @@ static void idasher_buffer_set_interface_init (gpointer g_iface, gpointer iface_
   iface->edit_convert = (void (*)(IDasherBufferSet *pSelf))dasher_internal_buffer_edit_convert;
   iface->edit_protect = (void (*)(IDasherBufferSet *pSelf))dasher_internal_buffer_edit_protect;
   iface->conversion_mode = (void (*)(IDasherBufferSet *pSelf, gboolean bMode))dasher_internal_buffer_conversion_mode;
+  iface->get_offset = (gint (*)(IDasherBufferSet *pSelf))dasher_internal_buffer_get_offset;
 }
 
 static void dasher_internal_buffer_destroy(GObject *pObject) {
@@ -354,6 +356,15 @@ void dasher_internal_buffer_clear(DasherInternalBuffer *pSelf) {
   pPrivate->iCurrentState = 0;
   pPrivate->iLastOffset = 0;
 }
+
+gint dasher_internal_buffer_get_offset(DasherInternalBuffer *pSelf) {
+  DasherInternalBufferPrivate *pPrivate = (DasherInternalBufferPrivate *)(pSelf->private_data);
+ 
+  GtkTextIter oIter;
+  gtk_text_buffer_get_iter_at_mark(pPrivate->pBuffer, &oIter, gtk_text_buffer_get_mark(pPrivate->pBuffer, "insert"));
+  return gtk_text_iter_get_offset(&oIter);
+}
+
 
 // Handlers
 

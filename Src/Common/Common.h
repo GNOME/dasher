@@ -38,6 +38,8 @@
 
 #include "myassert.h"
 
+#include "mydebug.h"
+
 #include "Trace.h"
 
 #endif // __include__

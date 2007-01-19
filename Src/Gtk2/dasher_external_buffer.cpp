@@ -56,6 +56,10 @@ void dasher_external_buffer_conversion_mode(DasherExternalBuffer *pSelf, gboolea
 gchar *dasher_external_buffer_get_context(DasherExternalBuffer *pSelf, gint iMaxLength);
 void dasher_external_buffer_edit_move(DasherExternalBuffer *pSelf, int iDirection, int iDist);
 void dasher_external_buffer_edit_delete(DasherExternalBuffer *pSelf, int iDirection, int iDist);
+gint dasher_external_buffer_get_offset(DasherExternalBuffer *pSelf) {
+  // TODO: Implement
+  return 0;
+}
 
 #ifdef GNOME_A11Y
 void dasher_external_buffer_handle_focus(DasherExternalBuffer *pSelf, const AccessibleEvent *pEvent);
@@ -129,6 +133,7 @@ static void idasher_buffer_set_interface_init (gpointer g_iface, gpointer iface_
   iface->edit_convert = (void (*)(IDasherBufferSet *pSelf))dasher_external_buffer_edit_convert;
   iface->edit_protect = (void (*)(IDasherBufferSet *pSelf))dasher_external_buffer_edit_protect;
   iface->conversion_mode = (void (*)(IDasherBufferSet *pSelf, gboolean bMode))dasher_external_buffer_conversion_mode;
+  iface->get_offset = (gint (*)(IDasherBufferSet *pSelf))dasher_external_buffer_get_offset;
 }
 
 static void dasher_external_buffer_destroy(GObject *pObject) {

@@ -206,7 +206,7 @@ public:
   /// Resets the Dasher model. Doesn't actually unpause Dasher.
   /// \deprecated Use InvalidateContext() instead
 
-  void Start();
+  //  void Start();
 
   /// Pause Dasher
   /// \todo Parameters are ignored (?) - remove from definition.
@@ -247,7 +247,14 @@ public:
   /// \param strNewContext The new context (UTF-8)
 
   void SetContext(std::string strNewContext);
-  void InvalidateContext(bool bForceStart);
+
+  /// New control mechanisms:
+
+  void SetBuffer(int iOffset);
+
+  void UnsetBuffer(); 
+
+  void SetOffset(int iOffset);
 
   /// @name Status reporting
   /// Get information about the runtime status of Dasher which might
@@ -321,8 +328,9 @@ public:
   void AddGameModeString(const std::string &strText) {
     m_deGameModeStrings.push_back(strText);
     PauseAt(0,0);
-    CreateDasherModel();
-    Start();
+    //    CreateDasherModel();
+    CreateNCManager();
+    //    Start();
   };
 
   void ScheduleRedraw() {
@@ -330,7 +338,12 @@ public:
   };
 
   void CheckRedraw();
-   
+
+  std::string GetContext(int iStart, int iLength) {
+    return "a";
+  }
+
+
 protected:
 
   /// @name Startup
@@ -389,17 +402,6 @@ protected:
   CSettingsStore *m_pSettingsStore;
 
  private:
-  ///
-  /// \todo Document this
-  ///
-
-  void GetAlphabets(std::vector < std::string > *AlphabetList);
-
-  ///
-  /// \todo Document this
-  ///
-
-  void GetColours(std::vector < std::string > *ColourList);
 
   /// @name Platform dependent utility functions 
   /// These functions provide various platform dependent functions
@@ -489,7 +491,10 @@ protected:
 
   void CreateFactories();
   void CreateInputFilter();
-  void CreateDasherModel();
+
+  void CreateModel(int iOffset);
+  void CreateNCManager();
+
   void ChangeAlphabet();
   void ChangeColours();
   void ChangeView();

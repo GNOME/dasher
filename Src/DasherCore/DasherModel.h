@@ -58,7 +58,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
     idJapanese = 4
   } LanguageModelID;
 
-  CDasherModel(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CNodeCreationManager *pNCManager, CDasherInterfaceBase * pDashIface, bool bGameMode = false, const std::string &strGameModeText = "");
+  CDasherModel(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pDashIface, int iOffset, bool bGameMode = false, const std::string &strGameModeText = "");
   ~CDasherModel();
 
   /// @name Language model passthroughs 
@@ -66,14 +66,16 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   /// language model now without passing through here.
   /// @{
 
+  // TODO: Fix this
+
   ///
   /// Prototype binary dump of language model data
   ///
 
   bool WriteLMToFile(const std::string &strFilename) {
-    if(m_pLanguageModel)
-      return m_pLanguageModel->WriteToFile(strFilename);
-    else
+/*     if(m_pLanguageModel) */
+/*       return m_pLanguageModel->WriteToFile(strFilename); */
+/*     else */
       return false;
   }
 
@@ -82,9 +84,9 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   ///
 
   bool ReadLMFromFile(const std::string &strFilename) {
-    if(m_pLanguageModel)
-      return m_pLanguageModel->ReadFromFile(strFilename);
-    else
+/*     if(m_pLanguageModel) */
+/*       return m_pLanguageModel->ReadFromFile(strFilename); */
+/*     else */
       return false;
   }
 
@@ -110,7 +112,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   /// Return a trainer object for the language model
   ///
 
-  CAlphabetManagerFactory::CTrainer *GetTrainer();
+  //  CAlphabetManagerFactory::CTrainer *GetTrainer();
 
   /// @}
 
@@ -363,7 +365,15 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   /// point
   ///
 
-  void SetCursorLocation(int iLocation);
+  void SetOffset(int iLocation);
+
+  ///
+  /// TODO: Implement this
+  ///
+
+  int GetOffset() {
+    return 0;
+  };
 
  protected:
   int m_iRenderCount;
@@ -377,7 +387,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   // Interfaces
 
-  CLanguageModel *m_pLanguageModel;     // pointer to the language model
+  //  CLanguageModel *m_pLanguageModel;     // pointer to the language model
 
   CLanguageModel::Context LearnContext; // Used to add data to model as it is entered
 
@@ -428,6 +438,10 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   void Get_new_root_coords(myint mousex, myint mousey, myint &iNewMin, myint &iNewMax, unsigned long iTime);
 
   double CorrectionFactor(int dasherx, int dashery);
+
+  void DeleteTree();
+
+  void InitialiseAtOffset(int iOffset);
 
   void Recursive_Push_Node(CDasherNode * pNode, int depth);
 
@@ -529,13 +543,15 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   //  friend class CTrainer;
   //  friend class CDasherNode;
 
+  int m_iOffset;
+
 };
 
 /////////////////////////////////////////////////////////////////////////////
 
-inline CLanguageModel::Context CDasherModel::CreateEmptyContext() const {
-  return m_pLanguageModel->CreateEmptyContext();
-}
+/* inline CLanguageModel::Context CDasherModel::CreateEmptyContext() const { */
+/*   return m_pLanguageModel->CreateEmptyContext(); */
+/* } */
 
 inline int CDasherModel::GetColour(symbol s) const { 
   return m_pNodeCreationManager->GetColour(s); 

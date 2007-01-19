@@ -85,7 +85,10 @@ const char *gtk_dasher_control_get_parameter_string(GtkDasherControl * pControl,
 GArray *gtk_dasher_control_get_allowed_values(GtkDasherControl * pControl, int iParameter);
 void gtk_dasher_control_train(GtkDasherControl * pControl, const gchar * szFilename);
 void gtk_dasher_control_set_context(GtkDasherControl *pControl, const gchar *szContext);
-void gtk_dasher_control_invalidate_context(GtkDasherControl *pControl, bool bForceStart);
+//void gtk_dasher_control_invalidate_context(GtkDasherControl *pControl, bool bForceStart);
+void gtk_dasher_control_set_buffer(GtkDasherControl *pControl, int iOffset);
+void gtk_dasher_control_set_offset(GtkDasherControl *pControl, int iOffset);
+void gtk_dasher_control_unset_buffer(GtkDasherControl *pControl);
 void gtk_dasher_control_register_node(GtkDasherControl *pControl, int iID, const gchar *szLabel, int iColour);
 void gtk_dasher_control_connect_node(GtkDasherControl *pControl, int iChild, int iParent, int iAfter);
 void gtk_dasher_control_disconnect_node(GtkDasherControl *pControl, int iChild, int iParent);
