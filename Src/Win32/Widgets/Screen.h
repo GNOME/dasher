@@ -12,7 +12,7 @@
 #include "../../Common/Hash.h"
 
 #include "../../DasherCore/DasherScreen.h"
-#include "../../DasherCore/DasherInterfaceBase.h"
+#include "../DasherInterface.h"
 #include "../../Common/NoClones.h"
 
 #include "../GDI/FontStore.h"
@@ -35,34 +35,35 @@ public:
   CScreen(HDC hdc, Dasher::screenint width, Dasher::screenint height);
   ~CScreen();
 
-  void SetInterface(Dasher::CDasherInterfaceBase *DasherInterface);
+  void SetInterface(CDasherInterface * DasherInterface);
   void SetColourScheme(const Dasher::CColourIO::ColourInfo *pColours);
 
   void SetFont(const std::string &strFont);
 
-  void DrawMousePosBox(int which, int iMousePosDist);
+  void DrawMousePosBox(int which, int iMousePosDist,int layer=0);
 
   void TextSize(const std::string & String, Dasher::screenint * Width, Dasher::screenint * Height, int Size);
 
   //! Draw UTF8-encoded string String of size Size positioned at x1 and y1
-  void DrawString(const std::string & String, Dasher::screenint x1, Dasher::screenint y1, int Size);
+  void DrawString(const std::string & String, Dasher::screenint x1, Dasher::screenint y1, int Size,int layer=0);
 
-  void DrawRectangle(Dasher::screenint x1, Dasher::screenint y1, Dasher::screenint x2, Dasher::screenint y2, int Color, int iOutlineColour, Dasher::Opts::ColorSchemes ColorScheme, bool bDrawOutlines, bool bFill, int iThickness);
+  void DrawRectangle(Dasher::screenint x1, Dasher::screenint y1, Dasher::screenint x2, Dasher::screenint y2, int Color, int iOutlineColour, Dasher::Opts::ColorSchemes ColorScheme, bool bDrawOutlines, bool bFill, int iThickness,int layer=0);
 
-  void CScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, int iFillColour, int iThickness, bool bFill);
+  ///WHY is this defined like that?
+  void CScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, int iFillColour, int iThickness, bool bFill,int layer=0);
 
   // Draw a line of fixed colour (usually black). Intended for static UI elements such as a cross-hair
   //! Draw a line between each of the points in the array
   //
   //! \param Number the number of points in the array
-  void Polyline(point * Points, int Number, int iWidth);
+  //void Polyline(point * Points, int Number, int iWidth);
 
   // Draw a line of arbitrary colour.
   //! Draw a line between each of the points in the array
   //
   //! \param Number the number of points in the array
   //! \param Colour the colour to be drawn
-  void Polyline(point * Points, int Number, int iWidth, int Colour);
+  void Polyline(point * Points, int Number, int iWidth, int Colour,int layer=0);
 
   // Draw a filled polygon - given vertices and color id
   // This is not (currently) used in standard Dasher. However, it could be very
@@ -73,10 +74,10 @@ public:
   //! \param Points array of points defining the edge of the polygon
   //! \param Number number of points in the array
   //! \param Color colour of the polygon (numeric)
-  virtual void Polygon(point * Points, int Number, int Color);
-  virtual void Polygon(point * Points, int Number, int Color, int iWidth);
+  //virtual void Polygon(point * Points, int Number, int Color);
+  virtual void Polygon(point * Points, int Number, int Color, int iWidth,int layer);
 
-  void DrawPolygon(point * Points, int Number, int Color, Dasher::Opts::ColorSchemes ColorScheme);
+  void DrawPolygon(point * Points, int Number, int Color, Dasher::Opts::ColorSchemes ColorScheme,int layer=0);
   void Blank();
   void Display();
 

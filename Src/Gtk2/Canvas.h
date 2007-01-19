@@ -10,6 +10,8 @@
 
 #include <iostream>
 
+//#undef WITH_CAIRO
+
 #if WITH_CAIRO
 
 /* Cairo drawing backend */
@@ -19,47 +21,9 @@ typedef struct {
   double r, g, b;
 } my_cairo_colour_t;
 
-
-#define BEGIN_DRAWING_BACKEND				\
-  cairo_save(cr)
-
-#define END_DRAWING_BACKEND				\
-  cairo_restore(cr)
-
-#define SET_COLOR_BACKEND(c)				\
-  do {							\
-    my_cairo_colour_t _c = cairo_colours[(c)];		\
-    cairo_set_source_rgb(cr, _c.r, _c.g, _c.b);	\
-  } while (0)
-
 #else /* WITHOUT_CAIRO */
 
-#define BEGIN_DRAWING_BACKEND				\
-  GdkGCValues origvalues;				\
-  gdk_gc_get_values(graphics_context,&origvalues)
-
-#define END_DRAWING_BACKEND				\
-  gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND)
-
-#define SET_COLOR_BACKEND(c)				\
-  do {							\
-    GdkColor _c = colours[(c)];				\
-    gdk_colormap_alloc_color(colormap, &_c, FALSE, TRUE);	\
-    gdk_gc_set_foreground (graphics_context, &_c);	\
-  } while (0)
-
 #endif /* WITH_CAIRO */
-
-// Some other useful macros (for all backends)
-
-#define BEGIN_DRAWING					\
-  BEGIN_DRAWING_BACKEND
-
-#define END_DRAWING					\
-  END_DRAWING_BACKEND
-
-#define SET_COLOR(c)					\
-  SET_COLOR_BACKEND(c)
 
 using namespace Dasher;
 
@@ -219,6 +183,16 @@ public:
   /// Returns true on success, false otherwise.
   bool GetCanvasSize(GdkRectangle *pRectangle);
 
+
+  /// 
+  /// Sets the Canvas in to the mode where it loads a background from a buffer. We
+  /// need this when we draw only decorations..
+  void SetLoadBackground(bool value);
+  /// 
+  /// Saves a background in an offscreen buffer. We need this when we draw only decorations.
+  /// 
+  void SetCaptureBackground(bool value);
+
   /// 
   /// Canvas width
   ///
@@ -230,51 +204,62 @@ public:
   ///
 
   int m_iHeight;
-
+  void ChangeState(int value);
 private:
 
+     void CirclePoints(int cx, int cy, int x, int y, int Colour,int iWidth);
+     void CircleMidpoint(int xCenter, int yCenter, int radius, int Colour,int iWidth);
+     void CircleFill(int xCenter,int yCenter,int radius,int Colour);
+     void HVThinLine(int x0,int y0,int x1,int y1,int Colour);
+    /** IGNAS**/ 
   ///
+  /// Frame procedure
+  ///
+#ifdef FRAMERATE_DIAGNOSTICS
+      void NewFrame();
+      int count_frames;//=0;
+      time_t lasttime;//=-1;
+      time_t count_time;//=0;
+      long total_frames;//=0;
+      int count_rectangles;
+#endif
+
+      guchar *display_data ;
+      guchar *display_backgrounddata;
+      GdkPixbuf * display_pixbuf;
+//      GdkPixmap * display_pixmap;
+      guchar *display_fontdata;
+      
+      int display_depth;
+      int display_fontdepth;
+      int display_fontwidth;
+      int display_fontheight;
+/**IGNAS**/
+  
+  void Line(int x0,int y0,int x1,int y1,int iWidth, int Colour);
+  void SetPixel(GdkColor *c,int x,int y,int iWidth=1);  
+  void PolygonFill(Dasher::CDasherScreen::point *Points, int Number, int Colour);
+  bool HorizontalIntersectionPoint(int h,int a,int b,int x0,int y0,int x1,int y1, int *p);
+///
   /// The GTK drawing area for the canvas
   ///
 
+  bool m_bLoadBackground;
+  bool m_bCaptureBackground;
+  void StoreBackground();
+  void LoadBackground();
+  
   GtkWidget *m_pCanvas;
-
+  gint *point_id;
+  gint *point_amount;
+  gint *point_data;
 #if WITH_CAIRO
 
-  cairo_surface_t *m_pDisplaySurface;
-  cairo_surface_t *m_pDecorationSurface;
-  cairo_surface_t *m_pOnscreenSurface;
-
-  cairo_surface_t *m_pOffscreenbuffer;
+	cairo_t *display_fontcairo;
+        cairo_surface_t *display_fontcairosurface;
 
 #else
-
-  ///
-  /// The offscreen buffer containing the 'background'
-  ///
-
-  GdkPixmap *m_pDisplayBuffer;
-
-  /// 
-  /// The offscreen buffer containing the full display. This is
-  /// constructed by first copying the display buffer across and then
-  /// drawing decorations such as the mouse cursor on top.
-  ///
-
-  GdkPixmap *m_pDecorationBuffer;
-
-  ///
-  /// The onscreen buffer - copied onscreen whenever an expose event occurs.
-  ///
-
-  GdkPixmap *m_pOnscreenBuffer;
-
-  ///
-  /// Pointer to which of the offscreen buffers is currently active.
-  ///
-
-  GdkPixmap *m_pOffscreenBuffer;
-  GdkPixmap *m_pDummyBuffer;
+        GdkPixmap* display_fontgdk;
 
 #endif
 
@@ -292,13 +277,6 @@ private:
   PangoRectangle *m_pPangoInk;
 
 #if WITH_CAIRO
-  cairo_t *display_cr;
-  cairo_t *decoration_cr;
-  cairo_t *onscreen_cr; // TODO: do we need to do our own double buffering?
-
-  cairo_t *widget_cr;
-
-  cairo_t *cr;
   my_cairo_colour_t *cairo_colours;
 #else
   GdkColor *colours;

@@ -105,22 +105,25 @@ public:
 
 
 private:
+
   double xmap(double x) const;
   double ymap(double x) const {
     return m_ymap.map( (myint)x );
   };
 
+  
   ///
   /// Recursively render all nodes in a tree. Responsible for all the Render_node calls
   ///
 
-  int RecursiveRender(CDasherNode * Render, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer, bool bDraw);
+  int RecursiveRender(CDasherNode * Render, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer, bool bDraw,myint parent_width,int parent_color);
 
   ///
   /// Displays some nodes inside one parent node. Used to group capital letters, accents, punctuation etc.
+  /// Its not finished!!!!
   ///
   
-  void RenderGroups(CDasherNode * Render, myint y1, myint y2, int mostleft);
+  void RenderGroupsFast(CDasherNode * Render, myint y1, myint y2,int mostleft);
 
   /// Render a single node
   /// \param Character Symbol ID to be drawn
@@ -136,10 +139,16 @@ private:
   /// to know about alphabets here, so only use the latterr
 
   int RenderNode(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove);
-
+  int RenderNodeOutlineFast(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove); 
+  int RenderNodePartFast(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove, myint iParentWidth);
+  int RenderNodeFatherFast(const int parent_color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove,myint iParentWidth);
   bool IsNodeVisible(myint y1, myint y2);
 
-  void RecursiveRenderGroups(SGroupInfo *pCurrentGroup, CDasherNode *pNode, myint y1, myint y2, int mostleft);
+  ///
+  /// Its not finished!!!!
+  ///
+  
+  void RecursiveRenderGroupsFast(SGroupInfo *pCurrentGroup, CDasherNode *pNode, myint y1, myint y2, int mostleft,int iParentColor);
 
   ///
   /// Get the bounding box of the visible region.

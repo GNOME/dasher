@@ -8,7 +8,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 
-inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, int iOutlineColour, Dasher::Opts::ColorSchemes ColorScheme, bool bDrawOutlines, bool bFill, int iThickness) {
+inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, int iOutlineColour, Dasher::Opts::ColorSchemes ColorScheme, bool bDrawOutlines, bool bFill, int iThickness,int layer) {
 //      HBRUSH brush=m_Brushes[ColorScheme][Color%m_Brushes[ColorScheme].size()];
   HBRUSH brush = CScreen::GetBrush(Color);
   RECT Rect;
@@ -42,7 +42,7 @@ inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, scr
 
 }
 
-inline void CScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, int iFillColour, int iThickness, bool bFill) {
+inline void CScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, int iFillColour, int iThickness, bool bFill,int layer) {
   HGDIOBJ hpOld;
   hpOld = (HPEN) SelectObject(m_hDCBuffer, GetPen(iColour, iThickness));
 
@@ -62,7 +62,7 @@ inline void CScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int 
   SelectObject(m_hDCBuffer, hpOld);
 }
 
-inline void CScreen::Polyline(point *Points, int Number, int iWidth, int iColour) {
+inline void CScreen::Polyline(point *Points, int Number, int iWidth, int iColour,int layer) {
   HGDIOBJ hpOld;
   hpOld = (HPEN) SelectObject(m_hDCBuffer, GetPen(iColour, iWidth));
   POINT *WinPoints = new POINT[Number];
@@ -72,11 +72,11 @@ inline void CScreen::Polyline(point *Points, int Number, int iWidth, int iColour
   SelectObject(m_hDCBuffer, hpOld);
 }
 
-inline void CScreen::Polyline(point *Points, int Number, int iWidth) {
+/*inline void CScreen::Polyline(point *Points, int Number, int iWidth) {
   Polyline(Points, Number, iWidth, 0);
-}
+}*/
 
-inline void CScreen::DrawPolygon(point *Points, int Number, int Color, Dasher::Opts::ColorSchemes ColorScheme) {
+inline void CScreen::DrawPolygon(point *Points, int Number, int Color, Dasher::Opts::ColorSchemes ColorScheme,int layer) {
   HPEN pen = (HPEN) GetStockObject(NULL_PEN);
   HPEN hpold = (HPEN) SelectObject(m_hDCBuffer, pen);
   HBRUSH hbold = (HBRUSH) SelectObject(m_hDCBuffer, CScreen::GetBrush(ColorScheme));

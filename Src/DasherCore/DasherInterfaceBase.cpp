@@ -84,6 +84,8 @@ CDasherInterfaceBase::CDasherInterfaceBase()
 
   strTrainfileBuffer = "";
 
+  m_bLastChanged = true;
+
   // Global logging object we can use from anywhere
   g_pLogger = new CFileLogger("dasher.log",
                               g_iLogLevel,
@@ -253,6 +255,9 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       break;
     case SP_INPUT_FILTER:
       CreateInputFilter();
+      ScheduleRedraw();
+      break;
+    case BP_DASHER_PAUSED:
       ScheduleRedraw();
       break;
     default:
@@ -491,7 +496,14 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
     }
   }
 
-  Redraw(bChanged || m_bRedrawScheduled || bForceRedraw);
+  if(!bChanged && m_bLastChanged) {
+    m_pDasherView->Screen()->SetCaptureBackground(true);
+    m_pDasherView->Screen()->SetLoadBackground(true);
+  }
+
+  Redraw((bChanged || m_bLastChanged) || m_bRedrawScheduled || bForceRedraw);
+
+  m_bLastChanged = bChanged;
   m_bRedrawScheduled = false;
 
   // This just passes the time through to the framerate tracker, so we

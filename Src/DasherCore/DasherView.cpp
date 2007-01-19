@@ -37,8 +37,12 @@ CDasherView::CDasherView(CEventHandler *pEventHandler, CSettingsStore *pSettings
 void CDasherView::HandleEvent(Dasher::CEvent *pEvent) {
   if(pEvent->m_iEventType == 1) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
+    
     switch (pEvt->m_iParameter) {
-    default:
+        case BP_DASHER_PAUSED:  
+	
+                  break;    
+	default:
       break;
     }
   }
@@ -55,8 +59,8 @@ void CDasherView::ChangeScreen(CDasherScreen *NewScreen) {
 bool CDasherView::Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, bool bRedrawDisplay, bool bGameMode) {
 
   m_iRenderCount = 0;
-
   myint iGamePointer;
+  Screen()->SetLoadBackground(false);
   RenderNodes(pRoot, iRootMin, iRootMax, vNodeList, vDeleteList, &iGamePointer);
 
   if(bGameMode)
@@ -103,6 +107,8 @@ void CDasherView::SetInput(CDasherInput * _pInput) {
 }
 
 void CDasherView::Display() {
+  
+  Screen()->SetLoadBackground(true);
   m_pScreen->Display();
 }
 
@@ -119,7 +125,7 @@ void CDasherView::DasherPolyline(myint *x, myint *y, int n, int iWidth, int iCol
     Screen()->Polyline(ScreenPoints, n, iWidth, iColour);
   }
   else {
-    Screen()->Polyline(ScreenPoints, n, iWidth);
+    Screen()->Polyline(ScreenPoints, n, iWidth,0);//no color given
   }
   delete[]ScreenPoints;
 }

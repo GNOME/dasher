@@ -561,6 +561,8 @@ protected:
   EState m_iCurrentState;
   bool m_bOldVisible;
   /// @}
+
+  bool m_bLastChanged;
 };
 
 #endif /* #ifndef __DasherInterfaceBase_h__ */

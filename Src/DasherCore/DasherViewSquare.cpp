@@ -63,6 +63,7 @@ CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStor
   m_ymap = Cymap((myint)GetLongParameter(LP_MAX_Y));
 
   m_bVisibleRegionValid = false;
+  
 }
 
 CDasherViewSquare::~CDasherViewSquare() {
@@ -92,17 +93,35 @@ void CDasherViewSquare::HandleEvent(Dasher::CEvent *pEvent) {
 void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer) {
   DASHER_ASSERT(pRoot != 0);
 
-  //  std::cout << iRootMin << " " << iRootMax << std::endl;
-
-  Screen()->Blank();
+  //Screen()->Blank(); //NO NEED FOR BLANK ;D
 
   myint iDasherMinX;
   myint iDasherMinY;
   myint iDasherMaxX;
   myint iDasherMaxY;
   VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
- 
-  RecursiveRender(pRoot, iRootMin, iRootMax, iDasherMaxX, vNodeList, vDeleteList, iGamePointer, true);
+  
+  screenint iScreenLeft;
+  screenint iScreenTop;
+  screenint iScreenRight;
+  screenint iScreenBottom;
+
+  Dasher2Screen(iRootMax-iRootMin, iRootMin, iScreenLeft, iScreenTop);
+  Dasher2Screen(0, iRootMax, iScreenRight, iScreenBottom);
+  if (iScreenTop<1) iScreenTop=1; //If limit is negative
+  if (iScreenLeft<1) iScreenLeft=1; //If limit is negative
+  if (iScreenBottom>Screen()->GetHeight()) iScreenBottom=Screen()->GetHeight()-1; //If limit is too big
+  if (iScreenRight>Screen()->GetWidth()) iScreenRight=Screen()->GetWidth()-1; //If limit is too big
+
+  Screen()->DrawRectangle(Screen()->GetWidth(),iScreenTop,0,0,0, 0, Nodes1, false,true, 1);
+  Screen()->DrawRectangle(Screen()->GetWidth(),iScreenBottom,0,Screen()->GetHeight(), 0,0, Nodes1, false,true, 1);
+  
+  //Recursive render cleans this one for us so we have to bother only about a thin line!
+  Screen()->DrawRectangle(1,Screen()->GetHeight(),0,0, 0, 0, Nodes1, false,true, 1);
+  
+  Screen()->DrawRectangle(Screen()->GetWidth(),iScreenBottom,iScreenRight,iScreenTop, 0, 4, Nodes1, false,true, 1);
+
+  RecursiveRender(pRoot, iRootMin, iRootMax, iDasherMaxX, vNodeList, vDeleteList, iGamePointer,true,iDasherMaxX,0);
 
   // DelayDraw the text nodes
   m_pDelayDraw->Draw(Screen());
@@ -110,8 +129,8 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
   Crosshair((myint)GetLongParameter(LP_OX));  // add crosshair
 }
 
+int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer, bool bDraw,myint parent_width,int parent_color) {
 
-int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer, bool bDraw) {
   DASHER_ASSERT_VALIDPTR_RW(pRender);
 
   // TODO: We need an overhall of the node creation/deletion logic - make sure that we only maintain the minimum number of nodes which are actually needed.
@@ -119,59 +138,172 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
   // if many nodes are created at once (eg untrained Hiragana)
 
   ++m_iRenderCount;
+ 
+  SGroupInfo *group=pRender->m_pBaseGroup;
+  myint temp_parentwidth=parent_width;
+  myint trange = y2 - y1;
+  int temp_parentcolor=parent_color;
+  //Ignas. Group rendering is not finished. 
+/*  if (group!=NULL)
+	{
 
-  if(bDraw && !RenderNode(pRender->Colour(), y1, y2, mostleft, pRender->m_strDisplayText, pRender->GetShove()) && !(pRender->GetFlag(NF_GAME))) {
+		myint lbnd = pRender->Children()[group->iStart]->Lbnd();
+		myint hbnd = pRender->Children()[group->iEnd - 1]->Hbnd();
+		myint tnewy1 = y1 + (trange * lbnd) / (int)GetLongParameter(LP_NORMALIZATION);
+		myint tnewy2 = y1 + (trange * hbnd) / (int)GetLongParameter(LP_NORMALIZATION);
+		temp_parentwidth=tnewy2-tnewy1;
+		temp_parentcolor=group->iColour;
+			
+	}
+		
+  */
+  if(bDraw && 
+	  !RenderNodeFatherFast(parent_color, y1, y2, mostleft, pRender->m_strDisplayText, pRender->GetShove(),parent_width) 
+	    && !(pRender->GetFlag(NF_GAME))) {
     vDeleteList.push_back(pRender);
     pRender->SetFlag(NF_ALIVE, false);
     return 0;
   }
   
   if(pRender->ChildCount() == 0) {
+	  RenderNodePartFast(pRender->Colour(), y1, y2, mostleft, pRender->m_strDisplayText, pRender->GetShove(),y2-y1);
     vNodeList.push_back(pRender);
-    return 0;
+    return 1;  // CHANGED BY IGNAS. I return 1 when the child was rendered and in this case the 
+			   //child was rendered.
   }
 
   if(pRender->GetFlag(NF_GAME))
     *iGamePointer = (y1 + y2) / 2;
   
-  // Render groups
-  RenderGroups(pRender, y1, y2, mostleft);
+  // Ignas. Group rendering is not implemented yet.
+//  RenderGroupsFast(pRender, y1, y2, mostleft);
 
   // Render children  
   int norm = (myint)GetLongParameter(LP_NORMALIZATION);
 
   CDasherNode::ChildMap::const_iterator i;
+  /*//IGNAS. Group rendering is not finished yet.
+  bool print_info=false;
+  if (m_iRenderCount == 1) 
+  {
+        
+	print_info=true;
+	printf("Start depth 1 rendering! norm is %ld\n",norm);
+	myint minX,minY,maxX,maxY;
+	VisibleRegion(minX,minY,maxX,maxY);
+	printf("Dasher minY=%ld maxY=%ld, range is %ld!\n",minY,maxY,y2-y1);
+        printf("Parent is %s, its y1=%ld, and y2=%ld , lBnd =%ld, hBnd=%ld\n",pRender->m_strDisplayText.c_str(),y1,y2,pRender->Lbnd(),pRender->Hbnd());
+  }
+  */
+ //IGNAS
+  myint lasty=y1;
+  
+  
+  int id=-1;
+  int lower=-1,upper=-1;
+  temp_parentwidth=y2-y1;
+  temp_parentcolor=pRender->Colour();
   for(i = pRender->GetChildren().begin(); i != pRender->GetChildren().end(); i++) {
+    id++;
     CDasherNode *pChild = *i;
     
     myint Range = y2 - y1;
-    myint newy1 = y1 + (Range * pChild->Lbnd()) / norm;
-    myint newy2 = y1 + (Range * pChild->Hbnd()) / norm;
-   
+    myint newy1 = y1 + (Range * (myint)pChild->Lbnd()) / (myint)norm;/// norm and lbnd are simple ints
+    myint newy2 = y1 + (Range * (myint)pChild->Hbnd()) / (myint)norm;
+    
+/*   IGNAS. Group rendering is not finished yet.
+   if (group!=NULL)
+	{	
+		lower=group->iStart;
+		upper=group->iEnd;
+		if(lower-1==id)
+		{
+			if (lasty<newy1)
+			{
+				RenderNodePartFast(pRender->Colour(), lasty, newy1, mostleft, pRender->m_strDisplayText, pRender->GetShove(),y2-y1,test1);
+				lasty=newy1;
+			}
+
+			myint lbnd = pRender->Children()[lower]->Lbnd();
+			myint hbnd = pRender->Children()[upper - 1]->Hbnd();
+			myint tnewy1 = y1 + (trange * lbnd) / (int)GetLongParameter(LP_NORMALIZATION);
+			myint tnewy2 = y1 + (trange * hbnd) / (int)GetLongParameter(LP_NORMALIZATION);
+			temp_parentwidth=tnewy2-tnewy1;
+			temp_parentcolor=group->iColour;
+			
+		}
+	
+	}
+	else
+	{
+		temp_parentwidth=parent_width;
+		temp_parentcolor=parent_color;
+	}*/
+
     // FIXME - make the threshold a parameter
     
     if((newy2 - newy1 > 50) || (pChild->GetFlag(NF_ALIVE))) {
       pChild->SetFlag(NF_ALIVE, true);
-      RecursiveRender(pChild, newy1, newy2, mostleft, vNodeList, vDeleteList, iGamePointer, true);
+	  if (RecursiveRender(pChild, newy1, newy2, mostleft, vNodeList, vDeleteList, iGamePointer,true,temp_parentwidth,temp_parentcolor))//,print_info);
+	  {
+		  if ((bDraw)&&(lasty<newy1))   //if child has been drawn then the interval between him and the
+							//last drawn child should be drawn too.
+		  RenderNodePartFast(temp_parentcolor, lasty, newy1, mostleft, pRender->m_strDisplayText, pRender->GetShove(),temp_parentwidth);
+		  lasty=newy2;
+	  }
+	  
     }
-    else if(pRender->GetFlag(NF_GAME)) {
-      RecursiveRender(pChild, newy1, newy2, mostleft, vNodeList, vDeleteList, iGamePointer, false);
+    else if(pRender->GetFlag(NF_GAME)) 
+	{
+		if (RecursiveRender(pChild, newy1, newy2, mostleft, vNodeList, vDeleteList, iGamePointer,false,temp_parentwidth,temp_parentcolor))
+		{
+			if ((bDraw)&&(lasty<newy1))   //if child has been drawn then the interval between him and the
+							  //last drawn child should be drawn too.
+			  RenderNodePartFast(temp_parentcolor, lasty, newy1, mostleft, pRender->m_strDisplayText, pRender->GetShove(),temp_parentwidth);
+			lasty=newy2;
+		}
+	
     }
-  }
+/*  //IGNAS. Group rendering is not finished yet.
+    if (group!=NULL)
+	{
+		if (upper-1==id)
+			{
+				group=group->pNext;
+				temp_parentwidth=parent_width;
+				temp_parentcolor=parent_color;
+
+				RenderNodePartFast(temp_parentcolor, lasty, newy1, mostleft, pRender->m_strDisplayText, pRender->GetShove(),temp_parentwidth,test1);
+				lasty=newy2;
+
+
+			}
+	}
+*/	
   
+  }
+  if (bDraw)
+  {
+		if (lasty<y2)
+			  RenderNodePartFast(temp_parentcolor, lasty, y2, mostleft, pRender->m_strDisplayText, pRender->GetShove(),temp_parentwidth);
+  
+		RenderNodeOutlineFast(pRender->Colour(), y1, y2, mostleft, pRender->m_strDisplayText, pRender->GetShove());
+  }
+
   return 1;
 }
 
-void CDasherViewSquare::RenderGroups(CDasherNode *Render, myint y1, myint y2, int mostleft) {
+
+void CDasherViewSquare::RenderGroupsFast(CDasherNode *Render, myint y1, myint y2, int mostleft) {
   SGroupInfo *pCurrentGroup(Render->m_pBaseGroup);
 
   while(pCurrentGroup) {
-    RecursiveRenderGroups(pCurrentGroup, Render, y1, y2, mostleft);
+	  RecursiveRenderGroupsFast(pCurrentGroup, Render, y1, y2, mostleft,Render->Colour());
     pCurrentGroup = pCurrentGroup->pNext;
   }
 }
-
-void CDasherViewSquare::RecursiveRenderGroups(SGroupInfo *pCurrentGroup, CDasherNode *pNode, myint y1, myint y2, int mostleft) {
+//NOT finished
+void CDasherViewSquare::RecursiveRenderGroupsFast(SGroupInfo *pCurrentGroup, CDasherNode *pNode, myint y1, myint y2, int mostleft,int iParentColor) {
   
   if(pCurrentGroup->bVisible) {
     myint range = y2 - y1;
@@ -185,16 +317,17 @@ void CDasherViewSquare::RecursiveRenderGroups(SGroupInfo *pCurrentGroup, CDasher
     myint newy1 = y1 + (range * lbnd) / (int)GetLongParameter(LP_NORMALIZATION);
     myint newy2 = y1 + (range * hbnd) / (int)GetLongParameter(LP_NORMALIZATION);
     
-    RenderNode(pCurrentGroup->iColour, newy1, newy2, mostleft, pCurrentGroup->strLabel, true);
+	RenderNodeFatherFast(iParentColor, newy1, newy2, mostleft, pCurrentGroup->strLabel, true,y2-y1);
+    
   }
   
-  // Iterate through child groups
-  SGroupInfo *pCurrentChild(pCurrentGroup->pChild);
+  // Iterate through child groups 
+/*  SGroupInfo *pCurrentChild(pCurrentGroup->pChild);
 
   while(pCurrentChild) {
-    RecursiveRenderGroups(pCurrentChild, pNode, y1, y2, mostleft);
+	  RecursiveRenderGroupsFast(pCurrentChild, pNode, y1, y2, mostleft,pCurrentGroup->iColour);
     pCurrentChild = pCurrentChild->pNext;
-  }
+  }*/
 }
 
 
@@ -221,6 +354,148 @@ bool CDasherViewSquare::IsNodeVisible(myint y1, myint y2) {
 }
 
 
+int CDasherViewSquare::RenderNodeOutlineFast(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove) {
+
+  // Commenting because click mode occasionally fails this assert.
+  // I don't know why.  -- cjb.
+  if (!(y2 >= y1)) { return 1; }
+  
+  // TODO - Get sensible limits here (to allow for non-linearities)
+  myint iDasherMinX;
+  myint iDasherMinY;
+  myint iDasherMaxX;
+  myint iDasherMaxY;
+
+  VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
+
+  screenint iScreenX1;
+  screenint iScreenY1;
+  screenint iScreenX2;
+  screenint iScreenY2;
+  
+  Dasher2Screen(0, std::max(y1, iDasherMinY), iScreenX1, iScreenY1);
+  Dasher2Screen(0, std::min(y2, iDasherMaxY), iScreenX2, iScreenY2);
+
+  Cint32 iHeight = std::max(myint(iScreenY2 - iScreenY1),myint( 0));
+
+  if(iHeight <= 1)
+    return 0;                   // We're too small to render
+
+  if((y1 > iDasherMaxY) || (y2 < iDasherMinY)){
+    return 0;                   // We're entirely off screen, so don't render.
+  }
+ if(!GetBoolParameter(BP_OUTLINE_MODE))
+	  return 1;
+  myint iDasherSize(y2 - y1);
+
+  // FIXME - get rid of pointless assignment below
+
+  int iTruncation(GetLongParameter(LP_TRUNCATION));     // Trucation farction times 100;
+  int iTruncationType(GetLongParameter(LP_TRUNCATIONTYPE));
+
+  if(iTruncation == 0) {        // Regular squares
+    	  DasherDrawRectangle(std::min(iDasherSize,iDasherMaxX), std::min(y2,iDasherMaxY),0, std::max(y1,iDasherMinY), Color, -1, Nodes1, true,false, 1);
+  }
+  else { }
+
+  return 1;
+}
+int CDasherViewSquare::RenderNodePartFast(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove,myint iParentWidth ) {
+
+  // Commenting because click mode occasionally fails this assert.
+  // I don't know why.  -- cjb.
+  if (!(y2 >= y1)) { return 1; }
+
+  // TODO - Get sensible limits here (to allow for non-linearities)
+  myint iDasherMinX;
+  myint iDasherMinY;
+  myint iDasherMaxX;
+  myint iDasherMaxY;
+
+  VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
+
+  screenint iScreenX1;
+  screenint iScreenY1;
+  screenint iScreenX2;
+  screenint iScreenY2;
+  
+  Dasher2Screen(0, std::max(y1, iDasherMinY), iScreenX1, iScreenY1);
+  Dasher2Screen(0, std::min(y2, iDasherMaxY), iScreenX2, iScreenY2);
+
+  Cint32 iHeight = std::max(myint(iScreenY2 - iScreenY1),myint( 0));
+
+  if(iHeight <= 0)//CHANGED IGNAS
+    return 0;                   // We're too small to render
+
+  if((y1 > iDasherMaxY) || (y2 < iDasherMinY)){
+    return 0;                   // We're entirely off screen, so don't render.
+  }
+
+  myint iDasherSize(y2 - y1);
+
+  // FIXME - get rid of pointless assignment below
+
+  int iTruncation(GetLongParameter(LP_TRUNCATION));     // Trucation farction times 100;
+  int iTruncationType(GetLongParameter(LP_TRUNCATIONTYPE));
+
+  if(iTruncation == 0) {        // Regular squares
+    DasherDrawRectangle(std::min(iParentWidth,iDasherMaxX), std::min(y2,iDasherMaxY),0, std::max(y1,iDasherMinY), Color, -1, Nodes1, false, true, 1);
+  }
+  else {
+   
+  }
+  return 1;
+}
+
+int CDasherViewSquare::RenderNodeFatherFast(const int parent_color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove,myint iParentWidth) {
+
+  // Commenting because click mode occasionally fails this assert.
+  // I don't know why.  -- cjb.
+  if (!(y2 >= y1)) { return 1; }
+
+  // TODO - Get sensible limits here (to allow for non-linearities)
+  myint iDasherMinX;
+  myint iDasherMinY;
+  myint iDasherMaxX;
+  myint iDasherMaxY;
+
+  VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
+
+  screenint iScreenX1;
+  screenint iScreenY1;
+  screenint iScreenX2;
+  screenint iScreenY2;
+  
+  Dasher2Screen(0, std::max(y1, iDasherMinY), iScreenX1, iScreenY1);
+  Dasher2Screen(0, std::min(y2, iDasherMaxY), iScreenX2, iScreenY2);
+
+  Cint32 iHeight = std::max(myint(iScreenY2 - iScreenY1),myint( 0));
+
+  if(iHeight <= 1)
+    return 0;                   // We're too small to render
+
+  if((y1 > iDasherMaxY) || (y2 < iDasherMinY)){
+    return 0;                   // We're entirely off screen, so don't render.
+  }
+
+  myint iDasherSize(y2 - y1);
+
+  // FIXME - get rid of pointless assignment below
+
+  int iTruncation(GetLongParameter(LP_TRUNCATION));     // Trucation farction times 100;
+  int iTruncationType(GetLongParameter(LP_TRUNCATIONTYPE));
+
+  if(iTruncation == 0) {        // Regular squares
+    DasherDrawRectangle(std::min(iParentWidth,iDasherMaxX), std::min(y2,iDasherMaxY), std::min(iDasherSize,iDasherMaxX), std::max(y1,iDasherMinY), parent_color, -1, Nodes1, false, true, 1);
+  }
+  else { }
+  myint iDasherAnchorX(iDasherSize);
+  if( sDisplayText.size() > 0 )
+  {  
+	  DasherDrawText(iDasherAnchorX, y1, iDasherAnchorX, y2, sDisplayText, mostleft, bShove);
+  }
+  return 1;
+}
 int CDasherViewSquare::RenderNode(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove) {
 
   // Commenting because click mode occasionally fails this assert.
@@ -243,7 +518,7 @@ int CDasherViewSquare::RenderNode(const int Color, myint y1, myint y2, int &most
   Dasher2Screen(0, std::max(y1, iDasherMinY), iScreenX1, iScreenY1);
   Dasher2Screen(0, std::min(y2, iDasherMaxY), iScreenX2, iScreenY2);
 
-  Cint32 iHeight = std::max(iScreenY2 - iScreenY1, (screenint)0);
+  Cint32 iHeight = std::max(myint(iScreenY2 - iScreenY1),myint( 0));
 
   if(iHeight <= 1)
     return 0;                   // We're too small to render
@@ -601,13 +876,12 @@ int CDasherViewSquare::GetCoordinates(unsigned long Time, myint &iDasherX, myint
 
   // Convert the input co-ordinates to dasher co-ordinates
 
+  int mode;
+  
+  mode = 0;
+ 
   //  Input2Dasher(mousex, mousey, iDasherX, iDasherY);
-  if(iType == 0)
-    Screen2Dasher(mousex, mousey, iDasherX, iDasherY, false, true );
-  else {
-    iDasherX = mousex;
-    iDasherY = mousey;
-  }
+  Screen2Dasher(mousex, mousey, iDasherX, iDasherY, false, true );
 
 //   m_iDasherXCache = iDasherX;
 //   m_iDasherYCache = iDasherY;
