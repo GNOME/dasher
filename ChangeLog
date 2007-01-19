@@ -1,7 +1,8 @@
-2007-01-19  Phil Cowans  <pjc51@pabbay.ra.phy.cam.ac.uk>
+2007-01-19  Phil Cowans  <pjc51@phy.cam.ac.uk>
 
 	* Merged Ignas' graphics code
 	* Half way through implementing contex code update
+	* Attempting to fix #398103
 
 2007-01-15  Andre Klapper  <a9016009@gmx.de>
 
