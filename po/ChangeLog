@@ -1,3 +1,8 @@
+2007-01-24  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* POTFILES.in: Remove some non-existing .glade files.
+	* nb.po: Updated Norwegian bokmål translation.
+
 2007-01-20  Matic Zgur <mr.zgur@gmail.com>
 
 	* sl.po: Updated Slovenian translation.
