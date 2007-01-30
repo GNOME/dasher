@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-24 09:42+0000\n"
-"PO-Revision-Date: 2007-01-27 16:48+0200\n"
+"POT-Creation-Date: 2007-01-27 16:35+0000\n"
+"PO-Revision-Date: 2007-01-29 17:52+0200\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/Menu.cc:430
-#: ../Src/Gtk2/dasher.glade.h:34 ../Src/Gtk2/dashergpe.glade.h:5
+#: ../Src/Gtk2/dasher.compose.glade.h:34 ../Src/Gtk2/dasher.direct.glade.h:31
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:30 ../Src/Gtk2/dasher.glade.h:34
+#: ../Src/Gtk2/dasher.traditional.glade.h:34 ../Src/Gtk2/dashergpe.glade.h:5
 #: ../Src/Gtk2/dashermaemo.glade.h:17
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:15
 msgid "Dasher"
@@ -38,8 +40,11 @@ msgid "Dasher socket input: failed to launch reader thread."
 msgstr "Dasheri soklisisend: tõrge lugejalõime käivitamisel."
 
 #: ../Src/Gtk2/Menu.cc:52 ../Src/Gtk2/Menu.cc:108 ../Src/Gtk2/Menu.cc:166
-#: ../Src/Gtk2/Menu.cc:209 ../Src/Gtk2/dasher.glade.h:59
-#: ../Src/Gtk2/dashergpe.glade.h:14 ../Src/Gtk2/dashermaemo.glade.h:28
+#: ../Src/Gtk2/Menu.cc:209 ../Src/Gtk2/dasher.compose.glade.h:59
+#: ../Src/Gtk2/dasher.direct.glade.h:49
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:48 ../Src/Gtk2/dasher.glade.h:59
+#: ../Src/Gtk2/dasher.traditional.glade.h:59 ../Src/Gtk2/dashergpe.glade.h:14
+#: ../Src/Gtk2/dashermaemo.glade.h:28
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:25
 msgid "Select File"
 msgstr "Faili valimine"
@@ -87,107 +92,157 @@ msgstr ""
 "Priit Laes <amd@store20.com>, 2003-2005.\n"
 "Ivar Smolin <okul@linux.ee>, 2005-2007."
 
-#: ../Src/Gtk2/dasher.glade.h:1
+#: ../Src/Gtk2/dasher.compose.glade.h:1 ../Src/Gtk2/dasher.direct.glade.h:1
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:1 ../Src/Gtk2/dasher.glade.h:1
+#: ../Src/Gtk2/dasher.traditional.glade.h:1
 msgid "<b>Actions:</b>"
 msgstr "<b>Toimingud:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:2 ../Src/Gtk2/dashermaemo.glade.h:3
+#: ../Src/Gtk2/dasher.compose.glade.h:2 ../Src/Gtk2/dasher.direct.glade.h:2
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:2 ../Src/Gtk2/dasher.glade.h:2
+#: ../Src/Gtk2/dasher.traditional.glade.h:2 ../Src/Gtk2/dashermaemo.glade.h:3
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:1
 msgid "<b>Adaptation:</b>"
 msgstr "<b>Õppimine:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:3 ../Src/Gtk2/dashermaemo.glade.h:4
+#: ../Src/Gtk2/dasher.compose.glade.h:3 ../Src/Gtk2/dasher.direct.glade.h:3
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:3 ../Src/Gtk2/dasher.glade.h:3
+#: ../Src/Gtk2/dasher.traditional.glade.h:3 ../Src/Gtk2/dashermaemo.glade.h:4
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:2
 msgid "<b>Alphabet Selection:</b>"
 msgstr "<b>Tähestiku valimine:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:4
+#: ../Src/Gtk2/dasher.compose.glade.h:4 ../Src/Gtk2/dasher.direct.glade.h:4
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:4 ../Src/Gtk2/dasher.glade.h:4
+#: ../Src/Gtk2/dasher.traditional.glade.h:4
 msgid "<b>Appearance Options:</b>"
 msgstr "<b>Välimuse valikud:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:5
+#: ../Src/Gtk2/dasher.compose.glade.h:5 ../Src/Gtk2/dasher.direct.glade.h:5
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:5 ../Src/Gtk2/dasher.glade.h:5
+#: ../Src/Gtk2/dasher.traditional.glade.h:5
 msgid "<b>Application Options:</b>"
 msgstr "<b>Rakenduse valikud:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:6
+#: ../Src/Gtk2/dasher.compose.glade.h:6 ../Src/Gtk2/dasher.direct.glade.h:6
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:6 ../Src/Gtk2/dasher.glade.h:6
+#: ../Src/Gtk2/dasher.traditional.glade.h:6
 msgid "<b>Application Style:</b>"
 msgstr "<b>Rakenduse laad:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:7
+#: ../Src/Gtk2/dasher.compose.glade.h:7 ../Src/Gtk2/dasher.direct.glade.h:7
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:7 ../Src/Gtk2/dasher.glade.h:7
+#: ../Src/Gtk2/dasher.traditional.glade.h:7
 msgid "<b>Colour Scheme:</b>"
 msgstr "<b>Värviskeem:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:8
+#: ../Src/Gtk2/dasher.compose.glade.h:8 ../Src/Gtk2/dasher.direct.glade.h:8
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:8 ../Src/Gtk2/dasher.glade.h:8
+#: ../Src/Gtk2/dasher.traditional.glade.h:8
 msgid "<b>Control Style:</b>"
 msgstr "<b>Juhtimislaad:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:9
+#: ../Src/Gtk2/dasher.compose.glade.h:9 ../Src/Gtk2/dasher.direct.glade.h:9
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:9 ../Src/Gtk2/dasher.glade.h:9
+#: ../Src/Gtk2/dasher.traditional.glade.h:9
 msgid "<b>Dasher Font:</b>"
 msgstr "<b>Dasheri kirjatüüp:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:10
+#: ../Src/Gtk2/dasher.compose.glade.h:10 ../Src/Gtk2/dasher.direct.glade.h:10
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:10 ../Src/Gtk2/dasher.glade.h:10
+#: ../Src/Gtk2/dasher.traditional.glade.h:10
 msgid "<b>Direction:</b>"
 msgstr "<b>Suund:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:11
+#: ../Src/Gtk2/dasher.compose.glade.h:11 ../Src/Gtk2/dasher.direct.glade.h:11
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:11 ../Src/Gtk2/dasher.glade.h:11
+#: ../Src/Gtk2/dasher.traditional.glade.h:11
 msgid "<b>Editor Font:</b>"
 msgstr "<b>Redaktori kirjatüüp:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:12
+#: ../Src/Gtk2/dasher.compose.glade.h:12 ../Src/Gtk2/dasher.direct.glade.h:12
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:12 ../Src/Gtk2/dasher.glade.h:12
+#: ../Src/Gtk2/dasher.traditional.glade.h:12
 msgid "<b>Input Device:</b>"
 msgstr "<b>Sisendseade:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashermaemo.glade.h:6
+#: ../Src/Gtk2/dasher.compose.glade.h:13 ../Src/Gtk2/dasher.direct.glade.h:13
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:13 ../Src/Gtk2/dasher.glade.h:13
+#: ../Src/Gtk2/dasher.traditional.glade.h:13 ../Src/Gtk2/dashermaemo.glade.h:6
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:3
 msgid "<b>Language Model:</b>"
 msgstr "<b>Keelemudel</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:14
+#: ../Src/Gtk2/dasher.compose.glade.h:14 ../Src/Gtk2/dasher.direct.glade.h:14
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:14 ../Src/Gtk2/dasher.glade.h:14
+#: ../Src/Gtk2/dasher.traditional.glade.h:14
 msgid "<b>Prediction:</b>"
 msgstr "<b>Ennustamine:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:8
+#: ../Src/Gtk2/dasher.compose.glade.h:15 ../Src/Gtk2/dasher.direct.glade.h:15
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:15 ../Src/Gtk2/dasher.glade.h:15
+#: ../Src/Gtk2/dasher.traditional.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:8
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:5
 msgid "<b>Smoothing:</b>"
 msgstr "<b>Pehmendamine:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:9
+#: ../Src/Gtk2/dasher.compose.glade.h:16 ../Src/Gtk2/dasher.direct.glade.h:16
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:16 ../Src/Gtk2/dasher.glade.h:16
+#: ../Src/Gtk2/dasher.traditional.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:9
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:6
 msgid "<b>Speed:</b>"
 msgstr "<b>Kiirus:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:17
+#: ../Src/Gtk2/dasher.compose.glade.h:17 ../Src/Gtk2/dasher.direct.glade.h:17
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:17 ../Src/Gtk2/dasher.glade.h:17
+#: ../Src/Gtk2/dasher.traditional.glade.h:17
 msgid "<b>Starting And Stopping:</b>"
 msgstr "<b>Käivitamine ja seiskamine:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:18 ../Src/Gtk2/dashermaemo.glade.h:10
+#: ../Src/Gtk2/dasher.compose.glade.h:18 ../Src/Gtk2/dasher.direct.glade.h:18
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:18 ../Src/Gtk2/dasher.glade.h:18
+#: ../Src/Gtk2/dasher.traditional.glade.h:18
+#: ../Src/Gtk2/dashermaemo.glade.h:10
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:7
 msgid "Adapt speed automatically"
 msgstr "Kiiruse automaatne õppimine"
 
-#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:12
+#: ../Src/Gtk2/dasher.compose.glade.h:19 ../Src/Gtk2/dasher.direct.glade.h:19
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:19 ../Src/Gtk2/dasher.glade.h:19
+#: ../Src/Gtk2/dasher.traditional.glade.h:19
+#: ../Src/Gtk2/dashermaemo.glade.h:12
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:9
 msgid "Alphabet Default"
 msgstr "Vaikimisi tähestik"
 
-#: ../Src/Gtk2/dasher.glade.h:20
+#: ../Src/Gtk2/dasher.compose.glade.h:20 ../Src/Gtk2/dasher.direct.glade.h:20
+#: ../Src/Gtk2/dasher.glade.h:20 ../Src/Gtk2/dasher.traditional.glade.h:20
 msgid "Alphabet:"
 msgstr "Tähestik:"
 
-#: ../Src/Gtk2/dasher.glade.h:21
+#: ../Src/Gtk2/dasher.compose.glade.h:21 ../Src/Gtk2/dasher.direct.glade.h:21
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:20 ../Src/Gtk2/dasher.glade.h:21
+#: ../Src/Gtk2/dasher.traditional.glade.h:21
 msgid "Appearance"
 msgstr "Välimus"
 
-#: ../Src/Gtk2/dasher.glade.h:22
+#: ../Src/Gtk2/dasher.compose.glade.h:22 ../Src/Gtk2/dasher.direct.glade.h:22
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:21 ../Src/Gtk2/dasher.glade.h:22
+#: ../Src/Gtk2/dasher.traditional.glade.h:22
 msgid "Application"
 msgstr "Rakendus"
 
-#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashermaemo.glade.h:13
+#: ../Src/Gtk2/dasher.compose.glade.h:23 ../Src/Gtk2/dasher.direct.glade.h:23
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:22 ../Src/Gtk2/dasher.glade.h:23
+#: ../Src/Gtk2/dasher.traditional.glade.h:23
+#: ../Src/Gtk2/dashermaemo.glade.h:13
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:10
 msgid "Bottom to Top"
 msgstr "Alt üles"
 
-#: ../Src/Gtk2/dasher.glade.h:24
+#: ../Src/Gtk2/dasher.compose.glade.h:24 ../Src/Gtk2/dasher.direct.glade.h:24
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:23 ../Src/Gtk2/dasher.glade.h:24
+#: ../Src/Gtk2/dasher.traditional.glade.h:24
 msgid ""
 "Centre circle\n"
 "Two box"
@@ -195,201 +250,293 @@ msgstr ""
 "Keskjoondatud ring\n"
 "Kaks kasti"
 
-#: ../Src/Gtk2/dasher.glade.h:26
+#: ../Src/Gtk2/dasher.compose.glade.h:26 ../Src/Gtk2/dasher.direct.glade.h:26
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:25 ../Src/Gtk2/dasher.glade.h:26
+#: ../Src/Gtk2/dasher.traditional.glade.h:26
 msgid "Composition"
 msgstr "Kombineeritud"
 
-#: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashermaemo.glade.h:14
+#: ../Src/Gtk2/dasher.compose.glade.h:27 ../Src/Gtk2/dasher.direct.glade.h:27
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:26 ../Src/Gtk2/dasher.glade.h:27
+#: ../Src/Gtk2/dasher.traditional.glade.h:27
+#: ../Src/Gtk2/dashermaemo.glade.h:14
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:11
 msgid "Control"
 msgstr "Juhtimine"
 
-#: ../Src/Gtk2/dasher.glade.h:28 ../Src/Gtk2/dashergpe.glade.h:1
+#: ../Src/Gtk2/dasher.compose.glade.h:28 ../Src/Gtk2/dasher.direct.glade.h:28
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:27 ../Src/Gtk2/dasher.glade.h:28
+#: ../Src/Gtk2/dasher.traditional.glade.h:28 ../Src/Gtk2/dashergpe.glade.h:1
 msgid "Control mode"
 msgstr "Juhtimisrežiim"
 
-#: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:2
+#: ../Src/Gtk2/dasher.compose.glade.h:29 ../Src/Gtk2/dasher.glade.h:29
+#: ../Src/Gtk2/dasher.traditional.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:2
 msgid "Copy"
 msgstr "Kopeerimine"
 
-#: ../Src/Gtk2/dasher.glade.h:30 ../Src/Gtk2/dashergpe.glade.h:3
+#: ../Src/Gtk2/dasher.compose.glade.h:30 ../Src/Gtk2/dasher.glade.h:30
+#: ../Src/Gtk2/dasher.traditional.glade.h:30 ../Src/Gtk2/dashergpe.glade.h:3
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:12
 msgid "Copy _All"
 msgstr "Kopeeri _kõik"
 
-#: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashermaemo.glade.h:15
+#: ../Src/Gtk2/dasher.compose.glade.h:31 ../Src/Gtk2/dasher.direct.glade.h:29
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:28 ../Src/Gtk2/dasher.glade.h:31
+#: ../Src/Gtk2/dasher.traditional.glade.h:31
+#: ../Src/Gtk2/dashermaemo.glade.h:15
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:13
 msgid "Custom colour scheme:"
 msgstr "Kohandatud värviskeem:"
 
-#: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashermaemo.glade.h:16
+#: ../Src/Gtk2/dasher.compose.glade.h:32 ../Src/Gtk2/dasher.direct.glade.h:30
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:29 ../Src/Gtk2/dasher.glade.h:32
+#: ../Src/Gtk2/dasher.traditional.glade.h:32
+#: ../Src/Gtk2/dashermaemo.glade.h:16
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:14
 msgid "Custom:"
 msgstr "Kohandatud:"
 
-#: ../Src/Gtk2/dasher.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:4
+#: ../Src/Gtk2/dasher.compose.glade.h:33 ../Src/Gtk2/dasher.glade.h:33
+#: ../Src/Gtk2/dasher.traditional.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:4
 msgid "Cut"
 msgstr "Lõikamine"
 
-#: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:18
+#: ../Src/Gtk2/dasher.compose.glade.h:35 ../Src/Gtk2/dasher.direct.glade.h:32
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:31 ../Src/Gtk2/dasher.glade.h:35
+#: ../Src/Gtk2/dasher.traditional.glade.h:35
+#: ../Src/Gtk2/dashermaemo.glade.h:18
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:16
 msgid "Dasher Preferences"
 msgstr "Dasheri eelistused"
 
-#: ../Src/Gtk2/dasher.glade.h:36
+#: ../Src/Gtk2/dasher.compose.glade.h:36 ../Src/Gtk2/dasher.glade.h:36
+#: ../Src/Gtk2/dasher.traditional.glade.h:36
 msgid "Dasher _Tutorial"
 msgstr "Dasheri _algtõed"
 
-#: ../Src/Gtk2/dasher.glade.h:37
+#: ../Src/Gtk2/dasher.compose.glade.h:37 ../Src/Gtk2/dasher.direct.glade.h:33
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:32 ../Src/Gtk2/dasher.glade.h:37
+#: ../Src/Gtk2/dasher.traditional.glade.h:37
 msgid "Direct entry"
 msgstr "Otsesisestusega"
 
-#: ../Src/Gtk2/dasher.glade.h:38
+#: ../Src/Gtk2/dasher.compose.glade.h:38 ../Src/Gtk2/dasher.direct.glade.h:34
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:33 ../Src/Gtk2/dasher.glade.h:38
+#: ../Src/Gtk2/dasher.traditional.glade.h:38
 msgid "Dock application window"
 msgstr "Rakenduse aken on dokitud"
 
-#: ../Src/Gtk2/dasher.glade.h:39
+#: ../Src/Gtk2/dasher.compose.glade.h:39 ../Src/Gtk2/dasher.direct.glade.h:35
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:34 ../Src/Gtk2/dasher.glade.h:39
+#: ../Src/Gtk2/dasher.traditional.glade.h:39
 msgid "Draw box outlines"
 msgstr "Kastile joonistatakse äärised"
 
-#: ../Src/Gtk2/dasher.glade.h:40
+#: ../Src/Gtk2/dasher.compose.glade.h:40 ../Src/Gtk2/dasher.direct.glade.h:36
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:35 ../Src/Gtk2/dasher.glade.h:40
+#: ../Src/Gtk2/dasher.traditional.glade.h:40
 msgid "Draw line between crosshairs and mouse"
 msgstr "Sihiku ja kiire vahele tõmmatakse joon"
 
-#: ../Src/Gtk2/dasher.glade.h:41
+#: ../Src/Gtk2/dasher.compose.glade.h:41 ../Src/Gtk2/dasher.direct.glade.h:37
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:36 ../Src/Gtk2/dasher.glade.h:41
+#: ../Src/Gtk2/dasher.traditional.glade.h:41
 msgid "Full Screen"
 msgstr "Täisekraaniline"
 
-#: ../Src/Gtk2/dasher.glade.h:42
+#: ../Src/Gtk2/dasher.compose.glade.h:42 ../Src/Gtk2/dasher.direct.glade.h:38
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:37 ../Src/Gtk2/dasher.glade.h:42
+#: ../Src/Gtk2/dasher.traditional.glade.h:42
 msgid "Increase line thickness"
 msgstr "Joone paksus on suurendatud"
 
-#: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashermaemo.glade.h:20
+#: ../Src/Gtk2/dasher.compose.glade.h:43 ../Src/Gtk2/dasher.direct.glade.h:39
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:38 ../Src/Gtk2/dasher.glade.h:43
+#: ../Src/Gtk2/dasher.traditional.glade.h:43
+#: ../Src/Gtk2/dashermaemo.glade.h:20
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
 msgid "Japanese"
 msgstr "Jaapani"
 
-#: ../Src/Gtk2/dasher.glade.h:44
+#: ../Src/Gtk2/dasher.compose.glade.h:44 ../Src/Gtk2/dasher.direct.glade.h:40
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:39 ../Src/Gtk2/dasher.glade.h:44
+#: ../Src/Gtk2/dasher.traditional.glade.h:44
 msgid "Language"
 msgstr "Keel"
 
-#: ../Src/Gtk2/dasher.glade.h:45 ../Src/Gtk2/dashermaemo.glade.h:21
+#: ../Src/Gtk2/dasher.compose.glade.h:45 ../Src/Gtk2/dasher.direct.glade.h:41
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:40 ../Src/Gtk2/dasher.glade.h:45
+#: ../Src/Gtk2/dasher.traditional.glade.h:45
+#: ../Src/Gtk2/dashermaemo.glade.h:21
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:18
 msgid "Language model adapts as you write."
 msgstr "Keelemudel kohandub vastavalt sinu sisestamistele."
 
-#: ../Src/Gtk2/dasher.glade.h:46
+#: ../Src/Gtk2/dasher.compose.glade.h:46 ../Src/Gtk2/dasher.direct.glade.h:42
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:41 ../Src/Gtk2/dasher.glade.h:46
+#: ../Src/Gtk2/dasher.traditional.glade.h:46
 msgid "Large font "
 msgstr "Suur kirjatüüp"
 
-#: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:22
+#: ../Src/Gtk2/dasher.compose.glade.h:47 ../Src/Gtk2/dasher.direct.glade.h:43
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:42 ../Src/Gtk2/dasher.glade.h:47
+#: ../Src/Gtk2/dasher.traditional.glade.h:47
+#: ../Src/Gtk2/dashermaemo.glade.h:22
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:20
 msgid "Left to Right"
 msgstr "Vasakult paremale"
 
-#: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashermaemo.glade.h:23
+#: ../Src/Gtk2/dasher.compose.glade.h:48 ../Src/Gtk2/dasher.direct.glade.h:44
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:43 ../Src/Gtk2/dasher.glade.h:48
+#: ../Src/Gtk2/dasher.traditional.glade.h:48
+#: ../Src/Gtk2/dashermaemo.glade.h:23
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:21
 msgid "Mixture model (PPM/dictionary)"
 msgstr "Segatud mudel (PPM/sõnastik)"
 
-#: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:8
+#: ../Src/Gtk2/dasher.compose.glade.h:49 ../Src/Gtk2/dasher.glade.h:49
+#: ../Src/Gtk2/dasher.traditional.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:8
 msgid "New file"
 msgstr "Uus fail"
 
-#: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:10
+#: ../Src/Gtk2/dasher.compose.glade.h:50 ../Src/Gtk2/dasher.glade.h:50
+#: ../Src/Gtk2/dasher.traditional.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:10
 msgid "Open file"
 msgstr "Faili avamine"
 
-#: ../Src/Gtk2/dasher.glade.h:51
+#: ../Src/Gtk2/dasher.compose.glade.h:51 ../Src/Gtk2/dasher.direct.glade.h:45
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:44 ../Src/Gtk2/dasher.glade.h:51
+#: ../Src/Gtk2/dasher.traditional.glade.h:51
 msgid "Options"
 msgstr "Valikud"
 
-#: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:11
+#: ../Src/Gtk2/dasher.compose.glade.h:52 ../Src/Gtk2/dasher.glade.h:52
+#: ../Src/Gtk2/dasher.traditional.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:11
 msgid "Paste"
 msgstr "Asetamine"
 
-#: ../Src/Gtk2/dasher.glade.h:53
+#: ../Src/Gtk2/dasher.compose.glade.h:53 ../Src/Gtk2/dasher.direct.glade.h:46
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:45 ../Src/Gtk2/dasher.glade.h:53
+#: ../Src/Gtk2/dasher.traditional.glade.h:53
 msgid "Pause outside of canvas"
 msgstr "Pausimine kui lõuendilt väljas"
 
-#: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashermaemo.glade.h:25
+#: ../Src/Gtk2/dasher.compose.glade.h:54 ../Src/Gtk2/dasher.direct.glade.h:47
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:46 ../Src/Gtk2/dasher.glade.h:54
+#: ../Src/Gtk2/dasher.traditional.glade.h:54
+#: ../Src/Gtk2/dashermaemo.glade.h:25
 msgid "Please Wait..."
 msgstr "Palun oota..."
 
-#: ../Src/Gtk2/dasher.glade.h:55
+#: ../Src/Gtk2/dasher.compose.glade.h:55 ../Src/Gtk2/dasher.glade.h:55
 msgid "Pr_eferences"
 msgstr "_Eelistused"
 
-#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashermaemo.glade.h:27
+#: ../Src/Gtk2/dasher.compose.glade.h:56 ../Src/Gtk2/dasher.direct.glade.h:48
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:47 ../Src/Gtk2/dasher.glade.h:56
+#: ../Src/Gtk2/dasher.traditional.glade.h:56
+#: ../Src/Gtk2/dashermaemo.glade.h:27
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
 msgid "Right to Left"
 msgstr "Paremalt vasakule"
 
-#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:12
+#: ../Src/Gtk2/dasher.compose.glade.h:57 ../Src/Gtk2/dasher.glade.h:57
+#: ../Src/Gtk2/dasher.traditional.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:12
 msgid "Save file"
 msgstr "Faili salvestamine"
 
-#: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:13
+#: ../Src/Gtk2/dasher.compose.glade.h:58 ../Src/Gtk2/dasher.glade.h:58
+#: ../Src/Gtk2/dasher.traditional.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:13
 msgid "Save file as"
 msgstr "Teise nimega faili salvestamine"
 
-#: ../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:15
+#: ../Src/Gtk2/dasher.compose.glade.h:60 ../Src/Gtk2/dasher.direct.glade.h:50
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:49 ../Src/Gtk2/dasher.glade.h:60
+#: ../Src/Gtk2/dasher.traditional.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:15
 #: ../Src/Gtk2/dashermaemo.glade.h:29
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:26
 msgid "Select Font"
 msgstr "Kirjatüübi valimine"
 
-#: ../Src/Gtk2/dasher.glade.h:61
+#: ../Src/Gtk2/dasher.compose.glade.h:61 ../Src/Gtk2/dasher.direct.glade.h:51
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:50 ../Src/Gtk2/dasher.glade.h:61
+#: ../Src/Gtk2/dasher.traditional.glade.h:61
 msgid "Show mouse position"
 msgstr "Hiire asukoht on nähtaval"
 
-#: ../Src/Gtk2/dasher.glade.h:62
+#: ../Src/Gtk2/dasher.compose.glade.h:62 ../Src/Gtk2/dasher.direct.glade.h:52
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:51 ../Src/Gtk2/dasher.glade.h:62
+#: ../Src/Gtk2/dasher.traditional.glade.h:62
 msgid "Show speed slider"
 msgstr "Kiiruse liugur on nähtaval"
 
-#: ../Src/Gtk2/dasher.glade.h:63
+#: ../Src/Gtk2/dasher.compose.glade.h:63 ../Src/Gtk2/dasher.direct.glade.h:53
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:52 ../Src/Gtk2/dasher.glade.h:63
+#: ../Src/Gtk2/dasher.traditional.glade.h:63
 msgid "Show toolbar"
 msgstr "Tööriistariba on nähtaval"
 
-#: ../Src/Gtk2/dasher.glade.h:64
+#: ../Src/Gtk2/dasher.compose.glade.h:64 ../Src/Gtk2/dasher.direct.glade.h:54
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:53 ../Src/Gtk2/dasher.glade.h:64
+#: ../Src/Gtk2/dasher.traditional.glade.h:64
 msgid "Small font"
 msgstr "Väike kirjatüüp"
 
-#: ../Src/Gtk2/dasher.glade.h:65
+#: ../Src/Gtk2/dasher.compose.glade.h:65 ../Src/Gtk2/dasher.direct.glade.h:55
+#: ../Src/Gtk2/dasher.glade.h:65 ../Src/Gtk2/dasher.traditional.glade.h:65
 msgid "Speed:"
 msgstr "Kiirus:"
 
-#: ../Src/Gtk2/dasher.glade.h:66
+#: ../Src/Gtk2/dasher.compose.glade.h:66 ../Src/Gtk2/dasher.direct.glade.h:56
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:54 ../Src/Gtk2/dasher.glade.h:66
+#: ../Src/Gtk2/dasher.traditional.glade.h:66
 msgid "Stand-alone"
 msgstr "Eraldiseisev"
 
-#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashermaemo.glade.h:30
+#: ../Src/Gtk2/dasher.compose.glade.h:67 ../Src/Gtk2/dasher.direct.glade.h:57
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:55 ../Src/Gtk2/dasher.glade.h:67
+#: ../Src/Gtk2/dasher.traditional.glade.h:67
+#: ../Src/Gtk2/dashermaemo.glade.h:30
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
 msgid "Standard letter-based PPM"
 msgstr "Standardne sõnapõhine PPM"
 
-#: ../Src/Gtk2/dasher.glade.h:68
+#: ../Src/Gtk2/dasher.compose.glade.h:68 ../Src/Gtk2/dasher.direct.glade.h:58
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:56 ../Src/Gtk2/dasher.glade.h:68
+#: ../Src/Gtk2/dasher.traditional.glade.h:68
 msgid "Start on left mouse button"
 msgstr "Alustamine peale vasaku hiirenupu vajutamist"
 
-#: ../Src/Gtk2/dasher.glade.h:69
+#: ../Src/Gtk2/dasher.compose.glade.h:69 ../Src/Gtk2/dasher.direct.glade.h:59
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:57 ../Src/Gtk2/dasher.glade.h:69
+#: ../Src/Gtk2/dasher.traditional.glade.h:69
 msgid "Start on space bar"
 msgstr "Alustamine peale tühiku vajutamist"
 
-#: ../Src/Gtk2/dasher.glade.h:70
+#: ../Src/Gtk2/dasher.compose.glade.h:70 ../Src/Gtk2/dasher.direct.glade.h:60
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:58 ../Src/Gtk2/dasher.glade.h:70
+#: ../Src/Gtk2/dasher.traditional.glade.h:70
 msgid "Start with mouse position:"
 msgstr "Alustamine hiire asukoha järgi:"
 
-#: ../Src/Gtk2/dasher.glade.h:71
+#: ../Src/Gtk2/dasher.compose.glade.h:71 ../Src/Gtk2/dasher.direct.glade.h:61
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:59 ../Src/Gtk2/dasher.glade.h:71
+#: ../Src/Gtk2/dasher.traditional.glade.h:71
 msgid "Timestamp new files"
 msgstr "Uute failide ajatembeldamine"
 
-#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashermaemo.glade.h:31
+#: ../Src/Gtk2/dasher.compose.glade.h:72 ../Src/Gtk2/dasher.direct.glade.h:62
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:60 ../Src/Gtk2/dasher.glade.h:72
+#: ../Src/Gtk2/dasher.traditional.glade.h:72
+#: ../Src/Gtk2/dashermaemo.glade.h:31
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
 msgid "Top to Bottom"
 msgstr "Ülevalt alla"
 
-#: ../Src/Gtk2/dasher.glade.h:73
+#: ../Src/Gtk2/dasher.compose.glade.h:73 ../Src/Gtk2/dasher.direct.glade.h:63
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:61 ../Src/Gtk2/dasher.glade.h:73
+#: ../Src/Gtk2/dasher.traditional.glade.h:73
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -399,52 +546,81 @@ msgstr ""
 "kohandamiseks. Tasub tähele panna, et suuremad väärtused\n"
 "aeglustavad kirjutamiskiirust."
 
-#: ../Src/Gtk2/dasher.glade.h:76
+#: ../Src/Gtk2/dasher.compose.glade.h:76 ../Src/Gtk2/dasher.direct.glade.h:66
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:64 ../Src/Gtk2/dasher.glade.h:76
+#: ../Src/Gtk2/dasher.traditional.glade.h:76
 msgid "Very large font"
 msgstr "Väga suur kirjatüüp"
 
-#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashermaemo.glade.h:33
+#: ../Src/Gtk2/dasher.compose.glade.h:77 ../Src/Gtk2/dasher.direct.glade.h:67
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:65 ../Src/Gtk2/dasher.glade.h:77
+#: ../Src/Gtk2/dasher.traditional.glade.h:77
+#: ../Src/Gtk2/dashermaemo.glade.h:33
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
 msgid "Word-based model"
 msgstr "Sõnapõhine mudel"
 
-#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:17
+#: ../Src/Gtk2/dasher.compose.glade.h:78 ../Src/Gtk2/dasher.glade.h:78
+#: ../Src/Gtk2/dashergpe.glade.h:17
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:32
 msgid "_About"
 msgstr "_Programmist lähemalt"
 
-#: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashergpe.glade.h:18
+#: ../Src/Gtk2/dasher.compose.glade.h:79 ../Src/Gtk2/dasher.glade.h:79
+#: ../Src/Gtk2/dasher.traditional.glade.h:79 ../Src/Gtk2/dashergpe.glade.h:18
 msgid "_Append to file"
 msgstr "Lisa _failile"
 
-#: ../Src/Gtk2/dasher.glade.h:80
+#: ../Src/Gtk2/dasher.compose.glade.h:80 ../Src/Gtk2/dasher.glade.h:80
 msgid "_Contents"
 msgstr "_Sisukord"
 
-#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:21
+#: ../Src/Gtk2/dasher.compose.glade.h:81 ../Src/Gtk2/dasher.glade.h:81
+#: ../Src/Gtk2/dasher.traditional.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:21
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
 msgid "_Edit"
 msgstr "_Redaktor"
 
-#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:23
+#: ../Src/Gtk2/dasher.compose.glade.h:82 ../Src/Gtk2/dasher.glade.h:82
+#: ../Src/Gtk2/dasher.traditional.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:23
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:37
 msgid "_File"
 msgstr "_Fail"
 
-#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:24
+#: ../Src/Gtk2/dasher.compose.glade.h:83 ../Src/Gtk2/dasher.glade.h:83
+#: ../Src/Gtk2/dasher.traditional.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:24
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:38
 msgid "_Help"
 msgstr "_Abi"
 
-#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:25
+#: ../Src/Gtk2/dasher.compose.glade.h:84 ../Src/Gtk2/dasher.glade.h:84
+#: ../Src/Gtk2/dashergpe.glade.h:25
 msgid "_Import Training Text"
 msgstr "_Impordi harjutustekst"
 
-#: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:28
+#: ../Src/Gtk2/dasher.compose.glade.h:85 ../Src/Gtk2/dasher.direct.glade.h:68
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:66 ../Src/Gtk2/dasher.glade.h:85
+#: ../Src/Gtk2/dasher.traditional.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:28
 #: ../Src/Gtk2/dashermaemo.glade.h:34
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:41
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "abcdefghijk ABCDEFGHIJK"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:55
+msgid "Pr_eferences..."
+msgstr "_Eelistused..."
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:78
+msgid "_About..."
+msgstr "_Programmist lähemalt"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:80
+msgid "_Contents..."
+msgstr "_Sisukord..."
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:84
+msgid "_Import Training Text..."
+msgstr "_Impordi harjutustekst..."
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:164
 #, c-format
