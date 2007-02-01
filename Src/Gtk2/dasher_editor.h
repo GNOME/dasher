@@ -62,7 +62,7 @@ void dasher_editor_create_buffer(DasherEditor *pSelf);
 void dasher_editor_handle_parameter_change(DasherEditor *pSelf, int iParameter);
 void dasher_editor_output(DasherEditor *pSelf, const gchar *szText);
 void dasher_editor_delete(DasherEditor *pSelf, int iLength);
-void dasher_editor_refresh_context(DasherEditor *pSelf, int iMaxLength);
+void dasher_editor_refresh_context(DasherEditor *pSelf, int iOffset, int iLength);
 void dasher_editor_generate_filename(DasherEditor *pSelf);
 void dasher_editor_open(DasherEditor *pSelf, const gchar *szFilename);
 bool dasher_editor_save_as(DasherEditor *pSelf, const gchar *szFilename, bool bAppend);

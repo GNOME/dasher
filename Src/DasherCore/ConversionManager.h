@@ -10,6 +10,8 @@
 
 #include <vector>
 
+// TODO: Conversion manager needs to deal with offsets and contexts - Will: See Phil for an explanation.
+
 namespace Dasher {
   class CDasherNode; // Forward declaration
 

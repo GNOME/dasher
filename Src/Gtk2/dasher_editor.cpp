@@ -789,13 +789,13 @@ void dasher_editor_create_buffer(DasherEditor *pSelf) {
 }
 
 
-void dasher_editor_refresh_context(DasherEditor *pSelf, int iMaxLength) {
+void dasher_editor_refresh_context(DasherEditor *pSelf, int iOffset, int iLength) {
   DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
 
   gchar *szContext;
 
   if(pPrivate->pBufferSet)
-    szContext = idasher_buffer_set_get_context(pPrivate->pBufferSet, iMaxLength);
+    szContext = idasher_buffer_set_get_context(pPrivate->pBufferSet, iOffset, iLength);
   else
     szContext = "";
   
@@ -927,9 +927,9 @@ extern "C" void handle_stop_event(GtkDasherControl *pDasherControl, gpointer dat
     dasher_editor_handle_stop(g_pEditor);
 }
 
-extern "C" void handle_context_request(GtkDasherControl * pDasherControl, gint iMaxLength, gpointer data) { 
+extern "C" void handle_context_request(GtkDasherControl * pDasherControl, gint iOffset, gint iLength, gpointer data) { 
   if(g_pEditor)
-    dasher_editor_refresh_context(g_pEditor, iMaxLength);
+    dasher_editor_refresh_context(g_pEditor, iOffset, iLength);
 }
 
 extern "C" void handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer data) { 

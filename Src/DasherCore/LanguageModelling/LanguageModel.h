@@ -137,6 +137,14 @@ public:
 
   /// @}
 
+  ///
+  /// Get the maximum useful context length for this language model
+
+  virtual int GetContextLength() const {
+    // TODO: Fix hard coded value
+    return 5;
+  };
+
  protected:
   int GetSize() const {
     return m_Alphabet.GetSize();

@@ -11,22 +11,16 @@
 #include "config.h"
 #endif
 
+#include <deque>
+#include <cmath>
+#include <vector>
+
 #include "../Common/NoClones.h"
-
-#include "LanguageModelling/LanguageModel.h"
-#include "DasherNode.h"
 #include "DasherComponent.h"
-#include "Alphabet/Alphabet.h"
-#include "AlphabetManagerFactory.h"
-#include "ControlManagerFactory.h"
-#include "ConversionManagerFactory.h"
-#include "NodeCreationManager.h"
-
-#include <math.h>
+#include "DasherNode.h"
 #include "DasherTypes.h"
 #include "FrameRate.h"
-#include <vector>
-#include <deque>
+#include "NodeCreationManager.h"
 
 namespace Dasher {
   class CDasherModel;
@@ -60,102 +54,6 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   CDasherModel(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pDashIface, int iOffset, bool bGameMode = false, const std::string &strGameModeText = "");
   ~CDasherModel();
-
-  /// @name Language model passthroughs 
-  /// These functions should be made obsolete - we can refer to the
-  /// language model now without passing through here.
-  /// @{
-
-  // TODO: Fix this
-
-  ///
-  /// Prototype binary dump of language model data
-  ///
-
-  bool WriteLMToFile(const std::string &strFilename) {
-/*     if(m_pLanguageModel) */
-/*       return m_pLanguageModel->WriteToFile(strFilename); */
-/*     else */
-      return false;
-  }
-
-  ///
-  /// Prototype binary read of language model data
-  ///
-
-  bool ReadLMFromFile(const std::string &strFilename) {
-/*     if(m_pLanguageModel) */
-/*       return m_pLanguageModel->ReadFromFile(strFilename); */
-/*     else */
-      return false;
-  }
-
-  ///
-  /// Update a language model context to include an additional character
-  ///
-
-  void EnterText(CLanguageModel::Context Context, std::string TheText) const;
-
-  ///
-  /// Update a language model context to include an additional
-  /// character, also learning the new data.
-
-  void LearnText(CLanguageModel::Context Context, std::string * TheText, bool IsMore);
-
-  ///
-  /// Create an empty language model context
-  ///
-
-  CLanguageModel::Context CreateEmptyContext() const;
-
-  ///
-  /// Return a trainer object for the language model
-  ///
-
-  //  CAlphabetManagerFactory::CTrainer *GetTrainer();
-
-  /// @}
-
-  /// @name Alphabet passthroughs
-  /// Should be obsolete - we shound't need to know about alphabets
-  /// outside of the node manager
-  /// @{
-
-  ///
-  /// Get the symbol ID representing space
-  ///
-
-  symbol GetSpaceSymbol() const {
-    return m_pNodeCreationManager->GetSpaceSymbol();
-  }
-
-  ///
-  /// Get the symbol ID representing the control node 
-  ///
-
-  symbol GetControlSymbol() const {
-    return m_pNodeCreationManager->GetControlSymbol();
-  }
-
-  ///
-  /// Get the symbol ID representing the conversion pseudo-character
-  ///
-
-  symbol GetStartConversionSymbol() const {
-    return m_pNodeCreationManager->GetStartConversionSymbol();
-  }
-
-  ///
-  /// Convert a given symbol ID to display text
-  ///
-
-  const std::string & GetDisplayText(int iSymbol) const {
-    return m_pNodeCreationManager->GetDisplayText(iSymbol);
-  }
-
-  int GetColour(symbol s) const;
-
-  /// @}
 
   ///
   /// Event handler
@@ -234,23 +132,6 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   } 
 
   ///
-  /// Set the context in which predictions are made - need to check
-  /// the semantics here. Probably a sensible thing to do here is to
-  /// not allow context changes within an existing model, but to force
-  /// a rebuild. This will only work once the language model has been
-  /// decoupled, as retraining every time would be somewhat
-  /// inconvenient.
-  ///
-
-  void SetContext(std::string & sNewContext);
-  
-  ///
-  /// Check semantics here
-  ///
-
-  void Start();                 // initializes the data structure
-
-  ///
   /// Clear the queue of old roots - used when those nodes become
   /// invalid, eg during changes to conrol mode
   ///
@@ -273,7 +154,6 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
     return m_dTotalNats;
   }
 
-
   ///
   /// Get a root node of a given type
   ///
@@ -288,7 +168,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   ///
 
   //  bool m_bContextSensitive;
-  std::string m_strContextBuffer;
+  //  std::string m_strContextBuffer;
 
   /// 
   /// @name Rendering
@@ -553,8 +433,8 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 /*   return m_pLanguageModel->CreateEmptyContext(); */
 /* } */
 
-inline int CDasherModel::GetColour(symbol s) const { 
-  return m_pNodeCreationManager->GetColour(s); 
-}
+/* inline int CDasherModel::GetColour(symbol s) const {  */
+/*   return m_pNodeCreationManager->GetColour(s);  */
+/* } */
 
 #endif /* #ifndef __DasherModel_h__ */

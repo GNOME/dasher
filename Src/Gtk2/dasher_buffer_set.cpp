@@ -57,8 +57,8 @@ void idasher_buffer_set_delete(IDasherBufferSet *pSelf, gint iLength) {
   IDASHER_BUFFER_SET_GET_INTERFACE(pSelf)->delete_text(pSelf, iLength);
 }
 
-gchar *idasher_buffer_set_get_context(IDasherBufferSet *pSelf, gint iMaxLength) {
-  return IDASHER_BUFFER_SET_GET_INTERFACE(pSelf)->get_context(pSelf, iMaxLength);
+gchar *idasher_buffer_set_get_context(IDasherBufferSet *pSelf, gint iOffset, gint iLength) {
+  return IDASHER_BUFFER_SET_GET_INTERFACE(pSelf)->get_context(pSelf, iOffset, iLength);
 }
 
 void idasher_buffer_set_edit_move(IDasherBufferSet *pSelf, gint iDirection, gint iDist) {

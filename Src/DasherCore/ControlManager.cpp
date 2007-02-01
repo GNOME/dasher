@@ -62,6 +62,8 @@ int CControlManager::LoadLabelsFromFile(string strFileName, int iFileSize) {
 }
 
 int CControlManager::LoadDefaultLabels() {
+  // TODO: Need to figure out how to handle offset changes here
+
   RegisterNode(CTL_ROOT, "Control", 8);
   RegisterNode(CTL_STOP, "Stop", 242);
   RegisterNode(CTL_PAUSE, "Pause", 241);
@@ -244,17 +246,24 @@ CDasherNode *CControlManager::GetRoot(CDasherNode *pParent, int iLower, int iUpp
   CDasherNode *pNewNode;
 
   // FIXME - is the language model pointer used?
-  
 
   pNewNode = new CDasherNode(pParent, m_pNCManager->GetControlSymbol(),0, Opts::Nodes2, iLower, iUpper, m_pLanguageModel, m_mapControlMap[0]->iColour);
+
+  int iOffset = *((int *)pUserData);
  
   // FIXME - handle context properly
 
   //  pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
 
   pNewNode->m_pNodeManager = this;
-  pNewNode->m_pUserData = m_mapControlMap[0];
-  pNewNode->m_strDisplayText = static_cast<CControlNode*>(pNewNode->m_pUserData)->strLabel;
+
+  SControlData *pNodeUserData = new SControlData;
+
+  pNodeUserData->pControlNode = m_mapControlMap[0];
+  pNodeUserData->iOffset = iOffset;
+
+  pNewNode->m_pUserData = pNodeUserData;
+  pNewNode->m_strDisplayText = pNodeUserData->pControlNode->strLabel;
   pNewNode->SetShove(false);
   pNewNode->m_pBaseGroup = 0;
 
@@ -264,7 +273,7 @@ CDasherNode *CControlManager::GetRoot(CDasherNode *pParent, int iLower, int iUpp
 void CControlManager::PopulateChildren( CDasherNode *pNode ) {
    CDasherNode *pNewNode;
 
-   CControlNode *pControlNode(static_cast<CControlNode *>(pNode->m_pUserData));
+   CControlNode *pControlNode((static_cast<SControlData *>(pNode->m_pUserData))->pControlNode);
 
    int iNChildren( pControlNode->vChildren.size() );
 
@@ -279,7 +288,14 @@ void CControlManager::PopulateChildren( CDasherNode *pNode ) {
 
      if( *it == NULL ) {
        // Escape back to alphabet
-       pNewNode = m_pNCManager->GetRoot(0, pNode, iLbnd, iHbnd, NULL);
+       CAlphabetManager::SRootData *pRootData = new CAlphabetManager::SRootData;
+
+       // TODO: Check that these are eventually getting deleted
+
+       pRootData->iOffset = (static_cast<SControlData *>(pNode->m_pUserData))->iOffset;
+       pRootData->szContext = NULL; // TODO: Fix this
+
+       pNewNode = m_pNCManager->GetRoot(0, pNode, iLbnd, iHbnd, pRootData);
        pNewNode->SetFlag(NF_SEEN, false);
      }
      else {
@@ -293,6 +309,15 @@ void CControlManager::PopulateChildren( CDasherNode *pNode ) {
        pNewNode = new CDasherNode(pNode, m_pNCManager->GetControlSymbol(), 0, Opts::Nodes2, iLbnd, iHbnd, m_pLanguageModel, iColour);
        pNewNode->m_pNodeManager = this;
        pNewNode->m_pUserData = *it;
+
+       SControlData *pNodeUserData = new SControlData;
+
+       pNodeUserData->pControlNode = *it;
+       pNodeUserData->iOffset = (static_cast<SControlData *>(pNode->m_pUserData))->iOffset;
+
+       pNewNode->m_pUserData = pNodeUserData;
+
+
        pNewNode->m_strDisplayText = (*it)->strLabel;
        pNewNode->SetShove(false);
        pNewNode->m_pBaseGroup = 0;
@@ -303,12 +328,13 @@ void CControlManager::PopulateChildren( CDasherNode *pNode ) {
 }
 
 void CControlManager::ClearNode( CDasherNode *pNode ) {
-  // Should this be responsible for actually doing the deletion
+  delete (static_cast<SControlData *>(pNode->m_pUserData));
 }
 
 void CControlManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization ) {
 
-  CControlNode *pControlNode(static_cast<CControlNode *>(pNode->m_pUserData));
+  CControlNode *pControlNode((static_cast<SControlData *>(pNode->m_pUserData))->pControlNode);
+
   CControlEvent oEvent(pControlNode->iID);
   // TODO: Need to reimplement this
   //  m_pNCManager->m_bContextSensitive=false;

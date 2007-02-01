@@ -2,6 +2,7 @@
 #include "../Common/Common.h"
 
 #include "AlphabetManagerFactory.h"
+#include "DasherInterfaceBase.h"
 #include "LanguageModelling/PPMLanguageModel.h"
 #include "LanguageModelling/WordLanguageModel.h"
 #include "LanguageModelling/DictLanguageModel.h"
@@ -19,7 +20,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CAlphabetManagerFactory::CAlphabetManagerFactory(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, Dasher::CAlphIO *pAlphIO, CNodeCreationManager *pNCManager,  bool bGameMode, const std::string &strGameModeText ) {
+CAlphabetManagerFactory::CAlphabetManagerFactory(CDasherInterfaceBase *pInterface, CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, Dasher::CAlphIO *pAlphIO, CNodeCreationManager *pNCManager,  bool bGameMode, const std::string &strGameModeText ) {
     // -- put all this in a separate method
   // TODO: Think about having 'prefered' values here, which get
   // retrieved by DasherInterfaceBase and used to set parameters
@@ -70,7 +71,7 @@ CAlphabetManagerFactory::CAlphabetManagerFactory(CEventHandler *pEventHandler, C
   // TODO: Tell the alphabet manager about the alphabet here, so we
   // don't end up having to duck out to the NCM all the time
 
-  m_pAlphabetManager = new CAlphabetManager( pNCManager, m_pLanguageModel, m_iLearnContext, bGameMode, strGameModeText );
+  m_pAlphabetManager = new CAlphabetManager(pInterface, pNCManager, m_pLanguageModel, m_iLearnContext, bGameMode, strGameModeText );
 }
 
 CAlphabetManagerFactory::~CAlphabetManagerFactory() {

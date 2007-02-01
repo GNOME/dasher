@@ -53,7 +53,7 @@ void dasher_external_buffer_delete(DasherExternalBuffer *pSelf, int iLength);
 void dasher_external_buffer_edit_convert(DasherExternalBuffer *pSelf);
 void dasher_external_buffer_edit_protect(DasherExternalBuffer *pSelf);
 void dasher_external_buffer_conversion_mode(DasherExternalBuffer *pSelf, gboolean bMode);
-gchar *dasher_external_buffer_get_context(DasherExternalBuffer *pSelf, gint iMaxLength);
+gchar *dasher_external_buffer_get_context(DasherExternalBuffer *pSelf, gint iOffset, gint iLength);
 void dasher_external_buffer_edit_move(DasherExternalBuffer *pSelf, int iDirection, int iDist);
 void dasher_external_buffer_edit_delete(DasherExternalBuffer *pSelf, int iDirection, int iDist);
 gint dasher_external_buffer_get_offset(DasherExternalBuffer *pSelf) {
@@ -127,7 +127,7 @@ static void idasher_buffer_set_interface_init (gpointer g_iface, gpointer iface_
   IDasherBufferSetInterface *iface = (IDasherBufferSetInterface *)g_iface;
   iface->insert_text = (void (*)(IDasherBufferSet *pSelf, const gchar *szText))dasher_external_buffer_insert;
   iface->delete_text = (void (*)(IDasherBufferSet *pSelf, gint iLength))dasher_external_buffer_delete;
-  iface->get_context = (gchar *(*)(IDasherBufferSet *pSelf, gint iMaxLength))dasher_external_buffer_get_context;
+  iface->get_context = (gchar *(*)(IDasherBufferSet *pSelf, gint iOffset, gint iLength))dasher_external_buffer_get_context;
   iface->edit_move = (void (*)(IDasherBufferSet *pSelf, gint iDirection, gint iDist))dasher_external_buffer_edit_move;
   iface->edit_delete = (void (*)(IDasherBufferSet *pSelf, gint iDirection, gint iDist))dasher_external_buffer_edit_delete;
   iface->edit_convert = (void (*)(IDasherBufferSet *pSelf))dasher_external_buffer_edit_convert;
@@ -293,22 +293,14 @@ void dasher_external_buffer_edit_delete(DasherExternalBuffer *pSelf, int iDirect
   // TODO: Implement
 }
 
-gchar *dasher_external_buffer_get_context(DasherExternalBuffer *pSelf, gint iMaxLength) {
+gchar *dasher_external_buffer_get_context(DasherExternalBuffer *pSelf, gint iOffset, gint iLength) {
 #ifdef GNOME_A11Y
   DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(pSelf->private_data);
 
-  if(pPrivate->pAccessibleText) {
-    int iOffset(AccessibleText_getCaretOffset(pPrivate->pAccessibleText));
-    int iStart(iOffset - iMaxLength);
-      
-    if(iStart < 0 )
-      iStart = 0;
-
-    return AccessibleText_getText(pPrivate->pAccessibleText, iOffset-iMaxLength, iOffset);
-  }
-  else {
+  if(pPrivate->pAccessibleText)
+    return AccessibleText_getText(pPrivate->pAccessibleText, iOffset, iOffset + iLength);
+  else
     return 0;
-  }
 #else
   return 0;
 #endif

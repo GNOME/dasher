@@ -62,7 +62,7 @@ struct _GtkDasherControlClass {
   void (*dasher_control) (GtkDasherControl * pDasherControl, gint iEvent, gpointer data);
   gboolean (*key_press_event) (GtkDasherControl *pDasherControl, GdkEventKey *pEvent, gpointer data);
   gboolean (*key_release_event) (GtkDasherControl *pDasherControl, GdkEventKey *pEvent, gpointer data);
-  void (*dasher_context_request) (GtkDasherControl * pDasherControl, gint iParameter, gpointer data);
+  void (*dasher_context_request) (GtkDasherControl * pDasherControl, gint iOffset, gint iLength, gpointer data);
   void (*dasher_request_settings) (GtkDasherControl * pDasherControl, gpointer data);
   void (*dasher_lock) (GtkDasherControl * pDasherControl, gpointer pLockInfo, gpointer data);
   void (*dasher_message) (GtkDasherControl * pDasherControl, gpointer pLockInfo, gpointer data);

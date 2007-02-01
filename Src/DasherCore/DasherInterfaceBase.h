@@ -339,9 +339,7 @@ public:
 
   void CheckRedraw();
 
-  std::string GetContext(int iStart, int iLength) {
-    return "a";
-  }
+  std::string GetContext(int iStart, int iLength);
 
 
 protected:
@@ -556,6 +554,8 @@ protected:
 
   std::string strTrainfileBuffer;
   std::string strCurrentContext;
+
+  std::string m_strContext;
 
   /// @name State variables
   /// Represent the current overall state of the core

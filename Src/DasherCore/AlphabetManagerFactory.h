@@ -9,6 +9,8 @@ class CNodeCreationManager;
 
 namespace Dasher {
   
+  class CDasherInterfaceBase;
+
   class CAlphabetManagerFactory : public CNodeManagerFactory {
   public:
     class CTrainer {
@@ -24,7 +26,7 @@ namespace Dasher {
       CLanguageModel::Context m_Context;
     };
 
-    CAlphabetManagerFactory(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, Dasher::CAlphIO *pAlphIO, CNodeCreationManager *pNCManager,  bool bGameMode, const std::string &strGameModeText);
+    CAlphabetManagerFactory(CDasherInterfaceBase *pInterface, CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, Dasher::CAlphIO *pAlphIO, CNodeCreationManager *pNCManager,  bool bGameMode, const std::string &strGameModeText);
 
     //    CAlphabetManagerFactory( CDasherModel *pModel, CLanguageModel *pLanguageModel, bool bGameMode, const std::string &strGameModeText );
     ~CAlphabetManagerFactory();

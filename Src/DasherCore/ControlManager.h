@@ -108,6 +108,11 @@ namespace Dasher {
     CNodeCreationManager *m_pNCManager;
     CLanguageModel *m_pLanguageModel;
     std::map<int,CControlNode*> m_mapControlMap;
+
+    struct SControlData {
+      CControlNode *pControlNode;
+      int iOffset;
+    };
   };
 }
 

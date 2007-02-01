@@ -386,10 +386,10 @@ void CDasherInterfaceBase::CreateNCManager() {
     }
       
     if(m_deGameModeStrings.size() == 0) {
-      m_pNCManager = new CNodeCreationManager(m_pEventHandler, m_pSettingsStore, false, "", m_AlphIO);
+      m_pNCManager = new CNodeCreationManager(this, m_pEventHandler, m_pSettingsStore, false, "", m_AlphIO);
     }
     else {
-      m_pNCManager = new CNodeCreationManager(m_pEventHandler, m_pSettingsStore, true, m_deGameModeStrings[0], m_AlphIO);
+      m_pNCManager = new CNodeCreationManager(this, m_pEventHandler, m_pSettingsStore, true, m_deGameModeStrings[0], m_AlphIO);
     }
 
     m_Alphabet = m_pNCManager->GetAlphabet();
@@ -813,8 +813,19 @@ void CDasherInterfaceBase::ResetNats() {
 //    ScheduleRedraw();
 // }
 
+// TODO: Fix this
+
+std::string CDasherInterfaceBase::GetContext(int iStart, int iLength) {
+  m_strContext = "";
+  
+  CEditContextEvent oEvent(iStart, iLength);
+  m_pEventHandler->InsertEvent(&oEvent);
+
+  return m_strContext;
+}
+
 void CDasherInterfaceBase::SetContext(std::string strNewContext) {
-  m_pDasherModel->m_strContextBuffer = strNewContext;
+  m_strContext = strNewContext;
 }
 
 // Control mode stuff

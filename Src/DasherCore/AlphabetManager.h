@@ -10,6 +10,8 @@ class CNodeCreationManager;
 
 namespace Dasher {
 
+  class CDasherInterfaceBase;
+
   ///
   /// A node manager which deals with alphabets and language models.
   ///
@@ -17,7 +19,7 @@ namespace Dasher {
   class CAlphabetManager : public CNodeManager {
   public:
 
-    CAlphabetManager(CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel, CLanguageModel::Context iLearnContext, bool bGameMode, const std::string &strGameModeText);
+    CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel, CLanguageModel::Context iLearnContext, bool bGameMode, const std::string &strGameModeText);
 
     ///
     /// Does nothing - alphabet manager isn't reference counted.
@@ -57,12 +59,21 @@ namespace Dasher {
 
     virtual void SetFlag(CDasherNode *pNode, int iFlag, bool bValue);
 
+    struct SRootData {
+      char *szContext;
+      int iOffset;
+    };
+
   private:
+    
+    void BuildContext(std::string strContext, bool bRoot, CLanguageModel::Context &oContext, symbol &iSymbol);
+
     CLanguageModel *m_pLanguageModel;
     CNodeCreationManager *m_pNCManager;
     CLanguageModel::Context m_iLearnContext;
     std::string m_strGameString;
     bool m_bGameMode;
+    CDasherInterfaceBase *m_pInterface;
 
     struct SAlphabetData {
       symbol iSymbol;
@@ -70,6 +81,7 @@ namespace Dasher {
       CLanguageModel *pLanguageModel;
       CLanguageModel::Context iContext;
       int iGameOffset;
+      int iOffset;
     };
 
   };

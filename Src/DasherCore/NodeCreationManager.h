@@ -15,11 +15,12 @@
 
 namespace Dasher {
   class CDasherNode;
+  class CDasherInterfaceBase;
 };
 
 class CNodeCreationManager : public Dasher::CDasherComponent {
  public:
-  CNodeCreationManager(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, bool bGameMode, std::string strGameModeText, Dasher::CAlphIO *pAlphIO);
+  CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterface, Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, bool bGameMode, std::string strGameModeText, Dasher::CAlphIO *pAlphIO);
   ~CNodeCreationManager();
   
   ///

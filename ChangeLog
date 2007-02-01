@@ -1,4 +1,9 @@
-2007-01-19  Phil Cowans  <pjc51@phy.cam.ac.uk>
+2007-02-01  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Partial rewrite of cursor movement / offset handling. Seems to
+	be fairly stable at the moment, so time for a check in
+
+2007-01-19  Phil Cowans  <pjc51@cam.ac.uk>
 
 	* Merged Ignas' graphics code
 	* Half way through implementing contex code update

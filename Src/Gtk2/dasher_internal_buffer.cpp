@@ -10,7 +10,7 @@ static void dasher_internal_buffer_destroy(GObject *pObject);
 static void idasher_buffer_set_interface_init (gpointer g_iface, gpointer iface_data);
 void dasher_internal_buffer_insert(DasherInternalBuffer *pSelf, const gchar *szText);
 void dasher_internal_buffer_delete(DasherInternalBuffer *pSelf, int iLength);
-gchar *dasher_internal_buffer_get_context(DasherInternalBuffer *pSelf, gint iMaxLength);
+gchar *dasher_internal_buffer_get_context(DasherInternalBuffer *pSelf, gint iOffset, gint iLength);
 void dasher_internal_buffer_edit_move(DasherInternalBuffer *pSelf, int iDirection, int iDist);
 void dasher_internal_buffer_edit_delete(DasherInternalBuffer *pSelf, int iDirection, int iDist);
 void dasher_internal_buffer_edit_convert(DasherInternalBuffer *pSelf);
@@ -81,7 +81,7 @@ static void idasher_buffer_set_interface_init (gpointer g_iface, gpointer iface_
   IDasherBufferSetInterface *iface = (IDasherBufferSetInterface *)g_iface;
   iface->insert_text = (void (*)(IDasherBufferSet *pSelf, const gchar *szText))dasher_internal_buffer_insert;
   iface->delete_text = (void (*)(IDasherBufferSet *pSelf, gint iLength))dasher_internal_buffer_delete;
-  iface->get_context = (gchar *(*)(IDasherBufferSet *pSelf, gint iMaxLength))dasher_internal_buffer_get_context;
+  iface->get_context = (gchar *(*)(IDasherBufferSet *pSelf, gint iOffset, gint iLength))dasher_internal_buffer_get_context;
   iface->edit_move = (void (*)(IDasherBufferSet *pSelf, gint iDirection, gint iDist))dasher_internal_buffer_edit_move;
   iface->edit_delete = (void (*)(IDasherBufferSet *pSelf, gint iDirection, gint iDist))dasher_internal_buffer_edit_delete;
   iface->edit_convert = (void (*)(IDasherBufferSet *pSelf))dasher_internal_buffer_edit_convert;
@@ -177,15 +177,14 @@ void dasher_internal_buffer_delete(DasherInternalBuffer *pSelf, int iLength) {
   delete end;
 }
 
-gchar *dasher_internal_buffer_get_context(DasherInternalBuffer *pSelf, gint iMaxLength) {
+gchar *dasher_internal_buffer_get_context(DasherInternalBuffer *pSelf, gint iOffset, gint iLength) {
   DasherInternalBufferPrivate *pPrivate = (DasherInternalBufferPrivate *)(pSelf->private_data);
 
   GtkTextIter start;
   GtkTextIter end; // Refers to end of context, which is start of selection!
 
-  gtk_text_buffer_get_selection_bounds( pPrivate->pBuffer, &end, NULL );
-  start = end;
-  gtk_text_iter_backward_chars( &start, iMaxLength );
+  gtk_text_buffer_get_iter_at_offset(pPrivate->pBuffer, &start, iOffset);
+  gtk_text_buffer_get_iter_at_offset(pPrivate->pBuffer, &end, iOffset + iLength);
 
   return gtk_text_buffer_get_text( pPrivate->pBuffer, &start, &end, false );
 }

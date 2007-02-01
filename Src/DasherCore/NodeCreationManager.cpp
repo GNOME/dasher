@@ -1,12 +1,13 @@
 #include "DasherNode.h"
+#include "DasherInterfaceBase.h"
 #include "LanguageModelling/PPMLanguageModel.h"
 #include "LanguageModelling/WordLanguageModel.h"
 #include "LanguageModelling/DictLanguageModel.h"
 #include "LanguageModelling/MixtureLanguageModel.h"
 #include "NodeCreationManager.h"
 
-CNodeCreationManager::CNodeCreationManager(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, bool bGameMode, std::string strGameModeText, Dasher::CAlphIO *pAlphIO) : CDasherComponent(pEventHandler, pSettingsStore) {
-  m_pAlphabetManagerFactory = new CAlphabetManagerFactory(pEventHandler, pSettingsStore, pAlphIO, this, bGameMode, strGameModeText);
+CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterface, Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, bool bGameMode, std::string strGameModeText, Dasher::CAlphIO *pAlphIO) : CDasherComponent(pEventHandler, pSettingsStore) {
+  m_pAlphabetManagerFactory = new CAlphabetManagerFactory(pInterface, pEventHandler, pSettingsStore, pAlphIO, this, bGameMode, strGameModeText);
   
   m_pLanguageModel = m_pAlphabetManagerFactory->GetLanguageModel();
   m_pAlphabet = m_pAlphabetManagerFactory->GetAlphabet();

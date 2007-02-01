@@ -47,6 +47,8 @@ libdashercontrol_a_SOURCES = \
 		PangoCache.h \
 		Timer.cpp \
 		Timer.h \
+		custom_marshal.cpp \
+		custom_marhsal.h \
 		joystick_input.h \
 		mouse_input.h \
 		$(settings_store)

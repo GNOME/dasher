@@ -305,7 +305,7 @@ void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
   }
   else if(pEvent->m_iEventType == EV_EDIT_CONTEXT) {
     CEditContextEvent *pEditContextEvent(static_cast < CEditContextEvent * >(pEvent));
-    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_context_request", pEditContextEvent->m_iMaxLength);
+    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_context_request", pEditContextEvent->m_iOffset, pEditContextEvent->m_iLength);
   }
   else if(pEvent->m_iEventType == EV_START) {
     g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_start");

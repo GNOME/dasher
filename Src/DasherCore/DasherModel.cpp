@@ -83,7 +83,9 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettin
   //  m_bContextSensitive = true;
 
   // TODO: Do something sensible here
-  Start();
+  //  Start();
+
+  InitialiseAtOffset(iOffset);
 }
 
 CDasherModel::~CDasherModel() {
@@ -287,27 +289,29 @@ CDasherNode *CDasherModel::Get_node_under_mouse(myint Mousex, myint Mousey) {
   return m_Root->Get_node_under(GetLongParameter(LP_NORMALIZATION), m_Rootmin + m_iTargetOffset, m_Rootmax + m_iTargetOffset, Mousex, Mousey);
 }
 
-void CDasherModel::Start() {
+// void CDasherModel::Start() {
 
-  // FIXME - re-evaluate this function and SetContext...
+//   // FIXME - re-evaluate this function and SetContext...
 
-//              m_pEditbox->get_new_context(ContextString,5);
+// //              m_pEditbox->get_new_context(ContextString,5);
 
-  std::string strNewContext("");
+//   std::cout << "Called CDasherModel::Start()" << std::endl;
 
-  SetContext(strNewContext);    // FIXME - REALLY REALLY broken!
+//   std::string strNewContext("");
 
-  CEditContextEvent oEvent(5);
+//   SetContext(strNewContext);    // FIXME - REALLY REALLY broken!
 
-  InsertEvent(&oEvent);
+//   CEditContextEvent oEvent(5);
 
-  // FIXME - what if we don't get a reply?
+//   InsertEvent(&oEvent);
 
-//      m_pLanguageModel->ReleaseNodeContext(therootcontext);
-//      ppmmodel->dump();
-//      dump();
+//   // FIXME - what if we don't get a reply?
 
-}
+// //      m_pLanguageModel->ReleaseNodeContext(therootcontext);
+// //      ppmmodel->dump();
+// //      dump();
+
+// }
 
 void CDasherModel::DeleteTree() {
   if(oldroots.size() > 0) {
@@ -328,12 +332,16 @@ void CDasherModel::InitialiseAtOffset(int iOffset) {
     // Get the most recent character
     std::string strContext = m_pDasherInterface->GetContext(iOffset - 1, 1);
 
-    char *szContext = new char[strContext.size() + 1];
-    strcpy(szContext, strContext.c_str());
+    CAlphabetManager::SRootData oData;
 
-    m_Root = GetRoot(0, NULL, 0, GetLongParameter(LP_NORMALIZATION), szContext);
+    oData.szContext = new char[strContext.size() + 1];
+    strcpy(oData.szContext, strContext.c_str());
 
-    delete[] szContext;
+    oData.iOffset = iOffset;
+
+    m_Root = GetRoot(0, NULL, 0, GetLongParameter(LP_NORMALIZATION), &oData);
+
+    delete[] oData.szContext;
   }
 
   // Create children of the root
@@ -358,51 +366,54 @@ void CDasherModel::InitialiseAtOffset(int iOffset) {
 
 }
 
-void CDasherModel::SetContext(std::string &sNewContext) {
-  // TODO: This is probably the area most significantly in need of a
-  // rethink. Get the language model out of here!  
-  m_deGotoQueue.clear();
+// void CDasherModel::SetContext(std::string &sNewContext) {
 
-  DeleteTree();
+//   std::cout << "Called CDasherModel::SetContext()" << std::endl;
 
-  // CLanguageModel::Context therootcontext = m_pLanguageModel->CreateEmptyContext();
+//   // TODO: This is probably the area most significantly in need of a
+//   // rethink. Get the language model out of here!  
+//   m_deGotoQueue.clear();
 
-  if(sNewContext.size() == 0) {
-    m_Root = GetRoot(0, NULL, 0,GetLongParameter(LP_NORMALIZATION), NULL);
+//   DeleteTree();
+
+//   // CLanguageModel::Context therootcontext = m_pLanguageModel->CreateEmptyContext();
+
+//   if(sNewContext.size() == 0) {
+//     m_Root = GetRoot(0, NULL, 0,GetLongParameter(LP_NORMALIZATION), NULL);
     
-    //    EnterText(therootcontext, ". ");  
-  }
-  else {
-    std::vector<symbol> vSymbols;
-    //    m_pLanguageModel->SymbolAlphabet().GetAlphabetPointer()->GetSymbols(&vSymbols, &sNewContext, false);
+//     //    EnterText(therootcontext, ". ");  
+//   }
+//   else {
+//     std::vector<symbol> vSymbols;
+//     //    m_pLanguageModel->SymbolAlphabet().GetAlphabetPointer()->GetSymbols(&vSymbols, &sNewContext, false);
     
-    int iRootSymbol(vSymbols[vSymbols.size()-1]);
+//     int iRootSymbol(vSymbols[vSymbols.size()-1]);
     
-    m_Root = GetRoot(0, NULL, 0,GetLongParameter(LP_NORMALIZATION), &iRootSymbol);
+//     m_Root = GetRoot(0, NULL, 0,GetLongParameter(LP_NORMALIZATION), &iRootSymbol);
     
-    //    EnterText(therootcontext, sNewContext);  
-  }
+//     //    EnterText(therootcontext, sNewContext);  
+//   }
 
-  // TODO: Reimplement
-  //  m_pLanguageModel->ReleaseContext(LearnContext);
-  // LearnContext = m_pLanguageModel->CloneContext(therootcontext);
+//   // TODO: Reimplement
+//   //  m_pLanguageModel->ReleaseContext(LearnContext);
+//   // LearnContext = m_pLanguageModel->CloneContext(therootcontext);
 
-  // TODO: Reimplement
-  //  m_Root->SetContext(therootcontext);   // node takes control of the context
-  Recursive_Push_Node(m_Root, 0);
+//   // TODO: Reimplement
+//   //  m_Root->SetContext(therootcontext);   // node takes control of the context
+//   Recursive_Push_Node(m_Root, 0);
 
-  double dFraction( 1 - (1 - m_Root->MostProbableChild() / static_cast<double>(GetLongParameter(LP_NORMALIZATION))) / 2.0 );
+//   double dFraction( 1 - (1 - m_Root->MostProbableChild() / static_cast<double>(GetLongParameter(LP_NORMALIZATION))) / 2.0 );
 
-  int iWidth( static_cast<int>( (GetLongParameter(LP_MAX_Y) / (2.0*dFraction)) ) );
+//   int iWidth( static_cast<int>( (GetLongParameter(LP_MAX_Y) / (2.0*dFraction)) ) );
 
-  m_Rootmin = GetLongParameter(LP_MAX_Y) / 2 - iWidth / 2;
-  m_Rootmax = GetLongParameter(LP_MAX_Y) / 2 + iWidth / 2;
+//   m_Rootmin = GetLongParameter(LP_MAX_Y) / 2 - iWidth / 2;
+//   m_Rootmax = GetLongParameter(LP_MAX_Y) / 2 + iWidth / 2;
 
-  m_iTargetOffset = 0;
+//   m_iTargetOffset = 0;
 
-//   m_iTargetMin = m_Rootmin;
-//   m_iTargetMax = m_Rootmax;
-}
+// //   m_iTargetMin = m_Rootmin;
+// //   m_iTargetMax = m_Rootmax;
+// }
 
 void CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey, myint &iNewMin, myint &iNewMax, unsigned long iTime) {
 
@@ -764,13 +775,13 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
   return false;
 }
 
-void CDasherModel::LearnText(CLanguageModel::Context context, string *TheText, bool IsMore) {
-  m_pNodeCreationManager->LearnText(context, TheText, IsMore);
-}
+// void CDasherModel::LearnText(CLanguageModel::Context context, string *TheText, bool IsMore) {
+//   m_pNodeCreationManager->LearnText(context, TheText, IsMore);
+// }
 
-void CDasherModel::EnterText(CLanguageModel::Context context, string TheText) const {
-  m_pNodeCreationManager->EnterText(context, TheText);
-}
+// void CDasherModel::EnterText(CLanguageModel::Context context, string TheText) const {
+//   m_pNodeCreationManager->EnterText(context, TheText);
+// }
 
 void CDasherModel::Push_Node(CDasherNode *pNode) {
 

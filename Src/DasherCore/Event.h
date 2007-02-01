@@ -52,12 +52,14 @@ public:
 
 class Dasher::CEditContextEvent:public Dasher::CEvent {
 public:
-  CEditContextEvent(int iMaxLength) {
+  CEditContextEvent(int iOffset, int iLength) {
     m_iEventType = EV_EDIT_CONTEXT;
-    m_iMaxLength = iMaxLength;
+    m_iOffset = iOffset;
+    m_iLength = iLength;
   };
 
-  int m_iMaxLength;
+  int m_iOffset;
+  int m_iLength;
 };
 
 class Dasher::CStartEvent:public Dasher::CEvent {
