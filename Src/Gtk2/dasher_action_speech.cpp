@@ -65,7 +65,7 @@ dasher_action_speech_new() {
 
 static gboolean 
 dasher_action_speech_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx) {
-  DasherActionSpeechPrivate *pDasherActionSpeechPrivate = DASHER_ACTION_SPEECH_GET_PRIVATE(pDasherActionSpeech);
+  DasherActionSpeechPrivate *pDasherActionSpeechPrivate = DASHER_ACTION_SPEECH_GET_PRIVATE(pSelf);
 
   const char *szData;
 
@@ -131,7 +131,7 @@ dasher_action_speech_get_sub_name(DasherAction *pSelf, int iIdx) {
 
 static gboolean 
 dasher_action_speech_activate(DasherAction *pSelf) {
-  DasherActionSpeechPrivate *pDasherActionSpeechPrivate = DASHER_ACTION_SPEECH_GET_PRIVATE(pDasherActionSpeech);
+  DasherActionSpeechPrivate *pDasherActionSpeechPrivate = DASHER_ACTION_SPEECH_GET_PRIVATE(pSelf);
 
   pDasherActionSpeechPrivate->rv = 0;
   Bonobo_ServerInfoList *servers;
@@ -192,7 +192,7 @@ dasher_action_speech_activate(DasherAction *pSelf) {
 
 static gboolean 
 dasher_action_speech_deactivate(DasherAction *pSelf) {
-  DasherActionSpeechPrivate *pDasherActionSpeechPrivate = DASHER_ACTION_SPEECH_GET_PRIVATE(pDasherActionSpeech);
+  DasherActionSpeechPrivate *pDasherActionSpeechPrivate = DASHER_ACTION_SPEECH_GET_PRIVATE(pSelf);
 
   bonobo_object_release_unref(pDasherActionSpeechPrivate->speaker, NULL);
   CORBA_free(pDasherActionSpeechPrivate->voices);

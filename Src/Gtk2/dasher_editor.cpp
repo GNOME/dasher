@@ -1,3 +1,5 @@
+#include "config.h"
+
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 /* TODO: r4epair gnome libs flags (or get rid of entirely) */
@@ -146,7 +148,6 @@ extern "C" void action_button_callback(GtkWidget *pWidget, gpointer pUserData);
 extern "C" void context_changed_handler(GObject *pSource, gpointer pUserData);
 extern "C" void handle_start_event(GtkDasherControl *pDasherControl, gpointer data);
 extern "C" void handle_stop_event(GtkDasherControl *pDasherControl, gpointer data);
-extern "C" void handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer data);
 extern "C" void on_message(GtkDasherControl *pDasherControl, gpointer pMessageInfo, gpointer pUserData);
 extern "C" void on_command(GtkDasherControl *pDasherControl, gchar *szCommand, gpointer pUserData);
 extern "C" void handle_request_settings(GtkDasherControl * pDasherControl, gpointer data);
@@ -361,6 +362,7 @@ dasher_editor_handle_start(DasherEditor *pSelf) {
   //  set_mark();
 }
 
+/* TODO: This is obsolete - sort this out when commands are reconsidered */
 void 
 dasher_editor_handle_control(DasherEditor *pSelf, int iNodeID) {
   DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
@@ -523,11 +525,13 @@ EditorAction *pAction;
 static void 
 dasher_editor_create_buffer(DasherEditor *pSelf) {
   DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
-  
-  if(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE) == 2) {
-    if(!(pPrivate->pExternalBuffer))
-      pPrivate->pExternalBuffer = IDASHER_BUFFER_SET(dasher_external_buffer_new());
+
+  /* Make an external buffer anyway, for keyboard command */
+  /* TODO: Review this */
+  if(!(pPrivate->pExternalBuffer))
+    pPrivate->pExternalBuffer = IDASHER_BUFFER_SET(dasher_external_buffer_new());
     
+  if(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE) == 2) {
     pPrivate->pBufferSet = pPrivate->pExternalBuffer;
   }
   else {
@@ -841,24 +845,45 @@ dasher_editor_command(DasherEditor *pSelf, const gchar *szCommand) {
     return TRUE;
   }
  
-  // TODO: This isn't actuall accessible from anywhere
+  // TODO: This isn't actually accessible from anywhere
   if(!strcmp(szCommand, "selectall")) { // clipboard_paste
     dasher_editor_clipboard(pSelf, CLIPBOARD_SELECTALL);
     return TRUE;
   }
  
-  gboolean bActionIterStarted = false;
-  EditorAction *pActionIter = pPrivate->pActionRing;
+
+  /* TODO: We need a rethink here */
+  const gchar *szForwardCommand = NULL;
+  gint iSubCommand = 0;
+
+  if(!strcmp(szCommand, "speakall")) {
+    szForwardCommand = "Speak";
+    iSubCommand = 0;
+  }
+  else if(!strcmp(szCommand, "speaklast")) {
+    szForwardCommand = "Speak";
+    iSubCommand = 1;
+  }
+  else if(!strcmp(szCommand, "speakrepeat")) {
+    szForwardCommand = "Speak";
+    iSubCommand = 2;
+  }
+
+  if(szForwardCommand) {
+    gboolean bActionIterStarted = false;
+    EditorAction *pActionIter = pPrivate->pActionRing;
     
-  while((pActionIter != pPrivate->pActionRing) || !bActionIterStarted) {
-    bActionIterStarted = true;
-    
-    if(!strcmp(dasher_action_get_name(pActionIter->pAction), szCommand)) {
-      dasher_action_execute(pActionIter->pAction, pSelf, -1);
-      return TRUE;
+    while((pActionIter != pPrivate->pActionRing) || !bActionIterStarted) {
+      bActionIterStarted = true;
+      
+      if(!strcmp(dasher_action_get_name(pActionIter->pAction), szForwardCommand)) {
+	dasher_action_execute(pActionIter->pAction, pSelf, iSubCommand);
+	return TRUE;
+      }
+      
+      pActionIter = pActionIter->pNext;
     }
-    
-    pActionIter = pActionIter->pNext;
+    return TRUE;
   }
 
   return FALSE;
@@ -1530,12 +1555,6 @@ extern "C" void
 handle_stop_event(GtkDasherControl *pDasherControl, gpointer data) {
   if(g_pEditor)
     dasher_editor_handle_stop(g_pEditor);
-}
-
-extern "C" void 
-handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer data) { 
-  if(g_pEditor)
-    dasher_editor_handle_control(g_pEditor, iEvent);
 }
 
 extern "C" void 

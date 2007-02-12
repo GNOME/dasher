@@ -48,7 +48,9 @@ static gboolean
 dasher_action_keyboard_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx) {
   DasherActionKeyboardPrivate *pPrivate = DASHER_ACTION_KEYBOARD_GET_PRIVATE(pSelf);
    
-  idasher_buffer_set_insert(pPrivate->pBufferSet, dasher_editor_get_all_text(pEditor));
+  if(pPrivate->pBufferSet)
+    idasher_buffer_set_insert(pPrivate->pBufferSet, dasher_editor_get_all_text(pEditor));
+
   return true;
 }
 

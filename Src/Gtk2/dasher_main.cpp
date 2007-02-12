@@ -144,6 +144,7 @@ static void dasher_main_load_state(DasherMain *pSelf);
 static void dasher_main_save_state(DasherMain *pSelf);
 static void dasher_main_setup_window(DasherMain *pSelf);
 static void dasher_main_populate_controls(DasherMain *pSelf);
+static void dasher_main_connect_control(DasherMain *pSelf);
 static gboolean dasher_main_command(DasherMain *pSelf, const gchar *szCommand);
 
 /* TODO: Various functions which haven't yet been rationalised */
@@ -176,7 +177,7 @@ extern "C" gboolean edit_key_release(GtkWidget *widget, GdkEventKey *event, gpoi
 extern "C" gboolean test_focus_handler(GtkWidget *pWidget, GtkDirectionType iDirection, gpointer *pUserData);
 
 extern "C" void handle_context_request(GtkDasherControl * pDasherControl, gint iOffset, gint iLength, gpointer data);
-
+extern "C" void handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer data);
 
 /* Boilerplate code */
 static void 
@@ -225,28 +226,12 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
     return g_pDasherMain;
   else {
     DasherMain *pDasherMain = (DasherMain *)(g_object_new(dasher_main_get_type(), NULL));
-    
-    // TODO: Move some of this to the instance initialisation script
-
-    gchar *szFullPath = NULL;
-
-    if(pCommandLine) {
-      if(pCommandLine->szFilename) {
-	if(!g_path_is_absolute(pCommandLine->szFilename)) {
-	  char *cwd;
-	  cwd = (char *)malloc(1024 * sizeof(char));
-	  getcwd(cwd, 1024);
-	  szFullPath = g_build_path("/", cwd, pCommandLine->szFilename, NULL);
-	}
-	else {
-	  szFullPath = g_strdup(pCommandLine->szFilename);
-	}
-      }
-    }
-
     DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pDasherMain);
+
+    /* Create the app settings object */
     pPrivate->pAppSettings = dasher_app_settings_new(*argc, *argv);
     
+    /* Load the user interface from the glade file */
     if(pCommandLine && pCommandLine->szAppStyle) {
       if(!strcmp(pCommandLine->szAppStyle, "traditional")) {
 	dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 0);
@@ -271,25 +256,47 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
     dasher_main_load_interface(pDasherMain);
 
     dasher_app_settings_set_widget(pPrivate->pAppSettings, GTK_DASHER_CONTROL(pPrivate->pDasherWidget));
+    dasher_main_setup_window(pDasherMain);
+
+    /* Create the editor */
+    gchar *szFullPath = NULL;
+
+    if(pCommandLine) {
+      if(pCommandLine->szFilename) {
+	if(!g_path_is_absolute(pCommandLine->szFilename)) {
+	  char *cwd;
+	  cwd = (char *)malloc(1024 * sizeof(char));
+	  getcwd(cwd, 1024);
+	  szFullPath = g_build_path("/", cwd, pCommandLine->szFilename, NULL);
+	}
+	else {
+	  szFullPath = g_strdup(pCommandLine->szFilename);
+	}
+      }
+    }
 
     pPrivate->pEditor = dasher_editor_new(pPrivate->pAppSettings, pDasherMain, pPrivate->pGladeXML, szFullPath);
+
+    g_free(szFullPath);
+
     g_signal_connect(pPrivate->pEditor, "filename_changed", G_CALLBACK(dasher_main_cb_filename_changed), pDasherMain);
     g_signal_connect(pPrivate->pEditor, "buffer_changed", G_CALLBACK(dasher_main_cb_buffer_changed), pDasherMain);
     g_signal_connect(pPrivate->pEditor, "context_changed", G_CALLBACK(dasher_main_cb_context_changed), pDasherMain);
 
-    dasher_main_set_filename(pDasherMain);
+    /* Create the preferences window */
     dasher_main_create_preferences(pDasherMain);
-    dasher_main_populate_controls(pDasherMain);
-    dasher_main_setup_window(pDasherMain);
 
-    g_free(szFullPath);
-
-    // TODO: Make lock diaogue a full method
+    /* Create the lock dialogue (to be removed in future versions) */
 #ifndef WITH_MAEMO
     dasher_lock_dialogue_new(pPrivate->pGladeXML, GTK_WINDOW(pPrivate->pMainWindow));
 #else
     dasher_lock_dialogue_new(pPrivate->pGladeXML, 0);
 #endif
+
+    /* Set up various bits and pieces */
+    dasher_main_set_filename(pDasherMain);
+    dasher_main_populate_controls(pDasherMain);
+    dasher_main_connect_control(pDasherMain);
 
     /* Cache a file-wide static pointer to the singleton class */
     g_pDasherMain = pDasherMain;
@@ -639,6 +646,63 @@ dasher_main_populate_controls(DasherMain *pSelf) {
 			    dasher_app_settings_get_long(pPrivate->pAppSettings, LP_MAX_BITRATE) / 100.0);
 }
 
+static void 
+dasher_main_connect_control(DasherMain *pSelf) {
+  /* TODO: This is very much temporary - we need to think of a better
+     way of presenting application commands in a unified way */
+  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
+
+#ifdef GNOME_SPEECH
+
+  gtk_dasher_control_register_node( GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
+				    Dasher::CControlManager::CTL_USER,
+				    "Speak", -1 );
+
+  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
+				   Dasher::CControlManager::CTL_USER, 
+				   Dasher::CControlManager::CTL_ROOT, -2);
+
+
+  gtk_dasher_control_register_node( GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
+				    Dasher::CControlManager::CTL_USER + 1, 
+				    "All", -1 );
+
+  gtk_dasher_control_register_node( GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
+				    Dasher::CControlManager::CTL_USER + 2, 
+				    "Last", -1 );
+
+  gtk_dasher_control_register_node( GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
+				    Dasher::CControlManager::CTL_USER + 3, 
+				    "Repeat", -1 );
+
+  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
+				   Dasher::CControlManager::CTL_USER + 1, 
+				   Dasher::CControlManager::CTL_USER, -2);
+
+  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
+				   -1, 
+				   Dasher::CControlManager::CTL_USER + 1, -2);
+
+  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
+				   Dasher::CControlManager::CTL_USER + 2, 
+				   Dasher::CControlManager::CTL_USER, -2);
+
+  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
+				   -1,
+				   Dasher::CControlManager::CTL_USER + 2, -2);
+
+  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
+				   Dasher::CControlManager::CTL_USER + 3, 
+				   Dasher::CControlManager::CTL_USER, -2);
+
+  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
+				   -1,
+				   Dasher::CControlManager::CTL_USER + 3, -2);
+
+#endif
+
+}
+
 static gboolean 
 dasher_main_command(DasherMain *pSelf, const gchar *szCommand) {
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
@@ -918,6 +982,7 @@ dasher_main_command_about(DasherMain *pSelf) {
   // In alphabetical order
   const gchar *authors[] = {
     "Chris Ball",
+    "Ignas Budvytis",
     "Phil Cowans",
     "Frederik Eaton",
     "Behdad Esfahbod",
@@ -931,6 +996,7 @@ dasher_main_command_about(DasherMain *pSelf) {
     "David Ward",
     "Brian Williams",
     "Seb Wills",
+    "Will Zou",
     NULL
   };
 
@@ -946,7 +1012,7 @@ dasher_main_command_about(DasherMain *pSelf) {
   gtk_show_about_dialog(GTK_WINDOW(pPrivate->pMainWindow),
 			"authors", authors,
 			"comments", _("Dasher is a predictive text entry application"), 
-			"copyright", "Copyright \xC2\xA9 1998-2006 The Dasher Project", 
+			"copyright", "Copyright \xC2\xA9 1998-2007 The Dasher Project", 
 			"documenters", documenters,
 			"license", "GPL 2+",
 			"logo-icon-name", "dasher",
@@ -1233,4 +1299,26 @@ handle_context_request(GtkDasherControl * pDasherControl, gint iOffset, gint iLe
     return;
 
   gtk_dasher_control_set_context(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), dasher_editor_get_context(pPrivate->pEditor, iOffset, iLength));
+}
+
+extern "C" void 
+handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer data) { 
+  if(!g_pDasherMain)
+    return;
+  
+  /* TODO: replace this with something a little more sensible */
+
+  switch(iEvent) {
+  case Dasher::CControlManager::CTL_USER + 1:
+    dasher_main_command(g_pDasherMain, "speakall");
+    break;
+  case Dasher::CControlManager::CTL_USER + 2:
+    dasher_main_command(g_pDasherMain, "speaklast");
+    break;
+  case Dasher::CControlManager::CTL_USER + 3:
+    dasher_main_command(g_pDasherMain, "speakrepeat");
+    break;
+  default:
+    break;
+  }
 }

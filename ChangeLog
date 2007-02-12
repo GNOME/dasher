@@ -2,6 +2,9 @@
 
 	* Fairly widespread refactoring etc. No major functionality
 	changes, but generally much tideier than it was
+	* Fixed bug in keyboard action
+	* Applied temporary fix to editor actions to get speech working again
+	* Preparation for release
 
 2007-02-01  Phil Cowans  <pjc51@cam.ac.uk>
 
