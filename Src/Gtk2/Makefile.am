@@ -56,7 +56,6 @@ libdashercontrol_a_SOURCES = \
 libdashergtk_a_SOURCES = \
                          DasherAppSettings.cpp \
                          DasherAppSettings.h \
-                         FileDialogues.cpp \
                          FontDialogues.cpp \
                          FontDialogues.h \
                          GtkDasherControl.h \
