@@ -48,7 +48,7 @@ libdashercontrol_a_SOURCES = \
 		Timer.cpp \
 		Timer.h \
 		custom_marshal.cpp \
-		custom_marhsal.h \
+		custom_marshal.h \
 		joystick_input.h \
 		mouse_input.h \
 		$(settings_store)

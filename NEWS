@@ -1,4 +1,11 @@
 ============
+Dasher 4.3.4
+============
+  * Updated rendering routines
+  * General tidying of gobject implemenatations
+  * Translation updates
+
+============
 Dasher 4.3.3
 ============
   * Basic support for USB joystick control
