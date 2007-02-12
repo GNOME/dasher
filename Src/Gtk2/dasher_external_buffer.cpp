@@ -334,7 +334,8 @@ void dasher_external_buffer_handle_focus(DasherExternalBuffer *pSelf, const Acce
 //     g_iExpectedPosition = AccessibleText_getCaretOffset(pPrivate->pAccessibleText);
 //     g_iOldPosition = g_iExpectedPosition;
 
-  g_signal_emit(pSelf, idasher_buffer_set_signals[CONTEXT_CHANGED], 0, NULL);
+    
+    g_signal_emit_by_name(G_OBJECT(pSelf), "context_changed", G_OBJECT(pSelf), NULL, NULL);
 
   }
 

@@ -223,8 +223,6 @@ void CAlphabetManager::ClearNode( CDasherNode *pNode ) {
 void CAlphabetManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {
   symbol t = static_cast<SAlphabetData *>(pNode->m_pUserData)->iSymbol;
 
-  std::cout << "Output at offset " << static_cast<SAlphabetData *>(pNode->m_pUserData)->iOffset << std::endl;
-
   if(t) { // Ignore symbol 0 (root node)
     Dasher::CEditEvent oEvent(1, m_pNCManager->GetAlphabet()->GetText(t));
     m_pNCManager->InsertEvent(&oEvent);
@@ -345,7 +343,7 @@ void CAlphabetManager::BuildContext(std::string strContext, bool bRoot, CLanguag
   for(std::vector<symbol>::iterator it(vContextSymbols.begin()); it != vContextSymbols.end(); ++it)
     m_pLanguageModel->EnterSymbol(oContext, *it);
 
-  if(bRoot)
+  if((vContextSymbols.size() == 0) || bRoot)
     iSymbol = 0;
   else
     iSymbol = vContextSymbols[vContextSymbols.size() - 1];

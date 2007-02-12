@@ -1,5 +1,6 @@
 #include "Common/Common.h"
 
+#include <gdk/gdk.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkx.h>
 #include <glade/glade.h>
@@ -25,28 +26,26 @@
 #include <libgnomevfs/gnome-vfs.h>
 #endif
 
-#include <libintl.h>
-#include <locale.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <iostream>
-//#include <getopt.h>
+// #include <libintl.h>
+// #include <locale.h>
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include <iostream>
 
 #include "dasher.h"
-#include "DasherControl.h"
-#include "Gtk2/dasher_lock_dialogue.h"
-#include "Gtk2/FontDialogues.h"
+//#include "DasherControl.h"
+#include "dasher_lock_dialogue.h"
+#include "dasher_main.h"
 
 #ifdef WITH_GPE
 #include "gpesettings_store.h"
 #endif
 
-extern int optind;
-extern const gchar *filename;
+//extern int optind;
+//extern const gchar *filename;
 
 DasherMain *g_pDasherMain;
-DasherAppSettings *g_pDasherAppSettings;
-DasherPreferencesDialogue *g_pPreferencesDialogue;
+
 
 // Stuff imported from dasher.cc
 
@@ -56,22 +55,19 @@ DasherPreferencesDialogue *g_pPreferencesDialogue;
 
 
 
-GtkWidget *vbox;
-GdkPixbuf *p;                   // Hmm... descriptive names
-GtkWidget *pw;
-GtkStyle *style;
+//static GtkWidget *vbox; // Main vbox (top level under main window)
+// GdkPixbuf *p;                   // Hmm... descriptive names
+// GtkWidget *pw;
+// GtkStyle *style;
 
-GtkWidget *dasher_menu_bar;
-GtkWidget *open_filesel;
-GtkWidget *save_filesel;
-GtkWidget *save_and_quit_filesel;
-GtkWidget *import_filesel;
-GtkWidget *append_filesel;
-GtkWidget *window;
-GtkWidget *g_pHiddenWindow;
-GtkWidget *file_selector;
-
-GtkWidget *pDasherWidget = NULL;
+// GtkWidget *dasher_menu_bar;
+// GtkWidget *open_filesel;
+// GtkWidget *save_filesel;
+// GtkWidget *save_and_quit_filesel;
+// GtkWidget *import_filesel;
+// GtkWidget *append_filesel;
+// GtkWidget *g_pHiddenWindow;
+// GtkWidget *file_selector;
 //GtkWidget *g_pEditPane = 0;
 //GtkWidget *g_pActionPane = 0;
 
@@ -81,16 +77,19 @@ Window g_xOldIMWindow;
 
 //DasherAction *g_pAction = 0;
 
-const gchar *filename = NULL;   // Filename of file currently being edited
+// const gchar *filename = NULL;   // Filename of file currently being edited
+
+//static DasherEditor *g_pEditor = 0;
+
 
 // Apparently not obsolete, but should be sorted out
 
-gboolean file_modified = FALSE; // Have unsaved changes been made to the current file
-gint outputcharacters;
+// gboolean file_modified = FALSE; // Have unsaved changes been made to the current file
+// gint outputcharacters;
 
-const char *g_szAccessibleContext = 0;
-int g_iExpectedPosition = -1;
-int g_iOldPosition = -1;
+// const char *g_szAccessibleContext = 0;
+// int g_iExpectedPosition = -1;
+// int g_iOldPosition = -1;
 
 // 'Private' methods
 
@@ -98,24 +97,24 @@ int g_iOldPosition = -1;
 
 // "member" variables for main window "class"
 
-int g_bOnTop = true; // Whether the window should always be on top
-int g_bDock = true; // Whether to dock the window
-int g_iDockType; // Ignored for now - will determine how the window is docked to the side of the screen
-double g_dXFraction = 0.25; // Fraction of the width of the screen to use;
-double g_dYFraction = 0.25; // Fraction of the height of the screen to use;
+// int g_bOnTop = true; // Whether the window should always be on top
+// int g_bDock = true; // Whether to dock the window
+// int g_iDockType; // Ignored for now - will determine how the window is docked to the side of the screen
+// double g_dXFraction = 0.25; // Fraction of the width of the screen to use;
+// double g_dYFraction = 0.25; // Fraction of the height of the screen to use;
 
 /// ---
 
 /// Old stuff from edit.cc
 
-DasherEditor *g_pEditor = 0;
+// DasherEditor *g_pEditor = 0;
 
-GtkWidget *the_text_view;
-GtkTextBuffer *the_text_buffer;
+// GtkWidget *the_text_view;
+// GtkTextBuffer *the_text_buffer;
 
-KeySym *origkeymap;
-int modifiedkey = 0;
-int numcodes;
+// KeySym *origkeymap;
+// int modifiedkey = 0;
+// int numcodes;
 
 /// ---
 
@@ -146,14 +145,28 @@ void clean_up();
 //   }
 // }
 
+
+extern "C" gint main_key_snooper(GtkWidget *pWidget, GdkEventKey *pEvent, gpointer pUserData);
+
+
 int main(int argc, char *argv[]) {
+
+  //  DasherAppSettings *g_pDasherAppSettings;
+  //  GtkWidget *window; // Main window
+
+
   signal(2, sigint_handler);
 
   bindtextdomain(PACKAGE, LOCALEDIR);
   bind_textdomain_codeset(PACKAGE, "UTF-8");
   textdomain(PACKAGE);
 
-  gchar *szOptionAppstyle = NULL;
+  //  gchar *szOptionAppstyle = NULL;
+
+  SCommandLine sCommandLine;
+
+  sCommandLine.szFilename = NULL;
+  sCommandLine.szAppStyle = NULL;
 
   // TODO: It would be nice to have command line parsing in version prior to goption (eg in Solaris 10)...
 #if GLIB_CHECK_VERSION(2,6,0)
@@ -162,7 +175,7 @@ int main(int argc, char *argv[]) {
     //   {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences window only", NULL},
     //   {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
     //   {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
-    {"appstyle", 'a', 0, G_OPTION_ARG_STRING, &szOptionAppstyle, "Application style (traditional, direct, compose or fullscreen)", "traditional"},
+    {"appstyle", 'a', 0, G_OPTION_ARG_STRING, &(sCommandLine.szAppStyle), "Application style (traditional, direct, compose or fullscreen)", "traditional"},
     {NULL}
   };
 
@@ -171,6 +184,11 @@ int main(int argc, char *argv[]) {
   goptcontext = g_option_context_new(("- A text input application honouring accessibility"));
   g_option_context_add_main_entries(goptcontext, options, "Dasher");
   g_option_context_parse(goptcontext, &argc, &argv, NULL);
+
+  // TODO: Check what happens here when goption has done its stuff
+
+  if(argc > 1)
+    sCommandLine.szFilename = g_strdup(argv[1]);    
   //later GnomeProgram will call g_option_context_free() when we unref it
 #endif 
 
@@ -217,93 +235,11 @@ int main(int argc, char *argv[]) {
 #endif
 
 
-  g_pDasherMain = dasher_main_new();
+  g_pDasherMain = dasher_main_new(&argc, &argv, &sCommandLine);
 
-  // Stuff which will eventually be in init of main class
-
-  // 1.
-  g_pDasherAppSettings = dasher_app_settings_new(argc, argv);
-  dasher_main_set_app_settings(g_pDasherMain, g_pDasherAppSettings);
-
-  // 2.
-  if(szOptionAppstyle) {
-    if(!strcmp(szOptionAppstyle, "traditional")) {
-      dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_STYLE, 0);
-    }
-    else if(!strcmp(szOptionAppstyle, "compose")) {
-      dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_STYLE, 1);
-    }
-    else if(!strcmp(szOptionAppstyle, "direct")) {
-      dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_STYLE, 2);
-    }
-    else if(!strcmp(szOptionAppstyle, "fullscreen")) {
-      dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_STYLE, 3);
-    }
-    else {
-      g_error("Application style %s is not supported", szOptionAppstyle);
-    }
-  }
-  else { 
-    dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_STYLE, 0);
-  }
-
-  // 3.
-  dasher_main_load_interface(g_pDasherMain);
-
-  GladeXML *pGladeXML = dasher_main_get_glade(g_pDasherMain);
-
-  window = glade_xml_get_widget(pGladeXML, "window");
-  vbox = glade_xml_get_widget(pGladeXML, "vbox1");
-  the_text_view = glade_xml_get_widget(pGladeXML, "the_text_view");
-  the_text_buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(the_text_view));
-
-  // 4.
-  dasher_app_settings_set_widget(g_pDasherAppSettings, GTK_DASHER_CONTROL(pDasherWidget));
-  
-  // 5.
-  // Create a main app object
-  g_pEditor = dasher_editor_new(argc, argv);
-  dasher_editor_initialise(g_pEditor);
-
-  // TODO: Make this part of editor initialisation.
-  // Subclass editors depending on required functionality.
-  if(optind < argc) {
-    if(!g_path_is_absolute(argv[optind])) {
-      char *cwd;
-      cwd = (char *)malloc(1024 * sizeof(char));
-      getcwd(cwd, 1024);
-      filename = g_build_path("/", cwd, argv[optind], NULL);
-    }
-    else {
-      filename = argv[optind];
-    }
-    dasher_editor_open(g_pEditor, filename);
-  }
-  else {
-    // TODO: Call new routine, make generate_filename private
-    dasher_editor_generate_filename(g_pEditor);
-  }
-
-  // 6.
-  g_pPreferencesDialogue = dasher_preferences_dialogue_new(pGladeXML, g_pEditor);
-  dasher_preferences_dialogue_populate_actions(g_pPreferencesDialogue);
-  // TODO: Make lock diaogue a full method
-#ifndef WITH_MAEMO
-  dasher_lock_dialogue_new(pGladeXML, GTK_WINDOW(dasher_main_get_window(g_pDasherMain)));
-#else
-  dasher_lock_dialogue_new(pGladeXML, 0);
-#endif
-  // TODO: Bring into object framework
-  InitialiseFontDialogues(pGladeXML);
-  
-  // 7. 
-  dasher_main_populate_controls(g_pDasherMain);
-
-  // 8.
-  dasher_main_setup_window(g_pDasherMain);
-
-  // 9.
   dasher_main_show(g_pDasherMain);
+
+  gtk_key_snooper_install(main_key_snooper, g_pDasherMain);
 
   // 10.
   gtk_main();
@@ -319,11 +255,7 @@ void clean_up() {
   osso_deinitialize(osso_context);
 #endif
 
-  // TODO: Really need a sensible object takedown chain (preferences dialogue etc.)
-  
-  if(g_pEditor)
-    g_object_unref(G_OBJECT(g_pEditor));
-  
+  /* TODO: check that this really does the right thing with the references counting */
   if(g_pDasherMain)
     g_object_unref(G_OBJECT(g_pDasherMain));
 
@@ -341,4 +273,18 @@ void sigint_handler(int iSigNum) {
     clean_up();
     exit(0);
   }
+}
+
+// TODO: Put this somewhere sensible, make it only work for children of the main window
+extern "C" gint main_key_snooper(GtkWidget *pWidget, GdkEventKey *pEvent, gpointer pUserData) {
+  g_message("Key event");
+
+  // TODO: Hook up to keybindings code
+
+  if(pEvent->keyval == GDK_space) {
+    g_message("Space");
+    return TRUE;
+  }
+
+  return FALSE;
 }

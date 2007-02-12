@@ -809,11 +809,8 @@ void CCanvas::TextSize(const std::string &String, int *Width, int *Height, int s
 }
 
 void CCanvas::SendMarker(int iMarker) {
-
   switch(iMarker) {
   case 0: // Switch to display buffer
- 	
-	
     break;
   case 1: // Switch to decorations buffer
     StoreBackground();
@@ -853,7 +850,6 @@ void CCanvas::SetColourScheme(const CColourIO::ColourInfo *pColourScheme) {
 }
 void CCanvas::SetLoadBackground(bool value)
 {
-
 	m_bLoadBackground=value;
 }
 void CCanvas::SetCaptureBackground(bool value)
@@ -862,13 +858,12 @@ void CCanvas::SetCaptureBackground(bool value)
 }
 void CCanvas::StoreBackground()
 {
-	if (m_bCaptureBackground)
-	{
-		for (int i=0;i<m_iWidth*m_iHeight*display_depth;i++)
-			display_backgrounddata[i]=display_data[i];	
-		m_bCaptureBackground=false;
-	}
-
+  if (m_bCaptureBackground)
+    {
+      for (int i=0;i<m_iWidth*m_iHeight*display_depth;i++)
+	display_backgrounddata[i]=display_data[i];	
+      m_bCaptureBackground=false;
+    }
 }
 
 void CCanvas::LoadBackground()

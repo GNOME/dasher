@@ -68,7 +68,14 @@ DasherActionCopy *dasher_action_copy_new(DasherEditor *pEditor) {
 
 static gboolean dasher_action_copy_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx) {
   DasherActionCopyPrivate *pPrivate((DasherActionCopyPrivate *)((DasherActionCopy *)pSelf)->private_data);
-  dasher_editor_clipboard(pPrivate->pEditor, CLIPBOARD_COPYALL);
+  /* TODO: reimplement */
+  //  dasher_editor_clipboard(pPrivate->pEditor, CLIPBOARD_COPYALL);
+  /* TOOD: This is very circular. Need to have a think about how to
+     export functionality, but this should basically receive the text
+     in the same way the speech module does. Actually, this class is
+     completely pointless, just make it so that the "copyall" command
+     is exported to control mode */
+  dasher_editor_command(pPrivate->pEditor, "copyall");
   return true;
 }
 

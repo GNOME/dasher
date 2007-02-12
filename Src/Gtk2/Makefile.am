@@ -60,15 +60,11 @@ libdashergtk_a_SOURCES = \
                          FontDialogues.cpp \
                          FontDialogues.h \
                          GtkDasherControl.h \
-                         Menu.cc \
-                         Menu.h \
                          Preferences.cpp \
                          Preferences.h \
                          dasher.h \
                          dasher_action.cpp \
                          dasher_action.h \
-                         dasher_action_copy.cpp \
-                         dasher_action_copy.h \
                          dasher_action_keyboard.cpp \
                          dasher_action_keyboard.h \
                          dasher_action_keyboard_maemo.cpp \
@@ -91,8 +87,6 @@ libdashergtk_a_SOURCES = \
 			 dasher_maemo_helper.h \
                          dasher_main.cpp \
                          dasher_main.h \
-                         fileops.cc \
-                         fileops.h \
 			 game_mode_helper.cpp \
 			 game_mode_helper.h \
 			 module_settings_window.cpp \

@@ -67,6 +67,10 @@ const gchar *dasher_app_settings_get_reg_name(DasherAppSettings *pSelf, int iPar
 const gchar *dasher_app_settings_get_human_name(DasherAppSettings *pSelf, int iParameter);
 bool dasher_app_settings_have_advanced(DasherAppSettings *pSelf);
 void dasher_app_settings_launch_advanced(DasherAppSettings *pSelf);
+
+GArray *dasher_app_settings_get_allowed_values(DasherAppSettings *pSelf, int iParameter);
+gboolean dasher_app_settings_get_module_settings(DasherAppSettings *pSelf, const gchar *szValue, SModuleSettings **pSettings, gint *iCount);
+
 G_END_DECLS
 
 #endif

@@ -8,11 +8,6 @@
 #define IS_IDASHER_BUFFER_SET(obj) (G_TYPE_CHECK_INSTANCE_TYPE((obj), IDASHER_BUFFER_SET_TYPE))
 #define IDASHER_BUFFER_SET_GET_INTERFACE(inst) (G_TYPE_INSTANCE_GET_INTERFACE((inst), IDASHER_BUFFER_SET_TYPE, IDasherBufferSetInterface))
 
-enum {
-  CONTEXT_CHANGED,
-  NUM_SIGNALS
-};
-
 // Basic cursor movement commands
 
 enum {

@@ -192,7 +192,7 @@ gchar *dasher_internal_buffer_get_context(DasherInternalBuffer *pSelf, gint iOff
 void dasher_internal_buffer_change_context(DasherInternalBuffer *pSelf, GtkTextIter *pIter, GtkTextMark *pMark) {
   const char *szMarkName(gtk_text_mark_get_name(pMark));
   if(szMarkName && !strcmp(szMarkName,"insert")) {
-    g_signal_emit(pSelf, idasher_buffer_set_signals[CONTEXT_CHANGED], 0, NULL);
+    g_signal_emit_by_name(G_OBJECT(pSelf), "context_changed", G_OBJECT(pSelf), NULL, NULL);
   }
 }
 
@@ -350,7 +350,8 @@ void dasher_internal_buffer_clear(DasherInternalBuffer *pSelf) {
 
   gtk_text_buffer_delete(pPrivate->pBuffer, start, end);
 
-  g_signal_emit(pSelf, idasher_buffer_set_signals[CONTEXT_CHANGED], 0, NULL);
+  /* TODO: this probably shouldn't emit a signal */
+  g_signal_emit_by_name(G_OBJECT(pSelf), "context_changed", G_OBJECT(pSelf), NULL, NULL);
 
   pPrivate->iCurrentState = 0;
   pPrivate->iLastOffset = 0;

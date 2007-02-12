@@ -1,20 +1,19 @@
-#include "../Common/Common.h"
 #include "../../config.h"
 
+#include <glib/gi18n.h>
+#include <libintl.h>
+
+#include "../Common/Common.h"
+#include "DasherTypes.h"
+#include "FontDialogues.h"
 #include "Preferences.h"
 #include "Parameters.h"
-#include "dasher.h"
-#include "config.h"
-#include "GtkDasherControl.h"
-#include "Menu.h"
-
-#include "DasherControl.h"
-
-#include "DasherTypes.h"
 #include "module_settings_window.h"
 
-#include <cstring>
-#include <libintl.h>
+#define DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf) (DasherPreferencesDialoguePrivate *)(pSelf->private_data);
+
+/* Static global member - use to deal with callbacks */
+static DasherPreferencesDialogue *g_pPreferencesDialogue = NULL;
 
 // TODO: Reintroduce advanced settings and start on mouse position offset
 
@@ -87,83 +86,32 @@ enum {
   ACTIONS_N_COLUMNS
 };
 
-void RefreshWidget(gint iParameter);
-extern "C" void RefreshParameter(GtkWidget *pWidget, gpointer pUserData);
-void InitialiseTables(GladeXML *pGladeWidgets);
-void dasher_preferences_populate_list(GtkTreeView *pView, int iParameter, GtkWidget *pHelper);
-extern "C" void advanced_edited_callback(GtkCellRendererText * cell, gchar * path_string, gchar * new_text, gpointer user_data);
-extern "C" void colour_select(GtkTreeSelection * selection, gpointer data);
-extern "C" void on_action_toggle(GtkCellRendererToggle *pRenderer, gchar *szPath, gpointer pUserData);
-extern "C" void on_list_selection(GtkTreeSelection *pSelection, gpointer pUserData);
-extern "C" void on_widget_realize(GtkWidget *pWidget, gpointer pUserData);
-extern "C" gboolean show_helper_window(GtkWidget *pWidget, gpointer *pUserData);
-
-// Private member variables
-GtkWidget *dasher_preferences_dialogue_get_helper(DasherPreferencesDialogue *pSelf, int iParameter, const gchar *szValue);
-
-void populate_special_speed(GladeXML *pGladeWidgets);
-void populate_special_mouse_start(GladeXML *pGladeWidgets);
-void populate_special_orientation(GladeXML *pGladeWidgets);
-void populate_special_appstyle(GladeXML *pGladeWidgets);
-void populate_special_linewidth(GladeXML *pGladeWidgets);
-void populate_special_lm(GladeXML *pGladeWidgets);
-void populate_special_uniform(GladeXML *pGladeWidgets);
-void populate_special_colour(GladeXML *pGladeWidgets);
-void populate_special_dasher_font(GladeXML *pGladeWidgets);
-void populate_special_edit_font(GladeXML *pGladeWidgets);
-void populate_special_fontsize(GladeXML *pGladeWidgets);
-
-typedef struct _SpecialControl SpecialControl;
-
-struct _SpecialControl {
-  int iID;
-  void (*pPopulate)(GladeXML *);
-  gboolean bPrimary;
-};
-
-SpecialControl sSpecialControlTable[] = {
-  {LP_MAX_BITRATE, populate_special_speed, true},
-  {BP_MOUSEPOS_MODE, populate_special_mouse_start, true},
-  {BP_CIRCLE_START, populate_special_mouse_start, false},
-  {LP_ORIENTATION, populate_special_orientation, true},
-  {LP_REAL_ORIENTATION, populate_special_orientation, false},
-  {APP_LP_STYLE, populate_special_appstyle, true},
-  {LP_LINE_WIDTH, populate_special_linewidth, true},
-  {LP_LANGUAGE_MODEL_ID, populate_special_lm, true},
-  {LP_UNIFORM, populate_special_uniform, true},
-  {BP_PALETTE_CHANGE, populate_special_colour, true},
-  {SP_DASHER_FONT, populate_special_dasher_font, true},
-  {APP_SP_EDIT_FONT, populate_special_edit_font, true}, 
-  {LP_DASHER_FONTSIZE, populate_special_fontsize, true}
-};
-
-void update_special(int iID);
-
-
-static GtkListStore *g_pStore;
-static GladeXML *widgets;
-static GtkWidget *preferences_window;
-static GtkWidget *m_pLRButton;
-static GtkWidget *m_pRLButton;
-static GtkWidget *m_pTBButton;
-static GtkWidget *m_pBTButton;
-static GtkWidget *m_pSpeedSlider;
-static GtkWidget *m_pMousePosButton;
-static GtkWidget *m_pMousePosStyle;
-
-// Set this to ignore signals (ie loops coming back from setting widgets in response to parameters having changed)
-static bool g_bIgnoreSignals(false);
-
-#define _(_x) gettext(_x)
-
 // TODO: Look at coding convention stuff for gobjets
 
 /// Newer, object based stuff
 
 struct _DasherPreferencesDialoguePrivate {
-  GtkWindow *pWindow;
+  GtkWidget *pPreferencesWindow;
   DasherEditor *pEditor;
+  DasherAppSettings *pAppSettings;
+  GtkWindow *pMainWindow;
+
+  // TODO: it really would be nice not to have to keep this arround
+  GladeXML *pGladeXML;
+
+  // TODO: check all of these are really needed
+  GtkListStore *pListStore;
+  GtkWidget *pLRButton;
+  GtkWidget *pRLButton;
+  GtkWidget *pTBButton;
+  GtkWidget *pBTButton;
+  GtkWidget *pSpeedSlider;
+  GtkWidget *pMousePosButton;
+  GtkWidget *pMousePosStyle;
   GtkWidget *pActionTreeView;
+
+  // Set this to ignore signals (ie loops coming back from setting widgets in response to parameters having changed)
+  bool bIgnoreSignals;
 };
 
 typedef struct _DasherPreferencesDialoguePrivate DasherPreferencesDialoguePrivate;
@@ -172,6 +120,63 @@ typedef struct _DasherPreferencesDialoguePrivate DasherPreferencesDialoguePrivat
 static void dasher_preferences_dialogue_class_init(DasherPreferencesDialogueClass *pClass);
 static void dasher_preferences_dialogue_init(DasherPreferencesDialogue *pMain);
 static void dasher_preferences_dialogue_destroy(GObject *pObject);
+
+static GtkWidget *dasher_preferences_dialogue_get_helper(DasherPreferencesDialogue *pSelf, int iParameter, const gchar *szValue);
+static void dasher_preferences_dialogue_initialise_tables(DasherPreferencesDialogue *pSelf);
+static void dasher_preferences_dialogue_refresh_widget(DasherPreferencesDialogue *pSelf, gint iParameter);
+static void dasher_preferences_dialogue_populate_list(DasherPreferencesDialogue *pSelf, GtkTreeView *pView, int iParameter, GtkWidget *pHelper);
+static void dasher_preferences_dialogue_update_special(DasherPreferencesDialogue *pSelf, int iID);
+static void dasher_preferences_dialogue_refresh_parameter(DasherPreferencesDialogue *pSelf, GtkWidget *pWidget, gpointer pUserData);
+
+/* Special privalte members called via table (see below) */
+static void dasher_preferences_dialogue_populate_special_speed(DasherPreferencesDialogue *pSelf);
+static void dasher_preferences_dialogue_populate_special_mouse_start(DasherPreferencesDialogue *pSelf);
+static void dasher_preferences_dialogue_populate_special_orientation(DasherPreferencesDialogue *pSelf);
+static void dasher_preferences_dialogue_populate_special_appstyle(DasherPreferencesDialogue *pSelf);
+static void dasher_preferences_dialogue_populate_special_linewidth(DasherPreferencesDialogue *pSelf);
+static void dasher_preferences_dialogue_populate_special_lm(DasherPreferencesDialogue *pSelf);
+static void dasher_preferences_dialogue_populate_special_uniform(DasherPreferencesDialogue *pSelf);
+static void dasher_preferences_dialogue_populate_special_colour(DasherPreferencesDialogue *pSelf);
+static void dasher_preferences_dialogue_populate_special_dasher_font(DasherPreferencesDialogue *pSelf);
+static void dasher_preferences_dialogue_populate_special_edit_font(DasherPreferencesDialogue *pSelf);
+static void dasher_preferences_dialogue_populate_special_fontsize(DasherPreferencesDialogue *pSelf);
+
+static void dasher_preferences_dialogue_populate_actions(DasherPreferencesDialogue *pSelf);
+
+typedef struct _SpecialControl SpecialControl;
+
+struct _SpecialControl {
+  int iID;
+  void (*pPopulate)(DasherPreferencesDialogue *);
+  gboolean bPrimary;
+};
+
+SpecialControl sSpecialControlTable[] = {
+  {LP_MAX_BITRATE, dasher_preferences_dialogue_populate_special_speed, true},
+  {BP_MOUSEPOS_MODE, dasher_preferences_dialogue_populate_special_mouse_start, true},
+  {BP_CIRCLE_START, dasher_preferences_dialogue_populate_special_mouse_start, false},
+  {LP_ORIENTATION, dasher_preferences_dialogue_populate_special_orientation, true},
+  {LP_REAL_ORIENTATION, dasher_preferences_dialogue_populate_special_orientation, false},
+  {APP_LP_STYLE, dasher_preferences_dialogue_populate_special_appstyle, true},
+  {LP_LINE_WIDTH, dasher_preferences_dialogue_populate_special_linewidth, true},
+  {LP_LANGUAGE_MODEL_ID, dasher_preferences_dialogue_populate_special_lm, true},
+  {LP_UNIFORM, dasher_preferences_dialogue_populate_special_uniform, true},
+  {BP_PALETTE_CHANGE, dasher_preferences_dialogue_populate_special_colour, true},
+  {SP_DASHER_FONT, dasher_preferences_dialogue_populate_special_dasher_font, true},
+  {APP_SP_EDIT_FONT, dasher_preferences_dialogue_populate_special_edit_font, true}, 
+  {LP_DASHER_FONTSIZE, dasher_preferences_dialogue_populate_special_fontsize, true}
+};
+
+// Callback functions
+extern "C" void on_action_toggle(GtkCellRendererToggle *pRenderer, gchar *szPath, gpointer pUserData);
+extern "C" void on_list_selection(GtkTreeSelection *pSelection, gpointer pUserData);
+extern "C" void on_widget_realize(GtkWidget *pWidget, gpointer pUserData);
+extern "C" gboolean show_helper_window(GtkWidget *pWidget, gpointer *pUserData);
+extern "C" gboolean dasher_preferences_refresh_foreach_function(GtkTreeModel *pModel, GtkTreePath *pPath, GtkTreeIter *pIter, gpointer pUserData);
+
+
+/* Start definitions */
+
 
 GType dasher_preferences_dialogue_get_type() {
 
@@ -213,30 +218,41 @@ static void dasher_preferences_dialogue_destroy(GObject *pObject) {
 
 // Public methods
 
-DasherPreferencesDialogue *dasher_preferences_dialogue_new(GladeXML *pGladeWidgets, DasherEditor *pEditor) {
+DasherPreferencesDialogue *dasher_preferences_dialogue_new(GladeXML *pGladeWidgets, DasherEditor *pEditor, DasherAppSettings *pAppSettings, GtkWindow *pMainWindow) {
   DasherPreferencesDialogue *pDasherControl;
   pDasherControl = (DasherPreferencesDialogue *)(g_object_new(dasher_preferences_dialogue_get_type(), NULL));
+
+  g_pPreferencesDialogue = pDasherControl;
+
   DasherPreferencesDialoguePrivate *pPrivate = (DasherPreferencesDialoguePrivate *)(pDasherControl->private_data);
 
+  pPrivate->bIgnoreSignals = false;
+
   pPrivate->pEditor = pEditor;
+  pPrivate->pAppSettings = pAppSettings;
 
-  widgets = pGladeWidgets;
+  pPrivate->pGladeXML = pGladeWidgets;
 
-  preferences_window = glade_xml_get_widget(pGladeWidgets, "preferences");
-  pPrivate->pWindow = GTK_WINDOW(preferences_window);
+  pPrivate->pPreferencesWindow = glade_xml_get_widget(pGladeWidgets, "preferences");
 
   pPrivate->pActionTreeView =glade_xml_get_widget(pGladeWidgets, "action_tree_view");
 
-  gtk_window_set_transient_for(GTK_WINDOW(preferences_window), GTK_WINDOW(window));
+  gtk_window_set_transient_for(GTK_WINDOW(pPrivate->pPreferencesWindow), pMainWindow);
 
-  m_pSpeedSlider = glade_xml_get_widget(pGladeWidgets, "hscale1");
-  InitialiseTables(pGladeWidgets);
-  RefreshWidget(-1);
-  update_special(-1); // TODO: Make this a class member
+  pPrivate->pMainWindow = pMainWindow;
+
+  pPrivate->pSpeedSlider = glade_xml_get_widget(pGladeWidgets, "hscale1");
+  dasher_preferences_dialogue_initialise_tables(pDasherControl);
+  dasher_preferences_dialogue_refresh_widget(pDasherControl, -1);
+  dasher_preferences_dialogue_update_special(pDasherControl, -1);
 
 #ifndef JAPANESE
   gtk_widget_hide(glade_xml_get_widget(pGladeWidgets, "radiobutton9"));
 #endif
+
+  dasher_preferences_dialogue_populate_actions(pDasherControl);
+
+  InitialiseFontDialogues(pGladeWidgets);
 
   return pDasherControl;
 }
@@ -248,50 +264,56 @@ void dasher_preferences_dialogue_show(DasherPreferencesDialogue *pSelf) {
   // Keep the preferences window in the correct position relative to the
   // main Dasher window
   
-  gtk_window_set_transient_for(pPrivate->pWindow,GTK_WINDOW(window));
+  gtk_window_set_transient_for(GTK_WINDOW(pPrivate->pPreferencesWindow),pPrivate->pMainWindow);
 #ifdef WITH_MAEMO
 #ifndef WITH_MAEMOFULLSCREEN
-  gtk_window_set_keep_above((pPrivate->pWindow), true);
+  gtk_window_set_keep_above((pPrivate->pPreferencesWindow), true);
 #endif
 #endif
-  gtk_window_set_keep_above((pPrivate->pWindow), dasher_main_topmost(g_pDasherMain));
-  gtk_window_present(pPrivate->pWindow);
+  // TODO: reimplement
+  //  gtk_window_set_keep_above(GTK_WINDOW(pPrivate->pPreferencesWindow), dasher_main_topmost(g_pDasherMain));
+  gtk_window_present(GTK_WINDOW(pPrivate->pPreferencesWindow));
 }
 
 
 void dasher_preferences_dialogue_handle_parameter_change(DasherPreferencesDialogue *pSelf, int iParameter) {
-  RefreshWidget(iParameter);
-  update_special(iParameter);
+  dasher_preferences_dialogue_refresh_widget(pSelf, iParameter);
+  dasher_preferences_dialogue_update_special(pSelf, iParameter);
 }
 
 
 // --- Generic Options ---
 
-void InitialiseTables(GladeXML *pGladeWidgets) {
+void dasher_preferences_dialogue_initialise_tables(DasherPreferencesDialogue *pSelf) {
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+ 
+
 #ifndef WITH_MAEMO
   int iNumBoolEntries = sizeof(sBoolTranslationTable) / sizeof(BoolTranslation);
   for(int i(0); i < iNumBoolEntries; ++i) {
-    sBoolTranslationTable[i].pWidget = glade_xml_get_widget(pGladeWidgets, sBoolTranslationTable[i].szWidgetName);
+    sBoolTranslationTable[i].pWidget = glade_xml_get_widget(pPrivate->pGladeXML, sBoolTranslationTable[i].szWidgetName);
   }
 #endif
 
   int iNumStringEntries = sizeof(sStringTranslationTable) / sizeof(StringTranslation);
   for(int i(0); i < iNumStringEntries; ++i) {
-    sStringTranslationTable[i].pWidget = glade_xml_get_widget(pGladeWidgets, sStringTranslationTable[i].szWidgetName);
+    sStringTranslationTable[i].pWidget = glade_xml_get_widget(pPrivate->pGladeXML, sStringTranslationTable[i].szWidgetName);
     if(sStringTranslationTable[i].szHelperName)
-      sStringTranslationTable[i].pHelper = glade_xml_get_widget(pGladeWidgets, sStringTranslationTable[i].szHelperName);
+      sStringTranslationTable[i].pHelper = glade_xml_get_widget(pPrivate->pGladeXML, sStringTranslationTable[i].szHelperName);
 
-    dasher_preferences_populate_list(GTK_TREE_VIEW(sStringTranslationTable[i].pWidget), sStringTranslationTable[i].iParameter, sStringTranslationTable[i].pHelper);
+    dasher_preferences_dialogue_populate_list(pSelf, GTK_TREE_VIEW(sStringTranslationTable[i].pWidget), sStringTranslationTable[i].iParameter, sStringTranslationTable[i].pHelper);
     g_signal_connect(sStringTranslationTable[i].pWidget, "realize", (GCallback)on_widget_realize, &sStringTranslationTable[i].iParameter);
   }
 }
 
-extern "C" gboolean refresh_foreach_function(GtkTreeModel *pModel, GtkTreePath *pPath, GtkTreeIter *pIter, gpointer pUserData) {
-  
+extern "C" gboolean dasher_preferences_refresh_foreach_function(GtkTreeModel *pModel, GtkTreePath *pPath, GtkTreeIter *pIter, gpointer pUserData) {
   gpointer *pPointers = (gpointer *)pUserData;
+
+  DasherPreferencesDialogue *pSelf = (DasherPreferencesDialogue *)pPointers[2];
 
   gchar *szTarget = (gchar *)pPointers[0];
   gchar *szComparison;
+
   gtk_tree_model_get(pModel, pIter, 2, &szComparison, -1);
 
   if(!strcmp(szTarget, szComparison)) {
@@ -306,12 +328,15 @@ extern "C" gboolean refresh_foreach_function(GtkTreeModel *pModel, GtkTreePath *
   return false;
 }
 
-void RefreshWidget(gint iParameter) {
+
+void dasher_preferences_dialogue_refresh_widget(DasherPreferencesDialogue *pSelf, gint iParameter) {
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+
 #ifndef WITH_MAEMO
   int iNumBoolEntries = sizeof(sBoolTranslationTable) / sizeof(BoolTranslation);
   for(int i(0); i < iNumBoolEntries; ++i) {
     if((iParameter == -1) || (sBoolTranslationTable[i].iParameter == iParameter)) {
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(sBoolTranslationTable[i].pWidget), dasher_app_settings_get_bool(g_pDasherAppSettings, sBoolTranslationTable[i].iParameter));
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(sBoolTranslationTable[i].pWidget), dasher_app_settings_get_bool(pPrivate->pAppSettings, sBoolTranslationTable[i].iParameter));
     }
   }
 #endif
@@ -324,24 +349,30 @@ void RefreshWidget(gint iParameter) {
     if((iParameter == -1) || (sStringTranslationTable[i].iParameter == iParameter)) {
       GtkTreeModel *pModel = gtk_tree_view_get_model(GTK_TREE_VIEW(sStringTranslationTable[i].pWidget));
 
-      const void *pUserData[2];
-      pUserData[0] = dasher_app_settings_get_string(g_pDasherAppSettings, sStringTranslationTable[i].iParameter);
+      // TODO: tidy up in a struct
+      const void *pUserData[3];
+      pUserData[0] = dasher_app_settings_get_string(pPrivate->pAppSettings, sStringTranslationTable[i].iParameter);
       pUserData[1] = GTK_TREE_VIEW(sStringTranslationTable[i].pWidget);
+      pUserData[2] = pSelf;
       
       if(sStringTranslationTable[i].pWidget && GTK_WIDGET_REALIZED(sStringTranslationTable[i].pWidget))
-	gtk_tree_model_foreach(pModel, refresh_foreach_function, pUserData);
+	gtk_tree_model_foreach(pModel, dasher_preferences_refresh_foreach_function, pUserData);
     }
   }
 }
 
-extern "C" void RefreshParameter(GtkWidget *pWidget, gpointer pUserData) {
+static void dasher_preferences_dialogue_refresh_parameter(DasherPreferencesDialogue *pSelf, GtkWidget *pWidget, gpointer pUserData) {
 #ifndef WITH_MAEMO
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+  
   int iNumBoolEntries = sizeof(sBoolTranslationTable) / sizeof(BoolTranslation);
   
   for(int i(0); i < iNumBoolEntries; ++i) {
     if((pWidget == NULL) || (sBoolTranslationTable[i].pWidget == pWidget)) {
-      if(GTK_TOGGLE_BUTTON(sBoolTranslationTable[i].pWidget)->active != dasher_app_settings_get_bool(g_pDasherAppSettings, sBoolTranslationTable[i].iParameter)) {
-	dasher_app_settings_set_bool(g_pDasherAppSettings, sBoolTranslationTable[i].iParameter, GTK_TOGGLE_BUTTON(sBoolTranslationTable[i].pWidget)->active);
+
+      if(GTK_TOGGLE_BUTTON(sBoolTranslationTable[i].pWidget)->active != dasher_app_settings_get_bool(pPrivate->pAppSettings, sBoolTranslationTable[i].iParameter)) {
+	
+	dasher_app_settings_set_bool(pPrivate->pAppSettings, sBoolTranslationTable[i].iParameter, GTK_TOGGLE_BUTTON(sBoolTranslationTable[i].pWidget)->active);
       }
     }
   }
@@ -351,23 +382,25 @@ extern "C" void RefreshParameter(GtkWidget *pWidget, gpointer pUserData) {
 // TODO: Is this function actually useful? (conversely, is the other call to RefreshFoo elsewhere any use?)
 extern "C" void on_widget_realize(GtkWidget *pWidget, gpointer pUserData) {
   gint *pParameter = (gint *)pUserData;
-  RefreshWidget(*pParameter);
+  dasher_preferences_dialogue_refresh_widget(g_pPreferencesDialogue, *pParameter); // TODO: Fix NULL pointer
 }
 
 // --- Generic boolean options ---
 
 extern "C" void generic_bool_changed(GtkWidget *widget, gpointer user_data) {
-  RefreshParameter(widget, user_data);
+  dasher_preferences_dialogue_refresh_parameter(g_pPreferencesDialogue, widget, user_data);// TODO: fix NULL
 }
 
 // --- Generic string options ---
 
-void dasher_preferences_populate_list(GtkTreeView *pView, int iParameter, GtkWidget *pHelper) {
+void dasher_preferences_dialogue_populate_list(DasherPreferencesDialogue *pSelf, GtkTreeView *pView, int iParameter, GtkWidget *pHelper) {
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+  
   // TODO: Need to kill helpers on list depopulation
 
-  const gchar *szCurrentValue(gtk_dasher_control_get_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), iParameter));
+  const gchar *szCurrentValue(dasher_app_settings_get_string(pPrivate->pAppSettings, iParameter));
 
-  GArray *pFilterArray = gtk_dasher_control_get_allowed_values(GTK_DASHER_CONTROL(pDasherWidget), iParameter);
+  GArray *pFilterArray = dasher_app_settings_get_allowed_values(pPrivate->pAppSettings, iParameter);
 
   GtkListStore *pStore = gtk_list_store_new(6, G_TYPE_INT, G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_POINTER);
   gtk_tree_view_set_model(pView, GTK_TREE_MODEL(pStore));
@@ -394,7 +427,7 @@ void dasher_preferences_populate_list(GtkTreeView *pView, int iParameter, GtkWid
     GtkWidget *pHelperWindow;
 
     if(pHelper) {
-      pHelperWindow = dasher_preferences_dialogue_get_helper(g_pPreferencesDialogue, iParameter, szName);
+      pHelperWindow = dasher_preferences_dialogue_get_helper(pSelf, iParameter, szName);
       g_signal_connect(G_OBJECT(pHelper), "clicked", G_CALLBACK(show_helper_window), pHelperWindowRef);
     }
     else
@@ -415,7 +448,11 @@ void dasher_preferences_populate_list(GtkTreeView *pView, int iParameter, GtkWid
   g_signal_connect(pSelection, "changed", (GCallback)on_list_selection, 0);
 }
 
+// TODO: In class
 extern "C" void on_list_selection(GtkTreeSelection *pSelection, gpointer pUserData) {
+  //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix null
+
   GtkTreeIter oIter;
   GtkTreeModel *pModel;
   
@@ -427,7 +464,7 @@ extern "C" void on_list_selection(GtkTreeSelection *pSelection, gpointer pUserDa
     gchar *szValue;
     gtk_tree_model_get(pModel, &oIter, 0, &iParameter, 1, &pHelper, 2, &szValue, 4, &pHelperWindow, 5, &pHelperWindowRef, -1);
     
-    gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), iParameter, szValue);
+    dasher_app_settings_set_string(pPrivate->pAppSettings, iParameter, szValue);
     
     if(pHelper) {
       gtk_widget_set_sensitive(GTK_WIDGET(pHelper), pHelperWindow != NULL);
@@ -437,214 +474,239 @@ extern "C" void on_list_selection(GtkTreeSelection *pSelection, gpointer pUserDa
 }
 
 GtkWidget *dasher_preferences_dialogue_get_helper(DasherPreferencesDialogue *pSelf, int iParameter, const gchar *szValue) {
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+
   SModuleSettings *pSettings;
   int iCount;
 
-  if(!gtk_dasher_control_get_module_settings(GTK_DASHER_CONTROL(pDasherWidget), szValue, &pSettings, &iCount))
+  if(!dasher_app_settings_get_module_settings(pPrivate->pAppSettings, szValue, &pSettings, &iCount))
     return NULL;
 
-  return module_settings_window_new(g_pDasherAppSettings, szValue, pSettings, iCount);
+  return module_settings_window_new(pPrivate->pAppSettings, szValue, pSettings, iCount);
 }
 
 // --- Special Cases ---
 
-void populate_special_speed(GladeXML *pGladeWidgets) {
-  double dNewValue = dasher_app_settings_get_long(g_pDasherAppSettings, LP_MAX_BITRATE) / 100.0;
-  gtk_range_set_value(GTK_RANGE(m_pSpeedSlider), dNewValue); 
+static void dasher_preferences_dialogue_populate_special_speed(DasherPreferencesDialogue *pSelf) {
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+
+  double dNewValue = dasher_app_settings_get_long(pPrivate->pAppSettings, LP_MAX_BITRATE) / 100.0;
+  gtk_range_set_value(GTK_RANGE(pPrivate->pSpeedSlider), dNewValue); 
 }
 
-void populate_special_mouse_start(GladeXML *pGladeWidgets) {
+static void dasher_preferences_dialogue_populate_special_mouse_start(DasherPreferencesDialogue *pSelf) {
 #ifndef WITH_MAEMO
-  m_pMousePosButton = glade_xml_get_widget(pGladeWidgets, "mouseposbutton");
-  m_pMousePosStyle = glade_xml_get_widget(pGladeWidgets, "MousePosStyle");
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
 
-  if(dasher_app_settings_get_bool(g_pDasherAppSettings, BP_MOUSEPOS_MODE)) {
-    gtk_combo_box_set_active(GTK_COMBO_BOX(m_pMousePosStyle), 1);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "mouseposbutton")), true);
+  pPrivate->pMousePosButton = glade_xml_get_widget(pPrivate->pGladeXML, "mouseposbutton");
+  pPrivate->pMousePosStyle = glade_xml_get_widget(pPrivate->pGladeXML, "MousePosStyle");
+
+  if(dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_MOUSEPOS_MODE)) {
+    gtk_combo_box_set_active(GTK_COMBO_BOX(pPrivate->pMousePosStyle), 1);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "mouseposbutton")), true);
   }
-  else if(dasher_app_settings_get_bool(g_pDasherAppSettings, BP_CIRCLE_START)) {
-    gtk_combo_box_set_active(GTK_COMBO_BOX(m_pMousePosStyle), 0);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "mouseposbutton")), true);
+  else if(dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_CIRCLE_START)) {
+    gtk_combo_box_set_active(GTK_COMBO_BOX(pPrivate->pMousePosStyle), 0);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "mouseposbutton")), true);
   }
   else {
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "mouseposbutton")), false);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "mouseposbutton")), false);
   }
 #endif 
 }
 
-void populate_special_orientation(GladeXML *pGladeWidgets) {
-  m_pLRButton = glade_xml_get_widget(pGladeWidgets, "radiobutton2");
-  m_pRLButton = glade_xml_get_widget(pGladeWidgets, "radiobutton3");
-  m_pTBButton = glade_xml_get_widget(pGladeWidgets, "radiobutton4");
-  m_pBTButton = glade_xml_get_widget(pGladeWidgets, "radiobutton5");
+static void dasher_preferences_dialogue_populate_special_orientation(DasherPreferencesDialogue *pSelf) {
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
 
-  switch (getLong(LP_ORIENTATION)) {
+  pPrivate->pLRButton = glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton2");
+  pPrivate->pRLButton = glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton3");
+  pPrivate->pTBButton = glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton4");
+  pPrivate->pBTButton = glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton5");
+
+  switch (dasher_app_settings_get_long(pPrivate->pAppSettings, LP_ORIENTATION)) {
   case Dasher::Opts::Alphabet:
-    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton1"))) != TRUE)
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton1")), TRUE); 
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton1"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton1")), TRUE); 
     
-    g_bIgnoreSignals = true;
+    pPrivate->bIgnoreSignals = true;
 
-    switch (getLong(LP_REAL_ORIENTATION)) {
+    switch (dasher_app_settings_get_long(pPrivate->pAppSettings, LP_REAL_ORIENTATION)) {
     case Dasher::Opts::LeftToRight:
-      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(m_pLRButton)) != TRUE)
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(m_pLRButton), TRUE);
+      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pPrivate->pLRButton)) != TRUE)
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pPrivate->pLRButton), TRUE);
       break;
     case Dasher::Opts::RightToLeft:
-      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(m_pRLButton)) != TRUE)
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(m_pRLButton), TRUE);
+      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pPrivate->pRLButton)) != TRUE)
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pPrivate->pRLButton), TRUE);
       break;
     case Dasher::Opts::TopToBottom:
-      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(m_pTBButton)) != TRUE)
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(m_pTBButton), TRUE);
+      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pPrivate->pTBButton)) != TRUE)
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pPrivate->pTBButton), TRUE);
       break;
     case Dasher::Opts::BottomToTop:
-      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(m_pTBButton)) != TRUE)
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(m_pTBButton), TRUE);
+      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pPrivate->pTBButton)) != TRUE)
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pPrivate->pTBButton), TRUE);
       break;
     }
 
-    g_bIgnoreSignals = false;
+    pPrivate->bIgnoreSignals = false;
 
-    gtk_widget_set_sensitive(m_pLRButton, FALSE);
-    gtk_widget_set_sensitive(m_pRLButton, FALSE);
-    gtk_widget_set_sensitive(m_pTBButton, FALSE);
-    gtk_widget_set_sensitive(m_pBTButton, FALSE);
+    gtk_widget_set_sensitive(pPrivate->pLRButton, FALSE);
+    gtk_widget_set_sensitive(pPrivate->pRLButton, FALSE);
+    gtk_widget_set_sensitive(pPrivate->pTBButton, FALSE);
+    gtk_widget_set_sensitive(pPrivate->pBTButton, FALSE);
 
 
     break;
   case Dasher::Opts::LeftToRight:
-    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton2"))) != TRUE)
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton2")), TRUE); 
-    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton12"))) != TRUE)
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton12")), TRUE); 
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton2"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton2")), TRUE); 
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton12"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton12")), TRUE); 
 
-    gtk_widget_set_sensitive(m_pLRButton, TRUE);
-    gtk_widget_set_sensitive(m_pRLButton, TRUE);
-    gtk_widget_set_sensitive(m_pTBButton, TRUE);
-    gtk_widget_set_sensitive(m_pBTButton, TRUE);
+    gtk_widget_set_sensitive(pPrivate->pLRButton, TRUE);
+    gtk_widget_set_sensitive(pPrivate->pRLButton, TRUE);
+    gtk_widget_set_sensitive(pPrivate->pTBButton, TRUE);
+    gtk_widget_set_sensitive(pPrivate->pBTButton, TRUE);
     break;
   case Dasher::Opts::RightToLeft:
-    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton3"))) != TRUE)
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton3")), TRUE); 
-    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton12"))) != TRUE)
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton12")), TRUE); 
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton3"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton3")), TRUE); 
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton12"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton12")), TRUE); 
 
-    gtk_widget_set_sensitive(m_pLRButton, TRUE);
-    gtk_widget_set_sensitive(m_pRLButton, TRUE);
-    gtk_widget_set_sensitive(m_pTBButton, TRUE);
-    gtk_widget_set_sensitive(m_pBTButton, TRUE);
+    gtk_widget_set_sensitive(pPrivate->pLRButton, TRUE);
+    gtk_widget_set_sensitive(pPrivate->pRLButton, TRUE);
+    gtk_widget_set_sensitive(pPrivate->pTBButton, TRUE);
+    gtk_widget_set_sensitive(pPrivate->pBTButton, TRUE);
     break;
   case Dasher::Opts::TopToBottom:
-    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton4"))) != TRUE)
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton4")), TRUE);  
-    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton12"))) != TRUE)
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton12")), TRUE); 
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton4"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton4")), TRUE);  
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton12"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton12")), TRUE); 
 
-    gtk_widget_set_sensitive(m_pLRButton, TRUE);
-    gtk_widget_set_sensitive(m_pRLButton, TRUE);
-    gtk_widget_set_sensitive(m_pTBButton, TRUE);
-    gtk_widget_set_sensitive(m_pBTButton, TRUE);
+    gtk_widget_set_sensitive(pPrivate->pLRButton, TRUE);
+    gtk_widget_set_sensitive(pPrivate->pRLButton, TRUE);
+    gtk_widget_set_sensitive(pPrivate->pTBButton, TRUE);
+    gtk_widget_set_sensitive(pPrivate->pBTButton, TRUE);
     break;
   case Dasher::Opts::BottomToTop:
-    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton5"))) != TRUE)
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton5")), TRUE); 
-    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton12"))) != TRUE)
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton12")), TRUE); 
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton5"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton5")), TRUE); 
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton12"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton12")), TRUE); 
 
-    gtk_widget_set_sensitive(m_pLRButton, TRUE);
-    gtk_widget_set_sensitive(m_pRLButton, TRUE);
-    gtk_widget_set_sensitive(m_pTBButton, TRUE);
-    gtk_widget_set_sensitive(m_pBTButton, TRUE);
+    gtk_widget_set_sensitive(pPrivate->pLRButton, TRUE);
+    gtk_widget_set_sensitive(pPrivate->pRLButton, TRUE);
+    gtk_widget_set_sensitive(pPrivate->pTBButton, TRUE);
+    gtk_widget_set_sensitive(pPrivate->pBTButton, TRUE);
     break;
   }
 }
 
-void populate_special_appstyle(GladeXML *pGladeWidgets) {
+static void dasher_preferences_dialogue_populate_special_appstyle(DasherPreferencesDialogue *pSelf) {
 #ifndef WITH_MAEMO  
-  switch(dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_STYLE)) {
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+
+  switch(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE)) {
   case 0:
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "appstyle_classic")), TRUE);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "appstyle_classic")), TRUE);
     break;
   case 1: 
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "appstyle_compose")), TRUE);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "appstyle_compose")), TRUE);
     break;
   case 2:
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "appstyle_direct")), TRUE);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "appstyle_direct")), TRUE);
     break;   
   case 3:
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "appstyle_fullscreen")), TRUE);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "appstyle_fullscreen")), TRUE);
     break;
   }
 #endif
 }
 
-void populate_special_linewidth(GladeXML *pGladeWidgets) {
+static void dasher_preferences_dialogue_populate_special_linewidth(DasherPreferencesDialogue *pSelf) {
 #ifndef WITH_MAEMO
-  if(getLong(LP_LINE_WIDTH) > 1)
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "thicklinebutton")), true);
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+
+  if(dasher_app_settings_get_long(pPrivate->pAppSettings, LP_LINE_WIDTH) > 1)
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "thicklinebutton")), true);
   else
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "thicklinebutton")), false);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "thicklinebutton")), false);
 #endif
 }
 
 
-void populate_special_lm(GladeXML *pGladeWidgets) {
-  switch( gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_LANGUAGE_MODEL_ID )) {
+static void dasher_preferences_dialogue_populate_special_lm(DasherPreferencesDialogue *pSelf) {
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+
+  switch( dasher_app_settings_get_long(pPrivate->pAppSettings, LP_LANGUAGE_MODEL_ID )) {
   case 0:
-    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton6"))) != TRUE)
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton6")), TRUE);
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton6"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton6")), TRUE);
     break;
   case 2: 
-    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton7"))) != TRUE)
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton7")), TRUE);
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton7"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton7")), TRUE);
     break;
   case 3:
-    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton8"))) != TRUE)
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton8")), TRUE);
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton8"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton8")), TRUE);
     break;
   case 4:
-    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton9"))) != TRUE)
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton9")), TRUE);
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton9"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "radiobutton9")), TRUE);
     break;
   default:
     break;
   }
 }
 
-void populate_special_uniform(GladeXML *pGladeWidgets) {
-  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "uniformhscale")), getLong(LP_UNIFORM)/10.0);
+static void dasher_preferences_dialogue_populate_special_uniform(DasherPreferencesDialogue *pSelf) {
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+
+  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pPrivate->pGladeXML, "uniformhscale")), dasher_app_settings_get_long(pPrivate->pAppSettings, LP_UNIFORM)/10.0);
 }
 
-void populate_special_colour(GladeXML *pGladeWidgets) {
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "manual_colour")), !getBool(BP_PALETTE_CHANGE)); 
-  gtk_widget_set_sensitive(glade_xml_get_widget(pGladeWidgets, "ColorTree"), !getBool(BP_PALETTE_CHANGE));
+static void dasher_preferences_dialogue_populate_special_colour(DasherPreferencesDialogue *pSelf) {
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "manual_colour")), !dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_PALETTE_CHANGE)); 
+  gtk_widget_set_sensitive(glade_xml_get_widget(pPrivate->pGladeXML, "ColorTree"), !dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_PALETTE_CHANGE));
 }
 
+static void dasher_preferences_dialogue_populate_special_dasher_font(DasherPreferencesDialogue *pSelf) {
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
 
-void populate_special_dasher_font(GladeXML *pGladeWidgets) {
-  GtkWidget *pDasherFontButton = glade_xml_get_widget(pGladeWidgets, "dasherfontbutton");
-  PangoFontDescription *pFont = pango_font_description_from_string(dasher_app_settings_get_string(g_pDasherAppSettings, SP_DASHER_FONT));
+  GtkWidget *pDasherFontButton = glade_xml_get_widget(pPrivate->pGladeXML, "dasherfontbutton");
+  PangoFontDescription *pFont = pango_font_description_from_string(dasher_app_settings_get_string(pPrivate->pAppSettings, SP_DASHER_FONT));
   gtk_widget_modify_font(pDasherFontButton, pFont);
-  gtk_button_set_label(GTK_BUTTON(pDasherFontButton), dasher_app_settings_get_string(g_pDasherAppSettings, SP_DASHER_FONT));
+  gtk_button_set_label(GTK_BUTTON(pDasherFontButton), dasher_app_settings_get_string(pPrivate->pAppSettings, SP_DASHER_FONT));
 }
 
-void populate_special_edit_font(GladeXML *pGladeWidgets) {
-  GtkWidget *pEditFontButton = glade_xml_get_widget(pGladeWidgets, "editfontbutton");
-  gtk_button_set_label(GTK_BUTTON(pEditFontButton), dasher_app_settings_get_string(g_pDasherAppSettings, APP_SP_EDIT_FONT));
+static void dasher_preferences_dialogue_populate_special_edit_font(DasherPreferencesDialogue *pSelf) {
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+
+  GtkWidget *pEditFontButton = glade_xml_get_widget(pPrivate->pGladeXML, "editfontbutton");
+  gtk_button_set_label(GTK_BUTTON(pEditFontButton), dasher_app_settings_get_string(pPrivate->pAppSettings, APP_SP_EDIT_FONT));
 }
  
-void populate_special_fontsize(GladeXML *pGladeWidgets) {
-  int iValue = gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_DASHER_FONTSIZE);
-  gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "fontsizenormal")), iValue == Opts::Normal);
-  gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "fontsizelarge")), iValue == Opts::Big);
-  gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "fontsizevlarge")), iValue == Opts::VBig);
+static void dasher_preferences_dialogue_populate_special_fontsize(DasherPreferencesDialogue *pSelf) {
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+
+  int iValue = dasher_app_settings_get_long(pPrivate->pAppSettings, LP_DASHER_FONTSIZE);
+  gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "fontsizenormal")), iValue == Opts::Normal);
+  gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "fontsizelarge")), iValue == Opts::Big);
+  gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "fontsizevlarge")), iValue == Opts::VBig);
 }
 
-void update_special(int iID) {
+static void dasher_preferences_dialogue_update_special(DasherPreferencesDialogue *pSelf, int iID) {
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+
   for(unsigned int i(0); i < (sizeof(sSpecialControlTable) / sizeof(SpecialControl)); ++i) {
     if(((iID == -1) && sSpecialControlTable[i].bPrimary) || (sSpecialControlTable[i].iID == iID)) {
-      (sSpecialControlTable[i].pPopulate)(widgets);
+      (sSpecialControlTable[i].pPopulate)(pSelf);
     }
   }
 }
@@ -655,160 +717,192 @@ void update_special(int iID) {
 // TODO: Think about trying to combine OnMousePosStyleChanged and startonmousepos
 
 extern "C" void OnMousePosStyleChanged(GtkWidget *widget, gpointer user_data) {
+  //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
+
   // FIXME - duplicate code from extern "C" void startonmousepos
-  if(GTK_TOGGLE_BUTTON(m_pMousePosButton)->active) {
+  if(GTK_TOGGLE_BUTTON(pPrivate->pMousePosButton)->active) {
     int iIndex;
-    iIndex = gtk_combo_box_get_active(GTK_COMBO_BOX(m_pMousePosStyle));
+    iIndex = gtk_combo_box_get_active(GTK_COMBO_BOX(pPrivate->pMousePosStyle));
     
     if(iIndex == 1) {
-      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_MOUSEPOS_MODE, true);
-      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_CIRCLE_START, false);
+      dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_MOUSEPOS_MODE, true);
+      dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_CIRCLE_START, false);
     }
     else {
-      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_MOUSEPOS_MODE, false);
-      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_CIRCLE_START, true);
+      dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_MOUSEPOS_MODE, false);
+      dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_CIRCLE_START, true);
     }
   }
 }
 
 extern "C" void startonmousepos(GtkWidget *widget, gpointer user_data) {
+  //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
+
   if(GTK_TOGGLE_BUTTON(widget)->active) {
     int iIndex;
-    iIndex = gtk_combo_box_get_active(GTK_COMBO_BOX(m_pMousePosStyle));
+    iIndex = gtk_combo_box_get_active(GTK_COMBO_BOX(pPrivate->pMousePosStyle));
 
     if(iIndex == 1) {
-      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_MOUSEPOS_MODE, true);
-      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_CIRCLE_START, false);
+      dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_MOUSEPOS_MODE, true);
+      dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_CIRCLE_START, false);
     }
     else {
-      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_MOUSEPOS_MODE, false);
-      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_CIRCLE_START, true);
+      dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_MOUSEPOS_MODE, false);
+      dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_CIRCLE_START, true);
     }
   }
   else {
-    gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_MOUSEPOS_MODE, false);
-    gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_CIRCLE_START, false);
+    dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_MOUSEPOS_MODE, false);
+    dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_CIRCLE_START, false);
   }
 }
 
 extern "C" void PrefsSpeedSliderChanged(GtkHScale *hscale, gpointer user_data) {
-    long iNewValue = long(round(gtk_range_get_value(GTK_RANGE(hscale)) * 100));
-    dasher_app_settings_set_long(g_pDasherAppSettings, LP_MAX_BITRATE, iNewValue);
+  //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
+  
+  long iNewValue = long(round(gtk_range_get_value(GTK_RANGE(hscale)) * 100));
+  dasher_app_settings_set_long(pPrivate->pAppSettings, LP_MAX_BITRATE, iNewValue);
 }
 
 extern "C" void orientation(GtkRadioButton *widget, gpointer user_data) {
+  //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
 
-  if(g_bIgnoreSignals)
+  if(pPrivate->bIgnoreSignals)
     return;
 
   // Again, this could be neater.
   if(GTK_TOGGLE_BUTTON(widget)->active == TRUE) {
     if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton1")) {
-      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION, Dasher::Opts::Alphabet);
+      dasher_app_settings_set_long(pPrivate->pAppSettings, LP_ORIENTATION, Dasher::Opts::Alphabet);
       
       // FIXME - get rid of global variables here.
 
-      gtk_widget_set_sensitive(m_pLRButton, FALSE);
-      gtk_widget_set_sensitive(m_pRLButton, FALSE);
-      gtk_widget_set_sensitive(m_pTBButton, FALSE);
-      gtk_widget_set_sensitive(m_pBTButton, FALSE);
+      gtk_widget_set_sensitive(pPrivate->pLRButton, FALSE);
+      gtk_widget_set_sensitive(pPrivate->pRLButton, FALSE);
+      gtk_widget_set_sensitive(pPrivate->pTBButton, FALSE);
+      gtk_widget_set_sensitive(pPrivate->pBTButton, FALSE);
 
 
-      g_bIgnoreSignals = true;
+      pPrivate->bIgnoreSignals = true;
       
-      switch (getLong(LP_REAL_ORIENTATION)) {
+      switch (dasher_app_settings_get_long(pPrivate->pAppSettings, LP_REAL_ORIENTATION)) {
       case Dasher::Opts::LeftToRight:
-	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(m_pLRButton)) != TRUE)
-	  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(m_pLRButton), TRUE);
+	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pPrivate->pLRButton)) != TRUE)
+	  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pPrivate->pLRButton), TRUE);
 	break;
       case Dasher::Opts::RightToLeft:
-	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(m_pRLButton)) != TRUE)
-	  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(m_pRLButton), TRUE);
+	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pPrivate->pRLButton)) != TRUE)
+	  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pPrivate->pRLButton), TRUE);
 	break;
       case Dasher::Opts::TopToBottom:
-	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(m_pTBButton)) != TRUE)
-	  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(m_pTBButton), TRUE);
+	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pPrivate->pTBButton)) != TRUE)
+	  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pPrivate->pTBButton), TRUE);
 	break;
       case Dasher::Opts::BottomToTop:
-	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(m_pTBButton)) != TRUE)
-	  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(m_pTBButton), TRUE);
+	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pPrivate->pTBButton)) != TRUE)
+	  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pPrivate->pTBButton), TRUE);
 	break;
       }
 
-      g_bIgnoreSignals = false;
+      pPrivate->bIgnoreSignals = false;
     }
     else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton12")) {
-      gtk_widget_set_sensitive(m_pLRButton, TRUE);
-      gtk_widget_set_sensitive(m_pRLButton, TRUE);
-      gtk_widget_set_sensitive(m_pTBButton, TRUE);
-      gtk_widget_set_sensitive(m_pBTButton, TRUE);
+      gtk_widget_set_sensitive(pPrivate->pLRButton, TRUE);
+      gtk_widget_set_sensitive(pPrivate->pRLButton, TRUE);
+      gtk_widget_set_sensitive(pPrivate->pTBButton, TRUE);
+      gtk_widget_set_sensitive(pPrivate->pBTButton, TRUE);
 
-      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION,  getLong(LP_REAL_ORIENTATION));
+      dasher_app_settings_set_long(pPrivate->pAppSettings, LP_ORIENTATION,  dasher_app_settings_get_long(pPrivate->pAppSettings, LP_REAL_ORIENTATION));
     }
     else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton2")) {
-      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION, Dasher::Opts::LeftToRight);
+      dasher_app_settings_set_long(pPrivate->pAppSettings, LP_ORIENTATION, Dasher::Opts::LeftToRight);
     }
     else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton3")) {
-      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION, Dasher::Opts::RightToLeft);
+      dasher_app_settings_set_long(pPrivate->pAppSettings, LP_ORIENTATION, Dasher::Opts::RightToLeft);
     }
     else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton4")) {
-      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION, Dasher::Opts::TopToBottom);
+      dasher_app_settings_set_long(pPrivate->pAppSettings, LP_ORIENTATION, Dasher::Opts::TopToBottom);
     }
     else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton5")) {
-      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION, Dasher::Opts::BottomToTop);
+      dasher_app_settings_set_long(pPrivate->pAppSettings, LP_ORIENTATION, Dasher::Opts::BottomToTop);
     }
   }
 }
 
 extern "C" void ThickLineClicked(GtkWidget *widget, gpointer user_data) {
+  //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
+
   if(GTK_TOGGLE_BUTTON(widget)->active)
-    gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_LINE_WIDTH, 3);
+    dasher_app_settings_set_long(pPrivate->pAppSettings, LP_LINE_WIDTH, 3);
   else
-    gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_LINE_WIDTH, 1);
+    dasher_app_settings_set_long(pPrivate->pAppSettings, LP_LINE_WIDTH, 1);
 }
 
 extern "C" void autocolour_clicked(GtkWidget *widget, gpointer user_data) {
-  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_PALETTE_CHANGE, !GTK_TOGGLE_BUTTON(widget)->active);
+  //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
+
+  dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_PALETTE_CHANGE, !GTK_TOGGLE_BUTTON(widget)->active);
 }
 
 extern "C" void mouseposstart_y_changed(GtkRange *widget, gpointer user_data) {
+  //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
+
   int mouseposstartdist=int(widget->adjustment->value);
-  gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_MOUSEPOSDIST, mouseposstartdist);
+  dasher_app_settings_set_long(pPrivate->pAppSettings, LP_MOUSEPOSDIST, mouseposstartdist);
 }
 
 extern "C" void languagemodel(GtkRadioButton *widget, gpointer user_data) {
+  //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
+
   if (GTK_TOGGLE_BUTTON(widget)->active==TRUE) {
     if( !strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "radiobutton6" ) ) {
-      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget),  LP_LANGUAGE_MODEL_ID, 0 );
+      dasher_app_settings_set_long(pPrivate->pAppSettings, LP_LANGUAGE_MODEL_ID, 0 );
     } else if (!strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "radiobutton7" )) {
-      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget),  LP_LANGUAGE_MODEL_ID, 2 );
+      dasher_app_settings_set_long(pPrivate->pAppSettings, LP_LANGUAGE_MODEL_ID, 2 );
     } else if (!strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "radiobutton8" )) {
-      gtk_dasher_control_set_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_LANGUAGE_MODEL_ID, 3 );
+      dasher_app_settings_set_long(pPrivate->pAppSettings, LP_LANGUAGE_MODEL_ID, 3 );
     } else if (!strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "radiobutton9" )) {
-      gtk_dasher_control_set_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_LANGUAGE_MODEL_ID, 4 );
+      dasher_app_settings_set_long(pPrivate->pAppSettings, LP_LANGUAGE_MODEL_ID, 4 );
     }
   }
 }
 
 extern "C" void uniform_changed(GtkHScale *hscale) {
-  gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_UNIFORM, int (GTK_RANGE(hscale)->adjustment->value * 10));
+  //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
+
+  dasher_app_settings_set_long(pPrivate->pAppSettings, LP_UNIFORM, int (GTK_RANGE(hscale)->adjustment->value * 10));
 }
 
 extern "C" gboolean show_helper_window(GtkWidget *pWidget, gpointer *pUserData) {
+  //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
+
   gtk_window_present(GTK_WINDOW(*pUserData));
   return FALSE;
 }
 
 extern "C" void on_appstyle_changed(GtkWidget *widget, gpointer user_data) {
+  //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
+
   if(GTK_TOGGLE_BUTTON(widget)->active) {
     if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "appstyle_classic"))
-      dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_STYLE, 0);
+      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 0);
     else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "appstyle_compose"))
-      dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_STYLE, 1);
+      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 1);
     else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "appstyle_direct"))
-      dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_STYLE, 2);
+      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 2);
     else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "appstyle_fullscreen"))
-      dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_STYLE, 3);
+      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 3);
   }
 }
 
@@ -822,14 +916,14 @@ void dasher_preferences_dialogue_populate_actions(DasherPreferencesDialogue *pSe
 #ifndef WITH_MAEMO
   DasherPreferencesDialoguePrivate *pPrivate = (DasherPreferencesDialoguePrivate *)(pSelf->private_data);
   
-  g_pStore = gtk_list_store_new(ACTIONS_N_COLUMNS, G_TYPE_INT, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN);
+  pPrivate->pListStore = gtk_list_store_new(ACTIONS_N_COLUMNS, G_TYPE_INT, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN);
 
   GtkTreeIter oIter;
 
   dasher_editor_actions_start(pPrivate->pEditor);
 
   while(dasher_editor_actions_more(pPrivate->pEditor)) {
-    gtk_list_store_append(g_pStore, &oIter);
+    gtk_list_store_append(pPrivate->pListStore, &oIter);
 
     const gchar *szName;
     gint iID;
@@ -839,7 +933,7 @@ void dasher_preferences_dialogue_populate_actions(DasherPreferencesDialogue *pSe
 
     dasher_editor_actions_get_next(pPrivate->pEditor, &szName, &iID, &bShow, &bControl, &bAuto),
 
-    gtk_list_store_set(g_pStore, &oIter, 
+    gtk_list_store_set(pPrivate->pListStore, &oIter, 
 		       ACTIONS_ID_COLUMN, iID,
 		       ACTIONS_NAME_COLUMN, szName,
 		       ACTIONS_SHOW_COLUMN, bShow,
@@ -877,33 +971,38 @@ void dasher_preferences_dialogue_populate_actions(DasherPreferencesDialogue *pSe
   pColumn = gtk_tree_view_column_new_with_attributes("Auto On Stop", pRenderer, "active", ACTIONS_AUTO_COLUMN, NULL);
   gtk_tree_view_append_column(GTK_TREE_VIEW(pPrivate->pActionTreeView), pColumn);
 
-  gtk_tree_view_set_model(GTK_TREE_VIEW(pPrivate->pActionTreeView), GTK_TREE_MODEL(g_pStore));
+  gtk_tree_view_set_model(GTK_TREE_VIEW(pPrivate->pActionTreeView), GTK_TREE_MODEL(pPrivate->pListStore));
 #endif
 }
 
 extern "C" void on_action_toggle(GtkCellRendererToggle *pRenderer, gchar *szPath, gpointer pUserData) {
+  //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
+
   gint *pColumnIndex = (gint *)pUserData;
 
   GtkTreeIter oIter;
-  gtk_tree_model_get_iter_from_string(GTK_TREE_MODEL(g_pStore), &oIter, szPath);
+  gtk_tree_model_get_iter_from_string(GTK_TREE_MODEL(pPrivate->pListStore), &oIter, szPath);
   
   gboolean bSelected;
   gint iID;
-  gtk_tree_model_get(GTK_TREE_MODEL(g_pStore), &oIter, ACTIONS_ID_COLUMN, &iID, *pColumnIndex, &bSelected, -1);
+  gtk_tree_model_get(GTK_TREE_MODEL(pPrivate->pListStore), &oIter, ACTIONS_ID_COLUMN, &iID, *pColumnIndex, &bSelected, -1);
 
-  gtk_list_store_set(g_pStore, &oIter, *pColumnIndex, !bSelected, -1);
+  gtk_list_store_set(pPrivate->pListStore, &oIter, *pColumnIndex, !bSelected, -1);
   
-  switch(*pColumnIndex) {
-  case ACTIONS_SHOW_COLUMN:
-    dasher_editor_action_set_show(g_pEditor, iID, !bSelected);
-    break;
-  case ACTIONS_CONTROL_COLUMN:
-    dasher_editor_action_set_control(g_pEditor, iID, !bSelected);
-    break;
-  case ACTIONS_AUTO_COLUMN:
-    dasher_editor_action_set_auto(g_pEditor, iID, !bSelected);
-    break;
-  }
+  // TODO: reimplement
+
+//   switch(*pColumnIndex) {
+//   case ACTIONS_SHOW_COLUMN:
+//     dasher_editor_action_set_show(g_pEditor, iID, !bSelected);
+//     break;
+//   case ACTIONS_CONTROL_COLUMN:
+//     dasher_editor_action_set_control(g_pEditor, iID, !bSelected);
+//     break;
+//   case ACTIONS_AUTO_COLUMN:
+//     dasher_editor_action_set_auto(g_pEditor, iID, !bSelected);
+//     break;
+//   }
 }
 
 
@@ -913,7 +1012,10 @@ extern "C" void on_action_toggle(GtkCellRendererToggle *pRenderer, gchar *szPath
 // with changing specific options
 
 extern "C" gboolean preferences_hide(GtkWidget *widget, gpointer user_data) {
-  gtk_widget_hide(preferences_window);
+  //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
+
+  gtk_widget_hide(pPrivate->pPreferencesWindow);
   return TRUE;
 }
 
@@ -923,9 +1025,9 @@ extern "C" gboolean preferences_hide(GtkWidget *widget, gpointer user_data) {
 #ifdef WITH_MAEMO
 extern "C" void on_window_size_changed(GtkWidget *widget, gpointer user_data) {
   if(GTK_TOGGLE_BUTTON(widget)->active)
-    dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_MAEMO_SIZE, 1);
+    dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_MAEMO_SIZE, 1);
   else
-    dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_MAEMO_SIZE, 0);
+    dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_MAEMO_SIZE, 0);
 }
 #endif
 

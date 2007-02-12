@@ -340,10 +340,10 @@ void CDasherInterfaceBase::CreateModel(int iOffset) {
   }
   
   if(m_deGameModeStrings.size() == 0) {
-    m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, m_pNCManager, this, iOffset);
+    m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, m_pNCManager, this, m_pDasherView, iOffset);
   }
   else {
-    m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, m_pNCManager, this, iOffset, true, m_deGameModeStrings[0]);
+    m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, m_pNCManager, this, m_pDasherView, iOffset, true, m_deGameModeStrings[0]);
   }
 }
 
@@ -529,7 +529,8 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
     }
   }
 
-  if(!bChanged && m_bLastChanged) {
+  // TODO: This is a bit hacky - we really need to sort out the redraw logic
+  if((!bChanged && m_bLastChanged) || m_bRedrawScheduled || bForceRedraw) {
     m_pDasherView->Screen()->SetCaptureBackground(true);
     m_pDasherView->Screen()->SetLoadBackground(true);
   }
@@ -557,6 +558,7 @@ void CDasherInterfaceBase::CheckRedraw() {
 /// otherwise we're wasting effort.
 
 void CDasherInterfaceBase::Redraw(bool bRedrawNodes) {
+
   if(!m_pDasherView || !m_pDasherModel)
     return;
   
@@ -1165,6 +1167,6 @@ void CDasherInterfaceBase::UnsetBuffer() {
 
 void CDasherInterfaceBase::SetOffset(int iOffset) {
   if(m_pDasherModel)
-    m_pDasherModel->SetOffset(iOffset);
+    m_pDasherModel->SetOffset(iOffset, m_pDasherView);
 }
 

@@ -27,8 +27,8 @@ struct _ModuleSettingsWindowClass {
   GtkDialogClass parent_class;
 };
 
-GtkWidget *module_settings_window_new(DasherAppSettings *pAppSettings, const gchar *szName, SModuleSettings *pSettings, int iCount);
 GType module_settings_window_get_type();
+GtkWidget *module_settings_window_new(DasherAppSettings *pAppSettings, const gchar *szName, SModuleSettings *pSettings, int iCount);
 G_END_DECLS
 
 #endif

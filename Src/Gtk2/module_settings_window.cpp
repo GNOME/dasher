@@ -16,12 +16,12 @@ struct _ModuleSettingsWindowPrivate {
 
 typedef struct _ModuleSettingsWindowPrivate ModuleSettingsWindowPrivate;
 
-// Private members
-static void module_settings_window_class_init(ModuleSettingsWindowClass * pClass);
-static void module_settings_window_init(ModuleSettingsWindow * pControl);
-static void module_settings_window_destroy(GObject * pObject);
+#define MODULE_SETTINGS_WINDOW_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE((o), TYPE_MODULE_SETTINGS_WINDOW, ModuleSettingsWindowPrivate))
 
-ModuleSettingsData *module_settings_window_get_settings_data(ModuleSettingsWindow *pSelf, GtkWidget *pWidget);
+G_DEFINE_TYPE(ModuleSettingsWindow, module_settings_window, GTK_TYPE_DIALOG)
+
+/* Private members */
+static ModuleSettingsData *module_settings_window_get_settings_data(ModuleSettingsWindow *pSelf, GtkWidget *pWidget);
 static void module_settings_window_handle_bool_changed(ModuleSettingsWindow *pSelf, GtkToggleButton *pToggleButton);
 static void module_settings_window_handle_long_changed(ModuleSettingsWindow *pSelf, GtkRange *pRange);
 static void module_settings_window_handle_longspin_changed(ModuleSettingsWindow *pSelf, GtkSpinButton *pSpinButton);
@@ -36,44 +36,18 @@ extern "C" void handle_string_changed(GtkEditable *pEditable, gpointer pUserData
 extern "C" gboolean handle_close(GtkWidget *pWidget, gpointer pUserData);
 extern "C" gboolean handle_close_event(GtkWidget *pWidget, GdkEvent *pEvent, gpointer pUserData);
 
-GType module_settings_window_get_type() {
-
-  static GType module_settings_window_type = 0;
-
-  if(!module_settings_window_type) {
-
-    static const GTypeInfo module_settings_window_info = {
-      sizeof(ModuleSettingsWindowClass),
-      NULL,
-      NULL,
-      (GClassInitFunc) module_settings_window_class_init,
-      NULL,
-      NULL,
-      sizeof(ModuleSettingsWindow),
-      0,
-      (GInstanceInitFunc) module_settings_window_init,
-      NULL
-    };
-
-    module_settings_window_type = g_type_register_static(GTK_TYPE_DIALOG, "ModuleSettingsWindow", &module_settings_window_info, static_cast < GTypeFlags > (0));
-  }
-
-  return module_settings_window_type;
-}
-
-static void module_settings_window_class_init(ModuleSettingsWindowClass *pClass) {
-  GObjectClass *pObjectClass = (GObjectClass *) pClass;
-  pObjectClass->finalize = module_settings_window_destroy;
+static void 
+module_settings_window_class_init(ModuleSettingsWindowClass *pClass) {
+  //  GObjectClass *pObjectClass = (GObjectClass *) pClass;
+  //  pObjectClass->finalize = module_settings_window_destroy;
+  g_type_class_add_private(pClass, sizeof(ModuleSettingsWindowPrivate));
 }
  
-static void module_settings_window_init(ModuleSettingsWindow *pDasherControl) {
-  ModuleSettingsWindowPrivate *pPrivateData;
-
-  pPrivateData = g_new0(ModuleSettingsWindowPrivate, 1);
+static void 
+module_settings_window_init(ModuleSettingsWindow *pDasherControl) {
+  ModuleSettingsWindowPrivate *pPrivateData = MODULE_SETTINGS_WINDOW_GET_PRIVATE(pDasherControl);
 
   pPrivateData->pFirst = NULL;
-
-  pDasherControl->private_data = pPrivateData;
 
   GtkWidget *pButton = gtk_dialog_add_button(&(pDasherControl->window), GTK_STOCK_CLOSE, GTK_RESPONSE_NONE);
 
@@ -81,21 +55,14 @@ static void module_settings_window_init(ModuleSettingsWindow *pDasherControl) {
   g_signal_connect(G_OBJECT(&(pDasherControl->window)), "delete-event", G_CALLBACK(handle_close_event), pDasherControl);
 }
 
-static void module_settings_window_destroy(GObject *pObject) {
-  ModuleSettingsWindow *pDasherControl = MODULE_SETTINGS_WINDOW(pObject);
-  g_free(pDasherControl->private_data);
-
-  // FIXME - I think we need to chain up through the finalize methods
-  // of the parent classes here...
-}
-
-GtkWidget *module_settings_window_new(DasherAppSettings *pAppSettings, const gchar *szName, SModuleSettings *pSettings, int iCount) {
+GtkWidget *
+module_settings_window_new(DasherAppSettings *pAppSettings, const gchar *szName, SModuleSettings *pSettings, int iCount) {
   ModuleSettingsWindow *pDasherControl;
   pDasherControl = MODULE_SETTINGS_WINDOW(g_object_new(module_settings_window_get_type(), NULL));
 
   gtk_window_set_title(GTK_WINDOW(pDasherControl), "Dasher Module Options");
   
-  ModuleSettingsWindowPrivate *pPrivate((ModuleSettingsWindowPrivate *)(pDasherControl->private_data));
+  ModuleSettingsWindowPrivate *pPrivate = MODULE_SETTINGS_WINDOW_GET_PRIVATE(pDasherControl);
   
   pPrivate->pAppSettings = pAppSettings;
 
@@ -198,8 +165,10 @@ GtkWidget *module_settings_window_new(DasherAppSettings *pAppSettings, const gch
   return GTK_WIDGET(pDasherControl);
 }
 
-ModuleSettingsData *module_settings_window_get_settings_data(ModuleSettingsWindow *pSelf, GtkWidget *pWidget) {
-  ModuleSettingsWindowPrivate *pPrivate((ModuleSettingsWindowPrivate *)(pSelf->private_data));
+/* private members */
+static ModuleSettingsData *
+module_settings_window_get_settings_data(ModuleSettingsWindow *pSelf, GtkWidget *pWidget) {
+  ModuleSettingsWindowPrivate *pPrivate = MODULE_SETTINGS_WINDOW_GET_PRIVATE(pSelf);
 
   ModuleSettingsData *pCurrentData = pPrivate->pFirst;
 
@@ -213,81 +182,92 @@ ModuleSettingsData *module_settings_window_get_settings_data(ModuleSettingsWindo
   return NULL;
 }
 
-void module_settings_window_handle_bool_changed(ModuleSettingsWindow *pSelf, GtkToggleButton *pToggleButton) {
+static void 
+module_settings_window_handle_bool_changed(ModuleSettingsWindow *pSelf, GtkToggleButton *pToggleButton) {
   ModuleSettingsData *pData = module_settings_window_get_settings_data(pSelf, GTK_WIDGET(pToggleButton));
 
   if(!pData)
     return;
 
-  ModuleSettingsWindowPrivate *pPrivate((ModuleSettingsWindowPrivate *)(pSelf->private_data));
+  ModuleSettingsWindowPrivate *pPrivate = MODULE_SETTINGS_WINDOW_GET_PRIVATE(pSelf);
   
   gboolean bNewValue = gtk_toggle_button_get_active(pToggleButton);
   dasher_app_settings_set_bool(pPrivate->pAppSettings, pData->iParameter, bNewValue);
 }
 
-void module_settings_window_handle_long_changed(ModuleSettingsWindow *pSelf, GtkRange *pRange) {
+static void 
+module_settings_window_handle_long_changed(ModuleSettingsWindow *pSelf, GtkRange *pRange) {
   ModuleSettingsData *pData = module_settings_window_get_settings_data(pSelf, GTK_WIDGET(pRange));
 
   if(!pData)
     return;
 
-  ModuleSettingsWindowPrivate *pPrivate((ModuleSettingsWindowPrivate *)(pSelf->private_data));
+  ModuleSettingsWindowPrivate *pPrivate = MODULE_SETTINGS_WINDOW_GET_PRIVATE(pSelf);
 
   gint iNewValue = (gint)(gtk_range_get_value(pRange) * pData->iDivisor);
   dasher_app_settings_set_long(pPrivate->pAppSettings, pData->iParameter, iNewValue);
 }
 
-void module_settings_window_handle_longspin_changed(ModuleSettingsWindow *pSelf, GtkSpinButton *pSpinButton) {
+static void 
+module_settings_window_handle_longspin_changed(ModuleSettingsWindow *pSelf, GtkSpinButton *pSpinButton) {
   ModuleSettingsData *pData = module_settings_window_get_settings_data(pSelf, GTK_WIDGET(pSpinButton));
 
   if(!pData)
     return;
 
-  ModuleSettingsWindowPrivate *pPrivate((ModuleSettingsWindowPrivate *)(pSelf->private_data));
+  ModuleSettingsWindowPrivate *pPrivate = MODULE_SETTINGS_WINDOW_GET_PRIVATE(pSelf);
 
   gint iNewValue = (gint)(gtk_spin_button_get_value(pSpinButton) * pData->iDivisor);
   dasher_app_settings_set_long(pPrivate->pAppSettings, pData->iParameter, iNewValue);
 }
 
-void module_settings_window_handle_string_changed(ModuleSettingsWindow *pSelf, GtkEditable *pEditable) {
+static void 
+module_settings_window_handle_string_changed(ModuleSettingsWindow *pSelf, GtkEditable *pEditable) {
   ModuleSettingsData *pData = module_settings_window_get_settings_data(pSelf, GTK_WIDGET(pEditable));
 
   if(!pData)
     return;
 
-  ModuleSettingsWindowPrivate *pPrivate((ModuleSettingsWindowPrivate *)(pSelf->private_data));
+  ModuleSettingsWindowPrivate *pPrivate = MODULE_SETTINGS_WINDOW_GET_PRIVATE(pSelf);
 
   const gchar *szNewValue = gtk_editable_get_chars(pEditable, 0, -1);
   dasher_app_settings_set_string(pPrivate->pAppSettings, pData->iParameter, szNewValue);
 }
 
-gboolean module_settings_window_handle_close(ModuleSettingsWindow *pSelf) {
+static gboolean 
+module_settings_window_handle_close(ModuleSettingsWindow *pSelf) {
   gtk_widget_hide(GTK_WIDGET(&(pSelf->window)));
   return TRUE;
 }
 
 // Callbacks
 
-extern "C" void handle_bool_changed(GtkToggleButton *pToggleButton, gpointer pUserData) {
+extern "C" void 
+handle_bool_changed(GtkToggleButton *pToggleButton, gpointer pUserData) {
   module_settings_window_handle_bool_changed(MODULE_SETTINGS_WINDOW(pUserData), pToggleButton);
 }
 
-extern "C" void handle_long_changed(GtkRange *pRange, gpointer pUserData) {
+extern "C" void 
+handle_long_changed(GtkRange *pRange, gpointer pUserData) {
   module_settings_window_handle_long_changed(MODULE_SETTINGS_WINDOW(pUserData), pRange);
 }
 
-extern "C" void handle_longspin_changed(GtkSpinButton *pSpinButton, gpointer pUserData) {
+extern "C" void 
+handle_longspin_changed(GtkSpinButton *pSpinButton, gpointer pUserData) {
   module_settings_window_handle_longspin_changed(MODULE_SETTINGS_WINDOW(pUserData), pSpinButton);
 }
 
-extern "C" void handle_string_changed(GtkEditable *pEditable, gpointer pUserData) {
+extern "C" void 
+handle_string_changed(GtkEditable *pEditable, gpointer pUserData) {
   module_settings_window_handle_string_changed(MODULE_SETTINGS_WINDOW(pUserData), pEditable);
 }
 
-extern "C" gboolean handle_close(GtkWidget *pWidget, gpointer pUserData) {
+extern "C" gboolean 
+handle_close(GtkWidget *pWidget, gpointer pUserData) {
   return module_settings_window_handle_close(MODULE_SETTINGS_WINDOW(pUserData));
 }
 
-extern "C" gboolean handle_close_event(GtkWidget *pWidget, GdkEvent *pEvent, gpointer pUserData) {
+extern "C" gboolean 
+handle_close_event(GtkWidget *pWidget, GdkEvent *pEvent, gpointer pUserData) {
   return module_settings_window_handle_close(MODULE_SETTINGS_WINDOW(pUserData));
 }

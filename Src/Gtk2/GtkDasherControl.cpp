@@ -1,14 +1,10 @@
 #include "../Common/Common.h"
 
+#include <gtk/gtkmarshal.h>
+
 #include "GtkDasherControl.h"
 #include "DasherControl.h"
 #include "custom_marshal.h"
-
-#include <iostream>
-#include <vector>
-#include <string>
-
-#include <gtk/gtkmarshal.h>
 
 struct _GtkDasherControlPrivate {
   CDasherControl *pControl;
@@ -35,45 +31,22 @@ enum {
   SIGNAL_NUM
 };
 
-static void gtk_dasher_control_class_init(GtkDasherControlClass * pClass);
-static void gtk_dasher_control_init(GtkDasherControl * pControl);
-static void gtk_dasher_control_destroy(GObject * pObject);
+#define GTK_DASHER_CONTROL_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE((o), TYPE_GTK_DASHER_CONTROL, GtkDasherControlPrivate));
 
-static guint gtk_dasher_control_signals[SIGNAL_NUM] = { 0, 0, 0, 0 };
+/* TODO: is it still sensible to derive from VBox, given that its just a cnavas now*/
+G_DEFINE_TYPE(GtkDasherControl, gtk_dasher_control, GTK_TYPE_VBOX);
 
-GType gtk_dasher_control_get_type() {
+static void gtk_dasher_control_finalize(GObject * pObject);
 
-  static GType gtk_dasher_control_type = 0;
+static guint gtk_dasher_control_signals[SIGNAL_NUM]; /* TODO: initilaise this? */
 
-  if(!gtk_dasher_control_type) {
-
-    static const GTypeInfo gtk_dasher_control_info = {
-      sizeof(GtkDasherControlClass),
-      NULL,
-      NULL,
-      (GClassInitFunc) gtk_dasher_control_class_init,
-      NULL,
-      NULL,
-      sizeof(GtkDasherControl),
-      0,
-      (GInstanceInitFunc) gtk_dasher_control_init,
-      NULL
-    };
-
-    gtk_dasher_control_type = g_type_register_static(GTK_TYPE_VBOX, "GtkDasherControl", &gtk_dasher_control_info, static_cast < GTypeFlags > (0));
-  }
-
-  return gtk_dasher_control_type;
-}
-
-static void gtk_dasher_control_class_init(GtkDasherControlClass *pClass) {
+static void 
+gtk_dasher_control_class_init(GtkDasherControlClass *pClass) {
+  g_type_class_add_private(pClass, sizeof(GtkDasherControlPrivate));
 
   GObjectClass *pObjectClass = (GObjectClass *) pClass;
-
-  pObjectClass->finalize = gtk_dasher_control_destroy;
-
-  //  pObjectClass->destroy = gtk_dasher_control_destroy;
-
+  pObjectClass->finalize = gtk_dasher_control_finalize;
+   
   gtk_dasher_control_signals[DASHER_CHANGED] = g_signal_new("dasher_changed", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, dasher_changed), NULL, NULL, g_cclosure_marshal_VOID__INT, G_TYPE_NONE, 1, G_TYPE_INT);
 
   gtk_dasher_control_signals[DASHER_START] = g_signal_new("dasher_start", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, dasher_start), NULL, NULL, g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
@@ -121,33 +94,31 @@ static void gtk_dasher_control_class_init(GtkDasherControlClass *pClass) {
   // pClass->key_release_event = gtk_dasher_control_default_key_release_handler;
 }
 
-static void gtk_dasher_control_init(GtkDasherControl *pDasherControl) {
-  GtkDasherControlPrivate *pPrivateData;
+static void 
+gtk_dasher_control_init(GtkDasherControl *pDasherControl) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pDasherControl);
 
-  pPrivateData = g_new0(GtkDasherControlPrivate, 1);
+  pPrivate->pControl = new CDasherControl(&(pDasherControl->box), pDasherControl);
 
-  pDasherControl->private_data = pPrivateData;
-
-  pPrivateData->pControl = new CDasherControl(&(pDasherControl->box), pDasherControl);
-
-  g_signal_connect(G_OBJECT(pDasherControl), "key-press-event", G_CALLBACK(gtk_dasher_control_default_key_press_handler), pPrivateData->pControl);
-  g_signal_connect(G_OBJECT(pDasherControl), "key-release-event", G_CALLBACK(gtk_dasher_control_default_key_release_handler), pPrivateData->pControl);
-
+//   g_signal_connect(G_OBJECT(pDasherControl), "key-press-event", G_CALLBACK(gtk_dasher_control_default_key_press_handler), pPrivate->pControl);
+//   g_signal_connect(G_OBJECT(pDasherControl), "key-release-event", G_CALLBACK(gtk_dasher_control_default_key_release_handler), pPrivate->pControl);
 }
 
-static void gtk_dasher_control_destroy(GObject *pObject) {
+static void 
+gtk_dasher_control_finalize(GObject *pObject) {
   GtkDasherControl *pDasherControl = GTK_DASHER_CONTROL(pObject);
 
+  /* TODO: Check that this actually gets called correctly */
+
+  /* TODO: Should just call constructor - this should just be a lightweight wrapper class */
   static_cast < GtkDasherControlPrivate * >(pDasherControl->private_data)->pControl->StartShutdown();
+
   delete static_cast < GtkDasherControlPrivate * >(pDasherControl->private_data)->pControl;
   g_free(pDasherControl->private_data);
-
-  // FIXME - I think we need to chain up through the finalize methods
-  // of the parent classes here...
-
 }
 
-GtkWidget *gtk_dasher_control_new() {
+GtkWidget *
+gtk_dasher_control_new() {
   GtkDasherControl *pDasherControl;
 
   pDasherControl = GTK_DASHER_CONTROL(g_object_new(gtk_dasher_control_get_type(), NULL));
@@ -155,115 +126,164 @@ GtkWidget *gtk_dasher_control_new() {
   return GTK_WIDGET(pDasherControl);
 }
 
-void gtk_dasher_control_set_parameter_bool(GtkDasherControl *pControl, int iParameter, bool bValue) {
-  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->SetBoolParameter(iParameter, bValue);
+void 
+gtk_dasher_control_set_parameter_bool(GtkDasherControl *pControl, int iParameter, bool bValue) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  pPrivate->pControl->SetBoolParameter(iParameter, bValue);
 }
 
-void gtk_dasher_control_set_parameter_long(GtkDasherControl *pControl, int iParameter, long lValue) {
-  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->SetLongParameter(iParameter, lValue);
+void 
+gtk_dasher_control_set_parameter_long(GtkDasherControl *pControl, int iParameter, long lValue) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  pPrivate->pControl->SetLongParameter(iParameter, lValue);
 }
 
-void gtk_dasher_control_set_parameter_string(GtkDasherControl *pControl, int iParameter, const char *szValue) {
-  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->SetStringParameter(iParameter, szValue);
+void 
+gtk_dasher_control_set_parameter_string(GtkDasherControl *pControl, int iParameter, const char *szValue) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  pPrivate->pControl->SetStringParameter(iParameter, szValue);
 }
 
-bool gtk_dasher_control_get_parameter_bool(GtkDasherControl *pControl, int iParameter) {
-  return ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->GetBoolParameter(iParameter);
+bool
+gtk_dasher_control_get_parameter_bool(GtkDasherControl *pControl, int iParameter) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  return pPrivate->pControl->GetBoolParameter(iParameter);
 }
 
-long gtk_dasher_control_get_parameter_long(GtkDasherControl *pControl, int iParameter) {
-  return ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->GetLongParameter(iParameter);
+long 
+gtk_dasher_control_get_parameter_long(GtkDasherControl *pControl, int iParameter) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  return pPrivate->pControl->GetLongParameter(iParameter);
 }
 
-void gtk_dasher_control_reset_parameter(GtkDasherControl *pControl, int iParameter) {
-  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->ResetParameter(iParameter);
+void 
+gtk_dasher_control_reset_parameter(GtkDasherControl *pControl, int iParameter) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  pPrivate->pControl->ResetParameter(iParameter);
 }
 
-const char *gtk_dasher_control_get_parameter_string(GtkDasherControl *pControl, int iParameter) {
-  return (((GtkDasherControlPrivate *) (pControl->private_data))->pControl->GetStringParameter(iParameter)).c_str();
+const char *
+gtk_dasher_control_get_parameter_string(GtkDasherControl *pControl, int iParameter) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  return pPrivate->pControl->GetStringParameter(iParameter).c_str();
 }
 
-GArray *gtk_dasher_control_get_allowed_values(GtkDasherControl *pControl, int iParameter) {
-  return (((GtkDasherControlPrivate *) (pControl->private_data))->pControl->GetAllowedValues(iParameter));
+GArray *
+gtk_dasher_control_get_allowed_values(GtkDasherControl *pControl, int iParameter) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  return pPrivate->pControl->GetAllowedValues(iParameter);
 };
 
-void gtk_dasher_control_train(GtkDasherControl *pControl, const gchar *szFilename) {
-  return (((GtkDasherControlPrivate *) (pControl->private_data))->pControl->Train(szFilename));
+void 
+gtk_dasher_control_train(GtkDasherControl *pControl, const gchar *szFilename) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  pPrivate->pControl->Train(szFilename);
 };
 
-void gtk_dasher_control_set_context(GtkDasherControl *pControl, const gchar *szContext) {
-  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->SetContext(szContext);
+void 
+gtk_dasher_control_set_context(GtkDasherControl *pControl, const gchar *szContext) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  pPrivate->pControl->SetContext(szContext);
 }
 
-// void gtk_dasher_control_invalidate_context(GtkDasherControl *pControl, bool bForceStart) {
-//   ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->InvalidateContext(bForceStart);
+void 
+gtk_dasher_control_set_buffer(GtkDasherControl *pControl, int iOffset) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  pPrivate->pControl->SetBuffer(iOffset);
+}
+
+void 
+gtk_dasher_control_unset_buffer(GtkDasherControl *pControl) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  pPrivate->pControl->UnsetBuffer();
+}
+
+void 
+gtk_dasher_control_set_offset(GtkDasherControl *pControl, int iOffset) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  pPrivate->pControl->SetOffset(iOffset);
+}
+
+void 
+gtk_dasher_control_register_node(GtkDasherControl *pControl, int iID, const gchar *szLabel, int iColour) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  pPrivate->pControl->RegisterNode(iID, szLabel, iColour);
+}
+
+void 
+gtk_dasher_control_connect_node(GtkDasherControl *pControl, int iChild, int iParent, int iAfter) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  pPrivate->pControl->ConnectNode(iChild, iParent, iAfter);
+}
+
+void 
+gtk_dasher_control_disconnect_node(GtkDasherControl *pControl, int iChild, int iParent) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  pPrivate->pControl->DisconnectNode(iChild, iParent);
+}
+
+void 
+gtk_dasher_control_external_key_down(GtkDasherControl *pControl, int iKeyVal) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  pPrivate->pControl->ExternalKeyDown(iKeyVal);
+}
+
+void 
+gtk_dasher_control_external_key_up(GtkDasherControl *pControl, int iKeyVal) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  pPrivate->pControl->ExternalKeyUp(iKeyVal);
+}
+
+void 
+gtk_dasher_user_log_new_trial(GtkDasherControl * pControl) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  pPrivate->pControl->UserLogNewTrial();
+}
+
+void 
+gtk_dasher_control_set_focus(GtkDasherControl * pControl){
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  pPrivate->pControl->SetFocus();
+}
+
+// gboolean 
+// gtk_dasher_control_default_key_press_handler(GtkDasherControl *pDasherControl, GdkEventKey *pEvent, gpointer data){
+//   static_cast<CDasherControl *>(data)->KeyPressEvent(pEvent);
+//   return FALSE;
 // }
 
-void gtk_dasher_control_set_buffer(GtkDasherControl *pControl, int iOffset) {
-  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->SetBuffer(iOffset);
+// gboolean 
+// gtk_dasher_control_default_key_release_handler(GtkDasherControl *pDasherControl, GdkEventKey *pEvent, gpointer data) {
+//  static_cast<CDasherControl *>(data)->KeyReleaseEvent(pEvent);
+//  return FALSE;
+// }
+
+gboolean 
+gtk_dasher_control_get_module_settings(GtkDasherControl * pControl, const gchar *szModule, SModuleSettings **pSettings, gint *iCount) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  return pPrivate->pControl->GetModuleSettings(szModule, pSettings, iCount);
 }
 
-void gtk_dasher_control_unset_buffer(GtkDasherControl *pControl) {
-  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->UnsetBuffer();
+void 
+gtk_dasher_control_add_game_mode_string(GtkDasherControl *pControl, const gchar *szString) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  pPrivate->pControl->AddGameModeString(szString);
 }
 
-void gtk_dasher_control_set_offset(GtkDasherControl *pControl, int iOffset) {
-  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->SetOffset(iOffset);
+void 
+gtk_dasher_control_force_pause(GtkDasherControl *pControl) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  pPrivate->pControl->PauseAt(0,0);
 }
 
-void gtk_dasher_control_register_node(GtkDasherControl *pControl, int iID, const gchar *szLabel, int iColour) {
-  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->RegisterNode(iID, szLabel, iColour);
+double 
+gtk_dasher_control_get_framerate(GtkDasherControl *pControl) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  return pPrivate->pControl->GetFramerate();
 }
 
-void gtk_dasher_control_connect_node(GtkDasherControl *pControl, int iChild, int iParent, int iAfter) {
-  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->ConnectNode(iChild, iParent, iAfter);
-}
-
-void gtk_dasher_control_disconnect_node(GtkDasherControl *pControl, int iChild, int iParent) {
-  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->DisconnectNode(iChild, iParent);
-}
-
-void gtk_dasher_control_external_key_down(GtkDasherControl *pControl, int iKeyVal) {
-  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->ExternalKeyDown(iKeyVal);
-}
-
-void gtk_dasher_control_external_key_up(GtkDasherControl *pControl, int iKeyVal) {
-  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->ExternalKeyUp(iKeyVal);
-}
-
-void gtk_dasher_user_log_new_trial(GtkDasherControl * pControl) {
-  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->UserLogNewTrial();
-}
-void gtk_dasher_control_set_focus(GtkDasherControl * pControl){
-  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->SetFocus();
-}
-
-gboolean gtk_dasher_control_default_key_press_handler(GtkDasherControl *pDasherControl, GdkEventKey *pEvent, gpointer data){
-  static_cast<CDasherControl *>(data)->KeyPressEvent(pEvent);
-  return FALSE;
-}
-
-gboolean gtk_dasher_control_default_key_release_handler(GtkDasherControl *pDasherControl, GdkEventKey *pEvent, gpointer data) {
- static_cast<CDasherControl *>(data)->KeyReleaseEvent(pEvent);
- return FALSE;
-}
-
-gboolean gtk_dasher_control_get_module_settings(GtkDasherControl * pControl, const gchar *szModule, SModuleSettings **pSettings, gint *iCount) {
-  return ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->GetModuleSettings(szModule, pSettings, iCount);
-}
-
-void gtk_dasher_control_add_game_mode_string(GtkDasherControl *pControl, const gchar *szString) {
-  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->AddGameModeString(szString);
-}
-
-void gtk_dasher_control_force_pause(GtkDasherControl *pControl) {
-  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->PauseAt(0,0);
-}
-
-double gtk_dasher_control_get_framerate(GtkDasherControl *pControl) {
-  return ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->GetFramerate();
-}
-
-void gtk_dasher_control_add_action_button(GtkDasherControl *pControl, const gchar *szCommand) {
-  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->AddActionButton(szCommand);
+void 
+gtk_dasher_control_add_action_button(GtkDasherControl *pControl, const gchar *szCommand) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  pPrivate->pControl->AddActionButton(szCommand);
 }

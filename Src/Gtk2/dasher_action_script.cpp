@@ -5,12 +5,6 @@
 #include <string.h>
 #include <unistd.h>
 
-static void dasher_action_script_class_init(DasherActionScriptClass *pClass);
-static void dasher_action_script_init(DasherActionScript *pActionScript);
-static void dasher_action_script_destroy(GObject *pObject);
-static gboolean dasher_action_script_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx);
-static const gchar *dasher_action_script_get_name(DasherAction *pSelf);
-
 typedef struct _DasherActionScriptPrivate DasherActionScriptPrivate;
 
 struct _DasherActionScriptPrivate {
@@ -18,63 +12,46 @@ struct _DasherActionScriptPrivate {
   gchar *szFilename;
 };
 
-GType dasher_action_script_get_type() {
 
-  static GType dasher_action_script_type = 0;
+#define DASHER_ACTION_SCRIPT_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE((o), TYPE_DASHER_ACTION_SCRIPT, DasherActionScriptPrivate))
 
-  if(!dasher_action_script_type) {
-    static const GTypeInfo dasher_action_script_info = {
-      sizeof(DasherActionScriptClass),
-      NULL,
-      NULL,
-      (GClassInitFunc) dasher_action_script_class_init,
-      NULL,
-      NULL,
-      sizeof(DasherActionScript),
-      0,
-      (GInstanceInitFunc) dasher_action_script_init,
-      NULL
-    };
+G_DEFINE_TYPE(DasherActionScript, dasher_action_script, TYPE_DASHER_ACTION);
 
-    dasher_action_script_type = g_type_register_static(TYPE_DASHER_ACTION, "DasherActionScript", &dasher_action_script_info, static_cast < GTypeFlags > (0));
-  }
+static gboolean dasher_action_script_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx);
+static const gchar *dasher_action_script_get_name(DasherAction *pSelf);
 
-  return dasher_action_script_type;
-}
-
-static void dasher_action_script_class_init(DasherActionScriptClass *pClass) {
-  GObjectClass *pObjectClass = (GObjectClass *) pClass;
-  pObjectClass->finalize = dasher_action_script_destroy;
+static void 
+dasher_action_script_class_init(DasherActionScriptClass *pClass) {
+  g_type_class_add_private(pClass, sizeof(DasherActionScriptPrivate));
 
   DasherActionClass *pDasherActionClass = (DasherActionClass *) pClass;
   pDasherActionClass->execute = dasher_action_script_execute;
   pDasherActionClass->get_name = dasher_action_script_get_name;
 }
 
-static void dasher_action_script_init(DasherActionScript *pDasherControl) {
-  pDasherControl->private_data = new DasherActionScriptPrivate;
+static void 
+dasher_action_script_init(DasherActionScript *pDasherControl) {
+  DasherActionScriptPrivate *pPrivate = DASHER_ACTION_SCRIPT_GET_PRIVATE(pDasherControl);
+
+  pPrivate->szPath = NULL;
+  pPrivate->szFilename = NULL;
 }
 
-static void dasher_action_script_destroy(GObject *pObject) {
-  // FIXME - I think we need to chain up through the finalize methods
-  // of the parent classes here...
-}
-
-DasherActionScript *dasher_action_script_new(const gchar *szPath, const gchar *szFilename) {
+DasherActionScript *
+dasher_action_script_new(const gchar *szPath, const gchar *szFilename) {
   DasherActionScript *pDasherControl;
   pDasherControl = (DasherActionScript *)(g_object_new(dasher_action_script_get_type(), NULL));
 
-  DasherActionScriptPrivate *pPrivate((DasherActionScriptPrivate *)pDasherControl->private_data);
-  pPrivate->szPath = new gchar[strlen(szPath)+1];
-  strncpy(pPrivate->szPath, szPath, strlen(szPath) + 1);
-  pPrivate->szFilename = new gchar[strlen(szFilename)+1];
-  strncpy(pPrivate->szFilename, szFilename, strlen(szFilename) + 1);
+  DasherActionScriptPrivate *pPrivate = DASHER_ACTION_SCRIPT_GET_PRIVATE(pDasherControl);
+  pPrivate->szPath = g_strdup(szPath);
+  pPrivate->szFilename = g_strdup(szFilename);
 
   return pDasherControl;
 }
 
-static gboolean dasher_action_script_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx) {
-  DasherActionScriptPrivate *pPrivate((DasherActionScriptPrivate *)((DasherActionScript *)pSelf)->private_data);
+static gboolean 
+dasher_action_script_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx) {
+  DasherActionScriptPrivate *pPrivate = DASHER_ACTION_SCRIPT_GET_PRIVATE(pSelf);
 
   gchar *szFullPath = new gchar[strlen(pPrivate->szPath) + strlen(pPrivate->szFilename) + 1];
   strncpy(szFullPath, pPrivate->szPath, strlen(pPrivate->szPath) + 1);
@@ -109,6 +86,7 @@ static gboolean dasher_action_script_execute(DasherAction *pSelf, DasherEditor *
   return true;
 }
 
-static const gchar *dasher_action_script_get_name(DasherAction *pSelf) {
+static const gchar *
+dasher_action_script_get_name(DasherAction *pSelf) {
   return "Script";
 }

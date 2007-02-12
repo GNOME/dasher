@@ -52,7 +52,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
     idJapanese = 4
   } LanguageModelID;
 
-  CDasherModel(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pDashIface, int iOffset, bool bGameMode = false, const std::string &strGameModeText = "");
+  CDasherModel(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pDashIface, CDasherView *pView, int iOffset, bool bGameMode = false, const std::string &strGameModeText = "");
   ~CDasherModel();
 
   ///
@@ -245,7 +245,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   /// point
   ///
 
-  void SetOffset(int iLocation);
+  void SetOffset(int iLocation, CDasherView *pView);
 
   ///
   /// TODO: Implement this
@@ -321,7 +321,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   void DeleteTree();
 
-  void InitialiseAtOffset(int iOffset);
+  void InitialiseAtOffset(int iOffset, CDasherView *pView);
 
   void Recursive_Push_Node(CDasherNode * pNode, int depth);
 

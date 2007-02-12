@@ -38,7 +38,7 @@ static char THIS_FILE[] = __FILE__;
 
 // CDasherModel
 
-CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pDashIface, int iOffset, bool bGameMode, const std::string &strGameModeText)
+CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pDashIface, CDasherView *pView, int iOffset, bool bGameMode, const std::string &strGameModeText)
 :CDasherComponent(pEventHandler, pSettingsStore), m_pDasherInterface(pDashIface) {
 
   m_Root = 0;
@@ -85,7 +85,7 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettin
   // TODO: Do something sensible here
   //  Start();
 
-  InitialiseAtOffset(iOffset);
+  InitialiseAtOffset(iOffset, pView);
 }
 
 CDasherModel::~CDasherModel() {
@@ -323,7 +323,7 @@ void CDasherModel::DeleteTree() {
   delete m_Root;
 }
 
-void CDasherModel::InitialiseAtOffset(int iOffset) {
+void CDasherModel::InitialiseAtOffset(int iOffset, CDasherView *pView) {
   DeleteTree();
 
   if(iOffset == 0)
@@ -361,6 +361,16 @@ void CDasherModel::InitialiseAtOffset(int iOffset) {
 
   m_iTargetOffset = 0;
 
+  if(pView) {
+    while(pView->IsNodeVisible(m_Rootmin,m_Rootmax)) {
+      CDasherNode *pOldRoot = m_Root;
+      Reparent_root(m_Root->Lbnd(), m_Root->Hbnd());
+      if(m_Root == pOldRoot)
+	break;
+    }
+  }
+
+  // TODO: See if this is better positioned elsewhere
   m_pDasherInterface->ScheduleRedraw();
 
 
@@ -825,10 +835,7 @@ bool CDasherModel::RenderToView(CDasherView *pView, bool bRedrawDisplay) {
 
   bool bReturnValue;
 
-  //if(GetBoolParameter(BP_DELAY_VIEW))
-  //  bReturnValue = pView->Render(m_Root, m_iTargetMin, m_iTargetMax, vNodeList, vDeleteList, bRedrawDisplay, m_bGameMode);
-  //else
-    bReturnValue = pView->Render(m_Root, m_Rootmin + m_iTargetOffset, m_Rootmax + m_iTargetOffset, vNodeList, vDeleteList, bRedrawDisplay, m_bGameMode);
+  bReturnValue = pView->Render(m_Root, m_Rootmin + m_iTargetOffset, m_Rootmax + m_iTargetOffset, vNodeList, vDeleteList, bRedrawDisplay, m_bGameMode);
 
   if(!GetBoolParameter(BP_OLD_STYLE_PUSH)) {
   for(std::vector<CDasherNode *>::iterator it(vNodeList.begin()); it != vNodeList.end(); ++it)
@@ -964,7 +971,7 @@ void CDasherModel::LimitRoot(int iMaxWidth) {
   m_Rootmax = GetLongParameter(LP_MAX_Y) / 2 + iMaxWidth / 2;
 }
 
-void CDasherModel::SetOffset(int iLocation) {
+void CDasherModel::SetOffset(int iLocation, CDasherView *pView) {
   if(iLocation == m_iOffset)
     return; // We're already there
   
@@ -974,6 +981,6 @@ void CDasherModel::SetOffset(int iLocation) {
   m_iOffset = iLocation;
 
   // Now actually rebuild the model
-  InitialiseAtOffset(iLocation);
+  InitialiseAtOffset(iLocation, pView);
   
 }

@@ -1,5 +1,10 @@
 #include "dasher_buffer_set.h"
 
+enum {
+  CONTEXT_CHANGED,
+  NUM_SIGNALS
+};
+
 // FIXME - figure out the correct way to make this available to classes implementing this interface
 guint idasher_buffer_set_signals[NUM_SIGNALS];
 

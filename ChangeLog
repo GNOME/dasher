@@ -1,3 +1,8 @@
+2007-02-12  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Fairly widespread refactoring etc. No major functionality
+	changes, but generally much tideier than it was
+
 2007-02-01  Phil Cowans  <pjc51@cam.ac.uk>
 
 	* Partial rewrite of cursor movement / offset handling. Seems to

@@ -18,6 +18,12 @@
 
 // FIXME - should really do something to make this a singleton class
 
+// TODO: Rename this file to fit in with naming conventions
+
+// TODO: Bring this into the widget
+static GtkWidget *pDasherWidget = NULL;
+
+
 struct _DasherAppSettingsPrivate {
 #ifdef WITH_GCONF
   // GConf interface
@@ -99,6 +105,8 @@ static void dasher_app_settings_destroy(GObject *pObject) {
 
 void dasher_app_settings_set_widget(DasherAppSettings *pSelf, GtkDasherControl *pWidget) {
   DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate*)(pSelf->private_data);
+
+  pDasherWidget = GTK_WIDGET(pWidget);
 
   pPrivate->pWidget = pWidget;
   pPrivate->bWidgetSet = TRUE;
@@ -222,7 +230,7 @@ void dasher_app_settings_reset(DasherAppSettings *pSelf, int iParameter) {
     return;
   }
   else {
-    pre_parameter_notification(0, iParameter, 0);
+    //    pre_parameter_notification(0, iParameter, 0);
     
     if(iParameter < END_OF_APP_BPS)
       app_boolparamtable[ iParameter - FIRST_APP_BP ].value = app_boolparamtable[ iParameter - FIRST_APP_BP ].bDefaultValue;
@@ -256,15 +264,14 @@ bool dasher_app_settings_get_bool(DasherAppSettings *pSelf, int iParameter) {
 void dasher_app_settings_set_bool(DasherAppSettings *pSelf, int iParameter, bool bValue) {
   DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
 
-  if( iParameter < END_OF_BPS )
+  if( iParameter < END_OF_BPS ) {
     if(pPrivate->bWidgetSet) {
       gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), iParameter, bValue);
     }
+  }
   else {
     if(dasher_app_settings_get_bool(pSelf, iParameter) == bValue)
       return; // Don't attempt to change to the existing value
-   
-    pre_parameter_notification(0, iParameter, 0);
 
     app_boolparamtable[ iParameter - FIRST_APP_BP ].value = bValue;
 #ifdef WITH_GCONF    
@@ -276,6 +283,9 @@ void dasher_app_settings_set_bool(DasherAppSettings *pSelf, int iParameter, bool
       
       GError *pGConfError = NULL;
       gconf_client_set_bool(pPrivate->pGConfClient, szName, bValue, &pGConfError);
+
+      if(pGConfError)
+	g_message("Error");
     }
 #endif
 
@@ -308,7 +318,7 @@ void dasher_app_settings_set_long(DasherAppSettings *pSelf, int iParameter, gint
     if(dasher_app_settings_get_long(pSelf, iParameter) == iValue)
       return; // Don't attempt to change to the existing value
     
-    pre_parameter_notification(0, iParameter, 0);
+    //    pre_parameter_notification(0, iParameter, 0);
 
     app_longparamtable[ iParameter - FIRST_APP_LP ].value = iValue;
 
@@ -388,7 +398,7 @@ void dasher_app_settings_set_string(DasherAppSettings *pSelf, int iParameter, co
     if(!strcmp(dasher_app_settings_get_string(pSelf, iParameter), szValue))
       return; // Don't attempt to change to the existing value
 
-    pre_parameter_notification(0, iParameter, 0);
+    //    pre_parameter_notification(0, iParameter, 0);
     
     delete[] app_stringparamtable[ iParameter - FIRST_APP_SP ].value;
     
@@ -480,4 +490,16 @@ void dasher_app_settings_launch_advanced(DasherAppSettings *pSelf) {
   if(!g_spawn_async(NULL, szArgs, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &pError)) {
     g_warning("Could not launch gconf-editor: %s", pError->message);
   }
+}
+
+void dasher_app_settings_set_widget(DasherAppSettings *pSelf, GtkWidget *pWidget) {
+  pDasherWidget = pWidget;
+}
+
+GArray *dasher_app_settings_get_allowed_values(DasherAppSettings *pSelf, int iParameter) {
+  return gtk_dasher_control_get_allowed_values(GTK_DASHER_CONTROL(pDasherWidget), iParameter);
+}
+
+gboolean dasher_app_settings_get_module_settings(DasherAppSettings *pSelf, const gchar *szValue, SModuleSettings **pSettings, gint *iCount) {
+  return gtk_dasher_control_get_module_settings(GTK_DASHER_CONTROL(pDasherWidget), szValue, pSettings, iCount);
 }

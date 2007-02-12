@@ -1,12 +1,18 @@
 #ifndef __dasher_editor_h__
 #define __dasher_editor_h__
 
+#include <glade/glade.h>
 #include <glib.h>
 #include <glib-object.h>
 #include <gtk/gtk.h>
 
-#include "dasher_buffer_set.h"
+#include "DasherAppSettings.h"
 #include "dasher_action.h"
+#include "dasher_buffer_set.h"
+
+/* Forward declaration */
+typedef struct _DasherMain DasherMain;
+struct _DasherMain;
 
 typedef enum {
   CLIPBOARD_CUT,
@@ -35,44 +41,51 @@ struct _DasherEditor {
 
 struct _DasherEditorClass {
   GObjectClass parent_class;
+
+  void (*filename_changed)(DasherEditor *pDasherEditor);
+  void (*buffer_changed)(DasherEditor *pDasherEditor);
+  void (*context_changed)(DasherEditor *pDasherEditor);
 };
 
-DasherEditor *dasher_editor_new(int argc, char **argv);
+DasherEditor *dasher_editor_new(DasherAppSettings *pAppSettings, DasherMain *pDasherMain, GladeXML *pGladeXML, const gchar *szFullPath);
 GType dasher_editor_get_type();
 
-void dasher_editor_initialise(DasherEditor *pSelf);
-
-// TODO: Buffer set should really be private
-IDasherBufferSet *dasher_editor_get_buffer_set(DasherEditor *pSelf);
+/* Replace this with GTK text buffer */
+//IDasherBufferSet *dasher_editor_get_buffer_set(DasherEditor *pSelf);
 
 // TODO: Just have one 'handle event' method?
-void dasher_editor_clipboard(DasherEditor *pSelf, clipboard_action act);
+gboolean dasher_editor_command(DasherEditor *pSelf, const gchar *szCommand);
+
+/* To be obsoleted by movement to GTK buffers */
+void dasher_editor_output(DasherEditor *pSelf, const gchar *szText);
+void dasher_editor_delete(DasherEditor *pSelf, int iLength);
+const gchar *dasher_editor_get_context(DasherEditor *pSelf, int iOffset, int iLength);
+gint dasher_editor_get_offset(DasherEditor *pSelf);
+
+/* Events proagated from main */
 void dasher_editor_handle_stop(DasherEditor *pSelf);
 void dasher_editor_handle_start(DasherEditor *pSelf);
 void dasher_editor_handle_control(DasherEditor *pSelf, int iNodeID);
+
+/* Action related methods - TODO: a lot of this should be moved to dasher_main (eg action on stop etc) - that way we get a better level of abstraction, and can incorporate commands from otehr modules too. Actions should only be externally visible as a list of string commands*/
 void dasher_editor_action_button(DasherEditor *pSelf, DasherAction *pAction);
-void dasher_editor_clear(DasherEditor *pSelf, gboolean bStore);
 void dasher_editor_actions_start(DasherEditor *pSelf);
 bool dasher_editor_actions_more(DasherEditor *pSelf);
 void dasher_editor_actions_get_next(DasherEditor *pSelf, const gchar **szName, gint *iID, gboolean *bShow, gboolean *bControl, gboolean *bAuto);
 void dasher_editor_action_set_show(DasherEditor *pSelf, int iActionID, bool bValue);
 void dasher_editor_action_set_control(DasherEditor *pSelf, int iActionID, bool bValue);
 void dasher_editor_action_set_auto(DasherEditor *pSelf, int iActionID, bool bValue);
-void dasher_editor_create_buffer(DasherEditor *pSelf);
-void dasher_editor_handle_parameter_change(DasherEditor *pSelf, int iParameter);
-void dasher_editor_output(DasherEditor *pSelf, const gchar *szText);
-void dasher_editor_delete(DasherEditor *pSelf, int iLength);
-void dasher_editor_refresh_context(DasherEditor *pSelf, int iOffset, int iLength);
-void dasher_editor_generate_filename(DasherEditor *pSelf);
-void dasher_editor_open(DasherEditor *pSelf, const gchar *szFilename);
-bool dasher_editor_save_as(DasherEditor *pSelf, const gchar *szFilename, bool bAppend);
-void dasher_editor_start_tutorial(DasherEditor *pSelf);
-void dasher_editor_command(DasherEditor *pSelf, const gchar *szCommand);
 
-// Temporarily here - move back to private eventually
+
+/* TODO: Tutorial editor should be a separate class */
+//void dasher_editor_start_tutorial(DasherEditor *pSelf);
+
+/* Todo: possibly tidy up the need to have this public (quit in dasher_main possibly too connected) */
+gboolean dasher_editor_file_changed(DasherEditor *pSelf);
+const gchar *dasher_editor_get_filename(DasherEditor *pSelf);
+
 const gchar *dasher_editor_get_all_text(DasherEditor *pSelf);
 const gchar *dasher_editor_get_new_text(DasherEditor *pSelf);
-
 G_END_DECLS
 
 #endif

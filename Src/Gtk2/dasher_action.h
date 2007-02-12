@@ -1,7 +1,7 @@
 #ifndef __dasher_action_h__
 #define __dasher_action_h__
 
-// TODO: This should be an interface rather than an instantiable class
+// TODO: This should be an interface rather than an instantiable class - look for macros etc in GTK code which do this
 
 typedef struct _DasherEditor DasherEditor;
 

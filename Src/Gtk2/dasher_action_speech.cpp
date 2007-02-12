@@ -5,12 +5,14 @@
 #include "dasher_action_speech.h"
 #include "dasher_editor.h"
 
+#include <glib/gi18n.h>
 #include <gnome-speech/gnome-speech.h>
 #include <libbonobo.h>
-#include <libintl.h>
-#include <string.h>
+//#include <libintl.h>
+//#include <string.h>
 
-#define _(_x) gettext(_x)
+/* Replace with glib i11n header */
+//#define _(_x) gettext(_x)
 
 struct _DasherActionSpeechPrivate {
   CORBA_Object rv;
@@ -22,44 +24,20 @@ struct _DasherActionSpeechPrivate {
 
 typedef struct _DasherActionSpeechPrivate DasherActionSpeechPrivate;
 
+#define DASHER_ACTION_SPEECH_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE((o), TYPE_DASHER_ACTION_SPEECH, DasherActionSpeechPrivate))
 
-static void dasher_action_speech_class_init(DasherActionSpeechClass *pClass);
-static void dasher_action_speech_init(DasherActionSpeech *pActionSpeech);
-static void dasher_action_speech_destroy(GObject *pObject);
+G_DEFINE_TYPE(DasherActionSpeech, dasher_action_speech, TYPE_DASHER_ACTION);
+
 static gboolean dasher_action_speech_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx);
 static const gchar *dasher_action_speech_get_name(DasherAction *pSelf);
 static int dasher_action_speech_get_sub_count(DasherAction *pSelf);
 static const gchar *dasher_action_speech_get_sub_name(DasherAction *pSelf, int iIdx);
-gboolean dasher_action_speech_activate(DasherAction *pSelf);
-gboolean dasher_action_speech_deactivate(DasherAction *pSelf);
+static gboolean dasher_action_speech_activate(DasherAction *pSelf);
+static gboolean dasher_action_speech_deactivate(DasherAction *pSelf);
 
-GType dasher_action_speech_get_type() {
-
-  static GType dasher_action_speech_type = 0;
-
-  if(!dasher_action_speech_type) {
-    static const GTypeInfo dasher_action_speech_info = {
-      sizeof(DasherActionSpeechClass),
-      NULL,
-      NULL,
-      (GClassInitFunc) dasher_action_speech_class_init,
-      NULL,
-      NULL,
-      sizeof(DasherActionSpeech),
-      0,
-      (GInstanceInitFunc) dasher_action_speech_init,
-      NULL
-    };
-
-    dasher_action_speech_type = g_type_register_static(TYPE_DASHER_ACTION, "DasherActionSpeech", &dasher_action_speech_info, static_cast < GTypeFlags > (0));
-  }
-
-  return dasher_action_speech_type;
-}
-
-static void dasher_action_speech_class_init(DasherActionSpeechClass *pClass) {
-  GObjectClass *pObjectClass = (GObjectClass *) pClass;
-  pObjectClass->finalize = dasher_action_speech_destroy;
+static void 
+dasher_action_speech_class_init(DasherActionSpeechClass *pClass) {
+  g_type_class_add_private(pClass, sizeof(DasherActionSpeechPrivate));
 
   DasherActionClass *pDasherActionClass = (DasherActionClass *) pClass;
   pDasherActionClass->execute = dasher_action_speech_execute;
@@ -70,26 +48,24 @@ static void dasher_action_speech_class_init(DasherActionSpeechClass *pClass) {
   pDasherActionClass->deactivate = dasher_action_speech_deactivate;
 }
 
-static void dasher_action_speech_init(DasherActionSpeech *pDasherControl) {
-  pDasherControl->private_data = new DasherActionSpeechPrivate;
+static void 
+dasher_action_speech_init(DasherActionSpeech *pDasherActionSpeech) {
+  DasherActionSpeechPrivate *pPrivate = DASHER_ACTION_SPEECH_GET_PRIVATE(pDasherActionSpeech);
 
-  ((DasherActionSpeechPrivate *)(pDasherControl->private_data))->szLast = NULL;
+  pPrivate->szLast = NULL;
 }
 
-static void dasher_action_speech_destroy(GObject *pObject) {
-  // FIXME - I think we need to chain up through the finalize methods
-  // of the parent classes here...
-}
-
-DasherActionSpeech *dasher_action_speech_new() {
+DasherActionSpeech *
+dasher_action_speech_new() {
   DasherActionSpeech *pDasherControl;
   pDasherControl = (DasherActionSpeech *)(g_object_new(dasher_action_speech_get_type(), NULL));
 
   return pDasherControl;
 }
 
-static gboolean dasher_action_speech_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx) {
-  DasherActionSpeechPrivate *pDasherActionSpeechPrivate = (DasherActionSpeechPrivate *)(((DasherActionSpeech *)pSelf)->private_data);
+static gboolean 
+dasher_action_speech_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx) {
+  DasherActionSpeechPrivate *pDasherActionSpeechPrivate = DASHER_ACTION_SPEECH_GET_PRIVATE(pDasherActionSpeech);
 
   const char *szData;
 
@@ -129,15 +105,18 @@ static gboolean dasher_action_speech_execute(DasherAction *pSelf, DasherEditor *
   }
 }
 
-static const gchar *dasher_action_speech_get_name(DasherAction *pSelf) {
+static const gchar *
+dasher_action_speech_get_name(DasherAction *pSelf) {
   return "Speak";
 }
 
-static int dasher_action_speech_get_sub_count(DasherAction *pSelf) {
+static int 
+dasher_action_speech_get_sub_count(DasherAction *pSelf) {
   return 3;
 }
 
-static const gchar *dasher_action_speech_get_sub_name(DasherAction *pSelf, int iIdx) {
+static const gchar *
+dasher_action_speech_get_sub_name(DasherAction *pSelf, int iIdx) {
   switch(iIdx) {
   case 0:
     return "All";
@@ -150,9 +129,10 @@ static const gchar *dasher_action_speech_get_sub_name(DasherAction *pSelf, int i
   }
 }
 
-gboolean dasher_action_speech_activate(DasherAction *pSelf) {
-  DasherActionSpeechPrivate *pDasherActionSpeechPrivate = (DasherActionSpeechPrivate *)(((DasherActionSpeech *)pSelf)->private_data);
-  
+static gboolean 
+dasher_action_speech_activate(DasherAction *pSelf) {
+  DasherActionSpeechPrivate *pDasherActionSpeechPrivate = DASHER_ACTION_SPEECH_GET_PRIVATE(pDasherActionSpeech);
+
   pDasherActionSpeechPrivate->rv = 0;
   Bonobo_ServerInfoList *servers;
   Bonobo_ServerInfo *info;
@@ -210,8 +190,9 @@ gboolean dasher_action_speech_activate(DasherAction *pSelf) {
   return true;
 }
 
-gboolean dasher_action_speech_deactivate(DasherAction *pSelf) {
-  DasherActionSpeechPrivate *pDasherActionSpeechPrivate = (DasherActionSpeechPrivate *)(((DasherActionSpeech *)pSelf)->private_data);
+static gboolean 
+dasher_action_speech_deactivate(DasherAction *pSelf) {
+  DasherActionSpeechPrivate *pDasherActionSpeechPrivate = DASHER_ACTION_SPEECH_GET_PRIVATE(pDasherActionSpeech);
 
   bonobo_object_release_unref(pDasherActionSpeechPrivate->speaker, NULL);
   CORBA_free(pDasherActionSpeechPrivate->voices);

@@ -1,6 +1,9 @@
+//TODO: GTK FONT BUTTON
+
 #include "../Common/Common.h"
 
 #include "dasher.h"
+#include "DasherAppSettings.h"
 #include "FontDialogues.h"
 #include "GtkDasherControl.h"
 #include "../DasherCore/Parameters.h"
@@ -11,6 +14,9 @@
 
 #include <string>
 
+// TODO: This is clearly not going to work
+static DasherAppSettings *g_pDasherAppSettings = NULL;
+
 // Dasher font selector
 
 GtkFontSelectionDialog *dasher_fontselector, *edit_fontselector;
@@ -19,8 +25,9 @@ void InitialiseFontDialogues(GladeXML *pGladeWidgets) {
   dasher_fontselector = GTK_FONT_SELECTION_DIALOG(glade_xml_get_widget(pGladeWidgets, "dasher_fontselector"));
   edit_fontselector = GTK_FONT_SELECTION_DIALOG(glade_xml_get_widget(pGladeWidgets, "edit_fontselector"));
 
-  gtk_window_set_transient_for(GTK_WINDOW(dasher_fontselector), GTK_WINDOW(window));
-  gtk_window_set_transient_for(GTK_WINDOW(edit_fontselector), GTK_WINDOW(window));
+  // TODO: Reimplement
+//   gtk_window_set_transient_for(GTK_WINDOW(dasher_fontselector), GTK_WINDOW(window));
+//   gtk_window_set_transient_for(GTK_WINDOW(edit_fontselector), GTK_WINDOW(window));
 
 }
 
@@ -33,7 +40,8 @@ extern "C" void dasher_font_ok_cb(GtkWidget *one, GtkWidget *two) {
   char *font_name;
   font_name = gtk_font_selection_dialog_get_font_name(dasher_fontselector);
   if(font_name) {
-    gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), SP_DASHER_FONT, font_name);
+    // TODO: Do through app settings
+    // gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), SP_DASHER_FONT, font_name);
   }
   gtk_widget_hide(GTK_WIDGET(dasher_fontselector));
 }
@@ -42,13 +50,15 @@ extern "C" void dasher_font_apply_cb(GtkWidget *one, GtkWidget *two) {
   char *font_name;
   font_name = gtk_font_selection_dialog_get_font_name(dasher_fontselector);
   if(font_name) {
-    gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), SP_DASHER_FONT, font_name);
+    // TODO: Do through app settings
+    //gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), SP_DASHER_FONT, font_name);
   }
 }
 
 
 extern "C" void set_dasher_font(GtkWidget *widget, gpointer user_data) {
-  gtk_font_selection_dialog_set_font_name(dasher_fontselector,gtk_dasher_control_get_parameter_string(GTK_DASHER_CONTROL(pDasherWidget),SP_DASHER_FONT));
+  // TODO: Do through app settings
+  //  gtk_font_selection_dialog_set_font_name(dasher_fontselector,gtk_dasher_control_get_parameter_string(GTK_DASHER_CONTROL(pDasherWidget),SP_DASHER_FONT));
   gtk_window_present(GTK_WINDOW(dasher_fontselector));
 }
 

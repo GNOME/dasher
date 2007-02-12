@@ -1,10 +1,10 @@
 #ifndef __dasher_preferences_dialogue_h__
 #define __dasher_preferences_dialogue_h__
 
-#include <gdk/gdk.h>
+//#include <gdk/gdk.h>
 #include <glade/glade.h>
-#include <glib.h>
-#include <glib-object.h>
+//#include <glib.h>
+//#include <glib-object.h>
 #include <gtk/gtk.h>
 
 #include "DasherAppSettings.h"
@@ -31,11 +31,10 @@ struct _DasherPreferencesDialogueClass {
   GObjectClass parent_class;
 };
 
-DasherPreferencesDialogue *dasher_preferences_dialogue_new(GladeXML *pGladeWidgets, DasherEditor *pEditor);
+DasherPreferencesDialogue *dasher_preferences_dialogue_new(GladeXML *pGladeWidgets, DasherEditor *pEditor, DasherAppSettings *pAppSettings, GtkWindow *pMainWindow);
 GType dasher_preferences_dialogue_get_type();
 void dasher_preferences_dialogue_show(DasherPreferencesDialogue *pSelf);
 void dasher_preferences_dialogue_handle_parameter_change(DasherPreferencesDialogue *pSelf, int iParameter);
-void dasher_preferences_dialogue_populate_actions(DasherPreferencesDialogue *pSelf);
 G_END_DECLS
 
 #endif

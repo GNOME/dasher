@@ -1,11 +1,11 @@
 #ifndef __dasher_main_h__
 #define __dasher_main_h__
 
-#include <glade/glade.h>
+#include "DasherAppSettings.h"
+#include "dasher_editor.h"
+
 #include <glib.h>
 #include <glib-object.h>
-
-#include "DasherAppSettings.h"
 
 G_BEGIN_DECLS
 #define TYPE_DASHER_MAIN            (dasher_main_get_type())
@@ -20,7 +20,6 @@ typedef struct _DasherMainClass DasherMainClass;
 
 struct _DasherMain {
   GObject parent;
-  gpointer private_data;
 };
 
 struct _DasherMainClass {
@@ -29,21 +28,18 @@ struct _DasherMainClass {
   void (*realized)(DasherMain *pDasherMain);
 };
 
-DasherMain *dasher_main_new();
+
+typedef struct _SCommandLine SCommandLine;
+
+struct _SCommandLine {
+  gchar *szFilename;
+  gchar *szAppStyle;
+};
+
+DasherMain *dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine);
 GType dasher_main_get_type();
-void dasher_main_load_interface(DasherMain *pSelf);
-GladeXML *dasher_main_get_glade(DasherMain *pSelf);
-GtkWidget *dasher_main_get_window(DasherMain *pSelf);
-void dasher_main_handle_parameter_change(DasherMain *pSelf, int iParameter);
-void dasher_main_handle_pre_parameter_change(DasherMain *pSelf, int iParameter);
-void dasher_main_set_app_settings(DasherMain *pSelf, DasherAppSettings *pAppSettings);
-void dasher_main_load_state(DasherMain *pSelf);
-void dasher_main_save_state(DasherMain *pSelf);
+//DasherEditor *dasher_main_get_editor(DasherMain *pSelf);
 void dasher_main_show(DasherMain *pSelf);
-void dasher_main_set_filename(DasherMain *pSelf, const gchar *szFilename);
-gboolean dasher_main_topmost(DasherMain *pSelf);
-void dasher_main_setup_window(DasherMain *pSelf);
-void dasher_main_populate_controls(DasherMain *pSelf);
 G_END_DECLS
 
 #endif
