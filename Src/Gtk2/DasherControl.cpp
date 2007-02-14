@@ -37,8 +37,8 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
 
   Realize();
  
-  m_pKeyboardHelper = new CKeyboardHelper(this);
-  m_pKeyboardHelper->Grab(GetBoolParameter(BP_GLOBAL_KEYBOARD));
+  //  m_pKeyboardHelper = new CKeyboardHelper(this);
+  //  m_pKeyboardHelper->Grab(GetBoolParameter(BP_GLOBAL_KEYBOARD));
 }
 
 void CDasherControl::CreateLocalFactories() {
@@ -198,10 +198,10 @@ CDasherControl::~CDasherControl() {
     m_pPangoCache = NULL;
   }
 
-  if(m_pKeyboardHelper) {
-    delete m_pKeyboardHelper;
-    m_pKeyboardHelper = 0;
-  }
+//   if(m_pKeyboardHelper) {
+//     delete m_pKeyboardHelper;
+//     m_pKeyboardHelper = 0;
+//   }
 }
 
 bool CDasherControl::FocusEvent(GtkWidget *pWidget, GdkEventFocus *pEvent) {
@@ -352,22 +352,25 @@ void CDasherControl::WriteTrainFile(const std::string &strNewText) {
   close(fd);
 }
 
+// TODO: Sort these methods out
 void CDasherControl::ExternalKeyDown(int iKeyVal) {
-  if(m_pKeyboardHelper) {
-    int iButtonID(m_pKeyboardHelper->ConvertKeycode(iKeyVal));
+//   if(m_pKeyboardHelper) {
+//     int iButtonID(m_pKeyboardHelper->ConvertKeycode(iKeyVal));
 
-    if(iButtonID != -1)
-      KeyDown(get_time(), iButtonID);
-  }
+//     if(iButtonID != -1)
+//       KeyDown(get_time(), iButtonID);
+//   }
+  KeyDown(get_time(), iKeyVal);
 }
 
 void CDasherControl::ExternalKeyUp(int iKeyVal) {
-  if(m_pKeyboardHelper) {
-    int iButtonID(m_pKeyboardHelper->ConvertKeycode(iKeyVal));
+//   if(m_pKeyboardHelper) {
+//     int iButtonID(m_pKeyboardHelper->ConvertKeycode(iKeyVal));
     
-    if(iButtonID != -1)
-      KeyUp(get_time(), iButtonID);
-  }
+//     if(iButtonID != -1)
+//       KeyUp(get_time(), iButtonID);
+//   }
+  KeyUp(get_time(), iKeyVal);
 }
 
 void CDasherControl::HandleParameterNotification(int iParameter) {
@@ -379,8 +382,9 @@ void CDasherControl::HandleParameterNotification(int iParameter) {
     }
     break;
   case BP_GLOBAL_KEYBOARD:
-    if(m_pKeyboardHelper)
-      m_pKeyboardHelper->Grab(GetBoolParameter(BP_GLOBAL_KEYBOARD));
+    // TODO: reimplement
+//     if(m_pKeyboardHelper)
+//       m_pKeyboardHelper->Grab(GetBoolParameter(BP_GLOBAL_KEYBOARD));
     break;
   }
 }
@@ -494,12 +498,12 @@ gint CDasherControl::KeyReleaseEvent(GdkEventKey *event) {
 //       SetLongParameter(LP_BOOSTFACTOR, 100);
   }
   else {
-    if(m_pKeyboardHelper) {
-      int iKeyVal(m_pKeyboardHelper->ConvertKeycode(event->keyval));
+//     if(m_pKeyboardHelper) {
+//       int iKeyVal(m_pKeyboardHelper->ConvertKeycode(event->keyval));
       
-      if(iKeyVal != -1)
-	KeyUp(get_time(), iKeyVal);
-    }
+//       if(iKeyVal != -1)
+// 	KeyUp(get_time(), iKeyVal);
+//     }
   }
 
   return 0;
@@ -511,12 +515,12 @@ gint CDasherControl::KeyPressEvent(GdkEventKey *event) {
   //  else if((event->keyval == GDK_Control_L) || (event->keyval == GDK_Control_R))
   //   SetLongParameter(LP_BOOSTFACTOR, 25);
   // else {
-    if(m_pKeyboardHelper) {
-      int iKeyVal(m_pKeyboardHelper->ConvertKeycode(event->keyval));
+//     if(m_pKeyboardHelper) {
+//       int iKeyVal(m_pKeyboardHelper->ConvertKeycode(event->keyval));
       
-      if(iKeyVal != -1)
-	KeyDown(get_time(), iKeyVal);
-    }
+//       if(iKeyVal != -1)
+// 	KeyDown(get_time(), iKeyVal);
+//     }
     //  }
   return 0;
 }

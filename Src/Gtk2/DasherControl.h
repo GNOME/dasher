@@ -14,7 +14,7 @@
 #include "mouse_input.h"
 
 #include "GtkDasherControl.h"
-#include "KeyboardHelper.h"
+//#include "KeyboardHelper.h"
 
 #include "../DasherCore/DasherSettingsInterface.h"
 #include "../DasherCore/DasherInterfaceBase.h"
@@ -191,7 +191,7 @@ private:
   /// Keyboard helper class
   ///
 
-  CKeyboardHelper *m_pKeyboardHelper;
+  //  CKeyboardHelper *m_pKeyboardHelper;
 };
 
 #endif

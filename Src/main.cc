@@ -239,8 +239,6 @@ int main(int argc, char *argv[]) {
 
   dasher_main_show(g_pDasherMain);
 
-  gtk_key_snooper_install(main_key_snooper, g_pDasherMain);
-
   // 10.
   gtk_main();
 
@@ -273,18 +271,4 @@ void sigint_handler(int iSigNum) {
     clean_up();
     exit(0);
   }
-}
-
-// TODO: Put this somewhere sensible, make it only work for children of the main window
-extern "C" gint main_key_snooper(GtkWidget *pWidget, GdkEventKey *pEvent, gpointer pUserData) {
-  g_message("Key event");
-
-  // TODO: Hook up to keybindings code
-
-  if(pEvent->keyval == GDK_space) {
-    g_message("Space");
-    return TRUE;
-  }
-
-  return FALSE;
 }

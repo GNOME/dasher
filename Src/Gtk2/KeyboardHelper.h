@@ -1,14 +1,15 @@
 #ifndef __KEYBOARD_HELPER_H__
 #define __KEYBOARD_HELPER_H__
 
-#include "../DasherCore/DasherInterfaceBase.h"
+//#include "../DasherCore/DasherInterfaceBase.h"
+
+#include "DasherAppSettings.h"
 
 #include <map>
 
 class CKeyboardHelper {
  public:
-  CKeyboardHelper(CDasherInterfaceBase *pInterface);
-
+  CKeyboardHelper(DasherAppSettings *pAppSettings);
   void SetKey(int iCode, int iId);
   void UnsetKey(int iCode);
 
@@ -22,7 +23,8 @@ class CKeyboardHelper {
 
   std::map<int, int> m_mTable;
 
-  CDasherInterfaceBase *m_pInterface;
+  //  CDasherInterfaceBase *m_pInterface;
+  DasherAppSettings *m_pAppSettings;
 };
 
 #endif

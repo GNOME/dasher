@@ -127,6 +127,9 @@ void CAlphabetManager::PopulateChildrenWithSymbol( CDasherNode *pNode, int iExis
   // work out cumulative probs in place
   for(int i = 1; i < iChildCount; i++)
     cum[i] += cum[i - 1];
+
+  
+  //  m_pNCManager->GetAlphabet()->m_pBaseGroup;
   
   int iLbnd = 0;
   

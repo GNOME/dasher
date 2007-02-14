@@ -11,6 +11,7 @@
 #include <libgnome/libgnome.h>
 
 #include "GtkDasherControl.h"
+#include "KeyboardHelper.h"
 #include "Preferences.h"
 #include "dasher_lock_dialogue.h"
 #ifdef WITH_MAEMO
@@ -29,6 +30,8 @@ struct _DasherMainPrivate {
   DasherAppSettings *pAppSettings;
   DasherPreferencesDialogue *pPreferencesDialogue;
   DasherEditor *pEditor;
+
+  CKeyboardHelper *pKeyboardHelper;
 
   // Various widgets which need to be cached:
   GtkWidget *pBufferView;
@@ -146,6 +149,7 @@ static void dasher_main_setup_window(DasherMain *pSelf);
 static void dasher_main_populate_controls(DasherMain *pSelf);
 static void dasher_main_connect_control(DasherMain *pSelf);
 static gboolean dasher_main_command(DasherMain *pSelf, const gchar *szCommand);
+static gint dasher_main_lookup_key(DasherMain *pSelf, guint iKeyVal);
 
 /* TODO: Various functions which haven't yet been rationalised */
 gboolean grab_focus();
@@ -178,6 +182,7 @@ extern "C" gboolean test_focus_handler(GtkWidget *pWidget, GtkDirectionType iDir
 
 extern "C" void handle_context_request(GtkDasherControl * pDasherControl, gint iOffset, gint iLength, gpointer data);
 extern "C" void handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer data);
+extern "C" gint dasher_main_key_snooper(GtkWidget *pWidget, GdkEventKey *pEvent, gpointer pUserData);
 
 /* Boilerplate code */
 static void 
@@ -204,6 +209,9 @@ dasher_main_init(DasherMain *pDasherMain) {
   pPrivate->pAppSettings = NULL;
   pPrivate->pEditor = NULL;
   pPrivate->pPreferencesDialogue = NULL;
+
+  pPrivate->pKeyboardHelper = new CKeyboardHelper(NULL);
+
   pPrivate->bWidgetsInitialised = false;
 }
 
@@ -308,6 +316,8 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
     dasher_main_set_filename(pDasherMain);
     dasher_main_populate_controls(pDasherMain);
     dasher_main_connect_control(pDasherMain);
+
+    gtk_key_snooper_install(dasher_main_key_snooper, pDasherMain);
 
     /* Cache a file-wide static pointer to the singleton class */
     g_pDasherMain = pDasherMain;
@@ -1168,6 +1178,15 @@ dasher_main_populate_alphabet_combo(DasherMain *pSelf) {
 #endif
 }
 
+static gint
+dasher_main_lookup_key(DasherMain *pSelf, guint iKeyVal) {
+  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
+
+  if(pPrivate->pKeyboardHelper)
+    return pPrivate->pKeyboardHelper->ConvertKeycode(iKeyVal);
+  else
+    return -1;
+}
 
 
 gboolean 
@@ -1338,5 +1357,29 @@ handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer dat
     break;
   default:
     break;
+  }
+}
+
+// TODO: Make this only work for children of the main window
+extern "C" gint 
+dasher_main_key_snooper(GtkWidget *pWidget, GdkEventKey *pEvent, gpointer pUserData) {
+  DasherMain *pSelf = DASHER_MAIN(pUserData);
+
+  gint iButton = dasher_main_lookup_key(pSelf, pEvent->keyval);
+  
+  if(iButton != -1) {
+    DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
+    
+    if(pPrivate->pDasherWidget) {
+      if(pEvent->type == GDK_KEY_PRESS)
+	gtk_dasher_control_external_key_down(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), iButton);
+      else
+	gtk_dasher_control_external_key_up(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), iButton);
+    }
+    
+    return TRUE;
+  }
+  else {
+    return FALSE;
   }
 }

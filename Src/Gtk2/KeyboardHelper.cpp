@@ -1,4 +1,3 @@
-#include "../DasherCore/Parameters.h"
 #include "KeyboardHelper.h"
 
 #include <X11/Xlib.h>
@@ -9,11 +8,11 @@
 #include <sstream>
 #include <string>
 
-CKeyboardHelper::CKeyboardHelper(CDasherInterfaceBase *pInterface) {
-  m_pInterface = pInterface;
+CKeyboardHelper::CKeyboardHelper(DasherAppSettings *pAppSettings) {
+  m_pAppSettings = pAppSettings;
 
   // For now assume we either have all or nothing
-  if(m_pInterface->GetStringParameter(SP_BUTTON_0) == "")
+  if(!m_pAppSettings || (!strcmp(dasher_app_settings_get_string(m_pAppSettings, SP_BUTTON_0), "")))
     SetupDefaults();
   else
     LoadSettings();
@@ -80,13 +79,16 @@ void CKeyboardHelper::SetupDefaults() {
 }
 
 void CKeyboardHelper::LoadSettings() {
+  if(!m_pAppSettings)
+    return;
+
   int iButtons[] = {0, 1, 2, 3, 4, 10};
   int iIDs[] = {SP_BUTTON_0, SP_BUTTON_1, SP_BUTTON_2, SP_BUTTON_3, SP_BUTTON_4, SP_BUTTON_10}; 
 
   int iCount(sizeof(iButtons) / sizeof(int));
   
   for(int i(0); i < iCount; ++i) {
-    std::string strEntry(m_pInterface->GetStringParameter(iIDs[i]));
+    std::string strEntry(dasher_app_settings_get_string(m_pAppSettings, iIDs[i]));
     std::string strCurrent;
 
     for(std::string::iterator it(strEntry.begin()); it != strEntry.end(); ++it) {
@@ -102,6 +104,9 @@ void CKeyboardHelper::LoadSettings() {
 }
 
 void CKeyboardHelper::SaveSettings() {
+  if(!m_pAppSettings)
+    return;
+
   std::map<int, std::string> mSettings;
   
   for(std::map<int, int>::iterator it(m_mTable.begin()); it != m_mTable.end(); ++it) {
@@ -137,7 +142,7 @@ void CKeyboardHelper::SaveSettings() {
       return;
     }
 
-    m_pInterface->SetStringParameter(iID, it->second);
+    dasher_app_settings_set_string(m_pAppSettings, iID, it->second.c_str());
   }
 }
 
