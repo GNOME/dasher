@@ -36,7 +36,6 @@ typedef struct _DasherEditorClass DasherEditorClass;
 
 struct _DasherEditor {
   GObject parent;
-  gpointer private_data;
 };
 
 struct _DasherEditorClass {

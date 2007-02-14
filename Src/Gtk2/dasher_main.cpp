@@ -203,6 +203,7 @@ dasher_main_init(DasherMain *pDasherMain) {
 
   pPrivate->pAppSettings = NULL;
   pPrivate->pEditor = NULL;
+  pPrivate->pPreferencesDialogue = NULL;
   pPrivate->bWidgetsInitialised = false;
 }
 
@@ -214,9 +215,19 @@ dasher_main_finalize(GObject *pObject) {
   DasherMain *pDasherMain = DASHER_MAIN(pObject);
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pDasherMain);
 
+  dasher_main_save_state(pDasherMain);
+
   /* TODO: Does unref really do the right thing - check the whole ref counting situation */
   if(pPrivate->pEditor)
     g_object_unref(pPrivate->pEditor);
+
+  if(pPrivate->pPreferencesDialogue)
+    g_object_unref(pPrivate->pPreferencesDialogue);
+
+  if(pPrivate->pAppSettings)
+    g_object_unref(pPrivate->pAppSettings);
+
+  /* TDO: Do we need to take down anything else? */
 }
 
 /* Public methods */
@@ -310,7 +321,7 @@ static void
 dasher_main_load_interface(DasherMain *pSelf) {
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
   
-  const char *szGladeFilename;
+  const char *szGladeFilename = NULL;
 
 #ifdef WITH_GPE
   szGladeFilename = PROGDATA "/dashergpe.glade";
@@ -340,6 +351,10 @@ dasher_main_load_interface(DasherMain *pSelf) {
     g_error("Inconsistent application style specified.");
   }
 #endif
+
+  if(!szGladeFilename) {
+    g_error("Failure to determine glade filename");
+  }
 
   pPrivate->pGladeXML = glade_xml_new(szGladeFilename, NULL, NULL);
 
@@ -650,9 +665,8 @@ static void
 dasher_main_connect_control(DasherMain *pSelf) {
   /* TODO: This is very much temporary - we need to think of a better
      way of presenting application commands in a unified way */
-  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
-
 #ifdef GNOME_SPEECH
+  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
 
   gtk_dasher_control_register_node( GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
 				    Dasher::CControlManager::CTL_USER,
@@ -856,8 +870,6 @@ dasher_main_connect_menus(DasherMain *pSelf) {
 
 static void 
 dasher_main_menu_command(DasherMain *pSelf, GtkWidget *pWidget) {
-  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
-
   int iNumItems = sizeof(MenuCommands) / sizeof(DasherMenuCommand);
 
   for(int i(0); i < iNumItems; ++i) {
@@ -903,9 +915,6 @@ static void dasher_main_command_quit(DasherMain *pSelf) {
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
 
   GtkWidget *pDialogue = NULL;
-
-  // TODO: reimplement if necessary
-  //  dasher_main_save_state(g_pSelf);
 
   if(dasher_editor_file_changed(pPrivate->pEditor)) {
     const gchar *szFilename = dasher_editor_get_filename(pPrivate->pEditor);
@@ -1195,6 +1204,9 @@ extern "C" gboolean
 speed_changed(GtkWidget *pWidget, gpointer user_data) {
   if(g_pDasherMain)
     return dasher_main_speed_changed(g_pDasherMain);
+
+  // TODO: Check callback return functions
+  return false;
 }
 
 extern "C" void 
@@ -1267,6 +1279,9 @@ edit_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data) {
 //   else {
 //     return false;
 //   }
+
+  // TODO: Check callback return functions
+  return false;
 }
 
 extern "C" gboolean 
@@ -1281,6 +1296,9 @@ edit_key_release(GtkWidget *widget, GdkEventKey *event, gpointer user_data) {
 //   else {
 //     return false;
 //   }
+
+  // TODO: Check callback return functions
+  return false;
 }
 
 extern "C" gboolean 

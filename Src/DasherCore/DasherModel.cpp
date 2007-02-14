@@ -99,9 +99,6 @@ CDasherModel::~CDasherModel() {
 
   if(m_Root)
     delete m_Root;
-
-  //  m_pLanguageModel->ReleaseContext(LearnContext);
-  //  delete m_pLanguageModel;
 }
 
 void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {

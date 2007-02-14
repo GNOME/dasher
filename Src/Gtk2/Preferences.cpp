@@ -309,8 +309,6 @@ void dasher_preferences_dialogue_initialise_tables(DasherPreferencesDialogue *pS
 extern "C" gboolean dasher_preferences_refresh_foreach_function(GtkTreeModel *pModel, GtkTreePath *pPath, GtkTreeIter *pIter, gpointer pUserData) {
   gpointer *pPointers = (gpointer *)pUserData;
 
-  DasherPreferencesDialogue *pSelf = (DasherPreferencesDialogue *)pPointers[2];
-
   gchar *szTarget = (gchar *)pPointers[0];
   gchar *szComparison;
 
@@ -702,8 +700,6 @@ static void dasher_preferences_dialogue_populate_special_fontsize(DasherPreferen
 }
 
 static void dasher_preferences_dialogue_update_special(DasherPreferencesDialogue *pSelf, int iID) {
-  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
-
   for(unsigned int i(0); i < (sizeof(sSpecialControlTable) / sizeof(SpecialControl)); ++i) {
     if(((iID == -1) && sSpecialControlTable[i].bPrimary) || (sSpecialControlTable[i].iID == iID)) {
       (sSpecialControlTable[i].pPopulate)(pSelf);
@@ -883,9 +879,6 @@ extern "C" void uniform_changed(GtkHScale *hscale) {
 }
 
 extern "C" gboolean show_helper_window(GtkWidget *pWidget, gpointer *pUserData) {
-  //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
-  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
-
   gtk_window_present(GTK_WINDOW(*pUserData));
   return FALSE;
 }

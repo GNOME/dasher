@@ -139,9 +139,9 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
 
   ++m_iRenderCount;
  
-  SGroupInfo *group=pRender->m_pBaseGroup;
+  //  SGroupInfo *group=pRender->m_pBaseGroup;
   myint temp_parentwidth=parent_width;
-  myint trange = y2 - y1;
+  //  myint trange = y2 - y1;
   int temp_parentcolor=parent_color;
   //Ignas. Group rendering is not finished. 
 /*  if (group!=NULL)
@@ -200,7 +200,7 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
   
   
   int id=-1;
-  int lower=-1,upper=-1;
+  //  int lower=-1,upper=-1;
   temp_parentwidth=y2-y1;
   temp_parentcolor=pRender->Colour();
   for(i = pRender->GetChildren().begin(); i != pRender->GetChildren().end(); i++) {
@@ -391,15 +391,18 @@ int CDasherViewSquare::RenderNodeOutlineFast(const int Color, myint y1, myint y2
   // FIXME - get rid of pointless assignment below
 
   int iTruncation(GetLongParameter(LP_TRUNCATION));     // Trucation farction times 100;
-  int iTruncationType(GetLongParameter(LP_TRUNCATIONTYPE));
+  //  int iTruncationType(GetLongParameter(LP_TRUNCATIONTYPE));
 
   if(iTruncation == 0) {        // Regular squares
-    	  DasherDrawRectangle(std::min(iDasherSize,iDasherMaxX), std::min(y2,iDasherMaxY),0, std::max(y1,iDasherMinY), Color, -1, Nodes1, true,false, 1);
+    DasherDrawRectangle(std::min(iDasherSize,iDasherMaxX), std::min(y2,iDasherMaxY),0, std::max(y1,iDasherMinY), Color, -1, Nodes1, true,false, 1);
   }
-  else { }
+  else { 
+    // TODO: Put something back here?
+  }
 
   return 1;
 }
+
 int CDasherViewSquare::RenderNodePartFast(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove,myint iParentWidth ) {
 
   // Commenting because click mode occasionally fails this assert.
@@ -431,12 +434,12 @@ int CDasherViewSquare::RenderNodePartFast(const int Color, myint y1, myint y2, i
     return 0;                   // We're entirely off screen, so don't render.
   }
 
-  myint iDasherSize(y2 - y1);
+  //  myint iDasherSize(y2 - y1);
 
   // FIXME - get rid of pointless assignment below
 
-  int iTruncation(GetLongParameter(LP_TRUNCATION));     // Trucation farction times 100;
-  int iTruncationType(GetLongParameter(LP_TRUNCATIONTYPE));
+  int iTruncation(GetLongParameter(LP_TRUNCATION));     // Trucation farction times -x100;
+  //  int iTruncationType(GetLongParameter(LP_TRUNCATIONTYPE));
 
   if(iTruncation == 0) {        // Regular squares
     DasherDrawRectangle(std::min(iParentWidth,iDasherMaxX), std::min(y2,iDasherMaxY),0, std::max(y1,iDasherMinY), Color, -1, Nodes1, false, true, 1);
@@ -483,7 +486,7 @@ int CDasherViewSquare::RenderNodeFatherFast(const int parent_color, myint y1, my
   // FIXME - get rid of pointless assignment below
 
   int iTruncation(GetLongParameter(LP_TRUNCATION));     // Trucation farction times 100;
-  int iTruncationType(GetLongParameter(LP_TRUNCATIONTYPE));
+  // int iTruncationType(GetLongParameter(LP_TRUNCATIONTYPE));
 
   if(iTruncation == 0) {        // Regular squares
     DasherDrawRectangle(std::min(iParentWidth,iDasherMaxX), std::min(y2,iDasherMaxY), std::min(iDasherSize,iDasherMaxX), std::max(y1,iDasherMinY), parent_color, -1, Nodes1, false, true, 1);
@@ -496,6 +499,7 @@ int CDasherViewSquare::RenderNodeFatherFast(const int parent_color, myint y1, my
   }
   return 1;
 }
+
 int CDasherViewSquare::RenderNode(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove) {
 
   // Commenting because click mode occasionally fails this assert.
@@ -532,7 +536,7 @@ int CDasherViewSquare::RenderNode(const int Color, myint y1, myint y2, int &most
   // FIXME - get rid of pointless assignment below
 
   int iTruncation(GetLongParameter(LP_TRUNCATION));     // Trucation farction times 100;
-  int iTruncationType(GetLongParameter(LP_TRUNCATIONTYPE));
+  //  int iTruncationType(GetLongParameter(LP_TRUNCATIONTYPE));
 
   if(iTruncation == 0) {        // Regular squares
     DasherDrawRectangle(std::min(iDasherSize,iDasherMaxX), std::min(y2,iDasherMaxY), 0, std::max(y1,iDasherMinY), Color, -1, Nodes1, GetBoolParameter(BP_OUTLINE_MODE), true, 1);
