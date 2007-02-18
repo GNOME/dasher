@@ -1,394 +1,498 @@
 # dasher ja.po.
-# Copyright (C) 2004 Free Software Foundation, Inc.
-# This file is distributed under the same license as the dasher package.
-# Takeshi AIHANA <aihana@gnome.gr.jp>, 2004.
+# Copyright (C) 2004-2007 Free Software Foundation, Inc.
+# This file is distributed under the same license as the 'dasher' package.
+# Takeshi AIHANA <takeshi.aihana@gmail.com>, 2004-2007.
 # Satoru SATOH <ss@gnome.gr.jp>, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher HEAD\n"
+"Project-Id-Version: dasher trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-22 14:46+0900\n"
-"PO-Revision-Date: 2006-07-22 14:54+0900\n"
-"Last-Translator: Satoru SATOH <ss@gnome.gr.jp>\n"
+"POT-Creation-Date: 2007-02-18 20:48+0900\n"
+"PO-Revision-Date: 2007-02-18 20:47+0900\n"
+"Last-Translator: Takeshi AIHANA <takeshi.aihana@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/dasher.glade.h:34
-#: ../Src/Gtk2/dashergpe.glade.h:5 ../Src/Gtk2/dashermaemo.glade.h:18
+#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/dasher.compose.glade.h:34
+#: ../Src/Gtk2/dasher.direct.glade.h:31
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:30 ../Src/Gtk2/dasher.glade.h:34
+#: ../Src/Gtk2/dasher.traditional.glade.h:34 ../Src/Gtk2/dasher_main.cpp:1046
+#: ../Src/Gtk2/dashergpe.glade.h:5 ../Src/Gtk2/dashermaemo.glade.h:17
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:15
 msgid "Dasher"
 msgstr "Dasher"
 
 #: ../Data/dasher.desktop.in.in.h:2
 msgid "Predictive text entry"
-msgstr "予測テキストエントリ"
+msgstr "エントリを予測しながら文字列を入力します"
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
 msgid "Dasher socket input: failed to launch reader thread."
-msgstr "Dasher ソケット入力: reader スレッド起動に失敗"
+msgstr "Dasher のソケット入力: リーダ・スレッドの起動に失敗しました"
 
-#: ../Src/Gtk2/Menu.cc:62 ../Src/Gtk2/Menu.cc:118 ../Src/Gtk2/Menu.cc:176
-#: ../Src/Gtk2/Menu.cc:219 ../Src/Gtk2/dasher.glade.h:59
-#: ../Src/Gtk2/dashergpe.glade.h:14 ../Src/Gtk2/dashermaemo.glade.h:29
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:25
-msgid "Select File"
-msgstr "ファイルの選択"
-
-#: ../Src/Gtk2/Menu.cc:302
-#, c-format
-msgid ""
-"Do you want to save your changes to %s?\n"
-"\n"
-"Your changes will be lost if you don't save them."
-msgstr ""
-"変更を %s に保存しますか?\n"
-"\n"
-"保存しないと変更は失われてしまいます。"
-
-#: ../Src/Gtk2/Menu.cc:305
-msgid ""
-"Do you want to save your changes?\n"
-"\n"
-"Your changes will be lost if you don't save them."
-msgstr ""
-"変更を保存しますか?\n"
-"\n"
-"保存しないと変更は失われてしまいます。"
-
-#: ../Src/Gtk2/Menu.cc:308
-msgid "Don't save"
-msgstr "保存しない"
-
-#: ../Src/Gtk2/Menu.cc:308
-msgid "Don't quit"
-msgstr "終了しない"
-
-#: ../Src/Gtk2/Menu.cc:308
-msgid "Save and quit"
-msgstr "保存して終了"
-
-#: ../Src/Gtk2/Menu.cc:425
-msgid "Dasher is a predictive text entry application"
-msgstr "Dasher は予測テキスト入力アプリケーションです"
-
-#: ../Src/Gtk2/Menu.cc:430
-msgid "translator-credits"
-msgstr ""
-"相花 毅 <aihana@gnome.gr.jp>\n"
-"佐藤 暁 <ss@gnome.gr.jp>\n"
-"日本GNOMEユーザー会 <http://www.gnome.gr.jp>"
-
-#: ../Src/Gtk2/Preferences.cpp:822 ../Src/Gtk2/Preferences.cpp:824
-msgid "Training Dasher... please wait"
-msgstr "Dasher を学習させています...少々お待ち下さい"
-
-#: ../Src/Gtk2/dasher.glade.h:1
+#: ../Src/Gtk2/dasher.compose.glade.h:1 ../Src/Gtk2/dasher.direct.glade.h:1
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:1 ../Src/Gtk2/dasher.glade.h:1
+#: ../Src/Gtk2/dasher.traditional.glade.h:1
 msgid "<b>Actions:</b>"
-msgstr "<b>アクション:</b>"
+msgstr "<b>操作:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:2 ../Src/Gtk2/dashermaemo.glade.h:4
+#: ../Src/Gtk2/dasher.compose.glade.h:2 ../Src/Gtk2/dasher.direct.glade.h:2
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:2 ../Src/Gtk2/dasher.glade.h:2
+#: ../Src/Gtk2/dasher.traditional.glade.h:2 ../Src/Gtk2/dashermaemo.glade.h:3
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:1
 msgid "<b>Adaptation:</b>"
-msgstr "<b>適応:</b>"
+msgstr "<b>適応性:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:3 ../Src/Gtk2/dashermaemo.glade.h:5
+#: ../Src/Gtk2/dasher.compose.glade.h:3 ../Src/Gtk2/dasher.direct.glade.h:3
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:3 ../Src/Gtk2/dasher.glade.h:3
+#: ../Src/Gtk2/dasher.traditional.glade.h:3 ../Src/Gtk2/dashermaemo.glade.h:4
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:2
 msgid "<b>Alphabet Selection:</b>"
 msgstr "<b>アルファベットの選択:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:4
+#: ../Src/Gtk2/dasher.compose.glade.h:4 ../Src/Gtk2/dasher.direct.glade.h:4
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:4 ../Src/Gtk2/dasher.glade.h:4
+#: ../Src/Gtk2/dasher.traditional.glade.h:4
 msgid "<b>Appearance Options:</b>"
-msgstr "<b>外観オプション:</b>"
+msgstr "<b>表示オプション:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:5
+#: ../Src/Gtk2/dasher.compose.glade.h:5 ../Src/Gtk2/dasher.direct.glade.h:5
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:5 ../Src/Gtk2/dasher.glade.h:5
+#: ../Src/Gtk2/dasher.traditional.glade.h:5
 msgid "<b>Application Options:</b>"
-msgstr "<b>アプリケーションオプション:</b>"
+msgstr "<b>アプリのオプション:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:6
+#: ../Src/Gtk2/dasher.compose.glade.h:6 ../Src/Gtk2/dasher.direct.glade.h:6
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:6 ../Src/Gtk2/dasher.glade.h:6
+#: ../Src/Gtk2/dasher.traditional.glade.h:6
 msgid "<b>Application Style:</b>"
-msgstr "<b>アプリケーションスタイル:</b>"
+msgstr "<b>アプリのスタイル:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:7
+#: ../Src/Gtk2/dasher.compose.glade.h:7 ../Src/Gtk2/dasher.direct.glade.h:7
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:7 ../Src/Gtk2/dasher.glade.h:7
+#: ../Src/Gtk2/dasher.traditional.glade.h:7
 msgid "<b>Colour Scheme:</b>"
-msgstr "<b>色スキーマ:</b>"
+msgstr "<b>色のスキーム:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:8
+#: ../Src/Gtk2/dasher.compose.glade.h:8 ../Src/Gtk2/dasher.direct.glade.h:8
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:8 ../Src/Gtk2/dasher.glade.h:8
+#: ../Src/Gtk2/dasher.traditional.glade.h:8
 msgid "<b>Control Style:</b>"
 msgstr "<b>制御モード:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:9
+#: ../Src/Gtk2/dasher.compose.glade.h:9 ../Src/Gtk2/dasher.direct.glade.h:9
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:9 ../Src/Gtk2/dasher.glade.h:9
+#: ../Src/Gtk2/dasher.traditional.glade.h:9
 msgid "<b>Dasher Font:</b>"
-msgstr "<b>Dasher フォント:</b>"
+msgstr "<b>表示用のフォント:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:10
+#: ../Src/Gtk2/dasher.compose.glade.h:10 ../Src/Gtk2/dasher.direct.glade.h:10
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:10 ../Src/Gtk2/dasher.glade.h:10
+#: ../Src/Gtk2/dasher.traditional.glade.h:10
 msgid "<b>Direction:</b>"
-msgstr "<b>方向:</b>"
+msgstr "<b>インタフェースの向き:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:11
+#: ../Src/Gtk2/dasher.compose.glade.h:11 ../Src/Gtk2/dasher.direct.glade.h:11
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:11 ../Src/Gtk2/dasher.glade.h:11
+#: ../Src/Gtk2/dasher.traditional.glade.h:11
 msgid "<b>Editor Font:</b>"
-msgstr "<b>エディタフォント:</b>"
+msgstr "<b>エディタのフォント:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:12
+#: ../Src/Gtk2/dasher.compose.glade.h:12 ../Src/Gtk2/dasher.direct.glade.h:12
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:12 ../Src/Gtk2/dasher.glade.h:12
+#: ../Src/Gtk2/dasher.traditional.glade.h:12
 msgid "<b>Input Device:</b>"
 msgstr "<b>入力デバイス:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashermaemo.glade.h:7
+#: ../Src/Gtk2/dasher.compose.glade.h:13 ../Src/Gtk2/dasher.direct.glade.h:13
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:13 ../Src/Gtk2/dasher.glade.h:13
+#: ../Src/Gtk2/dasher.traditional.glade.h:13 ../Src/Gtk2/dashermaemo.glade.h:6
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:3
 msgid "<b>Language Model:</b>"
 msgstr "<b>言語モデル:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:14
+#: ../Src/Gtk2/dasher.compose.glade.h:14 ../Src/Gtk2/dasher.direct.glade.h:14
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:14 ../Src/Gtk2/dasher.glade.h:14
+#: ../Src/Gtk2/dasher.traditional.glade.h:14
 msgid "<b>Prediction:</b>"
 msgstr "<b>予測:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:9
+#: ../Src/Gtk2/dasher.compose.glade.h:15 ../Src/Gtk2/dasher.direct.glade.h:15
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:15 ../Src/Gtk2/dasher.glade.h:15
+#: ../Src/Gtk2/dasher.traditional.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:8
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:5
 msgid "<b>Smoothing:</b>"
 msgstr "<b>スムージング:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:10
+#: ../Src/Gtk2/dasher.compose.glade.h:16 ../Src/Gtk2/dasher.direct.glade.h:16
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:16 ../Src/Gtk2/dasher.glade.h:16
+#: ../Src/Gtk2/dasher.traditional.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:9
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:6
 msgid "<b>Speed:</b>"
 msgstr "<b>速度:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:17
+#: ../Src/Gtk2/dasher.compose.glade.h:17 ../Src/Gtk2/dasher.direct.glade.h:17
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:17 ../Src/Gtk2/dasher.glade.h:17
+#: ../Src/Gtk2/dasher.traditional.glade.h:17
 msgid "<b>Starting And Stopping:</b>"
 msgstr "<b>開始と停止:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:18 ../Src/Gtk2/dashermaemo.glade.h:11
+#: ../Src/Gtk2/dasher.compose.glade.h:18 ../Src/Gtk2/dasher.direct.glade.h:18
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:18 ../Src/Gtk2/dasher.glade.h:18
+#: ../Src/Gtk2/dasher.traditional.glade.h:18
+#: ../Src/Gtk2/dashermaemo.glade.h:10
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:7
 msgid "Adapt speed automatically"
-msgstr "速度を自動的に調整"
+msgstr "自動的に速度を調節する"
 
-#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:13
+#: ../Src/Gtk2/dasher.compose.glade.h:19 ../Src/Gtk2/dasher.direct.glade.h:19
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:19 ../Src/Gtk2/dasher.glade.h:19
+#: ../Src/Gtk2/dasher.traditional.glade.h:19
+#: ../Src/Gtk2/dashermaemo.glade.h:12
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:9
 msgid "Alphabet Default"
 msgstr "アルファベットの向き"
 
-#: ../Src/Gtk2/dasher.glade.h:20
+#: ../Src/Gtk2/dasher.compose.glade.h:20 ../Src/Gtk2/dasher.direct.glade.h:20
+#: ../Src/Gtk2/dasher.glade.h:20 ../Src/Gtk2/dasher.traditional.glade.h:20
 msgid "Alphabet:"
 msgstr "アルファベット:"
 
-#: ../Src/Gtk2/dasher.glade.h:21
+#: ../Src/Gtk2/dasher.compose.glade.h:21 ../Src/Gtk2/dasher.direct.glade.h:21
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:20 ../Src/Gtk2/dasher.glade.h:21
+#: ../Src/Gtk2/dasher.traditional.glade.h:21
 msgid "Appearance"
 msgstr "外観"
 
-#: ../Src/Gtk2/dasher.glade.h:22
+#: ../Src/Gtk2/dasher.compose.glade.h:22 ../Src/Gtk2/dasher.direct.glade.h:22
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:21 ../Src/Gtk2/dasher.glade.h:22
+#: ../Src/Gtk2/dasher.traditional.glade.h:22
 msgid "Application"
 msgstr "アプリケーション"
 
-#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashermaemo.glade.h:14
+#: ../Src/Gtk2/dasher.compose.glade.h:23 ../Src/Gtk2/dasher.direct.glade.h:23
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:22 ../Src/Gtk2/dasher.glade.h:23
+#: ../Src/Gtk2/dasher.traditional.glade.h:23
+#: ../Src/Gtk2/dashermaemo.glade.h:13
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:10
 msgid "Bottom to Top"
 msgstr "下から上へ"
 
-#: ../Src/Gtk2/dasher.glade.h:24
+#: ../Src/Gtk2/dasher.compose.glade.h:24 ../Src/Gtk2/dasher.direct.glade.h:24
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:23 ../Src/Gtk2/dasher.glade.h:24
+#: ../Src/Gtk2/dasher.traditional.glade.h:24
 msgid ""
 "Centre circle\n"
 "Two box"
 msgstr ""
 "中央の円\n"
-"二つのボックス"
+"二つの四角"
 
-#: ../Src/Gtk2/dasher.glade.h:26
+#: ../Src/Gtk2/dasher.compose.glade.h:26 ../Src/Gtk2/dasher.direct.glade.h:26
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:25 ../Src/Gtk2/dasher.glade.h:26
+#: ../Src/Gtk2/dasher.traditional.glade.h:26
 msgid "Composition"
-msgstr "合成"
+msgstr "合成型"
 
-#: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashermaemo.glade.h:15
+#: ../Src/Gtk2/dasher.compose.glade.h:27 ../Src/Gtk2/dasher.direct.glade.h:27
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:26 ../Src/Gtk2/dasher.glade.h:27
+#: ../Src/Gtk2/dasher.traditional.glade.h:27
+#: ../Src/Gtk2/dashermaemo.glade.h:14
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:11
 msgid "Control"
 msgstr "コントロール"
 
-#: ../Src/Gtk2/dasher.glade.h:28 ../Src/Gtk2/dashergpe.glade.h:1
+#: ../Src/Gtk2/dasher.compose.glade.h:28 ../Src/Gtk2/dasher.direct.glade.h:28
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:27 ../Src/Gtk2/dasher.glade.h:28
+#: ../Src/Gtk2/dasher.traditional.glade.h:28 ../Src/Gtk2/dashergpe.glade.h:1
 msgid "Control mode"
 msgstr "制御モード"
 
-#: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:2
+#: ../Src/Gtk2/dasher.compose.glade.h:29 ../Src/Gtk2/dasher.glade.h:29
+#: ../Src/Gtk2/dasher.traditional.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:2
 msgid "Copy"
-msgstr "コピー"
+msgstr "選択範囲をコピーします"
 
-#: ../Src/Gtk2/dasher.glade.h:30 ../Src/Gtk2/dashergpe.glade.h:3
+#: ../Src/Gtk2/dasher.compose.glade.h:30 ../Src/Gtk2/dasher.glade.h:30
+#: ../Src/Gtk2/dasher.traditional.glade.h:30 ../Src/Gtk2/dashergpe.glade.h:3
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:12
 msgid "Copy _All"
 msgstr "全てコピー(_A)"
 
-#: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashermaemo.glade.h:16
+#: ../Src/Gtk2/dasher.compose.glade.h:31 ../Src/Gtk2/dasher.direct.glade.h:29
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:28 ../Src/Gtk2/dasher.glade.h:31
+#: ../Src/Gtk2/dasher.traditional.glade.h:31
+#: ../Src/Gtk2/dashermaemo.glade.h:15
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:13
 msgid "Custom colour scheme:"
-msgstr "カスタム色スキーマ:"
+msgstr "色のスキームをカスタマイズする:"
 
-#: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashermaemo.glade.h:17
+#: ../Src/Gtk2/dasher.compose.glade.h:32 ../Src/Gtk2/dasher.direct.glade.h:30
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:29 ../Src/Gtk2/dasher.glade.h:32
+#: ../Src/Gtk2/dasher.traditional.glade.h:32
+#: ../Src/Gtk2/dashermaemo.glade.h:16
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:14
 msgid "Custom:"
-msgstr "カスタム:"
+msgstr "その他:"
 
-#: ../Src/Gtk2/dasher.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:4
+#: ../Src/Gtk2/dasher.compose.glade.h:33 ../Src/Gtk2/dasher.glade.h:33
+#: ../Src/Gtk2/dasher.traditional.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:4
 msgid "Cut"
-msgstr "切り取り"
+msgstr "選択範囲を切り取ります"
 
-#: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:19
+#: ../Src/Gtk2/dasher.compose.glade.h:35 ../Src/Gtk2/dasher.direct.glade.h:32
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:31 ../Src/Gtk2/dasher.glade.h:35
+#: ../Src/Gtk2/dasher.traditional.glade.h:35
+#: ../Src/Gtk2/dashermaemo.glade.h:18
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:16
 msgid "Dasher Preferences"
 msgstr "Dasher の設定"
 
-#: ../Src/Gtk2/dasher.glade.h:36
+#: ../Src/Gtk2/dasher.compose.glade.h:36 ../Src/Gtk2/dasher.glade.h:36
+#: ../Src/Gtk2/dasher.traditional.glade.h:36
 msgid "Dasher _Tutorial"
-msgstr "Dasher チュートリアル(_T)"
+msgstr "チュートリアル(_T)"
 
-#: ../Src/Gtk2/dasher.glade.h:37
+#: ../Src/Gtk2/dasher.compose.glade.h:37 ../Src/Gtk2/dasher.direct.glade.h:33
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:32 ../Src/Gtk2/dasher.glade.h:37
+#: ../Src/Gtk2/dasher.traditional.glade.h:37
 msgid "Direct entry"
-msgstr "直接入力エントリ"
+msgstr "直接入力型"
 
-#: ../Src/Gtk2/dasher.glade.h:38
+#: ../Src/Gtk2/dasher.compose.glade.h:38 ../Src/Gtk2/dasher.direct.glade.h:34
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:33 ../Src/Gtk2/dasher.glade.h:38
+#: ../Src/Gtk2/dasher.traditional.glade.h:38
 msgid "Dock application window"
-msgstr "アプリケーションウィンドウをドック"
+msgstr "ウィンドウをドックに格納する"
 
-#: ../Src/Gtk2/dasher.glade.h:39
+#: ../Src/Gtk2/dasher.compose.glade.h:39 ../Src/Gtk2/dasher.direct.glade.h:35
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:34 ../Src/Gtk2/dasher.glade.h:39
+#: ../Src/Gtk2/dasher.traditional.glade.h:39
 msgid "Draw box outlines"
 msgstr "描画ボックスの外枠を描画する"
 
-#: ../Src/Gtk2/dasher.glade.h:40
+#: ../Src/Gtk2/dasher.compose.glade.h:40 ../Src/Gtk2/dasher.direct.glade.h:36
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:35 ../Src/Gtk2/dasher.glade.h:40
+#: ../Src/Gtk2/dasher.traditional.glade.h:40
 msgid "Draw line between crosshairs and mouse"
 msgstr "マウスと中央ラインの間に線を描画する"
 
-#: ../Src/Gtk2/dasher.glade.h:41
+#: ../Src/Gtk2/dasher.compose.glade.h:41 ../Src/Gtk2/dasher.direct.glade.h:37
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:36 ../Src/Gtk2/dasher.glade.h:41
+#: ../Src/Gtk2/dasher.traditional.glade.h:41
 msgid "Full Screen"
-msgstr "全画面"
+msgstr "フルスクリーン型"
 
-#: ../Src/Gtk2/dasher.glade.h:42
+#: ../Src/Gtk2/dasher.compose.glade.h:42 ../Src/Gtk2/dasher.direct.glade.h:38
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:37 ../Src/Gtk2/dasher.glade.h:42
+#: ../Src/Gtk2/dasher.traditional.glade.h:42
 msgid "Increase line thickness"
-msgstr "線の太さを増やす"
+msgstr "線を太くする"
 
-#: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashermaemo.glade.h:21
+#: ../Src/Gtk2/dasher.compose.glade.h:43 ../Src/Gtk2/dasher.direct.glade.h:39
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:38 ../Src/Gtk2/dasher.glade.h:43
+#: ../Src/Gtk2/dasher.traditional.glade.h:43
+#: ../Src/Gtk2/dashermaemo.glade.h:20
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
 msgid "Japanese"
 msgstr "日本語"
 
-#: ../Src/Gtk2/dasher.glade.h:44
+#: ../Src/Gtk2/dasher.compose.glade.h:44 ../Src/Gtk2/dasher.direct.glade.h:40
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:39 ../Src/Gtk2/dasher.glade.h:44
+#: ../Src/Gtk2/dasher.traditional.glade.h:44
 msgid "Language"
 msgstr "言語"
 
-#: ../Src/Gtk2/dasher.glade.h:45 ../Src/Gtk2/dashermaemo.glade.h:22
+#: ../Src/Gtk2/dasher.compose.glade.h:45 ../Src/Gtk2/dasher.direct.glade.h:41
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:40 ../Src/Gtk2/dasher.glade.h:45
+#: ../Src/Gtk2/dasher.traditional.glade.h:45
+#: ../Src/Gtk2/dashermaemo.glade.h:21
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:18
 msgid "Language model adapts as you write."
-msgstr "言語モデルはあなたの書いたとおりに調整されます"
+msgstr "言語モデルを記述するモデルに会わせる"
 
-#: ../Src/Gtk2/dasher.glade.h:46
+#: ../Src/Gtk2/dasher.compose.glade.h:46 ../Src/Gtk2/dasher.direct.glade.h:42
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:41 ../Src/Gtk2/dasher.glade.h:46
+#: ../Src/Gtk2/dasher.traditional.glade.h:46
 msgid "Large font "
-msgstr "大きなフォント"
+msgstr "大きいフォント"
 
-#: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:23
+#: ../Src/Gtk2/dasher.compose.glade.h:47 ../Src/Gtk2/dasher.direct.glade.h:43
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:42 ../Src/Gtk2/dasher.glade.h:47
+#: ../Src/Gtk2/dasher.traditional.glade.h:47
+#: ../Src/Gtk2/dashermaemo.glade.h:22
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:20
 msgid "Left to Right"
 msgstr "左から右へ"
 
-#: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashermaemo.glade.h:24
+#: ../Src/Gtk2/dasher.compose.glade.h:48 ../Src/Gtk2/dasher.direct.glade.h:44
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:43 ../Src/Gtk2/dasher.glade.h:48
+#: ../Src/Gtk2/dasher.traditional.glade.h:48
+#: ../Src/Gtk2/dashermaemo.glade.h:23
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:21
 msgid "Mixture model (PPM/dictionary)"
-msgstr "混合モデル (PPM/辞書)"
+msgstr "混合型モデル (PPM/辞書)"
 
-#: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:8
+#: ../Src/Gtk2/dasher.compose.glade.h:49 ../Src/Gtk2/dasher.glade.h:49
+#: ../Src/Gtk2/dasher.traditional.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:8
 msgid "New file"
-msgstr "新しいファイル"
+msgstr "新しいファイルを開きます"
 
-#: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:10
+#: ../Src/Gtk2/dasher.compose.glade.h:50 ../Src/Gtk2/dasher.glade.h:50
+#: ../Src/Gtk2/dasher.traditional.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:10
 msgid "Open file"
-msgstr "ファイルを開く"
+msgstr "既存のファイルを開きます"
 
-#: ../Src/Gtk2/dasher.glade.h:51
+#: ../Src/Gtk2/dasher.compose.glade.h:51 ../Src/Gtk2/dasher.direct.glade.h:45
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:44 ../Src/Gtk2/dasher.glade.h:51
+#: ../Src/Gtk2/dasher.traditional.glade.h:51
 msgid "Options"
 msgstr "オプション"
 
-#: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:11
+#: ../Src/Gtk2/dasher.compose.glade.h:52 ../Src/Gtk2/dasher.glade.h:52
+#: ../Src/Gtk2/dasher.traditional.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:11
 msgid "Paste"
-msgstr "貼り付け"
+msgstr "貼り付けます"
 
-#: ../Src/Gtk2/dasher.glade.h:53
+#: ../Src/Gtk2/dasher.compose.glade.h:53 ../Src/Gtk2/dasher.direct.glade.h:46
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:45 ../Src/Gtk2/dasher.glade.h:53
+#: ../Src/Gtk2/dasher.traditional.glade.h:53
 msgid "Pause outside of canvas"
-msgstr "キャンバスの外側を一時停止する"
+msgstr "キャンバスの外に出たら一時停止する"
 
-#: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashermaemo.glade.h:26
+#: ../Src/Gtk2/dasher.compose.glade.h:54 ../Src/Gtk2/dasher.direct.glade.h:47
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:46 ../Src/Gtk2/dasher.glade.h:54
+#: ../Src/Gtk2/dasher.traditional.glade.h:54
+#: ../Src/Gtk2/dashermaemo.glade.h:25
 msgid "Please Wait..."
-msgstr "お待ち下さい..."
+msgstr "少々、お待ち下さい..."
 
-#: ../Src/Gtk2/dasher.glade.h:55
+#: ../Src/Gtk2/dasher.compose.glade.h:55 ../Src/Gtk2/dasher.glade.h:55
 msgid "Pr_eferences"
 msgstr "設定(_E)"
 
-#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashermaemo.glade.h:28
+#: ../Src/Gtk2/dasher.compose.glade.h:56 ../Src/Gtk2/dasher.direct.glade.h:48
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:47 ../Src/Gtk2/dasher.glade.h:56
+#: ../Src/Gtk2/dasher.traditional.glade.h:56
+#: ../Src/Gtk2/dashermaemo.glade.h:27
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
 msgid "Right to Left"
 msgstr "右から左へ"
 
-#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:12
+#: ../Src/Gtk2/dasher.compose.glade.h:57 ../Src/Gtk2/dasher.glade.h:57
+#: ../Src/Gtk2/dasher.traditional.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:12
 msgid "Save file"
-msgstr "ファイルの保存"
+msgstr "ファイルを保存します"
 
-#: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:13
+#: ../Src/Gtk2/dasher.compose.glade.h:58 ../Src/Gtk2/dasher.glade.h:58
+#: ../Src/Gtk2/dasher.traditional.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:13
 msgid "Save file as"
-msgstr "別名で保存"
+msgstr "別名で保存します"
 
-#: ../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:15
-#: ../Src/Gtk2/dashermaemo.glade.h:30
+#. TODO: Fix this
+#. GtkWidget *filesel = gtk_file_chooser_dialog_new(_("Select File"), GTK_WINDOW(pPrivate->pMainWindow), GTK_FILE_CHOOSER_ACTION_OPEN, GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+#. TODO: Fix this
+#. GtkWidget *filesel = gtk_file_chooser_dialog_new(_("Select File"), GTK_WINDOW(window), GTK_FILE_CHOOSER_ACTION_SAVE, GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+#: ../Src/Gtk2/dasher.compose.glade.h:59 ../Src/Gtk2/dasher.direct.glade.h:49
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:48 ../Src/Gtk2/dasher.glade.h:59
+#: ../Src/Gtk2/dasher.traditional.glade.h:59
+#: ../Src/Gtk2/dasher_editor.cpp:1248 ../Src/Gtk2/dasher_editor.cpp:1273
+#: ../Src/Gtk2/dasher_main.cpp:897 ../Src/Gtk2/dashergpe.glade.h:14
+#: ../Src/Gtk2/dashermaemo.glade.h:28
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:25
+msgid "Select File"
+msgstr "ファイルの選択"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:60 ../Src/Gtk2/dasher.direct.glade.h:50
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:49 ../Src/Gtk2/dasher.glade.h:60
+#: ../Src/Gtk2/dasher.traditional.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:15
+#: ../Src/Gtk2/dashermaemo.glade.h:29
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:26
 msgid "Select Font"
 msgstr "フォントの選択"
 
-#: ../Src/Gtk2/dasher.glade.h:61
+#: ../Src/Gtk2/dasher.compose.glade.h:61 ../Src/Gtk2/dasher.direct.glade.h:51
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:50 ../Src/Gtk2/dasher.glade.h:61
+#: ../Src/Gtk2/dasher.traditional.glade.h:61
 msgid "Show mouse position"
 msgstr "マウスの位置を表示する"
 
-#: ../Src/Gtk2/dasher.glade.h:62
+#: ../Src/Gtk2/dasher.compose.glade.h:62 ../Src/Gtk2/dasher.direct.glade.h:52
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:51 ../Src/Gtk2/dasher.glade.h:62
+#: ../Src/Gtk2/dasher.traditional.glade.h:62
 msgid "Show speed slider"
 msgstr "速度スライダを表示する"
 
-#: ../Src/Gtk2/dasher.glade.h:63
+#: ../Src/Gtk2/dasher.compose.glade.h:63 ../Src/Gtk2/dasher.direct.glade.h:53
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:52 ../Src/Gtk2/dasher.glade.h:63
+#: ../Src/Gtk2/dasher.traditional.glade.h:63
 msgid "Show toolbar"
 msgstr "ツールバーを表示する"
 
-#: ../Src/Gtk2/dasher.glade.h:64
+#: ../Src/Gtk2/dasher.compose.glade.h:64 ../Src/Gtk2/dasher.direct.glade.h:54
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:53 ../Src/Gtk2/dasher.glade.h:64
+#: ../Src/Gtk2/dasher.traditional.glade.h:64
 msgid "Small font"
-msgstr "小さなフォント"
+msgstr "小さいフォント"
 
-#: ../Src/Gtk2/dasher.glade.h:65
+#: ../Src/Gtk2/dasher.compose.glade.h:65 ../Src/Gtk2/dasher.direct.glade.h:55
+#: ../Src/Gtk2/dasher.glade.h:65 ../Src/Gtk2/dasher.traditional.glade.h:65
 msgid "Speed:"
 msgstr "速度:"
 
-#: ../Src/Gtk2/dasher.glade.h:66
+#: ../Src/Gtk2/dasher.compose.glade.h:66 ../Src/Gtk2/dasher.direct.glade.h:56
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:54 ../Src/Gtk2/dasher.glade.h:66
+#: ../Src/Gtk2/dasher.traditional.glade.h:66
 msgid "Stand-alone"
-msgstr "スタンドアローン"
+msgstr "スタンドアロン型"
 
-#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashermaemo.glade.h:31
+#: ../Src/Gtk2/dasher.compose.glade.h:67 ../Src/Gtk2/dasher.direct.glade.h:57
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:55 ../Src/Gtk2/dasher.glade.h:67
+#: ../Src/Gtk2/dasher.traditional.glade.h:67
+#: ../Src/Gtk2/dashermaemo.glade.h:30
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
 msgid "Standard letter-based PPM"
-msgstr "標準の文字ベースの PPM"
+msgstr "標準的なレターベースの PPM"
 
-#: ../Src/Gtk2/dasher.glade.h:68
+#: ../Src/Gtk2/dasher.compose.glade.h:68 ../Src/Gtk2/dasher.direct.glade.h:58
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:56 ../Src/Gtk2/dasher.glade.h:68
+#: ../Src/Gtk2/dasher.traditional.glade.h:68
 msgid "Start on left mouse button"
 msgstr "マウスの左ボタンで開始する"
 
-#: ../Src/Gtk2/dasher.glade.h:69
+#: ../Src/Gtk2/dasher.compose.glade.h:69 ../Src/Gtk2/dasher.direct.glade.h:59
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:57 ../Src/Gtk2/dasher.glade.h:69
+#: ../Src/Gtk2/dasher.traditional.glade.h:69
 msgid "Start on space bar"
 msgstr "[スペース] ボタンで開始する"
 
-#: ../Src/Gtk2/dasher.glade.h:70
+#: ../Src/Gtk2/dasher.compose.glade.h:70 ../Src/Gtk2/dasher.direct.glade.h:60
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:58 ../Src/Gtk2/dasher.glade.h:70
+#: ../Src/Gtk2/dasher.traditional.glade.h:70
 msgid "Start with mouse position:"
-msgstr "マウスの位置で開始する:"
+msgstr "カーソルの始点を変更する:"
 
-#: ../Src/Gtk2/dasher.glade.h:71
+#: ../Src/Gtk2/dasher.compose.glade.h:71 ../Src/Gtk2/dasher.direct.glade.h:61
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:59 ../Src/Gtk2/dasher.glade.h:71
+#: ../Src/Gtk2/dasher.traditional.glade.h:71
 msgid "Timestamp new files"
 msgstr "新しいファイルにタイムスタンプを付与する"
 
-#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashermaemo.glade.h:32
+#: ../Src/Gtk2/dasher.compose.glade.h:72 ../Src/Gtk2/dasher.direct.glade.h:62
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:60 ../Src/Gtk2/dasher.glade.h:72
+#: ../Src/Gtk2/dasher.traditional.glade.h:72
+#: ../Src/Gtk2/dashermaemo.glade.h:31
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
 msgid "Top to Bottom"
 msgstr "上から下へ"
 
-#: ../Src/Gtk2/dasher.glade.h:73
+#: ../Src/Gtk2/dasher.compose.glade.h:73 ../Src/Gtk2/dasher.direct.glade.h:63
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:61 ../Src/Gtk2/dasher.glade.h:73
+#: ../Src/Gtk2/dasher.traditional.glade.h:73
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -398,65 +502,138 @@ msgstr ""
 "文字ボックスの相対サイズを調整できます。\n"
 "値を高くすると記述する速度が遅くなります。"
 
-#: ../Src/Gtk2/dasher.glade.h:76
+#: ../Src/Gtk2/dasher.compose.glade.h:76 ../Src/Gtk2/dasher.direct.glade.h:66
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:64 ../Src/Gtk2/dasher.glade.h:76
+#: ../Src/Gtk2/dasher.traditional.glade.h:76
 msgid "Very large font"
-msgstr "とても大きなフォント"
+msgstr "とても大きいフォント"
 
-#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashermaemo.glade.h:34
+#: ../Src/Gtk2/dasher.compose.glade.h:77 ../Src/Gtk2/dasher.direct.glade.h:67
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:65 ../Src/Gtk2/dasher.glade.h:77
+#: ../Src/Gtk2/dasher.traditional.glade.h:77
+#: ../Src/Gtk2/dashermaemo.glade.h:33
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
 msgid "Word-based model"
-msgstr "語句ベースモデル"
+msgstr "ワード・ベースのモデル"
 
-#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:17
+#: ../Src/Gtk2/dasher.compose.glade.h:78 ../Src/Gtk2/dasher.glade.h:78
+#: ../Src/Gtk2/dashergpe.glade.h:17
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:32
 msgid "_About"
 msgstr "情報(_A)"
 
-#: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashergpe.glade.h:18
+#: ../Src/Gtk2/dasher.compose.glade.h:79 ../Src/Gtk2/dasher.glade.h:79
+#: ../Src/Gtk2/dasher.traditional.glade.h:79 ../Src/Gtk2/dashergpe.glade.h:18
 msgid "_Append to file"
 msgstr "ファイルへ追加(_A)"
 
-#: ../Src/Gtk2/dasher.glade.h:80
+#: ../Src/Gtk2/dasher.compose.glade.h:80 ../Src/Gtk2/dasher.glade.h:80
 msgid "_Contents"
-msgstr "内容(_C)"
+msgstr "目次(_C)"
 
-#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:21
+#: ../Src/Gtk2/dasher.compose.glade.h:81 ../Src/Gtk2/dasher.glade.h:81
+#: ../Src/Gtk2/dasher.traditional.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:21
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
 msgid "_Edit"
 msgstr "編集(_E)"
 
-#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:23
+#: ../Src/Gtk2/dasher.compose.glade.h:82 ../Src/Gtk2/dasher.glade.h:82
+#: ../Src/Gtk2/dasher.traditional.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:23
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:37
 msgid "_File"
 msgstr "ファイル(_F)"
 
-#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:24
+#: ../Src/Gtk2/dasher.compose.glade.h:83 ../Src/Gtk2/dasher.glade.h:83
+#: ../Src/Gtk2/dasher.traditional.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:24
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:38
 msgid "_Help"
 msgstr "ヘルプ(_H)"
 
-#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:25
+#: ../Src/Gtk2/dasher.compose.glade.h:84 ../Src/Gtk2/dasher.glade.h:84
+#: ../Src/Gtk2/dashergpe.glade.h:25
 msgid "_Import Training Text"
 msgstr "学習テキストのインポート(_I)"
 
-#: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:28
-#: ../Src/Gtk2/dashermaemo.glade.h:35
+#: ../Src/Gtk2/dasher.compose.glade.h:85 ../Src/Gtk2/dasher.direct.glade.h:68
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:66 ../Src/Gtk2/dasher.glade.h:85
+#: ../Src/Gtk2/dasher.traditional.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:28
+#: ../Src/Gtk2/dashermaemo.glade.h:34
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:41
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "abcdefghijk ABCDEFGHIJK これはサンプルです"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:115
+#: ../Src/Gtk2/dasher.traditional.glade.h:55
+msgid "Pr_eferences..."
+msgstr "設定(_E)..."
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:78
+msgid "_About..."
+msgstr "情報(_A)..."
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:80
+msgid "_Contents..."
+msgstr "目次(_C)..."
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:84
+msgid "_Import Training Text..."
+msgstr "学習テキストのインポート(_I)..."
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:144
 #, c-format
 msgid "Unable to initialize speech support\n"
 msgstr "gnome-speech を初期化できません\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:138
+#: ../Src/Gtk2/dasher_action_speech.cpp:167
 msgid "Unable to initialize voices\n"
-msgstr "voice を初期化できません\n"
+msgstr "音声を初期化できません\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:150
+#: ../Src/Gtk2/dasher_action_speech.cpp:179
 msgid "Warning: unable to set speech parameters\n"
 msgstr "警告: 会話パラメータをセットできません\n"
+
+#: ../Src/Gtk2/dasher_main.cpp:935
+#, c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"%s に対する変更点を保存しますか？\n"
+"\n"
+"保存しないと変更点を失うことになります。"
+
+#: ../Src/Gtk2/dasher_main.cpp:941
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"変更点を保存しますか？\n"
+"\n"
+"保存しないと変更点を失うことになります。"
+
+#: ../Src/Gtk2/dasher_main.cpp:945
+msgid "Don't save"
+msgstr "保存しない"
+
+#: ../Src/Gtk2/dasher_main.cpp:946
+msgid "Don't quit"
+msgstr "終了しない"
+
+#: ../Src/Gtk2/dasher_main.cpp:947
+msgid "Save and quit"
+msgstr "保存して終了"
+
+#: ../Src/Gtk2/dasher_main.cpp:1033 ../Src/Gtk2/dasher_main.cpp:1049
+msgid "Dasher is a predictive text entry application"
+msgstr "Dasher は文字列のエントリを予想するアプリケーションです。"
+
+#: ../Src/Gtk2/dasher_main.cpp:1038 ../Src/Gtk2/dasher_main.cpp:1044
+msgid "translator-credits"
+msgstr ""
+"相花 毅 <takeshi.aihana@gmail.com>\n"
+"佐藤 暁 <ss@gnome.gr.jp>\n"
+"日本GNOMEユーザー会 http://www.gnome.gr.jp"
 
 #: ../Src/Gtk2/dashergpe.glade.h:6
 msgid "Enter text into other windows"
@@ -506,410 +683,34 @@ msgstr "フォントのリセット(_R)"
 msgid "\n"
 msgstr "\n"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:3
-msgid "(Message Placeholder - no need to translate)"
-msgstr "(メッセージプレースホルダ)"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:6
+#: ../Src/Gtk2/dashermaemo.glade.h:5
 msgid "<b>Display Size:</b>"
-msgstr "<b>画面サイズ:</b>"
+msgstr "<b>ディスプレイの大きさ:</b>"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:8
+#: ../Src/Gtk2/dashermaemo.glade.h:7
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:4
 msgid "<b>Orientation:</b>"
 msgstr "<b>方向:</b>"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:12
+#: ../Src/Gtk2/dashermaemo.glade.h:11
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:8
 msgid "Alphabet"
 msgstr "アルファベット"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:20
+#: ../Src/Gtk2/dashermaemo.glade.h:19
 msgid "Enlarge input window"
 msgstr "入力ウィンドウを大きくする"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:25
+#: ../Src/Gtk2/dashermaemo.glade.h:24
 msgid "P"
 msgstr "P"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:27
+#: ../Src/Gtk2/dashermaemo.glade.h:26
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:23
 msgid "Prediction"
 msgstr "予測"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:33
+#: ../Src/Gtk2/dashermaemo.glade.h:32
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:30
 msgid "View"
 msgstr "表示"
-
-#~ msgid "<b>Advanced Settings:</b>"
-#~ msgstr "<b>高度な設定:</b>"
-
-#~ msgid "<b>Button modes:</b>"
-#~ msgstr "<b>ボタンのモード:</b>"
-
-#~ msgid "<b>Compass Mode</b>"
-#~ msgstr "<b>コンパスモード</b>"
-
-#~ msgid "<b>Direct Mode And Menu Mode</b>"
-#~ msgstr "<b>直接入力モードとメニューモード</b>"
-
-#~ msgid "<b>Miscellaneous Options:</b>"
-#~ msgstr "<b>その他のオプション:</b>"
-
-#~ msgid "<b>One-Button Dynamic Mode</b>"
-#~ msgstr "<b>単一ボタン動的モード</b>"
-
-#~ msgid "<b>One-Button Static Mode</b>"
-#~ msgstr "<b>単一ボタン静的モード</b>"
-
-#~ msgid "<b>Socket Input</b>"
-#~ msgstr "<b>ソケット入力</b>"
-
-#~ msgid "<b>X Coordinate</b>"
-#~ msgstr "<b>X 座標</b>"
-
-#~ msgid "<b>Y Axis Options:</b>"
-#~ msgstr "<b>Y 軸のオプション:</b>"
-
-#~ msgid "<b>Y Coordinate</b>"
-#~ msgstr "<b>Y 座標</b>"
-
-#~ msgid "<b>Zoom steps:</b>"
-#~ msgstr "<b>拡大ステップ:</b>"
-
-#~ msgid "Advanced Settings"
-#~ msgstr "高度な設定"
-
-#~ msgid "Alternating direct mode"
-#~ msgstr "直接モードに切り替え"
-
-#~ msgid "Box non-uniformity:"
-#~ msgstr "ボックス非一様性:"
-
-#~ msgid "Button Mode Options"
-#~ msgstr "ボタンモードオプション"
-
-#~ msgid "Button Preferences"
-#~ msgstr "ボタンの設定"
-
-#~ msgid "Button Setup"
-#~ msgstr "ボタンの設定"
-
-#~ msgid "Button mode"
-#~ msgstr "ボタン・モード"
-
-#~ msgid "Cancel"
-#~ msgstr "キャンセル"
-
-#~ msgid "Click mode"
-#~ msgstr "クリックモード"
-
-#~ msgid "Compass mode"
-#~ msgstr "コンパスモード"
-
-#~ msgid "Control dasher from network socket instead of mouse (advanced)"
-#~ msgstr "マウスの代りにネットワークソケットで dasher を制御 (上級)"
-
-#~ msgid "Copy all on stop"
-#~ msgstr "停止時に全てコピーする"
-
-#~ msgid "Direct mode"
-#~ msgstr "直接入力モード"
-
-#~ msgid "Distance from centerline for start on mouse position:"
-#~ msgstr "マウスの位置で開始する際の中央ラインとの距離:"
-
-#~ msgid "Done"
-#~ msgstr "完了"
-
-#~ msgid "Drop time:  "
-#~ msgstr "ドロップ時間:  "
-
-#~ msgid "Eyetracker mode"
-#~ msgstr "アイトラッカ (視線追跡) モード"
-
-#~ msgid "Four-button direct mode"
-#~ msgstr "四ボタン直接モード"
-
-#~ msgid "General"
-#~ msgstr "一般"
-
-#~ msgid "Label"
-#~ msgstr "ラベル"
-
-#~ msgid "Max"
-#~ msgstr "最大"
-
-#~ msgid "Min"
-#~ msgstr "最小"
-
-#~ msgid "Miscellaneous"
-#~ msgstr "その他の"
-
-#~ msgid "Number of \"zoom-out boxes\":"
-#~ msgstr "\"zoom-out ボックス\" の数:"
-
-#~ msgid "Number of boxes:"
-#~ msgstr "ボックスの数"
-
-#~ msgid "One dimensional mode"
-#~ msgstr "一次元モード"
-
-#~ msgid "One-button dynamic mode"
-#~ msgstr "単一ボタン動的モード"
-
-#~ msgid "One-button static mode"
-#~ msgstr "単一ボタン静的モード"
-
-#~ msgid "Ordinary control"
-#~ msgstr "向きの制御"
-
-#~ msgid "Port"
-#~ msgstr "ポート"
-
-#~ msgid "Print socket-related debugging information to console"
-#~ msgstr "コンソールにソケット関連のデバッグ情報を表示"
-
-#~ msgid "Pulsing mode"
-#~ msgstr "パルス・モード"
-
-#~ msgid "Right zoom:  "
-#~ msgstr "右ズーム:  "
-
-#~ msgid "Safety margin:"
-#~ msgstr "安全マージン:"
-
-#~ msgid "Scaling amount (1D mode):"
-#~ msgstr "拡大縮小総計 (一次元モード):"
-
-#~ msgid "Show Advanced Settings"
-#~ msgstr "より高度な設定を表示"
-
-#~ msgid "Socket Options"
-#~ msgstr "ソケットオプション"
-
-#~ msgid "Speak on stop"
-#~ msgstr "停止時に話す"
-
-#~ msgid "Static menu mode"
-#~ msgstr "静的メニューモード"
-
-#~ msgid "Steady mode"
-#~ msgstr "固定モード"
-
-#~ msgid "Training"
-#~ msgstr "学習"
-
-#~ msgid "Two button dynamic mode"
-#~ msgstr "二つボタン動的モード"
-
-#~ msgid "Zoom:"
-#~ msgstr "拡大:"
-
-#~ msgid "5:"
-#~ msgstr "5:"
-
-#~ msgid "6:"
-#~ msgstr "6:"
-
-#~ msgid "7:"
-#~ msgstr "7:"
-
-#~ msgid "8:"
-#~ msgstr "8:"
-
-#~ msgid "9:"
-#~ msgstr "9:"
-
-#~ msgid "<b>Button control setup</b>"
-#~ msgstr "<b>ボタン制御の設定</b>"
-
-#~ msgid "<b>Speed</b>"
-#~ msgstr "<b>速度</b>"
-
-#~ msgid "<b>Toggle button Mode:</b>"
-#~ msgstr "<b>切替えボタンのモード:</b>"
-
-#~ msgid "<b>X/Y Coordinates:</b>"
-#~ msgstr "<b>X/Y 座標:</b>"
-
-#~ msgid "Advanced"
-#~ msgstr "拡張"
-
-#~ msgid "Button control setup"
-#~ msgstr "ボタン制御の設定"
-
-#~ msgid "Button:"
-#~ msgstr "ボタン:"
-
-#~ msgid "Change color scheme automatically"
-#~ msgstr "色のスキーマを自動的に変更する"
-
-#~ msgid "Color"
-#~ msgstr "色"
-
-#~ msgid "Cyclical button mode"
-#~ msgstr "回転式ボタン・モード"
-
-#~ msgid "Down/3:"
-#~ msgstr "下/3:"
-
-#~ msgid "Edit Button-control options"
-#~ msgstr "ボタン制御オプションの編集"
-
-#~ msgid ""
-#~ "If this mode is selected, up and down will cycle backwards and forwards "
-#~ "between coordinates and right will confirm the choice"
-#~ msgstr ""
-#~ "このモードを選択すると、上下で座標の間を前後に周回し右で選択内容を確認しま"
-#~ "す"
-
-#~ msgid "Left/2:"
-#~ msgstr "左/2:"
-
-#~ msgid "Number of pixels that should cover the entire Y range:"
-#~ msgstr "Y 軸方向を完全にカバーするピクセル数:"
-
-#~ msgid "Orientation"
-#~ msgstr "方向"
-
-#~ msgid "Right/4:"
-#~ msgstr "右/4:"
-
-#~ msgid "Up/1:"
-#~ msgstr "上/1:"
-
-#~ msgid ""
-#~ "Use this control to adjust the relative sizes of the letter boxes. Note "
-#~ "that selecting high values will slow your writing speed."
-#~ msgstr ""
-#~ "このコントロールを使うと、文字ボックスの相対サイズを調整することができま"
-#~ "す。値を高くすると記述する速度が遅くなります。"
-
-#~ msgid "X:"
-#~ msgstr "Ｘ座標:"
-
-#~ msgid "Y:"
-#~ msgstr "Ｙ座標:"
-
-#~ msgid "<b>Menu Mode</b>"
-#~ msgstr "<b>メニューモード</b>"
-
-#~ msgid "Button setup"
-#~ msgstr "ボタン設定"
-
-#~ msgid "Buttons"
-#~ msgstr "ボタン"
-
-#~ msgid ""
-#~ "If this mode is selected, up  and down will\n"
-#~ "cycle backwards and forwards between coordinates and right will confirm "
-#~ "the choice"
-#~ msgstr ""
-#~ "このモードを選択すると、\n"
-#~ "上下で座標の間を前後に周回し右で選択内容を確認します"
-
-#~ msgid "Socket"
-#~ msgstr "ソケット"
-
-#~ msgid "Three-button direct mode"
-#~ msgstr "三つボタン直接モード"
-
-#~ msgid "Panels"
-#~ msgstr "パネル"
-
-#~ msgid "Menus"
-#~ msgstr "メニュー"
-
-#~ msgid "Text"
-#~ msgstr "テキスト"
-
-#~ msgid "Windows"
-#~ msgstr "ウィンドウ"
-
-#~ msgid "Stop"
-#~ msgstr "停止"
-
-#~ msgid "Pause"
-#~ msgstr "一時停止"
-
-#~ msgid "Move"
-#~ msgstr "移動"
-
-#~ msgid "Delete"
-#~ msgstr "削除"
-
-#~ msgid "Speak"
-#~ msgstr "話す"
-
-#~ msgid "<"
-#~ msgstr "<"
-
-#~ msgid ">"
-#~ msgstr ">"
-
-#~ msgid "<<<"
-#~ msgstr "<<<"
-
-#~ msgid ">>>"
-#~ msgstr ">>>"
-
-#~ msgid "Everything"
-#~ msgstr "全て"
-
-#~ msgid "New"
-#~ msgstr "新規"
-
-#~ msgid "Repeat"
-#~ msgstr "繰り返し"
-
-#~ msgid "1"
-#~ msgstr "1"
-
-#~ msgid "2"
-#~ msgstr "2"
-
-#~ msgid "3"
-#~ msgstr "3"
-
-#~ msgid "4"
-#~ msgstr "4"
-
-#~ msgid "5"
-#~ msgstr "5"
-
-#~ msgid "6"
-#~ msgstr "6"
-
-#~ msgid "7"
-#~ msgstr "7"
-
-#~ msgid "8"
-#~ msgstr "8"
-
-#~ msgid "9"
-#~ msgstr "9"
-
-#~ msgid "10"
-#~ msgstr "10"
-
-#~ msgid "Character"
-#~ msgstr "文字"
-
-#~ msgid "Word"
-#~ msgstr "単語"
-
-#~ msgid "Line"
-#~ msgstr "行"
-
-#~ msgid "Unknown"
-#~ msgstr "不明"
-
-#~ msgid ""
-#~ "If this mode is selected, up and down will\n"
-#~ "cycle backwards and forwards between coordinates and right will confirm "
-#~ "the choice"
-#~ msgstr ""
-#~ "このモードを選択すると、\n"
-#~ "上下で座標の間を前後に周回し、右で選択内容を確認します"
