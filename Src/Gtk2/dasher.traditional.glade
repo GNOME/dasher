@@ -428,14 +428,12 @@
       <child>
 	<widget class="GtkVPaned" id="main_divider">
 	  <property name="visible">True</property>
-	  <property name="can_focus">True</property>
 	  <property name="position">0</property>
 	  <signal name="focus-in-event" handler="test_focus_handler" last_modification_time="Fri, 02 Feb 2007 14:30:40 GMT"/>
 
 	  <child>
 	    <widget class="GtkScrolledWindow" id="scrolledwindow5">
 	      <property name="visible">True</property>
-	      <property name="can_focus">True</property>
 	      <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
 	      <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
 	      <property name="shadow_type">GTK_SHADOW_IN</property>
@@ -447,6 +445,7 @@
 		  <property name="visible">True</property>
 		  <property name="can_default">True</property>
 		  <property name="can_focus">True</property>
+		  <property name="has_focus">True</property>
 		  <property name="events">GDK_BUTTON_PRESS_MASK | GDK_KEY_PRESS_MASK</property>
 		  <property name="editable">True</property>
 		  <property name="overwrite">False</property>
@@ -477,7 +476,6 @@
 	      <property name="height_request">200</property>
 	      <property name="visible">True</property>
 	      <property name="can_focus">True</property>
-	      <property name="has_focus">True</property>
 	      <property name="creation_function">create_dasher_control</property>
 	      <property name="int1">0</property>
 	      <property name="int2">0</property>
@@ -597,6 +595,7 @@
 	    <widget class="GtkComboBox" id="combobox1">
 	      <property name="width_request">32</property>
 	      <property name="visible">True</property>
+	      <property name="can_focus">True</property>
 	      <property name="add_tearoffs">False</property>
 	      <property name="focus_on_click">True</property>
 	      <signal name="changed" handler="alphabet_combo_changed" last_modification_time="Tue, 27 Jun 2006 07:42:21 GMT"/>

@@ -68,6 +68,11 @@ namespace Dasher {
     
     void BuildContext(std::string strContext, bool bRoot, CLanguageModel::Context &oContext, symbol &iSymbol);
 
+    void RecursiveIterateGroup(CDasherNode *pParent, SGroupInfo *pInfo, std::vector<symbol> *pSymbols, std::vector<unsigned int> *pCProb, int iMin, int iMax, symbol iExistingSymbol, CDasherNode *pExistingChild);
+
+    CDasherNode *CreateGroupNode(CDasherNode *pParent, SGroupInfo *pInfo, std::vector<unsigned int> *pCProb, unsigned int iStart, unsigned int iEnd, unsigned int iMin, unsigned int iMax);
+    CDasherNode *CreateSymbolNode(CDasherNode *pParent, symbol iSymbol, std::vector<unsigned int> *pCProb, unsigned int iStart, unsigned int iEnd, unsigned int iMin, unsigned int iMax, symbol iExistingSymbol, CDasherNode *pExistingChild);
+
     CLanguageModel *m_pLanguageModel;
     CNodeCreationManager *m_pNCManager;
     CLanguageModel::Context m_iLearnContext;

@@ -75,6 +75,7 @@ void dasher_editor_action_set_show(DasherEditor *pSelf, int iActionID, bool bVal
 void dasher_editor_action_set_control(DasherEditor *pSelf, int iActionID, bool bValue);
 void dasher_editor_action_set_auto(DasherEditor *pSelf, int iActionID, bool bValue);
 
+void dasher_editor_grab_focus(DasherEditor *pSelf);
 
 /* TODO: Tutorial editor should be a separate class */
 //void dasher_editor_start_tutorial(DasherEditor *pSelf);

@@ -212,19 +212,18 @@ void CDasherModel::Reparent_root(int lower, int upper) {
 
     // TODO: store cursor position in the node itself. This would make
     // life a lot easier in several ways
-    CDasherNode *pCurrentNode(Get_node_under_crosshair());
+    //    CDasherNode *pCurrentNode(Get_node_under_crosshair());
     int iGenerations(0);
+
+    // TODO: This was failing - figure out why
     
-    while(pCurrentNode != m_Root) {
-      ++iGenerations;
-      pCurrentNode = pCurrentNode->Parent();
-    }
+//     while(pCurrentNode != m_Root) {
+//       ++iGenerations;
+//       pCurrentNode = pCurrentNode->Parent();
+//     }
 
     // Tell the node manager to rebuild the parent
     pNewRoot = m_Root->m_pNodeManager->RebuildParent(m_Root, iGenerations);
-
-    lower = m_Root->Lbnd();
-    upper = m_Root->Hbnd();
 
   }
   else {
@@ -239,30 +238,41 @@ void CDasherModel::Reparent_root(int lower, int upper) {
 
   pNewRoot->SetFlag(NF_COMMITTED, false);
 
-  myint iWidth = upper - lower;
-  myint iRootWidth = m_Rootmax - m_Rootmin;
+  CDasherNode *pCurrent = m_Root;
 
-  // Fail and undo root creation if the new root is bigger than allowed by normalisation
-  if(((myint((GetLongParameter(LP_NORMALIZATION) - upper)) / static_cast<double>(iWidth)) 
-      > (m_Rootmax_max - m_Rootmax)/static_cast<double>(iRootWidth)) || 
-     ((myint(lower) / static_cast<double>(iWidth)) 
-      > (m_Rootmin - m_Rootmin_min) / static_cast<double>(iRootWidth))) {
-    pNewRoot->OrphanChild(m_Root);
-    delete pNewRoot;
-    return;
+  // Need to iterate through group pseudo-nodes
+  while(pCurrent != pNewRoot) {
+
+    lower = pCurrent->Lbnd();
+    upper = pCurrent->Hbnd();
+
+    pCurrent = pCurrent->Parent();
+        
+    myint iWidth = upper - lower;
+    myint iRootWidth = m_Rootmax - m_Rootmin;
+    
+    // Fail and undo root creation if the new root is bigger than allowed by normalisation
+    if(!(pNewRoot->m_bDeleteWithParents) && (((myint((GetLongParameter(LP_NORMALIZATION) - upper)) / static_cast<double>(iWidth)) 
+	> (m_Rootmax_max - m_Rootmax)/static_cast<double>(iRootWidth)) || 
+       ((myint(lower) / static_cast<double>(iWidth)) 
+	> (m_Rootmin - m_Rootmin_min) / static_cast<double>(iRootWidth)))) {
+      pNewRoot->OrphanChild(m_Root);
+      delete pNewRoot;
+      return;
+    }
+    
+    //Update the root coordinates to reflect the new root
+    m_Root = pNewRoot;
+    
+    m_Rootmax = m_Rootmax + (myint((GetLongParameter(LP_NORMALIZATION) - upper)) * iRootWidth / iWidth);
+    m_Rootmin = m_Rootmin - (myint(lower) * iRootWidth / iWidth);
+    
+    for(std::deque<SGotoItem>::iterator it(m_deGotoQueue.begin()); it != m_deGotoQueue.end(); ++it) {
+      iRootWidth = it->iN2 - it->iN1;
+      it->iN2 = it->iN2 + (myint((GetLongParameter(LP_NORMALIZATION) - upper)) * iRootWidth / iWidth);
+      it->iN1 = it->iN1 - (myint(lower) * iRootWidth / iWidth);
+    }
   }
-
-  //Update the root coordinates to reflect the new root
-  m_Root = pNewRoot;
-
-  m_Rootmax = m_Rootmax + (myint((GetLongParameter(LP_NORMALIZATION) - upper)) * iRootWidth / iWidth);
-  m_Rootmin = m_Rootmin - (myint(lower) * iRootWidth / iWidth);
-
- for(std::deque<SGotoItem>::iterator it(m_deGotoQueue.begin()); it != m_deGotoQueue.end(); ++it) {
-   iRootWidth = it->iN2 - it->iN1;
-   it->iN2 = it->iN2 + (myint((GetLongParameter(LP_NORMALIZATION) - upper)) * iRootWidth / iWidth);
-   it->iN1 = it->iN1 - (myint(lower) * iRootWidth / iWidth);
- }
 }
 
 void CDasherModel::ClearRootQueue() {
@@ -838,9 +848,10 @@ bool CDasherModel::RenderToView(CDasherView *pView, bool bRedrawDisplay) {
   for(std::vector<CDasherNode *>::iterator it(vNodeList.begin()); it != vNodeList.end(); ++it)
     Push_Node(*it);
   }
-  
-  for(std::vector<CDasherNode *>::iterator it(vDeleteList.begin()); it != vDeleteList.end(); ++it)
-    (*it)->Delete_children();
+
+  // TODO: Temporarily disabled 
+//   for(std::vector<CDasherNode *>::iterator it(vDeleteList.begin()); it != vDeleteList.end(); ++it)
+//     (*it)->Delete_children();
 
   return bReturnValue;
 }

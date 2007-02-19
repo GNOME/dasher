@@ -118,13 +118,6 @@ private:
 
   int RecursiveRender(CDasherNode * Render, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer, bool bDraw,myint parent_width,int parent_color);
 
-  ///
-  /// Displays some nodes inside one parent node. Used to group capital letters, accents, punctuation etc.
-  /// Its not finished!!!!
-  ///
-  
-  void RenderGroupsFast(CDasherNode * Render, myint y1, myint y2,int mostleft);
-
   /// Render a single node
   /// \param Character Symbol ID to be drawn
   /// \param Color The colour to draw it
@@ -141,14 +134,8 @@ private:
   int RenderNode(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove);
   int RenderNodeOutlineFast(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove); 
   int RenderNodePartFast(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove, myint iParentWidth);
-  int RenderNodeFatherFast(const int parent_color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove,myint iParentWidth);
+  int RenderNodeFatherFast(const int parent_color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove,myint iParentWidth, bool bVisible);
   bool IsNodeVisible(myint y1, myint y2);
-
-  ///
-  /// Its not finished!!!!
-  ///
-  
-  void RecursiveRenderGroupsFast(SGroupInfo *pCurrentGroup, CDasherNode *pNode, myint y1, myint y2, int mostleft,int iParentColor);
 
   ///
   /// Get the bounding box of the visible region.

@@ -154,7 +154,6 @@ extern "C" void delete_children_callback(GtkWidget *pWidget, gpointer pUserData)
 extern "C" void main_window_realized(DasherMain *pMain, gpointer pUserData);
 extern "C" void action_button_callback(GtkWidget *pWidget, gpointer pUserData);
 extern "C" void context_changed_handler(GObject *pSource, gpointer pUserData);
-extern "C" void handle_start_event(GtkDasherControl *pDasherControl, gpointer data);
 extern "C" void handle_stop_event(GtkDasherControl *pDasherControl, gpointer data);
 extern "C" void on_message(GtkDasherControl *pDasherControl, gpointer pMessageInfo, gpointer pUserData);
 extern "C" void on_command(GtkDasherControl *pDasherControl, gchar *szCommand, gpointer pUserData);
@@ -531,6 +530,15 @@ EditorAction *pAction;
     dasher_editor_action_save_state(pSelf, pAction);
   }
 }
+
+void 
+dasher_editor_grab_focus(DasherEditor *pSelf) {
+  DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
+
+  if(pPrivate->pTextView)
+    gtk_widget_grab_focus(GTK_WIDGET(pPrivate->pTextView));
+}
+
 
 static void 
 dasher_editor_create_buffer(DasherEditor *pSelf) {
@@ -1553,12 +1561,6 @@ context_changed_handler(GObject *pSource, gpointer pUserData) {
 
   // TODO: plumb signal back into control
   g_signal_emit_by_name(G_OBJECT(pSelf), "context_changed", G_OBJECT(pSelf), NULL, NULL);
-}
-
-extern "C" void 
-handle_start_event(GtkDasherControl *pDasherControl, gpointer data) { 
-  if(g_pEditor)
-    dasher_editor_handle_start(g_pEditor);
 }
 
 extern "C" void 

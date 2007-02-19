@@ -31,7 +31,7 @@ namespace Dasher {
   class CDasherModel;
 }
 
-// TODO: Move rendering code into node?
+// TODO: encapsulate presentation data in structure?
 
 class Dasher::CDasherNode:private NoClones {
  public:
@@ -176,6 +176,9 @@ class Dasher::CDasherNode:private NoClones {
     return m_bShove;
   }
 
+  bool m_bVisible;
+  bool m_bDeleteWithParents;
+  
  private:
   int m_iColour;                // for the advanced colour mode
   int m_iLbnd;
@@ -205,6 +208,8 @@ using namespace Opts;
 #include "DasherModel.h"
 
 inline CDasherNode::CDasherNode(CDasherNode *pParent, symbol Symbol, int iphase, ColorSchemes ColorScheme, int ilbnd, int ihbnd, CLanguageModel *lm, int Colour =-1) {
+
+  DASHER_ASSERT(ihbnd >= ilbnd);
   
   m_iLbnd = ilbnd;
   m_iHbnd = ihbnd;
@@ -214,7 +219,11 @@ inline CDasherNode::CDasherNode(CDasherNode *pParent, symbol Symbol, int iphase,
   // Default flags
   m_iFlags = NF_ACTIVE | NF_ALIVE;
 
+  m_bVisible = true;
+
   m_iRefCount = 0;
+
+  m_bDeleteWithParents = false;
 }
 
 inline int CDasherNode::Lbnd() const {

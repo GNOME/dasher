@@ -461,16 +461,18 @@ gboolean CDasherControl::ButtonPressEvent(GdkEventButton *event) {
 
   // Take the focus if we click on the canvas
 
-  GdkEventFocus *focusEvent = (GdkEventFocus *) g_malloc(sizeof(GdkEventFocus));
-  gboolean *returnType;
+//   GdkEventFocus *focusEvent = (GdkEventFocus *) g_malloc(sizeof(GdkEventFocus));
+//   gboolean *returnType;
 
-  focusEvent->type = GDK_FOCUS_CHANGE;
-  focusEvent->window = (GdkWindow *) m_pCanvas;
-  focusEvent->send_event = FALSE;
-  focusEvent->in = TRUE;
+//   focusEvent->type = GDK_FOCUS_CHANGE;
+//   focusEvent->window = (GdkWindow *) m_pCanvas;
+//   focusEvent->send_event = FALSE;
+//   focusEvent->in = TRUE;
 
-  gtk_widget_grab_focus(GTK_WIDGET(m_pCanvas));
-  g_signal_emit_by_name(GTK_OBJECT(m_pCanvas), "focus_in_event", GTK_WIDGET(m_pCanvas), focusEvent, NULL, &returnType);
+//   gtk_widget_grab_focus(GTK_WIDGET(m_pCanvas));
+//   g_signal_emit_by_name(GTK_OBJECT(m_pCanvas), "focus_in_event", GTK_WIDGET(m_pCanvas), focusEvent, NULL, &returnType);
+
+  // No - don't take the focus - give it to the text area instead
   
   if(event->type == GDK_BUTTON_PRESS)
     HandleClickDown(get_time(), (int)event->x, (int)event->y);

@@ -9,6 +9,7 @@ CCircleStartHandler::CCircleStartHandler(Dasher::CEventHandler * pEventHandler, 
   m_iStatus = -1;
   m_iChangeTime = 0;
   m_iCircleRadius = GetLongParameter(LP_MAX_Y) * GetLongParameter(LP_CIRCLE_PERCENT) / 100;
+  m_iScreenRadius = 0;
 }
 
 bool CCircleStartHandler::DecorateView(CDasherView *pView) {

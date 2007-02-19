@@ -12,6 +12,9 @@ class CDasherMouseInput : public CDasherInput {
 public:
   CDasherMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
     : CDasherInput(pEventHandler, pSettingsStore, 0, 0, "Mouse Input") {
+
+    m_iX = 0;
+    m_iY = 0;
   };
 
   // Fill pCoordinates with iN coordinate values, return 0 if the
@@ -53,6 +56,9 @@ public:
     : CDasherInput(pEventHandler, pSettingsStore, 2, 0, "One Dimensional Mouse Input") {
 
     m_iOffset = 0;
+
+    m_iX = 0;
+    m_iY = 0;
   };
 
   // Fill pCoordinates with iN coordinate values, return 0 if the

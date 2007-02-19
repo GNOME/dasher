@@ -229,7 +229,7 @@ IGNAS_STOP_VOID
   if (iTop<0) iTop=0;
   if(bFill) {
 #if WITH_CAIRO
-	_c.red=(int)(cairo_colours[Color].r*255);		
+        _c.red=(int)(cairo_colours[Color].r*255);		
 	_c.green=(int)(cairo_colours[Color].g*255);		
 	_c.blue=(int)(cairo_colours[Color].b*255);
 #else

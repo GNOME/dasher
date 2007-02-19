@@ -2,8 +2,6 @@
 //
 // Copyright (c) 2001-2004 David Ward
 
-// TODO - there's no real reason to distinguish between groups and nodes here - they're all just boxes to be rendered, with the distinction being at the level of the alphabet manager
-
 #include "../Common/Common.h"
 
 #ifdef _WIN32
@@ -131,6 +129,8 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
 
 int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer, bool bDraw,myint parent_width,int parent_color) {
 
+  //  std::cout << "Recursive render: " << pRender << " " << y1 << " " << y2 << std::endl;
+
   DASHER_ASSERT_VALIDPTR_RW(pRender);
 
   // TODO: We need an overhall of the node creation/deletion logic - make sure that we only maintain the minimum number of nodes which are actually needed.
@@ -139,27 +139,13 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
 
   ++m_iRenderCount;
  
-  //  SGroupInfo *group=pRender->m_pBaseGroup;
   myint temp_parentwidth=parent_width;
   //  myint trange = y2 - y1;
   int temp_parentcolor=parent_color;
-  //Ignas. Group rendering is not finished. 
-/*  if (group!=NULL)
-	{
 
-		myint lbnd = pRender->Children()[group->iStart]->Lbnd();
-		myint hbnd = pRender->Children()[group->iEnd - 1]->Hbnd();
-		myint tnewy1 = y1 + (trange * lbnd) / (int)GetLongParameter(LP_NORMALIZATION);
-		myint tnewy2 = y1 + (trange * hbnd) / (int)GetLongParameter(LP_NORMALIZATION);
-		temp_parentwidth=tnewy2-tnewy1;
-		temp_parentcolor=group->iColour;
-			
-	}
-		
-  */
   if(bDraw && 
-	  !RenderNodeFatherFast(parent_color, y1, y2, mostleft, pRender->m_strDisplayText, pRender->GetShove(),parent_width) 
-	    && !(pRender->GetFlag(NF_GAME))) {
+     !RenderNodeFatherFast(parent_color, y1, y2, mostleft, pRender->m_strDisplayText, pRender->GetShove(),parent_width, pRender->m_bVisible) &&
+     !(pRender->GetFlag(NF_GAME))) {
     vDeleteList.push_back(pRender);
     pRender->SetFlag(NF_ALIVE, false);
     return 0;
@@ -175,9 +161,6 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
   if(pRender->GetFlag(NF_GAME))
     *iGamePointer = (y1 + y2) / 2;
   
-  // Ignas. Group rendering is not implemented yet.
-//  RenderGroupsFast(pRender, y1, y2, mostleft);
-
   // Render children  
   int norm = (myint)GetLongParameter(LP_NORMALIZATION);
 
@@ -202,7 +185,11 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
   int id=-1;
   //  int lower=-1,upper=-1;
   temp_parentwidth=y2-y1;
-  temp_parentcolor=pRender->Colour();
+  if(pRender->m_bVisible)
+    temp_parentcolor=pRender->Colour();
+  else
+    temp_parentcolor=parent_color;
+    
   for(i = pRender->GetChildren().begin(); i != pRender->GetChildren().end(); i++) {
     id++;
     CDasherNode *pChild = *i;
@@ -210,35 +197,6 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
     myint Range = y2 - y1;
     myint newy1 = y1 + (Range * (myint)pChild->Lbnd()) / (myint)norm;/// norm and lbnd are simple ints
     myint newy2 = y1 + (Range * (myint)pChild->Hbnd()) / (myint)norm;
-    
-/*   IGNAS. Group rendering is not finished yet.
-   if (group!=NULL)
-	{	
-		lower=group->iStart;
-		upper=group->iEnd;
-		if(lower-1==id)
-		{
-			if (lasty<newy1)
-			{
-				RenderNodePartFast(pRender->Colour(), lasty, newy1, mostleft, pRender->m_strDisplayText, pRender->GetShove(),y2-y1,test1);
-				lasty=newy1;
-			}
-
-			myint lbnd = pRender->Children()[lower]->Lbnd();
-			myint hbnd = pRender->Children()[upper - 1]->Hbnd();
-			myint tnewy1 = y1 + (trange * lbnd) / (int)GetLongParameter(LP_NORMALIZATION);
-			myint tnewy2 = y1 + (trange * hbnd) / (int)GetLongParameter(LP_NORMALIZATION);
-			temp_parentwidth=tnewy2-tnewy1;
-			temp_parentcolor=group->iColour;
-			
-		}
-	
-	}
-	else
-	{
-		temp_parentwidth=parent_width;
-		temp_parentcolor=parent_color;
-	}*/
 
     // FIXME - make the threshold a parameter
     
@@ -264,22 +222,6 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
 		}
 	
     }
-/*  //IGNAS. Group rendering is not finished yet.
-    if (group!=NULL)
-	{
-		if (upper-1==id)
-			{
-				group=group->pNext;
-				temp_parentwidth=parent_width;
-				temp_parentcolor=parent_color;
-
-				RenderNodePartFast(temp_parentcolor, lasty, newy1, mostleft, pRender->m_strDisplayText, pRender->GetShove(),temp_parentwidth,test1);
-				lasty=newy2;
-
-
-			}
-	}
-*/	
   
   }
   if (bDraw)
@@ -294,41 +236,6 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
 }
 
 
-void CDasherViewSquare::RenderGroupsFast(CDasherNode *Render, myint y1, myint y2, int mostleft) {
-  SGroupInfo *pCurrentGroup(Render->m_pBaseGroup);
-
-  while(pCurrentGroup) {
-	  RecursiveRenderGroupsFast(pCurrentGroup, Render, y1, y2, mostleft,Render->Colour());
-    pCurrentGroup = pCurrentGroup->pNext;
-  }
-}
-//NOT finished
-void CDasherViewSquare::RecursiveRenderGroupsFast(SGroupInfo *pCurrentGroup, CDasherNode *pNode, myint y1, myint y2, int mostleft,int iParentColor) {
-  
-  if(pCurrentGroup->bVisible) {
-    myint range = y2 - y1;
-    
-    int lower(pCurrentGroup->iStart);
-    int upper(pCurrentGroup->iEnd);
-    
-    myint lbnd = pNode->Children()[lower]->Lbnd();
-    myint hbnd = pNode->Children()[upper - 1]->Hbnd();
-    
-    myint newy1 = y1 + (range * lbnd) / (int)GetLongParameter(LP_NORMALIZATION);
-    myint newy2 = y1 + (range * hbnd) / (int)GetLongParameter(LP_NORMALIZATION);
-    
-	RenderNodeFatherFast(iParentColor, newy1, newy2, mostleft, pCurrentGroup->strLabel, true,y2-y1);
-    
-  }
-  
-  // Iterate through child groups 
-/*  SGroupInfo *pCurrentChild(pCurrentGroup->pChild);
-
-  while(pCurrentChild) {
-	  RecursiveRenderGroupsFast(pCurrentChild, pNode, y1, y2, mostleft,pCurrentGroup->iColour);
-    pCurrentChild = pCurrentChild->pNext;
-  }*/
-}
 
 
 CDasherViewSquare::Cymap::Cymap(myint iScale) {
@@ -403,6 +310,8 @@ int CDasherViewSquare::RenderNodeOutlineFast(const int Color, myint y1, myint y2
   return 1;
 }
 
+
+// TODO: Document these functions
 int CDasherViewSquare::RenderNodePartFast(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove,myint iParentWidth ) {
 
   // Commenting because click mode occasionally fails this assert.
@@ -450,7 +359,7 @@ int CDasherViewSquare::RenderNodePartFast(const int Color, myint y1, myint y2, i
   return 1;
 }
 
-int CDasherViewSquare::RenderNodeFatherFast(const int parent_color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove,myint iParentWidth) {
+int CDasherViewSquare::RenderNodeFatherFast(const int parent_color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove,myint iParentWidth, bool bVisible) {
 
   // Commenting because click mode occasionally fails this assert.
   // I don't know why.  -- cjb.

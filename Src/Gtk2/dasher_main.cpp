@@ -182,6 +182,7 @@ extern "C" gboolean test_focus_handler(GtkWidget *pWidget, GtkDirectionType iDir
 
 extern "C" void handle_context_request(GtkDasherControl * pDasherControl, gint iOffset, gint iLength, gpointer data);
 extern "C" void handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer data);
+extern "C" void handle_start_event(GtkDasherControl *pDasherControl, gpointer data);
 extern "C" gint dasher_main_key_snooper(GtkWidget *pWidget, GdkEventKey *pEvent, gpointer pUserData);
 
 /* Boilerplate code */
@@ -1359,6 +1360,17 @@ handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer dat
     break;
   }
 }
+
+extern "C" void 
+handle_start_event(GtkDasherControl *pDasherControl, gpointer data) { 
+  if(!g_pDasherMain)
+    return;
+
+  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(g_pDasherMain);
+  
+  dasher_editor_grab_focus(pPrivate->pEditor);
+}
+
 
 // TODO: Make this only work for children of the main window
 extern "C" gint 
