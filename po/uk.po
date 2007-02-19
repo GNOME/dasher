@@ -1,23 +1,25 @@
 # ukrainian translation of dasher.
 # Copyright (C) Free Software Foundation, 2004
 # This file is distributed under the same license as the dasher package.
-# Maxim Dziumanenko <mvd@mylinux.ua>, 2004-2006
+# Maxim Dziumanenko <dziumanenko@gmail.com>, 2004-2007
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-04 10:31+0300\n"
+"POT-Creation-Date: 2007-02-19 14:40+0200\n"
 "PO-Revision-Date: 2006-09-01 10:40+0300\n"
-"Last-Translator: Maxim Dziumanenko <mvd@mylinux.ua>\n"
+"Last-Translator: Maxim Dziumanenko <dziumanenko@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/Menu.cc:439
-#: ../Src/Gtk2/dasher.glade.h:34 ../Src/Gtk2/dashergpe.glade.h:5
-#: ../Src/Gtk2/dashermaemo.glade.h:18
+#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/dasher.compose.glade.h:34
+#: ../Src/Gtk2/dasher.direct.glade.h:31
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:30 ../Src/Gtk2/dasher.glade.h:34
+#: ../Src/Gtk2/dasher.traditional.glade.h:34 ../Src/Gtk2/dasher_main.cpp:1046
+#: ../Src/Gtk2/dashergpe.glade.h:5 ../Src/Gtk2/dashermaemo.glade.h:17
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:15
 msgid "Dasher"
 msgstr "Dasher"
@@ -31,14 +33,564 @@ msgstr "Предикативний ввід тексту"
 msgid "Dasher socket input: failed to launch reader thread."
 msgstr "Dasher ввід сокету: не вдається запустити потік читання."
 
-#: ../Src/Gtk2/Menu.cc:62 ../Src/Gtk2/Menu.cc:118 ../Src/Gtk2/Menu.cc:176
-#: ../Src/Gtk2/Menu.cc:219 ../Src/Gtk2/dasher.glade.h:59
-#: ../Src/Gtk2/dashergpe.glade.h:14 ../Src/Gtk2/dashermaemo.glade.h:29
+#: ../Src/Gtk2/dasher.compose.glade.h:1 ../Src/Gtk2/dasher.direct.glade.h:1
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:1 ../Src/Gtk2/dasher.glade.h:1
+#: ../Src/Gtk2/dasher.traditional.glade.h:1
+msgid "<b>Actions:</b>"
+msgstr "<b>Дії:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:2 ../Src/Gtk2/dasher.direct.glade.h:2
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:2 ../Src/Gtk2/dasher.glade.h:2
+#: ../Src/Gtk2/dasher.traditional.glade.h:2 ../Src/Gtk2/dashermaemo.glade.h:3
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:1
+msgid "<b>Adaptation:</b>"
+msgstr "<b>Адаптація:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:3 ../Src/Gtk2/dasher.direct.glade.h:3
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:3 ../Src/Gtk2/dasher.glade.h:3
+#: ../Src/Gtk2/dasher.traditional.glade.h:3 ../Src/Gtk2/dashermaemo.glade.h:4
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:2
+msgid "<b>Alphabet Selection:</b>"
+msgstr "<b>Вибір алфавіту:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:4 ../Src/Gtk2/dasher.direct.glade.h:4
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:4 ../Src/Gtk2/dasher.glade.h:4
+#: ../Src/Gtk2/dasher.traditional.glade.h:4
+msgid "<b>Appearance Options:</b>"
+msgstr "<b>Параметри зовнішнього вигляду:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:5 ../Src/Gtk2/dasher.direct.glade.h:5
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:5 ../Src/Gtk2/dasher.glade.h:5
+#: ../Src/Gtk2/dasher.traditional.glade.h:5
+msgid "<b>Application Options:</b>"
+msgstr "<b>Параметри програми:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:6 ../Src/Gtk2/dasher.direct.glade.h:6
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:6 ../Src/Gtk2/dasher.glade.h:6
+#: ../Src/Gtk2/dasher.traditional.glade.h:6
+msgid "<b>Application Style:</b>"
+msgstr "<b>Стиль програми:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:7 ../Src/Gtk2/dasher.direct.glade.h:7
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:7 ../Src/Gtk2/dasher.glade.h:7
+#: ../Src/Gtk2/dasher.traditional.glade.h:7
+msgid "<b>Colour Scheme:</b>"
+msgstr "<b>Схема кольорів:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:8 ../Src/Gtk2/dasher.direct.glade.h:8
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:8 ../Src/Gtk2/dasher.glade.h:8
+#: ../Src/Gtk2/dasher.traditional.glade.h:8
+msgid "<b>Control Style:</b>"
+msgstr "<b>Стиль елемента керування:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:9 ../Src/Gtk2/dasher.direct.glade.h:9
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:9 ../Src/Gtk2/dasher.glade.h:9
+#: ../Src/Gtk2/dasher.traditional.glade.h:9
+msgid "<b>Dasher Font:</b>"
+msgstr "<b>Шрифт Dasher:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:10 ../Src/Gtk2/dasher.direct.glade.h:10
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:10 ../Src/Gtk2/dasher.glade.h:10
+#: ../Src/Gtk2/dasher.traditional.glade.h:10
+msgid "<b>Direction:</b>"
+msgstr "<b>Напрямок:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:11 ../Src/Gtk2/dasher.direct.glade.h:11
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:11 ../Src/Gtk2/dasher.glade.h:11
+#: ../Src/Gtk2/dasher.traditional.glade.h:11
+msgid "<b>Editor Font:</b>"
+msgstr "<b>Шрифт редактора:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:12 ../Src/Gtk2/dasher.direct.glade.h:12
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:12 ../Src/Gtk2/dasher.glade.h:12
+#: ../Src/Gtk2/dasher.traditional.glade.h:12
+msgid "<b>Input Device:</b>"
+msgstr "<b>Вхідний пристрій:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:13 ../Src/Gtk2/dasher.direct.glade.h:13
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:13 ../Src/Gtk2/dasher.glade.h:13
+#: ../Src/Gtk2/dasher.traditional.glade.h:13 ../Src/Gtk2/dashermaemo.glade.h:6
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:3
+msgid "<b>Language Model:</b>"
+msgstr "<b>Модель мови:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:14 ../Src/Gtk2/dasher.direct.glade.h:14
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:14 ../Src/Gtk2/dasher.glade.h:14
+#: ../Src/Gtk2/dasher.traditional.glade.h:14
+msgid "<b>Prediction:</b>"
+msgstr "<b>Прорікання:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:15 ../Src/Gtk2/dasher.direct.glade.h:15
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:15 ../Src/Gtk2/dasher.glade.h:15
+#: ../Src/Gtk2/dasher.traditional.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:8
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:5
+msgid "<b>Smoothing:</b>"
+msgstr "<b>Згладжування</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:16 ../Src/Gtk2/dasher.direct.glade.h:16
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:16 ../Src/Gtk2/dasher.glade.h:16
+#: ../Src/Gtk2/dasher.traditional.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:9
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:6
+msgid "<b>Speed:</b>"
+msgstr "<b>Швидкість:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:17 ../Src/Gtk2/dasher.direct.glade.h:17
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:17 ../Src/Gtk2/dasher.glade.h:17
+#: ../Src/Gtk2/dasher.traditional.glade.h:17
+msgid "<b>Starting And Stopping:</b>"
+msgstr "<b>Запуск та зупинка</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:18 ../Src/Gtk2/dasher.direct.glade.h:18
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:18 ../Src/Gtk2/dasher.glade.h:18
+#: ../Src/Gtk2/dasher.traditional.glade.h:18
+#: ../Src/Gtk2/dashermaemo.glade.h:10
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:7
+msgid "Adapt speed automatically"
+msgstr "Автоматично підлаштовувати швидкість"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:19 ../Src/Gtk2/dasher.direct.glade.h:19
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:19 ../Src/Gtk2/dasher.glade.h:19
+#: ../Src/Gtk2/dasher.traditional.glade.h:19
+#: ../Src/Gtk2/dashermaemo.glade.h:12
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:9
+msgid "Alphabet Default"
+msgstr "Типовий алфавіт"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:20 ../Src/Gtk2/dasher.direct.glade.h:20
+#: ../Src/Gtk2/dasher.glade.h:20 ../Src/Gtk2/dasher.traditional.glade.h:20
+msgid "Alphabet:"
+msgstr "Алфавіт:"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:21 ../Src/Gtk2/dasher.direct.glade.h:21
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:20 ../Src/Gtk2/dasher.glade.h:21
+#: ../Src/Gtk2/dasher.traditional.glade.h:21
+msgid "Appearance"
+msgstr "Зовнішній вигляд"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:22 ../Src/Gtk2/dasher.direct.glade.h:22
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:21 ../Src/Gtk2/dasher.glade.h:22
+#: ../Src/Gtk2/dasher.traditional.glade.h:22
+msgid "Application"
+msgstr "Програми"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:23 ../Src/Gtk2/dasher.direct.glade.h:23
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:22 ../Src/Gtk2/dasher.glade.h:23
+#: ../Src/Gtk2/dasher.traditional.glade.h:23
+#: ../Src/Gtk2/dashermaemo.glade.h:13
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:10
+msgid "Bottom to Top"
+msgstr "Зверху вниз"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:24 ../Src/Gtk2/dasher.direct.glade.h:24
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:23 ../Src/Gtk2/dasher.glade.h:24
+#: ../Src/Gtk2/dasher.traditional.glade.h:24
+msgid ""
+"Centre circle\n"
+"Two box"
+msgstr ""
+"Центральне коло\n"
+"Два поля"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:26 ../Src/Gtk2/dasher.direct.glade.h:26
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:25 ../Src/Gtk2/dasher.glade.h:26
+#: ../Src/Gtk2/dasher.traditional.glade.h:26
+msgid "Composition"
+msgstr "Об'єднання"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:27 ../Src/Gtk2/dasher.direct.glade.h:27
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:26 ../Src/Gtk2/dasher.glade.h:27
+#: ../Src/Gtk2/dasher.traditional.glade.h:27
+#: ../Src/Gtk2/dashermaemo.glade.h:14
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:11
+msgid "Control"
+msgstr "Керування"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:28 ../Src/Gtk2/dasher.direct.glade.h:28
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:27 ../Src/Gtk2/dasher.glade.h:28
+#: ../Src/Gtk2/dasher.traditional.glade.h:28 ../Src/Gtk2/dashergpe.glade.h:1
+msgid "Control mode"
+msgstr "Режим елемента керування"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:29 ../Src/Gtk2/dasher.glade.h:29
+#: ../Src/Gtk2/dasher.traditional.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:2
+msgid "Copy"
+msgstr "Копіювати"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:30 ../Src/Gtk2/dasher.glade.h:30
+#: ../Src/Gtk2/dasher.traditional.glade.h:30 ../Src/Gtk2/dashergpe.glade.h:3
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:12
+msgid "Copy _All"
+msgstr "Копіювати _всі"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:31 ../Src/Gtk2/dasher.direct.glade.h:29
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:28 ../Src/Gtk2/dasher.glade.h:31
+#: ../Src/Gtk2/dasher.traditional.glade.h:31
+#: ../Src/Gtk2/dashermaemo.glade.h:15
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:13
+msgid "Custom colour scheme:"
+msgstr "Інша схема кольорів:"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:32 ../Src/Gtk2/dasher.direct.glade.h:30
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:29 ../Src/Gtk2/dasher.glade.h:32
+#: ../Src/Gtk2/dasher.traditional.glade.h:32
+#: ../Src/Gtk2/dashermaemo.glade.h:16
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:14
+msgid "Custom:"
+msgstr "Власний:"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:33 ../Src/Gtk2/dasher.glade.h:33
+#: ../Src/Gtk2/dasher.traditional.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:4
+msgid "Cut"
+msgstr "Вирізати"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:35 ../Src/Gtk2/dasher.direct.glade.h:32
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:31 ../Src/Gtk2/dasher.glade.h:35
+#: ../Src/Gtk2/dasher.traditional.glade.h:35
+#: ../Src/Gtk2/dashermaemo.glade.h:18
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:16
+msgid "Dasher Preferences"
+msgstr "Параметри Dasher"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:36 ../Src/Gtk2/dasher.glade.h:36
+#: ../Src/Gtk2/dasher.traditional.glade.h:36
+msgid "Dasher _Tutorial"
+msgstr "_Підручник з Dasher"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:37 ../Src/Gtk2/dasher.direct.glade.h:33
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:32 ../Src/Gtk2/dasher.glade.h:37
+#: ../Src/Gtk2/dasher.traditional.glade.h:37
+msgid "Direct entry"
+msgstr "Прямий ввід"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:38 ../Src/Gtk2/dasher.direct.glade.h:34
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:33 ../Src/Gtk2/dasher.glade.h:38
+#: ../Src/Gtk2/dasher.traditional.glade.h:38
+msgid "Dock application window"
+msgstr "Приєднувати до вікна програми"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:39 ../Src/Gtk2/dasher.direct.glade.h:35
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:34 ../Src/Gtk2/dasher.glade.h:39
+#: ../Src/Gtk2/dasher.traditional.glade.h:39
+msgid "Draw box outlines"
+msgstr "Малювати зовнішні лінії прямокутників"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:40 ../Src/Gtk2/dasher.direct.glade.h:36
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:35 ../Src/Gtk2/dasher.glade.h:40
+#: ../Src/Gtk2/dasher.traditional.glade.h:40
+msgid "Draw line between crosshairs and mouse"
+msgstr "Малювати лінію між перехрестям та мишею"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:41 ../Src/Gtk2/dasher.direct.glade.h:37
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:36 ../Src/Gtk2/dasher.glade.h:41
+#: ../Src/Gtk2/dasher.traditional.glade.h:41
+msgid "Full Screen"
+msgstr "На весь екран"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:42 ../Src/Gtk2/dasher.direct.glade.h:38
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:37 ../Src/Gtk2/dasher.glade.h:42
+#: ../Src/Gtk2/dasher.traditional.glade.h:42
+msgid "Increase line thickness"
+msgstr "Збільшити товщину лінії"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:43 ../Src/Gtk2/dasher.direct.glade.h:39
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:38 ../Src/Gtk2/dasher.glade.h:43
+#: ../Src/Gtk2/dasher.traditional.glade.h:43
+#: ../Src/Gtk2/dashermaemo.glade.h:20
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
+msgid "Japanese"
+msgstr "Японська"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:44 ../Src/Gtk2/dasher.direct.glade.h:40
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:39 ../Src/Gtk2/dasher.glade.h:44
+#: ../Src/Gtk2/dasher.traditional.glade.h:44
+msgid "Language"
+msgstr "Мова"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:45 ../Src/Gtk2/dasher.direct.glade.h:41
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:40 ../Src/Gtk2/dasher.glade.h:45
+#: ../Src/Gtk2/dasher.traditional.glade.h:45
+#: ../Src/Gtk2/dashermaemo.glade.h:21
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:18
+msgid "Language model adapts as you write."
+msgstr "Модель мови адаптується під час вводу."
+
+#: ../Src/Gtk2/dasher.compose.glade.h:46 ../Src/Gtk2/dasher.direct.glade.h:42
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:41 ../Src/Gtk2/dasher.glade.h:46
+#: ../Src/Gtk2/dasher.traditional.glade.h:46
+msgid "Large font "
+msgstr "Великий шрифт"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:47 ../Src/Gtk2/dasher.direct.glade.h:43
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:42 ../Src/Gtk2/dasher.glade.h:47
+#: ../Src/Gtk2/dasher.traditional.glade.h:47
+#: ../Src/Gtk2/dashermaemo.glade.h:22
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:20
+msgid "Left to Right"
+msgstr "Зліва направо"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:48 ../Src/Gtk2/dasher.direct.glade.h:44
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:43 ../Src/Gtk2/dasher.glade.h:48
+#: ../Src/Gtk2/dasher.traditional.glade.h:48
+#: ../Src/Gtk2/dashermaemo.glade.h:23
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:21
+msgid "Mixture model (PPM/dictionary)"
+msgstr "Модель змішування (PPM/словник)"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:49 ../Src/Gtk2/dasher.glade.h:49
+#: ../Src/Gtk2/dasher.traditional.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:8
+msgid "New file"
+msgstr "Створити файл"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:50 ../Src/Gtk2/dasher.glade.h:50
+#: ../Src/Gtk2/dasher.traditional.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:10
+msgid "Open file"
+msgstr "Відкрити файл"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:51 ../Src/Gtk2/dasher.direct.glade.h:45
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:44 ../Src/Gtk2/dasher.glade.h:51
+#: ../Src/Gtk2/dasher.traditional.glade.h:51
+msgid "Options"
+msgstr "Параметри"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:52 ../Src/Gtk2/dasher.glade.h:52
+#: ../Src/Gtk2/dasher.traditional.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:11
+msgid "Paste"
+msgstr "Вставити"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:53 ../Src/Gtk2/dasher.direct.glade.h:46
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:45 ../Src/Gtk2/dasher.glade.h:53
+#: ../Src/Gtk2/dasher.traditional.glade.h:53
+msgid "Pause outside of canvas"
+msgstr "Призупиняти за межами вікна"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:54 ../Src/Gtk2/dasher.direct.glade.h:47
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:46 ../Src/Gtk2/dasher.glade.h:54
+#: ../Src/Gtk2/dasher.traditional.glade.h:54
+#: ../Src/Gtk2/dashermaemo.glade.h:25
+msgid "Please Wait..."
+msgstr "Зачекайте..."
+
+#: ../Src/Gtk2/dasher.compose.glade.h:55 ../Src/Gtk2/dasher.glade.h:55
+msgid "Pr_eferences"
+msgstr "П_араметри"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:56 ../Src/Gtk2/dasher.direct.glade.h:48
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:47 ../Src/Gtk2/dasher.glade.h:56
+#: ../Src/Gtk2/dasher.traditional.glade.h:56
+#: ../Src/Gtk2/dashermaemo.glade.h:27
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
+msgid "Right to Left"
+msgstr "Справа наліво"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:57 ../Src/Gtk2/dasher.glade.h:57
+#: ../Src/Gtk2/dasher.traditional.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:12
+msgid "Save file"
+msgstr "Зберегти файл"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:58 ../Src/Gtk2/dasher.glade.h:58
+#: ../Src/Gtk2/dasher.traditional.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:13
+msgid "Save file as"
+msgstr "Зберегти файл як"
+
+#. TODO: Fix this
+#. GtkWidget *filesel = gtk_file_chooser_dialog_new(_("Select File"), GTK_WINDOW(pPrivate->pMainWindow), GTK_FILE_CHOOSER_ACTION_OPEN, GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+#. TODO: Fix this
+#. GtkWidget *filesel = gtk_file_chooser_dialog_new(_("Select File"), GTK_WINDOW(window), GTK_FILE_CHOOSER_ACTION_SAVE, GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+#: ../Src/Gtk2/dasher.compose.glade.h:59 ../Src/Gtk2/dasher.direct.glade.h:49
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:48 ../Src/Gtk2/dasher.glade.h:59
+#: ../Src/Gtk2/dasher.traditional.glade.h:59
+#: ../Src/Gtk2/dasher_editor.cpp:1248 ../Src/Gtk2/dasher_editor.cpp:1273
+#: ../Src/Gtk2/dasher_main.cpp:897 ../Src/Gtk2/dashergpe.glade.h:14
+#: ../Src/Gtk2/dashermaemo.glade.h:28
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:25
 msgid "Select File"
 msgstr "Вибір файлу"
 
-#: ../Src/Gtk2/Menu.cc:302
+#: ../Src/Gtk2/dasher.compose.glade.h:60 ../Src/Gtk2/dasher.direct.glade.h:50
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:49 ../Src/Gtk2/dasher.glade.h:60
+#: ../Src/Gtk2/dasher.traditional.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:15
+#: ../Src/Gtk2/dashermaemo.glade.h:29
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:26
+msgid "Select Font"
+msgstr "Вибір шрифту"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:61 ../Src/Gtk2/dasher.direct.glade.h:51
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:50 ../Src/Gtk2/dasher.glade.h:61
+#: ../Src/Gtk2/dasher.traditional.glade.h:61
+msgid "Show mouse position"
+msgstr "Відображати положення миші"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:62 ../Src/Gtk2/dasher.direct.glade.h:52
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:51 ../Src/Gtk2/dasher.glade.h:62
+#: ../Src/Gtk2/dasher.traditional.glade.h:62
+msgid "Show speed slider"
+msgstr "Відображати повзунок швидкості"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:63 ../Src/Gtk2/dasher.direct.glade.h:53
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:52 ../Src/Gtk2/dasher.glade.h:63
+#: ../Src/Gtk2/dasher.traditional.glade.h:63
+msgid "Show toolbar"
+msgstr "Відображати панель інструментів"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:64 ../Src/Gtk2/dasher.direct.glade.h:54
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:53 ../Src/Gtk2/dasher.glade.h:64
+#: ../Src/Gtk2/dasher.traditional.glade.h:64
+msgid "Small font"
+msgstr "Маленький шрифт"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:65 ../Src/Gtk2/dasher.direct.glade.h:55
+#: ../Src/Gtk2/dasher.glade.h:65 ../Src/Gtk2/dasher.traditional.glade.h:65
+msgid "Speed:"
+msgstr "Швидкість:"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:66 ../Src/Gtk2/dasher.direct.glade.h:56
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:54 ../Src/Gtk2/dasher.glade.h:66
+#: ../Src/Gtk2/dasher.traditional.glade.h:66
+msgid "Stand-alone"
+msgstr "Самостійно"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:67 ../Src/Gtk2/dasher.direct.glade.h:57
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:55 ../Src/Gtk2/dasher.glade.h:67
+#: ../Src/Gtk2/dasher.traditional.glade.h:67
+#: ../Src/Gtk2/dashermaemo.glade.h:30
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
+msgid "Standard letter-based PPM"
+msgstr "Стандартний оснований на літерах PPM"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:68 ../Src/Gtk2/dasher.direct.glade.h:58
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:56 ../Src/Gtk2/dasher.glade.h:68
+#: ../Src/Gtk2/dasher.traditional.glade.h:68
+msgid "Start on left mouse button"
+msgstr "Починати з натискання лівої кнопки миші"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:69 ../Src/Gtk2/dasher.direct.glade.h:59
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:57 ../Src/Gtk2/dasher.glade.h:69
+#: ../Src/Gtk2/dasher.traditional.glade.h:69
+msgid "Start on space bar"
+msgstr "Починати з натискання пробілу"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:70 ../Src/Gtk2/dasher.direct.glade.h:60
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:58 ../Src/Gtk2/dasher.glade.h:70
+#: ../Src/Gtk2/dasher.traditional.glade.h:70
+msgid "Start with mouse position:"
+msgstr "Починати з положення миші:"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:71 ../Src/Gtk2/dasher.direct.glade.h:61
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:59 ../Src/Gtk2/dasher.glade.h:71
+#: ../Src/Gtk2/dasher.traditional.glade.h:71
+msgid "Timestamp new files"
+msgstr "Ставити дату у нових файлах"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:72 ../Src/Gtk2/dasher.direct.glade.h:62
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:60 ../Src/Gtk2/dasher.glade.h:72
+#: ../Src/Gtk2/dasher.traditional.glade.h:72
+#: ../Src/Gtk2/dashermaemo.glade.h:31
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
+msgid "Top to Bottom"
+msgstr "Зверну вниз"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:73 ../Src/Gtk2/dasher.direct.glade.h:63
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:61 ../Src/Gtk2/dasher.glade.h:73
+#: ../Src/Gtk2/dasher.traditional.glade.h:73
+msgid ""
+"Use this control to adjust the relative sizes of the \n"
+"letter boxes. Note that selecting high values will slow\n"
+"your writing speed."
+msgstr ""
+"Використовуйте цей елемент керування для налаштовування\n"
+"розмірів прямокутників літер. Зверніть увагу, вибір занадто\n"
+"великих значень зменшить швидкість набору."
+
+#: ../Src/Gtk2/dasher.compose.glade.h:76 ../Src/Gtk2/dasher.direct.glade.h:66
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:64 ../Src/Gtk2/dasher.glade.h:76
+#: ../Src/Gtk2/dasher.traditional.glade.h:76
+msgid "Very large font"
+msgstr "Дуже великий шрифт"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:77 ../Src/Gtk2/dasher.direct.glade.h:67
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:65 ../Src/Gtk2/dasher.glade.h:77
+#: ../Src/Gtk2/dasher.traditional.glade.h:77
+#: ../Src/Gtk2/dashermaemo.glade.h:33
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
+msgid "Word-based model"
+msgstr "Модель основана на словах"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:78 ../Src/Gtk2/dasher.glade.h:78
+#: ../Src/Gtk2/dashergpe.glade.h:17
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:32
+msgid "_About"
+msgstr "_Про програму"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:79 ../Src/Gtk2/dasher.glade.h:79
+#: ../Src/Gtk2/dasher.traditional.glade.h:79 ../Src/Gtk2/dashergpe.glade.h:18
+msgid "_Append to file"
+msgstr "_Додати до файлу"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:80 ../Src/Gtk2/dasher.glade.h:80
+msgid "_Contents"
+msgstr "_Зміст"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:81 ../Src/Gtk2/dasher.glade.h:81
+#: ../Src/Gtk2/dasher.traditional.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:21
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
+msgid "_Edit"
+msgstr "_Правка"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:82 ../Src/Gtk2/dasher.glade.h:82
+#: ../Src/Gtk2/dasher.traditional.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:23
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:37
+msgid "_File"
+msgstr "_Файл"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:83 ../Src/Gtk2/dasher.glade.h:83
+#: ../Src/Gtk2/dasher.traditional.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:24
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:38
+msgid "_Help"
+msgstr "_Довідка"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:84 ../Src/Gtk2/dasher.glade.h:84
+#: ../Src/Gtk2/dashergpe.glade.h:25
+msgid "_Import Training Text"
+msgstr "_Імпортувати навчальний текст"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:85 ../Src/Gtk2/dasher.direct.glade.h:68
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:66 ../Src/Gtk2/dasher.glade.h:85
+#: ../Src/Gtk2/dasher.traditional.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:28
+#: ../Src/Gtk2/dashermaemo.glade.h:34
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:41
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr "абвгґдежзіїк АБВГҐДЕЖЗІЇ"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:55
+msgid "Pr_eferences..."
+msgstr "П_араметри..."
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:78
+msgid "_About..."
+msgstr "_Про програму..."
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:80
+msgid "_Contents..."
+msgstr "_Зміст..."
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:84
+msgid "_Import Training Text..."
+msgstr "_Імпортувати навчальний текст..."
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:144
+#, c-format
+msgid "Unable to initialize speech support\n"
+msgstr "Не вдається ініціалізувати підтримку мовлення\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:167
+msgid "Unable to initialize voices\n"
+msgstr "Не вдається ініціалізувати голоси\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:179
+msgid "Warning: unable to set speech parameters\n"
+msgstr "Попередження: не вдається встановити параметри мовлення\n"
+
+#: ../Src/Gtk2/dasher_main.cpp:935
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -49,7 +601,7 @@ msgstr ""
 "\n"
 "Якщо ви не збережете зміни, ви їх не збережете."
 
-#: ../Src/Gtk2/Menu.cc:305
+#: ../Src/Gtk2/dasher_main.cpp:941
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -59,401 +611,25 @@ msgstr ""
 "\n"
 "Якщо ви не збережете зміни, ви їх не збережете."
 
-#: ../Src/Gtk2/Menu.cc:308
+#: ../Src/Gtk2/dasher_main.cpp:945
 msgid "Don't save"
 msgstr "Не зберігати"
 
-#: ../Src/Gtk2/Menu.cc:308
+#: ../Src/Gtk2/dasher_main.cpp:946
 msgid "Don't quit"
 msgstr "Не виходити"
 
-#: ../Src/Gtk2/Menu.cc:308
+#: ../Src/Gtk2/dasher_main.cpp:947
 msgid "Save and quit"
 msgstr "Зберегти та вийти"
 
-#: ../Src/Gtk2/Menu.cc:426 ../Src/Gtk2/Menu.cc:442
+#: ../Src/Gtk2/dasher_main.cpp:1033 ../Src/Gtk2/dasher_main.cpp:1049
 msgid "Dasher is a predictive text entry application"
-msgstr "Dasher - програма передрікання вводу у текстових полях"
+msgstr "Dasher - програма прорікання вводу у текстових полях"
 
-#: ../Src/Gtk2/Menu.cc:431 ../Src/Gtk2/Menu.cc:437
+#: ../Src/Gtk2/dasher_main.cpp:1038 ../Src/Gtk2/dasher_main.cpp:1044
 msgid "translator-credits"
-msgstr "Максим Дзюманенко <mvd@mylinux.ua>"
-
-#: ../Src/Gtk2/Preferences.cpp:821 ../Src/Gtk2/Preferences.cpp:823
-msgid "Training Dasher... please wait"
-msgstr "Навчання програми Dasher, будь ласка, зачекайте"
-
-#: ../Src/Gtk2/dasher.glade.h:1
-msgid "<b>Actions:</b>"
-msgstr "<b>Дії:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:2 ../Src/Gtk2/dashermaemo.glade.h:4
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:1
-msgid "<b>Adaptation:</b>"
-msgstr "<b>Адаптація:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:3 ../Src/Gtk2/dashermaemo.glade.h:5
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:2
-msgid "<b>Alphabet Selection:</b>"
-msgstr "<b>Вибір алфавіту:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:4
-msgid "<b>Appearance Options:</b>"
-msgstr "<b>Параметри зовнішнього вигляду:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:5
-msgid "<b>Application Options:</b>"
-msgstr "<b>Параметри програми:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:6
-msgid "<b>Application Style:</b>"
-msgstr "<b>Стиль програми:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:7
-msgid "<b>Colour Scheme:</b>"
-msgstr "<b>Схема кольорів:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:8
-msgid "<b>Control Style:</b>"
-msgstr "<b>Стиль елемента керування:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:9
-msgid "<b>Dasher Font:</b>"
-msgstr "<b>Шрифт Dasher:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:10
-msgid "<b>Direction:</b>"
-msgstr "<b>Напрямок:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:11
-msgid "<b>Editor Font:</b>"
-msgstr "<b>Шрифт редактора:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:12
-msgid "<b>Input Device:</b>"
-msgstr "<b>Вхідний пристрій:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashermaemo.glade.h:7
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:3
-msgid "<b>Language Model:</b>"
-msgstr "<b>Модель мови:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:14
-msgid "<b>Prediction:</b>"
-msgstr "<b>Передрікання:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:9
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:5
-msgid "<b>Smoothing:</b>"
-msgstr "<b>Згладжування</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:10
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:6
-msgid "<b>Speed:</b>"
-msgstr "<b>Швидкість:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:17
-msgid "<b>Starting And Stopping:</b>"
-msgstr "<b>Запуск та зупинка</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:18 ../Src/Gtk2/dashermaemo.glade.h:11
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:7
-msgid "Adapt speed automatically"
-msgstr "Автоматично підстроювати швидкість"
-
-#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:13
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:9
-msgid "Alphabet Default"
-msgstr "Типовий алфавіт"
-
-#: ../Src/Gtk2/dasher.glade.h:20
-msgid "Alphabet:"
-msgstr "Алфавіт:"
-
-#: ../Src/Gtk2/dasher.glade.h:21
-msgid "Appearance"
-msgstr "Зовнішній вигляд"
-
-#: ../Src/Gtk2/dasher.glade.h:22
-msgid "Application"
-msgstr "Програми"
-
-#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashermaemo.glade.h:14
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:10
-msgid "Bottom to Top"
-msgstr "Зверху вниз"
-
-#: ../Src/Gtk2/dasher.glade.h:24
-msgid ""
-"Centre circle\n"
-"Two box"
-msgstr ""
-"Центрувати коло\n"
-"Два поля"
-
-#: ../Src/Gtk2/dasher.glade.h:26
-msgid "Composition"
-msgstr "Компонування"
-
-#: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashermaemo.glade.h:15
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:11
-msgid "Control"
-msgstr "Керування"
-
-#: ../Src/Gtk2/dasher.glade.h:28 ../Src/Gtk2/dashergpe.glade.h:1
-msgid "Control mode"
-msgstr "Режим елемента керування"
-
-#: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:2
-msgid "Copy"
-msgstr "Копіювати"
-
-#: ../Src/Gtk2/dasher.glade.h:30 ../Src/Gtk2/dashergpe.glade.h:3
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:12
-msgid "Copy _All"
-msgstr "Копіювати _всі"
-
-#: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashermaemo.glade.h:16
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:13
-msgid "Custom colour scheme:"
-msgstr "Інша схема кольорів:"
-
-#: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashermaemo.glade.h:17
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:14
-msgid "Custom:"
-msgstr "Власний:"
-
-#: ../Src/Gtk2/dasher.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:4
-msgid "Cut"
-msgstr "Вирізати"
-
-#: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:19
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:16
-msgid "Dasher Preferences"
-msgstr "Параметри Dasher"
-
-#: ../Src/Gtk2/dasher.glade.h:36
-msgid "Dasher _Tutorial"
-msgstr "_Підручник з Dasher"
-
-#: ../Src/Gtk2/dasher.glade.h:37
-msgid "Direct entry"
-msgstr "Прямий ввід"
-
-#: ../Src/Gtk2/dasher.glade.h:38
-msgid "Dock application window"
-msgstr "Вікно програми у системний лоток"
-
-#: ../Src/Gtk2/dasher.glade.h:39
-msgid "Draw box outlines"
-msgstr "Малювати зовнішні лінії прямокутників"
-
-#: ../Src/Gtk2/dasher.glade.h:40
-msgid "Draw line between crosshairs and mouse"
-msgstr "Малювати лінію між перехрестям та мишею"
-
-#: ../Src/Gtk2/dasher.glade.h:41
-msgid "Full Screen"
-msgstr "На весь екран"
-
-#: ../Src/Gtk2/dasher.glade.h:42
-msgid "Increase line thickness"
-msgstr "Збільшити товщину лінії"
-
-#: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashermaemo.glade.h:21
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
-msgid "Japanese"
-msgstr "Японська"
-
-#: ../Src/Gtk2/dasher.glade.h:44
-msgid "Language"
-msgstr "Мова"
-
-#: ../Src/Gtk2/dasher.glade.h:45 ../Src/Gtk2/dashermaemo.glade.h:22
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:18
-msgid "Language model adapts as you write."
-msgstr "Модель мови адаптується при написанні."
-
-#: ../Src/Gtk2/dasher.glade.h:46
-msgid "Large font "
-msgstr "Великий шрифт"
-
-#: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:23
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:20
-msgid "Left to Right"
-msgstr "Зліва направо"
-
-#: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashermaemo.glade.h:24
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:21
-msgid "Mixture model (PPM/dictionary)"
-msgstr "Модель змішування (PPM/словник)"
-
-#: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:8
-msgid "New file"
-msgstr "Створити файл"
-
-#: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:10
-msgid "Open file"
-msgstr "Відкрити файл"
-
-#: ../Src/Gtk2/dasher.glade.h:51
-msgid "Options"
-msgstr "Параметри"
-
-#: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:11
-msgid "Paste"
-msgstr "Вставити"
-
-#: ../Src/Gtk2/dasher.glade.h:53
-msgid "Pause outside of canvas"
-msgstr "Призупиняти за межами вікна"
-
-#: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashermaemo.glade.h:26
-msgid "Please Wait..."
-msgstr "Зачекайте..."
-
-#: ../Src/Gtk2/dasher.glade.h:55
-msgid "Pr_eferences"
-msgstr "П_араметри"
-
-#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashermaemo.glade.h:28
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
-msgid "Right to Left"
-msgstr "Справа наліво"
-
-#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:12
-msgid "Save file"
-msgstr "Зберегти файл"
-
-#: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:13
-msgid "Save file as"
-msgstr "Зберегти файл як"
-
-#: ../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:15
-#: ../Src/Gtk2/dashermaemo.glade.h:30
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:26
-msgid "Select Font"
-msgstr "Вибір шрифту"
-
-#: ../Src/Gtk2/dasher.glade.h:61
-msgid "Show mouse position"
-msgstr "Відображати положення миші"
-
-#: ../Src/Gtk2/dasher.glade.h:62
-msgid "Show speed slider"
-msgstr "Відображати повзунок швидкості"
-
-#: ../Src/Gtk2/dasher.glade.h:63
-msgid "Show toolbar"
-msgstr "Відображати панель інструментів"
-
-#: ../Src/Gtk2/dasher.glade.h:64
-msgid "Small font"
-msgstr "Маленький шрифт"
-
-#: ../Src/Gtk2/dasher.glade.h:65
-msgid "Speed:"
-msgstr "Швидкість:"
-
-#: ../Src/Gtk2/dasher.glade.h:66
-msgid "Stand-alone"
-msgstr "Самостійно"
-
-#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashermaemo.glade.h:31
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
-msgid "Standard letter-based PPM"
-msgstr "Стандартний оснований на літерах PPM"
-
-#: ../Src/Gtk2/dasher.glade.h:68
-msgid "Start on left mouse button"
-msgstr "Починати з натискання лівої кнопки миші"
-
-#: ../Src/Gtk2/dasher.glade.h:69
-msgid "Start on space bar"
-msgstr "Починати з натискання пробілу"
-
-#: ../Src/Gtk2/dasher.glade.h:70
-msgid "Start with mouse position:"
-msgstr "Починати з положення миші:"
-
-#: ../Src/Gtk2/dasher.glade.h:71
-msgid "Timestamp new files"
-msgstr "Ставити дату у нових файлах"
-
-#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashermaemo.glade.h:32
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
-msgid "Top to Bottom"
-msgstr "Зверну вниз"
-
-#: ../Src/Gtk2/dasher.glade.h:73
-msgid ""
-"Use this control to adjust the relative sizes of the \n"
-"letter boxes. Note that selecting high values will slow\n"
-"your writing speed."
-msgstr ""
-"Використовуйте цей елемент керування для налаштовування\n"
-"розмірів прямокутників літер. Зверніть увагу, вибір занадто\n"
-"великих значень зменшить швидкість набору."
-
-#: ../Src/Gtk2/dasher.glade.h:76
-msgid "Very large font"
-msgstr "Дуже великий шрифт"
-
-#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashermaemo.glade.h:34
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
-msgid "Word-based model"
-msgstr "Модель основана на словах"
-
-#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:17
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:32
-msgid "_About"
-msgstr "_Про програму"
-
-#: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashergpe.glade.h:18
-msgid "_Append to file"
-msgstr "_Додати до файлу"
-
-#: ../Src/Gtk2/dasher.glade.h:80
-msgid "_Contents"
-msgstr "_Зміст"
-
-#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:21
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
-msgid "_Edit"
-msgstr "_Правка"
-
-#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:23
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:37
-msgid "_File"
-msgstr "_Файл"
-
-#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:24
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:38
-msgid "_Help"
-msgstr "_Довідка"
-
-#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:25
-msgid "_Import Training Text"
-msgstr "_Імпортувати навчальний текст"
-
-#: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:28
-#: ../Src/Gtk2/dashermaemo.glade.h:35
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:41
-msgid "abcdefghijk ABCDEFGHIJK"
-msgstr "абвгґдежзіїк АБВГҐДЕЖЗІЇ"
-
-#: ../Src/Gtk2/dasher_action_speech.cpp:115
-#, c-format
-msgid "Unable to initialize speech support\n"
-msgstr "Не вдається ініціалізувати підтримку мовлення\n"
-
-#: ../Src/Gtk2/dasher_action_speech.cpp:138
-msgid "Unable to initialize voices\n"
-msgstr "Не вдається ініціалізувати голоси\n"
-
-#: ../Src/Gtk2/dasher_action_speech.cpp:150
-msgid "Warning: unable to set speech parameters\n"
-msgstr "Попередження: не вдається встановити параметри мовлення\n"
+msgstr "Максим Дзюманенко <dziumanenko@gmail.com>"
 
 #: ../Src/Gtk2/dashergpe.glade.h:6
 msgid "Enter text into other windows"
@@ -503,412 +679,34 @@ msgstr "_Скинути шрифт"
 msgid "\n"
 msgstr "\n"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:3
-msgid "(Message Placeholder - no need to translate)"
-msgstr "(Message Placeholder - no need to translate)"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:6
+#: ../Src/Gtk2/dashermaemo.glade.h:5
 msgid "<b>Display Size:</b>"
 msgstr "<b>Розмір відображення:</b>"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:8
+#: ../Src/Gtk2/dashermaemo.glade.h:7
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:4
 msgid "<b>Orientation:</b>"
 msgstr "<b>Орієнтація:</b>"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:12
+#: ../Src/Gtk2/dashermaemo.glade.h:11
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:8
 msgid "Alphabet"
 msgstr "Алфавіт"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:20
+#: ../Src/Gtk2/dashermaemo.glade.h:19
 msgid "Enlarge input window"
 msgstr "Збільшити вікно вводу"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:25
+#: ../Src/Gtk2/dashermaemo.glade.h:24
 msgid "P"
 msgstr "P"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:27
+#: ../Src/Gtk2/dashermaemo.glade.h:26
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:23
 msgid "Prediction"
-msgstr "Передрікання"
+msgstr "Прорікання"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:33
+#: ../Src/Gtk2/dashermaemo.glade.h:32
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:30
 msgid "View"
 msgstr "Вигляд"
-
-#~ msgid "<b>Advanced Settings:</b>"
-#~ msgstr "<b>Вибір алфавіту:</b>"
-
-#~ msgid "<b>Button modes:</b>"
-#~ msgstr "<b>Режими кнопки:</b>"
-
-#~ msgid "<b>Compass Mode</b>"
-#~ msgstr "<b>Режим компасу</b>"
-
-#~ msgid "<b>Direct Mode And Menu Mode</b>"
-#~ msgstr "<b>Прямий режим та режим меню:</b>"
-
-#~ msgid "<b>Miscellaneous Options:</b>"
-#~ msgstr "<b>Різноманітні параметри:</b>"
-
-#~ msgid "<b>One-Button Dynamic Mode</b>"
-#~ msgstr "<b>Динамічний режим однієї кнопки</b>"
-
-#~ msgid "<b>One-Button Static Mode</b>"
-#~ msgstr "<b>Статичний режим однієї кнопки</b>"
-
-#~ msgid "<b>Socket Input</b>"
-#~ msgstr "<b>Сокет вводу</b>"
-
-#~ msgid "<b>X Coordinate</b>"
-#~ msgstr "<b>X координата</b>"
-
-#~ msgid "<b>Y Axis Options:</b>"
-#~ msgstr "<b>Настройка вісі X:</b>"
-
-#~ msgid "<b>Y Coordinate</b>"
-#~ msgstr "<b>Y координата</b>"
-
-#~ msgid "<b>Zoom steps:</b>"
-#~ msgstr "<b>Крок зміни масштабу:</b>"
-
-#~ msgid "Advanced Settings"
-#~ msgstr "Розширені параметри"
-
-#~ msgid "Alternating direct mode"
-#~ msgstr "Змінний прямий режим"
-
-#~ msgid "Box non-uniformity:"
-#~ msgstr "Поле не однорідне:"
-
-#~ msgid "Button Mode Options"
-#~ msgstr "Параметри режиму кнопки"
-
-#~ msgid "Button Preferences"
-#~ msgstr "Параметри кнопки"
-
-#~ msgid "Button Setup"
-#~ msgstr "Налаштовування кнопки"
-
-#~ msgid "Button mode"
-#~ msgstr "Режим кнопки"
-
-#~ msgid "Cancel"
-#~ msgstr "Скасувати"
-
-#~ msgid "Click mode"
-#~ msgstr "Режим клацання"
-
-#~ msgid "Compass mode"
-#~ msgstr "Режим компасу"
-
-#~ msgid "Control dasher from network socket instead of mouse (advanced)"
-#~ msgstr "Керувати dasher з мережного сокету замість миші (розширений режим)"
-
-#~ msgid "Copy all on stop"
-#~ msgstr "Копіювати всі при зупинці"
-
-#~ msgid "Direct mode"
-#~ msgstr "Прямий режим"
-
-#~ msgid "Distance from centerline for start on mouse position:"
-#~ msgstr "Відстань від центральної лінії до початку положення миші:"
-
-#~ msgid "Done"
-#~ msgstr "Завершено"
-
-#~ msgid "Drop time:  "
-#~ msgstr "Час спаду:  "
-
-#~ msgid "Eyetracker mode"
-#~ msgstr "Режим миші"
-
-#~ msgid "Four-button direct mode"
-#~ msgstr "Прямий режим з чотирма кнопками"
-
-#~ msgid "General"
-#~ msgstr "Загальне"
-
-#~ msgid "Label"
-#~ msgstr "Позначка"
-
-#~ msgid "Max"
-#~ msgstr "Максимум"
-
-#~ msgid "Min"
-#~ msgstr "Мінімум"
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Різноманітні параметри"
-
-#~ msgid "Number of \"zoom-out boxes\":"
-#~ msgstr "Кількість \"полів масштабу\":"
-
-#~ msgid "Number of boxes:"
-#~ msgstr "Кількість полів:"
-
-#~ msgid "One dimensional mode"
-#~ msgstr "Одномірний режим"
-
-#~ msgid "One-button dynamic mode"
-#~ msgstr "Динамічний режим з однією кнопкою"
-
-#~ msgid "One-button static mode"
-#~ msgstr "Статичний режим з однією кнопкою"
-
-#~ msgid "Ordinary control"
-#~ msgstr "Звичайний контроль"
-
-#~ msgid "Port"
-#~ msgstr "Порт"
-
-#~ msgid "Print socket-related debugging information to console"
-#~ msgstr "Виводити налагоджувальну інформацію про сокет у консоль"
-
-#~ msgid "Pulsing mode"
-#~ msgstr "Пульсуючий режим"
-
-#~ msgid "Right zoom:  "
-#~ msgstr "Справа наліво:   "
-
-#~ msgid "Safety margin:"
-#~ msgstr "Відступ безпеки:"
-
-#~ msgid "Scaling amount (1D mode):"
-#~ msgstr "Величина зміни масштабу (режим 1D):"
-
-#~ msgid "Show Advanced Settings"
-#~ msgstr "Показати розширені параметри"
-
-#~ msgid "Socket Options"
-#~ msgstr "Параметри сокету"
-
-#~ msgid "Speak on stop"
-#~ msgstr "Сказати при зупинці"
-
-#~ msgid "Static menu mode"
-#~ msgstr "Режим статичного меню"
-
-#~ msgid "Steady mode"
-#~ msgstr "Постійний режим"
-
-#~ msgid "Training"
-#~ msgstr "Навчання"
-
-#~ msgid "Two button dynamic mode"
-#~ msgstr "Динамічний режим з двома кнопками"
-
-#~ msgid "Zoom:"
-#~ msgstr "Масштаб:"
-
-#~ msgid "5:"
-#~ msgstr "5:"
-
-#~ msgid "6:"
-#~ msgstr "6:"
-
-#~ msgid "7:"
-#~ msgstr "7:"
-
-#~ msgid "8:"
-#~ msgstr "8:"
-
-#~ msgid "9:"
-#~ msgstr "9:"
-
-#~ msgid "<b>Button control setup</b>"
-#~ msgstr "<b>Настройка кнопок</b>"
-
-#~ msgid "<b>Speed</b>"
-#~ msgstr "<b>Швидкість</b>"
-
-#~ msgid "<b>Toggle button Mode:</b>"
-#~ msgstr "<b>Режим перемикача:</b>"
-
-#~ msgid "<b>X/Y Coordinates:</b>"
-#~ msgstr "<b>X/Y координати:</b>"
-
-#~ msgid "Advanced"
-#~ msgstr "Додатково"
-
-#~ msgid "Button control setup"
-#~ msgstr "Настройка кнопки"
-
-#~ msgid "Button:"
-#~ msgstr "Кнопка:"
-
-#~ msgid "Change color scheme automatically"
-#~ msgstr "Автоматично змінювати схему кольорів"
-
-#~ msgid "Color"
-#~ msgstr "Колір"
-
-#~ msgid "Cyclical button mode"
-#~ msgstr "Циклічний режим кнопок"
-
-#~ msgid "Down/3:"
-#~ msgstr "Вниз/3:"
-
-#~ msgid "Edit Button-control options"
-#~ msgstr "Редагувати настройки кнопок"
-
-#~ msgid ""
-#~ "If this mode is selected, up and down will cycle backwards and forwards "
-#~ "between coordinates and right will confirm the choice"
-#~ msgstr ""
-#~ "Якщо вибраний цей режим, вверх та вниз будуть прокручувати вперед та "
-#~ "назад, а вправо буде підтверджувати вибір"
-
-#~ msgid "Left/2:"
-#~ msgstr "Ліворуч/2:"
-
-#~ msgid "Number of pixels that should cover the entire Y range:"
-#~ msgstr "Кількість точок, які повинні покрити весь напрямок Y:"
-
-#~ msgid "Orientation"
-#~ msgstr "Орієнтація"
-
-#~ msgid "Right/4:"
-#~ msgstr "Праворуч/4:"
-
-#~ msgid "Up/1:"
-#~ msgstr "Вгору/1:"
-
-#~ msgid ""
-#~ "Use this control to adjust the relative sizes of the letter boxes. Note "
-#~ "that selecting high values will slow your writing speed."
-#~ msgstr ""
-#~ "Використовуйте цей елемент керування для налаштовування розмірів \n"
-#~ "прямокутників літер. Зверніть увагу, вибір занадто великих значень "
-#~ "зменшить швидкість набору."
-
-#~ msgid "X:"
-#~ msgstr "X:"
-
-#~ msgid "Y:"
-#~ msgstr "Y:"
-
-#~ msgid "<b>Menu Mode</b>"
-#~ msgstr "<b>Режим меню</b>"
-
-#~ msgid "Button setup"
-#~ msgstr "Налаштовування кнопки"
-
-#~ msgid "Buttons"
-#~ msgstr "Кнопки"
-
-#~ msgid ""
-#~ "If this mode is selected, up  and down will\n"
-#~ "cycle backwards and forwards between coordinates and right will confirm "
-#~ "the choice"
-#~ msgstr ""
-#~ "Якщо вибраний цей режим, вверх та вниз будуть\n"
-#~ "прокручувати вперед та назад, а вправо буде підтверджувати вибір"
-
-#~ msgid "Socket"
-#~ msgstr "Сокет"
-
-#~ msgid "Three-button direct mode"
-#~ msgstr "Прямий режим у три кнопки"
-
-#~ msgid "Panels"
-#~ msgstr "Панелі"
-
-#~ msgid "Menus"
-#~ msgstr "Меню"
-
-#~ msgid "Text"
-#~ msgstr "Текст"
-
-#~ msgid "Windows"
-#~ msgstr "Вікна"
-
-#~ msgid "Stop"
-#~ msgstr "Зупинити"
-
-#~ msgid "Pause"
-#~ msgstr "Пауза"
-
-#~ msgid "Move"
-#~ msgstr "Перемістити"
-
-#~ msgid "Delete"
-#~ msgstr "Видалити"
-
-#~ msgid "Speak"
-#~ msgstr "Вимовити"
-
-#~ msgid "<"
-#~ msgstr "<"
-
-#~ msgid ">"
-#~ msgstr ">"
-
-#~ msgid "<<<"
-#~ msgstr "<<<"
-
-#~ msgid ">>>"
-#~ msgstr ">>>"
-
-#~ msgid "Everything"
-#~ msgstr "Все"
-
-#~ msgid "New"
-#~ msgstr "Нове"
-
-#~ msgid "Repeat"
-#~ msgstr "Повторити"
-
-#~ msgid "1"
-#~ msgstr "1"
-
-#~ msgid "2"
-#~ msgstr "2"
-
-#~ msgid "3"
-#~ msgstr "3"
-
-#~ msgid "4"
-#~ msgstr "4"
-
-#~ msgid "5"
-#~ msgstr "5"
-
-#~ msgid "6"
-#~ msgstr "6"
-
-#~ msgid "7"
-#~ msgstr "7"
-
-#~ msgid "8"
-#~ msgstr "8"
-
-#~ msgid "9"
-#~ msgstr "9"
-
-#~ msgid "10"
-#~ msgstr "10"
-
-#~ msgid "Character"
-#~ msgstr "Символ"
-
-#~ msgid "Word"
-#~ msgstr "Слово"
-
-#~ msgid "Line"
-#~ msgstr "Рядок"
-
-#~ msgid "Unknown"
-#~ msgstr "Невідомо"
-
-#~ msgid ""
-#~ "If this mode is selected, up and down will\n"
-#~ "cycle backwards and forwards between coordinates and right will confirm "
-#~ "the choice"
-#~ msgstr ""
-#~ "Якщо вибраний цей режим, вверх та вниз будуть\n"
-#~ "прокручувати вперед та назад між координатами, а вправо буде "
-#~ "підтверджувати вибір"
