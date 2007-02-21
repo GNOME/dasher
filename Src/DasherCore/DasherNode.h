@@ -49,7 +49,7 @@ namespace Dasher {
 /// \ingroup Model
 /// @{
 
-/// \brief A node in the Dasher model
+/// @brief A node in the Dasher model
 ///
 /// The Dasher node represents a box drawn on the display. This class
 /// contains the information required to render the node, as well as
@@ -58,10 +58,11 @@ namespace Dasher {
 /// interpreted by the node manager associated with this class. Any
 /// logic specific to a particular node manager should be stored here.
 ///
-/// \todo Encapsulate presentation data in a structure?
-/// \todo Check that all methods respect the pseudochild attribute
+/// @todo Encapsulate presentation data in a structure?
+/// @todo Check that all methods respect the pseudochild attribute
 class Dasher::CDasherNode:private NoClones {
  public:
+
   /// Display attributes of this node, used for rendering.
   struct SDisplayInfo {
     int iColour;
@@ -74,7 +75,17 @@ class Dasher::CDasherNode:private NoClones {
   /// optimising this as lookup happens a lot
   typedef std::deque<CDasherNode*> ChildMap;
 
+  /// @brief Constructor
+  ///
+  /// @param pParent Parent of the new node
+  /// @param iLbnd Lower bound of node within parent
+  /// @param iHbnd Upper bound of node within parent
+  /// @param pDisplayInfo Struct containing information on how to display the node
+  ///
   inline CDasherNode(CDasherNode *pParent, int iLbnd, int iHbnd, SDisplayInfo *pDisplayInfo);
+
+  /// @brief Destructor
+  ///
   ~CDasherNode();
 
   void Trace() const;           // diagnostic
@@ -85,6 +96,8 @@ class Dasher::CDasherNode:private NoClones {
   /// @name Routines for manipulating node status
   /// @{
 
+  /// @brief Set a node flag
+  ///
   /// Set various flags corresponding to the state of the node. The following flags are defined:
   ///
   /// NF_COMMITTED - Node is 'above' the root, so corresponding symbol
@@ -103,17 +116,28 @@ class Dasher::CDasherNode:private NoClones {
   /// NF_ALLCHILDREN - Node has all children (TODO: obsolete?)
   ///
   /// NF_SUBNODE - Node should be considered an integral subnode of parents (eg groups)
+  ///
+  /// @param iFlag The flag to set
+  /// @param bValue The new value of the flag
+  ///
   void SetFlag(int iFlag, bool bValue);
 
+  /// @brief Get the value of a flag for this node
   ///
-  /// Get the value of a flag for this node
+  /// @param iFlag The flag to get
+  ///
+  /// @return The current value of the flag
   ///
   inline bool GetFlag(int iFlag) const;
 
+  /// @brief Recursively mark nodes as converted 
+  ///
   /// Ensure that this node is marked as being converted, together with
   /// all of its ancestors (assuming that unconverted nodes are
   /// 'contiguous' at the brances of the tree).
-  /// TODO: replace with a generic 'recursive set flag'?
+  ///
+  /// @todo replace with a generic 'recursive set flag'?
+  ///
   void ConvertWithAncestors();
 
   /// @}
@@ -122,15 +146,50 @@ class Dasher::CDasherNode:private NoClones {
   /// @{
 
   // Lower and higher bounds, and the range
-  inline int Lbnd() const;
-  inline int Hbnd() const;
-  // TODO: Should this be here (trivial arithmethic of existing methods)
-  inline int Range() const;
-  // Get the probability of this node (ditto);
-  double GetProb(int iNormalization);
-  inline void SetRange(int iLower, int iUpper);
-  int MostProbableChild();
 
+  /// @brief Get the lower bound of a node
+  ///
+  /// @return The lower bound
+  ///
+  inline int Lbnd() const;
+
+  /// @brief Get the upper bound of a node
+  ///
+  /// @return The upper bound
+  ///
+  inline int Hbnd() const;
+
+  /// @brief Get the range of a node (upper - lower bound)
+  ///
+  /// @return The range
+  ///
+  /// @todo Should this be here (trivial arithmethic of existing methods)
+  ///
+  inline int Range() const;
+
+  /// @brief Reset the range of a node
+  ///
+  /// @param iLower New lower bound
+  /// @param iUpper New upper bound
+  ///
+  inline void SetRange(int iLower, int iUpper);
+
+  /// @brief Get the probability of a node
+  ///
+  /// @param iNormalization Normalisation constant
+  ///
+  /// @return The probability
+  ///
+  /// @todo Possibly a bit simplistic to make a full member
+  /// @todo Inline
+  ///
+  double GetProb(int iNormalization);
+
+  /// @brief Get the size of the most probable child
+  ///
+  /// @return The size
+  ///
+  int MostProbableChild();
   /// @}
 
   /// @name Routines for manipulating relatives
@@ -144,12 +203,25 @@ class Dasher::CDasherNode:private NoClones {
   bool NodeIsParent(CDasherNode * oldnode) const;
   // TODO: Should this be here?
   CDasherNode *const Get_node_under(int, myint y1, myint y2, myint smousex, myint smousey);   // find node under given co-ords
-
-  // Orphan Child
+  
+  /// @brief Orphan a child of this node 
+  ///
+  /// Deletes all other children, and the node itself
+  ///
+  /// @param pChild The child to keep
+  ///
   void OrphanChild(CDasherNode * pChild);
-  void DeleteNephews(CDasherNode *pChild);
-  void Delete_children();
 
+  /// @brief Delete the nephews of a given child
+  ///
+  /// @param pChild The child to keep
+  ///
+  void DeleteNephews(CDasherNode *pChild);
+
+  /// @brief Delete the children of this node
+  ///
+  ///
+  void Delete_children();
   /// @}
 
   /// \todo Make private, read only access?
