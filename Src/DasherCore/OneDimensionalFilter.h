@@ -3,6 +3,8 @@
 
 #include "DefaultFilter.h"
 
+/// \ingroup Input
+/// @{
 class COneDimensionalFilter : public CDefaultFilter {
  public:
   COneDimensionalFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel);
@@ -13,5 +15,6 @@ class COneDimensionalFilter : public CDefaultFilter {
    int iLastY;
    int iOffset;
 };
+/// @}
 
 #endif

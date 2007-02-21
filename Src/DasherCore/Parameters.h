@@ -253,7 +253,8 @@ struct sp_info {
 namespace Dasher {
   class CParamTables;
 } 
-
+/// \ingroup Core
+/// \{
 class Dasher::CParamTables {
 
 // These are the parameter tables that store everything
@@ -293,7 +294,7 @@ public:
       StringParamTable[ik].regName = stringparamtable[ik].regName;
     }
   };
-
+  /// \}
 };
 
 #endif

@@ -103,7 +103,8 @@ enum eFileLoggerOptions
     logFunctionTiming       = 16,
     logOutputScreen         = 32
 };
-
+/// \ingroup Logging
+/// @{
 class CFileLogger
 {
 public:
@@ -169,5 +170,5 @@ private:
 #endif
 
 };
-
+/// @}
 #endif

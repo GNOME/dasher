@@ -3,6 +3,8 @@
 
 #include "TwoButtonDynamicFilter.h"
 
+/// \ingroup Input
+/// @{
 class CDynamicFilter : public CTwoButtonDynamicFilter {
  public:
   CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface);
@@ -22,5 +24,6 @@ class CDynamicFilter : public CTwoButtonDynamicFilter {
   int *m_iTargetX;
   int *m_iTargetY;
 };
+/// @}
 
 #endif

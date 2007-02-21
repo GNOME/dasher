@@ -11,7 +11,8 @@
 typedef int HZIDX; 
 typedef int CANDIDX; 
 
-
+/// \ingroup Model
+/// @{
 class CPinYinConversionHelper : public CConversionHelper {
  public:
 
@@ -76,5 +77,5 @@ class CPinYinConversionHelper : public CConversionHelper {
 
 
 };
-
+/// @}
 #endif

@@ -21,6 +21,10 @@
 
 namespace Dasher {
 
+  ///
+  /// \defgroup Alphabet Alphabet information
+  /// @{
+
   class CAlphabet {
   public:
 
@@ -189,6 +193,8 @@ namespace Dasher {
 
     //    friend class CGroupAdder;
   };
+
+  /// @}
 
   inline symbol CAlphabet::GetParagraphSymbol() const {
     return m_ParagraphSymbol;

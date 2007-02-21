@@ -6,10 +6,10 @@
 namespace Dasher {
   class CDasherNode; // Forward declaration
 
-  ///
+  /// \ingroup Model 
+  /// @{
+
   /// Virtual base class for node managers
-  ///
-  
   class CNodeManager {
   public:
     CNodeManager(int iID) {
@@ -71,7 +71,7 @@ namespace Dasher {
   private:
     int m_iID;
   };
-
+  /// @}
 }
 
 #endif

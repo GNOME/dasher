@@ -5,6 +5,8 @@
 
 #include <deque>
 
+/// \ingroup Input
+/// @{
 class CTwoButtonDynamicFilter : public CInputFilter {
  public:
   CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, long long int iID, int iType, const char *szName);
@@ -72,5 +74,6 @@ class CTwoButtonDynamicFilter : public CInputFilter {
 
   CUserLogBase *m_pUserLog;
 };
+/// @}
 
 #endif

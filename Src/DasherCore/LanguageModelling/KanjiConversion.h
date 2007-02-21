@@ -13,6 +13,8 @@
 #include <vector>
 
 namespace Dasher {
+  /// \ingroup LM
+  /// \{
   class CKanjiConversion {
   public:
     CKanjiConversion();
@@ -37,6 +39,7 @@ namespace Dasher {
 
     bool IsInit;                  // true if dictionary is loaded
   };
+  /// \}
   
   inline CKanjiConversion::CKanjiConversion(){
     IsInit = 0;

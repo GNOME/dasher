@@ -79,12 +79,16 @@ CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUp
 
   // FIXME - Make this a CDasherComponent
 
-  pNewNode = new CDasherNode(pParent, iSymbol, 0, Opts::Nodes1, iLower, iUpper, m_pLanguageModel, iColour);
+  // Stuff which could in principle be done in the symbol node creation routine
+  CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
+  pDisplayInfo->iColour = iColour;
+  pDisplayInfo->bShove = true;
+  pDisplayInfo->bVisible = true;
+  pDisplayInfo->strDisplayText = m_pNCManager->GetAlphabet()->GetDisplayText(iSymbol);
+
+  pNewNode = new CDasherNode(pParent, iLower, iUpper, pDisplayInfo);
+
   pNewNode->m_pNodeManager = this;
-  pNewNode->SetShove(true);
-  pNewNode->m_pBaseGroup = m_pNCManager->GetAlphabet()->m_pBaseGroup;
-  pNewNode->m_strDisplayText = m_pNCManager->GetAlphabet()->GetDisplayText(iSymbol);
-  pNewNode->SetFlag(NF_SEEN, true);
 
   SAlphabetData *pNodeUserData = new SAlphabetData;
   pNewNode->m_pUserData = pNodeUserData;
@@ -92,9 +96,17 @@ CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUp
   pNodeUserData->iOffset = iOffset;
   pNodeUserData->iPhase = 0;
   pNodeUserData->iSymbol = iSymbol;
-  pNodeUserData->pLanguageModel = m_pLanguageModel;
 
   pNodeUserData->iContext = iContext;
+
+
+
+
+  pNodeUserData->pLanguageModel = m_pLanguageModel;
+
+  pNewNode->SetFlag(NF_SEEN, true);
+
+
 
   if(m_bGameMode) {
     pNodeUserData->iGameOffset = -1;
@@ -115,13 +127,17 @@ CDasherNode *CAlphabetManager::CreateGroupNode(CDasherNode *pParent, SGroupInfo 
 
   SAlphabetData *pParentData = static_cast<SAlphabetData *>(pParent->m_pUserData);
   
-  CDasherNode *pNewNode = new CDasherNode(pParent, 1, 0, Nodes1, iLbnd, iHbnd, NULL, pInfo->iColour);
+  // TODO: More sensible structure in group data to map directly to this
+  CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
+  pDisplayInfo->iColour = pInfo->iColour;
+  pDisplayInfo->bShove = true;
+  pDisplayInfo->bVisible = pInfo->bVisible;
+  pDisplayInfo->strDisplayText = pInfo->strLabel;
+
+  CDasherNode *pNewNode = new CDasherNode(pParent, iLbnd, iHbnd, pDisplayInfo);
 
   pNewNode->m_pNodeManager = this;
-  pNewNode->m_strDisplayText = pInfo->strLabel;
-  pNewNode->m_bVisible = pInfo->bVisible;
-  pNewNode->SetShove(true); // TODO: Make optional?
-  pNewNode->m_bDeleteWithParents = true;
+  pNewNode->SetFlag(NF_SUBNODE, true);
 
   SAlphabetData *pNodeUserData = new SAlphabetData;
   pNewNode->m_pUserData = pNodeUserData;
@@ -182,12 +198,15 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CDasherNode *pParent, symbol iSy
     
     // TODO: Exceptions / error handling in general
 
-    // TODO: Get rid of obsolete parameters passed here, structs for display etc.?
-    pNewNode = new CDasherNode(pParent, iSymbol, 0, Nodes1, iLbnd, iHbnd, NULL, iColour);
+    CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
+    pDisplayInfo->iColour = iColour;
+    pDisplayInfo->bShove = true;
+    pDisplayInfo->bVisible = true;
+    pDisplayInfo->strDisplayText = m_pNCManager->GetAlphabet()->GetDisplayText(iSymbol);
+    
+    pNewNode = new CDasherNode(pParent, iLbnd, iHbnd, pDisplayInfo);
     
     pNewNode->m_pNodeManager = this;
-    pNewNode->m_strDisplayText = m_pNCManager->GetAlphabet()->GetDisplayText(iSymbol);
-    pNewNode->SetShove(true); // TODO: Make optional?
     
     SAlphabetData *pNodeUserData = new SAlphabetData;
     pNewNode->m_pUserData = pNodeUserData;
@@ -197,16 +216,11 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CDasherNode *pParent, symbol iSy
     pNodeUserData->iSymbol = iSymbol;
     
     CLanguageModel::Context iContext;
-    
-//     if((iSymbol == 0) || (iSymbol >= m_pNCManager->GetAlphabet()->GetNumberTextSymbols())) // TODO: this is basically an artifact of bad root handling
-//       iContext = m_pLanguageModel->CreateEmptyContext();
-//     else {
-      iContext = m_pLanguageModel->CloneContext(pParentData->iContext);
-      m_pLanguageModel->EnterSymbol(iContext, iSymbol); // TODO: Don't use symbols?
-      //    }
-    
-    pNodeUserData->pLanguageModel = pParentData->pLanguageModel; // TODO: inconsistent with above?
+    iContext = m_pLanguageModel->CloneContext(pParentData->iContext);
+    m_pLanguageModel->EnterSymbol(iContext, iSymbol); // TODO: Don't use symbols?
     pNodeUserData->iContext = iContext;
+      
+    pNodeUserData->pLanguageModel = pParentData->pLanguageModel; // TODO: inconsistent with above?
   }
 
   return pNewNode;
@@ -339,7 +353,13 @@ CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode, int iGeneration
     strContext = m_pNCManager->GetAlphabet()->GetDefaultContext();
     BuildContext(strContext, true, iContext, iNewSymbol);
 
-    pNewNode = new CDasherNode(0, 0, 0,  Opts::Nodes1, 0, 0, m_pLanguageModel, 7);
+    CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
+    pDisplayInfo->iColour = 7; // TODO: Hard coded value
+    pDisplayInfo->bShove = true;
+    pDisplayInfo->bVisible = true;
+    pDisplayInfo->strDisplayText = "";
+    
+    pNewNode = new CDasherNode(NULL, 0, 0, pDisplayInfo);
   }
   else {
     int iMaxContextLength = m_pLanguageModel->GetContextLength() + 1;
@@ -359,16 +379,20 @@ CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode, int iGeneration
     if(iNewPhase == 1)
       iColour += 130;
             
-    pNewNode = new CDasherNode(0, iNewSymbol, 0, Nodes1, 0, 0, m_pLanguageModel, iColour);
-    pNewNode->m_strDisplayText = m_pNCManager->GetAlphabet()->GetDisplayText(iNewSymbol);
+    CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
+    pDisplayInfo->iColour = iColour;
+    pDisplayInfo->bShove = true;
+    pDisplayInfo->bVisible = true;
+    pDisplayInfo->strDisplayText = m_pNCManager->GetAlphabet()->GetDisplayText(iNewSymbol);
+
+    // TODO: Node creation outside of if statement
+    pNewNode = new CDasherNode(NULL, 0, 0, pDisplayInfo);
   }
 
   // TODO: Some of this context stuff could be consolidated
  
   pNewNode->m_pNodeManager = this;
-  pNewNode->SetShove(true);
   pNewNode->SetFlag(NF_SEEN, true);
-  pNewNode->m_pBaseGroup = m_pNCManager->GetAlphabet()->m_pBaseGroup;
 
   SAlphabetData *pNodeUserData = new SAlphabetData;
   pNewNode->m_pUserData = pNodeUserData;

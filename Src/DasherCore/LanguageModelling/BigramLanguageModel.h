@@ -21,6 +21,8 @@ namespace Dasher {
 
   class CLanguageModelParams;
 
+  /// \ingroup LM
+  /// \{
   class CBigramLanguageModel:public CLanguageModel, private NoClones {
   public:
     CBigramLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CSymbolAlphabet & alph);
@@ -44,6 +46,7 @@ namespace Dasher {
       CPooledAlloc < CContext > m_ContextAlloc;
 
   };
+  /// \}
 
 ///////////////////////////////////////////////////////////////////
 

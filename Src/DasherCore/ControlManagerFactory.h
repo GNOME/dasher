@@ -11,9 +11,10 @@ namespace Dasher {
 }
 
 namespace Dasher {
-
   class CDasherModel;
-  
+
+  /// \ingroup Model
+  /// @{
   class CControlManagerFactory : public CNodeManagerFactory {
   public:
     CControlManagerFactory(CNodeCreationManager *pNCManager);
@@ -29,7 +30,7 @@ namespace Dasher {
   private:
     CControlManager *m_pControlManager;
   };
-  
+  /// @}
 }
 
 #endif

@@ -3,7 +3,8 @@
 
 #include "DasherInterfaceBase.h"
 #include "DasherComponent.h"
-
+/// \defgroup Start Start handlers
+/// @{
 class CStartHandler : public CDasherComponent {
 public:
   CStartHandler(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface) 
@@ -18,5 +19,6 @@ public:
 protected:
   CDasherInterfaceBase *m_pInterface;
 };
+/// @}
 
 #endif

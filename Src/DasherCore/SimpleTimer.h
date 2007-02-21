@@ -8,6 +8,8 @@
 
 #include <time.h>
 
+/// \ingroup Logging
+/// \{
 class CSimpleTimer
 {
 public:
@@ -21,6 +23,7 @@ private:
   int     m_iStartMs;
 
 };
+/// \}
 
 #endif
 

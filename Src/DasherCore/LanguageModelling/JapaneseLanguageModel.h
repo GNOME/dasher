@@ -16,7 +16,8 @@
 #include "LanguageModel.h"
 
 namespace Dasher {
-
+  /// \ingroup LM
+  /// \{
   class CJapaneseLanguageModel:public CLanguageModel, private NoClones {
   public:
     CJapaneseLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CSymbolAlphabet & alph);
@@ -105,6 +106,7 @@ namespace Dasher {
     mutable CSimplePooledAlloc < CPPMnode > m_NodeAlloc;
     CPooledAlloc < CPPMContext > m_ContextAlloc;
   };
+  /// \}
 
   ////////////////////////////////////////////////////////////////////////
 

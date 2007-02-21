@@ -41,7 +41,8 @@ typedef vector<NameValuePair>::iterator     VECTOR_NAME_VALUE_PAIR_ITER;
 
 const int XML_UTIL_READ_BUFFER_SIZE     = 4096;
 const int XML_UTIL_DEFAULT_VECTOR_SIZE  = 128;
-
+/// \ingroup Logging
+/// @{
 class XMLUtil
 {
 public:
@@ -60,6 +61,7 @@ public:
   static bool				        IsDigit(char cLetter);
 
 };
+/// @}
 
 #endif
 

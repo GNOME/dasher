@@ -10,6 +10,8 @@ namespace Dasher {
   class CDasherInterfaceBase;
 }
 
+/// \defgroup Input Input filters
+/// @{
 class CInputFilter : public CDasherModule {
  public:
   CInputFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface, long long int iID, int iType, const char *szName)
@@ -33,5 +35,6 @@ class CInputFilter : public CDasherModule {
  protected:
   CDasherInterfaceBase *m_pInterface;
 };
+/// @}
 
 #endif

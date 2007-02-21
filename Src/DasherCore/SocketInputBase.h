@@ -22,7 +22,8 @@ namespace Dasher {
 
 using namespace Dasher;
 using namespace std;
-
+/// \ingroup Input 
+/// \{
 class Dasher::CSocketInputBase : public CDasherInput {
 
 public:
@@ -130,7 +131,7 @@ protected:
   virtual void SocketDebugMsg(const char *pszFormat, ...);
   
 };
-
+/// \}
 #endif
 
 

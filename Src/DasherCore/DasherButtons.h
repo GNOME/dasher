@@ -18,6 +18,8 @@
 
 using namespace std;
 
+/// \ingroup Input
+/// @{
 class CDasherButtons : public CInputFilter
 {
  public:
@@ -43,6 +45,9 @@ class CDasherButtons : public CInputFilter
   };
 
   bool GetSettings(SModuleSettings **pSettings, int *iCount);
+
+  void NewDrawGoTo(CDasherView *pView, myint iDasherMin, myint iDasherMax, bool bActive);
+
     
  private:
   CSettingsStore*  m_pSettingsStore;
@@ -64,5 +69,6 @@ class CDasherButtons : public CInputFilter
   bool m_bDecorationChanged;
 
 };
+/// @}
 
 #endif

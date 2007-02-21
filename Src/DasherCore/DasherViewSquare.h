@@ -25,6 +25,9 @@ class Dasher::CDasherModel;
 class Dasher::CDelayedDraw;
 class Dasher::CDasherNode;
 
+/// \ingroup View
+/// @{
+
 /// An implementation of the DasherView class
 ///
 /// This class renders Dasher in the vanilla style,
@@ -32,7 +35,6 @@ class Dasher::CDasherNode;
 ///
 /// Horizontal mapping - linear and log
 /// Vertical mapping - linear with different gradient
-
 class Dasher::CDasherViewSquare:public Dasher::CDasherView
 {
 public:
@@ -49,24 +51,10 @@ public:
   ~CDasherViewSquare();
 
   ///
-  /// Convert input coordinates to dasher coordinates and evolve the model
+  /// Event handler
   ///
 
-  int GetCoordinates(unsigned long Time, myint &iDasherX, myint &iDasherY);
-  
-  ///
-  /// \todo Document this
-  ///
-
-/*   void DrawGoTo(screenint mousex, screenint mousey); */
-
-  void NewDrawGoTo(myint iDasherMin, myint iDasherMax, bool bActive);
-
-  ///
-  /// Render the current state of the model.
-  ///
-
-  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer);
+  virtual void HandleEvent(Dasher::CEvent * pEvent);
 
   /// 
   /// Supply a new screen to draw to
@@ -74,42 +62,59 @@ public:
 
   void ChangeScreen(CDasherScreen * NewScreen);
 
-  ///
-  /// Draw the game mode pointer
-  ///
-
-  void DrawGameModePointer(myint iPosition);
-
-  /// Get the scale factor for conversion between Dasher co-ordinates
-  /// and screen co-ordinates
-
-  void GetScaleFactor( int eOrientation, myint *iScaleFactorX, myint *iScaleFactorY );
-
-  ///
-  /// Event handler
-  ///
-
-  virtual void HandleEvent(Dasher::CEvent * pEvent);
+  /// 
+  /// @name Coordinate system conversion
+  /// Convert between screen and Dasher coordinates
+  /// @{
 
   /// 
   /// Convert a screen co-ordinate to Dasher co-ordinates
   ///
-
   void Screen2Dasher(screenint iInputX, screenint iInputY, myint & iDasherX, myint & iDasherY,bool b1D, bool bNonlinearity);
 
   ///
   /// Convert Dasher co-ordinates to screen co-ordinates
   ///
-
   void Dasher2Screen(myint iDasherX, myint iDasherY, screenint & iScreenX, screenint & iScreenY);
 
+  /// 
+  /// Return true if a node spanning y1 to y2 is entirely enclosed by
+  /// the screen boundary
+  ///
+  bool IsNodeVisible(myint y1, myint y2);
 
-private:
+  ///
+  /// Get the bounding box of the visible region.
+  ///
+  void VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, myint &iDasherMaxX, myint &iDasherMaxY );
 
   double xmap(double x) const;
   double ymap(double x) const {
     return m_ymap.map( (myint)x );
   };
+
+  /// @}
+
+
+  /// @name High level drawing
+  /// Drawing more complex structures, generally implemented by derived class
+  /// @{
+
+  ///
+  /// Draw the game mode pointer
+  ///
+
+  void DrawGameModePointer(myint iPosition);
+  /// @}
+
+
+private:
+
+  ///
+  /// Render the current state of the model.
+  ///
+
+  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer);
 
   
   ///
@@ -135,13 +140,6 @@ private:
   int RenderNodeOutlineFast(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove); 
   int RenderNodePartFast(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove, myint iParentWidth);
   int RenderNodeFatherFast(const int parent_color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove,myint iParentWidth, bool bVisible);
-  bool IsNodeVisible(myint y1, myint y2);
-
-  ///
-  /// Get the bounding box of the visible region.
-  ///
-
-  void VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, myint &iDasherMaxX, myint &iDasherMaxY );
 #ifdef _WIN32
   ///
   /// FIXME - couldn't find windows version of round(double) so here's one!
@@ -176,6 +174,13 @@ private:
   // Called on screen size changes
   void SetScaleFactor();
 
+
+  /// Get the scale factor for conversion between Dasher co-ordinates
+  /// and screen co-ordinates
+
+  void GetScaleFactor( int eOrientation, myint *iScaleFactorX, myint *iScaleFactorY );
+
+
   // Data
 
   bool bInBox;                  // Whether we're in the mouseposstart box
@@ -201,7 +206,7 @@ private:
   myint m_iDasherMinY;
   myint m_iDasherMaxY;
 };
-
+/// @}
 #include "DasherViewSquare.inl"
 
 #endif /* #ifndef __DasherViewSquare_h__ */

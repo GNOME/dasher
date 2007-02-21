@@ -11,6 +11,8 @@ namespace Dasher {
   
   class CDasherInterfaceBase;
 
+  /// \ingroup Model
+  /// @{
   class CAlphabetManagerFactory : public CNodeManagerFactory {
   public:
     class CTrainer {
@@ -65,7 +67,7 @@ namespace Dasher {
 
     int m_iConversionID;
   };
-  
+  /// @}  
 }
 
 #endif

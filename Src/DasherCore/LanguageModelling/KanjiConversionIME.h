@@ -16,6 +16,8 @@
 #include "KanjiConversion.h"
 
 namespace Dasher {
+  /// \ingroup LM
+  /// \{
   class CKanjiConversionIME:public CKanjiConversion {
   public:
     CKanjiConversionIME();
@@ -24,5 +26,6 @@ namespace Dasher {
     int ConvertKanji(std::string);
     HIMC hIMC;
   };
+  /// \}
 }
 #endif /* #ifndef __KanjiConversionCanna_H__ */

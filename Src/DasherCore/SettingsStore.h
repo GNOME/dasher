@@ -21,12 +21,6 @@ namespace Dasher {
 class Dasher::CEventHandler;
 class Dasher::CParameterNotificationEvent;
 
-/*
-	The public interface uses UTF-8 strings. All Keys should be
-	in American English and encodable in ASCII. However,
-	string Values may contain special characters where appropriate.
-*/
-
 // Types that are parameters can be
 enum ParameterType
 {
@@ -36,6 +30,14 @@ enum ParameterType
   ParamInvalid
 };
 
+/// \ingroup Core
+/// @{
+
+/// \brief Abstract representation of persistant storage.
+///
+/// The public interface uses UTF-8 strings. All Keys should be
+/// in American English and encodable in ASCII. However,
+/// string Values may contain special characters where appropriate.
 class CSettingsStore {
 public:
 
@@ -125,5 +127,6 @@ protected:
 
   static Dasher::CParamTables s_oParamTables;
 };
+/// @}
 
 #endif /* #ifndef __SettingsStore_h__ */

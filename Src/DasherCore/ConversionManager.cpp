@@ -43,7 +43,14 @@ CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int i
   CDasherNode *pNewNode;
 
   // TODO: Parameters here are placeholders - need to figure out what's right
-  pNewNode = new CDasherNode(pParent, m_pNCManager->GetStartConversionSymbol(), 0, Opts::Nodes2, iLower, iUpper, NULL, 9);
+
+  CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
+  pDisplayInfo->iColour = 9; // TODO: Hard coded value
+  pDisplayInfo->bShove = true;
+  pDisplayInfo->bVisible = true;
+  pDisplayInfo->strDisplayText = "Convert"; // TODO: Hard coded value, needs i18n
+       
+  pNewNode = new CDasherNode(pParent, iLower, iUpper, pDisplayInfo);
  
   // FIXME - handle context properly
   // TODO: Reimplemnt -----
@@ -57,10 +64,6 @@ CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int i
   SConversionData *pNodeUserData = new SConversionData;
   pNewNode->m_pUserData = pNodeUserData;
   pNodeUserData->pLanguageModel = m_pHelper->GetLanguageModel();
-
-  pNewNode->m_strDisplayText = "Convert";
-  pNewNode->SetShove(false);
-  pNewNode->m_pBaseGroup = 0;
 
   CLanguageModel::Context iContext;
 
@@ -282,7 +285,9 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
     int iIdx(0);
     int iCum(0);
   
-    int parentClr = pNode->Colour();
+    //    int parentClr = pNode->Colour();
+    // TODO: Fixme
+    int parentClr = 0;
 
     // Finally loop through and create the children
 
@@ -295,7 +300,14 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
       // TODO: Parameters here are placeholders - need to figure out
       // what's right
       
-      pNewNode = new CDasherNode(pNode, m_pNCManager->GetStartConversionSymbol(), 0, Opts::Nodes2, iLbnd, iHbnd, NULL, m_pHelper->AssignColour(parentClr, pCurrentSCEChild, iIdx));
+
+      CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
+      pDisplayInfo->iColour = m_pHelper->AssignColour(parentClr, pCurrentSCEChild, iIdx);
+      pDisplayInfo->bShove = true;
+      pDisplayInfo->bVisible = true;
+      pDisplayInfo->strDisplayText = pCurrentSCEChild->pszConversion;
+       
+      pNewNode = new CDasherNode(pNode, iLbnd, iHbnd, pDisplayInfo);
       
       // TODO: Reimplement ----
 
@@ -325,10 +337,6 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
       
       //pNodeUserData->iPhase = iNewPhase;
       //pNodeUserData->iSymbol = iIdx;
-
-      pNewNode->m_strDisplayText = pCurrentSCEChild->pszConversion;
-      pNewNode->SetShove(false);
-      pNewNode->m_pBaseGroup = 0;
       
       pNode->Children().push_back(pNewNode);
 
@@ -382,7 +390,7 @@ void CConversionManager::BuildTree(CDasherNode *pRoot) {
       break;
 
     // TODO: Need to make this the edit text rather than the display text
-    strCurrentString = pCurrentNode->m_strDisplayText + strCurrentString;
+    strCurrentString = pCurrentNode->GetDisplayInfo()->strDisplayText + strCurrentString;
     pCurrentNode = pCurrentNode->Parent();
   }
 

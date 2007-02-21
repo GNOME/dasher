@@ -2,7 +2,8 @@
 #define __CANNA_CONVERSION_HELPER_H__
 
 #include "ConversionHelper.h"
-
+/// \ingroup Model
+/// @{
 class CCannaConversionHelper : public CConversionHelper {
  public:
   CCannaConversionHelper();
@@ -30,5 +31,5 @@ class CCannaConversionHelper : public CConversionHelper {
   int context_id;
   bool IsInit;   
 };
-
+/// @}
 #endif

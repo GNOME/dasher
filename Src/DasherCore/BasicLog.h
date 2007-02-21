@@ -3,6 +3,8 @@
 
 #include "UserLogBase.h"
 
+/// \ingroup Logging
+/// @{
 class CBasicLog : public CUserLogBase {
  public:
   CBasicLog(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore);
@@ -41,5 +43,6 @@ class CBasicLog : public CUserLogBase {
   double m_dBits;
   std::string m_strStartDate;
 };
+/// @}
 
 #endif

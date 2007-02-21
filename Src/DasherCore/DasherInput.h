@@ -12,7 +12,8 @@ namespace Dasher {
   class CDasherInput;
   class CDasherInterfaceBase;
 }
-
+/// \defgroup Input Input devices
+/// \{
 class Dasher::CDasherInput : public CDasherModule {
 
 public:
@@ -49,5 +50,5 @@ public:
   /// Handle key up events
   virtual void KeyUp(int iTime, int iId) {};
 };
-
+/// \}
 #endif

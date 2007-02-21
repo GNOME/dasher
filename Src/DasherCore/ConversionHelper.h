@@ -22,6 +22,8 @@ namespace Dasher{
   class CDasherNode;  //trial forward declaration
 }
 
+/// \ingroup Model
+/// @{
 class CConversionHelper {
  public:
   CConversionHelper() {
@@ -68,5 +70,5 @@ class CConversionHelper {
  private:
   int colourStore[2][3]; 
 };
-
+/// @}
 #endif

@@ -15,11 +15,11 @@
 namespace Dasher {
   class CDasherNode; // Forward declaration
 
-  ///
+  /// \ingroup Model
+  /// @{
+
   /// Conversion manager class - handles nodes representing the
   /// conversion of strings in languages where symbols are converted
-  ///
-  
   class CConversionManager : public CNodeManager {
   public:
     // TODO: We shouldn't need to know about this stuff, but the code is somewhat in knots at the moment
@@ -179,7 +179,6 @@ namespace Dasher {
 
     int m_iCMID;
 
-
     //TODO: REVISE
     struct SConversionData {
       //     symbol iSymbol;
@@ -190,6 +189,7 @@ namespace Dasher {
       //int iGameOffset;
     };
   };
+  /// @}
 }
 
 #endif

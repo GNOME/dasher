@@ -290,3 +290,44 @@ void CDasherView::DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint iAnchor
 
   m_pDelayDraw->DelayDrawText(sDisplayText, newleft2, newtop2, Size);
 }
+
+
+int CDasherView::GetCoordinates(unsigned long Time, myint &iDasherX, myint &iDasherY) {
+
+  // FIXME - Actually turn autocalibration on and off!
+  // FIXME - AutoCalibrate should use Dasher co-ordinates, not raw mouse co-ordinates?
+  // FIXME - Have I broken this by moving it before the offset is applied?
+  // FIXME - put ymap stuff back in 
+  // FIXME - optimise this
+  // TODO: Time isn't used!
+
+  int iCoordinateCount(GetCoordinateCount());
+
+  myint *pCoordinates(new myint[iCoordinateCount]);
+
+  int iType(GetInputCoordinates(iCoordinateCount, pCoordinates));
+
+  screenint mousex;
+  screenint mousey;
+
+  if(iCoordinateCount == 1) {
+    mousex = 0;
+    mousey = pCoordinates[0];
+  }
+  else {
+    mousex = pCoordinates[0];
+    mousey = pCoordinates[1];
+  }
+
+  delete[]pCoordinates;
+
+  Screen2Dasher(mousex, mousey, iDasherX, iDasherY, false, true );
+
+#ifndef WITH_MAEMO
+  // FIXME
+  //  iDasherX = myint(xmap(iDasherX / static_cast < double >(GetLongParameter(LP_MAX_Y))) * GetLongParameter(LP_MAX_Y));
+  // iDasherY = m_ymap.map(iDasherY);
+#endif
+
+  return iType;
+}

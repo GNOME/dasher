@@ -5,7 +5,8 @@
 #include <imm.h>
 
 #include "ConversionHelper.h"
-
+/// \ingroup Model
+/// \{
 class CIMEConversionHelper : public CConversionHelper {
  public:
   CIMEConversionHelper();
@@ -26,5 +27,6 @@ private:
   bool IsInit;
   HIMC hIMC;
 };
+/// \}
 
 #endif

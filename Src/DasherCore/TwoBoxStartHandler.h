@@ -3,6 +3,8 @@
 
 #include "StartHandler.h"
 
+/// \ingroup Start
+/// @{
 class CTwoBoxStartHandler : public CStartHandler {
 public:
   CTwoBoxStartHandler(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface);
@@ -16,5 +18,6 @@ public:
   int m_iBoxStart;
   bool m_bInBox;
 };
+/// @}
 
 #endif

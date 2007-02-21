@@ -17,7 +17,8 @@ namespace Dasher {
   class CDasherNode;
   class CDasherInterfaceBase;
 };
-
+/// \ingroup Model
+/// @{
 class CNodeCreationManager : public Dasher::CDasherComponent {
  public:
   CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterface, Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, bool bGameMode, std::string strGameModeText, Dasher::CAlphIO *pAlphIO);
@@ -132,5 +133,6 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   CControlManagerFactory *m_pControlManagerFactory;
   CConversionManagerFactory *m_pConversionManagerFactory;
 };
+/// @}
 
 #endif

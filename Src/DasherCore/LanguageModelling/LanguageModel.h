@@ -20,6 +20,10 @@ namespace Dasher {
 }
 
 ///
+/// \defgroup LM Language modelling
+/// @{
+
+///
 /// \brief Language model base class
 /// Base class for all language model components
 ///
@@ -156,6 +160,8 @@ public:
   const CSymbolAlphabet m_Alphabet;
 
 };
+
+/// @}
 
 /////////////////////////////////////////////////////////////////////////////
 

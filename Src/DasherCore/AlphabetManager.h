@@ -12,10 +12,10 @@ namespace Dasher {
 
   class CDasherInterfaceBase;
 
-  ///
+  /// \ingroup Model
+  /// @{
+
   /// A node manager which deals with alphabets and language models.
-  ///
-  
   class CAlphabetManager : public CNodeManager {
   public:
 
@@ -90,6 +90,7 @@ namespace Dasher {
     };
 
   };
+  /// @}
 
 }
 

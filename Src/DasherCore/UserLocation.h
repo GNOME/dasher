@@ -28,6 +28,8 @@ typedef vector<CUserLocation>::iterator     VECTOR_USER_LOCATION_ITER;
 typedef vector<CUserLocation*>              VECTOR_USER_LOCATION_PTR;
 typedef vector<CUserLocation*>::iterator    VECTOR_USER_LOCATION_PTR_ITER;
 
+/// \ingroup Logging
+/// @{
 class CUserLocation
 {
 public:
@@ -58,5 +60,6 @@ private:
 
   void                InitMemeberVars();
 };
+/// @}
 
 #endif

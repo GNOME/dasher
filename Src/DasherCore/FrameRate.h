@@ -11,14 +11,16 @@
 
 #include "../Common/Common.h"
 
-// keeps track of framerate
-// computes the Steps parameter
-// computes RXmax - which controls the maximum rate of zooming in
-
 using namespace Dasher;
 
 const double LN2 = log(2.0);
 
+/// \ingroup Model
+/// \{
+
+/// keeps track of framerate
+/// computes the Steps parameter
+/// computes RXmax - which controls the maximum rate of zooming in
 class CFrameRate {
 public:
   CFrameRate();
@@ -56,6 +58,7 @@ private:
   int m_iFrames, m_iTime, m_iTime2, m_iSamples;
   int m_iSteps;                 // the 'Steps' parameter. See djw thesis.
 };
+/// \}
 
 inline CFrameRate::CFrameRate() {
   // TODO: This looks obsolete - need to rationalise this

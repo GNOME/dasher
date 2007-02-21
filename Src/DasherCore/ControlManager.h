@@ -23,11 +23,12 @@ namespace Dasher {
 
   class CDasherModel;
 
-  ///
+  /// \ingroup Model
+  /// @{
+
   /// A node manager which deals with control nodes.
   /// Currently can only have one instance due to use 
   /// of static members for callbacks from expat.
-  
   class CControlManager : public CNodeManager {
   public:
 
@@ -114,6 +115,7 @@ namespace Dasher {
       int iOffset;
     };
   };
+  /// @}
 }
 
 

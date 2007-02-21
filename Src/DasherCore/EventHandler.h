@@ -10,6 +10,8 @@ namespace Dasher {
   class CEvent;
 }
 
+/// \ingroup Core
+/// @{
 class Dasher::CEventHandler {
 public:
 
@@ -41,5 +43,6 @@ protected:
   Dasher::CDasherInterfaceBase * m_pInterface;
 
 };
+/// @}
 
 #endif

@@ -3,6 +3,8 @@
 
 #include "InputFilter.h"
 
+/// \ingroup Input
+/// @{
 class COneButtonFilter : public CInputFilter {
  public:
   COneButtonFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface);
@@ -20,5 +22,6 @@ class COneButtonFilter : public CInputFilter {
   int iStartTime;
   int iLocation;
 };
+/// @}
 
 #endif

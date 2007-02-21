@@ -9,6 +9,8 @@
 
 using namespace Dasher;
 
+/// \defgroup AutoSpeed Auto speed control
+/// @{
 class CAutoSpeedControl : public Dasher::CDasherComponent {
  public:
   CAutoSpeedControl(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, double dFrameRate);
@@ -84,5 +86,6 @@ class CAutoSpeedControl : public Dasher::CDasherComponent {
   double m_dSigma1, m_dSigma2, m_dMinRadius;
 
 };
+/// @}
 
 #endif

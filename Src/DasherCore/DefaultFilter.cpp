@@ -121,36 +121,10 @@ void CDefaultFilter::CreateStartHandler() {
 }
 
 void CDefaultFilter::DrawMouse(CDasherView *pView) {
-
-  int iCoordinateCount(pView->GetCoordinateCount());
-
-  myint *pCoordinates(new myint[iCoordinateCount]);
-
-  // TODO: redundant?
-  int iType(pView->GetInputCoordinates(iCoordinateCount, pCoordinates));
-
-  screenint mousex;
-  screenint mousey;
-
-  if(iCoordinateCount == 1) {
-    mousex = 0;
-    mousey = pCoordinates[0];
-  }
-  else {
-    mousex = pCoordinates[0];
-    mousey = pCoordinates[1];
-  }
-
-  delete[]pCoordinates;
   myint iDasherX;
   myint iDasherY;
 
-  if(iType == 0)
-    pView->Screen2Dasher(mousex, mousey, iDasherX, iDasherY, false, true);
-  else {
-    iDasherX = mousex;
-    iDasherY = mousey;
-  }
+  pView->GetCoordinates(0, iDasherX, iDasherY);
 
   ApplyAutoCalibration(iDasherX, iDasherY, false);
   ApplyTransform(iDasherX, iDasherY);
@@ -159,28 +133,6 @@ void CDefaultFilter::DrawMouse(CDasherView *pView) {
 }
 
 void CDefaultFilter::DrawMouseLine(CDasherView *pView) {
-
-  int iCoordinateCount(pView->GetCoordinateCount());
-
-  myint *pCoordinates(new myint[iCoordinateCount]);
-
-  // TODO: Redundant, plus code duplication here
-  int iType(pView->GetInputCoordinates(iCoordinateCount, pCoordinates));
-
-  screenint mousex;
-  screenint mousey;
-
-  if(iCoordinateCount == 1) {
-    mousex = 0;
-    mousey = pCoordinates[0];
-  }
-  else {
-    mousex = pCoordinates[0];
-    mousey = pCoordinates[1];
-  }
-
-  delete[] pCoordinates;
-
   myint x[2];
   myint y[2];
 
@@ -189,16 +141,10 @@ void CDefaultFilter::DrawMouseLine(CDasherView *pView) {
   x[0] = (myint)GetLongParameter(LP_OX);
   y[0] = (myint)GetLongParameter(LP_OY);
 
-  // End of line is the mouse cursor location - note that we should
-  // probably be using a chached value rather than computing this
-  // separately to TapOn
-  
-  if(iType == 0)
-    pView->Screen2Dasher(mousex, mousey, x[1], y[1], false, true);
-  else {
-    x[1] = mousex;
-    y[1] = mousey;
-  }
+  myint iDasherX;
+  myint iDasherY;
+
+  pView->GetCoordinates(0, x[1], y[1]);
 
   ApplyAutoCalibration(x[1], y[1], false);
   ApplyTransform(x[1], y[1]);

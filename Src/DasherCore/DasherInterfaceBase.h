@@ -46,10 +46,13 @@ class CNodeCreationManager;
 namespace Dasher {
   class CDasherInterfaceBase;
 }
+
+/// \defgroup Core Core Dasher classes
+/// @{
+
 /// The central class in the core of Dasher. Ties together the rest of
 /// the platform independent stuff and provides a single interface for
 /// the UI to use.
-
 class Dasher::CDasherInterfaceBase:private NoClones
 {
 public:
@@ -569,5 +572,6 @@ protected:
 
   bool m_bLastChanged;
 };
+/// @}
 
 #endif /* #ifndef __DasherInterfaceBase_h__ */

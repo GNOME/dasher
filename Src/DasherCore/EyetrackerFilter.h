@@ -3,6 +3,8 @@
 
 #include "DefaultFilter.h"
 
+/// \ingroup Input
+/// @{
 class CEyetrackerFilter : public CDefaultFilter {
  public:
   CEyetrackerFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel);
@@ -22,5 +24,6 @@ class CEyetrackerFilter : public CDefaultFilter {
   int m_iCounter;
   int m_iFilterTimescale;
 };
+/// @}
 
 #endif

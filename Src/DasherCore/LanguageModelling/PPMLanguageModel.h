@@ -20,6 +20,10 @@
 namespace Dasher {
 
   ///
+  /// \ingroup LM
+  /// @{
+
+  ///
   /// PPM language model
   ///
 
@@ -97,6 +101,8 @@ namespace Dasher {
     mutable CSimplePooledAlloc < CPPMnode > m_NodeAlloc;
     CPooledAlloc < CPPMContext > m_ContextAlloc;
   };
+
+  /// @}
 
   inline Dasher::CPPMLanguageModel::CPPMnode::CPPMnode(int sym):symbol(sym) {
     child = next = vine = 0;

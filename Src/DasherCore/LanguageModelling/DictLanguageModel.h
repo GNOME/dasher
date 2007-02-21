@@ -24,7 +24,8 @@
 //const int maxcont =200;
 
 namespace Dasher {
-
+  /// \ingroup LM
+  /// \{
   class CDictLanguageModel:public CLanguageModel {
   public:
     CDictLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CSymbolAlphabet & Alphabet);
@@ -104,6 +105,7 @@ namespace Dasher {
     mutable CSimplePooledAlloc < CDictnode > m_NodeAlloc;
     CPooledAlloc < CDictContext > m_ContextAlloc;
   };
+  /// \}
 
 ////////////////////////////////////////////////////////////////////////
 // Inline functions 

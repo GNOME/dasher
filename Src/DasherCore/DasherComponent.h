@@ -11,8 +11,8 @@ class Dasher::CEvent;
 class Dasher::CEventHandler;
 #include "SettingsStore.h"
 
-
-
+/// \ingroup Core
+/// @{
 class Dasher::CDasherComponent {
  public:
   CDasherComponent(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore);
@@ -37,5 +37,6 @@ class Dasher::CDasherComponent {
   Dasher::CEventHandler *m_pEventHandler;
   CSettingsStore *m_pSettingsStore;
 };
+/// @}
 
 #endif

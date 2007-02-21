@@ -16,7 +16,7 @@
 #include "GtkDasherControl.h"
 //#include "KeyboardHelper.h"
 
-#include "../DasherCore/DasherSettingsInterface.h"
+//#include "../DasherCore/DasherSettingsInterface.h"
 #include "../DasherCore/DasherInterfaceBase.h"
 #include "../DasherCore/GnomeSettingsStore.h"
 #include "../DasherCore/UserLog.h"

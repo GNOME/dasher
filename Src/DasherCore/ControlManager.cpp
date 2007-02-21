@@ -245,9 +245,14 @@ void CControlManager::DisconnectNode(int iChild, int iParent) {
 CDasherNode *CControlManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData) {
   CDasherNode *pNewNode;
 
-  // FIXME - is the language model pointer used?
-
-  pNewNode = new CDasherNode(pParent, m_pNCManager->GetControlSymbol(),0, Opts::Nodes2, iLower, iUpper, m_pLanguageModel, m_mapControlMap[0]->iColour);
+  // TODO: Tie this structure to info contained in control map
+  CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
+  pDisplayInfo->iColour = m_mapControlMap[0]->iColour;
+  pDisplayInfo->bShove = false;
+  pDisplayInfo->bVisible = true;
+  pDisplayInfo->strDisplayText = m_mapControlMap[0]->strLabel;
+  
+  pNewNode = new CDasherNode(pParent, iLower, iUpper, pDisplayInfo);
 
   int iOffset = *((int *)pUserData);
  
@@ -263,9 +268,6 @@ CDasherNode *CControlManager::GetRoot(CDasherNode *pParent, int iLower, int iUpp
   pNodeUserData->iOffset = iOffset;
 
   pNewNode->m_pUserData = pNodeUserData;
-  pNewNode->m_strDisplayText = pNodeUserData->pControlNode->strLabel;
-  pNewNode->SetShove(false);
-  pNewNode->m_pBaseGroup = 0;
 
   return pNewNode;
 }
@@ -306,7 +308,14 @@ void CControlManager::PopulateChildren( CDasherNode *pNode ) {
 	 iColour = (iIdx%99)+11;
        }
 
-       pNewNode = new CDasherNode(pNode, m_pNCManager->GetControlSymbol(), 0, Opts::Nodes2, iLbnd, iHbnd, m_pLanguageModel, iColour);
+       CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
+       pDisplayInfo->iColour = iColour;
+       pDisplayInfo->bShove = false;
+       pDisplayInfo->bVisible = true;
+       pDisplayInfo->strDisplayText = (*it)->strLabel;
+       
+       pNewNode = new CDasherNode(pNode, iLbnd, iHbnd, pDisplayInfo);
+
        pNewNode->m_pNodeManager = this;
        pNewNode->m_pUserData = *it;
 
@@ -317,10 +326,6 @@ void CControlManager::PopulateChildren( CDasherNode *pNode ) {
 
        pNewNode->m_pUserData = pNodeUserData;
 
-
-       pNewNode->m_strDisplayText = (*it)->strLabel;
-       pNewNode->SetShove(false);
-       pNewNode->m_pBaseGroup = 0;
      }
      pNode->Children().push_back(pNewNode);
      ++iIdx;

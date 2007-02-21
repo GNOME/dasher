@@ -23,6 +23,10 @@ namespace expat {
 namespace Dasher {
   class CColourIO;
 }
+
+
+/// \defgroup Colours Colour scheme information
+/// @{
 class Dasher::CColourIO {
 public:
   // This structure completely describes the characters used in alphabet
@@ -72,5 +76,6 @@ private:
   static void XML_EndElement(void *userData, const expat::XML_Char * name);
   static void XML_CharacterData(void *userData, const expat::XML_Char * s, int len);
 };
+/// @}
 
 #endif /* #ifndef __ColourIO_h__ */

@@ -6,6 +6,8 @@
 
 #include <string>
 
+/// \defgroup Logging Logging routines
+/// @{
 class CUserLogBase : public Dasher::CDasherComponent {
  public:
   CUserLogBase(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore) : Dasher::CDasherComponent(pEventHandler, pSettingsStore) {};
@@ -31,5 +33,6 @@ class CUserLogBase : public Dasher::CDasherComponent {
   virtual void KeyDown(int iId, int iType, int iEffect) = 0;
   virtual void HandleEvent(Dasher::CEvent* pEvent) = 0;
 };
+/// @}
 
 #endif

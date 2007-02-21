@@ -17,16 +17,13 @@ namespace Dasher {
 
 class Dasher::CDasherScreen;
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-
-// Class for delayed draw events
-// Useful for rendering the text on top of the nodes without using 
-// 2 buffers or 2 passes of the model
-
 namespace Dasher {
+  /// \ingroup View
+  /// @{
 
+  /// Class for delayed draw events
+  /// Useful for rendering the text on top of the nodes without using 
+  /// 2 buffers or 2 passes of the model
   class CDelayedDraw {
   public:
     //! DelayDraw string String of size Size positioned at x1 and y1
@@ -60,6 +57,7 @@ namespace Dasher {
     std::vector < CTextSymbol > m_DrawTextSymbol;
     std::vector < CTextString > m_DrawTextString;
   };
+  /// @}
 };
 
 #endif

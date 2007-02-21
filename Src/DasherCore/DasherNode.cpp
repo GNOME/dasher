@@ -1,6 +1,22 @@
 // DasherNode.cpp
 //
-// Copyright (c) 2001-2004 David Ward
+// Copyright (c) 2007 David Ward
+//
+// This file is part of Dasher.
+//
+// Dasher is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// Dasher is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Dasher; if not, write to the Free Software 
+// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "../Common/Common.h"
 
@@ -27,6 +43,8 @@ CDasherNode::~CDasherNode() {
   m_pNodeManager->ClearNode( this );
 
   Delete_children();
+
+  delete m_pDisplayInfo;
 }
 
 
@@ -95,6 +113,7 @@ void CDasherNode::OrphanChild(CDasherNode *pChild) {
 }
 
 // Delete nephews of the child which has the specified symbol
+// TODO: Need to allow for subnode
 void CDasherNode::DeleteNephews(CDasherNode *pChild) {
   DASHER_ASSERT(Children().size() > 0);
 
@@ -103,14 +122,14 @@ void CDasherNode::DeleteNephews(CDasherNode *pChild) {
     if(*i != pChild) {
       (*i)->Delete_children();
     }
-
   }
 }
 
+// TODO: Need to allow for subnodes
+// TODO: Incorporate into above routine
 void CDasherNode::Delete_children() {
   ChildMap::iterator i;
   for(i = Children().begin(); i != Children().end(); i++) {
-    // i->second->Delete_children(); (gets called by destructor)
     delete (*i);
   }
   Children().clear();
@@ -130,4 +149,31 @@ void CDasherNode::ConvertWithAncestors() {
 
   if(m_pParent)
     m_pParent->ConvertWithAncestors();
+}
+
+void CDasherNode::SetFlag(int iFlag, bool bValue) {
+  if(bValue)
+    m_iFlags = m_iFlags | iFlag;
+  else
+    m_iFlags = m_iFlags & (~iFlag);
+  
+  m_pNodeManager->SetFlag(this, iFlag, bValue);
+}
+ 
+void CDasherNode::SetParent(CDasherNode *pNewParent) {
+  m_pParent = pNewParent;
+}
+
+int CDasherNode::MostProbableChild() {
+  int iMax(0);
+  int iCurrent;
+  
+  for(ChildMap::iterator it(m_mChildren.begin()); it != m_mChildren.end(); ++it) {
+    iCurrent = (*it)->Range();
+    
+    if(iCurrent > iMax)
+      iMax = iCurrent;
+  }
+  
+  return iMax;
 }

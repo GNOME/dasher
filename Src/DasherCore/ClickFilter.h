@@ -3,6 +3,8 @@
 
 #include "InputFilter.h"
 
+/// \ingroup Input
+/// @{
 class CClickFilter : public CInputFilter {
  public:
   CClickFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface);
@@ -17,5 +19,6 @@ class CClickFilter : public CInputFilter {
  private:
   CDasherView *pDasherView;
 };
+/// @}
 
 #endif

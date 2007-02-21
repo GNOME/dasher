@@ -5,6 +5,8 @@
 #include "AutoSpeedControl.h"
 #include "StartHandler.h"
 
+/// \ingroup Input
+/// @{
 class CDefaultFilter : public CInputFilter {
  public:
   CDefaultFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel, long long int iID, const char *szName);
@@ -28,5 +30,6 @@ class CDefaultFilter : public CInputFilter {
   CAutoSpeedControl *m_pAutoSpeedControl;
   CStartHandler *m_pStartHandler;
 };
+/// @}
 
 #endif

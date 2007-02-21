@@ -3,6 +3,8 @@
 
 #include "../DasherCore/ModuleFactory.h"
 
+/// \ingroup Core
+/// @{
 class CWrapperFactory : public CModuleFactory {
  public:
   CWrapperFactory(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherModule *pModule);
@@ -21,5 +23,6 @@ class CWrapperFactory : public CModuleFactory {
 
   int m_iCurrentPos;
 };
+/// @}
 
 #endif

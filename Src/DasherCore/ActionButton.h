@@ -9,6 +9,8 @@ namespace Dasher {
   class CDasherInterfaceBase;
 };
 
+/// \defgroup ActionButtons Action Buttons
+/// @{
 class CActionButton {
  public:
   CActionButton(Dasher::CDasherInterfaceBase *pInterface, const std::string &strCommand, bool bAlwaysVisible);
@@ -31,5 +33,5 @@ class CActionButton {
 
   Dasher::CDasherInterfaceBase *m_pInterface;
 };
-
+/// @}
 #endif

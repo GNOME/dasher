@@ -29,6 +29,9 @@
 
 namespace Dasher {
 
+  /// \ingroup LM
+  /// @{
+
   class CSymbolAlphabet {
   public:
 
@@ -70,6 +73,8 @@ namespace Dasher {
     int m_SpaceSymbol;
     const CAlphabet *AlphabetPointer;
   };
+
+  /// @}
 
 }
 

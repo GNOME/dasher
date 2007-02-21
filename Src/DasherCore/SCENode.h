@@ -7,8 +7,8 @@
 
 typedef struct _SCENode SCENode;
 
-
-
+/// \ingroup Model
+/// \{
 struct _SCENode {
 
   char *pszConversion;
@@ -26,11 +26,8 @@ struct _SCENode {
 
   uint HZFreq;
   float HZProb;
-
-  
-  
 };
-
+/// \}
 
 #endif
 

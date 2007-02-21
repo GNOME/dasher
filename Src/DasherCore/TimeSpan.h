@@ -26,6 +26,8 @@ class CTimeSpan;
 typedef vector<CTimeSpan>    VECTOR_TIME_SPAN;
 typedef vector<CTimeSpan*>   VECTOR_TIME_SPAN_PTR;
 
+/// \ingroup Logging
+/// @{
 class CTimeSpan
 {
 public:
@@ -55,5 +57,6 @@ private:
   void                InitMemberVars();
 
 };
+/// @}
 
 #endif

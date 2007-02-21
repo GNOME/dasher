@@ -9,9 +9,10 @@
 #include <map>
 
 namespace Dasher {
-  
   class CDasherModel; // Forward declaraion
 
+  /// \ingroup Model
+  /// @{
   class CConversionManagerFactory : public CNodeManagerFactory {
   public:
     CConversionManagerFactory(Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, CNodeCreationManager *pNCManager, int iID, Dasher::CAlphIO *pCAlphIO);
@@ -26,7 +27,7 @@ namespace Dasher {
     int m_iCMCount;
     int pagecount;//test
   };
-  
+  /// @}
 }
 
 #endif

@@ -28,6 +28,9 @@ namespace Dasher {
   class CDasherView;
 }
 
+/// \defgroup Model The Dasher model
+/// @{
+
 ///
 /// \brief Dasher 'world' data structures and dynamics.
 ///
@@ -35,7 +38,6 @@ namespace Dasher {
 /// It contains a tree of DasherNodes
 ///             knows the current viewpoint
 ///             knows how to evolve the viewpoint
-
 class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 {
  public:
@@ -426,6 +428,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   int m_iOffset;
 
 };
+/// @}
 
 /////////////////////////////////////////////////////////////////////////////
 

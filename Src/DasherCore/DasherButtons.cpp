@@ -311,22 +311,22 @@ bool CDasherButtons::DecorateView(CDasherView *pView) {
   }
   else if(m_iStyle == 3) {
     if(m_iLastBox == 1) {
-      pView->NewDrawGoTo(m_pBoxes[2].iDisplayTop, m_pBoxes[2].iDisplayBottom, false);
-      pView->NewDrawGoTo(m_pBoxes[1].iDisplayTop, m_pBoxes[3].iDisplayBottom, false);
-      pView->NewDrawGoTo(m_pBoxes[4].iDisplayTop, m_pBoxes[4].iDisplayBottom, false);
+      NewDrawGoTo(pView, m_pBoxes[2].iDisplayTop, m_pBoxes[2].iDisplayBottom, false);
+      NewDrawGoTo(pView, m_pBoxes[1].iDisplayTop, m_pBoxes[3].iDisplayBottom, false);
+      NewDrawGoTo(pView, m_pBoxes[4].iDisplayTop, m_pBoxes[4].iDisplayBottom, false);
     }
     else {
-      pView->NewDrawGoTo(m_pBoxes[0].iDisplayTop, m_pBoxes[0].iDisplayBottom, false);
-      pView->NewDrawGoTo(m_pBoxes[3].iDisplayTop, m_pBoxes[1].iDisplayBottom, false);
-      pView->NewDrawGoTo(m_pBoxes[4].iDisplayTop, m_pBoxes[4].iDisplayBottom, false);
+      NewDrawGoTo(pView, m_pBoxes[0].iDisplayTop, m_pBoxes[0].iDisplayBottom, false);
+      NewDrawGoTo(pView, m_pBoxes[3].iDisplayTop, m_pBoxes[1].iDisplayBottom, false);
+      NewDrawGoTo(pView, m_pBoxes[4].iDisplayTop, m_pBoxes[4].iDisplayBottom, false);
     }
   }
   else {
     for(int i(0); i < m_iNumBoxes; ++i) {
       if(i != iActiveBox)
-	pView->NewDrawGoTo(m_pBoxes[i].iDisplayTop, m_pBoxes[i].iDisplayBottom, false);
+	NewDrawGoTo(pView, m_pBoxes[i].iDisplayTop, m_pBoxes[i].iDisplayBottom, false);
     }
-    pView->NewDrawGoTo(m_pBoxes[iActiveBox].iDisplayTop, m_pBoxes[iActiveBox].iDisplayBottom, m_bMenu || m_bHighlight);
+    NewDrawGoTo(pView, m_pBoxes[iActiveBox].iDisplayTop, m_pBoxes[iActiveBox].iDisplayBottom, m_bMenu || m_bHighlight);
   }
 
   bool bRV(m_bDecorationChanged);
@@ -434,3 +434,28 @@ bool CDasherButtons::GetSettings(SModuleSettings **pSettings, int *iCount) {
 
   return true;
 };
+
+void CDasherButtons::NewDrawGoTo(CDasherView *pView, myint iDasherMin, myint iDasherMax, bool bActive) {
+   myint iHeight(iDasherMax - iDasherMin);
+
+   int iColour;
+   int iWidth;
+
+   if(bActive) {
+     iColour = 1;
+     iWidth = 3;
+   }
+   else {
+     iColour = 2;
+     iWidth = 1;
+   }
+
+   CDasherScreen::point p[4];
+
+   pView->Dasher2Screen( 0, iDasherMin, p[0].x, p[0].y);
+   pView->Dasher2Screen( iHeight, iDasherMin, p[1].x, p[1].y);
+   pView->Dasher2Screen( iHeight, iDasherMax, p[2].x, p[2].y);
+   pView->Dasher2Screen( 0, iDasherMax, p[3].x, p[3].y);
+
+   pView->Screen()->Polyline(p, 4, iWidth, iColour);
+}

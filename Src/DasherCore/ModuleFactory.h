@@ -5,8 +5,10 @@
 
 #include <string>
 
-// TODO: Implement generic implementation of iterators
+/// \ingroup Core
+/// @{
 
+/// \todo Implement generic implementation of iterators
 class CModuleFactory {
  public:
   virtual void Start() = 0;
@@ -17,5 +19,6 @@ class CModuleFactory {
   virtual std::string GetName(long long int iID) = 0;
   virtual int GetType(long long int iID) = 0;
 };
+/// @}
 
 #endif

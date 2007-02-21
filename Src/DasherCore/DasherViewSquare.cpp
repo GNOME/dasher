@@ -143,8 +143,9 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
   //  myint trange = y2 - y1;
   int temp_parentcolor=parent_color;
 
+  // TODO: Pass displayinfo directly here
   if(bDraw && 
-     !RenderNodeFatherFast(parent_color, y1, y2, mostleft, pRender->m_strDisplayText, pRender->GetShove(),parent_width, pRender->m_bVisible) &&
+     !RenderNodeFatherFast(parent_color, y1, y2, mostleft, pRender->GetDisplayInfo()->strDisplayText, pRender->GetDisplayInfo()->bShove,parent_width, pRender->GetDisplayInfo()->bVisible) &&
      !(pRender->GetFlag(NF_GAME))) {
     vDeleteList.push_back(pRender);
     pRender->SetFlag(NF_ALIVE, false);
@@ -152,7 +153,7 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
   }
   
   if(pRender->ChildCount() == 0) {
-	  RenderNodePartFast(pRender->Colour(), y1, y2, mostleft, pRender->m_strDisplayText, pRender->GetShove(),y2-y1);
+	  RenderNodePartFast(pRender->GetDisplayInfo()->iColour, y1, y2, mostleft, pRender->GetDisplayInfo()->strDisplayText, pRender->GetDisplayInfo()->bShove,y2-y1);
     vNodeList.push_back(pRender);
     return 1;  // CHANGED BY IGNAS. I return 1 when the child was rendered and in this case the 
 			   //child was rendered.
@@ -185,8 +186,8 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
   int id=-1;
   //  int lower=-1,upper=-1;
   temp_parentwidth=y2-y1;
-  if(pRender->m_bVisible)
-    temp_parentcolor=pRender->Colour();
+  if(pRender->GetDisplayInfo()->bVisible)
+    temp_parentcolor=pRender->GetDisplayInfo()->iColour;
   else
     temp_parentcolor=parent_color;
     
@@ -206,7 +207,7 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
 	  {
 		  if ((bDraw)&&(lasty<newy1))   //if child has been drawn then the interval between him and the
 							//last drawn child should be drawn too.
-		  RenderNodePartFast(temp_parentcolor, lasty, newy1, mostleft, pRender->m_strDisplayText, pRender->GetShove(),temp_parentwidth);
+		  RenderNodePartFast(temp_parentcolor, lasty, newy1, mostleft, pRender->GetDisplayInfo()->strDisplayText, pRender->GetDisplayInfo()->bShove,temp_parentwidth);
 		  lasty=newy2;
 	  }
 	  
@@ -217,7 +218,7 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
 		{
 			if ((bDraw)&&(lasty<newy1))   //if child has been drawn then the interval between him and the
 							  //last drawn child should be drawn too.
-			  RenderNodePartFast(temp_parentcolor, lasty, newy1, mostleft, pRender->m_strDisplayText, pRender->GetShove(),temp_parentwidth);
+			  RenderNodePartFast(temp_parentcolor, lasty, newy1, mostleft, pRender->GetDisplayInfo()->strDisplayText, pRender->GetDisplayInfo()->bShove,temp_parentwidth);
 			lasty=newy2;
 		}
 	
@@ -227,9 +228,9 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
   if (bDraw)
   {
 		if (lasty<y2)
-			  RenderNodePartFast(temp_parentcolor, lasty, y2, mostleft, pRender->m_strDisplayText, pRender->GetShove(),temp_parentwidth);
+			  RenderNodePartFast(temp_parentcolor, lasty, y2, mostleft, pRender->GetDisplayInfo()->strDisplayText, pRender->GetDisplayInfo()->bShove,temp_parentwidth);
   
-		RenderNodeOutlineFast(pRender->Colour(), y1, y2, mostleft, pRender->m_strDisplayText, pRender->GetShove());
+		RenderNodeOutlineFast(pRender->GetDisplayInfo()->iColour, y1, y2, mostleft, pRender->GetDisplayInfo()->strDisplayText, pRender->GetDisplayInfo()->bShove);
   }
 
   return 1;
@@ -751,91 +752,30 @@ void CDasherViewSquare::VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, m
   iDasherMaxY = m_iDasherMaxY;
 }
 
-int CDasherViewSquare::GetCoordinates(unsigned long Time, myint &iDasherX, myint &iDasherY) {
+// void CDasherViewSquare::NewDrawGoTo(myint iDasherMin, myint iDasherMax, bool bActive) {
+//   myint iHeight(iDasherMax - iDasherMin);
 
-  // FIXME - Actually turn autocalibration on and off!
-  // FIXME - AutoCalibrate should use Dasher co-ordinates, not raw mouse co-ordinates?
-  // FIXME - Have I broken this by moving it before the offset is applied?
-  // FIXME - put ymap stuff back in 
-  // FIXME - optimise this
+//   int iColour;
+//   int iWidth;
 
-  int iCoordinateCount(GetCoordinateCount());
+//   if(bActive) {
+//     iColour = 1;
+//     iWidth = 3;
+//   }
+//   else {
+//     iColour = 2;
+//     iWidth = 1;
+//   }
 
-  myint *pCoordinates(new myint[iCoordinateCount]);
+//   CDasherScreen::point p[4];
 
-  int iType(GetInputCoordinates(iCoordinateCount, pCoordinates));
+//   Dasher2Screen( 0, iDasherMin, p[0].x, p[0].y);
+//   Dasher2Screen( iHeight, iDasherMin, p[1].x, p[1].y);
+//   Dasher2Screen( iHeight, iDasherMax, p[2].x, p[2].y);
+//   Dasher2Screen( 0, iDasherMax, p[3].x, p[3].y);
 
-  screenint mousex;
-  screenint mousey;
-
-  if(iCoordinateCount == 1) {
-    mousex = 0;
-    mousey = pCoordinates[0];
-  }
-  else {
-    mousex = pCoordinates[0];
-    mousey = pCoordinates[1];
-  }
-
-  delete[]pCoordinates;
-
-  //  bool autocalibrate = GetBoolParameter(BP_AUTOCALIBRATE);
-  //  if(GetBoolParameter(BP_AUTOCALIBRATE) && (GetStringParameter(SP_INPUT_FILTER) == "Eyetracker Mode")) {
-    //    AutoCalibrate(&mousex, &mousey);
-  //  }
-
-
-  // TODO: Mode probably isn't being used any more
-
-  // Convert the input co-ordinates to dasher co-ordinates
-
-  int mode;
-  
-  mode = 0;
- 
-  //  Input2Dasher(mousex, mousey, iDasherX, iDasherY);
-  Screen2Dasher(mousex, mousey, iDasherX, iDasherY, false, true );
-
-//   m_iDasherXCache = iDasherX;
-//   m_iDasherYCache = iDasherY;
-
-  // Request an update at the calculated co-ordinates
-
-
-  // Cache the Dasher Co-ordinates, so we can use them later for things like drawing the mouse position
-#ifndef WITH_MAEMO
-  // FIXME
-  //  iDasherX = myint(xmap(iDasherX / static_cast < double >(GetLongParameter(LP_MAX_Y))) * GetLongParameter(LP_MAX_Y));
-  // iDasherY = m_ymap.map(iDasherY);
-#endif
-
-  return iType;
-}
-
-void CDasherViewSquare::NewDrawGoTo(myint iDasherMin, myint iDasherMax, bool bActive) {
-  myint iHeight(iDasherMax - iDasherMin);
-
-  int iColour;
-  int iWidth;
-
-  if(bActive) {
-    iColour = 1;
-    iWidth = 3;
-  }
-  else {
-    iColour = 2;
-    iWidth = 1;
-  }
-
-  CDasherScreen::point p[4];
-
-  Dasher2Screen( 0, iDasherMin, p[0].x, p[0].y);
-  Dasher2Screen( iHeight, iDasherMin, p[1].x, p[1].y);
-  Dasher2Screen( iHeight, iDasherMax, p[2].x, p[2].y);
-  Dasher2Screen( 0, iDasherMax, p[3].x, p[3].y);
-
-  Screen()->Polyline(p, 4, iWidth, iColour);
-}
+//   Screen()->Polyline(p, 4, iWidth, iColour);
+// }
 
 void CDasherViewSquare::ChangeScreen(CDasherScreen *NewScreen) {
   CDasherView::ChangeScreen(NewScreen);

@@ -29,7 +29,8 @@ namespace Dasher {
 
 using namespace Dasher;
 using namespace std;
-
+/// \ingroup Input
+/// \{
 class Dasher::CSocketInput:public CSocketInputBase {
 
   // This non-member launcher stub function is required because pthreads can't launch a non-static member method.
@@ -60,5 +61,5 @@ private:
   // TODO: should probably override ReportErrnoError() to popup a Gtk error message
 
 };
-
+/// \}
 #endif

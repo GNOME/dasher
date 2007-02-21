@@ -27,7 +27,6 @@ libdashercore_a_SOURCES = \
 		ConversionManager.h \
 		ConversionManagerFactory.cpp \
 		ConversionManagerFactory.h \
-		DasherAppInterface.h \
 		DasherButtons.cpp \
 		DasherButtons.h \
 		DasherComponent.cpp \
@@ -42,8 +41,6 @@ libdashercore_a_SOURCES = \
 		DasherNode.cpp \
 		DasherNode.h \
 		DasherScreen.h \
-		DasherSettingsInterface.cpp \
-		DasherSettingsInterface.h \
 		DasherTypes.h \
 		DasherView.cpp \
 		DasherView.h \
@@ -51,7 +48,6 @@ libdashercore_a_SOURCES = \
 		DasherViewSquare.cpp \
 		DasherViewSquare.h \
 		DasherViewSquare.inl \
-		DasherWidgetInterface.h \
 		DefaultFilter.cpp \
 		DefaultFilter.h \
 		DelayedDraw.cpp \

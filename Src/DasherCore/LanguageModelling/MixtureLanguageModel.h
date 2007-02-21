@@ -22,6 +22,8 @@
 namespace Dasher {
   class CMixtureLanguageModel;
 
+  /// \ingroup LM
+  /// \{
   class CMixtureLanguageModel:public CLanguageModel {
   public:
 
@@ -145,6 +147,7 @@ namespace Dasher {
     std::map < int, CMixtureContext * >ContextMap;
 
   };
+  /// \}
 
 ///////////////////////////////////////////////////////////////////
 

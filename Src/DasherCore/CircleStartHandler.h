@@ -2,7 +2,8 @@
 #define __CIRCLE_START_HANDLER_H__
 
 #include "StartHandler.h"
-
+/// \ingroup Start
+/// @{
 class CCircleStartHandler : public CStartHandler {
 public:
   CCircleStartHandler(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface);
@@ -17,5 +18,6 @@ private:
   int m_iCircleRadius;
   int m_iScreenRadius;
 };
+/// @}
 
 #endif

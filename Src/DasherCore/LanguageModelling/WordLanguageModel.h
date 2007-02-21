@@ -25,10 +25,12 @@
 
 namespace Dasher {
 
+  /// \ingroup LM
+  /// \{
+
   ///
   /// Language model using words
   ///
-
   class CWordLanguageModel:public CLanguageModel {
   public:
     CWordLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CSymbolAlphabet & Alphabet);
@@ -130,6 +132,7 @@ namespace Dasher {
     mutable CSimplePooledAlloc < CWordnode > m_NodeAlloc;
     CPooledAlloc < CWordContext > m_ContextAlloc;
   };
+  /// \}
 
 ////////////////////////////////////////////////////////////////////////
 // Inline functions 

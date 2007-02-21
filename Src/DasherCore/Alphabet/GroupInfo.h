@@ -2,7 +2,8 @@
 #define __GROUP_INFO_H__
 
 #include <string>
-
+/// \ingroup Alphabet
+/// \{
 struct SGroupInfo {
   SGroupInfo *pChild;
   SGroupInfo *pNext;
@@ -12,5 +13,6 @@ struct SGroupInfo {
   int iColour;
   bool bVisible;
 };
+/// \}
 
 #endif

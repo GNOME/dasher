@@ -85,7 +85,8 @@ typedef vector<NavCycle*>               VECTOR_NAV_CYCLE_PTR;
 typedef vector<NavCycle*>::iterator     VECTOR_NAV_CYCLE_PTR_ITER;
 
 using namespace std;
-
+/// \ingroup Logging
+/// @{
 class CUserLogTrial
 {
 public:
@@ -154,5 +155,6 @@ protected:
   string                      GetNavCyclesXML(const string& strPrefix);
 
 };
+/// @}
 
 #endif

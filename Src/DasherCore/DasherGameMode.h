@@ -21,7 +21,8 @@ namespace Dasher {
   class CDasherGameMode;
   class CDasherComponent;
 }
-
+/// \defgroup GameMode Game mode support
+/// @{
 class Dasher::CDasherGameMode:public CDasherComponent, private NoClones {
 public:
   CDasherGameMode(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase * pDashIface, CDasherModel * model);
@@ -50,5 +51,6 @@ private:
   CDasherInterfaceBase *m_DasherInterface;
   std::string CurrentTarget;
 };
+/// @}
 
 #endif

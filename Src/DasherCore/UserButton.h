@@ -14,6 +14,8 @@ typedef std::vector<CUserButton>::iterator     VECTOR_USER_BUTTON_ITER;
 typedef std::vector<CUserButton*>              VECTOR_USER_BUTTON_PTR;
 typedef std::vector<CUserButton*>::iterator    VECTOR_USER_BUTTON_PTR_ITER;
 
+/// \ingroup Logging
+/// \{
 class CUserButton {
  public:
   CUserButton(int iId, int iType, int iEffect);
@@ -33,5 +35,6 @@ class CUserButton {
   int m_iEffect;
   std::string m_strStringTime;
 };
+/// \}
 
 #endif

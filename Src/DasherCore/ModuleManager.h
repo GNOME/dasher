@@ -8,6 +8,8 @@
 #include <string>
 #include <vector>
 
+/// \ingroup Core
+/// \{
 class CModuleManager {
  public:
   void RegisterFactory(CModuleFactory *pFactory);
@@ -19,5 +21,6 @@ class CModuleManager {
  private:
   std::map<long long int, CModuleFactory *> m_mapModules;
 };
+/// \}
 
 #endif

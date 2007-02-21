@@ -17,8 +17,8 @@ namespace Dasher {
   class CDasherInterfaceBase;
 }
 
-
-
+/// \ingroup View
+/// @{
 class Dasher::CDasherScreen
 {
 public:
@@ -139,5 +139,6 @@ protected:
   //! Pointer to a widget interface for communication with the core
   //  CDasherInterfaceBase *m_pDasherInterface;
 };
+/// @}
 
 #endif /* #ifndef __DasherScreen_h_ */

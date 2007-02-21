@@ -69,9 +69,11 @@ typedef vector<VECTOR_STRING>               VECTOR_VECTOR_STRING;
 typedef vector<VECTOR_STRING>::iterator     VECTOR_VECTOR_STRING_ITER;
 #endif
 
+/// \ingroup Logging
+/// @{
+
 // We need to be notified when parameters we are logging get changed, so we'll
 // subclass CDasherComponent and implement the HandleEvent() method.
-
 class CUserLog : public CUserLogBase
 {
 public:
@@ -159,5 +161,6 @@ protected:
   void                        InitUsingMask(int iLogLevelMask);
 
 };
+/// @}
 
 #endif

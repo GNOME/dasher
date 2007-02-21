@@ -4,6 +4,8 @@
 #include "../Common/ModuleSettings.h"
 #include "DasherComponent.h"
 
+/// \ingroup Core
+/// @{
 class CDasherModule : public Dasher::CDasherComponent {
  public:
   CDasherModule(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, long long int iID, int iType, const char *szName);
@@ -36,5 +38,6 @@ class CDasherModule : public Dasher::CDasherComponent {
   int m_iRefCount;
   const char *m_szName;
 };
+/// @}
 
 #endif

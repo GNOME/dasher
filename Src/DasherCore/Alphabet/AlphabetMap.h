@@ -58,7 +58,11 @@ IAM 08/2002
 
 namespace Dasher {
   class alphabet_map;
-} class Dasher::alphabet_map {
+} 
+
+/// \ingroup Alphabet
+/// @{
+class Dasher::alphabet_map {
 
 public:
   alphabet_map(unsigned int InitialTableSize = 255);
@@ -104,5 +108,6 @@ private:
   std::vector < Entry * >HashTable;
   const symbol Undefined;
 };
+/// @}
 
 #endif /* #ifndef __AlphabetMap_h__ */

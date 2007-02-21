@@ -11,6 +11,8 @@ namespace Dasher {
   class CCustomColours;
 }
 
+/// \ingroup Colours
+/// @{
 class Dasher::CCustomColours {
  public:
   CCustomColours(const CColourIO::ColourInfo & ColourInfo);
@@ -32,5 +34,6 @@ class Dasher::CCustomColours {
   std::vector<int> m_Green;
   std::vector<int> m_Blue;
 };
+/// @}
 
 #endif /* #ifndef __CustomColours_h__ */

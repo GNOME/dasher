@@ -252,7 +252,7 @@ void CDasherModel::Reparent_root(int lower, int upper) {
     myint iRootWidth = m_Rootmax - m_Rootmin;
     
     // Fail and undo root creation if the new root is bigger than allowed by normalisation
-    if(!(pNewRoot->m_bDeleteWithParents) && (((myint((GetLongParameter(LP_NORMALIZATION) - upper)) / static_cast<double>(iWidth)) 
+    if(!(pNewRoot->GetFlag(NF_SUBNODE)) && (((myint((GetLongParameter(LP_NORMALIZATION) - upper)) / static_cast<double>(iWidth)) 
 	> (m_Rootmax_max - m_Rootmax)/static_cast<double>(iRootWidth)) || 
        ((myint(lower) / static_cast<double>(iWidth)) 
 	> (m_Rootmin - m_Rootmin_min) / static_cast<double>(iRootWidth)))) {

@@ -18,14 +18,14 @@ namespace Dasher {
 #include "DasherComponent.h"
 #include "View/DelayedDraw.h"
 
-// CDasherView is an abstract view class
-// See the CDasherViewSquare class for an example
+/// \defgroup View Visualisation of the model
+/// @{
 
-// DJW 200504 - at the moment its quite hard work to plug in a new view
-
-////// \brief View base class.
-////// Dasher views represent the visualisation of a Dasher model on the screen.
-////// Note that we really should aim to avoid having to try and keep
+/// \brief View base class.
+///
+/// Dasher views represent the visualisation of a Dasher model on the screen.
+///
+/// Note that we really should aim to avoid having to try and keep
 /// multiple pointers to the same object (model etc.) up-to-date at
 /// once. We should be able to avoid the need for this just by being
 /// sane about passing pointers as arguments to the relevant
@@ -40,7 +40,8 @@ namespace Dasher {
 /// sure that the data structure contains all the info we need to do
 /// the rendering (eg make sure it contains strings as well as symbol
 /// IDs).
-////// There are really three roles played by CDasherView: providing high
+///
+/// There are really three roles played by CDasherView: providing high
 /// level drawing functions, providing a mapping between Dasher
 /// co-ordinates and screen co-ordinates and providing a mapping
 /// between true and effective Dasher co-ordinates (eg for eyetracking
@@ -60,30 +61,30 @@ public:
   CDasherView(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherScreen * DasherScreen);
   virtual ~ CDasherView() {
   }
-  ////// Event handler
+  ///
+  /// Event handler
   /// \param pEvent Pointer to incoming event
   virtual void HandleEvent(Dasher::CEvent * pEvent);
 
-  virtual bool IsNodeVisible(myint y1, myint y2) { return true; };
 
-  //void SetDrawKeyboard(bool bDrawKeyboard);
+  /// @name Pointing device mappings 
+  /// @{
 
-  // 0 - no box, 1 - upper box, 2 - lower box
-  //void SetDrawMousePosBox(int MousePosBox);
-
-  /// Render the display
-
-/*   virtual void Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList); */
-
-  /// Renders the Dasher node structure
-  /// \todo Shouldn't be public?
-
-  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer) = 0;
+  /// Set the input device class. Note that this class will now assume ownership of the pointer, ie it will delete the object when it's done with it.
+  /// \param _pInput Pointer to the new CDasherInput.
+  void SetInput(CDasherInput * _pInput);
 
   /// Translates the screen coordinates to Dasher coordinates and calls
   /// dashermodel.TapOnDisplay
+  virtual int GetCoordinates(unsigned long Time, myint &iDasherX, myint &iDasherY);
 
-  virtual int GetCoordinates(unsigned long Time, myint &iDasherX, myint &iDasherY) = 0;
+  
+  /// Get the co-ordinate count from the input device
+  
+  int GetCoordinateCount();
+
+
+  /// @}
 
   /// 
   /// @name Coordinate system conversion
@@ -102,6 +103,21 @@ public:
 
   virtual void Dasher2Screen(myint iDasherX, myint iDasherY, screenint & iScreenX, screenint & iScreenY) = 0;
 
+
+  virtual bool IsNodeVisible(myint y1, myint y2) { return true; };
+
+  virtual void VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, myint &iDasherMaxX, myint &iDasherMaxY ) = 0;
+
+  /// \todo This function is only public (and in the parent class)
+  /// because of the slightly hacky conversion needed for auto speed
+  /// control. At some point find a way to make this more sensible.
+  virtual double xmap(double x) const = 0;
+
+  /// \todo This function is only public (and in the parent class)
+  /// because of the slightly hacky conversion needed for auto speed
+  /// control. At some point find a way to make this more sensible.
+  virtual double ymap(double x) const = 0;
+
   /// @}
 
   /// Change the screen - must be called if the Screen is replaced or resized
@@ -115,10 +131,11 @@ public:
 
   /// Renders Dasher with mouse-dependent items
   /// \todo Clarify relationship between Render functions and probably only expose one
-
   virtual bool Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, bool bRedrawDisplay, bool bGameMode);
 
-  virtual void NewDrawGoTo(myint iDasherMin, myint iDasherMax, bool bActive) = 0;
+  int GetRenderCount() {
+    return m_iRenderCount;
+  };
 
   /// Draw the game mode pointer - this shouldn't be here
 
@@ -126,27 +143,11 @@ public:
 
   /// @}
 
-  ////// Return a reference to the screen
+  ////// Return a reference to the screen - can't be protected due to circlestarthandler
   
   CDasherScreen *Screen() {
     return m_pScreen;
   }
-
-  /// Request the Screen to copy its buffer to the Display
-  /// \todo Shouldn't be public?
-
-  void Display();
-
-  /// Set the input device class. Note that this class will now assume ownership of the pointer, ie it will delete the object when it's done with it.
-  /// \param _pInput Pointer to the new CDasherInput.
-
-  void SetInput(CDasherInput * _pInput);
-
-
-  //  virtual void SpeedControl(myint iDasherX, myint iDasherY, double dFrameRate) {};
-
-  virtual double xmap(double x) const {return 0.0;};   
-  virtual double ymap(double x) const {return 0.0;}; 
 
   ///
   /// @name Low level drawing
@@ -183,27 +184,17 @@ public:
 
   void DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint iAnchorX2, myint iAnchorY2, const std::string & sDisplayText, int &mostleft, bool bShove);
 
+
+  /// Request the Screen to copy its buffer to the Display
+  /// \todo Shouldn't be public?
+  void Display();
+
   /// @}
-
-  virtual void VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, myint &iDasherMaxX, myint &iDasherMaxY ) = 0;
-
-  /// Get the co-ordinates from the input device
-  /// \todo This shouldn't be public?
-  
-  int GetInputCoordinates(int iN, myint * pCoordinates); 
-  
-  /// Get the co-ordinate count from the input device
-  
-  int GetCoordinateCount();
-
-  int GetRenderCount() {
-    return m_iRenderCount;
-  };
 
 protected:
   // Orientation of Dasher Screen
-  inline void MapScreen(screenint * DrawX, screenint * DrawY);
-  inline void UnMapScreen(screenint * DrawX, screenint * DrawY);
+/*   inline void MapScreen(screenint * DrawX, screenint * DrawY); */
+/*   inline void UnMapScreen(screenint * DrawX, screenint * DrawY); */
   bool m_bVisibleRegionValid;
   
   CDelayedDraw *m_pDelayDraw;
@@ -214,12 +205,16 @@ private:
   CDasherScreen *m_pScreen;    // provides the graphics (text, lines, rectangles):
   CDasherInput *m_pInput;       // Input device abstraction
 
-  // Pure virtuals to implement */
-  virtual void Crosshair(myint sx) = 0; // Tells m_Screen to draw a crosshair - or other static decoration */
+  /// Renders the Dasher node structure
+  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer) = 0;
+
+
+  /// Get the co-ordinates from the input device
+  int GetInputCoordinates(int iN, myint * pCoordinates); 
 
 
 };
-
+/// @}
 #include "DasherView.inl"
 
 #endif /* #ifndef __DasherView_h_ */
