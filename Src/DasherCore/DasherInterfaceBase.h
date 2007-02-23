@@ -5,6 +5,13 @@
 #ifndef __DasherInterfaceBase_h__
 #define __DasherInterfaceBase_h__
 
+///
+/// \mainpage 
+///
+/// This is the Dasher source code documentation. Please try to keep
+/// it up to date!
+///
+
 // TODO - there is a list of things to be configurable in my notes
 // Check that everything that is not self-contained within the GUI is covered.
 
