@@ -1,3 +1,8 @@
+2007-02-23  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* POTFILES.in: Remove some non-existing files.
+	* nb.po: Updated Norwegian bokmål translation.
+
 2007-02-23  Alexander Shopov  <ash@contact.bg>
 
 	* bg.po: Updated Bulgarian translation by
