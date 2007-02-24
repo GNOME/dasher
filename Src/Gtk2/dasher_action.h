@@ -28,6 +28,7 @@ struct _DasherActionClass {
   GObjectClass parent_class;
 
   gboolean (*execute)(DasherAction *pSelf, DasherEditor *pEditor, int iIdx);
+  gboolean (*preview)(DasherAction *pSelf, DasherEditor *pEditor);
   const gchar *(*get_name)(DasherAction *pSelf);
   int (*get_sub_count)(DasherAction *pSelf);
   const gchar *(*get_sub_name)(DasherAction *pSelf, int iIdx);  
@@ -39,6 +40,7 @@ DasherAction *dasher_action_new();
 GType dasher_action_get_type();
 
 gboolean dasher_action_execute(DasherAction *pSelf, DasherEditor *pEditor, gint iIdx);
+gboolean dasher_action_preview(DasherAction *pSelf, DasherEditor *pEditor);
 const gchar *dasher_action_get_name(DasherAction *pSelf);
 int dasher_action_get_sub_count(DasherAction *pSelf);
 const gchar *dasher_action_get_sub_name(DasherAction *pSelf, int iIdx);

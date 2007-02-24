@@ -387,6 +387,8 @@ AC_SUBST(GTK2BUILD_LIBS)
 
 if [[ x"$WITHGNOME" = xtrue ]]; then
 GNOME_DOC_INIT
+else
+AM_CONDITIONAL(ENABLE_SK, false)
 fi
 
 AC_CONFIG_FILES([Makefile

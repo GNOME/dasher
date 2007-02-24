@@ -16,6 +16,7 @@ dasher_action_class_init(DasherActionClass *pClass) {
   g_type_class_add_private(pClass, sizeof(DasherActionPrivate));
 
   pClass->execute = 0;
+  pClass->preview = 0;
   pClass->activate = 0;
   pClass->deactivate = 0;
   pClass->get_name = 0;
@@ -46,6 +47,16 @@ dasher_action_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx) {
 
   if(DASHER_ACTION_GET_CLASS(pSelf)->execute)
     return DASHER_ACTION_GET_CLASS(pSelf)->execute(pSelf, pEditor, iIdx);
+  else
+    return false;
+}
+
+gboolean 
+dasher_action_preview(DasherAction *pSelf, DasherEditor *pEditor) {
+  // TODO: Need to make sure that the action is active first
+
+  if(DASHER_ACTION_GET_CLASS(pSelf)->preview)
+    return DASHER_ACTION_GET_CLASS(pSelf)->preview(pSelf, pEditor);
   else
     return false;
 }

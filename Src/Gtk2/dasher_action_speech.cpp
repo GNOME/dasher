@@ -29,6 +29,7 @@ typedef struct _DasherActionSpeechPrivate DasherActionSpeechPrivate;
 G_DEFINE_TYPE(DasherActionSpeech, dasher_action_speech, TYPE_DASHER_ACTION);
 
 static gboolean dasher_action_speech_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx);
+static gboolean dasher_action_speech_preview(DasherAction *pSelf, DasherEditor *pEditor);
 static const gchar *dasher_action_speech_get_name(DasherAction *pSelf);
 static int dasher_action_speech_get_sub_count(DasherAction *pSelf);
 static const gchar *dasher_action_speech_get_sub_name(DasherAction *pSelf, int iIdx);
@@ -41,6 +42,7 @@ dasher_action_speech_class_init(DasherActionSpeechClass *pClass) {
 
   DasherActionClass *pDasherActionClass = (DasherActionClass *) pClass;
   pDasherActionClass->execute = dasher_action_speech_execute;
+  pDasherActionClass->preview = dasher_action_speech_preview;
   pDasherActionClass->get_name = dasher_action_speech_get_name;
   pDasherActionClass->get_sub_count = dasher_action_speech_get_sub_count;
   pDasherActionClass->get_sub_name = dasher_action_speech_get_sub_name;
@@ -89,10 +91,9 @@ dasher_action_speech_execute(DasherAction *pSelf, DasherEditor *pEditor, int iId
       GNOME_Speech_Speaker_say(pDasherActionSpeechPrivate->speaker, szData, &(pDasherActionSpeechPrivate->ev));
 
       if(pDasherActionSpeechPrivate->szLast)
-	delete pDasherActionSpeechPrivate->szLast;
+	g_free(pDasherActionSpeechPrivate->szLast);
 
-      pDasherActionSpeechPrivate->szLast = new char[strlen(szData) + 1];
-      strncpy(pDasherActionSpeechPrivate->szLast, szData, strlen(szData) + 1);
+      pDasherActionSpeechPrivate->szLast = g_strdup(szData);
 
       return true;
     }
@@ -103,6 +104,24 @@ dasher_action_speech_execute(DasherAction *pSelf, DasherEditor *pEditor, int iId
   else {
     return false;
   }
+}
+
+static gboolean 
+dasher_action_speech_preview(DasherAction *pSelf, DasherEditor *pEditor) {
+  gchar *szData = dasher_editor_get_all(pEditor);
+
+  if(!szData)
+    return false;
+
+  gchar *szWord = strrchr(szData, " ") + 1;
+
+  DasherActionSpeechPrivate *pDasherActionSpeechPrivate = DASHER_ACTION_SPEECH_GET_PRIVATE(pSelf);
+  
+  if(pDasherActionSpeechPrivate->speaker != NULL) {
+    GNOME_Speech_Speaker_say(pDasherActionSpeechPrivate->speaker, szData, &(pDasherActionSpeechPrivate->ev));
+  }
+
+  return false;
 }
 
 static const gchar *

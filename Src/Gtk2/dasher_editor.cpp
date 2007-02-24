@@ -567,6 +567,24 @@ void
 dasher_editor_output(DasherEditor *pSelf, const gchar *szText) {
   DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
 
+  // TODO: tidy this up, actionlookup by name, more flexible
+  // definition of space
+  // Python scripting?
+  if(!strcmp(szText, " ")) {
+    gboolean bActionIterStarted = false;
+    EditorAction *pActionIter = pPrivate->pActionRing;
+    
+    while((pActionIter != pPrivate->pActionRing) || !bActionIterStarted) {
+      bActionIterStarted = true;
+      
+      if(!strcmp(dasher_action_get_name(pActionIter->pAction), "Speak")) {
+	dasher_action_preview(pActionIter->pAction, pSelf);
+      }
+      
+      pActionIter = pActionIter->pNext;
+    }
+  }
+
   if(pPrivate->pBufferSet)
     idasher_buffer_set_insert(pPrivate->pBufferSet, szText);
 
