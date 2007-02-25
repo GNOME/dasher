@@ -39,10 +39,11 @@ class Dasher::CDasherViewSquare:public Dasher::CDasherView
 {
 public:
 
+  /// Constructor
+  ///
   /// \param pEventHandler Event handler.
   /// \param pSettingsStore Settings store.
   /// \param DasherScreen Pointer to creen to which the view will render.
-  /// \param DasherModel The model which will be rendered.
   /// \todo Don't cache screen and model locally - screen can be
   /// passed as parameter to the drawing functions, and data structure
   /// can be extracted from the model and passed too.
@@ -124,19 +125,18 @@ private:
   int RecursiveRender(CDasherNode * Render, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer, bool bDraw,myint parent_width,int parent_color);
 
   /// Render a single node
-  /// \param Character Symbol ID to be drawn
   /// \param Color The colour to draw it
-  /// \param ColorScheme Which of the alternating colour schemes to use
   /// \param y1 Upper extent.
   /// \param y2 Lower extent
   /// \param mostleft The left most position in which the text (l->r)
   /// can be displayed in order to avoid overlap. This is updated by
   /// the function to allow for the new text
-  /// \param displaytext Text to display.
+  /// \param sDisplayText Text to display.
+  /// \param bShove Whether the node shoves
   /// \todo Character and displaytext are redundant. We shouldn't need
   /// to know about alphabets here, so only use the latterr
-
   int RenderNode(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove);
+
   int RenderNodeOutlineFast(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove); 
   int RenderNodePartFast(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove, myint iParentWidth);
   int RenderNodeFatherFast(const int parent_color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove,myint iParentWidth, bool bVisible);

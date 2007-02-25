@@ -221,7 +221,7 @@ std::string CSettingsStore::GetParameterName(int iParameter)
 ////////////////////////////////////////////////////////////
 //// DEPRECATED FUNCTIONS BELOW
 
-bool CSettingsStore::GetBoolOption(const string &Key) {
+bool CSettingsStore::GetBoolOption(const std::string &Key) {
   // Also make the call to the newer implementation
   for(int ii = 0; ii < NUM_OF_BPS; ii++) {
     if(s_oParamTables.BoolParamTable[ii].regName == Key) {
@@ -234,7 +234,7 @@ bool CSettingsStore::GetBoolOption(const string &Key) {
   return false;
 }
 
-long CSettingsStore::GetLongOption(const string &Key) {
+long CSettingsStore::GetLongOption(const std::string &Key) {
   for(int ii = 0; ii < NUM_OF_LPS; ii++) {
     if(s_oParamTables.LongParamTable[ii].regName == Key) {
       return GetLongParameter(s_oParamTables.LongParamTable[ii].key);
@@ -245,7 +245,7 @@ long CSettingsStore::GetLongOption(const string &Key) {
   return false;
 }
 
-string CSettingsStore::GetStringOption(const string &Key) {
+std::string CSettingsStore::GetStringOption(const std::string &Key) {
   // Also make the call to the newer implementation
   for(int ii = 0; ii < NUM_OF_SPS; ii++) {
     if(s_oParamTables.StringParamTable[ii].regName == Key) {
@@ -259,7 +259,7 @@ string CSettingsStore::GetStringOption(const string &Key) {
   return false;
 }
 
-void CSettingsStore::SetBoolOption(const string &Key, bool Value) {
+void CSettingsStore::SetBoolOption(const std::string &Key, bool Value) {
   // Also make the call to the newer implementation
   for(int ii = 0; ii < NUM_OF_BPS; ii++) {
     if(s_oParamTables.BoolParamTable[ii].regName == Key) {
@@ -272,7 +272,7 @@ void CSettingsStore::SetBoolOption(const string &Key, bool Value) {
   DASHER_ASSERT(0);
 }
 
-void CSettingsStore::SetLongOption(const string &Key, long Value) {
+void CSettingsStore::SetLongOption(const std::string &Key, long Value) {
   // Also make the call to the newer implementation
   for(int ii = 0; ii < NUM_OF_LPS; ii++) {
     if(s_oParamTables.LongParamTable[ii].regName == Key) {
@@ -285,7 +285,7 @@ void CSettingsStore::SetLongOption(const string &Key, long Value) {
   DASHER_ASSERT(0);
 }
 
-void CSettingsStore::SetStringOption(const string &Key, const string &Value) {
+void CSettingsStore::SetStringOption(const std::string &Key, const std::string &Value) {
   // Also make the call to the newer implementation
   for(int ii = 0; ii < NUM_OF_SPS; ii++) {
     if(s_oParamTables.StringParamTable[ii].regName == Key) {
@@ -302,23 +302,23 @@ void CSettingsStore::SetStringOption(const string &Key, const string &Value) {
 functions are over-ridden.
 --------------------------------------------------------------------------*/
 
-bool CSettingsStore::LoadSetting(const string &Key, bool *Value) {
+bool CSettingsStore::LoadSetting(const std::string &Key, bool *Value) {
   return false;
 }
 
-bool CSettingsStore::LoadSetting(const string &Key, long *Value) {
+bool CSettingsStore::LoadSetting(const std::string &Key, long *Value) {
   return false;
 }
 
-bool CSettingsStore::LoadSetting(const string &Key, string *Value) {
+bool CSettingsStore::LoadSetting(const std::string &Key, std::string *Value) {
   return false;
 }
 
-void CSettingsStore::SaveSetting(const string &Key, bool Value) {
+void CSettingsStore::SaveSetting(const std::string &Key, bool Value) {
 }
 
-void CSettingsStore::SaveSetting(const string &Key, long Value) {
+void CSettingsStore::SaveSetting(const std::string &Key, long Value) {
 }
 
-void CSettingsStore::SaveSetting(const string &Key, const string &Value) {
+void CSettingsStore::SaveSetting(const std::string &Key, const std::string &Value) {
 }

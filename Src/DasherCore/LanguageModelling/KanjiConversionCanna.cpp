@@ -67,7 +67,7 @@ CKanjiConversionCanna::~CKanjiConversionCanna() {
   RkFinalize();
 }
 
-int CKanjiConversionCanna::ConvertKanji(string str) {
+int CKanjiConversionCanna::ConvertKanji(std::string str) {
   int nbun;
   char *pQuery = (char *)str.c_str();
 

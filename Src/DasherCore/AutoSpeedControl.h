@@ -18,10 +18,11 @@ class CAutoSpeedControl : public Dasher::CDasherComponent {
   ///
   /// AUTO-SPEED-CONTROL
   /// This is the main speed control function and drives all of auto speed control.
-  /// \param non-linear Dasher x coord
-  /// \param non-linear Dasher y coord
+  /// \param iDasherX non-linear Dasher x coord
+  /// \param iDasherY non-linear Dasher y coord
+  /// \param dFrameRate The current frame rate
+  /// \param pView The current Dasher view class
   ///
-  
   void SpeedControl(myint iDasherX, myint iDasherY, double dFrameRate, CDasherView *pView);
 
   virtual void HandleEvent(Dasher::CEvent *pEvent) {
@@ -34,14 +35,12 @@ class CAutoSpeedControl : public Dasher::CDasherComponent {
   /// Calculates the running variance of the angle between the +ve x-axis and the line joining 
   /// the cross hair to the mouse position.
   ///
-  
   inline double Variance();
 
   ///
   /// AUTO-SPEED-CONTROL
   /// Updates the exclusion radius for auto speed control.
   ///
-  
   inline double UpdateMinRadius();
 
   ///
@@ -50,7 +49,6 @@ class CAutoSpeedControl : public Dasher::CDasherComponent {
   /// of the angle between the +ve x-axis and the line joining 
   /// the cross hair to the mouse position.
   ///
-  
   double UpdateBitrate();
 
   ///
@@ -65,9 +63,9 @@ class CAutoSpeedControl : public Dasher::CDasherComponent {
   /// AUTO-SPEED-CONTROL
   /// Updates the *variances* of the two populations of mixture-of-2-Gaussians
   /// distribution of radii. These are used to calculate the exclusion radius.
-  /// \param radius
+  /// \param r radius
+  /// \param dFrameRate The current frame rate
   ///
-  
   void UpdateSigmas(double r, double dFrameRate);
 
   double m_dBitrate; //  stores max bit rate internally

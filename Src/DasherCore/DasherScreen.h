@@ -63,17 +63,17 @@ public:
   virtual void SendMarker(int /*iMarker*/ ) {
   };
 
-  // Draw a filled rectangle - given position and color id
-  //! Draw a filled rectangle
-  //!
-  //! Draw a coloured rectangle on the screen
-  //! \param x1 top left of rectangle (x coordinate)
-  //! \param y1 top left corner of rectangle (y coordinate)
-  //! \param x2 bottom right of rectangle (x coordinate)
-  //! \param y2 bottom right of rectangle (y coordinate)
-  //! \param Color the colour to be used (numeric)
-  //! \param ColorScheme Which colourscheme is to be used
-  //! \param bDrawOutline Whether to draw an outline or not
+  /// Draw a filled rectangle
+  ///
+  /// Draw a coloured rectangle on the screen
+  /// \param x1 top left of rectangle (x coordinate)
+  /// \param y1 top left corner of rectangle (y coordinate)
+  /// \param x2 bottom right of rectangle (x coordinate)
+  /// \param y2 bottom right of rectangle (y coordinate)
+  /// \param Color the colour to be used (numeric)
+  /// \param iOutlineColour The colour for the node outlines
+  /// \param ColorScheme Which colourscheme is to be used
+  /// \param bDrawOutline Whether to draw an outline or not
   /// \param bFill Whether to fill or not
   /// \param iThickness Line thickness for outline
 
@@ -81,12 +81,13 @@ public:
 
   virtual void DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, int iFillColour, int iThickness, bool bFill) = 0;
 
-  // Draw a line of fixed colour (usually black). Intended for static UI elements such as a cross-hair
-  //! Draw a line between each of the points in the array
-  //!
-  //! \param Points an array of points
-  //! \param Number the number of points in the array
-  //! \todo This is dumb - why does this need to be a separate function to the coloured version?
+  /// Draw a line of fixed colour (usually black). Intended for static UI elements such as a cross-hair
+  /// Draw a line between each of the points in the array
+  ///
+  /// \param Points an array of points
+  /// \param Number the number of points in the array
+  /// \param iWidth The line width
+  /// \todo This is dumb - why does this need to be a separate function to the coloured version?
 
   virtual void Polyline(point * Points, int Number, int iWidth) {
     Polyline(Points, Number, iWidth, 0);
@@ -124,9 +125,9 @@ public:
   //! Signal that a frame is finished - the screen should be updated
   virtual void Display() = 0;
 
-  //! Set a colour scheme
-  //!
-  //! \param ColourScheme A colour scheme that should be used
+  /// Set a colour scheme
+  ///
+  /// \param pColourScheme A colour scheme that should be used
   virtual void SetColourScheme(const Dasher::CColourIO::ColourInfo *pColourScheme) = 0;
   
   virtual void SetLoadBackground (bool value)=0;

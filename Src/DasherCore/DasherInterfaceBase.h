@@ -204,8 +204,8 @@ public:
 
   /// Draw a new Dasher frame, regardless of whether we're paused etc.
   /// \param iTime Current time in ms.
+  /// \param bForceRedraw 
   /// \todo See comments in cpp file for some functionality which needs to be re-implemented
-
   void NewFrame(unsigned long iTime, bool bForceRedraw);
 
 
@@ -249,9 +249,11 @@ public:
   void ChangeScreen(CDasherScreen * NewScreen); // We may change the widgets Dasher uses
 
   /// Train Dasher from a file
+  /// All traing data must be in UTF-8
   /// \param Filename File to load.
-
-  int TrainFile(std::string Filename, int iTotalBytes, int iOffset); // all training data must be in UTF-8.
+  /// \param iTotalBytes documentme
+  /// \param iOffset Document me
+  int TrainFile(std::string Filename, int iTotalBytes, int iOffset);
 
   /// Set the context in which Dasher makes predictions
   /// \param strNewContext The new context (UTF-8)

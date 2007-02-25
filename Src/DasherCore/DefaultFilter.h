@@ -5,7 +5,7 @@
 #include "AutoSpeedControl.h"
 #include "StartHandler.h"
 
-/// \ingroup Input
+/// \ingroup InputFilter
 /// @{
 class CDefaultFilter : public CInputFilter {
  public:

@@ -289,12 +289,12 @@ void CSocketInputBase::SetDebug(bool _debug) {
   }
 }
 
-void CSocketInputBase::ReportError(string s) {
+void CSocketInputBase::ReportError(std::string s) {
   // override this to pop up a message box etc.
   cerr << s << endl;
 }
 
-void CSocketInputBase::ReportErrnoError(string prefix) {
+void CSocketInputBase::ReportErrnoError(std::string prefix) {
   // override this to pop up a message box
   cerr << "Dasher Socket Input error: ";
   perror(prefix.c_str());

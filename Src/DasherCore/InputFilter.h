@@ -10,7 +10,7 @@ namespace Dasher {
   class CDasherInterfaceBase;
 }
 
-/// \defgroup Input Input filters
+/// \defgroup InputFilter Input filters
 /// @{
 class CInputFilter : public CDasherModule {
  public:

@@ -17,9 +17,14 @@
 #include <utility>              // for std::pair
 #include <stdio.h>              // for C style file IO
 
+/// \cond expat
+
 namespace expat {
 #include "../Common/Expat/lib/expat.h"
 }
+
+/// \endcond
+
 namespace Dasher {
   class CColourIO;
 }

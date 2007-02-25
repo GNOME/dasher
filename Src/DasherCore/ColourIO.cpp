@@ -19,7 +19,9 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CColourIO::CColourIO(string SystemLocation, string UserLocation, vector <string >Filenames)
+// TODO: Share information with AlphIO class?
+
+CColourIO::CColourIO(std::string SystemLocation, std::string UserLocation, std::vector<std::string> Filenames)
 :BlankInfo(), SystemLocation(SystemLocation), UserLocation(UserLocation), Filenames(Filenames), LoadMutable(false), CData("") {
   CreateDefault();
 
@@ -115,7 +117,7 @@ void CColourIO::Save(const std::string &ColourID) {
   // overhead doesn't seem to matter and it makes things much easier.
 
   FILE *Output;
-  string Filename = UserLocation + "colours.xml";
+  std::string Filename = UserLocation + "colours.xml";
   if((Output = fopen(Filename.c_str(), "w")) == (FILE *) 0) {
     // could not open file
   }
@@ -128,6 +130,8 @@ void CColourIO::Save(const std::string &ColourID) {
 }
 
 void CColourIO::CreateDefault() {
+  // TODO: Urgh - replace with a table
+  
   ColourInfo & Default = Colours["Default"];
   Default.ColourID = "Default";
   Default.Mutable = false;
@@ -866,7 +870,7 @@ void CColourIO::CreateDefault() {
 void CColourIO::XML_Escape(std::string *Text, bool Attribute) {
   // The XML "W3C Recommendation" is here: http://www.w3.org/TR/REC-xml
 
-  string & Input = *Text;       // Makes syntax less fiddly below
+  std::string & Input = *Text;       // Makes syntax less fiddly below
 
   for(unsigned int i = 0; i < Text->size(); i++) {
     // & and < need escaping in XML. In one rare circumstance >
@@ -901,7 +905,7 @@ void CColourIO::XML_Escape(std::string *Text, bool Attribute) {
 // Below here handlers for the Expat XML input library
 ////////////////////////////////////////////////////////////////////////////////////
 
-void CColourIO::XML_StartElement(void *userData, const XML_Char *name, const XML_Char **atts) {
+void CColourIO::XML_StartElement(void *userData, const expat::XML_Char *name, const expat::XML_Char **atts) {
   CColourIO *Me = (CColourIO *) userData;
 
   Me->CData = "";
@@ -942,7 +946,7 @@ void CColourIO::XML_StartElement(void *userData, const XML_Char *name, const XML
     return;
   }
 }
-void CColourIO::XML_EndElement(void *userData, const XML_Char *name) {
+void CColourIO::XML_EndElement(void *userData, const expat::XML_Char *name) {
   CColourIO *Me = (CColourIO *) userData;
 
   if(strcmp(name, "palette") == 0) {
@@ -951,7 +955,7 @@ void CColourIO::XML_EndElement(void *userData, const XML_Char *name) {
   }
 }
 
-void CColourIO::XML_CharacterData(void *userData, const XML_Char *s, int len) {
+void CColourIO::XML_CharacterData(void *userData, const expat::XML_Char *s, int len) {
   // CAREFUL: s points to a string which is NOT null-terminated.
 
   CColourIO *Me = (CColourIO *) userData;

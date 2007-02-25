@@ -229,7 +229,7 @@ int CWordLanguageModel::lookup_word_const(const std::string &w) const {
 /////////////////////////////////////////////////////////////////////
 // get the probability distribution at the context
 
-void CWordLanguageModel::GetProbs(Context context, vector <unsigned int >&probs, int norm) const {
+void CWordLanguageModel::GetProbs(Context context, std::vector<unsigned int> &probs, int norm) const {
   // Got rid of const below
 
   CWordLanguageModel::CWordContext * wordcontext = (CWordContext *) (context);

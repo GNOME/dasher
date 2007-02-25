@@ -5,7 +5,7 @@
 
 #include <deque>
 
-/// \ingroup Input
+/// \ingroup InputFilter
 /// @{
 class CTwoButtonDynamicFilter : public CInputFilter {
  public:

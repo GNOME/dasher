@@ -312,11 +312,12 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   /// Calculate the new co-ordinates for the root node after a single
   /// update step. For further information, see Doc/geometry.tex.
   /// 
-  /// \param Mousex x mouse co-ordinate measured right to left.
-  /// \param Mousey y mouse co-ordinate measured top to bottom.
-  /// \return Returns the number of nats entered
+  /// \param mousex x mouse co-ordinate measured right to left.
+  /// \param mousey y mouse co-ordinate measured top to bottom.
+  /// \param iNewMin New root min
+  /// \param iNewMax New root max
+  /// \param iTime Current timestamp
   ///
-
   void Get_new_root_coords(myint mousex, myint mousey, myint &iNewMin, myint &iNewMax, unsigned long iTime);
 
   double CorrectionFactor(int dasherx, int dashery);

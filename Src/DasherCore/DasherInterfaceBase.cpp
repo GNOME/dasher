@@ -671,7 +671,7 @@ void CDasherInterfaceBase::DeleteAlphabet(const std::string &AlphID) {
 	the string instead of reading straight into a string seems to be
 	negligible compared to huge requirements elsewhere.
 */
-int CDasherInterfaceBase::TrainFile(string Filename, int iTotalBytes, int iOffset) {
+int CDasherInterfaceBase::TrainFile(std::string Filename, int iTotalBytes, int iOffset) {
   if(Filename == "")
     return 0;
   

@@ -61,7 +61,7 @@ CJapaneseLanguageModel::~CJapaneseLanguageModel() {
 /////////////////////////////////////////////////////////////////////
 // Get the probability distribution at the context
 
-void CJapaneseLanguageModel::GetProbs(Context context, vector <unsigned int >&probs, int norm) const {
+void CJapaneseLanguageModel::GetProbs(Context context, std::vector<unsigned int> &probs, int norm) const {
   CPPMContext *ppmcontext = (CPPMContext *) (context);
 
   int iNumSymbols = GetSize();

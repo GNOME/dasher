@@ -29,11 +29,11 @@ alphabet_map::alphabet_map(unsigned int InitialTableSize)
   Entries.reserve(InitialTableSize);
 }
 
-void alphabet_map::Add(const string &Key, symbol Value) {
+void alphabet_map::Add(const std::string &Key, symbol Value) {
   RecursiveAdd(Key, Value, false);
 }
 
-void alphabet_map::RecursiveAdd(const string &Key, symbol Value, bool PrefixFlag) {
+void alphabet_map::RecursiveAdd(const std::string &Key, symbol Value, bool PrefixFlag) {
   Entry *&HashEntry = HashTable[Hash(Key)];
 
   // Loop through Entries with the correct Hash value.
@@ -77,7 +77,7 @@ void alphabet_map::RecursiveAdd(const string &Key, symbol Value, bool PrefixFlag
   HashEntry = &Entries.back();
 }
 
-symbol alphabet_map::Get(const string &Key, bool *KeyIsPrefix) const {
+symbol alphabet_map::Get(const std::string &Key, bool *KeyIsPrefix) const {
 
   DASHER_ASSERT_VALIDPTR_RW(KeyIsPrefix);
 

@@ -54,7 +54,7 @@ CPPMLanguageModel::~CPPMLanguageModel() {
 /////////////////////////////////////////////////////////////////////
 // Get the probability distribution at the context
 
-void CPPMLanguageModel::GetProbs(Context context, vector<unsigned int> &probs, int norm) const {
+void CPPMLanguageModel::GetProbs(Context context, std::vector<unsigned int> &probs, int norm) const {
   const CPPMContext *ppmcontext = (const CPPMContext *)(context);
 
   int iNumSymbols = GetSize();

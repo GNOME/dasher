@@ -28,7 +28,7 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   /// Get a root node of a given type
   ///
 
-  CDasherNode *GetRoot(int iType, CDasherNode *pParent, int iLower, int iUpper, void *pUserData);
+  CDasherNode *GetRoot(int iType, Dasher::CDasherNode *pParent, int iLower, int iUpper, void *pUserData);
 
   ///
   /// Resgister a control node 

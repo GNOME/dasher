@@ -52,13 +52,13 @@ class Dasher::CDasherView : public Dasher::CDasherComponent
 {
 public:
 
+  /// Constructor
   /// 
   /// \param pEventHandler Pointer to the event handler
   /// \param pSettingsStore Pointer to the settings store
   /// \param DasherScreen Pointer to the CDasherScreen object used to do rendering
-  /// \param DasherModel Reference to the CDasherModel which is to be represented
-
   CDasherView(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherScreen * DasherScreen);
+
   virtual ~ CDasherView() {
   }
   ///

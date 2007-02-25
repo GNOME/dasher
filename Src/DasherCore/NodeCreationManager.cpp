@@ -30,7 +30,7 @@ CNodeCreationManager::~CNodeCreationManager() {
 }
 
 
-CDasherNode *CNodeCreationManager::GetRoot( int iType, CDasherNode *pParent, int iLower, int iUpper, void *pUserData ) {
+CDasherNode *CNodeCreationManager::GetRoot(int iType, Dasher::CDasherNode *pParent, int iLower, int iUpper, void *pUserData ) {
   switch(iType) {
   case 0:
     return m_pAlphabetManagerFactory->GetRoot(pParent, iLower, iUpper, pUserData);

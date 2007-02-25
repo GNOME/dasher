@@ -26,9 +26,13 @@
 /*   }; */
 /* } */
 
+/// \cond expat
+
 namespace expat {
 #include "../../Common/Expat/lib/expat.h"
 }
+
+/// \endcond
 
 namespace Dasher {
   class CAlphIO;

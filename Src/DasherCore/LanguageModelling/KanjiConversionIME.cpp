@@ -36,7 +36,7 @@ CKanjiConversionIME::~CKanjiConversionIME() {
   IsInit = 0;
 }
 
-int CKanjiConversionIME::ConvertKanji(string str) {
+int CKanjiConversionIME::ConvertKanji(std::string str) {
   HKL hKL;
   DWORD dwSize;
   LPCANDIDATELIST lpCand;

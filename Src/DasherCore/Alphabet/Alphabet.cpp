@@ -99,7 +99,7 @@ CAlphabet::CAlphabet(const CAlphIO::AlphInfo &AlphInfo)
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CAlphabet::GetSymbols(vector <symbol >*Symbols, string *Input, bool IsMore) const {
+void CAlphabet::GetSymbols(std::vector<symbol > *Symbols, std::string *Input, bool IsMore) const {
   string Tmp;
   symbol CurSymbol = 0, TmpSymbol = 0;
   bool KeyIsPrefix = false;
@@ -167,7 +167,7 @@ void CAlphabet::GetSymbols(vector <symbol >*Symbols, string *Input, bool IsMore)
 }
 
 // add single char to the character set
-void CAlphabet::AddChar(const string NewCharacter, const string Display, int Colour, const string Foreground) {
+void CAlphabet::AddChar(const std::string NewCharacter, const std::string Display, int Colour, const std::string Foreground) {
   m_Characters.push_back(NewCharacter);
   m_Display.push_back(Display);
   m_Colours.push_back(Colour);
@@ -179,35 +179,35 @@ void CAlphabet::AddChar(const string NewCharacter, const string Display, int Col
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CAlphabet::AddParagraphSymbol(const string NewCharacter, const string Display, int Colour, const string Foreground) {
+void CAlphabet::AddParagraphSymbol(const std::string NewCharacter, const std::string Display, int Colour, const std::string Foreground) {
   AddChar(NewCharacter, Display, Colour, Foreground);
   m_ParagraphSymbol = GetNumberSymbols() - 1;
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CAlphabet::AddSpaceSymbol(const string NewCharacter, const string Display, int Colour, const string Foreground) {
+void CAlphabet::AddSpaceSymbol(const std::string NewCharacter, const std::string Display, int Colour, const std::string Foreground) {
   AddChar(NewCharacter, Display, Colour, Foreground);
   m_SpaceSymbol = GetNumberSymbols() - 1;
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CAlphabet::AddControlSymbol(const string NewCharacter, const string Display, int Colour, const string Foreground) {
+void CAlphabet::AddControlSymbol(const std::string NewCharacter, const std::string Display, int Colour, const std::string Foreground) {
   AddChar(NewCharacter, Display, Colour, Foreground);
   m_ControlSymbol = GetNumberSymbols() - 1;
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CAlphabet::AddStartConversionSymbol(const string NewCharacter, const string Display, int Colour, const string Foreground) {
+void CAlphabet::AddStartConversionSymbol(const std::string NewCharacter, const std::string Display, int Colour, const std::string Foreground) {
   AddChar(NewCharacter, Display, Colour, Foreground);
   m_StartConversionSymbol = GetNumberSymbols() - 1;
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CAlphabet::AddEndConversionSymbol(const string NewCharacter, const string Display, int Colour, const string Foreground) {
+void CAlphabet::AddEndConversionSymbol(const std::string NewCharacter, const std::string Display, int Colour, const std::string Foreground) {
   AddChar(NewCharacter, Display, Colour, Foreground);
   m_EndConversionSymbol = GetNumberSymbols() - 1;
 }

@@ -3,7 +3,7 @@
 
 #include "DefaultFilter.h"
 
-/// \ingroup Input
+/// \ingroup InputFilter
 /// @{
 class CStylusFilter : public CDefaultFilter {
  public:

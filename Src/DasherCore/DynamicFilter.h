@@ -3,7 +3,7 @@
 
 #include "TwoButtonDynamicFilter.h"
 
-/// \ingroup Input
+/// \ingroup InputFilter
 /// @{
 class CDynamicFilter : public CTwoButtonDynamicFilter {
  public:

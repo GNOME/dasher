@@ -24,11 +24,11 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CAlphIO::CAlphIO(string SystemLocation, string UserLocation, vector <string >Filenames)
+CAlphIO::CAlphIO(std::string SystemLocation, std::string UserLocation, std::vector<std::string> Filenames)
 :BlankInfo(), SystemLocation(SystemLocation), UserLocation(UserLocation), Filenames(Filenames), LoadMutable(false), CData("") {
   CreateDefault();
 
-  typedef pair < Opts::AlphabetTypes, string > AT;
+  typedef pair < Opts::AlphabetTypes, std::string > AT;
   vector < AT > Types;
   Types.push_back(AT(Opts::MyNone, "None"));
   Types.push_back(AT(Opts::Arabic, "Arabic"));
@@ -153,7 +153,7 @@ void CAlphIO::Save(const std::string &AlphID) {
   // overhead doesn't seem to matter and it makes things much easier.
   char Number[sizeof(int)];
   FILE *Output;
-  string Filename = UserLocation + "alphabet.xml";
+  std::string Filename = UserLocation + "alphabet.xml";
   if((Output = fopen(Filename.c_str(), "w")) == (FILE *) 0) {
     // could not open file
   }
@@ -314,7 +314,7 @@ void CAlphIO::CreateDefault() {
   Default.TrainingFile = "training_english_GB.txt";
   Default.GameModeFile = "gamemode_english_GB.txt";
   Default.PreferredColours = "Default";
-  string Chars = "abcdefghijklmnopqrstuvwxyz";
+  std::string Chars = "abcdefghijklmnopqrstuvwxyz";
 
 //   // Obsolete
 //   Default.Groups.resize(1);
@@ -341,7 +341,7 @@ void CAlphIO::CreateDefault() {
 void CAlphIO::XML_Escape(std::string *Text, bool Attribute) {
   // The XML "W3C Recommendation" is here: http://www.w3.org/TR/REC-xml
 
-  string & Input = *Text;       // Makes syntax less fiddly below
+  std::string & Input = *Text;       // Makes syntax less fiddly below
 
   for(unsigned int i = 0; i < Text->size(); i++) {
     // & and < need escaping in XML. In one rare circumstance >
@@ -376,7 +376,7 @@ void CAlphIO::XML_Escape(std::string *Text, bool Attribute) {
 // Below here handlers for the Expat XML input library
 ////////////////////////////////////////////////////////////////////////////////////
 
-void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_Char **atts) {
+void CAlphIO::XML_StartElement(void *userData, const expat::XML_Char *name, const expat::XML_Char **atts) {
   CAlphIO *Me = (CAlphIO *) userData;
 
   Me->CData = "";
@@ -704,7 +704,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
   }
 }
 
-void CAlphIO::XML_EndElement(void *userData, const XML_Char *name) {
+void CAlphIO::XML_EndElement(void *userData, const expat::XML_Char *name) {
   CAlphIO *Me = (CAlphIO *) userData;
 
   if(strcmp(name, "alphabet") == 0) {
@@ -734,7 +734,7 @@ void CAlphIO::XML_EndElement(void *userData, const XML_Char *name) {
   }
 }
 
-void CAlphIO::XML_CharacterData(void *userData, const XML_Char *s, int len) {
+void CAlphIO::XML_CharacterData(void *userData, const expat::XML_Char *s, int len) {
   // CAREFUL: s points to a string which is NOT null-terminated.
 
   CAlphIO *Me = (CAlphIO *) userData;

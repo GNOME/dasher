@@ -3,7 +3,7 @@
 
 #include "InputFilter.h"
 
-/// \ingroup Input
+/// \ingroup InputFilter
 /// @{
 class CClickFilter : public CInputFilter {
  public:
