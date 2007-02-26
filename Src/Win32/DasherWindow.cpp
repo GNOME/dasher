@@ -237,7 +237,7 @@ int CDasherWindow::MessageLoop()
 void CDasherWindow::Show(int nCmdShow) 
 {
   // Make sure Dasher has started up.
-  m_pDasher->Start();
+ // m_pDasher->Start();
 
   // Clear SplashScreen
   delete Splash;

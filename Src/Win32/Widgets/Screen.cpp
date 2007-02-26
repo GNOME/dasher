@@ -87,7 +87,7 @@ CScreen::~CScreen() {
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CScreen::SetInterface(CDasherInterface *DasherInterface) {
+void CScreen::SetInterface(CDasherInterfaceBase *DasherInterface) {
   DASHER_ASSERT_VALIDPTR_RW(DasherInterface);
 
  // CDasherScreen::SetInterface(DasherInterface);
@@ -141,7 +141,7 @@ void CScreen::DrawMousePosBox(int which, int iMousePosDist,int layer) {
   Display();
 }
 
-void CScreen::DrawString(const std::string &OutputString, Dasher::screenint x1, Dasher::screenint y1, int iSize,int layer) {
+void CScreen::DrawString(const std::string &OutputString, Dasher::screenint x1, Dasher::screenint y1, int iSize) {
 
   Tstring OutputText;
 
@@ -220,7 +220,7 @@ void CScreen::TextSize_Impl(const std::string &String, screenint *Width, screeni
   CScreen::Polygon( Points, Number, iColour, 1);
 }*/
 
-void CScreen::Polygon(point *Points, int Number, int iColour, int iWidth,int layer) {
+void CScreen::Polygon(point *Points, int Number, int iColour, int iWidth) {
   HGDIOBJ hpOld;
   hpOld = (HPEN) SelectObject(m_hDCBuffer, CScreen::GetPen(iColour, iWidth));
   POINT *WinPoints = new POINT[Number];

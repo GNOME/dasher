@@ -405,7 +405,7 @@ protected:
 
   /// @}
 
-  CDasherModule *GetModule(long long int iID);
+  CDasherModule *GetModule(ModuleID_t iID);
   CDasherModule *GetModuleByName(const std::string &strName);
 
   CEventHandler *m_pEventHandler;

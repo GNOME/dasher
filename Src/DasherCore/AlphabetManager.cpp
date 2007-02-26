@@ -122,8 +122,12 @@ void CAlphabetManager::PopulateChildren( CDasherNode *pNode ) {
 
 CDasherNode *CAlphabetManager::CreateGroupNode(CDasherNode *pParent, SGroupInfo *pInfo, std::vector<unsigned int> *pCProb, unsigned int iStart, unsigned int iEnd, unsigned int iMin, unsigned int iMax) {
 
-  unsigned int iLbnd = (myint)((*pCProb)[iStart-1] - (*pCProb)[iMin-1]) * m_pNCManager->GetLongParameter(LP_NORMALIZATION) / ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]);
-  unsigned int iHbnd = (myint)((*pCProb)[iEnd-1] - (*pCProb)[iMin-1]) * m_pNCManager->GetLongParameter(LP_NORMALIZATION) / ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]);
+  unsigned int iLbnd = (((*pCProb)[iStart-1] - (*pCProb)[iMin-1]) * 
+	  (unsigned __int64)(m_pNCManager->GetLongParameter(LP_NORMALIZATION))) /
+	  ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]);
+  unsigned int iHbnd = (((*pCProb)[iEnd-1] - (*pCProb)[iMin-1]) * 
+	  (unsigned __int64)(m_pNCManager->GetLongParameter(LP_NORMALIZATION))) / 
+	  ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]);
 
   SAlphabetData *pParentData = static_cast<SAlphabetData *>(pParent->m_pUserData);
   
@@ -155,8 +159,12 @@ CDasherNode *CAlphabetManager::CreateGroupNode(CDasherNode *pParent, SGroupInfo 
 CDasherNode *CAlphabetManager::CreateSymbolNode(CDasherNode *pParent, symbol iSymbol, std::vector<unsigned int> *pCProb, unsigned int iStart, unsigned int iEnd, unsigned int iMin, unsigned int iMax, symbol iExistingSymbol, CDasherNode *pExistingChild) {
   // TODO: Node deletion etc.
 
-  unsigned int iLbnd = (myint)((*pCProb)[iStart-1] - (*pCProb)[iMin-1]) * m_pNCManager->GetLongParameter(LP_NORMALIZATION) / ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]);
-  unsigned int iHbnd = (myint)((*pCProb)[iEnd-1] - (*pCProb)[iMin-1]) * m_pNCManager->GetLongParameter(LP_NORMALIZATION) / ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]);
+  unsigned int iLbnd = (((*pCProb)[iStart-1] - (*pCProb)[iMin-1]) * 
+	  (unsigned __int64)(m_pNCManager->GetLongParameter(LP_NORMALIZATION))) / 
+	  ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]);
+  unsigned int iHbnd = (((*pCProb)[iEnd-1] - (*pCProb)[iMin-1]) * 
+	  (unsigned __int64)(m_pNCManager->GetLongParameter(LP_NORMALIZATION))) / 
+	  ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]);
 
   SAlphabetData *pParentData = static_cast<SAlphabetData *>(pParent->m_pUserData);
   CDasherNode *pNewNode = NULL;

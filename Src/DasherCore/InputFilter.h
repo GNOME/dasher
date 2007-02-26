@@ -14,7 +14,7 @@ namespace Dasher {
 /// @{
 class CInputFilter : public CDasherModule {
  public:
-  CInputFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface, long long int iID, int iType, const char *szName)
+  CInputFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, int iType, const char *szName)
     : CDasherModule(pEventHandler, pSettingsStore, iID, iType, szName) {
     m_pInterface = pInterface;
   };

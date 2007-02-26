@@ -4,13 +4,21 @@
 #include "../Common/ModuleSettings.h"
 #include "DasherComponent.h"
 
+#define VC7
+
+#ifdef VC7
+typedef __int64 ModuleID_t;
+#else
+typedef long long int ModuleID_t;
+#endif
+
 /// \ingroup Core
 /// @{
 class CDasherModule : public Dasher::CDasherComponent {
  public:
-  CDasherModule(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, long long int iID, int iType, const char *szName);
+  CDasherModule(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, ModuleID_t iID, int iType, const char *szName);
 
-  virtual long long int GetID();
+  virtual ModuleID_t GetID();
   virtual int GetType();
   virtual const char *GetName();
 
@@ -33,7 +41,7 @@ class CDasherModule : public Dasher::CDasherComponent {
   virtual void Unref();
 
  private:
-  long long int m_iID;
+  ModuleID_t m_iID;
   int m_iType;
   int m_iRefCount;
   const char *m_szName;

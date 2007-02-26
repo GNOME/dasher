@@ -7,7 +7,7 @@
 /// @{
 class CStylusFilter : public CDefaultFilter {
  public:
-  CStylusFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *pDasherModel, long long int iID, const char *szName);
+  CStylusFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *pDasherModel, ModuleID_t iID, const char *szName);
 
   virtual void KeyDown(int iTime, int iId, CDasherModel *pModel);
   virtual void KeyUp(int iTime, int iId, CDasherModel *pModel);

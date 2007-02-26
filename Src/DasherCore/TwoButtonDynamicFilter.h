@@ -9,7 +9,7 @@
 /// @{
 class CTwoButtonDynamicFilter : public CInputFilter {
  public:
-  CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, long long int iID, int iType, const char *szName);
+  CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, int iType, const char *szName);
   ~CTwoButtonDynamicFilter();
 
   // Inherited methods

@@ -18,7 +18,7 @@ class Dasher::CDasherInput : public CDasherModule {
 
 public:
 
-  CDasherInput(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, long long int iID, int iType, const char *szName) 
+  CDasherInput(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, ModuleID_t iID, int iType, const char *szName) 
     : CDasherModule(pEventHandler, pSettingsStore, iID, iType, szName) {};
 
   /// Set the maximum values for each of the coordinates. Minimum

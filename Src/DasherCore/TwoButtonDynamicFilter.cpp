@@ -24,7 +24,7 @@ static SModuleSettings sSettings[] = {
   {LP_DYNAMIC_MEDIAN_FACTOR, T_LONG, 10, 200, 100, 10, "Auto speed threshold"}
 };
 
-CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, long long int iID, int iType, const char *szName)
+CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, int iType, const char *szName)
   : CInputFilter(pEventHandler, pSettingsStore, pInterface, iID, iType, szName) { 
   //14, 1, "Two Button Dynamic Mode") {
   m_iState = 0;

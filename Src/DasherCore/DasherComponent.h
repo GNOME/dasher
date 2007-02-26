@@ -7,6 +7,7 @@ namespace Dasher {
   class CEventHandler;
 }
 
+
 class Dasher::CEvent;
 class Dasher::CEventHandler;
 #include "SettingsStore.h"

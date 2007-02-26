@@ -24,7 +24,7 @@ struct _SCENode {
 
   int NodeSize;
 
-  uint HZFreq;
+  unsigned int HZFreq;
   float HZProb;
 };
 /// \}

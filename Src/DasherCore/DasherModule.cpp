@@ -27,7 +27,7 @@
 // 17 = Discrete joystick
 // 18 = 1D joystick
 
-CDasherModule::CDasherModule(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, long long int iID, int iType, const char *szName) 
+CDasherModule::CDasherModule(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, ModuleID_t iID, int iType, const char *szName) 
   : CDasherComponent(pEventHandler, pSettingsStore) {
   m_iID = iID;
   m_iType = iType;
@@ -35,7 +35,7 @@ CDasherModule::CDasherModule(Dasher::CEventHandler * pEventHandler, CSettingsSto
   m_szName = szName;
 }
 
-long long int CDasherModule::GetID() {
+ModuleID_t CDasherModule::GetID() {
   return m_iID;
 }
 

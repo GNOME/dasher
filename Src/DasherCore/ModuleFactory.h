@@ -13,11 +13,11 @@ class CModuleFactory {
  public:
   virtual void Start() = 0;
   virtual bool IsMore() = 0;
-  virtual void GetNext(long long int *iID, int *iType, std::string *strName) = 0;
+  virtual void GetNext(ModuleID_t *iID, int *iType, std::string *strName) = 0;
 
-  virtual CDasherModule *GetModule(long long int iID) = 0;
-  virtual std::string GetName(long long int iID) = 0;
-  virtual int GetType(long long int iID) = 0;
+  virtual CDasherModule *GetModule(ModuleID_t iID) = 0;
+  virtual std::string GetName(ModuleID_t iID) = 0;
+  virtual int GetType(ModuleID_t iID) = 0;
 };
 /// @}
 

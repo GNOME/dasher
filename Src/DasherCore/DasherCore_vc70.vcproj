@@ -107,8 +107,7 @@
 	</Configurations>
 	<Files>
 		<Filter
-			Name="LanguageModelling"
-			Filter="">
+			Name="LanguageModelling">
 			<File
 				RelativePath="LanguageModelling\BigramLanguageModel.cpp">
 			</File>
@@ -122,52 +121,13 @@
 				RelativePath="LanguageModelling\DictLanguageModel.h">
 			</File>
 			<File
-				RelativePath=".\LanguageModelling\JapaneseLanguageModel.cpp">
-			</File>
-			<File
-				RelativePath=".\LanguageModelling\JapaneseLanguageModel.h">
-			</File>
-			<File
-				RelativePath=".\LanguageModelling\KanjiConversion.h">
-			</File>
-			<File
-				RelativePath=".\LanguageModelling\KanjiConversionIME.cpp">
-			</File>
-			<File
-				RelativePath=".\LanguageModelling\KanjiConversionIME.h">
-			</File>
-			<File
 				RelativePath="LanguageModelling\LanguageModel.cpp">
-				<FileConfiguration
-					Name="Unicode Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Unicode Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="LanguageModelling\LanguageModel.h">
 			</File>
 			<File
 				RelativePath="LanguageModelling\PPMLanguageModel.cpp">
-				<FileConfiguration
-					Name="Unicode Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Unicode Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="LanguageModelling\PPMLanguageModel.h">
@@ -180,8 +140,13 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Logging"
-			Filter="">
+			Name="Logging">
+			<File
+				RelativePath=".\BasicLog.cpp">
+			</File>
+			<File
+				RelativePath=".\BasicLog.h">
+			</File>
 			<File
 				RelativePath=".\FileLogger.cpp">
 			</File>
@@ -207,6 +172,12 @@
 				RelativePath=".\TimeSpan.h">
 			</File>
 			<File
+				RelativePath=".\UserButton.cpp">
+			</File>
+			<File
+				RelativePath=".\UserButton.h">
+			</File>
+			<File
 				RelativePath=".\UserLocation.cpp">
 			</File>
 			<File
@@ -217,6 +188,9 @@
 			</File>
 			<File
 				RelativePath=".\UserLog.h">
+			</File>
+			<File
+				RelativePath=".\UserLogBase.h">
 			</File>
 			<File
 				RelativePath=".\UserLogParam.cpp">
@@ -238,54 +212,29 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Win32"
-			Filter="">
+			Name="StartHanders">
 			<File
-				RelativePath="Win32\DasherInterface.cpp">
+				RelativePath=".\CircleStartHandler.cpp">
 			</File>
 			<File
-				RelativePath="Win32\DasherInterface.h">
+				RelativePath=".\CircleStartHandler.h">
 			</File>
 			<File
-				RelativePath="Win32\SocketInput.cpp">
+				RelativePath=".\StartHandler.h">
 			</File>
 			<File
-				RelativePath="Win32\SocketInput.h">
+				RelativePath=".\TwoBoxStartHandler.cpp">
 			</File>
 			<File
-				RelativePath="Win32\WinCommon.h">
-			</File>
-			<File
-				RelativePath="Win32\WinHelper.cpp">
-			</File>
-			<File
-				RelativePath="Win32\WinHelper.h">
-			</File>
-			<File
-				RelativePath="Win32\WinLocalisation.cpp">
-			</File>
-			<File
-				RelativePath="Win32\WinLocalisation.h">
-			</File>
-			<File
-				RelativePath="Win32\WinOptions.cpp">
-			</File>
-			<File
-				RelativePath="Win32\WinOptions.h">
-			</File>
-			<File
-				RelativePath="Win32\WinUTF8.cpp">
-			</File>
-			<File
-				RelativePath="Win32\WinUTF8.h">
-			</File>
-			<File
-				RelativePath="Win32\WinWrap.cpp">
-			</File>
-			<File
-				RelativePath="Win32\WinWrap.h">
+				RelativePath=".\TwoBoxStartHandler.h">
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\ActionButton.cpp">
+		</File>
+		<File
+			RelativePath=".\ActionButton.h">
+		</File>
 		<File
 			RelativePath="Alphabet\AlphIO.cpp">
 		</File>
@@ -317,6 +266,18 @@
 			RelativePath="Alphabet\AlphabetMap.h">
 		</File>
 		<File
+			RelativePath=".\AutoSpeedControl.cpp">
+		</File>
+		<File
+			RelativePath=".\AutoSpeedControl.h">
+		</File>
+		<File
+			RelativePath=".\ClickFilter.cpp">
+		</File>
+		<File
+			RelativePath=".\ClickFilter.h">
+		</File>
+		<File
 			RelativePath="ColourIO.cpp">
 		</File>
 		<File
@@ -335,16 +296,25 @@
 			RelativePath=".\ControlManagerFactory.h">
 		</File>
 		<File
+			RelativePath=".\ConversionHelper.h">
+		</File>
+		<File
+			RelativePath=".\ConversionManager.cpp">
+		</File>
+		<File
+			RelativePath=".\ConversionManager.h">
+		</File>
+		<File
+			RelativePath=".\ConversionManagerFactory.cpp">
+		</File>
+		<File
+			RelativePath=".\ConversionManagerFactory.h">
+		</File>
+		<File
 			RelativePath="CustomColours.cpp">
 		</File>
 		<File
 			RelativePath="CustomColours.h">
-		</File>
-		<File
-			RelativePath=".\DashEdit.cpp">
-		</File>
-		<File
-			RelativePath=".\DashEdit.h">
 		</File>
 		<File
 			RelativePath=".\DasherButtons.cpp">
@@ -357,12 +327,6 @@
 		</File>
 		<File
 			RelativePath="DasherComponent.h">
-		</File>
-		<File
-			RelativePath=".\DasherGameMode.cpp">
-		</File>
-		<File
-			RelativePath=".\DasherGameMode.h">
 		</File>
 		<File
 			RelativePath="DasherInput.h">
@@ -378,6 +342,12 @@
 		</File>
 		<File
 			RelativePath=".\DasherModel.h">
+		</File>
+		<File
+			RelativePath=".\DasherModule.cpp">
+		</File>
+		<File
+			RelativePath=".\DasherModule.h">
 		</File>
 		<File
 			RelativePath=".\DasherNode.cpp">
@@ -410,10 +380,22 @@
 			RelativePath=".\DasherViewSquare.inl">
 		</File>
 		<File
+			RelativePath=".\DefaultFilter.cpp">
+		</File>
+		<File
+			RelativePath=".\DefaultFilter.h">
+		</File>
+		<File
 			RelativePath=".\DelayedDraw.cpp">
 		</File>
 		<File
 			RelativePath=".\View\DelayedDraw.h">
+		</File>
+		<File
+			RelativePath=".\DynamicFilter.cpp">
+		</File>
+		<File
+			RelativePath=".\DynamicFilter.h">
 		</File>
 		<File
 			RelativePath="Event.h">
@@ -425,10 +407,64 @@
 			RelativePath="EventHandler.h">
 		</File>
 		<File
+			RelativePath=".\EyetrackerFilter.cpp">
+		</File>
+		<File
+			RelativePath=".\EyetrackerFilter.h">
+		</File>
+		<File
 			RelativePath="FrameRate.h">
 		</File>
 		<File
+			RelativePath=".\IMEConversionHelper.cpp">
+		</File>
+		<File
+			RelativePath=".\IMEConversionHelper.h">
+		</File>
+		<File
+			RelativePath=".\InputFilter.h">
+		</File>
+		<File
+			RelativePath=".\ModuleFactory.h">
+		</File>
+		<File
+			RelativePath=".\ModuleManager.cpp">
+		</File>
+		<File
+			RelativePath=".\ModuleManager.h">
+		</File>
+		<File
+			RelativePath=".\NodeCreationManager.cpp">
+		</File>
+		<File
+			RelativePath=".\NodeCreationManager.h">
+		</File>
+		<File
+			RelativePath=".\OneDimensionalFilter.cpp">
+		</File>
+		<File
+			RelativePath=".\OneDimensionalFilter.h">
+		</File>
+		<File
 			RelativePath="Parameters.h">
+		</File>
+		<File
+			RelativePath=".\PinYinConversionHelper.cpp">
+			<FileConfiguration
+				Name="Unicode Debug|Win32"
+				ExcludedFromBuild="TRUE">
+				<Tool
+					Name="VCCLCompilerTool"/>
+			</FileConfiguration>
+		</File>
+		<File
+			RelativePath=".\PinYinConversionHelper.h">
+			<FileConfiguration
+				Name="Unicode Debug|Win32"
+				ExcludedFromBuild="TRUE">
+				<Tool
+					Name="VCCustomBuildTool"/>
+			</FileConfiguration>
 		</File>
 		<File
 			RelativePath=".\SettingsStore.cpp">
@@ -437,10 +473,34 @@
 			RelativePath=".\SettingsStore.h">
 		</File>
 		<File
-			RelativePath="SocketInputBase.cpp">
+			RelativePath=".\SocketInputBase.cpp">
 		</File>
 		<File
-			RelativePath="SocketInputBase.h">
+			RelativePath=".\SocketInputBase.h">
+		</File>
+		<File
+			RelativePath=".\StylusFilter.cpp">
+		</File>
+		<File
+			RelativePath=".\StylusFilter.h">
+		</File>
+		<File
+			RelativePath=".\TwoButtonDynamicFilter.cpp">
+		</File>
+		<File
+			RelativePath=".\TwoButtonDynamicFilter.h">
+		</File>
+		<File
+			RelativePath="..\Win32\Common\WinUTF8.cpp">
+		</File>
+		<File
+			RelativePath="..\Win32\Common\WinUTF8.h">
+		</File>
+		<File
+			RelativePath=".\WrapperFactory.cpp">
+		</File>
+		<File
+			RelativePath=".\WrapperFactory.h">
 		</File>
 	</Files>
 	<Globals>

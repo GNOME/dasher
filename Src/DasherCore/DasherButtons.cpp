@@ -31,7 +31,7 @@ static SModuleSettings sSettings[] = {
 
 // FIXME - should compass mode be made a separate class?
 
-CDasherButtons::CDasherButtons(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, int iNumBoxes, int iStyle, bool bMenu, long long int iID, const char *szName)
+CDasherButtons::CDasherButtons(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, int iNumBoxes, int iStyle, bool bMenu, ModuleID_t iID, const char *szName)
   : CInputFilter(pEventHandler, pSettingsStore, pInterface, iID, 1, szName) {
 
   m_pBoxes = 0;

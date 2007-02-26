@@ -13,13 +13,13 @@
 class CModuleManager {
  public:
   void RegisterFactory(CModuleFactory *pFactory);
-  CDasherModule *GetModule(long long int iID);
+  CDasherModule *GetModule(ModuleID_t iID);
   CDasherModule *GetModuleByName(const std::string strName);
 
   void ListModules(int iType, std::vector<std::string> &vList);
 
  private:
-  std::map<long long int, CModuleFactory *> m_mapModules;
+  std::map<ModuleID_t, CModuleFactory *> m_mapModules;
 };
 /// \}
 

@@ -45,7 +45,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="0"
+				GlobalOptimizations="TRUE"
 				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\Philip Cowans\My Documents\dasher\dasher\Src\Win32\Common&quot;;&quot;C:\Documents and Settings\Philip Cowans\My Documents\dasher\dasher\Src\Win32&quot;;&quot;C:\Program Files\Microsoft Tablet PC Platform SDK\Include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0500"
 				MinimalRebuild="true"

@@ -20,7 +20,7 @@ bool CWrapperFactory::IsMore() {
   return (m_iCurrentPos < 1);
 }
 
-void CWrapperFactory::GetNext(long long int *iID, int *iType, std::string *strName) {
+void CWrapperFactory::GetNext(ModuleID_t *iID, int *iType, std::string *strName) {
   if(m_iCurrentPos == 0) {
     *iID = m_pModule->GetID();
     *iType = m_pModule->GetType();
@@ -29,21 +29,21 @@ void CWrapperFactory::GetNext(long long int *iID, int *iType, std::string *strNa
   ++m_iCurrentPos;
 }
 
-CDasherModule *CWrapperFactory::GetModule(long long int iID) {
+CDasherModule *CWrapperFactory::GetModule(ModuleID_t iID) {
   if(iID == m_pModule->GetID())
     return m_pModule;
   else
     return 0;
 }
 
-std::string CWrapperFactory::GetName(long long int iID) {
+std::string CWrapperFactory::GetName(ModuleID_t iID) {
   if(iID == m_pModule->GetID())
     return m_pModule->GetName();
   else
     return "Not implemented"; // TODO: Is this the right thing to do here?
 }
 
-int CWrapperFactory::GetType(long long int iID) {
+int CWrapperFactory::GetType(ModuleID_t iID) {
   if(iID == m_pModule->GetID())
     return m_pModule->GetType();
   else

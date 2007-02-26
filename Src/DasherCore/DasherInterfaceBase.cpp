@@ -930,7 +930,7 @@ void CDasherInterfaceBase::RegisterFactory(CModuleFactory *pFactory) {
   m_oModuleManager.RegisterFactory(pFactory);
 }
  
-CDasherModule *CDasherInterfaceBase::GetModule(long long int iID) {
+CDasherModule *CDasherInterfaceBase::GetModule(ModuleID_t iID) {
    return m_oModuleManager.GetModule(iID);
 }
 
