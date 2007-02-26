@@ -108,17 +108,17 @@ dasher_action_speech_execute(DasherAction *pSelf, DasherEditor *pEditor, int iId
 
 static gboolean 
 dasher_action_speech_preview(DasherAction *pSelf, DasherEditor *pEditor) {
-  gchar *szData = dasher_editor_get_all(pEditor);
+  const gchar *szData = dasher_editor_get_all_text(pEditor);
 
   if(!szData)
     return false;
 
-  gchar *szWord = strrchr(szData, " ") + 1;
+  gchar *szWord = strrchr(szData, ' ') + 1;
 
   DasherActionSpeechPrivate *pDasherActionSpeechPrivate = DASHER_ACTION_SPEECH_GET_PRIVATE(pSelf);
   
   if(pDasherActionSpeechPrivate->speaker != NULL) {
-    GNOME_Speech_Speaker_say(pDasherActionSpeechPrivate->speaker, szData, &(pDasherActionSpeechPrivate->ev));
+    GNOME_Speech_Speaker_say(pDasherActionSpeechPrivate->speaker, szWord, &(pDasherActionSpeechPrivate->ev));
   }
 
   return false;
