@@ -451,6 +451,12 @@
 		<File
 			RelativePath=".\PinYinConversionHelper.cpp">
 			<FileConfiguration
+				Name="Unicode Release|Win32"
+				ExcludedFromBuild="TRUE">
+				<Tool
+					Name="VCCLCompilerTool"/>
+			</FileConfiguration>
+			<FileConfiguration
 				Name="Unicode Debug|Win32"
 				ExcludedFromBuild="TRUE">
 				<Tool
@@ -459,6 +465,12 @@
 		</File>
 		<File
 			RelativePath=".\PinYinConversionHelper.h">
+			<FileConfiguration
+				Name="Unicode Release|Win32"
+				ExcludedFromBuild="TRUE">
+				<Tool
+					Name="VCCustomBuildTool"/>
+			</FileConfiguration>
 			<FileConfiguration
 				Name="Unicode Debug|Win32"
 				ExcludedFromBuild="TRUE">

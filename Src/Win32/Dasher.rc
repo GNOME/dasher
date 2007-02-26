@@ -103,25 +103,6 @@ BEGIN
                     BS_AUTOCHECKBOX | WS_TABSTOP,131,17,133,10
 END
 
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// DESIGNINFO
-//
-
-#ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
-BEGIN
-    IDD_PROPPAGE_LARGE, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 293
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 194
-    END
-END
-#endif    // APSTUDIO_INVOKED
-
 #endif    // English (U.S.) resources
 /////////////////////////////////////////////////////////////////////////////
 
@@ -155,91 +136,6 @@ BEGIN
 END
 
 #endif    // APSTUDIO_INVOKED
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Icon
-//
-
-// Icon with lowest ID value placed first to ensure application icon
-// remains consistent on all systems.
-IDI_DASHER              ICON                    "dasher.ico"
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Menu
-//
-
-IDC_DASHER MENU 
-BEGIN
-    POPUP "&File"
-    BEGIN
-        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW
-        MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN
-        MENUITEM "&Save\tCtrl+S",               ID_FILE_SAVE
-        MENUITEM "Save &As...",                 ID_FILE_SAVE_AS
-        MENUITEM "&Append to File...",          ID_FILE_APPEND, GRAYED
-        MENUITEM SEPARATOR
-        MENUITEM "&Import Training Text",       ID_IMPORT_TRAINFILE
-        MENUITEM SEPARATOR
-        MENUITEM "E&xit",                       IDM_EXIT
-    END
-    POPUP "&Edit"
-    BEGIN
-        MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT
-        MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY
-        MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE
-        MENUITEM SEPARATOR
-        MENUITEM "Copy &All\tF5",               ID_EDIT_COPY_ALL
-        MENUITEM SEPARATOR
-        MENUITEM "Select A&ll\tCtrl+A",         ID_EDIT_SELECTALL
-    END
-    POPUP "Options"
-    BEGIN
-        MENUITEM "Preferences...",              ID_OPTIONS_PREFS
-        MENUITEM SEPARATOR
-        MENUITEM "Edit Font...",                ID_OPTIONS_EDITFONT
-        MENUITEM "&Dasher Font...",             ID_OPTIONS_DASHERFONT
-        POPUP "Dasher Font Size"
-        BEGIN
-            MENUITEM "Normal",                      ID_OPTIONS_FONTSIZE_NORMAL
-            , CHECKED
-            MENUITEM "Large",                       ID_OPTIONS_FONTSIZE_LARGE
-
-            MENUITEM "Very Large",                  ID_OPTIONS_FONTSIZE_VERYLARGE
-
-        END
-        MENUITEM "&Reset Fonts",                ID_OPTIONS_RESETFONT
-    END
-    POPUP "&Help"
-    BEGIN
-        MENUITEM "Dasher &Tutorial",            ID_HELP_DASHERTUTORIAL
-        MENUITEM "&Help Topics",                ID_HELP_CONTENTS
-        MENUITEM SEPARATOR
-        MENUITEM "&About Dasher",               IDM_ABOUT
-    END
-END
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Accelerator
-//
-
-IDC_DASHER ACCELERATORS 
-BEGIN
-    "/",            IDM_ABOUT,              ASCII,  ALT, NOINVERT
-    "?",            IDM_ABOUT,              ASCII,  ALT, NOINVERT
-    "A",            ID_EDIT_SELECTALL,      VIRTKEY, CONTROL, NOINVERT
-    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
-    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
-    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
-    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
-    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL, NOINVERT
-    VK_F5,          ID_EDIT_COPY_ALL,       VIRTKEY, NOINVERT
-    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL, NOINVERT
-END
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -499,6 +395,7 @@ BEGIN
     CONTROL         "Control mode",IDC_CONTROLMODE,"Button",BS_AUTOCHECKBOX | 
                     WS_TABSTOP,14,122,59,10
     GROUPBOX        "Input Device:",IDC_STATIC,7,191,205,40
+    PUSHBUTTON      "Options",IDC_BUTTON_PREFS2,157,212,48,14
 END
 
 IDD_COLOUR DIALOGEX 0, 0, 256, 238
@@ -846,7 +743,7 @@ BEGIN
         BOTTOMMARGIN, 168
     END
 
-    IDD_DIALOG5, DIALOG
+    "IDD_DIALOG5", DIALOG
     BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 293
@@ -855,6 +752,91 @@ BEGIN
     END
 END
 #endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_DASHER              ICON                    "dasher.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDC_DASHER MENU 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW
+        MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN
+        MENUITEM "&Save\tCtrl+S",               ID_FILE_SAVE
+        MENUITEM "Save &As...",                 ID_FILE_SAVE_AS
+        MENUITEM "&Append to File...",          ID_FILE_APPEND, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "&Import Training Text",       ID_IMPORT_TRAINFILE
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       IDM_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT
+        MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY
+        MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE
+        MENUITEM SEPARATOR
+        MENUITEM "Copy &All\tF5",               ID_EDIT_COPY_ALL
+        MENUITEM SEPARATOR
+        MENUITEM "Select A&ll\tCtrl+A",         ID_EDIT_SELECTALL
+    END
+    POPUP "Options"
+    BEGIN
+        MENUITEM "Preferences...",              ID_OPTIONS_PREFS
+        MENUITEM SEPARATOR
+        MENUITEM "Edit Font...",                ID_OPTIONS_EDITFONT
+        MENUITEM "&Dasher Font...",             ID_OPTIONS_DASHERFONT
+        POPUP "Dasher Font Size"
+        BEGIN
+            MENUITEM "Normal",                      ID_OPTIONS_FONTSIZE_NORMAL
+            , CHECKED
+            MENUITEM "Large",                       ID_OPTIONS_FONTSIZE_LARGE
+
+            MENUITEM "Very Large",                  ID_OPTIONS_FONTSIZE_VERYLARGE
+
+        END
+        MENUITEM "&Reset Fonts",                ID_OPTIONS_RESETFONT
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "Dasher &Tutorial",            ID_HELP_DASHERTUTORIAL
+        MENUITEM "&Help Topics",                ID_HELP_CONTENTS
+        MENUITEM SEPARATOR
+        MENUITEM "&About Dasher",               IDM_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDC_DASHER ACCELERATORS 
+BEGIN
+    "/",            IDM_ABOUT,              ASCII,  ALT, NOINVERT
+    "?",            IDM_ABOUT,              ASCII,  ALT, NOINVERT
+    "A",            ID_EDIT_SELECTALL,      VIRTKEY, CONTROL, NOINVERT
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL, NOINVERT
+    VK_F5,          ID_EDIT_COPY_ALL,       VIRTKEY, NOINVERT
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL, NOINVERT
+END
 
 
 /////////////////////////////////////////////////////////////////////////////

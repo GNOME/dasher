@@ -86,7 +86,7 @@
 				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
 				OptimizeForWindowsApplication="TRUE"
-				AdditionalIncludeDirectories="WinCommon;Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;"
+				AdditionalIncludeDirectories="WinCommon;Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;;&quot;C:\Program Files\Microsoft Tablet PC Platform SDK\Include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0500"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -105,11 +105,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib ws2_32.lib"
+				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib ws2_32.lib htmlhelp.lib"
 				OutputFile=".\Target/Win32 Unicode Release/Dasher.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="&quot;C:\Program Files\Microsoft Speech SDK 5.1\Lib\i386&quot;"
+				AdditionalLibraryDirectories="&quot;C:\Program Files\Microsoft Speech SDK 5.1\Lib\i386&quot;;&quot;c:\Program Files\HTML Help Workshop\lib&quot;"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\Target/Win32 Unicode Release/Dasher.pdb"
 				SubSystem="2"/>
