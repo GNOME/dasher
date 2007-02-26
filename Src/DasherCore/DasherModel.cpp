@@ -188,14 +188,16 @@ void CDasherModel::RecursiveMakeRoot(CDasherNode *pNewRoot) {
   if(!pNewRoot->NodeIsParent(m_Root))
     RecursiveMakeRoot(pNewRoot->Parent());
 
-  Make_root(pNewRoot);
+  // Don't try to reparent subnodes
+  if(!pNewRoot->GetFlag(NF_SUBNODE))
+    Make_root(pNewRoot);
 }
 
 void CDasherModel::RebuildAroundNode(CDasherNode *pNode) {
   RecursiveMakeRoot(pNode);
   ClearRootQueue();
-  pNode->Delete_children();
-  pNode->m_pNodeManager->PopulateChildren(pNode);
+  m_Root->Delete_children();
+  m_Root->m_pNodeManager->PopulateChildren(m_Root);
 }
 
 void CDasherModel::Reparent_root(int lower, int upper) {
