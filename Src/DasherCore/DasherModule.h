@@ -4,9 +4,7 @@
 #include "../Common/ModuleSettings.h"
 #include "DasherComponent.h"
 
-#define VC7
-
-#ifdef VC7
+#ifdef WIN32
 typedef __int64 ModuleID_t;
 #else
 typedef long long int ModuleID_t;
