@@ -109,6 +109,7 @@ struct _DasherPreferencesDialoguePrivate {
   GtkWidget *pMousePosButton;
   GtkWidget *pMousePosStyle;
   GtkWidget *pActionTreeView;
+  GtkWidget *pNotebook;
 
   // Set this to ignore signals (ie loops coming back from setting widgets in response to parameters having changed)
   bool bIgnoreSignals;
@@ -236,6 +237,7 @@ DasherPreferencesDialogue *dasher_preferences_dialogue_new(GladeXML *pGladeWidge
   pPrivate->pPreferencesWindow = glade_xml_get_widget(pGladeWidgets, "preferences");
 
   pPrivate->pActionTreeView =glade_xml_get_widget(pGladeWidgets, "action_tree_view");
+  pPrivate->pNotebook = glade_xml_get_widget(pGladeWidgets, "notebook1");
 
   gtk_window_set_transient_for(GTK_WINDOW(pPrivate->pPreferencesWindow), pMainWindow);
 
@@ -257,21 +259,26 @@ DasherPreferencesDialogue *dasher_preferences_dialogue_new(GladeXML *pGladeWidge
   return pDasherControl;
 }
 
-void dasher_preferences_dialogue_show(DasherPreferencesDialogue *pSelf) {
+void dasher_preferences_dialogue_show(DasherPreferencesDialogue *pSelf, gint iPage) {
   DasherPreferencesDialoguePrivate *pPrivate = (DasherPreferencesDialoguePrivate *)(pSelf->private_data);
   // FIXME - REIMPLEMENT
 
   // Keep the preferences window in the correct position relative to the
   // main Dasher window
   
-  gtk_window_set_transient_for(GTK_WINDOW(pPrivate->pPreferencesWindow),pPrivate->pMainWindow);
+  //  gtk_window_set_transient_for(GTK_WINDOW(pPrivate->pPreferencesWindow),pPrivate->pMainWindow);
 #ifdef WITH_MAEMO
 #ifndef WITH_MAEMOFULLSCREEN
-  gtk_window_set_keep_above((pPrivate->pPreferencesWindow), true);
+  // gtk_window_set_keep_above((pPrivate->pPreferencesWindow), true);
 #endif
 #endif
   // TODO: reimplement
   //  gtk_window_set_keep_above(GTK_WINDOW(pPrivate->pPreferencesWindow), dasher_main_topmost(g_pDasherMain));
+
+  if(iPage > 0) {
+    gtk_notebook_set_current_page(GTK_NOTEBOOK(pPrivate->pNotebook), iPage - 1);
+  }
+
   gtk_window_present(GTK_WINDOW(pPrivate->pPreferencesWindow));
 }
 

@@ -1,5 +1,6 @@
 2007-02-26  Phil Cowans  <pjc51@cam.ac.uk>
 
+	* Made 'more alphabets' select the right page in the preferences dialogue
 	* Fixed crash when rebuilding model after switching control mode on/off
 	* Fixed #412217 (compile error with speech enabled)
 

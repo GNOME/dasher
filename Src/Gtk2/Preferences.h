@@ -33,7 +33,7 @@ struct _DasherPreferencesDialogueClass {
 
 DasherPreferencesDialogue *dasher_preferences_dialogue_new(GladeXML *pGladeWidgets, DasherEditor *pEditor, DasherAppSettings *pAppSettings, GtkWindow *pMainWindow);
 GType dasher_preferences_dialogue_get_type();
-void dasher_preferences_dialogue_show(DasherPreferencesDialogue *pSelf);
+void dasher_preferences_dialogue_show(DasherPreferencesDialogue *pSelf, gint iPage);
 void dasher_preferences_dialogue_handle_parameter_change(DasherPreferencesDialogue *pSelf, int iParameter);
 G_END_DECLS
 

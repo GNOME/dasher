@@ -130,6 +130,7 @@ static void dasher_main_menu_command(DasherMain *pSelf, GtkWidget *pWidget);
 static void dasher_main_command_import(DasherMain *pSelf);
 static void dasher_main_command_quit(DasherMain *pSelf);
 static void dasher_main_command_preferences(DasherMain *pSelf);
+static void dasher_main_command_preferences_alphabet(DasherMain *pSelf);
 static void dasher_main_command_tutorial(DasherMain *pSelf);
 static void dasher_main_command_help(DasherMain *pSelf);
 static void dasher_main_command_about(DasherMain *pself);
@@ -747,6 +748,11 @@ dasher_main_command(DasherMain *pSelf, const gchar *szCommand) {
     return TRUE;
   }
 
+  if(!strcmp(szCommand, "preferences_alphabet")) {
+    dasher_main_command_preferences_alphabet(pSelf);
+    return TRUE;
+  }
+
   if(!strcmp(szCommand, "tutorial")) {
     dasher_main_command_tutorial(pSelf);
     return TRUE;
@@ -977,7 +983,13 @@ static void dasher_main_command_quit(DasherMain *pSelf) {
 static void 
 dasher_main_command_preferences(DasherMain *pSelf) { 
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
-  dasher_preferences_dialogue_show(pPrivate->pPreferencesDialogue);
+  dasher_preferences_dialogue_show(pPrivate->pPreferencesDialogue, 0);
+}
+
+static void 
+dasher_main_command_preferences_alphabet(DasherMain *pSelf) { 
+  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
+  dasher_preferences_dialogue_show(pPrivate->pPreferencesDialogue, 1);
 }
 
 static void 
@@ -1117,7 +1129,7 @@ dasher_main_alphabet_combo_changed(DasherMain *pSelf) {
   if(!strcmp("More Alphabets...", szSelected)) {
     gtk_combo_box_set_active(GTK_COMBO_BOX(pPrivate->pAlphabetCombo), 0);
     //    dasher_preferences_dialogue_show(pPrivate->pPreferencesDialogue);
-    dasher_main_command(pSelf, "preferences");
+    dasher_main_command(pSelf, "preferences_alphabet");
   }
   else 
     dasher_app_settings_set_string(pPrivate->pAppSettings, SP_ALPHABET_ID, szSelected);
