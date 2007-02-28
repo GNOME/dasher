@@ -1,42 +1,65 @@
-// assert.h
+// myassert.h
 //
-// Copyright (c) 2001-2004 David Ward
+// Copyright (c) 2007 The Dasher Team
+//
+// This file is part of Dasher.
+//
+// Dasher is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// Dasher is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Dasher; if not, write to the Free Software 
+// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #ifndef __assert_h__
 #define __assert_h__
 
 #include "Platform.h"
 
-// DASHER_ASSERT macro defined below
-
-#ifdef DASHER_WIN32
-
-        // The DASHER_ASSERT macro causes execution to break into the debugger in DEBUG mode
-        // In non-debug debug builds - no check is done
-
-#ifdef DASHER_WINCE
-#ifdef DEBUG
-void __cdecl __debugbreak(void);
-#define DASHER_ASSERT(x)   if (!(x)) __debugbreak()
-#else
-#define DASHER_ASSERT(x)
+#ifndef DASHER_WIN32
+#include "config.h"
 #endif
 
+// The DASHER_ASSERT macro causes execution to break into the debugger in DEBUG mode
+// In non-debug debug builds - no check is done
+
+#ifdef DEBUG
+#ifdef DASHER_WIN32
+#ifdef DASHER_WINCE
+
+// Windows CE
+void __cdecl __debugbreak(void);
+#define DASHER_ASSERT(x)   if (!(x)) __debugbreak()
+
 #else
 
+// Other Win32 platforms
 #include <crtdbg.h>
 #define DASHER_ASSERT(expr) _ASSERT(expr)
 
-#endif
+#endif // DASHER_WINCE
+
+#else 
+
+// POSIX platforms (eg Linux)
+#include <cassert>
+#define DASHER_ASSERT(expr) assert(expr)
+
+#endif // DASHER_WIN32
 
 #else
 
-#include <cassert>
+// Non-debug version (assertions disabled)
+#define DASHER_ASSERT(expr)
 
-        // Please feel free to implement this differently on your platform
-#define DASHER_ASSERT(expr) assert(expr)
-
-#endif
+#endif // DEBUG
 
 /////////////////////////////////////////////////////////////////////////////
 

@@ -153,7 +153,8 @@ void CDasherModel::Make_root(CDasherNode *pNewRoot) {
 
   // TODO: Is the stack necessary at all? We may as well just keep the
   // existing data structure?
-  m_Root->DeleteNephews(pNewRoot);
+  
+  //  m_Root->DeleteNephews(pNewRoot);
 
   oldroots.push_back(m_Root);
 
@@ -189,7 +190,7 @@ void CDasherModel::RecursiveMakeRoot(CDasherNode *pNewRoot) {
     RecursiveMakeRoot(pNewRoot->Parent());
 
   // Don't try to reparent subnodes
-  if(!pNewRoot->GetFlag(NF_SUBNODE))
+  //  if(!pNewRoot->GetFlag(NF_SUBNODE))
     Make_root(pNewRoot);
 }
 
@@ -200,6 +201,7 @@ void CDasherModel::RebuildAroundNode(CDasherNode *pNode) {
   m_Root->m_pNodeManager->PopulateChildren(m_Root);
 }
 
+// TODO: Need to make this do the right thing with subnodes
 void CDasherModel::Reparent_root(int lower, int upper) {
   // Change the root node to the parent of the existing node. We need
   // to recalculate the coordinates for the "new" root as the user may
@@ -225,12 +227,18 @@ void CDasherModel::Reparent_root(int lower, int upper) {
 //     }
 
     // Tell the node manager to rebuild the parent
+    
     pNewRoot = m_Root->m_pNodeManager->RebuildParent(m_Root, iGenerations);
 
   }
   else {
     pNewRoot = oldroots.back();
     oldroots.pop_back();
+
+    while((oldroots.size() > 0) && pNewRoot->GetFlag(NF_SUBNODE)) {
+      pNewRoot = oldroots.back();
+      oldroots.pop_back();
+    }
   }
 
   // Return if there's no existing parent and no way of recreating one
@@ -804,6 +812,10 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
 
 void CDasherModel::Push_Node(CDasherNode *pNode) {
 
+  // TODO: Fix this and make an assertion again
+  if(pNode->GetFlag(NF_SUBNODE))
+    return;
+
   if(pNode->GetFlag(NF_ALLCHILDREN)) {
     DASHER_ASSERT(pNode->Children().size() > 0);
     // if there are children just give them a poke
@@ -851,58 +863,105 @@ bool CDasherModel::RenderToView(CDasherView *pView, bool bRedrawDisplay) {
     Push_Node(*it);
   }
 
-  // TODO: Temporarily disabled 
-//   for(std::vector<CDasherNode *>::iterator it(vDeleteList.begin()); it != vDeleteList.end(); ++it)
-//     (*it)->Delete_children();
+  // TODO: Fix this
+  for(std::vector<CDasherNode *>::iterator it(vDeleteList.begin()); it != vDeleteList.end(); ++it) {
+    if(!((*it)->GetFlag(NF_SUBNODE)))
+      (*it)->Delete_children();
+  }
 
   return bReturnValue;
 }
 
-bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
+// Return true to indicate zero or one nodes found, false for more than one
+bool CDasherModel::RecursiveCheckRoot(CDasherNode *pNode, CDasherNode **pNewNode, bool &bFound) {
+  CDasherNode::ChildMap & children = pNode->Children();
+  
+  for(CDasherNode::ChildMap::iterator it(children.begin()); it != children.end(); ++it) {
+    if((*it)->GetFlag(NF_SUBNODE)) {
+      if(!RecursiveCheckRoot(*it, pNewNode, bFound))
+	return false;
+    }
+    else if((*it)->GetFlag(NF_SUPER)) {
+      if(bFound) // TODO: This should be an error (and probably isn't worth checking for)
+	return false;
+      else {
+	*pNewNode = *it;
+	bFound = true;
+      }
+    }
+  }
 
-//  if(m_deGotoQueue.size() > 0)
- //   return false;
+  return true;
+}
+
+bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
+  // TODO: Check for non-subnode on return
+
+  //  if(m_deGotoQueue.size() > 0)
+  //   return false;
 
   CDasherNode *root(m_Root);
   CDasherNode::ChildMap & children = m_Root->Children();
 
-  if(pView->IsNodeVisible(m_Rootmin,m_Rootmax)) {
+  //  if(pView->IsNodeVisible(m_Rootmin,m_Rootmax)) {
+  if(!(m_Root->GetFlag(NF_SUPER))) {
     Reparent_root(root->Lbnd(), root->Hbnd());
+
+    DASHER_ASSERT(!(m_Root->GetFlag(NF_SUBNODE)));
+
     return(m_Root != root);
   }
 
-  if(children.size() == 0)
-    return false;
+  CDasherNode *pNewRoot = NULL;
 
-  int alive = 0;
-  CDasherNode *theone = 0;
+  bool bFound = false;
+
+  if(RecursiveCheckRoot(m_Root, &pNewRoot, bFound)) {
+    if(bFound) {
+      // We now have a new root, but it's not necessarily a direct
+      // descentent of the current root, so loop:
+
+      m_Root->DeleteNephews(pNewRoot);
+
+      RecursiveMakeRoot(pNewRoot);
+    }
+  }
+
+  DASHER_ASSERT(!(m_Root->GetFlag(NF_SUBNODE)));
+
+
+//   if(children.size() == 0)
+//     return false;
+
+//   int alive = 0;
+//   CDasherNode *theone = 0;
  
-  // Find whether there is exactly one alive child; if more, we don't care.
-  CDasherNode::ChildMap::iterator i;
-  for(i = children.begin(); i != children.end(); i++) {
-    if((*i)->GetFlag(NF_ALIVE)) {
-      alive++;
-      theone = *i;
-      if(alive > 1)
-        break;
-    }
-  }
+//   // Find whether there is exactly one alive child; if more, we don't care.
+//   CDasherNode::ChildMap::iterator i;
+//   for(i = children.begin(); i != children.end(); i++) {
+//     if((*i)->GetFlag(NF_ALIVE)) {
+//       alive++;
+//       theone = *i;
+//       if(alive > 1)
+//         break;
+//     }
+//   }
 
-  if(alive == 1) {
-    // We must have zoomed sufficiently that only one child of the root node 
-    // is still alive.  Let's make it the root.
+//   if(alive == 1) {
+//     // We must have zoomed sufficiently that only one child of the root node 
+//     // is still alive.  Let's make it the root.
 
-    myint y1 = m_Rootmin;
-    myint y2 = m_Rootmax;
-    myint range = y2 - y1;
+//     myint y1 = m_Rootmin;
+//     myint y2 = m_Rootmax;
+//     myint range = y2 - y1;
     
-    myint newy1 = y1 + (range * theone->Lbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
-    myint newy2 = y1 + (range * theone->Hbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
-    if(!pView->IsNodeVisible(newy1, newy2)) {
-        Make_root(theone);
-        return false;
-    }
-  }
+//     myint newy1 = y1 + (range * theone->Lbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
+//     myint newy2 = y1 + (range * theone->Hbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
+//     if(!pView->IsNodeVisible(newy1, newy2)) {
+//         Make_root(theone);
+//         return false;
+//     }
+//   }
   
   return false;
 }

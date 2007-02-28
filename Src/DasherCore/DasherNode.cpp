@@ -119,8 +119,12 @@ void CDasherNode::DeleteNephews(CDasherNode *pChild) {
 
   ChildMap::iterator i;
   for(i = Children().begin(); i != Children().end(); i++) {
-    if(*i != pChild) {
-      (*i)->Delete_children();
+    if((*i)->GetFlag(NF_SUBNODE))
+      (*i)->DeleteNephews(pChild);
+    else {
+      if(*i != pChild) {
+	(*i)->Delete_children();
+      }
     }
   }
 }

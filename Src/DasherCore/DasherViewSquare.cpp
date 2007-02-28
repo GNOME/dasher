@@ -152,6 +152,17 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
     return 0;
   }
   
+  // TODO: too slow?
+  // TODO: use flags more rather than delete/reparent lists
+  // pRender->SetFlag(NF_SUPER, !IsNodeVisible(y1, y2)); 
+  myint iDasherMinX;
+  myint iDasherMinY;
+  myint iDasherMaxX;
+  myint iDasherMaxY;
+  VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
+  pRender->SetFlag(NF_SUPER, (y1 < iDasherMinY) && (y2 > iDasherMaxY) && ((y2 - y1) > iDasherMaxX));
+ 
+
   if(pRender->ChildCount() == 0) {
 	  RenderNodePartFast(pRender->GetDisplayInfo()->iColour, y1, y2, mostleft, pRender->GetDisplayInfo()->strDisplayText, pRender->GetDisplayInfo()->bShove,y2-y1);
     vNodeList.push_back(pRender);

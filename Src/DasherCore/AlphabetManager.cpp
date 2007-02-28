@@ -229,7 +229,7 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CDasherNode *pParent, symbol iSy
     pDisplayInfo->bShove = true;
     pDisplayInfo->bVisible = true;
     pDisplayInfo->strDisplayText = m_pNCManager->GetAlphabet()->GetDisplayText(iSymbol);
-    
+
     pNewNode = new CDasherNode(pParent, iLbnd, iHbnd, pDisplayInfo);
     
     pNewNode->m_pNodeManager = this;

@@ -40,6 +40,7 @@
 #define NF_GAME 32
 #define NF_ALLCHILDREN 64
 #define NF_SUBNODE 128
+#define NF_SUPER 256
 
 namespace Dasher {
   class CDasherNode;
@@ -117,6 +118,8 @@ class Dasher::CDasherNode:private NoClones {
   ///
   /// NF_SUBNODE - Node should be considered an integral subnode of parents (eg groups)
   ///
+  /// NF_SUPER - Node covers entire visible area
+  /// 
   /// @param iFlag The flag to set
   /// @param bValue The new value of the flag
   ///

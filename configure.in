@@ -43,6 +43,15 @@ PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.4, have_glib=true, have_glib=false)
 
 AC_CHECK_LIB(expat, XML_Parse,, AC_MSG_ERROR([Expat library not found.]))
 
+AC_ARG_ENABLE(debug,
+	AC_HELP_STRING([--enable-debug],[build with additional debugging checks (default is NO)]),
+	 if test $withval = "no"; then
+	   DEBUG=false;
+	 else
+	   DEBUG=true;
+         fi,
+         DEBUG=false)
+
 AC_ARG_WITH([gnome],
 	 AC_HELP_STRING([--with-gnome],[build with GNOME support (default is YES)]), 
 	 if test $withval = "no"; then
@@ -220,6 +229,9 @@ dnl path to Xtst
 AC_SUBST(X_LIBS)
 fi
 
+if [[ x"$DEBUG" = xtrue ]]; then
+	AC_DEFINE([DEBUG], 1, [Additional debug checks enabled])
+fi
 
 if [[ x"$WITHGNOME" = xtrue ]]; then
 	PKG_CHECK_MODULES(gnome, libgnome-2.0 libgnomeui-2.0 gnome-vfs-2.0)

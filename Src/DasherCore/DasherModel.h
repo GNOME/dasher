@@ -404,6 +404,8 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   void HandleOutput(CDasherNode *pNewNode, CDasherNode *pOldNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted);
 
+  bool RecursiveCheckRoot(CDasherNode *pNode, CDasherNode **pNewNode, bool &bFound);
+
   CNodeCreationManager *m_pNodeCreationManager;
   bool m_bGameMode;
 
