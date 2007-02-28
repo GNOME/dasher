@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher 3.11.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-23 21:20+0100\n"
+"POT-Creation-Date: 2007-02-28 15:40+0100\n"
 "PO-Revision-Date: 2007-01-24 10:44+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-no@lister.ping.uio.no>\n"
@@ -82,6 +82,19 @@ msgstr "Kjartan Maraas <kmaraas@gnome.org>"
 #: ../Src/Gtk2/Preferences.cpp:822 ../Src/Gtk2/Preferences.cpp:824
 msgid "Training Dasher... please wait"
 msgstr "Lærer opp Dasher... vennligst vent"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:115
+#, c-format
+msgid "Unable to initialize speech support\n"
+msgstr "Kan ikke initiere støtte for tale\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:138
+msgid "Unable to initialize voices\n"
+msgstr "Kan ikke initiere stemmer\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:150
+msgid "Warning: unable to set speech parameters\n"
+msgstr "Advarsel: kunne ikke sette parametere for tale\n"
 
 #: ../Src/Gtk2/dasher.glade.h:1
 msgid "<b>Actions:</b>"
@@ -437,19 +450,6 @@ msgstr "_Importer treningstekst"
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:41
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "abcdefghijkæøå ABCDEFGHIJKÆØÅ"
-
-#: ../Src/Gtk2/dasher_action_speech.cpp:115
-#, c-format
-msgid "Unable to initialize speech support\n"
-msgstr "Kan ikke initiere støtte for tale\n"
-
-#: ../Src/Gtk2/dasher_action_speech.cpp:138
-msgid "Unable to initialize voices\n"
-msgstr "Kan ikke initiere stemmer\n"
-
-#: ../Src/Gtk2/dasher_action_speech.cpp:150
-msgid "Warning: unable to set speech parameters\n"
-msgstr "Advarsel: kunne ikke sette parametere for tale\n"
 
 #: ../Src/Gtk2/dashergpe.glade.h:6
 msgid "Enter text into other windows"
