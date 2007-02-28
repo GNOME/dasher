@@ -1,6 +1,22 @@
-// DasherModel.h
+// DasherModel.cpp
 //
-// Copyright (c) 2001-2005 David Ward
+// Copyright (c) 2007 The dasher Team
+//
+// This file is part of Dasher.
+//
+// Dasher is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// Dasher is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Dasher; if not, write to the Free Software 
+// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "../Common/Common.h"
 
@@ -38,11 +54,19 @@ static char THIS_FILE[] = __FILE__;
 
 // CDasherModel
 
-CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pDashIface, CDasherView *pView, int iOffset, bool bGameMode, const std::string &strGameModeText)
-:CDasherComponent(pEventHandler, pSettingsStore), m_pDasherInterface(pDashIface) {
+CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pDasherInterface, CDasherView *pView, int iOffset, bool bGameMode, const std::string &strGameModeText)
+  : CDasherComponent(pEventHandler, pSettingsStore) {
 
-  m_Root = 0;
-  //  m_pLanguageModel =NULL; 
+  m_pNodeCreationManager = pNCManager;
+  m_pDasherInterface = pDasherInterface;
+
+  m_bGameMode = bGameMode;
+  m_iOffset = iOffset; // TODO: Set through build routine
+
+  DASHER_ASSERT(m_pNodeCreationManager != NULL);
+  DASHER_ASSERT(m_pDasherInterface != NULL);
+
+  m_Root = NULL;
 
   m_Rootmin = 0;
   m_Rootmax = 0;
@@ -52,9 +76,6 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettin
   m_dMaxRate = 0.0;
   m_iTargetOffset = 0;
   m_dTotalNats = 0.0;
-  m_bGameMode = bGameMode;
-
-  m_iOffset = iOffset;
  
   // TODO: Need to rationalise the require conversion methods
 
@@ -74,8 +95,6 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettin
   int iNormalization = GetLongParameter(LP_NORMALIZATION);
   m_Rootmin_min = int64_min / iNormalization / 2;
   m_Rootmax_max = int64_max / iNormalization / 2;
-
-  m_pNodeCreationManager = pNCManager;
 
   //  m_pLanguageModel = m_pNodeCreationManager->GetLanguageModel();
   //  LearnContext = m_pNodeCreationManager->GetLearnContext();
@@ -97,8 +116,10 @@ CDasherModel::~CDasherModel() {
     m_Root = NULL;
   }
 
-  if(m_Root)
+  if(m_Root) {
     delete m_Root;
+    m_Root = NULL;
+  }
 }
 
 void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
@@ -143,19 +164,13 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
 }
 
 void CDasherModel::Make_root(CDasherNode *pNewRoot) {
-  if(!pNewRoot->NodeIsParent(m_Root))
-    return;
+  DASHER_ASSERT(pNewRoot != NULL);
+  DASHER_ASSERT(pNewRoot->NodeIsParent(m_Root));
 
   m_Root->SetFlag(NF_COMMITTED, true);
 
-  // Remove all children of current root other than the new root and
-  // push the new root onto the stack
-
   // TODO: Is the stack necessary at all? We may as well just keep the
   // existing data structure?
-  
-  //  m_Root->DeleteNephews(pNewRoot);
-
   oldroots.push_back(m_Root);
 
   while((oldroots.size() > 10) && (!m_bRequireConversion || (oldroots[0]->GetFlag(NF_CONVERTED)))) {
@@ -179,9 +194,8 @@ void CDasherModel::Make_root(CDasherNode *pNewRoot) {
 }
 
 void CDasherModel::RecursiveMakeRoot(CDasherNode *pNewRoot) {
-  // TODO: Macros for this kind of thing
-  if(!pNewRoot)
-    return;
+  DASHER_ASSERT(pNewRoot != NULL);
+  DASHER_ASSERT(m_Root != NULL);
 
   // TODO: we really ought to check that pNewRoot is actually a
   // descendent of the root, although that should be guaranteed
@@ -189,20 +203,25 @@ void CDasherModel::RecursiveMakeRoot(CDasherNode *pNewRoot) {
   if(!pNewRoot->NodeIsParent(m_Root))
     RecursiveMakeRoot(pNewRoot->Parent());
 
-  // Don't try to reparent subnodes
-  //  if(!pNewRoot->GetFlag(NF_SUBNODE))
-    Make_root(pNewRoot);
+  Make_root(pNewRoot);
 }
 
 void CDasherModel::RebuildAroundNode(CDasherNode *pNode) {
+  DASHER_ASSERT(pNode != NULL);
+  DASHER_ASSERT(!(pNode->GetFlag(NF_SUBNODE)));
+
   RecursiveMakeRoot(pNode);
+
   ClearRootQueue();
   m_Root->Delete_children();
+
   m_Root->m_pNodeManager->PopulateChildren(m_Root);
 }
 
 // TODO: Need to make this do the right thing with subnodes
 void CDasherModel::Reparent_root(int lower, int upper) {
+  DASHER_ASSERT(m_Root != NULL);
+
   // Change the root node to the parent of the existing node. We need
   // to recalculate the coordinates for the "new" root as the user may
   // have moved around within the current root
@@ -210,24 +229,10 @@ void CDasherModel::Reparent_root(int lower, int upper) {
   CDasherNode *pNewRoot;
 
   if(oldroots.size() == 0) {
-    // Figure out how many nodes are between the crosshair and the
-    // current root. This is used to figure out the cursor position of
-    // the current root in order to obtain context.
+    // No nodes in the stack, so make a new one
 
-    // TODO: store cursor position in the node itself. This would make
-    // life a lot easier in several ways
-    //    CDasherNode *pCurrentNode(Get_node_under_crosshair());
+    // TODO: iGenerations is redundant, get rid of it
     int iGenerations(0);
-
-    // TODO: This was failing - figure out why
-    
-//     while(pCurrentNode != m_Root) {
-//       ++iGenerations;
-//       pCurrentNode = pCurrentNode->Parent();
-//     }
-
-    // Tell the node manager to rebuild the parent
-    
     pNewRoot = m_Root->m_pNodeManager->RebuildParent(m_Root, iGenerations);
 
   }
@@ -242,9 +247,8 @@ void CDasherModel::Reparent_root(int lower, int upper) {
   }
 
   // Return if there's no existing parent and no way of recreating one
-  if(!pNewRoot) { 
+  if(pNewRoot == NULL)
     return;
-  }
 
   pNewRoot->SetFlag(NF_COMMITTED, false);
 
@@ -299,52 +303,28 @@ void CDasherModel::ClearRootQueue() {
 }
 
 CDasherNode *CDasherModel::Get_node_under_crosshair() {
-    return m_Root->Get_node_under(GetLongParameter(LP_NORMALIZATION), m_Rootmin + m_iTargetOffset, m_Rootmax + m_iTargetOffset, GetLongParameter(LP_OX), GetLongParameter(LP_OY));
+  DASHER_ASSERT(m_Root != NULL);
+
+  return m_Root->Get_node_under(GetLongParameter(LP_NORMALIZATION), m_Rootmin + m_iTargetOffset, m_Rootmax + m_iTargetOffset, GetLongParameter(LP_OX), GetLongParameter(LP_OY));
 }
 
 CDasherNode *CDasherModel::Get_node_under_mouse(myint Mousex, myint Mousey) {
+  DASHER_ASSERT(m_Root != NULL);
+
   return m_Root->Get_node_under(GetLongParameter(LP_NORMALIZATION), m_Rootmin + m_iTargetOffset, m_Rootmax + m_iTargetOffset, Mousex, Mousey);
 }
 
-// void CDasherModel::Start() {
-
-//   // FIXME - re-evaluate this function and SetContext...
-
-// //              m_pEditbox->get_new_context(ContextString,5);
-
-//   std::cout << "Called CDasherModel::Start()" << std::endl;
-
-//   std::string strNewContext("");
-
-//   SetContext(strNewContext);    // FIXME - REALLY REALLY broken!
-
-//   CEditContextEvent oEvent(5);
-
-//   InsertEvent(&oEvent);
-
-//   // FIXME - what if we don't get a reply?
-
-// //      m_pLanguageModel->ReleaseNodeContext(therootcontext);
-// //      ppmmodel->dump();
-// //      dump();
-
-// }
-
 void CDasherModel::DeleteTree() {
-  if(oldroots.size() > 0) {
-    delete oldroots[0];
-    oldroots.clear();
-    m_Root = NULL;
-  }
-
+  ClearRootQueue();
   delete m_Root;
+  m_Root = NULL;
 }
 
 void CDasherModel::InitialiseAtOffset(int iOffset, CDasherView *pView) {
   DeleteTree();
 
   if(iOffset == 0)
-    m_Root = GetRoot(0, NULL, 0,GetLongParameter(LP_NORMALIZATION), NULL);
+    m_Root = m_pNodeCreationManager->GetRoot(0, NULL, 0,GetLongParameter(LP_NORMALIZATION), NULL);
   else {
     // Get the most recent character
     std::string strContext = m_pDasherInterface->GetContext(iOffset - 1, 1);
@@ -356,7 +336,7 @@ void CDasherModel::InitialiseAtOffset(int iOffset, CDasherView *pView) {
 
     oData.iOffset = iOffset;
 
-    m_Root = GetRoot(0, NULL, 0, GetLongParameter(LP_NORMALIZATION), &oData);
+    m_Root = m_pNodeCreationManager->GetRoot(0, NULL, 0, GetLongParameter(LP_NORMALIZATION), &oData);
 
     delete[] oData.szContext;
   }
@@ -389,60 +369,10 @@ void CDasherModel::InitialiseAtOffset(int iOffset, CDasherView *pView) {
 
   // TODO: See if this is better positioned elsewhere
   m_pDasherInterface->ScheduleRedraw();
-
-
 }
 
-// void CDasherModel::SetContext(std::string &sNewContext) {
-
-//   std::cout << "Called CDasherModel::SetContext()" << std::endl;
-
-//   // TODO: This is probably the area most significantly in need of a
-//   // rethink. Get the language model out of here!  
-//   m_deGotoQueue.clear();
-
-//   DeleteTree();
-
-//   // CLanguageModel::Context therootcontext = m_pLanguageModel->CreateEmptyContext();
-
-//   if(sNewContext.size() == 0) {
-//     m_Root = GetRoot(0, NULL, 0,GetLongParameter(LP_NORMALIZATION), NULL);
-    
-//     //    EnterText(therootcontext, ". ");  
-//   }
-//   else {
-//     std::vector<symbol> vSymbols;
-//     //    m_pLanguageModel->SymbolAlphabet().GetAlphabetPointer()->GetSymbols(&vSymbols, &sNewContext, false);
-    
-//     int iRootSymbol(vSymbols[vSymbols.size()-1]);
-    
-//     m_Root = GetRoot(0, NULL, 0,GetLongParameter(LP_NORMALIZATION), &iRootSymbol);
-    
-//     //    EnterText(therootcontext, sNewContext);  
-//   }
-
-//   // TODO: Reimplement
-//   //  m_pLanguageModel->ReleaseContext(LearnContext);
-//   // LearnContext = m_pLanguageModel->CloneContext(therootcontext);
-
-//   // TODO: Reimplement
-//   //  m_Root->SetContext(therootcontext);   // node takes control of the context
-//   Recursive_Push_Node(m_Root, 0);
-
-//   double dFraction( 1 - (1 - m_Root->MostProbableChild() / static_cast<double>(GetLongParameter(LP_NORMALIZATION))) / 2.0 );
-
-//   int iWidth( static_cast<int>( (GetLongParameter(LP_MAX_Y) / (2.0*dFraction)) ) );
-
-//   m_Rootmin = GetLongParameter(LP_MAX_Y) / 2 - iWidth / 2;
-//   m_Rootmax = GetLongParameter(LP_MAX_Y) / 2 + iWidth / 2;
-
-//   m_iTargetOffset = 0;
-
-// //   m_iTargetMin = m_Rootmin;
-// //   m_iTargetMax = m_Rootmax;
-// }
-
 void CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey, myint &iNewMin, myint &iNewMax, unsigned long iTime) {
+  DASHER_ASSERT(m_Root != NULL);
 
   // Avoid Mousex == 0, as this corresponds to infinite zoom
   if(Mousex <= 0) {
@@ -554,6 +484,10 @@ bool CDasherModel::UpdatePosition(myint miMousex, myint miMousey, unsigned long 
   return true;
 }
 
+void CDasherModel::NewFrame(unsigned long Time) {
+  m_fr.NewFrame(Time);
+}
+
 void CDasherModel::OldPush(myint iMousex, myint iMousey) {
   // push node under mouse
   CDasherNode *pUnderMouse = Get_node_under_mouse(iMousex, iMousey);
@@ -622,76 +556,6 @@ void CDasherModel::RecursiveOutput(CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PRO
   pNode->m_pNodeManager->Output(pNode, pAdded, GetLongParameter(LP_NORMALIZATION));
 }
 
-
-// This is similar to Get_new_goto_coords, but doesn't actually change Rootmax and Rootmin.
-// Instead it gives information for NewGoTo to make direct changes in the root coordinates.
-// #define ZOOMDENOM (1<<10)
-// #define STEPNUM   48 
-// #define STEPDENOM 64
-// double CDasherModel::Plan_new_goto_coords(int iRxnew, myint mousey, int *iSteps, myint *o1, myint *o2 , myint *n1, myint *n2)
-// {
-//   m_Stepnum = GetLongParameter(LP_ZOOMSTEPS);
-//   int iRxnew_dup = iRxnew;
-//   // note -- iRxnew is the zoom factor  in units of ZOOMDENOM
-//   *o1 = m_Rootmin ;
-//   *o2 = m_Rootmax ;
-//   DASHER_ASSERT(iRxnew > 0);
-//   if (iRxnew < ZOOMDENOM && m_Rootmax<(myint)GetLongParameter(LP_MAX_Y) && m_Rootmin>0 ) {
-//     // refuse to zoom backwards if the entire root node is visible.
-//     *iSteps = 0 ;
-//     *n1 = m_Rootmin;
-//     *n2 = m_Rootmax;
-//   } 
-//   else {
-//     myint above=(mousey-*o1);
-//     myint below=(*o2-mousey);
-
-//     myint miNewrootzoom= GetLongParameter(LP_MAX_Y)/2 ;
-//     myint newRootmax=miNewrootzoom+(below*iRxnew/ZOOMDENOM); // is there a risk of overflow in this multiply?
-//     myint newRootmin=miNewrootzoom-(above*iRxnew/ZOOMDENOM);
-    
-//     *n1 = newRootmin;
-//     *n2 = newRootmax;
-
-//     *iSteps = 1;
-    
-//     // We might be moving at zoomfactor one vertically, in which case the below invention won't
-//     // come up with more than one step.  Look for a mousey difference and use an iSteps concordant
-//     // to that if it would be larger than the iSteps created by taking the log of the zoomfactor. 
-//     int distance = mousey - ((myint)GetLongParameter(LP_MAX_Y)/2);
-
-//     double s = (log(2.0) * 2 / log( (STEPDENOM*1.0)/(m_Stepnum*1.0)) ) / 4096;
-
-//     double alpha = 2 * (2 * s);
-//     int alternateSteps = int(alpha * abs(distance));
-
-//     // Take log of iRxnew to base ( STEPDENOM / STEPNUM ):
-//     if ( STEPDENOM > m_Stepnum && m_Stepnum > 0 ) { // check that the following loop will terminate.
-//       //cout << "iRxnew is " << iRxnew << " and ZOOMDENOM is" << ZOOMDENOM << endl;
-//       if ( iRxnew > ZOOMDENOM ) {
-//         while ( iRxnew > ZOOMDENOM ) {
-//           *iSteps += 1;
-//           iRxnew = iRxnew * m_Stepnum / STEPDENOM;
-//         }
-//       } else {
-//         while ( iRxnew < ZOOMDENOM ) {
-//           *iSteps += 1;
-//           iRxnew = iRxnew * STEPDENOM / m_Stepnum;
-//         }
-//       }
-//     }
-
-//     // Done taking log of iRxnew. 
-//     if (alternateSteps > *iSteps) {
-//       *iSteps = alternateSteps;
-//     }
-//    }
-
-//   double iRxnew_ratio = (double) iRxnew_dup / ZOOMDENOM;
-//   double iRxnew_log = log(iRxnew_ratio);
-//   return iRxnew_log;
-// }
-
 void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
   // Find out the current node under the crosshair
   CDasherNode *old_under_cross=Get_node_under_crosshair();
@@ -736,6 +600,9 @@ void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax, Dasher::VECTOR_SY
 }
 
 void CDasherModel::HandleOutput(CDasherNode *pNewNode, CDasherNode *pOldNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
+  DASHER_ASSERT(pNewNode != NULL);
+  DASHER_ASSERT(pOldNode != NULL);
+  
   if(pNewNode != pOldNode)
     DeleteCharacters(pNewNode, pOldNode, pNumDeleted);
   
@@ -746,12 +613,8 @@ void CDasherModel::HandleOutput(CDasherNode *pNewNode, CDasherNode *pOldNode, Da
 }
 
 bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, int* pNumDeleted) {
-  // DJW cant see how either of these can ever be NULL
-  DASHER_ASSERT_VALIDPTR_RW(newnode);
-  DASHER_ASSERT_VALIDPTR_RW(oldnode);
-
-  if(newnode == NULL || oldnode == NULL)
-    return false;
+  DASHER_ASSERT(newnode != NULL);
+  DASHER_ASSERT(oldnode != NULL);
 
   // This deals with the trivial instance - we're reversing back over
   // text that we've seen already
@@ -802,20 +665,14 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
   return false;
 }
 
-// void CDasherModel::LearnText(CLanguageModel::Context context, string *TheText, bool IsMore) {
-//   m_pNodeCreationManager->LearnText(context, TheText, IsMore);
-// }
-
-// void CDasherModel::EnterText(CLanguageModel::Context context, string TheText) const {
-//   m_pNodeCreationManager->EnterText(context, TheText);
-// }
-
 void CDasherModel::Push_Node(CDasherNode *pNode) {
+  DASHER_ASSERT(pNode != NULL);
 
   // TODO: Fix this and make an assertion again
   if(pNode->GetFlag(NF_SUBNODE))
     return;
 
+  // TODO: Is NF_ALLCHILDREN any more useful/efficient than reading the map size?
   if(pNode->GetFlag(NF_ALLCHILDREN)) {
     DASHER_ASSERT(pNode->Children().size() > 0);
     // if there are children just give them a poke
@@ -835,6 +692,9 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
 }
 
 void CDasherModel::Recursive_Push_Node(CDasherNode *pNode, int iDepth) {
+  // TODO: is this really useful? Doesn't Push_node itself recurse
+
+  DASHER_ASSERT(pNode != NULL);
 
   if(pNode->Range() < 0.1 * GetLongParameter(LP_NORMALIZATION)) {
     return;
@@ -851,6 +711,9 @@ void CDasherModel::Recursive_Push_Node(CDasherNode *pNode, int iDepth) {
 }
 
 bool CDasherModel::RenderToView(CDasherView *pView, bool bRedrawDisplay) {
+  DASHER_ASSERT(pView != NULL);
+  DASHER_ASSERT(m_Root != NULL);
+
   std::vector<CDasherNode *> vNodeList;
   std::vector<CDasherNode *> vDeleteList;
 
@@ -874,6 +737,9 @@ bool CDasherModel::RenderToView(CDasherView *pView, bool bRedrawDisplay) {
 
 // Return true to indicate zero or one nodes found, false for more than one
 bool CDasherModel::RecursiveCheckRoot(CDasherNode *pNode, CDasherNode **pNewNode, bool &bFound) {
+  DASHER_ASSERT(pNode != NULL);
+  DASHER_ASSERT(pNewNode != NULL);
+
   CDasherNode::ChildMap & children = pNode->Children();
   
   for(CDasherNode::ChildMap::iterator it(children.begin()); it != children.end(); ++it) {
@@ -895,20 +761,15 @@ bool CDasherModel::RecursiveCheckRoot(CDasherNode *pNode, CDasherNode **pNewNode
 }
 
 bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
-  // TODO: Check for non-subnode on return
-
-  //  if(m_deGotoQueue.size() > 0)
-  //   return false;
+  DASHER_ASSERT(m_Root != NULL);
+  // TODO: pView is redundant here
 
   CDasherNode *root(m_Root);
   CDasherNode::ChildMap & children = m_Root->Children();
 
-  //  if(pView->IsNodeVisible(m_Rootmin,m_Rootmax)) {
   if(!(m_Root->GetFlag(NF_SUPER))) {
     Reparent_root(root->Lbnd(), root->Hbnd());
-
     DASHER_ASSERT(!(m_Root->GetFlag(NF_SUBNODE)));
-
     return(m_Root != root);
   }
 
@@ -917,52 +778,13 @@ bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
   bool bFound = false;
 
   if(RecursiveCheckRoot(m_Root, &pNewRoot, bFound)) {
-    if(bFound) {
-      // We now have a new root, but it's not necessarily a direct
-      // descentent of the current root, so loop:
-
+    if(bFound) { // TODO: I think this if statement is reduncdent, return value of above is always equal to bFound
       m_Root->DeleteNephews(pNewRoot);
-
       RecursiveMakeRoot(pNewRoot);
     }
   }
 
   DASHER_ASSERT(!(m_Root->GetFlag(NF_SUBNODE)));
-
-
-//   if(children.size() == 0)
-//     return false;
-
-//   int alive = 0;
-//   CDasherNode *theone = 0;
- 
-//   // Find whether there is exactly one alive child; if more, we don't care.
-//   CDasherNode::ChildMap::iterator i;
-//   for(i = children.begin(); i != children.end(); i++) {
-//     if((*i)->GetFlag(NF_ALIVE)) {
-//       alive++;
-//       theone = *i;
-//       if(alive > 1)
-//         break;
-//     }
-//   }
-
-//   if(alive == 1) {
-//     // We must have zoomed sufficiently that only one child of the root node 
-//     // is still alive.  Let's make it the root.
-
-//     myint y1 = m_Rootmin;
-//     myint y2 = m_Rootmax;
-//     myint range = y2 - y1;
-    
-//     myint newy1 = y1 + (range * theone->Lbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
-//     myint newy2 = y1 + (range * theone->Hbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
-//     if(!pView->IsNodeVisible(newy1, newy2)) {
-//         Make_root(theone);
-//         return false;
-//     }
-//   }
-  
   return false;
 }
 
@@ -1051,5 +873,4 @@ void CDasherModel::SetOffset(int iLocation, CDasherView *pView) {
 
   // Now actually rebuild the model
   InitialiseAtOffset(iLocation, pView);
-  
 }

@@ -1,8 +1,22 @@
-
-
 // DasherModel.h
 //
-// Copyright (c) 2001-2005 David Ward
+// Copyright (c) 2007 The dasher Team
+//
+// This file is part of Dasher.
+//
+// Dasher is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// Dasher is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Dasher; if not, write to the Free Software 
+// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #ifndef __DasherModel_h__
 #define __DasherModel_h__
@@ -31,28 +45,16 @@ namespace Dasher {
 /// \defgroup Model The Dasher model
 /// @{
 
-///
 /// \brief Dasher 'world' data structures and dynamics.
 ///
 /// The DasherModel represents the current state of Dasher
 /// It contains a tree of DasherNodes
 ///             knows the current viewpoint
 ///             knows how to evolve the viewpoint
+///
 class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 {
  public:
-
-  /// 
-  /// Member class used to train the language model
-  ///
-
-  typedef enum {
-    idPPM = 0,
-    idBigram = 1,
-    idWord = 2,
-    idMixture = 3,
-    idJapanese = 4
-  } LanguageModelID;
 
   CDasherModel(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pDashIface, CDasherView *pView, int iOffset, bool bGameMode = false, const std::string &strGameModeText = "");
   ~CDasherModel();
@@ -71,21 +73,18 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   /// Update the root location - called in response to regular timer
   /// callbacks
   ///
-
   bool UpdatePosition(myint, myint, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);  
+
   ///
   /// Notify the framerate class that a new frame has occurred
   ///
+  void NewFrame(unsigned long Time);
 
-  void NewFrame(unsigned long Time) {
-    m_fr.NewFrame(Time);
-  }
 
   ///
   /// Apply an offset to the 'target' coordinates - implements the jumps in
   /// two button dynamic mode.
   ///
-
   void Offset(int iOffset);
  
   ///
@@ -93,7 +92,6 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   /// Appropriate for abrubt changes in behaviour (such as backing off in 
   /// button modes)
   /// 
-
   void MatchTarget(bool bReverse);
 
   /// @}
@@ -155,22 +153,6 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   double GetNats() {
     return m_dTotalNats;
   }
-
-  ///
-  /// Get a root node of a given type
-  ///
-
-  CDasherNode *GetRoot( int iType, CDasherNode *pParent, int iLower, int iUpper, void *pUserData ) {
-    return m_pNodeCreationManager->GetRoot(iType, pParent, iLower, iUpper, pUserData);
-  };
-  
-
-  ///
-  /// TODO: Move these elsewhere
-  ///
-
-  //  bool m_bContextSensitive;
-  //  std::string m_strContextBuffer;
 
   /// 
   /// @name Rendering
@@ -425,22 +407,9 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   // TODO: Need to rethink this at some point.
   bool m_bRequireConversion;
 
-  //  friend class CTrainer;
-  //  friend class CDasherNode;
-
   int m_iOffset;
 
 };
 /// @}
-
-/////////////////////////////////////////////////////////////////////////////
-
-/* inline CLanguageModel::Context CDasherModel::CreateEmptyContext() const { */
-/*   return m_pLanguageModel->CreateEmptyContext(); */
-/* } */
-
-/* inline int CDasherModel::GetColour(symbol s) const {  */
-/*   return m_pNodeCreationManager->GetColour(s);  */
-/* } */
 
 #endif /* #ifndef __DasherModel_h__ */
