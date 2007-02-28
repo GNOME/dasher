@@ -1,5 +1,10 @@
 2007-02-28  Kjartan Maraas  <kmaraas@gnome.org>
 
+	* POTFILES.in: Add missing and remove non-existant files.
+	* nb.po: Updated Norwegian bokmål translation.
+	
+2007-02-28  Kjartan Maraas  <kmaraas@gnome.org>
+
 	* POTFILES.in: Why do these still keep ending up here?
 	* POTFILES.skip: Add generated desktop file.
 	* nb.po: Updated Norwegian bokmål translation.
