@@ -1,6 +1,6 @@
 // DasherModel.cpp
 //
-// Copyright (c) 2007 The dasher Team
+// Copyright (c) 2007 The Dasher Team
 //
 // This file is part of Dasher.
 //

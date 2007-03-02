@@ -1,6 +1,22 @@
 // DasherInterfaceBase.cpp
 //
-// Copyright (c) 2002 Iain Murray
+// Copyright (c) 2007 The Dasher Team
+//
+// This file is part of Dasher.
+//
+// Dasher is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// Dasher is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Dasher; if not, write to the Free Software 
+// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "../Common/Common.h"
 
@@ -65,17 +81,18 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 CDasherInterfaceBase::CDasherInterfaceBase() {
+
   // Ensure that pointers to 'owned' objects are set to NULL.
-  m_Alphabet = 0;
-  m_pDasherModel = 0;
-  m_DasherScreen = 0;
-  m_pDasherView = 0;
-  m_pInput = 0;
-  m_AlphIO = 0;
-  m_ColourIO = 0;
-  m_pUserLog = 0;
-  m_pInputFilter = 0;
-  m_pNCManager = 0;
+  m_Alphabet = NULL;
+  m_pDasherModel = NULL;
+  m_DasherScreen = NULL;
+  m_pDasherView = NULL;
+  m_pInput = NULL;
+  m_AlphIO = NULL;
+  m_ColourIO = NULL;
+  m_pUserLog = NULL;
+  m_pInputFilter = NULL;
+  m_pNCManager = NULL;
 
   // Various state variables
   m_bRedrawScheduled = false;
@@ -153,7 +170,6 @@ void CDasherInterfaceBase::Realize() {
 }
 
 CDasherInterfaceBase::~CDasherInterfaceBase() {
-
   DASHER_ASSERT(m_iCurrentState == ST_SHUTDOWN);
 
   delete m_pDasherModel;        // The order of some of these deletions matters
