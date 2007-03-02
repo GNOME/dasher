@@ -209,19 +209,19 @@ void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutl
   }
 
   if( y2 > y1 ) {
-    iTop = y1;
-    iHeight = y2 - y1;
+    iTop = y1 - 1;
+    iHeight = y2 - y1 + 1;
   }
   else {
-    iTop = y2;
-    iHeight = y1 - y2;
+    iTop = y2 - 1;
+    iHeight = y1 - y2 + 1;
   }
 
   if(bFill) {
     SET_COLOR(Color);
 #if WITH_CAIRO
     cairo_set_line_width(cr, iThickness);
-    cairo_rectangle(cr, x1, y1, x2-x1+1.0, y2-y1+1.0);
+    cairo_rectangle(cr, iLeft, iTop, iWidth + 1, iHeight + 1);
     cairo_fill(cr);
 #else
     gdk_draw_rectangle(m_pOffscreenBuffer, graphics_context, TRUE, iLeft, iTop, iWidth, iHeight);

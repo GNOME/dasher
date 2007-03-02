@@ -220,6 +220,14 @@ public:
   /// Returns true on success, false otherwise.
   bool GetCanvasSize(GdkRectangle *pRectangle);
 
+  void SetLoadBackground(bool bValue) {
+    // Not required in this model
+  };
+
+  void SetCaptureBackground(bool bValue) {
+    // Not required in this model
+  };
+
   /// 
   /// Canvas width
   ///
