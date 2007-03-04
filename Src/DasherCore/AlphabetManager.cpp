@@ -9,6 +9,7 @@
 #include "NodeCreationManager.h"
 
 #include <vector>
+#include <sstream>
 #include <iostream>
 
 using namespace Dasher;
@@ -231,6 +232,14 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CDasherNode *pParent, symbol iSy
     pDisplayInfo->strDisplayText = m_pNCManager->GetAlphabet()->GetDisplayText(iSymbol);
 
     pNewNode = new CDasherNode(pParent, iLbnd, iHbnd, pDisplayInfo);
+
+
+//     std::stringstream ssLabel;
+
+//     ssLabel << m_pNCManager->GetAlphabet()->GetDisplayText(iSymbol) << ": " << pNewNode;
+
+    //    pDisplayInfo->strDisplayText = ssLabel.str();
+
     
     pNewNode->m_pNodeManager = this;
     
@@ -299,6 +308,9 @@ void CAlphabetManager::RecursiveIterateGroup(CDasherNode *pParent, SGroupInfo *p
 
 void CAlphabetManager::PopulateChildrenWithSymbol( CDasherNode *pNode, int iExistingSymbol, CDasherNode *pExistingChild ) {
   SAlphabetData *pParentUserData(static_cast<SAlphabetData *>(pNode->m_pUserData));
+
+//   if((pNode->GetDisplayInfo()->strDisplayText)[0] == 'e')
+//     std::cout << "e: " << pNode << " " << pParentUserData->iContext << " " << pParentUserData->iOffset << std::endl;
 
   // TODO: generally improve with iterators etc.
   // FIXME: this has to change for history stuff and Japanese dasher

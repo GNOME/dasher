@@ -35,7 +35,7 @@ typedef struct _GtkDasherControlClass GtkDasherControlClass;
 
 struct _GtkDasherControl {
   GtkVBox box;
-  gpointer private_data;
+  //  gpointer private_data;
 };
 
 struct _GtkDasherControlClass {

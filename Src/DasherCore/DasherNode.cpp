@@ -20,6 +20,8 @@
 
 #include "../Common/Common.h"
 
+#include "AlphabetManager.h"
+
 #include "DasherNode.h"
 
 using namespace Dasher;
@@ -132,6 +134,11 @@ void CDasherNode::DeleteNephews(CDasherNode *pChild) {
 // TODO: Need to allow for subnodes
 // TODO: Incorporate into above routine
 void CDasherNode::Delete_children() {
+//    CAlphabetManager::SAlphabetData *pParentUserData(static_cast<CAlphabetManager::SAlphabetData *>(m_pUserData));
+
+//    if((GetDisplayInfo()->strDisplayText)[0] == 'e')
+//      std::cout << "ed: " << this << " " << pParentUserData->iContext << " " << pParentUserData->iOffset << std::endl;
+
   ChildMap::iterator i;
   for(i = Children().begin(); i != Children().end(); i++) {
     delete (*i);

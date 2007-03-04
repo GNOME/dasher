@@ -254,7 +254,7 @@ DasherPreferencesDialogue *dasher_preferences_dialogue_new(GladeXML *pGladeWidge
 
   dasher_preferences_dialogue_populate_actions(pDasherControl);
 
-  InitialiseFontDialogues(pGladeWidgets);
+  InitialiseFontDialogues(pGladeWidgets, pAppSettings);
 
   return pDasherControl;
 }
@@ -1003,6 +1003,19 @@ extern "C" void on_action_toggle(GtkCellRendererToggle *pRenderer, gchar *szPath
 //     dasher_editor_action_set_auto(g_pEditor, iID, !bSelected);
 //     break;
 //   }
+}
+
+extern "C" void set_dasher_fontsize(GtkWidget *pWidget, gboolean pUserData) {
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue);
+
+  int iValue = dasher_app_settings_get_long(pPrivate->pAppSettings, LP_DASHER_FONTSIZE);
+
+  if((iValue != Opts::Normal) && gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "fontsizenormal"))))
+    dasher_app_settings_set_long(pPrivate->pAppSettings, LP_DASHER_FONTSIZE, Opts::Normal);
+  else if((iValue != Opts::Big) && gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "fontsizelarge"))))
+    dasher_app_settings_set_long(pPrivate->pAppSettings, LP_DASHER_FONTSIZE, Opts::Big);
+  else if((iValue != Opts::VBig) && gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON(glade_xml_get_widget(pPrivate->pGladeXML, "fontsizevlarge"))))
+    dasher_app_settings_set_long(pPrivate->pAppSettings, LP_DASHER_FONTSIZE, Opts::VBig);
 }
 
 

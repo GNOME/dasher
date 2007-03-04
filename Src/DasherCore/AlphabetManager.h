@@ -64,6 +64,17 @@ namespace Dasher {
       int iOffset;
     };
 
+
+    struct SAlphabetData {
+      symbol iSymbol;
+      int iPhase;
+      CLanguageModel *pLanguageModel;
+      CLanguageModel::Context iContext;
+      int iGameOffset;
+      int iOffset;
+    };
+
+
   private:
     
     void BuildContext(std::string strContext, bool bRoot, CLanguageModel::Context &oContext, symbol &iSymbol);
@@ -79,15 +90,6 @@ namespace Dasher {
     std::string m_strGameString;
     bool m_bGameMode;
     CDasherInterfaceBase *m_pInterface;
-
-    struct SAlphabetData {
-      symbol iSymbol;
-      int iPhase;
-      CLanguageModel *pLanguageModel;
-      CLanguageModel::Context iContext;
-      int iGameOffset;
-      int iOffset;
-    };
 
   };
   /// @}

@@ -236,7 +236,7 @@ void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutl
     
 #if WITH_CAIRO
     cairo_set_line_width(cr, iThickness);
-    cairo_rectangle(cr, x1+.5, y1+.5, x2-x1, y2-y1);
+    cairo_rectangle(cr, iLeft + 0.5, iTop + 0.5, iWidth - 1, iHeight - 1);
     cairo_stroke(cr);
 #else
     gdk_gc_set_line_attributes(graphics_context, iThickness, GDK_LINE_SOLID, GDK_CAP_ROUND, GDK_JOIN_ROUND );

@@ -3,7 +3,6 @@
 
 #include "../DasherCore/DasherScreen.h"
 #include "../DasherCore/DasherTypes.h"
-#include "../DasherCore/CustomColours.h"
 
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>

@@ -108,13 +108,16 @@ static void
 gtk_dasher_control_finalize(GObject *pObject) {
   GtkDasherControl *pDasherControl = GTK_DASHER_CONTROL(pObject);
 
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pDasherControl);
+
+
   /* TODO: Check that this actually gets called correctly */
 
   /* TODO: Should just call constructor - this should just be a lightweight wrapper class */
-  static_cast < GtkDasherControlPrivate * >(pDasherControl->private_data)->pControl->StartShutdown();
+  pPrivate->pControl->StartShutdown();
 
-  delete static_cast < GtkDasherControlPrivate * >(pDasherControl->private_data)->pControl;
-  g_free(pDasherControl->private_data);
+  delete pPrivate->pControl;
+  //  g_free(pDasherControl->private_data);
 }
 
 GtkWidget *

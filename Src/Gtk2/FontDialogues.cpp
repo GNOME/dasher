@@ -1,16 +1,14 @@
-//TODO: GTK FONT BUTTON
+//TODO: Make this obsolete - GTK FONT BUTTONs exist
 
 #include "../Common/Common.h"
 
-#include "dasher.h"
-#include "DasherAppSettings.h"
+//#include "dasher.h"
 #include "FontDialogues.h"
-#include "GtkDasherControl.h"
-#include "../DasherCore/Parameters.h"
+//#include "GtkDasherControl.h"
+//#include "../DasherCore/Parameters.h"
 
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
-#include <glade/glade.h>
 
 #include <string>
 
@@ -21,14 +19,11 @@ static DasherAppSettings *g_pDasherAppSettings = NULL;
 
 GtkFontSelectionDialog *dasher_fontselector, *edit_fontselector;
 
-void InitialiseFontDialogues(GladeXML *pGladeWidgets) {
+void InitialiseFontDialogues(GladeXML *pGladeWidgets, DasherAppSettings *pAppSettings) {
+  g_pDasherAppSettings = pAppSettings;
+
   dasher_fontselector = GTK_FONT_SELECTION_DIALOG(glade_xml_get_widget(pGladeWidgets, "dasher_fontselector"));
   edit_fontselector = GTK_FONT_SELECTION_DIALOG(glade_xml_get_widget(pGladeWidgets, "edit_fontselector"));
-
-  // TODO: Reimplement
-//   gtk_window_set_transient_for(GTK_WINDOW(dasher_fontselector), GTK_WINDOW(window));
-//   gtk_window_set_transient_for(GTK_WINDOW(edit_fontselector), GTK_WINDOW(window));
-
 }
 
 extern "C" gboolean dasher_font_cancel_cb(GtkWidget *widget, gpointer user_data) {
@@ -40,8 +35,8 @@ extern "C" void dasher_font_ok_cb(GtkWidget *one, GtkWidget *two) {
   char *font_name;
   font_name = gtk_font_selection_dialog_get_font_name(dasher_fontselector);
   if(font_name) {
-    // TODO: Do through app settings
-    // gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), SP_DASHER_FONT, font_name);
+    if(g_pDasherAppSettings)
+      dasher_app_settings_set_string(g_pDasherAppSettings, SP_DASHER_FONT, font_name);
   }
   gtk_widget_hide(GTK_WIDGET(dasher_fontselector));
 }
@@ -50,8 +45,8 @@ extern "C" void dasher_font_apply_cb(GtkWidget *one, GtkWidget *two) {
   char *font_name;
   font_name = gtk_font_selection_dialog_get_font_name(dasher_fontselector);
   if(font_name) {
-    // TODO: Do through app settings
-    //gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), SP_DASHER_FONT, font_name);
+    if(g_pDasherAppSettings)
+      dasher_app_settings_set_string(g_pDasherAppSettings, SP_DASHER_FONT, font_name);
   }
 }
 
@@ -73,7 +68,8 @@ extern "C" void edit_font_ok_cb(GtkWidget *one, GtkWidget *two) {
   char *font_name;
   font_name = gtk_font_selection_dialog_get_font_name(edit_fontselector);
   if(font_name) {
-    dasher_app_settings_set_string(g_pDasherAppSettings, APP_SP_EDIT_FONT, font_name);
+    if(g_pDasherAppSettings)
+      dasher_app_settings_set_string(g_pDasherAppSettings, APP_SP_EDIT_FONT, font_name);
   }
   gtk_widget_hide(GTK_WIDGET(edit_fontselector));
 }
@@ -82,7 +78,8 @@ extern "C" void edit_font_apply_cb(GtkWidget *one, GtkWidget *two) {
   char *font_name;
   font_name = gtk_font_selection_dialog_get_font_name(edit_fontselector);
   if(font_name) {
-    dasher_app_settings_set_string(g_pDasherAppSettings, APP_SP_EDIT_FONT, font_name);
+    if(g_pDasherAppSettings)
+      dasher_app_settings_set_string(g_pDasherAppSettings, APP_SP_EDIT_FONT, font_name);
   }
 }
 

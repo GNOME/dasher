@@ -237,6 +237,8 @@ dasher_main_finalize(GObject *pObject) {
   if(pPrivate->pAppSettings)
     g_object_unref(pPrivate->pAppSettings);
 
+  gtk_widget_destroy(pPrivate->pMainWindow);
+
   /* TDO: Do we need to take down anything else? */
 }
 
@@ -1393,15 +1395,20 @@ dasher_main_key_snooper(GtkWidget *pWidget, GdkEventKey *pEvent, gpointer pUserD
   
   if(iButton != -1) {
     DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
-    
-    if(pPrivate->pDasherWidget) {
-      if(pEvent->type == GDK_KEY_PRESS)
-	gtk_dasher_control_external_key_down(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), iButton);
-      else
-	gtk_dasher_control_external_key_up(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), iButton);
+
+    if(gdk_window_get_toplevel(pEvent->window) == pPrivate->pMainWindow->window) {
+      if(pPrivate->pDasherWidget) {
+	if(pEvent->type == GDK_KEY_PRESS)
+	  gtk_dasher_control_external_key_down(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), iButton);
+	else
+	  gtk_dasher_control_external_key_up(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), iButton);
+      }
+      
+      return TRUE;
     }
-    
-    return TRUE;
+    else {
+      return FALSE;
+    }
   }
   else {
     return FALSE;

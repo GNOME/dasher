@@ -111,13 +111,22 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
   if (iScreenBottom>Screen()->GetHeight()) iScreenBottom=Screen()->GetHeight()-1; //If limit is too big
   if (iScreenRight>Screen()->GetWidth()) iScreenRight=Screen()->GetWidth()-1; //If limit is too big
 
-  Screen()->DrawRectangle(Screen()->GetWidth(),iScreenTop,0,0,0, 0, Nodes1, false,true, 1);
-  Screen()->DrawRectangle(Screen()->GetWidth(),iScreenBottom,0,Screen()->GetHeight(), 0,0, Nodes1, false,true, 1);
+  
+  if(iRootMin > iDasherMinY)
+    DasherDrawRectangle(iDasherMaxX, iDasherMinY, iDasherMinX, iRootMin, 0, 0, Nodes1, false,true, 1);
+
+  if(iRootMax < iDasherMaxY)
+    DasherDrawRectangle(iDasherMaxX, iRootMax, iDasherMinX, iDasherMaxY, 0, 0, Nodes1, false,true, 1);
+
+  //  Screen()->DrawRectangle(Screen()->GetWidth(),iScreenTop,0,0,0, 0, Nodes1, false,true, 1);
+  //Screen()->DrawRectangle(Screen()->GetWidth(),iScreenBottom,0,Screen()->GetHeight(), 0,0, Nodes1, false,true, 1);
   
   //Recursive render cleans this one for us so we have to bother only about a thin line!
-  Screen()->DrawRectangle(1,Screen()->GetHeight(),0,0, 0, 0, Nodes1, false,true, 1);
+//   Screen()->DrawRectangle(1,Screen()->GetHeight(),0,0, 0, 0, Nodes1, false,true, 1);
   
-  Screen()->DrawRectangle(Screen()->GetWidth(),iScreenBottom,iScreenRight,iScreenTop, 0, 4, Nodes1, false,true, 1);
+//   Screen()->DrawRectangle(Screen()->GetWidth(),iScreenBottom,iScreenRight,iScreenTop, 0, 4, Nodes1, false,true, 1);
+
+  DasherDrawRectangle(0, iDasherMinY, iDasherMinX, iDasherMaxY, 0, 4, Nodes1, false,true, 1);
 
   RecursiveRender(pRoot, iRootMin, iRootMax, iDasherMaxX, vNodeList, vDeleteList, iGamePointer,true,iDasherMaxX,0);
 
@@ -241,7 +250,8 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
 		if (lasty<y2)
 			  RenderNodePartFast(temp_parentcolor, lasty, y2, mostleft, pRender->GetDisplayInfo()->strDisplayText, pRender->GetDisplayInfo()->bShove,temp_parentwidth);
   
-		RenderNodeOutlineFast(pRender->GetDisplayInfo()->iColour, y1, y2, mostleft, pRender->GetDisplayInfo()->strDisplayText, pRender->GetDisplayInfo()->bShove);
+		if(!(pRender->GetFlag(NF_SUBNODE))) 
+		  RenderNodeOutlineFast(pRender->GetDisplayInfo()->iColour, y1, y2, mostleft, pRender->GetDisplayInfo()->strDisplayText, pRender->GetDisplayInfo()->bShove);
   }
 
   return 1;
@@ -296,8 +306,9 @@ int CDasherViewSquare::RenderNodeOutlineFast(const int Color, myint y1, myint y2
   Dasher2Screen(0, std::min(y2, iDasherMaxY), iScreenX2, iScreenY2);
 
   Cint32 iHeight = std::max(myint(iScreenY2 - iScreenY1),myint( 0));
+  Cint32 iWidth = std::max(myint(iScreenX2 - iScreenX1),myint( 0));
 
-  if(iHeight <= 1)
+  if((iHeight <= 1) && (iWidth <= 1))
     return 0;                   // We're too small to render
 
   if((y1 > iDasherMaxY) || (y2 < iDasherMinY)){
@@ -347,8 +358,9 @@ int CDasherViewSquare::RenderNodePartFast(const int Color, myint y1, myint y2, i
   Dasher2Screen(0, std::min(y2, iDasherMaxY), iScreenX2, iScreenY2);
 
   Cint32 iHeight = std::max(myint(iScreenY2 - iScreenY1),myint( 0));
+  Cint32 iWidth = std::max(myint(iScreenX2 - iScreenX1),myint( 0));
 
-  if(iHeight <= 0)//CHANGED IGNAS
+  if((iHeight <= 1) && (iWidth <= 1))
     return 0;                   // We're too small to render
 
   if((y1 > iDasherMaxY) || (y2 < iDasherMinY)){
@@ -394,8 +406,9 @@ int CDasherViewSquare::RenderNodeFatherFast(const int parent_color, myint y1, my
   Dasher2Screen(0, std::min(y2, iDasherMaxY), iScreenX2, iScreenY2);
 
   Cint32 iHeight = std::max(myint(iScreenY2 - iScreenY1),myint( 0));
+  Cint32 iWidth = std::max(myint(iScreenX2 - iScreenX1),myint( 0));
 
-  if(iHeight <= 1)
+  if((iHeight <= 1) && (iWidth <= 1))
     return 0;                   // We're too small to render
 
   if((y1 > iDasherMaxY) || (y2 < iDasherMinY)){
