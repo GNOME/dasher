@@ -160,7 +160,7 @@ CDasherNode *CAlphabetManager::CreateGroupNode(CDasherNode *pParent, SGroupInfo 
   pNodeUserData->iPhase = pParentData->iPhase;
   pNodeUserData->iSymbol = 0; // TODO: Sort out symbol for groups
   pNodeUserData->pLanguageModel = pParentData->pLanguageModel;
-  pNodeUserData->iContext = pParentData->iContext;
+  pNodeUserData->iContext = pParentData->pLanguageModel->CloneContext(pParentData->iContext);
 
   return pNewNode;
 }
@@ -308,9 +308,6 @@ void CAlphabetManager::RecursiveIterateGroup(CDasherNode *pParent, SGroupInfo *p
 
 void CAlphabetManager::PopulateChildrenWithSymbol( CDasherNode *pNode, int iExistingSymbol, CDasherNode *pExistingChild ) {
   SAlphabetData *pParentUserData(static_cast<SAlphabetData *>(pNode->m_pUserData));
-
-//   if((pNode->GetDisplayInfo()->strDisplayText)[0] == 'e')
-//     std::cout << "e: " << pNode << " " << pParentUserData->iContext << " " << pParentUserData->iOffset << std::endl;
 
   // TODO: generally improve with iterators etc.
   // FIXME: this has to change for history stuff and Japanese dasher

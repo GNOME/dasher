@@ -1186,3 +1186,7 @@ void CDasherInterfaceBase::SetOffset(int iOffset) {
     m_pDasherModel->SetOffset(iOffset, m_pDasherView);
 }
 
+void CDasherInterfaceBase::SetControlOffset(int iOffset) {
+  if(m_pDasherModel)
+    m_pDasherModel->SetControlOffset(iOffset);
+}

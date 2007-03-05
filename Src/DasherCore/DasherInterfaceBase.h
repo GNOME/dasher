@@ -353,7 +353,7 @@ public:
 
   std::string GetContext(int iStart, int iLength);
 
-
+  void SetControlOffset(int iOffset);
 protected:
 
   /// @name Startup

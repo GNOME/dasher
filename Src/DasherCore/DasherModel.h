@@ -239,6 +239,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
     return 0;
   };
 
+  void SetControlOffset(int iOffset);
  protected:
   int m_iRenderCount;
 

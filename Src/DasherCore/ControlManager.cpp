@@ -401,3 +401,6 @@ void CControlManager::XmlCDataHandler(void *pUserData, const XML_Char *szData, i
   return;
 }
 
+void CControlManager::SetControlOffset(CDasherNode *pNode, int iOffset) {
+  (static_cast<SControlData *>(pNode->m_pUserData))->iOffset = iOffset;
+}

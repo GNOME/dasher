@@ -94,6 +94,7 @@ namespace Dasher {
     void ConnectNode(int iChild, int iParent, int iAfter);
     void DisconnectNode(int iChild, int iParent);
 
+    void SetControlOffset(CDasherNode *pNode, int iOffset);
 
   private:
 

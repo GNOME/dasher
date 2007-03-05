@@ -68,6 +68,8 @@ namespace Dasher {
 
     virtual void SetFlag(CDasherNode *pNode, int iFlag, bool bValue) {};
 
+    virtual void SetControlOffset(CDasherNode *pNode, int iOffset) {};
+
   private:
     int m_iID;
   };

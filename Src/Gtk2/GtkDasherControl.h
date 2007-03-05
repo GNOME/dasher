@@ -90,8 +90,7 @@ void gtk_dasher_control_add_game_mode_string(GtkDasherControl *pControl, const g
 void gtk_dasher_control_force_pause(GtkDasherControl *pControl);
 double gtk_dasher_control_get_framerate(GtkDasherControl *pControl);
 void gtk_dasher_control_add_action_button(GtkDasherControl *pControl, const gchar *szCommand);
-
-//FIXME - namespace broken
+void gtk_dasher_control_set_control_offset(GtkDasherControl *pControl, gint iOffset);
 void gtk_dasher_user_log_new_trial(GtkDasherControl * pControl);
 void gtk_dasher_control_set_focus(GtkDasherControl * pControl);
 G_END_DECLS

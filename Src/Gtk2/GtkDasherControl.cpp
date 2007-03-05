@@ -290,3 +290,9 @@ gtk_dasher_control_add_action_button(GtkDasherControl *pControl, const gchar *sz
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
   pPrivate->pControl->AddActionButton(szCommand);
 }
+
+void 
+gtk_dasher_control_set_control_offset(GtkDasherControl *pControl, gint iOffset) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  pPrivate->pControl->SetControlOffset(iOffset);
+}

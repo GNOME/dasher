@@ -22,6 +22,10 @@
 /* Static instance of singleton, USE SPARINGLY */
 static DasherMain *g_pDasherMain = NULL; 
 
+// TODO: The following global variable makes control mode editing work
+// - this needs to be sorted out properly.
+static gboolean g_bSend = true;
+
 struct _DasherMainPrivate {
   // The glade XML file - TODO: this shouldn't be kept after interface has been loaded
   GladeXML *pGladeXML;
@@ -1264,6 +1268,9 @@ dasher_main_cb_buffer_changed(DasherEditor *pEditor, gpointer pUserData) {
 
 extern "C" void 
 dasher_main_cb_context_changed(DasherEditor *pEditor, gpointer pUserData) {
+  if(!g_bSend)
+    return;
+
   DasherMain *pDasherMain = DASHER_MAIN(pUserData);
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pDasherMain);
 
@@ -1363,17 +1370,32 @@ handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer dat
   switch(iEvent) {
   case Dasher::CControlManager::CTL_USER + 1:
     dasher_main_command(g_pDasherMain, "speakall");
-    break;
+    return;
   case Dasher::CControlManager::CTL_USER + 2:
     dasher_main_command(g_pDasherMain, "speaklast");
-    break;
+    return;
   case Dasher::CControlManager::CTL_USER + 3:
     dasher_main_command(g_pDasherMain, "speakrepeat");
-    break;
+    return;
   default:
     break;
   }
+
+
+  // TODO: This is a horrible hack here to make the release work!  
+
+  g_bSend = false;
+
+  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(g_pDasherMain);
+  dasher_editor_handle_control(pPrivate->pEditor, iEvent);
+
+  gtk_dasher_control_set_control_offset(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
+					dasher_editor_get_offset(pPrivate->pEditor));
+
+  g_bSend = true;
+  // ---
 }
+
 
 extern "C" void 
 handle_start_event(GtkDasherControl *pDasherControl, gpointer data) { 

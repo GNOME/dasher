@@ -197,6 +197,9 @@ void CDasherModel::RecursiveMakeRoot(CDasherNode *pNewRoot) {
   DASHER_ASSERT(pNewRoot != NULL);
   DASHER_ASSERT(m_Root != NULL);
 
+  if(pNewRoot == m_Root)
+    return;
+
   // TODO: we really ought to check that pNewRoot is actually a
   // descendent of the root, although that should be guaranteed
 
@@ -208,7 +211,9 @@ void CDasherModel::RecursiveMakeRoot(CDasherNode *pNewRoot) {
 
 void CDasherModel::RebuildAroundNode(CDasherNode *pNode) {
   DASHER_ASSERT(pNode != NULL);
-  DASHER_ASSERT(!(pNode->GetFlag(NF_SUBNODE)));
+
+  while(pNode->GetFlag(NF_SUBNODE))
+    pNode = pNode->Parent();
 
   RecursiveMakeRoot(pNode);
 
@@ -873,4 +878,12 @@ void CDasherModel::SetOffset(int iLocation, CDasherView *pView) {
 
   // Now actually rebuild the model
   InitialiseAtOffset(iLocation, pView);
+}
+
+void CDasherModel::SetControlOffset(int iOffset) {
+  // This is a hack, making many dubious assumptions which happen to
+  // work right now.
+  CDasherNode *pNode = Get_node_under_crosshair();
+  
+  pNode->m_pNodeManager->SetControlOffset(pNode, iOffset);
 }
