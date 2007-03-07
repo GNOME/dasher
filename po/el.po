@@ -1,26 +1,28 @@
-# translation of el.po to
 # Kostas Papadimas <pkst@gnome.org>, 2004, 2006.
 # Nikos Charonitakis <charosn@her.forthnet.gr>, 2004.
 # translation of el.po to Greek
 # This file is distributed under the same license as the PACKAGE package.
 # Nikos 08Feb2004 small update, minor fixes
-# Copyright (C) 2005 THE PACKAGE'S COPYRIGHT HOLDER.
+# Copyright (C) 2004, 2005, 2006, 2007 THE PACKAGE'S COPYRIGHT HOLDER.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-02 09:52+0300\n"
-"PO-Revision-Date: 2006-09-02 09:52+0300\n"
-"Last-Translator: Kostas Papadimas <pkst@gnome.org>\n"
+"POT-Creation-Date: 2007-03-05 03:40+0000\n"
+"PO-Revision-Date: 2007-03-07 21:46+0800\n"
+"Last-Translator: Simos Xenitellis <simos@gnome.org>\n"
 "Language-Team: Greek <team@gnome.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.2\n"
 
-#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/Menu.cc:439
-#: ../Src/Gtk2/dasher.glade.h:34 ../Src/Gtk2/dashergpe.glade.h:5
-#: ../Src/Gtk2/dashermaemo.glade.h:18
+#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/dasher.compose.glade.h:34
+#: ../Src/Gtk2/dasher.direct.glade.h:31
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:30
+#: ../Src/Gtk2/dasher.traditional.glade.h:34 ../Src/Gtk2/dasher_main.cpp:1061
+#: ../Src/Gtk2/dashermaemo.glade.h:17
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:15
 msgid "Dasher"
 msgstr "Dasher"
@@ -34,14 +36,561 @@ msgstr "Πρόγνωσης καταχώρισης κειμένου"
 msgid "Dasher socket input: failed to launch reader thread."
 msgstr "Dasher socket input: αποτυχία εκκίνησης νήματος εκκινητή."
 
-#: ../Src/Gtk2/Menu.cc:62 ../Src/Gtk2/Menu.cc:118 ../Src/Gtk2/Menu.cc:176
-#: ../Src/Gtk2/Menu.cc:219 ../Src/Gtk2/dasher.glade.h:59
-#: ../Src/Gtk2/dashergpe.glade.h:14 ../Src/Gtk2/dashermaemo.glade.h:29
+#: ../Src/Gtk2/dasher.compose.glade.h:1 ../Src/Gtk2/dasher.direct.glade.h:1
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:1
+#: ../Src/Gtk2/dasher.traditional.glade.h:1
+msgid "<b>Actions:</b>"
+msgstr "<b>Ενέργειες:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:2 ../Src/Gtk2/dasher.direct.glade.h:2
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:2
+#: ../Src/Gtk2/dasher.traditional.glade.h:2 ../Src/Gtk2/dashermaemo.glade.h:3
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:1
+msgid "<b>Adaptation:</b>"
+msgstr "<b>Προσαρμογή:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:3 ../Src/Gtk2/dasher.direct.glade.h:3
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:3
+#: ../Src/Gtk2/dasher.traditional.glade.h:3 ../Src/Gtk2/dashermaemo.glade.h:4
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:2
+msgid "<b>Alphabet Selection:</b>"
+msgstr "<b>Επιλογή Αλφάβητου:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:4 ../Src/Gtk2/dasher.direct.glade.h:4
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:4
+#: ../Src/Gtk2/dasher.traditional.glade.h:4
+msgid "<b>Appearance Options:</b>"
+msgstr "<b>Επιλογές εμφάνισης:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:5 ../Src/Gtk2/dasher.direct.glade.h:5
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:5
+#: ../Src/Gtk2/dasher.traditional.glade.h:5
+msgid "<b>Application Options:</b>"
+msgstr "<b>Επιλογές εφαρμογής:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:6 ../Src/Gtk2/dasher.direct.glade.h:6
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:6
+#: ../Src/Gtk2/dasher.traditional.glade.h:6
+msgid "<b>Application Style:</b>"
+msgstr "<b>Στυλ εφαρμογής:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:7 ../Src/Gtk2/dasher.direct.glade.h:7
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:7
+#: ../Src/Gtk2/dasher.traditional.glade.h:7
+msgid "<b>Colour Scheme:</b>"
+msgstr "<b>Σχήμα χρώματος:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:8 ../Src/Gtk2/dasher.direct.glade.h:8
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:8
+#: ../Src/Gtk2/dasher.traditional.glade.h:8
+msgid "<b>Control Style:</b>"
+msgstr "<b>Στυλ Ελέγχου:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:9 ../Src/Gtk2/dasher.direct.glade.h:9
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:9
+#: ../Src/Gtk2/dasher.traditional.glade.h:9
+msgid "<b>Dasher Font:</b>"
+msgstr "<b>Γραμματοσειρά Dasher:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:10 ../Src/Gtk2/dasher.direct.glade.h:10
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:10
+#: ../Src/Gtk2/dasher.traditional.glade.h:10
+msgid "<b>Direction:</b>"
+msgstr "<b>Κατεύθυνση:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:11 ../Src/Gtk2/dasher.direct.glade.h:11
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:11
+#: ../Src/Gtk2/dasher.traditional.glade.h:11
+msgid "<b>Editor Font:</b>"
+msgstr "<b>Γραμματοσειρά επεξεργαστή:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:12 ../Src/Gtk2/dasher.direct.glade.h:12
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:12
+#: ../Src/Gtk2/dasher.traditional.glade.h:12
+msgid "<b>Input Device:</b>"
+msgstr "<b>Συσκευή εισαγωγής:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:13 ../Src/Gtk2/dasher.direct.glade.h:13
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:13
+#: ../Src/Gtk2/dasher.traditional.glade.h:13 ../Src/Gtk2/dashermaemo.glade.h:6
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:3
+msgid "<b>Language Model:</b>"
+msgstr "<b>Μοντέλο γλώσσας:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:14 ../Src/Gtk2/dasher.direct.glade.h:14
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:14
+#: ../Src/Gtk2/dasher.traditional.glade.h:14
+msgid "<b>Prediction:</b>"
+msgstr "<b>Πρόγνωση:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:15 ../Src/Gtk2/dasher.direct.glade.h:15
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:15
+#: ../Src/Gtk2/dasher.traditional.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:8
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:5
+msgid "<b>Smoothing:</b>"
+msgstr "<b>Εξομάλυνση:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:16 ../Src/Gtk2/dasher.direct.glade.h:16
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:16
+#: ../Src/Gtk2/dasher.traditional.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:9
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:6
+msgid "<b>Speed:</b>"
+msgstr "<b>Ταχύτητα:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:17 ../Src/Gtk2/dasher.direct.glade.h:17
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:17
+#: ../Src/Gtk2/dasher.traditional.glade.h:17
+msgid "<b>Starting And Stopping:</b>"
+msgstr "<b>Εκκίνηση και Διακοπή:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:18 ../Src/Gtk2/dasher.direct.glade.h:18
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:18
+#: ../Src/Gtk2/dasher.traditional.glade.h:18
+#: ../Src/Gtk2/dashermaemo.glade.h:10
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:7
+msgid "Adapt speed automatically"
+msgstr "Αυτόματη προσαρμογή ταχύτητας"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:19 ../Src/Gtk2/dasher.direct.glade.h:19
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:19
+#: ../Src/Gtk2/dasher.traditional.glade.h:19
+#: ../Src/Gtk2/dashermaemo.glade.h:12
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:9
+msgid "Alphabet Default"
+msgstr "Προεπιλογή Αλφαβήτου"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:20 ../Src/Gtk2/dasher.direct.glade.h:20
+#: ../Src/Gtk2/dasher.traditional.glade.h:20
+msgid "Alphabet:"
+msgstr "Αλφάβητο:"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:21 ../Src/Gtk2/dasher.direct.glade.h:21
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:20
+#: ../Src/Gtk2/dasher.traditional.glade.h:21
+msgid "Appearance"
+msgstr "Εμφάνιση"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:22 ../Src/Gtk2/dasher.direct.glade.h:22
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:21
+#: ../Src/Gtk2/dasher.traditional.glade.h:22
+msgid "Application"
+msgstr "Εφαρμογή"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:23 ../Src/Gtk2/dasher.direct.glade.h:23
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:22
+#: ../Src/Gtk2/dasher.traditional.glade.h:23
+#: ../Src/Gtk2/dashermaemo.glade.h:13
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:10
+msgid "Bottom to Top"
+msgstr "Κάτω προς Πάνω"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:24 ../Src/Gtk2/dasher.direct.glade.h:24
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:23
+#: ../Src/Gtk2/dasher.traditional.glade.h:24
+msgid ""
+"Centre circle\n"
+"Two box"
+msgstr ""
+"Κέντρο κύκλου\n"
+"Δύο κουτιά"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:26 ../Src/Gtk2/dasher.direct.glade.h:26
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:25
+#: ../Src/Gtk2/dasher.traditional.glade.h:26
+msgid "Composition"
+msgstr "Σύνταξη"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:27 ../Src/Gtk2/dasher.direct.glade.h:27
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:26
+#: ../Src/Gtk2/dasher.traditional.glade.h:27
+#: ../Src/Gtk2/dashermaemo.glade.h:14
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:11
+msgid "Control"
+msgstr "Έλεγχος"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:28 ../Src/Gtk2/dasher.direct.glade.h:28
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:27
+#: ../Src/Gtk2/dasher.traditional.glade.h:28
+msgid "Control mode"
+msgstr "Λειτουργία ελέγχου"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:29
+#: ../Src/Gtk2/dasher.traditional.glade.h:29
+msgid "Copy"
+msgstr "Αντιγραφή"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:30
+#: ../Src/Gtk2/dasher.traditional.glade.h:30
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:12
+msgid "Copy _All"
+msgstr "Αντιγραφή Ό_λων"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:31 ../Src/Gtk2/dasher.direct.glade.h:29
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:28
+#: ../Src/Gtk2/dasher.traditional.glade.h:31
+#: ../Src/Gtk2/dashermaemo.glade.h:15
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:13
+msgid "Custom colour scheme:"
+msgstr "Προσαρμοσμένο σχήμα χρώματος:"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:32 ../Src/Gtk2/dasher.direct.glade.h:30
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:29
+#: ../Src/Gtk2/dasher.traditional.glade.h:32
+#: ../Src/Gtk2/dashermaemo.glade.h:16
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:14
+msgid "Custom:"
+msgstr "Προσαρμοσμένο:"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:33
+#: ../Src/Gtk2/dasher.traditional.glade.h:33
+msgid "Cut"
+msgstr "Αποκοπή"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:35 ../Src/Gtk2/dasher.direct.glade.h:32
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:31
+#: ../Src/Gtk2/dasher.traditional.glade.h:35
+#: ../Src/Gtk2/dashermaemo.glade.h:18
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:16
+msgid "Dasher Preferences"
+msgstr "Προτιμήσεις Dasher "
+
+#: ../Src/Gtk2/dasher.compose.glade.h:36
+#: ../Src/Gtk2/dasher.traditional.glade.h:36
+msgid "Dasher _Tutorial"
+msgstr "Εγ_χειρίδιο Dasher"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:37 ../Src/Gtk2/dasher.direct.glade.h:33
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:32
+#: ../Src/Gtk2/dasher.traditional.glade.h:37
+msgid "Direct entry"
+msgstr "Απευθείας καταχώριση"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:38 ../Src/Gtk2/dasher.direct.glade.h:34
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:33
+#: ../Src/Gtk2/dasher.traditional.glade.h:38
+msgid "Dock application window"
+msgstr "Αγκύρωση παραθύρου εφαρμογής"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:39 ../Src/Gtk2/dasher.direct.glade.h:35
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:34
+#: ../Src/Gtk2/dasher.traditional.glade.h:39
+msgid "Draw box outlines"
+msgstr "Σχεδίαση περιγραμμάτων κουτιών"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:40 ../Src/Gtk2/dasher.direct.glade.h:36
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:35
+#: ../Src/Gtk2/dasher.traditional.glade.h:40
+msgid "Draw line between crosshairs and mouse"
+msgstr "Σχεδίαση γραμμής μεταξύ crosshairs και ποντικιού"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:41 ../Src/Gtk2/dasher.direct.glade.h:37
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:36
+#: ../Src/Gtk2/dasher.traditional.glade.h:41
+msgid "Full Screen"
+msgstr "Πλήρης οθόνη"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:42 ../Src/Gtk2/dasher.direct.glade.h:38
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:37
+#: ../Src/Gtk2/dasher.traditional.glade.h:42
+msgid "Increase line thickness"
+msgstr "Αύξηση πάχους γραμμής"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:43 ../Src/Gtk2/dasher.direct.glade.h:39
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:38
+#: ../Src/Gtk2/dasher.traditional.glade.h:43
+#: ../Src/Gtk2/dashermaemo.glade.h:20
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
+msgid "Japanese"
+msgstr "Ιαπωνικά"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:44 ../Src/Gtk2/dasher.direct.glade.h:40
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:39
+#: ../Src/Gtk2/dasher.traditional.glade.h:44
+msgid "Language"
+msgstr "Γλώσσα"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:45 ../Src/Gtk2/dasher.direct.glade.h:41
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:40
+#: ../Src/Gtk2/dasher.traditional.glade.h:45
+#: ../Src/Gtk2/dashermaemo.glade.h:21
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:18
+msgid "Language model adapts as you write."
+msgstr "Το μοντέλο γλώσσας προσαρμόζεται ενώ γράφετε."
+
+#: ../Src/Gtk2/dasher.compose.glade.h:46 ../Src/Gtk2/dasher.direct.glade.h:42
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:41
+#: ../Src/Gtk2/dasher.traditional.glade.h:46
+msgid "Large font "
+msgstr "Μεγάλη γραμματοσειρά"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:47 ../Src/Gtk2/dasher.direct.glade.h:43
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:42
+#: ../Src/Gtk2/dasher.traditional.glade.h:47
+#: ../Src/Gtk2/dashermaemo.glade.h:22
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:20
+msgid "Left to Right"
+msgstr "Αριστερά πρός τα Δεξιά"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:48 ../Src/Gtk2/dasher.direct.glade.h:44
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:43
+#: ../Src/Gtk2/dasher.traditional.glade.h:48
+#: ../Src/Gtk2/dashermaemo.glade.h:23
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:21
+msgid "Mixture model (PPM/dictionary)"
+msgstr "Μοντέλο μίξης (PPM/λεξικό)"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:49
+#: ../Src/Gtk2/dasher.traditional.glade.h:49
+msgid "New file"
+msgstr "Νέο αρχείο"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:50
+#: ../Src/Gtk2/dasher.traditional.glade.h:50
+msgid "Open file"
+msgstr "Άνοιγμα αρχείου"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:51 ../Src/Gtk2/dasher.direct.glade.h:45
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:44
+#: ../Src/Gtk2/dasher.traditional.glade.h:51
+msgid "Options"
+msgstr "Επιλογές"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:52
+#: ../Src/Gtk2/dasher.traditional.glade.h:52
+msgid "Paste"
+msgstr "Επικόλληση"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:53 ../Src/Gtk2/dasher.direct.glade.h:46
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:45
+#: ../Src/Gtk2/dasher.traditional.glade.h:53
+msgid "Pause outside of canvas"
+msgstr "Παύση έξω από το καμβά"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:54 ../Src/Gtk2/dasher.direct.glade.h:47
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:46
+#: ../Src/Gtk2/dasher.traditional.glade.h:54
+#: ../Src/Gtk2/dashermaemo.glade.h:25
+msgid "Please Wait..."
+msgstr "Παρακαλώ περιμένετε..."
+
+#: ../Src/Gtk2/dasher.compose.glade.h:55
+msgid "Pr_eferences"
+msgstr "_Προτιμήσεις"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:56 ../Src/Gtk2/dasher.direct.glade.h:48
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:47
+#: ../Src/Gtk2/dasher.traditional.glade.h:56
+#: ../Src/Gtk2/dashermaemo.glade.h:27
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
+msgid "Right to Left"
+msgstr "Δεξιά προς τα Αριστερά"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:57
+#: ../Src/Gtk2/dasher.traditional.glade.h:57
+msgid "Save file"
+msgstr "Αποθήκευση αρχείου"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:58
+#: ../Src/Gtk2/dasher.traditional.glade.h:58
+msgid "Save file as"
+msgstr "Αποθήκευση αρχείου ως"
+
+#. TODO: Fix this
+#. GtkWidget *filesel = gtk_file_chooser_dialog_new(_("Select File"), GTK_WINDOW(pPrivate->pMainWindow), GTK_FILE_CHOOSER_ACTION_OPEN, GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+#. TODO: Fix this
+#. GtkWidget *filesel = gtk_file_chooser_dialog_new(_("Select File"), GTK_WINDOW(window), GTK_FILE_CHOOSER_ACTION_SAVE, GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+#: ../Src/Gtk2/dasher.compose.glade.h:59 ../Src/Gtk2/dasher.direct.glade.h:49
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:48
+#: ../Src/Gtk2/dasher.traditional.glade.h:59
+#: ../Src/Gtk2/dasher_editor.cpp:1274 ../Src/Gtk2/dasher_editor.cpp:1299
+#: ../Src/Gtk2/dasher_main.cpp:906 ../Src/Gtk2/dashermaemo.glade.h:28
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:25
 msgid "Select File"
 msgstr "Επιλογή Αρχείου"
 
-#: ../Src/Gtk2/Menu.cc:302
+#: ../Src/Gtk2/dasher.compose.glade.h:60 ../Src/Gtk2/dasher.direct.glade.h:50
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:49
+#: ../Src/Gtk2/dasher.traditional.glade.h:60
+#: ../Src/Gtk2/dashermaemo.glade.h:29
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:26
+msgid "Select Font"
+msgstr "Επιλογή Γραμματοσειράς"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:61 ../Src/Gtk2/dasher.direct.glade.h:51
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:50
+#: ../Src/Gtk2/dasher.traditional.glade.h:61
+msgid "Show mouse position"
+msgstr "Προβολή θέσης ποντικιού"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:62 ../Src/Gtk2/dasher.direct.glade.h:52
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:51
+#: ../Src/Gtk2/dasher.traditional.glade.h:62
+msgid "Show speed slider"
+msgstr "Εμφάνιση μπάρας ταχύτητας"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:63 ../Src/Gtk2/dasher.direct.glade.h:53
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:52
+#: ../Src/Gtk2/dasher.traditional.glade.h:63
+msgid "Show toolbar"
+msgstr "Προβολή εργαλειοθήκης"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:64 ../Src/Gtk2/dasher.direct.glade.h:54
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:53
+#: ../Src/Gtk2/dasher.traditional.glade.h:64
+msgid "Small font"
+msgstr "Μικρή γραμματοσειρά"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:65 ../Src/Gtk2/dasher.direct.glade.h:55
+#: ../Src/Gtk2/dasher.traditional.glade.h:65
+msgid "Speed:"
+msgstr "Ταχύτητα:"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:66 ../Src/Gtk2/dasher.direct.glade.h:56
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:54
+#: ../Src/Gtk2/dasher.traditional.glade.h:66
+msgid "Stand-alone"
+msgstr "Stand-alone"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:67 ../Src/Gtk2/dasher.direct.glade.h:57
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:55
+#: ../Src/Gtk2/dasher.traditional.glade.h:67
+#: ../Src/Gtk2/dashermaemo.glade.h:30
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
+msgid "Standard letter-based PPM"
+msgstr "PPM βασισμένο σε κανονικό γράμμα"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:68 ../Src/Gtk2/dasher.direct.glade.h:58
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:56
+#: ../Src/Gtk2/dasher.traditional.glade.h:68
+msgid "Start on left mouse button"
+msgstr "Εκκίνηση στο πάτημα του αριστερού κουμπιού του ποντικιού"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:69 ../Src/Gtk2/dasher.direct.glade.h:59
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:57
+#: ../Src/Gtk2/dasher.traditional.glade.h:69
+msgid "Start on space bar"
+msgstr "Εκκίνηση στο πάτημα του space bar"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:70 ../Src/Gtk2/dasher.direct.glade.h:60
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:58
+#: ../Src/Gtk2/dasher.traditional.glade.h:70
+msgid "Start with mouse position:"
+msgstr "Εκκίνηση με την θέση του ποντικιού:"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:71 ../Src/Gtk2/dasher.direct.glade.h:61
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:59
+#: ../Src/Gtk2/dasher.traditional.glade.h:71
+msgid "Timestamp new files"
+msgstr "Αποτύπωση ώρας σε νέα αρχεία"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:72 ../Src/Gtk2/dasher.direct.glade.h:62
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:60
+#: ../Src/Gtk2/dasher.traditional.glade.h:72
+#: ../Src/Gtk2/dashermaemo.glade.h:31
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
+msgid "Top to Bottom"
+msgstr "Πάνω προς τα Κάτω"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:73 ../Src/Gtk2/dasher.direct.glade.h:63
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:61
+#: ../Src/Gtk2/dasher.traditional.glade.h:73
+msgid ""
+"Use this control to adjust the relative sizes of the \n"
+"letter boxes. Note that selecting high values will slow\n"
+"your writing speed."
+msgstr ""
+"Χρήση αυτού του ελέγχου για τη ρύθμιση σχετικών μεγεθών των\n"
+"κουτιών γραμμάτων. Σημειώστε ότι η επιλογή υψηλών τιμών θα επιβραδύνει\n"
+"την ταχύτητα γραφής σας."
+
+#: ../Src/Gtk2/dasher.compose.glade.h:76 ../Src/Gtk2/dasher.direct.glade.h:66
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:64
+#: ../Src/Gtk2/dasher.traditional.glade.h:76
+msgid "Very large font"
+msgstr "Πολύ μεγάλη γραμματοσειρά"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:77 ../Src/Gtk2/dasher.direct.glade.h:67
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:65
+#: ../Src/Gtk2/dasher.traditional.glade.h:77
+#: ../Src/Gtk2/dashermaemo.glade.h:33
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
+msgid "Word-based model"
+msgstr "Μοντέλο βασισμένο σε λέξεις"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:78
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:32
+msgid "_About"
+msgstr "Π_ερί"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:79
+#: ../Src/Gtk2/dasher.traditional.glade.h:79
+msgid "_Append to file"
+msgstr "Π_ρόσθεση σε αρχείο"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:80
+msgid "_Contents"
+msgstr "_Περιεχόμενα"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:81
+#: ../Src/Gtk2/dasher.traditional.glade.h:81
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
+msgid "_Edit"
+msgstr "_Επεξεργασία"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:82
+#: ../Src/Gtk2/dasher.traditional.glade.h:82
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:37
+msgid "_File"
+msgstr "_Αρχείο"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:83
+#: ../Src/Gtk2/dasher.traditional.glade.h:83
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:38
+msgid "_Help"
+msgstr "_Βοήθεια"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:84
+msgid "_Import Training Text"
+msgstr "Ε_ισαγωγή Κειμένου Εκπαίδευσης"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:85 ../Src/Gtk2/dasher.direct.glade.h:68
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:66
+#: ../Src/Gtk2/dasher.traditional.glade.h:85
+#: ../Src/Gtk2/dashermaemo.glade.h:34
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:41
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr "αβγδεζηθικ ΑΒΓΔΕΖΗΘΙΚ"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:55
+msgid "Pr_eferences..."
+msgstr "_Προτιμήσεις..."
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:78
+msgid "_About..."
+msgstr "Π_ερί..."
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:80
+msgid "_Contents..."
+msgstr "_Περιεχόμενα..."
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:84
+msgid "_Import Training Text..."
+msgstr "Ε_ισαγωγή Κειμένου Εκπαίδευσης..."
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:163
+#, c-format
+msgid "Unable to initialize speech support\n"
+msgstr "Αδυναμία αρχικοποίησης υποστήριξης ομιλίας\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:186
+msgid "Unable to initialize voices\n"
+msgstr "Αδυναμία αρχικοποίησης φωνών\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:198
+msgid "Warning: unable to set speech parameters\n"
+msgstr "Προειδοποίηση: αδυναμία ορισμού παραμέτρων ομιλίας\n"
+
+#: ../Src/Gtk2/dasher_main.cpp:944
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -52,7 +601,7 @@ msgstr ""
 "\n"
 "Οι αλλαγές σας θα χαθούν αν δεν τις αποθηκεύσετε."
 
-#: ../Src/Gtk2/Menu.cc:305
+#: ../Src/Gtk2/dasher_main.cpp:950
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -62,483 +611,99 @@ msgstr ""
 "\n"
 "Οι αλλαγές σας θα χαθούν αν δεν τις αποθηκεύσετε."
 
-#: ../Src/Gtk2/Menu.cc:308
+#: ../Src/Gtk2/dasher_main.cpp:954
 msgid "Don't save"
 msgstr "Όχι αποθήκευση"
 
-#: ../Src/Gtk2/Menu.cc:308
+#: ../Src/Gtk2/dasher_main.cpp:955
 msgid "Don't quit"
 msgstr "Όχι έξοδος"
 
-#: ../Src/Gtk2/Menu.cc:308
+#: ../Src/Gtk2/dasher_main.cpp:956
 msgid "Save and quit"
 msgstr "Αποθήκευση και έξοδος"
 
-#: ../Src/Gtk2/Menu.cc:426 ../Src/Gtk2/Menu.cc:442
+#: ../Src/Gtk2/dasher_main.cpp:1048 ../Src/Gtk2/dasher_main.cpp:1064
 msgid "Dasher is a predictive text entry application"
 msgstr "Ο Dasher είναι μια εφαρμογή πρόγνωσης καταχώρισης κειμένου"
 
-#: ../Src/Gtk2/Menu.cc:431 ../Src/Gtk2/Menu.cc:437
+#: ../Src/Gtk2/dasher_main.cpp:1053 ../Src/Gtk2/dasher_main.cpp:1059
 msgid "translator-credits"
 msgstr "Nikos Charonitakis <charosn@her.forthnet.gr>"
-
-#: ../Src/Gtk2/Preferences.cpp:821 ../Src/Gtk2/Preferences.cpp:823
-msgid "Training Dasher... please wait"
-msgstr "Εκπαίδευση Dasher... παρακαλώ περιμένετε"
-
-#: ../Src/Gtk2/dasher.glade.h:1
-msgid "<b>Actions:</b>"
-msgstr "<b>Ενέργειες:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:2 ../Src/Gtk2/dashermaemo.glade.h:4
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:1
-msgid "<b>Adaptation:</b>"
-msgstr "<b>Προσαρμογή:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:3 ../Src/Gtk2/dashermaemo.glade.h:5
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:2
-msgid "<b>Alphabet Selection:</b>"
-msgstr "<b>Επιλογή Αλφάβητου:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:4
-msgid "<b>Appearance Options:</b>"
-msgstr "<b>Επιλογές εμφάνισης:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:5
-msgid "<b>Application Options:</b>"
-msgstr "<b>Επιλογές εφαρμογής:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:6
-msgid "<b>Application Style:</b>"
-msgstr "<b>Στυλ εφαρμογής:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:7
-msgid "<b>Colour Scheme:</b>"
-msgstr "<b>Σχήμα χρώματος:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:8
-msgid "<b>Control Style:</b>"
-msgstr "<b>Στυλ Ελέγχου:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:9
-msgid "<b>Dasher Font:</b>"
-msgstr "<b>Γραμματοσειρά Dasher:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:10
-msgid "<b>Direction:</b>"
-msgstr "<b>Κατεύθυνση:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:11
-msgid "<b>Editor Font:</b>"
-msgstr "<b>Γραμματοσειρά επεξεργαστή:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:12
-msgid "<b>Input Device:</b>"
-msgstr "<b>Συσκευή εισαγωγής:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashermaemo.glade.h:7
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:3
-msgid "<b>Language Model:</b>"
-msgstr "<b>Μοντέλο γλώσσας:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:14
-msgid "<b>Prediction:</b>"
-msgstr "<b>Πρόγνωση:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:9
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:5
-msgid "<b>Smoothing:</b>"
-msgstr "<b>Εξομάλυνση:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:10
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:6
-msgid "<b>Speed:</b>"
-msgstr "<b>Ταχύτητα:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:17
-msgid "<b>Starting And Stopping:</b>"
-msgstr "<b>Εκκίνηση και Διακοπή:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:18 ../Src/Gtk2/dashermaemo.glade.h:11
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:7
-msgid "Adapt speed automatically"
-msgstr "Αυτόματη προσαρμογή ταχύτητας"
-
-#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:13
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:9
-msgid "Alphabet Default"
-msgstr "Προεπιλογή Αλφαβήτου"
-
-#: ../Src/Gtk2/dasher.glade.h:20
-msgid "Alphabet:"
-msgstr "Αλφάβητο:"
-
-#: ../Src/Gtk2/dasher.glade.h:21
-msgid "Appearance"
-msgstr "Εμφάνιση"
-
-#: ../Src/Gtk2/dasher.glade.h:22
-msgid "Application"
-msgstr "Εφαρμογή"
-
-#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashermaemo.glade.h:14
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:10
-msgid "Bottom to Top"
-msgstr "Κάτω προς Πάνω"
-
-#: ../Src/Gtk2/dasher.glade.h:24
-msgid ""
-"Centre circle\n"
-"Two box"
-msgstr ""
-"Κέντρο κύκλου\n"
-"Δύο κουτιά"
-
-#: ../Src/Gtk2/dasher.glade.h:26
-msgid "Composition"
-msgstr "Σύνταξη"
-
-#: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashermaemo.glade.h:15
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:11
-msgid "Control"
-msgstr "Έλεγχος"
-
-#: ../Src/Gtk2/dasher.glade.h:28 ../Src/Gtk2/dashergpe.glade.h:1
-msgid "Control mode"
-msgstr "Λειτουργία ελέγχου"
-
-#: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:2
-msgid "Copy"
-msgstr "Αντιγραφή"
-
-#: ../Src/Gtk2/dasher.glade.h:30 ../Src/Gtk2/dashergpe.glade.h:3
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:12
-msgid "Copy _All"
-msgstr "Αντιγραφή Ό_λων"
-
-#: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashermaemo.glade.h:16
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:13
-msgid "Custom colour scheme:"
-msgstr "Προσαρμοσμένο σχήμα χρώματος:"
-
-#: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashermaemo.glade.h:17
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:14
-msgid "Custom:"
-msgstr "Προσαρμοσμένο:"
-
-#: ../Src/Gtk2/dasher.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:4
-msgid "Cut"
-msgstr "Αποκοπή"
-
-#: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:19
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:16
-msgid "Dasher Preferences"
-msgstr "Προτιμήσεις Dasher "
-
-#: ../Src/Gtk2/dasher.glade.h:36
-msgid "Dasher _Tutorial"
-msgstr "Εγ_χειρίδιο Dasher"
-
-#: ../Src/Gtk2/dasher.glade.h:37
-msgid "Direct entry"
-msgstr "Απευθείας καταχώριση"
-
-#: ../Src/Gtk2/dasher.glade.h:38
-msgid "Dock application window"
-msgstr "Αγκύρωση παραθύρου εφαρμογής"
-
-#: ../Src/Gtk2/dasher.glade.h:39
-msgid "Draw box outlines"
-msgstr "Σχεδίαση περιγραμμάτων κουτιών"
-
-#: ../Src/Gtk2/dasher.glade.h:40
-msgid "Draw line between crosshairs and mouse"
-msgstr "Σχεδίαση γραμμής μεταξύ crosshairs και ποντικιού"
-
-#: ../Src/Gtk2/dasher.glade.h:41
-msgid "Full Screen"
-msgstr "Πλήρης οθόνη"
-
-#: ../Src/Gtk2/dasher.glade.h:42
-msgid "Increase line thickness"
-msgstr "Αύξηση πάχους γραμμής"
-
-#: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashermaemo.glade.h:21
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
-msgid "Japanese"
-msgstr "Ιαπωνικά"
-
-#: ../Src/Gtk2/dasher.glade.h:44
-msgid "Language"
-msgstr "Γλώσσα"
-
-#: ../Src/Gtk2/dasher.glade.h:45 ../Src/Gtk2/dashermaemo.glade.h:22
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:18
-msgid "Language model adapts as you write."
-msgstr "Το μοντέλο γλώσσας προσαρμόζεται ενώ γράφετε."
-
-#: ../Src/Gtk2/dasher.glade.h:46
-msgid "Large font "
-msgstr "Μεγάλη γραμματοσειρά"
-
-#: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:23
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:20
-msgid "Left to Right"
-msgstr "Αριστερά πρός τα Δεξιά"
-
-#: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashermaemo.glade.h:24
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:21
-msgid "Mixture model (PPM/dictionary)"
-msgstr "Μοντέλο μίξης (PPM/λεξικό)"
-
-#: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:8
-msgid "New file"
-msgstr "Νέο αρχείο"
-
-#: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:10
-msgid "Open file"
-msgstr "Άνοιγμα αρχείου"
-
-#: ../Src/Gtk2/dasher.glade.h:51
-msgid "Options"
-msgstr "Επιλογές"
-
-#: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:11
-msgid "Paste"
-msgstr "Επικόλληση"
-
-#: ../Src/Gtk2/dasher.glade.h:53
-msgid "Pause outside of canvas"
-msgstr "Παύση έξω από το καμβά"
-
-#: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashermaemo.glade.h:26
-msgid "Please Wait..."
-msgstr "Παρακαλώ περιμένετε..."
-
-#: ../Src/Gtk2/dasher.glade.h:55
-msgid "Pr_eferences"
-msgstr "_Προτιμήσεις"
-
-#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashermaemo.glade.h:28
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
-msgid "Right to Left"
-msgstr "Δεξιά προς τα Αριστερά"
-
-#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:12
-msgid "Save file"
-msgstr "Αποθήκευση αρχείου"
-
-#: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:13
-msgid "Save file as"
-msgstr "Αποθήκευση αρχείου ως"
-
-#: ../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:15
-#: ../Src/Gtk2/dashermaemo.glade.h:30
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:26
-msgid "Select Font"
-msgstr "Επιλογή Γραμματοσειράς"
-
-#: ../Src/Gtk2/dasher.glade.h:61
-msgid "Show mouse position"
-msgstr "Προβολή θέσης ποντικιού"
-
-#: ../Src/Gtk2/dasher.glade.h:62
-msgid "Show speed slider"
-msgstr "Εμφάνιση μπάρας ταχύτητας"
-
-#: ../Src/Gtk2/dasher.glade.h:63
-msgid "Show toolbar"
-msgstr "Προβολή εργαλειοθήκης"
-
-#: ../Src/Gtk2/dasher.glade.h:64
-msgid "Small font"
-msgstr "Μικρή γραμματοσειρά"
-
-#: ../Src/Gtk2/dasher.glade.h:65
-msgid "Speed:"
-msgstr "Ταχύτητα:"
-
-#: ../Src/Gtk2/dasher.glade.h:66
-msgid "Stand-alone"
-msgstr "Stand-alone"
-
-#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashermaemo.glade.h:31
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
-msgid "Standard letter-based PPM"
-msgstr "PPM βασισμένο σε κανονικό γράμμα"
-
-#: ../Src/Gtk2/dasher.glade.h:68
-msgid "Start on left mouse button"
-msgstr "Εκκίνηση στο πάτημα του αριστερού κουμπιού του ποντικιού"
-
-#: ../Src/Gtk2/dasher.glade.h:69
-msgid "Start on space bar"
-msgstr "Εκκίνηση στο πάτημα του space bar"
-
-#: ../Src/Gtk2/dasher.glade.h:70
-msgid "Start with mouse position:"
-msgstr "Εκκίνηση με την θέση του ποντικιού:"
-
-#: ../Src/Gtk2/dasher.glade.h:71
-msgid "Timestamp new files"
-msgstr "Αποτύπωση ώρας σε νέα αρχεία"
-
-#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashermaemo.glade.h:32
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
-msgid "Top to Bottom"
-msgstr "Πάνω προς τα Κάτω"
-
-#: ../Src/Gtk2/dasher.glade.h:73
-msgid ""
-"Use this control to adjust the relative sizes of the \n"
-"letter boxes. Note that selecting high values will slow\n"
-"your writing speed."
-msgstr ""
-"Χρήση αυτού του ελέγχου για τη ρύθμιση σχετικών μεγεθών των\n"
-"κουτιών γραμμάτων. Σημειώστε ότι η επιλογή υψηλών τιμών θα επιβραδύνει\n"
-"την ταχύτητα γραφής σας."
-
-#: ../Src/Gtk2/dasher.glade.h:76
-msgid "Very large font"
-msgstr "Πολύ μεγάλη γραμματοσειρά"
-
-#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashermaemo.glade.h:34
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
-msgid "Word-based model"
-msgstr "Μοντέλο βασισμένο σε λέξεις"
-
-#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:17
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:32
-msgid "_About"
-msgstr "Π_ερί"
-
-#: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashergpe.glade.h:18
-msgid "_Append to file"
-msgstr "Π_ρόσθεση σε αρχείο"
-
-#: ../Src/Gtk2/dasher.glade.h:80
-msgid "_Contents"
-msgstr "_Περιεχόμενα"
-
-#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:21
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
-msgid "_Edit"
-msgstr "_Επεξεργασία"
-
-#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:23
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:37
-msgid "_File"
-msgstr "_Αρχείο"
-
-#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:24
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:38
-msgid "_Help"
-msgstr "_Βοήθεια"
-
-#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:25
-msgid "_Import Training Text"
-msgstr "Ε_ισαγωγή Κειμένου Εκπαίδευσης"
-
-#: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:28
-#: ../Src/Gtk2/dashermaemo.glade.h:35
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:41
-msgid "abcdefghijk ABCDEFGHIJK"
-msgstr "αβγδεζηθικ ΑΒΓΔΕΖΗΘΙΚ"
-
-#: ../Src/Gtk2/dasher_action_speech.cpp:115
-#, c-format
-msgid "Unable to initialize speech support\n"
-msgstr "Αδυναμία αρχικοποίησης υποστήριξης ομιλίας\n"
-
-#: ../Src/Gtk2/dasher_action_speech.cpp:138
-msgid "Unable to initialize voices\n"
-msgstr "Αδυναμία αρχικοποίησης φωνών\n"
-
-#: ../Src/Gtk2/dasher_action_speech.cpp:150
-msgid "Warning: unable to set speech parameters\n"
-msgstr "Προειδοποίηση: αδυναμία ορισμού παραμέτρων ομιλίας\n"
-
-#: ../Src/Gtk2/dashergpe.glade.h:6
-msgid "Enter text into other windows"
-msgstr "Εισάγετε κείμενο σε άλλα παράθυρα"
-
-#: ../Src/Gtk2/dashergpe.glade.h:7
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:19
-msgid "Large"
-msgstr "Μεγάλο"
-
-#: ../Src/Gtk2/dashergpe.glade.h:9
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:22
-msgid "Normal"
-msgstr "Κανονικό"
-
-#: ../Src/Gtk2/dashergpe.glade.h:16
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:29
-msgid "Very Large"
-msgstr "Πολύ μεγάλο"
-
-#: ../Src/Gtk2/dashergpe.glade.h:19
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:33
-msgid "_Dasher Font"
-msgstr "Γραμματοσειρά _Dasher"
-
-#: ../Src/Gtk2/dashergpe.glade.h:20
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:34
-msgid "_Dasher Font Size"
-msgstr "Μέγεθος Γραμματοσειράς _Dasher"
-
-#: ../Src/Gtk2/dashergpe.glade.h:22
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:36
-msgid "_Edit Font"
-msgstr "_Επεξεργασία Γραμματοσειράς"
-
-#: ../Src/Gtk2/dashergpe.glade.h:26
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:39
-msgid "_Options"
-msgstr "Επιλ_ογές"
-
-#: ../Src/Gtk2/dashergpe.glade.h:27
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:40
-msgid "_Reset fonts"
-msgstr "Επαναφο_ρά γραμματοσειρών"
 
 #: ../Src/Gtk2/dashermaemo.glade.h:1
 msgid "\n"
 msgstr "\n"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:3
-msgid "(Message Placeholder - no need to translate)"
-msgstr "(Message Placeholder - no need to translate)"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:6
+#: ../Src/Gtk2/dashermaemo.glade.h:5
 msgid "<b>Display Size:</b>"
 msgstr "<b>Μέγεθος εμφάνισης:</b>"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:8
+#: ../Src/Gtk2/dashermaemo.glade.h:7
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:4
 msgid "<b>Orientation:</b>"
 msgstr "<b>Προσανατολισμός:</b>"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:12
+#: ../Src/Gtk2/dashermaemo.glade.h:11
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:8
 msgid "Alphabet"
 msgstr "Αλφάβητο"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:20
+#: ../Src/Gtk2/dashermaemo.glade.h:19
 msgid "Enlarge input window"
 msgstr "Μεγιστοποίηση παραθύρου εισαγωγής"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:25
+#: ../Src/Gtk2/dashermaemo.glade.h:24
 msgid "P"
 msgstr "P"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:27
+#: ../Src/Gtk2/dashermaemo.glade.h:26
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:23
 msgid "Prediction"
 msgstr "Πρόγνωση"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:33
+#: ../Src/Gtk2/dashermaemo.glade.h:32
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:30
 msgid "View"
 msgstr "Προβολή"
 
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:19
+msgid "Large"
+msgstr "Μεγάλο"
+
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:22
+msgid "Normal"
+msgstr "Κανονικό"
+
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:29
+msgid "Very Large"
+msgstr "Πολύ μεγάλο"
+
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:33
+msgid "_Dasher Font"
+msgstr "Γραμματοσειρά _Dasher"
+
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:34
+msgid "_Dasher Font Size"
+msgstr "Μέγεθος Γραμματοσειράς _Dasher"
+
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:36
+msgid "_Edit Font"
+msgstr "_Επεξεργασία Γραμματοσειράς"
+
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:39
+msgid "_Options"
+msgstr "Επιλ_ογές"
+
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:40
+msgid "_Reset fonts"
+msgstr "Επαναφο_ρά γραμματοσειρών"
+
+#~ msgid "Training Dasher... please wait"
+#~ msgstr "Εκπαίδευση Dasher... παρακαλώ περιμένετε"
+
+#~ msgid "Enter text into other windows"
+#~ msgstr "Εισάγετε κείμενο σε άλλα παράθυρα"
+
+#~ msgid "(Message Placeholder - no need to translate)"
+#~ msgstr "(Message Placeholder - no need to translate)"
