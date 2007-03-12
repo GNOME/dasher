@@ -11,6 +11,14 @@ class CCannaConversionHelper : public CConversionHelper {
 
   virtual bool Convert(const std::string &strSource, SCENode ** pRoot, int * childCount, int CMid);
 
+
+  virtual void AssignSizes(SCENode * pStart, Dasher::CLanguageModel::Context context, long normalization, int uniform, int iNChildren);
+
+
+  virtual Dasher::CLanguageModel * GetLanguageModel() { return NULL; };
+
+
+
 /*   virtual bool GetPhraseList(int HZIndex, SCENode ** psOutput, int CMid) { */
 /*     return false; */
 /*   }; */

@@ -155,6 +155,7 @@ void dasher_internal_buffer_insert(DasherInternalBuffer *pSelf, const gchar *szT
 
   gtk_text_view_scroll_mark_onscreen(pPrivate->pTextView, gtk_text_buffer_get_insert(pPrivate->pBuffer));
 
+  //  g_message("Buffer lenght: %d", gtk_text_buffer_get_char_count(pPrivate->pBuffer));
 }
 
 void dasher_internal_buffer_delete(DasherInternalBuffer *pSelf, int iLength) { 
@@ -179,6 +180,8 @@ void dasher_internal_buffer_delete(DasherInternalBuffer *pSelf, int iLength) {
 
 gchar *dasher_internal_buffer_get_context(DasherInternalBuffer *pSelf, gint iOffset, gint iLength) {
   DasherInternalBufferPrivate *pPrivate = (DasherInternalBufferPrivate *)(pSelf->private_data);
+
+  //  g_message("Buffer lenght: %d", gtk_text_buffer_get_char_count(pPrivate->pBuffer));
 
   GtkTextIter start;
   GtkTextIter end; // Refers to end of context, which is start of selection!

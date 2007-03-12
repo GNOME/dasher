@@ -84,6 +84,7 @@ bool CCannaConversionHelper::Convert(const std::string &strSource, SCENode ** pR
                   strlen(inbuf),        // length of given string
                   (RK_XFER << RK_XFERBITS) | RK_KFER);  // mode
 
+
   if(nbun == -1) {
     // Crude error detection - I don't know enough Japanese to figure out how to do this properly :-(
     
@@ -96,12 +97,17 @@ bool CCannaConversionHelper::Convert(const std::string &strSource, SCENode ** pR
   /* Convert each phrase into Kanji */
   cd = iconv_open("UTF8", "EUC-JP");
   for(int i = nbun-1; i >= 0; --i) {
+    SCENode *pTail = pDummyRoot->pChild;
+
     RkGoTo(context_id, i);      // Move to a specific phrase
     int len = RkGetKanjiList(context_id, buf, BUFSIZE); // Get a list of Kanji candidates
 
     // Use UTF-8 for Dasher
     char *p = (char *)buf;
-    for(int j = 0; j < len; j++) {
+
+    std::vector<std::string> vCandidates;
+
+    for(int j = 0; j < len; ++j) {
       inbuf = p;
       //std::cout << "Canna:" << j << "[" << inbuf << "] ";
       outbuf = (char *)str_utf8;
@@ -113,11 +119,16 @@ bool CCannaConversionHelper::Convert(const std::string &strSource, SCENode ** pR
       //std::cout << inbytesleft << " ->";
       iconv(cd, &inbuf, &inbytesleft, &outbuf, &outbytesleft);
       *outbuf = '\0';
-      if(strlen((char *)str_utf8)) {
-	ProcessCandidate((char *)str_utf8, pDummyRoot, pDummyRoot->pChild);
-      }
+      
+      if(strlen((char *)str_utf8)) 
+	vCandidates.push_back((char *)str_utf8);
+
       //std::cout << "[" << str_utf8 << "] " << outbytesleft << std::endl;
       p += (strlen(p) + 1);
+    }
+
+    for(std::vector<std::string>::reverse_iterator it(vCandidates.rbegin()); it != vCandidates.rend(); ++it) {
+      ProcessCandidate(*it, pDummyRoot, pTail);
     }
   }
   RkEndBun(context_id, 0);      // Close phrase division
@@ -161,6 +172,8 @@ void CCannaConversionHelper::ProcessCandidate(std::string strCandidate, SCENode 
 
     std::string strSymbol(strCandidate.substr(iIdx, iLength));
 
+    iIdx += iLength;
+
     SCENode *pCurrentChild(pCurrentNode->pChild); // TODO: Initialise
 
     while(pCurrentChild) {
@@ -172,13 +185,37 @@ void CCannaConversionHelper::ProcessCandidate(std::string strCandidate, SCENode 
     if(!pCurrentChild) { // Need a new child
       pCurrentChild = new SCENode;
       pCurrentChild->pNext = pCurrentNode->pChild;
-      pCurrentChild->pChild = pTail;
+      if(iIdx >= strCandidate.size())
+	pCurrentChild->pChild = pTail;
+      else
+	pCurrentChild->pChild = NULL;
 
       pCurrentChild->pszConversion = new char[strSymbol.size() + 1];
       strcpy(pCurrentChild->pszConversion, strSymbol.c_str());
+
+      pCurrentNode->pChild = pCurrentChild;
     }
 
+    pCurrentNode = pCurrentChild;
+  }
+}
 
-    iIdx += iLength;
+void CCannaConversionHelper::AssignSizes(SCENode *pStart, Dasher::CLanguageModel::Context context, long normalization, int uniform, int iNChildren) {
+
+  SCENode *pNode(pStart);
+
+  int iRemaining = iNChildren;
+  int iLeft = normalization;
+  
+  int iCheck(0);
+
+  while(pNode) {
+    pNode->NodeSize = iLeft / iRemaining;
+    iLeft -= pNode->NodeSize;
+
+    iCheck += pNode->NodeSize;
+    
+    --iRemaining;
+    pNode = pNode->pNext;
   }
 }

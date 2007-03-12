@@ -27,6 +27,8 @@ using namespace Dasher;
 
 CConversionManagerFactory::CConversionManagerFactory(Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, CNodeCreationManager *pNCManager, int iID, Dasher::CAlphIO *pCAlphIO) {
   m_pNCManager = pNCManager;
+
+  // TODO: Need to deal with the case of GetHelper returning NULL
   m_pHelper = GetHelper(pEventHandler, pSettingsStore, iID, pCAlphIO);
 
   // TODO: These shouldn't be here - need to figure out exactly how it all works

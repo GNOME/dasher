@@ -1,3 +1,22 @@
+// AlphabetManager.cpp
+//
+// Copyright (c) 2007 The Dasher Team
+//
+// This file is part of Dasher.
+//
+// Dasher is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// Dasher is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Dasher; if not, write to the Free Software 
+// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "../Common/Common.h"
 
@@ -194,6 +213,9 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CDasherNode *pParent, symbol iSy
     pNewNode = pExistingChild;
     pNewNode->SetRange(iLbnd, iHbnd);
     pNewNode->SetParent(pParent);
+
+    DASHER_ASSERT(static_cast<SAlphabetData *>(pExistingChild->m_pUserData)->iOffset == pParentData->iOffset + 1);
+
   }
   else if(iSymbol == m_pNCManager->GetControlSymbol()) {                                                                               
     pNewNode = m_pNCManager->GetRoot(1, pParent, iLbnd, iHbnd, &(pParentData->iOffset));                                           
@@ -336,6 +358,8 @@ void CAlphabetManager::ClearNode( CDasherNode *pNode ) {
 void CAlphabetManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {
   symbol t = static_cast<SAlphabetData *>(pNode->m_pUserData)->iSymbol;
 
+  //  std::cout << "Output at offset " << static_cast<SAlphabetData *>(pNode->m_pUserData)->iOffset << " *" << m_pNCManager->GetAlphabet()->GetText(t) << "*" << std::endl;
+
   if(t) { // Ignore symbol 0 (root node)
     Dasher::CEditEvent oEvent(1, m_pNCManager->GetAlphabet()->GetText(t));
     m_pNCManager->InsertEvent(&oEvent);
@@ -353,6 +377,9 @@ void CAlphabetManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* p
 
 void CAlphabetManager::Undo( CDasherNode *pNode ) {
   symbol t = static_cast<SAlphabetData *>(pNode->m_pUserData)->iSymbol;
+
+  //  std::cout << "Undo at offset " << static_cast<SAlphabetData *>(pNode->m_pUserData)->iOffset << " *" << m_pNCManager->GetAlphabet()->GetText(t) << "*" << std::endl;
+
   if(t) { // Ignore symbol 0 (root node)
     Dasher::CEditEvent oEvent(2, m_pNCManager->GetAlphabet()->GetText(t));
     m_pNCManager->InsertEvent(&oEvent);

@@ -1,3 +1,23 @@
+// ConversionManager.cpp
+//
+// Copyright (c) 2007 The Dasher Team
+//
+// This file is part of Dasher.
+//
+// Dasher is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// Dasher is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Dasher; if not, write to the Free Software 
+// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
 #ifndef WIN32
 #include "config.h"
 #endif 
@@ -24,7 +44,8 @@ CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, CConver
   if(pHelper)
     m_pLanguageModel = pHelper->GetLanguageModel();
 
-  m_iLearnContext = m_pLanguageModel->CreateEmptyContext();
+  if(m_pLanguageModel)
+    m_iLearnContext = m_pLanguageModel->CreateEmptyContext();
 
   m_iRefCount = 1; // TODO: Is this the right way to handle this, or should we initilise to 0 and enforce a reference from the creator?
   m_iCMID = CMid;
@@ -42,13 +63,15 @@ CConversionManager::~CConversionManager(){
 CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData) {
   CDasherNode *pNewNode;
 
+  int iOffset = *(static_cast<int *>(pUserData));
+ 
   // TODO: Parameters here are placeholders - need to figure out what's right
 
   CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
   pDisplayInfo->iColour = 9; // TODO: Hard coded value
   pDisplayInfo->bShove = true;
   pDisplayInfo->bVisible = true;
-  pDisplayInfo->strDisplayText = "Convert"; // TODO: Hard coded value, needs i18n
+  pDisplayInfo->strDisplayText = ">"; // TODO: Hard coded value, needs i18n
        
   pNewNode = new CDasherNode(pParent, iLower, iUpper, pDisplayInfo);
  
@@ -64,14 +87,15 @@ CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int i
   SConversionData *pNodeUserData = new SConversionData;
   pNewNode->m_pUserData = pNodeUserData;
   pNodeUserData->pLanguageModel = m_pHelper->GetLanguageModel();
+  pNodeUserData->bType = false;
+  pNodeUserData->iOffset = iOffset;
+  //  CLanguageModel::Context iContext;
 
-  CLanguageModel::Context iContext;
-
-  // std::cout<<m_pLanguageModel<<"lala"<<std::endl;
-  if(m_pLanguageModel){
-    iContext = m_pLanguageModel->CreateEmptyContext();
-    pNodeUserData->iContext = iContext;
-  }
+//   // std::cout<<m_pLanguageModel<<"lala"<<std::endl;
+//   if(m_pLanguageModel){
+//     iContext = m_pLanguageModel->CreateEmptyContext();
+//     pNodeUserData->iContext = iContext;
+//   }
 
   pNodeUserData->pSCENode = 0;
 
@@ -161,6 +185,16 @@ void CConversionManager::AssignChildSizes(SCENode *pNode, CLanguageModel::Contex
     // -----
 
     // Use the scores to calculate the size of the nodes
+
+
+  iNChildren = 0;
+  SCENode *pChild(pNode);
+
+  while(pChild) {
+    pChild = pChild->pNext;
+    ++iNChildren;
+  }
+
 
   m_pHelper->AssignSizes(pNode, context, m_pNCManager->GetLongParameter(LP_NORMALIZATION), m_pNCManager->GetLongParameter(LP_UNIFORM), iNChildren);
 
@@ -253,11 +287,11 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
   
   SConversionData * pCurrentDataNode (static_cast<SConversionData *>(pNode->m_pUserData));
   SCENode *pCurrentSCEChild;
-  
+
   if(pCurrentDataNode->pSCENode)
     pCurrentSCEChild = pCurrentDataNode->pSCENode->pChild;
   else {
-    if(m_pRoot)
+    if(m_pRoot && !pCurrentDataNode->bType)
       pCurrentSCEChild = m_pRoot[0];
     else
       pCurrentSCEChild = 0;
@@ -278,6 +312,7 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
     
     //    iSize = new int[pCurrentSCEChild->IsHeadAndCandNum];
 
+    
 
     
     AssignChildSizes(pCurrentSCEChild, pCurrentDataNode->iContext, pCurrentSCEChild->IsHeadAndCandNum);
@@ -319,16 +354,18 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
       pNewNode->m_pNodeManager->Ref();
 
       SConversionData *pNodeUserData = new SConversionData;
-      pNodeUserData ->pSCENode = pCurrentSCEChild;
+      pNodeUserData->bType = false;
+      pNodeUserData->pSCENode = pCurrentSCEChild;
       pNodeUserData->pLanguageModel = pCurrentDataNode->pLanguageModel;
+      pNodeUserData->iOffset = pCurrentDataNode->iOffset + 1;
 
-      CLanguageModel::Context iContext;
-      iContext = pCurrentDataNode->pLanguageModel->CloneContext(pCurrentDataNode->iContext);
-      if(pCurrentSCEChild ->Symbol !=-1)
-	pNodeUserData->pLanguageModel->EnterSymbol(iContext, pCurrentSCEChild->Symbol); // TODO: Don't use symbols?
+//       CLanguageModel::Context iContext;
+//       iContext = pCurrentDataNode->pLanguageModel->CloneContext(pCurrentDataNode->iContext);
+//       if(pCurrentSCEChild ->Symbol !=-1)
+// 	pNodeUserData->pLanguageModel->EnterSymbol(iContext, pCurrentSCEChild->Symbol); // TODO: Don't use symbols?
       
       
-      pNodeUserData->iContext = iContext;
+//       pNodeUserData->iContext = iContext;
       
       pNewNode->m_pUserData = pNodeUserData;
       // SAlphabetData *pNodeUserData = new SAlphabetData;
@@ -349,16 +386,55 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
   }
 
   else {
-    // TODO: Placeholder algorithm here
-    // TODO: Add an 'end of conversion' node?
-    int iLbnd(0);
-    int iHbnd(m_pNCManager->GetLongParameter(LP_NORMALIZATION)); 
+    if((static_cast<SConversionData *>(pNode->m_pUserData))->bType) {
+      // TODO: Placeholder algorithm here
+      // TODO: Add an 'end of conversion' node?
+      int iLbnd(0);
+      int iHbnd(m_pNCManager->GetLongParameter(LP_NORMALIZATION)); 
       
-    pNewNode = m_pNCManager->GetRoot(0, pNode, iLbnd, iHbnd, NULL);
-    pNewNode->SetFlag(NF_SEEN, false);
+      CAlphabetManager::SRootData oRootData;
+      oRootData.szContext = NULL;
+      oRootData.iOffset = pCurrentDataNode->iOffset + 1;
+   
+      pNewNode = m_pNCManager->GetRoot(0, pNode, iLbnd, iHbnd, &oRootData);
+      pNewNode->SetFlag(NF_SEEN, false);
       
-    pNode->Children().push_back(pNewNode);
-    //    pNode->SetHasAllChildren(false);
+      pNode->Children().push_back(pNewNode);
+      //    pNode->SetHasAllChildren(false);
+    }
+    else {
+      int iLbnd(0);
+      int iHbnd(m_pNCManager->GetLongParameter(LP_NORMALIZATION)); 
+
+      CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
+      pDisplayInfo->iColour = m_pHelper->AssignColour(0, pCurrentSCEChild, 0);
+      pDisplayInfo->bShove = true;
+      pDisplayInfo->bVisible = true;
+      pDisplayInfo->strDisplayText = "";
+       
+      pNewNode = new CDasherNode(pNode, iLbnd, iHbnd, pDisplayInfo);
+      
+      // TODO: Reimplement ----
+
+      // FIXME - handle context properly
+      //      pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
+      // -----
+      
+      pNewNode->m_pNodeManager = this;
+      pNewNode->m_pNodeManager->Ref();
+
+      SConversionData *pNodeUserData = new SConversionData;
+      pNodeUserData->bType = true;
+      pNodeUserData->pSCENode = NULL;
+      pNodeUserData->pLanguageModel = pCurrentDataNode->pLanguageModel;
+      pNodeUserData->iOffset = pCurrentDataNode->iOffset;
+     
+      pNewNode->m_pUserData = pNodeUserData;
+
+      pNewNode->SetFlag(NF_SEEN, false);
+      
+      pNode->Children().push_back(pNewNode);
+    }
   }
 }
 
@@ -399,7 +475,7 @@ void CConversionManager::BuildTree(CDasherNode *pRoot) {
   SCENode *pStartTemp;
   bool ConversionSuccess;
 
-  ConversionSuccess = m_pHelper ->Convert(strCurrentString, &pStartTemp , &iHZCount, m_iCMID); 
+  ConversionSuccess = m_pHelper->Convert(strCurrentString, &pStartTemp , &iHZCount, m_iCMID); 
 
   if((!ConversionSuccess)||(iHZCount==0)) {
     m_pRoot = 0;
@@ -414,7 +490,7 @@ void CConversionManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB*
   // TODO: Reimplement this
   //  m_pNCManager->m_bContextSensitive = true; 
 
-  SCENode *pCurrentSCENode(static_cast<SCENode *>(pNode->m_pUserData));
+  SCENode *pCurrentSCENode((static_cast<SConversionData *>(pNode->m_pUserData))->pSCENode);
 
   if(pCurrentSCENode) {
     Dasher::CEditEvent oEvent(1, pCurrentSCENode->pszConversion);
@@ -426,6 +502,15 @@ void CConversionManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB*
     }
   }
   else {
+    if((static_cast<SConversionData *>(pNode->m_pUserData))->bType) {
+      Dasher::CEditEvent oOPEvent(1, "|");
+      m_pNCManager->InsertEvent(&oOPEvent);
+    }
+    else {
+      Dasher::CEditEvent oOPEvent(1, ">");
+      m_pNCManager->InsertEvent(&oOPEvent);
+    }
+    
     Dasher::CEditEvent oEvent(10, "");
     m_pNCManager->InsertEvent(&oEvent);
   }
@@ -435,7 +520,7 @@ void CConversionManager::Undo( CDasherNode *pNode ) {
   SCENode *pCurrentSCENode(static_cast<SCENode *>(pNode->m_pUserData));
 
   if(pCurrentSCENode) {
-    if(strlen(pCurrentSCENode->pszConversion) > 0) {
+    if(pCurrentSCENode->pszConversion && (strlen(pCurrentSCENode->pszConversion) > 0)) {
       Dasher::CEditEvent oEvent(2, pCurrentSCENode->pszConversion);
       m_pNCManager->InsertEvent(&oEvent);
     }
@@ -481,7 +566,7 @@ void CConversionManager::SetFlag(CDasherNode *pNode, int iFlag, bool bValue) {
       symbol s =pSCENode ->Symbol;
     
      
-      if(s!=-1)
+      if((s!=-1) && m_pLanguageModel)
 	pLan->LearnSymbol(m_iLearnContext, s);
     }
     break;

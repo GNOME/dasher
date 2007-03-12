@@ -1357,6 +1357,8 @@ handle_context_request(GtkDasherControl * pDasherControl, gint iOffset, gint iLe
   if(!pPrivate->pEditor || !pPrivate->pDasherWidget)
     return;
 
+  g_message("Handling context request: %d %d: %s", iOffset, iLength, dasher_editor_get_context(pPrivate->pEditor, iOffset, iLength));
+
   gtk_dasher_control_set_context(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), dasher_editor_get_context(pPrivate->pEditor, iOffset, iLength));
 }
 

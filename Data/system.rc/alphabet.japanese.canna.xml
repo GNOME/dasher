@@ -12,6 +12,7 @@
 <palette>European/Asian</palette>
 <space d="_" t=" " b="9" />
 <paragraph d="&#182;" b="9"/>
+<conversionmode id="1"/>
 <convert d=">" t=">" b="9" />
 <protect d=" " t="|" b="9" />
 <control d="Control" t="" b="8"/>

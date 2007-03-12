@@ -1,3 +1,23 @@
+// ControlManager.h
+//
+// Copyright (c) 2007 The Dasher Team
+//
+// This file is part of Dasher.
+//
+// Dasher is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// Dasher is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Dasher; if not, write to the Free Software 
+// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
 #ifndef __controlmanager_h__
 #define __controlmanager_h__
 
@@ -13,9 +33,16 @@
 #include <iostream>
 #include <sys/stat.h>
 #include <string>
+
+/// \cond expat
+
+// TODO: Make build with internal expat conditional
 namespace expat {
 #include "../Common/Expat/lib/expat.h"
 }
+
+/// \endcond
+
 using namespace expat;
 using namespace std;
 
@@ -29,6 +56,7 @@ namespace Dasher {
   /// A node manager which deals with control nodes.
   /// Currently can only have one instance due to use 
   /// of static members for callbacks from expat.
+  ///
   class CControlManager : public CNodeManager {
   public:
 

@@ -164,6 +164,9 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
 }
 
 void CDasherModel::Make_root(CDasherNode *pNewRoot) {
+  // TODO: Note that subnodes can be the root transiently during the
+  // re-rooting process.
+
   DASHER_ASSERT(pNewRoot != NULL);
   DASHER_ASSERT(pNewRoot->NodeIsParent(m_Root));
 
@@ -173,12 +176,19 @@ void CDasherModel::Make_root(CDasherNode *pNewRoot) {
   // existing data structure?
   oldroots.push_back(m_Root);
 
-  while((oldroots.size() > 10) && (!m_bRequireConversion || (oldroots[0]->GetFlag(NF_CONVERTED)))) {
+  // TODO: tidy up conditional
+  while(((oldroots.size() > 10) && (!m_bRequireConversion || (oldroots[0]->GetFlag(NF_CONVERTED)))) || 
+	(oldroots[0]->GetFlag(NF_SUBNODE))) {
     oldroots[0]->OrphanChild(oldroots[1]);
     delete oldroots[0];
     oldroots.pop_front();
   }
 
+//   for(int i(0); i < oldroots.size(); ++i)
+//     std::cout << oldroots[i]->GetFlag(NF_SUBNODE) << " ";
+
+//  std::cout << std::endl;
+  
   m_Root = pNewRoot;
 
   // Update the root coordinates, as well as any currently scheduled locations
@@ -234,6 +244,8 @@ void CDasherModel::Reparent_root(int lower, int upper) {
   CDasherNode *pNewRoot;
 
   if(oldroots.size() == 0) {
+    //    std::cout << "a" << std::endl;
+
     // No nodes in the stack, so make a new one
 
     // TODO: iGenerations is redundant, get rid of it
@@ -242,6 +254,13 @@ void CDasherModel::Reparent_root(int lower, int upper) {
 
   }
   else {
+    //    std::cout << "b" << std::endl;
+
+    //    for(int i(0); i < oldroots.size(); ++i)
+    //      std::cout << oldroots[i]->GetFlag(NF_SUBNODE) << " ";
+    
+    //   std::cout << std::endl;
+
     pNewRoot = oldroots.back();
     oldroots.pop_back();
 
@@ -249,11 +268,20 @@ void CDasherModel::Reparent_root(int lower, int upper) {
       pNewRoot = oldroots.back();
       oldroots.pop_back();
     }
+
+    //    for(int i(0); i < oldroots.size(); ++i)
+    // std::cout << oldroots[i]->GetFlag(NF_SUBNODE) << " ";
+    
+    //std::cout << std::endl;
+    
+    // std::cout << "---" << std::endl;
   }
 
   // Return if there's no existing parent and no way of recreating one
   if(pNewRoot == NULL)
     return;
+
+  DASHER_ASSERT(!(pNewRoot->GetFlag(NF_SUBNODE)));
 
   pNewRoot->SetFlag(NF_COMMITTED, false);
 
@@ -778,6 +806,8 @@ bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
     return(m_Root != root);
   }
 
+  DASHER_ASSERT(!(m_Root->GetFlag(NF_SUBNODE)));
+
   CDasherNode *pNewRoot = NULL;
 
   bool bFound = false;
@@ -785,7 +815,9 @@ bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
   if(RecursiveCheckRoot(m_Root, &pNewRoot, bFound)) {
     if(bFound) { // TODO: I think this if statement is reduncdent, return value of above is always equal to bFound
       m_Root->DeleteNephews(pNewRoot);
+      //      std::cout << "m..." << std::endl;
       RecursiveMakeRoot(pNewRoot);
+      //std::cout << "...m" << std::endl;
     }
   }
 
