@@ -25,8 +25,9 @@
 
 using namespace Dasher;
 
-CConversionManagerFactory::CConversionManagerFactory(Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, CNodeCreationManager *pNCManager, int iID, Dasher::CAlphIO *pCAlphIO) {
+CConversionManagerFactory::CConversionManagerFactory(Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, CNodeCreationManager *pNCManager, int iID, Dasher::CAlphIO *pCAlphIO, CAlphabet *pAlphabet) {
   m_pNCManager = pNCManager;
+  m_pAlphabet = pAlphabet;
 
   // TODO: Need to deal with the case of GetHelper returning NULL
   m_pHelper = GetHelper(pEventHandler, pSettingsStore, iID, pCAlphIO);
@@ -37,7 +38,7 @@ CConversionManagerFactory::CConversionManagerFactory(Dasher::CEventHandler *pEve
 }
 
 CDasherNode *CConversionManagerFactory::GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData) {
-  CConversionManager *pConversionManager(new CConversionManager(m_pNCManager, m_pHelper, m_iCMCount));
+  CConversionManager *pConversionManager(new CConversionManager(m_pNCManager, m_pHelper, m_pAlphabet, m_iCMCount));
 
   if(m_iCMCount >= MAX_CM_NUM-1){
     pagecount ++;

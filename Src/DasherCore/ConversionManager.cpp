@@ -34,15 +34,18 @@
 
 using namespace Dasher;
 
-CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, CConversionHelper *pHelper, int CMid) 
+CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, CConversionHelper *pHelper, CAlphabet *pAlphabet, int CMid) 
   : CNodeManager(2) {
   m_pNCManager = pNCManager;
   m_pHelper = pHelper;
+  m_pAlphabet = pAlphabet;
    
 //DOESN'T SEEM INTRINSIC
 //and check why pHelper may be empty
   if(pHelper)
     m_pLanguageModel = pHelper->GetLanguageModel();
+  else
+    m_pLanguageModel = NULL;
 
   if(m_pLanguageModel)
     m_iLearnContext = m_pLanguageModel->CreateEmptyContext();
@@ -86,9 +89,14 @@ CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int i
 
   SConversionData *pNodeUserData = new SConversionData;
   pNewNode->m_pUserData = pNodeUserData;
-  pNodeUserData->pLanguageModel = m_pHelper->GetLanguageModel();
   pNodeUserData->bType = false;
   pNodeUserData->iOffset = iOffset;
+
+  if(m_pHelper)
+    pNodeUserData->pLanguageModel = m_pHelper->GetLanguageModel();
+  else
+    pNodeUserData->pLanguageModel = NULL;
+
   //  CLanguageModel::Context iContext;
 
 //   // std::cout<<m_pLanguageModel<<"lala"<<std::endl;
@@ -106,6 +114,8 @@ CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int i
 // TODO: get rid of pSizes
 
 void CConversionManager::AssignChildSizes(SCENode *pNode, CLanguageModel::Context context, int iNChildren) {
+  DASHER_ASSERT(m_pHelper);
+
     // Calculate sizes for the children. Note that normalisation is
     // done additiviely rather than multiplicatively, so it's not
     // quite what was originally planned (but I don't think this is
@@ -269,23 +279,39 @@ void CConversionManager::AssignChildSizes(SCENode *pNode, CLanguageModel::Contex
     */
 
 void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
+  DASHER_ASSERT(m_pNCManager);
 
-  if(!m_pNCManager)
+  SConversionData * pCurrentDataNode (static_cast<SConversionData *>(pNode->m_pUserData));
+  CDasherNode *pNewNode;
+
+  // If no helper class is present then just drop straight back to an
+  // alphabet root. This should only happen in error cases, and the
+  // user should have been warned here.
+  //
+  if(!m_pHelper) {
+    int iLbnd(0);
+    int iHbnd(m_pNCManager->GetLongParameter(LP_NORMALIZATION)); 
+    
+    CAlphabetManager::SRootData oRootData;
+    oRootData.szContext = NULL;
+    oRootData.iOffset = pCurrentDataNode->iOffset + 1;
+
+    pNewNode = m_pNCManager->GetRoot(0, pNode, iLbnd, iHbnd, &oRootData);
+    pNewNode->SetFlag(NF_SEEN, false);
+    
+    pNode->Children().push_back(pNewNode);
+
     return;
+  }
 
   // Do the conversion and build the tree (lattice) if it hasn't been
   // done already.
-
+  //
   if(!m_bTreeBuilt) {
     BuildTree(pNode);
     m_bTreeBuilt = true;
   }
 
-  CDasherNode *pNewNode;
-
-  
-  
-  SConversionData * pCurrentDataNode (static_cast<SConversionData *>(pNode->m_pUserData));
   SCENode *pCurrentSCEChild;
 
   if(pCurrentDataNode->pSCENode)
@@ -455,18 +481,22 @@ void CConversionManager::RecursiveDumpTree(SCENode *pCurrent, unsigned int iDept
 }
 
 void CConversionManager::BuildTree(CDasherNode *pRoot) {
+  DASHER_ASSERT(m_pHelper);
+
   CDasherNode *pCurrentNode(pRoot->Parent());
  
   std::string strCurrentString;
-  if(m_pHelper)
-    m_pHelper->ClearData(m_iCMID);
+  m_pHelper->ClearData(m_iCMID);
 
   while(pCurrentNode) {
     if(pCurrentNode->m_pNodeManager->GetID() == 2)
       break;
 
     // TODO: Need to make this the edit text rather than the display text
-    strCurrentString = pCurrentNode->GetDisplayInfo()->strDisplayText + strCurrentString;
+    CAlphabetManager::SAlphabetData *pAlphabetData = 
+      static_cast<CAlphabetManager::SAlphabetData *>(pCurrentNode->m_pUserData);
+
+    strCurrentString = m_pAlphabet->GetText(pAlphabetData->iSymbol) + strCurrentString;
     pCurrentNode = pCurrentNode->Parent();
   }
 
@@ -516,13 +546,23 @@ void CConversionManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB*
   }
 }
 
-void CConversionManager::Undo( CDasherNode *pNode ) {
-  SCENode *pCurrentSCENode(static_cast<SCENode *>(pNode->m_pUserData));
+void CConversionManager::Undo( CDasherNode *pNode ) {  
+  SCENode *pCurrentSCENode((static_cast<SConversionData *>(pNode->m_pUserData))->pSCENode);
 
   if(pCurrentSCENode) {
     if(pCurrentSCENode->pszConversion && (strlen(pCurrentSCENode->pszConversion) > 0)) {
       Dasher::CEditEvent oEvent(2, pCurrentSCENode->pszConversion);
       m_pNCManager->InsertEvent(&oEvent);
+    }
+  } 
+  else {
+    if((static_cast<SConversionData *>(pNode->m_pUserData))->bType) {
+      Dasher::CEditEvent oOPEvent(2, "|");
+      m_pNCManager->InsertEvent(&oOPEvent);
+    }
+    else {
+      Dasher::CEditEvent oOPEvent(2, ">");
+      m_pNCManager->InsertEvent(&oOPEvent);
     }
   }
 }

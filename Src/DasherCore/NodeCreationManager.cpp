@@ -15,7 +15,7 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
   int iConversionID(m_pAlphabetManagerFactory->GetConversionID());
 
   m_pControlManagerFactory = new CControlManagerFactory(this);
-  m_pConversionManagerFactory = new CConversionManagerFactory(pEventHandler, pSettingsStore, this, iConversionID, pAlphIO);
+  m_pConversionManagerFactory = new CConversionManagerFactory(pEventHandler, pSettingsStore, this, iConversionID, pAlphIO, m_pAlphabet);
 }
 
 CNodeCreationManager::~CNodeCreationManager() {

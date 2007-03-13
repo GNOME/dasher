@@ -63,7 +63,7 @@ namespace Dasher {
   class CConversionManager : public CNodeManager {
   public:
     // TODO: We shouldn't need to know about this stuff, but the code is somewhat in knots at the moment
-    CConversionManager(CNodeCreationManager *pNCManager, CConversionHelper *pHelper, int CMid);
+    CConversionManager(CNodeCreationManager *pNCManager, CConversionHelper *pHelper, CAlphabet *pAlphabet, int CMid);
     ~CConversionManager();
 
     ///
@@ -200,6 +200,8 @@ namespace Dasher {
     ///
     
     CConversionHelper *m_pHelper;
+
+    CAlphabet *m_pAlphabet;
 
     ///
     /// Reference count 

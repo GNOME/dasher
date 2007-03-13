@@ -72,6 +72,10 @@ bool CCannaConversionHelper::Convert(const std::string &strSource, SCENode ** pR
   size_t outbytesleft = BUFSIZE;
 
   // Use EUC for Canna
+  //
+  // NOTE: As far as I can tell, this requires NFC rather than NFD
+  // normalisation. http://www.cl.cam.ac.uk/~mgk25/unicode.html
+  //
   iconv_t cd = iconv_open("EUC-JP", "UTF8");
   iconv(cd, &inbuf, &inbytesleft, &outbuf, &outbytesleft);
   *outbuf = '\0';
