@@ -42,6 +42,7 @@ class SCENode {
   int IsHeadAndCandNum;
   int CandIndex;
   int Symbol;
+  unsigned int SumPYProbStore;
   
   int IsComplete;
   int AcCharCount;  /*accumulative character count*/

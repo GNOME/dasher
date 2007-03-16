@@ -5,7 +5,7 @@
 
 #include "../Common/Common.h"
 #include "DasherTypes.h"
-#include "FontDialogues.h"
+//#include "FontDialogues.h"
 #include "Preferences.h"
 #include "Parameters.h"
 #include "module_settings_window.h"
@@ -254,7 +254,7 @@ DasherPreferencesDialogue *dasher_preferences_dialogue_new(GladeXML *pGladeWidge
 
   dasher_preferences_dialogue_populate_actions(pDasherControl);
 
-  InitialiseFontDialogues(pGladeWidgets, pAppSettings);
+  //  InitialiseFontDialogues(pGladeWidgets, pAppSettings);
 
   return pDasherControl;
 }
@@ -684,17 +684,19 @@ static void dasher_preferences_dialogue_populate_special_colour(DasherPreference
 static void dasher_preferences_dialogue_populate_special_dasher_font(DasherPreferencesDialogue *pSelf) {
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
 
-  GtkWidget *pDasherFontButton = glade_xml_get_widget(pPrivate->pGladeXML, "dasherfontbutton");
-  PangoFontDescription *pFont = pango_font_description_from_string(dasher_app_settings_get_string(pPrivate->pAppSettings, SP_DASHER_FONT));
-  gtk_widget_modify_font(pDasherFontButton, pFont);
-  gtk_button_set_label(GTK_BUTTON(pDasherFontButton), dasher_app_settings_get_string(pPrivate->pAppSettings, SP_DASHER_FONT));
+  GtkWidget *pDasherFontButton = glade_xml_get_widget(pPrivate->pGladeXML, "dasher_fontbutton");
+
+  gtk_font_button_set_font_name(GTK_FONT_BUTTON(pDasherFontButton), 
+				dasher_app_settings_get_string(pPrivate->pAppSettings, SP_DASHER_FONT));
 }
 
 static void dasher_preferences_dialogue_populate_special_edit_font(DasherPreferencesDialogue *pSelf) {
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
 
-  GtkWidget *pEditFontButton = glade_xml_get_widget(pPrivate->pGladeXML, "editfontbutton");
-  gtk_button_set_label(GTK_BUTTON(pEditFontButton), dasher_app_settings_get_string(pPrivate->pAppSettings, APP_SP_EDIT_FONT));
+  GtkWidget *pEditFontButton = glade_xml_get_widget(pPrivate->pGladeXML, "edit_fontbutton");
+
+  gtk_font_button_set_font_name(GTK_FONT_BUTTON(pEditFontButton), 
+				dasher_app_settings_get_string(pPrivate->pAppSettings, APP_SP_EDIT_FONT));
 }
  
 static void dasher_preferences_dialogue_populate_special_fontsize(DasherPreferencesDialogue *pSelf) {
@@ -904,6 +906,22 @@ extern "C" void on_appstyle_changed(GtkWidget *widget, gpointer user_data) {
     else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "appstyle_fullscreen"))
       dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 3);
   }
+}
+
+extern "C" void on_dasher_font_changed(GtkFontButton *pButton, gpointer pUserData) {
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue);
+
+  dasher_app_settings_set_string(pPrivate->pAppSettings, 
+				 SP_DASHER_FONT, 
+				 gtk_font_button_get_font_name(pButton));
+}
+
+extern "C" void on_edit_font_changed(GtkFontButton *pButton, gpointer pUserData) {
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue);
+
+  dasher_app_settings_set_string(pPrivate->pAppSettings, 
+				 APP_SP_EDIT_FONT, 
+				 gtk_font_button_get_font_name(pButton));
 }
 
 // --- Actions Selection ---

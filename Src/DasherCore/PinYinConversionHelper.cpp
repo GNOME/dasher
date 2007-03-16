@@ -10,6 +10,8 @@
 #include <fstream>
 #include "PinYinConversionHelper.h"
 
+#include <SCENodeNew.h>
+
 using namespace Dasher;
 
 CPinYinConversionHelper::CPinYinConversionHelper(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, Dasher::CAlphIO *pCAlphIO){
@@ -63,25 +65,78 @@ CPinYinConversionHelper::CPinYinConversionHelper(Dasher::CEventHandler *pEventHa
   
 bool CPinYinConversionHelper::Convert(const std::string &strSource, SCENode ** pRoot, int * HZCount, int CMid) {
 
-  SCENode * pStart;
+  SCENodeNew *pConversionList;
 
-  if(CEConvert (strSource.c_str(), &pStart, HZCount, CMid)){ 
-    *pRoot= pStart;
+  if(CEConvert (strSource.c_str(), &pConversionList, HZCount, CMid)){ 
+    SCENodeNew *pHead(pConversionList);
 
-    // Connect up the rest of the nodes to make a lattice
-    SCENode *pHead(pStart);
-    
+    std::vector<SCENodeNew *> vHeads;
+
     while(pHead) {
-      SCENode *pNewChild(pHead->pChild);
-      SCENode *pCurrent(pHead->pNext);
-      
-      while(pCurrent) {
-	pCurrent->pChild = pNewChild;
-	pCurrent = pCurrent->pNext;
-      }
-      
+      vHeads.push_back(pHead);
       pHead = pHead->pChild;
     }
+
+    SCENode *pTail = NULL;
+    SCENode *pNextTail = NULL;
+
+    for(std::vector<SCENodeNew *>::reverse_iterator it(vHeads.rbegin()); it != vHeads.rend(); ++it) {
+      SCENodeNew *pCurrentNode(*it);
+
+      SCENode *pPreviousNode = NULL;
+
+      while(pCurrentNode) {
+	SCENode *pNewNode = new SCENode;
+	
+	if(pTail)
+	  pNewNode->SetChild(pTail);
+
+	if(pPreviousNode) {
+	  pPreviousNode->SetNext(pNewNode);
+	}
+	else {
+	  pNextTail = pNewNode;
+	  pNextTail->Ref();
+	}
+
+	if(pPreviousNode)
+	  pPreviousNode->Unref();
+
+	pPreviousNode = pNewNode;
+	pCurrentNode = pCurrentNode->pNext;
+      }
+
+      if(pPreviousNode)
+	pPreviousNode->Unref();
+
+      if(pTail)
+	pTail->Unref();
+
+      pTail = pNextTail;
+  
+    }
+
+    *pRoot = pTail;
+
+
+//     // TODO: Now need to convert...
+
+//     *pRoot= pStart;
+
+//     // Connect up the rest of the nodes to make a lattice
+//     SCENode *pHead(pStart);
+    
+//     while(pHead) {
+//       SCENode *pNewChild(pHead->GetChild());
+//       SCENode *pCurrent(pHead->GetNext());
+      
+//       while(pCurrent) {
+// 	pCurrent->SetChild(pNewChild);
+// 	pCurrent = pCurrent->GetNext();
+//       }
+      
+//       pHead = pHead->GetChild();
+//     }
    
     return 1;
   }
@@ -91,7 +146,39 @@ bool CPinYinConversionHelper::Convert(const std::string &strSource, SCENode ** p
   }
 }
 
-void CPinYinConversionHelper::AssignSizes(SCENode * pStart, Dasher::CLanguageModel::Context context, long normalization, int uniform, int iNChildren){
+unsigned int CPinYinConversionHelper::GetSumPYProbs(Dasher::CLanguageModel::Context context, SCENode * pPYCandStart, int norm){
+
+  std::vector <unsigned int > Probs;
+  unsigned int sumProb=0;
+  
+  m_pLanguageModel->GetProbs(context, Probs, norm);
+
+  SCENode * pCurrentNode = pPYCandStart;
+
+  while(pCurrentNode){
+    
+    std::vector <symbol >Symbols;
+    std::string HZ = static_cast<std::string>(pCurrentNode->pszConversion);
+    // Distribute the remaining space evenly
+    
+    m_pAlphabet->GetSymbols(&Symbols, &HZ, 0);    
+
+    if(Symbols.size()!=0)
+      sumProb += Probs[Symbols[0]];
+    pCurrentNode = pCurrentNode->GetNext();
+
+  }
+
+  return sumProb;
+}
+
+void CPinYinConversionHelper::GetProbs(Dasher::CLanguageModel::Context context, std::vector < unsigned int >&Probs, int norm){
+}
+  
+  
+
+
+void CPinYinConversionHelper::AssignSizes(SCENode * pStart, CLanguageModel::Context context, long normalization, int uniform, int iNChildren){
 
   SCENode *pNode = pStart;
 
@@ -121,7 +208,22 @@ void CPinYinConversionHelper::AssignSizes(SCENode * pStart, Dasher::CLanguageMod
     }
     */
 
-  // CLanguageModel::Context context = m_pLanguageModel->CreateEmptyContext();
+
+  //  context = m_pLanguageModel->CreateEmptyContext();
+
+   //Testing Code for PYCHelper GetPYSumProbs
+ 
+  /*
+ CLanguageModel::Context iContext = m_pLanguageModel->CreateEmptyContext();
+
+  SCENode * pTemp = pStart;
+  while(pTemp){
+    std::cout<<"test sum probs"<<GetSumPYProbs(iContext, pTemp, nonuniform_norm)<<std::endl;
+    std::cout<<"test norm"<<nonuniform_norm<<std::endl;
+    pTemp=pTemp->pChild;
+  }
+  */
+
   m_pLanguageModel->GetProbs(context, Probs, nonuniform_norm);
 
   /*  
@@ -135,39 +237,78 @@ void CPinYinConversionHelper::AssignSizes(SCENode * pStart, Dasher::CLanguageMod
   //  unsigned int sum; 
 
 
-  unsigned int sumProb=0;
+  unsigned long long int sumProb=0;
 
+  std::vector <symbol >Symbols;
+  std::string HZ;
+  CLanguageModel::Context iCurrentContext;
+
+
+  //std::cout<<"start"<<std::endl;
   while(pNode){
 
-    std::vector <symbol >Symbols;
-    std::string HZ = static_cast<std::string>(pNode->pszConversion);
-    // Distribute the remaining space evenly
-    
-    m_pAlphabet->GetSymbols(&Symbols, &HZ, 0);    
-
-    if(Symbols.size()!=0)
-      sumProb += Probs[Symbols[0]];
-    pNode = pNode->pNext;
-  }
-  
-  pNode = pStart;
-  while(pNode){
-    //    std::cout<<"HZ"<<HZ<<std::endl;
-    std::vector <symbol >Symbols;
-    std::string HZ = static_cast<std::string>(pNode->pszConversion);
-    // Distribute the remaining space evenly
-    
+    Symbols.clear();
+    HZ = static_cast<std::string>(pNode->pszConversion);
     m_pAlphabet->GetSymbols(&Symbols, &HZ, 0);    
 
     if(Symbols.size()!=0){
-      if(sumProb!=0)
-	pNode->NodeSize =Probs[Symbols[0]]*normalization/sumProb;
-      
       pNode->Symbol = Symbols[0];
+      //sumProb += Probs[Symbols[0]];
+
+      
+      iCurrentContext=m_pLanguageModel->CloneContext(context);
+      m_pLanguageModel->EnterSymbol(iCurrentContext, pNode->Symbol);
+      
+      if(pStart->GetChild()){
+	pNode->SumPYProbStore = GetSumPYProbs(iCurrentContext, pStart->GetChild(), nonuniform_norm);
+	//std::cout<<"sumpyprobstore"<<pNode->SumPYProbStore<<std::endl;
+      }
+      else
+	pNode->SumPYProbStore = 1;
+	
+      sumProb += (Probs[pNode->Symbol]*(pNode->SumPYProbStore));
+      //std::cout<<"Probs[symbol]"<<Probs[Symbols[0]]<<std::endl;
+      //std::cout<<"sumProbs"<<sumProb<<std::endl;
+    }
+    else
+      pNode->Symbol = -1;
+
+    pNode = pNode->GetNext();
+  }
+
+
+
+  pNode = pStart;
+  while(pNode){
+    /*
+    std::vector <symbol >Symbols;
+    std::string HZ = static_cast<std::string>(pNode->pszConversion);
+ 
+    
+    m_pAlphabet->GetSymbols(&Symbols, &HZ, 0);    
+    */
+
+    if(pNode->Symbol!=-1){
+      if(sumProb!=0){
+
+	//	iCurrentContext=m_pLanguageModel->CloneContext(context);
+	//m_pLanguageModel->EnterSymbol(iCurrentContext, pNode->Symbol);
+      
+	
+	pNode->NodeSize =static_cast<unsigned long long int>(Probs[pNode->Symbol])*(pNode->SumPYProbStore)*normalization/sumProb;
+
+	/*
+	std::cout<<"HZ"<<pNode->pszConversion<<std::endl;
+	std::cout<<"Probs"<<Probs[pNode->Symbol]<<std::endl;
+	std::cout<<"SumProbStore"<<pNode->SumPYProbStore<<std::endl;
+	std::cout<<"above"<<Probs[pNode->Symbol]*(pNode->SumPYProbStore)<<std::endl;
+	std::cout<<"sumprob"<<sumProb<<std::endl;
+	std::cout<<"nodesize"<<pNode->NodeSize<<std::endl;
+	*/
+      }
     }
     else{
       pNode->NodeSize = 0;//hopefully this will be not be displayed
-      pNode->Symbol = -1;
     }
 
     if(pNode->NodeSize < 1)
@@ -175,7 +316,7 @@ void CPinYinConversionHelper::AssignSizes(SCENode * pStart, Dasher::CLanguageMod
     
     iRemaining -= pNode->NodeSize; 
 
-    pNode = pNode->pNext;
+    pNode = pNode->GetNext();
   }
 
   pNode = pStart;
@@ -188,9 +329,15 @@ void CPinYinConversionHelper::AssignSizes(SCENode * pStart, Dasher::CLanguageMod
     
     iRemaining -= iDiff;
     --iLeft;
+    pNode = pNode->GetNext();
+  }
+  /*
+  pNode = pStart;
+  while(pNode){
+    std::cout<<"size"<<pNode->NodeSize<<std::endl;
     pNode = pNode ->pNext;
   }
-
+  */
   /*
   pNode = pStart;
   while(pNode){
@@ -203,8 +350,6 @@ void CPinYinConversionHelper::AssignSizes(SCENode * pStart, Dasher::CLanguageMod
 
   //std::cout<<catStr<<std::endl;
   
-  
-
   //for(int i=0; i<Symbols.size(); i++)
   //  std::cout<<Symbols[i]<<",";
 
@@ -220,18 +365,20 @@ void CPinYinConversionHelper::AssignSizes(SCENode * pStart, Dasher::CLanguageMod
 }
 
 bool CPinYinConversionHelper::GetPhraseList(int HZIndex, SCENode ** psOutput, int CMid){
-  SCENode * pStart;
+//   SCENode * pStart;
   
-  if(CEGetPhraseList(HZIndex, &pStart, CMid)){ 
+//   if(CEGetPhraseList(HZIndex, &pStart, CMid)){ 
    
-    *psOutput= pStart;
+//     *psOutput= pStart;
    
-    return 1;
-  }
-  else{
-    *psOutput = 0;
-    return 0;
-  }
+//     return 1;
+//   }
+//   else{
+//     *psOutput = 0;
+//     return 0;
+//   }
+
+  return 0;
 }
 
 void CPinYinConversionHelper::BuildDataBase(){
@@ -316,7 +463,7 @@ void CPinYinConversionHelper::ProcessPhrase(HZIDX HZIndex){
     return;
 
   if(pPhraseList->AcCharCount>4)
-    pNode = pPhraseList->pNext;
+    pNode = pPhraseList->GetNext();
   else 
     pNode = pPhraseList;
 
@@ -381,7 +528,7 @@ void CPinYinConversionHelper::ProcessPhrase(HZIDX HZIndex){
       }
     }
 
-    pNode = pNode ->pNext;
+    pNode = pNode ->GetNext();
     iIdx ++;
   }
   m_bPhrasesProcessed[HZIndex]=1;
@@ -395,7 +542,7 @@ CANDIDX CPinYinConversionHelper::HZLookup(HZIDX HZIndex, const std::string &strS
   // this was done before candindex was put into node member, change
   // if have time
 
-  int iIdx(0);
+  //  int iIdx(0);
   if((HZIndex > m_iHZCount-1)||strSource.size()!=3)
     return -1;
 
@@ -515,7 +662,7 @@ int CPinYinConversionHelper::CalculateScore(CDasherNode * pNode, CANDIDX CandInd
 
 void CPinYinConversionHelper::TrainChPPM(){
 
-  for(int i =0; i<15;i++)
+  for(int i =0; i<10;i++)
     ProcessFile(i);
 
 }
@@ -534,7 +681,7 @@ void CPinYinConversionHelper::ProcessFile(int index){
  
   char str[4];
   std::string HZ;
-  int  i, j, iLen;
+  //  int  i, j, iLen;
 
 
 

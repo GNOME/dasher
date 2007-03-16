@@ -2325,14 +2325,15 @@ Two box</property>
 				  <property name="spacing">0</property>
 
 				  <child>
-				    <widget class="GtkButton" id="dasherfontbutton">
+				    <widget class="GtkFontButton" id="dasher_fontbutton">
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
-				      <property name="label" translatable="yes"></property>
-				      <property name="use_underline">True</property>
-				      <property name="relief">GTK_RELIEF_NORMAL</property>
+				      <property name="title" translatable="yes">Select Dasher Font</property>
+				      <property name="show_style">True</property>
+				      <property name="show_size">False</property>
+				      <property name="use_font">True</property>
+				      <property name="use_size">False</property>
 				      <property name="focus_on_click">True</property>
-				      <signal name="clicked" handler="set_dasher_font" last_modification_time="Wed, 28 Jun 2006 11:14:26 GMT"/>
 				    </widget>
 				    <packing>
 				      <property name="padding">0</property>
@@ -2738,15 +2739,14 @@ Two box</property>
 				  <property name="right_padding">0</property>
 
 				  <child>
-				    <widget class="GtkButton" id="editfontbutton">
-				      <property name="border_width">8</property>
+				    <widget class="GtkFontButton" id="edit_fontbutton">
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
-				      <property name="label" translatable="yes"></property>
-				      <property name="use_underline">True</property>
-				      <property name="relief">GTK_RELIEF_NORMAL</property>
+				      <property name="show_style">True</property>
+				      <property name="show_size">True</property>
+				      <property name="use_font">True</property>
+				      <property name="use_size">False</property>
 				      <property name="focus_on_click">True</property>
-				      <signal name="clicked" handler="set_edit_font" last_modification_time="Wed, 28 Jun 2006 16:11:25 GMT"/>
 				    </widget>
 				  </child>
 				</widget>

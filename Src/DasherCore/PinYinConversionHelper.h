@@ -11,8 +11,7 @@
 typedef int HZIDX; 
 typedef int CANDIDX; 
 
-/// \ingroup Model
-/// @{
+
 class CPinYinConversionHelper : public CConversionHelper {
  public:
 
@@ -21,6 +20,10 @@ class CPinYinConversionHelper : public CConversionHelper {
   virtual bool Convert(const std::string &strSource, SCENode ** pRoot, int * HZCount, int CMid);
 
   virtual void AssignSizes(SCENode * pStart, Dasher::CLanguageModel::Context context , long normalization, int uniform, int iNChildren);
+
+  virtual void GetProbs(Dasher::CLanguageModel::Context context, std::vector < unsigned int >&Probs, int norm);
+
+  virtual unsigned int GetSumPYProbs(Dasher::CLanguageModel::Context context, SCENode * pPYCandStart,int norm);
 
   virtual Dasher::CLanguageModel *  GetLanguageModel(){
     return m_pLanguageModel;
@@ -77,5 +80,5 @@ class CPinYinConversionHelper : public CConversionHelper {
 
 
 };
-/// @}
+
 #endif
