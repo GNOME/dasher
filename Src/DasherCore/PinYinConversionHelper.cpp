@@ -63,7 +63,7 @@ CPinYinConversionHelper::CPinYinConversionHelper(Dasher::CEventHandler *pEventHa
 
 }
   
-bool CPinYinConversionHelper::Convert(const std::string &strSource, SCENode ** pRoot, int * HZCount, int CMid) {
+bool CPinYinConversionHelper::Convert(const std::string &strSource, SCENode ** pRoot, int * childCount, int CMid) {
 
   SCENodeNew *pConversionList;
 

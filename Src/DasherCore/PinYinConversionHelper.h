@@ -17,7 +17,7 @@ class CPinYinConversionHelper : public CConversionHelper {
 
   CPinYinConversionHelper(Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, Dasher::CAlphIO *pAlphIO);
   
-  virtual bool Convert(const std::string &strSource, SCENode ** pRoot, int * HZCount, int CMid);
+  virtual bool Convert(const std::string &strSource, SCENode ** pRoot, int * childCount, int CMid);
 
   virtual void AssignSizes(SCENode * pStart, Dasher::CLanguageModel::Context context , long normalization, int uniform, int iNChildren);
 
