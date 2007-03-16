@@ -81,8 +81,13 @@ namespace Dasher {
     virtual void Unref() {
       --m_iRefCount;
 
-      if(m_iRefCount == 0)
+
+      //      std::cout << "Unref, new count = " << m_iRefCount << std::endl;
+
+      if(m_iRefCount == 0) {
+	//	std::cout << "Deleting " << this << std::endl;
 	delete this;
+      }
     };
 
     ///

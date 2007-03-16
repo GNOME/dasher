@@ -96,12 +96,15 @@ bool CCannaConversionHelper::Convert(const std::string &strSource, SCENode ** pR
   }
 
   SCENode *pDummyRoot(new SCENode);
-  pDummyRoot->pChild = NULL;
+  //  pDummyRoot->pChild = NULL;
 
   /* Convert each phrase into Kanji */
   cd = iconv_open("UTF8", "EUC-JP");
   for(int i = nbun-1; i >= 0; --i) {
-    SCENode *pTail = pDummyRoot->pChild;
+    SCENode *pTail = pDummyRoot->GetChild();
+
+    if(pTail)
+      pTail->Ref();
 
     RkGoTo(context_id, i);      // Move to a specific phrase
     int len = RkGetKanjiList(context_id, buf, BUFSIZE); // Get a list of Kanji candidates
@@ -134,6 +137,9 @@ bool CCannaConversionHelper::Convert(const std::string &strSource, SCENode ** pR
     for(std::vector<std::string>::reverse_iterator it(vCandidates.rbegin()); it != vCandidates.rend(); ++it) {
       ProcessCandidate(*it, pDummyRoot, pTail);
     }
+
+    if(pTail)
+      pTail->Unref();
   }
   RkEndBun(context_id, 0);      // Close phrase division
 
@@ -141,9 +147,10 @@ bool CCannaConversionHelper::Convert(const std::string &strSource, SCENode ** pR
   free(buf);
   free(str_utf8);
 
-  *pRoot = pDummyRoot->pChild;
-
-  delete pDummyRoot;
+  *pRoot = pDummyRoot->GetChild();
+  
+  (*pRoot)->Ref();
+  pDummyRoot->Unref();
 
   return true;
 }
@@ -178,26 +185,26 @@ void CCannaConversionHelper::ProcessCandidate(std::string strCandidate, SCENode 
 
     iIdx += iLength;
 
-    SCENode *pCurrentChild(pCurrentNode->pChild); // TODO: Initialise
+    SCENode *pCurrentChild(pCurrentNode->GetChild()); // TODO: Initialise
 
     while(pCurrentChild) {
       if(strSymbol == pCurrentChild->pszConversion)
 	break;
-      pCurrentChild = pCurrentChild->pNext;
+      pCurrentChild = pCurrentChild->GetNext();
     }
 
     if(!pCurrentChild) { // Need a new child
       pCurrentChild = new SCENode;
-      pCurrentChild->pNext = pCurrentNode->pChild;
-      if(iIdx >= strCandidate.size())
-	pCurrentChild->pChild = pTail;
-      else
-	pCurrentChild->pChild = NULL;
+      if(pCurrentNode->GetChild())
+	pCurrentChild->SetNext(pCurrentNode->GetChild());
+      if(pTail && (iIdx >= strCandidate.size()))
+	pCurrentChild->SetChild(pTail);
 
       pCurrentChild->pszConversion = new char[strSymbol.size() + 1];
       strcpy(pCurrentChild->pszConversion, strSymbol.c_str());
 
-      pCurrentNode->pChild = pCurrentChild;
+      pCurrentNode->SetChild(pCurrentChild);
+      pCurrentChild->Unref();
     }
 
     pCurrentNode = pCurrentChild;
@@ -220,6 +227,6 @@ void CCannaConversionHelper::AssignSizes(SCENode *pStart, Dasher::CLanguageModel
     iCheck += pNode->NodeSize;
     
     --iRemaining;
-    pNode = pNode->pNext;
+    pNode = pNode->GetNext();
   }
 }

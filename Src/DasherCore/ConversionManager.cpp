@@ -36,9 +36,11 @@ using namespace Dasher;
 
 CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, CConversionHelper *pHelper, CAlphabet *pAlphabet, int CMid) 
   : CNodeManager(2) {
+
   m_pNCManager = pNCManager;
   m_pHelper = pHelper;
   m_pAlphabet = pAlphabet;
+  m_pRoot = NULL;
    
 //DOESN'T SEEM INTRINSIC
 //and check why pHelper may be empty
@@ -50,7 +52,7 @@ CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, CConver
   if(m_pLanguageModel)
     m_iLearnContext = m_pLanguageModel->CreateEmptyContext();
 
-  m_iRefCount = 1; // TODO: Is this the right way to handle this, or should we initilise to 0 and enforce a reference from the creator?
+  m_iRefCount = 1;
   m_iCMID = CMid;
   //  m_iHZCount = 0;
 
@@ -58,8 +60,12 @@ CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, CConver
 }
 
 CConversionManager::~CConversionManager(){  
+
   //  for (int i(0);i<m_iHZCount; i++)
-  RecursiveDelTree(m_pRoot[0]);
+  //  std::cout << "Unref: " << this << std::endl;
+
+  if(m_pRoot)
+    RecursiveDelTree(m_pRoot[0]);
 }
 
 
@@ -201,7 +207,7 @@ void CConversionManager::AssignChildSizes(SCENode *pNode, CLanguageModel::Contex
   SCENode *pChild(pNode);
 
   while(pChild) {
-    pChild = pChild->pNext;
+    pChild = pChild->GetNext();
     ++iNChildren;
   }
 
@@ -315,7 +321,7 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
   SCENode *pCurrentSCEChild;
 
   if(pCurrentDataNode->pSCENode)
-    pCurrentSCEChild = pCurrentDataNode->pSCENode->pChild;
+    pCurrentSCEChild = pCurrentDataNode->pSCENode->GetChild();
   else {
     if(m_pRoot && !pCurrentDataNode->bType)
       pCurrentSCEChild = m_pRoot[0];
@@ -403,7 +409,7 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
       
       pNode->Children().push_back(pNewNode);
 
-      pCurrentSCEChild = pCurrentSCEChild->pNext;
+      pCurrentSCEChild = pCurrentSCEChild->GetNext();
       ++iIdx;
     }while(pCurrentSCEChild);
 
@@ -465,7 +471,7 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
 }
 
 void CConversionManager::ClearNode( CDasherNode *pNode ) {
-  pNode->m_pNodeManager->Unref();
+  //  pNode->m_pNodeManager->Unref();
 }
 
 void CConversionManager::RecursiveDumpTree(SCENode *pCurrent, unsigned int iDepth) {
@@ -475,8 +481,8 @@ void CConversionManager::RecursiveDumpTree(SCENode *pCurrent, unsigned int iDept
     
     std::cout << " " << pCurrent->pszConversion << " " << pCurrent->IsHeadAndCandNum << " " << pCurrent->CandIndex << " " << pCurrent->IsComplete << " " << pCurrent->AcCharCount << std::endl;
 
-    RecursiveDumpTree(pCurrent->pChild, iDepth + 1);
-    pCurrent = pCurrent->pNext;
+    RecursiveDumpTree(pCurrent->GetChild(), iDepth + 1);
+    pCurrent = pCurrent->GetNext();
   }
 }
 
@@ -568,24 +574,42 @@ void CConversionManager::Undo( CDasherNode *pNode ) {
 }
 
 bool CConversionManager::RecursiveDelTree(SCENode* pNode){
+  // TODO: Do we actually care about the return value?
 
-  SCENode * pTemp;
+  // TODO: Function now obsolete
 
-  if(!pNode)
-    return 0;
-  else if(pNode->pChild)
-    return RecursiveDelTree(pNode->pChild);
-  else{
+  pNode->Unref();
 
-    while(!pNode->pChild){
-      pTemp = pNode->pNext;
-      delete pNode;
-      pNode = pTemp;
-      if(!pNode)
-	return 1;
-    }
-    return RecursiveDelTree(pNode->pChild);
-  }
+  return false;
+//   if(!pNode)
+//     return 0;
+
+//   // Note that this is a lattice, not a tree, so we need to be careful
+//   // about deleting thing twice
+
+//   if(pNode->pChild)
+//     RecursiveDeleteTree(pNode->pChild);
+
+//   if(pNode->pNext)
+//     RecursiveDeleteTree(pNode->pNext);
+
+//   SCENode * pTemp;
+
+//   if(!pNode)
+//     return 0;
+//   else if(pNode->pChild)
+//     return RecursiveDelTree(pNode->pChild);
+//   else{
+
+//     while(!pNode->pChild){
+//       pTemp = pNode->pNext;
+//       delete pNode;
+//       pNode = pTemp;
+//       if(!pNode)
+// 	return 1;
+//     }
+//     return RecursiveDelTree(pNode->pChild);
+//   }
 }
 
 

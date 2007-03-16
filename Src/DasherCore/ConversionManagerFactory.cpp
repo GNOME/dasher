@@ -46,7 +46,11 @@ CDasherNode *CConversionManagerFactory::GetRoot(CDasherNode *pParent, int iLower
   }
   else
     m_iCMCount++;
-  return pConversionManager->GetRoot(pParent, iLower, iUpper, pUserData);
+
+  CDasherNode *pNewRoot = pConversionManager->GetRoot(pParent, iLower, iUpper, pUserData);
+  pConversionManager->Unref();
+
+  return pNewRoot;
 }
 
 // TODO: Japanese/Chinese are currently disabled in Win32 - see 'exclude from build' on individual files' property pages, plus preprocessor defines

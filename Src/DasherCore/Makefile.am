@@ -76,6 +76,7 @@ libdashercore_a_SOURCES = \
 		OneDimensionalFilter.cpp \
 		OneDimensionalFilter.h \
 		Parameters.h \
+		SCENode.cpp \
 		SCENode.h \
 		SettingsStore.cpp \
 		SettingsStore.h \

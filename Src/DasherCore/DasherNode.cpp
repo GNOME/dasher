@@ -40,11 +40,15 @@ static char THIS_FILE[] = __FILE__;
 
 // TODO: put this back to being inlined
 CDasherNode::~CDasherNode() {
+  //  std::cout << "Deleting node: " << this << std::endl;
   // Release any storage that the node manager has allocated,
   // unreference ref counted stuff etc.
-  m_pNodeManager->ClearNode( this );
-
   Delete_children();
+
+  m_pNodeManager->ClearNode( this );
+  m_pNodeManager->Unref();
+
+  //  std::cout << "done." << std::endl;
 
   delete m_pDisplayInfo;
 }
@@ -139,11 +143,15 @@ void CDasherNode::Delete_children() {
 //    if((GetDisplayInfo()->strDisplayText)[0] == 'e')
 //      std::cout << "ed: " << this << " " << pParentUserData->iContext << " " << pParentUserData->iOffset << std::endl;
 
+//  std::cout << "Start: " << this << std::endl;
+
   ChildMap::iterator i;
   for(i = Children().begin(); i != Children().end(); i++) {
+    //    std::cout << "CNM: " << (*i)->m_pNodeManager << " (" << (*i)->m_pNodeManager->GetID() << ") " << (*i) << " " << (*i)->Parent() << std::endl;
     delete (*i);
   }
   Children().clear();
+  //  std::cout << "NM: " << m_pNodeManager << std::endl;
   SetFlag(NF_ALLCHILDREN, false);
 }
 
