@@ -1,7 +1,8 @@
+#include "../Common/Common.h"
 #include "OneDimensionalFilter.h"
 
 COneDimensionalFilter::COneDimensionalFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel)
-  : CDefaultFilter(pEventHandler, pSettingsStore, pInterface, m_pDasherModel, 4, "One Dimensional Mode") {
+  : CDefaultFilter(pEventHandler, pSettingsStore, pInterface, m_pDasherModel, 4, _("One Dimensional Mode")) {
 }
 
 void COneDimensionalFilter::ApplyTransform(myint &iDasherX, myint &iDasherY) {

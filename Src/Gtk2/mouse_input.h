@@ -1,6 +1,7 @@
 #ifndef __mouse_input_h__
 #define __mouse_input_h__
 
+#include "../Common/Common.h"
 #include "../DasherCore/DasherInput.h"
 #include "../DasherCore/DasherTypes.h"
 
@@ -11,7 +12,7 @@ using namespace Dasher;
 class CDasherMouseInput : public CDasherInput {
 public:
   CDasherMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
-    : CDasherInput(pEventHandler, pSettingsStore, 0, 0, "Mouse Input") {
+    : CDasherInput(pEventHandler, pSettingsStore, 0, 0, _("Mouse Input")) {
 
     m_iX = 0;
     m_iY = 0;
@@ -53,7 +54,7 @@ static SModuleSettings sSettings[] = {
 class CDasher1DMouseInput:public CDasherInput {
 public:
   CDasher1DMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
-    : CDasherInput(pEventHandler, pSettingsStore, 2, 0, "One Dimensional Mouse Input") {
+    : CDasherInput(pEventHandler, pSettingsStore, 2, 0, _("One Dimensional Mouse Input")) {
 
     m_iOffset = 0;
 

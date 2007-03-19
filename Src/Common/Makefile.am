@@ -5,6 +5,7 @@ libdashermisc_a_SOURCES = \
                 AppSettingsHeader.h \
 		Common.h \
 		Hash.h \
+		I18n.h \
 		MSVC_Unannoy.h \
 		myassert.h \
 		mydebug.h \

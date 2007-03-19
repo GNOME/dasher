@@ -1,3 +1,4 @@
+#include "../Common/Common.h"
 #include "EyetrackerFilter.h"
 
 #include <iostream>
@@ -7,7 +8,7 @@ static SModuleSettings sSettings[] = {
 };
 
 CEyetrackerFilter::CEyetrackerFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel)
-  : CDefaultFilter(pEventHandler, pSettingsStore, pInterface, m_pDasherModel, 5, "Eyetracker Mode") {
+  : CDefaultFilter(pEventHandler, pSettingsStore, pInterface, m_pDasherModel, 5, _("Eyetracker Mode")) {
 
   // Setup some autocalibration parameters
   m_iYAutoOffset = 0;

@@ -1,3 +1,7 @@
+2007-03-19  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Updating translatable stuff
+
 2007-03-16  Phil Cowans  <pjc51@cam.ac.uk>
 
 	* Fixed up Chinese mode (new code in trunk, but still needs external libce)

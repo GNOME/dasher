@@ -42,4 +42,6 @@
 
 #include "Trace.h"
 
+#include "I18n.h"
+
 #endif // __include__
