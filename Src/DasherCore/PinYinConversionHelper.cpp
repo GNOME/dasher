@@ -66,8 +66,9 @@ CPinYinConversionHelper::CPinYinConversionHelper(Dasher::CEventHandler *pEventHa
 bool CPinYinConversionHelper::Convert(const std::string &strSource, SCENode ** pRoot, int * childCount, int CMid) {
 
   SCENodeNew *pConversionList;
+  int iHZCount;
 
-  if(CEConvert (strSource.c_str(), &pConversionList, HZCount, CMid)){ 
+  if(CEConvert (strSource.c_str(), &pConversionList, &iHZCount, CMid)){ 
     SCENodeNew *pHead(pConversionList);
 
     std::vector<SCENodeNew *> vHeads;
