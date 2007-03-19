@@ -4,7 +4,7 @@
 #include <iostream>
 
 static SModuleSettings sSettings[] = {
-  {BP_AUTOCALIBRATE, T_BOOL, -1, -1, -1, -1, "Automatic calibration:"}
+  {BP_AUTOCALIBRATE, T_BOOL, -1, -1, -1, -1, _("Automatic calibration:")}
 };
 
 CEyetrackerFilter::CEyetrackerFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel)

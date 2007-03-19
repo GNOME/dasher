@@ -24,14 +24,14 @@
 using namespace Dasher;
 
 static SModuleSettings sSettings[] = {
-  {LP_SOCKET_PORT, T_LONGSPIN, 0, 65535, 1, 10, "Port:"},
-  {SP_SOCKET_INPUT_X_LABEL, T_STRING, -1, -1, -1, -1, "X label:"},
-  {LP_SOCKET_INPUT_X_MIN, T_LONGSPIN, -2147480000, 2147480000, 1000, 10000, "X minimum:"},
-  {LP_SOCKET_INPUT_X_MAX, T_LONGSPIN, -2147480000, 2147480000, 1000, 10000, "X maximum:"},
-  {SP_SOCKET_INPUT_Y_LABEL, T_STRING, -1, -1, -1, -1, "Y label:"},
-  {LP_SOCKET_INPUT_Y_MIN, T_LONGSPIN, -2147480000, 2147480000, 1000, 10000, "Y minimum:"},
-  {LP_SOCKET_INPUT_Y_MAX, T_LONGSPIN, -2147480000, 2147480000, 1000, 10000, "Y maximum:"},
-  {BP_SOCKET_DEBUG, T_BOOL, -1, -1, -1, -1, "Print socket-related debugging information to console:"}
+  {LP_SOCKET_PORT, T_LONGSPIN, 0, 65535, 1, 10, _("Port:")},
+  {SP_SOCKET_INPUT_X_LABEL, T_STRING, -1, -1, -1, -1, _("X label:")},
+  {LP_SOCKET_INPUT_X_MIN, T_LONGSPIN, -2147480000, 2147480000, 1000, 10000, _("X minimum:")},
+  {LP_SOCKET_INPUT_X_MAX, T_LONGSPIN, -2147480000, 2147480000, 1000, 10000, _("X maximum:")},
+  {SP_SOCKET_INPUT_Y_LABEL, T_STRING, -1, -1, -1, -1, _("Y label:")},
+  {LP_SOCKET_INPUT_Y_MIN, T_LONGSPIN, -2147480000, 2147480000, 1000, 10000, _("Y minimum:")},
+  {LP_SOCKET_INPUT_Y_MAX, T_LONGSPIN, -2147480000, 2147480000, 1000, 10000, _("Y maximum:")},
+  {BP_SOCKET_DEBUG, T_BOOL, -1, -1, -1, -1, _("Print socket-related debugging information to console:")}
 };
 
 Dasher::CSocketInputBase::CSocketInputBase(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 

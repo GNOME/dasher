@@ -6,10 +6,10 @@
 #include "Event.h"
 
 static SModuleSettings sSettings[] = {
-  {LP_HOLD_TIME, T_LONG, 100, 10000, 1000, 100, "Long press time"},
-  {LP_MULTIPRESS_TIME, T_LONG, 100, 10000, 1000, 100, "Multiple press time"},
-  {LP_MULTIPRESS_COUNT,T_LONG, 2, 10, 1, 1, "Multiple press count"},
-  {BP_BACKOFF_BUTTON,T_BOOL, -1, -1, -1, -1, "Enable backoff button"}
+  {LP_HOLD_TIME, T_LONG, 100, 10000, 1000, 100, _("Long press time")},
+  {LP_MULTIPRESS_TIME, T_LONG, 100, 10000, 1000, 100, _("Multiple press time")},
+  {LP_MULTIPRESS_COUNT,T_LONG, 2, 10, 1, 1, _("Multiple press count")},
+  {BP_BACKOFF_BUTTON,T_BOOL, -1, -1, -1, -1, _("Enable backoff button")}
 };
 
 CDynamicFilter::CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)

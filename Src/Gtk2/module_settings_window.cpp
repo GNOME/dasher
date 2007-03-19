@@ -1,5 +1,7 @@
 #include "module_settings_window.h"
 
+#include <glib/gi18n.h>
+
 typedef struct _ModuleSettingsData ModuleSettingsData;
 
 struct _ModuleSettingsData {
@@ -66,9 +68,7 @@ module_settings_window_new(DasherAppSettings *pAppSettings, const gchar *szName,
   
   pPrivate->pAppSettings = pAppSettings;
 
-  gchar *szFrameTitle = new gchar[strlen(szName)+10];
-  strcpy(szFrameTitle, szName);
-  strcat(szFrameTitle, " Options:");
+  gchar *szFrameTitle = g_strdup_printf(_("%s Options:"), szName);
   
   GtkWidget *pFrame = gtk_frame_new(szFrameTitle);
 
