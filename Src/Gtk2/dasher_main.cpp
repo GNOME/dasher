@@ -163,6 +163,7 @@ gboolean grab_focus();
 
 /* Callback functions */
 extern "C" GtkWidget *create_dasher_control(gchar *szName, gchar *szString1, gchar *szString2, gint iInt1, gint iInt2);
+extern "C" GtkWidget *create_dasher_editor(gchar *szName, gchar *szString1, gchar *szString2, gint iInt1, gint iInt2);
 
 /* ... Message handling from main window widgets */
 extern "C" gboolean dasher_main_cb_menu_command(GtkWidget *pWidget, gpointer pUserData);
@@ -283,6 +284,9 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
     dasher_main_load_interface(pDasherMain);
 
     dasher_app_settings_set_widget(pPrivate->pAppSettings, GTK_DASHER_CONTROL(pPrivate->pDasherWidget));
+    dasher_editor_initialise(pPrivate->pEditor, pPrivate->pAppSettings, pDasherMain, pPrivate->pGladeXML, NULL);
+
+
     dasher_main_setup_window(pDasherMain);
 
     /* Create the editor */
@@ -302,7 +306,11 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
       }
     }
 
-    pPrivate->pEditor = dasher_editor_new(pPrivate->pAppSettings, pDasherMain, pPrivate->pGladeXML, szFullPath);
+    // TODO: Fix this
+//     pPrivate->pEditor = GTK_EDITOR(
+
+
+// dasher_editor_initialise(pPrivate->pAppSettings, pDasherMain, pPrivate->pGladeXML, szFullPath);
 
     g_free(szFullPath);
 
@@ -511,6 +519,9 @@ dasher_main_load_interface(DasherMain *pSelf) {
   
   dasher_main_connect_menus(pSelf);
 
+
+  pPrivate->pEditor = DASHER_EDITOR(glade_xml_get_widget(pPrivate->pGladeXML, "DasherEditor"));
+  // TODO: szFullPath
   pPrivate->bWidgetsInitialised = true;
 }
 
@@ -845,12 +856,8 @@ static void
 dasher_main_refresh_font(DasherMain *pSelf) {
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
 
-  const gchar *szFontName = dasher_app_settings_get_string(pPrivate->pAppSettings, APP_SP_EDIT_FONT);
-  PangoFontDescription *pFD = pango_font_description_from_string(szFontName);
-
-  if(strcmp(szFontName, "")) {
-    gtk_widget_modify_font(pPrivate->pBufferView, pFD);
-  }
+  dasher_editor_handle_font(pPrivate->pEditor, 
+			    dasher_app_settings_get_string(pPrivate->pAppSettings, APP_SP_EDIT_FONT));
 }
 
 // TODO: Fold into setup controls?
@@ -1231,6 +1238,11 @@ create_dasher_control(gchar *szName, gchar *szString1, gchar *szString2, gint iI
   return pDasherControl;
 }
 
+extern "C" GtkWidget *
+create_dasher_editor(gchar *szName, gchar *szString1, gchar *szString2, gint iInt1, gint iInt2) {
+  return GTK_WIDGET(dasher_editor_new());
+}
+
 extern "C" gboolean 
 dasher_main_cb_menu_command(GtkWidget *pWidget, gpointer pUserData) {
   dasher_main_menu_command((DasherMain *)pUserData, pWidget);
@@ -1356,8 +1368,6 @@ handle_context_request(GtkDasherControl * pDasherControl, gint iOffset, gint iLe
 
   if(!pPrivate->pEditor || !pPrivate->pDasherWidget)
     return;
-
-  g_message("Handling context request: %d %d: %s", iOffset, iLength, dasher_editor_get_context(pPrivate->pEditor, iOffset, iLength));
 
   gtk_dasher_control_set_context(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), dasher_editor_get_context(pPrivate->pEditor, iOffset, iLength));
 }

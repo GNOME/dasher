@@ -106,7 +106,7 @@ static DasherEditor *g_pEditor;
 // static void dasher_editor_class_init(DasherEditorClass *pClass);
 // static void dasher_editor_init(DasherEditor *pEditor);
 
-G_DEFINE_TYPE(DasherEditor, dasher_editor, G_TYPE_OBJECT);
+G_DEFINE_TYPE(DasherEditor, dasher_editor, GTK_TYPE_VBOX);
 
 static void dasher_editor_finalize(GObject *pObject);
 
@@ -236,21 +236,59 @@ dasher_editor_finalize(GObject *pObject) {
 
 /* Public methods */
 DasherEditor *
-dasher_editor_new(DasherAppSettings *pAppSettings, DasherMain *pDasherMain, GladeXML *pGladeXML, const gchar *szFullPath) {
+dasher_editor_new() {
   DasherEditor *pDasherEditor;
   pDasherEditor = (DasherEditor *)(g_object_new(dasher_editor_get_type(), NULL));
+
 
   g_pEditor = pDasherEditor;
 
   DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pDasherEditor);
+  
+
+  //  GtkPaned *pPane = GTK_PANED(glade_xml_get_widget(pGladeXML, "main_divider"));
+  
+  GtkWidget *pScrolledWindow = gtk_scrolled_window_new(NULL, NULL);
+
+  GtkWidget *pTextView = gtk_text_view_new();
+
+  pPrivate->pTextView = GTK_TEXT_VIEW(pTextView);
+
+  gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(pTextView),
+			      GTK_WRAP_WORD);
+
+  gtk_container_add(GTK_CONTAINER(pScrolledWindow), pTextView);
+
+  gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(pScrolledWindow),
+				 GTK_POLICY_AUTOMATIC,
+				 GTK_POLICY_AUTOMATIC);
+
+  gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(pScrolledWindow),
+				      GTK_SHADOW_IN);
+
+  gtk_box_pack_start(GTK_BOX(&(pDasherEditor->box)), pScrolledWindow, true, true, 0);
+
+
+  gtk_widget_show_all(GTK_WIDGET(&(pDasherEditor->box)));
+
+  return pDasherEditor;
+}
+
+void
+dasher_editor_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, DasherMain *pDasherMain, GladeXML *pGladeXML, const gchar *szFullPath) {
+
+  DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
+
   pPrivate->pAppSettings = pAppSettings;
   pPrivate->pDasherMain = pDasherMain;
-  
-  GtkTextView *pTextView = GTK_TEXT_VIEW(glade_xml_get_widget(pGladeXML, "the_text_view"));
-  GtkVBox *pActionPane = GTK_VBOX(glade_xml_get_widget(pGladeXML, "vbox39"));
 
-  pPrivate->pTextView = pTextView;
-  pPrivate->pBuffer = gtk_text_view_get_buffer(pTextView);
+
+    //GtkTextView *pTextView = GTK_TEXT_VIEW(glade_xml_get_widget(pGladeXML, "the_text_view"));
+  
+  GtkVBox *pActionPane = GTK_VBOX(glade_xml_get_widget(pGladeXML, "vbox39"));
+  pPrivate->pBuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(pPrivate->pTextView));
+
+  gtk_widget_show_all(GTK_WIDGET(pPrivate->pTextView));
 
   GtkTextIter oStartIter;
   gtk_text_buffer_get_start_iter(pPrivate->pBuffer, &oStartIter);
@@ -259,50 +297,18 @@ dasher_editor_new(DasherAppSettings *pAppSettings, DasherMain *pDasherMain, Glad
   pPrivate->pActionPane = pActionPane;
 
   // TODO: is this still needed?
-  dasher_editor_create_buffer(pDasherEditor);
+  dasher_editor_create_buffer(pSelf);
 
-  dasher_editor_setup_actions(pDasherEditor);
+  dasher_editor_setup_actions(pSelf);
 
   // TODO: see note in command_new method
   if(szFullPath)
-    dasher_editor_open(pDasherEditor, szFullPath);
+    dasher_editor_open(pSelf, szFullPath);
   else {
-    dasher_editor_generate_filename(pDasherEditor);
-    dasher_editor_clear(pDasherEditor, false);
+    dasher_editor_generate_filename(pSelf);
+    dasher_editor_clear(pSelf, false);
   }
-
-  return pDasherEditor;
 }
-
-// GType 
-// dasher_editor_get_type() {
-//   static GType dasher_editor_type = 0;
-
-//   if(!dasher_editor_type) {
-//     static const GTypeInfo dasher_editor_info = {
-//       sizeof(DasherEditorClass),
-//       NULL,
-//       NULL,
-//       (GClassInitFunc) dasher_editor_class_init,
-//       NULL,
-//       NULL,
-//       sizeof(DasherEditor),
-//       0,
-//       (GInstanceInitFunc) dasher_editor_init,
-//       NULL
-//     };
-
-//     dasher_editor_type = g_type_register_static(G_TYPE_OBJECT, "DasherEditor", &dasher_editor_info, static_cast < GTypeFlags > (0));
-//   }
-
-//   return dasher_editor_type;
-// }
-
-// IDasherBufferSet *
-// dasher_editor_get_buffer_set(DasherEditor *pSelf) {
-//   DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
-//   return IDASHER_BUFFER_SET(dasher_internal_buffer_new(pPrivate->pTextView));
-// }
 
 static void 
 dasher_editor_clipboard(DasherEditor *pSelf, clipboard_action act) {
@@ -927,6 +933,18 @@ dasher_editor_command(DasherEditor *pSelf, const gchar *szCommand) {
   return FALSE;
 }
 
+
+void 
+dasher_editor_handle_font(DasherEditor *pSelf, const gchar *szFont) {
+  if(strcmp(szFont, "")) {
+    DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
+    
+    PangoFontDescription *pFD = pango_font_description_from_string(szFont);
+    gtk_widget_modify_font(GTK_WIDGET(pPrivate->pTextView), pFD);
+  }
+}
+
+
 gboolean 
 dasher_editor_file_changed(DasherEditor *pSelf) {
   DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
@@ -1017,6 +1035,7 @@ dasher_editor_setup_actions(DasherEditor *pSelf) {
 
   GDir *pDirectory;
   G_CONST_RETURN gchar *szFilename;
+
 
   gchar *szUserScriptDir = new gchar[strlen(dasher_app_settings_get_string(pPrivate->pAppSettings, SP_USER_LOC))+9];
   strcpy(szUserScriptDir, dasher_app_settings_get_string(pPrivate->pAppSettings, SP_USER_LOC));

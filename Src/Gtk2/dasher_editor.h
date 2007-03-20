@@ -35,18 +35,20 @@ typedef struct _DasherEditor DasherEditor;
 typedef struct _DasherEditorClass DasherEditorClass;
 
 struct _DasherEditor {
-  GObject parent;
+  GtkVBox box;
 };
 
 struct _DasherEditorClass {
-  GObjectClass parent_class;
+  GtkVBoxClass parent_class;
 
   void (*filename_changed)(DasherEditor *pDasherEditor);
   void (*buffer_changed)(DasherEditor *pDasherEditor);
   void (*context_changed)(DasherEditor *pDasherEditor);
 };
 
-DasherEditor *dasher_editor_new(DasherAppSettings *pAppSettings, DasherMain *pDasherMain, GladeXML *pGladeXML, const gchar *szFullPath);
+DasherEditor *dasher_editor_new();
+void dasher_editor_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, DasherMain *pDasherMain, GladeXML *pGladeXML, const gchar *szFullPath);
+
 GType dasher_editor_get_type();
 
 /* Replace this with GTK text buffer */
@@ -54,6 +56,8 @@ GType dasher_editor_get_type();
 
 // TODO: Just have one 'handle event' method?
 gboolean dasher_editor_command(DasherEditor *pSelf, const gchar *szCommand);
+
+void dasher_editor_handle_font(DasherEditor *pSelf, const gchar *szFont);
 
 /* To be obsoleted by movement to GTK buffers */
 void dasher_editor_output(DasherEditor *pSelf, const gchar *szText);
