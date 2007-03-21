@@ -179,7 +179,7 @@ void CPinYinConversionHelper::GetProbs(Dasher::CLanguageModel::Context context, 
   
 
 
-void CPinYinConversionHelper::AssignSizes(SCENode * pStart, CLanguageModel::Context context, long normalization, int uniform, int iNChildren){
+void CPinYinConversionHelper::AssignSizes(SCENode * pStart, Dasher::CLanguageModel::Context context, long normalization, int uniform, int iNChildren){
 
   SCENode *pNode = pStart;
 

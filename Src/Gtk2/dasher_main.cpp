@@ -555,6 +555,7 @@ dasher_main_handle_parameter_change(DasherMain *pSelf, int iParameter) {
       gtk_widget_hide(pPrivate->pStatusControl);
     break;
   case APP_SP_EDIT_FONT:
+    // TODO: Editor should handle this directly
     dasher_main_refresh_font(pSelf);
     break;
 #ifndef WITH_MAEMO
