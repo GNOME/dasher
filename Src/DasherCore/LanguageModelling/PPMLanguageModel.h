@@ -16,6 +16,7 @@
 
 #include <vector>
 #include <fstream>
+#include <set>
 
 namespace Dasher {
 
@@ -100,6 +101,8 @@ namespace Dasher {
 
     mutable CSimplePooledAlloc < CPPMnode > m_NodeAlloc;
     CPooledAlloc < CPPMContext > m_ContextAlloc;
+
+    std::set<const CPPMContext *> m_setContexts;
   };
 
   /// @}
@@ -117,6 +120,9 @@ namespace Dasher {
   inline CLanguageModel::Context CPPMLanguageModel::CreateEmptyContext() {
     CPPMContext *pCont = m_ContextAlloc.Alloc();
     *pCont = *m_pRootContext;
+
+    m_setContexts.insert(pCont);
+
     return (Context) pCont;
   }
 
@@ -124,10 +130,16 @@ namespace Dasher {
     CPPMContext *pCont = m_ContextAlloc.Alloc();
     CPPMContext *pCopy = (CPPMContext *) Copy;
     *pCont = *pCopy;
+
+    m_setContexts.insert(pCont);
+
     return (Context) pCont;
   }
 
   inline void CPPMLanguageModel::ReleaseContext(Context release) {
+
+    m_setContexts.erase(m_setContexts.find((CPPMContext *) release));
+
     m_ContextAlloc.Free((CPPMContext *) release);
   }
 }                               // end namespace Dasher

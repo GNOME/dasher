@@ -103,13 +103,13 @@ CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int i
   else
     pNodeUserData->pLanguageModel = NULL;
 
-  //  CLanguageModel::Context iContext;
+    CLanguageModel::Context iContext;
 
 //   // std::cout<<m_pLanguageModel<<"lala"<<std::endl;
-//   if(m_pLanguageModel){
-//     iContext = m_pLanguageModel->CreateEmptyContext();
-//     pNodeUserData->iContext = iContext;
-//   }
+   if(m_pLanguageModel){
+     iContext = m_pLanguageModel->CreateEmptyContext();
+     pNodeUserData->iContext = iContext;
+   }
 
   pNodeUserData->pSCENode = 0;
 
@@ -391,13 +391,14 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
       pNodeUserData->pLanguageModel = pCurrentDataNode->pLanguageModel;
       pNodeUserData->iOffset = pCurrentDataNode->iOffset + 1;
 
-//       CLanguageModel::Context iContext;
-//       iContext = pCurrentDataNode->pLanguageModel->CloneContext(pCurrentDataNode->iContext);
-//       if(pCurrentSCEChild ->Symbol !=-1)
-// 	pNodeUserData->pLanguageModel->EnterSymbol(iContext, pCurrentSCEChild->Symbol); // TODO: Don't use symbols?
+       CLanguageModel::Context iContext;
+       iContext = pCurrentDataNode->pLanguageModel->CloneContext(pCurrentDataNode->iContext);
+
+       if(pCurrentSCEChild ->Symbol !=-1)
+ 	pNodeUserData->pLanguageModel->EnterSymbol(iContext, pCurrentSCEChild->Symbol); // TODO: Don't use symbols?
       
       
-//       pNodeUserData->iContext = iContext;
+       pNodeUserData->iContext = iContext;
       
       pNewNode->m_pUserData = pNodeUserData;
       // SAlphabetData *pNodeUserData = new SAlphabetData;

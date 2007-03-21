@@ -220,7 +220,9 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CDasherNode *pParent, symbol iSy
   else if(iSymbol == m_pNCManager->GetControlSymbol()) {                                                                               
     pNewNode = m_pNCManager->GetRoot(1, pParent, iLbnd, iHbnd, &(pParentData->iOffset));                                           
   }                                                                                                                                   
-  else if(iSymbol == m_pNCManager->GetStartConversionSymbol()) {                                                                  
+  //  else if(iSymbol == m_pNCManager->GetStartConversionSymbol()) {                                                                  
+  else if(iSymbol == m_pNCManager->GetSpaceSymbol()) {
+
     // TODO: Need to consider the case where there is no compile-time support for this                                                
     pNewNode = m_pNCManager->GetRoot(2, pParent, iLbnd, iHbnd, &(pParentData->iOffset));                                           
   }         

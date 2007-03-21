@@ -65,6 +65,8 @@ CPinYinConversionHelper::CPinYinConversionHelper(Dasher::CEventHandler *pEventHa
   
 bool CPinYinConversionHelper::Convert(const std::string &strSource, SCENode ** pRoot, int * childCount, int CMid) {
 
+  std::cout << "Converting " << strSource << std::endl;
+
   SCENodeNew *pConversionList;
   int iHZCount;
 
@@ -224,6 +226,8 @@ void CPinYinConversionHelper::AssignSizes(SCENode * pStart, Dasher::CLanguageMod
     pTemp=pTemp->pChild;
   }
   */
+
+  std::cout << "Context is: " << context << std::endl;
 
   m_pLanguageModel->GetProbs(context, Probs, nonuniform_norm);
 
@@ -663,7 +667,8 @@ int CPinYinConversionHelper::CalculateScore(CDasherNode * pNode, CANDIDX CandInd
 
 void CPinYinConversionHelper::TrainChPPM(){
 
-  for(int i =0; i<10;i++)
+  // TODO: Changed to 1 from 10
+  for(int i =0; i<1;i++)
     ProcessFile(i);
 
 }

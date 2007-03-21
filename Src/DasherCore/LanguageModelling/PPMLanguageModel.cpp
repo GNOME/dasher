@@ -57,6 +57,8 @@ CPPMLanguageModel::~CPPMLanguageModel() {
 void CPPMLanguageModel::GetProbs(Context context, std::vector<unsigned int> &probs, int norm) const {
   const CPPMContext *ppmcontext = (const CPPMContext *)(context);
 
+  DASHER_ASSERT(m_setContexts.count(ppmcontext) > 0);
+
   int iNumSymbols = GetSize();
   
   probs.resize(iNumSymbols);
