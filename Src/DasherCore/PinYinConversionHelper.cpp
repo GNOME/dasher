@@ -65,8 +65,6 @@ CPinYinConversionHelper::CPinYinConversionHelper(Dasher::CEventHandler *pEventHa
   
 bool CPinYinConversionHelper::Convert(const std::string &strSource, SCENode ** pRoot, int * childCount, int CMid) {
 
-  std::cout << "Converting " << strSource << std::endl;
-
   SCENodeNew *pConversionList;
   int iHZCount;
 
@@ -90,6 +88,17 @@ bool CPinYinConversionHelper::Convert(const std::string &strSource, SCENode ** p
 
       while(pCurrentNode) {
 	SCENode *pNewNode = new SCENode;
+
+	pNewNode->pszConversion = pCurrentNode->pszConversion;
+	pNewNode->IsHeadAndCandNum = pCurrentNode->IsHeadAndCandNum;
+	pNewNode->CandIndex = pCurrentNode->CandIndex;
+	pNewNode->Symbol = pCurrentNode->Symbol;
+	//	pNewNode->SumPYProbStore = pCurrentNode->SumPYProbStore;
+	pNewNode->IsComplete = pCurrentNode->IsComplete;
+	pNewNode->AcCharCount = pCurrentNode->AcCharCount;  /*accumulative character count*/
+	pNewNode->NodeSize = pCurrentNode->NodeSize;
+	pNewNode->HZFreq = pCurrentNode->HZFreq;
+	pNewNode->HZProb = pCurrentNode->HZProb;
 	
 	if(pTail)
 	  pNewNode->SetChild(pTail);
@@ -226,8 +235,6 @@ void CPinYinConversionHelper::AssignSizes(SCENode * pStart, Dasher::CLanguageMod
     pTemp=pTemp->pChild;
   }
   */
-
-  std::cout << "Context is: " << context << std::endl;
 
   m_pLanguageModel->GetProbs(context, Probs, nonuniform_norm);
 

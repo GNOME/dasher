@@ -103,13 +103,13 @@ CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int i
   else
     pNodeUserData->pLanguageModel = NULL;
 
-    CLanguageModel::Context iContext;
-
-//   // std::cout<<m_pLanguageModel<<"lala"<<std::endl;
-   if(m_pLanguageModel){
-     iContext = m_pLanguageModel->CreateEmptyContext();
-     pNodeUserData->iContext = iContext;
-   }
+  CLanguageModel::Context iContext;
+  
+  //   // std::cout<<m_pLanguageModel<<"lala"<<std::endl;
+  if(m_pLanguageModel) {
+    iContext = m_pLanguageModel->CreateEmptyContext();
+    pNodeUserData->iContext = iContext;
+  }
 
   pNodeUserData->pSCENode = 0;
 
@@ -372,6 +372,9 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
       pDisplayInfo->iColour = m_pHelper->AssignColour(parentClr, pCurrentSCEChild, iIdx);
       pDisplayInfo->bShove = true;
       pDisplayInfo->bVisible = true;
+      
+      //  std::cout << "#" << pCurrentSCEChild->pszConversion << "#" << std::endl;
+
       pDisplayInfo->strDisplayText = pCurrentSCEChild->pszConversion;
        
       pNewNode = new CDasherNode(pNode, iLbnd, iHbnd, pDisplayInfo);
