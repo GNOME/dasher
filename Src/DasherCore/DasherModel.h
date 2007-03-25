@@ -259,6 +259,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   /////////////////////////////////////////////////////////////////////////////
 
   CDasherNode *m_Root;
+  CDasherNode *m_pLastOutput;
 
   // Old root notes
   std::deque < CDasherNode * >oldroots;

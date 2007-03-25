@@ -346,6 +346,8 @@ void CDasherModel::InitialiseAtOffset(int iOffset, CDasherView *pView) {
     delete[] oData.szContext;
   }
 
+  m_pLastOutput = m_Root;
+
   // Create children of the root
   // TODO: What about parents?
 
@@ -606,11 +608,13 @@ void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax, Dasher::VECTOR_SY
 
 void CDasherModel::HandleOutput(CDasherNode *pNewNode, CDasherNode *pOldNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
   DASHER_ASSERT(pNewNode != NULL);
-  DASHER_ASSERT(pOldNode != NULL);
+  //  DASHER_ASSERT(pOldNode != NULL);
   
-  if(pNewNode != pOldNode)
-    DeleteCharacters(pNewNode, pOldNode, pNumDeleted);
+  if(pNewNode != m_pLastOutput)
+    DeleteCharacters(pNewNode, m_pLastOutput, pNumDeleted);
   
+  m_pLastOutput = pNewNode;
+
   if(pNewNode->GetFlag(NF_SEEN))
     return;
 
@@ -624,22 +628,16 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
   // This deals with the trivial instance - we're reversing back over
   // text that we've seen already
   if(newnode->GetFlag(NF_SEEN)) {
-    if(oldnode->Parent() == newnode) {
-      oldnode->m_pNodeManager->Undo(oldnode);
-      oldnode->Parent()->m_pNodeManager->Enter(oldnode->Parent());
-      if (pNumDeleted != NULL)
-        (*pNumDeleted)++;
-      oldnode->SetFlag(NF_SEEN, false);
-      return true;
-    }
-    if(DeleteCharacters(newnode, oldnode->Parent(), pNumDeleted) == true) {
-      oldnode->m_pNodeManager->Undo(oldnode);
-      oldnode->Parent()->m_pNodeManager->Enter(oldnode->Parent());
-      if (pNumDeleted != NULL)
-	(*pNumDeleted)++;
-      oldnode->SetFlag(NF_SEEN, false);
-      return true;
-    }
+    oldnode->m_pNodeManager->Undo(oldnode);
+    oldnode->Parent()->m_pNodeManager->Enter(oldnode->Parent());
+    if (pNumDeleted != NULL)
+      (*pNumDeleted)++;
+    oldnode->SetFlag(NF_SEEN, false);
+
+    if(oldnode->Parent() != newnode)
+      DeleteCharacters(newnode, oldnode->Parent(), pNumDeleted);
+
+    return true;
   }
   else {
     // This one's more complicated - the user may have moved onto a new branch

@@ -1,4 +1,15 @@
 ============
+Dasher 4.4.1
+============
+  * Improved non-cairo rendering
+  * Fixed segfault in output
+
+============
+Dasher 4.4.0
+============
+  * Switch to stable versioning
+
+============
 Dasher 4.3.6
 ============
   * Tidying, buxfixes etc
