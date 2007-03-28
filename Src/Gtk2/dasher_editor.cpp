@@ -158,8 +158,8 @@ extern "C" void handle_stop_event(GtkDasherControl *pDasherControl, gpointer dat
 extern "C" void on_message(GtkDasherControl *pDasherControl, gpointer pMessageInfo, gpointer pUserData);
 extern "C" void on_command(GtkDasherControl *pDasherControl, gchar *szCommand, gpointer pUserData);
 extern "C" void handle_request_settings(GtkDasherControl * pDasherControl, gpointer data);
-extern "C" void gtk2_edit_delete_callback(GtkDasherControl *pDasherControl, const gchar *szText, gpointer user_data);
-extern "C" void gtk2_edit_output_callback(GtkDasherControl *pDasherControl, const gchar *szText, gpointer user_data);
+extern "C" void gtk2_edit_delete_callback(GtkDasherControl *pDasherControl, const gchar *szText, int iOffset, gpointer user_data);
+extern "C" void gtk2_edit_output_callback(GtkDasherControl *pDasherControl, const gchar *szText, int iOffset, gpointer user_data);
 extern "C" void convert_cb(GtkDasherControl *pDasherControl, gpointer pUserData);
 extern "C" void protect_cb(GtkDasherControl *pDasherControl, gpointer pUserData);
 
@@ -570,7 +570,7 @@ dasher_editor_create_buffer(DasherEditor *pSelf) {
 }
 
 void 
-dasher_editor_output(DasherEditor *pSelf, const gchar *szText) {
+dasher_editor_output(DasherEditor *pSelf, const gchar *szText, int iOffset) {
   DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
 
   // TODO: tidy this up, actionlookup by name, more flexible
@@ -592,7 +592,7 @@ dasher_editor_output(DasherEditor *pSelf, const gchar *szText) {
   }
 
   if(pPrivate->pBufferSet)
-    idasher_buffer_set_insert(pPrivate->pBufferSet, szText);
+    idasher_buffer_set_insert(pPrivate->pBufferSet, szText, iOffset);
 
   if(pPrivate->pGameModeHelper)
     game_mode_helper_output(pPrivate->pGameModeHelper, szText);
@@ -601,11 +601,11 @@ dasher_editor_output(DasherEditor *pSelf, const gchar *szText) {
 }
 
 void 
-dasher_editor_delete(DasherEditor *pSelf, int iLength) {
+dasher_editor_delete(DasherEditor *pSelf, int iLength, int iOffset) {
   DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
 
   if(pPrivate->pBufferSet)
-    idasher_buffer_set_delete(pPrivate->pBufferSet, iLength);
+    idasher_buffer_set_delete(pPrivate->pBufferSet, iLength, iOffset);
 
   if(pPrivate->pGameModeHelper)
     game_mode_helper_delete(pPrivate->pGameModeHelper, iLength);
@@ -1626,14 +1626,14 @@ handle_request_settings(GtkDasherControl * pDasherControl, gpointer data) {
 }
 
 extern "C" void 
-gtk2_edit_delete_callback(GtkDasherControl *pDasherControl, const gchar *szText, gpointer user_data) {
+gtk2_edit_delete_callback(GtkDasherControl *pDasherControl, const gchar *szText, int iOffset, gpointer user_data) {
    gint displaylength = g_utf8_strlen(szText, -1);
-   dasher_editor_delete(g_pEditor, displaylength);
+   dasher_editor_delete(g_pEditor, displaylength, iOffset);
 }
 
 extern "C" void 
-gtk2_edit_output_callback(GtkDasherControl *pDasherControl, const gchar *szText, gpointer user_data) {
-   dasher_editor_output(g_pEditor, szText);
+gtk2_edit_output_callback(GtkDasherControl *pDasherControl, const gchar *szText, int iOffset, gpointer user_data) {
+   dasher_editor_output(g_pEditor, szText, iOffset);
 }
 
 extern "C" void 

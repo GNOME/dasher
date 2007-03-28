@@ -49,7 +49,8 @@ dasher_action_keyboard_execute(DasherAction *pSelf, DasherEditor *pEditor, int i
   DasherActionKeyboardPrivate *pPrivate = DASHER_ACTION_KEYBOARD_GET_PRIVATE(pSelf);
    
   if(pPrivate->pBufferSet)
-    idasher_buffer_set_insert(pPrivate->pBufferSet, dasher_editor_get_all_text(pEditor));
+    /* TODO: Fix offset here */
+    idasher_buffer_set_insert(pPrivate->pBufferSet, dasher_editor_get_all_text(pEditor), 0);
 
   return true;
 }

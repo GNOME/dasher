@@ -45,14 +45,16 @@ public:
 
 class Dasher::CEditEvent:public Dasher::CEvent {
 public:
-  CEditEvent(int iEditType, const std::string & sText) {
+  CEditEvent(int iEditType, const std::string & sText, int iOffset) {
     m_iEventType = EV_EDIT;
     m_iEditType = iEditType;
     m_sText = sText;
+    m_iOffset = iOffset;
   };
 
   int m_iEditType;
   std::string m_sText;
+  int m_iOffset;
 };
 
 class Dasher::CEditContextEvent:public Dasher::CEvent {

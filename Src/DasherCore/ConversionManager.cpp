@@ -96,17 +96,16 @@ CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int i
   SConversionData *pNodeUserData = new SConversionData;
   pNewNode->m_pUserData = pNodeUserData;
   pNodeUserData->bType = false;
-  pNodeUserData->iOffset = iOffset;
+  pNodeUserData->iOffset = iOffset + 1;
 
   if(m_pHelper)
     pNodeUserData->pLanguageModel = m_pHelper->GetLanguageModel();
   else
     pNodeUserData->pLanguageModel = NULL;
-
-  CLanguageModel::Context iContext;
   
   //   // std::cout<<m_pLanguageModel<<"lala"<<std::endl;
   if(m_pLanguageModel) {
+    CLanguageModel::Context iContext;
     iContext = m_pLanguageModel->CreateEmptyContext();
     pNodeUserData->iContext = iContext;
   }
@@ -394,14 +393,16 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
       pNodeUserData->pLanguageModel = pCurrentDataNode->pLanguageModel;
       pNodeUserData->iOffset = pCurrentDataNode->iOffset + 1;
 
-       CLanguageModel::Context iContext;
-       iContext = pCurrentDataNode->pLanguageModel->CloneContext(pCurrentDataNode->iContext);
-
-       if(pCurrentSCEChild ->Symbol !=-1)
- 	pNodeUserData->pLanguageModel->EnterSymbol(iContext, pCurrentSCEChild->Symbol); // TODO: Don't use symbols?
+      if(pCurrentDataNode->pLanguageModel) {
+	CLanguageModel::Context iContext;
+	iContext = pCurrentDataNode->pLanguageModel->CloneContext(pCurrentDataNode->iContext);
+	
+	if(pCurrentSCEChild ->Symbol !=-1)
+	  pNodeUserData->pLanguageModel->EnterSymbol(iContext, pCurrentSCEChild->Symbol); // TODO: Don't use symbols?
       
       
-       pNodeUserData->iContext = iContext;
+	pNodeUserData->iContext = iContext;
+      }
       
       pNewNode->m_pUserData = pNodeUserData;
       // SAlphabetData *pNodeUserData = new SAlphabetData;
@@ -430,7 +431,7 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
       
       CAlphabetManager::SRootData oRootData;
       oRootData.szContext = NULL;
-      oRootData.iOffset = pCurrentDataNode->iOffset + 1;
+      oRootData.iOffset = pCurrentDataNode->iOffset;
    
       pNewNode = m_pNCManager->GetRoot(0, pNode, iLbnd, iHbnd, &oRootData);
       pNewNode->SetFlag(NF_SEEN, false);
@@ -463,7 +464,7 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
       pNodeUserData->bType = true;
       pNodeUserData->pSCENode = NULL;
       pNodeUserData->pLanguageModel = pCurrentDataNode->pLanguageModel;
-      pNodeUserData->iOffset = pCurrentDataNode->iOffset;
+      pNodeUserData->iOffset = pCurrentDataNode->iOffset + 1;
      
       pNewNode->m_pUserData = pNodeUserData;
 
@@ -496,7 +497,7 @@ void CConversionManager::BuildTree(CDasherNode *pRoot) {
   CDasherNode *pCurrentNode(pRoot->Parent());
  
   std::string strCurrentString;
-  m_pHelper->ClearData(m_iCMID);
+  //  m_pHelper->ClearData(m_iCMID);
 
   while(pCurrentNode) {
     if(pCurrentNode->m_pNodeManager->GetID() == 2)
@@ -533,25 +534,25 @@ void CConversionManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB*
   SCENode *pCurrentSCENode((static_cast<SConversionData *>(pNode->m_pUserData))->pSCENode);
 
   if(pCurrentSCENode) {
-    Dasher::CEditEvent oEvent(1, pCurrentSCENode->pszConversion);
+    Dasher::CEditEvent oEvent(1, pCurrentSCENode->pszConversion, static_cast<SConversionData *>(pNode->m_pUserData)->iOffset);
     m_pNCManager->InsertEvent(&oEvent);
     
     if((pNode->GetChildren())[0]->m_pNodeManager != this) {
-      Dasher::CEditEvent oEvent(11, "");
+      Dasher::CEditEvent oEvent(11, "", 0);
       m_pNCManager->InsertEvent(&oEvent);
     }
   }
   else {
     if((static_cast<SConversionData *>(pNode->m_pUserData))->bType) {
-      Dasher::CEditEvent oOPEvent(1, "|");
+      Dasher::CEditEvent oOPEvent(1, "|", static_cast<SConversionData *>(pNode->m_pUserData)->iOffset);
       m_pNCManager->InsertEvent(&oOPEvent);
     }
     else {
-      Dasher::CEditEvent oOPEvent(1, ">");
+      Dasher::CEditEvent oOPEvent(1, ">", static_cast<SConversionData *>(pNode->m_pUserData)->iOffset);
       m_pNCManager->InsertEvent(&oOPEvent);
     }
     
-    Dasher::CEditEvent oEvent(10, "");
+    Dasher::CEditEvent oEvent(10, "", 0);
     m_pNCManager->InsertEvent(&oEvent);
   }
 }
@@ -561,17 +562,17 @@ void CConversionManager::Undo( CDasherNode *pNode ) {
 
   if(pCurrentSCENode) {
     if(pCurrentSCENode->pszConversion && (strlen(pCurrentSCENode->pszConversion) > 0)) {
-      Dasher::CEditEvent oEvent(2, pCurrentSCENode->pszConversion);
+      Dasher::CEditEvent oEvent(2, pCurrentSCENode->pszConversion, static_cast<SConversionData *>(pNode->m_pUserData)->iOffset);
       m_pNCManager->InsertEvent(&oEvent);
     }
   } 
   else {
     if((static_cast<SConversionData *>(pNode->m_pUserData))->bType) {
-      Dasher::CEditEvent oOPEvent(2, "|");
+      Dasher::CEditEvent oOPEvent(2, "|", static_cast<SConversionData *>(pNode->m_pUserData)->iOffset);
       m_pNCManager->InsertEvent(&oOPEvent);
     }
     else {
-      Dasher::CEditEvent oOPEvent(2, ">");
+      Dasher::CEditEvent oOPEvent(2, ">", static_cast<SConversionData *>(pNode->m_pUserData)->iOffset);
       m_pNCManager->InsertEvent(&oOPEvent);
     }
   }

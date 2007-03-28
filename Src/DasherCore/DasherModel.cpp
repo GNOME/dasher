@@ -70,15 +70,10 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettin
 
   m_Rootmin = 0;
   m_Rootmax = 0;
-  m_Rootmin_min = 0;
-  m_Rootmax_max = 0;
-  m_dAddProb = 0.0;
-  m_dMaxRate = 0.0;
   m_iTargetOffset = 0;
   m_dTotalNats = 0.0;
  
   // TODO: Need to rationalise the require conversion methods
-
 #ifdef JAPANESE
   m_bRequireConversion = true;
 #else
@@ -95,14 +90,6 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettin
   int iNormalization = GetLongParameter(LP_NORMALIZATION);
   m_Rootmin_min = int64_min / iNormalization / 2;
   m_Rootmax_max = int64_max / iNormalization / 2;
-
-  //  m_pLanguageModel = m_pNodeCreationManager->GetLanguageModel();
-  //  LearnContext = m_pNodeCreationManager->GetLearnContext();
-
-  //  m_bContextSensitive = true;
-
-  // TODO: Do something sensible here
-  //  Start();
 
   InitialiseAtOffset(iOffset, pView);
 }
@@ -374,6 +361,8 @@ void CDasherModel::InitialiseAtOffset(int iOffset, CDasherView *pView) {
     delete[] oData.szContext;
   }
 
+  m_pLastOutput = m_Root;
+
   // Create children of the root
   // TODO: What about parents?
 
@@ -493,6 +482,10 @@ bool CDasherModel::UpdatePosition(myint miMousex, myint miMousey, unsigned long 
   if(GetBoolParameter(BP_DASHER_PAUSED) && (m_deGotoQueue.size() == 0))
      return false;
 
+  // Find out the current node under the crosshair
+  CDasherNode *old_under_cross=Get_node_under_crosshair();
+
+
   myint iNewMin;
   myint iNewMax;
 
@@ -514,6 +507,17 @@ bool CDasherModel::UpdatePosition(myint miMousex, myint miMousey, unsigned long 
   // Now actually zoom to the new location
   NewGoTo(iNewMin, iNewMax, pAdded, pNumDeleted);
 
+
+  // Check whether new nodes need to be created
+  CDasherNode* new_under_cross = Get_node_under_crosshair();
+  Push_Node(new_under_cross);
+  
+  // TODO: Make this more efficient
+  new_under_cross = Get_node_under_crosshair();
+
+  HandleOutput(new_under_cross, old_under_cross, pAdded, pNumDeleted);
+
+
   return true;
 }
 
@@ -522,6 +526,8 @@ void CDasherModel::NewFrame(unsigned long Time) {
 }
 
 void CDasherModel::OldPush(myint iMousex, myint iMousey) {
+  std::cout << "Old Push" << std::endl;
+
   // push node under mouse
   CDasherNode *pUnderMouse = Get_node_under_mouse(iMousex, iMousey);
 
@@ -590,8 +596,6 @@ void CDasherModel::RecursiveOutput(CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PRO
 }
 
 void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
-  // Find out the current node under the crosshair
-  CDasherNode *old_under_cross=Get_node_under_crosshair();
 
   // Update the max and min of the root node to make iTargetMin and
   // iTargetMax the edges of the viewport.
@@ -624,52 +628,72 @@ void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax, Dasher::VECTOR_SY
     // TODO - force a new root to be chosen, so that we get better
     // behaviour than just having Dasher stop at this point.
   }
-
-  // Check whether new nodes need to be created
-  CDasherNode* new_under_cross = Get_node_under_crosshair();
-  Push_Node(new_under_cross);
-
-  HandleOutput(new_under_cross, old_under_cross, pAdded, pNumDeleted);
 }
 
 void CDasherModel::HandleOutput(CDasherNode *pNewNode, CDasherNode *pOldNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
   DASHER_ASSERT(pNewNode != NULL);
-  DASHER_ASSERT(pOldNode != NULL);
+  //  DASHER_ASSERT(pOldNode != NULL);
   
-  if(pNewNode != pOldNode)
-    DeleteCharacters(pNewNode, pOldNode, pNumDeleted);
+//   if(pNewNode != pOldNode)
+//     std::cout << "HandleOutput: " << pOldNode << " => " << pNewNode << std::endl;
+
+  if(pNewNode != m_pLastOutput)
+    DeleteCharacters(pNewNode, m_pLastOutput, pNumDeleted);
   
-  if(pNewNode->GetFlag(NF_SEEN))
+  if(pNewNode->GetFlag(NF_SEEN)) {
+    m_pLastOutput = pNewNode;
     return;
+  }
 
   RecursiveOutput(pNewNode, pAdded);
+
+  m_pLastOutput = pNewNode;
 }
 
 bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, int* pNumDeleted) {
   DASHER_ASSERT(newnode != NULL);
   DASHER_ASSERT(oldnode != NULL);
 
+  //  std::cout << oldnode << " " << newnode << std::endl;
+
   // This deals with the trivial instance - we're reversing back over
   // text that we've seen already
   if(newnode->GetFlag(NF_SEEN)) {
-    if(oldnode->Parent() == newnode) {
-      oldnode->m_pNodeManager->Undo(oldnode);
-      oldnode->Parent()->m_pNodeManager->Enter(oldnode->Parent());
-      if (pNumDeleted != NULL)
-        (*pNumDeleted)++;
-      oldnode->SetFlag(NF_SEEN, false);
-      return true;
-    }
-    if(DeleteCharacters(newnode, oldnode->Parent(), pNumDeleted) == true) {
-      oldnode->m_pNodeManager->Undo(oldnode);
-      oldnode->Parent()->m_pNodeManager->Enter(oldnode->Parent());
-      if (pNumDeleted != NULL)
-	(*pNumDeleted)++;
-      oldnode->SetFlag(NF_SEEN, false);
-      return true;
-    }
+    // TODO: I really cannot believe that  the following could ever have worked.
+    
+  //   if(oldnode->Parent() == newnode) {
+//       std::cout << "DCA" << std::endl;
+//       oldnode->m_pNodeManager->Undo(oldnode);
+//       oldnode->Parent()->m_pNodeManager->Enter(oldnode->Parent());
+//       if (pNumDeleted != NULL)
+//         (*pNumDeleted)++;
+//       oldnode->SetFlag(NF_SEEN, false);
+//       return true;
+//     }
+//     if(DeleteCharacters(newnode, oldnode->Parent(), pNumDeleted) == true) {
+//       std::cout << "DCB" << std::endl;
+//       oldnode->m_pNodeManager->Undo(oldnode);
+//       oldnode->Parent()->m_pNodeManager->Enter(oldnode->Parent());
+//       if (pNumDeleted != NULL)
+// 	(*pNumDeleted)++;
+//       oldnode->SetFlag(NF_SEEN, false);
+//       return true;
+//     }
+
+    oldnode->m_pNodeManager->Undo(oldnode);
+    oldnode->Parent()->m_pNodeManager->Enter(oldnode->Parent());
+    if (pNumDeleted != NULL)
+      (*pNumDeleted)++;
+    oldnode->SetFlag(NF_SEEN, false);
+
+    if(oldnode->Parent() != newnode)
+      DeleteCharacters(newnode, oldnode->Parent(), pNumDeleted);
+
+    return true;
+
   }
   else {
+    //    std::cout << "DCC" << std::endl;
     // This one's more complicated - the user may have moved onto a new branch
     // Find the last seen node on the new branch
     CDasherNode *lastseen = newnode->Parent();
@@ -747,6 +771,8 @@ bool CDasherModel::RenderToView(CDasherView *pView, bool bRedrawDisplay) {
   DASHER_ASSERT(pView != NULL);
   DASHER_ASSERT(m_Root != NULL);
 
+  CDasherNode *pOldNode = Get_node_under_crosshair();
+
   std::vector<CDasherNode *> vNodeList;
   std::vector<CDasherNode *> vDeleteList;
 
@@ -764,6 +790,13 @@ bool CDasherModel::RenderToView(CDasherView *pView, bool bRedrawDisplay) {
     if(!((*it)->GetFlag(NF_SUBNODE)))
       (*it)->Delete_children();
   }
+
+  CDasherNode *pNewNode = Get_node_under_crosshair();
+
+  // TODO: Fix up stats
+  // TODO: Is this the right way to handle this?
+  if(pNewNode != pOldNode)
+    HandleOutput(pNewNode, pOldNode, NULL, NULL);
 
   return bReturnValue;
 }
@@ -797,6 +830,8 @@ bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
   DASHER_ASSERT(m_Root != NULL);
   // TODO: pView is redundant here
 
+  CDasherNode *pOldNode = Get_node_under_crosshair();
+
   CDasherNode *root(m_Root);
   CDasherNode::ChildMap & children = m_Root->Children();
 
@@ -820,6 +855,13 @@ bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
       //std::cout << "...m" << std::endl;
     }
   }
+
+  CDasherNode *pNewNode = Get_node_under_crosshair();
+
+  // TODO: Fix this, make more efficient
+  // TODO: Unnecessary? Should never change anuything
+  if(pNewNode != pOldNode)
+    HandleOutput(pNewNode, pOldNode, NULL, NULL);
 
   DASHER_ASSERT(!(m_Root->GetFlag(NF_SUBNODE)));
   return false;

@@ -60,8 +60,8 @@ gboolean dasher_editor_command(DasherEditor *pSelf, const gchar *szCommand);
 void dasher_editor_handle_font(DasherEditor *pSelf, const gchar *szFont);
 
 /* To be obsoleted by movement to GTK buffers */
-void dasher_editor_output(DasherEditor *pSelf, const gchar *szText);
-void dasher_editor_delete(DasherEditor *pSelf, int iLength);
+void dasher_editor_output(DasherEditor *pSelf, const gchar *szText, int iOffset);
+void dasher_editor_delete(DasherEditor *pSelf, int iLength, int iOffset);
 const gchar *dasher_editor_get_context(DasherEditor *pSelf, int iOffset, int iLength);
 gint dasher_editor_get_offset(DasherEditor *pSelf);
 

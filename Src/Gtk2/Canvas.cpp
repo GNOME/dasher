@@ -224,7 +224,7 @@ void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutl
     cairo_rectangle(cr, iLeft, iTop, iWidth + 1, iHeight + 1);
     cairo_fill(cr);
 #else
-    gdk_draw_rectangle(m_pOffscreenBuffer, graphics_context, TRUE, iLeft, iTop, iWidth, iHeight);
+    gdk_draw_rectangle(m_pOffscreenBuffer, graphics_context, TRUE, iLeft, iTop, iWidth + 1, iHeight + 1);
 #endif
   }
   

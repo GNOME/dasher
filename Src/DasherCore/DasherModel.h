@@ -240,54 +240,96 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   };
 
   void SetControlOffset(int iOffset);
- protected:
-  int m_iRenderCount;
-
 
  private:
 
-  CDasherInterfaceBase * m_pDasherInterface;
+  /// Struct representing intermediate stages in the goto queue
+  ///
+  struct SGotoItem {
+    myint iN1;
+    myint iN2;
+    int iStyle;
+  };
+  
+  // Pointers to various auxilliary objects
+  CDasherInterfaceBase *m_pDasherInterface;
+  CNodeCreationManager *m_pNodeCreationManager;
 
-  /////////////////////////////////////////////////////////////////////////////
-
-  // Interfaces
-
-  //  CLanguageModel *m_pLanguageModel;     // pointer to the language model
-
-  CLanguageModel::Context LearnContext; // Used to add data to model as it is entered
-
-  /////////////////////////////////////////////////////////////////////////////
-
+  // The root of the Dasher tree
   CDasherNode *m_Root;
 
   // Old root notes
+  // TODO: This should probably be rethought at some point - it doesn't really make a lot of sense
   std::deque < CDasherNode * >oldroots;
 
   // Rootmin and Rootmax specify the position of the root node in Dasher coords
-  myint m_Rootmin, m_Rootmax;
-  
-  myint m_iTargetMin;
-  myint m_iTargetMax;
+  myint m_Rootmin;
+  myint m_Rootmax;
 
-  myint m_iTargetOffset; // Displayed rootmin/max - actual rootmin/rootmax
+  // Permitted range for root node - model cannot zoom beyond this
+  // point without falling back to a new root node.
+  myint m_Rootmin_min;
+  myint m_Rootmax_max;
 
-  myint m_Rootmin_min, m_Rootmax_max;
-
+  // TODO: Does this need to be brought back? Make it relative to visible region?
   // The active interval over which Dasher nodes are maintained - this is most likely bigger than (0,DasherY)
-  //  CRange m_Active;
+  // CRange m_Active;
 
-  CFrameRate m_fr;              // keep track of framerate
+  // Offset used when presenting the model to the user, specified as
+  // Displayed rootmin/max - actual rootmin/rootmax
+  myint m_iTargetOffset; 
 
-  double m_dTotalNats;            // Information entered so far
+  CDasherNode *m_pLastOutput;
 
-  // the probability that gets added to every symbol
+  // Queue of goto locations (eg for button mode)
+  std::deque<SGotoItem> m_deGotoQueue;
+
+  /// TODO: Not sure what this actually does
   double m_dAddProb;
 
+  // Model parameters... (cached from settings store)
+
+  // Current maximum bitrate (ie zoom at far rhs).
   double m_dMaxRate;
 
-  int m_Stepnum;
+  // Whether game mode is active
+  // TODO: This isn't very functional at the moment
+  bool m_bGameMode;
+
+  // Whether characters entered by alphabet manager are expected to
+  // require conversion.
+  // TODO: Need to rethink this at some point.
+  bool m_bRequireConversion;
+
+  // Model status...
+
+  // Helper class to estimate frame rate
+  CFrameRate m_fr;  
+
+  // Time at which the model was started (ie last unpaused, used for gradual speed up)
+  // TODO: Implementation is very hacky at the moment
+  // TODO: Duplicates functionality previously implemented elsewhere
+  unsigned long m_iStartTime;
+  
+  // Offset into buffer of node currently under crosshair
+  int m_iOffset;
+
+  // Debug/performance information...
+
+  // Information entered so far in this model
+  double m_dTotalNats; 
+
+  // Number of nodes rendered
+  int m_iRenderCount;
+
+
 
   CDasherNode *Get_node_under_mouse(myint smousex, myint smousey);
+
+  ///
+  /// Go directly to a given coordinate - check semantics
+  ///
+  void NewGoTo(myint n1, myint n2, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted);
 
   ///
   /// CDasherModel::Get_new_root_coords( myint Mousex,myint Mousey )
@@ -303,13 +345,23 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   ///
   void Get_new_root_coords(myint mousex, myint mousey, myint &iNewMin, myint &iNewMax, unsigned long iTime);
 
+
+  /// Called from ScheduleZoom
   double CorrectionFactor(int dasherx, int dashery);
 
-  void DeleteTree();
-
+  /// Should be public?
   void InitialiseAtOffset(int iOffset, CDasherView *pView);
 
+  /// Called from InitialiseAtOffset
+  void DeleteTree();
+
+  /// Push nodes recursively (d'oh!) - seems to be a little broken at the moment, need to check where this gets called
+  /// TODO: Need to sort out, need to check that this isn't generating too many nodes
   void Recursive_Push_Node(CDasherNode * pNode, int depth);
+
+  /// Create the children of a Dasher node
+  void Push_Node(CDasherNode * pNode); 
+
 
   ///
   /// Perform output on a node - recurse up the tree outputting any
@@ -321,23 +373,11 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
 
   ///
-  /// Go directly to a given coordinate - check semantics
-  ///
-  
-  void NewGoTo(myint n1, myint n2, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted);
-
-  ///
   /// Check semantics here
   ///
 
   void OutputCharacters(CDasherNode * node);
   bool DeleteCharacters(CDasherNode * newnode, CDasherNode * oldnode, int* pNumDeleted = NULL);
-
-  ///
-  /// Create the children of a Dasher node
-  ///
-
-  void Push_Node(CDasherNode * pNode); 
 
   /// 
   /// Old style drilling down of nodes - optionally can still be
@@ -388,27 +428,6 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   void HandleOutput(CDasherNode *pNewNode, CDasherNode *pOldNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted);
 
   bool RecursiveCheckRoot(CDasherNode *pNode, CDasherNode **pNewNode, bool &bFound);
-
-  CNodeCreationManager *m_pNodeCreationManager;
-  bool m_bGameMode;
-
-
-  unsigned long m_iStartTime;
-
-  struct SGotoItem {
-    myint iN1;
-    myint iN2;
-    int iStyle;
-  };
-
-  std::deque<SGotoItem> m_deGotoQueue;
-  
-  // Whether characters entered by alphabet manager are expected to
-  // require conversion.
-  // TODO: Need to rethink this at some point.
-  bool m_bRequireConversion;
-
-  int m_iOffset;
 
 };
 /// @}

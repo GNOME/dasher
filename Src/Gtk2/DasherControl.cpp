@@ -290,11 +290,11 @@ void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
     
     if(pEditEvent->m_iEditType == 1) {
       // Insert event
-      g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_edit_insert", pEditEvent->m_sText.c_str());
+      g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_edit_insert", pEditEvent->m_sText.c_str(), pEditEvent->m_iOffset);
     }
     else if(pEditEvent->m_iEditType == 2) {
       // Delete event
-      g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_edit_delete", pEditEvent->m_sText.c_str());
+      g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_edit_delete", pEditEvent->m_sText.c_str(), pEditEvent->m_iOffset);
     }
     else if(pEditEvent->m_iEditType == 10) {
       g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_edit_convert");

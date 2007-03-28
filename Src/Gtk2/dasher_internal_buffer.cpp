@@ -1,6 +1,8 @@
 #include <gtk/gtk.h>
+#include <iostream>
 #include <string.h>
 
+#include "../Common/Common.h"
 #include "dasher_buffer_set.h"
 #include "dasher_internal_buffer.h"
 
@@ -8,8 +10,8 @@ static void dasher_internal_buffer_class_init(DasherInternalBufferClass *pClass)
 static void dasher_internal_buffer_init(DasherInternalBuffer *pAction);
 static void dasher_internal_buffer_destroy(GObject *pObject);
 static void idasher_buffer_set_interface_init (gpointer g_iface, gpointer iface_data);
-void dasher_internal_buffer_insert(DasherInternalBuffer *pSelf, const gchar *szText);
-void dasher_internal_buffer_delete(DasherInternalBuffer *pSelf, int iLength);
+void dasher_internal_buffer_insert(DasherInternalBuffer *pSelf, const gchar *szText, int iOffset);
+void dasher_internal_buffer_delete(DasherInternalBuffer *pSelf, int iLength, int iOffset);
 gchar *dasher_internal_buffer_get_context(DasherInternalBuffer *pSelf, gint iOffset, gint iLength);
 void dasher_internal_buffer_edit_move(DasherInternalBuffer *pSelf, int iDirection, int iDist);
 void dasher_internal_buffer_edit_delete(DasherInternalBuffer *pSelf, int iDirection, int iDist);
@@ -79,8 +81,8 @@ static void dasher_internal_buffer_init(DasherInternalBuffer *pDasherControl) {
 
 static void idasher_buffer_set_interface_init (gpointer g_iface, gpointer iface_data) {
   IDasherBufferSetInterface *iface = (IDasherBufferSetInterface *)g_iface;
-  iface->insert_text = (void (*)(IDasherBufferSet *pSelf, const gchar *szText))dasher_internal_buffer_insert;
-  iface->delete_text = (void (*)(IDasherBufferSet *pSelf, gint iLength))dasher_internal_buffer_delete;
+  iface->insert_text = (void (*)(IDasherBufferSet *pSelf, const gchar *szText, int iOffset))dasher_internal_buffer_insert;
+  iface->delete_text = (void (*)(IDasherBufferSet *pSelf, gint iLength, int iOffset))dasher_internal_buffer_delete;
   iface->get_context = (gchar *(*)(IDasherBufferSet *pSelf, gint iOffset, gint iLength))dasher_internal_buffer_get_context;
   iface->edit_move = (void (*)(IDasherBufferSet *pSelf, gint iDirection, gint iDist))dasher_internal_buffer_edit_move;
   iface->edit_delete = (void (*)(IDasherBufferSet *pSelf, gint iDirection, gint iDist))dasher_internal_buffer_edit_delete;
@@ -125,8 +127,12 @@ DasherInternalBuffer *dasher_internal_buffer_new(GtkTextView *pTextView) {
   return pDasherControl;
 }
 
-void dasher_internal_buffer_insert(DasherInternalBuffer *pSelf, const gchar *szText) { 
+void dasher_internal_buffer_insert(DasherInternalBuffer *pSelf, const gchar *szText, int iOffset) { 
   DasherInternalBufferPrivate *pPrivate = (DasherInternalBufferPrivate *)(pSelf->private_data);
+
+  //  std::cout << "i: " << szText << " (" << iOffset << " " << gtk_text_buffer_get_char_count(pPrivate->pBuffer) << ")" << std::endl;
+
+  DASHER_ASSERT(gtk_text_buffer_get_char_count(pPrivate->pBuffer) == iOffset);
 
   gtk_text_buffer_delete_selection(pPrivate->pBuffer, false, true );
 
@@ -158,7 +164,7 @@ void dasher_internal_buffer_insert(DasherInternalBuffer *pSelf, const gchar *szT
   //  g_message("Buffer lenght: %d", gtk_text_buffer_get_char_count(pPrivate->pBuffer));
 }
 
-void dasher_internal_buffer_delete(DasherInternalBuffer *pSelf, int iLength) { 
+void dasher_internal_buffer_delete(DasherInternalBuffer *pSelf, int iLength, int iOffset) { 
   DasherInternalBufferPrivate *pPrivate = (DasherInternalBufferPrivate *)(pSelf->private_data);
   
   GtkTextIter *start = new GtkTextIter;
@@ -176,6 +182,9 @@ void dasher_internal_buffer_delete(DasherInternalBuffer *pSelf, int iLength) {
 
   delete start;
   delete end;
+
+  //  std::cout << "d: " << iLength << " (" << iOffset << " " << gtk_text_buffer_get_char_count(pPrivate->pBuffer) << ")" << std::endl; 
+  DASHER_ASSERT(gtk_text_buffer_get_char_count(pPrivate->pBuffer) == iOffset);
 }
 
 gchar *dasher_internal_buffer_get_context(DasherInternalBuffer *pSelf, gint iOffset, gint iLength) {

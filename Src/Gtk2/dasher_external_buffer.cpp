@@ -48,8 +48,8 @@ static void dasher_external_buffer_class_init(DasherExternalBufferClass *pClass)
 static void dasher_external_buffer_init(DasherExternalBuffer *pAction);
 static void dasher_external_buffer_destroy(GObject *pObject);
 static void idasher_buffer_set_interface_init (gpointer g_iface, gpointer iface_data);
-void dasher_external_buffer_insert(DasherExternalBuffer *pSelf, const gchar *szText);
-void dasher_external_buffer_delete(DasherExternalBuffer *pSelf, int iLength);
+void dasher_external_buffer_insert(DasherExternalBuffer *pSelf, const gchar *szText, int iOffset);
+void dasher_external_buffer_delete(DasherExternalBuffer *pSelf, int iLength, int iOffset);
 void dasher_external_buffer_edit_convert(DasherExternalBuffer *pSelf);
 void dasher_external_buffer_edit_protect(DasherExternalBuffer *pSelf);
 void dasher_external_buffer_conversion_mode(DasherExternalBuffer *pSelf, gboolean bMode);
@@ -125,8 +125,8 @@ static void dasher_external_buffer_init(DasherExternalBuffer *pDasherControl) {
 
 static void idasher_buffer_set_interface_init (gpointer g_iface, gpointer iface_data) {
   IDasherBufferSetInterface *iface = (IDasherBufferSetInterface *)g_iface;
-  iface->insert_text = (void (*)(IDasherBufferSet *pSelf, const gchar *szText))dasher_external_buffer_insert;
-  iface->delete_text = (void (*)(IDasherBufferSet *pSelf, gint iLength))dasher_external_buffer_delete;
+  iface->insert_text = (void (*)(IDasherBufferSet *pSelf, const gchar *szText, int iOffset))dasher_external_buffer_insert;
+  iface->delete_text = (void (*)(IDasherBufferSet *pSelf, gint iLength, int iOffset))dasher_external_buffer_delete;
   iface->get_context = (gchar *(*)(IDasherBufferSet *pSelf, gint iOffset, gint iLength))dasher_external_buffer_get_context;
   iface->edit_move = (void (*)(IDasherBufferSet *pSelf, gint iDirection, gint iDist))dasher_external_buffer_edit_move;
   iface->edit_delete = (void (*)(IDasherBufferSet *pSelf, gint iDirection, gint iDist))dasher_external_buffer_edit_delete;
@@ -181,7 +181,7 @@ DasherExternalBuffer *dasher_external_buffer_new() {
   return pDasherControl;
 }
 
-void dasher_external_buffer_insert(DasherExternalBuffer *pSelf, const gchar *szText) { 
+void dasher_external_buffer_insert(DasherExternalBuffer *pSelf, const gchar *szText, int iOffset) { 
   DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(pSelf->private_data);
 
 #ifdef GNOME_A11Y
@@ -264,7 +264,7 @@ void dasher_external_buffer_insert(DasherExternalBuffer *pSelf, const gchar *szT
 #endif
 }
 
-void dasher_external_buffer_delete(DasherExternalBuffer *pSelf, int iLength) {
+void dasher_external_buffer_delete(DasherExternalBuffer *pSelf, int iLength, int iOffset) {
   DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(pSelf->private_data);
 
 #ifdef GNOME_A11Y

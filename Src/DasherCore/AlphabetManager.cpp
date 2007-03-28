@@ -220,8 +220,8 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CDasherNode *pParent, symbol iSy
   else if(iSymbol == m_pNCManager->GetControlSymbol()) {                                                                               
     pNewNode = m_pNCManager->GetRoot(1, pParent, iLbnd, iHbnd, &(pParentData->iOffset));                                           
   }                                                                                                                                   
-  //  else if(iSymbol == m_pNCManager->GetStartConversionSymbol()) {                                                                  
-  else if(iSymbol == m_pNCManager->GetSpaceSymbol()) {
+  else if(iSymbol == m_pNCManager->GetStartConversionSymbol()) {                                                                  
+  //  else if(iSymbol == m_pNCManager->GetSpaceSymbol()) {
 
     // TODO: Need to consider the case where there is no compile-time support for this                                                
     pNewNode = m_pNCManager->GetRoot(2, pParent, iLbnd, iHbnd, &(pParentData->iOffset));                                           
@@ -360,10 +360,10 @@ void CAlphabetManager::ClearNode( CDasherNode *pNode ) {
 void CAlphabetManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {
   symbol t = static_cast<SAlphabetData *>(pNode->m_pUserData)->iSymbol;
 
-  //  std::cout << "Output at offset " << static_cast<SAlphabetData *>(pNode->m_pUserData)->iOffset << " *" << m_pNCManager->GetAlphabet()->GetText(t) << "*" << std::endl;
+  //  std::cout << pNode << " " << pNode->Parent() << ": Output at offset " << static_cast<SAlphabetData *>(pNode->m_pUserData)->iOffset << " *" << m_pNCManager->GetAlphabet()->GetText(t) << "* " << std::endl;
 
   if(t) { // Ignore symbol 0 (root node)
-    Dasher::CEditEvent oEvent(1, m_pNCManager->GetAlphabet()->GetText(t));
+    Dasher::CEditEvent oEvent(1, m_pNCManager->GetAlphabet()->GetText(t), static_cast<SAlphabetData *>(pNode->m_pUserData)->iOffset);
     m_pNCManager->InsertEvent(&oEvent);
 
     // Track this symbol and its probability for logging purposes
@@ -380,10 +380,10 @@ void CAlphabetManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* p
 void CAlphabetManager::Undo( CDasherNode *pNode ) {
   symbol t = static_cast<SAlphabetData *>(pNode->m_pUserData)->iSymbol;
 
-  //  std::cout << "Undo at offset " << static_cast<SAlphabetData *>(pNode->m_pUserData)->iOffset << " *" << m_pNCManager->GetAlphabet()->GetText(t) << "*" << std::endl;
+  //  std::cout << pNode << " " << pNode->Parent() << ": Undo at offset " << static_cast<SAlphabetData *>(pNode->m_pUserData)->iOffset << " *" << m_pNCManager->GetAlphabet()->GetText(t) << "* " << std::endl;
 
   if(t) { // Ignore symbol 0 (root node)
-    Dasher::CEditEvent oEvent(2, m_pNCManager->GetAlphabet()->GetText(t));
+    Dasher::CEditEvent oEvent(2, m_pNCManager->GetAlphabet()->GetText(t), static_cast<SAlphabetData *>(pNode->m_pUserData)->iOffset);
     m_pNCManager->InsertEvent(&oEvent);
   }
 }

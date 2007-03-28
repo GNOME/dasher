@@ -54,12 +54,12 @@ GType idasher_buffer_set_get_type() {
 
 // FIXME - check for NULL pointers (is that contrary to the idea of an interface?)
 
-void idasher_buffer_set_insert(IDasherBufferSet *pSelf, const gchar *szText) {
-  IDASHER_BUFFER_SET_GET_INTERFACE(pSelf)->insert_text(pSelf, szText);
+void idasher_buffer_set_insert(IDasherBufferSet *pSelf, const gchar *szText, int iOffset) {
+  IDASHER_BUFFER_SET_GET_INTERFACE(pSelf)->insert_text(pSelf, szText, iOffset);
 }
 
-void idasher_buffer_set_delete(IDasherBufferSet *pSelf, gint iLength) {
-  IDASHER_BUFFER_SET_GET_INTERFACE(pSelf)->delete_text(pSelf, iLength);
+void idasher_buffer_set_delete(IDasherBufferSet *pSelf, gint iLength, int iOffset) {
+  IDASHER_BUFFER_SET_GET_INTERFACE(pSelf)->delete_text(pSelf, iLength, iOffset);
 }
 
 gchar *idasher_buffer_set_get_context(IDasherBufferSet *pSelf, gint iOffset, gint iLength) {

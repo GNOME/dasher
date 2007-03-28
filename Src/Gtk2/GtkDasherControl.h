@@ -46,8 +46,8 @@ struct _GtkDasherControlClass {
   void (*dasher_changed) (GtkDasherControl * pDasherControl, gint iParameter, gpointer data);
   void (*dasher_start) (GtkDasherControl * pDasherControl, gpointer data);
   void (*dasher_stop) (GtkDasherControl * pDasherControl, gpointer data);
-  void (*dasher_edit_insert) (GtkDasherControl * pDasherControl, const gchar * szText, gpointer data);
-  void (*dasher_edit_delete) (GtkDasherControl * pDasherControl, const gchar * szText, gpointer data);
+  void (*dasher_edit_insert) (GtkDasherControl * pDasherControl, const gchar * szText, int iOffset, gpointer data);
+  void (*dasher_edit_delete) (GtkDasherControl * pDasherControl, const gchar * szText, int iOffset, gpointer data);
   void (*dasher_edit_convert) (GtkDasherControl * pDasherControl, gpointer data);
   void (*dasher_edit_protect) (GtkDasherControl * pDasherControl, gpointer data);
   void (*dasher_control) (GtkDasherControl * pDasherControl, gint iEvent, gpointer data);

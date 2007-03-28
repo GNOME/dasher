@@ -30,8 +30,8 @@ typedef struct _IDasherBufferSetInterface IDasherBufferSetInterface;
 struct _IDasherBufferSetInterface {
   GTypeInterface parent;
 
-  void (*insert_text)(IDasherBufferSet *pSelf, const gchar *szText);
-  void (*delete_text)(IDasherBufferSet *pSelf, gint iLength);
+  void (*insert_text)(IDasherBufferSet *pSelf, const gchar *szText, int iOffset);
+  void (*delete_text)(IDasherBufferSet *pSelf, gint iLength, int iOffset);
   gchar *(*get_context)(IDasherBufferSet *pSelf, gint iOffset, gint iLength);
   void (*edit_move)(IDasherBufferSet *pSelf, gint iDirection, gint iDist);
   void (*edit_delete)(IDasherBufferSet *pSelf, gint iDirection, gint iDist);
@@ -43,8 +43,8 @@ struct _IDasherBufferSetInterface {
 
 GType idasher_buffer_set_get_type();
 
-void idasher_buffer_set_insert(IDasherBufferSet *pSelf, const gchar *szText);
-void idasher_buffer_set_delete(IDasherBufferSet *pSelf, gint iLength);
+void idasher_buffer_set_insert(IDasherBufferSet *pSelf, const gchar *szText, int iOffset);
+void idasher_buffer_set_delete(IDasherBufferSet *pSelf, gint iLength, int iOffset);
 gchar *idasher_buffer_set_get_context(IDasherBufferSet *pSelf, gint iOffset, gint iLength);
 void idasher_buffer_set_edit_move(IDasherBufferSet *pSelf, gint iDirection, gint iDist);
 void idasher_buffer_set_edit_delete(IDasherBufferSet *pSelf, gint iDirection, gint iDist);
