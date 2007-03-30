@@ -10,12 +10,17 @@
 
 #include <iostream>             //For testing 23 June 2005
 
+CCannaConversionHelper::CCannaConversionHelper(int Type, int Order) {
 
-CCannaConversionHelper::CCannaConversionHelper() {
   int ret;
   char *buf;
   int dicnum;
 
+  iType = Type;// 0 = uniform, 1 = 1/(n+1),2 = 1/(n+1)/n
+  iOrder = Order; // 0 = canna, 1 = Unicode , 2 = Shift_JIS
+
+  icon = iconv_open("SJIS", "UTF8");
+ 
   IsInit = 0;
 
   /* Initialize */
@@ -53,6 +58,8 @@ CCannaConversionHelper::~CCannaConversionHelper() {
 
   /* exit */
   RkFinalize();
+  iconv_close(icon);
+
 }
 
 bool CCannaConversionHelper::Convert(const std::string &strSource, SCENode ** pRoot, int * childCount, int CMid) {
@@ -211,22 +218,127 @@ void CCannaConversionHelper::ProcessCandidate(std::string strCandidate, SCENode 
   }
 }
 
-void CCannaConversionHelper::AssignSizes(SCENode *pStart, Dasher::CLanguageModel::Context context, long normalization, int uniform, int iNChildren) {
 
-  SCENode *pNode(pStart);
 
-  int iRemaining = iNChildren;
-  int iLeft = normalization;
-  
-  int iCheck(0);
+void CCannaConversionHelper::AssignSizes(SCENode **pStart, Dasher::CLanguageModel::Context context, long normalization, int uniform, int iNChildren) {
 
-  while(pNode) {
-    pNode->NodeSize = iLeft / iRemaining;
-    iLeft -= pNode->NodeSize;
+  SCENode *pNode(*pStart);
 
-    iCheck += pNode->NodeSize;
-    
-    --iRemaining;
-    pNode = pNode->GetNext();
+
+  if(this->iType == 0) {
+    int iRemaining = iNChildren;
+    int iLeft = normalization;
+    int iCheck(0);
+    while(pNode) {
+      pNode->NodeSize = iLeft / iRemaining;
+      iLeft -= pNode->NodeSize;
+      iCheck += pNode->NodeSize;
+      --iRemaining;
+      pNode = pNode->GetNext();
+    }
   }
+
+  else if(this->iType == 1) {
+    int iN = 1;
+    double iK = 0;
+    for(int k = 1; k <= iNChildren; k++) iK += 1/(1+(double)k);
+    while(pNode) {
+      pNode->NodeSize = normalization / (iK*(1+iN));
+      pNode = pNode->GetNext();
+      ++iN;
+    }
+  }
+  else if(this->iType == 2){
+    int iN = 1;
+    double iK = 0;
+    for(int k = 1; k <= iNChildren; k++) iK += 1/((1+(double)k)*(double)k);
+    while(pNode) {
+      pNode->NodeSize = normalization / (iK*(1+iN)*iN);
+      pNode = pNode->GetNext();
+      ++iN;
+    }
+  }
+  
+  else {
+     DASHER_ASSERT(false);
+  }
+
+
+  int iCode_a, iCode_b;
+  SCENode *pTmp_a;
+  SCENode *pTmp_b;
+
+  (*pStart)->Ref();
+
+  //Change the order of Kanji candidates//
+  if(this->iOrder > 1 ){  
+    for(int i=1; i<=iNChildren;i++){
+      pNode = *pStart;
+      if(pNode -> GetNext()) {
+        SCENode *pNext = pNode->GetNext();
+        SCENode *pNext2 = pNext->GetNext(); 
+        if (this->iOrder == 1){ 
+          iCode_a = this->iUTF8Decode(pNode->pszConversion);
+          iCode_b = this->iUTF8Decode(pNext->pszConversion);     
+        }
+        else if (this->iOrder == 2){
+          iCode_a = this->iShiftJISDecode(pNode->pszConversion);
+          iCode_b = this->iShiftJISDecode(pNext->pszConversion);     
+        }
+
+
+        if(iCode_a > iCode_b){
+
+          if(pNext2) pNext2->Ref();
+
+          pNext->Ref();
+          pNext->SetNext(*pStart);
+          (*pStart)->SetNext(pNext2);
+ 
+          (*pStart)->Unref();
+ 
+          if(pNext2) pNext2->Unref();
+
+          *pStart = pNext;
+     
+          pNode = *pStart;
+      
+        }
+      }
+    
+      while(pNode){ 
+        if(pNode->GetNext() && (pNode->GetNext())->GetNext()) {
+          pTmp_a = pNode->GetNext();
+          pTmp_b = pTmp_a->GetNext();
+
+          if (this->iOrder == 1){ 
+            iCode_a = this->iUTF8Decode(pTmp_a->pszConversion);
+            iCode_b = this->iUTF8Decode(pTmp_b->pszConversion);    
+          }
+          else if (this->iOrder == 2){
+            iCode_a = this->iShiftJISDecode(pTmp_a->pszConversion);
+            iCode_b = this->iShiftJISDecode(pTmp_b->pszConversion);     
+          }
+
+         if(iCode_a > iCode_b){
+	    SCENode *pTmp = pTmp_b->GetNext();
+	    if(pTmp) pTmp->Ref();
+	    pTmp_a->Ref();
+
+            pNode->SetNext(pTmp_b);
+            pTmp_b->SetNext(pTmp_a);
+            pTmp_a->SetNext(pTmp);
+
+	    pTmp_a->Unref();
+	    if(pTmp) pTmp->Unref();
+          }
+        }
+        pNode = pNode->GetNext();
+      } 
+    }
+  }
+
+
+
 }
+

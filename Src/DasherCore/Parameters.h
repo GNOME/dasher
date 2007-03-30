@@ -39,7 +39,7 @@ enum {
   LP_BOOSTFACTOR, LP_AUTOSPEED_SENSITIVITY, LP_SOCKET_PORT, LP_SOCKET_INPUT_X_MIN, LP_SOCKET_INPUT_X_MAX,
   LP_SOCKET_INPUT_Y_MIN, LP_SOCKET_INPUT_Y_MAX, LP_OX, LP_OY, LP_MAX_Y, LP_INPUT_FILTER, 
   LP_CIRCLE_PERCENT, LP_TWO_BUTTON_OFFSET, LP_HOLD_TIME, LP_MULTIPRESS_TIME, LP_MULTIPRESS_COUNT, 
-  LP_SLOW_START_TIME, LP_DYNAMIC_MEDIAN_FACTOR, END_OF_LPS
+  LP_SLOW_START_TIME, LP_DYNAMIC_MEDIAN_FACTOR, LP_CONVERSION_ORDER, LP_CONVERSION_TYPE, END_OF_LPS
 };
 
 enum {
@@ -190,7 +190,9 @@ static lp_table longparamtable[] = {
   {LP_MULTIPRESS_TIME, "MultipressTime", PERS, 3000, "Time in which multiple presses must occur, in ms"},
   {LP_MULTIPRESS_COUNT, "MultipressCount", PERS, 3, "Time in which multiple presses must occur to count"},
   {LP_SLOW_START_TIME, "SlowStartTime", PERS, 1000, "Time over which slow start occurs"},
-  {LP_DYNAMIC_MEDIAN_FACTOR, "DynamicMedianFactor", PERS, 30, "Percentage of the median at which dynamic mode auto speed control kicks in"}
+  {LP_DYNAMIC_MEDIAN_FACTOR, "DynamicMedianFactor", PERS, 30, "Percentage of the median at which dynamic mode auto speed control kicks in"},
+  {LP_CONVERSION_ORDER, "ConversionOrder", PERS, 0, "Conversion ordering"},
+  {LP_CONVERSION_TYPE, "ConversionType", PERS, 0, "Conversion type"}
 };
 
 static sp_table stringparamtable[] = {

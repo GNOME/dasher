@@ -71,15 +71,17 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   ///
   /// Update the root location - called in response to regular timer
-  /// callbacks
+  /// callbacks, mainly from the tier events of various button
+  /// handlers
+  /// TODO: Make this a bit more central in the button handler hierarchy
   ///
   bool UpdatePosition(myint, myint, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);  
 
   ///
   /// Notify the framerate class that a new frame has occurred
+  /// Called from CDasherInterfaceBase::NewFrame
   ///
   void NewFrame(unsigned long Time);
-
 
   ///
   /// Apply an offset to the 'target' coordinates - implements the jumps in
@@ -106,6 +108,8 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   ///
   /// Reset the framerate class
+  /// TODO: Need to check semantics here
+  /// Called from CDasherInterfaceBase::UnPause;
   ///
 
   void Reset_framerate(unsigned long Time) {
@@ -116,6 +120,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   /// Initialise the framerate class - presumably called whenever
   /// dasher is stoppe, but the actual semantics here need to be
   /// verified
+  /// Called from CDasherInterfacebase::Halt 
   ///
 
   void Halt() {
@@ -127,16 +132,9 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   /// - could implement through the event subsystem instead
   ///
   
-  void SetBitrate(double TargetRate) {
-    m_fr.SetBitrate(TargetRate);
-  } 
-
-  ///
-  /// Clear the queue of old roots - used when those nodes become
-  /// invalid, eg during changes to conrol mode
-  ///
-
-  void ClearRootQueue();
+/*   void SetBitrate(double TargetRate) { */
+/*     m_fr.SetBitrate(TargetRate); */
+/*   }  */
 
   ///
   /// Reset counter of total nats entered
@@ -218,6 +216,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   ///
   /// Check whether a change of root node is needed, and perform the
   /// update if so
+  /// TODO: Could be done in UpdatePosition?
   ///
 
   bool CheckForNewRoot(CDasherView *pView);
@@ -428,6 +427,14 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   void HandleOutput(CDasherNode *pNewNode, CDasherNode *pOldNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted);
 
   bool RecursiveCheckRoot(CDasherNode *pNode, CDasherNode **pNewNode, bool &bFound);
+
+
+  ///
+  /// Clear the queue of old roots - used when those nodes become
+  /// invalid, eg during changes to conrol mode
+  ///
+
+  void ClearRootQueue();
 
 };
 /// @}

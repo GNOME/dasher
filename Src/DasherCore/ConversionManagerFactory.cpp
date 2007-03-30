@@ -64,7 +64,7 @@ CConversionHelper *CConversionManagerFactory::GetHelper(Dasher::CEventHandler *p
 #ifdef WIN32
     return new CIMEConversionHelper;
 #else
-    return new CCannaConversionHelper;
+    return new CCannaConversionHelper(pSettingsStore->GetLongParameter(LP_CONVERSION_TYPE), pSettingsStore->GetLongParameter(LP_CONVERSION_ORDER));
 #endif
 #else
     return NULL;

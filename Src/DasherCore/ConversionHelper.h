@@ -81,7 +81,7 @@ class CConversionHelper {
   /// @param uniform Unsure - document this.
   /// @param iNChildren The number of children to be expected (more efficient than iterating linked list).
   ///
-  virtual void AssignSizes(SCENode * pStart, Dasher::CLanguageModel::Context context, long normalization, int uniform, int iNChildren)=0;
+  virtual void AssignSizes(SCENode ** pStart, Dasher::CLanguageModel::Context context, long normalization, int uniform, int iNChildren)=0;
 
   //TODO: figure out why this function cannot return a CLanguageModel
   virtual Dasher::CLanguageModel * GetLanguageModel()=0;

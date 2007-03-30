@@ -202,12 +202,6 @@ public:
   void PreSetNotify(int iParameter, const std::string &sValue);
 
 
-  /// Draw a new Dasher frame, regardless of whether we're paused etc.
-  /// \param iTime Current time in ms.
-  /// \param bForceRedraw 
-  /// \todo See comments in cpp file for some functionality which needs to be re-implemented
-  void NewFrame(unsigned long iTime, bool bForceRedraw);
-
 
   /// @name Starting and stopping
   /// Methods used to instruct dynamic motion of Dasher to start or stop
@@ -375,6 +369,15 @@ protected:
   void OnUIRealised();
 
   /// @}
+
+
+
+  /// Draw a new Dasher frame, regardless of whether we're paused etc.
+  /// \param iTime Current time in ms.
+  /// \param bForceRedraw 
+  /// \todo See comments in cpp file for some functionality which needs to be re-implemented
+  void NewFrame(unsigned long iTime, bool bForceRedraw);
+
 
   enum ETransition {
     TR_MODEL_INIT = 0,

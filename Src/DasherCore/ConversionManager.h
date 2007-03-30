@@ -105,7 +105,7 @@ namespace Dasher {
     /// normalisation constant
     ///
     
-    virtual void AssignChildSizes(SCENode *pNode, CLanguageModel::Context context, int iNChildren);
+    virtual void AssignChildSizes(SCENode **pNode, CLanguageModel::Context context, int iNChildren);
 
     ///
     /// Provide children for the supplied node

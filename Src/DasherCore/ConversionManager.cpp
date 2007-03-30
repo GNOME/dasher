@@ -118,7 +118,7 @@ CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int i
 // TODO: This function needs to be significantly tidied up
 // TODO: get rid of pSizes
 
-void CConversionManager::AssignChildSizes(SCENode *pNode, CLanguageModel::Context context, int iNChildren) {
+void CConversionManager::AssignChildSizes(SCENode **pNode, CLanguageModel::Context context, int iNChildren) {
   DASHER_ASSERT(m_pHelper);
 
     // Calculate sizes for the children. Note that normalisation is
@@ -203,7 +203,7 @@ void CConversionManager::AssignChildSizes(SCENode *pNode, CLanguageModel::Contex
 
 
   iNChildren = 0;
-  SCENode *pChild(pNode);
+  SCENode *pChild(*pNode);
 
   while(pChild) {
     pChild = pChild->GetNext();
@@ -346,7 +346,7 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
     
 
     
-    AssignChildSizes(pCurrentSCEChild, pCurrentDataNode->iContext, pCurrentSCEChild->IsHeadAndCandNum);
+    AssignChildSizes(&pCurrentSCEChild, pCurrentDataNode->iContext, pCurrentSCEChild->IsHeadAndCandNum);
 
     int iIdx(0);
     int iCum(0);
