@@ -479,6 +479,9 @@
 			</FileConfiguration>
 		</File>
 		<File
+			RelativePath="SCENode.cpp">
+		</File>
+		<File
 			RelativePath=".\SettingsStore.cpp">
 		</File>
 		<File
