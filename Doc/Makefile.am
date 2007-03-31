@@ -1,6 +1,6 @@
 man_MANS = dasher.1 
 
-EXTRA_DIST = dasher.1.in LICENSE.txt GPL-2.0 API/Doxyfile Colourschemes
+EXTRA_DIST = dasher.1.in Colourschemes
 DISTCLEANFILES=dasher.1
 
 dasher.1:

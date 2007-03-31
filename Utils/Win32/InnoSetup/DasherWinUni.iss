@@ -11,7 +11,7 @@ AppSupportURL=http://www.dasher.org.uk/
 AppUpdatesURL=http://www.dasher.org.uk/
 DefaultDirName={pf}\Dasher
 DefaultGroupName=Dasher
-LicenseFile="..\..\..\Doc\LICENSE.txt"
+LicenseFile="..\..\..\COPYING"
 ; uncomment the following line if you want your installation to run on NT 3.51 too.
 ; MinVersion=4,3.51
 
