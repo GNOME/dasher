@@ -1,6 +1,6 @@
 man_MANS = dasher.1 
 
-EXTRA_DIST = dasher.1.in Colourschemes
+EXTRA_DIST = dasher.1.in 
 DISTCLEANFILES=dasher.1
 
 dasher.1:
