@@ -1,4 +1,4 @@
-pkgdata_DATA = alphabet.dtd alphabet.xsl colour.dtd $(srcdir)/alphabet*.xml $(srcdir)/colour*.xml controllabels.xml controllabels.dtd
+pkgdata_DATA = alphabet.dtd alphabet.xsl  $(srcdir)/alphabet*.xml
 
-EXTRA_DIST = $(srcdir)/alphabet*.xml $(srcdir)/colour*.xml alphabet.dtd alphabet.xsl colour.dtd controllabels.xml controllabels.dtd
+EXTRA_DIST = alphabet.dtd alphabet.xsl  $(srcdir)/alphabet*.xml
 

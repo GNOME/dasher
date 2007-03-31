@@ -414,8 +414,11 @@ AC_CONFIG_FILES([Makefile
 		 Src/Win32/Makefile
 		 Data/dasher.desktop.in
 		 Data/Makefile
-		 Data/Translations/Makefile
-		 Data/system.rc/Makefile
+		 Data/training/Makefile
+		 Data/alphabets/Makefile
+		 Data/glade/Makefile
+		 Data/colours/Makefile
+		 Data/controllabels/Makefile
 		 Data/Help/Makefile
 		 Data/Help/Gnome/Makefile
 		 Doc/Makefile

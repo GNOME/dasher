@@ -1,4 +1,4 @@
-SUBDIRS =  Translations system.rc Help
+SUBDIRS =  training alphabets colours controllabels glade Help
 
 desktopdir = $(datadir)/applications
 desktop_in_files = dasher.desktop.in
