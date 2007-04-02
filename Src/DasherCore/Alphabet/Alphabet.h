@@ -15,6 +15,7 @@
 #include "../DasherTypes.h"
 #include "GroupInfo.h"
 
+#include <cstdlib>
 #include <vector>
 #include "AlphabetMap.h"
 #include "AlphIO.h"

@@ -33,7 +33,7 @@ struct _DasherMainPrivate {
   // Child objects owned here
   DasherAppSettings *pAppSettings;
   DasherPreferencesDialogue *pPreferencesDialogue;
-  DasherEditor *pEditor;
+  DasherEditorInternal *pEditor;
 
   CKeyboardHelper *pKeyboardHelper;
 
@@ -169,9 +169,9 @@ extern "C" GtkWidget *create_dasher_editor(gchar *szName, gchar *szString1, gcha
 extern "C" gboolean dasher_main_cb_menu_command(GtkWidget *pWidget, gpointer pUserData);
 extern "C" gboolean speed_changed(GtkWidget *pWidget, gpointer user_data);
 extern "C" void alphabet_combo_changed(GtkWidget *pWidget, gpointer pUserData);
-extern "C" void dasher_main_cb_filename_changed(DasherEditor *pEditor, gpointer pUserData);
-extern "C" void dasher_main_cb_buffer_changed(DasherEditor *pEditor, gpointer pUserData);
-extern "C" void dasher_main_cb_context_changed(DasherEditor *pEditor, gpointer pUserData);
+extern "C" void dasher_main_cb_filename_changed(DasherEditorInternal *pEditor, gpointer pUserData);
+extern "C" void dasher_main_cb_buffer_changed(DasherEditorInternal *pEditor, gpointer pUserData);
+extern "C" void dasher_main_cb_context_changed(DasherEditorInternal *pEditor, gpointer pUserData);
 extern "C" gboolean dasher_main_cb_window_close(GtkWidget *pWidget, gpointer pUserData);
 extern "C" void parameter_notification(GtkDasherControl *pDasherControl, gint iParameter, gpointer data);
 
@@ -284,7 +284,7 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
     dasher_main_load_interface(pDasherMain);
 
     dasher_app_settings_set_widget(pPrivate->pAppSettings, GTK_DASHER_CONTROL(pPrivate->pDasherWidget));
-    dasher_editor_initialise(pPrivate->pEditor, pPrivate->pAppSettings, pDasherMain, pPrivate->pGladeXML, NULL);
+    dasher_editor_internal_initialise(pPrivate->pEditor, pPrivate->pAppSettings, pDasherMain, pPrivate->pGladeXML, NULL);
 
 
     dasher_main_setup_window(pDasherMain);
@@ -521,7 +521,7 @@ dasher_main_load_interface(DasherMain *pSelf) {
   dasher_main_connect_menus(pSelf);
 
 
-  pPrivate->pEditor = DASHER_EDITOR(glade_xml_get_widget(pPrivate->pGladeXML, "DasherEditor"));
+  pPrivate->pEditor = DASHER_EDITOR_INTERNAL(glade_xml_get_widget(pPrivate->pGladeXML, "DasherEditor"));
   // TODO: szFullPath
   pPrivate->bWidgetsInitialised = true;
 }
@@ -532,7 +532,7 @@ dasher_main_create_preferences(DasherMain *pSelf) {
   pPrivate->pPreferencesDialogue = dasher_preferences_dialogue_new(pPrivate->pGladeXML, pPrivate->pEditor, pPrivate->pAppSettings, GTK_WINDOW(pPrivate->pMainWindow));
 }
 
-// DasherEditor *
+// DasherEditorInternal *
 // dasher_main_get_editor(DasherMain *pSelf) {
 //   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
 //   return pPrivate->pEditor;
@@ -788,7 +788,7 @@ dasher_main_command(DasherMain *pSelf, const gchar *szCommand) {
   }
 
   if(pPrivate->pEditor)
-    return dasher_editor_command(pPrivate->pEditor, szCommand);
+    return dasher_editor_internal_command(pPrivate->pEditor, szCommand);
 
   return FALSE;
 }
@@ -822,6 +822,9 @@ dasher_main_setup_window_style(DasherMain *pSelf) {
 
     // Refuse focus
     gtk_window_set_accept_focus(GTK_WINDOW(pPrivate->pMainWindow), false);
+
+    // Stick on all desktops
+    gtk_window_stick(GTK_WINDOW(pPrivate->pMainWindow));
     break;
   case 3:
     // Fullscreen mode - set fullscreen
@@ -858,7 +861,7 @@ static void
 dasher_main_refresh_font(DasherMain *pSelf) {
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
 
-  dasher_editor_handle_font(pPrivate->pEditor, 
+  dasher_editor_internal_handle_font(pPrivate->pEditor, 
 			    dasher_app_settings_get_string(pPrivate->pAppSettings, APP_SP_EDIT_FONT));
 }
 
@@ -867,7 +870,7 @@ static void
 dasher_main_set_filename(DasherMain *pSelf) {
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
 
-  const gchar *szFilename = dasher_editor_get_filename(pPrivate->pEditor);
+  const gchar *szFilename = dasher_editor_internal_get_filename(pPrivate->pEditor);
 
   if(szFilename == 0) {
     gtk_window_set_title(GTK_WINDOW(pPrivate->pMainWindow), "Dasher");
@@ -948,8 +951,8 @@ static void dasher_main_command_quit(DasherMain *pSelf) {
 
   GtkWidget *pDialogue = NULL;
 
-  if(dasher_editor_file_changed(pPrivate->pEditor)) {
-    const gchar *szFilename = dasher_editor_get_filename(pPrivate->pEditor);
+  if(dasher_editor_internal_file_changed(pPrivate->pEditor)) {
+    const gchar *szFilename = dasher_editor_internal_get_filename(pPrivate->pEditor);
 
     if(szFilename) {
       pDialogue = gtk_message_dialog_new(GTK_WINDOW(pPrivate->pMainWindow), GTK_DIALOG_MODAL, 
@@ -1242,7 +1245,7 @@ create_dasher_control(gchar *szName, gchar *szString1, gchar *szString2, gint iI
 
 extern "C" GtkWidget *
 create_dasher_editor(gchar *szName, gchar *szString1, gchar *szString2, gint iInt1, gint iInt2) {
-  return GTK_WIDGET(dasher_editor_new());
+  return GTK_WIDGET(dasher_editor_internal_new());
 }
 
 extern "C" gboolean 
@@ -1268,27 +1271,33 @@ alphabet_combo_changed(GtkWidget *pWidget, gpointer pUserData) {
 }
 
 extern "C" void 
-dasher_main_cb_filename_changed(DasherEditor *pEditor, gpointer pUserData) {
-  dasher_main_set_filename(DASHER_MAIN(pUserData));
+dasher_main_cb_filename_changed(DasherEditorInternal *pEditor, gpointer pUserData) {
+  if(g_pDasherMain)
+    dasher_main_set_filename(g_pDasherMain);
 }
 
 extern "C" void 
-dasher_main_cb_buffer_changed(DasherEditor *pEditor, gpointer pUserData) {
-  DasherMain *pDasherMain = DASHER_MAIN(pUserData);
-  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pDasherMain);
+dasher_main_cb_buffer_changed(DasherEditorInternal *pEditor, gpointer pUserData) {
+  if(!g_pDasherMain)
+    return;
 
-  gtk_dasher_control_set_buffer(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), dasher_editor_get_offset(pPrivate->pEditor));
+  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(g_pDasherMain);
+
+  gtk_dasher_control_set_buffer(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), dasher_editor_internal_get_offset(pPrivate->pEditor));
 }
 
 extern "C" void 
-dasher_main_cb_context_changed(DasherEditor *pEditor, gpointer pUserData) {
+dasher_main_cb_context_changed(DasherEditorInternal *pEditor, gpointer pUserData) {
+  if(!g_pDasherMain)
+    return;
+
   if(!g_bSend)
     return;
 
-  DasherMain *pDasherMain = DASHER_MAIN(pUserData);
+  DasherMain *pDasherMain = DASHER_MAIN(g_pDasherMain);
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pDasherMain);
 
-  gtk_dasher_control_set_offset(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), dasher_editor_get_offset(pPrivate->pEditor));
+  gtk_dasher_control_set_offset(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), dasher_editor_internal_get_offset(pPrivate->pEditor));
 }
 
 extern "C" gboolean 
@@ -1371,7 +1380,7 @@ handle_context_request(GtkDasherControl * pDasherControl, gint iOffset, gint iLe
   if(!pPrivate->pEditor || !pPrivate->pDasherWidget)
     return;
 
-  gtk_dasher_control_set_context(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), dasher_editor_get_context(pPrivate->pEditor, iOffset, iLength));
+  gtk_dasher_control_set_context(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), dasher_editor_internal_get_context(pPrivate->pEditor, iOffset, iLength));
 }
 
 extern "C" void 
@@ -1401,10 +1410,10 @@ handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer dat
   g_bSend = false;
 
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(g_pDasherMain);
-  dasher_editor_handle_control(pPrivate->pEditor, iEvent);
+  dasher_editor_internal_handle_control(pPrivate->pEditor, iEvent);
 
   gtk_dasher_control_set_control_offset(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
-					dasher_editor_get_offset(pPrivate->pEditor));
+					dasher_editor_internal_get_offset(pPrivate->pEditor));
 
   g_bSend = true;
   // ---
@@ -1418,7 +1427,7 @@ handle_start_event(GtkDasherControl *pDasherControl, gpointer data) {
 
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(g_pDasherMain);
   
-  dasher_editor_grab_focus(pPrivate->pEditor);
+  dasher_editor_internal_grab_focus(pPrivate->pEditor);
 }
 
 

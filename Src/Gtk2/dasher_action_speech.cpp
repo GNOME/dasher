@@ -3,7 +3,7 @@
 #ifdef GNOME_SPEECH
 
 #include "dasher_action_speech.h"
-#include "dasher_editor.h"
+#include "dasher_editor_internal.h"
 
 #include <glib/gi18n.h>
 #include <gnome-speech/gnome-speech.h>
@@ -28,8 +28,8 @@ typedef struct _DasherActionSpeechPrivate DasherActionSpeechPrivate;
 
 G_DEFINE_TYPE(DasherActionSpeech, dasher_action_speech, TYPE_DASHER_ACTION);
 
-static gboolean dasher_action_speech_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx);
-static gboolean dasher_action_speech_preview(DasherAction *pSelf, DasherEditor *pEditor);
+static gboolean dasher_action_speech_execute(DasherAction *pSelf, DasherEditorInternal *pEditor, int iIdx);
+static gboolean dasher_action_speech_preview(DasherAction *pSelf, DasherEditorInternal *pEditor);
 static const gchar *dasher_action_speech_get_name(DasherAction *pSelf);
 static int dasher_action_speech_get_sub_count(DasherAction *pSelf);
 static const gchar *dasher_action_speech_get_sub_name(DasherAction *pSelf, int iIdx);
@@ -66,17 +66,17 @@ dasher_action_speech_new() {
 }
 
 static gboolean 
-dasher_action_speech_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx) {
+dasher_action_speech_execute(DasherAction *pSelf, DasherEditorInternal *pEditor, int iIdx) {
   DasherActionSpeechPrivate *pDasherActionSpeechPrivate = DASHER_ACTION_SPEECH_GET_PRIVATE(pSelf);
 
   const char *szData;
 
   switch(iIdx) {
   case 0:
-    szData = dasher_editor_get_all_text(pEditor);
+    szData = dasher_editor_internal_get_all_text(pEditor);
     break;
   case 1:
-    szData = dasher_editor_get_new_text(pEditor);
+    szData = dasher_editor_internal_get_new_text(pEditor);
     break;
   case 2:
     szData = pDasherActionSpeechPrivate->szLast;
@@ -107,8 +107,8 @@ dasher_action_speech_execute(DasherAction *pSelf, DasherEditor *pEditor, int iId
 }
 
 static gboolean 
-dasher_action_speech_preview(DasherAction *pSelf, DasherEditor *pEditor) {
-  const gchar *szData = dasher_editor_get_all_text(pEditor);
+dasher_action_speech_preview(DasherAction *pSelf, DasherEditorInternal *pEditor) {
+  const gchar *szData = dasher_editor_internal_get_all_text(pEditor);
 
   if(!szData)
     return false;

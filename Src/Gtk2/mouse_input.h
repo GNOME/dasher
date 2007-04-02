@@ -58,8 +58,8 @@ public:
 
     m_iOffset = 0;
 
-    m_iX = 0;
     m_iY = 0;
+    m_iRealY = 0;
   };
 
   // Fill pCoordinates with iN coordinate values, return 0 if the
@@ -67,11 +67,7 @@ public:
   // Dasher coordinates.
 
   virtual int GetCoordinates(int iN, myint * pCoordinates) {
-
-    pCoordinates[0] = m_iY - m_iOffset;// * m_iDasherMaxY / 1024;      // FIXME - hard coded screen resolution!!!!!!!!!!
-
-    //    std::cout << m_iY << " " << pCoordinates[0] << std::endl;
-
+    pCoordinates[0] = m_iY; 
     return 1;
   };
 
@@ -82,21 +78,20 @@ public:
   };
 
   virtual void SetMaxCoordinates(int iN, myint * iDasherMax) {
-
     // FIXME - need to cope with the more general case here
 
     m_iDasherMaxX = iDasherMax[0];
     m_iDasherMaxY = iDasherMax[1];
   };
 
-  void SetCoordinates(myint _iX, myint _iY) {
-    m_iX = _iX;
-    m_iY = _iY;
+  void SetCoordinates(myint iY, myint iScale) {
+    m_iRealY = iY;
+    m_iY = (iY - m_iOffset) * 4096 / iScale + 2048;
   };
 
   void KeyDown(int iTime, int iId) {
     if(iId == 10) {
-      m_iOffset = m_iY - 2048;
+      m_iOffset = m_iRealY;
     }
   };
 
@@ -112,8 +107,9 @@ private:
   myint m_iDasherMaxX;
   myint m_iDasherMaxY;
 
-  myint m_iX;
   myint m_iY;
+
+  myint m_iRealY;
 
   myint m_iOffset;
 };

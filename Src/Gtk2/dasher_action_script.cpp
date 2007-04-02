@@ -1,5 +1,5 @@
 #include "dasher_action_script.h"
-#include "dasher_editor.h"
+#include "dasher_editor_internal.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -17,7 +17,7 @@ struct _DasherActionScriptPrivate {
 
 G_DEFINE_TYPE(DasherActionScript, dasher_action_script, TYPE_DASHER_ACTION);
 
-static gboolean dasher_action_script_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx);
+static gboolean dasher_action_script_execute(DasherAction *pSelf, DasherEditorInternal *pEditor, int iIdx);
 static const gchar *dasher_action_script_get_name(DasherAction *pSelf);
 
 static void 
@@ -50,7 +50,7 @@ dasher_action_script_new(const gchar *szPath, const gchar *szFilename) {
 }
 
 static gboolean 
-dasher_action_script_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx) {
+dasher_action_script_execute(DasherAction *pSelf, DasherEditorInternal *pEditor, int iIdx) {
   DasherActionScriptPrivate *pPrivate = DASHER_ACTION_SCRIPT_GET_PRIVATE(pSelf);
 
   gchar *szFullPath = new gchar[strlen(pPrivate->szPath) + strlen(pPrivate->szFilename) + 1];
@@ -77,7 +77,7 @@ dasher_action_script_execute(DasherAction *pSelf, DasherEditor *pEditor, int iId
     exit(1);
   }
 
-  const char *szData = dasher_editor_get_all_text(pEditor);
+  const char *szData = dasher_editor_internal_get_all_text(pEditor);
 
   // Write data to the pipe
   write(iPipeFDs[1], szData, strlen(szData));

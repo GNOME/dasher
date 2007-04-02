@@ -422,6 +422,7 @@ AC_CONFIG_FILES([Makefile
 		 Data/Help/Makefile
 		 Data/Help/Gnome/Makefile
 		 Doc/Makefile
+		 Doc/user/Makefile
 		 Utils/Makefile
 		 po/Makefile.in])
 

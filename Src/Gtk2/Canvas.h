@@ -1,6 +1,8 @@
 #ifndef __canvas_h__
 #define __canvas_h__
 
+#include <cstdlib>
+
 #include "../DasherCore/DasherScreen.h"
 #include "../DasherCore/DasherTypes.h"
 

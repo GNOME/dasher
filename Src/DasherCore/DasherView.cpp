@@ -321,7 +321,18 @@ int CDasherView::GetCoordinates(unsigned long Time, myint &iDasherX, myint &iDas
 
   delete[]pCoordinates;
 
-  Screen2Dasher(mousex, mousey, iDasherX, iDasherY, false, true );
+  switch(iType) {
+  case 0:
+    Screen2Dasher(mousex, mousey, iDasherX, iDasherY, false, true );
+    break;
+  case 1:
+    iDasherX = mousex;
+    iDasherY = mousey;
+    break;
+  default:
+    // TODO: Error
+    break;
+  }
 
 #ifndef WITH_MAEMO
   // FIXME

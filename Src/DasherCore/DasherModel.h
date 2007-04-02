@@ -25,6 +25,7 @@
 #include "config.h"
 #endif
 
+#include <climits>
 #include <deque>
 #include <cmath>
 #include <vector>

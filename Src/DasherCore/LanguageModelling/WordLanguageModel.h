@@ -9,6 +9,8 @@
 #ifndef __WordLanguageModel_h__
 #define __WordLanguageModel_h__
 
+#include <cstdlib>
+
 #include "../../Common/NoClones.h"
 #include "../../Common/Allocators/PooledAlloc.h"
 #include "LanguageModel.h"

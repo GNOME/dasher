@@ -56,10 +56,7 @@ void dasher_external_buffer_conversion_mode(DasherExternalBuffer *pSelf, gboolea
 gchar *dasher_external_buffer_get_context(DasherExternalBuffer *pSelf, gint iOffset, gint iLength);
 void dasher_external_buffer_edit_move(DasherExternalBuffer *pSelf, int iDirection, int iDist);
 void dasher_external_buffer_edit_delete(DasherExternalBuffer *pSelf, int iDirection, int iDist);
-gint dasher_external_buffer_get_offset(DasherExternalBuffer *pSelf) {
-  // TODO: Implement
-  return 0;
-}
+gint dasher_external_buffer_get_offset(DasherExternalBuffer *pSelf);
 
 #ifdef GNOME_A11Y
 void dasher_external_buffer_handle_focus(DasherExternalBuffer *pSelf, const AccessibleEvent *pEvent);
@@ -294,6 +291,8 @@ void dasher_external_buffer_edit_delete(DasherExternalBuffer *pSelf, int iDirect
 }
 
 gchar *dasher_external_buffer_get_context(DasherExternalBuffer *pSelf, gint iOffset, gint iLength) {
+  g_message("Context: %d %d", iOffset, iLength);
+
 #ifdef GNOME_A11Y
   DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(pSelf->private_data);
 
@@ -305,6 +304,21 @@ gchar *dasher_external_buffer_get_context(DasherExternalBuffer *pSelf, gint iOff
   return 0;
 #endif
 }
+
+gint 
+dasher_external_buffer_get_offset(DasherExternalBuffer *pSelf) {
+#ifdef GNOME_A11Y
+  DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(pSelf->private_data);
+
+  if(pPrivate->pAccessibleText)
+    return AccessibleText_getCaretOffset(pPrivate->pAccessibleText);
+  else
+    return 0;
+#else
+  return 0;
+#endif
+}
+
 
 void dasher_external_buffer_edit_convert(DasherExternalBuffer *pSelf) {
 }
@@ -318,6 +332,8 @@ void dasher_external_buffer_conversion_mode(DasherExternalBuffer *pSelf, gboolea
 #ifdef GNOME_A11Y
 void dasher_external_buffer_handle_focus(DasherExternalBuffer *pSelf, const AccessibleEvent *pEvent) {
   DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(pSelf->private_data);
+
+  //  g_message("Focus");
   
   if(pPrivate->pAccessibleText) {
     AccessibleText_unref(pPrivate->pAccessibleText);
@@ -326,6 +342,10 @@ void dasher_external_buffer_handle_focus(DasherExternalBuffer *pSelf, const Acce
   
   Accessible *accessible = pEvent->source;
   Accessible_ref(accessible);
+  
+  //  g_message("%s", Accessible_getName(accessible));
+  // g_message("%s", Accessible_getRoleName(accessible));
+  //g_message("%s", Accessible_getDescription(accessible));
 
   if(Accessible_isText(accessible) || Accessible_isEditableText(accessible)) {
     pPrivate->pAccessibleText = Accessible_getText(accessible);
@@ -335,7 +355,7 @@ void dasher_external_buffer_handle_focus(DasherExternalBuffer *pSelf, const Acce
 //     g_iOldPosition = g_iExpectedPosition;
 
     
-    g_signal_emit_by_name(G_OBJECT(pSelf), "context_changed", G_OBJECT(pSelf), NULL, NULL);
+    g_signal_emit_by_name(G_OBJECT(pSelf), "buffer_changed", G_OBJECT(pSelf), NULL, NULL);
 
   }
 
@@ -343,6 +363,36 @@ void dasher_external_buffer_handle_focus(DasherExternalBuffer *pSelf, const Acce
 }
 
 void dasher_external_buffer_handle_caret(DasherExternalBuffer *pSelf, const AccessibleEvent *pEvent) {
+  //  g_message("Caret");
+ DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(pSelf->private_data);
+
+ //  g_message("Focus");
+  
+  if(pPrivate->pAccessibleText) {
+    AccessibleText_unref(pPrivate->pAccessibleText);
+    pPrivate->pAccessibleText = 0;
+  }
+  
+  Accessible *accessible = pEvent->source;
+  Accessible_ref(accessible);
+  
+  // g_message("%s", Accessible_getName(accessible));
+  //g_message("%s", Accessible_getRoleName(accessible));
+  //g_message("%s", Accessible_getDescription(accessible));
+
+  if(Accessible_isText(accessible) || Accessible_isEditableText(accessible)) {
+    pPrivate->pAccessibleText = Accessible_getText(accessible);
+    AccessibleText_ref(pPrivate->pAccessibleText);
+
+//     g_iExpectedPosition = AccessibleText_getCaretOffset(pPrivate->pAccessibleText);
+//     g_iOldPosition = g_iExpectedPosition;
+
+    
+    g_signal_emit_by_name(G_OBJECT(pSelf), "offset_changed", G_OBJECT(pSelf), NULL, NULL);
+
+  }
+
+  Accessible_unref(accessible);
 //   Accessible_ref(event->source);
 
 //   AccessibleStateSet *pAStateSet = Accessible_getStateSet(event->source);

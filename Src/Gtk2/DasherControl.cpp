@@ -405,9 +405,9 @@ int CDasherControl::TimerEvent() {
   if(GetLongParameter(LP_YSCALE) < 10)
     SetLongParameter(LP_YSCALE, 10);
 
-  y = (y - iRootHeight / 2) * 4096 / GetLongParameter(LP_YSCALE);
+  y = (y - iRootHeight / 2);
 
-  m_p1DMouseInput->SetCoordinates(x, y);
+  m_p1DMouseInput->SetCoordinates(y, GetLongParameter(LP_YSCALE));
 
   NewFrame(get_time(), false);
 

@@ -10,6 +10,7 @@
 #ifndef __USER_LOCATION_H__
 #define __USER_LOCATION_H__
 
+#include <cstdlib>
 #include "FileLogger.h"
 #include <string>
 #include <time.h>

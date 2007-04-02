@@ -9,6 +9,7 @@
 #ifndef __XML_UTIL_H__
 #define __XML_UTIL_H__
 
+#include <cstdlib>
 #include <string>
 #include <vector>
 #include <stdio.h>

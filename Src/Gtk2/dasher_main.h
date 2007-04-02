@@ -2,7 +2,7 @@
 #define __dasher_main_h__
 
 #include "DasherAppSettings.h"
-#include "dasher_editor.h"
+#include "dasher_editor_internal.h"
 
 #include <glib.h>
 #include <glib-object.h>
@@ -38,7 +38,7 @@ struct _SCommandLine {
 
 DasherMain *dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine);
 GType dasher_main_get_type();
-//DasherEditor *dasher_main_get_editor(DasherMain *pSelf);
+//DasherEditorInternal *dasher_main_get_editor(DasherMain *pSelf);
 void dasher_main_show(DasherMain *pSelf);
 G_END_DECLS
 

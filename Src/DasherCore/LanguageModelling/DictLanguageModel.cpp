@@ -9,7 +9,8 @@
 #include "../../Common/Common.h"
 #include "DictLanguageModel.h"
 
-#include <math.h>
+#include <climits>
+#include <cmath>
 #include <stack>
 #include <iostream>
 #include <fstream>

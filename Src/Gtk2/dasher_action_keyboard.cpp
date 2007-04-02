@@ -1,6 +1,6 @@
 #include "config.h"
 #include "dasher_action_keyboard.h"
-#include "dasher_editor.h"
+#include "dasher_editor_internal.h"
 
 #include <string.h>
 
@@ -14,7 +14,7 @@ typedef struct _DasherActionKeyboardPrivate DasherActionKeyboardPrivate;
 
 G_DEFINE_TYPE(DasherActionKeyboard, dasher_action_keyboard, TYPE_DASHER_ACTION);
 
-static gboolean dasher_action_keyboard_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx);
+static gboolean dasher_action_keyboard_execute(DasherAction *pSelf, DasherEditorInternal *pEditor, int iIdx);
 static const gchar *dasher_action_keyboard_get_name(DasherAction *pSelf);
 
 static void 
@@ -45,12 +45,12 @@ dasher_action_keyboard_new(IDasherBufferSet *pBufferSet) {
 }
 
 static gboolean 
-dasher_action_keyboard_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx) {
+dasher_action_keyboard_execute(DasherAction *pSelf, DasherEditorInternal *pEditor, int iIdx) {
   DasherActionKeyboardPrivate *pPrivate = DASHER_ACTION_KEYBOARD_GET_PRIVATE(pSelf);
    
   if(pPrivate->pBufferSet)
     /* TODO: Fix offset here */
-    idasher_buffer_set_insert(pPrivate->pBufferSet, dasher_editor_get_all_text(pEditor), 0);
+    idasher_buffer_set_insert(pPrivate->pBufferSet, dasher_editor_internal_get_all_text(pEditor), 0);
 
   return true;
 }

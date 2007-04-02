@@ -201,10 +201,11 @@ gchar *dasher_internal_buffer_get_context(DasherInternalBuffer *pSelf, gint iOff
   return gtk_text_buffer_get_text( pPrivate->pBuffer, &start, &end, false );
 }
 
+// TODO: Check that these signals are being used appropriately
 void dasher_internal_buffer_change_context(DasherInternalBuffer *pSelf, GtkTextIter *pIter, GtkTextMark *pMark) {
   const char *szMarkName(gtk_text_mark_get_name(pMark));
   if(szMarkName && !strcmp(szMarkName,"insert")) {
-    g_signal_emit_by_name(G_OBJECT(pSelf), "context_changed", G_OBJECT(pSelf), NULL, NULL);
+    g_signal_emit_by_name(G_OBJECT(pSelf), "offset_changed", G_OBJECT(pSelf), NULL, NULL);
   }
 }
 
@@ -363,7 +364,7 @@ void dasher_internal_buffer_clear(DasherInternalBuffer *pSelf) {
   gtk_text_buffer_delete(pPrivate->pBuffer, start, end);
 
   /* TODO: this probably shouldn't emit a signal */
-  g_signal_emit_by_name(G_OBJECT(pSelf), "context_changed", G_OBJECT(pSelf), NULL, NULL);
+  g_signal_emit_by_name(G_OBJECT(pSelf), "buffer_changed", G_OBJECT(pSelf), NULL, NULL);
 
   pPrivate->iCurrentState = 0;
   pPrivate->iLastOffset = 0;

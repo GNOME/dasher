@@ -1,7 +1,8 @@
 #include "dasher_buffer_set.h"
 
 enum {
-  CONTEXT_CHANGED,
+  BUFFER_CHANGED,
+  OFFSET_CHANGED,
   NUM_SIGNALS
 };
 
@@ -12,18 +13,27 @@ static void idasher_buffer_set_base_init(gpointer g_class) {
   static gboolean initialised = FALSE;
 
   if(!initialised) {
+    idasher_buffer_set_signals[BUFFER_CHANGED] = g_signal_newv( "buffer_changed", 
+								G_TYPE_FROM_CLASS(g_class), 
+								static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), 
+								NULL,
+								NULL, 
+								NULL, 
+								g_cclosure_marshal_VOID__VOID, 
+								G_TYPE_NONE, 
+								0,
+								NULL);
 
-    idasher_buffer_set_signals[CONTEXT_CHANGED] = g_signal_newv( "context_changed", 
-								 G_TYPE_FROM_CLASS(g_class), 
-								 static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), 
-								 NULL,
-								 NULL, 
-								 NULL, 
-								 g_cclosure_marshal_VOID__VOID, 
-								 G_TYPE_NONE, 
-								 0,
-								 NULL);
-
+    idasher_buffer_set_signals[OFFSET_CHANGED] = g_signal_newv( "offset_changed", 
+								G_TYPE_FROM_CLASS(g_class), 
+								static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), 
+								NULL,
+								NULL, 
+								NULL, 
+								g_cclosure_marshal_VOID__VOID, 
+								G_TYPE_NONE, 
+								0,
+								NULL);
 
     initialised = TRUE;
   }

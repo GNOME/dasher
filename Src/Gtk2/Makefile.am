@@ -64,8 +64,10 @@ libdashergtk_a_SOURCES = \
                          dasher_action_speech.h \
                          dasher_buffer_set.cpp \
                          dasher_buffer_set.h \
-                         dasher_editor.cpp \
-                         dasher_editor.h \
+			 dasher_editor.cpp \
+			 dasher_editor.h \
+                         dasher_editor_internal.cpp \
+                         dasher_editor_internal.h \
                          dasher_external_buffer.cpp \
                          dasher_external_buffer.h \
                          dasher_internal_buffer.cpp \

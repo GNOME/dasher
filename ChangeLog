@@ -1,3 +1,10 @@
+2007-04-02  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Fixed bug in 1D mode
+	* Fixed indicator handling in 1 button mode
+	* Fixed bugs in multiple click handling
+	* (Manually) patched #85674
+	
 2007-03-30  Phil Cowans  <pjc51@cam.ac.uk>
 
 	* Merged in Kazue's Japanese mode stuff
