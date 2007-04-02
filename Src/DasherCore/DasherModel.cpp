@@ -173,11 +173,34 @@ void CDasherModel::Make_root(CDasherNode *pNewRoot) {
   // existing data structure?
   oldroots.push_back(m_Root);
 
-  while((oldroots.size() > 10) && (!m_bRequireConversion || (oldroots[0]->GetFlag(NF_CONVERTED)))) {
-    oldroots[0]->OrphanChild(oldroots[1]);
-    delete oldroots[0];
-    oldroots.pop_front();
+  // Clear roots...
+  // First figure out how many we can get rid of
+
+  int iOldRootSize(oldroots.size());
+  int iMaxHead(iOldRootSize - 10);
+  
+  int iMinHead(0);
+
+  for(int i(1); i <= iMaxHead; ++i) {
+    if((!m_bRequireConversion || (oldroots[i]->GetFlag(NF_CONVERTED))) &&
+       !(oldroots[i]->GetFlag(NF_SUBNODE)))
+      iMinHead = i;
   }
+    
+  if(iMinHead > 0) {
+    for(int i(0); i < iMinHead; ++i) {
+      oldroots[0]->OrphanChild(oldroots[1]);
+      delete oldroots[0];
+      oldroots.pop_front();
+    }
+  }
+    
+
+//   while((oldroots.size() > 10) && (!m_bRequireConversion || (oldroots[0]->GetFlag(NF_CONVERTED)))) {
+//     oldroots[0]->OrphanChild(oldroots[1]);
+//     delete oldroots[0];
+//     oldroots.pop_front();
+//   }
 
   m_Root = pNewRoot;
 
@@ -244,6 +267,8 @@ void CDasherModel::Reparent_root(int lower, int upper) {
   else {
     pNewRoot = oldroots.back();
     oldroots.pop_back();
+
+    DASHER_ASSERT(!((oldroots.front())->GetFlag(NF_SUBNODE)));
 
     while((oldroots.size() > 0) && pNewRoot->GetFlag(NF_SUBNODE)) {
       pNewRoot = oldroots.back();
@@ -357,7 +382,6 @@ void CDasherModel::InitialiseAtOffset(int iOffset, CDasherView *pView) {
   // size and we're not in any of the children
 
   double dFraction( 1 - (1 - m_Root->MostProbableChild() / static_cast<double>(GetLongParameter(LP_NORMALIZATION))) / 2.0 );
-
   int iWidth( static_cast<int>( (GetLongParameter(LP_MAX_Y) / (2.0*dFraction)) ) );
 
   m_Rootmin = GetLongParameter(LP_MAX_Y) / 2 - iWidth / 2;

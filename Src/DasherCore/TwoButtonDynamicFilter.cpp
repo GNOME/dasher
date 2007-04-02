@@ -109,8 +109,12 @@ void CTwoButtonDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel, 
     return;
 
   // Pass the basic key down event to the handler
+  // TODO: bit of a hack here
+
+  int iPreviousState = m_iState;
   Event(iTime, iId, 0, pModel, pUserLog);
-  
+  bool bStateChanged = m_iState != iPreviousState;
+    
   // Store the key down time so that long presses can be determined
   // TODO: This is going to cause problems if multiple buttons are
   // held down at once
@@ -125,13 +129,17 @@ void CTwoButtonDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel, 
       Event(iTime, iId, 2, pModel, pUserLog);
       m_deQueueTimes.clear();
     }
-    else
-      m_deQueueTimes.push_back(iTime);
+    else {
+      if(!bStateChanged)
+	m_deQueueTimes.push_back(iTime);
+    }
   }
   else {
-    m_deQueueTimes.clear();
-    m_deQueueTimes.push_back(iTime);
-    m_iQueueId = iId;
+    if(!bStateChanged) {
+      m_deQueueTimes.clear();
+      m_deQueueTimes.push_back(iTime);
+      m_iQueueId = iId;
+    }
   }
 
   m_iHeldId = iId;
@@ -156,7 +164,7 @@ void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherMo
   // 0 = ordinary click
   // 1 = long click
   // 2 = multiple click
-
+  
   if(iType == 2)
     if(GetBoolParameter(BP_TWOBUTTON_SPEED))
       AutoSpeedUndo(GetLongParameter(LP_MULTIPRESS_COUNT) - 1);
@@ -177,6 +185,7 @@ void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherMo
     m_pInterface->Unpause(iTime);
     SetBoolParameter(BP_DELAY_VIEW, true);
     m_iState = 1;
+    m_deQueueTimes.clear();
     break;
   case 1:
     switch(iType) {
@@ -185,6 +194,7 @@ void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherMo
 	if(pUserLog)
 	  pUserLog->KeyDown(iButton, iType, 2);
 	m_iState = 0;
+	m_deQueueTimes.clear();
 	SetBoolParameter(BP_DELAY_VIEW, false);
 	m_pInterface->PauseAt(0, 0);
       }
@@ -193,6 +203,7 @@ void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherMo
 	  pUserLog->KeyDown(iButton, iType, 6);
 	SetBoolParameter(BP_DELAY_VIEW, false);
 	m_iState = 2;
+	m_deQueueTimes.clear();
       }
       else {
 	ActionButton(iTime, iButton, iType, pModel, pUserLog);
@@ -205,6 +216,7 @@ void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherMo
 	  pUserLog->KeyDown(iButton, iType, 6);
 	SetBoolParameter(BP_DELAY_VIEW, false);
 	m_iState = 2;
+	m_deQueueTimes.clear();
        }
       else {
 	if(pUserLog)
@@ -218,6 +230,7 @@ void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherMo
       pUserLog->KeyDown(iButton, iType, 2);
     
     m_iState = 0;
+    m_deQueueTimes.clear();
     m_pInterface->PauseAt(0, 0);
     break;
   }

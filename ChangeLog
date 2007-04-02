@@ -1,3 +1,9 @@
+2007-04-02  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Fixed bug in 1D mode
+	* Fixed indicator handling in 1 button mode
+	* Fixed bugs in multiple click handling
+	
 2007-03-12  Phil Cowans  <pjc51@cam.ac.uk>
 
 	* Further preparation for release
