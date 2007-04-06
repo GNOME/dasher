@@ -2,10 +2,11 @@
 <!DOCTYPE colours SYSTEM "colour.dtd">
 <?xml-stylesheet type="text/xsl" href="colour.xsl"?>
 <colours>
-<palette name="European/Asian (Original)">
-<!-- Summary: 
+<palette name="European/Asian">
+<!-- Summary:
+    Colour scheme by David MacKay, incorporating 'calm/mild' revisions suggested by Dinesh.
  Letters 10-109 are divided up as follows:
-   10-39: principal European area. Currently coloured with 3 cycling colours. 
+   10-39: principal European area. Currently coloured with 2 cycling colours. 
    40-69: unused    European area. Currently coloured with 3 cycling colours. 
    70-79: 10 Hiragana rainbow colours
    80-89: 10 Hiragana rainbow colours, slightly different shades
@@ -43,36 +44,36 @@
 <colour r="235" g="235" b="235"/>
 <!-- letters (10-109) -->
 <!-- first 30 colours for use by european alphabets -->
-<colour r="0" g="255" b="255"/>
-<colour r="180" g="238" b="180"/>
-<colour r="155" g="205" b="155"/>
-<colour r="0" g="255" b="255"/>
-<colour r="180" g="238" b="180"/>
-<colour r="155" g="205" b="155"/>
-<colour r="0" g="255" b="255"/>
-<colour r="180" g="238" b="180"/>
-<colour r="155" g="205" b="155"/>
-<colour r="0" g="255" b="255"/>
-<colour r="180" g="238" b="180"/>
-<colour r="155" g="205" b="155"/>
-<colour r="0" g="255" b="255"/>
-<colour r="180" g="238" b="180"/>
-<colour r="155" g="205" b="155"/>
-<colour r="0" g="255" b="255"/>
-<colour r="180" g="238" b="180"/>
-<colour r="155" g="205" b="155"/>
-<colour r="0" g="255" b="255"/>
-<colour r="180" g="238" b="180"/>
-<colour r="155" g="205" b="155"/>
-<colour r="0" g="255" b="255"/>
-<colour r="180" g="238" b="180"/>
-<colour r="155" g="205" b="155"/>
-<colour r="0" g="255" b="255"/>
-<colour r="180" g="238" b="180"/>
-<colour r="155" g="205" b="155"/>
-<colour r="0" g="255" b="255"/>
-<colour r="180" g="238" b="180"/>
-<colour r="155" g="205" b="155"/>
+<colour r="180" g="218" b="162"/>
+<colour r="190" g="238" b="190"/>
+<colour r="180" g="218" b="162"/>
+<colour r="190" g="238" b="190"/>
+<colour r="180" g="218" b="162"/>
+<colour r="190" g="238" b="190"/>
+<colour r="180" g="218" b="162"/>
+<colour r="190" g="238" b="190"/>
+<colour r="180" g="218" b="162"/>
+<colour r="190" g="238" b="190"/>
+<colour r="180" g="218" b="162"/>
+<colour r="190" g="238" b="190"/>
+<colour r="180" g="218" b="162"/>
+<colour r="190" g="238" b="190"/>
+<colour r="180" g="218" b="162"/>
+<colour r="190" g="238" b="190"/>
+<colour r="180" g="218" b="162"/>
+<colour r="190" g="238" b="190"/>
+<colour r="180" g="218" b="162"/>
+<colour r="190" g="238" b="190"/>
+<colour r="180" g="218" b="162"/>
+<colour r="190" g="238" b="190"/>
+<colour r="180" g="218" b="162"/>
+<colour r="190" g="238" b="190"/>
+<colour r="180" g="218" b="162"/>
+<colour r="190" g="238" b="190"/>
+<colour r="180" g="218" b="162"/>
+<colour r="190" g="238" b="190"/>
+<colour r="180" g="218" b="162"/>
+<colour r="190" g="238" b="190"/>
 <!-- next 10 letters unallocated -->
 <colour r="0" g="255" b="255"/>
 <colour r="180" g="238" b="180"/>
@@ -254,36 +255,36 @@
 <!-- alternate space -->
 <colour r="255" g="255" b="255"/>
 <!-- alternate colours for letters (140-239) -->
-<colour r="135" g="206" b="255"/>
-<colour r="255" g="174" b="185"/>
-<colour r="255" g="187" b="255"/>
-<colour r="135" g="206" b="255"/>
-<colour r="255" g="174" b="185"/>
-<colour r="255" g="187" b="255"/>
-<colour r="135" g="206" b="255"/>
-<colour r="255" g="174" b="185"/>
-<colour r="255" g="187" b="255"/>
-<colour r="135" g="206" b="255"/>
-<colour r="255" g="174" b="185"/>
-<colour r="255" g="187" b="255"/>
-<colour r="135" g="206" b="255"/>
-<colour r="255" g="174" b="185"/>
-<colour r="255" g="187" b="255"/>
-<colour r="135" g="206" b="255"/>
-<colour r="255" g="174" b="185"/>
-<colour r="255" g="187" b="255"/>
-<colour r="135" g="206" b="255"/>
-<colour r="255" g="174" b="185"/>
-<colour r="255" g="187" b="255"/>
-<colour r="135" g="206" b="255"/>
-<colour r="255" g="174" b="185"/>
-<colour r="255" g="187" b="255"/>
-<colour r="135" g="206" b="255"/>
-<colour r="255" g="174" b="185"/>
-<colour r="255" g="187" b="255"/>
-<colour r="135" g="206" b="255"/>
-<colour r="255" g="174" b="185"/>
-<colour r="255" g="187" b="255"/>
+<colour r="135" g="207" b="221"/>
+<colour r="161" g="219" b="235"/>
+<colour r="135" g="207" b="221"/>
+<colour r="161" g="219" b="235"/>
+<colour r="135" g="207" b="221"/>
+<colour r="161" g="219" b="235"/>
+<colour r="135" g="207" b="221"/>
+<colour r="161" g="219" b="235"/>
+<colour r="135" g="207" b="221"/>
+<colour r="161" g="219" b="235"/>
+<colour r="135" g="207" b="221"/>
+<colour r="161" g="219" b="235"/>
+<colour r="135" g="207" b="221"/>
+<colour r="161" g="219" b="235"/>
+<colour r="135" g="207" b="221"/>
+<colour r="161" g="219" b="235"/>
+<colour r="135" g="207" b="221"/>
+<colour r="161" g="219" b="235"/>
+<colour r="135" g="207" b="221"/>
+<colour r="161" g="219" b="235"/>
+<colour r="135" g="207" b="221"/>
+<colour r="161" g="219" b="235"/>
+<colour r="135" g="207" b="221"/>
+<colour r="161" g="219" b="235"/>
+<colour r="135" g="207" b="221"/>
+<colour r="161" g="219" b="235"/>
+<colour r="135" g="207" b="221"/>
+<colour r="161" g="219" b="235"/>
+<colour r="135" g="207" b="221"/>
+<colour r="161" g="219" b="235"/>
 <!-- end of first 30 letters -->
 <colour r="135" g="206" b="255"/>
 <colour r="255" g="174" b="185"/>
