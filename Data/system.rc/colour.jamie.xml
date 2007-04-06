@@ -2,7 +2,7 @@
 <!DOCTYPE colours SYSTEM "colour.dtd">
 <?xml-stylesheet type="text/xsl" href="colour.xsl"?>
 <colours>
-<palette name="Blue on dark Green">
+<palette name="Blue on Dark Green">
 <!-- Summary: 
  Letters 10-109 are divided up as follows:
    10-39: principal European area. Currently coloured with 3 cycling colours. 
@@ -423,7 +423,7 @@
 <!-- Red (242) -->
 <colour r="255" g="0" b="0"/>
 </palette>
-<palette name="Blue on light Green">
+<palette name="Blue on Light Green">
 <!-- Summary: 
  Letters 10-109 are divided up as follows:
    10-39: principal European area. Currently coloured with 3 cycling colours. 

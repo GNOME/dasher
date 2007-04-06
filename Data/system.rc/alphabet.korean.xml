@@ -3,7 +3,7 @@
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
 <alphabets>
 <alphabet name="Korean &#54620;&#44397;&#50612; (Combining 67 Jamo)">
-<!-- Colour scheme added Wed 8/6/05 by David MacKay
+<!-- Colour scheme added Wed 8/6/05 by David MacKay, updated Fri 6/4/07
      Please switch off "box outlines" for best appearance.  -->
 <orientation type="LR"/>
 <encoding type="Western"/>
@@ -35,7 +35,8 @@
 <s d="&#4370;" t="&#4370;" b="93"/>
 <!-- <s d="&#4447;" t="&#4447;" b="94"/>  -->
 </group> 
-<group name="Korean vowels"   b="141">
+<group name="Korean vowels"   b="189"   visible="on">
+<!--  colour for this group was 141 -->
 <s d="&#4449;" t="&#4449;" b="100" note="a"/>
 <s d="&#4450;" t="&#4450;" b="101" note="ae"/>
 <s d="&#4451;" t="&#4451;" b="102" note="ya"/>
@@ -58,7 +59,7 @@
 <s d="&#4468;" t="&#4468;" b="104" note="yi"/>
 <s d="&#4469;" t="&#4469;" b="100" note="i"/>
 </group> 
-<group name="Korean trailing consonants"   b="129">
+<group name="Korean trailing consonants"   b="129"   visible="on">
 <s d="&#4520;" t="&#4520;" b="105"/>
 <s d="&#4521;" t="&#4521;" b="106"/>
 <s d="&#4522;" t="&#4522;" b="107"/>
@@ -93,13 +94,14 @@
 </alphabet>			     
 
 <alphabet name="Korean  &#54620;&#44397;&#50612; with numerals and punctuation (Combining 67 Jamo) ">
-<!-- Colour scheme added Wed 8/6/05 by David MacKay -->
+<!-- Colour scheme added Wed 8/6/05 by David MacKay, updated Fri 6/4/07
+     Please switch off "box outlines" for best appearance.  -->
 <orientation type="LR"/>
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_korean_KR.txt</train>
 <space d="&#x25a1;" t=" " b="9" note="box" />
-<control d="Control"/>
+<control d="Control"  t="" b="8"/>
 <paragraph d="&#182;" b="9"/>
 <!-- group name="Korean letters"  b="141"  visible="off" -->
 <group name="Korean initial consonants"  b="111"  visible="on">
@@ -124,7 +126,8 @@
 <s d="&#4370;" t="&#4370;" b="93"/>
 <!-- <s d="&#4447;" t="&#4447;" b="94"/> -->
 </group>
-<group name="Korean vowels"   b="141"  visible="on">
+<group name="Korean vowels"   b="189"  visible="on">
+<!--  colour for this group was 141 -->
 <s d="&#4449;" t="&#4449;" b="100"/>
 <s d="&#4450;" t="&#4450;" b="101"/>
 <s d="&#4451;" t="&#4451;" b="102"/>

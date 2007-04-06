@@ -2,7 +2,7 @@
 <!DOCTYPE colours SYSTEM "colour.dtd">
 <?xml-stylesheet type="text/xsl" href="colour.xsl"?>
 <colours>
-<palette name="European/Asian for colourblind">
+<palette name="European/Asian for Colourblind">
 <!-- Summary: 
  Letters 10-109 are divided up as follows:
    10-39: principal European area. Currently coloured with 3 cycling colours. 
