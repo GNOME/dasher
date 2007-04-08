@@ -1,0 +1,696 @@
+# This file is distributed under the same license as this package.
+# Changwoo Ryu <cwryu@debian.org> 2003-2006, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: dasher\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-02-25 08:22+0900\n"
+"PO-Revision-Date: 2007-02-25 08:22+0900\n"
+"Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
+"Language-Team: GNOME Korea <gnome-kr-hackers@lists.kldp.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/dasher.compose.glade.h:34
+#: ../Src/Gtk2/dasher.direct.glade.h:31
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:30
+#: ../Src/Gtk2/dasher.traditional.glade.h:34 ../Src/Gtk2/dasher_main.cpp:1047
+#: ../Src/Gtk2/dashermaemo.glade.h:17
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:15
+msgid "Dasher"
+msgstr "대셔"
+
+#: ../Data/dasher.desktop.in.in.h:2
+msgid "Predictive text entry"
+msgstr "예측 텍스트 입력창"
+
+#. TODO should probably pop up a Gtk error message and think about how to do i18n:
+#: ../Src/DasherCore/SocketInput.cpp:34
+msgid "Dasher socket input: failed to launch reader thread."
+msgstr "대셔 소켓 입력: 읽기 스레드를 시작하는 데 실패했습니다."
+
+#: ../Src/Gtk2/dasher.compose.glade.h:1 ../Src/Gtk2/dasher.direct.glade.h:1
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:1
+#: ../Src/Gtk2/dasher.traditional.glade.h:1
+msgid "<b>Actions:</b>"
+msgstr "<b>동작:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:2 ../Src/Gtk2/dasher.direct.glade.h:2
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:2
+#: ../Src/Gtk2/dasher.traditional.glade.h:2 ../Src/Gtk2/dashermaemo.glade.h:3
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:1
+msgid "<b>Adaptation:</b>"
+msgstr "<b>맞춰가기:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:3 ../Src/Gtk2/dasher.direct.glade.h:3
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:3
+#: ../Src/Gtk2/dasher.traditional.glade.h:3 ../Src/Gtk2/dashermaemo.glade.h:4
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:2
+msgid "<b>Alphabet Selection:</b>"
+msgstr "<b>알파벳 선택:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:4 ../Src/Gtk2/dasher.direct.glade.h:4
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:4
+#: ../Src/Gtk2/dasher.traditional.glade.h:4
+msgid "<b>Appearance Options:</b>"
+msgstr "<b>모양 옵션:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:5 ../Src/Gtk2/dasher.direct.glade.h:5
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:5
+#: ../Src/Gtk2/dasher.traditional.glade.h:5
+msgid "<b>Application Options:</b>"
+msgstr "<b>프로그램 옵션:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:6 ../Src/Gtk2/dasher.direct.glade.h:6
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:6
+#: ../Src/Gtk2/dasher.traditional.glade.h:6
+msgid "<b>Application Style:</b>"
+msgstr "<b>프로그램 방식:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:7 ../Src/Gtk2/dasher.direct.glade.h:7
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:7
+#: ../Src/Gtk2/dasher.traditional.glade.h:7
+msgid "<b>Colour Scheme:</b>"
+msgstr "<b>색 선택:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:8 ../Src/Gtk2/dasher.direct.glade.h:8
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:8
+#: ../Src/Gtk2/dasher.traditional.glade.h:8
+msgid "<b>Control Style:</b>"
+msgstr "<b>컨트롤 방식:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:9 ../Src/Gtk2/dasher.direct.glade.h:9
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:9
+#: ../Src/Gtk2/dasher.traditional.glade.h:9
+msgid "<b>Dasher Font:</b>"
+msgstr "<b>대셔 글꼴:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:10 ../Src/Gtk2/dasher.direct.glade.h:10
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:10
+#: ../Src/Gtk2/dasher.traditional.glade.h:10
+msgid "<b>Direction:</b>"
+msgstr "<b>방향:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:11 ../Src/Gtk2/dasher.direct.glade.h:11
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:11
+#: ../Src/Gtk2/dasher.traditional.glade.h:11
+msgid "<b>Editor Font:</b>"
+msgstr "<b>편집기 글꼴:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:12 ../Src/Gtk2/dasher.direct.glade.h:12
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:12
+#: ../Src/Gtk2/dasher.traditional.glade.h:12
+msgid "<b>Input Device:</b>"
+msgstr "<b>입력 장치:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:13 ../Src/Gtk2/dasher.direct.glade.h:13
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:13
+#: ../Src/Gtk2/dasher.traditional.glade.h:13 ../Src/Gtk2/dashermaemo.glade.h:6
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:3
+msgid "<b>Language Model:</b>"
+msgstr "<b>언어 모델:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:14 ../Src/Gtk2/dasher.direct.glade.h:14
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:14
+#: ../Src/Gtk2/dasher.traditional.glade.h:14
+msgid "<b>Prediction:</b>"
+msgstr "<b>예측:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:15 ../Src/Gtk2/dasher.direct.glade.h:15
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:15
+#: ../Src/Gtk2/dasher.traditional.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:8
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:5
+msgid "<b>Smoothing:</b>"
+msgstr "<b>부드럽게:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:16 ../Src/Gtk2/dasher.direct.glade.h:16
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:16
+#: ../Src/Gtk2/dasher.traditional.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:9
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:6
+msgid "<b>Speed:</b>"
+msgstr "<b>속도:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:17 ../Src/Gtk2/dasher.direct.glade.h:17
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:17
+#: ../Src/Gtk2/dasher.traditional.glade.h:17
+msgid "<b>Starting And Stopping:</b>"
+msgstr "<b>시작 및 중지:</b>"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:18 ../Src/Gtk2/dasher.direct.glade.h:18
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:18
+#: ../Src/Gtk2/dasher.traditional.glade.h:18
+#: ../Src/Gtk2/dashermaemo.glade.h:10
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:7
+msgid "Adapt speed automatically"
+msgstr "자동으로 속도 조정"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:19 ../Src/Gtk2/dasher.direct.glade.h:19
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:19
+#: ../Src/Gtk2/dasher.traditional.glade.h:19
+#: ../Src/Gtk2/dashermaemo.glade.h:12
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:9
+msgid "Alphabet Default"
+msgstr "알파벳 기본값"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:20 ../Src/Gtk2/dasher.direct.glade.h:20
+#: ../Src/Gtk2/dasher.traditional.glade.h:20
+msgid "Alphabet:"
+msgstr "알파벳:"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:21 ../Src/Gtk2/dasher.direct.glade.h:21
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:20
+#: ../Src/Gtk2/dasher.traditional.glade.h:21
+msgid "Appearance"
+msgstr "모양"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:22 ../Src/Gtk2/dasher.direct.glade.h:22
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:21
+#: ../Src/Gtk2/dasher.traditional.glade.h:22
+msgid "Application"
+msgstr "프로그램"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:23 ../Src/Gtk2/dasher.direct.glade.h:23
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:22
+#: ../Src/Gtk2/dasher.traditional.glade.h:23
+#: ../Src/Gtk2/dashermaemo.glade.h:13
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:10
+msgid "Bottom to Top"
+msgstr "아래에서 위로"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:24 ../Src/Gtk2/dasher.direct.glade.h:24
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:23
+#: ../Src/Gtk2/dasher.traditional.glade.h:24
+msgid ""
+"Centre circle\n"
+"Two box"
+msgstr ""
+"가운데 동그라미\n"
+"네모 두개"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:26 ../Src/Gtk2/dasher.direct.glade.h:26
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:25
+#: ../Src/Gtk2/dasher.traditional.glade.h:26
+msgid "Composition"
+msgstr "조합"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:27 ../Src/Gtk2/dasher.direct.glade.h:27
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:26
+#: ../Src/Gtk2/dasher.traditional.glade.h:27
+#: ../Src/Gtk2/dashermaemo.glade.h:14
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:11
+msgid "Control"
+msgstr "컨트롤"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:28 ../Src/Gtk2/dasher.direct.glade.h:28
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:27
+#: ../Src/Gtk2/dasher.traditional.glade.h:28
+msgid "Control mode"
+msgstr "컨트롤 모드"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:29
+#: ../Src/Gtk2/dasher.traditional.glade.h:29
+msgid "Copy"
+msgstr "복사"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:30
+#: ../Src/Gtk2/dasher.traditional.glade.h:30
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:12
+msgid "Copy _All"
+msgstr "모두 복사(_A)"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:31 ../Src/Gtk2/dasher.direct.glade.h:29
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:28
+#: ../Src/Gtk2/dasher.traditional.glade.h:31
+#: ../Src/Gtk2/dashermaemo.glade.h:15
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:13
+msgid "Custom colour scheme:"
+msgstr "사용자 설정 색:"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:32 ../Src/Gtk2/dasher.direct.glade.h:30
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:29
+#: ../Src/Gtk2/dasher.traditional.glade.h:32
+#: ../Src/Gtk2/dashermaemo.glade.h:16
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:14
+msgid "Custom:"
+msgstr "사용자 설정:"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:33
+#: ../Src/Gtk2/dasher.traditional.glade.h:33
+msgid "Cut"
+msgstr "잘라내기"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:35 ../Src/Gtk2/dasher.direct.glade.h:32
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:31
+#: ../Src/Gtk2/dasher.traditional.glade.h:35
+#: ../Src/Gtk2/dashermaemo.glade.h:18
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:16
+msgid "Dasher Preferences"
+msgstr "대셔 기본 설정"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:36
+#: ../Src/Gtk2/dasher.traditional.glade.h:36
+msgid "Dasher _Tutorial"
+msgstr "대셔 따라하기(_T)"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:37 ../Src/Gtk2/dasher.direct.glade.h:33
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:32
+#: ../Src/Gtk2/dasher.traditional.glade.h:37
+msgid "Direct entry"
+msgstr "직접 입력창"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:38 ../Src/Gtk2/dasher.direct.glade.h:34
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:33
+#: ../Src/Gtk2/dasher.traditional.glade.h:38
+msgid "Dock application window"
+msgstr "도크 프로그램 창"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:39 ../Src/Gtk2/dasher.direct.glade.h:35
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:34
+#: ../Src/Gtk2/dasher.traditional.glade.h:39
+msgid "Draw box outlines"
+msgstr "상자 외곽선 그리기"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:40 ../Src/Gtk2/dasher.direct.glade.h:36
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:35
+#: ../Src/Gtk2/dasher.traditional.glade.h:40
+msgid "Draw line between crosshairs and mouse"
+msgstr "십자선과 마우스 사이에 선 그리기"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:41 ../Src/Gtk2/dasher.direct.glade.h:37
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:36
+#: ../Src/Gtk2/dasher.traditional.glade.h:41
+msgid "Full Screen"
+msgstr "전체 화면"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:42 ../Src/Gtk2/dasher.direct.glade.h:38
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:37
+#: ../Src/Gtk2/dasher.traditional.glade.h:42
+msgid "Increase line thickness"
+msgstr "선 굵기 증가"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:43 ../Src/Gtk2/dasher.direct.glade.h:39
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:38
+#: ../Src/Gtk2/dasher.traditional.glade.h:43
+#: ../Src/Gtk2/dashermaemo.glade.h:20
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
+msgid "Japanese"
+msgstr "일본어"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:44 ../Src/Gtk2/dasher.direct.glade.h:40
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:39
+#: ../Src/Gtk2/dasher.traditional.glade.h:44
+msgid "Language"
+msgstr "언어"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:45 ../Src/Gtk2/dasher.direct.glade.h:41
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:40
+#: ../Src/Gtk2/dasher.traditional.glade.h:45
+#: ../Src/Gtk2/dashermaemo.glade.h:21
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:18
+msgid "Language model adapts as you write."
+msgstr "언어 모델은 텍스트를 쓸 때마다 거기에 맞춰갑니다."
+
+#: ../Src/Gtk2/dasher.compose.glade.h:46 ../Src/Gtk2/dasher.direct.glade.h:42
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:41
+#: ../Src/Gtk2/dasher.traditional.glade.h:46
+msgid "Large font "
+msgstr "큰 글꼴 "
+
+#: ../Src/Gtk2/dasher.compose.glade.h:47 ../Src/Gtk2/dasher.direct.glade.h:43
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:42
+#: ../Src/Gtk2/dasher.traditional.glade.h:47
+#: ../Src/Gtk2/dashermaemo.glade.h:22
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:20
+msgid "Left to Right"
+msgstr "왼쪽에서 오른쪽으로"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:48 ../Src/Gtk2/dasher.direct.glade.h:44
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:43
+#: ../Src/Gtk2/dasher.traditional.glade.h:48
+#: ../Src/Gtk2/dashermaemo.glade.h:23
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:21
+msgid "Mixture model (PPM/dictionary)"
+msgstr "혼합 모델 (PPM/사전)"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:49
+#: ../Src/Gtk2/dasher.traditional.glade.h:49
+msgid "New file"
+msgstr "새 파일"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:50
+#: ../Src/Gtk2/dasher.traditional.glade.h:50
+msgid "Open file"
+msgstr "파일 열기"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:51 ../Src/Gtk2/dasher.direct.glade.h:45
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:44
+#: ../Src/Gtk2/dasher.traditional.glade.h:51
+msgid "Options"
+msgstr "옵션"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:52
+#: ../Src/Gtk2/dasher.traditional.glade.h:52
+msgid "Paste"
+msgstr "붙여 넣기"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:53 ../Src/Gtk2/dasher.direct.glade.h:46
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:45
+#: ../Src/Gtk2/dasher.traditional.glade.h:53
+msgid "Pause outside of canvas"
+msgstr "캔버스 밖에서 일시 중지"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:54 ../Src/Gtk2/dasher.direct.glade.h:47
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:46
+#: ../Src/Gtk2/dasher.traditional.glade.h:54
+#: ../Src/Gtk2/dashermaemo.glade.h:25
+msgid "Please Wait..."
+msgstr "잠시 기다리십시오..."
+
+#: ../Src/Gtk2/dasher.compose.glade.h:55
+msgid "Pr_eferences"
+msgstr "기본 설정(_E)"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:56 ../Src/Gtk2/dasher.direct.glade.h:48
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:47
+#: ../Src/Gtk2/dasher.traditional.glade.h:56
+#: ../Src/Gtk2/dashermaemo.glade.h:27
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
+msgid "Right to Left"
+msgstr "오른쪽에서 왼쪽으로"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:57
+#: ../Src/Gtk2/dasher.traditional.glade.h:57
+msgid "Save file"
+msgstr "파일 저장"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:58
+#: ../Src/Gtk2/dasher.traditional.glade.h:58
+msgid "Save file as"
+msgstr "다른 이름으로 저장"
+
+#. TODO: Fix this
+#. GtkWidget *filesel = gtk_file_chooser_dialog_new(_("Select File"), GTK_WINDOW(pPrivate->pMainWindow), GTK_FILE_CHOOSER_ACTION_OPEN, GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+#. TODO: Fix this
+#. GtkWidget *filesel = gtk_file_chooser_dialog_new(_("Select File"), GTK_WINDOW(window), GTK_FILE_CHOOSER_ACTION_SAVE, GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+#: ../Src/Gtk2/dasher.compose.glade.h:59 ../Src/Gtk2/dasher.direct.glade.h:49
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:48
+#: ../Src/Gtk2/dasher.traditional.glade.h:59
+#: ../Src/Gtk2/dasher_editor.cpp:1274 ../Src/Gtk2/dasher_editor.cpp:1299
+#: ../Src/Gtk2/dasher_main.cpp:898 ../Src/Gtk2/dashermaemo.glade.h:28
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:25
+msgid "Select File"
+msgstr "파일을 선택하십시오"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:60 ../Src/Gtk2/dasher.direct.glade.h:50
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:49
+#: ../Src/Gtk2/dasher.traditional.glade.h:60
+#: ../Src/Gtk2/dashermaemo.glade.h:29
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:26
+msgid "Select Font"
+msgstr "글꼴을 선택하십시오"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:61 ../Src/Gtk2/dasher.direct.glade.h:51
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:50
+#: ../Src/Gtk2/dasher.traditional.glade.h:61
+msgid "Show mouse position"
+msgstr "마우스 위치 보이기"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:62 ../Src/Gtk2/dasher.direct.glade.h:52
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:51
+#: ../Src/Gtk2/dasher.traditional.glade.h:62
+msgid "Show speed slider"
+msgstr "속도 슬라이더 보이기"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:63 ../Src/Gtk2/dasher.direct.glade.h:53
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:52
+#: ../Src/Gtk2/dasher.traditional.glade.h:63
+msgid "Show toolbar"
+msgstr "도구 모음 보이기"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:64 ../Src/Gtk2/dasher.direct.glade.h:54
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:53
+#: ../Src/Gtk2/dasher.traditional.glade.h:64
+msgid "Small font"
+msgstr "작은 글꼴"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:65 ../Src/Gtk2/dasher.direct.glade.h:55
+#: ../Src/Gtk2/dasher.traditional.glade.h:65
+msgid "Speed:"
+msgstr "속도:"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:66 ../Src/Gtk2/dasher.direct.glade.h:56
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:54
+#: ../Src/Gtk2/dasher.traditional.glade.h:66
+msgid "Stand-alone"
+msgstr "단일 모드"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:67 ../Src/Gtk2/dasher.direct.glade.h:57
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:55
+#: ../Src/Gtk2/dasher.traditional.glade.h:67
+#: ../Src/Gtk2/dashermaemo.glade.h:30
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
+msgid "Standard letter-based PPM"
+msgstr "표준 글자 기반 PPM"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:68 ../Src/Gtk2/dasher.direct.glade.h:58
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:56
+#: ../Src/Gtk2/dasher.traditional.glade.h:68
+msgid "Start on left mouse button"
+msgstr "왼쪽 마우스 단추를 누르면 시작"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:69 ../Src/Gtk2/dasher.direct.glade.h:59
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:57
+#: ../Src/Gtk2/dasher.traditional.glade.h:69
+msgid "Start on space bar"
+msgstr "스페이스바를 누르면 시작"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:70 ../Src/Gtk2/dasher.direct.glade.h:60
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:58
+#: ../Src/Gtk2/dasher.traditional.glade.h:70
+msgid "Start with mouse position:"
+msgstr "마우스 위치에 따라 시작:"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:71 ../Src/Gtk2/dasher.direct.glade.h:61
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:59
+#: ../Src/Gtk2/dasher.traditional.glade.h:71
+msgid "Timestamp new files"
+msgstr "새 파일 타임 스탬프"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:72 ../Src/Gtk2/dasher.direct.glade.h:62
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:60
+#: ../Src/Gtk2/dasher.traditional.glade.h:72
+#: ../Src/Gtk2/dashermaemo.glade.h:31
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
+msgid "Top to Bottom"
+msgstr "위에서 아래로"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:73 ../Src/Gtk2/dasher.direct.glade.h:63
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:61
+#: ../Src/Gtk2/dasher.traditional.glade.h:73
+msgid ""
+"Use this control to adjust the relative sizes of the \n"
+"letter boxes. Note that selecting high values will slow\n"
+"your writing speed."
+msgstr ""
+"이 컨트롤을 사용해 글자 상자의 상대적인 크기를 조정합니다.\n"
+"높은 값을 선택하면 글자 쓰는 속도가 느려 진다는 것에\n"
+"주의하십시오."
+
+#: ../Src/Gtk2/dasher.compose.glade.h:76 ../Src/Gtk2/dasher.direct.glade.h:66
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:64
+#: ../Src/Gtk2/dasher.traditional.glade.h:76
+msgid "Very large font"
+msgstr "아주 큰 글꼴"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:77 ../Src/Gtk2/dasher.direct.glade.h:67
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:65
+#: ../Src/Gtk2/dasher.traditional.glade.h:77
+#: ../Src/Gtk2/dashermaemo.glade.h:33
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
+msgid "Word-based model"
+msgstr "단어 단위 모델"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:78
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:32
+msgid "_About"
+msgstr "정보(_A)"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:79
+#: ../Src/Gtk2/dasher.traditional.glade.h:79
+msgid "_Append to file"
+msgstr "파일 뒤에 붙이기(_A)"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:80
+msgid "_Contents"
+msgstr "차례(_C)"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:81
+#: ../Src/Gtk2/dasher.traditional.glade.h:81
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
+msgid "_Edit"
+msgstr "편집(_E)"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:82
+#: ../Src/Gtk2/dasher.traditional.glade.h:82
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:37
+msgid "_File"
+msgstr "파일(_F)"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:83
+#: ../Src/Gtk2/dasher.traditional.glade.h:83
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:38
+msgid "_Help"
+msgstr "도움말(_H)"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:84
+msgid "_Import Training Text"
+msgstr "훈련 텍스트 가져오기(_I)"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:85 ../Src/Gtk2/dasher.direct.glade.h:68
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:66
+#: ../Src/Gtk2/dasher.traditional.glade.h:85
+#: ../Src/Gtk2/dashermaemo.glade.h:34
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:41
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr "abcdefghijk ABCDEFGHIJK 가나다라마바사"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:55
+msgid "Pr_eferences..."
+msgstr "기본 설정(_E)..."
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:78
+msgid "_About..."
+msgstr "정보(_A)..."
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:80
+msgid "_Contents..."
+msgstr "차례(_C)..."
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:84
+msgid "_Import Training Text..."
+msgstr "훈련 텍스트 가져오기(_I)..."
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:163
+#, c-format
+msgid "Unable to initialize speech support\n"
+msgstr "음성 기능을 초기화할 수 없습니다\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:186
+msgid "Unable to initialize voices\n"
+msgstr "음성을 초기화할 수 없습니다\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:198
+msgid "Warning: unable to set speech parameters\n"
+msgstr "경고: 음성 인자를 설정할 수 없습니다\n"
+
+#: ../Src/Gtk2/dasher_main.cpp:936
+#, c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"바뀐 점을 %s에 저장하시겠습니까?\n"
+"\n"
+"저장하지 않으면 바뀐 사항을 잃게 됩니다."
+
+#: ../Src/Gtk2/dasher_main.cpp:942
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"바뀐 점을 저장하시겠습니까?\n"
+"\n"
+"저장하지 않으면 바뀐 사항을 잃게 됩니다."
+
+#: ../Src/Gtk2/dasher_main.cpp:946
+msgid "Don't save"
+msgstr "저장하지 않기"
+
+#: ../Src/Gtk2/dasher_main.cpp:947
+msgid "Don't quit"
+msgstr "끝내지 않기"
+
+#: ../Src/Gtk2/dasher_main.cpp:948
+msgid "Save and quit"
+msgstr "저장하고 끝내기"
+
+#: ../Src/Gtk2/dasher_main.cpp:1034 ../Src/Gtk2/dasher_main.cpp:1050
+msgid "Dasher is a predictive text entry application"
+msgstr "대셔는 예측을 통한 텍스트 입력 프로그램입니다."
+
+#: ../Src/Gtk2/dasher_main.cpp:1039 ../Src/Gtk2/dasher_main.cpp:1045
+msgid "translator-credits"
+msgstr "류창우 <cwryu@debian.org>"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:1
+msgid "\n"
+msgstr "\n"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:5
+msgid "<b>Display Size:</b>"
+msgstr "<b>표시 크기:</b>"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:7
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:4
+msgid "<b>Orientation:</b>"
+msgstr "<b>방향:</b>"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:11
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:8
+msgid "Alphabet"
+msgstr "알파벳"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:19
+msgid "Enlarge input window"
+msgstr "입력 창 확대"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:24
+msgid "P"
+msgstr "P"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:26
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:23
+msgid "Prediction"
+msgstr "예측"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:32
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:30
+msgid "View"
+msgstr "보기"
+
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:19
+msgid "Large"
+msgstr "크게"
+
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:22
+msgid "Normal"
+msgstr "보통"
+
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:29
+msgid "Very Large"
+msgstr "아주 크게"
+
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:33
+msgid "_Dasher Font"
+msgstr "대셔 글꼴(_D)"
+
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:34
+msgid "_Dasher Font Size"
+msgstr "대셔 글꼴 크기(_D)"
+
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:36
+msgid "_Edit Font"
+msgstr "글꼴 편집(_E)"
+
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:39
+msgid "_Options"
+msgstr "옵션(_O)"
+
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:40
+msgid "_Reset fonts"
+msgstr "글꼴 리셋(_R)"

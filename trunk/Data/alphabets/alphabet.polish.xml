@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+  <alphabet name="Polski / Polish">
+    <!--Created by: Krzysiek grandysk@go2.pl-->
+    <orientation type="LR" />
+    <encoding type="CentralEurope" />
+
+    <train>training_polish_PL.txt</train>
+    <palette>Default</palette>
+<paragraph d="&#182;" b="9"/>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<control d="Control" t="" b="8"/>
+
+    <group name="Małe litery">
+      <s t="a" d="a" />
+
+      <s t="ą" d="ą" />
+
+      <s t="b" d="b" />
+
+      <s t="c" d="c" />
+
+      <s t="ć" d="ć" />
+
+      <s t="d" d="d" />
+
+      <s t="e" d="e" />
+
+      <s t="ę" d="ę" />
+
+      <s t="f" d="f" />
+
+      <s t="g" d="g" />
+
+      <s t="h" d="h" />
+
+      <s t="i" d="i" />
+
+      <s t="j" d="j" />
+
+      <s t="k" d="k" />
+
+      <s t="l" d="l" />
+
+      <s t="ł" d="ł" />
+
+      <s t="m" d="m" />
+
+      <s t="n" d="n" />
+
+      <s t="ń" d="ń" />
+
+      <s t="o" d="o" />
+
+      <s t="ó" d="ó" />
+
+      <s t="p" d="p" />
+
+      <s t="q" d="q" />
+
+      <s t="r" d="r" />
+
+      <s t="s" d="s" />
+
+      <s t="ś" d="ś" />
+
+      <s t="t" d="t" />
+
+      <s t="u" d="u" />
+
+      <s t="w" d="w" />
+
+      <s t="x" d="x" />
+
+      <s t="y" d="y" />
+
+      <s t="ź" d="ź" />
+
+      <s t="ż" d="ż" />
+
+      <s t="z" d="z" />
+    </group>
+
+    <group name="Duże litery" b="111">
+      <s t="A" d="A" />
+
+      <s t="Ą" d="Ą" />
+
+      <s t="B" d="B" />
+
+      <s t="C" d="C" />
+
+      <s t="Ć" d="Ć" />
+
+      <s t="D" d="D" />
+
+      <s t="E" d="E" />
+
+      <s t="Ę" d="Ę" />
+
+      <s t="F" d="F" />
+
+      <s t="G" d="G" />
+
+      <s t="H" d="H" />
+
+      <s t="I" d="I" />
+
+      <s t="J" d="J" />
+
+      <s t="K" d="K" />
+
+      <s t="L" d="L" />
+
+      <s t="Ł" d="Ł" />
+
+      <s t="M" d="M" />
+
+      <s t="N" d="N" />
+
+      <s t="Ń" d="Ń" />
+
+      <s t="O" d="O" />
+
+      <s t="Ó" d="Ó" />
+
+      <s t="P" d="P" />
+
+      <s t="Q" d="Q" />
+
+      <s t="R" d="R" />
+
+      <s t="S" d="S" />
+
+      <s t="Ś" d="Ś" />
+
+      <s t="T" d="T" />
+
+      <s t="U" d="U" />
+
+      <s t="W" d="W" />
+
+      <s t="X" d="X" />
+
+      <s t="Z" d="Z" />
+
+      <s t="Ź" d="Ź" />
+
+      <s t="Ż" d="Ż" />
+
+      <s t="Z" d="Z" />
+    </group>
+
+    <group name="Liczby"   b="113">
+      <s t="0" d="0" />
+
+      <s t="1" d="1" />
+
+      <s t="2" d="2" />
+
+      <s t="3" d="3" />
+
+      <s t="4" d="4" />
+
+      <s t="5" d="5" />
+
+      <s t="6" d="6" />
+
+      <s t="7" d="7" />
+
+      <s t="8" d="8" />
+
+      <s t="9" d="9" />
+    </group>
+
+    <group name="Interpunkcja"  b="112">
+<s d="%" t="%"/>
+<s d="*" t="*"/>
+<s d="+" t="+"/>
+<s d="=" t="="/>
+<s d="/" t="/"/>
+<s d="#" t="#"/>
+<s d="$" t="$"/>
+<s d="|" t="|"/>
+<s d="\" t="\"/>
+<s d="~" t="~"/>
+<s d="^" t="^"/>
+<s d="_" t="_"/>
+<s d="&amp;" t="&amp;"/>
+<s d="@" t="@"/>
+<s d="[" t="["/>
+<s d="]" t="]"/>
+<s d="{" t="{"/>
+<s d="}" t="}"/>
+<s d="&lt;" t="&lt;"/>
+<s d="&gt;" t="&gt;"/>
+<s d="(" t="("/>
+<s d=")" t=")"/>
+<s d="&#x2039;" t="&#x2039;" note="French left single quotation mark" />
+<s d="&#x203A;" t="&#x203A;" note="French right single quotation mark" />
+<s d="&#x00AB;" t="&#x00AB;" note="French left double quotation mark" />
+<s d="&#x00BB;" t="&#x00BB;" note="French right double quotation mark" />
+<s d="&quot;" t="&quot;"/>
+<s d="`" t="`"/>
+<s d="&apos;" t="&apos;"/>
+<s d="-" t="-"/>
+<s d=":" t=":"/>
+<s d=";" t=";"/>
+<s d="?" t="?"/>
+<s d="!" t="!"/>
+<s d="," t=","/>
+<s d="." t="."/>
+    </group>
+
+  </alphabet>
+</alphabets>

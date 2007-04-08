@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="English with limited punctuation">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>European/Asian</palette>
+<train>training_english_GB.txt</train>
+<paragraph d="&#182;" b="9"/>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<control d="Control" t="" b="8"/>
+<group name="Lower case Latin letters" b="0">
+<s d="a" t="a" b="10"/>
+<s d="b" t="b" b="11"/>
+<s d="c" t="c" b="12"/>
+<s d="d" t="d" b="13"/>
+<s d="e" t="e" b="14"/>
+<s d="f" t="f" b="15"/>
+<s d="g" t="g" b="16"/>
+<s d="h" t="h" b="17"/>
+<s d="i" t="i" b="18"/>
+<s d="j" t="j" b="19"/>
+<s d="k" t="k" b="20"/>
+<s d="l" t="l" b="21"/>
+<s d="m" t="m" b="22"/>
+<s d="n" t="n" b="23"/>
+<s d="o" t="o" b="24"/>
+<s d="p" t="p" b="25"/>
+<s d="q" t="q" b="26"/>
+<s d="r" t="r" b="27"/>
+<s d="s" t="s" b="28"/>
+<s d="t" t="t" b="29"/>
+<s d="u" t="u" b="30"/>
+<s d="v" t="v" b="31"/>
+<s d="w" t="w" b="32"/>
+<s d="x" t="x" b="33"/>
+<s d="y" t="y" b="34"/>
+<s d="z" t="z" b="35"/>
+</group>
+<group name="Upper case Latin letters" b="111">
+<s d="A" t="A" b="10"/>
+<s d="B" t="B" b="11"/>
+<s d="C" t="C" b="12"/>
+<s d="D" t="D" b="13"/>
+<s d="E" t="E" b="14"/>
+<s d="F" t="F" b="15"/>
+<s d="G" t="G" b="16"/>
+<s d="H" t="H" b="17"/>
+<s d="I" t="I" b="18"/>
+<s d="J" t="J" b="19"/>
+<s d="K" t="K" b="20"/>
+<s d="L" t="L" b="21"/>
+<s d="M" t="M" b="22"/>
+<s d="N" t="N" b="23"/>
+<s d="O" t="O" b="24"/>
+<s d="P" t="P" b="25"/>
+<s d="Q" t="Q" b="26"/>
+<s d="R" t="R" b="27"/>
+<s d="S" t="S" b="28"/>
+<s d="T" t="T" b="29"/>
+<s d="U" t="U" b="30"/>
+<s d="V" t="V" b="31"/>
+<s d="W" t="W" b="32"/>
+<s d="X" t="X" b="33"/>
+<s d="Y" t="Y" b="34"/>
+<s d="Z" t="Z" b="35"/>
+</group>
+<group name="Punctuation" b="112">
+<s d="&amp;" t="&amp;" b="99"/>
+<s d="&quot;" t="&quot;" b="109"/>
+<s b="105" d="&#x25cc;&#x0313;" t="&apos;" note=" apostrophe"/>
+<!-- <s b="105" d="&#x25cc;&#x0313;" t="&apos;" note=" apostrophe"/> -->
+<!-- <s b="105" d="&#x2323;&#x0313;" t="&apos;" note=" apostrophe above a smile arc"/> -->
+<!-- <s b="105" d="&#x2319;&#x0313;" t="&apos;" note=" apostrophe"/> -->
+<s d="?" t="?" b="103"/>
+<s d="!" t="!" b="104"/>
+<!-- <s d="&#x2312;&#x0326;" t="," b="100" note="overarced comma"/> -->
+<s d="," t="," b="100" note="&#x236A; overlined comma"/>
+<s d="&#183;" t="." b="104"/>
+</group>
+</alphabet>
+<alphabet name="English with numerals and limited punctuation">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>European/Asian</palette>
+<train>training_english_GB.txt</train>
+<paragraph d="&#182;" b="9"/>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<control d="Control" t="" b="8"/>
+<group name="Lower case Latin letters" b="0">
+<s d="a" t="a" b="10"/>
+<s d="b" t="b" b="11"/>
+<s d="c" t="c" b="12"/>
+<s d="d" t="d" b="13"/>
+<s d="e" t="e" b="14"/>
+<s d="f" t="f" b="15"/>
+<s d="g" t="g" b="16"/>
+<s d="h" t="h" b="17"/>
+<s d="i" t="i" b="18"/>
+<s d="j" t="j" b="19"/>
+<s d="k" t="k" b="20"/>
+<s d="l" t="l" b="21"/>
+<s d="m" t="m" b="22"/>
+<s d="n" t="n" b="23"/>
+<s d="o" t="o" b="24"/>
+<s d="p" t="p" b="25"/>
+<s d="q" t="q" b="26"/>
+<s d="r" t="r" b="27"/>
+<s d="s" t="s" b="28"/>
+<s d="t" t="t" b="29"/>
+<s d="u" t="u" b="30"/>
+<s d="v" t="v" b="31"/>
+<s d="w" t="w" b="32"/>
+<s d="x" t="x" b="33"/>
+<s d="y" t="y" b="34"/>
+<s d="z" t="z" b="35"/>
+</group>
+<group name="Upper case Latin letters" b="111">
+<s d="A" t="A" b="10"/>
+<s d="B" t="B" b="11"/>
+<s d="C" t="C" b="12"/>
+<s d="D" t="D" b="13"/>
+<s d="E" t="E" b="14"/>
+<s d="F" t="F" b="15"/>
+<s d="G" t="G" b="16"/>
+<s d="H" t="H" b="17"/>
+<s d="I" t="I" b="18"/>
+<s d="J" t="J" b="19"/>
+<s d="K" t="K" b="20"/>
+<s d="L" t="L" b="21"/>
+<s d="M" t="M" b="22"/>
+<s d="N" t="N" b="23"/>
+<s d="O" t="O" b="24"/>
+<s d="P" t="P" b="25"/>
+<s d="Q" t="Q" b="26"/>
+<s d="R" t="R" b="27"/>
+<s d="S" t="S" b="28"/>
+<s d="T" t="T" b="29"/>
+<s d="U" t="U" b="30"/>
+<s d="V" t="V" b="31"/>
+<s d="W" t="W" b="32"/>
+<s d="X" t="X" b="33"/>
+<s d="Y" t="Y" b="34"/>
+<s d="Z" t="Z" b="35"/>
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1" b="90"/>
+<s d="2" t="2" b="91"/>
+<s d="3" t="3" b="92"/>
+<s d="4" t="4" b="93"/>
+<s d="5" t="5" b="94"/>
+<s d="6" t="6" b="90"/>
+<s d="7" t="7" b="91"/>
+<s d="8" t="8" b="92"/>
+<s d="9" t="9" b="93"/>
+<s d="0" t="0" b="94"/>
+</group>
+<group name="Punctuation" b="112">
+<s d="&amp;" t="&amp;" b="99"/>
+<s d="&quot;" t="&quot;" b="109"/>
+<s b="105" d="&#x25cc;&#x0313;" t="&apos;" note=" apostrophe"/>
+<s d="?" t="?" b="103"/>
+<s d="!" t="!" b="104"/>
+<s d="," t="," b="100"/>
+<s d="&#183;" t="." b="104"/>
+</group>
+</alphabet>
+<alphabet name="English with numerals and lots of punctuation">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>European/Asian</palette>
+<train>training_english_GB.txt</train>
+<space d="&#x25a1;" t=" "  b="9"/>
+<control d="Control" t=""/>
+<paragraph d="&#182;" b="9"/>
+<group name="Lower case Latin letters" b="0">
+<s d="a" t="a" b="10"/>
+<s d="b" t="b" b="11"/>
+<s d="c" t="c" b="12"/>
+<s d="d" t="d" b="13"/>
+<s d="e" t="e" b="14"/>
+<s d="f" t="f" b="15"/>
+<s d="g" t="g" b="16"/>
+<s d="h" t="h" b="17"/>
+<s d="i" t="i" b="18"/>
+<s d="j" t="j" b="19"/>
+<s d="k" t="k" b="20"/>
+<s d="l" t="l" b="21"/>
+<s d="m" t="m" b="22"/>
+<s d="n" t="n" b="23"/>
+<s d="o" t="o" b="24"/>
+<s d="p" t="p" b="25"/>
+<s d="q" t="q" b="26"/>
+<s d="r" t="r" b="27"/>
+<s d="s" t="s" b="28"/>
+<s d="t" t="t" b="29"/>
+<s d="u" t="u" b="30"/>
+<s d="v" t="v" b="31"/>
+<s d="w" t="w" b="32"/>
+<s d="x" t="x" b="33"/>
+<s d="y" t="y" b="34"/>
+<s d="z" t="z" b="35"/>
+</group>
+<group name="Upper case Latin letters" b="111">
+<s d="A" t="A" b="10"/>
+<s d="B" t="B" b="11"/>
+<s d="C" t="C" b="12"/>
+<s d="D" t="D" b="13"/>
+<s d="E" t="E" b="14"/>
+<s d="F" t="F" b="15"/>
+<s d="G" t="G" b="16"/>
+<s d="H" t="H" b="17"/>
+<s d="I" t="I" b="18"/>
+<s d="J" t="J" b="19"/>
+<s d="K" t="K" b="20"/>
+<s d="L" t="L" b="21"/>
+<s d="M" t="M" b="22"/>
+<s d="N" t="N" b="23"/>
+<s d="O" t="O" b="24"/>
+<s d="P" t="P" b="25"/>
+<s d="Q" t="Q" b="26"/>
+<s d="R" t="R" b="27"/>
+<s d="S" t="S" b="28"/>
+<s d="T" t="T" b="29"/>
+<s d="U" t="U" b="30"/>
+<s d="V" t="V" b="31"/>
+<s d="W" t="W" b="32"/>
+<s d="X" t="X" b="33"/>
+<s d="Y" t="Y" b="34"/>
+<s d="Z" t="Z" b="35"/>
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1" b="90"/>
+<s d="2" t="2" b="91"/>
+<s d="3" t="3" b="92"/>
+<s d="4" t="4" b="93"/>
+<s d="5" t="5" b="94"/>
+<s d="6" t="6" b="90"/>
+<s d="7" t="7" b="91"/>
+<s d="8" t="8" b="92"/>
+<s d="9" t="9" b="93"/>
+<s d="0" t="0" b="94"/>
+</group>
+<group name="Punctuation" b="112">
+<s b="90" d="%" t="%"/>
+<s b="91" d="*" t="*"/>
+<s b="92" d="+" t="+"/>
+<s b="93" d="=" t="="/>
+<s b="94" d="/" t="/"/>
+<s b="95" d="#" t="#"/>
+<s d="&#8364;" t="&#8364;" b="96" note="euro" />
+<s b="97"  d="&#163;" t="&#163;" note="Pound" />
+<s b="98" d="$" t="$"/>
+<s b="99" d="|" t="|"/>
+<s b="95" d="\" t="\"/>
+<s b="96" d="~" t="~"/>
+<s b="97" d="^" t="^"/>
+<s b="98" d="_" t="_"/>
+<s b="99" d="&amp;" t="&amp;"/> 
+<s b="95" d="@" t="@"/>
+<s b="105" d="[" t="["/>
+<s b="106" d="]" t="]"/>
+<s b="107" d="{" t="{"/>
+<s b="108" d="}" t="}"/>
+<s b="109" d="&lt;" t="&lt;"/>
+<s b="105" d="&gt;" t="&gt;"/>
+<s b="106" d="(" t="("/>
+<s b="107" d=")" t=")"/>
+<s b="108" d="&#x201C;" t="&#x201C;" note="left double quotation mark" />
+<s b="109" d="&#x0022;" t="&#x0022;" note="deprecated vertical double quotation mark" />
+<s b="106" d="&#x201D;" t="&#x201D;" note="right double quotation mark" />
+<s b="107" d="&#x2018;" t="&#x2018;" note="left single quotation mark" />
+<s b="108" d="&#x2019;" t="&#x2019;" note="right single quotation mark and apostrophe" />
+<s b="109" d="`" t="`" note="left quote from keyboard" />
+<s b="105" d="&#x25cc;&#x0313;" t="&apos;" note=" apostrophe"/>
+<s b="9"  d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
+<s b="100" d="-" t="-"/>
+<s b="101" d=":" t=":"/>
+<s b="102" d=";" t=";"/>
+<s b="103" d="?" t="?"/>
+<s b="104" d="!" t="!"/>
+<s b="100" d="," t=","/>
+<s d="&#183;" t="." b="104"/>
+</group>
+</alphabet>
+<alphabet name="English, lower case">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>European/Asian</palette>
+<train>training_englishLC_GB.txt</train>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<control d="Control" t="" b="8"/>
+<group name="Lower case Latin letters" b="0">
+<s d="a" t="a" b="10"/>
+<s d="b" t="b" b="11"/>
+<s d="c" t="c" b="12"/>
+<s d="d" t="d" b="13"/>
+<s d="e" t="e" b="14"/>
+<s d="f" t="f" b="15"/>
+<s d="g" t="g" b="16"/>
+<s d="h" t="h" b="17"/>
+<s d="i" t="i" b="18"/>
+<s d="j" t="j" b="19"/>
+<s d="k" t="k" b="20"/>
+<s d="l" t="l" b="21"/>
+<s d="m" t="m" b="22"/>
+<s d="n" t="n" b="23"/>
+<s d="o" t="o" b="24"/>
+<s d="p" t="p" b="25"/>
+<s d="q" t="q" b="26"/>
+<s d="r" t="r" b="27"/>
+<s d="s" t="s" b="28"/>
+<s d="t" t="t" b="29"/>
+<s d="u" t="u" b="30"/>
+<s d="v" t="v" b="31"/>
+<s d="w" t="w" b="32"/>
+<s d="x" t="x" b="33"/>
+<s d="y" t="y" b="34"/>
+<s d="z" t="z" b="35"/>
+</group>
+<group name="Punctuation" b="112">
+<s b="105" d="&#x25cc;&#x0313;"  t="&apos;" />
+<s b="103" d="?" t="?" />
+<s b="104" d="!" t="!" />
+<s b="100" d="," t="," />
+<s b="104" d="&#183;" t="." />
+</group>
+</alphabet>
+</alphabets>

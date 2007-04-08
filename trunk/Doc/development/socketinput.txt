@@ -1,0 +1,99 @@
+Control of Dasher from a network socket
+= = = = = = = = = = = = = = = = = = = =
+ - Seb Wills <saw27@mrao.cam.ac.uk>
+   28 September 2005
+
+
+Introduction
+============
+
+The Dasher 'cursor', which determines the direction of zooming, and is
+indicated by a black square, is usually controlled by the mouse pointer,
+either through direct manipulation of the mouse or through other software
+(such as a gaze tracker) which controls the position of the pointer on the
+screen.
+
+From version 4, Dasher also allows its cursor to be controlled via
+messages received from another program via a UDP socket. The other
+program may be running on a different computer to Dasher, with cursor
+position information sent over a network.
+
+Socket configuration
+====================
+
+The UDP port number on which Dasher listens is configured in the
+Socket page of Dasher's preferences dialog. The preferences also
+contain a check-box to enable socket input. When selected, the cursor
+position is updated only by UDP packets (as specified below), and not
+by the mouse.
+
+To assist with diagnosing any problems you experience when using an
+external application to drive Dasher, there is an option in the
+preferences to display debugging messages. When this option is enabled,
+Dasher will display messages showing the contents of all messages
+received through the UDP port and information about how it is processing
+them. Under Linux, these debug messages are printed to the console
+(stderr); in Windows a console window is opened when you enable this
+option and the messages are displayed in it.
+
+Message format
+==============
+
+Packets sent to Dasher's UDP port should consist of one or more lines,
+each terminated by a newline (0x0a) character. Each line should
+consist of a text label, followed by other data. Dasher ignores lines
+which do not start with one of two particular labels which are
+specified in Dasher's preferences and correspond to the X and Y
+coordinates. (In one-dimensional mode, only the Y coordinate is used.)
+
+If a line is read which begins with one of these labels, the text
+after the label (after skipping whitespace) is interpreted as an ASCII
+representation of a floating-point number, and is used to update the
+corresponding coordinate of the cursor position.
+
+An example packet might therefore look like this:
+
+XCoordinate 15.2
+YCoordinate -21.2
+OtherData 12s
+
+In this example, Dasher would probably be configured with
+"XCoordinate" as its label for the X coordinate, and "YCoordinate" for
+the Y Coordinate. Individual packets do not need to contain both (or
+either of) an X and Y coordinate value. In this example, the "OtherData"
+line would be ignored by Dasher.
+
+Packets may be sent as frequently as it is required to update the cursor.
+Since UDP does not guarantee delivery of packets, it is recommended to
+periodically send packets regardless of whether the values contained therein
+have changed. TCP support may be added in future.
+
+Coordinate transformation
+=========================
+
+In Dasher's socket input preferences, you should specify the range of
+values that Dasher should expect to receive for each coordinate. These
+are used to linearly transform values received into Dasher's internal
+coordinate system.
+
+Assuming that you are using left-to-right writing orientation, then
+for the X coordinate, a value equal to the 'min' value specified in
+the preferences corresponds to the left-hand edge of the Dasher
+landscape. Ideally, 'max' corresponds to the right-hand edge, and
+values in-between are mapped linearly between these extremes in the
+obvious manner, however this is not currently (2005-11-29) the case;
+somebody needs to look into the various non-linearities applied to the
+coordinates and make socket input be treated more similarly to mouse
+input. For the Y coordinate, 'min' and 'max' correspond to the top and
+bottom of the Dasher landscape, respectively.
+
+Note that you can invert the sense of an input by swapping the values
+for 'min' and 'max' so that 'max' is numerically smaller than 'min'. The
+socket input code already inverts the sense of the X coordinate, to
+compensate for the fact that in Dasher's internal coordinate system, the X
+coordinate increases to the left, whereas most people would expect it to
+increase to the right.
+
+Values received which lie outside of the range between 'min' and 'max' are
+clipped to those values.
+

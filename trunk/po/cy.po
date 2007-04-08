@@ -1,0 +1,1041 @@
+# Dasher yn Gymraeg.
+# This file is distributed under the same license as the Dasher package.
+# Telsa Gwynne <hobbit@aloss.ukuu.org.uk>, 2004.
+# Dafydd Harries <daf@muse.19inch.net>, 2004.
+# Rhys Jones <rhys@sucs.org>, 2005, 2006.
+#
+# rhysj: Wedi gyrru drwy Cysill ar gyfer GNOME 2.14.
+msgid ""
+msgstr ""
+"Project-Id-Version: dasher\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-03-31 18:25+0100\n"
+"PO-Revision-Date: 2006-03-08 12:43-0000\n"
+"Last-Translator: Rhys Jones <rhys@sucs.org>\n"
+"Language-Team: Welsh <gnome-cy@pengwyn.linux.org.uk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. TODO should probably pop up a Gtk error message and think about how to do i18n:
+#: ../Src/DasherCore/SocketInput.cpp:34
+msgid "Dasher socket input: failed to launch reader thread."
+msgstr "Mewnbwn soced Dasher: methu lansio edefyn y darllenydd."
+
+#: ../Src/Gtk2/Menu.cc:72 ../Src/Gtk2/Menu.cc:128 ../Src/Gtk2/Menu.cc:186
+#: ../Src/Gtk2/Menu.cc:229 ../Src/Gtk2/dasher.glade.h:105
+#: ../Src/Gtk2/dashergpe.glade.h:60 ../Src/Gtk2/dashermaemo.glade.h:100
+msgid "Select File"
+msgstr "Dewis Ffeil"
+
+#: ../Src/Gtk2/Menu.cc:309
+#, c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Ydych chi am gadw'ch newidiadau i %s?\n"
+"\n"
+"Fe gollir eich newidiadau os na wnewch chi eu cadw."
+
+#: ../Src/Gtk2/Menu.cc:312
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Ydych chi am gadw'ch newidiadau?\n"
+"\n"
+"Fe gollir eich newidiadau os na wnewch chi eu cadw."
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't save"
+msgstr "Peidio â chadw"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't quit"
+msgstr "Peidio â gorffen"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Save and quit"
+msgstr "Cadw a gorffen"
+
+#: ../Src/Gtk2/Menu.cc:458
+msgid "Dasher is a predictive text entry application"
+msgstr "Rhaglen gofnodi testun rhagweledol yw Dasher"
+
+#: ../Src/Gtk2/Menu.cc:461
+msgid "translator-credits"
+msgstr ""
+"Dafydd Harries <daf@muse.19inch.net>\n"
+"Telsa Gwynne <hobbit@aloss.ukuu.org.uk>\n"
+"Rhys Jones <rhys@sucs.org>"
+
+#: ../Src/Gtk2/Preferences.cpp:585 ../Src/Gtk2/Preferences.cpp:587
+#: ../Src/Gtk2/dasher.glade.h:123 ../Src/Gtk2/dashergpe.glade.h:72
+#: ../Src/Gtk2/dashermaemo.glade.h:117
+msgid "Training Dasher... please wait"
+msgstr "Hyfforddi Dasher... arhoswch, os gwelwch yn dda"
+
+#. Paneltree
+#. |         /-menutree
+#. Widgettree------buttontree
+#. \-edittree
+#.
+#. Tree, parent, children, next, pointer, data, string, colour
+#: ../Src/Gtk2/accessibility.cc:88
+msgid "Panels"
+msgstr "Paneli"
+
+#: ../Src/Gtk2/accessibility.cc:89
+msgid "Application"
+msgstr "Rhaglen"
+
+#: ../Src/Gtk2/accessibility.cc:90
+msgid "Menus"
+msgstr "Dewislenni"
+
+#: ../Src/Gtk2/accessibility.cc:91 ../Src/Gtk2/dashermaemo.glade.h:42
+msgid "Buttons"
+msgstr "Botymau"
+
+#: ../Src/Gtk2/accessibility.cc:92
+msgid "Text"
+msgstr "Testun"
+
+#: ../Src/Gtk2/accessibility.cc:175 ../Src/Gtk2/dasher.glade.h:48
+#: ../Src/Gtk2/dashergpe.glade.h:28 ../Src/Gtk2/dashermaemo.glade.h:45
+msgid "Control"
+msgstr "Rheoli"
+
+#: ../Src/Gtk2/accessibility.cc:182
+msgid "Windows"
+msgstr "Ffenestri"
+
+#: ../Src/Gtk2/accessibility.cc:190
+msgid "Stop"
+msgstr "Atal"
+
+#: ../Src/Gtk2/accessibility.cc:197
+msgid "Pause"
+msgstr "Seibio"
+
+#: ../Src/Gtk2/accessibility.cc:204
+msgid "Move"
+msgstr "Symud"
+
+#: ../Src/Gtk2/accessibility.cc:211
+msgid "Delete"
+msgstr "Dileu"
+
+#: ../Src/Gtk2/accessibility.cc:221
+msgid "Speak"
+msgstr "Siarad"
+
+#: ../Src/Gtk2/accessibility.cc:253 ../Src/Gtk2/accessibility.cc:407
+msgid "<"
+msgstr "<"
+
+#: ../Src/Gtk2/accessibility.cc:259 ../Src/Gtk2/accessibility.cc:401
+msgid ">"
+msgstr ">"
+
+#: ../Src/Gtk2/accessibility.cc:265
+msgid "<<<"
+msgstr "<<<"
+
+#: ../Src/Gtk2/accessibility.cc:271
+msgid ">>>"
+msgstr ">>>"
+
+#: ../Src/Gtk2/accessibility.cc:284
+msgid "Everything"
+msgstr "Popeth"
+
+#: ../Src/Gtk2/accessibility.cc:290
+msgid "New"
+msgstr "Newydd"
+
+#: ../Src/Gtk2/accessibility.cc:296
+msgid "Repeat"
+msgstr "Ailadrodd"
+
+#: ../Src/Gtk2/accessibility.cc:318
+msgid "1"
+msgstr "1"
+
+#: ../Src/Gtk2/accessibility.cc:325
+msgid "2"
+msgstr "2"
+
+#: ../Src/Gtk2/accessibility.cc:332
+msgid "3"
+msgstr "3"
+
+#: ../Src/Gtk2/accessibility.cc:339
+msgid "4"
+msgstr "4"
+
+#: ../Src/Gtk2/accessibility.cc:346
+msgid "5"
+msgstr "5"
+
+#: ../Src/Gtk2/accessibility.cc:353
+msgid "6"
+msgstr "6"
+
+#: ../Src/Gtk2/accessibility.cc:360
+msgid "7"
+msgstr "7"
+
+#: ../Src/Gtk2/accessibility.cc:367
+msgid "8"
+msgstr "8"
+
+#: ../Src/Gtk2/accessibility.cc:374
+msgid "9"
+msgstr "9"
+
+#: ../Src/Gtk2/accessibility.cc:381
+msgid "10"
+msgstr "10"
+
+#: ../Src/Gtk2/accessibility.cc:413 ../Src/Gtk2/accessibility.cc:437
+msgid "Character"
+msgstr "Nod"
+
+#: ../Src/Gtk2/accessibility.cc:425 ../Src/Gtk2/accessibility.cc:448
+msgid "Word"
+msgstr "Gair"
+
+#: ../Src/Gtk2/accessibility.cc:430 ../Src/Gtk2/accessibility.cc:454
+msgid "Line"
+msgstr "Llinell"
+
+#: ../Src/Gtk2/accessibility.cc:568
+msgid "Unknown"
+msgstr "Anhysbys"
+
+#. void interface_setup(GladeXML *xml) {
+#. What's this doing here? I'm sure we ought to just be using whatever
+#. the core provides us with
+#. float initial_bitrate = 3.0;
+#. the_canvas=glade_xml_get_widget(xml, "the_canvas");
+#. Needed so we can make it visible or not as we wish
+#. FIXME - all of the stuff below commented out - we no longer have access to the registry here - need to fix it
+#. // interface specific preferences
+#. if(get_long_option_callback("Mouseposstartdistance",&mouseposstartdist)!=false) {
+#. gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"mouseposstartscale")),mouseposstartdist);
+#. }
+#. if(get_long_option_callback("YScale",&yscale)!=false) {
+#. gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"yaxisscale")),yscale);
+#. }
+#. if(get_bool_option_callback("Cyclicalbuttons",&cyclickeyboardmodeon)!=false) {
+#. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"cyclicalbuttons")),cyclickeyboardmodeon);
+#. }
+#. // Configure the buttons. FIXME - more enums?
+#. if (get_long_option_callback("Button1X",&(buttons[1].x))==false) {
+#. buttons[1].x=0;
+#. }
+#. if (get_long_option_callback("Button2X",&(buttons[2].x))==false) {
+#. buttons[2].x=0;
+#. }
+#. if (get_long_option_callback("Button3X",&(buttons[3].x))==false) {
+#. buttons[3].x=0;
+#. }
+#. if (get_long_option_callback("Button4X",&(buttons[4].x))==false) {
+#. buttons[4].x=0;
+#. }
+#. if (get_long_option_callback("Button5X",&(buttons[5].x))==false) {
+#. buttons[5].x=0;
+#. }
+#. if (get_long_option_callback("Button6X",&(buttons[6].x))==false) {
+#. buttons[6].x=0;
+#. }
+#. if (get_long_option_callback("Button7X",&(buttons[7].x))==false) {
+#. buttons[7].x=0;
+#. }
+#. if (get_long_option_callback("Button8X",&(buttons[8].x))==false) {
+#. buttons[8].x=0;
+#. }
+#. if (get_long_option_callback("Button9X",&(buttons[9].x))==false) {
+#. buttons[9].x=0;
+#. }
+#. if (get_long_option_callback("Button1Y",&(buttons[1].y))==false) {
+#. buttons[1].y=0;
+#. }
+#. if (get_long_option_callback("Button2Y",&(buttons[2].y))==false) {
+#. buttons[2].y=0;
+#. }
+#. if (get_long_option_callback("Button3Y",&(buttons[3].y))==false) {
+#. buttons[3].y=0;
+#. }
+#. if (get_long_option_callback("Button4Y",&(buttons[4].y))==false) {
+#. buttons[4].y=0;
+#. }
+#. if (get_long_option_callback("Button5Y",&(buttons[5].y))==false) {
+#. buttons[5].y=0;
+#. }
+#. if (get_long_option_callback("Button6Y",&(buttons[6].y))==false) {
+#. buttons[6].y=0;
+#. }
+#. if (get_long_option_callback("Button7Y",&(buttons[7].y))==false) {
+#. buttons[7].y=0;
+#. }
+#. if (get_long_option_callback("Button8Y",&(buttons[8].y))==false) {
+#. buttons[8].y=0;
+#. }
+#. if (get_long_option_callback("Button9Y",&(buttons[9].y))==false) {
+#. buttons[9].y=0;
+#. }
+#. }
+#. void
+#. interface_late_setup() {
+#. Stuff that needs to be done after the core has
+#. set itself up
+#. dasher_set_parameter_int(INT_ONEBUTTON, 0);
+#. alphabet=dasher_get_current_alphabet();
+#. colourscheme=dasher_get_current_colours();
+#. }
+#. void
+#. open_window(GladeXML *xml) {
+#. I have no idea why we need to do this when Glade has theoretically done
+#. so already, but...
+#. FIXME - REIMPLEMENT
+#. }
+#: ../Src/Gtk2/dasher.glade.h:1 ../Src/Gtk2/dashergpe.glade.h:1
+#: ../Src/Gtk2/dashermaemo.glade.h:1
+msgid "5:"
+msgstr "5:"
+
+#: ../Src/Gtk2/dasher.glade.h:2 ../Src/Gtk2/dashergpe.glade.h:2
+#: ../Src/Gtk2/dashermaemo.glade.h:2
+msgid "6:"
+msgstr "6:"
+
+#: ../Src/Gtk2/dasher.glade.h:3 ../Src/Gtk2/dashergpe.glade.h:3
+#: ../Src/Gtk2/dashermaemo.glade.h:3
+msgid "7:"
+msgstr "7:"
+
+#: ../Src/Gtk2/dasher.glade.h:4 ../Src/Gtk2/dashergpe.glade.h:4
+#: ../Src/Gtk2/dashermaemo.glade.h:4
+msgid "8:"
+msgstr "8:"
+
+#: ../Src/Gtk2/dasher.glade.h:5 ../Src/Gtk2/dashergpe.glade.h:5
+#: ../Src/Gtk2/dashermaemo.glade.h:5
+msgid "9:"
+msgstr "9:"
+
+#: ../Src/Gtk2/dasher.glade.h:6 ../Src/Gtk2/dashermaemo.glade.h:6
+msgid "<b>Adaptation:</b>"
+msgstr "<b>Addasu:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:7 ../Src/Gtk2/dashermaemo.glade.h:7
+msgid "<b>Advanced Settings:</b>"
+msgstr "<b>Gosodiadau Uwch:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:8 ../Src/Gtk2/dashergpe.glade.h:6
+#: ../Src/Gtk2/dashermaemo.glade.h:8
+msgid "<b>Alphabet Selection:</b>"
+msgstr "<b>Dewisiad yr Wyddor:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:9 ../Src/Gtk2/dashergpe.glade.h:7
+#: ../Src/Gtk2/dashermaemo.glade.h:9
+msgid "<b>Button control setup</b>"
+msgstr "<b>Cyfluniad rheoli botymau</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:10 ../Src/Gtk2/dashermaemo.glade.h:10
+msgid "<b>Button modes:</b>"
+msgstr "<b>Modd botwm:/b>"
+
+#: ../Src/Gtk2/dasher.glade.h:11 ../Src/Gtk2/dashergpe.glade.h:8
+#: ../Src/Gtk2/dashermaemo.glade.h:11
+msgid "<b>Color Selection:</b>"
+msgstr "<b>Dewis Lliwiau:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:12 ../Src/Gtk2/dashermaemo.glade.h:12
+msgid "<b>Compass Mode</b>"
+msgstr "<b>Modd Cwmpawd</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashergpe.glade.h:9
+#: ../Src/Gtk2/dashermaemo.glade.h:13
+msgid "<b>Control Style:</b>"
+msgstr "<b>Arddull Rheoli:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:14
+msgid "<b>Direct Mode And Menu Mode</b>"
+msgstr "<b>Modd Uniongyrchol a Modd Dewislen</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:15
+msgid "<b>External Input:</b>"
+msgstr "<b>Mewnbwn Allanol:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:14
+msgid "<b>Language Model:</b>"
+msgstr "<b>Model Iaith:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:17 ../Src/Gtk2/dashergpe.glade.h:10
+#: ../Src/Gtk2/dashermaemo.glade.h:16
+msgid "<b>Miscellaneous Options:</b>"
+msgstr "<b>Opsiynau Amrywiol:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:18 ../Src/Gtk2/dashermaemo.glade.h:17
+msgid "<b>One-Button Dynamic Mode</b>"
+msgstr "<b>Modd Sefydlog Un Botwm</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:18
+msgid "<b>One-Button Static Mode</b>"
+msgstr "<b>Modd Sefydlog Un Botwm</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:20 ../Src/Gtk2/dashergpe.glade.h:11
+#: ../Src/Gtk2/dashermaemo.glade.h:19
+msgid "<b>Orientation:</b>"
+msgstr "<b>Gogwydd:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:21 ../Src/Gtk2/dashergpe.glade.h:12
+#: ../Src/Gtk2/dashermaemo.glade.h:20
+msgid "<b>Smoothing:</b>"
+msgstr "<b>Llyfnu:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:22 ../Src/Gtk2/dashermaemo.glade.h:21
+msgid "<b>Socket Input</b>"
+msgstr "<b>Mewnbwn Soced</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashermaemo.glade.h:22
+msgid "<b>Speed:</b>"
+msgstr "<b>Cyflymder:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:24 ../Src/Gtk2/dashergpe.glade.h:14
+#: ../Src/Gtk2/dashermaemo.glade.h:23
+msgid "<b>Starting And Stopping:</b>"
+msgstr "<b>Yn Dechrau Ac Yn Aros:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:25 ../Src/Gtk2/dashergpe.glade.h:15
+#: ../Src/Gtk2/dashermaemo.glade.h:24
+msgid "<b>Toggle button Mode:</b>"
+msgstr "<b>Modd y botwm togl:/b>"
+
+#: ../Src/Gtk2/dasher.glade.h:26 ../Src/Gtk2/dashergpe.glade.h:16
+#: ../Src/Gtk2/dashermaemo.glade.h:25
+msgid "<b>View Options:</b>"
+msgstr "<b>Opsiynau Dangos:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashermaemo.glade.h:26
+msgid "<b>X Coordinate</b>"
+msgstr "<b>Cyfesuryn X</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:28 ../Src/Gtk2/dashergpe.glade.h:17
+#: ../Src/Gtk2/dashermaemo.glade.h:27
+msgid "<b>X/Y Coordinates:</b>"
+msgstr "<b>Cyfesurynnau X/Y:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:18
+#: ../Src/Gtk2/dashermaemo.glade.h:28
+msgid "<b>Y Axis Options:</b>"
+msgstr "<b>Opsiynau’r Echelin Y:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:30 ../Src/Gtk2/dashermaemo.glade.h:29
+msgid "<b>Y Coordinate</b>"
+msgstr "<b>Cyfesuryn Y</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashermaemo.glade.h:30
+msgid "<b>Zoom steps:</b>"
+msgstr "<b>Camau chwyddo:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashermaemo.glade.h:31
+msgid "Adapt speed automatically"
+msgstr "Addasu cyflymder yn awtomatig"
+
+#: ../Src/Gtk2/dasher.glade.h:33
+msgid "Advanced Settings"
+msgstr "Gosodiadau Uwch"
+
+#: ../Src/Gtk2/dasher.glade.h:34 ../Src/Gtk2/dashergpe.glade.h:20
+#: ../Src/Gtk2/dashermaemo.glade.h:33
+msgid "Alphabet"
+msgstr "Wyddor"
+
+#: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashergpe.glade.h:21
+#: ../Src/Gtk2/dashermaemo.glade.h:34
+msgid "Alphabet Default"
+msgstr "Gwyddor Rhagosodedig"
+
+#: ../Src/Gtk2/dasher.glade.h:36 ../Src/Gtk2/dashermaemo.glade.h:35
+msgid "Alternating direct mode"
+msgstr "Modd uniongyrchol bob yn ail"
+
+#: ../Src/Gtk2/dasher.glade.h:37 ../Src/Gtk2/dashergpe.glade.h:22
+#: ../Src/Gtk2/dashermaemo.glade.h:36
+msgid "Bottom to Top"
+msgstr "O'r gwaelod i'r top"
+
+#: ../Src/Gtk2/dasher.glade.h:38 ../Src/Gtk2/dashermaemo.glade.h:37
+msgid "Box non-uniformity:"
+msgstr "Di-unffurfiaeth blwch:"
+
+#: ../Src/Gtk2/dasher.glade.h:39
+msgid "Button Mode Options"
+msgstr "Opsiynau Modd Botymau"
+
+#: ../Src/Gtk2/dasher.glade.h:40
+msgid "Button Preferences"
+msgstr "Hoffterau Botymau"
+
+#: ../Src/Gtk2/dasher.glade.h:41
+msgid "Button Setup"
+msgstr "Gosod Botymau"
+
+#: ../Src/Gtk2/dasher.glade.h:42 ../Src/Gtk2/dashergpe.glade.h:23
+#: ../Src/Gtk2/dashermaemo.glade.h:38
+msgid "Button control setup"
+msgstr "Cyfluniad rheoli botymau"
+
+#: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashergpe.glade.h:24
+#: ../Src/Gtk2/dashermaemo.glade.h:39
+msgid "Button mode"
+msgstr "Modd botwm"
+
+#: ../Src/Gtk2/dasher.glade.h:44 ../Src/Gtk2/dashergpe.glade.h:25
+#: ../Src/Gtk2/dashermaemo.glade.h:41
+msgid "Button:"
+msgstr "Botwm:"
+
+#: ../Src/Gtk2/dasher.glade.h:45
+msgid "Cancel"
+msgstr "Diddymu"
+
+#: ../Src/Gtk2/dasher.glade.h:46 ../Src/Gtk2/dashermaemo.glade.h:43
+msgid "Click mode"
+msgstr "Modd clic"
+
+#: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:44
+msgid "Compass mode"
+msgstr "Modd cwmpawd"
+
+#: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashermaemo.glade.h:46
+msgid "Control dasher from network socket instead of mouse (advanced)"
+msgstr "Rheoli dasher o'r rhwydwaith yn hytrach na'r llygoden (dewis uwch)"
+
+#: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:29
+#: ../Src/Gtk2/dashermaemo.glade.h:47
+msgid "Control mode"
+msgstr "Modd rheoli"
+
+#: ../Src/Gtk2/dasher.glade.h:51 ../Src/Gtk2/dashergpe.glade.h:30
+#: ../Src/Gtk2/dashermaemo.glade.h:48
+msgid "Copy"
+msgstr "Copïo"
+
+#: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:31
+#: ../Src/Gtk2/dashermaemo.glade.h:49
+msgid "Copy _All"
+msgstr "Copïo _Popeth"
+
+#: ../Src/Gtk2/dasher.glade.h:53 ../Src/Gtk2/dashergpe.glade.h:32
+#: ../Src/Gtk2/dashermaemo.glade.h:50
+msgid "Copy all on stop"
+msgstr "Copïo popeth wrth atal"
+
+#: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashermaemo.glade.h:51
+msgid "Custom:"
+msgstr "Addasedig:"
+
+#: ../Src/Gtk2/dasher.glade.h:55 ../Src/Gtk2/dashergpe.glade.h:33
+#: ../Src/Gtk2/dashermaemo.glade.h:52
+msgid "Cut"
+msgstr "Torri"
+
+#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashergpe.glade.h:34
+#: ../Src/Gtk2/dashermaemo.glade.h:53
+msgid "Cyclical button mode"
+msgstr "Modd botwm cylchol"
+
+#. g_type_class_ref(dasher_gtk_text_view_get_type());
+#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:35
+#: ../Src/Gtk2/dashermaemo.glade.h:54 ../Src/main.cc:190
+msgid "Dasher"
+msgstr "Dasher"
+
+#: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:36
+#: ../Src/Gtk2/dashermaemo.glade.h:55
+msgid "Dasher Preferences"
+msgstr "Hoffterau Dasher"
+
+#: ../Src/Gtk2/dasher.glade.h:59
+msgid "Direct mode"
+msgstr "Modd uniongyrchol"
+
+#: ../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:37
+#: ../Src/Gtk2/dashermaemo.glade.h:56
+msgid "Distance from centerline for start on mouse position:"
+msgstr "Pellter o'r llinell ganol ar gyfer cychwyn wrth safle'r llygoden:"
+
+#: ../Src/Gtk2/dasher.glade.h:61
+msgid "Done"
+msgstr "Wedi gorffen"
+
+#: ../Src/Gtk2/dasher.glade.h:62 ../Src/Gtk2/dashergpe.glade.h:38
+#: ../Src/Gtk2/dashermaemo.glade.h:57
+msgid "Down/3:"
+msgstr "I Lawr/3:"
+
+#: ../Src/Gtk2/dasher.glade.h:63 ../Src/Gtk2/dashergpe.glade.h:39
+#: ../Src/Gtk2/dashermaemo.glade.h:58
+msgid "Draw box outlines"
+msgstr "Arlunio amlinellau bocsys"
+
+#: ../Src/Gtk2/dasher.glade.h:64 ../Src/Gtk2/dashergpe.glade.h:40
+#: ../Src/Gtk2/dashermaemo.glade.h:59
+msgid "Draw line between crosshairs and mouse"
+msgstr "Arlunio llinell rhwng y blewyn croes a'r llygoden"
+
+#: ../Src/Gtk2/dasher.glade.h:65 ../Src/Gtk2/dashermaemo.glade.h:60
+msgid "Drop time:  "
+msgstr "Amser gollwng:"
+
+#: ../Src/Gtk2/dasher.glade.h:66 ../Src/Gtk2/dashergpe.glade.h:42
+#: ../Src/Gtk2/dashermaemo.glade.h:62
+msgid "Enter text into other windows"
+msgstr "Rhoi testun i mewn i ffenestri eraill"
+
+#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashergpe.glade.h:43
+#: ../Src/Gtk2/dashermaemo.glade.h:63
+msgid "Eyetracker mode"
+msgstr "Modd dilyn llygad"
+
+#: ../Src/Gtk2/dasher.glade.h:68 ../Src/Gtk2/dashermaemo.glade.h:64
+msgid "Four-button direct mode"
+msgstr "Modd uniongyrchol pedwar botwm"
+
+#: ../Src/Gtk2/dasher.glade.h:69
+msgid "General"
+msgstr "Cyffredinol"
+
+#: ../Src/Gtk2/dasher.glade.h:70
+msgid ""
+"If this mode is selected, up and down will\n"
+"cycle backwards and forwards between coordinates and right will confirm the "
+"choice"
+msgstr ""
+"Os yw'r modd yma wedi ei ddewis, bydd i fyny\n"
+"ac i lawr yn cylchu ymlaen ac yn ôl drwy'r cyfesurynnau, a bydd y dde yn "
+"cadarnhau'r dewis"
+
+#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashermaemo.glade.h:67
+msgid "Increase line thickness"
+msgstr "Cynyddu trwch llinell"
+
+#: ../Src/Gtk2/dasher.glade.h:73 ../Src/Gtk2/dashermaemo.glade.h:68
+msgid "Japanese"
+msgstr "Siapanëeg"
+
+#: ../Src/Gtk2/dasher.glade.h:74 ../Src/Gtk2/dashermaemo.glade.h:69
+msgid "Label"
+msgstr "Label"
+
+#: ../Src/Gtk2/dasher.glade.h:75 ../Src/Gtk2/dashermaemo.glade.h:70
+msgid "Language model adapts as you write."
+msgstr "Model iaith yn addasu wrth i chi ysgrifennu."
+
+#: ../Src/Gtk2/dasher.glade.h:76 ../Src/Gtk2/dashergpe.glade.h:45
+#: ../Src/Gtk2/dashermaemo.glade.h:71
+msgid "Large"
+msgstr "Mawr"
+
+#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashergpe.glade.h:46
+#: ../Src/Gtk2/dashermaemo.glade.h:72
+msgid "Left to Right"
+msgstr "Chwith i'r Dde"
+
+#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:47
+#: ../Src/Gtk2/dashermaemo.glade.h:73
+msgid "Left/2:"
+msgstr "Chwith/2:"
+
+#: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashermaemo.glade.h:74
+msgid "Max"
+msgstr "Uchaf"
+
+#: ../Src/Gtk2/dasher.glade.h:80 ../Src/Gtk2/dashermaemo.glade.h:75
+msgid "Min"
+msgstr "Lleiaf"
+
+#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashermaemo.glade.h:76
+msgid "Miscellaneous"
+msgstr "Amrywiol"
+
+#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashermaemo.glade.h:77
+msgid "Mixture model (PPM/dictionary)"
+msgstr "Model Cymysgedd (Geiriadur/PPM)"
+
+#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:48
+#: ../Src/Gtk2/dashermaemo.glade.h:78
+msgid "New file"
+msgstr "Ffeil Newydd"
+
+#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:49
+#: ../Src/Gtk2/dashermaemo.glade.h:79
+msgid "Normal"
+msgstr "Arferol"
+
+#: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashermaemo.glade.h:80
+msgid "Number of \"zoom-out boxes\":"
+msgstr "Nifer o \"flychau crebachu\":"
+
+#: ../Src/Gtk2/dasher.glade.h:86 ../Src/Gtk2/dashermaemo.glade.h:81
+msgid "Number of boxes:"
+msgstr "Nifer o flychau:"
+
+#: ../Src/Gtk2/dasher.glade.h:87 ../Src/Gtk2/dashergpe.glade.h:51
+#: ../Src/Gtk2/dashermaemo.glade.h:82
+msgid "One dimensional mode"
+msgstr "Modd un dimensiwn"
+
+#: ../Src/Gtk2/dasher.glade.h:88 ../Src/Gtk2/dashermaemo.glade.h:83
+msgid "One-button dynamic mode"
+msgstr "Modd un-botwm dynamig"
+
+#: ../Src/Gtk2/dasher.glade.h:89 ../Src/Gtk2/dashermaemo.glade.h:84
+msgid "One-button static mode"
+msgstr "Modd sefydlog un botwm"
+
+#: ../Src/Gtk2/dasher.glade.h:90 ../Src/Gtk2/dashergpe.glade.h:52
+#: ../Src/Gtk2/dashermaemo.glade.h:85
+msgid "Open file"
+msgstr "Agor ffeil"
+
+#: ../Src/Gtk2/dasher.glade.h:91 ../Src/Gtk2/dashermaemo.glade.h:86
+msgid "Ordinary control"
+msgstr "Rheolydd arferol"
+
+#: ../Src/Gtk2/dasher.glade.h:92 ../Src/Gtk2/dashergpe.glade.h:54
+#: ../Src/Gtk2/dashermaemo.glade.h:87
+msgid "Paste"
+msgstr "Gludo"
+
+#: ../Src/Gtk2/dasher.glade.h:93 ../Src/Gtk2/dashergpe.glade.h:55
+#: ../Src/Gtk2/dashermaemo.glade.h:88
+msgid "Pause outside window"
+msgstr "Seibio tu allan i ffenest"
+
+#: ../Src/Gtk2/dasher.glade.h:94 ../Src/Gtk2/dashermaemo.glade.h:89
+msgid "Port"
+msgstr "Porth"
+
+#: ../Src/Gtk2/dasher.glade.h:95 ../Src/Gtk2/dashermaemo.glade.h:90
+msgid "Prediction"
+msgstr "Rhagwelediad"
+
+#: ../Src/Gtk2/dasher.glade.h:96 ../Src/Gtk2/dashermaemo.glade.h:91
+msgid "Print socket-related debugging information to console"
+msgstr "Printio i'r consol y wybodaeth datnamu ynglŷn â'r soced"
+
+#: ../Src/Gtk2/dasher.glade.h:97 ../Src/Gtk2/dashermaemo.glade.h:92
+msgid "Pulsing mode"
+msgstr "Modd pylsio"
+
+#: ../Src/Gtk2/dasher.glade.h:98 ../Src/Gtk2/dashergpe.glade.h:56
+#: ../Src/Gtk2/dashermaemo.glade.h:93
+msgid "Right to Left"
+msgstr "De i'r Chwith"
+
+#: ../Src/Gtk2/dasher.glade.h:99 ../Src/Gtk2/dashermaemo.glade.h:94
+msgid "Right zoom:  "
+msgstr "Chwyddo de:"
+
+#: ../Src/Gtk2/dasher.glade.h:100 ../Src/Gtk2/dashergpe.glade.h:57
+#: ../Src/Gtk2/dashermaemo.glade.h:95
+msgid "Right/4:"
+msgstr "De/4:"
+
+#: ../Src/Gtk2/dasher.glade.h:101 ../Src/Gtk2/dashermaemo.glade.h:96
+msgid "Safety margin:"
+msgstr "Ffin gwall:"
+
+#: ../Src/Gtk2/dasher.glade.h:102 ../Src/Gtk2/dashergpe.glade.h:58
+#: ../Src/Gtk2/dashermaemo.glade.h:97
+msgid "Save file"
+msgstr "Cadw'r ffeil"
+
+#: ../Src/Gtk2/dasher.glade.h:103 ../Src/Gtk2/dashergpe.glade.h:59
+#: ../Src/Gtk2/dashermaemo.glade.h:98
+msgid "Save file as"
+msgstr "Cadw'r ffeil fel"
+
+#: ../Src/Gtk2/dasher.glade.h:104 ../Src/Gtk2/dashermaemo.glade.h:99
+msgid "Scaling amount (1D mode):"
+msgstr "Ffactor graddio (modd 1D):"
+
+#: ../Src/Gtk2/dasher.glade.h:106 ../Src/Gtk2/dashergpe.glade.h:61
+#: ../Src/Gtk2/dashermaemo.glade.h:101
+msgid "Select Font"
+msgstr "Dewis Ffont"
+
+#: ../Src/Gtk2/dasher.glade.h:107
+msgid "Show Advanced Settings"
+msgstr "Dangos Dewisiadau Uwch"
+
+#: ../Src/Gtk2/dasher.glade.h:108 ../Src/Gtk2/dashergpe.glade.h:62
+#: ../Src/Gtk2/dashermaemo.glade.h:102
+msgid "Show mouse position"
+msgstr "Dangos safle'r llygoden"
+
+#: ../Src/Gtk2/dasher.glade.h:109 ../Src/Gtk2/dashergpe.glade.h:63
+#: ../Src/Gtk2/dashermaemo.glade.h:103
+msgid "Show speed slider"
+msgstr "Dangos llithrwr cyflymder"
+
+#: ../Src/Gtk2/dasher.glade.h:110 ../Src/Gtk2/dashergpe.glade.h:64
+#: ../Src/Gtk2/dashermaemo.glade.h:104
+msgid "Show toolbar"
+msgstr "Dangos bar offer"
+
+#: ../Src/Gtk2/dasher.glade.h:111
+msgid "Socket Options"
+msgstr "Opsiynau Soced"
+
+#: ../Src/Gtk2/dasher.glade.h:112
+msgid "Socket Preferences"
+msgstr "Hoffterau Soced"
+
+#: ../Src/Gtk2/dasher.glade.h:113 ../Src/Gtk2/dashergpe.glade.h:65
+#: ../Src/Gtk2/dashermaemo.glade.h:106
+msgid "Speak on stop"
+msgstr "Siarad wrth atal"
+
+#: ../Src/Gtk2/dasher.glade.h:114 ../Src/Gtk2/dashermaemo.glade.h:107
+msgid "Standard letter-based PPM"
+msgstr "PPM safonol seiliedig ar lythyr"
+
+#: ../Src/Gtk2/dasher.glade.h:115 ../Src/Gtk2/dashergpe.glade.h:66
+#: ../Src/Gtk2/dashermaemo.glade.h:108
+msgid "Start on left mouse button"
+msgstr "Cychwyn ar fotwm chwith y llygoden"
+
+#: ../Src/Gtk2/dasher.glade.h:116 ../Src/Gtk2/dashergpe.glade.h:67
+#: ../Src/Gtk2/dashermaemo.glade.h:109
+msgid "Start on space bar"
+msgstr "Cychwyn ar y bar bwlch"
+
+#: ../Src/Gtk2/dasher.glade.h:117 ../Src/Gtk2/dashergpe.glade.h:68
+#: ../Src/Gtk2/dashermaemo.glade.h:110
+msgid "Start with mouse position"
+msgstr "Cychwyn gyda safle'r llygoden"
+
+#: ../Src/Gtk2/dasher.glade.h:118 ../Src/Gtk2/dashermaemo.glade.h:111
+msgid "Static menu mode"
+msgstr "Modd dewislen sefydlog"
+
+#: ../Src/Gtk2/dasher.glade.h:119 ../Src/Gtk2/dashermaemo.glade.h:112
+msgid "Steady mode"
+msgstr "Modd cadarn"
+
+#: ../Src/Gtk2/dasher.glade.h:120 ../Src/Gtk2/dashergpe.glade.h:69
+#: ../Src/Gtk2/dashermaemo.glade.h:114
+msgid "Timestamp new files"
+msgstr "Rhoi marc amser ar ffeiliau newydd"
+
+#: ../Src/Gtk2/dasher.glade.h:121 ../Src/Gtk2/dashergpe.glade.h:70
+#: ../Src/Gtk2/dashermaemo.glade.h:115
+msgid "Top to Bottom"
+msgstr "Fyny i'r Lawr"
+
+#: ../Src/Gtk2/dasher.glade.h:122 ../Src/Gtk2/dashergpe.glade.h:71
+#: ../Src/Gtk2/dashermaemo.glade.h:116
+msgid "Training"
+msgstr "Hyfforddi"
+
+#: ../Src/Gtk2/dasher.glade.h:124 ../Src/Gtk2/dashergpe.glade.h:73
+#: ../Src/Gtk2/dashermaemo.glade.h:118
+msgid "Up/1:"
+msgstr "I Fyny/1:"
+
+#: ../Src/Gtk2/dasher.glade.h:125 ../Src/Gtk2/dashermaemo.glade.h:119
+msgid ""
+"Use this control to adjust the relative sizes of the \n"
+"letter boxes. Note that selecting high values will slow\n"
+"your writing speed."
+msgstr ""
+"Defnyddiwch y rheolydd hwn i addasu meintiau cymharol y\n"
+"blychau llythyren. Sylwer y bydd dewis gwerthoedd mawr\n"
+"yn arafu eich cyflymder ysgrifennu."
+
+#: ../Src/Gtk2/dasher.glade.h:128 ../Src/Gtk2/dashergpe.glade.h:75
+#: ../Src/Gtk2/dashermaemo.glade.h:122
+msgid "Very Large"
+msgstr "Mawr Iawn"
+
+#: ../Src/Gtk2/dasher.glade.h:129 ../Src/Gtk2/dashergpe.glade.h:76
+#: ../Src/Gtk2/dashermaemo.glade.h:123
+msgid "View"
+msgstr "Golwg"
+
+#: ../Src/Gtk2/dasher.glade.h:130 ../Src/Gtk2/dashermaemo.glade.h:124
+msgid "Word-based model"
+msgstr "Model seiliedig ar eiriau"
+
+#: ../Src/Gtk2/dasher.glade.h:131 ../Src/Gtk2/dashergpe.glade.h:77
+#: ../Src/Gtk2/dashermaemo.glade.h:125
+msgid "X:"
+msgstr "X:"
+
+#: ../Src/Gtk2/dasher.glade.h:132 ../Src/Gtk2/dashergpe.glade.h:78
+#: ../Src/Gtk2/dashermaemo.glade.h:126
+msgid "Y:"
+msgstr "Y:"
+
+#: ../Src/Gtk2/dasher.glade.h:133 ../Src/Gtk2/dashermaemo.glade.h:127
+msgid "Zoom:"
+msgstr "Chwyddo:"
+
+#: ../Src/Gtk2/dasher.glade.h:134 ../Src/Gtk2/dashergpe.glade.h:79
+#: ../Src/Gtk2/dashermaemo.glade.h:128
+msgid "_About"
+msgstr "_Ynghylch"
+
+#: ../Src/Gtk2/dasher.glade.h:135 ../Src/Gtk2/dashergpe.glade.h:80
+#: ../Src/Gtk2/dashermaemo.glade.h:129
+msgid "_Append to file"
+msgstr "_Atodi i ffeil"
+
+#: ../Src/Gtk2/dasher.glade.h:136 ../Src/Gtk2/dashergpe.glade.h:81
+#: ../Src/Gtk2/dashermaemo.glade.h:130
+msgid "_Dasher Font"
+msgstr "Ffont _Dasher"
+
+#: ../Src/Gtk2/dasher.glade.h:137 ../Src/Gtk2/dashergpe.glade.h:82
+#: ../Src/Gtk2/dashermaemo.glade.h:131
+msgid "_Dasher Font Size"
+msgstr "Maint y Ffont Dasher"
+
+#: ../Src/Gtk2/dasher.glade.h:138 ../Src/Gtk2/dashergpe.glade.h:83
+#: ../Src/Gtk2/dashermaemo.glade.h:132
+msgid "_Edit"
+msgstr "_Golygu"
+
+#: ../Src/Gtk2/dasher.glade.h:139 ../Src/Gtk2/dashergpe.glade.h:84
+#: ../Src/Gtk2/dashermaemo.glade.h:133
+msgid "_Edit Font"
+msgstr "Golygu'r Ffont"
+
+#: ../Src/Gtk2/dasher.glade.h:140 ../Src/Gtk2/dashergpe.glade.h:85
+#: ../Src/Gtk2/dashermaemo.glade.h:134
+msgid "_File"
+msgstr "_Ffeil"
+
+#: ../Src/Gtk2/dasher.glade.h:141 ../Src/Gtk2/dashergpe.glade.h:86
+#: ../Src/Gtk2/dashermaemo.glade.h:135
+msgid "_Help"
+msgstr "_Cymorth"
+
+#: ../Src/Gtk2/dasher.glade.h:142 ../Src/Gtk2/dashergpe.glade.h:87
+#: ../Src/Gtk2/dashermaemo.glade.h:136
+msgid "_Import Training Text"
+msgstr "_Mewnforio Testun er mwyn Hyfforddi"
+
+#: ../Src/Gtk2/dasher.glade.h:143 ../Src/Gtk2/dashergpe.glade.h:88
+#: ../Src/Gtk2/dashermaemo.glade.h:137
+msgid "_Options"
+msgstr "_Opsiynau"
+
+#: ../Src/Gtk2/dasher.glade.h:144 ../Src/Gtk2/dashergpe.glade.h:89
+#: ../Src/Gtk2/dashermaemo.glade.h:138
+msgid "_Reset fonts"
+msgstr "_Ailosod ffontiau"
+
+#: ../Src/Gtk2/dasher.glade.h:145 ../Src/Gtk2/dashergpe.glade.h:90
+#: ../Src/Gtk2/dashermaemo.glade.h:139
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr "abcdefghijk ABCDEFGHIJK áêïòùŵŷ"
+
+#: ../Src/Gtk2/dashergpe.glade.h:13
+msgid "<b>Speed</b>"
+msgstr "<b>Cyflymder</b>"
+
+#: ../Src/Gtk2/dashergpe.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:32
+msgid "Advanced"
+msgstr "Pellach"
+
+#: ../Src/Gtk2/dashergpe.glade.h:26
+msgid "Change color scheme automatically"
+msgstr "Newid y cynllun lliwiau yn awtomatig"
+
+#: ../Src/Gtk2/dashergpe.glade.h:27
+msgid "Color"
+msgstr "Lliw"
+
+#: ../Src/Gtk2/dashergpe.glade.h:41 ../Src/Gtk2/dashermaemo.glade.h:61
+msgid "Edit Button-control options"
+msgstr "Golygu opsiynau rheoli botymau"
+
+#: ../Src/Gtk2/dashergpe.glade.h:44
+msgid ""
+"If this mode is selected, up and down will cycle backwards and forwards "
+"between coordinates and right will confirm the choice"
+msgstr ""
+"Os yw'r modd yma wedi ei ddewis, bydd i fyny ac i lawr yn mynd yn ôl ac "
+"ymlaen rhwng cyfesurynnau a bydd y dde yn cadarnhau'r dewis"
+
+#: ../Src/Gtk2/dashergpe.glade.h:50
+msgid "Number of pixels that should cover the entire Y range:"
+msgstr "Nifer y picseli a ddylai orchuddio'r holl ystod Y:"
+
+#: ../Src/Gtk2/dashergpe.glade.h:53
+msgid "Orientation"
+msgstr "Gogwydd"
+
+#: ../Src/Gtk2/dashergpe.glade.h:74
+msgid ""
+"Use this control to adjust the relative sizes of the letter boxes. Note that "
+"selecting high values will slow your writing speed."
+msgstr ""
+"Defnyddiwch y rheolydd hwn i addasu meintiau cymharol y blychau llythyren. "
+"Sylwer y bydd dewis gwerthoedd mawr yn arafu eich cyflymder ysgrifennu."
+
+#: ../Src/Gtk2/dashermaemo.glade.h:15
+msgid "<b>Menu Mode</b>"
+msgstr "<b>Modd Dewislen</b>"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:40
+msgid "Button setup"
+msgstr "Gosod botymau"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:65
+msgid ""
+"If this mode is selected, up  and down will\n"
+"cycle backwards and forwards between coordinates and right will confirm the "
+"choice"
+msgstr ""
+"Os yw'r modd yma wedi ei ddewis, bydd i fyny ac i\n"
+"lawr yn cylchu ymlaen ac yn ôl drwy'r cyfesurynnau,\n"
+"a bydd y dde yn cadarnhau'r dewis"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:105
+msgid "Socket"
+msgstr "Soced"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:113
+msgid "Three-button direct mode"
+msgstr "Modd uniongyrchol tri botwm"
+
+#: ../Src/Gtk2/speech.cc:29
+#, c-format
+msgid "Unable to initialize speech support\n"
+msgstr "Ni ellir ymgychwyn cynhaliaeth siarad\n"
+
+#: ../Src/Gtk2/speech.cc:52
+#, c-format
+msgid "Unable to initialize voices\n"
+msgstr "Methu ymgychwyn lleisiau\n"
+
+#: ../Src/Gtk2/speech.cc:64
+#, c-format
+msgid "Warning: unable to set speech parameters\n"
+msgstr "Rhybudd: ni ellir gosod paramedrau siarad\n"
+
+#: ../Src/main.cc:124
+msgid "Dasher Text Entry"
+msgstr "Cofnod Testun Dasher"

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+  <alphabet name="Czech / &#268;e&#353;tina">
+    <orientation type="LR" />
+    <encoding type="Western" />
+<palette>European/Asian</palette>
+    <train>training_czech_CS.txt</train>
+<paragraph d="&#182;" b="9"/>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<control d="Control" t="" b="8"/>
+    <group name="Mal&#225; p&#237;smena" b="0">
+      <s t="a" d="a" />
+      <s t="&#225;" d="&#225;" />
+      <s t="b" d="b" />
+      <s t="c" d="c" />
+      <s t="&#269;" d="&#269;" />
+      <s t="d" d="d" />
+      <s t="&#271;" d="&#271;" />
+      <s t="e" d="e" />
+      <s t="&#233;" d="&#233;" />
+      <s t="&#283;" d="&#283;" />
+      <s t="f" d="f" />
+      <s t="g" d="g" />
+      <s t="h" d="h" />
+      <s t="i" d="i" />
+      <s t="&#237;" d="&#237;" />
+      <s t="j" d="j" />
+      <s t="k" d="k" />
+      <s t="l" d="l" />
+      <s t="m" d="m" />
+      <s t="n" d="n" />
+      <s t="&#328;" d="&#328;" />
+      <s t="o" d="o" />
+      <s t="&#243;" d="&#243;" />
+      <s t="p" d="p" />
+      <s t="q" d="q" />
+      <s t="r" d="r" />
+      <s t="&#345;" d="&#345;" />
+      <s t="s" d="s" />
+      <s t="&#353;" d="&#353;" />
+      <s t="t" d="t" />
+      <s t="&#357;" d="&#357;" />
+      <s t="u" d="u" />
+      <s t="&#250;" d="&#250;" />
+      <s t="&#367;" d="&#367;" />
+      <s t="v" d="v" />
+      <s t="w" d="w" />
+      <s t="x" d="x" />
+      <s t="y" d="y" />
+      <s t="&#253;" d="&#253;" />
+      <s t="z" d="z" />
+      <s t="&#382;" d="&#382;" />
+    </group>
+    <group name="Velk&#225; p&#237;smena" b="111">
+      <s t="A" d="A" />
+      <s t="&#193;" d="&#193;" />
+      <s t="B" d="B" />
+      <s t="C" d="C" />
+      <s t="&#268;" d="&#268;" />
+      <s t="D" d="D" />
+      <s t="&#270;" d="&#270;" />
+      <s t="E" d="E" />
+      <s t="&#201;" d="&#201;" />
+      <s t="&#282;" d="&#282;" />
+      <s t="F" d="F" />
+      <s t="G" d="G" />
+      <s t="H" d="H" />
+      <s t="I" d="I" />
+      <s t="&#205;" d="&#205;" />
+      <s t="J" d="J" />
+      <s t="K" d="K" />
+      <s t="L" d="L" />
+      <s t="M" d="M" />
+      <s t="N" d="N" />
+      <s t="&#327;" d="&#327;" />
+      <s t="O" d="O" />
+      <s t="&#211;" d="&#211;" />
+      <s t="P" d="P" />
+      <s t="Q" d="Q" />
+      <s t="R" d="R" />
+      <s t="&#344;" d="&#344;" />
+      <s t="S" d="S" />
+      <s t="&#352;" d="&#352;" />
+      <s t="T" d="T" />
+      <s t="&#356;" d="&#356;" />
+      <s t="U" d="U" />
+      <s t="&#218;" d="&#218;" />
+      <s t="&#366;" d="&#366;" />
+      <s t="V" d="V" />
+      <s t="W" d="W" />
+      <s t="X" d="X" />
+      <s t="Y" d="Y" />
+      <s t="&#221;" d="&#221;" />
+      <s t="Z" d="Z" />
+      <s t="&#381;" d="&#381;" />
+    </group>
+    <group name="&#268;&#237;slice" b="113">
+<s d="1" t="1" b="90"/>
+<s d="2" t="2" b="91"/>
+<s d="3" t="3" b="92"/>
+<s d="4" t="4" b="93"/>
+<s d="5" t="5" b="94"/>
+<s d="6" t="6" b="90"/>
+<s d="7" t="7" b="91"/>
+<s d="8" t="8" b="92"/>
+<s d="9" t="9" b="93"/>
+<s d="0" t="0" b="94"/>
+	</group>
+    <group name="Interpunkce" b="112">
+<s b="90" d="%" t="%"/>
+<s b="91" d="*" t="*"/>
+<s b="92" d="+" t="+"/>
+<s b="93" d="=" t="="/>
+<s b="94" d="/" t="/"/>
+<s b="95" d="#" t="#"/>
+<s d="&#8364;" t="&#8364;" b="96" note="euro" />
+<s b="97"  d="&#163;" t="&#163;" note="Pound" />
+<s b="98" d="$" t="$"/>
+<s b="99" d="|" t="|"/>
+<s b="95" d="\" t="\"/>
+<s b="96" d="~" t="~"/>
+<s b="97" d="^" t="^"/>
+<s b="98" d="_" t="_"/>
+<s b="99" d="&amp;" t="&amp;"/> 
+<s b="95" d="@" t="@"/>
+<s b="105" d="[" t="["/>
+<s b="106" d="]" t="]"/>
+<s b="107" d="{" t="{"/>
+<s b="108" d="}" t="}"/>
+<s b="109" d="&lt;" t="&lt;"/>
+<s b="105" d="&gt;" t="&gt;"/>
+<s b="106" d="(" t="("/>
+<s b="107" d=")" t=")"/>
+<s  b="108" d="&#x203A;" t="&#x203A;" note="French right single quotation mark" />
+<s  b="109" d="&#x2039;" t="&#x2039;" note="French left single quotation mark" />
+<s  b="105" d="&#x00BB;" t="&#x00BB;" note="French right double quotation mark" />
+<s  b="106" d="&#x00AB;" t="&#x00AB;" note="French left double quotation mark" />
+<s  b="107" d="&#x201E;" t="&#x201E;" note="German left double quotation mark; Albanian right" />
+<s  b="108" d="&#x201C;" t="&#x201C;" note="left double quotation mark" />
+<s b="109" d="&#x0022;" t="&#x0022;" note="deprecated vertical double quotation mark" />
+<s b="107" d="&quot;" t="&quot;"/>
+<s b="108" d="&#x201D;" t="&#x201D;" note="right double quotation mark" />
+<s b="109" d="&#x201A;" t="&#x201A;" note="German left single quotation mark; Albanian right" />
+<s b="105" d="&#x2018;" t="&#x2018;" note="left single quotation mark" />
+<s b="106" d="&#x2019;" t="&#x2019;" note="right single quotation mark and apostrophe" />
+<s b="9"   d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
+<s b="104" d="&#x2026;" t="&#x2026;" note="ellipsis"/>
+<s b="100" d="-" t="-"/>
+<s b="101" d=":" t=":"/>
+<s b="102" d=";" t=";"/>
+<s b="103" d="?" t="?"/>
+<s b="104" d="!" t="!"/>
+<s b="100" d="," t=","/>
+<s b="104" d="&#183;" t="."/>
+    </group>
+  </alphabet>
+  <alphabet name="Czech / &#268;e&#353;tina (combining accents)">
+    <orientation type="LR" />
+    <encoding type="Western" />
+<palette>European/Asian</palette>
+    <train>training_czechC_CS.txt</train>
+<paragraph d="&#182;" b="9"/>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<control d="Control" t="" b="8"/>
+<group name="Combining accents" b="191"  visible="on">
+<s d="&#x25cc;&#x0300;"  t="&#x0300;" b="72" note="&#x0060; COMBINING GRAVE ACCENT  "/>
+<s d="&#x25cc;&#x0301;"  t="&#x0301;" b="82" note="&#x00B4; COMBINING ACUTE ACCENT  "/>
+<s d="&#x25cc;&#x0302;"  t="&#x0302;" b="72" note="&#x005E; COMBINING CIRCUMFLEX ACCENT  "/>
+<s d="&#x25cc;&#x0303;"  t="&#x0303;" b="82" note="&#x007E; COMBINING TILDE  "/>
+<s d="&#x25cc;&#x0304;"  t="&#x0304;" b="72" note="&#x00AF; COMBINING MACRON  "/>
+<s d="&#x25cc;&#x0306;"  t="&#x0306;" b="82" note="&#x02D8; COMBINING BREVE"/>
+<s d="&#x25cc;&#x0307;"  t="&#x0307;" b="72" note="&#x02D9; COMBINING DOT ABOVE"/>
+<s d="&#x25cc;&#x0308;"  t="&#x0308;" b="82" note="&#x00A8; COMBINING DIAERESIS or UMLAUT "/>
+<s d="&#x25cc;&#x030A;"  t="&#x030A;" b="72" note="&#x02DA; COMBINING RING ABOVE"/>
+<s d="&#x25cc;&#x030B;"  t="&#x030B;" b="82" note="&#x02DD; COMBINING DOUBLE ACUTE ACCENT"/>
+<s d="&#x25cc;&#x030C;"  t="&#x030C;" b="72" note="&#x02C7; COMBINING CARON"/>
+<s d="&#x25cc;&#x0326;"  t="&#x0326;" b="82" note="       COMBINING COMMA BELOW"/>
+<s d="&#x25cc;&#x0327;"  t="&#x0327;" b="72" note="&#x00B8; COMBINING CEDILLA  "/>
+<s d="&#x25cc;&#x0328;"  t="&#x0328;" b="82" note="&#x02DB; COMBINING OGONEK"/>
+</group>
+    <group name="Mal&#225; p&#237;smena" b="0" visible="off">
+<s d="a" t="a" b="10"/>
+<s d="b" t="b" b="11"/>
+<s d="c" t="c" b="12"/>
+<s d="d" t="d" b="13"/>
+<s d="e" t="e" b="14"/>
+<s d="f" t="f" b="15"/>
+<s d="g" t="g" b="16"/>
+<s d="h" t="h" b="17"/>
+<s d="i" t="i" b="18"/>
+<s d="j" t="j" b="19"/>
+<s d="k" t="k" b="20"/>
+<s d="l" t="l" b="21"/>
+<s d="m" t="m" b="22"/>
+<s d="n" t="n" b="23"/>
+<s d="o" t="o" b="24"/>
+<s d="p" t="p" b="25"/>
+<s d="q" t="q" b="26"/>
+<s d="r" t="r" b="27"/>
+<s d="s" t="s" b="28"/>
+<s d="t" t="t" b="29"/>
+<s d="u" t="u" b="30"/>
+<s d="v" t="v" b="31"/>
+<s d="w" t="w" b="32"/>
+<s d="x" t="x" b="33"/>
+<s d="y" t="y" b="34"/>
+<s d="z" t="z" b="35"/>
+</group>
+    <group name="Velk&#225; p&#237;smena" b="111">
+<s d="A" t="A" b="10"/>
+<s d="B" t="B" b="11"/>
+<s d="C" t="C" b="12"/>
+<s d="D" t="D" b="13"/>
+<s d="E" t="E" b="14"/>
+<s d="F" t="F" b="15"/>
+<s d="G" t="G" b="16"/>
+<s d="H" t="H" b="17"/>
+<s d="I" t="I" b="18"/>
+<s d="J" t="J" b="19"/>
+<s d="K" t="K" b="20"/>
+<s d="L" t="L" b="21"/>
+<s d="M" t="M" b="22"/>
+<s d="N" t="N" b="23"/>
+<s d="O" t="O" b="24"/>
+<s d="P" t="P" b="25"/>
+<s d="Q" t="Q" b="26"/>
+<s d="R" t="R" b="27"/>
+<s d="S" t="S" b="28"/>
+<s d="T" t="T" b="29"/>
+<s d="U" t="U" b="30"/>
+<s d="V" t="V" b="31"/>
+<s d="W" t="W" b="32"/>
+<s d="X" t="X" b="33"/>
+<s d="Y" t="Y" b="34"/>
+<s d="Z" t="Z" b="35"/>
+    </group>
+    <group name="&#268;&#237;slice" b="113">
+<s d="1" t="1" b="90"/>
+<s d="2" t="2" b="91"/>
+<s d="3" t="3" b="92"/>
+<s d="4" t="4" b="93"/>
+<s d="5" t="5" b="94"/>
+<s d="6" t="6" b="90"/>
+<s d="7" t="7" b="91"/>
+<s d="8" t="8" b="92"/>
+<s d="9" t="9" b="93"/>
+<s d="0" t="0" b="94"/>
+    </group>
+    <group name="Interpunkce" b="112">
+<s b="90" d="%" t="%"/>
+<s b="91" d="*" t="*"/>
+<s b="92" d="+" t="+"/>
+<s b="93" d="=" t="="/>
+<s b="94" d="/" t="/"/>
+<s b="95" d="#" t="#"/>
+<s d="&#8364;" t="&#8364;" b="96" note="euro" />
+<s b="97"  d="&#163;" t="&#163;" note="Pound" />
+<s b="98" d="$" t="$"/>
+<s b="99" d="|" t="|"/>
+<s b="95" d="\" t="\"/>
+<s b="96" d="~" t="~"/>
+<s b="97" d="^" t="^"/>
+<s b="98" d="_" t="_"/>
+<s b="99" d="&amp;" t="&amp;"/> 
+<s b="95" d="@" t="@"/>
+<s b="105" d="[" t="["/>
+<s b="106" d="]" t="]"/>
+<s b="107" d="{" t="{"/>
+<s b="108" d="}" t="}"/>
+<s b="109" d="&lt;" t="&lt;"/>
+<s b="105" d="&gt;" t="&gt;"/>
+<s b="106" d="(" t="("/>
+<s b="107" d=")" t=")"/>
+<s b="108" d="&#x203A;" t="&#x203A;" note="French right single quotation mark" />
+<s b="109" d="&#x2039;" t="&#x2039;" note="French left single quotation mark" />
+<s b="105" d="&#x00BB;" t="&#x00BB;" note="French right double quotation mark" />
+<s b="106" d="&#x00AB;" t="&#x00AB;" note="French left double quotation mark" />
+<s b="107" d="&#x201E;" t="&#x201E;" note="German left double quotation mark; Albanian right" />
+<s b="108" d="&#x201C;" t="&#x201C;" note="left double quotation mark" />
+<s b="109" d="&#x0022;" t="&#x0022;" note="deprecated vertical double quotation mark" />
+<s b="107" d="&quot;" t="&quot;"/>
+<s b="108" d="&#x201D;" t="&#x201D;" note="right double quotation mark" />
+<s b="109" d="&#x201A;" t="&#x201A;" note="German left single quotation mark; Albanian right" />
+<s b="105" d="&#x2018;" t="&#x2018;" note="left single quotation mark" />
+<s b="106" d="&#x2019;" t="&#x2019;" note="right single quotation mark and apostrophe" />
+<s b="9"   d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
+<s b="104" d="&#x2026;" t="&#x2026;" note="ellipsis"/>
+<s b="100" d="-" t="-"/>
+<s b="101" d=":" t=":"/>
+<s b="102" d=";" t=";"/>
+<s b="103" d="?" t="?"/>
+<s b="104" d="!" t="!"/>
+<s b="100" d="," t=","/>
+<s b="104" d="&#183;" t="."/>
+    </group>
+  </alphabet>
+</alphabets>

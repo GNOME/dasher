@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Georgian / &#4325;&#4304;&#4320;&#4311;&#4323;&#4314;&#4312; &#4308;&#4316;&#4304; with punctuation and numerals">
+<!-- Mkhedruli is used to write Georgian, Mingrelian -->
+<!-- see http://www.omniglot.com/writing/georgian2.htm -->
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>Default</palette>
+<train>training_georgian_GE.txt</train>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="lower case georgian letters (Mkhedruli) " b="0">
+<s d="&#x10D0;" t="&#x10D0;"  note="GEORGIAN  AN "   />
+<s d="&#x10D1;" t="&#x10D1;"  note="GEORGIAN  BAN "   />
+<s d="&#x10D2;" t="&#x10D2;"  note="GEORGIAN  GAN "   />
+<s d="&#x10D3;" t="&#x10D3;"  note="GEORGIAN  DON "   />
+<s d="&#x10D4;" t="&#x10D4;"  note="GEORGIAN  EN "   />
+<s d="&#x10D5;" t="&#x10D5;"  note="GEORGIAN  VIN "   />
+<s d="&#x10D6;" t="&#x10D6;"  note="GEORGIAN  ZEN "   />
+<s d="&#x10F1;" t="&#x10F1;"  note="GEORGIAN  HE "   />
+<s d="&#x10D7;" t="&#x10D7;"  note="GEORGIAN  TAN "   />
+<s d="&#x10D8;" t="&#x10D8;"  note="GEORGIAN  IN "   />
+<s d="&#x10D9;" t="&#x10D9;"  note="GEORGIAN  KAN "   />
+<s d="&#x10DA;" t="&#x10DA;"  note="GEORGIAN  LAS "   />
+<s d="&#x10DB;" t="&#x10DB;"  note="GEORGIAN  MAN "   />
+<s d="&#x10DC;" t="&#x10DC;"  note="GEORGIAN  NAR "   />
+<s d="&#x10F2;" t="&#x10F2;"  note="GEORGIAN  HIE "   />
+<s d="&#x10DD;" t="&#x10DD;"  note="GEORGIAN  ON "   />
+<s d="&#x10DE;" t="&#x10DE;"  note="GEORGIAN  PAR "   />
+<s d="&#x10DF;" t="&#x10DF;"  note="GEORGIAN  ZHAR "   />
+<s d="&#x10E0;" t="&#x10E0;"  note="GEORGIAN  RAE "   />
+<s d="&#x10E1;" t="&#x10E1;"  note="GEORGIAN  SAN "   />
+<s d="&#x10E2;" t="&#x10E2;"  note="GEORGIAN  TAR "   />
+<s d="&#x10F3;" t="&#x10F3;"  note="GEORGIAN  WE "   />
+<s d="&#x10E3;" t="&#x10E3;"  note="GEORGIAN  UN "   />
+<s d="&#x10E4;" t="&#x10E4;"  note="GEORGIAN  PHAR "   />
+<s d="&#x10E5;" t="&#x10E5;"  note="GEORGIAN  KHAR "   />
+<s d="&#x10E6;" t="&#x10E6;"  note="GEORGIAN  GHAN "   />
+<s d="&#x10E7;" t="&#x10E7;"  note="GEORGIAN  QAR "   />
+<s d="&#x10E8;" t="&#x10E8;"  note="GEORGIAN  SHIN "   />
+<s d="&#x10E9;" t="&#x10E9;"  note="GEORGIAN  CHIN "   />
+<s d="&#x10EA;" t="&#x10EA;"  note="GEORGIAN  CAN "   />
+<s d="&#x10EB;" t="&#x10EB;"  note="GEORGIAN  JIL "   />
+<s d="&#x10EC;" t="&#x10EC;"  note="GEORGIAN  CIL "   />
+<s d="&#x10ED;" t="&#x10ED;"  note="GEORGIAN  CHAR "   />
+<s d="&#x10EE;" t="&#x10EE;"  note="GEORGIAN  XAN "   />
+<s d="&#x10F4;" t="&#x10F4;"  note="GEORGIAN  HAR "   />
+<s d="&#x10EF;" t="&#x10EF;"  note="GEORGIAN  JHAN "   />
+<s d="&#x10F0;" t="&#x10F0;"  note="GEORGIAN  HAE "   />
+<s d="&#x10F5;" t="&#x10F5;"  note="GEORGIAN  HOE "   />
+<s d="&#x10F6;" t="&#x10F6;"  note="GEORGIAN  FI "   />
+<s d="&#x10F7;" t="&#x10F7;"  note="GEORGIAN  YN "   />
+<s d="&#x10F8;" t="&#x10F8;"  note="GEORGIAN  ELIFI "   />
+</group> 
+<group name="upper case letters (Mkhedruli) " b="111"> 
+<s d="&#x10A0;" t="&#x10A0;"  note="GEORGIAN CAPITAL  AN "   />
+<s d="&#x10A1;" t="&#x10A1;"  note="GEORGIAN CAPITAL  BAN "   />
+<s d="&#x10A2;" t="&#x10A2;"  note="GEORGIAN CAPITAL  GAN "   />
+<s d="&#x10A3;" t="&#x10A3;"  note="GEORGIAN CAPITAL  DON "   />
+<s d="&#x10A4;" t="&#x10A4;"  note="GEORGIAN CAPITAL  EN "   />
+<s d="&#x10A5;" t="&#x10A5;"  note="GEORGIAN CAPITAL  VIN "   />
+<s d="&#x10A6;" t="&#x10A6;"  note="GEORGIAN CAPITAL  ZEN "   />
+<s d="&#x10C1;" t="&#x10C1;"  note="GEORGIAN CAPITAL  HE "   />
+<s d="&#x10A7;" t="&#x10A7;"  note="GEORGIAN CAPITAL  TAN "   />
+<s d="&#x10A8;" t="&#x10A8;"  note="GEORGIAN CAPITAL  IN "   />
+<s d="&#x10A9;" t="&#x10A9;"  note="GEORGIAN CAPITAL  KAN "   />
+<s d="&#x10AA;" t="&#x10AA;"  note="GEORGIAN CAPITAL  LAS "   />
+<s d="&#x10AB;" t="&#x10AB;"  note="GEORGIAN CAPITAL  MAN "   />
+<s d="&#x10AC;" t="&#x10AC;"  note="GEORGIAN CAPITAL  NAR "   />
+<s d="&#x10C2;" t="&#x10C2;"  note="GEORGIAN CAPITAL  HIE "   />
+<s d="&#x10AD;" t="&#x10AD;"  note="GEORGIAN CAPITAL  ON "   />
+<s d="&#x10AE;" t="&#x10AE;"  note="GEORGIAN CAPITAL  PAR "   />
+<s d="&#x10AF;" t="&#x10AF;"  note="GEORGIAN CAPITAL  ZHAR "   />
+<s d="&#x10B0;" t="&#x10B0;"  note="GEORGIAN CAPITAL  RAE "   />
+<s d="&#x10B1;" t="&#x10B1;"  note="GEORGIAN CAPITAL  SAN "   />
+<s d="&#x10B2;" t="&#x10B2;"  note="GEORGIAN CAPITAL  TAR "   />
+<s d="&#x10C3;" t="&#x10C3;"  note="GEORGIAN CAPITAL  WE "   />
+<s d="&#x10B3;" t="&#x10B3;"  note="GEORGIAN CAPITAL  UN "   />
+<s d="&#x10B4;" t="&#x10B4;"  note="GEORGIAN CAPITAL  PHAR "   />
+<s d="&#x10B5;" t="&#x10B5;"  note="GEORGIAN CAPITAL  KHAR "   />
+<s d="&#x10B6;" t="&#x10B6;"  note="GEORGIAN CAPITAL  GHAN "   />
+<s d="&#x10B7;" t="&#x10B7;"  note="GEORGIAN CAPITAL  QAR "   />
+<s d="&#x10B8;" t="&#x10B8;"  note="GEORGIAN CAPITAL  SHIN "   />
+<s d="&#x10B9;" t="&#x10B9;"  note="GEORGIAN CAPITAL  CHIN "   />
+<s d="&#x10BA;" t="&#x10BA;"  note="GEORGIAN CAPITAL  CAN "   />
+<s d="&#x10BB;" t="&#x10BB;"  note="GEORGIAN CAPITAL  JIL "   />
+<s d="&#x10BC;" t="&#x10BC;"  note="GEORGIAN CAPITAL  CIL "   />
+<s d="&#x10BD;" t="&#x10BD;"  note="GEORGIAN CAPITAL  CHAR "   />
+<s d="&#x10BE;" t="&#x10BE;"  note="GEORGIAN CAPITAL  XAN "   />
+<s d="&#x10C4;" t="&#x10C4;"  note="GEORGIAN CAPITAL  HAR "   />
+<s d="&#x10BF;" t="&#x10BF;"  note="GEORGIAN CAPITAL  JHAN "   />
+<s d="&#x10C0;" t="&#x10C0;"  note="GEORGIAN CAPITAL  HAE "   />
+<s d="&#x10C5;" t="&#x10C5;"  note="GEORGIAN CAPITAL  HOE "   />
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1"/>
+<s d="2" t="2"/>
+<s d="3" t="3"/>
+<s d="4" t="4"/>
+<s d="5" t="5"/>
+<s d="6" t="6"/>
+<s d="7" t="7"/>
+<s d="8" t="8"/>
+<s d="9" t="9"/>
+<s d="0" t="0"/>
+</group>
+<group name="Punctuation" b="112">
+<s d="%" t="%"/>
+<s d="*" t="*"/>
+<s d="+" t="+"/>
+<s d="=" t="="/>
+<s d="/" t="/"/>
+<s d="#" t="#"/>
+<s d="$" t="$"/>
+<s d="|" t="|"/>
+<s d="\" t="\"/>
+<s d="~" t="~"/>
+<s d="^" t="^"/>
+<s d="_" t="_"/>
+<s d="&amp;" t="&amp;"/>
+<s d="@" t="@"/>
+<s d="[" t="["/>
+<s d="]" t="]"/>
+<s d="{" t="{"/>
+<s d="}" t="}"/>
+<s d="&lt;" t="&lt;"/>
+<s d="&gt;" t="&gt;"/>
+<s d="(" t="("/>
+<s d=")" t=")"/>
+<s d="&quot;" t="&quot;"/>
+<s d="`" t="`"/>
+<s d="&apos;" t="&apos;"/>
+<s b="9"   d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
+<s b="100"  d="-" t="-"/>
+<s b="101"  d=":" t=":"/>
+<s b="102"  d=";" t=";"/>
+<s b="103"  d="?" t="?"/>
+<s b="104"  d="!" t="!"/>
+<s b="100"  d="," t=","/>
+<s b="104"  d="." t="."/>
+</group>
+</alphabet>
+</alphabets>

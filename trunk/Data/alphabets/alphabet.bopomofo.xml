@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Chinese Zh&#x00F9;y&#299;n f&#x00FA;h&#x00E0;o  &#x3105;&#x3106;&#x3107;&#x3108; (Bopomofo) with punctuation and numerals">
+<!-- the national phonetic system of the Republic of China
+ for teaching the Chinese languages, especially Mandarin.
+ The system uses 37 special symbols to represent the Mandarin
+ sounds: 21 consonants and 16 vowels. There is a
+ one symbol-one sound correspondence. -->
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>Default</palette>
+<train>training_bopomofo_CN.txt</train>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="consonants (then vowels)" b="0">
+<s d="&#x3105;" t="&#x3105;"  note="BOPOMOFO LETTER B "  />
+<s d="&#x3106;" t="&#x3106;"  note="BOPOMOFO LETTER P "  />
+<s d="&#x3107;" t="&#x3107;"  note="BOPOMOFO LETTER M "  />
+<s d="&#x3108;" t="&#x3108;"  note="BOPOMOFO LETTER F "  />
+<s d="&#x3109;" t="&#x3109;"  note="BOPOMOFO LETTER D "  />
+<s d="&#x310A;" t="&#x310A;"  note="BOPOMOFO LETTER T "  />
+<s d="&#x310B;" t="&#x310B;"  note="BOPOMOFO LETTER N "  />
+<s d="&#x310C;" t="&#x310C;"  note="BOPOMOFO LETTER L "  />
+<s d="&#x310D;" t="&#x310D;"  note="BOPOMOFO LETTER G "  />
+<s d="&#x310E;" t="&#x310E;"  note="BOPOMOFO LETTER K "  />
+<s d="&#x310F;" t="&#x310F;"  note="BOPOMOFO LETTER H "  />
+<s d="&#x3110;" t="&#x3110;"  note="BOPOMOFO LETTER J "  />
+<s d="&#x3111;" t="&#x3111;"  note="BOPOMOFO LETTER Q "  />
+<s d="&#x3112;" t="&#x3112;"  note="BOPOMOFO LETTER X "  />
+<s d="&#x3113;" t="&#x3113;"  note="BOPOMOFO LETTER ZH "  />
+<s d="&#x3114;" t="&#x3114;"  note="BOPOMOFO LETTER CH "  />
+<s d="&#x3115;" t="&#x3115;"  note="BOPOMOFO LETTER SH "  />
+<s d="&#x3116;" t="&#x3116;"  note="BOPOMOFO LETTER R "  />
+<s d="&#x3117;" t="&#x3117;"  note="BOPOMOFO LETTER Z "  />
+<s d="&#x3118;" t="&#x3118;"  note="BOPOMOFO LETTER C "  />
+<s d="&#x3119;" t="&#x3119;"  note="BOPOMOFO LETTER S "  />
+<!-- </group> -->
+<!-- <group name="vowels" b="111"> -->
+<s d="&#x311A;" t="&#x311A;"  note="BOPOMOFO LETTER A "  />
+<s d="&#x311B;" t="&#x311B;"  note="BOPOMOFO LETTER O "  />
+<s d="&#x311C;" t="&#x311C;"  note="BOPOMOFO LETTER E "  />
+<s d="&#x311D;" t="&#x311D;"  note="BOPOMOFO LETTER EH "  />
+<s d="&#x311E;" t="&#x311E;"  note="BOPOMOFO LETTER AI "  />
+<s d="&#x311F;" t="&#x311F;"  note="BOPOMOFO LETTER EI "  />
+<s d="&#x3120;" t="&#x3120;"  note="BOPOMOFO LETTER AU "  />
+<s d="&#x3121;" t="&#x3121;"  note="BOPOMOFO LETTER OU "  />
+<s d="&#x3122;" t="&#x3122;"  note="BOPOMOFO LETTER AN "  />
+<s d="&#x3123;" t="&#x3123;"  note="BOPOMOFO LETTER EN "  />
+<s d="&#x3124;" t="&#x3124;"  note="BOPOMOFO LETTER ANG "  />
+<s d="&#x3125;" t="&#x3125;"  note="BOPOMOFO LETTER ENG "  />
+<s d="&#x3126;" t="&#x3126;"  note="BOPOMOFO LETTER ER "  />
+<s d="&#x3127;" t="&#x3127;"  note="BOPOMOFO LETTER I "  />
+<s d="&#x3128;" t="&#x3128;"  note="BOPOMOFO LETTER U "  />
+<s d="&#x3129;" t="&#x3129;"  note="BOPOMOFO LETTER IU "  />
+</group>
+<group name="combining diacritics" b="110">
+<s d="&#x25cc;&#x304;" t="&#x304;"  b="90"/> <!-- 1 --> 
+<s d="&#x25cc;&#x301;" t="&#x301;"  b="91"/> <!-- 2 --> 
+<s d="&#x25cc;&#x306;" t="&#x306;"  b="92"/> <!-- 3 --> 
+<s d="&#x25cc;&#x300;" t="&#x300;"  b="93"/> <!-- 4 --> 
+</group>
+<!-- <s d="&#x2C9;" t="&#x2C9;" /> 1 -->
+<!-- <s d="&#x2CA;" t="&#x2CA;" /> 2 -->
+<!-- <s d="&#x2C7;" t="&#x2C7;" /> 3 -->
+<!-- <s d="&#x2CB;" t="&#x2CB;" /> 4 -->
+<group name="Numbers" b="113">
+<s d="1" t="1"/>
+<s d="2" t="2"/>
+<s d="3" t="3"/>
+<s d="4" t="4"/>
+<s d="5" t="5"/>
+<s d="6" t="6"/>
+<s d="7" t="7"/>
+<s d="8" t="8"/>
+<s d="9" t="9"/>
+<s d="0" t="0"/>
+</group>
+<group name="Punctuation" b="112">
+<s d="%" t="%"/>
+<s d="*" t="*"/>
+<s d="+" t="+"/>
+<s d="=" t="="/>
+<s d="/" t="/"/>
+<s d="#" t="#"/>
+<s d="$" t="$"/>
+<s d="|" t="|"/>
+<s d="\" t="\"/>
+<s d="~" t="~"/>
+<s d="^" t="^"/>
+<s d="_" t="_"/>
+<s d="&amp;" t="&amp;"/>
+<s d="@" t="@"/>
+<s d="[" t="["/>
+<s d="]" t="]"/>
+<s d="{" t="{"/>
+<s d="}" t="}"/>
+<s d="&lt;" t="&lt;"/>
+<s d="&gt;" t="&gt;"/>
+<s d="(" t="("/>
+<s d=")" t=")"/>
+<s d="&quot;" t="&quot;"/>
+<s d="`" t="`"/>
+<s d="&apos;" t="&apos;"/>
+<s d="-" t="-"/>
+<s d=":" t=":"/>
+<s d=";" t=";"/>
+<s d="?" t="?"/>
+<s d="!" t="!"/>
+<s d="," t=","/>
+<s d="." t="."/>
+<s d="&#x300C;" t="&#x300C;" b="17" note="Asian left single quotation mark"  />
+<s d="&#x300D;" t="&#x300D;" b="20" note="Asian right single quotation mark" />
+<s d="&#x300E;" t="&#x300E;" b="17" note="Asian left double quotation mark"  />
+<s d="&#x300F;" t="&#x300F;" b="20" note="Asian right double quotation mark" />
+<s d="&#8231;"  t="&#8231;"  b="17" note="Asian partition dot" />
+<s d="&#12539;" t="&#12539;" b="20" note="Square partition dot"/>
+<s d="&#65294;" t="&#65294;" b="17" note="middle dot"/>
+<s d="&#183;"   t="&#183;"   b="20" note="mid-dot"/>
+<s d="&#65292;" t="&#65292;" b="17" note="Asian comma"/>
+<s d="&#12289;" t="&#12289;" b="20" note="Chinese comma"/>
+<s d="&#12290;" t="&#12290;" b="17" note="Asian Period" />
+</group>
+</alphabet>
+</alphabets>

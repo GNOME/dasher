@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Malayalam with punctuation and numerals">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>Default</palette>
+<train>training_Malayalam_IN.txt</train>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="MALAYALAM letters" b="0">
+<s d="&#x0D05;" t="&#x0D05;" note="MALAYALAM LETTER A " />
+<s d="&#x0D06;" t="&#x0D06;" note="MALAYALAM LETTER AA " />
+<s d="&#x0D07;" t="&#x0D07;" note="MALAYALAM LETTER I " />
+<s d="&#x0D08;" t="&#x0D08;" note="MALAYALAM LETTER II " />
+<s d="&#x0D09;" t="&#x0D09;" note="MALAYALAM LETTER U " />
+<s d="&#x0D0A;" t="&#x0D0A;" note="MALAYALAM LETTER UU " />
+<s d="&#x0D0B;" t="&#x0D0B;" note="MALAYALAM LETTER VOCALIC R " />
+<s d="&#x0D60;" t="&#x0D60;" note="MALAYALAM LETTER VOCALIC RR " />
+<s d="&#x0D0C;" t="&#x0D0C;" note="MALAYALAM LETTER VOCALIC L " />
+<s d="&#x0D61;" t="&#x0D61;" note="MALAYALAM LETTER VOCALIC LL " />
+<s d="&#x0D0E;" t="&#x0D0E;" note="MALAYALAM LETTER E " />
+<s d="&#x0D0F;" t="&#x0D0F;" note="MALAYALAM LETTER EE " />
+<s d="&#x0D10;" t="&#x0D10;" note="MALAYALAM LETTER AI " />
+<s d="&#x0D12;" t="&#x0D12;" note="MALAYALAM LETTER O " />
+<s d="&#x0D13;" t="&#x0D13;" note="MALAYALAM LETTER OO " />
+<s d="&#x0D14;" t="&#x0D14;" note="MALAYALAM LETTER AU " />
+<s d="&#x0D15;" t="&#x0D15;" note="MALAYALAM LETTER KA " />
+<s d="&#x0D16;" t="&#x0D16;" note="MALAYALAM LETTER KHA " />
+<s d="&#x0D17;" t="&#x0D17;" note="MALAYALAM LETTER GA " />
+<s d="&#x0D18;" t="&#x0D18;" note="MALAYALAM LETTER GHA " />
+<s d="&#x0D19;" t="&#x0D19;" note="MALAYALAM LETTER NGA " />
+<s d="&#x0D1A;" t="&#x0D1A;" note="MALAYALAM LETTER CA " />
+<s d="&#x0D1B;" t="&#x0D1B;" note="MALAYALAM LETTER CHA " />
+<s d="&#x0D1C;" t="&#x0D1C;" note="MALAYALAM LETTER JA " />
+<s d="&#x0D1D;" t="&#x0D1D;" note="MALAYALAM LETTER JHA " />
+<s d="&#x0D1E;" t="&#x0D1E;" note="MALAYALAM LETTER NYA " />
+<s d="&#x0D1F;" t="&#x0D1F;" note="MALAYALAM LETTER TTA " />
+<s d="&#x0D20;" t="&#x0D20;" note="MALAYALAM LETTER TTHA " />
+<s d="&#x0D21;" t="&#x0D21;" note="MALAYALAM LETTER DDA " />
+<s d="&#x0D22;" t="&#x0D22;" note="MALAYALAM LETTER DDHA " />
+<s d="&#x0D23;" t="&#x0D23;" note="MALAYALAM LETTER NNA " />
+<s d="&#x0D24;" t="&#x0D24;" note="MALAYALAM LETTER TA " />
+<s d="&#x0D25;" t="&#x0D25;" note="MALAYALAM LETTER THA " />
+<s d="&#x0D26;" t="&#x0D26;" note="MALAYALAM LETTER DA " />
+<s d="&#x0D27;" t="&#x0D27;" note="MALAYALAM LETTER DHA " />
+<s d="&#x0D28;" t="&#x0D28;" note="MALAYALAM LETTER NA " />
+<s d="&#x0D2A;" t="&#x0D2A;" note="MALAYALAM LETTER PA " />
+<s d="&#x0D2B;" t="&#x0D2B;" note="MALAYALAM LETTER PHA " />
+<s d="&#x0D2C;" t="&#x0D2C;" note="MALAYALAM LETTER BA " />
+<s d="&#x0D2D;" t="&#x0D2D;" note="MALAYALAM LETTER BHA " />
+<s d="&#x0D2E;" t="&#x0D2E;" note="MALAYALAM LETTER MA " />
+<s d="&#x0D2F;" t="&#x0D2F;" note="MALAYALAM LETTER YA " />
+<s d="&#x0D30;" t="&#x0D30;" note="MALAYALAM LETTER RA " />
+<s d="&#x0D31;" t="&#x0D31;" note="MALAYALAM LETTER RRA " />
+<s d="&#x0D32;" t="&#x0D32;" note="MALAYALAM LETTER LA " />
+<s d="&#x0D33;" t="&#x0D33;" note="MALAYALAM LETTER LLA " />
+<s d="&#x0D34;" t="&#x0D34;" note="MALAYALAM LETTER LLLA " />
+<s d="&#x0D35;" t="&#x0D35;" note="MALAYALAM LETTER VA " />
+<s d="&#x0D36;" t="&#x0D36;" note="MALAYALAM LETTER SHA " />
+<s d="&#x0D37;" t="&#x0D37;" note="MALAYALAM LETTER SSA " />
+<s d="&#x0D38;" t="&#x0D38;" note="MALAYALAM LETTER SA " />
+<s d="&#x0D39;" t="&#x0D39;" note="MALAYALAM LETTER HA " />
+</group>
+<group name="Vowels and other signs"  b="111">
+<s d="&#x25cc;&#x0D3E;" t="&#x0D3E;" note="MALAYALAM VOWEL SIGN AA " />
+<s d="&#x25cc;&#x0D3F;" t="&#x0D3F;" note="MALAYALAM VOWEL SIGN I " />
+<s d="&#x25cc;&#x0D40;" t="&#x0D40;" note="MALAYALAM VOWEL SIGN II " />
+<s d="&#x25cc;&#x0D41;" t="&#x0D41;" note="MALAYALAM VOWEL SIGN U " />
+<s d="&#x25cc;&#x0D42;" t="&#x0D42;" note="MALAYALAM VOWEL SIGN UU " />
+<s d="&#x25cc;&#x0D43;" t="&#x0D43;" note="MALAYALAM VOWEL SIGN VOCALIC R " />
+<s d="&#x25cc;&#x0D46;" t="&#x0D46;" note="MALAYALAM VOWEL SIGN E " />
+<s d="&#x25cc;&#x0D47;" t="&#x0D47;" note="MALAYALAM VOWEL SIGN EE " />
+<s d="&#x25cc;&#x0D48;" t="&#x0D48;" note="MALAYALAM VOWEL SIGN AI " />
+<s d="&#x25cc;&#x0D4A;" t="&#x0D4A;" note="MALAYALAM VOWEL SIGN O " />
+<s d="&#x25cc;&#x0D4B;" t="&#x0D4B;" note="MALAYALAM VOWEL SIGN OO " />
+<s d="&#x25cc;&#x0D4C;" t="&#x0D4C;" note="MALAYALAM VOWEL SIGN AU " />
+<s d="&#x25cc;&#x0D4D;" t="&#x0D4D;" note="MALAYALAM SIGN VIRAMA " />
+<s d="&#x25cc;&#x0D57;" t="&#x0D57;" note="MALAYALAM AU LENGTH MARK " />
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1"/>
+<s d="2" t="2"/>
+<s d="3" t="3"/>
+<s d="4" t="4"/>
+<s d="5" t="5"/>
+<s d="6" t="6"/>
+<s d="7" t="7"/>
+<s d="8" t="8"/>
+<s d="9" t="9"/>
+<s d="0" t="0"/>
+</group>
+<group name="Punctuation" b="112">
+<s d="%" t="%"/>
+<s d="*" t="*"/>
+<s d="+" t="+"/>
+<s d="=" t="="/>
+<s d="/" t="/"/>
+<s d="#" t="#"/>
+<s d="$" t="$"/>
+<s d="|" t="|"/>
+<s d="\" t="\"/>
+<s d="~" t="~"/>
+<s d="^" t="^"/>
+<s d="_" t="_"/>
+<s d="&amp;" t="&amp;"/>
+<s d="@" t="@"/>
+<s d="[" t="["/>
+<s d="]" t="]"/>
+<s d="{" t="{"/>
+<s d="}" t="}"/>
+<s d="&lt;" t="&lt;"/>
+<s d="&gt;" t="&gt;"/>
+<s d="(" t="("/>
+<s d=")" t=")"/>
+<s d="&quot;" t="&quot;"/>
+<s d="`" t="`"/>
+<s d="&apos;" t="&apos;"/>
+<s d="-" t="-"/>
+<s d=":" t=":"/>
+<s d=";" t=";"/>
+<s d="?" t="?"/>
+<s d="!" t="!"/>
+<s d="," t=","/>
+<s d="." t="."/>
+</group>
+</alphabet>
+</alphabets>

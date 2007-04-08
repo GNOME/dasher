@@ -1,0 +1,7 @@
+dasher.1
+Makefile
+Makefile.in
+*.la
+*.lo
+.deps
+.libs

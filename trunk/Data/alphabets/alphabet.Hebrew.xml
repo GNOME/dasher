@@ -1,0 +1,240 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Ivrit / Hebrew (&#1506;&#1489;&#1512;&#1497;&#1514;)">
+<!-- created by David MacKay with advice from Liz Pushett -->
+<orientation type="RL"/>
+<encoding type="Western"/>
+<palette>Default</palette>
+<train>training_hebrew_IL.txt</train>
+<space d="&#x25a1;" t=" " b="9" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="Hebrew letters" b="0">
+<s d="&#x05d0;" t="&#x05d0;" note="Alef"/>
+<s d="&#x05d1;" t="&#x05d1;" />
+<s d="&#x05d2;" t="&#x05d2;" />
+<s d="&#x05d3;" t="&#x05d3;" />
+<s d="&#x05d4;" t="&#x05d4;" />
+<s d="&#x05d5;" t="&#x05d5;" />
+<s d="&#x05d6;" t="&#x05d6;" />
+<s d="&#x05d7;" t="&#x05d7;" />
+<s d="&#x05d8;" t="&#x05d8;" />
+<s d="&#x05d9;" t="&#x05d9;" />
+<s d="&#x05dB;" t="&#x05dB;" />
+<s d="&#x05dA;" t="&#x05dA;" />
+<s d="&#x05dC;" t="&#x05dC;" />
+<s d="&#x05de;" t="&#x05de;" note="Mem" />
+<s d="&#x05dd;" t="&#x05dd;" note="Final Mem"/>
+<s d="&#x05e0;" t="&#x05e0;" note="Nun" />
+<s d="&#x05dF;" t="&#x05dF;" note="Final Nun" />
+<s d="&#x05e1;" t="&#x05e1;" />
+<s d="&#x05e2;" t="&#x05e2;" />
+<s d="&#x05e4;" t="&#x05e4;" />
+<s d="&#x05e3;" t="&#x05e3;" />
+<s d="&#x05e6;" t="&#x05e6;" />
+<s d="&#x05e5;" t="&#x05e5;" />
+<s d="&#x05e7;" t="&#x05e7;" />
+<s d="&#x05e8;" t="&#x05e8;" />
+<s d="&#x05e9;" t="&#x05e9;" />
+<s d="&#x05eA;" t="&#x05eA;" />
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1"/>
+<s d="2" t="2"/>
+<s d="3" t="3"/>
+<s d="4" t="4"/>
+<s d="5" t="5"/>
+<s d="6" t="6"/>
+<s d="7" t="7"/>
+<s d="8" t="8"/>
+<s d="9" t="9"/>
+<s d="0" t="0"/>
+</group>
+<group name="Punctuation" b="112">
+<s d="%" t="%"/>
+<s d="*" t="*"/>
+<s d="+" t="+"/>
+<s d="=" t="="/>
+<s d="/" t="/"/>
+<s d="#" t="#"/>
+<s d="$" t="$"/>
+<s d="&#x20AA;" t="&#x20AA;"  note="shekel"/>
+<s d="|" t="|"/>
+<s d="\" t="\"/>
+<s d="~" t="~"/>
+<s d="^" t="^"/>
+<s d="_" t="_"/>
+<s d="&amp;" t="&amp;"/>
+<s d="@" t="@"/>
+<s b="109" d="&#x200F;&lt;&#x200F;" t="&lt;"/>
+<s b="105" d="&#x200F;&gt;&#x200F;" t="&gt;"/>
+<s b="107" d="&#x200F;{&#x200F;" t="{"/>
+<s b="108" d="&#x200F;}&#x200F;" t="}"/>
+<s b="105" d="&#x200F;[&#x200F;" t="["/>
+<s b="106" d="&#x200F;]&#x200F;" t="]"/>
+<s b="106" d="&#x200F;(&#x200F;" t="("/>
+<s b="107" d="&#x200F;)&#x200F;" t=")"/>
+<s d="&quot;" t="&quot;"/>
+<s d="`" t="`"/>
+<s d="&apos;" t="&apos;"/>
+<s d="-" t="-"/>
+<s d=":" t=":"/>
+<s d=";" t=";"/>
+<s d="?" t="?"/>
+<s d="!" t="!"/>
+<s d="," t=","/>
+<s d="." t="."/>
+</group>
+</alphabet>
+<alphabet name="Ivrit / Hebrew (&#1506;&#1489;&#1512;&#1497;&#1514;) with digraphs, vowels, and marks">
+<!-- created by David MacKay with advice from Liz Pushett and http://www.i18nguy.com/unicode/hebrew.html -->
+<orientation type="RL"/>
+<encoding type="Western"/>
+<palette>Default</palette>
+<train>training_hebrew_IL.txt</train>
+<space d="&#x25a1;" t=" " b="9" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="Hebrew letters" b="0">
+<s d="&#x05d0;" t="&#x05d0;" />
+<s d="&#x05d1;" t="&#x05d1;" />
+<s d="&#x05d2;" t="&#x05d2;" />
+<s d="&#x05d3;" t="&#x05d3;" />
+<s d="&#x05d4;" t="&#x05d4;" />
+<s d="&#x05d5;" t="&#x05d5;" />
+<s d="&#x05d6;" t="&#x05d6;" />
+<s d="&#x05d7;" t="&#x05d7;" />
+<s d="&#x05d8;" t="&#x05d8;" />
+<s d="&#x05d9;" t="&#x05d9;" />
+<s d="&#x05dB;" t="&#x05dB;" />
+<s d="&#x05dA;" t="&#x05dA;" />
+<s d="&#x05dC;" t="&#x05dC;" />
+<s d="&#x05de;" t="&#x05de;" />
+<s d="&#x05dd;" t="&#x05dd;" />
+<s d="&#x05e0;" t="&#x05e0;" />
+<s d="&#x05dF;" t="&#x05dF;" />
+<s d="&#x05e1;" t="&#x05e1;" />
+<s d="&#x05e2;" t="&#x05e2;" />
+<s d="&#x05e4;" t="&#x05e4;" />
+<s d="&#x05e3;" t="&#x05e3;" />
+<s d="&#x05e6;" t="&#x05e6;" />
+<s d="&#x05e5;" t="&#x05e5;" />
+<s d="&#x05e7;" t="&#x05e7;" />
+<s d="&#x05e8;" t="&#x05e8;" />
+<s d="&#x05e9;" t="&#x05e9;" />
+<s d="&#x05eA;" t="&#x05eA;" />
+</group>
+<group name="Yiddish digraph characters" b="115">
+<s d="&#x05F0;" t="&#x05F0;" note="double vav"/>
+<s d="&#x05F1;" t="&#x05F1;" note="vav yod"/>
+<s d="&#x05F2;" t="&#x05F2;" note="double yod"/>
+</group>
+<group name="Hebrew punctuation characters" b="112">
+<s d="&#x05BE;" t="&#x05BE;" note="maqaf"/>
+<s d="&#x05C0;" t="&#x05C0;" note="paseq"/>
+<s d="&#x05C3;" t="&#x05C3;"  note="sof pasuq" />
+<s d="&#x05F3;" t="&#x05F3;"  note="Geresh"/>
+<s d="&#x05F4;" t="&#x05F4;"  note="Garshayim"/>
+</group>	          
+<group name="Points (Vowels) (Nequdot, &#x5E0;&#x5E7;&#x5D5;&#x5D3;&#x5D5;&#x5EA;)" b="112">
+<s d="&#x25cc;&#x05B0;" t="&#x05B0;" note="vowel: combining sheva" />
+<s d="&#x25cc;&#x05B1;" t="&#x05B1;" note="vowel: combining hatef segol" />
+<s d="&#x25cc;&#x05B2;" t="&#x05B2;" note="vowel: combining" />
+<s d="&#x25cc;&#x05B3;" t="&#x05B3;" note="vowel: combining" />
+<s d="&#x25cc;&#x05B4;" t="&#x05B4;" note="vowel: combining"/>
+<s d="&#x25cc;&#x05B5;" t="&#x05B5;" note="vowel: combining"/>
+<s d="&#x25cc;&#x05B6;" t="&#x05B6;" note="vowel: combining"/>
+<s d="&#x25cc;&#x05B7;" t="&#x05B7;" note="vowel: combining"/>
+<s d="&#x25cc;&#x05B8;" t="&#x05B8;" note="vowel: combining"/>
+<s d="&#x25cc;&#x05B9;" t="&#x05B9;" note="vowel: combining"/>
+<s d="&#x25cc;&#x05BB;" t="&#x05BB;" note="vowel: combining"/>
+<s d="&#x25cc;&#x05BC;" t="&#x05BC;" note="vowel: combining"/>
+<s d="&#x25cc;&#x05BD;" t="&#x05BD;" note="vowel: combining"/>
+<s d="&#x25cc;&#x05BF;" t="&#x05BF;" note="vowel: combining rafe"/>
+<s d="&#x25cc;&#x05C1;" t="&#x05C1;" note="vowel: combining shin dot"/>
+<s d="&#x25cc;&#x05C2;" t="&#x05C2;" note="vowel: combining sin dot"/>
+<s d="&#x25cc;&#x05C4;" t="&#x05C4;" note="vowel: combining mark upper dot"/>
+</group>	          
+<group name="Hebrew cantillation marks (Teamim, &#x5D8;&#x5E2;&#x5DE;&#x5D9;&#x5DD;)" b="111">
+<s d="&#x25cc;&#x0591;" t="&#x0591;" />
+<s d="&#x25cc;&#x0592;" t="&#x0592;" />
+<s d="&#x25cc;&#x0593;" t="&#x0593;" />
+<s d="&#x25cc;&#x0594;" t="&#x0594;" />
+<s d="&#x25cc;&#x0595;" t="&#x0595;" />
+<s d="&#x25cc;&#x0596;" t="&#x0596;" />
+<s d="&#x25cc;&#x0597;" t="&#x0597;" />
+<s d="&#x25cc;&#x0598;" t="&#x0598;" />
+<s d="&#x25cc;&#x0599;" t="&#x0599;" />
+<s d="&#x25cc;&#x059A;" t="&#x059A;" />
+<s d="&#x25cc;&#x059B;" t="&#x059B;" />
+<s d="&#x25cc;&#x059C;" t="&#x059C;" />
+<s d="&#x25cc;&#x059D;" t="&#x059D;" />
+<s d="&#x25cc;&#x059E;" t="&#x059E;" />
+<s d="&#x25cc;&#x059F;" t="&#x059F;" />
+<s d="&#x25cc;&#x05A0;" t="&#x05A0;" />
+<s d="&#x25cc;&#x05A1;" t="&#x05A1;" />
+<s d="&#x25cc;&#x05A3;" t="&#x05A3;" />
+<s d="&#x25cc;&#x05A4;" t="&#x05A4;" />
+<s d="&#x25cc;&#x05A5;" t="&#x05A5;" />
+<s d="&#x25cc;&#x05A6;" t="&#x05A6;" />
+<s d="&#x25cc;&#x05A7;" t="&#x05A7;" />
+<s d="&#x25cc;&#x05A8;" t="&#x05A8;" />
+<s d="&#x25cc;&#x05A9;" t="&#x05A9;" />
+<s d="&#x25cc;&#x05AA;" t="&#x05AA;" />
+<s d="&#x25cc;&#x05AB;" t="&#x05AB;" />
+<s d="&#x25cc;&#x05AC;" t="&#x05AC;" />
+<s d="&#x25cc;&#x05AD;" t="&#x05AD;" />
+<s d="&#x25cc;&#x05AE;" t="&#x05AE;" />
+<s d="&#x25cc;&#x05AF;" t="&#x05AF;" />
+</group>	          
+<group name="Numbers" b="113">
+<s d="1" t="1"/>
+<s d="2" t="2"/>
+<s d="3" t="3"/>
+<s d="4" t="4"/>
+<s d="5" t="5"/>
+<s d="6" t="6"/>
+<s d="7" t="7"/>
+<s d="8" t="8"/>
+<s d="9" t="9"/>
+<s d="0" t="0"/>
+</group>
+<group name="Punctuation" b="112">
+<s d="%" t="%"/>
+<s d="*" t="*"/>
+<s d="+" t="+"/>
+<s d="=" t="="/>
+<s d="/" t="/"/>
+<s d="#" t="#"/>
+<s d="$" t="$"/>
+<s d="&#x20AA;" t="&#x20AA;"  note="shekel"/>
+<s d="|" t="|"/>
+<s d="\" t="\"/>
+<s d="~" t="~"/>
+<s d="^" t="^"/>
+<s d="_" t="_"/>
+<s d="&amp;" t="&amp;"/>
+<s d="@" t="@"/>
+<s b="109" d="&#x200F;&lt;&#x200F;" t="&lt;"/>
+<s b="105" d="&#x200F;&gt;&#x200F;" t="&gt;"/>
+<s b="107" d="&#x200F;{&#x200F;" t="{"/>
+<s b="108" d="&#x200F;}&#x200F;" t="}"/>
+<s b="105" d="&#x200F;[&#x200F;" t="["/>
+<s b="106" d="&#x200F;]&#x200F;" t="]"/>
+<s b="106" d="&#x200F;(&#x200F;" t="("/>
+<s b="107" d="&#x200F;)&#x200F;" t=")"/>
+<s d="&quot;" t="&quot;"/>
+<s d="`" t="`"/>
+<s d="&apos;" t="&apos;"/>
+<s d="-" t="-"/>
+<s d=":" t=":"/>
+<s d=";" t=";"/>
+<s d="?" t="?"/>
+<s d="!" t="!"/>
+<s d="," t=","/>
+<s d="." t="."/>
+</group>
+</alphabet>
+</alphabets>

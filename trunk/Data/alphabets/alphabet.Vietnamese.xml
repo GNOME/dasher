@@ -1,0 +1,250 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Vi&#7879;t ng&#7919; / Vietnamese with punctuation and numerals">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>Default</palette>
+<train>training_Vietnamese_VN.txt</train>
+<space d="&#x25a1;" t=" " b="9" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="lower case letters" b="0">
+<s d="&#x0061;" t="&#x0061;" />
+<s d="&#x00E1;" t="&#x00E1;" />
+<s d="&#x00E0;" t="&#x00E0;" />
+<s d="&#x1EA3;" t="&#x1EA3;" />
+<s d="&#x00E3;" t="&#x00E3;" />
+<s d="&#x1EA1;" t="&#x1EA1;" />
+<s d="&#x0103;" t="&#x0103;" />
+<s d="&#x1EAF;" t="&#x1EAF;" />
+<s d="&#x1EB1;" t="&#x1EB1;" />
+<s d="&#x1EB3;" t="&#x1EB3;" />
+<s d="&#x1EB5;" t="&#x1EB5;" />
+<s d="&#x1EB7;" t="&#x1EB7;" />
+<s d="&#x00E2;" t="&#x00E2;" />
+<s d="&#x1EA5;" t="&#x1EA5;" />
+<s d="&#x1EA7;" t="&#x1EA7;" />
+<s d="&#x1EA9;" t="&#x1EA9;" />
+<s d="&#x1EAB;" t="&#x1EAB;" />
+<s d="&#x1EAD;" t="&#x1EAD;" />
+<s d="&#x0062;" t="&#x0062;" />
+<s d="&#x0063;" t="&#x0063;" />
+<s d="&#x0064;" t="&#x0064;" />
+<s d="&#x0111;" t="&#x0111;" />
+<s d="&#x0065;" t="&#x0065;" />
+<s d="&#x00E9;" t="&#x00E9;" />
+<s d="&#x00E8;" t="&#x00E8;" />
+<s d="&#x1EBB;" t="&#x1EBB;" />
+<s d="&#x1EBD;" t="&#x1EBD;" />
+<s d="&#x1EB9;" t="&#x1EB9;" />
+<s d="&#x00EA;" t="&#x00EA;" />
+<s d="&#x1EBF;" t="&#x1EBF;" />
+<s d="&#x1EC1;" t="&#x1EC1;" />
+<s d="&#x1EC3;" t="&#x1EC3;" />
+<s d="&#x1EC5;" t="&#x1EC5;" />
+<s d="&#x1EC7;" t="&#x1EC7;" />
+<s d="&#x0066;" t="&#x0066;" />
+<s d="&#x0067;" t="&#x0067;" />
+<s d="&#x0068;" t="&#x0068;" />
+<s d="&#x0069;" t="&#x0069;" />
+<s d="&#x00ED;" t="&#x00ED;" />
+<s d="&#x00EC;" t="&#x00EC;" />
+<s d="&#x1EC9;" t="&#x1EC9;" />
+<s d="&#x0129;" t="&#x0129;" />
+<s d="&#x1ECB;" t="&#x1ECB;" />
+<s d="&#x006A;" t="&#x006A;" />
+<s d="&#x006B;" t="&#x006B;" />
+<s d="&#x006C;" t="&#x006C;" />
+<s d="&#x006D;" t="&#x006D;" />
+<s d="&#x006E;" t="&#x006E;" />
+<s d="&#x006F;" t="&#x006F;" />
+<s d="&#x00F3;" t="&#x00F3;" />
+<s d="&#x00F2;" t="&#x00F2;" />
+<s d="&#x1ECF;" t="&#x1ECF;" />
+<s d="&#x00F5;" t="&#x00F5;" />
+<s d="&#x1ECD;" t="&#x1ECD;" />
+<s d="&#x00F4;" t="&#x00F4;" />
+<s d="&#x1ED1;" t="&#x1ED1;" />
+<s d="&#x1ED3;" t="&#x1ED3;" />
+<s d="&#x1ED5;" t="&#x1ED5;" />
+<s d="&#x1ED7;" t="&#x1ED7;" />
+<s d="&#x1ED9;" t="&#x1ED9;" />
+<s d="&#x01A1;" t="&#x01A1;" />
+<s d="&#x1EDB;" t="&#x1EDB;" />
+<s d="&#x1EDD;" t="&#x1EDD;" />
+<s d="&#x1EDF;" t="&#x1EDF;" />
+<s d="&#x1EE1;" t="&#x1EE1;" />
+<s d="&#x1EE3;" t="&#x1EE3;" />
+<s d="&#x0070;" t="&#x0070;" />
+<s d="&#x0071;" t="&#x0071;" />
+<s d="&#x0072;" t="&#x0072;" />
+<s d="&#x0073;" t="&#x0073;" />
+<s d="&#x0074;" t="&#x0074;" />
+<s d="&#x0075;" t="&#x0075;" />
+<s d="&#x00FA;" t="&#x00FA;" />
+<s d="&#x00F9;" t="&#x00F9;" />
+<s d="&#x1EE7;" t="&#x1EE7;" />
+<s d="&#x0169;" t="&#x0169;" />
+<s d="&#x1EE5;" t="&#x1EE5;" />
+<s d="&#x01B0;" t="&#x01B0;" />
+<s d="&#x1EE9;" t="&#x1EE9;" />
+<s d="&#x1EEB;" t="&#x1EEB;" />
+<s d="&#x1EED;" t="&#x1EED;" />
+<s d="&#x1EEF;" t="&#x1EEF;" />
+<s d="&#x1EF1;" t="&#x1EF1;" />
+<s d="&#x0076;" t="&#x0076;" />
+<s d="&#x0077;" t="&#x0077;" />
+<s d="&#x0078;" t="&#x0078;" />
+<s d="&#x0079;" t="&#x0079;" />
+<s d="&#x00FD;" t="&#x00FD;" />
+<s d="&#x1EF3;" t="&#x1EF3;" />
+<s d="&#x1EF7;" t="&#x1EF7;" />
+<s d="&#x1EF9;" t="&#x1EF9;" />
+<s d="&#x1EF5;" t="&#x1EF5;" />
+<s d="&#x007A;" t="&#x007A;" />
+</group> 
+<group name="upper case letters" b="111"> 
+<s d="&#x0041;" t="&#x0041;" />
+<s d="&#x00C1;" t="&#x00C1;" />
+<s d="&#x00C0;" t="&#x00C0;" />
+<s d="&#x1EA2;" t="&#x1EA2;" />
+<s d="&#x00C3;" t="&#x00C3;" />
+<s d="&#x1EA0;" t="&#x1EA0;" />
+<s d="&#x0102;" t="&#x0102;" />
+<s d="&#x1EAE;" t="&#x1EAE;" />
+<s d="&#x1EB0;" t="&#x1EB0;" />
+<s d="&#x1EB2;" t="&#x1EB2;" />
+<s d="&#x1EB4;" t="&#x1EB4;" />
+<s d="&#x1EB6;" t="&#x1EB6;" />
+<s d="&#x00C2;" t="&#x00C2;" />
+<s d="&#x1EA4;" t="&#x1EA4;" />
+<s d="&#x1EA6;" t="&#x1EA6;" />
+<s d="&#x1EA8;" t="&#x1EA8;" />
+<s d="&#x1EAA;" t="&#x1EAA;" />
+<s d="&#x1EAC;" t="&#x1EAC;" />
+<s d="&#x0042;" t="&#x0042;" />
+<s d="&#x0043;" t="&#x0043;" />
+<s d="&#x0044;" t="&#x0044;" />
+<s d="&#x0110;" t="&#x0110;" />
+<s d="&#x0045;" t="&#x0045;" />
+<s d="&#x00C9;" t="&#x00C9;" />
+<s d="&#x00C8;" t="&#x00C8;" />
+<s d="&#x1EBA;" t="&#x1EBA;" />
+<s d="&#x1EBC;" t="&#x1EBC;" />
+<s d="&#x1EB8;" t="&#x1EB8;" />
+<s d="&#x00CA;" t="&#x00CA;" />
+<s d="&#x1EBE;" t="&#x1EBE;" />
+<s d="&#x1EC0;" t="&#x1EC0;" />
+<s d="&#x1EC2;" t="&#x1EC2;" />
+<s d="&#x1EC4;" t="&#x1EC4;" />
+<s d="&#x1EC6;" t="&#x1EC6;" />
+<s d="&#x0046;" t="&#x0046;" />
+<s d="&#x0047;" t="&#x0047;" />
+<s d="&#x0048;" t="&#x0048;" />
+<s d="&#x0049;" t="&#x0049;" />
+<s d="&#x00CD;" t="&#x00CD;" />
+<s d="&#x00CC;" t="&#x00CC;" />
+<s d="&#x1EC8;" t="&#x1EC8;" />
+<s d="&#x0128;" t="&#x0128;" />
+<s d="&#x1ECA;" t="&#x1ECA;" />
+<s d="&#x004A;" t="&#x004A;" />
+<s d="&#x004B;" t="&#x004B;" />
+<s d="&#x004C;" t="&#x004C;" />
+<s d="&#x004D;" t="&#x004D;" />
+<s d="&#x004E;" t="&#x004E;" />
+<s d="&#x004F;" t="&#x004F;" />
+<s d="&#x00D3;" t="&#x00D3;" />
+<s d="&#x00D2;" t="&#x00D2;" />
+<s d="&#x1ECE;" t="&#x1ECE;" />
+<s d="&#x00D5;" t="&#x00D5;" />
+<s d="&#x1ECC;" t="&#x1ECC;" />
+<s d="&#x00D4;" t="&#x00D4;" />
+<s d="&#x1ED0;" t="&#x1ED0;" />
+<s d="&#x1ED2;" t="&#x1ED2;" />
+<s d="&#x1ED4;" t="&#x1ED4;" />
+<s d="&#x1ED6;" t="&#x1ED6;" />
+<s d="&#x1ED8;" t="&#x1ED8;" />
+<s d="&#x01A0;" t="&#x01A0;" />
+<s d="&#x1EDA;" t="&#x1EDA;" />
+<s d="&#x1EDC;" t="&#x1EDC;" />
+<s d="&#x1EDE;" t="&#x1EDE;" />
+<s d="&#x1EE0;" t="&#x1EE0;" />
+<s d="&#x1EE2;" t="&#x1EE2;" />
+<s d="&#x0050;" t="&#x0050;" />
+<s d="&#x0051;" t="&#x0051;" />
+<s d="&#x0052;" t="&#x0052;" />
+<s d="&#x0053;" t="&#x0053;" />
+<s d="&#x0054;" t="&#x0054;" />
+<s d="&#x0055;" t="&#x0055;" />
+<s d="&#x00DA;" t="&#x00DA;" />
+<s d="&#x00D9;" t="&#x00D9;" />
+<s d="&#x1EE6;" t="&#x1EE6;" />
+<s d="&#x0168;" t="&#x0168;" />
+<s d="&#x1EE4;" t="&#x1EE4;" />
+<s d="&#x01AF;" t="&#x01AF;" />
+<s d="&#x1EE8;" t="&#x1EE8;" />
+<s d="&#x1EEA;" t="&#x1EEA;" />
+<s d="&#x1EEC;" t="&#x1EEC;" />
+<s d="&#x1EEE;" t="&#x1EEE;" />
+<s d="&#x1EF0;" t="&#x1EF0;" />
+<s d="&#x0056;" t="&#x0056;" />
+<s d="&#x0057;" t="&#x0057;" />
+<s d="&#x0058;" t="&#x0058;" />
+<s d="&#x0059;" t="&#x0059;" />
+<s d="&#x00DD;" t="&#x00DD;" />
+<s d="&#x1EF2;" t="&#x1EF2;" />
+<s d="&#x1EF6;" t="&#x1EF6;" />
+<s d="&#x1EF8;" t="&#x1EF8;" />
+<s d="&#x1EF4;" t="&#x1EF4;" />
+<s d="&#x005A;" t="&#x005A;" />
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1"/>
+<s d="2" t="2"/>
+<s d="3" t="3"/>
+<s d="4" t="4"/>
+<s d="5" t="5"/>
+<s d="6" t="6"/>
+<s d="7" t="7"/>
+<s d="8" t="8"/>
+<s d="9" t="9"/>
+<s d="0" t="0"/>
+</group>
+<group name="Punctuation" b="112">
+<s d="%" t="%"/>
+<s d="*" t="*"/>
+<s d="+" t="+"/>
+<s d="=" t="="/>
+<s d="/" t="/"/>
+<s d="#" t="#"/>
+<s d="$" t="$"/>
+<s d="|" t="|"/>
+<s d="\" t="\"/>
+<s d="~" t="~"/>
+<s d="^" t="^"/>
+<s d="_" t="_"/>
+<s d="&amp;" t="&amp;"/>
+<s d="@" t="@"/>
+<s d="[" t="["/>
+<s d="]" t="]"/>
+<s d="{" t="{"/>
+<s d="}" t="}"/>
+<s d="&lt;" t="&lt;"/>
+<s d="&gt;" t="&gt;"/>
+<s d="(" t="("/>
+<s d=")" t=")"/>
+<s d="&quot;" t="&quot;"/>
+<s d="`" t="`"/>
+<s d="&apos;" t="&apos;"/>
+<s d="-" t="-"/>
+<s d=":" t=":"/>
+<s d=";" t=";"/>
+<s d="?" t="?"/>
+<s d="!" t="!"/>
+<s d="," t=","/>
+<s d="." t="."/>
+</group>
+</alphabet>
+</alphabets>

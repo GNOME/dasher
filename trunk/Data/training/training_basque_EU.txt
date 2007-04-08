@@ -1,0 +1,3112 @@
+
+                              Debian Konstituzioa
+                             ----------------------------------
+                                       
+                  Debian Proiektuaren Konstituzioa (v1.0)
+                                       
+1. Sarrera
+
+   Sistema eragile libre bat sortzeko xedearekin elkartutako pertsonen
+   elkarte bat da Debian Proiektua.
+   
+   Proiektuaren baitan erabakiak hartzeko modu formala antolatzeko egitura 
+   azaltzen da dokumentu honetan. Ez du azaltzen Proiektuaren helburuak zein
+   diren edo helburuak nola lortzen dituen, edo ez ditu arauak azaltzen,
+   erabakiak hartzeko prozesuari zuzenean lotutakoak ez badira.
+   
+2. Erabakiak hartzeko organoak eta pertsonak
+
+   Proiektuko erabaki bakoitza hauetako batek edo gehiagok hartuko dute:
+    1. Garatzaileek, Ebazpen Orokor edo bozketa bidez;
+    2. Proiektu Buruak;
+    3. Batzorde Teknikoak eta/edo Batzordeko Lehendakariak;
+    4. Zeregin jakin batean lanean ari den Garatzaile indibidualak;
+    5. Proiektu Buruak zeregin jakinetarako ezarritako Delegatuek;
+    6. Proiektu Idazkariak.
+       
+   Dokumentu honen gainerako zatian organo horien ahalmenak, osaera eta
+   izendapena eta erabakiak hartzeko duten prozedura zehaztuko dira. 
+   Pertsona edo organo baten ahalmena beste batzuek muga edo berrikus 
+   dezakete: horrelakoetan, berrikuspena egingo duen organoaren edo 
+   pertsonaren sarrera-pasartean zehaztuko da. Goiko zerrendan, lehenengo 
+   azaltzen direnek ondoren datozenen erabakiak baliogabetzeko ahalmena 
+   izaten dute normalean, edo ondoren datozenak izenda ditzakete (edo 
+   izendatzen lagundu) -- baina aurrean dagoen edonork ezin du ondoren 
+   dagoen edonoren erabakira baliogabetu.
+   
+  2.1. Arau orokorrak
+  
+    1. Konstituzio honetako ezerk ez du inor behartzen Proiektuan lan
+       egitera. Berari delegatu edo esleitu zaion zeregin bat egin nahi 
+       ez badu norbaitek, ez dauka nahitaez egin beharrik. Nolanahi ere, 
+       ez dute aktiboki lan egin behar arau eta erabaki hauen aurka.
+    2. Pertsona batek hainbat postu izan ditzake, baina Proiektu Buruak,
+       Proiektu Idazkariak eta Batzorde Teknikoko Lehendakariak ezberdinak
+       izan behar dute, eta Proiektu Buruak ezin ditu horiek izendatu bere
+       buruaren Delegatu gisa.
+    3. Pertsona batek proiektua utz dezake, edo kargu bat utzi ere bai,
+       nahi duenean, erabaki hori publiko eginez.
+       
+3. Garatzaile indibidualak
+
+  3.1. Ahalmenak
+  
+   Garatzaile indibidual batek ondorengoak egin ditzake
+    1. bere lanari dagozkion erabaki tekniko edo ez-teknikoak hartu;
+    2. Ebazpen Orokor baten zirriborroa proposatu edo bultzatu;
+    3. bere burua proposatu Proiektu Buru izateko hautagai gisa;
+    4. Ebazpen Orokorretan eta Buruzagitza hauteskundeetan bozkatu.
+       
+  3.2. Osaera eta izendapena
+  
+    1. Beraiek parte hartzen duten heinean Proiektuaren helburuak aurrera
+       eramateko prest dauden boluntarioak dira garatzaileak, eta paketeak
+       proiekturako mantentzen dituztenak, edo Proiektu Buruaren Delegatuak
+       merezi duela iritzitako beste lan batzuk egiten dituztenak.
+    2. Proiektu Buruaren Delegatuak Garatzaile berririk ez onartzea
+       erabaki dezake, edo lehendik daudenak bidaltzea. Garatzaileei 
+       iruditzen bazaie Delegatuak euren agintea neurriz kanpo erabiltzen 
+       ari direla, erabakia baliogabetu dezakete Ebazpen Orokor bidez 
+       - ikus 4.1(3) atala, 4.2 atala
+       
+  3.3. Prozedura
+  
+   Garatzaileek erabakiak har ditzakete, komeni dela iruditzen zaienean.
+   
+4. Garatzaileek, Ebazpen Orokor edo bozketa bidez
+
+  4.1. Ahalmenak
+  
+   Elkarrekin, ondorengoak egin ditzakete Garatzaileek:
+    1. Proiektu Burua izendatu edo erretiratu.
+    2. Konstituzio honetan zuzenketak egin, 3:1 gehiengoa lortu gero.
+    3. Proiektu Buruak edo Delegatu batek hartutako erabaki bat baliogabetu.
+    4. Batzorde Teknikoak hartutako erabaki bat baliogabetu, 2:1 gehiengoa
+       alde edukiz gero.
+    5. Teknikoak ez diren dokumentu arauemaileak eta deklarazioak egin.
+       Proiektuaren helburuak azaltzen dituzten dokumentuak ere sartzen dira
+       hor, software libreko beste entitate batzuekiko harremanak ere bai,
+       eta teknikoak ez diren arauak era bai, Debian-eko softwareak bete
+       beharreko lizentzia-baldintzak, esate baterako.
+       Eguneko gaiei buruzko jarrera-xedapenak ere sar daitezke hor.
+    6. Proiektu Buruarekin eta SPIrekin batera, Debian-ekin zerikusia duten
+       helburuetarako fiduzian utzitako ondasunei buruzko erabakiak hartzea. 
+       (Ikus 9.1 atala)
+       
+  4.2. Prozedura
+  
+    1. Beheko Ebazpen Prozedura Estandarrari jarraiki jardungo dute 
+       Garatzaileek. Ebazpen edo zuzenketa bat egin daiteke Garatzaile 
+       batek proposatuta eta gutxienez beste K Garatzailek bultzatuta, edo 
+       Proiektu Buruak edo Batzorde Teknikoko Buruak proposatuta.
+    2. Proiektu Buruak edo Delegatu batek hartutako erabaki bat atzeratzea:
+         1. Proiektu Buruak edo haren Delegatuak, edo Batzorde Teknikoak 
+            erabaki bat hartu badu, orduan Garatzaileek baliogabetu 
+            dezakete, hori egiteko ebazpen bat onartuz; 4.1(3) atala.
+         2. Halako ebazpen bat gutxienez 2K Garatzailek bultzatzen badute,
+            edo Batzorde Teknikoak proposatzen badu, ebazpenak berehala 
+            bertan behera utziko du erabakia (ebazpenak berak hala 
+            adieraziz gero).
+         3. Eztabaida-aldi bat edo bozketa-aldi bat aldatzea baldin bazen
+            jatorrizko erabakia, edo Batzorde Teknikoa baliogabetzea
+            bada ebazpena, orduan nahikoa da K Garatzailek soilik
+            bultzatzea ebazpena, erabakia berehala bertan behera gera
+            dadin.
+         4. Erabakia bertan behera uzten bada, berehala bozketa bat
+            egingo da, zehazteko ea erabakiak balio izango duen erabakiari
+            buruzko behin betiko bozketa egin arte, edo jatorrizko
+            erabakiaren inplementazioa ordura arte atzeratuko den. Ez dago 
+            quorum-ik berehalako bozketa-prozedura horretarako.
+         5. Proiektu Buruak (edo Delegatuak) jatorrizko erabakia 
+            erretiratzen badu, bozketa ez da beharrezkoa izango, eta jada 
+            ez da bideratuko.
+    3. Proiektu Idazkariak hartzen ditu botoak. Botoak eta kontaketen
+       emaitzak ez dira jakitera emango bozketa-garaian; bozketaren ondoren, 
+       Proiektu Idazkariak zerrendatuko ditu boto-banaketa guztiak. Bozkatzeko
+       aldia 2 astekoa izaten da, baina gehienez aste batez alda dezake
+       Proiektu Buruak, eta Proiektu Idazkariak amai dezake, bozketa baten
+       emaitza jada ez denean zalantzan jartzen.
+    4. Gutxieneko eztabaida-aldia 2 astekoa da, baina astebetez alda dezake 
+       Proiektu Buruak. Proiektu Buruak kalitatezko botoa dauka. 3Q-ko 
+       quoruma behar da.
+    5. Proposamenak, bultzatzaileak, zuzenketak, bozketa-deialdiak eta 
+       bestelako ekintza formalak Proiektu Buruaren Delegatuak izendatutako 
+       posta-zerrenda elektroniko publiko batean iragarriz egiten dira;
+       edozein Garatzailek bidal dezake mezu bat zerrenda horretara.
+    6. Idazkariarentzat egokia den modu batean bidaltzen dira botoak posta
+       elektronikoz. Idazkariak erabakitzen du bozketa bakoitzari dagokionez
+       boto-emaileek botoa alda dezaketen edo
+       ez.
+    7. Uneko Garatzaile-kopuruaren erro karratuaren erdia da Q.
+       Q edo 5 da K, bien artean txikiena. Q eta K ez dira ezinbestean
+       osoko zenbakiak izan behar, eta ez dira biribiltzen.
+       
+5. Proiektu Burua
+
+  5.1. Ahalmenak
+  
+   Proiektu Buruak ondorengoak egin ditzake:
+    1. Delegatuak izendatu edo erabakiak Batzorde Teknikoari delegatu.
+       Indarrean dagoen erantzukizuneko area bat edo erabaki zehatz bat 
+       defini dezake Proiektu Buruak, eta beste Garatzaile baten edo
+       Batzorde Teknikoaren esku utz dezake.
+       Behin erabaki jakin bat delegatutakoan eta hartutakoan, Proiektu
+       Buruak ezingo du delegazioa erretiratu; nolanahi ere, indarrean
+       dagoen erantzukizun-area jakin baten delegazioa erretira dezake.
+    2. Agintea beste Garatzaile batzuei utzi.
+       Proiektu Buruak ikuspuntu batzuen edo proiektuko beste kide batzuen 
+       aldeko adierazpenak egin ditzake, hala eskatu zaiolako, edo, bestela;
+       adierazpen horiek indarra izango dute, baldin eta soilik baldin, 
+       Proiektu Buruak ahalmena badu erabaki hori hartzeko.
+    3. Berehalako ekintza eskatzen duen edozein erabaki hartu.
+       Hori ez zaie aplikatzen berez presazkoak izan gabe, ezer egin ez 
+       delako eta denbora igaro delako presazko bihurtu diren ekintzei, 
+       baldin eta ez badago epemuga zehatzik.
+    4. Beste inork erantzukizunik ez duen gaietan erabakiak hartu.
+    5. Ebazpen Orokorren zirriborroak eta zuzenketak proposatu.
+    6. Batzorde Teknikoarekin batera, Batzordeko kide berriak izendatu. 
+       (Ikus 6.2 atala)
+    7. Kalitatezko botoa erabili Garatzaileek bozkatzen dutenean.
+       Proiektu Buruak boto normala ere badauka halako bozketetan.
+    8. Eztabaida-aldia aldatu Garatzaileen bozketetan (goian bezala).
+    9. Garatzaileen artean eztabaidak bideratu.
+       Proiektu Buruak Garatzaileen arteko eztabaidetan parte hartzen
+       saiatu beharko luke, eztabaida gai interesgarriei buruzkoa
+       izan dadin bultzatuz. Proiektu Buruak
+       ez du bere ikuspegi pertsonala bultzatzeko erabili behar
+       Buruzagitza postua.
+   10. SPIrekin batera, Debian-ekin zerikusia duten helburuetarako
+       fiduazian utzitako ondasunei buruzko erabakiak hartu. 
+       (Ikus 9.1 atala)
+       
+  5.2. Izendatzea
+  
+    1. Proiektu Burua Garatzaileek hautatzen dute.
+    2. Buruzagitza postua hutsik geratu baino bederatzi aste lehenago
+       hasten dira hauteskundeak, edo, dagoeneko beranduegi bada, berehala.
+    3. Ondorengo hiru asteetan edozein Garatzailek bere burua aurkez 
+       dezake Proiektu Buru izateko hautagai gisa.
+    4. Hurrengo hiru asteetan ezingo da hautagai gehiago onartu;
+       hautagaiek kanpaina egiteko baliatu behar dute aldi hori (euren
+       nortasunak eta jarrerak ezagutzera eramateko). Hautagaiak aurkezteko 
+       epea amaitutakoan hautagairik ez badago, orduan izendatzeko epea
+       beste hiru astez luzatuko da, eta errepikatuz, beharrezkoa izanez 
+       gero.
+    5. Hurrengo hiru asteak bozkatzeko aldia izango dira, orduan
+       Garatzaileek euren botoa eman ahal izango dute. 
+       Buruzagitza-hauteskundeetan isilpean gordetzen dira botoak, baita 
+       hauteskundeak amaitutakoan ere.
+    6. Euren kandidaturak aurkeztu dituzten hautagaiak (eta erretiratu ez
+       direnak) gehi 'Goikoetako Bat Ere Ez' ('None Of The Above') izango
+       dira boto-txarteleko aukerak. 'Goikoetako Bat Ere Ez' aukerak 
+       irabazten baditu hauteskundeak, orduan prozedura errepikatu egingo 
+       da, hainbat aldiz behar izanez gero.
+    7. A.6 atalean azaldutako Concorde boto-kontaketa erabiliko da erabakia 
+       hartzeko. Quorum-a Ebazpen Orokorretarako behar denaren berdina da 
+       (ikus 4.2 atala), eta aukera lehenetsia 'Goikoetako Bat Ere Ez' da.
+    8. Proiektu Buruak urtebetez jardungo du, hautatzen dutenetik hasita.
+       
+  5.3. Prozedura
+  
+   Proiektu Buruak Garatzaileen iritzi-adostasunarekin bat datozen 
+   erabakiak hartzen saiatu behar du.
+   
+   Komeni bada, Proiektu Buruak Garatzaileen ikuspuntuak eskatuko ditu
+   informalki.
+   
+   Proiektu Buruak ez dio garrantzi handiegia eman behar bere ikuspuntuari, 
+   Proiektu Buru gisa duen ahalmenaz erabakiak hartzean.
+   
+6. Batzorde Teknikoa
+
+  6.1. Ahalmenak
+  
+   Batzorde Teknikoak ondorengoak egin ditzake:
+    1. Gidalerro teknikoetako edozein gai erabaki.
+       Hor sartzen dira gidalerro teknikoen eskuliburuen edukia, garatzaileen
+       erreferentziazko materialak, adibide-paketeak eta esperimentalak ez 
+       diren eraikitze-tresnen portaera. (Kasu bakoitzean, softwarearen 
+       edo dokumentazioaren ohiko mantentzaileak hasierako erabakiak hartuko 
+       ditu; dena den, ikus 6.3(5) atala.)
+    2. Edozein gai tekniko erabaki, Garatzaileen eskumenak teilakatzen
+       direnean.
+       Arau edo jarraibide tekniko bateragarriak ezarri behar dituztenean
+       Garatzaileek (adibidez, gatazkan dauden paketeen lehentasunei buruz
+       edo komando-izen baten jabetzari buruz ados ez daudenean, edo bi 
+       mantentzaileek programa-erroretzat jotako errore baten erantzukizuna 
+       zein paketek duen zehazteari buruz, edo pakete baten mantentzaile 
+       nork izan behar duen erabakitzeari buruz), orduan Batzorde 
+       Teknikoak hartuko du erabakia.
+    3. Erabaki bat hartu, hala eskatutakoan.
+       Edonork edo edozein organok Batzorde Teknikoaren esku utz dezake 
+       berari dagokion erabaki bat, edo aholkua eska diezaioke.
+    4. Garatzaile baten erabakia baliogabetu (3:1 gehiengoa behar da).
+       Batzorde Teknikoak Garatzaile bati eska diezaioke ekintza tekniko
+       batzuk egin ditzala, nahiz eta Garatzaileak nahi ez izan; horrek 
+       3:1 gehiengoa eskatzen du. Esate baterako, Batzordeak erabaki dezake 
+       programa-errore baten berri eman duenaren kexa justifikatuta dagoela, 
+       eta bidaltzaileak proposatutako konponbidea inplementatu egin behar 
+       dela.
+    5. Aholkuak eman.
+       Batzorde Teknikoak iragarpen formalak egin ditzake edozein gairen
+       inguruan dituen ikuspuntuei buruz. Nola ez, kide indibidualek 
+       adierazpen informalak egin ditzakete euren ikuspuntuei buruz eta 
+       Batzordearen ikuspegi posibleei buruz.
+    6. Proiektu Buruarekin batera, Batzordeko kide berriak izendatu edo
+       lehendik daudenak kendu. (Ikus 6.2 atala)
+    7. Batzorde Teknikoko Lehendakaria izendatu.
+       Batzordeak bere kideen artean hautatzen du Lehendakaria. Batzordeko
+       kide guztiak automatikoki hartzen dira hautagaitzat; postua hutsik 
+       geratu baino astebete lehenago hasiko da bozketa (edo berehala, 
+       dagoeneko beranduegi bada). Kideek aldarri publikoz bozka dezakete 
+       Batzordeko edozein kideren alde, euren buruaren alde barne; ez dago 
+       'Goikoetako Bat Ere Ez' aukerarik. Kide guztiek bozkatutakoan edo 
+       emaitza jada zalantzan ez dagoenean amaituko da bozketa. A.6 atalean 
+       azaldutako Concorde boto-kontaketaren arabera erabakitzen da emaitza.
+    8. Lehendakariak Proiektu Burua ordezka dezake, Idazkariarekin
+       batera
+       7.1(2) atalean zehaztu bezala, Batzorde Teknikoko Lehendakariak eta
+       Proiektuko Idazkariak elkarrekin ordezka dezakete Proiektu Burua,
+       Bururik ez badago.
+       
+  6.2. Osaera
+  
+    1. Batzorde Teknikoak gehienez 8 Garatzaile izango ditu, eta normalean
+       4 kide izan behar ditu gutxienez.
+    2. 8 kide baino gutxiago dituenean, Batzorde Teknikoak kide berriak
+       gomenda diezazkioke Proiektu Buruari, eta hark (indibidualki) 
+       izendatzea edo ez erabaki dezake.
+    3. 5 kide edo gutxiago daudenean, Batzorde Teknikoak kide berriak
+       izenda ditzake, kide-kopurua 6ra heldu arte.
+    4. 5 kide edo gutxiago egon badira gutxienez astebetez, Proiektu Buruak
+       kide berriak izenda ditzake, kide-kopurua 6 izatera heldu arte, 
+       gutxienez astebete igarotzen utziz izendatze batetik bestera.
+    5. Batzorde Teknikoa eta Proiektu Burua ados badaude, lehendik
+       dagoen Batzorde Teknikoko kide bat ken edo ordez dezakete.
+       
+  6.3. Prozedura
+  
+    1. Batzorde Teknikoak Ebazpen Prozedura Estandarra erabiltzen du.
+       Batzorde Teknikoko edozein kidek proposa dezake ebazpen baten
+       zirriborroa edo zuzenketa. Ez dago gutxieneko eztabaida-aldirik;
+       bozketa-aldiak astebetera arte iraungo du, edo emaitza jada
+       zalantzan jartzen ez den arte. Kideek euren botoa alda dezakete. 
+       Biko quorum-a dago.
+    2. Bozketari buruzko xehetasunak
+       Lehendakariak kalitatezko botoa dauka. Batzorde Teknikoak Batzordeko
+       kide den Garatzaile bat baliogabetzea edo ez bozkatzen badu, kide 
+       horrek ezingo du bozkatu (Lehendakaria izan ezean, eta kasu horretan 
+       kalitatezko botoa soilik erabili ahal izango du).
+    3. Eztabaida publikoa eta erabakiak hartzea.
+       Eztabaida, ebazpen-zirriborroak eta zuzenketak eta Batzordeko kideen
+       botoak Batzorde Teknikoaren eztabaida-zerrenda publikoaren bidez
+       egingo dira publiko. Ez dago Batzordearen aparteko Idazkaritzarik.
+    4. Izendatzeen konfidentzialtasuna.
+       Batzorde Teknikoak isilpeko eztabaidak izan ditzake posta elektroniko
+       pribatu edo posta-zerrenda pribatu bidez edo beste baliabide batzuen 
+       bidez, Batzorderako izendatzeak eztabaidatzeko. Nolanahi ere, 
+       izendatzeen botoek publikoak izan behar dute.
+    5. Diseinu-lan xeherik ez.
+       Batzorde Teknikoak ez du jardungo proposamen eta gidalerro berriak 
+       diseinatzen. Horrelako diseinu-lanak norbanakoek egingo dituzte,
+       bakarrik edo elkarlanean, eta arau teknikoen foroetan eta 
+       diseinu-foroetan eztabaidatuta.
+       Batzorde Teknikoak bere burua mugatzen du, beste nonbait sakon
+       eztabaidatutako eta proposatutako konponbideen eta erabakien artean
+       aukeratzera edo horiei buruzko konpromisoak hartzera.
+       Batzorde Teknikoko kide indibidualek euren izenean parte har
+       dezakete diseinuko eta araugintzako edozein alderditan.
+       
+    6. Batzorde Teknikoak beste aukerarik ez dagoenean bakarrik hartzen 
+       ditu erabakiak.
+       Batzorde Teknikoak ez du erabaki teknikorik hartzen, harik eta
+       adostasunez konpontzeko ahaleginak egin eta emaitzarik ez dela
+       lortu ikusi arte, salbu eta normalean horren ardura izango 
+       lukeen pertsonak edo organoak erabakia har dezala eskatzen dionean.
+       
+7. Proiektu Idazkaria
+
+  7.1. Ahalmenak
+  
+   Idazkariak ondorengoak egiten ditu:
+    1. Garatzaileen botoak hartzen ditu, Garatzaileen kopurua eta nortasuna
+       egiaztatzen ditu, Konstituzioak hala eskatzen duen guztietan.
+    2. Proiektu Burua ordezka dezake, Batzorde Teknikoko Lehendakariarekin
+       batera.
+       Proiektu Bururik ez badago, orduan Batzorde Teknikoko Lehendakariak
+       eta Proiektu Idazkariak elkarrekin ados jarrita hartuko dituzte
+       erabakiak, beharrezkotzat jotzen badute.
+    3. Konstituzioaren interpretazioari buruzko edozein eztabaida ebazten du.
+    4. Agintearen zati bat edo osoa delega diezaioke beste norbaiti, edo
+       emandako delegazioa erretira dezake edozein unetan.
+       
+  7.2. Izendatzea
+  
+   Proiektu Idazkaria Proiektu Buruak eta uneko Proiektu Idazkariak
+   izendatzen dute.
+   
+   Proiektu Burua eta Proiektu Idazkaria ez badira ados jartzen izendatze
+   berri bati dagokionez, SPIren kontseiluari eskatu behar diote Idazkaria
+   izenda dezala.
+   
+   Proiektu Idazkaririk ez badago, edo unekoa ez badago baliagarri eta
+   erabaki bat hartzeko agintea delegatu ez badu, orduan erabakia
+   Batzorde Teknikoko Lehendakariak hartuko edo delegatuko du, Jarduneko 
+   Idazkari gisa.
+   
+   Proiektu Idazkariaren karguaren iraupena urtebetekoa da, eta epe hori
+   igarotakoan bera edo beste idazkari bat izendatu behar da berriro.
+   
+  7.3. Prozedura
+  
+   Proiektu Idazkariak erabaki justuak eta zentzuzkoak hartu behar ditu, 
+   eta ahal bada komeni da Garatzaileen adostasunarekin egitea.
+   
+   Absente dagoen Proiektu Buru bat ordezkatuz elkarrekin jardunez Batzorde
+   Teknikoko Lehendakariak eta Proiektu Idazkariak behar-beharrezkoa denean 
+   bakarrik hartu behar dituzte erabakiak, eta Garatzaileen adostasunarekin 
+   bakarrik.
+   
+8. Proiektu Buruaren Delegatuak
+
+  8.1. Ahalmenak
+  
+   Proiektu Buruaren Delegatuek:
+    1. Proiektu Buruak delegatu dizkien ahalmenak dituzte;
+    2. Proiektu Buruak zuzenean hartu ezin dituen erabakiak har ditzakete,
+       Garatzaileak onartzea edo kanporatzea barne, edo norbait paketeak
+       mantentzen ez dituen Garatzaile gisa izendatzea. Proiektu Buruaren 
+       eskuetan botere-pilaketarik gerta ez dadin egiten da, Garatzaileak 
+       proiektuko kide izateari buruz batez ere. 
+       
+  8.2. Izendatzea
+  
+   Proiektu Buruak izendatzen ditu Delegatuak, eta Proiektu Buruak ordeztu 
+   ditzake Proiektu Buruaren irizpidearen arabera. Proiektu Buruak ezin 
+   ditu ondorengoak egin: Delegatu baten posizioa baldintzatu Delegatuaren 
+   erabaki jakin batzuetan, ez eta Delegatu batek erabaki bat hartu 
+   ondoren erabaki hori baliogabetu ere.
+   
+  8.3. Prozedura
+  
+   Delegatuek erabakiak har ditzakete egoki dela iruditzen zaienean, baina
+   erabaki tekniko onak inplementatzen eta/edo adostasuna lortzen saiatu 
+   behar dute.
+   
+9. Software in the Public Interest (SPI)
+
+   SPI eta Debian bi erakunde desberdin dira, baina helburu batzuk berdinak 
+   dituzte. Debian-ek biziki eskertzen du SPIk eskainitako legezko 
+   laguntzako egitura. Debian-eko Garatzaileak SPIko kide dira gaur egun, 
+   Garatzaile gisa duten estatusaren ondorioz. 
+   
+  9.1. Agintea
+  
+    1. SPIk ez dauka aginterik Debian-eko erabaki teknikoei eta ez-teknikoei
+       dagokienez; salbuespenak dira SPIn gordailatutako ondasunei buruz 
+       Debian-ek hartzen duen erabaki batek ez duela behartuko SPI bere
+       lege-agintetik kanpo jardutera, eta Debian-en konstituzioak inoiz
+       erabil dezakeela SPI azken aukerako erabaki-organo gisa.
+    2. Debian-ek ez dauka aginterik SPIren gain, ez bada SPIren jabetzaren 
+       bat baliatzeko, behean azaldu bezala; baina Debian-eko Garatzaileei 
+       agintea eman dakieke SPIren baitan, SPIko arauen arabera.
+    3. Debian-eko Garatzaileak ez dira SPIko agenteak edo enplegatuak, ez 
+       eta beste Garatzaile baten edo Debian Proiektuko agintedunen agenteak 
+       edo enplegatuak ere. Garatzaile gisa jarduten duen pertsona batek 
+       norbanako gisa egiten du, bere izenean.
+       
+  9.2. Jabetza-kudeaketa Debian-en helburuetarako
+  
+   Debian-ek ez daukanez aginterik dirurik edo ondasunik edukitzeko, 
+   Debian Proiekturako dohaintzak SPIri egin behar zaizkio (erakunde 
+   horrek kudeatzen baititu horrelako kontuak).
+   
+   SPIk ondorengoak hartzen ditu bere gain:
+    1. SPIk gordailutan edukiko ditu dirua, marka komertzialak eta 
+       bestelako ondasun ukigarriak nahiz ukiezinak, eta Debian-en 
+       helburuetarako bestelako gai batzuk kudeatuko ditu.
+    2. Ondasun horiek aparte kontabilizatuko dira eta fiduzian gordeko dira
+       helburu horietarako, Debian-ek eta SPIk hala erabakita, atal honekin
+       bat etorriz.
+    3. SPIk ez du erabiliko edo besterenduko Debian-erako fiduzian 
+       gordetako jabetzarik Debian-en onarpenik gabe. Proiektu Buruak
+       eman beharko du onarpena, edo bestela Garatzaileen Ebazpen Orokor
+       bidez eman beharko da.
+    4. SPIk aztertuko du Debian-erako fiduzian gordetako ondasunak
+       erabiltzea edo besterentzea, Proiektu Buruak hala eskatutakoan.
+    5. Debian-erako fiduzian gordetako ondasuna erabili edo besterenduko
+       SPIk Garatzaileen Ebazpen Orokor baten bidez hala
+       eskatutakoan, betiere SPIren lege-agintearekin bat baldin badator.
+    6. SPIk Debian Proiektuko posta-zerrenda batera mezu elektroniko bat
+       bidaliz jakinaraziko die Garatzaileei, Debian-erako fiduzian
+       gordetako ondasun bat erabiltzen edo besterentzen duenean.
+       
+A. Ebazpen Prozedura Estandarra
+
+   Batzordeek eta plebiszituek erabaki komunak hartzeko aplikatuko dira
+   arau hauek, goian adierazitako kasuetan.
+   
+  A.1. Proposamena
+  
+   Ebazpen baten zirriborroa behar bezala proposatzen eta izapidetzen
+   denean hasten da prozedura formala.
+   
+  A.1. Eztabaida eta Zuzenketa
+  
+    1. Proposamenari jarraiki, ebazpena eztabaida daiteke.
+       Zuzenketak formaliza daitezke, ebazpen berri batentzako bete 
+       beharreko eskakizunen arabera proposatuta eta izapidetuta, edo, 
+       bestela, zuzenean formaliza ditzake ebazpenaren jatorrizko 
+       proposatzaileak.
+    2. Zuzenketa formal bat ebazpenaren proposatzaileak onar dezake, eta
+       kasu horretan berehala aldatuko da ebazpen-zirriborro formala,
+       aldaketa jasotzeko.
+    3. Zuzenketa formal bat ez bada onartzen, edo ebazpenaren 
+       bultzatzaileetako bat ez badago ados zuzenketa formal baten 
+       proposatzailearen onarpenarekin, zuzenketa zuzenketa gisa geratuko 
+       da, eta horri buruzko bozketa egingo da.
+    4. Jatorrizko proposatzaileak onartutako zuzenketa bat ez bada besteen
+       gustukoa, beste zuzenketa bat proposa dezakete aurreko aldaketa
+       atzera botatzeko (berriro ere, proposatzailearen eta bultzatzaileen
+       eskakizunak bete behar dituzte).
+    5. Ebazpen baten proposatzaileak aldaketak egin ditzake zuzenketen 
+       testuan; aldaketak horiek eragina izateko, zuzenketaren 
+       proposatzaileak ados egon behar du, eta bultzatzaileetako inor ez 
+       kontra. Kasu horretan, aldatutako zuzenketak bozkatuko dira, 
+       jatorrizkoen ordez.
+    6. Ebazpen baten proposatzaileak aldaketak egin ditzake akats txikiak
+       zuzentzeko (adibidez, errore tipografikoak edo inkonsistentziak), 
+       edo esanahia aldatzen ez duten aldaketak ere egin ditzake, baldin 
+       eta inork ez badu eragozpenik jartzen 24 orduko epean. Horrelakoetan,
+       gutxieneko eztabaida-aldirik ez da berriro hasten.
+       
+  A.2. Bozketa-deialdia egitea
+  
+    1. Mozio baten proposatzaileak edo bultzatzaileak bozketa-deialdia
+       egin dezake, gutxieneko eztabaida-aldia igaro baldin bada
+       (halakorik egonez gero).
+    2. Mozio baten proposatzaileak edo bultzatzaileak bozketa-deialdia egin
+       dezake zuzenketa baten edo denen gain banaka edo batera; zuzenketa 
+       baten proposatzaileak edo bultzatzaileak bozketa baten deialdia 
+       egin dezake soilik zuzenketa horretan eta zerikusia duten 
+       zuzenketetan.
+    3. Bozketa baten deialdia egiten duen pertsonak adierazten du bere 
+       ustez zein den ebazpenaren eta zuzenketa esanguratsuen testua, eta, 
+       ondorioz, nolakoa izan behar duen boto-txartelak. Dena dela,
+       Idazkariari dagokio boto-txartelaren itxurari buruzko azken erabakia 
+       - ikus 7.1 (1), 7.1(3) eta A.3(6).
+    4. Gutxieneko eztabaida-aldia azken zuzenketa formala onartu zenetik
+       hasten da kontatzen, edo zerikusia zuen azken zuzenketa formala 
+       onartu zenetik, zuzenketa bat bozkatzen ari bada, edo ebazpen osoa 
+       proposatu zenetik, ez bada zuzenketarik proposatu eta onartu.
+       
+  A.3. Bozkatzeko prozedura
+  
+    1. Zerikusia duen zuzenketa-multzo independente bakoitza aparteko 
+       boto-txartel batekin bozkatzen da. Horrelako txartel bakoitzean 
+       aukera gisa agertuko dira zuzenketen eta aukeren konbinazio guztiak, 
+       eta Gehiago Eztabaidatzeko aukera bat ere bai. Gehiago 
+       Eztabaidatzeko aukerak irabazten badu, orduan ebazpen-prozedura 
+       osoa eztabaida-aldiaren hasierara itzuliko da. Quorum-ik ez da behar 
+       zuzenketa batentzat.
+    2. Ebazpenaren azken forma zehaztutakoan, azken bozketa batean bozkatzen
+       da, hiru aukera hauek eskainiz: Bai, Ez eta
+       Gehiago Eztabaidatu. Gehiago Eztabaidatzeko aukerak irabazten badu, 
+       orduan prozedura osoa eztabaida-aldiaren hasierara itzuliko da.
+    3. Boto-hartzaileak (halakorik badago) edo boto-emaileek (bozketa erabaki
+       publiko bidez egiten bada) erabaki dezakete boto-mezu bakar bat
+       erabiliz egitea bozketa, aldi berean egiten diren bozketetan.
+       Zuzenketen bozketak eta azken bozketa horrela konbinatuz gero,
+       orduan boto-emaile batek posible izan behar du desberdin bozkatzea
+       azken ebazpen-zirriborroaren modu posible bakoitzaren azken
+       bozketan.
+    4. Botoak bozketa-aldian zehar zenbatu daitezke, beste nonbait
+       zehaztu bezala. Bozketa-aldia amai badaiteke emaitza jada
+       zalantzan jartzen ez denean, boto-emaileek euren botoa aldatzeko
+       aukera ez da kontuan hartzen.
+    5. Botoak Concorde Vote Counting sistemaren arabera kontatzen dira. 
+       Quorum bat behar bada, Gehiago Eztabaidatu izaten da aukera
+       lehenetsia.
+    6. Zalantzazko kasuetan, Proiektu Idazkariak hartuko du erabakia
+       prozedura-gaiei dagokienez (esate baterako, zuzenketa partikularrak
+       independentetzat jo behar diren edo ez).
+       
+  A.4. Ebazpenak edo onartu gabeko zuzenketak erretiratzea
+  
+   Ebazpen baten edo onartu gabeko zuzenketa baten proposatzaileak 
+   erretiratu egin dezake.
+   Horrelakoetan, proposatzaile berriek aurrera jarrai
+   dezakete, eta orduan hori egiten duen lehen pertsona bihurtzen da
+   proposatzaile berri, eta besteak bultzatzaile, lehendik hala ez badira.
+   
+   Ebazpen edo zuzenketa baten bultzatzaileak (onartu ez bada behintzat)
+   erretiratu egin dezake.
+   
+   Proposatzaileak eta/edo bultzatzaileek erretiratzeak esan nahi badu
+   ebazpenak ez duela proposatzailerik edo behar adina bultzatzaile,
+   ez da bozkatuko, ebazpena iraungi baino lehen zuzendu ezean.
+   
+  A.5. Iraungitzea
+  
+   Proposatutako ebazpen bat oraindik ez bada eztabaidatu, ez bazaio 
+   zuzenketarik aurkeztu, ez bada bozkatu edo bestela jorratu lau astez, 
+   erretiratutzat joko da.
+   
+  A.6. Concorde Vote Counting sistema
+  
+    1. Hainbat aukeraren artean zeinek irabazten duen erabakitzeko 
+       erabiltzen da.
+       Boto-txartel bakoitzak boto-emaileak lehenetsitako aukeren 
+       sailkapen bat adierazten du. (Sailkapenak ez du osoa izan beharrik.)
+    2. A aukerak B aukera menderatuko du, boto gehiago badira nahiago 
+       dutenak A aukera B baino, B A baino nahigo dutenak baino.
+    3. Gutxienez beste aukera batek menderatutako aukera guztiak baztertu
+       egingo dira, eta boto-txarteletan aukera horiei egindako
+       erreferentziei ez ikusi egingo zaie.
+    4. Beste aukera guztiak menderatzen dituen aukeraren bat baldin badago,
+       horixe izango da irabazlea.
+    5. Aukera bat baino gehiago gelditzen badira, Boto Bakar
+       Transferigarria aplikatuko zaie gelditzen diren aukera
+       horiei:
+          + Aukera bakoitzaren lehen hobespenen kopurua zenbatuko da,
+            eta aukera batek erdia baino gehiago badu, irabazlea izango da.
+          + Bestela, lehen hobespenen kopuru txikiena duen aukera
+            kendu egingo da, eta aukera horren botoak birbanatu
+            egingo dira bigarren hobespenen arabera.
+          + Kentzeko prozedura hori errepikatu egiten da, boto-txartelak
+            2.,3., 4. ... aukeretara egokituz, beharrezkoa denean, harik eta
+            aukera batek 'lehen' hobespenen erdia baino gehiago lortu arte.
+    6. Berdinketarik egonez gero, kalitatezko botoa daukan hautesleak 
+       erabakiko du.
+       Kalitatezko botoa ez da boto normal gisa kontatzen; dena den,
+       hautesle horrek normalean boto normala ere izango du.
+    7. Gehiengo nagusia behar bada, azken bozketan Baiezko botoen kopurua
+       murriztu egiten da faktore egoki baten arabera. Zehazki esanda, 
+       F:A gehiengo nagusi batentzat, Bai X baino nahiago duten botoen 
+       kopurua (Bai aukerak X menderatzen duen edo X aukerak Bai
+       menderatzen duen kontsideratzean) edo (gelditzen den) lehen hobespena
+       Bai duten botoen kopurua (STV konparazioak egiten direnean irabazle
+       eta erretiratze prozesuetarako) A/F faktore batekin biderkatzen da
+       konparazioa egin aurretik. Horrek esan nahi du 2:1 bozketa batean, 
+       esaterako, bi aldiz jende gehiagok bozkatu duela alde aurka baino; 
+       abstentzioak ez dira kontatzen. 
+    8. Quorum-ik behar izanez gero, gutxienez horrenbeste boto egon behar
+       dira aukera irabazlea nahiago dutenak aukera lehenetsia baino. Halako
+       kopururik ez badago, aukera lehenetsiak irabaziko du. Gehiengo
+       nagusia eskatzen duten bozketetan, Baiezko botoen kopurua erabiliko
+       da quorum-a lortu den edo ez erabakitzeko.
+       
+   Ebazpen Prozedura Estandarra erabili behar denean, horri erreferentzia
+   egiten dion testuak zehaztu egin behar du zer den nahikoa ebazpen-
+   zirriborro bat proposatzeko eta/edo bultzatzeko, zein den gutxieneko
+   eztabaida-aldia eta zein den bozketa-aldia. Halaber, gehiengo nagusia
+   eta/edo quorum-a ere (eta aukera lehenetsia) zehaztu behar ditu.
+   
+B. Hizkuntzaren eta tipografiaren erabilera
+
+   Orainaldiak edo geroaldiak (`da', edo 'egingo da', adibidez) esan nahi 
+   du adierazpena araua dela konstituzio honetan. Ahalerak esan nahi du 
+   pertsona edo organo horrek bere irizpidea duela. Hipotetikoak, berriz, 
+   esan nahi du zerbait komenigarria izan daitekeela, esaterako, baina ez 
+   dela derrigorrezkoa. Aipamen gisa markatutako testua, hau adibidez, 
+   azalpen bat da, eta ez da konstituzioaren zati. Zalantzarik izanez gero, 
+   interpretazioa argitzeko erabil daiteke. 
+
+     ---------------------------------------------------------------
+Kontuan izan Debian-en historia dokumentatzea dela dokumentu honen xedea. Ideia orokorrak oraindik ere aplikagarriak izan arren, xehetasun batzuk aldatu egin dira.
+
+
+********************
+Eranskina
+Debian manifestua
+********************
+
+
+			Debian Linux manifestua
+
+			Ian A. Murdock-ek idatzia
+			     1994-06-01ean berrikusia
+
+
+Zer da Debian Linux?
+=====================
+
+Linux-en banaketa-mota berri bat Debian Linux. Norbanako edo talde isolatu batek garatu beharrean, lehen Linux-en beste banaketa batzuekin egin den bezala, Debian modu irekian ari da garatzen Linux-en eta GNUren espirituan. Debian proiektuaren helburu nagusia hau da: Linux izenarekin bat datorren banaketa bat sortzea. Debian kontu handiz eta kontzienteki ari da bateratzen, eta arreta berdinarekin mantenduko eta lagunduko da.
+
+Merkatu komertzialean eraginkortasunez lehiatuko den banaketa ez-komertzial bat sortzeko ahalegina ere bada. Azkenean Software Librearen Fundazioak banatuko du CD-ROMean, eta Debian Linux elkarteak disketeetan eta zintetan eskainiko du banaketa, inprimatutako eskuliburuekin, laguntza teknikoarekin eta erabiltzailearentzako beste hainbat baliabiderekin. Goiko horiek guztiak kostu-prezioa baino gehixeagoren truke eskainiko dira, eta soberako guztia erabiltzaile guztiontzako software librea garatzeko erabiliko da. Horrelako banaketa bat funtsezkoa da Linux sistema eragileak arrakasta edukitzeko merkatu komertzialean, eta irabazien edo mozkinen presiorik gabe software librea garatzeko eta bideratzeko posizioan dauden erakundeek egin behar dute.
+
+
+Zergatik ari da sortzen Debian ?
+================================
+
+Banaketak ezinbestekoak dira Linux-en etorkizunerako. Funtsean, funtzionatzen duen Linux sistema eragile bat osatzeko behar diren oinarrizko tresna asko eta asko aurkitzeko, deskargatzeko, konpilatzeko, instalatzeko eta integratzeko beharra aurrezten zaio erabiltzaileari. Horrela, bada, banaketa-sortzailea arduratzen da sistema eraikitzeaz, eta milaka erabiltzailerekin partekatzen du lan hori. Ia erabiltzaile guztiek banaketa baten bidez probatzen dute Linux, eta gehienek, sistema eragilea ezagutu ondoren, banaketa bat erabiltzen jarraitzen dute, komenigarria delako. Hortaz, banaketak oso-oso garrantzitsuak dira.
+
+Nolanahi ere, garrantzia nabarmena izan arren, garatzaileek ez diete arreta handirik jartzen banaketei. Horretarako arrazoi soil bat dago: ez da erraza eta ez du xarma berezirik banaketa bat eraikitzeak, eta gainera gero ahalegin handia eskatzen du banaketa errorerik gabe eta eguneratuta mantentzeak. Sistema bat bateratzen hutsetik hastea gauza bat da; eta bestelako zerbait da sistema besteek instalatzeko erraza dela ziurtatzea, hainbat hardware-konfiguraziorekin instalatzeko eta erabiltzeko modukoa dela, besteentzako erabilgarria izango den softwarea daukala eta osagaiak hobetzen direnean banaketa eguneratu egiten dela ziurtatzea.
+
+Banaketa askok nahiko hasiera ona izaten dute, baina denbora pasatu ahala banaketa mantentzea bigarren mailako kezka bihurtzen da. Horrelako kasu argia da Softlanding Linux sistema (SLS gisa ezagutzen dena). Seguru asko erabilgarri dagoen Linux banaketarik akastunena eta okerren mantendutakoa da, eta zoritxarrez ezagunena ere bai agian. Inolako zalantzarik gabe, Linux-en banatzaile komertzialen artean gehien erakartzen duen banaketa izango da, eta, ondorioz, geroz eta ezagunagoa da.
+
+Egia esan, oso konbinazio txarra da; izan ere, "banatzaile" horiengandik Linux eskuratzen duen jendeak Linux-en banaketa akastun bat eta gaizki mantendutakoa jasotzen du. Eta hori gutxi balitz, euren produktuan funtzionalak ez diren edo oso ezegonkorrak diren "eginbideak" iragartzeko joera edukitzen dute. Gainera kontuan izan behar da erosleek espero dutela produktua iragarritakoarekin bat etortzea, noski, eta askok beharbada usteko dutela sistema eragile komertzial bat dela (halaber, Linux librea dela eta GNU Lizentzia Publiko Orokorrarekin banatzen dela ez aipatzeko joera ere badago). Eta hortaz guztiaz gainera, "banatzaile" horiek diru dezente irabazten dute, eta are iragarki handiagoak jartzen dituzte aldizkari gehiagotan; hoberik ezagutzen ez dutenek portaera onartezinak saritzeko adibide klasikoa da. Argi dago zerbait egin beharra dagoela egoera hau konpontzeko.
+
+
+Nola saiatuko da Debian arazo horiek amaitzen?
+========================================================
+
+Debian-en diseinu-prozesua irekia da, sistema kalitate gorenekoa dela eta erabiltzaileen beharrei erantzuten diela ziurtatzeko. Gaitasun eta esperientzia oso desberdinetako jendeak parte hartzen duenez, Debian modularki garatzen da. Kalitate handiko osagaiak ditu, eta area jakin batean adituakn direnek area horretako Debian-osagaiak sortzeko edo mantentzeko aukera izaten dute. Beste batzuk parte hartzeak esan nahi du hobetzeko iradokizun baliagarriak sartzen direla banaketan garatzen ari den bitartean; horregatik, erabiltzaileen beharren eta nahien arabera sortzen da banaketa, eraikitzailearen beharren eta nahien arabera baino gehiago. Oso zaila izaten da norbaitek edo talde txiki batek aldez aurretik jakitea beharrak eta nahiak zein diren, beste batzuen ekarpen zuzenik eduki gabe.
+
+Debian Linux euskarri fisikoan ere banatuko dute Software Librearen Fundazioak eta Debian Linux Elkarteak. Horrela Interneterako edo FTPrako sarbiderik ez daukatenentzat ere erabilgarri egongo da Debian, eta inprimatutako eskuliburuak eta laguntza teknikoa balia ditzakete erabiltzaile guztiek. Horrela jende eta erakunde gehiagok erabil dezakete Debian, eta punta-puntako produktua lortzea izango da helburu nagusia, eta ez irabaziak edo mozkinak. Produktuetatik eta emandako zerbitzuetatik soberan geratzen dena erabiltzaile guztientzako softwarea hobetzeko erabil daiteke, software hori eskuratzeko ordaintzen duten ala ez kontuan hartu gabe.
+
+Software Librearen Fundazioaren esku-hartzea oso garrantzitsua da Debian-en etorkizunerako. Beraiek birbanatze hutsarekin, mezu bat bidaltzen zaio munduari, jakitera emateko Linux ez dela produktu komertzial bat eta inoiz ez lukeela hala izan behar, baina horrek ez duela esan nahi Linux ez dela inoiz gai izango komertzialki lehiatzeko. Ados ez zaudetenoi, GNU Emacs eta GCCren arrakasta arrazionalizatzea eskatzen dizuet. Software komertzialak izan ez arren, eragin handia izan dute merkatu komertzialean.
+
+Linux-en etorkizunaz arduratzeko garaia heldu da, Linux-en komunitate osoa eta haren etorkizuna alde batera utzita norbera aberasteko helburu suntsigarriaz arduratu beharrean. Debian-en garapena eta banaketa beharbada ez dira izango Manifestuan aipatu ditudan arazoen erantzuna, baina espero dut behintzat arazo horiekiko arreta erakarriko duela, konpontze bidean jartzeko.
+
+
+
+Debian GNU/Linux Hitzarmen Soziala
+
+
+Sistema eragile libre bat sortzeko xedearekin elkartutako pertsonen
+elkarte bat da Debian Proiektua.  Hau da software librearen
+komunitateari eskaintzen diogun "hitzarmen soziala".
+
+  ------------------------------------------------------------------------
+
+Software Librearen Komunitatearekiko "Hitzarmen Soziala"
+
+  1. Debian-ek Software Librea izaten jarraituko du % 100ean
+
+     Debian GNU/Linux banaketa erabat software librea izaten jarraitzeko
+     konpromisoa hartzen dugu. Software Librearen definizio asko daudenez, 
+     software "Librea" guretzat zer den definitzeko erabiltzen ditugun 
+     gidalerroak azaltzen dira behean. Debian-en librea ez den softwarea
+     garatzen eta erabiltzen duten gure erabiltzaileei lagundu egingo diegu,
+     baina sistema inoiz ez dugu jarriko librea ez den software-elementu
+     baten menpe.
+
+  2. Software Librearen Komunitateari egingo diogun ekarpena
+
+     Debian sistemako osagai berriak idazten ditugunean, software librearen
+     lizentzia ezarriko diegu. Ahal dugun sistemarik onena egingo dugu, 
+     software librea asko zabal eta erabil dadin. Programa-erroreen
+     konponketak, hobekuntzak, erabiltzaileen eskaerak etab. gure sistemako
+     software-garatzaileei helaraziko dizkiegu.
+
+  3. Ez ditugu arazoak ezkutatuko
+
+     Programa-erroren berri-emateen datu-basea publikoak edozein unetan 
+     Ikusteko moduan mantenduko dugu. Erabiltzaileek linean artxibatzen 
+     dituzten berri-emateak besteek ikusteko moduan egongo dira berehala.
+
+  4. Gure erabiltzaileak eta Software Librea dira gure lehentasunak
+
+     Gure erabiltzaileen eta software librearen komunitatearen beharrak
+     izango ditugu gidari. Erabiltzaileen interesek lehen lekua izango dute 
+     gure lehentasunen artean. Gure erabiltzaileen beharren araberako 
+     eskaintza egingo dugu, edozein informatika-ingurunetan erabiltzeko. 
+     Ez diogu eragozpenik jarriko Debian sistemetan exekutatzeko software 
+     komertzialari, eta aukera emango diegu beste batzuei Debian eta software 
+     komertziala dituzten balio erantsiko banaketak sortzeko, guk tarifarik 
+     kobratu gabe. Helburu horiek betetzeko, kalitate handiko sistema integratu 
+     bat eskainiko dugu, % 100 software librekoa, era horretako erabilerak 
+     eragotziko lituzkeen lege-murriztapenik gabea.
+
+  5. Gure software librearen estandarrak betetzen ez dituzten programak
+
+     Konturatzen gara Debian Software Librearen Gidalerroak betetzen ez dituzten
+     programak erabili behar izaten dituztela gure erabiltzaile batzuk. "Contrib"
+     eta "non-free" areak sortu ditugu gure FTP artxiboan horrelako
+     softwarearentzat. Direktorio horietako softwarea ez da Debian sistemakoa, 
+     Debian-ekin erabiltzeko konfiguratutakoa izan arren. Biziki gomendatzen
+     diegu CD-fabrikatzaileei direktorio horietako software-paketeen lizentziak
+     irakur ditzatela, eta egiazta dezatela software hori euren CDetan bana
+     dezaketen edo ez. Hortaz, librea ez den softwarea Debian-en zati ez bada ere,
+     erabiltzea onartzen dugu, eta azpiegitura (programa-erroreen berri
+     emateko sistema eta posta-zerrendak, esaterako) eskaintzen dugu, software
+     librekoak ez diren paketeentzat.
+
+  ------------------------------------------------------------------------
+
+Debian Software Librearen Gidalerroak
+
+  1. Birbanaketa librea
+
+     Debian-en osagai baten lizentziak ezin dio alderdi bati eragotzi
+     softwarea saltzea edo doan ematea, hainbat iturburutako programak
+     dauzkan software-banaketa agregatu bateko osagai gisa. Lizentziak
+     ez du eskatuko royaltyrik edo bestelako tarifarik horrelako
+     salmenta batengatik.
+
+  2. Iturburu-kodea
+
+     Programak iturburu-kodea eduki behar du, eta forma konpilatuaz 
+     Gainera iturburu-kodea ere banatzea onartu behar du.
+
+  3. Lan eratorriak
+
+     Lizentziak aldaketak eta eratorritako lanak onartu behar ditu, eta
+     jatorrizko softwarearen lizentziak onartutako baldintza berdinetan
+     banatzeko baimena eman behar du.
+
+  4. Egilearen iturburu-kodearen osotasuna
+
+     Iturburu-kodea aldatuta banatzea eragotz dezake lizentziak, baldin eta
+     iturburu-kodearekin batera "adabaki-fitxategiak" banatzea onartzen
+     badu, jatorrizko programa aldatzeko xedearekin. Lizentziak esplizituki 
+     onartu behar du aldatutako iturburu-kodetik sortutako softwarea banatzea. 
+     Eratorritako lanak jatorrizko bertsioarekiko izen edo bertsio-zenbaki 
+     desberdina edukitzera behar dezake lizentziak. (Hori konpromiso bat da. 
+     Debian taldeak egile guztiei eskatzen die ez dezatela fitxategiak, 
+     iturburukoak nahiz bitarrak, aldatzea debekatu.)
+
+  5. Bereizkeriarik ez pertsonen edo taldeen aurka
+
+     Lizentziak ez du bereizketarik egin behar inolako pertsonaren edo
+     pertsona-talderen aurka.
+
+  6. Bereizkeriarik ez jarduera-eremuen aurka
+
+     Lizentziak ez dio inori eragotzi behar programa jarduera-eremu
+     jakin batean erabiltzea. Esate baterako, ez du eragotzi behar
+     programa enpresa batean erabiltzea, edo ikerketa genetikorako
+     erabiltzea.
+
+  7. Lizentzia-banaketa
+
+     Programari erantsitako eskubideak programa birbanatzen zaion orori
+     aplikatu behar zaizkio, alderdi horrek lizentzia gehigarri bat
+     exekutatu behar izan gabe.
+
+  8. Lizentziak ez du izan behar Debian-eko espezifikoa
+
+     Programari erantsitako eskubideak ez dira izan behar programa
+     Debian sistemako zati izatearen araberakoak. Programa Debian-etik 
+     atera eta Debian gabe erabiltzen edo banatzen bada, baina 
+     gainerakoan programaren lizentziaren baldintzen arabera, programa 
+     birbanatzen zaien guztiek Debian sistemarekin batera ematen zaizkien 
+     eskubide berak edukiko dituzte.
+
+  9. Lizentziak ez du bestelako softwarerik kutsatu behar
+
+     Lizentziak ez du jarri behar murriztapenik ezarri behar software 
+     lizentziadunarekin batera banatzen den bestelako softwarearen gainean. 
+     Esate baterako, lizentziak ez du ezinbestekotzat jo behar euskarri 
+     berean banatzen diren beste programa guztiak software librekoak izatea.
+
+ 10. Lizentzia-adibideak
+
+     "GPL", "BSD" eta "Artistic" lizentziak, esate baterako, "libretzat" jotzen
+     ditugun lizentziak dira.
+
+ 
+	NOLA DESKONPRIMITU DEBIAN-EKO ITURBURU-PAKETE BAT
+           ---------------------------------------------------------------------------------------------------
+
+
+Debian-eko bi iturburu-pakete mota daude: zaharrak eta berriak.
+
+A. Zaharrek itxura hau edukitzen dute:
+      hello-1.3-4.tar.gz
+      hello-1.3-4.diff.gz
+ Deskonprimitzeko, destartu .tar.gz.  EZ dago diff.
+ aplikatu beharrik.
+
+B. Berriek itxura hau edukitzen dute:
+      hello_1.3-11.dsc
+      hello_1.3-11.diff.gz
+      hello_1.3-11.orig.tar.gz - ohartu `.orig' zatia duela
+ Hor dpkg-source erabili BEHAR duzu, edo diff eskuz aplikatu - ikus behean.
+
+ `dpkg-source' baldin badaukazu, fitxategiak direktorio berean jarri
+ beharko zenituzke, eta `dpkg-source -x <zera>.dsc' idatzi.
+
+ Ez badaukazu, honela atera dezakezu Debian iturburua:
+   1. destartu (deskonprimitu) P_V.orig.tar.gz.
+   2. aldatu izena ateratako P-V.orig direktorioari: jarri P-V.  Beste
+      direktorio bat ateratzen bada, aldatu *hori*: jarri P-V.
+   3. mkdir P-V/debian.
+   4. aplikatu diff, -p0 adabakiarekin.
+   5. egin hau: `chmod +x P-V/debian/rules'
+ (P pakete izena da, eta V bertsioa.)
+
+C. Pakete batzuetan Debian-eko iturburua izaten da garapeneko iturburua. 
+ Kasu horretan, ez da .diff.gz-rik egongo, eta .tar.gz erabil dezakezu 
+ besterik gabe.  .dsc bat baldin badago, `dpkg-source -x' erabil daiteke.
+
+ -- Ian Jackson <ijackson@gnu.ai.mit.edu>  Larunbata, 1996ko abuztuak 31
+
+
+                  Debian-eko posta-zerrendei buruzko sarrera
+                  ==========================================
+
+  Debian GNU/Linux-en garapena mundu guztian zehar banatuta egien da. 
+  Horregatik, posta elektronikoa da hainbat gai eztabaidatzeko bide egokiena. 
+  Debian-eko garatzaile eta erabiltzaileen arteko elkarrizketa asko 
+  posta-zerrenden bidez bideratzen dira.  
+
+  Mundu osoarentzako irekitako zerrenda asko eta asko daude, hau da, edonork
+  irakur dezake horra bidaltzen dena, eta eztabaidetan parte hartu ere bai. 
+  Guztiok animatzen zaituztegu Debian garatzen laguntzera eta software librea 
+  zer den zabaltzera.  Halaber, badaude zerrenda batzuk Debian-eko garatzaile 
+  ofizialentzako soilik irekita daudenak; mesedez, ez interpretatu garapen itxi 
+  gisa. Sarritan ez du zentzurik barne-arazoei buruz garatzaile ez direnekin
+  hitz egiteak.
+
+  Debian posta-zerrenda gehienak zerbitzari berezi batean exekutatzen dira, 
+  SmartList izeneko posta automatikoki prozesatzeko softwarea erabiliz.  
+  Zerbitzari horren izena: lists.debian.org.  Informazioa bidaltzeko, 
+  harpidetzeko eta harpidetza kentzeko mezu  guztiak ostalari horretako 
+  helbide jakin batera bidali behar dira.
+
+  Zerrenda guztietan ingelesa erabiltzen da, besterik esan ezean.
+  Badaude beste hizkuntza batzuetako erabiltzaile-zerrenda batzuk ere.
+
+Harpidetzea / Harpidetza kentzea
+--------------------------------
+
+  Edonork bere kabuz egin edo ken dezake edozein posta-zerrendatako harpidetza,
+  zerrenda horretako harpidetza-politika "irekia" bada.
+
+  Harpidetza egiteko edo kentzeko eskaerak kontrol-helbide berezi batera bidal 
+  daitezke (zerrenda-helbidearen oso antzekoa izaten da, baina ez berdina).
+  Harpidetzeko edo harpidetza kentzeko mezuak EZ dira bidali behar posta-
+  zerrendaren helbidera bertara.
+
+  Posta-zerrenda bateko harpidetza egiteko edo kentzeko, bidali mezu bat hona:
+
+        <listname>-REQUEST@lists.debian.org
+
+  `subscribe' edo `unsubscribe' jarrita Gaia eremuan.
+
+  Gogoan izan helbidearen -REQUEST zatia.
+
+  Harpidetza-prozesuaren zati gisa, zerrenda-softwareak mezu bat bidaliko dizu, eta 
+  mezu horri erantzun egin beharko diozu harpidetza gauzatzeko. Segurtasun-neurri 
+  bat da, pertsona batek harpidetzarik egin ez dezan beste baten izenean, inolako 
+  baimenik gabe.
+
+  Zerrendaren arduraduna den pertsona batekin hitz egin nahi baduzu, bidali 
+  mezu bat hona: listmaster@lists.debian.org . Zerrenden arduraduna nor den 
+  ikusteko, begiratu hemen: http://www.debian.org/intro/organization
+
+Erabiltzaile-zerrendak
+
+  Erabiltzaileak oinarri dituzten hainbat zerrenda daude, eta zerrenda 
+  horietan arazoak eztabaidatzen eta konpontzen dituzte.
+
+  debian-announce@lists.debian.org
+
+      Azalpena: Berri nagusiak eta proiektuko aldaketa oso garrantzitsuak
+                    iragartzen dira hemen.
+      Moderatua   : bai
+      Harpidetza: irekia
+
+  debian-at@mail.vianova.at
+
+      Azalpena: Austriako Debian garatzaileen arteko eztabaida.
+
+                    Informazio gehiago nahi izanez gero, ikus
+                    http://www.gibraltar.at/mailman/listinfo/debian-at
+      Hizkuntza   : alemana batez ere
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-cd-vendors@lists.debian.org
+
+      Azalpena: Debian-en CDen banatzaileen arteko eta haiekiko komunikazioa.
+                    (Bolumen txikiko posta-zerrenda.)
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-chinese-big5@lists.debian.org
+
+      Azalpena: Debian-en txinerazko proiektua: Txinerazko lokalizazioa (l10n),
+                    dokumentazioaren eta web gunearen itzulpena,
+                    erabiltzaileentzako laguntza, etab.
+
+                    Ingelesez edo Big5-ean kodetutako txineraz bidal daitezke mezuak.
+                    Mezu guztiak automatikoki bihurtzen dira GB kodeketara
+                    eta gainera debian-chinese-gb zerrendara bidaltzen dira.
+
+                    Nahiago baduzu GB-kodeketako txineraz irakurri
+                    eta bidaltzea, harpidetu debian-chinese-gb zerrendan.
+      Hizkuntza   : txinera
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-chinese-gb@lists.debian.org
+
+      Azalpena: Debian-en txinerazko proiektua: Txinerazko lokalizazioko (l10n)
+                    gaiak, dokumentazioaren eta web gunearen itzulpena,
+                    erabiltzaileentzako laguntza, etab.
+
+                    Ingelesez edo GB kodeketako txineraz bidal daitezke mezuak.
+                    Mezu guztiak automatikoki bihurtzen dira Big5 kodeketara
+                    eta gainera debian-chinese-big5 zerrendara bidaltzen dira.
+
+                    Nahiago baduzu Big5 kodeketako txineraz irakurri
+                    eta bidaltzea, harpidetu debian-chinese-big5 zerrendan.
+      Hizkuntza   : txinera
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-commercial@lists.debian.org
+
+      Azalpena: Software- eta hardware-saltzaileen produktuei 
+                    buruzko informazioa argitaratzen da hemen.
+                    Zerrenda moderatua da, eta, beraz, egin bidalketak
+                    moderatzaileari, helbide honetara: press@debian.org.
+
+                    Kontuan izan, ez dela onartzen bidalketa
+                    komertzialak egitea Debian-en beste posta-zerrendetara.
+      Moderatua   : bai
+      Harpidetza: irekia
+
+  debian-esperanto@lists.debian.org
+
+      Azalpena: Esperantoz hitz egiten duten Debian erabiltzaileak.
+      Hizkuntza   : Esperantoa
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-isp@lists.debian.org
+
+      Azalpena: Debian erabiltzen duten Interneteko Zerbitzu
+                    Hornitzaileen (ISPen) inguruko gai eta arazoei
+                    buruzko informazio espezifikoa.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-italian@lists.debian.org
+
+      Azalpena: Italieraz hitz egiten duten Debian erabiltzaileentzako 
+                    laguntza teknikoa.
+                    (Bolumen handiko posta-zerrenda.)
+      Hizkuntza   : Italiera
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-japanese@lists.debian.org
+
+      Azalpena: Japonieraz hitz egiten duten Debian-erabiltzaileentzako,
+                    laguntza-teknikoa, japonierazko lokalizazio-gaiak,
+                    Debian JP paketeak Debian-en integratzea, etab.
+
+                    Ingelesa onartzen da, baina japoniera erabiltzea
+                    gomendatzen da (jatorrizko hiztunak ez direnek ere bai).
+
+                    Japoniarrentzat, Debian JP
+                    proiektuak Debian sistemari buruzko hainbat
+                    posta-zerrenda eskaintzen ditu japonieraz.
+                    Ikus http://www.debian.or.jp/MailingList.html
+      Hizkuntza   : ingelesa/japoniera
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-kde@lists.debian.org
+
+      Azalpena: Debian-eko KDEri buruzko eztabaidak.
+                    KDEn oinarritutako paketeak garatzen
+                    dituztenei arazoak eztabaidatzeko eta euren
+                    esperientzia partekatzeko gonbita egiten zaie.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-laptop@lists.debian.org
+
+      Azalpena: Debian ordenagailu eramangarrietan instalatzea, eguneratzea 
+                    eta erabiltzea.
+                    Eskertzen da pakete bereziei buruzko iradokizunak,
+                    kexak eta abar bidaltzea.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-mirrors@lists.debian.org
+
+      Azalpena: FTP artxiboan egindako aldaketa nagusiak iragartzen dira hemen.
+                    Batez ere Debian-eko ispiluen mantentzaileentzako
+                    dira erabilgarriak.
+      Moderatua   : bai
+      Harpidetza: irekia
+
+  debian-news-german@lists.debian.org
+
+      Azalpena: Debian-en inguruko berriak alemanez hitz egiten duten 
+                     erabiltzaileentzat.
+      Moderatua   : bai
+      Harpidetza: irekia
+
+  debian-news-portuguese@lists.debian.org
+
+      Azalpena: Bertsioak, berriak, nazioartekotzeko ahaleginak eta
+                    Debian-i buruzko bestelako berriak, portugesez
+                    hitz egiten duten erabiltzaileentzat.
+      Moderatua   : bai
+      Harpidetza: irekia
+
+  debian-news@lists.debian.org
+
+      Azalpena: Banaketari eta proiektuari buruzko berri orokorrak.
+      Moderatua   : bai
+      Harpidetza: irekia
+
+  debian-russian@lists.debian.org
+
+      Azalpena: Errusieraz hitz egiten duten Debian erabiltzaileentzako
+                    laguntza teknikoa eta errusierazko lokalizazio-gaiak: 
+                    itzulpena "po" fitxategiak, Debian paketeak errusierarekin
+                    funtzionatzeko adabakiak koordinatzea.
+      Hizkuntza   : errusiera
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-security-announce@lists.debian.org
+
+      Azalpena: Segurtasun-taldeak segurtasun-arazoei buruz informatzen ditu
+                    erabiltzaileak, Debian-paketeei buruzko gomendioak
+                    bidaliz zerrendara.
+      Moderatua   : bai
+      Harpidetza: irekia
+
+  debian-security@lists.debian.org
+
+      Azalpena: Debian-komunitateko alderdi guztiei interesatzen
+                    zaizkien segurtasun-gaiei buruzko eztabaida,
+                    kriptografia-gaiak barne.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-testing@lists.debian.org
+
+      Azalpena: Hurrengo Debian banaketako arazoak bilatzea:
+                    instalazioa eta bertsio-berritzeko prozesua
+                    probatzea eta banakako paketeak probatzea.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-user-danish@lists.debian.org
+
+      Azalpena: Danieraz hitz egiten duten Debian erabiltzaileentzako 
+                    laguntza teknikoa.
+      Hizkuntza   : Daniera
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-user-french@lists.debian.org
+
+      Azalpena: Frantsesez hitz egiten duten Debian erabiltzaileentzako 
+                     laguntza teknikoa.
+                    (Bolumen handiko posta-zerrenda.)
+      Hizkuntza   : Frantsesa
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-user-german@lists.debian.org
+
+      Azalpena: Alemanez hitz egiten duten Debian erabiltzaileentzako 
+                     laguntza teknikoa.
+                    (Bolumen handiko posta-zerrenda.)
+      Hizkuntza   : alemana
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-user-indonesian@lists.debian.org
+
+      Azalpena: Indonesieraz hitz egiten duten Debian erabiltzaileentzako 
+                     laguntza teknikoa.
+      Hizkuntza   : indonesiera
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-user-polish@lists.debian.org
+
+      Azalpena: Polonieraz hitz egiten duten Debian erabiltzaileentzako 
+                    laguntza teknikoa.
+      Hizkuntza   : poloniera
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-user-portuguese@lists.debian.org
+
+      Azalpena: Portugesez hitz egiten duten Debian erabiltzaileentzako 
+                    laguntza teknikoa.
+                    (Bolumen handiko posta-zerrenda.)
+      Hizkuntza   : Portugesa (Europakoa nahiz Brasilgoa, eta bestelako 
+                     dialektoak ere bai)
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-user-spanish@lists.debian.org
+
+      Azalpena: Gaztelaniaz hitz egiten duten Debian erabiltzaileentzako 
+                    laguntza teknikoa.
+                    (Bolumen handiko posta-zerrenda.)
+      Hizkuntza   : Gaztelania
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-user-swedish@lists.debian.org
+
+      Azalpena: Suedieraz hitz egiten duten Debian erabiltzaileentzako 
+                    laguntza teknikoa.
+      Hizkuntza   : Suediera
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-user@lists.debian.org
+
+      Azalpena: Ingelesez hitz egiten duten Debian erabiltzaileentzako 
+                    laguntza teknikoa.
+                    (Bolumen handiko posta-zerrenda.)
+      Digest      : debian-user-digest@lists.debian.org
+      Moderatua   : ez
+      Harpidetza: irekia
+
+Garapen-zerrendak
+
+  Hainbat zerrenda daude garatzaileek eta erabiltzaile esperientziadunek 
+  gai teknikoagoak eztabaidatzeko.  Gainera, iragarpen-zerrenda batzuk ere 
+  badaude, erabiltzaile esperientziadunei garapenaren jarraipena egiten 
+  laguntzeko.
+
+  debian-admin@lists.debian.org
+
+      Azalpena: Debian-en makina-parkea administratzeko erabiltzen
+                    dugu barne-zerrenda hau.
+      Moderatua   : ez
+      Harpidetza: itxia
+
+  debian-all-changes@lists.debian.org
+
+      Azalpena: Banaketa egonkorrerako kargatutako bitarrei
+                    eta pakete guztiei buruzko berriak.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-alpha-changes@lists.debian.org
+
+      Azalpena: Alpha banaketa egonkorrerako kargatutako paketeei
+                    buruzko berriak (batez ere buildd-enak).
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-apache@lists.debian.org
+
+      Azalpena: Apache HTTP zerbitzaria eta erlazionatutako paketeak
+                    mantentzea Debian-en: kode-aldaketak, programa-erroreak
+                    erreproduzitzea, garatzaileekin hitz egitea, etab.
+
+                    Ez da programa-erroreen berri-emateko (erabili BTS 
+                    horretarako), ez eta laguntza teknikoa eskatzeko ere.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-arm-changes@lists.debian.org
+
+      Azalpena: Arm banaketa egonkorrerako kargatutako paketeei
+                    buruzko berriak (batez ere buildd-enak).
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-beowulf@lists.debian.org
+
+      Azalpena: Debian erabiltzen duten Beowulf sistemei buruzko eztabaida.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-boot@lists.debian.org
+
+      Azalpena: Debian instalazio-sistemaren eztabaida
+                    eta mantentzea.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-cd@lists.debian.org
+
+      Azalpena: Debian CD-jokoak sortzea, ofizialak nahiz ez-ofizialak.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-changes@lists.debian.org
+
+      Azalpena: Banaketetako aldaketak iragartzen dira hemen. Segurtasunezko
+                    bertsio-berritzeak eta errore-konponketa garrantzitsuak
+                    ere sartzen dira hemen.
+      Digest      : debian-changes-digest@lists.debian.org
+      Moderatua   : bai
+      Harpidetza: irekia
+
+  debian-consultants@lists.debian.org
+
+      Azalpena: Debian-eko adituen arteko eta eurei buruzko komunikazioa.
+      Moderatua   : ez
+      Harpidetza: itxia
+
+  debian-ctte-private@lists.debian.org
+
+      Azalpena: Batzorde teknikoko kideen arteko komunikazio pribatua.
+      Moderatua   : ez
+      Harpidetza: Debian-eko Batzorde Teknikoaretzat bakarrik
+
+  debian-ctte@lists.debian.org
+
+      Azalpena: Debian-eko Batzorde Teknikoaren bilera publikoak, negozioa
+                    eta iragarkiak
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-debbugs-cvs@lists.debian.org
+
+      Azalpena: CVS mezuak, aldaketak egiten direnean
+                    debbugs-en
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-debbugs@lists.debian.org
+
+      Azalpena: Debbugs-en eztabaida eta garapena, hau da, Debian-eko
+                    Erroren Segimendurako Sistemaren softwarearena.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-devel-all-changes@lists.debian.org
+
+      Azalpena: Banaketa ezegonkorrerako paketeen kargari
+                    buruzko berriak. (Quiz: binary-all or all binaries?)
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-devel-alpha-changes@lists.debian.org
+
+      Azalpena: Alpha banaketa ezegonkorrerako kargatutako paketeei
+                    buruzko berriak (batez ere buildd-enak).
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-devel-announce@lists.debian.org
+
+      Azalpena: Garapen-gaien iragarpenak, hala nola gidalerro-aldaketenak,
+                    banaketa-gai garrantzitsuenak, etab.
+      Moderatua   : bai
+      Harpidetza: irekia
+
+  debian-devel-arm-changes@lists.debian.org
+
+      Azalpena: Arm banaketa ezegonkorrerako kargatutako paketeei
+                    buruzko berriak (batez ere buildd-enak).
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-devel-changes@lists.debian.org
+
+      Azalpena: Garatzaileetatik, build-etatik eta Katie-tik
+                    (Sentinel artxiboa) banaketa ezegonkorrerako 
+                    kargatutako paketeei buruzko berriak.
+                    (Bolumen handiko posta-zerrenda.)
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-devel-french@lists.debian.org
+
+      Azalpena: Zerrenda hau erabiltzen da garapen-gaiak
+                    frantsesez eztabaidatzeko.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-devel-hurd-i386-changes@lists.debian.org
+
+      Azalpena: Hurd-i386 banaketa ezegonkorrerako kargatutako paketeei
+                    buruzko berriak (batez ere buildd-enak).
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-devel-i386-changes@lists.debian.org
+
+      Azalpena: i386 banaketa ezegonkorrerako kargatutako paketeei
+                    buruzko berriak (batez ere buildd-enak).
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-devel-italian@lists.debian.org
+
+      Azalpena: Garapen-gaien eztabaida italieraz.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-devel-m68k-changes@lists.debian.org
+
+      Azalpena: m68k banaketa ezegonkorrerako kargatutako paketeei
+                    buruzko berriak (batez ere buildd-enak).
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-devel-portuguese@lists.debian.org
+
+      Azalpena: Garatzaile portugaldarrek (edo garatzaile izan nahi dutenek)
+                    garapen-gaiak eztabaidatzeko erabiltzen duten zerrenda da.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-devel-powerpc-changes@lists.debian.org
+
+      Azalpena: Powerpc banaketa ezegonkorrerako kargatutako paketeei
+                    buruzko berriak (batez ere buildd-enak).
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-devel-s390-changes@lists.debian.org
+
+      Azalpena: s390 banaketa ezegonkorrerako kargatutako paketeei
+                    buruzko berriak (batez ere buildd-enak).
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-devel-spanish@lists.debian.org
+
+      Azalpena: Garatzaile espainiarrek (edo garatzaile izan)
+                    nahi dutenek) garapen-gaiak eztabaidatzeko erabiltzen
+                    duten zerrenda da: espainiar garatzaile berrientzako
+                    laguntza, gako-sinatzeko bilerak antolatu, hainbat 
+                    erakusketetako postuetan lan egin, esperientzia
+                    partekatu, etab.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-devel-sparc-changes@lists.debian.org
+
+      Azalpena: Sparc banaketa ezegonkorrerako kargatutako paketeei
+                    buruzko berriak (batez ere buildd-enak).
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-devel@lists.debian.org
+
+      Azalpena: Garapeneko gai teknikoei buruzko eztabaida.
+                    (Bolumen handiko posta-zerrenda.)
+      Digest      : debian-devel-digest@lists.debian.org
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-doc@lists.debian.org
+
+      Azalpena: Debian Dokumentazio Proiektua: Debian-eko
+                    dokumentazioari buruzko edozer da mintzagai hemen.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-dpkg-bugs@lists.debian.org
+
+      Azalpena: Erroreen segimendurako sistemak dpkg paketeei
+                    buruz bidalitako mezuak.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-dpkg-cvs@lists.debian.org
+
+      Azalpena: Dpkg CVS zuhaitzeko CVS mezuak.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-dpkg@lists.debian.org
+
+      Azalpena: Dpkg-ren eztabaidak eta mantentzea, hau da,
+                    Debian-eko pakete-sistemaren oinarria.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-edu@lists.debian.org
+
+      Azalpena: Debian hezkuntzako banaketarik onena
+                    izatea du xede.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-emacsen@lists.debian.org
+
+      Azalpena: Debian Emacs paketeei eta 
+                    osagarriei buruzko eztabaida.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-email@lists.debian.org
+
+      Azalpena: Debian-ekin zerikusia duten mezuetarako zerrenda  
+                    "orotariko" bat: garatzaileekin harremanetan 
+                    jartzeko lizentziei, programa-erroreei eta abarri
+                    buruz, edo proiektuari buruz beste batzuekin hitz 
+                    egiteko, mezuak nonbait artxibatzea komeni denean.
+
+                    Zerrenda hau Debian proiektuaren makina batean 
+                    Artxibatzen da, baina garatzaileek bakarrik atzi 
+                    dezakete artxiboa.
+      Moderatua   : ez
+      Harpidetza: garatzaileak bakarrik
+
+  debian-events-eu@lists.debian.org
+
+      Azalpena: Europako erakusketetan Debian aurkezteko egin beharreko
+                    lanei buruzko eztabaidak eta antolamendua.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-events-na@lists.debian.org
+
+      Azalpena: Iparramerikako erakusketetan Debian aurkezteko egin beharreko
+                    lanei buruzko eztabaidak eta antolamendua.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-firewall@lists.debian.org
+
+      Azalpena: Debian-ekin suebakiak inplementatzeari eta mantentzeari 
+                    buruzko eztabaida. Oinarrizko gaiak nahiz garapen
+                    exotikoagoak eztabaidatzen dira hemen.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-gcc@lists.debian.org
+
+      Azalpena: Debian-en GCC (GNU compiler collection)
+                    paketatzeari buruzko eztabaida: erroreen berri-emateak, 
+                    gaiak bideratzea, edozein eratako galderak edo adabakiak.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-glibc@lists.debian.org
+
+      Azalpena: GNU C liburutegia (Debian sistemetako liburutegi
+                    garrantzitsuena) Debian-en paketatzeari buruzko 
+                    eztabaida.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-gtk-gnome@lists.debian.org
+
+      Azalpena: GTK+, GNOME eta horien mendeko edo horiekin lotutako
+                    paketeen mantentzaileen arteko eztabaida eta
+                    koordinazioa.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-hams@lists.debian.org
+
+      Azalpena: HAMRadio Debian GNU/Linux-en.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-hurd-i386-changes@lists.debian.org
+
+      Azalpena: Hurd-i386 banaketa egonkorrerako kargatutako paketeei
+                    buruzko berriak (batez ere buildd-enak).
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-i386-changes@lists.debian.org
+
+      Azalpena: i386 banaketa egonkorrerako kargatutako paketeei
+                    buruzko berriak (batez ere buildd-enak).
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-ipv6@lists.debian.org
+
+      Azalpena: Debian IPv6 sarean erabiltzeari eta Debian paketeetan IPv6 
+                    euskarria inplementatzeari buruzko eztabaidak.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-java@lists.debian.org
+
+      Azalpena: Java(tm) lengoaiarako eta lengoaia horretan idatzitako
+                    programetarako VMen eta konpilatzaileen erabilera eta
+                    paketatzeari buruzko eztabaidak.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-jr@lists.debian.org
+
+      Azalpena: Debian haurrek erabili nahiko duten sistema eragilea
+                    izateko eztabaida eta lana.
+
+                    Debian Jr. proiektuaren web orria hemen dago:
+                    http://www.debian.org/devel/debian-jr/
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-legal@lists.debian.org
+
+      Azalpena: Lege-kontuei buruzko eztabaidak, hala nola egile 
+                    eskubideei, patenteei eta abarri buruzkoak.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-m68k-changes@lists.debian.org
+
+      Azalpena: m68k banaketa egonkorrerako kargatutako paketeei
+                    buruzko berriak (batez ere buildd-enak).
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-med@lists.debian.org
+
+      Azalpena: Laguntza medikorako sistema eragile libre bat
+                    eskaintzeari buruzko eztabaida.
+
+                    Debian-Med proiektuaren web orria:
+                    http://www.debian.org/devel/debian-med/
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-mentors@lists.debian.org
+
+      Azalpena: Debian garatzaile hasi berriek paketatzeari edo garatzaileen
+                    bestelako gaiei buruzko laguntza eskura dezakete hemen.
+
+                    Zerrenda hau ez da erabiltzaileen galderetarako,
+                    garatzaileen galderetarako baizik!
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-newmaint@lists.debian.org
+
+      Azalpena: Debian-eko mantentzaile berriaren prozesuari buruzko 
+                    Eztabaidak, aplikazio-kudeatzaileen txostenei 
+                    buruzkoak, etab.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-ocaml-maint@lists.debian.org
+
+      Azalpena: Objective Caml programak eta liburutegiak paketatzea.
+                    (http://pauillac.inria.fr/caml/)
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-openoffice@lists.debian.org
+
+      Azalpena: Debian-eko OpenOffice
+                    paketeen mantentzea koordinatzea.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-perl@lists.debian.org
+
+      Azalpena: Perl paketeen hainbat mantentzaileren lana koordinatzeko
+                    eta perl azpi-gidalerro batzuk idazteko erabiltzen da
+                    zerrenda hau.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-pilot@lists.debian.org
+
+      Azalpena: Pilot-etik eratorritako eskuko ordenagailuetan
+                    Debian erabiltzen dutenen arteko eztabaida.
+
+                    Zerrenda hau ez da hegazkin-pilotuentzat :-)
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-policy@lists.debian.org
+
+      Azalpena: Debian-en Gidalerroen Eskuliburuaren eztabaida eta edizioa.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-powerpc-changes@lists.debian.org
+
+      Azalpena: Powerpc banaketa egonkorrerako kargatutako paketeei
+                    buruzko berriak (batez ere buildd-enak).
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-private@lists.debian.org
+
+      Azalpena: Garatzaileen arteko eztabaida pribatuak: soilik zerrenda
+                    publikoetan eztabaidatzen ez diren gaietarako.
+
+                    Horra bidalitako guztia isilpekotzat joko da, eta
+                    ez da bidaliko beste zerrendetara; izan ere, mezuak
+                    zerrenda horretatik beste zerrendetara bidaltzeak
+                    zentzua kentzen dio zerrendari.
+
+                    Zerrenda hau Debian proiektuaren makina batean artxibatzen
+                    da, baina garatzaileek bakarrik atzi dezakete artxiboa.
+      Moderatua   : ez
+      Harpidetza: garatzaileak bakarrik
+
+  debian-project@lists.debian.org
+
+      Azalpena: Debian proiektuarekin zerikusia duten gai
+                    ez-teknikoei buruzko eztabaida.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-python@lists.debian.org
+
+      Azalpena: Debian sistemetako Python-en inguruko gaien eztabaida, 
+                    garrantzi berezia emanez pakete-estandarrei. Horregatik, 
+                    garrantzitsua da Python-en inguruko paketeen 
+                    mantentzaileentzat.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-qa-packages@lists.debian.org
+
+      Azalpena: Zurtz utzitako paketeei dagozkien erroreen berri-emateak
+                    eta errore horiek konpontzeari buruzko eztabaidak.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-qa@lists.debian.org
+
+      Azalpena: Kalitatea bermatzea garrantzitsua da banaketa baterako. 
+                    Zerrenda honek kalitate horren alde egiten du.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-release@lists.debian.org
+
+      Azalpena: Debian-en banaketak eta berrikuspenak egiteaz arduratzen
+                    diren pertsona guztiak koordinatzea da zerrenda
+                    honen xedea.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-s390-changes@lists.debian.org
+
+      Azalpena: s390 banaketa egonkorrerako kargatutako paketeei
+                    buruzko berriak (batez ere buildd-enak).
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-sgml@lists.debian.org
+
+      Azalpena: Debian sistemetako SGMLri buruzko gaien eztabaida, garrantzi
+                    berezia emanez tresnak behar bezala integratzeari,
+                    paketatzeari eta SGML erabiltzaileentzako dokumentazioa
+                    idazteari. Horregatik, garrantzitsua da SGMLren inguruko
+                    paketeen mantentzaileentzat.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-sparc-changes@lists.debian.org
+
+      Azalpena: Sparc banaketa egonkorrerako kargatutako paketeei
+                    buruzko berriak (batez ere buildd-enak).
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-ssh@lists.debian.org
+
+      Azalpena: Debian-erako OpenSSH paketeen mantentzea.
+                    Ssh mantentzearen koordinazioa (garatzaileekin
+                    hitz egitea, programa-erroreak erreproduzitzea,
+                    kodea hackeatzea, etab.).
+
+                    *Ez* da erroreen berri emateko zerrenda
+                    (erabili BTS horretarako), ez eta erroreei buruzko
+                    laguntza emateko ere.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-tetex-maint@lists.debian.org
+
+      Azalpena: Debian teTeX-en eta horri lotutako paketeen
+                    mantentzea koordinatzea.
+
+                    Ez da erabiltzaileei laguntza teknikoa emateko; 
+                    horretarako, erabili debian-user posta-zerrenda edo 
+                    TeX zerrendetako berri-taldeetako bat.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-toolchain@lists.debian.org
+
+      Azalpena: Debian tresna-kateari buruzko eztabaida: konpilatzaileak,
+                    mihiztatzaileak, estekatzaileak eta horrelakoak. Tresna
+                    horietako banaketa berriak hemen koordinatzen dira.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-vote@lists.debian.org
+
+      Azalpena: Official Debian Votes-i buruzko Proposamenak, eztabaidak
+                    eta iragarpenak.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-wnpp@lists.debian.org
+
+      Azalpena: Paketeak zurtz uztea eta adoptatzea (wnpp' BTS 
+                    pseudo-paketearen bidez egiten da) zerrenda honetan 
+                    gordetzen da. Horrez gain, programa-errore partikularrei 
+                    eta WNPP web orriei buruzko eztabaida ere jorratzen da.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-www-cvs@lists.debian.org
+
+      Azalpena: webwml CVS zuhaitzeko Debian web orrietarako CVS
+                    egikaritzeen egunkari-erregistroak.
+      Moderatua   : bai
+      Harpidetza: irekia
+
+  debian-www@lists.debian.org
+
+      Azalpena: Debian-eko web orrien diseinua, egitura eta itzulpena.
+                    Web gunean egindako aldaketa guztiak
+                    ere hemen iragartzen dira.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-x@lists.debian.org
+
+      Azalpena: Debian-eko X Window sistemari buruzko eztabaida.
+                    Ez da erabiltzaileei laguntza teknikoa emateko zerrenda
+                    bat. Iturburu-kodearekin aritzen direnei zuzenduta dago.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  deity@lists.debian.org
+
+      Azalpena: Debian GNU/Linux-ek interfaze berri eta erabilerraz bat
+                    jarriko du paketeak mantentzeko sistemarako. Interfaze 
+                    horren kode-izena deity da (orain APT gisa ezagutzen 
+                    da), eta horren garapena eztabaidatzen da hemen. 
+                    Digest-a edonorentzako irekita dago.
+      Digest      : deity-digest@lists.debian.org
+      Moderatua   : ez
+      Harpidetza: deity-developers only
+
+Nazioartekotzea eta itzulpenak
+
+  Zerrenda honetan, besteak beste, lokalizazio, itzulpen eta laguntza teknikoko
+  gaiak jorratzen dira ingelesez hitz egiten ez duten erabiltzaileentzat.
+
+  debian-i18n@lists.debian.org
+
+      Azalpena: Banaketaren nazioartekotzea (i18n) eztabaidatzen
+                    da hemen.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-l10n-catalan@lists.debian.org
+
+      Azalpena: Katalanezko lokalizazio-gaiak eztabaidatzen dira, batez ere
+                    Debian-eko dokumentuak eta programak katalanera
+                    itzultzeari dagozkionak.
+      Hizkuntza   : katalana
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-l10n-danish@lists.debian.org
+
+      Azalpena: Danierazko lokalizazio-gaiak eztabaidatzen dira, batez ere
+                    Debian-eko dokumentuak eta programak danierara
+                    itzultzeari dagozkionak.
+      Hizkuntza   : daniera
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-l10n-dutch@lists.debian.org
+
+      Azalpena: Debian-eko pakete eta dokumentazio espezifikoak nederlanderara
+                    itzultzen dituztenentzako eztabaida-foroa.
+      Hizkuntza   : nederlandera
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-l10n-english@lists.debian.org
+
+      Azalpena: Ingelesezko lokalizazio-gaiak eztabaidatzen dira, batez ere
+                    Debian-eko dokumentuak eta programak ingelesera
+                    itzultzeari dagozkionak.
+      Hizkuntza   : ingelesa
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-l10n-finnish@lists.debian.org
+
+      Azalpena: Finlandierazko lokalizazio-gaiak eztabaidatzen dira, batez ere
+                    Debian-eko dokumentuak eta programak finlandierara
+                    itzultzeari dagozkionak.
+      Hizkuntza   : finlandiera
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-l10n-french@lists.debian.org
+
+      Azalpena: Debian-eko pakete eta dokumentazio espezifikoak frantsesera
+                    itzultzen dituztenentzako eztabaida-foroa.
+      Hizkuntza   : frantsesa
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-l10n-german@lists.debian.org
+
+      Azalpena: Alemanezko lokalizazio-gaiak eztabaidatzen dira, batez ere
+                    Debian-eko dokumentuak eta programak alemanera
+                    itzultzeari dagozkionak.
+      Hizkuntza   : alemana
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-l10n-hellas@lists.debian.org
+
+      Azalpena: Grekoz lokalizazio-gaiak eztabaidatzen dira, batez ere
+                    Debian-eko dokumentuak eta programak grekora
+                    itzultzeari dagozkionak.
+      Hizkuntza   : grekoa
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-l10n-italian@lists.debian.org
+
+      Azalpena: Debian-eko italierazko lokalizazio-ahaleginak.
+      Hizkuntza   : grekoa
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-l10n-portuguese@lists.debian.org
+
+      Azalpena: Portugesezko lokalizazio-ahaleginak, hala nola
+                    dokumentazioa eta programak itzultzea.
+      Hizkuntza   : portugesa
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-l10n-spanish@lists.debian.org
+
+      Azalpena: Gaztelaniazko lokalizazio-gaiak eztabaidatzen dira, batez ere
+                    Debian-eko dokumentuak eta programak gaztelaniara
+                    itzultzeari dagozkionak.
+      Hizkuntza   : Gaztelania
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-laespiral@lists.debian.org
+
+      Azalpena: La Espiral (http://laespiral.org/) proiektuaren xedea
+                    gaztelaniaz hitz egiten dutenen artean Debian-en
+                    erabilera sustatzea da. Debian nazioartekotzeko
+                    CDak egiten ditugu, instalazio-jaiak eta programa 
+                    berriak gaztelaniazko erabiltzaileentzat
+                    (Ikus http://www.debian.org/international/spanish/).
+
+                    La Espiral-eko kide egitea, berez, Debian-en teknikoki
+                    laguntzeko gai ez direnentzat pentsatuta dago hasiera 
+                    batean, baina urrats egokia izan daiteke Debian 
+                    garatzaile bihurtzeko.
+      Hizkuntza   : Gaztelania
+      Moderatua   : ez
+      Harpidetza: irekia
+
+i386 ez diren Linux arkitekturetara eta Linux-ekoak ez diren
+   nukleoetara eramatea
+
+  Debian GNU/Linux beste hainbat ordenagailu-motatara eraman daiteke, eta
+  Linux-ekoak ez diren nukleoetan ere Debian sistemak sortzen ahalegintzen
+  ari dira.
+
+  debian-68k@lists.debian.org
+
+      Azalpena: Debian GNU/Linux m68k-era eramateari buruzko eztabaidak.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-alpha@lists.debian.org
+
+      Azalpena: Debian GNU/Linux Alpha-ra eramateari buruzko eztabaidak.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-arm@lists.debian.org
+
+      Azalpena: Debian GNU/Linux ARMra (esp. Corel Netwinder) eramateari
+                    buruzko eztabaida.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-bsd@lists.debian.org
+
+      Azalpena: Debian BSDra eramatea (*BSD aldaera guztietara).
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-hppa@lists.debian.org
+
+      Azalpena: Debian GNU/Linux PA-RISCera eramateari buruzko eztabaidak.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-hurd@lists.debian.org
+
+      Azalpena: Debian GNU Hurd sistema eragilera eramatea.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-ia64@lists.debian.org
+
+      Azalpena: Debian GNU/Linux Intel IA64era (aka Itanium, Merced)
+                    eramateari buruzko eztabaidak.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-mips@lists.debian.org
+
+      Azalpena: Debian GNU/Linux MIPSera eramateari buruzko eztabaidak.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-powerpc@lists.debian.org
+
+      Azalpena: Debian GNU/Linux PowerPCra eramateari buruzko eztabaida.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-s390@lists.debian.org
+
+      Azalpena: Debian GNU/Linux IBM S/390era eramateari buruzko eztabaidak.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-sparc@lists.debian.org
+
+      Azalpena: Debian GNU/Linux SPARCera eramateari buruzko eztabaidak.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-superh@lists.debian.org
+
+      Azalpena: Debian GNU/Linux SuperHra eramateari buruzko eztabaidak. 
+                    Linux SH prozesadoreetan exekutatzeari buruzko 
+                    Informazio gehiago nahi izanez gero, ikus 
+                    http://www.m17n.org/linux-sh/
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-win32@lists.debian.org
+
+      Azalpena: Debian banaketa Win32 sistemetara
+                    (Debian GNU/Win32) eramatea.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+Programa Erroreen Segimendurako Sistema
+
+  Debian-eko programa-erroreen segimendurako sistema publikoari irekita 
+  dago, eta mezu ugari sortzen ditu. Mezu horietako batzuk interesgarriak 
+  izan daitezke erabiltzaileentzat, eta, beraz, bolumen handiko 
+  posta-zerrenda hauen bidez banatzen dira.
+
+  debian-bugs-closed@lists.debian.org
+
+      Azalpena: Debian-eko programa-erroreak ixten dituzten mezuak.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-bugs-dist@lists.debian.org
+
+      Azalpena: Bidalitako erroreen berri-emate guztiak eta horiei buruzko
+                    informazio gehiago banatzen da hemen.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-bugs-forwarded@lists.debian.org
+
+      Azalpena: Debian-mantentzaileek garatzaileei erroreen
+                    berri emateko mezuak.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+Bestelakoak
+
+
+  debian-books@lists.debian.org
+
+      Azalpena: Liburu-izenburuei buruzko eztabaida, eta liburuen 
+                    Zirriborroak bidaltzea Debian-eko liburu-lineara.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  debian-curiosa@lists.debian.org
+
+      Azalpena: Proiektuari buruzko bitxikeriak, aipamen dibertigarriak,
+                    eztabaidak, irc komunikazioa eta fortune cookie-ak.
+                    Nolabaiteko (de.)alt.netdigest, Debian-ekin zerikusia 
+                    duten gaietarako.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+Beste proiektu batzuetarako ostatatutako zerrendak
+
+  Beste proiektu libre batzuetarako zerrenda-baliabideak ere eskaintzen 
+  ditu gure zerrenda-zerbitzariak.
+
+  lsb-discuss@lists.debian.org
+
+      Azalpena: Linux Standard Base (LSB) eztabaida orokorra.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  lsb-impl@lists.debian.org
+
+      Azalpena: Linux Standard Base (LSB) mostrako inplementazioko zerrenda.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  lsb-spec@lists.debian.org
+
+      Azalpena: Linux Standard Base (LSB) zerrenda estandarra.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  lsb-test@lists.debian.org
+
+      Azalpena: Linux Standard Base (LSB) 'proba-suite'en zerrenda.
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  mptools-devel@lists.debian.org
+
+      Azalpena: mpTOOLS proiekturako garatzaile-zerrenda, hau da, Javako 
+                    plataforma anitzeko tresnena. Ikus 
+                    http://www.javacommerce.com/mptools/
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  other-cdwrite@lists.debian.org
+
+      Azalpena: cdwrite posta-zerrenda
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  other-sart@lists.debian.org
+
+      Azalpena: SARTi buruzko eztabaidak eta iragarpenak
+                    (Guile hedapen-lengoaia erabiltzen duen
+                    eta GPLrekin banatzen den raytracer libre bat. 
+
+                    SART web gunea:
+                    http://petra.zesoi.fer.hr/~silovic/sart/
+      Moderatua   : ez
+      Harpidetza: irekia
+
+  other-vgui-discuss@lists.debian.org
+
+      Azalpena: V C++ GUI Framework - objektuei orientatutako GUI liburutegi
+                    bat, X, Win32 eta OS/2rako. GNU LGPL lizentziarekin
+                    banatzen da V. Web orria ikusteko: 
+                    http://www.objectcentral.com/ .
+      Moderatua   : ez
+      Harpidetza: irekia
+
+
+Debian posta-zerrendetan iragartzeko politika
+---------------------------------------------
+
+  Posta-zerrendetako "spamming"aren aurka egitea da xedea.
+
+  Debian posta-zerrendek onartzen dituzte iragarki komertzialak, baina 
+  ordainduta. Iragarkien tarifa 1000 USD-eko (AEBetako dolar) dohaintza 
+  edo gehiagokoa da, eta "Software in the Public Interest" (SPI)ren 
+  izenean egin behar da. Dohaintza bat iragarkiko, mesedez. Nahiago 
+  baduzu iragarkia egin ondoren ordaindu, bidali zure iragarkia zerrendara, 
+  eta zerrenda-operadoreak 1999 USD fakturatuko dizkizu. Zerrendaren 
+  operadoreak zenbateko hori SPIri emango dio dohaintzan, kobratzeko 
+  gastua kenduta. Kontuan izan zerrendak automatikoki banatzen direla 
+  - normalean mezuak ez dira irakurtzen edo begiratzen banatu aurretik.
+
+  Iragarki bat bidaltzen baduzu, horrek esan nahi du prest zaudela
+    * tarifaren erantzukizuna zeure egiteko,
+    * zerrenda-eragileari zuregatik sortutako lege-erantzukizunen
+        kalte-ordainak ordaintzeko, edo zure iragarkiari lotutako 
+        bestelako ondorioen kalte-ordainak ordaintzeko, eta
+    * berandu ordaintzeagatik eragindako legezko gastuak edo gastu 
+        ekonomikoak ordaintzeko.
+  Zurekiko dugun erantzukizuna hauxe da: zure mezua banatzeko asmo onez
+  egindako ahalegina.
+
+  Tarifa murriztuak eta/edo tarifa ordaintzetik salbuestea ere badaude
+  Debian-ekin zerikusia duten iragarkientzat. Murrizketa edo salbuestea 
+  Baliatzeko, zerrenda-eragilearekin hitz egin behar duzu iragarkia bidali 
+  aurretik.
+
+-- 
+Dokumentu honen HTML bertsioa ere erabilgarri daukazu:
+	http://www.debian.org/MailingLists/subscribe
+
+Programa-erroreen segimendua egiteko sistemaren egunkariak atzitzeko metodoak
+------------------------------------------------------------------------------------------------------------------------------
+Programa-errore aktiboen berri-emateak atzitzea
+
+   Programa-erroreak prozesatzeko sistemak jasotako edo bidalitako 
+   mezuak hainbat modutan egoten dira erabilgarri.
+
+   Atzitzeko modu nagusia web orriak erabiltzea da. Ikus BTSren orri 
+   nagusiko inprimakiak: http://bugs.debian.org/
+
+   Badago posta-zerbitzari bat berri-emateak testu arruntean bidal 
+   ditzakeena, hala eskatuz gero. Erabiltzeko, bidali mezu bat edukian 
+   help hitza soilik duena request@bugs.debian.org helbidera 
+   (mezuaren Gaiari ez ikusi egiten zaio), edo irakurri jarraibideak 
+   Interneten edo bug-log-mailserver.txt fitxategian.
+
+Artxibatutako programa-erroreen berri-emateak atzitzea
+
+   Itxitako berri-emate bakoitza artxibatu egiten da erroreari buruzko 
+   azken mezua jaso eta gordetzen denetik 28 egun igarotakoan. Horrek 
+   esan nahi du hortik aurrera ezingo dela atzitu edo aldatu, kontroleko 
+   edo zerbitzuko bot-ak erabili gabe. Nolanahi ere, badago berri-emateak 
+   ikusteko aukera.
+
+   Berri-emateen artxiboan bilaketak egin ditzakezu http://bugs.debian.org/ 
+   guneko WWW inprimakiak erabiliz, besterik gabe "archived bugs" aukera 
+   hautatuz.
+
+   Kontuan izan ez dituela edukitzen itxitako berri-zaharrenak, #40000 
+   ondorengoak bakarrik baizik, gutxi gorabehera. 
+
+
+
+
+
+
+     Programa-erroreen eskaeren zerbitzariari buruzko sarrera
+     -----------------------------------------------------------------------------------------
+
+   Badago posta-zerbitzari bat berri-emateak eta indizeak testu 
+   arruntean bidal ditzakeena, hala eskatuz gero.
+
+   Hori erabiltzeko, bidali mezu bat request@bugs.debian.org helbidera. 
+   Mezuaren gaiari ez ikusi egingo zaio, erantzunaren Gaia sortzeko 
+   izan ezik.
+
+   Bidalitako mezuaren gorputzak komando-sail bat izan behar du, komando 
+   bat lerroko. Erantzun bat jasoko duzu, zure mezuaren interpretazio 
+   transkribatu baten itxura duena, komando bakoitzaren erantzunarekin. 
+   Inori ez zaio jakinarazpenik bidaltzen komando gehienei dagokienez; 
+   dena den, mezuak erregistratu eta WWW orrietan jartzen dira erabilgarri.
+
+   # ikur batekin hasten diren lerroei ez ikusi egiten zaie; zerbitzariak 
+   prozesatzeari utziko dio, quit, stop, thank edo bi marratxoarekin hasten 
+   den lerro bat aurkitzean (sinadurarik ez analizatzeko). Halaber, gelditu 
+   egingo da komando ezezagun asko edo gaizki formateatutakoak aurkituz gero. 
+   Ez bada lortzen komandoak ondo maneiatzerik, zerbitzariaren laguntza-testua 
+   bidaliko du.
+
+
+                          Komando erabilgarriak
+
+   send errore-zenbakia
+   send-detail errore-zenbakia 
+       Errorearen berri-ematearen transkribapena eskatzen du. 
+       send-detail komandoak transkripzioko mezu `aspergarri' guztiak 
+       bidaltzen ditu (hala nola hainbat auto-ack (normalean 'send' 
+       komandoa erabili beharko zenuke, mezu interesgarriak ez baititu 
+       bidaltzen 'send-detail'ek).
+
+   index [full] 
+   index-summary by-package
+   index-summary by-number
+       Indize osoa eskatzen du (xehetasun guztiekin, egindako eta 
+       birbidalitako berri-emateak barne), edo paketearen edo zenbakiaren 
+       arabera ordenatutako laburpena, hurrenez hurren.
+
+   index-maint
+       Segimendu-sisteman programa-erroreak (irekitakoak eta duela gutxi 
+       itxitakoak) dituzten mantentzaileen zerrendaren indize-orrialdea eskatzen du.
+
+   index maint mantentzailea
+       'maintainer' katea daukaten mantentzaileen programa-erroreen 
+       indize-orrialdeak eskatzen ditu. Bilaketan maiuskulak eta minuskulak 
+       bereizten dira. 'maintainer' katearekin bat datorren mantentzaile 
+       bakoitzaren errore-indizea beste mezu batean bidaliko da.
+
+   index-packages 
+       Segimendu-sisteman programa-erroreak (irekitakoak eta duela gutxi 
+       itxitakoak) dituzten paketeen zerrendaren indize-orrialdea eskatzen du.
+
+   index packages paketea
+       'paketea' paketearen programa-erroreen indize-orrialdeak eskatzen ditu. 
+       Zehazki bat datorrena bilatzen du. Bat datorren pakete bakoitzaren 
+       errore-indizea beste mezu batean bidaliko da.
+
+   send-unmatched [this|0] 
+   send-unmatched last|-1 
+   send-unmatched old|-2 
+       Berri-emate jakin batekin bat ez datozen mezuen egunkariak eskatzen 
+       ditu, aste honetakoak, joan den astekoak edo hurrenagokoak. 
+       (Aste bakoitza asteazkenean amaitzen da.)
+
+   getinfo fitxategi-izena
+       Paketeei eta/edo mantentzaileei buruzko informazioa duen fitxategi 
+       bat eskatzen du - fitxategi erabilgarriak:
+
+    maintainers 
+           Pakete-mantentzaileen zerrenda bateratua, segimendu-sisteman 
+           erabiltzen den bezala. Pakete-fitxategi, override fitxategi eta 
+           pseudo-pakete fitxategietako informaziotik ateratzen da. 
+    override.distribution 
+    override.distribution.non-free 
+    override.distribution.contrib 
+    override.experimental 
+           Paketeen lehentasunei eta sekzioei buruzko informazioa eta 
+           mantentzaileen overriding balioak. Informazio hori erabiltzen du FTP 
+           artxiboan Pakete-fitxategiak sortzen dituen prozesuak. Informazioa 
+           erabilgarri dago erabilgarri dauden banaketa-zuhaitz nagusientzat, 
+           bakoitzaren kode-hitzen arabera. 
+    pseudo-packages.description 
+    pseudo-packages.maintainers 
+           Pseudo-paketeen azalpenen eta mantentzaileen zerrenda, hurrenez 
+           hurren.
+
+   refcard 
+       Posta-zerbitzarien erreferentzia-txartela ASCII arruntean bidaltzeko 
+       eskatzen du.
+
+   help 
+       Laguntza-dokumentu hau posta elektronikoz ASCII arruntean bidaltzeko 
+       eskatzen du.
+
+   quit 
+   stop 
+   thank... 
+   --... 
+       Mezuaren puntu honetan prozesatzeari utziko dio. Ondoren nahi duzun 
+       testua sar dezakezu, eta ez ikusi egingo zaio. Praktikoa da # ikurrarekin 
+       eman daitezkeenak baino ohar luzeagoak emateko, adibidez ulergarriagoak 
+       izan daitezen irakurleentzat (segimendu-sistemaren egunkariak, edo 
+       CC edo BCC baten ondorioz sortuak).
+
+   #... 
+       Lerro bakarreko iruzkina. # ikurrak lerroaren hasieran egon behar du.
+
+   debug maila 
+       Arazketa-maila ezartzen du (negatiboa ez den osoko zenbakia izan behar 
+       du). 0 zenbakiak arazketarik ez adierazten du; 1 nahikoa izaten da. 
+       Arazketaren irteera transkripzioan agertzen da. Ez da baliagarria 
+       izaten errore-sistemaren erabiltzaileentzat oro har.
+
+   Posta-zerbitzarientzako erreferentzia-txartel bat erabilgarri dago WWW bidez, 
+   bug-mailserver-refcard.txt fitxategian, edo postaz refcard komandoarekin 
+   (ikus goian).
+
+   Erroreen berri-emateak manipulatu nahi izanez gero, erabili 
+   control@bugs.debian.org helbidea, goian aipatutako komandoetako batzuk 
+   ulertzen baititu. Interneten erabilgarri dagoen beste dokumentu batean 
+   azaltzen da, bug-maint-mailcontrol.txt fitxategian, edo control@bugs 
+   helbidera help hitza bidaliz ere lor daiteke azalpena.
+
+   Azalpen hau testu arrunt gisa edo posta elektronikoz irakurtzen ari 
+   bazara: HTML bertsio bat erabilgarri dago programa-erroreen sistemaren 
+   eduki nagusien orrian.
+
+
+                         Posta-zerbitzarien erreferentzia-txartela
+                         -------------------------------------------------------------
+
+   Posta-zerbitzarien dokumentazio guztia erabilgarri dago Interneten,
+   bug-log-mailserver.txt eta bug-maint-mailcontrol.txt fitxategietan,
+   edo posta-zerbitzari bakoitzera help hitza bidalita ere lor daiteke.
+
+request@bugs.debian.org gunean erabilgarri dauden komandoen laburpena
+
+     * send bugnumber
+     * send-detail bugnumber
+     * index [full]
+     * index-summary by-package
+     * index-summary by-number
+     * index-maint
+     * index maint maintainer-substring
+     * index-packages
+     * index packages package-substring
+     * send-unmatched [this|0]
+     * send-unmatched last|-1
+     * send-unmatched old|-2
+     * getinfo filename (ftp.debian.org/debian/doc/*)
+     * help
+     * refcard
+     * quit|stop|thank...|--...
+     * #... (iruzkina)
+     * debug level
+
+Kontroleko posta-zerbitzariko komando gehigarrien sinopsia
+
+     * reassign bugnumber package
+     * severity bugnumber severity
+     * reopen bugnumber [ originator-address | = | ! ]
+     * submitter bugnumber originator-address | !
+     * forwarded bugnumber address
+     * notforwarded bugnumber
+     * retitle bugnumber new-title
+     * clone bugnumber [ new IDs ]
+     * merge bugnumber bugnumber ...
+     * unmerge bugnumber
+     * tags bugnumber [ + | - | = ] tag
+     * close bugnumber (zaharkitua - zergatia azaldu behar diozu
+       sortzaileari)
+
+   reopen with = edo sortzailearen helbiderik ez agertzeak sortzailea
+   uzten du jatorrizko bidaltzaile gisa; ! jarrita zu izango zara, 
+   berriro irekitzen duena.
+
+   Larritasuna: grave (larria), serious (serioa), important (garrantzizkoa),
+   normal (normala), minor (txikia) eta wishlist (desiragarria).
+
+   Etiketak: patch, wontfix, moreinfo, unreproducible, help,
+   pending, fixed, security, upstream, potato, woody, sarge, sid,
+   experimental.
+
+
+
+
+
+
+
+
+          Garatzaileen iritzia, programa-erroreak prozesatzeko sistemari buruz
+         ----------------------------------------------------------------------------------------------------------
+
+   Hasiera batean erabiltzaileak errorearen berri ematen du mezu arrunt bat
+   bidaliz submit@bugs.debian.org helbidera. Ondoren, zenbaki bat ezartzen 
+   zaio erroreari, zenbaki hori jakinarazten zaio erabiltzaileari, eta 
+   birbidali egiten da debian-bugs-dist zerrendara. Bidaltzaileak
+   'package' lerro bat sartu badu, mantentzaile ezaguna duen pakete-izen 
+   batekin, mantentzaileak ere kopia bat jasoko du.
+
+   Gaiaren lerroan Bug#nnn: gehituko da, eta Erantzun Honi lerroa
+   berri-emailea eta nnn@bugs.debian.org, biak sartzeko konfiguratuko 
+   da.
+   ______________________________________________________________________
+
+     * Programa-erroreen berri-emateak ixtea
+     * Mezuen jarraipena
+     * Larritasun-mailak
+     * Programa-erroreen berri-emateen etiketak
+     * Berri-emate bat pasatu duzula adierazten duen grabazioa
+     * Gaizki zerrendatutako pakete-mantentzaileak
+     * Erroreak berriro irekitzea, berriro esleitzea eta manipulatzea
+     * Gehiago edo gutxiago zaharkituta dauden gaiak eskaneatzeko eginbidea
+     * X-Debian-PR zaharkitua: quiet eginbidea
+   ______________________________________________________________________
+
+Programa-erroreen berri-emateak ixtea
+
+   Debian-eko erroreen berri-emateak itxi egin behar dira arazoa 
+   konpondutakoan. Paketeetako arazoak konpondutzat jotzeko, ezinbestekoa 
+   da konpondutako errorea duen paketea Debian-en artxiboan sartzea.
+
+   Normalean errorearen berri eman duenak eta erroredun paketearen
+   mantentzaileek soilik itxi dezakete errorea. Badaude arau horren 
+   salbuespenak; adib. pakete ezezagunei dagozkien erroreak edo hainbat
+   pseudo-pakete orokor. Zalantzarik izanez gero, ez itxi erroreak. 
+   Aurrena eskatu laguntza debian-devel posta-zerrendan.
+
+   nnn-done@bugs.debian.org helbidera mezu
+   bat bidaliz itxi behar dira berri-emateak. Errorea nola
+   konpondu den azaldu behar du mezuaren gorputzak.
+
+   Hau da programa-erroreen segimendurako sistematik jasotako mezuekin 
+   egin beharrekoa: sortu Erantzuna posta irakurtzeko programan, eta 
+   editatu Nori eremua, nnn-done@bugs.debian.org jartzeko nnn@bugs-en 
+   ordez (nnn-close jartzen da 'nnn-done'ren alias gisa).
+
+   Errorea ixten duen pertsonak, bidali zuenak eta debian-bugs-closed
+   posta-zerrendak errorearen egoera-aldaketari buruzko jakinarazpen
+   bat jasoko dute bakoitzak. Bestalde, 'nnn-done'ra bidalitako
+   mezuaren edukia ere jasoko dute bidaltzaileak eta posta-zerrendak.
+
+Mezuen jarraipena
+
+   Erroreen segimendua egiteko sistemak bidaltzailearen helbidea eta
+   erroreen helbidea (nnn@bugs) edukiko du Erantzun Honi goiburuan,
+   berri-ematea birbidali ondoren. Kontuan izan bi helbide desberdin 
+   daudela.
+
+   Garatzaile batek errore baten berri-emateari erantzun nahi badio,
+   nahikoa du mezuari erantzutea, Erantzun Honi goiburua mantenduz. 
+   Horrela ez da errorea itxiko.
+
+   Erroreen segimendua egiteko sistemak mezua jasoko du nnn@bugs 
+   helbidean pakete-mantentzaileari pasatuko dio, erantzuna gainerako 
+   egunkariekin gordeko du, eta birbidali egingo du debian-bugs-dist 
+   helbidera.
+
+   Garatzaileak beharbada esplizituki emango du bidaltzailearen berri,
+   nnn-submitter@bugs helbidera bidalitako mezu batekin.
+
+   debian-bugs-dist zerrendarako egokia ez den jarraipen-mezu bat bidali
+   nahi izanez gero, nnn-quiet@bugs edo nnn-maintonly@bugs helbidera
+   bidal dezakezu. nnn-quiet@bugs helbidera bidalitako mezuak
+   Erroreen Segimendurako Sisteman gordetzen dira, eta zaizkio beste
+   inori edo inolako zerrendari bidaltzen. nnn-maintonly@bugs helbidera 
+   bidalitako mezuak Erroreen Segimendurako Sisteman gordetzen dira, eta 
+   paketearen mantentzaileari soilik bidaltzen zaizkio.
+
+   Ez erabili posta-programako `Erantzun hartzaile guztiei' edo `jarraipena'
+   eginbideak, hartzaileak behean editatu nahi ez badituzu. Batez ere,
+   ez bidali jarraipen-mezurik submit@bugs.debian.org helbidera.
+
+Larritasun-mailak
+
+   Erroreen sistemak larritasun-maila bat gordetzen du berri-emate
+   bakoitzarekin batera. Lehenespenez normala jartzen da, baina errorea 
+   bidaltzean pseudo-goiburuan Larritasun-lerro bat sartuz gainidatz daiteke 
+   (ikus erroreen berri emateko jarraibideak), edo larritasunaren komandoa 
+   erabiliz zerbitzariari eskatzean.
+   Larritasun-mailak:
+
+   critical (kritikoa)
+          zerikusirik ez duen sistemako softwareak (edo sistema osoa) ongi 
+          ez funtzionatzera eramaten du, edo datu-galera serioak sortzen 
+          ditu, edo segurtasun-zuloa sartzen paketea instalatzen den 
+          sistemetan.
+
+   grave (larria)
+          paketea ez-erabilgarri edo ia ez-erabilgarri uzten du, edo datuak
+          galtzea eragiten du, edo segurtasun-zulo bat sartzen du, paketea
+          erabiltzen duten erabiltzaileen kontuetan sartzeko atea irekiz.
+
+   serious (serioa)
+          Debian-en arauak larriki hausten ditu (hau da, "ezinbesteko" edo
+          "beharrezko" arau bat hausten du), edo, pakete-mantentzailearen
+          iritzira, paketea banaketarako desegoki bihurtzen du.
+
+   important (garrantzitsua)
+          paketearen erabilgarritasunean ondorio nabarmen bat duen
+          errorea, baina denentzako ez-erabilgarri utzi gabe.
+
+   normal (normala)
+          balio lehenetsia, errore gehienei aplikatzen zaiena.
+
+   minor (txikia)
+          paketearen erabilgarritasunari eragiten ez dion arazoa, eta
+          itxura batean konpontzeko garrantzi handirik ez duena.
+
+   wishlist (desiragarria)
+          eginbide berriak eskatzeko, eta diseinu-kontsiderazioaren mailakoak 
+          direlako konponketa zaila duten erroreetarako.
+
+   fixed (konponduta)
+          konponduta egon arren oraindik itxi behar ez diren erroreak. 
+          Salbuespen bat da mantentzaileak ez direnek gora kargatuta 
+          konpondutako erroreentzat. Oharra:
+          "konponduta" etiketa erabili beharko litzateke.
+
+   Larritasun-maila batzuk kritikotzat jotzen dira paketea banatzeko, erroreak
+   eragina izango baitu Debian-en banaketa egonkorrean. Oraingoz, kritikoa, 
+   larria eta serioa dira.
+
+Programa-erroreen berri-emateen etiketak
+
+   Errore bakoitzak zero etiketa edo hainbat eduki ditzake. Etiketa horiek
+   erroreen zerrendan ikusiko dituzu paketearen orrialdean begiratzean,
+   eta errorearen egunkari osoan begiratzean ere bai.
+
+   Etiketak ezartzeko, Etiketa-lerro bat jar dezakezu pseudo-goiburuan,
+   errorea bidaltzen denean(ikus erroreen berri emateko jarraibideak), edo
+   etiketen komandoa erabil dezakezu zerbitzariarekin.
+
+   Uneko errore-etiketak:
+
+   patch
+          Adabaki bat edo errorea konpontzeko beste prozedura erraz bat
+          sartzen da errore-egunkarietan. Adabaki bat badago, baina ez badu
+          errorea modu egokian konpontzen edo bestelako arazoak sortzen
+          baditu, etiketa hau ez da erabili behar.
+
+   wontfix
+          Errore hau ez da konponduko. Izan liteke gauza bera egiteko bi
+          modu arbitrarioren arteko aukera bat izatea, eta mantentzaileak
+          eta bidaltzaileak gauzak egiteko modu desberdinak nahiago
+          izatea; izan liteke portaera aldatzeak arazo handiagoak ekarriko 
+          dizkielako beste batzuei, edo beste arrazoi batzuengatik.
+
+   moreinfo
+          Errore hau ezin da bideratu, harik eta bidaltzaileak informazio
+          gehiago eman arte. Arrazoizko epe batean (hilabete batzuetan) 
+          bidaltzaileak ez badu informazio gehiago ematen, errorea itxi 
+          egingo da. "Ez dabil" eta antzeko erroreei aplikatzen zaie. Zer
+          ez dabil?
+
+   unreproducible
+          Errore hau ezin da erreproduzitu mantentzailearen sisteman.
+          Hirugarren baten laguntza behar da arazoaren arrazoia
+          diagnostikatzeko.
+
+   help
+          Errore hau tratatzeko laguntza eskatzen du mantentzaileak.
+
+   pending
+          Errorean azaldutako arazoa aktiboki lantzen ari dira, hau da,
+          konponbidea aurkitzea falta da.
+
+   fixed
+          Errore hau konponduta edo bideratuta dago (mantentzailea ez den,
+          norbaitek gora kargatuta, esaterako), baina oraindik badago 
+          arazoren bat konpontzeko. Etiketa honek "fixed" larritasun zaharra 
+          ordezten du.
+
+   security
+          Errore horrek pakete baten segurtasun-arazoa adierazten du (adib.,
+          atzigarriak izan behar ez luketen datuak atzitzea onartzen duten
+          baimen okerrak; jendeari sistema bat modu desegokian
+          kontrolatzeko bide ematen dioten buffer-gainexekutatzeak;
+          konpondu beharreko DOS zerbitzu-ukatzeko erasoak, etab). 
+          Segurtasun-errore gehienak larritasun kritiko edo larriarekin 
+          jarri beharko lirateke.
+
+   upstream
+          Paketearen garatzaile-zatiari dagokio errore hau.
+
+   potato
+          Bereziki Debian-en potato banaketari dagokio errore hau.
+
+   woody
+          Errore hau bereziki woody banaketari aplikatzen zaio.
+
+   sarge
+          Errore hau bereziki sarge (argitaratu gabeko) banaketari
+          aplikatzen zaio.
+
+   sid
+          Errore hau bereziki aplikatzen zaio oraindik argitaratu gabe
+          dagoen arkitektura bati (hau da, sid banaketakoari).
+
+   experimental
+          Errore hau bereziki banaketa esperimentalari aplikatzen zaio.
+
+   Azken hiru etiketak batez ere banaketa-errore larriei aplikatzeko
+   izaten dira, eta horretarako garrantzitsua izaten da jakitea zein
+   banaketatan duen eragina, konponketa edo kentze seguruak egin
+   ahal izateko leku egokian.
+
+Berri-emate bat pasatu duzula adierazten duen grabazioa
+
+   Garatzaile batek berri-emate bat birbidaltzen dionean Debian paketea 
+   eratorritako iturburu-paketearen garatzaileari, honela ohartarazi 
+   beharko luke erroreen jarraipena egiteko sisteman:
+
+   Ziurtatu zure mezuaren Nori eremuan egileen helbideak soilik agertzen
+   direla; jarri errorearen berriemailea eta nnn-forwarded@bugs.debian.org
+   helbidea CC eremuan.
+
+   Esan egileari erantzutean manten dezala CC eremuan nnn-forwarded@bugs
+   helbidea, horrela erroreen segimendurako sistemak erantzuna jatorrizko
+   berri-ematearekin batera gorde dezan.
+
+   Erroreen segimendurako sistemak mezu bat jasotzen duenean nnn-forwarded
+   helbidean, mezuaren Nori eremuko helbideetara birbidalitako gisa
+   markatuko da errorea.
+
+   Bestalde, "Hona birbidalia" eremuko informazioa alda dezakezu,
+   mezuak bidaliz control@bugs.debian.org helbidera.
+
+Gaizki zerrendatutako pakete-mantentzaileak
+
+   Pakete baten mantentzailea gaizki zerrendatuta badago, normalean
+   mantentzailea duela gutxi aldatu delako izango da, eta mantentzaile
+   berriak oraindik ez duelako paketearen bertsio berria kargatu
+   Mantentzailearen kontroleko fitxategiaren eremua aldatuta. Paketea
+   gora kargatzen denean konponduko da hori, bestela, artxibo-mantentzaileek
+   eskuz gainidatz dezakete pakete baten mantentzailearen erregistroa,
+   adibidez ez bada espero paketea laster berriro sortu edo kargatu
+   beharko denik. Override
+   fitxategia aldatzeko, idatzi hona: override-change@debian.org.
+
+Erroreak berriro irekitzea, berriro esleitzea eta manipulatzea
+
+   Erroreen berri-emateak berriro eslei dakizkieke beste pakete batzuei,
+   oker itxitakoak berriro irekitzeko, berri-emate bat nora birbidali den
+   adierazten duen informazioa aldatzeko, larritasunak eta berri-emateen
+   izenburuak aldatzeko, eta berri-emateak batzeko nahiz banantzeko. 
+   Horretarako, mezu bat bidali behar da control@bugs.debian.org helbidera.
+
+   Mezu horien formatua Interneten erabilgarri dagoen beste dokumentu batean
+   azaltzen da, edo bug-maint-mailcontrol.txt fitxategian ere bai. Testu
+   arrunteko bertsio bat ere lor daiteke help hitza bidaliz goian
+   adierazitako helbideko zerbitzarira.
+
+Gehiago edo gutxiago zaharkituta dauden gaiak eskaneatzeko eginbidea
+
+   Inprimaki bidez bidalitako mezuak edo Gaia eremua Bug#nnn-rekin hasten
+   zaien erroreak nnn@bugs helbidera bidalitakotzat hartuko dira. Arrazoia:
+   helbide zaharretatik bidalitako mezuekiko atzeranzko bateragarritasuna,
+   eta oker bidalitako mezuen jarraipena bideratzeko (adibidez, hartzaile
+   guztiei erantzuteko eginbidea erabiliz).
+
+   Antzeko eskema baliatzen da maintonly, done, quiet eta forwarded-ekin
+   ere: Gaia etiketa batekin heltzen diren mezuak nnn-whatever@bugs 
+   dagokien helbidera bidalitakoak balira bezala tratatzen dira.
+
+   plain forwarded eta done gisa - hau da, errorearen berri-ematearen
+   zenbakirik gabe- eta Gaiaren eremuan zenbakirik gabe heltzen diren
+   mezuak `junk' gisa gordeko dira, eta aste batzuetan edukiko dira,
+   baina bestela ez ikusi egingo zaie.
+
+X-Debian-PR zaharkitua: guiet eginbidea
+
+   Erroreen segimendurako sistemak 'debian-bugs'en jasotako mezuak edozein
+   lekutara birbidaltzea eragoztea posible izan dadin erabiltzen da,
+   X-Debian-PR: quiet lerro bat idatziz mezuaren goiburuan.
+
+   Goiburu-lerro horri ez ikusi egiten zaio orain. Horren ordez, bidali mezua 
+   quiet edo nnn-quiet (edo maintonly edo nnn-maintonly).
+
+
+          Erroreak kontrolatzeko eta manipulatzeko posta-zerbitzariari 
+                          buruzko sarrera
+         ----------------------------------------------------------------------------------------------
+
+
+   Posta elektronikoaren bidez erroreei buruzko datuak eta dokumentazioa 
+   eskuratzeko aukera ematen duen request@bugs.debian.org guneko 
+   posta-zerbitzariaz gain, badago beste zerbitzari bat 
+   control@bugs.debian.org gunean, berri-emateak manipulatzeko aukera
+   ematen duena.
+
+   Kontrol-zerbitzariak ere eskaera-zerbitzariak bezala funtzionatzen du,
+   baina baditu hainbat komando gehigarri; egia esan, programa bera da. 
+   Besterik gabe informazioa eskatzean ari direnean erabiltzaileek akatsik 
+   egin ez dezaten eta arazorik sor ez dezaten bereizten dira bi helbideak.
+
+   Ikus eskaera-zerbitzariari buruzko sarrera; Interneten dago erabilgarri,
+   bug-log-mailserver.txt fitxategian, edo help hitza bidaliz posta-
+   zerbitzarietako batera, posta-zerbitzarien funtzionamendu-oinarrien
+   eta helbide horietako batera idaztean erabilgarri dauden komandoen 
+   xehetasunak ikusteko.
+
+   Posta-zerbitzarientzako erreferentzia-txartela erabilgarri dago WWW 
+   bidez, bug-mailserver-refcard.txt fitxategian, edo postaz refcard 
+   komandoarekin.
+
+                 Kontroleko posta-zerbitzarian erabilgarri dauden komandoak
+
+   reassign bugnumber package
+          #bugnumber errorea paketeko errore bat dela erregistratzen du. 
+          Paketea ezartzeko erabil daiteke, erabiltzaileak pseudo-goiburua 
+          ahaztu badu, edo lehenagoko esleipen bat aldatzeko. Inori ez zaio
+          jakinarazpenik bidaltzen (prozesatzeko transkripzioko ohiko
+          informazioaz gain).
+
+   reopen bugnumber [ originator-address | = | ! ]
+          Berriro irekitzen du #bugnumber, itxita baldin badago.
+
+          Lehenespenez, edo = zehazten baduzu, jatorrizko bidaltzailea
+          oraindik berri-ematearen sortzailea izango da, berriro ixtean
+          abisua jaso dezan.
+
+          Sortzaile-helbide bat ematen baduzu, sortzaile gisa jarriko da
+          da zuk emandako helbidea. Berriro irekitako berri-ematearen
+          sortzaile berri bihurtu nahi baduzu ! adierazle laburra erabil
+          dezakezu, edo zeure helbide elektronikoa zehaztu.
+
+          Normalean ideia ona izaten da sortzaile gisa erregistratuko
+          denari esatea berri-ematea berriro irekitzera zoazela,
+          berriro ixten denean zein abisu espero behar duten jakin
+          dezan.
+
+          Errorea ez bada ixten, orduan berriro irekitzeak ez du ezer
+          egingo, ez eta sortzailerik aldatuko ere. Irekitako errore 
+          baten sortzailea aldatzeko, erabili bidaltzailearen komandoa; 
+          kontuan izan orduan aldaketaren berri emango zaiola jatorrizko 
+          bidaltzaileari.
+
+   submitter bugnumber originator-address | !
+          #bugnumber-en sortzailea sortzaile-helbidera aldatzen du.
+
+          Berri-ematearen sortzaile berri bihurtu nahi baduzu ! adierazle 
+          laburra erabil dezakezu, edo zure helbide elektronikoa zehaztu.
+
+          Berriro irekitzeko komandoak berrirekitako errorearekin batutako erroreen 
+          sortzailea aldatzen du, baina bidaltzaileak ez du eraginik 
+          batutako erroreetan.
+
+   forwarded bugnumber address
+          Errore-zenbakia garapeneko mantentzaileari helbidera
+          birbidali zaiola ohartarazten du. Horrek ez du berri-ematea
+          benetan birbidaltzen. Lehendik dagoen 'honi birbidalia' helbide 
+          oker bat aldatzeko erabil daiteke, edo helbide berri bat 
+          erregistratzeko, birbidalitako gisa markatuta ez dagoen 
+          errore batean.
+
+   notforwarded bugnumber
+          Ahaztu egiten du bugnumber garapeneko mantentzaile bati
+          birbidali izanaren inguruko guztia. Errorea ez badago 
+          erregistratuta birbidalitako gisa, orduan ez du ezer egingo.
+
+   retitle bugnumber new-title
+          Berri-emate baten izenburua aldatzen du zehaztutako lehenetsira
+          (jatorrizko berri-ematearen Gaiaren goiburua da lehenetsia.
+
+          Erroreak manipulatzeko beste komando gehienak ez bezala, batutako
+          txostenetako batekin erabiltzen denean, eskatutako errorearen
+          izenburua soilik aldatuko du, eta ez harekin batutako
+          guztiena.
+
+   severity bugnumber severity
+          #bugnumber berri-ematearen larritasun-maila ezartzen du.
+          Ez zaio jakinarazpenik bidaltzen errorearen berri eman duen 
+           erabiltzaileari.
+
+          Larritasunak: grave (larria), serious (serioa), important 
+          (garrantzizkoa), normal (normala), minor (txikia) eta wishlist 
+          (desiragarria).
+
+          Esanahiak argitzeko, ikus errore-sistemako garatzaileen
+          dokumentazio orokorra.
+
+   clone bugnumber [ new IDs ]
+          clone control komandoarekin berri-emate bat bikoitz dezakezu.
+          Erabilgarria izaten da berri-emate bakar batek hainbat errore
+          desberdin gertatu direla adierazten duenean. "New IDs"
+          zenbaki negatiboak dira, zuriunez bereiziak, eta gero kontrol-
+          komandoetan erabil daitezke duela gutxi bikoiztutako erroreei
+          erreferentzia egiteko. Berri-emate berri bat sortzen da ID berri 
+          bakoitzarentzat.
+
+          Erabileraren adibideak:
+
+        clone 12345 -1 -2
+        reassign -1 foo
+        retitle -1 foo: foo sucks
+        reassign -2 bar
+        retitle -2 bar: bar sucks when used with foo
+        severity -2 wishlist
+        clone 123456 -2
+        reassign -2 foo
+        retitle -2 foo: foo sucks
+        merge -1 -2
+
+   merge bugnumber bugnumber ...
+          Programa-erroreen bi berri-emate edo gehiago batzen ditu. 
+          Berri-emateak batutakoan, erroreetako bat irekitzeak, ixteak, 
+          birbidalitako gisa markatzeak edo marka hori kentzeak eta pakete
+          berri bati berresleitzeak eragin berdin-berdina izango du
+          batutako berri-emate guztietan.
+
+          Berri-emateak batu ahal izateko, zehazki egoera berean egon
+          behar dute: denak irekita edo itxita, garapeneko egile berari
+          birbidalita edo guztiak birbidalitako gisa markatu gabe,
+          denak pakete berari edo pakete berei esleituta) (kate-
+          konparazio zehatz bat egiten zaio errorea esleitutako
+          paketeari), eta guztiak larritasun-maila berarekin. Ez badaude 
+          egoera berean, berriro esleitu, berriro ireki eta abar egin
+          behar dituzu, batu aurretik egoera bera dutela ziurtatzeko.
+
+          Batzeko komando batean zerrendatutako programa-erroreetako bat
+          jada beste errore bati batuta badago, zerrendako edozeini
+          batutako berri-emate guztiak batu egingo dira. Bategitea
+          berdintasuna bezalakoa da: bihurkorra, trantsitiboa eta simetrikoa.
+
+          Berri-emateak batzean, ohar bat agertzen da berri-emate bakoitzaren 
+          egunkarian; WWW orrietan gainerako erroretarako estekak 
+          sartzen dira.
+
+          Batutako berri-emateak aldi berean iraungitzen dira, eta soilik
+          berri-emate guztiek iraungitzeko irizpideak
+          betetzen dituenean.
+
+   unmerge bugnumber
+          Berri-emate bat deskonektatzen du lehen batuta zuen beste
+          berri-emate batetik. Zerrendatutako berri-ematea beste
+          hainbatekin batuta badago, orduan denak elkarrekin batuta uzten
+          dira; esplizituki izendatutako errorearekiko asoziazioak soilik
+          kentzen dira.
+
+          Berri-emate asko batzen badira, eta batutako berri-emateak bi 
+          talde bereizitan zatitu nahi badituzu, berri-emate bakoitza 
+          talde berrietako batean aparte banandu behar duzu, eta ondoren
+          nahi den talde berriarekin batu.
+
+          Aldiko berri-emate bat bakarrik banandu dezakezu unmerge komando
+          bakoitzarekin; errore bat baino gehiago deskonektatu nahi
+          badituzu, sartu hainbat unmerge komando zure mezuan.
+
+   tags bugnumber [ + | - | = ] tag
+          Etiketa jakin bat ezartzen du #bugnumber berri-ematearentzat. 
+          Ez azio jakinarazpenik bidaltzen errorearen berri emandako 
+          erabiltzaileari. + ikurrak gehitzea esan nahi du, - ikurrak 
+          kentzea, eta = ikurrak uneko etiketak kentzea eta berriak 
+          jartzea. Ekintza lehenetsia gehitzea da.
+
+          Erabilgarri dauden etiketak: patch, wontfix, moreinfo,
+          unreproducible, help, pending, fixed, security, upstream,
+          potato, woody, sarge, sid eta experimental.
+
+          Esanahiak argitzeko, ikus errore-sistemako garatzaileen
+          dokumentazio orokorra.
+
+   close bugnumber
+          #bugnumber berri-ematea ixten du.
+
+          Jakinarazpen bat bidaltzen zaio errorearen berri eman duen
+          erabiltzaileari, baina (bugnumber-done@bugs zerrendan ez bezala)
+          errorea ixtea eragin duen mezuaren testua ez da sartzen
+          jakinarazpenean. Berri-emate bat ixten duen mantentzaileak
+          ziurtatu egin behar du, seguru asko aparteko mezu bat bidaliz,
+          errorearen berri eman duen erabiltzaileak badakiela zergatik
+          itxi den. Komando hau erabiltzea, beraz, ez da gomendatzen.
+
+   quit
+   stop
+   thank...
+   --...
+          Kontrol-zerbitzariari esaten dio mezua prozesatzeari uzteko; 
+          mezuaren gainerako zatiak beharbada azalpenak, sinadurak edo 
+          dena delakoak edukiko ditu, eta kontrol-zerbitzariak ez du 
+          horrelako ezer detektatuko.
+
+   #...
+          Lerro bakarreko iruzkina. # ikurrak lerroaren hasieran egon 
+          behar du.
+
+
+
+
+                      Nola eman Debian-eko programa-errore baten berri
+                       ------------------------------------------------------------------------------
+
+Bidali aurretik kontuan izan beharrekoak
+
+   Ez sartu elkarrekin zerikusirik ez duten hainbat programa-errore 
+   berri-emate bakarrean - batez ere pakete berekoak ez badira.
+
+   Zure berri-ematea lehen beste norbaitek egin duen begiratu beharko 
+   duzu, bidali aurretik. Oraindik konpontzeke daude programa-erroreen
+   zerrendak erabilgarri dituzu Interneten, besteak beste - ikus
+   beste dokumentu batzuk xehetasunetarako. Lehendik dagoen #<zenbakia> 
+   berri-emate bati buruzko oharrak bidali nahi badituzu, bidali mezua 
+   <zenbakia>@bugs.debian.org helbidera.
+
+   Ezin baduzu zehaztu zein paketek daukan arazoa, bidali mezu bat
+   Debian-en erabiltzaileen posta-zerrendara, laguntza eskatzeko.
+   Zure arazoa ez badagokio pakete bakar bati, hau da, Debian zerbitzu
+   orokor batena bada, hainbat pseudo-pakete edo posta-zerrenda daude,
+   zure mezua guri helarazteko balia ditzakezunak.
+
+   Zure berri-ematearen kopia bat beste hartzaile batzuei bidali nahi 
+   badiezu (posta-zerrendetara, esaterako), ez erabili ohiko
+   mezu-goiburuak, behean azaltzen den metodoa baizik.
+
+Programa-erroreen berri emateko tresna automatikoak erabiltzea
+
+   Programa-erroreen berri ematen laguntzeko Debian-en programa berezi 
+   bat garatu dugu, reportbug izenekoa. Erroreen berri emateko prozesuan
+   lagunduko dizu, urratsez urrats, eta horrela errazago sartuko dituzu
+   artxiboan.
+
+Posta elektronikoaren bidez ematea errorearen berri
+
+   Bidali mezu bat submit@bugs.debian.org helbidera, behean azaltzen den 
+   bezala.
+
+   Edozein mezu elektronikotan bezala, lerro bateko azalpen argi bat
+   eman behar duzu Gaia goiburuan. Zehaztutako gaia erabiliko da
+   errorearen hasierako izenburu gisa segimendu-sisteman, eta, beraz, 
+   izan dadila informatiboa!
+
+   Pseudo-goiburu bat ezarri behar duzu mezuaren gorputzaren
+   hasieran. Hortaz, honelakoa izango da mezuaren gorputzeko lehen
+   esaldia:
+Package: <zerbait>
+
+   Ordeztu <zerbait> errorea duen paketearen izenarekin.
+
+   Mezuaren bigarren lerroak honelakoa izan behar du:
+Version: <zerbait>
+
+   Ordeztu <zerbait> paketearen bertsioarekin.
+
+   Paketearen lerro egoki bat jarri behar duzu pseudo-goiburuan,
+   erroreen segimendurako sistemak mezua pakete-mantentzaileari
+   bidal diezaion. Informazio hori nola bilatu azaltzen da hurrengo
+   adibidean.
+
+   Pseudo-goiburuaren eremuak lerroen hasiera-hasieran
+   kokatu behar dira.
+
+   Sartu hauek zure berri-ematean:
+     * Inprimatutako edo egunkarian erregistratutako errore-mezuen testu
+       zehatza eta osoa. Oso garrantzitsua da!
+     * Arazoa gertatzeko zehazki zer idatzi edo egin zenuen.
+     * Okerreko portaeraren azalpena: zehazki zein portaera
+       espero zenuen, eta zer ikusi duzun. Adibidezko saio baten
+       transkripzio batek oso ondo erakusten du hori.
+     * Iradokitako konponketa bat, edo adabaki bat, halakorik edukiz gero.
+     * Arazoa eman duen programaren konfigurazioaren xehetasunak.
+       Sartu dagozkion konfigurazio-fitxategien testu osoa.
+     * Errorea duen paketea zein pakete-bertsioren mendekoa den.
+     * Zein nukleo-bertsio erabiltzen ari zaren (idatzi uname -a), liburutegi
+       partekatua (idatzi ls -l /lib/libc.so.6 edo dpkg -s libc6 | grep
+       ^Version), eta zure Debian sistemari buruzko beste edozein
+       xehetasun, egokia badirudi. Esate baterako, arazoren bat badaukazu
+       Perl script batekin, `perl' bitarraren bertsioa emango duzu
+       (idatzi perl -v edo dpkg -s perl | grep ^Version:).
+     * Zure sistemako hardwarearen xehetasun egokiak. Gailu-kontrolatzaileen
+       arazo baten berri ematen ari bazara, zerrendatu zure sistemako
+       hardware guztia, askotan IRQ eta S/Iko helbideen gatazken eragiten
+       baitituzte arazoak.
+
+   Sartu esanguratsuak diruditen xehetasun guztiak - lasai, ez dago
+   arriskurik informazio gehiegi emateko!. Txikiak
+   badira, sartu berri-ematean arazoa erreproduzitzeko erabilitako
+   fitxategiak (uuencode moduan, karaktere arrarorik baldin
+   badute, etab.).
+
+Adibidea
+
+   Programa-errore baten berri-emateak itxura hau izaten du, 
+   mezu-goiburuarekin:
+  To: submit@bugs.debian.org
+  From: diligent@testing.linux.org
+  Subject: Hello says `goodbye'
+
+  Package: hello
+  Version: 1.3-16
+
+  When I invoke `hello' without arguments from an ordinary shell
+  prompt it prints `goodbye', rather than the expected `hello, world'.
+  Here is a transcript:
+
+  $ hello
+  goodbye
+  $ /usr/bin/hello
+  goodbye
+  $
+
+  I suggest that the output string, in hello.c, be corrected.
+
+  I am using Debian GNU/Linux 2.2, kernel 2.2.17-pre-patch-13
+  and libc6 2.1.3-10.
+
+Programa-erroreen berri-emateen kopiak beste helbide batzuetara bidaltzea
+
+   Berri-emateak debian-bugs-dist zerrendara eta pakete-mantentzaileari 
+   bidaltzen zaizkie normalean, baina batzuetan beste norbaiti edo 
+   norabait bidaltzea ere komeni izaten da.
+
+   Berri-ematearen CC eremuan beste helbideak jar ditzakezu, baina orduan
+   beste kopiek ez dute edukiko jarrita berri-ematearen zenbakia Erantzun
+   Honi eremuan eta Gaiaren lerroan. Hartzaileek erantzuten
+   dutenean, normalean mantendu egingo dute goiburuko submit@bugs.debian.org 
+   sarrera, eta berri-emate berri gisa artxibatuko dute mezua. Horren 
+   ondorioz, berri-emate asko errepikatu egiten dira.
+
+   Onena X-Debbugs-CC goiburua erabiltzea izaten da. Gehitu
+   honelako lerro bat zure mezuaren goiburuan (ez Paketearen eremua duen
+   pseudo-goiburuan):
+ X-Debbugs-CC: other-list@cosmic.edu
+
+   Horrela, erroreen segimendurako sistemak zure berri-ematearen kopia bat
+   bidaliko du X-Debbugs-CC lerroko helbideetara, debian-bugs-dist 
+   zerrendara bidaltzeaz gain.
+
+   Eginbide hori sarritan oso ondo konbina daiteke "quiet" mezuekin 
+   - ikus behean.
+
+Larritasun-mailak
+
+   Programa-errore larri baten berri-ematea bada, edo soilik eginbide 
+   bat eskatzeko bada, larritasun-maila ezar dezakezu errorearen berri 
+   ematen duzunean. Dena den, ez da beharrezkoa, eta garatzaileek 
+   ezarriko diote larritasun-maila zure berri-emateari, zuk egiten 
+   ez baduzu.
+
+   Larritasun-maila bat esleitzeko, jarri honelako lerro bat
+   pseudo-goiburuan:
+Severity: <larritasuna>
+
+   Ordeztu <larritasuna> erabilgarri dauden larritasun-mailetako batekin,
+   garatzaileentzako dokumentazioan azaltzen den bezala.
+
+Bidalketa-helbide desberdinak (berri-emate txikiak edo handiak)
+
+   Berri-emate bat txikia bada, dokumentazioko akats bat edo garrantzi
+   handirik gabeko konpilazio-arazo bat, adierazi dagokion larritasuna,
+   eta bidali maintonly@bugs helbidera, submit@bugs helbidera bidali
+   beharrean. maintonly-k pakete-mantentzaileari soilik birbidaliko dio,
+   eta ez BTS posta-zerrendetara.
+
+   Aldi berean hainbat berri-emate bidaltzen ari bazara, maintonly@bugs
+   helbidea erabili behar duzu, mezu erredundante gehiegi ez sortzeko
+   BTS posta-zerrendetan. Antzeko berri-emate asko bidali ondoren,
+   beharbada laburpen bat ere bidali nahiko duzu debian-bugs-dist zerrendara.
+   Lehen ere mantentzaileari helarazitako errore baten berri eman nahi baduzu
+   erroreen segimendurako sisteman, quiet@bugs erabil dezakezu. quiet@bugs
+   helbidera bidalitakoak ez dira inora birbidaltzen, artxibatu 
+   egiten dira soilik.
+
+   Bidalketa-helbide desberdinak erabiltzen badituzu, erroreen segimendurako
+   sistemak Erantzun Honi eremua ezarriko du birbidalitako mezu guztietan, 
+   erantzunak jatorrizko berri-ematea bezalaxe prozesa daitezen.
+   Hortaz, esate baterako, maintonly-ra bidalitako erantzunak
+   nnn-maintonly@bugs helbidera joango dira nnn@bugs-era joan beharrean,
+   eskuz gainidazten ez bada behintzat.
+
+Pakete ezezagunen programa-erroreen berri-emateak
+
+   Erroreen segimendurako sistemak ez badaki paketearen mantentzailea
+   nor den, berri-ematea debian-bugs-dist zerrendara birbidaliko da,
+   maintonly erabili bada ere.
+
+   maintonly@bugs edo nnn-maintonly@bugs helbideetara bidaltzean,
+   egiaztatu errorea dagokion paketeari esleitu zaiola, dagokion
+   Paketea zehaztuz berri-ematearen jatorrizko bidalketan, edo
+   control@bugs zerbitzua erabiliz, berri-ematea berriro behar bezala
+   esleitzeko aurrena, dagoeneko ez baldin badago.
+
+Berri-ematearen paketea eta bertsioa aurkitzeko dpkg erabiltzea
+
+   Komando bateko errore baten berri ematen ari bazara, zein pakete
+   instalatu den jakin dezakezu dpkg --search erabiliz. Pakete baten zein
+    bertsio instalatu duzun jakin dezakezu dpkg --list edo dpkg
+   --status erabiliz.
+
+   Adibidez:
+$ which apt-get
+/usr/bin/apt-get
+$ type apt-get
+apt-get is /usr/bin/apt-get
+$ dpkg --search /usr/bin/apt-get
+apt: /usr/bin/apt-get
+$ dpkg --list apt
+Desired=Unknown/Install/Remove/Purge/Hold
+| Status=Not/Installed/Config-files/Unpacked/Failed-config/Half-installed
+|/ Err?=(none)/Hold/Reinst-required/X=both-problems (Status,Err: uppercase=bad)
+||/ Name           Version        Description
++++-==============-==============-============================================
+ii  apt            0.3.19         Advanced front-end for dpkg
+$ dpkg --status apt
+Package: apt
+Status: install ok installed
+Priority: standard
+Section: base
+Installed-Size: 1391
+Maintainer: APT Development Team <deity@lists.debian.org>
+Version: 0.3.19
+Replaces: deity, libapt-pkg-doc (<< 0.3.7), libapt-pkg-dev (<< 0.3.7)
+Provides: libapt-pkg2.7
+Depends: libapt-pkg2.7, libc6 (>= 2.1.2), libstdc++2.10
+Suggests: dpkg-dev
+Conflicts: deity
+Description: Advanced front-end for dpkg
+ This is Debian's next generation front-end for the dpkg package manager.
+ It provides the apt-get utility and APT dselect method that provides a
+ simpler, safer way to install and upgrade packages.
+ .
+ APT features complete installation ordering, multiple source capability
+ and several other unique features, see the Users Guide in
+ /usr/doc/apt/guide.text.gz
+
+     _________________________________________________________________
+
+    Debian BTS administratzaileak <owner@bugs.debian.org>
+    Debian-eko erroreen segimendurako sistema
+    Copyright  1999 Darren O. Benham, 1994-97 Ian Jackson, 1997 nCipher
+    Corporation Ltd, 1995 Steven Brenner.
+   ______________________________________________________________________
+
+
+
+
+

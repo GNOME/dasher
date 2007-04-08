@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Sinhala with punctuation and numerals">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>Default</palette>
+<train>training_Sinhala_IN.txt</train>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="SINHALA letters" b="0">
+<s d="&#x0D85;" t="&#x0D85;"  note="SINHALA LETTER AYANNA  "  />
+<s d="&#x0D86;" t="&#x0D86;"  note="SINHALA LETTER AAYANNA  "  />
+<s d="&#x0D87;" t="&#x0D87;"  note="SINHALA LETTER AEYANNA  "  />
+<s d="&#x0D88;" t="&#x0D88;"  note="SINHALA LETTER AEEYANNA  "  />
+<s d="&#x0D89;" t="&#x0D89;"  note="SINHALA LETTER IYANNA  "  />
+<s d="&#x0D8A;" t="&#x0D8A;"  note="SINHALA LETTER IIYANNA  "  />
+<s d="&#x0D8B;" t="&#x0D8B;"  note="SINHALA LETTER UYANNA  "  />
+<s d="&#x0D8C;" t="&#x0D8C;"  note="SINHALA LETTER UUYANNA  "  />
+<s d="&#x0D8D;" t="&#x0D8D;"  note="SINHALA LETTER IRUYANNA  "  />
+<s d="&#x0D8E;" t="&#x0D8E;"  note="SINHALA LETTER IRUUYANNA  "  />
+<s d="&#x0D8F;" t="&#x0D8F;"  note="SINHALA LETTER ILUYANNA  "  />
+<s d="&#x0D90;" t="&#x0D90;"  note="SINHALA LETTER ILUUYANNA  "  />
+<s d="&#x0D91;" t="&#x0D91;"  note="SINHALA LETTER EYANNA  "  />
+<s d="&#x0D92;" t="&#x0D92;"  note="SINHALA LETTER EEYANNA  "  />
+<s d="&#x0D93;" t="&#x0D93;"  note="SINHALA LETTER AIYANNA  "  />
+<s d="&#x0D94;" t="&#x0D94;"  note="SINHALA LETTER OYANNA  "  />
+<s d="&#x0D95;" t="&#x0D95;"  note="SINHALA LETTER OOYANNA  "  />
+<s d="&#x0D96;" t="&#x0D96;"  note="SINHALA LETTER AUYANNA  "  />
+<s d="&#x0D9A;" t="&#x0D9A;"  note="SINHALA LETTER ALPAPRAANA KAYANNA  "  />
+<s d="&#x0D9B;" t="&#x0D9B;"  note="SINHALA LETTER MAHAAPRAANA KAYANNA  "  />
+<s d="&#x0D9C;" t="&#x0D9C;"  note="SINHALA LETTER ALPAPRAANA GAYANNA  "  />
+<s d="&#x0D9D;" t="&#x0D9D;"  note="SINHALA LETTER MAHAAPRAANA GAYANNA  "  />
+<s d="&#x0D9E;" t="&#x0D9E;"  note="SINHALA LETTER KANTAJA NAASIKYAYA  "  />
+<s d="&#x0D9F;" t="&#x0D9F;"  note="SINHALA LETTER SANYAKA GAYANNA  "  />
+<s d="&#x0DA0;" t="&#x0DA0;"  note="SINHALA LETTER ALPAPRAANA CAYANNA  "  />
+<s d="&#x0DA1;" t="&#x0DA1;"  note="SINHALA LETTER MAHAAPRAANA CAYANNA  "  />
+<s d="&#x0DA2;" t="&#x0DA2;"  note="SINHALA LETTER ALPAPRAANA JAYANNA  "  />
+<s d="&#x0DA3;" t="&#x0DA3;"  note="SINHALA LETTER MAHAAPRAANA JAYANNA  "  />
+<s d="&#x0DA4;" t="&#x0DA4;"  note="SINHALA LETTER TAALUJA NAASIKYAYA  "  />
+<s d="&#x0DA5;" t="&#x0DA5;"  note="SINHALA LETTER TAALUJA SANYOOGA NAAKSIKYAYA  "  />
+<s d="&#x0DA6;" t="&#x0DA6;"  note="SINHALA LETTER SANYAKA JAYANNA  "  />
+<s d="&#x0DA7;" t="&#x0DA7;"  note="SINHALA LETTER ALPAPRAANA TTAYANNA  "  />
+<s d="&#x0DA8;" t="&#x0DA8;"  note="SINHALA LETTER MAHAAPRAANA TTAYANNA  "  />
+<s d="&#x0DA9;" t="&#x0DA9;"  note="SINHALA LETTER ALPAPRAANA DDAYANNA  "  />
+<s d="&#x0DAA;" t="&#x0DAA;"  note="SINHALA LETTER MAHAAPRAANA DDAYANNA  "  />
+<s d="&#x0DAB;" t="&#x0DAB;"  note="SINHALA LETTER MUURDHAJA NAYANNA  "  />
+<s d="&#x0DAC;" t="&#x0DAC;"  note="SINHALA LETTER SANYAKA DDAYANNA  "  />
+<s d="&#x0DAD;" t="&#x0DAD;"  note="SINHALA LETTER ALPAPRAANA TAYANNA  "  />
+<s d="&#x0DAE;" t="&#x0DAE;"  note="SINHALA LETTER MAHAAPRAANA TAYANNA  "  />
+<s d="&#x0DAF;" t="&#x0DAF;"  note="SINHALA LETTER ALPAPRAANA DAYANNA  "  />
+<s d="&#x0DB0;" t="&#x0DB0;"  note="SINHALA LETTER MAHAAPRAANA DAYANNA  "  />
+<s d="&#x0DB1;" t="&#x0DB1;"  note="SINHALA LETTER DANTAJA NAYANNA  "  />
+<s d="&#x0DB3;" t="&#x0DB3;"  note="SINHALA LETTER SANYAKA DAYANNA  "  />
+<s d="&#x0DB4;" t="&#x0DB4;"  note="SINHALA LETTER ALPAPRAANA PAYANNA  "  />
+<s d="&#x0DB5;" t="&#x0DB5;"  note="SINHALA LETTER MAHAAPRAANA PAYANNA  "  />
+<s d="&#x0DB6;" t="&#x0DB6;"  note="SINHALA LETTER ALPAPRAANA BAYANNA  "  />
+<s d="&#x0DB7;" t="&#x0DB7;"  note="SINHALA LETTER MAHAAPRAANA BAYANNA  "  />
+<s d="&#x0DB8;" t="&#x0DB8;"  note="SINHALA LETTER MAYANNA  "  />
+<s d="&#x0DB9;" t="&#x0DB9;"  note="SINHALA LETTER AMBA BAYANNA  "  />
+<s d="&#x0DBA;" t="&#x0DBA;"  note="SINHALA LETTER YAYANNA  "  />
+<s d="&#x0DBB;" t="&#x0DBB;"  note="SINHALA LETTER RAYANNA  "  />
+<s d="&#x0DBD;" t="&#x0DBD;"  note="SINHALA LETTER DANTAJA LAYANNA  "  />
+<s d="&#x0DC0;" t="&#x0DC0;"  note="SINHALA LETTER VAYANNA  "  />
+<s d="&#x0DC1;" t="&#x0DC1;"  note="SINHALA LETTER TAALUJA SAYANNA  "  />
+<s d="&#x0DC2;" t="&#x0DC2;"  note="SINHALA LETTER MUURDHAJA SAYANNA  "  />
+<s d="&#x0DC3;" t="&#x0DC3;"  note="SINHALA LETTER DANTAJA SAYANNA  "  />
+<s d="&#x0DC4;" t="&#x0DC4;"  note="SINHALA LETTER HAYANNA  "  />
+<s d="&#x0DC5;" t="&#x0DC5;"  note="SINHALA LETTER MUURDHAJA LAYANNA  "  />
+<s d="&#x0DC6;" t="&#x0DC6;"  note="SINHALA LETTER FAYANNA  "  />
+</group>
+<group name="signs and vowels" >
+<s d="&#x25cc;&#x0DCA;" t="&#x0DCA;"  note="SINHALA SIGN AL-LAKUNA  "  />
+<s d="&#x25cc;&#x0DCF;" t="&#x0DCF;"  note="SINHALA VOWEL SIGN AELA-PILLA  "  />
+<s d="&#x25cc;&#x0DD0;" t="&#x0DD0;"  note="SINHALA VOWEL SIGN KETTI AEDA-PILLA  "  />
+<s d="&#x25cc;&#x0DD1;" t="&#x0DD1;"  note="SINHALA VOWEL SIGN DIGA AEDA-PILLA  "  />
+<s d="&#x25cc;&#x0DD2;" t="&#x0DD2;"  note="SINHALA VOWEL SIGN KETTI IS-PILLA  "  />
+<s d="&#x25cc;&#x0DD3;" t="&#x0DD3;"  note="SINHALA VOWEL SIGN DIGA IS-PILLA  "  />
+<s d="&#x25cc;&#x0DD4;" t="&#x0DD4;"  note="SINHALA VOWEL SIGN KETTI PAA-PILLA  "  />
+<s d="&#x25cc;&#x0DD6;" t="&#x0DD6;"  note="SINHALA VOWEL SIGN DIGA PAA-PILLA  "  />
+<s d="&#x25cc;&#x0DD8;" t="&#x0DD8;"  note="SINHALA VOWEL SIGN GAETTA-PILLA  "  />
+<s d="&#x25cc;&#x0DD9;" t="&#x0DD9;"  note="SINHALA VOWEL SIGN KOMBUVA  "  />
+<s d="&#x25cc;&#x0DDA;" t="&#x0DDA;"  note="SINHALA VOWEL SIGN DIGA KOMBUVA  "  />
+<s d="&#x25cc;&#x0DDB;" t="&#x0DDB;"  note="SINHALA VOWEL SIGN KOMBU DEKA  "  />
+<s d="&#x25cc;&#x0DDC;" t="&#x0DDC;"  note="SINHALA VOWEL SIGN KOMBUVA HAA AELA-PILLA  "  />
+<s d="&#x25cc;&#x0DDD;" t="&#x0DDD;"  note="SINHALA VOWEL SIGN KOMBUVA HAA DIGA AELA-PILLA  "  />
+<s d="&#x25cc;&#x0DDE;" t="&#x0DDE;"  note="SINHALA VOWEL SIGN KOMBUVA HAA GAYANUKITTA  "  />
+<s d="&#x25cc;&#x0DDF;" t="&#x0DDF;"  note="SINHALA VOWEL SIGN GAYANUKITTA  "  />
+<s d="&#x25cc;&#x0DF2;" t="&#x0DF2;"  note="SINHALA VOWEL SIGN DIGA GAETTA-PILLA  "  />
+<s d="&#x25cc;&#x0DF3;" t="&#x0DF3;"  note="SINHALA VOWEL SIGN DIGA GAYANUKITTA  "  />
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1"/>
+<s d="2" t="2"/>
+<s d="3" t="3"/>
+<s d="4" t="4"/>
+<s d="5" t="5"/>
+<s d="6" t="6"/>
+<s d="7" t="7"/>
+<s d="8" t="8"/>
+<s d="9" t="9"/>
+<s d="0" t="0"/>
+</group>
+<group name="Punctuation" b="112">
+<s d="%" t="%"/>
+<s d="*" t="*"/>
+<s d="+" t="+"/>
+<s d="=" t="="/>
+<s d="/" t="/"/>
+<s d="#" t="#"/>
+<s d="$" t="$"/>
+<s d="|" t="|"/>
+<s d="\" t="\"/>
+<s d="~" t="~"/>
+<s d="^" t="^"/>
+<s d="_" t="_"/>
+<s d="&amp;" t="&amp;"/>
+<s d="@" t="@"/>
+<s d="[" t="["/>
+<s d="]" t="]"/>
+<s d="{" t="{"/>
+<s d="}" t="}"/>
+<s d="&lt;" t="&lt;"/>
+<s d="&gt;" t="&gt;"/>
+<s d="(" t="("/>
+<s d=")" t=")"/>
+<s d="&quot;" t="&quot;"/>
+<s d="`" t="`"/>
+<s d="&apos;" t="&apos;"/>
+<s d="-" t="-"/>
+<s d=":" t=":"/>
+<s d=";" t=";"/>
+<s d="?" t="?"/>
+<s d="!" t="!"/>
+<s d="," t=","/>
+<s d="&#183;" t="."/>
+</group>
+</alphabet>
+</alphabets>

@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Oriya with punctuation and numerals">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>Default</palette>
+<train>training_Oriya_IN.txt</train>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="ORIYA letters" b="0">
+<s d="&#x0B05;" t="&#x0B05;" note="ORIYA LETTER A " />
+<s d="&#x0B06;" t="&#x0B06;" note="ORIYA LETTER AA " />
+<s d="&#x0B07;" t="&#x0B07;" note="ORIYA LETTER I " />
+<s d="&#x0B08;" t="&#x0B08;" note="ORIYA LETTER II " />
+<s d="&#x0B09;" t="&#x0B09;" note="ORIYA LETTER U " />
+<s d="&#x0B0A;" t="&#x0B0A;" note="ORIYA LETTER UU " />
+<s d="&#x0B0B;" t="&#x0B0B;" note="ORIYA LETTER VOCALIC R " />
+<s d="&#x0B60;" t="&#x0B60;" note="ORIYA LETTER VOCALIC RR " />
+<s d="&#x0B0C;" t="&#x0B0C;" note="ORIYA LETTER VOCALIC L " />
+<s d="&#x0B61;" t="&#x0B61;" note="ORIYA LETTER VOCALIC LL " />
+<s d="&#x0B0F;" t="&#x0B0F;" note="ORIYA LETTER E " />
+<s d="&#x0B10;" t="&#x0B10;" note="ORIYA LETTER AI " />
+<s d="&#x0B13;" t="&#x0B13;" note="ORIYA LETTER O " />
+<s d="&#x0B14;" t="&#x0B14;" note="ORIYA LETTER AU " />
+<s d="&#x0B15;" t="&#x0B15;" note="ORIYA LETTER KA " />
+<s d="&#x0B16;" t="&#x0B16;" note="ORIYA LETTER KHA " />
+<s d="&#x0B17;" t="&#x0B17;" note="ORIYA LETTER GA " />
+<s d="&#x0B18;" t="&#x0B18;" note="ORIYA LETTER GHA " />
+<s d="&#x0B19;" t="&#x0B19;" note="ORIYA LETTER NGA " />
+<s d="&#x0B1A;" t="&#x0B1A;" note="ORIYA LETTER CA " />
+<s d="&#x0B1B;" t="&#x0B1B;" note="ORIYA LETTER CHA " />
+<s d="&#x0B1C;" t="&#x0B1C;" note="ORIYA LETTER JA " />
+<s d="&#x0B1D;" t="&#x0B1D;" note="ORIYA LETTER JHA " />
+<s d="&#x0B1E;" t="&#x0B1E;" note="ORIYA LETTER NYA " />
+<s d="&#x0B1F;" t="&#x0B1F;" note="ORIYA LETTER TTA " />
+<s d="&#x0B20;" t="&#x0B20;" note="ORIYA LETTER TTHA " />
+<s d="&#x0B21;" t="&#x0B21;" note="ORIYA LETTER DDA " />
+<s d="&#x0B5C;" t="&#x0B5C;" note="ORIYA LETTER RRA class(s)" />
+<s d="&#x0B22;" t="&#x0B22;" note="ORIYA LETTER DDHA " />
+<s d="&#x0B5D;" t="&#x0B5D;" note="ORIYA LETTER RHA class(s)" />
+<s d="&#x0B23;" t="&#x0B23;" note="ORIYA LETTER NNA " />
+<s d="&#x0B24;" t="&#x0B24;" note="ORIYA LETTER TA " />
+<s d="&#x0B25;" t="&#x0B25;" note="ORIYA LETTER THA " />
+<s d="&#x0B26;" t="&#x0B26;" note="ORIYA LETTER DA " />
+<s d="&#x0B27;" t="&#x0B27;" note="ORIYA LETTER DHA " />
+<s d="&#x0B28;" t="&#x0B28;" note="ORIYA LETTER NA " />
+<s d="&#x0B2A;" t="&#x0B2A;" note="ORIYA LETTER PA " />
+<s d="&#x0B2B;" t="&#x0B2B;" note="ORIYA LETTER PHA " />
+<s d="&#x0B2C;" t="&#x0B2C;" note="ORIYA LETTER BA " />
+<s d="&#x0B2D;" t="&#x0B2D;" note="ORIYA LETTER BHA " />
+<s d="&#x0B2E;" t="&#x0B2E;" note="ORIYA LETTER MA " />
+<s d="&#x0B2F;" t="&#x0B2F;" note="ORIYA LETTER YA " />
+<s d="&#x0B5F;" t="&#x0B5F;" note="ORIYA LETTER YYA " />
+<s d="&#x0B30;" t="&#x0B30;" note="ORIYA LETTER RA " />
+<s d="&#x0B32;" t="&#x0B32;" note="ORIYA LETTER LA " />
+<s d="&#x0B33;" t="&#x0B33;" note="ORIYA LETTER LLA " />
+<s d="&#x0B35;" t="&#x0B35;" note="ORIYA LETTER VA " />
+<s d="&#x0B71;" t="&#x0B71;" note="ORIYA LETTER WA " />
+<s d="&#x0B36;" t="&#x0B36;" note="ORIYA LETTER SHA " />
+<s d="&#x0B37;" t="&#x0B37;" note="ORIYA LETTER SSA " />
+<s d="&#x0B38;" t="&#x0B38;" note="ORIYA LETTER SA " />
+<s d="&#x0B39;" t="&#x0B39;" note="ORIYA LETTER HA " />
+</group>
+<group name="vowels, other signs and marks" >
+<s d="&#x0B3D;" t="&#x0B3D;" note="ORIYA SIGN AVAGRAHA " />
+<s d="&#x0B3E;" t="&#x0B3E;" note="ORIYA &#x25cc; VOWEL SIGN AA " />
+<s d="&#x0B3F;" t="&#x0B3F;" note="ORIYA &#x25cc; VOWEL SIGN I " />
+<s d="&#x0B40;" t="&#x0B40;" note="ORIYA &#x25cc; VOWEL SIGN II " />
+<s d="&#x0B41;" t="&#x0B41;" note="ORIYA &#x25cc; VOWEL SIGN U " />
+<s d="&#x0B42;" t="&#x0B42;" note="ORIYA &#x25cc; VOWEL SIGN UU " />
+<s d="&#x0B43;" t="&#x0B43;" note="ORIYA &#x25cc; VOWEL SIGN VOCALIC R " />
+<s d="&#x0B47;" t="&#x0B47;" note="ORIYA &#x25cc; VOWEL SIGN E " />
+<s d="&#x0B48;" t="&#x0B48;" note="ORIYA &#x25cc; VOWEL SIGN AI " />
+<s d="&#x0B4B;" t="&#x0B4B;" note="ORIYA &#x25cc; VOWEL SIGN O " />
+<s d="&#x0B4C;" t="&#x0B4C;" note="ORIYA &#x25cc; VOWEL SIGN AU " />
+<s d="&#x0B4D;" t="&#x0B4D;" note="ORIYA &#x25cc; SIGN VIRAMA " />
+<s d="&#x0B56;" t="&#x0B56;" note="ORIYA &#x25cc; AI LENGTH MARK " />
+<s d="&#x0B57;" t="&#x0B57;" note="ORIYA &#x25cc; AU LENGTH MARK " />
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1"/>
+<s d="2" t="2"/>
+<s d="3" t="3"/>
+<s d="4" t="4"/>
+<s d="5" t="5"/>
+<s d="6" t="6"/>
+<s d="7" t="7"/>
+<s d="8" t="8"/>
+<s d="9" t="9"/>
+<s d="0" t="0"/>
+</group>
+<group name="Punctuation" b="112">
+<s d="%" t="%"/>
+<s d="*" t="*"/>
+<s d="+" t="+"/>
+<s d="=" t="="/>
+<s d="/" t="/"/>
+<s d="#" t="#"/>
+<s d="$" t="$"/>
+<s d="|" t="|"/>
+<s d="\" t="\"/>
+<s d="~" t="~"/>
+<s d="^" t="^"/>
+<s d="_" t="_"/>
+<s d="&amp;" t="&amp;"/>
+<s d="@" t="@"/>
+<s d="[" t="["/>
+<s d="]" t="]"/>
+<s d="{" t="{"/>
+<s d="}" t="}"/>
+<s d="&lt;" t="&lt;"/>
+<s d="&gt;" t="&gt;"/>
+<s d="(" t="("/>
+<s d=")" t=")"/>
+<s d="&quot;" t="&quot;"/>
+<s d="`" t="`"/>
+<s d="&apos;" t="&apos;"/>
+<s d="-" t="-"/>
+<s d=":" t=":"/>
+<s d=";" t=";"/>
+<s d="?" t="?"/>
+<s d="!" t="!"/>
+<s d="," t=","/>
+<s d="." t="."/>
+</group>
+</alphabet>
+</alphabets>

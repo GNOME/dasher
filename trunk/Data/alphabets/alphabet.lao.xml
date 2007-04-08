@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Lao">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>European/Asian</palette>
+<train>training_lao_LA.txt</train>
+<paragraph d="&#182;" b="9"/>
+<space d="&#x25a1;" t=" " b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="lao tones (combining)" b="191"  visible="on">
+<s d="&#x25cc;&#x0EC6;" t="&#x0EC6;" note=" LAO KO LA  "/>
+<s d="&#x25cc;&#x0EC8;" t="&#x0EC8;" note=" LAO TONE MAI EK  "/>
+<s d="&#x25cc;&#x0EC9;" t="&#x0EC9;" note=" LAO TONE MAI THO  "/>
+<s d="&#x25cc;&#x0ECA;" t="&#x0ECA;" note=" LAO TONE MAI TI  "/>
+<s d="&#x25cc;&#x0ECB;" t="&#x0ECB;" note=" LAO TONE MAI CATAWA  "/>
+</group>
+<group name="Lao letters"  b="0"  visible="off">
+<s d="&#x0E81;" t="&#x0E81;" note=" LAO LETTER KO  "/>
+<s d="&#x0E82;" t="&#x0E82;" note=" LAO LETTER KHO SUNG  "/>
+<s d="&#x0E84;" t="&#x0E84;" note=" LAO LETTER KHO TAM  "/>
+<s d="&#x0E87;" t="&#x0E87;" note=" LAO LETTER NGO  "/>
+<s d="&#x0E88;" t="&#x0E88;" note=" LAO LETTER CO  "/>
+<s d="&#x0E8A;" t="&#x0E8A;" note=" LAO LETTER SO TAM  "/>
+<s d="&#x0E8D;" t="&#x0E8D;" note=" LAO LETTER NYO  "/>
+<s d="&#x0E94;" t="&#x0E94;" note=" LAO LETTER DO  "/>
+<s d="&#x0E95;" t="&#x0E95;" note=" LAO LETTER TO  "/>
+<s d="&#x0E96;" t="&#x0E96;" note=" LAO LETTER THO SUNG  "/>
+<s d="&#x0E97;" t="&#x0E97;" note=" LAO LETTER THO TAM  "/>
+<s d="&#x0E99;" t="&#x0E99;" note=" LAO LETTER NO  "/>
+<s d="&#x0E9A;" t="&#x0E9A;" note=" LAO LETTER BO  "/>
+<s d="&#x0E9B;" t="&#x0E9B;" note=" LAO LETTER PO  "/>
+<s d="&#x0E9C;" t="&#x0E9C;" note=" LAO LETTER PHO SUNG  "/>
+<s d="&#x0E9D;" t="&#x0E9D;" note=" LAO LETTER FO TAM  "/>
+<s d="&#x0E9E;" t="&#x0E9E;" note=" LAO LETTER PHO TAM  "/>
+<s d="&#x0E9F;" t="&#x0E9F;" note=" LAO LETTER FO SUNG  "/>
+<s d="&#x0EA1;" t="&#x0EA1;" note=" LAO LETTER MO  "/>
+<s d="&#x0EA2;" t="&#x0EA2;" note=" LAO LETTER YO  "/>
+<s d="&#x0EA3;" t="&#x0EA3;" note=" LAO LETTER LO LING  "/>
+<s d="&#x0EA5;" t="&#x0EA5;" note=" LAO LETTER LO LOOT  "/>
+<s d="&#x0EA7;" t="&#x0EA7;" note=" LAO LETTER WO  "/>
+<s d="&#x0EAA;" t="&#x0EAA;" note=" LAO LETTER SO SUNG  "/>
+<s d="&#x0EAB;" t="&#x0EAB;" note=" LAO LETTER HO SUNG  "/>
+<s d="&#x0EAD;" t="&#x0EAD;" note=" LAO LETTER O  "/>
+<s d="&#x0EAE;" t="&#x0EAE;" note=" LAO LETTER HO TAM  "/>
+</group>
+<group name="lao vowels (combining)" b="111">
+<s d="&#x25cc;&#x0EB0;" t="&#x0EB0;" note=" LAO VOWEL SIGN A  "/>
+<s d="&#x25cc;&#x0EB1;" t="&#x0EB1;" note=" LAO VOWEL SIGN MAI KAN  "/>
+<s d="&#x25cc;&#x0EB2;" t="&#x0EB2;" note=" LAO VOWEL SIGN AA  "/>
+<s d="&#x25cc;&#x0EB3;" t="&#x0EB3;" note=" LAO VOWEL SIGN AM  "/>
+<s d="&#x25cc;&#x0EB4;" t="&#x0EB4;" note=" LAO VOWEL SIGN I  "/>
+<s d="&#x25cc;&#x0EB5;" t="&#x0EB5;" note=" LAO VOWEL SIGN II  "/>
+<s d="&#x25cc;&#x0EB6;" t="&#x0EB6;" note=" LAO VOWEL SIGN Y  "/>
+<s d="&#x25cc;&#x0EB7;" t="&#x0EB7;" note=" LAO VOWEL SIGN YY  "/>
+<s d="&#x25cc;&#x0EB8;" t="&#x0EB8;" note=" LAO VOWEL SIGN U  "/>
+<s d="&#x25cc;&#x0EB9;" t="&#x0EB9;" note=" LAO VOWEL SIGN UU  "/>
+<s d="&#x25cc;&#x0EBB;" t="&#x0EBB;" note=" LAO VOWEL SIGN MAI KON  "/>
+<s d="&#x25cc;&#x0EBC;" t="&#x0EBC;" note=" LAO SEMIVOWEL SIGN LO  "/>
+<s d="&#x25cc;&#x0EBD;" t="&#x0EBD;" note=" LAO SEMIVOWEL SIGN NYO  "/>
+<s d="&#x25cc;&#x0EC0;" t="&#x0EC0;" note=" LAO VOWEL SIGN E  "/>
+<s d="&#x25cc;&#x0EC1;" t="&#x0EC1;" note=" LAO VOWEL SIGN EI  "/>
+<s d="&#x25cc;&#x0EC2;" t="&#x0EC2;" note=" LAO VOWEL SIGN O  "/>
+<s d="&#x25cc;&#x0EC3;" t="&#x0EC3;" note=" LAO VOWEL SIGN AY  "/>
+<s d="&#x25cc;&#x0EC4;" t="&#x0EC4;" note=" LAO VOWEL SIGN AI  "/>
+</group>
+<group name="Punctuation?" b="112">
+<s d="&#x0EAF;" t="&#x0EAF;" note=" LAO ELLIPSIS  "/>
+<s d="&#x25cc;&#x0ECC;" t="&#x0ECC;" note=" LAO CANCELLATION MARK  "/>
+<s d="&#x25cc;&#x0ECD;" t="&#x0ECD;" note=" LAO NIGGAHITA  "/>
+<s d="&#x0EDC;" t="&#x0EDC;" note=" LAO HO NO  "/>
+<s d="&#x0EDD;" t="&#x0EDD;" note=" LAO HO MO "/>
+</group>
+<group name="Numbers" b="113">
+<s d="&#x0ED0;" t="&#x0ED0;" note=" LAO DIGIT ZERO  "/>
+<s d="&#x0ED1;" t="&#x0ED1;" note=" LAO DIGIT ONE  "/>
+<s d="&#x0ED2;" t="&#x0ED2;" note=" LAO DIGIT TWO  "/>
+<s d="&#x0ED3;" t="&#x0ED3;" note=" LAO DIGIT THREE  "/>
+<s d="&#x0ED4;" t="&#x0ED4;" note=" LAO DIGIT FOUR  "/>
+<s d="&#x0ED5;" t="&#x0ED5;" note=" LAO DIGIT FIVE  "/>
+<s d="&#x0ED6;" t="&#x0ED6;" note=" LAO DIGIT SIX  "/>
+<s d="&#x0ED7;" t="&#x0ED7;" note=" LAO DIGIT SEVEN  "/>
+<s d="&#x0ED8;" t="&#x0ED8;" note=" LAO DIGIT EIGHT  "/>
+<s d="&#x0ED9;" t="&#x0ED9;" note=" LAO DIGIT NINE  "/>
+</group>
+</alphabet>
+</alphabets>
+
+	
+

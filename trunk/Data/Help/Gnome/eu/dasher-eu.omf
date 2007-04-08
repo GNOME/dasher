@@ -1,0 +1,16 @@
+<?xml version="1.0" standalone="no"?>
+<omf>
+    <resource>
+	<creator>dasher@mrao.cam.ac.uk</creator>
+   	<title>Dasher-en eskuliburua</title>
+    	<date>2004-02-08</date> 
+    	<subject category="GNOME|Accessibility"/> 
+    	<description>Dasher testua sartzeko aplikazioaren erabiltzailearentzako eskuliburua</description>
+    	<type>erabiltzailearen gida</type> 
+    	<format mime="text/xml" dtd="-//OASIS//DTD DocBook XML V4.1.2//EN"/> 
+    	<identifier url="dasher.xml"/> 
+    	<language code="eu"/> 
+    	<relation seriesid="db777e98-5a48-11d8-80d7-838c69977e5d"/>
+    </resource>
+</omf>
+

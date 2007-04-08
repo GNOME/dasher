@@ -1,0 +1,229 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Armenian / &#1344;&#1377;&#1397;&#1381;&#1408;&#1381;&#1398; with punctuation and numerals">
+<!-- Alphabet by David MacKay and Kostas Savvidis -->
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>Default</palette>
+<train>training_Armenian_AM.txt</train>
+<space d="&#x25a1;" t=" " b="9" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="lower case letters" b="0">
+<s d="&#x0561;" t="&#x0561;" />
+<s d="&#x0562;" t="&#x0562;" />
+<s d="&#x0563;" t="&#x0563;" />
+<s d="&#x0564;" t="&#x0564;" />
+<s d="&#x0565;" t="&#x0565;" />
+<!-- <s d="&#x0587;" t="&#x0587;" />-->
+<s d="&#x0566;" t="&#x0566;" />
+<s d="&#x0567;" t="&#x0567;" />
+<s d="&#x0568;" t="&#x0568;" />
+<s d="&#x0569;" t="&#x0569;" />
+<s d="&#x056A;" t="&#x056A;" />
+<s d="&#x056B;" t="&#x056B;" />
+<s d="&#x056C;" t="&#x056C;" />
+<s d="&#x056D;" t="&#x056D;" />
+<s d="&#x056E;" t="&#x056E;" />
+<s d="&#x056F;" t="&#x056F;" />
+<s d="&#x0570;" t="&#x0570;" />
+<s d="&#x0571;" t="&#x0571;" />
+<s d="&#x0572;" t="&#x0572;" />
+<s d="&#x0573;" t="&#x0573;" />
+<s d="&#x0574;" t="&#x0574;" />
+<!-- <s d="&#xFB14;" t="&#xFB14;" />
+<s d="&#xFB15;" t="&#xFB15;" />
+<s d="&#xFB17;" t="&#xFB17;" />
+<s d="&#xFB13;" t="&#xFB13;" /> -->
+<s d="&#x0575;" t="&#x0575;" />
+<s d="&#x0576;" t="&#x0576;" />
+<s d="&#x0577;" t="&#x0577;" />
+<s d="&#x0578;" t="&#x0578;" />
+<s d="&#x0579;" t="&#x0579;" />
+<s d="&#x057A;" t="&#x057A;" />
+<s d="&#x057B;" t="&#x057B;" />
+<s d="&#x057C;" t="&#x057C;" />
+<s d="&#x057D;" t="&#x057D;" />
+<s d="&#x057E;" t="&#x057E;" />
+<!-- <s d="&#xFB16;" t="&#xFB16;" /> --> 
+<s d="&#x057F;" t="&#x057F;" />
+<s d="&#x0580;" t="&#x0580;" />
+<s d="&#x0581;" t="&#x0581;" />
+<s d="&#x0582;" t="&#x0582;" />
+<s d="&#x0583;" t="&#x0583;" />
+<s d="&#x0584;" t="&#x0584;" />
+<s d="&#x0585;" t="&#x0585;" />
+<s d="&#x0586;" t="&#x0586;" />
+</group> 
+<group name="upper case letters" b="111"> 
+<s d="&#x0531;" t="&#x0531;" />
+<s d="&#x0532;" t="&#x0532;" />
+<s d="&#x0533;" t="&#x0533;" />
+<s d="&#x0534;" t="&#x0534;" />
+<s d="&#x0535;" t="&#x0535;" />
+<s d="&#x0536;" t="&#x0536;" />
+<s d="&#x0537;" t="&#x0537;" />
+<s d="&#x0538;" t="&#x0538;" />
+<s d="&#x0539;" t="&#x0539;" />
+<s d="&#x053A;" t="&#x053A;" />
+<s d="&#x053B;" t="&#x053B;" />
+<s d="&#x053C;" t="&#x053C;" />
+<s d="&#x053D;" t="&#x053D;" />
+<s d="&#x053E;" t="&#x053E;" />
+<s d="&#x053F;" t="&#x053F;" />
+<s d="&#x0540;" t="&#x0540;" />
+<s d="&#x0541;" t="&#x0541;" />
+<s d="&#x0542;" t="&#x0542;" />
+<s d="&#x0543;" t="&#x0543;" />
+<s d="&#x0544;" t="&#x0544;" />
+<s d="&#x0545;" t="&#x0545;" />
+<s d="&#x0546;" t="&#x0546;" />
+<s d="&#x0547;" t="&#x0547;" />
+<s d="&#x0548;" t="&#x0548;" />
+<s d="&#x0549;" t="&#x0549;" />
+<s d="&#x054A;" t="&#x054A;" />
+<s d="&#x054B;" t="&#x054B;" />
+<s d="&#x054C;" t="&#x054C;" />
+<s d="&#x054D;" t="&#x054D;" />
+<s d="&#x054E;" t="&#x054E;" />
+<s d="&#x054F;" t="&#x054F;" />
+<s d="&#x0550;" t="&#x0550;" />
+<s d="&#x0551;" t="&#x0551;" />
+<s d="&#x0552;" t="&#x0552;" />
+<s d="&#x0553;" t="&#x0553;" />
+<s d="&#x0554;" t="&#x0554;" />
+<s d="&#x0555;" t="&#x0555;" />
+<s d="&#x0556;" t="&#x0556;" />
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1" b="90"/>
+<s d="2" t="2" b="105"/>
+<s d="3" t="3" b="91"/>
+<s d="4" t="4" b="106"/>
+<s d="5" t="5" b="92"/>
+<s d="6" t="6" b="107"/>
+<s d="7" t="7" b="93"/>
+<s d="8" t="8" b="108"/>
+<s d="9" t="9" b="94"/>
+<s d="0" t="0" b="109"/>
+</group>
+<group name="ascii Punctuation" b="112">
+<s b="90"  d="%" t="%"/>
+<s b="91"  d="*" t="*"/>
+<s b="92"  d="+" t="+"/>
+<s b="93"  d="=" t="="/>
+<s b="94"  d="/" t="/"/>
+<s b="95"  d="#" t="#"/>
+<s b="98"  d="$" t="$"/>
+<s b="99"  d="|" t="|"/>
+<s b="95"  d="\" t="\"/>
+<s b="96"  d="~" t="~"/>
+<s b="97"  d="^" t="^"/>
+<s b="98"  d="_" t="_"/>
+<s b="99"  d="&amp;" t="&amp;"/>
+<s b="95"  d="@" t="@"/>
+<s b="105" d="[" t="["/>
+<s b="106" d="]" t="]"/>
+<s b="107" d="{" t="{"/>
+<s b="108" d="}" t="}"/>
+<s b="109" d="&lt;" t="&lt;"/>
+<s b="105" d="&gt;" t="&gt;"/>
+<s b="106" d="(" t="("/>
+<s b="107" d=")" t=")"/>
+<s  b="108" d="&quot;" t="&quot;"/>
+<s  b="109" d="`" t="`"/>
+<s  b="105"  d="&apos;" t="&apos;"/>
+<s b="9"    d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
+<s  b="100" d="-" t="-"/>
+<s  b="101" d=":" t=":"/>
+<s  b="102" d=";" t=";"/>
+<s  b="103" d="?" t="?"/>
+<s  b="104" d="!" t="!"/>
+<s  b="100" d="&#183;" t="."/>
+</group>
+<group name="ARMENIAN Punctuation" b="113">
+<s b="108" d="&#x2039;" t="&#x2039;" note="French left single quotation mark" />
+<s b="107" d="&#x203A;" t="&#x203A;" note="French right single quotation mark" />
+<s b="105" d="&#x00AB;" t="&#x00AB;" note="French left double quotation mark" />
+<s b="109" d="&#x00BB;" t="&#x00BB;" note="French right double quotation mark" />
+<s  b="90" d="&#x0559;" t="&#x0559;" note="ARMENIAN MODIFIER LETTER LEFT HALF RING"/>
+<s  b="91" d="&#x055A;" t="&#x055A;" note="ARMENIAN APOSTROPHE  right half ring "/>
+<s  b="92" d="&#x055B;" t="&#x055B;" note="ARMENIAN EMPHASIS MARK = shesht"/>
+<s  b="93" d="&#x055F;" t="&#x055F;" note="ARMENIAN ABBREVIATION MARK = pativ"/>
+<s  b="100" d="&#x058A;" t="&#x058A;" note="ARMENIAN HYPHEN = yentamna"/>
+<s  b="101" d="&#x055E;" t="&#x055E;" note="ARMENIAN QUESTION MARK = hartsakan nshan"/>
+<s  b="102" d="&#x055C;" t="&#x055C;" note="ARMENIAN EXCLAMATION MARK = batsaganchakan nshan"/>
+<s  b="100" d=","        t=","        note="ASCII comma, used in the republic of armenia"/>
+<s  b="103" d="&#x055D;" t="&#x055D;" note="ARMENIAN COMMA = buwt"/>
+<s  b="104" d="&#x0589;" t="&#x0589;" note="ARMENIAN full stop = vertsaket"/>
+</group>
+</alphabet>
+<alphabet name="Armenian / &#1344;&#1377;&#1397;&#1381;&#1408;&#1381;&#1398; lower case">
+<!-- Alphabet by David MacKay and Kostas Savvidis -->
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>Default</palette>
+<train>training_Armenian_AM.txt</train>
+<space d="&#x25a1;" t=" " b="9" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="lower case letters" b="0">
+<s d="&#x0561;" t="&#x0561;" />
+<s d="&#x0562;" t="&#x0562;" />
+<s d="&#x0563;" t="&#x0563;" />
+<s d="&#x0564;" t="&#x0564;" />
+<s d="&#x0565;" t="&#x0565;" />
+<s d="&#x0566;" t="&#x0566;" />
+<s d="&#x0567;" t="&#x0567;" />
+<s d="&#x0568;" t="&#x0568;" />
+<s d="&#x0569;" t="&#x0569;" />
+<s d="&#x056A;" t="&#x056A;" />
+<s d="&#x056B;" t="&#x056B;" />
+<s d="&#x056C;" t="&#x056C;" />
+<s d="&#x056D;" t="&#x056D;" />
+<s d="&#x056E;" t="&#x056E;" />
+<s d="&#x056F;" t="&#x056F;" />
+<s d="&#x0570;" t="&#x0570;" />
+<s d="&#x0571;" t="&#x0571;" />
+<s d="&#x0572;" t="&#x0572;" />
+<s d="&#x0573;" t="&#x0573;" />
+<s d="&#x0574;" t="&#x0574;" />
+<s d="&#x0575;" t="&#x0575;" />
+<s d="&#x0576;" t="&#x0576;" />
+<s d="&#x0577;" t="&#x0577;" />
+<s d="&#x0578;" t="&#x0578;" />
+<s d="&#x0579;" t="&#x0579;" />
+<s d="&#x057A;" t="&#x057A;" />
+<s d="&#x057B;" t="&#x057B;" />
+<s d="&#x057C;" t="&#x057C;" />
+<s d="&#x057D;" t="&#x057D;" />
+<s d="&#x057E;" t="&#x057E;" />
+<s d="&#x057F;" t="&#x057F;" />
+<s d="&#x0580;" t="&#x0580;" />
+<s d="&#x0581;" t="&#x0581;" />
+<s d="&#x0582;" t="&#x0582;" />
+<s d="&#x0583;" t="&#x0583;" />
+<s d="&#x0584;" t="&#x0584;" />
+<s d="&#x0585;" t="&#x0585;" />
+<s d="&#x0586;" t="&#x0586;" />
+</group> 
+<group name="ARMENIAN Punctuation" b="113">
+<s b="108" d="&#x2039;" t="&#x2039;" note="French left single quotation mark" />
+<s b="107" d="&#x203A;" t="&#x203A;" note="French right single quotation mark" />
+<s b="105" d="&#x00AB;" t="&#x00AB;" note="French left double quotation mark" />
+<s b="109" d="&#x00BB;" t="&#x00BB;" note="French right double quotation mark" />
+<s  b="90" d="&#x0559;" t="&#x0559;" note="ARMENIAN MODIFIER LETTER LEFT HALF RING"/>
+<s  b="91" d="&#x055A;" t="&#x055A;" note="ARMENIAN APOSTROPHE  right half ring "/>
+<s  b="92" d="&#x055B;" t="&#x055B;" note="ARMENIAN EMPHASIS MARK = shesht"/>
+<s  b="93" d="&#x055F;" t="&#x055F;" note="ARMENIAN ABBREVIATION MARK = pativ"/>
+<s  b="100" d="&#x058A;" t="&#x058A;" note="ARMENIAN HYPHEN = yentamna"/>
+<s  b="101" d="&#x055E;" t="&#x055E;" note="ARMENIAN QUESTION MARK = hartsakan nshan"/>
+<s  b="102" d="&#x055C;" t="&#x055C;" note="ARMENIAN EXCLAMATION MARK = batsaganchakan nshan"/>
+<s  b="100" d=","        t=","        note="ASCII comma, used in the republic of armenia"/>
+<s  b="103" d="&#x055D;" t="&#x055D;" note="ARMENIAN COMMA = buwt"/>
+<s  b="104" d="&#x0589;" t="&#x0589;" note="ARMENIAN full stop = vertsaket"/>
+</group>
+</alphabet>
+</alphabets>

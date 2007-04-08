@@ -1,0 +1,320 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet-nest.xsl"?>
+<alphabets>
+<alphabet name="Hindi / &#2361;&#2367;&#2306;&#2342;&#2368; ">
+<!-- see file:///home/mackay/dasher/alphabets/tmpH.html for queries -->
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>European/Asian</palette>
+<train>training_Hindi_IN.txt</train>
+<space d="&#x25a1;" t=" " b="9"/> 
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="DEVANAGARI letters" b="0">
+<s d="&#x25cc;&#x0901;" t="&#x0901;" b="70" note="?? " />
+<s d="&#x25cc;&#x0902;" t="&#x0902;" b="80" note="?? " />
+<s d="&#x25cc;&#x0903;" t="&#x0903;" b="70" note="?? " />
+<s d="&#x0950;" t="&#x0950;" b="81" note="DEVANAGARI OM (not in training text)" />
+<s d="&#x0904;" t="&#x0904;" b="71" note="DEVANAGARI LETTER SHORT A (not rendering in Dasher or mozilla?)" />
+<s d="&#x0905;" t="&#x0905;" b="81" note="DEVANAGARI LETTER A " />
+<s d="&#x0906;" t="&#x0906;" b="71" note="DEVANAGARI LETTER AA " />
+<s d="&#x0907;" t="&#x0907;" b="81" note="DEVANAGARI LETTER I " />
+<s d="&#x0908;" t="&#x0908;" b="71" note="DEVANAGARI LETTER II " />
+<s d="&#x0909;" t="&#x0909;" b="81" note="DEVANAGARI LETTER U " />
+<s d="&#x090A;" t="&#x090A;" b="71" note="DEVANAGARI LETTER UU " />
+<s d="&#x090B;" t="&#x090B;" b="81" note="DEVANAGARI LETTER VOCALIC R " />
+<s d="&#x0960;" t="&#x0960;" b="71" note="DEVANAGARI LETTER VOCALIC RR (not used?)" />
+<s d="&#x090C;" t="&#x090C;" b="81" note="DEVANAGARI LETTER VOCALIC L  (not used?)" />
+<s d="&#x0961;" t="&#x0961;" b="71" note="DEVANAGARI LETTER VOCALIC LL  (not used?)" />
+<s d="&#x090D;" t="&#x090D;" b="81" note="DEVANAGARI LETTER CANDRA E " />
+<s d="&#x090E;" t="&#x090E;" b="71" note="DEVANAGARI LETTER SHORT E " />
+<s d="&#x090F;" t="&#x090F;" b="81" note="DEVANAGARI LETTER E " />
+<s d="&#x0910;" t="&#x0910;" b="71" note="DEVANAGARI LETTER AI " />
+<s d="&#x0911;" t="&#x0911;" b="81" note="DEVANAGARI LETTER CANDRA O " />
+<s d="&#x0912;" t="&#x0912;" b="71" note="DEVANAGARI LETTER SHORT O  (not used?)" />
+<s d="&#x0913;" t="&#x0913;" b="81" note="DEVANAGARI LETTER O " />
+<s d="&#x0914;" t="&#x0914;" b="71" note="DEVANAGARI LETTER AU " />
+<s d="&#x0915;" t="&#x0915;" b="82" note="DEVANAGARI LETTER KA " />
+<!-- <s d="&#x0958;" t="&#x0958;" b="72" note="DEVANAGARI LETTER QA class(s)" /> -->
+<s d="&#x0916;" t="&#x0916;" b="82" note="DEVANAGARI LETTER KHA " />
+<!-- <s d="&#x0959;" t="&#x0959;" b="72" note="DEVANAGARI LETTER KHHA class(s)" /> -->
+<s d="&#x0917;" t="&#x0917;" b="82" note="DEVANAGARI LETTER GA " />
+<!-- <s d="&#x095A;" t="&#x095A;" b="72" note="DEVANAGARI LETTER GHHA class(s)" /> -->
+<s d="&#x0918;" t="&#x0918;" b="82" note="DEVANAGARI LETTER GHA " />
+<s d="&#x0919;" t="&#x0919;" b="72" note="DEVANAGARI LETTER NGA  (not used?)" />
+<s d="&#x091A;" t="&#x091A;" b="84" note="DEVANAGARI LETTER CA " />
+<s d="&#x091B;" t="&#x091B;" b="74" note="DEVANAGARI LETTER CHA " />
+<s d="&#x091C;" t="&#x091C;" b="84" note="DEVANAGARI LETTER JA " />
+<!-- <s d="&#x095B;" t="&#x095B;" b="74" note="DEVANAGARI LETTER ZA class(s)" /> -->
+<s d="&#x091D;" t="&#x091D;" b="84" note="DEVANAGARI LETTER JHA " />
+<s d="&#x091E;" t="&#x091E;" b="74" note="DEVANAGARI LETTER NYA " />
+<s d="&#x091F;" t="&#x091F;" b="86" note="DEVANAGARI LETTER TTA " />
+<s d="&#x0920;" t="&#x0920;" b="76" note="DEVANAGARI LETTER TTHA " />
+<s d="&#x0921;" t="&#x0921;" b="86" note="DEVANAGARI LETTER DDA " />
+<!-- <s d="&#x095C;" t="&#x095C;" b="76" note="DEVANAGARI LETTER DDDHA class(s)" /> -->
+<s d="&#x0922;" t="&#x0922;" b="86" note="DEVANAGARI LETTER DDHA " />
+<!-- <s d="&#x095D;" t="&#x095D;" b="76" note="DEVANAGARI LETTER RHA class(s)" /> -->
+<s d="&#x0923;" t="&#x0923;" b="86" note="DEVANAGARI LETTER NNA " />
+<s d="&#x0924;" t="&#x0924;" b="87" note="DEVANAGARI LETTER TA " />
+<s d="&#x0925;" t="&#x0925;" b="77" note="DEVANAGARI LETTER THA " />
+<s d="&#x0926;" t="&#x0926;" b="87" note="DEVANAGARI LETTER DA " />
+<s d="&#x0927;" t="&#x0927;" b="77" note="DEVANAGARI LETTER DHA " />
+<s d="&#x0928;" t="&#x0928;" b="87" note="DEVANAGARI LETTER NA " />
+<s d="&#x0929;" t="&#x0929;" b="77" note="DEVANAGARI LETTER NNNA class(s)" />
+<s d="&#x092A;" t="&#x092A;" b="88" note="DEVANAGARI LETTER PA " />
+<s d="&#x092B;" t="&#x092B;" b="78" note="DEVANAGARI LETTER PHA " />
+<!-- <s d="&#x095E;" t="&#x095E;" b="88" note="DEVANAGARI LETTER FA class(s)" /> -->
+<s d="&#x092C;" t="&#x092C;" b="78" note="DEVANAGARI LETTER BA " />
+<s d="&#x092D;" t="&#x092D;" b="88" note="DEVANAGARI LETTER BHA " />
+<s d="&#x092E;" t="&#x092E;" b="78" note="DEVANAGARI LETTER MA " />
+<s d="&#x092F;" t="&#x092F;" b="89" note="DEVANAGARI LETTER YA " />
+<!-- <s d="&#x095F;" t="&#x095F;" b="79" note="DEVANAGARI LETTER YYA class(s)" /> -->
+<s d="&#x0930;" t="&#x0930;" b="89" note="DEVANAGARI LETTER RA " />
+<s d="&#x0931;" t="&#x0931;" b="79" note="DEVANAGARI LETTER RRA class(s)" />
+<s d="&#x0932;" t="&#x0932;" b="89" note="DEVANAGARI LETTER LA " />
+<s d="&#x0933;" t="&#x0933;" b="79" note="DEVANAGARI LETTER LLA " />
+<s d="&#x0934;" t="&#x0934;" b="89" note="DEVANAGARI LETTER LLLA class(s)" />
+<s d="&#x0935;" t="&#x0935;" b="79" note="DEVANAGARI LETTER VA " />
+<s d="&#x0936;" t="&#x0936;" b="89" note="DEVANAGARI LETTER SHA " />
+<s d="&#x0937;" t="&#x0937;" b="79" note="DEVANAGARI LETTER SSA " />
+<s d="&#x0938;" t="&#x0938;" b="89" note="DEVANAGARI LETTER SA " />
+<s d="&#x0939;" t="&#x0939;" b="79" note="DEVANAGARI LETTER HA " />
+</group>
+<group name="combining signs and vowels"  b="110">
+<s b="90" d="&#x093D;" t="&#x093D;" note="DEVANAGARI SIGN AVAGRAHA  (not used?)" />
+<s b="91" d="&#x093E;" t="&#x093E;" note="DEVANAGARI VOWEL SIGN AA " />
+<s b="92" d="&#x093F;" t="&#x093F;" note="DEVANAGARI VOWEL SIGN I " />
+<s b="93" d="&#x0940;" t="&#x0940;" note="DEVANAGARI VOWEL SIGN II " />
+<s b="94" d="&#x25cc;&#x0941;" t="&#x0941;" note="DEVANAGARI VOWEL SIGN U " />
+<s b="90" d="&#x25cc;&#x0942;" t="&#x0942;" note="DEVANAGARI VOWEL SIGN UU " />
+<s b="91" d="&#x25cc;&#x0943;" t="&#x0943;" note="DEVANAGARI VOWEL SIGN VOCALIC R  (not used?)" />
+<s b="92" d="&#x25cc;&#x0944;" t="&#x0944;" note="DEVANAGARI VOWEL SIGN VOCALIC RR  (not used?)" />
+<s b="93" d="&#x25cc;&#x0962;" t="&#x0962;" note="DEVANAGARI VOWEL SIGN VOCALIC L  (not used?)" />
+<s b="94" d="&#x25cc;&#x0963;" t="&#x0963;" note="DEVANAGARI VOWEL SIGN VOCALIC LL  (not used?)" />
+<s b="70" d="&#x25cc;&#x0964;" t="&#x0964;" note="???" />
+<s b="90" d="&#x25cc;&#x0945;" t="&#x0945;" note="DEVANAGARI VOWEL SIGN CANDRA E  (not used?)" />
+<s b="91" d="&#x25cc;&#x0946;" t="&#x0946;" note="DEVANAGARI VOWEL SIGN SHORT E  (not used?)" />
+<s b="92" d="&#x25cc;&#x0947;" t="&#x0947;" note="DEVANAGARI VOWEL SIGN E " />
+<s b="93" d="&#x25cc;&#x0948;" t="&#x0948;" note="DEVANAGARI VOWEL SIGN AI " />
+<s b="94" d="&#x0949;" t="&#x0949;" note="DEVANAGARI VOWEL SIGN CANDRA O " />
+<s b="90" d="&#x094A;" t="&#x094A;" note="DEVANAGARI VOWEL SIGN SHORT O " />
+<s b="91" d="&#x094B;" t="&#x094B;" note="DEVANAGARI VOWEL SIGN O " />
+<s b="92" d="&#x094C;" t="&#x094C;" note="DEVANAGARI VOWEL SIGN AU " />
+<s b="93" d="&#x25cc;&#x094D;" t="&#x094D;" note="DEVANAGARI SIGN VIRAMA " />
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1" b="90"/>
+<s d="2" t="2" b="91"/>
+<s d="3" t="3" b="92"/>
+<s d="4" t="4" b="93"/>
+<s d="5" t="5" b="94"/>
+<s d="6" t="6" b="90"/>
+<s d="7" t="7" b="91"/>
+<s d="8" t="8" b="92"/>
+<s d="9" t="9" b="93"/>
+<s d="0" t="0" b="94"/>
+</group>
+<group name="Punctuation" b="112">
+<s b="90" d="%" t="%"/>
+<s b="91" d="*" t="*"/>
+<s b="92" d="+" t="+"/>
+<s b="93" d="=" t="="/>
+<s b="94" d="/" t="/"/>
+<s b="95" d="#" t="#"/>
+<s b="96" d="$" t="$"/>
+<s b="97" d="|" t="|"/>
+<s b="98" d="\" t="\"/>
+<s b="99" d="~" t="~"/>
+<s b="95" d="^" t="^"/>
+<s b="96" d="_" t="_"/>
+<s b="97" d="&amp;" t="&amp;"/> 
+<s b="98" d="@" t="@"/>
+<s b="105" d="[" t="["/>
+<s b="106" d="]" t="]"/>
+<s b="107" d="{" t="{"/>
+<s b="108" d="}" t="}"/>
+<s b="109" d="&lt;" t="&lt;"/>
+<s b="105" d="&gt;" t="&gt;"/>
+<s b="106" d="(" t="("/>
+<s b="107" d=")" t=")"/>
+<s b="108" d="&#x201C;" t="&#x201C;" note="left double quotation mark" />
+<s b="109" d="&#x0022;" t="&#x0022;" note="deprecated vertical double quotation mark" />
+<s b="106" d="&#x201D;" t="&#x201D;" note="right double quotation mark" />
+<s b="107" d="&#x2018;" t="&#x2018;" note="left single quotation mark" />
+<s b="108" d="&#x2019;" t="&#x2019;" note="right single quotation mark and apostrophe" />
+<s b="109" d="`" t="`" note="left quote from keyboard" />
+<s b="105" d="&#x25cc;&#x0313;" t="&apos;" note=" apostrophe"/>
+<s b="9"  d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
+<s b="100" d="-" t="-"/>
+<s b="101" d=":" t=":"/>
+<s b="102" d=";" t=";"/>
+<s b="103" d="?" t="?"/>
+<s b="104" d="!" t="!"/>
+<s b="100" d="," t=","/>
+<s d="&#183;" t="." b="104"/>
+</group>
+</alphabet>
+<alphabet name="Hindi / &#2361;&#2367;&#2306;&#2342;&#2368; Grouped ">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>European/Asian</palette>
+<train>training_Hindi_IN.txt</train>
+<space d="&#x25a1;" t=" " b="9"/> 
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="DEVANAGARI letters" b="0">
+<group name="combining signs and vowels"  b="110">
+<s b="90" d="&#x093D;" t="&#x093D;" note="DEVANAGARI SIGN AVAGRAHA " />
+<s b="91" d="&#x093E;" t="&#x093E;" note="DEVANAGARI VOWEL SIGN AA " />
+<s b="92" d="&#x093F;" t="&#x093F;" note="DEVANAGARI VOWEL SIGN I " />
+<s b="93" d="&#x0940;" t="&#x0940;" note="DEVANAGARI VOWEL SIGN II " />
+<s b="94" d="&#x25cc;&#x0941;" t="&#x0941;" note="DEVANAGARI VOWEL SIGN U " />
+<s b="90" d="&#x25cc;&#x0942;" t="&#x0942;" note="DEVANAGARI VOWEL SIGN UU " />
+<s b="91" d="&#x25cc;&#x0943;" t="&#x0943;" note="DEVANAGARI VOWEL SIGN VOCALIC R " />
+<s b="92" d="&#x25cc;&#x0944;" t="&#x0944;" note="DEVANAGARI VOWEL SIGN VOCALIC RR " />
+<s b="93" d="&#x25cc;&#x0962;" t="&#x0962;" note="DEVANAGARI VOWEL SIGN VOCALIC L " />
+<s b="94" d="&#x25cc;&#x0963;" t="&#x0963;" note="DEVANAGARI VOWEL SIGN VOCALIC LL " />
+<s b="90" d="&#x25cc;&#x0945;" t="&#x0945;" note="DEVANAGARI VOWEL SIGN CANDRA E " />
+<s b="91" d="&#x25cc;&#x0946;" t="&#x0946;" note="DEVANAGARI VOWEL SIGN SHORT E " />
+<s b="92" d="&#x25cc;&#x0947;" t="&#x0947;" note="DEVANAGARI VOWEL SIGN E " />
+<s b="93" d="&#x25cc;&#x0948;" t="&#x0948;" note="DEVANAGARI VOWEL SIGN AI " />
+<s b="94" d="&#x0949;" t="&#x0949;" note="DEVANAGARI VOWEL SIGN CANDRA O " />
+<s b="90" d="&#x094A;" t="&#x094A;" note="DEVANAGARI VOWEL SIGN SHORT O " />
+<s b="91" d="&#x094B;" t="&#x094B;" note="DEVANAGARI VOWEL SIGN O " />
+<s b="92" d="&#x094C;" t="&#x094C;" note="DEVANAGARI VOWEL SIGN AU " />
+<s b="93" d="&#x25cc;&#x094D;" t="&#x094D;" note="DEVANAGARI SIGN VIRAMA " />
+</group>
+<group  b="61" name="regular vowels">
+<s d="&#x0950;" t="&#x0950;" b="81" note="DEVANAGARI OM " />
+<s d="&#x0904;" t="&#x0904;" b="71" note="DEVANAGARI LETTER SHORT A (not rendering in Dasher?)" />
+<s d="&#x0905;" t="&#x0905;" b="81" note="DEVANAGARI LETTER A " />
+<s d="&#x0906;" t="&#x0906;" b="71" note="DEVANAGARI LETTER AA " />
+<s d="&#x0907;" t="&#x0907;" b="81" note="DEVANAGARI LETTER I " />
+<s d="&#x0908;" t="&#x0908;" b="71" note="DEVANAGARI LETTER II " />
+<s d="&#x0909;" t="&#x0909;" b="81" note="DEVANAGARI LETTER U " />
+<s d="&#x090A;" t="&#x090A;" b="71" note="DEVANAGARI LETTER UU " />
+<s d="&#x090B;" t="&#x090B;" b="81" note="DEVANAGARI LETTER VOCALIC R " />
+<s d="&#x0960;" t="&#x0960;" b="71" note="DEVANAGARI LETTER VOCALIC RR " />
+<s d="&#x090C;" t="&#x090C;" b="81" note="DEVANAGARI LETTER VOCALIC L " />
+<s d="&#x0961;" t="&#x0961;" b="71" note="DEVANAGARI LETTER VOCALIC LL " />
+<s d="&#x090D;" t="&#x090D;" b="81" note="DEVANAGARI LETTER CANDRA E " />
+<s d="&#x090E;" t="&#x090E;" b="71" note="DEVANAGARI LETTER SHORT E " />
+<s d="&#x090F;" t="&#x090F;" b="81" note="DEVANAGARI LETTER E " />
+<s d="&#x0910;" t="&#x0910;" b="71" note="DEVANAGARI LETTER AI " />
+<s d="&#x0911;" t="&#x0911;" b="81" note="DEVANAGARI LETTER CANDRA O " />
+<s d="&#x0912;" t="&#x0912;" b="71" note="DEVANAGARI LETTER SHORT O " />
+<s d="&#x0913;" t="&#x0913;" b="81" note="DEVANAGARI LETTER O " />
+<s d="&#x0914;" t="&#x0914;" b="71" note="DEVANAGARI LETTER AU " />
+</group>		    
+<group b="62" >		    
+<s d="&#x0915;" t="&#x0915;" b="82" note="DEVANAGARI LETTER KA " />
+<s d="&#x0958;" t="&#x0958;" b="72" note="DEVANAGARI LETTER QA class(s)" />
+<s d="&#x0916;" t="&#x0916;" b="82" note="DEVANAGARI LETTER KHA " />
+<s d="&#x0959;" t="&#x0959;" b="72" note="DEVANAGARI LETTER KHHA class(s)" />
+<s d="&#x0917;" t="&#x0917;" b="82" note="DEVANAGARI LETTER GA " />
+<s d="&#x095A;" t="&#x095A;" b="72" note="DEVANAGARI LETTER GHHA class(s)" />
+<s d="&#x0918;" t="&#x0918;" b="82" note="DEVANAGARI LETTER GHA " />
+<s d="&#x0919;" t="&#x0919;" b="72" note="DEVANAGARI LETTER NGA " />
+</group>
+<group b="64" >
+<s d="&#x091A;" t="&#x091A;" b="84" note="DEVANAGARI LETTER CA " />
+<s d="&#x091B;" t="&#x091B;" b="74" note="DEVANAGARI LETTER CHA " />
+<s d="&#x091C;" t="&#x091C;" b="84" note="DEVANAGARI LETTER JA " />
+<s d="&#x095B;" t="&#x095B;" b="74" note="DEVANAGARI LETTER ZA class(s)" />
+<s d="&#x091D;" t="&#x091D;" b="84" note="DEVANAGARI LETTER JHA " />
+<s d="&#x091E;" t="&#x091E;" b="74" note="DEVANAGARI LETTER NYA " />
+</group>		    
+<group b="66" >		    
+<s d="&#x091F;" t="&#x091F;" b="86" note="DEVANAGARI LETTER TTA " />
+<s d="&#x0920;" t="&#x0920;" b="76" note="DEVANAGARI LETTER TTHA " />
+<s d="&#x0921;" t="&#x0921;" b="86" note="DEVANAGARI LETTER DDA " />
+<s d="&#x095C;" t="&#x095C;" b="76" note="DEVANAGARI LETTER DDDHA class(s)" />
+<s d="&#x0922;" t="&#x0922;" b="86" note="DEVANAGARI LETTER DDHA " />
+<s d="&#x095D;" t="&#x095D;" b="76" note="DEVANAGARI LETTER RHA class(s)" />
+<s d="&#x0923;" t="&#x0923;" b="86" note="DEVANAGARI LETTER NNA " />
+</group>		    
+<group b="67" >
+<s d="&#x0924;" t="&#x0924;" b="87" note="DEVANAGARI LETTER TA " />
+<s d="&#x0925;" t="&#x0925;" b="77" note="DEVANAGARI LETTER THA " />
+<s d="&#x0926;" t="&#x0926;" b="87" note="DEVANAGARI LETTER DA " />
+<s d="&#x0927;" t="&#x0927;" b="77" note="DEVANAGARI LETTER DHA " />
+<s d="&#x0928;" t="&#x0928;" b="87" note="DEVANAGARI LETTER NA " />
+<s d="&#x0929;" t="&#x0929;" b="77" note="DEVANAGARI LETTER NNNA class(s)" />
+</group>		    
+<group b="68" >		    
+<s d="&#x092A;" t="&#x092A;" b="88" note="DEVANAGARI LETTER PA " />
+<s d="&#x092B;" t="&#x092B;" b="78" note="DEVANAGARI LETTER PHA " />
+<s d="&#x095E;" t="&#x095E;" b="88" note="DEVANAGARI LETTER FA class(s)" />
+<s d="&#x092C;" t="&#x092C;" b="78" note="DEVANAGARI LETTER BA " />
+<s d="&#x092D;" t="&#x092D;" b="88" note="DEVANAGARI LETTER BHA " />
+<s d="&#x092E;" t="&#x092E;" b="78" note="DEVANAGARI LETTER MA " />
+</group>		    
+<group b="69" >		    
+<s d="&#x092F;" t="&#x092F;" b="89" note="DEVANAGARI LETTER YA " />
+<s d="&#x095F;" t="&#x095F;" b="79" note="DEVANAGARI LETTER YYA class(s)" />
+<s d="&#x0930;" t="&#x0930;" b="89" note="DEVANAGARI LETTER RA " />
+<s d="&#x0931;" t="&#x0931;" b="79" note="DEVANAGARI LETTER RRA class(s)" />
+<s d="&#x0932;" t="&#x0932;" b="89" note="DEVANAGARI LETTER LA " />
+<s d="&#x0933;" t="&#x0933;" b="79" note="DEVANAGARI LETTER LLA " />
+<s d="&#x0934;" t="&#x0934;" b="89" note="DEVANAGARI LETTER LLLA class(s)" />
+<s d="&#x0935;" t="&#x0935;" b="79" note="DEVANAGARI LETTER VA " />
+<s d="&#x0936;" t="&#x0936;" b="89" note="DEVANAGARI LETTER SHA " />
+<s d="&#x0937;" t="&#x0937;" b="79" note="DEVANAGARI LETTER SSA " />
+<s d="&#x0938;" t="&#x0938;" b="89" note="DEVANAGARI LETTER SA " />
+<s d="&#x0939;" t="&#x0939;" b="79" note="DEVANAGARI LETTER HA " />
+</group>
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1" b="90"/>
+<s d="2" t="2" b="91"/>
+<s d="3" t="3" b="92"/>
+<s d="4" t="4" b="93"/>
+<s d="5" t="5" b="94"/>
+<s d="6" t="6" b="90"/>
+<s d="7" t="7" b="91"/>
+<s d="8" t="8" b="92"/>
+<s d="9" t="9" b="93"/>
+<s d="0" t="0" b="94"/>
+</group>
+<group name="Punctuation" b="112">
+<s b="90" d="%" t="%"/>
+<s b="91" d="*" t="*"/>
+<s b="92" d="+" t="+"/>
+<s b="93" d="=" t="="/>
+<s b="94" d="/" t="/"/>
+<s b="95" d="#" t="#"/>
+<s b="96" d="$" t="$"/>
+<s b="97" d="|" t="|"/>
+<s b="98" d="\" t="\"/>
+<s b="99" d="~" t="~"/>
+<s b="95" d="^" t="^"/>
+<s b="96" d="_" t="_"/>
+<s b="97" d="&amp;" t="&amp;"/> 
+<s b="98" d="@" t="@"/>
+<s b="105" d="[" t="["/>
+<s b="106" d="]" t="]"/>
+<s b="107" d="{" t="{"/>
+<s b="108" d="}" t="}"/>
+<s b="109" d="&lt;" t="&lt;"/>
+<s b="105" d="&gt;" t="&gt;"/>
+<s b="106" d="(" t="("/>
+<s b="107" d=")" t=")"/>
+<s b="108" d="&#x201C;" t="&#x201C;" note="left double quotation mark" />
+<s b="109" d="&#x0022;" t="&#x0022;" note="deprecated vertical double quotation mark" />
+<s b="106" d="&#x201D;" t="&#x201D;" note="right double quotation mark" />
+<s b="107" d="&#x2018;" t="&#x2018;" note="left single quotation mark" />
+<s b="108" d="&#x2019;" t="&#x2019;" note="right single quotation mark and apostrophe" />
+<s b="109" d="`" t="`" note="left quote from keyboard" />
+<s b="105" d="&#x25cc;&#x0313;" t="&apos;" note=" apostrophe"/>
+<s b="9"  d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
+<s b="100" d="-" t="-"/>
+<s b="101" d=":" t=":"/>
+<s b="102" d=";" t=";"/>
+<s b="103" d="?" t="?"/>
+<s b="104" d="!" t="!"/>
+<s b="100" d="," t=","/>
+<s d="&#183;" t="." b="104"/>
+</group>
+</alphabet>
+</alphabets>

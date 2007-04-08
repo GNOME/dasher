@@ -1,0 +1,704 @@
+# translation of lv.po to Latvian
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+#
+# Raivis Dejus <orvils@gmail.com>, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: lv\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-12-23 12:14+0200\n"
+"PO-Revision-Date: 2006-12-23 12:23+0200\n"
+"Last-Translator: Raivis Dejus <orvils@gmail.com>\n"
+"Language-Team: Latvian <locale@laka.lv>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
+"X-Poedit-Bookmarks: 10,198,-1,-1,-1,-1,-1,-1,-1,-1\n"
+
+#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/Menu.cc:430
+#: ../Src/Gtk2/dasher.traditional.glade.h:34
+#: ../Src/Gtk2/dasher.direct.glade.h:31 ../Src/Gtk2/dasher.compose.glade.h:34
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:30 ../Src/Gtk2/dashermaemo.glade.h:18
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:15
+msgid "Dasher"
+msgstr "Mieturis"
+
+#: ../Data/dasher.desktop.in.in.h:2
+msgid "Predictive text entry"
+msgstr "Pareģojošs teksts"
+
+#. TODO should probably pop up a Gtk error message and think about how to do i18n:
+#: ../Src/DasherCore/SocketInput.cpp:34
+msgid "Dasher socket input: failed to launch reader thread."
+msgstr "Mieturis ievads: neizdevās palaist lasīšana pieprasījumu."
+
+#: ../Src/Gtk2/Menu.cc:52 ../Src/Gtk2/Menu.cc:108 ../Src/Gtk2/Menu.cc:166
+#: ../Src/Gtk2/Menu.cc:209 ../Src/Gtk2/dasher.traditional.glade.h:59
+#: ../Src/Gtk2/dasher.direct.glade.h:49 ../Src/Gtk2/dasher.compose.glade.h:59
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:48 ../Src/Gtk2/dashermaemo.glade.h:29
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:25
+msgid "Select File"
+msgstr "Izvēlēties failu"
+
+#: ../Src/Gtk2/Menu.cc:292
+#, c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Vai gribat saglabāt izmaiņas%s\n"
+"\n"
+"Veiktās netiks saglabātas."
+
+#: ../Src/Gtk2/Menu.cc:295
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Vai vēlaties saglabāt izmaiņas?\n"
+"\n"
+" Visas veiktās izmaiņas būs pazudušas ja nesaglabāsiet."
+
+#: ../Src/Gtk2/Menu.cc:298
+msgid "Don't save"
+msgstr "Nesaglabāt"
+
+#: ../Src/Gtk2/Menu.cc:298
+msgid "Don't quit"
+msgstr "Neiet laukā"
+
+#: ../Src/Gtk2/Menu.cc:298
+msgid "Save and quit"
+msgstr "Iziet saglabājot"
+
+#: ../Src/Gtk2/Menu.cc:417 ../Src/Gtk2/Menu.cc:433
+msgid "Dasher is a predictive text entry application"
+msgstr "Mieturis izveido teksta ierakstus aplikācija"
+
+#: ../Src/Gtk2/Menu.cc:422 ../Src/Gtk2/Menu.cc:428
+msgid "translator-credits"
+msgstr "par tūlkotājiem"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:164
+#, c-format
+msgid "Unable to initialize speech support\n"
+msgstr "Neizdevās inicializēt runas atbalstu\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:187
+msgid "Unable to initialize voices\n"
+msgstr "Nevar initializēt balsis\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:199
+msgid "Warning: unable to set speech parameters\n"
+msgstr "Brīdinājums: neizdevās iestādīt runas parametrus\n"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:1
+#: ../Src/Gtk2/dasher.direct.glade.h:1 ../Src/Gtk2/dasher.compose.glade.h:1
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:1
+msgid "<b>Actions:</b>"
+msgstr "<b>Darbības:</b>"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:2
+#: ../Src/Gtk2/dasher.direct.glade.h:2 ../Src/Gtk2/dasher.compose.glade.h:2
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:2 ../Src/Gtk2/dashermaemo.glade.h:4
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:1
+msgid "<b>Adaptation:</b>"
+msgstr "<b>Adaptācija:</b>"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:3
+#: ../Src/Gtk2/dasher.direct.glade.h:3 ../Src/Gtk2/dasher.compose.glade.h:3
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:3 ../Src/Gtk2/dashermaemo.glade.h:5
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:2
+msgid "<b>Alphabet Selection:</b>"
+msgstr "<b> Alfabētiski Atlasītais</b>"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:4
+#: ../Src/Gtk2/dasher.direct.glade.h:4 ../Src/Gtk2/dasher.compose.glade.h:4
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:4
+msgid "<b>Appearance Options:</b>"
+msgstr "<b>Izskata opcijas:</b>"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:5
+#: ../Src/Gtk2/dasher.direct.glade.h:5 ../Src/Gtk2/dasher.compose.glade.h:5
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:5
+msgid "<b>Application Options:</b>"
+msgstr "<b>Aplikācijas opcijas:</b>"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:6
+#: ../Src/Gtk2/dasher.direct.glade.h:6 ../Src/Gtk2/dasher.compose.glade.h:6
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:6
+msgid "<b>Application Style:</b>"
+msgstr "<b>Adaptācijas stils:</b>"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:7
+#: ../Src/Gtk2/dasher.direct.glade.h:7 ../Src/Gtk2/dasher.compose.glade.h:7
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:7
+msgid "<b>Colour Scheme:</b>"
+msgstr "<b>Krāsa sistēma:</b>"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:8
+#: ../Src/Gtk2/dasher.direct.glade.h:8 ../Src/Gtk2/dasher.compose.glade.h:8
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:8
+msgid "<b>Control Style:</b>"
+msgstr "<b> Kontroles Stils</b>"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:9
+#: ../Src/Gtk2/dasher.direct.glade.h:9 ../Src/Gtk2/dasher.compose.glade.h:9
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:9
+msgid "<b>Dasher Font:</b>"
+msgstr "<b>Dasher fonts:</b>"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:10
+#: ../Src/Gtk2/dasher.direct.glade.h:10 ../Src/Gtk2/dasher.compose.glade.h:10
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:10
+msgid "<b>Direction:</b>"
+msgstr "<b>Virziens</b>"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:11
+#: ../Src/Gtk2/dasher.direct.glade.h:11 ../Src/Gtk2/dasher.compose.glade.h:11
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:11
+msgid "<b>Editor Font:</b>"
+msgstr "<b>Redaktora fonts:</b>"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:12
+#: ../Src/Gtk2/dasher.direct.glade.h:12 ../Src/Gtk2/dasher.compose.glade.h:12
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:12
+msgid "<b>Input Device:</b>"
+msgstr "<b>Ievadierīce:</b>"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:13
+#: ../Src/Gtk2/dasher.direct.glade.h:13 ../Src/Gtk2/dasher.compose.glade.h:13
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:13 ../Src/Gtk2/dashermaemo.glade.h:7
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:3
+msgid "<b>Language Model:</b>"
+msgstr "<b>Valodas Modelis:</b>"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:14
+#: ../Src/Gtk2/dasher.direct.glade.h:14 ../Src/Gtk2/dasher.compose.glade.h:14
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:14
+msgid "<b>Prediction:</b>"
+msgstr "<b>Prognozēšana:</b>"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:15
+#: ../Src/Gtk2/dasher.direct.glade.h:15 ../Src/Gtk2/dasher.compose.glade.h:15
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:9
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:5
+msgid "<b>Smoothing:</b>"
+msgstr "<b>Gludināšana:</b>"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:16
+#: ../Src/Gtk2/dasher.direct.glade.h:16 ../Src/Gtk2/dasher.compose.glade.h:16
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:10
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:6
+msgid "<b>Speed:</b>"
+msgstr "<b>Ātrums:</b>"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:17
+#: ../Src/Gtk2/dasher.direct.glade.h:17 ../Src/Gtk2/dasher.compose.glade.h:17
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:17
+msgid "<b>Starting And Stopping:</b>"
+msgstr "<b> Startēt Un Apturēt</b>"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:18
+#: ../Src/Gtk2/dasher.direct.glade.h:18 ../Src/Gtk2/dasher.compose.glade.h:18
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:18 ../Src/Gtk2/dashermaemo.glade.h:11
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:7
+msgid "Adapt speed automatically"
+msgstr "Pielāgot ātrumu automātiski"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:19
+#: ../Src/Gtk2/dasher.direct.glade.h:19 ../Src/Gtk2/dasher.compose.glade.h:19
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:13
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:9
+msgid "Alphabet Default"
+msgstr "Noklusētais Alfabēts"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:20
+#: ../Src/Gtk2/dasher.direct.glade.h:20 ../Src/Gtk2/dasher.compose.glade.h:20
+msgid "Alphabet:"
+msgstr "Alfabēts:"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:21
+#: ../Src/Gtk2/dasher.direct.glade.h:21 ../Src/Gtk2/dasher.compose.glade.h:21
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:20
+msgid "Appearance"
+msgstr "Izskats"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:22
+#: ../Src/Gtk2/dasher.direct.glade.h:22 ../Src/Gtk2/dasher.compose.glade.h:22
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:21
+msgid "Application"
+msgstr "Aplikācija"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:23
+#: ../Src/Gtk2/dasher.direct.glade.h:23 ../Src/Gtk2/dasher.compose.glade.h:23
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:22 ../Src/Gtk2/dashermaemo.glade.h:14
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:10
+msgid "Bottom to Top"
+msgstr "No apakšas uz augšu"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:24
+#: ../Src/Gtk2/dasher.direct.glade.h:24 ../Src/Gtk2/dasher.compose.glade.h:24
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:23
+msgid ""
+"Centre circle\n"
+"Two box"
+msgstr ""
+"Centrēt riņķi\n"
+"Divas kastes"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:26
+#: ../Src/Gtk2/dasher.direct.glade.h:26 ../Src/Gtk2/dasher.compose.glade.h:26
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:25
+msgid "Composition"
+msgstr "Kompozīcija"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:27
+#: ../Src/Gtk2/dasher.direct.glade.h:27 ../Src/Gtk2/dasher.compose.glade.h:27
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:26 ../Src/Gtk2/dashermaemo.glade.h:15
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:11
+msgid "Control"
+msgstr "Vadīkla"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:28
+#: ../Src/Gtk2/dasher.direct.glade.h:28 ../Src/Gtk2/dasher.compose.glade.h:28
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:27
+msgid "Control mode"
+msgstr "Vadīklas režīms"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:29
+#: ../Src/Gtk2/dasher.compose.glade.h:29
+msgid "Copy"
+msgstr "Kopēt"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:30
+#: ../Src/Gtk2/dasher.compose.glade.h:30
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:12
+msgid "Copy _All"
+msgstr "Kopēt _Visu"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:31
+#: ../Src/Gtk2/dasher.direct.glade.h:29 ../Src/Gtk2/dasher.compose.glade.h:31
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:28 ../Src/Gtk2/dashermaemo.glade.h:16
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:13
+msgid "Custom colour scheme:"
+msgstr "Pielājgota krāsu gamma:"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:32
+#: ../Src/Gtk2/dasher.direct.glade.h:30 ../Src/Gtk2/dasher.compose.glade.h:32
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:29 ../Src/Gtk2/dashermaemo.glade.h:17
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:14
+msgid "Custom:"
+msgstr "Pielāgots:"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:33
+#: ../Src/Gtk2/dasher.compose.glade.h:33
+msgid "Cut"
+msgstr "Izgriezt"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:35
+#: ../Src/Gtk2/dasher.direct.glade.h:32 ../Src/Gtk2/dasher.compose.glade.h:35
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:31 ../Src/Gtk2/dashermaemo.glade.h:19
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:16
+msgid "Dasher Preferences"
+msgstr "Mietura iespējas"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:36
+#: ../Src/Gtk2/dasher.compose.glade.h:36
+msgid "Dasher _Tutorial"
+msgstr "Dasher _pamācība"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:37
+#: ../Src/Gtk2/dasher.direct.glade.h:33 ../Src/Gtk2/dasher.compose.glade.h:37
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:32
+msgid "Direct entry"
+msgstr "Tiešs ieraksts"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:38
+#: ../Src/Gtk2/dasher.direct.glade.h:34 ../Src/Gtk2/dasher.compose.glade.h:38
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:33
+msgid "Dock application window"
+msgstr "Piesaistīt aplikācijas logu"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:39
+#: ../Src/Gtk2/dasher.direct.glade.h:35 ../Src/Gtk2/dasher.compose.glade.h:39
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:34
+msgid "Draw box outlines"
+msgstr "Zīmēt kastes arējās līnijas"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:40
+#: ../Src/Gtk2/dasher.direct.glade.h:36 ../Src/Gtk2/dasher.compose.glade.h:40
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:35
+msgid "Draw line between crosshairs and mouse"
+msgstr "Zīmēt līniju starp krustpunktu un peli"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:41
+#: ../Src/Gtk2/dasher.direct.glade.h:37 ../Src/Gtk2/dasher.compose.glade.h:41
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:36
+msgid "Full Screen"
+msgstr "Pa visu ekrānu"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:42
+#: ../Src/Gtk2/dasher.direct.glade.h:38 ../Src/Gtk2/dasher.compose.glade.h:42
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:37
+msgid "Increase line thickness"
+msgstr "Palielināt līnuju biezumu"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:43
+#: ../Src/Gtk2/dasher.direct.glade.h:39 ../Src/Gtk2/dasher.compose.glade.h:43
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:38 ../Src/Gtk2/dashermaemo.glade.h:21
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
+msgid "Japanese"
+msgstr "Japāņu"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:44
+#: ../Src/Gtk2/dasher.direct.glade.h:40 ../Src/Gtk2/dasher.compose.glade.h:44
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:39
+msgid "Language"
+msgstr "Valoda"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:45
+#: ../Src/Gtk2/dasher.direct.glade.h:41 ../Src/Gtk2/dasher.compose.glade.h:45
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:40 ../Src/Gtk2/dashermaemo.glade.h:22
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:18
+msgid "Language model adapts as you write."
+msgstr "Valodas izvēle pielāgojas rakstot."
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:46
+#: ../Src/Gtk2/dasher.direct.glade.h:42 ../Src/Gtk2/dasher.compose.glade.h:46
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:41
+msgid "Large font "
+msgstr "Lielais fonts "
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:47
+#: ../Src/Gtk2/dasher.direct.glade.h:43 ../Src/Gtk2/dasher.compose.glade.h:47
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:42 ../Src/Gtk2/dashermaemo.glade.h:23
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:20
+msgid "Left to Right"
+msgstr "No Kreisās uz uz Labo"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:48
+#: ../Src/Gtk2/dasher.direct.glade.h:44 ../Src/Gtk2/dasher.compose.glade.h:48
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:43 ../Src/Gtk2/dashermaemo.glade.h:24
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:21
+msgid "Mixture model (PPM/dictionary)"
+msgstr "Maisījuma režīms(PPM/vārdnīca)"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:49
+#: ../Src/Gtk2/dasher.compose.glade.h:49
+msgid "New file"
+msgstr "Jauns fails"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:50
+#: ../Src/Gtk2/dasher.compose.glade.h:50
+msgid "Open file"
+msgstr "Atvērt failu"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:51
+#: ../Src/Gtk2/dasher.direct.glade.h:45 ../Src/Gtk2/dasher.compose.glade.h:51
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:44
+msgid "Options"
+msgstr "Opcijas"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:52
+#: ../Src/Gtk2/dasher.compose.glade.h:52
+msgid "Paste"
+msgstr "Ievietot"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:53
+#: ../Src/Gtk2/dasher.direct.glade.h:46 ../Src/Gtk2/dasher.compose.glade.h:53
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:45
+msgid "Pause outside of canvas"
+msgstr "Pauze ārpus audekla"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:54
+#: ../Src/Gtk2/dasher.direct.glade.h:47 ../Src/Gtk2/dasher.compose.glade.h:54
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:46 ../Src/Gtk2/dashermaemo.glade.h:26
+msgid "Please Wait..."
+msgstr "Lūdzu uzgaidiet..."
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:55
+msgid "Pr_eferences..."
+msgstr "I_estatījumi..."
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:56
+#: ../Src/Gtk2/dasher.direct.glade.h:48 ../Src/Gtk2/dasher.compose.glade.h:56
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:28
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
+msgid "Right to Left"
+msgstr "No Labās uz Kreiso"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:57
+#: ../Src/Gtk2/dasher.compose.glade.h:57
+msgid "Save file"
+msgstr "Saglabāt failu"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:58
+#: ../Src/Gtk2/dasher.compose.glade.h:58
+msgid "Save file as"
+msgstr "Saglabāt failu kā"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:60
+#: ../Src/Gtk2/dasher.direct.glade.h:50 ../Src/Gtk2/dasher.compose.glade.h:60
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:49 ../Src/Gtk2/dashermaemo.glade.h:30
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:26
+msgid "Select Font"
+msgstr "Izvēlēties fontu"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:61
+#: ../Src/Gtk2/dasher.direct.glade.h:51 ../Src/Gtk2/dasher.compose.glade.h:61
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:50
+msgid "Show mouse position"
+msgstr "Parādīt peles pozīcija"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:62
+#: ../Src/Gtk2/dasher.direct.glade.h:52 ../Src/Gtk2/dasher.compose.glade.h:62
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:51
+msgid "Show speed slider"
+msgstr "Parādīt ātruma slaideri"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:63
+#: ../Src/Gtk2/dasher.direct.glade.h:53 ../Src/Gtk2/dasher.compose.glade.h:63
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:52
+msgid "Show toolbar"
+msgstr "Rādīt rīkjoslu"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:64
+#: ../Src/Gtk2/dasher.direct.glade.h:54 ../Src/Gtk2/dasher.compose.glade.h:64
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:53
+msgid "Small font"
+msgstr "Mazais fonts"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:65
+#: ../Src/Gtk2/dasher.direct.glade.h:55 ../Src/Gtk2/dasher.compose.glade.h:65
+msgid "Speed:"
+msgstr "Ātrums:"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:66
+#: ../Src/Gtk2/dasher.direct.glade.h:56 ../Src/Gtk2/dasher.compose.glade.h:66
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:54
+msgid "Stand-alone"
+msgstr "Pats par sevi"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:67
+#: ../Src/Gtk2/dasher.direct.glade.h:57 ../Src/Gtk2/dasher.compose.glade.h:67
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:55 ../Src/Gtk2/dashermaemo.glade.h:31
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
+msgid "Standard letter-based PPM"
+msgstr "Standarta vēstule PPM"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:68
+#: ../Src/Gtk2/dasher.direct.glade.h:58 ../Src/Gtk2/dasher.compose.glade.h:68
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:56
+msgid "Start on left mouse button"
+msgstr "Startēt uzkreiso peles pogu"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:69
+#: ../Src/Gtk2/dasher.direct.glade.h:59 ../Src/Gtk2/dasher.compose.glade.h:69
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:57
+msgid "Start on space bar"
+msgstr "Startēt uz space bar"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:70
+#: ../Src/Gtk2/dasher.direct.glade.h:60 ../Src/Gtk2/dasher.compose.glade.h:70
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:58
+msgid "Start with mouse position:"
+msgstr "Startēt ar peles pozīciju:"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:71
+#: ../Src/Gtk2/dasher.direct.glade.h:61 ../Src/Gtk2/dasher.compose.glade.h:71
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:59
+msgid "Timestamp new files"
+msgstr "Laikaspiedogs jauniem failiem"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:72
+#: ../Src/Gtk2/dasher.direct.glade.h:62 ../Src/Gtk2/dasher.compose.glade.h:72
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:60 ../Src/Gtk2/dashermaemo.glade.h:32
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
+msgid "Top to Bottom"
+msgstr "No augšas un apakšu"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:73
+#: ../Src/Gtk2/dasher.direct.glade.h:63 ../Src/Gtk2/dasher.compose.glade.h:73
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:61
+msgid ""
+"Use this control to adjust the relative sizes of the \n"
+"letter boxes. Note that selecting high values will slow\n"
+"your writing speed."
+msgstr ""
+"Izmantot šo kontroli,lai pielāgotu izmērus \n"
+"vēstuļu kastēm. Piezīme, kas rādīs rakstīšanas ātrumu."
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:76
+#: ../Src/Gtk2/dasher.direct.glade.h:66 ../Src/Gtk2/dasher.compose.glade.h:76
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:64
+msgid "Very large font"
+msgstr "Ļoti lielais fonts"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:77
+#: ../Src/Gtk2/dasher.direct.glade.h:67 ../Src/Gtk2/dasher.compose.glade.h:77
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:65 ../Src/Gtk2/dashermaemo.glade.h:34
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
+msgid "Word-based model"
+msgstr "Vārdu bāzēts modelis"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:78
+msgid "_About..."
+msgstr "P_ar..."
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:79
+#: ../Src/Gtk2/dasher.compose.glade.h:79
+msgid "_Append to file"
+msgstr "_Pārrakstīt failu"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:80
+msgid "_Contents..."
+msgstr "_Saturs..."
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:81
+#: ../Src/Gtk2/dasher.compose.glade.h:81
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
+msgid "_Edit"
+msgstr "_Rediģēt"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:82
+#: ../Src/Gtk2/dasher.compose.glade.h:82
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:37
+msgid "_File"
+msgstr "_Fails"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:83
+#: ../Src/Gtk2/dasher.compose.glade.h:83
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:38
+msgid "_Help"
+msgstr "_Palīdzība"
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:84
+msgid "_Import Training Text..."
+msgstr "_Importēt mācīšanās tekstu..."
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:85
+#: ../Src/Gtk2/dasher.direct.glade.h:68 ../Src/Gtk2/dasher.compose.glade.h:85
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:66 ../Src/Gtk2/dashermaemo.glade.h:35
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:41
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr "abcdefghijk ABCDEFGHIJK"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:55
+msgid "Pr_eferences"
+msgstr "I_estatījumi"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:78
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:32
+msgid "_About"
+msgstr "P_ar"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:80
+msgid "_Contents"
+msgstr "_Saturs"
+
+#: ../Src/Gtk2/dasher.compose.glade.h:84
+msgid "_Import Training Text"
+msgstr "_Importēt Mācīšanās tekstu"
+
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:67
+msgid "button33"
+msgstr "button33"
+
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:68
+msgid "button34"
+msgstr "button34"
+
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:69
+msgid "button35"
+msgstr "button35"
+
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:70
+msgid "button36"
+msgstr "button36"
+
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:71
+msgid "button37"
+msgstr "button37"
+
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:72
+msgid "button38"
+msgstr "button38"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:1
+msgid "\n"
+msgstr "\n"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:3
+msgid "(Message Placeholder - no need to translate)"
+msgstr "(Ziņojuma vieta - nav nozīmes tulkot)"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:6
+msgid "<b>Display Size:</b>"
+msgstr "<b>Ekrāna izmērs:</b>"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:8
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:4
+msgid "<b>Orientation:</b>"
+msgstr "<b>Novietojums:</b>"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:12
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:8
+msgid "Alphabet"
+msgstr "Alfabēts"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:20
+msgid "Enlarge input window"
+msgstr "Palielināt ievades logu"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:25
+msgid "P"
+msgstr "P"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:27
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:23
+msgid "Prediction"
+msgstr "Prognozēšana"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:33
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:30
+msgid "View"
+msgstr "Skats"
+
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:19
+msgid "Large"
+msgstr "Liels"
+
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:22
+msgid "Normal"
+msgstr "Normāls"
+
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:29
+msgid "Very Large"
+msgstr "Ļoti liels"
+
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:33
+msgid "_Dasher Font"
+msgstr "_Fonts"
+
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:34
+msgid "_Dasher Font Size"
+msgstr "_Fonts Izmērs"
+
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:36
+msgid "_Edit Font"
+msgstr "_Rediģēt Fontu"
+
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:39
+msgid "_Options"
+msgstr "_Opcijas"
+
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:40
+msgid "_Reset fonts"
+msgstr "_Nomest fontus"
+

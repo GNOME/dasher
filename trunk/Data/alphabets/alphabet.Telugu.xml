@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet-nest.xsl"?>
+<alphabets>
+<alphabet name="Telugu / &#3108;&#3142;&#3122;&#3137;&#3095;&#3137; with punctuation and numerals">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>European/Asian</palette>
+<train>training_Telugu_IN.txt</train>
+<space d="&#x25a1;" t=" "  b="9"/>
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="TELUGU letters" b="0">
+<group name="vowel signs etc" b="110">
+<s d="&#x25cc;&#x0C3E;" t="&#x0C3E;" b="90" note="TELUGU VOWEL SIGN AA " />
+<s d="&#x25cc;&#x0C3F;" t="&#x0C3F;" b="91" note="TELUGU VOWEL SIGN I " />
+<s d="&#x25cc;&#x0C40;" t="&#x0C40;" b="92" note="TELUGU VOWEL SIGN II " />
+<s d="&#x25cc;&#x0C41;" t="&#x0C41;" b="93" note="TELUGU VOWEL SIGN U " />
+<s d="&#x25cc;&#x0C42;" t="&#x0C42;" b="94" note="TELUGU VOWEL SIGN UU " />
+<s d="&#x25cc;&#x0C43;" t="&#x0C43;" b="90" note="TELUGU VOWEL SIGN VOCALIC R " />
+<s d="&#x25cc;&#x0C44;" t="&#x0C44;" b="91" note="TELUGU VOWEL SIGN VOCALIC RR " />
+<s d="&#x25cc;&#x0C46;" t="&#x0C46;" b="92" note="TELUGU VOWEL SIGN E " />
+<s d="&#x25cc;&#x0C47;" t="&#x0C47;" b="93" note="TELUGU VOWEL SIGN EE " />
+<s d="&#x25cc;&#x0C48;" t="&#x0C48;" b="94" note="TELUGU VOWEL SIGN AI " />
+<s d="&#x25cc;&#x0C4A;" t="&#x0C4A;" b="90" note="TELUGU VOWEL SIGN O " />
+<s d="&#x25cc;&#x0C4B;" t="&#x0C4B;" b="91" note="TELUGU VOWEL SIGN OO " />
+<s d="&#x25cc;&#x0C4C;" t="&#x0C4C;" b="90" note="TELUGU VOWEL SIGN AU " />
+<s d="&#x25cc;&#x0C4D;" t="&#x0C4D;" b="91" note="TELUGU SIGN VIRAMA " />
+<s d="&#x25cc;&#x0C55;" t="&#x0C55;" b="92" note="TELUGU LENGTH MARK " />
+<s d="&#x25cc;&#x0C56;" t="&#x0C56;" b="93" note="TELUGU AI LENGTH MARK " />
+</group>			    
+<group  b="61" name="vowel-like letters" >
+<s d="&#x0C05;" t="&#x0C05;"  b="71" note="TELUGU LETTER A " />
+<s d="&#x0C06;" t="&#x0C06;"  b="81" note="TELUGU LETTER AA " />
+<s d="&#x0C07;" t="&#x0C07;"  b="71" note="TELUGU LETTER I " />
+<s d="&#x0C08;" t="&#x0C08;"  b="81" note="TELUGU LETTER II " />
+<s d="&#x0C09;" t="&#x0C09;"  b="71" note="TELUGU LETTER U " />
+<s d="&#x0C0A;" t="&#x0C0A;"  b="81" note="TELUGU LETTER UU " />
+<s d="&#x0C0B;" t="&#x0C0B;"  b="71" note="TELUGU LETTER VOCALIC R " />
+<s d="&#x0C60;" t="&#x0C60;"  b="81" note="TELUGU LETTER VOCALIC RR " />
+<s d="&#x0C0C;" t="&#x0C0C;"  b="71" note="TELUGU LETTER VOCALIC L " />
+<s d="&#x0C61;" t="&#x0C61;"  b="81" note="TELUGU LETTER VOCALIC LL " />
+<s d="&#x0C0E;" t="&#x0C0E;"  b="71" note="TELUGU LETTER E " />
+<s d="&#x0C0F;" t="&#x0C0F;"  b="81" note="TELUGU LETTER EE " />
+<s d="&#x0C10;" t="&#x0C10;"  b="71" note="TELUGU LETTER AI " />
+<s d="&#x0C12;" t="&#x0C12;"  b="81" note="TELUGU LETTER O " />
+<s d="&#x0C13;" t="&#x0C13;"  b="71" note="TELUGU LETTER OO " />
+<s d="&#x0C14;" t="&#x0C14;"  b="81" note="TELUGU LETTER AU " />
+</group>
+<group b="62" >
+<s d="&#x0C15;" t="&#x0C15;"  b="72" note="TELUGU LETTER KA " />
+<s d="&#x0C16;" t="&#x0C16;"  b="82" note="TELUGU LETTER KHA " />
+<s d="&#x0C17;" t="&#x0C17;"  b="72" note="TELUGU LETTER GA " />
+<s d="&#x0C18;" t="&#x0C18;"  b="82" note="TELUGU LETTER GHA " />
+</group>
+<group b="63" >
+<s d="&#x0C19;" t="&#x0C19;" b="83" note="TELUGU LETTER NGA " />
+<s d="&#x0C1A;" t="&#x0C1A;" b="73" note="TELUGU LETTER CA " />
+<s d="&#x0C1B;" t="&#x0C1B;" b="83" note="TELUGU LETTER CHA " />
+<s d="&#x0C1C;" t="&#x0C1C;" b="73" note="TELUGU LETTER JA " />
+<s d="&#x0C1D;" t="&#x0C1D;" b="83" note="TELUGU LETTER JHA " />
+</group>		   
+<group b="64" >
+<s d="&#x0C1E;" t="&#x0C1E;" b="74"  note="TELUGU LETTER NYA " />
+<s d="&#x0C1F;" t="&#x0C1F;" b="84"  note="TELUGU LETTER TTA " />
+<s d="&#x0C20;" t="&#x0C20;" b="74"  note="TELUGU LETTER TTHA " />
+<s d="&#x0C21;" t="&#x0C21;" b="84"  note="TELUGU LETTER DDA " />
+<s d="&#x0C22;" t="&#x0C22;" b="74"  note="TELUGU LETTER DDHA " />
+</group>		    
+<group b="65" >
+<s d="&#x0C23;" t="&#x0C23;" b="85"  note="TELUGU LETTER NNA " />
+<s d="&#x0C24;" t="&#x0C24;" b="75"  note="TELUGU LETTER TA " />
+<s d="&#x0C25;" t="&#x0C25;" b="85"  note="TELUGU LETTER THA " />
+<s d="&#x0C26;" t="&#x0C26;" b="75"  note="TELUGU LETTER DA " />
+<s d="&#x0C27;" t="&#x0C27;" b="85"  note="TELUGU LETTER DHA " />
+</group>		    
+<group b="66" >
+<s d="&#x0C28;" t="&#x0C28;"  b="76" note="TELUGU LETTER NA " />
+<s d="&#x0C2A;" t="&#x0C2A;"  b="86" note="TELUGU LETTER PA " />
+<s d="&#x0C2B;" t="&#x0C2B;"  b="76" note="TELUGU LETTER PHA " />
+<s d="&#x0C2C;" t="&#x0C2C;"  b="86" note="TELUGU LETTER BA " />
+<s d="&#x0C2D;" t="&#x0C2D;"  b="76" note="TELUGU LETTER BHA " />
+</group>		     
+<group b="67" >
+<s d="&#x0C2E;" t="&#x0C2E;"  b="77" note="TELUGU LETTER MA " />
+<s d="&#x0C2F;" t="&#x0C2F;"  b="87" note="TELUGU LETTER YA " />
+<s d="&#x0C30;" t="&#x0C30;"  b="77" note="TELUGU LETTER RA " />
+<s d="&#x0C31;" t="&#x0C31;"  b="87" note="TELUGU LETTER RRA " />
+<s d="&#x0C32;" t="&#x0C32;"  b="77" note="TELUGU LETTER LA " />
+<s d="&#x0C33;" t="&#x0C33;"  b="87" note="TELUGU LETTER LLA " />
+</group>
+<group b="68" >
+<s d="&#x0C35;" t="&#x0C35;" b="78"  note="TELUGU LETTER VA " />
+<s d="&#x0C36;" t="&#x0C36;" b="88"  note="TELUGU LETTER SHA " />
+<s d="&#x0C37;" t="&#x0C37;" b="78"  note="TELUGU LETTER SSA " />
+<s d="&#x0C38;" t="&#x0C38;" b="88"  note="TELUGU LETTER SA " />
+<s d="&#x0C39;" t="&#x0C39;" b="78"  note="TELUGU LETTER HA " />
+</group>		    
+</group>
+<group name="Numbers" b="113">	    
+<s d="1" t="1" b="105"/>		    
+<s d="2" t="2" b="106"/>		    
+<s d="3" t="3" b="107"/>		    
+<s d="4" t="4" b="108"/>		    
+<s d="5" t="5" b="109"/>		    
+<s d="6" t="6" b="105"/>		    
+<s d="7" t="7" b="106"/>
+<s d="8" t="8" b="107"/>
+<s d="9" t="9" b="108"/>
+<s d="0" t="0" b="109"/>
+</group>
+<group name="Punctuation" b="112">
+<s b="90" d="%" t="%"/>
+<s b="91" d="*" t="*"/>
+<s b="92" d="+" t="+"/>
+<s b="93" d="=" t="="/>
+<s b="94" d="/" t="/"/>
+<s b="95" d="#" t="#"/>
+<s b="96" d="$" t="$"/>
+<s b="97" d="|" t="|"/>
+<s b="98" d="\" t="\"/>
+<s b="99" d="~" t="~"/>
+<s b="95" d="^" t="^"/>
+<s b="96" d="_" t="_"/>
+<s b="97" d="&amp;" t="&amp;"/> 
+<s b="98" d="@" t="@"/>
+<s b="105" d="[" t="["/>
+<s b="106" d="]" t="]"/>
+<s b="107" d="{" t="{"/>
+<s b="108" d="}" t="}"/>
+<s b="109" d="&lt;" t="&lt;"/>
+<s b="105" d="&gt;" t="&gt;"/>
+<s b="106" d="(" t="("/>
+<s b="107" d=")" t=")"/>
+<s b="108" d="&quot;" t="&quot;"/>
+<s b="109" d="`" t="`"/>
+<s b="105" d="&apos;" t="&apos;"/>
+<s b="100" d="-" t="-"/>
+<s b="101" d=":" t=":"/>
+<s b="102" d=";" t=";"/>
+<s b="103" d="?" t="?"/>
+<s b="104" d="!" t="!"/>
+<s b="100" d="," t=","/>
+<s b="104" d="&#183;" t="."/>
+</group>
+</alphabet>
+</alphabets>

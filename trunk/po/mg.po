@@ -1,0 +1,545 @@
+# Malagasy transalation of DASHER.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the DASHER package.
+# Thierry Randrianiriana <randrianiriana@gmail.com>, <2006>.
+# Fano Rajaonarisoa <rajfanhar@yahoo.fr>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: DASHER 2.16\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-03 14:29+0200\n"
+"PO-Revision-Date: 2006-07-05 22:09+0300\n"
+"Last-Translator: Fano Rajaonarisoa <rajfanhar@yahoo.fr>\n"
+"Language-Team: MALAGASY <i18n-malagasy-gnome@gna.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/dasher.glade.h:34
+#: ../Src/Gtk2/dashergpe.glade.h:5 ../Src/Gtk2/dashermaemo.glade.h:18
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:15
+msgid "Dasher"
+msgstr "Dasher"
+
+#: ../Data/dasher.desktop.in.in.h:2
+msgid "Predictive text entry"
+msgstr "Lahabolana vinavina"
+
+#. TODO should probably pop up a Gtk error message and think about how to do i18n:
+#: ../Src/DasherCore/SocketInput.cpp:34
+msgid "Dasher socket input: failed to launch reader thread."
+msgstr ""
+"Fampidiran'ny socketn'ny Dasher: tsy afaka nandefa ny threadn'ny mpamaky."
+
+#: ../Src/Gtk2/Menu.cc:62 ../Src/Gtk2/Menu.cc:118 ../Src/Gtk2/Menu.cc:176
+#: ../Src/Gtk2/Menu.cc:219 ../Src/Gtk2/dasher.glade.h:58
+#: ../Src/Gtk2/dashergpe.glade.h:14 ../Src/Gtk2/dashermaemo.glade.h:29
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:25
+msgid "Select File"
+msgstr "Hidafidy rakitra"
+
+#: ../Src/Gtk2/Menu.cc:302
+#, c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Tianao raiketina anatin'ny %s ve ireo fanovana nataonao?\n"
+"\n"
+"Ho very ireo fanovana nataonao ireo raha tsy raiketinao."
+
+#: ../Src/Gtk2/Menu.cc:305
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Tianao raiketina ve ireo fanovana nataonao?\n"
+"\n"
+"Ho very ireo fanovana nataonao ireo raha tsy raiketinao."
+
+#: ../Src/Gtk2/Menu.cc:308
+msgid "Don't save"
+msgstr "Aza raiketina"
+
+#: ../Src/Gtk2/Menu.cc:308
+msgid "Don't quit"
+msgstr "Aza ajanona"
+
+#: ../Src/Gtk2/Menu.cc:308
+msgid "Save and quit"
+msgstr "Raiketo dia ajanony"
+
+#: ../Src/Gtk2/Menu.cc:425
+msgid "Dasher is a predictive text entry application"
+msgstr "Ny Dasher dia rindranasan'ny lahabolana vinavina"
+
+#: ../Src/Gtk2/Menu.cc:430
+msgid "translator-credits"
+msgstr "fankasitrahana ny mpandika teny"
+
+#: ../Src/Gtk2/Preferences.cpp:822 ../Src/Gtk2/Preferences.cpp:824
+msgid "Training Dasher... please wait"
+msgstr "Manomana ny Dasher... Mahandrasa kely azafady"
+
+#: ../Src/Gtk2/dasher.glade.h:1
+msgid "<b>Actions:</b>"
+msgstr "<b>Asa:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:2 ../Src/Gtk2/dashermaemo.glade.h:4
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:1
+msgid "<b>Adaptation:</b>"
+msgstr "<b>Fanatsetahana:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:3 ../Src/Gtk2/dashermaemo.glade.h:5
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:2
+msgid "<b>Alphabet Selection:</b>"
+msgstr "<b>Fisafidianana tarehintsoratra:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:4
+msgid "<b>Appearance Options:</b>"
+msgstr "<b>Safidin'ny endrika:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:5
+msgid "<b>Application Options:</b>"
+msgstr "<b>Safidin'ny rindranasa:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:6
+msgid "<b>Application Style:</b>"
+msgstr "<b>Endriky ny rindranasa:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:7
+msgid "<b>Colour Scheme:</b>"
+msgstr "<b>Safidy loko:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:8
+#, fuzzy
+msgid "<b>Control Style:</b>"
+msgstr "<b>endriky ny mpibaiko:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:9
+msgid "<b>Dasher Font:</b>"
+msgstr "<b>Endri-tsoratry ny Dasher:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:10
+msgid "<b>Direction:</b>"
+msgstr "<b>Todika:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:11
+msgid "<b>Editor Font:</b>"
+msgstr "<b>Endri-tsoratry ny mpanova:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:12
+#, fuzzy
+msgid "<b>Input Device:</b>"
+msgstr "<b>Mpampiditra:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashermaemo.glade.h:7
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:3
+msgid "<b>Language Model:</b>"
+msgstr "<b>Modelin-teny:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:14
+msgid "<b>Prediction:</b>"
+msgstr "<b>Vinavina:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:9
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:5
+msgid "<b>Smoothing:</b>"
+msgstr "<b>Fandamalamana:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:10
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:6
+msgid "<b>Speed:</b>"
+msgstr "<b>Hafainganana:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:17
+msgid "<b>Starting And Stopping:</b>"
+msgstr "<b>Fanombohana sy fijanonana:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:18 ../Src/Gtk2/dashermaemo.glade.h:11
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:7
+msgid "Adapt speed automatically"
+msgstr "Ampifanarao hoazy ny hafainganana"
+
+#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:13
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:9
+msgid "Alphabet Default"
+msgstr "Toetra tsotran'ny tarehintsoratra"
+
+#: ../Src/Gtk2/dasher.glade.h:20
+msgid "Alphabet:"
+msgstr "Tarehintsoratra:"
+
+#: ../Src/Gtk2/dasher.glade.h:21
+msgid "Appearance"
+msgstr "Endrika"
+
+#: ../Src/Gtk2/dasher.glade.h:22
+msgid "Application"
+msgstr "Rindranasa"
+
+#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashermaemo.glade.h:14
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:10
+msgid "Bottom to Top"
+msgstr "Ambany mankany ambony"
+
+#: ../Src/Gtk2/dasher.glade.h:24
+msgid ""
+"Centre circle\n"
+"Two box"
+msgstr ""
+"Faribolana afovoany\n"
+"Efitra roa"
+
+#: ../Src/Gtk2/dasher.glade.h:26
+msgid "Composition"
+msgstr "Fanoratana"
+
+#: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashermaemo.glade.h:15
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:11
+msgid "Control"
+msgstr "Mpibaiko"
+
+#: ../Src/Gtk2/dasher.glade.h:28 ../Src/Gtk2/dashergpe.glade.h:1
+msgid "Control mode"
+msgstr "Fomban'ny mpibaiko"
+
+#: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:2
+msgid "Copy"
+msgstr "Adikao"
+
+#: ../Src/Gtk2/dasher.glade.h:30 ../Src/Gtk2/dashergpe.glade.h:3
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:12
+msgid "Copy _All"
+msgstr "Adikao izy _rehetra"
+
+#: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashermaemo.glade.h:16
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:13
+msgid "Custom colour scheme:"
+msgstr "Safidy loko manokana:"
+
+#: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashermaemo.glade.h:17
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:14
+msgid "Custom:"
+msgstr "Safidy:"
+
+#: ../Src/Gtk2/dasher.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:4
+msgid "Cut"
+msgstr "Esory"
+
+#: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:19
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:16
+msgid "Dasher Preferences"
+msgstr "Safidy manokan'ny Dasher"
+
+#: ../Src/Gtk2/dasher.glade.h:36
+msgid "Dasher _Tutorial"
+msgstr "_Toro-làlan'ny Dasher"
+
+#: ../Src/Gtk2/dasher.glade.h:37
+msgid "Direct entry"
+msgstr "Fanoratana mivantana"
+
+#: ../Src/Gtk2/dasher.glade.h:38
+msgid "Dock application window"
+msgstr "Atambaro ny fikandran'ilay rindranasa"
+
+#: ../Src/Gtk2/dasher.glade.h:39
+msgid "Draw box outlines"
+msgstr "Sorito ny faritr'ilay efitra"
+
+#: ../Src/Gtk2/dasher.glade.h:40
+msgid "Draw line between crosshairs and mouse"
+msgstr "Manorita tsipika anelanelan'ny crosshair sy ny totozy"
+
+#: ../Src/Gtk2/dasher.glade.h:41
+msgid "Full Screen"
+msgstr "sMameno efijery"
+
+#: ../Src/Gtk2/dasher.glade.h:42
+msgid "Increase line thickness"
+msgstr "Ampitomboy ny hatevin'ny tsipika"
+
+#: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashermaemo.glade.h:21
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
+msgid "Japanese"
+msgstr "Teny Japoney"
+
+#: ../Src/Gtk2/dasher.glade.h:44
+msgid "Language"
+msgstr "Teny"
+
+#: ../Src/Gtk2/dasher.glade.h:45 ../Src/Gtk2/dashermaemo.glade.h:22
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:18
+msgid "Language model adapts as you write."
+msgstr "Mampifanara-tena amin'izay soratanao ny modelin-teny."
+
+#: ../Src/Gtk2/dasher.glade.h:46
+msgid "Large font "
+msgstr "Endri-tsoratra lehibe"
+
+#: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:23
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:20
+msgid "Left to Right"
+msgstr "Havia mankany ankavanana"
+
+#: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashermaemo.glade.h:24
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:21
+#, fuzzy
+msgid "Mixture model (PPM/dictionary)"
+msgstr "Modelin-teny mifangaro (PPM/rakibolana)"
+
+#: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:8
+msgid "New file"
+msgstr "Rakitra vaovao"
+
+#: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:10
+msgid "Open file"
+msgstr "Hanokatra rakitra"
+
+#: ../Src/Gtk2/dasher.glade.h:51
+msgid "Options"
+msgstr "Safidy"
+
+#: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:11
+msgid "Paste"
+msgstr "Apetao"
+
+#: ../Src/Gtk2/dasher.glade.h:53
+#, fuzzy
+msgid "Pause outside window"
+msgstr "Aatoy rehefa ivelan'ny fikandrana"
+
+#: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashermaemo.glade.h:26
+msgid "Please Wait..."
+msgstr "Mahandrasa kely azafady..."
+
+#: ../Src/Gtk2/dasher.glade.h:55 ../Src/Gtk2/dashermaemo.glade.h:28
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
+msgid "Right to Left"
+msgstr "Havanana mankany ankavia"
+
+#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashergpe.glade.h:12
+msgid "Save file"
+msgstr "Raiketo ilay rakitra"
+
+#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:13
+msgid "Save file as"
+msgstr "Raiketo toy izao ilay rakitra"
+
+#: ../Src/Gtk2/dasher.glade.h:59 ../Src/Gtk2/dashergpe.glade.h:15
+#: ../Src/Gtk2/dashermaemo.glade.h:30
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:26
+msgid "Select Font"
+msgstr "Hisafidy endri-tsoratra"
+
+#: ../Src/Gtk2/dasher.glade.h:60
+msgid "Show mouse position"
+msgstr "Asehoy ny toerana misy ny totozy"
+
+#: ../Src/Gtk2/dasher.glade.h:61
+msgid "Show speed slider"
+msgstr "Asehoy ny mariky ny hafainganana"
+
+#: ../Src/Gtk2/dasher.glade.h:62
+msgid "Show toolbar"
+msgstr "Asehoy ny anjan'ny fitaovana"
+
+#: ../Src/Gtk2/dasher.glade.h:63
+msgid "Small font"
+msgstr "Endri-tsoratra kely"
+
+#: ../Src/Gtk2/dasher.glade.h:64
+msgid "Speed:"
+msgstr "Hafainganana:"
+
+#: ../Src/Gtk2/dasher.glade.h:65
+msgid "Stand-alone"
+msgstr "Rindranasa mahaleotena"
+
+#: ../Src/Gtk2/dasher.glade.h:66 ../Src/Gtk2/dashermaemo.glade.h:31
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
+msgid "Standard letter-based PPM"
+msgstr "PPM mifototra amin'ny taratasy tsotra"
+
+#: ../Src/Gtk2/dasher.glade.h:67
+msgid "Start on left mouse button"
+msgstr "Atomboy amin'ny tsindrin'ny totozy havia"
+
+#: ../Src/Gtk2/dasher.glade.h:68
+msgid "Start on space bar"
+msgstr "Atomboy amin'ny kitendrin'ny elanelana"
+
+#: ../Src/Gtk2/dasher.glade.h:69
+msgid "Start with mouse position:"
+msgstr "Atomboy amin'ny toerana misy ny totozy:"
+
+#: ../Src/Gtk2/dasher.glade.h:70
+msgid "Timestamp new files"
+msgstr "Asio fotoana ireo rakitra vaovao"
+
+#: ../Src/Gtk2/dasher.glade.h:71 ../Src/Gtk2/dashermaemo.glade.h:32
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
+msgid "Top to Bottom"
+msgstr "Ambony mankany ambany"
+
+#: ../Src/Gtk2/dasher.glade.h:72
+msgid ""
+"Use this control to adjust the relative sizes of the \n"
+"letter boxes. Note that selecting high values will slow\n"
+"your writing speed."
+msgstr ""
+"Ampiasao hamaritana ny habe anankin'ny vatakelin-\n"
+"taratasy. Marihana fa hanavotsa ny fanoratanao ny\n"
+"fametrahana sanda ambony."
+
+#: ../Src/Gtk2/dasher.glade.h:75
+msgid "Very large font"
+msgstr "Endri-tsoratra tena lehibe"
+
+#: ../Src/Gtk2/dasher.glade.h:76 ../Src/Gtk2/dashermaemo.glade.h:34
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
+msgid "Word-based model"
+msgstr "Modely mifototra amin'ny teny"
+
+#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashergpe.glade.h:17
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:32
+msgid "_About"
+msgstr "_Mombamomba"
+
+#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:18
+msgid "_Append to file"
+msgstr "_Ampiarao amin'ilay rakitra"
+
+#: ../Src/Gtk2/dasher.glade.h:79
+msgid "_Contents"
+msgstr "_Mpiaty"
+
+#: ../Src/Gtk2/dasher.glade.h:80 ../Src/Gtk2/dashergpe.glade.h:21
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
+msgid "_Edit"
+msgstr "_Fanovana"
+
+#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:23
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:37
+msgid "_File"
+msgstr "_Rakitra"
+
+#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:24
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:38
+msgid "_Help"
+msgstr "_Toro-làlana"
+
+#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:25
+msgid "_Import Training Text"
+msgstr "_Hanafatra lahabolana fanofanana"
+
+#: ../Src/Gtk2/dasher.glade.h:84
+msgid "_Preferences"
+msgstr "_Safidy manokana"
+
+#: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:28
+#: ../Src/Gtk2/dashermaemo.glade.h:35
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:41
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr "abcdefghijk ABCDEFGHIJK"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:115
+#, c-format
+msgid "Unable to initialize speech support\n"
+msgstr "Tsy afaka nanomboka ny fandraisana an-tànana ny feo\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:138
+msgid "Unable to initialize voices\n"
+msgstr "Tsy afaka nanomboka ny feo\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:150
+msgid "Warning: unable to set speech parameters\n"
+msgstr "Fampilazana: tsy afaka namaritra ny mpizahaky ny feo\n"
+
+#: ../Src/Gtk2/dashergpe.glade.h:6
+msgid "Enter text into other windows"
+msgstr "Hanoratra anaty fikandrana hafa"
+
+#: ../Src/Gtk2/dashergpe.glade.h:7
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:19
+msgid "Large"
+msgstr "Lehibe"
+
+#: ../Src/Gtk2/dashergpe.glade.h:9
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:22
+msgid "Normal"
+msgstr "Antonony"
+
+#: ../Src/Gtk2/dashergpe.glade.h:16
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:29
+msgid "Very Large"
+msgstr "Tena lehibe"
+
+#: ../Src/Gtk2/dashergpe.glade.h:19
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:33
+msgid "_Dasher Font"
+msgstr "_Endri-tsoratry ny Dasher"
+
+#: ../Src/Gtk2/dashergpe.glade.h:20
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:34
+msgid "_Dasher Font Size"
+msgstr "_Haben'ny endi-tsoratry ny Dasher"
+
+#: ../Src/Gtk2/dashergpe.glade.h:22
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:36
+msgid "_Edit Font"
+msgstr "_Hanova endri-tsoratra"
+
+#: ../Src/Gtk2/dashergpe.glade.h:26
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:39
+msgid "_Options"
+msgstr "_Safidy"
+
+#: ../Src/Gtk2/dashergpe.glade.h:27
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:40
+msgid "_Reset fonts"
+msgstr "_Endri-tsoratra taloha"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:1
+msgid "\n"
+msgstr "\n"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:3
+msgid "(Message Placeholder - no need to translate)"
+msgstr "(Message Placeholder - no need to translate)"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:6
+msgid "<b>Display Size:</b>"
+msgstr "<b>Haben'ny seho:</b>"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:8
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:4
+msgid "<b>Orientation:</b>"
+msgstr "<b>Fitodika:</b>"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:12
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:8
+msgid "Alphabet"
+msgstr "Tarehintsoratra"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:20
+msgid "Enlarge input window"
+msgstr "Alehibiazo ny fikandran'ny fampidirana"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:25
+msgid "P"
+msgstr "P"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:27
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:23
+msgid "Prediction"
+msgstr "Vinavina"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:33
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:30
+msgid "View"
+msgstr "Seho"

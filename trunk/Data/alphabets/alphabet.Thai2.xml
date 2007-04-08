@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Thai / &#3616;&#3634;&#3625;&#3634;&#3652;&#3607;&#3618; with punctuation and numerals">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>European/Asian</palette>
+<train>training_Thai_TH.txt</train>
+<space d="&#x25a1;" t=" " b="9" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="Thai letters" b="0">
+<s d="&#x0E01;" t="&#x0E01;" note="0E01 KO KAI"/>
+<s d="&#x0E02;" t="&#x0E02;" note="0E02 KHO KHAI"/>
+<s d="&#x0E03;" t="&#x0E03;" note="0E03 KHO KHUAT"/>
+<s d="&#x0E04;" t="&#x0E04;" note="0E04 KHO KHWAI"/>
+<s d="&#x0E05;" t="&#x0E05;" note="0E05 KHO KHON"/>
+<s d="&#x0E06;" t="&#x0E06;" note="0E06 KHO RAKHANG"/>
+<s d="&#x0E07;" t="&#x0E07;" note="0E07 NGO NGU"/>
+<s d="&#x0E08;" t="&#x0E08;" note="0E08 CHO CHAN"/>
+<s d="&#x0E09;" t="&#x0E09;" note="0E09 CHO CHING"/>
+<s d="&#x0E0A;" t="&#x0E0A;" note="0E0A CHO CHANG"/>
+<s d="&#x0E0B;" t="&#x0E0B;" note="0E0B SO SO"/>
+<s d="&#x0E0C;" t="&#x0E0C;" note="0E0C CHO CHOE"/>
+<s d="&#x0E0D;" t="&#x0E0D;" note="0E0D YO YING"/>
+<s d="&#x0E0E;" t="&#x0E0E;" note="0E0E DO CHADA"/>
+<s d="&#x0E0F;" t="&#x0E0F;" note="0E0F TO PATAK"/>
+<s d="&#x0E10;" t="&#x0E10;" note="0E10 THO THAN"/>
+<s d="&#x0E11;" t="&#x0E11;" note="0E11 THO NANGMONTHO"/>
+<s d="&#x0E12;" t="&#x0E12;" note="0E12 THO PHUTHAO"/>
+<s d="&#x0E13;" t="&#x0E13;" note="0E13 NO NEN"/>
+<s d="&#x0E14;" t="&#x0E14;" note="0E14 DO DEK"/>
+<s d="&#x0E15;" t="&#x0E15;" note="0E15 TO TAO"/>
+<s d="&#x0E16;" t="&#x0E16;" note="0E16 THO THUNG"/>
+<s d="&#x0E17;" t="&#x0E17;" note="0E17 THO THAHAN"/>
+<s d="&#x0E18;" t="&#x0E18;" note="0E18 THO THONG"/>
+<s d="&#x0E19;" t="&#x0E19;" note="0E19 NO NU"/>
+<s d="&#x0E1A;" t="&#x0E1A;" note="0E1A BO BAIMAI"/>
+<s d="&#x0E1B;" t="&#x0E1B;" note="0E1B PO PLA"/>
+<s d="&#x0E1C;" t="&#x0E1C;" note="0E1C PHO PHUNG"/>
+<s d="&#x0E1D;" t="&#x0E1D;" note="0E1D FO FA"/>
+<s d="&#x0E1E;" t="&#x0E1E;" note="0E1E PHO PHAN"/>
+<s d="&#x0E1F;" t="&#x0E1F;" note="0E1F FO FAN"/>
+<s d="&#x0E20;" t="&#x0E20;" note="0E20 PHO SAMPHAO"/>
+<s d="&#x0E21;" t="&#x0E21;" note="0E21 MO MA"/>
+<s d="&#x0E22;" t="&#x0E22;" note="0E22 YO YAK"/>
+<s d="&#x0E23;" t="&#x0E23;" note="0E23 RO RUA"/>
+<s d="&#x0E25;" t="&#x0E25;" note="0E25 LO LING"/>
+<s d="&#x0E27;" t="&#x0E27;" note="0E27 WO WAEN"/>
+<s d="&#x0E28;" t="&#x0E28;" note="0E28 SO SALA"/>
+<s d="&#x0E29;" t="&#x0E29;" note="0E29 SO RUSI"/>
+<s d="&#x0E2A;" t="&#x0E2A;" note="0E2A SO SUA"/>
+<s d="&#x0E2B;" t="&#x0E2B;" note="0E2B HO HIP"/>
+<s d="&#x0E2C;" t="&#x0E2C;" note="0E2C LO CHULA"/>
+<s d="&#x0E2D;" t="&#x0E2D;" note="0E2D O ANG"/>
+<s d="&#x0E2E;" t="&#x0E2E;" note="0E2E HO NOKHUK"/>
+<s d="&#x0E24;" t="&#x0E24;" note="0E24 RU"/>
+<s d="&#x0E26;" t="&#x0E26;" note="0E26 LU"/>
+<s d="&#x25cc;&#x0E46;" t="&#x0E46;" note="THAI CHARACTER MAIYAMOK - CHECK - OK" />
+<s d="&#x0E2F;" t="&#x0E2F;" note="0E2F PAIYANNOI - CHECK - OK"/>
+</group>
+<group name="Character modifiers?"  b="111">
+<s d="&#x25cc;&#x0E48;" t="&#x0E48;" note="0E48	 MAI EK - CHECK - OK"/>
+<s d="&#x25cc;&#x0E49;" t="&#x0E49;" note="0E49	 MAI THO - CHECK - OK"/>
+<s d="&#x25cc;&#x0E4A;" t="&#x0E4A;" note="0E4A	 MAI TRI - CHECK - OK"/>
+<s d="&#x25cc;&#x0E4B;" t="&#x0E4B;" note="0E4B	 MAI CHATTAWA - CHECK - OK"/>
+<s d="&#x25cc;&#x0E31;" t="&#x0E31;" note="MAI HAN-AKAT" />
+<s d="&#x25cc;&#x0E47;" t="&#x0E47;" note="0E47	 MAITAIKHU - CHECK - OK"/>
+<s d="&#x25cc;&#x0E4C;" t="&#x0E4C;" note="0E4C	 THANTHAKHAT - CHECK  -OK"/>
+<s d="&#x25cc;&#x0E30;" t="&#x0E30;" note="SARA A" />
+<s d="&#x25cc;&#x0E32;" t="&#x0E32;" />
+<s d="&#x25cc;&#x0E45;" t="&#x0E45;" />
+<s d="&#x25cc;&#x0E33;" t="&#x0E33;" />
+<s d="&#x25cc;&#x0E34;" t="&#x0E34;" />
+<s d="&#x25cc;&#x0E35;" t="&#x0E35;" />
+<s d="&#x25cc;&#x0E36;" t="&#x0E36;" />
+<s d="&#x25cc;&#x0E37;" t="&#x0E37;" />
+<s d="&#x25cc;&#x0E38;" t="&#x0E38;" />
+<s d="&#x25cc;&#x0E39;" t="&#x0E39;" />
+<s d="&#x0E40;&#x25cc;" t="&#x0E40;" note="0E40	 SARA E"/>	    
+<s d="&#x0E41;&#x25cc;" t="&#x0E41;" note="0E41	 SARA AE"/>	    
+<s d="&#x0E42;&#x25cc;" t="&#x0E42;" note="0E42	 SARA O"/>	    
+<s d="&#x0E43;&#x25cc;" t="&#x0E43;" note="0E43	 SARA AI MAIMUAN"/> 
+<s d="&#x0E44;&#x25cc;" t="&#x0E44;" note="0E44	 SARA AI MAIMALAI"/>
+<s d="&#x25cc;&#x0E3A;" t="&#x0E3A;" note="0E3A PHINTHU - CHECK - Bali-Sansakrit"/>
+<s d="&#x25cc;&#x0E4D;" t="&#x0E4D;" note="0E4D	 NIKHAHIT - CHECK - Bali-Sansakrit"/>
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1" b="90"/>
+<s d="2" t="2" b="91"/>
+<s d="3" t="3" b="92"/>
+<s d="4" t="4" b="93"/>
+<s d="5" t="5" b="94"/>
+<s d="6" t="6" b="90"/>
+<s d="7" t="7" b="91"/>
+<s d="8" t="8" b="92"/>
+<s d="9" t="9" b="93"/>
+<s d="0" t="0" b="94"/>
+</group>
+<group name="Punctuation" b="112">
+<s b="90" d="%" t="%"/>
+<s b="91" d="*" t="*"/>
+<s b="92" d="+" t="+"/>
+<s b="93" d="=" t="="/>
+<s b="94" d="/" t="/"/>
+<s b="95" d="#" t="#"/>
+<s d="&#x0E3F;" t="&#x0E3F;" note="0E3F	THAI CURRENCY SYMBOL BAHT"/>
+<s b="98" d="$" t="$"/>
+<s b="99" d="|" t="|"/>
+<s b="95" d="\" t="\"/>
+<s b="96" d="~" t="~"/>
+<s b="97" d="^" t="^"/>
+<s b="98" d="_" t="_"/>
+<s b="99" d="&amp;" t="&amp;"/> 
+<s b="95" d="@" t="@"/>
+<s b="105" d="[" t="["/>
+<s b="106" d="]" t="]"/>
+<s b="107" d="{" t="{"/>
+<s b="108" d="}" t="}"/>
+<s b="109" d="&lt;" t="&lt;"/>
+<s b="105" d="&gt;" t="&gt;"/>
+<s b="106" d="(" t="("/>
+<s b="107" d=")" t=")"/>
+<s b="108" d="&#x201C;" t="&#x201C;" note="left double quotation mark" />
+<s b="109" d="&#x0022;" t="&#x0022;" note="deprecated vertical double quotation mark" />
+<s b="106" d="&#x201D;" t="&#x201D;" note="right double quotation mark" />
+<s b="107" d="&#x2018;" t="&#x2018;" note="left single quotation mark" />
+<s b="108" d="&#x2019;" t="&#x2019;" note="right single quotation mark and apostrophe" />
+<s b="109" d="`" t="`" note="left quote from keyboard" />
+<s b="105" d="&#x25cc;&#x0313;" t="&apos;" note=" apostrophe"/>
+<s b="9"  d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
+<s b="100" d="-" t="-"/>
+<s b="101" d=":" t=":"/>
+<s b="102" d=";" t=";"/>
+<s b="103" d="?" t="?"/>
+<s b="104" d="!" t="!"/>
+<s b="100" d="," t=","/>
+<s d="&#183;" t="." b="104"/>
+</group>
+</alphabet>
+</alphabets>

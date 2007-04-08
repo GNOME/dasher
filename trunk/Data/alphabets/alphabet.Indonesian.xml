@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Bahasa Indonesia / Indonesian with numerals and punctuation">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>Default</palette>
+<train>training_Indonesian_ID.txt</train>
+<space d="&#x25a1;" t=" " b="9"/>
+<control d="Control" t="" b="8"/>
+<paragraph d="&#182;" b="9"/>
+<group name="Lower case Latin letters" b="0">
+<s d="a" t="a"/>
+<s d="b" t="b"/>
+<s d="c" t="c"/>
+<s d="d" t="d"/>
+<s d="e" t="e"/>
+<s d="f" t="f"/>
+<s d="g" t="g"/>
+<s d="h" t="h"/>
+<s d="i" t="i"/>
+<s d="j" t="j"/>
+<s d="k" t="k"/>
+<s d="l" t="l"/>
+<s d="m" t="m"/>
+<s d="n" t="n"/>
+<s d="o" t="o"/>
+<s d="p" t="p"/>
+<s d="q" t="q"/>
+<s d="r" t="r"/>
+<s d="s" t="s"/>
+<s d="t" t="t"/>
+<s d="u" t="u"/>
+<s d="v" t="v"/>
+<s d="w" t="w"/>
+<s d="x" t="x"/>
+<s d="y" t="y"/>
+<s d="z" t="z"/>
+</group>
+<group name="Upper case Latin letters" b="111">
+<s d="A" t="A"/>
+<s d="B" t="B"/>
+<s d="C" t="C"/>
+<s d="D" t="D"/>
+<s d="E" t="E"/>
+<s d="F" t="F"/>
+<s d="G" t="G"/>
+<s d="H" t="H"/>
+<s d="I" t="I"/>
+<s d="J" t="J"/>
+<s d="K" t="K"/>
+<s d="L" t="L"/>
+<s d="M" t="M"/>
+<s d="N" t="N"/>
+<s d="O" t="O"/>
+<s d="P" t="P"/>
+<s d="Q" t="Q"/>
+<s d="R" t="R"/>
+<s d="S" t="S"/>
+<s d="T" t="T"/>
+<s d="U" t="U"/>
+<s d="V" t="V"/>
+<s d="W" t="W"/>
+<s d="X" t="X"/>
+<s d="Y" t="Y"/>
+<s d="Z" t="Z"/>
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1"/>
+<s d="2" t="2"/>
+<s d="3" t="3"/>
+<s d="4" t="4"/>
+<s d="5" t="5"/>
+<s d="6" t="6"/>
+<s d="7" t="7"/>
+<s d="8" t="8"/>
+<s d="9" t="9"/>
+<s d="0" t="0"/>
+</group>
+<group name="Punctuation" b="112">
+<s d="%" t="%"/>
+<s d="*" t="*"/>
+<s d="+" t="+"/>
+<s d="=" t="="/>
+<s d="/" t="/"/>
+<s d="#" t="#"/>
+<s d="$" t="$"/>
+<s d="|" t="|"/>
+<s d="\" t="\"/>
+<s d="~" t="~"/>
+<s d="^" t="^"/>
+<s d="_" t="_"/>
+<s d="&amp;" t="&amp;"/>
+<s d="@" t="@"/>
+<s d="[" t="["/>
+<s d="]" t="]"/>
+<s d="{" t="{"/>
+<s d="}" t="}"/>
+<s d="&lt;" t="&lt;"/>
+<s d="&gt;" t="&gt;"/>
+<s d="(" t="("/>
+<s d=")" t=")"/>
+<s d="&quot;" t="&quot;"/>
+<s d="`" t="`"/>
+<s d="&apos;" t="&apos;"/>
+<s d="-" t="-"/>
+<s d=":" t=":"/>
+<s d=";" t=";"/>
+<s d="?" t="?"/>
+<s d="!" t="!"/>
+<s d="," t=","/>
+<s d="." t="."/>
+</group>
+</alphabet>
+</alphabets>

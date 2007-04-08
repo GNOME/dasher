@@ -1,0 +1,844 @@
+# translation of dasher.HEAD.hi.po to Hindi
+# translation of dasher.HEAD.po to Hindi
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Rajesh Ranjan <rranjan@redhat.com>, 2004, 2005, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: dasher.HEAD.hi\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-06-29 06:19+0200\n"
+"PO-Revision-Date: 2006-06-29 12:26+0530\n"
+"Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
+"Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+
+#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/dasher.glade.h:49
+#: ../Src/Gtk2/dashergpe.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:31
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
+msgid "Dasher"
+msgstr "डैशर"
+
+#: ../Data/dasher.desktop.in.in.h:2
+#, fuzzy
+msgid "Predictive text entry"
+msgstr "डैशर अनुमानित पाठ प्रविष्टि अनुप्रयोग है"
+
+#. TODO should probably pop up a Gtk error message and think about how to do i18n:
+#: ../Src/DasherCore/SocketInput.cpp:34
+msgid "Dasher socket input: failed to launch reader thread."
+msgstr "डैशर सॉकेट इनपुट: रीडर थ्रेड लांच करने में विफल."
+
+#: ../Src/Gtk2/Menu.cc:63 ../Src/Gtk2/Menu.cc:119 ../Src/Gtk2/Menu.cc:177
+#: ../Src/Gtk2/Menu.cc:220 ../Src/Gtk2/dasher.glade.h:90
+#: ../Src/Gtk2/dashergpe.glade.h:60 ../Src/Gtk2/dashermaemo.glade.h:54
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:50
+msgid "Select File"
+msgstr "फाइल चुनें"
+
+#: ../Src/Gtk2/Menu.cc:303
+#, c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+
+#: ../Src/Gtk2/Menu.cc:306
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+
+#: ../Src/Gtk2/Menu.cc:309
+msgid "Don't save"
+msgstr ""
+
+#: ../Src/Gtk2/Menu.cc:309
+msgid "Don't quit"
+msgstr ""
+
+#: ../Src/Gtk2/Menu.cc:309
+msgid "Save and quit"
+msgstr ""
+
+#: ../Src/Gtk2/Menu.cc:422
+msgid "Dasher is a predictive text entry application"
+msgstr "डैशर अनुमानित पाठ प्रविष्टि अनुप्रयोग है"
+
+#: ../Src/Gtk2/Menu.cc:427
+msgid "translator-credits"
+msgstr "राजेश रंजन (rajeshkajha@yahoo.com)"
+
+#: ../Src/Gtk2/Preferences.cpp:950 ../Src/Gtk2/Preferences.cpp:952
+#: ../Src/Gtk2/dashergpe.glade.h:72
+msgid "Training Dasher... please wait"
+msgstr "डैशर को प्रशिक्षित कर रहा है - कृपया प्रतीक्षा करें"
+
+#: ../Src/Gtk2/dasher.glade.h:1 ../Src/Gtk2/dashermaemo.glade.h:3
+msgid "(Message Placeholder - no need to translate)"
+msgstr ""
+
+#: ../Src/Gtk2/dasher.glade.h:2
+msgid ""
+"<b><i>gconf-editor Not Found</i></b>\n"
+"You must have gconf-editor installed and available in your path in order to "
+"access these settings."
+msgstr ""
+
+#: ../Src/Gtk2/dasher.glade.h:4
+#, fuzzy
+msgid "<b>Actions:</b>"
+msgstr "<b>अनुकूलन:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:5 ../Src/Gtk2/dashermaemo.glade.h:4
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:1
+msgid "<b>Adaptation:</b>"
+msgstr "<b>अनुकूलन:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:6 ../Src/Gtk2/dashermaemo.glade.h:5
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:2
+msgid "<b>Advanced Settings:</b>"
+msgstr "<b>उन्नत सेटिंग:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:7 ../Src/Gtk2/dashergpe.glade.h:6
+#: ../Src/Gtk2/dashermaemo.glade.h:6
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:3
+msgid "<b>Alphabet Selection:</b>"
+msgstr "<b>वर्णमाला चयन:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:8
+#, fuzzy
+msgid "<b>Application Style:</b>"
+msgstr "<b>अनुकूलन:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:9 ../Src/Gtk2/dashergpe.glade.h:8
+msgid "<b>Color Selection:</b>"
+msgstr "<b>रंग चयन:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:10 ../Src/Gtk2/dashermaemo.glade.h:7
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:4
+msgid "<b>Compass Mode</b>"
+msgstr "<b>कंपास मोड</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:11 ../Src/Gtk2/dashergpe.glade.h:9
+msgid "<b>Control Style:</b>"
+msgstr "<b>नियंत्रण शैली:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:12 ../Src/Gtk2/dashermaemo.glade.h:8
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:5
+#, fuzzy
+msgid "<b>Direct Mode And Menu Mode</b>"
+msgstr "<b>मेनू मोड</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:13
+#, fuzzy
+msgid "<b>Docking:</b>"
+msgstr "<b>समतलन:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:14
+#, fuzzy
+msgid "<b>Input Device:</b>"
+msgstr "<b>गति:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:10
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:6
+#, fuzzy
+msgid "<b>Keyboard options</b>"
+msgstr "<b>विकल्प देखें:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:11
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:7
+msgid "<b>Language Model:</b>"
+msgstr "<b>भाषा मॉडल:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:17 ../Src/Gtk2/dashergpe.glade.h:10
+msgid "<b>Miscellaneous Options:</b>"
+msgstr "<b>विविध विकल्प:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:18 ../Src/Gtk2/dashermaemo.glade.h:12
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:8
+msgid "<b>One-Button Dynamic Mode</b>"
+msgstr "<b>बटन मोड गतिशील मोड:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:13
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:9
+msgid "<b>One-Button Static Mode</b>"
+msgstr "<b>एक बटन स्थैतिक मोड:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:20 ../Src/Gtk2/dashergpe.glade.h:11
+#: ../Src/Gtk2/dashermaemo.glade.h:14
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:10
+msgid "<b>Orientation:</b>"
+msgstr "<b>अभिमुखन:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:21 ../Src/Gtk2/dashergpe.glade.h:12
+#: ../Src/Gtk2/dashermaemo.glade.h:15
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:11
+msgid "<b>Smoothing:</b>"
+msgstr "<b>समतलन:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:22 ../Src/Gtk2/dashermaemo.glade.h:16
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:12
+msgid "<b>Socket Input</b>"
+msgstr "<b>सॉकेट इनपुट</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashermaemo.glade.h:17
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:13
+msgid "<b>Speed:</b>"
+msgstr "<b>गति:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:24 ../Src/Gtk2/dashergpe.glade.h:14
+msgid "<b>Starting And Stopping:</b>"
+msgstr "<b>आरंभ और रोक रहा है:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:25 ../Src/Gtk2/dashergpe.glade.h:16
+msgid "<b>View Options:</b>"
+msgstr "<b>विकल्प देखें:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:26 ../Src/Gtk2/dashermaemo.glade.h:18
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:14
+msgid "<b>X Coordinate</b>"
+msgstr "<b>X निर्देशांक:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashergpe.glade.h:18
+msgid "<b>Y Axis Options:</b>"
+msgstr "<b>Y अक्ष विकल्प:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:28 ../Src/Gtk2/dashermaemo.glade.h:19
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:15
+msgid "<b>Y Coordinate</b>"
+msgstr "<b>Y निर्देशांक:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashermaemo.glade.h:20
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:16
+#, fuzzy
+msgid "<b>Zoom steps</b>"
+msgstr "<b>जूम चरण::</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:30 ../Src/Gtk2/dashermaemo.glade.h:21
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
+msgid "Adapt speed automatically"
+msgstr "गति अनुकूलन स्वतः करें"
+
+#: ../Src/Gtk2/dasher.glade.h:31
+msgid ""
+"Additional settings can be accessed directly using the GConf configuration "
+"database. Please note that these settings are intended for advanced users "
+"only, and by changing these settings it is possible to put Dasher into an "
+"unusable state."
+msgstr ""
+
+#: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashermaemo.glade.h:22
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:18
+msgid "Advanced Settings"
+msgstr "उन्नत सेटिंग"
+
+#: ../Src/Gtk2/dasher.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:20
+#: ../Src/Gtk2/dashermaemo.glade.h:23
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:19
+msgid "Alphabet"
+msgstr "वर्णमाला"
+
+#: ../Src/Gtk2/dasher.glade.h:34 ../Src/Gtk2/dashergpe.glade.h:21
+#: ../Src/Gtk2/dashermaemo.glade.h:24
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:20
+msgid "Alphabet Default"
+msgstr "वर्णमाला मूलभूत"
+
+#: ../Src/Gtk2/dasher.glade.h:35
+#, fuzzy
+msgid "Alphabet:"
+msgstr "वर्णमाला"
+
+#: ../Src/Gtk2/dasher.glade.h:36 ../Src/Gtk2/dashergpe.glade.h:22
+#: ../Src/Gtk2/dashermaemo.glade.h:25
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:21
+msgid "Bottom to Top"
+msgstr "नीचे से ऊपर"
+
+#: ../Src/Gtk2/dasher.glade.h:37 ../Src/Gtk2/dashermaemo.glade.h:26
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:22
+msgid "Box non-uniformity:"
+msgstr "बॉक्स गैर समरूपता:"
+
+#: ../Src/Gtk2/dasher.glade.h:38 ../Src/Gtk2/dashermaemo.glade.h:27
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:23
+msgid "Button Preferences"
+msgstr "बटन प्राथमिकता"
+
+#: ../Src/Gtk2/dasher.glade.h:39
+msgid ""
+"Centre circle\n"
+"Two box"
+msgstr ""
+
+#: ../Src/Gtk2/dasher.glade.h:41
+#, fuzzy
+msgid "Composition"
+msgstr "माउस अवस्थिति दिखाएं"
+
+#: ../Src/Gtk2/dasher.glade.h:42 ../Src/Gtk2/dashergpe.glade.h:28
+#: ../Src/Gtk2/dashermaemo.glade.h:28
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
+msgid "Control"
+msgstr "नियंत्रण"
+
+#: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashergpe.glade.h:29
+msgid "Control mode"
+msgstr "नियंत्रण मोड"
+
+#: ../Src/Gtk2/dasher.glade.h:44 ../Src/Gtk2/dashergpe.glade.h:30
+msgid "Copy"
+msgstr "कापी करें"
+
+#: ../Src/Gtk2/dasher.glade.h:45 ../Src/Gtk2/dashergpe.glade.h:31
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:25
+msgid "Copy _All"
+msgstr "सबकुछ कापी करें (_A)"
+
+#: ../Src/Gtk2/dasher.glade.h:46 ../Src/Gtk2/dashermaemo.glade.h:29
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:26
+msgid "Custom colour scheme:"
+msgstr ""
+
+#: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:30
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
+msgid "Custom:"
+msgstr "पसंदीदा:"
+
+#: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashergpe.glade.h:33
+msgid "Cut"
+msgstr "काटें"
+
+#: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:36
+#: ../Src/Gtk2/dashermaemo.glade.h:32
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:29
+msgid "Dasher Preferences"
+msgstr "डैशर प्राथमिकता"
+
+#: ../Src/Gtk2/dasher.glade.h:51
+#, fuzzy
+msgid "Direct entry"
+msgstr "डैशर पाठ प्रविष्टि"
+
+#: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:37
+msgid "Distance from centerline for start on mouse position:"
+msgstr "माउस अवस्थिति पर शुरू करने के लिए मध्यरेखा से दूरी:"
+
+#: ../Src/Gtk2/dasher.glade.h:53
+msgid "Dock application window"
+msgstr ""
+
+#: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashergpe.glade.h:39
+msgid "Draw box outlines"
+msgstr "बाक्स आउटलाइन खींचें"
+
+#: ../Src/Gtk2/dasher.glade.h:55 ../Src/Gtk2/dashergpe.glade.h:40
+msgid "Draw line between crosshairs and mouse"
+msgstr "क्रासहेयर और माउस के बीच अंतर करें"
+
+#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashermaemo.glade.h:33
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:30
+msgid "Drop time:  "
+msgstr "ड्रॉप टाइम:"
+
+#: ../Src/Gtk2/dasher.glade.h:57
+msgid "Eyetracker autocalibration"
+msgstr ""
+
+#: ../Src/Gtk2/dasher.glade.h:58
+msgid "Full Screen"
+msgstr "पूर्ण स्क्रीन"
+
+#: ../Src/Gtk2/dasher.glade.h:59 ../Src/Gtk2/dashermaemo.glade.h:35
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
+msgid "Global keyboard grab"
+msgstr ""
+
+#: ../Src/Gtk2/dasher.glade.h:60
+msgid "Increase line thickness"
+msgstr "पंक्ति मोटाई बढ़ायें"
+
+#: ../Src/Gtk2/dasher.glade.h:61 ../Src/Gtk2/dashermaemo.glade.h:36
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:32
+msgid "Japanese"
+msgstr "जापानी"
+
+#: ../Src/Gtk2/dasher.glade.h:62 ../Src/Gtk2/dashermaemo.glade.h:37
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:33
+msgid "Label"
+msgstr "स्तर"
+
+#: ../Src/Gtk2/dasher.glade.h:63 ../Src/Gtk2/dashermaemo.glade.h:38
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:34
+msgid "Language model adapts as you write."
+msgstr "भाषा मॉडल अनुकूलित करता है जैसे आप लिखते हैं"
+
+#: ../Src/Gtk2/dasher.glade.h:64 ../Src/Gtk2/dashergpe.glade.h:45
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
+msgid "Large"
+msgstr "बड़ा"
+
+#: ../Src/Gtk2/dasher.glade.h:65
+msgid "Launch GConf editor"
+msgstr ""
+
+#: ../Src/Gtk2/dasher.glade.h:66 ../Src/Gtk2/dashergpe.glade.h:46
+#: ../Src/Gtk2/dashermaemo.glade.h:39
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:36
+msgid "Left to Right"
+msgstr "बांयें से दाहिने"
+
+#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashermaemo.glade.h:40
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:37
+msgid "Max"
+msgstr "अधिकतम"
+
+#: ../Src/Gtk2/dasher.glade.h:68 ../Src/Gtk2/dashermaemo.glade.h:41
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:38
+msgid "Min"
+msgstr "न्यूनतम"
+
+#: ../Src/Gtk2/dasher.glade.h:69
+msgid "Miscellaneous"
+msgstr "विविध"
+
+#: ../Src/Gtk2/dasher.glade.h:70 ../Src/Gtk2/dashermaemo.glade.h:42
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:39
+msgid "Mixture model (PPM/dictionary)"
+msgstr "मिश्र मॉडल (PPM/शब्दकोश)"
+
+#: ../Src/Gtk2/dasher.glade.h:71 ../Src/Gtk2/dashergpe.glade.h:48
+msgid "New file"
+msgstr "नयी फाइल"
+
+#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashergpe.glade.h:49
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:40
+msgid "Normal"
+msgstr "सामान्य"
+
+#: ../Src/Gtk2/dasher.glade.h:73 ../Src/Gtk2/dashermaemo.glade.h:43
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:41
+msgid "Number of \"zoom-out boxes\":"
+msgstr "\"zoom-out boxes\" की संख्या:"
+
+#: ../Src/Gtk2/dasher.glade.h:74 ../Src/Gtk2/dashermaemo.glade.h:44
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:42
+msgid "Number of boxes:"
+msgstr "बॉक्स की संख्या:"
+
+#: ../Src/Gtk2/dasher.glade.h:75 ../Src/Gtk2/dashergpe.glade.h:52
+msgid "Open file"
+msgstr "फाइल खोलें"
+
+#: ../Src/Gtk2/dasher.glade.h:76
+#, fuzzy
+msgid "Options"
+msgstr "विकल्प"
+
+#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashergpe.glade.h:54
+msgid "Paste"
+msgstr "चिपकाएं"
+
+#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:55
+msgid "Pause outside window"
+msgstr "बाहरी विंडो को ठहराव दें"
+
+#: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashermaemo.glade.h:46
+msgid "Please Wait..."
+msgstr ""
+
+#: ../Src/Gtk2/dasher.glade.h:80 ../Src/Gtk2/dashermaemo.glade.h:47
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:43
+msgid "Port"
+msgstr "पोर्ट"
+
+#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashermaemo.glade.h:48
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:44
+msgid "Prediction"
+msgstr "भविष्यवाणी"
+
+#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashermaemo.glade.h:49
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:45
+msgid "Print socket-related debugging information to console"
+msgstr "कंसोल में सॉकेट से जुड़ा डिबगिंग सूचना छापें"
+
+#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashermaemo.glade.h:50
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:46
+msgid "Pulsing mode"
+msgstr "पल्सिंग मोड"
+
+#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:56
+#: ../Src/Gtk2/dashermaemo.glade.h:51
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:47
+msgid "Right to Left"
+msgstr "दाहिने से बांयें"
+
+#: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashermaemo.glade.h:52
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:48
+msgid "Right zoom:  "
+msgstr "दाहिने जूम:"
+
+#: ../Src/Gtk2/dasher.glade.h:86 ../Src/Gtk2/dashermaemo.glade.h:53
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:49
+msgid "Safety margin:"
+msgstr "सुरक्षित हाशिया:"
+
+#: ../Src/Gtk2/dasher.glade.h:87 ../Src/Gtk2/dashergpe.glade.h:58
+msgid "Save file"
+msgstr "फाइल संग्रहित करें"
+
+#: ../Src/Gtk2/dasher.glade.h:88 ../Src/Gtk2/dashergpe.glade.h:59
+msgid "Save file as"
+msgstr "इस रूप में फाइल संग्रहित करें"
+
+#: ../Src/Gtk2/dasher.glade.h:89
+msgid "Scaling amount (1D mode):"
+msgstr "अनुमापन मात्रा (1D मोड):"
+
+#: ../Src/Gtk2/dasher.glade.h:91 ../Src/Gtk2/dashergpe.glade.h:61
+#: ../Src/Gtk2/dashermaemo.glade.h:55
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:51
+msgid "Select Font"
+msgstr "फोंट चुनें"
+
+#: ../Src/Gtk2/dasher.glade.h:92 ../Src/Gtk2/dashergpe.glade.h:62
+msgid "Show mouse position"
+msgstr "माउस अवस्थिति दिखाएं"
+
+#: ../Src/Gtk2/dasher.glade.h:93 ../Src/Gtk2/dashergpe.glade.h:63
+msgid "Show speed slider"
+msgstr "स्पीड स्लाइडर दिखाएं"
+
+#: ../Src/Gtk2/dasher.glade.h:94 ../Src/Gtk2/dashergpe.glade.h:64
+msgid "Show toolbar"
+msgstr "उपकरणपट्टी दिखाएं"
+
+#: ../Src/Gtk2/dasher.glade.h:95 ../Src/Gtk2/dashermaemo.glade.h:56
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:52
+msgid "Socket Preferences"
+msgstr "सॉकेट प्राथमिकता"
+
+#: ../Src/Gtk2/dasher.glade.h:96
+#, fuzzy
+msgid "Speed:"
+msgstr "<b>गति:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:97
+msgid "Stand-alone"
+msgstr ""
+
+#: ../Src/Gtk2/dasher.glade.h:98 ../Src/Gtk2/dashermaemo.glade.h:57
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:53
+msgid "Standard letter-based PPM"
+msgstr "मानक शब्द आधारित PPM"
+
+#: ../Src/Gtk2/dasher.glade.h:99 ../Src/Gtk2/dashergpe.glade.h:66
+msgid "Start on left mouse button"
+msgstr "बांये माउस बटन पर शुरू करें"
+
+#: ../Src/Gtk2/dasher.glade.h:100 ../Src/Gtk2/dashergpe.glade.h:67
+msgid "Start on space bar"
+msgstr "स्पेस बार पर शुरू करें"
+
+#: ../Src/Gtk2/dasher.glade.h:101
+#, fuzzy
+msgid "Start with mouse position:"
+msgstr "माउस अवस्थिति से शुरू करें"
+
+#: ../Src/Gtk2/dasher.glade.h:102 ../Src/Gtk2/dashermaemo.glade.h:58
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:54
+msgid "Steady mode"
+msgstr "स्थिर मोड"
+
+#: ../Src/Gtk2/dasher.glade.h:103 ../Src/Gtk2/dashergpe.glade.h:69
+msgid "Timestamp new files"
+msgstr "Timestamp नयी फाइल"
+
+#: ../Src/Gtk2/dasher.glade.h:104 ../Src/Gtk2/dashergpe.glade.h:70
+#: ../Src/Gtk2/dashermaemo.glade.h:59
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:55
+msgid "Top to Bottom"
+msgstr "ऊपर से नीचे"
+
+#: ../Src/Gtk2/dasher.glade.h:105
+msgid ""
+"Use this control to adjust the relative sizes of the \n"
+"letter boxes. Note that selecting high values will slow\n"
+"your writing speed."
+msgstr ""
+"इस नियंत्रण का प्रयोग पत्र पेटी के \n"
+"सापेक्षिक आकार को बढ़ाने-घटाने के लिए करें. यह नोट \n"
+"करें कि उच्चतर मान का चयन आपके लेखन गति को कम करेगा."
+
+#: ../Src/Gtk2/dasher.glade.h:108 ../Src/Gtk2/dashergpe.glade.h:75
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:56
+msgid "Very Large"
+msgstr "बहुत बड़ा"
+
+#: ../Src/Gtk2/dasher.glade.h:109 ../Src/Gtk2/dashergpe.glade.h:76
+#: ../Src/Gtk2/dashermaemo.glade.h:60
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:57
+msgid "View"
+msgstr "दृश्य"
+
+#: ../Src/Gtk2/dasher.glade.h:110 ../Src/Gtk2/dashermaemo.glade.h:61
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:58
+msgid "Word-based model"
+msgstr "शब्द आधारित मॉडल"
+
+#: ../Src/Gtk2/dasher.glade.h:111 ../Src/Gtk2/dashermaemo.glade.h:62
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:59
+msgid "Zoom:"
+msgstr "जूम:"
+
+#: ../Src/Gtk2/dasher.glade.h:112 ../Src/Gtk2/dashergpe.glade.h:79
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:60
+msgid "_About"
+msgstr "इसके बारे में (_A)"
+
+#: ../Src/Gtk2/dasher.glade.h:113 ../Src/Gtk2/dashergpe.glade.h:80
+msgid "_Append to file"
+msgstr "फाइल में जोड़ें (_A)"
+
+#: ../Src/Gtk2/dasher.glade.h:114
+msgid "_Contents"
+msgstr "विषय सूची (_C)"
+
+#: ../Src/Gtk2/dasher.glade.h:115 ../Src/Gtk2/dashergpe.glade.h:81
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:61
+msgid "_Dasher Font"
+msgstr "डैशर फोंट (_D)"
+
+#: ../Src/Gtk2/dasher.glade.h:116 ../Src/Gtk2/dashergpe.glade.h:82
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:62
+msgid "_Dasher Font Size"
+msgstr "डैशर फोंट आकार (_D)"
+
+#: ../Src/Gtk2/dasher.glade.h:117 ../Src/Gtk2/dashergpe.glade.h:83
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:63
+msgid "_Edit"
+msgstr "संपादित करें (_E)"
+
+#: ../Src/Gtk2/dasher.glade.h:118 ../Src/Gtk2/dashergpe.glade.h:84
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:64
+msgid "_Edit Font"
+msgstr "फोंट संपादित करें (_E)"
+
+#: ../Src/Gtk2/dasher.glade.h:119 ../Src/Gtk2/dashergpe.glade.h:85
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:65
+msgid "_File"
+msgstr "फाइल (_F)"
+
+#: ../Src/Gtk2/dasher.glade.h:120 ../Src/Gtk2/dashergpe.glade.h:86
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:66
+msgid "_Help"
+msgstr "सहायता (_H)"
+
+#: ../Src/Gtk2/dasher.glade.h:121 ../Src/Gtk2/dashergpe.glade.h:87
+msgid "_Import Training Text"
+msgstr "प्रशिक्षण पाठ आयात करें (_I)"
+
+#: ../Src/Gtk2/dasher.glade.h:122 ../Src/Gtk2/dashergpe.glade.h:88
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:67
+msgid "_Options"
+msgstr "विकल्प (_O)"
+
+#: ../Src/Gtk2/dasher.glade.h:123 ../Src/Gtk2/dashergpe.glade.h:89
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:68
+msgid "_Reset fonts"
+msgstr "फोंट फिर से सेट करें (_R)"
+
+#: ../Src/Gtk2/dasher.glade.h:124 ../Src/Gtk2/dashergpe.glade.h:90
+#: ../Src/Gtk2/dashermaemo.glade.h:63
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:69
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr "abcdefghijk ABCDEFGHIJK"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:115
+#, c-format
+msgid "Unable to initialize speech support\n"
+msgstr "वाक् समर्थन के प्रारंभीकरण में असमर्थ\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:138
+msgid "Unable to initialize voices\n"
+msgstr "ध्वनि प्रारंभीकरण में असमर्थ\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:150
+msgid "Warning: unable to set speech parameters\n"
+msgstr "चेतावनी: वाक् पैरामीटर लगाने में असमर्थ\n"
+
+#: ../Src/Gtk2/dashergpe.glade.h:1
+msgid "5:"
+msgstr "5:"
+
+#: ../Src/Gtk2/dashergpe.glade.h:2
+msgid "6:"
+msgstr "6:"
+
+#: ../Src/Gtk2/dashergpe.glade.h:3
+msgid "7:"
+msgstr "7:"
+
+#: ../Src/Gtk2/dashergpe.glade.h:4
+msgid "8:"
+msgstr "8:"
+
+#: ../Src/Gtk2/dashergpe.glade.h:5
+msgid "9:"
+msgstr "9:"
+
+#: ../Src/Gtk2/dashergpe.glade.h:7
+msgid "<b>Button control setup</b>"
+msgstr "<b>बटन नियंत्रण सेटअप</b>"
+
+#: ../Src/Gtk2/dashergpe.glade.h:13
+msgid "<b>Speed</b>"
+msgstr "<b>गति</b>"
+
+#: ../Src/Gtk2/dashergpe.glade.h:15
+msgid "<b>Toggle button Mode:</b>"
+msgstr "<b>बटन मोड टागल करें:</b>"
+
+#: ../Src/Gtk2/dashergpe.glade.h:17
+msgid "<b>X/Y Coordinates:</b>"
+msgstr "<b>X/Y निर्देशांक:</b>"
+
+#: ../Src/Gtk2/dashergpe.glade.h:19
+msgid "Advanced"
+msgstr "उन्नत"
+
+#: ../Src/Gtk2/dashergpe.glade.h:23
+msgid "Button control setup"
+msgstr "बटन नियंत्रण सेटअप"
+
+#: ../Src/Gtk2/dashergpe.glade.h:24
+msgid "Button mode"
+msgstr "बटन मोड"
+
+#: ../Src/Gtk2/dashergpe.glade.h:25
+msgid "Button:"
+msgstr "बटन:"
+
+#: ../Src/Gtk2/dashergpe.glade.h:26
+msgid "Change color scheme automatically"
+msgstr "रंग योजना स्वतः बदलें"
+
+#: ../Src/Gtk2/dashergpe.glade.h:27
+msgid "Color"
+msgstr "रंग"
+
+#: ../Src/Gtk2/dashergpe.glade.h:32
+msgid "Copy all on stop"
+msgstr "रूकने पर सबको कापी करें"
+
+#: ../Src/Gtk2/dashergpe.glade.h:34
+msgid "Cyclical button mode"
+msgstr "चक्रीय बटन मोड"
+
+#: ../Src/Gtk2/dashergpe.glade.h:38
+msgid "Down/3:"
+msgstr "Down/3:"
+
+#: ../Src/Gtk2/dashergpe.glade.h:41
+msgid "Edit Button-control options"
+msgstr "बटन-नियंत्रण विकल्प संपादित करें"
+
+#: ../Src/Gtk2/dashergpe.glade.h:42
+msgid "Enter text into other windows"
+msgstr "अन्य विंडोज में पाठ दाखिल करें"
+
+#: ../Src/Gtk2/dashergpe.glade.h:43
+msgid "Eyetracker mode"
+msgstr "आईट्रैकर मोड"
+
+#: ../Src/Gtk2/dashergpe.glade.h:44
+msgid ""
+"If this mode is selected, up and down will cycle backwards and forwards "
+"between coordinates and right will confirm the choice"
+msgstr ""
+"अगर इस मोड का चयन किया गया, ऊपर और नीचे निर्देशांकों के बीच अग्रसारित और पश्चचालित "
+"रूप से चक्रीय पथ रप चलेगा और दाहिना पसंद को सुनिश्चित करेगा."
+
+#: ../Src/Gtk2/dashergpe.glade.h:47
+msgid "Left/2:"
+msgstr "बांया/2:"
+
+#: ../Src/Gtk2/dashergpe.glade.h:50
+msgid "Number of pixels that should cover the entire Y range:"
+msgstr "पिक्सेल की संख्या जिसे समग्र y रेंज को कवर करना चाहिए:"
+
+#: ../Src/Gtk2/dashergpe.glade.h:51
+msgid "One dimensional mode"
+msgstr "एकल आयामी मोड"
+
+#: ../Src/Gtk2/dashergpe.glade.h:53
+msgid "Orientation"
+msgstr "अभिमुखन"
+
+#: ../Src/Gtk2/dashergpe.glade.h:57
+msgid "Right/4:"
+msgstr "दांया/4:"
+
+#: ../Src/Gtk2/dashergpe.glade.h:65
+msgid "Speak on stop"
+msgstr "रूकने पर बोलें"
+
+#: ../Src/Gtk2/dashergpe.glade.h:68
+msgid "Start with mouse position"
+msgstr "माउस अवस्थिति से शुरू करें"
+
+#: ../Src/Gtk2/dashergpe.glade.h:71
+msgid "Training"
+msgstr "प्रशिक्षण"
+
+#: ../Src/Gtk2/dashergpe.glade.h:73
+msgid "Up/1:"
+msgstr "Up/1:"
+
+#: ../Src/Gtk2/dashergpe.glade.h:74
+msgid ""
+"Use this control to adjust the relative sizes of the letter boxes. Note that "
+"selecting high values will slow your writing speed."
+msgstr ""
+"इस नियंत्रण का प्रयोग पत्र पेटी के सापेक्षिक आकार को बढ़ाने-घटाने के लिए करें. यह नोट करें "
+"कि उच्चतर मान का चयन आपके लेखन गति को कम करेगा."
+
+#: ../Src/Gtk2/dashergpe.glade.h:77
+msgid "X:"
+msgstr "X:"
+
+#: ../Src/Gtk2/dashergpe.glade.h:78
+msgid "Y:"
+msgstr "Y:"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:1
+msgid "\n"
+msgstr "\n"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:9
+#, fuzzy
+msgid "<b>Display Size:</b>"
+msgstr "<b>गति:</b>"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:34
+#, fuzzy
+msgid "Enlarge input window"
+msgstr "अन्य विंडोज में पाठ दाखिल करें"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:45
+msgid "P"
+msgstr "पी"
+

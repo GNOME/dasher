@@ -1,0 +1,116 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DasherCore", "..\DasherCore\DasherCore.vcproj", "{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Expat", "..\Common\Expat\Expat.vcproj", "{14049A5A-4918-4F03-B274-EAB1D533A64B}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Dasher", "Dasher.vcproj", "{F4134963-22E8-4F52-9915-ACEB1DEFACFC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{14049A5A-4918-4F03-B274-EAB1D533A64B} = {14049A5A-4918-4F03-B274-EAB1D533A64B}
+		{60F116EE-E9C5-4297-BB5A-FA3DD03E1974} = {60F116EE-E9C5-4297-BB5A-FA3DD03E1974}
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9} = {27CD5EA5-BE56-4009-B4B1-F9054990B9F9}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Common", "..\Common\Common.vcproj", "{60F116EE-E9C5-4297-BB5A-FA3DD03E1974}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Accessible Unicode Debug = Accessible Unicode Debug
+		Debug = Debug
+		foo = foo
+		Release = Release
+		Unicode Debug = Unicode Debug
+		Unicode Release = Unicode Release
+		Win95 compatible Debug = Win95 compatible Debug
+		Win95 compatible Release = Win95 compatible Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Accessible Unicode Debug.ActiveCfg = Unicode Debug|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Accessible Unicode Debug.Build.0 = Unicode Debug|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Debug.ActiveCfg = Debug|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Debug.Build.0 = Debug|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.foo.ActiveCfg = Unicode Debug|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.foo.Build.0 = Unicode Debug|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Release.ActiveCfg = Release|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Release.Build.0 = Release|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Unicode Debug.ActiveCfg = Unicode Debug|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Unicode Debug.Build.0 = Unicode Debug|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Unicode Release.ActiveCfg = Unicode Release|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Unicode Release.Build.0 = Unicode Release|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Win95 compatible Debug.ActiveCfg = Win95 compatible Debug|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Win95 compatible Debug.Build.0 = Win95 compatible Debug|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Win95 compatible Release.ActiveCfg = Win95 compatible Release|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Win95 compatible Release.Build.0 = Win95 compatible Release|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Accessible Unicode Debug.ActiveCfg = Accessible Unicode Debug|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Accessible Unicode Debug.Build.0 = Accessible Unicode Debug|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Debug.ActiveCfg = Debug|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Debug.Build.0 = Debug|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.foo.ActiveCfg = Accessible Unicode Debug|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.foo.Build.0 = Accessible Unicode Debug|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Release.ActiveCfg = Release|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Release.Build.0 = Release|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Unicode Debug.ActiveCfg = Unicode Debug|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Unicode Debug.Build.0 = Unicode Debug|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Unicode Release.ActiveCfg = Unicode Release|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Unicode Release.Build.0 = Unicode Release|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Win95 compatible Debug.ActiveCfg = Win95 compatible Debug|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Win95 compatible Debug.Build.0 = Win95 compatible Debug|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Win95 compatible Release.ActiveCfg = Win95 compatible Release|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Win95 compatible Release.Build.0 = Win95 compatible Release|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Accessible Unicode Debug.ActiveCfg = Accessible Unicode Debug|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Accessible Unicode Debug.Build.0 = Accessible Unicode Debug|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Debug.ActiveCfg = Debug|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Debug.Build.0 = Debug|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.foo.ActiveCfg = foo|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.foo.Build.0 = foo|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Release.ActiveCfg = Release|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Release.Build.0 = Release|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Unicode Debug.ActiveCfg = Unicode Debug|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Unicode Debug.Build.0 = Unicode Debug|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Unicode Release.ActiveCfg = Unicode Release|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Unicode Release.Build.0 = Unicode Release|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Win95 compatible Debug.ActiveCfg = Win95 compatible Debug|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Win95 compatible Debug.Build.0 = Win95 compatible Debug|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Win95 compatible Release.ActiveCfg = Win95 compatible Release|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Win95 compatible Release.Build.0 = Win95 compatible Release|Win32
+		{60F116EE-E9C5-4297-BB5A-FA3DD03E1974}.Accessible Unicode Debug.ActiveCfg = Unicode Debug|Win32
+		{60F116EE-E9C5-4297-BB5A-FA3DD03E1974}.Accessible Unicode Debug.Build.0 = Unicode Debug|Win32
+		{60F116EE-E9C5-4297-BB5A-FA3DD03E1974}.Debug.ActiveCfg = Debug|Win32
+		{60F116EE-E9C5-4297-BB5A-FA3DD03E1974}.Debug.Build.0 = Debug|Win32
+		{60F116EE-E9C5-4297-BB5A-FA3DD03E1974}.foo.ActiveCfg = Unicode Debug|Win32
+		{60F116EE-E9C5-4297-BB5A-FA3DD03E1974}.foo.Build.0 = Unicode Debug|Win32
+		{60F116EE-E9C5-4297-BB5A-FA3DD03E1974}.Release.ActiveCfg = Release|Win32
+		{60F116EE-E9C5-4297-BB5A-FA3DD03E1974}.Release.Build.0 = Release|Win32
+		{60F116EE-E9C5-4297-BB5A-FA3DD03E1974}.Unicode Debug.ActiveCfg = Unicode Debug|Win32
+		{60F116EE-E9C5-4297-BB5A-FA3DD03E1974}.Unicode Debug.Build.0 = Unicode Debug|Win32
+		{60F116EE-E9C5-4297-BB5A-FA3DD03E1974}.Unicode Release.ActiveCfg = Unicode Release|Win32
+		{60F116EE-E9C5-4297-BB5A-FA3DD03E1974}.Unicode Release.Build.0 = Unicode Release|Win32
+		{60F116EE-E9C5-4297-BB5A-FA3DD03E1974}.Win95 compatible Debug.ActiveCfg = Win95 compatible Debug|Win32
+		{60F116EE-E9C5-4297-BB5A-FA3DD03E1974}.Win95 compatible Debug.Build.0 = Win95 compatible Debug|Win32
+		{60F116EE-E9C5-4297-BB5A-FA3DD03E1974}.Win95 compatible Release.ActiveCfg = Win95 compatible Release|Win32
+		{60F116EE-E9C5-4297-BB5A-FA3DD03E1974}.Win95 compatible Release.Build.0 = Win95 compatible Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionItems) = postSolution
+		..\..\ChangeLog = ..\..\ChangeLog
+		..\Common\MSVC_Unannoy.h = ..\Common\MSVC_Unannoy.h
+		..\Common\NoClones.h = ..\Common\NoClones.h
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
+		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}
+	EndGlobalSection
+	GlobalSection(DevPartner) = postSolution
+	EndGlobalSection
+	GlobalSection(DevPartner) = postSolution
+	EndGlobalSection
+	GlobalSection(DevPartner) = postSolution
+	EndGlobalSection
+EndGlobal

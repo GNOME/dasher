@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Burmese / Myanmar with punctuation and numerals">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>Default</palette>
+<train>training_myanmar_MM.txt</train>
+<space d="&#x25a1;" t=" " b="9" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="Myanmar letters" b="0">
+<s d="&#x1000;" t="&#x1000;"  note=" KA  "  />
+<s d="&#x1001;" t="&#x1001;"  note=" KHA  "  />
+<s d="&#x1002;" t="&#x1002;"  note=" GA  "  />
+<s d="&#x1003;" t="&#x1003;"  note=" GHA  "  />
+<s d="&#x1004;" t="&#x1004;"  note=" NGA  "  />
+<s d="&#x1005;" t="&#x1005;"  note=" CA  "  />
+<s d="&#x1006;" t="&#x1006;"  note=" CHA  "  />
+<s d="&#x1007;" t="&#x1007;"  note=" JA  "  />
+<s d="&#x1008;" t="&#x1008;"  note=" JHA  "  />
+<s d="&#x1009;" t="&#x1009;"  note=" NYA  "  />
+<s d="&#x100A;" t="&#x100A;"  note=" NNYA  "  />
+<s d="&#x100B;" t="&#x100B;"  note=" TTA  "  />
+<s d="&#x100C;" t="&#x100C;"  note=" TTHA  "  />
+<s d="&#x100D;" t="&#x100D;"  note=" DDA  "  />
+<s d="&#x100E;" t="&#x100E;"  note=" DDHA  "  />
+<s d="&#x100F;" t="&#x100F;"  note=" NNA  "  />
+<s d="&#x1010;" t="&#x1010;"  note=" TA  "  />
+<s d="&#x1011;" t="&#x1011;"  note=" THA  "  />
+<s d="&#x1012;" t="&#x1012;"  note=" DA  "  />
+<s d="&#x1013;" t="&#x1013;"  note=" DHA  "  />
+<s d="&#x1014;" t="&#x1014;"  note=" NA  "  />
+<s d="&#x1015;" t="&#x1015;"  note=" PA  "  />
+<s d="&#x1016;" t="&#x1016;"  note=" PHA  "  />
+<s d="&#x1017;" t="&#x1017;"  note=" BA  "  />
+<s d="&#x1018;" t="&#x1018;"  note=" BHA  "  />
+<s d="&#x1019;" t="&#x1019;"  note=" MA  "  />
+<s d="&#x101A;" t="&#x101A;"  note=" YA  "  />
+<s d="&#x101B;" t="&#x101B;"  note=" RA  "  />
+<s d="&#x101C;" t="&#x101C;"  note=" LA  "  />
+<s d="&#x101D;" t="&#x101D;"  note=" WA  "  />
+<s d="&#x1050;" t="&#x1050;"  note=" SHA  "  />
+<s d="&#x1051;" t="&#x1051;"  note=" SSA  "  />
+<s d="&#x101E;" t="&#x101E;"  note=" SA  "  />
+<s d="&#x101F;" t="&#x101F;"  note=" HA  "  />
+<s d="&#x1020;" t="&#x1020;"  note=" LLA  "  />
+<s d="&#x1021;" t="&#x1021;"  note=" A  "  />
+<s d="&#x1023;" t="&#x1023;"  note=" I  "  />
+<s d="&#x1024;" t="&#x1024;"  note=" II  "  />
+<s d="&#x1025;" t="&#x1025;"  note=" U  "  />
+<s d="&#x1026;" t="&#x1026;"  note=" UU  "  />
+<s d="&#x1027;" t="&#x1027;"  note=" E  "  />
+<s d="&#x1029;" t="&#x1029;"  note=" O  "  />
+<s d="&#x102A;" t="&#x102A;"  note=" AU  "  />
+<s d="&#x1052;" t="&#x1052;"  note=" VOCALIC R  "  />
+<s d="&#x1053;" t="&#x1053;"  note=" VOCALIC RR  "  />
+<s d="&#x1054;" t="&#x1054;"  note=" VOCALIC L  "  />
+<s d="&#x1055;" t="&#x1055;"  note=" VOCALIC LL  "  />
+</group>
+<group name="Vowels Myanmar" b="111">
+<s d="&#x25cc;&#x102C;" t="&#x102C;"  note=" VOWEL SIGN AA  "  />
+<s d="&#x25cc;&#x102D;" t="&#x102D;"  note=" VOWEL SIGN I  "  />
+<s d="&#x25cc;&#x102E;" t="&#x102E;"  note=" VOWEL SIGN II  "  />
+<s d="&#x25cc;&#x102F;" t="&#x102F;"  note=" VOWEL SIGN U  "  />
+<s d="&#x25cc;&#x1030;" t="&#x1030;"  note=" VOWEL SIGN UU  "  />
+<s d="&#x25cc;&#x1031;" t="&#x1031;"  note=" VOWEL SIGN E  "  />
+<s d="&#x25cc;&#x1032;" t="&#x1032;"  note=" VOWEL SIGN AI  "  />
+<s d="&#x25cc;&#x1056;" t="&#x1056;"  note=" VOWEL SIGN VOCALIC R  "  />
+<s d="&#x25cc;&#x1057;" t="&#x1057;"  note=" VOWEL SIGN VOCALIC RR  "  />
+<s d="&#x25cc;&#x1058;" t="&#x1058;"  note=" VOWEL SIGN VOCALIC L  "  />
+<s d="&#x25cc;&#x1059;" t="&#x1059;"  note=" VOWEL SIGN VOCALIC LL  "  />
+<s d="&#x25cc;&#x1039;" t="&#x1039;"  note=" SIGN VIRAMA  "  />
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1"/>
+<s d="2" t="2"/>
+<s d="3" t="3"/>
+<s d="4" t="4"/>
+<s d="5" t="5"/>
+<s d="6" t="6"/>
+<s d="7" t="7"/>
+<s d="8" t="8"/>
+<s d="9" t="9"/>
+<s d="0" t="0"/>
+</group>
+<group name="Punctuation" b="112">
+<s d="%" t="%"/>
+<s d="*" t="*"/>
+<s d="+" t="+"/>
+<s d="=" t="="/>
+<s d="/" t="/"/>
+<s d="#" t="#"/>
+<s d="$" t="$"/>
+<s d="|" t="|"/>
+<s d="\" t="\"/>
+<s d="~" t="~"/>
+<s d="^" t="^"/>
+<s d="_" t="_"/>
+<s d="&amp;" t="&amp;"/>
+<s d="@" t="@"/>
+<s d="[" t="["/>
+<s d="]" t="]"/>
+<s d="{" t="{"/>
+<s d="}" t="}"/>
+<s d="&lt;" t="&lt;"/>
+<s d="&gt;" t="&gt;"/>
+<s d="(" t="("/>
+<s d=")" t=")"/>
+<s d="&quot;" t="&quot;"/>
+<s d="`" t="`"/>
+<s d="&apos;" t="&apos;"/>
+<s d="-" t="-"/>
+<s d=":" t=":"/>
+<s d=";" t=";"/>
+<s d="?" t="?"/>
+<s d="!" t="!"/>
+<s d="," t=","/>
+<s d="." t="."/>
+</group>
+</alphabet>
+</alphabets>

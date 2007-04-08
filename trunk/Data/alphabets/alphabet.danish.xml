@@ -1,0 +1,286 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Dansk / Danish with punctuation and numerals">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>European/Asian</palette>
+<train>training_danish_DK.txt</train>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="lower case letters" b="0">
+<s b="10"  d="&#x0061;" t="&#x0061;" />
+<s b="11"  d="&#x00E1;" t="&#x00E1;" />
+<s b="12"  d="&#x0062;" t="&#x0062;" />
+<s b="13"  d="&#x0063;" t="&#x0063;" />
+<s b="14"  d="&#x0064;" t="&#x0064;" />
+<s b="15"  d="&#x0065;" t="&#x0065;" />
+<s b="16"  d="&#x00E9;" t="&#x00E9;" />
+<s b="17"  d="&#x0066;" t="&#x0066;" />
+<s b="18"  d="&#x0067;" t="&#x0067;" />
+<s b="19"  d="&#x0068;" t="&#x0068;" />
+<s b="20"  d="&#x0069;" t="&#x0069;" />
+<s b="21"  d="&#x006A;" t="&#x006A;" />
+<s b="22"  d="&#x006B;" t="&#x006B;" />
+<s b="23"  d="&#x006C;" t="&#x006C;" />
+<s b="24"  d="&#x006D;" t="&#x006D;" />
+<s b="25"  d="&#x006E;" t="&#x006E;" />
+<s b="26"  d="&#x006F;" t="&#x006F;" />
+<s b="27"  d="&#x00F3;" t="&#x00F3;" />
+<s b="28"  d="&#x0070;" t="&#x0070;" />
+<s b="29"  d="&#x0071;" t="&#x0071;" />
+<s b="30"  d="&#x0072;" t="&#x0072;" />
+<s b="31"  d="&#x0073;" t="&#x0073;" />
+<s b="32"  d="&#x0074;" t="&#x0074;" />
+<s b="33"  d="&#x0075;" t="&#x0075;" />
+<s b="34"  d="&#x0076;" t="&#x0076;" />
+<s b="35"  d="&#x0077;" t="&#x0077;" />
+<s b="36"  d="&#x0078;" t="&#x0078;" />
+<s b="37"  d="&#x0079;" t="&#x0079;" />
+<s b="38"  d="&#x00FC;" t="&#x00FC;" />
+<s b="39"  d="&#x007A;" t="&#x007A;" />
+<s b="40"  d="&#x00E6;" t="&#x00E6;" />
+<s b="41"  d="&#x00E4;" t="&#x00E4;" />
+<s b="42"  d="&#x00F8;" t="&#x00F8;" />
+<s b="43"  d="&#x00F6;" t="&#x00F6;" />
+<s b="44"  d="&#x00E5;" t="&#x00E5;" />
+</group>
+<group name="upper case letters" b="111">
+<s b="10"  d="&#x0041;" t="&#x0041;" />
+<s b="11"  d="&#x00C1;" t="&#x00C1;" />
+<s b="12"  d="&#x0042;" t="&#x0042;" />
+<s b="13"  d="&#x0043;" t="&#x0043;" />
+<s b="14"  d="&#x0044;" t="&#x0044;" />
+<s b="15"  d="&#x0045;" t="&#x0045;" />
+<s b="16"  d="&#x00C9;" t="&#x00C9;" />
+<s b="17"  d="&#x0046;" t="&#x0046;" />
+<s b="18"  d="&#x0047;" t="&#x0047;" />
+<s b="19"  d="&#x0048;" t="&#x0048;" />
+<s b="20"  d="&#x0049;" t="&#x0049;" />
+<s b="21"  d="&#x004A;" t="&#x004A;" />
+<s b="22"  d="&#x004B;" t="&#x004B;" />
+<s b="23"  d="&#x004C;" t="&#x004C;" />
+<s b="24"  d="&#x004D;" t="&#x004D;" />
+<s b="25"  d="&#x004E;" t="&#x004E;" />
+<s b="26"  d="&#x004F;" t="&#x004F;" />
+<s b="27"  d="&#x00D3;" t="&#x00D3;" />
+<s b="28"  d="&#x0050;" t="&#x0050;" />
+<s b="29"  d="&#x0051;" t="&#x0051;" />
+<s b="30"  d="&#x0052;" t="&#x0052;" />
+<s b="31"  d="&#x0053;" t="&#x0053;" />
+<s b="32"  d="&#x0054;" t="&#x0054;" />
+<s b="33"  d="&#x0055;" t="&#x0055;" />
+<s b="34"  d="&#x0056;" t="&#x0056;" />
+<s b="35"  d="&#x0057;" t="&#x0057;" />
+<s b="36"  d="&#x0058;" t="&#x0058;" />
+<s b="37"  d="&#x0059;" t="&#x0059;" />
+<s b="38"  d="&#x00DC;" t="&#x00DC;" />
+<s b="39"  d="&#x005A;" t="&#x005A;" />
+<s b="40"  d="&#x00C6;" t="&#x00C6;" />
+<s b="41"  d="&#x00C4;" t="&#x00C4;" />
+<s b="42"  d="&#x00D8;" t="&#x00D8;" />
+<s b="43"  d="&#x00D6;" t="&#x00D6;" />
+<s b="44"  d="&#x00C5;" t="&#x00C5;" />
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1" b="90"/>
+<s d="2" t="2" b="105"/>
+<s d="3" t="3" b="91"/>
+<s d="4" t="4" b="106"/>
+<s d="5" t="5" b="92"/>
+<s d="6" t="6" b="107"/>
+<s d="7" t="7" b="93"/>
+<s d="8" t="8" b="108"/>
+<s d="9" t="9" b="94"/>
+<s d="0" t="0" b="109"/>
+</group>
+<group name="Punctuation" b="112">
+<s b="90" d="%" t="%"/>
+<s b="91" d="*" t="*"/>
+<s b="92" d="+" t="+"/>
+<s b="93" d="=" t="="/>
+<s b="94" d="/" t="/"/>
+<s b="95" d="#" t="#"/>
+<s d="&#8364;" t="&#8364;" b="96" note="euro" />
+<s b="98" d="$" t="$"/>
+<s b="99" d="|" t="|"/>
+<s b="95" d="\" t="\"/>
+<s b="96" d="~" t="~"/>
+<s b="97" d="^" t="^"/>
+<s b="98" d="_" t="_"/>
+<s b="99" d="&amp;" t="&amp;"/> 
+<s b="95" d="@" t="@"/>
+<s b="105" d="[" t="["/>
+<s b="106" d="]" t="]"/>
+<s b="107" d="{" t="{"/>
+<s b="108" d="}" t="}"/>
+<s b="109" d="&lt;" t="&lt;"/>
+<s b="105" d="&gt;" t="&gt;"/>
+<s b="106" d="(" t="("/>
+<s b="107" d=")" t=")"/>
+<s b="108" d="&#x201E;" t="&#x201E;" note="German left double quotation mark; Albanian right" />
+<s b="109" d="&#x201C;" t="&#x201C;" note="left double quotation mark" />
+<s b="106" d="&#x0022;" t="&#x0022;" note="deprecated vertical double quotation mark" />
+<s b="107" d="&#x201D;" t="&#x201D;" note="right double quotation mark" />
+<s b="108" d="&#x201A;" t="&#x201A;" note="German left single quotation mark; Albanian right" />
+<s b="109" d="&#x2018;" t="&#x2018;" note="left single quotation mark" />
+<s b="105" d="&#x0027;" t="&#x0027;" note="vertical single quote" />
+<s b="106" d="&#x25cc;&#x0313;" t="&#x2019;" note="right single quotation mark and apostrophe" />
+<s b="107" d="&#x203A;" t="&#x203A;" note="French right single quotation mark" />
+<s b="108" d="&#x2039;" t="&#x2039;" note="French left single quotation mark" />
+<s b="109" d="&#x00BB;" t="&#x00BB;" note="French right double quotation mark" />
+<s b="105" d="&#x00AB;" t="&#x00AB;" note="French left double quotation mark" />
+<s b="9"    d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
+<s b="100"  d="-" t="-"/>
+<s b="101"  d=":" t=":"/>
+<s b="102"  d=";" t=";"/>
+<s b="103"  d="?" t="?"/>
+<s b="104"  d="!" t="!"/>
+<s b="100"  d="," t=","/>
+<s b="104"  d="&#183;" t="."/>
+</group>
+</alphabet>
+<alphabet name="Dansk / Danish with limited punctuation">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>European/Asian</palette>
+<train>training_danish_DK.txt</train>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="lower case letters" b="0">
+<s b="10"  d="&#x0061;" t="&#x0061;" />
+<s b="11"  d="&#x00E1;" t="&#x00E1;" />
+<s b="12"  d="&#x0062;" t="&#x0062;" />
+<s b="13"  d="&#x0063;" t="&#x0063;" />
+<s b="14"  d="&#x0064;" t="&#x0064;" />
+<s b="15"  d="&#x0065;" t="&#x0065;" />
+<s b="16"  d="&#x00E9;" t="&#x00E9;" />
+<s b="17"  d="&#x0066;" t="&#x0066;" />
+<s b="18"  d="&#x0067;" t="&#x0067;" />
+<s b="19"  d="&#x0068;" t="&#x0068;" />
+<s b="20"  d="&#x0069;" t="&#x0069;" />
+<s b="21"  d="&#x006A;" t="&#x006A;" />
+<s b="22"  d="&#x006B;" t="&#x006B;" />
+<s b="23"  d="&#x006C;" t="&#x006C;" />
+<s b="24"  d="&#x006D;" t="&#x006D;" />
+<s b="25"  d="&#x006E;" t="&#x006E;" />
+<s b="26"  d="&#x006F;" t="&#x006F;" />
+<s b="27"  d="&#x00F3;" t="&#x00F3;" />
+<s b="28"  d="&#x0070;" t="&#x0070;" />
+<s b="29"  d="&#x0071;" t="&#x0071;" />
+<s b="30"  d="&#x0072;" t="&#x0072;" />
+<s b="31"  d="&#x0073;" t="&#x0073;" />
+<s b="32"  d="&#x0074;" t="&#x0074;" />
+<s b="33"  d="&#x0075;" t="&#x0075;" />
+<s b="34"  d="&#x0076;" t="&#x0076;" />
+<s b="35"  d="&#x0077;" t="&#x0077;" />
+<s b="36"  d="&#x0078;" t="&#x0078;" />
+<s b="37"  d="&#x0079;" t="&#x0079;" />
+<s b="38"  d="&#x00FC;" t="&#x00FC;" />
+<s b="39"  d="&#x007A;" t="&#x007A;" />
+<s b="40"  d="&#x00E6;" t="&#x00E6;" />
+<s b="41"  d="&#x00E4;" t="&#x00E4;" />
+<s b="42"  d="&#x00F8;" t="&#x00F8;" />
+<s b="43"  d="&#x00F6;" t="&#x00F6;" />
+<s b="44"  d="&#x00E5;" t="&#x00E5;" />
+</group>
+<group name="upper case letters" b="111">
+<s b="10"  d="&#x0041;" t="&#x0041;" />
+<s b="11"  d="&#x00C1;" t="&#x00C1;" />
+<s b="12"  d="&#x0042;" t="&#x0042;" />
+<s b="13"  d="&#x0043;" t="&#x0043;" />
+<s b="14"  d="&#x0044;" t="&#x0044;" />
+<s b="15"  d="&#x0045;" t="&#x0045;" />
+<s b="16"  d="&#x00C9;" t="&#x00C9;" />
+<s b="17"  d="&#x0046;" t="&#x0046;" />
+<s b="18"  d="&#x0047;" t="&#x0047;" />
+<s b="19"  d="&#x0048;" t="&#x0048;" />
+<s b="20"  d="&#x0049;" t="&#x0049;" />
+<s b="21"  d="&#x004A;" t="&#x004A;" />
+<s b="22"  d="&#x004B;" t="&#x004B;" />
+<s b="23"  d="&#x004C;" t="&#x004C;" />
+<s b="24"  d="&#x004D;" t="&#x004D;" />
+<s b="25"  d="&#x004E;" t="&#x004E;" />
+<s b="26"  d="&#x004F;" t="&#x004F;" />
+<s b="27"  d="&#x00D3;" t="&#x00D3;" />
+<s b="28"  d="&#x0050;" t="&#x0050;" />
+<s b="29"  d="&#x0051;" t="&#x0051;" />
+<s b="30"  d="&#x0052;" t="&#x0052;" />
+<s b="31"  d="&#x0053;" t="&#x0053;" />
+<s b="32"  d="&#x0054;" t="&#x0054;" />
+<s b="33"  d="&#x0055;" t="&#x0055;" />
+<s b="34"  d="&#x0056;" t="&#x0056;" />
+<s b="35"  d="&#x0057;" t="&#x0057;" />
+<s b="36"  d="&#x0058;" t="&#x0058;" />
+<s b="37"  d="&#x0059;" t="&#x0059;" />
+<s b="38"  d="&#x00DC;" t="&#x00DC;" />
+<s b="39"  d="&#x005A;" t="&#x005A;" />
+<s b="40"  d="&#x00C6;" t="&#x00C6;" />
+<s b="41"  d="&#x00C4;" t="&#x00C4;" />
+<s b="42"  d="&#x00D8;" t="&#x00D8;" />
+<s b="43"  d="&#x00D6;" t="&#x00D6;" />
+<s b="44"  d="&#x00C5;" t="&#x00C5;" />
+</group>
+<group name="Punctuation" b="112">
+<s b="106" d="&#x25cc;&#x0313;" t="&#x2019;" note="right single quotation mark and apostrophe" />
+<s b="103"  d="?" t="?"/>
+<s b="104"  d="!" t="!"/>
+<s b="100"  d="," t=","/>
+<s b="104"  d="&#183;" t="."/>
+</group>
+</alphabet>
+<alphabet name="Dansk / Danish lower case">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>European/Asian</palette>
+<train>training_danish_DK.txt</train>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="lower case letters" b="0">
+<s b="10"  d="&#x0061;" t="&#x0061;" />
+<s b="11"  d="&#x00E1;" t="&#x00E1;" />
+<s b="12"  d="&#x0062;" t="&#x0062;" />
+<s b="13"  d="&#x0063;" t="&#x0063;" />
+<s b="14"  d="&#x0064;" t="&#x0064;" />
+<s b="15"  d="&#x0065;" t="&#x0065;" />
+<s b="16"  d="&#x00E9;" t="&#x00E9;" />
+<s b="17"  d="&#x0066;" t="&#x0066;" />
+<s b="18"  d="&#x0067;" t="&#x0067;" />
+<s b="19"  d="&#x0068;" t="&#x0068;" />
+<s b="20"  d="&#x0069;" t="&#x0069;" />
+<s b="21"  d="&#x006A;" t="&#x006A;" />
+<s b="22"  d="&#x006B;" t="&#x006B;" />
+<s b="23"  d="&#x006C;" t="&#x006C;" />
+<s b="24"  d="&#x006D;" t="&#x006D;" />
+<s b="25"  d="&#x006E;" t="&#x006E;" />
+<s b="26"  d="&#x006F;" t="&#x006F;" />
+<s b="27"  d="&#x00F3;" t="&#x00F3;" />
+<s b="28"  d="&#x0070;" t="&#x0070;" />
+<s b="29"  d="&#x0071;" t="&#x0071;" />
+<s b="30"  d="&#x0072;" t="&#x0072;" />
+<s b="31"  d="&#x0073;" t="&#x0073;" />
+<s b="32"  d="&#x0074;" t="&#x0074;" />
+<s b="33"  d="&#x0075;" t="&#x0075;" />
+<s b="34"  d="&#x0076;" t="&#x0076;" />
+<s b="35"  d="&#x0077;" t="&#x0077;" />
+<s b="36"  d="&#x0078;" t="&#x0078;" />
+<s b="37"  d="&#x0079;" t="&#x0079;" />
+<s b="38"  d="&#x00FC;" t="&#x00FC;" />
+<s b="39"  d="&#x007A;" t="&#x007A;" />
+<s b="40"  d="&#x00E6;" t="&#x00E6;" />
+<s b="41"  d="&#x00E4;" t="&#x00E4;" />
+<s b="42"  d="&#x00F8;" t="&#x00F8;" />
+<s b="43"  d="&#x00F6;" t="&#x00F6;" />
+<s b="44"  d="&#x00E5;" t="&#x00E5;" />
+</group>
+<group name="Punctuation" b="112">
+<s b="103"  d="?" t="?"/>
+<s b="104"  d="&#183;" t="."/>
+</group>
+</alphabet>
+</alphabets>
+

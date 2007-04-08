@@ -1,0 +1,465 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet-nest.xsl"?>
+<alphabets>
+<alphabet name="Chinese Pin Yin with tones (no chinese characters) (5 groups)">
+<!--
+ Hanyu pinyin: A system of romanization
+  (phonetic notation and transliteration to roman script) for
+  Mandarin Chinese used in the People's Republic of China.
+ Cantonese also has a pinyin-type system called Penkyamp
+-->
+<orientation type="LR"/>
+<encoding type="Western"/>
+<control d="Control" t="" b="8"/>
+<palette>European/Asian</palette>
+<train>training_pinyin_CN.txt</train>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<paragraph d="&#182;" b="9"/>
+<group name="pin yin roman letters" b="0">
+<group name="a" b="60">
+<s d="&#97;" t="&#97;"    b="70" />  <!-- a --> 
+<s  d="&#257;" t="&#257;" b="80" /> <!-- a1 -->
+<s  d="&#225;" t="&#225;" b="70" /> <!-- a2 -->
+<s  d="&#462;" t="&#462;" b="80" /> <!-- a3 -->
+<!-- alternative a3 &#259; -->
+<s  d="&#224;" t="&#224;" b="70" /> <!-- a4 -->
+</group>		 
+<s d="b" t="b" b="11"/>
+<s d="c" t="c" b="12"/>
+<s d="d" t="d" b="13"/>
+<group name="e" b="61">
+<s  d="&#101;" t="&#101;" b="71" /> <!-- e -->
+<s  d="&#275;" t="&#275;" b="81" /> <!-- e1 -->
+<s  d="&#233;" t="&#233;" b="71" /> <!-- e2 -->
+<s  d="&#283;" t="&#283;" b="81" /> <!-- e3 -->
+<!-- alternative e3 &#277; -->
+<s  d="&#232;" t="&#232;"  b="71"/> <!-- e4 -->
+</group>		  
+<s d="f" t="f" b="15"/>
+<s d="g" t="g" b="16"/>
+<s d="h" t="h" b="17"/>
+<group name="i" b="62" >
+<s  d="&#105;" t="&#105;" b="72" /> <!-- i -->
+<s  d="&#299;" t="&#299;" b="82" /> <!-- i1 -->
+<s  d="&#237;" t="&#237;" b="72" /> <!-- i2 -->
+<s  d="&#464;" t="&#464;" b="82" /> <!-- i3 -->
+<!-- alternative i3 &#301; -->
+<s  d="&#236;" t="&#236;" b="72" /> <!-- i4 -->
+</group>		  
+<s d="j" t="j" b="19"/>
+<s d="k" t="k" b="20"/>
+<s d="l" t="l" b="21"/>
+<s d="m" t="m" b="22"/>
+<s d="n" t="n" b="23"/>
+<group name="o" b="64">
+<s  d="&#111;" t="&#111;" b="74" /> <!-- o -->
+<s  d="&#333;" t="&#333;" b="84" /> <!-- o1 -->
+<s  d="&#243;" t="&#243;" b="74" /> <!-- o2 -->
+<s  d="&#466;" t="&#466;" b="84" /> <!-- o3 -->
+<!-- alternative o3  &#335; -->
+<s  d="&#242;" t="&#242;" b="74" /> <!-- o4 -->
+</group>		  
+<s d="p" t="p" b="25"/>
+<s d="q" t="q" b="26"/>
+<s d="r" t="r" b="27"/>
+<s d="s" t="s" b="28"/>
+<s d="t" t="t" b="29"/>
+<group name="u" b="65">
+<s  d="&#117;" t="&#117;" b="75" /> <!-- u -->
+<s  d="&#363;" t="&#363;" b="85" /> <!-- u1 -->
+<s  d="&#250;" t="&#250;" b="75" /> <!-- u2 -->
+<s  d="&#468;" t="&#468;" b="85" /> <!-- u3 -->
+<!-- alternative u3 &#365; -->
+<s  d="&#249;" t="&#249;" b="75" /> <!-- u4 -->
+</group>	
+<group name="&#252;" b="69">
+<s  d="&#252;" t="&#252;" b="79" /> <!-- &#252; u: -->
+<s  d="&#470;" t="&#470;" b="89" /> <!-- &#252;1 u:1 -->
+<s  d="&#472;" t="&#472;" b="79" /> <!-- &#252;2 u:2 -->
+<s  d="&#474;" t="&#474;" b="89" /> <!-- &#252;3 u:3 -->
+<s  d="&#476;" t="&#476;" b="79" /> <!-- &#252;4 u:4 -->
+</group>		 
+<s d="v" t="v" b="31"/>
+<s d="w" t="w" b="32"/>
+<s d="x" t="x" b="33"/>
+<s d="y" t="y" b="34"/>
+<s d="z" t="z" b="35"/>
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1" b="105" />
+<s d="2" t="2" b="106" />
+<s d="3" t="3" b="107" />
+<s d="4" t="4" b="108" />
+<s d="5" t="5" b="109" />
+<s d="6" t="6" b="105" />
+<s d="7" t="7" b="106" />
+<s d="8" t="8" b="107" />
+<s d="9" t="9" b="108" />
+<s d="0" t="0" b="109" />
+</group>
+<group name="Punctuation" b="112">
+<s b="90" d="%" t="%"/>
+<s b="91" d="*" t="*"/>
+<s b="92" d="+" t="+"/>
+<s b="93" d="=" t="="/>
+<s b="94" d="/" t="/"/>
+<s b="95" d="#" t="#"/>
+<s b="96" d="$" t="$"/>
+<s b="97" d="|" t="|"/>
+<s b="98" d="\" t="\"/>
+<s b="99" d="~" t="~"/>
+<s b="95" d="^" t="^"/>
+<s b="96" d="_" t="_"/>
+<s b="97" d="&amp;" t="&amp;"/> 
+<s b="98" d="@" t="@"/>
+<s b="105" d="[" t="["/>
+<s b="106" d="]" t="]"/>
+<s b="107" d="{" t="{"/>
+<s b="108" d="}" t="}"/>
+<s b="109" d="&lt;" t="&lt;"/>
+<s b="105" d="&gt;" t="&gt;"/>
+<s b="106" d="(" t="("/>
+<s b="107" d=")" t=")"/>
+<s b="108" d="&quot;" t="&quot;"/>
+<s b="109" d="`" t="`"/>
+<s b="105" d="&apos;" t="&apos;"/>
+<s b="9"  d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
+<s b="100" d="-" t="-"/>
+<s b="101" d=":" t=":"/>
+<s b="102" d=";" t=";"/>
+<s b="103" d="?" t="?"/>
+<s b="104" d="!" t="!"/>
+<s b="100" d="," t=","/>
+<s b="104" d="&#183;" t="."/>
+</group>
+</alphabet>
+<alphabet name="Chinese Pin Yin with tones (no chinese characters) (11 groups)">
+<!--
+ Hanyu pinyin: A system of romanization
+  (phonetic notation and transliteration to roman script) for
+  Mandarin Chinese used in the People's Republic of China.
+ Cantonese also has a pinyin-type system called Penkyamp
+-->
+<orientation type="LR"/>
+<encoding type="Western"/>
+<control d="Control" t="" b="8"/>
+<palette>European/Asian</palette>
+<train>training_pinyin_CN.txt</train>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<paragraph d="&#182;" b="9"/>
+<group name="pin yin roman letters" b="0">
+<group name="a" b="60">
+<s d="&#97;" t="&#97;"    b="70" />  <!-- a --> 
+<s  d="&#257;" t="&#257;" b="80" /> <!-- a1 -->
+<s  d="&#225;" t="&#225;" b="70" /> <!-- a2 -->
+<s  d="&#462;" t="&#462;" b="80" /> <!-- a3 -->
+<!-- alternative a3 &#259; -->
+<s  d="&#224;" t="&#224;" b="70" /> <!-- a4 -->
+</group>
+<group name="b-d" b="61">
+<s d="b" t="b" b="11"/>
+<s d="c" t="c" b="12"/>
+<s d="d" t="d" b="13"/>
+</group>
+<group name="e" b="62">
+<s  d="&#101;" t="&#101;" b="72" /> <!-- e -->
+<s  d="&#275;" t="&#275;" b="82" /> <!-- e1 -->
+<s  d="&#233;" t="&#233;" b="72" /> <!-- e2 -->
+<s  d="&#283;" t="&#283;" b="82" /> <!-- e3 -->
+<!-- alternative e3 &#277; -->
+<s  d="&#232;" t="&#232;"  b="72"/> <!-- e4 -->
+</group>
+<group name="f-h" b="63">
+<s d="f" t="f" b="15"/>
+<s d="g" t="g" b="16"/>
+<s d="h" t="h" b="17"/>
+</group>
+<group name="i" b="64" >
+<s  d="&#105;" t="&#105;" b="74" /> <!-- i -->
+<s  d="&#299;" t="&#299;" b="84" /> <!-- i1 -->
+<s  d="&#237;" t="&#237;" b="74" /> <!-- i2 -->
+<s  d="&#464;" t="&#464;" b="84" /> <!-- i3 -->
+<!-- alternative i3 &#301; -->
+<s  d="&#236;" t="&#236;" b="74" /> <!-- i4 -->
+</group>
+<group name="j-n" b="65" >
+<s d="j" t="j" b="19"/>
+<s d="k" t="k" b="20"/>
+<s d="l" t="l" b="21"/>
+<s d="m" t="m" b="22"/>
+<s d="n" t="n" b="23"/>
+</group>
+<group name="o" b="66">
+<s  d="&#111;" t="&#111;" b="76" /> <!-- o -->
+<s  d="&#333;" t="&#333;" b="86" /> <!-- o1 -->
+<s  d="&#243;" t="&#243;" b="76" /> <!-- o2 -->
+<s  d="&#466;" t="&#466;" b="86" /> <!-- o3 -->
+<!-- alternative o3  &#335; -->
+<s  d="&#242;" t="&#242;" b="76" /> <!-- o4 -->
+</group>
+<group name="p-t" b="67" >
+<s d="p" t="p" b="25"/>
+<s d="q" t="q" b="26"/>
+<s d="r" t="r" b="27"/>
+<s d="s" t="s" b="28"/>
+<s d="t" t="t" b="29"/>
+</group>
+<group name="u" b="68">
+<s  d="&#117;" t="&#117;" b="78" /> <!-- u -->
+<s  d="&#363;" t="&#363;" b="88" /> <!-- u1 -->
+<s  d="&#250;" t="&#250;" b="78" /> <!-- u2 -->
+<s  d="&#468;" t="&#468;" b="88" /> <!-- u3 -->
+<!-- alternative u3 &#365; -->
+<s  d="&#249;" t="&#249;" b="78" /> <!-- u4 -->
+</group>
+<group name="&#252;" b="69">
+<s  d="&#252;" t="&#252;" b="79" /> <!-- &#252; u: -->
+<s  d="&#470;" t="&#470;" b="89" /> <!-- &#252;1 u:1 -->
+<s  d="&#472;" t="&#472;" b="79" /> <!-- &#252;2 u:2 -->
+<s  d="&#474;" t="&#474;" b="89" /> <!-- &#252;3 u:3 -->
+<s  d="&#476;" t="&#476;" b="79" /> <!-- &#252;4 u:4 -->
+</group>
+<group name="v-z" b="60" >
+<s d="v" t="v" b="31"/>
+<s d="w" t="w" b="32"/>
+<s d="x" t="x" b="33"/>
+<s d="y" t="y" b="34"/>
+<s d="z" t="z" b="35"/>
+</group>
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1" b="105" />
+<s d="2" t="2" b="106" />
+<s d="3" t="3" b="107" />
+<s d="4" t="4" b="108" />
+<s d="5" t="5" b="109" />
+<s d="6" t="6" b="105" />
+<s d="7" t="7" b="106" />
+<s d="8" t="8" b="107" />
+<s d="9" t="9" b="108" />
+<s d="0" t="0" b="109" />
+</group>
+<group name="Punctuation" b="112">
+<s b="90" d="%" t="%"/>
+<s b="91" d="*" t="*"/>
+<s b="92" d="+" t="+"/>
+<s b="93" d="=" t="="/>
+<s b="94" d="/" t="/"/>
+<s b="95" d="#" t="#"/>
+<s b="96" d="$" t="$"/>
+<s b="97" d="|" t="|"/>
+<s b="98" d="\" t="\"/>
+<s b="99" d="~" t="~"/>
+<s b="95" d="^" t="^"/>
+<s b="96" d="_" t="_"/>
+<s b="97" d="&amp;" t="&amp;"/> 
+<s b="98" d="@" t="@"/>
+<s b="105" d="[" t="["/>
+<s b="106" d="]" t="]"/>
+<s b="107" d="{" t="{"/>
+<s b="108" d="}" t="}"/>
+<s b="109" d="&lt;" t="&lt;"/>
+<s b="105" d="&gt;" t="&gt;"/>
+<s b="106" d="(" t="("/>
+<s b="107" d=")" t=")"/>
+<s b="108" d="&quot;" t="&quot;"/>
+<s b="109" d="`" t="`"/>
+<s b="105" d="&apos;" t="&apos;"/>
+<s b="9"  d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
+<s b="100" d="-" t="-"/>
+<s b="101" d=":" t=":"/>
+<s b="102" d=";" t=";"/>
+<s b="103" d="?" t="?"/>
+<s b="104" d="!" t="!"/>
+<s b="100" d="," t=","/>
+<s b="104" d="&#183;" t="."/>
+</group>
+</alphabet>
+<alphabet name="Chinese Pin Yin with combining tones (no chinese characters)">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<control d="Control" t="" b="8"/>
+<palette>European/Asian</palette>
+<train>training_pinyinC_CN.txt</train>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<paragraph d="&#182;" b="9"/>
+<group name="pin yin roman letters" b="0">
+<s d="&#97;" t="&#97;" b="10" />  <!-- a --> 
+<s d="b" t="b" b="11"/>
+<s d="c" t="c" b="12"/>
+<s d="d" t="d" b="13"/>
+<s  d="&#101;" t="&#101;" b="14" /> <!-- e -->
+<s d="f" t="f" b="15"/>
+<s d="g" t="g" b="16"/>
+<s d="h" t="h" b="17"/>
+<s  d="&#105;" t="&#105;" b="18" /> <!-- i -->
+<s d="j" t="j" b="19"/>
+<s d="k" t="k" b="20"/>
+<s d="l" t="l" b="21"/>
+<s d="m" t="m" b="22"/>
+<s d="n" t="n" b="23"/>
+<s  d="&#111;" t="&#111;" b="24" /> <!-- o -->
+<s d="p" t="p" b="25"/>
+<s d="q" t="q" b="26"/>
+<s d="r" t="r" b="27"/>
+<s d="s" t="s" b="28"/>
+<s d="t" t="t" b="29"/>
+<s d="&#117;" t="&#117;" b="30" /> <!-- u -->
+<s d="&#252;" t="&#252;" b="31" /> <!-- &#252; u: -->
+<s d="v" t="v" b="32"/>
+<s d="w" t="w" b="33"/>
+<s d="x" t="x" b="34"/>
+<s d="y" t="y" b="35"/>
+<s d="z" t="z" b="36"/>
+</group>
+<group name="combining diacritics" b="110">
+<s d="&#x25cc;&#x304;" t="&#x304;"  b="90"/> <!-- 1 --> 
+<s d="&#x25cc;&#x301;" t="&#x301;"  b="91"/> <!-- 2 --> 
+<s d="&#x25cc;&#x306;" t="&#x306;"  b="92"/> <!-- 3 --> 
+<s d="&#x25cc;&#x300;" t="&#x300;"  b="93"/> <!-- 4 --> 
+</group>
+<!-- <s d="&#x2C9;" t="&#x2C9;" />  1 -->
+<!-- <s d="&#x2CA;" t="&#x2CA;" />  2 -->
+<!-- <s d="&#x2C7;" t="&#x2C7;" />  3 -->
+<!-- <s d="&#x2CB;" t="&#x2CB;" />  4 -->
+<group name="Numbers" b="113">
+<s d="1" t="1" b="105" />
+<s d="2" t="2" b="106" />
+<s d="3" t="3" b="107" />
+<s d="4" t="4" b="108" />
+<s d="5" t="5" b="109" />
+<s d="6" t="6" b="105" />
+<s d="7" t="7" b="106" />
+<s d="8" t="8" b="107" />
+<s d="9" t="9" b="108" />
+<s d="0" t="0" b="109" />
+</group>
+<group name="Punctuation" b="112">
+<s b="90" d="%" t="%"/>
+<s b="91" d="*" t="*"/>
+<s b="92" d="+" t="+"/>
+<s b="93" d="=" t="="/>
+<s b="94" d="/" t="/"/>
+<s b="95" d="#" t="#"/>
+<s b="96" d="$" t="$"/>
+<s b="97" d="|" t="|"/>
+<s b="98" d="\" t="\"/>
+<s b="99" d="~" t="~"/>
+<s b="95" d="^" t="^"/>
+<s b="96" d="_" t="_"/>
+<s b="97" d="&amp;" t="&amp;"/> 
+<s b="98" d="@" t="@"/>
+<s b="105" d="[" t="["/>
+<s b="106" d="]" t="]"/>
+<s b="107" d="{" t="{"/>
+<s b="108" d="}" t="}"/>
+<s b="109" d="&lt;" t="&lt;"/>
+<s b="105" d="&gt;" t="&gt;"/>
+<s b="106" d="(" t="("/>
+<s b="107" d=")" t=")"/>
+<s b="108" d="&quot;" t="&quot;"/>
+<s b="109" d="`" t="`"/>
+<s b="105" d="&apos;" t="&apos;"/>
+<s b="9"  d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
+<s b="100" d="-" t="-"/>
+<s b="101" d=":" t=":"/>
+<s b="102" d=";" t=";"/>
+<s b="103" d="?" t="?"/>
+<s b="104" d="!" t="!"/>
+<s b="100" d="," t=","/>
+<s b="104" d="&#183;" t="."/>
+</group>
+</alphabet>
+<alphabet name="Chinese Pin Yin with no tones (no chinese characters)">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<control d="Control" t="" b="8"/>
+<palette>European/Asian</palette>
+<train>training_pinyinNT_CN.txt</train>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<paragraph d="&#182;" b="9"/>
+<group name="pin yin roman letters" b="0">
+<s d="&#97;" t="&#97;" b="10" />  <!-- a --> 
+<s d="b" t="b" b="11"/>
+<s d="c" t="c" b="12"/>
+<s d="d" t="d" b="13"/>
+<s d="&#101;" t="&#101;" b="14" /> <!-- e -->
+<s d="f" t="f" b="15"/>
+<s d="g" t="g" b="16"/>
+<s d="h" t="h" b="17"/>
+<s d="&#105;" t="&#105;" b="18" /> <!-- i -->
+<s d="j" t="j" b="19"/>
+<s d="k" t="k" b="20"/>
+<s d="l" t="l" b="21"/>
+<s d="m" t="m" b="22"/>
+<s d="n" t="n" b="23"/>
+<s d="&#111;" t="&#111;" b="24" /> <!-- o -->
+<s d="p" t="p" b="25"/>
+<s d="q" t="q" b="26"/>
+<s d="r" t="r" b="27"/>
+<s d="s" t="s" b="28"/>
+<s d="t" t="t" b="29"/>
+<s d="&#117;" t="&#117;" b="30" /> <!-- u -->
+<s d="&#252;" t="&#252;" b="31" /> <!-- &#252; u: -->
+<s d="v" t="v" b="32"/>
+<s d="w" t="w" b="33"/>
+<s d="x" t="x" b="34"/>
+<s d="y" t="y" b="35"/>
+<s d="z" t="z" b="36"/>
+</group>
+<group name="combining diacritics" b="110">
+<s d="&#x25cc;&#x304;" t="&#x304;"  b="90"/> <!-- 1 --> 
+<s d="&#x25cc;&#x301;" t="&#x301;"  b="91"/> <!-- 2 --> 
+<s d="&#x25cc;&#x306;" t="&#x306;"  b="92"/> <!-- 3 --> 
+<s d="&#x25cc;&#x300;" t="&#x300;"  b="93"/> <!-- 4 --> 
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1" b="105" />
+<s d="2" t="2" b="106" />
+<s d="3" t="3" b="107" />
+<s d="4" t="4" b="108" />
+<s d="5" t="5" b="109" />
+<s d="6" t="6" b="105" />
+<s d="7" t="7" b="106" />
+<s d="8" t="8" b="107" />
+<s d="9" t="9" b="108" />
+<s d="0" t="0" b="109" />
+</group>
+<group name="Punctuation" b="112">
+<s b="90" d="%" t="%"/>
+<s b="91" d="*" t="*"/>
+<s b="92" d="+" t="+"/>
+<s b="93" d="=" t="="/>
+<s b="94" d="/" t="/"/>
+<s b="95" d="#" t="#"/>
+<s b="96" d="$" t="$"/>
+<s b="97" d="|" t="|"/>
+<s b="98" d="\" t="\"/>
+<s b="99" d="~" t="~"/>
+<s b="95" d="^" t="^"/>
+<s b="96" d="_" t="_"/>
+<s b="97" d="&amp;" t="&amp;"/> 
+<s b="98" d="@" t="@"/>
+<s b="105" d="[" t="["/>
+<s b="106" d="]" t="]"/>
+<s b="107" d="{" t="{"/>
+<s b="108" d="}" t="}"/>
+<s b="109" d="&lt;" t="&lt;"/>
+<s b="105" d="&gt;" t="&gt;"/>
+<s b="106" d="(" t="("/>
+<s b="107" d=")" t=")"/>
+<s b="108" d="&quot;" t="&quot;"/>
+<s b="109" d="`" t="`"/>
+<s b="105" d="&apos;" t="&apos;"/>
+<s b="9"  d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
+<s b="100" d="-" t="-"/>
+<s b="101" d=":" t=":"/>
+<s b="102" d=";" t=";"/>
+<s b="103" d="?" t="?"/>
+<s b="104" d="!" t="!"/>
+<s b="100" d="," t=","/>
+<s b="104" d="&#183;" t="."/>
+</group>
+</alphabet>
+</alphabets>

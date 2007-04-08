@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Cherokee">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>European/Asian</palette>
+<train>training_cherokee_US.txt</train>
+<paragraph d="&#182;" b="9"/>
+<space d="&#x25a1;" t=" " b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="A" b="190" >
+<s d="&#x13A0;" t="&#x13A0;" note=" CHEROKEE LETTER A  "/>
+<s d="&#x13A1;" t="&#x13A1;" note=" CHEROKEE LETTER E  "/>
+<s d="&#x13A2;" t="&#x13A2;" note=" CHEROKEE LETTER I  "/>
+<s d="&#x13A3;" t="&#x13A3;" note=" CHEROKEE LETTER O  "/>
+<s d="&#x13A4;" t="&#x13A4;" note=" CHEROKEE LETTER U  "/>
+<s d="&#x13A5;" t="&#x13A5;" note=" CHEROKEE LETTER V  "/>
+</group>
+<group name="GA" b="191" >
+<s d="&#x13A6;" t="&#x13A6;" note=" CHEROKEE LETTER GA  "/>
+<s d="&#x13A7;" t="&#x13A7;" note=" CHEROKEE LETTER KA  "/>
+<s d="&#x13A8;" t="&#x13A8;" note=" CHEROKEE LETTER GE  "/>
+<s d="&#x13A9;" t="&#x13A9;" note=" CHEROKEE LETTER GI  "/>
+<s d="&#x13AA;" t="&#x13AA;" note=" CHEROKEE LETTER GO  "/>
+<s d="&#x13AB;" t="&#x13AB;" note=" CHEROKEE LETTER GU  "/>
+<s d="&#x13AC;" t="&#x13AC;" note=" CHEROKEE LETTER GV  "/>
+</group>
+<group name="HA" b="192" >
+<s d="&#x13AD;" t="&#x13AD;" note=" CHEROKEE LETTER HA  "/>
+<s d="&#x13AE;" t="&#x13AE;" note=" CHEROKEE LETTER HE  "/>
+<s d="&#x13AF;" t="&#x13AF;" note=" CHEROKEE LETTER HI  "/>
+<s d="&#x13B0;" t="&#x13B0;" note=" CHEROKEE LETTER HO  "/>
+<s d="&#x13B1;" t="&#x13B1;" note=" CHEROKEE LETTER HU  "/>
+<s d="&#x13B2;" t="&#x13B2;" note=" CHEROKEE LETTER HV  "/>
+</group>
+<group name="LA" b="193" >
+<s d="&#x13B3;" t="&#x13B3;" note=" CHEROKEE LETTER LA  "/>
+<s d="&#x13B4;" t="&#x13B4;" note=" CHEROKEE LETTER LE  "/>
+<s d="&#x13B5;" t="&#x13B5;" note=" CHEROKEE LETTER LI  "/>
+<s d="&#x13B6;" t="&#x13B6;" note=" CHEROKEE LETTER LO  "/>
+<s d="&#x13B7;" t="&#x13B7;" note=" CHEROKEE LETTER LU  "/>
+<s d="&#x13B8;" t="&#x13B8;" note=" CHEROKEE LETTER LV  "/>
+</group>
+<group name="MA" b="194" >
+<s d="&#x13B9;" t="&#x13B9;" note=" CHEROKEE LETTER MA  "/>
+<s d="&#x13BA;" t="&#x13BA;" note=" CHEROKEE LETTER ME  "/>
+<s d="&#x13BB;" t="&#x13BB;" note=" CHEROKEE LETTER MI  "/>
+<s d="&#x13BC;" t="&#x13BC;" note=" CHEROKEE LETTER MO  "/>
+<s d="&#x13BD;" t="&#x13BD;" note=" CHEROKEE LETTER MU  "/>
+</group>
+<group name="NA" b="195" >
+<s d="&#x13BE;" t="&#x13BE;" note=" CHEROKEE LETTER NA  "/>
+<s d="&#x13BF;" t="&#x13BF;" note=" CHEROKEE LETTER HNA  "/>
+<s d="&#x13C0;" t="&#x13C0;" note=" CHEROKEE LETTER NAH  "/>
+<s d="&#x13C1;" t="&#x13C1;" note=" CHEROKEE LETTER NE  "/>
+<s d="&#x13C2;" t="&#x13C2;" note=" CHEROKEE LETTER NI  "/>
+<s d="&#x13C3;" t="&#x13C3;" note=" CHEROKEE LETTER NO  "/>
+<s d="&#x13C4;" t="&#x13C4;" note=" CHEROKEE LETTER NU  "/>
+<s d="&#x13C5;" t="&#x13C5;" note=" CHEROKEE LETTER NV  "/>
+</group>
+<group name="QUA" b="196" >
+<s d="&#x13C6;" t="&#x13C6;" note=" CHEROKEE LETTER QUA  "/>
+<s d="&#x13C7;" t="&#x13C7;" note=" CHEROKEE LETTER QUE  "/>
+<s d="&#x13C8;" t="&#x13C8;" note=" CHEROKEE LETTER QUI  "/>
+<s d="&#x13C9;" t="&#x13C9;" note=" CHEROKEE LETTER QUO  "/>
+<s d="&#x13CA;" t="&#x13CA;" note=" CHEROKEE LETTER QUU  "/>
+<s d="&#x13CB;" t="&#x13CB;" note=" CHEROKEE LETTER QUV  "/>
+</group>
+<group name="SA" b="197" >
+<s d="&#x13CC;" t="&#x13CC;" note=" CHEROKEE LETTER SA  "/>
+<s d="&#x13CD;" t="&#x13CD;" note=" CHEROKEE LETTER S  "/>
+<s d="&#x13CE;" t="&#x13CE;" note=" CHEROKEE LETTER SE  "/>
+<s d="&#x13CF;" t="&#x13CF;" note=" CHEROKEE LETTER SI  "/>
+<s d="&#x13D0;" t="&#x13D0;" note=" CHEROKEE LETTER SO  "/>
+<s d="&#x13D1;" t="&#x13D1;" note=" CHEROKEE LETTER SU  "/>
+<s d="&#x13D2;" t="&#x13D2;" note=" CHEROKEE LETTER SV  "/>
+</group>
+<group name="DA" b="198" >
+<s d="&#x13D3;" t="&#x13D3;" note=" CHEROKEE LETTER DA  "/>
+<s d="&#x13D4;" t="&#x13D4;" note=" CHEROKEE LETTER TA  "/>
+<s d="&#x13D5;" t="&#x13D5;" note=" CHEROKEE LETTER DE  "/>
+<s d="&#x13D6;" t="&#x13D6;" note=" CHEROKEE LETTER TE  "/>
+<s d="&#x13D7;" t="&#x13D7;" note=" CHEROKEE LETTER DI  "/>
+<s d="&#x13D8;" t="&#x13D8;" note=" CHEROKEE LETTER TI  "/>
+<s d="&#x13D9;" t="&#x13D9;" note=" CHEROKEE LETTER DO  "/>
+<s d="&#x13DA;" t="&#x13DA;" note=" CHEROKEE LETTER DU  "/>
+<s d="&#x13DB;" t="&#x13DB;" note=" CHEROKEE LETTER DV  "/>
+</group>
+<group name="DL" b="199" >
+<s d="&#x13DC;" t="&#x13DC;" note=" CHEROKEE LETTER DLA  "/>
+<s d="&#x13DD;" t="&#x13DD;" note=" CHEROKEE LETTER TLA  "/>
+<s d="&#x13DE;" t="&#x13DE;" note=" CHEROKEE LETTER TLE  "/>
+<s d="&#x13DF;" t="&#x13DF;" note=" CHEROKEE LETTER TLI  "/>
+<s d="&#x13E0;" t="&#x13E0;" note=" CHEROKEE LETTER TLO  "/>
+<s d="&#x13E1;" t="&#x13E1;" note=" CHEROKEE LETTER TLU  "/>
+<s d="&#x13E2;" t="&#x13E2;" note=" CHEROKEE LETTER TLV  "/>
+</group>
+<group name="TS" b="190" >
+<s d="&#x13E3;" t="&#x13E3;" note=" CHEROKEE LETTER TSA  "/>
+<s d="&#x13E4;" t="&#x13E4;" note=" CHEROKEE LETTER TSE  "/>
+<s d="&#x13E5;" t="&#x13E5;" note=" CHEROKEE LETTER TSI  "/>
+<s d="&#x13E6;" t="&#x13E6;" note=" CHEROKEE LETTER TSO  "/>
+<s d="&#x13E7;" t="&#x13E7;" note=" CHEROKEE LETTER TSU  "/>
+<s d="&#x13E8;" t="&#x13E8;" note=" CHEROKEE LETTER TSV  "/>
+</group>
+<group name="WA" b="191" >
+<s d="&#x13E9;" t="&#x13E9;" note=" CHEROKEE LETTER WA  "/>
+<s d="&#x13EA;" t="&#x13EA;" note=" CHEROKEE LETTER WE  "/>
+<s d="&#x13EB;" t="&#x13EB;" note=" CHEROKEE LETTER WI  "/>
+<s d="&#x13EC;" t="&#x13EC;" note=" CHEROKEE LETTER WO  "/>
+<s d="&#x13ED;" t="&#x13ED;" note=" CHEROKEE LETTER WU  "/>
+<s d="&#x13EE;" t="&#x13EE;" note=" CHEROKEE LETTER WV  "/>
+</group>
+<group name="YA" b="192" >
+<s d="&#x13EF;" t="&#x13EF;" note=" CHEROKEE LETTER YA  "/>
+<s d="&#x13F0;" t="&#x13F0;" note=" CHEROKEE LETTER YE  "/>
+<s d="&#x13F1;" t="&#x13F1;" note=" CHEROKEE LETTER YI  "/>
+<s d="&#x13F2;" t="&#x13F2;" note=" CHEROKEE LETTER YO  "/>
+<s d="&#x13F3;" t="&#x13F3;" note=" CHEROKEE LETTER YU  "/>
+<s d="&#x13F4;" t="&#x13F4;" note=" CHEROKEE LETTER YV "/>
+</group>
+</alphabet>
+</alphabets>
+
+	

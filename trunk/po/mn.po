@@ -1,0 +1,548 @@
+# translation of mn.po to Mongolian
+# translation of dasher.gnome-2-14.mn.po to mongolian
+# translation of dasher.HEAD.po to
+# Mongolian translation of dasher.
+# Copyright (C) 2004
+# This file is distributed under the same license as the PACKAGE package.
+# Sukhbaatar Dulmandakh <netman@yahoo.com>, 2004.
+# oyunerdene <oyunsss@yahoo.com>, 2006.
+# Badral <badral@openmn.org>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: mn\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-08-14 22:28+0200\n"
+"PO-Revision-Date: 2006-08-14 22:33+0200\n"
+"Last-Translator: Badral <badral@openmn.org>\n"
+"Language-Team: Mongolian <openmn-translation@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);X-Generator: KBabel 1.10.2\n"
+"X-Generator: KBabel 1.10.2\n"
+
+#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/Menu.cc:439
+#: ../Src/Gtk2/dasher.glade.h:34 ../Src/Gtk2/dashergpe.glade.h:5
+#: ../Src/Gtk2/dashermaemo.glade.h:18
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:15
+msgid "Dasher"
+msgstr "Дашэр"
+
+#: ../Data/dasher.desktop.in.in.h:2
+msgid "Predictive text entry"
+msgstr "Текстийг урьдчилан оруулах"
+
+#. TODO should probably pop up a Gtk error message and think about how to do i18n:
+#: ../Src/DasherCore/SocketInput.cpp:34
+msgid "Dasher socket input: failed to launch reader thread."
+msgstr "дашер сокет оролт:уншигчийг эхлүүлэхэд алдаа гарлаа."
+
+#: ../Src/Gtk2/Menu.cc:62 ../Src/Gtk2/Menu.cc:118 ../Src/Gtk2/Menu.cc:176
+#: ../Src/Gtk2/Menu.cc:219 ../Src/Gtk2/dasher.glade.h:59
+#: ../Src/Gtk2/dashergpe.glade.h:14 ../Src/Gtk2/dashermaemo.glade.h:29
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:25
+msgid "Select File"
+msgstr "Файлыг сонго"
+
+#: ../Src/Gtk2/Menu.cc:302
+#, c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"та өөрчлөлтөө %s-д хадгалах уу?\n"
+"\n"
+"хадгалахгүй бол таны өөрчлөлт алдагдана."
+
+#: ../Src/Gtk2/Menu.cc:305
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Та өөрчлөлтөө %s-д хадгалах уу?\n"
+"\n"
+"Хэрвээ хадгалахгүй бол таны өөрчлөлт алдагдана."
+
+#: ../Src/Gtk2/Menu.cc:308
+msgid "Don't save"
+msgstr "хадгалахгүй"
+
+#: ../Src/Gtk2/Menu.cc:308
+msgid "Don't quit"
+msgstr "гарахгүй"
+
+#: ../Src/Gtk2/Menu.cc:308
+msgid "Save and quit"
+msgstr "хадгалаад гар"
+
+#: ../Src/Gtk2/Menu.cc:426 ../Src/Gtk2/Menu.cc:442
+msgid "Dasher is a predictive text entry application"
+msgstr "Дашер нь хэрэглээний урьдчилсан текст"
+
+#: ../Src/Gtk2/Menu.cc:431 ../Src/Gtk2/Menu.cc:437
+msgid "translator-credits"
+msgstr "орчуулагчийн-нэр"
+
+#: ../Src/Gtk2/Preferences.cpp:822 ../Src/Gtk2/Preferences.cpp:824
+msgid "Training Dasher... please wait"
+msgstr "Дашэр бэлтгэж байна, түр хүлээнэ үү..."
+
+#: ../Src/Gtk2/dasher.glade.h:1
+msgid "<b>Actions:</b>"
+msgstr "<b>Үйлдэл:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:2 ../Src/Gtk2/dashermaemo.glade.h:4
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:1
+msgid "<b>Adaptation:</b>"
+msgstr "<b>Хандлага:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:3 ../Src/Gtk2/dashermaemo.glade.h:5
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:2
+msgid "<b>Alphabet Selection:</b>"
+msgstr "<b>Цагаан толгойн сонголт:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:4
+msgid "<b>Appearance Options:</b>"
+msgstr "<b>Харагдалт тохиргоо:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:5
+msgid "<b>Application Options:</b>"
+msgstr "<b>Програмын тохиргоо:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:6
+msgid "<b>Application Style:</b>"
+msgstr "<b>Програмын төрөл:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:7
+msgid "<b>Colour Scheme:</b>"
+msgstr "<b>Өнгөний схем:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:8
+msgid "<b>Control Style:</b>"
+msgstr "<b>Удирдах загвар:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:9
+msgid "<b>Dasher Font:</b>"
+msgstr "<b>Дашэр фонт:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:10
+msgid "<b>Direction:</b>"
+msgstr "<b>Чиглэл:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:11
+msgid "<b>Editor Font:</b>"
+msgstr "<b>Боловсруулагчийн фонт:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:12
+msgid "<b>Input Device:</b>"
+msgstr "<b>Оролтын төхөөрөмж:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashermaemo.glade.h:7
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:3
+msgid "<b>Language Model:</b>"
+msgstr "<b>Хэлний горим:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:14
+msgid "<b>Prediction:</b>"
+msgstr "<b>Таамаглал:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:9
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:5
+msgid "<b>Smoothing:</b>"
+msgstr "<b>Гөлийлгөлт:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:10
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:6
+msgid "<b>Speed:</b>"
+msgstr "<b>Хурд:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:17
+msgid "<b>Starting And Stopping:</b>"
+msgstr "<b>Эхлүүлэх ба зогсоох:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:18 ../Src/Gtk2/dashermaemo.glade.h:11
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:7
+msgid "Adapt speed automatically"
+msgstr "Хурдыг автоматаар тохируулах"
+
+#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:13
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:9
+msgid "Alphabet Default"
+msgstr "үндсэн Цагаан толгойн"
+
+#: ../Src/Gtk2/dasher.glade.h:20
+msgid "Alphabet:"
+msgstr "Цагаан толгой:"
+
+#: ../Src/Gtk2/dasher.glade.h:21
+msgid "Appearance"
+msgstr "Харагдац"
+
+#: ../Src/Gtk2/dasher.glade.h:22
+msgid "Application"
+msgstr "х.Програм"
+
+#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashermaemo.glade.h:14
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:10
+msgid "Bottom to Top"
+msgstr "Доороос дээш"
+
+#: ../Src/Gtk2/dasher.glade.h:24
+msgid ""
+"Centre circle\n"
+"Two box"
+msgstr ""
+"Үндсэн тойрог\n"
+"Хоёр хайрцаг"
+
+#: ../Src/Gtk2/dasher.glade.h:26
+msgid "Composition"
+msgstr "Тохиргоо"
+
+#: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashermaemo.glade.h:15
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:11
+msgid "Control"
+msgstr "Удирдах"
+
+#: ../Src/Gtk2/dasher.glade.h:28 ../Src/Gtk2/dashergpe.glade.h:1
+msgid "Control mode"
+msgstr "Удирдлагын горим"
+
+#: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:2
+msgid "Copy"
+msgstr "Хуулах"
+
+#: ../Src/Gtk2/dasher.glade.h:30 ../Src/Gtk2/dashergpe.glade.h:3
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:12
+msgid "Copy _All"
+msgstr "_Бүгдийг хуулах"
+
+#: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashermaemo.glade.h:16
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:13
+msgid "Custom colour scheme:"
+msgstr "Хэвшмэл өнгийн тогтолцоо:"
+
+#: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashermaemo.glade.h:17
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:14
+msgid "Custom:"
+msgstr "Хэвшмэл:"
+
+#: ../Src/Gtk2/dasher.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:4
+msgid "Cut"
+msgstr "Хайчлах"
+
+#: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:19
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:16
+msgid "Dasher Preferences"
+msgstr "Дашэрийн тохиргоо"
+
+#: ../Src/Gtk2/dasher.glade.h:36
+msgid "Dasher _Tutorial"
+msgstr "Дашэрийн _гарын авлага"
+
+#: ../Src/Gtk2/dasher.glade.h:37
+msgid "Direct entry"
+msgstr "Шууд нэвтрэх"
+
+#: ../Src/Gtk2/dasher.glade.h:38
+msgid "Dock application window"
+msgstr "Програмын цонхыг аргамжих"
+
+#: ../Src/Gtk2/dasher.glade.h:39
+msgid "Draw box outlines"
+msgstr "Хайрцагны хүрээг зурах"
+
+#: ../Src/Gtk2/dasher.glade.h:40
+msgid "Draw line between crosshairs and mouse"
+msgstr "Огтлолцол утас ба хулганы заагч хоёрын хоорондын шулуун"
+
+#: ../Src/Gtk2/dasher.glade.h:41
+msgid "Full Screen"
+msgstr "Дэлгэц дүүрэн"
+
+#: ../Src/Gtk2/dasher.glade.h:42
+msgid "Increase line thickness"
+msgstr "Мөрийн зузааныг нэмэх"
+
+#: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashermaemo.glade.h:21
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
+msgid "Japanese"
+msgstr "япон хэл"
+
+#: ../Src/Gtk2/dasher.glade.h:44
+msgid "Language"
+msgstr "Хэл"
+
+#: ../Src/Gtk2/dasher.glade.h:45 ../Src/Gtk2/dashermaemo.glade.h:22
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:18
+msgid "Language model adapts as you write."
+msgstr "таны бичих хэлний горим."
+
+#: ../Src/Gtk2/dasher.glade.h:46
+msgid "Large font "
+msgstr "Том фонт"
+
+#: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:23
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:20
+msgid "Left to Right"
+msgstr "Зүүнээс баруун"
+
+#: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashermaemo.glade.h:24
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:21
+msgid "Mixture model (PPM/dictionary)"
+msgstr "холимог горим (PPM/толь бичиг)"
+
+#: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:8
+msgid "New file"
+msgstr "Шинэ файл"
+
+#: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:10
+msgid "Open file"
+msgstr "Файлыг нээх"
+
+#: ../Src/Gtk2/dasher.glade.h:51
+msgid "Options"
+msgstr "Сонголт"
+
+#: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:11
+msgid "Paste"
+msgstr "Хувилах"
+
+#: ../Src/Gtk2/dasher.glade.h:53
+msgid "Pause outside of canvas"
+msgstr "Зургийн гаднахыг зогсоох"
+
+#: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashermaemo.glade.h:26
+msgid "Please Wait..."
+msgstr "Түр хүлээнэ үү..."
+
+#: ../Src/Gtk2/dasher.glade.h:55
+msgid "Pr_eferences"
+msgstr "_Тохиргоонууд"
+
+#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashermaemo.glade.h:28
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
+msgid "Right to Left"
+msgstr "Баруунаас зүүн"
+
+#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:12
+msgid "Save file"
+msgstr "Файлыг хадгалах"
+
+#: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:13
+msgid "Save file as"
+msgstr "Файлыг нэрээр хадгалах"
+
+#: ../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:15
+#: ../Src/Gtk2/dashermaemo.glade.h:30
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:26
+msgid "Select Font"
+msgstr "Фонтоо сонго"
+
+#: ../Src/Gtk2/dasher.glade.h:61
+msgid "Show mouse position"
+msgstr "Хулганы байрлалыг харуулах"
+
+#: ../Src/Gtk2/dasher.glade.h:62
+msgid "Show speed slider"
+msgstr "Хурд зохицуулагчийг харуулах"
+
+#: ../Src/Gtk2/dasher.glade.h:63
+msgid "Show toolbar"
+msgstr "Хэрэгслийн мөрийг харуулах"
+
+#: ../Src/Gtk2/dasher.glade.h:64
+msgid "Small font"
+msgstr "Жижиг фонт"
+
+#: ../Src/Gtk2/dasher.glade.h:65
+msgid "Speed:"
+msgstr "Хурд:"
+
+#: ../Src/Gtk2/dasher.glade.h:66
+msgid "Stand-alone"
+msgstr "Дангаараа байрлах"
+
+#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashermaemo.glade.h:31
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
+msgid "Standard letter-based PPM"
+msgstr "PPM-д суурьлагдсан стандарт захиа"
+
+#: ../Src/Gtk2/dasher.glade.h:68
+msgid "Start on left mouse button"
+msgstr "Хулганы зүүн товчоор эхлэх"
+
+#: ../Src/Gtk2/dasher.glade.h:69
+msgid "Start on space bar"
+msgstr "space bar-р эхлэх"
+
+#: ../Src/Gtk2/dasher.glade.h:70
+msgid "Start with mouse position:"
+msgstr "Хулганы байрлалaaр эхлэх:"
+
+#: ../Src/Gtk2/dasher.glade.h:71
+msgid "Timestamp new files"
+msgstr "Шинэ файлд цагийн тамга харуулах"
+
+#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashermaemo.glade.h:32
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
+msgid "Top to Bottom"
+msgstr "Дээрээс доош"
+
+#: ../Src/Gtk2/dasher.glade.h:73
+msgid ""
+"Use this control to adjust the relative sizes of the \n"
+"letter boxes. Note that selecting high values will slow\n"
+"your writing speed."
+msgstr ""
+"Үүгээр та үсгийн талбарын харьцангүй хэмжээг\n"
+"тааруулна. Та урвуу хамааралтайг анхаарна уу\n"
+"Өөр хэлбэл. их утганд бичилтын хурд багасна."
+
+#: ../Src/Gtk2/dasher.glade.h:76
+msgid "Very large font"
+msgstr "Маш том фонт"
+
+#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashermaemo.glade.h:34
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
+msgid "Word-based model"
+msgstr "үгэнд суурилсан горим"
+
+#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:17
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:32
+msgid "_About"
+msgstr "_Тухай"
+
+#: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashergpe.glade.h:18
+msgid "_Append to file"
+msgstr "Файлд _залгах"
+
+#: ../Src/Gtk2/dasher.glade.h:80
+msgid "_Contents"
+msgstr "_Агуулгууд"
+
+#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:21
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
+msgid "_Edit"
+msgstr "_Засварлах"
+
+#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:23
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:37
+msgid "_File"
+msgstr "_Файл"
+
+#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:24
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:38
+msgid "_Help"
+msgstr "_Тусламж"
+
+#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:25
+msgid "_Import Training Text"
+msgstr "_Бэлтгэх текст оруулах"
+
+#: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:28
+#: ../Src/Gtk2/dashermaemo.glade.h:35
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:41
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr "абвгдеёжзик АБВГДЕЁЖЗИК"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:115
+#, c-format
+msgid "Unable to initialize speech support\n"
+msgstr "Ярианы дэмжлэгийг тодорхойлох боломжгүй байна\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:138
+msgid "Unable to initialize voices\n"
+msgstr "Дууг тодорхойлох боломжгүй байна\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:150
+msgid "Warning: unable to set speech parameters\n"
+msgstr "Сануулга: Ярианы параметрийг тогтоох боломжгүй\n"
+
+#: ../Src/Gtk2/dashergpe.glade.h:6
+msgid "Enter text into other windows"
+msgstr "Бусад цонх руу текст оруулах"
+
+#: ../Src/Gtk2/dashergpe.glade.h:7
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:19
+msgid "Large"
+msgstr "Том"
+
+#: ../Src/Gtk2/dashergpe.glade.h:9
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:22
+msgid "Normal"
+msgstr "Хэвийн"
+
+#: ../Src/Gtk2/dashergpe.glade.h:16
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:29
+msgid "Very Large"
+msgstr "Маш том"
+
+#: ../Src/Gtk2/dashergpe.glade.h:19
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:33
+msgid "_Dasher Font"
+msgstr "_Дашэрийн үсгийн фонт"
+
+#: ../Src/Gtk2/dashergpe.glade.h:20
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:34
+msgid "_Dasher Font Size"
+msgstr "_Дашэрийн бичгийн хэмжээ"
+
+#: ../Src/Gtk2/dashergpe.glade.h:22
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:36
+msgid "_Edit Font"
+msgstr "_Фонт засварлах"
+
+#: ../Src/Gtk2/dashergpe.glade.h:26
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:39
+msgid "_Options"
+msgstr "_сонголт"
+
+#: ../Src/Gtk2/dashergpe.glade.h:27
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:40
+msgid "_Reset fonts"
+msgstr "Фонт дахин _тогтоох"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:1
+msgid "\n"
+msgstr "\n"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:3
+msgid "(Message Placeholder - no need to translate)"
+msgstr "(Мессэжний Байр хадгалагч - орчуулах шаардлагагүй)"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:6
+msgid "<b>Display Size:</b>"
+msgstr "<b>Харуулах хэмжээ:</b>"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:8
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:4
+msgid "<b>Orientation:</b>"
+msgstr "<b>Хандлага:</b>"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:12
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:8
+msgid "Alphabet"
+msgstr "Цагаан толгой"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:20
+msgid "Enlarge input window"
+msgstr "Оролтын цонхыг томсгох"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:25
+msgid "P"
+msgstr "P"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:27
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:23
+msgid "Prediction"
+msgstr "таавар"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:33
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:30
+msgid "View"
+msgstr "Үзэмж"
+

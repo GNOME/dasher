@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Gujarati with punctuation and numerals">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>Default</palette>
+<train>training_Gujarati_IN.txt</train>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="Gujarati letters" b="0">
+<s d="&#x0AD0;" t="&#x0AD0;" note="GUJARATI OM " />
+<s d="&#x0A85;" t="&#x0A85;" note="GUJARATI LETTER A " />
+<s d="&#x0A86;" t="&#x0A86;" note="GUJARATI LETTER AA " />
+<s d="&#x0A87;" t="&#x0A87;" note="GUJARATI LETTER I " />
+<s d="&#x0A88;" t="&#x0A88;" note="GUJARATI LETTER II " />
+<s d="&#x0A89;" t="&#x0A89;" note="GUJARATI LETTER U " />
+<s d="&#x0A8A;" t="&#x0A8A;" note="GUJARATI LETTER UU " />
+<s d="&#x0A8B;" t="&#x0A8B;" note="GUJARATI LETTER VOCALIC R " />
+<s d="&#x0AE0;" t="&#x0AE0;" note="GUJARATI LETTER VOCALIC RR " />
+<s d="&#x0A8C;" t="&#x0A8C;" note="GUJARATI LETTER VOCALIC L " />
+<s d="&#x0AE1;" t="&#x0AE1;" note="GUJARATI LETTER VOCALIC LL " />
+<s d="&#x0A8D;" t="&#x0A8D;" note="GUJARATI VOWEL CANDRA E " />
+<s d="&#x0A8F;" t="&#x0A8F;" note="GUJARATI LETTER E " />
+<s d="&#x0A90;" t="&#x0A90;" note="GUJARATI LETTER AI " />
+<s d="&#x0A91;" t="&#x0A91;" note="GUJARATI VOWEL CANDRA O " />
+<s d="&#x0A93;" t="&#x0A93;" note="GUJARATI LETTER O " />
+<s d="&#x0A94;" t="&#x0A94;" note="GUJARATI LETTER AU " />
+<s d="&#x0A95;" t="&#x0A95;" note="GUJARATI LETTER KA " />
+<s d="&#x0A96;" t="&#x0A96;" note="GUJARATI LETTER KHA " />
+<s d="&#x0A97;" t="&#x0A97;" note="GUJARATI LETTER GA " />
+<s d="&#x0A98;" t="&#x0A98;" note="GUJARATI LETTER GHA " />
+<s d="&#x0A99;" t="&#x0A99;" note="GUJARATI LETTER NGA " />
+<s d="&#x0A9A;" t="&#x0A9A;" note="GUJARATI LETTER CA " />
+<s d="&#x0A9B;" t="&#x0A9B;" note="GUJARATI LETTER CHA " />
+<s d="&#x0A9C;" t="&#x0A9C;" note="GUJARATI LETTER JA " />
+<s d="&#x0A9D;" t="&#x0A9D;" note="GUJARATI LETTER JHA " />
+<s d="&#x0A9E;" t="&#x0A9E;" note="GUJARATI LETTER NYA " />
+<s d="&#x0A9F;" t="&#x0A9F;" note="GUJARATI LETTER TTA " />
+<s d="&#x0AA0;" t="&#x0AA0;" note="GUJARATI LETTER TTHA " />
+<s d="&#x0AA1;" t="&#x0AA1;" note="GUJARATI LETTER DDA " />
+<s d="&#x0AA2;" t="&#x0AA2;" note="GUJARATI LETTER DDHA " />
+<s d="&#x0AA3;" t="&#x0AA3;" note="GUJARATI LETTER NNA " />
+<s d="&#x0AA4;" t="&#x0AA4;" note="GUJARATI LETTER TA " />
+<s d="&#x0AA5;" t="&#x0AA5;" note="GUJARATI LETTER THA " />
+<s d="&#x0AA6;" t="&#x0AA6;" note="GUJARATI LETTER DA " />
+<s d="&#x0AA7;" t="&#x0AA7;" note="GUJARATI LETTER DHA " />
+<s d="&#x0AA8;" t="&#x0AA8;" note="GUJARATI LETTER NA " />
+<s d="&#x0AAA;" t="&#x0AAA;" note="GUJARATI LETTER PA " />
+<s d="&#x0AAB;" t="&#x0AAB;" note="GUJARATI LETTER PHA " />
+<s d="&#x0AAC;" t="&#x0AAC;" note="GUJARATI LETTER BA " />
+<s d="&#x0AAD;" t="&#x0AAD;" note="GUJARATI LETTER BHA " />
+<s d="&#x0AAE;" t="&#x0AAE;" note="GUJARATI LETTER MA " />
+<s d="&#x0AAF;" t="&#x0AAF;" note="GUJARATI LETTER YA " />
+<s d="&#x0AB0;" t="&#x0AB0;" note="GUJARATI LETTER RA " />
+<s d="&#x0AB2;" t="&#x0AB2;" note="GUJARATI LETTER LA " />
+<s d="&#x0AB3;" t="&#x0AB3;" note="GUJARATI LETTER LLA " />
+<s d="&#x0AB5;" t="&#x0AB5;" note="GUJARATI LETTER VA " />
+<s d="&#x0AB6;" t="&#x0AB6;" note="GUJARATI LETTER SHA " />
+<s d="&#x0AB7;" t="&#x0AB7;" note="GUJARATI LETTER SSA " />
+<s d="&#x0AB8;" t="&#x0AB8;" note="GUJARATI LETTER SA " />
+<s d="&#x0AB9;" t="&#x0AB9;" note="GUJARATI LETTER HA " />
+<s d="&#x0ABD;" t="&#x0ABD;" note="GUJARATI SIGN AVAGRAHA " />
+</group>
+<group name="vowel signs and other marks"  b="111">
+<s d="&#x25cc;&#x0ABE;" t="&#x0ABE;" note="GUJARATI VOWEL SIGN AA " />
+<s d="&#x25cc;&#x0ABF;" t="&#x0ABF;" note="GUJARATI VOWEL SIGN I " />
+<s d="&#x25cc;&#x0AC0;" t="&#x0AC0;" note="GUJARATI VOWEL SIGN II " />
+<s d="&#x25cc;&#x0AC1;" t="&#x0AC1;" note="GUJARATI VOWEL SIGN U " />
+<s d="&#x25cc;&#x0AC2;" t="&#x0AC2;" note="GUJARATI VOWEL SIGN UU " />
+<s d="&#x25cc;&#x0AC3;" t="&#x0AC3;" note="GUJARATI VOWEL SIGN VOCALIC R " />
+<s d="&#x25cc;&#x0AC4;" t="&#x0AC4;" note="GUJARATI VOWEL SIGN VOCALIC RR " />
+<s d="&#x25cc;&#x0AE2;" t="&#x0AE2;" note="GUJARATI VOWEL SIGN VOCALIC L " />
+<s d="&#x25cc;&#x0AE3;" t="&#x0AE3;" note="GUJARATI VOWEL SIGN VOCALIC LL " />
+<s d="&#x25cc;&#x0AC5;" t="&#x0AC5;" note="GUJARATI VOWEL SIGN CANDRA E " />
+<s d="&#x25cc;&#x0AC7;" t="&#x0AC7;" note="GUJARATI VOWEL SIGN E " />
+<s d="&#x25cc;&#x0AC8;" t="&#x0AC8;" note="GUJARATI VOWEL SIGN AI " />
+<s d="&#x25cc;&#x0AC9;" t="&#x0AC9;" note="GUJARATI VOWEL SIGN CANDRA O " />
+<s d="&#x25cc;&#x0ACB;" t="&#x0ACB;" note="GUJARATI VOWEL SIGN O " />
+<s d="&#x25cc;&#x0ACC;" t="&#x0ACC;" note="GUJARATI VOWEL SIGN AU " />
+<s d="&#x25cc;&#x0ACD;" t="&#x0ACD;" note="GUJARATI SIGN VIRAMA " />
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1"/>
+<s d="2" t="2"/>
+<s d="3" t="3"/>
+<s d="4" t="4"/>
+<s d="5" t="5"/>
+<s d="6" t="6"/>
+<s d="7" t="7"/>
+<s d="8" t="8"/>
+<s d="9" t="9"/>
+<s d="0" t="0"/>
+</group>
+<group name="Punctuation" b="112">
+<s d="%" t="%"/>
+<s d="*" t="*"/>
+<s d="+" t="+"/>
+<s d="=" t="="/>
+<s d="/" t="/"/>
+<s d="#" t="#"/>
+<s d="$" t="$"/>
+<s d="|" t="|"/>
+<s d="\" t="\"/>
+<s d="~" t="~"/>
+<s d="^" t="^"/>
+<s d="_" t="_"/>
+<s d="&amp;" t="&amp;"/>
+<s d="@" t="@"/>
+<s d="[" t="["/>
+<s d="]" t="]"/>
+<s d="{" t="{"/>
+<s d="}" t="}"/>
+<s d="&lt;" t="&lt;"/>
+<s d="&gt;" t="&gt;"/>
+<s d="(" t="("/>
+<s d=")" t=")"/>
+<s d="&quot;" t="&quot;"/>
+<s d="`" t="`"/>
+<s d="&apos;" t="&apos;"/>
+<s b="9"  d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
+<s d="-" t="-"/>
+<s d=":" t=":"/>
+<s d=";" t=";"/>
+<s d="?" t="?"/>
+<s d="!" t="!"/>
+<s d="," t=","/>
+<s d="." t="."/>
+</group>
+</alphabet>
+</alphabets>

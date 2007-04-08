@@ -1,0 +1,28 @@
+Dasher Documentation
+--------------------
+
+The docbook source file(s) in Gnome/C/ should be considered the
+authoritative version of the Dasher manual, together with any
+translations in the Gnome directory. Please do not store any other
+derived versions in CVS [1].
+
+All other formats can be generated automatically:
+
+1. HTML - Use docbook2html
+
+2. PS/PDF - Use docbook2tex and jadetex/pdfjadetex. Note that regular
+latex will not work on the output of docbook2tex.
+
+3. Windows Help - Use xsltproc with the stylesheets available at
+http://sourceforge.net/projects/docbook/ to generate HTML which can
+then be compiled to a .chm file using the Microsoft HTML Help Workshop
+utilities, available from:
+
+http://msdn.microsoft.com/library/default.asp?url=/library/en-us/htmlhelp/html/hwMicrosoftHTMLHelpDownloads.asp
+
+I'll try to write some scripts to automate this at some point.
+
+Phil Cowans, March 2006
+
+[1] I know there are some already - these will disappear in due
+course.

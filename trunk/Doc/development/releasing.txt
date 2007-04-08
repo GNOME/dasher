@@ -1,0 +1,53 @@
+Dasher Release Instructions
+---------------------------
+
+Last Updated 9th Jul 2006 by Phil Cowans.
+
+How to make a Dasher release. Note that most of this only makes sense
+if your're the Dasher maintainer, ie me!:
+
+1. Check that Dasher builds!
+
+2. Check that alphabet, colour and training files are up-to-date. Use
+   the scripts in /Utils/Linux/Packaging to help.
+
+3. Check that verion numbers are up to date. The following places
+   contain version numbers:
+   
+   a) configure.in
+
+   b) Win32 resources files - both in the 'about' dialogue box and in
+   the version information structure.
+
+   c) README
+
+   d) Docs/LICENSE.txt
+
+   e) Inno Setup script
+
+4. Add an item to the ChangeLog and NEWS files
+
+5. Add list of changes to the README file
+
+6. Rebuild the Makefiles
+
+7. Run make distcheck. Fix anything that is broken, and repeat until
+   it works.
+
+8. Copy the tarball to a Windows machine, build 'Unicode Release',
+   check it works.
+
+9. Build Windows installer package and .debs.
+
+10. Commit to CVS, tag CVS with release.
+
+11. Bump version numbers, commit to CVS again.
+
+12. Copy everything to Inference website, rebuild website.
+
+13. Upload tarball to GNOME servers and install.
+
+14. Send announcement email
+
+15. Update local Inference group repository, run an upgrade on all of
+    the machines in the cluster.

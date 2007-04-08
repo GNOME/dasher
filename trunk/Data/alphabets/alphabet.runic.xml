@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="_ Runic">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>Default</palette>
+<train>training_runic_XX.txt</train>
+<paragraph d="&#182;" b="9"/>
+<space d="&#x25a1;" t=" " b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="Runic characters" b="0">
+<s d="&#5792;" t="&#x16A0;" note="RUNIC LETTER FEHU FEOH FE F"/>
+<s d="&#5793;" t="&#x16A1;" note="RUNIC LETTER V"/>
+<s d="&#5794;" t="&#x16A2;" note="RUNIC LETTER URUZ UR U"/>
+<s d="&#5795;" t="&#x16A3;" note="RUNIC LETTER YR"/>
+<s d="&#5796;" t="&#x16A4;" note="RUNIC LETTER Y"/>
+<s d="&#5797;" t="&#x16A5;" note="RUNIC LETTER W"/>
+<s d="&#5798;" t="&#x16A6;" note="RUNIC LETTER THURISAZ THURS THORN"/>
+<s d="&#5799;" t="&#x16A7;" note="RUNIC LETTER ETH"/>
+<s d="&#5800;" t="&#x16A8;" note="RUNIC LETTER ANSUZ A"/>
+<s d="&#5801;" t="&#x16A9;" note="RUNIC LETTER OS O"/>
+<s d="&#5802;" t="&#x16AA;" note="RUNIC LETTER AC A"/>
+<s d="&#5803;" t="&#x16AB;" note="RUNIC LETTER AESC"/>
+<s d="&#5804;" t="&#x16AC;" note="RUNIC LETTER LONG-BRANCH-OSS O"/>
+<s d="&#5805;" t="&#x16AD;" note="RUNIC LETTER SHORT-TWIG-OSS O"/>
+<s d="&#5806;" t="&#x16AE;" note="RUNIC LETTER O"/>
+<s d="&#5807;" t="&#x16AF;" note="RUNIC LETTER OE"/>
+<s d="&#5808;" t="&#x16B0;" note="RUNIC LETTER ON"/>
+<s d="&#5809;" t="&#x16B1;" note="RUNIC LETTER RAIDO RAD REID R"/>
+<s d="&#5810;" t="&#x16B2;" note="RUNIC LETTER KAUNA"/>
+<s d="&#5811;" t="&#x16B3;" note="RUNIC LETTER CEN"/>
+<s d="&#5812;" t="&#x16B4;" note="RUNIC LETTER KAUN K"/>
+<s d="&#5813;" t="&#x16B5;" note="RUNIC LETTER G"/>
+<s d="&#5814;" t="&#x16B6;" note="RUNIC LETTER ENG"/>
+<s d="&#5815;" t="&#x16B7;" note="RUNIC LETTER GEBO GYFU G"/>
+<s d="&#5816;" t="&#x16B8;" note="RUNIC LETTER GAR"/>
+<s d="&#5817;" t="&#x16B9;" note="RUNIC LETTER WUNJO WYNN W"/>
+<s d="&#5818;" t="&#x16BA;" note="RUNIC LETTER HAGLAZ H"/>
+<s d="&#5819;" t="&#x16BB;" note="RUNIC LETTER HAEGL H"/>
+<s d="&#5820;" t="&#x16BC;" note="RUNIC LETTER LONG-BRANCH-HAGALL H"/>
+<s d="&#5821;" t="&#x16BD;" note="RUNIC LETTER SHORT-TWIG-HAGALL H"/>
+<s d="&#5822;" t="&#x16BE;" note="RUNIC LETTER NAUDIZ NYD NAUD N"/>
+<s d="&#5823;" t="&#x16BF;" note="RUNIC LETTER SHORT-TWIG-NAUD N"/>
+<s d="&#5824;" t="&#x16C0;" note="RUNIC LETTER DOTTED-N"/>
+<s d="&#5825;" t="&#x16C1;" note="RUNIC LETTER ISAZ IS ISS I"/>
+<s d="&#5826;" t="&#x16C2;" note="RUNIC LETTER E"/>
+<s d="&#5827;" t="&#x16C3;" note="RUNIC LETTER JERAN J"/>
+<s d="&#5828;" t="&#x16C4;" note="RUNIC LETTER GER"/>
+<s d="&#5829;" t="&#x16C5;" note="RUNIC LETTER LONG-BRANCH-AR AE"/>
+<s d="&#5830;" t="&#x16C6;" note="RUNIC LETTER SHORT-TWIG-AR A"/>
+<s d="&#5831;" t="&#x16C7;" note="RUNIC LETTER IWAZ EOH"/>
+<s d="&#5832;" t="&#x16C8;" note="RUNIC LETTER PERTHO PEORTH P"/>
+<s d="&#5833;" t="&#x16C9;" note="RUNIC LETTER ALGIZ EOLHX"/>
+<s d="&#5834;" t="&#x16CA;" note="RUNIC LETTER SOWILO S"/>
+<s d="&#5835;" t="&#x16CB;" note="RUNIC LETTER SIGEL LONG-BRANCH-SOL S"/>
+<s d="&#5836;" t="&#x16CC;" note="RUNIC LETTER SHORT-TWIG-SOL S"/>
+<s d="&#5837;" t="&#x16CD;" note="RUNIC LETTER C"/>
+<s d="&#5838;" t="&#x16CE;" note="RUNIC LETTER Z"/>
+<s d="&#5839;" t="&#x16CF;" note="RUNIC LETTER TIWAZ TIR TYR T"/>
+<s d="&#5840;" t="&#x16D0;" note="RUNIC LETTER SHORT-TWIG-TYR T"/>
+<s d="&#5841;" t="&#x16D1;" note="RUNIC LETTER D"/>
+<s d="&#5842;" t="&#x16D2;" note="RUNIC LETTER BERKANAN BEORC BJARKAN B"/>
+<s d="&#5843;" t="&#x16D3;" note="RUNIC LETTER SHORT-TWIG-BJARKAN B"/>
+<s d="&#5844;" t="&#x16D4;" note="RUNIC LETTER DOTTED-P"/>
+<s d="&#5845;" t="&#x16D5;" note="RUNIC LETTER OPEN-P"/>
+<s d="&#5846;" t="&#x16D6;" note="RUNIC LETTER EHWAZ EH E"/>
+<s d="&#5847;" t="&#x16D7;" note="RUNIC LETTER MANNAZ MAN M"/>
+<s d="&#5848;" t="&#x16D8;" note="RUNIC LETTER LONG-BRANCH-MADR M"/>
+<s d="&#5849;" t="&#x16D9;" note="RUNIC LETTER SHORT-TWIG-MADR M"/>
+<s d="&#5850;" t="&#x16DA;" note="RUNIC LETTER LAUKAZ LAGU LOGR L"/>
+<s d="&#5851;" t="&#x16DB;" note="RUNIC LETTER DOTTED-L"/>
+<s d="&#5852;" t="&#x16DC;" note="RUNIC LETTER INGWAZ"/>
+<s d="&#5853;" t="&#x16DD;" note="RUNIC LETTER ING"/>
+<s d="&#5854;" t="&#x16DE;" note="RUNIC LETTER DAGAZ DAEG D"/>
+<s d="&#5855;" t="&#x16DF;" note="RUNIC LETTER OTHALAN ETHEL O"/>
+<s d="&#5856;" t="&#x16E0;" note="RUNIC LETTER EAR"/>
+<s d="&#5857;" t="&#x16E1;" note="RUNIC LETTER IOR"/>
+<s d="&#5858;" t="&#x16E2;" note="RUNIC LETTER CWEORTH"/>
+<s d="&#5859;" t="&#x16E3;" note="RUNIC LETTER CALC"/>
+<s d="&#5860;" t="&#x16E4;" note="RUNIC LETTER CEALC"/>
+<s d="&#5861;" t="&#x16E5;" note="RUNIC LETTER STAN"/>
+<s d="&#5862;" t="&#x16E6;" note="RUNIC LETTER LONG-BRANCH-YR"/>
+<s d="&#5863;" t="&#x16E7;" note="RUNIC LETTER SHORT-TWIG-YR"/>
+<s d="&#5864;" t="&#x16E8;" note="RUNIC LETTER ICELANDIC-YR"/>
+<s d="&#5865;" t="&#x16E9;" note="RUNIC LETTER Q"/>
+<s d="&#5866;" t="&#x16EA;" note="RUNIC LETTER X"/>
+</group>
+<group name="Runic punctuation" b="0">
+<s d="&#5867;" t="&#x16EB;" note="RUNIC SINGLE PUNCTUATION"/>
+<s d="&#5868;" t="&#x16EC;" note="RUNIC MULTIPLE PUNCTUATION"/>
+<s d="&#5869;" t="&#x16ED;" note="RUNIC CROSS PUNCTUATION"/>
+<s d="&#5870;" t="&#x16EE;" note="RUNIC ARLAUG SYMBOL"/>
+<s d="&#5871;" t="&#x16EF;" note="RUNIC TVIMADUR SYMBOL"/>
+<s d="&#5872;" t="&#x16F0;" note="RUNIC BELGTHOR SYMBOL"/>
+</group>
+</alphabet>
+</alphabets>
+
+	

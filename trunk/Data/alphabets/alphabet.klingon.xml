@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="_ Klingon / tlhIngan Hol">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>Default</palette>
+<train>training_klingon_US.txt</train>
+<paragraph d="&#182;" b="9"/>
+<space d="&#x25a1;" t=" " b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="Klingon / pIqaD" b="0">
+   <s d="&#xf8d0;" t="&#xf8d0;" note="a" />	
+   <s d="&#xf8d1;" t="&#xf8d1;" note="b" />
+   <s d="&#xf8d2;" t="&#xf8d2;" note="ch" />
+   <s d="&#xf8d3;" t="&#xf8d3;" note="D" />
+   <s d="&#xf8d4;" t="&#xf8d4;" note="e" />
+   <s d="&#xf8d5;" t="&#xf8d5;" note="gh" />
+   <s d="&#xf8d6;" t="&#xf8d6;" note="H" />
+   <s d="&#xf8d7;" t="&#xf8d7;" note="I" />
+   <s d="&#xf8d8;" t="&#xf8d8;" note="j" />
+   <s d="&#xf8d9;" t="&#xf8d9;" note="l" />
+   <s d="&#xf8da;" t="&#xf8da;" note="m" />
+   <s d="&#xf8db;" t="&#xf8db;" note="n" />
+   <s d="&#xf8dc;" t="&#xf8dc;" note="ng" />
+   <s d="&#xf8dd;" t="&#xf8dd;" note="o" />
+   <s d="&#xf8de;" t="&#xf8de;" note="p" />
+   <s d="&#xf8df;" t="&#xf8df;" note="q" />
+   <s d="&#xf8e0;" t="&#xf8e0;" note="Q" />
+   <s d="&#xf8e1;" t="&#xf8e1;" note="r" />
+   <s d="&#xf8e2;" t="&#xf8e2;" note="S" />
+   <s d="&#xf8e3;" t="&#xf8e3;" note="t" />
+   <s d="&#xf8e4;" t="&#xf8e4;" note="tlh" />
+   <s d="&#xf8e5;" t="&#xf8e5;" note="u" />	
+   <s d="&#xf8e6;" t="&#xf8e6;" note="v" />
+   <s d="&#xf8e7;" t="&#xf8e7;" note="w" />
+   <s d="&#xf8e8;" t="&#xf8e8;" note="y" />
+</group>
+<group name="Numerals"  b="113">	
+   <s d="&#xf8f0;" t="&#xf8f0;" note="0" />
+   <s d="&#xf8f1;" t="&#xf8f1;" note="1" />
+   <s d="&#xf8f2;" t="&#xf8f2;" note="2" />
+   <s d="&#xf8f3;" t="&#xf8f3;" note="3" />
+   <s d="&#xf8f4;" t="&#xf8f4;" note="4" />
+   <s d="&#xf8f5;" t="&#xf8f5;" note="5" />
+   <s d="&#xf8f6;" t="&#xf8f6;" note="6" />
+   <s d="&#xf8f7;" t="&#xf8f7;" note="7" />
+   <s d="&#xf8f8;" t="&#xf8f8;" note="8" />
+   <s d="&#xf8f9;" t="&#xf8f9;" note="9" />
+</group>
+<group name="Punctuation, etc"  b="112">	
+   <s d="'" t="'" note="latin glottal stop ()" />
+   <s d="&#xf8e9;" t="&#xf8e9;" note="glottal stop ()" />
+   <s d="&#xf8ff;" t="&#xf8ff;" note="Empire" />
+	<s d="." t="."/>
+</group>
+</alphabet>
+</alphabets>
+
+	

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Ogham">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>European/Asian</palette>
+<train>training_ogham_XX.txt</train>
+<paragraph d="&#182;" b="9"/>
+<space d="&#x25a1;" t=" " b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="Ogham" >
+<s d="&#x1681;" t="&#x1681;" note=" OGHAM LETTER BEITH  "/>
+<s d="&#x1682;" t="&#x1682;" note=" OGHAM LETTER LUIS  "/>
+<s d="&#x1683;" t="&#x1683;" note=" OGHAM LETTER FEARN  "/>
+<s d="&#x1684;" t="&#x1684;" note=" OGHAM LETTER SAIL  "/>
+<s d="&#x1685;" t="&#x1685;" note=" OGHAM LETTER NION  "/>
+<s d="&#x1686;" t="&#x1686;" note=" OGHAM LETTER UATH  "/>
+<s d="&#x1687;" t="&#x1687;" note=" OGHAM LETTER DAIR  "/>
+<s d="&#x1688;" t="&#x1688;" note=" OGHAM LETTER TINNE  "/>
+<s d="&#x1689;" t="&#x1689;" note=" OGHAM LETTER COLL  "/>
+<s d="&#x168A;" t="&#x168A;" note=" OGHAM LETTER CEIRT  "/>
+<s d="&#x168B;" t="&#x168B;" note=" OGHAM LETTER MUIN  "/>
+<s d="&#x168C;" t="&#x168C;" note=" OGHAM LETTER GORT  "/>
+<s d="&#x168D;" t="&#x168D;" note=" OGHAM LETTER NGEADAL  "/>
+<s d="&#x168E;" t="&#x168E;" note=" OGHAM LETTER STRAIF  "/>
+<s d="&#x168F;" t="&#x168F;" note=" OGHAM LETTER RUIS  "/>
+<s d="&#x1690;" t="&#x1690;" note=" OGHAM LETTER AILM  "/>
+<s d="&#x1691;" t="&#x1691;" note=" OGHAM LETTER ONN  "/>
+<s d="&#x1692;" t="&#x1692;" note=" OGHAM LETTER UR  "/>
+<s d="&#x1693;" t="&#x1693;" note=" OGHAM LETTER EADHADH  "/>
+<s d="&#x1694;" t="&#x1694;" note=" OGHAM LETTER IODHADH  "/>
+<s d="&#x1695;" t="&#x1695;" note=" OGHAM LETTER EABHADH  "/>
+<s d="&#x1696;" t="&#x1696;" note=" OGHAM LETTER OR  "/>
+<s d="&#x1697;" t="&#x1697;" note=" OGHAM LETTER UILLEANN  "/>
+<s d="&#x1698;" t="&#x1698;" note=" OGHAM LETTER IFIN  "/>
+<s d="&#x1699;" t="&#x1699;" note=" OGHAM LETTER EAMHANCHOLL  "/>
+<s d="&#x169A;" t="&#x169A;" note=" OGHAM LETTER PEITH  "/>
+</group>
+<group name="Ogham marks" b="0">
+<s d="&#x169B;" t="&#x169B;" note=" OGHAM FEATHER MARK  "/>
+<s d="&#x169C;" t="&#x169C;" note=" OGHAM REVERSED FEATHER MARK "/>
+<s d="&#x1680;" t="&#x1680;" note=" OGHAM SPACE MARK  " b="9"/>
+</group>
+</alphabet>
+</alphabets>
+
+	

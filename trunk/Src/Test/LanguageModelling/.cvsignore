@@ -1,0 +1,8 @@
+LanguageModelling
+Phil
+Makefile
+Makefile.in
+*.la
+*.lo
+.deps
+.libs

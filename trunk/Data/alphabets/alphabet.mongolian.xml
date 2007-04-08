@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Mongolian with punctuation and numerals">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<control d="Control" t=""/>
+<palette>Default</palette>
+<train>training_mongolian_MN.txt</train>
+<space d="&#x25a1;" t=" " b="9" />
+<paragraph d="&#182;" b="9"/>
+<group name="lower case Mongolian letters" b="0">
+<s d="&#x0430;" t="&#x0430;" />
+<s d="&#x0431;" t="&#x0431;" />
+<s d="&#x0432;" t="&#x0432;" />
+<s d="&#x0433;" t="&#x0433;" />
+<s d="&#x0434;" t="&#x0434;" />
+<s d="&#x0435;" t="&#x0435;" />
+<s d="&#x0451;" t="&#x0451;" note="rather than 0450" />
+<s d="&#x0436;" t="&#x0436;" />
+<s d="&#x0437;" t="&#x0437;" />
+<s d="&#x0438;" t="&#x0438;" />
+<s d="&#x0439;" t="&#x0439;" />
+<s d="&#x043A;" t="&#x043A;" />
+<s d="&#x043B;" t="&#x043B;" />
+<s d="&#x043C;" t="&#x043C;" />
+<s d="&#x043D;" t="&#x043D;" />
+<s d="&#x043E;" t="&#x043E;" />
+<s d="&#x04E9;" t="&#x04E9;" />
+<s d="&#x043F;" t="&#x043F;" />
+<s d="&#x0440;" t="&#x0440;" />
+<s d="&#x0441;" t="&#x0441;" />
+<s d="&#x0442;" t="&#x0442;" />
+<s d="&#x0443;" t="&#x0443;" />
+<s d="&#x04AF;" t="&#x04AF;" />
+<s d="&#x0444;" t="&#x0444;" />
+<s d="&#x0445;" t="&#x0445;" />
+<s d="&#x0446;" t="&#x0446;" />
+<s d="&#x0447;" t="&#x0447;" />
+<s d="&#x0448;" t="&#x0448;" />
+<s d="&#x0449;" t="&#x0449;" />
+<s d="&#x044A;" t="&#x044A;" />
+<s d="&#x044B;" t="&#x044B;" />
+<s d="&#x044C;" t="&#x044C;" />
+<s d="&#x044D;" t="&#x044D;" />
+<s d="&#x044E;" t="&#x044E;" />
+<s d="&#x044F;" t="&#x044F;" />
+</group>
+<group name="upper case Mongolian letters" b="111">
+<s d="&#x0410;" t="&#x0410;" />
+<s d="&#x0411;" t="&#x0411;" />
+<s d="&#x0412;" t="&#x0412;" />
+<s d="&#x0413;" t="&#x0413;" />
+<s d="&#x0414;" t="&#x0414;" />
+<s d="&#x0415;" t="&#x0415;" />
+<s d="&#x0401;" t="&#x0401;"  note="E with dots correct according to wikipedia (rather than 0400)"  />
+<s d="&#x0416;" t="&#x0416;" />
+<s d="&#x0417;" t="&#x0417;" />
+<s d="&#x0418;" t="&#x0418;" />
+<s d="&#x0419;" t="&#x0419;" />
+<s d="&#x041A;" t="&#x041A;" />
+<s d="&#x041B;" t="&#x041B;" />
+<s d="&#x041C;" t="&#x041C;" />
+<s d="&#x041D;" t="&#x041D;" />
+<s d="&#x041E;" t="&#x041E;" />
+<s d="&#x04E8;" t="&#x04E8;" />
+<s d="&#x041F;" t="&#x041F;" />
+<s d="&#x0420;" t="&#x0420;" />
+<s d="&#x0421;" t="&#x0421;" />
+<s d="&#x0422;" t="&#x0422;" />
+<s d="&#x0423;" t="&#x0423;" />
+<s d="&#x04AE;" t="&#x04AE;" />
+<s d="&#x0424;" t="&#x0424;" />
+<s d="&#x0425;" t="&#x0425;" />
+<s d="&#x0426;" t="&#x0426;" />
+<s d="&#x0427;" t="&#x0427;" />
+<s d="&#x0428;" t="&#x0428;" />
+<s d="&#x0429;" t="&#x0429;" />
+<s d="&#x042A;" t="&#x042A;" />
+<s d="&#x042B;" t="&#x042B;" />
+<s d="&#x042C;" t="&#x042C;" />
+<s d="&#x042D;" t="&#x042D;" />
+<s d="&#x042E;" t="&#x042E;" />
+<s d="&#x042F;" t="&#x042F;" />
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1"/>
+<s d="2" t="2"/>
+<s d="3" t="3"/>
+<s d="4" t="4"/>
+<s d="5" t="5"/>
+<s d="6" t="6"/>
+<s d="7" t="7"/>
+<s d="8" t="8"/>
+<s d="9" t="9"/>
+<s d="0" t="0"/>
+</group>
+<group name="Punctuation" b="112">
+<s d="%" t="%"/>
+<s d="*" t="*"/>
+<s d="+" t="+"/>
+<s d="=" t="="/>
+<s d="/" t="/"/>
+<s d="#" t="#"/>
+<s d="$" t="$"/>
+<s d="|" t="|"/>
+<s d="\" t="\"/>
+<s d="~" t="~"/>
+<s d="^" t="^"/>
+<s d="_" t="_"/>
+<s d="&amp;" t="&amp;"/>
+<s d="@" t="@"/>
+<s d="[" t="["/>
+<s d="]" t="]"/>
+<s d="{" t="{"/>
+<s d="}" t="}"/>
+<s d="&lt;" t="&lt;"/>
+<s d="&gt;" t="&gt;"/>
+<s d="(" t="("/>
+<s d=")" t=")"/>
+<s d="&quot;" t="&quot;"/>
+<s d="`" t="`"/>
+<s d="&apos;" t="&apos;"/>
+<s d="-" t="-"/>
+<s d=":" t=":"/>
+<s d=";" t=";"/>
+<s d="?" t="?"/>
+<s d="!" t="!"/>
+<s d="," t=","/>
+<s d="." t="."/>
+</group>
+</alphabet>
+</alphabets>

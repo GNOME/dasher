@@ -1,0 +1,39 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UserLogLoadTest", "UserLogLoadTest_vc71.vcproj", "{ADD57262-9572-4E6D-A5AC-3050984F5F40}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0BCE9A66-5ECF-416A-AE25-29E8FDB65A05} = {0BCE9A66-5ECF-416A-AE25-29E8FDB65A05}
+		{6D28E9AB-8FCF-499A-AD31-2343BBC6878C} = {6D28E9AB-8FCF-499A-AD31-2343BBC6878C}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Expat", "..\..\Common\Expat\Expat_vc71.vcproj", "{0BCE9A66-5ECF-416A-AE25-29E8FDB65A05}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DasherCore", "..\..\DasherCore\DasherCore_vc71.vcproj", "{6D28E9AB-8FCF-499A-AD31-2343BBC6878C}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Unicode Debug = Unicode Debug
+		Unicode Release = Unicode Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{ADD57262-9572-4E6D-A5AC-3050984F5F40}.Unicode Debug.ActiveCfg = Unicode Debug|Win32
+		{ADD57262-9572-4E6D-A5AC-3050984F5F40}.Unicode Debug.Build.0 = Unicode Debug|Win32
+		{ADD57262-9572-4E6D-A5AC-3050984F5F40}.Unicode Release.ActiveCfg = Unicode Release|Win32
+		{ADD57262-9572-4E6D-A5AC-3050984F5F40}.Unicode Release.Build.0 = Unicode Release|Win32
+		{0BCE9A66-5ECF-416A-AE25-29E8FDB65A05}.Unicode Debug.ActiveCfg = Unicode Debug|Win32
+		{0BCE9A66-5ECF-416A-AE25-29E8FDB65A05}.Unicode Debug.Build.0 = Unicode Debug|Win32
+		{0BCE9A66-5ECF-416A-AE25-29E8FDB65A05}.Unicode Release.ActiveCfg = Unicode Release|Win32
+		{0BCE9A66-5ECF-416A-AE25-29E8FDB65A05}.Unicode Release.Build.0 = Unicode Release|Win32
+		{6D28E9AB-8FCF-499A-AD31-2343BBC6878C}.Unicode Debug.ActiveCfg = Unicode Debug|Win32
+		{6D28E9AB-8FCF-499A-AD31-2343BBC6878C}.Unicode Debug.Build.0 = Unicode Debug|Win32
+		{6D28E9AB-8FCF-499A-AD31-2343BBC6878C}.Unicode Release.ActiveCfg = Unicode Release|Win32
+		{6D28E9AB-8FCF-499A-AD31-2343BBC6878C}.Unicode Release.Build.0 = Unicode Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

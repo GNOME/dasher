@@ -1,0 +1,199 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet-nest.xsl"?>
+<alphabets>
+<alphabet name="Bengali / &#x09ac;&#x09be;&#x0982;&#x09b2;&#x09be;   with punctuation and numerals">
+<!--
+ Bangla is the second most commonly spoken language in India.
+ The same script is used by Assamese.
+1.  Problem when using this alphabet? 
+  In the phrase "world peace" a CONJUNCT (called Yuktakhars / "juktakhars" in Assamese?)
+  glyph is required that consists of two consonants
+  SHA and BA, combined with one above the other. It was not clear whether this alphabet can achieve this combination.
+  I think this webpage
+  http://www.ekushey.org/projects/shadhinota/technical/phonetic_bangla_typing.htm
+  might contain the answer.  - use a combining Virama? - I tried it and it
+  didn't work.
+   See also http://www.maruf42.com/archive/ct/unicode.pdf
+   According to another webpage,
+    'there are no specific codes for conjunct consonants. Unicode Bengali fonts and Unicode text editors will theoretically handle the display of conjunct consonants.'
+    http://tlt.psu.edu/suggestions/international/bylanguage/bengalichart.html
+    So this is perhaps just a defect of the textbox.
+    The Unicode Standard book, page 214, seems to agree.
+    There is no unicode prescription to specify a conjunct. It should happen
+    automatically, with virama's being used sometimes. ZWNJ is used
+    to prevent conjunctions.
+2.  The rule that one should enter unicode characters in phonetic sequence (CV,CV,...)
+  may prove confusing to users because in glyph-writing
+  the sequence is often VC,VC,...
+  We can refer to the above Phonetic Typing page to instruct users.
+3. For future reference, there is a free list of words in Bangla.
+  Dr. Avijit Das ( adrab@users.sf.net ) has a bangla word list that he
+ set up for his bengaliwriter program (
+ http://sourceforge.net/projects/bengaliwriter/ )
+ The list is released under the GNU GPL. The list has around 112,900 words
+ (ghose) converted the original list in ISCII format (with a hack to handle
+khondo-ta) to unicode. The word list is broken up into different files
+depending on the first letter of the words contained. This unicode list
+can be obtained at (
+http://prdownloads.sourceforge.net/lekho/dict_v1.15.tgz?download )
+  -->
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>European/Asian</palette>
+<train>training_bengali_BD.txt</train>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="bengali letters" b="0">
+<group name="bengali vowels" b="0">
+<s d="&#x0985;" t="&#x0985;"  note=" LETTER A  "  />
+<s d="&#x0986;" t="&#x0986;"  note=" LETTER AA  "  />
+<s d="&#x0987;" t="&#x0987;"  note=" LETTER I  "  />
+<s d="&#x0988;" t="&#x0988;"  note=" LETTER II  "  />
+<s d="&#x0989;" t="&#x0989;"  note=" LETTER U  "  />
+<s d="&#x098A;" t="&#x098A;"  note=" LETTER UU  "  />
+<s d="&#x098B;" t="&#x098B;"  note=" LETTER VOCALIC R  "  />
+<s d="&#x09E0;" t="&#x09E0;"  note=" LETTER VOCALIC RR  "  />
+<s d="&#x098C;" t="&#x098C;"  note=" LETTER VOCALIC L  "  />
+<s d="&#x09E1;" t="&#x09E1;"  note=" LETTER VOCALIC LL  "  />
+<s d="&#x098F;" t="&#x098F;"  note=" LETTER E  "  />
+<s d="&#x0990;" t="&#x0990;"  note=" LETTER AI  "  />
+<s d="&#x0993;" t="&#x0993;"  note=" LETTER O  "  />
+<s d="&#x0994;" t="&#x0994;"  note=" LETTER AU  "  />
+</group>
+<group name="bengali consonants" b="0">
+<s d="&#x0995;" t="&#x0995;"  note=" LETTER KA  "  />
+<s d="&#x0996;" t="&#x0996;"  note=" LETTER KHA  "  />
+<s d="&#x0997;" t="&#x0997;"  note=" LETTER GA  "  />
+<s d="&#x0998;" t="&#x0998;"  note=" LETTER GHA  "  />
+<s d="&#x0999;" t="&#x0999;"  note=" LETTER NGA  "  />
+<s d="&#x099A;" t="&#x099A;"  note=" LETTER CA  "  />
+<s d="&#x099B;" t="&#x099B;"  note=" LETTER CHA  "  />
+<s d="&#x099C;" t="&#x099C;"  note=" LETTER JA  "  />
+<s d="&#x099D;" t="&#x099D;"  note=" LETTER JHA  "  />
+<s d="&#x099E;" t="&#x099E;"  note=" LETTER NYA  "  />
+<s d="&#x099F;" t="&#x099F;"  note=" LETTER TTA  "  />
+<s d="&#x09A0;" t="&#x09A0;"  note=" LETTER TTHA  "  />
+<s d="&#x09A1;" t="&#x09A1;"  note=" LETTER DDA  "  />
+<s d="&#x09DC;" t="&#x09DC;"  note=" LETTER RRA  class(s)"  />
+<s d="&#x09A2;" t="&#x09A2;"  note=" LETTER DDHA  "  />
+<s d="&#x09DD;" t="&#x09DD;"  note=" LETTER RHA  class(s)"  />
+<s d="&#x09A3;" t="&#x09A3;"  note=" LETTER NNA  "  />
+<s d="&#x09A4;" t="&#x09A4;"  note=" LETTER TA  "  />
+<s d="&#x09A5;" t="&#x09A5;"  note=" LETTER THA  "  />
+<s d="&#x09A6;" t="&#x09A6;"  note=" LETTER DA  "  />
+<s d="&#x09A7;" t="&#x09A7;"  note=" LETTER DHA  "  />
+<s d="&#x09A8;" t="&#x09A8;"  note=" LETTER NA  "  />
+<s d="&#x09AA;" t="&#x09AA;"  note=" LETTER PA  "  />
+<s d="&#x09AB;" t="&#x09AB;"  note=" LETTER PHA  "  />
+<s d="&#x09AC;" t="&#x09AC;"  note=" LETTER BA  "  />
+<s d="&#x09AD;" t="&#x09AD;"  note=" LETTER BHA  "  />
+<s d="&#x09AE;" t="&#x09AE;"  note=" LETTER MA  "  />
+<s d="&#x09AF;" t="&#x09AF;"  note=" LETTER YA  "  />
+<s d="&#x09DF;" t="&#x09DF;"  note=" LETTER YYA  class(s)"  />
+<s d="&#x09B0;" t="&#x09B0;"  note=" LETTER RA  "  />
+<s d="&#x09F0;" t="&#x09F0;"  note=" LETTER RA WITH MIDDLE DIAGONAL  "  />
+<s d="&#x09B2;" t="&#x09B2;"  note=" LETTER LA  "  />
+<s d="&#x09F1;" t="&#x09F1;"  note=" LETTER RA WITH LOWER DIAGONAL  "  />
+<s d="&#x09B6;" t="&#x09B6;"  note=" LETTER SHA  "  />
+<s d="&#x09B7;" t="&#x09B7;"  note=" LETTER SSA  "  />
+<s d="&#x09B8;" t="&#x09B8;"  note=" LETTER SA  "  />
+<s d="&#x09B9;" t="&#x09B9;"  note=" LETTER HA  "  />
+<s d="&#x09BD;" t="&#x09BD;"  note=" SIGN AVAGRAHA  "  />
+</group>			    
+</group>			    
+<group name="Bengali combining vowels" b="52" >	    
+<s d="&#x25cc;&#x09BE;" t="&#x09BE;"  note=" VOWEL SIGN AA  "  />
+<s d="&#x25cc;&#x09BF;" t="&#x09BF;"  note=" VOWEL SIGN I  "  />
+<s d="&#x25cc;&#x09C0;" t="&#x09C0;"  note=" VOWEL SIGN II  "  />
+<s d="&#x25cc;&#x09C1;" t="&#x09C1;"  note=" VOWEL SIGN U  "  />
+<s d="&#x25cc;&#x09C2;" t="&#x09C2;"  note=" VOWEL SIGN UU  "  />
+<s d="&#x25cc;&#x09C3;" t="&#x09C3;"  note=" VOWEL SIGN VOCALIC R  "  />
+<s d="&#x25cc;&#x09C4;" t="&#x09C4;"  note=" VOWEL SIGN VOCALIC RR  "  />
+<s d="&#x25cc;&#x09E2;" t="&#x09E2;"  note=" VOWEL SIGN VOCALIC L  "  />
+<s d="&#x25cc;&#x09E3;" t="&#x09E3;"  note=" VOWEL SIGN VOCALIC LL  "  />
+<s d="&#x25cc;&#x09C7;" t="&#x09C7;"  note=" VOWEL SIGN E  "  />
+<s d="&#x25cc;&#x09C8;" t="&#x09C8;"  note=" VOWEL SIGN AI  "  />
+<s d="&#x25cc;&#x09CB;" t="&#x09CB;"  note=" VOWEL SIGN O  "  />
+<s d="&#x25cc;&#x09CC;" t="&#x09CC;"  note=" VOWEL SIGN AU  "  />
+<s d="&#x25cc;&#x09CD;" t="&#x09CD;"  note=" SIGN VIRAMA  "  />
+<s d="&#x25cc;&#x09D7;" t="&#x09D7;"  note=" AU LENGTH MARK  "  />
+<!-- possibly missing characters:  x0981, x0982, x0983  (3 bengali signs) -->
+</group>
+<group name="Bengali numbers" b="113">
+<s d="&#x09E7;" t="&#x09E7;"  note="BENGALI DIGIT ONE"/>
+<s d="&#x09E8;" t="&#x09E8;"  note="BENGALI DIGIT TWO"/>
+<s d="&#x09E9;" t="&#x09E9;"  note="BENGALI DIGIT THREE"/>
+<s d="&#x09EA;" t="&#x09EA;"  note="BENGALI DIGIT FOUR"/>
+<s d="&#x09EB;" t="&#x09EB;"  note="BENGALI DIGIT FIVE"/>
+<s d="&#x09EC;" t="&#x09EC;"  note="BENGALI DIGIT SIX"/>
+<s d="&#x09ED;" t="&#x09ED;"  note="BENGALI DIGIT SEVEN"/>
+<s d="&#x09EE;" t="&#x09EE;"  note="BENGALI DIGIT EIGHT"/>
+<s d="&#x09EF;" t="&#x09EF;"  note="BENGALI DIGIT NINE"/>
+<s d="&#x09E6;" t="&#x09E6;"  note="BENGALI DIGIT ZERO"/>
+</group>
+<group name="Numbers" b="114">
+<s d="1" t="1"/>
+<s d="2" t="2"/>
+<s d="3" t="3"/>
+<s d="4" t="4"/>
+<s d="5" t="5"/>
+<s d="6" t="6"/>
+<s d="7" t="7"/>
+<s d="8" t="8"/>
+<s d="9" t="9"/>
+<s d="0" t="0"/>
+</group>
+<group name="Punctuation" b="112">
+<group name="Bengali Punctuation" b="113">
+<s d="&#x09F2;" t="&#x09F2;" note="RUPEE MARK"/>
+<s d="&#x09F3;" t="&#x09F3;" note="RUPEE SIGN"/>
+<s d="&#x09F4;" t="&#x09F4;" note="CURRENCY NUMERATOR ONE	"/>
+<s d="&#x09F5;" t="&#x09F5;" note="CURRENCY NUMERATOR TWO	"/>
+<s d="&#x09F6;" t="&#x09F6;" note="CURRENCY NUMERATOR THREE"/>
+<s d="&#x09F7;" t="&#x09F7;" note="CURRENCY NUMERATOR FOUR	"/>
+<s d="&#x09F8;" t="&#x09F8;" note="CURRENCY NUMERATOR ONE LESS THAN THE DENOMINATOR"/>
+<s d="&#x09F9;" t="&#x09F9;" note="CURRENCY DENOMINATOR SIXTEEN"/>
+<s d="&#x09FA;" t="&#x09FA;" note="ISSHAR"/>
+</group>
+<s d="%" t="%"/>
+<s d="*" t="*"/>
+<s d="+" t="+"/>
+<s d="=" t="="/>
+<s d="/" t="/"/>
+<s d="#" t="#"/>
+<s d="$" t="$"/>
+<s d="|" t="|"/>
+<s d="\" t="\"/>
+<s d="~" t="~"/>
+<s d="^" t="^"/>
+<s d="_" t="_"/>
+<s d="&amp;" t="&amp;"/>
+<s d="@" t="@"/>
+<s d="[" t="["/>
+<s d="]" t="]"/>
+<s d="{" t="{"/>
+<s d="}" t="}"/>
+<s d="&lt;" t="&lt;"/>
+<s d="&gt;" t="&gt;"/>
+<s d="(" t="("/>
+<s d=")" t=")"/>
+<s d="&quot;" t="&quot;"/>
+<s d="`" t="`"/>
+<s d="&apos;" t="&apos;"/>
+<s b="9"  d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
+<s d="-" t="-"/>
+<s d=":" t=":"/>
+<s d=";" t=";"/>
+<s d="?" t="?"/>
+<s d="!" t="!"/>
+<s d="," t=","/>
+<s d="." t="."/>
+</group>
+<group name="Joiners" b="111">
+<s b="73" t="&#x200c;" d="&#x2225;" note="Zero width non-joiner"/>
+<s b="74" t="&#x200d;" d="&#x2195;" note="Zero width joiner"/>
+</group>
+</alphabet>
+</alphabets>

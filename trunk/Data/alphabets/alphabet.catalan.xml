@@ -1,0 +1,270 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Catal&#x00E0; / Catalan with punctuation and numerals">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>Default</palette>
+<train>training_catalan_ES.txt</train>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="lower case letters" b="0">
+<s d="&#x0061;" t="&#x0061;"  note=" A "   />
+<s d="&#x00E0;" t="&#x00E0;"  note=" A WITH GRAVE "   />
+<s d="&#x0062;" t="&#x0062;"  note=" B "   />
+<s d="&#x0063;" t="&#x0063;"  note=" C "   />
+<s d="&#x00E7;" t="&#x00E7;"  note=" C WITH CEDILLA "   />
+<s d="&#x0064;" t="&#x0064;"  note=" D "   />
+<s d="&#x0065;" t="&#x0065;"  note=" E "   />
+<s d="&#x00E9;" t="&#x00E9;"  note=" E WITH ACUTE "   />
+<s d="&#x00E8;" t="&#x00E8;"  note=" E WITH GRAVE "   />
+<s d="&#x0066;" t="&#x0066;"  note=" F "   />
+<s d="&#x0067;" t="&#x0067;"  note=" G "   />
+<s d="&#x0068;" t="&#x0068;"  note=" H "   />
+<s d="&#x0069;" t="&#x0069;"  note=" I "   />
+<s d="&#x00ED;" t="&#x00ED;"  note=" I WITH ACUTE "   />
+<s d="&#x00EF;" t="&#x00EF;"  note=" I WITH DIAERESIS "   />
+<s d="&#x006A;" t="&#x006A;"  note=" J "   />
+<s d="&#x006B;" t="&#x006B;"  note=" K "   />
+<s d="&#x006C;" t="&#x006C;"  note=" L "   />
+<s d="&#x006D;" t="&#x006D;"  note=" M "   />
+<s d="&#x006E;" t="&#x006E;"  note=" N "   />
+<s d="&#x006F;" t="&#x006F;"  note=" O "   />
+<s d="&#x00F3;" t="&#x00F3;"  note=" O WITH ACUTE "   />
+<s d="&#x00F2;" t="&#x00F2;"  note=" O WITH GRAVE "   />
+<s d="&#x0070;" t="&#x0070;"  note=" P "   />
+<s d="&#x0071;" t="&#x0071;"  note=" Q "   />
+<s d="&#x0072;" t="&#x0072;"  note=" R "   />
+<s d="&#x0073;" t="&#x0073;"  note=" S "   />
+<s d="&#x0074;" t="&#x0074;"  note=" T "   />
+<s d="&#x0075;" t="&#x0075;"  note=" U "   />
+<s d="&#x00FA;" t="&#x00FA;"  note=" U WITH ACUTE "   />
+<s d="&#x00FC;" t="&#x00FC;"  note=" U WITH DIAERESIS "   />
+<s d="&#x0076;" t="&#x0076;"  note=" V "   />
+<s d="&#x0077;" t="&#x0077;"  note=" W "   />
+<s d="&#x0078;" t="&#x0078;"  note=" X "   />
+<s d="&#x0079;" t="&#x0079;"  note=" Y "   />
+<s d="&#x007A;" t="&#x007A;"  note=" Z "   />
+</group> 
+<group name="upper case letters" b="111"> 
+<s d="&#x0041;" t="&#x0041;"  note=" A "   />
+<s d="&#x00C0;" t="&#x00C0;"  note=" A WITH GRAVE "   />
+<s d="&#x0042;" t="&#x0042;"  note=" B "   />
+<s d="&#x0043;" t="&#x0043;"  note=" C "   />
+<s d="&#x00C7;" t="&#x00C7;"  note=" C WITH CEDILLA "   />
+<s d="&#x0044;" t="&#x0044;"  note=" D "   />
+<s d="&#x0045;" t="&#x0045;"  note=" E "   />
+<s d="&#x00C9;" t="&#x00C9;"  note=" E WITH ACUTE "   />
+<s d="&#x00C8;" t="&#x00C8;"  note=" E WITH GRAVE "   />
+<s d="&#x0046;" t="&#x0046;"  note=" F "   />
+<s d="&#x0047;" t="&#x0047;"  note=" G "   />
+<s d="&#x0048;" t="&#x0048;"  note=" H "   />
+<s d="&#x0049;" t="&#x0049;"  note=" I "   />
+<s d="&#x00CD;" t="&#x00CD;"  note=" I WITH ACUTE "   />
+<s d="&#x00CF;" t="&#x00CF;"  note=" I WITH DIAERESIS "   />
+<s d="&#x004A;" t="&#x004A;"  note=" J "   />
+<s d="&#x004B;" t="&#x004B;"  note=" K "   />
+<s d="&#x004C;" t="&#x004C;"  note=" L "   />
+<s d="&#x004D;" t="&#x004D;"  note=" M "   />
+<s d="&#x004E;" t="&#x004E;"  note=" N "   />
+<s d="&#x004F;" t="&#x004F;"  note=" O "   />
+<s d="&#x00D3;" t="&#x00D3;"  note=" O WITH ACUTE "   />
+<s d="&#x00D2;" t="&#x00D2;"  note=" O WITH GRAVE "   />
+<s d="&#x0050;" t="&#x0050;"  note=" P "   />
+<s d="&#x0051;" t="&#x0051;"  note=" Q "   />
+<s d="&#x0052;" t="&#x0052;"  note=" R "   />
+<s d="&#x0053;" t="&#x0053;"  note=" S "   />
+<s d="&#x0054;" t="&#x0054;"  note=" T "   />
+<s d="&#x0055;" t="&#x0055;"  note=" U "   />
+<s d="&#x00DA;" t="&#x00DA;"  note=" U WITH ACUTE "   />
+<s d="&#x00DC;" t="&#x00DC;"  note=" U WITH DIAERESIS "   />
+<s d="&#x0056;" t="&#x0056;"  note=" V "   />
+<s d="&#x0057;" t="&#x0057;"  note=" W "   />
+<s d="&#x0058;" t="&#x0058;"  note=" X "   />
+<s d="&#x0059;" t="&#x0059;"  note=" Y "   />
+<s d="&#x005A;" t="&#x005A;"  note=" Z "   />
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1"/>
+<s d="2" t="2"/>
+<s d="3" t="3"/>
+<s d="4" t="4"/>
+<s d="5" t="5"/>
+<s d="6" t="6"/>
+<s d="7" t="7"/>
+<s d="8" t="8"/>
+<s d="9" t="9"/>
+<s d="0" t="0"/>
+</group>
+<group name="Punctuation" b="112">
+<s d="%" t="%"/>
+<s d="*" t="*"/>
+<s d="+" t="+"/>
+<s d="=" t="="/>
+<s d="/" t="/"/>
+<s d="#" t="#"/>
+<s d="&#8364;" t="&#8364;"  note="euro" />
+<s d="$" t="$"/>
+<s d="|" t="|"/>
+<s d="\" t="\"/>
+<s d="~" t="~"/>
+<s d="^" t="^"/>
+<s d="_" t="_"/>
+<s d="&amp;" t="&amp;"/>
+<s d="@" t="@"/>
+<s d="[" t="["/>
+<s d="]" t="]"/>
+<s d="{" t="{"/>
+<s d="}" t="}"/>
+<s d="&lt;" t="&lt;"/>
+<s d="&gt;" t="&gt;"/>
+<s d="(" t="("/>
+<s d=")" t=")"/>
+<s d="&#x2039;" t="&#x2039;" note="French left single quotation mark" />
+<s d="&#x203A;" t="&#x203A;" note="French right single quotation mark" />
+<s d="&#x00AB;" t="&#x00AB;" note="French left double quotation mark" />
+<s d="&#x00BB;" t="&#x00BB;" note="French right double quotation mark" />
+<s d="&#x201C;" t="&#x201C;" note="left double quotation mark" />
+<s d="&#x0022;" t="&#x0022;" note="deprecated vertical double quotation mark" />
+<s d="&#x201D;" t="&#x201D;" note="right double quotation mark" />
+<s d="&#x2018;" t="&#x2018;" note="left single quotation mark" />
+<s d="&#x0027;" t="&#x0027;" note="vertical single quote" />
+<s d="&#x2019;" t="&#x2019;" note="right single quotation mark and apostrophe" />
+<s d="-" t="-"/>
+<s d=":" t=":"/>
+<s d=";" t=";"/>
+<s d="?" t="?"/>
+<s d="!" t="!"/>
+<s d="," t=","/>
+<s d="." t="."/> 
+</group>
+</alphabet>
+<alphabet name="Catal&#x00E0; / Catalan (combining accents) with punctuation and numerals">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>European/Asian</palette>
+<train>training_catalanC_ES.txt</train>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="Combining accents" b="191"  visible="on">
+<s d="&#x25cc;&#x0300;"  t="&#x0300;" b="72" note="COMBINING GRAVE ACCENT &#x0060; "/>
+<s d="&#x25cc;&#x0301;"  t="&#x0301;" b="82" note="COMBINING ACUTE ACCENT &#x00B4; "/>
+<s d="&#x25cc;&#x0302;"  t="&#x0302;" b="72" note="COMBINING CIRCUMFLEX ACCENT  &#x005E; "/>
+<s d="&#x25cc;&#x0303;"  t="&#x0303;" b="82" note="COMBINING TILDE &#x007E;  "/>
+<s d="&#x25cc;&#x0304;"  t="&#x0304;" b="72" note="COMBINING MACRON  &#x00AF; "/>
+<s d="&#x25cc;&#x0327;"  t="&#x0327;" b="82" note="COMBINING CEDILLA &#x00B8; "/>
+<s d="&#x25cc;&#x0308;"  t="&#x0308;" b="72" note="COMBINING DIAERESIS or UMLAUT  &#x00A8;"/>
+</group>
+<group name="Lower case Latin letters"  visible="off">
+<s d="a" t="a" b="10"/>
+<s d="b" t="b" b="11"/>
+<s d="c" t="c" b="12"/>
+<s d="d" t="d" b="13"/>
+<s d="e" t="e" b="14"/>
+<s d="f" t="f" b="15"/>
+<s d="g" t="g" b="16"/>
+<s d="h" t="h" b="17"/>
+<s d="i" t="i" b="18"/>
+<s d="j" t="j" b="19"/>
+<s d="k" t="k" b="20"/>
+<s d="l" t="l" b="21"/>
+<s d="m" t="m" b="22"/>
+<s d="n" t="n" b="23"/>
+<s d="o" t="o" b="24"/>
+<s d="p" t="p" b="25"/>
+<s d="q" t="q" b="26"/>
+<s d="r" t="r" b="27"/>
+<s d="s" t="s" b="28"/>
+<s d="t" t="t" b="29"/>
+<s d="u" t="u" b="30"/>
+<s d="v" t="v" b="31"/>
+<s d="w" t="w" b="32"/>
+<s d="x" t="x" b="33"/>
+<s d="y" t="y" b="34"/>
+<s d="z" t="z" b="35"/>
+</group>
+<group name="Upper case Latin letters"  b="111">
+<s d="A" t="A" b="10"/>
+<s d="B" t="B" b="11"/>
+<s d="C" t="C" b="12"/>
+<s d="D" t="D" b="13"/>
+<s d="E" t="E" b="14"/>
+<s d="F" t="F" b="15"/>
+<s d="G" t="G" b="16"/>
+<s d="H" t="H" b="17"/>
+<s d="I" t="I" b="18"/>
+<s d="J" t="J" b="19"/>
+<s d="K" t="K" b="20"/>
+<s d="L" t="L" b="21"/>
+<s d="M" t="M" b="22"/>
+<s d="N" t="N" b="23"/>
+<s d="O" t="O" b="24"/>
+<s d="P" t="P" b="25"/>
+<s d="Q" t="Q" b="26"/>
+<s d="R" t="R" b="27"/>
+<s d="S" t="S" b="28"/>
+<s d="T" t="T" b="29"/>
+<s d="U" t="U" b="30"/>
+<s d="V" t="V" b="31"/>
+<s d="W" t="W" b="32"/>
+<s d="X" t="X" b="33"/>
+<s d="Y" t="Y" b="34"/>
+<s d="Z" t="Z" b="35"/>
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1" b="90"/>
+<s d="2" t="2" b="91"/>
+<s d="3" t="3" b="92"/>
+<s d="4" t="4" b="93"/>
+<s d="5" t="5" b="94"/>
+<s d="6" t="6" b="90"/>
+<s d="7" t="7" b="91"/>
+<s d="8" t="8" b="92"/>
+<s d="9" t="9" b="93"/>
+<s d="0" t="0" b="94"/>
+</group>
+<group name="Punctuation" b="112">
+<s b="90" d="%" t="%"/>
+<s b="91" d="*" t="*"/>
+<s b="92" d="+" t="+"/>
+<s b="93" d="=" t="="/>
+<s b="94" d="/" t="/"/>
+<s b="95" d="#" t="#"/>
+<s d="&#8364;" t="&#8364;" b="96" note="euro" />
+<s b="98" d="$" t="$"/>
+<s b="99" d="|" t="|"/>
+<s b="95" d="\" t="\"/>
+<s b="96" d="~" t="~"/>
+<s b="97" d="^" t="^"/>
+<s b="98" d="_" t="_"/>
+<s b="99" d="&amp;" t="&amp;"/> 
+<s b="95" d="@" t="@"/>
+<s b="105" d="[" t="["/>
+<s b="106" d="]" t="]"/>
+<s b="107" d="{" t="{"/>
+<s b="108" d="}" t="}"/>
+<s b="109" d="&lt;" t="&lt;"/>
+<s b="105" d="&gt;" t="&gt;"/>
+<s b="106" d="(" t="("/>
+<s b="107" d=")" t=")"/>
+<s b="107" d="&#x203A;" t="&#x203A;" note="French right single quotation mark" />
+<s b="108" d="&#x2039;" t="&#x2039;" note="French left single quotation mark" />
+<s b="109" d="&#x00BB;" t="&#x00BB;" note="French right double quotation mark" />
+<s b="105" d="&#x00AB;" t="&#x00AB;" note="French left double quotation mark" />
+<s b="106" d="&#x2018;" t="&#x2018;" note="left single quotation mark" />
+<!-- <s b="106" d="&#x0027;" t="&#x0027;" note="vertical single quote" /> -->
+<s b="107" d="&#x25cc;&#x0313;" t="&#x2019;" note="right single quotation mark and apostrophe" />
+<s b="9"    d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
+<s b="100"  d="-" t="-"/>
+<s b="101"  d=":" t=":"/>
+<s b="102"  d=";" t=";"/>
+<s b="103"  d="?" t="?"/>
+<s b="104"  d="!" t="!"/>
+<s b="100"  d="," t=","/>
+<s b="104" d="&#183;" t="."/>
+</group>
+</alphabet>
+</alphabets>

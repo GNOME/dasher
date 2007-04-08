@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Tamil with punctuation and numerals">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>Default</palette>
+<train>training_Tamil_IN.txt</train>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="TAMIL letters" b="0">
+<s d="&#x0B83;" t="&#x0B83;"  note="TAMIL SIGN VISARGA  class(p)"  />
+<s d="&#x0B85;" t="&#x0B85;"  note="TAMIL LETTER A  class(p)"  />
+<s d="&#x0B86;" t="&#x0B86;"  note="TAMIL LETTER AA  class(p)"  />
+<s d="&#x0B87;" t="&#x0B87;"  note="TAMIL LETTER I  class(p)"  />
+<s d="&#x0B88;" t="&#x0B88;"  note="TAMIL LETTER II  class(p)"  />
+<s d="&#x0B89;" t="&#x0B89;"  note="TAMIL LETTER U  class(p)"  />
+<s d="&#x0B8A;" t="&#x0B8A;"  note="TAMIL LETTER UU  class(p)"  />
+<s d="&#x0B8E;" t="&#x0B8E;"  note="TAMIL LETTER E  class(p)"  />
+<s d="&#x0B8F;" t="&#x0B8F;"  note="TAMIL LETTER EE  class(p)"  />
+<s d="&#x0B90;" t="&#x0B90;"  note="TAMIL LETTER AI  class(p)"  />
+<s d="&#x0B92;" t="&#x0B92;"  note="TAMIL LETTER O  class(p)"  />
+<s d="&#x0B93;" t="&#x0B93;"  note="TAMIL LETTER OO  class(p)"  />
+<s d="&#x0B94;" t="&#x0B94;"  note="TAMIL LETTER AU  class(p)"  />
+<s d="&#x0B95;" t="&#x0B95;"  note="TAMIL LETTER KA  class(p)"  />
+<s d="&#x0B99;" t="&#x0B99;"  note="TAMIL LETTER NGA  class(p)"  />
+<s d="&#x0B9A;" t="&#x0B9A;"  note="TAMIL LETTER CA  class(p)"  />
+<s d="&#x0B9C;" t="&#x0B9C;"  note="TAMIL LETTER JA  class(p)"  />
+<s d="&#x0B9E;" t="&#x0B9E;"  note="TAMIL LETTER NYA  class(p)"  />
+<s d="&#x0B9F;" t="&#x0B9F;"  note="TAMIL LETTER TTA  class(p)"  />
+<s d="&#x0BA3;" t="&#x0BA3;"  note="TAMIL LETTER NNA  class(p)"  />
+<s d="&#x0BA4;" t="&#x0BA4;"  note="TAMIL LETTER TA  class(p)"  />
+<s d="&#x0BA8;" t="&#x0BA8;"  note="TAMIL LETTER NA  class(p)"  />
+<s d="&#x0BA9;" t="&#x0BA9;"  note="TAMIL LETTER NNNA  class(p)"  />
+<s d="&#x0BAA;" t="&#x0BAA;"  note="TAMIL LETTER PA  class(p)"  />
+<s d="&#x0BAE;" t="&#x0BAE;"  note="TAMIL LETTER MA  class(p)"  />
+<s d="&#x0BAF;" t="&#x0BAF;"  note="TAMIL LETTER YA  class(p)"  />
+<s d="&#x0BB0;" t="&#x0BB0;"  note="TAMIL LETTER RA  class(p)"  />
+<s d="&#x0BB1;" t="&#x0BB1;"  note="TAMIL LETTER RRA  class(p)"  />
+<s d="&#x0BB2;" t="&#x0BB2;"  note="TAMIL LETTER LA  class(p)"  />
+<s d="&#x0BB3;" t="&#x0BB3;"  note="TAMIL LETTER LLA  class(p)"  />
+<s d="&#x0BB4;" t="&#x0BB4;"  note="TAMIL LETTER LLLA  class(p)"  />
+<s d="&#x0BB5;" t="&#x0BB5;"  note="TAMIL LETTER VA  class(p)"  />
+<s d="&#x0BB7;" t="&#x0BB7;"  note="TAMIL LETTER SSA  class(p)"  />
+<s d="&#x0BB8;" t="&#x0BB8;"  note="TAMIL LETTER SA  class(p)"  />
+<s d="&#x0BB9;" t="&#x0BB9;"  note="TAMIL LETTER HA  class(p)"  />
+</group>
+<group name="other signs, marks, and vowels" >
+<s d="&#x25cc;&#x0BBE;" t="&#x0BBE;"  note="TAMIL VOWEL SIGN AA  class(p)"  />
+<s d="&#x25cc;&#x0BBF;" t="&#x0BBF;"  note="TAMIL VOWEL SIGN I  class(p)"  />
+<s d="&#x25cc;&#x0BC0;" t="&#x0BC0;"  note="TAMIL VOWEL SIGN II  class(p)"  />
+<s d="&#x25cc;&#x0BC1;" t="&#x0BC1;"  note="TAMIL VOWEL SIGN U  class(p)"  />
+<s d="&#x25cc;&#x0BC2;" t="&#x0BC2;"  note="TAMIL VOWEL SIGN UU  class(p)"  />
+<s d="&#x25cc;&#x0BC6;" t="&#x0BC6;"  note="TAMIL VOWEL SIGN E  class(p)"  />
+<s d="&#x25cc;&#x0BC7;" t="&#x0BC7;"  note="TAMIL VOWEL SIGN EE  class(p)"  />
+<s d="&#x25cc;&#x0BC8;" t="&#x0BC8;"  note="TAMIL VOWEL SIGN AI  class(p)"  />
+<s d="&#x25cc;&#x0BCA;" t="&#x0BCA;"  note="TAMIL VOWEL SIGN O  class(p)"  />
+<s d="&#x25cc;&#x0BCB;" t="&#x0BCB;"  note="TAMIL VOWEL SIGN OO  class(p)"  />
+<s d="&#x25cc;&#x0BCC;" t="&#x0BCC;"  note="TAMIL VOWEL SIGN AU  class(p)"  />
+<s d="&#x25cc;&#x0BCD;" t="&#x0BCD;"  note="TAMIL SIGN VIRAMA  class(p)"  />
+<s d="&#x25cc;&#x0BD7;" t="&#x0BD7;"  note="TAMIL AU LENGTH MARK  class(p)"  />
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1"/>
+<s d="2" t="2"/>
+<s d="3" t="3"/>
+<s d="4" t="4"/>
+<s d="5" t="5"/>
+<s d="6" t="6"/>
+<s d="7" t="7"/>
+<s d="8" t="8"/>
+<s d="9" t="9"/>
+<s d="0" t="0"/>
+</group>
+<group name="Punctuation" b="112">
+<s d="%" t="%"/>
+<s d="*" t="*"/>
+<s d="+" t="+"/>
+<s d="=" t="="/>
+<s d="/" t="/"/>
+<s d="#" t="#"/>
+<s d="$" t="$"/>
+<s d="|" t="|"/>
+<s d="\" t="\"/>
+<s d="~" t="~"/>
+<s d="^" t="^"/>
+<s d="_" t="_"/>
+<s d="&amp;" t="&amp;"/>
+<s d="@" t="@"/>
+<s d="[" t="["/>
+<s d="]" t="]"/>
+<s d="{" t="{"/>
+<s d="}" t="}"/>
+<s d="&lt;" t="&lt;"/>
+<s d="&gt;" t="&gt;"/>
+<s d="(" t="("/>
+<s d=")" t=")"/>
+<s d="&quot;" t="&quot;"/>
+<s d="`" t="`"/>
+<s d="&apos;" t="&apos;"/>
+<s d="-" t="-"/>
+<s d=":" t=":"/>
+<s d=";" t=";"/>
+<s d="?" t="?"/>
+<s d="!" t="!"/>
+<s d="," t=","/>
+<s d="&#183;" t="."/>
+</group>
+</alphabet>
+</alphabets>

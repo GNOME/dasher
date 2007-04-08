@@ -1,0 +1,380 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Tigrinya (&#4725;&#4877;&#4653;&#4763;) with punctuation and numerals">
+<!-- identical alphabet used for Tigrinya, Amharic and Ethiopic -->
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>European/Asian</palette>
+<train>training_tigrinya_ET.txt</train>
+<space d="&#x25a1;" t=" " b="9" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="ethiopic letters" b="0">
+<s d="&#x1200;" t="&#x1200;" b="70" note="ETHIOPIC SYLLABLE HA  "  />
+<s d="&#x1201;" t="&#x1201;" b="80" note="ETHIOPIC SYLLABLE HU  "  />
+<s d="&#x1202;" t="&#x1202;" b="70" note="ETHIOPIC SYLLABLE HI  "  />
+<s d="&#x1203;" t="&#x1203;" b="80" note="ETHIOPIC SYLLABLE HAA  "  />
+<s d="&#x1204;" t="&#x1204;" b="70" note="ETHIOPIC SYLLABLE HEE  "  />
+<s d="&#x1205;" t="&#x1205;" b="80" note="ETHIOPIC SYLLABLE HE  "  />
+<s d="&#x1206;" t="&#x1206;" b="70" note="ETHIOPIC SYLLABLE HO  "  />
+<s d="&#x1208;" t="&#x1208;" b="71" note="ETHIOPIC SYLLABLE LA  "  />
+<s d="&#x1209;" t="&#x1209;" b="81" note="ETHIOPIC SYLLABLE LU  "  />
+<s d="&#x120A;" t="&#x120A;" b="71" note="ETHIOPIC SYLLABLE LI  "  />
+<s d="&#x120B;" t="&#x120B;" b="81" note="ETHIOPIC SYLLABLE LAA  "  />
+<s d="&#x120C;" t="&#x120C;" b="71" note="ETHIOPIC SYLLABLE LEE  "  />
+<s d="&#x120D;" t="&#x120D;" b="81" note="ETHIOPIC SYLLABLE LE  "  />
+<s d="&#x120E;" t="&#x120E;" b="71" note="ETHIOPIC SYLLABLE LO  "  />
+<s d="&#x120F;" t="&#x120F;" b="81" note="ETHIOPIC SYLLABLE LWA  "  />
+<s d="&#x1210;" t="&#x1210;" b="72" note="ETHIOPIC SYLLABLE HHA  "  />
+<s d="&#x1211;" t="&#x1211;" b="82" note="ETHIOPIC SYLLABLE HHU  "  />
+<s d="&#x1212;" t="&#x1212;" b="72" note="ETHIOPIC SYLLABLE HHI  "  />
+<s d="&#x1213;" t="&#x1213;" b="82" note="ETHIOPIC SYLLABLE HHAA  "  />
+<s d="&#x1214;" t="&#x1214;" b="72" note="ETHIOPIC SYLLABLE HHEE  "  />
+<s d="&#x1215;" t="&#x1215;" b="82" note="ETHIOPIC SYLLABLE HHE  "  />
+<s d="&#x1216;" t="&#x1216;" b="72" note="ETHIOPIC SYLLABLE HHO  "  />
+<s d="&#x1217;" t="&#x1217;" b="82" note="ETHIOPIC SYLLABLE HHWA  "  />
+<s d="&#x1218;" t="&#x1218;" b="73" note="ETHIOPIC SYLLABLE MA  "  />
+<s d="&#x1219;" t="&#x1219;" b="83" note="ETHIOPIC SYLLABLE MU  "  />
+<s d="&#x121A;" t="&#x121A;" b="73" note="ETHIOPIC SYLLABLE MI  "  />
+<s d="&#x121B;" t="&#x121B;" b="83" note="ETHIOPIC SYLLABLE MAA  "  />
+<s d="&#x121C;" t="&#x121C;" b="73" note="ETHIOPIC SYLLABLE MEE  "  />
+<s d="&#x121D;" t="&#x121D;" b="83" note="ETHIOPIC SYLLABLE ME  "  />
+<s d="&#x121E;" t="&#x121E;" b="73" note="ETHIOPIC SYLLABLE MO  "  />
+<s d="&#x121F;" t="&#x121F;" b="83" note="ETHIOPIC SYLLABLE MWA  "  />
+<s d="&#x1220;" t="&#x1220;" b="74" note="ETHIOPIC SYLLABLE SZA  "  />
+<s d="&#x1221;" t="&#x1221;" b="84" note="ETHIOPIC SYLLABLE SZU  "  />
+<s d="&#x1222;" t="&#x1222;" b="74" note="ETHIOPIC SYLLABLE SZI  "  />
+<s d="&#x1223;" t="&#x1223;" b="84" note="ETHIOPIC SYLLABLE SZAA  "  />
+<s d="&#x1224;" t="&#x1224;" b="74" note="ETHIOPIC SYLLABLE SZEE  "  />
+<s d="&#x1225;" t="&#x1225;" b="84" note="ETHIOPIC SYLLABLE SZE  "  />
+<s d="&#x1226;" t="&#x1226;" b="74" note="ETHIOPIC SYLLABLE SZO  "  />
+<s d="&#x1227;" t="&#x1227;" b="84" note="ETHIOPIC SYLLABLE SZWA  "  />
+<s d="&#x1228;" t="&#x1228;" b="75" note="ETHIOPIC SYLLABLE RA  "  />
+<s d="&#x1229;" t="&#x1229;" b="85" note="ETHIOPIC SYLLABLE RU  "  />
+<s d="&#x122A;" t="&#x122A;" b="75" note="ETHIOPIC SYLLABLE RI  "  />
+<s d="&#x122B;" t="&#x122B;" b="85" note="ETHIOPIC SYLLABLE RAA  "  />
+<s d="&#x122C;" t="&#x122C;" b="75" note="ETHIOPIC SYLLABLE REE  "  />
+<s d="&#x122D;" t="&#x122D;" b="85" note="ETHIOPIC SYLLABLE RE  "  />
+<s d="&#x122E;" t="&#x122E;" b="75" note="ETHIOPIC SYLLABLE RO  "  />
+<s d="&#x122F;" t="&#x122F;" b="85" note="ETHIOPIC SYLLABLE RWA  "  />
+<s d="&#x1230;" t="&#x1230;" b="76" note="ETHIOPIC SYLLABLE SA  "  />
+<s d="&#x1231;" t="&#x1231;" b="86" note="ETHIOPIC SYLLABLE SU  "  />
+<s d="&#x1232;" t="&#x1232;" b="76" note="ETHIOPIC SYLLABLE SI  "  />
+<s d="&#x1233;" t="&#x1233;" b="86" note="ETHIOPIC SYLLABLE SAA  "  />
+<s d="&#x1234;" t="&#x1234;" b="76" note="ETHIOPIC SYLLABLE SEE  "  />
+<s d="&#x1235;" t="&#x1235;" b="86" note="ETHIOPIC SYLLABLE SE  "  />
+<s d="&#x1236;" t="&#x1236;" b="76" note="ETHIOPIC SYLLABLE SO  "  />
+<s d="&#x1237;" t="&#x1237;" b="86" note="ETHIOPIC SYLLABLE SWA  "  />
+<s d="&#x1238;" t="&#x1238;" b="77" note="ETHIOPIC SYLLABLE SHA  "  />
+<s d="&#x1239;" t="&#x1239;" b="87" note="ETHIOPIC SYLLABLE SHU  "  />
+<s d="&#x123A;" t="&#x123A;" b="77" note="ETHIOPIC SYLLABLE SHI  "  />
+<s d="&#x123B;" t="&#x123B;" b="87" note="ETHIOPIC SYLLABLE SHAA  "  />
+<s d="&#x123C;" t="&#x123C;" b="77" note="ETHIOPIC SYLLABLE SHEE  "  />
+<s d="&#x123D;" t="&#x123D;" b="87" note="ETHIOPIC SYLLABLE SHE  "  />
+<s d="&#x123E;" t="&#x123E;" b="77" note="ETHIOPIC SYLLABLE SHO  "  />
+<s d="&#x123F;" t="&#x123F;" b="87" note="ETHIOPIC SYLLABLE SHWA  "  />
+<s d="&#x1240;" t="&#x1240;" b="78" note="ETHIOPIC SYLLABLE QA  "  />
+<s d="&#x1241;" t="&#x1241;" b="88" note="ETHIOPIC SYLLABLE QU  "  />
+<s d="&#x1242;" t="&#x1242;" b="78" note="ETHIOPIC SYLLABLE QI  "  />
+<s d="&#x1243;" t="&#x1243;" b="88" note="ETHIOPIC SYLLABLE QAA  "  />
+<s d="&#x1244;" t="&#x1244;" b="78" note="ETHIOPIC SYLLABLE QEE  "  />
+<s d="&#x1245;" t="&#x1245;" b="88" note="ETHIOPIC SYLLABLE QE  "  />
+<s d="&#x1246;" t="&#x1246;" b="78" note="ETHIOPIC SYLLABLE QO  "  />
+<s d="&#x1248;" t="&#x1248;" b="89" note="ETHIOPIC SYLLABLE QWA are these 5 coloured wrong?" />
+<s d="&#x124A;" t="&#x124A;" b="79" note="ETHIOPIC SYLLABLE QWI  "  />
+<s d="&#x124B;" t="&#x124B;" b="89" note="ETHIOPIC SYLLABLE QWAA  "  />
+<s d="&#x124C;" t="&#x124C;" b="79" note="ETHIOPIC SYLLABLE QWEE  "  />
+<s d="&#x124D;" t="&#x124D;" b="89" note="ETHIOPIC SYLLABLE QWE  "  />
+<s d="&#x1250;" t="&#x1250;" b="70" note="ETHIOPIC SYLLABLE QHA  "  />
+<s d="&#x1251;" t="&#x1251;" b="80" note="ETHIOPIC SYLLABLE QHU  "  />
+<s d="&#x1252;" t="&#x1252;" b="70" note="ETHIOPIC SYLLABLE QHI  "  />
+<s d="&#x1253;" t="&#x1253;" b="80" note="ETHIOPIC SYLLABLE QHAA  "  />
+<s d="&#x1254;" t="&#x1254;" b="70" note="ETHIOPIC SYLLABLE QHEE  "  />
+<s d="&#x1255;" t="&#x1255;" b="80" note="ETHIOPIC SYLLABLE QHE  "  />
+<s d="&#x1256;" t="&#x1256;" b="70" note="ETHIOPIC SYLLABLE QHO  "  />
+<s d="&#x1258;" t="&#x1258;" b="80" note="ETHIOPIC SYLLABLE QHWA  "  />
+<s d="&#x125A;" t="&#x125A;" b="70" note="ETHIOPIC SYLLABLE QHWI  "  />
+<s d="&#x125B;" t="&#x125B;" b="80" note="ETHIOPIC SYLLABLE QHWAA  "  />
+<s d="&#x125C;" t="&#x125C;" b="70" note="ETHIOPIC SYLLABLE QHWEE  "  />
+<s d="&#x125D;" t="&#x125D;" b="80" note="ETHIOPIC SYLLABLE QHWE  "  />
+<s d="&#x1260;" t="&#x1260;" b="81" note="ETHIOPIC SYLLABLE BA  "  />
+<s d="&#x1261;" t="&#x1261;" b="71" note="ETHIOPIC SYLLABLE BU  "  />
+<s d="&#x1262;" t="&#x1262;" b="81" note="ETHIOPIC SYLLABLE BI  "  />
+<s d="&#x1263;" t="&#x1263;" b="80" note="ETHIOPIC SYLLABLE BAA  "  />
+<s d="&#x1264;" t="&#x1264;" b="81" note="ETHIOPIC SYLLABLE BEE  "  />
+<s d="&#x1265;" t="&#x1265;" b="71" note="ETHIOPIC SYLLABLE BE  "  />
+<s d="&#x1266;" t="&#x1266;" b="81" note="ETHIOPIC SYLLABLE BO  "  />
+<s d="&#x1267;" t="&#x1267;" b="71" note="ETHIOPIC SYLLABLE BWA  "  />
+<s d="&#x1268;" t="&#x1268;" b="72" note="ETHIOPIC SYLLABLE VA  "  />
+<s d="&#x1269;" t="&#x1269;" b="82" note="ETHIOPIC SYLLABLE VU  "  />
+<s d="&#x126A;" t="&#x126A;" b="72" note="ETHIOPIC SYLLABLE VI  "  />
+<s d="&#x126B;" t="&#x126B;" b="82" note="ETHIOPIC SYLLABLE VAA  "  />
+<s d="&#x126C;" t="&#x126C;" b="72" note="ETHIOPIC SYLLABLE VEE  "  />
+<s d="&#x126D;" t="&#x126D;" b="82" note="ETHIOPIC SYLLABLE VE  "  />
+<s d="&#x126E;" t="&#x126E;" b="72" note="ETHIOPIC SYLLABLE VO  "  />
+<s d="&#x126F;" t="&#x126F;" b="82" note="ETHIOPIC SYLLABLE VWA  "  />
+<s d="&#x1270;" t="&#x1270;" b="73" note="ETHIOPIC SYLLABLE TA  "  />
+<s d="&#x1271;" t="&#x1271;" b="83" note="ETHIOPIC SYLLABLE TU  "  />
+<s d="&#x1272;" t="&#x1272;" b="73" note="ETHIOPIC SYLLABLE TI  "  />
+<s d="&#x1273;" t="&#x1273;" b="83" note="ETHIOPIC SYLLABLE TAA  "  />
+<s d="&#x1274;" t="&#x1274;" b="73" note="ETHIOPIC SYLLABLE TEE  "  />
+<s d="&#x1275;" t="&#x1275;" b="83" note="ETHIOPIC SYLLABLE TE  "  />
+<s d="&#x1276;" t="&#x1276;" b="73" note="ETHIOPIC SYLLABLE TO  "  />
+<s d="&#x1277;" t="&#x1277;" b="83" note="ETHIOPIC SYLLABLE TWA  "  />
+<s d="&#x1278;" t="&#x1278;" b="74" note="ETHIOPIC SYLLABLE CA  "  />
+<s d="&#x1279;" t="&#x1279;" b="84" note="ETHIOPIC SYLLABLE CU  "  />
+<s d="&#x127A;" t="&#x127A;" b="74" note="ETHIOPIC SYLLABLE CI  "  />
+<s d="&#x127B;" t="&#x127B;" b="84" note="ETHIOPIC SYLLABLE CAA  "  />
+<s d="&#x127C;" t="&#x127C;" b="74" note="ETHIOPIC SYLLABLE CEE  "  />
+<s d="&#x127D;" t="&#x127D;" b="84" note="ETHIOPIC SYLLABLE CE  "  />
+<s d="&#x127E;" t="&#x127E;" b="74" note="ETHIOPIC SYLLABLE CO  "  />
+<s d="&#x127F;" t="&#x127F;" b="84" note="ETHIOPIC SYLLABLE CWA  "  />
+<s d="&#x1280;" t="&#x1280;" b="75" note="ETHIOPIC SYLLABLE XA  "  />
+<s d="&#x1281;" t="&#x1281;" b="85" note="ETHIOPIC SYLLABLE XU  "  />
+<s d="&#x1282;" t="&#x1282;" b="75" note="ETHIOPIC SYLLABLE XI  "  />
+<s d="&#x1283;" t="&#x1283;" b="85" note="ETHIOPIC SYLLABLE XAA  "  />
+<s d="&#x1284;" t="&#x1284;" b="75" note="ETHIOPIC SYLLABLE XEE  "  />
+<s d="&#x1285;" t="&#x1285;" b="85" note="ETHIOPIC SYLLABLE XE  "  />
+<s d="&#x1286;" t="&#x1286;" b="75" note="ETHIOPIC SYLLABLE XO  "  />
+<s d="&#x1288;" t="&#x1288;" b="85" note="ETHIOPIC SYLLABLE XWA  "  />
+<s d="&#x128A;" t="&#x128A;" b="75" note="ETHIOPIC SYLLABLE XWI  "  />
+<s d="&#x128B;" t="&#x128B;" b="85" note="ETHIOPIC SYLLABLE XWAA  "  />
+<s d="&#x128C;" t="&#x128C;" b="75" note="ETHIOPIC SYLLABLE XWEE  "  />
+<s d="&#x128D;" t="&#x128D;" b="85" note="ETHIOPIC SYLLABLE XWE  "  />
+<s d="&#x1290;" t="&#x1290;" b="86" note="ETHIOPIC SYLLABLE NA  "  />
+<s d="&#x1291;" t="&#x1291;" b="76" note="ETHIOPIC SYLLABLE NU  "  />
+<s d="&#x1292;" t="&#x1292;" b="86" note="ETHIOPIC SYLLABLE NI  "  />
+<s d="&#x1293;" t="&#x1293;" b="76" note="ETHIOPIC SYLLABLE NAA  "  />
+<s d="&#x1294;" t="&#x1294;" b="86" note="ETHIOPIC SYLLABLE NEE  "  />
+<s d="&#x1295;" t="&#x1295;" b="76" note="ETHIOPIC SYLLABLE NE  "  />
+<s d="&#x1296;" t="&#x1296;" b="86" note="ETHIOPIC SYLLABLE NO  "  />
+<s d="&#x1297;" t="&#x1297;" b="76" note="ETHIOPIC SYLLABLE NWA  "  />
+<s d="&#x1298;" t="&#x1298;" b="87" note="ETHIOPIC SYLLABLE NYA should start new colour group here?"  />
+<s d="&#x1299;" t="&#x1299;" b="77" note="ETHIOPIC SYLLABLE NYU  "  />
+<s d="&#x129A;" t="&#x129A;" b="87" note="ETHIOPIC SYLLABLE NYI  "  />
+<s d="&#x129B;" t="&#x129B;" b="77" note="ETHIOPIC SYLLABLE NYAA  "  />
+<s d="&#x129C;" t="&#x129C;" b="87" note="ETHIOPIC SYLLABLE NYEE  "  />
+<s d="&#x129D;" t="&#x129D;" b="77" note="ETHIOPIC SYLLABLE NYE  "  />
+<s d="&#x129E;" t="&#x129E;" b="87" note="ETHIOPIC SYLLABLE NYO  "  />
+<s d="&#x129F;" t="&#x129F;" b="77" note="ETHIOPIC SYLLABLE NYWA  "  />
+<s d="&#x12A0;" t="&#x12A0;" b="78" note="ETHIOPIC SYLLABLE GLOTTAL A  "  />
+<s d="&#x12A1;" t="&#x12A1;" b="88" note="ETHIOPIC SYLLABLE GLOTTAL U  "  />
+<s d="&#x12A2;" t="&#x12A2;" b="78" note="ETHIOPIC SYLLABLE GLOTTAL I  "  />
+<s d="&#x12A3;" t="&#x12A3;" b="88" note="ETHIOPIC SYLLABLE GLOTTAL AA  "  />
+<s d="&#x12A4;" t="&#x12A4;" b="78" note="ETHIOPIC SYLLABLE GLOTTAL EE  "  />
+<s d="&#x12A5;" t="&#x12A5;" b="88" note="ETHIOPIC SYLLABLE GLOTTAL E  "  />
+<s d="&#x12A6;" t="&#x12A6;" b="78" note="ETHIOPIC SYLLABLE GLOTTAL O  "  />
+<s d="&#x12A7;" t="&#x12A7;" b="88" note="ETHIOPIC SYLLABLE GLOTTAL WA  "  />
+<s d="&#x12A8;" t="&#x12A8;" b="79" note="ETHIOPIC SYLLABLE KA  "  />
+<s d="&#x12A9;" t="&#x12A9;" b="89" note="ETHIOPIC SYLLABLE KU  "  />
+<s d="&#x12AA;" t="&#x12AA;" b="79" note="ETHIOPIC SYLLABLE KI  "  />
+<s d="&#x12AB;" t="&#x12AB;" b="89" note="ETHIOPIC SYLLABLE KAA  "  />
+<s d="&#x12AC;" t="&#x12AC;" b="79" note="ETHIOPIC SYLLABLE KEE  "  />
+<s d="&#x12AD;" t="&#x12AD;" b="89" note="ETHIOPIC SYLLABLE KE  "  />
+<s d="&#x12AE;" t="&#x12AE;" b="79" note="ETHIOPIC SYLLABLE KO  "  />
+<s d="&#x12B0;" t="&#x12B0;" b="89" note="ETHIOPIC SYLLABLE KWA new colour? "  />
+<s d="&#x12B2;" t="&#x12B2;" b="79" note="ETHIOPIC SYLLABLE KWI  "  />
+<s d="&#x12B3;" t="&#x12B3;" b="89" note="ETHIOPIC SYLLABLE KWAA  "  />
+<s d="&#x12B4;" t="&#x12B4;" b="79" note="ETHIOPIC SYLLABLE KWEE  "  />
+<s d="&#x12B5;" t="&#x12B5;" b="89" note="ETHIOPIC SYLLABLE KWE  "  />
+<s d="&#x12B8;" t="&#x12B8;" b="70" note="ETHIOPIC SYLLABLE KXA  "  />
+<s d="&#x12B9;" t="&#x12B9;" b="80" note="ETHIOPIC SYLLABLE KXU  "  />
+<s d="&#x12BA;" t="&#x12BA;" b="70" note="ETHIOPIC SYLLABLE KXI  "  />
+<s d="&#x12BB;" t="&#x12BB;" b="80" note="ETHIOPIC SYLLABLE KXAA  "  />
+<s d="&#x12BC;" t="&#x12BC;" b="70" note="ETHIOPIC SYLLABLE KXEE  "  />
+<s d="&#x12BD;" t="&#x12BD;" b="70" note="ETHIOPIC SYLLABLE KXE  "  />
+<s d="&#x12BE;" t="&#x12BE;" b="80" note="ETHIOPIC SYLLABLE KXO  "  />
+<s d="&#x12C0;" t="&#x12C0;" b="70" note="ETHIOPIC SYLLABLE KXWA  "  />
+<s d="&#x12C2;" t="&#x12C2;" b="80" note="ETHIOPIC SYLLABLE KXWI  "  />
+<s d="&#x12C3;" t="&#x12C3;" b="70" note="ETHIOPIC SYLLABLE KXWAA  "  />
+<s d="&#x12C4;" t="&#x12C4;" b="70" note="ETHIOPIC SYLLABLE KXWEE  "  />
+<s d="&#x12C5;" t="&#x12C5;" b="80" note="ETHIOPIC SYLLABLE KXWE  "  />
+<s d="&#x12C8;" t="&#x12C8;" b="71" note="ETHIOPIC SYLLABLE WA  "  />
+<s d="&#x12C9;" t="&#x12C9;" b="81" note="ETHIOPIC SYLLABLE WU  "  />
+<s d="&#x12CA;" t="&#x12CA;" b="71" note="ETHIOPIC SYLLABLE WI  "  />
+<s d="&#x12CB;" t="&#x12CB;" b="81" note="ETHIOPIC SYLLABLE WAA  "  />
+<s d="&#x12CC;" t="&#x12CC;" b="71" note="ETHIOPIC SYLLABLE WEE  "  />
+<s d="&#x12CD;" t="&#x12CD;" b="81" note="ETHIOPIC SYLLABLE WE  "  />
+<s d="&#x12CE;" t="&#x12CE;" b="71" note="ETHIOPIC SYLLABLE WO  "  />
+<s d="&#x12D0;" t="&#x12D0;" b="82" note="ETHIOPIC SYLLABLE PHARYNGEAL A  "  />
+<s d="&#x12D1;" t="&#x12D1;" b="72" note="ETHIOPIC SYLLABLE PHARYNGEAL U  "  />
+<s d="&#x12D2;" t="&#x12D2;" b="82" note="ETHIOPIC SYLLABLE PHARYNGEAL I  "  />
+<s d="&#x12D3;" t="&#x12D3;" b="82" note="ETHIOPIC SYLLABLE PHARYNGEAL AA  "  />
+<s d="&#x12D4;" t="&#x12D4;" b="82" note="ETHIOPIC SYLLABLE PHARYNGEAL EE  "  />
+<s d="&#x12D5;" t="&#x12D5;" b="72" note="ETHIOPIC SYLLABLE PHARYNGEAL E  "  />
+<s d="&#x12D6;" t="&#x12D6;" b="82" note="ETHIOPIC SYLLABLE PHARYNGEAL O  "  />
+<s d="&#x12D8;" t="&#x12D8;" b="82" note="ETHIOPIC SYLLABLE ZA  "  />
+<s d="&#x12D9;" t="&#x12D9;" b="72" note="ETHIOPIC SYLLABLE ZU  "  />
+<s d="&#x12DA;" t="&#x12DA;" b="82" note="ETHIOPIC SYLLABLE ZI  "  />
+<s d="&#x12DB;" t="&#x12DB;" b="72" note="ETHIOPIC SYLLABLE ZAA  "  />
+<s d="&#x12DC;" t="&#x12DC;" b="82" note="ETHIOPIC SYLLABLE ZEE  "  />
+<s d="&#x12DD;" t="&#x12DD;" b="72" note="ETHIOPIC SYLLABLE ZE  "  />
+<s d="&#x12DE;" t="&#x12DE;" b="82" note="ETHIOPIC SYLLABLE ZO  "  />
+<s d="&#x12DF;" t="&#x12DF;" b="72" note="ETHIOPIC SYLLABLE ZWA  "  />
+<s d="&#x12E0;" t="&#x12E0;" b="83" note="ETHIOPIC SYLLABLE ZHA  "  />
+<s d="&#x12E1;" t="&#x12E1;" b="73" note="ETHIOPIC SYLLABLE ZHU  "  />
+<s d="&#x12E2;" t="&#x12E2;" b="83" note="ETHIOPIC SYLLABLE ZHI  "  />
+<s d="&#x12E3;" t="&#x12E3;" b="73" note="ETHIOPIC SYLLABLE ZHAA  "  />
+<s d="&#x12E4;" t="&#x12E4;" b="83" note="ETHIOPIC SYLLABLE ZHEE  "  />
+<s d="&#x12E5;" t="&#x12E5;" b="73" note="ETHIOPIC SYLLABLE ZHE  "  />
+<s d="&#x12E6;" t="&#x12E6;" b="83" note="ETHIOPIC SYLLABLE ZHO  "  />
+<s d="&#x12E7;" t="&#x12E7;" b="73" note="ETHIOPIC SYLLABLE ZHWA  "  />
+<s d="&#x12E8;" t="&#x12E8;" b="74" note="ETHIOPIC SYLLABLE YA  "  />
+<s d="&#x12E9;" t="&#x12E9;" b="84" note="ETHIOPIC SYLLABLE YU  "  />
+<s d="&#x12EA;" t="&#x12EA;" b="74" note="ETHIOPIC SYLLABLE YI  "  />
+<s d="&#x12EB;" t="&#x12EB;" b="84" note="ETHIOPIC SYLLABLE YAA  "  />
+<s d="&#x12EC;" t="&#x12EC;" b="74" note="ETHIOPIC SYLLABLE YEE  "  />
+<s d="&#x12ED;" t="&#x12ED;" b="84" note="ETHIOPIC SYLLABLE YE  "  />
+<s d="&#x12EE;" t="&#x12EE;" b="74" note="ETHIOPIC SYLLABLE YO  "  />
+<s d="&#x12F0;" t="&#x12F0;" b="75" note="ETHIOPIC SYLLABLE DA  "  />
+<s d="&#x12F1;" t="&#x12F1;" b="85" note="ETHIOPIC SYLLABLE DU  "  />
+<s d="&#x12F2;" t="&#x12F2;" b="75" note="ETHIOPIC SYLLABLE DI  "  />
+<s d="&#x12F3;" t="&#x12F3;" b="85" note="ETHIOPIC SYLLABLE DAA  "  />
+<s d="&#x12F4;" t="&#x12F4;" b="75" note="ETHIOPIC SYLLABLE DEE  "  />
+<s d="&#x12F5;" t="&#x12F5;" b="85" note="ETHIOPIC SYLLABLE DE  "  />
+<s d="&#x12F6;" t="&#x12F6;" b="75" note="ETHIOPIC SYLLABLE DO  "  />
+<s d="&#x12F7;" t="&#x12F7;" b="85" note="ETHIOPIC SYLLABLE DWA  "  />
+<s d="&#x12F8;" t="&#x12F8;" b="76" note="ETHIOPIC SYLLABLE DDA  "  />
+<s d="&#x12F9;" t="&#x12F9;" b="86" note="ETHIOPIC SYLLABLE DDU  "  />
+<s d="&#x12FA;" t="&#x12FA;" b="76" note="ETHIOPIC SYLLABLE DDI  "  />
+<s d="&#x12FB;" t="&#x12FB;" b="86" note="ETHIOPIC SYLLABLE DDAA  "  />
+<s d="&#x12FC;" t="&#x12FC;" b="76" note="ETHIOPIC SYLLABLE DDEE  "  />
+<s d="&#x12FD;" t="&#x12FD;" b="86" note="ETHIOPIC SYLLABLE DDE  "  />
+<s d="&#x12FE;" t="&#x12FE;" b="76" note="ETHIOPIC SYLLABLE DDO  "  />
+<s d="&#x12FF;" t="&#x12FF;" b="86" note="ETHIOPIC SYLLABLE DDWA  "  />
+<s d="&#x1300;" t="&#x1300;" b="77" note="ETHIOPIC SYLLABLE JA  "  />
+<s d="&#x1301;" t="&#x1301;" b="87" note="ETHIOPIC SYLLABLE JU  "  />
+<s d="&#x1302;" t="&#x1302;" b="77" note="ETHIOPIC SYLLABLE JI  "  />
+<s d="&#x1303;" t="&#x1303;" b="87" note="ETHIOPIC SYLLABLE JAA  "  />
+<s d="&#x1304;" t="&#x1304;" b="77" note="ETHIOPIC SYLLABLE JEE  "  />
+<s d="&#x1305;" t="&#x1305;" b="87" note="ETHIOPIC SYLLABLE JE  "  />
+<s d="&#x1306;" t="&#x1306;" b="77" note="ETHIOPIC SYLLABLE JO  "  />
+<s d="&#x1307;" t="&#x1307;" b="87" note="ETHIOPIC SYLLABLE JWA  "  />
+<s d="&#x1308;" t="&#x1308;" b="78" note="ETHIOPIC SYLLABLE GA  "  />
+<s d="&#x1309;" t="&#x1309;" b="88" note="ETHIOPIC SYLLABLE GU  "  />
+<s d="&#x130A;" t="&#x130A;" b="78" note="ETHIOPIC SYLLABLE GI  "  />
+<s d="&#x130B;" t="&#x130B;" b="88" note="ETHIOPIC SYLLABLE GAA  "  />
+<s d="&#x130C;" t="&#x130C;" b="78" note="ETHIOPIC SYLLABLE GEE  "  />
+<s d="&#x130D;" t="&#x130D;" b="88" note="ETHIOPIC SYLLABLE GE  "  />
+<s d="&#x130E;" t="&#x130E;" b="78" note="ETHIOPIC SYLLABLE GO  "  />
+<s d="&#x1310;" t="&#x1310;" b="88" note="ETHIOPIC SYLLABLE GWA new colour?  "  />
+<s d="&#x1312;" t="&#x1312;" b="78" note="ETHIOPIC SYLLABLE GWI  "  />
+<s d="&#x1313;" t="&#x1313;" b="88" note="ETHIOPIC SYLLABLE GWAA  "  />
+<s d="&#x1314;" t="&#x1314;" b="78" note="ETHIOPIC SYLLABLE GWEE  "  />
+<s d="&#x1315;" t="&#x1315;" b="88" note="ETHIOPIC SYLLABLE GWE  "  />
+<s d="&#x1318;" t="&#x1318;" b="79" note="ETHIOPIC SYLLABLE GGA  "  />
+<s d="&#x1319;" t="&#x1319;" b="89" note="ETHIOPIC SYLLABLE GGU  "  />
+<s d="&#x131A;" t="&#x131A;" b="79" note="ETHIOPIC SYLLABLE GGI  "  />
+<s d="&#x131B;" t="&#x131B;" b="89" note="ETHIOPIC SYLLABLE GGAA  "  />
+<s d="&#x131C;" t="&#x131C;" b="79" note="ETHIOPIC SYLLABLE GGEE  "  />
+<s d="&#x131D;" t="&#x131D;" b="89" note="ETHIOPIC SYLLABLE GGE  "  />
+<s d="&#x131E;" t="&#x131E;" b="79" note="ETHIOPIC SYLLABLE GGO  "  />
+<s d="&#x1320;" t="&#x1320;" b="70" note="ETHIOPIC SYLLABLE THA  "  />
+<s d="&#x1321;" t="&#x1321;" b="80" note="ETHIOPIC SYLLABLE THU  "  />
+<s d="&#x1322;" t="&#x1322;" b="70" note="ETHIOPIC SYLLABLE THI  "  />
+<s d="&#x1323;" t="&#x1323;" b="80" note="ETHIOPIC SYLLABLE THAA  "  />
+<s d="&#x1324;" t="&#x1324;" b="70" note="ETHIOPIC SYLLABLE THEE  "  />
+<s d="&#x1325;" t="&#x1325;" b="80" note="ETHIOPIC SYLLABLE THE  "  />
+<s d="&#x1326;" t="&#x1326;" b="70" note="ETHIOPIC SYLLABLE THO  "  />
+<s d="&#x1327;" t="&#x1327;" b="80" note="ETHIOPIC SYLLABLE THWA  "  />
+<s d="&#x1328;" t="&#x1328;" b="71" note="ETHIOPIC SYLLABLE CHA  "  />
+<s d="&#x1329;" t="&#x1329;" b="81" note="ETHIOPIC SYLLABLE CHU  "  />
+<s d="&#x132A;" t="&#x132A;" b="71" note="ETHIOPIC SYLLABLE CHI  "  />
+<s d="&#x132B;" t="&#x132B;" b="81" note="ETHIOPIC SYLLABLE CHAA  "  />
+<s d="&#x132C;" t="&#x132C;" b="71" note="ETHIOPIC SYLLABLE CHEE  "  />
+<s d="&#x132D;" t="&#x132D;" b="81" note="ETHIOPIC SYLLABLE CHE  "  />
+<s d="&#x132E;" t="&#x132E;" b="71" note="ETHIOPIC SYLLABLE CHO  "  />
+<s d="&#x132F;" t="&#x132F;" b="81" note="ETHIOPIC SYLLABLE CHWA  "  />
+<s d="&#x1330;" t="&#x1330;" b="72" note="ETHIOPIC SYLLABLE PHA  "  />
+<s d="&#x1331;" t="&#x1331;" b="82" note="ETHIOPIC SYLLABLE PHU  "  />
+<s d="&#x1332;" t="&#x1332;" b="72" note="ETHIOPIC SYLLABLE PHI  "  />
+<s d="&#x1333;" t="&#x1333;" b="82" note="ETHIOPIC SYLLABLE PHAA  "  />
+<s d="&#x1334;" t="&#x1334;" b="72" note="ETHIOPIC SYLLABLE PHEE  "  />
+<s d="&#x1335;" t="&#x1335;" b="82" note="ETHIOPIC SYLLABLE PHE  "  />
+<s d="&#x1336;" t="&#x1336;" b="72" note="ETHIOPIC SYLLABLE PHO  "  />
+<s d="&#x1337;" t="&#x1337;" b="82" note="ETHIOPIC SYLLABLE PHWA  "  />
+<s d="&#x1338;" t="&#x1338;" b="73" note="ETHIOPIC SYLLABLE TSA  "  />
+<s d="&#x1339;" t="&#x1339;" b="83" note="ETHIOPIC SYLLABLE TSU  "  />
+<s d="&#x133A;" t="&#x133A;" b="73" note="ETHIOPIC SYLLABLE TSI  "  />
+<s d="&#x133B;" t="&#x133B;" b="83" note="ETHIOPIC SYLLABLE TSAA  "  />
+<s d="&#x133C;" t="&#x133C;" b="73" note="ETHIOPIC SYLLABLE TSEE  "  />
+<s d="&#x133D;" t="&#x133D;" b="83" note="ETHIOPIC SYLLABLE TSE  "  />
+<s d="&#x133E;" t="&#x133E;" b="73" note="ETHIOPIC SYLLABLE TSO  "  />
+<s d="&#x133F;" t="&#x133F;" b="83" note="ETHIOPIC SYLLABLE TSWA  "  />
+<s d="&#x1340;" t="&#x1340;" b="74" note="ETHIOPIC SYLLABLE TZA  "  />
+<s d="&#x1341;" t="&#x1341;" b="84" note="ETHIOPIC SYLLABLE TZU  "  />
+<s d="&#x1342;" t="&#x1342;" b="84" note="ETHIOPIC SYLLABLE TZI  "  />
+<s d="&#x1343;" t="&#x1343;" b="84" note="ETHIOPIC SYLLABLE TZAA  "  />
+<s d="&#x1344;" t="&#x1344;" b="74" note="ETHIOPIC SYLLABLE TZEE  "  />
+<s d="&#x1345;" t="&#x1345;" b="84" note="ETHIOPIC SYLLABLE TZE  "  />
+<s d="&#x1346;" t="&#x1346;" b="74" note="ETHIOPIC SYLLABLE TZO  "  />
+<s d="&#x1348;" t="&#x1348;" b="75" note="ETHIOPIC SYLLABLE FA  "  />
+<s d="&#x1349;" t="&#x1349;" b="85" note="ETHIOPIC SYLLABLE FU  "  />
+<s d="&#x134A;" t="&#x134A;" b="75" note="ETHIOPIC SYLLABLE FI  "  />
+<s d="&#x134B;" t="&#x134B;" b="85" note="ETHIOPIC SYLLABLE FAA  "  />
+<s d="&#x134C;" t="&#x134C;" b="75" note="ETHIOPIC SYLLABLE FEE  "  />
+<s d="&#x134D;" t="&#x134D;" b="85" note="ETHIOPIC SYLLABLE FE  "  />
+<s d="&#x134E;" t="&#x134E;" b="75" note="ETHIOPIC SYLLABLE FO  "  />
+<s d="&#x134F;" t="&#x134F;" b="85" note="ETHIOPIC SYLLABLE FWA  "  />
+<s d="&#x1350;" t="&#x1350;" b="76" note="ETHIOPIC SYLLABLE PA  "  />
+<s d="&#x1351;" t="&#x1351;" b="86" note="ETHIOPIC SYLLABLE PU  "  />
+<s d="&#x1352;" t="&#x1352;" b="76" note="ETHIOPIC SYLLABLE PI  "  />
+<s d="&#x1353;" t="&#x1353;" b="86" note="ETHIOPIC SYLLABLE PAA  "  />
+<s d="&#x1354;" t="&#x1354;" b="76" note="ETHIOPIC SYLLABLE PEE  "  />
+<s d="&#x1355;" t="&#x1355;" b="86" note="ETHIOPIC SYLLABLE PE  "  />
+<s d="&#x1356;" t="&#x1356;" b="76" note="ETHIOPIC SYLLABLE PO  "  />
+<s d="&#x1357;" t="&#x1357;" b="86" note="ETHIOPIC SYLLABLE PWA  "  />
+<s d="&#x1358;" t="&#x1358;" b="77" note="ETHIOPIC SYLLABLE RYA  "  />
+<s d="&#x1359;" t="&#x1359;" b="87" note="ETHIOPIC SYLLABLE MYA  "  />
+<s d="&#x135A;" t="&#x135A;" b="77" note="ETHIOPIC SYLLABLE FYA  "  />
+</group>		     
+<group name="Numbers" b="113">
+<s d="1" t="1"/>	     
+<s d="2" t="2"/>	     
+<s d="3" t="3"/>	     
+<s d="4" t="4"/>
+<s d="5" t="5"/>
+<s d="6" t="6"/>
+<s d="7" t="7"/>
+<s d="8" t="8"/>
+<s d="9" t="9"/>
+<s d="0" t="0"/>
+</group>
+<group name="Punctuation" b="112">
+<s d="%" t="%"/>
+<s d="*" t="*"/>
+<s d="+" t="+"/>
+<s d="=" t="="/>
+<s d="/" t="/"/>
+<s d="#" t="#"/>
+<s d="$" t="$"/>
+<s d="|" t="|"/>
+<s d="\" t="\"/>
+<s d="~" t="~"/>
+<s d="^" t="^"/>
+<s d="_" t="_"/>
+<s d="&amp;" t="&amp;"/>
+<s d="@" t="@"/>
+<s d="[" t="["/>
+<s d="]" t="]"/>
+<s d="{" t="{"/>
+<s d="}" t="}"/>
+<s d="&lt;" t="&lt;"/>
+<s d="&gt;" t="&gt;"/>
+<s d="(" t="("/>
+<s d=")" t=")"/>
+<s d="&quot;" t="&quot;"/>
+<s d="`" t="`"/>
+<s d="&apos;" t="&apos;"/>
+<s d="-" t="-"/>
+<s d=":" t=":"/>
+<s d=";" t=";"/>
+<s d="?" t="?"/>
+<s d="!" t="!"/>
+<s d="," t=","/>
+<s d="." t="."/>
+</group>
+</alphabet>
+</alphabets>

@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding = "Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.00"
+	Name="Dasher"
+	SccProjectName=""
+	SccLocalPath="">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory=".\Target/Win32 Debug"
+			IntermediateDirectory=".\Target/Win32 Debug/Intermediate"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="WinCommon;Common"
+				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,_STATIC"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="WinCommon.h"
+				PrecompiledHeaderFile=".\Target/Win32 Debug/Intermediate/Dasher.pch"
+				AssemblerListingLocation=".\Target/Win32 Debug/Intermediate/"
+				ObjectFile=".\Target/Win32 Debug/Intermediate/"
+				ProgramDataBaseFileName=".\Target/Win32 Debug/Intermediate/"
+				BrowseInformation="1"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"
+				DebugInformationFormat="4"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib"
+				OutputFile=".\Target/Win32 Debug/Dasher.exe"
+				LinkIncremental="2"
+				SuppressStartupBanner="TRUE"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile=".\Target/Win32 Debug/Dasher.pdb"
+				SubSystem="2"/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG"
+				MkTypLibCompatible="TRUE"
+				SuppressStartupBanner="TRUE"
+				TargetEnvironment="1"
+				TypeLibraryName=".\Target/Win32 Debug/Dasher.tlb"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="2057"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration
+			Name="Win95 compatible Release|Win32"
+			OutputDirectory=".\Target/Win32 Win95 compatible Release"
+			IntermediateDirectory=".\Target/Win32 Win95 compatible Release/Intermediate"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				GlobalOptimizations="TRUE"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="TRUE"
+				FavorSizeOrSpeed="1"
+				OptimizeForWindowsApplication="TRUE"
+				AdditionalIncludeDirectories="WinCommon"
+				PreprocessorDefinitions="WIN32,NDEBUG,_WINDOWS,_STATIC,OriginalWin95"
+				StringPooling="TRUE"
+				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="TRUE"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="WinCommon.h"
+				PrecompiledHeaderFile=".\Target/Win32 Win95 compatible Release/Intermediate/Dasher.pch"
+				AssemblerListingLocation=".\Target/Win32 Win95 compatible Release/Intermediate/"
+				ObjectFile=".\Target/Win32 Win95 compatible Release/Intermediate/"
+				ProgramDataBaseFileName=".\Target/Win32 Win95 compatible Release/Intermediate/"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib"
+				OutputFile=".\Target/Win32 Win95 compatible Release/Dasher.exe"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
+				ProgramDatabaseFile=".\Target/Win32 Win95 compatible Release/Dasher.pdb"
+				SubSystem="2"/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG"
+				MkTypLibCompatible="TRUE"
+				SuppressStartupBanner="TRUE"
+				TargetEnvironment="1"
+				TypeLibraryName=".\Target/Win32 Win95 compatible Release/Dasher.tlb"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="2057"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory=".\Target/Win32 Release"
+			IntermediateDirectory=".\Target/Win32 Release/Intermediate"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				GlobalOptimizations="TRUE"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="TRUE"
+				FavorSizeOrSpeed="1"
+				OptimizeForWindowsApplication="TRUE"
+				AdditionalIncludeDirectories="WinCommon"
+				PreprocessorDefinitions="WIN32,NDEBUG,_WINDOWS,_STATIC"
+				StringPooling="TRUE"
+				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="TRUE"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="WinCommon.h"
+				PrecompiledHeaderFile=".\Target/Win32 Release/Intermediate/Dasher.pch"
+				AssemblerListingLocation=".\Target/Win32 Release/Intermediate/"
+				ObjectFile=".\Target/Win32 Release/Intermediate/"
+				ProgramDataBaseFileName=".\Target/Win32 Release/Intermediate/"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib"
+				OutputFile=".\Target/Win32 Release/Dasher.exe"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
+				ProgramDatabaseFile=".\Target/Win32 Release/Dasher.pdb"
+				SubSystem="2"/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG"
+				MkTypLibCompatible="TRUE"
+				SuppressStartupBanner="TRUE"
+				TargetEnvironment="1"
+				TypeLibraryName=".\Target/Win32 Release/Dasher.tlb"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="2057"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration
+			Name="Unicode Debug|Win32"
+			OutputDirectory=".\Target/Win32 Unicode Debug"
+			IntermediateDirectory=".\Target/Win32 Unicode Debug/Intermediate"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="1">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="WinCommon;Common"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0500"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="WinCommon.h"
+				PrecompiledHeaderFile=".\Target/Win32 Unicode Debug/Intermediate/Dasher.pch"
+				AssemblerListingLocation=".\Target/Win32 Unicode Debug/Intermediate/"
+				ObjectFile=".\Target/Win32 Unicode Debug/Intermediate/"
+				ProgramDataBaseFileName=".\Target/Win32 Unicode Debug/Intermediate/"
+				BrowseInformation="1"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"
+				DebugInformationFormat="4"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib"
+				OutputFile=".\Target/Win32 Unicode Debug/Dasher.exe"
+				LinkIncremental="2"
+				SuppressStartupBanner="TRUE"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile=".\Target/Win32 Unicode Debug/Dasher.pdb"
+				SubSystem="2"/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG"
+				MkTypLibCompatible="TRUE"
+				SuppressStartupBanner="TRUE"
+				TargetEnvironment="1"
+				TypeLibraryName=".\Target/Win32 Unicode Debug/Dasher.tlb"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="2057"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration
+			Name="Unicode Release|Win32"
+			OutputDirectory=".\Target/Win32 Unicode Release"
+			IntermediateDirectory=".\Target/Win32 Unicode Release/Intermediate"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="1"
+			WholeProgramOptimization="FALSE">
+			<Tool
+				Name="VCCLCompilerTool"
+				GlobalOptimizations="TRUE"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="TRUE"
+				FavorSizeOrSpeed="1"
+				OptimizeForWindowsApplication="TRUE"
+				AdditionalIncludeDirectories="WinCommon"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0500"
+				StringPooling="TRUE"
+				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="TRUE"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="WinCommon.h"
+				PrecompiledHeaderFile=".\Target/Win32 Unicode Release/Intermediate/Dasher.pch"
+				AssemblerListingLocation=".\Target/Win32 Unicode Release/Intermediate/"
+				ObjectFile=".\Target/Win32 Unicode Release/Intermediate/"
+				ProgramDataBaseFileName=".\Target/Win32 Unicode Release/Intermediate/"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"
+				DebugInformationFormat="3"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib"
+				OutputFile=".\Target/Win32 Unicode Release/Dasher.exe"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile=".\Target/Win32 Unicode Release/Dasher.pdb"
+				SubSystem="2"/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG"
+				MkTypLibCompatible="TRUE"
+				SuppressStartupBanner="TRUE"
+				TargetEnvironment="1"
+				TypeLibraryName=".\Target/Win32 Unicode Release/Dasher.tlb"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="2057"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration
+			Name="Win95 compatible Debug|Win32"
+			OutputDirectory=".\Target/Win32 Win95 compatible Debug"
+			IntermediateDirectory=".\Target/Win32 Win95 compatible Debug/Intermediate"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="WinCommon"
+				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,_STATIC,OriginalWin95"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="WinCommon.h"
+				PrecompiledHeaderFile=".\Target/Win32 Win95 compatible Debug/Intermediate/Dasher.pch"
+				AssemblerListingLocation=".\Target/Win32 Win95 compatible Debug/Intermediate/"
+				ObjectFile=".\Target/Win32 Win95 compatible Debug/Intermediate/"
+				ProgramDataBaseFileName=".\Target/Win32 Win95 compatible Debug/Intermediate/"
+				BrowseInformation="1"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"
+				DebugInformationFormat="4"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib"
+				OutputFile=".\Target/Win32 Win95 compatible Debug/Dasher.exe"
+				LinkIncremental="2"
+				SuppressStartupBanner="TRUE"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile=".\Target/Win32 Win95 compatible Debug/Dasher.pdb"
+				SubSystem="2"/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG"
+				MkTypLibCompatible="TRUE"
+				SuppressStartupBanner="TRUE"
+				TargetEnvironment="1"
+				TypeLibraryName=".\Target/Win32 Win95 compatible Debug/Dasher.tlb"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="2057"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration
+			Name="Accessible Unicode Debug|Win32"
+			OutputDirectory=".\Target/Accessible Unicode Debug"
+			IntermediateDirectory=".\Target/Accessible Unicode Debug/Intermediate"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="1">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="WinCommon"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;UNICODE;_STATIC;_WIN32_WINNT=0x0500;ACCESSIBLE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="WinCommon.h"
+				PrecompiledHeaderFile=".\Target/Accessible Unicode Debug/Intermediate/Dasher.pch"
+				AssemblerListingLocation=".\Target/Accessible Unicode Debug/Intermediate/"
+				ObjectFile=".\Target/Accessible Unicode Debug/Intermediate/"
+				ProgramDataBaseFileName=".\Target/Accessible Unicode Debug/Intermediate/"
+				BrowseInformation="1"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"
+				DebugInformationFormat="4"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/MACHINE:I386"
+				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib Oleacc.lib comsupp.lib"
+				OutputFile=".\Target/Accessible Unicode Debug/Dasher.exe"
+				LinkIncremental="2"
+				SuppressStartupBanner="TRUE"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile=".\Target/Accessible Unicode Debug/Dasher.pdb"
+				SubSystem="2"/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG"
+				MkTypLibCompatible="TRUE"
+				SuppressStartupBanner="TRUE"
+				TargetEnvironment="1"
+				TypeLibraryName=".\Target/Accessible Unicode Debug/Dasher.tlb"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="2057"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration
+			Name="foo|Win32"
+			IntermediateDirectory="foo"
+			ConfigurationType="1">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="WinCommon"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="WinCommon.h"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+	</Configurations>
+	<Files>
+		<Filter
+			Name="Resource Files"
+			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
+			<File
+				RelativePath=".\CopyAllLarge.bmp">
+			</File>
+			<File
+				RelativePath=".\CopyAllSmall.bmp">
+			</File>
+			<File
+				RelativePath=".\Dasher.ico">
+			</File>
+			<File
+				RelativePath=".\Dasher.rc">
+			</File>
+			<File
+				RelativePath="findere.bmp">
+			</File>
+			<File
+				RelativePath="finderf.bmp">
+			</File>
+			<File
+				RelativePath="searchw.cur">
+			</File>
+		</Filter>
+		<Filter
+			Name="Framework"
+			Filter="">
+			<File
+				RelativePath="Framework\Window.cpp">
+			</File>
+			<File
+				RelativePath="Framework\Window.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="Widgets"
+			Filter=".cpp">
+			<File
+				RelativePath=".\Widgets\AboutBox.h">
+			</File>
+			<File
+				RelativePath=".\Widgets\Aboutbox.cpp">
+			</File>
+			<File
+				RelativePath=".\Widgets\AlphabetBox.cpp">
+			</File>
+			<File
+				RelativePath=".\Widgets\AlphabetBox.h">
+			</File>
+			<File
+				RelativePath=".\Widgets\Canvas.cpp">
+			</File>
+			<File
+				RelativePath=".\Widgets\Canvas.h">
+			</File>
+			<File
+				RelativePath="Widgets\ColourBox.cpp">
+			</File>
+			<File
+				RelativePath="Widgets\ColourBox.h">
+			</File>
+			<File
+				RelativePath=".\Widgets\Edit.cpp">
+			</File>
+			<File
+				RelativePath=".\Widgets\Edit.h">
+			</File>
+			<File
+				RelativePath=".\Widgets\FilenameGUI.cpp">
+			</File>
+			<File
+				RelativePath=".\Widgets\FilenameGUI.h">
+			</File>
+			<File
+				RelativePath="Widgets\KeyControl.cpp">
+			</File>
+			<File
+				RelativePath="Widgets\KeyControl.h">
+			</File>
+			<File
+				RelativePath=".\Widgets\Menu.cpp">
+			</File>
+			<File
+				RelativePath=".\Widgets\Menu.h">
+			</File>
+			<File
+				RelativePath="Widgets\Prefs.cpp">
+			</File>
+			<File
+				RelativePath="Widgets\Prefs.h">
+			</File>
+			<File
+				RelativePath=".\Widgets\Screen.cpp">
+			</File>
+			<File
+				RelativePath=".\Widgets\Screen.h">
+			</File>
+			<File
+				RelativePath=".\Widgets\Screen.inl">
+			</File>
+			<File
+				RelativePath=".\Widgets\Slidebar.cpp">
+			</File>
+			<File
+				RelativePath=".\Widgets\Slidebar.h">
+			</File>
+			<File
+				RelativePath=".\Widgets\SplashScreen.cpp">
+			</File>
+			<File
+				RelativePath=".\Widgets\SplashScreen.h">
+			</File>
+			<File
+				RelativePath=".\Widgets\Splitter.cpp">
+			</File>
+			<File
+				RelativePath=".\Widgets\Splitter.h">
+			</File>
+			<File
+				RelativePath=".\Widgets\Toolbar.cpp">
+			</File>
+			<File
+				RelativePath=".\Widgets\Toolbar.h">
+			</File>
+			<File
+				RelativePath=".\widgets\WindowSelect.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="GDI"
+			Filter="">
+			<File
+				RelativePath="GDI\FontStore.cpp">
+			</File>
+			<File
+				RelativePath="GDI\FontStore.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="WinCommon"
+			Filter="">
+			<File
+				RelativePath="Common\DasherEncodingToCP.cpp">
+			</File>
+			<File
+				RelativePath="Common\DasherEncodingToCP.h">
+			</File>
+			<File
+				RelativePath="Common\WinCommon.h">
+			</File>
+			<File
+				RelativePath="Common\WinHelper.cpp">
+			</File>
+			<File
+				RelativePath="Common\WinHelper.h">
+			</File>
+			<File
+				RelativePath="Common\WinLocalisation.cpp">
+			</File>
+			<File
+				RelativePath="Common\WinLocalisation.h">
+			</File>
+			<File
+				RelativePath="Common\WinMenus.cpp">
+			</File>
+			<File
+				RelativePath="Common\WinMenus.h">
+			</File>
+			<File
+				RelativePath="Common\WinUTF8.cpp">
+			</File>
+			<File
+				RelativePath="Common\WinUTF8.h">
+			</File>
+			<File
+				RelativePath="Common\WinWrap.cpp">
+			</File>
+			<File
+				RelativePath="Common\WinWrap.h">
+			</File>
+			<File
+				RelativePath=".\widgets\WindowSelect.cpp">
+			</File>
+		</Filter>
+		<File
+			RelativePath="Dasher.cpp">
+		</File>
+		<File
+			RelativePath="Dasher.h">
+		</File>
+		<File
+			RelativePath="DasherMouseInput.cpp">
+		</File>
+		<File
+			RelativePath="DasherMouseInput.h">
+		</File>
+		<File
+			RelativePath=".\DasherWindow.cpp">
+		</File>
+		<File
+			RelativePath=".\DasherWindow.h">
+		</File>
+		<File
+			RelativePath="EditWrapper.cpp">
+		</File>
+		<File
+			RelativePath="EditWrapper.h">
+		</File>
+		<File
+			RelativePath=".\WinMain.cpp">
+		</File>
+		<File
+			RelativePath=".\resource.h">
+		</File>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>

@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Somali with punctuation and numerals">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>European/Asian</palette>
+<train>training_somali_SO.txt</train>
+<space d="&#x25a1;" t=" " b="9" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="lower case letters" b="0">
+<s d="&#x0061;" t="&#x0061;"  note=" A "  b="10" />
+<s d="&#x0062;" t="&#x0062;"  note=" B "  b="11" />
+<s d="&#x0063;" t="&#x0063;"  note=" C "  b="12" />
+<s d="&#x0064;" t="&#x0064;"  note=" D "  b="13" />
+<s d="&#x0065;" t="&#x0065;"  note=" E "  b="14" />
+<s d="&#x0066;" t="&#x0066;"  note=" F "  b="15" />
+<s d="&#x0067;" t="&#x0067;"  note=" G "  b="16" />
+<s d="&#x0068;" t="&#x0068;"  note=" H "  b="17" />
+<s d="&#x0069;" t="&#x0069;"  note=" I "  b="18" />
+<s d="&#x006A;" t="&#x006A;"  note=" J "  b="19" />
+<s d="&#x006B;" t="&#x006B;"  note=" K "  b="20" />
+<s d="&#x006C;" t="&#x006C;"  note=" L "  b="21" />
+<s d="&#x006D;" t="&#x006D;"  note=" M "  b="22" />
+<s d="&#x006E;" t="&#x006E;"  note=" N "  b="23" />
+<s d="&#x006F;" t="&#x006F;"  note=" O "  b="24" />
+<s d="&#x0070;" t="&#x0070;"  note=" P "  b="25" />
+<s d="&#x0071;" t="&#x0071;"  note=" Q "  b="26" />
+<s d="&#x0072;" t="&#x0072;"  note=" R "  b="27" />
+<s d="&#x0073;" t="&#x0073;"  note=" S "  b="28" />
+<s d="&#x0074;" t="&#x0074;"  note=" T "  b="29" />
+<s d="&#x0075;" t="&#x0075;"  note=" U "  b="30" />
+<s d="&#x0076;" t="&#x0076;"  note=" V "  b="31" />
+<s d="&#x0077;" t="&#x0077;"  note=" W "  b="32" />
+<s d="&#x0078;" t="&#x0078;"  note=" X "  b="33" />
+<s d="&#x0079;" t="&#x0079;"  note=" Y "  b="34" />
+<s d="&#x007A;" t="&#x007A;"  note=" Z "  b="35" />
+</group> 
+<group name="upper case letters" b="111"> 
+<s d="&#x0041;" t="&#x0041;"  note=" A "  b="10" />
+<s d="&#x0042;" t="&#x0042;"  note=" B "  b="11" />
+<s d="&#x0043;" t="&#x0043;"  note=" C "  b="12" />
+<s d="&#x0044;" t="&#x0044;"  note=" D "  b="13" />
+<s d="&#x0045;" t="&#x0045;"  note=" E "  b="14" />
+<s d="&#x0046;" t="&#x0046;"  note=" F "  b="15" />
+<s d="&#x0047;" t="&#x0047;"  note=" G "  b="16" />
+<s d="&#x0048;" t="&#x0048;"  note=" H "  b="17" />
+<s d="&#x0049;" t="&#x0049;"  note=" I "  b="18" />
+<s d="&#x004A;" t="&#x004A;"  note=" J "  b="19" />
+<s d="&#x004B;" t="&#x004B;"  note=" K "  b="20" />
+<s d="&#x004C;" t="&#x004C;"  note=" L "  b="21" />
+<s d="&#x004D;" t="&#x004D;"  note=" M "  b="22" />
+<s d="&#x004E;" t="&#x004E;"  note=" N "  b="23" />
+<s d="&#x004F;" t="&#x004F;"  note=" O "  b="24" />
+<s d="&#x0050;" t="&#x0050;"  note=" P "  b="25" />
+<s d="&#x0051;" t="&#x0051;"  note=" Q "  b="26" />
+<s d="&#x0052;" t="&#x0052;"  note=" R "  b="27" />
+<s d="&#x0053;" t="&#x0053;"  note=" S "  b="28" />
+<s d="&#x0054;" t="&#x0054;"  note=" T "  b="29" />
+<s d="&#x0055;" t="&#x0055;"  note=" U "  b="30" />
+<s d="&#x0056;" t="&#x0056;"  note=" V "  b="31" />
+<s d="&#x0057;" t="&#x0057;"  note=" W "  b="32" />
+<s d="&#x0058;" t="&#x0058;"  note=" X "  b="33" />
+<s d="&#x0059;" t="&#x0059;"  note=" Y "  b="34" />
+<s d="&#x005A;" t="&#x005A;"  note=" Z "  b="35" />
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1" b="90"/>
+<s d="2" t="2" b="91"/>
+<s d="3" t="3" b="92"/>
+<s d="4" t="4" b="93"/>
+<s d="5" t="5" b="94"/>
+<s d="6" t="6" b="90"/>
+<s d="7" t="7" b="91"/>
+<s d="8" t="8" b="92"/>
+<s d="9" t="9" b="93"/>
+<s d="0" t="0" b="94"/>
+</group>
+<group name="Punctuation" b="112">
+<s b="90" d="%" t="%"/>
+<s b="91" d="*" t="*"/>
+<s b="92" d="+" t="+"/>
+<s b="93" d="=" t="="/>
+<s b="94" d="/" t="/"/>
+<s b="95" d="#" t="#"/>
+<s b="98" d="$" t="$"/>
+<s b="99" d="|" t="|"/>
+<s b="95" d="\" t="\"/>
+<s b="96" d="~" t="~"/>
+<s b="97" d="^" t="^"/>
+<s b="98" d="_" t="_"/>
+<s b="99" d="&amp;" t="&amp;"/> 
+<s b="95" d="@" t="@"/>
+<s b="105" d="[" t="["/>
+<s b="106" d="]" t="]"/>
+<s b="107" d="{" t="{"/>
+<s b="108" d="}" t="}"/>
+<s b="109" d="&lt;" t="&lt;"/>
+<s b="105" d="&gt;" t="&gt;"/>
+<s b="106" d="(" t="("/>
+<s b="107" d=")" t=")"/>
+<s b="108" d="&#x201C;" t="&#x201C;" note="left double quotation mark" />
+<s b="109" d="&#x0022;" t="&#x0022;" note="deprecated vertical double quotation mark" />
+<s b="106" d="&#x201D;" t="&#x201D;" note="right double quotation mark" />
+<s b="107" d="&#x2018;" t="&#x2018;" note="left single quotation mark" />
+<s b="108" d="&#x2019;" t="&#x2019;" note="right single quotation mark and apostrophe" />
+<s b="109" d="`" t="`" note="left quote from keyboard" />
+<s b="105" d="&#x25cc;&#x0313;" t="&apos;" note=" apostrophe"/>
+<s b="9"  d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
+<s b="100" d="-" t="-"/>
+<s b="101" d=":" t=":"/>
+<s b="102" d=";" t=";"/>
+<s b="103" d="?" t="?"/>
+<s b="104" d="!" t="!"/>
+<s b="100" d="," t=","/>
+<s b="104" d="." t="."/>
+</group>
+</alphabet>
+</alphabets>
+
+
+
+
+
+
+
+

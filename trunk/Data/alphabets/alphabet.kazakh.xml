@@ -1,0 +1,298 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Kazakh / &#1178;&#1072;&#1079;&#1072;&#1179; with punctuation and numerals">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>Default</palette>
+<train>training_kazakh_KZ.txt</train>
+<space d="&#x25a1;" t=" " b="9" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="lower case letters" b="0">
+<s d="&#x0430;" t="&#x0430;"  note="CYRILLIC SMALL LETTER A "  />
+<s d="&#x04D1;" t="&#x04D1;"  note="CYRILLIC SMALL LETTER A WITH BREVE "  />
+<s d="&#x04D3;" t="&#x04D3;"  note="CYRILLIC SMALL LETTER A WITH DIAERESIS "  />
+<s d="&#x04D9;" t="&#x04D9;"  note="CYRILLIC SMALL LETTER SCHWA "  />
+<s d="&#x04DB;" t="&#x04DB;"  note="CYRILLIC SMALL LETTER SCHWA WITH DIAERESIS "  />
+<s d="&#x0431;" t="&#x0431;"  note="CYRILLIC SMALL LETTER BE "  />
+<s d="&#x0432;" t="&#x0432;"  note="CYRILLIC SMALL LETTER VE "  />
+<s d="&#x0433;" t="&#x0433;"  note="CYRILLIC SMALL LETTER GHE "  />
+<s d="&#x0491;" t="&#x0491;"  note="CYRILLIC SMALL LETTER GHE WITH UPTURN "  />
+<s d="&#x0493;" t="&#x0493;"  note="CYRILLIC SMALL LETTER GHE WITH STROKE "  />
+<s d="&#x0495;" t="&#x0495;"  note="CYRILLIC SMALL LETTER GHE WITH MIDDLE HOOK "  />
+<s d="&#x0434;" t="&#x0434;"  note="CYRILLIC SMALL LETTER DE "  />
+<s d="&#x0501;" t="&#x0501;"  note="CYRILLIC SMALL LETTER KOMI DE "  />
+<s d="&#x0452;" t="&#x0452;"  note="CYRILLIC SMALL LETTER DJE "  />
+<s d="&#x0503;" t="&#x0503;"  note="CYRILLIC SMALL LETTER KOMI DJE "  />
+<s d="&#x0453;" t="&#x0453;"  note="CYRILLIC SMALL LETTER GJE "  />
+<s d="&#x0499;" t="&#x0499;"  note="CYRILLIC SMALL LETTER ZE WITH DESCENDER "  />
+<s d="&#x0435;" t="&#x0435;"  note="CYRILLIC SMALL LETTER IE "  />
+<s d="&#x0450;" t="&#x0450;"  note="CYRILLIC SMALL LETTER IE WITH GRAVE "  />
+<s d="&#x0451;" t="&#x0451;"  note="CYRILLIC SMALL LETTER IO "  />
+<s d="&#x04D7;" t="&#x04D7;"  note="CYRILLIC SMALL LETTER IE WITH BREVE "  />
+<s d="&#x0454;" t="&#x0454;"  note="CYRILLIC SMALL LETTER UKRAINIAN IE "  />
+<s d="&#x0436;" t="&#x0436;"  note="CYRILLIC SMALL LETTER ZHE "  />
+<s d="&#x04C2;" t="&#x04C2;"  note="CYRILLIC SMALL LETTER ZHE WITH BREVE "  />
+<s d="&#x04DD;" t="&#x04DD;"  note="CYRILLIC SMALL LETTER ZHE WITH DIAERESIS "  />
+<s d="&#x0497;" t="&#x0497;"  note="CYRILLIC SMALL LETTER ZHE WITH DESCENDER "  />
+<s d="&#x0437;" t="&#x0437;"  note="CYRILLIC SMALL LETTER ZE "  />
+<s d="&#x0505;" t="&#x0505;"  note="CYRILLIC SMALL LETTER KOMI ZJE "  />
+<s d="&#x04DF;" t="&#x04DF;"  note="CYRILLIC SMALL LETTER ZE WITH DIAERESIS "  />
+<s d="&#x0455;" t="&#x0455;"  note="CYRILLIC SMALL LETTER DZE "  />
+<s d="&#x04E1;" t="&#x04E1;"  note="CYRILLIC SMALL LETTER ABKHASIAN DZE "  />
+<s d="&#x0507;" t="&#x0507;"  note="CYRILLIC SMALL LETTER KOMI DZJE "  />
+<s d="&#x0438;" t="&#x0438;"  note="CYRILLIC SMALL LETTER I "  />
+<s d="&#x045D;" t="&#x045D;"  note="CYRILLIC SMALL LETTER I WITH GRAVE "  />
+<s d="&#x04E3;" t="&#x04E3;"  note="CYRILLIC SMALL LETTER I WITH MACRON "  />
+<s d="&#x048B;" t="&#x048B;"  note="CYRILLIC SMALL LETTER SHORT I WITH TAIL "  />
+<s d="&#x04E5;" t="&#x04E5;"  note="CYRILLIC SMALL LETTER I WITH DIAERESIS "  />
+<s d="&#x0439;" t="&#x0439;"  note="CYRILLIC SMALL LETTER SHORT I "  />
+<s d="&#x0458;" t="&#x0458;"  note="CYRILLIC SMALL LETTER JE "  />
+<s d="&#x043A;" t="&#x043A;"  note="CYRILLIC SMALL LETTER KA "  />
+<s d="&#x049B;" t="&#x049B;"  note="CYRILLIC SMALL LETTER KA WITH DESCENDER "  />
+<s d="&#x04C4;" t="&#x04C4;"  note="CYRILLIC SMALL LETTER KA WITH HOOK "  />
+<s d="&#x04A1;" t="&#x04A1;"  note="CYRILLIC SMALL LETTER BASHKIR KA "  />
+<s d="&#x049F;" t="&#x049F;"  note="CYRILLIC SMALL LETTER KA WITH STROKE "  />
+<s d="&#x049D;" t="&#x049D;"  note="CYRILLIC SMALL LETTER KA WITH VERTICAL STROKE "  />
+<s d="&#x043B;" t="&#x043B;"  note="CYRILLIC SMALL LETTER EL "  />
+<s d="&#x04C6;" t="&#x04C6;"  note="CYRILLIC SMALL LETTER EL WITH TAIL "  />
+<s d="&#x0459;" t="&#x0459;"  note="CYRILLIC SMALL LETTER LJE "  />
+<s d="&#x0509;" t="&#x0509;"  note="CYRILLIC SMALL LETTER KOMI LJE "  />
+<s d="&#x043C;" t="&#x043C;"  note="CYRILLIC SMALL LETTER EM "  />
+<s d="&#x04CE;" t="&#x04CE;"  note="CYRILLIC SMALL LETTER EM WITH TAIL "  />
+<s d="&#x043D;" t="&#x043D;"  note="CYRILLIC SMALL LETTER EN "  />
+<s d="&#x04CA;" t="&#x04CA;"  note="CYRILLIC SMALL LETTER EN WITH TAIL "  />
+<s d="&#x04A3;" t="&#x04A3;"  note="CYRILLIC SMALL LETTER EN WITH DESCENDER "  />
+<s d="&#x04C8;" t="&#x04C8;"  note="CYRILLIC SMALL LETTER EN WITH HOOK "  />
+<s d="&#x045A;" t="&#x045A;"  note="CYRILLIC SMALL LETTER NJE "  />
+<s d="&#x050B;" t="&#x050B;"  note="CYRILLIC SMALL LETTER KOMI NJE "  />
+<s d="&#x043E;" t="&#x043E;"  note="CYRILLIC SMALL LETTER O "  />
+<s d="&#x04E7;" t="&#x04E7;"  note="CYRILLIC SMALL LETTER O WITH DIAERESIS "  />
+<s d="&#x04E9;" t="&#x04E9;"  note="CYRILLIC SMALL LETTER BARRED O "  />
+<s d="&#x04EB;" t="&#x04EB;"  note="CYRILLIC SMALL LETTER BARRED O WITH DIAERESIS "  />
+<s d="&#x043F;" t="&#x043F;"  note="CYRILLIC SMALL LETTER PE "  />
+<s d="&#x04A7;" t="&#x04A7;"  note="CYRILLIC SMALL LETTER PE WITH MIDDLE HOOK "  />
+<s d="&#x0481;" t="&#x0481;"  note="CYRILLIC SMALL LETTER KOPPA "  />
+<s d="&#x0440;" t="&#x0440;"  note="CYRILLIC SMALL LETTER ER "  />
+<s d="&#x048F;" t="&#x048F;"  note="CYRILLIC SMALL LETTER ER WITH TICK "  />
+<s d="&#x0441;" t="&#x0441;"  note="CYRILLIC SMALL LETTER ES "  />
+<s d="&#x050D;" t="&#x050D;"  note="CYRILLIC SMALL LETTER KOMI SJE "  />
+<s d="&#x04AB;" t="&#x04AB;"  note="CYRILLIC SMALL LETTER ES WITH DESCENDER "  />
+<s d="&#x0442;" t="&#x0442;"  note="CYRILLIC SMALL LETTER TE "  />
+<s d="&#x050F;" t="&#x050F;"  note="CYRILLIC SMALL LETTER KOMI TJE "  />
+<s d="&#x04AD;" t="&#x04AD;"  note="CYRILLIC SMALL LETTER TE WITH DESCENDER "  />
+<s d="&#x045B;" t="&#x045B;"  note="CYRILLIC SMALL LETTER TSHE "  />
+<s d="&#x045C;" t="&#x045C;"  note="CYRILLIC SMALL LETTER KJE "  />
+<s d="&#x0443;" t="&#x0443;"  note="CYRILLIC SMALL LETTER U "  />
+<s d="&#x04EF;" t="&#x04EF;"  note="CYRILLIC SMALL LETTER U WITH MACRON "  />
+<s d="&#x045E;" t="&#x045E;"  note="CYRILLIC SMALL LETTER SHORT U "  />
+<s d="&#x04F1;" t="&#x04F1;"  note="CYRILLIC SMALL LETTER U WITH DIAERESIS "  />
+<s d="&#x04F3;" t="&#x04F3;"  note="CYRILLIC SMALL LETTER U WITH DOUBLE ACUTE "  />
+<s d="&#x04B1;" t="&#x04B1;"  note="CYRILLIC SMALL LETTER STRAIGHT U WITH STROKE "  />
+<s d="&#x04AF;" t="&#x04AF;"  note="CYRILLIC SMALL LETTER STRAIGHT U "  />
+<s d="&#x0479;" t="&#x0479;"  note="CYRILLIC SMALL LETTER UK "  />
+<s d="&#x0444;" t="&#x0444;"  note="CYRILLIC SMALL LETTER EF "  />
+<s d="&#x0445;" t="&#x0445;"  note="CYRILLIC SMALL LETTER HA "  />
+<s d="&#x04B3;" t="&#x04B3;"  note="CYRILLIC SMALL LETTER HA WITH DESCENDER "  />
+<s d="&#x04BB;" t="&#x04BB;"  note="CYRILLIC SMALL LETTER SHHA "  />
+<s d="&#x0461;" t="&#x0461;"  note="CYRILLIC SMALL LETTER OMEGA "  />
+<s d="&#x047F;" t="&#x047F;"  note="CYRILLIC SMALL LETTER OT "  />
+<s d="&#x047D;" t="&#x047D;"  note="CYRILLIC SMALL LETTER OMEGA WITH TITLO "  />
+<s d="&#x047B;" t="&#x047B;"  note="CYRILLIC SMALL LETTER ROUND OMEGA "  />
+<s d="&#x0446;" t="&#x0446;"  note="CYRILLIC SMALL LETTER TSE "  />
+<s d="&#x0447;" t="&#x0447;"  note="CYRILLIC SMALL LETTER CHE "  />
+<s d="&#x04F5;" t="&#x04F5;"  note="CYRILLIC SMALL LETTER CHE WITH DIAERESIS "  />
+<s d="&#x04B7;" t="&#x04B7;"  note="CYRILLIC SMALL LETTER CHE WITH DESCENDER "  />
+<s d="&#x04CC;" t="&#x04CC;"  note="CYRILLIC SMALL LETTER KHAKASSIAN CHE "  />
+<s d="&#x04B9;" t="&#x04B9;"  note="CYRILLIC SMALL LETTER CHE WITH VERTICAL STROKE "  />
+<s d="&#x04BD;" t="&#x04BD;"  note="CYRILLIC SMALL LETTER ABKHASIAN CHE "  />
+<s d="&#x04BF;" t="&#x04BF;"  note="CYRILLIC SMALL LETTER ABKHASIAN CHE WITH DESCENDER "  />
+<s d="&#x045F;" t="&#x045F;"  note="CYRILLIC SMALL LETTER DZHE "  />
+<s d="&#x0448;" t="&#x0448;"  note="CYRILLIC SMALL LETTER SHA "  />
+<s d="&#x0449;" t="&#x0449;"  note="CYRILLIC SMALL LETTER SHCHA "  />
+<s d="&#x044A;" t="&#x044A;"  note="CYRILLIC SMALL LETTER HARD SIGN "  />
+<s d="&#x044B;" t="&#x044B;"  note="CYRILLIC SMALL LETTER YERU "  />
+<s d="&#x0456;" t="&#x0456;"  note="CYRILLIC SMALL LETTER BYELORUSSIAN-UKRAINIAN I "  />
+<s d="&#x0457;" t="&#x0457;"  note="CYRILLIC SMALL LETTER YI "  />
+<s d="&#x04F9;" t="&#x04F9;"  note="CYRILLIC SMALL LETTER YERU WITH DIAERESIS "  />
+<s d="&#x044C;" t="&#x044C;"  note="CYRILLIC SMALL LETTER SOFT SIGN "  />
+<s d="&#x048D;" t="&#x048D;"  note="CYRILLIC SMALL LETTER SEMISOFT SIGN "  />
+<s d="&#x0463;" t="&#x0463;"  note="CYRILLIC SMALL LETTER YAT "  />
+<s d="&#x044D;" t="&#x044D;"  note="CYRILLIC SMALL LETTER E "  />
+<s d="&#x04ED;" t="&#x04ED;"  note="CYRILLIC SMALL LETTER E WITH DIAERESIS "  />
+<s d="&#x044E;" t="&#x044E;"  note="CYRILLIC SMALL LETTER YU "  />
+<s d="&#x044F;" t="&#x044F;"  note="CYRILLIC SMALL LETTER YA "  />
+</group> 
+<group name="upper case letters" b="111"> 
+<s d="&#x0410;" t="&#x0410;"  note="CYRILLIC CAPITAL LETTER A "  />
+<s d="&#x04D0;" t="&#x04D0;"  note="CYRILLIC CAPITAL LETTER A WITH BREVE "  />
+<s d="&#x04D2;" t="&#x04D2;"  note="CYRILLIC CAPITAL LETTER A WITH DIAERESIS "  />
+<s d="&#x04D8;" t="&#x04D8;"  note="CYRILLIC CAPITAL LETTER SCHWA "  />
+<s d="&#x04DA;" t="&#x04DA;"  note="CYRILLIC CAPITAL LETTER SCHWA WITH DIAERESIS "  />
+<s d="&#x04D4;" t="&#x04D4;"  note="CYRILLIC CAPITAL LIGATURE A IE "  />
+<s d="&#x0411;" t="&#x0411;"  note="CYRILLIC CAPITAL LETTER BE "  />
+<s d="&#x0412;" t="&#x0412;"  note="CYRILLIC CAPITAL LETTER VE "  />
+<s d="&#x0413;" t="&#x0413;"  note="CYRILLIC CAPITAL LETTER GHE "  />
+<s d="&#x0490;" t="&#x0490;"  note="CYRILLIC CAPITAL LETTER GHE WITH UPTURN "  />
+<s d="&#x0492;" t="&#x0492;"  note="CYRILLIC CAPITAL LETTER GHE WITH STROKE "  />
+<s d="&#x0494;" t="&#x0494;"  note="CYRILLIC CAPITAL LETTER GHE WITH MIDDLE HOOK "  />
+<s d="&#x0414;" t="&#x0414;"  note="CYRILLIC CAPITAL LETTER DE "  />
+<s d="&#x0500;" t="&#x0500;"  note="CYRILLIC CAPITAL LETTER KOMI DE "  />
+<s d="&#x0402;" t="&#x0402;"  note="CYRILLIC CAPITAL LETTER DJE "  />
+<s d="&#x0502;" t="&#x0502;"  note="CYRILLIC CAPITAL LETTER KOMI DJE "  />
+<s d="&#x0403;" t="&#x0403;"  note="CYRILLIC CAPITAL LETTER GJE "  />
+<s d="&#x0498;" t="&#x0498;"  note="CYRILLIC CAPITAL LETTER ZE WITH DESCENDER "  />
+<s d="&#x0415;" t="&#x0415;"  note="CYRILLIC CAPITAL LETTER IE "  />
+<s d="&#x0400;" t="&#x0400;"  note="CYRILLIC CAPITAL LETTER IE WITH GRAVE "  />
+<s d="&#x0401;" t="&#x0401;"  note="CYRILLIC CAPITAL LETTER IO "  />
+<s d="&#x04D6;" t="&#x04D6;"  note="CYRILLIC CAPITAL LETTER IE WITH BREVE "  />
+<s d="&#x0404;" t="&#x0404;"  note="CYRILLIC CAPITAL LETTER UKRAINIAN IE "  />
+<s d="&#x0416;" t="&#x0416;"  note="CYRILLIC CAPITAL LETTER ZHE "  />
+<s d="&#x04C1;" t="&#x04C1;"  note="CYRILLIC CAPITAL LETTER ZHE WITH BREVE "  />
+<s d="&#x04DC;" t="&#x04DC;"  note="CYRILLIC CAPITAL LETTER ZHE WITH DIAERESIS "  />
+<s d="&#x0496;" t="&#x0496;"  note="CYRILLIC CAPITAL LETTER ZHE WITH DESCENDER "  />
+<s d="&#x0417;" t="&#x0417;"  note="CYRILLIC CAPITAL LETTER ZE "  />
+<s d="&#x0504;" t="&#x0504;"  note="CYRILLIC CAPITAL LETTER KOMI ZJE "  />
+<s d="&#x04DE;" t="&#x04DE;"  note="CYRILLIC CAPITAL LETTER ZE WITH DIAERESIS "  />
+<s d="&#x0405;" t="&#x0405;"  note="CYRILLIC CAPITAL LETTER DZE "  />
+<s d="&#x04E0;" t="&#x04E0;"  note="CYRILLIC CAPITAL LETTER ABKHASIAN DZE "  />
+<s d="&#x0506;" t="&#x0506;"  note="CYRILLIC CAPITAL LETTER KOMI DZJE "  />
+<s d="&#x0418;" t="&#x0418;"  note="CYRILLIC CAPITAL LETTER I "  />
+<s d="&#x040D;" t="&#x040D;"  note="CYRILLIC CAPITAL LETTER I WITH GRAVE "  />
+<s d="&#x04E2;" t="&#x04E2;"  note="CYRILLIC CAPITAL LETTER I WITH MACRON "  />
+<s d="&#x048A;" t="&#x048A;"  note="CYRILLIC CAPITAL LETTER SHORT I WITH TAIL "  />
+<s d="&#x04E4;" t="&#x04E4;"  note="CYRILLIC CAPITAL LETTER I WITH DIAERESIS "  />
+<s d="&#x0419;" t="&#x0419;"  note="CYRILLIC CAPITAL LETTER SHORT I "  />
+<s d="&#x0408;" t="&#x0408;"  note="CYRILLIC CAPITAL LETTER JE "  />
+<s d="&#x041A;" t="&#x041A;"  note="CYRILLIC CAPITAL LETTER KA "  />
+<s d="&#x049A;" t="&#x049A;"  note="CYRILLIC CAPITAL LETTER KA WITH DESCENDER "  />
+<s d="&#x04C3;" t="&#x04C3;"  note="CYRILLIC CAPITAL LETTER KA WITH HOOK "  />
+<s d="&#x04A0;" t="&#x04A0;"  note="CYRILLIC CAPITAL LETTER BASHKIR KA "  />
+<s d="&#x049E;" t="&#x049E;"  note="CYRILLIC CAPITAL LETTER KA WITH STROKE "  />
+<s d="&#x049C;" t="&#x049C;"  note="CYRILLIC CAPITAL LETTER KA WITH VERTICAL STROKE "  />
+<s d="&#x041B;" t="&#x041B;"  note="CYRILLIC CAPITAL LETTER EL "  />
+<s d="&#x04C5;" t="&#x04C5;"  note="CYRILLIC CAPITAL LETTER EL WITH TAIL "  />
+<s d="&#x0409;" t="&#x0409;"  note="CYRILLIC CAPITAL LETTER LJE "  />
+<s d="&#x0508;" t="&#x0508;"  note="CYRILLIC CAPITAL LETTER KOMI LJE "  />
+<s d="&#x041C;" t="&#x041C;"  note="CYRILLIC CAPITAL LETTER EM "  />
+<s d="&#x04CD;" t="&#x04CD;"  note="CYRILLIC CAPITAL LETTER EM WITH TAIL "  />
+<s d="&#x041D;" t="&#x041D;"  note="CYRILLIC CAPITAL LETTER EN "  />
+<s d="&#x04C9;" t="&#x04C9;"  note="CYRILLIC CAPITAL LETTER EN WITH TAIL "  />
+<s d="&#x04A2;" t="&#x04A2;"  note="CYRILLIC CAPITAL LETTER EN WITH DESCENDER "  />
+<s d="&#x04C7;" t="&#x04C7;"  note="CYRILLIC CAPITAL LETTER EN WITH HOOK "  />
+<s d="&#x04A4;" t="&#x04A4;"  note="CYRILLIC CAPITAL LIGATURE EN GHE "  />
+<s d="&#x040A;" t="&#x040A;"  note="CYRILLIC CAPITAL LETTER NJE "  />
+<s d="&#x050A;" t="&#x050A;"  note="CYRILLIC CAPITAL LETTER KOMI NJE "  />
+<s d="&#x041E;" t="&#x041E;"  note="CYRILLIC CAPITAL LETTER O "  />
+<s d="&#x04E6;" t="&#x04E6;"  note="CYRILLIC CAPITAL LETTER O WITH DIAERESIS "  />
+<s d="&#x04E8;" t="&#x04E8;"  note="CYRILLIC CAPITAL LETTER BARRED O "  />
+<s d="&#x04EA;" t="&#x04EA;"  note="CYRILLIC CAPITAL LETTER BARRED O WITH DIAERESIS "  />
+<s d="&#x041F;" t="&#x041F;"  note="CYRILLIC CAPITAL LETTER PE "  />
+<s d="&#x04A6;" t="&#x04A6;"  note="CYRILLIC CAPITAL LETTER PE WITH MIDDLE HOOK "  />
+<s d="&#x0480;" t="&#x0480;"  note="CYRILLIC CAPITAL LETTER KOPPA "  />
+<s d="&#x0420;" t="&#x0420;"  note="CYRILLIC CAPITAL LETTER ER "  />
+<s d="&#x048E;" t="&#x048E;"  note="CYRILLIC CAPITAL LETTER ER WITH TICK "  />
+<s d="&#x0421;" t="&#x0421;"  note="CYRILLIC CAPITAL LETTER ES "  />
+<s d="&#x050C;" t="&#x050C;"  note="CYRILLIC CAPITAL LETTER KOMI SJE "  />
+<s d="&#x04AA;" t="&#x04AA;"  note="CYRILLIC CAPITAL LETTER ES WITH DESCENDER "  />
+<s d="&#x0422;" t="&#x0422;"  note="CYRILLIC CAPITAL LETTER TE "  />
+<s d="&#x050E;" t="&#x050E;"  note="CYRILLIC CAPITAL LETTER KOMI TJE "  />
+<s d="&#x04AC;" t="&#x04AC;"  note="CYRILLIC CAPITAL LETTER TE WITH DESCENDER "  />
+<s d="&#x040B;" t="&#x040B;"  note="CYRILLIC CAPITAL LETTER TSHE "  />
+<s d="&#x040C;" t="&#x040C;"  note="CYRILLIC CAPITAL LETTER KJE "  />
+<s d="&#x0423;" t="&#x0423;"  note="CYRILLIC CAPITAL LETTER U "  />
+<s d="&#x04EE;" t="&#x04EE;"  note="CYRILLIC CAPITAL LETTER U WITH MACRON "  />
+<s d="&#x040E;" t="&#x040E;"  note="CYRILLIC CAPITAL LETTER SHORT U "  />
+<s d="&#x04F0;" t="&#x04F0;"  note="CYRILLIC CAPITAL LETTER U WITH DIAERESIS "  />
+<s d="&#x04F2;" t="&#x04F2;"  note="CYRILLIC CAPITAL LETTER U WITH DOUBLE ACUTE "  />
+<s d="&#x04B0;" t="&#x04B0;"  note="CYRILLIC CAPITAL LETTER STRAIGHT U WITH STROKE "  />
+<s d="&#x04AE;" t="&#x04AE;"  note="CYRILLIC CAPITAL LETTER STRAIGHT U "  />
+<s d="&#x0478;" t="&#x0478;"  note="CYRILLIC CAPITAL LETTER UK "  />
+<s d="&#x0424;" t="&#x0424;"  note="CYRILLIC CAPITAL LETTER EF "  />
+<s d="&#x0425;" t="&#x0425;"  note="CYRILLIC CAPITAL LETTER HA "  />
+<s d="&#x04B2;" t="&#x04B2;"  note="CYRILLIC CAPITAL LETTER HA WITH DESCENDER "  />
+<s d="&#x04BA;" t="&#x04BA;"  note="CYRILLIC CAPITAL LETTER SHHA "  />
+<s d="&#x0460;" t="&#x0460;"  note="CYRILLIC CAPITAL LETTER OMEGA "  />
+<s d="&#x047E;" t="&#x047E;"  note="CYRILLIC CAPITAL LETTER OT "  />
+<s d="&#x047C;" t="&#x047C;"  note="CYRILLIC CAPITAL LETTER OMEGA WITH TITLO "  />
+<s d="&#x047A;" t="&#x047A;"  note="CYRILLIC CAPITAL LETTER ROUND OMEGA "  />
+<s d="&#x0426;" t="&#x0426;"  note="CYRILLIC CAPITAL LETTER TSE "  />
+<s d="&#x04B4;" t="&#x04B4;"  note="CYRILLIC CAPITAL LIGATURE TE TSE "  />
+<s d="&#x0427;" t="&#x0427;"  note="CYRILLIC CAPITAL LETTER CHE "  />
+<s d="&#x04F4;" t="&#x04F4;"  note="CYRILLIC CAPITAL LETTER CHE WITH DIAERESIS "  />
+<s d="&#x04B6;" t="&#x04B6;"  note="CYRILLIC CAPITAL LETTER CHE WITH DESCENDER "  />
+<s d="&#x04CB;" t="&#x04CB;"  note="CYRILLIC CAPITAL LETTER KHAKASSIAN CHE "  />
+<s d="&#x04B8;" t="&#x04B8;"  note="CYRILLIC CAPITAL LETTER CHE WITH VERTICAL STROKE "  />
+<s d="&#x04BC;" t="&#x04BC;"  note="CYRILLIC CAPITAL LETTER ABKHASIAN CHE "  />
+<s d="&#x04BE;" t="&#x04BE;"  note="CYRILLIC CAPITAL LETTER ABKHASIAN CHE WITH DESCENDER "  />
+<s d="&#x040F;" t="&#x040F;"  note="CYRILLIC CAPITAL LETTER DZHE "  />
+<s d="&#x0428;" t="&#x0428;"  note="CYRILLIC CAPITAL LETTER SHA "  />
+<s d="&#x0429;" t="&#x0429;"  note="CYRILLIC CAPITAL LETTER SHCHA "  />
+<s d="&#x042A;" t="&#x042A;"  note="CYRILLIC CAPITAL LETTER HARD SIGN "  />
+<s d="&#x042B;" t="&#x042B;"  note="CYRILLIC CAPITAL LETTER YERU "  />
+<s d="&#x0406;" t="&#x0406;"  note="CYRILLIC CAPITAL LETTER BYELORUSSIAN-UKRAINIAN I "  />
+<s d="&#x0407;" t="&#x0407;"  note="CYRILLIC CAPITAL LETTER YI "  />
+<s d="&#x04F8;" t="&#x04F8;"  note="CYRILLIC CAPITAL LETTER YERU WITH DIAERESIS "  />
+<s d="&#x042C;" t="&#x042C;"  note="CYRILLIC CAPITAL LETTER SOFT SIGN "  />
+<s d="&#x048C;" t="&#x048C;"  note="CYRILLIC CAPITAL LETTER SEMISOFT SIGN "  />
+<s d="&#x0462;" t="&#x0462;"  note="CYRILLIC CAPITAL LETTER YAT "  />
+<s d="&#x042D;" t="&#x042D;"  note="CYRILLIC CAPITAL LETTER E "  />
+<s d="&#x04EC;" t="&#x04EC;"  note="CYRILLIC CAPITAL LETTER E WITH DIAERESIS "  />
+<s d="&#x042E;" t="&#x042E;"  note="CYRILLIC CAPITAL LETTER YU "  />
+<s d="&#x042F;" t="&#x042F;"  note="CYRILLIC CAPITAL LETTER YA "  />
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1" b="90"/>
+<s d="2" t="2" b="91"/>
+<s d="3" t="3" b="92"/>
+<s d="4" t="4" b="93"/>
+<s d="5" t="5" b="94"/>
+<s d="6" t="6" b="90"/>
+<s d="7" t="7" b="91"/>
+<s d="8" t="8" b="92"/>
+<s d="9" t="9" b="93"/>
+<s d="0" t="0" b="94"/>
+</group>
+<group name="Punctuation" b="112">
+<s b="90" d="%" t="%"/>
+<s b="91" d="*" t="*"/>
+<s b="92" d="+" t="+"/>
+<s b="93" d="=" t="="/>
+<s b="94" d="/" t="/"/>
+<s b="95" d="#" t="#"/>
+<s b="98" d="$" t="$"/>
+<s b="99" d="|" t="|"/>
+<s b="95" d="\" t="\"/>
+<s b="96" d="~" t="~"/>
+<s b="97" d="^" t="^"/>
+<s b="98" d="_" t="_"/>
+<s b="99" d="&amp;" t="&amp;"/> 
+<s b="95" d="@" t="@"/>
+<s b="105" d="[" t="["/>
+<s b="106" d="]" t="]"/>
+<s b="107" d="{" t="{"/>
+<s b="108" d="}" t="}"/>
+<s b="109" d="&lt;" t="&lt;"/>
+<s b="105" d="&gt;" t="&gt;"/>
+<s b="106" d="(" t="("/>
+<s b="107" d=")" t=")"/>
+<s b="108" d="&#x201C;" t="&#x201C;" note="left double quotation mark" />
+<s b="109" d="&#x0022;" t="&#x0022;" note="deprecated vertical double quotation mark" />
+<s b="106" d="&#x201D;" t="&#x201D;" note="right double quotation mark" />
+<s b="107" d="&#x2018;" t="&#x2018;" note="left single quotation mark" />
+<s b="108" d="&#x2019;" t="&#x2019;" note="right single quotation mark and apostrophe" />
+<s b="109" d="`" t="`" note="left quote from keyboard" />
+<s b="105" d="&#x25cc;&#x0313;" t="&apos;" note=" apostrophe"/>
+<s b="9"  d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
+<s b="100" d="-" t="-"/>
+<s b="101" d=":" t=":"/>
+<s b="102" d=";" t=";"/>
+<s b="103" d="?" t="?"/>
+<s b="104" d="!" t="!"/>
+<s b="100" d="," t=","/>
+<s b="104" d="." t="."/>
+</group>
+</alphabet>
+</alphabets>

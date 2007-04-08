@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE controllabels SYSTEM "controllabels.dtd">
+<controllabels>
+  <label id="CTL_ROOT" value="Control" color="8" />
+  <label id="CTL_STOP" value="Stop" color="242" />
+  <label id="CTL_PAUSE" value="Pause" color="241" />
+  <label id="CTL_MOVE" value="Move" color="-1" />
+  <label id="CTL_MOVE_FORWARD" value="&#x2192;" color="-1" />
+  <label id="CTL_MOVE_FORWARD_CHAR" value="&#x25B8;" color="-1" />
+  <label id="CTL_MOVE_FORWARD_WORD" value="&#x25B8;&#x25B8;" color="-1" />
+  <label id="CTL_MOVE_FORWARD_LINE" value="&#x25B8;&#x25B8;&#x25B8;" color="-1" />
+  <label id="CTL_MOVE_FORWARD_FILE" value="&#x25B8;&#x25B8;&#x25B8;&#x25B8;" color="-1" />
+  <label id="CTL_MOVE_BACKWARD" value="&#x2190;" color="-1" />
+  <label id="CTL_MOVE_BACKWARD_CHAR" value="&#x25C2;" color="-1" />
+  <label id="CTL_MOVE_BACKWARD_WORD" value="&#x25C2;&#x25C2;" color="-1" />
+  <label id="CTL_MOVE_BACKWARD_LINE" value="&#x25C2;&#x25C2;&#x25C2;" color="-1" />
+  <label id="CTL_MOVE_BACKWARD_FILE" value="&#x25C2;&#x25C2;&#x25C2;&#x25C2;" color="-1" />
+  <label id="CTL_DELETE" value="Delete" color="-1" />
+  <label id="CTL_DELETE_FORWARD" value="&#x2192;" color="-1" />
+  <label id="CTL_DELETE_FORWARD_CHAR" value="&#x25B8;" color="-1" />
+  <label id="CTL_DELETE_FORWARD_WORD" value="&#x25B8;&#x25B8;" color="-1" />
+  <label id="CTL_DELETE_FORWARD_LINE" value="&#x25B8;&#x25B8;&#x25B8;" color="-1" />
+  <label id="CTL_DELETE_FORWARD_FILE" value="&#x25B8;&#x25B8;&#x25B8;&#x25B8;" color="-1" />
+  <label id="CTL_DELETE_BACKWARD" value="&#x2190;" color="-1" />
+  <label id="CTL_DELETE_BACKWARD_CHAR" value="&#x25C2;" color="-1" />
+  <label id="CTL_DELETE_BACKWARD_WORD" value="&#x25C2;&#x25C2;" color="-1" />
+  <label id="CTL_DELETE_BACKWARD_LINE" value="&#x25C2;&#x25C2;&#x25C2;" color="-1" />
+  <label id="CTL_DELETE_BACKWARD_FILE" value="&#x25C2;&#x25C2;&#x25C2;&#x25C2;" color="-1" />
+</controllabels>
+
+
+

@@ -1,0 +1,796 @@
+# Persian translation of dasher.
+# Copyright (C) 2005, 2006 Sharif FarsiWeb, Inc.
+# This file is distributed under the same license as the dasher package.
+# Meelad Zakaria <meelad@farsiweb.info>, 2005, 2006.
+# Roozbeh Pournader <roozbeh@farsiweb.info>, 2005, 2006.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: dasher HEAD\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-09-03 07:15+0200\n"
+"PO-Revision-Date: 2006-09-04 12:24+0330\n"
+"Last-Translator: Roozbeh Pournader <roozbeh@farsiweb.info>\n"
+"Language-Team: Persian <farsi@lists.sharif.edu>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/dasher.glade.h:34
+#: ../Src/Gtk2/dashergpe.glade.h:5 ../Src/Gtk2/dashermaemo.glade.h:18
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:15
+msgid "Dasher"
+msgstr "دَشِر"
+
+#: ../Data/dasher.desktop.in.in.h:2
+msgid "Predictive text entry"
+msgstr "ورودی متن پیشگو"
+
+#. TODO should probably pop up a Gtk error message and think about how to do i18n:
+#: ../Src/DasherCore/SocketInput.cpp:34
+msgid "Dasher socket input: failed to launch reader thread."
+msgstr "ورودی سوکت دَشر: راه‌اندازی رشتهٔ خواننده شکست خورد."
+
+#: ../Src/Gtk2/Menu.cc:62 ../Src/Gtk2/Menu.cc:118 ../Src/Gtk2/Menu.cc:176
+#: ../Src/Gtk2/Menu.cc:219 ../Src/Gtk2/dasher.glade.h:58
+#: ../Src/Gtk2/dashergpe.glade.h:14 ../Src/Gtk2/dashermaemo.glade.h:29
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:25
+msgid "Select File"
+msgstr "انتخاب پرونده"
+
+#: ../Src/Gtk2/Menu.cc:302
+#, c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"آیا می‌خواهید تغییراتتان را در %s ذخیره کنید؟\n"
+"\n"
+"اگر این کار را نکنید تغییراتتان از دست خواهند رفت."
+
+#: ../Src/Gtk2/Menu.cc:305
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"آیا می‌خواهید تغییراتی که ایجاد کرده‌اید را ذخیره کنید؟"
+"\n"
+"اگر این کار را نکنید تغییراتتان از دست خواهند رفت."
+#: ../Src/Gtk2/Menu.cc:308
+msgid "Don't save"
+msgstr "ذخیره نشود"
+
+#: ../Src/Gtk2/Menu.cc:308
+msgid "Don't quit"
+msgstr "خارج نشود"
+
+#: ../Src/Gtk2/Menu.cc:308
+msgid "Save and quit"
+msgstr "ذخیره و خارج شود"
+
+#: ../Src/Gtk2/Menu.cc:425
+msgid "Dasher is a predictive text entry application"
+msgstr "دَشر یک برنامهٔ ورودی متن پیشگو است"
+
+#: ../Src/Gtk2/Menu.cc:430
+msgid "translator-credits"
+msgstr ""
+"میلاد زکریا <meelad@farsiweb.inf>\n"
+"روزبه پورنادر <roozbeh@farsiweb.info>"
+
+#: ../Src/Gtk2/Preferences.cpp:822 ../Src/Gtk2/Preferences.cpp:824
+msgid "Training Dasher... please wait"
+msgstr "در حال آموزش دَشر... لطفاً صبر کنید"
+
+#: ../Src/Gtk2/dasher.glade.h:1
+msgid "<b>Actions:</b>"
+msgstr "<b>کُنش‌ها:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:2 ../Src/Gtk2/dashermaemo.glade.h:4
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:1
+msgid "<b>Adaptation:</b>"
+msgstr "<b>تطبیق:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:3 ../Src/Gtk2/dashermaemo.glade.h:5
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:2
+msgid "<b>Alphabet Selection:</b>"
+msgstr "<b>انتخاب الفبا:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:4
+msgid "<b>Appearance Options:</b>"
+msgstr "<b>گزینه‌های نما:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:5
+msgid "<b>Application Options:</b>"
+msgstr "<b>گزینه‌های برنامه:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:6
+msgid "<b>Application Style:</b>"
+msgstr "<b>سبک برنامه:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:7
+msgid "<b>Colour Scheme:</b>"
+msgstr "<b>شِمای رنگی:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:8
+msgid "<b>Control Style:</b>"
+msgstr "<b>سبک کنترل:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:9
+msgid "<b>Dasher Font:</b>"
+msgstr "<b>قلم دَشر:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:10
+msgid "<b>Direction:</b>"
+msgstr "<b>جهت:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:11
+msgid "<b>Editor Font:</b>"
+msgstr "<b>قلم ویرایشگر:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:12
+msgid "<b>Input Device:</b>"
+msgstr "<b>دستگاه ورودی:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashermaemo.glade.h:7
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:3
+msgid "<b>Language Model:</b>"
+msgstr "<b>مدل زبانی:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:14
+msgid "<b>Prediction:</b>"
+msgstr "<b>پیش‌بینی:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:9
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:5
+msgid "<b>Smoothing:</b>"
+msgstr "<b>هموارسازی:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:10
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:6
+msgid "<b>Speed:</b>"
+msgstr "<b>سرعت:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:17
+msgid "<b>Starting And Stopping:</b>"
+msgstr "<b>آغاز و توقف:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:18 ../Src/Gtk2/dashermaemo.glade.h:11
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:7
+msgid "Adapt speed automatically"
+msgstr "تطبیق خودکار سرعت"
+
+#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:13
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:9
+msgid "Alphabet Default"
+msgstr "پیش‌فرض الفبا"
+
+#: ../Src/Gtk2/dasher.glade.h:20
+msgid "Alphabet:"
+msgstr "الفبا:"
+
+#: ../Src/Gtk2/dasher.glade.h:21
+msgid "Appearance"
+msgstr "نما"
+
+#: ../Src/Gtk2/dasher.glade.h:22
+msgid "Application"
+msgstr "برنامه"
+
+#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashermaemo.glade.h:14
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:10
+msgid "Bottom to Top"
+msgstr "از ته به سر"
+
+#: ../Src/Gtk2/dasher.glade.h:24
+msgid ""
+"Centre circle\n"
+"Two box"
+msgstr ""
+"دایرهٔ مرکزی\n"
+"دو مستطیل"
+
+#: ../Src/Gtk2/dasher.glade.h:26
+msgid "Composition"
+msgstr "ترکیب‌بندی"
+
+#: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashermaemo.glade.h:15
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:11
+msgid "Control"
+msgstr "مهار"
+
+#: ../Src/Gtk2/dasher.glade.h:28 ../Src/Gtk2/dashergpe.glade.h:1
+msgid "Control mode"
+msgstr "حالت کنترلی"
+
+#: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:2
+msgid "Copy"
+msgstr "نسخه‌برداری"
+
+#: ../Src/Gtk2/dasher.glade.h:30 ../Src/Gtk2/dashergpe.glade.h:3
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:12
+msgid "Copy _All"
+msgstr "نسخه‌برداری از _همه"
+
+#: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashermaemo.glade.h:16
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:13
+msgid "Custom colour scheme:"
+msgstr "شِمای رنگی سفارشی:"
+
+#: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashermaemo.glade.h:17
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:14
+msgid "Custom:"
+msgstr "سفارشی:"
+
+#: ../Src/Gtk2/dasher.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:4
+msgid "Cut"
+msgstr "بریدن"
+
+#: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:19
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:16
+msgid "Dasher Preferences"
+msgstr "ترجیحات دَشر"
+
+#: ../Src/Gtk2/dasher.glade.h:36
+msgid "Direct entry"
+msgstr "مدخل مستقیم"
+
+#: ../Src/Gtk2/dasher.glade.h:37
+msgid "Dock application window"
+msgstr "شناور کردن پنجرهٔ برنامه"
+
+#: ../Src/Gtk2/dasher.glade.h:38
+msgid "Draw box outlines"
+msgstr "کشیدن خطوط بیرونی جعبه‌ها"
+
+#: ../Src/Gtk2/dasher.glade.h:39
+msgid "Draw line between crosshairs and mouse"
+msgstr "ترسیم خط بین مگسک و موشی"
+
+#: ../Src/Gtk2/dasher.glade.h:40
+msgid "Full Screen"
+msgstr "تمام‌صفحه"
+
+#: ../Src/Gtk2/dasher.glade.h:41
+msgid "Increase line thickness"
+msgstr "افزایش ضخامت خط"
+
+#: ../Src/Gtk2/dasher.glade.h:42 ../Src/Gtk2/dashermaemo.glade.h:21
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
+msgid "Japanese"
+msgstr "ژاپنی"
+
+#: ../Src/Gtk2/dasher.glade.h:43
+msgid "Language"
+msgstr "زبان"
+
+#: ../Src/Gtk2/dasher.glade.h:44 ../Src/Gtk2/dashermaemo.glade.h:22
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:18
+msgid "Language model adapts as you write."
+msgstr "مدل زبانی در حین تایپ کردن شما یاد می‌گیرد."
+
+#: ../Src/Gtk2/dasher.glade.h:45
+msgid "Large font "
+msgstr "قلم درشت"
+
+#: ../Src/Gtk2/dasher.glade.h:46 ../Src/Gtk2/dashermaemo.glade.h:23
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:20
+msgid "Left to Right"
+msgstr "چپ به راست"
+
+#: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:24
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:21
+msgid "Mixture model (PPM/dictionary)"
+msgstr "مدل ترکیبی (PPM/لغت‌نامه)"
+
+#: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashergpe.glade.h:8
+msgid "New file"
+msgstr "پروندهٔ جدید"
+
+#: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:10
+msgid "Open file"
+msgstr "باز کردن پرونده"
+
+#: ../Src/Gtk2/dasher.glade.h:50
+msgid "Options"
+msgstr "گزینه‌ها"
+
+#: ../Src/Gtk2/dasher.glade.h:51 ../Src/Gtk2/dashergpe.glade.h:11
+msgid "Paste"
+msgstr "چسباندن"
+
+#: ../Src/Gtk2/dasher.glade.h:52
+msgid "Pause outside of canvas"
+msgstr "مکث بیرون پنجره"
+
+#: ../Src/Gtk2/dasher.glade.h:53 ../Src/Gtk2/dashermaemo.glade.h:26
+msgid "Please Wait..."
+msgstr "لطفاً صبر کنید..."
+
+#: ../Src/Gtk2/dasher.glade.h:54
+msgid "Pr_eferences"
+msgstr "تر_جیحات"
+
+#: ../Src/Gtk2/dasher.glade.h:55 ../Src/Gtk2/dashermaemo.glade.h:28
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
+msgid "Right to Left"
+msgstr "راست به چپ"
+
+#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashergpe.glade.h:12
+msgid "Save file"
+msgstr "ذخیرهٔ پرونده"
+
+#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:13
+msgid "Save file as"
+msgstr "ذخیرهٔ پرونده به نام"
+
+#: ../Src/Gtk2/dasher.glade.h:59 ../Src/Gtk2/dashergpe.glade.h:15
+#: ../Src/Gtk2/dashermaemo.glade.h:30
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:26
+msgid "Select Font"
+msgstr "انتخاب قلم"
+
+#: ../Src/Gtk2/dasher.glade.h:60
+msgid "Show mouse position"
+msgstr "نشان دادن موقعیت موشی"
+
+#: ../Src/Gtk2/dasher.glade.h:61
+msgid "Show speed slider"
+msgstr "نشان دادن لغزندهٔ سرعت"
+
+#: ../Src/Gtk2/dasher.glade.h:62
+msgid "Show toolbar"
+msgstr "نشان دادن نوار ابزار"
+
+#: ../Src/Gtk2/dasher.glade.h:63
+msgid "Small font"
+msgstr "قلم ریز"
+
+#: ../Src/Gtk2/dasher.glade.h:64
+msgid "Speed:"
+msgstr "سرعت:"
+
+#: ../Src/Gtk2/dasher.glade.h:65
+msgid "Stand-alone"
+msgstr "مستقل"
+
+#: ../Src/Gtk2/dasher.glade.h:66 ../Src/Gtk2/dashermaemo.glade.h:31
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
+msgid "Standard letter-based PPM"
+msgstr "‏PPM استاندارد بر مبنای حرف"
+
+#: ../Src/Gtk2/dasher.glade.h:67
+msgid "Start on left mouse button"
+msgstr "آغاز با دکمهٔ چپ موشی"
+
+#: ../Src/Gtk2/dasher.glade.h:68
+msgid "Start on space bar"
+msgstr "آغاز با کلید فاصله"
+
+#: ../Src/Gtk2/dasher.glade.h:69
+msgid "Start with mouse position:"
+msgstr "آغاز با موقعیت موشی:"
+
+#: ../Src/Gtk2/dasher.glade.h:70
+msgid "Timestamp new files"
+msgstr "زدن مهر زمانی بر پرونده‌های جدید"
+
+#: ../Src/Gtk2/dasher.glade.h:71 ../Src/Gtk2/dashermaemo.glade.h:32
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
+msgid "Top to Bottom"
+msgstr "سر به ته"
+
+#: ../Src/Gtk2/dasher.glade.h:72
+msgid ""
+"Use this control to adjust the relative sizes of the \n"
+"letter boxes. Note that selecting high values will slow\n"
+"your writing speed."
+msgstr ""
+"برای تنظیم اندازهٔ نسبی جعبه‌های حروف از این کنترل\n"
+"استفاده کنید. توجه داشته باشید که انتخاب مقادیر بزرگ باعث\n"
+"کاهش سرعت نوشتن‌تان خواهد شد."
+
+#: ../Src/Gtk2/dasher.glade.h:75
+msgid "Very large font"
+msgstr "قلم خیلی درشت"
+
+#: ../Src/Gtk2/dasher.glade.h:76 ../Src/Gtk2/dashermaemo.glade.h:34
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
+msgid "Word-based model"
+msgstr "مدل کلمه‌ای"
+
+#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashergpe.glade.h:17
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:32
+msgid "_About"
+msgstr "_درباره"
+
+#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:18
+msgid "_Append to file"
+msgstr "ال_حاق به پرونده"
+
+#: ../Src/Gtk2/dasher.glade.h:79
+msgid "_Contents"
+msgstr "_محتویات"
+
+#: ../Src/Gtk2/dasher.glade.h:80 ../Src/Gtk2/dashergpe.glade.h:21
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
+msgid "_Edit"
+msgstr "_ویرایش"
+
+#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:23
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:37
+msgid "_File"
+msgstr "_پرونده"
+
+#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:24
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:38
+msgid "_Help"
+msgstr "_راهنما"
+
+#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:25
+msgid "_Import Training Text"
+msgstr "_وارد کردن متن برای آموزش"
+
+#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:28
+#: ../Src/Gtk2/dashermaemo.glade.h:35
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:41
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr "ا‌ب‌ج‌درس‌ص‌ط‌ع‌ف‌ق‌ک‌ل‌م‌ن‌و‌ه‍‌ی"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:115
+#, c-format
+msgid "Unable to initialize speech support\n"
+msgstr "راه‌اندازی پشتیبانی سخن گفتن ممکن نیست\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:138
+msgid "Unable to initialize voices\n"
+msgstr "راه‌اندازی صدا ممکن نیست\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:150
+msgid "Warning: unable to set speech parameters\n"
+msgstr "هشدار: تنظیم پارامترهای سخن گفتن ممکن نیست\n"
+
+#: ../Src/Gtk2/dashergpe.glade.h:6
+msgid "Enter text into other windows"
+msgstr "وارد کردن متن در پنجره‌های دیگر"
+
+#: ../Src/Gtk2/dashergpe.glade.h:7
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:19
+msgid "Large"
+msgstr "درشت"
+
+#: ../Src/Gtk2/dashergpe.glade.h:9
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:22
+msgid "Normal"
+msgstr "عادی"
+
+#: ../Src/Gtk2/dashergpe.glade.h:16
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:29
+msgid "Very Large"
+msgstr "خیلی درشت"
+
+#: ../Src/Gtk2/dashergpe.glade.h:19
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:33
+msgid "_Dasher Font"
+msgstr "_قلم دَشر"
+
+#: ../Src/Gtk2/dashergpe.glade.h:20
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:34
+msgid "_Dasher Font Size"
+msgstr "اندا_زهٔ قلم دَشر"
+
+#: ../Src/Gtk2/dashergpe.glade.h:22
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:36
+msgid "_Edit Font"
+msgstr "قلم _ویرایش"
+
+#: ../Src/Gtk2/dashergpe.glade.h:26
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:39
+msgid "_Options"
+msgstr "_گزینه‌ها"
+
+#: ../Src/Gtk2/dashergpe.glade.h:27
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:40
+msgid "_Reset fonts"
+msgstr "_تنظیم قلم به حالت اولیه"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:1
+msgid "\n"
+msgstr "\n"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:3
+msgid "(Message Placeholder - no need to translate)"
+msgstr ""
+
+#: ../Src/Gtk2/dashermaemo.glade.h:6
+msgid "<b>Display Size:</b>"
+msgstr "<b>اندازهٔ نمایش:</b>"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:8
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:4
+msgid "<b>Orientation:</b>"
+msgstr "<b>جهت:</b>"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:12
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:8
+msgid "Alphabet"
+msgstr "الفبا"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:20
+msgid "Enlarge input window"
+msgstr "بزرگ کردن پنجرهٔ ورودی"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:25
+msgid "P"
+msgstr ""
+
+#: ../Src/Gtk2/dashermaemo.glade.h:27
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:23
+msgid "Prediction"
+msgstr "پیش‌بینی"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:33
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:30
+msgid "View"
+msgstr "نما"
+
+#~ msgid "Panels"
+#~ msgstr "تابلوها"
+
+#~ msgid "Menus"
+#~ msgstr "منوها"
+
+#~ msgid "Buttons"
+#~ msgstr "دکمه‌ها"
+
+#~ msgid "Text"
+#~ msgstr "متن"
+
+#~ msgid "Windows"
+#~ msgstr "پنجره‌ها"
+
+#~ msgid "Stop"
+#~ msgstr "توقف"
+
+#~ msgid "Pause"
+#~ msgstr "مکث"
+
+#~ msgid "Move"
+#~ msgstr "حرکت"
+
+#~ msgid "Delete"
+#~ msgstr "حذف"
+
+#~ msgid "Speak"
+#~ msgstr "گفتن"
+
+#~ msgid "<"
+#~ msgstr "<"
+
+#~ msgid ">"
+#~ msgstr ">"
+
+#~ msgid "<<<"
+#~ msgstr "<<<"
+
+#~ msgid ">>>"
+#~ msgstr ">>>"
+
+#~ msgid "Everything"
+#~ msgstr "همه‌چیز"
+
+#~ msgid "New"
+#~ msgstr "جدید"
+
+#~ msgid "Repeat"
+#~ msgstr "تکرار"
+
+#~ msgid "1"
+#~ msgstr "۱"
+
+#~ msgid "2"
+#~ msgstr "۲"
+
+#~ msgid "3"
+#~ msgstr "۳"
+
+#~ msgid "4"
+#~ msgstr "۴"
+
+#~ msgid "5"
+#~ msgstr "۵"
+
+#~ msgid "6"
+#~ msgstr "۶"
+
+#~ msgid "7"
+#~ msgstr "۷"
+
+#~ msgid "8"
+#~ msgstr "۸"
+
+#~ msgid "9"
+#~ msgstr "۹"
+
+#~ msgid "10"
+#~ msgstr "۱۰"
+
+#~ msgid "Character"
+#~ msgstr "نویسه"
+
+#~ msgid "Word"
+#~ msgstr "کلمه"
+
+#~ msgid "Line"
+#~ msgstr "سطر"
+
+#~ msgid "Unknown"
+#~ msgstr "نامعلوم"
+
+#~ msgid "5:"
+#~ msgstr "۵:"
+
+#~ msgid "6:"
+#~ msgstr "۶:"
+
+#~ msgid "7:"
+#~ msgstr "۷:"
+
+#~ msgid "8:"
+#~ msgstr "۸:"
+
+#~ msgid "9:"
+#~ msgstr "۹:"
+
+#, fuzzy
+#~ msgid "<b>Advanced Settings:</b>"
+#~ msgstr "<b>انتخاب الفبا:</b>"
+
+#~ msgid "<b>Button control setup</b>"
+#~ msgstr "<b>تنظیمات کنترل‌های دکمه‌ای</b>"
+
+#, fuzzy
+#~ msgid "<b>Button modes:</b>"
+#~ msgstr "<b>حالت کلیدهای فشاری:</b>"
+
+#, fuzzy
+#~ msgid "<b>Menu Mode</b>"
+#~ msgstr "<b>حالت کلیدهای فشاری:</b>"
+
+#~ msgid "<b>Miscellaneous Options:</b>"
+#~ msgstr "<b>گزینه‌های متفرقه:</b>"
+
+#, fuzzy
+#~ msgid "<b>One-Button Dynamic Mode</b>"
+#~ msgstr "<b>حالت کلیدهای فشاری:</b>"
+
+#, fuzzy
+#~ msgid "<b>One-Button Static Mode</b>"
+#~ msgstr "<b>حالت کلیدهای فشاری:</b>"
+
+#~ msgid "<b>Toggle button Mode:</b>"
+#~ msgstr "<b>حالت کلیدهای فشاری:</b>"
+
+#~ msgid "<b>X/Y Coordinates:</b>"
+#~ msgstr "<b>مختصات X/Y</b>"
+
+#, fuzzy
+#~ msgid "<b>Zoom steps:</b>"
+#~ msgstr "<b>سبک کنترل:</b>"
+
+#~ msgid "Advanced"
+#~ msgstr "پیشرفته"
+
+#~ msgid "Button control setup"
+#~ msgstr "تنظیمات کنترل‌های دکمه‌ای"
+
+#~ msgid "Button mode"
+#~ msgstr "حالت ‌دکمه‌ای"
+
+#, fuzzy
+#~ msgid "Button setup"
+#~ msgstr "تنظیمات کنترل‌های دکمه‌ای"
+
+#~ msgid "Button:"
+#~ msgstr "دکمه:"
+
+#, fuzzy
+#~ msgid "Click mode"
+#~ msgstr "حالت کنترلی"
+
+#~ msgid "Copy all on stop"
+#~ msgstr "نسخه‌برداری از همه در هنگام توقف"
+
+#~ msgid "Cyclical button mode"
+#~ msgstr "حالت دکمه‌های چرخشی"
+
+#~ msgid "Distance from centreline for start on mouse position:"
+#~ msgstr "فاصله‌ی آغازین موقعیت موشی با خط مرکزی:"
+
+#~ msgid "Down/3:"
+#~ msgstr "پایین/۳:"
+
+#~ msgid "Edit Button-control options"
+#~ msgstr "ویرایش گزینه‌های کنترل‌های دکمه‌ای"
+
+#~ msgid "Eyetracker mode"
+#~ msgstr "حالت تعقیب نگاه"
+
+#~ msgid ""
+#~ "If this mode is selected, up  and down will\n"
+#~ "cycle backwards and forwards between coordinates and right will confirm "
+#~ "the choice"
+#~ msgstr ""
+#~ "اگر این حالت انتخاب شود، بالا و پایین بین محورهای مختصات\n"
+#~ "تعویض خواهند کرد و راست، انتخاب را قطعی خواهد کرد"
+
+#~ msgid "Left/2:"
+#~ msgstr "چپ/۲:"
+
+#, fuzzy
+#~ msgid "Miscellaneous"
+#~ msgstr "<b>گزینه‌های متفرقه:</b>"
+
+#~ msgid "One dimensional mode"
+#~ msgstr "حالت یک بعدی"
+
+#, fuzzy
+#~ msgid "One-button static mode"
+#~ msgstr "حالت ‌دکمه‌ای"
+
+#, fuzzy
+#~ msgid "Pulsing mode"
+#~ msgstr "حالت ‌دکمه‌ای"
+
+#, fuzzy
+#~ msgid "Right zoom:  "
+#~ msgstr "راست به چپ"
+
+#~ msgid "Right/4:"
+#~ msgstr "راست/۴:"
+
+#~ msgid "Speak on stop"
+#~ msgstr "سخن گفتن هنگام توقف"
+
+#~ msgid "Training"
+#~ msgstr "در حال آموزش"
+
+#~ msgid "Up/1:"
+#~ msgstr "بالا/۱:"
+
+#~ msgid "X:"
+#~ msgstr "‏X:"
+
+#~ msgid "Y:"
+#~ msgstr "‏Y:"
+
+#~ msgid "<b>Speed</b>"
+#~ msgstr "<b>سرعت</b>"
+
+#~ msgid "Change colour scheme automatically"
+#~ msgstr "تغییر خودکار شِمای رنگی"
+
+#~ msgid "Color"
+#~ msgstr "رنگ"
+
+#~ msgid ""
+#~ "If this mode is selected, up and down will cycle backwards and forwards "
+#~ "between coordinates and right will confirm the choice"
+#~ msgstr ""
+#~ "اگر این حالت انتخاب شود، بالا و پایین بین محورهای مختصات تعویض می‌کند و "
+#~ "راست، انتخاب را قطعی خواهد کرد"
+
+#~ msgid "Number of pixels that should cover the entire y range:"
+#~ msgstr "تعداد نقطه‌هایی که سراسر محدوده‌ی y را می‌پوشانند"
+
+#~ msgid "Orientation"
+#~ msgstr "جهت"
+
+#~ msgid ""
+#~ "Use this control to adjust the relative sizes of the letter boxes. Note "
+#~ "that selecting high values will slow your writing speed."
+#~ msgstr ""
+#~ "برای میزان کردن اندازه‌ی نسبی جعبه‌های حروف از این کنترل استفاده کنید. توجه "
+#~ "داشته باشید که انتخاب مقادیر بزرگ باعث کاهش سرعت نوشتنتان خواهد شد."

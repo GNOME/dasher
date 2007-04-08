@@ -1,0 +1,185 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet-nest.xsl"?>
+<!-- Author: David MacKay; NEEDS CHECKING BY AN EXPERT!  -->
+<alphabets>
+<alphabet name="Pashto (Nested groups) with punctuation and numerals">
+<!-- Pashto / &#1662;&#1690;&#1578;&#1608; -->
+<orientation type="RL"/>
+<encoding type="Western"/>
+<palette>European/Asian</palette>
+<train>training_pashto_AF.txt</train>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="Pashto letters" b="0">
+<group name="Vowels etc" b="110">
+<s d="&#x25cc;&#x064E;" t="&#x064E;"  b="90"  note="fatha"  />
+<s d="&#x25cc;&#x0650;" t="&#x0650;"  b="91" note="kasra"  />
+<s d="&#x25cc;&#x064F;" t="&#x064F;"  b="92"  note="damma"  />
+<s d="&#x25cc;&#x0651;" t="&#x0651;"  b="93" note="shadda"  />
+<s d="&#x25cc;&#x0652;" t="&#x0652;"  b="94"  note="sukun"  />
+<s d="&#x25cc;&#x064B;" t="&#x064B;"  b="90" note="FATHATAN"  />
+<s d="&#x25cc;&#x064D;" t="&#x064D;"  b="91"  note="kasratan"  />
+<s d="&#x25cc;&#x064C;" t="&#x064C;"  b="92" note="dammatan"  />
+<s d="&#x25cc;&#x0653;" t="&#x0653;"  b="93"  note="maddah above" />
+<s d="&#x25cc;&#x0654;" t="&#x0654;"  b="94" note="hamza above" />
+<s d="&#x25cc;&#x0655;" t="&#x0655;"  b="90" note="hamza below" />
+<s d="&#x25cc;&#x0670;" t="&#x0670;"  b="91" note="superscript alef" />
+</group>
+<group name="Hamza" b="60">
+<s d="&#x0621;" t="&#x0621;" b="70" note="HAMZA  "  />
+</group>
+<group  b="60" name="alef" >
+<s d="&#x0622;" t="&#x0622;" b="80" note="ALEF WITH MADDA ABOVE  "  />
+<s d="&#x0627;" t="&#x0627;" b="70" note="ALEF  "  />
+<s d="&#x0623;" t="&#x0623;" b="80" note="ALEF WITH HAMZA ABOVE  "  />
+</group>
+<group b="61" >
+<s d="&#x0628;" t="&#x0628;" b="81" note="BEH  "  />
+<s d="&#x067e;" t="&#x067e;" b="71" note="PEH  "  />
+<s d="&#x062A;" t="&#x062A;" b="81" note="TEH  "  />
+<s d="&#x062B;" t="&#x062B;" b="71" note="THEH  "  />
+<s d="&#x067A;" t="&#x067A;" b="81" note="ARABIC LETTER TTEHEH  class(p)"  />
+<s d="&#x067D;" t="&#x067D;" b="71" note="SE or THEH? - ARABIC LETTER TEH WITH THREE DOTS ABOVE DOWNWARDS  class(p)"  />
+<s d="&#x067F;" t="&#x067F;" b="81" note="ARABIC LETTER TEHEH  class(p)"  />
+</group>		     
+<group b="62" >
+<s d="&#x062C;" t="&#x062C;" b="82" note="JEEM  "  />
+<s d="&#x0681;" t="&#x0681;"  note="ZEEM? ARABIC LETTER HAH WITH HAMZA ABOVE  class(p)"  />
+<s d="&#x0686;" t="&#x0686;" b="72" note="TCHEH "  />
+<s d="&#x0685;" t="&#x0685;"  note="SEEM? ARABIC LETTER HAH WITH THREE DOTS ABOVE  class(p)"  />
+<s d="&#x062D;" t="&#x062D;" b="82" note="HAH  "  />
+<s d="&#x062E;" t="&#x062E;" b="72" note="KHAH  "  />
+</group>
+<group b="63" >
+<s d="&#x062F;" t="&#x062F;" b="73" note="DAL  "  />
+<s d="&#x0689;" t="&#x0689;"  note="DDAL ARABIC LETTER DAL WITH RING  class(p)"  />
+<s d="&#x0630;" t="&#x0630;" b="83" note="THAL  "  />
+<s d="&#x0631;" t="&#x0631;" b="73" note="REH  "  />
+<s d="&#x0693;" t="&#x0693;"  note="RREH ARABIC LETTER REH WITH RING  class(p)"  />
+<s d="&#x0632;" t="&#x0632;" b="83" note="ZEH / ZAIN  "  />
+<s d="&#x0692;" t="&#x0692;"  note="ARABIC LETTER REH WITH SMALL V  class(p)"  />
+<s d="&#x0694;" t="&#x0694;"  note="ARABIC LETTER REH WITH DOT BELOW  class(p)"  />
+<s d="&#x0695;" t="&#x0695;"  note="ARABIC LETTER REH WITH SMALL V BELOW  class(p)"  />
+<s d="&#x0697;" t="&#x0697;"  note="ARABIC LETTER REH WITH TWO DOTS ABOVE  class(p)"  />
+<s d="&#x0698;" t="&#x0698;" b="73" note="JEH "  />
+<s d="&#x0696;" t="&#x0696;"  note="ARABIC LETTER REH WITH DOT BELOW AND DOT ABOVE  class(p)"  />
+<s d="&#x0699;" t="&#x0699;"  note="ARABIC LETTER REH WITH FOUR DOTS ABOVE  class(p)"  />
+<!-- <s d="&#x06EF;" t="&#x06EF;"  note="ARABIC LETTER REH WITH INVERTED V  class(p)"  /> -->
+</group>
+<group b="64" >
+<s d="&#x0633;" t="&#x0633;" b="84" note="SEEN  "  />
+<s d="&#x0634;" t="&#x0634;" b="74" note="SHEEN  "  />
+<s d="&#x06FA;" t="&#x06FA;"  note="KHEEN? - ARABIC LETTER SHEEN WITH DOT BELOW  class(p)"  />
+</group>
+<group b="65" >
+<s d="&#x0635;" t="&#x0635;" b="75" note="SAD  "  />
+<s d="&#x0636;" t="&#x0636;" b="85" note="DAD  "  />
+<s d="&#x0637;" t="&#x0637;" b="75" note="TWEH? TAH  "  />
+<s d="&#x0638;" t="&#x0638;" b="85" note="ZWEH? ZAH  "  />
+</group>
+<group b="66" >
+<s d="&#x0639;" t="&#x0639;" b="86" note="AIN  "  />
+<s d="&#x063A;" t="&#x063A;" b="76" note="GHAIN  "  />
+<s d="&#x0641;" t="&#x0641;" b="86" note="FEH  "  />
+<s d="&#x0642;" t="&#x0642;" b="76" note="QAF  "  />
+</group>
+<group b="67" >
+<s d="&#x06A9;" t="&#x06A9;" b="77" note="KAF (unicode LETTER KEHEH)"  />
+<s d="&#x06af;" t="&#x06af;" b="87" note="GAF  "  />
+</group>
+<group b="68" >
+<s d="&#x0644;" t="&#x0644;" b="78" note=" LAM  "  />
+<s d="&#x0645;" t="&#x0645;" b="88" note=" MEEM  "  />
+<s d="&#x0646;" t="&#x0646;" b="78" note=" NOON  "  />
+<s d="&#x06BC;" t="&#x06BC;"  note="NOORR? - ARABIC LETTER NOON WITH RING  class(p)"  />
+</group>
+<group b="69" >
+<!-- <s d="&#x06FF;" t="&#x06FF;"  note="ARABIC LETTER HEH WITH INVERTED V  class(p)"  /> -->
+<s d="&#x0648;" t="&#x0648;" b="79" note=" WAW  "  />
+<s d="&#x0624;" t="&#x0624;" b="89" note=" WAW WITH HAMZA ABOVE  "  />
+<s d="&#x06C5;" t="&#x06C5;"  note="ARABIC LETTER KIRGHIZ OE  class(p)"  />
+<s d="&#x06C6;" t="&#x06C6;"  note="ARABIC LETTER OE  class(p)"  />
+<s d="&#x06C8;" t="&#x06C8;"  note="ARABIC LETTER YU  class(p)"  />
+<s d="&#x06CA;" t="&#x06CA;"  note="ARABIC LETTER WAW WITH TWO DOTS ABOVE  class(p)"  />
+<s d="&#x06CB;" t="&#x06CB;"  note="ARABIC LETTER VE  class(p)"  />
+<!-- <s d="&#x06CF;" t="&#x06CF;"  note="ARABIC LETTER WAW WITH DOT ABOVE  class(p)"  /> -->
+<s d="&#x0647;&#x200d;" t="&#x0647;" b="79" note=" HEH (with non-joiner added to the canvas glyph) "  />
+<s d="&#x06CC;" t="&#x06CC;" b="89" note="ARABIC LETTER FARSI YEH "  />
+<s d="&#x0626;" t="&#x0626;" b="79" note=" YEH WITH HAMZA ABOVE  "  />
+</group>
+</group>
+<group name="Arabic letters" b="115">
+<s b="99" t="&#x0640;" d="&#x0640;" note="ARABIC TATWEEL joining character"/>
+<s d="&#x0625;" t="&#x0625;" b="70" note="ALEF WITH HAMZA BELOW  "  />
+<s d="&#x0671;" t="&#x0671;" b="80" note="ALEF WASLA  "  />
+<s d="&#x0643;" t="&#x0643;" b="77" note="ARABIC KAF perhaps omit this"/>
+<s d="&#x0629;" t="&#x0629;" b="79" note=" TEH MARBUTA  "  />
+<s d="&#x0649;&#x200d;" t="&#x0649;" b="89" note=" ALEF MAKSURA (Looks like YEH!)"  />
+<s d="&#x064A;" t="&#x064A;" b="79" note=" YEH  "  />
+</group>
+<group name="Persian numbers" b="113">
+<s d="&#x06F1;" t="&#x06F1;"  b="105"  note="ONE"/>
+<s d="&#x06F2;" t="&#x06F2;"  b="106" note="TWO"/>
+<s d="&#x06F3;" t="&#x06F3;"  b="107"  note="THREE"/>
+<s d="&#x06F4;" t="&#x06F4;"  b="108" note="FOUR"/>
+<s d="&#x06F5;" t="&#x06F5;"  b="109"  note="FIVE"/>
+<s d="&#x06F6;" t="&#x06F6;"  b="105" note="SIX"/>
+<s d="&#x06F7;" t="&#x06F7;"  b="106"  note="SEVEN"/>
+<s d="&#x06F8;" t="&#x06F8;"  b="107" note="EIGHT"/>
+<s d="&#x06F9;" t="&#x06F9;"  b="108"  note="NINE"/>
+<s d="&#x06F0;" t="&#x06F0;"  b="109" note="ZERO"/>
+<s d="&#x066b;" t="&#x066b;"  b="104" note="decimal point"/>
+<s d="&#x066c;" t="&#x066c;"  b="102" note="thousands"/>
+</group>
+<group name="ASCII Punctuation" b="114">
+<s b="99" d="~" t="~"/>
+<s b="98" d="@" t="@"/>
+<s b="95" d="#" t="#"/>
+<s b="96" d="$" t="$"/>
+<s b="90" d="%" t="%"/>
+<s b="95" d="^" t="^"/>
+<s b="97" d="&amp;" t="&amp;"/> 
+<s b="91" d="*" t="*"/>
+<s b="100" d="-" t="-"/>
+<s b="96" d="_" t="_"/>
+<s b="98" d="\" t="\"/>
+<s b="97" d="|" t="|"/>
+</group>
+<group name="Punctuation" b="112">
+<s b="90"    d="&#xfdfc;" t="&#xfdfc;"  note="currency"/>
+<s b="91" d="&#x066A;" t="&#x066A;" note="Arabic percent"/>
+<s b="92" d="+" t="+"/>
+<s b="93" d="&#x2212;" t="&#x2212;" note="minus"/>
+<s b="94" d="&#x00d7;" t="&#x00d7;" note="times"/>
+<s b="90" d="&#x00f7;" t="&#x00f7;" note="divide"/>
+<s b="91" d="=" t="="/>
+<s b="92" d="/" t="/" note="keep in persian as separator"/>
+<s b="109" d="&#x200F;&lt;&#x200F;" t="&lt;"/>
+<s b="105" d="&#x200F;&gt;&#x200F;" t="&gt;"/>
+<s b="107" d="&#x200F;{&#x200F;" t="{"/>
+<s b="108" d="&#x200F;}&#x200F;" t="}"/>
+<s b="105" d="&#x200F;[&#x200F;" t="["/>
+<s b="106" d="&#x200F;]&#x200F;" t="]"/>
+<s b="106" d="&#x200F;(&#x200F;" t="("/>
+<s b="107" d="&#x200F;)&#x200F;" t=")"/>
+<s d="&#x200F;&#x2039;&#x200F;" t="&#x2039;" note="French opening single quotation mark" />
+<s d="&#x200F;&#x203A;&#x200F;" t="&#x203A;" note="French opening single quotation mark" />
+<s d="&#x200F;&#x00AB;&#x200F;" t="&#x00AB;" note="French left double quotation mark" />
+<s d="&#x200F;&#x00BB;&#x200F;" t="&#x00BB;" note="French right double quotation mark" />
+<s b="100" d="&#x2010;" t="&#x2010;"/>
+<s b="100" d="!" t="!"/>
+<s b="101" d="&#x061F;" t="&#x061F;"  note="Arabic question mark"/>
+<s b="101" d=":" t=":"/>
+<s b="102" d="&#x061B;" t="&#x061B;"  note="Arabic semicolon"/>
+<s b="103"  d="&#x060C;" t="&#x060C;"  note="Arabic comma"/>
+<s b="104" d="." t="."/>
+</group>
+<group name="Joiners" b="111">
+<s b="73" t="&#x200c;" d="&#x2225;" note="Zero width non-joiner"/>
+<s b="74" t="&#x200d;" d="&#x2195;" note="Zero width joiner"/>
+</group>
+</alphabet>
+</alphabets>
+

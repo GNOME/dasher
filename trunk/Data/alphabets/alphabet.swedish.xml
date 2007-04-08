@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Svenska / Swedish with punctuation and numerals">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>Default</palette>
+<train>training_swedish_SE.txt</train>
+<space d="&#x25a1;" t=" " b="9" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="lower case letters" b="0">
+<s d="&#x0061;" t="&#x0061;" />
+<s d="&#x00E0;" t="&#x00E0;" />
+<s d="&#x0062;" t="&#x0062;" />
+<s d="&#x0063;" t="&#x0063;" />
+<s d="&#x0064;" t="&#x0064;" />
+<s d="&#x0065;" t="&#x0065;" />
+<s d="&#x00E9;" t="&#x00E9;" />
+<s d="&#x0066;" t="&#x0066;" />
+<s d="&#x0067;" t="&#x0067;" />
+<s d="&#x0068;" t="&#x0068;" />
+<s d="&#x0069;" t="&#x0069;" />
+<s d="&#x006A;" t="&#x006A;" />
+<s d="&#x006B;" t="&#x006B;" />
+<s d="&#x006C;" t="&#x006C;" />
+<s d="&#x006D;" t="&#x006D;" />
+<s d="&#x006E;" t="&#x006E;" />
+<s d="&#x006F;" t="&#x006F;" />
+<s d="&#x0070;" t="&#x0070;" />
+<s d="&#x0071;" t="&#x0071;" />
+<s d="&#x0072;" t="&#x0072;" />
+<s d="&#x0073;" t="&#x0073;" />
+<s d="&#x0074;" t="&#x0074;" />
+<s d="&#x0075;" t="&#x0075;" />
+<s d="&#x0076;" t="&#x0076;" />
+<s d="&#x0077;" t="&#x0077;" />
+<s d="&#x0078;" t="&#x0078;" />
+<s d="&#x0079;" t="&#x0079;" />
+<s d="&#x00FC;" t="&#x00FC;" />
+<s d="&#x007A;" t="&#x007A;" />
+<s d="&#x00E5;" t="&#x00E5;" />
+<s d="&#x00E4;" t="&#x00E4;" />
+<!-- <s d="&#x00E6;" t="&#x00E6;" note="ae" /> -->
+<s d="&#x00F6;" t="&#x00F6;" />
+<!-- <s d="&#x00F8;" t="&#x00F8;" note="o-slash" /> -->
+</group>
+<group name="upper case letters" b="111">
+<s d="&#x0041;" t="&#x0041;" />
+<s d="&#x00C0;" t="&#x00C0;" />
+<s d="&#x0042;" t="&#x0042;" />
+<s d="&#x0043;" t="&#x0043;" />
+<s d="&#x0044;" t="&#x0044;" />
+<s d="&#x0045;" t="&#x0045;" />
+<s d="&#x00C9;" t="&#x00C9;" />
+<s d="&#x0046;" t="&#x0046;" />
+<s d="&#x0047;" t="&#x0047;" />
+<s d="&#x0048;" t="&#x0048;" />
+<s d="&#x0049;" t="&#x0049;" />
+<s d="&#x004A;" t="&#x004A;" />
+<s d="&#x004B;" t="&#x004B;" />
+<s d="&#x004C;" t="&#x004C;" />
+<s d="&#x004D;" t="&#x004D;" />
+<s d="&#x004E;" t="&#x004E;" />
+<s d="&#x004F;" t="&#x004F;" />
+<s d="&#x0050;" t="&#x0050;" />
+<s d="&#x0051;" t="&#x0051;" />
+<s d="&#x0052;" t="&#x0052;" />
+<s d="&#x0053;" t="&#x0053;" />
+<s d="&#x0054;" t="&#x0054;" />
+<s d="&#x0055;" t="&#x0055;" />
+<s d="&#x0056;" t="&#x0056;" />
+<s d="&#x0057;" t="&#x0057;" />
+<s d="&#x0058;" t="&#x0058;" />
+<s d="&#x0059;" t="&#x0059;" />
+<s d="&#x00DC;" t="&#x00DC;" />
+<s d="&#x005A;" t="&#x005A;" />
+<s d="&#x00C5;" t="&#x00C5;" />
+<s d="&#x00C4;" t="&#x00C4;" />
+<!-- <s d="&#x00C6;" t="&#x00C6;" /> -->
+<s d="&#x00D6;" t="&#x00D6;" />
+<!-- <s d="&#x00D8;" t="&#x00D8;" /> -->
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1"/>
+<s d="2" t="2"/>
+<s d="3" t="3"/>
+<s d="4" t="4"/>
+<s d="5" t="5"/>
+<s d="6" t="6"/>
+<s d="7" t="7"/>
+<s d="8" t="8"/>
+<s d="9" t="9"/>
+<s d="0" t="0"/>
+</group>
+<group name="Punctuation" b="112">
+<s d="%" t="%"/>
+<s d="*" t="*"/>
+<s d="+" t="+"/>
+<s d="=" t="="/>
+<s d="/" t="/"/>
+<s d="#" t="#"/>
+<s d="$" t="$"/>
+<s d="|" t="|"/>
+<s d="\" t="\"/>
+<s d="~" t="~"/>
+<s d="^" t="^"/>
+<s d="_" t="_"/>
+<s d="&amp;" t="&amp;"/>
+<s d="@" t="@"/>
+<s d="[" t="["/>
+<s d="]" t="]"/>
+<s d="{" t="{"/>
+<s d="}" t="}"/>
+<s d="&lt;" t="&lt;"/>
+<s d="&gt;" t="&gt;"/>
+<s d="(" t="("/>
+<s d=")" t=")"/>
+<s d="&#x201D;" t="&#x201D;" note="right double quotation mark" />
+<s d="&quot;" t="&quot;"/>
+<s d="`" t="`"/>
+<s d="&#x2019;" t="&#x2019;" note="right single quotation mark and apostrophe" />
+<s d="-" t="-"/>
+<s d=":" t=":"/>
+<s d=";" t=";"/>
+<s d="?" t="?"/>
+<s d="!" t="!"/>
+<s d="," t=","/>
+<s d="." t="."/>
+</group>
+</alphabet>
+</alphabets>
+

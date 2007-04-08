@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Dhivehi (thaana) with punctuation and numerals" note="simplified Arabic-style script, unique to the Dhivehi language, adopted in Maldives">
+<orientation type="RL"/>
+<encoding type="Western"/>
+<palette>Default</palette>
+<train>training_thaana_MV.txt</train>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="thaana letters" b="0">
+<s d="&#x0780;" t="&#x0780;"  note="HAA  class(p)"  />
+<s d="&#x0799;" t="&#x0799;"  note="HHAA  class(p)"  />
+<s d="&#x079A;" t="&#x079A;"  note="KHAA  class(p)"  />
+<s d="&#x0781;" t="&#x0781;"  note="SHAVIYANI  class(p)"  />
+<s d="&#x0782;" t="&#x0782;"  note="NOONU  class(p)"  />
+<s d="&#x0783;" t="&#x0783;"  note="RAA  class(p)"  />
+<s d="&#x079C;" t="&#x079C;"  note="ZAA  class(p)"  />
+<s d="&#x0784;" t="&#x0784;"  note="BAA  class(p)"  />
+<s d="&#x0785;" t="&#x0785;"  note="LHAVIYANI  class(p)"  />
+<s d="&#x0786;" t="&#x0786;"  note="KAAFU  class(p)"  />
+<s d="&#x0787;" t="&#x0787;"  note="ALIFU (silent vowel carrier) class(p)"  />
+<s d="&#x07A2;" t="&#x07A2;"  note="AINU  class(p)"  />
+<s d="&#x07A3;" t="&#x07A3;"  note="GHAINU  class(p)"  />
+<s d="&#x0788;" t="&#x0788;"  note="VAAVU  class(p)"  />
+<s d="&#x07A5;" t="&#x07A5;"  note="WAAVU  class(p)"  />
+<s d="&#x0789;" t="&#x0789;"  note="MEEMU  class(p)"  />
+<s d="&#x078A;" t="&#x078A;"  note="FAAFU  class(p)"  />
+<s d="&#x078B;" t="&#x078B;"  note="DHAALU  class(p)"  />
+<s d="&#x079B;" t="&#x079B;"  note="THAALU  class(p)"  />
+<s d="&#x078C;" t="&#x078C;"  note="THAA  class(p)"  />
+<s d="&#x0798;" t="&#x0798;"  note="TTAA  class(p)"  />
+<s d="&#x07A0;" t="&#x07A0;"  note="TO  class(p)"  />
+<s d="&#x07A1;" t="&#x07A1;"  note="ZO  class(p)"  />
+<s d="&#x078D;" t="&#x078D;"  note="LAAMU  class(p)"  />
+<s d="&#x078E;" t="&#x078E;"  note="GAAFU  class(p)"  />
+<s d="&#x07A4;" t="&#x07A4;"  note="QAAFU  class(p)"  />
+<s d="&#x078F;" t="&#x078F;"  note="GNAVIYANI  class(p)"  />
+<s d="&#x0790;" t="&#x0790;"  note="SEENU  class(p)"  />
+<s d="&#x079D;" t="&#x079D;"  note="SHEENU  class(p)"  />
+<s d="&#x079E;" t="&#x079E;"  note="SAADHU  class(p)"  />
+<s d="&#x079F;" t="&#x079F;"  note="DAADHU  class(p)"  />
+<s d="&#x0791;" t="&#x0791;"  note="DAVIYANI  class(p)"  />
+<s d="&#x0792;" t="&#x0792;"  note="ZAVIYANI  class(p)"  />
+<s d="&#x0793;" t="&#x0793;"  note="TAVIYANI  class(p)"  />
+<s d="&#x0794;" t="&#x0794;"  note="YAA  class(p)"  />
+<s d="&#x0795;" t="&#x0795;"  note="PAVIYANI  class(p)"  />
+<s d="&#x0796;" t="&#x0796;"  note="JAVIYANI  class(p)"  />
+<s d="&#x0797;" t="&#x0797;"  note="CHAVIYANI  class(p)"  />
+<s d="&#x07B1;" t="&#x07B1;"  note="NAA  class(p)"  />
+</group>			    
+<group name="thaana vowels">	    
+<s d="&#x25cc;&#x07A6;" t="&#x07A6;"  note="ABAFILI  class(p)"  />
+<s d="&#x25cc;&#x07A7;" t="&#x07A7;"  note="AABAAFILI  class(p)"  />
+<s d="&#x25cc;&#x07A8;" t="&#x07A8;"  note="IBIFILI  class(p)"  />
+<s d="&#x25cc;&#x07A9;" t="&#x07A9;"  note="EEBEEFILI  class(p)"  />
+<s d="&#x25cc;&#x07AA;" t="&#x07AA;"  note="UBUFILI  class(p)"  />
+<s d="&#x25cc;&#x07AB;" t="&#x07AB;"  note="OOBOOFILI  class(p)"  />
+<s d="&#x25cc;&#x07AC;" t="&#x07AC;"  note="EBEFILI  class(p)"  />
+<s d="&#x25cc;&#x07AD;" t="&#x07AD;"  note="EYBEYFILI  class(p)"  />
+<s d="&#x25cc;&#x07AE;" t="&#x07AE;"  note="OBOFILI  class(p)"  />
+<s d="&#x25cc;&#x07AF;" t="&#x07AF;"  note="OABOAFILI  class(p)"  />
+<s d="&#x25cc;&#x07B0;" t="&#x07B0;"  note="SUKUN  class(p)"  />
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1"/>
+<s d="2" t="2"/>
+<s d="3" t="3"/>
+<s d="4" t="4"/>
+<s d="5" t="5"/>
+<s d="6" t="6"/>
+<s d="7" t="7"/>
+<s d="8" t="8"/>
+<s d="9" t="9"/>
+<s d="0" t="0"/>
+</group>
+<group name="Punctuation" b="112">
+<s d="%" t="%"/>
+<s d="*" t="*"/>
+<s d="+" t="+"/>
+<s d="=" t="="/>
+<s d="/" t="/"/>
+<s d="#" t="#"/>
+<s d="$" t="$"/>
+<s d="|" t="|"/>
+<s d="\" t="\"/>
+<s d="~" t="~"/>
+<s d="^" t="^"/>
+<s d="_" t="_"/>
+<s d="&amp;" t="&amp;"/>
+<s d="@" t="@"/>
+<s d="[" t="["/>
+<s d="]" t="]"/>
+<s d="{" t="{"/>
+<s d="}" t="}"/>
+<s d="&lt;" t="&lt;"/>
+<s d="&gt;" t="&gt;"/>
+<s d="(" t="("/>
+<s d=")" t=")"/>
+<s d="&quot;" t="&quot;"/>
+<s d="`" t="`"/>
+<s d="&apos;" t="&apos;"/>
+<s d="-" t="-"/>
+<s d=":" t=":"/>
+<s d=";" t=";"/>
+<s d="?" t="?"/>
+<s d="!" t="!"/>
+<s d="," t=","/>
+<s d="&#183;" t="."/>
+</group>
+</alphabet>
+</alphabets>

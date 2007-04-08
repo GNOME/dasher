@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Jane Austen English - UC, LC, limited punctuation">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>Default</palette>
+<train>training_emma_GB.txt</train>
+<paragraph d="&#182;" b="9"/>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<control d="Control" t="" b="8"/>
+<group name="Lower case Latin letters" b="0">
+<s d="a" t="a" b="10"/>
+<s d="b" t="b" b="11"/>
+<s d="c" t="c" b="12"/>
+<s d="d" t="d" b="13"/>
+<s d="e" t="e" b="14"/>
+<s d="f" t="f" b="15"/>
+<s d="g" t="g" b="16"/>
+<s d="h" t="h" b="17"/>
+<s d="i" t="i" b="18"/>
+<s d="j" t="j" b="19"/>
+<s d="k" t="k" b="20"/>
+<s d="l" t="l" b="21"/>
+<s d="m" t="m" b="22"/>
+<s d="n" t="n" b="23"/>
+<s d="o" t="o" b="24"/>
+<s d="p" t="p" b="25"/>
+<s d="q" t="q" b="26"/>
+<s d="r" t="r" b="27"/>
+<s d="s" t="s" b="28"/>
+<s d="t" t="t" b="29"/>
+<s d="u" t="u" b="30"/>
+<s d="v" t="v" b="31"/>
+<s d="w" t="w" b="32"/>
+<s d="x" t="x" b="33"/>
+<s d="y" t="y" b="34"/>
+<s d="z" t="z" b="35"/>
+</group>
+<group name="Upper case Latin letters" b="111">
+<s d="A" t="A" b="12"/>
+<s d="B" t="B" b="13"/>
+<s d="C" t="C" b="14"/>
+<s d="D" t="D" b="15"/>
+<s d="E" t="E" b="16"/>
+<s d="F" t="F" b="17"/>
+<s d="G" t="G" b="18"/>
+<s d="H" t="H" b="19"/>
+<s d="I" t="I" b="20"/>
+<s d="J" t="J" b="21"/>
+<s d="K" t="K" b="22"/>
+<s d="L" t="L" b="23"/>
+<s d="M" t="M" b="24"/>
+<s d="N" t="N" b="25"/>
+<s d="O" t="O" b="26"/>
+<s d="P" t="P" b="27"/>
+<s d="Q" t="Q" b="28"/>
+<s d="R" t="R" b="29"/>
+<s d="S" t="S" b="30"/>
+<s d="T" t="T" b="31"/>
+<s d="U" t="U" b="32"/>
+<s d="V" t="V" b="33"/>
+<s d="W" t="W" b="34"/>
+<s d="X" t="X" b="35"/>
+<s d="Y" t="Y" b="36"/>
+<s d="Z" t="Z" b="37"/>
+</group>
+<group name="Punctuation" b="112">
+<s d="&amp;" t="&amp;" b="11"/>
+<s d="&quot;" t="&quot;" b="12"/>
+<s d="&apos;" t="&apos;" b="13"/>
+<s d="?" t="?" b="14"/>
+<s d="!" t="!" b="15"/>
+<s d="," t="," b="16"/>
+<s d="." t="." b="17"/>
+</group>
+</alphabet>
+<alphabet name="Jane Austen English Lower Case">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>Default</palette>
+<train>training_emmaLC_GB.txt</train>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<control d="Control" t=""/>
+<paragraph d="&#182;" b="9"/>
+<group name="Lower case Latin letters" b="0">
+<s d="a" t="a"/>
+<s d="b" t="b"/>
+<s d="c" t="c"/>
+<s d="d" t="d"/>
+<s d="e" t="e"/>
+<s d="f" t="f"/>
+<s d="g" t="g"/>
+<s d="h" t="h"/>
+<s d="i" t="i"/>
+<s d="j" t="j"/>
+<s d="k" t="k"/>
+<s d="l" t="l"/>
+<s d="m" t="m"/>
+<s d="n" t="n"/>
+<s d="o" t="o"/>
+<s d="p" t="p"/>
+<s d="q" t="q"/>
+<s d="r" t="r"/>
+<s d="s" t="s"/>
+<s d="t" t="t"/>
+<s d="u" t="u"/>
+<s d="v" t="v"/>
+<s d="w" t="w"/>
+<s d="x" t="x"/>
+<s d="y" t="y"/>
+<s d="z" t="z"/>
+</group>
+<group name="Punctuation" b="112">
+<s d="." t="."  b="9"/>
+</group>
+</alphabet>
+</alphabets>
