@@ -51,3 +51,13 @@ if your're the Dasher maintainer, ie me!:
 
 15. Update local Inference group repository, run an upgrade on all of
     the machines in the cluster.
+
+----
+
+Send announcements to:
+
+gnome-announce-list@gnome.org
+dasherteam@yahoogroups.com
+gnome-accessibility-list@gnome.org
+dasher-text-entry@yahoogroups.com
+

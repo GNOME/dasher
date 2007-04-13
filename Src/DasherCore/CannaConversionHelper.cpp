@@ -113,6 +113,8 @@ bool CCannaConversionHelper::Convert(const std::string &strSource, SCENode ** pR
     if(pTail)
       pTail->Ref();
 
+    pDummyRoot->SetChild(NULL);
+
     RkGoTo(context_id, i);      // Move to a specific phrase
     int len = RkGetKanjiList(context_id, buf, BUFSIZE); // Get a list of Kanji candidates
 
@@ -148,6 +150,7 @@ bool CCannaConversionHelper::Convert(const std::string &strSource, SCENode ** pR
     if(pTail)
       pTail->Unref();
   }
+
   RkEndBun(context_id, 0);      // Close phrase division
 
   iconv_close(cd);
