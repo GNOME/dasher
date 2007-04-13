@@ -24,8 +24,24 @@
                 <Shortcut Id="desktopDasher45" Directory="DesktopFolder" Name="Dasher45"
                  LongName="Dasher 4.5" WorkingDirectory='INSTALLDIR'
                  Icon="Dasher.exe" IconIndex="0" />
-                </File>
+              </File>
             </Component>
+            <Component Id="Help" Guid="cf486329-8d04-462b-afd4-e8e0bccc9c95">
+              <File Id="HelpFile" Name="Dasher.chm" />
+            </Component>
+            <Component Id="Tobii" Guid="a0f3fa44-106e-4fff-9ed6-010310f3ec0d">
+              <File Id="TobiiIconFile" Name="DasherTB.png" LongName="DasherTobii.png" />
+            </Component>
+            <Directory Id="SystemRC" Name="system.rc">
+              <Component Id="Alphabets" Guid="e734711a-0e68-4897-b7a6-7a60a20062b5">
+              </Component>
+              <Component Id="Training" Guid="bcc684a1-0a58-474c-bfd9-c25906bc7bf4">
+              </Component>
+              <Component Id="Colours" Guid="bebff3fb-083c-46f8-ac31-2484f4b1e9a8">
+              </Component>
+              <Component Id="ControlLabels" Guid="fc6ff2ec-3172-4259-b879-162c21981358">
+              </Component>
+            </Directory>
           </Directory>
         </Directory>
       </Directory>
@@ -37,8 +53,31 @@
       <Directory Id="DesktopFolder" Name="Desktop" />
     </Directory>
 
+    <Component Id="RegistryCore" Guid="5999aef1-3ba7-4af2-8d56-5f3f4e7a4410">
+    </Component>
+    <Component Id="RegistryTobii" Guid="63287558-8a18-4103-89d5-2c1116cffc52">
+      <Registry Id='TobiiExecutable' Root='HKLM' Key='Software\Tobii\MyTobii\MPA\Dasher45' Name='ExecutablePath'
+       Action='write' Type='string' Value='[INSTALLDIR]/Dasher.exe' />
+      <Registry Id='TobiiIcon' Root='HKLM' Key='Software\Tobii\MyTobii\MPA\Dasher45' Name='IconPath'
+       Action='write' Type='string' Value='[INSTALLDIR]/DasherTobii.png' />
+      <Registry Id='TobiiTitle' Root='HKLM' Key='Software\Tobii\MyTobii\MPA\Dasher45' Name='Title'
+       Action='write' Type='string' Value='Dasher' />
+    </Component>
+
     <Feature Id='Complete' Level='1'>
       <ComponentRef Id='MainExecutable' />
+      <ComponentRef Id="Alphabets" />
+      <ComponentRef Id="Training" />
+      <ComponentRef Id="Colours" />
+      <ComponentRef Id="ControlLabels" />
+      <ComponentRef Id="RegistryCore" />
+    </Feature>
+    <Feature Id="Documentation" Level="1">
+      <ComponentRef Id="Help" />
+    </Feature>
+    <Feature Id="Tobii" Level="1000">
+      <ComponentRef Id="Tobii" />
+      <ComponentRef Id="RegistryTobii" />
     </Feature>
 
     <Icon Id="Dasher.exe" SourceFile="Dasher.exe" />
