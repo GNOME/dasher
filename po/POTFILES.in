@@ -1,10 +1,12 @@
 # Add files with translateable strings here.
 # Please keep this file sorted alphabetically.
 Data/dasher.desktop.in.in
+Data/glade/dasher.compose.glade
+Data/glade/dasher.direct.glade
+Data/glade/dasher.fullscreen.glade
+Data/glade/dasher.glade
 Data/glade/dasher.traditional.glade
-Data/glade/dasher_action_speech.cpp
-Data/glade/dasher_editor.cpp
-Data/glade/dasher_main.cpp
+Data/glade/dashergpe.glade
 Data/glade/dashermaemo.glade
 Data/glade/dashermaemofullscreen.glade
 Src/DasherCore/ClickFilter.cpp
@@ -15,6 +17,9 @@ Src/DasherCore/OneDimensionalFilter.cpp
 Src/DasherCore/SocketInput.cpp
 Src/DasherCore/SocketInputBase.cpp
 Src/Gtk2/Preferences.cpp
+Src/Gtk2/dasher_action_speech.cpp
+Src/Gtk2/dasher_editor_internal.cpp
+Src/Gtk2/dasher_main.cpp
 Src/Gtk2/module_settings_window.cpp
 Src/Gtk2/mouse_input.h
 Src/main.cc
