@@ -173,7 +173,7 @@ int CDictLanguageModel::lookup_word_const(const std::string &w) const {
 /////////////////////////////////////////////////////////////////////
 // get the probability distribution at the context
 
-void CDictLanguageModel::GetProbs(Context context, std::vector<unsigned int > &probs, int norm) const {
+void CDictLanguageModel::GetProbs(Context context, std::vector<unsigned int > &probs, int norm, int iUniform) const {
 
   const CDictLanguageModel::CDictContext * wordcontext = (const CDictContext *)(context);
 

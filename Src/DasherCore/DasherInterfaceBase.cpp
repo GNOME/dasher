@@ -1170,6 +1170,8 @@ void CDasherInterfaceBase::ReleaseLock(int iLockFlags) {
 }
 
 void CDasherInterfaceBase::SetBuffer(int iOffset) { 
+  std::cout << "CDasherInterfaceBase::SetBuffer" << std::endl;
+
   CreateModel(iOffset);
 }
 
@@ -1182,6 +1184,8 @@ void CDasherInterfaceBase::UnsetBuffer() {
 }
 
 void CDasherInterfaceBase::SetOffset(int iOffset) {
+  std::cout << "CDasherInterfaceBase::SetOffset" << std::endl;
+
   if(m_pDasherModel)
     m_pDasherModel->SetOffset(iOffset, m_pDasherView);
 }

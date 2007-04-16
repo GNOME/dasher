@@ -438,6 +438,9 @@
 	      <property name="int1">0</property>
 	      <property name="int2">0</property>
 	      <property name="last_modification_time">Mon, 19 Mar 2007 15:25:57 GMT</property>
+	      <signal name="filename_changed" handler="dasher_main_cb_filename_changed" last_modification_time="Mon, 16 Apr 2007 10:58:09 GMT"/>
+	      <signal name="buffer_changed" handler="dasher_main_cb_buffer_changed" last_modification_time="Mon, 16 Apr 2007 10:58:17 GMT"/>
+	      <signal name="context_changed" handler="dasher_main_cb_context_changed" last_modification_time="Mon, 16 Apr 2007 10:58:27 GMT"/>
 	    </widget>
 	    <packing>
 	      <property name="shrink">True</property>

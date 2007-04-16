@@ -98,7 +98,7 @@ public:
   /// Get symbol probability distribution
   /// 
 
-  virtual void GetProbs(Context Context, std::vector < unsigned int >&Probs, int iNorm) const = 0;
+  virtual void GetProbs(Context Context, std::vector < unsigned int >&Probs, int iNorm, int iUniform) const = 0;
 
   /// @}
 
@@ -150,6 +150,24 @@ public:
   };
 
  protected:
+  struct SLMFileHeader {
+    // Magic number ("%DLF" in ASCII)
+    char szMagic[4];
+    // Version of the header
+    unsigned short int iHeaderVersion;
+    // Total size of header (including variable length alphabet name)
+    unsigned short int iHeaderSize;
+    // ID of the language model
+    unsigned short int iLMID;
+    // Version number of the language model
+    unsigned short int iLMVersion;
+    // Minimum compatible version for the language model
+    unsigned short int iLMMinVersion;
+    // Number of characters in the alphabet
+    unsigned short int iAlphabetSize;
+    // UTF-8 encoded alphabet name follows (variable length struct)
+  };
+
   int GetSize() const {
     return m_Alphabet.GetSize();
   }

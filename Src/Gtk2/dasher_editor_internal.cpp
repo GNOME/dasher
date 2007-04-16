@@ -1600,7 +1600,7 @@ extern "C" void
 context_changed_handler(GObject *pSource, gpointer pUserData) {
   DasherEditorInternal *pSelf = DASHER_EDITOR_INTERNAL(pUserData);
 
-  g_message("foo");
+  g_message("foo1");
 
   // TODO: plumb signal back into control
   g_signal_emit_by_name(G_OBJECT(pSelf), "context_changed", G_OBJECT(pSelf), NULL, NULL);
@@ -1611,7 +1611,7 @@ extern "C" void
 buffer_changed_handler(GObject *pSource, gpointer pUserData) {
   DasherEditorInternal *pSelf = DASHER_EDITOR_INTERNAL(pUserData);
 
-  g_message("foo");
+  g_message("foo2");
 
   // TODO: plumb signal back into control
   g_signal_emit_by_name(G_OBJECT(pSelf), "context_changed", G_OBJECT(pSelf), NULL, NULL);

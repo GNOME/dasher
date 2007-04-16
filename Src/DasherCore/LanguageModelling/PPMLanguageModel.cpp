@@ -54,7 +54,7 @@ CPPMLanguageModel::~CPPMLanguageModel() {
 /////////////////////////////////////////////////////////////////////
 // Get the probability distribution at the context
 
-void CPPMLanguageModel::GetProbs(Context context, std::vector<unsigned int> &probs, int norm) const {
+void CPPMLanguageModel::GetProbs(Context context, std::vector<unsigned int> &probs, int norm, int iUniform) const {
   const CPPMContext *ppmcontext = (const CPPMContext *)(context);
 
   DASHER_ASSERT(m_setContexts.count(ppmcontext) > 0);
@@ -64,20 +64,29 @@ void CPPMLanguageModel::GetProbs(Context context, std::vector<unsigned int> &pro
   probs.resize(iNumSymbols);
 
   std::vector < bool > exclusions(iNumSymbols);
+  
+  unsigned int iToSpend = norm;
+  unsigned int iUniformLeft = iUniform;
+
+  // TODO: Sort out zero symbol case
+  probs[0] = 0;
+  exclusions[0] = false;
 
   int i;
-  for(i = 0; i < iNumSymbols; i++) {
-    probs[i] = 0;
+  for(i = 1; i < iNumSymbols; i++) {
+    probs[i] = iUniformLeft / (iNumSymbols - i);
+    iUniformLeft -= probs[i];
+    iToSpend -= probs[i];
     exclusions[i] = false;
   }
+
+  DASHER_ASSERT(iUniformLeft == 0);
 
   //  bool doExclusion = GetLongParameter( LP_LM_ALPHA );
   bool doExclusion = 0; //FIXME
 
   int alpha = GetLongParameter( LP_LM_ALPHA );
   int beta = GetLongParameter( LP_LM_BETA );
-
-  unsigned int iToSpend = norm;
 
   CPPMnode *pTemp = ppmcontext->head;
 

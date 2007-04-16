@@ -41,7 +41,7 @@ namespace Dasher {
     virtual void EnterSymbol(Context context, int Symbol);
     virtual void LearnSymbol(Context context, int Symbol);
 
-    virtual void GetProbs(Context context, std::vector < unsigned int >&Probs, int norm) const;
+    virtual void GetProbs(Context context, std::vector < unsigned int >&Probs, int norm, int iUniform) const;
 
     void dump();
 

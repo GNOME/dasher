@@ -945,6 +945,8 @@ void CDasherModel::SetOffset(int iLocation, CDasherView *pView) {
   if(iLocation == m_iOffset)
     return; // We're already there
   
+  std::cout << "CDasherModel::SetOffset" << std::endl;
+
   // TODO: Special cases, ie this can be done without rebuilding the
   // model
 
