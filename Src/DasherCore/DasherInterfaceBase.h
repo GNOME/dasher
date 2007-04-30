@@ -348,6 +348,12 @@ public:
   std::string GetContext(int iStart, int iLength);
 
   void SetControlOffset(int iOffset);
+
+  /// Set a key value pair by name - designed to allow operation from
+  /// the command line
+  ///
+  void ClSet(const std::string &strKey, const std::string &strValue);
+
 protected:
 
   /// @name Startup

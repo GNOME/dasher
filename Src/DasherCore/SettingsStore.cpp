@@ -66,6 +66,34 @@ void CSettingsStore::LoadPersistent() {
   }
 }
 
+
+void CSettingsStore::ClSet(const std::string &strKey, const std::string &strValue) {
+  for(int i(0); i < NUM_OF_BPS; ++i) {
+    if(strKey == s_oParamTables.BoolParamTable[i].regName) {
+      if(strValue == "0")
+	SetBoolParameter(s_oParamTables.BoolParamTable[i].key, false);
+      else if(strValue == "1")
+	SetBoolParameter(s_oParamTables.BoolParamTable[i].key, true);
+      return;
+    }
+  }
+
+  for(int i(0); i < NUM_OF_LPS; ++i) {
+    if(strKey == s_oParamTables.LongParamTable[i].regName) {
+      SetLongParameter(s_oParamTables.LongParamTable[i].key, atoi(strValue.c_str()));
+      return;
+    }
+  }
+
+  for(int i(0); i < NUM_OF_SPS; ++i) {
+    if(strKey == s_oParamTables.StringParamTable[i].regName) {
+      SetStringParameter(s_oParamTables.StringParamTable[i].key, strValue);
+      return;
+    }
+  }
+}
+
+
 /* TODO: Consider using Template functions to make this neater. */
 
 void CSettingsStore::SetBoolParameter(int iParameter, bool bValue) {

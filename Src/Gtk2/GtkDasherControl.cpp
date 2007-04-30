@@ -296,3 +296,9 @@ gtk_dasher_control_set_control_offset(GtkDasherControl *pControl, gint iOffset) 
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
   pPrivate->pControl->SetControlOffset(iOffset);
 }
+
+void 
+gtk_dasher_control_cl_set(GtkDasherControl *pControl, const gchar *szKey, const gchar *szValue) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  pPrivate->pControl->ClSet(szKey, szValue);
+}

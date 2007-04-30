@@ -63,6 +63,8 @@ public:
 
   void LoadPersistent();
 
+  void ClSet(const std::string &strKey, const std::string &strValue);
+
   // --- Deprecated functions below
   // although string functionality might be good for
   // reading/writing from permanent storage (string based)

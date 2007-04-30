@@ -620,8 +620,6 @@ dasher_editor_internal_get_context(DasherEditorInternal *pSelf, int iOffset, int
   // TODO: Check where this function is used
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
-  g_message("bar");
-
   gchar *szContext;
 
   if(pPrivate->pBufferSet)
@@ -1576,7 +1574,7 @@ dasher_editor_internal_new_buffer(DasherEditorInternal *pSelf, const gchar *szFi
     dasher_editor_internal_clear(pSelf, false);
   }
 
-  g_signal_emit_by_name(G_OBJECT(pSelf), "buffer_changed", G_OBJECT(pSelf), NULL, NULL);
+  //  g_signal_emit_by_name(G_OBJECT(pSelf), "buffer_changed", G_OBJECT(pSelf), NULL, NULL);
 }
 
 /* Callback Functions */
@@ -1600,8 +1598,6 @@ extern "C" void
 context_changed_handler(GObject *pSource, gpointer pUserData) {
   DasherEditorInternal *pSelf = DASHER_EDITOR_INTERNAL(pUserData);
 
-  g_message("foo1");
-
   // TODO: plumb signal back into control
   g_signal_emit_by_name(G_OBJECT(pSelf), "context_changed", G_OBJECT(pSelf), NULL, NULL);
 }
@@ -1611,10 +1607,8 @@ extern "C" void
 buffer_changed_handler(GObject *pSource, gpointer pUserData) {
   DasherEditorInternal *pSelf = DASHER_EDITOR_INTERNAL(pUserData);
 
-  g_message("foo2");
-
   // TODO: plumb signal back into control
-  g_signal_emit_by_name(G_OBJECT(pSelf), "context_changed", G_OBJECT(pSelf), NULL, NULL);
+  g_signal_emit_by_name(G_OBJECT(pSelf), "buffer_changed", G_OBJECT(pSelf), NULL, NULL);
 }
 
 extern "C" void 

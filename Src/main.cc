@@ -167,6 +167,7 @@ int main(int argc, char *argv[]) {
 
   sCommandLine.szFilename = NULL;
   sCommandLine.szAppStyle = NULL;
+  sCommandLine.szOptions = NULL;
 
   // TODO: It would be nice to have command line parsing in version prior to goption (eg in Solaris 10)...
 #if GLIB_CHECK_VERSION(2,6,0)
@@ -176,6 +177,7 @@ int main(int argc, char *argv[]) {
     //   {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
     //   {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
     {"appstyle", 'a', 0, G_OPTION_ARG_STRING, &(sCommandLine.szAppStyle), "Application style (traditional, direct, compose or fullscreen)", "traditional"},
+    {"options", 'o', 0, G_OPTION_ARG_STRING, &(sCommandLine.szOptions), "Override stored options", NULL},
     {NULL}
   };
 

@@ -34,6 +34,7 @@ typedef struct _SCommandLine SCommandLine;
 struct _SCommandLine {
   gchar *szFilename;
   gchar *szAppStyle;
+  gchar *szOptions;
 };
 
 DasherMain *dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine);

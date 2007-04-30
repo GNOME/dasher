@@ -284,6 +284,42 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
     dasher_main_load_interface(pDasherMain);
 
     dasher_app_settings_set_widget(pPrivate->pAppSettings, GTK_DASHER_CONTROL(pPrivate->pDasherWidget));
+
+
+    /* TODO: This parsing code should really be tidied up */
+    if(pCommandLine && pCommandLine->szOptions) {
+      gchar **pszOptionTerms;
+      pszOptionTerms = g_strsplit(pCommandLine->szOptions, ",", 0);
+
+      gchar **pszCurrent = pszOptionTerms;
+
+      while(*pszCurrent) {
+	gchar *szJoin = g_strrstr(*pszCurrent, "=");
+
+	if(szJoin) {
+	  int iLength = szJoin - *pszCurrent;
+	  
+	  gchar *szKey = g_new(gchar, iLength + 1);
+	  memcpy(szKey, *pszCurrent, iLength);
+	  szKey[iLength] = '\0';
+	  
+	  dasher_app_settings_cl_set(pPrivate->pAppSettings, szKey, szJoin + 1);
+	  
+	  g_free(szKey);
+	}
+	else {
+	  g_error("Invalid option string specified");
+	}
+
+	++pszCurrent;
+      }
+
+      g_strfreev(pszOptionTerms);
+    }
+    /* --- */
+
+
+
     dasher_editor_internal_initialise(pPrivate->pEditor, pPrivate->pAppSettings, pDasherMain, pPrivate->pGladeXML, NULL);
 
 

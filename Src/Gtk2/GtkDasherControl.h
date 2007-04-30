@@ -93,5 +93,7 @@ void gtk_dasher_control_add_action_button(GtkDasherControl *pControl, const gcha
 void gtk_dasher_control_set_control_offset(GtkDasherControl *pControl, gint iOffset);
 void gtk_dasher_user_log_new_trial(GtkDasherControl * pControl);
 void gtk_dasher_control_set_focus(GtkDasherControl * pControl);
+void gtk_dasher_control_cl_set(GtkDasherControl *pControl, const gchar *szKey, const gchar *szValue);
+
 G_END_DECLS
 #endif

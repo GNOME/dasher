@@ -503,3 +503,35 @@ GArray *dasher_app_settings_get_allowed_values(DasherAppSettings *pSelf, int iPa
 gboolean dasher_app_settings_get_module_settings(DasherAppSettings *pSelf, const gchar *szValue, SModuleSettings **pSettings, gint *iCount) {
   return gtk_dasher_control_get_module_settings(GTK_DASHER_CONTROL(pDasherWidget), szValue, pSettings, iCount);
 }
+
+void 
+dasher_app_settings_cl_set(DasherAppSettings *pSelf, const gchar *szKey, const gchar *szValue) {
+
+  for(int i(0); i < NUM_OF_APP_BPS; ++i ) {
+    if(!strcmp(app_boolparamtable[i].regName, szKey)) {
+      if(!strcmp(szValue, "1"))
+	dasher_app_settings_set_bool(pSelf, app_boolparamtable[i].key, true);
+      else if(!strcmp(szValue, "0"))
+	dasher_app_settings_set_bool(pSelf, app_boolparamtable[i].key, false);
+      else
+	g_error("Could not parse value");
+      return;
+    }
+  }
+
+  for(int i(0); i < NUM_OF_APP_LPS; ++i ) {
+    if(!strcmp(app_longparamtable[i].regName, szKey)) {
+      dasher_app_settings_set_long(pSelf, app_longparamtable[i].key, atoi(szValue));
+      return;
+    }
+  }
+
+  for(int i(0); i < NUM_OF_APP_SPS; ++i ) {
+    if(!strcmp(app_stringparamtable[i].regName, szKey)) {
+      dasher_app_settings_set_string(pSelf, app_stringparamtable[i].key, szValue);
+      return;
+    }
+  }  
+
+  gtk_dasher_control_cl_set(GTK_DASHER_CONTROL(pDasherWidget), szKey, szValue);
+}
