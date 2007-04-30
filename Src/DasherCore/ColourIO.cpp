@@ -7,7 +7,7 @@
 #include "ColourIO.h"
 using namespace Dasher;
 using namespace std;
-using namespace expat;
+//using namespace expat;
 
 // Track memory leaks on Windows to the line that new'd the memory
 #ifdef _WIN32
@@ -905,7 +905,7 @@ void CColourIO::XML_Escape(std::string *Text, bool Attribute) {
 // Below here handlers for the Expat XML input library
 ////////////////////////////////////////////////////////////////////////////////////
 
-void CColourIO::XML_StartElement(void *userData, const expat::XML_Char *name, const expat::XML_Char **atts) {
+void CColourIO::XML_StartElement(void *userData, const XML_Char *name, const XML_Char **atts) {
   CColourIO *Me = (CColourIO *) userData;
 
   Me->CData = "";
@@ -946,7 +946,7 @@ void CColourIO::XML_StartElement(void *userData, const expat::XML_Char *name, co
     return;
   }
 }
-void CColourIO::XML_EndElement(void *userData, const expat::XML_Char *name) {
+void CColourIO::XML_EndElement(void *userData, const XML_Char *name) {
   CColourIO *Me = (CColourIO *) userData;
 
   if(strcmp(name, "palette") == 0) {
@@ -955,7 +955,7 @@ void CColourIO::XML_EndElement(void *userData, const expat::XML_Char *name) {
   }
 }
 
-void CColourIO::XML_CharacterData(void *userData, const expat::XML_Char *s, int len) {
+void CColourIO::XML_CharacterData(void *userData, const XML_Char *s, int len) {
   // CAREFUL: s points to a string which is NOT null-terminated.
 
   CColourIO *Me = (CColourIO *) userData;

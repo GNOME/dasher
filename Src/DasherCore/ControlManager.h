@@ -34,16 +34,18 @@
 #include <sys/stat.h>
 #include <string>
 
-/// \cond expat
+#include <expat.h>
 
-// TODO: Make build with internal expat conditional
-namespace expat {
-#include "../Common/Expat/lib/expat.h"
-}
+/* /// \cond expat */
 
-/// \endcond
+/* // TODO: Make build with internal expat conditional */
+/* namespace expat { */
+/* #include "../Common/Expat/lib/expat.h" */
+/* } */
 
-using namespace expat;
+/* /// \endcond */
+
+//using namespace expat;
 using namespace std;
 
 namespace Dasher {

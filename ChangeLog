@@ -2,6 +2,7 @@
 
 	* Merged CTW language model from Martijn
 	* Allow arbitrary parameters to be set from the command line
+	* Fixed #433856
 
 2007-04-02  Phil Cowans  <pjc51@cam.ac.uk>
 

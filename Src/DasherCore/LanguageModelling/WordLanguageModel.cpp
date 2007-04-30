@@ -11,9 +11,10 @@
 #include "PPMLanguageModel.h"
 
 #include <cmath>
-#include <stack>
-#include <iostream>
+#include <cstdlib>
 #include <fstream>
+#include <iostream>
+#include <stack>
 
 using namespace Dasher;
 using namespace std;

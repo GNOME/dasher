@@ -12,7 +12,7 @@
 
 using namespace Dasher;
 using namespace std;
-using namespace expat;
+//using namespace expat;
 
 // Track memory leaks on Windows to the line that new'd the memory
 #ifdef _WIN32
@@ -376,7 +376,7 @@ void CAlphIO::XML_Escape(std::string *Text, bool Attribute) {
 // Below here handlers for the Expat XML input library
 ////////////////////////////////////////////////////////////////////////////////////
 
-void CAlphIO::XML_StartElement(void *userData, const expat::XML_Char *name, const expat::XML_Char **atts) {
+void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_Char **atts) {
   CAlphIO *Me = (CAlphIO *) userData;
 
   Me->CData = "";
@@ -704,7 +704,7 @@ void CAlphIO::XML_StartElement(void *userData, const expat::XML_Char *name, cons
   }
 }
 
-void CAlphIO::XML_EndElement(void *userData, const expat::XML_Char *name) {
+void CAlphIO::XML_EndElement(void *userData, const XML_Char *name) {
   CAlphIO *Me = (CAlphIO *) userData;
 
   if(strcmp(name, "alphabet") == 0) {
@@ -734,7 +734,7 @@ void CAlphIO::XML_EndElement(void *userData, const expat::XML_Char *name) {
   }
 }
 
-void CAlphIO::XML_CharacterData(void *userData, const expat::XML_Char *s, int len) {
+void CAlphIO::XML_CharacterData(void *userData, const XML_Char *s, int len) {
   // CAREFUL: s points to a string which is NOT null-terminated.
 
   CAlphIO *Me = (CAlphIO *) userData;
