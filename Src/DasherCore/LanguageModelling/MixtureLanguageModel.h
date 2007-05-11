@@ -78,7 +78,7 @@ namespace Dasher {
     /////////////////////////////////////////////////////////////////////////////
 
     // Get symbol probability distribution
-    virtual void GetProbs(CLanguageModel::Context context, std::vector < unsigned int >&Probs, int iNorm) const {
+    virtual void GetProbs(CLanguageModel::Context context, std::vector < unsigned int >&Probs, int iNorm, int iUniform) const {
 
       int iNumSymbols = GetSize();
 
@@ -90,8 +90,8 @@ namespace Dasher {
       int iNormA(iNorm * GetLongParameter(LP_LM_MIXTURE) / 100);
       int iNormB(iNorm - iNormA);
 
-        lma->GetProbs(ContextMap.find(context)->second->GetContextA(), ProbsA, iNormA);
-        lmb->GetProbs(ContextMap.find(context)->second->GetContextB(), ProbsB, iNormB);
+        lma->GetProbs(ContextMap.find(context)->second->GetContextA(), ProbsA, iNormA, 0);
+        lmb->GetProbs(ContextMap.find(context)->second->GetContextB(), ProbsB, iNormB, 0);
 
       for(int i(1); i < iNumSymbols; i++) {
         Probs[i] = ProbsA[i] + ProbsB[i];

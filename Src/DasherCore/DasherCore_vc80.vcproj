@@ -762,11 +762,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\LanguageModelling\CTWLanguageModel.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\LanguageModelling\CTWLanguageModel.h"
+				>
+			</File>
+			<File
 				RelativePath="LanguageModelling\DictLanguageModel.cpp"
 				>
 			</File>
 			<File
 				RelativePath="LanguageModelling\DictLanguageModel.h"
+				>
+			</File>
+			<File
+				RelativePath=".\LanguageModelling\HashTable.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\LanguageModelling\HashTable.h"
 				>
 			</File>
 			<File
@@ -847,6 +863,10 @@
 			</File>
 			<File
 				RelativePath="LanguageModelling\LanguageModel.h"
+				>
+			</File>
+			<File
+				RelativePath=".\LanguageModelling\MixtureLanguageModel.h"
 				>
 			</File>
 			<File
@@ -1450,6 +1470,14 @@
 			RelativePath=".\PinYinConversionHelper.cpp"
 			>
 			<FileConfiguration
+				Name="Release|Win32"
+				ExcludedFromBuild="true"
+				>
+				<Tool
+					Name="VCCLCompilerTool"
+				/>
+			</FileConfiguration>
+			<FileConfiguration
 				Name="Debug|Win32"
 				ExcludedFromBuild="true"
 				>
@@ -1501,6 +1529,14 @@
 		<File
 			RelativePath=".\PinYinConversionHelper.h"
 			>
+			<FileConfiguration
+				Name="Release|Win32"
+				ExcludedFromBuild="true"
+				>
+				<Tool
+					Name="VCCustomBuildTool"
+				/>
+			</FileConfiguration>
 			<FileConfiguration
 				Name="Debug|Win32"
 				ExcludedFromBuild="true"

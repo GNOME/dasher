@@ -257,3 +257,8 @@ void CDasher::StartTimer() {
 void CDasher::ShutdownTimer() {
 }
 
+void CDasher::Layout(int iX, int iY, int iWidth, int iHeight) {
+  if(m_pCanvas)
+    m_pCanvas->Move(iX, iY, iWidth, iHeight);
+}
+

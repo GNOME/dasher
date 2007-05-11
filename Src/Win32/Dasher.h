@@ -20,23 +20,13 @@ public:
   CDasher(HWND Parent);
   ~CDasher(void);
 
-  // The following functions will not be part of the final interface
-
-  CCanvas *GetCanvas() {
-	  return m_pCanvas;
-  }
-
   void SetEdit(CDashEditbox * pEdit);
-
   void ExternalEventHandler(Dasher::CEvent *pEvent);
-
   virtual void WriteTrainFile(const std::string &strNewText);
-
-    void					  Main(); 
-
+  void Main(); 
+  void Layout(int iX, int iY, int iWidth, int iHeight);
 
 private:
-
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
   virtual void ScanColourFiles(std::vector<std::string> &vFileList);
   virtual void SetupPaths();

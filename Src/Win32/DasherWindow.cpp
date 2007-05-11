@@ -9,10 +9,6 @@
 #include "WinCommon.h"
 #include <guiddef.h>
 #include <Oleacc.h>
-// Don't seem to be needed and not in VC8 platform SDK, kdv
-//#include <Textstor.h>
-//#include <Msctf.h>
-//#include <Msaatext.h>
 #include <Htmlhelp.h>
 
 #include "DasherWindow.h"
@@ -22,10 +18,6 @@
 #include "../DasherCore/DasherTypes.h"
 #include "../DasherCore/ControlManager.h"
 #include "Widgets/AboutBox.h"
-#include "Widgets/AlphabetBox.h"
-#include "Widgets/ColourBox.h"
-#include "Widgets/KeyControl.h"
-#include "Widgets/SplashScreen.h"
 #include "Widgets/Prefs.h"
 #include "Widgets/Toolbar.h"
 #include "Widgets/Slidebar.h"
@@ -50,19 +42,24 @@ VOID CALLBACK WinEventProc(HWINEVENTHOOK hWinEventHook, DWORD event, HWND hwnd, 
 
 #endif
 
-CDasherWindow::CDasherWindow()
-:Splash(0), m_pToolbar(0), m_pEdit(0), m_pSlidebar(0), m_pSplitter(0), m_pDasher(0), m_pCanvas(0) 
-{
+CDasherWindow::CDasherWindow() {
+  m_pToolbar = 0;
+  m_pEdit = 0;
+  m_pSlidebar = 0;
+  m_pSplitter = 0;
+  m_pDasher = 0;
+  m_pGameModeHelper = 0;
 
+  // Load various resources
 	m_hIconSm = (HICON) LoadImage(WinHelper::hInstApp, (LPCTSTR) IDI_DASHER, IMAGE_ICON, GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON), LR_DEFAULTCOLOR);
 
 	ATL::CWndClassInfo& wc = CDasherWindow::GetWndClassInfo();
+
 	wc.m_wc.hIcon = LoadIcon(WinHelper::hInstApp, (LPCTSTR) IDI_DASHER);
 	wc.m_wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-    wc.m_wc.hbrBackground = (HBRUSH) (COLOR_ACTIVEBORDER + 1); // Must add one to the value we want for some unknown reason
-    wc.m_wc.lpszMenuName = (LPCTSTR) IDC_DASHER;
-//    wc.m_wc.lpszClassName = WndClassName;      // Not in a resource - does not require translation
-	wc.m_wc.hIconSm        = m_hIconSm;
+  wc.m_wc.hbrBackground = (HBRUSH) (COLOR_ACTIVEBORDER + 1); // Must add one to the value we want for some unknown reason
+  wc.m_wc.lpszMenuName = (LPCTSTR) IDC_DASHER;
+	wc.m_wc.hIconSm = m_hIconSm;
 	
 #ifdef PJC_EXPERIMENTAL
 
@@ -117,61 +114,55 @@ CDasherWindow::CDasherWindow()
 
 }
 
-HWND CDasherWindow::Create()
-{
+HWND CDasherWindow::Create() {
   hAccelTable = LoadAccelerators(WinHelper::hInstApp, (LPCTSTR) IDC_DASHER);
 
   // Get window title from resource script
   Tstring WindowTitle;
   WinLocalisation::GetResourceString(IDS_APP_TITLE, &WindowTitle);
 
+  // Create the settings store
   m_pAppSettings = new CAppSettings(0, 0);
+
+  // Apply window style options
   int iStyle(m_pAppSettings->GetLongParameter(APP_LP_STYLE));
 
   HWND hWnd;
   if((iStyle == 1) || (iStyle == 2))
-    hWnd = CWindowImpl<CDasherWindow >::Create(NULL, NULL, WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN,  WS_EX_NOACTIVATE | WS_EX_APPWINDOW | WS_EX_TOPMOST);
+    hWnd = CWindowImpl<CDasherWindow>::Create(NULL, NULL, WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN,  WS_EX_NOACTIVATE | WS_EX_APPWINDOW | WS_EX_TOPMOST);
   else
-    hWnd = CWindowImpl<CDasherWindow >::Create(NULL, NULL, WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN);
+    hWnd = CWindowImpl<CDasherWindow>::Create(NULL, NULL, WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN);
 
-  // Create Widgets
+  // Create the main Dasher widget
   m_pDasher = new CDasher(hWnd);
 
-  // Create a CAppSettings
+  // Update the app settings
   m_pAppSettings->SetHwnd(hWnd);
   m_pAppSettings->SetDasher(m_pDasher);
 
+  // Create the editor
   m_pEdit = new CEdit(m_pAppSettings);
   m_pEdit->Create(hWnd, m_pAppSettings->GetBoolParameter(APP_BP_TIME_STAMP));
   m_pEdit->SetFont(m_pAppSettings->GetStringParameter(APP_SP_EDIT_FONT), m_pAppSettings->GetLongParameter(APP_LP_EDIT_FONT_SIZE));
+
+  // TODO: the edit box really shouldn't need access to the interface, 
+  // but at the moment it does, for training, blanking the display etc
+  m_pEdit->SetInterface(m_pDasher);
 
 #ifdef PJC_EXPERIMENTAL
   g_hWnd = m_pEdit->GetHwnd();
 #endif
 
+  // Create the toolbar
   m_pToolbar = new CToolbar(hWnd, m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR));
-
-  // FIXME - the edit box really shouldn't need access to the interface, 
-  // but at the moment it does, for training, blanking the display etc
-
-  m_pEdit->SetInterface(m_pDasher);
-
-  // FIXME - we shouldn't need to know about these outside of CDasher
-
-  m_pCanvas = m_pDasher->GetCanvas();
-
   m_pSlidebar = new CSlidebar(hWnd, m_pDasher);
-
-
   m_pSplitter = new CSplitter(this,100);
   
-  HWND hSplitter =  m_pSplitter->Create(hWnd);
-  
-  if (!hSplitter)
-	  return 0;
+  if(!(m_pSplitter->Create(hWnd)))
+    return 0;
 
-  // Add extra control nodes
-
+  // Add extra control nodes representing speech 
+  // TODO: Generalise this
   m_pDasher->RegisterNode( Dasher::CControlManager::CTL_USER, "Speak", -1 );
   m_pDasher->RegisterNode( Dasher::CControlManager::CTL_USER+1, "All", -1 );
   m_pDasher->RegisterNode( Dasher::CControlManager::CTL_USER+2, "New", -1 );
@@ -192,32 +183,27 @@ HWND CDasherWindow::Create()
   m_pDasher->ConnectNode(-1, Dasher::CControlManager::CTL_USER+3, -2);
   m_pDasher->ConnectNode(Dasher::CControlManager::CTL_ROOT, Dasher::CControlManager::CTL_USER+3, -2);
 
-  m_pGameModeHelper = 0;
-
   return hWnd;
 }
 
 CDasherWindow::~CDasherWindow() {
-  delete Splash;                // In case Show() was never called.
   delete m_pToolbar;
   delete m_pEdit;
   delete m_pSplitter;
+  delete m_pSlidebar;
   delete m_pDasher;
   delete m_pAppSettings;
+
   DestroyIcon(m_hIconSm);
 }
 
-
-
-void CDasherWindow::Main()
-{
+void CDasherWindow::Main() {
 	DASHER_ASSERT_VALIDPTR_RW(m_pDasher);
 	m_pDasher->Main();
 	Sleep(50); // limits framerate to 50fps
 }
 
-int CDasherWindow::MessageLoop() 
-{
+int CDasherWindow::MessageLoop() {
 	MSG msg;
 		
   while(GetMessage(&msg, NULL, 0, 0)) {
@@ -232,26 +218,14 @@ int CDasherWindow::MessageLoop()
   return msg.wParam;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
-void CDasherWindow::Show(int nCmdShow) 
-{
-  // Make sure Dasher has started up.
- // m_pDasher->Start();
-
-  // Clear SplashScreen
-  delete Splash;
-  Splash = 0;
-
-  // Show Window
+void CDasherWindow::Show(int nCmdShow) {
   InvalidateRect( NULL, FALSE);
-  if(!LoadWindowState())
-    ShowWindow(nCmdShow);       // Now set up. Kill splash screen and display main window
 
+  if(!LoadWindowState())
+    ShowWindow(nCmdShow); 
 }
 
-void CDasherWindow::SaveWindowState() const 
-{
+void CDasherWindow::SaveWindowState() const {
 #ifndef DASHER_WINCE
   WINDOWPLACEMENT wp;
   wp.length = sizeof(WINDOWPLACEMENT);
@@ -266,9 +240,8 @@ bool CDasherWindow::LoadWindowState() {
 #ifndef DASHER_WINCE
   WINDOWPLACEMENT wp;
   
-  if(m_pAppSettings->LoadSetting("WindowState", &wp)) 
-  {
-	if(SetWindowPlacement(&wp))
+  if(m_pAppSettings->LoadSetting("WindowState", &wp)) {
+	  if(SetWindowPlacement(&wp))
       return true;
   }
 #endif
@@ -283,13 +256,6 @@ void CDasherWindow::HandleParameterChange(int iParameter) {
    case APP_LP_STYLE:
      Layout();
      break;
-   case APP_BP_TIME_STAMP:
-     // TODO: reimplement
-     // m_pEdit->TimeStampNewFiles(m_pAppSettings->GetBoolParameter(APP_BP_TIME_STAMP));
-     break;
-	 case LP_MAX_BITRATE:
-    // TODO: reimplement
-	  break;
    case APP_SP_EDIT_FONT:
    case APP_LP_EDIT_FONT_SIZE:
      m_pEdit->SetFont(m_pAppSettings->GetStringParameter(APP_SP_EDIT_FONT), m_pAppSettings->GetLongParameter(APP_LP_EDIT_FONT_SIZE));
@@ -378,15 +344,12 @@ void CDasherWindow::HandleControlEvent(int iID) {
   }
 }
 
-
-
-LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-{
+LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
 	const int wmId = LOWORD(wParam);
 	const int wmEvent = HIWORD(wParam);
 
 	// Tell edit box if it has changed. It should know itself really, but this is easier
-	if( m_pEdit && ((HWND) lParam == m_pEdit->GetHwnd()) && (HIWORD(wParam) == EN_CHANGE)) {
+	if(m_pEdit && ((HWND) lParam == m_pEdit->GetHwnd()) && (HIWORD(wParam) == EN_CHANGE)) {
 		m_pEdit->SetDirty();
 		return 0;
 	}
@@ -394,8 +357,8 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
 	RECT windowsize;
 
 	// Parse the menu selections:
-	switch (wmId) 
-	{
+  // TODO: Do this using a lookup table and other functions
+	switch (wmId) {
 	  case ID_OPTIONS_FONTSIZE_NORMAL:
 		  m_pDasher->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(1));
 		  break;
@@ -607,6 +570,7 @@ LRESULT CDasherWindow::OnInitMenuPopup(UINT message, WPARAM wParam, LPARAM lPara
 
 LRESULT CDasherWindow::OnClose(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
   // TODO: Prompt for confirmation here
+  // TODO: Same as selecting quit from menu
 	SaveWindowState();
   DestroyWindow();
 	return 0;
@@ -626,7 +590,8 @@ LRESULT CDasherWindow::OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& 
 
 
 LRESULT CDasherWindow::OnSetFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
-	::SetFocus(m_pCanvas->getwindow());
+  // TODO: Reimplement
+	// ::SetFocus(m_pCanvas->getwindow());
  	return 0;
 }
 
@@ -687,8 +652,8 @@ void CDasherWindow::Layout() {
     m_pSplitter->Move(SplitterPos, Width);
 
     if(bHorizontal) {
-      if(m_pCanvas)
-        m_pCanvas->Move(0, CurY, Width / 2, MaxCanvas - CurY);
+      if(m_pDasher)
+        m_pDasher->Layout(0, CurY, Width / 2, MaxCanvas - CurY);
 
       if(m_pEdit)
         m_pEdit->Move(Width / 2, CurY, Width / 2, MaxCanvas - CurY);
@@ -710,8 +675,8 @@ void CDasherWindow::Layout() {
 
       int CanvasHeight = Height - CurY - SlidebarHeight - GetSystemMetrics(SM_CYEDGE);
  
-      if(m_pCanvas)
-        m_pCanvas->Move(0, CurY, Width, CanvasHeight);
+      if(m_pDasher)
+        m_pDasher->Layout(0, CurY, Width, CanvasHeight);
      }
   }
 }

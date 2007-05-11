@@ -17,7 +17,7 @@
 #include "../../DasherCore/DasherInterfaceBase.h"
 #include "../../DasherCore/ColourIO.h"
 
-class CAdvancedPage:public CPrefsPageBase {
+class CAdvancedPage : public CPrefsPageBase {
 public:
   CAdvancedPage(HWND Parent, CDasherInterfaceBase * DI, CAppSettings *pAppSettings);
 protected:

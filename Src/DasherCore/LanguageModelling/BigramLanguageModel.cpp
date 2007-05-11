@@ -40,7 +40,7 @@ void CBigramLanguageModel::LearnSymbol(Context context, int Symbol) {
 
 ///////////////////////////////////////////////////////////////////
 
-void CBigramLanguageModel::GetProbs(Context context, std::vector <unsigned int >&Probs, int norm) const {
+void CBigramLanguageModel::GetProbs(Context context, std::vector <unsigned int >&Probs, int norm, int iUniform) const {
 }
 
 ///////////////////////////////////////////////////////////////////

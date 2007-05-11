@@ -13,8 +13,10 @@
 
 #include "Widgets/Splitter.h"
 #include "Widgets/Menu.h"
-#include "Widgets/SplashScreen.h"
-#include "Widgets/WindowSelect.h"
+//#include "Widgets/SplashScreen.h"
+//#include "Widgets/WindowSelect.h"
+#include "Widgets/Edit.h"
+
 #include "DasherMouseInput.h"
 #include "AppSettings.h"
 #include "GameModeHelper.h"
@@ -97,11 +99,10 @@ private:
 	// Widgets:
 	CToolbar *m_pToolbar;
 	CEdit *m_pEdit;
-	CCanvas *m_pCanvas;
 	CSplitter *m_pSplitter;
 	CSlidebar *m_pSlidebar;
 	CMenu WinMenu;
-	CSplash *Splash;
+	//CSplash *Splash;
 
 	CAppSettings *m_pAppSettings;
 

@@ -1,0 +1,265 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Wix xmlns='http://schemas.microsoft.com/wix/2003/01/wi'>
+
+  <Product Name='Dasher 4.4' Id='5e986a24-dce6-4eda-b09d-ce98cd932cfa'
+   Language='1033' Codepage='1252' Version='4.4.2' Manufacturer='Dasher'>
+
+    <Package Id='????????-????-????-????-????????????' Keywords='Installer'
+     Description="Dasher 4.4 Installer"
+     Comments='This will install Dasher' Manufacturer='The Dasher Group.'
+     InstallerVersion='100' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
+    <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' DiskPrompt="CD-ROM #1" />
+    <Property Id='DiskPrompt' Value="Dasher 4.5 Installation [1]" />
+
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+      <Directory Id='ProgramFilesFolder' Name='PFiles'>
+        <Directory Id='Dasher' Name='Dasher'>
+          <Directory Id='INSTALLDIR' Name='Dasher44' LongName='Dasher 4.4'>
+            <Component Id='MainExecutable' Guid='5a93ba53-2e2d-4f88-8a1f-5bdd8f130394'>
+              <File Id='DasherEXE' Name='Dasher.exe' DiskId='1'
+               Source='..\Win32\Target\Release\Dasher.exe' Vital='yes'>
+                <Shortcut Id="startmenuDasher44" Directory="ProgramMenuDir" Name="Dasher45"
+                 LongName="Dasher 4.4" WorkingDirectory='INSTALLDIR'
+                 Icon="Dasher.exe" IconIndex="0" />
+                <Shortcut Id="desktopDasher44" Directory="DesktopFolder" Name="Dasher45"
+                 LongName="Dasher 4.4" WorkingDirectory='INSTALLDIR'
+                 Icon="Dasher.exe" IconIndex="0" />
+              </File>
+            </Component>
+            <Component Id="Help" Guid="cf486329-8d04-462b-afd4-e8e0bccc9c95">
+              <File Id="HelpFile" Name="Dasher.chm" DiskId="1" Source="..\..\Data\Help\Win32\dasher.chm"/>
+            </Component>
+            <!--            <Component Id="Tobii" Guid="a0f3fa44-106e-4fff-9ed6-010310f3ec0d">
+              <File Id="TobiiIconFile" Name="DasherTB.png" LongName="DasherTobii.png" />
+            </Component>-->
+            <Directory Id="SystemRC" Name="system.rc">
+              <Component Id="Alphabets" Guid="e734711a-0e68-4897-b7a6-7a60a20062b5">
+                <File Id="alphabet.AfaanOromo.xml" Name="ALPHAB~1.XML" LongName="alphabet.AfaanOromo.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.AfaanOromo.xml" />
+                <File Id="alphabet.Armenian.xml" Name="ALPHAB~2.XML" LongName="alphabet.Armenian.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Armenian.xml" />
+                <File Id="alphabet.Assamese.xml" Name="ALPHAB~3.XML" LongName="alphabet.Assamese.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Assamese.xml" />
+                <!--<File Id="alphabet.Austen.xml" Name="ALPHAB~4.XML" LongName="alphabet.Austen.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Austen.xml" />-->
+                <File Id="alphabet.Azerbaijani.xml" Name="ALPHAB~5.XML" LongName="alphabet.Azerbaijani.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Azerbaijani.xml" />
+                <File Id="alphabet.Belarusian.xml" Name="ALPHAB~6.XML" LongName="alphabet.Belarusian.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Belarusian.xml" />
+                <File Id="alphabet.Bulgarian.xml" Name="ALPHAB~7.XML" LongName="alphabet.Bulgarian.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Bulgarian.xml" />
+                <File Id="alphabet.Esperanto.xml" Name="ALPHAB~8.XML" LongName="alphabet.Esperanto.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Esperanto.xml" />
+                <File Id="alphabet.Estonian.xml" Name="ALPHAB~9.XML" LongName="alphabet.Estonian.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Estonian.xml" />
+                <File Id="alphabet.Filipino.xml" Name="ALPHA~10.XML" LongName="alphabet.Filipino.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Filipino.xml" />
+                <File Id="alphabet.Greek.xml" Name="ALPHA~11.XML" LongName="alphabet.Greek.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Greek.xml" />
+                <File Id="alphabet.Gujarati.xml" Name="ALPHA~12.XML" LongName="alphabet.Gujarati.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Gujarati.xml" />
+                <File Id="alphabet.Hawaiian.xml" Name="ALPHA~13.XML" LongName="alphabet.Hawaiian.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Hawaiian.xml" />
+                <File Id="alphabet.Hebrew.xml" Name="ALPHA~14.XML" LongName="alphabet.Hebrew.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Hebrew.xml" />
+                <File Id="alphabet.Hindi.xml" Name="ALPHA~15.XML" LongName="alphabet.Hindi.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Hindi.xml" />
+                <File Id="alphabet.Icelandic.xml" Name="ALPHA~16.XML" LongName="alphabet.Icelandic.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Icelandic.xml" />
+                <File Id="alphabet.Igbo.xml" Name="ALPHA~17.XML" LongName="alphabet.Igbo.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Igbo.xml" />
+                <File Id="alphabet.Indonesian.xml" Name="ALPHA~18.XML" LongName="alphabet.Indonesian.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Indonesian.xml" />
+                <File Id="alphabet.IrishGaelic.xml" Name="ALPHA~19.XML" LongName="alphabet.IrishGaelic.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.IrishGaelic.xml" />
+                <File Id="alphabet.Kannada.xml" Name="ALPHA~20.XML" LongName="alphabet.Kannada.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Kannada.xml" />
+                <File Id="alphabet.Katakana.xml" Name="ALPHA~21.XML" LongName="alphabet.Katakana.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Katakana.xml" />
+                <File Id="alphabet.Malay.xml" Name="ALPHA~22.XML" LongName="alphabet.Malay.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Malay.xml" />
+                <File Id="alphabet.Malayalam.xml" Name="ALPHA~23.XML" LongName="alphabet.Malayalam.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Malayalam.xml" />
+                <File Id="alphabet.Marathi.xml" Name="ALPHA~24.XML" LongName="alphabet.Marathi.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Marathi.xml" />
+                <File Id="alphabet.Moldavian.xml" Name="ALPHA~25.XML" LongName="alphabet.Moldavian.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Moldavian.xml" />
+                <File Id="alphabet.Ndebele.xml" Name="ALPHA~26.XML" LongName="alphabet.Ndebele.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Ndebele.xml" />
+                <File Id="alphabet.Oriya.xml" Name="ALPHA~27.XML" LongName="alphabet.Oriya.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Oriya.xml" />
+                <File Id="alphabet.Punjabi.xml" Name="ALPHA~28.XML" LongName="alphabet.Punjabi.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Punjabi.xml" />
+                <File Id="alphabet.Romanian.xml" Name="ALPHA~29.XML" LongName="alphabet.Romanian.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Romanian.xml" />
+                <File Id="alphabet.Sami.xml" Name="ALPHA~30.XML" LongName="alphabet.Sami.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Sami.xml" />
+                <File Id="alphabet.ScotsGaelic.xml" Name="ALPHA~31.XML" LongName="alphabet.ScotsGaelic.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.ScotsGaelic.xml" />
+                <File Id="alphabet.Sepedi.xml" Name="ALPHA~32.XML" LongName="alphabet.Sepedi.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Sepedi.xml" />
+                <File Id="alphabet.Sesotho.xml" Name="ALPHA~33.XML" LongName="alphabet.Sesotho.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Sesotho.xml" />
+                <File Id="alphabet.Sinhala.xml" Name="ALPHA~34.XML" LongName="alphabet.Sinhala.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Sinhala.xml" />
+                <File Id="alphabet.Slovak.xml" Name="ALPHA~35.XML" LongName="alphabet.Slovak.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Slovak.xml" />
+                <File Id="alphabet.Slovenian.xml" Name="ALPHA~36.XML" LongName="alphabet.Slovenian.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Slovenian.xml" />
+                <File Id="alphabet.Swati.xml" Name="ALPHA~37.XML" LongName="alphabet.Swati.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Swati.xml" />
+                <File Id="alphabet.Tajik.xml" Name="ALPHA~38.XML" LongName="alphabet.Tajik.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Tajik.xml" />
+                <File Id="alphabet.Tamil.xml" Name="ALPHA~39.XML" LongName="alphabet.Tamil.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Tamil.xml" />
+                <File Id="alphabet.Telugu.xml" Name="ALPHA~40.XML" LongName="alphabet.Telugu.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Telugu.xml" />
+                <File Id="alphabet.Thai.xml" Name="ALPHA~41.XML" LongName="alphabet.Thai.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Thai.xml" />
+                <File Id="alphabet.Thai2.xml" Name="ALPHA~42.XML" LongName="alphabet.Thai2.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Thai2.xml" />
+                <File Id="alphabet.Tsonga.xml" Name="ALPHA~43.XML" LongName="alphabet.Tsonga.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Tsonga.xml" />
+                <File Id="alphabet.Tswana.xml" Name="ALPHA~44.XML" LongName="alphabet.Tswana.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Tswana.xml" />
+                <File Id="alphabet.Turkish.xml" Name="ALPHA~45.XML" LongName="alphabet.Turkish.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Turkish.xml" />
+                <File Id="alphabet.Urdu.xml" Name="ALPHA~46.XML" LongName="alphabet.Urdu.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Urdu.xml" />
+                <File Id="alphabet.Vietnamese.xml" Name="ALPHA~47.XML" LongName="alphabet.Vietnamese.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Vietnamese.xml" />
+                <File Id="alphabet.Xhosa.xml" Name="ALPHA~48.XML" LongName="alphabet.Xhosa.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Xhosa.xml" />
+                <File Id="alphabet.Yoruba.xml" Name="ALPHA~49.XML" LongName="alphabet.Yoruba.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Yoruba.xml" />
+                <File Id="alphabet.Zulu.xml" Name="ALPHA~50.XML" LongName="alphabet.Zulu.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.Zulu.xml" />
+                <File Id="alphabet.abc.xml" Name="ALPHA~51.XML" LongName="alphabet.abc.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.abc.xml" />
+                <File Id="alphabet.adangbe.xml" Name="ALPHA~52.XML" LongName="alphabet.adangbe.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.adangbe.xml" />
+                <File Id="alphabet.afrikaans.xml" Name="ALPHA~53.XML" LongName="alphabet.afrikaans.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.afrikaans.xml" />
+                <File Id="alphabet.akan.xml" Name="ALPHA~54.XML" LongName="alphabet.akan.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.akan.xml" />
+                <File Id="alphabet.albanian.xml" Name="ALPHA~55.XML" LongName="alphabet.albanian.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.albanian.xml" />
+                <File Id="alphabet.amharic.xml" Name="ALPHA~56.XML" LongName="alphabet.amharic.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.amharic.xml" />
+                <File Id="alphabet.arabic.xml" Name="ALPHA~57.XML" LongName="alphabet.arabic.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.arabic.xml" />
+                <File Id="alphabet.basque.xml" Name="ALPHA~58.XML" LongName="alphabet.basque.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.basque.xml" />
+                <File Id="alphabet.bengali.xml" Name="ALPHA~59.XML" LongName="alphabet.bengali.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.bengali.xml" />
+                <File Id="alphabet.bopomofo.xml" Name="ALPHA~60.XML" LongName="alphabet.bopomofo.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.bopomofo.xml" />
+                <File Id="alphabet.bosnian.xml" Name="ALPHA~61.XML" LongName="alphabet.bosnian.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.bosnian.xml" />
+                <File Id="alphabet.breton.xml" Name="ALPHA~62.XML" LongName="alphabet.breton.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.breton.xml" />
+                <File Id="alphabet.catalan.xml" Name="ALPHA~63.XML" LongName="alphabet.catalan.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.catalan.xml" />
+                <File Id="alphabet.cherokee.xml" Name="ALPHA~64.XML" LongName="alphabet.cherokee.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.cherokee.xml" />
+                <File Id="alphabet.chinese.xml" Name="ALPHA~65.XML" LongName="alphabet.chinese.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.chinese.xml" />
+                <File Id="alphabet.chineseRuby.xml" Name="ALPHA~66.XML" LongName="alphabet.chineseRuby.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.chineseRuby.xml" />
+                <File Id="alphabet.corsican.xml" Name="ALPHA~67.XML" LongName="alphabet.corsican.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.corsican.xml" />
+                <File Id="alphabet.croatian.xml" Name="ALPHA~68.XML" LongName="alphabet.croatian.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.croatian.xml" />
+                <File Id="alphabet.czech.xml" Name="ALPHA~69.XML" LongName="alphabet.czech.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.czech.xml" />
+                <File Id="alphabet.danish.xml" Name="ALPHA~70.XML" LongName="alphabet.danish.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.danish.xml" />
+                <File Id="alphabet.dutch.xml" Name="ALPHA~71.XML" LongName="alphabet.dutch.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.dutch.xml" />
+                <File Id="alphabet.english.xml" Name="ALPHA~72.XML" LongName="alphabet.english.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.english.xml" />
+                <File Id="alphabet.englishC.xml" Name="ALPHA~73.XML" LongName="alphabet.englishC.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.englishC.xml" />
+                <File Id="alphabet.ethiopic.xml" Name="ALPHA~74.XML" LongName="alphabet.ethiopic.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.ethiopic.xml" />
+                <File Id="alphabet.ewe.xml" Name="ALPHA~75.XML" LongName="alphabet.ewe.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.ewe.xml" />
+                <File Id="alphabet.faroese.xml" Name="ALPHA~76.XML" LongName="alphabet.faroese.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.faroese.xml" />
+                <File Id="alphabet.finnish.xml" Name="ALPHA~77.XML" LongName="alphabet.finnish.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.finnish.xml" />
+                <File Id="alphabet.finnish2.xml" Name="ALPHA~78.XML" LongName="alphabet.finnish2.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.finnish2.xml" />
+                <File Id="alphabet.french.xml" Name="ALPHA~79.XML" LongName="alphabet.french.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.french.xml" />
+                <File Id="alphabet.ga.xml" Name="ALPHA~80.XML" LongName="alphabet.ga.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.ga.xml" />
+                <File Id="alphabet.galician.xml" Name="ALPHA~81.XML" LongName="alphabet.galician.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.galician.xml" />
+                <File Id="alphabet.georgian.xml" Name="ALPHA~82.XML" LongName="alphabet.georgian.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.georgian.xml" />
+                <File Id="alphabet.german.xml" Name="ALPHA~83.XML" LongName="alphabet.german.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.german.xml" />
+                <File Id="alphabet.hausa.xml" Name="ALPHA~84.XML" LongName="alphabet.hausa.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.hausa.xml" />
+                <File Id="alphabet.hiragana.xml" Name="ALPHA~85.XML" LongName="alphabet.hiragana.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.hiragana.xml" />
+                <File Id="alphabet.hiragana2.xml" Name="ALPHA~86.XML" LongName="alphabet.hiragana2.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.hiragana2.xml" />
+                <File Id="alphabet.hungarian.xml" Name="ALPHA~87.XML" LongName="alphabet.hungarian.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.hungarian.xml" />
+                <File Id="alphabet.ipa.xml" Name="ALPHA~88.XML" LongName="alphabet.ipa.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.ipa.xml" />
+                <File Id="alphabet.italian.xml" Name="ALPHA~89.XML" LongName="alphabet.italian.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.italian.xml" />
+                <File Id="alphabet.japanese.canna.xml" Name="ALPHA~90.XML" LongName="alphabet.japanese.canna.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.japanese.canna.xml" />
+                <File Id="alphabet.kazakh.xml" Name="ALPHA~91.XML" LongName="alphabet.kazakh.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.kazakh.xml" />
+                <File Id="alphabet.kirghiz.xml" Name="ALPHA~92.XML" LongName="alphabet.kirghiz.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.kirghiz.xml" />
+                <File Id="alphabet.kirundi.xml" Name="ALPHA~93.XML" LongName="alphabet.kirundi.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.kirundi.xml" />
+                <File Id="alphabet.klingon.xml" Name="ALPHA~94.XML" LongName="alphabet.klingon.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.klingon.xml" />
+                <File Id="alphabet.korean.xml" Name="ALPHA~95.XML" LongName="alphabet.korean.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.korean.xml" />
+                <File Id="alphabet.koreanNested.xml" Name="ALPHA~96.XML" LongName="alphabet.koreanNested.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.koreanNested.xml" />
+                <File Id="alphabet.kurdish.xml" Name="ALPHA~97.XML" LongName="alphabet.kurdish.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.kurdish.xml" />
+                <File Id="alphabet.lao.xml" Name="ALPHA~98.XML" LongName="alphabet.lao.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.lao.xml" />
+                <File Id="alphabet.latex.xml" Name="ALPHA~99.XML" LongName="alphabet.latex.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.latex.xml" />
+                <File Id="alphabet.latin.xml" Name="ALPH~100.XML" LongName="alphabet.latin.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.latin.xml" />
+                <File Id="alphabet.latvian.xml" Name="ALPH~101.XML" LongName="alphabet.latvian.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.latvian.xml" />
+                <File Id="alphabet.lithuanian.xml" Name="ALPH~102.XML" LongName="alphabet.lithuanian.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.lithuanian.xml" />
+                <File Id="alphabet.luxembourgish.xml" Name="ALPH~103.XML" LongName="alphabet.luxembourgish.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.luxembourgish.xml" />
+                <File Id="alphabet.macedonian.xml" Name="ALPH~104.XML" LongName="alphabet.macedonian.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.macedonian.xml" />
+                <File Id="alphabet.maltese.xml" Name="ALPH~105.XML" LongName="alphabet.maltese.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.maltese.xml" />
+                <File Id="alphabet.mongolian.xml" Name="ALPH~106.XML" LongName="alphabet.mongolian.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.mongolian.xml" />
+                <File Id="alphabet.myanmar.xml" Name="ALPH~107.XML" LongName="alphabet.myanmar.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.myanmar.xml" />
+                <File Id="alphabet.nepali.xml" Name="ALPH~108.XML" LongName="alphabet.nepali.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.nepali.xml" />
+                <File Id="alphabet.norwegian.xml" Name="ALPH~109.XML" LongName="alphabet.norwegian.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.norwegian.xml" />
+                <File Id="alphabet.occitan.xml" Name="ALPH~110.XML" LongName="alphabet.occitan.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.occitan.xml" />
+                <File Id="alphabet.ogham.xml" Name="ALPH~111.XML" LongName="alphabet.ogham.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.ogham.xml" />
+                <File Id="alphabet.pashto.xml" Name="ALPH~112.XML" LongName="alphabet.pashto.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.pashto.xml" />
+                <!--<File Id="alphabet.perl.xml" Name="ALPH~113.XML" LongName="alphabet.perl.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.perl.xml" />-->
+                <File Id="alphabet.persian.xml" Name="ALPH~114.XML" LongName="alphabet.persian.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.persian.xml" />
+                <File Id="alphabet.pinyin.xml" Name="ALPH~115.XML" LongName="alphabet.pinyin.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.pinyin.xml" />
+                <!--<File Id="alphabet.pinyin2.xml" Name="ALPH~116.XML" LongName="alphabet.pinyin2.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.pinyin2.xml" />-->
+                <File Id="alphabet.polish.xml" Name="ALPH~117.XML" LongName="alphabet.polish.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.polish.xml" />
+                <File Id="alphabet.portuguese.xml" Name="ALPH~118.XML" LongName="alphabet.portuguese.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.portuguese.xml" />
+                <File Id="alphabet.romansch.xml" Name="ALPH~119.XML" LongName="alphabet.romansch.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.romansch.xml" />
+                <File Id="alphabet.runic.xml" Name="ALPH~120.XML" LongName="alphabet.runic.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.runic.xml" />
+                <File Id="alphabet.russian.xml" Name="ALPH~121.XML" LongName="alphabet.russian.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.russian.xml" />
+                <File Id="alphabet.sanskrit.xml" Name="ALPH~122.XML" LongName="alphabet.sanskrit.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.sanskrit.xml" />
+                <File Id="alphabet.serbian.xml" Name="ALPH~123.XML" LongName="alphabet.serbian.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.serbian.xml" />
+                <File Id="alphabet.somali.xml" Name="ALPH~124.XML" LongName="alphabet.somali.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.somali.xml" />
+                <File Id="alphabet.spanish.xml" Name="ALPH~125.XML" LongName="alphabet.spanish.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.spanish.xml" />
+                <File Id="alphabet.swahili.xml" Name="ALPH~126.XML" LongName="alphabet.swahili.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.swahili.xml" />
+                <File Id="alphabet.swedish.xml" Name="ALPH~127.XML" LongName="alphabet.swedish.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.swedish.xml" />
+                <File Id="alphabet.thaana.xml" Name="ALPH~128.XML" LongName="alphabet.thaana.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.thaana.xml" />
+                <File Id="alphabet.tigrinya.xml" Name="ALPH~129.XML" LongName="alphabet.tigrinya.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.tigrinya.xml" />
+                <File Id="alphabet.turkmen.xml" Name="ALPH~130.XML" LongName="alphabet.turkmen.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.turkmen.xml" />
+                <File Id="alphabet.ukrainian.xml" Name="ALPH~131.XML" LongName="alphabet.ukrainian.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.ukrainian.xml" />
+                <File Id="alphabet.uzbek.xml" Name="ALPH~132.XML" LongName="alphabet.uzbek.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.uzbek.xml" />
+                <File Id="alphabet.venda.xml" Name="ALPH~133.XML" LongName="alphabet.venda.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.venda.xml" />
+                <File Id="alphabet.welsh.xml" Name="ALPH~134.XML" LongName="alphabet.welsh.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.welsh.xml" />
+              </Component>
+              <Component Id="Training" Guid="bcc684a1-0a58-474c-bfd9-c25906bc7bf4">
+                <File Id="training_albanian_SQ.txt" Name="TRAINI~1.XML" LongName="training_albanian_SQ.txt" DiskId="1" Source="..\..\Data\Translations\training_albanian_SQ.txt" />
+                <File Id="training_basque_EU.txt" Name="TRAINI~2.XML" LongName="training_basque_EU.txt" DiskId="1" Source="..\..\Data\Translations\training_basque_EU.txt" />
+                <File Id="training_bengali_BD.txt" Name="TRAINI~3.XML" LongName="training_bengali_BD.txt" DiskId="1" Source="..\..\Data\Translations\training_bengali_BD.txt" />
+                <!--<File Id="training_bengali_bn.txt" Name="TRAINI~4.XML" LongName="training_bengali_bn.txt" DiskId="1" Source="..\..\Data\Translations\training_bengali_bn.txt" />-->
+                <File Id="training_canna_JP.txt" Name="TRAINI~5.XML" LongName="training_canna_JP.txt" DiskId="1" Source="..\..\Data\Translations\training_canna_JP.txt" />
+                <File Id="training_czech_CS.txt" Name="TRAINI~6.XML" LongName="training_czech_CS.txt" DiskId="1" Source="..\..\Data\Translations\training_czech_CS.txt" />
+                <File Id="training_danish_DK.txt" Name="TRAINI~7.XML" LongName="training_danish_DK.txt" DiskId="1" Source="..\..\Data\Translations\training_danish_DK.txt" />
+                <File Id="training_dutch_NL.txt" Name="TRAINI~8.XML" LongName="training_dutch_NL.txt" DiskId="1" Source="..\..\Data\Translations\training_dutch_NL.txt" />
+                <File Id="training_english_GB.txt" Name="TRAINI~9.XML" LongName="training_english_GB.txt" DiskId="1" Source="..\..\Data\Translations\training_english_GB.txt" />
+                <File Id="training_finnish_FI.txt" Name="TRAIN~10.XML" LongName="training_finnish_FI.txt" DiskId="1" Source="..\..\Data\Translations\training_finnish_FI.txt" />
+                <File Id="training_french_FR.txt" Name="TRAIN~11.XML" LongName="training_french_FR.txt" DiskId="1" Source="..\..\Data\Translations\training_french_FR.txt" />
+                <File Id="training_german_DE.txt" Name="TRAIN~12.XML" LongName="training_german_DE.txt" DiskId="1" Source="..\..\Data\Translations\training_german_DE.txt" />
+                <File Id="training_greek_GR.txt" Name="TRAIN~13.XML" LongName="training_greek_GR.txt" DiskId="1" Source="..\..\Data\Translations\training_greek_GR.txt" />
+                <File Id="training_hebrew_IL.txt" Name="TRAIN~14.XML" LongName="training_hebrew_IL.txt" DiskId="1" Source="..\..\Data\Translations\training_hebrew_IL.txt" />
+                <File Id="training_hiragana60_JP.txt" Name="TRAIN~15.XML" LongName="training_hiragana60_JP.txt" DiskId="1" Source="..\..\Data\Translations\training_hiragana60_JP.txt" />
+                <File Id="training_hiragana83_JP.txt" Name="TRAIN~16.XML" LongName="training_hiragana83_JP.txt" DiskId="1" Source="..\..\Data\Translations\training_hiragana83_JP.txt" />
+                <File Id="training_hungarian_HU.txt" Name="TRAIN~17.XML" LongName="training_hungarian_HU.txt" DiskId="1" Source="..\..\Data\Translations\training_hungarian_HU.txt" />
+                <File Id="training_italian_IT.txt" Name="TRAIN~18.XML" LongName="training_italian_IT.txt" DiskId="1" Source="..\..\Data\Translations\training_italian_IT.txt" />
+                <File Id="training_mongolian_MN.txt" Name="TRAIN~19.XML" LongName="training_mongolian_MN.txt" DiskId="1" Source="..\..\Data\Translations\training_mongolian_MN.txt" />
+                <File Id="training_persian_IR.txt" Name="TRAIN~20.XML" LongName="training_persian_IR.txt" DiskId="1" Source="..\..\Data\Translations\training_persian_IR.txt" />
+                <File Id="training_polish_PL.txt" Name="TRAIN~21.XML" LongName="training_polish_PL.txt" DiskId="1" Source="..\..\Data\Translations\training_polish_PL.txt" />
+                <File Id="training_portuguese_BR.txt" Name="TRAIN~22.XML" LongName="training_portuguese_BR.txt" DiskId="1" Source="..\..\Data\Translations\training_portuguese_BR.txt" />
+                <File Id="training_russian_RU.txt" Name="TRAIN~23.XML" LongName="training_russian_RU.txt" DiskId="1" Source="..\..\Data\Translations\training_russian_RU.txt" />
+                <File Id="training_spanish_ES.txt" Name="TRAIN~24.XML" LongName="training_spanish_ES.txt" DiskId="1" Source="..\..\Data\Translations\training_spanish_ES.txt" />
+                <File Id="training_swahili_KE.txt" Name="TRAIN~25.XML" LongName="training_swahili_KE.txt" DiskId="1" Source="..\..\Data\Translations\training_swahili_KE.txt" />
+                <File Id="training_swedish_SE.txt" Name="TRAIN~26.XML" LongName="training_swedish_SE.txt" DiskId="1" Source="..\..\Data\Translations\training_swedish_SE.txt" />
+                <File Id="training_turkish_TR.txt" Name="TRAIN~27.XML" LongName="training_turkish_TR.txt" DiskId="1" Source="..\..\Data\Translations\training_turkish_TR.txt" />
+                <File Id="training_welsh_GB.txt" Name="TRAIN~28.XML" LongName="training_welsh_GB.txt" DiskId="1" Source="..\..\Data\Translations\training_welsh_GB.txt" />
+              </Component>
+              <Component Id="Colours" Guid="bebff3fb-083c-46f8-ac31-2484f4b1e9a8">
+                <File Id="colour.blue.xml" Name="COLOUR~1.XML" LongName="colour.blue.xml" DiskId="1" Source="..\..\Data\system.rc\colour.blue.xml" />
+                <File Id="colour.euroasian.xml" Name="COLOUR~2.XML" LongName="colour.euroasian.xml" DiskId="1" Source="..\..\Data\system.rc\colour.euroasian.xml" />
+                <File Id="colour.euroasian2.xml" Name="COLOUR~3.XML" LongName="colour.euroasian2.xml" DiskId="1" Source="..\..\Data\system.rc\colour.euroasian2.xml" />
+                <File Id="colour.euroasian3.xml" Name="COLOUR~4.XML" LongName="colour.euroasian3.xml" DiskId="1" Source="..\..\Data\system.rc\colour.euroasian3.xml" />
+                <File Id="colour.jamie.xml" Name="COLOUR~5.XML" LongName="colour.jamie.xml" DiskId="1" Source="..\..\Data\system.rc\colour.jamie.xml" />
+                <File Id="colour.rainbow.xml" Name="COLOUR~6.XML" LongName="colour.rainbow.xml" DiskId="1" Source="..\..\Data\system.rc\colour.rainbow.xml" />
+                <File Id="colour.thai.xml" Name="COLOUR~7.XML" LongName="colour.thai.xml" DiskId="1" Source="..\..\Data\system.rc\colour.thai.xml" />
+                <File Id="colour.vowels.xml" Name="COLOUR~8.XML" LongName="colour.vowels.xml" DiskId="1" Source="..\..\Data\system.rc\colour.vowels.xml" />
+                <File Id="colour.vowels2.xml" Name="COLOUR~9.XML" LongName="colour.vowels2.xml" DiskId="1" Source="..\..\Data\system.rc\colour.vowels2.xml" />
+                <File Id="colour.xml" Name="COLOU~10.XML" LongName="colour.xml" DiskId="1" Source="..\..\Data\system.rc\colour.xml" />
+              </Component>
+              <Component Id="ControlLabels" Guid="fc6ff2ec-3172-4259-b879-162c21981358">
+                <File Id="controllabels.xml" Name="CONTRO~1.XML" LongName="controllabels.xml" DiskId="1" Source="..\..\Data\system.rc\controllabels.xml" />
+              </Component>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+
+      <Directory Id="ProgramMenuFolder" Name="PMenu" LongName="Programs">
+        <Directory Id="ProgramMenuDir" Name='Dasher45' LongName="Dasher 4.5" />
+      </Directory>
+
+      <Directory Id="DesktopFolder" Name="Desktop" />
+
+      <Component Id="RegistryTobii" Guid="63287558-8a18-4103-89d5-2c1116cffc52">
+        <Registry Id='TobiiExecutable' Root='HKLM' Key='Software\Tobii\MyTobii\MPA\Dasher45' Name='ExecutablePath'
+         Action='write' Type='string' Value='[INSTALLDIR]/Dasher.exe' />
+        <Registry Id='TobiiIcon' Root='HKLM' Key='Software\Tobii\MyTobii\MPA\Dasher45' Name='IconPath'
+         Action='write' Type='string' Value='[INSTALLDIR]/DasherTobii.png' />
+        <Registry Id='TobiiTitle' Root='HKLM' Key='Software\Tobii\MyTobii\MPA\Dasher45' Name='Title'
+         Action='write' Type='string' Value='Dasher' />
+      </Component>
+    </Directory>
+
+    <!--    <Component Id="RegistryCore" Guid="5999aef1-3ba7-4af2-8d56-5f3f4e7a4410">
+    </Component>-->
+
+
+    <Feature Id='Complete' Title='Dasher 4.4' Description='Everything.' Display='expand' Level='1' ConfigurableDirectory='INSTALLDIR'>
+      <Feature Id="Core" Title="Core" Description="Main executable and core data files" Level="1">
+        <ComponentRef Id='MainExecutable' />
+        <ComponentRef Id="Alphabets" />
+        <ComponentRef Id="Training" />
+        <ComponentRef Id="Colours" />
+        <ComponentRef Id="ControlLabels" />
+        <!--<ComponentRef Id="RegistryCore" />-->
+      </Feature>
+      <Feature Id="Documentation" Title="Documentation" Description="Dasher manual." Level="1">
+        <ComponentRef Id="Help" />
+      </Feature>
+      <Feature Id="Tobii" Title="MyTobii Support" Description="Support for the MyTobii gaze tracker" Level="1000">
+        <!--      <ComponentRef Id="Tobii" />-->
+        <ComponentRef Id="RegistryTobii" />
+      </Feature>
+    </Feature>
+
+    <UIRef Id="WixUI_Mondo" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+
+    <Icon Id="Dasher.exe" SourceFile="..\Win32\Target\Release\Dasher.exe" />
+  </Product>
+</Wix>

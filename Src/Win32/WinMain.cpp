@@ -27,13 +27,7 @@ A GUI and settings manager are created and given to the Dasher interface.
 Control is passed to the main GUI loop, and only returns when the main window closes.
 */
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-
-
-CoInitialize(NULL);
-
-  // String literals in this function are not in the resource file as they
-  // must NOT be translated.
-
+  CoInitialize(NULL);
   WinHelper::hInstApp = hInstance;      // DJW - put this back in as this global is needed in various places
 
   // We don't want to starve other interactive applications
@@ -44,14 +38,12 @@ CoInitialize(NULL);
   { // memory leak scoping
 
     CDasherWindow DasherWindow;
-
-	DasherWindow.Create();
-
+   	DasherWindow.Create();
   
     DasherWindow.Show(nCmdShow);
     DasherWindow.UpdateWindow();
 
-	iRet = DasherWindow.MessageLoop();
+  	iRet = DasherWindow.MessageLoop();
 
     // Close the COM library on the current thread
     CoUninitialize();
