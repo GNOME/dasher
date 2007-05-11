@@ -183,6 +183,8 @@ void CCanvas::Display() {
 
 void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, bool bDrawOutline, bool bFill, int iThickness) {
 
+  //  std::cout << "Raw Rectangle, (" << x1 << ", " << y1 << ") - (" << x2 << ", " << y2 << ")" << std::endl;
+
 #if WITH_CAIRO
 #else
   GdkGC *graphics_context;
@@ -209,40 +211,42 @@ void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutl
   }
 
   if( y2 > y1 ) {
-    iTop = y1 - 1;
-    iHeight = y2 - y1 + 1;
+    iTop = y1;
+    iHeight = y2 - y1;
   }
   else {
-    iTop = y2 - 1;
-    iHeight = y1 - y2 + 1;
+    iTop = y2;
+    iHeight = y1 - y2;
   }
+
+  //  std::cout << bFill << " " << Color << " " << iLeft << " " << iTop << " " << iWidth << " " << iHeight << std::endl;
 
   if(bFill) {
     SET_COLOR(Color);
 #if WITH_CAIRO
     cairo_set_line_width(cr, iThickness);
-    cairo_rectangle(cr, iLeft, iTop, iWidth + 1, iHeight + 1);
+    cairo_rectangle(cr, iLeft, iTop, iWidth, iHeight);
     cairo_fill(cr);
 #else
     gdk_draw_rectangle(m_pOffscreenBuffer, graphics_context, TRUE, iLeft, iTop, iWidth + 1, iHeight + 1);
 #endif
   }
   
-  if(bDrawOutline) {
-    if( iOutlineColour == -1 )
-      SET_COLOR(3);
-    else
-      SET_COLOR(iOutlineColour);
+//   if(bDrawOutline) {
+//     if( iOutlineColour == -1 )
+//       SET_COLOR(3);
+//     else
+//       SET_COLOR(iOutlineColour);
     
-#if WITH_CAIRO
-    cairo_set_line_width(cr, iThickness);
-    cairo_rectangle(cr, iLeft + 0.5, iTop + 0.5, iWidth, iHeight);
-    cairo_stroke(cr);
-#else
-    gdk_gc_set_line_attributes(graphics_context, iThickness, GDK_LINE_SOLID, GDK_CAP_ROUND, GDK_JOIN_ROUND );
-    gdk_draw_rectangle(m_pOffscreenBuffer, graphics_context, FALSE, iLeft, iTop, iWidth, iHeight);
-#endif
-  }
+// #if WITH_CAIRO
+//     cairo_set_line_width(cr, iThickness);
+//     cairo_rectangle(cr, iLeft + 0.5, iTop + 0.5, iWidth, iHeight);
+//     cairo_stroke(cr);
+// #else
+//     gdk_gc_set_line_attributes(graphics_context, iThickness, GDK_LINE_SOLID, GDK_CAP_ROUND, GDK_JOIN_ROUND );
+//     gdk_draw_rectangle(m_pOffscreenBuffer, graphics_context, FALSE, iLeft, iTop, iWidth, iHeight);
+// #endif
+//   }
   END_DRAWING;
 }
 
@@ -368,6 +372,7 @@ void CCanvas::Polyline(Dasher::CDasherScreen::point *Points, int Number, int iWi
 }
 
 void CCanvas::DrawString(const std::string &String, int x1, int y1, int size) {
+  
 #if WITH_CAIRO
 #else
   GdkGC *graphics_context;

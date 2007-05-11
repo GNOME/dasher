@@ -147,6 +147,8 @@ void CDasherView::DasherPolygon(myint *x, myint *y, int n, int iColour) {
 
 void CDasherView::DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myint iBottom, const int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, bool bDrawOutline, bool bFill, int iThickness) {
 
+  //  std::cout << "Drawing rectangle: (" << iLeft << ", " << iTop << ") - (" << iRight << ", " << iBottom << ")" << std::endl;
+
   screenint iScreenLeft;
   screenint iScreenTop;
   screenint iScreenRight;

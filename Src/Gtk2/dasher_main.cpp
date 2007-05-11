@@ -1065,7 +1065,8 @@ dasher_main_command_about(DasherMain *pSelf) {
 
 #if (defined GNOME_LIBS) || (GTK_CHECK_VERSION(2,6,0))
 
-  // In alphabetical order
+  // In alphabetical order - please keep this in sync with the AUTHORS
+  // file at root of the package tree
   const gchar *authors[] = {
     "Chris Ball",
     "Ignas Budvytis",
@@ -1076,7 +1077,9 @@ dasher_main_command_about(DasherMain *pSelf) {
     "Chris Hack",
     "David MacKay",
     "Iain Murray",
+    "Sega Kazue",
     "Takashi Kaburagi",
+    "Martijn van Veen",
     "Keith Vertanen",
     "Hanna Wallach",
     "David Ward",
