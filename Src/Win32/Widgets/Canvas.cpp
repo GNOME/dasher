@@ -446,122 +446,22 @@ LRESULT CCanvas::OnTimer(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHand
 
 void CCanvas::DoFrame()
 {
-	POINT mousepos2;
-	GetCursorPos(&mousepos2);
+	//POINT mousepos2;
+	//GetCursorPos(&mousepos2);
 
-	ScreenToClient(&mousepos2);
+	//ScreenToClient(&mousepos2);
 
-	POINT mousepos;
-	GetCursorPos(&mousepos);
+	//POINT mousepos;
+	//GetCursorPos(&mousepos);
 
-	//  if(running == 0) {
-	//    ScreenToClient(m_hwnd, &mousepos);
-	//    if(m_pDasherInterface->GetBoolParameter(BP_MOUSEPOS_MODE) == true) // configuration option
-	//    {
-	//      //                      DASHER_TRACEOUTPUT("first:%d second:%d %d\n",firstwindow,secondwindow,m_iMousePosDist);
-	//      if(firstwindow != true && secondwindow != true) {
-	//        m_pDasherInterface->SetLongParameter(LP_MOUSE_POS_BOX, 1);
-	//        firstwindow = true;
-	//      }
-	//      int mouseDist = m_pDasherInterface->GetLongParameter(LP_MOUSEPOSDIST);
-	//      if(mousepos.y > m_pScreen->GetHeight() / 2 - mouseDist - 50 && mousepos.y < m_pScreen->GetHeight() / 2 - mouseDist + 50 && firstwindow == true) {
-	//        // Mouse is in the top box
-	//        if(mousepostime == 0) {
-	//          mousepostime = GetTickCount();
-	//        }
-	//        else if((GetTickCount() - mousepostime) > 2000) {
-	//          firstwindow = false;
-	//          secondwindow = true;
-	//          mousepostime = 0;
-	//          m_pDasherInterface->SetLongParameter(LP_MOUSE_POS_BOX, 2);
-	//        }
-	//      }
-	//      else if(firstwindow == true) {
-	//        mousepostime = 0;
-	//      }
-	//      if(secondwindow == true) {
-	//        if(mousepos.y < m_pScreen->GetHeight() / 2 + mouseDist + 50 && mousepos.y > (m_pScreen->GetHeight() / 2 + mouseDist - 50)) {
-	//          // In second window
-	//          if(mousepostime == 0) {
-	//            mousepostime = GetTickCount();
-	//          }
-	//          else if((GetTickCount() - mousepostime) > 2000) {
-	//            m_pDasherInterface->SetLongParameter(LP_MOUSE_POS_BOX, -1);
-	//            StartStop();
-	//          }
-	//        }
-	//        else if(mousepostime > 0) {
-	//          secondwindow = false;
-	//          firstwindow = true;
-	//          m_pDasherInterface->SetLongParameter(LP_MOUSE_POS_BOX, 1);
-	//          mousepostime = 0;
-	//        }
-	//      }
-	//    }
-	//    imousey = mousepos.y;
-	//
-	//    imousex = mousepos.x;
-	//
-	//    if(m_pDasherInterface->GetBoolParameter(BP_NUMBER_DIMENSIONS) == true) {
-	//      double scalefactor;
-	//      if(yscaling == 0) {
-	//        scalefactor = 2.0;
-	//      }
-	//      else {
-	//        scalefactor = m_pScreen->GetHeight() / yscaling;
-	//      }
-	//      imousey -= m_pScreen->GetHeight() / 2;
-	//      imousey *= scalefactor;
-	//      imousey += m_pScreen->GetHeight() / 2;
-	//    }
-	//
-	//    if((GetTickCount() - previoustime) > 200) {
-	//      if(firstwindow == true) {
-	//        m_pDasherInterface->SetLongParameter(LP_MOUSE_POS_BOX, 1);
-	//      }
-	//      else if(secondwindow == true) {
-	//        m_pDasherInterface->SetLongParameter(LP_MOUSE_POS_BOX, 2);
-	//      }
-	//
-	//      previoustime = GetTickCount();
-	//    }
-	//
-	//    return 0;
-	//  }
-	//
-	////  if(m_pDasherInterface->GetBoolParameter(BP_WINDOW_PAUSE) == true) {
-	//  //  RECT windowrect;
-	//
-	////    GetWindowRect(m_hwnd, &windowrect);
-	// //   if(mousepos.y > windowrect.bottom || mousepos.y < windowrect.top || mousepos.x > windowrect.right || mousepos.x < windowrect.left)
-	////      return 0;
-	// // }
-	//
-	//  ScreenToClient(m_hwnd, &mousepos);
-	//  imousey = mousepos.y;
-	//  imousex = mousepos.x;
-	//
-	//  if(m_pDasherInterface->GetBoolParameter(BP_NUMBER_DIMENSIONS) == true) {
-	//    double scalefactor;
-	//    if(yscaling == 0) {
-	//      scalefactor = 2;
-	//    }
-	//    else {
-	//      scalefactor = m_pScreen->GetHeight() / yscaling;
-	//    }
-	//    imousey -= m_pScreen->GetHeight() / 2;
-	//    imousey *= scalefactor;
-	//    imousey += m_pScreen->GetHeight() / 2;
-	//  }
-
-	DWORD dwTicks = GetTickCount();
-
+  DWORD dwTicks = GetTickCount();
 	// If not paused need to consider stop on idle
 	if( !m_pDasherInterface->GetBoolParameter(BP_DASHER_PAUSED)  ) 
 	{
 		// only pause if button is not down
 		if( !m_bButtonDown && m_pDasherInterface->GetBoolParameter(BP_STOP_IDLE)  ) 
 		{
+      // TODO: Brink this back into core
 			if (dwTicks - m_dwTicksLastEvent > m_pDasherInterface->GetLongParameter(LP_STOP_IDLETIME) )
 			{
 				// idle time exceeded
@@ -569,8 +469,6 @@ void CCanvas::DoFrame()
 			}
 		}
 	}
-
-	m_pDasherInterface->NewFrame(dwTicks, false);//TapOn(imousex, imousey, GetTickCount());
 }
 
 void CCanvas::centrecursor() {

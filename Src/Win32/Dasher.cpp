@@ -45,8 +45,12 @@ void CDasher::CreateLocalFactories() {
 }
 
 void CDasher::Main() {
-	if(m_pCanvas)
+  if(m_pCanvas) {
 		m_pCanvas->DoFrame();
+  }
+
+  DWORD dwTicks = GetTickCount();
+	NewFrame(dwTicks, false);
 }
 
 // Handles the work we need to do periodically on a timer event

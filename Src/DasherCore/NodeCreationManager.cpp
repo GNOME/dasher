@@ -98,10 +98,10 @@ void CNodeCreationManager::GetProbs(CLanguageModel::Context context, std::vector
   Probs.push_back(control_space);
 
 #if _DEBUG
-  iTotal = 0;
+  int iTotal = 0;
   for(int k = 0; k < Probs.size(); ++k)
     iTotal += Probs[k];
-//      DASHER_ASSERT(iTotal == iNorm);
+  DASHER_ASSERT(iTotal == iNorm);
 #endif
 
 }

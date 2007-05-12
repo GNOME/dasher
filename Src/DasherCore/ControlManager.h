@@ -34,7 +34,11 @@
 #include <sys/stat.h>
 #include <string>
 
+#ifdef _WIN32
+#include "../Common/Expat/lib/expat.h"
+#else
 #include <expat.h>
+#endif
 
 /* /// \cond expat */
 

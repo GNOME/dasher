@@ -4,6 +4,7 @@
 	Version="8.00"
 	Name="DasherCore"
 	ProjectGUID="{192C1E5C-2D1E-4AA3-91C3-FF2D7ABD67F8}"
+	RootNamespace="DasherCore"
 	>
 	<Platforms>
 		<Platform
@@ -762,11 +763,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\LanguageModelling\CTWLanguageModel.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\LanguageModelling\CTWLanguageModel.h"
+				>
+			</File>
+			<File
 				RelativePath="LanguageModelling\DictLanguageModel.cpp"
 				>
 			</File>
 			<File
 				RelativePath="LanguageModelling\DictLanguageModel.h"
+				>
+			</File>
+			<File
+				RelativePath=".\LanguageModelling\HashTable.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\LanguageModelling\HashTable.h"
 				>
 			</File>
 			<File
@@ -1549,6 +1566,14 @@
 					Name="VCCustomBuildTool"
 				/>
 			</FileConfiguration>
+		</File>
+		<File
+			RelativePath=".\SCENode.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\SCENode.h"
+			>
 		</File>
 		<File
 			RelativePath=".\SettingsStore.cpp"
