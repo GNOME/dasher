@@ -96,7 +96,7 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
   myint iDasherMaxX;
   myint iDasherMaxY;
   VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
-  
+  //
   screenint iScreenLeft;
   screenint iScreenTop;
   screenint iScreenRight;
@@ -105,23 +105,35 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
   Dasher2Screen(iRootMax-iRootMin, iRootMin, iScreenLeft, iScreenTop);
   Dasher2Screen(0, iRootMax, iScreenRight, iScreenBottom);
 
-  // TODO: Should these be zeros?
-  if (iScreenTop<1) iScreenTop=1; //If limit is negative
-  if (iScreenLeft<1) iScreenLeft=1; //If limit is negative
+  //ifiScreenTop < 0)
+  //  iScreenTop = 0;
 
-  // TODO: Should these be right on the boundary?
-  if (iScreenBottom>Screen()->GetHeight()) iScreenBottom=Screen()->GetHeight()-1; //If limit is too big
-  if (iScreenRight>Screen()->GetWidth()) iScreenRight=Screen()->GetWidth()-1; //If limit is too big
+  //if(iScreenLeft < 0) 
+  //  iScreenLeft=0;
+
+  //// TODO: Should these be right on the boundary?
+  //if(iScreenBottom > Screen()->GetHeight()) 
+  //  iScreenBottom=Screen()->GetHeight();
+
+  //if(iScreenRight > Screen()->GetWidth()) 
+  //  iScreenRight=Screen()->GetWidth();
 
   // Blank the regoin around the root node:
   
-  if(iRootMin > iDasherMinY)
-    DasherDrawRectangle(iDasherMaxX, iDasherMinY, iDasherMinX, iRootMin, 0, 0, Nodes1, false,true, 1);
+  //if(iRootMin > iDasherMinY)
+  //  DasherDrawRectangle(iDasherMaxX, iDasherMinY, iDasherMinX, iRootMin, 0, 0, Nodes1, false,true, 1);
+  
+  if(iScreenTop > 0)
+    Screen()->DrawRectangle(0, 0, Screen()->GetWidth(), iScreenTop, 0, -1, Nodes1, false, true, 1);
 
-  if(iRootMax < iDasherMaxY)
-    DasherDrawRectangle(iDasherMaxX, iRootMax, iDasherMinX, iDasherMaxY, 0, 0, Nodes1, false,true, 1);
+  //if(iRootMax < iDasherMaxY)
+  //  DasherDrawRectangle(iDasherMaxX, iRootMax, iDasherMinX, iDasherMaxY, 0, 0, Nodes1, false,true, 1);
 
-  DasherDrawRectangle(0, iDasherMinY, iDasherMinX, iDasherMaxY, 0, 4, Nodes1, false,true, 1);
+  if(iScreenBottom <= Screen()->GetHeight())
+    Screen()->DrawRectangle(0, iScreenBottom, Screen()->GetWidth(), Screen()->GetHeight(), 0, -1, Nodes1, false, true, 1);
+
+//  DasherDrawRectangle(0, iDasherMinY, iDasherMinX, iDasherMaxY, 0, 4, Nodes1, false,true, 1);
+  Screen()->DrawRectangle(iScreenRight, iScreenTop, Screen()->GetWidth(), iScreenBottom, 0, -1, Nodes1, false, true, 1);
 
   // Render the root node (and children)
   RecursiveRender(pRoot, iRootMin, iRootMax, iDasherMaxX, vNodeList, vDeleteList, iGamePointer,true,iDasherMaxX,0,0);
