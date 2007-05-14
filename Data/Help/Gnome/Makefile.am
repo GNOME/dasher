@@ -20,5 +20,5 @@ DOC_FIGURES = figures/figure2.png \
               figures/exampleHad3a.png \
               figures/exampleHad4.png
 
-DOC_LINGUAS = fr sv
+DOC_LINGUAS = es fr sv
 
