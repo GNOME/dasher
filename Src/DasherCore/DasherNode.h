@@ -239,6 +239,9 @@ class Dasher::CDasherNode:private NoClones {
   /// node size, colour and display text.
   /// \todo Make private, read only access?
   void *m_pUserData;
+
+  // A hack, to allow this node to be tied to a particular number of symbols;
+  int m_iNumSymbols;
   
  private:
   SDisplayInfo *m_pDisplayInfo;
@@ -278,6 +281,7 @@ inline CDasherNode::CDasherNode(CDasherNode *pParent, int iLbnd, int iHbnd, SDis
   m_iFlags = NF_ACTIVE | NF_ALIVE;
 
   m_iRefCount = 0;
+  m_iNumSymbols = 0;
 }
 
 inline const CDasherNode::SDisplayInfo *CDasherNode::GetDisplayInfo() const {

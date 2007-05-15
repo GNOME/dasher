@@ -267,6 +267,8 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CDasherNode *pParent, symbol iSy
     
     pNewNode->m_pNodeManager = this;
     
+    pNewNode->m_iNumSymbols = 1;
+
     SAlphabetData *pNodeUserData = new SAlphabetData;
     pNewNode->m_pUserData = pNodeUserData;
     
@@ -360,7 +362,7 @@ void CAlphabetManager::ClearNode( CDasherNode *pNode ) {
 void CAlphabetManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {
   symbol t = static_cast<SAlphabetData *>(pNode->m_pUserData)->iSymbol;
 
-  //  std::cout << pNode << " " << pNode->Parent() << ": Output at offset " << static_cast<SAlphabetData *>(pNode->m_pUserData)->iOffset << " *" << m_pNCManager->GetAlphabet()->GetText(t) << "* " << std::endl;
+  //std::cout << pNode << " " << pNode->Parent() << ": Output at offset " << static_cast<SAlphabetData *>(pNode->m_pUserData)->iOffset << " *" << m_pNCManager->GetAlphabet()->GetText(t) << "* " << std::endl;
 
   if(t) { // Ignore symbol 0 (root node)
     Dasher::CEditEvent oEvent(1, m_pNCManager->GetAlphabet()->GetText(t), static_cast<SAlphabetData *>(pNode->m_pUserData)->iOffset);
@@ -380,7 +382,7 @@ void CAlphabetManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* p
 void CAlphabetManager::Undo( CDasherNode *pNode ) {
   symbol t = static_cast<SAlphabetData *>(pNode->m_pUserData)->iSymbol;
 
-  //  std::cout << pNode << " " << pNode->Parent() << ": Undo at offset " << static_cast<SAlphabetData *>(pNode->m_pUserData)->iOffset << " *" << m_pNCManager->GetAlphabet()->GetText(t) << "* " << std::endl;
+  //std::cout << pNode << " " << pNode->Parent() << ": Undo at offset " << static_cast<SAlphabetData *>(pNode->m_pUserData)->iOffset << " *" << m_pNCManager->GetAlphabet()->GetText(t) << "* " << std::endl;
 
   if(t) { // Ignore symbol 0 (root node)
     Dasher::CEditEvent oEvent(2, m_pNCManager->GetAlphabet()->GetText(t), static_cast<SAlphabetData *>(pNode->m_pUserData)->iOffset);

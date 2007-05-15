@@ -528,7 +528,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
 	if(m_pInputFilter) {
 	  bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pDasherModel, &vAdded, &iNumDeleted);
 	}
-	
+
 	if (iNumDeleted > 0)
 	  m_pUserLog->DeleteSymbols(iNumDeleted);
 	if (vAdded.size() > 0)

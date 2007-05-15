@@ -101,11 +101,6 @@ static guint dasher_editor_internal_signals[SIGNAL_NUM];
 
 static DasherEditorInternal *g_pEditor;
 
-/* TODO: Use appropriate macros here */
-/* G-object boilerplate code */
-// static void dasher_editor_internal_class_init(DasherEditorInternalClass *pClass);
-// static void dasher_editor_internal_init(DasherEditorInternal *pEditor);
-
 G_DEFINE_TYPE(DasherEditorInternal, dasher_editor_internal, GTK_TYPE_VBOX);
 
 static void dasher_editor_internal_finalize(GObject *pObject);
@@ -821,15 +816,8 @@ dasher_editor_internal_save_as(DasherEditorInternal *pSelf, const gchar *szFilen
 #endif
 
   pPrivate->bFileModified = FALSE;
-  // TODO: reimplement
-  //  gtk_window_set_title(GTK_WINDOW(window), myfilename);
 
- dasher_editor_internal_set_filename(pSelf, szFilename);
-
-//   if(filename != myfilename) {
-//     g_free((void *)filename);
-//     filename = g_strdup(myfilename);
-//   }
+  dasher_editor_internal_set_filename(pSelf, szFilename);
 
   return true;
 }
@@ -1289,10 +1277,17 @@ dasher_editor_internal_command_new(DasherEditorInternal *pSelf) {
 }
 
 static void 
-dasher_editor_internal_command_open(DasherEditorInternal *pSelf) {
-  // TODO: Fix this
-  //  GtkWidget *filesel = gtk_file_chooser_dialog_new(_("Select File"), GTK_WINDOW(pPrivate->pMainWindow), GTK_FILE_CHOOSER_ACTION_OPEN, GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
-  GtkWidget *filesel = gtk_file_chooser_dialog_new(_("Select File"), NULL, GTK_FILE_CHOOSER_ACTION_OPEN, GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+dasher_editor_internal_command_open(DasherEditorInternal *pSelf) { 
+  DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
+
+  GtkWidget *pTopLevel = gtk_widget_get_toplevel(GTK_WIDGET(pPrivate->pTextView));
+  GtkWidget *filesel = gtk_file_chooser_dialog_new(_("Select File"), 
+						   GTK_WINDOW(pTopLevel),
+						   GTK_FILE_CHOOSER_ACTION_OPEN,
+						   GTK_STOCK_OPEN, 
+						   GTK_RESPONSE_ACCEPT, 
+						   GTK_STOCK_CANCEL, 
+						   GTK_RESPONSE_CANCEL, NULL);
 
 #ifdef GNOME_LIBS
   gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(filesel), FALSE);
@@ -1307,20 +1302,28 @@ dasher_editor_internal_command_open(DasherEditorInternal *pSelf) {
     dasher_editor_internal_new_buffer(pSelf, filename);
     g_free(filename);
   }
+
   gtk_widget_destroy(filesel);
 }
 
 static void 
 dasher_editor_internal_command_save(DasherEditorInternal *pSelf, gboolean bPrompt, gboolean bAppend) { 
-  gchar *szFilename = NULL;
+  DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
+
+  gchar *szFilename;
 
   if(bPrompt || !szFilename) {
-    // TODO: Fix this
-    //  GtkWidget *filesel = gtk_file_chooser_dialog_new(_("Select File"), GTK_WINDOW(window), GTK_FILE_CHOOSER_ACTION_SAVE, GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
-    GtkWidget *filesel = gtk_file_chooser_dialog_new(_("Select File"), NULL, GTK_FILE_CHOOSER_ACTION_SAVE, GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT, GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
-      
+    GtkWidget *pTopLevel = gtk_widget_get_toplevel(GTK_WIDGET(pPrivate->pTextView));
+    GtkWidget *filesel = gtk_file_chooser_dialog_new(_("Select File"), 
+						     GTK_WINDOW(pTopLevel), 
+						     GTK_FILE_CHOOSER_ACTION_SAVE, 
+						     GTK_STOCK_SAVE, 
+						     GTK_RESPONSE_ACCEPT, 
+						     GTK_STOCK_CANCEL, 
+						     GTK_RESPONSE_CANCEL, NULL);
+    
 #ifdef GNOME_LIBS
-      gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(filesel), FALSE);
+    gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(filesel), FALSE);
 #endif
     
     if(gtk_dialog_run(GTK_DIALOG(filesel)) == GTK_RESPONSE_ACCEPT) {
@@ -1331,10 +1334,14 @@ dasher_editor_internal_command_save(DasherEditorInternal *pSelf, gboolean bPromp
 #endif
     }
     else {
+      gtk_widget_destroy(filesel);
       return;
     }
     
     gtk_widget_destroy(filesel);
+  }
+  else {
+    szFilename = g_strdup(pPrivate->szFilename);
   }
 
   dasher_editor_internal_save_as(pSelf, szFilename, bAppend);

@@ -1,4 +1,3 @@
-
 #include "../Common/Common.h"
 
 #include "UserLog.h"

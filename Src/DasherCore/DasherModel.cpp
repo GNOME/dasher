@@ -682,8 +682,11 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
 
     oldnode->m_pNodeManager->Undo(oldnode);
     oldnode->Parent()->m_pNodeManager->Enter(oldnode->Parent());
-    if (pNumDeleted != NULL)
-      (*pNumDeleted)++;
+
+    // TODO: This is completely the wrong place to trap output
+    if(pNumDeleted != NULL)
+      (*pNumDeleted) += oldnode->m_iNumSymbols;
+
     oldnode->SetFlag(NF_SEEN, false);
 
     if(oldnode->Parent() != newnode)
@@ -712,7 +715,8 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
 	oldnode->Parent()->m_pNodeManager->Enter(oldnode->Parent());
 
       if (pNumDeleted != NULL)
-	(*pNumDeleted)++;
+	(*pNumDeleted) += oldnode->m_iNumSymbols;
+
       oldnode = oldnode->Parent();
       if(oldnode == NULL) {
         return false;

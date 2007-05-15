@@ -438,6 +438,7 @@ int CDasherControl::TimerEvent() {
       int iMouseY = 0;  
       gdk_window_get_pointer(NULL, &iMouseX, &iMouseY, NULL);
 
+      // TODO: This sort of thing shouldn't be in specialised methods, move into base class somewhere
       pUserLog->AddMouseLocationNormalized(iMouseX, iMouseY, true, GetNats());
   }
 

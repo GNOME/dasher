@@ -1,7 +1,5 @@
 #include "../Common/Common.h"
 
-#include <iostream>
-
 #include "UserLogTrial.h"
 
 // Track memory leaks on Windows to the line that new'd the memory
@@ -296,8 +294,6 @@ void CUserLogTrial::AddSymbols(Dasher::VECTOR_SYMBOL_PROB* vpNewSymbolProbs,
     // a given symbol might take up multiple chars.
     // We also keep the probability around so we can
     // calculate the average bits of the history.
-    std::cout << "Add: " << sNewSymbolProb.sym << " " << sNewSymbolProb.prob << " " << pCurrentAlphabet->GetText(sNewSymbolProb.sym) << std::endl;
-
     m_vHistory.push_back(sNewSymbolProbDisplay);        
   }
 
@@ -343,8 +339,6 @@ void CUserLogTrial::DeleteSymbols(int iNumToDelete, eUserLogEventType iEvent)
   {
     // Remove the request number of symbols from our
     // ongoing list.
-    std::cout << "Pop back" << std::endl;
-
     m_vHistory.pop_back();
   }
 
