@@ -141,8 +141,8 @@ void CDefaultFilter::DrawMouseLine(CDasherView *pView) {
   x[0] = (myint)GetLongParameter(LP_OX);
   y[0] = (myint)GetLongParameter(LP_OY);
 
-  myint iDasherX;
-  myint iDasherY;
+  //  myint iDasherX;
+  //myint iDasherY;
 
   pView->GetCoordinates(0, x[1], y[1]);
 
