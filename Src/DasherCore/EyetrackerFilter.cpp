@@ -89,7 +89,7 @@ void CEyetrackerFilter::ApplyAutoCalibration(myint &iDasherX, myint &iDasherY, b
   // factor of 10 to get the offset in Dasher coordinates, but it
   // would be a good idea at some point to sort this out properly.
 
-  iDasherY -= 10 * m_iYAutoOffset;
+  iDasherY += 10 * m_iYAutoOffset;
 
   if(GetBoolParameter(BP_DASHER_PAUSED))
     return;

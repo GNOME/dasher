@@ -374,6 +374,8 @@ dasher_main_load_interface(DasherMain *pSelf) {
     g_error("Failure to determine glade filename");
   }
 
+  g_message("Glade file: %s", szGladeFilename);
+
   pPrivate->pGladeXML = glade_xml_new(szGladeFilename, NULL, NULL);
 
   if (!pPrivate->pGladeXML) {
