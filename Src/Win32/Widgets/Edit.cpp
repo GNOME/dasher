@@ -1,16 +1,28 @@
 // Edit.cpp
 //
-/////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2007 The Dasher Team
 //
-// Copyright (c) 2002-2006 David Ward
+// This file is part of Dasher.
 //
-/////////////////////////////////////////////////////////////////////////////
-
-/*
-	File I/O is very simplistic. It relies on the fact that there isn't
-	going to be loads of text in the edit box. Otherwise I'm sure performance
-	would be unacceptable.
-*/
+// Dasher is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// Dasher is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Dasher; if not, write to the Free Software 
+// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+//
+// NOTES:
+//
+// File I/O is very simplistic. It relies on the fact that there isn't
+// going to be loads of text in the edit box. Otherwise I'm sure performance
+// would be unacceptable.
 
 #include "WinCommon.h"
 
@@ -28,42 +40,42 @@ using namespace std;
 using namespace WinLocalisation;
 using namespace WinUTF8;
 
-
-/////////////////////////////////////////////////////////////////////////////
-
-CEdit::CEdit(CAppSettings *pAppSettings) : m_FontSize(0), m_FontName(""), FileHandle(INVALID_HANDLE_VALUE), 
-				m_FilenameGUI(0), threadid(0), targetwindow(0),
-				textentry(false) 
-{
+CEdit::CEdit(CAppSettings *pAppSettings) {
+  m_FontSize = 0;
+  m_FontName = "";
+  FileHandle = INVALID_HANDLE_VALUE;
+  m_FilenameGUI = 0;
+  threadid = 0;
   
-m_pAppSettings = pAppSettings;
+  // TODO: Check that this is all working okay (it quite probably
+  // isn't). In the long term need specialised editor classes.
+  targetwindow = 0;
+  textentry = false;
+
+  m_pAppSettings = pAppSettings;
 
   CodePage = GetUserCodePage();
   m_Font = GetCodePageFont(CodePage, 14);
 
-  // FIXME - move speech into a new file
-
-  // Initialise speech support
+  // TODO: Generalise this (and don't duplicate - read directly from
+  // text buffer).
   speech.resize(0);
 
-
+  // TODO: Generalise actions, implement those present in Linux
+  // version.
   m_pActionSpeech = new CActionSpeech;
   m_pActionSpeech->Activate();
 
 }
 
-////////////////////////////////////////////////////////////////////////////
+HWND CEdit::Create(HWND hParent, bool bNewWithDate) {
+  m_hWnd = CWindowImpl<CEdit>::Create(hParent, NULL, NULL, ES_NOHIDESEL | WS_CHILD | ES_MULTILINE | WS_VSCROLL | WS_VISIBLE, WS_EX_CLIENTEDGE);
 
-HWND CEdit::Create(HWND hParent, bool bNewWithDate)
-{
-	m_hWnd = CWindowImpl<CEdit>::Create(hParent, NULL, NULL, ES_NOHIDESEL | WS_CHILD | ES_MULTILINE | WS_VSCROLL | WS_VISIBLE, WS_EX_CLIENTEDGE);
-
-	
-	Tstring WindowTitle;
-	WinLocalisation::GetResourceString(IDS_APP_TITLE, &WindowTitle);
-	m_FilenameGUI = new CFilenameGUI(hParent, WindowTitle.c_str(), bNewWithDate);
-
-	return m_hWnd;
+  Tstring WindowTitle;
+  WinLocalisation::GetResourceString(IDS_APP_TITLE, &WindowTitle);
+  m_FilenameGUI = new CFilenameGUI(hParent, WindowTitle.c_str(), bNewWithDate);
+  
+  return m_hWnd;
 }
 
 
@@ -76,11 +88,9 @@ CEdit::~CEdit() {
 
   m_pActionSpeech->Deactivate();
   delete m_pActionSpeech;
-
 }
 
-void CEdit::Move(int x, int y, int Width, int Height) 
-{
+void CEdit::Move(int x, int y, int Width, int Height) {
   MoveWindow( x, y, Width, Height, TRUE);
 }
 
@@ -97,6 +107,8 @@ bool CEdit::Open(const string &filename) {
 }
 
 bool CEdit::OpenAppendMode(const string &filename) {
+  // TODO: Check that this works the way it's supposed to (having
+  // first figured out what that is!)
   Tstring openFilename;
   UTF8string_to_wstring(filename, openFilename);
   return TOpenAppendMode(openFilename);
@@ -108,12 +120,6 @@ bool CEdit::SaveAs(const string &filename) {
   return TSaveAs(saveFilename);
 }
 
-/*  CEdit::Save() - Save to file: {{{
-	
-	Write a Byte Order Mark (BOM) if writing a Unicode file.
-	(Convert to wide in ANSI version and then) convert to desired codepage.
-	Dump to file
-}}}*/
 bool CEdit::Save() {
   if(FileHandle == INVALID_HANDLE_VALUE) {
     if(m_filename == TEXT(""))
@@ -208,10 +214,6 @@ bool CEdit::Save() {
   m_dirty = false;
   return true;
 }
-//
-//void CEdit::TimeStampNewFiles(bool Value) {
-//  m_FilenameGUI->SetNewWithDate(Value);
-//}
 
 void CEdit::New() {
   switch (m_FilenameGUI->QuerySaveFirst()) {
@@ -276,6 +278,9 @@ void CEdit::SetDirty() {
 }
 
 void CEdit::TNew(const Tstring &filename) {
+  // TODO: Send a message to the parent to say that the buffer has
+  // changed (as in the Linux version).
+
   if(filename == TEXT(""))
     m_filename = m_FilenameGUI->New();
   else
@@ -285,8 +290,6 @@ void CEdit::TNew(const Tstring &filename) {
   FileHandle = INVALID_HANDLE_VALUE;
   AppendMode = false;
   Clear();
-
-//  m_pDasherInterface->InvalidateContext(true);
 }
 
 bool CEdit::TOpen(const Tstring &filename) {
@@ -333,7 +336,6 @@ bool CEdit::TOpen(const Tstring &filename) {
 }
 
 bool CEdit::TOpenAppendMode(const Tstring &filename) {
-  //
   AppendMode = true;
   return true;
 }
@@ -360,13 +362,11 @@ bool CEdit::TSaveAs(const Tstring &filename) {
     return false;
 }
 
-void CEdit::Cut() 
-{
+void CEdit::Cut() {
   SendMessage(WM_CUT, 0, 0);
 }
 
-void CEdit::Copy() 
-{
+void CEdit::Copy() {
   SendMessage(WM_COPY, 0, 0);
 /*
 #ifndef _UNICODE
@@ -383,8 +383,7 @@ void CEdit::Copy()
 */
 }
 
-void CEdit::CopyAll() 
-{
+void CEdit::CopyAll() {
   // One might think this would lead to flickering of selecting and
   // unselecting. It doesn't seem to. Using the clipboard directly
   // is fiddly, so this cheat is useful.
@@ -395,18 +394,15 @@ void CEdit::CopyAll()
   SendMessage(EM_SETSEL, (LONG) start, (LONG) finish);
 }
 
-void CEdit::Paste() 
-{
+void CEdit::Paste() {
   SendMessage(WM_PASTE, 0, 0);
 }
 
-void CEdit::SelectAll() 
-{
+void CEdit::SelectAll() {
   SendMessage(EM_SETSEL, 0, -1);
 }
 
-void CEdit::Clear() 
-{
+void CEdit::Clear() {
   SendMessage(WM_SETTEXT, 0, (LPARAM) TEXT(""));
   speech.resize(0);
 }
@@ -416,9 +412,7 @@ void CEdit::SetEncoding(Dasher::Opts::FileEncodingFormats Encoding) {
 }
 
 void CEdit::SetFont(string Name, long Size) {
-
 #ifndef _WIN32_WCE
-
   m_FontName = Name;
   m_FontSize = Size;
 
@@ -440,7 +434,6 @@ void CEdit::SetFont(string Name, long Size) {
 #pragma message ( "CEdit::SetFot not implemented on WinCE")
   DASHER_ASSERT(0);
 #endif
-
 }
 
 void CEdit::SetInterface(Dasher::CDasherInterfaceBase *DasherInterface) {
@@ -450,32 +443,32 @@ void CEdit::SetInterface(Dasher::CDasherInterfaceBase *DasherInterface) {
   SetFont(m_FontName, m_FontSize);
 }
 
-void CEdit::write_to_file() {
-  // TODO: Reimplement if necessary
+// void CEdit::write_to_file() {
+//   // TODO: Reimplement if necessary
 
-  //const string & TrainFile = m_pDasherInterface->GetTrainFile();
-  //if(TrainFile == "")
-  //  return;
-  //Tstring TTrainFile;
-  //UTF8string_to_wstring(TrainFile, TTrainFile);
+//   //const string & TrainFile = m_pDasherInterface->GetTrainFile();
+//   //if(TrainFile == "")
+//   //  return;
+//   //Tstring TTrainFile;
+//   //UTF8string_to_wstring(TrainFile, TTrainFile);
 
-  //HANDLE hFile = CreateFile(TTrainFile.c_str(),
-  //                          GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
+//   //HANDLE hFile = CreateFile(TTrainFile.c_str(),
+//   //                          GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
 
-  //if(hFile == INVALID_HANDLE_VALUE) {
-  //  OutputDebugString(TEXT("Can not open file\n"));
-  //}
-  //else {
-  //  DWORD NumberOfBytesWritten;
-  //  SetFilePointer(hFile, 0, NULL, FILE_END);
-  //  for(unsigned int i = 0; i < m_Output.size(); i++) {
-  //    WriteFile(hFile, &m_Output[i], 1, &NumberOfBytesWritten, NULL);
-  //  }
+//   //if(hFile == INVALID_HANDLE_VALUE) {
+//   //  OutputDebugString(TEXT("Can not open file\n"));
+//   //}
+//   //else {
+//   //  DWORD NumberOfBytesWritten;
+//   //  SetFilePointer(hFile, 0, NULL, FILE_END);
+//   //  for(unsigned int i = 0; i < m_Output.size(); i++) {
+//   //    WriteFile(hFile, &m_Output[i], 1, &NumberOfBytesWritten, NULL);
+//   //  }
 
-  //  m_Output = "";
-  //  CloseHandle(hFile);
-  //}
-}
+//   //  m_Output = "";
+//   //  CloseHandle(hFile);
+//   //}
+// }
 
 void CEdit::get_new_context(string &str, int max) {
   // Currently all of the edit box up to the caret is copied
@@ -810,19 +803,13 @@ void CEdit::SetKeyboardTarget(HWND hwnd)
   m_hTarget = hwnd;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
-LRESULT CEdit::OnLButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-{
-    m_bForwardKeyboard = false;
-	bHandled = FALSE; // let the EDIT class handle it
-	return 0;
+LRESULT CEdit::OnLButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
+  m_bForwardKeyboard = false;
+  bHandled = FALSE; // let the EDIT class handle it
+  return 0;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
-LRESULT CEdit::OnLButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-{
+LRESULT CEdit::OnLButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
   int iStart;
   int iEnd;
   
@@ -830,82 +817,54 @@ LRESULT CEdit::OnLButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHa
 
   m_pDasherInterface->SetOffset(iStart);
 
-	bHandled = FALSE; // let the EDIT class handle it
-	return 0;
+  bHandled = FALSE; // let the EDIT class handle it
+  return 0;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
-HRESULT CEdit::OnChar(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-{
-	if(!m_bForwardKeyboard)
-		bHandled = FALSE; // let the EDIT class handle it
-	else
-		bHandled = TRUE; // traps the message, preventing it from reaching the EDIT control
-
-	return 0;
+HRESULT CEdit::OnChar(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
+  if(!m_bForwardKeyboard)
+    bHandled = FALSE; // let the EDIT class handle it
+  else
+    bHandled = TRUE; // traps the message, preventing it from reaching the EDIT control
+  
+  return 0;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
-HRESULT CEdit::OnKeyDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-{
-	if(m_bForwardKeyboard) 
-	{
-		SendMessage(m_hTarget,message,wParam,lParam);
-		bHandled = TRUE; // traps the message, preventing it from reaching the EDIT control
-	}
-	else
-		bHandled = FALSE; // let the EDIT class handle it
-	return 0;
+HRESULT CEdit::OnKeyDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
+  if(m_bForwardKeyboard) {
+    SendMessage(m_hTarget,message,wParam,lParam);
+    bHandled = TRUE; // traps the message, preventing it from reaching the EDIT control
+  }
+  else
+    bHandled = FALSE; // let the EDIT class handle it
+  return 0;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
-HRESULT CEdit::OnKeyUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-{
-	if(m_bForwardKeyboard) 
-	{
-		SendMessage(m_hTarget,message,wParam,lParam);
-		bHandled = TRUE; // traps the message, preventing it from reaching the EDIT control
-	}
-	else 
-	{
-		// if we enter text or move around the edit control, update the Dasher display
-		//if (Canvas->Running()==false) {   // FIXME - reimplement this
-		//      m_pDasherInterface->ChangeEdit();
-		//}
-		InvalidateRect(NULL, FALSE);
-		bHandled = FALSE; // let the EDIT class handle it
-	}
-	return 0;
+HRESULT CEdit::OnKeyUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
+  if(m_bForwardKeyboard) {
+    SendMessage(m_hTarget,message,wParam,lParam);
+    bHandled = TRUE; // traps the message, preventing it from reaching the EDIT control
+  }
+  else {
+    // if we enter text or move around the edit control, update the Dasher display
+    //if (Canvas->Running()==false) {   // FIXME - reimplement this
+    //      m_pDasherInterface->ChangeEdit();
+    //}
+    InvalidateRect(NULL, FALSE);
+    bHandled = FALSE; // let the EDIT class handle it
+  }
+  
+  return 0;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
-HRESULT CEdit::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-{
-	bHandled = TRUE;
-	return SendMessage( GetParent() , message, wParam, lParam);
+HRESULT CEdit::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
+  bHandled = TRUE;
+  return SendMessage( GetParent() , message, wParam, lParam);
 }
-
-/////////////////////////////////////////////////////////////////////////////
 
 void CEdit::InsertText(Tstring InsertText) {
   SendMessage(EM_REPLACESEL, TRUE, (LPARAM) InsertText.c_str());
 }
-
-// TODO The following were inline in DJW's code. Think about reinstating
-
-/*
-void CEdit::dumpedit(int i) const
-{
-
-	TCHAR deb[32];
-	wsprintf(deb,TEXT("edit %d %x\n"),i,m_hwnd);
-	OutputDebugString(deb);
-}
-*/
 
 /// Delete text from the editbox
 
@@ -966,40 +925,6 @@ if(m_pAppSettings->GetLongParameter(APP_LP_STYLE) == 2) {
   }
 }
 
-//void CEdit::SetWindow(HWND window)
-//{
-//
-//#ifndef DASHER_WINCE
-//
-//  if(targetwindow != window) {
-//
-//    targetwindow = window;
-//
-//    if(threadid != NULL) {
-//
-//      AttachThreadInput(GetCurrentThreadId(), threadid, FALSE);
-//
-//      //              SetFocus(Parent);
-//
-//    }
-//
-//    if(window != NULL) {
-//
-//      threadid = GetWindowThreadProcessId(window, NULL);
-//
-//      AttachThreadInput(GetCurrentThreadId(), GetWindowThreadProcessId(window, NULL), TRUE);
-//
-//      //              SetFocus(window);
-//
-//    }
-//
-//  }
-//
-//#endif
-//
-//}
-
-
 void CEdit::speak(int what) {
   if(!m_pActionSpeech->GetActive())
     return;
@@ -1038,17 +963,28 @@ void CEdit::SetNewWithDate(bool bNewWithDate) {
     m_FilenameGUI->SetNewWithDate(bNewWithDate);
 }
 
-
 void CEdit::HandleEvent(Dasher::CEvent *pEvent) {
-  // TODO: Note the mess in the parent class which ulitmately results in this being called - sort it out sometime
-
   switch(pEvent->m_iEventType) {
-    case EV_EDIT:
-      HandleEditEvent(pEvent);
-      break;
-    case EV_STOP:
-      HandleStop();
-      break;
+  case EV_PARAM_NOTIFY:
+    HandleParameterChange(((CParameterNotificationEvent *)pEvent)->m_iParameter);
+    break;
+  case EV_EDIT:
+    HandleEditEvent(pEvent);
+    break;
+  case EV_STOP:
+    HandleStop();
+    break;
+  }
+}
+
+void CEdit::HandleParameterChange(int iParameter) {
+  switch(iParameter) {
+  case APP_SP_EDIT_FONT:
+  case APP_LP_EDIT_FONT_SIZE:
+    SetFont(m_pAppSettings->GetStringParameter(APP_SP_EDIT_FONT), m_pAppSettings->GetLongParameter(APP_LP_EDIT_FONT_SIZE));
+    break;
+  default:
+    break;
   }
 }
 
@@ -1066,6 +1002,7 @@ void CEdit::HandleEditEvent(Dasher::CEvent *pEvent) {
 }
 
 void CEdit::HandleStop() {
+  // TODO: These should be more generally implemented as 
   if(m_pAppSettings->GetBoolParameter(APP_BP_SPEECH_MODE))
     speak(2);
 

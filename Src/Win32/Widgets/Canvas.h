@@ -15,8 +15,8 @@
 #include "../KeyboardHelper.h"
 
 namespace Dasher {
-	class CDasherMouseInput;
-	class CSocketInput;
+  class CDasherMouseInput;
+  class CSocketInput;
   class CDasher;
   class CDasherInterfaceBase;
 }
@@ -24,120 +24,114 @@ namespace Dasher {
 class CEdit;
 class CScreen;
   
-class CCanvas:	
-	public ATL::CWindowImpl<CCanvas>, 
-	public Dasher::CDasherComponent 
-{
-public:
-
-	static ATL::CWndClassInfo& GetWndClassInfo() 
-	{ 
-		static ATL::CWndClassInfo wc = \
-		{ \
-			{ sizeof(WNDCLASSEX), CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS, StartWindowProc, \
-			  0, 0, NULL, NULL, NULL, NULL, NULL, _T("CANVAS"), NULL }, \
-			NULL, NULL, MAKEINTRESOURCE(IDC_CROSS), TRUE, 0, _T("") \
-		}; \
-	return wc;
-	}
-
-	BEGIN_MSG_MAP( CCanvas )
-	    MESSAGE_HANDLER(WM_PAINT, OnPaint)
-	    MESSAGE_HANDLER(WM_CREATE, OnCreate)
-	    MESSAGE_HANDLER(WM_DESTROY, OnDestroy)
-	    MESSAGE_HANDLER(WM_TIMER, OnTimer)
-	    MESSAGE_HANDLER(WM_COMMAND, OnCommand)
-	    MESSAGE_HANDLER(WM_SETFOCUS, OnSetFocus)
-	    MESSAGE_HANDLER(WM_KEYUP, OnKeyUp)
-	    MESSAGE_HANDLER(WM_KEYDOWN, OnKeyDown)
-	    MESSAGE_HANDLER(WM_LBUTTONDBLCLK, OnLButtonDblClk)
-	    MESSAGE_HANDLER(WM_LBUTTONDOWN, OnLButtonDown)
-	    MESSAGE_HANDLER(WM_LBUTTONUP, OnLButtonUp)
-	    MESSAGE_HANDLER(WM_CURSOR_IN_RANGE, OnCursorInRange)
-	    MESSAGE_HANDLER(WM_CURSOR_OUT_OF_RANGE, OnCursorOutOfRange)
-	    MESSAGE_HANDLER(WM_RBUTTONDOWN, OnRButtonDown)
-	    MESSAGE_HANDLER(WM_RBUTTONUP, OnRButtonUp)
-	    MESSAGE_HANDLER(WM_MOUSEMOVE, OnMouseMove)
-	    MESSAGE_HANDLER(WM_SIZE, OnSize)
-
-	END_MSG_MAP()
+class CCanvas : public ATL::CWindowImpl<CCanvas>, public Dasher::CDasherComponent {
+ public:
+  static ATL::CWndClassInfo& GetWndClassInfo() { 
+    static ATL::CWndClassInfo wc = {
+      { sizeof(WNDCLASSEX), CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS, StartWindowProc,
+	0, 0, NULL, NULL, NULL, NULL, NULL, _T("CANVAS"), NULL },
+      NULL, NULL, MAKEINTRESOURCE(IDC_CROSS), TRUE, 0, _T("") 
+    };
+    return wc;
+  }
+  
+  BEGIN_MSG_MAP( CCanvas )
+    MESSAGE_HANDLER(WM_PAINT, OnPaint)
+    MESSAGE_HANDLER(WM_CREATE, OnCreate)
+    MESSAGE_HANDLER(WM_DESTROY, OnDestroy)
+    MESSAGE_HANDLER(WM_TIMER, OnTimer)
+    MESSAGE_HANDLER(WM_COMMAND, OnCommand)
+    MESSAGE_HANDLER(WM_SETFOCUS, OnSetFocus)
+    MESSAGE_HANDLER(WM_KEYUP, OnKeyUp)
+    MESSAGE_HANDLER(WM_KEYDOWN, OnKeyDown)
+    MESSAGE_HANDLER(WM_LBUTTONDBLCLK, OnLButtonDblClk)
+    MESSAGE_HANDLER(WM_LBUTTONDOWN, OnLButtonDown)
+    MESSAGE_HANDLER(WM_LBUTTONUP, OnLButtonUp)
+    MESSAGE_HANDLER(WM_CURSOR_IN_RANGE, OnCursorInRange)
+    MESSAGE_HANDLER(WM_CURSOR_OUT_OF_RANGE, OnCursorOutOfRange)
+    MESSAGE_HANDLER(WM_RBUTTONDOWN, OnRButtonDown)
+    MESSAGE_HANDLER(WM_RBUTTONUP, OnRButtonUp)
+    MESSAGE_HANDLER(WM_MOUSEMOVE, OnMouseMove)
+    MESSAGE_HANDLER(WM_SIZE, OnSize)
+    
+  END_MSG_MAP()
 
   CCanvas(Dasher::CDasher *DI, Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore);
-	~CCanvas();
+  ~CCanvas();
 
-	HWND Create(HWND hParent);
-
-	void DoFrame();
-
-	LRESULT OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-	LRESULT OnMouseMove(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-	LRESULT OnRButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-	LRESULT OnRButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-	LRESULT OnCursorInRange(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-	LRESULT OnCursorOutOfRange(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-	LRESULT OnLButtonDblClk(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-	LRESULT OnLButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-	LRESULT OnLButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-	LRESULT OnPaint(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-	LRESULT OnCreate(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-	LRESULT OnDestroy(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-	LRESULT OnTimer(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-	LRESULT OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-	LRESULT OnSetFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-	LRESULT OnKeyUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-	LRESULT OnKeyDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-
-	void Move(int x, int y, int Width, int Height);
-	void Paint();
-
-
-
+  HWND Create(HWND hParent);
+  
+  void DoFrame();
+  
+  LRESULT OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+  LRESULT OnMouseMove(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+  LRESULT OnRButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+  LRESULT OnRButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+  LRESULT OnCursorInRange(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+  LRESULT OnCursorOutOfRange(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+  LRESULT OnLButtonDblClk(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+  LRESULT OnLButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+  LRESULT OnLButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+  LRESULT OnPaint(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+  LRESULT OnCreate(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+  LRESULT OnDestroy(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+  LRESULT OnTimer(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+  LRESULT OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+  LRESULT OnSetFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+  LRESULT OnKeyUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+  LRESULT OnKeyDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+  
+  void Move(int x, int y, int Width, int Height);
+  void Paint();
+    
   HWND getwindow() {
     return m_hWnd;
   } 
-  void StartOnLeftClick(bool Value) {
-    startonleft = Value;
-  }
+/*   void StartOnLeftClick(bool Value) { */
+/*     startonleft = Value; */
+/*   } */
 
 
-  void MousePosStart(bool Value);
-  void setkeycoords(int coords[18]) {
-    for(int i = 0; i < 18; i++) {
-      keycoords[i] = coords[i];
-    };
-  }
-  int *getkeycoords() {
-    return keycoords;
-  }
+  //  void MousePosStart(bool Value);
 
-  void setforward(bool value) {
-    forward = value;
-  }
-  void setbackward(bool value) {
-    backward = value;
-  }
-  void setselect(bool value) {
-    select = value;
-  }
-  bool getforward() {
-    return forward;
-  }
-  bool getbackward() {
-    return backward;
-  }
-  bool getselect() {
-    return select;
-  }
+/*   void setkeycoords(int coords[18]) { */
+/*     for(int i = 0; i < 18; i++) { */
+/*       keycoords[i] = coords[i]; */
+/*     }; */
+/*   } */
+/*   int *getkeycoords() { */
+/*     return keycoords; */
+/*   } */
+
+/*   void setforward(bool value) { */
+/*     forward = value; */
+/*   } */
+/*   void setbackward(bool value) { */
+/*     backward = value; */
+/*   } */
+/*   void setselect(bool value) { */
+/*     select = value; */
+/*   } */
+/*   bool getforward() { */
+/*     return forward; */
+/*   } */
+/*   bool getbackward() { */
+/*     return backward; */
+/*   } */
+/*   bool getselect() { */
+/*     return select; */
+/*   } */
  
-  void centrecursor();
-  void StartStop();
+//  void centrecursor();
+  //  void StartStop();
 
-  void Pause() {
-    running = 0;
-  }
-  bool Running() {
-    return running;
-  }
+/*   void Pause() { */
+/*     running = 0; */
+/*   } */
+/*   bool Running() { */
+/*     return running; */
+/*   } */
+
   void SetScreenInterface(Dasher::CDasherInterfaceBase * dasherinterface);
   
   int OnTimer();
@@ -149,8 +143,9 @@ public:
 private:
 
   HDC m_hdc;
-  int keycoords[18], buttonnum, yscaling;
-  bool forward, backward, select;
+  //  int keycoords[18], buttonnum, yscaling;
+  // bool forward, backward, select;
+
   CScreen *m_pScreen;
   Dasher::CDasher * m_pDasherInterface;
 
@@ -159,11 +154,13 @@ private:
   //Dasher::CDasherMouseInput * m_pMouseInput;
   //Dasher::CSocketInput * m_pSocketInput;
 
+  // TODO: A lot, if not all, of these variables are obsolete
+
   Dasher::screenint imousex, imousey;
   UINT MY_TIMER;
   bool startonleft;
-  bool direction;
-  bool running;
+  //  bool direction;
+  //  bool running;
   bool firstwindow;
   bool secondwindow;
   bool lbuttonheld;
@@ -173,7 +170,7 @@ private:
   DWORD endturbo;
   DWORD lastlbutton;
   DWORD mousepostime;
-  DWORD previoustime;
+  //  DWORD previoustime;
   RECT coords;
 
   // Indicates that a button is depressed, so we dont stop on idle
