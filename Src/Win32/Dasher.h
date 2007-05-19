@@ -21,10 +21,16 @@ public:
   ~CDasher(void);
 
   // The following functions will not be part of the final interface
+  // In order to get rid of this, it'll be necessary to make this class
+  // act more like a UI widget.
 
-  CCanvas *GetCanvas() {
-	  return m_pCanvas;
-  }
+  //CCanvas *GetCanvas() {
+	 // return m_pCanvas;
+  //}
+
+  // TODO: Can some of these be obtained by inheriting from something?
+  void Move(int iX, int iY, int iWidth, int iHeight);
+  void TakeFocus();
 
   void SetEdit(CDashEditbox * pEdit);
 
@@ -32,7 +38,7 @@ public:
 
   virtual void WriteTrainFile(const std::string &strNewText);
 
-    void					  Main(); 
+  void Main(); 
 
 
 private:

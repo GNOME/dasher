@@ -133,8 +133,8 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
     Screen()->DrawRectangle(0, iScreenBottom, Screen()->GetWidth(), Screen()->GetHeight(), 0, -1, Nodes1, false, true, 1);
 
 //  DasherDrawRectangle(0, iDasherMinY, iDasherMinX, iDasherMaxY, 0, 4, Nodes1, false,true, 1);
-  Screen()->DrawRectangle(iScreenRight, std::max(0, iScreenTop),
-			  Screen()->GetWidth(), std::min(Screen()->GetHeight(), iScreenBottom), 
+  Screen()->DrawRectangle(iScreenRight, std::max(0, (int)iScreenTop),
+			  Screen()->GetWidth(), std::min(Screen()->GetHeight(), (int)iScreenBottom), 
 			  0, -1, Nodes1, false, true, 1);
 
   // Render the root node (and children)

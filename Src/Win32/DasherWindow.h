@@ -97,11 +97,11 @@ private:
 	// Widgets:
 	CToolbar *m_pToolbar;
 	CEdit *m_pEdit;
-	CCanvas *m_pCanvas;
+	//CCanvas *m_pCanvas;
 	CSplitter *m_pSplitter;
 	CSlidebar *m_pSlidebar;
 	CMenu WinMenu;
-	CSplash *Splash;
+	//CSplash *Splash;
 
 	CAppSettings *m_pAppSettings;
 

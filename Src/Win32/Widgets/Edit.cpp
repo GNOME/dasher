@@ -823,7 +823,12 @@ LRESULT CEdit::OnLButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& b
 
 LRESULT CEdit::OnLButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
-//  m_pDasherInterface->InvalidateContext(false);
+  int iStart;
+  int iEnd;
+  
+  SendMessage(EM_GETSEL, (WPARAM)&iStart, (LPARAM)&iEnd);
+
+  m_pDasherInterface->SetOffset(iStart);
 
 	bHandled = FALSE; // let the EDIT class handle it
 	return 0;

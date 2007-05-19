@@ -9,15 +9,14 @@
 #include "WinCommon.h"
 
 // Visual leak detector
-#ifdef _DEBUG
- //#include "vld/vld.h"
-#endif 
+// #ifdef _DEBUG
+// #include "vld/vld.h"
+// #endif 
 
 #include "Common/WinHelper.h"
 #include "DasherWindow.h"
 
 using namespace Dasher;
-using namespace std;
 
 /*
 Entry point to program on Windows systems
@@ -27,14 +26,9 @@ A GUI and settings manager are created and given to the Dasher interface.
 Control is passed to the main GUI loop, and only returns when the main window closes.
 */
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+  CoInitialize(NULL);
 
-
-CoInitialize(NULL);
-
-  // String literals in this function are not in the resource file as they
-  // must NOT be translated.
-
-  WinHelper::hInstApp = hInstance;      // DJW - put this back in as this global is needed in various places
+  WinHelper::hInstApp = hInstance;
 
   // We don't want to starve other interactive applications
   SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_BELOW_NORMAL);
@@ -42,21 +36,18 @@ CoInitialize(NULL);
   int iRet = 0;
 
   { // memory leak scoping
-
     CDasherWindow DasherWindow;
 
-	DasherWindow.Create();
-
+  	DasherWindow.Create();
   
     DasherWindow.Show(nCmdShow);
     DasherWindow.UpdateWindow();
 
-	iRet = DasherWindow.MessageLoop();
-
-    // Close the COM library on the current thread
-    CoUninitialize();
-
+	  iRet = DasherWindow.MessageLoop();
   } // end memory leak scoping
+
+  // Close the COM library on the current thread
+  CoUninitialize();
 
   return iRet;
 }

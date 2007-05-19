@@ -1,124 +1,65 @@
 // DasherWindow.cpp
 //
-/////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2007 The Dasher Team
 //
-// Copyright (c) 2002 Iain Murray, Inference Group, Cavendish, Cambridge.
+// This file is part of Dasher.
 //
-/////////////////////////////////////////////////////////////////////////////
-
-#include "WinCommon.h"
-#include <guiddef.h>
-#include <Oleacc.h>
-// Don't seem to be needed and not in VC8 platform SDK, kdv
-//#include <Textstor.h>
-//#include <Msctf.h>
-//#include <Msaatext.h>
-#include <Htmlhelp.h>
-
-#include "DasherWindow.h"
+// Dasher is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// Dasher is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Dasher; if not, write to the Free Software 
+// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "Common/WinMenus.h"
-
-#include "../DasherCore/DasherTypes.h"
-#include "../DasherCore/ControlManager.h"
-#include "Widgets/AboutBox.h"
-#include "Widgets/AlphabetBox.h"
-#include "Widgets/ColourBox.h"
-#include "Widgets/KeyControl.h"
-#include "Widgets/SplashScreen.h"
-#include "Widgets/Prefs.h"
-#include "Widgets/Toolbar.h"
-#include "Widgets/Slidebar.h"
-
-#include "DasherMouseInput.h"
 #include "Dasher.h"
+// TODO: Put this in DasherInterfaceBase header?
+#include "../DasherCore/ControlManager.h"
+#include "DasherWindow.h"
+#include "Widgets/AboutBox.h"
+#include "Widgets/Prefs.h"
+#include "Widgets/Slidebar.h"
+#include "Widgets/Toolbar.h"
+#include "WinCommon.h"
+
+#include <Htmlhelp.h>
+#include <Oleacc.h>
+#include <guiddef.h>
 
 using namespace Dasher;
 using namespace std;
 
-
 #define IDT_TIMER1 200
 
-#ifdef PJC_EXPERIMENTAL
+// NOTE: There were previously various bits and pieces in this class from 
+// text services framework stuff, which were never really finished. If
+// required, look in version control history (prior to May 2007).
 
-// Bits an pieces from pjc playing with text service framework stuff
-
-bool g_bInCallback(false);
-HWND g_hWnd;
-IAccClientDocMgr *g_pMgr;
-VOID CALLBACK WinEventProc(HWINEVENTHOOK hWinEventHook, DWORD event, HWND hwnd, LONG idObject, LONG idChild, DWORD dwEventThread, DWORD dwmsEventTime);
-
-#endif
-
-CDasherWindow::CDasherWindow()
-:Splash(0), m_pToolbar(0), m_pEdit(0), m_pSlidebar(0), m_pSplitter(0), m_pDasher(0), m_pCanvas(0) 
-{
+CDasherWindow::CDasherWindow() {
+  m_pToolbar = 0;
+  m_pEdit = 0
+  m_pSlidebar = 0;
+  m_pSplitter = 0;
+  m_pDasher = 0;
 
 	m_hIconSm = (HICON) LoadImage(WinHelper::hInstApp, (LPCTSTR) IDI_DASHER, IMAGE_ICON, GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON), LR_DEFAULTCOLOR);
 
 	ATL::CWndClassInfo& wc = CDasherWindow::GetWndClassInfo();
 	wc.m_wc.hIcon = LoadIcon(WinHelper::hInstApp, (LPCTSTR) IDI_DASHER);
 	wc.m_wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-    wc.m_wc.hbrBackground = (HBRUSH) (COLOR_ACTIVEBORDER + 1); // Must add one to the value we want for some unknown reason
-    wc.m_wc.lpszMenuName = (LPCTSTR) IDC_DASHER;
-//    wc.m_wc.lpszClassName = WndClassName;      // Not in a resource - does not require translation
-	wc.m_wc.hIconSm        = m_hIconSm;
-	
-#ifdef PJC_EXPERIMENTAL
-
-// Create an acc manager foobar
-
-  CLSID MyClsid;
-
-  MyClsid.Data1 = 0xFC48CC30;
-  MyClsid.Data2 = 0x4F3E;
-  MyClsid.Data3 = 0x4fa1;
-  MyClsid.Data4[0] = 0x80;
-  MyClsid.Data4[1] = 0x3B;
-  MyClsid.Data4[2] = 0xAD;
-  MyClsid.Data4[3] = 0x0E;
-  MyClsid.Data4[4] = 0x19;
-  MyClsid.Data4[5] = 0x6A;
-  MyClsid.Data4[6] = 0x83;
-  MyClsid.Data4[7] = 0xB1;
-
-  IID MyIid;
- 
-  MyIid.Data1 = 0x4C896039;
-  MyIid.Data2 = 0x7B6D;
-  MyIid.Data3 = 0x49e6;
-  MyIid.Data4[0] = 0xA8;
-  MyIid.Data4[1] = 0xC1;
-  MyIid.Data4[2] = 0x45;
-  MyIid.Data4[3] = 0x11;
-  MyIid.Data4[4] = 0x6A;
-  MyIid.Data4[5] = 0x98;
-  MyIid.Data4[6] = 0x29;
-  MyIid.Data4[7] = 0x2B;
-
-  
-  HRESULT Foo = CoCreateInstance(MyClsid, 0, CLSCTX_ALL, MyIid, (void**)&g_pMgr);
-  g_pMgr->AddRef();
-  // Set up callback for WinEvents
-  
-  HWINEVENTHOOK hEventHook;
-
-  hEventHook = SetWinEventHook(EVENT_OBJECT_FOCUS,             // Get all events.
-                               EVENT_OBJECT_FOCUS,
-                               GetModuleHandle(NULL), // Use this module
-                               WinEventProc,
-                               0,                     // All processes
-                               0,                     // All threads
-                               WINEVENT_OUTOFCONTEXT);
-  if(!hEventHook) {
-    MessageBox(NULL, L"Initialisation of WinEvent hook failed");
-  }
-#endif
-
+  wc.m_wc.hbrBackground = (HBRUSH) (COLOR_ACTIVEBORDER + 1); // Must add one to the value we want for some unknown reason
+  wc.m_wc.lpszMenuName = (LPCTSTR) IDC_DASHER;
+	wc.m_wc.hIconSm = m_hIconSm;
 }
 
-HWND CDasherWindow::Create()
-{
+HWND CDasherWindow::Create() {
   hAccelTable = LoadAccelerators(WinHelper::hInstApp, (LPCTSTR) IDC_DASHER);
 
   // Get window title from resource script
@@ -129,6 +70,7 @@ HWND CDasherWindow::Create()
   int iStyle(m_pAppSettings->GetLongParameter(APP_LP_STYLE));
 
   HWND hWnd;
+
   if((iStyle == 1) || (iStyle == 2))
     hWnd = CWindowImpl<CDasherWindow >::Create(NULL, NULL, WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN,  WS_EX_NOACTIVATE | WS_EX_APPWINDOW | WS_EX_TOPMOST);
   else
@@ -158,7 +100,7 @@ HWND CDasherWindow::Create()
 
   // FIXME - we shouldn't need to know about these outside of CDasher
 
-  m_pCanvas = m_pDasher->GetCanvas();
+  //m_pCanvas = m_pDasher->GetCanvas();
 
   m_pSlidebar = new CSlidebar(hWnd, m_pDasher);
 
@@ -198,26 +140,27 @@ HWND CDasherWindow::Create()
 }
 
 CDasherWindow::~CDasherWindow() {
-  delete Splash;                // In case Show() was never called.
   delete m_pToolbar;
   delete m_pEdit;
   delete m_pSplitter;
   delete m_pDasher;
   delete m_pAppSettings;
+
   DestroyIcon(m_hIconSm);
 }
 
 
 
-void CDasherWindow::Main()
-{
+void CDasherWindow::Main() {
+  // TODO: Sort this sort ofthing out, figure out how it fits into ATL etc.
+
 	DASHER_ASSERT_VALIDPTR_RW(m_pDasher);
 	m_pDasher->Main();
 	Sleep(50); // limits framerate to 50fps
 }
 
-int CDasherWindow::MessageLoop() 
-{
+int CDasherWindow::MessageLoop() {
+  // See previous function's comments
 	MSG msg;
 		
   while(GetMessage(&msg, NULL, 0, 0)) {
@@ -232,31 +175,19 @@ int CDasherWindow::MessageLoop()
   return msg.wParam;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
-void CDasherWindow::Show(int nCmdShow) 
-{
-  // Make sure Dasher has started up.
- // m_pDasher->Start();
-
-  // Clear SplashScreen
-  delete Splash;
-  Splash = 0;
-
-  // Show Window
-  InvalidateRect( NULL, FALSE);
+void CDasherWindow::Show(int nCmdShow) {
+  InvalidateRect(NULL, FALSE);
+  
   if(!LoadWindowState())
-    ShowWindow(nCmdShow);       // Now set up. Kill splash screen and display main window
-
+    ShowWindow(nCmdShow);
 }
 
-void CDasherWindow::SaveWindowState() const 
-{
+void CDasherWindow::SaveWindowState() const {
 #ifndef DASHER_WINCE
   WINDOWPLACEMENT wp;
   wp.length = sizeof(WINDOWPLACEMENT);
   
-  if(GetWindowPlacement( &wp)) {//function call succeeds
+  if(GetWindowPlacement(&wp)) {//function call succeeds
     m_pAppSettings->SaveSetting("WindowState", &wp);
   }
 #endif
@@ -266,9 +197,8 @@ bool CDasherWindow::LoadWindowState() {
 #ifndef DASHER_WINCE
   WINDOWPLACEMENT wp;
   
-  if(m_pAppSettings->LoadSetting("WindowState", &wp)) 
-  {
-	if(SetWindowPlacement(&wp))
+  if(m_pAppSettings->LoadSetting("WindowState", &wp)) {
+	  if(SetWindowPlacement(&wp))
       return true;
   }
 #endif
@@ -276,6 +206,8 @@ bool CDasherWindow::LoadWindowState() {
 }
 
 void CDasherWindow::HandleParameterChange(int iParameter) {
+  // TODO: Simply pass on to child objects?
+
   switch(iParameter) {
    case APP_BP_SHOW_TOOLBAR:
      m_pToolbar->ShowToolbar(m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR));
@@ -298,6 +230,8 @@ void CDasherWindow::HandleParameterChange(int iParameter) {
 }
 
 void CDasherWindow::HandleControlEvent(int iID) {
+  // TODO: Some kind of automatic translation here? Or at least a table
+
   switch(iID) {
   case Dasher::CControlManager::CTL_MOVE_FORWARD_CHAR:
     if(m_pEdit)
@@ -378,10 +312,7 @@ void CDasherWindow::HandleControlEvent(int iID) {
   }
 }
 
-
-
-LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-{
+LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
 	const int wmId = LOWORD(wParam);
 	const int wmEvent = HIWORD(wParam);
 
@@ -394,8 +325,8 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
 	RECT windowsize;
 
 	// Parse the menu selections:
-	switch (wmId) 
-	{
+  // TODO: Put these into separate functions
+	switch (wmId) {
 	  case ID_OPTIONS_FONTSIZE_NORMAL:
 		  m_pDasher->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(1));
 		  break;
@@ -496,6 +427,8 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
 			  CUserLogBase* pUserLog = m_pDasher->GetUserLogPtr();
 			  if (pUserLog != NULL)
 				  pUserLog->NewTrial();
+
+        m_pDasher->SetBuffer(0);
 		  }
 		  return 0;
 	  case ID_FILE_OPEN:
@@ -626,7 +559,8 @@ LRESULT CDasherWindow::OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& 
 
 
 LRESULT CDasherWindow::OnSetFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
-	::SetFocus(m_pCanvas->getwindow());
+	//::SetFocus(m_pCanvas->getwindow());
+  m_pDasher->TakeFocus();
  	return 0;
 }
 
@@ -687,8 +621,8 @@ void CDasherWindow::Layout() {
     m_pSplitter->Move(SplitterPos, Width);
 
     if(bHorizontal) {
-      if(m_pCanvas)
-        m_pCanvas->Move(0, CurY, Width / 2, MaxCanvas - CurY);
+      if(m_pDasher)
+        m_pDasher->Move(0, CurY, Width / 2, MaxCanvas - CurY);
 
       if(m_pEdit)
         m_pEdit->Move(Width / 2, CurY, Width / 2, MaxCanvas - CurY);
@@ -710,8 +644,8 @@ void CDasherWindow::Layout() {
 
       int CanvasHeight = Height - CurY - SlidebarHeight - GetSystemMetrics(SM_CYEDGE);
  
-      if(m_pCanvas)
-        m_pCanvas->Move(0, CurY, Width, CanvasHeight);
+      if(m_pDasher)
+        m_pDasher->Move(0, CurY, Width, CanvasHeight);
      }
   }
 }
@@ -723,65 +657,3 @@ void CDasherWindow::PopulateSettings() {
     WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, m_pDasher->GetLongParameter(LP_DASHER_FONTSIZE)==4);
   }
 }
-
-#ifdef PJC_EXPERIMENTAL
-
-VOID CALLBACK WinEventProc(HWINEVENTHOOK hWinEventHook, DWORD event, HWND hwnd, LONG idObject, LONG idChild, DWORD dwEventThread, DWORD dwmsEventTime) {
-
-  if(hwnd == g_hWnd)
-    return;
-
-  if(!g_bInCallback) {
-    g_bInCallback = true;
-    VARIANT MyV;
-    IAccessible *pMyAccessible;
-    VariantInit(&MyV);
-
-    if( AccessibleObjectFromEvent( hwnd, idObject, idChild, &pMyAccessible, &MyV) != S_OK) {
-      // Do nothing
-    }
-    else {
-      VARIANT MyV2;
-      VariantInit(&MyV2);
-
-      pMyAccessible->get_accRole(MyV, &MyV2);
-
-//      if(MyV2.iVal == ROLE_SYSTEM_TEXT) {
-        ITextStoreAnchor *pAnchor(NULL);
-      HRESULT MyFoo = g_pMgr->GetFocused(IID_ITextStoreAnchor, (IUnknown **)(&pAnchor));
-pAnchor->AddRef();
-//        pMyAccessible->QueryInterface(IID_ITextStoreAnchor, (void **)(&pAnchor));
-//        MessageBox(NULL, L"Got Text", L"Foo", MB_OK);
-HRESULT MyBar;
-
-if(pAnchor) {
-  IAnchor *pStart;
-  IAnchor *pEnd;
-
-
-HRESULT MyLock;
-HRESULT MyLock2;
-
-IEnumUnknown *pMyEnum;
-
-g_pMgr->GetDocuments(&pMyEnum);
-
-if(pMyEnum) {
-  pMyEnum->AddRef();
-}
-
-  MyLock = pAnchor->RequestLock(TS_LF_READWRITE, &MyLock2);
-
-  MyBar = pAnchor->InsertTextAtSelection(TF_IAS_NOQUERY, L"Foo", 3, &pStart, &pEnd);
-//MessageBox(NULL, L"Got Text", L"Foo", MB_OK);
-    }
-
-      VariantClear(&MyV2);
-    }
-
-    VariantClear(&MyV);
-    g_bInCallback = false;
-  }
-};
-
-#endif

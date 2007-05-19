@@ -121,36 +121,34 @@ void Dasher::CDasher::SetEdit(CDashEditbox * pEdit) {
 }
 
 void Dasher::CDasher::WriteTrainFile(const std::string &strNewText) {
-  // TODO: Reimplement
-  // FIXME - use parameter
-//  const string & TrainFile = GetStringParameter(SP_USER_LOC) + GetTrainFile();
-//  if(TrainFile == "")
+  const std::string TrainFile = GetStringParameter(SP_USER_LOC) + GetStringParameter(SP_TRAIN_FILE);
+
+  if(strNewText.size() == 0)
     return;
 
-  //if(strNewText == "")
-  //  return;
+  Tstring TTrainFile;
+  UTF8string_to_wstring(TrainFile, TTrainFile);
 
-  //Tstring TTrainFile;
-  //UTF8string_to_wstring(TrainFile, TTrainFile);
+  HANDLE hFile = CreateFile(TTrainFile.c_str(),
+                            GENERIC_WRITE, 0, NULL, 
+                            OPEN_ALWAYS, 
+                            FILE_ATTRIBUTE_NORMAL, 0);
 
-  //HANDLE hFile = CreateFile(TTrainFile.c_str(),
-  //                          GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
-
-  //if(hFile == INVALID_HANDLE_VALUE) {
-  //  OutputDebugString(TEXT("Can not open file\n"));
-  //}
-  //else {
-  //  DWORD NumberOfBytesWritten;
-  //  SetFilePointer(hFile, 0, NULL, FILE_END);
+  if(hFile == INVALID_HANDLE_VALUE) {
+    OutputDebugString(TEXT("Can not open file\n"));
+  }
+  else {
+    DWORD NumberOfBytesWritten;
+    SetFilePointer(hFile, 0, NULL, FILE_END);
 
   //// Surely there are better ways to write to files than this??
 
-  //  for(unsigned int i = 0; i < strNewText.size(); i++) {
-  //    WriteFile(hFile, &strNewText[i], 1, &NumberOfBytesWritten, NULL);
-  //  }
+    for(unsigned int i = 0; i < strNewText.size(); i++) {
+      WriteFile(hFile, &strNewText[i], 1, &NumberOfBytesWritten, NULL);
+    }
 
-  //     CloseHandle(hFile);
-  //}
+    CloseHandle(hFile);
+  }
 }
 
 void CDasher::ScanDirectory(const Tstring &strMask, std::vector<std::string> &vFileList) {
@@ -261,3 +259,12 @@ void CDasher::StartTimer() {
 void CDasher::ShutdownTimer() {
 }
 
+// TODO: Check that syntax here is sensible
+void CDasher::Move(int iX, int iY, int iWidth, int iHeight) {
+  if(m_pCanvas)
+    m_pCanvas->Move(iX, iY, iWidth, iHeight);
+}
+
+void CDasher::TakeFocus() {
+  // TODO: Implement me
+}
