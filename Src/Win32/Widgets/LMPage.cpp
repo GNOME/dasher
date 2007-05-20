@@ -74,10 +74,6 @@ void CLMPage::PopulateList() {
 
 }
 
-bool CLMPage::Validate() {
-  // Return false if something is wrong to prevent user from clicking to a different page. Please also pop up a dialogue informing the user at this point.
-  return TRUE;
-}
 
 bool CLMPage::Apply() {
   m_pAppSettings->SetBoolParameter( BP_LM_ADAPTIVE, SendMessage(GetDlgItem(m_hwnd, IDC_ADAPTIVE), BM_GETCHECK, 0, 0)!=0 );

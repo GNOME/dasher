@@ -35,8 +35,8 @@ static menuentry menutable[] = {
   {BP_PALETTE_CHANGE, IDC_COLOURSCHEME, true}
 };
 
-CAlphabetBox::CAlphabetBox(HWND Parent, CDasherInterfaceBase *DI)
-:m_pDasherInterface(DI), m_CurrentAlphabet(DI->GetStringParameter(SP_ALPHABET_ID)), m_CurrentColours(DI->GetStringParameter(SP_COLOUR_ID)), Editing(false), Cloning(false), EditChar(false), CustomBox(0), CurrentGroup(0), CurrentChar(0) {
+CAlphabetBox::CAlphabetBox(HWND Parent, CDasherInterfaceBase *DI, CAppSettings *pAppSettings)
+: CPrefsPageBase(Parent, DI, pAppSettings), m_pDasherInterface(DI), m_CurrentAlphabet(DI->GetStringParameter(SP_ALPHABET_ID)), m_CurrentColours(DI->GetStringParameter(SP_COLOUR_ID)), Editing(false), Cloning(false), EditChar(false), CustomBox(0), CurrentGroup(0), CurrentChar(0) {
   m_hwnd = 0;
   m_hPropertySheet = 0;
 }
@@ -348,10 +348,6 @@ void CAlphabetBox::PopulateList() {
 //  return true;
 //}
 
-bool CAlphabetBox::Validate() {
-  // Return false if something is wrong to prevent user from clicking to a different page. Please also pop up a dialogue informing the user at this point.
-  return TRUE;
-}
 
 bool CAlphabetBox::Apply() {
 
@@ -380,12 +376,12 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
   NMHDR *pNMHDR;
 
   switch (message) {
-  case WM_INITDIALOG:
-    if(!m_hwnd) {               // If this is the initial dialog for the first time
-      m_hwnd = Window;
-      PopulateList();
-    }
-    //else if(Editing) {
+  //case WM_INITDIALOG:
+  //  if(!m_hwnd) {               // If this is the initial dialog for the first time
+  //    m_hwnd = Window;
+  //    PopulateList();
+  //  }
+  //  //else if(Editing) {
     //  CustomBox = Window;
     //  InitCustomBox();
     //}
@@ -396,76 +392,76 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
     //  SendMessage(GetDlgItem(Window, IDC_TEXT), WM_SETTEXT, 0, (LPARAM) (LPCSTR) CurrentInfo.Groups[CurrentGroup].Characters[CurrentChar].Text.c_str());
     //  SendMessage(GetDlgItem(Window, IDC_COLOUR), WM_SETTEXT, 0, (LPARAM) (LPCSTR) colour);
     //}
-    return TRUE;
-    break;
-  case WM_NOTIFY:{
-    pNMHDR = (NMHDR*)lParam;
-    if(m_hPropertySheet==0) {
-      m_hPropertySheet = pNMHDR->hwndFrom;
-    }
-    switch (pNMHDR->code) {
-    case PSN_KILLACTIVE: // About to lose focus
-      SetWindowLong( Window, DWL_MSGRESULT, !Validate());
-      return TRUE;
-      break;
-    case PSN_APPLY: // User clicked OK/Apply - apply the changes
-      if(Apply())
-        SetWindowLong( Window, DWL_MSGRESULT, PSNRET_NOERROR);
-      else
-        SetWindowLong( Window, DWL_MSGRESULT, PSNRET_INVALID);
-      return TRUE;
-      break;
-    //case UDN_DELTAPOS:
-    //  // Moving stuff in here
-    //  if(CurrentInfo.Groups.size() < 1) {
-    //    return TRUE;
-    //    break;
-    //  }
-    //  NMUPDOWN *Data = (NMUPDOWN *) lParam;
-    //  if(Data->hdr.idFrom == IDC_MOVE_GROUP) {
-    //    CAlphIO::AlphInfo::group Tmp = CurrentInfo.Groups[CurrentGroup];
-    //    if(Data->iDelta > 0) {
-    //      if(CurrentGroup + 1 < CurrentInfo.Groups.size()) {
-    //        CurrentInfo.Groups[CurrentGroup] = CurrentInfo.Groups[CurrentGroup + 1];
-    //        CurrentInfo.Groups[CurrentGroup + 1] = Tmp;
-    //        ++CurrentGroup;
-    //      }
-    //    }
-    //    else {
-    //      if(CurrentGroup > 0) {
-    //        CurrentInfo.Groups[CurrentGroup] = CurrentInfo.Groups[CurrentGroup - 1];
-    //        CurrentInfo.Groups[CurrentGroup - 1] = Tmp;
-    //        --CurrentGroup;
-    //      }
-    //    }
-    //    ShowGroups();
-    //  }
-    //  if(Data->hdr.idFrom == IDC_MOVE_CHAR) {
-    //    if(CurrentInfo.Groups[CurrentGroup].Characters.size() < 1) {
-    //      return TRUE;
-    //      break;
-    //    }
-    //    CAlphIO::AlphInfo::character Tmp = CurrentInfo.Groups[CurrentGroup].Characters[CurrentChar];
-    //    if(Data->iDelta > 0) {
-    //      if(CurrentChar + 1 < CurrentInfo.Groups[CurrentGroup].Characters.size()) {
-    //        CurrentInfo.Groups[CurrentGroup].Characters[CurrentChar] = CurrentInfo.Groups[CurrentGroup].Characters[CurrentChar + 1];
-    //        CurrentInfo.Groups[CurrentGroup].Characters[CurrentChar + 1] = Tmp;
-    //        ++CurrentChar;
-    //      }
-    //    }
-    //    else {
-    //      if(CurrentChar > 0) {
-    //        CurrentInfo.Groups[CurrentGroup].Characters[CurrentChar] = CurrentInfo.Groups[CurrentGroup].Characters[CurrentChar - 1];
-    //        CurrentInfo.Groups[CurrentGroup].Characters[CurrentChar - 1] = Tmp;
-    //        --CurrentChar;
-    //      }
-    //    }
-    //    ShowGroupChars();
-    //  }
-    //  return TRUE;
-    //  break; // End UDN_DELTAPOS
-    }
-  }
+    //return TRUE;
+    //break;
+  //case WM_NOTIFY:{
+  //  pNMHDR = (NMHDR*)lParam;
+  //  if(m_hPropertySheet==0) {
+  //    m_hPropertySheet = pNMHDR->hwndFrom;
+  //  }
+  //  switch (pNMHDR->code) {
+  //  //case PSN_KILLACTIVE: // About to lose focus
+  //  //  SetWindowLong( Window, DWL_MSGRESULT, !Validate());
+  //  //  return TRUE;
+  //  //  break;
+  //  case PSN_APPLY: // User clicked OK/Apply - apply the changes
+  //    if(Apply())
+  //      SetWindowLong( Window, DWL_MSGRESULT, PSNRET_NOERROR);
+  //    else
+  //      SetWindowLong( Window, DWL_MSGRESULT, PSNRET_INVALID);
+  //    return TRUE;
+  //    break;
+  //  //case UDN_DELTAPOS:
+  //  //  // Moving stuff in here
+  //  //  if(CurrentInfo.Groups.size() < 1) {
+  //  //    return TRUE;
+  //  //    break;
+  //  //  }
+  //  //  NMUPDOWN *Data = (NMUPDOWN *) lParam;
+  //  //  if(Data->hdr.idFrom == IDC_MOVE_GROUP) {
+  //  //    CAlphIO::AlphInfo::group Tmp = CurrentInfo.Groups[CurrentGroup];
+  //  //    if(Data->iDelta > 0) {
+  //  //      if(CurrentGroup + 1 < CurrentInfo.Groups.size()) {
+  //  //        CurrentInfo.Groups[CurrentGroup] = CurrentInfo.Groups[CurrentGroup + 1];
+  //  //        CurrentInfo.Groups[CurrentGroup + 1] = Tmp;
+  //  //        ++CurrentGroup;
+  //  //      }
+  //  //    }
+  //  //    else {
+  //  //      if(CurrentGroup > 0) {
+  //  //        CurrentInfo.Groups[CurrentGroup] = CurrentInfo.Groups[CurrentGroup - 1];
+  //  //        CurrentInfo.Groups[CurrentGroup - 1] = Tmp;
+  //  //        --CurrentGroup;
+  //  //      }
+  //  //    }
+  //  //    ShowGroups();
+  //  //  }
+  //  //  if(Data->hdr.idFrom == IDC_MOVE_CHAR) {
+  //  //    if(CurrentInfo.Groups[CurrentGroup].Characters.size() < 1) {
+  //  //      return TRUE;
+  //  //      break;
+  //  //    }
+  //  //    CAlphIO::AlphInfo::character Tmp = CurrentInfo.Groups[CurrentGroup].Characters[CurrentChar];
+  //  //    if(Data->iDelta > 0) {
+  //  //      if(CurrentChar + 1 < CurrentInfo.Groups[CurrentGroup].Characters.size()) {
+  //  //        CurrentInfo.Groups[CurrentGroup].Characters[CurrentChar] = CurrentInfo.Groups[CurrentGroup].Characters[CurrentChar + 1];
+  //  //        CurrentInfo.Groups[CurrentGroup].Characters[CurrentChar + 1] = Tmp;
+  //  //        ++CurrentChar;
+  //  //      }
+  //  //    }
+  //  //    else {
+  //  //      if(CurrentChar > 0) {
+  //  //        CurrentInfo.Groups[CurrentGroup].Characters[CurrentChar] = CurrentInfo.Groups[CurrentGroup].Characters[CurrentChar - 1];
+  //  //        CurrentInfo.Groups[CurrentGroup].Characters[CurrentChar - 1] = Tmp;
+  //  //        --CurrentChar;
+  //  //      }
+  //  //    }
+  //  //    ShowGroupChars();
+  //  //  }
+  //  //  return TRUE;
+  //  //  break; // End UDN_DELTAPOS
+  //  }
+  //}
   case WM_COMMAND:
     
     if(HIWORD(wParam)==BN_CLICKED || HIWORD(wParam)==LBN_SELCHANGE) {
@@ -476,17 +472,17 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
       }
     }
     switch (LOWORD(wParam)) {
-    case (IDC_DISPLAY):
-      if(HIWORD(wParam) == EN_CHANGE) {
-        HWND Control = GetDlgItem(Window, IDC_DISPLAY);
-        LRESULT BufferLength = SendMessage(Control, WM_GETTEXTLENGTH, 0, 0) + 1;        // +1 to allow for terminator
-        TCHAR *Buffer = new TCHAR[BufferLength];
-        SendMessage(Control, WM_GETTEXT, BufferLength, (LPARAM) Buffer);
-        string ItemName;
-        SendMessage(GetDlgItem(Window, IDC_TEXT), WM_SETTEXT, 0, (LPARAM) Buffer);
-        delete[]Buffer;
-      }
-      break;
+    //case (IDC_DISPLAY):
+    //  if(HIWORD(wParam) == EN_CHANGE) {
+    //    HWND Control = GetDlgItem(Window, IDC_DISPLAY);
+    //    LRESULT BufferLength = SendMessage(Control, WM_GETTEXTLENGTH, 0, 0) + 1;        // +1 to allow for terminator
+    //    TCHAR *Buffer = new TCHAR[BufferLength];
+    //    SendMessage(Control, WM_GETTEXT, BufferLength, (LPARAM) Buffer);
+    //    string ItemName;
+    //    SendMessage(GetDlgItem(Window, IDC_TEXT), WM_SETTEXT, 0, (LPARAM) Buffer);
+    //    delete[]Buffer;
+    //  }
+    //  break;
     case (IDC_ALPHABETS):
       if(HIWORD(wParam) == LBN_SELCHANGE) {
         HWND ListBox = GetDlgItem(m_hwnd, IDC_ALPHABETS);
@@ -623,23 +619,27 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
     //  Editing = true;
     //  DialogBoxParam(WinHelper::hInstApp, (LPCTSTR) IDD_CUSTOMALPHABET, Window, (DLGPROC) WinWrapMap::WndProc, (LPARAM) this);
     //  break;
-    case (IDOK):
-      if(m_CurrentAlphabet != std::string("")) {
-        m_pDasherInterface->SetStringParameter(SP_ALPHABET_ID, m_CurrentAlphabet);
-      }
-      // deliberate fall through
-    case (IDCANCEL):
-      {
-        EndDialog(Window, LOWORD(wParam));
-        return TRUE;
-      }
-    case ID_CUSTOM_CANCEL:
-      PopulateList();           // Need to reget settings for current selection. Cheaty way to do it.
-      EndDialog(Window, LOWORD(wParam));
-      return TRUE;
-      break;
+    //case (IDOK):
+    //  if(m_CurrentAlphabet != std::string("")) {
+    //    m_pDasherInterface->SetStringParameter(SP_ALPHABET_ID, m_CurrentAlphabet);
+    //  }
+    //  // deliberate fall through
+    //case (IDCANCEL):
+    //  {
+    //    EndDialog(Window, LOWORD(wParam));
+    //    return TRUE;
+    //  }
+    //case ID_CUSTOM_CANCEL:
+    //  PopulateList();           // Need to reget settings for current selection. Cheaty way to do it.
+    //  EndDialog(Window, LOWORD(wParam));
+    //  return TRUE;
+    //  break;
     }
   break;
+  default:
+   return CPrefsPageBase::WndProc(Window, message, wParam, lParam);
   }
+
+  // TODO: Sort out return values here
   return FALSE;
 }

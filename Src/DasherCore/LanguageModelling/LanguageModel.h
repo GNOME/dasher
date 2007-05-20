@@ -150,7 +150,7 @@ public:
   };
 
   symbol GetResetSymbol() const {
-    m_Alphabet.GetAlphabetPointer()->GetResetSymbol();
+    return m_Alphabet.GetAlphabetPointer()->GetResetSymbol();
   };
 
 

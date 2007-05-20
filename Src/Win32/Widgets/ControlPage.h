@@ -39,8 +39,7 @@ private:
   
   void PopulateList();
   bool Apply();
-  bool Validate();
-
+ 
   CModuleSettings *m_pModuleSettingsDialogue;
 };
 

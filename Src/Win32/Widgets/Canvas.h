@@ -1,10 +1,22 @@
 // Canvas.h
 //
-/////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2007 The Dasher Team
 //
-// Copyright (c) 2002 Iain Murray, Inference Group, Cavendish, Cambridge.
+// This file is part of Dasher.
 //
-/////////////////////////////////////////////////////////////////////////////
+// Dasher is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// Dasher is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Dasher; if not, write to the Free Software 
+// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #ifndef __Canvas_h__
 #define __Canvas_h__
@@ -156,22 +168,22 @@ private:
 
   // TODO: A lot, if not all, of these variables are obsolete
 
-  Dasher::screenint imousex, imousey;
+  //Dasher::screenint imousex, imousey;
   UINT MY_TIMER;
-  bool startonleft;
+  //bool startonleft;
   //  bool direction;
   //  bool running;
-  bool firstwindow;
-  bool secondwindow;
-  bool lbuttonheld;
-  bool inturbo;
-  bool enabletime;
-  DWORD startturbo;
-  DWORD endturbo;
-  DWORD lastlbutton;
-  DWORD mousepostime;
+  //bool firstwindow;
+  //bool secondwindow;
+  //bool lbuttonheld;
+  //bool inturbo;
+  //bool enabletime;
+  //DWORD startturbo;
+  //DWORD endturbo;
+  //DWORD lastlbutton;
+  //DWORD mousepostime;
   //  DWORD previoustime;
-  RECT coords;
+  //RECT coords;
 
   // Indicates that a button is depressed, so we dont stop on idle
   bool m_bButtonDown;

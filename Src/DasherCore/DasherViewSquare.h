@@ -122,7 +122,7 @@ private:
   /// Recursively render all nodes in a tree. Responsible for all the Render_node calls
   ///
 
-  int RecursiveRender(CDasherNode * Render, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer, bool bDraw,myint parent_width,int parent_color, int iDepth);
+  bool RecursiveRender(CDasherNode * Render, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer, bool bDraw,myint parent_width,int parent_color, int iDepth);
 
   /// Render a single node
   /// \param Color The colour to draw it

@@ -33,7 +33,7 @@ private:
   void InitCustomBox();
   bool UpdateInfo();
  bool Apply();
- bool Validate();
+
 };
 
 #endif  /* #ifndef */

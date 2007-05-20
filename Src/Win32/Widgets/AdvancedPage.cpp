@@ -108,11 +108,6 @@ void CAdvancedPage::PopulateList() {
 
 }
 
-bool CAdvancedPage::Validate() {
-  // Return false if something is wrong to prevent user from clicking to a different page. Please also pop up a dialogue informing the user at this point.
-  return TRUE;
-}
-
 bool CAdvancedPage::Apply() {
 
   for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++) {

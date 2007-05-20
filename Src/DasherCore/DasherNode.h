@@ -313,7 +313,7 @@ inline unsigned int CDasherNode::ChildCount() const {
 }
 
 inline bool CDasherNode::GetFlag(int iFlag) const {
-  return (m_iFlags & iFlag);
+  return ((m_iFlags & iFlag) != 0);
 }
 
 inline CDasherNode *CDasherNode::Parent() const {

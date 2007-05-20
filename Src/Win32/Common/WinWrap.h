@@ -51,6 +51,8 @@ Iain Murray August 2002
 #ifndef __WinWrap_h__
 #define __WinWrap_h__
 
+#include "WinCommon.h"
+
 #include <map>
 
 namespace WinWrapMap {

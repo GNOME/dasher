@@ -52,11 +52,9 @@ class Cint32 {
   Cint32(int64 i);
 
   Cint32(double d) {
-    if(d > double (Cint32::Max()))
-      DASHER_ASSERT(0);
-
-    if(d < double (Cint32::Min()))
-      DASHER_ASSERT(0);
+    DASHER_ASSERT(d <= double(Cint32::Max()));
+    DASHER_ASSERT(d >= double(Cint32::Min()));
+    
     m_i = int32(d);
   }
 

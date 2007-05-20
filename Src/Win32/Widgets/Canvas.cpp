@@ -1,10 +1,22 @@
 // Canvas.cpp
 //
-/////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2007 The Dasher Team
 //
-// Copyright (c) 2002 Iain Murray, Inference Group, Cavendish, Cambridge.
+// This file is part of Dasher.
 //
-/////////////////////////////////////////////////////////////////////////////
+// Dasher is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// Dasher is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Dasher; if not, write to the Free Software 
+// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "..\Common\WinCommon.h"
 
@@ -23,10 +35,7 @@ CCanvas::CCanvas(CDasher *DI, Dasher::CEventHandler *pEventHandler, CSettingsSto
 
   m_pDasherInterface = DI;
   
-  imousex = 0;
-  imousey = 0;
-  buttonnum = 0;
-  mousepostime = 0;
+ 
   m_dwTicksLastEvent = 0;
   m_bButtonDown = false;
   m_pScreen = 0;
@@ -305,17 +314,18 @@ LRESULT CCanvas::OnLButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& b
 {
 	bHandled = TRUE;
 
-	endturbo = GetTickCount();
+  // TODO: Check whether this needs to be reimplemented
+	//endturbo = GetTickCount();
 
-	if(endturbo - startturbo > 1) 
-	{
-		TCHAR deb[80];
-		wsprintf(deb, TEXT("start: %d\nend: %d\nduration: %d"), startturbo, endturbo, endturbo - startturbo);
-		OutputDebugString(deb);
-	}
-	lbuttonheld = 0;
+	//if(endturbo - startturbo > 1) 
+	//{
+	//	TCHAR deb[80];
+	//	wsprintf(deb, TEXT("start: %d\nend: %d\nduration: %d"), startturbo, endturbo, endturbo - startturbo);
+	//	OutputDebugString(deb);
+	//}
+	//lbuttonheld = 0;
 
-	m_bButtonDown = false;
+	//m_bButtonDown = false;
 
 	return 0;
 
@@ -377,8 +387,12 @@ LRESULT CCanvas::OnMouseMove(UINT message, WPARAM wParam, LPARAM lParam, BOOL& b
 {
 	bHandled = true;
 
-	imousex = LOWORD(lParam);
-	imousey = HIWORD(lParam);
+// TODO: Is any of this needed?
+
+  // TODO: Reimplement pause on idle in the core
+
+//	imousex = LOWORD(lParam);
+//	imousey = HIWORD(lParam);
 	m_dwTicksLastEvent	= GetTickCount();
 //	if( m_pDasherInterface->GetBoolParameter(BP_START_STYLUS)  ) 
 //	{

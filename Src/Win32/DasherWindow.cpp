@@ -44,7 +44,7 @@ using namespace std;
 
 CDasherWindow::CDasherWindow() {
   m_pToolbar = 0;
-  m_pEdit = 0
+  m_pEdit = 0;
   m_pSlidebar = 0;
   m_pSplitter = 0;
   m_pDasher = 0;
@@ -495,10 +495,6 @@ LRESULT CDasherWindow::OnDasherFocus(UINT message, WPARAM wParam, LPARAM lParam,
 }
 
 LRESULT CDasherWindow::OnDestroy(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
-	if(m_pEdit != 0) {
-		m_pEdit->write_to_file();
-	}
-
   PostQuitMessage(0);
 	return 0;
 }

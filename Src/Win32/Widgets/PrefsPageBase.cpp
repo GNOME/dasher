@@ -85,3 +85,7 @@ LRESULT CPrefsPageBase::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM
   }
   return FALSE;
 }
+
+bool CPrefsPageBase::Validate() {
+  return TRUE;
+}

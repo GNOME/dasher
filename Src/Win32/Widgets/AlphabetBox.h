@@ -10,13 +10,12 @@
 #define __AlphabetBox_h__
 
 #include "../resource.h"
-#include "../../DasherCore/Alphabet/AlphIO.h"
-#include "../../DasherCore/DasherInterfaceBase.h"
-#include "WinWrap.h"
+//#include "../../DasherCore/Alphabet/AlphIO.h"
+#include "PrefsPageBase.h"
 
-class CAlphabetBox:public CWinWrap {
+class CAlphabetBox : public CPrefsPageBase {
 public:
-  CAlphabetBox(HWND Parent, CDasherInterfaceBase *DI);
+  CAlphabetBox(HWND Parent, CDasherInterfaceBase *DI, CAppSettings *pAppSettings);
 protected:
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
@@ -49,8 +48,7 @@ private:
   void CustomCharacter(std::string Display, std::string Text, int Colour);
   bool UpdateInfo();*/
   bool Apply();
-  bool Validate();
-
+ 
 };
 
 #endif /* #ifndef __AlphabetBox_h__ */

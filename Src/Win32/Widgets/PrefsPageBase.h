@@ -21,20 +21,21 @@
 class CPrefsPageBase:public CWinWrap {
 public:
   CPrefsPageBase(HWND Parent, CDasherInterfaceBase * DI, CAppSettings *pAppSettings);
+
 protected:
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 
+  virtual void PopulateList() = 0;
+  virtual bool Apply() = 0;
+
+  // By defaut this always validates pages. If it's possible for things to be in an
+  // inconsistent state, override this and return false, after telling the user 
+  // what's up in order to prevent page turning.
+  virtual bool Validate();
+  
   CDasherInterfaceBase * m_pDasherInterface;
   CAppSettings *m_pAppSettings;
-  
   HWND m_hPropertySheet; // the property sheet of which we are one page
-
-  virtual void PopulateList() =0;
-  //virtual void InitCustomBox() =0; //what are these for?
-  //virtual bool UpdateInfo() =0;
-  virtual bool Apply() =0;
-  virtual bool Validate() =0;
-
 };
 
 #endif  /* #ifndef __PrefsPageBase_h__ */

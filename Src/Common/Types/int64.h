@@ -42,11 +42,9 @@ public:
   Cint64(Cint32 i);
 
   Cint64(double d) {
-    if(d > double (Cint64::Max()))
-      DASHER_ASSERT(0);
-
-    if(d < double (Cint64::Min()))
-      DASHER_ASSERT(0);
+    DASHER_ASSERT(d <= double (Cint64::Max()));
+    DASHER_ASSERT(d >= double (Cint64::Min()));
+      
     m_i = int64(d);
   }
   
@@ -65,43 +63,49 @@ public:
   operator  uint32() const;
 
   Cint64 & operator+=(Cint64 rhs) {
-    if(!AreDifferentSigns(m_i, rhs.m_i)) {
-      // 2-ve 2+ve
-      if(rhs.m_i < 0) {
-        // 2-ve
-        if(m_i < Min() - rhs.m_i) {
-          DASHER_ASSERT(0);
-        }
-        // ok
-      }
-      else {
-        // 2+ve
-        if(Max() - m_i < rhs.m_i) {
-          DASHER_ASSERT(0);
-        }
-        // ok
-      }
-    }
+    // Sorry about the rather unweildy conditional here, but it avoids a lot of pointless checks in release code.
+    DASHER_ASSERT( AreDifferentSigns(m_i, rhs.m_i) || (((rhs.m_i > 0) || (m_i >= Min() - rhs.m_i)) && ((rhs.m_i < 0) || (Max() - m_i >= rhs.m_i))));
+
+    //if(!AreDifferentSigns(m_i, rhs.m_i)) {
+    //  // 2-ve 2+ve
+    //  if(rhs.m_i < 0) {
+    //    // 2-ve
+    //    if(m_i < Min() - rhs.m_i) {
+    //      DASHER_ASSERT(0);
+    //    }
+    //    // ok
+    //  }
+    //  else {
+    //    // 2+ve
+    //    if(Max() - m_i < rhs.m_i) {
+    //      DASHER_ASSERT(0);
+    //    }
+    //    // ok
+    //  }
+    //}
+
     m_i += rhs.m_i;
     return *this;
   }
 
   Cint64 & operator-=(Cint64 rhs) {
-    if(AreDifferentSigns(m_i, rhs.m_i)) {
-      // 1+ve 1-ve
+    DASHER_ASSERT( !AreDifferentSigns(m_i, rhs.m_i) || (((m_i < 0) || (m_i <= Max() + rhs.m_i)) && ((m_i >= 0) || (m_i >= Min() + rhs.m_i))))
 
-      if(m_i >= 0) {
-        if(m_i > Max() + rhs.m_i) {
-          DASHER_ASSERT(0);
-        }
-      }
-      else {
-        if(m_i < Min() + rhs.m_i) {
-          DASHER_ASSERT(0);
-        }
+    //if(AreDifferentSigns(m_i, rhs.m_i)) {
+    //  // 1+ve 1-ve
 
-      }
-    }
+    //  if(m_i >= 0) {
+    //    if(m_i > Max() + rhs.m_i) {
+    //      DASHER_ASSERT(0);
+    //    }
+    //  }
+    //  else {
+    //    if(m_i < Min() + rhs.m_i) {
+    //      DASHER_ASSERT(0);
+    //    }
+
+    //  }
+    //}
     m_i -= rhs.m_i;
     return *this;
   }
@@ -111,7 +115,7 @@ public:
       m_i = 0;
       return *this;
     }
-
+     
     if(!AreDifferentSigns(m_i, rhs.m_i)) {
       // 2 -ve, 2 +ve => result +ve
       if(m_i > 0) {

@@ -20,13 +20,11 @@ using namespace Dasher;
 using namespace std;
 
 
-CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings)
-:m_pDasher(pDasher), m_pAppSettings(pAppSettings) {
+CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings) {
   m_hwnd = 0;
 
   // FIXME - is hParent still needed here?
-
-  m_pAlphabetBox = new CAlphabetBox(hParent, pDasher);
+  m_pAlphabetBox = new CAlphabetBox(hParent, pDasher, pAppSettings);
   m_pControlPage = new CControlPage(hParent, pDasher, pAppSettings);
   m_pViewPage = new CViewPage(hParent, pDasher, pAppSettings);
   m_pAdvancedPage = new CAdvancedPage(hParent, pDasher, pAppSettings);
@@ -34,7 +32,6 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings)
 
   // Set up the property sheets which go into the preferences
   // dialogue.
-
   PROPSHEETPAGE psp[5];
   PROPSHEETHEADER psh;
   
@@ -99,12 +96,9 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings)
   psh.ppsp = (LPCPROPSHEETPAGE) &psp;
   psh.pfnCallback = NULL;
   PropertySheet(&psh);
-  
-  PopulateWidgets();
 }
 
-CPrefs::~CPrefs()
-{
+CPrefs::~CPrefs() {
   delete m_pAlphabetBox;
   m_pAlphabetBox = NULL;
 
@@ -121,61 +115,29 @@ CPrefs::~CPrefs()
   m_pLMPage = NULL;
 }
 
-
-
-void CPrefs::PopulateWidgets() {
- 
-}
-
 LRESULT CPrefs::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
-  // TODO: How much of this actually does something?
-
   switch (message) {
   case WM_INITDIALOG:
-    {
-      if(!m_hwnd) {             // If this is the initial dialog for the first time
-        m_hwnd = Window;
-        PopulateWidgets();
-      }
-      return TRUE;
-      break;
+    if(!m_hwnd) {             // If this is the initial dialog for the first time
+      m_hwnd = Window;
     }
-  case WM_COMMAND:
-    switch (LOWORD(wParam)) {
-    case (IDC_DISPLAY):
-      if(HIWORD(wParam) == EN_CHANGE) {
-        HWND Control = GetDlgItem(Window, IDC_DISPLAY);
-        LRESULT BufferLength = SendMessage(Control, WM_GETTEXTLENGTH, 0, 0) + 1;        // +1 to allow for terminator
-        TCHAR *Buffer = new TCHAR[BufferLength];
-        SendMessage(Control, WM_GETTEXT, BufferLength, (LPARAM) Buffer);
-        string ItemName;
-        SendMessage(GetDlgItem(Window, IDC_TEXT), WM_SETTEXT, 0, (LPARAM) Buffer);
-        delete[]Buffer;
-      }
-      break;
-    case (IDOK):
-    //  for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++)
-   //   {
-    //    if(SendMessage(GetDlgItem(Window, menutable[ii].idcNum), BM_GETCHECK, 0, 0) == BST_CHECKED) {
-     //     m_pDasher->SetBoolParameter(menutable[ii].paramNum, true);
-    //    }
-    //    else {
-    //      m_pDasher->SetBoolParameter(menutable[ii].paramNum, false);
-    //    }
-    //  }
-      EndDialog(Window, LOWORD(wParam));
-      return TRUE;
-      break;
-    case (IDCANCEL):
-      {
-        EndDialog(Window, LOWORD(wParam));
-        return TRUE;
-      }
-    case ID_CANCEL_KEYCONT:
-      EndDialog(Window, LOWORD(wParam));
-      return TRUE;
-      break;
-    }
+    return TRUE;
+  //case WM_COMMAND:
+  //  switch (LOWORD(wParam)) {
+  //  case (IDC_DISPLAY):
+  //    if(HIWORD(wParam) == EN_CHANGE) {
+  //      HWND Control = GetDlgItem(Window, IDC_DISPLAY);
+  //      LRESULT BufferLength = SendMessage(Control, WM_GETTEXTLENGTH, 0, 0) + 1;        // +1 to allow for terminator
+  //      TCHAR *Buffer = new TCHAR[BufferLength];
+  //      SendMessage(Control, WM_GETTEXT, BufferLength, (LPARAM) Buffer);
+  //      string ItemName;
+  //      SendMessage(GetDlgItem(Window, IDC_TEXT), WM_SETTEXT, 0, (LPARAM) Buffer);
+  //      delete[]Buffer;
+  //    }
+  //    return TRUE;
+  //  default:
+  //    return FALSE;
+  //  }
   default:
     return FALSE;
   }

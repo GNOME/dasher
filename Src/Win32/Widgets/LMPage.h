@@ -35,7 +35,7 @@ private:
   void InitCustomBox();
   bool UpdateInfo();
    bool Apply();
-  bool Validate();
+ 
 };
 
 #endif  /* #ifndef __AlphabetBox_h__ */

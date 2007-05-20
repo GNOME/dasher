@@ -121,10 +121,6 @@ void CControlPage::PopulateList() {
   }
 }
 
-bool CControlPage::Validate() {
-  // Return false if something is wrong to prevent user from clicking to a different page. Please also pop up a dialogue informing the user at this point.
-  return TRUE;
-}
 
 bool CControlPage::Apply() 
 {
@@ -185,11 +181,12 @@ bool CControlPage::Apply()
 }
 
 LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
-
+  // TODO: Why isn't this in case?
   if(message == WM_MS_CLOSE) {
     if(m_pModuleSettingsDialogue) {
       m_pModuleSettingsDialogue->DestroyWindow();
     }
+
     m_pModuleSettingsDialogue = NULL;
     EnableWindow(m_hwnd, true);
     return 0;
@@ -201,8 +198,8 @@ LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
 	case WM_COMMAND:
 		switch (LOWORD(wParam)) 
 		{
-		case (IDC_DISPLAY):
-			break;
+	/*	case (IDC_DISPLAY):
+			break;*/
     case IDC_BUTTON_PREFS: 
       {
         //CButtonPrefs ButtonPrefs(m_hwnd, 0, m_pAppSettings);
@@ -287,5 +284,5 @@ LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
 
         }
         // pass on to superclass:
-        return CPrefsPageBase::WndProc(Window, message, wParam, lParam);
+  return CPrefsPageBase::WndProc(Window, message, wParam, lParam);
 }

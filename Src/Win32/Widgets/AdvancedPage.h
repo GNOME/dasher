@@ -35,7 +35,6 @@ private:
   void InitCustomBox();
   bool UpdateInfo();
   bool Apply();
-  bool Validate();
 
  TCHAR m_tcBuffer[1000];
 

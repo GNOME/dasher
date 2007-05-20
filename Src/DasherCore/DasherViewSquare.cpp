@@ -147,7 +147,7 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
   Crosshair((myint)GetLongParameter(LP_OX));
 }
 
-int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer, bool bDraw,myint parent_width,int parent_color, int iDepth) {
+bool CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer, bool bDraw,myint parent_width,int parent_color, int iDepth) {
   DASHER_ASSERT_VALIDPTR_RW(pRender);
 
 //   if(iDepth == 2)
@@ -191,7 +191,7 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
 
     vDeleteList.push_back(pRender);
     pRender->SetFlag(NF_ALIVE, false);
-    return 0;
+    return false;
   }
 
   // Set the NF_SUPER flag if this node entirely frames the visual
@@ -213,7 +213,7 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
     if(iDepth == 1)
       RenderNodePartFast(pRender->GetDisplayInfo()->iColour, y1, y2, mostleft, pRender->GetDisplayInfo()->strDisplayText, pRender->GetDisplayInfo()->bShove,y2-y1);
     vNodeList.push_back(pRender);
-    return 1;  // CHANGED BY IGNAS. I return 1 when the child was rendered and in this case the 
+    return true;  // CHANGED BY IGNAS. I return 1 when the child was rendered and in this case the 
     //child was rendered.
   }
 
@@ -304,7 +304,7 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
   //  if(iDepth == 2)
     //    std::cout << "done." << std::endl;
   
-  return 1;
+  return true;
 }
 
 
