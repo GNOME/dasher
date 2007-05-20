@@ -94,8 +94,17 @@ CAlphabetManagerFactory::CTrainer::CTrainer(CLanguageModel *pLanguageModel) {
 }
 
 void CAlphabetManagerFactory::CTrainer::Train(const std::vector<symbol> &vSymbols) {
-  for(std::vector<symbol>::const_iterator it(vSymbols.begin()); it != vSymbols.end(); ++it)
-    m_pLanguageModel->LearnSymbol(m_Context, *it);
+  symbol iResetSymbol = m_pLanguageModel->GetResetSymbol();
+
+  for(std::vector<symbol>::const_iterator it(vSymbols.begin()); it != vSymbols.end(); ++it) {
+    // TODO: Efficiency here?
+    if(*it == iResetSymbol) {
+      m_pLanguageModel->ReleaseContext(m_Context);
+      m_Context = m_pLanguageModel->CreateEmptyContext();
+    }
+    else 
+      m_pLanguageModel->LearnSymbol(m_Context, *it);
+  }
 }
 
 CAlphabetManagerFactory::CTrainer::~CTrainer() {

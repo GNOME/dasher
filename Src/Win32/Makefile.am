@@ -96,7 +96,7 @@ EXTRA_DIST = \
 		Dasher_vc70.sln \
 		Dasher_vc70.vcproj \
 		Dasher_vc71.sln \
-		Dasher_vc71.vcproj 
+		Dasher_vc71.vcproj \
 		Dasher_vc80.sln \
 		Dasher_vc80.vcproj \
 		EditWrapper.cpp \

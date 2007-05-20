@@ -81,6 +81,8 @@ public:
     character ControlCharacter; // display and edit text of Control character. Typically ("", "Control"). Use ("", "") if no control character.
     character StartConvertCharacter;
     character EndConvertCharacter;
+    character ResetCharacter;
+
     int m_iConversionID;
     std::string m_strDefaultContext;
   };

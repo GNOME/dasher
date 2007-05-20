@@ -666,6 +666,7 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
   screenint iScreenWidth = Screen()->GetWidth();
   screenint iScreenHeight = Screen()->GetHeight();
 
+  // TODO: Is this used any more?
   if( b1D ) { // Special case for 1D mode...
     iDasherX = iInputX * iDasherWidth / iScreenWidth;
     iDasherY = iInputY * iDasherHeight / iScreenHeight;

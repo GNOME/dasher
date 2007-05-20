@@ -149,6 +149,11 @@ public:
     return 5;
   };
 
+  symbol GetResetSymbol() const {
+    m_Alphabet.GetAlphabetPointer()->GetResetSymbol();
+  };
+
+
  protected:
   struct SLMFileHeader {
     // Magic number ("%DLF" in ASCII)

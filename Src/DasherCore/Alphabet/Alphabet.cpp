@@ -61,6 +61,8 @@ CAlphabet::CAlphabet(const CAlphIO::AlphInfo &AlphInfo)
     AddChar(it->Text, it->Display, it->Colour, it->Foreground);
 
 
+  // TODO: Special characters are a mess - really need to think these through
+
   // Set Space character if requested
 
   // This line makes it a bit easier for our WindowsCE compiler
@@ -87,6 +89,11 @@ CAlphabet::CAlphabet(const CAlphIO::AlphInfo &AlphInfo)
 
   if(AlphInfo.ControlCharacter.Display != std::string("") && GetControlSymbol() == -1)
     AddControlSymbol(AlphInfo.ControlCharacter.Text, AlphInfo.ControlCharacter.Display, AlphInfo.ControlCharacter.Colour, AlphInfo.ControlCharacter.Foreground);
+
+  if(AlphInfo.ResetCharacter.Text != empty)
+    AddResetSymbol(AlphInfo.ResetCharacter.Text, AlphInfo.ResetCharacter.Display, 
+		   AlphInfo.ResetCharacter.Colour, AlphInfo.ResetCharacter.Foreground);
+
 
   // New group stuff
 
@@ -211,6 +218,12 @@ void CAlphabet::AddEndConversionSymbol(const std::string NewCharacter, const std
   AddChar(NewCharacter, Display, Colour, Foreground);
   m_EndConversionSymbol = GetNumberSymbols() - 1;
 }
+
+void CAlphabet::AddResetSymbol(const std::string NewCharacter, const std::string Display, int Colour, const std::string Foreground) {
+  AddChar(NewCharacter, Display, Colour, Foreground);
+  m_iResetSymbol = GetNumberSymbols() - 1;
+}
+
 
 /////////////////////////////////////////////////////////////////////////////
 // diagnostic dump of character set
