@@ -7,7 +7,7 @@
 #include "LanguageModelling/WordLanguageModel.h"
 #include "LanguageModelling/DictLanguageModel.h"
 #include "LanguageModelling/MixtureLanguageModel.h"
-#include "LanguageModelling/CTWLanguageModel.h"
+//#include "LanguageModelling/CTWLanguageModel.h"
 
 using namespace Dasher;
 
@@ -58,9 +58,9 @@ CAlphabetManagerFactory::CAlphabetManagerFactory(CDasherInterfaceBase *pInterfac
   case 3:
     m_pLanguageModel = new CMixtureLanguageModel(pEventHandler, pSettingsStore, alphabet);
     break;  
-  case 4:
-    m_pLanguageModel = new CCTWLanguageModel(pEventHandler, pSettingsStore, alphabet);
-    break;
+//   case 4:
+//     m_pLanguageModel = new CCTWLanguageModel(pEventHandler, pSettingsStore, alphabet);
+//     break;
   default:
     // If there is a bogus value for the language model ID, we'll default
     // to our trusty old PPM language model.

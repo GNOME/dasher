@@ -242,6 +242,8 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CDasherNode *pParent, symbol iSy
 
     
     pNewNode->m_pNodeManager = this;
+
+    pNewNode->m_iNumSymbols = 1;
     
     SAlphabetData *pNodeUserData = new SAlphabetData;
     pNewNode->m_pUserData = pNodeUserData;
