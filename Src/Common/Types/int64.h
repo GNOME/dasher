@@ -89,7 +89,7 @@ public:
   }
 
   Cint64 & operator-=(Cint64 rhs) {
-    DASHER_ASSERT( !AreDifferentSigns(m_i, rhs.m_i) || (((m_i < 0) || (m_i <= Max() + rhs.m_i)) && ((m_i >= 0) || (m_i >= Min() + rhs.m_i))))
+    DASHER_ASSERT( !AreDifferentSigns(m_i, rhs.m_i) || (((m_i < 0) || (m_i <= Max() + rhs.m_i)) && ((m_i >= 0) || (m_i >= Min() + rhs.m_i))));
 
     //if(AreDifferentSigns(m_i, rhs.m_i)) {
     //  // 1+ve 1-ve

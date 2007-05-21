@@ -918,18 +918,6 @@
 				RelativePath=".\Dasher.rc"
 				>
 			</File>
-			<File
-				RelativePath="findere.bmp"
-				>
-			</File>
-			<File
-				RelativePath="finderf.bmp"
-				>
-			</File>
-			<File
-				RelativePath="searchw.cur"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Common"
