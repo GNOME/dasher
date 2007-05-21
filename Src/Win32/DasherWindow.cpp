@@ -460,6 +460,7 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
 			  if (pUserLog != NULL)
 				  pUserLog->NewTrial();
 		  }
+      m_pDasher->SetBuffer(0);
 		  return 0;
 	  case ID_FILE_OPEN:
 		  if(m_pEdit)

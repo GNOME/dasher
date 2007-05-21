@@ -20,7 +20,7 @@ using namespace Dasher;
 
 // Track memory leaks on Windows to the line that new'd the memory
 #ifdef _WIN32
-#ifdef _DEBUG
+#ifdef _DEBUG_MEMLEAKS
 #define DEBUG_NEW new( _NORMAL_BLOCK, THIS_FILE, __LINE__ )
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -146,7 +146,6 @@ void CDasherView::DasherPolygon(myint *x, myint *y, int n, int iColour) {
 // Draw a box specified in Dasher co-ordinates
 
 void CDasherView::DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myint iBottom, const int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, bool bDrawOutline, bool bFill, int iThickness) {
-
   screenint iScreenLeft;
   screenint iScreenTop;
   screenint iScreenRight;
@@ -161,7 +160,6 @@ void CDasherView::DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myi
 /// Draw a rectangle centred on a given dasher co-ordinate, but with a size specified in screen co-ordinates (used for drawing the mouse blob)
 
 void CDasherView::DasherDrawCentredRectangle(myint iDasherX, myint iDasherY, screenint iSize, const int Color, Opts::ColorSchemes ColorScheme, bool bDrawOutline) {
-
   screenint iScreenX;
   screenint iScreenY;
 
