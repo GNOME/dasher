@@ -28,9 +28,9 @@
             <Component Id="Help" Guid="cf486329-8d04-462b-afd4-e8e0bccc9c95">
               <File Id="HelpFile" Name="Dasher.chm" DiskId="1" Source="..\..\Data\Help\Win32\dasher.chm"/>
             </Component>
-           <!-- <Component Id="Tobii" Guid="a0f3fa44-106e-4fff-9ed6-010310f3ec0d">
-              <File Id="TobiiIconFile" Name="DasherTobii.png" />
-            </Component>-->
+            <Component Id="Tobii" Guid="a0f3fa44-106e-4fff-9ed6-010310f3ec0d">
+              <File Id="TobiiIconFile" Name="dasher-tobii.png" DiskId="1" Source="..\..\Data\Graphics\dasher-tobii.png"/>
+            </Component>
             <Directory Id="SystemRC" Name="system.rc">
               <Component Id="Alphabets" Guid="e734711a-0e68-4897-b7a6-7a60a20062b5">
                 <File Id="alphabet.AfaanOromo.xml" Name="alphabet.AfaanOromo.xml" DiskId="1" Source="..\..\Data\system.rc\alphabet.AfaanOromo.xml" />
@@ -232,9 +232,9 @@
 
       <Component Id="RegistryTobii" Guid="63287558-8a18-4103-89d5-2c1116cffc52">
         <Registry Id='TobiiExecutable' Root='HKLM' Key='Software\Tobii\MyTobii\MPA\Dasher45' Name='ExecutablePath'
-         Action='write' Type='string' Value='[INSTALLDIR]/Dasher.exe' />
+         Action='write' Type='string' Value='[INSTALLDIR]Dasher.exe' />
         <Registry Id='TobiiIcon' Root='HKLM' Key='Software\Tobii\MyTobii\MPA\Dasher45' Name='IconPath'
-         Action='write' Type='string' Value='[INSTALLDIR]/DasherTobii.png' />
+         Action='write' Type='string' Value='[INSTALLDIR]dasher-tobii.png' />
         <Registry Id='TobiiTitle' Root='HKLM' Key='Software\Tobii\MyTobii\MPA\Dasher45' Name='Title'
          Action='write' Type='string' Value='Dasher' />
       </Component>
