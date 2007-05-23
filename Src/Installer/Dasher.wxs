@@ -258,7 +258,7 @@
         <ComponentRef Id="Help" />
       </Feature>
       <Feature Id="Tobii" Title="MyTobii Support" Description="Support for the MyTobii gaze tracker" Level="1000">
-        <!--      <ComponentRef Id="Tobii" />-->
+        <ComponentRef Id="Tobii" />
         <ComponentRef Id="RegistryTobii" />
       </Feature>
     </Feature>
