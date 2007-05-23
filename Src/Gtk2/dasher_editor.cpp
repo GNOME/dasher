@@ -366,3 +366,9 @@ dasher_editor_get_new_text(DasherEditor *pSelf) {
   else
     return NULL;
 }
+
+void 
+dasher_editor_handle_font(DasherEditor *pSelf, const gchar *szFont) {
+  if(DASHER_EDITOR_GET_CLASS(pSelf)->handle_font)
+    DASHER_EDITOR_GET_CLASS(pSelf)->handle_font(pSelf, szFont);
+}

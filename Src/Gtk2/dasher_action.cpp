@@ -42,7 +42,7 @@ dasher_action_new() {
 }
 
 gboolean 
-dasher_action_execute(DasherAction *pSelf, DasherEditorInternal *pEditor, int iIdx) {
+dasher_action_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx) {
   // TODO: Need to make sure that the action is active first
 
   if(DASHER_ACTION_GET_CLASS(pSelf)->execute)
@@ -52,7 +52,7 @@ dasher_action_execute(DasherAction *pSelf, DasherEditorInternal *pEditor, int iI
 }
 
 gboolean 
-dasher_action_preview(DasherAction *pSelf, DasherEditorInternal *pEditor) {
+dasher_action_preview(DasherAction *pSelf, DasherEditor *pEditor) {
   // TODO: Need to make sure that the action is active first
 
   if(DASHER_ACTION_GET_CLASS(pSelf)->preview)

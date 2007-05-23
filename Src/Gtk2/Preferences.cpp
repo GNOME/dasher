@@ -92,7 +92,7 @@ enum {
 
 struct _DasherPreferencesDialoguePrivate {
   GtkWidget *pPreferencesWindow;
-  DasherEditorInternal *pEditor;
+  DasherEditor *pEditor;
   DasherAppSettings *pAppSettings;
   GtkWindow *pMainWindow;
 
@@ -219,7 +219,7 @@ static void dasher_preferences_dialogue_destroy(GObject *pObject) {
 
 // Public methods
 
-DasherPreferencesDialogue *dasher_preferences_dialogue_new(GladeXML *pGladeWidgets, DasherEditorInternal *pEditor, DasherAppSettings *pAppSettings, GtkWindow *pMainWindow) {
+DasherPreferencesDialogue *dasher_preferences_dialogue_new(GladeXML *pGladeWidgets, DasherEditor *pEditor, DasherAppSettings *pAppSettings, GtkWindow *pMainWindow) {
   DasherPreferencesDialogue *pDasherControl;
   pDasherControl = (DasherPreferencesDialogue *)(g_object_new(dasher_preferences_dialogue_get_type(), NULL));
 
@@ -938,9 +938,9 @@ void dasher_preferences_dialogue_populate_actions(DasherPreferencesDialogue *pSe
 
   GtkTreeIter oIter;
 
-  dasher_editor_internal_actions_start(pPrivate->pEditor);
+  dasher_editor_actions_start(pPrivate->pEditor);
 
-  while(dasher_editor_internal_actions_more(pPrivate->pEditor)) {
+  while(dasher_editor_actions_more(pPrivate->pEditor)) {
     gtk_list_store_append(pPrivate->pListStore, &oIter);
 
     const gchar *szName;
@@ -949,7 +949,7 @@ void dasher_preferences_dialogue_populate_actions(DasherPreferencesDialogue *pSe
     gboolean bControl;
     gboolean bAuto;
 
-    dasher_editor_internal_actions_get_next(pPrivate->pEditor, &szName, &iID, &bShow, &bControl, &bAuto),
+    dasher_editor_actions_get_next(pPrivate->pEditor, &szName, &iID, &bShow, &bControl, &bAuto),
 
     gtk_list_store_set(pPrivate->pListStore, &oIter, 
 		       ACTIONS_ID_COLUMN, iID,

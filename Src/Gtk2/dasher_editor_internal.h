@@ -9,6 +9,7 @@
 #include "DasherAppSettings.h"
 #include "dasher_action.h"
 #include "dasher_buffer_set.h"
+#include "dasher_editor.h"
 
 /* Forward declaration */
 typedef struct _DasherMain DasherMain;
@@ -35,11 +36,11 @@ typedef struct _DasherEditorInternal DasherEditorInternal;
 typedef struct _DasherEditorInternalClass DasherEditorInternalClass;
 
 struct _DasherEditorInternal {
-  GtkVBox box;
+  DasherEditor parent;
 };
 
 struct _DasherEditorInternalClass {
-  GtkVBoxClass parent_class;
+  DasherEditorClass parent_class;
 
   void (*filename_changed)(DasherEditorInternal *pDasherEditorInternal);
   void (*buffer_changed)(DasherEditorInternal *pDasherEditorInternal);
@@ -54,42 +55,42 @@ GType dasher_editor_internal_get_type();
 /* Replace this with GTK text buffer */
 //IDasherBufferSet *dasher_editor_internal_get_buffer_set(DasherEditorInternal *pSelf);
 
-// TODO: Just have one 'handle event' method?
-gboolean dasher_editor_internal_command(DasherEditorInternal *pSelf, const gchar *szCommand);
+/* // TODO: Just have one 'handle event' method? */
+/* gboolean dasher_editor_internal_command(DasherEditorInternal *pSelf, const gchar *szCommand); */
 
-void dasher_editor_internal_handle_font(DasherEditorInternal *pSelf, const gchar *szFont);
+/* void dasher_editor_internal_handle_font(DasherEditorInternal *pSelf, const gchar *szFont); */
 
-/* To be obsoleted by movement to GTK buffers */
-void dasher_editor_internal_output(DasherEditorInternal *pSelf, const gchar *szText, int iOffset);
-void dasher_editor_internal_delete(DasherEditorInternal *pSelf, int iLength, int iOffset);
-const gchar *dasher_editor_internal_get_context(DasherEditorInternal *pSelf, int iOffset, int iLength);
-gint dasher_editor_internal_get_offset(DasherEditorInternal *pSelf);
+/* /\* To be obsoleted by movement to GTK buffers *\/ */
+/* void dasher_editor_internal_output(DasherEditorInternal *pSelf, const gchar *szText, int iOffset); */
+/* void dasher_editor_internal_delete(DasherEditorInternal *pSelf, int iLength, int iOffset); */
+/* const gchar *dasher_editor_internal_get_context(DasherEditorInternal *pSelf, int iOffset, int iLength); */
+/* gint dasher_editor_internal_get_offset(DasherEditorInternal *pSelf); */
 
-/* Events proagated from main */
-void dasher_editor_internal_handle_stop(DasherEditorInternal *pSelf);
-void dasher_editor_internal_handle_start(DasherEditorInternal *pSelf);
-void dasher_editor_internal_handle_control(DasherEditorInternal *pSelf, int iNodeID);
+/* /\* Events proagated from main *\/ */
+/* void dasher_editor_internal_handle_stop(DasherEditorInternal *pSelf); */
+/* void dasher_editor_internal_handle_start(DasherEditorInternal *pSelf); */
+/* void dasher_editor_internal_handle_control(DasherEditorInternal *pSelf, int iNodeID); */
 
-/* Action related methods - TODO: a lot of this should be moved to dasher_main (eg action on stop etc) - that way we get a better level of abstraction, and can incorporate commands from otehr modules too. Actions should only be externally visible as a list of string commands*/
-void dasher_editor_internal_action_button(DasherEditorInternal *pSelf, DasherAction *pAction);
-void dasher_editor_internal_actions_start(DasherEditorInternal *pSelf);
-bool dasher_editor_internal_actions_more(DasherEditorInternal *pSelf);
-void dasher_editor_internal_actions_get_next(DasherEditorInternal *pSelf, const gchar **szName, gint *iID, gboolean *bShow, gboolean *bControl, gboolean *bAuto);
-void dasher_editor_internal_action_set_show(DasherEditorInternal *pSelf, int iActionID, bool bValue);
-void dasher_editor_internal_action_set_control(DasherEditorInternal *pSelf, int iActionID, bool bValue);
-void dasher_editor_internal_action_set_auto(DasherEditorInternal *pSelf, int iActionID, bool bValue);
+/* /\* Action related methods - TODO: a lot of this should be moved to dasher_main (eg action on stop etc) - that way we get a better level of abstraction, and can incorporate commands from otehr modules too. Actions should only be externally visible as a list of string commands*\/ */
+/* void dasher_editor_internal_action_button(DasherEditorInternal *pSelf, DasherAction *pAction); */
+/* void dasher_editor_internal_actions_start(DasherEditorInternal *pSelf); */
+/* bool dasher_editor_internal_actions_more(DasherEditorInternal *pSelf); */
+/* void dasher_editor_internal_actions_get_next(DasherEditorInternal *pSelf, const gchar **szName, gint *iID, gboolean *bShow, gboolean *bControl, gboolean *bAuto); */
+/* void dasher_editor_internal_action_set_show(DasherEditorInternal *pSelf, int iActionID, bool bValue); */
+/* void dasher_editor_internal_action_set_control(DasherEditorInternal *pSelf, int iActionID, bool bValue); */
+/* void dasher_editor_internal_action_set_auto(DasherEditorInternal *pSelf, int iActionID, bool bValue); */
 
-void dasher_editor_internal_grab_focus(DasherEditorInternal *pSelf);
+/* void dasher_editor_internal_grab_focus(DasherEditorInternal *pSelf); */
 
-/* TODO: Tutorial editor should be a separate class */
-//void dasher_editor_internal_start_tutorial(DasherEditorInternal *pSelf);
+/* /\* TODO: Tutorial editor should be a separate class *\/ */
+/* //void dasher_editor_internal_start_tutorial(DasherEditorInternal *pSelf); */
 
-/* Todo: possibly tidy up the need to have this public (quit in dasher_main possibly too connected) */
-gboolean dasher_editor_internal_file_changed(DasherEditorInternal *pSelf);
-const gchar *dasher_editor_internal_get_filename(DasherEditorInternal *pSelf);
+/* /\* Todo: possibly tidy up the need to have this public (quit in dasher_main possibly too connected) *\/ */
+/* gboolean dasher_editor_internal_file_changed(DasherEditorInternal *pSelf); */
+/* const gchar *dasher_editor_internal_get_filename(DasherEditorInternal *pSelf); */
 
-const gchar *dasher_editor_internal_get_all_text(DasherEditorInternal *pSelf);
-const gchar *dasher_editor_internal_get_new_text(DasherEditorInternal *pSelf);
+/* const gchar *dasher_editor_internal_get_all_text(DasherEditorInternal *pSelf); */
+/* const gchar *dasher_editor_internal_get_new_text(DasherEditorInternal *pSelf); */
 G_END_DECLS
 
 #endif

@@ -33,6 +33,7 @@
       <child>
 	<widget class="GtkMenuBar" id="dasher_menu_bar">
 	  <property name="visible">True</property>
+	  <property name="tooltip" translatable="yes">Quit</property>
 	  <property name="pack_direction">GTK_PACK_DIRECTION_LTR</property>
 	  <property name="child_pack_direction">GTK_PACK_DIRECTION_LTR</property>
 	  <signal name="focus-in-event" handler="test_focus_handler" last_modification_time="Fri, 02 Feb 2007 14:30:40 GMT"/>
@@ -411,6 +412,76 @@
 	      <property name="visible_vertical">True</property>
 	      <property name="is_important">False</property>
 	      <signal name="focus-in-event" handler="test_focus_handler" last_modification_time="Fri, 02 Feb 2007 14:30:40 GMT"/>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkSeparatorToolItem" id="separatortoolitem2">
+	      <property name="visible">True</property>
+	      <property name="draw">True</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">False</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkToolButton" id="tb_command_preferences">
+	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Preferences</property>
+	      <property name="stock_id">gtk-preferences</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">False</property>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkToolButton" id="tb_command_help">
+	      <property name="visible">True</property>
+	      <property name="tooltip" translatable="yes">Help</property>
+	      <property name="stock_id">gtk-help</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">False</property>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">True</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkSeparatorToolItem" id="separatortoolitem3">
+	      <property name="visible">True</property>
+	      <property name="draw">True</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	    </widget>
+	    <packing>
+	      <property name="expand">False</property>
+	      <property name="homogeneous">False</property>
+	    </packing>
+	  </child>
+
+	  <child>
+	    <widget class="GtkToolButton" id="tb_command_quit">
+	      <property name="visible">True</property>
+	      <property name="stock_id">gtk-quit</property>
+	      <property name="visible_horizontal">True</property>
+	      <property name="visible_vertical">True</property>
+	      <property name="is_important">False</property>
 	    </widget>
 	    <packing>
 	      <property name="expand">False</property>

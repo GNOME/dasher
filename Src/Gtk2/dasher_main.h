@@ -1,9 +1,6 @@
 #ifndef __dasher_main_h__
 #define __dasher_main_h__
 
-#include "DasherAppSettings.h"
-#include "dasher_editor_internal.h"
-
 #include <glib.h>
 #include <glib-object.h>
 
