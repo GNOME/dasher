@@ -51,6 +51,11 @@ void CDasherControl::CreateLocalFactories() {
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherJoystickInputDiscrete(m_pEventHandler, m_pSettingsStore, this)));
 #endif
   
+#ifdef TILT
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherTiltInput(m_pEventHandler, m_pSettingsStore, this)));
+#endif
+  
+  
   // Create locally cached copies of the mouse input objects, as we
   // need to pass coordinates to them from the timer callback
   

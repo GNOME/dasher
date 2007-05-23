@@ -26,6 +26,7 @@
 // 16 = Joystick input
 // 17 = Discrete joystick
 // 18 = 1D joystick
+// 19 = Tilt
 
 CDasherModule::CDasherModule(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, ModuleID_t iID, int iType, const char *szName) 
   : CDasherComponent(pEventHandler, pSettingsStore) {

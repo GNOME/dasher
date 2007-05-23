@@ -11,6 +11,10 @@
 #include "joystick_input.h"
 #endif 
 
+#ifdef TILT
+#include "tilt_input.h"
+#endif
+
 #include "mouse_input.h"
 
 #include "GtkDasherControl.h"
