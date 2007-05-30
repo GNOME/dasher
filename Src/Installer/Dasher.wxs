@@ -219,29 +219,162 @@
       </Directory>
 
      <Directory Id="ProgramMenuFolder" Name="Programs">
-        <Directory Id="ProgramMenuDir" Name="Dasher 4.4">
-          <Component  Id="Random" Guid="D28C2189-5E40-4f93-B42E-0CD76D8B5B37" KeyPath="no">
-              <Registry Id='DummyReg' Root='HKCU' Key='Software\Inference Group\Dasher3' Name='Dummy'
-               Action='write' Type='string' Value='Dummy Key' KeyPath='yes'/>
-            <RemoveFolder Id="RandomRemove" On="uninstall" />
-          </Component>
-        </Directory>
-      </Directory>
+       <Directory Id="ProgramMenuDir" Name="Dasher 4.4">
+         <Component  Id="Random" Guid="D28C2189-5E40-4f93-B42E-0CD76D8B5B37" KeyPath="no">
+           <Registry Id='DummyReg' Root='HKCU' Key='Software\Inference Group\Dasher3' Name='Dummy'
+              Action='write' Type='string' Value='Dummy Key' KeyPath='yes'/>
+           <RemoveFolder Id="RandomRemove" On="uninstall" />
+         </Component>
+       </Directory>
+     </Directory>
 
-      <Directory Id="DesktopFolder" Name="Desktop" />
+     <Directory Id="DesktopFolder" Name="Desktop" />
+       <Component Id="RegistryTobii" Guid="63287558-8a18-4103-89d5-2c1116cffc52">
+         <Registry Id='TobiiExecutable' Root='HKLM' Key='Software\Tobii\MyTobii\MPA\Dasher45' Name='ExecutablePath'
+          Action='write' Type='string' Value='[INSTALLDIR]Dasher.exe' />
+         <Registry Id='TobiiIcon' Root='HKLM' Key='Software\Tobii\MyTobii\MPA\Dasher45' Name='IconPath'
+          Action='write' Type='string' Value='[INSTALLDIR]dasher-tobii.png' />
+         <Registry Id='TobiiTitle' Root='HKLM' Key='Software\Tobii\MyTobii\MPA\Dasher45' Name='Title'
+	  Action='write' Type='string' Value='Dasher' />
 
-      <Component Id="RegistryTobii" Guid="63287558-8a18-4103-89d5-2c1116cffc52">
-        <Registry Id='TobiiExecutable' Root='HKLM' Key='Software\Tobii\MyTobii\MPA\Dasher45' Name='ExecutablePath'
-         Action='write' Type='string' Value='[INSTALLDIR]Dasher.exe' />
-        <Registry Id='TobiiIcon' Root='HKLM' Key='Software\Tobii\MyTobii\MPA\Dasher45' Name='IconPath'
-         Action='write' Type='string' Value='[INSTALLDIR]dasher-tobii.png' />
-        <Registry Id='TobiiTitle' Root='HKLM' Key='Software\Tobii\MyTobii\MPA\Dasher45' Name='Title'
-         Action='write' Type='string' Value='Dasher' />
-      </Component>
-    </Directory>
+	  <Registry Id="RegistryCircleStart" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="CircleStart" Action="write" Type="integer" Value="1" />
+	  <Registry Id="RegistryInputFilter" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="InputFilter" Action="write" Type="string" Value="Eyetracker Mode" />
+	</Component>
 
-<!--    <Component Id="RegistryCore" Guid="5999aef1-3ba7-4af2-8d56-5f3f4e7a4410">
-    </Component>-->
+	<Component Id="RegistryNonTobii" Guid="a3bf552d-9622-4d4a-b17b-ebb47a18955b">
+	  <Condition>NOT TOBII</Condition>
+
+	  <Registry Id="RegistryCircleStart" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="CircleStart" Action="write" Type="integer" Value="0" />
+	  <Registry Id="RegistryInputFilter" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="InputFilter" Action="write" Type="string" Value="Normal Control" />
+	</Compnent>
+
+       <Component Id="RegistryCore" Guid="5999aef1-3ba7-4af2-8d56-5f3f4e7a4410">
+	<Registry Id="RegistryDrawMouseLine" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="DrawMouseLine" Action="write" Type="integer" Value="1" />
+	<Registry Id="RegistryDrawMouse" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="DrawMouse" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryShowSpeedSlider" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ShowSpeedSlider" Action="write" Type="integer" Value="1" />
+	<Registry Id="RegistryStartOnLeft" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="StartOnLeft" Action="write" Type="integer" Value="1" />
+	<Registry Id="RegistryStartOnSpace" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="StartOnSpace" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryStartOnStylus" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="StartOnStylus" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryStopOnIdle" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="StopOnIdle" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryKeyControl" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="KeyControl" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryControlMode" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ControlMode" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryColourMode" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ColourMode" Action="write" Type="integer" Value="1" />
+	<Registry Id="RegistryStartOnMousePosition" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="StartOnMousePosition" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryOutlineBoxes" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="OutlineBoxes" Action="write" Type="integer" Value="1" />
+	<Registry Id="RegistryPaletteChange" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="PaletteChange" Action="write" Type="integer" Value="1" />
+	<Registry Id="RegistryAutocalibrate" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="Autocalibrate" Action="write" Type="integer" Value="1" />
+	<Registry Id="RegistryGameMode" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="GameMode" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryDictionary" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="Dictionary" Action="write" Type="integer" Value="1" />
+	<Registry Id="RegistryLetterExclusion" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="LetterExclusion" Action="write" Type="integer" Value="1" />
+	<Registry Id="RegistryAutoSpeedControl" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="AutoSpeedControl" Action="write" Type="integer" Value="1" />
+	<Registry Id="RegistryClickMode" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ClickMode" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryLMAdaptive" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="LMAdaptive" Action="write" Type="integer" Value="1" />
+	<Registry Id="RegistryButtonOneStaticMode" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ButtonOneStaticMode" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryButtonOneDynamicMode" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ButtonOneDynamicMode" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryButtonMenuMode" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ButtonMenuMode" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryButtonPulsingMode" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ButtonPulsingMode" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryButtonSteadyMode" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ButtonSteadyMode" Action="write" Type="integer" Value="1" />
+	<Registry Id="RegistryButtonDirectMode" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ButtonDirectMode" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryButtonFourDirectMode" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ButtonFourDirectMode" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryButtonAlternatingDirectMode" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ButtonAlternatingDirectMode" Action="write" Type="integer" Value="1" />
+	<Registry Id="RegistryButtonCompassMode" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ButtonCompassMode" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistrySocketInputEnable" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="SocketInputEnable" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistrySocketInputDebug" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="SocketInputDebug" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryOldStylePush" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="OldStylePush" Action="write" Type="integer" Value="0" />
+
+	<Registry Id="RegistryGlobalKeyboard" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="GlobalKeyboard" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryPauseOutside" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="PauseOutside" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryBackoffButton" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="BackoffButton" Action="write" Type="integer" Value="1" />
+	<Registry Id="RegistryTwoButtonReverse" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="TwoButtonReverse" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistrySlowStart" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="SlowStart" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryTwoButtonSpeed" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="TwoButtonSpeed" Action="write" Type="integer" Value="1" />
+	<Registry Id="RegistryTimeStampNewFiles" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="TimeStampNewFiles" Action="write" Type="integer" Value="1" />
+	<Registry Id="RegistryViewToolbar" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ViewToolbar" Action="write" Type="integer" Value="1" />
+	<Registry Id="RegistryShowToolbarText" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ShowToolbarText" Action="write" Type="integer" Value="1" />
+	<Registry Id="RegistryShowLargeIcons" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ShowLargeIcons" Action="write" Type="integer" Value="1" />
+	<Registry Id="RegistryFixLayout" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="FixLayout" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryCopyAllOnStop" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="CopyAllOnStop" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryPauseOutsideWindow" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="PauseOutsideWindow" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistrySpeechEnabled" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="SpeechEnabled" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryKeyboardMode" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="KeyboardMode" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryDock" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="Dock" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryScreenOrientation" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ScreenOrientation" Action="write" Type="integer" Value="-2" />
+	<Registry Id="RegistryMaxBitRateTimes100" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="MaxBitRateTimes100" Action="write" Type="integer" Value="80" />
+	<Registry Id="RegistryViewID" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ViewID" Action="write" Type="integer" Value="1" />
+	<Registry Id="RegistryLanguageModelID" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="LanguageModelID" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryDasherFontSize" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="DasherFontSize" Action="write" Type="integer" Value="2" />
+	<Registry Id="RegistryUniformTimes1000" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="UniformTimes1000" Action="write" Type="integer" Value="50" />
+	<Registry Id="RegistryYScaling" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="YScaling" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryMousePositionBoxDistance" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="MousePositionBoxDistance" Action="write" Type="integer" Value="50" />
+	<Registry Id="RegistryStopIdleTime" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="StopIdleTime" Action="write" Type="integer" Value="1000" />
+	<Registry Id="RegistryTruncation" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="Truncation" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryTruncationType" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="TruncationType" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryLMMaxOrder" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="LMMaxOrder" Action="write" Type="integer" Value="5" />
+	<Registry Id="RegistryLMExclusion" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="LMExclusion" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryLMUpdateExclusion" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="LMUpdateExclusion" Action="write" Type="integer" Value="1" />
+	<Registry Id="RegistryLMAlpha" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="LMAlpha" Action="write" Type="integer" Value="49" />
+	<Registry Id="RegistryLMBeta" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="LMBeta" Action="write" Type="integer" Value="77" />
+	<Registry Id="RegistryLMMixture" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="LMMixture" Action="write" Type="integer" Value="50" />
+	<Registry Id="RegistryLineWidth" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="LineWidth" Action="write" Type="integer" Value="1" />
+	<Registry Id="RegistryWordAlpha" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="WordAlpha" Action="write" Type="integer" Value="50" />
+	<Registry Id="RegistryUserLogLevelMask" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="UserLogLevelMask" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryZoomsteps" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="Zoomsteps" Action="write" Type="integer" Value="32" />
+	<Registry Id="RegistryButtonMenuBoxes" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ButtonMenuBoxes" Action="write" Type="integer" Value="4" />
+	<Registry Id="RegistryButtonMenuSafety" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ButtonMenuSafety" Action="write" Type="integer" Value="25" />
+	<Registry Id="RegistryButtonMenuBackwardsBox" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ButtonMenuBackwardsBox" Action="write" Type="integer" Value="1" />
+	<Registry Id="RegistryButtonModeNonuniformity" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ButtonModeNonuniformity" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryButtonCompassModeRightZoom" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ButtonCompassModeRightZoom" Action="write" Type="integer" Value="5120" />
+	<Registry Id="RegistryAutospeedSensitivity" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="AutospeedSensitivity" Action="write" Type="integer" Value="100" />
+	<Registry Id="RegistrySocketPort" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="SocketPort" Action="write" Type="integer" Value="20320" />
+	<Registry Id="RegistrySocketInputXMinTimes1000" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="SocketInputXMinTimes1000" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistrySocketInputXMaxTimes1000" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="SocketInputXMaxTimes1000" Action="write" Type="integer" Value="1000" />
+	<Registry Id="RegistrySocketInputYMinTimes1000" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="SocketInputYMinTimes1000" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistrySocketInputYMaxTimes1000" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="SocketInputYMaxTimes1000" Action="write" Type="integer" Value="1000" />
+	<Registry Id="RegistryOX" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="OX" Action="write" Type="integer" Value="2048" />
+	<Registry Id="RegistryOY" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="OY" Action="write" Type="integer" Value="2048" />
+	<Registry Id="RegistryMaxY" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="MaxY" Action="write" Type="integer" Value="4096" />
+	<Registry Id="RegistryInputFilterID" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="InputFilterID" Action="write" Type="integer" Value="3" />
+	<Registry Id="RegistryCirclePercent" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="CirclePercent" Action="write" Type="integer" Value="10" />
+	<Registry Id="RegistryTwoButtonOffset" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="TwoButtonOffset" Action="write" Type="integer" Value="1024" />
+	<Registry Id="RegistryHoldTime" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="HoldTime" Action="write" Type="integer" Value="1000" />
+	<Registry Id="RegistryMultipressTime" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="MultipressTime" Action="write" Type="integer" Value="3000" />
+	<Registry Id="RegistryMultipressCount" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="MultipressCount" Action="write" Type="integer" Value="3" />
+	<Registry Id="RegistrySlowStartTime" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="SlowStartTime" Action="write" Type="integer" Value="1000" />
+	<Registry Id="RegistryDynamicMedianFactor" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="DynamicMedianFactor" Action="write" Type="integer" Value="30" />
+	<Registry Id="RegistryFileEncodingFormat" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="FileEncodingFormat" Action="write" Type="integer" Value="-2" />
+	<Registry Id="RegistryEditFontSize" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="EditFontSize" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryEditHeight" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="EditHeight" Action="write" Type="integer" Value="75" />
+	<Registry Id="RegistryEditWidth" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="EditWidth" Action="write" Type="integer" Value="200" />
+	<Registry Id="RegistryScreenWidth" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ScreenWidth" Action="write" Type="integer" Value="400" />
+	<Registry Id="RegistryScreenHeight" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ScreenHeight" Action="write" Type="integer" Value="500" />
+	<Registry Id="RegistryScreenWidthH" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ScreenWidthH" Action="write" Type="integer" Value="625" />
+	<Registry Id="RegistryScreenHeightH" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ScreenHeightH" Action="write" Type="integer" Value="250" />
+	<Registry Id="RegistryAppStyle" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="AppStyle" Action="write" Type="integer" Value="0" />
+	<Registry Id="RegistryDockStyle" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="DockStyle" Action="write" Type="integer" Value="4" />
+	<Registry Id="RegistryDockPosition" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="DockPosition" Action="write" Type="integer" Value="100" />
+	<Registry Id="RegistryAlphabetID" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="AlphabetID" Action="write" Type="string" Value="" />
+	<Registry Id="RegistryAlphabet1" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="Alphabet1" Action="write" Type="string" Value="" />
+	<Registry Id="RegistryAlphabet2" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="Alphabet2" Action="write" Type="string" Value="" />
+	<Registry Id="RegistryAlphabet3" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="Alphabet3" Action="write" Type="string" Value="" />
+	<Registry Id="RegistryAlphabet4" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="Alphabet4" Action="write" Type="string" Value="" />
+	<Registry Id="RegistryColourID" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ColourID" Action="write" Type="string" Value="" />
+	<Registry Id="RegistryDasherFont" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="DasherFont" Action="write" Type="string" Value="" />
+	<Registry Id="RegistrySocketInputXLabel" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="SocketInputXLabel" Action="write" Type="string" Value="x" />
+	<Registry Id="RegistrySocketInputYLabel" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="SocketInputYLabel" Action="write" Type="string" Value="y" />
+	
+	<Registry Id="RegistryInputDevice" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="InputDevice" Action="write" Type="string" Value="Mouse Input" />
+	<Registry Id="RegistryButton0" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="Button0" Action="write" Type="string" Value="" />
+	<Registry Id="RegistryButton1" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="Button1" Action="write" Type="string" Value="" />
+	<Registry Id="RegistryButton2" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="Button2" Action="write" Type="string" Value="" />
+	<Registry Id="RegistryButton3" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="Button3" Action="write" Type="string" Value="" />
+	<Registry Id="RegistryButton4" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="Button4" Action="write" Type="string" Value="" />
+	<Registry Id="RegistryButton10" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="Button10" Action="write" Type="string" Value="" />
+	<Registry Id="RegistryJoystickDevice" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="JoystickDevice" Action="write" Type="string" Value="/dev/input/js0" />
+	<Registry Id="RegistryEditFont" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="EditFont" Action="write" Type="string" Value="Sans 10" />
+	<Registry Id="RegistryWindowState" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="WindowState" Action="write" Type="string" Value="" />
+    </Component>
+  </Directory>
+
 
 
     <Feature Id='Complete' Title='Dasher 4.4' Description='Everything.' Display='expand' Level='1' ConfigurableDirectory='INSTALLDIR'>
@@ -260,6 +393,10 @@
       <Feature Id="Tobii" Title="MyTobii Support" Description="Support for the MyTobii gaze tracker" Level="1000">
         <ComponentRef Id="Tobii" />
         <ComponentRef Id="RegistryTobii" />
+      </Feature>
+      <Feature Id="NonTobii" Title="Non-Tobii Defaults" Description="Default values for non-Tobii installations (internal)" Level="1">
+        <Condition Level="0">FooBar</Condition>
+        <CoponentRef Id="RegistryNonTobii" />
       </Feature>
     </Feature>
 

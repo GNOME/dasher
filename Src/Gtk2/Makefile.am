@@ -1,7 +1,7 @@
 LIBS = @INTLLIBS@ @LIBS@
 
 noinst_LIBRARIES = libdashergtk.a libdashercontrol.a
-noinst_PROGRAMS = generate-schema
+noinst_PROGRAMS = generate-schema generate-wix
 
 if WITH_GPE
 gladefile = dashergpe.glade
@@ -33,6 +33,8 @@ EXTRA_DIST = \
 		dashermaemofullscreen.glade
 
 generate_schema_SOURCES = GenerateSchema.cpp
+
+generate_wix_SOURCES = GenerateWix.cpp
 
 libdashercontrol_a_SOURCES = \
 		Canvas.cpp \
