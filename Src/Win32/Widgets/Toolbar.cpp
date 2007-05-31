@@ -38,7 +38,9 @@ SToolbarButton sButtons[] = {
   {STD_CUT, 3, IDS_EDIT_CUT, ID_EDIT_CUT},
   {STD_COPY, 4, IDS_EDIT_COPY, ID_EDIT_COPY},
   {-2, 5, IDS_EDIT_COPY_ALL, ID_EDIT_COPY_ALL},
-  {STD_PASTE, 6, IDS_EDIT_PASTE, ID_EDIT_PASTE}
+  {STD_PASTE, 6, IDS_EDIT_PASTE, ID_EDIT_PASTE},
+  {-1, -1, 0, 0},
+  {-3, 7, IDS_EXIT, IDM_EXIT}
 };
 
 CToolbar::CToolbar(HWND hParent, bool bVisible) {
@@ -106,7 +108,12 @@ void CToolbar::CreateToolbar() {
   // Get Non-standard Copy-All bitmap
   bitmaps.hInst = WinHelper::hInstApp;
   bitmaps.nID = IDB_COPY_ALL_LARGE_COLOR;
-  const int COPY_ALL_INDEX = SendMessage(m_hwnd, TB_ADDBITMAP, 0, (LPARAM) & bitmaps);
+  const int COPY_ALL_INDEX = SendMessage(m_hwnd, TB_ADDBITMAP, 1, (LPARAM) & bitmaps);
+
+ // Get Non-standard Exit bitmap
+  bitmaps.hInst = WinHelper::hInstApp;
+  bitmaps.nID = IDB_EXIT_LARGE;
+  const int EXIT_INDEX = SendMessage(m_hwnd, TB_ADDBITMAP, 1, (LPARAM) & bitmaps);
 
   Tstring AllButtons;
   Tstring CurButton;
@@ -130,6 +137,8 @@ void CToolbar::CreateToolbar() {
   for(int i(0); i < iNumButtons; ++i) {
     if(sButtons[i].iBitmap == -2)
       pButtons[i].iBitmap = COPY_ALL_INDEX;
+    else if(sButtons[i].iBitmap == -3)
+      pButtons[i].iBitmap = EXIT_INDEX;
     else
       pButtons[i].iBitmap = sButtons[i].iBitmap;
 

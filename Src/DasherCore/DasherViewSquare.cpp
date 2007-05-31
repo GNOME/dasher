@@ -390,7 +390,7 @@ int CDasherViewSquare::RenderNodePartFast(const int Color, myint y1, myint y2, i
 
   // Commenting because click mode occasionally fails this assert.
   // I don't know why.  -- cjb.
-  if (!(y2 >= y1)) { return 1; }
+  //if (!(y2 >= y1)) { return 1; }
 
   // TODO - Get sensible limits here (to allow for non-linearities)
   myint iDasherMinX;

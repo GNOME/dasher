@@ -81,26 +81,16 @@ BEGIN
     GROUPBOX        "Static",IDC_STATIC,125,7,168,88
     GROUPBOX        "Static",IDC_STATIC,7,7,106,187
     GROUPBOX        "Static",IDC_STATIC,127,106,166,88
-    LISTBOX         IDC_LIST1,19,20,86,118,LBS_SORT | LBS_NOINTEGRALHEIGHT | 
-                    WS_VSCROLL | WS_TABSTOP
-    CONTROL         "Radio1",IDC_RADIO1,"Button",BS_AUTORADIOBUTTON,194,111,
-                    38,10
-    CONTROL         "Radio2",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON,186,124,
-                    38,10
-    CONTROL         "Radio3",IDC_RADIO3,"Button",BS_AUTORADIOBUTTON,183,135,
-                    38,10
-    CONTROL         "Radio4",IDC_RADIO4,"Button",BS_AUTORADIOBUTTON,183,145,
-                    38,10
-    CONTROL         "Radio5",IDC_RADIO5,"Button",BS_AUTORADIOBUTTON,181,161,
-                    38,10
-    LTEXT           "Degree of uniformity (small values increase prediction, large values decrease prediction)",
-                    IDC_STATIC,124,33,156,18
-    EDITTEXT        IDC_UNIFORMVAL,133,63,38,12,ES_AUTOHSCROLL | ES_READONLY | 
-                    NOT WS_TABSTOP
-    CONTROL         "",IDC_UNIFORMSLIDER,"msctls_trackbar32",TBS_BOTH | 
-                    TBS_NOTICKS | WS_TABSTOP,175,63,118,12
-    CONTROL         "Language model adapts as you write",IDC_ADAPTIVE,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,131,17,133,10
+    LISTBOX         IDC_LIST1,19,20,86,118,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Radio1",IDC_RADIO1,"Button",BS_AUTORADIOBUTTON,194,111,38,10
+    CONTROL         "Radio2",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON,186,124,38,10
+    CONTROL         "Radio3",IDC_RADIO3,"Button",BS_AUTORADIOBUTTON,183,135,38,10
+    CONTROL         "Radio4",IDC_RADIO4,"Button",BS_AUTORADIOBUTTON,183,145,38,10
+    CONTROL         "Radio5",IDC_RADIO5,"Button",BS_AUTORADIOBUTTON,181,161,38,10
+    LTEXT           "Degree of uniformity (small values increase prediction, large values decrease prediction)",IDC_STATIC,124,33,156,18
+    EDITTEXT        IDC_UNIFORMVAL,133,63,38,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
+    CONTROL         "",IDC_UNIFORMSLIDER,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,175,63,118,12
+    CONTROL         "Language model adapts as you write",IDC_ADAPTIVE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,131,17,133,10
 END
 
 #endif    // English (U.S.) resources
@@ -123,6 +113,7 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
 
 IDB_FINDER_EMPTY        BITMAP                  "findere.bmp"
 IDB_FINDER_FULL         BITMAP                  "finderf.bmp"
+IDB_EXIT_LARGE          BITMAP                  "ExitLarge.bmp"
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -144,43 +135,34 @@ END
 //
 
 IDD_ABOUTBOX DIALOGEX 0, 0, 242, 151
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "About"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,185,130,50,14
     ICON            IDI_DASHER,IDC_MYICON,23,18,20,20
     LTEXT           "Dasher 4.4.2",IDC_STATIC,67,18,168,10,SS_NOPREFIX
-    LTEXT           "Copyright (C) 1998-2007 The Dasher Project",IDC_STATIC,
-                    67,30,168,10
+    LTEXT           "Copyright (C) 1998-2007 The Dasher Project",IDC_STATIC,67,30,168,10
     LTEXT           "dasher@mrao.cam.ac.uk",IDC_STATIC,67,63,168,10
     LTEXT           "http://www.dasher.org.uk/",IDC_STATIC,67,53,168,10
-    LTEXT           "FAQ: http://www.metafaq.com/faq/dasher/",IDC_STATIC,67,
-                    86,168,10
-    CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME | SS_SUNKEN,67,112,
-                    168,1
+    LTEXT           "FAQ: http://www.metafaq.com/faq/dasher/",IDC_STATIC,67,86,168,10
+    CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME | SS_SUNKEN,67,112,168,1
 END
 
 IDD_ALPHABETPAGE DIALOGEX 0, 0, 218, 238
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Select Alphabet"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     GROUPBOX        "Alphabet Selection:",IDC_STATIC,7,7,204,153
-    LISTBOX         IDC_ALPHABETS,14,18,190,135,LBS_SORT | 
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_ALPHABETS,14,18,190,135,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     GROUPBOX        "Colour Selection:",IDC_STATIC,7,163,204,68
-    LISTBOX         IDC_COLOURS,14,186,190,38,LBS_SORT | 
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
-    CONTROL         "Custom colour scheme:",IDC_COLOURSCHEME,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,174,145,8
+    LISTBOX         IDC_COLOURS,14,186,190,38,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Custom colour scheme:",IDC_COLOURSCHEME,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,174,145,8
 END
 
 IDD_CUSTOMALPHABET DIALOGEX 0, 0, 278, 274
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Customize Alphabet"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
@@ -189,50 +171,39 @@ BEGIN
     LTEXT           "&Training file:",IDC_STATIC,148,7,123,8
     EDITTEXT        IDC_TRAIN,148,18,123,14,ES_AUTOHSCROLL
     LTEXT           "Default Encoding T&ype:",IDC_STATIC,6,36,123,8
-    COMBOBOX        IDC_ENCODING,6,48,124,203,CBS_DROPDOWNLIST | WS_VSCROLL | 
-                    WS_TABSTOP
+    COMBOBOX        IDC_ENCODING,6,48,124,203,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     LTEXT           "Default &Reading Order:",IDC_STATIC,148,37,123,8
-    COMBOBOX        IDC_RO,148,48,123,203,CBS_DROPDOWNLIST | WS_VSCROLL | 
-                    WS_TABSTOP
+    COMBOBOX        IDC_RO,148,48,123,203,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     LTEXT           "&Groups:",IDC_STATIC,6,66,198,8
-    LISTBOX         IDC_GROUPS,6,76,208,49,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
-                    WS_TABSTOP
-    CONTROL         "Spin1",IDC_MOVE_GROUP,"msctls_updown32",UDS_ARROWKEYS | 
-                    WS_TABSTOP,221,75,11,14
+    LISTBOX         IDC_GROUPS,6,76,208,49,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Spin1",IDC_MOVE_GROUP,"msctls_updown32",UDS_ARROWKEYS | WS_TABSTOP,221,75,11,14
     LTEXT           "Move",IDC_GROUP_BUDDY,239,75,32,14,SS_CENTERIMAGE
     PUSHBUTTON      "&Add",IDC_ADD_GROUP,221,92,50,14
     PUSHBUTTON      "D&elete",IDC_DELGROUP,221,110,50,14
     LTEXT           "&Characters:",IDC_STATIC,6,132,93,8
-    LISTBOX         IDC_CHARS,6,142,208,67,LBS_NOINTEGRALHEIGHT | 
-                    LBS_MULTICOLUMN | WS_HSCROLL | WS_TABSTOP
-    CONTROL         "Spin1",IDC_MOVE_CHAR,"msctls_updown32",UDS_ARROWKEYS | 
-                    WS_TABSTOP,221,142,11,14
+    LISTBOX         IDC_CHARS,6,142,208,67,LBS_NOINTEGRALHEIGHT | LBS_MULTICOLUMN | WS_HSCROLL | WS_TABSTOP
+    CONTROL         "Spin1",IDC_MOVE_CHAR,"msctls_updown32",UDS_ARROWKEYS | WS_TABSTOP,221,142,11,14
     LTEXT           "Move",IDC_CHAR_BUDDY,239,142,32,14,SS_CENTERIMAGE
     PUSHBUTTON      "A&dd",IDC_ADD_CHAR,221,160,50,14
     PUSHBUTTON      "De&lete",IDC_DEL_CHAR,221,177,50,14
     PUSHBUTTON      "Edi&t",IDC_EDIT_CHAR,221,195,50,14
-    CONTROL         "&Space Character",IDC_SPACE,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,6,216,199,10
+    CONTROL         "&Space Character",IDC_SPACE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,216,199,10
     CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,6,252,263,1
     PUSHBUTTON      "Cancel",ID_CUSTOM_CANCEL,168,258,50,14
     DEFPUSHBUTTON   "OK",IDOK_CUSTOMIZE,222,258,50,14
-    CONTROL         "&Paragraph Character",IDC_PARAGRAPH,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,6,228,150,8
-    CONTROL         "Co&ntrol Character",IDC_CONTROLCHAR,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,6,240,144,8
+    CONTROL         "&Paragraph Character",IDC_PARAGRAPH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,228,150,8
+    CONTROL         "Co&ntrol Character",IDC_CONTROLCHAR,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,6,240,144,8
 END
 
 IDD_ADDLETTERS DIALOGEX 0, 0, 184, 71
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Add characters"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     LTEXT           "Display:",IDC_STATIC,7,7,59,8
     EDITTEXT        IDC_DISPLAY,7,19,40,14,ES_AUTOHSCROLL
     LTEXT           "Type:",IDC_STATIC,69,7,57,8
-    EDITTEXT        IDC_TEXT,69,17,40,23,ES_MULTILINE | ES_AUTOVSCROLL | 
-                    ES_AUTOHSCROLL | ES_WANTRETURN
+    EDITTEXT        IDC_TEXT,69,17,40,23,ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_WANTRETURN
     CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,6,48,168,1
     PUSHBUTTON      "Close",IDCANCEL,78,54,50,14
     DEFPUSHBUTTON   "Add",IDOK_ADDCHAR,132,54,50,14
@@ -265,16 +236,14 @@ BEGIN
 END
 
 IDD_EDITLETTER DIALOGEX 0, 0, 184, 71
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Edit character"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     LTEXT           "Display:",IDC_STATIC,6,6,59,8
     EDITTEXT        IDC_DISPLAY,6,18,40,14,ES_AUTOHSCROLL
     LTEXT           "Type:",IDC_STATIC,72,6,57,8
-    EDITTEXT        IDC_TEXT,72,18,40,23,ES_MULTILINE | ES_AUTOVSCROLL | 
-                    ES_AUTOHSCROLL | ES_WANTRETURN
+    EDITTEXT        IDC_TEXT,72,18,40,23,ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_WANTRETURN
     CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,6,48,168,1
     PUSHBUTTON      "Cancel",IDCANCEL,78,54,50,14
     DEFPUSHBUTTON   "OK",IDOK_CHAR,132,54,50,14
@@ -283,8 +252,7 @@ BEGIN
 END
 
 IDD_KEYCONTROL2 DIALOGEX 0, 0, 269, 199
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Edit keyboard control"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
@@ -305,12 +273,9 @@ BEGIN
     LTEXT           "Right",IDC_STATIC,7,62,18,8
     LTEXT           "X",IDC_STATIC,40,7,32,8
     LTEXT           "Y",IDC_STATIC,85,7,32,8
-    CONTROL         "Cycle forward",IDC_KCFORWARD,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,131,16,61,10
-    CONTROL         "Cycle backwards",IDC_KCBACK,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,131,31,69,10
-    CONTROL         "Select choice",IDC_KCSELECT,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,131,47,57,10
+    CONTROL         "Cycle forward",IDC_KCFORWARD,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,131,16,61,10
+    CONTROL         "Cycle backwards",IDC_KCBACK,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,131,31,69,10
+    CONTROL         "Select choice",IDC_KCSELECT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,131,47,57,10
     EDITTEXT        IDC_5X,35,75,42,12,ES_AUTOHSCROLL
     EDITTEXT        IDC_5Y,80,75,42,12,ES_AUTOHSCROLL
     EDITTEXT        IDC_6X,35,90,42,12,ES_AUTOHSCROLL
@@ -333,156 +298,111 @@ BEGIN
     LTEXT           "Display:",IDC_STATIC,7,7,59,8
     EDITTEXT        IDC_DISPLAY,7,19,40,14,ES_AUTOHSCROLL
     LTEXT           "Type:",IDC_STATIC,69,7,57,8
-    EDITTEXT        IDC_TEXT,69,17,40,23,ES_MULTILINE | ES_AUTOVSCROLL | 
-                    ES_AUTOHSCROLL | ES_WANTRETURN
+    EDITTEXT        IDC_TEXT,69,17,40,23,ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_WANTRETURN
     CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,7,51,131,1
     PUSHBUTTON      "Close",IDCANCEL,33,58,50,14
     DEFPUSHBUTTON   "Add",IDOK_ADDCHAR,88,58,50,14
 END
 
 IDD_WINSELECT DIALOGEX 0, 0, 186, 82
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Select a Window"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,129,7,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,129,24,50,14
-    CONTROL         163,IDC_DRAGCONTROL,"Static",SS_BITMAP | SS_NOTIFY,45,40,
-                    21,20
-    LTEXT           "Drag the crosshair to the window you want to enter text into, and then press OK",
-                    IDC_STATIC,7,7,113,28
+    CONTROL         163,IDC_DRAGCONTROL,"Static",SS_BITMAP | SS_NOTIFY,45,40,21,20
+    LTEXT           "Drag the crosshair to the window you want to enter text into, and then press OK",IDC_STATIC,7,7,113,28
 END
 
 IDD_CONTROLPAGE DIALOGEX 0, 0, 219, 238
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Dasher Preferences"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     GROUPBOX        "Control Style:",IDC_STATIC,7,7,205,54
     PUSHBUTTON      "Options",IDC_BUTTON_PREFS,157,42,48,14
     GROUPBOX        "Speed:",IDC_STATIC,7,149,205,40
-    CONTROL         "Adapt speed automatically",IDC_AUTOSPEED,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,160,101,8
-    EDITTEXT        IDC_SPEEDVAL,14,172,30,12,ES_AUTOHSCROLL | ES_READONLY | 
-                    NOT WS_TABSTOP
-    CONTROL         "",IDC_SPEEDSLIDER,"msctls_trackbar32",TBS_BOTH | 
-                    TBS_NOTICKS | WS_TABSTOP,45,172,160,12
+    CONTROL         "Adapt speed automatically",IDC_AUTOSPEED,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,160,101,8
+    EDITTEXT        IDC_SPEEDVAL,14,172,30,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
+    CONTROL         "",IDC_SPEEDSLIDER,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,45,172,160,12
     GROUPBOX        "Starting And Stopping:",IDC_CONTROL,7,63,205,84
-    CONTROL         "Start on left mouse button",IDC_LEFT,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,74,147,8
-    CONTROL         "Start on space bar",IDC_SPACE,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,14,86,126,8
-    CONTROL         "Start with mouse position",IDC_MOUSEPOS,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,98,136,8
-    COMBOBOX        IDC_MOUSEPOS_STYLE,111,96,94,30,CBS_DROPDOWNLIST | 
-                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    CONTROL         "Pause outside window",IDC_WINDOWPAUSE,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,110,91,8
-    CONTROL         "Stop when idle",IDC_STOPIDLE,"Button",BS_AUTOCHECKBOX | 
-                    NOT WS_VISIBLE | WS_TABSTOP,111,118,65,10
-    EDITTEXT        IDC_IDLETIME,111,131,41,12,ES_AUTOHSCROLL | ES_NUMBER | 
-                    NOT WS_VISIBLE | WS_DISABLED
-    LTEXT           "Idle time (milliseconds)",IDC_STATICIDLETIME,136,135,76,
-                    8,NOT WS_VISIBLE | WS_DISABLED
-    LISTBOX         IDC_INPUT_LIST,14,202,138,24,LBS_SORT | 
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
-    LISTBOX         IDC_CONTROL_LIST,14,18,138,38,LBS_SORT | 
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
-    CONTROL         "Eyetracker autocalibration",IDC_AUTOCALIBRATE,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,134,100,10
-    CONTROL         "Control mode",IDC_CONTROLMODE,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,14,122,59,10
+    CONTROL         "Start on left mouse button",IDC_LEFT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,74,147,8
+    CONTROL         "Start on space bar",IDC_SPACE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,86,126,8
+    CONTROL         "Start with mouse position",IDC_MOUSEPOS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,98,136,8
+    COMBOBOX        IDC_MOUSEPOS_STYLE,111,96,94,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Pause outside window",IDC_WINDOWPAUSE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,110,91,8
+    CONTROL         "Stop when idle",IDC_STOPIDLE,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,111,118,65,10
+    EDITTEXT        IDC_IDLETIME,111,131,41,12,ES_AUTOHSCROLL | ES_NUMBER | NOT WS_VISIBLE | WS_DISABLED
+    LTEXT           "Idle time (milliseconds)",IDC_STATICIDLETIME,136,135,76,8,NOT WS_VISIBLE | WS_DISABLED
+    LISTBOX         IDC_INPUT_LIST,14,202,138,24,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_CONTROL_LIST,14,18,138,38,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Eyetracker autocalibration",IDC_AUTOCALIBRATE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,134,100,10
+    CONTROL         "Control mode",IDC_CONTROLMODE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,122,59,10
     GROUPBOX        "Input Device:",IDC_STATIC,7,191,205,40
     PUSHBUTTON      "Options",IDC_BUTTON_PREFS2,157,212,48,14
 END
 
 IDD_COLOUR DIALOGEX 0, 0, 256, 238
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Select Colour Scheme"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
-    LISTBOX         IDC_COLOURS,12,16,232,210,LBS_SORT | 
-                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_COLOURS,12,16,232,210,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     GROUPBOX        "Colour Selection:",IDC_STATIC,6,6,244,226
 END
 
 IDD_MISCPAGE DIALOGEX 0, 0, 218, 239
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Edit advanced options"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     GROUPBOX        "File Options:",IDC_STATIC,7,7,204,26
-    CONTROL         "Timestamp new files",IDC_TIMESTAMP,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,18,80,8
+    CONTROL         "Timestamp new files",IDC_TIMESTAMP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,18,80,8
     GROUPBOX        "Start On Mouse Position:",IDC_STATIC,7,35,204,30
     EDITTEXT        IDC_MOUSEPOSDIST,14,46,30,12,ES_AUTOHSCROLL
     LTEXT           "Box offset",IDC_STATIC,48,48,123,8
     GROUPBOX        "One-Dimensional Mode:",IDC_STATIC,7,67,204,30
     EDITTEXT        IDC_YPIX,14,78,30,12,ES_AUTOHSCROLL
     LTEXT           "Pixels covering entire y range",IDC_STATIC,48,80,120,8
-    CONTROL         "Speak on stop",IDC_SPEECH,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,14,111,84,8
-    CONTROL         "Copy all on stop",IDC_COPYALLONSTOP,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,123,67,10
+    CONTROL         "Speak on stop",IDC_SPEECH,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,111,84,8
+    CONTROL         "Copy all on stop",IDC_COPYALLONSTOP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,123,67,10
     GROUPBOX        "Actions:",IDC_STATIC,7,100,204,36
 END
 
 IDD_VIEWPAGE DIALOGEX 0, 0, 218, 238
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     GROUPBOX        "Orientation:",IDC_STATIC,7,7,204,74
-    CONTROL         "Alphabet default",IDC_RADIO1,"Button",
-                    BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,14,18,69,10
-    CONTROL         "Left to right",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON | 
-                    WS_TABSTOP,14,30,54,10
-    CONTROL         "Right to left",IDC_RADIO3,"Button",BS_AUTORADIOBUTTON | 
-                    WS_TABSTOP,14,42,54,10
-    CONTROL         "Top to bottom",IDC_RADIO4,"Button",BS_AUTORADIOBUTTON | 
-                    WS_TABSTOP,14,54,61,10
-    CONTROL         "Bottom to top",IDC_RADIO5,"Button",BS_AUTORADIOBUTTON | 
-                    WS_TABSTOP,14,66,60,10
+    CONTROL         "Alphabet default",IDC_RADIO1,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,14,18,69,10
+    CONTROL         "Left to right",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,14,30,54,10
+    CONTROL         "Right to left",IDC_RADIO3,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,14,42,54,10
+    CONTROL         "Top to bottom",IDC_RADIO4,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,14,54,61,10
+    CONTROL         "Bottom to top",IDC_RADIO5,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,14,66,60,10
     GROUPBOX        "View Options:",IDC_STATIC,7,84,204,86
-    CONTROL         "Show toolbar",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,14,95,58,10
-    CONTROL         "Show speed slider",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,14,107,73,10
-    CONTROL         "Show mouse position",IDC_DRAWMOUSE,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,119,83,10
-    CONTROL         "Draw line between crosshair and mouse",
-                    IDC_DRAWMOUSELINE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
-                    14,131,157,10
-    CONTROL         "Increase line thickness",IDC_THICKLINE,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,25,143,88,10
-    CONTROL         "Draw box outlines",IDC_OUTLINE,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,14,155,73,10
-    CONTROL         "Stand-alone",IDC_STYLE_STANDALONE,"Button",
-                    BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,14,184,55,10
-    CONTROL         "Composition",IDC_STYLE_COMPOSITION,"Button",
-                    BS_AUTORADIOBUTTON | NOT WS_VISIBLE | WS_TABSTOP,145,221,
-                    55,10
-    CONTROL         "Direct entry",IDC_STYLE_DIRECT,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,14,196,54,10
+    CONTROL         "Show toolbar",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,95,58,10
+    CONTROL         "Show speed slider",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,107,73,10
+    CONTROL         "Show mouse position",IDC_DRAWMOUSE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,119,83,10
+    CONTROL         "Draw line between crosshair and mouse",IDC_DRAWMOUSELINE,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,131,157,10
+    CONTROL         "Increase line thickness",IDC_THICKLINE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,25,143,88,10
+    CONTROL         "Draw box outlines",IDC_OUTLINE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,155,73,10
+    CONTROL         "Stand-alone",IDC_STYLE_STANDALONE,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,14,184,55,10
+    CONTROL         "Composition",IDC_STYLE_COMPOSITION,"Button",BS_AUTORADIOBUTTON | NOT WS_VISIBLE | WS_TABSTOP,145,221,55,10
+    CONTROL         "Direct entry",IDC_STYLE_DIRECT,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,14,196,54,10
     GROUPBOX        "Application Style:",IDC_STATIC,7,174,204,35
-    CONTROL         "Full screen",IDC_STYLE_FULL,"Button",BS_AUTORADIOBUTTON | 
-                    NOT WS_VISIBLE | WS_TABSTOP,91,221,50,10
+    CONTROL         "Full screen",IDC_STYLE_FULL,"Button",BS_AUTORADIOBUTTON | NOT WS_VISIBLE | WS_TABSTOP,91,221,50,10
 END
 
 IDD_SOCKET DIALOGEX 0, 0, 218, 238
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Dialog"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     GROUPBOX        "Network socket input:",IDC_STATIC,7,7,204,217
-    CONTROL         "Control Dasher from network socket instead of mouse",
-                    IDC_SOCKET_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
-                    16,23,188,10
+    CONTROL         "Control Dasher from network socket instead of mouse",IDC_SOCKET_ENABLE,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,23,188,10
     EDITTEXT        IDC_SOCKET_PORT,47,39,37,14,ES_AUTOHSCROLL
     LTEXT           "Port",IDC_STATIC,21,41,14,8
     GROUPBOX        "X Coordinate",IDC_STATIC,19,57,178,70
@@ -499,81 +419,56 @@ BEGIN
     LTEXT           "Label",IDC_STATIC,27,145,18,8
     LTEXT           "Min value",IDC_STATIC,27,164,31,8
     LTEXT           "Max value",IDC_STATIC,27,182,34,8
-    CONTROL         "Show debugging messages",IDC_SOCKET_DEBUG,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,16,207,102,10
+    CONTROL         "Show debugging messages",IDC_SOCKET_DEBUG,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,16,207,102,10
 END
 
 IDD_LMPAGE DIALOGEX 0, 0, 218, 238
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Dialog"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     GROUPBOX        "Language Model:",IDC_STATIC,7,169,204,62,NOT WS_VISIBLE
-    CONTROL         "Standard letter-based PPM",IDC_LM_PPM,"Button",
-                    BS_AUTORADIOBUTTON | NOT WS_VISIBLE | WS_TABSTOP,14,180,
-                    102,10
-    CONTROL         "Word-based model",IDC_LM_WORD,"Button",
-                    BS_AUTORADIOBUTTON | NOT WS_VISIBLE | WS_TABSTOP,14,193,
-                    76,10
-    CONTROL         "Mixture model (PPM/dictionary)",IDC_LM_MIXTURE,"Button",
-                    BS_AUTORADIOBUTTON | NOT WS_VISIBLE | WS_TABSTOP,14,204,
-                    115,10
-    CONTROL         "Japanese",IDC_LM_JAPANESE,"Button",BS_AUTORADIOBUTTON | 
-                    NOT WS_VISIBLE | WS_TABSTOP,14,217,47,10
+    CONTROL         "Standard letter-based PPM",IDC_LM_PPM,"Button",BS_AUTORADIOBUTTON | NOT WS_VISIBLE | WS_TABSTOP,14,180,102,10
+    CONTROL         "Word-based model",IDC_LM_WORD,"Button",BS_AUTORADIOBUTTON | NOT WS_VISIBLE | WS_TABSTOP,14,193,76,10
+    CONTROL         "Mixture model (PPM/dictionary)",IDC_LM_MIXTURE,"Button",BS_AUTORADIOBUTTON | NOT WS_VISIBLE | WS_TABSTOP,14,204,115,10
+    CONTROL         "Japanese",IDC_LM_JAPANESE,"Button",BS_AUTORADIOBUTTON | NOT WS_VISIBLE | WS_TABSTOP,14,217,47,10
     GROUPBOX        "Adaptation:",IDC_STATIC,7,7,204,26
-    CONTROL         "Language model adapts as you write",IDC_ADAPTIVE,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,18,133,10
+    CONTROL         "Language model adapts as you write",IDC_ADAPTIVE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,18,133,10
     GROUPBOX        "Smoothing:",IDC_STATIC,7,36,204,52
-    LTEXT           "Degree of uniformity (small values increase prediction, large values decrease prediction)",
-                    IDC_STATIC,14,47,190,18
-    EDITTEXT        IDC_UNIFORMVAL,14,69,30,12,ES_AUTOHSCROLL | ES_READONLY | 
-                    NOT WS_TABSTOP
-    CONTROL         "",IDC_UNIFORMSLIDER,"msctls_trackbar32",TBS_BOTH | 
-                    TBS_NOTICKS | WS_TABSTOP,44,69,160,12
+    LTEXT           "Degree of uniformity (small values increase prediction, large values decrease prediction)",IDC_STATIC,14,47,190,18
+    EDITTEXT        IDC_UNIFORMVAL,14,69,30,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
+    CONTROL         "",IDC_UNIFORMSLIDER,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,44,69,160,12
 END
 
 IDD_BUTTON_SETTINGS DIALOGEX 0, 0, 218, 175
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Dialog"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     GROUPBOX        "Compass Mode",IDC_STATIC,7,43,204,32
     GROUPBOX        "Direct Mode And Menu Mode",IDC_STATIC,7,78,204,69
-    CONTROL         "",IDC_RIGHTZOOM_SLIDER,"msctls_trackbar32",TBS_BOTH | 
-                    TBS_NOTICKS | WS_TABSTOP,112,54,91,15
-    CONTROL         "",IDC_NOBOXES_SLIDER,"msctls_trackbar32",TBS_BOTH | 
-                    TBS_NOTICKS | WS_TABSTOP,112,89,91,15
-    CONTROL         "",IDC_SAFETY_SLIDER,"msctls_trackbar32",TBS_BOTH | 
-                    TBS_NOTICKS | WS_TABSTOP,112,107,91,15
-    CONTROL         "",IDC_NONUNIFORM_SLIDER,"msctls_trackbar32",TBS_BOTH | 
-                    TBS_NOTICKS | WS_TABSTOP,112,126,91,15
+    CONTROL         "",IDC_RIGHTZOOM_SLIDER,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,112,54,91,15
+    CONTROL         "",IDC_NOBOXES_SLIDER,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,112,89,91,15
+    CONTROL         "",IDC_SAFETY_SLIDER,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,112,107,91,15
+    CONTROL         "",IDC_NONUNIFORM_SLIDER,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,112,126,91,15
     LTEXT           "Right zoom:",IDC_STATIC,14,57,39,8
     LTEXT           "Number of boxes:",IDC_STATIC,14,91,58,8
     LTEXT           "Safety margin:",IDC_STATIC,14,110,48,8
     LTEXT           "Box non-uniformity:",IDC_STATIC,14,129,64,8
     GROUPBOX        "Zoom Steps",IDC_ZOOMSTEPS_LABEL,7,7,204,32
-    CONTROL         "",IDC_ZOOMSTEPS_SLIDER,"msctls_trackbar32",TBS_BOTH | 
-                    TBS_NOTICKS | WS_TABSTOP,46,18,157,15
-    EDITTEXT        IDC_ZOOMSTEPS_VALUE,16,18,22,14,ES_AUTOHSCROLL | 
-                    ES_READONLY | NOT WS_BORDER
-    EDITTEXT        IDC_RIGHTZOOM_VALUE,82,55,22,14,ES_AUTOHSCROLL | 
-                    ES_READONLY | NOT WS_BORDER
-    EDITTEXT        IDC_NBOXES_VALUE,82,90,22,14,ES_AUTOHSCROLL | 
-                    ES_READONLY | NOT WS_BORDER
-    EDITTEXT        IDC_NU_VALUE,82,126,22,14,ES_AUTOHSCROLL | ES_READONLY | 
-                    NOT WS_BORDER
-    EDITTEXT        IDC_SAFETY_VALUE,82,107,22,14,ES_AUTOHSCROLL | 
-                    ES_READONLY | NOT WS_BORDER
+    CONTROL         "",IDC_ZOOMSTEPS_SLIDER,"msctls_trackbar32",TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,46,18,157,15
+    EDITTEXT        IDC_ZOOMSTEPS_VALUE,16,18,22,14,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+    EDITTEXT        IDC_RIGHTZOOM_VALUE,82,55,22,14,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+    EDITTEXT        IDC_NBOXES_VALUE,82,90,22,14,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+    EDITTEXT        IDC_NU_VALUE,82,126,22,14,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+    EDITTEXT        IDC_SAFETY_VALUE,82,107,22,14,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
     PUSHBUTTON      "OK",IDC_BP_OK,49,154,50,14
     PUSHBUTTON      "Cancel",IDC_BP_CANCEL,105,154,50,14
     PUSHBUTTON      "Apply",IDC_BP_APPLY,161,154,50,14,WS_DISABLED
 END
 
 IDD_DIALOG5 DIALOGEX 0, 0, 300, 201
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Dialog"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
@@ -800,12 +695,9 @@ BEGIN
         MENUITEM "&Dasher Font...",             ID_OPTIONS_DASHERFONT
         POPUP "Dasher Font Size"
         BEGIN
-            MENUITEM "Normal",                      ID_OPTIONS_FONTSIZE_NORMAL
-            , CHECKED
+            MENUITEM "Normal",                      ID_OPTIONS_FONTSIZE_NORMAL, CHECKED
             MENUITEM "Large",                       ID_OPTIONS_FONTSIZE_LARGE
-
             MENUITEM "Very Large",                  ID_OPTIONS_FONTSIZE_VERYLARGE
-
         END
         MENUITEM "&Reset Fonts",                ID_OPTIONS_RESETFONT
     END
@@ -898,6 +790,7 @@ BEGIN
     IDS_BUTTON_PREFS_DIALOGUE_TITLE "Button Mode Preferences"
     IDS_BUTTON_SETTINGS_TITLE "Button Setup"
     IDS_FILE_SAVE           "Save"
+    IDS_EXIT                "Exit"
     IDS_FILE_OPEN           "Open"
     IDS_FILE_NEW            "New"
 END

@@ -13,6 +13,7 @@
 #define IDS_BUTTON_SETTINGS_TITLE       106
 #define IDS_FILE_SAVE                   107
 #define IDM_EXIT                        108
+#define IDS_EXIT                        108
 #define IDS_FILE_OPEN                   109
 #define IDS_HELLO                       110
 #define IDS_FILE_NEW                    111
@@ -101,6 +102,7 @@
 #define IDD_LM                          175
 #define IDD_LMPAGE                      175
 #define IDD_BUTTON_SETTINGS             177
+#define IDB_EXIT_LARGE                  178
 #define IDC_LIST1                       1008
 #define IDC_INPUT_LIST                  1008
 #define IDC_LIST_ALPH                   1009
@@ -316,7 +318,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        178
+#define _APS_NEXT_RESOURCE_VALUE        179
 #define _APS_NEXT_COMMAND_VALUE         32818
 #define _APS_NEXT_CONTROL_VALUE         1148
 #define _APS_NEXT_SYMED_VALUE           110
