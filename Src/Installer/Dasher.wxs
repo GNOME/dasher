@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
 
-  <Product Name='Dasher 4.4' Id='5e986a24-dce6-4eda-b09d-ce98cd932cfa'
+  <Product Name='Dasher 4.4' Id='D35472CE-630E-4916-BE8F-D42DA0D7EBFE'
    Language='1033' Codepage='1252' Version='4.4.2' Manufacturer='Dasher'
    UpgradeCode='DA128B78-F6C8-4473-A446-D1A8D25AE509'>
 
@@ -229,30 +229,36 @@
      </Directory>
 
      <Directory Id="DesktopFolder" Name="Desktop" />
-       <Component Id="RegistryTobii" Guid="63287558-8a18-4103-89d5-2c1116cffc52">
-         <Registry Id='TobiiExecutable' Root='HKLM' Key='Software\Tobii\MyTobii\MPA\Dasher45' Name='ExecutablePath'
-          Action='write' Type='string' Value='[INSTALLDIR]Dasher.exe' />
-         <Registry Id='TobiiIcon' Root='HKLM' Key='Software\Tobii\MyTobii\MPA\Dasher45' Name='IconPath'
-          Action='write' Type='string' Value='[INSTALLDIR]dasher-tobii.png' />
-         <Registry Id='TobiiTitle' Root='HKLM' Key='Software\Tobii\MyTobii\MPA\Dasher45' Name='Title'
-	  Action='write' Type='string' Value='Dasher' />
+      <Component Id="RegistryTobii" Guid="63287558-8a18-4103-89d5-2c1116cffc52">
+        <Registry Id='TobiiExecutable' Root='HKLM' Key='Software\Tobii\MyTobii\MPA\Dasher45' Name='ExecutablePath'
+         Action='write' Type='string' Value='[INSTALLDIR]Dasher.exe' />
+        <Registry Id='TobiiIcon' Root='HKLM' Key='Software\Tobii\MyTobii\MPA\Dasher45' Name='IconPath'
+         Action='write' Type='string' Value='[INSTALLDIR]dasher-tobii.png' />
+        <Registry Id='TobiiTitle' Root='HKLM' Key='Software\Tobii\MyTobii\MPA\Dasher45' Name='Title'
+   Action='write' Type='string' Value='Dasher' />
+        <Registry Id='TobiiMouse' Root='HKLM' Key='Software\Tobii\MyTobii\MPA\Dasher45' Name='MouseControl'
+         Action='write' Type='string' Value='true' />
+      </Component>
 
+      <Component Id="RegistryTobiiDefaults" Guid="6EBE4DD9-850E-4a7b-BEBF-A33B0580F3EC">
 	  <Registry Id="RegistryCircleStart" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="CircleStart" Action="write" Type="integer" Value="1" />
 	  <Registry Id="RegistryInputFilter" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="InputFilter" Action="write" Type="string" Value="Eyetracker Mode" />
+    <Registry Id="RegistryStartOnLeft" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="StartOnLeft" Action="write" Type="integer" Value="0" />
 	</Component>
 
-	<Component Id="RegistryNonTobii" Guid="a3bf552d-9622-4d4a-b17b-ebb47a18955b">
+	<!--<Component Id="RegistryNonTobii" Guid="a3bf552d-9622-4d4a-b17b-ebb47a18955b">
 	  <Condition>NOT TOBII</Condition>
 
 	  <Registry Id="RegistryCircleStart" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="CircleStart" Action="write" Type="integer" Value="0" />
 	  <Registry Id="RegistryInputFilter" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="InputFilter" Action="write" Type="string" Value="Normal Control" />
-	</Compnent>
+    <Registry Id="RegistryStartOnLeft" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="StartOnLeft" Action="write" Type="integer" Value="1" />
+    </Component>-->
 
-       <Component Id="RegistryCore" Guid="5999aef1-3ba7-4af2-8d56-5f3f4e7a4410">
+
+       <!--<Component Id="RegistryCore" Guid="5999aef1-3ba7-4af2-8d56-5f3f4e7a4410">
 	<Registry Id="RegistryDrawMouseLine" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="DrawMouseLine" Action="write" Type="integer" Value="1" />
 	<Registry Id="RegistryDrawMouse" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="DrawMouse" Action="write" Type="integer" Value="0" />
 	<Registry Id="RegistryShowSpeedSlider" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ShowSpeedSlider" Action="write" Type="integer" Value="1" />
-	<Registry Id="RegistryStartOnLeft" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="StartOnLeft" Action="write" Type="integer" Value="1" />
 	<Registry Id="RegistryStartOnSpace" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="StartOnSpace" Action="write" Type="integer" Value="0" />
 	<Registry Id="RegistryStartOnStylus" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="StartOnStylus" Action="write" Type="integer" Value="0" />
 	<Registry Id="RegistryStopOnIdle" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="StopOnIdle" Action="write" Type="integer" Value="0" />
@@ -372,13 +378,14 @@
 	<Registry Id="RegistryJoystickDevice" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="JoystickDevice" Action="write" Type="string" Value="/dev/input/js0" />
 	<Registry Id="RegistryEditFont" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="EditFont" Action="write" Type="string" Value="Sans 10" />
 	<Registry Id="RegistryWindowState" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="WindowState" Action="write" Type="string" Value="" />
-    </Component>
+    </Component>-->
   </Directory>
 
 
 
-    <Feature Id='Complete' Title='Dasher 4.4' Description='Everything.' Display='expand' Level='1' ConfigurableDirectory='INSTALLDIR'>
-      <Feature Id="Core" Title="Core" Description="Main executable and core data files" Level="1">
+    <Feature Id='Complete' Title='Dasher 4.4' Description='The full Dasher installation.' Display='expand' Level='1' ConfigurableDirectory='INSTALLDIR'>
+      <Feature Id="Core" Title="Core" Description="Core programs and data files." Level="1">
+       
         <ComponentRef Id='MainExecutable' />
         <ComponentRef Id='Random' />
         <ComponentRef Id="Alphabets" />
@@ -387,17 +394,18 @@
         <ComponentRef Id="ControlLabels" />
         <!--<ComponentRef Id="RegistryCore" />-->
       </Feature>
-      <Feature Id="Documentation" Title="Documentation" Description="Dasher manual." Level="1">
+      <Feature Id="Documentation" Title="Documentation" Description="The Dasher manual." Level="1">
         <ComponentRef Id="Help" />
       </Feature>
-      <Feature Id="Tobii" Title="MyTobii Support" Description="Support for the MyTobii gaze tracker" Level="1000">
+      <Feature Id="Tobii" Title="MyTobii Support" Description="Support for the MyTobii gaze tracker." Level="1000">
         <ComponentRef Id="Tobii" />
         <ComponentRef Id="RegistryTobii" />
+        <ComponentRef Id="RegistryTobiiDefaults" />
       </Feature>
-      <Feature Id="NonTobii" Title="Non-Tobii Defaults" Description="Default values for non-Tobii installations (internal)" Level="1">
+      <!--<Feature Id="NonTobii" Title="Non-Tobii Defaults" Description="Default values for non-Tobii installations (internal)" Level="1">
         <Condition Level="0">FooBar</Condition>
         <CoponentRef Id="RegistryNonTobii" />
-      </Feature>
+      </Feature>-->
     </Feature>
 
     <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
