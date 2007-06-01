@@ -16,6 +16,8 @@
 #include "Common/WinHelper.h"
 #include "DasherWindow.h"
 
+#include <commctrl.h>
+
 using namespace Dasher;
 
 /*

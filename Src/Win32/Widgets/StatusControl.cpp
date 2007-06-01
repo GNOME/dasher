@@ -45,7 +45,7 @@ LRESULT CStatusControl::OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL&
 }
 
 HWND CStatusControl::Create(HWND hParent) {
-  CWindowImpl<CStatusControl>::Create(hParent);
+  CWindowImpl<CStatusControl>::Create(hParent, 0, 0, SS_CENTER | SS_OWNERDRAW | WS_CHILD );
 
   CreateChildren();
 

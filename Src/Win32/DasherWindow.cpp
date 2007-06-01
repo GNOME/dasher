@@ -586,8 +586,8 @@ void CDasherWindow::Layout() {
   const int Height = ClientRect.bottom;
 
   int ToolbarHeight;
-  if((m_pToolbar != 0) && m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR))
-    ToolbarHeight = m_pToolbar->GetHeight() + 2;
+  if(m_pToolbar && m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR))
+    ToolbarHeight = m_pToolbar->GetHeight();
   else
     ToolbarHeight = 0;
   int CurY = ToolbarHeight;

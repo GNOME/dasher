@@ -65,12 +65,13 @@ void CToolbar::ShowToolbar(bool bValue) {
 void CToolbar::CreateToolbar() {
   WinHelper::InitCommonControlLib();
 
+ 
 
   m_hRebar = CreateWindowEx(WS_EX_TOOLWINDOW,
                             REBARCLASSNAME,
                             NULL,
                             WS_CHILD|WS_VISIBLE|WS_CLIPSIBLINGS|
-                            WS_CLIPCHILDREN|RBS_VARHEIGHT,
+                            WS_CLIPCHILDREN|RBS_VARHEIGHT|CCS_NODIVIDER,
                             0,0,0,0,
                             m_hParent, NULL, WinHelper::hInstApp,
                             NULL);

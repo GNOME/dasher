@@ -30,7 +30,7 @@ CSlidebar::CSlidebar(HWND ParentWindow, CDasherInterfaceBase *NewDasherInterface
                             REBARCLASSNAME,
                             NULL,
                             WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS |
-                            WS_CLIPCHILDREN | RBS_VARHEIGHT |
+                             RBS_VARHEIGHT |
                             CCS_BOTTOM | CCS_NODIVIDER,
                             0,0,0,0,
                             ParentWindow, NULL, WinHelper::hInstApp,
