@@ -761,6 +761,17 @@ void CDasherViewSquare::GetScaleFactor( int eOrientation, myint *iScaleFactorX, 
 inline myint CDasherViewSquare::CustomIDiv(myint iNumerator, myint iDenominator) { 
   // Integer division rounding away from zero
   
+#ifdef _WIN32
+  myint quot = iNumerator / iDenominator;
+  myint rem = (int64)iNumerator % (int64)iDenominator;
+
+  if(rem < 0)
+    return quot - 1;
+  else if (rem > 0)
+    return quot + 1;
+  else
+    return quot;
+#else
   lldiv_t res = __gnu_cxx::lldiv(iNumerator, iDenominator);
   
   if(res.rem < 0)
@@ -769,7 +780,8 @@ inline myint CDasherViewSquare::CustomIDiv(myint iNumerator, myint iDenominator)
     return res.quot + 1;
   else
     return res.quot;
-  
+#endif
+
   // return (iNumerator + iDenominator - 1) / iDenominator;
 }
 
@@ -799,7 +811,6 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
 
   GetScaleFactor( eOrientation, &iScaleFactorX, &iScaleFactorY);
 
-  lldiv_t res;
 
   // Note that integer division is rounded *away* from zero here to
   // enesure that this really is the inverse of the map the other way
