@@ -170,6 +170,8 @@ private:
   double xmax(double x, double y) const;
   double ixmap(double x) const;
   inline void Crosshair(myint sx);
+  
+  inline myint CustomIDiv(myint iNumerator, myint iDenominator);
 
   // Called on screen size changes
   void SetScaleFactor();

@@ -33,6 +33,8 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
+static bool g_bDebug = false;
+
 // FIXME - quite a lot of the code here probably should be moved to
 // the parent class (DasherView). I think we really should make the
 // parent class less general - we're probably not going to implement
@@ -97,6 +99,7 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
   myint iDasherMaxY;
   VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
   //
+
   screenint iScreenLeft;
   screenint iScreenTop;
   screenint iScreenRight;
@@ -104,6 +107,8 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
 
   Dasher2Screen(iRootMax-iRootMin, iRootMin, iScreenLeft, iScreenTop);
   Dasher2Screen(0, iRootMax, iScreenRight, iScreenBottom);
+
+
 
   //ifiScreenTop < 0)
   //  iScreenTop = 0;
@@ -120,22 +125,22 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
 
   // Blank the regoin around the root node:
   
-  //if(iRootMin > iDasherMinY)
-  //  DasherDrawRectangle(iDasherMaxX, iDasherMinY, iDasherMinX, iRootMin, 0, 0, Nodes1, false,true, 1);
+  if(iRootMin > iDasherMinY)
+    DasherDrawRectangle(iDasherMaxX, iDasherMinY, iDasherMinX, iRootMin, 0, 0, Nodes1, false,true, 1);
   
-  if(iScreenTop > 0)
-    Screen()->DrawRectangle(0, 0, Screen()->GetWidth(), iScreenTop, 0, -1, Nodes1, false, true, 1);
+  //if(iScreenTop > 0)
+  //  Screen()->DrawRectangle(0, 0, Screen()->GetWidth(), iScreenTop, 0, -1, Nodes1, false, true, 1);
 
-  //if(iRootMax < iDasherMaxY)
-  //  DasherDrawRectangle(iDasherMaxX, iRootMax, iDasherMinX, iDasherMaxY, 0, 0, Nodes1, false,true, 1);
+  if(iRootMax < iDasherMaxY)
+    DasherDrawRectangle(iDasherMaxX, iRootMax, iDasherMinX, iDasherMaxY, 0, 0, Nodes1, false,true, 1);
 
-  if(iScreenBottom <= Screen()->GetHeight())
-    Screen()->DrawRectangle(0, iScreenBottom, Screen()->GetWidth(), Screen()->GetHeight(), 0, -1, Nodes1, false, true, 1);
+  //if(iScreenBottom <= Screen()->GetHeight())
+  // Screen()->DrawRectangle(0, iScreenBottom, Screen()->GetWidth(), Screen()->GetHeight(), 0, -1, Nodes1, false, true, 1);
 
-//  DasherDrawRectangle(0, iDasherMinY, iDasherMinX, iDasherMaxY, 0, 4, Nodes1, false,true, 1);
-  Screen()->DrawRectangle(iScreenRight, std::max(0, (int)iScreenTop),
-			  Screen()->GetWidth(), std::min(Screen()->GetHeight(), (int)iScreenBottom), 
-			  0, -1, Nodes1, false, true, 1);
+  DasherDrawRectangle(0, iDasherMinY, iDasherMinX, iDasherMaxY, 0, 4, Nodes1, false,true, 1);
+  //  Screen()->DrawRectangle(iScreenRight, std::max(0, (int)iScreenTop),
+  //		  Screen()->GetWidth(), std::min(Screen()->GetHeight(), (int)iScreenBottom), 
+  //		  0, -1, Nodes1, false, true, 1);
 
   // Render the root node (and children)
   RecursiveRender(pRoot, iRootMin, iRootMax, iDasherMaxX, vNodeList, vDeleteList, iGamePointer,true,iDasherMaxX,0,0);
@@ -210,8 +215,7 @@ bool CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
  
   // If there are no children then we still need to render the parent
   if(pRender->ChildCount() == 0) {
-    if(iDepth == 1)
-      RenderNodePartFast(pRender->GetDisplayInfo()->iColour, y1, y2, mostleft, pRender->GetDisplayInfo()->strDisplayText, pRender->GetDisplayInfo()->bShove,y2-y1);
+    RenderNodePartFast(pRender->GetDisplayInfo()->iColour, y1, y2, mostleft, pRender->GetDisplayInfo()->strDisplayText, pRender->GetDisplayInfo()->bShove,y2-y1);
     vNodeList.push_back(pRender);
     return true;  // CHANGED BY IGNAS. I return 1 when the child was rendered and in this case the 
     //child was rendered.
@@ -668,9 +672,10 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
 
   // TODO: Is this used any more?
   if( b1D ) { // Special case for 1D mode...
-    iDasherX = iInputX * iDasherWidth / iScreenWidth;
-    iDasherY = iInputY * iDasherHeight / iScreenHeight;
-    return;
+    DASHER_ASSERT(false);
+    //    iDasherX = iInputX * iDasherWidth / iScreenWidth;
+    // iDasherY = iInputY * iDasherHeight / iScreenHeight;
+    //return;
   }
 
   int eOrientation(GetLongParameter(LP_REAL_ORIENTATION));
@@ -702,10 +707,11 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
 #ifndef WITH_MAEMO
   // FIXME - disabled to avoid floating point
   if( bNonlinearity ) {
-  iDasherX = myint(ixmap(iDasherX / static_cast < double >(GetLongParameter(LP_MAX_Y))) * (myint)GetLongParameter(LP_MAX_Y));
-  iDasherY = m_ymap.unmap(iDasherY);
+    iDasherX = myint(ixmap(iDasherX / static_cast < double >(GetLongParameter(LP_MAX_Y))) * (myint)GetLongParameter(LP_MAX_Y));
+    iDasherY = m_ymap.unmap(iDasherY);
   }
 #endif
+  
 }
 
 void CDasherViewSquare::SetScaleFactor( void )
@@ -751,8 +757,22 @@ void CDasherViewSquare::GetScaleFactor( int eOrientation, myint *iScaleFactorX, 
   }
 }
 
-/// Convert dasher co-ordinates to screen co-ordinates
+
+inline myint CDasherViewSquare::CustomIDiv(myint iNumerator, myint iDenominator) { 
+  // Integer division rounding away from zero
   
+  lldiv_t res = __gnu_cxx::lldiv(iNumerator, iDenominator);
+  
+  if(res.rem < 0)
+    return res.quot - 1;
+  else if (res.rem > 0)
+    return res.quot + 1;
+  else
+    return res.quot;
+  
+  // return (iNumerator + iDenominator - 1) / iDenominator;
+}
+
 void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint &iScreenX, screenint &iScreenY) {
 
   // Apply the nonlinearities
@@ -762,6 +782,7 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
   iDasherX = myint(xmap(iDasherX / static_cast < double >(GetLongParameter(LP_MAX_Y))) * (myint)GetLongParameter(LP_MAX_Y));
   iDasherY = m_ymap.map(iDasherY);
 #endif
+
 
   // Things we're likely to need:
 
@@ -778,22 +799,36 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
 
   GetScaleFactor( eOrientation, &iScaleFactorX, &iScaleFactorY);
 
+  lldiv_t res;
+
+  // Note that integer division is rounded *away* from zero here to
+  // enesure that this really is the inverse of the map the other way
+  // around.
+
   switch( eOrientation ) {
   case Dasher::Opts::LeftToRight:
-    iScreenX = screenint(iScreenWidth / 2 - ( iDasherX - iDasherWidth / 2 ) * iScaleFactorX / m_iScalingFactor);
-    iScreenY = screenint(iScreenHeight / 2 + ( iDasherY - iDasherHeight / 2 ) * iScaleFactorY / m_iScalingFactor);
+    iScreenX = screenint(iScreenWidth / 2 - 
+			 CustomIDiv((( iDasherX - iDasherWidth / 2 ) * iScaleFactorX), m_iScalingFactor));
+    iScreenY = screenint(iScreenHeight / 2 +
+			 CustomIDiv(( iDasherY - iDasherHeight / 2 ) * iScaleFactorY, m_iScalingFactor));
     break;
   case Dasher::Opts::RightToLeft:
-    iScreenX = screenint(iScreenWidth / 2 + ( iDasherX - iDasherWidth / 2 ) * iScaleFactorX / m_iScalingFactor);
-    iScreenY = screenint(iScreenHeight / 2 + ( iDasherY - iDasherHeight / 2 ) * iScaleFactorY / m_iScalingFactor);
+    iScreenX = screenint(iScreenWidth / 2 + 
+			 CustomIDiv(( iDasherX - iDasherWidth / 2 ) * iScaleFactorX, m_iScalingFactor));
+    iScreenY = screenint(iScreenHeight / 2 + 
+			 CustomIDiv(( iDasherY - iDasherHeight / 2 ) * iScaleFactorY, m_iScalingFactor));
     break;
   case Dasher::Opts::TopToBottom:
-    iScreenX = screenint(iScreenWidth / 2 + ( iDasherY - iDasherHeight / 2 ) * iScaleFactorX / m_iScalingFactor);
-    iScreenY = screenint(iScreenHeight / 2 - ( iDasherX - iDasherWidth / 2 ) * iScaleFactorY / m_iScalingFactor);
+    iScreenX = screenint(iScreenWidth / 2 + 
+			 CustomIDiv(( iDasherY - iDasherHeight / 2 ) * iScaleFactorX, m_iScalingFactor));
+    iScreenY = screenint(iScreenHeight / 2 - 
+			 CustomIDiv(( iDasherX - iDasherWidth / 2 ) * iScaleFactorY, m_iScalingFactor));
     break;
   case Dasher::Opts::BottomToTop:
-    iScreenX = screenint(iScreenWidth / 2 + ( iDasherY - iDasherHeight / 2 ) * iScaleFactorX / m_iScalingFactor);
-    iScreenY = screenint(iScreenHeight / 2 + ( iDasherX - iDasherWidth / 2 ) * iScaleFactorY / m_iScalingFactor);
+    iScreenX = screenint(iScreenWidth / 2 + 
+			 CustomIDiv(( iDasherY - iDasherHeight / 2 ) * iScaleFactorX, m_iScalingFactor));
+    iScreenY = screenint(iScreenHeight / 2 + 
+			 CustomIDiv(( iDasherX - iDasherWidth / 2 ) * iScaleFactorY, m_iScalingFactor));
     break;
   }
 }
