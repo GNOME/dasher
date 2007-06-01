@@ -66,6 +66,8 @@ libdashergtk_a_SOURCES = \
                          dasher_buffer_set.h \
 			 dasher_editor.cpp \
 			 dasher_editor.h \
+			 dasher_editor_external.cpp \
+			 dasher_editor_external.h \
                          dasher_editor_internal.cpp \
                          dasher_editor_internal.h \
                          dasher_external_buffer.cpp \
