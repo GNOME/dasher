@@ -1,5 +1,6 @@
 2007-06-01  Phil Cowans  <pjc51@cam.ac.uk>
 
+	* Tweaks to glade file
 	* Fixed integer arithmetic error which was causing OBO errors in the rendering.
 
 2007-04-30  Phil Cowans  <pjc51@cam.ac.uk>
