@@ -36,12 +36,71 @@ static menuentry menutable[] = {
 };
 
 CAlphabetBox::CAlphabetBox(HWND Parent, CDasherInterfaceBase *DI, CAppSettings *pAppSettings)
-: CPrefsPageBase(Parent, DI, pAppSettings), m_pDasherInterface(DI), m_CurrentAlphabet(DI->GetStringParameter(SP_ALPHABET_ID)), m_CurrentColours(DI->GetStringParameter(SP_COLOUR_ID)), Editing(false), Cloning(false), EditChar(false), CustomBox(0), CurrentGroup(0), CurrentChar(0) {
+: CPrefsPageBase(Parent, DI, pAppSettings), m_pDasherInterface(DI), m_CurrentAlphabet(DI->GetStringParameter(SP_ALPHABET_ID)),  Editing(false), Cloning(false), EditChar(false), CustomBox(0), CurrentGroup(0), CurrentChar(0) {
   m_hwnd = 0;
   m_hPropertySheet = 0;
 }
 
 void CAlphabetBox::PopulateList() {
+#ifndef JAPANESE
+    EnableWindow(GetDlgItem(m_hwnd, IDC_LM_JAPANESE), FALSE);
+#endif
+
+    slider = GetDlgItem(m_hwnd, IDC_UNIFORMSLIDER);
+    SendMessage(slider, TBM_SETPAGESIZE, 0L, 20); // PgUp and PgDown change bitrate by reasonable amount
+    SendMessage(slider, TBM_SETTICFREQ, 10, 0L);
+    SendMessage(slider, TBM_SETRANGE, FALSE, (LPARAM) MAKELONG(0, 1000));
+  
+    uniformbox = GetDlgItem(m_hwnd, IDC_UNIFORMVAL);  
+
+    if(m_pAppSettings->GetBoolParameter(BP_LM_ADAPTIVE)) {
+      SendMessage(GetDlgItem(m_hwnd, IDC_ADAPTIVE), BM_SETCHECK, BST_CHECKED, 0);
+    }
+    else  {
+      SendMessage(GetDlgItem(m_hwnd, IDC_ADAPTIVE), BM_SETCHECK, BST_UNCHECKED, 0);
+    }
+
+    SendMessage(slider, TBM_SETPOS, TRUE, (LPARAM) m_pAppSettings->GetLongParameter(LP_UNIFORM));
+
+    _sntprintf(m_tcBuffer, 100, TEXT("%0.1f"), m_pAppSettings->GetLongParameter(LP_UNIFORM) / 10.0);
+    SendMessage(uniformbox, WM_SETTEXT, 0, (LPARAM) m_tcBuffer);
+
+  switch(m_pAppSettings->GetLongParameter(LP_LANGUAGE_MODEL_ID)) {
+    case 0:
+      SendMessage(GetDlgItem(m_hwnd, IDC_LM_PPM), BM_SETCHECK, BST_CHECKED, 0);
+      break;
+    case 2:
+      SendMessage(GetDlgItem(m_hwnd, IDC_LM_WORD), BM_SETCHECK, BST_CHECKED, 0);
+      break;
+    case 3:
+      SendMessage(GetDlgItem(m_hwnd, IDC_LM_MIXTURE), BM_SETCHECK, BST_CHECKED, 0);
+      break;
+#ifdef JAPANESE
+    case 4:
+      SendMessage(GetDlgItem(m_hwnd, IDC_LM_JAPANESE), BM_SETCHECK, BST_CHECKED, 0);
+      break;
+#endif
+   }
+ // Populate the orientation selection:
+
+  switch(m_pAppSettings->GetLongParameter(LP_ORIENTATION)) {
+    case Dasher::Opts::AlphabetDefault:
+      SendMessage(GetDlgItem(m_hwnd, IDC_RADIO1), BM_SETCHECK, BST_CHECKED, 0);
+      break;
+    case Dasher::Opts::LeftToRight:
+      SendMessage(GetDlgItem(m_hwnd, IDC_RADIO2), BM_SETCHECK, BST_CHECKED, 0);
+      break;
+    case Dasher::Opts::RightToLeft:
+      SendMessage(GetDlgItem(m_hwnd, IDC_RADIO3), BM_SETCHECK, BST_CHECKED, 0);
+      break;
+    case Dasher::Opts::TopToBottom:
+      SendMessage(GetDlgItem(m_hwnd, IDC_RADIO4), BM_SETCHECK, BST_CHECKED, 0);
+      break;
+    case Dasher::Opts::BottomToTop:
+      SendMessage(GetDlgItem(m_hwnd, IDC_RADIO5), BM_SETCHECK, BST_CHECKED, 0);
+      break;
+  }
+
   HWND ListBox = GetDlgItem(m_hwnd, IDC_ALPHABETS);
   SendMessage(ListBox, LB_RESETCONTENT, 0, 0);
 
@@ -83,28 +142,7 @@ void CAlphabetBox::PopulateList() {
   // Tell list box that we have set an item for it (so that delete and edit can be grayed if required)
   SendMessage(m_hwnd, WM_COMMAND, MAKEWPARAM(IDC_ALPHABETS, LBN_SELCHANGE), 0);
 
-  ListBox = GetDlgItem(m_hwnd, IDC_COLOURS);
-  m_pDasherInterface->GetPermittedValues(SP_COLOUR_ID, ColourList);
 
-  // Add each string to list box and index each one
-  SelectionSet = false;
-  for(unsigned int i = 0; i < ColourList.size(); i++) {
-    Tstring Item;
-    WinUTF8::UTF8string_to_wstring(ColourList[i], Item);
-    LRESULT Index = SendMessage(ListBox, LB_ADDSTRING, 0, (LPARAM) Item.c_str());
-    SendMessage(ListBox, LB_SETITEMDATA, Index, (LPARAM) i);
-    if(ColourList[i] == m_CurrentColours) {
-      SendMessage(ListBox, LB_SETCURSEL, Index, 0);
-      SelectionSet = true;
-    }
-  }
-  if(SelectionSet == false) {
-    SendMessage(ListBox, LB_SETCURSEL, 0, 0);
-    LRESULT CurrentIndex = SendMessage(ListBox, LB_GETITEMDATA, 0, 0);
-    m_CurrentColours = ColourList[CurrentIndex];
-  }
-  // Tell list box that we have set an item for it (so that delete and edit can be grayed if required)
-  SendMessage(m_hwnd, WM_COMMAND, MAKEWPARAM(IDC_COLOURS, LBN_SELCHANGE), 0);
 
 // all the button checkboxes
   for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++)
@@ -351,15 +389,39 @@ void CAlphabetBox::PopulateList() {
 
 bool CAlphabetBox::Apply() {
 
+  if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO1), BM_GETCHECK, 0, 0))
+    m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::AlphabetDefault);
+  else if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO2), BM_GETCHECK, 0, 0))
+    m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::LeftToRight);
+  else if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO3), BM_GETCHECK, 0, 0))
+    m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::RightToLeft);
+  else if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO4), BM_GETCHECK, 0, 0))
+    m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::TopToBottom);
+  else if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO5), BM_GETCHECK, 0, 0))
+    m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::BottomToTop);
+
+  m_pAppSettings->SetBoolParameter( BP_LM_ADAPTIVE, SendMessage(GetDlgItem(m_hwnd, IDC_ADAPTIVE), BM_GETCHECK, 0, 0)!=0 );
+  
+  double NewUniform;
+  NewUniform = SendMessage(slider, TBM_GETPOS, 0, 0);
+  m_pAppSettings->SetLongParameter( LP_UNIFORM, NewUniform);
+
+  if(SendMessage(GetDlgItem(m_hwnd, IDC_LM_PPM), BM_GETCHECK, 0, 0))
+    m_pAppSettings->SetLongParameter(LP_LANGUAGE_MODEL_ID, 0);
+  else if(SendMessage(GetDlgItem(m_hwnd, IDC_LM_WORD), BM_GETCHECK, 0, 0))
+    m_pAppSettings->SetLongParameter(LP_LANGUAGE_MODEL_ID, 2);
+  else if(SendMessage(GetDlgItem(m_hwnd, IDC_LM_MIXTURE), BM_GETCHECK, 0, 0))
+    m_pAppSettings->SetLongParameter(LP_LANGUAGE_MODEL_ID, 3);
+#ifdef JAPANESE
+  else if(SendMessage(GetDlgItem(m_hwnd, IDC_LM_JAPANESE), BM_GETCHECK, 0, 0))
+    m_pAppSettings->SetLongParameter(LP_LANGUAGE_MODEL_ID, 4);
+#endif
+
+
   if(m_CurrentAlphabet != std::string("")) {
     if(m_CurrentAlphabet != m_pDasherInterface->GetStringParameter(SP_ALPHABET_ID))
       m_pDasherInterface->SetStringParameter(SP_ALPHABET_ID, m_CurrentAlphabet); 
   }
-
-  if(m_CurrentColours != std::string("")) {
-        m_pDasherInterface->SetStringParameter(SP_COLOUR_ID, m_CurrentColours);
-  }
-
 
   for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++)
   {
@@ -374,8 +436,27 @@ bool CAlphabetBox::Apply() {
 
 LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
   NMHDR *pNMHDR;
+     double NewUniform;
+
+  // most things we pass on to CPrefsPageBase, but we need to handle slider motion
 
   switch (message) {
+  case WM_HSCROLL:
+    if((LOWORD(wParam) == SB_THUMBPOSITION) | (LOWORD(wParam) == SB_THUMBTRACK)) {
+      // Some messages give the new postion
+      NewUniform = HIWORD(wParam);
+    }
+    else {
+      // Otherwise we have to ask for it
+      long Pos = SendMessage(slider, TBM_GETPOS, 0, 0);
+      NewUniform = Pos;
+    }
+    {
+      _sntprintf(m_tcBuffer, 100, TEXT("%0.1f"), NewUniform / 10);
+      SendMessage(uniformbox, WM_SETTEXT, 0, (LPARAM) m_tcBuffer);
+    }
+    return TRUE;
+    break;
   //case WM_INITDIALOG:
   //  if(!m_hwnd) {               // If this is the initial dialog for the first time
   //    m_hwnd = Window;
@@ -501,15 +582,7 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
       }
       return TRUE;
       break;
-      case (IDC_COLOURS):
-      if(HIWORD(wParam) == LBN_SELCHANGE) {
-        HWND ListBox = GetDlgItem(m_hwnd, IDC_COLOURS);
-        LRESULT CurrentItem = SendMessage(ListBox, LB_GETCURSEL, 0, 0);
-        LRESULT CurrentIndex = SendMessage(ListBox, LB_GETITEMDATA, CurrentItem, 0);
-        m_CurrentColours = ColourList[CurrentIndex];
-      }
-      return TRUE;
-      break;
+     
  /*   case (IDC_GROUPS):
       if(HIWORD(wParam) == LBN_SELCHANGE) {
         HWND GroupList = GetDlgItem(Window, IDC_GROUPS);

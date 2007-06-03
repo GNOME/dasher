@@ -31,6 +31,10 @@ public:
   // Create the window, with children
   HWND Create(HWND hParent);
 
+  int GetHeight() {
+    return m_iEditHeight + 2;
+  }
+
 private:
   // Create the child windows of the control
   void CreateChildren();
@@ -64,6 +68,7 @@ private:
   HWND m_hAlphabetLabel;
 
   int m_iEditWidth;
+  int m_iEditHeight;
 };
 
 #endif

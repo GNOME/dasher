@@ -647,13 +647,12 @@ void CDasherInterfaceBase::ChangeScreen(CDasherScreen *NewScreen) {
 
   if(m_pDasherView != 0) {
     m_pDasherView->ChangeScreen(m_DasherScreen);
-  } else {
-    if(GetLongParameter(LP_VIEW_ID) != -1)
-      ChangeView();
+  } else if(GetLongParameter(LP_VIEW_ID) != -1) {
+    ChangeView();
   }
 
   PositionActionButtons();
-  ScheduleRedraw();
+  Redraw(true);
 }
 
 void CDasherInterfaceBase::ChangeView() {

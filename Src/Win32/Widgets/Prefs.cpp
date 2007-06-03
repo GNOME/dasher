@@ -28,11 +28,11 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings) {
   m_pControlPage = new CControlPage(hParent, pDasher, pAppSettings);
   m_pViewPage = new CViewPage(hParent, pDasher, pAppSettings);
   m_pAdvancedPage = new CAdvancedPage(hParent, pDasher, pAppSettings);
-  m_pLMPage = new CLMPage(hParent, pDasher, pAppSettings);
+ // m_pLMPage = new CLMPage(hParent, pDasher, pAppSettings);
 
   // Set up the property sheets which go into the preferences
   // dialogue.
-  PROPSHEETPAGEW_LATEST psp[5];
+  PROPSHEETPAGEW_LATEST psp[4];
   PROPSHEETHEADER psh;
   
   psp[0].dwSize = sizeof(PROPSHEETPAGEW_LATEST);
@@ -58,7 +58,7 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings) {
   psp[2].dwSize = sizeof(PROPSHEETPAGEW_LATEST);
   psp[2].dwFlags = PSP_USEICONID | PSP_USETITLE | PSP_PREMATURE;
   psp[2].hInstance = WinHelper::hInstApp;
-  psp[2].pszTemplate = MAKEINTRESOURCE(IDD_VIEWPAGE);
+  psp[2].pszTemplate = MAKEINTRESOURCE(IDD_APPEARANCEPAGE);
   psp[2].pszIcon = NULL;
   psp[2].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
   psp[2].pszTitle =  MAKEINTRESOURCE(IDS_PREFS_VIEW);
@@ -68,22 +68,12 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings) {
   psp[3].dwSize = sizeof(PROPSHEETPAGEW_LATEST);
   psp[3].dwFlags = PSP_USEICONID | PSP_USETITLE | PSP_PREMATURE;
   psp[3].hInstance = WinHelper::hInstApp;
-  psp[3].pszTemplate = MAKEINTRESOURCE(IDD_LMPAGE);
+  psp[3].pszTemplate = MAKEINTRESOURCE(IDD_APPPAGE);
   psp[3].pszIcon = NULL;
   psp[3].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
   psp[3].pszTitle =  MAKEINTRESOURCE(IDS_PREFS_LM);
-  psp[3].lParam = (LPARAM) m_pLMPage;
+  psp[3].lParam = (LPARAM) m_pAdvancedPage;
   psp[3].pfnCallback = NULL;
-
-  psp[4].dwSize = sizeof(PROPSHEETPAGEW_LATEST);
-  psp[4].dwFlags = PSP_USEICONID | PSP_USETITLE | PSP_PREMATURE;
-  psp[4].hInstance = WinHelper::hInstApp;
-  psp[4].pszTemplate = MAKEINTRESOURCE(IDD_MISCPAGE);
-  psp[4].pszIcon = NULL;
-  psp[4].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
-  psp[4].pszTitle =  MAKEINTRESOURCE(IDS_PREFS_ADVANCED);
-  psp[4].lParam = (LPARAM) m_pAdvancedPage;
-  psp[4].pfnCallback = NULL;
   
   psh.dwSize = sizeof(PROPSHEETPAGEW_LATEST);
   psh.dwFlags = PSH_USEICONID | PSH_PROPSHEETPAGE;
@@ -111,8 +101,7 @@ CPrefs::~CPrefs() {
   delete m_pAdvancedPage;
   m_pAdvancedPage = NULL;
 
-  delete m_pLMPage;
-  m_pLMPage = NULL;
+  
 }
 
 LRESULT CPrefs::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {

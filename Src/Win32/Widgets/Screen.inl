@@ -98,7 +98,12 @@ inline void CScreen::Blank() {
 }
 
 inline void CScreen::Display() {
-  BitBlt(m_hdc, 0, 0, m_iWidth, m_iHeight, m_hDCBuffer, 0, 0, SRCCOPY);
+ // BitBlt(m_hdc, 0, 0, m_iWidth, m_iHeight, m_hDCBuffer, 0, 0, SRCCOPY);
+  InvalidateRect(m_hWnd, NULL, false);
+}
+
+inline void CScreen::RealDisplay(HDC hDC, RECT r) {
+  BitBlt(hDC, r.left, r.top, r.right - r.left, r.bottom - r.top, m_hDCBuffer, r.left, r.top, SRCCOPY);
 }
 
 inline const void CScreen::point2POINT(const point *In, POINT *Out, int Number) {

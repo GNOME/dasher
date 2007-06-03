@@ -32,7 +32,7 @@ using namespace Dasher;
 class CScreen:public Dasher::CDasherScreen, private NoClones {
 public:
 
-  CScreen(HDC hdc, Dasher::screenint width, Dasher::screenint height);
+  CScreen(HDC hdc, HWND hWnd, Dasher::screenint width, Dasher::screenint height);
   ~CScreen();
 
   void SetInterface(CDasherInterfaceBase * DasherInterface);
@@ -88,6 +88,8 @@ public:
   void Blank();
   void Display();
 
+  void RealDisplay(HDC hDC, RECT r);
+
   void SendMarker(int iMarker);
 
   // TODO: These need to be implemented properly
@@ -98,6 +100,8 @@ private:
   const void point2POINT(const point * In, POINT * Out, int Number);
 
   void TextSize_Impl(const std::string & String, Dasher::screenint * Width, Dasher::screenint * Height, int Size);
+
+  HWND m_hWnd;
 
   HDC m_hdc;
   HDC m_hDCBuffer;

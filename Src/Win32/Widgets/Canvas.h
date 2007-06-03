@@ -21,6 +21,14 @@
 #ifndef __Canvas_h__
 #define __Canvas_h__
 
+#define _WIN32_WINNT 0x0501
+
+
+
+#include <winuser.h>
+#include <Uxtheme.h>
+#define WM_THEMECHANGED                 0x031A
+
 #include "../TabletPC/CursorInRange.h"
 #include "../../DasherCore/DasherComponent.h"
 #include "../../DasherCore/DasherTypes.h"
@@ -65,7 +73,7 @@ class CCanvas : public ATL::CWindowImpl<CCanvas>, public Dasher::CDasherComponen
     MESSAGE_HANDLER(WM_RBUTTONUP, OnRButtonUp)
     MESSAGE_HANDLER(WM_MOUSEMOVE, OnMouseMove)
     MESSAGE_HANDLER(WM_SIZE, OnSize)
-    
+    MESSAGE_HANDLER(WM_THEMECHANGED , OnThemeChanged)
   END_MSG_MAP()
 
   CCanvas(Dasher::CDasher *DI, Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore);
@@ -76,6 +84,7 @@ class CCanvas : public ATL::CWindowImpl<CCanvas>, public Dasher::CDasherComponen
   void DoFrame();
   
   LRESULT OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+  LRESULT OnThemeChanged(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
   LRESULT OnMouseMove(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
   LRESULT OnRButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
   LRESULT OnRButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
@@ -160,6 +169,8 @@ private:
 
   CScreen *m_pScreen;
   Dasher::CDasher * m_pDasherInterface;
+
+  HTHEME m_hTheme;
 
   // Input devices:
 

@@ -17,8 +17,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Dasher; if not, write to the Free Software 
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+// 1 needed for WM_THEMECHANGED
+#define _WIN32_WINNT 0x0501
+
 
 #include "..\Common\WinCommon.h"
+
+
+#include <Tmschema.h>
 
 #include "Canvas.h"
 #include "../Dasher.h"
@@ -40,6 +46,8 @@ CCanvas::CCanvas(CDasher *DI, Dasher::CEventHandler *pEventHandler, CSettingsSto
   m_bButtonDown = false;
   m_pScreen = 0;
 
+  m_hTheme = NULL;
+
 #ifndef _WIN32_WCE
 
 #else
@@ -50,8 +58,8 @@ CCanvas::CCanvas(CDasher *DI, Dasher::CEventHandler *pEventHandler, CSettingsSto
 }
 
 HWND CCanvas::Create(HWND hParent) {
-  HWND hWnd = CWindowImpl<CCanvas>::Create(hParent, NULL, NULL, WS_CHILD | WS_VISIBLE ,WS_EX_CLIENTEDGE);
-  
+  HWND hWnd = CWindowImpl<CCanvas>::Create(hParent, NULL, NULL, WS_CHILD | WS_VISIBLE , 0);//WS_EX_CLIENTEDGE);
+
   m_hdc = GetDC();
   HDC hdc2 = GetDC();
   HDC hdc3 = GetDC();
@@ -81,7 +89,7 @@ HWND CCanvas::Create(HWND hParent) {
   // TODO: Is this better placed in CDasher?
   m_pKeyboardHelper = new CKeyboardHelper;
 
-  m_pScreen = new CScreen(m_hdc, 300, 300);
+  m_pScreen = new CScreen(m_hdc, m_hWnd, 300, 300);
   m_pScreen->SetFont(m_pDasherInterface->GetStringParameter(SP_DASHER_FONT));
 
   m_pDasherInterface->ChangeScreen(m_pScreen);
@@ -104,6 +112,8 @@ void CCanvas::SetScreenInterface(Dasher::CDasherInterfaceBase *dasherinterface) 
   
 LRESULT CCanvas::OnCreate(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
   bHandled = TRUE;
+
+  m_hTheme = OpenThemeData(m_hWnd, L"Edit");
 
   // If we're a tablet, initialize the event-generator
   if(IsTabletPC()) {
@@ -143,6 +153,10 @@ LRESULT CCanvas::OnDestroy(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHa
 /////////////////////////////////////////////////////////////////////////////
 
 CCanvas::~CCanvas() {
+  if(m_hTheme)
+    CloseThemeData(m_hTheme);
+
+
   delete m_pScreen;
 
   if(m_pKeyboardHelper)
@@ -154,8 +168,8 @@ void CCanvas::Move(int x, int y, int Width, int Height) {
 }
 
 void CCanvas::Paint() {
-  InvalidateRect(NULL, FALSE);
-  UpdateWindow();
+ // InvalidateRect(NULL, FALSE);
+ // UpdateWindow();
 }
 
 LRESULT CCanvas::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
@@ -173,8 +187,37 @@ LRESULT CCanvas::OnSetFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bH
 LRESULT CCanvas::OnPaint(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
   PAINTSTRUCT ps;
   BeginPaint(&ps);
+
+  RECT rc;
+  GetClientRect(&rc);
+
+  RECT rcContent;
+
+  if(m_hTheme) {
+    DTBGOPTS oOpts;
+    oOpts.dwSize = sizeof(DTBGOPTS);
+    oOpts.dwFlags = DTBG_OMITCONTENT;
+    oOpts.rcClip = rc;
   
-  m_pScreen->Display();
+    DrawThemeBackgroundEx(m_hTheme, ps.hdc, EP_EDITTEXT,
+                          ETS_NORMAL, &rc, &oOpts);
+  
+    GetThemeBackgroundContentRect(m_hTheme, ps.hdc,
+                                  EP_EDITTEXT,
+                                  ETS_NORMAL, &rc, &rcContent);
+  }
+  else {
+    DrawEdge(ps.hdc, &rc, EDGE_SUNKEN, BF_RECT | BF_ADJUST);
+
+    //rcContent.top = rc.top + 1;
+    //rcContent.bottom = rc.bottom -1;
+    //rcContent.left = rc.left + 1;
+    //rcContent.right = rc.right - 1;
+    rcContent = rc;
+  }
+
+  m_pScreen->RealDisplay(ps.hdc, rcContent);
+  
   
   EndPaint(&ps);
   
@@ -403,22 +446,29 @@ LRESULT CCanvas::OnMouseMove(UINT message, WPARAM wParam, LPARAM lParam, BOOL& b
 	return 0;
 }
 
-LRESULT CCanvas::OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-{
-	bHandled = TRUE;
-	if(m_pScreen != 0)
-	{
+LRESULT CCanvas::OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
+	if(m_pScreen != 0) {
 		delete m_pScreen;
 		m_pScreen = 0;
 	}
-	if (LOWORD(lParam)>0 && HIWORD(lParam) >0)
-	{
-		m_pScreen = new CScreen(m_hdc, LOWORD(lParam), HIWORD(lParam));
+
+	if (LOWORD(lParam)>0 && HIWORD(lParam) >0) {
+		m_pScreen = new CScreen(m_hdc, m_hWnd, LOWORD(lParam), HIWORD(lParam));
     m_pScreen->SetFont(m_pDasherInterface->GetStringParameter(SP_DASHER_FONT));
 		m_pDasherInterface->ChangeScreen(m_pScreen);
 		InvalidateRect( NULL, FALSE);
 	}
+
 	return 0;
+}
+
+LRESULT CCanvas::OnThemeChanged(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
+  if(m_hTheme)
+    CloseThemeData(m_hTheme);
+
+  m_hTheme = OpenThemeData(m_hWnd, L"Edit");
+  
+  return 0;
 }
 
 LRESULT CCanvas::OnTimer(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {

@@ -20,7 +20,8 @@
 class CViewPage:public CPrefsPageBase {
 public:
   CViewPage(HWND Parent, CDasherInterfaceBase *DI, CAppSettings *pAppSettings);
-protected:
+  LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
+
 private:
   HWND CustomBox;
 

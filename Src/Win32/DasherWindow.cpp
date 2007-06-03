@@ -54,7 +54,7 @@ CDasherWindow::CDasherWindow() {
   ATL::CWndClassInfo& wc = CDasherWindow::GetWndClassInfo();
   wc.m_wc.hIcon = LoadIcon(WinHelper::hInstApp, (LPCTSTR) IDI_DASHER);
   wc.m_wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-  wc.m_wc.hbrBackground = (HBRUSH) (COLOR_ACTIVEBORDER + 1); // Must add one to the value we want for some unknown reason
+  wc.m_wc.hbrBackground = (HBRUSH) (COLOR_WINDOW); 
   wc.m_wc.lpszMenuName = (LPCTSTR) IDC_DASHER;
   wc.m_wc.hIconSm = m_hIconSm;
 }
@@ -98,11 +98,11 @@ HWND CDasherWindow::Create() {
 
   m_pEdit->SetInterface(m_pDasher);
 
-  m_pSlidebar = new CSlidebar(hWnd, m_pDasher);
+  m_pSlidebar = new CStatusControl(m_pDasher);
+  m_pSlidebar->Create(hWnd);
 
 
   m_pSplitter = new CSplitter(this,100);
-  
   HWND hSplitter =  m_pSplitter->Create(hWnd);
   
   if (!hSplitter)
@@ -537,7 +537,7 @@ LRESULT CDasherWindow::OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& 
     return 0;
   
   m_pToolbar->Resize();
-  m_pSlidebar->Resize();
+//  m_pSlidebar->Resize();
   
   Layout();
   
@@ -619,7 +619,7 @@ void CDasherWindow::Layout() {
         m_pSplitter->ShowWindow(SW_SHOW);
 
         if(m_pEdit)
-          m_pEdit->Move(0, CurY, Width, SplitterPos - CurY);
+          m_pEdit->Move(2, CurY + 2, Width - 4, SplitterPos - CurY - 2);
 
         CurY = SplitterPos + SplitterHeight;
       }
@@ -631,8 +631,13 @@ void CDasherWindow::Layout() {
       int CanvasHeight = Height - CurY - SlidebarHeight - GetSystemMetrics(SM_CYEDGE);
  
       if(m_pDasher)
-        m_pDasher->Move(0, CurY, Width, CanvasHeight);
+        m_pDasher->Move(2, CurY+2, Width-4, CanvasHeight-2);
+
+      if(m_pSlidebar)
+        m_pSlidebar->MoveWindow(2, Height - SlidebarHeight, Width-4, SlidebarHeight);
      }
+
+
   }
 }
 

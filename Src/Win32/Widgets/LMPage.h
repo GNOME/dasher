@@ -24,11 +24,7 @@ protected:
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
   
-  HWND slider;
-  HWND uniformbox;
-
-  TCHAR m_tcBuffer[1000];
-
+ 
 
   // Some status flags:
   void PopulateList();

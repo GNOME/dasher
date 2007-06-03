@@ -47,7 +47,7 @@ public:
 		static ATL::CWndClassInfo wc = \
 		{ \
 			{ sizeof(WNDCLASSEX), CS_HREDRAW | CS_VREDRAW , StartWindowProc, \
-			  0, 0, NULL, NULL, NULL, (HBRUSH)(COLOR_ACTIVEBORDER + 1), NULL, _T("HSplitter"), NULL }, \
+			  0, 0, NULL, NULL, NULL, (HBRUSH)(COLOR_WINDOW), NULL, _T("HSplitter"), NULL }, \
 			NULL, NULL, MAKEINTRESOURCE(IDC_SIZENS), TRUE, 0, _T("") \
 		}; \
 		return wc;

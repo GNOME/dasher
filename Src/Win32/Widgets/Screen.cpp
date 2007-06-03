@@ -29,10 +29,12 @@ static char THIS_FILE[] = __FILE__;
 
 /////////////////////////////////////////////////////////////////////////////
 
-CScreen::CScreen(HDC hdc, Dasher::screenint iWidth, Dasher::screenint iHeight)
+CScreen::CScreen(HDC hdc, HWND hWnd, Dasher::screenint iWidth, Dasher::screenint iHeight)
 :CDasherScreen(iWidth, iHeight), m_hdc(hdc) {
   // set up the off-screen buffers
   // HDC hdc = GetDC(mainwindow);
+
+  m_hWnd = hWnd;
 
   // Create a memory device context compatible with the screen
   m_hDCBufferBackground = CreateCompatibleDC(hdc);      // one for rectangles

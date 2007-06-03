@@ -88,6 +88,8 @@
 #define IDD_SOCKET                      174
 #define IDD_LM                          175
 #define IDD_LMPAGE                      175
+#define IDD_APPEARANCEPAGE              178
+#define IDD_APPPAGE                     179
 #define IDC_LIST1                       1008
 #define IDC_INPUT_LIST                  1008
 #define IDC_LIST_ALPH                   1009
@@ -153,6 +155,7 @@
 #define IDC_RADIO4                      1110
 #define IDC_RADIO5                      1111
 #define IDC_CHECK1                      1112
+#define IDC_RADIO6                      1112
 #define IDC_CHECK2                      1113
 #define IDC_ADAPTIVE                    1114
 #define IDC_LM_PPM                      1115
@@ -237,7 +240,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        178
+#define _APS_NEXT_RESOURCE_VALUE        180
 #define _APS_NEXT_COMMAND_VALUE         32818
 #define _APS_NEXT_CONTROL_VALUE         1148
 #define _APS_NEXT_SYMED_VALUE           110

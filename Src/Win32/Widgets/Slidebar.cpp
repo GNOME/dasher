@@ -29,7 +29,7 @@ CSlidebar::CSlidebar(HWND ParentWindow, CDasherInterfaceBase *NewDasherInterface
   m_hRebar = CreateWindowEx(WS_EX_TOOLWINDOW,
                             REBARCLASSNAME,
                             NULL,
-                            WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS |
+                            WS_CHILD  | WS_CLIPSIBLINGS |
                              RBS_VARHEIGHT |
                             CCS_BOTTOM | CCS_NODIVIDER,
                             0,0,0,0,
@@ -49,7 +49,7 @@ CSlidebar::CSlidebar(HWND ParentWindow, CDasherInterfaceBase *NewDasherInterface
   rbBand.fStyle = RBBS_CHILDEDGE | RBBS_GRIPPERALWAYS;
 
   m_pStatusControl = new CStatusControl(NewDasherInterface);
-  m_pStatusControl->Create(m_hRebar);
+  m_pStatusControl->Create(ParentWindow);
 
   RECT rc;
   m_pStatusControl->GetWindowRect(&rc);
@@ -63,7 +63,7 @@ CSlidebar::CSlidebar(HWND ParentWindow, CDasherInterfaceBase *NewDasherInterface
 }
 
 void CSlidebar::Resize() {
-  SendMessage(m_hRebar, WM_SIZE, 0, 0);
+  SendMessage(m_pStatusControl->m_hWnd, WM_SIZE, 0, 0);
 }
 
 int CSlidebar::GetHeight() {

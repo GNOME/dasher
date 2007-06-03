@@ -12,6 +12,7 @@
 #include "resource.h"
 
 #include "Widgets/Splitter.h"
+#include "Widgets/StatusControl.h"
 #include "Widgets/Menu.h"
 #include "Widgets/SplashScreen.h"
 #include "Widgets/WindowSelect.h"
@@ -99,7 +100,7 @@ private:
 	CEdit *m_pEdit;
 	//CCanvas *m_pCanvas;
 	CSplitter *m_pSplitter;
-	CSlidebar *m_pSlidebar;
+	CStatusControl *m_pSlidebar;
 	CMenu WinMenu;
 	//CSplash *Splash;
 

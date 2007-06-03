@@ -29,7 +29,7 @@ private:
   Dasher::CAlphIO::AlphInfo CurrentInfo;
 
   std::vector < std::string > ColourList;
-  std::string m_CurrentColours;
+  
   Dasher::CColourIO::ColourInfo CurrentColourInfo;
 
   // Some status flags:
@@ -38,6 +38,12 @@ private:
   bool Cloning;
   unsigned int CurrentGroup;
   unsigned int CurrentChar;
+
+ HWND slider;
+  HWND uniformbox;
+
+  TCHAR m_tcBuffer[1000];
+
 
   void PopulateList();
   /*void InitCustomBox();

@@ -45,7 +45,7 @@ LRESULT CStatusControl::OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL&
 }
 
 HWND CStatusControl::Create(HWND hParent) {
-  CWindowImpl<CStatusControl>::Create(hParent, 0, 0, SS_CENTER | SS_OWNERDRAW | WS_CHILD );
+  CWindowImpl<CStatusControl>::Create(hParent, 0, 0, SS_WHITERECT | WS_VISIBLE | WS_CHILD );
 
   CreateChildren();
 
@@ -67,10 +67,10 @@ void CStatusControl::CreateChildren() {
 
   // TODO: Wrap windows here in CWindow classes.
   m_hSpeedLabel = CreateWindowEx(WS_EX_CONTROLPARENT, TEXT("STATIC"), strSpeedLabel.c_str(), 
-      SS_CENTER | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 0, 0, 0, 0, m_hWnd, NULL, WinHelper::hInstApp, NULL);
+      SS_CENTER | SS_WHITERECT | SS_WHITEFRAME | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 0, 0, 0, 0, m_hWnd, NULL, WinHelper::hInstApp, NULL);
 
   m_hAlphabetLabel = CreateWindowEx(WS_EX_CONTROLPARENT, TEXT("STATIC"), strAlphabetLabel.c_str(), 
-      SS_CENTER | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 0, 0, 0, 0, m_hWnd, NULL, WinHelper::hInstApp, NULL);
+      SS_CENTER | SS_WHITERECT | SS_WHITEFRAME | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 0, 0, 0, 0, m_hWnd, NULL, WinHelper::hInstApp, NULL);
 
   SendMessage(m_hSpeedLabel, WM_SETFONT, (WPARAM) hGuiFont, true);
   SendMessage(m_hAlphabetLabel, WM_SETFONT, (WPARAM) hGuiFont, true);
@@ -99,9 +99,9 @@ void CStatusControl::CreateChildren() {
   SendMessage(m_hEdit, WM_SETFONT, (WPARAM) hGuiFont, true);
   ::ReleaseDC(m_hEdit, hdc);
 
-  int iEditHeight = tmGui.tmHeight + (GetSystemMetrics(SM_CYEDGE) * 2);
+  m_iEditHeight = tmGui.tmHeight + (GetSystemMetrics(SM_CYEDGE) * 2);
   m_iEditWidth = tmGui.tmAveCharWidth * 7;
-  ::MoveWindow(m_hEdit, 0, 0, m_iEditWidth, iEditHeight, false);
+  ::MoveWindow(m_hEdit, 0, 0, m_iEditWidth, m_iEditHeight, false);
  
   m_hUpDown = CreateWindowEx(WS_EX_CLIENTEDGE, UPDOWN_CLASS, TEXT(""), UDS_ALIGNRIGHT | WS_CHILD  | WS_TABSTOP |WS_VISIBLE |  WS_GROUP, 0, 0, 16, 16, m_hWnd, NULL, WinHelper::hInstApp, NULL);
   SendMessage(m_hUpDown, UDM_SETRANGE, 0, (LPARAM) MAKELONG(800, 1));
@@ -113,7 +113,7 @@ void CStatusControl::CreateChildren() {
   DeleteObject(hGuiFont);
 
   // Set the height to what is finally required. The extra pixel is needed to get everything to line up nicely
-  MoveWindow(0, 0, 0, iEditHeight + 1, false);
+  MoveWindow(0, 0, 0, m_iEditHeight + 1, false);
 }
 
 void CStatusControl::LayoutChildrenInitial() {

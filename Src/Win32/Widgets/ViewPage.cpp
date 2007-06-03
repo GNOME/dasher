@@ -28,6 +28,8 @@ static char THIS_FILE[] = __FILE__;
 
 CViewPage::CViewPage(HWND Parent, CDasherInterfaceBase *DI, CAppSettings *pAppSettings)
 :CPrefsPageBase(Parent, DI, pAppSettings) {
+
+  m_CurrentColours = DI->GetStringParameter(SP_COLOUR_ID);
 }
 
 struct menuentry {
@@ -37,8 +39,6 @@ struct menuentry {
 
 // List of menu items that will be displayed in the General Preferences
 static menuentry menutable[] = {
-  {APP_BP_SHOW_TOOLBAR, IDC_CHECK1},
-  {BP_SHOW_SLIDER, IDC_CHECK2},
   {BP_OUTLINE_MODE, IDC_OUTLINE},
   {BP_DRAW_MOUSE, IDC_DRAWMOUSE},
   {BP_DRAW_MOUSE_LINE, IDC_DRAWMOUSELINE},
@@ -47,6 +47,10 @@ static menuentry menutable[] = {
 void CViewPage::PopulateList() {
   // Populate the controls in the dialogue box based on the relevent parameters
   // in m_pDasher
+
+
+
+
   for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++)
   {
     if(m_pAppSettings->GetBoolParameter(menutable[ii].paramNum)) {
@@ -57,30 +61,36 @@ void CViewPage::PopulateList() {
     }
   }
 
+
+  HWND ListBox = GetDlgItem(m_hwnd, IDC_COLOURS);
+  m_pDasherInterface->GetPermittedValues(SP_COLOUR_ID, ColourList);
+
+  // Add each string to list box and index each one
+  bool SelectionSet = false;
+  for(unsigned int i = 0; i < ColourList.size(); i++) {
+    Tstring Item;
+    WinUTF8::UTF8string_to_wstring(ColourList[i], Item);
+    LRESULT Index = SendMessage(ListBox, LB_ADDSTRING, 0, (LPARAM) Item.c_str());
+    SendMessage(ListBox, LB_SETITEMDATA, Index, (LPARAM) i);
+    if(ColourList[i] == m_CurrentColours) {
+      SendMessage(ListBox, LB_SETCURSEL, Index, 0);
+      SelectionSet = true;
+    }
+  }
+  if(SelectionSet == false) {
+    SendMessage(ListBox, LB_SETCURSEL, 0, 0);
+    LRESULT CurrentIndex = SendMessage(ListBox, LB_GETITEMDATA, 0, 0);
+    m_CurrentColours = ColourList[CurrentIndex];
+  }
+  // Tell list box that we have set an item for it (so that delete and edit can be grayed if required)
+  SendMessage(m_hwnd, WM_COMMAND, MAKEWPARAM(IDC_COLOURS, LBN_SELCHANGE), 0);
+
   if(m_pAppSettings->GetLongParameter(LP_LINE_WIDTH) > 1)
     SendMessage(GetDlgItem(m_hwnd, IDC_THICKLINE), BM_SETCHECK, BST_CHECKED, 0);
   else
     SendMessage(GetDlgItem(m_hwnd, IDC_THICKLINE), BM_SETCHECK, BST_UNCHECKED, 0);
 
-  // Populate the orientation selection:
-
-  switch(m_pAppSettings->GetLongParameter(LP_ORIENTATION)) {
-    case Dasher::Opts::AlphabetDefault:
-      SendMessage(GetDlgItem(m_hwnd, IDC_RADIO1), BM_SETCHECK, BST_CHECKED, 0);
-      break;
-    case Dasher::Opts::LeftToRight:
-      SendMessage(GetDlgItem(m_hwnd, IDC_RADIO2), BM_SETCHECK, BST_CHECKED, 0);
-      break;
-    case Dasher::Opts::RightToLeft:
-      SendMessage(GetDlgItem(m_hwnd, IDC_RADIO3), BM_SETCHECK, BST_CHECKED, 0);
-      break;
-    case Dasher::Opts::TopToBottom:
-      SendMessage(GetDlgItem(m_hwnd, IDC_RADIO4), BM_SETCHECK, BST_CHECKED, 0);
-      break;
-    case Dasher::Opts::BottomToTop:
-      SendMessage(GetDlgItem(m_hwnd, IDC_RADIO5), BM_SETCHECK, BST_CHECKED, 0);
-      break;
-  }
+ 
 
   switch(m_pAppSettings->GetLongParameter(APP_LP_STYLE)) {
     case 0:
@@ -111,16 +121,6 @@ bool CViewPage::Apply() {
   else
     m_pAppSettings->SetLongParameter(LP_LINE_WIDTH, 1);
 
-  if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO1), BM_GETCHECK, 0, 0))
-    m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::AlphabetDefault);
-  else if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO2), BM_GETCHECK, 0, 0))
-    m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::LeftToRight);
-  else if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO3), BM_GETCHECK, 0, 0))
-    m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::RightToLeft);
-  else if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO4), BM_GETCHECK, 0, 0))
-    m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::TopToBottom);
-  else if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO5), BM_GETCHECK, 0, 0))
-    m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::BottomToTop);
 
   if(SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_STANDALONE), BM_GETCHECK, 0, 0))
     m_pAppSettings->SetLongParameter(APP_LP_STYLE, 0);
@@ -131,7 +131,42 @@ bool CViewPage::Apply() {
   else if(SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_FULL), BM_GETCHECK, 0, 0))
     m_pAppSettings->SetLongParameter(APP_LP_STYLE, 3);
 
+
+  if(m_CurrentColours != std::string("")) {
+        m_pDasherInterface->SetStringParameter(SP_COLOUR_ID, m_CurrentColours);
+  }
+
+
+
   // Return false (and notify the user) if something is wrong.
   return TRUE;
 }
 
+LRESULT CViewPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
+
+  // most things we pass on to CPrefsPageBase, but we need to handle slider motion
+  switch (message) {
+
+  case WM_COMMAND:
+    if(HIWORD(wParam)==BN_CLICKED || HIWORD(wParam)==LBN_SELCHANGE) {
+      if(LOWORD(wParam) != 0 && m_hPropertySheet != 0 && m_hwnd != 0) {
+        PropSheet_Changed(m_hPropertySheet, m_hwnd); // enables the 'Apply' button
+        // Behaviour isn't *perfect* since it activates the Apply button even if you, say,
+        // click 'new' alphabet then click Cancel when asked for a name.
+      }
+    }
+    switch (LOWORD(wParam)) {
+    case (IDC_COLOURS):
+      if(HIWORD(wParam) == LBN_SELCHANGE) {
+        HWND ListBox = GetDlgItem(m_hwnd, IDC_COLOURS);
+        LRESULT CurrentItem = SendMessage(ListBox, LB_GETCURSEL, 0, 0);
+        LRESULT CurrentIndex = SendMessage(ListBox, LB_GETITEMDATA, CurrentItem, 0);
+        m_CurrentColours = ColourList[CurrentIndex];
+      }
+      return TRUE;
+      break;
+    }
+  }
+
+  CPrefsPageBase::WndProc(Window, message, wParam, lParam);
+}
