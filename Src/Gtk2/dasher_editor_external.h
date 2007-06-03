@@ -15,14 +15,14 @@
 typedef struct _DasherMain DasherMain;
 struct _DasherMain;
 
-typedef enum {
-  CLIPBOARD_CUT,
-  CLIPBOARD_COPY,
-  CLIPBOARD_PASTE,
-  CLIPBOARD_COPYALL,
-  CLIPBOARD_SELECTALL,
-  CLIPBOARD_CLEAR,
-} clipboard_action;
+/* typedef enum { */
+/*   CLIPBOARD_CUT, */
+/*   CLIPBOARD_COPY, */
+/*   CLIPBOARD_PASTE, */
+/*   CLIPBOARD_COPYALL, */
+/*   CLIPBOARD_SELECTALL, */
+/*   CLIPBOARD_CLEAR, */
+/* } clipboard_action; */
 
 G_BEGIN_DECLS
 #define TYPE_DASHER_EDITOR_EXTERNAL            (dasher_editor_external_get_type())

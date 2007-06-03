@@ -21,7 +21,7 @@
 
 #include "DasherAppSettings.h"
 #include "dasher_editor_internal.h"
-
+#include "dasher_editor_external.h"
 
 /* Static instance of singleton, USE SPARINGLY */
 static DasherMain *g_pDasherMain = NULL; 
@@ -1291,7 +1291,11 @@ create_dasher_control(gchar *szName, gchar *szString1, gchar *szString2, gint iI
 
 extern "C" GtkWidget *
 create_dasher_editor(gchar *szName, gchar *szString1, gchar *szString2, gint iInt1, gint iInt2) {
-  return GTK_WIDGET(dasher_editor_internal_new());
+  // TODO: Do something sensible here (this is only here for test purposes)
+  if(true)
+    return GTK_WIDGET(dasher_editor_internal_new());
+  else
+    return GTK_WIDGET(dasher_editor_external_new());
 }
 
 extern "C" gboolean 
