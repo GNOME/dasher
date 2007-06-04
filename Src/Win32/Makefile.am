@@ -118,9 +118,4 @@ EXTRA_DIST = \
 		ModuleSettings.cpp \
 		ModuleSettings.h \
 		WinMain.cpp \
-		findere.bmp \
-		finderf.bmp \
-		multi.rc \
-		resource.h \
-		searchw.cur \
-		single.rc
+		resource.h 

@@ -1,9 +1,10 @@
-Dasher Version 4.5.0
+Dasher Version 4.5.1
 --------------------
 
-This is Dasher 4.5.0, the first in the new development series. For a
+This is Dasher 4.5.1, an update to the new development series. For a
 stable version of Dasher, please download a release from the 4.4
-series.
+series. This version fixes a number of bugs and improves the user
+interface when running under MS Windows.
 
 Dasher is a zooming predictive text entry system, designed for situations
 where keyboard input is impractical (for instance, accessibility or PDAs). It

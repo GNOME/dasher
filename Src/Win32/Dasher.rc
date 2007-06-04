@@ -132,7 +132,7 @@ FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,185,130,50,14
     ICON            IDI_DASHER,IDC_MYICON,23,18,20,20
-    LTEXT           "Dasher 4.3.6",IDC_STATIC,67,18,168,10,SS_NOPREFIX
+    LTEXT           "Dasher 4.5.1",IDC_STATIC,67,18,168,10,SS_NOPREFIX
     LTEXT           "Copyright (C) 1998-2007 The Dasher Project",IDC_STATIC,67,30,168,10
     LTEXT           "dasher@mrao.cam.ac.uk",IDC_STATIC,67,63,168,10
     LTEXT           "http://www.dasher.org.uk/",IDC_STATIC,67,53,168,10
@@ -264,7 +264,7 @@ BEGIN
     CONTROL         "Show mouse position",IDC_DRAWMOUSE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,201,18,83,10
     CONTROL         "Draw line between crosshair and mouse",IDC_DRAWMOUSELINE,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,201,30,157,10
-    CONTROL         "Increase line thickness",IDC_THICKLINE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,214,42,88,10
+    CONTROL         "Increase line thickness",IDC_THICKLINE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,214,4OPOPOPOPOPOPOP2,88,10
     CONTROL         "Draw box outlines",IDC_OUTLINE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,201,54,73,10
     GROUPBOX        "Dasher Font:",IDC_STATIC,194,73,180,70
     PUSHBUTTON      "Change Font",IDC_DFONT_BUTTON,201,84,166,14
@@ -477,12 +477,12 @@ BEGIN
             VALUE "Comments", "Dasher is an information efficient text-entry system controlled by a pointer. It is licensed under the GPL."
             VALUE "CompanyName", "Inference Group, Cavendish Laboratory, University of Cambridge"
             VALUE "FileDescription", "Dasher"
-            VALUE "FileVersion", "4, 5, 0, 0"
+            VALUE "FileVersion", "4, 5, 1, 0"
             VALUE "InternalName", "Dasher"
             VALUE "LegalCopyright", "Copyright © 1998-2007 The Dasher Project"
             VALUE "OriginalFilename", "dasher.exe"
             VALUE "ProductName", "Dasher"
-            VALUE "ProductVersion", "4, 5, 0, 0"
+            VALUE "ProductVersion", "4, 5, 1, 0"
         END
     END
     BLOCK "VarFileInfo"

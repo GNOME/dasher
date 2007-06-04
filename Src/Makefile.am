@@ -41,6 +41,6 @@ if DOQTE
 
 QTDIR=/usr/share/qte2
 
-SUBDIRS = DasherCore Qt 
+SUBDIRS = DasherCore
 
 endif
