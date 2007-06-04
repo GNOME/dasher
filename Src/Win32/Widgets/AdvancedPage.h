@@ -20,6 +20,9 @@
 class CAdvancedPage:public CPrefsPageBase {
 public:
   CAdvancedPage(HWND Parent, CDasherInterfaceBase * DI, CAppSettings *pAppSettings);
+  
+  LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
+
 protected:
 private:
   HWND CustomBox;

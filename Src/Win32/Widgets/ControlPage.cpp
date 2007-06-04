@@ -118,6 +118,45 @@ void CControlPage::PopulateList() {
         SendMessage(GetDlgItem(m_hwnd, listtable[i].idcNum), LB_SETCURSEL, iIdx, 0);
     }
   }
+
+// TODO: Pretty horrible - sort this out
+  {
+        //CButtonPrefs ButtonPrefs(m_hwnd, 0, m_pAppSettings);
+        int iSelection(SendMessage(GetDlgItem(m_hwnd, IDC_CONTROL_LIST), LB_GETCURSEL, 0, 0));
+    
+        int iLength(SendMessage(GetDlgItem(m_hwnd, IDC_CONTROL_LIST), LB_GETTEXTLEN, iSelection, 0));
+        TCHAR *szData(new TCHAR[iLength + 1]);
+        SendMessage(GetDlgItem(m_hwnd, IDC_CONTROL_LIST), LB_GETTEXT, iSelection, (LPARAM)szData);
+
+        std::string strNewValue;
+        WinUTF8::wstring_to_UTF8string(szData, strNewValue);
+        delete[] szData;
+
+        SModuleSettings *pSettings;
+        int iSettingsCount;
+
+        EnableWindow(GetDlgItem(m_hwnd, IDC_BUTTON_PREFS), m_pDasherInterface->GetModuleSettings(strNewValue, &pSettings, &iSettingsCount));
+      }
+      
+      {
+        //CButtonPrefs ButtonPrefs(m_hwnd, 0, m_pAppSettings);
+        int iSelection(SendMessage(GetDlgItem(m_hwnd, IDC_INPUT_LIST), LB_GETCURSEL, 0, 0));
+    
+        int iLength(SendMessage(GetDlgItem(m_hwnd, IDC_INPUT_LIST), LB_GETTEXTLEN, iSelection, 0));
+        TCHAR *szData(new TCHAR[iLength + 1]);
+        SendMessage(GetDlgItem(m_hwnd, IDC_INPUT_LIST), LB_GETTEXT, iSelection, (LPARAM)szData);
+
+        std::string strNewValue;
+        WinUTF8::wstring_to_UTF8string(szData, strNewValue);
+        delete[] szData;
+
+        SModuleSettings *pSettings;
+        int iSettingsCount;
+
+        EnableWindow(GetDlgItem(m_hwnd, IDC_BUTTON_PREFS2), m_pDasherInterface->GetModuleSettings(strNewValue, &pSettings, &iSettingsCount));
+      }
+      
+
 }
 
 
@@ -199,6 +238,44 @@ LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
 		{
 	/*	case (IDC_DISPLAY):
 			break;*/
+    case IDC_CONTROL_LIST:
+      {
+        //CButtonPrefs ButtonPrefs(m_hwnd, 0, m_pAppSettings);
+        int iSelection(SendMessage(GetDlgItem(m_hwnd, IDC_CONTROL_LIST), LB_GETCURSEL, 0, 0));
+    
+        int iLength(SendMessage(GetDlgItem(m_hwnd, IDC_CONTROL_LIST), LB_GETTEXTLEN, iSelection, 0));
+        TCHAR *szData(new TCHAR[iLength + 1]);
+        SendMessage(GetDlgItem(m_hwnd, IDC_CONTROL_LIST), LB_GETTEXT, iSelection, (LPARAM)szData);
+
+        std::string strNewValue;
+        WinUTF8::wstring_to_UTF8string(szData, strNewValue);
+        delete[] szData;
+
+        SModuleSettings *pSettings;
+        int iSettingsCount;
+
+        EnableWindow(GetDlgItem(m_hwnd, IDC_BUTTON_PREFS), m_pDasherInterface->GetModuleSettings(strNewValue, &pSettings, &iSettingsCount));
+      }
+      break;
+    case IDC_INPUT_LIST:
+      {
+        //CButtonPrefs ButtonPrefs(m_hwnd, 0, m_pAppSettings);
+        int iSelection(SendMessage(GetDlgItem(m_hwnd, IDC_INPUT_LIST), LB_GETCURSEL, 0, 0));
+    
+        int iLength(SendMessage(GetDlgItem(m_hwnd, IDC_INPUT_LIST), LB_GETTEXTLEN, iSelection, 0));
+        TCHAR *szData(new TCHAR[iLength + 1]);
+        SendMessage(GetDlgItem(m_hwnd, IDC_INPUT_LIST), LB_GETTEXT, iSelection, (LPARAM)szData);
+
+        std::string strNewValue;
+        WinUTF8::wstring_to_UTF8string(szData, strNewValue);
+        delete[] szData;
+
+        SModuleSettings *pSettings;
+        int iSettingsCount;
+
+        EnableWindow(GetDlgItem(m_hwnd, IDC_BUTTON_PREFS2), m_pDasherInterface->GetModuleSettings(strNewValue, &pSettings, &iSettingsCount));
+      }
+      break;
     case IDC_BUTTON_PREFS: 
       {
         //CButtonPrefs ButtonPrefs(m_hwnd, 0, m_pAppSettings);

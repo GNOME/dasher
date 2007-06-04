@@ -101,6 +101,7 @@
 #define IDC_DFONT_BUTTON                1014
 #define IDC_ADD_ALPH                    1015
 #define IDC_BUTTON2                     1016
+#define IDC_EFONT_BUTTON                1016
 #define IDC_DEL_ALPH                    1017
 #define IDC_BUTTON3                     1018
 #define IDC_BUTTON_PREFS                1018
