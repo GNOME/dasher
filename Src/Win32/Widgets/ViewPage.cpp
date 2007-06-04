@@ -48,8 +48,15 @@ void CViewPage::PopulateList() {
   // Populate the controls in the dialogue box based on the relevent parameters
   // in m_pDasher
 
-
-
+  // TODO: Annoying inversion makes this hard
+  if(m_pAppSettings->GetBoolParameter(BP_PALETTE_CHANGE)) {
+    SendMessage(GetDlgItem(m_hwnd, IDC_COLOURSCHEME), BM_SETCHECK, BST_UNCHECKED, 0);
+    EnableWindow(GetDlgItem(m_hwnd, IDC_COLOURS), FALSE);
+  }
+  else {
+    SendMessage(GetDlgItem(m_hwnd, IDC_COLOURSCHEME), BM_SETCHECK, BST_CHECKED, 0);
+    EnableWindow(GetDlgItem(m_hwnd, IDC_COLOURS), TRUE);
+  }
 
   for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++)
   {
@@ -106,6 +113,17 @@ void CViewPage::PopulateList() {
       SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_FULL), BM_SETCHECK, BST_CHECKED, 0);
       break;
   }
+
+  
+  if(m_pAppSettings->GetLongParameter(LP_DASHER_FONTSIZE) == Dasher::Opts::Normal) {
+    SendMessage(GetDlgItem(m_hwnd, IDC_FONT_SMALL), BM_SETCHECK, BST_CHECKED, 0);
+  }
+  else if(m_pAppSettings->GetLongParameter(LP_DASHER_FONTSIZE) == Dasher::Opts::Big) {
+    SendMessage(GetDlgItem(m_hwnd, IDC_FONT_LARGE), BM_SETCHECK, BST_CHECKED, 0);
+  }
+  else if(m_pAppSettings->GetLongParameter(LP_DASHER_FONTSIZE) == Dasher::Opts::VBig) {
+    SendMessage(GetDlgItem(m_hwnd, IDC_FONT_VLARGE), BM_SETCHECK, BST_CHECKED, 0);
+  }
 }
 
 
@@ -136,6 +154,12 @@ bool CViewPage::Apply() {
         m_pDasherInterface->SetStringParameter(SP_COLOUR_ID, m_CurrentColours);
   }
 
+  if(SendMessage(GetDlgItem(m_hwnd, IDC_FONT_SMALL), BM_GETCHECK, 0, 0) == BST_CHECKED)
+    m_pAppSettings->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::Normal);
+  else if(SendMessage(GetDlgItem(m_hwnd, IDC_FONT_LARGE), BM_GETCHECK, 0, 0) == BST_CHECKED)
+    m_pAppSettings->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::Big);
+  else if(SendMessage(GetDlgItem(m_hwnd, IDC_FONT_VLARGE), BM_GETCHECK, 0, 0) == BST_CHECKED)
+    m_pAppSettings->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::VBig);
 
 
   // Return false (and notify the user) if something is wrong.
@@ -165,6 +189,32 @@ LRESULT CViewPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lPar
       }
       return TRUE;
       break;
+ 
+  case IDC_DFONT_BUTTON:
+    // TODO: Put this in a function
+     {
+      CHOOSEFONT Data;
+      LOGFONT lf;
+      HFONT Font = (HFONT) GetStockObject(DEFAULT_GUI_FONT);
+      GetObject(Font, sizeof(LOGFONT), &lf);
+      Tstring tstrFaceName;
+      WinUTF8::UTF8string_to_wstring(m_pAppSettings->GetStringParameter(SP_DASHER_FONT), tstrFaceName);
+      _tcscpy(lf.lfFaceName, tstrFaceName.c_str());
+      Data.Flags = CF_INITTOLOGFONTSTRUCT | CF_SCREENFONTS;
+      Data.lStructSize = sizeof(CHOOSEFONT);
+      // TODO: Give this an owner
+      Data.hwndOwner = NULL;
+      Data.lpLogFont = &lf;
+      if(ChooseFont(&Data)) {
+	      string FontName;
+	      WinUTF8::wstring_to_UTF8string(lf.lfFaceName, FontName);
+	      m_pAppSettings->SetStringParameter(SP_DASHER_FONT, FontName);
+      }
+    }
+    break;
+  case IDC_COLOURSCHEME:
+    EnableWindow(GetDlgItem(m_hwnd, IDC_COLOURS), SendMessage(GetDlgItem(m_hwnd, IDC_COLOURSCHEME), BM_GETCHECK, 0, 0) == BST_CHECKED);
+    break;
     }
   }
 

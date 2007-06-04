@@ -78,37 +78,6 @@ void CAdvancedPage::PopulateList() {
       SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_SETCHECK, BST_UNCHECKED, 0);
     }
   }
-
-  int ypixels = m_pDasherInterface->GetLongParameter(LP_YSCALE);
-  int mouseposdist = m_pDasherInterface->GetLongParameter(LP_MOUSEPOSDIST);
-
-/*	for (int i=0; i<18; i++) {
-			keycoords[i]=coords[i];
-	}
-*/
-  HWND EditBox = GetDlgItem(m_hwnd, IDC_YPIX);
-  SendMessage(EditBox, LB_RESETCONTENT, 0, 0);
-
-  // Perhaps a typedef for std::basic_ostringstream<TCHAR> would be useful
-//      std::basic_ostringstream<TCHAR> strYPix;
-//      strYPix << ypixels;
-
-  _sntprintf(m_tcBuffer, 100, TEXT("%d"), ypixels);
-//
-//      SendMessage(EditBox, WM_SETTEXT, 0, (LPARAM)(LPCSTR) Buffer);
-  SendMessage(EditBox, WM_SETTEXT, 0, (LPARAM) m_tcBuffer);
-//      delete[] Buffer;
-
-  EditBox = GetDlgItem(m_hwnd, IDC_MOUSEPOSDIST);
-  SendMessage(EditBox, LB_RESETCONTENT, 0, 0);
-
-  _sntprintf(m_tcBuffer, 100, TEXT("%d"), mouseposdist);
-//      std::basic_ostringstream<TCHAR> strMousePosDist;
-//      strMousePosDist << mouseposdist;
-
-  SendMessage(EditBox, WM_SETTEXT, 0, (LPARAM) m_tcBuffer);
-//      delete[] Buffer;
-
 }
 
 bool CAdvancedPage::Apply() {
@@ -116,14 +85,6 @@ bool CAdvancedPage::Apply() {
   for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++) {
     m_pAppSettings->SetBoolParameter(menutable[ii].paramNum, SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_GETCHECK, 0, 0) == BST_CHECKED );
   }
-
-//  m_pAppSettings->SetBoolParameter( APP_BP_TIME_STAMP, SendMessage(GetDlgItem(m_hwnd, IDC_TIMESTAMP), BM_GETCHECK, 0, 0));
-  
-  int ypixels = atoi(GetControlText(m_hwnd, IDC_YPIX).c_str());
-  int mouseposdist = atoi(GetControlText(m_hwnd, IDC_MOUSEPOSDIST).c_str());
-      
-  m_pDasherInterface->SetLongParameter(LP_YSCALE, ypixels);
-  m_pDasherInterface->SetLongParameter(LP_MOUSEPOSDIST, mouseposdist);
 
   return TRUE;
 }

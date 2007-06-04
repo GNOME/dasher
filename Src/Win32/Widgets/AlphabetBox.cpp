@@ -83,22 +83,33 @@ void CAlphabetBox::PopulateList() {
    }
  // Populate the orientation selection:
 
-  switch(m_pAppSettings->GetLongParameter(LP_ORIENTATION)) {
-    case Dasher::Opts::AlphabetDefault:
-      SendMessage(GetDlgItem(m_hwnd, IDC_RADIO1), BM_SETCHECK, BST_CHECKED, 0);
-      break;
+  int iOrientation = m_pAppSettings->GetLongParameter(LP_ORIENTATION);
+
+  if(iOrientation == Dasher::Opts::AlphabetDefault) {
+    SendMessage(GetDlgItem(m_hwnd, IDC_OR_DEFAULT), BM_SETCHECK, BST_CHECKED, 0);
+
+    EnableWindow(GetDlgItem(m_hwnd, IDC_OR_LR), FALSE);
+    EnableWindow(GetDlgItem(m_hwnd, IDC_OR_RL), FALSE);
+    EnableWindow(GetDlgItem(m_hwnd, IDC_OR_TB), FALSE);
+    EnableWindow(GetDlgItem(m_hwnd, IDC_OR_BT), FALSE);
+  }
+  else {
+    SendMessage(GetDlgItem(m_hwnd, IDC_OR_CUSTOM), BM_SETCHECK, BST_CHECKED, 0);
+
+    switch(iOrientation) {
     case Dasher::Opts::LeftToRight:
-      SendMessage(GetDlgItem(m_hwnd, IDC_RADIO2), BM_SETCHECK, BST_CHECKED, 0);
+      SendMessage(GetDlgItem(m_hwnd, IDC_OR_LR), BM_SETCHECK, BST_CHECKED, 0);
       break;
     case Dasher::Opts::RightToLeft:
-      SendMessage(GetDlgItem(m_hwnd, IDC_RADIO3), BM_SETCHECK, BST_CHECKED, 0);
+      SendMessage(GetDlgItem(m_hwnd, IDC_OR_RL), BM_SETCHECK, BST_CHECKED, 0);
       break;
     case Dasher::Opts::TopToBottom:
-      SendMessage(GetDlgItem(m_hwnd, IDC_RADIO4), BM_SETCHECK, BST_CHECKED, 0);
+      SendMessage(GetDlgItem(m_hwnd, IDC_OR_TB), BM_SETCHECK, BST_CHECKED, 0);
       break;
     case Dasher::Opts::BottomToTop:
-      SendMessage(GetDlgItem(m_hwnd, IDC_RADIO5), BM_SETCHECK, BST_CHECKED, 0);
+      SendMessage(GetDlgItem(m_hwnd, IDC_OR_BT), BM_SETCHECK, BST_CHECKED, 0);
       break;
+    }
   }
 
   HWND ListBox = GetDlgItem(m_hwnd, IDC_ALPHABETS);
@@ -389,15 +400,15 @@ void CAlphabetBox::PopulateList() {
 
 bool CAlphabetBox::Apply() {
 
-  if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO1), BM_GETCHECK, 0, 0))
+  if(SendMessage(GetDlgItem(m_hwnd, IDC_OR_DEFAULT), BM_GETCHECK, 0, 0))
     m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::AlphabetDefault);
-  else if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO2), BM_GETCHECK, 0, 0))
+  else if(SendMessage(GetDlgItem(m_hwnd, IDC_OR_LR), BM_GETCHECK, 0, 0))
     m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::LeftToRight);
-  else if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO3), BM_GETCHECK, 0, 0))
+  else if(SendMessage(GetDlgItem(m_hwnd, IDC_OR_RL), BM_GETCHECK, 0, 0))
     m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::RightToLeft);
-  else if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO4), BM_GETCHECK, 0, 0))
+  else if(SendMessage(GetDlgItem(m_hwnd, IDC_OR_TB), BM_GETCHECK, 0, 0))
     m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::TopToBottom);
-  else if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO5), BM_GETCHECK, 0, 0))
+  else if(SendMessage(GetDlgItem(m_hwnd, IDC_OR_BT), BM_GETCHECK, 0, 0))
     m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::BottomToTop);
 
   m_pAppSettings->SetBoolParameter( BP_LM_ADAPTIVE, SendMessage(GetDlgItem(m_hwnd, IDC_ADAPTIVE), BM_GETCHECK, 0, 0)!=0 );
@@ -570,7 +581,7 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
         LRESULT CurrentItem = SendMessage(ListBox, LB_GETCURSEL, 0, 0);
         LRESULT CurrentIndex = SendMessage(ListBox, LB_GETITEMDATA, CurrentItem, 0);
         m_CurrentAlphabet = AlphabetList[CurrentIndex];
-        CurrentInfo = m_pDasherInterface->GetInfo(m_CurrentAlphabet);
+ /*       CurrentInfo = m_pDasherInterface->GetInfo(m_CurrentAlphabet);
         if(CurrentInfo.Mutable) {
           EnableWindow(GetDlgItem(m_hwnd, IDC_DEL_ALPH), TRUE);
           EnableWindow(GetDlgItem(m_hwnd, IDC_EDIT), TRUE);
@@ -578,9 +589,34 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
         else {
           EnableWindow(GetDlgItem(m_hwnd, IDC_DEL_ALPH), FALSE);
           EnableWindow(GetDlgItem(m_hwnd, IDC_EDIT), FALSE);
-        }
+        }*/
       }
       return TRUE;
+      break;
+    case IDC_OR_DEFAULT:
+      if(SendMessage(GetDlgItem(m_hwnd, IDC_OR_DEFAULT), BM_GETCHECK, 0, 0) == BST_CHECKED) {
+        EnableWindow(GetDlgItem(m_hwnd, IDC_OR_LR), FALSE);
+        EnableWindow(GetDlgItem(m_hwnd, IDC_OR_RL), FALSE);
+        EnableWindow(GetDlgItem(m_hwnd, IDC_OR_TB), FALSE);
+        EnableWindow(GetDlgItem(m_hwnd, IDC_OR_BT), FALSE);
+
+        SendMessage(GetDlgItem(m_hwnd, IDC_OR_LR), BM_SETCHECK, BST_UNCHECKED, 0);
+        SendMessage(GetDlgItem(m_hwnd, IDC_OR_RL), BM_SETCHECK, BST_UNCHECKED, 0);
+        SendMessage(GetDlgItem(m_hwnd, IDC_OR_TB), BM_SETCHECK, BST_UNCHECKED, 0);
+        SendMessage(GetDlgItem(m_hwnd, IDC_OR_BT), BM_SETCHECK, BST_UNCHECKED, 0);
+      }
+      break;
+    case IDC_OR_CUSTOM:
+      if(SendMessage(GetDlgItem(m_hwnd, IDC_OR_CUSTOM), BM_GETCHECK, 0, 0 == BST_CHECKED)) {
+        EnableWindow(GetDlgItem(m_hwnd, IDC_OR_LR), TRUE);
+        EnableWindow(GetDlgItem(m_hwnd, IDC_OR_RL), TRUE);
+        EnableWindow(GetDlgItem(m_hwnd, IDC_OR_TB), TRUE);
+        EnableWindow(GetDlgItem(m_hwnd, IDC_OR_BT), TRUE);
+
+        // TODO: Should really sort this out, but no way to look up default orientation until 
+        // changes have been applied
+        SendMessage(GetDlgItem(m_hwnd, IDC_OR_LR), BM_SETCHECK, BST_CHECKED, 0);
+      }
       break;
      
  /*   case (IDC_GROUPS):
@@ -659,16 +695,16 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
     //    PopulateList();
     //  }
     //  break;
-    case (IDC_DEL_ALPH):{
-        HWND ListBox = GetDlgItem(m_hwnd, IDC_ALPHABETS);
-        LRESULT CurrentItem = SendMessage(ListBox, LB_GETCURSEL, 0, 0);
-        LRESULT CurrentIndex = SendMessage(ListBox, LB_GETITEMDATA, CurrentItem, 0);
-        if(CurrentIndex >= 0 && (unsigned int)CurrentIndex < AlphabetList.size()) {
-          m_pDasherInterface->DeleteAlphabet(AlphabetList[CurrentIndex]);
-          PopulateList();
-        }
-        break;
-      }
+    //case (IDC_DEL_ALPH):{
+    //    HWND ListBox = GetDlgItem(m_hwnd, IDC_ALPHABETS);
+    //    LRESULT CurrentItem = SendMessage(ListBox, LB_GETCURSEL, 0, 0);
+    //    LRESULT CurrentIndex = SendMessage(ListBox, LB_GETITEMDATA, CurrentItem, 0);
+    //    if(CurrentIndex >= 0 && (unsigned int)CurrentIndex < AlphabetList.size()) {
+    //      m_pDasherInterface->DeleteAlphabet(AlphabetList[CurrentIndex]);
+    //      PopulateList();
+    //    }
+    //    break;
+    //  }
     //case (IDC_CLONE):
     //  Cloning = true;
     //  // deliberate fall through

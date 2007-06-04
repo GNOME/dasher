@@ -319,15 +319,7 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
   // Parse the menu selections:
   // TODO: Put these into separate functions
   switch (wmId) {
-  case ID_OPTIONS_FONTSIZE_NORMAL:
-    m_pDasher->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(1));
-    break;
-  case ID_OPTIONS_FONTSIZE_LARGE:
-    m_pDasher->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(2));
-    break;
-  case ID_OPTIONS_FONTSIZE_VERYLARGE:
-    m_pDasher->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(4));
-    break;
+ 
   case ID_OPTIONS_EDITFONT:{
     CHOOSEFONT Data;
     LOGFONT lf;
@@ -350,24 +342,7 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
   }
     break;
   case ID_OPTIONS_DASHERFONT:
-    {
-      CHOOSEFONT Data;
-      LOGFONT lf;
-      HFONT Font = (HFONT) GetStockObject(DEFAULT_GUI_FONT);
-      GetObject(Font, sizeof(LOGFONT), &lf);
-      Tstring tstrFaceName;
-      WinUTF8::UTF8string_to_wstring(m_pAppSettings->GetStringParameter(SP_DASHER_FONT), tstrFaceName);
-      _tcscpy(lf.lfFaceName, tstrFaceName.c_str());
-      Data.Flags = CF_INITTOLOGFONTSTRUCT | CF_SCREENFONTS;
-      Data.lStructSize = sizeof(CHOOSEFONT);
-      Data.hwndOwner = m_hWnd;
-      Data.lpLogFont = &lf;
-      if(ChooseFont(&Data)) {
-	string FontName;
-	WinUTF8::wstring_to_UTF8string(lf.lfFaceName, FontName);
-	m_pAppSettings->SetStringParameter(SP_DASHER_FONT, FontName);
-      }
-    }
+   
     return 0;
   case ID_OPTIONS_RESETFONT:
     m_pAppSettings->ResetParamater(SP_DASHER_FONT);

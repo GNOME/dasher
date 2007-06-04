@@ -98,6 +98,7 @@
 #define IDC_COMBO1                      1012
 #define IDC_BUTTON1                     1014
 #define IDC_DRAGBUTTON                  1014
+#define IDC_DFONT_BUTTON                1014
 #define IDC_ADD_ALPH                    1015
 #define IDC_BUTTON2                     1016
 #define IDC_DEL_ALPH                    1017
@@ -155,7 +156,7 @@
 #define IDC_RADIO4                      1110
 #define IDC_RADIO5                      1111
 #define IDC_CHECK1                      1112
-#define IDC_RADIO6                      1112
+#define IDC_OR_CUSTOM                   1112
 #define IDC_CHECK2                      1113
 #define IDC_ADAPTIVE                    1114
 #define IDC_LM_PPM                      1115
@@ -188,6 +189,14 @@
 #define IDC_AUTOCALIBRATE               1145
 #define IDC_CONTROLMODE                 1146
 #define IDC_SPIN1                       1147
+#define IDC_OR_DEFAULT                  1148
+#define IDC_OR_LR                       1149
+#define IDC_OR_RL                       1150
+#define IDC_OR_TB                       1151
+#define IDC_OR_BT                       1152
+#define IDC_FONT_SMALL                  1153
+#define IDC_FONT_LARGE                  1154
+#define IDC_FONT_VLARGE                 1155
 #define ID_FILE_NEW                     32771
 #define ID_EDIT_CUT                     32772
 #define ID_EDIT_COPY                    32773
@@ -242,7 +251,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        180
 #define _APS_NEXT_COMMAND_VALUE         32818
-#define _APS_NEXT_CONTROL_VALUE         1148
+#define _APS_NEXT_CONTROL_VALUE         1156
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif
