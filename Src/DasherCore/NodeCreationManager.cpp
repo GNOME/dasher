@@ -62,38 +62,38 @@ void CNodeCreationManager::GetProbs(CLanguageModel::Context context, std::vector
   }
 
   // TODO - sort out size of control node - for the timebeing I'll fix the control node at 5%
+  // TODO: New method (see commented code) has been removed as it wasn' working.
 
-//   int uniform_add;
-//   int nonuniform_norm;
-
-  //  TODO: Fix this
+  int uniform_add;
+  int nonuniform_norm;
   int control_space = 0;
   int uniform = GetLongParameter(LP_UNIFORM);
 
-//   if(!GetBoolParameter(BP_CONTROL_MODE)) {
-//     control_space = 0;
-//     uniform_add = ((iNorm * uniform) / 1000) / (iSymbols - 2);  // Subtract 2 from no symbols to lose control/root nodes
-//     nonuniform_norm = iNorm - (iSymbols - 2) * uniform_add;
-//   }
-//   else {
-//     control_space = int (iNorm * 0.05);
-//     uniform_add = (((iNorm - control_space) * uniform / 1000) / (iSymbols - 2));        // Subtract 2 from no symbols to lose control/root nodes
-//     nonuniform_norm = iNorm - control_space - (iSymbols - 2) * uniform_add;
-//   }
+   if(!GetBoolParameter(BP_CONTROL_MODE)) {
+     control_space = 0;
+     uniform_add = ((iNorm * uniform) / 1000) / (iSymbols - 2);  // Subtract 2 from no symbols to lose control/root nodes
+     nonuniform_norm = iNorm - (iSymbols - 2) * uniform_add;
+   }
+   else {
+     control_space = int (iNorm * 0.05);
+     uniform_add = (((iNorm - control_space) * uniform / 1000) / (iSymbols - 2));        // Subtract 2 from no symbols to lose control/root nodes
+     nonuniform_norm = iNorm - control_space - (iSymbols - 2) * uniform_add;
+   }
+   
+   //  m_pLanguageModel->GetProbs(context, Probs, iNorm, ((iNorm * uniform) / 1000));
+   m_pLanguageModel->GetProbs(context, Probs, iNorm, 0);
 
-  m_pLanguageModel->GetProbs(context, Probs, iNorm, ((iNorm * uniform) / 1000));
-
-// #if _DEBUG
-//   int iTotal = 0;
-//   for(int k = 0; k < Probs.size(); ++k)
-//     iTotal += Probs[k];
-//   DASHER_ASSERT(iTotal == nonuniform_norm);
+   // #if _DEBUG
+   //int iTotal = 0;
+   //for(int k = 0; k < Probs.size(); ++k)
+     //     iTotal += Probs[k];
+   //   DASHER_ASSERT(iTotal == nonuniform_norm);
 // #endif
 
 //   //  Probs.insert(Probs.begin(), 0);
 
-//   for(unsigned int k(1); k < Probs.size(); ++k)
-//     Probs[k] += uniform_add;
+   for(unsigned int k(1); k < Probs.size(); ++k)
+     Probs[k] += uniform_add;
 
   Probs.push_back(control_space);
 

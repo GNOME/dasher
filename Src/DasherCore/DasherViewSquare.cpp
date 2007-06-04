@@ -368,21 +368,30 @@ int CDasherViewSquare::RenderNodeOutlineFast(const int Color, myint y1, myint y2
   if((y1 > iDasherMaxY) || (y2 < iDasherMinY)){
     return 0;                   // We're entirely off screen, so don't render.
   }
- if(!GetBoolParameter(BP_OUTLINE_MODE))
-	  return 1;
+
+  // TODO: This should be earlier?
+  if(!GetBoolParameter(BP_OUTLINE_MODE))
+    return 1;
+
   myint iDasherSize(y2 - y1);
+ 
 
-  // FIXME - get rid of pointless assignment below
 
-  int iTruncation(GetLongParameter(LP_TRUNCATION));     // Trucation farction times 100;
-  //  int iTruncationType(GetLongParameter(LP_TRUNCATIONTYPE));
+  //  std::cout << std::min(iDasherSize,iDasherMaxX) << " " << std::min(y2,iDasherMaxY) << " 0 " << std::max(y1,iDasherMinY) << std::endl;
 
-  if(iTruncation == 0) {        // Regular squares
-    DasherDrawRectangle(std::min(iDasherSize,iDasherMaxX), std::min(y2,iDasherMaxY),0, std::max(y1,iDasherMinY), Color, -1, Nodes1, true,false, 1);
-  }
-  else { 
-    // TODO: Put something back here?
-  }
+  DasherDrawRectangle(0, std::min(y1,iDasherMaxY),std::min(iDasherSize,iDasherMaxX), std::max(y2,iDasherMinY), Color, -1, Nodes1, true,false, 1);
+
+//   // FIXME - get rid of pointless assignment below
+
+//   int iTruncation(GetLongParameter(LP_TRUNCATION));     // Trucation farction times 100;
+//   //  int iTruncationType(GetLongParameter(LP_TRUNCATIONTYPE));
+
+//   if(iTruncation == 0) {        // Regular squares
+
+//   }
+//   else { 
+//     // TODO: Put something back here?
+//   }
 
   return 1;
 }

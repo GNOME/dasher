@@ -232,21 +232,25 @@ void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutl
 #endif
   }
   
-//   if(bDrawOutline) {
-//     if( iOutlineColour == -1 )
-//       SET_COLOR(3);
-//     else
-//       SET_COLOR(iOutlineColour);
+  if(bDrawOutline) {
+    if( iOutlineColour == -1 )
+      SET_COLOR(3);
+    else
+      SET_COLOR(iOutlineColour);
     
-// #if WITH_CAIRO
-//     cairo_set_line_width(cr, iThickness);
-//     cairo_rectangle(cr, iLeft + 0.5, iTop + 0.5, iWidth, iHeight);
-//     cairo_stroke(cr);
-// #else
-//     gdk_gc_set_line_attributes(graphics_context, iThickness, GDK_LINE_SOLID, GDK_CAP_ROUND, GDK_JOIN_ROUND );
-//     gdk_draw_rectangle(m_pOffscreenBuffer, graphics_context, FALSE, iLeft, iTop, iWidth, iHeight);
-// #endif
-//   }
+    // TODO: There's a known issue here when the start of one box and
+    // the end of the other map to the same pixel. This generally
+    // results in box outlines being truncated.
+
+#if WITH_CAIRO
+    cairo_set_line_width(cr, iThickness);
+    cairo_rectangle(cr, iLeft + 0.5, iTop + 0.5, iWidth, iHeight);
+    cairo_stroke(cr);
+#else
+    gdk_gc_set_line_attributes(graphics_context, iThickness, GDK_LINE_SOLID, GDK_CAP_ROUND, GDK_JOIN_ROUND );
+    gdk_draw_rectangle(m_pOffscreenBuffer, graphics_context, FALSE, iLeft, iTop, iWidth, iHeight);
+#endif
+  }
   END_DRAWING;
 }
 

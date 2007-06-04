@@ -209,6 +209,8 @@ void CDasherModel::RecursiveMakeRoot(CDasherNode *pNewRoot) {
 void CDasherModel::RebuildAroundNode(CDasherNode *pNode) {
   DASHER_ASSERT(pNode != NULL);
 
+  CDasherNode *pNodeOrig = pNode;
+
   while(pNode->GetFlag(NF_SUBNODE))
     pNode = pNode->Parent();
 
@@ -218,6 +220,8 @@ void CDasherModel::RebuildAroundNode(CDasherNode *pNode) {
   m_Root->Delete_children();
 
   m_Root->m_pNodeManager->PopulateChildren(m_Root);
+
+  m_pLastOutput = m_Root;
 }
 
 // TODO: Need to make this do the right thing with subnodes
@@ -634,9 +638,9 @@ void CDasherModel::HandleOutput(CDasherNode *pNewNode, CDasherNode *pOldNode, Da
   DASHER_ASSERT(pNewNode != NULL);
   //  DASHER_ASSERT(pOldNode != NULL);
   
-//   if(pNewNode != pOldNode)
-//     std::cout << "HandleOutput: " << pOldNode << " => " << pNewNode << std::endl;
-
+  //if(pNewNode != m_pLastOutput)
+  //  std::cout << "HandleOutput: " << pOldNode << " => " << pNewNode << std::endl;
+  
   if(pNewNode != m_pLastOutput)
     DeleteCharacters(pNewNode, m_pLastOutput, pNumDeleted);
   
