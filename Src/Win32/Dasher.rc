@@ -264,7 +264,7 @@ BEGIN
     CONTROL         "Show mouse position",IDC_DRAWMOUSE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,201,18,83,10
     CONTROL         "Draw line between crosshair and mouse",IDC_DRAWMOUSELINE,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,201,30,157,10
-    CONTROL         "Increase line thickness",IDC_THICKLINE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,214,4OPOPOPOPOPOPOP2,88,10
+    CONTROL         "Increase line thickness",IDC_THICKLINE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,214,42,88,10
     CONTROL         "Draw box outlines",IDC_OUTLINE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,201,54,73,10
     GROUPBOX        "Dasher Font:",IDC_STATIC,194,73,180,70
     PUSHBUTTON      "Change Font",IDC_DFONT_BUTTON,201,84,166,14

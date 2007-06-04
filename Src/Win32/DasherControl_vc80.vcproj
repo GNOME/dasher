@@ -259,7 +259,7 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\Philip Cowans\My Documents\dasher\dasher\Src\Win32\Common&quot;;&quot;C:\Documents and Settings\Philip Cowans\My Documents\dasher\dasher\Src\Win32&quot;;&quot;C:\Program Files\Microsoft Tablet PC Platform SDK\Include&quot;"
-				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,_LIB,_STATIC,_UNICODE"
+				PreprocessorDefinitions="WIN32;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0500WIN32;_WIN32_WINNT=0x0500"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"

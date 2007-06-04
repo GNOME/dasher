@@ -169,34 +169,34 @@
                 <File Id="alphabet.welsh.xml" Name="alphabet.welsh.xml" DiskId="1" Source="..\..\Data\alphabets\alphabet.welsh.xml" />
               </Component>
               <Component Id="Training" Guid="bcc684a1-0a58-474c-bfd9-c25906bc7bf4">
-                <File Id="training_albanian_SQ.txt" Name="training_albanian_SQ.txt" DiskId="1" Source="..\..\Data\Translations\training_albanian_SQ.txt" />
-                <File Id="training_basque_EU.txt" Name="training_basque_EU.txt" DiskId="1" Source="..\..\Data\Translations\training_basque_EU.txt" />
-                <File Id="training_bengali_BD.txt" Name="training_bengali_BD.txt" DiskId="1" Source="..\..\Data\Translations\training_bengali_BD.txt" />
-                <!--<File Id="training_bengali_bn.txt" Name="training_bengali_bn.txt" DiskId="1" Source="..\..\Data\Translations\training_bengali_bn.txt" />-->
-                <File Id="training_canna_JP.txt" Name="training_canna_JP.txt" DiskId="1" Source="..\..\Data\Translations\training_canna_JP.txt" />
-                <File Id="training_czech_CS.txt" Name="training_czech_CS.txt" DiskId="1" Source="..\..\Data\Translations\training_czech_CS.txt" />
-                <File Id="training_danish_DK.txt" Name="training_danish_DK.txt" DiskId="1" Source="..\..\Data\Translations\training_danish_DK.txt" />
-                <File Id="training_dutch_NL.txt" Name="training_dutch_NL.txt" DiskId="1" Source="..\..\Data\Translations\training_dutch_NL.txt" />
-                <File Id="training_english_GB.txt" Name="training_english_GB.txt" DiskId="1" Source="..\..\Data\Translations\training_english_GB.txt" />
-                <File Id="training_finnish_FI.txt" Name="training_finnish_FI.txt" DiskId="1" Source="..\..\Data\Translations\training_finnish_FI.txt" />
-                <File Id="training_french_FR.txt" Name="training_french_FR.txt" DiskId="1" Source="..\..\Data\Translations\training_french_FR.txt" />
-                <File Id="training_german_DE.txt" Name="training_german_DE.txt" DiskId="1" Source="..\..\Data\Translations\training_german_DE.txt" />
-                <File Id="training_greek_GR.txt" Name="training_greek_GR.txt" DiskId="1" Source="..\..\Data\Translations\training_greek_GR.txt" />
-                <File Id="training_hebrew_IL.txt" Name="training_hebrew_IL.txt" DiskId="1" Source="..\..\Data\Translations\training_hebrew_IL.txt" />
-                <File Id="training_hiragana60_JP.txt" Name="training_hiragana60_JP.txt" DiskId="1" Source="..\..\Data\Translations\training_hiragana60_JP.txt" />
-                <File Id="training_hiragana83_JP.txt" Name="training_hiragana83_JP.txt" DiskId="1" Source="..\..\Data\Translations\training_hiragana83_JP.txt" />
-                <File Id="training_hungarian_HU.txt" Name="training_hungarian_HU.txt" DiskId="1" Source="..\..\Data\Translations\training_hungarian_HU.txt" />
-                <File Id="training_italian_IT.txt" Name="training_italian_IT.txt" DiskId="1" Source="..\..\Data\Translations\training_italian_IT.txt" />
-                <File Id="training_mongolian_MN.txt" Name="training_mongolian_MN.txt" DiskId="1" Source="..\..\Data\Translations\training_mongolian_MN.txt" />
-                <File Id="training_persian_IR.txt" Name="training_persian_IR.txt" DiskId="1" Source="..\..\Data\Translations\training_persian_IR.txt" />
-                <File Id="training_polish_PL.txt" Name="training_polish_PL.txt" DiskId="1" Source="..\..\Data\Translations\training_polish_PL.txt" />
-                <File Id="training_portuguese_BR.txt" Name="training_portuguese_BR.txt" DiskId="1" Source="..\..\Data\Translations\training_portuguese_BR.txt" />
-                <File Id="training_russian_RU.txt" Name="training_russian_RU.txt" DiskId="1" Source="..\..\Data\Translations\training_russian_RU.txt" />
-                <File Id="training_spanish_ES.txt" Name="training_spanish_ES.txt" DiskId="1" Source="..\..\Data\Translations\training_spanish_ES.txt" />
-                <File Id="training_swahili_KE.txt" Name="training_swahili_KE.txt" DiskId="1" Source="..\..\Data\Translations\training_swahili_KE.txt" />
-                <File Id="training_swedish_SE.txt" Name="training_swedish_SE.txt" DiskId="1" Source="..\..\Data\Translations\training_swedish_SE.txt" />
-                <File Id="training_turkish_TR.txt" Name="training_turkish_TR.txt" DiskId="1" Source="..\..\Data\Translations\training_turkish_TR.txt" />
-                <File Id="training_welsh_GB.txt" Name="training_welsh_GB.txt" DiskId="1" Source="..\..\Data\Translations\training_welsh_GB.txt" />
+                <File Id="training_albanian_SQ.txt" Name="training_albanian_SQ.txt" DiskId="1" Source="..\..\Data\training\training_albanian_SQ.txt" />
+                <File Id="training_basque_EU.txt" Name="training_basque_EU.txt" DiskId="1" Source="..\..\Data\training\training_basque_EU.txt" />
+                <File Id="training_bengali_BD.txt" Name="training_bengali_BD.txt" DiskId="1" Source="..\..\Data\training\training_bengali_BD.txt" />
+                <!--<File Id="training_bengali_bn.txt" Name="training_bengali_bn.txt" DiskId="1" Source="..\..\Data\training\training_bengali_bn.txt" />-->
+                <File Id="training_canna_JP.txt" Name="training_canna_JP.txt" DiskId="1" Source="..\..\Data\training\training_canna_JP.txt" />
+                <File Id="training_czech_CS.txt" Name="training_czech_CS.txt" DiskId="1" Source="..\..\Data\training\training_czech_CS.txt" />
+                <File Id="training_danish_DK.txt" Name="training_danish_DK.txt" DiskId="1" Source="..\..\Data\training\training_danish_DK.txt" />
+                <File Id="training_dutch_NL.txt" Name="training_dutch_NL.txt" DiskId="1" Source="..\..\Data\training\training_dutch_NL.txt" />
+                <File Id="training_english_GB.txt" Name="training_english_GB.txt" DiskId="1" Source="..\..\Data\training\training_english_GB.txt" />
+                <File Id="training_finnish_FI.txt" Name="training_finnish_FI.txt" DiskId="1" Source="..\..\Data\training\training_finnish_FI.txt" />
+                <File Id="training_french_FR.txt" Name="training_french_FR.txt" DiskId="1" Source="..\..\Data\training\training_french_FR.txt" />
+                <File Id="training_german_DE.txt" Name="training_german_DE.txt" DiskId="1" Source="..\..\Data\training\training_german_DE.txt" />
+                <File Id="training_greek_GR.txt" Name="training_greek_GR.txt" DiskId="1" Source="..\..\Data\training\training_greek_GR.txt" />
+                <File Id="training_hebrew_IL.txt" Name="training_hebrew_IL.txt" DiskId="1" Source="..\..\Data\training\training_hebrew_IL.txt" />
+                <File Id="training_hiragana60_JP.txt" Name="training_hiragana60_JP.txt" DiskId="1" Source="..\..\Data\training\training_hiragana60_JP.txt" />
+                <File Id="training_hiragana83_JP.txt" Name="training_hiragana83_JP.txt" DiskId="1" Source="..\..\Data\training\training_hiragana83_JP.txt" />
+                <File Id="training_hungarian_HU.txt" Name="training_hungarian_HU.txt" DiskId="1" Source="..\..\Data\training\training_hungarian_HU.txt" />
+                <File Id="training_italian_IT.txt" Name="training_italian_IT.txt" DiskId="1" Source="..\..\Data\training\training_italian_IT.txt" />
+                <File Id="training_mongolian_MN.txt" Name="training_mongolian_MN.txt" DiskId="1" Source="..\..\Data\training\training_mongolian_MN.txt" />
+                <File Id="training_persian_IR.txt" Name="training_persian_IR.txt" DiskId="1" Source="..\..\Data\training\training_persian_IR.txt" />
+                <File Id="training_polish_PL.txt" Name="training_polish_PL.txt" DiskId="1" Source="..\..\Data\training\training_polish_PL.txt" />
+                <File Id="training_portuguese_BR.txt" Name="training_portuguese_BR.txt" DiskId="1" Source="..\..\Data\training\training_portuguese_BR.txt" />
+                <File Id="training_russian_RU.txt" Name="training_russian_RU.txt" DiskId="1" Source="..\..\Data\training\training_russian_RU.txt" />
+                <File Id="training_spanish_ES.txt" Name="training_spanish_ES.txt" DiskId="1" Source="..\..\Data\training\training_spanish_ES.txt" />
+                <File Id="training_swahili_KE.txt" Name="training_swahili_KE.txt" DiskId="1" Source="..\..\Data\training\training_swahili_KE.txt" />
+                <File Id="training_swedish_SE.txt" Name="training_swedish_SE.txt" DiskId="1" Source="..\..\Data\training\training_swedish_SE.txt" />
+                <File Id="training_turkish_TR.txt" Name="training_turkish_TR.txt" DiskId="1" Source="..\..\Data\training\training_turkish_TR.txt" />
+                <File Id="training_welsh_GB.txt" Name="training_welsh_GB.txt" DiskId="1" Source="..\..\Data\training\training_welsh_GB.txt" />
               </Component>
               <Component Id="Colours" Guid="bebff3fb-083c-46f8-ac31-2484f4b1e9a8">
                 <File Id="colour.blue.xml" Name="colour.blue.xml" DiskId="1" Source="..\..\Data\colours\colour.blue.xml" />
