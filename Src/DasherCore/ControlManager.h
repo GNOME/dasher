@@ -31,14 +31,18 @@
 #include <map>
 #include <fstream>
 #include <iostream>
+
+#ifndef _WIN32_WCE
 #include <sys/stat.h>
+#endif
+
 #include <string>
 
-#ifdef _WIN32
-#include "../Common/Expat/lib/expat.h"
-#else
+//#ifdef _WIN32
+//#include "../Common/Expat/lib/expat.h"
+//#else
 #include <expat.h>
-#endif
+//#endif
 
 /* /// \cond expat */
 

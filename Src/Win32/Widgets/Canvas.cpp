@@ -17,18 +17,20 @@
 // You should have received a copy of the GNU General Public License
 // along with Dasher; if not, write to the Free Software 
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
 // 1 needed for WM_THEMECHANGED
 #define _WIN32_WINNT 0x0501
 
 
 #include "..\Common\WinCommon.h"
 
-
+#ifndef _WIN32_WCE
 #include <Tmschema.h>
+#include "../TabletPC/SystemInfo.h"
+#endif
 
 #include "Canvas.h"
 #include "../Dasher.h"
-#include "../TabletPC/SystemInfo.h"
 #include "Screen.h"
 
 #define PRESSED		0x8000
@@ -45,8 +47,9 @@ CCanvas::CCanvas(CDasher *DI, Dasher::CEventHandler *pEventHandler, CSettingsSto
   m_dwTicksLastEvent = 0;
   m_bButtonDown = false;
   m_pScreen = 0;
-
+#ifndef _WIN32_WCE
   m_hTheme = NULL;
+#endif
 
 #ifndef _WIN32_WCE
 
@@ -113,6 +116,8 @@ void CCanvas::SetScreenInterface(Dasher::CDasherInterfaceBase *dasherinterface) 
 LRESULT CCanvas::OnCreate(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
   bHandled = TRUE;
 
+  
+#ifndef _WIN32_WCE
   m_hTheme = OpenThemeData(m_hWnd, L"Edit");
 
   // If we're a tablet, initialize the event-generator
@@ -123,6 +128,7 @@ LRESULT CCanvas::OnCreate(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHan
       return -1;
     }
   }
+#endif
 
   return 0;
 }
@@ -153,8 +159,10 @@ LRESULT CCanvas::OnDestroy(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHa
 /////////////////////////////////////////////////////////////////////////////
 
 CCanvas::~CCanvas() {
+#ifndef _WIN32_WCE
   if(m_hTheme)
     CloseThemeData(m_hTheme);
+#endif
 
 
   delete m_pScreen;
@@ -193,6 +201,7 @@ LRESULT CCanvas::OnPaint(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHand
 
   RECT rcContent;
 
+#ifndef _WIN32_WCE
   if(m_hTheme) {
     DTBGOPTS oOpts;
     oOpts.dwSize = sizeof(DTBGOPTS);
@@ -207,6 +216,7 @@ LRESULT CCanvas::OnPaint(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHand
                                   ETS_NORMAL, &rc, &rcContent);
   }
   else {
+#endif
     DrawEdge(ps.hdc, &rc, EDGE_SUNKEN, BF_RECT | BF_ADJUST);
 
     //rcContent.top = rc.top + 1;
@@ -214,7 +224,9 @@ LRESULT CCanvas::OnPaint(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHand
     //rcContent.left = rc.left + 1;
     //rcContent.right = rc.right - 1;
     rcContent = rc;
+#ifndef _WIN32_WCE
   }
+#endif
 
   m_pScreen->RealDisplay(ps.hdc, rcContent);
   
@@ -332,13 +344,18 @@ LRESULT CCanvas::OnLButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL&
   
   OutputDebugString(TEXT("Canvas::LButtonDown\n"));
 
+#ifndef _WIN32_WCE
   // FIXME - what does this do - please document
   LPARAM lp = GetMessageExtraInfo();
   if (lp == 0xFF515702)
     return 0; 
   // ---
+#endif
   
-  m_pDasherInterface->KeyDown(GetTickCount(), 100);
+  int xPos = GET_X_LPARAM(lParam); 
+  int yPos = GET_Y_LPARAM(lParam); 
+
+  m_pDasherInterface->KeyDown(GetTickCount(), 100, true, xPos, yPos);
   
   // TODO: Reimplement
   //	else if ( m_pDasherInterface->GetBoolParameter(BP_START_STYLUS)  ) 
@@ -374,6 +391,7 @@ LRESULT CCanvas::OnLButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& b
 
 }
 
+#ifndef _WIN32_WCE
 LRESULT CCanvas::OnCursorInRange(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
 	OutputDebugString(TEXT("CursorInRange\n"));
@@ -405,6 +423,7 @@ LRESULT CCanvas::OnCursorOutOfRange(UINT message, WPARAM wParam, LPARAM lParam, 
 
 	return 0;
 }
+#endif
 
 LRESULT CCanvas::OnRButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
@@ -462,6 +481,7 @@ LRESULT CCanvas::OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandl
 	return 0;
 }
 
+#ifndef _WIN32_WCE
 LRESULT CCanvas::OnThemeChanged(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
   if(m_hTheme)
     CloseThemeData(m_hTheme);
@@ -470,6 +490,7 @@ LRESULT CCanvas::OnThemeChanged(UINT message, WPARAM wParam, LPARAM lParam, BOOL
   
   return 0;
 }
+#endif
 
 LRESULT CCanvas::OnTimer(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
   bHandled = true;

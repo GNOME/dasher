@@ -40,6 +40,9 @@ CControlManager::CControlManager( CNodeCreationManager *pNCManager )
   string SystemString = m_pNCManager->GetStringParameter(SP_SYSTEM_LOC);
   string UserLocation = m_pNCManager->GetStringParameter(SP_USER_LOC);
   m_iNextID = 0;
+
+  // TODO: Need to fix this on WinCE build
+#ifndef _WIN32_WCE
   struct stat sFileInfo;
   string strFileName = UserLocation + "controllabels.xml";  //  check first location for file
   if(stat(strFileName.c_str(), &sFileInfo) == -1) {
@@ -56,6 +59,7 @@ CControlManager::CControlManager( CNodeCreationManager *pNCManager )
     LoadLabelsFromFile(strFileName, sFileInfo.st_size);
   
   ConnectNodes();
+#endif
 }
 
 int CControlManager::LoadLabelsFromFile(string strFileName, int iFileSize) {

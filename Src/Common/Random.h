@@ -12,13 +12,13 @@
 // int RandomInt()
 // A wrapper for rand() - WinCE3 is missing this function
 
-#ifdef DASHER_WINCE
+//#ifdef DASHER_WINCE
+//
+//inline int RandomInt() {
+//  return Random();
+//}
 
-inline int RandomInt() {
-  return Random();
-}
-
-#else
+//#else
 
 #include <stdlib.h>
 
@@ -26,6 +26,6 @@ inline int RandomInt() {
   return rand();
 }
 
-#endif
+//#endif
 
 #endif

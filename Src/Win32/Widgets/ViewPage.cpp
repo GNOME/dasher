@@ -99,21 +99,6 @@ void CViewPage::PopulateList() {
 
  
 
-  switch(m_pAppSettings->GetLongParameter(APP_LP_STYLE)) {
-    case 0:
-      SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_STANDALONE), BM_SETCHECK, BST_CHECKED, 0);
-      break;
-    case 1:
-      SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_COMPOSITION), BM_SETCHECK, BST_CHECKED, 0);
-      break;
-    case 2:
-      SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_DIRECT), BM_SETCHECK, BST_CHECKED, 0);
-      break;
-    case 3:
-      SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_FULL), BM_SETCHECK, BST_CHECKED, 0);
-      break;
-  }
-
   
   if(m_pAppSettings->GetLongParameter(LP_DASHER_FONTSIZE) == Dasher::Opts::Normal) {
     SendMessage(GetDlgItem(m_hwnd, IDC_FONT_SMALL), BM_SETCHECK, BST_CHECKED, 0);
@@ -138,16 +123,6 @@ bool CViewPage::Apply() {
     m_pAppSettings->SetLongParameter(LP_LINE_WIDTH, 3);
   else
     m_pAppSettings->SetLongParameter(LP_LINE_WIDTH, 1);
-
-
-  if(SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_STANDALONE), BM_GETCHECK, 0, 0))
-    m_pAppSettings->SetLongParameter(APP_LP_STYLE, 0);
-  else if(SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_COMPOSITION), BM_GETCHECK, 0, 0))
-    m_pAppSettings->SetLongParameter(APP_LP_STYLE, 1);
-  else if(SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_DIRECT), BM_GETCHECK, 0, 0))
-    m_pAppSettings->SetLongParameter(APP_LP_STYLE, 2);
-  else if(SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_FULL), BM_GETCHECK, 0, 0))
-    m_pAppSettings->SetLongParameter(APP_LP_STYLE, 3);
 
 
   if(m_CurrentColours != std::string("")) {

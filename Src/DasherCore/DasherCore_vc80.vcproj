@@ -293,6 +293,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="&quot;C:\Program Files\Expat 2.0.1\Source\lib&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_STATIC;_LIB;_UNICODE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -691,7 +692,8 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_STATIC;_LIB;_UNICODE"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\Philip Cowans\My Documents\SVN Stuff\trunk\Src\Common\Expat\lib&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_STATIC;_LIB;_UNICODE;_WIN32_WCE=0x501;_ARM_;WINCE;UNDER_CE"
 				RuntimeLibrary="1"
 				TreatWChar_tAsBuiltInType="false"
 				PrecompiledHeaderFile=".\Target/Debug/Intermediate/DasherCore.pch"
@@ -701,6 +703,8 @@
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
+				DebugInformationFormat="3"
+				ShowIncludes="false"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -715,7 +719,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="imm32.lib"
 				OutputFile=".\Target/Debug\DasherCore.lib"
 				SuppressStartupBanner="true"
 			/>
@@ -1482,10 +1485,26 @@
 		<File
 			RelativePath=".\SocketInputBase.cpp"
 			>
+			<FileConfiguration
+				Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+				ExcludedFromBuild="true"
+				>
+				<Tool
+					Name="VCCLCompilerTool"
+				/>
+			</FileConfiguration>
 		</File>
 		<File
 			RelativePath=".\SocketInputBase.h"
 			>
+			<FileConfiguration
+				Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+				ExcludedFromBuild="true"
+				>
+				<Tool
+					Name="VCCustomBuildTool"
+				/>
+			</FileConfiguration>
 		</File>
 		<File
 			RelativePath=".\StylusFilter.cpp"

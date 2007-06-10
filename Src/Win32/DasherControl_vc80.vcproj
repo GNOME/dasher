@@ -47,7 +47,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\Philip Cowans\My Documents\dasher\dasher\Src\Win32\Common&quot;;&quot;C:\Documents and Settings\Philip Cowans\My Documents\dasher\dasher\Src\Win32&quot;;&quot;C:\Program Files\Microsoft Tablet PC Platform SDK\Include&quot;"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\Philip Cowans\My Documents\dasher\dasher\Src\Win32\Common&quot;;&quot;C:\Documents and Settings\Philip Cowans\My Documents\dasher\dasher\Src\Win32&quot;;&quot;C:\Program Files\Microsoft Tablet PC Platform SDK\Include&quot;;&quot;C:\Program Files\Expat 2.0.1\Source\lib&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0500"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -598,6 +598,7 @@
 			IntermediateDirectory="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)\$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			UseOfATL="1"
 			CharacterSet="1"
 			>
 			<Tool
@@ -620,12 +621,13 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\Philip Cowans\My Documents\dasher\dasher\Src\Win32\Common&quot;;&quot;C:\Documents and Settings\Philip Cowans\My Documents\dasher\dasher\Src\Win32&quot;;&quot;C:\Program Files\Microsoft Tablet PC Platform SDK\Include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0500"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\Philip Cowans\My Documents\dasher\dasher\Src\Win32\Common&quot;;&quot;C:\Documents and Settings\Philip Cowans\My Documents\dasher\dasher\Src\Win32&quot;;&quot;C:\Documents and Settings\Philip Cowans\My Documents\SVN Stuff\trunk\Src\Common\Expat\lib&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_UNICODE;_STATIC;_WIN32_WCE=0x501;_ARM_;WINCE;UNDER_CE"
 				MinimalRebuild="true"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -674,22 +676,62 @@
 			<File
 				RelativePath="..\Win32\TabletPC\CursorInRange.cpp"
 				>
+				<FileConfiguration
+					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\Win32\TabletPC\CursorInRange.h"
 				>
+				<FileConfiguration
+					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\Win32\TabletPC\InkCollectorEvents.cpp"
 				>
+				<FileConfiguration
+					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\Win32\TabletPC\InkCollectorEvents.h"
 				>
+				<FileConfiguration
+					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\Win32\TabletPC\SystemInfo.h"
 				>
+				<FileConfiguration
+					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
@@ -728,10 +770,26 @@
 			<File
 				RelativePath="..\Win32\Sockets\SocketInput.cpp"
 				>
+				<FileConfiguration
+					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\Win32\Sockets\SocketInput.h"
 				>
+				<FileConfiguration
+					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<File

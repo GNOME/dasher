@@ -217,8 +217,14 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CDasherNode *pParent, symbol iSy
     DASHER_ASSERT(static_cast<SAlphabetData *>(pExistingChild->m_pUserData)->iOffset == pParentData->iOffset + 1);
 
   }
+  // TODO: Need to fix fact that this is created even when control mode is switched off
   else if(iSymbol == m_pNCManager->GetControlSymbol()) {                                                                               
     pNewNode = m_pNCManager->GetRoot(1, pParent, iLbnd, iHbnd, &(pParentData->iOffset));                                           
+
+    // For now, just hack it so we get a normal root node here
+    if(!pNewNode) {
+      pNewNode = m_pNCManager->GetRoot(0, pParent, iLbnd, iHbnd, NULL);
+    }
   }                                                                                                                                   
   else if(iSymbol == m_pNCManager->GetStartConversionSymbol()) {                                                                  
   //  else if(iSymbol == m_pNCManager->GetSpaceSymbol()) {

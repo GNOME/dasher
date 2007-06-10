@@ -53,7 +53,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="WinCommon;Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;;&quot;C:\Program Files\Microsoft Tablet PC Platform SDK\Include&quot;;&quot;C:\Program Files\HTML Help Workshop\include&quot;"
+				AdditionalIncludeDirectories="WinCommon;Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;;&quot;C:\Program Files\Microsoft Tablet PC Platform SDK\Include&quot;;&quot;C:\Program Files\HTML Help Workshop\include&quot;;&quot;C:\Program Files\Expat 2.0.1\Source\lib&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0501;_WIN32_IE=0x0501;ISOLATION_AWARE_ENABLED"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -82,7 +82,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib WS2_32.lib Htmlhelp.lib Uxtheme.lib"
+				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib WS2_32.lib Htmlhelp.lib Uxtheme.lib &quot;c:\program files\Expat 2.0.1\Bin\libexpat.lib&quot;"
 				OutputFile=".\Target/Debug/Dasher.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
@@ -808,6 +808,7 @@
 			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
+			UseOfATL="1"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="1"
 			>
@@ -835,8 +836,8 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="0"
-				AdditionalIncludeDirectories="WinCommon;Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;;&quot;C:\Program Files\Microsoft Tablet PC Platform SDK\Include&quot;;&quot;C:\Program Files\HTML Help Workshop\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0500"
+				AdditionalIncludeDirectories="WinCommon;Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;;&quot;C:\Program Files\Microsoft Tablet PC Platform SDK\Include&quot;;&quot;C:\Program Files\HTML Help Workshop\include&quot;;&quot;C:\Documents and Settings\Philip Cowans\My Documents\SVN Stuff\trunk\Src\Common\Expat\lib&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_UNICODE;_STATIC;_WIN32_WCE=0x501;WINCE;UNDER_CE;_ARM_"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderThrough="WinCommon.h"
@@ -847,6 +848,7 @@
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -861,16 +863,14 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib WS2_32.lib Htmlhelp.lib"
 				OutputFile=".\Target/Debug/Dasher.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="&quot;C:\Program Files\Microsoft Speech SDK 5.1\Lib\i386&quot;;&quot;C:\Program Files\HTML Help Workshop\lib&quot;"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\Target/Debug/Dasher.pdb"
-				SubSystem="2"
-				TargetMachine="0"
+				SubSystem="9"
+				TargetMachine="16"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -991,10 +991,26 @@
 			<File
 				RelativePath=".\ActionSpeech.cpp"
 				>
+				<FileConfiguration
+					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\ActionSpeech.h"
 				>
+				<FileConfiguration
+					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\DasherAction.h"
@@ -1012,12 +1028,16 @@
 				Name="Preferences"
 				>
 				<File
-					RelativePath="Widgets\Prefs.cpp"
-					>
-				</File>
-				<File
 					RelativePath="Widgets\Prefs.h"
 					>
+					<FileConfiguration
+						Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
 				</File>
 				<Filter
 					Name="ModuleSettings"
@@ -1025,50 +1045,146 @@
 					<File
 						RelativePath=".\ModuleControl.cpp"
 						>
+						<FileConfiguration
+							Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\ModuleControl.h"
 						>
+						<FileConfiguration
+							Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\ModuleControlBool.cpp"
 						>
+						<FileConfiguration
+							Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\ModuleControlBool.h"
 						>
+						<FileConfiguration
+							Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\ModuleControlLong.cpp"
 						>
+						<FileConfiguration
+							Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\ModuleControlLong.h"
 						>
+						<FileConfiguration
+							Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\ModuleControlLongSpin.cpp"
 						>
+						<FileConfiguration
+							Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\ModuleControlLongSpin.h"
 						>
+						<FileConfiguration
+							Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\ModuleControlString.cpp"
 						>
+						<FileConfiguration
+							Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\ModuleControlString.h"
 						>
+						<FileConfiguration
+							Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\ModuleSettings.cpp"
 						>
+						<FileConfiguration
+							Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\ModuleSettings.h"
 						>
+						<FileConfiguration
+							Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
 					</File>
 				</Filter>
 				<Filter
@@ -1077,50 +1193,158 @@
 					<File
 						RelativePath=".\Widgets\AdvancedPage.cpp"
 						>
+						<FileConfiguration
+							Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\Widgets\AdvancedPage.h"
 						>
+						<FileConfiguration
+							Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\Widgets\AlphabetBox.cpp"
 						>
+						<FileConfiguration
+							Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\Widgets\AlphabetBox.h"
 						>
+						<FileConfiguration
+							Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\Widgets\ControlPage.cpp"
 						>
+						<FileConfiguration
+							Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\Widgets\ControlPage.h"
 						>
+						<FileConfiguration
+							Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\Widgets\LMPage.cpp"
 						>
+						<FileConfiguration
+							Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\Widgets\LMPage.h"
 						>
+						<FileConfiguration
+							Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
+					</File>
+					<File
+						RelativePath="Widgets\Prefs.cpp"
+						>
+						<FileConfiguration
+							Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\Widgets\PrefsPageBase.cpp"
 						>
+						<FileConfiguration
+							Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\Widgets\PrefsPageBase.h"
 						>
+						<FileConfiguration
+							Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\Widgets\ViewPage.cpp"
 						>
+						<FileConfiguration
+							Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCLCompilerTool"
+							/>
+						</FileConfiguration>
 					</File>
 					<File
 						RelativePath=".\Widgets\ViewPage.h"
 						>
+						<FileConfiguration
+							Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+							ExcludedFromBuild="true"
+							>
+							<Tool
+								Name="VCCustomBuildTool"
+							/>
+						</FileConfiguration>
 					</File>
 				</Filter>
 			</Filter>

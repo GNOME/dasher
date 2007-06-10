@@ -33,8 +33,10 @@
 #include "EventHandler.h"
 #include "Event.h"
 #include "NodeCreationManager.h"
+#ifndef _WIN32_WCE
 #include "UserLog.h"
 #include "BasicLog.h"
+#endif
 #include "WrapperFactory.h"
 
 // Input filters
@@ -65,7 +67,10 @@ const int       g_iLogOptions = logTimeStamp | logDateStamp | logDeleteOldFile;
 const eLogLevel g_iLogLevel   = logNORMAL;
 const int       g_iLogOptions = logTimeStamp | logDateStamp;
 #endif
+
+#ifndef _WIN32_WCE
 CFileLogger* g_pLogger = NULL;
+#endif
 
 using namespace Dasher;
 using namespace std;
@@ -111,10 +116,12 @@ CDasherInterfaceBase::CDasherInterfaceBase() {
 
   m_bLastChanged = true;
 
+#ifndef _WIN32_WCE
   // Global logging object we can use from anywhere
   g_pLogger = new CFileLogger("dasher.log",
                               g_iLogLevel,
                               g_iLogOptions);
+#endif
 
 }
 
@@ -142,12 +149,16 @@ void CDasherInterfaceBase::Realize() {
 
   // TODO: Sort out log type selection
 
+#ifndef _WIN32_WCE
   int iUserLogLevel = GetLongParameter(LP_USER_LOG_LEVEL_MASK);
 
   if(iUserLogLevel == 10)
     m_pUserLog = new CBasicLog(m_pEventHandler, m_pSettingsStore);
   else if (iUserLogLevel > 0) 
     m_pUserLog = new CUserLog(m_pEventHandler, m_pSettingsStore, iUserLogLevel, m_Alphabet);  
+#else
+  m_pUserLog = NULL;
+#endif
 
   CreateFactories();
   CreateLocalFactories();
@@ -160,10 +171,12 @@ void CDasherInterfaceBase::Realize() {
   // InvalidateContext(true);
   ScheduleRedraw();
     
+#ifndef _WIN32_WCE
   // All the setup is done by now, so let the user log object know
   // that future parameter changes should be logged.
   if (m_pUserLog != NULL) 
     m_pUserLog->InitIsDone();
+#endif
 
   // TODO: Make things work when model is created latet
   ChangeState(TR_MODEL_INIT);
@@ -181,6 +194,7 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
   delete m_pNCManager;
   // Do NOT delete Edit box or Screen. This class did not create them.
 
+#ifndef _WIN32_WCE
   // When we destruct on shutdown, we'll output any detailed log file
   if (m_pUserLog != NULL)
   {
@@ -193,6 +207,7 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
     delete g_pLogger;
     g_pLogger = NULL;
   }
+#endif
 
   // Must delete event handler after all CDasherComponent derived classes
 
@@ -468,8 +483,10 @@ void CDasherInterfaceBase::PauseAt(int MouseX, int MouseY) {
   Dasher::CStopEvent oEvent;
   m_pEventHandler->InsertEvent(&oEvent);
 
+#ifndef _WIN32_WCE
   if (m_pUserLog != NULL)
     m_pUserLog->StopWriting((float) GetNats());
+#endif
 }
 
 void CDasherInterfaceBase::Halt() {
@@ -490,8 +507,11 @@ void CDasherInterfaceBase::Unpause(unsigned long Time) {
   m_pEventHandler->InsertEvent(&oEvent);
 
   ResetNats();
+
+#ifndef _WIN32_WCE
   if (m_pUserLog != NULL)
     m_pUserLog->StartWriting();
+#endif
 }
 
 void CDasherInterfaceBase::CreateInput() {
@@ -529,10 +549,12 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
 	  bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pDasherModel, &vAdded, &iNumDeleted);
 	}
 
+#ifndef _WIN32_WCE
 	if (iNumDeleted > 0)
 	  m_pUserLog->DeleteSymbols(iNumDeleted);
 	if (vAdded.size() > 0)
 	  m_pUserLog->AddSymbols(&vAdded);
+#endif
 	
       }
       else {
@@ -621,10 +643,12 @@ void CDasherInterfaceBase::ChangeAlphabet() {
 
   CreateNCManager();
 
+#ifndef _WIN32_WCE
   // Let our user log object know about the new alphabet since
   // it needs to convert symbols into text for the log file.
   if (m_pUserLog != NULL)
     m_pUserLog->SetAlphabetPtr(m_Alphabet);
+#endif
 
   // Apply options from alphabet
 
@@ -893,12 +917,12 @@ CUserLogBase* CDasherInterfaceBase::GetUserLogPtr() {
   return m_pUserLog;
 }
 
-void CDasherInterfaceBase::KeyDown(int iTime, int iId) {
+void CDasherInterfaceBase::KeyDown(int iTime, int iId, bool bPos, int iX, int iY) {
   if(m_iCurrentState != ST_NORMAL)
     return;
 
   if(m_pInputFilter && !GetBoolParameter(BP_TRAINING)) {
-    m_pInputFilter->KeyDown(iTime, iId, m_pDasherModel, m_pUserLog);
+    m_pInputFilter->KeyDown(iTime, iId, m_pDasherModel, m_pUserLog, bPos, iX, iY);
   }
 
   if(m_pInput && !GetBoolParameter(BP_TRAINING)) {
@@ -906,12 +930,12 @@ void CDasherInterfaceBase::KeyDown(int iTime, int iId) {
   }
 }
 
-void CDasherInterfaceBase::KeyUp(int iTime, int iId) {
+void CDasherInterfaceBase::KeyUp(int iTime, int iId, bool bPos, int iX, int iY) {
   if(m_iCurrentState != ST_NORMAL)
     return;
 
   if(m_pInputFilter && !GetBoolParameter(BP_TRAINING)) {
-    m_pInputFilter->KeyUp(iTime, iId, m_pDasherModel);
+    m_pInputFilter->KeyUp(iTime, iId, m_pDasherModel, bPos, iX, iY);
   }
 
   if(m_pInput && !GetBoolParameter(BP_TRAINING)) {
@@ -927,7 +951,11 @@ void CDasherInterfaceBase::CreateInputFilter()
     m_pInputFilter = NULL;
   }
 
+#ifndef _WIN32_WCE
   m_pInputFilter = (CInputFilter *)GetModuleByName(GetStringParameter(SP_INPUT_FILTER));
+#else
+  m_pInputFilter = (CInputFilter *)GetModuleByName("Click Mode");
+#endif
 
   if(m_pInputFilter) {
     m_pInputFilter->Ref();

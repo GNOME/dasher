@@ -35,7 +35,8 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   ///
 
   void RegisterNode( int iID, const std::string &strLabel, int iColour ) {
-    m_pControlManagerFactory->RegisterNode(iID, strLabel, iColour);
+    if(m_pControlManagerFactory)
+      m_pControlManagerFactory->RegisterNode(iID, strLabel, iColour);
   }
 
   ///
@@ -43,7 +44,8 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   ///
   
   void ConnectNode(int iChild, int iParent, int iAfter) {
-    m_pControlManagerFactory->ConnectNode(iChild, iParent, iAfter);
+    if(m_pControlManagerFactory)
+      m_pControlManagerFactory->ConnectNode(iChild, iParent, iAfter);
   }
 
   ///
@@ -51,7 +53,8 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   ///
 
   void DisconnectNode(int iChild, int iParent) {
-    m_pControlManagerFactory->DisconnectNode(iChild, iParent);
+    if(m_pControlManagerFactory)
+      m_pControlManagerFactory->DisconnectNode(iChild, iParent);
   }
 
   ///

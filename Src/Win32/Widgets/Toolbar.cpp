@@ -15,7 +15,7 @@
 
 // Track memory leaks on Windows to the line that new'd the memory
 #ifdef _WIN32
-#ifdef _DEBUG
+#ifdef _DEBUG_MEMLEAKS
 #define DEBUG_NEW new( _NORMAL_BLOCK, THIS_FILE, __LINE__ )
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -85,7 +85,11 @@ void CToolbar::CreateToolbar() {
   REBARBANDINFO rbBand;
   rbBand.cbSize = sizeof(REBARBANDINFO); 
   rbBand.fMask  = RBBIM_STYLE | RBBIM_CHILD  | RBBIM_CHILDSIZE;
+#ifndef _WIN32_WCE
   rbBand.fStyle = RBBS_CHILDEDGE | RBBS_FIXEDBMP | RBBS_GRIPPERALWAYS | RBBS_USECHEVRON;
+#else
+  rbBand.fStyle = RBBS_CHILDEDGE | RBBS_FIXEDBMP | RBBS_GRIPPERALWAYS;
+#endif
  
   // Create Toolbar
 #ifdef OriginalWin95

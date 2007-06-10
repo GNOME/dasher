@@ -34,7 +34,12 @@ public:
 	
 	int GetHeight() 
 	{
+#ifndef _WIN32_WCE
 		return GetSystemMetrics(SM_CYSIZEFRAME);
+#else
+    // TODO: Fix this for Windows CE
+    return 8;
+#endif
 	} 
 	
 	int GetPos() 
@@ -44,12 +49,22 @@ public:
 
 	static ATL::CWndClassInfo& GetWndClassInfo() 
 	{ 
-		static ATL::CWndClassInfo wc = \
+
+#ifndef _WIN32_WCE
+    static ATL::CWndClassInfo wc = \
 		{ \
 			{ sizeof(WNDCLASSEX), CS_HREDRAW | CS_VREDRAW , StartWindowProc, \
 			  0, 0, NULL, NULL, NULL, (HBRUSH)(COLOR_WINDOW), NULL, _T("HSplitter"), NULL }, \
 			NULL, NULL, MAKEINTRESOURCE(IDC_SIZENS), TRUE, 0, _T("") \
-		}; \
+		};
+#else
+		static ATL::CWndClassInfo wc = \
+		{ \
+ 			{ CS_HREDRAW | CS_VREDRAW , StartWindowProc, \
+			  0, 0, NULL, NULL, NULL, (HBRUSH)(COLOR_WINDOW), NULL, _T("HSplitter")}, \
+			NULL, NULL, MAKEINTRESOURCE(IDC_SIZENS), TRUE, 0, _T("") \
+		};
+#endif
 		return wc;
 	}
 

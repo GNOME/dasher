@@ -8,10 +8,16 @@
 #include "Common\WinUTF8.h"
 #include "Widgets/Canvas.h"
 #include "DasherMouseInput.h"
+
+#ifndef _WIN32_WCE
 #include "Sockets/SocketInput.h"
+#endif
+
 #include "Common/WinOptions.h"
 
+#ifndef _WIN32_WCE
 #include <sys/stat.h>
+#endif
 
 using namespace std;
 using namespace Dasher;
@@ -28,8 +34,10 @@ CDasher::CDasher(HWND Parent):m_hParent(Parent) {
   // This class will be a wrapper for the Dasher 'control' - think ActiveX
   m_pEdit = 0;
 
+#ifndef _WIN32_WCE
   // Set up COM for the accessibility stuff
   CoInitialize(NULL);
+#endif
 
   Realize();
 }
@@ -40,7 +48,9 @@ CDasher::~CDasher(void) {
 }
 
 void CDasher::CreateLocalFactories() {
+#ifndef _WIN32_WCE
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CSocketInput(m_pEventHandler, m_pSettingsStore)));
+#endif
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherMouseInput(m_pEventHandler, m_pSettingsStore, m_pCanvas->getwindow())));
 }
 
@@ -242,9 +252,14 @@ void CDasher::SetupUI() {
 }
 
 int CDasher::GetFileSize(const std::string &strFileName) {
+#ifndef _WIN32_WCE
   struct _stat sStatInfo;
   _stat(strFileName.c_str(), &sStatInfo);
   return sStatInfo.st_size;
+#else
+  // TODO: Fix this on Win CE
+  return 0;
+#endif
 }
 
 void CDasher::CreateSettingsStore(void) {

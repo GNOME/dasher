@@ -14,7 +14,11 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
  
   int iConversionID(m_pAlphabetManagerFactory->GetConversionID());
 
+#ifndef _WIN32_WCE
   m_pControlManagerFactory = new CControlManagerFactory(this);
+#else
+  m_pControlManagerFactory = 0;
+#endif
   m_pConversionManagerFactory = new CConversionManagerFactory(pEventHandler, pSettingsStore, this, iConversionID, pAlphIO, m_pAlphabet);
 }
 
@@ -35,7 +39,10 @@ CDasherNode *CNodeCreationManager::GetRoot(int iType, Dasher::CDasherNode *pPare
   case 0:
     return m_pAlphabetManagerFactory->GetRoot(pParent, iLower, iUpper, pUserData);
   case 1:
-    return m_pControlManagerFactory->GetRoot(pParent, iLower, iUpper, pUserData);
+    if(m_pControlManagerFactory)
+      return m_pControlManagerFactory->GetRoot(pParent, iLower, iUpper, pUserData);
+    else
+      return NULL;
   case 2:
     if(m_pConversionManagerFactory)
       return m_pConversionManagerFactory->GetRoot(pParent, iLower, iUpper, pUserData);

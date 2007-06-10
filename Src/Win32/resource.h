@@ -198,6 +198,8 @@
 #define IDC_FONT_SMALL                  1153
 #define IDC_FONT_LARGE                  1154
 #define IDC_FONT_VLARGE                 1155
+#define IDC_CHECK4                      1156
+#define IDC_CHECK5                      1157
 #define ID_FILE_NEW                     32771
 #define ID_EDIT_CUT                     32772
 #define ID_EDIT_COPY                    32773
@@ -252,7 +254,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        180
 #define _APS_NEXT_COMMAND_VALUE         32818
-#define _APS_NEXT_CONTROL_VALUE         1156
+#define _APS_NEXT_CONTROL_VALUE         1157
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

@@ -31,7 +31,9 @@
 #include "FilenameGUI.h"
 #include "../resource.h"
 #include "../../DasherCore/DasherInterfaceBase.h"
+#ifndef _WIN32_WCE
 #include "../ActionSpeech.h"
+#endif
 
 #include "../Common/DasherEncodingToCP.h"
 
@@ -55,16 +57,22 @@ CEdit::CEdit(CAppSettings *pAppSettings) {
   m_pAppSettings = pAppSettings;
 
   CodePage = GetUserCodePage();
+#ifndef _WIN32_WCE
   m_Font = GetCodePageFont(CodePage, 14);
+#endif
 
   // TODO: Generalise this (and don't duplicate - read directly from
   // text buffer).
   speech.resize(0);
 
+#ifndef _WIN32_WCE
   // TODO: Generalise actions, implement those present in Linux
   // version.
   m_pActionSpeech = new CActionSpeech;
   m_pActionSpeech->Activate();
+#else
+  m_pActionSpeech = 0;
+#endif
 
 }
 
@@ -86,8 +94,10 @@ CEdit::~CEdit() {
   if(FileHandle != INVALID_HANDLE_VALUE)
     CloseHandle(FileHandle);
 
+#ifndef _WIN32_WCE
   m_pActionSpeech->Deactivate();
   delete m_pActionSpeech;
+#endif
 }
 
 void CEdit::Move(int x, int y, int Width, int Height) {
@@ -432,15 +442,16 @@ void CEdit::SetFont(string Name, long Size) {
 #else
   // not implemented
 #pragma message ( "CEdit::SetFot not implemented on WinCE")
-  DASHER_ASSERT(0);
+  //DASHER_ASSERT(0);
 #endif
 }
 
 void CEdit::SetInterface(Dasher::CDasherInterfaceBase *DasherInterface) {
   m_pDasherInterface = DasherInterface;
-  
+#ifndef _WIN32_WCE
   // TODO: What on Earth is this doing here?
   SetFont(m_FontName, m_FontSize);
+#endif
 }
 
 // void CEdit::write_to_file() {
@@ -585,6 +596,8 @@ void CEdit::Move(int iDirection, int iDist) {
     case EDIT_WORD:
       // Hmm... words are hard - this is a rough and ready approximation:
 
+#ifndef _WIN32_WCE
+      // TODO: Fix this on Windows CE
       iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
       hMemHandle = (HLOCAL)SendMessage( EM_GETHANDLE, 0, 0);
       strBufferText = std::wstring((WCHAR*)LocalLock(hMemHandle), iNumChars);
@@ -596,6 +609,7 @@ void CEdit::Move(int iDirection, int iDist) {
       else
         iEnd = iEnd + 1;
       iStart = iEnd;
+#endif
       break;
     case EDIT_LINE:
 /*      iEndLine = SendMessage( EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
@@ -639,6 +653,8 @@ void CEdit::Move(int iDirection, int iDist) {
       iEnd = iStart;
       break;
     case EDIT_WORD:
+#ifndef _WIN32_WCE
+      // TODO: Fix this on Windows CE
       iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
       hMemHandle = (HLOCAL)SendMessage(EM_GETHANDLE, 0, 0);
       strBufferText = std::wstring((WCHAR*)LocalLock(hMemHandle), iNumChars);
@@ -652,6 +668,7 @@ void CEdit::Move(int iDirection, int iDist) {
           iEnd = iEnd + 1;
       }
       iStart = iEnd;
+#endif
       break;
     case EDIT_LINE:
 /*
@@ -711,6 +728,8 @@ void CEdit::Delete(int iDirection, int iDist) {
       ++iEnd;
       break;
     case EDIT_WORD:
+#ifndef _WIN32_WCE
+      // TODO: Fix in Windows CE
       iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
       hMemHandle = (HLOCAL)SendMessage(EM_GETHANDLE, 0, 0);
       strBufferText = std::wstring((WCHAR*)LocalLock(hMemHandle), iNumChars);
@@ -719,6 +738,7 @@ void CEdit::Delete(int iDirection, int iDist) {
       iEnd = strBufferText.find(' ', iEnd+1);
       if(iEnd == -1)
         iEnd = iNumChars + 1;
+#endif
       break;
     case EDIT_LINE:
 /*
@@ -752,6 +772,7 @@ void CEdit::Delete(int iDirection, int iDist) {
       --iEnd;
       break;
     case EDIT_WORD:
+#ifndef _WIN32_WCE
       iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
       hMemHandle = (HLOCAL)SendMessage(EM_GETHANDLE, 0, 0);
       strBufferText = std::wstring((WCHAR*)LocalLock(hMemHandle), iNumChars);
@@ -764,6 +785,7 @@ void CEdit::Delete(int iDirection, int iDist) {
         else
           iEnd = iEnd + 1;
       }
+#endif
       break;
     case EDIT_LINE:
 /*       iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);

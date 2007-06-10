@@ -24,12 +24,17 @@
 #define _WIN32_WINNT 0x0501
 
 
-
+#include <windows.h>
 #include <winuser.h>
+#ifndef _WIN32_WCE
 #include <Uxtheme.h>
 #define WM_THEMECHANGED                 0x031A
+#endif
 
+#ifndef _WIN32_WCE
 #include "../TabletPC/CursorInRange.h"
+#endif 
+
 #include "../../DasherCore/DasherComponent.h"
 #include "../../DasherCore/DasherTypes.h"
 #include "../KeyboardHelper.h"
@@ -47,11 +52,19 @@ class CScreen;
 class CCanvas : public ATL::CWindowImpl<CCanvas>, public Dasher::CDasherComponent {
  public:
   static ATL::CWndClassInfo& GetWndClassInfo() { 
+#ifndef _WIN32_WCE
     static ATL::CWndClassInfo wc = {
       { sizeof(WNDCLASSEX), CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS, StartWindowProc,
 	0, 0, NULL, NULL, NULL, NULL, NULL, _T("CANVAS"), NULL },
       NULL, NULL, MAKEINTRESOURCE(IDC_CROSS), TRUE, 0, _T("") 
     };
+#else
+  static ATL::CWndClassInfo wc = {
+      {CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS, StartWindowProc,
+	0, 0, NULL, NULL, NULL, NULL, NULL, _T("CANVAS") },
+      NULL, NULL, MAKEINTRESOURCE(IDC_CROSS), TRUE, 0, _T("") 
+    };
+#endif
     return wc;
   }
   
@@ -67,13 +80,17 @@ class CCanvas : public ATL::CWindowImpl<CCanvas>, public Dasher::CDasherComponen
     MESSAGE_HANDLER(WM_LBUTTONDBLCLK, OnLButtonDblClk)
     MESSAGE_HANDLER(WM_LBUTTONDOWN, OnLButtonDown)
     MESSAGE_HANDLER(WM_LBUTTONUP, OnLButtonUp)
+#ifndef _WIN32_WCE
     MESSAGE_HANDLER(WM_CURSOR_IN_RANGE, OnCursorInRange)
     MESSAGE_HANDLER(WM_CURSOR_OUT_OF_RANGE, OnCursorOutOfRange)
+#endif
     MESSAGE_HANDLER(WM_RBUTTONDOWN, OnRButtonDown)
     MESSAGE_HANDLER(WM_RBUTTONUP, OnRButtonUp)
     MESSAGE_HANDLER(WM_MOUSEMOVE, OnMouseMove)
     MESSAGE_HANDLER(WM_SIZE, OnSize)
+#ifndef _WIN32_WCE
     MESSAGE_HANDLER(WM_THEMECHANGED , OnThemeChanged)
+#endif
   END_MSG_MAP()
 
   CCanvas(Dasher::CDasher *DI, Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore);
@@ -84,12 +101,16 @@ class CCanvas : public ATL::CWindowImpl<CCanvas>, public Dasher::CDasherComponen
   void DoFrame();
   
   LRESULT OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+#ifndef _WIN32_WCE
   LRESULT OnThemeChanged(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+#endif
   LRESULT OnMouseMove(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
   LRESULT OnRButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
   LRESULT OnRButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+#ifndef _WIN32_WCE
   LRESULT OnCursorInRange(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
   LRESULT OnCursorOutOfRange(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+#endif
   LRESULT OnLButtonDblClk(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
   LRESULT OnLButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
   LRESULT OnLButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
@@ -170,7 +191,9 @@ private:
   CScreen *m_pScreen;
   Dasher::CDasher * m_pDasherInterface;
 
+#ifndef _WIN32_WCE
   HTHEME m_hTheme;
+#endif
 
   // Input devices:
 
@@ -201,8 +224,10 @@ private:
   // Ticks as last event, for stop on idle
   DWORD m_dwTicksLastEvent;
 
+#ifndef _WIN32_WCE
   // Enables tablet pc events
   CCursorInRange m_CursorInRange;
+#endif
 
   CKeyboardHelper *m_pKeyboardHelper;
 

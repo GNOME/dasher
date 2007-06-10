@@ -34,7 +34,12 @@ HWND CSplitter::Create(HWND hParent)
 void CSplitter::Move(int iPos, int Width) 
 {
 	m_iPos = iPos;
+#ifndef _WIN32_WCE
 	MoveWindow(0, m_iPos, Width, GetSystemMetrics(SM_CYSIZEFRAME), TRUE);
+#else
+  // TODO: Fix this on Windows CE
+  MoveWindow(0, m_iPos, Width, 8, TRUE);
+#endif
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -76,7 +81,12 @@ LRESULT CSplitter::OnMouseMove(UINT message, WPARAM wParam, LPARAM lParam, BOOL&
 		RECT ParentRect, MyRect;
 		::GetWindowRect( GetParent(), &ParentRect);
 		GetWindowRect(&MyRect);
+#ifndef _WIN32_WCE
 		m_iPos = MousePos.y - GetSystemMetrics(SM_CYSIZEFRAME) / 2;
+#else
+    // TODO: Fix this on Windows CE
+    m_iPos = MousePos.y - 4;
+#endif
 		// Layout();
 		m_pOwner->Layout();
 	}

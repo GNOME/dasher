@@ -19,7 +19,7 @@ using namespace std;
 
 // Track memory leaks on Windows to the line that new'd the memory
 #ifdef _WIN32
-#ifdef _DEBUG
+#ifdef _DEBUG_MEMLEAKS
 #define DEBUG_NEW new( _NORMAL_BLOCK, THIS_FILE, __LINE__ )
 #define new DEBUG_NEW
 #undef THIS_FILE
@@ -90,7 +90,9 @@ CScreen::~CScreen() {
 /////////////////////////////////////////////////////////////////////////////
 
 void CScreen::SetInterface(CDasherInterfaceBase *DasherInterface) {
+#ifndef _WIN32_WCE
   DASHER_ASSERT_VALIDPTR_RW(DasherInterface);
+#endif
 
  // CDasherScreen::SetInterface(DasherInterface);
 

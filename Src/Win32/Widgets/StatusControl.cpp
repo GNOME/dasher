@@ -45,7 +45,7 @@ LRESULT CStatusControl::OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL&
 }
 
 HWND CStatusControl::Create(HWND hParent) {
-  CWindowImpl<CStatusControl>::Create(hParent, 0, 0, SS_WHITERECT | WS_VISIBLE | WS_CHILD );
+  CWindowImpl<CStatusControl>::Create(hParent, 0, 0, WS_VISIBLE | WS_CHILD );
 
   CreateChildren();
 
@@ -66,11 +66,22 @@ void CStatusControl::CreateChildren() {
   std::wstring strAlphabetLabel(L"Alphabet:");
 
   // TODO: Wrap windows here in CWindow classes.
+#ifndef _WIN32_WCE
+  // TODO: Is this really needed?
   m_hSpeedLabel = CreateWindowEx(WS_EX_CONTROLPARENT, TEXT("STATIC"), strSpeedLabel.c_str(), 
-      SS_CENTER | SS_WHITERECT | SS_WHITEFRAME | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 0, 0, 0, 0, m_hWnd, NULL, WinHelper::hInstApp, NULL);
+      SS_CENTER | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 0, 0, 0, 0, m_hWnd, NULL, WinHelper::hInstApp, NULL);
+#else
+  m_hSpeedLabel = CreateWindowEx(0, TEXT("STATIC"), strSpeedLabel.c_str(), 
+      SS_CENTER | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 0, 0, 0, 0, m_hWnd, NULL, WinHelper::hInstApp, NULL);
+#endif
 
+#ifndef _WIN32_WCE
   m_hAlphabetLabel = CreateWindowEx(WS_EX_CONTROLPARENT, TEXT("STATIC"), strAlphabetLabel.c_str(), 
-      SS_CENTER | SS_WHITERECT | SS_WHITEFRAME | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 0, 0, 0, 0, m_hWnd, NULL, WinHelper::hInstApp, NULL);
+      SS_CENTER | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 0, 0, 0, 0, m_hWnd, NULL, WinHelper::hInstApp, NULL);
+#else
+  m_hAlphabetLabel = CreateWindowEx(0, TEXT("STATIC"), strAlphabetLabel.c_str(), 
+      SS_CENTER | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 0, 0, 0, 0, m_hWnd, NULL, WinHelper::hInstApp, NULL);
+#endif
 
   SendMessage(m_hSpeedLabel, WM_SETFONT, (WPARAM) hGuiFont, true);
   SendMessage(m_hAlphabetLabel, WM_SETFONT, (WPARAM) hGuiFont, true);
@@ -200,7 +211,7 @@ void CStatusControl::SelectAlphabet() {
   SendMessage(m_hCombo, CB_GETLBTEXT, iIndex, (LPARAM)szSelection);
 
   if(!_tcscmp(szSelection, L"More Alphabets...")) {
-    SendMessage(::GetParent(GetParent().m_hWnd), DASHER_SHOW_PREFS, 0, 0);
+    SendMessage(GetParent().m_hWnd, DASHER_SHOW_PREFS, 0, 0);
   }
   else {
     std::string strNewValue;

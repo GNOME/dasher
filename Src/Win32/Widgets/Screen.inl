@@ -55,9 +55,12 @@ inline void CScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int 
 
     SelectObject(m_hDCBuffer, hBrushOld);
   }
+  // TODO: Fix this on wince
+#ifndef _WIN32_WCE
   else
     Arc(m_hDCBuffer, iCX - iR, iCY - iR, iCX + iR, iCY + iR,
                      iCX, iCY - iR, iCX, iCY - iR );
+#endif
 
   SelectObject(m_hDCBuffer, hpOld);
 }
@@ -120,7 +123,7 @@ inline HPEN& CScreen::GetPen(int iColor, int iWidth) {
 
   hm1_RcIter = m_cPens.find( key );
   if( hm1_RcIter == m_cPens.end() ) {
-    HPEN pen = CreatePen(PS_SOLID, iWidth, RGB(m_pColours->Reds[iColor], m_pColours->Greens[iColor], m_pColours->Blues[iColor]));
+    HPEN pen = ::CreatePen(PS_SOLID, iWidth, RGB(m_pColours->Reds[iColor], m_pColours->Greens[iColor], m_pColours->Blues[iColor]));
     m_cPens[key] = pen;
   }
   

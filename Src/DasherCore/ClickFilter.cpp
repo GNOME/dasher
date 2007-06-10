@@ -23,15 +23,16 @@ bool CClickFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_p
   return m_pDasherModel->UpdatePosition(0, 0, Time, pAdded, pNumDeleted);
 }
 
-void CClickFilter::KeyDown(int iTime, int iId, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CClickFilter::KeyDown(int iTime, int iId, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {
 
   switch(iId) {
   case 100: // Mouse clicks
     if(pDasherView) {
+      // TODO: Make this work sensibly with arbitrary input devices
       myint iDasherX;
       myint iDasherY;
       
-      pDasherView->GetCoordinates(iTime, iDasherX, iDasherY);
+      pDasherView-> Screen2Dasher(iX, iY, iDasherX, iDasherY, false, true );
       pModel->ScheduleZoom(iDasherX,iDasherY);
     }
     break;

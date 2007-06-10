@@ -24,14 +24,19 @@
 #include "../DasherCore/ControlManager.h"
 #include "DasherWindow.h"
 #include "Widgets/AboutBox.h"
+#ifndef _WIN32_WCE
 #include "Widgets/Prefs.h"
+#endif
+
 #include "Widgets/Slidebar.h"
 #include "Widgets/Toolbar.h"
 #include "WinCommon.h"
 
+#ifndef _WIN32_WCE
 #include <Htmlhelp.h>
 #include <Oleacc.h>
-#include <guiddef.h>
+//#include <guiddef.h>
+#endif
 
 using namespace Dasher;
 using namespace std;
@@ -55,8 +60,10 @@ CDasherWindow::CDasherWindow() {
   wc.m_wc.hIcon = LoadIcon(WinHelper::hInstApp, (LPCTSTR) IDI_DASHER);
   wc.m_wc.hCursor = LoadCursor(NULL, IDC_ARROW);
   wc.m_wc.hbrBackground = (HBRUSH) (COLOR_WINDOW); 
+ #ifndef _WIN32_WCE
   wc.m_wc.lpszMenuName = (LPCTSTR) IDC_DASHER;
   wc.m_wc.hIconSm = m_hIconSm;
+#endif
 }
 
 HWND CDasherWindow::Create() {
@@ -71,10 +78,14 @@ HWND CDasherWindow::Create() {
 
   HWND hWnd;
 
+#ifndef _WIN32_WCE
   if((iStyle == 1) || (iStyle == 2))
     hWnd = CWindowImpl<CDasherWindow >::Create(NULL, NULL, WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN,  WS_EX_NOACTIVATE | WS_EX_APPWINDOW | WS_EX_TOPMOST);
   else
     hWnd = CWindowImpl<CDasherWindow >::Create(NULL, NULL, WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN);
+#else
+  hWnd = CWindowImpl<CDasherWindow, CWindow, CWinTraits<WS_CLIPCHILDREN | WS_CLIPSIBLINGS> >::Create(NULL);
+#endif
 
   // Create Widgets
   m_pDasher = new CDasher(hWnd);
@@ -92,6 +103,10 @@ HWND CDasherWindow::Create() {
 #endif
 
   m_pToolbar = new CToolbar(hWnd, m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR));
+
+#ifdef _WIN32_WCE
+  m_pToolbar->ShowToolbar(false);
+#endif
 
   // FIXME - the edit box really shouldn't need access to the interface, 
   // but at the moment it does, for training, blanking the display etc
@@ -150,7 +165,10 @@ CDasherWindow::~CDasherWindow() {
 void CDasherWindow::Main() {
   // TODO: Sort this sort ofthing out, figure out how it fits into ATL etc.
 
+#ifndef _WIN32_WCE
 	DASHER_ASSERT_VALIDPTR_RW(m_pDasher);
+#endif
+
 	m_pDasher->Main();
 	Sleep(50); // limits framerate to 50fps
 }
@@ -203,9 +221,11 @@ bool CDasherWindow::LoadWindowState() {
 
 void CDasherWindow::HandleParameterChange(int iParameter) {
   switch(iParameter) {
+#ifndef _WIN32_WCE
    case APP_BP_SHOW_TOOLBAR:
      m_pToolbar->ShowToolbar(m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR));
      break;
+#endif
    case APP_LP_STYLE:
      // TODO: No longer handled after startup?
      Layout();
@@ -319,29 +339,22 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
   // Parse the menu selections:
   // TODO: Put these into separate functions
   switch (wmId) {
- 
-  case ID_OPTIONS_EDITFONT:
-  
-    break;
-  case ID_OPTIONS_DASHERFONT:
-   
-    return 0;
-  case ID_OPTIONS_RESETFONT:
-    m_pAppSettings->ResetParamater(SP_DASHER_FONT);
-    m_pAppSettings->ResetParamater(APP_SP_EDIT_FONT);
-    return 0;
   case IDM_ABOUT: {
     CAboutBox Aboutbox;
     Aboutbox.DoModal(m_hWnd);
     return 0;
   }
+#ifndef _WIN32_WCE
   case ID_OPTIONS_PREFS: {
     CPrefs Prefs(m_hWnd, m_pDasher, m_pAppSettings);
     return 0;
   }
+#endif
+#ifndef _WIN32_WCE
   case ID_HELP_CONTENTS:
     HtmlHelp(m_hWnd, L"Dasher.chm", HH_DISPLAY_INDEX, NULL);
     return 0;
+#endif
   case ID_HELP_DASHERTUTORIAL:
     m_pGameModeHelper = new CGameModeHelper(m_pDasher);
     return 0;
@@ -400,8 +413,7 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
   default:
     return DefWindowProc(message, wParam, lParam);
   }
-  
-  PopulateSettings();
+ 
   Layout();
   return 0;
 }
@@ -456,6 +468,7 @@ LRESULT CDasherWindow::OnDestroy(UINT message, WPARAM wParam, LPARAM lParam, BOO
 	return 0;
 }
 
+#ifndef _WIN32_WCE
 LRESULT CDasherWindow::OnGetMinMaxInfo(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
 	// not yet created
 	if (m_pToolbar == 0 || m_pSplitter == 0 || m_pSlidebar == 0)
@@ -475,9 +488,9 @@ LRESULT CDasherWindow::OnGetMinMaxInfo(UINT message, WPARAM wParam, LPARAM lPara
 
 	return 0;
 }
+#endif
 
 LRESULT CDasherWindow::OnInitMenuPopup(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
-	PopulateSettings();
 	WinMenu.SortOut((HMENU) wParam);
 	return 0;
 }
@@ -513,7 +526,9 @@ LRESULT CDasherWindow::OnOther(UINT message, WPARAM wParam, LPARAM lParam, BOOL&
   else if (message == WM_DASHER_FOCUS)
     return OnDasherFocus(message, wParam, lParam, bHandled);
   else if (message == DASHER_SHOW_PREFS) {
+#ifndef _WIN32_WCE
     CPrefs Prefs(m_hWnd, m_pDasher, m_pAppSettings);
+#endif
   }
   return 0;
 }
@@ -522,7 +537,7 @@ void CDasherWindow::Layout() {
   int iStyle(m_pAppSettings->GetLongParameter(APP_LP_STYLE));
   
   // Set up the window properties
-
+#ifndef _WIN32_WCE
   if((iStyle == 1) || (iStyle == 2)) {
     SetWindowLong(GWL_EXSTYLE, GetWindowLong(GWL_EXSTYLE) | WS_EX_NOACTIVATE | WS_EX_APPWINDOW);
     SetWindowPos(HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
@@ -531,6 +546,7 @@ void CDasherWindow::Layout() {
     SetWindowLong(GWL_EXSTYLE, GetWindowLong(GWL_EXSTYLE) & !WS_EX_NOACTIVATE);
     SetWindowPos(HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
   }
+#endif
 
   // Now do the actual layout
 
@@ -598,10 +614,14 @@ void CDasherWindow::Layout() {
   }
 }
 
-void CDasherWindow::PopulateSettings() {
-  if(m_pDasher) {
-    WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, m_pDasher->GetLongParameter(LP_DASHER_FONTSIZE)==1);
-    WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_LARGE, false, m_pDasher->GetLongParameter(LP_DASHER_FONTSIZE)==2);
-    WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, m_pDasher->GetLongParameter(LP_DASHER_FONTSIZE)==4);
-  }
+#ifndef _WIN32_WCE
+void CDasherWindow::HandleWinEvent(HWINEVENTHOOK hWinEventHook, DWORD event, HWND hwnd, LONG idObject, LONG idChild, DWORD dwEventThread, DWORD dwmsEventTime) {
+  // Ignore events if not in direct mode
+  if(m_pAppSettings && (m_pAppSettings->GetLongParameter(APP_LP_STYLE) != 2))
+    return;
+
+  // For now assume all events are focus changes, so reset the buffer
+  if(m_pDasher)
+    m_pDasher->SetBuffer(0);
 }
+#endif

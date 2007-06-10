@@ -44,7 +44,7 @@ class Dasher::CEventHandler;
 class Dasher::CEvent;
 class CSettingsStore;
 class CUserLogBase;
-class CDasherButtons;
+//class CDasherButtons;
 class CNodeCreationManager;
 
 #include <map>
@@ -316,9 +316,9 @@ public:
   /// Deals with forwarding user input to the core
   /// @{
 
-  void KeyDown(int iTime, int iId);
+  void KeyDown(int iTime, int iId, bool bPos = false, int iX = 0, int iY = 0);
 
-  void KeyUp(int iTime, int iId);
+  void KeyUp(int iTime, int iId, bool bPos = false, int iX = 0, int iY = 0);
 
   void HandleClickUp(int iTime, int iX, int iY);
 
