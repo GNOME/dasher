@@ -824,6 +824,38 @@
 			RelativePath="..\Win32\Common\WinCommon.h"
 			>
 		</File>
+		<File
+			RelativePath=".\Common\WinHelper.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\Common\WinHelper.h"
+			>
+		</File>
+		<File
+			RelativePath=".\Common\WinLocalisation.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\Common\WinLocalisation.h"
+			>
+		</File>
+		<File
+			RelativePath=".\Common\WinOptions.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\Common\WinOptions.h"
+			>
+		</File>
+		<File
+			RelativePath=".\Common\WinUTF8.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\Common\WinUTF8.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

@@ -1,7 +1,11 @@
 #pragma once
 
+#include "Common/wincommon.h"
 #include "../DasherCore/DasherInterfaceBase.h"
 #include "../DasherCore/UserLog.h"
+
+#include <string>
+#include <vector>
 
 extern CONST UINT WM_DASHER_EVENT;
 #define _WM_DASHER_EVENT (LPCWSTR)"wm_dasher_event"

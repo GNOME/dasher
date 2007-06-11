@@ -1,0 +1,39 @@
+// DasherIM.idl : IDL source for DasherIM
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (DasherIM.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+import "atliface.idl";
+
+[
+	object,
+	uuid(FF1A0DAE-D689-42BC-8EAB-C21AA7A75BB9),
+	dual,
+	nonextensible,
+	helpstring("ICDasherIM Interface"),
+	pointer_default(unique)
+]
+interface ICDasherIM : IDispatch{
+};
+[
+	uuid(805B97E3-3254-42F8-9646-2AAAC471C72B),
+	version(1.0),
+	helpstring("DasherIM 1.0 Type Library")
+]
+library DasherIMLib
+{
+	importlib("stdole2.tlb");
+	interface IDocHostUIHandlerDispatch;
+	interface IAxWinAmbientDispatchEx;
+	[
+		uuid(3DA2F5A4-6992-4BD3-ACB4-CAE117E001D0),
+		helpstring("CDasherIM Class")
+	]
+	coclass CDasherIM
+	{
+		[default] interface ICDasherIM;
+	};
+};

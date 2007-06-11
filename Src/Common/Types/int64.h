@@ -11,9 +11,14 @@
 
 #include "int.h"
 
-#ifdef _MSC_VER
+//#ifdef _MSC_VER
+
+// Get rid of annoying namespace pollution
+#undef max
+#undef min
+
 #include <limits>
-#endif
+//#endif
 
 #include "../myassert.h"
 
@@ -29,10 +34,10 @@ class Cint64 {
 public:
 
   int64 Max() {
-    return std::numeric_limits < int64 >::max();
+    return std::numeric_limits<int64>::max();
   }
   int64 Min() {
-    return std::numeric_limits < int64 >::min();
+    return std::numeric_limits<int64>::min();
   }
 
   Cint64() {

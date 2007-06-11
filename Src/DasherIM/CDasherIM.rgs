@@ -1,0 +1,27 @@
+HKCR
+{
+	DasherIM.CDasherIM.1 = s 'CDasherIM Class'
+	{
+		CLSID = s '{3DA2F5A4-6992-4BD3-ACB4-CAE117E001D0}'
+	}
+	DasherIM.CDasherIM = s 'CDasherIM Class'
+	{
+		CLSID = s '{3DA2F5A4-6992-4BD3-ACB4-CAE117E001D0}'
+		CurVer = s 'DasherIM.CDasherIM.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {3DA2F5A4-6992-4BD3-ACB4-CAE117E001D0} = s 'CDasherIM Class'
+		{
+			ProgID = s 'DasherIM.CDasherIM.1'
+			VersionIndependentProgID = s 'DasherIM.CDasherIM'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Free'
+			}
+			val AppID = s '%APPID%'
+			'TypeLib' = s '{805B97E3-3254-42F8-9646-2AAAC471C72B}'
+		}
+	}
+}

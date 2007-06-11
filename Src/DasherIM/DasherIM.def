@@ -1,0 +1,9 @@
+; DasherIM.def : Declares the module parameters.
+
+LIBRARY      "DasherIM.DLL"
+
+EXPORTS
+	DllCanUnloadNow		PRIVATE
+	DllGetClassObject	PRIVATE
+	DllRegisterServer	PRIVATE
+	DllUnregisterServer	PRIVATE

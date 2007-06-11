@@ -13,12 +13,12 @@
 
 #ifdef DASHER_WIN32
 
-#include <limits>
-
 typedef __int64 int64;
 typedef unsigned __int64 uint64;
 typedef int int32;
 typedef unsigned int uint32;
+
+#include <limits>
 
 #ifndef LLONG_MAX
 #define LLONG_MAX 9223372036854775807
