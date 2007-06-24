@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher 3.11.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-04 13:21+0200\n"
-"PO-Revision-Date: 2007-06-04 13:23+0200\n"
+"POT-Creation-Date: 2007-06-24 14:21+0200\n"
+"PO-Revision-Date: 2007-06-24 14:24+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-no@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -729,36 +729,35 @@ msgstr "_Nullstill skrifter"
 msgid "Click Mode"
 msgstr "Klikkmodus"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:957
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:985
 msgid "Normal Control"
 msgstr "Normal kontroll"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:962
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:990
 msgid "Two Button Dynamic Mode"
 msgstr "To-knappers dynamisk modus"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:964
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:992
 msgid "Menu Mode"
 msgstr "Menymodus"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:965
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:993
 msgid "Direct Mode"
 msgstr "Direktemodus"
 
 #. RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:967
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:995
 msgid "Alternating Direct Mode"
-msgstr ""
+msgstr "Alternerende direkte modus"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:968
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:996
 msgid "Compass Mode"
 msgstr "Kompassmodus"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:969
-#, fuzzy
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:997
 msgid "Stylus Control"
-msgstr "Kontroll"
+msgstr "Kontroll av stylus"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:9
 msgid "Long press time"
@@ -766,19 +765,19 @@ msgstr "Lang nedtrykkingstid"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:10
 msgid "Multiple press time"
-msgstr ""
+msgstr "Tid for flere trykk"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:11
 msgid "Multiple press count"
-msgstr ""
+msgstr "Antall flertrykk"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:12
 msgid "Enable backoff button"
-msgstr ""
+msgstr "Aktiver «backoff»-knapp"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:16
 msgid "One Button Dynamic Mode"
-msgstr ""
+msgstr "En-knapps dynamisk modus"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:7
 msgid "Automatic calibration:"
@@ -786,11 +785,11 @@ msgstr "Automatisk kalibrering"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:11
 msgid "Eyetracker Mode"
-msgstr ""
+msgstr "Øyesporingsmodus"
 
 #: ../Src/DasherCore/OneDimensionalFilter.cpp:5
 msgid "One Dimensional Mode"
-msgstr ""
+msgstr "Endimensjonal modus"
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
@@ -827,11 +826,11 @@ msgstr "Y maksimum:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:34
 msgid "Print socket-related debugging information to console:"
-msgstr ""
+msgstr "Skriv feilsøkingsinformasjon relatert til «socket» til konsollet:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:38
 msgid "Socket Input"
-msgstr ""
+msgstr "Inndata på «socket»"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:163
 #, c-format
@@ -894,8 +893,8 @@ msgstr "Alternativer for %s:"
 
 #: ../Src/Gtk2/mouse_input.h:15
 msgid "Mouse Input"
-msgstr ""
+msgstr "Inndata for mus"
 
 #: ../Src/Gtk2/mouse_input.h:57
 msgid "One Dimensional Mouse Input"
-msgstr ""
+msgstr "Inndata for endimensjonal mus"
