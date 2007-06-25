@@ -310,6 +310,8 @@ dasher_editor_internal_new() {
   GtkWidget *pScrolledWindow = gtk_scrolled_window_new(NULL, NULL);
 
   GtkWidget *pTextView = gtk_text_view_new();
+  gtk_widget_grab_focus(pTextView);
+  
 
   pPrivate->pTextView = GTK_TEXT_VIEW(pTextView);
 
