@@ -288,7 +288,7 @@
 	  </child>
 
 	  <child>
-	    <widget class="GtkToolButton" id="tb_comman_open">
+	    <widget class="GtkToolButton" id="tb_command_open">
 	      <property name="visible">True</property>
 	      <property name="tooltip" translatable="yes">Open file</property>
 	      <property name="stock_id">gtk-open</property>

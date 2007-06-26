@@ -132,8 +132,6 @@ static void dasher_editor_finalize(GObject *pObject);
 
 static void 
 dasher_editor_class_init(DasherEditorClass *pClass) {
-  g_debug("Initialising DasherEditor");
-
   g_type_class_add_private(pClass, sizeof(DasherEditorPrivate));
 
   GObjectClass *pObjectClass = (GObjectClass *) pClass;

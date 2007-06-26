@@ -7,15 +7,21 @@
 #include <libgnomevfs/gnome-vfs.h> 
 //#endif
 
-#include "dasher_action_keyboard.h"
+
 #ifdef WITH_MAEMO
 #include "dasher_action_keyboard_maemo.h"
 #else
+#include "dasher_action_keyboard.h"
+#endif
+
+#ifndef WITH_MAEMO
 #include "dasher_action_script.h"
 #endif
+
 #ifdef GNOME_SPEECH
 #include "dasher_action_speech.h"
 #endif 
+
 #include "dasher_editor_internal.h"
 #include "dasher_external_buffer.h"
 #include "dasher_internal_buffer.h"
@@ -79,7 +85,6 @@ struct _DasherEditorInternalPrivate {
   gint iNextActionID;
   IDasherBufferSet *pBufferSet;
   IDasherBufferSet *pExternalBuffer;
-  IDasherBufferSet *pInternalBuffer;
   GameModeHelper *pGameModeHelper;
   GtkTextMark *pNewMark;
   DasherAppSettings *pAppSettings;
@@ -198,31 +203,10 @@ extern "C" void protect_cb(GtkDasherControl *pDasherControl, gpointer pUserData)
 
 static void 
 dasher_editor_internal_class_init(DasherEditorInternalClass *pClass) {
-  g_debug("Initialising DasherEditor");
-
   g_type_class_add_private(pClass, sizeof(DasherEditorInternalPrivate));
 
   GObjectClass *pObjectClass = (GObjectClass *) pClass;
   pObjectClass->finalize = dasher_editor_internal_finalize;
-
-  // /* Setup signals */
-//   dasher_editor_internal_signals[FILENAME_CHANGED] = g_signal_new("filename-changed", G_TYPE_FROM_CLASS(pClass), 
-// 							 static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), 
-// 							 G_STRUCT_OFFSET(DasherEditorClass, filename_changed), 
-// 							 NULL, NULL, g_cclosure_marshal_VOID__VOID, 
-// 							 G_TYPE_NONE, 0);
-
-//   dasher_editor_internal_signals[BUFFER_CHANGED] = g_signal_new("buffer-changed", G_TYPE_FROM_CLASS(pClass), 
-// 						       static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), 
-// 						       G_STRUCT_OFFSET(DasherEditorClass, buffer_changed), 
-// 						       NULL, NULL, g_cclosure_marshal_VOID__VOID, 
-// 						       G_TYPE_NONE, 0);
-
-//   dasher_editor_internal_signals[CONTEXT_CHANGED] = g_signal_new("context-changed", G_TYPE_FROM_CLASS(pClass), 
-// 							static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), 
-// 							G_STRUCT_OFFSET(DasherEditorClass, context_changed), 
-// 							NULL, NULL, g_cclosure_marshal_VOID__VOID, 
-// 							G_TYPE_NONE, 0);
 
   DasherEditorClass *pParentClass = (DasherEditorClass *)pClass;
 
@@ -248,7 +232,6 @@ dasher_editor_internal_class_init(DasherEditorInternalClass *pClass) {
   pParentClass->get_filename = dasher_editor_internal_get_filename;
   pParentClass->get_all_text = dasher_editor_internal_get_all_text;
   pParentClass->get_new_text = dasher_editor_internal_get_new_text;
-
 }
 
 static void 
@@ -256,7 +239,6 @@ dasher_editor_internal_init(DasherEditorInternal *pDasherControl) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pDasherControl);
 
   pPrivate->pBufferSet = NULL;
-  pPrivate->pInternalBuffer = NULL;
   pPrivate->pExternalBuffer = NULL;
   pPrivate->szFilename = NULL;
   pPrivate->pTextClipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
@@ -269,8 +251,6 @@ dasher_editor_internal_init(DasherEditorInternal *pDasherControl) {
 
 static void 
 dasher_editor_internal_finalize(GObject *pObject) {
-  g_debug("Finalising DasherEditor");
-
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pObject);
 
   EditorAction *pCurrentAction = pPrivate->pActionRing;
@@ -299,13 +279,9 @@ dasher_editor_internal_new() {
   DasherEditorInternal *pDasherEditor;
   pDasherEditor = (DasherEditorInternal *)(g_object_new(dasher_editor_internal_get_type(), NULL));
 
-
   g_pEditor = pDasherEditor;
 
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pDasherEditor);
-  
-
-  //  GtkPaned *pPane = GTK_PANED(glade_xml_get_widget(pGladeXML, "main_divider"));
   
   GtkWidget *pScrolledWindow = gtk_scrolled_window_new(NULL, NULL);
 
@@ -616,15 +592,8 @@ dasher_editor_internal_create_buffer(DasherEditor *pSelf) {
   if(!(pPrivate->pExternalBuffer))
     pPrivate->pExternalBuffer = IDASHER_BUFFER_SET(dasher_external_buffer_new());
     
-  if(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE) == 2) {
-    pPrivate->pBufferSet = pPrivate->pExternalBuffer;
-  }
-  else {
-    if(!(pPrivate->pInternalBuffer))
-      pPrivate->pInternalBuffer = IDASHER_BUFFER_SET(dasher_internal_buffer_new(pPrivate->pTextView));
-    
-    pPrivate->pBufferSet = pPrivate->pInternalBuffer;
-  }
+  if(!(pPrivate->pBufferSet))
+    pPrivate->pBufferSet = IDASHER_BUFFER_SET(dasher_internal_buffer_new(pPrivate->pTextView));
 
   // TODO: Fix this
   g_signal_connect(G_OBJECT(pPrivate->pBufferSet), "offset_changed", G_CALLBACK(context_changed_handler), pSelf);

@@ -217,9 +217,6 @@ static void
 dasher_main_init(DasherMain *pDasherMain) {
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pDasherMain);
   
-  /* TODO: define log domain */
-  g_debug("Initialising DasherMain");
-
   pPrivate->pAppSettings = NULL;
   pPrivate->pEditor = NULL;
   pPrivate->pPreferencesDialogue = NULL;
@@ -231,8 +228,6 @@ dasher_main_init(DasherMain *pDasherMain) {
 
 static void
 dasher_main_finalize(GObject *pObject) {
-  /* TODO: Need a general overview of class finalisation */
-  g_debug("Finalizing DasherMain");
 
   DasherMain *pDasherMain = DASHER_MAIN(pObject);
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pDasherMain);
@@ -240,8 +235,8 @@ dasher_main_finalize(GObject *pObject) {
   dasher_main_save_state(pDasherMain);
 
   /* TODO: Does unref really do the right thing - check the whole ref counting situation */
-  if(pPrivate->pEditor)
-    g_object_unref(pPrivate->pEditor);
+  //  if(pPrivate->pEditor)
+  //  g_object_unref(pPrivate->pEditor);
 
   if(pPrivate->pPreferencesDialogue)
     g_object_unref(pPrivate->pPreferencesDialogue);
@@ -261,6 +256,8 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
     return g_pDasherMain;
   else {
     DasherMain *pDasherMain = (DasherMain *)(g_object_new(dasher_main_get_type(), NULL));
+    g_pDasherMain = pDasherMain;
+
     DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pDasherMain);
 
     /* Create the app settings object */
@@ -379,9 +376,6 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
 
     gtk_key_snooper_install(dasher_main_key_snooper, pDasherMain);
 
-    /* Cache a file-wide static pointer to the singleton class */
-    g_pDasherMain = pDasherMain;
-
     return pDasherMain;   
   }
 }
@@ -412,7 +406,8 @@ dasher_main_load_interface(DasherMain *pSelf) {
     szGladeFilename = PROGDATA "/dasher.compose.glade";
     break;
   case 2:
-    szGladeFilename = PROGDATA "/dasher.direct.glade";
+    //    szGladeFilename = PROGDATA "/dasher.direct.glade";
+    szGladeFilename = PROGDATA "/dasher.traditional.glade";
     break;
   case 3:
     szGladeFilename = PROGDATA "/dasher.fullscreen.glade";
@@ -561,6 +556,23 @@ dasher_main_load_interface(DasherMain *pSelf) {
   gtk_window_set_decorated(GTK_WINDOW(pPrivate->pMainWindow), false);
 #endif
   
+  // Hide any widgets which aren't appropriate for this mode
+  
+  if(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE) == 2) {
+    gtk_widget_hide(glade_xml_get_widget(pPrivate->pGladeXML, "dasher_menu_bar"));
+      
+    gtk_widget_hide(glade_xml_get_widget(pPrivate->pGladeXML, "tb_command_new"));
+    gtk_widget_hide(glade_xml_get_widget(pPrivate->pGladeXML, "tb_command_open"));
+    gtk_widget_hide(glade_xml_get_widget(pPrivate->pGladeXML, "tb_command_save"));
+    gtk_widget_hide(glade_xml_get_widget(pPrivate->pGladeXML, "tb_command_saveas"));
+    gtk_widget_hide(glade_xml_get_widget(pPrivate->pGladeXML, "separatortoolitem1"));
+    gtk_widget_hide(glade_xml_get_widget(pPrivate->pGladeXML, "tb_command_cut"));
+    gtk_widget_hide(glade_xml_get_widget(pPrivate->pGladeXML, "tb_command_copy"));
+    gtk_widget_hide(glade_xml_get_widget(pPrivate->pGladeXML, "tb_command_paste"));
+    gtk_widget_hide(glade_xml_get_widget(pPrivate->pGladeXML, "separatortoolitem2"));
+  }
+    
+  
   dasher_main_connect_menus(pSelf);
 
 
@@ -641,7 +653,8 @@ dasher_main_handle_parameter_change(DasherMain *pSelf, int iParameter) {
   }
 
   // TODO: Pass into editor?
-  dasher_preferences_dialogue_handle_parameter_change(pPrivate->pPreferencesDialogue, iParameter);
+  if(pPrivate->pPreferencesDialogue)
+    dasher_preferences_dialogue_handle_parameter_change(pPrivate->pPreferencesDialogue, iParameter);
 }
 
 static void 
@@ -1291,11 +1304,15 @@ create_dasher_control(gchar *szName, gchar *szString1, gchar *szString2, gint iI
 
 extern "C" GtkWidget *
 create_dasher_editor(gchar *szName, gchar *szString1, gchar *szString2, gint iInt1, gint iInt2) {
-  // TODO: Do something sensible here (this is only here for test purposes)
-  if(true)
-    return GTK_WIDGET(dasher_editor_internal_new());
-  else
+  g_return_val_if_fail(g_pDasherMain != NULL, NULL);
+
+  DasherMain *pDasherMain = DASHER_MAIN(g_pDasherMain);
+  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pDasherMain);
+
+  if(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE) == 2)
     return GTK_WIDGET(dasher_editor_external_new());
+  else
+    return GTK_WIDGET(dasher_editor_internal_new());
 }
 
 extern "C" gboolean 
