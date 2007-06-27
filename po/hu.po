@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: dasher.gnome-2-16\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-06-02 03:21+0100\n"
-"PO-Revision-Date: 2007-01-17 18:20+0100\n"
+"PO-Revision-Date: 2007-06-27 03:34+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
@@ -246,7 +246,7 @@ msgstr "Vezérlőelem mód"
 #: ../Data/glade/dasher.compose.glade.h:29
 #: ../Data/glade/dasher.traditional.glade.h:30
 msgid "Copy"
-msgstr "Másolat"
+msgstr "Másolás"
 
 #: ../Data/glade/dasher.compose.glade.h:30
 #: ../Data/glade/dasher.traditional.glade.h:31
@@ -621,37 +621,32 @@ msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "árvíztűrő tükörfúrógép ÁRVÍZTŰRŐ TÜKÖRFÚRÓGÉP"
 
 #: ../Data/glade/dasher.traditional.glade.h:18
-#, fuzzy
 msgid "A_ppend to file..."
-msgstr "_Hozzáfűzés fájlhoz"
+msgstr "_Hozzáfűzés fájlhoz..."
 
 #: ../Data/glade/dasher.traditional.glade.h:42
-#, fuzzy
 msgid "Help"
-msgstr "_Súgó"
+msgstr "Súgó"
 
 #: ../Data/glade/dasher.traditional.glade.h:56
 msgid "Pr_eferences..."
 msgstr "_Beállítások..."
 
 #: ../Data/glade/dasher.traditional.glade.h:57
-#, fuzzy
 msgid "Preferences"
-msgstr "_Beállítások"
+msgstr "Beállítások"
 
 #: ../Data/glade/dasher.traditional.glade.h:58
 msgid "Quit"
-msgstr ""
+msgstr "Kilépés"
 
 #: ../Data/glade/dasher.traditional.glade.h:62
-#, fuzzy
 msgid "Select Dasher Font"
-msgstr "Betűkészlet kiválasztása"
+msgstr "A Dasher betűkészletének kiválasztása"
 
 #: ../Data/glade/dasher.traditional.glade.h:63
-#, fuzzy
 msgid "Select Editor Font"
-msgstr "Betűkészlet kiválasztása"
+msgstr "Szerkesztő betűkészletének kiválasztása"
 
 #: ../Data/glade/dasher.traditional.glade.h:82
 msgid "_About..."
@@ -735,72 +730,70 @@ msgstr "Betűkészletek _visszaállítása"
 
 #: ../Src/DasherCore/ClickFilter.cpp:9
 msgid "Click Mode"
-msgstr ""
+msgstr "Kattintás módja"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:958
-#, fuzzy
 msgid "Normal Control"
-msgstr "Vezérlőelem"
+msgstr "Normális vezérlés"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:963
 msgid "Two Button Dynamic Mode"
-msgstr ""
+msgstr "Kétgombos dinamikus mód"
 
 #. TODO: specialist factory for button mode
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:965
 msgid "Menu Mode"
-msgstr ""
+msgstr "Menü mód"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:966
-#, fuzzy
 msgid "Direct Mode"
-msgstr "Közvetlen bevitel"
+msgstr "Közvetlen mód"
 
 #. RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:968
 msgid "Alternating Direct Mode"
-msgstr ""
+msgstr "Váltakozó közvetlen mód"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:969
 msgid "Compass Mode"
-msgstr ""
+msgstr "Iránytű mód"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:970
-#, fuzzy
 msgid "Stylus Control"
-msgstr "Vezérlőelem"
+msgstr "Stílusvezérlés"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:9
 msgid "Long press time"
-msgstr ""
+msgstr "Hosszú lenyomás ideje"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:10
 msgid "Multiple press time"
-msgstr ""
+msgstr "Többszörös lenyomás ideje"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:11
 msgid "Multiple press count"
-msgstr ""
+msgstr "Többszörös lenyomások száma"
 
+#fixme ezmiez?
 #: ../Src/DasherCore/DynamicFilter.cpp:12
 msgid "Enable backoff button"
-msgstr ""
+msgstr "Visszalépés gomb engedélyezése"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:16
 msgid "One Button Dynamic Mode"
-msgstr ""
+msgstr "Egy gombos dinamikus mód"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:7
 msgid "Automatic calibration:"
-msgstr ""
+msgstr "Automatikus kalibráció:"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:11
 msgid "Eyetracker Mode"
-msgstr ""
+msgstr "Szemkövető mód"
 
 #: ../Src/DasherCore/OneDimensionalFilter.cpp:5
 msgid "One Dimensional Mode"
-msgstr ""
+msgstr "Egydimenziós mód"
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
@@ -809,39 +802,39 @@ msgstr "Dasher foglalatbemenet: az olvasó szál indítása meghiúsult."
 
 #: ../Src/DasherCore/SocketInputBase.cpp:27
 msgid "Port:"
-msgstr ""
+msgstr "Port:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:28
 msgid "X label:"
-msgstr ""
+msgstr "X címke:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:29
 msgid "X minimum:"
-msgstr ""
+msgstr "X minimum:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:30
 msgid "X maximum:"
-msgstr ""
+msgstr "X maximum:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:31
 msgid "Y label:"
-msgstr ""
+msgstr "Y címke:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:32
 msgid "Y minimum:"
-msgstr ""
+msgstr "Y minimum:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:33
 msgid "Y maximum:"
-msgstr ""
+msgstr "Y maximum:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:34
 msgid "Print socket-related debugging information to console:"
-msgstr ""
+msgstr "A foglalattal kapcsolatos hibakereső információk írása konzolra"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:38
 msgid "Socket Input"
-msgstr ""
+msgstr "Foglalatbemenet"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:163
 #, c-format
@@ -901,20 +894,15 @@ msgstr ""
 "Tímár András <timar@gnome.hu>"
 
 #: ../Src/Gtk2/module_settings_window.cpp:71
-#, fuzzy, c-format
+#, c-format
 msgid "%s Options:"
-msgstr "Beállítások"
+msgstr "%s beállításai"
 
 #: ../Src/Gtk2/mouse_input.h:15
 msgid "Mouse Input"
-msgstr ""
+msgstr "Egérbemenet"
 
 #: ../Src/Gtk2/mouse_input.h:57
 msgid "One Dimensional Mouse Input"
-msgstr ""
+msgstr "Egydimenziós egérbemenet"
 
-#~ msgid "Enter text into other windows"
-#~ msgstr "Szöveg beírása más ablakokba"
-
-#~ msgid "(Message Placeholder - no need to translate)"
-#~ msgstr "(Message Placeholder - no need to translate)"
