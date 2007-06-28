@@ -609,7 +609,8 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="0"
-				PreprocessorDefinitions="_WIN32_WCE; ARM;_DEBUG;_WINDOWS;_STATIC;_LIB;_UNICODE"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\Philip Cowans\My Documents\SVN Stuff\trunk\Src\Common\Expat\lib&quot;"
+				PreprocessorDefinitions="WIN32;_WIN32_WCE; ARM;_DEBUG;_WINDOWS;_STATIC;_LIB;_UNICODE"
 				RuntimeLibrary="1"
 				TreatWChar_tAsBuiltInType="false"
 				PrecompiledHeaderFile=".\Target/Debug/Intermediate/DasherCore.pch"
@@ -965,6 +966,14 @@
 				RelativePath=".\BasicLog.cpp"
 				>
 				<FileConfiguration
+					Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
 					>
@@ -976,6 +985,14 @@
 			<File
 				RelativePath=".\BasicLog.h"
 				>
+				<FileConfiguration
+					Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
@@ -989,6 +1006,14 @@
 				RelativePath=".\FileLogger.cpp"
 				>
 				<FileConfiguration
+					Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
 					>
@@ -1000,6 +1025,14 @@
 			<File
 				RelativePath=".\FileLogger.h"
 				>
+				<FileConfiguration
+					Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
@@ -1013,6 +1046,14 @@
 				RelativePath=".\MemoryLeak.cpp"
 				>
 				<FileConfiguration
+					Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
 					>
@@ -1024,6 +1065,14 @@
 			<File
 				RelativePath=".\MemoryLeak.h"
 				>
+				<FileConfiguration
+					Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
@@ -1037,6 +1086,14 @@
 				RelativePath=".\SimpleTimer.cpp"
 				>
 				<FileConfiguration
+					Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
 					>
@@ -1048,6 +1105,14 @@
 			<File
 				RelativePath=".\SimpleTimer.h"
 				>
+				<FileConfiguration
+					Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
@@ -1061,6 +1126,14 @@
 				RelativePath=".\TimeSpan.cpp"
 				>
 				<FileConfiguration
+					Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
 					>
@@ -1072,6 +1145,14 @@
 			<File
 				RelativePath=".\TimeSpan.h"
 				>
+				<FileConfiguration
+					Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
@@ -1085,6 +1166,14 @@
 				RelativePath=".\UserButton.cpp"
 				>
 				<FileConfiguration
+					Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
 					>
@@ -1096,6 +1185,14 @@
 			<File
 				RelativePath=".\UserButton.h"
 				>
+				<FileConfiguration
+					Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
@@ -1109,6 +1206,14 @@
 				RelativePath=".\UserLocation.cpp"
 				>
 				<FileConfiguration
+					Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
 					>
@@ -1120,6 +1225,14 @@
 			<File
 				RelativePath=".\UserLocation.h"
 				>
+				<FileConfiguration
+					Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
@@ -1133,6 +1246,14 @@
 				RelativePath=".\UserLog.cpp"
 				>
 				<FileConfiguration
+					Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
 					>
@@ -1144,6 +1265,14 @@
 			<File
 				RelativePath=".\UserLog.h"
 				>
+				<FileConfiguration
+					Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
@@ -1157,6 +1286,14 @@
 				RelativePath=".\UserLogBase.h"
 				>
 				<FileConfiguration
+					Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
 					>
@@ -1168,6 +1305,14 @@
 			<File
 				RelativePath=".\UserLogParam.cpp"
 				>
+				<FileConfiguration
+					Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
@@ -1181,6 +1326,14 @@
 				RelativePath=".\UserLogParam.h"
 				>
 				<FileConfiguration
+					Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
 					>
@@ -1192,6 +1345,14 @@
 			<File
 				RelativePath=".\UserLogTrial.cpp"
 				>
+				<FileConfiguration
+					Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
@@ -1205,6 +1366,14 @@
 				RelativePath=".\UserLogTrial.h"
 				>
 				<FileConfiguration
+					Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
 					>
@@ -1217,6 +1386,14 @@
 				RelativePath=".\XMLUtil.cpp"
 				>
 				<FileConfiguration
+					Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
 					>
@@ -1228,6 +1405,14 @@
 			<File
 				RelativePath=".\XMLUtil.h"
 				>
+				<FileConfiguration
+					Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 				<FileConfiguration
 					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 					ExcludedFromBuild="true"
@@ -1670,6 +1855,14 @@
 			RelativePath=".\SocketInputBase.cpp"
 			>
 			<FileConfiguration
+				Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
+				ExcludedFromBuild="true"
+				>
+				<Tool
+					Name="VCCLCompilerTool"
+				/>
+			</FileConfiguration>
+			<FileConfiguration
 				Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 				ExcludedFromBuild="true"
 				>
@@ -1681,6 +1874,14 @@
 		<File
 			RelativePath=".\SocketInputBase.h"
 			>
+			<FileConfiguration
+				Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
+				ExcludedFromBuild="true"
+				>
+				<Tool
+					Name="VCCustomBuildTool"
+				/>
+			</FileConfiguration>
 			<FileConfiguration
 				Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
 				ExcludedFromBuild="true"
