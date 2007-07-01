@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-02 03:21+0100\n"
-"PO-Revision-Date: 2007-06-02 20:50+0200\n"
+"POT-Creation-Date: 2007-06-03 03:25+0100\n"
+"PO-Revision-Date: 2007-07-01 14:14+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -582,7 +582,7 @@ msgstr "A_cerca de"
 
 #: ../Data/glade/dasher.compose.glade.h:79
 msgid "_Append to file"
-msgstr "_Agregar al archivo"
+msgstr "_Añadir al archivo"
 
 #: ../Data/glade/dasher.compose.glade.h:80
 msgid "_Contents"
@@ -887,7 +887,7 @@ msgstr "Dasher es una aplicación de entrada de texto predictivo"
 msgid "translator-credits"
 msgstr ""
 "Jorge González <jorgegonz@svn.gnome.org>, 2007\n"
-"Francisco Javier F. Serrador <serrador@cvs.gnome.org>"
+"Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2004, 2005, 2006"
 
 #: ../Src/Gtk2/module_settings_window.cpp:71
 #, c-format
