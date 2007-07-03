@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher_manual\n"
 "POT-Creation-Date: 2007-05-14 21:48+0100\n"
-"PO-Revision-Date: 2007-06-29 14:48+0200\n"
+"PO-Revision-Date: 2007-07-02 18:09+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -358,7 +358,7 @@ msgid ""
 "          end</computeroutput>...</quote>; a tiny bit further to the right "
 "are books that start <quote><computeroutput>all good things must come to an\n"
 "        enema</computeroutput>...</quote>."
-msgstr "Imagine <emphasis>una biblioteca que contiene todos los libros posibles</emphasis>, ordenada alfabéticamente en una sola estantería. Los libros cuya primera letra es la <quote>a</quote>; están a mano izquierda. Los libros cuya primera letra es la <quote>z</quote> están a mano derecha. En la imagen (I) de debajo, se muestra la estantería en vertical con la (a) <quote>izquierda</quote> en la parte superior y la (z) <quote>derecha</quote> en la parte inferior. El primer libro en la sección <quote>a</quote>; es <quote><computeroutput>aaaaaaaaaaaa</computeroutput>...</quote>; en alguna parte a la izquierda de esos libros estará <quote><computeroutput>todas las buenas cosas llegan a un buen fin</computeroutput>...</quote>; y un poquito antes está <quote><computeroutput>todas las buenas cosas llegan a una buena fatalidad</computeroutput>...</quote>."
+msgstr "Imagine <emphasis>una biblioteca que contiene todos los libros posibles</emphasis>, ordenada alfabéticamente en una sola estantería. Los libros cuya primera letra es la <quote>a</quote> están a mano izquierda. Los libros cuya primera letra es la <quote>z</quote> están a mano derecha. En la imagen (I) de debajo, se muestra la estantería en vertical con la (a) <quote>izquierda</quote> en la parte superior y la (z) <quote>derecha</quote> en la parte inferior. El primer libro en la sección <quote>a</quote> es <quote><computeroutput>aaaaaaaaaaaa</computeroutput>...</quote> en alguna parte a la izquierda de esos libros estará <quote><computeroutput>todas las buenas cosas llegan a un buen fin</computeroutput>...</quote> y un poquito antes está <quote><computeroutput>todas las buenas cosas llegan a una buena fatalidad</computeroutput>...</quote>."
 
 #: C/dasher.xml:181(para)
 msgid ""
@@ -367,7 +367,7 @@ msgid ""
 "contains exactly the chosen text. How do they choose that book? Let's "
 "imagine they want to write <quote><computeroutput>all good things</"
 "computeroutput>...</quote>;"
-msgstr "Cuando alguien escribe un trozo de texto, su elección de la cadena de texto se puede ver como la elección de un libro de una biblioteca donde están todos los libros; el libro que contiene exactamente el texto elegido. ¿Cómo se elige el libro? Imagínese que quiere escribir <quote><computeroutput>todo lo bueno</computeroutput>...</quote>;"
+msgstr "Cuando alguien escribe un trozo de texto, su elección de la cadena de texto se puede ver como la elección de un libro de una biblioteca donde están todos los libros; el libro que contiene exactamente el texto elegido. ¿Cómo se elige el libro? Imagínese que quiere escribir <quote><computeroutput>todo lo bueno</computeroutput>...</quote>."
 
 #: C/dasher.xml:186(title) C/dasher.xml:230(title)
 msgid "The library of all books."
@@ -387,11 +387,11 @@ msgid ""
 "quote>;,...; <quote><computeroutput>alz</computeroutput></quote>; [Picture "
 "(iii)]."
 msgstr ""
-"Primeramente, camine hacia la sección <quote><computeroutput>t</computeroutput></quote> de la biblioteca. Así se encontrará con todos los libros que empiezan por <quote><computeroutput>ta</computeroutput></quote>;, "
+"Primeramente, camine hacia la sección <quote><computeroutput>t</computeroutput></quote> de la biblioteca. Así se encontrará con todos los libros que empiezan por <quote><computeroutput>ta</computeroutput></quote>, "
 "<quote><computeroutput>tb</computeroutput></quote>, "
-"<quote><computeroutput>tc</computeroutput>...</quote>; "
-"<quote><computeroutput>tz</computeroutput></quote>; [Imagen (II)]. Si va mirando más cerca a la sección <quote><computeroutput>to</computeroutput></quote>; puede empezar a encontrar libros que comiencen por <quote><computeroutput>toa</computeroutput></quote>;, <quote>;<computeroutput>tob</computeroutput></"
-"quote>;,...; <quote><computeroutput>toz</computeroutput></quote>; [Imagen (III)]."
+"<quote><computeroutput>tc</computeroutput>...</quote> "
+"<quote><computeroutput>tz</computeroutput></quote> [Imagen (II)]. Si va mirando más cerca a la sección <quote><computeroutput>to</computeroutput></quote> puede empezar a encontrar libros que comiencen por <quote><computeroutput>toa</computeroutput></quote>, <quote><computeroutput>tob</computeroutput></"
+"quote>,... <quote><computeroutput>toz</computeroutput></quote> [Imagen (III)]."
 
 #: C/dasher.xml:215(para)
 msgid ""
@@ -410,7 +410,7 @@ msgid ""
 "we devote less space to <quote><computeroutput>x</computeroutput>...;</"
 "quote>; books, and more to the more plausible books, thus making it easier "
 "to find books that contain probable text."
-msgstr "Así es como trabaja exactamente Dasher, excepto para un caso crucial: <emphasis>se altera el TAMAÑO del espacio en la estantería dedicado a cada libro, dependiendo de la probabilidad de que corresponda al texto.</emphasis> Por ejemplo, no hay muchos libros que comiencen con una <quote><computeroutput>x</computeroutput></quote>;, así que dedicamos menos espacio para los libros <quote><computeroutput>x</computeroutput>...;</quote>; y más para otros libros más plausibles, haciendo más fácil encontrar libros que contengan el texto más probable."
+msgstr "Así es como trabaja exactamente Dasher, excepto para un caso crucial: <emphasis>se altera el TAMAÑO del espacio en la estantería dedicado a cada libro, dependiendo de la probabilidad de que corresponda al texto.</emphasis> Por ejemplo, no hay muchos libros que comiencen con una <quote><computeroutput>x</computeroutput></quote>, así que dedicamos menos espacio para los libros <quote><computeroutput>x</computeroutput>...</quote> y más para otros libros más plausibles, haciendo más fácil encontrar libros que contengan el texto más probable."
 
 #: C/dasher.xml:227(para)
 msgid ""
@@ -480,7 +480,7 @@ msgid ""
 "<emphasis>within</emphasis> the <quote>a</quote>; section, then enters the "
 "<quote>all</quote>; section <emphasis>within</emphasis> the <quote>al</"
 "quote>; section."
-msgstr ""
+msgstr "<emphasis>El concepto individual más importante </emphasis> que un usuario novel necesita entender es que debe continuar siempre <emphasis>dentro</emphasis> del texto escrito hasta el momento: para seleccionar el libro que contiene <quote>todos</quote> como la primera palabra, el usuario <emphasis>no</emphasis> entra en la sección  <quoted</quote> de la biblioteca y sale de la sección <quote>d</quote> para entrar en la sección <quote>í</quote>. El usuario entra en la sección <quote>d</quote> y después busca la sección <quote>dí</quote> que está dentro de la sección <emphasis>d</emphasis>, para después buscar la sección<quote>día</quote> dentro de la sección<quote>dí</quote>.>"
 
 #: C/dasher.xml:299(para)
 msgid ""
@@ -493,7 +493,7 @@ msgid ""
 "computeroutput></quote>; section, and so forth. Once you are in the "
 "<quote><computeroutput>Al</computeroutput></quote>; section, you never leave "
 "it."
-msgstr "Es como buscar un nombre en un teléfono móvil. Para buscar <quote><computeroutput>Alicia</computeroutput></quote>; no se va a la sección <quote><computeroutput>A</computeroutput></quote>; y después a la <quote><computeroutput>L</computeroutput></quote>; sino que se va a la <quote><computeroutput>A</computeroutput></quote>; dentro de ella se pasa a la sección <emphasis></emphasis>Al<quote><computeroutput>. Una vez que se está en la sección </computeroutput></quote>Al<quote><computeroutput>; ya no se deja."
+msgstr "Es como buscar un nombre en un teléfono móvil. Para buscar <quote><computeroutput>Alicia</computeroutput></quote> no se va a la sección <quote><computeroutput>A</computeroutput></quote> y después a la <quote><computeroutput>L</computeroutput></quote> sino que se va a la <quote><computeroutput>A</computeroutput></quote> dentro de ella se pasa a la sección <emphasis></emphasis>Al<quote><computeroutput>. Una vez que se está en la sección </computeroutput></quote>Al<quote><computeroutput> ya no se deja."
 
 #: C/dasher.xml:312(para)
 msgid ""
@@ -505,7 +505,7 @@ msgid ""
 "`objects_are', it would be fine to move the mouse straight towards the "
 "letters `are', even if this takes the mouse across the unwanted grey `i' "
 "square.)"
-msgstr ""
+msgstr "<emphasis>La segunda idea más importante</emphasis> es que lo que haya escrito depende <emphasis>sólo</emphasis> de dónde acaba en la biblioteca, no depende de cómo llega allí, así que no hay necesidad para dirigir el cursor con precisión hacia su destino. <emphasis>Le está permitido cortar las esquinas.</emphasis> (Por ejemplo, en la imagen anterior, si quería escribir «los objetos son» sería correcto mover el ratón a través de las letras «son» incluso si esto hace que el cursor pase a través de la casilla verde « » no deseada."
 
 #: C/dasher.xml:322(para)
 msgid ""
@@ -521,7 +521,7 @@ msgid ""
 "ordered alphabetically. If you can't see your letter, figure out where it "
 "must be on the basis of the letters you <emphasis>can</emphasis> see. Then "
 "point to the right place and enter the second letter's square."
-msgstr ""
+msgstr "<emphasis>Errores comunes.</emphasis> A menudo un principiante que trata de buscar una letra en particular dirige el cursor rápidamente hacia adelante a la caza de la letra. La regla de la carretera para los conductores de Dasher es la misma que para los conductores de automóviles: no conducir siempre hacia adelante hasta que no se haya identificado a dónde se quiere llegar. Después de que haya encontrado la primera letra de su frase y amplíe hacia ella, <emphasis>reduzca la velocidad y no siga adelante más rápido dentro de la casilla de esta letra hasta que haya encontrado dónde debería girar después</emphasis>. Su siguiente letra <emphasis>está</emphasis> allí, inmediatamente dentro de la primera casilla en la que ha entrado. Las letras están ordenadas alfabéticamente. Si no puede ver su letra, imagínese dónde debe estar según las letras que <emphasis>sí puede ver</emphasis>. Una vez hecho esto, diríjase a la posición adecuada e introdúzcase en la casilla de la segunda letra."
 
 #: C/dasher.xml:334(title)
 msgid "Example"
@@ -696,14 +696,14 @@ msgid ""
 "click the left mouse button or press the space bar to set it going. [One of "
 "these two will work.] Repeat this action (click or space), when you are "
 "finished, to stop dasher from dashing. Your computer's mouse controls Dasher."
-msgstr ""
+msgstr "Inicie Dasher; cuando aparezca la ventana de Dasher, pulse con el ratón o pulse la barra espaciador apara comenzar. [Cualquiera de las dos funcionará.] Repita esta acción (pulsar con el ratón o barra espaciadora), cuando haya acabado, para parar Dasher y que deje de ampliar. El ratón de su equipo controla Dasher."
 
 #: C/dasher.xml:470(para)
 msgid ""
 "Adjust the speed slider to fix the maximum speed Dasher will zoom at. A "
 "speed of 1 is good for a beginner, increasing to 2 after 5 minutes' "
 "practice, and to 4 when you are expert."
-msgstr ""
+msgstr "Ajuste la velocidad del deslizador para ajustar la máxima velocidad a la que Dasher ampliará. Una velocidad de 1 está bien para un principiante, se incrementará a 2 después de 5 minutos de práctica y a 4 cuando sea un experto."
 
 #: C/dasher.xml:475(title)
 msgid "How to start dasher (version 2) on pocket PC"
@@ -722,7 +722,7 @@ msgid ""
 "do not produce any character; these squares indicate sub-groupings of the "
 "alphabet. (Uppercase Alphabet, Numerals (in some releases only), and "
 "Punctuation.)"
-msgstr ""
+msgstr "En esta versión de Dasher existen tres casillas fuertemente coloreadas, en amarillo, en rojo (sólo en algunas versiones) y en verde; ninguna de las tres casillas produce ningún carácter; estas casillas indican subgrupos del alfabeto. (Alfabeto en mayúscula, números (sólo en algunos casos) y puntuación.) "
 
 #: C/dasher.xml:772(title)
 msgid "How to use Dasher in real life"
@@ -734,7 +734,7 @@ msgid ""
 "degree) to control your computer. Obviously, the simplest way to communicate "
 "with Dasher is to have the person you're talking to watch the screen as you "
 "write. But there are lots of other ways to communicate through Dasher."
-msgstr ""
+msgstr "Dasher se puede usar para comunicarse a través de su equipo y (hasta cierto punto) para controlar su equipo. Obviamente la forma más fácil de comunicarse con Dasher es tener a la persona con la que está hablando junto a su pantalla, mientras escribe. Pero hay muchas otras maneras de comunicarse a través de Dasher."
 
 #: C/dasher.xml:780(title)
 msgid "Copy to clipboard"
@@ -746,7 +746,7 @@ msgid ""
 "stop Dasher, the contents of Dasher's text box get copied directly to your "
 "computer's clipboard. You can then use the `Paste' function of another "
 "application to transfer what you've written."
-msgstr ""
+msgstr "Si ha activado la característica «copiar al parar», entonces cada vez que pare Dasher el contenido de la caja de texto se copiará directamente al portapapeles de su equipo. Puede usar la función «Pegar» de otra aplicación para transferir lo que ha escrito."
 
 #: C/dasher.xml:788(title)
 msgid "Speaking"
@@ -763,13 +763,13 @@ msgid ""
 "You can choose to have Dasher `speak each word': every time you pass through "
 "the end of a word (by entering a space character for example), that word "
 "gets spoken immediately."
-msgstr ""
+msgstr "Puede seleccionar «hablar cada palaba» en Dasher: cada vez que pase por el final de una palabra (introduciendo un carácter de espacio, por ejemplo), ésa palabra se hablará inmediatamente."
 
 #: C/dasher.xml:796(para)
 msgid ""
 "You can also choose to have Dasher `speak on stop': every time you stop "
 "Dasher moving, everything that is in the text box gets spoken."
-msgstr ""
+msgstr "También puede seleccionar «hablar al parar» en Dasher: cada vez que deje de mover Dasher, se hablará todo lo que esté escrito en la caja de texto."
 
 #: C/dasher.xml:799(para)
 msgid ""
@@ -782,7 +782,7 @@ msgid ""
 "options to `speak everything', `speak new' (just the new words that you "
 "wrote since the last utterance), and `speak again' (which re-speaks whatever "
 "was last spoken)."
-msgstr ""
+msgstr "Finalmente, puede hablar cuando quiera cambiando al <emphasis>Modo de control</emphasis> (que está bajo el menú Opciones en la versión 3 de Dasher). Este modo incluye una caja adicional en el alfabeto de Dasher, gris, que funciona de forma parecida a una tecla de escape en un teclado. Si se dirige a la Caja de control encontrará varias opciones relacionadas con el control: Parar (rojo); pausar (amarillo); Mover; Borrar y Hablar. Dentro de la caja de Hablar están las opciones «hablar todo», «hablar lo nuevo» (solamente las palabras nuevas que haya escrito desde la última locución) y «volver a hablar» (vuelve a hablar lo último pronunciado)."
 
 #: C/dasher.xml:809(title)
 msgid "Save to file"
@@ -804,7 +804,7 @@ msgid ""
 "You can also have whatever is written in Dasher be directly beamed to "
 "another window. Enable the `send text to other window' option under the "
 "options menu. Then the window that you select will get Dasher's output."
-msgstr ""
+msgstr "También tiene la posibilidad de enviar lo que esté escrito en Dasher a cualquier otra ventana. Active la opción «Enviar el texto a otra ventana» bajo el menú Opciones. Entonces la ventana que seleccione obtendrá la salida de Dasher."
 
 #: C/dasher.xml:828(title)
 msgid "Font sizes"
@@ -822,6 +822,8 @@ msgid ""
 "which offers three to choose from, named something like: small, medium, and "
 "large."
 msgstr ""
+"Dasher tiene uan caja de texto (donde aparece el texto) y el lienzo de Dasher (donde ocurre toda la acción de la ampliación). "
+"Puede cambiar los tamaños de las tipografías de ambas regiones usando los menús de Dasher en la ventana principal. Las dos fuentes se llaman «Tipografía de edición» (para la tipografía de la caja de texto) y la «Tipografía de Dasher». (Puede diferir en la versión 3 de Dasher.) Para cambiar el tamaño de la tipografía de edición use el cuadro típico y cambie el tamaño. Para cambiar la tipografía del lienzo de Dasher, busque la opción del tamaño de la tipografía de Dasher que ofrece tres posibilidades tales como: pequeña, mediana y grande."
 
 #: C/dasher.xml:841(title)
 msgid "Personalizing Dasher"
@@ -833,7 +835,7 @@ msgid ""
 "better for you: <computeroutput>alphabet</computeroutput> files, "
 "<computeroutput>colour</computeroutput> files, and <computeroutput>training</"
 "computeroutput> files."
-msgstr ""
+msgstr "Hay tres clases de archivos que puede modificar para hacer que Dasher se ajuste más a sus necesidades: los archivos <computeroutput>alphabet</computeroutput>, archivos <computeroutput>colour</computeroutput> y los archivos <computeroutput>training</computeroutput>."
 
 #: C/dasher.xml:847(title)
 msgid "Personalizing the language model"
@@ -846,7 +848,7 @@ msgid ""
 "Dasher version 3, it comes with a file called <filename>training_english_GB."
 "txt</filename>. This is 300 kbytes of ordinary english harvested from "
 "various documents on the internet."
-msgstr ""
+msgstr "Las predicciones de Dasher (en la versión 3 de Dasher) están basadas no en diccionario sino en un texto de entrenamiento de texto ordinario. Por ejemplo, cuando descargue la versión 3 de Dasher, ésta viene acompañada con el archivo de texto <filename>training_english_GB.txt</filename>. Este archivo tiene 300 kbytes de texto ordinario en inglés, recolectado de varios documentos en Internet."
 
 #: C/dasher.xml:858(para)
 msgid ""
@@ -909,7 +911,7 @@ msgid ""
 "(for example <filename>colour.xml</filename> or <filename>colour.euroasian."
 "xml</filename>) specifies the 200 colours in the palette that Dasher uses. "
 "Each line specifies red, green, blue values."
-msgstr ""
+msgstr "Puede cambiar los colores del mundo de Dasher de dos maneras. El archivo de color (por ejemplo <filename>colour.xml</filename> o <filename>colour.euroasian.xml</filename>) especifica los 200 colores en la paleta que usa Dasher. Cada línea especifica valores rojo, verde y azul."
 
 #: C/dasher.xml:895(para)
 msgid ""
@@ -919,12 +921,15 @@ msgid ""
 "colour r=\"255\"\n"
 "          g=\"0\" b=\"0\"/&gt;</computeroutput>."
 msgstr ""
+"Estos colores se usan para los múltiples objetos de Dasher. Por ejemplo, si quiere cambiar el color de la <quote>línea roja</quote>, cambie el segundo color de la línea del archivo de color, en el que se puede leer <computeroutput>&lt;"
+"colour r=\"255\"\n"
+"          g=\"0\" b=\"0\"/&gt;</computeroutput>."
 
 #: C/dasher.xml:901(para)
 msgid ""
 "You can change which of these colours is used for each symbol's box by "
 "changing the <quote>b</quote>; field for that symbol in the alphabet file."
-msgstr ""
+msgstr "Puede cambiar cuales de esos colores se usa para cada caja de símbolo cambiando el campo <quote>b</quote> para ese símbolo en el archivo de alfabeto."
 
 #: C/dasher.xml:910(title)
 msgid "Languages"
@@ -953,39 +958,39 @@ msgstr "Vea la página web de Dasher para ver la lista de idiomas soportados por
 
 #: C/dasher.xml:932(title)
 msgid "Dasher Special Needs Guide"
-msgstr ""
+msgstr "Guía de necesidades especiales de Dasher"
 
 #: C/dasher.xml:934(para)
 msgid ""
 "Dasher is designed on the principle of getting <emphasis>as much information "
 "as possible</emphasis> from the gestures you can make."
-msgstr ""
+msgstr "Dasher está diseñado en el principio de obtener <emphasis>tanta información como sea posible</emphasis> de los gestos que haga."
 
 #: C/dasher.xml:939(para)
 msgid ""
 "<emphasis>Continuous</emphasis> gestures (conveyed via a joystick, trackpad, "
 "head mouse, or gaze tracker, for example) often achieve the highest rates of "
 "writing."
-msgstr ""
+msgstr "Gestos <emphasis>continuos</emphasis> (enviados a través de un joystick, trackpad, ratón de cabeza o seguidor de mirada, por ejemplo) generalmente obtienen las tasas más altas de escritura."
 
 #: C/dasher.xml:944(para)
 msgid ""
 "<emphasis>Discrete</emphasis> gestures (switches, button presses) may be "
 "able to convey information in three different ways:"
-msgstr ""
+msgstr "Gestos <emphasis>discretos (conmutadores, pulsaciones de botones) pueden ser capaces de enviar información de tres maneras diferentes:"
 
 #: C/dasher.xml:949(para)
 msgid ""
 "The <emphasis>time</emphasis> at which you press a button can convey "
 "information. (This idea is used in grid systems controlled by a single "
 "button.)"
-msgstr ""
+msgstr "El <emphasis>tiempo</emphasis> durante el que pulsa un botón puede enviar información. (Esta idea se usa en sistemas de rejilla controlados por un solo botón.)"
 
 #: C/dasher.xml:954(para)
 msgid ""
 "<emphasis>How long</emphasis> you press a button for can convey information. "
 "(This idea is used in Morse code, where two durations are distinguished.)"
-msgstr ""
+msgstr "Durante <emphasis>cuánto tiempo</emphasis> pulsa un botón también puede enviar información. (Esta idea está usada en el código Morse, donde se distinguen dos duraciones.)"
 
 #: C/dasher.xml:959(para)
 msgid ""
@@ -1008,7 +1013,7 @@ msgid ""
 "Dasher's normal mode (<emphasis>mouse mode</emphasis>) is driven by a two-"
 "dimensional continuous steering gesture. Dasher also has a <emphasis>one-"
 "dimensional mode</emphasis>, for users who can control only one dimension."
-msgstr ""
+msgstr "El modo normal de Dasher (<emphasis>modo ratón</emphasis>) se conduce usando un gesto continuo bidimensional. Dasher también tiene un <emphasis>modo unidimensional</emphasis> para usuarios que sólo pueden controlar una dimensión."
 
 #: C/dasher.xml:972(para)
 msgid ""
@@ -1059,7 +1064,7 @@ msgstr ""
 
 #: C/dasher.xml:1005(title)
 msgid "Starting and stopping"
-msgstr "Comenzando y parando"
+msgstr "Comenzar y parar"
 
 #: C/dasher.xml:1006(para)
 msgid ""
@@ -1087,7 +1092,7 @@ msgid ""
 "you restart Dasher by pointing at (or looking at) the first (red) target, "
 "then the second (yellow) target. (We use two targets in sequence to make it "
 "difficult to start Dasher by accident.)"
-msgstr ""
+msgstr "Cuando se pausa o para a Dasher, se puede reiniciar usando cualquiera de los métodos de inicio activados. .Si «comenzar en la posición» está activado, entonces cuando Dasher se pare, se mostrará una secuencia de objetivos largos, podrá reiniciar Dasher apuntando (o mirando) al primer objetivo (rojo), después al segundo objetivo (amarillo). (Se usan dos objetivos secuenciales para hacer más difícil que Dasher se inicie por accidente.)"
 
 #: C/dasher.xml:1027(title)
 msgid "Recommendations for head-tracking"
@@ -1100,7 +1105,7 @@ msgid ""
 "smooth and damp down the mouse motion. For Dasher, we don't want such "
 "smoothing. We like instant, live, raw and jerky mouse coordinates. If there "
 "is a `smoothing' control, turn it right down."
-msgstr ""
+msgstr "Muchos seguidores tienen opciones de «suavizado», que determinan la frecuencia con la que la posición del ratón se actualiza; estas opciones normalmente se usan para suavizar y reducir la posición del ratón. Dasher no usa ese tipo de suavizado. Se prefieren coordenadas del ratón con movimientos instantáneos, vivos, crudos y con saltos. Si hay algún control de «suavizado» desactívelo."
 
 #: C/dasher.xml:1033(para)
 msgid ""
@@ -1169,7 +1174,7 @@ msgid ""
 "trackers, or similar systems directly by means of a system socket. This "
 "option can be configured in the 'Input Device' section of the 'preferences' "
 "dialogue."
-msgstr ""
+msgstr "<emphasis>Nota técnica:</emphasis> Al igual que con la emulación del ratón, Dasher es capaz de recibir información del seguimiento de los seguidores de mirada, seguidores de cabeza o sistemas similares a través de un socket del sistema. Esta opción puede configurarse en la sección «Dispositivos de entrada» del diálogo «Preferencias»."
 
 #: C/dasher.xml:1079(title)
 msgid "Discrete Gestures"
@@ -1192,7 +1197,7 @@ msgid ""
 "emphasis> of gestures. However, some people can't make gestures at a "
 "required instant. For example, spastics find it very difficult to do an "
 "action `exactly now!'"
-msgstr ""
+msgstr "Algunas formas de comunicar información puede usar gestos de <emphasis>tiempo</emphasis>. No obstante algunas personas no pueden hacer gestos en un determinado instante. Por ejemplo, los espásticos encuentran muy difícil realizar una acción «exactamente ahora»."
 
 #: C/dasher.xml:1089(para)
 msgid ""
@@ -1480,12 +1485,11 @@ msgid "Two Button Dynamic Mode"
 msgstr "Modo dinámico de dos botones"
 
 #: C/dasher.xml:1285(para)
-#, fuzzy
 msgid ""
 "<application>Dasher</application> continually zooms in, whilst two buttons "
 "are used to control vertical motion. Correction is performed in the same way "
 "as One button dynamic mode."
-msgstr "<application>Dasher</application> amplia continuamente, mientras que dos botones se usan para controlar el movimiento vertical. La corrección se lleva a cabo de la misma manera que "
+msgstr "<application>Dasher</application> amplia continuamente, mientras que dos botones se usan para controlar el movimiento vertical. La corrección se lleva a cabo de la misma manera que en el Modo dinámico de un botón."
 
 #: C/dasher.xml:1297(title)
 msgid "Authors"
