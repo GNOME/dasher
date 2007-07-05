@@ -4,7 +4,6 @@
 HWND CIMContainer::Create() {
   HWND hWnd = ATL::CWindowImpl<CIMContainer>::Create(m_hWndParent);
 
-  // TODO: Takedown in destructor
   m_pDasher = new CDasher(hWnd);
 
   return hWnd;
@@ -13,6 +12,15 @@ HWND CIMContainer::Create() {
 LRESULT CIMContainer::OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
   if(m_pDasher)
     m_pDasher->Move(0, 0, LOWORD(lParam), HIWORD(lParam));
+
+  return 0;
+}
+
+LRESULT CIMContainer::OnDestroy(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
+  if(m_pDasher) {
+    delete m_pDasher;
+    m_pDasher = NULL;
+  }
 
   return 0;
 }

@@ -18,10 +18,12 @@ public:
 
   BEGIN_MSG_MAP( CDasherWindow )
 		MESSAGE_HANDLER(WM_SIZE, OnSize)
+    MESSAGE_HANDLER(WM_DESTROY, OnDestroy)
     MESSAGE_RANGE_HANDLER(0xC000,0xFFFF,OnOther)
 	END_MSG_MAP()
 
 	LRESULT OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+  LRESULT OnDestroy(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnOther(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnDasherEvent(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 

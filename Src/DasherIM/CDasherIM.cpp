@@ -16,6 +16,12 @@ HRESULT STDMETHODCALLTYPE CCDasherIM::Select(HWND hwndSip) {
 }
 
 HRESULT STDMETHODCALLTYPE CCDasherIM::Deselect(void) {
+  if(m_pContainer) {
+    m_pContainer->DestroyWindow();
+    delete m_pContainer;
+    m_pContainer = NULL;
+  }
+
   m_hWndSip = NULL;
 
   return S_OK;
