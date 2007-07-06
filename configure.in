@@ -112,7 +112,6 @@ AC_ARG_ENABLE([chinese],
 	 if test $enableval = "no"; then
 	   WITHCHINESE=false; 
 	 else
-	   AC_CHECK_LIB(ce, CEConvert, , AC_MSG_ERROR([CE library not found (required for Chinese).]))
 	   WITHCHINESE=true;
          fi, 
 	 WITHCHINESE=false)
@@ -403,16 +402,7 @@ else
 AM_CONDITIONAL(ENABLE_SK, false)
 fi
 
-AC_CONFIG_FILES([Makefile
-		 Src/Makefile
-		 Src/Common/Makefile
-		 Src/DasherCore/Makefile
-		 Src/DasherCore/Alphabet/Makefile
-		 Src/DasherCore/LanguageModelling/Makefile
-		 Src/Gtk2/Makefile
-		 Src/Installer/Makefile
-		 Src/Win32/Makefile
-		 Data/dasher.desktop.in
+AC_CONFIG_FILES([Data/dasher.desktop.in
 		 Data/Makefile
 		 Data/training/Makefile
 		 Data/alphabets/Makefile
@@ -423,6 +413,17 @@ AC_CONFIG_FILES([Makefile
 		 Data/Help/Gnome/Makefile
 		 Doc/Makefile
 		 Doc/user/Makefile
+		 Makefile
+		 Src/Makefile
+		 Src/Common/Makefile
+		 Src/DasherCore/Makefile
+		 Src/DasherCore/Alphabet/Makefile
+		 Src/DasherCore/LanguageModelling/Makefile
+		 Src/Gtk2/Makefile
+		 Src/Installer/Makefile
+		 Src/Tools/Makefile
+		 Src/Tools/ParseChinese/Makefile
+		 Src/Win32/Makefile
 		 Utils/Makefile
 		 po/Makefile.in])
 

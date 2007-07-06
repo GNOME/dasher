@@ -186,6 +186,9 @@ const gchar *dasher_editor_internal_get_filename(DasherEditor *pSelf);
 const gchar *dasher_editor_internal_get_all_text(DasherEditor *pSelf);
 const gchar *dasher_editor_internal_get_new_text(DasherEditor *pSelf);
 
+static void dasher_editor_internal_handle_parameter_change(DasherEditor *pSelf, gint iParameter);
+
+
 // Private methods not in class
 extern "C" void delete_children_callback(GtkWidget *pWidget, gpointer pUserData);
 extern "C" void main_window_realized(DasherMain *pMain, gpointer pUserData);
@@ -212,7 +215,6 @@ dasher_editor_internal_class_init(DasherEditorInternalClass *pClass) {
 
   pParentClass->initialise = dasher_editor_internal_initialise;
   pParentClass->command = dasher_editor_internal_command;
-  pParentClass->handle_font = dasher_editor_internal_handle_font;
   pParentClass->output = dasher_editor_internal_output;
   pParentClass->delete_text = dasher_editor_internal_delete;
   pParentClass->get_context = dasher_editor_internal_get_context;
@@ -232,6 +234,7 @@ dasher_editor_internal_class_init(DasherEditorInternalClass *pClass) {
   pParentClass->get_filename = dasher_editor_internal_get_filename;
   pParentClass->get_all_text = dasher_editor_internal_get_all_text;
   pParentClass->get_new_text = dasher_editor_internal_get_new_text;
+  pParentClass->handle_parameter_change = dasher_editor_internal_handle_parameter_change;
 }
 
 static void 
@@ -319,8 +322,9 @@ dasher_editor_internal_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSe
   pPrivate->pAppSettings = pAppSettings;
   pPrivate->pDasherMain = pDasherMain;
 
-
-    //GtkTextView *pTextView = GTK_TEXT_VIEW(glade_xml_get_widget(pGladeXML, "the_text_view"));
+  dasher_editor_internal_handle_font(pSelf,
+				     dasher_app_settings_get_string(pPrivate->pAppSettings, 
+								    APP_SP_EDIT_FONT));
   
   GtkVBox *pActionPane = GTK_VBOX(glade_xml_get_widget(pGladeXML, "vbox39"));
   pPrivate->pBuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(pPrivate->pTextView));
@@ -1616,6 +1620,18 @@ dasher_editor_internal_new_buffer(DasherEditor *pSelf, const gchar *szFilename) 
   }
 
   //  g_signal_emit_by_name(G_OBJECT(pSelf), "buffer_changed", G_OBJECT(pSelf), NULL, NULL);
+}
+
+static void
+dasher_editor_internal_handle_parameter_change(DasherEditor *pSelf, gint iParameter) {
+  DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
+
+  switch(iParameter) {
+  case APP_SP_EDIT_FONT:
+    dasher_editor_internal_handle_font(pSelf,
+				       dasher_app_settings_get_string(pPrivate->pAppSettings, APP_SP_EDIT_FONT));
+    break;
+  }
 }
 
 /* Callback Functions */

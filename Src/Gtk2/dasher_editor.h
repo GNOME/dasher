@@ -32,78 +32,84 @@ struct _DasherEditor {
 struct _DasherEditorClass {
   GtkVBoxClass parent_class;
 
-  void (*filename_changed)(DasherEditor *pDasherEditor);
-  void (*buffer_changed)(DasherEditor *pDasherEditor);
-  void (*context_changed)(DasherEditor *pDasherEditor);
+  /* VTable */
+  void (*initialise)(DasherEditor *, DasherAppSettings *, DasherMain *, GladeXML *, const gchar *);
+  gboolean (*command)(DasherEditor *, const gchar *);
+  void (*action_button)(DasherEditor *, DasherAction *);
+  void (*actions_start)(DasherEditor *);
+  bool (*actions_more)(DasherEditor *);
+  void (*actions_get_next)(DasherEditor *, const gchar **, gint *, gboolean *, gboolean *, gboolean *);
+  void (*action_set_show)(DasherEditor *, int, bool);
+  void (*action_set_control)(DasherEditor *, int, bool);
+  void (*action_set_auto)(DasherEditor *, int, bool);
+  const gchar *(*get_all_text)(DasherEditor *);
+  const gchar *(*get_new_text)(DasherEditor *);
+  void (*output)(DasherEditor *, const gchar *, int);
+  void (*delete_text)(DasherEditor *, int, int);
+  void (*start_compose)(DasherEditor *);
+  void (*end_compose)(DasherEditor *, bool);
+  const gchar *(*get_context)(DasherEditor *, int, int);
+  gint (*get_offset)(DasherEditor *);
+  void (*handle_parameter_change)(DasherEditor *, gint);
+  void (*handle_start)(DasherEditor *);
+  void (*handle_stop)(DasherEditor *);
+  void (*handle_control)(DasherEditor *, int);
+  void (*grab_focus)(DasherEditor *);
+  gboolean (*file_changed)(DasherEditor *);
+  const gchar *(*get_filename)(DasherEditor *);
 
-
-  void (*initialise)(DasherEditor *pSelf, DasherAppSettings *pAppSettings, DasherMain *pDasherMain, GladeXML *pGladeXML, const gchar *szFullPath);
-  gboolean (*command)(DasherEditor *pSelf, const gchar *szCommand);
-  void (*handle_font)(DasherEditor *pSelf, const gchar *szFont);
-  void (*output)(DasherEditor *pSelf, const gchar *szText, int iOffset);
-  void (*delete_text)(DasherEditor *pSelf, int iLength, int iOffset);
-  const gchar *(*get_context)(DasherEditor *pSelf, int iOffset, int iLength);
-  gint (*get_offset)(DasherEditor *pSelf);
-  void (*handle_stop)(DasherEditor *pSelf);
-  void (*handle_start)(DasherEditor *pSelf);
-  void (*handle_control)(DasherEditor *pSelf, int iNodeID);
-  void (*action_button)(DasherEditor *pSelf, DasherAction *pAction);
-  void (*actions_start)(DasherEditor *pSelf);
-  bool (*actions_more)(DasherEditor *pSelf);
-  void (*actions_get_next)(DasherEditor *pSelf, const gchar **szName, gint *iID, gboolean *bShow, gboolean *bControl, gboolean *bAuto);
-  void (*action_set_show)(DasherEditor *pSelf, int iActionID, bool bValue);
-  void (*action_set_control)(DasherEditor *pSelf, int iActionID, bool bValue);
-  void (*action_set_auto)(DasherEditor *pSelf, int iActionID, bool bValue);
-  void (*grab_focus)(DasherEditor *pSelf);
-  gboolean (*file_changed)(DasherEditor *pSelf);
-  const gchar *(*get_filename)(DasherEditor *pSelf);
-  const gchar *(*get_all_text)(DasherEditor *pSelf);
-  const gchar *(*get_new_text)(DasherEditor *pSelf);
+  /* Signal handlers */
+  void (*filename_changed)(DasherEditor *);
+  void (*buffer_changed)(DasherEditor *);
+  void (*context_changed)(DasherEditor *);
 };
 
-void dasher_editor_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, DasherMain *pDasherMain, GladeXML *pGladeXML, const gchar *szFullPath);
-
+/* Boilerplate code */
 GType dasher_editor_get_type();
 
-/* Replace this with GTK text buffer */
-//IDasherBufferSet *dasher_editor_get_buffer_set(DasherEditor *pSelf);
+/* Functions for initialisation and takedown */
+void dasher_editor_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, 
+			      DasherMain *pDasherMain, GladeXML *pGladeXML, 
+			      const gchar *szFullPath);
 
-// TODO: Just have one 'handle event' method?
+/* Abstract commadn handler */
 gboolean dasher_editor_command(DasherEditor *pSelf, const gchar *szCommand);
 
-void dasher_editor_handle_font(DasherEditor *pSelf, const gchar *szFont);
-
-/* To be obsoleted by movement to GTK buffers */
-void dasher_editor_output(DasherEditor *pSelf, const gchar *szText, int iOffset);
-void dasher_editor_delete(DasherEditor *pSelf, int iLength, int iOffset);
-const gchar *dasher_editor_get_context(DasherEditor *pSelf, int iOffset, int iLength);
-gint dasher_editor_get_offset(DasherEditor *pSelf);
-
-/* Events proagated from main */
-void dasher_editor_handle_stop(DasherEditor *pSelf);
-void dasher_editor_handle_start(DasherEditor *pSelf);
-void dasher_editor_handle_control(DasherEditor *pSelf, int iNodeID);
-
-/* Action related methods - TODO: a lot of this should be moved to dasher_main (eg action on stop etc) - that way we get a better level of abstraction, and can incorporate commands from otehr modules too. Actions should only be externally visible as a list of string commands*/
+/* Action related methods */
 void dasher_editor_action_button(DasherEditor *pSelf, DasherAction *pAction);
 void dasher_editor_actions_start(DasherEditor *pSelf);
 bool dasher_editor_actions_more(DasherEditor *pSelf);
-void dasher_editor_actions_get_next(DasherEditor *pSelf, const gchar **szName, gint *iID, gboolean *bShow, gboolean *bControl, gboolean *bAuto);
+void dasher_editor_actions_get_next(DasherEditor *pSelf, const gchar **szName, 
+				    gint *iID, gboolean *bShow, gboolean *bControl, 
+				    gboolean *bAuto);
 void dasher_editor_action_set_show(DasherEditor *pSelf, int iActionID, bool bValue);
 void dasher_editor_action_set_control(DasherEditor *pSelf, int iActionID, bool bValue);
 void dasher_editor_action_set_auto(DasherEditor *pSelf, int iActionID, bool bValue);
 
+const gchar *dasher_editor_get_all_text(DasherEditor *pSelf);
+const gchar *dasher_editor_get_new_text(DasherEditor *pSelf);
+
+/* Functions for editing the active buffer */
+void dasher_editor_output(DasherEditor *pSelf, const gchar *szText, int iOffset);
+void dasher_editor_delete(DasherEditor *pSelf, int iLength, int iOffset);
+void dasher_editor_start_compose(DasherEditor *pSelf);
+void dasher_editor_end_compose(DasherEditor *pSelf, bool bKeep);
+
+/* Function for reading the active buffer */
+const gchar *dasher_editor_get_context(DasherEditor *pSelf, int iOffset, int iLength);
+gint dasher_editor_get_offset(DasherEditor *pSelf);
+
+/* Events proagated from main */
+void dasher_editor_handle_parameter_change(DasherEditor *pSelf, gint iParameter);
+void dasher_editor_handle_stop(DasherEditor *pSelf);
+void dasher_editor_handle_start(DasherEditor *pSelf);
+void dasher_editor_handle_control(DasherEditor *pSelf, int iNodeID);
+
+/* Functions needed to maintain application UI */
 void dasher_editor_grab_focus(DasherEditor *pSelf);
-
-/* TODO: Tutorial editor should be a separate class */
-//void dasher_editor_start_tutorial(DasherEditor *pSelf);
-
-/* Todo: possibly tidy up the need to have this public (quit in dasher_main possibly too connected) */
 gboolean dasher_editor_file_changed(DasherEditor *pSelf);
 const gchar *dasher_editor_get_filename(DasherEditor *pSelf);
 
-const gchar *dasher_editor_get_all_text(DasherEditor *pSelf);
-const gchar *dasher_editor_get_new_text(DasherEditor *pSelf);
 G_END_DECLS
 
 #endif

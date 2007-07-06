@@ -1,16 +1,16 @@
 #ifndef __PINYIN_CONVERSION_HELPER_H__
 #define __PINYIN_CONVERSION_HELPER_H__
 
-#include "Alphabet/Alphabet.h"
 #include "Alphabet/AlphIO.h"
-#include "LanguageModelling/LanguageModel.h"
+#include "Alphabet/Alphabet.h"
 #include "ConversionHelper.h"
 #include "DasherNode.h"
+#include "LanguageModelling/LanguageModel.h"
+#include "PinyinParser.h"
 
 //both of these start from 0
 typedef int HZIDX; 
 typedef int CANDIDX; 
-
 
 class CPinYinConversionHelper : public CConversionHelper {
  public:
@@ -19,7 +19,7 @@ class CPinYinConversionHelper : public CConversionHelper {
   
   virtual bool Convert(const std::string &strSource, SCENode ** pRoot, int * childCount, int CMid);
 
-  virtual void AssignSizes(SCENode * pStart, Dasher::CLanguageModel::Context context , long normalization, int uniform, int iNChildren);
+  virtual void AssignSizes(SCENode **pStart, Dasher::CLanguageModel::Context context , long normalization, int uniform, int iNChildren);
 
   virtual void GetProbs(Dasher::CLanguageModel::Context context, std::vector < unsigned int >&Probs, int norm);
 
@@ -78,6 +78,8 @@ class CPinYinConversionHelper : public CConversionHelper {
                            //Chinese HZ characters found in
                            //CalculateScore
 
+
+  CPinyinParser *pParser;
 
 };
 

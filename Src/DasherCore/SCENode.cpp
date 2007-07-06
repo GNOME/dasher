@@ -8,6 +8,8 @@ SCENode::SCENode() {
 }
 
 SCENode::~SCENode() {
+  // TODO: Delete string?
+
   if(m_pNext)
     m_pNext->Unref();
   
@@ -20,7 +22,9 @@ void SCENode::SetNext(SCENode *pNext) {
     m_pNext->Unref();
   
   m_pNext = pNext;
-  m_pNext->Ref();
+
+  if(m_pNext)
+    m_pNext->Ref();
 };
 
 void SCENode::SetChild(SCENode *pChild) {
@@ -28,6 +32,8 @@ void SCENode::SetChild(SCENode *pChild) {
     m_pChild->Unref();
   
   m_pChild = pChild;
-  m_pChild->Ref();
+
+  if(m_pChild)
+    m_pChild->Ref();
 };
 

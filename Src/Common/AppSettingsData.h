@@ -76,6 +76,8 @@ app_lp_table app_longparamtable[] = {
   {APP_LP_STYLE, "AppStyle", PERS, 0, 0, "Application style"},
   {APP_LP_DOCK_STYLE, "DockStyle", PERS, 4, 4, "Dock Style, 0-3 = docked, 4 = floating, 5 = fullscreen"},
   {APP_LP_DOCK_POSITION, "DockPosition", PERS, 100, 100, "Dock Position"},
+  {APP_LP_X, "XPosition", PERS, 100, 100, "X location of window"},
+  {APP_LP_Y, "YPosition", PERS, 100, 100, "Y location of window"},
 #ifdef WITH_MAEMO
   {APP_LP_MAEMO_SIZE, "MaemoSize", PERS, 0, 0, "Size of Maemo input window"},
 #endif

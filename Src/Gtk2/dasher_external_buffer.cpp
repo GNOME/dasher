@@ -291,17 +291,15 @@ void dasher_external_buffer_edit_delete(DasherExternalBuffer *pSelf, int iDirect
 }
 
 gchar *dasher_external_buffer_get_context(DasherExternalBuffer *pSelf, gint iOffset, gint iLength) {
-  g_message("Context: %d %d", iOffset, iLength);
-
 #ifdef GNOME_A11Y
   DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(pSelf->private_data);
 
   if(pPrivate->pAccessibleText)
     return AccessibleText_getText(pPrivate->pAccessibleText, iOffset, iOffset + iLength);
   else
-    return 0;
+    return "";
 #else
-  return 0;
+  return "";
 #endif
 }
 

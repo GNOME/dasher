@@ -6,9 +6,9 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
 bin_PROGRAMS = dasher
 
-if DOGTK2
+#if DOGTK2
 
-SUBDIRS = Common DasherCore Gtk2 Installer Win32
+SUBDIRS = Common DasherCore Gtk2 Installer Win32 Tools
 dasher_SOURCES = main.cc
 
 AM_CXXFLAGS = \
@@ -32,15 +32,16 @@ dasher_LDADD = \
 	Gtk2/libdashergtk.a \
 	Gtk2/libdashercontrol.a \
 	DasherCore/libdashercore.a \
+	DasherCore/libdasherprefs.a \
 	DasherCore/LanguageModelling/libdasherlm.a \
 	DasherCore/Alphabet/libdasheralphabet.a \
 	Common/libdashermisc.a
-endif
+#endif
 
-if DOQTE
+#if DOQTE
 
-QTDIR=/usr/share/qte2
+#QTDIR=/usr/share/qte2
 
-SUBDIRS = DasherCore
+#SUBDIRS = DasherCore
 
-endif
+#endif

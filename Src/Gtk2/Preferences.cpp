@@ -938,27 +938,29 @@ void dasher_preferences_dialogue_populate_actions(DasherPreferencesDialogue *pSe
 
   GtkTreeIter oIter;
 
-  dasher_editor_actions_start(pPrivate->pEditor);
+  // TODO: Reimplement this
 
-  while(dasher_editor_actions_more(pPrivate->pEditor)) {
-    gtk_list_store_append(pPrivate->pListStore, &oIter);
+//   dasher_editor_actions_start(pPrivate->pEditor);
 
-    const gchar *szName;
-    gint iID;
-    gboolean bShow;
-    gboolean bControl;
-    gboolean bAuto;
+//   while(dasher_editor_actions_more(pPrivate->pEditor)) {
+//     gtk_list_store_append(pPrivate->pListStore, &oIter);
 
-    dasher_editor_actions_get_next(pPrivate->pEditor, &szName, &iID, &bShow, &bControl, &bAuto),
+//     const gchar *szName;
+//     gint iID;
+//     gboolean bShow;
+//     gboolean bControl;
+//     gboolean bAuto;
 
-    gtk_list_store_set(pPrivate->pListStore, &oIter, 
-		       ACTIONS_ID_COLUMN, iID,
-		       ACTIONS_NAME_COLUMN, szName,
-		       ACTIONS_SHOW_COLUMN, bShow,
-		       ACTIONS_CONTROL_COLUMN, bControl,
-		       ACTIONS_AUTO_COLUMN, bAuto,
-		       -1);
-  }
+//     dasher_editor_actions_get_next(pPrivate->pEditor, &szName, &iID, &bShow, &bControl, &bAuto),
+
+//     gtk_list_store_set(pPrivate->pListStore, &oIter, 
+// 		       ACTIONS_ID_COLUMN, iID,
+// 		       ACTIONS_NAME_COLUMN, szName,
+// 		       ACTIONS_SHOW_COLUMN, bShow,
+// 		       ACTIONS_CONTROL_COLUMN, bControl,
+// 		       ACTIONS_AUTO_COLUMN, bAuto,
+// 		       -1);
+//   }
   
   GtkCellRenderer *pRenderer;
   GtkTreeViewColumn *pColumn;

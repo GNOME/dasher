@@ -330,6 +330,8 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
   
   if(pCurrentSCEChild) {
 
+    //    std::cout << "Current SCE Child: " << pCurrentSCEChild << std::endl;
+
     // TODO: Reimplement (in subclass) -----
     
 //     if(m_iHZCount>1)
@@ -358,6 +360,8 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
     // Finally loop through and create the children
 
     do {
+      //      std::cout << "Current scec: " << pCurrentSCEChild << std::endl;
+
       int iLbnd(iCum);
       int iHbnd(iCum + pCurrentSCEChild->NodeSize);
 

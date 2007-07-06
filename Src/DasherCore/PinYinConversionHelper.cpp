@@ -5,12 +5,15 @@
 
 #include "LanguageModelling/LanguageModel.h"
 #include "LanguageModelling/PPMLanguageModel.h"
-#include <ChiCEInterface.h>
-#include <iostream>
-#include <fstream>
 #include "PinYinConversionHelper.h"
 
-#include <SCENodeNew.h>
+
+#include "SCENode.h"
+
+#include <fstream>
+#include <iostream>
+
+
 
 using namespace Dasher;
 
@@ -59,96 +62,99 @@ CPinYinConversionHelper::CPinYinConversionHelper(Dasher::CEventHandler *pEventHa
 
 
   BuildDataBase();
-  CEInitialise();
 
+  pParser = new CPinyinParser();
 }
   
 bool CPinYinConversionHelper::Convert(const std::string &strSource, SCENode ** pRoot, int * childCount, int CMid) {
 
-  SCENodeNew *pConversionList;
+  SCENode *pConversionList;
   int iHZCount;
 
-  if(CEConvert (strSource.c_str(), &pConversionList, &iHZCount, CMid)){ 
-    SCENodeNew *pHead(pConversionList);
+  // TODO: Reimplement
+  //  if(CEConvert (strSource.c_str(), &pConversionList, &iHZCount, CMid)){ 
 
-    std::vector<SCENodeNew *> vHeads;
+  if(pParser && pParser->Convert(strSource, pRoot)) {
+//     SCENode *pHead(pConversionList);
 
-    while(pHead) {
-      vHeads.push_back(pHead);
-      pHead = pHead->pChild;
-    }
+//     std::vector<SCENode *> vHeads;
 
-    SCENode *pTail = NULL;
-    SCENode *pNextTail = NULL;
-
-    for(std::vector<SCENodeNew *>::reverse_iterator it(vHeads.rbegin()); it != vHeads.rend(); ++it) {
-      SCENodeNew *pCurrentNode(*it);
-
-      SCENode *pPreviousNode = NULL;
-
-      while(pCurrentNode) {
-	SCENode *pNewNode = new SCENode;
-
-	pNewNode->pszConversion = pCurrentNode->pszConversion;
-	pNewNode->IsHeadAndCandNum = pCurrentNode->IsHeadAndCandNum;
-	pNewNode->CandIndex = pCurrentNode->CandIndex;
-	pNewNode->Symbol = pCurrentNode->Symbol;
-	//	pNewNode->SumPYProbStore = pCurrentNode->SumPYProbStore;
-	pNewNode->IsComplete = pCurrentNode->IsComplete;
-	pNewNode->AcCharCount = pCurrentNode->AcCharCount;  /*accumulative character count*/
-	pNewNode->NodeSize = pCurrentNode->NodeSize;
-	pNewNode->HZFreq = pCurrentNode->HZFreq;
-	pNewNode->HZProb = pCurrentNode->HZProb;
-	
-	if(pTail)
-	  pNewNode->SetChild(pTail);
-
-	if(pPreviousNode) {
-	  pPreviousNode->SetNext(pNewNode);
-	}
-	else {
-	  pNextTail = pNewNode;
-	  pNextTail->Ref();
-	}
-
-	if(pPreviousNode)
-	  pPreviousNode->Unref();
-
-	pPreviousNode = pNewNode;
-	pCurrentNode = pCurrentNode->pNext;
-      }
-
-      if(pPreviousNode)
-	pPreviousNode->Unref();
-
-      if(pTail)
-	pTail->Unref();
-
-      pTail = pNextTail;
-  
-    }
-
-    *pRoot = pTail;
-
-
-//     // TODO: Now need to convert...
-
-//     *pRoot= pStart;
-
-//     // Connect up the rest of the nodes to make a lattice
-//     SCENode *pHead(pStart);
-    
 //     while(pHead) {
-//       SCENode *pNewChild(pHead->GetChild());
-//       SCENode *pCurrent(pHead->GetNext());
-      
-//       while(pCurrent) {
-// 	pCurrent->SetChild(pNewChild);
-// 	pCurrent = pCurrent->GetNext();
-//       }
-      
-//       pHead = pHead->GetChild();
+//       vHeads.push_back(pHead);
+//       pHead = pHead->pChild;
 //     }
+
+//     SCENode *pTail = NULL;
+//     SCENode *pNextTail = NULL;
+
+//     for(std::vector<SCENode *>::reverse_iterator it(vHeads.rbegin()); it != vHeads.rend(); ++it) {
+//       SCENode *pCurrentNode(*it);
+
+//       SCENode *pPreviousNode = NULL;
+
+//       while(pCurrentNode) {
+// 	SCENode *pNewNode = new SCENode;
+
+// 	pNewNode->pszConversion = pCurrentNode->pszConversion;
+// 	pNewNode->IsHeadAndCandNum = pCurrentNode->IsHeadAndCandNum;
+// 	pNewNode->CandIndex = pCurrentNode->CandIndex;
+// 	pNewNode->Symbol = pCurrentNode->Symbol;
+// 	//	pNewNode->SumPYProbStore = pCurrentNode->SumPYProbStore;
+// 	pNewNode->IsComplete = pCurrentNode->IsComplete;
+// 	pNewNode->AcCharCount = pCurrentNode->AcCharCount;  /*accumulative character count*/
+// 	pNewNode->NodeSize = pCurrentNode->NodeSize;
+// 	pNewNode->HZFreq = pCurrentNode->HZFreq;
+// 	pNewNode->HZProb = pCurrentNode->HZProb;
+	
+// 	if(pTail)
+// 	  pNewNode->SetChild(pTail);
+
+// 	if(pPreviousNode) {
+// 	  pPreviousNode->SetNext(pNewNode);
+// 	}
+// 	else {
+// 	  pNextTail = pNewNode;
+// 	  pNextTail->Ref();
+// 	}
+
+// 	if(pPreviousNode)
+// 	  pPreviousNode->Unref();
+
+// 	pPreviousNode = pNewNode;
+// 	pCurrentNode = pCurrentNode->pNext;
+//       }
+
+//       if(pPreviousNode)
+// 	pPreviousNode->Unref();
+
+//       if(pTail)
+// 	pTail->Unref();
+
+//       pTail = pNextTail;
+  
+//     }
+
+//     *pRoot = pTail;
+
+
+// //     // TODO: Now need to convert...
+
+// //     *pRoot= pStart;
+// 2
+// //     // Connect up the rest of the nodes to make a lattice
+// //     SCENode *pHead(pStart);
+    
+// //     while(pHead) {
+// //       SCENode *pNewChild(pHead->GetChild());
+// //       SCENode *pCurrent(pHead->GetNext());
+      
+// //       while(pCurrent) {
+// // 	pCurrent->SetChild(pNewChild);
+// // 	pCurrent = pCurrent->GetNext();
+// //       }
+      
+// //       pHead = pHead->GetChild();
+// //     }
    
     return 1;
   }
@@ -163,7 +169,7 @@ unsigned int CPinYinConversionHelper::GetSumPYProbs(Dasher::CLanguageModel::Cont
   std::vector <unsigned int > Probs;
   unsigned int sumProb=0;
   
-  m_pLanguageModel->GetProbs(context, Probs, norm);
+  m_pLanguageModel->GetProbs(context, Probs, norm, 0);
 
   SCENode * pCurrentNode = pPYCandStart;
 
@@ -190,9 +196,13 @@ void CPinYinConversionHelper::GetProbs(Dasher::CLanguageModel::Context context, 
   
 
 
-void CPinYinConversionHelper::AssignSizes(SCENode * pStart, Dasher::CLanguageModel::Context context, long normalization, int uniform, int iNChildren){
+void CPinYinConversionHelper::AssignSizes(SCENode **pStart, Dasher::CLanguageModel::Context context, long normalization, int uniform, int iNChildren){
 
-  SCENode *pNode = pStart;
+  //  std::cout << "Assigning sizes: " << *pStart << " (" << (*pStart)->pszConversion << ")" << std::endl;
+
+  SCENode *pNewStart = *pStart;
+
+  SCENode *pNode = pNewStart;
 
   std::vector <unsigned int > Probs;
 
@@ -236,7 +246,7 @@ void CPinYinConversionHelper::AssignSizes(SCENode * pStart, Dasher::CLanguageMod
   }
   */
 
-  m_pLanguageModel->GetProbs(context, Probs, nonuniform_norm);
+  m_pLanguageModel->GetProbs(context, Probs, nonuniform_norm, 0);
 
   /*  
   std::vector<unsigned int>::iterator it;
@@ -271,8 +281,8 @@ void CPinYinConversionHelper::AssignSizes(SCENode * pStart, Dasher::CLanguageMod
       iCurrentContext=m_pLanguageModel->CloneContext(context);
       m_pLanguageModel->EnterSymbol(iCurrentContext, pNode->Symbol);
       
-      if(pStart->GetChild()){
-	pNode->SumPYProbStore = GetSumPYProbs(iCurrentContext, pStart->GetChild(), nonuniform_norm);
+      if(pNewStart->GetChild()){
+	pNode->SumPYProbStore = GetSumPYProbs(iCurrentContext, pNewStart->GetChild(), nonuniform_norm);
 	//std::cout<<"sumpyprobstore"<<pNode->SumPYProbStore<<std::endl;
       }
       else
@@ -290,7 +300,7 @@ void CPinYinConversionHelper::AssignSizes(SCENode * pStart, Dasher::CLanguageMod
 
 
 
-  pNode = pStart;
+  pNode = pNewStart;
   while(pNode){
     /*
     std::vector <symbol >Symbols;
@@ -331,7 +341,7 @@ void CPinYinConversionHelper::AssignSizes(SCENode * pStart, Dasher::CLanguageMod
     pNode = pNode->GetNext();
   }
 
-  pNode = pStart;
+  pNode = pNewStart;
 
   while(pNode){
     

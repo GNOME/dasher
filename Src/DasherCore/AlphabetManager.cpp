@@ -188,6 +188,8 @@ CDasherNode *CAlphabetManager::CreateGroupNode(CDasherNode *pParent, SGroupInfo 
 CDasherNode *CAlphabetManager::CreateSymbolNode(CDasherNode *pParent, symbol iSymbol, std::vector<unsigned int> *pCProb, unsigned int iStart, unsigned int iEnd, unsigned int iMin, unsigned int iMax, symbol iExistingSymbol, CDasherNode *pExistingChild) {
   // TODO: Node deletion etc.
 
+  //  std::cout << iSymbol << " " << m_pNCManager->GetStartConversionSymbol() << std::endl;
+
 #ifdef WIN32
   unsigned int iLbnd = (((*pCProb)[iStart-1] - (*pCProb)[iMin-1]) * 
 	  (unsigned __int64)(m_pNCManager->GetLongParameter(LP_NORMALIZATION))) / 

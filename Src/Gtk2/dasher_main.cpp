@@ -131,7 +131,7 @@ static void dasher_main_finalize(GObject *pObject);
 static void dasher_main_setup_window_state(DasherMain *pSelf);
 static void dasher_main_setup_window_style(DasherMain *pSelf);
 static void dasher_main_setup_internal_layout(DasherMain *pSelf);
-static void dasher_main_refresh_font(DasherMain *pSelf);
+//static void dasher_main_refresh_font(DasherMain *pSelf);
 static void dasher_main_set_filename(DasherMain *pSelf);
 
 /* ... Table based menu/toolbar commands */
@@ -282,7 +282,8 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
       }
     }
     else { 
-      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 0);
+      // Direct entry is now the default
+      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 2);
     }
 
     dasher_main_load_interface(pDasherMain);
@@ -610,10 +611,10 @@ dasher_main_handle_parameter_change(DasherMain *pSelf, int iParameter) {
     else
       gtk_widget_hide(pPrivate->pStatusControl);
     break;
-  case APP_SP_EDIT_FONT:
+    //  case APP_SP_EDIT_FONT:
     // TODO: Editor should handle this directly
-    dasher_main_refresh_font(pSelf);
-    break;
+    //    dasher_main_refresh_font(pSelf);
+    //    break;
 #ifndef WITH_MAEMO
   case LP_MAX_BITRATE:
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(pPrivate->pSpeedBox), dasher_app_settings_get_long(pPrivate->pAppSettings, LP_MAX_BITRATE) / 100.0);
@@ -652,9 +653,11 @@ dasher_main_handle_parameter_change(DasherMain *pSelf, int iParameter) {
 #endif
   }
 
-  // TODO: Pass into editor?
   if(pPrivate->pPreferencesDialogue)
     dasher_preferences_dialogue_handle_parameter_change(pPrivate->pPreferencesDialogue, iParameter);
+
+  if(pPrivate->pEditor)
+    dasher_editor_handle_parameter_change(pPrivate->pEditor, iParameter);
 }
 
 static void 
@@ -684,6 +687,16 @@ dasher_main_load_state(DasherMain *pSelf) {
 
   pPrivate->iWidth = iWindowWidth;
   pPrivate->iHeight = iWindowHeight;
+
+
+  int iWindowX;
+  int iWindowY;
+ 
+  iWindowX = dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_X);
+  iWindowY = dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_Y);
+
+  gtk_window_move(GTK_WINDOW(pPrivate->pMainWindow), iWindowX, iWindowY);
+
   
   //  pPrivate->iPosition = dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_DOCK_POSITION);
 }
@@ -712,6 +725,13 @@ dasher_main_save_state(DasherMain *pSelf) {
      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_SCREEN_WIDTH_H, iWindowWidth);
      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_SCREEN_HEIGHT_H, iWindowHeight);
    } 
+
+   int iWindowX;
+   int iWindowY;
+   gtk_window_get_position(GTK_WINDOW(pPrivate->pMainWindow), &iWindowX, &iWindowY);
+
+   dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_X, iWindowX);
+   dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_Y, iWindowY);
 
    //   dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_DOCK_POSITION, pPrivate->iPosition);
 }
@@ -910,16 +930,16 @@ dasher_main_setup_internal_layout(DasherMain *pSelf) {
       gtk_widget_hide(pPrivate->pStatusControl);
   }
 
-  dasher_main_refresh_font(pSelf);
+  //  dasher_main_refresh_font(pSelf);
 }
 
-static void 
-dasher_main_refresh_font(DasherMain *pSelf) {
-  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
+// static void 
+// dasher_main_refresh_font(DasherMain *pSelf) {
+//   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
 
-  dasher_editor_handle_font(pPrivate->pEditor, 
-			    dasher_app_settings_get_string(pPrivate->pAppSettings, APP_SP_EDIT_FONT));
-}
+//   dasher_editor_handle_font(pPrivate->pEditor, 
+// 			    dasher_app_settings_get_string(pPrivate->pAppSettings, APP_SP_EDIT_FONT));
+// }
 
 // TODO: Fold into setup controls?
 static void 

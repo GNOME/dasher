@@ -1,6 +1,12 @@
 SUBDIRS = LanguageModelling Alphabet
 
-noinst_LIBRARIES = libdashercore.a
+noinst_LIBRARIES = libdashercore.a libdasherprefs.a
+
+libdasherprefs_a_SOURCES = \
+		Parameters.h \
+		SettingsStore.cpp \
+		SettingsStore.h 
+
 libdashercore_a_SOURCES = \
 		ActionButton.cpp \
 		ActionButton.h \
@@ -75,11 +81,10 @@ libdashercore_a_SOURCES = \
 		NodeManagerFactory.h \
 		OneDimensionalFilter.cpp \
 		OneDimensionalFilter.h \
-		Parameters.h \
+		PinyinParser.cpp \
+		PinyinParser.h \
 		SCENode.cpp \
 		SCENode.h \
-		SettingsStore.cpp \
-		SettingsStore.h \
 		SimpleTimer.cpp \
 		SimpleTimer.h \
 		SocketInput.cpp \

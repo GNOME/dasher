@@ -3,6 +3,8 @@ LIBS = @INTLLIBS@ @LIBS@
 noinst_LIBRARIES = libdashergtk.a libdashercontrol.a
 noinst_PROGRAMS = generate-schema
 
+#bin_PROGRAMS = dasher-config
+
 if WITH_GPE
 gladefile = dashergpe.glade
 settings_store = gpesettings_store.cc gpesettings_store.h
@@ -25,6 +27,18 @@ settings_store =
 endif
 
 generate_schema_SOURCES = GenerateSchema.cpp
+
+#dasher_config_SOURCES = \
+#		DasherAppSettings.cpp \
+#		DasherAppSettings.h \
+#		Preferences.cpp \
+#		Preferences.h \
+#		dasher_config.cpp \
+#		module_settings_window.cpp \
+#		module_settings_window.h#
+#
+#dasher_config_LDADD = \
+#	$(GTK2BUILD_LIBS)
 
 libdashercontrol_a_SOURCES = \
 		Canvas.cpp \

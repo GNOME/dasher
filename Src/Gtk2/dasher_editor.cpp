@@ -43,29 +43,6 @@
 #include "dasher_main.h"
 #include "game_mode_helper.h"
 
-// TODO: Maybe reimplement something along the lines of the following, which used to be in edit.cc
-
-// void set_mark() {
-//   GtkTextIter oBufferEnd;
-//   GtkTextIter oBufferStart;
-//   gtk_text_buffer_get_bounds( the_text_buffer, &oBufferStart, &oBufferEnd);
-//   gtk_text_buffer_create_mark(the_text_buffer, "new_start", &oBufferEnd, true);
-// }
-
-// const gchar *get_new_text() {
-//   GtkTextIter oNewStart;
-//   GtkTextIter oNewEnd;
-//   GtkTextIter oDummy;
-
-//   gtk_text_buffer_get_bounds( the_text_buffer, &oDummy, &oNewEnd);
-//   gtk_text_buffer_get_iter_at_mark( the_text_buffer, &oNewStart, gtk_text_buffer_get_mark(the_text_buffer, "new_start"));
-
-//   return gtk_text_buffer_get_text( the_text_buffer, &oNewStart, &oNewEnd, false );
-  
-// }
-
-// ---
-
 #define ACTION_STATE_SHOW 1
 #define ACTION_STATE_CONTROL 2
 #define ACTION_STATE_AUTO 4
@@ -158,14 +135,6 @@ dasher_editor_class_init(DasherEditorClass *pClass) {
 
   pClass->initialise = NULL;
   pClass->command = NULL;
-  pClass->handle_font = NULL;
-  pClass->output = NULL;
-  pClass->delete_text = NULL;
-  pClass->get_context = NULL;
-  pClass->get_offset = NULL;
-  pClass->handle_stop = NULL;
-  pClass->handle_start = NULL;
-  pClass->handle_control = NULL;
   pClass->action_button = NULL;
   pClass->actions_start = NULL;
   pClass->actions_more = NULL;
@@ -173,11 +142,25 @@ dasher_editor_class_init(DasherEditorClass *pClass) {
   pClass->action_set_show = NULL;
   pClass->action_set_control = NULL;
   pClass->action_set_auto = NULL;
+  pClass->get_all_text = NULL;
+  pClass->get_new_text = NULL;
+  pClass->output = NULL;
+  pClass->delete_text = NULL;
+  pClass->start_compose = NULL;
+  pClass->end_compose = NULL;
+  pClass->get_context = NULL;
+  pClass->get_offset = NULL;
+  pClass->handle_parameter_change = NULL;
+  pClass->handle_stop = NULL;
+  pClass->handle_start = NULL;
+  pClass->handle_control = NULL;
   pClass->grab_focus = NULL;
   pClass->file_changed = NULL;
   pClass->get_filename = NULL;
-  pClass->get_all_text = NULL;
-  pClass->get_new_text = NULL;
+
+  pClass->filename_changed = NULL;
+  pClass->buffer_changed = NULL;
+  pClass->context_changed = NULL;
 }
 
 static void 
@@ -309,6 +292,19 @@ dasher_editor_delete(DasherEditor *pSelf, int iLength, int iOffset) {
     DASHER_EDITOR_GET_CLASS(pSelf)->delete_text(pSelf, iLength, iOffset);
 }
 
+void 
+dasher_editor_start_compose(DasherEditor *pSelf) {
+  if(DASHER_EDITOR_GET_CLASS(pSelf)->start_compose)
+    DASHER_EDITOR_GET_CLASS(pSelf)->start_compose(pSelf);
+}
+
+void 
+dasher_editor_end_compose(DasherEditor *pSelf, bool bKeep) {
+  if(DASHER_EDITOR_GET_CLASS(pSelf)->end_compose)
+    DASHER_EDITOR_GET_CLASS(pSelf)->end_compose(pSelf, bKeep);
+}
+
+
 const gchar *
 dasher_editor_get_context(DasherEditor *pSelf, int iOffset, int iLength) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->get_context)
@@ -366,7 +362,7 @@ dasher_editor_get_new_text(DasherEditor *pSelf) {
 }
 
 void 
-dasher_editor_handle_font(DasherEditor *pSelf, const gchar *szFont) {
-  if(DASHER_EDITOR_GET_CLASS(pSelf)->handle_font)
-    DASHER_EDITOR_GET_CLASS(pSelf)->handle_font(pSelf, szFont);
+dasher_editor_handle_parameter_change(DasherEditor *pSelf, gint iParameter) {
+  if(DASHER_EDITOR_GET_CLASS(pSelf)->handle_parameter_change)
+    DASHER_EDITOR_GET_CLASS(pSelf)->handle_parameter_change(pSelf, iParameter);
 }
