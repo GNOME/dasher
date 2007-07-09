@@ -120,10 +120,51 @@ class CPinyinParser {
   
   class CLatticeNode {
   public:
+    CLatticeNode(char cSymbol, CLatticeNode *pParent, std::vector<std::string> *pList) {
+      m_cSymbol = cSymbol;
+      m_pParent = pParent;
+      
+      if(m_pParent)
+	m_pParent->Ref();
+
+      m_pList = pList;
+      
+      m_iRefCount = 1;
+    };
+
+    ~CLatticeNode() {
+      if(m_pParent)
+	m_pParent->Unref();
+
+      // TODO: I don't think we 'own' the lists, so no need to remove
+      // them.
+    }
+
+    CLatticeNode *GetParent() {
+      return m_pParent;
+    };
+
+    std::vector<std::string> *GetList() {
+      return m_pList;
+    };
+
+    void Ref() {
+      ++m_iRefCount;
+    };
+    
+    void Unref() {
+      --m_iRefCount;
+      
+      if(m_iRefCount <= 0)
+	delete this;
+    };
+
+  private:
     char m_cSymbol;
     // It actually makes more sense here to work backwards, so store pointers to parent
     CLatticeNode *m_pParent;
     std::vector<std::string> *m_pList;
+    int m_iRefCount;
   };
 
   std::vector<std::string> *pCurrentList;

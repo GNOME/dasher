@@ -421,14 +421,8 @@ AC_CONFIG_FILES([Data/dasher.desktop.in
 		 Src/DasherCore/LanguageModelling/Makefile
 		 Src/Gtk2/Makefile
 		 Src/Installer/Makefile
-		 Src/Tools/Makefile
-		 Src/Tools/ParseChinese/Makefile
 		 Src/Win32/Makefile
 		 Utils/Makefile
 		 po/Makefile.in])
-
-
-dnl		 Data/Help/Gnome/eu/Makefile
-
 
 AC_OUTPUT

@@ -152,11 +152,7 @@ bool CPinyinParser::Convert(const std::string &strPhrase, SCENode **pRoot) {
       CTrieNode *pCurrentChild = it2->first->LookupChild(*it);
 
       if(pCurrentChild) {
-	CLatticeNode *pNewLNode = new CLatticeNode;
-	pNewLNode->m_cSymbol = pCurrentChild->GetSymbol();
-	pNewLNode->m_pParent = it2->second;
-	pNewLNode->m_pList = NULL;
-
+	CLatticeNode *pNewLNode = new CLatticeNode(pCurrentChild->GetSymbol(), it2->second, NULL);
 	pNewList->push_back(tLPair(pCurrentChild, pNewLNode));
       }
 
@@ -166,19 +162,17 @@ bool CPinyinParser::Convert(const std::string &strPhrase, SCENode **pRoot) {
       if(pCurrentChild) {
 	CTrieNode *pCurrentChild2 = g_pRoot->LookupChild(*it);
 	if(pCurrentChild2) {
-	  CLatticeNode *pNewLNode = new CLatticeNode;
-	  pNewLNode->m_cSymbol = '|';
-	  pNewLNode->m_pParent = it2->second;
-	  pNewLNode->m_pList = pCurrentChild->GetList();
-	  
-	  CLatticeNode *pNewLNode2 = new CLatticeNode;
-	  pNewLNode2->m_cSymbol = pCurrentChild->GetSymbol();
-	  pNewLNode2->m_pParent = pNewLNode;
-	  pNewLNode2->m_pList = NULL;
-
+	  CLatticeNode *pNewLNode = new CLatticeNode('|', it2->second, pCurrentChild->GetList());
+	  CLatticeNode *pNewLNode2 = new CLatticeNode(pCurrentChild->GetSymbol(), pNewLNode, NULL);
 	  pNewList->push_back(tLPair(pCurrentChild2, pNewLNode2));
+
+	  // Unref the initial count on the intermediate node
+	  pNewLNode->Unref();
 	}
       }
+
+      if(it2->second)
+	it2->second->Unref();
     }
 
     delete pCurrentList;
@@ -197,16 +191,25 @@ bool CPinyinParser::Convert(const std::string &strPhrase, SCENode **pRoot) {
       pTail = AddList(it2->first->LookupChild('1')->GetList(), pTail);
 
       while(pCurrentNode) {
-	if(pCurrentNode->m_pList)
-	  pTail = AddList(pCurrentNode->m_pList, pTail);
+	if(pCurrentNode->GetList())
+	  pTail = AddList(pCurrentNode->GetList(), pTail);
 
-	pCurrentNode = pCurrentNode->m_pParent;
+	pCurrentNode = pCurrentNode->GetParent();
       }
       
-      // TODO: Allow for multiple paths
+      
       // TODO: Compact lattice
+      SCENode *pCurrentRoot = pTail;
+
+      while(pCurrentRoot->GetNext())
+	pCurrentRoot = pCurrentRoot->GetNext();
+
+      pCurrentRoot->SetNext(*pRoot);
       *pRoot = pTail;
     }
+
+    if(it2->second)
+      it2->second->Unref();
 
   }
 
