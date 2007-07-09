@@ -259,7 +259,8 @@ AC_SUBST(JAPANESE_SOURCES)
 
 if [[ x"$WITHCHINESE" = xtrue ]]; then
 	AC_DEFINE([CHINESE], 1, [Chinese support enabled])
-	CHINESE_SOURCES='PinYinConversionHelper.$(OBJEXT)'
+	CHINESE_SOURCES='PinYinConversionHelper.$(OBJEXT) PinyinParser.$(OBJEXT)'
+
 else
 	CHINESE_SOURCES=
 fi

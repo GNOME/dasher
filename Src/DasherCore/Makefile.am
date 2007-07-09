@@ -81,8 +81,6 @@ libdashercore_a_SOURCES = \
 		NodeManagerFactory.h \
 		OneDimensionalFilter.cpp \
 		OneDimensionalFilter.h \
-		PinyinParser.cpp \
-		PinyinParser.h \
 		SCENode.cpp \
 		SCENode.h \
 		SimpleTimer.cpp \
@@ -124,7 +122,9 @@ EXTRA_libdashercore_a_SOURCES = \
 		CannaConversionHelper.cpp \
 		CannaConversionHelper.h \
 		PinYinConversionHelper.cpp \
-		PinYinConversionHelper.h
+		PinYinConversionHelper.h \
+		PinyinParser.cpp \
+		PinyinParser.h
 
 AM_CXXFLAGS = $(GTK2_CFLAGS) $(SETTINGS_CFLAGS) $(gnome_speech_CFLAGS) $(gnome_a11y_CFLAGS) $(glade_CFLAGS) $(gnome_CFLAGS) $(wnck_CFLAGS) -DWNCK_I_KNOW_THIS_IS_UNSTABLE -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" -I../../intl -I$(top_srcdir)/intl 
 
