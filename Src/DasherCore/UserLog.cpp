@@ -665,7 +665,7 @@ void CUserLog::SetOuputFilename(const string& strFilename)
     szTimeLine = ctime(&(sTimeBuffer.time));
 #else
     gettimeofday(&sTimeBuffer, &sTimezoneBuffer);
-    szTimeLine = ctime(&(sTimeBuffer.tv_sec));
+    szTimeLine = ctime((const time_t *)&(sTimeBuffer.tv_sec));
 #endif
 
     if ((szTimeLine != NULL) && (strlen(szTimeLine) > 18))
@@ -885,7 +885,7 @@ bool CUserLog::UpdateMouseLocation()
   double dTime = (sTimeBuffer.time * 1000.0) + sTimeBuffer.millitm;
 #else
   gettimeofday(&sTimeBuffer, &sTimezoneBuffer);
-  double dTime = (sTimeBuffer.tv_sec * 1000.0) + sTimeBuffer.tv_usec / 1000;
+  double dTime = (sTimeBuffer.tv_sec * 1000.0) + (int)(sTimeBuffer.tv_usec / 1000);
 #endif
 
   
