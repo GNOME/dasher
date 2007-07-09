@@ -57,5 +57,5 @@ dasher_action_keyboard_execute(DasherAction *pSelf, DasherEditor *pEditor, int i
 
 static const gchar *
 dasher_action_keyboard_get_name(DasherAction *pSelf) {
-  return "Enter Text";
+  return _("Enter Text");
 }

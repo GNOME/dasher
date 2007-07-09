@@ -126,7 +126,7 @@ dasher_action_speech_preview(DasherAction *pSelf, DasherEditorInternal *pEditor)
 
 static const gchar *
 dasher_action_speech_get_name(DasherAction *pSelf) {
-  return "Speak";
+  return _("Speak");
 }
 
 static int 
@@ -138,11 +138,11 @@ static const gchar *
 dasher_action_speech_get_sub_name(DasherAction *pSelf, int iIdx) {
   switch(iIdx) {
   case 0:
-    return "All";
+    return _("All");
   case 1:
-    return "Last";
+    return _("Last");
   case 2:
-    return "Repeat";
+    return _("Repeat");
   default:
     return NULL;
   }

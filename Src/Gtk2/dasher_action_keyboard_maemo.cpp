@@ -91,7 +91,7 @@ static gboolean dasher_action_keyboard_maemo_execute(DasherAction *pSelf, Dasher
 }
 
 static const gchar *dasher_action_keyboard_maemo_get_name(DasherAction *pSelf) {
-  return "Enter Text";
+  return _("Enter Text");
 }
 
 #endif

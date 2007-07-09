@@ -414,7 +414,7 @@ void dasher_preferences_dialogue_populate_list(DasherPreferencesDialogue *pSelf,
   GtkTreeViewColumn *pColumn;
   
   pRenderer = gtk_cell_renderer_text_new();
-  pColumn = gtk_tree_view_column_new_with_attributes("Action", pRenderer, "text", 2, NULL);
+  pColumn = gtk_tree_view_column_new_with_attributes(_("Action"), pRenderer, "text", 2, NULL);
   gtk_tree_view_append_column(pView, pColumn);
 
   GtkTreeIter oIter;
@@ -972,23 +972,23 @@ void dasher_preferences_dialogue_populate_actions(DasherPreferencesDialogue *pSe
   pColumnIndex[2] = ACTIONS_AUTO_COLUMN;
 
   pRenderer = gtk_cell_renderer_text_new();
-  pColumn = gtk_tree_view_column_new_with_attributes("Action", pRenderer, "text", ACTIONS_NAME_COLUMN, NULL);
+  pColumn = gtk_tree_view_column_new_with_attributes(_("Action"), pRenderer, "text", ACTIONS_NAME_COLUMN, NULL);
   g_object_set(G_OBJECT(pColumn), "expand", true, NULL);
   gtk_tree_view_append_column(GTK_TREE_VIEW(pPrivate->pActionTreeView), pColumn);
 
   pRenderer = gtk_cell_renderer_toggle_new();
   g_signal_connect(pRenderer, "toggled", (GCallback)on_action_toggle, pColumnIndex);
-  pColumn = gtk_tree_view_column_new_with_attributes("Show Button", pRenderer, "active", ACTIONS_SHOW_COLUMN, NULL);
+  pColumn = gtk_tree_view_column_new_with_attributes(_("Show Button"), pRenderer, "active", ACTIONS_SHOW_COLUMN, NULL);
   gtk_tree_view_append_column(GTK_TREE_VIEW(pPrivate->pActionTreeView), pColumn);
 
   pRenderer = gtk_cell_renderer_toggle_new();
   g_signal_connect(pRenderer, "toggled", (GCallback)on_action_toggle, pColumnIndex + 1);
-  pColumn = gtk_tree_view_column_new_with_attributes("Control Mode", pRenderer, "active", ACTIONS_CONTROL_COLUMN, NULL);
+  pColumn = gtk_tree_view_column_new_with_attributes(_("Control Mode"), pRenderer, "active", ACTIONS_CONTROL_COLUMN, NULL);
   gtk_tree_view_append_column(GTK_TREE_VIEW(pPrivate->pActionTreeView), pColumn);
 
   pRenderer = gtk_cell_renderer_toggle_new();
   g_signal_connect(pRenderer, "toggled", (GCallback)on_action_toggle, pColumnIndex + 2);
-  pColumn = gtk_tree_view_column_new_with_attributes("Auto On Stop", pRenderer, "active", ACTIONS_AUTO_COLUMN, NULL);
+  pColumn = gtk_tree_view_column_new_with_attributes(_("Auto On Stop"), pRenderer, "active", ACTIONS_AUTO_COLUMN, NULL);
   gtk_tree_view_append_column(GTK_TREE_VIEW(pPrivate->pActionTreeView), pColumn);
 
   gtk_tree_view_set_model(GTK_TREE_VIEW(pPrivate->pActionTreeView), GTK_TREE_MODEL(pPrivate->pListStore));

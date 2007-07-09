@@ -12,16 +12,16 @@
 
 
 static SModuleSettings sSettings[] = {
-  {LP_TWO_BUTTON_OFFSET, T_LONG, 1024, 2048, 2048, 100, "Button offset"},
-  {LP_HOLD_TIME, T_LONG, 100, 10000, 1000, 100, "Long press time"},
-  {LP_MULTIPRESS_TIME, T_LONG, 100, 10000, 1000, 100, "Multiple press time"},
-  {LP_MULTIPRESS_COUNT,T_LONG, 2, 10, 1, 1, "Multiple press count"},
-  {BP_BACKOFF_BUTTON,T_BOOL, -1, -1, -1, -1, "Enable backoff and start/stop buttons"},
-  {BP_TWOBUTTON_REVERSE,T_BOOL, -1, -1, -1, -1, "Reverse up and down buttons"},
-  {BP_SLOW_START,T_BOOL, -1, -1, -1, -1, "Slow startup"},
-  {LP_SLOW_START_TIME, T_LONG, 0, 10000, 1000, 100, "Startup time"},
-  {BP_TWOBUTTON_SPEED,T_BOOL, -1, -1, -1, -1, "Auto speed control"},
-  {LP_DYNAMIC_MEDIAN_FACTOR, T_LONG, 10, 200, 100, 10, "Auto speed threshold"}
+  {LP_TWO_BUTTON_OFFSET, T_LONG, 1024, 2048, 2048, 100, _("Button offset")},
+  {LP_HOLD_TIME, T_LONG, 100, 10000, 1000, 100, _("Long press time")},
+  {LP_MULTIPRESS_TIME, T_LONG, 100, 10000, 1000, 100, _("Multiple press time")},
+  {LP_MULTIPRESS_COUNT,T_LONG, 2, 10, 1, 1, _("Multiple press count")},
+  {BP_BACKOFF_BUTTON,T_BOOL, -1, -1, -1, -1, _("Enable backoff and start/stop buttons")},
+  {BP_TWOBUTTON_REVERSE,T_BOOL, -1, -1, -1, -1, _("Reverse up and down buttons")},
+  {BP_SLOW_START,T_BOOL, -1, -1, -1, -1, _("Slow startup")},
+  {LP_SLOW_START_TIME, T_LONG, 0, 10000, 1000, 100, _("Startup time")},
+  {BP_TWOBUTTON_SPEED,T_BOOL, -1, -1, -1, -1, _("Auto speed control")},
+  {LP_DYNAMIC_MEDIAN_FACTOR, T_LONG, 10, 200, 100, 10, _("Auto speed threshold")}
 };
 
 CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, int iType, const char *szName)

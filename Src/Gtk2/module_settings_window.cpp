@@ -1,3 +1,23 @@
+// module_settings_window.cpp
+//
+// Copyright (c) 2007 The Dasher Team
+//
+// This file is part of Dasher.
+//
+// Dasher is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// Dasher is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Dasher; if not, write to the Free Software 
+// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
 #include "module_settings_window.h"
 
 #include <glib/gi18n.h>
@@ -62,7 +82,7 @@ module_settings_window_new(DasherAppSettings *pAppSettings, const gchar *szName,
   ModuleSettingsWindow *pDasherControl;
   pDasherControl = MODULE_SETTINGS_WINDOW(g_object_new(module_settings_window_get_type(), NULL));
 
-  gtk_window_set_title(GTK_WINDOW(pDasherControl), "Dasher Module Options");
+  gtk_window_set_title(GTK_WINDOW(pDasherControl), _("Dasher Module Options"));
   
   ModuleSettingsWindowPrivate *pPrivate = MODULE_SETTINGS_WINDOW_GET_PRIVATE(pDasherControl);
   
@@ -86,7 +106,7 @@ module_settings_window_new(DasherAppSettings *pAppSettings, const gchar *szName,
     GtkWidget *pControl = NULL;
     
     if(pSettings[i].iType == T_BOOL) {
-      pControl = gtk_check_button_new_with_label(pSettings[i].szDescription); 
+      pControl = gtk_check_button_new_with_label(_(pSettings[i].szDescription)); 
       
       gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pControl), 
 				   dasher_app_settings_get_bool(pPrivate->pAppSettings, pSettings[i].iParameter)); 
@@ -96,7 +116,7 @@ module_settings_window_new(DasherAppSettings *pAppSettings, const gchar *szName,
       
     }
     else {
-      GtkWidget *pLabel = gtk_label_new(pSettings[i].szDescription);
+      GtkWidget *pLabel = gtk_label_new(_(pSettings[i].szDescription));
       gtk_misc_set_alignment(GTK_MISC(pLabel), 0, 0.5);
       gtk_table_attach_defaults(GTK_TABLE(pTable), pLabel, 0, 1, i, i+1);
       

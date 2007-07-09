@@ -48,7 +48,7 @@ private:
 };
 
 static SModuleSettings sSettings[] = {
-  {LP_YSCALE, T_LONG, 10, 2000, 1, 1, "Pixels covering Y range:"}
+  {LP_YSCALE, T_LONG, 10, 2000, 1, 1, _("Pixels covering Y range")}
 };
 
 class CDasher1DMouseInput:public CDasherInput {

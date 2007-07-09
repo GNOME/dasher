@@ -88,5 +88,5 @@ dasher_action_script_execute(DasherAction *pSelf, DasherEditor *pEditor, int iId
 
 static const gchar *
 dasher_action_script_get_name(DasherAction *pSelf) {
-  return "Script";
+  return _("Script");
 }
