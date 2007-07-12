@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-09 23:30+0900\n"
-"PO-Revision-Date: 2007-07-09 23:29+0900\n"
+"POT-Creation-Date: 2007-07-13 00:43+0900\n"
+"PO-Revision-Date: 2007-07-13 00:43+0900\n"
 "Last-Translator: Takeshi AIHANA <takeshi.aihana@gmail.com>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
@@ -780,7 +780,7 @@ msgid "One Button Dynamic Mode"
 msgstr "１つボタンの直接入力モード"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:7
-msgid "Automatic calibration:"
+msgid "Automatic calibration"
 msgstr "自動的に調節する"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:11
@@ -831,6 +831,38 @@ msgstr "ソケットに関連するデバッグ情報を端末に表示する"
 #: ../Src/DasherCore/SocketInputBase.cpp:38
 msgid "Socket Input"
 msgstr "ソケット入力"
+
+#: ../Src/Gtk2/Preferences.cpp:417 ../Src/Gtk2/Preferences.cpp:975
+msgid "Action"
+msgstr "アクション"
+
+#: ../Src/Gtk2/Preferences.cpp:981
+msgid "Show Button"
+msgstr "ボタンの表示"
+
+#: ../Src/Gtk2/Preferences.cpp:986
+msgid "Control Mode"
+msgstr "制御モード"
+
+#: ../Src/Gtk2/Preferences.cpp:991
+msgid "Auto On Stop"
+msgstr "自動停止"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:129
+msgid "Speak"
+msgstr "声を出す"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:141
+msgid "All"
+msgstr "全て"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:143
+msgid "Last"
+msgstr "最後"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:145
+msgid "Repeat"
+msgstr "繰り返す"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:163
 #, c-format
@@ -889,7 +921,11 @@ msgstr ""
 "佐藤 暁 <ss@gnome.gr.jp>\n"
 "日本GNOMEユーザー会 http://www.gnome.gr.jp"
 
-#: ../Src/Gtk2/module_settings_window.cpp:71
+#: ../Src/Gtk2/module_settings_window.cpp:85
+msgid "Dasher Module Options"
+msgstr "Dasher のモジュール・オプション"
+
+#: ../Src/Gtk2/module_settings_window.cpp:91
 #, c-format
 msgid "%s Options:"
 msgstr "\"%s\" のオプション:"
@@ -897,6 +933,10 @@ msgstr "\"%s\" のオプション:"
 #: ../Src/Gtk2/mouse_input.h:15
 msgid "Mouse Input"
 msgstr "マウス入力"
+
+#: ../Src/Gtk2/mouse_input.h:51
+msgid "Pixels covering Y range"
+msgstr "Ｙ方向の適用範囲 (ピクセル数)"
 
 #: ../Src/Gtk2/mouse_input.h:57
 msgid "One Dimensional Mouse Input"
