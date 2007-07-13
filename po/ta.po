@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-02 03:21+0100\n"
-"PO-Revision-Date: 2007-06-03 12:31+0530\n"
+"POT-Creation-Date: 2007-07-09 15:35+0100\n"
+"PO-Revision-Date: 2007-07-12 14:31+0530\n"
 "Last-Translator: Dr.T.Vasudevan <agnihot3@gmail.com>\n"
 "Language-Team: TAMIL <ubuntu-l10n-tam@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
@@ -20,18 +20,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"\n"
-"\n"
-"\n"
-"\n"
 
-#: ../Data/dasher.desktop.in.in.h:1 ../Data/glade/dasher.compose.glade.h:34
+#: ../Data/dasher.desktop.in.in.h:1
+#: ../Data/glade/dasher.compose.glade.h:34
 #: ../Data/glade/dasher.direct.glade.h:31
 #: ../Data/glade/dasher.fullscreen.glade.h:30
 #: ../Data/glade/dasher.traditional.glade.h:35
 #: ../Data/glade/dashermaemo.glade.h:17
 #: ../Data/glade/dashermaemofullscreen.glade.h:15
-#: ../Src/Gtk2/dasher_main.cpp:1123
+#: ../Src/Gtk2/dasher_main.cpp:1156
 msgid "Dasher"
 msgstr "டேஷர்"
 
@@ -454,8 +451,9 @@ msgstr "கோப்பை இப்படி சேமி"
 #: ../Data/glade/dasher.traditional.glade.h:64
 #: ../Data/glade/dashermaemo.glade.h:28
 #: ../Data/glade/dashermaemofullscreen.glade.h:25
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1347
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1380 ../Src/Gtk2/dasher_main.cpp:965
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1322
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1355
+#: ../Src/Gtk2/dasher_main.cpp:998
 msgid "Select File"
 msgstr "கோப்பை தேர்வு செய்யவும்"
 
@@ -738,33 +736,33 @@ msgstr "_ம எழுத்துருவை மீட்டமை"
 msgid "Click Mode"
 msgstr "சொடுக்கு பாணி"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:958
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:985
 msgid "Normal Control"
 msgstr "இயல்பான கட்டுப்பாடு"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:963
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:990
 msgid "Two Button Dynamic Mode"
 msgstr "இரு பொத்தான்கள் இயங்குநிலை பாணி"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:965
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:992
 msgid "Menu Mode"
 msgstr "பட்டி பாணி"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:966
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:993
 msgid "Direct Mode"
 msgstr "நேரடி உள்ளீடு"
 
 #. RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:968
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:995
 msgid "Alternating Direct Mode"
 msgstr "மாறி மாறி வரும் நேரடி பாணி"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:969
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:996
 msgid "Compass Mode"
 msgstr "திசை காட்டி பாணி"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:970
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:997
 msgid "Stylus Control"
 msgstr "எழுத்தணி கட்டுப்பாடு"
 
@@ -789,8 +787,8 @@ msgid "One Button Dynamic Mode"
 msgstr "ஒரு பொத்தான் இயங்குநிலை பாணி"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:7
-msgid "Automatic calibration:"
-msgstr "தானியங்கி மதிப்பாராய்வு:"
+msgid "Automatic calibration"
+msgstr "தானியங்கி மதிப்பாராய்வு"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:11
 msgid "Eyetracker Mode"
@@ -841,6 +839,39 @@ msgstr "பொருத்து வாய் சார்ந்த பிழை
 msgid "Socket Input"
 msgstr "பொருத்துவாய் உள்ளீடு"
 
+#: ../Src/Gtk2/Preferences.cpp:417
+#: ../Src/Gtk2/Preferences.cpp:975
+msgid "Action"
+msgstr "செயல்பாடு"
+
+#: ../Src/Gtk2/Preferences.cpp:981
+msgid "Show Button"
+msgstr "பொத்தானைக் காட்டு"
+
+#: ../Src/Gtk2/Preferences.cpp:986
+msgid "Control Mode"
+msgstr "கட்டுப்பாடு பாணி"
+
+#: ../Src/Gtk2/Preferences.cpp:991
+msgid "Auto On Stop"
+msgstr "நிறுத்தும்போது தானியங்கியாக"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:129
+msgid "Speak"
+msgstr "பேசுக"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:141
+msgid "All"
+msgstr "அனைத்து"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:143
+msgid "Last"
+msgstr "கடைசி"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:145
+msgid "Repeat"
+msgstr "மறுபடி செய்க"
+
 #: ../Src/Gtk2/dasher_action_speech.cpp:163
 #, c-format
 msgid "Unable to initialize speech support\n"
@@ -854,7 +885,7 @@ msgstr "ஓசையை ஆரம்பிக்க முடியவில்�
 msgid "Warning: unable to set speech parameters\n"
 msgstr "எச்சரிக்கை: பேச்சு அளவுருக்களை அமைக்க முடியவில்லை\n"
 
-#: ../Src/Gtk2/dasher_main.cpp:1003
+#: ../Src/Gtk2/dasher_main.cpp:1036
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -865,7 +896,7 @@ msgstr ""
 "\n"
 "சேமிக்காவிட்டால் அவற்றை இழக்க நேரும்"
 
-#: ../Src/Gtk2/dasher_main.cpp:1009
+#: ../Src/Gtk2/dasher_main.cpp:1042
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -875,27 +906,33 @@ msgstr ""
 "\n"
 "சேமிக்காவிட்டால் அவற்றை இழக்க நேரும் "
 
-#: ../Src/Gtk2/dasher_main.cpp:1013
+#: ../Src/Gtk2/dasher_main.cpp:1046
 msgid "Don't save"
 msgstr "சேமிக்க வேண்டாம்"
 
-#: ../Src/Gtk2/dasher_main.cpp:1014
+#: ../Src/Gtk2/dasher_main.cpp:1047
 msgid "Don't quit"
 msgstr "வெளியேற வேண்டாம்"
 
-#: ../Src/Gtk2/dasher_main.cpp:1015
+#: ../Src/Gtk2/dasher_main.cpp:1048
 msgid "Save and quit"
 msgstr "சேமித்து வெளியேறவும்"
 
-#: ../Src/Gtk2/dasher_main.cpp:1110 ../Src/Gtk2/dasher_main.cpp:1126
+#: ../Src/Gtk2/dasher_main.cpp:1143
+#: ../Src/Gtk2/dasher_main.cpp:1159
 msgid "Dasher is a predictive text entry application"
 msgstr "டேஷர் என்பது ஒரு முன் கணித்து உரை உள்ளிடும் நிரல் "
 
-#: ../Src/Gtk2/dasher_main.cpp:1115 ../Src/Gtk2/dasher_main.cpp:1121
+#: ../Src/Gtk2/dasher_main.cpp:1148
+#: ../Src/Gtk2/dasher_main.cpp:1154
 msgid "translator-credits"
 msgstr "மொழிபெயர்ப்பாளர்-நன்றி அறிதல்"
 
-#: ../Src/Gtk2/module_settings_window.cpp:71
+#: ../Src/Gtk2/module_settings_window.cpp:85
+msgid "Dasher Module Options"
+msgstr "டாஷர் கூறு தேர்வுகள்"
+
+#: ../Src/Gtk2/module_settings_window.cpp:91
 #, c-format
 msgid "%s Options:"
 msgstr "%s தேர்வுகள்:"
@@ -903,6 +940,10 @@ msgstr "%s தேர்வுகள்:"
 #: ../Src/Gtk2/mouse_input.h:15
 msgid "Mouse Input"
 msgstr "சொடுக்கி உள்ளீடு"
+
+#: ../Src/Gtk2/mouse_input.h:51
+msgid "Pixels covering Y range"
+msgstr "Y வீச்சில் பரவும் படத்துணுக்குகள்"
 
 #: ../Src/Gtk2/mouse_input.h:57
 msgid "One Dimensional Mouse Input"
