@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-06-02 03:21+0100\n"
-"PO-Revision-Date: 2007-06-09 14:03+0300\n"
+"PO-Revision-Date: 2007-07-06 07:58+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -732,7 +732,7 @@ msgstr "_Lähtesta kirjatüübid"
 
 #: ../Src/DasherCore/ClickFilter.cpp:9
 msgid "Click Mode"
-msgstr ""
+msgstr "Klõpsurežiim"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:958
 msgid "Normal Control"
@@ -758,7 +758,7 @@ msgstr ""
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:969
 msgid "Compass Mode"
-msgstr ""
+msgstr "Kompassirežiim"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:970
 msgid "Stylus Control"
@@ -794,7 +794,7 @@ msgstr ""
 
 #: ../Src/DasherCore/OneDimensionalFilter.cpp:5
 msgid "One Dimensional Mode"
-msgstr ""
+msgstr "Ühemõõtmeline režiim"
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
@@ -831,11 +831,11 @@ msgstr ""
 
 #: ../Src/DasherCore/SocketInputBase.cpp:34
 msgid "Print socket-related debugging information to console:"
-msgstr ""
+msgstr "Sokliga seotud silumisandmete printimine konsoolile:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:38
 msgid "Socket Input"
-msgstr ""
+msgstr "Soklisisend"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:163
 #, c-format
@@ -900,7 +900,7 @@ msgstr "%s valikud:"
 
 #: ../Src/Gtk2/mouse_input.h:15
 msgid "Mouse Input"
-msgstr ""
+msgstr "Hiiresisend"
 
 #: ../Src/Gtk2/mouse_input.h:57
 msgid "One Dimensional Mouse Input"
