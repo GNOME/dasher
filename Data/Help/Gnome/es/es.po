@@ -1,3 +1,4 @@
+# translation of dasher_manual.po to Spanish
 # translation of dasher manual to spanish
 #
 # Jorge González <jorgegonz@svn.gnome.org>, 2007.
@@ -5,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher_manual\n"
 "POT-Creation-Date: 2007-05-14 21:48+0100\n"
-"PO-Revision-Date: 2007-07-09 00:45+0200\n"
+"PO-Revision-Date: 2007-07-17 00:16+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -467,6 +468,15 @@ msgid ""
 "by dragging either. <emphasis>Do not try to grab things and drag them. Just "
 "decide where you want to go, and point there.</emphasis>"
 msgstr ""
+"No se eche atrás si lleva más de un minuto o dos empezar a usar Dasher, en diez "
+"minutos estará trabajando brillantemente. Es muy parecido a conducir un coche. Debería "
+"<emphasis>comenzar a conducir con cuidado</emphasis>. Si no puede decir a dónde "
+"quiere ir, <emphasis>pare</emphasis>. Efectivamente, aprenderá a manejar Dasher "
+"más rápidamente si piensa en analogías con la conducción, en lugar de analogías de "
+"informática. Por ejemplo, la forma de navegar no es ARRASTRANDO sino DIRIGIÉNDOSE: "
+"si los coches funcionasen como las ventanas de los equipos tendría que <quote>agarrar</quote> la pieza de carretera que desease, para después <quote>arrastrarla</quote> hacia si mismo. Pero en un coche, cuando quiere conducir "
+"recto, APUNTA EN DIRECCIÓN RECTA con su volante. Dasher tampoco funciona arrastrando. "
+"<emphasis>NO intente arrastrar y soltar cosas. Simplemente decida dónde quiere ir y apunte hacia allá.</emphasis>"
 
 #: C/dasher.xml:289(para)
 msgid ""
@@ -531,7 +541,7 @@ msgstr "Ejemplo"
 msgid ""
 "Writing <quote><computeroutput>I once had a whim</computeroutput></quote>;. "
 "Where should the user steer now?"
-msgstr ""
+msgstr "Para escribir <quote><computeroutput>Una vez lo tuve</computeroutput></quote>, ¿dónde debería dirigirse el usuario?"
 
 #: C/dasher.xml:345(para)
 msgid ""
@@ -547,16 +557,19 @@ msgid ""
 "`<computeroutput>b</computeroutput>', and `<computeroutput>c</"
 "computeroutput>' above it."
 msgstr ""
+"Imagine que quiere escribir «<computeroutput>Una vez lo tuve</computeroutput>» "
+"Si escribe «<computeroutput>Una vez l...</computeroutput>» y la pantalla de Dasher "
+"se muestra como la <xref linkend=\"figHad1\"/>. Quiere escribir «<computeroutput>lo</computeroutput>». ¿Qué debería hacer? Existen muchas "
+"letras <computeroutput>o</computeroutput> en la pantalla y todas ellas son bastante pequeñas. Las cinco flechas en la <xref linkend=\"figHad1\"/> muestran algunas de estas <computeroutput>o</computeroutput>es. La flecha violeta apunta a una <computeroutput>o</computeroutput> que aún no se puede ver, pero se sabe "
+"que debe estar ahí porque se pueden ver otras letras por encima."
 
 #: C/dasher.xml:355(title)
-#, fuzzy
 msgid ""
 "Some alternative letter <computeroutput>d</computeroutput>s, with a "
 "beginner's error highlighted"
-msgstr "Algunas letras alternativas <computeroutput>X</computeroutput> con un error de principiante resaltado"
+msgstr "Algunas letras alternativas <computeroutput>o</computeroutput> con un error de principiante resaltado"
 
 #: C/dasher.xml:363(para)
-#, fuzzy
 msgid ""
 "A common beginner's mistake is to keep rushing forward and spot "
 "<emphasis>any</emphasis> of these letter <computeroutput>d</"
@@ -565,13 +578,13 @@ msgid ""
 "computeroutput> highlighted in <xref linkend=\"figHad2\"/>."
 msgstr ""
 "Un error muy común en principiantes es continuar ampliando hacia adelante y pararse en "
-"<emphasis>cualquiera</emphasis> de esas letras <computeroutput>X</computeroutput> "
+"<emphasis>cualquiera</emphasis> de esas letras <computeroutput>o</computeroutput> "
 "y ampliar en ella. Por ejemplo, la <xref linkend=\"figHad3\"/> muestra qué pasa si el usuario "
-"amplía hacia la <computeroutput>X</computeroutput> resaltada en la <xref linkend=\"figHad2\"/>."
+"amplía hacia la <computeroutput>o</computeroutput> resaltada en la <xref linkend=\"figHad2\"/>."
 
 #: C/dasher.xml:368(title)
 msgid "What happens when you select the wrong <computeroutput>d</computeroutput>"
-msgstr "¿Qué ocurre cuando seleccione la <computeroutput>X</computeroutput> incorrecta?"
+msgstr "¿Qué ocurre cuando seleccione la <computeroutput>o</computeroutput> incorrecta?"
 
 #: C/dasher.xml:377(para)
 msgid ""
@@ -586,6 +599,9 @@ msgid ""
 "        </computeroutput><emphasis>hedge</emphasis><computeroutput>...</"
 "computeroutput>'."
 msgstr ""
+"Si sigue por esta <computeroutput>o</computeroutput>, escribirá «<computeroutput>Una vez           </computeroutput><emphasis>podrán</emphasis><computeroutput>..."
+"</computeroutput>». La otra <computeroutput>o</computeroutput> etiquetada con flechas rojas (en la <xref linkend=\"figHad1\"/>) corresponden a escribir «<computeroutput>Una vez</computeroutput><emphasis>forma</emphasis><computeroutput>...</"
+"computeroutput> ."
 
 #: C/dasher.xml:386(para)
 msgid ""
@@ -595,10 +611,9 @@ msgid ""
 "letter `<computeroutput>a</computeroutput>' in the sequence "
 "`<computeroutput>I once ha</computeroutput>'. That blue box is highlighted "
 "in <xref linkend=\"figHad4\"/>."
-msgstr ""
+msgstr "Es crucial entender que sólo hay una <computeroutput>o</computeroutput> correcta, a saber, la <computeroutput>o</computeroutput> que está inmediatamente dentro de la caja verde correspondiente a la letra «<computeroutput>l</computeroutput>» en la secuencia «<computeroutput>Una vez l</computeroutput>». Esa caja verde está resaltada en la <xref linkend=\"figHad4\"/>."
 
 #: C/dasher.xml:392(title)
-#, fuzzy
 msgid ""
 "The correct letter <computeroutput>d</computeroutput> is the one marked by "
 "the green arrow. This example illustrates the rule <quote>always keep going "
@@ -606,16 +621,16 @@ msgid ""
 "blue box associated with the letter <computeroutput>a</computeroutput> of "
 "the word <quote><computeroutput>had</computeroutput></quote>;"
 msgstr ""
-"La letra <computeroutput>X</computeroutput> correcta es la marcada por la flecha "
+"La letra <computeroutput>o</computeroutput> correcta es la marcada por la flecha "
 "verde. Este ejemplo muestra la regla <quote>mantenerse siempre <emphasis>dentro</emphasis> "
-"de la caja que quiere</quote>; en este caso, la caja azul asociada con la letra <computeroutput>Y</computeroutput> "
-"de la palabra <quote><computeroutput>XXX</computeroutput></quote>;"
+"de la caja que quiere</quote>; en este caso, la caja azul asociada con la letra <computeroutput>l</computeroutput> "
+"de la palabra <quote><computeroutput>lo</computeroutput></quote>;"
 
 #: C/dasher.xml:405(para)
 msgid ""
 "If you ever leave that blue box (as we did in <xref linkend=\"figHad3\"/>) "
 "then we lose the letter `<computeroutput>a</computeroutput>'."
-msgstr "Si alguna vez deja la caja azul (como se hizo en <xref linkend=\"figHad3\"/>) entonces se pierde la letra «<computeroutput>a</computeroutput>»."
+msgstr "Si alguna vez deja la caja azul (como se hizo en <xref linkend=\"figHad3\"/>) entonces se pierde la letra «<computeroutput>l</computeroutput>»."
 
 #: C/dasher.xml:410(title)
 msgid "Summary"
@@ -925,7 +940,7 @@ msgid ""
 "<emphasis>text</emphasis> when this symbol is selected (<computeroutput>t=</"
 "computeroutput>...); and the background colour number of the box for this "
 "symbol (<computeroutput>b=</computeroutput>...), of which more below."
-msgstr ""
+msgstr "Los caracteres que están disponibles así como su orden lo detremina el archivo de alfabeto. Por ejemplo, puede usar <filename>alphabet.spanish.xml</filename>. Dasher posee muchos alfabetos alternativos. Puede editar los archivos de alfabetos para cambiar los caracteres que están en el alfabeto o su orden. Cuando edite este archivo XML, puede ser una buena idea guardarlo como un archivo nuevo con un nombre nuevo y cambiar el nombre de los alfabetos en el nuevo archivo, principalmente para evitar confusiones. Cada campo en el archivo XML especifica un símbolo a traes de tres elementos: el carácter que se debe <emphasis>mostrar</emphasis> (<computeroutput>d=</computeroutput>...), el carácter que va en el <emphasis>texto</emphasis> cuando se selecciona el símbolo (<computeroutput>t=</computeroutput>...) y el número del color de fondo de la caja para este símbolo (<computeroutput>b=</computeroutput>...), de las que hay más debajo."
 
 #: C/dasher.xml:889(title)
 msgid "Personalizing the colour scheme"
@@ -1060,6 +1075,22 @@ msgid ""
 "inference.phy.cam.ac.uk/dasher/Headmouse.html\" type=\"http\">http://www."
 "inference.phy.cam.ac.uk/dasher/Headmouse.html</ulink>."
 msgstr ""
+"¿Puede hacer uno o dos gestos continuos? Si puede utilizar un joystick, ratón, "
+"trackpad o rollerball, entonces tiene un control bidimensional. Si puede apuntar "
+"en una pantalla táctil también es válido. ¿Puede mover su nariz alrededor? Si "
+"puede agitar su cabeza, entonces eso es un control unidimensional; si puede "
+"cabecear, entonces es bidimensional. Un ratón de cabeza puede ser bastante barato y "
+"es una buena manera para usar Dasher. (Se recomienda el <emphasis>SmartNav3</"
+"emphasis> de NaturalPoint, cuesta alrededor de 170 Euros y sólo funciona bajo "
+"Microsoft Windows; este dispositivo se llamaba NavPoint TrackIr hasta el año 2002, "
+"cuando la marca se transfirió a un dispositivo diferente. También se recomienda el "
+"Origin instruments <emphasis>Headmouse Extreme</emphasis> que cuesta "
+"sobre los 850 Euros; funciona como un ratón USB en cualquier equipo.)"
+"¿Puede menear un dedo o un pie? Estos ratones de cabeza también se pueden usar "
+"para seguir los movimientos de los dedos y los pies. Para ver una comparación "
+"detallada del SmartNav3 y el Headmouse Extreme, visite <ulink url=\"http://www."
+"inference.phy.cam.ac.uk/dasher/Headmouse.html\" type=\"http\">http://www."
+"inference.phy.cam.ac.uk/dasher/Headmouse.html</ulink>."
 
 #: C/dasher.xml:987(para)
 msgid ""
@@ -1075,6 +1106,14 @@ msgid ""
 "three of these systems are complete computers with eye-tracking cameras "
 "attached."
 msgstr ""
+"Si está severamente paralizado la mejor opción puede ser un seguidor de mirada. "
+"¿Puede controlar a dónde miran sus ojos? Con un seguidor de mirada se pueden "
+"escribir unas 25 palabras por minuto. Los seguidores de mirada son algo caros: "
+"el QuickGlance de EyeTech Digital System cuesta alrededor de 1.700 Euros y el "
+"seguidor de mirada Tobii cuesta unos 17.000. (Se recomiendan ambos sistemas. Puede "
+"añadir el QuickGlance a un equipo; QuickGlance II cuesta unos 3.400 Euros. Tobii es un "
+"equipo completo con cámaras seguidoras de mirada integradas.) Dasher también trahaba "
+"con el Eye response <emphasis>Erica</emphasis>, los LC <emphasis>Eyegaze</emphasis> y los seguidores de mirada de Metrovision. Los tres sistemas son equipos completos con cámaras seguidoras de mirada integradas."
 
 #: C/dasher.xml:997(para)
 msgid ""
@@ -1087,6 +1126,9 @@ msgid ""
 "elastic, and our most experienced user can write at 15 words per minute by "
 "breath alone."
 msgstr ""
+"Si los joysticks, ratones, rollerballs y seguidores de mirada no funcionan, puede haber "
+"algunas otras formas de enviar una señal unidimensional continua. Tanto los labios como "
+"las cejas deberían funcionar, aunque no es fácil encontrar un fabricante que venda los dispositivos apropiados. La respiración también es una señal unidimensional. Si puede controlar su respiración, podría ser posible construir un ratón de respiración. Es posible fabricar un ratón de respiración usando un ratón óptico USB, un cinturón y algo elástico por unos 20 Euros. Un usuario avanzado puede escribir hasta 15 palabras por minuto sólo con un ratón de respiración."
 
 #: C/dasher.xml:1005(title)
 msgid "Starting and stopping"
@@ -1109,6 +1151,15 @@ msgid ""
 "same behaviour, except <command>stop</command> may cause other automatic "
 "actions, such as `speak on stop', or `copy the text on stop'."
 msgstr ""
+"Existen varias formas de iniciar y parar Dasher. Pulsando un botón (por ejemplo, el "
+"botón izquierdo del ratón o la barra espaciadora) es una opción. Pero si no puede "
+"pulsar ningún botón, es posible iniciar y parar Dasher usando sólo gestos continus: "
+"en el menú Opciones, seleccione <quote>comenzar en la posición</quote> y "
+"conmute con <quote>modo de control</quote>. Cuando el modo de control está "
+"activado, el alfabeto de Dasher incluye un nodo de Control (parecido a una tecla "
+"<computeroutput>Esc</computeroutput> en un teclado), con la que varias funciones "
+"de control están disponibles. Cuando esté dentro del nodo de control, para una mayor seguridad, Dasher se mueve más lentamente de lo normal. Las opciones del nodo de control "
+"incluyen «pausar» y «parar». Use «pausar» si está a mitad de una frase o si quiere parar por un momento. Use «parar» cuando haya terminado. <command>Pausar</command> y <command>parar</command> pueden causar otras acciones automáticas, tales como «hablar al parar» o «copiar el texto al parar»."
 
 #: C/dasher.xml:1020(para)
 msgid ""
@@ -1131,7 +1182,7 @@ msgid ""
 "smooth and damp down the mouse motion. For Dasher, we don't want such "
 "smoothing. We like instant, live, raw and jerky mouse coordinates. If there "
 "is a `smoothing' control, turn it right down."
-msgstr "Muchos seguidores tienen opciones de «suavizado», que determinan la frecuencia con la que la posición del ratón se actualiza; estas opciones normalmente se usan para suavizar y reducir la posición del ratón. Dasher no usa ese tipo de suavizado. Se prefieren coordenadas del ratón con movimientos instantáneos, vivos, crudos y con saltos. Si hay algún control de «suavizado» desactívelo."
+msgstr "Muchos seguidores tienen opciones de «suavizado», que determinan la frecuencia con la que la posición del ratón se actualiza; estas opciones normalmente se usan para suavizar y reducir la posición del ratón. Para Dasher se prefiere no usar ese tipo de suavizado. Se prefieren coordenadas del ratón con movimientos instantáneos, vivos, crudos y con saltos. Si hay algún control de «suavizado» desactívelo."
 
 #: C/dasher.xml:1033(para)
 msgid ""
@@ -1172,6 +1223,9 @@ msgid ""
 "eyetracker manufacturer to make it easy to change the settings when "
 "switching application."
 msgstr ""
+"Para obtener unos buenos resultados con seguidores de mirada, se recomienda que el "
+"seguidor de mirada se haga lo más sensible posible. Muchos seguidores tienen opciones de "
+"«suavizado» que determinan la frecuencia con la que se actualiza la posición del ratón y el número de imágenes de mirada sucesivas usadas para estimar la posición del ratón. Estas opciones generalmente se usan para suavizar y ralentizar el movimiento del ratón. Para Dasher se prefiere no usar ese tipo de suavizado. Se prefieren coordenadas del ratón con movimientos instantáneos, vivos, crudos y con saltos. Los ajustes ideales para Dasher pueden ser muy diferentes de los ajustes ideales para otro software. Pregunte al fabricante de su seguidor de mirada para hacer más fácil el cambio de los ajustes al cambiar entre aplicaciones."
 
 #: C/dasher.xml:1054(para)
 msgid ""
@@ -1230,11 +1284,10 @@ msgid "Discrete Gestures"
 msgstr "Gestos discretos"
 
 #: C/dasher.xml:1080(para)
-#, fuzzy
 msgid ""
 "We have several versions of <emphasis>button Dasher</emphasis>, available in "
 "Dasher Version 4."
-msgstr "Existen varias versiones de <emphasis>Dasher en botones</emphasis>, disponibles en la versión 4 de Dasher."
+msgstr "Existen varias versiones de <emphasis>botones de Dasher</emphasis>, disponibles en la versión 4 de Dasher."
 
 #: C/dasher.xml:1084(title)
 msgid "Are time-critical gestures not an option?"
@@ -1325,6 +1378,9 @@ msgid ""
 "<emphasis>menu button-Dasher</emphasis>. Connect up your short press to the "
 "`menu' action, and your long press to the `select' action."
 msgstr ""
+"Con un sólo botón, la única forma de enviar información de tiempo es a través "
+"de la <emphasis>duración</emphasis> de las pulsaciones del botón. ¿Puede distinguir "
+"entre pulsaciones cortas y largas? Si es así podrá usar <emphasis>botón de menú de Dasher</emphasis>. Conecte su pulsación corta a la acción «menú» y su pulsación larga a la acción «seleccionar»."
 
 #: C/dasher.xml:1136(term)
 msgid "2"
@@ -1335,7 +1391,7 @@ msgid ""
 "You can use <emphasis>menu button-Dasher</emphasis>. Connect one button to "
 "the `menu' action, and the other to the `select' action. If one button is "
 "easier to press, make that button the `menu' button."
-msgstr ""
+msgstr "Puede usar el <emphasis>botón de menú de Dasher</emphasis>. Conecte un botón a la acción «menú» y el otro a la acción «seleccionar». Si un botón es más fácil de pulsar que el otro, haga que ése botón sea el de «menú»."
 
 #: C/dasher.xml:1144(term)
 msgid "2.5"
@@ -1347,13 +1403,15 @@ msgid ""
 "able to press a third button, you can use <emphasis>menu button-Dasher</"
 "emphasis> or <emphasis>direct button-Dasher</emphasis>."
 msgstr ""
+"Si puede pulsar fácilmente dos botones, y, en ocasiones especiales puede pulsar un "
+"tercer botón, puede usar el <emphasis>botón de menú de Dasher</emphasis> o <emphasis>botón directo de Dasher</emphasis>."
 
 #: C/dasher.xml:1151(para)
 msgid ""
 "Set up <emphasis>menu button-Dasher</emphasis> as described above, and use "
 "the third button as your escape key -- to make Dasher go away, for example. "
 "[This feature is not currently provided within Dasher.]"
-msgstr ""
+msgstr "Ajuste el <emphasis>botón de menú de Dasher</emphasis> como se ha descrito anteriormente y use el tercer botón como tecla de escape &mdash;para salir de Dasher, por ejemplo. (Dasher no proporciona esta característica.)"
 
 #: C/dasher.xml:1156(para)
 msgid ""
@@ -1362,6 +1420,10 @@ msgid ""
 "2.5 buttons, map the convenient two to `up' and `down', and the inconvenient "
 "button to `back'."
 msgstr ""
+"En el <emphasis>botón directo de Dasher</emphasis>, cada botón produce una "
+"acción de navegación particular tal como «arriba», «abajo», o «atrás». Si dispone de 2.5 "
+"botones, redireccione convenientemente dos para «arriba» y «abajo» y deje el botón menos "
+"usable como «atrás»."
 
 #: C/dasher.xml:1165(term)
 msgid "3"
@@ -1371,7 +1433,7 @@ msgstr "3"
 msgid ""
 "You can use <emphasis>direct button-Dasher</emphasis> or <emphasis>menu "
 "button-Dasher</emphasis> as described above."
-msgstr ""
+msgstr "Puede usar el <emphasis>botón directo de Dasher</emphasis> o el <emphasis>botón de menú de Dasher</emphasis> tal y como se describió anteriormente."
 
 #: C/dasher.xml:1172(term)
 msgid "4, 5, 6, or 7"
@@ -1384,6 +1446,8 @@ msgid ""
 "directions. Please try <emphasis>menu button-Dasher</emphasis> too, even "
 "though it uses only two buttons."
 msgstr ""
+"Con más de tres botones tiene la opción de usar el <emphasis>botón directo de Dasher</emphasis> con tres, cuatro, cinco o seis direcciones «directas». Pruebe también "
+"el <emphasis>botón de menú de Dasher</emphasis>, aunque sólo se usen dos botones."
 
 #: C/dasher.xml:1181(term)
 msgid "8 or more"
@@ -1396,11 +1460,11 @@ msgid ""
 "a system like T9 -- the predictive-text system found on many mobile phones. "
 "You may wish to investigate <emphasis>Tapir</emphasis>, a disambiguating on-"
 "screen keyboard from the developers of Dasher."
-msgstr ""
+msgstr "Pruebe el <emphasis>botón directo de Dasher</emphasis> y el <emphasis>botón de menú de Dasher</emphasis>. Con tantos botones, también tiene la opción de usar un sistema como el T9 &mdash;el sistema de predicción de texto para teléfonos móviles. Si quiere puede investigar <emphasis>Tapir</emphasis>, un teclado de desambiguación de los desarrolladores de Dasher."
 
 #: C/dasher.xml:1195(title)
 msgid "Button Dashers that exploit timing"
-msgstr ""
+msgstr "Botones de Dasher que usan el tiempo"
 
 #: C/dasher.xml:1196(para)
 msgid ""
