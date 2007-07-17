@@ -123,6 +123,8 @@ class CPinyinParser {
     CLatticeNode(char cSymbol, CLatticeNode *pParent, std::vector<std::string> *pList) {
       m_cSymbol = cSymbol;
       m_pParent = pParent;
+      m_pChild = NULL;
+      m_pNext = NULL;
       
       if(m_pParent)
 	m_pParent->Ref();
@@ -130,7 +132,7 @@ class CPinyinParser {
       m_pList = pList;
       
       m_iRefCount = 1;
-    };
+    }
 
     ~CLatticeNode() {
       if(m_pParent)
@@ -159,10 +161,31 @@ class CPinyinParser {
 	delete this;
     };
 
+    void SetChild(CLatticeNode *pChild) {
+      m_pChild = pChild;
+    };
+
+    CLatticeNode *GetChild() {
+      return m_pChild;
+    };
+
+    void SetNext(CLatticeNode *pNext) {
+      m_pNext = pNext;
+    };
+
+    CLatticeNode *GetNext() {
+      return m_pNext;
+    };
+
+    SCENode *RecursiveAddList(SCENode *pOldTail);
+
   private:
     char m_cSymbol;
     // It actually makes more sense here to work backwards, so store pointers to parent
     CLatticeNode *m_pParent;
+    CLatticeNode *m_pChild;
+    CLatticeNode *m_pNext;
+
     std::vector<std::string> *m_pList;
     int m_iRefCount;
   };

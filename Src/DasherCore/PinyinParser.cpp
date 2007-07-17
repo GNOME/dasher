@@ -156,7 +156,7 @@ bool CPinyinParser::Convert(const std::string &strPhrase, SCENode **pRoot) {
 	pNewList->push_back(tLPair(pCurrentChild, pNewLNode));
       }
 
-      // Now see if we can start a new symbol here
+       // Now see if we can start a new symbol here
       pCurrentChild = it2->first->LookupChild('1');
 
       if(pCurrentChild) {
@@ -179,41 +179,125 @@ bool CPinyinParser::Convert(const std::string &strPhrase, SCENode **pRoot) {
     pCurrentList = pNewList;
   }
 
-  // Now trace back through the remaining paths
-  for(std::vector<tLPair>::iterator it2 = pCurrentList->begin(); it2 != pCurrentList->end(); ++it2) {
+  // Need to also look for terminating symbols at the end of the phrase
+  {
+    std::vector<tLPair> *pNewList = new std::vector<tLPair>;
 
-    CLatticeNode *pCurrentNode = it2->second;
+    for(std::vector<tLPair>::iterator it2 = pCurrentList->begin(); it2 != pCurrentList->end(); ++it2) {
 
-    // Only print conversions which terminate at the end of a sylable
-    if(it2->first->LookupChild('1')) {
-      SCENode *pTail = NULL;
+      // First see if we can directly continue:
+      CTrieNode *pCurrentChild = it2->first->LookupChild('1');
 
-      pTail = AddList(it2->first->LookupChild('1')->GetList(), pTail);
-
-      while(pCurrentNode) {
-	if(pCurrentNode->GetList())
-	  pTail = AddList(pCurrentNode->GetList(), pTail);
-
-	pCurrentNode = pCurrentNode->GetParent();
+      if(pCurrentChild) { 
+	CLatticeNode *pNewLNode = new CLatticeNode('|', it2->second, pCurrentChild->GetList());
+	CLatticeNode *pNewLNode2 = new CLatticeNode(pCurrentChild->GetSymbol(), pNewLNode, NULL);
+	pNewList->push_back(tLPair(pCurrentChild, pNewLNode2));
       }
-      
-      
-      // TODO: Compact lattice
-      SCENode *pCurrentRoot = pTail;
 
-      while(pCurrentRoot->GetNext())
-	pCurrentRoot = pCurrentRoot->GetNext();
-
-      pCurrentRoot->SetNext(*pRoot);
-      *pRoot = pTail;
+      if(it2->second)
+	it2->second->Unref();
     }
 
-    if(it2->second)
-      it2->second->Unref();
+    delete pCurrentList;
+    pCurrentList = pNewList;
 
   }
 
+  CLatticeNode *pPreviousNode = NULL;
+
+  // Now trace back through the remaining paths
+  for(std::vector<tLPair>::iterator it2 = pCurrentList->begin(); it2 != pCurrentList->end(); ++it2) {
+
+    pPreviousNode = NULL;
+
+    CLatticeNode *pCurrentNode = it2->second;
+
+    while(pCurrentNode) {
+      //      if(pCurrentNode->GetList())
+      //	pTail = AddList(pCurrentNode->GetList(), pTail);
+      
+      // Check to see whether child has alreadybeen added (this could be made more efficient)
+
+      if(pPreviousNode) {
+	bool bFound = false;
+
+	CLatticeNode *pCurrentCh = pCurrentNode->GetChild();
+	
+	while(pCurrentCh) {
+	  if(pCurrentCh == pPreviousNode) {
+	    bFound = true;
+	  }
+
+	  pCurrentCh = pCurrentCh->GetNext();
+	}
+
+	if(!bFound) {
+	  pPreviousNode->SetNext(pCurrentNode->GetChild());
+	  pCurrentNode->SetChild(pPreviousNode);
+	}
+      }
+
+      pPreviousNode = pCurrentNode;
+      pCurrentNode = pCurrentNode->GetParent();
+    }
+  }
+  
+  // TODO: Put reference counting back in here
+
+  // pPreviousNode should now be the root (assuming it exists)
+
+  if(pPreviousNode) 
+    *pRoot = pPreviousNode->RecursiveAddList(NULL);
+
   return (*pRoot != NULL);
+}
+
+SCENode *CPinyinParser::CLatticeNode::RecursiveAddList(SCENode *pOldTail) {
+
+  std::cout << "RAL: " << this << " (" << m_cSymbol << ") " << m_pChild << " " << m_pNext << std::endl;
+
+  // pOldTail  is the tail from which to aggregate
+
+  CLatticeNode *pCurrentChild = m_pChild;
+
+  SCENode *pTail;
+
+  if(m_pList)
+    pTail = NULL;
+  else
+    pTail = pOldTail;
+
+  while(pCurrentChild) {
+    pTail = pCurrentChild->RecursiveAddList(pTail);
+    
+    pCurrentChild = pCurrentChild->GetNext();
+  }
+
+  // pTail now points towards the aggregated list of children, so that becomes the child of the new nodes:
+
+  if(m_pList) {
+    std::cout << "Adding: " << this << std::endl;
+
+     SCENode *pNewTail = pOldTail;
+
+     for(std::vector<std::string>::iterator it = m_pList->begin(); it != m_pList->end(); ++it) {
+       SCENode *pNewNode = new SCENode;
+       
+       pNewNode->SetChild(pTail);
+       pNewNode->SetNext(pNewTail);
+       
+       pNewNode->pszConversion = new char[it->size() + 1];
+       strcpy(pNewNode->pszConversion, it->c_str());
+       
+       pNewTail = pNewNode;
+     }
+
+     pTail = pNewTail;
+  }
+  
+  // With no list the just passign through should be okay here.
+  
+  return pTail;
 }
 
 SCENode *CPinyinParser::AddList(std::vector<std::string> *pList, SCENode *pTail) {

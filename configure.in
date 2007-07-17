@@ -1,5 +1,5 @@
 AC_PREREQ(2.56)
-AC_INIT([dasher],[4.5.1],[http://bugzilla.gnome.org/enter_bug.cgi?product=dasher])
+AC_INIT([dasher],[4.5.2],[http://bugzilla.gnome.org/enter_bug.cgi?product=dasher])
 AC_REVISION([$Id: configure.in,v])
 AC_CONFIG_SRCDIR([Src/main.cc])
 AC_CONFIG_HEADERS(config.h)
@@ -420,6 +420,7 @@ AC_CONFIG_FILES([Data/dasher.desktop.in
 		 Src/DasherCore/Makefile
 		 Src/DasherCore/Alphabet/Makefile
 		 Src/DasherCore/LanguageModelling/Makefile
+		 Src/DasherIM/Makefile
 		 Src/Gtk2/Makefile
 		 Src/Installer/Makefile
 		 Src/Win32/Makefile
