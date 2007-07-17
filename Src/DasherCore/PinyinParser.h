@@ -162,7 +162,13 @@ class CPinyinParser {
     };
 
     void SetChild(CLatticeNode *pChild) {
+      //      if(m_pChild)
+      //	m_pChild->Unref();
+
       m_pChild = pChild;
+
+      //      if(m_pChild)
+      //	m_pChild->Ref();
     };
 
     CLatticeNode *GetChild() {
@@ -170,7 +176,13 @@ class CPinyinParser {
     };
 
     void SetNext(CLatticeNode *pNext) {
+      //      if(m_pNext)
+      //	m_pNext->Unref();
+
       m_pNext = pNext;
+
+      //      if(m_pNext)
+      //	m_pNext->Ref();
     };
 
     CLatticeNode *GetNext() {

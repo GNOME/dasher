@@ -246,16 +246,19 @@ bool CPinyinParser::Convert(const std::string &strPhrase, SCENode **pRoot) {
 
   // pPreviousNode should now be the root (assuming it exists)
 
-  if(pPreviousNode) 
+  if(pPreviousNode) {
     *pRoot = pPreviousNode->RecursiveAddList(NULL);
+  }
+
+  for(std::vector<tLPair>::iterator it2 = pCurrentList->begin(); it2 != pCurrentList->end(); ++it2)
+    if(it2->second)
+      it2->second->Unref();
+
 
   return (*pRoot != NULL);
 }
 
 SCENode *CPinyinParser::CLatticeNode::RecursiveAddList(SCENode *pOldTail) {
-
-  std::cout << "RAL: " << this << " (" << m_cSymbol << ") " << m_pChild << " " << m_pNext << std::endl;
-
   // pOldTail  is the tail from which to aggregate
 
   CLatticeNode *pCurrentChild = m_pChild;
@@ -276,8 +279,6 @@ SCENode *CPinyinParser::CLatticeNode::RecursiveAddList(SCENode *pOldTail) {
   // pTail now points towards the aggregated list of children, so that becomes the child of the new nodes:
 
   if(m_pList) {
-    std::cout << "Adding: " << this << std::endl;
-
      SCENode *pNewTail = pOldTail;
 
      for(std::vector<std::string>::iterator it = m_pList->begin(); it != m_pList->end(); ++it) {
