@@ -25,8 +25,10 @@
 
 #include <expat.h>
 #include <iostream>
+#include <set>
 #include <string>
-#include <vector>
+
+extern int g_iCount;
 
 // TODO:
 // 1. Need a destructor
@@ -45,8 +47,7 @@ class CPinyinParser {
   static void XML_StartElement(void *userData, const XML_Char * name, const XML_Char ** atts);
   static void XML_EndElement(void *userData, const XML_Char * name);
   
-  std::vector<std::string> *ParseGroupName(const std::string &strName);
-  SCENode *AddList(std::vector<std::string> *pList, SCENode *pTail);
+  std::set<std::string> *ParseGroupName(const std::string &strName);
 
   class CTrieNode {
   public:
@@ -75,11 +76,11 @@ class CPinyinParser {
       return m_cSymbol;
     };
     
-    void SetList(std::vector<std::string> *pList) {
+    void SetList(std::set<std::string> *pList) {
       m_pList = pList;
     }
     
-    std::vector<std::string> *GetList() {
+    std::set<std::string> *GetList() {
       return m_pList;
     }
     
@@ -113,14 +114,14 @@ class CPinyinParser {
     CTrieNode *m_pChild;
     CTrieNode *m_pNext;
     
-    std::vector<std::string> *m_pList;
+    std::set<std::string> *m_pList;
     
     char m_cSymbol;
   };
   
   class CLatticeNode {
   public:
-    CLatticeNode(char cSymbol, CLatticeNode *pParent, std::vector<std::string> *pList) {
+    CLatticeNode(char cSymbol, CLatticeNode *pParent, std::set<std::string> *pList) {
       m_cSymbol = cSymbol;
       m_pParent = pParent;
       m_pChild = NULL;
@@ -132,21 +133,26 @@ class CPinyinParser {
       m_pList = pList;
       
       m_iRefCount = 1;
+
+      ++g_iCount;
+      std::cout << "Count: " << g_iCount << std::endl;
     }
 
     ~CLatticeNode() {
       if(m_pParent)
 	m_pParent->Unref();
 
-      // TODO: I don't think we 'own' the lists, so no need to remove
-      // them.
+      // Note that we don't own the list
+
+      --g_iCount;
+      std::cout << "Count: " << g_iCount << std::endl;
     }
 
     CLatticeNode *GetParent() {
       return m_pParent;
     };
 
-    std::vector<std::string> *GetList() {
+    std::set<std::string> *GetList() {
       return m_pList;
     };
 
@@ -198,11 +204,11 @@ class CPinyinParser {
     CLatticeNode *m_pChild;
     CLatticeNode *m_pNext;
 
-    std::vector<std::string> *m_pList;
+    std::set<std::string> *m_pList;
     int m_iRefCount;
   };
 
-  std::vector<std::string> *pCurrentList;
+  std::set<std::string> *pCurrentList;
   std::string g_strCurrentGroup;
   std::string g_strLastGroup;
   CTrieNode *g_pRoot;

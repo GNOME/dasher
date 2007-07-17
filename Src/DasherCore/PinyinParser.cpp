@@ -22,6 +22,9 @@
 
 #include <cstdio>
 #include <iostream>
+#include <vector>
+
+int g_iCount = 0;
 
 CPinyinParser::CPinyinParser() {
   g_strLastGroup = "";
@@ -67,8 +70,9 @@ CPinyinParser::XML_StartElement(void *userData, const XML_Char * name, const XML
   else if(!strcmp("s", name)) {
     while(*atts != 0) {
       if(!strcmp("t", *atts)) {
-	if(pThis->pCurrentList)
-	  pThis->pCurrentList->push_back(*(atts + 1));
+	if(pThis->pCurrentList) {
+	  pThis->pCurrentList->insert(*(atts + 1));
+	}
       }
       atts += 2;
     }
@@ -79,7 +83,7 @@ void
 CPinyinParser::XML_EndElement(void *userData, const XML_Char * name) {
 }
 
-std::vector<std::string> *CPinyinParser::ParseGroupName(const std::string &strName) {
+std::set<std::string> *CPinyinParser::ParseGroupName(const std::string &strName) {
   int i1 = strName.find('(');
   int i2 = strName.find(')');
 
@@ -113,7 +117,7 @@ std::vector<std::string> *CPinyinParser::ParseGroupName(const std::string &strNa
       pCurrentNode = pChild;
     }
 
-    std::vector<std::string> *pList;
+    std::set<std::string> *pList;
 
     // TODO: It seems like we're getting double instances of some here
 
@@ -121,7 +125,7 @@ std::vector<std::string> *CPinyinParser::ParseGroupName(const std::string &strNa
     if(strShortName == g_strLastGroup) 
       pList = pCurrentList; 
     else
-      pList = new std::vector<std::string>;
+      pList = new std::set<std::string>;
 
     g_strLastGroup = strShortName;
 
@@ -281,7 +285,7 @@ SCENode *CPinyinParser::CLatticeNode::RecursiveAddList(SCENode *pOldTail) {
   if(m_pList) {
      SCENode *pNewTail = pOldTail;
 
-     for(std::vector<std::string>::iterator it = m_pList->begin(); it != m_pList->end(); ++it) {
+     for(std::set<std::string>::iterator it = m_pList->begin(); it != m_pList->end(); ++it) {
        SCENode *pNewNode = new SCENode;
        
        pNewNode->SetChild(pTail);
@@ -299,23 +303,4 @@ SCENode *CPinyinParser::CLatticeNode::RecursiveAddList(SCENode *pOldTail) {
   // With no list the just passign through should be okay here.
   
   return pTail;
-}
-
-SCENode *CPinyinParser::AddList(std::vector<std::string> *pList, SCENode *pTail) {
-  SCENode *pNewTail = NULL;
-
-  for(std::vector<std::string>::iterator it = pList->begin(); it != pList->end(); ++it) {
-    SCENode *pNewNode = new SCENode;
-    
-    pNewNode->SetChild(pTail);
-    pNewNode->SetNext(pNewTail);
-    
-    pNewNode->pszConversion = new char[it->size() + 1];
-    strcpy(pNewNode->pszConversion, it->c_str());
-
-    pNewTail = pNewNode;
-  }
-
-  // TODO: Fix reference counting here
-  return pNewTail;
 }
