@@ -28,8 +28,6 @@
 #include <set>
 #include <string>
 
-extern int g_iCount;
-
 // TODO:
 // 1. Need a destructor
 // 2. This leaks memory badly
@@ -39,7 +37,8 @@ extern int g_iCount;
 class CPinyinParser {
  public:
   /// Constructor
-  CPinyinParser();
+  CPinyinParser(const std::string &strAlphabetPath);
+  ~CPinyinParser();
 
   bool Convert(const std::string &strPhrase, SCENode **pRoot);
 
@@ -109,6 +108,16 @@ class CPinyinParser {
 	pCurrentChild = pCurrentChild->GetNext();
       }
     }
+
+    void RecursiveDelete() {
+      if(m_pChild)
+	m_pChild->RecursiveDelete();
+      
+      if(m_pNext)
+	m_pNext->RecursiveDelete();
+
+      delete this;
+    }
     
   private:
     CTrieNode *m_pChild;
@@ -133,9 +142,6 @@ class CPinyinParser {
       m_pList = pList;
       
       m_iRefCount = 1;
-
-      ++g_iCount;
-      std::cout << "Count: " << g_iCount << std::endl;
     }
 
     ~CLatticeNode() {
@@ -143,9 +149,6 @@ class CPinyinParser {
 	m_pParent->Unref();
 
       // Note that we don't own the list
-
-      --g_iCount;
-      std::cout << "Count: " << g_iCount << std::endl;
     }
 
     CLatticeNode *GetParent() {
@@ -162,19 +165,13 @@ class CPinyinParser {
     
     void Unref() {
       --m_iRefCount;
-      
+
       if(m_iRefCount <= 0)
 	delete this;
     };
 
     void SetChild(CLatticeNode *pChild) {
-      //      if(m_pChild)
-      //	m_pChild->Unref();
-
       m_pChild = pChild;
-
-      //      if(m_pChild)
-      //	m_pChild->Ref();
     };
 
     CLatticeNode *GetChild() {
@@ -182,13 +179,7 @@ class CPinyinParser {
     };
 
     void SetNext(CLatticeNode *pNext) {
-      //      if(m_pNext)
-      //	m_pNext->Unref();
-
       m_pNext = pNext;
-
-      //      if(m_pNext)
-      //	m_pNext->Ref();
     };
 
     CLatticeNode *GetNext() {
@@ -209,9 +200,9 @@ class CPinyinParser {
   };
 
   std::set<std::string> *pCurrentList;
-  std::string g_strCurrentGroup;
-  std::string g_strLastGroup;
-  CTrieNode *g_pRoot;
+  std::string m_strCurrentGroup;
+  std::string m_strLastGroup;
+  CTrieNode *m_pRoot;
 };
 
 #endif

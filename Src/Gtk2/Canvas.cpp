@@ -414,6 +414,7 @@ void CCanvas::TextSize(const std::string &String, int *Width, int *Height, int s
 #else
   PangoLayout *pLayout(m_pPangoCache->GetLayout(GTK_WIDGET(m_pCanvas), String, size));
 #endif
+
   pango_layout_get_pixel_extents(pLayout, m_pPangoInk, NULL);
 
   *Width = m_pPangoInk->width;

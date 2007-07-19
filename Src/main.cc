@@ -239,6 +239,10 @@ int main(int argc, char *argv[]) {
 
   g_pDasherMain = dasher_main_new(&argc, &argv, &sCommandLine);
 
+  g_free(sCommandLine.szFilename);
+  g_free(sCommandLine.szAppStyle);
+  g_free(sCommandLine.szOptions);
+
   dasher_main_show(g_pDasherMain);
 
   // 10.

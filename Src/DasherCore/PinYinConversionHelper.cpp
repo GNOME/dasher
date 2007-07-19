@@ -63,105 +63,16 @@ CPinYinConversionHelper::CPinYinConversionHelper(Dasher::CEventHandler *pEventHa
 
   BuildDataBase();
 
-  pParser = new CPinyinParser();
+  pParser = new CPinyinParser("FIXME");
 }
   
 bool CPinYinConversionHelper::Convert(const std::string &strSource, SCENode ** pRoot, int * childCount, int CMid) {
-
   SCENode *pConversionList;
   int iHZCount;
 
-  // TODO: Reimplement
-  //  if(CEConvert (strSource.c_str(), &pConversionList, &iHZCount, CMid)){ 
+  *pRoot = 0;
 
-  if(pParser && pParser->Convert(strSource, pRoot)) {
-//     SCENode *pHead(pConversionList);
-
-//     std::vector<SCENode *> vHeads;
-
-//     while(pHead) {
-//       vHeads.push_back(pHead);
-//       pHead = pHead->pChild;
-//     }
-
-//     SCENode *pTail = NULL;
-//     SCENode *pNextTail = NULL;
-
-//     for(std::vector<SCENode *>::reverse_iterator it(vHeads.rbegin()); it != vHeads.rend(); ++it) {
-//       SCENode *pCurrentNode(*it);
-
-//       SCENode *pPreviousNode = NULL;
-
-//       while(pCurrentNode) {
-// 	SCENode *pNewNode = new SCENode;
-
-// 	pNewNode->pszConversion = pCurrentNode->pszConversion;
-// 	pNewNode->IsHeadAndCandNum = pCurrentNode->IsHeadAndCandNum;
-// 	pNewNode->CandIndex = pCurrentNode->CandIndex;
-// 	pNewNode->Symbol = pCurrentNode->Symbol;
-// 	//	pNewNode->SumPYProbStore = pCurrentNode->SumPYProbStore;
-// 	pNewNode->IsComplete = pCurrentNode->IsComplete;
-// 	pNewNode->AcCharCount = pCurrentNode->AcCharCount;  /*accumulative character count*/
-// 	pNewNode->NodeSize = pCurrentNode->NodeSize;
-// 	pNewNode->HZFreq = pCurrentNode->HZFreq;
-// 	pNewNode->HZProb = pCurrentNode->HZProb;
-	
-// 	if(pTail)
-// 	  pNewNode->SetChild(pTail);
-
-// 	if(pPreviousNode) {
-// 	  pPreviousNode->SetNext(pNewNode);
-// 	}
-// 	else {
-// 	  pNextTail = pNewNode;
-// 	  pNextTail->Ref();
-// 	}
-
-// 	if(pPreviousNode)
-// 	  pPreviousNode->Unref();
-
-// 	pPreviousNode = pNewNode;
-// 	pCurrentNode = pCurrentNode->pNext;
-//       }
-
-//       if(pPreviousNode)
-// 	pPreviousNode->Unref();
-
-//       if(pTail)
-// 	pTail->Unref();
-
-//       pTail = pNextTail;
-  
-//     }
-
-//     *pRoot = pTail;
-
-
-// //     // TODO: Now need to convert...
-
-// //     *pRoot= pStart;
-// 2
-// //     // Connect up the rest of the nodes to make a lattice
-// //     SCENode *pHead(pStart);
-    
-// //     while(pHead) {
-// //       SCENode *pNewChild(pHead->GetChild());
-// //       SCENode *pCurrent(pHead->GetNext());
-      
-// //       while(pCurrent) {
-// // 	pCurrent->SetChild(pNewChild);
-// // 	pCurrent = pCurrent->GetNext();
-// //       }
-      
-// //       pHead = pHead->GetChild();
-// //     }
-   
-    return 1;
-  }
-  else{
-    *pRoot = 0;
-    return 0;
-  }
+  return (pParser && pParser->Convert(strSource, pRoot));
 }
 
 unsigned int CPinYinConversionHelper::GetSumPYProbs(Dasher::CLanguageModel::Context context, SCENode * pPYCandStart, int norm){

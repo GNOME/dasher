@@ -480,7 +480,8 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
 }
 
 void CConversionManager::ClearNode( CDasherNode *pNode ) {
-  //  pNode->m_pNodeManager->Unref();
+  if(pNode->m_pUserData)
+    delete (SConversionData *)(pNode->m_pUserData);
 }
 
 void CConversionManager::RecursiveDumpTree(SCENode *pCurrent, unsigned int iDepth) {

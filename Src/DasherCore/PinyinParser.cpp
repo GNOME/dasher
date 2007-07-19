@@ -22,19 +22,18 @@
 
 #include <cstdio>
 #include <iostream>
+#include <string>
 #include <vector>
 
-int g_iCount = 0;
-
-CPinyinParser::CPinyinParser() {
-  g_strLastGroup = "";
+CPinyinParser::CPinyinParser(const std::string &strAlphabetPath) {
+  m_strLastGroup = "";
   pCurrentList = NULL;
 
-  g_pRoot = new CTrieNode('0');
+  m_pRoot = new CTrieNode('0');
 
   FILE *Input;
-  if((Input = fopen("Data/alphabets/alphabet.chineseRuby.xml", "r")) == (FILE *) 0) {
-    // could not open file
+  if((Input = fopen(strAlphabetPath.c_str(), "r")) == (FILE *) 0) {
+    std::cerr << "Could not open Pin Yin alphabet file - conversion will not work" << std::endl;
     return;
   }
 
@@ -52,6 +51,11 @@ CPinyinParser::CPinyinParser() {
       break;
     }
   } while(!Done);
+}
+
+CPinyinParser::~CPinyinParser() {
+  if(m_pRoot)
+    m_pRoot->RecursiveDelete();
 }
 
 void 
@@ -104,7 +108,7 @@ std::set<std::string> *CPinyinParser::ParseGroupName(const std::string &strName)
     std::string strTone = strName.substr(i2-1,1);
     int iTone = atoi(strTone.c_str());
 
-    CTrieNode *pCurrentNode = g_pRoot;
+    CTrieNode *pCurrentNode = m_pRoot;
 
     for(std::string::iterator it = strSymbol.begin(); it != strSymbol.end(); ++it) {
       CTrieNode *pChild = pCurrentNode->LookupChild(*it);
@@ -122,12 +126,12 @@ std::set<std::string> *CPinyinParser::ParseGroupName(const std::string &strName)
     // TODO: It seems like we're getting double instances of some here
 
     // Handle same symbol with different tones
-    if(strShortName == g_strLastGroup) 
+    if(strShortName == m_strLastGroup) 
       pList = pCurrentList; 
     else
       pList = new std::set<std::string>;
 
-    g_strLastGroup = strShortName;
+    m_strLastGroup = strShortName;
 
     pCurrentNode->SetList(pList);
     return pList;
@@ -145,7 +149,7 @@ bool CPinyinParser::Convert(const std::string &strPhrase, SCENode **pRoot) {
   typedef std::pair<CTrieNode *, CLatticeNode *> tLPair;
 
   std::vector<tLPair> *pCurrentList = new std::vector<tLPair>;
-  pCurrentList->push_back(tLPair(g_pRoot, NULL));
+  pCurrentList->push_back(tLPair(m_pRoot, NULL));
 
   for(std::string::const_iterator it = strPhrase.begin(); it != strPhrase.end(); ++it) {
     std::vector<tLPair> *pNewList = new std::vector<tLPair>;
@@ -164,7 +168,7 @@ bool CPinyinParser::Convert(const std::string &strPhrase, SCENode **pRoot) {
       pCurrentChild = it2->first->LookupChild('1');
 
       if(pCurrentChild) {
-	CTrieNode *pCurrentChild2 = g_pRoot->LookupChild(*it);
+	CTrieNode *pCurrentChild2 = m_pRoot->LookupChild(*it);
 	if(pCurrentChild2) {
 	  CLatticeNode *pNewLNode = new CLatticeNode('|', it2->second, pCurrentChild->GetList());
 	  CLatticeNode *pNewLNode2 = new CLatticeNode(pCurrentChild->GetSymbol(), pNewLNode, NULL);
@@ -195,7 +199,10 @@ bool CPinyinParser::Convert(const std::string &strPhrase, SCENode **pRoot) {
       if(pCurrentChild) { 
 	CLatticeNode *pNewLNode = new CLatticeNode('|', it2->second, pCurrentChild->GetList());
 	CLatticeNode *pNewLNode2 = new CLatticeNode(pCurrentChild->GetSymbol(), pNewLNode, NULL);
+
 	pNewList->push_back(tLPair(pCurrentChild, pNewLNode2));
+
+	pNewLNode->Unref();
       }
 
       if(it2->second)
