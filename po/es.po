@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher.HEAD.es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-09 15:35+0100\n"
-"PO-Revision-Date: 2007-07-09 19:25+0200\n"
+"POT-Creation-Date: 2007-07-21 03:47+0100\n"
+"PO-Revision-Date: 2007-07-21 18:56+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -730,6 +730,30 @@ msgstr "_Reiniciar tipografías"
 msgid "Click Mode"
 msgstr "Modo pulsación"
 
+#: ../Src/DasherCore/DasherButtons.cpp:24
+msgid "Zoom steps"
+msgstr "Pasos de la ampliación"
+
+#: ../Src/DasherCore/DasherButtons.cpp:25
+msgid "Right zoom"
+msgstr "Ampliación derecha"
+
+#: ../Src/DasherCore/DasherButtons.cpp:26
+msgid "Number of boxes"
+msgstr "Número de cajas"
+
+#: ../Src/DasherCore/DasherButtons.cpp:27
+msgid "Safety margin"
+msgstr "Margen de seguridad"
+
+#: ../Src/DasherCore/DasherButtons.cpp:28
+msgid "Box non-uniformity"
+msgstr "Caja no uniforme"
+
+#: ../Src/DasherCore/DasherButtons.cpp:29
+msgid "Global keyboard grab"
+msgstr "Obtención global del teclado"
+
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:985
 msgid "Normal Control"
 msgstr "Control normal"
@@ -761,14 +785,17 @@ msgid "Stylus Control"
 msgstr "Control"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:9
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:16
 msgid "Long press time"
 msgstr "Tiempo de pulsación largo"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:10
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:17
 msgid "Multiple press time"
 msgstr "Tiempo de pulsación múltiple"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:11
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:18
 msgid "Multiple press count"
 msgstr "Cuenta de pulsación múltiple"
 
@@ -833,6 +860,34 @@ msgstr "Imprime la información de depuración relacionada con el socket en la c
 msgid "Socket Input"
 msgstr "Entrada del socket"
 
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:15
+msgid "Button offset"
+msgstr "Desplazamiento del botón"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:19
+msgid "Enable backoff and start/stop buttons"
+msgstr "Activar botones de parada e inicio/parada"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:20
+msgid "Reverse up and down buttons"
+msgstr "Invertir botones de arriba y abajo"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:21
+msgid "Slow startup"
+msgstr "Inicio lento"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:22
+msgid "Startup time"
+msgstr "Tiempo de inicio"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:23
+msgid "Auto speed control"
+msgstr "Control de velocidad automático"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:24
+msgid "Auto speed threshold"
+msgstr "Umbral de la velocidad automática"
+
 #: ../Src/Gtk2/Preferences.cpp:417 ../Src/Gtk2/Preferences.cpp:975
 msgid "Action"
 msgstr "Acción"
@@ -848,6 +903,15 @@ msgstr "Modo de control"
 #: ../Src/Gtk2/Preferences.cpp:991
 msgid "Auto On Stop"
 msgstr "Automático al parar"
+
+#: ../Src/Gtk2/dasher_action_keyboard.cpp:60
+#: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:94
+msgid "Enter Text"
+msgstr "Introduzca texto"
+
+#: ../Src/Gtk2/dasher_action_script.cpp:91
+msgid "Script"
+msgstr "Script"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:129
 msgid "Speak"
