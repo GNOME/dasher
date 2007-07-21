@@ -1,3 +1,4 @@
+# translation of hu.po to
 # Hungarian translation of dasher.
 # Copyright (C) 2004, 2006, 2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the dasher package.
@@ -7,212 +8,177 @@
 # Gabor Kelemen <kelemeng@gnome.hu>, 2006, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher.gnome-2-16\n"
+"Project-Id-Version: hu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-02 03:21+0100\n"
-"PO-Revision-Date: 2007-06-27 03:34+0200\n"
-"Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
-"Language-Team: Hungarian <gnome@gnome.hu>\n"
+"POT-Creation-Date: 2007-07-21 12:06+0100\n"
+"PO-Revision-Date: 2007-07-21 12:12+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: ../Data/dasher.desktop.in.in.h:1 ../Data/glade/dasher.compose.glade.h:34
-#: ../Data/glade/dasher.direct.glade.h:31
-#: ../Data/glade/dasher.fullscreen.glade.h:30
-#: ../Data/glade/dasher.traditional.glade.h:35
-#: ../Data/glade/dashermaemo.glade.h:17
-#: ../Data/glade/dashermaemofullscreen.glade.h:15
-#: ../Src/Gtk2/dasher_main.cpp:1123
+#: Data/dasher.desktop.in.in.h:1 Data/glade/dasher.compose.glade.h:34
+#: Data/glade/dasher.direct.glade.h:31 Data/glade/dasher.fullscreen.glade.h:30
+#: Data/glade/dasher.traditional.glade.h:35 Data/glade/dashermaemo.glade.h:17
+#: Data/glade/dashermaemofullscreen.glade.h:15 Src/Gtk2/dasher_main.cpp:1156
 msgid "Dasher"
 msgstr "Dasher"
 
-#: ../Data/dasher.desktop.in.in.h:2
+#: Data/dasher.desktop.in.in.h:2
 msgid "Predictive text entry"
 msgstr "Prediktív szövegbevitel"
 
-#: ../Data/glade/dasher.compose.glade.h:1
-#: ../Data/glade/dasher.direct.glade.h:1
-#: ../Data/glade/dasher.fullscreen.glade.h:1
-#: ../Data/glade/dasher.traditional.glade.h:1
+#: Data/glade/dasher.compose.glade.h:1 Data/glade/dasher.direct.glade.h:1
+#: Data/glade/dasher.fullscreen.glade.h:1
+#: Data/glade/dasher.traditional.glade.h:1
 msgid "<b>Actions:</b>"
 msgstr "<b>Műveletek:</b>"
 
-#: ../Data/glade/dasher.compose.glade.h:2
-#: ../Data/glade/dasher.direct.glade.h:2
-#: ../Data/glade/dasher.fullscreen.glade.h:2
-#: ../Data/glade/dasher.traditional.glade.h:2
-#: ../Data/glade/dashermaemo.glade.h:3
-#: ../Data/glade/dashermaemofullscreen.glade.h:1
+#: Data/glade/dasher.compose.glade.h:2 Data/glade/dasher.direct.glade.h:2
+#: Data/glade/dasher.fullscreen.glade.h:2
+#: Data/glade/dasher.traditional.glade.h:2 Data/glade/dashermaemo.glade.h:3
+#: Data/glade/dashermaemofullscreen.glade.h:1
 msgid "<b>Adaptation:</b>"
 msgstr "<b>Alkalmazkodás:</b>"
 
-#: ../Data/glade/dasher.compose.glade.h:3
-#: ../Data/glade/dasher.direct.glade.h:3
-#: ../Data/glade/dasher.fullscreen.glade.h:3
-#: ../Data/glade/dasher.traditional.glade.h:3
-#: ../Data/glade/dashermaemo.glade.h:4
-#: ../Data/glade/dashermaemofullscreen.glade.h:2
+#: Data/glade/dasher.compose.glade.h:3 Data/glade/dasher.direct.glade.h:3
+#: Data/glade/dasher.fullscreen.glade.h:3
+#: Data/glade/dasher.traditional.glade.h:3 Data/glade/dashermaemo.glade.h:4
+#: Data/glade/dashermaemofullscreen.glade.h:2
 msgid "<b>Alphabet Selection:</b>"
 msgstr "<b>Ábécéválasztás:</b>"
 
-#: ../Data/glade/dasher.compose.glade.h:4
-#: ../Data/glade/dasher.direct.glade.h:4
-#: ../Data/glade/dasher.fullscreen.glade.h:4
-#: ../Data/glade/dasher.traditional.glade.h:4
+#: Data/glade/dasher.compose.glade.h:4 Data/glade/dasher.direct.glade.h:4
+#: Data/glade/dasher.fullscreen.glade.h:4
+#: Data/glade/dasher.traditional.glade.h:4
 msgid "<b>Appearance Options:</b>"
 msgstr "<b>Megjelenés beállításai:</b>"
 
-#: ../Data/glade/dasher.compose.glade.h:5
-#: ../Data/glade/dasher.direct.glade.h:5
-#: ../Data/glade/dasher.fullscreen.glade.h:5
-#: ../Data/glade/dasher.traditional.glade.h:5
+#: Data/glade/dasher.compose.glade.h:5 Data/glade/dasher.direct.glade.h:5
+#: Data/glade/dasher.fullscreen.glade.h:5
+#: Data/glade/dasher.traditional.glade.h:5
 msgid "<b>Application Options:</b>"
 msgstr "<b>Alkalmazás beállításai:</b>"
 
-#: ../Data/glade/dasher.compose.glade.h:6
-#: ../Data/glade/dasher.direct.glade.h:6
-#: ../Data/glade/dasher.fullscreen.glade.h:6
-#: ../Data/glade/dasher.traditional.glade.h:6
+#: Data/glade/dasher.compose.glade.h:6 Data/glade/dasher.direct.glade.h:6
+#: Data/glade/dasher.fullscreen.glade.h:6
+#: Data/glade/dasher.traditional.glade.h:6
 msgid "<b>Application Style:</b>"
 msgstr "<b>Alkalmazás stílusa:</b>"
 
-#: ../Data/glade/dasher.compose.glade.h:7
-#: ../Data/glade/dasher.direct.glade.h:7
-#: ../Data/glade/dasher.fullscreen.glade.h:7
-#: ../Data/glade/dasher.traditional.glade.h:7
+#: Data/glade/dasher.compose.glade.h:7 Data/glade/dasher.direct.glade.h:7
+#: Data/glade/dasher.fullscreen.glade.h:7
+#: Data/glade/dasher.traditional.glade.h:7
 msgid "<b>Colour Scheme:</b>"
 msgstr "<b>Színséma:</b>"
 
-#: ../Data/glade/dasher.compose.glade.h:8
-#: ../Data/glade/dasher.direct.glade.h:8
-#: ../Data/glade/dasher.fullscreen.glade.h:8
-#: ../Data/glade/dasher.traditional.glade.h:8
+#: Data/glade/dasher.compose.glade.h:8 Data/glade/dasher.direct.glade.h:8
+#: Data/glade/dasher.fullscreen.glade.h:8
+#: Data/glade/dasher.traditional.glade.h:8
 msgid "<b>Control Style:</b>"
 msgstr "<b>Vezérlőelem stílusa:</b>"
 
-#: ../Data/glade/dasher.compose.glade.h:9
-#: ../Data/glade/dasher.direct.glade.h:9
-#: ../Data/glade/dasher.fullscreen.glade.h:9
-#: ../Data/glade/dasher.traditional.glade.h:9
+#: Data/glade/dasher.compose.glade.h:9 Data/glade/dasher.direct.glade.h:9
+#: Data/glade/dasher.fullscreen.glade.h:9
+#: Data/glade/dasher.traditional.glade.h:9
 msgid "<b>Dasher Font:</b>"
 msgstr "<b>Dasher betűkészlete:</b>"
 
-#: ../Data/glade/dasher.compose.glade.h:10
-#: ../Data/glade/dasher.direct.glade.h:10
-#: ../Data/glade/dasher.fullscreen.glade.h:10
-#: ../Data/glade/dasher.traditional.glade.h:10
+#: Data/glade/dasher.compose.glade.h:10 Data/glade/dasher.direct.glade.h:10
+#: Data/glade/dasher.fullscreen.glade.h:10
+#: Data/glade/dasher.traditional.glade.h:10
 msgid "<b>Direction:</b>"
 msgstr "<b>Irány:</b>"
 
-#: ../Data/glade/dasher.compose.glade.h:11
-#: ../Data/glade/dasher.direct.glade.h:11
-#: ../Data/glade/dasher.fullscreen.glade.h:11
-#: ../Data/glade/dasher.traditional.glade.h:11
+#: Data/glade/dasher.compose.glade.h:11 Data/glade/dasher.direct.glade.h:11
+#: Data/glade/dasher.fullscreen.glade.h:11
+#: Data/glade/dasher.traditional.glade.h:11
 msgid "<b>Editor Font:</b>"
 msgstr "<b>Szerkesztő betűkészlete:</b>"
 
-#: ../Data/glade/dasher.compose.glade.h:12
-#: ../Data/glade/dasher.direct.glade.h:12
-#: ../Data/glade/dasher.fullscreen.glade.h:12
-#: ../Data/glade/dasher.traditional.glade.h:12
+#: Data/glade/dasher.compose.glade.h:12 Data/glade/dasher.direct.glade.h:12
+#: Data/glade/dasher.fullscreen.glade.h:12
+#: Data/glade/dasher.traditional.glade.h:12
 msgid "<b>Input Device:</b>"
 msgstr "<b>Beviteli eszköz:</b>"
 
-#: ../Data/glade/dasher.compose.glade.h:13
-#: ../Data/glade/dasher.direct.glade.h:13
-#: ../Data/glade/dasher.fullscreen.glade.h:13
-#: ../Data/glade/dasher.traditional.glade.h:13
-#: ../Data/glade/dashermaemo.glade.h:6
-#: ../Data/glade/dashermaemofullscreen.glade.h:3
+#: Data/glade/dasher.compose.glade.h:13 Data/glade/dasher.direct.glade.h:13
+#: Data/glade/dasher.fullscreen.glade.h:13
+#: Data/glade/dasher.traditional.glade.h:13 Data/glade/dashermaemo.glade.h:6
+#: Data/glade/dashermaemofullscreen.glade.h:3
 msgid "<b>Language Model:</b>"
 msgstr "<b>Nyelvmodell:</b>"
 
-#: ../Data/glade/dasher.compose.glade.h:14
-#: ../Data/glade/dasher.direct.glade.h:14
-#: ../Data/glade/dasher.fullscreen.glade.h:14
-#: ../Data/glade/dasher.traditional.glade.h:14
+#: Data/glade/dasher.compose.glade.h:14 Data/glade/dasher.direct.glade.h:14
+#: Data/glade/dasher.fullscreen.glade.h:14
+#: Data/glade/dasher.traditional.glade.h:14
 msgid "<b>Prediction:</b>"
 msgstr "<b>Előrejelzés:</b>"
 
-#: ../Data/glade/dasher.compose.glade.h:15
-#: ../Data/glade/dasher.direct.glade.h:15
-#: ../Data/glade/dasher.fullscreen.glade.h:15
-#: ../Data/glade/dasher.traditional.glade.h:15
-#: ../Data/glade/dashermaemo.glade.h:8
-#: ../Data/glade/dashermaemofullscreen.glade.h:5
+#: Data/glade/dasher.compose.glade.h:15 Data/glade/dasher.direct.glade.h:15
+#: Data/glade/dasher.fullscreen.glade.h:15
+#: Data/glade/dasher.traditional.glade.h:15 Data/glade/dashermaemo.glade.h:8
+#: Data/glade/dashermaemofullscreen.glade.h:5
 msgid "<b>Smoothing:</b>"
 msgstr "<b>Simítás:</b>"
 
-#: ../Data/glade/dasher.compose.glade.h:16
-#: ../Data/glade/dasher.direct.glade.h:16
-#: ../Data/glade/dasher.fullscreen.glade.h:16
-#: ../Data/glade/dasher.traditional.glade.h:16
-#: ../Data/glade/dashermaemo.glade.h:9
-#: ../Data/glade/dashermaemofullscreen.glade.h:6
+#: Data/glade/dasher.compose.glade.h:16 Data/glade/dasher.direct.glade.h:16
+#: Data/glade/dasher.fullscreen.glade.h:16
+#: Data/glade/dasher.traditional.glade.h:16 Data/glade/dashermaemo.glade.h:9
+#: Data/glade/dashermaemofullscreen.glade.h:6
 msgid "<b>Speed:</b>"
 msgstr "<b>Sebesség:</b>"
 
-#: ../Data/glade/dasher.compose.glade.h:17
-#: ../Data/glade/dasher.direct.glade.h:17
-#: ../Data/glade/dasher.fullscreen.glade.h:17
-#: ../Data/glade/dasher.traditional.glade.h:17
+#: Data/glade/dasher.compose.glade.h:17 Data/glade/dasher.direct.glade.h:17
+#: Data/glade/dasher.fullscreen.glade.h:17
+#: Data/glade/dasher.traditional.glade.h:17
 msgid "<b>Starting And Stopping:</b>"
 msgstr "<b>Indítás és leállítás:</b>"
 
-#: ../Data/glade/dasher.compose.glade.h:18
-#: ../Data/glade/dasher.direct.glade.h:18
-#: ../Data/glade/dasher.fullscreen.glade.h:18
-#: ../Data/glade/dasher.traditional.glade.h:19
-#: ../Data/glade/dashermaemo.glade.h:10
-#: ../Data/glade/dashermaemofullscreen.glade.h:7
+#: Data/glade/dasher.compose.glade.h:18 Data/glade/dasher.direct.glade.h:18
+#: Data/glade/dasher.fullscreen.glade.h:18
+#: Data/glade/dasher.traditional.glade.h:19 Data/glade/dashermaemo.glade.h:10
+#: Data/glade/dashermaemofullscreen.glade.h:7
 msgid "Adapt speed automatically"
 msgstr "Sebesség automatikus igazítása"
 
-#: ../Data/glade/dasher.compose.glade.h:19
-#: ../Data/glade/dasher.direct.glade.h:19
-#: ../Data/glade/dasher.fullscreen.glade.h:19
-#: ../Data/glade/dasher.traditional.glade.h:20
-#: ../Data/glade/dashermaemo.glade.h:12
-#: ../Data/glade/dashermaemofullscreen.glade.h:9
+#: Data/glade/dasher.compose.glade.h:19 Data/glade/dasher.direct.glade.h:19
+#: Data/glade/dasher.fullscreen.glade.h:19
+#: Data/glade/dasher.traditional.glade.h:20 Data/glade/dashermaemo.glade.h:12
+#: Data/glade/dashermaemofullscreen.glade.h:9
 msgid "Alphabet Default"
 msgstr "Alapértelmezett ábécé"
 
-#: ../Data/glade/dasher.compose.glade.h:20
-#: ../Data/glade/dasher.direct.glade.h:20
-#: ../Data/glade/dasher.traditional.glade.h:21
+#: Data/glade/dasher.compose.glade.h:20 Data/glade/dasher.direct.glade.h:20
+#: Data/glade/dasher.traditional.glade.h:21
 msgid "Alphabet:"
 msgstr "Ábécé:"
 
-#: ../Data/glade/dasher.compose.glade.h:21
-#: ../Data/glade/dasher.direct.glade.h:21
-#: ../Data/glade/dasher.fullscreen.glade.h:20
-#: ../Data/glade/dasher.traditional.glade.h:22
+#: Data/glade/dasher.compose.glade.h:21 Data/glade/dasher.direct.glade.h:21
+#: Data/glade/dasher.fullscreen.glade.h:20
+#: Data/glade/dasher.traditional.glade.h:22
 msgid "Appearance"
 msgstr "Megjelenés"
 
-#: ../Data/glade/dasher.compose.glade.h:22
-#: ../Data/glade/dasher.direct.glade.h:22
-#: ../Data/glade/dasher.fullscreen.glade.h:21
-#: ../Data/glade/dasher.traditional.glade.h:23
+#: Data/glade/dasher.compose.glade.h:22 Data/glade/dasher.direct.glade.h:22
+#: Data/glade/dasher.fullscreen.glade.h:21
+#: Data/glade/dasher.traditional.glade.h:23
 msgid "Application"
 msgstr "Alkalmazás"
 
-#: ../Data/glade/dasher.compose.glade.h:23
-#: ../Data/glade/dasher.direct.glade.h:23
-#: ../Data/glade/dasher.fullscreen.glade.h:22
-#: ../Data/glade/dasher.traditional.glade.h:24
-#: ../Data/glade/dashermaemo.glade.h:13
-#: ../Data/glade/dashermaemofullscreen.glade.h:10
+#: Data/glade/dasher.compose.glade.h:23 Data/glade/dasher.direct.glade.h:23
+#: Data/glade/dasher.fullscreen.glade.h:22
+#: Data/glade/dasher.traditional.glade.h:24 Data/glade/dashermaemo.glade.h:13
+#: Data/glade/dashermaemofullscreen.glade.h:10
 msgid "Bottom to Top"
 msgstr "Lentről felfelé"
 
-#: ../Data/glade/dasher.compose.glade.h:24
-#: ../Data/glade/dasher.direct.glade.h:24
-#: ../Data/glade/dasher.fullscreen.glade.h:23
-#: ../Data/glade/dasher.traditional.glade.h:25
+#: Data/glade/dasher.compose.glade.h:24 Data/glade/dasher.direct.glade.h:24
+#: Data/glade/dasher.fullscreen.glade.h:23
+#: Data/glade/dasher.traditional.glade.h:25
 msgid ""
 "Centre circle\n"
 "Two box"
@@ -220,338 +186,287 @@ msgstr ""
 "Középső kör\n"
 "Két négyzet"
 
-#: ../Data/glade/dasher.compose.glade.h:26
-#: ../Data/glade/dasher.direct.glade.h:26
-#: ../Data/glade/dasher.fullscreen.glade.h:25
-#: ../Data/glade/dasher.traditional.glade.h:27
+#: Data/glade/dasher.compose.glade.h:26 Data/glade/dasher.direct.glade.h:26
+#: Data/glade/dasher.fullscreen.glade.h:25
+#: Data/glade/dasher.traditional.glade.h:27
 msgid "Composition"
 msgstr "Kompozíció"
 
-#: ../Data/glade/dasher.compose.glade.h:27
-#: ../Data/glade/dasher.direct.glade.h:27
-#: ../Data/glade/dasher.fullscreen.glade.h:26
-#: ../Data/glade/dasher.traditional.glade.h:28
-#: ../Data/glade/dashermaemo.glade.h:14
-#: ../Data/glade/dashermaemofullscreen.glade.h:11
+#: Data/glade/dasher.compose.glade.h:27 Data/glade/dasher.direct.glade.h:27
+#: Data/glade/dasher.fullscreen.glade.h:26
+#: Data/glade/dasher.traditional.glade.h:28 Data/glade/dashermaemo.glade.h:14
+#: Data/glade/dashermaemofullscreen.glade.h:11
 msgid "Control"
 msgstr "Vezérlőelem"
 
-#: ../Data/glade/dasher.compose.glade.h:28
-#: ../Data/glade/dasher.direct.glade.h:28
-#: ../Data/glade/dasher.fullscreen.glade.h:27
-#: ../Data/glade/dasher.traditional.glade.h:29
+#: Data/glade/dasher.compose.glade.h:28 Data/glade/dasher.direct.glade.h:28
+#: Data/glade/dasher.fullscreen.glade.h:27
+#: Data/glade/dasher.traditional.glade.h:29
 msgid "Control mode"
 msgstr "Vezérlőelem mód"
 
-#: ../Data/glade/dasher.compose.glade.h:29
-#: ../Data/glade/dasher.traditional.glade.h:30
+#: Data/glade/dasher.compose.glade.h:29
+#: Data/glade/dasher.traditional.glade.h:30
 msgid "Copy"
 msgstr "Másolás"
 
-#: ../Data/glade/dasher.compose.glade.h:30
-#: ../Data/glade/dasher.traditional.glade.h:31
-#: ../Data/glade/dashermaemofullscreen.glade.h:12
+#: Data/glade/dasher.compose.glade.h:30
+#: Data/glade/dasher.traditional.glade.h:31
+#: Data/glade/dashermaemofullscreen.glade.h:12
 msgid "Copy _All"
 msgstr "Mi_ndent másol"
 
-#: ../Data/glade/dasher.compose.glade.h:31
-#: ../Data/glade/dasher.direct.glade.h:29
-#: ../Data/glade/dasher.fullscreen.glade.h:28
-#: ../Data/glade/dasher.traditional.glade.h:32
-#: ../Data/glade/dashermaemo.glade.h:15
-#: ../Data/glade/dashermaemofullscreen.glade.h:13
+#: Data/glade/dasher.compose.glade.h:31 Data/glade/dasher.direct.glade.h:29
+#: Data/glade/dasher.fullscreen.glade.h:28
+#: Data/glade/dasher.traditional.glade.h:32 Data/glade/dashermaemo.glade.h:15
+#: Data/glade/dashermaemofullscreen.glade.h:13
 msgid "Custom colour scheme:"
 msgstr "Egyéni színséma:"
 
-#: ../Data/glade/dasher.compose.glade.h:32
-#: ../Data/glade/dasher.direct.glade.h:30
-#: ../Data/glade/dasher.fullscreen.glade.h:29
-#: ../Data/glade/dasher.traditional.glade.h:33
-#: ../Data/glade/dashermaemo.glade.h:16
-#: ../Data/glade/dashermaemofullscreen.glade.h:14
+#: Data/glade/dasher.compose.glade.h:32 Data/glade/dasher.direct.glade.h:30
+#: Data/glade/dasher.fullscreen.glade.h:29
+#: Data/glade/dasher.traditional.glade.h:33 Data/glade/dashermaemo.glade.h:16
+#: Data/glade/dashermaemofullscreen.glade.h:14
 msgid "Custom:"
 msgstr "Egyéni:"
 
-#: ../Data/glade/dasher.compose.glade.h:33
-#: ../Data/glade/dasher.traditional.glade.h:34
+#: Data/glade/dasher.compose.glade.h:33
+#: Data/glade/dasher.traditional.glade.h:34
 msgid "Cut"
 msgstr "Kivágás"
 
-#: ../Data/glade/dasher.compose.glade.h:35
-#: ../Data/glade/dasher.direct.glade.h:32
-#: ../Data/glade/dasher.fullscreen.glade.h:31
-#: ../Data/glade/dasher.traditional.glade.h:36
-#: ../Data/glade/dashermaemo.glade.h:18
-#: ../Data/glade/dashermaemofullscreen.glade.h:16
+#: Data/glade/dasher.compose.glade.h:35 Data/glade/dasher.direct.glade.h:32
+#: Data/glade/dasher.fullscreen.glade.h:31
+#: Data/glade/dasher.traditional.glade.h:36 Data/glade/dashermaemo.glade.h:18
+#: Data/glade/dashermaemofullscreen.glade.h:16
 msgid "Dasher Preferences"
 msgstr "Dasher beállításai"
 
-#: ../Data/glade/dasher.compose.glade.h:36
+#: Data/glade/dasher.compose.glade.h:36
 msgid "Dasher _Tutorial"
 msgstr "Dasher _ismertető"
 
-#: ../Data/glade/dasher.compose.glade.h:37
-#: ../Data/glade/dasher.direct.glade.h:33
-#: ../Data/glade/dasher.fullscreen.glade.h:32
-#: ../Data/glade/dasher.traditional.glade.h:37
+#: Data/glade/dasher.compose.glade.h:37 Data/glade/dasher.direct.glade.h:33
+#: Data/glade/dasher.fullscreen.glade.h:32
+#: Data/glade/dasher.traditional.glade.h:37
 msgid "Direct entry"
 msgstr "Közvetlen bevitel"
 
-#: ../Data/glade/dasher.compose.glade.h:38
-#: ../Data/glade/dasher.direct.glade.h:34
-#: ../Data/glade/dasher.fullscreen.glade.h:33
-#: ../Data/glade/dasher.traditional.glade.h:38
+#: Data/glade/dasher.compose.glade.h:38 Data/glade/dasher.direct.glade.h:34
+#: Data/glade/dasher.fullscreen.glade.h:33
+#: Data/glade/dasher.traditional.glade.h:38
 msgid "Dock application window"
 msgstr "Alkalmazásablak dokkolása"
 
-#: ../Data/glade/dasher.compose.glade.h:39
-#: ../Data/glade/dasher.direct.glade.h:35
-#: ../Data/glade/dasher.fullscreen.glade.h:34
-#: ../Data/glade/dasher.traditional.glade.h:39
+#: Data/glade/dasher.compose.glade.h:39 Data/glade/dasher.direct.glade.h:35
+#: Data/glade/dasher.fullscreen.glade.h:34
+#: Data/glade/dasher.traditional.glade.h:39
 msgid "Draw box outlines"
 msgstr "Dobozkörvonalak rajzolása"
 
-#: ../Data/glade/dasher.compose.glade.h:40
-#: ../Data/glade/dasher.direct.glade.h:36
-#: ../Data/glade/dasher.fullscreen.glade.h:35
-#: ../Data/glade/dasher.traditional.glade.h:40
+#: Data/glade/dasher.compose.glade.h:40 Data/glade/dasher.direct.glade.h:36
+#: Data/glade/dasher.fullscreen.glade.h:35
+#: Data/glade/dasher.traditional.glade.h:40
 msgid "Draw line between crosshairs and mouse"
 msgstr "Vonal rajzolása a célkeresztek és az egér közé"
 
-#: ../Data/glade/dasher.compose.glade.h:41
-#: ../Data/glade/dasher.direct.glade.h:37
-#: ../Data/glade/dasher.fullscreen.glade.h:36
-#: ../Data/glade/dasher.traditional.glade.h:41
+#: Data/glade/dasher.compose.glade.h:41 Data/glade/dasher.direct.glade.h:37
+#: Data/glade/dasher.fullscreen.glade.h:36
+#: Data/glade/dasher.traditional.glade.h:41
 msgid "Full Screen"
 msgstr "Teljes képernyő"
 
-#: ../Data/glade/dasher.compose.glade.h:42
-#: ../Data/glade/dasher.direct.glade.h:38
-#: ../Data/glade/dasher.fullscreen.glade.h:37
-#: ../Data/glade/dasher.traditional.glade.h:43
+#: Data/glade/dasher.compose.glade.h:42 Data/glade/dasher.direct.glade.h:38
+#: Data/glade/dasher.fullscreen.glade.h:37
+#: Data/glade/dasher.traditional.glade.h:43
 msgid "Increase line thickness"
 msgstr "A vonal vastagságának növelése"
 
-#: ../Data/glade/dasher.compose.glade.h:43
-#: ../Data/glade/dasher.direct.glade.h:39
-#: ../Data/glade/dasher.fullscreen.glade.h:38
-#: ../Data/glade/dasher.traditional.glade.h:44
-#: ../Data/glade/dashermaemo.glade.h:20
-#: ../Data/glade/dashermaemofullscreen.glade.h:17
+#: Data/glade/dasher.compose.glade.h:43 Data/glade/dasher.direct.glade.h:39
+#: Data/glade/dasher.fullscreen.glade.h:38
+#: Data/glade/dasher.traditional.glade.h:44 Data/glade/dashermaemo.glade.h:20
+#: Data/glade/dashermaemofullscreen.glade.h:17
 msgid "Japanese"
 msgstr "Japán"
 
-#: ../Data/glade/dasher.compose.glade.h:44
-#: ../Data/glade/dasher.direct.glade.h:40
-#: ../Data/glade/dasher.fullscreen.glade.h:39
-#: ../Data/glade/dasher.traditional.glade.h:45
+#: Data/glade/dasher.compose.glade.h:44 Data/glade/dasher.direct.glade.h:40
+#: Data/glade/dasher.fullscreen.glade.h:39
+#: Data/glade/dasher.traditional.glade.h:45
 msgid "Language"
 msgstr "Nyelv"
 
-#: ../Data/glade/dasher.compose.glade.h:45
-#: ../Data/glade/dasher.direct.glade.h:41
-#: ../Data/glade/dasher.fullscreen.glade.h:40
-#: ../Data/glade/dasher.traditional.glade.h:46
-#: ../Data/glade/dashermaemo.glade.h:21
-#: ../Data/glade/dashermaemofullscreen.glade.h:18
+#: Data/glade/dasher.compose.glade.h:45 Data/glade/dasher.direct.glade.h:41
+#: Data/glade/dasher.fullscreen.glade.h:40
+#: Data/glade/dasher.traditional.glade.h:46 Data/glade/dashermaemo.glade.h:21
+#: Data/glade/dashermaemofullscreen.glade.h:18
 msgid "Language model adapts as you write."
 msgstr "A nyelvmodell alkalmazkodik írás közben."
 
-#: ../Data/glade/dasher.compose.glade.h:46
-#: ../Data/glade/dasher.direct.glade.h:42
-#: ../Data/glade/dasher.fullscreen.glade.h:41
-#: ../Data/glade/dasher.traditional.glade.h:47
+#: Data/glade/dasher.compose.glade.h:46 Data/glade/dasher.direct.glade.h:42
+#: Data/glade/dasher.fullscreen.glade.h:41
+#: Data/glade/dasher.traditional.glade.h:47
 msgid "Large font "
 msgstr "Nagy betűkészlet "
 
-#: ../Data/glade/dasher.compose.glade.h:47
-#: ../Data/glade/dasher.direct.glade.h:43
-#: ../Data/glade/dasher.fullscreen.glade.h:42
-#: ../Data/glade/dasher.traditional.glade.h:48
-#: ../Data/glade/dashermaemo.glade.h:22
-#: ../Data/glade/dashermaemofullscreen.glade.h:20
+#: Data/glade/dasher.compose.glade.h:47 Data/glade/dasher.direct.glade.h:43
+#: Data/glade/dasher.fullscreen.glade.h:42
+#: Data/glade/dasher.traditional.glade.h:48 Data/glade/dashermaemo.glade.h:22
+#: Data/glade/dashermaemofullscreen.glade.h:20
 msgid "Left to Right"
 msgstr "Balról jobbra"
 
-#: ../Data/glade/dasher.compose.glade.h:48
-#: ../Data/glade/dasher.direct.glade.h:44
-#: ../Data/glade/dasher.fullscreen.glade.h:43
-#: ../Data/glade/dasher.traditional.glade.h:49
-#: ../Data/glade/dashermaemo.glade.h:23
-#: ../Data/glade/dashermaemofullscreen.glade.h:21
+#: Data/glade/dasher.compose.glade.h:48 Data/glade/dasher.direct.glade.h:44
+#: Data/glade/dasher.fullscreen.glade.h:43
+#: Data/glade/dasher.traditional.glade.h:49 Data/glade/dashermaemo.glade.h:23
+#: Data/glade/dashermaemofullscreen.glade.h:21
 msgid "Mixture model (PPM/dictionary)"
 msgstr "Keverési modell (PPM/szótár)"
 
-#: ../Data/glade/dasher.compose.glade.h:49
-#: ../Data/glade/dasher.traditional.glade.h:50
+#: Data/glade/dasher.compose.glade.h:49
+#: Data/glade/dasher.traditional.glade.h:50
 msgid "New file"
 msgstr "Új fájl"
 
-#: ../Data/glade/dasher.compose.glade.h:50
-#: ../Data/glade/dasher.traditional.glade.h:51
+#: Data/glade/dasher.compose.glade.h:50
+#: Data/glade/dasher.traditional.glade.h:51
 msgid "Open file"
 msgstr "Fájl megnyitása"
 
-#: ../Data/glade/dasher.compose.glade.h:51
-#: ../Data/glade/dasher.direct.glade.h:45
-#: ../Data/glade/dasher.fullscreen.glade.h:44
-#: ../Data/glade/dasher.traditional.glade.h:52
+#: Data/glade/dasher.compose.glade.h:51 Data/glade/dasher.direct.glade.h:45
+#: Data/glade/dasher.fullscreen.glade.h:44
+#: Data/glade/dasher.traditional.glade.h:52
 msgid "Options"
 msgstr "Beállítások"
 
-#: ../Data/glade/dasher.compose.glade.h:52
-#: ../Data/glade/dasher.traditional.glade.h:53
+#: Data/glade/dasher.compose.glade.h:52
+#: Data/glade/dasher.traditional.glade.h:53
 msgid "Paste"
 msgstr "Beillesztés"
 
-#: ../Data/glade/dasher.compose.glade.h:53
-#: ../Data/glade/dasher.direct.glade.h:46
-#: ../Data/glade/dasher.fullscreen.glade.h:45
-#: ../Data/glade/dasher.traditional.glade.h:54
+#: Data/glade/dasher.compose.glade.h:53 Data/glade/dasher.direct.glade.h:46
+#: Data/glade/dasher.fullscreen.glade.h:45
+#: Data/glade/dasher.traditional.glade.h:54
 msgid "Pause outside of canvas"
 msgstr "Vásznon kívüli szünet"
 
-#: ../Data/glade/dasher.compose.glade.h:54
-#: ../Data/glade/dasher.direct.glade.h:47
-#: ../Data/glade/dasher.fullscreen.glade.h:46
-#: ../Data/glade/dasher.traditional.glade.h:55
-#: ../Data/glade/dashermaemo.glade.h:25
+#: Data/glade/dasher.compose.glade.h:54 Data/glade/dasher.direct.glade.h:47
+#: Data/glade/dasher.fullscreen.glade.h:46
+#: Data/glade/dasher.traditional.glade.h:55 Data/glade/dashermaemo.glade.h:25
 msgid "Please Wait..."
 msgstr "Kis türelmet..."
 
-#: ../Data/glade/dasher.compose.glade.h:55
+#: Data/glade/dasher.compose.glade.h:55
 msgid "Pr_eferences"
 msgstr "_Beállítások"
 
-#: ../Data/glade/dasher.compose.glade.h:56
-#: ../Data/glade/dasher.direct.glade.h:48
-#: ../Data/glade/dasher.fullscreen.glade.h:47
-#: ../Data/glade/dasher.traditional.glade.h:59
-#: ../Data/glade/dashermaemo.glade.h:27
-#: ../Data/glade/dashermaemofullscreen.glade.h:24
+#: Data/glade/dasher.compose.glade.h:56 Data/glade/dasher.direct.glade.h:48
+#: Data/glade/dasher.fullscreen.glade.h:47
+#: Data/glade/dasher.traditional.glade.h:59 Data/glade/dashermaemo.glade.h:27
+#: Data/glade/dashermaemofullscreen.glade.h:24
 msgid "Right to Left"
 msgstr "Jobbról balra"
 
-#: ../Data/glade/dasher.compose.glade.h:57
-#: ../Data/glade/dasher.traditional.glade.h:60
+#: Data/glade/dasher.compose.glade.h:57
+#: Data/glade/dasher.traditional.glade.h:60
 msgid "Save file"
 msgstr "Fájl mentése"
 
-#: ../Data/glade/dasher.compose.glade.h:58
-#: ../Data/glade/dasher.traditional.glade.h:61
+#: Data/glade/dasher.compose.glade.h:58
+#: Data/glade/dasher.traditional.glade.h:61
 msgid "Save file as"
 msgstr "Fájl mentése másként"
 
-#: ../Data/glade/dasher.compose.glade.h:59
-#: ../Data/glade/dasher.direct.glade.h:49
-#: ../Data/glade/dasher.fullscreen.glade.h:48
-#: ../Data/glade/dasher.traditional.glade.h:64
-#: ../Data/glade/dashermaemo.glade.h:28
-#: ../Data/glade/dashermaemofullscreen.glade.h:25
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1347
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1380 ../Src/Gtk2/dasher_main.cpp:965
+#: Data/glade/dasher.compose.glade.h:59 Data/glade/dasher.direct.glade.h:49
+#: Data/glade/dasher.fullscreen.glade.h:48
+#: Data/glade/dasher.traditional.glade.h:64 Data/glade/dashermaemo.glade.h:28
+#: Data/glade/dashermaemofullscreen.glade.h:25
+#: Src/Gtk2/dasher_editor_internal.cpp:1322
+#: Src/Gtk2/dasher_editor_internal.cpp:1355 Src/Gtk2/dasher_main.cpp:998
 msgid "Select File"
 msgstr "Fájl kiválasztása"
 
-#: ../Data/glade/dasher.compose.glade.h:60
-#: ../Data/glade/dasher.direct.glade.h:50
-#: ../Data/glade/dasher.fullscreen.glade.h:49
-#: ../Data/glade/dashermaemo.glade.h:29
-#: ../Data/glade/dashermaemofullscreen.glade.h:26
+#: Data/glade/dasher.compose.glade.h:60 Data/glade/dasher.direct.glade.h:50
+#: Data/glade/dasher.fullscreen.glade.h:49 Data/glade/dashermaemo.glade.h:29
+#: Data/glade/dashermaemofullscreen.glade.h:26
 msgid "Select Font"
 msgstr "Betűkészlet kiválasztása"
 
-#: ../Data/glade/dasher.compose.glade.h:61
-#: ../Data/glade/dasher.direct.glade.h:51
-#: ../Data/glade/dasher.fullscreen.glade.h:50
-#: ../Data/glade/dasher.traditional.glade.h:65
+#: Data/glade/dasher.compose.glade.h:61 Data/glade/dasher.direct.glade.h:51
+#: Data/glade/dasher.fullscreen.glade.h:50
+#: Data/glade/dasher.traditional.glade.h:65
 msgid "Show mouse position"
 msgstr "Egér pozíciójának megjelenítése"
 
-#: ../Data/glade/dasher.compose.glade.h:62
-#: ../Data/glade/dasher.direct.glade.h:52
-#: ../Data/glade/dasher.fullscreen.glade.h:51
-#: ../Data/glade/dasher.traditional.glade.h:66
+#: Data/glade/dasher.compose.glade.h:62 Data/glade/dasher.direct.glade.h:52
+#: Data/glade/dasher.fullscreen.glade.h:51
+#: Data/glade/dasher.traditional.glade.h:66
 msgid "Show speed slider"
 msgstr "Sebességcsúszka megjelenítése"
 
-#: ../Data/glade/dasher.compose.glade.h:63
-#: ../Data/glade/dasher.direct.glade.h:53
-#: ../Data/glade/dasher.fullscreen.glade.h:52
-#: ../Data/glade/dasher.traditional.glade.h:67
+#: Data/glade/dasher.compose.glade.h:63 Data/glade/dasher.direct.glade.h:53
+#: Data/glade/dasher.fullscreen.glade.h:52
+#: Data/glade/dasher.traditional.glade.h:67
 msgid "Show toolbar"
 msgstr "Eszköztár megjelenítése"
 
-#: ../Data/glade/dasher.compose.glade.h:64
-#: ../Data/glade/dasher.direct.glade.h:54
-#: ../Data/glade/dasher.fullscreen.glade.h:53
-#: ../Data/glade/dasher.traditional.glade.h:68
+#: Data/glade/dasher.compose.glade.h:64 Data/glade/dasher.direct.glade.h:54
+#: Data/glade/dasher.fullscreen.glade.h:53
+#: Data/glade/dasher.traditional.glade.h:68
 msgid "Small font"
 msgstr "Kis betűkészlet"
 
-#: ../Data/glade/dasher.compose.glade.h:65
-#: ../Data/glade/dasher.direct.glade.h:55
-#: ../Data/glade/dasher.traditional.glade.h:69
+#: Data/glade/dasher.compose.glade.h:65 Data/glade/dasher.direct.glade.h:55
+#: Data/glade/dasher.traditional.glade.h:69
 msgid "Speed:"
 msgstr "Sebesség:"
 
-#: ../Data/glade/dasher.compose.glade.h:66
-#: ../Data/glade/dasher.direct.glade.h:56
-#: ../Data/glade/dasher.fullscreen.glade.h:54
-#: ../Data/glade/dasher.traditional.glade.h:70
+#: Data/glade/dasher.compose.glade.h:66 Data/glade/dasher.direct.glade.h:56
+#: Data/glade/dasher.fullscreen.glade.h:54
+#: Data/glade/dasher.traditional.glade.h:70
 msgid "Stand-alone"
 msgstr "Önálló"
 
-#: ../Data/glade/dasher.compose.glade.h:67
-#: ../Data/glade/dasher.direct.glade.h:57
-#: ../Data/glade/dasher.fullscreen.glade.h:55
-#: ../Data/glade/dasher.traditional.glade.h:71
-#: ../Data/glade/dashermaemo.glade.h:30
-#: ../Data/glade/dashermaemofullscreen.glade.h:27
+#: Data/glade/dasher.compose.glade.h:67 Data/glade/dasher.direct.glade.h:57
+#: Data/glade/dasher.fullscreen.glade.h:55
+#: Data/glade/dasher.traditional.glade.h:71 Data/glade/dashermaemo.glade.h:30
+#: Data/glade/dashermaemofullscreen.glade.h:27
 msgid "Standard letter-based PPM"
 msgstr "Szabvány betűalapú PPM"
 
-#: ../Data/glade/dasher.compose.glade.h:68
-#: ../Data/glade/dasher.direct.glade.h:58
-#: ../Data/glade/dasher.fullscreen.glade.h:56
-#: ../Data/glade/dasher.traditional.glade.h:72
+#: Data/glade/dasher.compose.glade.h:68 Data/glade/dasher.direct.glade.h:58
+#: Data/glade/dasher.fullscreen.glade.h:56
+#: Data/glade/dasher.traditional.glade.h:72
 msgid "Start on left mouse button"
 msgstr "Indulás bal egérgombra"
 
-#: ../Data/glade/dasher.compose.glade.h:69
-#: ../Data/glade/dasher.direct.glade.h:59
-#: ../Data/glade/dasher.fullscreen.glade.h:57
-#: ../Data/glade/dasher.traditional.glade.h:73
+#: Data/glade/dasher.compose.glade.h:69 Data/glade/dasher.direct.glade.h:59
+#: Data/glade/dasher.fullscreen.glade.h:57
+#: Data/glade/dasher.traditional.glade.h:73
 msgid "Start on space bar"
 msgstr "Indulás szóközre"
 
-#: ../Data/glade/dasher.compose.glade.h:70
-#: ../Data/glade/dasher.direct.glade.h:60
-#: ../Data/glade/dasher.fullscreen.glade.h:58
-#: ../Data/glade/dasher.traditional.glade.h:74
+#: Data/glade/dasher.compose.glade.h:70 Data/glade/dasher.direct.glade.h:60
+#: Data/glade/dasher.fullscreen.glade.h:58
+#: Data/glade/dasher.traditional.glade.h:74
 msgid "Start with mouse position:"
 msgstr "Indulás ezen egérpozícióval:"
 
-#: ../Data/glade/dasher.compose.glade.h:71
-#: ../Data/glade/dasher.direct.glade.h:61
-#: ../Data/glade/dasher.fullscreen.glade.h:59
-#: ../Data/glade/dasher.traditional.glade.h:75
+#: Data/glade/dasher.compose.glade.h:71 Data/glade/dasher.direct.glade.h:61
+#: Data/glade/dasher.fullscreen.glade.h:59
+#: Data/glade/dasher.traditional.glade.h:75
 msgid "Timestamp new files"
 msgstr "Új fájlok időbélyegzése"
 
-#: ../Data/glade/dasher.compose.glade.h:72
-#: ../Data/glade/dasher.direct.glade.h:62
-#: ../Data/glade/dasher.fullscreen.glade.h:60
-#: ../Data/glade/dasher.traditional.glade.h:76
-#: ../Data/glade/dashermaemo.glade.h:31
-#: ../Data/glade/dashermaemofullscreen.glade.h:28
+#: Data/glade/dasher.compose.glade.h:72 Data/glade/dasher.direct.glade.h:62
+#: Data/glade/dasher.fullscreen.glade.h:60
+#: Data/glade/dasher.traditional.glade.h:76 Data/glade/dashermaemo.glade.h:31
+#: Data/glade/dashermaemofullscreen.glade.h:28
 msgid "Top to Bottom"
 msgstr "Fentről lefelé"
 
-#: ../Data/glade/dasher.compose.glade.h:73
-#: ../Data/glade/dasher.direct.glade.h:63
-#: ../Data/glade/dasher.fullscreen.glade.h:61
-#: ../Data/glade/dasher.traditional.glade.h:77
+#: Data/glade/dasher.compose.glade.h:73 Data/glade/dasher.direct.glade.h:63
+#: Data/glade/dasher.fullscreen.glade.h:61
+#: Data/glade/dasher.traditional.glade.h:77
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -561,295 +476,386 @@ msgstr ""
 "állításához. Megjegyzés: magas értékek kiválasztása le\n"
 "fogja lassítani az írási sebességet."
 
-#: ../Data/glade/dasher.compose.glade.h:76
-#: ../Data/glade/dasher.direct.glade.h:66
-#: ../Data/glade/dasher.fullscreen.glade.h:64
-#: ../Data/glade/dasher.traditional.glade.h:80
+#: Data/glade/dasher.compose.glade.h:76 Data/glade/dasher.direct.glade.h:66
+#: Data/glade/dasher.fullscreen.glade.h:64
+#: Data/glade/dasher.traditional.glade.h:80
 msgid "Very large font"
 msgstr "Nagyon nagy betűkészlet"
 
-#: ../Data/glade/dasher.compose.glade.h:77
-#: ../Data/glade/dasher.direct.glade.h:67
-#: ../Data/glade/dasher.fullscreen.glade.h:65
-#: ../Data/glade/dasher.traditional.glade.h:81
-#: ../Data/glade/dashermaemo.glade.h:33
-#: ../Data/glade/dashermaemofullscreen.glade.h:31
+#: Data/glade/dasher.compose.glade.h:77 Data/glade/dasher.direct.glade.h:67
+#: Data/glade/dasher.fullscreen.glade.h:65
+#: Data/glade/dasher.traditional.glade.h:81 Data/glade/dashermaemo.glade.h:33
+#: Data/glade/dashermaemofullscreen.glade.h:31
 msgid "Word-based model"
 msgstr "Szóalapú modell"
 
-#: ../Data/glade/dasher.compose.glade.h:78
-#: ../Data/glade/dashermaemofullscreen.glade.h:32
+#: Data/glade/dasher.compose.glade.h:78
+#: Data/glade/dashermaemofullscreen.glade.h:32
 msgid "_About"
 msgstr "_Névjegy"
 
-#: ../Data/glade/dasher.compose.glade.h:79
+#: Data/glade/dasher.compose.glade.h:79
 msgid "_Append to file"
 msgstr "_Hozzáfűzés fájlhoz"
 
-#: ../Data/glade/dasher.compose.glade.h:80
+#: Data/glade/dasher.compose.glade.h:80
 msgid "_Contents"
 msgstr "_Tartalom"
 
-#: ../Data/glade/dasher.compose.glade.h:81
-#: ../Data/glade/dasher.traditional.glade.h:84
-#: ../Data/glade/dashermaemofullscreen.glade.h:35
+#: Data/glade/dasher.compose.glade.h:81
+#: Data/glade/dasher.traditional.glade.h:84
+#: Data/glade/dashermaemofullscreen.glade.h:35
 msgid "_Edit"
 msgstr "S_zerkesztés"
 
-#: ../Data/glade/dasher.compose.glade.h:82
-#: ../Data/glade/dasher.traditional.glade.h:85
-#: ../Data/glade/dashermaemofullscreen.glade.h:37
+#: Data/glade/dasher.compose.glade.h:82
+#: Data/glade/dasher.traditional.glade.h:85
+#: Data/glade/dashermaemofullscreen.glade.h:37
 msgid "_File"
 msgstr "_Fájl"
 
-#: ../Data/glade/dasher.compose.glade.h:83
-#: ../Data/glade/dasher.traditional.glade.h:86
-#: ../Data/glade/dashermaemofullscreen.glade.h:38
+#: Data/glade/dasher.compose.glade.h:83
+#: Data/glade/dasher.traditional.glade.h:86
+#: Data/glade/dashermaemofullscreen.glade.h:38
 msgid "_Help"
 msgstr "_Súgó"
 
-#: ../Data/glade/dasher.compose.glade.h:84
+#: Data/glade/dasher.compose.glade.h:84
 msgid "_Import Training Text"
 msgstr "Gyakorlószöveg _importálása"
 
-#: ../Data/glade/dasher.compose.glade.h:85
-#: ../Data/glade/dasher.direct.glade.h:68
-#: ../Data/glade/dasher.fullscreen.glade.h:66
-#: ../Data/glade/dashermaemo.glade.h:34
-#: ../Data/glade/dashermaemofullscreen.glade.h:41
+#: Data/glade/dasher.compose.glade.h:85 Data/glade/dasher.direct.glade.h:68
+#: Data/glade/dasher.fullscreen.glade.h:66 Data/glade/dashermaemo.glade.h:34
+#: Data/glade/dashermaemofullscreen.glade.h:41
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "árvíztűrő tükörfúrógép ÁRVÍZTŰRŐ TÜKÖRFÚRÓGÉP"
 
-#: ../Data/glade/dasher.traditional.glade.h:18
+#: Data/glade/dasher.traditional.glade.h:18
 msgid "A_ppend to file..."
 msgstr "_Hozzáfűzés fájlhoz..."
 
-#: ../Data/glade/dasher.traditional.glade.h:42
+#: Data/glade/dasher.traditional.glade.h:42
 msgid "Help"
 msgstr "Súgó"
 
-#: ../Data/glade/dasher.traditional.glade.h:56
+#: Data/glade/dasher.traditional.glade.h:56
 msgid "Pr_eferences..."
 msgstr "_Beállítások..."
 
-#: ../Data/glade/dasher.traditional.glade.h:57
+#: Data/glade/dasher.traditional.glade.h:57
 msgid "Preferences"
 msgstr "Beállítások"
 
-#: ../Data/glade/dasher.traditional.glade.h:58
+#: Data/glade/dasher.traditional.glade.h:58
 msgid "Quit"
 msgstr "Kilépés"
 
-#: ../Data/glade/dasher.traditional.glade.h:62
+#: Data/glade/dasher.traditional.glade.h:62
 msgid "Select Dasher Font"
 msgstr "A Dasher betűkészletének kiválasztása"
 
-#: ../Data/glade/dasher.traditional.glade.h:63
+#: Data/glade/dasher.traditional.glade.h:63
 msgid "Select Editor Font"
 msgstr "Szerkesztő betűkészletének kiválasztása"
 
-#: ../Data/glade/dasher.traditional.glade.h:82
+#: Data/glade/dasher.traditional.glade.h:82
 msgid "_About..."
 msgstr "_Névjegy..."
 
-#: ../Data/glade/dasher.traditional.glade.h:83
+#: Data/glade/dasher.traditional.glade.h:83
 msgid "_Contents..."
 msgstr "_Tartalom..."
 
-#: ../Data/glade/dasher.traditional.glade.h:87
+#: Data/glade/dasher.traditional.glade.h:87
 msgid "_Import Training Text..."
 msgstr "Gyakorlószöveg _importálása..."
 
-#: ../Data/glade/dashermaemo.glade.h:1
+#: Data/glade/dashermaemo.glade.h:1
 msgid "\n"
 msgstr "\n"
 
-#: ../Data/glade/dashermaemo.glade.h:5
+#: Data/glade/dashermaemo.glade.h:5
 msgid "<b>Display Size:</b>"
 msgstr "<b>Megjelenítő mérete:</b>"
 
-#: ../Data/glade/dashermaemo.glade.h:7
-#: ../Data/glade/dashermaemofullscreen.glade.h:4
+#: Data/glade/dashermaemo.glade.h:7 Data/glade/dashermaemofullscreen.glade.h:4
 msgid "<b>Orientation:</b>"
 msgstr "<b>Elhelyezkedés:</b>"
 
-#: ../Data/glade/dashermaemo.glade.h:11
-#: ../Data/glade/dashermaemofullscreen.glade.h:8
+#: Data/glade/dashermaemo.glade.h:11
+#: Data/glade/dashermaemofullscreen.glade.h:8
 msgid "Alphabet"
 msgstr "Ábécé"
 
-#: ../Data/glade/dashermaemo.glade.h:19
+#: Data/glade/dashermaemo.glade.h:19
 msgid "Enlarge input window"
 msgstr "Bemeneti ablak növelése"
 
-#: ../Data/glade/dashermaemo.glade.h:24
+#: Data/glade/dashermaemo.glade.h:24
 msgid "P"
 msgstr "P"
 
-#: ../Data/glade/dashermaemo.glade.h:26
-#: ../Data/glade/dashermaemofullscreen.glade.h:23
+#: Data/glade/dashermaemo.glade.h:26
+#: Data/glade/dashermaemofullscreen.glade.h:23
 msgid "Prediction"
 msgstr "Előrejelzés"
 
-#: ../Data/glade/dashermaemo.glade.h:32
-#: ../Data/glade/dashermaemofullscreen.glade.h:30
+#: Data/glade/dashermaemo.glade.h:32
+#: Data/glade/dashermaemofullscreen.glade.h:30
 msgid "View"
 msgstr "Nézet"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:19
+#: Data/glade/dashermaemofullscreen.glade.h:19
 msgid "Large"
 msgstr "Nagy"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:22
+#: Data/glade/dashermaemofullscreen.glade.h:22
 msgid "Normal"
 msgstr "Normál"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:29
+#: Data/glade/dashermaemofullscreen.glade.h:29
 msgid "Very Large"
 msgstr "Nagyon nagy"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:33
+#: Data/glade/dashermaemofullscreen.glade.h:33
 msgid "_Dasher Font"
 msgstr "_Dasher betűkészlet"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:34
+#: Data/glade/dashermaemofullscreen.glade.h:34
 msgid "_Dasher Font Size"
 msgstr "_Dasher betűméret"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:36
+#: Data/glade/dashermaemofullscreen.glade.h:36
 msgid "_Edit Font"
 msgstr "Betűkészlet s_zerkesztése"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:39
+#: Data/glade/dashermaemofullscreen.glade.h:39
 msgid "_Options"
 msgstr "_Beállítások"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:40
+#: Data/glade/dashermaemofullscreen.glade.h:40
 msgid "_Reset fonts"
 msgstr "Betűkészletek _visszaállítása"
 
-#: ../Src/DasherCore/ClickFilter.cpp:9
+#: Src/DasherCore/ClickFilter.cpp:9
 msgid "Click Mode"
 msgstr "Kattintás módja"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:958
+#: Src/DasherCore/DasherButtons.cpp:24
+msgid "Zoom steps"
+msgstr "Nagyítás lépései"
+
+#: Src/DasherCore/DasherButtons.cpp:25
+msgid "Right zoom"
+msgstr "Nagyítás jobbra"
+
+#: Src/DasherCore/DasherButtons.cpp:26
+msgid "Number of boxes"
+msgstr "Dobozok száma"
+
+#: Src/DasherCore/DasherButtons.cpp:27
+msgid "Safety margin"
+msgstr "Biztonsági korlát"
+
+#: Src/DasherCore/DasherButtons.cpp:28
+msgid "Box non-uniformity"
+msgstr "Dobozok eltérése"
+
+#: Src/DasherCore/DasherButtons.cpp:29
+msgid "Global keyboard grab"
+msgstr "Billentyűzet globális megragadása"
+
+#: Src/DasherCore/DasherInterfaceBase.cpp:985
 msgid "Normal Control"
 msgstr "Normális vezérlés"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:963
+#: Src/DasherCore/DasherInterfaceBase.cpp:990
 msgid "Two Button Dynamic Mode"
 msgstr "Kétgombos dinamikus mód"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:965
+#: Src/DasherCore/DasherInterfaceBase.cpp:992
 msgid "Menu Mode"
 msgstr "Menü mód"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:966
+#: Src/DasherCore/DasherInterfaceBase.cpp:993
 msgid "Direct Mode"
 msgstr "Közvetlen mód"
 
 #. RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:968
+#: Src/DasherCore/DasherInterfaceBase.cpp:995
 msgid "Alternating Direct Mode"
 msgstr "Váltakozó közvetlen mód"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:969
+#: Src/DasherCore/DasherInterfaceBase.cpp:996
 msgid "Compass Mode"
 msgstr "Iránytű mód"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:970
+#: Src/DasherCore/DasherInterfaceBase.cpp:997
 msgid "Stylus Control"
 msgstr "Stílusvezérlés"
 
-#: ../Src/DasherCore/DynamicFilter.cpp:9
+#: Src/DasherCore/DynamicFilter.cpp:9
+#: Src/DasherCore/TwoButtonDynamicFilter.cpp:16
 msgid "Long press time"
 msgstr "Hosszú lenyomás ideje"
 
-#: ../Src/DasherCore/DynamicFilter.cpp:10
+#: Src/DasherCore/DynamicFilter.cpp:10
+#: Src/DasherCore/TwoButtonDynamicFilter.cpp:17
 msgid "Multiple press time"
 msgstr "Többszörös lenyomás ideje"
 
-#: ../Src/DasherCore/DynamicFilter.cpp:11
+#: Src/DasherCore/DynamicFilter.cpp:11
+#: Src/DasherCore/TwoButtonDynamicFilter.cpp:18
 msgid "Multiple press count"
 msgstr "Többszörös lenyomások száma"
 
-#fixme ezmiez?
-#: ../Src/DasherCore/DynamicFilter.cpp:12
+# fixme ezmiez?
+#: Src/DasherCore/DynamicFilter.cpp:12
 msgid "Enable backoff button"
 msgstr "Visszalépés gomb engedélyezése"
 
-#: ../Src/DasherCore/DynamicFilter.cpp:16
+#: Src/DasherCore/DynamicFilter.cpp:16
 msgid "One Button Dynamic Mode"
 msgstr "Egy gombos dinamikus mód"
 
-#: ../Src/DasherCore/EyetrackerFilter.cpp:7
-msgid "Automatic calibration:"
+#: Src/DasherCore/EyetrackerFilter.cpp:7
+msgid "Automatic calibration"
 msgstr "Automatikus kalibráció:"
 
-#: ../Src/DasherCore/EyetrackerFilter.cpp:11
+#: Src/DasherCore/EyetrackerFilter.cpp:11
 msgid "Eyetracker Mode"
 msgstr "Szemkövető mód"
 
-#: ../Src/DasherCore/OneDimensionalFilter.cpp:5
+#: Src/DasherCore/OneDimensionalFilter.cpp:5
 msgid "One Dimensional Mode"
 msgstr "Egydimenziós mód"
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
-#: ../Src/DasherCore/SocketInput.cpp:34
+#: Src/DasherCore/SocketInput.cpp:34
 msgid "Dasher socket input: failed to launch reader thread."
 msgstr "Dasher foglalatbemenet: az olvasó szál indítása meghiúsult."
 
-#: ../Src/DasherCore/SocketInputBase.cpp:27
+#: Src/DasherCore/SocketInputBase.cpp:27
 msgid "Port:"
 msgstr "Port:"
 
-#: ../Src/DasherCore/SocketInputBase.cpp:28
+#: Src/DasherCore/SocketInputBase.cpp:28
 msgid "X label:"
 msgstr "X címke:"
 
-#: ../Src/DasherCore/SocketInputBase.cpp:29
+#: Src/DasherCore/SocketInputBase.cpp:29
 msgid "X minimum:"
 msgstr "X minimum:"
 
-#: ../Src/DasherCore/SocketInputBase.cpp:30
+#: Src/DasherCore/SocketInputBase.cpp:30
 msgid "X maximum:"
 msgstr "X maximum:"
 
-#: ../Src/DasherCore/SocketInputBase.cpp:31
+#: Src/DasherCore/SocketInputBase.cpp:31
 msgid "Y label:"
 msgstr "Y címke:"
 
-#: ../Src/DasherCore/SocketInputBase.cpp:32
+#: Src/DasherCore/SocketInputBase.cpp:32
 msgid "Y minimum:"
 msgstr "Y minimum:"
 
-#: ../Src/DasherCore/SocketInputBase.cpp:33
+#: Src/DasherCore/SocketInputBase.cpp:33
 msgid "Y maximum:"
 msgstr "Y maximum:"
 
-#: ../Src/DasherCore/SocketInputBase.cpp:34
+#: Src/DasherCore/SocketInputBase.cpp:34
 msgid "Print socket-related debugging information to console:"
 msgstr "A foglalattal kapcsolatos hibakereső információk írása konzolra"
 
-#: ../Src/DasherCore/SocketInputBase.cpp:38
+#: Src/DasherCore/SocketInputBase.cpp:38
 msgid "Socket Input"
 msgstr "Foglalatbemenet"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:163
+#: Src/DasherCore/TwoButtonDynamicFilter.cpp:15
+msgid "Button offset"
+msgstr "Gombeltolás"
+
+# fixme ezmiez?
+#: Src/DasherCore/TwoButtonDynamicFilter.cpp:19
+msgid "Enable backoff and start/stop buttons"
+msgstr "Visszalépés és indítás/leállítás gomb engedélyezése"
+
+#: Src/DasherCore/TwoButtonDynamicFilter.cpp:20
+msgid "Reverse up and down buttons"
+msgstr "Fel és le gombok felcserélése"
+
+#: Src/DasherCore/TwoButtonDynamicFilter.cpp:21
+msgid "Slow startup"
+msgstr "Lassú indítás"
+
+#: Src/DasherCore/TwoButtonDynamicFilter.cpp:22
+msgid "Startup time"
+msgstr "Indítási idő"
+
+#: Src/DasherCore/TwoButtonDynamicFilter.cpp:23
+msgid "Auto speed control"
+msgstr "Automatikus sebességvezérlés"
+
+#: Src/DasherCore/TwoButtonDynamicFilter.cpp:24
+msgid "Auto speed threshold"
+msgstr "Automatikus sebességhatár"
+
+#: Src/Gtk2/Preferences.cpp:417 Src/Gtk2/Preferences.cpp:975
+msgid "Action"
+msgstr "Művelet"
+
+#: Src/Gtk2/Preferences.cpp:981
+msgid "Show Button"
+msgstr "Gomb megjelenítése"
+
+#: Src/Gtk2/Preferences.cpp:986
+msgid "Control Mode"
+msgstr "Vezérlési mód"
+
+#: Src/Gtk2/Preferences.cpp:991
+msgid "Auto On Stop"
+msgstr "Automatikus leállítás"
+
+#: Src/Gtk2/dasher_action_keyboard.cpp:60
+#: Src/Gtk2/dasher_action_keyboard_maemo.cpp:94
+msgid "Enter Text"
+msgstr "Szövegbevitel"
+
+#: Src/Gtk2/dasher_action_script.cpp:91
+msgid "Script"
+msgstr "Parancsfájl"
+
+#: Src/Gtk2/dasher_action_speech.cpp:129
+msgid "Speak"
+msgstr "Beszéd"
+
+#: Src/Gtk2/dasher_action_speech.cpp:141
+msgid "All"
+msgstr "Mind"
+
+#: Src/Gtk2/dasher_action_speech.cpp:143
+msgid "Last"
+msgstr "Utolsó"
+
+#: Src/Gtk2/dasher_action_speech.cpp:145
+msgid "Repeat"
+msgstr "Ismétlés"
+
+#: Src/Gtk2/dasher_action_speech.cpp:163
 #, c-format
 msgid "Unable to initialize speech support\n"
 msgstr "Nem lehet inicializálni a beszédtámogatást\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:186
+#: Src/Gtk2/dasher_action_speech.cpp:186
 msgid "Unable to initialize voices\n"
 msgstr "A hangok nem inicializálhatók\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:198
+#: Src/Gtk2/dasher_action_speech.cpp:198
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Figyelmeztetés: nem lehet beállítani a beszéd paramétereket\n"
 
-#: ../Src/Gtk2/dasher_main.cpp:1003
+#: Src/Gtk2/dasher_main.cpp:1036
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -860,7 +866,7 @@ msgstr ""
 "\n"
 "Ha nem menti őket, akkor változtatásai elvesznek."
 
-#: ../Src/Gtk2/dasher_main.cpp:1009
+#: Src/Gtk2/dasher_main.cpp:1042
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -870,39 +876,47 @@ msgstr ""
 "\n"
 "Ha nem menti őket, akkor változtatásai elvesznek."
 
-#: ../Src/Gtk2/dasher_main.cpp:1013
+#: Src/Gtk2/dasher_main.cpp:1046
 msgid "Don't save"
 msgstr "Ne mentse"
 
-#: ../Src/Gtk2/dasher_main.cpp:1014
+#: Src/Gtk2/dasher_main.cpp:1047
 msgid "Don't quit"
 msgstr "Nem lépek ki"
 
-#: ../Src/Gtk2/dasher_main.cpp:1015
+#: Src/Gtk2/dasher_main.cpp:1048
 msgid "Save and quit"
 msgstr "Mentés és kilépés"
 
-#: ../Src/Gtk2/dasher_main.cpp:1110 ../Src/Gtk2/dasher_main.cpp:1126
+#: Src/Gtk2/dasher_main.cpp:1143 Src/Gtk2/dasher_main.cpp:1159
 msgid "Dasher is a predictive text entry application"
 msgstr "A Dasher egy prediktív szövegbeviteli alkalmazás"
 
-#: ../Src/Gtk2/dasher_main.cpp:1115 ../Src/Gtk2/dasher_main.cpp:1121
+#: Src/Gtk2/dasher_main.cpp:1148 Src/Gtk2/dasher_main.cpp:1154
 msgid "translator-credits"
 msgstr ""
 "Dvornik László <dvornik@gnome.hu>\n"
 "Kelemen Gábor <kelemeng@gnome.hu>\n"
 "Tímár András <timar@gnome.hu>"
 
-#: ../Src/Gtk2/module_settings_window.cpp:71
+#: Src/Gtk2/module_settings_window.cpp:85
+msgid "Dasher Module Options"
+msgstr "Dasher modulbeállítások"
+
+#: Src/Gtk2/module_settings_window.cpp:91
 #, c-format
 msgid "%s Options:"
 msgstr "%s beállításai"
 
-#: ../Src/Gtk2/mouse_input.h:15
+#: Src/Gtk2/mouse_input.h:15
 msgid "Mouse Input"
 msgstr "Egérbemenet"
 
-#: ../Src/Gtk2/mouse_input.h:57
+#: Src/Gtk2/mouse_input.h:51
+msgid "Pixels covering Y range"
+msgstr "Az Y tartományt lefedő képpontok"
+
+#: Src/Gtk2/mouse_input.h:57
 msgid "One Dimensional Mouse Input"
 msgstr "Egydimenziós egérbemenet"
 
