@@ -8,14 +8,13 @@ msgid ""
 msgstr "Project-Id-Version: dasher Gnome HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-06-02 03:21+0100\n"
-"PO-Revision-Date: 2007-06-25 23:17+0930\n"
-"Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
+"PO-Revision-Date: 2007-07-06 16:19+0700\n"
+"Last-Translator: Phạm Thành Long <lngt@ngonngu.net>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: LocFactoryEditor 1.6.4a3\n"
 
 #: ../Data/dasher.desktop.in.in.h:1
 #: ../Data/glade/dasher.compose.glade.h:34
@@ -62,14 +61,14 @@ msgstr "<b>Chọn bảng chữ cái:</b>"
 #: ../Data/glade/dasher.fullscreen.glade.h:4
 #: ../Data/glade/dasher.traditional.glade.h:4
 msgid "<b>Appearance Options:</b>"
-msgstr "<b>Tùy chọn Diện mạo :</b>"
+msgstr "<b>Tuỳ chọn diện mạo:</b>"
 
 #: ../Data/glade/dasher.compose.glade.h:5
 #: ../Data/glade/dasher.direct.glade.h:5
 #: ../Data/glade/dasher.fullscreen.glade.h:5
 #: ../Data/glade/dasher.traditional.glade.h:5
 msgid "<b>Application Options:</b>"
-msgstr "<b>Tùy chọn Ứng dụng:</b>"
+msgstr "<b>Tuỳ chọn ứng dụng:</b>"
 
 #: ../Data/glade/dasher.compose.glade.h:6
 #: ../Data/glade/dasher.direct.glade.h:6
@@ -83,7 +82,7 @@ msgstr "<b>Kiểu dáng ứng dụng:</b>"
 #: ../Data/glade/dasher.fullscreen.glade.h:7
 #: ../Data/glade/dasher.traditional.glade.h:7
 msgid "<b>Colour Scheme:</b>"
-msgstr "<b>Lược đồ màu :</b>"
+msgstr "<b>Lược đồ màu:</b>"
 
 #: ../Data/glade/dasher.compose.glade.h:8
 #: ../Data/glade/dasher.direct.glade.h:8
@@ -97,7 +96,7 @@ msgstr "<b>Kiểu điều khiển:</b>"
 #: ../Data/glade/dasher.fullscreen.glade.h:9
 #: ../Data/glade/dasher.traditional.glade.h:9
 msgid "<b>Dasher Font:</b>"
-msgstr "<b>Phông chữ Dasher</b>"
+msgstr "<b>Phông chữ Dasher:</b>"
 
 #: ../Data/glade/dasher.compose.glade.h:10
 #: ../Data/glade/dasher.direct.glade.h:10
@@ -111,7 +110,7 @@ msgstr "<b>Hướng:</b>"
 #: ../Data/glade/dasher.fullscreen.glade.h:11
 #: ../Data/glade/dasher.traditional.glade.h:11
 msgid "<b>Editor Font:</b>"
-msgstr "<b>Phông chữ trình hiệu chỉnh:</b>"
+msgstr "<b>Phông chữ trình soạn thảo:</b>"
 
 #: ../Data/glade/dasher.compose.glade.h:12
 #: ../Data/glade/dasher.direct.glade.h:12
@@ -127,7 +126,7 @@ msgstr "<b>Thiết bị nhập:</b>"
 #: ../Data/glade/dashermaemo.glade.h:6
 #: ../Data/glade/dashermaemofullscreen.glade.h:3
 msgid "<b>Language Model:</b>"
-msgstr "<b>Mẫu ngôn ngữ :</b>"
+msgstr "<b>Mẫu ngôn ngữ:</b>"
 
 #: ../Data/glade/dasher.compose.glade.h:14
 #: ../Data/glade/dasher.direct.glade.h:14
@@ -152,7 +151,7 @@ msgstr "<b>Làm mịn:</b>"
 #: ../Data/glade/dashermaemo.glade.h:9
 #: ../Data/glade/dashermaemofullscreen.glade.h:6
 msgid "<b>Speed:</b>"
-msgstr "<b>Tốc độ :</b>"
+msgstr "<b>Tốc độ:</b>"
 
 #: ../Data/glade/dasher.compose.glade.h:17
 #: ../Data/glade/dasher.direct.glade.h:17
@@ -282,11 +281,11 @@ msgstr "Cắt"
 #: ../Data/glade/dashermaemo.glade.h:18
 #: ../Data/glade/dashermaemofullscreen.glade.h:16
 msgid "Dasher Preferences"
-msgstr "Tùy thích Dasher"
+msgstr "Tuỳ thích Dasher"
 
 #: ../Data/glade/dasher.compose.glade.h:36
 msgid "Dasher _Tutorial"
-msgstr "_Trợ lý Dasher"
+msgstr "_Trợ lí Dasher"
 
 #: ../Data/glade/dasher.compose.glade.h:37
 #: ../Data/glade/dasher.direct.glade.h:33
@@ -300,7 +299,7 @@ msgstr "Nhập trực tiếp"
 #: ../Data/glade/dasher.fullscreen.glade.h:33
 #: ../Data/glade/dasher.traditional.glade.h:38
 msgid "Dock application window"
-msgstr "Cửa sổ ứng dụng Neo"
+msgstr "Neo cửa sổ ứng dụng"
 
 #: ../Data/glade/dasher.compose.glade.h:39
 #: ../Data/glade/dasher.direct.glade.h:35
@@ -314,7 +313,7 @@ msgstr "Vẽ nét ngoài hộp"
 #: ../Data/glade/dasher.fullscreen.glade.h:35
 #: ../Data/glade/dasher.traditional.glade.h:40
 msgid "Draw line between crosshairs and mouse"
-msgstr "Vẽ đường từ dấu chữ thập mảnh đến con chuột"
+msgstr "Vẽ đường giữa dấu chữ thập và con chuột"
 
 #: ../Data/glade/dasher.compose.glade.h:41
 #: ../Data/glade/dasher.direct.glade.h:37
@@ -353,7 +352,7 @@ msgstr "Ngôn ngữ"
 #: ../Data/glade/dashermaemo.glade.h:21
 #: ../Data/glade/dashermaemofullscreen.glade.h:18
 msgid "Language model adapts as you write."
-msgstr "Mẫu hình ngôn ngữ thích ứng khi bạn viết"
+msgstr "Loại ngôn ngữ thích ứng khi bạn viết."
 
 #: ../Data/glade/dasher.compose.glade.h:46
 #: ../Data/glade/dasher.direct.glade.h:42
@@ -395,7 +394,7 @@ msgstr "Mở tập tin"
 #: ../Data/glade/dasher.fullscreen.glade.h:44
 #: ../Data/glade/dasher.traditional.glade.h:52
 msgid "Options"
-msgstr "Tùy chọn"
+msgstr "Tuỳ chọn"
 
 #: ../Data/glade/dasher.compose.glade.h:52
 #: ../Data/glade/dasher.traditional.glade.h:53
@@ -419,7 +418,7 @@ msgstr "Vui lòng đợi..."
 
 #: ../Data/glade/dasher.compose.glade.h:55
 msgid "Pr_eferences"
-msgstr "Tù_y thích"
+msgstr "_Tuỳ thích"
 
 #: ../Data/glade/dasher.compose.glade.h:56
 #: ../Data/glade/dasher.direct.glade.h:48
@@ -492,7 +491,7 @@ msgstr "Phông chữ nhỏ"
 #: ../Data/glade/dasher.direct.glade.h:55
 #: ../Data/glade/dasher.traditional.glade.h:69
 msgid "Speed:"
-msgstr "Tốc độ :"
+msgstr "Tốc độ:"
 
 #: ../Data/glade/dasher.compose.glade.h:66
 #: ../Data/glade/dasher.direct.glade.h:56
@@ -508,7 +507,7 @@ msgstr "Độc lập"
 #: ../Data/glade/dashermaemo.glade.h:30
 #: ../Data/glade/dashermaemofullscreen.glade.h:27
 msgid "Standard letter-based PPM"
-msgstr "Trang mỗi phút dưa vào lá thư chuẩn"
+msgstr "Trang mỗi phút dựa vào kí tự chuẩn"
 
 #: ../Data/glade/dasher.compose.glade.h:68
 #: ../Data/glade/dasher.direct.glade.h:58
@@ -522,7 +521,7 @@ msgstr "Bắt đầu khi bấm nút trái trên chuột"
 #: ../Data/glade/dasher.fullscreen.glade.h:57
 #: ../Data/glade/dasher.traditional.glade.h:73
 msgid "Start on space bar"
-msgstr "Bắt đầu khi bấm phím dài"
+msgstr "Bắt đầu khi bấm phím khoảng trắng"
 
 #: ../Data/glade/dasher.compose.glade.h:70
 #: ../Data/glade/dasher.direct.glade.h:60
@@ -555,9 +554,10 @@ msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
 "your writing speed."
-msgstr "Hãy sử dụng điều khiển này để điều chỉnh những kích cỡ\n"
-"tương đối của hộp thư. Ghi chú rằng việc chọn giá trị cao\n"
-"sẽ giảm tốc độ viết."
+msgstr ""
+"Hãy sử dụng điều khiển này để điều chỉnh kích cỡ tương đối\n"
+"ô kí tự. Lưu ý rằng việc chọn giá trị cao sẽ giảm\n"
+"tốc độ viết."
 
 #: ../Data/glade/dasher.compose.glade.h:76
 #: ../Data/glade/dasher.direct.glade.h:66
@@ -573,7 +573,7 @@ msgstr "Phông chữ rất lớn"
 #: ../Data/glade/dashermaemo.glade.h:33
 #: ../Data/glade/dashermaemofullscreen.glade.h:31
 msgid "Word-based model"
-msgstr "Mẫu dưa vào từ"
+msgstr "Mẫu dựa vào từ"
 
 #: ../Data/glade/dasher.compose.glade.h:78
 #: ../Data/glade/dashermaemofullscreen.glade.h:32
@@ -582,7 +582,7 @@ msgstr "_Giới thiệu"
 
 #: ../Data/glade/dasher.compose.glade.h:79
 msgid "_Append to file"
-msgstr "_Phụ thêm vào tập tin"
+msgstr "_Nối vào tập tin"
 
 #: ../Data/glade/dasher.compose.glade.h:80
 msgid "_Contents"
@@ -604,7 +604,7 @@ msgstr "_Tập tin"
 #: ../Data/glade/dasher.traditional.glade.h:86
 #: ../Data/glade/dashermaemofullscreen.glade.h:38
 msgid "_Help"
-msgstr "Trợ g_iúp"
+msgstr "Trợ _giúp"
 
 #: ../Data/glade/dasher.compose.glade.h:84
 msgid "_Import Training Text"
@@ -620,7 +620,7 @@ msgstr "aăâbcdđeêghikôươ AĂÂBCDĐEÊGHIKÔƯƠ"
 
 #: ../Data/glade/dasher.traditional.glade.h:18
 msgid "A_ppend to file..."
-msgstr "_Phụ thêm vào tập tin..."
+msgstr "_Nối vào tập tin..."
 
 #: ../Data/glade/dasher.traditional.glade.h:42
 msgid "Help"
@@ -628,11 +628,11 @@ msgstr "Trợ giúp"
 
 #: ../Data/glade/dasher.traditional.glade.h:56
 msgid "Pr_eferences..."
-msgstr "Tù_y thích..."
+msgstr "_Tuỳ thích..."
 
 #: ../Data/glade/dasher.traditional.glade.h:57
 msgid "Preferences"
-msgstr "Tùy thích"
+msgstr "Tuỳ thích"
 
 #: ../Data/glade/dasher.traditional.glade.h:58
 msgid "Quit"
@@ -640,11 +640,11 @@ msgstr "Thoát"
 
 #: ../Data/glade/dasher.traditional.glade.h:62
 msgid "Select Dasher Font"
-msgstr "Chọn phông Dasher"
+msgstr "Chọn phông chữ"
 
 #: ../Data/glade/dasher.traditional.glade.h:63
 msgid "Select Editor Font"
-msgstr "Chọn phông sửa"
+msgstr "Chọn phông soạn thảo"
 
 #: ../Data/glade/dasher.traditional.glade.h:82
 msgid "_About..."
@@ -652,7 +652,7 @@ msgstr "_Giới thiệu..."
 
 #: ../Data/glade/dasher.traditional.glade.h:83
 msgid "_Contents..."
-msgstr "Mụ_c lục..."
+msgstr "_Mục lục..."
 
 #: ../Data/glade/dasher.traditional.glade.h:87
 msgid "_Import Training Text..."
@@ -720,7 +720,7 @@ msgstr "_Sửa phông chữ"
 
 #: ../Data/glade/dashermaemofullscreen.glade.h:39
 msgid "_Options"
-msgstr "Tù_y chọn"
+msgstr "_Tuỳ chọn"
 
 #: ../Data/glade/dashermaemofullscreen.glade.h:40
 msgid "_Reset fonts"
@@ -745,7 +745,7 @@ msgstr "Chế độ trình đơn"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:966
 msgid "Direct Mode"
-msgstr "Chế độ trực tiếp"
+msgstr "Nhập trực tiếp"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:968
 #. RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
@@ -795,7 +795,7 @@ msgstr "Chế độ một chiều"
 #: ../Src/DasherCore/SocketInput.cpp:34
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 msgid "Dasher socket input: failed to launch reader thread."
-msgstr "Nhập ổ cắm dasher: việc khởi chạy mạch đọc bị lỗi."
+msgstr "Nhập ổ cắm dasher: lỗi khi khởi chạy mạch đọc."
 
 #: ../Src/DasherCore/SocketInputBase.cpp:27
 msgid "Port:"
@@ -836,15 +836,15 @@ msgstr "Ổ cắm nhập vào"
 #: ../Src/Gtk2/dasher_action_speech.cpp:163
 #, c-format
 msgid "Unable to initialize speech support\n"
-msgstr "Không thể khởi động khả năng hỗ trợ tiếng nói\n"
+msgstr "Không thể khởi tạo phần hỗ trợ tiếng nói\n"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:186
 msgid "Unable to initialize voices\n"
-msgstr "Không thể khởi động các giọng nói\n"
+msgstr "Không thể khởi tạo giọng nói\n"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:198
 msgid "Warning: unable to set speech parameters\n"
-msgstr "Cảnh báo : không thể đặt các tham số  tiếng nói\n"
+msgstr "Cảnh báo: không thể đặt các tham số tiếng nói\n"
 
 #: ../Src/Gtk2/dasher_main.cpp:1003
 #, c-format
@@ -890,7 +890,7 @@ msgstr "Nhóm Việt hóa GNOME (http://gnomevi.sourceforge.net)"
 #: ../Src/Gtk2/module_settings_window.cpp:71
 #, c-format
 msgid "%s Options:"
-msgstr "Tùy chọn %s:"
+msgstr "Tuỳ chọn %s:"
 
 #: ../Src/Gtk2/mouse_input.h:15
 msgid "Mouse Input"
