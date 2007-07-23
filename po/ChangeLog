@@ -1,3 +1,7 @@
+2007-07-23  Claude Paroz <claude@2xlibre.net>
+
+	* POTFILES.in: Removed extra spaces after recently added files.
+
 2007-07-23  Matic Žgur  <mr.zgur@gmail.com>
 
 	* sl.po: Updated Slovenian translation
