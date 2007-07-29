@@ -79,8 +79,7 @@ msgstr ""
 #: ../Src/Gtk2/Menu.cc:422 ../Src/Gtk2/Menu.cc:428
 msgid "translator-credits"
 msgstr ""
-"La còla occitana de revirada d'Ubuntu, 2006 - ubuntu-l10n-"
-"oci@lists.ubuntu.com"
+"La còla occitana de revirada d'Ubuntu, 2007 - ubuntu-l10n-oci@lists.ubuntu.com"
 
 #: ../Src/Gtk2/dasher.compose.glade.h:1 ../Src/Gtk2/dasher.direct.glade.h:1
 #: ../Src/Gtk2/dasher.fullscreen.glade.h:1 ../Src/Gtk2/dasher.glade.h:1
