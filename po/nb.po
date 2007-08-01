@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher 3.11.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-24 14:21+0200\n"
-"PO-Revision-Date: 2007-06-24 14:24+0200\n"
+"POT-Creation-Date: 2007-08-01 15:06+0200\n"
+"PO-Revision-Date: 2007-08-01 15:10+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-no@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: ../Data/glade/dasher.traditional.glade.h:35
 #: ../Data/glade/dashermaemo.glade.h:17
 #: ../Data/glade/dashermaemofullscreen.glade.h:15
-#: ../Src/Gtk2/dasher_main.cpp:1123
+#: ../Src/Gtk2/dasher_main.cpp:1156
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -445,8 +445,8 @@ msgstr "Lagre fil som"
 #: ../Data/glade/dasher.traditional.glade.h:64
 #: ../Data/glade/dashermaemo.glade.h:28
 #: ../Data/glade/dashermaemofullscreen.glade.h:25
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1347
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1380 ../Src/Gtk2/dasher_main.cpp:965
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1322
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1355 ../Src/Gtk2/dasher_main.cpp:998
 msgid "Select File"
 msgstr "Velg fil"
 
@@ -729,6 +729,30 @@ msgstr "_Nullstill skrifter"
 msgid "Click Mode"
 msgstr "Klikkmodus"
 
+#: ../Src/DasherCore/DasherButtons.cpp:24
+msgid "Zoom steps"
+msgstr "Zoom-steg"
+
+#: ../Src/DasherCore/DasherButtons.cpp:25
+msgid "Right zoom"
+msgstr "Zoom til høyre"
+
+#: ../Src/DasherCore/DasherButtons.cpp:26
+msgid "Number of boxes"
+msgstr "Antall bokser"
+
+#: ../Src/DasherCore/DasherButtons.cpp:27
+msgid "Safety margin"
+msgstr "Sikkerhetsmargin"
+
+#: ../Src/DasherCore/DasherButtons.cpp:28
+msgid "Box non-uniformity"
+msgstr "Ikke-uniformitet for boks"
+
+#: ../Src/DasherCore/DasherButtons.cpp:29
+msgid "Global keyboard grab"
+msgstr "Hold tastaturet globalt"
+
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:985
 msgid "Normal Control"
 msgstr "Normal kontroll"
@@ -760,14 +784,17 @@ msgid "Stylus Control"
 msgstr "Kontroll av stylus"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:9
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:16
 msgid "Long press time"
 msgstr "Lang nedtrykkingstid"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:10
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:17
 msgid "Multiple press time"
 msgstr "Tid for flere trykk"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:11
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:18
 msgid "Multiple press count"
 msgstr "Antall flertrykk"
 
@@ -780,7 +807,7 @@ msgid "One Button Dynamic Mode"
 msgstr "En-knapps dynamisk modus"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:7
-msgid "Automatic calibration:"
+msgid "Automatic calibration"
 msgstr "Automatisk kalibrering"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:11
@@ -832,6 +859,75 @@ msgstr "Skriv feilsøkingsinformasjon relatert til «socket» til konsollet:"
 msgid "Socket Input"
 msgstr "Inndata på «socket»"
 
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:15
+msgid "Button offset"
+msgstr "Knappeavstand"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:19
+msgid "Enable backoff and start/stop buttons"
+msgstr "Aktiver «backoff» og start-/stopp-knapp"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:20
+msgid "Reverse up and down buttons"
+msgstr "Snu om på opp- og ned-knappene"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:21
+msgid "Slow startup"
+msgstr "Treg oppstart"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:22
+msgid "Startup time"
+msgstr "Oppstartstid"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:23
+msgid "Auto speed control"
+msgstr "Automatisk kontroll av hastighet"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:24
+msgid "Auto speed threshold"
+msgstr "Terskel for automatisk hastighet"
+
+#: ../Src/Gtk2/Preferences.cpp:417 ../Src/Gtk2/Preferences.cpp:975
+msgid "Action"
+msgstr "Handling"
+
+#: ../Src/Gtk2/Preferences.cpp:981
+msgid "Show Button"
+msgstr "Vis knapp"
+
+#: ../Src/Gtk2/Preferences.cpp:986
+msgid "Control Mode"
+msgstr "Kontrollmodus"
+
+#: ../Src/Gtk2/Preferences.cpp:991
+msgid "Auto On Stop"
+msgstr "Automatisk ved stopp"
+
+#: ../Src/Gtk2/dasher_action_keyboard.cpp:60
+#: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:94
+msgid "Enter Text"
+msgstr "Skriv inn tekst"
+
+#: ../Src/Gtk2/dasher_action_script.cpp:91
+msgid "Script"
+msgstr "Skript"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:129
+msgid "Speak"
+msgstr "Snakk"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:141
+msgid "All"
+msgstr "Alle"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:143
+msgid "Last"
+msgstr "Sist"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:145
+msgid "Repeat"
+msgstr "Gjenta"
+
 #: ../Src/Gtk2/dasher_action_speech.cpp:163
 #, c-format
 msgid "Unable to initialize speech support\n"
@@ -845,7 +941,7 @@ msgstr "Kan ikke initiere stemmer\n"
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Advarsel: kunne ikke sette parametere for tale\n"
 
-#: ../Src/Gtk2/dasher_main.cpp:1003
+#: ../Src/Gtk2/dasher_main.cpp:1036
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -856,7 +952,7 @@ msgstr ""
 "\n"
 "Endringene vil gå tapt hvis du ikke lagrer dem."
 
-#: ../Src/Gtk2/dasher_main.cpp:1009
+#: ../Src/Gtk2/dasher_main.cpp:1042
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -866,27 +962,31 @@ msgstr ""
 "\n"
 "Endringene vil gå tapt hvis du ikke lagrer dem."
 
-#: ../Src/Gtk2/dasher_main.cpp:1013
+#: ../Src/Gtk2/dasher_main.cpp:1046
 msgid "Don't save"
 msgstr "Ikke lagre"
 
-#: ../Src/Gtk2/dasher_main.cpp:1014
+#: ../Src/Gtk2/dasher_main.cpp:1047
 msgid "Don't quit"
 msgstr "Ikke avslutt"
 
-#: ../Src/Gtk2/dasher_main.cpp:1015
+#: ../Src/Gtk2/dasher_main.cpp:1048
 msgid "Save and quit"
 msgstr "Lagre og avslutt"
 
-#: ../Src/Gtk2/dasher_main.cpp:1110 ../Src/Gtk2/dasher_main.cpp:1126
+#: ../Src/Gtk2/dasher_main.cpp:1143 ../Src/Gtk2/dasher_main.cpp:1159
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher er et forutseende program for inntasting av tekst"
 
-#: ../Src/Gtk2/dasher_main.cpp:1115 ../Src/Gtk2/dasher_main.cpp:1121
+#: ../Src/Gtk2/dasher_main.cpp:1148 ../Src/Gtk2/dasher_main.cpp:1154
 msgid "translator-credits"
 msgstr "Kjartan Maraas <kmaraas@gnome.org>"
 
-#: ../Src/Gtk2/module_settings_window.cpp:71
+#: ../Src/Gtk2/module_settings_window.cpp:85
+msgid "Dasher Module Options"
+msgstr "Alternativer for Dasher-moduler"
+
+#: ../Src/Gtk2/module_settings_window.cpp:91
 #, c-format
 msgid "%s Options:"
 msgstr "Alternativer for %s:"
@@ -894,6 +994,10 @@ msgstr "Alternativer for %s:"
 #: ../Src/Gtk2/mouse_input.h:15
 msgid "Mouse Input"
 msgstr "Inndata for mus"
+
+#: ../Src/Gtk2/mouse_input.h:51
+msgid "Pixels covering Y range"
+msgstr "Piksler som dekker Y-området"
 
 #: ../Src/Gtk2/mouse_input.h:57
 msgid "One Dimensional Mouse Input"
