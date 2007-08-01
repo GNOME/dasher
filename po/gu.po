@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher.HEAD.gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-02 03:21+0100\n"
-"PO-Revision-Date: 2007-07-06 16:00+0530\n"
+"POT-Creation-Date: 2007-07-21 03:47+0100\n"
+"PO-Revision-Date: 2007-08-01 16:19+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati <fedora-trans-gu@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -33,6 +33,7 @@ msgstr ""
 "\n"
 "\n"
 "\n"
+"\n"
 
 #: ../Data/dasher.desktop.in.in.h:1 ../Data/glade/dasher.compose.glade.h:34
 #: ../Data/glade/dasher.direct.glade.h:31
@@ -40,7 +41,7 @@ msgstr ""
 #: ../Data/glade/dasher.traditional.glade.h:35
 #: ../Data/glade/dashermaemo.glade.h:17
 #: ../Data/glade/dashermaemofullscreen.glade.h:15
-#: ../Src/Gtk2/dasher_main.cpp:1123
+#: ../Src/Gtk2/dasher_main.cpp:1156
 msgid "Dasher"
 msgstr "ડેશર"
 
@@ -463,8 +464,8 @@ msgstr "ફાઈલને આ રીતે સંગ્રહો"
 #: ../Data/glade/dasher.traditional.glade.h:64
 #: ../Data/glade/dashermaemo.glade.h:28
 #: ../Data/glade/dashermaemofullscreen.glade.h:25
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1347
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1380 ../Src/Gtk2/dasher_main.cpp:965
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1322
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1355 ../Src/Gtk2/dasher_main.cpp:998
 msgid "Select File"
 msgstr "ફાઈલ પસંદ કરો"
 
@@ -747,45 +748,72 @@ msgstr "ફોન્ટ ફરી સુયોજિત કરો (_R)"
 msgid "Click Mode"
 msgstr "ક્લિક સ્થિતિ"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:958
+#: ../Src/DasherCore/DasherButtons.cpp:24
+msgid "Zoom steps"
+msgstr "નાનામોટાપણાના પગલાંઓ"
+
+#: ../Src/DasherCore/DasherButtons.cpp:25
+msgid "Right zoom"
+msgstr "જમણેથી નાનુંમોટું કરો"
+
+#: ../Src/DasherCore/DasherButtons.cpp:26
+msgid "Number of boxes"
+msgstr "બોક્સની સંખ્યા"
+
+#: ../Src/DasherCore/DasherButtons.cpp:27
+msgid "Safety margin"
+msgstr "સુરક્ષા હાંસિયો"
+
+#: ../Src/DasherCore/DasherButtons.cpp:28
+msgid "Box non-uniformity"
+msgstr "બોક્સ બિન-એકત્રિતા"
+
+#: ../Src/DasherCore/DasherButtons.cpp:29
+msgid "Global keyboard grab"
+msgstr "વૈશ્વિક કીબોર્ડ મેળવો"
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:985
 msgid "Normal Control"
 msgstr "સામાન્ય નિયંત્રણ"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:963
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:990
 msgid "Two Button Dynamic Mode"
 msgstr "બે બટન વૈશ્વિક સ્થિતિ"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:965
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:992
 msgid "Menu Mode"
 msgstr "મેનુ સ્થિતિ"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:966
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:993
 msgid "Direct Mode"
 msgstr "સીધી સ્થિતિ"
 
 #. RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:968
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:995
 msgid "Alternating Direct Mode"
 msgstr "વૈકલ્પિક સીધી સ્થિતિ"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:969
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:996
 msgid "Compass Mode"
 msgstr "કમ્પાસ સ્થિતિ"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:970
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:997
 msgid "Stylus Control"
 msgstr "શૈલી નિયંત્રણ"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:9
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:16
 msgid "Long press time"
 msgstr "લાંબો દબાણ સમય"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:10
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:17
 msgid "Multiple press time"
 msgstr "ઘણોબધો દબાણ સમય"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:11
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:18
 msgid "Multiple press count"
 msgstr "ઘણા દબાણ ગણન"
 
@@ -798,8 +826,8 @@ msgid "One Button Dynamic Mode"
 msgstr "એક બટન વૈશ્વિક સ્થિતિ"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:7
-msgid "Automatic calibration:"
-msgstr "આપોઆપ કેલીબરેશન:"
+msgid "Automatic calibration"
+msgstr "આપોઆપ કેલીબરેશન"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:11
 msgid "Eyetracker Mode"
@@ -850,6 +878,75 @@ msgstr "સોકેટ-સંબંધિત ડિબગીંગ જાણક
 msgid "Socket Input"
 msgstr "સોકેટ ઈનપુટ"
 
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:15
+msgid "Button offset"
+msgstr "બટન ઓફસેટ"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:19
+msgid "Enable backoff and start/stop buttons"
+msgstr "બેકઓફ અને શરૂઆત/અટકાવો બટનો સક્રિય કરો"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:20
+msgid "Reverse up and down buttons"
+msgstr "ઊલટા ઉપર અને નીચે બટનો"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:21
+msgid "Slow startup"
+msgstr "ધીમી શરૂઆત"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:22
+msgid "Startup time"
+msgstr "શરૂઆત સમય"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:23
+msgid "Auto speed control"
+msgstr "આપોઆપ ઝડપ નિયંત્રણ"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:24
+msgid "Auto speed threshold"
+msgstr "આપોઆપ ઝડપ થ્રેશોલ્ડ"
+
+#: ../Src/Gtk2/Preferences.cpp:417 ../Src/Gtk2/Preferences.cpp:975
+msgid "Action"
+msgstr "ક્રિયા"
+
+#: ../Src/Gtk2/Preferences.cpp:981
+msgid "Show Button"
+msgstr "બટન બતાવો"
+
+#: ../Src/Gtk2/Preferences.cpp:986
+msgid "Control Mode"
+msgstr "નિયંત્રણ સ્થિતિ"
+
+#: ../Src/Gtk2/Preferences.cpp:991
+msgid "Auto On Stop"
+msgstr "અટકાવવા પર આપોઆપ"
+
+#: ../Src/Gtk2/dasher_action_keyboard.cpp:60
+#: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:94
+msgid "Enter Text"
+msgstr "લખાણ દાખલ કરો"
+
+#: ../Src/Gtk2/dasher_action_script.cpp:91
+msgid "Script"
+msgstr "સ્ક્રિપ્ટ"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:129
+msgid "Speak"
+msgstr "બોલો"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:141
+msgid "All"
+msgstr "બધું"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:143
+msgid "Last"
+msgstr "છેલ્લું"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:145
+msgid "Repeat"
+msgstr "પુનરાવર્તન"
+
 #: ../Src/Gtk2/dasher_action_speech.cpp:163
 #, c-format
 msgid "Unable to initialize speech support\n"
@@ -863,7 +960,7 @@ msgstr "અવાજોનો પ્રારંભ કરવા સમર્થ
 msgid "Warning: unable to set speech parameters\n"
 msgstr "ચેતવણી: બોલીના પરિમાણો સુયોજિત કરવા સમર્થ નથી\n"
 
-#: ../Src/Gtk2/dasher_main.cpp:1003
+#: ../Src/Gtk2/dasher_main.cpp:1036
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -873,7 +970,7 @@ msgstr ""
 "શું તમે તમારા ફેરફારો %s માં સંગ્રહવા માંગો છો?\n"
 "જો તમે તેમને સંગ્રહો નહિં તો તમારા ફેરફારો નષ્ટ થઈ જશે."
 
-#: ../Src/Gtk2/dasher_main.cpp:1009
+#: ../Src/Gtk2/dasher_main.cpp:1042
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -882,27 +979,31 @@ msgstr ""
 "શું તમે તમારા ફેરફારો સંગ્રહવા માંગો છો?\n"
 "જો તમે તેમને સંગ્રહો નહિં તો તમારા ફેરફારો નષ્ટ થઈ જશે."
 
-#: ../Src/Gtk2/dasher_main.cpp:1013
+#: ../Src/Gtk2/dasher_main.cpp:1046
 msgid "Don't save"
 msgstr "સંગ્રહો નહિં"
 
-#: ../Src/Gtk2/dasher_main.cpp:1014
+#: ../Src/Gtk2/dasher_main.cpp:1047
 msgid "Don't quit"
 msgstr "બહાર નીકળો નહિં"
 
-#: ../Src/Gtk2/dasher_main.cpp:1015
+#: ../Src/Gtk2/dasher_main.cpp:1048
 msgid "Save and quit"
 msgstr "સંગ્રહો અને બહાર નીકળો"
 
-#: ../Src/Gtk2/dasher_main.cpp:1110 ../Src/Gtk2/dasher_main.cpp:1126
+#: ../Src/Gtk2/dasher_main.cpp:1143 ../Src/Gtk2/dasher_main.cpp:1159
 msgid "Dasher is a predictive text entry application"
 msgstr "ડેશર એ ધારણાવાળું લખાણ પ્રવેશ કાર્યક્રમ છે"
 
-#: ../Src/Gtk2/dasher_main.cpp:1115 ../Src/Gtk2/dasher_main.cpp:1121
+#: ../Src/Gtk2/dasher_main.cpp:1148 ../Src/Gtk2/dasher_main.cpp:1154
 msgid "translator-credits"
 msgstr "અંકિત પટેલ <ankit644@yahoo.com>"
 
-#: ../Src/Gtk2/module_settings_window.cpp:71
+#: ../Src/Gtk2/module_settings_window.cpp:85
+msgid "Dasher Module Options"
+msgstr "ડેશર મોડ્યુલ વિકલ્પો"
+
+#: ../Src/Gtk2/module_settings_window.cpp:91
 #, c-format
 msgid "%s Options:"
 msgstr "%s વિકલ્પો:"
@@ -910,6 +1011,10 @@ msgstr "%s વિકલ્પો:"
 #: ../Src/Gtk2/mouse_input.h:15
 msgid "Mouse Input"
 msgstr "માઉસ ઈનપુટ"
+
+#: ../Src/Gtk2/mouse_input.h:51
+msgid "Pixels covering Y range"
+msgstr "Y વિસ્તાર આવરતા પિક્સેલો"
 
 #: ../Src/Gtk2/mouse_input.h:57
 msgid "One Dimensional Mouse Input"
