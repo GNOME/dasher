@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-09 15:35+0100\n"
-"PO-Revision-Date: 2007-07-17 21:00+0100\n"
+"POT-Creation-Date: 2007-08-01 19:25+0200\n"
+"PO-Revision-Date: 2007-08-01 19:29+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -308,7 +308,7 @@ msgstr "Programdockningsfönster"
 #: ../Data/glade/dasher.fullscreen.glade.h:34
 #: ../Data/glade/dasher.traditional.glade.h:39
 msgid "Draw box outlines"
-msgstr "Rita lådkanter"
+msgstr "Rita lådkonturer"
 
 #: ../Data/glade/dasher.compose.glade.h:40
 #: ../Data/glade/dasher.direct.glade.h:36
@@ -732,6 +732,30 @@ msgstr "_Återställ typsnitt"
 msgid "Click Mode"
 msgstr "Klickläge"
 
+#: ../Src/DasherCore/DasherButtons.cpp:24
+msgid "Zoom steps"
+msgstr "Zoomsteg"
+
+#: ../Src/DasherCore/DasherButtons.cpp:25
+msgid "Right zoom"
+msgstr "Högerzoom"
+
+#: ../Src/DasherCore/DasherButtons.cpp:26
+msgid "Number of boxes"
+msgstr "Antal lådor"
+
+#: ../Src/DasherCore/DasherButtons.cpp:27
+msgid "Safety margin"
+msgstr "Säkerhetsmarginal"
+
+#: ../Src/DasherCore/DasherButtons.cpp:28
+msgid "Box non-uniformity"
+msgstr "Icke-enhetlighet för låda"
+
+#: ../Src/DasherCore/DasherButtons.cpp:29
+msgid "Global keyboard grab"
+msgstr "Global tangentbordsfångst"
+
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:985
 msgid "Normal Control"
 msgstr "Normal styrning"
@@ -763,14 +787,17 @@ msgid "Stylus Control"
 msgstr "Styrning"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:9
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:16
 msgid "Long press time"
 msgstr "Tid för lång nedtryckning"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:10
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:17
 msgid "Multiple press time"
 msgstr "Tid för flera tryckningar"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:11
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:18
 msgid "Multiple press count"
 msgstr "Antal för flera tryckningar"
 
@@ -835,6 +862,34 @@ msgstr "Skriv ut uttagsrelaterad felsökningsinformation till konsollen."
 msgid "Socket Input"
 msgstr "Uttagsindata"
 
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:15
+msgid "Button offset"
+msgstr "Knapposition"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:19
+msgid "Enable backoff and start/stop buttons"
+msgstr "Aktivera backa ur och starta/stoppa-knappar"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:20
+msgid "Reverse up and down buttons"
+msgstr "Vänd på uppåt- och nedåtknappar"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:21
+msgid "Slow startup"
+msgstr "Långsam uppstart"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:22
+msgid "Startup time"
+msgstr "Uppstartstid"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:23
+msgid "Auto speed control"
+msgstr "Automatisk hastighetskontroll"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:24
+msgid "Auto speed threshold"
+msgstr "Tröskelvärde för automatisk hastighet"
+
 #: ../Src/Gtk2/Preferences.cpp:417
 #: ../Src/Gtk2/Preferences.cpp:975
 msgid "Action"
@@ -851,6 +906,15 @@ msgstr "Styrningsläge"
 #: ../Src/Gtk2/Preferences.cpp:991
 msgid "Auto On Stop"
 msgstr "Automatiskt vid stopp"
+
+#: ../Src/Gtk2/dasher_action_keyboard.cpp:60
+#: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:94
+msgid "Enter Text"
+msgstr "Ange text"
+
+#: ../Src/Gtk2/dasher_action_script.cpp:91
+msgid "Script"
+msgstr "Skript"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:129
 msgid "Speak"
@@ -992,8 +1056,6 @@ msgstr "Endimensionell musinmatning"
 #~ msgstr "<b>Y-axelalternativ:</b>"
 #~ msgid "<b>Y Coordinate</b>"
 #~ msgstr "<b>Y-koordinat</b>"
-#~ msgid "<b>Zoom steps</b>"
-#~ msgstr "<b>Zoomsteg</b>"
 #~ msgid ""
 #~ "Additional settings can be accessed directly using the GConf "
 #~ "configuration database. Please note that these settings are intended for "
@@ -1006,8 +1068,6 @@ msgstr "Endimensionell musinmatning"
 #~ "möjligt att försätta Dasher i ett oanvändbart tillstånd."
 #~ msgid "Advanced Settings"
 #~ msgstr "Avancerade inställningar"
-#~ msgid "Box non-uniformity:"
-#~ msgstr "Variation för låda:"
 #~ msgid "Button Preferences"
 #~ msgstr "Knappinställningar"
 #~ msgid "Distance from centerline for start on mouse position:"
