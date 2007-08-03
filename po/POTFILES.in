@@ -1,12 +1,10 @@
 # Add files with translateable strings here.
 # Please keep this file sorted alphabetically.
 Data/dasher.desktop.in.in
-Data/glade/dasher.glade
 Data/glade/dasher.compose.glade
 Data/glade/dasher.direct.glade
 Data/glade/dasher.fullscreen.glade
 Data/glade/dasher.traditional.glade
-Data/glade/dashergpe.glade
 Data/glade/dashermaemo.glade
 Data/glade/dashermaemofullscreen.glade
 Src/DasherCore/DasherInterfaceBase.cpp
