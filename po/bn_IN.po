@@ -8,12 +8,12 @@
 # Runa Bhattacharjee <runabh@gmail.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher\n"
+"Project-Id-Version: bn_IN\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-09 15:35+0100\n"
-"PO-Revision-Date: 2007-07-10 18:20+0530\n"
+"POT-Creation-Date: 2007-07-21 03:47+0100\n"
+"PO-Revision-Date: 2007-08-03 11:52+0530\n"
 "Last-Translator: Runa Bhattacharjee <runabh@gmail.com>\n"
-"Language-Team: Bengali (India) <en@li.org>\n"
+"Language-Team: Bengali INDIA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -740,6 +740,30 @@ msgstr "ফন্ট পুনরায় নির্ধারণ করুন (_
 msgid "Click Mode"
 msgstr "ক্লিক মোড"
 
+#: ../Src/DasherCore/DasherButtons.cpp:24
+msgid "Zoom steps"
+msgstr "বড় করে প্রদর্শনের ধাপ"
+
+#: ../Src/DasherCore/DasherButtons.cpp:25
+msgid "Right zoom"
+msgstr "ডানদিক বড় করে প্রদর্শন"
+
+#: ../Src/DasherCore/DasherButtons.cpp:26
+msgid "Number of boxes"
+msgstr "বাক্সের সংখ্যা"
+
+#: ../Src/DasherCore/DasherButtons.cpp:27
+msgid "Safety margin"
+msgstr "নিরাপত্তার সীমা"
+
+#: ../Src/DasherCore/DasherButtons.cpp:28
+msgid "Box non-uniformity"
+msgstr "বাক্স সুসংগত নয়"
+
+#: ../Src/DasherCore/DasherButtons.cpp:29
+msgid "Global keyboard grab"
+msgstr "গ্লোবাল কি-বোর্ড থেকে তথ্য গ্রহণ"
+
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:985
 msgid "Normal Control"
 msgstr "স্বাভাবিক নিয়ন্ত্রণ"
@@ -771,14 +795,17 @@ msgid "Stylus Control"
 msgstr "স্টাইলাস নিয়ন্ত্রণ"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:9
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:16
 msgid "Long press time"
 msgstr "অধিক টিপে রাখার সময়"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:10
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:17
 msgid "Multiple press time"
 msgstr "একাধিকবার টেপার সময়"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:11
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:18
 msgid "Multiple press count"
 msgstr "একাধিক টেপার সংখ্যা"
 
@@ -843,6 +870,34 @@ msgstr "সকেট সংক্রান্ত ডিবাগ তথ্য �
 msgid "Socket Input"
 msgstr "সকেট ইনপুট"
 
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:15
+msgid "Button offset"
+msgstr "বাটন অফ-সেট"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:19
+msgid "Enable backoff and start/stop buttons"
+msgstr "ব্যাক-অফ ও আরম্ভ/বন্ধ বাটন সক্রিয় করুন"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:20
+msgid "Reverse up and down buttons"
+msgstr "বিপরীত দিশায় উপর ও নীচের বাটন"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:21
+msgid "Slow startup"
+msgstr "ধীরে আরম্ভ"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:22
+msgid "Startup time"
+msgstr "আরম্ভকালে ব্যয় সময়"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:23
+msgid "Auto speed control"
+msgstr "স্বয়ংক্রিয় গতি নিয়ন্ত্রণ"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:24
+msgid "Auto speed threshold"
+msgstr "স্বয়ংক্রিয় গতির প্রান্তিক মাত্রা"
+
 #: ../Src/Gtk2/Preferences.cpp:417 ../Src/Gtk2/Preferences.cpp:975
 msgid "Action"
 msgstr "কর্ম"
@@ -858,6 +913,15 @@ msgstr "নিয়ন্ত্রণ মোড"
 #: ../Src/Gtk2/Preferences.cpp:991
 msgid "Auto On Stop"
 msgstr "বন্ধের সময় স্বয়ংক্রিয় সক্রিয়করণ"
+
+#: ../Src/Gtk2/dasher_action_keyboard.cpp:60
+#: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:94
+msgid "Enter Text"
+msgstr "টেক্সট লিখুন"
+
+#: ../Src/Gtk2/dasher_action_script.cpp:91
+msgid "Script"
+msgstr "স্ক্রিপ্ট"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:129
 msgid "Speak"
