@@ -1,5 +1,11 @@
 2007-08-03  Theppitak Karoonboonyanan  <thep@linux.thai.net>
 
+	* POTFILES.in, th.po: Revert previous two erroneous commits.
+	I somehow happenned to have a working copy mixed up with gnome-2-18
+	branch and trunk.
+
+2007-08-03  Theppitak Karoonboonyanan  <thep@linux.thai.net>
+
 	* POTFILES.in: Remove entries for removed glade files.
 	* th.po: Updated Thai translation.
 
