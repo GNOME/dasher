@@ -529,7 +529,7 @@ msgid "_Append to file"
 msgstr "A_nexar ao arquivo"
 
 #: ../Src/Gtk2/dasher.compose.glade.h:80 ../Src/Gtk2/dasher.glade.h:80
-msgid "_Contents"
+msgid "S_umário"
 msgstr "_Conteúdo"
 
 #: ../Src/Gtk2/dasher.compose.glade.h:81 ../Src/Gtk2/dasher.glade.h:81
@@ -572,7 +572,7 @@ msgid "_About..."
 msgstr "_Sobre..."
 
 #: ../Src/Gtk2/dasher.traditional.glade.h:80
-msgid "_Contents..."
+msgid "S_umário..."
 msgstr "_Conteúdo..."
 
 #: ../Src/Gtk2/dasher.traditional.glade.h:84
