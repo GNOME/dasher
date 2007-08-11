@@ -1,3 +1,8 @@
+2007-08-11  Daniel Nylander <po@danielnylander.se>
+
+	* sv/sv.po: Updated Swedish translation.
+	* sv/figures/*png: Updated and removed screenshots
+
 2007-07-17  Jorge Gonzalez <jorgegonz@svn.gnome.org>
 
         * es/es.po: Updated Spanish translation
