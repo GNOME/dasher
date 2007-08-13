@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-11 06:41+0300\n"
+"POT-Creation-Date: 2007-08-13 08:11+0300\n"
 "PO-Revision-Date: 2007-01-06 19:45+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
@@ -726,6 +726,30 @@ msgstr "_Palauta oletuskirjasimet"
 msgid "Click Mode"
 msgstr "Napsautustila"
 
+#: ../Src/DasherCore/DasherButtons.cpp:24
+msgid "Zoom steps"
+msgstr "Lähennyksen askelet"
+
+#: ../Src/DasherCore/DasherButtons.cpp:25
+msgid "Right zoom"
+msgstr "Oikealta zoomaus"
+
+#: ../Src/DasherCore/DasherButtons.cpp:26
+msgid "Number of boxes"
+msgstr "Laatikoiden lukumäärä"
+
+#: ../Src/DasherCore/DasherButtons.cpp:27
+msgid "Safety margin"
+msgstr "Turvaväli"
+
+#: ../Src/DasherCore/DasherButtons.cpp:28
+msgid "Box non-uniformity"
+msgstr "Laatikon epäyhtenäisyys"
+
+#: ../Src/DasherCore/DasherButtons.cpp:29
+msgid "Global keyboard grab"
+msgstr "Järjestelmän näppäimistön varaus"
+
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:985
 msgid "Normal Control"
 msgstr "Normaali ohjaus"
@@ -757,14 +781,17 @@ msgid "Stylus Control"
 msgstr "Kynäohjaus"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:9
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:16
 msgid "Long press time"
 msgstr "Pitkän painalluksen aika"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:10
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:17
 msgid "Multiple press time"
 msgstr "Usean painalluksen aika"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:11
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:18
 msgid "Multiple press count"
 msgstr "Useiden painallusten lukumäärä"
 
@@ -829,6 +856,34 @@ msgstr "Näytä pistokkeeseen liittyviä vianetsintätietoja konsolilla:"
 msgid "Socket Input"
 msgstr "Pistokkesta luku"
 
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:15
+msgid "Button offset"
+msgstr "Napin siirtymä"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:19
+msgid "Enable backoff and start/stop buttons"
+msgstr "Ota paluu- ja aloitus/lopetus-painikkeet käyttöön"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:20
+msgid "Reverse up and down buttons"
+msgstr "Vaihda ylös- ja alas-nappien paikkaa"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:21
+msgid "Slow startup"
+msgstr "Hidas aloitus"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:22
+msgid "Startup time"
+msgstr "Aloitusaika"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:23
+msgid "Auto speed control"
+msgstr "Automaattinen nopeudensäätö"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:24
+msgid "Auto speed threshold"
+msgstr "Automaattisen nopeussäädön liipasinarvo"
+
 #: ../Src/Gtk2/Preferences.cpp:417 ../Src/Gtk2/Preferences.cpp:975
 msgid "Action"
 msgstr "Toiminto"
@@ -844,6 +899,15 @@ msgstr "Ohjaustila"
 #: ../Src/Gtk2/Preferences.cpp:991
 msgid "Auto On Stop"
 msgstr "Automaattinen pysäytettäessä"
+
+#: ../Src/Gtk2/dasher_action_keyboard.cpp:60
+#: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:94
+msgid "Enter Text"
+msgstr "Syötä teksti"
+
+#: ../Src/Gtk2/dasher_action_script.cpp:91
+msgid "Script"
+msgstr "Skripti"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:129
 msgid "Speak"
@@ -987,9 +1051,6 @@ msgstr "Yksiulotteinen hiirisyöttö"
 #~ msgid "<b>Y Coordinate</b>"
 #~ msgstr "<b>Y-koordinaatti</b>"
 
-#~ msgid "<b>Zoom steps</b>"
-#~ msgstr "<b>Lähennyksen askelet</b>"
-
 #~ msgid ""
 #~ "Additional settings can be accessed directly using the GConf "
 #~ "configuration database. Please note that these settings are intended for "
@@ -1004,9 +1065,6 @@ msgstr "Yksiulotteinen hiirisyöttö"
 #~ msgid "Advanced Settings"
 #~ msgstr "Lisäasetukset"
 
-#~ msgid "Box non-uniformity:"
-#~ msgstr "Laatikon epäyhtenäisyys:"
-
 #~ msgid "Button Preferences"
 #~ msgstr "Nappien asetukset"
 
@@ -1015,9 +1073,6 @@ msgstr "Yksiulotteinen hiirisyöttö"
 
 #~ msgid "Drop time:  "
 #~ msgstr "Pudotusaika:  "
-
-#~ msgid "Global keyboard grab"
-#~ msgstr "Järjestelmän näppäimistön varaus"
 
 #~ msgid "Launch GConf editor"
 #~ msgstr "Käynnistä asetusten muokkain"
@@ -1034,17 +1089,8 @@ msgstr "Yksiulotteinen hiirisyöttö"
 #~ msgid "Number of \"zoom-out boxes\":"
 #~ msgstr "\"Loitonnuslaatikoiden\" lukumäärä:"
 
-#~ msgid "Number of boxes:"
-#~ msgstr "Laatikoiden lukumäärä:"
-
 #~ msgid "Pulsing mode"
 #~ msgstr "Vilkkuva tila"
-
-#~ msgid "Right zoom:  "
-#~ msgstr "Oikealta zoomaus:"
-
-#~ msgid "Safety margin:"
-#~ msgstr "Turvaväli:"
 
 #~ msgid "Scaling amount (1D mode):"
 #~ msgstr "Skaalauksen määrä (1D-tila):"
@@ -1284,9 +1330,6 @@ msgstr "Yksiulotteinen hiirisyöttö"
 
 #~ msgid "Static menu mode"
 #~ msgstr "Kiinteä valikkotila"
-
-#~ msgid "Button setup"
-#~ msgstr "Nappien asetukset"
 
 #~ msgid ""
 #~ "If this mode is selected, up  and down will\n"
