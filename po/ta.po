@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-09 15:35+0100\n"
-"PO-Revision-Date: 2007-07-12 14:31+0530\n"
+"POT-Creation-Date: 2007-07-21 03:47+0100\n"
+"PO-Revision-Date: 2007-08-13 17:29+0530\n"
 "Last-Translator: Dr.T.Vasudevan <agnihot3@gmail.com>\n"
 "Language-Team: TAMIL <ubuntu-l10n-tam@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
@@ -21,8 +21,7 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../Data/dasher.desktop.in.in.h:1
-#: ../Data/glade/dasher.compose.glade.h:34
+#: ../Data/dasher.desktop.in.in.h:1 ../Data/glade/dasher.compose.glade.h:34
 #: ../Data/glade/dasher.direct.glade.h:31
 #: ../Data/glade/dasher.fullscreen.glade.h:30
 #: ../Data/glade/dasher.traditional.glade.h:35
@@ -452,8 +451,7 @@ msgstr "கோப்பை இப்படி சேமி"
 #: ../Data/glade/dashermaemo.glade.h:28
 #: ../Data/glade/dashermaemofullscreen.glade.h:25
 #: ../Src/Gtk2/dasher_editor_internal.cpp:1322
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1355
-#: ../Src/Gtk2/dasher_main.cpp:998
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1355 ../Src/Gtk2/dasher_main.cpp:998
 msgid "Select File"
 msgstr "கோப்பை தேர்வு செய்யவும்"
 
@@ -736,6 +734,30 @@ msgstr "_ம எழுத்துருவை மீட்டமை"
 msgid "Click Mode"
 msgstr "சொடுக்கு பாணி"
 
+#: ../Src/DasherCore/DasherButtons.cpp:24
+msgid "Zoom steps"
+msgstr "அணுகி பார்த்தல் படிகள்"
+
+#: ../Src/DasherCore/DasherButtons.cpp:25
+msgid "Right zoom"
+msgstr "வலமிருந்து அணுகிப்பார்தல்"
+
+#: ../Src/DasherCore/DasherButtons.cpp:26
+msgid "Number of boxes"
+msgstr "பெட்டிகளின் எண்ணிக்கை"
+
+#: ../Src/DasherCore/DasherButtons.cpp:27
+msgid "Safety margin"
+msgstr "பாதுகாப்பு வரம்பு"
+
+#: ../Src/DasherCore/DasherButtons.cpp:28
+msgid "Box non-uniformity"
+msgstr "ஒரே மாதிரியில்லாத பெட்டி"
+
+#: ../Src/DasherCore/DasherButtons.cpp:29
+msgid "Global keyboard grab"
+msgstr "முழுமையான விசைப்பலகை பிடிப்பு"
+
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:985
 msgid "Normal Control"
 msgstr "இயல்பான கட்டுப்பாடு"
@@ -767,14 +789,17 @@ msgid "Stylus Control"
 msgstr "எழுத்தணி கட்டுப்பாடு"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:9
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:16
 msgid "Long press time"
 msgstr "அதிக அழுத்தும் நேரம்."
 
 #: ../Src/DasherCore/DynamicFilter.cpp:10
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:17
 msgid "Multiple press time"
 msgstr "பல அழுத்தும் நேரங்கள்"
 
 #: ../Src/DasherCore/DynamicFilter.cpp:11
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:18
 msgid "Multiple press count"
 msgstr "பல அழுத்தும் எண்ணிக்கை"
 
@@ -839,8 +864,35 @@ msgstr "பொருத்து வாய் சார்ந்த பிழை
 msgid "Socket Input"
 msgstr "பொருத்துவாய் உள்ளீடு"
 
-#: ../Src/Gtk2/Preferences.cpp:417
-#: ../Src/Gtk2/Preferences.cpp:975
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:15
+msgid "Button offset"
+msgstr "பொத்தான் விலக்கம்"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:19
+msgid "Enable backoff and start/stop buttons"
+msgstr "பின்செல் மற்றும் துவக்கு/நிறுத்து பொத்தான்களை செயல் படுத்துக"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:20
+msgid "Reverse up and down buttons"
+msgstr "திசை மாற்று மேல் மற்றும் கீழே பொத்தான்கள்"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:21
+msgid "Slow startup"
+msgstr "மெதுவான துவக்கம்"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:22
+msgid "Startup time"
+msgstr "துவக்க நேரம்"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:23
+msgid "Auto speed control"
+msgstr "தானியங்கி வேக கட்டுப்பாடு"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:24
+msgid "Auto speed threshold"
+msgstr "தானியங்கி வேக விளிம்பு"
+
+#: ../Src/Gtk2/Preferences.cpp:417 ../Src/Gtk2/Preferences.cpp:975
 msgid "Action"
 msgstr "செயல்பாடு"
 
@@ -855,6 +907,15 @@ msgstr "கட்டுப்பாடு பாணி"
 #: ../Src/Gtk2/Preferences.cpp:991
 msgid "Auto On Stop"
 msgstr "நிறுத்தும்போது தானியங்கியாக"
+
+#: ../Src/Gtk2/dasher_action_keyboard.cpp:60
+#: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:94
+msgid "Enter Text"
+msgstr "உரையை உள்ளிடு"
+
+#: ../Src/Gtk2/dasher_action_script.cpp:91
+msgid "Script"
+msgstr "சிறுநிரல்"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:129
 msgid "Speak"
@@ -918,13 +979,11 @@ msgstr "வெளியேற வேண்டாம்"
 msgid "Save and quit"
 msgstr "சேமித்து வெளியேறவும்"
 
-#: ../Src/Gtk2/dasher_main.cpp:1143
-#: ../Src/Gtk2/dasher_main.cpp:1159
+#: ../Src/Gtk2/dasher_main.cpp:1143 ../Src/Gtk2/dasher_main.cpp:1159
 msgid "Dasher is a predictive text entry application"
 msgstr "டேஷர் என்பது ஒரு முன் கணித்து உரை உள்ளிடும் நிரல் "
 
-#: ../Src/Gtk2/dasher_main.cpp:1148
-#: ../Src/Gtk2/dasher_main.cpp:1154
+#: ../Src/Gtk2/dasher_main.cpp:1148 ../Src/Gtk2/dasher_main.cpp:1154
 msgid "translator-credits"
 msgstr "மொழிபெயர்ப்பாளர்-நன்றி அறிதல்"
 
