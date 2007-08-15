@@ -40,7 +40,7 @@ bool CCircleStartHandler::DecorateView(CDasherView *pView) {
 void CCircleStartHandler::Timer(int iTime, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {
   myint iDasherX;
   myint iDasherY;
-  m_pDasherView->GetCoordinates(iTime, iDasherX, iDasherY);
+  m_pDasherView->GetCoordinates(iDasherX, iDasherY);
 
   screenint iCX;
   screenint iCY;

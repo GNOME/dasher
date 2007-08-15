@@ -27,6 +27,7 @@
 #include "DasherTypes.h"
 #include "LanguageModelling/LanguageModel.h" // Urgh - we really shouldn't need to know about language models here
 #include "NodeManager.h"
+#include "SCENode.h"
 
 #include <vector>
 
@@ -163,12 +164,6 @@ namespace Dasher {
     ///
     
     void BuildTree(CDasherNode *pRoot);
-
-    /// 
-    /// Recursively delete the conversion tree when we're done
-    ///
-
-    bool RecursiveDelTree(SCENode* pNode);
 
     /// 
     /// Dump tree to stdout (debug)

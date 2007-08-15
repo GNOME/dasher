@@ -76,7 +76,7 @@ public:
 
   /// Translates the screen coordinates to Dasher coordinates and calls
   /// dashermodel.TapOnDisplay
-  virtual int GetCoordinates(unsigned long Time, myint &iDasherX, myint &iDasherY);
+  virtual int GetCoordinates(myint &iDasherX, myint &iDasherY);
 
   
   /// Get the co-ordinate count from the input device

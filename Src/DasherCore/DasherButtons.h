@@ -32,7 +32,7 @@ class CDasherButtons : public CInputFilter
   
   bool DecorateView(CDasherView *pView);
   
-  void KeyDown(int iTime, int iId, CDasherModel *pModel, CUserLogBase *pUserLog);
+  void KeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog);
   bool Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted);
 
   void SetupBoxes();

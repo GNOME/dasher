@@ -290,14 +290,13 @@ void CDasherView::DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint iAnchor
 }
 
 
-int CDasherView::GetCoordinates(unsigned long Time, myint &iDasherX, myint &iDasherY) {
+int CDasherView::GetCoordinates(myint &iDasherX, myint &iDasherY) {
 
   // FIXME - Actually turn autocalibration on and off!
   // FIXME - AutoCalibrate should use Dasher co-ordinates, not raw mouse co-ordinates?
   // FIXME - Have I broken this by moving it before the offset is applied?
   // FIXME - put ymap stuff back in 
   // FIXME - optimise this
-  // TODO: Time isn't used!
 
   int iCoordinateCount(GetCoordinateCount());
 

@@ -8,6 +8,8 @@
 #include "LanguageModelling/LanguageModel.h"
 #include "PinyinParser.h"
 
+#include <string>
+
 //both of these start from 0
 typedef int HZIDX; 
 typedef int CANDIDX; 
@@ -15,7 +17,7 @@ typedef int CANDIDX;
 class CPinYinConversionHelper : public CConversionHelper {
  public:
 
-  CPinYinConversionHelper(Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, Dasher::CAlphIO *pAlphIO);
+  CPinYinConversionHelper(Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, Dasher::CAlphIO *pAlphIO, const std::string &strAlphabetPath);
   
   virtual bool Convert(const std::string &strSource, SCENode ** pRoot, int * childCount, int CMid);
 
@@ -42,8 +44,8 @@ class CPinYinConversionHelper : public CConversionHelper {
 
  private:
      
-  void TrainChPPM();
-  void ProcessFile(int index);
+  void TrainChPPM(CSettingsStore *pSettingsStore);
+  void ProcessFile(CSettingsStore *pSettingsStore, int index);
 
   CLanguageModel *m_pLanguageModel;     // pointer to the language model
   CAlphabet *m_pAlphabet;        // pointer to the alphabet
@@ -80,6 +82,8 @@ class CPinYinConversionHelper : public CConversionHelper {
 
 
   CPinyinParser *pParser;
+
+  int m_iPriorityScale;
 
 };
 

@@ -41,8 +41,13 @@ namespace Dasher {
     int GetNumberSymbols() const {
       return m_Characters.size();
     }                           // return size of alphabet
-    // Return number of text symbols 
+
+    /// Return number of text symbols 
+    /// Text symbols are everything which doesn't generate a new root, 
+    /// i.e. control mode and conversion mode
     int GetNumberTextSymbols() const {
+
+      // TODO: This really does need to be fixed, as this will sometimes be 2
       return m_Characters.size() - 1;
     } 
 

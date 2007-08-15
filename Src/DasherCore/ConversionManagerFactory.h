@@ -21,6 +21,8 @@ namespace Dasher {
   private:
     CConversionHelper *GetHelper(Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, int iID, Dasher::CAlphIO *pCAlphIO);
 
+    CConversionHelper *GetHelperChinese(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, Dasher::CAlphIO *pCAlphIO);
+
     CNodeCreationManager *m_pNCManager;
     CConversionHelper *m_pHelper;
     CAlphabet *m_pAlphabet;

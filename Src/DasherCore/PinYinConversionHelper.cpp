@@ -17,7 +17,7 @@
 
 using namespace Dasher;
 
-CPinYinConversionHelper::CPinYinConversionHelper(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, Dasher::CAlphIO *pCAlphIO){
+CPinYinConversionHelper::CPinYinConversionHelper(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, Dasher::CAlphIO *pCAlphIO, const std::string &strAlphabetPath){
 
   //TESTING FOR UTF-8 CHINESE IN C++ STRING
   /*
@@ -29,7 +29,6 @@ CPinYinConversionHelper::CPinYinConversionHelper(Dasher::CEventHandler *pEventHa
   */
 
   const std::string SimpChAlphabet = "Chinese / 简体中文 (simplified chinese, in pin yin groups)";
-
 
   Dasher::CAlphIO::AlphInfo oAlphInfo = pCAlphIO->GetInfo(SimpChAlphabet);
   
@@ -47,9 +46,10 @@ CPinYinConversionHelper::CPinYinConversionHelper(Dasher::CEventHandler *pEventHa
 
   m_pLanguageModel = new CPPMLanguageModel(pEventHandler, pSettingsStore, alphabet);
 
+  m_iPriorityScale = 0;
 
   //Train the PPM Model for Chinese Alphabet
-  TrainChPPM();
+  TrainChPPM(pSettingsStore);
 
 
 
@@ -63,7 +63,7 @@ CPinYinConversionHelper::CPinYinConversionHelper(Dasher::CEventHandler *pEventHa
 
   BuildDataBase();
 
-  pParser = new CPinyinParser("FIXME");
+  pParser = new CPinyinParser(strAlphabetPath);
 }
   
 bool CPinYinConversionHelper::Convert(const std::string &strSource, SCENode ** pRoot, int * childCount, int CMid) {
@@ -109,8 +109,6 @@ void CPinYinConversionHelper::GetProbs(Dasher::CLanguageModel::Context context, 
 
 void CPinYinConversionHelper::AssignSizes(SCENode **pStart, Dasher::CLanguageModel::Context context, long normalization, int uniform, int iNChildren){
 
-  //  std::cout << "Assigning sizes: " << *pStart << " (" << (*pStart)->pszConversion << ")" << std::endl;
-
   SCENode *pNewStart = *pStart;
 
   SCENode *pNode = pNewStart;
@@ -126,82 +124,41 @@ void CPinYinConversionHelper::AssignSizes(SCENode **pStart, Dasher::CLanguageMod
   int control_space;
   int iNorm = normalization;
   
+  // First get the probabilities in the appropriate context
 
-  //IGNORE CONTROL MODE FOR NOW
-  //  if(!GetBoolParameter(BP_CONTROL_MODE)) {
-  control_space = 0;
   uniform_add = ((iNorm * uniform) / 1000) / (iSymbols - 2);  // Subtract 2 from no symbols to lose control/root nodes
   nonuniform_norm = iNorm - (iSymbols - 2) * uniform_add;
-    // }
-    /*
-      else {
-      control_space = int (iNorm * 0.05);
-      uniform_add = (((iNorm - control_space) * uniform / 1000) / (iSymbols - 2));        // Subtract 2 from no symbols to lose control/root nodes
-      nonuniform_norm = iNorm - control_space - (iSymbols - 2) * uniform_add;
-    }
-    */
-
-
-  //  context = m_pLanguageModel->CreateEmptyContext();
-
-   //Testing Code for PYCHelper GetPYSumProbs
- 
-  /*
- CLanguageModel::Context iContext = m_pLanguageModel->CreateEmptyContext();
-
-  SCENode * pTemp = pStart;
-  while(pTemp){
-    std::cout<<"test sum probs"<<GetSumPYProbs(iContext, pTemp, nonuniform_norm)<<std::endl;
-    std::cout<<"test norm"<<nonuniform_norm<<std::endl;
-    pTemp=pTemp->pChild;
-  }
-  */
 
   m_pLanguageModel->GetProbs(context, Probs, nonuniform_norm, 0);
 
-  /*  
-  std::vector<unsigned int>::iterator it;
-  for(it = Probs.begin();it!=Probs.end(); it++)
-    std::cout<<*it<<",";
+  // Now iterate through the children of the conversion node, and
+  // figure out their probabilities
   
-  std::cout<<"end"<<std::endl;
-  */
-
-  //  unsigned int sum; 
-
-
   unsigned long long int sumProb=0;
 
   std::vector <symbol >Symbols;
   std::string HZ;
   CLanguageModel::Context iCurrentContext;
 
-
-  //std::cout<<"start"<<std::endl;
   while(pNode){
-
     Symbols.clear();
+
     HZ = static_cast<std::string>(pNode->pszConversion);
     m_pAlphabet->GetSymbols(&Symbols, &HZ, 0);    
 
     if(Symbols.size()!=0){
       pNode->Symbol = Symbols[0];
-      //sumProb += Probs[Symbols[0]];
 
-      
       iCurrentContext=m_pLanguageModel->CloneContext(context);
       m_pLanguageModel->EnterSymbol(iCurrentContext, pNode->Symbol);
       
-      if(pNewStart->GetChild()){
+      // Forward probabilities?
+      if(pNewStart->GetChild())
 	pNode->SumPYProbStore = GetSumPYProbs(iCurrentContext, pNewStart->GetChild(), nonuniform_norm);
-	//std::cout<<"sumpyprobstore"<<pNode->SumPYProbStore<<std::endl;
-      }
       else
 	pNode->SumPYProbStore = 1;
 	
-      sumProb += (Probs[pNode->Symbol]*(pNode->SumPYProbStore));
-      //std::cout<<"Probs[symbol]"<<Probs[Symbols[0]]<<std::endl;
-      //std::cout<<"sumProbs"<<sumProb<<std::endl;
+      sumProb += Probs[pNode->Symbol] * pNode->SumPYProbStore * (100 - m_iPriorityScale * pNode->GetPriority());
     }
     else
       pNode->Symbol = -1;
@@ -209,39 +166,19 @@ void CPinYinConversionHelper::AssignSizes(SCENode **pStart, Dasher::CLanguageMod
     pNode = pNode->GetNext();
   }
 
-
+  // Finally, iterate through the nodes and actually assign the sizes.
 
   pNode = pNewStart;
   while(pNode){
-    /*
-    std::vector <symbol >Symbols;
-    std::string HZ = static_cast<std::string>(pNode->pszConversion);
- 
-    
-    m_pAlphabet->GetSymbols(&Symbols, &HZ, 0);    
-    */
-
     if(pNode->Symbol!=-1){
       if(sumProb!=0){
-
-	//	iCurrentContext=m_pLanguageModel->CloneContext(context);
-	//m_pLanguageModel->EnterSymbol(iCurrentContext, pNode->Symbol);
-      
-	
-	pNode->NodeSize =static_cast<unsigned long long int>(Probs[pNode->Symbol])*(pNode->SumPYProbStore)*normalization/sumProb;
-
-	/*
-	std::cout<<"HZ"<<pNode->pszConversion<<std::endl;
-	std::cout<<"Probs"<<Probs[pNode->Symbol]<<std::endl;
-	std::cout<<"SumProbStore"<<pNode->SumPYProbStore<<std::endl;
-	std::cout<<"above"<<Probs[pNode->Symbol]*(pNode->SumPYProbStore)<<std::endl;
-	std::cout<<"sumprob"<<sumProb<<std::endl;
-	std::cout<<"nodesize"<<pNode->NodeSize<<std::endl;
-	*/
+	pNode->NodeSize = static_cast<unsigned long long int>(Probs[pNode->Symbol]) * pNode->SumPYProbStore *
+	  (100 - m_iPriorityScale * pNode->GetPriority()) * normalization / sumProb;
       }
     }
     else{
-      pNode->NodeSize = 0;//hopefully this will be not be displayed
+      // TODO: Need to fix this branch - how do we end up here?
+      pNode->NodeSize = 0;
     }
 
     if(pNode->NodeSize < 1)
@@ -252,10 +189,10 @@ void CPinYinConversionHelper::AssignSizes(SCENode **pStart, Dasher::CLanguageMod
     pNode = pNode->GetNext();
   }
 
-  pNode = pNewStart;
+  // Last of all, allocate anything left over due to rounding error
 
+  pNode = pNewStart;
   while(pNode){
-    
     int iDiff(iRemaining / iLeft);
     
     pNode->NodeSize += iDiff;
@@ -264,37 +201,6 @@ void CPinYinConversionHelper::AssignSizes(SCENode **pStart, Dasher::CLanguageMod
     --iLeft;
     pNode = pNode->GetNext();
   }
-  /*
-  pNode = pStart;
-  while(pNode){
-    std::cout<<"size"<<pNode->NodeSize<<std::endl;
-    pNode = pNode ->pNext;
-  }
-  */
-  /*
-  pNode = pStart;
-  while(pNode){
-    std::cout<<pNode->NodeSize<<",";
-    pNode = pNode->pNext;
-  }
-
-  std::cout<<std::endl;
-  */
-
-  //std::cout<<catStr<<std::endl;
-  
-  //for(int i=0; i<Symbols.size(); i++)
-  //  std::cout<<Symbols[i]<<",";
-
-  //std::cout<<std::endl;
-  
-  //for(int i=0; i<Symbols.size();i++)
-  //  std::cout<<m_pAlphabet->GetText(Symbols[i]);
-
-  //std::cout<<std::endl;
-
-  // pSizes[i] = m_pNCManager->GetLongParameter(LP_NORMALIZATION)*(100+5*freq[i])/(100*iNChildren+5*totalFreq);
-
 }
 
 bool CPinYinConversionHelper::GetPhraseList(int HZIndex, SCENode ** psOutput, int CMid){
@@ -592,156 +498,42 @@ int CPinYinConversionHelper::CalculateScore(CDasherNode * pNode, CANDIDX CandInd
   return score;
 } 
 
-
-void CPinYinConversionHelper::TrainChPPM(){
-
-  // TODO: Changed to 1 from 10
-  for(int i =0; i<1;i++)
-    ProcessFile(i);
-
+void CPinYinConversionHelper::TrainChPPM(CSettingsStore *pSettingsStore){
+  for(int i = 0; i < 1; ++i)
+    ProcessFile(pSettingsStore, i);
 }
 
-void CPinYinConversionHelper::ProcessFile(int index){
-
-
+void CPinYinConversionHelper::ProcessFile(CSettingsStore *pSettingsStore, int index){
   CLanguageModel::Context trainContext;
   trainContext = m_pLanguageModel->CreateEmptyContext();
 
   FILE * fp;
-
-  char strPath[200];
-  
   const char* Alph="ABCDEFGHJKLMNPR";
- 
-  char str[4];
-  std::string HZ;
-  //  int  i, j, iLen;
 
+  std::string strPath = pSettingsStore->GetStringParameter(SP_SYSTEM_LOC);
 
+  strPath += "/C";
+  strPath += Alph[index];
+  strPath += ".txt";
 
-  long pos=0;
-  char cget;
+  fp = fopen (strPath.c_str(), "rb");
 
-  int trialcount=0;
-
-
-  strcpy (strPath, (char *) getenv ("HOME"));
-  strcat (strPath, "/training/corpus/character/");
-  strcat (strPath, "C");
-  strncat (strPath, Alph+index, 1);
-  strcat (strPath, ".txt");
-
-  printf("strPath is %s\n", strPath);
-
-  fp = fopen (strPath, "rb");
-
-  if (!fp)
+  if(!fp) {
     printf("cannot open file or incorrect directory\n");
+    return;
+  }
+
+  char szBuffer[1024];
 
   while(!feof(fp)){
-    pos = ftell(fp);
-    cget=fgetc(fp);
+    size_t iNumBytes = fread(szBuffer, 1, 1024, fp);
+    std::string strBuffer = std::string(szBuffer, iNumBytes);
+
+    std::vector<symbol> Sym;
+
+    m_pAlphabet->GetSymbols(&Sym, &strBuffer, (iNumBytes == 1024));
       
-    //     printf("OXE$4= %d\n", (unsigned char)0xE4);  **228**
-    //     printf("OXE9= %d\n", (unsigned char)0xE9);   **233**
-    //printf("BEFORE print the integer code for unsigned char %d\n", (unsigned char) cget);
-    while (((unsigned char)cget  < (unsigned char) 0xE4 || (unsigned char) cget > (unsigned char) 0xE9)&&!feof(fp)){
-
-      if((unsigned char) cget > (unsigned char) 0xE9){
-	 
-	fseek(fp, pos, SEEK_SET);
-	fread(str, sizeof(char)*3, 1, fp);
-	str[3]='\0';
-	pos = ftell(fp);
-	cget = fgetc(fp);
-	//printf("UNICODE SYMBOL/NUMBER |%s|\n", str);
-
-      }
-      else if(cget == 32){
-	pos = ftell(fp);
-	cget=fgetc(fp);
-	//fputc(32, op);
-      }
-      else if(cget ==10){
-	pos = ftell(fp);
-	cget=fgetc(fp);
-	//fputc(10, op);
-      }
-      else{   
-	//printf("NON-UNICODE character |%c|\n", cget);
-
-	pos = ftell(fp);
-	cget=fgetc(fp);
-	trialcount ++;
-      }
-    }
-      
-    if(!feof(fp)){
-	
-      fseek(fp, pos, SEEK_SET);
-      fread(str, sizeof(char)*3, 1, fp);
-      str[3]='\0';
-      //printf("HZ |%s|\n",str);
-      //	printf("first byte %d   ", (unsigned char)str[0]);
-      //	printf("seconde byte %d\n", (unsigned char)str[1]);
-      //	printf("third byte %d\n", (unsigned char)str[2]);
-
-      HZ = static_cast<std::string>(str);
-      
-      //      std::cout<<"HZ is "<<HZ<<std::endl;
-
-      std::vector<symbol> Sym;
-      m_pAlphabet->GetSymbols(&Sym, &HZ, 0);
-      
-      if(Sym.size()!=0)
-	m_pLanguageModel->LearnSymbol(trainContext, Sym[0]);
-      else
-	std::cout<<HZ<<"not found!"<<std::endl;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      /*
-
-  while(!feof(fp)){
-   //   pos = ftell(fp);
-    cget=fgetc(fp);
-
-   if(!feof(fp)){
-      fread(str, sizeof(char)*3, 1, fp);
-      str[3]='\0';
-      printf("HZ |%s|\n",str);
-      //	printf("first byte %d   ", (unsigned char)str[0]);
-      //	printf("seconde byte %d\n", (unsigned char)str[1]);
-      //	printf("third byte %d\n", (unsigned char)str[2]);
-
-      HZ = static_cast<std::string>(str);
-      
-      std::cout<<"HZ is "<<HZ<<std::endl;
-
-      std::vector<symbol> Sym;
-      m_pAlphabet->GetSymbols(&Sym, &HZ, 0);
-      
-      if(Sym.size()!=0)
-	m_pLanguageModel->LearnSymbol(trainContext, Sym[0]);
-      //else
-	//	std::cout<<"not found!"<<std::endl;
- 
-      */
-      
-    }
+    for(std::vector<symbol>::iterator it(Sym.begin()); it != Sym.end(); ++it)
+      m_pLanguageModel->LearnSymbol(trainContext, *it);
   }
 }

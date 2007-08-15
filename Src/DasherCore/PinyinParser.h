@@ -130,7 +130,7 @@ class CPinyinParser {
   
   class CLatticeNode {
   public:
-    CLatticeNode(char cSymbol, CLatticeNode *pParent, std::set<std::string> *pList) {
+    CLatticeNode(char cSymbol, CLatticeNode *pParent, std::set<std::string> *pList, int iDepth, int iTerminalDepth) {
       m_cSymbol = cSymbol;
       m_pParent = pParent;
       m_pChild = NULL;
@@ -142,6 +142,12 @@ class CPinyinParser {
       m_pList = pList;
       
       m_iRefCount = 1;
+
+      m_iDepth = iDepth;
+      m_iTerminalDepth = iTerminalDepth;
+
+      // TODO: This is a bit of a hack to enforce the minimum priority rule
+      m_iPriority = 10;
     }
 
     ~CLatticeNode() {
@@ -186,7 +192,27 @@ class CPinyinParser {
       return m_pNext;
     };
 
+    int GetDepth() {
+      return m_iDepth;
+    };
+
+    int GetTerminalDepth() {
+      return m_iTerminalDepth;
+    };
+
+    void SetPriority(int iPriority) {
+      m_iPriority = iPriority;
+    };
+
+    int GetPriority() {
+      return m_iPriority;
+    };
+
     SCENode *RecursiveAddList(SCENode *pOldTail);
+
+    char GetSymbol() {
+      return m_cSymbol;
+    };
 
   private:
     char m_cSymbol;
@@ -197,6 +223,9 @@ class CPinyinParser {
 
     std::set<std::string> *m_pList;
     int m_iRefCount;
+    int m_iDepth;
+    int m_iTerminalDepth;
+    int m_iPriority;
   };
 
   std::set<std::string> *pCurrentList;

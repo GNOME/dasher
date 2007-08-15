@@ -1,7 +1,7 @@
 
 #include "../Common/Common.h"
 
-#include "DynamicFilter.h"
+#include "OneButtonDynamicFilter.h"
 #include "DasherInterfaceBase.h"
 #include "Event.h"
 
@@ -12,8 +12,8 @@ static SModuleSettings sSettings[] = {
   {BP_BACKOFF_BUTTON,T_BOOL, -1, -1, -1, -1, _("Enable backoff button")}
 };
 
-CDynamicFilter::CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
-  : CTwoButtonDynamicFilter(pEventHandler, pSettingsStore, pInterface, 6, 1, _("One Button Dynamic Mode")) {
+COneButtonDynamicFilter::COneButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
+  : CDynamicFilter(pEventHandler, pSettingsStore, pInterface, 6, 1, _("One Button Dynamic Mode")) {
   m_iTarget = 0;
 
   m_iTargetX = new int[2];
@@ -28,12 +28,12 @@ CDynamicFilter::CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsS
   m_bDecorationChanged = true;
 }
 
-CDynamicFilter::~CDynamicFilter() {
+COneButtonDynamicFilter::~COneButtonDynamicFilter() {
   delete[] m_iTargetX;
   delete[] m_iTargetY;  
 }
 
-bool CDynamicFilter::DecorateView(CDasherView *pView) {
+bool COneButtonDynamicFilter::DecorateView(CDasherView *pView) {
 
   CDasherScreen *pScreen(pView->Screen());
 
@@ -69,11 +69,11 @@ bool CDynamicFilter::DecorateView(CDasherView *pView) {
   return bRV;
 }
 
-bool CDynamicFilter::TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) {
+bool COneButtonDynamicFilter::TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) {
   return m_pDasherModel->UpdatePosition(m_iTargetX[m_iTarget], m_iTargetY[m_iTarget], Time, pAdded, pNumDeleted);
 }
 
-void CDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void COneButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) {
   if((iButton == 2) || (iButton == 3) || (iButton == 4)) {
     if(pUserLog)
       pUserLog->KeyDown(iButton, iType, 5);
@@ -87,7 +87,7 @@ void CDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherMode
 }
 
 
-bool CDynamicFilter::GetSettings(SModuleSettings **pSettings, int *iCount) {
+bool COneButtonDynamicFilter::GetSettings(SModuleSettings **pSettings, int *iCount) {
   *pSettings = sSettings;
   *iCount = sizeof(sSettings) / sizeof(SModuleSettings);
 

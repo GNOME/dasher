@@ -335,7 +335,7 @@ bool CDasherButtons::DecorateView(CDasherView *pView) {
 }
  
 
-void CDasherButtons::KeyDown(int iTime, int iId, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CDasherButtons::KeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog) {
 
   if(m_bMenu) {
     switch(iId) {
@@ -407,8 +407,8 @@ bool CDasherButtons::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
   myint iDasherX;
   myint iDasherY;
 
-  m_pDasherView->GetCoordinates(Time, iDasherX, iDasherY);
-
+  m_pDasherView->GetCoordinates(iDasherX, iDasherY);
+  // ----
 
   return m_pDasherModel->UpdatePosition(0, 0, Time, pAdded, pNumDeleted);
 }

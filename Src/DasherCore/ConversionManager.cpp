@@ -60,12 +60,8 @@ CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, CConver
 }
 
 CConversionManager::~CConversionManager(){  
-
-  //  for (int i(0);i<m_iHZCount; i++)
-  //  std::cout << "Unref: " << this << std::endl;
-
-  if(m_pRoot)
-    RecursiveDelTree(m_pRoot[0]);
+  if(m_pRoot && *m_pRoot)
+    (*m_pRoot)->Unref();
 }
 
 
@@ -505,14 +501,16 @@ void CConversionManager::BuildTree(CDasherNode *pRoot) {
   //  m_pHelper->ClearData(m_iCMID);
 
   while(pCurrentNode) {
-    if(pCurrentNode->m_pNodeManager->GetID() == 2)
+    if(pCurrentNode->m_pNodeManager->GetID() == 2) {
       break;
+    }
 
     // TODO: Need to make this the edit text rather than the display text
     CAlphabetManager::SAlphabetData *pAlphabetData = 
       static_cast<CAlphabetManager::SAlphabetData *>(pCurrentNode->m_pUserData);
 
     strCurrentString = m_pAlphabet->GetText(pAlphabetData->iSymbol) + strCurrentString;
+
     pCurrentNode = pCurrentNode->Parent();
   }
 
@@ -582,46 +580,6 @@ void CConversionManager::Undo( CDasherNode *pNode ) {
     }
   }
 }
-
-bool CConversionManager::RecursiveDelTree(SCENode* pNode){
-  // TODO: Do we actually care about the return value?
-
-  // TODO: Function now obsolete
-
-  pNode->Unref();
-
-  return false;
-//   if(!pNode)
-//     return 0;
-
-//   // Note that this is a lattice, not a tree, so we need to be careful
-//   // about deleting thing twice
-
-//   if(pNode->pChild)
-//     RecursiveDeleteTree(pNode->pChild);
-
-//   if(pNode->pNext)
-//     RecursiveDeleteTree(pNode->pNext);
-
-//   SCENode * pTemp;
-
-//   if(!pNode)
-//     return 0;
-//   else if(pNode->pChild)
-//     return RecursiveDelTree(pNode->pChild);
-//   else{
-
-//     while(!pNode->pChild){
-//       pTemp = pNode->pNext;
-//       delete pNode;
-//       pNode = pTemp;
-//       if(!pNode)
-// 	return 1;
-//     }
-//     return RecursiveDelTree(pNode->pChild);
-//   }
-}
-
 
 void CConversionManager::SetFlag(CDasherNode *pNode, int iFlag, bool bValue) {
   switch(iFlag) {

@@ -43,8 +43,8 @@
 #include "ClickFilter.h" 
 #include "DefaultFilter.h"
 #include "DasherButtons.h"
-#include "DynamicFilter.h"
 #include "EyetrackerFilter.h"
+#include "OneButtonDynamicFilter.h"
 #include "OneDimensionalFilter.h"
 #include "StylusFilter.h"
 #include "TwoButtonDynamicFilter.h"
@@ -450,29 +450,6 @@ void CDasherInterfaceBase::CreateNCManager() {
     // TODO: Eventually we'll not have to pass the NC manager to the model...
     CreateModel(iOffset);
 }
-
-// void CDasherInterfaceBase::Start() {
-//   // TODO: Clarify the relationship between Start() and
-//   // InvalidateContext() - I believe that they essentially do the same
-//   // thing
-//   PauseAt(0, 0);
-//   if(m_pDasherModel != 0) {
-//     m_pDasherModel->Start();
-//   }
-//   if(m_pDasherView != 0) {
-// //     m_pDasherView->ResetSum();
-// //     m_pDasherView->ResetSumCounter();
-// //     m_pDasherView->ResetYAutoOffset();
-//   }
-
-// TODO: Reimplement this sometime
-
-//   int iMinWidth;
-  
-//   if(m_pInputFilter && m_pInputFilter->GetMinWidth(iMinWidth)) {
-//     m_pDasherModel->LimitRoot(iMinWidth);
-//   }
-// }
 
 void CDasherInterfaceBase::PauseAt(int MouseX, int MouseY) {
   SetBoolParameter(BP_DASHER_PAUSED, true);
@@ -922,7 +899,7 @@ void CDasherInterfaceBase::KeyDown(int iTime, int iId, bool bPos, int iX, int iY
     return;
 
   if(m_pInputFilter && !GetBoolParameter(BP_TRAINING)) {
-    m_pInputFilter->KeyDown(iTime, iId, m_pDasherModel, m_pUserLog, bPos, iX, iY);
+    m_pInputFilter->KeyDown(iTime, iId, m_pDasherView, m_pDasherModel, m_pUserLog, bPos, iX, iY);
   }
 
   if(m_pInput && !GetBoolParameter(BP_TRAINING)) {
@@ -935,7 +912,7 @@ void CDasherInterfaceBase::KeyUp(int iTime, int iId, bool bPos, int iX, int iY) 
     return;
 
   if(m_pInputFilter && !GetBoolParameter(BP_TRAINING)) {
-    m_pInputFilter->KeyUp(iTime, iId, m_pDasherModel, bPos, iX, iY);
+    m_pInputFilter->KeyUp(iTime, iId, m_pDasherView, m_pDasherModel, bPos, iX, iY);
   }
 
   if(m_pInput && !GetBoolParameter(BP_TRAINING)) {
@@ -986,8 +963,8 @@ void CDasherInterfaceBase::CreateFactories() {
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new COneDimensionalFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel)));
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CEyetrackerFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel)));
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CClickFilter(m_pEventHandler, m_pSettingsStore, this)));
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDynamicFilter(m_pEventHandler, m_pSettingsStore, this)));
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CTwoButtonDynamicFilter(m_pEventHandler, m_pSettingsStore, this, 14, 1, _("Two Button Dynamic Mode"))));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new COneButtonDynamicFilter(m_pEventHandler, m_pSettingsStore, this)));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CTwoButtonDynamicFilter(m_pEventHandler, m_pSettingsStore, this)));
   // TODO: specialist factory for button mode
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 5, 1, true,8, _("Menu Mode"))));
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 3, 0, false,10, _("Direct Mode"))));

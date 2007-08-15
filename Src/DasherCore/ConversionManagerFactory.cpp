@@ -70,17 +70,20 @@ CConversionHelper *CConversionManagerFactory::GetHelper(Dasher::CEventHandler *p
     return NULL;
 #endif
   case 2: // Chinese
-#ifdef WIN32
-    return NULL;
-#else
-#ifdef CHINESE
-    return new CPinYinConversionHelper(pEventHandler,pSettingsStore, pCAlphIO);
-#else
-    return NULL;
-#endif
-#endif
+    return GetHelperChinese(pEventHandler, pSettingsStore, pCAlphIO);
   default:
     // TODO: Error reporting here
     return NULL;
   }
+}
+
+CConversionHelper *CConversionManagerFactory::GetHelperChinese(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, Dasher::CAlphIO *pCAlphIO) {
+#ifdef CHINESE
+  std::string strAlphabetPath = pSettingsStore->GetStringParameter(SP_SYSTEM_LOC);
+  strAlphabetPath += "/alphabet.chineseRuby.xml";
+
+  return new CPinYinConversionHelper(pEventHandler,pSettingsStore, pCAlphIO, strAlphabetPath);
+#else
+  return NULL;
+#endif
 }

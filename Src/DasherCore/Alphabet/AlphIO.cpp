@@ -129,8 +129,6 @@ std::string CAlphIO::GetDefault() {
 }
 
 const CAlphIO::AlphInfo & CAlphIO::GetInfo(const std::string &AlphID) {
-  std::cout << "Getting info for " << AlphID << std::endl;
-
   if(Alphabets.count(AlphID) != 0) {
     // if we have the alphabet they ask for, return it
     Alphabets[AlphID].AlphID = AlphID;        // Ensure consistency

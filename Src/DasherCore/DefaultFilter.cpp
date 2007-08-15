@@ -44,7 +44,7 @@ bool CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
   myint iDasherX;
   myint iDasherY;
 
-  m_pDasherView->GetCoordinates(Time, iDasherX, iDasherY);
+  m_pDasherView->GetCoordinates(iDasherX, iDasherY);
 
   ApplyAutoCalibration(iDasherX, iDasherY, true);
   ApplyTransform(iDasherX, iDasherY);
@@ -71,7 +71,7 @@ bool CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
   return bDidSomething;
 }
 
-void CDefaultFilter::KeyDown(int iTime, int iId, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CDefaultFilter::KeyDown(int iTime, int iId, CDasherView *pDasherView, CDasherModel *pModel, CUserLogBase *pUserLog) {
 
   switch(iId) {
   case 0: // Start on space
@@ -90,6 +90,8 @@ void CDefaultFilter::KeyDown(int iTime, int iId, CDasherModel *pModel, CUserLogB
       else
 	m_pInterface->PauseAt(0, 0);
     }
+    break;
+  default:
     break;
   }
 }
@@ -124,7 +126,7 @@ void CDefaultFilter::DrawMouse(CDasherView *pView) {
   myint iDasherX;
   myint iDasherY;
 
-  pView->GetCoordinates(0, iDasherX, iDasherY);
+  pView->GetCoordinates(iDasherX, iDasherY);
 
   ApplyAutoCalibration(iDasherX, iDasherY, false);
   ApplyTransform(iDasherX, iDasherY);
@@ -144,7 +146,7 @@ void CDefaultFilter::DrawMouseLine(CDasherView *pView) {
   //  myint iDasherX;
   //myint iDasherY;
 
-  pView->GetCoordinates(0, x[1], y[1]);
+  pView->GetCoordinates(x[1], y[1]);
 
   ApplyAutoCalibration(x[1], y[1], false);
   ApplyTransform(x[1], y[1]);

@@ -21,7 +21,6 @@
 #include "PinyinParser.h"
 
 #include <cstdio>
-#include <iostream>
 #include <string>
 #include <vector>
 
@@ -155,12 +154,18 @@ bool CPinyinParser::Convert(const std::string &strPhrase, SCENode **pRoot) {
     std::vector<tLPair> *pNewList = new std::vector<tLPair>;
 
     for(std::vector<tLPair>::iterator it2 = pCurrentList->begin(); it2 != pCurrentList->end(); ++it2) {
-
       // First see if we can directly continue:
       CTrieNode *pCurrentChild = it2->first->LookupChild(*it);
 
       if(pCurrentChild) {
-	CLatticeNode *pNewLNode = new CLatticeNode(pCurrentChild->GetSymbol(), it2->second, NULL);
+	int iNewDepth;
+
+	if(it2->second)
+	  iNewDepth = it2->second->GetDepth();
+	else
+	  iNewDepth = 0;
+
+	CLatticeNode *pNewLNode = new CLatticeNode(pCurrentChild->GetSymbol(), it2->second, NULL, iNewDepth, 0);
 	pNewList->push_back(tLPair(pCurrentChild, pNewLNode));
       }
 
@@ -170,8 +175,15 @@ bool CPinyinParser::Convert(const std::string &strPhrase, SCENode **pRoot) {
       if(pCurrentChild) {
 	CTrieNode *pCurrentChild2 = m_pRoot->LookupChild(*it);
 	if(pCurrentChild2) {
-	  CLatticeNode *pNewLNode = new CLatticeNode('|', it2->second, pCurrentChild->GetList());
-	  CLatticeNode *pNewLNode2 = new CLatticeNode(pCurrentChild->GetSymbol(), pNewLNode, NULL);
+	  int iOldDepth;
+
+	  if(it2->second)
+	    iOldDepth = it2->second->GetDepth();
+	  else
+	    iOldDepth = 0;
+
+	  CLatticeNode *pNewLNode = new CLatticeNode('|', it2->second, pCurrentChild->GetList(), iOldDepth, 0);
+	  CLatticeNode *pNewLNode2 = new CLatticeNode(pCurrentChild->GetSymbol(), pNewLNode, NULL, iOldDepth + 1, 0);
 	  pNewList->push_back(tLPair(pCurrentChild2, pNewLNode2));
 
 	  // Unref the initial count on the intermediate node
@@ -197,8 +209,15 @@ bool CPinyinParser::Convert(const std::string &strPhrase, SCENode **pRoot) {
       CTrieNode *pCurrentChild = it2->first->LookupChild('1');
 
       if(pCurrentChild) { 
-	CLatticeNode *pNewLNode = new CLatticeNode('|', it2->second, pCurrentChild->GetList());
-	CLatticeNode *pNewLNode2 = new CLatticeNode(pCurrentChild->GetSymbol(), pNewLNode, NULL);
+	  int iOldDepth;
+
+	  if(it2->second)
+	    iOldDepth = it2->second->GetDepth();
+	  else
+	    iOldDepth = 0;
+
+	CLatticeNode *pNewLNode = new CLatticeNode('|', it2->second, pCurrentChild->GetList(), iOldDepth, 0);
+	CLatticeNode *pNewLNode2 = new CLatticeNode(pCurrentChild->GetSymbol(), pNewLNode, NULL, iOldDepth + 1, 0);
 
 	pNewList->push_back(tLPair(pCurrentChild, pNewLNode2));
 
@@ -216,6 +235,14 @@ bool CPinyinParser::Convert(const std::string &strPhrase, SCENode **pRoot) {
 
   CLatticeNode *pPreviousNode = NULL;
 
+  int iMinDepth = 1000000;
+
+
+  for(std::vector<tLPair>::iterator it2 = pCurrentList->begin(); it2 != pCurrentList->end(); ++it2) {
+    if(it2->second && (it2->second->GetDepth() < iMinDepth))
+      iMinDepth = it2->second->GetDepth();
+  }
+
   // Now trace back through the remaining paths
   for(std::vector<tLPair>::iterator it2 = pCurrentList->begin(); it2 != pCurrentList->end(); ++it2) {
 
@@ -223,11 +250,18 @@ bool CPinyinParser::Convert(const std::string &strPhrase, SCENode **pRoot) {
 
     CLatticeNode *pCurrentNode = it2->second;
 
+    int iPromotion;
+
+    if(pCurrentNode && (pCurrentNode->GetDepth() == iMinDepth))
+      iPromotion = 0;
+    else
+      iPromotion = 1;
+
     while(pCurrentNode) {
-      //      if(pCurrentNode->GetList())
-      //	pTail = AddList(pCurrentNode->GetList(), pTail);
-      
-      // Check to see whether child has alreadybeen added (this could be made more efficient)
+      if(pCurrentNode->GetPriority() > iPromotion)
+	pCurrentNode->SetPriority(iPromotion);
+
+      // Check to see whether child has already been added (this could be made more efficient)
 
       if(pPreviousNode) {
 	bool bFound = false;
@@ -297,6 +331,7 @@ SCENode *CPinyinParser::CLatticeNode::RecursiveAddList(SCENode *pOldTail) {
        
        pNewNode->SetChild(pTail);
        pNewNode->SetNext(pNewTail);
+       pNewNode->SetPriority(m_iPriority);
        
        pNewNode->pszConversion = new char[it->size() + 1];
        strcpy(pNewNode->pszConversion, it->c_str());
