@@ -8,10 +8,12 @@ Data/glade/dasher.traditional.glade
 Data/glade/dashermaemo.glade
 Data/glade/dashermaemofullscreen.glade
 Src/DasherCore/ClickFilter.cpp
+Src/DasherCore/ClickFilter.h
 Src/DasherCore/DasherButtons.cpp
 Src/DasherCore/DasherInterfaceBase.cpp
 Src/DasherCore/DynamicFilter.cpp
 Src/DasherCore/EyetrackerFilter.cpp
+Src/DasherCore/OneButtonDynamicFilter.cpp
 Src/DasherCore/OneDimensionalFilter.cpp
 Src/DasherCore/SocketInput.cpp
 Src/DasherCore/SocketInputBase.cpp
