@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-06-02 03:21+0100\n"
-"PO-Revision-Date: 2007-07-06 07:58+0300\n"
+"PO-Revision-Date: 2007-08-15 12:06+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -518,14 +518,14 @@ msgstr "Standardne sõnapõhine PPM"
 #: ../Data/glade/dasher.fullscreen.glade.h:56
 #: ../Data/glade/dasher.traditional.glade.h:72
 msgid "Start on left mouse button"
-msgstr "Alustamine peale vasaku hiirenupu vajutamist"
+msgstr "Alustamine pärast vasaku hiirenupu vajutamist"
 
 #: ../Data/glade/dasher.compose.glade.h:69
 #: ../Data/glade/dasher.direct.glade.h:59
 #: ../Data/glade/dasher.fullscreen.glade.h:57
 #: ../Data/glade/dasher.traditional.glade.h:73
 msgid "Start on space bar"
-msgstr "Alustamine peale tühiku vajutamist"
+msgstr "Alustamine pärast tühiku vajutamist"
 
 #: ../Data/glade/dasher.compose.glade.h:70
 #: ../Data/glade/dasher.direct.glade.h:60
