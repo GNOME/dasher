@@ -20,6 +20,7 @@ public:
   };
 
   ~CEventHandler() {
+
   };
 
   // Insert an event, which will be propagated to all listeners.

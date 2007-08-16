@@ -14,6 +14,8 @@
 #include "DasherModel.h"
 #include "DasherInput.h"
 
+#include "DasherGameMode.h"
+
 #include <iostream>
 
 using namespace Dasher;
@@ -31,7 +33,8 @@ static char THIS_FILE[] = __FILE__;
 /////////////////////////////////////////////////////////////////////////////
 
 CDasherView::CDasherView(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen *DasherScreen)
-:CDasherComponent(pEventHandler, pSettingsStore), m_pScreen(DasherScreen), m_pInput(0) {
+  :CDasherComponent(pEventHandler, pSettingsStore), m_pScreen(DasherScreen), m_pInput(0),
+   m_bDemoMode(false), m_bGameMode(false) {
 }
 
 void CDasherView::HandleEvent(Dasher::CEvent *pEvent) {
@@ -56,15 +59,11 @@ void CDasherView::ChangeScreen(CDasherScreen *NewScreen) {
 
 /////////////////////////////////////////////////////////////////////////////
 
-bool CDasherView::Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, bool bRedrawDisplay, bool bGameMode) {
+bool CDasherView::Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, bool bRedrawDisplay, std::vector<std::pair<myint,bool> >* pvGameTargetY) {
 
   m_iRenderCount = 0;
-  myint iGamePointer;
   Screen()->SetLoadBackground(false);
-  RenderNodes(pRoot, iRootMin, iRootMax, vNodeList, vDeleteList, &iGamePointer);
-
-  if(bGameMode)
-    DrawGameModePointer(iGamePointer);
+  RenderNodes(pRoot, iRootMin, iRootMax, vNodeList, vDeleteList, pvGameTargetY);
 
   return true;
 }
@@ -126,6 +125,33 @@ void CDasherView::DasherPolyline(myint *x, myint *y, int n, int iWidth, int iCol
   }
   else {
     Screen()->Polyline(ScreenPoints, n, iWidth,0);//no color given
+  }
+  delete[]ScreenPoints;
+}
+
+// Draw a polyline with an arrow on the end
+void CDasherView::DasherPolyarrow(myint *x, myint *y, int n, int iWidth, int iColour) {
+
+  CDasherScreen::point * ScreenPoints = new CDasherScreen::point[n+3];
+
+  for(int i(0); i < n; ++i)
+    Dasher2Screen(x[i], y[i], ScreenPoints[i].x, ScreenPoints[i].y);
+
+  int iXvec = (ScreenPoints[n-2].x - ScreenPoints[n-1].x)*1.414;
+  int iYvec = (ScreenPoints[n-2].y - ScreenPoints[n-1].y)*1.414;
+
+  ScreenPoints[n].x   = ScreenPoints[n-1].x + iXvec + iYvec;
+  ScreenPoints[n].y   = ScreenPoints[n-1].y - iXvec + iYvec;
+  ScreenPoints[n+1].x = ScreenPoints[n-1].x ;
+  ScreenPoints[n+1].y = ScreenPoints[n-1].y ;
+  ScreenPoints[n+2].x = ScreenPoints[n-1].x + iXvec - iYvec;
+  ScreenPoints[n+2].y = ScreenPoints[n-1].y + iXvec + iYvec;
+
+  if(iColour != -1) {
+    Screen()->Polyline(ScreenPoints, n+3, iWidth, iColour);
+  }
+  else {
+    Screen()->Polyline(ScreenPoints, n+3, iWidth,0);//no color given
   }
   delete[]ScreenPoints;
 }
@@ -290,14 +316,24 @@ void CDasherView::DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint iAnchor
 }
 
 
+
+void CDasherView::DrawText(const std::string & str, myint x, myint y, int Size) {
+  screenint X, Y;
+  Dasher2Screen(x, y, X, Y);
+  
+  Screen()->DrawString(str, X, Y, Size);
+}
+
+
 int CDasherView::GetCoordinates(myint &iDasherX, myint &iDasherY) {
+
 
   // FIXME - Actually turn autocalibration on and off!
   // FIXME - AutoCalibrate should use Dasher co-ordinates, not raw mouse co-ordinates?
   // FIXME - Have I broken this by moving it before the offset is applied?
   // FIXME - put ymap stuff back in 
   // FIXME - optimise this
-
+  
   int iCoordinateCount(GetCoordinateCount());
 
   myint *pCoordinates(new myint[iCoordinateCount]);
@@ -336,6 +372,24 @@ int CDasherView::GetCoordinates(myint &iDasherX, myint &iDasherY) {
   //  iDasherX = myint(xmap(iDasherX / static_cast < double >(GetLongParameter(LP_MAX_Y))) * GetLongParameter(LP_MAX_Y));
   // iDasherY = m_ymap.map(iDasherY);
 #endif
-
+  ///GAME///
+  if(m_bGameMode)
+    {
+      if(m_bDemoMode)
+	CDasherGameMode::GetTeacher()->DemoModeGetCoordinates(iDasherX, iDasherY);
+      CDasherGameMode::GetTeacher()->SetUserMouseCoordinates(iDasherX, iDasherY);
+    }
+      
   return iType;
+}
+
+
+void CDasherView::SetDemoMode(bool bDemoMode)
+{
+  m_bDemoMode = bDemoMode;
+}
+
+void CDasherView::SetGameMode(bool bGameMode)
+{
+  m_bGameMode = bGameMode;
 }

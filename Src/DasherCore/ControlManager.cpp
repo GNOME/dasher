@@ -21,6 +21,7 @@
 #include "../Common/Common.h"
 
 #include "ControlManager.h"
+
 using namespace Dasher;
 using namespace std;
 // Track memory leaks on Windows to the line that new'd the memory
@@ -296,7 +297,8 @@ CDasherNode *CControlManager::GetRoot(CDasherNode *pParent, int iLower, int iUpp
 }
 
 void CControlManager::PopulateChildren( CDasherNode *pNode ) {
-   CDasherNode *pNewNode;
+  
+  CDasherNode *pNewNode;
 
    CControlNode *pControlNode((static_cast<SControlData *>(pNode->m_pUserData))->pControlNode);
 

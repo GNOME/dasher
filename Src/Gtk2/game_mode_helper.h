@@ -2,8 +2,10 @@
 #define __game_mode_helper_h__
 
 #include "GtkDasherControl.h"
+#include "GameMessages.h"
 
 #include <gdk/gdk.h>
+#include <glade/glade.h>
 #include <glib.h>
 #include <gtk/gtk.h>
 
@@ -26,9 +28,10 @@ struct _GameModeHelperClass {
   GtkDialogClass parent_class;
 };
 
-GObject *game_mode_helper_new(GtkDasherControl *pControl);
+GObject *game_mode_helper_new(GladeXML *pGladeXML, void* pEditor);
 GType game_mode_helper_get_type();
 
+void game_mode_helper_message(GameModeHelper *pSelf, int message, const void *messagedata);
 void game_mode_helper_output(GameModeHelper *pSelf, const gchar *szText);
 void game_mode_helper_delete(GameModeHelper *pSelf, int iLength);
 G_END_DECLS

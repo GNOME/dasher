@@ -36,6 +36,8 @@ using namespace std;
 #include "LanguageModelling/DictLanguageModel.h"
 #include "LanguageModelling/MixtureLanguageModel.h"
 #include "NodeCreationManager.h"
+#include "DasherGameMode.h"
+#include "AlphabetManager.h"
 
 using namespace Dasher;
 using namespace std;
@@ -54,13 +56,16 @@ static char THIS_FILE[] = __FILE__;
 
 // CDasherModel
 
-CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pDasherInterface, CDasherView *pView, int iOffset, bool bGameMode, const std::string &strGameModeText)
+CDasherModel::CDasherModel(CEventHandler *pEventHandler,
+			   CSettingsStore *pSettingsStore,
+			   CNodeCreationManager *pNCManager,
+			   CDasherInterfaceBase *pDasherInterface,
+			   CDasherView *pView, int iOffset)
   : CDasherComponent(pEventHandler, pSettingsStore) {
-
   m_pNodeCreationManager = pNCManager;
   m_pDasherInterface = pDasherInterface;
 
-  m_bGameMode = bGameMode;
+  m_bGameMode = GetBoolParameter(BP_GAME_MODE);
   m_iOffset = iOffset; // TODO: Set through build routine
 
   DASHER_ASSERT(m_pNodeCreationManager != NULL);
@@ -95,7 +100,6 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettin
 }
 
 CDasherModel::~CDasherModel() {
-
   if(oldroots.size() > 0) {
     delete oldroots[0];
     oldroots.clear();
@@ -111,7 +115,7 @@ CDasherModel::~CDasherModel() {
 
 void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
 
-  if(pEvent->m_iEventType == 1) {
+  if(pEvent->m_iEventType == EV_PARAM_NOTIFY) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
 
     switch (pEvt->m_iParameter) {
@@ -133,11 +137,15 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
       else
 	m_iStartTime = 1;
       break;
+    case BP_GAME_MODE:
+      m_bGameMode = GetBoolParameter(BP_GAME_MODE);
+      // Maybe reload something here to begin game mode?
+      break;
     default:
       break;
     }
   }
-  else if(pEvent->m_iEventType == 2) {
+  else if(pEvent->m_iEventType == EV_EDIT) {
     // Keep track of where we are in the buffer
     CEditEvent *pEditEvent(static_cast < CEditEvent * >(pEvent));
 
@@ -206,6 +214,8 @@ void CDasherModel::RecursiveMakeRoot(CDasherNode *pNewRoot) {
   Make_root(pNewRoot);
 }
 
+// RebuildAroundNode is only used when BP_CONTROL changes,
+// so not very often.
 void CDasherModel::RebuildAroundNode(CDasherNode *pNode) {
   DASHER_ASSERT(pNode != NULL);
 
@@ -527,6 +537,10 @@ bool CDasherModel::UpdatePosition(myint miMousex, myint miMousey, unsigned long 
 
 void CDasherModel::NewFrame(unsigned long Time) {
   m_fr.NewFrame(Time);
+  ///GAME MODE TEMP///Pass new frame events onto our teacher
+  CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher();
+  if(m_bGameMode && pTeacher)
+    pTeacher->NewFrame(Time);
 }
 
 void CDasherModel::OldPush(myint iMousex, myint iMousey) {
@@ -597,6 +611,10 @@ void CDasherModel::RecursiveOutput(CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PRO
 
   pNode->SetFlag(NF_SEEN, true);
   pNode->m_pNodeManager->Output(pNode, pAdded, GetLongParameter(LP_NORMALIZATION));
+
+  if(m_bGameMode)
+    if(pNode->GetFlag(NF_END_GAME))
+      CDasherGameMode::GetTeacher()->SentenceFinished();
 }
 
 void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
@@ -735,9 +753,11 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
 
   // TODO: Fix this and make an assertion again
   if(pNode->GetFlag(NF_SUBNODE))
-    return;
+      return;
 
   // TODO: Is NF_ALLCHILDREN any more useful/efficient than reading the map size?
+  
+
   if(pNode->GetFlag(NF_ALLCHILDREN)) {
     DASHER_ASSERT(pNode->Children().size() > 0);
     // if there are children just give them a poke
@@ -748,13 +768,73 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
   }
 
   // TODO: Do we really need to delete all of the children at this point?
-  pNode->Delete_children();
+  pNode->Delete_children(); // trial commented out - pconlon
 
   pNode->SetFlag(NF_ALIVE, true);
 
+  // Populate children creates two levels at once - the groups and their children.
   pNode->m_pNodeManager->PopulateChildren(pNode);
+
   pNode->SetFlag(NF_ALLCHILDREN, true);
-}
+
+  // We get here if all our children (groups) and grandchildren (symbols) are created.
+  // So lets find the correct letters.
+  ///GAME MODE TEMP///////////
+  // If we are in GameMode, then we do a bit of cooperation with the teacher object when we create
+  // new children.
+  CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher();
+  if(m_bGameMode && pNode->GetFlag(NF_GAME) && pTeacher )
+    {
+      std::string strTarget;
+      CAlphabetManager::SAlphabetData * pAlphabetData =
+	static_cast<CAlphabetManager::SAlphabetData *>(pNode->m_pUserData);
+      strTarget = pTeacher->GetSymbolAtOffset(pAlphabetData->iOffset+1);
+      CDasherNode::ChildMap::iterator i, j;
+      /////////////FIX/////////////////
+      if(strTarget == "GameEnd")
+	{
+	  pNode->SetFlag(NF_END_GAME, true);
+	  goto multibreak;
+	}
+      for(i = pNode->Children().begin(); i != pNode->Children().end(); i++)
+	{
+	  if((*i)->GetDisplayInfo()->strDisplayText == "Control") continue;
+
+	  if((*i)->GetFlag(NF_SUBNODE))
+	    {
+	      for(j = (*i)->Children().begin(); j != (*i)->Children().end(); j++)
+		{
+		  std::string strNode;
+		  CDasherNode * pTempNode = (*j);
+		  pAlphabetData = static_cast<CAlphabetManager::SAlphabetData *>(pTempNode->m_pUserData);
+		  strNode = m_pNodeCreationManager->GetAlphabet()->GetText(pAlphabetData->iSymbol);
+		  if(strNode == strTarget)
+		    {
+		      (*j)->SetFlag(NF_GAME, true);
+		      (*i)->SetFlag(NF_GAME, true);
+		      goto multibreak;
+		    }
+		}
+	    }
+	  else
+	    {
+	      std::string strNode;
+	      CDasherNode * pTempNode = (*i);
+	      pAlphabetData = static_cast<CAlphabetManager::SAlphabetData *>(pTempNode->m_pUserData);
+	      strNode = m_pNodeCreationManager->GetAlphabet()->GetText(pAlphabetData->iSymbol);
+	      if(strNode == strTarget)
+		{
+		  (*i)->SetFlag(NF_GAME, true);
+		  goto multibreak;
+		}	 
+	    }
+	}
+    multibreak:
+      true;
+    }
+  ////////////////////////////
+  
+ }
 
 void CDasherModel::Recursive_Push_Node(CDasherNode *pNode, int iDepth) {
   // TODO: is this really useful? Doesn't Push_node itself recurse
@@ -776,6 +856,7 @@ void CDasherModel::Recursive_Push_Node(CDasherNode *pNode, int iDepth) {
 }
 
 bool CDasherModel::RenderToView(CDasherView *pView, bool bRedrawDisplay) {
+
   DASHER_ASSERT(pView != NULL);
   DASHER_ASSERT(m_Root != NULL);
 
@@ -785,20 +866,33 @@ bool CDasherModel::RenderToView(CDasherView *pView, bool bRedrawDisplay) {
   std::vector<CDasherNode *> vDeleteList;
 
   bool bReturnValue;
+  std::vector<std::pair<myint,bool> > vGameTargetY;
+  
+  // The Render routine will fill iGameTargetY with the Dasher Coordinate of the 
+  // youngest node with NF_GAME set. The model is responsible for setting NF_GAME on
+  // the appropriate Nodes.
+  bReturnValue = pView->Render(m_Root, m_Rootmin + m_iTargetOffset, m_Rootmax + m_iTargetOffset, vNodeList, vDeleteList, bRedrawDisplay, &vGameTargetY);
+  
+  /////////GAME MODE TEMP//////////////
+  if(m_bGameMode)
+    if(CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher())
+      pTeacher->SetTargetY(vGameTargetY);
+  //////////////////////////////////////
 
-  bReturnValue = pView->Render(m_Root, m_Rootmin + m_iTargetOffset, m_Rootmax + m_iTargetOffset, vNodeList, vDeleteList, bRedrawDisplay, m_bGameMode);
 
   if(!GetBoolParameter(BP_OLD_STYLE_PUSH)) {
-  for(std::vector<CDasherNode *>::iterator it(vNodeList.begin()); it != vNodeList.end(); ++it)
-    Push_Node(*it);
+    for(std::vector<CDasherNode *>::iterator it(vNodeList.begin()); it != vNodeList.end(); ++it)
+      Push_Node(*it);
   }
-
+  
   // TODO: Fix this
-  for(std::vector<CDasherNode *>::iterator it(vDeleteList.begin()); it != vDeleteList.end(); ++it) {
-    if(!((*it)->GetFlag(NF_SUBNODE)))
-      (*it)->Delete_children();
-  }
-
+  for(std::vector<CDasherNode *>::iterator it(vDeleteList.begin()); it != vDeleteList.end(); ++it)
+    {
+      if(!(*it)->GetFlag(NF_SUBNODE))
+	(*it)->Delete_children();
+      
+    }
+  
   CDasherNode *pNewNode = Get_node_under_crosshair();
 
   // TODO: Fix up stats
@@ -856,12 +950,16 @@ bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
   bool bFound = false;
 
   if(RecursiveCheckRoot(m_Root, &pNewRoot, bFound)) {
-    if(bFound) { // TODO: I think this if statement is reduncdent, return value of above is always equal to bFound
-      m_Root->DeleteNephews(pNewRoot);
-      //      std::cout << "m..." << std::endl;
-      RecursiveMakeRoot(pNewRoot);
-      //std::cout << "...m" << std::endl;
-    }
+    // TODO: I think this if statement is reduncdent, return value of above is always equal to bFound
+    // not true - pconlon
+    ////GAME MODE TEMP - only change the root if it is on the game path/////////
+      if(bFound && (!m_bGameMode || pNewRoot->GetFlag(NF_GAME)))
+	{
+	  m_Root->DeleteNephews(pNewRoot);
+	  //      std::cout << "m..." << std::endl;
+	  RecursiveMakeRoot(pNewRoot);
+	  //std::cout << "...m" << std::endl;
+	}
   }
 
   CDasherNode *pNewNode = Get_node_under_crosshair();

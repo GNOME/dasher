@@ -27,6 +27,7 @@
 #include "Parameters.h"
 
 class CNodeCreationManager;
+struct SGroupInfo;
 
 namespace Dasher {
 
@@ -43,7 +44,7 @@ namespace Dasher {
   class CAlphabetManager : public CNodeManager {
   public:
 
-    CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel, CLanguageModel::Context iLearnContext, bool bGameMode, const std::string &strGameModeText);
+    CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel, CLanguageModel::Context iLearnContext);
 
     ///
     /// Does nothing - alphabet manager isn't reference counted.
@@ -111,8 +112,6 @@ namespace Dasher {
     CLanguageModel *m_pLanguageModel;
     CNodeCreationManager *m_pNCManager;
     CLanguageModel::Context m_iLearnContext;
-    std::string m_strGameString;
-    bool m_bGameMode;
     CDasherInterfaceBase *m_pInterface;
 
   };

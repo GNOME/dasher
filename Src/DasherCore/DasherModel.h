@@ -57,7 +57,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 {
  public:
 
-  CDasherModel(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pDashIface, CDasherView *pView, int iOffset, bool bGameMode = false, const std::string &strGameModeText = "");
+  CDasherModel(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pDashIface, CDasherView *pView, int iOffset);
   ~CDasherModel();
 
   ///

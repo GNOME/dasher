@@ -8,7 +8,7 @@
 namespace Dasher {
   class CDasherScreen;
   class CDasherModel;
-  class CDasherInput;
+  class CDasherInput; // Why does DasherView care about input? - pconlon
   class CDasherComponent;
   class CDasherView;
   class CDasherNode;
@@ -73,7 +73,8 @@ public:
   /// Set the input device class. Note that this class will now assume ownership of the pointer, ie it will delete the object when it's done with it.
   /// \param _pInput Pointer to the new CDasherInput.
   void SetInput(CDasherInput * _pInput);
-
+  void SetDemoMode(bool);
+  void SetGameMode(bool);
   /// Translates the screen coordinates to Dasher coordinates and calls
   /// dashermodel.TapOnDisplay
   virtual int GetCoordinates(myint &iDasherX, myint &iDasherY);
@@ -131,15 +132,11 @@ public:
 
   /// Renders Dasher with mouse-dependent items
   /// \todo Clarify relationship between Render functions and probably only expose one
-  virtual bool Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, bool bRedrawDisplay, bool bGameMode);
+  virtual bool Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, bool bRedrawDisplay, std::vector<std::pair<myint,bool> >* pvGameTargetY);
 
   int GetRenderCount() {
     return m_iRenderCount;
   };
-
-  /// Draw the game mode pointer - this shouldn't be here
-
-  virtual void DrawGameModePointer(myint iPosition) = 0;
 
   /// @}
 
@@ -159,6 +156,10 @@ public:
   ///
 
   void DasherPolyline(myint * x, myint * y, int n, int iWidth, int iColour);
+
+  /// Draw a polyarrow
+
+  void DasherPolyarrow(myint * x, myint * y, int n, int iWidth, int iColour);
 
   ///
   /// Draw a polygon specified in Dasher co-ordinates
@@ -184,7 +185,7 @@ public:
 
   void DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint iAnchorX2, myint iAnchorY2, const std::string & sDisplayText, int &mostleft, bool bShove);
 
-
+  void DrawText(const std::string & str, myint x, myint y, int Size);
   /// Request the Screen to copy its buffer to the Display
   /// \todo Shouldn't be public?
   void Display();
@@ -206,13 +207,14 @@ private:
   CDasherInput *m_pInput;       // Input device abstraction
 
   /// Renders the Dasher node structure
-  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer) = 0;
+  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, std::vector<std::pair<myint,bool> > *pvGamePointer) = 0;
 
 
   /// Get the co-ordinates from the input device
   int GetInputCoordinates(int iN, myint * pCoordinates); 
 
-
+  bool m_bDemoMode;
+  bool m_bGameMode;
 };
 /// @}
 #include "DasherView.inl"

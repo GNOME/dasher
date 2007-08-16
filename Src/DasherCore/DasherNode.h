@@ -24,9 +24,12 @@
 #include "../Common/Common.h"
 #include "../Common/NoClones.h"
 #include "DasherTypes.h"
-#include "LanguageModelling/LanguageModel.h"
+
 #include "NodeManager.h"
-#include "Alphabet/GroupInfo.h"
+
+// These includes no longer required? - pconlon
+//#include "Alphabet/GroupInfo.h"
+//#include "LanguageModelling/LanguageModel.h"
 
 #include <deque>
 #include <iostream>
@@ -41,6 +44,7 @@
 #define NF_ALLCHILDREN 64
 #define NF_SUBNODE 128
 #define NF_SUPER 256
+#define NF_END_GAME 512
 
 namespace Dasher {
   class CDasherNode;
@@ -119,6 +123,9 @@ class Dasher::CDasherNode:private NoClones {
   /// NF_SUBNODE - Node should be considered an integral subnode of parents (eg groups)
   ///
   /// NF_SUPER - Node covers entire visible area
+  ///
+  /// NF_END_GAME - Node is the last one of the phrase in game mode
+  ///
   /// 
   /// @param iFlag The flag to set
   /// @param bValue The new value of the flag

@@ -7,7 +7,7 @@
 #include "ControlManagerFactory.h"
 #include "ConversionManagerFactory.h"
 #include "DasherComponent.h"
-//#include "DasherNode.h"
+
 #include "LanguageModelling/LanguageModel.h"
 
 #include <string>
@@ -21,7 +21,10 @@ namespace Dasher {
 /// @{
 class CNodeCreationManager : public Dasher::CDasherComponent {
  public:
-  CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterface, Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, bool bGameMode, std::string strGameModeText, Dasher::CAlphIO *pAlphIO);
+  CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterface,
+		       Dasher::CEventHandler * pEventHandler,
+		       CSettingsStore * pSettingsStore,
+		       Dasher::CAlphIO *pAlphIO);
   ~CNodeCreationManager();
   
   ///

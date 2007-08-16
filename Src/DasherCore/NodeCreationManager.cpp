@@ -6,8 +6,17 @@
 #include "LanguageModelling/MixtureLanguageModel.h"
 #include "NodeCreationManager.h"
 
-CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterface, Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, bool bGameMode, std::string strGameModeText, Dasher::CAlphIO *pAlphIO) : CDasherComponent(pEventHandler, pSettingsStore) {
-  m_pAlphabetManagerFactory = new CAlphabetManagerFactory(pInterface, pEventHandler, pSettingsStore, pAlphIO, this, bGameMode, strGameModeText);
+
+CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterface,
+					   Dasher::CEventHandler *pEventHandler, 
+					   CSettingsStore *pSettingsStore,
+					   Dasher::CAlphIO *pAlphIO) : CDasherComponent(pEventHandler, pSettingsStore) {
+
+  m_pAlphabetManagerFactory = new CAlphabetManagerFactory(pInterface,
+							  pEventHandler,
+							  pSettingsStore,
+							  pAlphIO,
+							  this);
   
   m_pLanguageModel = m_pAlphabetManagerFactory->GetLanguageModel();
   m_pAlphabet = m_pAlphabetManagerFactory->GetAlphabet();
@@ -19,10 +28,20 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
 #else
   m_pControlManagerFactory = 0;
 #endif
-  m_pConversionManagerFactory = new CConversionManagerFactory(pEventHandler, pSettingsStore, this, iConversionID, pAlphIO, m_pAlphabet);
+  m_pConversionManagerFactory = new CConversionManagerFactory(pEventHandler,
+							      pSettingsStore,
+							      this,
+							      iConversionID,
+							      pAlphIO,
+							      m_pAlphabet);
 }
 
 CNodeCreationManager::~CNodeCreationManager() {
+
+  // C++ standard dictates that
+  // delete NULL;
+  // is totally safe, and does nothing. Do we need all these if statements?
+
   if(m_pAlphabetManagerFactory)
     delete m_pAlphabetManagerFactory;
   
@@ -35,6 +54,7 @@ CNodeCreationManager::~CNodeCreationManager() {
 
 
 CDasherNode *CNodeCreationManager::GetRoot(int iType, Dasher::CDasherNode *pParent, int iLower, int iUpper, void *pUserData ) {
+
   switch(iType) {
   case 0:
     return m_pAlphabetManagerFactory->GetRoot(pParent, iLower, iUpper, pUserData);

@@ -407,11 +407,13 @@ dasher_main_load_interface(DasherMain *pSelf) {
     szGladeFilename = PROGDATA "/dasher.compose.glade";
     break;
   case 2:
-    //    szGladeFilename = PROGDATA "/dasher.direct.glade";
-    szGladeFilename = PROGDATA "/dasher.traditional.glade";
+    szGladeFilename = PROGDATA "/dasher.direct.glade";
     break;
   case 3:
     szGladeFilename = PROGDATA "/dasher.fullscreen.glade";
+    break;
+  case 22:
+    szGladeFilename = PROGDATA "/dasher.debug.glade";
     break;
   default:
     g_error("Inconsistent application style specified.");
@@ -906,6 +908,9 @@ dasher_main_setup_window_style(DasherMain *pSelf) {
     // Fullscreen mode - set fullscreen
     gtk_window_fullscreen(GTK_WINDOW(pPrivate->pMainWindow));
     break;
+  case 22:
+    gtk_window_set_accept_focus(GTK_WINDOW(pPrivate->pMainWindow), false);
+    break;
   default:
     g_error("Inconsistent application style specified.");
   }
@@ -962,7 +967,7 @@ dasher_main_connect_menus(DasherMain *pSelf) {
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
 
   int iNumItems = sizeof(MenuCommands) / sizeof(DasherMenuCommand);
-
+  
   for(int i(0); i < iNumItems; ++i) {
     GtkWidget *pWidget;
 
@@ -977,6 +982,7 @@ dasher_main_connect_menus(DasherMain *pSelf) {
       else
 	g_signal_connect(G_OBJECT(pWidget), "clicked", G_CALLBACK(dasher_main_cb_menu_command), pSelf);
   }
+  
 }
 
 static void 

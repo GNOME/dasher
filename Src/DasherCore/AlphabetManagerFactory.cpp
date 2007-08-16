@@ -21,8 +21,13 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CAlphabetManagerFactory::CAlphabetManagerFactory(CDasherInterfaceBase *pInterface, CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, Dasher::CAlphIO *pAlphIO, CNodeCreationManager *pNCManager,  bool bGameMode, const std::string &strGameModeText ) {
-    // -- put all this in a separate method
+CAlphabetManagerFactory::CAlphabetManagerFactory(CDasherInterfaceBase *pInterface,
+						 CEventHandler *pEventHandler,
+						 CSettingsStore *pSettingsStore,
+						 Dasher::CAlphIO *pAlphIO,
+						 CNodeCreationManager *pNCManager)
+{
+  // -- put all this in a separate method
   // TODO: Think about having 'prefered' values here, which get
   // retrieved by DasherInterfaceBase and used to set parameters
 
@@ -34,6 +39,8 @@ CAlphabetManagerFactory::CAlphabetManagerFactory(CDasherInterfaceBase *pInterfac
   m_pAlphabet = new CAlphabet(oAlphInfo);
 
   pSettingsStore->SetStringParameter(SP_TRAIN_FILE, m_pAlphabet->GetTrainingFile());
+  pSettingsStore->SetStringParameter(SP_GAME_TEXT_FILE, m_pAlphabet->GetGameModeFile());
+  
   pSettingsStore->SetStringParameter(SP_DEFAULT_COLOUR_ID, m_pAlphabet->GetPalette());
 
   if(pSettingsStore->GetLongParameter(LP_ORIENTATION) == Dasher::Opts::AlphabetDefault)
@@ -75,7 +82,7 @@ CAlphabetManagerFactory::CAlphabetManagerFactory(CDasherInterfaceBase *pInterfac
   // TODO: Tell the alphabet manager about the alphabet here, so we
   // don't end up having to duck out to the NCM all the time
 
-  m_pAlphabetManager = new CAlphabetManager(pInterface, pNCManager, m_pLanguageModel, m_iLearnContext, bGameMode, strGameModeText );
+  m_pAlphabetManager = new CAlphabetManager(pInterface, pNCManager, m_pLanguageModel, m_iLearnContext);
 }
 
 CAlphabetManagerFactory::~CAlphabetManagerFactory() {

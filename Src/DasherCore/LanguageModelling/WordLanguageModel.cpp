@@ -9,6 +9,8 @@
 #include "../../Common/Common.h"
 #include "WordLanguageModel.h"
 #include "PPMLanguageModel.h"
+#include "../Alphabet/Alphabet.h"
+
 
 #include <cmath>
 #include <cstdlib>

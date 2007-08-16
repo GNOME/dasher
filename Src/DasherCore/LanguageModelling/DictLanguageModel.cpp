@@ -8,6 +8,7 @@
 
 #include "../../Common/Common.h"
 #include "DictLanguageModel.h"
+#include "../Alphabet/Alphabet.h"
 
 #include <climits>
 #include <cmath>

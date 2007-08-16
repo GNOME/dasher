@@ -39,7 +39,8 @@ enum {
   LP_BOOSTFACTOR, LP_AUTOSPEED_SENSITIVITY, LP_SOCKET_PORT, LP_SOCKET_INPUT_X_MIN, LP_SOCKET_INPUT_X_MAX,
   LP_SOCKET_INPUT_Y_MIN, LP_SOCKET_INPUT_Y_MAX, LP_OX, LP_OY, LP_MAX_Y, LP_INPUT_FILTER, 
   LP_CIRCLE_PERCENT, LP_TWO_BUTTON_OFFSET, LP_HOLD_TIME, LP_MULTIPRESS_TIME, LP_MULTIPRESS_COUNT, 
-  LP_SLOW_START_TIME, LP_DYNAMIC_MEDIAN_FACTOR, LP_CONVERSION_ORDER, LP_CONVERSION_TYPE, END_OF_LPS
+  LP_SLOW_START_TIME, LP_DYNAMIC_MEDIAN_FACTOR, LP_CONVERSION_ORDER, LP_CONVERSION_TYPE,
+  LP_DEMO_SPRING, LP_DEMO_NOISE_MEM, LP_DEMO_NOISE_MAG, END_OF_LPS
 };
 
 enum {
@@ -111,7 +112,7 @@ static bp_table boolparamtable[] = {
   {BP_PALETTE_CHANGE, "PaletteChange", PERS, true, "PaletteChange"},
   {BP_AUTOCALIBRATE, "Autocalibrate", PERS, true, "Autocalibrate"},
   {BP_DASHER_PAUSED, "DasherPaused", !PERS, true, "Dasher Paused"},
-  {BP_GAME_MODE, "GameMode", PERS, false, "Dasher Game Mode"},
+  {BP_GAME_MODE, "GameMode", !PERS, false, "Dasher Game Mode"},
   {BP_TRAINING, "Training", !PERS, false, "Provides locking during training"},
   {BP_REDRAW, "Redraw", !PERS, false, "Force a full redraw at the next timer event"},
   {BP_LM_DICTIONARY, "Dictionary", PERS, true, "Whether the word-based language model uses a dictionary"},
@@ -192,7 +193,10 @@ static lp_table longparamtable[] = {
   {LP_SLOW_START_TIME, "SlowStartTime", PERS, 1000, "Time over which slow start occurs"},
   {LP_DYNAMIC_MEDIAN_FACTOR, "DynamicMedianFactor", PERS, 30, "Percentage of the median at which dynamic mode auto speed control kicks in"},
   {LP_CONVERSION_ORDER, "ConversionOrder", PERS, 0, "Conversion ordering"},
-  {LP_CONVERSION_TYPE, "ConversionType", PERS, 0, "Conversion type"}
+  {LP_CONVERSION_TYPE, "ConversionType", PERS, 0, "Conversion type"},
+  {LP_DEMO_SPRING, "DemoSpring", PERS, 100, "Springyness in Demo-mode"},
+  {LP_DEMO_NOISE_MEM, "DemoNoiseMem", PERS, 100, "Memory parameter for noise in Demo-mode"},
+  {LP_DEMO_NOISE_MAG, "DemoNoiseMag", PERS, 325, "Magnitude of noise in Demo-mode"}
 };
 
 static sp_table stringparamtable[] = {
@@ -206,7 +210,7 @@ static sp_table stringparamtable[] = {
   {SP_DASHER_FONT, "DasherFont", PERS, "", "DasherFont"},
   {SP_SYSTEM_LOC, "SystemLocation", !PERS, "sys_", "System Directory"},
   {SP_USER_LOC, "UserLocation", !PERS, "usr_", "User Directory"},
-  {SP_GAME_TEXT_FILE, "GameTextFile", !PERS, "gamemode_english_GB.txt", "File with strings to practice writing"},
+  {SP_GAME_TEXT_FILE, "GameTextFile", !PERS, "", "File with strings to practice writing"},
   {SP_TRAIN_FILE, "TrainingFile", !PERS, "", "Training text for alphabet"},
   {SP_SOCKET_INPUT_X_LABEL, "SocketInputXLabel", PERS, "x", "Label preceding X values for network input"},
   {SP_SOCKET_INPUT_Y_LABEL, "SocketInputYLabel", PERS, "y", "Label preceding Y values for network input"},

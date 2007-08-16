@@ -339,6 +339,10 @@ public:
     //    Start();
   };
 
+  void GameMessageIn(int message, void* messagedata);
+
+  virtual void GameMessageOut(void* gameHelper, int message, const void* messagedata) = 0;
+
   void ScheduleRedraw() {
     m_bRedrawScheduled = true;
   };

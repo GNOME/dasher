@@ -27,6 +27,7 @@
 #include "EventHandler.h"
 #include "NodeCreationManager.h"
 
+
 #include <vector>
 #include <sstream>
 #include <iostream>
@@ -43,17 +44,15 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CAlphabetManager::CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel, CLanguageModel::Context iLearnContext, bool bGameMode, const std::string &strGameModeText ) 
+CAlphabetManager::CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel, CLanguageModel::Context iLearnContext) 
   : CNodeManager(0), m_pLanguageModel(pLanguageModel), m_pNCManager(pNCManager) {
-
   m_pInterface = pInterface;
 
   m_iLearnContext = iLearnContext;
-  m_bGameMode = bGameMode;
-  m_strGameString = strGameModeText;
 }
 
 CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData) {
+
   CDasherNode *pNewNode;
 
   // TODO: iOffset has gotten a bit hacky here
@@ -127,17 +126,17 @@ CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUp
   pNewNode->SetFlag(NF_SEEN, true);
 
 
-
-  if(m_bGameMode) {
-    pNodeUserData->iGameOffset = -1;
-    pNewNode->SetFlag(NF_GAME, true);
-  }
-
+  
+  //    if(m_bGameMode) {
+  //    pNodeUserData->iGameOffset = -1;
+       pNewNode->SetFlag(NF_GAME, true);
+    //  }
+  
   return pNewNode;
 }
 
 void CAlphabetManager::PopulateChildren( CDasherNode *pNode ) {
-  PopulateChildrenWithSymbol( pNode, -2, 0 );
+   PopulateChildrenWithSymbol( pNode, -2, 0 );
 }
 
 CDasherNode *CAlphabetManager::CreateGroupNode(CDasherNode *pParent, SGroupInfo *pInfo, std::vector<unsigned int> *pCProb, unsigned int iStart, unsigned int iEnd, unsigned int iMin, unsigned int iMax) {
@@ -175,9 +174,11 @@ CDasherNode *CAlphabetManager::CreateGroupNode(CDasherNode *pParent, SGroupInfo 
   SAlphabetData *pNodeUserData = new SAlphabetData;
   pNewNode->m_pUserData = pNodeUserData;
 
-  pNodeUserData->iOffset = pParentData->iOffset;
+  // When creating a group node...
+  pNodeUserData->iOffset = pParentData->iOffset; // ...the offset is the same as the parent...
   pNodeUserData->iPhase = pParentData->iPhase;
-  pNodeUserData->iSymbol = 0; // TODO: Sort out symbol for groups
+  // TODO: Sort out symbol for groups
+  pNodeUserData->iSymbol = 0; //...but the Symbol is just a 0.
   pNodeUserData->pLanguageModel = pParentData->pLanguageModel;
   pNodeUserData->iContext = pParentData->pLanguageModel->CloneContext(pParentData->iContext);
 
@@ -220,19 +221,19 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CDasherNode *pParent, symbol iSy
 
   }
   // TODO: Need to fix fact that this is created even when control mode is switched off
-  else if(iSymbol == m_pNCManager->GetControlSymbol()) {                                                                               
-    pNewNode = m_pNCManager->GetRoot(1, pParent, iLbnd, iHbnd, &(pParentData->iOffset));                                           
+  else if(iSymbol == m_pNCManager->GetControlSymbol()) {
+    pNewNode = m_pNCManager->GetRoot(1, pParent, iLbnd, iHbnd, &(pParentData->iOffset)); 
 
     // For now, just hack it so we get a normal root node here
     if(!pNewNode) {
       pNewNode = m_pNCManager->GetRoot(0, pParent, iLbnd, iHbnd, NULL);
     }
-  }                                                                                                                                   
-  else if(iSymbol == m_pNCManager->GetStartConversionSymbol()) {                                                                  
+  }
+  else if(iSymbol == m_pNCManager->GetStartConversionSymbol()) {
   //  else if(iSymbol == m_pNCManager->GetSpaceSymbol()) {
 
-    // TODO: Need to consider the case where there is no compile-time support for this                                                
-    pNewNode = m_pNCManager->GetRoot(2, pParent, iLbnd, iHbnd, &(pParentData->iOffset));                                           
+    // TODO: Need to consider the case where there is no compile-time support for this
+    pNewNode = m_pNCManager->GetRoot(2, pParent, iLbnd, iHbnd, &(pParentData->iOffset));
   }         
   else {
     int iPhase = (pParentData->iPhase + 1) % 2;
@@ -306,16 +307,29 @@ void CAlphabetManager::RecursiveIterateGroup(CDasherNode *pParent, SGroupInfo *p
   }
 
   // Create child nodes and cache them for later
+  // The SGroupInfo structure has something like linked list behaviour
+  // Each SGroupInfo contains a pNext, a pointer to a sibling group info
   SGroupInfo *pCurrentNode(pInfo);
   while(pCurrentNode) {
-    CDasherNode *pNewChild = CreateGroupNode(pParent, pCurrentNode, pCProb, pCurrentNode->iStart, pCurrentNode->iEnd, iMin, iMax);
-    RecursiveIterateGroup(pNewChild, pCurrentNode->pChild, pSymbols, pCProb, pCurrentNode->iStart, pCurrentNode->iEnd, iExistingSymbol, pExistingChild);
+    CDasherNode *pNewChild = CreateGroupNode(pParent,
+					     pCurrentNode,
+					     pCProb,
+					     pCurrentNode->iStart,
+					     pCurrentNode->iEnd,
+					     iMin, iMax);
+    RecursiveIterateGroup(pNewChild,
+			  pCurrentNode->pChild,
+			  pSymbols,
+			  pCProb,
+			  pCurrentNode->iStart,
+			  pCurrentNode->iEnd,
+			  iExistingSymbol, pExistingChild);
 
     for(int i(pCurrentNode->iStart); i < pCurrentNode->iEnd; ++i) {
       pChildNodes[i - iMin] = pNewChild;
     }
 
-    pCurrentNode = pCurrentNode->pNext;
+    pCurrentNode = pCurrentNode->pNext; // Move along the group
   }
 
   CDasherNode *pLastChild = NULL;
@@ -482,10 +496,12 @@ CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode, int iGeneration
   return pNewNode;
 }
 
+// TODO: Shouldn't there be an option whether or not to learn as we write?
+// For want of a better solution, game mode exemption explicit in this function
 void CAlphabetManager::SetFlag(CDasherNode *pNode, int iFlag, bool bValue) {
   switch(iFlag) {
   case NF_COMMITTED:
-    if(bValue)
+    if(bValue && !pNode->GetFlag(NF_GAME))
       // TODO: Reimplement (need a learning context, check whether symbol actually corresponds to character)
       static_cast<SAlphabetData *>(pNode->m_pUserData)->pLanguageModel->LearnSymbol(m_iLearnContext, static_cast<SAlphabetData *>(pNode->m_pUserData)->iSymbol);
     break;

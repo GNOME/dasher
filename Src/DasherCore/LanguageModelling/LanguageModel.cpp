@@ -9,6 +9,7 @@
 #include "../../Common/Common.h"
 
 #include "LanguageModel.h"
+#include "../Alphabet/Alphabet.h"
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -32,5 +33,10 @@ CLanguageModel::CLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsSt
 
 void CLanguageModel::HandleEvent(Dasher::CEvent *pEvent) {
 }
+
+symbol CLanguageModel::GetResetSymbol() const
+{
+  return m_Alphabet.GetAlphabetPointer()->GetResetSymbol();
+};
 
 ///////////////////////////////////////////////////////////////////

@@ -65,6 +65,7 @@ int main(int argc, char **argv) {
 
   std::cout << "<gconfschemafile>" << std::endl;
   std::cout << "<schemalist>" << std::endl;
+  std::cout << "Is this really main? -- Who knows?" << std::endl;
 
   for(int i(0); i < NUM_OF_BPS; ++i) {
     if(boolparamtable[i].persistent) {

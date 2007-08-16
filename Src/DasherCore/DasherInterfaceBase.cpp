@@ -38,6 +38,7 @@
 #include "BasicLog.h"
 #endif
 #include "WrapperFactory.h"
+#include "DasherGameMode.h"
 
 // Input filters
 #include "ClickFilter.h" 
@@ -126,12 +127,11 @@ CDasherInterfaceBase::CDasherInterfaceBase() {
 }
 
 void CDasherInterfaceBase::Realize() {
-
   // TODO: What exactly needs to have happened by the time we call Realize()?
   CreateSettingsStore();
   SetupUI();
   SetupPaths();
-
+  
   std::vector<std::string> vAlphabetFiles;
   ScanAlphabetFiles(vAlphabetFiles);
   m_AlphIO = new CAlphIO(GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), vAlphabetFiles);
@@ -141,7 +141,7 @@ void CDasherInterfaceBase::Realize() {
   m_ColourIO = new CColourIO(GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), vColourFiles);
 
   ChangeColours();
-  ChangeAlphabet();
+  ChangeAlphabet(); // This creates the NodeCreationManager, the Alphabet
 
   // Create the user logging object if we are suppose to.  We wait
   // until now so we have the real value of the parameter and not
@@ -180,10 +180,17 @@ void CDasherInterfaceBase::Realize() {
 
   // TODO: Make things work when model is created latet
   ChangeState(TR_MODEL_INIT);
+
+  // Create the teacher singleton object. 
+  CDasherGameMode::CreateTeacher(m_pEventHandler, m_pSettingsStore, this);
 }
 
 CDasherInterfaceBase::~CDasherInterfaceBase() {
   DASHER_ASSERT(m_iCurrentState == ST_SHUTDOWN);
+
+  // It may seem odd that InterfaceBase does not "own" the teacher.
+  // This is because game mode is a different layer, in a sense.
+  CDasherGameMode::DestroyTeacher();
 
   delete m_pDasherModel;        // The order of some of these deletions matters
   delete m_Alphabet;
@@ -350,7 +357,8 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
 }
 
 void CDasherInterfaceBase::WriteTrainFileFull() {
-  WriteTrainFile(strTrainfileBuffer);
+  if(!GetBoolParameter(BP_GAME_MODE))
+    WriteTrainFile(strTrainfileBuffer);
   strTrainfileBuffer = "";
 }
 
@@ -370,12 +378,12 @@ void CDasherInterfaceBase::CreateModel(int iOffset) {
     m_pDasherModel = 0;
   }
   
-  if(m_deGameModeStrings.size() == 0) {
-    m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, m_pNCManager, this, m_pDasherView, iOffset);
-  }
-  else {
-    m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, m_pNCManager, this, m_pDasherView, iOffset, true, m_deGameModeStrings[0]);
-  }
+  m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, m_pNCManager, this, m_pDasherView, iOffset);
+  
+  // Notify the teacher of the new model
+  if(CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher())
+    pTeacher->SetDasherModel(m_pDasherModel);
+  
 }
 
 void CDasherInterfaceBase::CreateNCManager() {
@@ -415,16 +423,12 @@ void CDasherInterfaceBase::CreateNCManager() {
       delete m_pNCManager;
       m_pNCManager = 0;
     }
-      
-    if(m_deGameModeStrings.size() == 0) {
-      m_pNCManager = new CNodeCreationManager(this, m_pEventHandler, m_pSettingsStore, false, "", m_AlphIO);
-    }
-    else {
-      m_pNCManager = new CNodeCreationManager(this, m_pEventHandler, m_pSettingsStore, true, m_deGameModeStrings[0], m_AlphIO);
-    }
+  
+    m_pNCManager = new CNodeCreationManager(this, m_pEventHandler, m_pSettingsStore, m_AlphIO);
 
     m_Alphabet = m_pNCManager->GetAlphabet();
     
+    // TODO: Consider using GetStringParameter(SP_TRAIN_FILE) instead?
     string T = m_Alphabet->GetTrainingFile();
 
     int iTotalBytes = 0;
@@ -465,6 +469,11 @@ void CDasherInterfaceBase::PauseAt(int MouseX, int MouseY) {
     m_pUserLog->StopWriting((float) GetNats());
 #endif
 }
+
+void CDasherInterfaceBase::GameMessageIn(int message, void* messagedata) {
+  CDasherGameMode::GetTeacher()->Message(message, messagedata);
+}
+
 
 void CDasherInterfaceBase::Halt() {
   SetBoolParameter(BP_DASHER_PAUSED, true);
@@ -509,6 +518,7 @@ void CDasherInterfaceBase::CreateInput() {
 }
 
 void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
+  bForceRedraw = false;
   // Fail if Dasher is locked
   if(m_iCurrentState != ST_NORMAL)
     return;
@@ -559,7 +569,8 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   // know how often new frames are being drawn.
   if(m_pDasherModel != 0)
     m_pDasherModel->NewFrame(iTime);
-}
+
+ }
 
 void CDasherInterfaceBase::CheckRedraw() {
   if(m_bRedrawScheduled)
@@ -573,7 +584,6 @@ void CDasherInterfaceBase::CheckRedraw() {
 /// otherwise we're wasting effort.
 
 void CDasherInterfaceBase::Redraw(bool bRedrawNodes) {
-
   if(!m_pDasherView || !m_pDasherModel)
     return;
   
@@ -586,6 +596,9 @@ void CDasherInterfaceBase::Redraw(bool bRedrawNodes) {
   
   m_pDasherView->Screen()->SendMarker(1);
   
+  if(CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher())
+    pTeacher->DrawGameDecorations(m_pDasherView);
+    
   bool bDecorationsChanged(false);
 
   if(m_pInputFilter) {
@@ -602,7 +615,6 @@ void CDasherInterfaceBase::Redraw(bool bRedrawNodes) {
 }
 
 void CDasherInterfaceBase::ChangeAlphabet() {
-
   if(GetStringParameter(SP_ALPHABET_ID) == "") {
     SetStringParameter(SP_ALPHABET_ID, m_AlphIO->GetDefault());
     // This will result in ChangeAlphabet() being called again, so
@@ -643,6 +655,7 @@ void CDasherInterfaceBase::ChangeColours() {
 }
 
 void CDasherInterfaceBase::ChangeScreen(CDasherScreen *NewScreen) {
+  // What does ChangeScreen do? 
   m_DasherScreen = NewScreen;
   ChangeColours();
 
@@ -666,6 +679,11 @@ void CDasherInterfaceBase::ChangeView() {
  
     if (m_pInput)
       m_pDasherView->SetInput(m_pInput);
+    // Tell the Teacher which view we are using
+    if(CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher())
+      {
+	pTeacher->SetDasherView(m_pDasherView);
+      }
   }
 }
 

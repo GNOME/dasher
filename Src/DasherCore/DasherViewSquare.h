@@ -101,11 +101,6 @@ public:
   /// Drawing more complex structures, generally implemented by derived class
   /// @{
 
-  ///
-  /// Draw the game mode pointer
-  ///
-
-  void DrawGameModePointer(myint iPosition);
   /// @}
 
 
@@ -115,14 +110,14 @@ private:
   /// Render the current state of the model.
   ///
 
-  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer);
+  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, std::vector<std::pair<myint,bool> > *pvGamePointer);
 
   
   ///
   /// Recursively render all nodes in a tree. Responsible for all the Render_node calls
   ///
 
-  bool RecursiveRender(CDasherNode * Render, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer, bool bDraw,myint parent_width,int parent_color, int iDepth);
+  bool RecursiveRender(CDasherNode * Render, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, std::vector<std::pair<myint,bool> > *pvGamePointer, bool bDraw,myint parent_width,int parent_color, int iDepth);
 
   /// Render a single node
   /// \param Color The colour to draw it

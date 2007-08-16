@@ -20,7 +20,7 @@
 
 #include "../Common/Common.h"
 
-#include "AlphabetManager.h"
+// #include "AlphabetManager.h" - doesnt seem to be required - pconlon
 
 #include "DasherNode.h"
 
@@ -171,12 +171,14 @@ void CDasherNode::ConvertWithAncestors() {
 }
 
 void CDasherNode::SetFlag(int iFlag, bool bValue) {
-  if(bValue)
+
+ if(bValue)
     m_iFlags = m_iFlags | iFlag;
   else
     m_iFlags = m_iFlags & (~iFlag);
-  
-  m_pNodeManager->SetFlag(this, iFlag, bValue);
+
+ m_pNodeManager->SetFlag(this, iFlag, bValue);
+
 }
  
 void CDasherNode::SetParent(CDasherNode *pNewParent) {

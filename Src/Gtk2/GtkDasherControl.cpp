@@ -3,6 +3,7 @@
 #include <gtk/gtkmarshal.h>
 
 #include "GtkDasherControl.h"
+#include "game_mode_helper.h"
 #include "DasherControl.h"
 #include "custom_marshal.h"
 
@@ -273,6 +274,19 @@ void
 gtk_dasher_control_add_game_mode_string(GtkDasherControl *pControl, const gchar *szString) {
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
   pPrivate->pControl->AddGameModeString(szString);
+}
+
+void 
+gtk_dasher_control_game_messagein(GtkDasherControl *pControl, int message, void* messagedata) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  pPrivate->pControl->GameMessageIn(message, messagedata);
+}
+
+void 
+gtk_dasher_control_game_messageout(GtkDasherControl *pControl, void* gameHelper, int message, const void* messagedata) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  GameModeHelper* pHelper = GAME_MODE_HELPER(gameHelper);
+  game_mode_helper_message(pHelper, message, messagedata);
 }
 
 void 

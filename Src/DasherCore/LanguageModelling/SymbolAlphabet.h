@@ -9,7 +9,7 @@
 #ifndef __LanguageModelling_SymbolAlphabet_h__
 #define __LanguageModelling_SymbolAlphabet_h__
 
-#include "../Alphabet/Alphabet.h"
+//#include "../Alphabet/Alphabet.h"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -29,6 +29,7 @@
 
 namespace Dasher {
 
+  class CAlphabet;
   /// \ingroup LM
   /// @{
 

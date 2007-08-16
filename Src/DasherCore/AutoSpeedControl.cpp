@@ -24,7 +24,6 @@ double round(double dVal) {
 
 CAutoSpeedControl::CAutoSpeedControl(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, double dFrameRate) 
   : CDasherComponent(pEventHandler, pSettingsStore) {
-
   //scale #samples by #samples = m_dSamplesScale / (current bitrate) + m_dSampleOffset
   m_dSampleScale = 1.5;
   m_dSampleOffset = 1.3;

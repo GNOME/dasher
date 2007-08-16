@@ -1,7 +1,16 @@
 #include "game_mode_helper.h"
+#include "GameMessages.h"
+#include "dasher_editor_internal.h"
 
 struct _GameModeHelperPrivate {
+  DasherEditorInternal* pEditor;
   GtkDasherControl *pControl;
+  GtkWidget* pGameGroup;
+  GtkLabel* pGameInfoLabel;
+  GtkWidget* pGameToggleButton;
+  GtkWidget* pDemoToggleButton;
+  GtkWidget* pNewSentence;
+  GtkWidget* pNewButton;
   gchar *szTarget;
   gchar *szOutput;
   int iOutputLength;
@@ -14,6 +23,10 @@ static void game_mode_helper_class_init(GameModeHelperClass * pClass);
 static void game_mode_helper_init(GameModeHelper * pControl);
 static void game_mode_helper_destroy(GObject * pObject);
 static void game_mode_helper_get_next_string(GameModeHelper *pSelf);
+
+extern "C" gboolean game_mode_helper_cb_gametoggle(GtkWidget *pWidget, gpointer pUserData);
+extern "C" gboolean game_mode_helper_cb_next_sentence(GtkWidget *pWidget, gpointer pUserData);
+extern "C" gboolean game_mode_helper_cb_demo(GtkWidget *pWidget, gpointer pUserData);
 
 GType game_mode_helper_get_type() {
 
@@ -45,11 +58,11 @@ static void game_mode_helper_class_init(GameModeHelperClass *pClass) {
   pObjectClass->finalize = game_mode_helper_destroy;
 }
  
-static void game_mode_helper_init(GameModeHelper *pDasherControl) {
+static void game_mode_helper_init(GameModeHelper *pHelper) {
   GameModeHelperPrivate *pPrivateData;
   pPrivateData = g_new0(GameModeHelperPrivate, 1);
 
-  pDasherControl->private_data = pPrivateData;
+  pHelper->private_data = pPrivateData;
 }
 
 static void game_mode_helper_destroy(GObject *pObject) {
@@ -60,18 +73,78 @@ static void game_mode_helper_destroy(GObject *pObject) {
   // of the parent classes here...
 }
 
-GObject *game_mode_helper_new(GtkDasherControl *pControl) {
-  GameModeHelper *pDasherControl;
-  pDasherControl = GAME_MODE_HELPER(g_object_new(game_mode_helper_get_type(), NULL));
+GObject *game_mode_helper_new(GladeXML *pGladeXML, void* pDasherEditor) {
+  GameModeHelper *pHelper;
+  pHelper = GAME_MODE_HELPER(g_object_new(game_mode_helper_get_type(), NULL));
   
-  GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pDasherControl->private_data));
+  GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pHelper->private_data));
 
-  pPrivate->pControl = pControl;
+  pPrivate->pControl = GTK_DASHER_CONTROL(glade_xml_get_widget(pGladeXML, "DasherControl"));
   pPrivate->szOutput = 0;
 
-  game_mode_helper_get_next_string(pDasherControl);
+  pPrivate->pEditor = (DasherEditorInternal *)pDasherEditor;
+  pPrivate->pGameGroup = glade_xml_get_widget(pGladeXML, "game_group");
+  pPrivate->pGameInfoLabel = GTK_LABEL(glade_xml_get_widget(pGladeXML, "game_info_label"));
+  pPrivate->pGameToggleButton = glade_xml_get_widget(pGladeXML, "tb_command_game");
+  pPrivate->pNewSentence = glade_xml_get_widget(pGladeXML, "game_new_sentence");
+  pPrivate->pDemoToggleButton = glade_xml_get_widget(pGladeXML, "demo_toggle");
+  pPrivate->pNewButton = glade_xml_get_widget(pGladeXML, "tb_command_new");
+  
+  g_signal_connect(G_OBJECT(pPrivate->pNewSentence), "clicked", G_CALLBACK(game_mode_helper_cb_next_sentence), pHelper);
+  g_signal_connect(G_OBJECT(pPrivate->pGameToggleButton), "clicked", G_CALLBACK(game_mode_helper_cb_gametoggle), pHelper);
+  g_signal_connect(G_OBJECT(pPrivate->pDemoToggleButton), "clicked", G_CALLBACK(game_mode_helper_cb_demo), pHelper);
+  //  game_mode_helper_get_next_string(pHelper);
 
-  return G_OBJECT(pDasherControl);
+  return G_OBJECT(pHelper);
+}
+
+extern "C" gboolean 
+game_mode_helper_cb_next_sentence(GtkWidget *pWidget, gpointer pUserData) {
+ GameModeHelper *pSelf = (GameModeHelper *)pUserData;
+ GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
+
+
+
+ gtk_dasher_control_game_messagein(pPrivate->pControl, GAME_MESSAGE_NEXT, NULL);
+ 
+  return FALSE; // TODO: Scheck semantics of return value
+}
+
+extern "C" gboolean 
+game_mode_helper_cb_demo(GtkWidget *pWidget, gpointer pUserData) {
+ GameModeHelper *pSelf = (GameModeHelper *)pUserData;
+ GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
+
+ gtk_dasher_control_game_messagein(pPrivate->pControl, GAME_MESSAGE_DEMO, NULL);
+
+  return FALSE; // TODO: Scheck semantics of return value
+}
+
+extern "C" gboolean 
+game_mode_helper_cb_gametoggle(GtkWidget *pWidget, gpointer pUserData) {
+ GameModeHelper *pSelf = (GameModeHelper *)pUserData;
+ GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
+
+ gtk_dasher_control_game_messagein(pPrivate->pControl, GAME_MESSAGE_REGHELPER, (void *)pSelf);
+
+ bool bGameMode = gtk_dasher_control_get_parameter_bool(pPrivate->pControl, BP_GAME_MODE );
+  if(bGameMode)
+    {
+      gtk_widget_hide(GTK_WIDGET(pPrivate->pGameGroup));
+      gtk_widget_hide(GTK_WIDGET(pPrivate->pGameInfoLabel));
+    }
+  else
+    {
+      gtk_widget_show(GTK_WIDGET(pPrivate->pGameGroup));
+      gtk_widget_show(GTK_WIDGET(pPrivate->pGameInfoLabel));
+    }
+
+  //  dasher_editor_internal_clear(pSelf, false);
+
+  gtk_dasher_control_set_parameter_bool(pPrivate->pControl,  BP_GAME_MODE , !bGameMode);
+  
+  dasher_editor_internal_cleartext(pPrivate->pEditor);
+  return FALSE; // TODO: Scheck semantics of return value
 }
 
 void game_mode_helper_get_next_string(GameModeHelper *pSelf) {
@@ -101,16 +174,33 @@ void game_mode_helper_output(GameModeHelper *pSelf, const gchar *szText) {
   GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
 
   // TODO: potential overflow problems
-  strcat(pPrivate->szOutput, szText);
-  pPrivate->iOutputLength += strlen(szText);
+  //  strcat(pPrivate->szOutput, szText);
+  //  pPrivate->iOutputLength += strlen(szText);
 
-  if(!strcmp(pPrivate->szOutput, pPrivate->szTarget))
-    game_mode_helper_get_next_string(pSelf);
+  //  if(!strcmp(pPrivate->szOutput, pPrivate->szTarget))
+  //    game_mode_helper_get_next_string(pSelf);
 }
 
 void game_mode_helper_delete(GameModeHelper *pSelf, int iLength) {
   GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
 
-  pPrivate->szOutput[pPrivate->iOutputLength - iLength] = '\0';
-  pPrivate->iOutputLength -= iLength;
+  //  pPrivate->szOutput[pPrivate->iOutputLength - iLength] = '\0';
+  //  pPrivate->iOutputLength -= iLength;
+}
+
+void game_mode_helper_message(GameModeHelper *pSelf, int message, const void * messagedata) {
+  GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
+
+  if(message == GAME_MESSAGE_SET_STRING)
+    {
+      gtk_misc_set_alignment(GTK_MISC(pPrivate->pGameInfoLabel), 0.0, 0.0);
+      gtk_label_set_text(pPrivate->pGameInfoLabel, (const char*)messagedata);
+      dasher_editor_internal_cleartext(pPrivate->pEditor);
+    }
+  if(message == GAME_MESSAGE_WELCOME)
+    {
+      gtk_misc_set_alignment(GTK_MISC(pPrivate->pGameInfoLabel), 0.5, 0.0);
+      gtk_label_set_text(pPrivate->pGameInfoLabel, "Welcome to Dasher Game Mode!");
+    }
+
 }

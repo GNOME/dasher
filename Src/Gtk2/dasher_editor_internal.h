@@ -50,6 +50,7 @@ struct _DasherEditorInternalClass {
 DasherEditorInternal *dasher_editor_internal_new();
 void dasher_editor_internal_initialise(DasherEditorInternal *pSelf, DasherAppSettings *pAppSettings, DasherMain *pDasherMain, GladeXML *pGladeXML, const gchar *szFullPath);
 
+void dasher_editor_internal_cleartext(DasherEditorInternal *pSelf);
 GType dasher_editor_internal_get_type();
 
 /* Replace this with GTK text buffer */

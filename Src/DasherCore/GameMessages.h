@@ -1,0 +1,6 @@
+#ifndef __GameMessages__h__
+#define __GameMessages__h__
+
+enum { GAME_MESSAGE_NEXT, GAME_MESSAGE_DEMO, GAME_MESSAGE_REGHELPER, GAME_MESSAGE_SET_STRING, GAME_MESSAGE_WELCOME };
+
+#endif

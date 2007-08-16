@@ -154,6 +154,31 @@ void CDefaultFilter::DrawMouseLine(CDasherView *pView) {
   // Actually plot the line
 
   pView->DasherPolyline(x, y, 2, GetLongParameter(LP_LINE_WIDTH), 1);
+
+  /*  // Plot a brachistochrone
+
+  const int noOfPoints = 18;
+  myint X[noOfPoints];
+  myint Y[noOfPoints];
+  myint CenterXY[2]; 
+  X[0] = x[0];
+  Y[0] = y[0];
+  X[noOfPoints-1] = 0;
+  Y[noOfPoints-1] = y[1];
+  CenterXY[0] = 0; CenterXY[1] = 0.5*((double)(X[0]*X[0])/(double)(Y[0]-Y[noOfPoints-1])+(Y[0]+Y[noOfPoints-1]));
+ 
+  double angle = (((Y[noOfPoints-1]>CenterXY[1])?1.5708:-1.5708) - atan((double)(Y[0]-CenterXY[1])/(double)X[0]))/(double)(noOfPoints-1);
+  for(int i = 1; i < noOfPoints-1; ++i)
+    {
+      X[i] = CenterXY[0] + cos(angle)*(X[i-1]-CenterXY[0]) - sin(angle)*(Y[i-1]-CenterXY[1]);
+      Y[i] = CenterXY[1] + sin(angle)*(X[i-1]-CenterXY[0]) + cos(angle)*(Y[i-1]-CenterXY[1]);
+    }
+
+    pView->DasherPolyline(X, Y, noOfPoints, GetLongParameter(LP_LINE_WIDTH), 2);*/
+  /*  std::cout << "(" << X[0] << "," << Y[0] << ") (" << X[noOfPoints-1] << "," << Y[noOfPoints-1] << ") "
+	    << "(" << CenterXY[0] << "," << CenterXY[1]
+	    << ") angle:" << angle << "," << angle*180.0/3.1415926 << std::endl;*/
+
 }
 
 void CDefaultFilter::ApplyTransform(myint &iDasherX, myint &iDasherY) {

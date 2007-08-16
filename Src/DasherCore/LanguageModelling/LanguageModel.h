@@ -9,6 +9,8 @@
 #ifndef __LanguageModelling_LanguageModel_h__
 #define __LanguageModelling_LanguageModel_h__
 
+#include "../DasherTypes.h"
+
 #include "SymbolAlphabet.h"
 #include "../DasherComponent.h"
 #include <vector>
@@ -149,10 +151,7 @@ public:
     return 5;
   };
 
-  symbol GetResetSymbol() const {
-    return m_Alphabet.GetAlphabetPointer()->GetResetSymbol();
-  };
-
+  symbol GetResetSymbol() const ;
 
  protected:
   struct SLMFileHeader {

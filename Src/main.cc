@@ -154,7 +154,6 @@ int main(int argc, char *argv[]) {
   //  DasherAppSettings *g_pDasherAppSettings;
   //  GtkWidget *window; // Main window
 
-
   signal(2, sigint_handler);
 
   bindtextdomain(PACKAGE, LOCALEDIR);

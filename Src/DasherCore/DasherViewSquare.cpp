@@ -8,6 +8,7 @@
 #include "..\Win32\Common\WinCommon.h"
 #endif
 
+#include "DasherGameMode.h"
 #include "DasherViewSquare.h"
 #include "DasherModel.h"
 #include "DasherView.h"
@@ -90,9 +91,10 @@ void CDasherViewSquare::HandleEvent(Dasher::CEvent *pEvent) {
   }
 }
 
-void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer) {
+void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax,
+				    std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList,
+				    std::vector<std::pair<myint,bool> > *pvGamePointer) {
   DASHER_ASSERT(pRoot != 0);
-
   myint iDasherMinX;
   myint iDasherMinY;
   myint iDasherMaxX;
@@ -107,8 +109,6 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
 
   Dasher2Screen(iRootMax-iRootMin, iRootMin, iScreenLeft, iScreenTop);
   Dasher2Screen(0, iRootMax, iScreenRight, iScreenBottom);
-
-
 
   //ifiScreenTop < 0)
   //  iScreenTop = 0;
@@ -143,7 +143,7 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
   //		  0, -1, Nodes1, false, true, 1);
 
   // Render the root node (and children)
-  RecursiveRender(pRoot, iRootMin, iRootMax, iDasherMaxX, vNodeList, vDeleteList, iGamePointer,true,iDasherMaxX,0,0);
+  RecursiveRender(pRoot, iRootMin, iRootMax, iDasherMaxX, vNodeList, vDeleteList, pvGamePointer,true,iDasherMaxX,0,0);
 
   // Labels are drawn in a second parse to get the overlapping right
   m_pDelayDraw->Draw(Screen());
@@ -152,7 +152,13 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
   Crosshair((myint)GetLongParameter(LP_OX));
 }
 
-bool CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer, bool bDraw,myint parent_width,int parent_color, int iDepth) {
+bool CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
+					int mostleft, std::vector<CDasherNode *> &vNodeList,
+					std::vector<CDasherNode *> &vDeleteList,
+					std::vector<std::pair<myint,bool> > *pvGamePointer,
+					bool bDraw,myint parent_width,int parent_color, int iDepth)
+{
+
   DASHER_ASSERT_VALIDPTR_RW(pRender);
 
 //   if(iDepth == 2)
@@ -181,23 +187,37 @@ bool CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
 //   if(iDepth == 2) {
 //     std::cout << "y1: " << y1 << " y2: " << y2 << std::endl;
     
-  bDrewFather = RenderNodeFatherFast(parent_color, y1, y2, mostleft, pRender->GetDisplayInfo()->strDisplayText, pRender->GetDisplayInfo()->bShove,parent_width, pRender->GetDisplayInfo()->bVisible);
+  bDrewFather = RenderNodeFatherFast(parent_color, y1, y2, mostleft,
+				     pRender->GetDisplayInfo()->strDisplayText,
+				     pRender->GetDisplayInfo()->bShove,parent_width,
+				     pRender->GetDisplayInfo()->bVisible);
 
+  // TODO: This should be elsewhere
+  
+  if(pRender->GetFlag(NF_GAME))// && !pRender->GetFlag(NF_SUBNODE))
+    {
 
-  if(bDraw && 
-     !bDrewFather &&
-     !(pRender->GetFlag(NF_GAME))) {
-    
-    // We get here if the node is too small to render, or shouldn't be
-    // drawn for some other reason.
-    //
-    // TODO: Should probably render the parent segment here anyway (or
-    // in the above)
+      pvGamePointer->push_back(std::pair<myint,bool>((y1 + y2) / 2, (bDrewFather&&bDraw)));
+    }
 
-    vDeleteList.push_back(pRender);
-    pRender->SetFlag(NF_ALIVE, false);
-    return false;
-  }
+  
+  if(!bDraw || !bDrewFather)
+    {
+      // We get here if the node is too small to render, or shouldn't be
+      // drawn for some other reason.
+      // 
+      // In game mode, we get here if the child is too small to draw, but we need the
+      // coordinates - if this is the case then we shouldn't delete any children.
+      //
+      // TODO: Should probably render the parent segment here anyway (or
+      // in the above)
+      if(!pRender->GetFlag(NF_GAME))
+      {
+	  vDeleteList.push_back(pRender);
+	  pRender->SetFlag(NF_ALIVE, false);
+      }
+      return false;
+    }
 
   // Set the NF_SUPER flag if this node entirely frames the visual
   // area.
@@ -212,23 +232,21 @@ bool CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
   VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
 
   pRender->SetFlag(NF_SUPER, (y1 < iDasherMinY) && (y2 > iDasherMaxY) && ((y2 - y1) > iDasherMaxX));
- 
+
   // If there are no children then we still need to render the parent
   if(pRender->ChildCount() == 0) {
-    RenderNodePartFast(pRender->GetDisplayInfo()->iColour, y1, y2, mostleft, pRender->GetDisplayInfo()->strDisplayText, pRender->GetDisplayInfo()->bShove,y2-y1);
+    
+    RenderNodePartFast(pRender->GetDisplayInfo()->iColour, y1, y2, mostleft,
+		       pRender->GetDisplayInfo()->strDisplayText,
+		       pRender->GetDisplayInfo()->bShove,y2-y1);
     vNodeList.push_back(pRender);
+
     return true;  // CHANGED BY IGNAS. I return 1 when the child was rendered and in this case the 
     //child was rendered.
   }
 
-  // TODO: This should be elsewhere
-  if(pRender->GetFlag(NF_GAME))
-    *iGamePointer = (y1 + y2) / 2;
-  
   // Render children  
   int norm = (myint)GetLongParameter(LP_NORMALIZATION);
-
-  CDasherNode::ChildMap::const_iterator i;
 
   myint lasty=y1;
   
@@ -243,33 +261,35 @@ bool CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
 
   // TODO: Is bDraw being handled correctly here? What is it even used for?
     
-  for(i = pRender->GetChildren().begin(); i != pRender->GetChildren().end(); i++) {
+  for(CDasherNode::ChildMap::const_iterator i = pRender->GetChildren().begin();
+      i != pRender->GetChildren().end(); i++) {
     id++;
     CDasherNode *pChild = *i;
     
     myint Range = y2 - y1;
     myint newy1 = y1 + (Range * (myint)pChild->Lbnd()) / (myint)norm;/// norm and lbnd are simple ints
     myint newy2 = y1 + (Range * (myint)pChild->Hbnd()) / (myint)norm;
-
+    
     bool bDrawChild = (newy2 - newy1 > 50) || (pChild->GetFlag(NF_ALIVE));
-
-    if(bDrawChild || (pRender->GetFlag(NF_GAME))) {
+    
+    if(bDrawChild){
+      
       pChild->SetFlag(NF_ALIVE, true);
-
+      
       bool bChildRendered = RecursiveRender(pChild, newy1, newy2, mostleft, 
-					    vNodeList, vDeleteList, iGamePointer, 
+					    vNodeList, vDeleteList, pvGamePointer, 
 					    bDrawChild, temp_parentwidth, 
 					    temp_parentcolor, iDepth + 1);
-
-//       if(iDepth == 1) {
+      
+      //       if(iDepth == 1) {
       if (bChildRendered) {
 	//std::cout << lasty << " " << newy1 << " " << newy2 << std::endl;
-
+	
 	if ((bDraw)&&(lasty<newy1)) {
 	  //if child has been drawn then the interval between him and the
 	  //last drawn child should be drawn too.
 	  //std::cout << "Fill in: " << lasty << " " << newy1 << std::endl;
-
+	  
 	  RenderNodePartFast(temp_parentcolor, lasty, newy1, mostleft, 
 			     pRender->GetDisplayInfo()->strDisplayText, 
 			     pRender->GetDisplayInfo()->bShove,
@@ -282,7 +302,7 @@ bool CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
     }
     //    }
   }
-
+  
   // Finish off the drawing process
 
   //  if(iDepth == 1) {
@@ -458,7 +478,8 @@ int CDasherViewSquare::RenderNodeFatherFast(const int parent_color, myint y1, my
 
   // Commenting because click mode occasionally fails this assert.
   // I don't know why.  -- cjb.
-  if (!(y2 >= y1)) { return 1; }
+  // Why does this return 1?  -- pconlon -- I'm changing it to 0.
+  if (!(y2 >= y1)) { return 0; }
 
   // TODO - Get sensible limits here (to allow for non-linearities)
   myint iDasherMinX;
@@ -927,154 +948,3 @@ void CDasherViewSquare::ChangeScreen(CDasherScreen *NewScreen) {
   SetScaleFactor();
 }
 
-// TODO - should be elsewhere
-
-void CDasherViewSquare::DrawGameModePointer(myint iPosition) {
-  // TODO: Horrible code duplication here
-
-
-  // Circular version:
-
-  double dOffset = (iPosition - 2048) / 2048.0;
-
-  double dCos = (1 - pow(dOffset,2.0)) / (1 + pow(dOffset,2.0));
-  double dSin = 2 * dOffset / (1 + pow(dOffset,2.0));
-
-  {
-    CDasherScreen::point p[2];
-
-    myint iDasherX;
-    myint iDasherY;
-
-    iDasherX = 2048;
-    iDasherY = 2048;
-    Dasher2Screen(iDasherX, iDasherY, p[0].x, p[0].y);
-
-    iDasherX = static_cast<int>(2048 - 500 * dCos);
-    iDasherY = static_cast<int>(2048 + 500 * dSin);
-    Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
-
-    Screen()->Polyline(p, 2, 4, 136); 
-  }
-
-  int iOtherPosition = static_cast<int>((1 - (1 / dOffset)) * 2048);
-
-  int iRadius = abs((int)(iPosition - iOtherPosition)) / 2;
-  int iCentre = (iPosition + iOtherPosition) / 2;
-
-  {
-    CDasherScreen::point p[2];
-
-    myint iDasherX;
-    myint iDasherY;
-
-    iDasherX = 0;
-    iDasherY = iCentre;
-    Dasher2Screen(iDasherX, iDasherY, p[0].x, p[0].y);
-
-    iDasherX = 0;
-    iDasherY = iCentre + iRadius;
-    Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
-
-    Screen()->DrawCircle(p[0].x, p[0].y, abs(p[1].y - p[0].y), 136, 0, 1, false);
-  }
-
-  if(iPosition > (myint)GetLongParameter(LP_MAX_Y)) {
-     CDasherScreen::point p[2];
-  
-  myint iDasherX;
-  myint iDasherY;
-  
-  iDasherX = -400;
-  iDasherY = GetLongParameter(LP_MAX_Y);
-  
-  Dasher2Screen(iDasherX, iDasherY, p[0].x, p[0].y);
-  
-  iDasherX = -400;
-  iDasherY = GetLongParameter(LP_MAX_Y) - 500;
-  
-  Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
-  
-  Screen()->Polyline(p, 2, 1, 2);
-
-   iDasherX = -300;
-  iDasherY = GetLongParameter(LP_MAX_Y) - 100;
-  
-  Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
-  
-  Screen()->Polyline(p, 2, 1, 2);
-
-   iDasherX = -500;
-  iDasherY = GetLongParameter(LP_MAX_Y) - 100;
-  
-  Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
-  
-  Screen()->Polyline(p, 2, 1, 2);
-
-  }
-  else if(iPosition < 0) {
-         CDasherScreen::point p[2];
-  
-  myint iDasherX;
-  myint iDasherY;
-  
-  iDasherX = -400;
-  iDasherY = 0;
-  
-  Dasher2Screen(iDasherX, iDasherY, p[0].x, p[0].y);
-  
-  iDasherX = -400;
-  iDasherY = 500;
-  
-  Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
-  
-  Screen()->Polyline(p, 2, 1, 2);
-
-   iDasherX = -300;
-  iDasherY = 100;
-  
-  Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
-  
-  Screen()->Polyline(p, 2, 1, 2);
-
-   iDasherX = -500;
-  iDasherY = 100;
-  
-  Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
-  
-  Screen()->Polyline(p, 2, 1, 2);
-  }
-  else {
- CDasherScreen::point p[2];
-  
-  myint iDasherX;
-  myint iDasherY;
-  
-  iDasherX = -200;
-  iDasherY = iPosition;
-  
-  Dasher2Screen(iDasherX, iDasherY, p[0].x, p[0].y);
-  
-  iDasherX = -1000;
-  iDasherY = iPosition;
-  
-  Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
-  
-  Screen()->Polyline(p, 2, 1, 2);
-
-   iDasherX = -300;
-  iDasherY = iPosition + 100;
-  
-  Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
-  
-  Screen()->Polyline(p, 2, 1, 2);
-
-   iDasherX = -300;
-  iDasherY = iPosition - 100;
-  
-  Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
-  
-  Screen()->Polyline(p, 2, 1, 2);
-   }
-
-}

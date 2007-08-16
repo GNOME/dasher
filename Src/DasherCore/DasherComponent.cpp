@@ -2,14 +2,12 @@
 #include "../Common/Common.h"
 
 #include "DasherComponent.h"
-#include "Event.h"
 #include "EventHandler.h"
 
 using namespace Dasher;
 
-CDasherComponent::CDasherComponent(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore)
+CDasherComponent::CDasherComponent(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore)
   :m_pEventHandler(pEventHandler), m_pSettingsStore(pSettingsStore) {
-
   if (m_pEventHandler != NULL)
     m_pEventHandler->RegisterListener(this);
 
@@ -19,7 +17,7 @@ CDasherComponent::~CDasherComponent() {
     m_pEventHandler->UnregisterListener(this);
 };
 
-void CDasherComponent::InsertEvent(Dasher::CEvent * pEvent) {
+void CDasherComponent::InsertEvent(CEvent * pEvent) {
   m_pEventHandler->InsertEvent(pEvent);
 };
 
