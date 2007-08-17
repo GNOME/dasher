@@ -176,7 +176,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   /// button mode etc.)
   ///
 
-  void ScheduleZoom(int dasherx, int dashery);
+  void ScheduleZoom(dasherint iDasherX, dasherint iDasherY);
 
   ///
   /// Return the number of remaining zoom steps

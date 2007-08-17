@@ -26,9 +26,6 @@
 #include "DasherView.h"
 #include "Parameters.h"
 
-using namespace Dasher;
-using namespace std;
-
 #include "Event.h"
 #include "DasherInterfaceBase.h"
 #include "LanguageModelling/PPMLanguageModel.h"
@@ -985,45 +982,43 @@ double CDasherModel::CorrectionFactor(int dasherx, int dashery) {
     return -dR * log(1 - dX) / dX;
 }
 
-void CDasherModel::ScheduleZoom(int dasherx, int dashery) {
+void CDasherModel::ScheduleZoom(dasherint iDasherX, dasherint iDasherY) {
 
-   // TODO: What is the following line for?
-   if (dasherx < 2) { dasherx = 100; }
-
-   double dCFactor(CorrectionFactor(dasherx, dashery));
-
-   int iSteps = static_cast<int>(GetLongParameter(LP_ZOOMSTEPS) * dCFactor);
-  // myint iRxnew = ((GetLongParameter(LP_OX)/2) * GetLongParameter(LP_OX)) / dasherx;
-   myint n1, n2, iTarget1, iTarget2;
-   //Plan_new_goto_coords(iRxnew, dashery, &iSteps, &o1,&o2,&n1,&n2);
- 
-   iTarget1 = dashery - dasherx;
-   iTarget2 = dashery + dasherx;
-
-   double dZ = 4096 / static_cast<double>(iTarget2 - iTarget1);
-
-   n1 = static_cast<int>((m_Rootmin - iTarget1) * dZ);
-   n2 = static_cast<int>((m_Rootmax - iTarget2) * dZ + 4096);
- 
-   m_deGotoQueue.clear();
-   SGotoItem sNewItem;
-
-   for(int s(1); s < iSteps; ++s) {
-     // use simple linear interpolation. Really should do logarithmic interpolation, but
-     // this will probably look fine.
+  // Prevent clicking too far to the right
+  if (iDasherX < 2) { iDasherX = 2; }
+  
+  // TODO: Document this 
+  // double dCFactor = CorrectionFactor(iDasherX, iDasherY);
+  // int iSteps = static_cast<int>(GetLongParameter(LP_ZOOMSTEPS) * dCFactor);
+  
+  int iSteps = GetLongParameter(LP_ZOOMSTEPS);
+  
+  myint iC;
+  
+  if(iDasherX < 2048)
+    iC = ((iDasherY - 2048) * iDasherX) / 2048 + iDasherY;
+  else
+    iC = iDasherY - ((iDasherY - 2048) * iDasherX) / 2048;
+  
+  myint iTarget1 = iDasherY - iDasherX;
+  myint iTarget2 = iDasherY + iDasherX;
+  
+  double dZ = 4096 / static_cast<double>(iTarget2 - iTarget1);
+  double dTau = 1.0/log(dZ);
+  
+  m_deGotoQueue.clear();
+  
+  for(int s = 0; s < iSteps; ++s) {
+    double dFraction = s / static_cast<double>(iSteps - 1);
     
-     sNewItem.iN1 = (s * n1 + (iSteps-s) * m_Rootmin) / iSteps;
-     sNewItem.iN2 = (s * n2 + (iSteps-s) * m_Rootmax) / iSteps;
-     sNewItem.iStyle = 1;
-
-     m_deGotoQueue.push_back(sNewItem);
-   } 
-
-   sNewItem.iN1 = n1;
-   sNewItem.iN2 = n2;
-   sNewItem.iStyle = 2;
- 
-   m_deGotoQueue.push_back(sNewItem);
+    SGotoItem sNewItem;
+    sNewItem.iN1 = (m_Rootmin - iC) * exp(dFraction/dTau) + iC;
+    sNewItem.iN2 = (m_Rootmax - iC) * exp(dFraction/dTau) + iC;
+    
+    m_deGotoQueue.push_back(sNewItem);
+  }
+  
+  return;
 }
 
 void CDasherModel::Offset(int iOffset) {

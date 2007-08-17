@@ -518,7 +518,6 @@ void CDasherInterfaceBase::CreateInput() {
 }
 
 void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
-  bForceRedraw = false;
   // Fail if Dasher is locked
   if(m_iCurrentState != ST_NORMAL)
     return;
@@ -553,6 +552,15 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
       m_pDasherModel->CheckForNewRoot(m_pDasherView);
     }
   }
+
+  // Flags at this stage:
+  //
+  // - bChanged = the display was updated, so needs to be rendered to the display
+  // - m_bLastChanged = bChanged was true last time around
+  // - m_bRedrawScheduled = Display invalidated internally
+  // - bForceRedraw = Display invalidated externally
+
+  std::cout << bChanged << " " << m_bLastChanged << " " << m_bRedrawScheduled << " " << bForceRedraw << std::endl;
 
   // TODO: This is a bit hacky - we really need to sort out the redraw logic
   if((!bChanged && m_bLastChanged) || m_bRedrawScheduled || bForceRedraw) {

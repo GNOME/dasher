@@ -55,6 +55,7 @@
 namespace Dasher {
   // DasherModel co-ordinates are of type myint
   typedef Cint64 myint;
+  typedef Cint64 dasherint;
 
   // All screen co-ordinates are of type screenint
   typedef Cint32 screenint;

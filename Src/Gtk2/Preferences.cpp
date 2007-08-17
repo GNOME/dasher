@@ -884,7 +884,15 @@ extern "C" void uniform_changed(GtkHScale *hscale) {
   //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
 
-  dasher_app_settings_set_long(pPrivate->pAppSettings, LP_UNIFORM, int (GTK_RANGE(hscale)->adjustment->value * 10));
+  
+  int iValue = (int)(GTK_RANGE(hscale)->adjustment->value * 10);
+
+  if(iValue < 50) {
+    iValue = 50;
+    gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(pPrivate->pGladeXML, "uniformhscale")), 5.0);
+  }
+  
+  dasher_app_settings_set_long(pPrivate->pAppSettings, LP_UNIFORM, iValue);
 }
 
 extern "C" gboolean show_helper_window(GtkWidget *pWidget, gpointer *pUserData) {
