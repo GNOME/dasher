@@ -235,6 +235,7 @@ class Dasher::CDasherNode:private NoClones {
   /// @}
 
   /// \todo Make private, read only access?
+  // leave public, or implement a get method - pconlon
   CNodeManager *m_pNodeManager;
 
   /// Pointer for the node manager to do with as it sees fit.

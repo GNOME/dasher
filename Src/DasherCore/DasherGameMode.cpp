@@ -109,8 +109,7 @@ void CDasherGameMode::GameModeStop()
   
   m_pDasherInterface->SetContext(std::string(""));
   m_pDasherInterface->SetBuffer(0);
-
-  
+  m_pDasherInterface->PauseAt(0,0);
 }
 
 void CDasherGameMode::DemoModeStart()
@@ -190,9 +189,27 @@ void CDasherGameMode::HandleEvent(Dasher::CEvent * pEvent)
 	  m_pScorer->Start(m_ulTime);
 	  break;
 	case EV_EDIT:
-	  /*	  GamePoints gp = {2048, 2048, "100"};
-		  m_vGamePoints.push_back(gp);*/
-	  break;
+	   CEditEvent *pEditEvent(static_cast < CEditEvent * >(pEvent));
+    
+	   if(pEditEvent->m_iEditType == 1) {
+	     m_pDasherInterface->GameMessageOut(m_pGUI,
+						GAME_MESSAGE_EDIT,
+						reinterpret_cast<const void*>(&(pEditEvent->m_sText)));
+	     //	     strCurrentContext += pEditEvent->m_sText;
+	     //	     if( strCurrentContext.size() > 20 )
+	     //	       strCurrentContext = strCurrentContext.substr( strCurrentContext.size() - 20 );
+	     //	     
+	     //	     strTrainfileBuffer += pEditEvent->m_sText;
+	   }
+	   else if(pEditEvent->m_iEditType == 2) {
+	     int numDeleted = pEditEvent->m_sText.size();
+	     m_pDasherInterface->GameMessageOut(m_pGUI,
+						GAME_MESSAGE_EDIT_DELETE,
+						reinterpret_cast<const void*>(&numDeleted));
+	     //     strCurrentContext = strCurrentContext.substr( 0, strCurrentContext.size() - pEditEvent->m_sText.size());
+	     //     strTrainfileBuffer = strTrainfileBuffer.substr( 0, strTrainfileBuffer.size() - pEditEvent->m_sText.size());
+	   }
+	   break;
 	}
       return;
     }
@@ -201,7 +218,8 @@ void CDasherGameMode::HandleEvent(Dasher::CEvent * pEvent)
 void CDasherGameMode::DemoNext()
 {
   NextString();
-  m_pDasherInterface->GameMessageOut(m_pGUI, GAME_MESSAGE_SET_STRING, (void *)(m_strCurrentTarget.c_str()));
+  const std::string * pStr = &m_strCurrentTarget;;
+  m_pDasherInterface->GameMessageOut(m_pGUI, GAME_MESSAGE_SET_STRING, reinterpret_cast<const void *>(pStr));
 
   m_bDrawPoints=false;
   m_pDasherInterface->SetContext(std::string(""));
@@ -334,7 +352,7 @@ void CDasherGameMode::LoadTargetStrings(istream& in)
     {
       std::string strTmp;
       getline(in, strTmp, delimiter);
-      if(strTmp.length()!=0)
+      if(strTmp.length()>=4)
 	TargetStrings.push_back(strTmp);
     }
 
@@ -358,7 +376,6 @@ void CDasherGameMode::LoadTargetStrings(istream& in)
 		extras++;
 	      
 	      if(extras > 5) {}  // Malformed character
-	      
 	      while(extras-- > 0) 
 		{
 		  strTmp += (*it)[++i];
@@ -435,6 +452,8 @@ void CDasherGameMode::DemoModeGetCoordinates(myint& iDasherX, myint& iDasherY)
 
 // In Gamemode, DasherView will helpfully call this function whenever it provides
 // coordinates to the inputfilters - ie, we can track the mouse from this
+// Mouse coordinates are passed onto the scorer, in case it wants to reward steady
+// hand position, or something similar.
 void CDasherGameMode::SetUserMouseCoordinates(myint iDasherX, myint iDasherY)
 {
   m_iUserX = iDasherX;

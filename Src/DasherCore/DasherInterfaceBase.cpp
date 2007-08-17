@@ -250,7 +250,7 @@ void CDasherInterfaceBase::PreSetNotify(int iParameter, const std::string &sNewV
 
 void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
 
-  if(pEvent->m_iEventType == 1) {
+  if(pEvent->m_iEventType == EV_PARAM_NOTIFY) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
 
     switch (pEvt->m_iParameter) {
@@ -311,7 +311,7 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       break;
     }
   }
-  else if(pEvent->m_iEventType == 2) {
+  else if(pEvent->m_iEventType == EV_EDIT) {
     CEditEvent *pEditEvent(static_cast < CEditEvent * >(pEvent));
     
     if(pEditEvent->m_iEditType == 1) {

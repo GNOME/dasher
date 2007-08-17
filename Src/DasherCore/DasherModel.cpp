@@ -787,16 +787,19 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
 	static_cast<CAlphabetManager::SAlphabetData *>(pNode->m_pUserData);
       strTarget = pTeacher->GetSymbolAtOffset(pAlphabetData->iOffset+1);
       CDasherNode::ChildMap::iterator i, j;
-      /////////////FIX/////////////////
+      // Check if this is the last node in the sentence...
       if(strTarget == "GameEnd")
 	{
 	  pNode->SetFlag(NF_END_GAME, true);
 	  goto multibreak;
 	}
+      // ...if it is not then find which child is next in line.
       for(i = pNode->Children().begin(); i != pNode->Children().end(); i++)
 	{
-	  if((*i)->GetDisplayInfo()->strDisplayText == "Control") continue;
-
+	  // Only look for children who are the same type of node (i.e. alphabet)
+	  if((*i)->m_pNodeManager != pNode->m_pNodeManager) continue;
+	  
+	  // Look at the children of the group nodes while we search
 	  if((*i)->GetFlag(NF_SUBNODE))
 	    {
 	      for(j = (*i)->Children().begin(); j != (*i)->Children().end(); j++)
@@ -827,7 +830,7 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
 	    }
 	}
     multibreak:
-      true;
+      ; // A lonely semicolon is the null statement - it does nothing.
     }
   ////////////////////////////
   

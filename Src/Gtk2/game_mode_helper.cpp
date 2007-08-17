@@ -1,18 +1,20 @@
 #include "game_mode_helper.h"
 #include "GameMessages.h"
 #include "dasher_editor_internal.h"
+#include <string>
 
 struct _GameModeHelperPrivate {
   DasherEditorInternal* pEditor;
   GtkDasherControl *pControl;
   GtkWidget* pGameGroup;
   GtkLabel* pGameInfoLabel;
+  GtkEntry* pScore;
   GtkWidget* pGameToggleButton;
   GtkWidget* pDemoToggleButton;
   GtkWidget* pNewSentence;
   GtkWidget* pNewButton;
-  gchar *szTarget;
-  gchar *szOutput;
+  std::string* pstrTarget;
+  std::string* pstrOutput;
   int iOutputLength;
 };
 
@@ -23,6 +25,7 @@ static void game_mode_helper_class_init(GameModeHelperClass * pClass);
 static void game_mode_helper_init(GameModeHelper * pControl);
 static void game_mode_helper_destroy(GObject * pObject);
 static void game_mode_helper_get_next_string(GameModeHelper *pSelf);
+static void game_mode_helper_update_label(GameModeHelper *pSelf);
 
 extern "C" gboolean game_mode_helper_cb_gametoggle(GtkWidget *pWidget, gpointer pUserData);
 extern "C" gboolean game_mode_helper_cb_next_sentence(GtkWidget *pWidget, gpointer pUserData);
@@ -66,8 +69,8 @@ static void game_mode_helper_init(GameModeHelper *pHelper) {
 }
 
 static void game_mode_helper_destroy(GObject *pObject) {
-  GameModeHelper *pDasherControl = GAME_MODE_HELPER(pObject);
-  g_free(pDasherControl->private_data);
+  GameModeHelper *pHelper = GAME_MODE_HELPER(pObject);
+  g_free(pHelper->private_data);
 
   // FIXME - I think we need to chain up through the finalize methods
   // of the parent classes here...
@@ -80,7 +83,7 @@ GObject *game_mode_helper_new(GladeXML *pGladeXML, void* pDasherEditor) {
   GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pHelper->private_data));
 
   pPrivate->pControl = GTK_DASHER_CONTROL(glade_xml_get_widget(pGladeXML, "DasherControl"));
-  pPrivate->szOutput = 0;
+  //  pPrivate->szOutput = 0;
 
   pPrivate->pEditor = (DasherEditorInternal *)pDasherEditor;
   pPrivate->pGameGroup = glade_xml_get_widget(pGladeXML, "game_group");
@@ -89,6 +92,9 @@ GObject *game_mode_helper_new(GladeXML *pGladeXML, void* pDasherEditor) {
   pPrivate->pNewSentence = glade_xml_get_widget(pGladeXML, "game_new_sentence");
   pPrivate->pDemoToggleButton = glade_xml_get_widget(pGladeXML, "demo_toggle");
   pPrivate->pNewButton = glade_xml_get_widget(pGladeXML, "tb_command_new");
+  pPrivate->pScore = GTK_ENTRY(glade_xml_get_widget(pGladeXML, "score_box"));
+  pPrivate->pstrTarget = new std::string;
+  pPrivate->pstrOutput = new std::string;
   
   g_signal_connect(G_OBJECT(pPrivate->pNewSentence), "clicked", G_CALLBACK(game_mode_helper_cb_next_sentence), pHelper);
   g_signal_connect(G_OBJECT(pPrivate->pGameToggleButton), "clicked", G_CALLBACK(game_mode_helper_cb_gametoggle), pHelper);
@@ -102,8 +108,6 @@ extern "C" gboolean
 game_mode_helper_cb_next_sentence(GtkWidget *pWidget, gpointer pUserData) {
  GameModeHelper *pSelf = (GameModeHelper *)pUserData;
  GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
-
-
 
  gtk_dasher_control_game_messagein(pPrivate->pControl, GAME_MESSAGE_NEXT, NULL);
  
@@ -149,7 +153,7 @@ game_mode_helper_cb_gametoggle(GtkWidget *pWidget, gpointer pUserData) {
 
 void game_mode_helper_get_next_string(GameModeHelper *pSelf) {
   GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
-
+  /*
   if(pPrivate->szOutput)
     delete[] pPrivate->szOutput;
 
@@ -167,12 +171,14 @@ void game_mode_helper_get_next_string(GameModeHelper *pSelf) {
 
   gtk_dasher_control_add_game_mode_string(GTK_DASHER_CONTROL(pPrivate->pControl),
 					  pPrivate->szTarget);
+  */
 
 }
 
 void game_mode_helper_output(GameModeHelper *pSelf, const gchar *szText) {
   GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
 
+  gtk_entry_set_text(pPrivate->pScore, szText);
   // TODO: potential overflow problems
   //  strcat(pPrivate->szOutput, szText);
   //  pPrivate->iOutputLength += strlen(szText);
@@ -190,17 +196,81 @@ void game_mode_helper_delete(GameModeHelper *pSelf, int iLength) {
 
 void game_mode_helper_message(GameModeHelper *pSelf, int message, const void * messagedata) {
   GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
+  const std::string* pStr;
 
-  if(message == GAME_MESSAGE_SET_STRING)
+  switch(message) {
+  case GAME_MESSAGE_SET_STRING:
+    pStr = reinterpret_cast<const std::string *>(messagedata);
+    *(pPrivate->pstrTarget) = (*pStr);
+    gtk_misc_set_alignment(GTK_MISC(pPrivate->pGameInfoLabel), 0.0, 0.0);
+    gtk_label_set_text(pPrivate->pGameInfoLabel, pPrivate->pstrTarget->c_str());
+    dasher_editor_internal_cleartext(pPrivate->pEditor);
+    pPrivate->pstrOutput->clear();
+    break;
+  case GAME_MESSAGE_WELCOME:
+    gtk_misc_set_alignment(GTK_MISC(pPrivate->pGameInfoLabel), 0.5, 0.0);
+    gtk_label_set_use_markup(pPrivate->pGameInfoLabel, true);
+    gtk_label_set_markup(pPrivate->pGameInfoLabel, "<span foreground=\"green\">Welcome to Dasher Game Mode!</span>");
+    break;
+  case GAME_MESSAGE_EDIT:
+    pStr = reinterpret_cast<const std::string *>(messagedata);
+    *(pPrivate->pstrOutput) += (*pStr);
+    game_mode_helper_update_label(pSelf);
+    break;
+    
+  case GAME_MESSAGE_EDIT_DELETE:
+    *(pPrivate->pstrOutput) = pPrivate->pstrOutput->substr( 0, pPrivate->pstrOutput->size() -
+							    *reinterpret_cast<const int *>(messagedata));
+    game_mode_helper_update_label(pSelf);
+    break;
+  }
+}
+
+
+void game_mode_helper_update_label(GameModeHelper *pSelf) {
+  GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
+  const std::string& target = *(pPrivate->pstrTarget);
+  const std::string& output = *(pPrivate->pstrOutput);
+  int i=0, ct=0; // i,j count chars. ct, co for utf8 symbols
+  int j=0, co=0;
+  while(i < target.length() && j < output.length())
     {
-      gtk_misc_set_alignment(GTK_MISC(pPrivate->pGameInfoLabel), 0.0, 0.0);
-      gtk_label_set_text(pPrivate->pGameInfoLabel, (const char*)messagedata);
-      dasher_editor_internal_cleartext(pPrivate->pEditor);
-    }
-  if(message == GAME_MESSAGE_WELCOME)
-    {
-      gtk_misc_set_alignment(GTK_MISC(pPrivate->pGameInfoLabel), 0.5, 0.0);
-      gtk_label_set_text(pPrivate->pGameInfoLabel, "Welcome to Dasher Game Mode!");
+      std::string utf8Target = std::string(1,target[i]);
+      std::string utf8Output = std::string(1,output[j]);
+      if(target[i] & 0x80)
+	{    // Character is more than 1 byte long
+	  int extras = 1;
+	  for(unsigned int bit = 0x20; (target[i] & bit) != 0; bit >>= 1)
+	    extras++;
+
+	  if(extras > 5) {}  // Malformed character
+	  
+	  while(extras-- > 0) 
+	    {
+	      utf8Target += target[++i];
+	    }
+	}
+      if(output[j] & 0x80)
+	{    // Character is more than 1 byte long
+	  int extras = 1;
+	  for(unsigned int bit = 0x20; (output[j] & bit) != 0; bit >>= 1)
+	    extras++;
+	  
+	  if(extras > 5) {}  // Malformed character
+	  
+	  while(extras-- > 0) 
+	    {
+	      utf8Output += output[++j];
+	    }
+	}
+      
+      if(utf8Target != utf8Output) break;
+      ct=++i;
+      co=++j;
     }
 
+  std::string labelStr = target;
+  labelStr.insert(ct, "</span>");
+  labelStr.insert(0, "<span background=\"green\">");
+  gtk_label_set_markup(pPrivate->pGameInfoLabel, labelStr.c_str());
 }
