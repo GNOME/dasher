@@ -8,21 +8,22 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dasher 4.1.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-05 19:27+0100\n"
-"PO-Revision-Date: 2007-08-19 17:07+0200\n"
-"Last-Translator: Yannig MARCHEGAY (Kokoyaya) <yannig@marchegay.org>\n"
+"POT-Creation-Date: 2007-08-18 03:24+0100\n"
+"PO-Revision-Date: 2007-08-20 23:32+0200\n"
+"Last-Translator: Yannig MARCHEGAY <yannig@marchegay.org>\n"
 "Language-Team: Occitan (post 1500) <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);"
 
-#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/Menu.cc:430
-#: ../Src/Gtk2/dasher.compose.glade.h:34 ../Src/Gtk2/dasher.direct.glade.h:31
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:30 ../Src/Gtk2/dasher.glade.h:34
-#: ../Src/Gtk2/dasher.traditional.glade.h:34 ../Src/Gtk2/dashergpe.glade.h:5
-#: ../Src/Gtk2/dashermaemo.glade.h:17
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:15
+#: ../Data/dasher.desktop.in.in.h:1 ../Data/glade/dasher.compose.glade.h:34
+#: ../Data/glade/dasher.direct.glade.h:31
+#: ../Data/glade/dasher.fullscreen.glade.h:30
+#: ../Data/glade/dasher.traditional.glade.h:35
+#: ../Data/glade/dashermaemo.glade.h:17
+#: ../Data/glade/dashermaemofullscreen.glade.h:15
+#: ../Src/Gtk2/dasher_main.cpp:1162
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -30,22 +31,914 @@ msgstr "Dasher"
 msgid "Predictive text entry"
 msgstr ""
 
+#: ../Data/glade/dasher.compose.glade.h:1
+#: ../Data/glade/dasher.direct.glade.h:1
+#: ../Data/glade/dasher.fullscreen.glade.h:1
+#: ../Data/glade/dasher.traditional.glade.h:1
+msgid "<b>Actions:</b>"
+msgstr "<b>Accions :</b>"
+
+#: ../Data/glade/dasher.compose.glade.h:2
+#: ../Data/glade/dasher.direct.glade.h:2
+#: ../Data/glade/dasher.fullscreen.glade.h:2
+#: ../Data/glade/dasher.traditional.glade.h:2
+#: ../Data/glade/dashermaemo.glade.h:3
+#: ../Data/glade/dashermaemofullscreen.glade.h:1
+msgid "<b>Adaptation:</b>"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:3
+#: ../Data/glade/dasher.direct.glade.h:3
+#: ../Data/glade/dasher.fullscreen.glade.h:3
+#: ../Data/glade/dasher.traditional.glade.h:3
+#: ../Data/glade/dashermaemo.glade.h:4
+#: ../Data/glade/dashermaemofullscreen.glade.h:2
+msgid "<b>Alphabet Selection:</b>"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:4
+#: ../Data/glade/dasher.direct.glade.h:4
+#: ../Data/glade/dasher.fullscreen.glade.h:4
+#: ../Data/glade/dasher.traditional.glade.h:4
+msgid "<b>Appearance Options:</b>"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:5
+#: ../Data/glade/dasher.direct.glade.h:5
+#: ../Data/glade/dasher.fullscreen.glade.h:5
+#: ../Data/glade/dasher.traditional.glade.h:5
+msgid "<b>Application Options:</b>"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:6
+#: ../Data/glade/dasher.direct.glade.h:6
+#: ../Data/glade/dasher.fullscreen.glade.h:6
+#: ../Data/glade/dasher.traditional.glade.h:6
+msgid "<b>Application Style:</b>"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:7
+#: ../Data/glade/dasher.direct.glade.h:7
+#: ../Data/glade/dasher.fullscreen.glade.h:7
+#: ../Data/glade/dasher.traditional.glade.h:7
+msgid "<b>Colour Scheme:</b>"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:8
+#: ../Data/glade/dasher.direct.glade.h:8
+#: ../Data/glade/dasher.fullscreen.glade.h:8
+#: ../Data/glade/dasher.traditional.glade.h:8
+msgid "<b>Control Style:</b>"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:9
+#: ../Data/glade/dasher.direct.glade.h:9
+#: ../Data/glade/dasher.fullscreen.glade.h:9
+#: ../Data/glade/dasher.traditional.glade.h:9
+msgid "<b>Dasher Font:</b>"
+msgstr "<b>Poliça de Dasher :</b>"
+
+#: ../Data/glade/dasher.compose.glade.h:10
+#: ../Data/glade/dasher.direct.glade.h:10
+#: ../Data/glade/dasher.fullscreen.glade.h:10
+#: ../Data/glade/dasher.traditional.glade.h:10
+msgid "<b>Direction:</b>"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:11
+#: ../Data/glade/dasher.direct.glade.h:11
+#: ../Data/glade/dasher.fullscreen.glade.h:11
+#: ../Data/glade/dasher.traditional.glade.h:11
+msgid "<b>Editor Font:</b>"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:12
+#: ../Data/glade/dasher.direct.glade.h:12
+#: ../Data/glade/dasher.fullscreen.glade.h:12
+#: ../Data/glade/dasher.traditional.glade.h:12
+msgid "<b>Input Device:</b>"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:13
+#: ../Data/glade/dasher.direct.glade.h:13
+#: ../Data/glade/dasher.fullscreen.glade.h:13
+#: ../Data/glade/dasher.traditional.glade.h:13
+#: ../Data/glade/dashermaemo.glade.h:6
+#: ../Data/glade/dashermaemofullscreen.glade.h:3
+msgid "<b>Language Model:</b>"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:14
+#: ../Data/glade/dasher.direct.glade.h:14
+#: ../Data/glade/dasher.fullscreen.glade.h:14
+#: ../Data/glade/dasher.traditional.glade.h:14
+msgid "<b>Prediction:</b>"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:15
+#: ../Data/glade/dasher.direct.glade.h:15
+#: ../Data/glade/dasher.fullscreen.glade.h:15
+#: ../Data/glade/dasher.traditional.glade.h:15
+#: ../Data/glade/dashermaemo.glade.h:8
+#: ../Data/glade/dashermaemofullscreen.glade.h:5
+msgid "<b>Smoothing:</b>"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:16
+#: ../Data/glade/dasher.direct.glade.h:16
+#: ../Data/glade/dasher.fullscreen.glade.h:16
+#: ../Data/glade/dasher.traditional.glade.h:16
+#: ../Data/glade/dashermaemo.glade.h:9
+#: ../Data/glade/dashermaemofullscreen.glade.h:6
+msgid "<b>Speed:</b>"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:17
+#: ../Data/glade/dasher.direct.glade.h:17
+#: ../Data/glade/dasher.fullscreen.glade.h:17
+#: ../Data/glade/dasher.traditional.glade.h:17
+msgid "<b>Starting And Stopping:</b>"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:18
+#: ../Data/glade/dasher.direct.glade.h:18
+#: ../Data/glade/dasher.fullscreen.glade.h:18
+#: ../Data/glade/dasher.traditional.glade.h:19
+#: ../Data/glade/dashermaemo.glade.h:10
+#: ../Data/glade/dashermaemofullscreen.glade.h:7
+msgid "Adapt speed automatically"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:19
+#: ../Data/glade/dasher.direct.glade.h:19
+#: ../Data/glade/dasher.fullscreen.glade.h:19
+#: ../Data/glade/dasher.traditional.glade.h:20
+#: ../Data/glade/dashermaemo.glade.h:12
+#: ../Data/glade/dashermaemofullscreen.glade.h:9
+msgid "Alphabet Default"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:20
+#: ../Data/glade/dasher.direct.glade.h:20
+#: ../Data/glade/dasher.traditional.glade.h:21
+msgid "Alphabet:"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:21
+#: ../Data/glade/dasher.direct.glade.h:21
+#: ../Data/glade/dasher.fullscreen.glade.h:20
+#: ../Data/glade/dasher.traditional.glade.h:22
+msgid "Appearance"
+msgstr "Aparéncia"
+
+#: ../Data/glade/dasher.compose.glade.h:22
+#: ../Data/glade/dasher.direct.glade.h:22
+#: ../Data/glade/dasher.fullscreen.glade.h:21
+#: ../Data/glade/dasher.traditional.glade.h:23
+msgid "Application"
+msgstr "Aplicacion"
+
+#: ../Data/glade/dasher.compose.glade.h:23
+#: ../Data/glade/dasher.direct.glade.h:23
+#: ../Data/glade/dasher.fullscreen.glade.h:22
+#: ../Data/glade/dasher.traditional.glade.h:24
+#: ../Data/glade/dashermaemo.glade.h:13
+#: ../Data/glade/dashermaemofullscreen.glade.h:10
+msgid "Bottom to Top"
+msgstr "D'aval cap amont"
+
+#: ../Data/glade/dasher.compose.glade.h:24
+#: ../Data/glade/dasher.direct.glade.h:24
+#: ../Data/glade/dasher.fullscreen.glade.h:23
+#: ../Data/glade/dasher.traditional.glade.h:25
+msgid ""
+"Centre circle\n"
+"Two box"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:26
+#: ../Data/glade/dasher.direct.glade.h:26
+#: ../Data/glade/dasher.fullscreen.glade.h:25
+#: ../Data/glade/dasher.traditional.glade.h:27
+msgid "Composition"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:27
+#: ../Data/glade/dasher.direct.glade.h:27
+#: ../Data/glade/dasher.fullscreen.glade.h:26
+#: ../Data/glade/dasher.traditional.glade.h:28
+#: ../Data/glade/dashermaemo.glade.h:14
+#: ../Data/glade/dashermaemofullscreen.glade.h:11
+msgid "Control"
+msgstr "Contraròtle"
+
+#: ../Data/glade/dasher.compose.glade.h:28
+#: ../Data/glade/dasher.direct.glade.h:28
+#: ../Data/glade/dasher.fullscreen.glade.h:27
+#: ../Data/glade/dasher.traditional.glade.h:29
+msgid "Control mode"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:29
+#: ../Data/glade/dasher.traditional.glade.h:30
+msgid "Copy"
+msgstr "Copiar"
+
+#: ../Data/glade/dasher.compose.glade.h:30
+#: ../Data/glade/dasher.traditional.glade.h:31
+#: ../Data/glade/dashermaemofullscreen.glade.h:12
+msgid "Copy _All"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:31
+#: ../Data/glade/dasher.direct.glade.h:29
+#: ../Data/glade/dasher.fullscreen.glade.h:28
+#: ../Data/glade/dasher.traditional.glade.h:32
+#: ../Data/glade/dashermaemo.glade.h:15
+#: ../Data/glade/dashermaemofullscreen.glade.h:13
+msgid "Custom colour scheme:"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:32
+#: ../Data/glade/dasher.direct.glade.h:30
+#: ../Data/glade/dasher.fullscreen.glade.h:29
+#: ../Data/glade/dasher.traditional.glade.h:33
+#: ../Data/glade/dashermaemo.glade.h:16
+#: ../Data/glade/dashermaemofullscreen.glade.h:14
+msgid "Custom:"
+msgstr "Personalisat :"
+
+#: ../Data/glade/dasher.compose.glade.h:33
+#: ../Data/glade/dasher.traditional.glade.h:34
+msgid "Cut"
+msgstr "Talhar"
+
+#: ../Data/glade/dasher.compose.glade.h:35
+#: ../Data/glade/dasher.direct.glade.h:32
+#: ../Data/glade/dasher.fullscreen.glade.h:31
+#: ../Data/glade/dasher.traditional.glade.h:36
+#: ../Data/glade/dashermaemo.glade.h:18
+#: ../Data/glade/dashermaemofullscreen.glade.h:16
+msgid "Dasher Preferences"
+msgstr "Preferéncias de Dasher"
+
+#: ../Data/glade/dasher.compose.glade.h:36
+msgid "Dasher _Tutorial"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:37
+#: ../Data/glade/dasher.direct.glade.h:33
+#: ../Data/glade/dasher.fullscreen.glade.h:32
+#: ../Data/glade/dasher.traditional.glade.h:37
+msgid "Direct entry"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:38
+#: ../Data/glade/dasher.direct.glade.h:34
+#: ../Data/glade/dasher.fullscreen.glade.h:33
+#: ../Data/glade/dasher.traditional.glade.h:38
+msgid "Dock application window"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:39
+#: ../Data/glade/dasher.direct.glade.h:35
+#: ../Data/glade/dasher.fullscreen.glade.h:34
+#: ../Data/glade/dasher.traditional.glade.h:39
+msgid "Draw box outlines"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:40
+#: ../Data/glade/dasher.direct.glade.h:36
+#: ../Data/glade/dasher.fullscreen.glade.h:35
+#: ../Data/glade/dasher.traditional.glade.h:40
+msgid "Draw line between crosshairs and mouse"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:41
+#: ../Data/glade/dasher.direct.glade.h:37
+#: ../Data/glade/dasher.fullscreen.glade.h:36
+#: ../Data/glade/dasher.traditional.glade.h:41
+msgid "Full Screen"
+msgstr "Ecran complet"
+
+#: ../Data/glade/dasher.compose.glade.h:42
+#: ../Data/glade/dasher.direct.glade.h:38
+#: ../Data/glade/dasher.fullscreen.glade.h:37
+#: ../Data/glade/dasher.traditional.glade.h:43
+msgid "Increase line thickness"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:43
+#: ../Data/glade/dasher.direct.glade.h:39
+#: ../Data/glade/dasher.fullscreen.glade.h:38
+#: ../Data/glade/dasher.traditional.glade.h:44
+#: ../Data/glade/dashermaemo.glade.h:20
+#: ../Data/glade/dashermaemofullscreen.glade.h:17
+msgid "Japanese"
+msgstr "Japonés"
+
+#: ../Data/glade/dasher.compose.glade.h:44
+#: ../Data/glade/dasher.direct.glade.h:40
+#: ../Data/glade/dasher.fullscreen.glade.h:39
+#: ../Data/glade/dasher.traditional.glade.h:45
+msgid "Language"
+msgstr "Lenga"
+
+#: ../Data/glade/dasher.compose.glade.h:45
+#: ../Data/glade/dasher.direct.glade.h:41
+#: ../Data/glade/dasher.fullscreen.glade.h:40
+#: ../Data/glade/dasher.traditional.glade.h:46
+#: ../Data/glade/dashermaemo.glade.h:21
+#: ../Data/glade/dashermaemofullscreen.glade.h:18
+msgid "Language model adapts as you write."
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:46
+#: ../Data/glade/dasher.direct.glade.h:42
+#: ../Data/glade/dasher.fullscreen.glade.h:41
+#: ../Data/glade/dasher.traditional.glade.h:47
+msgid "Large font "
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:47
+#: ../Data/glade/dasher.direct.glade.h:43
+#: ../Data/glade/dasher.fullscreen.glade.h:42
+#: ../Data/glade/dasher.traditional.glade.h:48
+#: ../Data/glade/dashermaemo.glade.h:22
+#: ../Data/glade/dashermaemofullscreen.glade.h:20
+msgid "Left to Right"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:48
+#: ../Data/glade/dasher.direct.glade.h:44
+#: ../Data/glade/dasher.fullscreen.glade.h:43
+#: ../Data/glade/dasher.traditional.glade.h:49
+#: ../Data/glade/dashermaemo.glade.h:23
+#: ../Data/glade/dashermaemofullscreen.glade.h:21
+msgid "Mixture model (PPM/dictionary)"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:49
+#: ../Data/glade/dasher.traditional.glade.h:50
+msgid "New file"
+msgstr "Novèl fichièr"
+
+#: ../Data/glade/dasher.compose.glade.h:50
+#: ../Data/glade/dasher.traditional.glade.h:51
+msgid "Open file"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:51
+#: ../Data/glade/dasher.direct.glade.h:45
+#: ../Data/glade/dasher.fullscreen.glade.h:44
+#: ../Data/glade/dasher.traditional.glade.h:52
+msgid "Options"
+msgstr "Opcions"
+
+#: ../Data/glade/dasher.compose.glade.h:52
+#: ../Data/glade/dasher.traditional.glade.h:53
+msgid "Paste"
+msgstr "Pegar"
+
+#: ../Data/glade/dasher.compose.glade.h:53
+#: ../Data/glade/dasher.direct.glade.h:46
+#: ../Data/glade/dasher.fullscreen.glade.h:45
+#: ../Data/glade/dasher.traditional.glade.h:54
+msgid "Pause outside of canvas"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:54
+#: ../Data/glade/dasher.direct.glade.h:47
+#: ../Data/glade/dasher.fullscreen.glade.h:46
+#: ../Data/glade/dasher.traditional.glade.h:55
+#: ../Data/glade/dashermaemo.glade.h:25
+msgid "Please Wait..."
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:55
+msgid "Pr_eferences"
+msgstr "Pr_eferéncias"
+
+#: ../Data/glade/dasher.compose.glade.h:56
+#: ../Data/glade/dasher.direct.glade.h:48
+#: ../Data/glade/dasher.fullscreen.glade.h:47
+#: ../Data/glade/dasher.traditional.glade.h:59
+#: ../Data/glade/dashermaemo.glade.h:27
+#: ../Data/glade/dashermaemofullscreen.glade.h:24
+msgid "Right to Left"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:57
+#: ../Data/glade/dasher.traditional.glade.h:60
+msgid "Save file"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:58
+#: ../Data/glade/dasher.traditional.glade.h:61
+msgid "Save file as"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:59
+#: ../Data/glade/dasher.direct.glade.h:49
+#: ../Data/glade/dasher.fullscreen.glade.h:48
+#: ../Data/glade/dasher.traditional.glade.h:64
+#: ../Data/glade/dashermaemo.glade.h:28
+#: ../Data/glade/dashermaemofullscreen.glade.h:25
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1361
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1394
+#: ../Src/Gtk2/dasher_main.cpp:1004
+msgid "Select File"
+msgstr "Seleccionar un fichièr"
+
+#: ../Data/glade/dasher.compose.glade.h:60
+#: ../Data/glade/dasher.direct.glade.h:50
+#: ../Data/glade/dasher.fullscreen.glade.h:49
+#: ../Data/glade/dashermaemo.glade.h:29
+#: ../Data/glade/dashermaemofullscreen.glade.h:26
+msgid "Select Font"
+msgstr "Seleccionar una poliça"
+
+#: ../Data/glade/dasher.compose.glade.h:61
+#: ../Data/glade/dasher.direct.glade.h:51
+#: ../Data/glade/dasher.fullscreen.glade.h:50
+#: ../Data/glade/dasher.traditional.glade.h:65
+msgid "Show mouse position"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:62
+#: ../Data/glade/dasher.direct.glade.h:52
+#: ../Data/glade/dasher.fullscreen.glade.h:51
+#: ../Data/glade/dasher.traditional.glade.h:66
+msgid "Show speed slider"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:63
+#: ../Data/glade/dasher.direct.glade.h:53
+#: ../Data/glade/dasher.fullscreen.glade.h:52
+#: ../Data/glade/dasher.traditional.glade.h:67
+msgid "Show toolbar"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:64
+#: ../Data/glade/dasher.direct.glade.h:54
+#: ../Data/glade/dasher.fullscreen.glade.h:53
+#: ../Data/glade/dasher.traditional.glade.h:68
+msgid "Small font"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:65
+#: ../Data/glade/dasher.direct.glade.h:55
+#: ../Data/glade/dasher.traditional.glade.h:69
+msgid "Speed:"
+msgstr "Velocitat :"
+
+#: ../Data/glade/dasher.compose.glade.h:66
+#: ../Data/glade/dasher.direct.glade.h:56
+#: ../Data/glade/dasher.fullscreen.glade.h:54
+#: ../Data/glade/dasher.traditional.glade.h:70
+msgid "Stand-alone"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:67
+#: ../Data/glade/dasher.direct.glade.h:57
+#: ../Data/glade/dasher.fullscreen.glade.h:55
+#: ../Data/glade/dasher.traditional.glade.h:71
+#: ../Data/glade/dashermaemo.glade.h:30
+#: ../Data/glade/dashermaemofullscreen.glade.h:27
+msgid "Standard letter-based PPM"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:68
+#: ../Data/glade/dasher.direct.glade.h:58
+#: ../Data/glade/dasher.fullscreen.glade.h:56
+#: ../Data/glade/dasher.traditional.glade.h:72
+msgid "Start on left mouse button"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:69
+#: ../Data/glade/dasher.direct.glade.h:59
+#: ../Data/glade/dasher.fullscreen.glade.h:57
+#: ../Data/glade/dasher.traditional.glade.h:73
+msgid "Start on space bar"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:70
+#: ../Data/glade/dasher.direct.glade.h:60
+#: ../Data/glade/dasher.fullscreen.glade.h:58
+#: ../Data/glade/dasher.traditional.glade.h:74
+msgid "Start with mouse position:"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:71
+#: ../Data/glade/dasher.direct.glade.h:61
+#: ../Data/glade/dasher.fullscreen.glade.h:59
+#: ../Data/glade/dasher.traditional.glade.h:75
+msgid "Timestamp new files"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:72
+#: ../Data/glade/dasher.direct.glade.h:62
+#: ../Data/glade/dasher.fullscreen.glade.h:60
+#: ../Data/glade/dasher.traditional.glade.h:76
+#: ../Data/glade/dashermaemo.glade.h:31
+#: ../Data/glade/dashermaemofullscreen.glade.h:28
+msgid "Top to Bottom"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:73
+#: ../Data/glade/dasher.direct.glade.h:63
+#: ../Data/glade/dasher.fullscreen.glade.h:61
+#: ../Data/glade/dasher.traditional.glade.h:77
+msgid ""
+"Use this control to adjust the relative sizes of the \n"
+"letter boxes. Note that selecting high values will slow\n"
+"your writing speed."
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:76
+#: ../Data/glade/dasher.direct.glade.h:66
+#: ../Data/glade/dasher.fullscreen.glade.h:64
+#: ../Data/glade/dasher.traditional.glade.h:80
+msgid "Very large font"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:77
+#: ../Data/glade/dasher.direct.glade.h:67
+#: ../Data/glade/dasher.fullscreen.glade.h:65
+#: ../Data/glade/dasher.traditional.glade.h:81
+#: ../Data/glade/dashermaemo.glade.h:33
+#: ../Data/glade/dashermaemofullscreen.glade.h:31
+msgid "Word-based model"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:78
+#: ../Data/glade/dashermaemofullscreen.glade.h:32
+msgid "_About"
+msgstr "_A prepaus"
+
+#: ../Data/glade/dasher.compose.glade.h:79
+msgid "_Append to file"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:80
+msgid "_Contents"
+msgstr "_Somari"
+
+#: ../Data/glade/dasher.compose.glade.h:81
+#: ../Data/glade/dasher.traditional.glade.h:84
+#: ../Data/glade/dashermaemofullscreen.glade.h:35
+msgid "_Edit"
+msgstr "_Edicion"
+
+#: ../Data/glade/dasher.compose.glade.h:82
+#: ../Data/glade/dasher.traditional.glade.h:85
+#: ../Data/glade/dashermaemofullscreen.glade.h:37
+msgid "_File"
+msgstr "_Fichièr"
+
+#: ../Data/glade/dasher.compose.glade.h:83
+#: ../Data/glade/dasher.traditional.glade.h:86
+#: ../Data/glade/dashermaemofullscreen.glade.h:38
+msgid "_Help"
+msgstr "_Ajuda"
+
+#: ../Data/glade/dasher.compose.glade.h:84
+msgid "_Import Training Text"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:85
+#: ../Data/glade/dasher.direct.glade.h:68
+#: ../Data/glade/dasher.fullscreen.glade.h:66
+#: ../Data/glade/dashermaemo.glade.h:34
+#: ../Data/glade/dashermaemofullscreen.glade.h:41
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr "abcdefghijk ABCDEFGHIJK"
+
+#: ../Data/glade/dasher.traditional.glade.h:18
+msgid "A_ppend to file..."
+msgstr ""
+
+#: ../Data/glade/dasher.traditional.glade.h:42
+msgid "Help"
+msgstr "Ajuda"
+
+#: ../Data/glade/dasher.traditional.glade.h:56
+msgid "Pr_eferences..."
+msgstr "Pr_eferéncias..."
+
+#: ../Data/glade/dasher.traditional.glade.h:57
+msgid "Preferences"
+msgstr "Preferéncias"
+
+#: ../Data/glade/dasher.traditional.glade.h:58
+msgid "Quit"
+msgstr "Quitar"
+
+#: ../Data/glade/dasher.traditional.glade.h:62
+msgid "Select Dasher Font"
+msgstr ""
+
+#: ../Data/glade/dasher.traditional.glade.h:63
+msgid "Select Editor Font"
+msgstr ""
+
+#: ../Data/glade/dasher.traditional.glade.h:82
+msgid "_About..."
+msgstr "_A prepaus..."
+
+#: ../Data/glade/dasher.traditional.glade.h:83
+msgid "_Contents..."
+msgstr ""
+
+#: ../Data/glade/dasher.traditional.glade.h:87
+msgid "_Import Training Text..."
+msgstr ""
+
+#: ../Data/glade/dashermaemo.glade.h:1
+msgid "\n"
+msgstr "\n"
+
+#: ../Data/glade/dashermaemo.glade.h:5
+msgid "<b>Display Size:</b>"
+msgstr ""
+
+#: ../Data/glade/dashermaemo.glade.h:7
+#: ../Data/glade/dashermaemofullscreen.glade.h:4
+msgid "<b>Orientation:</b>"
+msgstr "<b>Orientacion :</b>"
+
+#: ../Data/glade/dashermaemo.glade.h:11
+#: ../Data/glade/dashermaemofullscreen.glade.h:8
+msgid "Alphabet"
+msgstr ""
+
+#: ../Data/glade/dashermaemo.glade.h:19
+msgid "Enlarge input window"
+msgstr ""
+
+#: ../Data/glade/dashermaemo.glade.h:24
+msgid "P"
+msgstr "P"
+
+#: ../Data/glade/dashermaemo.glade.h:26
+#: ../Data/glade/dashermaemofullscreen.glade.h:23
+msgid "Prediction"
+msgstr ""
+
+#: ../Data/glade/dashermaemo.glade.h:32
+#: ../Data/glade/dashermaemofullscreen.glade.h:30
+msgid "View"
+msgstr "Visualizacion"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:19
+msgid "Large"
+msgstr "Grand"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:22
+msgid "Normal"
+msgstr "Normal"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:29
+msgid "Very Large"
+msgstr ""
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:33
+msgid "_Dasher Font"
+msgstr ""
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:34
+msgid "_Dasher Font Size"
+msgstr ""
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:36
+msgid "_Edit Font"
+msgstr ""
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:39
+msgid "_Options"
+msgstr "_Opcions"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:40
+msgid "_Reset fonts"
+msgstr ""
+
+#: ../Src/DasherCore/ClickFilter.h:11
+msgid "Click Mode"
+msgstr ""
+
+#: ../Src/DasherCore/DasherButtons.cpp:24
+msgid "Zoom steps"
+msgstr ""
+
+#: ../Src/DasherCore/DasherButtons.cpp:25
+msgid "Right zoom"
+msgstr ""
+
+#: ../Src/DasherCore/DasherButtons.cpp:26
+msgid "Number of boxes"
+msgstr ""
+
+#: ../Src/DasherCore/DasherButtons.cpp:27
+msgid "Safety margin"
+msgstr ""
+
+#: ../Src/DasherCore/DasherButtons.cpp:28
+msgid "Box non-uniformity"
+msgstr ""
+
+#: ../Src/DasherCore/DasherButtons.cpp:29
+msgid "Global keyboard grab"
+msgstr ""
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:988
+msgid "Normal Control"
+msgstr ""
+
+#. TODO: specialist factory for button mode
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:995
+msgid "Menu Mode"
+msgstr ""
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:996
+msgid "Direct Mode"
+msgstr ""
+
+#. RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:998
+msgid "Alternating Direct Mode"
+msgstr ""
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:999
+msgid "Compass Mode"
+msgstr ""
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:1000
+msgid "Stylus Control"
+msgstr ""
+
+#: ../Src/DasherCore/EyetrackerFilter.cpp:7
+msgid "Automatic calibration"
+msgstr ""
+
+#: ../Src/DasherCore/EyetrackerFilter.cpp:11
+msgid "Eyetracker Mode"
+msgstr ""
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:28
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:29
+msgid "Long press time"
+msgstr ""
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:29
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
+msgid "Multiple press time"
+msgstr ""
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:30
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:31
+msgid "Multiple press count"
+msgstr ""
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
+msgid "Enable backoff button"
+msgstr ""
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
+msgid "One Button Dynamic Mode"
+msgstr ""
+
+#: ../Src/DasherCore/OneDimensionalFilter.cpp:5
+msgid "One Dimensional Mode"
+msgstr ""
+
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
 msgid "Dasher socket input: failed to launch reader thread."
 msgstr ""
 
-#: ../Src/Gtk2/Menu.cc:52 ../Src/Gtk2/Menu.cc:108 ../Src/Gtk2/Menu.cc:166
-#: ../Src/Gtk2/Menu.cc:209 ../Src/Gtk2/dasher.compose.glade.h:59
-#: ../Src/Gtk2/dasher.direct.glade.h:49
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:48 ../Src/Gtk2/dasher.glade.h:59
-#: ../Src/Gtk2/dasher.traditional.glade.h:59 ../Src/Gtk2/dashergpe.glade.h:14
-#: ../Src/Gtk2/dashermaemo.glade.h:28
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:25
-msgid "Select File"
-msgstr "Seleccionar un fichièr"
+#: ../Src/DasherCore/SocketInputBase.cpp:27
+msgid "Port:"
+msgstr "Pòrt :"
 
-#: ../Src/Gtk2/Menu.cc:292
+#: ../Src/DasherCore/SocketInputBase.cpp:28
+msgid "X label:"
+msgstr ""
+
+#: ../Src/DasherCore/SocketInputBase.cpp:29
+msgid "X minimum:"
+msgstr ""
+
+#: ../Src/DasherCore/SocketInputBase.cpp:30
+msgid "X maximum:"
+msgstr ""
+
+#: ../Src/DasherCore/SocketInputBase.cpp:31
+msgid "Y label:"
+msgstr ""
+
+#: ../Src/DasherCore/SocketInputBase.cpp:32
+msgid "Y minimum:"
+msgstr ""
+
+#: ../Src/DasherCore/SocketInputBase.cpp:33
+msgid "Y maximum:"
+msgstr ""
+
+#: ../Src/DasherCore/SocketInputBase.cpp:34
+msgid "Print socket-related debugging information to console:"
+msgstr ""
+
+#: ../Src/DasherCore/SocketInputBase.cpp:38
+msgid "Socket Input"
+msgstr ""
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:28
+msgid "Button offset"
+msgstr ""
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
+msgid "Enable backoff and start/stop buttons"
+msgstr ""
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:33
+msgid "Reverse up and down buttons"
+msgstr ""
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:34
+msgid "Slow startup"
+msgstr ""
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:35
+msgid "Startup time"
+msgstr ""
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:36
+msgid "Auto speed control"
+msgstr ""
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:37
+msgid "Auto speed threshold"
+msgstr ""
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
+msgid "Two Button Dynamic Mode"
+msgstr ""
+
+#: ../Src/Gtk2/Preferences.cpp:417 ../Src/Gtk2/Preferences.cpp:983
+msgid "Action"
+msgstr "Accion"
+
+#: ../Src/Gtk2/Preferences.cpp:989
+msgid "Show Button"
+msgstr ""
+
+#: ../Src/Gtk2/Preferences.cpp:994
+msgid "Control Mode"
+msgstr ""
+
+#: ../Src/Gtk2/Preferences.cpp:999
+msgid "Auto On Stop"
+msgstr ""
+
+#: ../Src/Gtk2/dasher_action_keyboard.cpp:60
+#: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:94
+msgid "Enter Text"
+msgstr ""
+
+#: ../Src/Gtk2/dasher_action_script.cpp:91
+msgid "Script"
+msgstr "Escript"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:129
+msgid "Speak"
+msgstr ""
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:141
+msgid "All"
+msgstr "Totes"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:143
+msgid "Last"
+msgstr "Darrièr"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:145
+msgid "Repeat"
+msgstr "Repetar"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:163
+#, c-format
+msgid "Unable to initialize speech support\n"
+msgstr ""
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:186
+msgid "Unable to initialize voices\n"
+msgstr ""
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:198
+msgid "Warning: unable to set speech parameters\n"
+msgstr ""
+
+#: ../Src/Gtk2/dasher_main.cpp:1042
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -53,649 +946,51 @@ msgid ""
 "Your changes will be lost if you don't save them."
 msgstr ""
 
-#: ../Src/Gtk2/Menu.cc:295
+#: ../Src/Gtk2/dasher_main.cpp:1048
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
 "Your changes will be lost if you don't save them."
 msgstr ""
 
-#: ../Src/Gtk2/Menu.cc:298
+#: ../Src/Gtk2/dasher_main.cpp:1052
 msgid "Don't save"
 msgstr "Enregistrar pas"
 
-#: ../Src/Gtk2/Menu.cc:298
+#: ../Src/Gtk2/dasher_main.cpp:1053
 msgid "Don't quit"
 msgstr ""
 
-#: ../Src/Gtk2/Menu.cc:298
+#: ../Src/Gtk2/dasher_main.cpp:1054
 msgid "Save and quit"
 msgstr ""
 
-#: ../Src/Gtk2/Menu.cc:417 ../Src/Gtk2/Menu.cc:433
+#: ../Src/Gtk2/dasher_main.cpp:1149 ../Src/Gtk2/dasher_main.cpp:1165
 msgid "Dasher is a predictive text entry application"
 msgstr ""
 
-#: ../Src/Gtk2/Menu.cc:422 ../Src/Gtk2/Menu.cc:428
+#: ../Src/Gtk2/dasher_main.cpp:1154 ../Src/Gtk2/dasher_main.cpp:1160
 msgid "translator-credits"
-msgstr ""
-"La còla occitana de revirada d'Ubuntu, 2007 - ubuntu-l10n-oci@lists.ubuntu.com"
+msgstr "La còla occitana de revirada d'Ubuntu, 2007 - ubuntu-l10n-oci@lists.ubuntu.com"
 
-#: ../Src/Gtk2/dasher.compose.glade.h:1 ../Src/Gtk2/dasher.direct.glade.h:1
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:1 ../Src/Gtk2/dasher.glade.h:1
-#: ../Src/Gtk2/dasher.traditional.glade.h:1
-msgid "<b>Actions:</b>"
+#: ../Src/Gtk2/module_settings_window.cpp:85
+msgid "Dasher Module Options"
 msgstr ""
 
-#: ../Src/Gtk2/dasher.compose.glade.h:2 ../Src/Gtk2/dasher.direct.glade.h:2
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:2 ../Src/Gtk2/dasher.glade.h:2
-#: ../Src/Gtk2/dasher.traditional.glade.h:2 ../Src/Gtk2/dashermaemo.glade.h:3
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:1
-msgid "<b>Adaptation:</b>"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:3 ../Src/Gtk2/dasher.direct.glade.h:3
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:3 ../Src/Gtk2/dasher.glade.h:3
-#: ../Src/Gtk2/dasher.traditional.glade.h:3 ../Src/Gtk2/dashermaemo.glade.h:4
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:2
-msgid "<b>Alphabet Selection:</b>"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:4 ../Src/Gtk2/dasher.direct.glade.h:4
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:4 ../Src/Gtk2/dasher.glade.h:4
-#: ../Src/Gtk2/dasher.traditional.glade.h:4
-msgid "<b>Appearance Options:</b>"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:5 ../Src/Gtk2/dasher.direct.glade.h:5
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:5 ../Src/Gtk2/dasher.glade.h:5
-#: ../Src/Gtk2/dasher.traditional.glade.h:5
-msgid "<b>Application Options:</b>"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:6 ../Src/Gtk2/dasher.direct.glade.h:6
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:6 ../Src/Gtk2/dasher.glade.h:6
-#: ../Src/Gtk2/dasher.traditional.glade.h:6
-msgid "<b>Application Style:</b>"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:7 ../Src/Gtk2/dasher.direct.glade.h:7
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:7 ../Src/Gtk2/dasher.glade.h:7
-#: ../Src/Gtk2/dasher.traditional.glade.h:7
-msgid "<b>Colour Scheme:</b>"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:8 ../Src/Gtk2/dasher.direct.glade.h:8
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:8 ../Src/Gtk2/dasher.glade.h:8
-#: ../Src/Gtk2/dasher.traditional.glade.h:8
-msgid "<b>Control Style:</b>"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:9 ../Src/Gtk2/dasher.direct.glade.h:9
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:9 ../Src/Gtk2/dasher.glade.h:9
-#: ../Src/Gtk2/dasher.traditional.glade.h:9
-msgid "<b>Dasher Font:</b>"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:10 ../Src/Gtk2/dasher.direct.glade.h:10
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:10 ../Src/Gtk2/dasher.glade.h:10
-#: ../Src/Gtk2/dasher.traditional.glade.h:10
-msgid "<b>Direction:</b>"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:11 ../Src/Gtk2/dasher.direct.glade.h:11
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:11 ../Src/Gtk2/dasher.glade.h:11
-#: ../Src/Gtk2/dasher.traditional.glade.h:11
-msgid "<b>Editor Font:</b>"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:12 ../Src/Gtk2/dasher.direct.glade.h:12
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:12 ../Src/Gtk2/dasher.glade.h:12
-#: ../Src/Gtk2/dasher.traditional.glade.h:12
-msgid "<b>Input Device:</b>"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:13 ../Src/Gtk2/dasher.direct.glade.h:13
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:13 ../Src/Gtk2/dasher.glade.h:13
-#: ../Src/Gtk2/dasher.traditional.glade.h:13 ../Src/Gtk2/dashermaemo.glade.h:6
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:3
-msgid "<b>Language Model:</b>"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:14 ../Src/Gtk2/dasher.direct.glade.h:14
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:14 ../Src/Gtk2/dasher.glade.h:14
-#: ../Src/Gtk2/dasher.traditional.glade.h:14
-msgid "<b>Prediction:</b>"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:15 ../Src/Gtk2/dasher.direct.glade.h:15
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:15 ../Src/Gtk2/dasher.glade.h:15
-#: ../Src/Gtk2/dasher.traditional.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:8
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:5
-msgid "<b>Smoothing:</b>"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:16 ../Src/Gtk2/dasher.direct.glade.h:16
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:16 ../Src/Gtk2/dasher.glade.h:16
-#: ../Src/Gtk2/dasher.traditional.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:9
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:6
-msgid "<b>Speed:</b>"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:17 ../Src/Gtk2/dasher.direct.glade.h:17
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:17 ../Src/Gtk2/dasher.glade.h:17
-#: ../Src/Gtk2/dasher.traditional.glade.h:17
-msgid "<b>Starting And Stopping:</b>"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:18 ../Src/Gtk2/dasher.direct.glade.h:18
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:18 ../Src/Gtk2/dasher.glade.h:18
-#: ../Src/Gtk2/dasher.traditional.glade.h:18
-#: ../Src/Gtk2/dashermaemo.glade.h:10
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:7
-msgid "Adapt speed automatically"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:19 ../Src/Gtk2/dasher.direct.glade.h:19
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:19 ../Src/Gtk2/dasher.glade.h:19
-#: ../Src/Gtk2/dasher.traditional.glade.h:19
-#: ../Src/Gtk2/dashermaemo.glade.h:12
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:9
-msgid "Alphabet Default"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:20 ../Src/Gtk2/dasher.direct.glade.h:20
-#: ../Src/Gtk2/dasher.glade.h:20 ../Src/Gtk2/dasher.traditional.glade.h:20
-msgid "Alphabet:"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:21 ../Src/Gtk2/dasher.direct.glade.h:21
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:20 ../Src/Gtk2/dasher.glade.h:21
-#: ../Src/Gtk2/dasher.traditional.glade.h:21
-msgid "Appearance"
-msgstr "Aparéncia"
-
-#: ../Src/Gtk2/dasher.compose.glade.h:22 ../Src/Gtk2/dasher.direct.glade.h:22
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:21 ../Src/Gtk2/dasher.glade.h:22
-#: ../Src/Gtk2/dasher.traditional.glade.h:22
-msgid "Application"
-msgstr "Aplicacion"
-
-#: ../Src/Gtk2/dasher.compose.glade.h:23 ../Src/Gtk2/dasher.direct.glade.h:23
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:22 ../Src/Gtk2/dasher.glade.h:23
-#: ../Src/Gtk2/dasher.traditional.glade.h:23
-#: ../Src/Gtk2/dashermaemo.glade.h:13
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:10
-msgid "Bottom to Top"
-msgstr "D'aval cap amont"
-
-#: ../Src/Gtk2/dasher.compose.glade.h:24 ../Src/Gtk2/dasher.direct.glade.h:24
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:23 ../Src/Gtk2/dasher.glade.h:24
-#: ../Src/Gtk2/dasher.traditional.glade.h:24
-msgid ""
-"Centre circle\n"
-"Two box"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:26 ../Src/Gtk2/dasher.direct.glade.h:26
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:25 ../Src/Gtk2/dasher.glade.h:26
-#: ../Src/Gtk2/dasher.traditional.glade.h:26
-msgid "Composition"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:27 ../Src/Gtk2/dasher.direct.glade.h:27
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:26 ../Src/Gtk2/dasher.glade.h:27
-#: ../Src/Gtk2/dasher.traditional.glade.h:27
-#: ../Src/Gtk2/dashermaemo.glade.h:14
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:11
-msgid "Control"
-msgstr "Contraròtle"
-
-#: ../Src/Gtk2/dasher.compose.glade.h:28 ../Src/Gtk2/dasher.direct.glade.h:28
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:27 ../Src/Gtk2/dasher.glade.h:28
-#: ../Src/Gtk2/dasher.traditional.glade.h:28 ../Src/Gtk2/dashergpe.glade.h:1
-msgid "Control mode"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:29 ../Src/Gtk2/dasher.glade.h:29
-#: ../Src/Gtk2/dasher.traditional.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:2
-msgid "Copy"
-msgstr "Copiar"
-
-#: ../Src/Gtk2/dasher.compose.glade.h:30 ../Src/Gtk2/dasher.glade.h:30
-#: ../Src/Gtk2/dasher.traditional.glade.h:30 ../Src/Gtk2/dashergpe.glade.h:3
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:12
-msgid "Copy _All"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:31 ../Src/Gtk2/dasher.direct.glade.h:29
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:28 ../Src/Gtk2/dasher.glade.h:31
-#: ../Src/Gtk2/dasher.traditional.glade.h:31
-#: ../Src/Gtk2/dashermaemo.glade.h:15
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:13
-msgid "Custom colour scheme:"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:32 ../Src/Gtk2/dasher.direct.glade.h:30
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:29 ../Src/Gtk2/dasher.glade.h:32
-#: ../Src/Gtk2/dasher.traditional.glade.h:32
-#: ../Src/Gtk2/dashermaemo.glade.h:16
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:14
-msgid "Custom:"
-msgstr "Personalisat :"
-
-#: ../Src/Gtk2/dasher.compose.glade.h:33 ../Src/Gtk2/dasher.glade.h:33
-#: ../Src/Gtk2/dasher.traditional.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:4
-msgid "Cut"
-msgstr "Talhar"
-
-#: ../Src/Gtk2/dasher.compose.glade.h:35 ../Src/Gtk2/dasher.direct.glade.h:32
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:31 ../Src/Gtk2/dasher.glade.h:35
-#: ../Src/Gtk2/dasher.traditional.glade.h:35
-#: ../Src/Gtk2/dashermaemo.glade.h:18
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:16
-msgid "Dasher Preferences"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:36 ../Src/Gtk2/dasher.glade.h:36
-#: ../Src/Gtk2/dasher.traditional.glade.h:36
-msgid "Dasher _Tutorial"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:37 ../Src/Gtk2/dasher.direct.glade.h:33
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:32 ../Src/Gtk2/dasher.glade.h:37
-#: ../Src/Gtk2/dasher.traditional.glade.h:37
-msgid "Direct entry"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:38 ../Src/Gtk2/dasher.direct.glade.h:34
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:33 ../Src/Gtk2/dasher.glade.h:38
-#: ../Src/Gtk2/dasher.traditional.glade.h:38
-msgid "Dock application window"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:39 ../Src/Gtk2/dasher.direct.glade.h:35
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:34 ../Src/Gtk2/dasher.glade.h:39
-#: ../Src/Gtk2/dasher.traditional.glade.h:39
-msgid "Draw box outlines"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:40 ../Src/Gtk2/dasher.direct.glade.h:36
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:35 ../Src/Gtk2/dasher.glade.h:40
-#: ../Src/Gtk2/dasher.traditional.glade.h:40
-msgid "Draw line between crosshairs and mouse"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:41 ../Src/Gtk2/dasher.direct.glade.h:37
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:36 ../Src/Gtk2/dasher.glade.h:41
-#: ../Src/Gtk2/dasher.traditional.glade.h:41
-msgid "Full Screen"
-msgstr "Ecran complet"
-
-#: ../Src/Gtk2/dasher.compose.glade.h:42 ../Src/Gtk2/dasher.direct.glade.h:38
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:37 ../Src/Gtk2/dasher.glade.h:42
-#: ../Src/Gtk2/dasher.traditional.glade.h:42
-msgid "Increase line thickness"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:43 ../Src/Gtk2/dasher.direct.glade.h:39
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:38 ../Src/Gtk2/dasher.glade.h:43
-#: ../Src/Gtk2/dasher.traditional.glade.h:43
-#: ../Src/Gtk2/dashermaemo.glade.h:20
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
-msgid "Japanese"
-msgstr "Japonés"
-
-#: ../Src/Gtk2/dasher.compose.glade.h:44 ../Src/Gtk2/dasher.direct.glade.h:40
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:39 ../Src/Gtk2/dasher.glade.h:44
-#: ../Src/Gtk2/dasher.traditional.glade.h:44
-msgid "Language"
-msgstr "Lenga"
-
-#: ../Src/Gtk2/dasher.compose.glade.h:45 ../Src/Gtk2/dasher.direct.glade.h:41
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:40 ../Src/Gtk2/dasher.glade.h:45
-#: ../Src/Gtk2/dasher.traditional.glade.h:45
-#: ../Src/Gtk2/dashermaemo.glade.h:21
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:18
-msgid "Language model adapts as you write."
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:46 ../Src/Gtk2/dasher.direct.glade.h:42
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:41 ../Src/Gtk2/dasher.glade.h:46
-#: ../Src/Gtk2/dasher.traditional.glade.h:46
-msgid "Large font "
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:47 ../Src/Gtk2/dasher.direct.glade.h:43
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:42 ../Src/Gtk2/dasher.glade.h:47
-#: ../Src/Gtk2/dasher.traditional.glade.h:47
-#: ../Src/Gtk2/dashermaemo.glade.h:22
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:20
-msgid "Left to Right"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:48 ../Src/Gtk2/dasher.direct.glade.h:44
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:43 ../Src/Gtk2/dasher.glade.h:48
-#: ../Src/Gtk2/dasher.traditional.glade.h:48
-#: ../Src/Gtk2/dashermaemo.glade.h:23
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:21
-msgid "Mixture model (PPM/dictionary)"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:49 ../Src/Gtk2/dasher.glade.h:49
-#: ../Src/Gtk2/dasher.traditional.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:8
-msgid "New file"
-msgstr "Novèl fichièr"
-
-#: ../Src/Gtk2/dasher.compose.glade.h:50 ../Src/Gtk2/dasher.glade.h:50
-#: ../Src/Gtk2/dasher.traditional.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:10
-msgid "Open file"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:51 ../Src/Gtk2/dasher.direct.glade.h:45
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:44 ../Src/Gtk2/dasher.glade.h:51
-#: ../Src/Gtk2/dasher.traditional.glade.h:51
-msgid "Options"
-msgstr "Opcions"
-
-#: ../Src/Gtk2/dasher.compose.glade.h:52 ../Src/Gtk2/dasher.glade.h:52
-#: ../Src/Gtk2/dasher.traditional.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:11
-msgid "Paste"
-msgstr "Pegar"
-
-#: ../Src/Gtk2/dasher.compose.glade.h:53 ../Src/Gtk2/dasher.direct.glade.h:46
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:45 ../Src/Gtk2/dasher.glade.h:53
-#: ../Src/Gtk2/dasher.traditional.glade.h:53
-msgid "Pause outside of canvas"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:54 ../Src/Gtk2/dasher.direct.glade.h:47
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:46 ../Src/Gtk2/dasher.glade.h:54
-#: ../Src/Gtk2/dasher.traditional.glade.h:54
-#: ../Src/Gtk2/dashermaemo.glade.h:25
-msgid "Please Wait..."
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:55 ../Src/Gtk2/dasher.glade.h:55
-msgid "Pr_eferences"
-msgstr "Pr_eferéncias"
-
-#: ../Src/Gtk2/dasher.compose.glade.h:56 ../Src/Gtk2/dasher.direct.glade.h:48
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:47 ../Src/Gtk2/dasher.glade.h:56
-#: ../Src/Gtk2/dasher.traditional.glade.h:56
-#: ../Src/Gtk2/dashermaemo.glade.h:27
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
-msgid "Right to Left"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:57 ../Src/Gtk2/dasher.glade.h:57
-#: ../Src/Gtk2/dasher.traditional.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:12
-msgid "Save file"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:58 ../Src/Gtk2/dasher.glade.h:58
-#: ../Src/Gtk2/dasher.traditional.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:13
-msgid "Save file as"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:60 ../Src/Gtk2/dasher.direct.glade.h:50
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:49 ../Src/Gtk2/dasher.glade.h:60
-#: ../Src/Gtk2/dasher.traditional.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:15
-#: ../Src/Gtk2/dashermaemo.glade.h:29
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:26
-msgid "Select Font"
-msgstr "Seleccionar una poliça"
-
-#: ../Src/Gtk2/dasher.compose.glade.h:61 ../Src/Gtk2/dasher.direct.glade.h:51
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:50 ../Src/Gtk2/dasher.glade.h:61
-#: ../Src/Gtk2/dasher.traditional.glade.h:61
-msgid "Show mouse position"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:62 ../Src/Gtk2/dasher.direct.glade.h:52
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:51 ../Src/Gtk2/dasher.glade.h:62
-#: ../Src/Gtk2/dasher.traditional.glade.h:62
-msgid "Show speed slider"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:63 ../Src/Gtk2/dasher.direct.glade.h:53
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:52 ../Src/Gtk2/dasher.glade.h:63
-#: ../Src/Gtk2/dasher.traditional.glade.h:63
-msgid "Show toolbar"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:64 ../Src/Gtk2/dasher.direct.glade.h:54
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:53 ../Src/Gtk2/dasher.glade.h:64
-#: ../Src/Gtk2/dasher.traditional.glade.h:64
-msgid "Small font"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:65 ../Src/Gtk2/dasher.direct.glade.h:55
-#: ../Src/Gtk2/dasher.glade.h:65 ../Src/Gtk2/dasher.traditional.glade.h:65
-msgid "Speed:"
-msgstr "Velocitat :"
-
-#: ../Src/Gtk2/dasher.compose.glade.h:66 ../Src/Gtk2/dasher.direct.glade.h:56
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:54 ../Src/Gtk2/dasher.glade.h:66
-#: ../Src/Gtk2/dasher.traditional.glade.h:66
-msgid "Stand-alone"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:67 ../Src/Gtk2/dasher.direct.glade.h:57
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:55 ../Src/Gtk2/dasher.glade.h:67
-#: ../Src/Gtk2/dasher.traditional.glade.h:67
-#: ../Src/Gtk2/dashermaemo.glade.h:30
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
-msgid "Standard letter-based PPM"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:68 ../Src/Gtk2/dasher.direct.glade.h:58
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:56 ../Src/Gtk2/dasher.glade.h:68
-#: ../Src/Gtk2/dasher.traditional.glade.h:68
-msgid "Start on left mouse button"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:69 ../Src/Gtk2/dasher.direct.glade.h:59
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:57 ../Src/Gtk2/dasher.glade.h:69
-#: ../Src/Gtk2/dasher.traditional.glade.h:69
-msgid "Start on space bar"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:70 ../Src/Gtk2/dasher.direct.glade.h:60
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:58 ../Src/Gtk2/dasher.glade.h:70
-#: ../Src/Gtk2/dasher.traditional.glade.h:70
-msgid "Start with mouse position:"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:71 ../Src/Gtk2/dasher.direct.glade.h:61
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:59 ../Src/Gtk2/dasher.glade.h:71
-#: ../Src/Gtk2/dasher.traditional.glade.h:71
-msgid "Timestamp new files"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:72 ../Src/Gtk2/dasher.direct.glade.h:62
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:60 ../Src/Gtk2/dasher.glade.h:72
-#: ../Src/Gtk2/dasher.traditional.glade.h:72
-#: ../Src/Gtk2/dashermaemo.glade.h:31
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
-msgid "Top to Bottom"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:73 ../Src/Gtk2/dasher.direct.glade.h:63
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:61 ../Src/Gtk2/dasher.glade.h:73
-#: ../Src/Gtk2/dasher.traditional.glade.h:73
-msgid ""
-"Use this control to adjust the relative sizes of the \n"
-"letter boxes. Note that selecting high values will slow\n"
-"your writing speed."
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:76 ../Src/Gtk2/dasher.direct.glade.h:66
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:64 ../Src/Gtk2/dasher.glade.h:76
-#: ../Src/Gtk2/dasher.traditional.glade.h:76
-msgid "Very large font"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:77 ../Src/Gtk2/dasher.direct.glade.h:67
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:65 ../Src/Gtk2/dasher.glade.h:77
-#: ../Src/Gtk2/dasher.traditional.glade.h:77
-#: ../Src/Gtk2/dashermaemo.glade.h:33
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
-msgid "Word-based model"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:78 ../Src/Gtk2/dasher.glade.h:78
-#: ../Src/Gtk2/dashergpe.glade.h:17
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:32
-msgid "_About"
-msgstr "_A prepaus"
-
-#: ../Src/Gtk2/dasher.compose.glade.h:79 ../Src/Gtk2/dasher.glade.h:79
-#: ../Src/Gtk2/dasher.traditional.glade.h:79 ../Src/Gtk2/dashergpe.glade.h:18
-msgid "_Append to file"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:80 ../Src/Gtk2/dasher.glade.h:80
-msgid "_Contents"
-msgstr "_Somari"
-
-#: ../Src/Gtk2/dasher.compose.glade.h:81 ../Src/Gtk2/dasher.glade.h:81
-#: ../Src/Gtk2/dasher.traditional.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:21
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
-msgid "_Edit"
-msgstr "_Edicion"
-
-#: ../Src/Gtk2/dasher.compose.glade.h:82 ../Src/Gtk2/dasher.glade.h:82
-#: ../Src/Gtk2/dasher.traditional.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:23
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:37
-msgid "_File"
-msgstr "_Fichièr"
-
-#: ../Src/Gtk2/dasher.compose.glade.h:83 ../Src/Gtk2/dasher.glade.h:83
-#: ../Src/Gtk2/dasher.traditional.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:24
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:38
-msgid "_Help"
-msgstr "_Ajuda"
-
-#: ../Src/Gtk2/dasher.compose.glade.h:84 ../Src/Gtk2/dasher.glade.h:84
-#: ../Src/Gtk2/dashergpe.glade.h:25
-msgid "_Import Training Text"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.compose.glade.h:85 ../Src/Gtk2/dasher.direct.glade.h:68
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:66 ../Src/Gtk2/dasher.glade.h:85
-#: ../Src/Gtk2/dasher.traditional.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:28
-#: ../Src/Gtk2/dashermaemo.glade.h:34
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:41
-msgid "abcdefghijk ABCDEFGHIJK"
-msgstr "abcdefghijk ABCDEFGHIJK"
-
-#: ../Src/Gtk2/dasher.traditional.glade.h:55
-msgid "Pr_eferences..."
-msgstr ""
-
-#: ../Src/Gtk2/dasher.traditional.glade.h:78
-msgid "_About..."
-msgstr "_A prepaus..."
-
-#: ../Src/Gtk2/dasher.traditional.glade.h:80
-msgid "_Contents..."
-msgstr ""
-
-#: ../Src/Gtk2/dasher.traditional.glade.h:84
-msgid "_Import Training Text..."
-msgstr ""
-
-#: ../Src/Gtk2/dasher_action_speech.cpp:164
+#: ../Src/Gtk2/module_settings_window.cpp:91
 #, c-format
-msgid "Unable to initialize speech support\n"
+msgid "%s Options:"
 msgstr ""
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:187
-msgid "Unable to initialize voices\n"
+#: ../Src/Gtk2/mouse_input.h:15
+msgid "Mouse Input"
 msgstr ""
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:199
-msgid "Warning: unable to set speech parameters\n"
+#: ../Src/Gtk2/mouse_input.h:51
+msgid "Pixels covering Y range"
 msgstr ""
 
-#: ../Src/Gtk2/dashergpe.glade.h:6
-msgid "Enter text into other windows"
+#: ../Src/Gtk2/mouse_input.h:57
+msgid "One Dimensional Mouse Input"
 msgstr ""
-
-#: ../Src/Gtk2/dashergpe.glade.h:7
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:19
-msgid "Large"
-msgstr "Grand"
-
-#: ../Src/Gtk2/dashergpe.glade.h:9
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:22
-msgid "Normal"
-msgstr "Normal"
-
-#: ../Src/Gtk2/dashergpe.glade.h:16
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:29
-msgid "Very Large"
-msgstr ""
-
-#: ../Src/Gtk2/dashergpe.glade.h:19
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:33
-msgid "_Dasher Font"
-msgstr ""
-
-#: ../Src/Gtk2/dashergpe.glade.h:20
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:34
-msgid "_Dasher Font Size"
-msgstr ""
-
-#: ../Src/Gtk2/dashergpe.glade.h:22
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:36
-msgid "_Edit Font"
-msgstr ""
-
-#: ../Src/Gtk2/dashergpe.glade.h:26
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:39
-msgid "_Options"
-msgstr "_Opcions"
-
-#: ../Src/Gtk2/dashergpe.glade.h:27
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:40
-msgid "_Reset fonts"
-msgstr ""
-
-#: ../Src/Gtk2/dashermaemo.glade.h:1
-msgid "\n"
-msgstr "\n"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:5
-msgid "<b>Display Size:</b>"
-msgstr ""
-
-#: ../Src/Gtk2/dashermaemo.glade.h:7
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:4
-msgid "<b>Orientation:</b>"
-msgstr ""
-
-#: ../Src/Gtk2/dashermaemo.glade.h:11
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:8
-msgid "Alphabet"
-msgstr ""
-
-#: ../Src/Gtk2/dashermaemo.glade.h:19
-msgid "Enlarge input window"
-msgstr ""
-
-#: ../Src/Gtk2/dashermaemo.glade.h:24
-msgid "P"
-msgstr "P"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:26
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:23
-msgid "Prediction"
-msgstr ""
-
-#: ../Src/Gtk2/dashermaemo.glade.h:32
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:30
-msgid "View"
-msgstr "Visualizacion"
 
