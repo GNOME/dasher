@@ -463,8 +463,6 @@ int CDasherControl::LongTimerEvent() {
 }
 
 gboolean CDasherControl::ExposeEvent() {
-  std::cout << "Expose event" << std::endl;
-
   NewFrame(get_time(), true);
   return 0;
 }

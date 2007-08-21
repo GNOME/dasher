@@ -51,13 +51,9 @@
 #include "TwoButtonDynamicFilter.h"
 
 // STL headers
+#include <cstdio>
 #include <iostream>
 #include <memory>
-
-// Legacy C library headers
-namespace {
-  #include "stdio.h"
-}
 
 // Declare our global file logging object
 #include "../DasherCore/FileLogger.h"
@@ -319,12 +315,14 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       if( strCurrentContext.size() > 20 )
 	strCurrentContext = strCurrentContext.substr( strCurrentContext.size() - 20 );
 
-      strTrainfileBuffer += pEditEvent->m_sText;
+      if(GetBoolParameter(BP_LM_ADAPTIVE))
+	 strTrainfileBuffer += pEditEvent->m_sText;
     }
     else if(pEditEvent->m_iEditType == 2) {
       strCurrentContext = strCurrentContext.substr( 0, strCurrentContext.size() - pEditEvent->m_sText.size());
 
-      strTrainfileBuffer = strTrainfileBuffer.substr( 0, strTrainfileBuffer.size() - pEditEvent->m_sText.size());
+      if(GetBoolParameter(BP_LM_ADAPTIVE))
+	 strTrainfileBuffer = strTrainfileBuffer.substr( 0, strTrainfileBuffer.size() - pEditEvent->m_sText.size());
     }
   }
   else if(pEvent->m_iEventType == EV_CONTROL) {
@@ -559,8 +557,6 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   // - m_bLastChanged = bChanged was true last time around
   // - m_bRedrawScheduled = Display invalidated internally
   // - bForceRedraw = Display invalidated externally
-
-  std::cout << bChanged << " " << m_bLastChanged << " " << m_bRedrawScheduled << " " << bForceRedraw << std::endl;
 
   // TODO: This is a bit hacky - we really need to sort out the redraw logic
   if((!bChanged && m_bLastChanged) || m_bRedrawScheduled || bForceRedraw) {

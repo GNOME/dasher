@@ -501,8 +501,7 @@ CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode, int iGeneration
 void CAlphabetManager::SetFlag(CDasherNode *pNode, int iFlag, bool bValue) {
   switch(iFlag) {
   case NF_COMMITTED:
-    if(bValue && !pNode->GetFlag(NF_GAME))
-      // TODO: Reimplement (need a learning context, check whether symbol actually corresponds to character)
+    if(bValue && !pNode->GetFlag(NF_GAME) && m_pInterface->GetBoolParameter(BP_LM_ADAPTIVE))
       static_cast<SAlphabetData *>(pNode->m_pUserData)->pLanguageModel->LearnSymbol(m_iLearnContext, static_cast<SAlphabetData *>(pNode->m_pUserData)->iSymbol);
     break;
   }

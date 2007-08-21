@@ -175,11 +175,6 @@ void CDasherModel::Make_root(CDasherNode *pNewRoot) {
     delete oldroots[0];
     oldroots.pop_front();
   }
-
-//   for(int i(0); i < oldroots.size(); ++i)
-//     std::cout << oldroots[i]->GetFlag(NF_SUBNODE) << " ";
-
-//  std::cout << std::endl;
   
   m_Root = pNewRoot;
 
@@ -995,33 +990,52 @@ void CDasherModel::ScheduleZoom(dasherint iDasherX, dasherint iDasherY) {
   // int iSteps = static_cast<int>(GetLongParameter(LP_ZOOMSTEPS) * dCFactor);
   
   int iSteps = GetLongParameter(LP_ZOOMSTEPS);
-  
-  myint iC;
-  
-  if(iDasherX < 2048)
-    iC = ((iDasherY - 2048) * iDasherX) / 2048 + iDasherY;
-  else
-    iC = iDasherY - ((iDasherY - 2048) * iDasherX) / 2048;
-  
-  myint iTarget1 = iDasherY - iDasherX;
-  myint iTarget2 = iDasherY + iDasherX;
-  
-  double dZ = 4096 / static_cast<double>(iTarget2 - iTarget1);
-  double dTau = 1.0/log(dZ);
-  
-  m_deGotoQueue.clear();
-  
-  for(int s = 0; s < iSteps; ++s) {
-    double dFraction = s / static_cast<double>(iSteps - 1);
+ 
+  if(iDasherX == 2048) {
+    // Special case for pure vertical motion. Note that ideally there
+    // would be a smooth transition here from general case, but we
+    // need to avoid gimbal lock.
+
+    dasherint iOffset = iDasherY - 2048;
+
+    m_deGotoQueue.clear();
     
-    SGotoItem sNewItem;
-    sNewItem.iN1 = (m_Rootmin - iC) * exp(dFraction/dTau) + iC;
-    sNewItem.iN2 = (m_Rootmax - iC) * exp(dFraction/dTau) + iC;
-    
-    m_deGotoQueue.push_back(sNewItem);
+    for(int s = 0; s < iSteps; ++s) {
+      double dFraction = s / static_cast<double>(iSteps - 1);
+      
+      SGotoItem sNewItem;
+      sNewItem.iN1 = m_Rootmin - dFraction * iOffset;
+      sNewItem.iN2 = m_Rootmax - dFraction * iOffset;
+      
+      m_deGotoQueue.push_back(sNewItem);
+    }
   }
-  
-  return;
+  else {
+    myint iC;
+    
+    if(iDasherX < 2048)
+      iC = ((iDasherY - 2048) * iDasherX) / 2048 + iDasherY;
+    else
+      iC = iDasherY - ((iDasherY - 2048) * iDasherX) / 2048;
+    
+    myint iTarget1 = iDasherY - iDasherX;
+    myint iTarget2 = iDasherY + iDasherX;
+    
+    double dZ = 4096 / static_cast<double>(iTarget2 - iTarget1);
+    double dTau = 1.0/log(dZ);
+    
+    m_deGotoQueue.clear();
+    
+    for(int s = 0; s < iSteps; ++s) {
+      double dFraction = s / static_cast<double>(iSteps - 1);
+      
+      SGotoItem sNewItem;
+      sNewItem.iN1 = (m_Rootmin - iC) * exp(dFraction/dTau) + iC;
+      sNewItem.iN2 = (m_Rootmax - iC) * exp(dFraction/dTau) + iC;
+      
+      m_deGotoQueue.push_back(sNewItem);
+    }
+  }
 }
 
 void CDasherModel::Offset(int iOffset) {
