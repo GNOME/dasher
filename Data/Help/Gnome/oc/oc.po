@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: dasher doc fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-25 21:59+0100\n"
-"PO-Revision-Date: 2007-08-21 21:09+0200\n"
+"PO-Revision-Date: 2007-08-22 10:25+0200\n"
 "Last-Translator: Claude Paroz <claude@2xlibre.net>\n"
 "Language-Team: French <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -75,11 +75,11 @@ msgstr ""
 
 #: ../C/dasher.xml:7(title)
 msgid "Dasher Manual"
-msgstr ""
+msgstr "Manual de Dasher"
 
 #: ../C/dasher.xml:8(corpauthor) ../C/dasher.xml:11(holder)
 msgid "The Dasher Project"
-msgstr ""
+msgstr "Lo projècte Dasher"
 
 #: ../C/dasher.xml:10(year)
 msgid "2006"
@@ -193,7 +193,7 @@ msgstr ""
 
 #: ../C/dasher.xml:66(title)
 msgid "What's New"
-msgstr ""
+msgstr "Que de nòu ?"
 
 #: ../C/dasher.xml:69(title)
 msgid "New features In version 4.2"
@@ -532,7 +532,7 @@ msgstr ""
 
 #: ../C/dasher.xml:334(title)
 msgid "Example"
-msgstr ""
+msgstr "Exemple"
 
 #: ../C/dasher.xml:336(title)
 msgid ""
