@@ -88,7 +88,8 @@ void gtk_dasher_control_external_key_up(GtkDasherControl *pControl, int iKeyVal)
 gboolean gtk_dasher_control_get_module_settings(GtkDasherControl * pControl, const gchar *szModule, SModuleSettings **pSettings, gint *iCount);
 void gtk_dasher_control_add_game_mode_string(GtkDasherControl *pControl, const gchar *szString);
 void gtk_dasher_control_game_messagein(GtkDasherControl *pControl, int message, void* messagedata);
-void gtk_dasher_control_game_messageout(GtkDasherControl *pControl, void* gameHelper, int message, const void* messagedata);
+void gtk_dasher_control_game_helperreg(GtkDasherControl *pControl, void* gameHelper);
+void gtk_dasher_control_game_messageout(GtkDasherControl *pControl, int message, const void* messagedata);
 
 void gtk_dasher_control_force_pause(GtkDasherControl *pControl);
 double gtk_dasher_control_get_framerate(GtkDasherControl *pControl);

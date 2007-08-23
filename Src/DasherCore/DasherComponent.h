@@ -25,7 +25,7 @@ class Dasher::CDasherComponent {
   void SetLongParameter(int iParameter, long lValue) const;
 
   std::string GetStringParameter(int iParameter) const;
-  void        SetStringParameter(int iParameter, std::string & sValue) const;
+  void        SetStringParameter(int iParameter, const std::string & sValue) const;
 
   ParameterType   GetParameterType(int iParameter) const;
   std::string     GetParameterName(int iParameter) const;

@@ -21,12 +21,12 @@ T nthPower(T x)
 template<class T, int N>
 struct SumDiffNthPower 
 {
-  SumDiffNthPower(T x) : mean_(x) {}
+  SumDiffNthPower(T x) : m_mean(x) {}
   T operator()(T sum, T current)
   {
-    return sum+nthPower<N>(current-mean_);
+    return sum+nthPower<N>(current-m_mean);
   }
-  T mean_;
+  T m_mean;
 };
 
 template<class T, int N, class Iter_T>

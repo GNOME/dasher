@@ -156,7 +156,7 @@ private:
 
   void ExternalEventHandler(Dasher::CEvent *pEvent);
   
-  void GameMessageOut(void* gameHelper, int message, const void* messagedata);
+  void GameMessageOut(int message, const void* messagedata);
 
   ///
   /// Notification from CDasherInterface that a parameter has changed

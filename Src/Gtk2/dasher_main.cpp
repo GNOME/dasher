@@ -282,7 +282,7 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
       }
     }
     else { 
-      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 0);
+      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 2);
     }
 
     dasher_main_load_interface(pDasherMain);

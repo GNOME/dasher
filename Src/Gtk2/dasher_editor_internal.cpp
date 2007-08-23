@@ -128,7 +128,6 @@ static void dasher_editor_internal_display_message(DasherEditor *pSelf, DasherMe
 static void dasher_editor_internal_check_activity(DasherEditor *pSelf, EditorAction *pAction);
 static void dasher_editor_internal_action_save_state(DasherEditor *pSelf, EditorAction *pAction);
 
-static void dasher_editor_internal_command_game(DasherEditor *pSelf);
 static void dasher_editor_internal_command_new(DasherEditor *pSelf);
 static void dasher_editor_internal_command_open(DasherEditor *pSelf);
 static void dasher_editor_internal_command_save(DasherEditor *pSelf, gboolean bPrompt, gboolean bAppend);
@@ -330,8 +329,6 @@ dasher_editor_internal_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSe
 								    APP_SP_EDIT_FONT));
   
   GtkVBox *pActionPane = GTK_VBOX(glade_xml_get_widget(pGladeXML, "vbox39"));
-  pPrivate->pGameGroup = GTK_TABLE(glade_xml_get_widget(pGladeXML, "game_group"));
-  pPrivate->pGameInfoLabel = GTK_LABEL(glade_xml_get_widget(pGladeXML, "game_info_label"));
   pPrivate->pBuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(pPrivate->pTextView));
 
   gtk_widget_show_all(GTK_WIDGET(pPrivate->pTextView));
@@ -936,12 +933,6 @@ dasher_editor_internal_command(DasherEditor *pSelf, const gchar *szCommand) {
     return TRUE;
   }
  
-  if(!strcmp(szCommand, "game")) { // Launch game mode
-    dasher_editor_internal_command_game(pSelf);
-    
-    return TRUE;
-  }
-
   /* TODO: We need a rethink here */
   const gchar *szForwardCommand = NULL;
   gint iSubCommand = 0;
@@ -1327,26 +1318,6 @@ dasher_editor_internal_action_save_state(DasherEditor *pSelf, EditorAction *pAct
   dasher_app_settings_set_free_long(pPrivate->pAppSettings, szRegistryName, iState);
 }
 
-static void
-dasher_editor_internal_command_game(DasherEditor *pSelf) {
-  DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
-
-  bool bGameMode = dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_GAME_MODE );
-  if(bGameMode)
-    {
-      gtk_widget_hide(GTK_WIDGET(pPrivate->pGameGroup));
-      gtk_widget_hide(GTK_WIDGET(pPrivate->pGameInfoLabel));
-    }
-  else
-    {
-      gtk_widget_show(GTK_WIDGET(pPrivate->pGameGroup));
-      gtk_widget_show(GTK_WIDGET(pPrivate->pGameInfoLabel));
-    }
-
-  dasher_editor_internal_clear(pSelf, false);
-
-  dasher_app_settings_set_bool(pPrivate->pAppSettings,  BP_GAME_MODE , !bGameMode);
-}
 
 static void 
 dasher_editor_internal_command_new(DasherEditor *pSelf) {

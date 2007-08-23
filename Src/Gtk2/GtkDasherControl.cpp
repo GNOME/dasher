@@ -9,6 +9,7 @@
 
 struct _GtkDasherControlPrivate {
   CDasherControl *pControl;
+  void* pGameHelper;
 };
 
 typedef struct _GtkDasherControlPrivate GtkDasherControlPrivate;
@@ -283,10 +284,17 @@ gtk_dasher_control_game_messagein(GtkDasherControl *pControl, int message, void*
 }
 
 void 
-gtk_dasher_control_game_messageout(GtkDasherControl *pControl, void* gameHelper, int message, const void* messagedata) {
+gtk_dasher_control_game_helperreg(GtkDasherControl *pControl, void* gameHelper) {
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  GameModeHelper* pHelper = GAME_MODE_HELPER(gameHelper);
-  game_mode_helper_message(pHelper, message, messagedata);
+  pPrivate->pGameHelper = gameHelper;
+}
+
+void 
+gtk_dasher_control_game_messageout(GtkDasherControl *pControl, int message, const void* messagedata) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  GameModeHelper* pHelper = GAME_MODE_HELPER(pPrivate->pGameHelper);
+  if(pHelper)
+    game_mode_helper_message(pHelper, message, messagedata);
 }
 
 void 

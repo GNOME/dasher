@@ -130,15 +130,15 @@ void CDasherView::DasherPolyline(myint *x, myint *y, int n, int iWidth, int iCol
 }
 
 // Draw a polyline with an arrow on the end
-void CDasherView::DasherPolyarrow(myint *x, myint *y, int n, int iWidth, int iColour) {
+void CDasherView::DasherPolyarrow(myint *x, myint *y, int n, int iWidth, int iColour, double dArrowSizeFactor) {
 
   CDasherScreen::point * ScreenPoints = new CDasherScreen::point[n+3];
 
   for(int i(0); i < n; ++i)
     Dasher2Screen(x[i], y[i], ScreenPoints[i].x, ScreenPoints[i].y);
 
-  int iXvec = (ScreenPoints[n-2].x - ScreenPoints[n-1].x)*1.414;
-  int iYvec = (ScreenPoints[n-2].y - ScreenPoints[n-1].y)*1.414;
+  int iXvec = (ScreenPoints[n-2].x - ScreenPoints[n-1].x)*dArrowSizeFactor;
+  int iYvec = (ScreenPoints[n-2].y - ScreenPoints[n-1].y)*dArrowSizeFactor;
 
   ScreenPoints[n].x   = ScreenPoints[n-1].x + iXvec + iYvec;
   ScreenPoints[n].y   = ScreenPoints[n-1].y - iXvec + iYvec;

@@ -36,7 +36,7 @@ void CDasherComponent::SetBoolParameter(int iParameter, bool bValue) const {
 void CDasherComponent::SetLongParameter(int iParameter, long lValue) const {
   m_pSettingsStore->SetLongParameter(iParameter, lValue);
 }
-void CDasherComponent::SetStringParameter(int iParameter, std::string & sValue) const {
+void CDasherComponent::SetStringParameter(int iParameter, const std::string & sValue) const {
   m_pSettingsStore->SetStringParameter(iParameter, sValue);
 }
 

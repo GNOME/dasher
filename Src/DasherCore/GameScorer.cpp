@@ -7,18 +7,30 @@ using Dasher::CDasherGameMode;
 
 void CDasherGameMode::Scorer::NewFrame(unsigned long time, myint iMouseX, myint iMouseY, myint iTargetY)
 {
+  static bool madeError = false;
+
   if(m_bInPlay && !m_bPaused)
   {
-    TargetData.push_back(iTargetY);
+    if(!madeError && (iTargetY < 0 || 4096 < iTargetY))
+      {
+	madeError = true;
+	m_iErrors++;
+      }
+    if(madeError && (0 < iTargetY && iTargetY < 4096))
+      {
+	madeError = false;
+      }
+    m_vTargetData.push_back(iTargetY);
   }
   
 }
 
 void CDasherGameMode::Scorer::Reset()
 {
-  TargetData.clear();
+  m_vTargetData.clear();
   m_Statsbreakdown.str("");
   m_bInPlay=false;
+  m_iErrors =0;
 }
 
 void CDasherGameMode::Scorer::Start(unsigned long time)
@@ -45,12 +57,13 @@ void CDasherGameMode::Scorer::SentenceFinished(unsigned long time)
 
 int CDasherGameMode::Scorer::GetScore()
 {
-  return (2000 - m_stats.dev)/20.0;
+  int score = (100-m_iErrors*10)>0?(100-m_iErrors*10):0;
+  return score;
 }
 
 void CDasherGameMode::Scorer::CalculateStats()
 {
-  const std::vector<myint>& v = TargetData;
+  const std::vector<myint>& v = m_vTargetData;
   m_Statsbreakdown.str("");
   
   size_t cnt = std::distance(v.begin(), v.end());
@@ -64,12 +77,13 @@ void CDasherGameMode::Scorer::CalculateStats()
   m_stats.skew = m_stats.m3/(m_stats.m2*m_stats.dev); // Skewness
   m_stats.kurt = m_stats.m4 / (m_stats.m2*m_stats.m2) - 3; // Excess Kurtosis
 
-  m_Statsbreakdown << "Score: " << GetScore() << "\n";
-    //<< "Samples: " << cnt << "\n"
-    // << "Mean: " << m_stats.m1 << "\n"
-    //	   << "StdDev: " << m_stats.dev << "\n"
-    //	   << "Skew: " << m_stats.skew << "\n"
-    //	   << "Kurt: " << m_stats.kurt << "\n"
+  m_Statsbreakdown << "Score: " << GetScore() << "\n"
+		   << "Samples: " << cnt << "\n"
+		   << "Mean: " << m_stats.m1 << "\n"
+		   << "StdDev: " << m_stats.dev << "\n"
+		   << "Skew: " << m_stats.skew << "\n"
+		   << "Kurt: " << m_stats.kurt << "\n"
+		   << "Errors: " << m_iErrors << "\n";
 	
 }
 

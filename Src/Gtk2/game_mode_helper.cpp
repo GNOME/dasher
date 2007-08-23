@@ -13,6 +13,7 @@ struct _GameModeHelperPrivate {
   GtkWidget* pDemoToggleButton;
   GtkWidget* pNewSentence;
   GtkWidget* pNewButton;
+  GtkWidget* pFullDemo;
   std::string* pstrTarget;
   std::string* pstrOutput;
   int iOutputLength;
@@ -25,11 +26,12 @@ static void game_mode_helper_class_init(GameModeHelperClass * pClass);
 static void game_mode_helper_init(GameModeHelper * pControl);
 static void game_mode_helper_destroy(GObject * pObject);
 static void game_mode_helper_get_next_string(GameModeHelper *pSelf);
-static void game_mode_helper_update_label(GameModeHelper *pSelf);
+static void game_mode_helper_update_target_label(GameModeHelper *pSelf);
 
 extern "C" gboolean game_mode_helper_cb_gametoggle(GtkWidget *pWidget, gpointer pUserData);
 extern "C" gboolean game_mode_helper_cb_next_sentence(GtkWidget *pWidget, gpointer pUserData);
 extern "C" gboolean game_mode_helper_cb_demo(GtkWidget *pWidget, gpointer pUserData);
+extern "C" gboolean game_mode_helper_cb_fulldemo(GtkWidget *pWidget, gpointer pUserData);
 
 GType game_mode_helper_get_type() {
 
@@ -91,17 +93,20 @@ GObject *game_mode_helper_new(GladeXML *pGladeXML, void* pDasherEditor) {
   pPrivate->pGameToggleButton = glade_xml_get_widget(pGladeXML, "tb_command_game");
   pPrivate->pNewSentence = glade_xml_get_widget(pGladeXML, "game_new_sentence");
   pPrivate->pDemoToggleButton = glade_xml_get_widget(pGladeXML, "demo_toggle");
-  pPrivate->pNewButton = glade_xml_get_widget(pGladeXML, "tb_command_new");
+  pPrivate->pFullDemo = glade_xml_get_widget(pGladeXML, "fulldemo");
   pPrivate->pScore = GTK_ENTRY(glade_xml_get_widget(pGladeXML, "score_box"));
   pPrivate->pstrTarget = new std::string;
   pPrivate->pstrOutput = new std::string;
   
   g_signal_connect(G_OBJECT(pPrivate->pNewSentence), "clicked", G_CALLBACK(game_mode_helper_cb_next_sentence), pHelper);
-  g_signal_connect(G_OBJECT(pPrivate->pGameToggleButton), "clicked", G_CALLBACK(game_mode_helper_cb_gametoggle), pHelper);
-  g_signal_connect(G_OBJECT(pPrivate->pDemoToggleButton), "clicked", G_CALLBACK(game_mode_helper_cb_demo), pHelper);
+  g_signal_connect(G_OBJECT(pPrivate->pGameToggleButton), "toggled", G_CALLBACK(game_mode_helper_cb_gametoggle), pHelper);
+  g_signal_connect(G_OBJECT(pPrivate->pDemoToggleButton), "toggled", G_CALLBACK(game_mode_helper_cb_demo), pHelper);
+  g_signal_connect(G_OBJECT(pPrivate->pFullDemo), "activate", G_CALLBACK(game_mode_helper_cb_fulldemo), pHelper);
   //  game_mode_helper_get_next_string(pHelper);
 
-  return G_OBJECT(pHelper);
+ gtk_dasher_control_game_helperreg(pPrivate->pControl, (void *)pHelper);
+
+ return G_OBJECT(pHelper);
 }
 
 extern "C" gboolean 
@@ -119,8 +124,21 @@ game_mode_helper_cb_demo(GtkWidget *pWidget, gpointer pUserData) {
  GameModeHelper *pSelf = (GameModeHelper *)pUserData;
  GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
 
- gtk_dasher_control_game_messagein(pPrivate->pControl, GAME_MESSAGE_DEMO, NULL);
+ if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pWidget)))
+   gtk_dasher_control_game_messagein(pPrivate->pControl, GAME_MESSAGE_DEMO_ON, NULL);
+ else
+   gtk_dasher_control_game_messagein(pPrivate->pControl, GAME_MESSAGE_DEMO_OFF, NULL);
+ 
+  return FALSE; // TODO: Scheck semantics of return value
+}
 
+extern "C" gboolean 
+game_mode_helper_cb_fulldemo(GtkWidget *pWidget, gpointer pUserData) {
+ GameModeHelper *pSelf = (GameModeHelper *)pUserData;
+ GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
+
+ gtk_dasher_control_game_messagein(pPrivate->pControl, GAME_MESSAGE_FULL_DEMO, NULL);
+  
   return FALSE; // TODO: Scheck semantics of return value
 }
 
@@ -129,24 +147,21 @@ game_mode_helper_cb_gametoggle(GtkWidget *pWidget, gpointer pUserData) {
  GameModeHelper *pSelf = (GameModeHelper *)pUserData;
  GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
 
- gtk_dasher_control_game_messagein(pPrivate->pControl, GAME_MESSAGE_REGHELPER, (void *)pSelf);
+ bool bTurnOnGameMode = gtk_toggle_tool_button_get_active(GTK_TOGGLE_TOOL_BUTTON(pWidget));
 
- bool bGameMode = gtk_dasher_control_get_parameter_bool(pPrivate->pControl, BP_GAME_MODE );
-  if(bGameMode)
+  if(!bTurnOnGameMode)
     {
       gtk_widget_hide(GTK_WIDGET(pPrivate->pGameGroup));
       gtk_widget_hide(GTK_WIDGET(pPrivate->pGameInfoLabel));
+      gtk_dasher_control_game_messagein(pPrivate->pControl, GAME_MESSAGE_GAME_OFF, NULL);
     }
   else
     {
       gtk_widget_show(GTK_WIDGET(pPrivate->pGameGroup));
       gtk_widget_show(GTK_WIDGET(pPrivate->pGameInfoLabel));
+      gtk_dasher_control_game_messagein(pPrivate->pControl, GAME_MESSAGE_GAME_ON, NULL);
     }
 
-  //  dasher_editor_internal_clear(pSelf, false);
-
-  gtk_dasher_control_set_parameter_bool(pPrivate->pControl,  BP_GAME_MODE , !bGameMode);
-  
   dasher_editor_internal_cleartext(pPrivate->pEditor);
   return FALSE; // TODO: Scheck semantics of return value
 }
@@ -178,7 +193,7 @@ void game_mode_helper_get_next_string(GameModeHelper *pSelf) {
 void game_mode_helper_output(GameModeHelper *pSelf, const gchar *szText) {
   GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
 
-  gtk_entry_set_text(pPrivate->pScore, szText);
+  //  gtk_entry_set_text(pPrivate->pScore, szText);
   // TODO: potential overflow problems
   //  strcat(pPrivate->szOutput, szText);
   //  pPrivate->iOutputLength += strlen(szText);
@@ -197,79 +212,88 @@ void game_mode_helper_delete(GameModeHelper *pSelf, int iLength) {
 void game_mode_helper_message(GameModeHelper *pSelf, int message, const void * messagedata) {
   GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
   const std::string* pStr;
-
+  std::string strText ="<span background=\"purple\" foreground=\"white\">";
   switch(message) {
-  case GAME_MESSAGE_SET_STRING:
+  case GAME_MESSAGE_SET_TARGET_STRING:
     pStr = reinterpret_cast<const std::string *>(messagedata);
     *(pPrivate->pstrTarget) = (*pStr);
     gtk_misc_set_alignment(GTK_MISC(pPrivate->pGameInfoLabel), 0.0, 0.0);
+    gtk_label_set_justify(pPrivate->pGameInfoLabel, GTK_JUSTIFY_CENTER);
     gtk_label_set_text(pPrivate->pGameInfoLabel, pPrivate->pstrTarget->c_str());
-    dasher_editor_internal_cleartext(pPrivate->pEditor);
-    pPrivate->pstrOutput->clear();
     break;
-  case GAME_MESSAGE_WELCOME:
+  case GAME_MESSAGE_DISPLAY_TEXT:
     gtk_misc_set_alignment(GTK_MISC(pPrivate->pGameInfoLabel), 0.5, 0.0);
     gtk_label_set_use_markup(pPrivate->pGameInfoLabel, true);
-    gtk_label_set_markup(pPrivate->pGameInfoLabel, "<span foreground=\"green\">Welcome to Dasher Game Mode!</span>");
+    gtk_label_set_justify(pPrivate->pGameInfoLabel, GTK_JUSTIFY_CENTER);
+    //    std::string strText ="<span background=\"purple\">";
+    strText+=(reinterpret_cast<const char*>(messagedata));
+    strText+="</span>";
+    gtk_label_set_markup(pPrivate->pGameInfoLabel, strText.c_str());
     break;
   case GAME_MESSAGE_EDIT:
     pStr = reinterpret_cast<const std::string *>(messagedata);
     *(pPrivate->pstrOutput) += (*pStr);
-    game_mode_helper_update_label(pSelf);
+    game_mode_helper_update_target_label(pSelf);
     break;
-    
   case GAME_MESSAGE_EDIT_DELETE:
     *(pPrivate->pstrOutput) = pPrivate->pstrOutput->substr( 0, pPrivate->pstrOutput->size() -
 							    *reinterpret_cast<const int *>(messagedata));
-    game_mode_helper_update_label(pSelf);
+    game_mode_helper_update_target_label(pSelf);
+    break;
+  case GAME_MESSAGE_SET_SCORE:
+    gtk_entry_set_text(pPrivate->pScore, reinterpret_cast<const char*>(messagedata));
+    break;
+  case GAME_MESSAGE_CLEAR_BUFFER:
+    dasher_editor_internal_cleartext(pPrivate->pEditor);
+    pPrivate->pstrOutput->clear();
     break;
   }
 }
 
 
-void game_mode_helper_update_label(GameModeHelper *pSelf) {
+void game_mode_helper_update_target_label(GameModeHelper *pSelf) {
   GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
-  const std::string& target = *(pPrivate->pstrTarget);
-  const std::string& output = *(pPrivate->pstrOutput);
-  int i=0, ct=0; // i,j count chars. ct, co for utf8 symbols
-  int j=0, co=0;
-  while(i < target.length() && j < output.length())
+  const std::string& strTarget = *(pPrivate->pstrTarget);
+  const std::string& strOutput = *(pPrivate->pstrOutput);
+  unsigned int i=0, ct=0; // i,j count chars. ct, co for utf8 symbols
+  unsigned int j=0, co=0;
+  while(i < strTarget.length() && j < strOutput.length())
     {
-      std::string utf8Target = std::string(1,target[i]);
-      std::string utf8Output = std::string(1,output[j]);
-      if(target[i] & 0x80)
+      std::string utf8TargetChar = std::string(1,strTarget[i]);
+      std::string utf8OutputChar = std::string(1,strOutput[j]);
+      if(strTarget[i] & 0x80)
 	{    // Character is more than 1 byte long
 	  int extras = 1;
-	  for(unsigned int bit = 0x20; (target[i] & bit) != 0; bit >>= 1)
+	  for(unsigned int bit = 0x20; (strTarget[i] & bit) != 0; bit >>= 1)
 	    extras++;
 
 	  if(extras > 5) {}  // Malformed character
 	  
 	  while(extras-- > 0) 
 	    {
-	      utf8Target += target[++i];
+	      utf8TargetChar += strTarget[++i];
 	    }
 	}
-      if(output[j] & 0x80)
+      if(strOutput[j] & 0x80)
 	{    // Character is more than 1 byte long
 	  int extras = 1;
-	  for(unsigned int bit = 0x20; (output[j] & bit) != 0; bit >>= 1)
+	  for(unsigned int bit = 0x20; (strOutput[j] & bit) != 0; bit >>= 1)
 	    extras++;
 	  
 	  if(extras > 5) {}  // Malformed character
 	  
 	  while(extras-- > 0) 
 	    {
-	      utf8Output += output[++j];
+	      utf8OutputChar += strOutput[++j];
 	    }
 	}
       
-      if(utf8Target != utf8Output) break;
+      if(utf8TargetChar != utf8OutputChar) break;
       ct=++i;
       co=++j;
     }
 
-  std::string labelStr = target;
+  std::string labelStr = strTarget;
   labelStr.insert(ct, "</span>");
   labelStr.insert(0, "<span background=\"green\">");
   gtk_label_set_markup(pPrivate->pGameInfoLabel, labelStr.c_str());

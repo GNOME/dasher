@@ -212,10 +212,10 @@ bool CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
       // TODO: Should probably render the parent segment here anyway (or
       // in the above)
       if(!pRender->GetFlag(NF_GAME))
-      {
-	  vDeleteList.push_back(pRender);
+	{
 	  pRender->SetFlag(NF_ALIVE, false);
-      }
+	  vDeleteList.push_back(pRender);
+	}
       return false;
     }
 

@@ -159,7 +159,7 @@ public:
 
   /// Draw a polyarrow
 
-  void DasherPolyarrow(myint * x, myint * y, int n, int iWidth, int iColour);
+  void DasherPolyarrow(myint * x, myint * y, int n, int iWidth, int iColour, double dArrowSizeFactor = 0.7071);
 
   ///
   /// Draw a polygon specified in Dasher co-ordinates

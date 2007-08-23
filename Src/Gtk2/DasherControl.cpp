@@ -228,8 +228,8 @@ void CDasherControl::SetFocus() {
   gtk_widget_grab_focus(m_pCanvas);
 }
 
-void CDasherControl::GameMessageOut(void* gameHelper, int message, const void* messagedata) {
-  gtk_dasher_control_game_messageout(m_pDasherControl, gameHelper, message, messagedata);
+void CDasherControl::GameMessageOut(int message, const void* messagedata) {
+  gtk_dasher_control_game_messageout(m_pDasherControl, message, messagedata);
 }
 
 GArray *CDasherControl::GetAllowedValues(int iParameter) {

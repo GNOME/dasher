@@ -23,8 +23,9 @@ class Dasher::CDasherGameMode::Scorer {
   bool m_bInPlay;
   bool m_bPaused;
   int samples;
+  int m_iErrors;
   double runningMean;
-  std::vector<myint> TargetData;
+  std::vector<myint> m_vTargetData;
   std::ostringstream m_Statsbreakdown;
   unsigned long m_iStartTime;
   unsigned long m_iStopTime;

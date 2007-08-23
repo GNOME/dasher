@@ -26,26 +26,12 @@ namespace Dasher {
   class CDasherView;
 }
 
+enum {GM_ERR_NO_ERROR = 0, GM_ERR_NO_GAME_FILE, GM_ERR_BAD_GAME_FILE, GM_ERR_NO_STRING,
+      GM_ERR_LOOP};
+
 typedef void (CDasherGameMode::*GameFncPtr)();
+typedef std::string UTF8Char;
 typedef std::list< std::pair<GameFncPtr, unsigned long> > CallbackList;
-
-// DasherGameMode is a teacher object which should be able to do everything that a
-// human sitting next to a beginner would be able to: eg, go this way, back out,
-// slow down, let me show you. When the teacher is turned on, it should be able to
-// watch all the movement of the input device, it should be able to access the visible
-// aspects of the model too. For this, some cooperation will have to be written into
-// other classes. It should be sensitive to which input device is being used.
-
-// DasherView is suitably placed to provide the best cooperation with the TeacherObject.
-// Ideally, the TeacherObject would not have to deal with DasherModel, since a real
-// teacher does not see DasherModel either, only what is rendered by DasherView.
-
-// The NF_GAME flag can be set on Nodes, but this should not be done by the TeacherObject,
-// which should form a dialogue with DasherView only - (maybe). WORK IN PROGRESS - pconlon
-
-// Alternatively, talk with DasherModel to ensure that appropriate NF_GAME flags are set
-// where required, and then let DasherView deal with it?
-
 
 /// \defgroup GameMode Game mode support
 /// @{
@@ -59,28 +45,6 @@ public:
 
   inline static CDasherGameMode* GetTeacher() {return pTeacher;}
 
-  class Scorer;
-  // Returns Dasher Coordinate of the target string
-  // myint.Max() reserved for "off the screen to the bottom"
-  // myint.Min()+1 reserved for "off the screen to the top"
-  // myint.Min() reserved for "nothing to draw" (string finished or error)
-  //  myint GetDasherCoordOfTarget();
-  struct TargetInfo {
-    myint iTargetY, iVisibleTargetY;
-    myint iCenterY, iVisibleCenterY;    
-  };
-  struct DemoConfig {
-    double dSpring;
-    int iNoiseMag;
-    double dNoiseNew;
-    double dNoiseOld;
-  };
-  struct GamePoints {
-    myint width;
-    myint height;
-    std::string points;
-  };
-
   inline void SetDasherView(CDasherView* pView) {m_pView=pView;}
   inline void SetDasherModel(CDasherModel* pModel) {m_pModel=pModel;}
   void SetTargetY(const std::vector<std::pair<myint,bool> >& vTargetY);
@@ -89,7 +53,7 @@ public:
   void DemoModeGetCoordinates(myint& iDasherX, myint& iDasherY);
   void SetUserMouseCoordinates(myint iDasherX, myint iDasherY);
 
-  std::string GetSymbolAtOffset(int iOffset);
+  UTF8Char GetSymbolAtOffset(int iOffset);
   void SentenceFinished();
 
   void HandleEvent(Dasher::CEvent *);
@@ -101,63 +65,125 @@ private:
   CDasherGameMode(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase * pDashIface);
   ~CDasherGameMode();
 
-  // loads .txt file with strings for current alphabet
+  class Demo : public CDasherComponent {
+  public:
+    Demo(CSettingsStore * pSettingsStore, bool full=false):CDasherComponent(NULL, pSettingsStore),
+      sp_alphabet_id(GetStringParameter(SP_ALPHABET_ID)),
+      bp_draw_mouse(GetBoolParameter(BP_DRAW_MOUSE)),
+      bFullDemo(full){
+      SetBoolParameter(BP_DRAW_MOUSE, true);}
+    ~Demo(){SetBoolParameter(BP_DRAW_MOUSE, bp_draw_mouse);
+    SetStringParameter(SP_ALPHABET_ID, sp_alphabet_id);}
+    
+    const std::string sp_alphabet_id;
+    const bool bp_draw_mouse;
+    bool bFullDemo;
+  };
+
+  class Scorer;
+
+  struct TargetInfo {
+    myint iTargetY, iVisibleTargetY;
+    myint iCenterY, iVisibleCenterY;    
+  };
+
+  struct DemoConfig {
+    double dSpring;
+    int iNoiseMag;
+    double dNoiseNew;
+    double dNoiseOld;
+  };
+
+  // Performs the necessary notifications to the rest of DasherCore
+  void NotifyGameCooperators(bool bGameOn);
+  
+  // Starting an stopping the interactive game
   void GameModeStart();
   void GameModeStop();
-  void DemoModeStart();
-  void DemoModeStop();
-  void DemoNext();
-  void DemoGo();
-  void Countdown();
 
-  void InitializeTargetFile();
-  void LoadTargetStrings(std::istream& in);
+  // Starting and stopping the demo behaviour
+  void DemoModeStart(bool bFullDemo);
+  void DemoModeStop();
+
+  // Routines for getting the next sentence
+  void FullDemoNext();
+  void GameNext();
+  int NextString(bool bRandomString = false);
+
+  void DemoGo();
+  
+  // Loading the target strings, and demo settings
+  int InitializeTargets();
+  int LoadTargetStrings(std::istream& in);
   void LoadDemoConfigFile();
   void CalculateDemoParameters();
-  int NextString();
 
   // Private graphics routines
   void DrawHelperArrow(CDasherView* pView);
   void DrawTargetArrow(CDasherView* pView);
   void DrawPoints(CDasherView* pView);
-  void DrawPaused(CDasherView* pView);
+
+  myint ComputeBrachCenter(const myint& iTargetY, const myint& iCrossX, const myint& iCrossY);
 
   // The one instance of ourself.
   static CDasherGameMode* pTeacher;
 
-  // The classes from whom we require some cooperation
-  CDasherModel *m_pModel;
-  CDasherView* m_pView;
-  CDasherInterfaceBase *m_pDasherInterface;
-  
-  std::string m_strCurrentTarget;
-  std::vector < std::vector<std::string> > m_vTargetStrings;
+  // Cross hair position
+  const myint m_iCrossX, m_iCrossY;
 
-  std::string m_strGameTextFile;
-  std::vector< GamePoints> m_vGamePoints;
-  CallbackList m_lCallbacks;
+  // The classes from whom we require some cooperation
+  CDasherInterfaceBase *m_pDasherInterface;
+  CDasherView* m_pView;
+  CDasherModel *m_pModel;
+
+  // Storing the target strings
+  std::string m_strCurrentTarget;
+  std::vector < std::vector<UTF8Char> > m_vTargetStrings;
   int m_iNumStrings;
   int m_iCurrentString;
+
+  std::string m_strGameTextFile;
+
+  CallbackList m_lCallbacks;
+
+  // Internal status
   bool m_bGameModeOn;
   bool m_bSentenceFinished;
   bool m_bDemoModeOn;
-  bool m_bDrawHelperArrow;
-  bool m_bDrawTargetArrow;
-  bool m_bUpdateMouse;
-  bool m_bDrawPoints;
-  bool m_bDrawPaused;
-  int counter2;
-  int m_countdown;
+  unsigned long m_ulTime;
+
   myint m_iUserX, m_iUserY; // User mouse position in Dasher Coordinates
   myint m_iDemoX, m_iDemoY; // Demo mouse position
-  const myint m_iCrossX, m_iCrossY; // Cross-hair position
   TargetInfo m_Target;
   DemoConfig m_DemoCfg;
-  unsigned long m_ulTime;
+
+  // owned objects
   Scorer* m_pScorer;
-  void* m_pGUI;
+  Demo* m_pDemo;
+
+  // Graphics instruction flags
+  bool m_bDrawHelperArrow;
+  bool m_bDrawTargetArrow;
+  bool m_bDrawPoints;
+
 };
 /// @}
+
+
+
+inline myint CDasherGameMode::ComputeBrachCenter(const myint& iTargetY, const myint& iCrossX, const myint& iCrossY)
+{
+
+  // This formula computes the Dasher Y Coordinate of the center of the circle on which
+  // the dasher brachistochrone lies : iCenterY
+
+  // It comes from the pythagorean relation: iCrossX^2 + (iCenterY - iCrossY)^2 = r^2
+  // where r is the radius of the circle, r = abs(iTargetY-iCenterY)
+  myint iCenterY = myint(0.5*(double(m_iCrossX*m_iCrossX)/double(m_iCrossY-iTargetY)
+			+double(m_iCrossY+iTargetY)));
+
+  return iCenterY;
+}
 
 #endif
 

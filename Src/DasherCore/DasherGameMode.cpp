@@ -7,6 +7,7 @@
 #include "DasherNode.h"
 #include "DasherView.h"
 #include "Event.h"
+//#include "Logger/LoggerMacros.h"
 
 #include "GameScorer.h"
 #include "GameMessages.h"
@@ -14,6 +15,7 @@
 #include <limits>
 #include <iostream>
 #include <fstream>
+#include <pthread.h>
 
 std::pair<double,double> GaussianRand();
 
@@ -40,8 +42,10 @@ CDasherGameMode::CDasherGameMode(CEventHandler *pEventHandler,
   :CDasherComponent(pEventHandler, pSettingsStore),
    m_pDasherInterface(pDashIface),
    m_pView(NULL), m_pModel(NULL),
+   m_pScorer(NULL), m_pDemo(NULL),
    m_iCrossX((myint)GetLongParameter(LP_OX)),
    m_iCrossY((myint)GetLongParameter(LP_OY))
+
 {
   // Create the GameMode object in the background
   // m_bGameModeOn tells us whether we should be alive or not.
@@ -51,103 +55,141 @@ CDasherGameMode::CDasherGameMode(CEventHandler *pEventHandler,
   m_strGameTextFile = GetStringParameter(SP_GAME_TEXT_FILE);
 
   m_bDrawHelperArrow = false;
-  m_bDrawTargetArrow = true;
-  m_bDemoModeOn = false;
+  m_bDrawTargetArrow = false;
+
   m_bDrawPoints = false;
-  counter2 = 0;
-  m_pScorer = new Scorer;
+
+  // We have not initialised our target strings yet
+  m_iCurrentString = -1;
+  m_iNumStrings = 0;
+  m_bSentenceFinished = true;
+
   if(m_bGameModeOn)
     GameModeStart();
 }
 
 CDasherGameMode::~CDasherGameMode()
 {
+  delete m_pScorer;
 }
 
 void CDasherGameMode::Message(int message, void* messagedata)
 {
   switch(message){
-  case GAME_MESSAGE_REGHELPER:
-    m_pGUI = messagedata;
-    break;
   case GAME_MESSAGE_NEXT:
-    DemoNext();
+    GameNext();
     break;
-  case GAME_MESSAGE_DEMO:
-    if(m_bDemoModeOn)
-      DemoModeStop();
-    else
-      DemoModeStart();
+  case GAME_MESSAGE_DEMO_OFF:
+    DemoModeStop();
+    break;
+  case GAME_MESSAGE_DEMO_ON:
+    DemoModeStart(false);
+    break;
+  case GAME_MESSAGE_FULL_DEMO:
+    // Start internally...
+    InitializeTargets();
+    DemoModeStart(true);
+    // ... then externally
+    NotifyGameCooperators(true);
+    
+    FullDemoNext();
+    break;
+  case GAME_MESSAGE_GAME_ON:
+    m_bGameModeOn = true;
+    // Get going internally first...
+    GameModeStart();
+    // ...then make the links to cooperators
+    NotifyGameCooperators(m_bGameModeOn);
+    break;
+    
+  case GAME_MESSAGE_GAME_OFF:
+    m_bGameModeOn = false;
+    // Shutdown layer by layer
+    DemoModeStop();
+    // Break links to cooperators first...
+    NotifyGameCooperators(m_bGameModeOn);
+    // ... then stop ourselves.
+    GameModeStop();
     break;
   }
 
       
 }
 
-void CDasherGameMode::GameModeStart()
+void CDasherGameMode::NotifyGameCooperators(bool bGameOn)
 {
-  m_strGameTextFile = GetStringParameter(SP_GAME_TEXT_FILE);
-
-  std::cout << "Welcome to Dasher Game Mode! \n"
-	    << "Current game file is:" << m_strGameTextFile << "\n"; 
-  InitializeTargetFile();
-  m_pDasherInterface->GameMessageOut(m_pGUI, GAME_MESSAGE_WELCOME, "Welcome to Dasher Game Mode!");
-
-  m_bSentenceFinished = true;
-  m_pDasherInterface->SetContext(std::string(""));
-  m_pDasherInterface->SetBuffer(0);
-  m_pView->SetGameMode(true);
-  
-}
-
-void CDasherGameMode::GameModeStop()
-{
-  std::cout << "Thank you for playing Dasher Game Mode!" << std::endl; 
-
-  DemoModeStop();
-  m_pView->SetGameMode(false);
-  
+  SetBoolParameter(BP_GAME_MODE, bGameOn);
+  m_pView->SetGameMode(bGameOn);
   m_pDasherInterface->SetContext(std::string(""));
   m_pDasherInterface->SetBuffer(0);
   m_pDasherInterface->PauseAt(0,0);
+
 }
 
-void CDasherGameMode::DemoModeStart()
+// This routine is used when the interactive game is turned on
+void CDasherGameMode::GameModeStart()
 {
-  m_bDemoModeOn = true;
-  m_bDrawHelperArrow=false;
-  m_bDrawTargetArrow=false;
-  LoadDemoConfigFile();
- 
-  SetBoolParameter(BP_DRAW_MOUSE, m_bDemoModeOn);
-  m_pView->SetDemoMode(m_bDemoModeOn);
+  std::cout << "Welcome to Dasher Game Mode! \n"
+	    << "Current game file is:" << m_strGameTextFile << std::endl; 
+  InitializeTargets();
+  m_pDasherInterface->GameMessageOut(GAME_MESSAGE_DISPLAY_TEXT, _("Welcome to Dasher Game Mode!\n"
+				     "Sentences appear in this box which YOU get to write!"));
+  m_bSentenceFinished = true;
+
+  // Create a new scorer to tally up points and the like
+  if(!m_pScorer)
+    m_pScorer = new Scorer;
+}
+
+// This routine is used when the interactive game is turned off
+void CDasherGameMode::GameModeStop()
+{
+  delete m_pScorer;
+  m_pScorer = NULL;
+}
+
+void CDasherGameMode::DemoModeStart(bool bFullDemo)
+{
+  // Start up internal first...
+  if(!m_pDemo)
+    m_pDemo = new Demo(m_pSettingsStore, bFullDemo);
+
   m_iDemoX = m_iUserX;
   m_iDemoY = m_iUserY;
-  
+  LoadDemoConfigFile();
+  m_bDemoModeOn=true;
+
+  // ...then do external  
+  m_pView->SetDemoMode(true);
 }
 
 void CDasherGameMode::DemoModeStop()
 {
+  // Close down external first...
+  m_pDasherInterface->PauseAt(0,0);
+  m_pView->SetDemoMode(false);
+
+  // ... then internal.
   m_bDemoModeOn=false;
-  m_bDrawTargetArrow=true;
-  SetBoolParameter(BP_DRAW_MOUSE, m_bDemoModeOn);
-  m_pView->SetDemoMode(m_bDemoModeOn);
+  delete m_pDemo;
+  m_pDemo=NULL;
 }
 
 
 void CDasherGameMode::HandleEvent(Dasher::CEvent * pEvent) 
 {
-  // If GameMode is not turned on, only listen for BP_GAME_MODE events
-  if(!m_bGameModeOn)
+  // If we are not active, return
+  if(!m_bGameModeOn && !m_bDemoModeOn)
     {
-      if(pEvent->m_iEventType == EV_PARAM_NOTIFY)
-	{
-	  if(static_cast<CParameterNotificationEvent*>(pEvent)->m_iParameter == BP_GAME_MODE)
-	    {
-	      m_bGameModeOn = GetBoolParameter(BP_GAME_MODE);
-	      GameModeStart();
-	    }
-	}
+      //      if(pEvent->m_iEventType == EV_PARAM_NOTIFY)
+      //	{
+      //	  if(static_cast<CParameterNotificationEvent*>(pEvent)->m_iParameter == BP_GAME_MODE)
+      //	    {
+      //	      m_bGameModeOn = GetBoolParameter(BP_GAME_MODE);
+      //	      NotifyGameCooperators(m_bGameModeOn);
+      //	      GameModeStart();
+      //	    }
+      //	}
       return;
     }
   else
@@ -160,14 +202,16 @@ void CDasherGameMode::HandleEvent(Dasher::CEvent * pEvent)
 	  switch(static_cast<CParameterNotificationEvent*>(pEvent)->m_iParameter)
 	    {
 	    case BP_GAME_MODE:
-	      m_bGameModeOn = GetBoolParameter(BP_GAME_MODE);
-	      GameModeStop();
+	      //	      m_bGameModeOn = GetBoolParameter(BP_GAME_MODE);
+	      //	      if(!m_bGameModeOn) // i.e, if we have just been turned off
+	      //		GameModeStop();
+	      //	      NotifyGameCooperators(m_bGameModeOn);
 	      break;	  
 	    case SP_GAME_TEXT_FILE:
 	      m_strGameTextFile = GetStringParameter(SP_GAME_TEXT_FILE);
 	      std::cout << "Change of game file to " << m_strGameTextFile << std::endl;
-	      InitializeTargetFile();
-	      m_pDasherInterface->GameMessageOut(m_pGUI, GAME_MESSAGE_WELCOME, "Welcome to Dasher Game Mode!");
+     	      InitializeTargets();
+	      m_pDasherInterface->GameMessageOut(GAME_MESSAGE_DISPLAY_TEXT, "Welcome to Dasher Game Mode!");
 	      m_bSentenceFinished = true;
 	      break;
 	    case LP_MAX_BITRATE: 
@@ -176,78 +220,118 @@ void CDasherGameMode::HandleEvent(Dasher::CEvent * pEvent)
 	    }
 	  break;
 	case EV_STOP:
-	  //	  if(!m_bDemoModeOn)
-	  //	    DemoModeStart();
-	  //	  else
-	  //	    DemoModeStop();
-	  m_bDrawPaused=true;
-	  m_pScorer->Stop(m_ulTime);
+	  if(m_pScorer)
+	    m_pScorer->Stop(m_ulTime);
 	  break;
 	case EV_START:
-	  m_bDrawPaused=false;
-	  if(m_bDemoModeOn) CalculateDemoParameters();
-	  m_pScorer->Start(m_ulTime);
+	  if(m_pDemo)
+	    CalculateDemoParameters();
+	  
+	  if(m_pScorer)
+	    m_pScorer->Start(m_ulTime);
 	  break;
 	case EV_EDIT:
-	   CEditEvent *pEditEvent(static_cast < CEditEvent * >(pEvent));
-    
-	   if(pEditEvent->m_iEditType == 1) {
-	     m_pDasherInterface->GameMessageOut(m_pGUI,
-						GAME_MESSAGE_EDIT,
-						reinterpret_cast<const void*>(&(pEditEvent->m_sText)));
-	     //	     strCurrentContext += pEditEvent->m_sText;
-	     //	     if( strCurrentContext.size() > 20 )
-	     //	       strCurrentContext = strCurrentContext.substr( strCurrentContext.size() - 20 );
-	     //	     
-	     //	     strTrainfileBuffer += pEditEvent->m_sText;
-	   }
-	   else if(pEditEvent->m_iEditType == 2) {
-	     int numDeleted = pEditEvent->m_sText.size();
-	     m_pDasherInterface->GameMessageOut(m_pGUI,
-						GAME_MESSAGE_EDIT_DELETE,
-						reinterpret_cast<const void*>(&numDeleted));
-	     //     strCurrentContext = strCurrentContext.substr( 0, strCurrentContext.size() - pEditEvent->m_sText.size());
-	     //     strTrainfileBuffer = strTrainfileBuffer.substr( 0, strTrainfileBuffer.size() - pEditEvent->m_sText.size());
-	   }
-	   break;
+	  if(m_bSentenceFinished) break;
+	  CEditEvent *pEditEvent(static_cast < CEditEvent * >(pEvent));
+	  
+	  if(pEditEvent->m_iEditType == 1) {
+	    m_pDasherInterface->GameMessageOut(GAME_MESSAGE_EDIT,
+					       reinterpret_cast<const void*>(&(pEditEvent->m_sText)));
+	  }
+	  else if(pEditEvent->m_iEditType == 2) {
+	    int numDeleted = pEditEvent->m_sText.size();
+	    m_pDasherInterface->GameMessageOut(GAME_MESSAGE_EDIT_DELETE,
+					       reinterpret_cast<const void*>(&numDeleted));
+	  }
+	  break;
 	}
       return;
     }
 }
 
-void CDasherGameMode::DemoNext()
+void CDasherGameMode::GameNext()
 {
-  NextString();
-  const std::string * pStr = &m_strCurrentTarget;;
-  m_pDasherInterface->GameMessageOut(m_pGUI, GAME_MESSAGE_SET_STRING, reinterpret_cast<const void *>(pStr));
-
+  // Choose next string at random...
+  NextString(true);
+  
+  // ...display it to the user...
+  const std::string * pStr = &m_strCurrentTarget;
+  m_pDasherInterface->GameMessageOut(GAME_MESSAGE_SET_TARGET_STRING, reinterpret_cast<const void *>(pStr));
+  
+  // ...reset our internal state...
   m_bDrawPoints=false;
+  m_pScorer->Reset();
+  m_bSentenceFinished = false;
+
+  // ...then reset the external state, and leave them at the start ready to go.
+  m_pDasherInterface->GameMessageOut(GAME_MESSAGE_CLEAR_BUFFER, NULL);
   m_pDasherInterface->SetContext(std::string(""));
   m_pDasherInterface->SetBuffer(0);
   m_pDasherInterface->PauseAt(0,0);
-  m_pScorer->Reset();
-  if(m_bDemoModeOn)
-    m_lCallbacks.push_back(std::pair<GameFncPtr, unsigned long>(&CDasherGameMode::DemoGo,m_ulTime+2000));
 
+}
+
+void CDasherGameMode::FullDemoNext()
+{
+  if(!m_pDemo) return;
+  // Choose the alphabet, by alternating between home alphabet and foreign.
+  if(GetStringParameter(SP_ALPHABET_ID) == m_pDemo->sp_alphabet_id)
+    {
+      // Find a foreign alphabet with some sentences to write
+      std::vector<std::string> vAlphabets;
+      m_pDasherInterface->GetPermittedValues(SP_ALPHABET_ID, vAlphabets);
+      
+      do{ 
+	while(GetBoolParameter(BP_TRAINING)) {}
+	int randomAlph = rand() % vAlphabets.size();
+	std::cout << "Setting: " << vAlphabets[randomAlph] << std::endl;
+	SetStringParameter(SP_ALPHABET_ID, vAlphabets[randomAlph]);
+	std::cout << "    Set: " << GetStringParameter(SP_ALPHABET_ID) << std::endl;
+	std::cout << "    Game:" << m_strGameTextFile << std::endl;
+      } while(NextString(true) != GM_ERR_NO_ERROR);
+    }
+  else
+    {
+      SetStringParameter(SP_ALPHABET_ID, m_pDemo->sp_alphabet_id);
+      NextString(true);
+    }
   
+  while(GetBoolParameter(BP_TRAINING)) {}
+
+  m_bSentenceFinished = false;
+
+  // ...then reset the external state, and leave the demo at the start ready to go.
+  m_pDasherInterface->GameMessageOut(GAME_MESSAGE_CLEAR_BUFFER, NULL);
+  m_pDasherInterface->SetContext(std::string(""));
+  m_pDasherInterface->SetBuffer(0);
+  m_pDasherInterface->PauseAt(0,0);
+
+  // We start in 3 seconds.
+  m_lCallbacks.push_back(std::pair<GameFncPtr, unsigned long>(&CDasherGameMode::DemoGo,m_ulTime+3000));
 }
 
 void CDasherGameMode::DemoGo()
 {
+  if(!m_pDemo) return;
+
   CalculateDemoParameters();
   m_pDasherInterface->Unpause(m_ulTime);
 }
 
 void CDasherGameMode::NewFrame(unsigned long Time)
 {
+  static int depth = 0;
+  if(depth==1) return;
+  ++depth;
+
   // Set our internal clock
   m_ulTime = Time;
+  if(m_pScorer)
+    m_pScorer->NewFrame(Time,0,0, m_Target.iTargetY);
 
-  m_pScorer->NewFrame(Time,0,0, m_Target.iTargetY);
   // DasherInterfaceBase doesn't provide callback functionality, so we create our own
   // We only callback member functions of this class
   std::vector<CallbackList::iterator> vDeleteList;
-
   for(CallbackList::iterator it = m_lCallbacks.begin();
       it != m_lCallbacks.end(); ++it)
     {
@@ -257,43 +341,43 @@ void CDasherGameMode::NewFrame(unsigned long Time)
 	  vDeleteList.push_back(it);
 	}
     }
-  
   for(std::vector<CallbackList::iterator>::iterator it = vDeleteList.begin();
       it != vDeleteList.end(); ++it)
     {
       m_lCallbacks.erase(*it);
     }
-  
+  --depth;  
 }
-
 
 
 void CDasherGameMode::SetTargetY(const std::vector<std::pair<myint,bool> >& vTargetY)
 {
+
+  
   if(vTargetY.size()!=0)
     {
+      // Save the real target...
       m_Target.iTargetY = vTargetY.back().first;
-      m_Target.iCenterY = 0.5*((double)(m_iCrossX*m_iCrossX)/(double)(m_iCrossY-m_Target.iTargetY)
-			+(m_iCrossY+m_Target.iTargetY));
+      m_Target.iCenterY = ComputeBrachCenter(m_Target.iTargetY, m_iCrossX, m_iCrossY);
 
+      // ...and find the smallest visible square too
       for(std::vector<std::pair<myint,bool> >::const_reverse_iterator i=vTargetY.rbegin();
 	  i!=vTargetY.rend(); ++i)
 	{
 	  if((*i).second == true)
 	    {
 	      m_Target.iVisibleTargetY = (*i).first;
-	      m_Target.iVisibleCenterY = 0.5*((double)(m_iCrossX*m_iCrossX)/(double)(m_iCrossY-m_Target.iVisibleTargetY)
-			+(m_iCrossY+m_Target.iVisibleTargetY));
+	      m_Target.iVisibleCenterY = ComputeBrachCenter(m_Target.iVisibleTargetY,m_iCrossX, m_iCrossY);
 	      break;
 	    }
 	}
     }
-  /*
+  
+
   if(m_Target.iTargetY < 0 || 4096 < m_Target.iTargetY)
     m_bDrawHelperArrow = true;
   else
     m_bDrawHelperArrow = false;
-  */
 }
 
 
@@ -302,6 +386,8 @@ void CDasherGameMode::CalculateDemoParameters()
   double spring = GetLongParameter(LP_DEMO_SPRING)/100.0;
   double noisemem = GetLongParameter(LP_DEMO_NOISE_MEM)/100.0;
   double lambda = 0.7*double(GetLongParameter(LP_MAX_BITRATE))/(100.0*m_pModel->Framerate());
+  
+  if(m_pModel->Framerate() <= 0) return;
 
   m_DemoCfg.dSpring = (1-exp(-spring*lambda));
   m_DemoCfg.dNoiseNew = noisemem*(1-exp(-lambda));
@@ -314,61 +400,61 @@ void CDasherGameMode::LoadDemoConfigFile()
   CalculateDemoParameters();
 }
 
-void CDasherGameMode::InitializeTargetFile()
+int CDasherGameMode::InitializeTargets()
 {
+  // Reset all members associated with the target...
   m_vTargetStrings.clear();
-  m_iCurrentString = -1; // -1 to indicate no string available
+  m_iCurrentString = -1; // -1 to indicate no string available (yet)
   m_iNumStrings = 0;
   std::string strGameFileName;
-  // Check that there is a game text file...
+  
+  // ...then check that there is a game text file...
   if(m_strGameTextFile == "")
-    {
-      std::cout << "This alphabet does not have a game text file! Sorry" << std::endl;
-      return;
-    }
-  // ...then put together path to the game text file from settings (read in from AlphIO)...
-  strGameFileName = GetStringParameter(SP_SYSTEM_LOC) + m_strGameTextFile;
+    return GM_ERR_NO_GAME_FILE;
+      
   // ...and open it.
+  strGameFileName = GetStringParameter(SP_SYSTEM_LOC) + m_strGameTextFile;
   ifstream GameFile(strGameFileName.c_str());
   if(!GameFile)
-    {
-      std::cout << "Failed to open the Game file for this alphabet!" << std::endl;
-      return;
-    }
-  LoadTargetStrings(GameFile);
+    return GM_ERR_BAD_GAME_FILE;
   
+  // Once the file has been successfully opened, read in the
+  // UTF-8 strings.
+  LoadTargetStrings(GameFile);
   m_iNumStrings = m_vTargetStrings.size();
-  std::cout << m_iNumStrings << " strings loaded!" << std::endl;
-
-  return;
+  
+  if(m_iNumStrings == 0)
+    return GM_ERR_NO_STRING;
+  else
+    return GM_ERR_NO_ERROR;
 }
 
-void CDasherGameMode::LoadTargetStrings(istream& in)
+int CDasherGameMode::LoadTargetStrings(istream& in)
 {
-  std::vector<std::string > TargetStrings;// All the different strings from the game file
+  std::vector<std::string > vTargetStrings;// All the different strings from the game file
+
+  // A target string is (for now) any string > 4 chars delimited by '#' on either side. 
   const char delimiter = '#'; // Could come from some sort of config file?
 
+  // Load each string from the file...
   while(!in.eof())
     {
-      std::string strTmp;
-      getline(in, strTmp, delimiter);
-      if(strTmp.length()>=4)
-	TargetStrings.push_back(strTmp);
+      std::string strOneTarget;
+      getline(in, strOneTarget, delimiter);
+      if(strOneTarget.length()>=4)
+	vTargetStrings.push_back(strOneTarget);
     }
 
-  // Now process the strings for unicode
-  // Another way would be to use the current alphabet to do the processing for us. It is a philisophical point -
-  // should the GameMode class directly interface with the current alphabet?
+  // ...then split them into separate UTF-8 characters
 
-  // This converts the string of chars into a vector of strings, each string being a unicode character.
-  for(std::vector<std::string>::const_iterator it = TargetStrings.begin();
-      it != TargetStrings.end(); it++)
+  for(std::vector<UTF8Char>::const_iterator it = vTargetStrings.begin();
+      it != vTargetStrings.end(); it++)
     {
-      std::vector<std::string > vTmp; // Each "string" in this vector is one unicode character
+      std::vector<UTF8Char> vUtf8TargetString; 
 
-      for(int i = 0; i != (*it).length(); ++i)
+      for(unsigned int i = 0; i != (*it).length(); ++i)
 	{
-	  std::string strTmp = std::string(1,(*it)[i]);
+	  UTF8Char strUtf8Char = std::string(1,(*it)[i]);
 	  if((*it)[i] & 0x80)
 	    {    // Character is more than 1 byte long
 	      int extras = 1;
@@ -378,29 +464,30 @@ void CDasherGameMode::LoadTargetStrings(istream& in)
 	      if(extras > 5) {}  // Malformed character
 	      while(extras-- > 0) 
 		{
-		  strTmp += (*it)[++i];
+		  strUtf8Char += (*it)[++i];
 		}
 	    }
-	  vTmp.push_back(strTmp);
+	  vUtf8TargetString.push_back(strUtf8Char);
 	}
-      m_vTargetStrings.push_back(vTmp);
+      m_vTargetStrings.push_back(vUtf8TargetString);
     }
+  return GM_ERR_NO_ERROR;
 }
 
 // In Demo mode, DasherView will use this function to serve up coordinates to the input filter.
+// Make demo mode like as an input device?
 
 void CDasherGameMode::DemoModeGetCoordinates(myint& iDasherX, myint& iDasherY)
 {
   static bool madeError=false;
-  static myint lastTargetY=m_Target.iVisibleTargetY;
 
   // First choose an appropriate target...
+  myint iTargetY=(m_Target.iVisibleTargetY);
+
   if(m_Target.iTargetY>10000 || m_Target.iTargetY <-6000)
     {
       madeError=true;
     }
-
-  myint iTargetY=(m_Target.iVisibleTargetY);
   if(madeError)
     {
       iTargetY=m_Target.iTargetY;
@@ -413,8 +500,7 @@ void CDasherGameMode::DemoModeGetCoordinates(myint& iDasherX, myint& iDasherY)
   // ...and now calculate the ideal direction...
   double iIdealUnitVec[2];  
   
-  myint iCenterY = 0.5*((double)(m_iCrossX*m_iCrossX)/(double)(m_iCrossY-iTargetY)
-			+(m_iCrossY+iTargetY));
+  myint iCenterY = ComputeBrachCenter(iTargetY, m_iCrossX, m_iCrossY);
 
   iIdealUnitVec[0] = (m_iCrossY<iTargetY)?(iCenterY-m_iCrossY):(m_iCrossY-iCenterY);
   iIdealUnitVec[1] = (m_iCrossY<iTargetY)?m_iCrossX:-m_iCrossX;
@@ -452,68 +538,93 @@ void CDasherGameMode::DemoModeGetCoordinates(myint& iDasherX, myint& iDasherY)
 
 // In Gamemode, DasherView will helpfully call this function whenever it provides
 // coordinates to the inputfilters - ie, we can track the mouse from this
-// Mouse coordinates are passed onto the scorer, in case it wants to reward steady
+// Mouse coordinates are passed onto the scorer every NewFrame, in case it wants to reward steady
 // hand position, or something similar.
 void CDasherGameMode::SetUserMouseCoordinates(myint iDasherX, myint iDasherY)
 {
   m_iUserX = iDasherX;
   m_iUserY = iDasherY;
+  if(m_iUserX > 2048 && !m_pDemo)
+    m_bDrawTargetArrow=true;
+  else
+    m_bDrawTargetArrow=false;
 }
 
 void CDasherGameMode::SentenceFinished()
 {
-  m_bSentenceFinished=true;
-  m_pScorer->SentenceFinished(m_ulTime);
-  m_bDrawPoints=true;
-  if(m_bDemoModeOn)
-    m_lCallbacks.push_back(std::pair<GameFncPtr, unsigned long>(&CDasherGameMode::DemoNext,m_ulTime+7000));
+  if(m_pScorer)
+    {
+      m_pScorer->SentenceFinished(m_ulTime);
   
+      stringstream score;
+      score << m_pScorer->GetScore();
+      m_pDasherInterface->GameMessageOut(GAME_MESSAGE_SET_SCORE,
+					 reinterpret_cast<const void *>(score.str().c_str()));
+
+      m_pDasherInterface->GameMessageOut(GAME_MESSAGE_DISPLAY_TEXT, _("Well done!"));
+    }
+  
+  if(m_pDemo && !m_bSentenceFinished)
+    {
+      if(m_pDemo->bFullDemo)
+	m_lCallbacks.push_back(std::pair<GameFncPtr, unsigned long>(&CDasherGameMode::FullDemoNext,m_ulTime+6000));
+      else
+	{
+	  m_lCallbacks.push_back(std::pair<GameFncPtr, unsigned long>(&CDasherGameMode::GameNext,m_ulTime+6000));
+	  m_lCallbacks.push_back(std::pair<GameFncPtr, unsigned long>(&CDasherGameMode::DemoGo,m_ulTime+8000));
+	}
+    }
+  m_bSentenceFinished=true;  
 }
 
-std::string CDasherGameMode::GetSymbolAtOffset(int iOffset)
+UTF8Char CDasherGameMode::GetSymbolAtOffset(int iOffset)
 { 
   // The string "GameEnd" indicates the NF_END_GAME flag should be set on the node.
   if(m_iCurrentString == -1)
     return std::string("GameEnd");
   
+  if(m_iNumStrings != m_vTargetStrings.size())
+    std::cout << "Error here!" << std::endl;
+
   if(iOffset < m_vTargetStrings[m_iCurrentString].size())
     return m_vTargetStrings[m_iCurrentString][iOffset];
-  
-  return std::string("GameEnd");
+  else
+    return std::string("GameEnd");
 }
 
-int CDasherGameMode::NextString()
+int CDasherGameMode::NextString(bool bRandomString)
 {
-  int ret=0;
+  m_strCurrentTarget = "";
+
+  int ret=GM_ERR_NO_ERROR;
   if(m_iNumStrings <= 0)
     {
       m_iCurrentString = -1;
-      std::cout << "No string available" << std::endl;
-      return -1;
+      return GM_ERR_NO_STRING;
     }
-  
-  if(m_iCurrentString<m_iNumStrings-1)
+  else if(bRandomString)
+    {
+      m_iCurrentString = rand() % m_iNumStrings;
+    }
+  else if(m_iCurrentString<m_iNumStrings-1)
     m_iCurrentString++;
   else
     {
       m_iCurrentString=0; // Loop back to beginning
-      ret=1;
+      ret=GM_ERR_LOOP;
     }
 
-  m_strCurrentTarget = "";
-  for(int i = 0; i != m_vTargetStrings[m_iCurrentString].size(); ++i)
+  for(size_t i = 0; i != m_vTargetStrings[m_iCurrentString].size(); ++i)
     m_strCurrentTarget += m_vTargetStrings[m_iCurrentString][i];
-  m_bSentenceFinished=false;
-  
+
   return ret;
 }
 
 // Drawing Methods for Game/Teacher Mode
 
+// Public function, called by DasherInterfaceBase::Redraw()
 void CDasherGameMode::DrawGameDecorations(CDasherView* pView)
 {
-  static myint height=2048;
-  if((height+=64) >= 4096) height = 2048;
   if(!m_bGameModeOn) return;
 
   if(m_bDrawHelperArrow)
@@ -522,32 +633,12 @@ void CDasherGameMode::DrawGameDecorations(CDasherView* pView)
     DrawTargetArrow(pView);
   if(m_bDrawPoints)
     DrawPoints(pView);
-  //  if(m_bDrawPaused)
-  //    DrawPaused(pView);
-  //  DrawScoreBoard
-  //  etc
 }
 
-void CDasherGameMode::Countdown()
-{
-  if(m_countdown != 0)
-    {
-      m_countdown--;
-      m_lCallbacks.push_back(std::pair<GameFncPtr, unsigned long>(&CDasherGameMode::Countdown, m_ulTime+2000));
-    }
-}
-
-void CDasherGameMode::DrawPaused(CDasherView* pView)
-{
-  static int count = 0;
-  if(count < 10)
-    pView->DrawText("Paused!",16000,2048, 20);
-  else if (count == 20) count=0;
-  ++count;
-}
 void CDasherGameMode::DrawPoints(CDasherView* pView)
 {
-  pView->DrawText(m_pScorer->GetBreakdown(),16000,1000, 20);
+  if(m_pScorer)
+    pView->DrawText(m_pScorer->GetBreakdown(),16000,1000, 20);
 }
 
 void CDasherGameMode::DrawHelperArrow(CDasherView* pView)
@@ -555,18 +646,19 @@ void CDasherGameMode::DrawHelperArrow(CDasherView* pView)
  // This plots a helpful pointer to the best direction to take to get to the target.
   // Probably too much floating point maths here, sort later.
  // Start of line is the crosshair location
-  const int gameColour = 136; //Neon green. (!)
-  const int noOfPoints = 10; // The curve will be made up of 9 straigt segments...
+  const int gameColour = 135; //Neon green. (!)
+  const int noOfPoints = 10; // The curve will be made up of 9 straight segments...
 
   myint iX[noOfPoints];
   myint iY[noOfPoints];
   myint iLength;
 
+  // Arrow starts at the cross hairs
   iX[0] = m_iCrossX;
   iY[0] = m_iCrossY;
 
-  myint a = iX[0]/5;
-  myint defaultlength = iX[0] - a ; 
+  myint a = m_iCrossX/5;
+  myint defaultlength = m_iCrossX - a ; 
 
   // ... then decide the length of the arrow...
   myint r = m_Target.iTargetY-m_Target.iCenterY; // radius of our circle (+ or -)
@@ -593,7 +685,7 @@ void CDasherGameMode::DrawHelperArrow(CDasherView* pView)
       iY[n] = m_Target.iCenterY + sin(angle)*(iX[n-1]) + cos(angle)*(iY[n-1]-m_Target.iCenterY);
     }
   //...then plot it.
-  pView->DasherPolyarrow(iX, iY, noOfPoints, GetLongParameter(LP_LINE_WIDTH)*4, gameColour);
+  pView->DasherPolyarrow(iX, iY, noOfPoints, GetLongParameter(LP_LINE_WIDTH)*4, gameColour, 1.414);
 
 }
 
@@ -602,7 +694,7 @@ void CDasherGameMode::DrawTargetArrow(CDasherView* pView) {
  // This plots an arrow to show where the target is.
   // Probably too much floating point maths here, sort later.
 
-  const int gameColour = 136; //Neon green. (!)
+  const int gameColour = 135; //Neon green. (!)
   const int noOfPoints = 2; // The curve will be made up of 9 straigt segments...
   const int arrowPoints = 3; // ...and two straight segments for the arrow.
   myint iX[noOfPoints+arrowPoints];
@@ -611,24 +703,24 @@ void CDasherGameMode::DrawTargetArrow(CDasherView* pView) {
   myint iYmax = GetLongParameter(LP_MAX_Y);
   if(m_Target.iTargetY > 0 && m_Target.iTargetY < iYmax)
     {
-      iX[0] = -2*iLength;
+      iX[0] = -1.5*iLength;
       iY[0] = m_Target.iTargetY;
-      iX[1] = -1*iLength;
+      iX[1] = -0.5*iLength;
       iY[1] = m_Target.iTargetY;
       
     }
   else if(m_Target.iTargetY <= 0)
     {
-      iX[0] = -1.5*iLength;
+      iX[0] = -0.5*iLength;
       iY[0] = iLength;
-      iX[1] = -1.5*iLength;
+      iX[1] = -0.5*iLength;
       iY[1] = 0;
     }
   else
     {
-      iX[0] = -1.5*iLength;
+      iX[0] = -0.5*iLength;
       iY[0] = iYmax - iLength;
-      iX[1] = -1.5*iLength;
+      iX[1] = -0.5*iLength;
       iY[1] = iYmax;
     }
   // Put an arrow on the end of the arc. i.e, two straight segments 45 deg either side.
@@ -643,7 +735,7 @@ void CDasherGameMode::DrawTargetArrow(CDasherView* pView) {
   iY[noOfPoints+2] = iY[noOfPoints-1] + iXvec + iYvec;
   
   // Now draw it
-  pView->DasherPolyline(iX, iY, noOfPoints+arrowPoints, GetLongParameter(LP_LINE_WIDTH)*4, gameColour);
+  pView->DasherPolyarrow(iX, iY, noOfPoints, GetLongParameter(LP_LINE_WIDTH)*4, gameColour);
 }
 
 

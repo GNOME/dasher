@@ -604,6 +604,8 @@ void CDasherModel::RecursiveOutput(CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PRO
   pNode->SetFlag(NF_SEEN, true);
   pNode->m_pNodeManager->Output(pNode, pAdded, GetLongParameter(LP_NORMALIZATION));
 
+  // If the node we are outputting is the last one in a game target sentence, then
+  // notify the game mode teacher.
   if(m_bGameMode)
     if(pNode->GetFlag(NF_END_GAME))
       CDasherGameMode::GetTeacher()->SentenceFinished();
@@ -742,10 +744,9 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
 
 void CDasherModel::Push_Node(CDasherNode *pNode) {
   DASHER_ASSERT(pNode != NULL);
-
   // TODO: Fix this and make an assertion again
   if(pNode->GetFlag(NF_SUBNODE))
-      return;
+     return;
 
   // TODO: Is NF_ALLCHILDREN any more useful/efficient than reading the map size?
   
@@ -777,13 +778,16 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
   CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher();
   if(m_bGameMode && pNode->GetFlag(NF_GAME) && pTeacher )
     {
-      std::string strTarget;
+      std::string strTargetUtf8Char;
+
       CAlphabetManager::SAlphabetData * pAlphabetData =
 	static_cast<CAlphabetManager::SAlphabetData *>(pNode->m_pUserData);
-      strTarget = pTeacher->GetSymbolAtOffset(pAlphabetData->iOffset+1);
+
+      strTargetUtf8Char = pTeacher->GetSymbolAtOffset(pAlphabetData->iOffset+1);
+
       CDasherNode::ChildMap::iterator i, j;
       // Check if this is the last node in the sentence...
-      if(strTarget == "GameEnd")
+      if(strTargetUtf8Char == "GameEnd")
 	{
 	  pNode->SetFlag(NF_END_GAME, true);
 	  goto multibreak;
@@ -791,7 +795,7 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
       // ...if it is not then find which child is next in line.
       for(i = pNode->Children().begin(); i != pNode->Children().end(); i++)
 	{
-	  // Only look for children who are the same type of node (i.e. alphabet)
+	  // Only look for children who are the same type of node as pNode is (i.e. alphabet)
 	  if((*i)->m_pNodeManager != pNode->m_pNodeManager) continue;
 	  
 	  // Look at the children of the group nodes while we search
@@ -799,11 +803,13 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
 	    {
 	      for(j = (*i)->Children().begin(); j != (*i)->Children().end(); j++)
 		{
-		  std::string strNode;
+		  std::string strNodeUtf8Char;
 		  CDasherNode * pTempNode = (*j);
+
 		  pAlphabetData = static_cast<CAlphabetManager::SAlphabetData *>(pTempNode->m_pUserData);
-		  strNode = m_pNodeCreationManager->GetAlphabet()->GetText(pAlphabetData->iSymbol);
-		  if(strNode == strTarget)
+		  strNodeUtf8Char = m_pNodeCreationManager->GetAlphabet()->GetText(pAlphabetData->iSymbol);
+
+		  if(strNodeUtf8Char == strTargetUtf8Char)
 		    {
 		      (*j)->SetFlag(NF_GAME, true);
 		      (*i)->SetFlag(NF_GAME, true);
@@ -813,22 +819,28 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
 	    }
 	  else
 	    {
-	      std::string strNode;
+	      std::string strNodeUtf8Char;
 	      CDasherNode * pTempNode = (*i);
+
 	      pAlphabetData = static_cast<CAlphabetManager::SAlphabetData *>(pTempNode->m_pUserData);
-	      strNode = m_pNodeCreationManager->GetAlphabet()->GetText(pAlphabetData->iSymbol);
-	      if(strNode == strTarget)
+	      strNodeUtf8Char = m_pNodeCreationManager->GetAlphabet()->GetText(pAlphabetData->iSymbol);
+
+	      if(strNodeUtf8Char == strTargetUtf8Char)
 		{
 		  (*i)->SetFlag(NF_GAME, true);
 		  goto multibreak;
 		}	 
 	    }
 	}
+      // If this line runs then we have a target character which is not in our current alphabet.
+      // So let's give up!
+      pNode->SetFlag(NF_END_GAME, true);
+
     multibreak:
       ; // A lonely semicolon is the null statement - it does nothing.
     }
   ////////////////////////////
-  
+
  }
 
 void CDasherModel::Recursive_Push_Node(CDasherNode *pNode, int iDepth) {
