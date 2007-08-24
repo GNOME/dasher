@@ -992,7 +992,7 @@ double CDasherModel::CorrectionFactor(int dasherx, int dashery) {
     return -dR * log(1 - dX) / dX;
 }
 
-void CDasherModel::ScheduleZoom(dasherint iDasherX, dasherint iDasherY) {
+void CDasherModel::ScheduleZoom(dasherint iDasherX, dasherint iDasherY, int iMaxZoom) {
 
   // Prevent clicking too far to the right
   if (iDasherX < 2) { iDasherX = 2; }
@@ -1034,6 +1034,10 @@ void CDasherModel::ScheduleZoom(dasherint iDasherX, dasherint iDasherY) {
     myint iTarget2 = iDasherY + iDasherX;
     
     double dZ = 4096 / static_cast<double>(iTarget2 - iTarget1);
+
+    if((iMaxZoom != 0) && (dZ > iMaxZoom / 10.0))
+      dZ = iMaxZoom / 10.0;
+
     double dTau = 1.0/log(dZ);
     
     m_deGotoQueue.clear();

@@ -1,0 +1,23 @@
+Tilt Sensors
+============
+
+We have a DLP-TILT module, which is a cheap, fairly low resolution
+sensor with a built in USB<->serial adaptor:
+
+http://www.ftdichip.com/Products/EvaluationKits/DLP-TILT.htm
+
+We also have a little black box from Maplin to put it in, and a 3m USB
+cable.
+
+The Linux driver is ftdi_sio, which is shipped with modern kernels,
+but there's some (not great) documentation here:
+
+http://ftdi-usb-sio.sourceforge.net/
+
+You need to specify the USB vendor/product codes to the driver:
+
+modprobe ftdi_sio vendor=0x0403 product=0xfbfa
+
+Having done that, devfs should do it's stuff. Compile Dasher with tilt
+support, and for best results select start on mouse position, control
+mode (for stopping) and possibly 1D mode, and you should be away.

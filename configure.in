@@ -125,6 +125,17 @@ AC_ARG_ENABLE([joystick],
          fi, 
 	 WITHJOYSTICK=false)
 
+
+AC_ARG_ENABLE([tilt],
+	 AC_HELP_STRING([--enable-tilt],[Build with experimental support for tilt sensor input (experimental -- default is NO)]),
+	 if test $enableval = "no"; then
+	   WITHTILT=false; 
+	 else
+	   WITHTILT=true;
+         fi, 
+	 WITHTILT=false)
+
+
 AC_ARG_WITH([maemo],
 	AC_HELP_STRING([--with-maemo],[build with Maemo support (default is NO)]),
 	if test $withval = "yes"; then
@@ -271,6 +282,9 @@ if [[ x"$WITHJOYSTICK" = xtrue ]]; then
 	AC_DEFINE([JOYSTICK], 1, [Linux joystick support enabled])
 fi
 
+if [[ x"$WITHTILT" = xtrue ]]; then
+	AC_DEFINE([TILT], 1, [Tilt input support enabled])
+fi
 
 if [[ x"$WITHGPE" = xtrue ]]; then
 	AC_DEFINE([WITH_GPE], 1, [gpe is present])

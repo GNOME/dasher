@@ -18,8 +18,9 @@
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
   <property name="focus_on_map">False</property>
   <property name="urgency_hint">False</property>
-  <signal name="delete_event" handler="ask_save_before_exit" last_modification_time="Mon, 22 Sep 2003 19:53:44 GMT"/>
-  <signal name="map" handler="on_window_map" last_modification_time="Sun, 05 Mar 2006 20:22:17 GMT"/>
+  <signal name="delete_event" handler="dasher_main_cb_window_close" last_modification_time="Mon, 22 Sep 2003 19:53:44 GMT"/>
+  <signal name="focus-in-event" handler="test_focus_handler" last_modification_time="Fri, 02 Feb 2007 14:30:40 GMT"/>
+
 
   <child>
     <widget class="GtkVBox" id="vbox1">
@@ -492,6 +493,7 @@
 				      <property name="active">True</property>
 				      <property name="inconsistent">False</property>
 				      <property name="draw_indicator">True</property>
+				      <signal name="toggled" handler="generic_bool_changed" last_modification_time="Mon, 25 Sep 2006 16:28:02 GMT"/>
 				    </widget>
 				    <packing>
 				      <property name="padding">2</property>
@@ -1175,7 +1177,7 @@ your writing speed.</property>
 				      <property name="active">True</property>
 				      <property name="inconsistent">False</property>
 				      <property name="draw_indicator">True</property>
-				      <signal name="clicked" handler="adaptive" last_modification_time="Wed, 03 Aug 2005 13:01:05 GMT"/>
+				      <signal name="clicked" handler="generic_bool_changed" last_modification_time="Mon, 25 Sep 2006 12:58:28 GMT"/>
 				    </widget>
 				    <packing>
 				      <property name="padding">0</property>
@@ -1269,7 +1271,7 @@ your writing speed.</property>
 					  <property name="active">False</property>
 					  <property name="inconsistent">False</property>
 					  <property name="draw_indicator">True</property>
-					  <signal name="clicked" handler="startonleft" last_modification_time="Tue, 23 Sep 2003 00:45:42 GMT"/>
+					  <signal name="clicked" handler="generic_bool_changed" last_modification_time="Mon, 25 Sep 2006 12:30:16 GMT"/>
 					</widget>
 					<packing>
 					  <property name="padding">0</property>
@@ -1290,7 +1292,7 @@ your writing speed.</property>
 					  <property name="active">False</property>
 					  <property name="inconsistent">False</property>
 					  <property name="draw_indicator">True</property>
-					  <signal name="clicked" handler="startonspace" last_modification_time="Tue, 23 Sep 2003 00:45:49 GMT"/>
+					  <signal name="clicked" handler="generic_bool_changed" last_modification_time="Mon, 25 Sep 2006 12:30:30 GMT"/>
 					</widget>
 					<packing>
 					  <property name="padding">0</property>
@@ -1363,7 +1365,7 @@ Two box</property>
 					  <property name="active">False</property>
 					  <property name="inconsistent">False</property>
 					  <property name="draw_indicator">True</property>
-					  <signal name="clicked" handler="windowpause" last_modification_time="Fri, 26 Sep 2003 12:35:18 GMT"/>
+					  <signal name="clicked" handler="generic_bool_changed" last_modification_time="Mon, 25 Sep 2006 12:36:57 GMT"/>
 					</widget>
 					<packing>
 					  <property name="padding">0</property>
@@ -1755,14 +1757,16 @@ Two box</property>
 				  <property name="spacing">0</property>
 
 				  <child>
-				    <widget class="GtkButton" id="dasherfontbutton">
+				    <widget class="GtkFontButton" id="dasher_fontbutton">
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
-				      <property name="label" translatable="yes"></property>
-				      <property name="use_underline">True</property>
-				      <property name="relief">GTK_RELIEF_NORMAL</property>
+				      <property name="title" translatable="yes">Select Dasher Font</property>
+				      <property name="show_style">True</property>
+				      <property name="show_size">False</property>
+				      <property name="use_font">True</property>
+				      <property name="use_size">False</property>
 				      <property name="focus_on_click">True</property>
-				      <signal name="clicked" handler="set_dasher_font" last_modification_time="Wed, 28 Jun 2006 11:14:26 GMT"/>
+				      <signal name="font_set" handler="on_dasher_font_changed" last_modification_time="Fri, 16 Mar 2007 13:45:01 GMT"/>
 				    </widget>
 				    <packing>
 				      <property name="padding">0</property>
@@ -2168,15 +2172,16 @@ Two box</property>
 				  <property name="right_padding">0</property>
 
 				  <child>
-				    <widget class="GtkButton" id="editfontbutton">
-				      <property name="border_width">8</property>
+				    <widget class="GtkFontButton" id="edit_fontbutton">
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
-				      <property name="label" translatable="yes"></property>
-				      <property name="use_underline">True</property>
-				      <property name="relief">GTK_RELIEF_NORMAL</property>
+				      <property name="title" translatable="yes">Select Editor Font</property>
+				      <property name="show_style">True</property>
+				      <property name="show_size">True</property>
+				      <property name="use_font">True</property>
+				      <property name="use_size">False</property>
 				      <property name="focus_on_click">True</property>
-				      <signal name="clicked" handler="set_edit_font" last_modification_time="Wed, 28 Jun 2006 16:11:25 GMT"/>
+				      <signal name="font_set" handler="on_edit_font_changed" last_modification_time="Fri, 16 Mar 2007 13:45:25 GMT"/>
 				    </widget>
 				  </child>
 				</widget>
@@ -2228,7 +2233,6 @@ Two box</property>
 			  <child>
 			    <widget class="GtkFrame" id="frame11">
 			      <property name="border_width">8</property>
-			      <property name="visible">True</property>
 			      <property name="label_xalign">0</property>
 			      <property name="label_yalign">0.5</property>
 			      <property name="shadow_type">GTK_SHADOW_ETCHED_IN</property>
@@ -2526,146 +2530,6 @@ Two box</property>
       <property name="relief">GTK_RELIEF_NORMAL</property>
       <property name="focus_on_click">True</property>
     </widget>
-  </child>
-</widget>
-
-<widget class="GtkFontSelectionDialog" id="dasher_fontselector">
-  <property name="border_width">4</property>
-  <property name="title" translatable="yes">Select Font</property>
-  <property name="type">GTK_WINDOW_TOPLEVEL</property>
-  <property name="window_position">GTK_WIN_POS_NONE</property>
-  <property name="modal">False</property>
-  <property name="resizable">True</property>
-  <property name="destroy_with_parent">False</property>
-  <property name="decorated">True</property>
-  <property name="skip_taskbar_hint">False</property>
-  <property name="skip_pager_hint">False</property>
-  <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
-  <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
-  <property name="focus_on_map">True</property>
-  <property name="urgency_hint">False</property>
-  <signal name="delete_event" handler="dasher_font_cancel_cb" last_modification_time="Thu, 11 May 2006 15:22:16 GMT"/>
-
-  <child internal-child="cancel_button">
-    <widget class="GtkButton" id="dasher_font_cancel">
-      <property name="visible">True</property>
-      <property name="can_default">True</property>
-      <property name="can_focus">True</property>
-      <property name="label">gtk-cancel</property>
-      <property name="use_stock">True</property>
-      <property name="relief">GTK_RELIEF_NORMAL</property>
-      <property name="focus_on_click">True</property>
-      <signal name="clicked" handler="dasher_font_cancel_cb" last_modification_time="Thu, 11 May 2006 15:21:14 GMT"/>
-    </widget>
-  </child>
-
-  <child internal-child="apply_button">
-    <widget class="GtkButton" id="dasher_font_apply">
-      <property name="visible">True</property>
-      <property name="can_default">True</property>
-      <property name="can_focus">True</property>
-      <property name="label">gtk-apply</property>
-      <property name="use_stock">True</property>
-      <property name="relief">GTK_RELIEF_NORMAL</property>
-      <property name="focus_on_click">True</property>
-      <signal name="clicked" handler="dasher_font_apply_cb" last_modification_time="Thu, 11 May 2006 15:21:38 GMT"/>
-    </widget>
-  </child>
-
-  <child internal-child="ok_button">
-    <widget class="GtkButton" id="dasher_font_ok">
-      <property name="visible">True</property>
-      <property name="can_default">True</property>
-      <property name="can_focus">True</property>
-      <property name="label">gtk-ok</property>
-      <property name="use_stock">True</property>
-      <property name="relief">GTK_RELIEF_NORMAL</property>
-      <property name="focus_on_click">True</property>
-      <signal name="clicked" handler="dasher_font_ok_cb" last_modification_time="Thu, 11 May 2006 15:22:03 GMT"/>
-    </widget>
-  </child>
-
-  <child internal-child="font_selection">
-    <widget class="GtkFontSelection" id="font_selection1">
-      <property name="border_width">4</property>
-      <property name="visible">True</property>
-      <property name="preview_text" translatable="yes">abcdefghijk ABCDEFGHIJK</property>
-    </widget>
-    <packing>
-      <property name="padding">0</property>
-      <property name="expand">True</property>
-      <property name="fill">True</property>
-    </packing>
-  </child>
-</widget>
-
-<widget class="GtkFontSelectionDialog" id="edit_fontselector">
-  <property name="border_width">4</property>
-  <property name="title" translatable="yes">Select Font</property>
-  <property name="type">GTK_WINDOW_TOPLEVEL</property>
-  <property name="window_position">GTK_WIN_POS_NONE</property>
-  <property name="modal">False</property>
-  <property name="resizable">True</property>
-  <property name="destroy_with_parent">False</property>
-  <property name="decorated">True</property>
-  <property name="skip_taskbar_hint">False</property>
-  <property name="skip_pager_hint">False</property>
-  <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
-  <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
-  <property name="focus_on_map">True</property>
-  <property name="urgency_hint">False</property>
-  <signal name="close" handler="edit_font_cancel_cb" last_modification_time="Thu, 11 May 2006 15:22:37 GMT"/>
-
-  <child internal-child="cancel_button">
-    <widget class="GtkButton" id="edit_font_cancel">
-      <property name="visible">True</property>
-      <property name="can_default">True</property>
-      <property name="can_focus">True</property>
-      <property name="label">gtk-cancel</property>
-      <property name="use_stock">True</property>
-      <property name="relief">GTK_RELIEF_NORMAL</property>
-      <property name="focus_on_click">True</property>
-      <signal name="clicked" handler="edit_font_cancel_cb" last_modification_time="Thu, 11 May 2006 15:20:27 GMT"/>
-    </widget>
-  </child>
-
-  <child internal-child="apply_button">
-    <widget class="GtkButton" id="edit_font_apply">
-      <property name="visible">True</property>
-      <property name="can_default">True</property>
-      <property name="can_focus">True</property>
-      <property name="label">gtk-apply</property>
-      <property name="use_stock">True</property>
-      <property name="relief">GTK_RELIEF_NORMAL</property>
-      <property name="focus_on_click">True</property>
-      <signal name="clicked" handler="edit_font_apply_cb" last_modification_time="Thu, 11 May 2006 15:20:19 GMT"/>
-    </widget>
-  </child>
-
-  <child internal-child="ok_button">
-    <widget class="GtkButton" id="edit_font_ok">
-      <property name="visible">True</property>
-      <property name="can_default">True</property>
-      <property name="can_focus">True</property>
-      <property name="label">gtk-ok</property>
-      <property name="use_stock">True</property>
-      <property name="relief">GTK_RELIEF_NORMAL</property>
-      <property name="focus_on_click">True</property>
-      <signal name="clicked" handler="edit_font_ok_cb" last_modification_time="Thu, 11 May 2006 15:19:55 GMT"/>
-    </widget>
-  </child>
-
-  <child internal-child="font_selection">
-    <widget class="GtkFontSelection" id="font_selection_2">
-      <property name="border_width">4</property>
-      <property name="visible">True</property>
-      <property name="preview_text" translatable="yes">abcdefghijk ABCDEFGHIJK</property>
-    </widget>
-    <packing>
-      <property name="padding">0</property>
-      <property name="expand">True</property>
-      <property name="fill">True</property>
-    </packing>
   </child>
 </widget>
 

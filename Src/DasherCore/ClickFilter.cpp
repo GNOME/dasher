@@ -3,6 +3,10 @@
 #include "DasherInterfaceBase.h"
 #include "Event.h"
 
+static SModuleSettings sSettings[] = {
+  {LP_MAXZOOM, T_LONG, 11, 400, 10, 1, _("Maximum Zoom")},
+};
+
 bool CClickFilter::DecorateView(CDasherView *pView) {
   return false;
 }
@@ -20,7 +24,7 @@ void CClickFilter::KeyDown(int iTime, int iId, CDasherView *pDasherView, CDasher
 
       pDasherView->GetCoordinates(iDasherX, iDasherY);
 
-      pModel->ScheduleZoom(iDasherX,iDasherY);
+      pModel->ScheduleZoom(iDasherX,iDasherY, GetLongParameter(LP_MAXZOOM));
     }
     break;
   default:
@@ -30,3 +34,10 @@ void CClickFilter::KeyDown(int iTime, int iId, CDasherView *pDasherView, CDasher
 
 void CClickFilter::HandleEvent(Dasher::CEvent * pEvent) {
 }
+
+bool CClickFilter::GetSettings(SModuleSettings **pSettings, int *iCount) {
+  *pSettings = sSettings;
+  *iCount = sizeof(sSettings) / sizeof(SModuleSettings);
+
+  return true;
+};

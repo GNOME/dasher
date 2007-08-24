@@ -40,7 +40,7 @@ enum {
   LP_SOCKET_INPUT_Y_MIN, LP_SOCKET_INPUT_Y_MAX, LP_OX, LP_OY, LP_MAX_Y, LP_INPUT_FILTER, 
   LP_CIRCLE_PERCENT, LP_TWO_BUTTON_OFFSET, LP_HOLD_TIME, LP_MULTIPRESS_TIME, LP_MULTIPRESS_COUNT, 
   LP_SLOW_START_TIME, LP_DYNAMIC_MEDIAN_FACTOR, LP_CONVERSION_ORDER, LP_CONVERSION_TYPE,
-  LP_DEMO_SPRING, LP_DEMO_NOISE_MEM, LP_DEMO_NOISE_MAG, END_OF_LPS
+  LP_DEMO_SPRING, LP_DEMO_NOISE_MEM, LP_DEMO_NOISE_MAG, LP_MAXZOOM, END_OF_LPS
 };
 
 enum {
@@ -196,7 +196,8 @@ static lp_table longparamtable[] = {
   {LP_CONVERSION_TYPE, "ConversionType", PERS, 0, "Conversion type"},
   {LP_DEMO_SPRING, "DemoSpring", PERS, 100, "Springyness in Demo-mode"},
   {LP_DEMO_NOISE_MEM, "DemoNoiseMem", PERS, 100, "Memory parameter for noise in Demo-mode"},
-  {LP_DEMO_NOISE_MAG, "DemoNoiseMag", PERS, 325, "Magnitude of noise in Demo-mode"}
+  {LP_DEMO_NOISE_MAG, "DemoNoiseMag", PERS, 325, "Magnitude of noise in Demo-mode"},
+  {LP_MAXZOOM, "ClickMaxZoom", PERS, 200, "Maximum zoom possible in click mode (times 10)"}
 };
 
 static sp_table stringparamtable[] = {

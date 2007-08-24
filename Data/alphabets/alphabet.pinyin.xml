@@ -12,7 +12,7 @@ characters)">
 <train>training_pinyinNT_CN.txt</train>
 
 <!--<paragraph d="&#182;" b="9"/>-->
-<!--<convert d=">" t="$" b="9" />-->
+<convert d=">" t="$" b="9" />
 <!--<protect d=" " t="|" b="9" />-->
 <group name="pin yin roman letters" b="0">
 <s d="&#97;" t="&#97;" b="10" />  <!-- a -->
