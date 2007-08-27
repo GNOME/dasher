@@ -151,8 +151,6 @@ public:
     return 5;
   };
 
-  symbol GetResetSymbol() const ;
-
  protected:
   struct SLMFileHeader {
     // Magic number ("%DLF" in ASCII)

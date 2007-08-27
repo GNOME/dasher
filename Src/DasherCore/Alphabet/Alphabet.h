@@ -74,7 +74,6 @@ namespace Dasher {
     symbol GetControlSymbol() const;
     symbol GetStartConversionSymbol() const;
     symbol GetEndConversionSymbol() const;
-    symbol GetResetSymbol() const;
 
     const std::string & GetDisplayText(symbol i) const {
       return m_Display[i];
@@ -135,7 +134,6 @@ namespace Dasher {
     void AddControlSymbol(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);
     void AddStartConversionSymbol(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);
     void AddEndConversionSymbol(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);
-    void AddResetSymbol(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);
 
     void SetOrientation(Opts::ScreenOrientations Orientation) {
       m_Orientation = Orientation;
@@ -174,7 +172,6 @@ namespace Dasher {
     //-- Added for Kanji Conversion 13 July 2005 by T.Kaburagi
     symbol m_StartConversionSymbol;
     symbol m_EndConversionSymbol;
-    symbol m_iResetSymbol;
 
     std::string m_TrainingFile;
     std::string m_GameModeFile;
@@ -223,10 +220,6 @@ namespace Dasher {
     return m_EndConversionSymbol;
   }
   
-  inline symbol CAlphabet::GetResetSymbol() const {
-    return m_iResetSymbol;
-  }
-
 
 }                              // end namespace dasher
 

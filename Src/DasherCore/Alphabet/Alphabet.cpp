@@ -47,7 +47,6 @@ CAlphabet::CAlphabet(const CAlphIO::AlphInfo &AlphInfo)
   m_StartConversionSymbol = -1;
   m_EndConversionSymbol = -1;
 
-  m_iResetSymbol = -1;
 
   m_strDefaultContext = AlphInfo.m_strDefaultContext;
 
@@ -92,9 +91,6 @@ CAlphabet::CAlphabet(const CAlphIO::AlphInfo &AlphInfo)
   if(AlphInfo.ControlCharacter.Display != std::string("") && GetControlSymbol() == -1)
     AddControlSymbol(AlphInfo.ControlCharacter.Text, AlphInfo.ControlCharacter.Display, AlphInfo.ControlCharacter.Colour, AlphInfo.ControlCharacter.Foreground);
 
-  if(AlphInfo.ResetCharacter.Text != empty)
-    AddResetSymbol(AlphInfo.ResetCharacter.Text, AlphInfo.ResetCharacter.Display, 
-		   AlphInfo.ResetCharacter.Colour, AlphInfo.ResetCharacter.Foreground);
 
 
   // New group stuff
@@ -219,11 +215,6 @@ void CAlphabet::AddStartConversionSymbol(const std::string NewCharacter, const s
 void CAlphabet::AddEndConversionSymbol(const std::string NewCharacter, const std::string Display, int Colour, const std::string Foreground) {
   AddChar(NewCharacter, Display, Colour, Foreground);
   m_EndConversionSymbol = GetNumberSymbols() - 1;
-}
-
-void CAlphabet::AddResetSymbol(const std::string NewCharacter, const std::string Display, int Colour, const std::string Foreground) {
-  AddChar(NewCharacter, Display, Colour, Foreground);
-  m_iResetSymbol = GetNumberSymbols() - 1;
 }
 
 

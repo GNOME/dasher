@@ -21,6 +21,7 @@ namespace Dasher {
       CTrainer(CLanguageModel *pLanguageModel);
       
       void Train(const std::vector < symbol > &vSymbols);
+      void Reset();
       
       ~CTrainer();
       

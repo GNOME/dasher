@@ -402,7 +402,6 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
     Me->InputInfo.ControlCharacter.Colour = -1;
     Me->InputInfo.StartConvertCharacter.Text = "";
     Me->InputInfo.EndConvertCharacter.Text = "";
-    Me->InputInfo.ResetCharacter.Text = "";
     Me->InputInfo.m_iCharacters = 1; // Start at 1 as 0 is the root node symbol
     Me->InputInfo.m_pBaseGroup = 0;
     Me->bFirstGroup = true;
@@ -663,20 +662,6 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
     return;
   }
 
-  if(strcmp(name, "reset") == 0) {
-    while(*atts != 0) {
-      if(strcmp(*atts, "t") == 0) {
-        atts++;
-        Me->InputInfo.ResetCharacter.Text = *atts;
-	Me->InputInfo.ResetCharacter.Display = "";
-	Me->InputInfo.ResetCharacter.Colour = 0;
-	Me->InputInfo.ResetCharacter.Foreground = "";
-        atts--;
-      }
-      atts += 2;
-    }
-    return;
-  }
 
   if(strcmp(name, "context") == 0) {
     while(*atts != 0) {
