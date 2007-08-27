@@ -33,15 +33,17 @@
 
 #include "../Common/NoClones.h"
 #include "../Common/ModuleSettings.h"
+#include "ActionButton.h"
 #include "Alphabet/Alphabet.h"
 #include "Alphabet/AlphIO.h"
-#include "ColourIO.h"
-#include "ModuleManager.h"
-#include "ActionButton.h"
-
 #include "AutoSpeedControl.h"
-
+#include "ColourIO.h"
 #include "InputFilter.h"
+#include "ModuleManager.h"
+#include "TrainingHelper.h"
+
+#include <map>
+#include <algorithm>
 
 namespace Dasher {
   class CDasherScreen;
@@ -50,25 +52,19 @@ namespace Dasher {
   class CDasherModel;
   class CEventHandler;
   class CEvent;
-}
-
-class Dasher::CDasherScreen;
-class Dasher::CDasherView;
-class Dasher::CDasherInput;
-class Dasher::CDasherModel;
-class Dasher::CEventHandler;
-class Dasher::CEvent;
-class CSettingsStore;
-class CUserLogBase;
-//class CDasherButtons;
-class CNodeCreationManager;
-
-#include <map>
-#include <algorithm>
-
-namespace Dasher {
+  // Eh? What's the point of this
   class CDasherInterfaceBase;
 }
+
+//class Dasher::CDasherScreen;
+//class Dasher::CDasherView;
+//class Dasher::CDasherInput;
+//class Dasher::CDasherModel;
+//class Dasher::CEventHandler;
+//class Dasher::CEvent;
+class CSettingsStore;
+class CUserLogBase;
+class CNodeCreationManager;
 
 /// \defgroup Core Core Dasher classes
 /// @{
@@ -591,6 +587,7 @@ protected:
   CUserLogBase *m_pUserLog; 
   CInputFilter* m_pInputFilter;
   CModuleManager m_oModuleManager;
+  CTrainingHelper *m_pTrainingHelper;
   /// @}
 
   std::string strTrainfileBuffer;

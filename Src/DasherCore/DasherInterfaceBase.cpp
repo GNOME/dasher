@@ -113,6 +113,8 @@ CDasherInterfaceBase::CDasherInterfaceBase() {
 
   m_bLastChanged = true;
 
+  m_pTrainingHelper = new CTrainingHelper;
+
 #ifndef _WIN32_WCE
   // Global logging object we can use from anywhere
   g_pLogger = new CFileLogger("dasher.log",
@@ -193,6 +195,7 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
   delete m_AlphIO;
   delete m_pInputFilter;
   delete m_pNCManager;
+  delete m_pTrainingHelper;
   // Do NOT delete Edit box or Screen. This class did not create them.
 
 #ifndef _WIN32_WCE
@@ -704,53 +707,59 @@ void CDasherInterfaceBase::DeleteAlphabet(const std::string &AlphID) {
 	negligible compared to huge requirements elsewhere.
 */
 int CDasherInterfaceBase::TrainFile(std::string Filename, int iTotalBytes, int iOffset) {
-  if(Filename == "")
-    return 0;
-  
-  FILE *InputFile;
-  if((InputFile = fopen(Filename.c_str(), "r")) == (FILE *) 0)
-    return 0;
 
-  AddLock(0);
-
-  const int BufferSize = 1024;
-  char InputBuffer[BufferSize];
-  string StringBuffer;
-  int NumberRead;
-  int iTotalRead(0);
-
-  vector < symbol > Symbols;
-
-  CAlphabetManagerFactory::CTrainer * pTrainer = m_pNCManager->GetTrainer();
-  do {
-    NumberRead = fread(InputBuffer, 1, BufferSize - 1, InputFile);
-    InputBuffer[NumberRead] = '\0';
-    StringBuffer += InputBuffer;
-    bool bIsMore = false;
-    if(NumberRead == (BufferSize - 1))
-      bIsMore = true;
-
-    Symbols.clear();
-    m_Alphabet->GetSymbols(&Symbols, &StringBuffer, bIsMore);
-
-    pTrainer->Train(Symbols);
-    iTotalRead += NumberRead;
-  
-    // TODO: No reason for this to be a pointer (other than cut/paste laziness!)
-    CLockEvent *pEvent;
-    pEvent = new CLockEvent("Training Dasher", true, static_cast<int>((100.0 * (iTotalRead + iOffset))/iTotalBytes));
-    m_pEventHandler->InsertEvent(pEvent);
-    delete pEvent;
-
-  } while(NumberRead == BufferSize - 1);
-
+  CAlphabetManagerFactory::CTrainer *pTrainer = m_pNCManager->GetTrainer();
+  m_pTrainingHelper->LoadFile(Filename, pTrainer, m_Alphabet);
   delete pTrainer;
 
-  fclose(InputFile);
+//   if(Filename == "")
+//     return 0;
+  
+//   FILE *InputFile;
+//   if((InputFile = fopen(Filename.c_str(), "r")) == (FILE *) 0)
+//     return 0;
 
-  ReleaseLock(0);
+//   AddLock(0);
 
-  return iTotalRead;
+//   const int BufferSize = 1024;
+//   char InputBuffer[BufferSize];
+//   string StringBuffer;
+//   int NumberRead;
+//   int iTotalRead(0);
+
+//   vector < symbol > Symbols;
+
+//   CAlphabetManagerFactory::CTrainer * pTrainer = m_pNCManager->GetTrainer();
+
+//   do {
+//     NumberRead = fread(InputBuffer, 1, BufferSize - 1, InputFile);
+//     InputBuffer[NumberRead] = '\0';
+//     StringBuffer += InputBuffer;
+//     bool bIsMore = false;
+//     if(NumberRead == (BufferSize - 1))
+//       bIsMore = true;
+
+//     Symbols.clear();
+//     m_Alphabet->GetSymbols(&Symbols, &StringBuffer, bIsMore);
+
+//     pTrainer->Train(Symbols);
+//     iTotalRead += NumberRead;
+  
+//     // TODO: No reason for this to be a pointer (other than cut/paste laziness!)
+//     CLockEvent *pEvent;
+//     pEvent = new CLockEvent("Training Dasher", true, static_cast<int>((100.0 * (iTotalRead + iOffset))/iTotalBytes));
+//     m_pEventHandler->InsertEvent(pEvent);
+//     delete pEvent;
+
+//   } while(NumberRead == BufferSize - 1);
+
+//   delete pTrainer;
+
+//   fclose(InputFile);
+
+//   ReleaseLock(0);
+
+//   return iTotalRead;
 }
 
 void CDasherInterfaceBase::GetFontSizes(std::vector <int >*FontSizes) const {

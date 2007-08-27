@@ -98,6 +98,8 @@ libdashercore_a_SOURCES = \
 		StylusFilter.h \
 		TimeSpan.cpp \
 		TimeSpan.h \
+		TrainingHelper.cpp \
+		TrainingHelper.h \
 		TwoBoxStartHandler.cpp \
 		TwoBoxStartHandler.h \
 		TwoButtonDynamicFilter.cpp \
