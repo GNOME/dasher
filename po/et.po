@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-18 03:24+0100\n"
-"PO-Revision-Date: 2007-08-19 11:40+0300\n"
+"PO-Revision-Date: 2007-08-24 16:27+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -916,7 +916,7 @@ msgstr ""
 
 #: ../Src/Gtk2/dasher_action_script.cpp:91
 msgid "Script"
-msgstr ""
+msgstr "Skript"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:129
 msgid "Speak"
@@ -924,15 +924,15 @@ msgstr ""
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:141
 msgid "All"
-msgstr ""
+msgstr "Kõik"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:143
 msgid "Last"
-msgstr ""
+msgstr "Viimane"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:145
 msgid "Repeat"
-msgstr ""
+msgstr "Kordus"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:163
 #, c-format
