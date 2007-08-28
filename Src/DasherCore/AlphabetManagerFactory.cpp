@@ -95,27 +95,27 @@ CDasherNode *CAlphabetManagerFactory::GetRoot(CDasherNode *pParent, int iLower, 
   return m_pAlphabetManager->GetRoot(pParent, iLower, iUpper, pUserData);
 }
 
-CAlphabetManagerFactory::CTrainer::CTrainer(CLanguageModel *pLanguageModel) {
+CTrainer::CTrainer(CLanguageModel *pLanguageModel) {
   m_pLanguageModel = pLanguageModel;
   m_Context = m_pLanguageModel->CreateEmptyContext();
 }
 
-void CAlphabetManagerFactory::CTrainer::Train(const std::vector<symbol> &vSymbols) {
+void CTrainer::Train(const std::vector<symbol> &vSymbols) {
 
   for(std::vector<symbol>::const_iterator it(vSymbols.begin()); it != vSymbols.end(); ++it) {
       m_pLanguageModel->LearnSymbol(m_Context, *it);
   }
 }
 
-void CAlphabetManagerFactory::CTrainer::Reset() {
+void CTrainer::Reset() {
   m_pLanguageModel->ReleaseContext(m_Context);
   m_Context = m_pLanguageModel->CreateEmptyContext();
 }
 
-CAlphabetManagerFactory::CTrainer::~CTrainer() {
+CTrainer::~CTrainer() {
   m_pLanguageModel->ReleaseContext(m_Context);
 }
 
-CAlphabetManagerFactory::CTrainer *CAlphabetManagerFactory::GetTrainer() {
+CTrainer *CAlphabetManagerFactory::GetTrainer() {
   return new CTrainer(m_pLanguageModel);
 }

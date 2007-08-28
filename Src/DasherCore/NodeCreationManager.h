@@ -120,17 +120,6 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
     return m_pAlphabet;
   }
 
-  ///
-  /// Get a pointer to the alphabet - TODO: Remove duplicate
-  /// functionality with the above function
-  ///
-
-/*   CAlphabet *GetAlphabet() const { */
-/*     return m_pAlphabet; */
-/*   } */
-
-  CAlphabetManagerFactory::CTrainer *GetTrainer();
-
  private:
   CLanguageModel *m_pLanguageModel;     // pointer to the language model
   CAlphabet *m_pAlphabet;        // pointer to the alphabet

@@ -40,7 +40,7 @@
 #include "ColourIO.h"
 #include "InputFilter.h"
 #include "ModuleManager.h"
-#include "TrainingHelper.h"
+//#include "TrainingHelper.h"
 
 #include <map>
 #include <algorithm>
@@ -176,10 +176,6 @@ public:
 
   void ResetParameter(int iParmater);
   
-  /// \todo Document this
-
-  void GetFontSizes(std::vector < int >*FontSizes) const;
-
   ///
   /// Obtain the permitted values for a string parameter - used to
   /// geneate preferences dialogues etc.
@@ -587,7 +583,7 @@ protected:
   CUserLogBase *m_pUserLog; 
   CInputFilter* m_pInputFilter;
   CModuleManager m_oModuleManager;
-  CTrainingHelper *m_pTrainingHelper;
+  //  CTrainingHelper *m_pTrainingHelper;
   /// @}
 
   std::string strTrainfileBuffer;

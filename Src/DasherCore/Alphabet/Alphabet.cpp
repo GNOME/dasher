@@ -1,14 +1,27 @@
 // Alphabet.cpp
 //
-/////////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2007 The Dasher Team
 //
-// Copyright (c) 2001-2005 David Ward
+// This file is part of Dasher.
 //
-/////////////////////////////////////////////////////////////////////////////
+// Dasher is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// Dasher is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Dasher; if not, write to the Free Software 
+// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "../../Common/Common.h"
-
+#include "../TrainingHelper.h"
 #include "Alphabet.h"
+#include "../AlphabetManagerFactory.h"
 #include "AlphabetMap.h"
 
 
@@ -33,6 +46,8 @@ CAlphabet::CAlphabet()
   m_Display.push_back("");
   m_Colours.push_back(-1);
   m_Foreground.push_back("");
+
+  m_pTrainingHelper = new CTrainingHelper;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -47,6 +62,7 @@ CAlphabet::CAlphabet(const CAlphIO::AlphInfo &AlphInfo)
   m_StartConversionSymbol = -1;
   m_EndConversionSymbol = -1;
 
+  m_pTrainingHelper = NULL;
 
   m_strDefaultContext = AlphInfo.m_strDefaultContext;
 
@@ -100,6 +116,10 @@ CAlphabet::CAlphabet(const CAlphIO::AlphInfo &AlphInfo)
 #ifdef DASHER_TRACE
   Trace();
 #endif
+}
+
+CAlphabet::~CAlphabet() {
+  delete m_pTrainingHelper;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -254,35 +274,15 @@ int CAlphabet::GetTextColour(symbol Symbol) {
   }
 }
 
-/////////////////////////////////////////////////////////////////////////////
 
-// CAlphabet::CGroupAdder * CAlphabet::GetGroupAdder(int iColour, const std::string &strLabel) {
-//   return new CGroupAdder(*this, iColour, strLabel);
-// }
+void CAlphabet::Train(const std::string &strUserLoc, 
+		      const std::string &strSystemLoc, 
+		      CTrainer *pTrainer) {
 
-// /////////////////////////////////////////////////////////////////////////////
+  std::string strTrainingFile = GetTrainingFile();
 
-// CAlphabet::CGroupAdder::CGroupAdder(CAlphabet &alphabet, int iColour, std::string strLabel)
-// :m_Alphabet(alphabet) {
-//   m_Alphabet.m_iGroups++;
-//   m_Alphabet.m_GroupColour.push_back(iColour);
-//   m_Alphabet.m_GroupLabel.push_back(strLabel);
-//   m_Alphabet.m_GroupStart.push_back(m_Alphabet.GetNumberSymbols());
+  std::string strUserPathFull = strUserLoc + strTrainingFile;
 
-// }
-
-// /////////////////////////////////////////////////////////////////////////////
-
-// CAlphabet::CGroupAdder::~CGroupAdder() {
-//   m_Alphabet.m_GroupEnd.push_back(m_Alphabet.GetNumberSymbols());
-
-// }
-
-/////////////////////////////////////////////////////////////////////////////
-
-// void CAlphabet::CGroupAdder::AddChar(const std::string NewCharacter, const std::string Display, int Colour, const std::string Foreground) {
-//   m_Alphabet.AddChar(NewCharacter, Display, Colour, Foreground);
-
-// }
-
-/////////////////////////////////////////////////////////////////////////////
+  m_pTrainingHelper->LoadFile(strUserPathFull, pTrainer, this);
+  m_pTrainingHelper->LoadFile(strSystemLoc + strTrainingFile, pTrainer, this);
+}

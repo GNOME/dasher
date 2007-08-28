@@ -432,7 +432,6 @@ AC_CONFIG_FILES([Data/dasher.desktop.in
 		 Src/Makefile
 		 Src/Common/Makefile
 		 Src/DasherCore/Makefile
-		 Src/DasherCore/Alphabet/Makefile
 		 Src/DasherCore/LanguageModelling/Makefile
 		 Src/DasherIM/Makefile
 		 Src/Gtk2/Makefile

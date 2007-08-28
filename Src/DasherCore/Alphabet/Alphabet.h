@@ -1,26 +1,38 @@
 // Alphabet.h
 //
-/////////////////////////////////////////////////////////////////////////////
-// Alphabet.h
+// Copyright (c) 2007 The Dasher Team
 //
-/////////////////////////////////////////////////////////////////////////////
+// This file is part of Dasher.
 //
-// Copyright (c) 2001-2002 David Ward
+// Dasher is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
 //
-/////////////////////////////////////////////////////////////////////////////
+// Dasher is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Dasher; if not, write to the Free Software 
+// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #ifndef __DASHER_ALPHABET_H__
 #define __DASHER_ALPHABET_H__
 
+#include "AlphIO.h"
+#include "AlphabetMap.h"
 #include "../DasherTypes.h"
 #include "GroupInfo.h"
 
 #include <cstdlib>
 #include <vector>
-#include "AlphabetMap.h"
-#include "AlphIO.h"
 
 namespace Dasher {
+  // Forward declarations
+  class CTrainer;
+  class CTrainingHelper;
 
   ///
   /// \defgroup Alphabet Alphabet information
@@ -28,14 +40,11 @@ namespace Dasher {
 
   class CAlphabet {
   public:
-
-
     CAlphabet();
-
     CAlphabet(const CAlphIO::AlphInfo & AlphInfo);
 
-     ~CAlphabet() {
-    };
+    ~CAlphabet();
+
 
     // Return size of alphabet, including control symbols
     int GetNumberSymbols() const {
@@ -160,7 +169,10 @@ namespace Dasher {
     }
 
     SGroupInfo *m_pBaseGroup;
-    
+
+    void Train(const std::string &strUserLoc, 
+	       const std::string &strSystemLoc, 
+	       CTrainer *pTrainer);
     
   private:
 
@@ -169,7 +181,6 @@ namespace Dasher {
     symbol m_ParagraphSymbol;
     symbol m_SpaceSymbol;
     symbol m_ControlSymbol;
-    //-- Added for Kanji Conversion 13 July 2005 by T.Kaburagi
     symbol m_StartConversionSymbol;
     symbol m_EndConversionSymbol;
 
@@ -177,25 +188,21 @@ namespace Dasher {
     std::string m_GameModeFile;
     std::string m_DefaultPalette;
 
+    // TODO: This is inane
     std::vector < std::string > m_Characters;   // stores the characters
     std::vector < std::string > m_Display;      // stores how the characters are visually represented in the Dasher nodes
     std::vector < int >m_Colours;       // stores the colour of the characters
     std::vector < std::string > m_Foreground;   // stores the colour of the character foreground
+    // ----
 
-    //    int m_iGroups;              // number of groups
+    CTrainingHelper *m_pTrainingHelper;
 
-/*     std::vector < int >m_GroupStart;    // stores the group start index */
-/*     std::vector < int >m_GroupEnd;      // stores the group end index (1 past the last) */
-/*     std::vector < int >m_GroupColour;   // stores the colour of the group */
-/*     std::vector < std::string > m_GroupLabel; */
 
     SGroupInfo *pFirstGroup;
 
     alphabet_map TextMap;
 
     std::string m_strDefaultContext;
-
-    //    friend class CGroupAdder;
   };
 
   /// @}

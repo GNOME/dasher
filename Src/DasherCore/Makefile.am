@@ -1,4 +1,4 @@
-SUBDIRS = LanguageModelling Alphabet
+SUBDIRS = LanguageModelling
 
 noinst_LIBRARIES = libdashercore.a libdasherprefs.a
 
@@ -8,6 +8,13 @@ libdasherprefs_a_SOURCES = \
 		SettingsStore.h 
 
 libdashercore_a_SOURCES = \
+		Alphabet/AlphIO.cpp \
+                Alphabet/AlphIO.h \
+                Alphabet/Alphabet.cpp \
+                Alphabet/Alphabet.h \
+                Alphabet/AlphabetMap.cpp \
+                Alphabet/AlphabetMap.h \
+                Alphabet/GroupInfo.h \
 		ActionButton.cpp \
 		ActionButton.h \
 		AlphabetManager.cpp \

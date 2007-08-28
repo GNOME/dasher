@@ -34,7 +34,6 @@ dasher_LDADD = \
 	DasherCore/libdashercore.a \
 	DasherCore/libdasherprefs.a \
 	DasherCore/LanguageModelling/libdasherlm.a \
-	DasherCore/Alphabet/libdasheralphabet.a \
 	Common/libdashermisc.a
 #endif
 

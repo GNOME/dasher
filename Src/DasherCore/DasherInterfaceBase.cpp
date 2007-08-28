@@ -113,7 +113,7 @@ CDasherInterfaceBase::CDasherInterfaceBase() {
 
   m_bLastChanged = true;
 
-  m_pTrainingHelper = new CTrainingHelper;
+  //  m_pTrainingHelper = new CTrainingHelper;
 
 #ifndef _WIN32_WCE
   // Global logging object we can use from anywhere
@@ -195,7 +195,7 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
   delete m_AlphIO;
   delete m_pInputFilter;
   delete m_pNCManager;
-  delete m_pTrainingHelper;
+  //  delete m_pTrainingHelper;
   // Do NOT delete Edit box or Screen. This class did not create them.
 
 #ifndef _WIN32_WCE
@@ -423,23 +423,7 @@ void CDasherInterfaceBase::CreateNCManager() {
     m_pNCManager = new CNodeCreationManager(this, m_pEventHandler, m_pSettingsStore, m_AlphIO);
 
     m_Alphabet = m_pNCManager->GetAlphabet();
-    
-    // TODO: Consider using GetStringParameter(SP_TRAIN_FILE) instead?
-    string T = m_Alphabet->GetTrainingFile();
-
-    int iTotalBytes = 0;
-    iTotalBytes += GetFileSize(GetStringParameter(SP_SYSTEM_LOC) + T);
-    iTotalBytes += GetFileSize(GetStringParameter(SP_USER_LOC) + T);
-
-    if(iTotalBytes > 0) {
-      int iOffset;
-      iOffset = TrainFile(GetStringParameter(SP_SYSTEM_LOC) + T, iTotalBytes, 0);
-      TrainFile(GetStringParameter(SP_USER_LOC) + T, iTotalBytes, iOffset);
-    }
-    else {
-      CMessageEvent oEvent("No training text is avilable for the selected alphabet. Dasher will function, but it may be difficult to enter text.\nPlease see http://www.dasher.org.uk/alphabets/ for more information.", 0, 0);
-      m_pEventHandler->InsertEvent(&oEvent);
-    }
+   
 
     pEvent = new CLockEvent("Training Dasher", false, 0);
     m_pEventHandler->InsertEvent(pEvent);
@@ -698,80 +682,6 @@ void CDasherInterfaceBase::SetInfo(const CAlphIO::AlphInfo &NewInfo) {
 
 void CDasherInterfaceBase::DeleteAlphabet(const std::string &AlphID) {
   m_AlphIO->Delete(AlphID);
-}
-
-/*
-	I've used C style I/O because I found that C++ style I/O bloated
-	the Win32 code enormously. The overhead of loading the buffer into
-	the string instead of reading straight into a string seems to be
-	negligible compared to huge requirements elsewhere.
-*/
-int CDasherInterfaceBase::TrainFile(std::string Filename, int iTotalBytes, int iOffset) {
-
-  CAlphabetManagerFactory::CTrainer *pTrainer = m_pNCManager->GetTrainer();
-  m_pTrainingHelper->LoadFile(Filename, pTrainer, m_Alphabet);
-  delete pTrainer;
-
-//   if(Filename == "")
-//     return 0;
-  
-//   FILE *InputFile;
-//   if((InputFile = fopen(Filename.c_str(), "r")) == (FILE *) 0)
-//     return 0;
-
-//   AddLock(0);
-
-//   const int BufferSize = 1024;
-//   char InputBuffer[BufferSize];
-//   string StringBuffer;
-//   int NumberRead;
-//   int iTotalRead(0);
-
-//   vector < symbol > Symbols;
-
-//   CAlphabetManagerFactory::CTrainer * pTrainer = m_pNCManager->GetTrainer();
-
-//   do {
-//     NumberRead = fread(InputBuffer, 1, BufferSize - 1, InputFile);
-//     InputBuffer[NumberRead] = '\0';
-//     StringBuffer += InputBuffer;
-//     bool bIsMore = false;
-//     if(NumberRead == (BufferSize - 1))
-//       bIsMore = true;
-
-//     Symbols.clear();
-//     m_Alphabet->GetSymbols(&Symbols, &StringBuffer, bIsMore);
-
-//     pTrainer->Train(Symbols);
-//     iTotalRead += NumberRead;
-  
-//     // TODO: No reason for this to be a pointer (other than cut/paste laziness!)
-//     CLockEvent *pEvent;
-//     pEvent = new CLockEvent("Training Dasher", true, static_cast<int>((100.0 * (iTotalRead + iOffset))/iTotalBytes));
-//     m_pEventHandler->InsertEvent(pEvent);
-//     delete pEvent;
-
-//   } while(NumberRead == BufferSize - 1);
-
-//   delete pTrainer;
-
-//   fclose(InputFile);
-
-//   ReleaseLock(0);
-
-//   return iTotalRead;
-}
-
-void CDasherInterfaceBase::GetFontSizes(std::vector <int >*FontSizes) const {
-  FontSizes->push_back(20);
-  FontSizes->push_back(14);
-  FontSizes->push_back(11);
-  FontSizes->push_back(40);
-  FontSizes->push_back(28);
-  FontSizes->push_back(22);
-  FontSizes->push_back(80);
-  FontSizes->push_back(56);
-  FontSizes->push_back(44);
 }
 
 double CDasherInterfaceBase::GetCurCPM() {

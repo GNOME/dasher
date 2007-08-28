@@ -20,7 +20,12 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
   
   m_pLanguageModel = m_pAlphabetManagerFactory->GetLanguageModel();
   m_pAlphabet = m_pAlphabetManagerFactory->GetAlphabet();
- 
+
+  // Train the language model
+  CTrainer *pTrainer =  m_pAlphabetManagerFactory->GetTrainer();
+  m_pAlphabet->Train(GetStringParameter(SP_USER_LOC), GetStringParameter(SP_SYSTEM_LOC), pTrainer);
+  delete pTrainer;
+
   int iConversionID(m_pAlphabetManagerFactory->GetConversionID());
 
 #ifndef _WIN32_WCE
@@ -147,8 +152,4 @@ void CNodeCreationManager::EnterText(CLanguageModel::Context context, std::strin
   m_pAlphabet->GetSymbols(&Symbols, &TheText, false);
   for(unsigned int i = 0; i < Symbols.size(); i++)
     m_pLanguageModel->EnterSymbol(context, Symbols[i]); // FIXME - conversion to symbol alphabet
-}
-
-CAlphabetManagerFactory::CTrainer *CNodeCreationManager::GetTrainer() {
-  return m_pAlphabetManagerFactory->GetTrainer();
 }

@@ -122,9 +122,10 @@ public:
   ///
 
   void Train(const gchar * filename) {
+    // TODO: Fix this
     // TODO: Shouldn't call this directly - need a wrapper function which stats for filesize etc.
     // Better - allow user to pass a vector of filenames
-    TrainFile(filename,0,0);
+    //    TrainFile(filename,0,0);
   };
 
   ///

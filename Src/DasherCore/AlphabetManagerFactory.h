@@ -12,23 +12,25 @@ namespace Dasher {
   class CAlphIO;
   class CDasherInterfaceBase;
 
+  // TODO: Move this into a new file
+  class CTrainer {
+  public:
+    CTrainer(CLanguageModel *pLanguageModel);
+    
+    void Train(const std::vector < symbol > &vSymbols);
+    void Reset();
+    
+    ~CTrainer();
+    
+  private:
+    CLanguageModel *m_pLanguageModel;
+    CLanguageModel::Context m_Context;
+  };
+
   /// \ingroup Model
   /// @{
   class CAlphabetManagerFactory : public CNodeManagerFactory {
   public:
-    class CTrainer {
-    public:
-      CTrainer(CLanguageModel *pLanguageModel);
-      
-      void Train(const std::vector < symbol > &vSymbols);
-      void Reset();
-      
-      ~CTrainer();
-      
-    private:
-      CLanguageModel *m_pLanguageModel;
-      CLanguageModel::Context m_Context;
-    };
 
     CAlphabetManagerFactory(CDasherInterfaceBase *pInterface,
 			    CEventHandler *pEventHandler,
