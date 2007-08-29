@@ -1,0 +1,1968 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		190257FC0B0C980800178CCD /* DasherApp.mm in Sources */ = {isa = PBXBuildFile; fileRef = 19EEDB310450E75F0000000A /* DasherApp.mm */; };
+		190257FD0B0C981300178CCD /* DasherEdit.h in Headers */ = {isa = PBXBuildFile; fileRef = 1904CDA5048813400000000A /* DasherEdit.h */; };
+		190257FE0B0C981400178CCD /* DasherEdit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1904CDA6048813400000000A /* DasherEdit.mm */; };
+		190258010B0C981900178CCD /* DasherViewOpenGL.h in Headers */ = {isa = PBXBuildFile; fileRef = 19C4961D045029D70000000A /* DasherViewOpenGL.h */; };
+		190258030B0C981900178CCD /* PreferencesController.h in Headers */ = {isa = PBXBuildFile; fileRef = 19D4423C04546C410000000A /* PreferencesController.h */; };
+		190258040B0C981A00178CCD /* PreferencesController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 19D4423D04546C410000000A /* PreferencesController.mm */; };
+		191180EB0B0FC91A001CB987 /* COSXSettingsStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 191180E90B0FC91A001CB987 /* COSXSettingsStore.h */; };
+		191180EC0B0FC91A001CB987 /* COSXSettingsStore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 191180EA0B0FC91A001CB987 /* COSXSettingsStore.mm */; };
+		191427A80B0E0C68004F1C28 /* DasherViewOpenGL.mm in Sources */ = {isa = PBXBuildFile; fileRef = 199DCCD70450B94C0000000A /* DasherViewOpenGL.mm */; };
+		191428E60B0E6CC6004F1C28 /* COSXDasherControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 191428E40B0E6CC6004F1C28 /* COSXDasherControl.h */; };
+		191428E70B0E6CC6004F1C28 /* COSXDasherControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 191428E50B0E6CC6004F1C28 /* COSXDasherControl.mm */; };
+		1921DB390C7ECAA400E6DAA5 /* OneButtonDynamicFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1921DB370C7ECAA400E6DAA5 /* OneButtonDynamicFilter.cpp */; };
+		1921DB3A0C7ECAA400E6DAA5 /* OneButtonDynamicFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1921DB380C7ECAA400E6DAA5 /* OneButtonDynamicFilter.h */; };
+		1921DB3F0C7ECB4A00E6DAA5 /* DasherGameMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE290C226CFD001DFA32 /* DasherGameMode.h */; };
+		1921DB400C7ECB4B00E6DAA5 /* DasherGameMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE280C226CFD001DFA32 /* DasherGameMode.cpp */; };
+		1921DB6E0C7ECB9900E6DAA5 /* GameScorer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1921DB6C0C7ECB9900E6DAA5 /* GameScorer.cpp */; };
+		1921DB6F0C7ECB9900E6DAA5 /* GameScorer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1921DB6D0C7ECB9900E6DAA5 /* GameScorer.h */; };
+		193731A80C8586F20022CBC7 /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 193731A70C8586F20022CBC7 /* config.h */; };
+		1948BE9D0C226CFD001DFA32 /* ActionButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BDF60C226CFC001DFA32 /* ActionButton.cpp */; };
+		1948BE9E0C226CFD001DFA32 /* ActionButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BDF70C226CFC001DFA32 /* ActionButton.h */; };
+		1948BE9F0C226CFD001DFA32 /* .cvsignore in Resources */ = {isa = PBXBuildFile; fileRef = 1948BDF90C226CFC001DFA32 /* .cvsignore */; };
+		1948BEA00C226CFD001DFA32 /* Alphabet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BDFA0C226CFC001DFA32 /* Alphabet.cpp */; };
+		1948BEA10C226CFD001DFA32 /* Alphabet.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BDFB0C226CFC001DFA32 /* Alphabet.h */; };
+		1948BEA20C226CFD001DFA32 /* AlphabetMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BDFC0C226CFC001DFA32 /* AlphabetMap.cpp */; };
+		1948BEA30C226CFD001DFA32 /* AlphabetMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BDFD0C226CFC001DFA32 /* AlphabetMap.h */; };
+		1948BEA40C226CFD001DFA32 /* AlphIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BDFE0C226CFC001DFA32 /* AlphIO.cpp */; };
+		1948BEA50C226CFD001DFA32 /* AlphIO.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BDFF0C226CFC001DFA32 /* AlphIO.h */; };
+		1948BEA60C226CFD001DFA32 /* GroupInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE000C226CFC001DFA32 /* GroupInfo.h */; };
+		1948BEA80C226CFD001DFA32 /* AlphabetManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE020C226CFC001DFA32 /* AlphabetManager.cpp */; };
+		1948BEA90C226CFD001DFA32 /* AlphabetManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE030C226CFC001DFA32 /* AlphabetManager.h */; };
+		1948BEAA0C226CFD001DFA32 /* AlphabetManagerFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE040C226CFC001DFA32 /* AlphabetManagerFactory.cpp */; };
+		1948BEAB0C226CFD001DFA32 /* AlphabetManagerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE050C226CFC001DFA32 /* AlphabetManagerFactory.h */; };
+		1948BEAC0C226CFD001DFA32 /* AutoSpeedControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE060C226CFC001DFA32 /* AutoSpeedControl.cpp */; };
+		1948BEAD0C226CFD001DFA32 /* AutoSpeedControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE070C226CFC001DFA32 /* AutoSpeedControl.h */; };
+		1948BEAE0C226CFD001DFA32 /* BasicLog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE080C226CFC001DFA32 /* BasicLog.cpp */; };
+		1948BEAF0C226CFD001DFA32 /* BasicLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE090C226CFC001DFA32 /* BasicLog.h */; };
+		1948BEB10C226CFD001DFA32 /* CannaConversionHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE0B0C226CFC001DFA32 /* CannaConversionHelper.h */; };
+		1948BEB20C226CFD001DFA32 /* CircleStartHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE0C0C226CFC001DFA32 /* CircleStartHandler.cpp */; };
+		1948BEB30C226CFD001DFA32 /* CircleStartHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE0D0C226CFC001DFA32 /* CircleStartHandler.h */; };
+		1948BEB40C226CFD001DFA32 /* ClickFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE0E0C226CFC001DFA32 /* ClickFilter.cpp */; };
+		1948BEB50C226CFD001DFA32 /* ClickFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE0F0C226CFC001DFA32 /* ClickFilter.h */; };
+		1948BEB60C226CFD001DFA32 /* ColourIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE100C226CFC001DFA32 /* ColourIO.cpp */; };
+		1948BEB70C226CFD001DFA32 /* ColourIO.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE110C226CFC001DFA32 /* ColourIO.h */; };
+		1948BEB80C226CFD001DFA32 /* ControlManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE120C226CFC001DFA32 /* ControlManager.cpp */; };
+		1948BEB90C226CFD001DFA32 /* ControlManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE130C226CFC001DFA32 /* ControlManager.h */; };
+		1948BEBA0C226CFD001DFA32 /* ControlManagerFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE140C226CFC001DFA32 /* ControlManagerFactory.cpp */; };
+		1948BEBB0C226CFD001DFA32 /* ControlManagerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE150C226CFC001DFA32 /* ControlManagerFactory.h */; };
+		1948BEBC0C226CFD001DFA32 /* ConversionHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE160C226CFC001DFA32 /* ConversionHelper.h */; };
+		1948BEBD0C226CFD001DFA32 /* ConversionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE170C226CFC001DFA32 /* ConversionManager.cpp */; };
+		1948BEBE0C226CFD001DFA32 /* ConversionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE180C226CFC001DFA32 /* ConversionManager.h */; };
+		1948BEBF0C226CFD001DFA32 /* ConversionManagerFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE190C226CFC001DFA32 /* ConversionManagerFactory.cpp */; };
+		1948BEC00C226CFD001DFA32 /* ConversionManagerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE1A0C226CFC001DFA32 /* ConversionManagerFactory.h */; };
+		1948BEC10C226CFD001DFA32 /* CustomColours.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE1B0C226CFC001DFA32 /* CustomColours.cpp */; };
+		1948BEC20C226CFD001DFA32 /* CustomColours.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE1C0C226CFC001DFA32 /* CustomColours.h */; };
+		1948BEC30C226CFD001DFA32 /* DasherButtons.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE1D0C226CFC001DFA32 /* DasherButtons.cpp */; };
+		1948BEC40C226CFD001DFA32 /* DasherButtons.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE1E0C226CFC001DFA32 /* DasherButtons.h */; };
+		1948BEC50C226CFD001DFA32 /* DasherComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE1F0C226CFC001DFA32 /* DasherComponent.cpp */; };
+		1948BEC60C226CFD001DFA32 /* DasherComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE200C226CFC001DFA32 /* DasherComponent.h */; };
+		1948BED00C226CFD001DFA32 /* DasherInput.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE2A0C226CFD001DFA32 /* DasherInput.h */; };
+		1948BED10C226CFD001DFA32 /* DasherInterfaceBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE2B0C226CFD001DFA32 /* DasherInterfaceBase.cpp */; };
+		1948BED20C226CFD001DFA32 /* DasherInterfaceBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE2C0C226CFD001DFA32 /* DasherInterfaceBase.h */; };
+		1948BED30C226CFD001DFA32 /* DasherModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE2D0C226CFD001DFA32 /* DasherModel.cpp */; };
+		1948BED40C226CFD001DFA32 /* DasherModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE2E0C226CFD001DFA32 /* DasherModel.h */; };
+		1948BED50C226CFD001DFA32 /* DasherModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE2F0C226CFD001DFA32 /* DasherModule.cpp */; };
+		1948BED60C226CFD001DFA32 /* DasherModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE300C226CFD001DFA32 /* DasherModule.h */; };
+		1948BED70C226CFD001DFA32 /* DasherNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE310C226CFD001DFA32 /* DasherNode.cpp */; };
+		1948BED80C226CFD001DFA32 /* DasherNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE320C226CFD001DFA32 /* DasherNode.h */; };
+		1948BED90C226CFD001DFA32 /* DasherScreen.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE330C226CFD001DFA32 /* DasherScreen.h */; };
+		1948BEDA0C226CFD001DFA32 /* DasherTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE340C226CFD001DFA32 /* DasherTypes.h */; };
+		1948BEDB0C226CFD001DFA32 /* DasherView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE350C226CFD001DFA32 /* DasherView.cpp */; };
+		1948BEDC0C226CFD001DFA32 /* DasherView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE360C226CFD001DFA32 /* DasherView.h */; };
+		1948BEDD0C226CFD001DFA32 /* DasherView.inl in Resources */ = {isa = PBXBuildFile; fileRef = 1948BE370C226CFD001DFA32 /* DasherView.inl */; };
+		1948BEDE0C226CFD001DFA32 /* DasherViewSquare.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE380C226CFD001DFA32 /* DasherViewSquare.cpp */; };
+		1948BEDF0C226CFD001DFA32 /* DasherViewSquare.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE390C226CFD001DFA32 /* DasherViewSquare.h */; };
+		1948BEE00C226CFD001DFA32 /* DasherViewSquare.inl in Resources */ = {isa = PBXBuildFile; fileRef = 1948BE3A0C226CFD001DFA32 /* DasherViewSquare.inl */; };
+		1948BEE10C226CFD001DFA32 /* DefaultFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE3B0C226CFD001DFA32 /* DefaultFilter.cpp */; };
+		1948BEE20C226CFD001DFA32 /* DefaultFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE3C0C226CFD001DFA32 /* DefaultFilter.h */; };
+		1948BEE30C226CFD001DFA32 /* DelayedDraw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE3D0C226CFD001DFA32 /* DelayedDraw.cpp */; };
+		1948BEE40C226CFD001DFA32 /* DynamicFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE3E0C226CFD001DFA32 /* DynamicFilter.cpp */; };
+		1948BEE50C226CFD001DFA32 /* DynamicFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE3F0C226CFD001DFA32 /* DynamicFilter.h */; };
+		1948BEE60C226CFD001DFA32 /* Event.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE400C226CFD001DFA32 /* Event.h */; };
+		1948BEE70C226CFD001DFA32 /* EventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE410C226CFD001DFA32 /* EventHandler.cpp */; };
+		1948BEE80C226CFD001DFA32 /* EventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE420C226CFD001DFA32 /* EventHandler.h */; };
+		1948BEE90C226CFD001DFA32 /* EyetrackerFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE430C226CFD001DFA32 /* EyetrackerFilter.cpp */; };
+		1948BEEA0C226CFD001DFA32 /* EyetrackerFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE440C226CFD001DFA32 /* EyetrackerFilter.h */; };
+		1948BEEB0C226CFD001DFA32 /* FileLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE450C226CFD001DFA32 /* FileLogger.cpp */; };
+		1948BEEC0C226CFD001DFA32 /* FileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE460C226CFD001DFA32 /* FileLogger.h */; };
+		1948BEED0C226CFD001DFA32 /* FrameRate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE470C226CFD001DFA32 /* FrameRate.h */; };
+		1948BEF00C226CFD001DFA32 /* IMEConversionHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE4A0C226CFD001DFA32 /* IMEConversionHelper.cpp */; };
+		1948BEF10C226CFD001DFA32 /* IMEConversionHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE4B0C226CFD001DFA32 /* IMEConversionHelper.h */; };
+		1948BEF20C226CFD001DFA32 /* InputFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE4C0C226CFD001DFA32 /* InputFilter.h */; };
+		1948BEF60C226CFD001DFA32 /* CTWLanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE510C226CFD001DFA32 /* CTWLanguageModel.cpp */; };
+		1948BEF70C226CFD001DFA32 /* CTWLanguageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE520C226CFD001DFA32 /* CTWLanguageModel.h */; };
+		1948BEF80C226CFD001DFA32 /* DictLanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE530C226CFD001DFA32 /* DictLanguageModel.cpp */; };
+		1948BEF90C226CFD001DFA32 /* DictLanguageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE540C226CFD001DFA32 /* DictLanguageModel.h */; };
+		1948BEFA0C226CFD001DFA32 /* HashTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE550C226CFD001DFA32 /* HashTable.cpp */; };
+		1948BEFB0C226CFD001DFA32 /* HashTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE560C226CFD001DFA32 /* HashTable.h */; };
+		1948BF030C226CFD001DFA32 /* LanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE5E0C226CFD001DFA32 /* LanguageModel.cpp */; };
+		1948BF040C226CFD001DFA32 /* LanguageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE5F0C226CFD001DFA32 /* LanguageModel.h */; };
+		1948BF060C226CFD001DFA32 /* MixtureLanguageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE610C226CFD001DFA32 /* MixtureLanguageModel.h */; };
+		1948BF070C226CFD001DFA32 /* PPMLanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE620C226CFD001DFA32 /* PPMLanguageModel.cpp */; };
+		1948BF080C226CFD001DFA32 /* PPMLanguageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE630C226CFD001DFA32 /* PPMLanguageModel.h */; };
+		1948BF090C226CFD001DFA32 /* SymbolAlphabet.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE640C226CFD001DFA32 /* SymbolAlphabet.h */; };
+		1948BF0A0C226CFD001DFA32 /* WordLanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE650C226CFD001DFA32 /* WordLanguageModel.cpp */; };
+		1948BF0B0C226CFD001DFA32 /* WordLanguageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE660C226CFD001DFA32 /* WordLanguageModel.h */; };
+		1948BF0D0C226CFD001DFA32 /* MemoryLeak.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE680C226CFD001DFA32 /* MemoryLeak.cpp */; };
+		1948BF0E0C226CFD001DFA32 /* MemoryLeak.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE690C226CFD001DFA32 /* MemoryLeak.h */; };
+		1948BF0F0C226CFD001DFA32 /* ModuleFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE6A0C226CFD001DFA32 /* ModuleFactory.h */; };
+		1948BF100C226CFD001DFA32 /* ModuleManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE6B0C226CFD001DFA32 /* ModuleManager.cpp */; };
+		1948BF110C226CFD001DFA32 /* ModuleManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE6C0C226CFD001DFA32 /* ModuleManager.h */; };
+		1948BF120C226CFD001DFA32 /* NodeCreationManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE6D0C226CFD001DFA32 /* NodeCreationManager.cpp */; };
+		1948BF130C226CFD001DFA32 /* NodeCreationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE6E0C226CFD001DFA32 /* NodeCreationManager.h */; };
+		1948BF140C226CFD001DFA32 /* NodeManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE6F0C226CFD001DFA32 /* NodeManager.h */; };
+		1948BF150C226CFD001DFA32 /* NodeManagerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE700C226CFD001DFA32 /* NodeManagerFactory.h */; };
+		1948BF160C226CFD001DFA32 /* OneButtonFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE710C226CFD001DFA32 /* OneButtonFilter.cpp */; };
+		1948BF170C226CFD001DFA32 /* OneButtonFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE720C226CFD001DFA32 /* OneButtonFilter.h */; };
+		1948BF180C226CFD001DFA32 /* OneDimensionalFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE730C226CFD001DFA32 /* OneDimensionalFilter.cpp */; };
+		1948BF190C226CFD001DFA32 /* OneDimensionalFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE740C226CFD001DFA32 /* OneDimensionalFilter.h */; };
+		1948BF1A0C226CFD001DFA32 /* Parameters.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE750C226CFD001DFA32 /* Parameters.h */; };
+		1948BF1D0C226CFD001DFA32 /* SCENode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE780C226CFD001DFA32 /* SCENode.cpp */; };
+		1948BF1E0C226CFD001DFA32 /* SCENode.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE790C226CFD001DFA32 /* SCENode.h */; };
+		1948BF1F0C226CFD001DFA32 /* SettingsStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE7A0C226CFD001DFA32 /* SettingsStore.cpp */; };
+		1948BF200C226CFD001DFA32 /* SettingsStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE7B0C226CFD001DFA32 /* SettingsStore.h */; };
+		1948BF210C226CFD001DFA32 /* SimpleTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE7C0C226CFD001DFA32 /* SimpleTimer.cpp */; };
+		1948BF220C226CFD001DFA32 /* SimpleTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE7D0C226CFD001DFA32 /* SimpleTimer.h */; };
+		1948BF250C226CFD001DFA32 /* SocketInputBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE800C226CFD001DFA32 /* SocketInputBase.cpp */; };
+		1948BF260C226CFD001DFA32 /* SocketInputBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE810C226CFD001DFA32 /* SocketInputBase.h */; };
+		1948BF270C226CFD001DFA32 /* StartHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE820C226CFD001DFA32 /* StartHandler.h */; };
+		1948BF280C226CFD001DFA32 /* StylusFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE830C226CFD001DFA32 /* StylusFilter.cpp */; };
+		1948BF290C226CFD001DFA32 /* StylusFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE840C226CFD001DFA32 /* StylusFilter.h */; };
+		1948BF2A0C226CFD001DFA32 /* TimeSpan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE850C226CFD001DFA32 /* TimeSpan.cpp */; };
+		1948BF2B0C226CFD001DFA32 /* TimeSpan.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE860C226CFD001DFA32 /* TimeSpan.h */; };
+		1948BF2C0C226CFD001DFA32 /* TwoBoxStartHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE870C226CFD001DFA32 /* TwoBoxStartHandler.cpp */; };
+		1948BF2D0C226CFD001DFA32 /* TwoBoxStartHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE880C226CFD001DFA32 /* TwoBoxStartHandler.h */; };
+		1948BF2E0C226CFD001DFA32 /* TwoButtonDynamicFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE890C226CFD001DFA32 /* TwoButtonDynamicFilter.cpp */; };
+		1948BF2F0C226CFD001DFA32 /* TwoButtonDynamicFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE8A0C226CFD001DFA32 /* TwoButtonDynamicFilter.h */; };
+		1948BF300C226CFD001DFA32 /* UserButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE8B0C226CFD001DFA32 /* UserButton.cpp */; };
+		1948BF310C226CFD001DFA32 /* UserButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE8C0C226CFD001DFA32 /* UserButton.h */; };
+		1948BF320C226CFD001DFA32 /* UserLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE8D0C226CFD001DFA32 /* UserLocation.cpp */; };
+		1948BF330C226CFD001DFA32 /* UserLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE8E0C226CFD001DFA32 /* UserLocation.h */; };
+		1948BF340C226CFD001DFA32 /* UserLog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE8F0C226CFD001DFA32 /* UserLog.cpp */; };
+		1948BF350C226CFD001DFA32 /* UserLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE900C226CFD001DFA32 /* UserLog.h */; };
+		1948BF360C226CFD001DFA32 /* UserLogBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE910C226CFD001DFA32 /* UserLogBase.h */; };
+		1948BF370C226CFD001DFA32 /* UserLogParam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE920C226CFD001DFA32 /* UserLogParam.cpp */; };
+		1948BF380C226CFD001DFA32 /* UserLogParam.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE930C226CFD001DFA32 /* UserLogParam.h */; };
+		1948BF390C226CFD001DFA32 /* UserLogTrial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE940C226CFD001DFA32 /* UserLogTrial.cpp */; };
+		1948BF3A0C226CFD001DFA32 /* UserLogTrial.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE950C226CFD001DFA32 /* UserLogTrial.h */; };
+		1948BF3B0C226CFD001DFA32 /* DelayedDraw.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE970C226CFD001DFA32 /* DelayedDraw.h */; };
+		1948BF3C0C226CFD001DFA32 /* WrapperFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE980C226CFD001DFA32 /* WrapperFactory.cpp */; };
+		1948BF3D0C226CFD001DFA32 /* WrapperFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE990C226CFD001DFA32 /* WrapperFactory.h */; };
+		1948BF3E0C226CFD001DFA32 /* XMLUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE9A0C226CFD001DFA32 /* XMLUtil.cpp */; };
+		1948BF3F0C226CFD001DFA32 /* XMLUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE9B0C226CFD001DFA32 /* XMLUtil.h */; };
+		19558AD60C3182730054A193 /* DasherViewCocoa.h in Headers */ = {isa = PBXBuildFile; fileRef = 19558AD50C3182730054A193 /* DasherViewCocoa.h */; };
+		196874060C2BDC2E00D63879 /* AlphabetLetter.h in Headers */ = {isa = PBXBuildFile; fileRef = 196874000C2BDC2E00D63879 /* AlphabetLetter.h */; };
+		196874070C2BDC2E00D63879 /* AlphabetLetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 196874010C2BDC2E00D63879 /* AlphabetLetter.m */; };
+		1968740A0C2BDC2E00D63879 /* GLUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 196874040C2BDC2E00D63879 /* GLUtils.h */; };
+		1968740B0C2BDC2E00D63879 /* GLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 196874050C2BDC2E00D63879 /* GLUtils.m */; };
+		196874290C2BE12E00D63879 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 196874280C2BE12E00D63879 /* OpenGL.framework */; };
+		1974FE340714861B00B95DA0 /* DasherApp.h in Headers */ = {isa = PBXBuildFile; fileRef = 19C49619045029A40000000A /* DasherApp.h */; };
+		1974FE370714861B00B95DA0 /* ZippyCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 1946CAB90481AD440000000A /* ZippyCache.h */; };
+		1974FE380714861B00B95DA0 /* ZippyString.h in Headers */ = {isa = PBXBuildFile; fileRef = 1946CABB0481AD440000000A /* ZippyString.h */; };
+		1974FE420714861B00B95DA0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
+		1974FE430714861B00B95DA0 /* Preferences.nib in Resources */ = {isa = PBXBuildFile; fileRef = 19D442390454667F0000000A /* Preferences.nib */; };
+		1974FE440714861B00B95DA0 /* DasherApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = 191CE19C04595BBA0000000A /* DasherApp.icns */; };
+		1974FE5A0714861B00B95DA0 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 1974FD9C07145C6500B95DA0 /* Credits.html */; };
+		1974FE6B0714861B00B95DA0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		1974FE6F0714861B00B95DA0 /* ZippyCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1946CABA0481AD440000000A /* ZippyCache.m */; };
+		1974FE700714861B00B95DA0 /* ZippyString.m in Sources */ = {isa = PBXBuildFile; fileRef = 1946CABC0481AD440000000A /* ZippyString.m */; };
+		1974FE780714861B00B95DA0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		19875621071AFB470034ECCB /* Chatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1987561F071AFB470034ECCB /* Chatter.h */; };
+		19875622071AFB470034ECCB /* Chatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 19875620071AFB470034ECCB /* Chatter.m */; };
+		198EC6D5071493BB00474B38 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
+		198EC7B407153D6E00474B38 /* KeyboardEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 198EC7AE07153D6E00474B38 /* KeyboardEvent.h */; };
+		198EC7B507153D6E00474B38 /* KeyboardEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 198EC7AF07153D6E00474B38 /* KeyboardEvent.m */; };
+		198EC7B607153D6E00474B38 /* LowLevelKeyboardHandling.c in Sources */ = {isa = PBXBuildFile; fileRef = 198EC7B007153D6E00474B38 /* LowLevelKeyboardHandling.c */; };
+		198EC7B707153D6E00474B38 /* LowLevelKeyboardHandling.h in Headers */ = {isa = PBXBuildFile; fileRef = 198EC7B107153D6E00474B38 /* LowLevelKeyboardHandling.h */; };
+		198EC7B807153D6E00474B38 /* UnicharGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 198EC7B207153D6E00474B38 /* UnicharGenerator.h */; };
+		198EC7B907153D6E00474B38 /* UnicharGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 198EC7B307153D6E00474B38 /* UnicharGenerator.m */; };
+		198EC7C407153DD400474B38 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 198EC7C307153DD400474B38 /* Carbon.framework */; };
+		198ECBFD071701B100474B38 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 198ECBFC071701B100474B38 /* ApplicationServices.framework */; };
+		19B57A73080D4E4000BCE3C6 /* AppWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 19B57A72080D4E4000BCE3C6 /* AppWatcher.m */; };
+		19B57A75080D4E4900BCE3C6 /* AppWatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 19B57A74080D4E4900BCE3C6 /* AppWatcher.h */; };
+		19BEF35C0C228F7300275D06 /* alphabet-nest.xsl in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2CF0C228F7300275D06 /* alphabet-nest.xsl */; };
+		19BEF35D0C228F7300275D06 /* alphabet-nest2.xsl in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2D00C228F7300275D06 /* alphabet-nest2.xsl */; };
+		19BEF35E0C228F7300275D06 /* alphabet.abc.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2D10C228F7300275D06 /* alphabet.abc.xml */; };
+		19BEF35F0C228F7300275D06 /* alphabet.adangbe.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2D20C228F7300275D06 /* alphabet.adangbe.xml */; };
+		19BEF3600C228F7300275D06 /* alphabet.AfaanOromo.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2D30C228F7300275D06 /* alphabet.AfaanOromo.xml */; };
+		19BEF3610C228F7300275D06 /* alphabet.afrikaans.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2D40C228F7300275D06 /* alphabet.afrikaans.xml */; };
+		19BEF3620C228F7300275D06 /* alphabet.akan.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2D50C228F7300275D06 /* alphabet.akan.xml */; };
+		19BEF3630C228F7300275D06 /* alphabet.albanian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2D60C228F7300275D06 /* alphabet.albanian.xml */; };
+		19BEF3640C228F7300275D06 /* alphabet.amharic.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2D70C228F7300275D06 /* alphabet.amharic.xml */; };
+		19BEF3650C228F7300275D06 /* alphabet.arabic.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2D80C228F7300275D06 /* alphabet.arabic.xml */; };
+		19BEF3660C228F7300275D06 /* alphabet.Armenian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2D90C228F7300275D06 /* alphabet.Armenian.xml */; };
+		19BEF3670C228F7300275D06 /* alphabet.Assamese.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2DA0C228F7300275D06 /* alphabet.Assamese.xml */; };
+		19BEF3680C228F7300275D06 /* alphabet.Austen.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2DB0C228F7300275D06 /* alphabet.Austen.xml */; };
+		19BEF3690C228F7300275D06 /* alphabet.Azerbaijani.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2DC0C228F7300275D06 /* alphabet.Azerbaijani.xml */; };
+		19BEF36A0C228F7300275D06 /* alphabet.basque.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2DD0C228F7300275D06 /* alphabet.basque.xml */; };
+		19BEF36B0C228F7300275D06 /* alphabet.Belarusian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2DE0C228F7300275D06 /* alphabet.Belarusian.xml */; };
+		19BEF36C0C228F7300275D06 /* alphabet.bengali.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2DF0C228F7300275D06 /* alphabet.bengali.xml */; };
+		19BEF36D0C228F7300275D06 /* alphabet.bopomofo.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2E00C228F7300275D06 /* alphabet.bopomofo.xml */; };
+		19BEF36E0C228F7300275D06 /* alphabet.bosnian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2E10C228F7300275D06 /* alphabet.bosnian.xml */; };
+		19BEF36F0C228F7300275D06 /* alphabet.breton.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2E20C228F7300275D06 /* alphabet.breton.xml */; };
+		19BEF3700C228F7300275D06 /* alphabet.Bulgarian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2E30C228F7300275D06 /* alphabet.Bulgarian.xml */; };
+		19BEF3710C228F7300275D06 /* alphabet.catalan.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2E40C228F7300275D06 /* alphabet.catalan.xml */; };
+		19BEF3720C228F7300275D06 /* alphabet.cherokee.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2E50C228F7300275D06 /* alphabet.cherokee.xml */; };
+		19BEF3730C228F7300275D06 /* alphabet.chinese.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2E60C228F7300275D06 /* alphabet.chinese.xml */; };
+		19BEF3740C228F7300275D06 /* alphabet.chineseRuby.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2E70C228F7300275D06 /* alphabet.chineseRuby.xml */; };
+		19BEF3750C228F7300275D06 /* alphabet.corsican.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2E80C228F7300275D06 /* alphabet.corsican.xml */; };
+		19BEF3760C228F7300275D06 /* alphabet.croatian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2E90C228F7300275D06 /* alphabet.croatian.xml */; };
+		19BEF3770C228F7300275D06 /* alphabet.czech.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2EA0C228F7300275D06 /* alphabet.czech.xml */; };
+		19BEF3780C228F7300275D06 /* alphabet.danish.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2EB0C228F7300275D06 /* alphabet.danish.xml */; };
+		19BEF3790C228F7300275D06 /* alphabet.dtd in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2EC0C228F7300275D06 /* alphabet.dtd */; };
+		19BEF37A0C228F7300275D06 /* alphabet.dutch.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2ED0C228F7300275D06 /* alphabet.dutch.xml */; };
+		19BEF37B0C228F7300275D06 /* alphabet.english.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2EE0C228F7300275D06 /* alphabet.english.xml */; };
+		19BEF37C0C228F7300275D06 /* alphabet.englishC.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2EF0C228F7300275D06 /* alphabet.englishC.xml */; };
+		19BEF37D0C228F7300275D06 /* alphabet.Esperanto.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2F00C228F7300275D06 /* alphabet.Esperanto.xml */; };
+		19BEF37E0C228F7300275D06 /* alphabet.Estonian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2F10C228F7300275D06 /* alphabet.Estonian.xml */; };
+		19BEF37F0C228F7300275D06 /* alphabet.ethiopic.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2F20C228F7300275D06 /* alphabet.ethiopic.xml */; };
+		19BEF3800C228F7300275D06 /* alphabet.ewe.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2F30C228F7300275D06 /* alphabet.ewe.xml */; };
+		19BEF3810C228F7300275D06 /* alphabet.faroese.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2F40C228F7300275D06 /* alphabet.faroese.xml */; };
+		19BEF3820C228F7300275D06 /* alphabet.Filipino.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2F50C228F7300275D06 /* alphabet.Filipino.xml */; };
+		19BEF3830C228F7300275D06 /* alphabet.finnish.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2F60C228F7300275D06 /* alphabet.finnish.xml */; };
+		19BEF3840C228F7300275D06 /* alphabet.finnish2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2F70C228F7300275D06 /* alphabet.finnish2.xml */; };
+		19BEF3850C228F7300275D06 /* alphabet.french.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2F80C228F7300275D06 /* alphabet.french.xml */; };
+		19BEF3860C228F7300275D06 /* alphabet.ga.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2F90C228F7300275D06 /* alphabet.ga.xml */; };
+		19BEF3870C228F7300275D06 /* alphabet.galician.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2FA0C228F7300275D06 /* alphabet.galician.xml */; };
+		19BEF3880C228F7300275D06 /* alphabet.georgian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2FB0C228F7300275D06 /* alphabet.georgian.xml */; };
+		19BEF3890C228F7300275D06 /* alphabet.german.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2FC0C228F7300275D06 /* alphabet.german.xml */; };
+		19BEF38A0C228F7300275D06 /* alphabet.Greek.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2FD0C228F7300275D06 /* alphabet.Greek.xml */; };
+		19BEF38B0C228F7300275D06 /* alphabet.Gujarati.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2FE0C228F7300275D06 /* alphabet.Gujarati.xml */; };
+		19BEF38C0C228F7300275D06 /* alphabet.hausa.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2FF0C228F7300275D06 /* alphabet.hausa.xml */; };
+		19BEF38D0C228F7300275D06 /* alphabet.Hawaiian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3000C228F7300275D06 /* alphabet.Hawaiian.xml */; };
+		19BEF38E0C228F7300275D06 /* alphabet.Hebrew.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3010C228F7300275D06 /* alphabet.Hebrew.xml */; };
+		19BEF38F0C228F7300275D06 /* alphabet.Hindi.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3020C228F7300275D06 /* alphabet.Hindi.xml */; };
+		19BEF3900C228F7300275D06 /* alphabet.hiragana.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3030C228F7300275D06 /* alphabet.hiragana.xml */; };
+		19BEF3910C228F7300275D06 /* alphabet.hiragana2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3040C228F7300275D06 /* alphabet.hiragana2.xml */; };
+		19BEF3920C228F7300275D06 /* alphabet.hungarian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3050C228F7300275D06 /* alphabet.hungarian.xml */; };
+		19BEF3930C228F7300275D06 /* alphabet.Icelandic.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3060C228F7300275D06 /* alphabet.Icelandic.xml */; };
+		19BEF3940C228F7300275D06 /* alphabet.Igbo.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3070C228F7300275D06 /* alphabet.Igbo.xml */; };
+		19BEF3950C228F7300275D06 /* alphabet.Indonesian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3080C228F7300275D06 /* alphabet.Indonesian.xml */; };
+		19BEF3960C228F7300275D06 /* alphabet.ipa.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3090C228F7300275D06 /* alphabet.ipa.xml */; };
+		19BEF3970C228F7300275D06 /* alphabet.IrishGaelic.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF30A0C228F7300275D06 /* alphabet.IrishGaelic.xml */; };
+		19BEF3980C228F7300275D06 /* alphabet.italian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF30B0C228F7300275D06 /* alphabet.italian.xml */; };
+		19BEF3990C228F7300275D06 /* alphabet.japanese.canna.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF30C0C228F7300275D06 /* alphabet.japanese.canna.xml */; };
+		19BEF39A0C228F7300275D06 /* alphabet.Kannada.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF30D0C228F7300275D06 /* alphabet.Kannada.xml */; };
+		19BEF39B0C228F7300275D06 /* alphabet.Katakana.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF30E0C228F7300275D06 /* alphabet.Katakana.xml */; };
+		19BEF39C0C228F7300275D06 /* alphabet.kazakh.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF30F0C228F7300275D06 /* alphabet.kazakh.xml */; };
+		19BEF39D0C228F7300275D06 /* alphabet.kirghiz.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3100C228F7300275D06 /* alphabet.kirghiz.xml */; };
+		19BEF39E0C228F7300275D06 /* alphabet.kirundi.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3110C228F7300275D06 /* alphabet.kirundi.xml */; };
+		19BEF39F0C228F7300275D06 /* alphabet.klingon.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3120C228F7300275D06 /* alphabet.klingon.xml */; };
+		19BEF3A00C228F7300275D06 /* alphabet.korean.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3130C228F7300275D06 /* alphabet.korean.xml */; };
+		19BEF3A10C228F7300275D06 /* alphabet.koreanNested.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3140C228F7300275D06 /* alphabet.koreanNested.xml */; };
+		19BEF3A20C228F7300275D06 /* alphabet.kurdish.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3150C228F7300275D06 /* alphabet.kurdish.xml */; };
+		19BEF3A30C228F7300275D06 /* alphabet.lao.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3160C228F7300275D06 /* alphabet.lao.xml */; };
+		19BEF3A40C228F7300275D06 /* alphabet.latex.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3170C228F7300275D06 /* alphabet.latex.xml */; };
+		19BEF3A50C228F7300275D06 /* alphabet.latin.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3180C228F7300275D06 /* alphabet.latin.xml */; };
+		19BEF3A60C228F7300275D06 /* alphabet.latvian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3190C228F7300275D06 /* alphabet.latvian.xml */; };
+		19BEF3A70C228F7300275D06 /* alphabet.lithuanian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF31A0C228F7300275D06 /* alphabet.lithuanian.xml */; };
+		19BEF3A80C228F7300275D06 /* alphabet.luxembourgish.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF31B0C228F7300275D06 /* alphabet.luxembourgish.xml */; };
+		19BEF3A90C228F7300275D06 /* alphabet.macedonian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF31C0C228F7300275D06 /* alphabet.macedonian.xml */; };
+		19BEF3AA0C228F7300275D06 /* alphabet.Malay.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF31D0C228F7300275D06 /* alphabet.Malay.xml */; };
+		19BEF3AB0C228F7300275D06 /* alphabet.Malayalam.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF31E0C228F7300275D06 /* alphabet.Malayalam.xml */; };
+		19BEF3AC0C228F7300275D06 /* alphabet.maltese.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF31F0C228F7300275D06 /* alphabet.maltese.xml */; };
+		19BEF3AD0C228F7300275D06 /* alphabet.Marathi.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3200C228F7300275D06 /* alphabet.Marathi.xml */; };
+		19BEF3AE0C228F7300275D06 /* alphabet.Moldavian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3210C228F7300275D06 /* alphabet.Moldavian.xml */; };
+		19BEF3AF0C228F7300275D06 /* alphabet.mongolian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3220C228F7300275D06 /* alphabet.mongolian.xml */; };
+		19BEF3B00C228F7300275D06 /* alphabet.myanmar.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3230C228F7300275D06 /* alphabet.myanmar.xml */; };
+		19BEF3B10C228F7300275D06 /* alphabet.Ndebele.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3240C228F7300275D06 /* alphabet.Ndebele.xml */; };
+		19BEF3B20C228F7300275D06 /* alphabet.nepali.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3250C228F7300275D06 /* alphabet.nepali.xml */; };
+		19BEF3B30C228F7300275D06 /* alphabet.norwegian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3260C228F7300275D06 /* alphabet.norwegian.xml */; };
+		19BEF3B40C228F7300275D06 /* alphabet.occitan.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3270C228F7300275D06 /* alphabet.occitan.xml */; };
+		19BEF3B50C228F7300275D06 /* alphabet.ogham.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3280C228F7300275D06 /* alphabet.ogham.xml */; };
+		19BEF3B60C228F7300275D06 /* alphabet.Oriya.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3290C228F7300275D06 /* alphabet.Oriya.xml */; };
+		19BEF3B70C228F7300275D06 /* alphabet.pashto.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF32A0C228F7300275D06 /* alphabet.pashto.xml */; };
+		19BEF3B80C228F7300275D06 /* alphabet.perl.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF32B0C228F7300275D06 /* alphabet.perl.xml */; };
+		19BEF3B90C228F7300275D06 /* alphabet.persian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF32C0C228F7300275D06 /* alphabet.persian.xml */; };
+		19BEF3BA0C228F7300275D06 /* alphabet.pinyin.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF32D0C228F7300275D06 /* alphabet.pinyin.xml */; };
+		19BEF3BB0C228F7300275D06 /* alphabet.pinyin2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF32E0C228F7300275D06 /* alphabet.pinyin2.xml */; };
+		19BEF3BC0C228F7300275D06 /* alphabet.polish.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF32F0C228F7300275D06 /* alphabet.polish.xml */; };
+		19BEF3BD0C228F7300275D06 /* alphabet.portuguese.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3300C228F7300275D06 /* alphabet.portuguese.xml */; };
+		19BEF3BE0C228F7300275D06 /* alphabet.Punjabi.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3310C228F7300275D06 /* alphabet.Punjabi.xml */; };
+		19BEF3BF0C228F7300275D06 /* alphabet.Romanian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3320C228F7300275D06 /* alphabet.Romanian.xml */; };
+		19BEF3C00C228F7300275D06 /* alphabet.romansch.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3330C228F7300275D06 /* alphabet.romansch.xml */; };
+		19BEF3C10C228F7300275D06 /* alphabet.runic.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3340C228F7300275D06 /* alphabet.runic.xml */; };
+		19BEF3C20C228F7300275D06 /* alphabet.russian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3350C228F7300275D06 /* alphabet.russian.xml */; };
+		19BEF3C30C228F7300275D06 /* alphabet.Sami.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3360C228F7300275D06 /* alphabet.Sami.xml */; };
+		19BEF3C40C228F7300275D06 /* alphabet.sanskrit.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3370C228F7300275D06 /* alphabet.sanskrit.xml */; };
+		19BEF3C50C228F7300275D06 /* alphabet.ScotsGaelic.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3380C228F7300275D06 /* alphabet.ScotsGaelic.xml */; };
+		19BEF3C60C228F7300275D06 /* alphabet.Sepedi.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3390C228F7300275D06 /* alphabet.Sepedi.xml */; };
+		19BEF3C70C228F7300275D06 /* alphabet.serbian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF33A0C228F7300275D06 /* alphabet.serbian.xml */; };
+		19BEF3C80C228F7300275D06 /* alphabet.Sesotho.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF33B0C228F7300275D06 /* alphabet.Sesotho.xml */; };
+		19BEF3C90C228F7300275D06 /* alphabet.Sinhala.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF33C0C228F7300275D06 /* alphabet.Sinhala.xml */; };
+		19BEF3CA0C228F7300275D06 /* alphabet.Slovak.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF33D0C228F7300275D06 /* alphabet.Slovak.xml */; };
+		19BEF3CB0C228F7300275D06 /* alphabet.Slovenian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF33E0C228F7300275D06 /* alphabet.Slovenian.xml */; };
+		19BEF3CC0C228F7300275D06 /* alphabet.somali.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF33F0C228F7300275D06 /* alphabet.somali.xml */; };
+		19BEF3CD0C228F7300275D06 /* alphabet.spanish.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3400C228F7300275D06 /* alphabet.spanish.xml */; };
+		19BEF3CE0C228F7300275D06 /* alphabet.swahili.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3410C228F7300275D06 /* alphabet.swahili.xml */; };
+		19BEF3CF0C228F7300275D06 /* alphabet.Swati.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3420C228F7300275D06 /* alphabet.Swati.xml */; };
+		19BEF3D00C228F7300275D06 /* alphabet.swedish.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3430C228F7300275D06 /* alphabet.swedish.xml */; };
+		19BEF3D10C228F7300275D06 /* alphabet.Tajik.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3440C228F7300275D06 /* alphabet.Tajik.xml */; };
+		19BEF3D20C228F7300275D06 /* alphabet.Tamil.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3450C228F7300275D06 /* alphabet.Tamil.xml */; };
+		19BEF3D30C228F7300275D06 /* alphabet.Telugu.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3460C228F7300275D06 /* alphabet.Telugu.xml */; };
+		19BEF3D40C228F7300275D06 /* alphabet.thaana.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3470C228F7300275D06 /* alphabet.thaana.xml */; };
+		19BEF3D50C228F7300275D06 /* alphabet.Thai.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3480C228F7300275D06 /* alphabet.Thai.xml */; };
+		19BEF3D60C228F7300275D06 /* alphabet.Thai2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3490C228F7300275D06 /* alphabet.Thai2.xml */; };
+		19BEF3D70C228F7300275D06 /* alphabet.tigrinya.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF34A0C228F7300275D06 /* alphabet.tigrinya.xml */; };
+		19BEF3D80C228F7300275D06 /* alphabet.Tsonga.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF34B0C228F7300275D06 /* alphabet.Tsonga.xml */; };
+		19BEF3D90C228F7300275D06 /* alphabet.Tswana.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF34C0C228F7300275D06 /* alphabet.Tswana.xml */; };
+		19BEF3DA0C228F7300275D06 /* alphabet.Turkish.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF34D0C228F7300275D06 /* alphabet.Turkish.xml */; };
+		19BEF3DB0C228F7300275D06 /* alphabet.turkmen.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF34E0C228F7300275D06 /* alphabet.turkmen.xml */; };
+		19BEF3DC0C228F7300275D06 /* alphabet.ukrainian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF34F0C228F7300275D06 /* alphabet.ukrainian.xml */; };
+		19BEF3DD0C228F7300275D06 /* alphabet.Urdu.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3500C228F7300275D06 /* alphabet.Urdu.xml */; };
+		19BEF3DE0C228F7300275D06 /* alphabet.uzbek.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3510C228F7300275D06 /* alphabet.uzbek.xml */; };
+		19BEF3DF0C228F7300275D06 /* alphabet.venda.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3520C228F7300275D06 /* alphabet.venda.xml */; };
+		19BEF3E00C228F7300275D06 /* alphabet.Vietnamese.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3530C228F7300275D06 /* alphabet.Vietnamese.xml */; };
+		19BEF3E10C228F7300275D06 /* alphabet.welsh.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3540C228F7300275D06 /* alphabet.welsh.xml */; };
+		19BEF3E20C228F7300275D06 /* alphabet.Xhosa.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3550C228F7300275D06 /* alphabet.Xhosa.xml */; };
+		19BEF3E30C228F7300275D06 /* alphabet.xsl in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3560C228F7300275D06 /* alphabet.xsl */; };
+		19BEF3E40C228F7300275D06 /* alphabet.xsl.good in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3570C228F7300275D06 /* alphabet.xsl.good */; };
+		19BEF3E50C228F7300275D06 /* alphabet.Yoruba.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3580C228F7300275D06 /* alphabet.Yoruba.xml */; };
+		19BEF3E60C228F7300275D06 /* alphabet.Zulu.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3590C228F7300275D06 /* alphabet.Zulu.xml */; };
+		19BEF40A0C2291CE00275D06 /* colour.blue.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3FD0C2291CE00275D06 /* colour.blue.xml */; };
+		19BEF40B0C2291CE00275D06 /* colour.dtd in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3FE0C2291CE00275D06 /* colour.dtd */; };
+		19BEF40C0C2291CE00275D06 /* colour.euroasian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3FF0C2291CE00275D06 /* colour.euroasian.xml */; };
+		19BEF40D0C2291CE00275D06 /* colour.euroasian2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF4000C2291CE00275D06 /* colour.euroasian2.xml */; };
+		19BEF40E0C2291CE00275D06 /* colour.euroasian3.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF4010C2291CE00275D06 /* colour.euroasian3.xml */; };
+		19BEF40F0C2291CE00275D06 /* colour.jamie.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF4020C2291CE00275D06 /* colour.jamie.xml */; };
+		19BEF4100C2291CE00275D06 /* colour.rainbow.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF4030C2291CE00275D06 /* colour.rainbow.xml */; };
+		19BEF4110C2291CE00275D06 /* colour.thai.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF4040C2291CE00275D06 /* colour.thai.xml */; };
+		19BEF4120C2291CE00275D06 /* colour.vowels.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF4050C2291CE00275D06 /* colour.vowels.xml */; };
+		19BEF4130C2291CE00275D06 /* colour.vowels2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF4060C2291CE00275D06 /* colour.vowels2.xml */; };
+		19BEF4140C2291CE00275D06 /* colour.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF4070C2291CE00275D06 /* colour.xml */; };
+		19BEF4150C2291CE00275D06 /* colour.xsl in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF4080C2291CE00275D06 /* colour.xsl */; };
+		19BEF41C0C22922400275D06 /* controllabels.dtd in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF4190C22922400275D06 /* controllabels.dtd */; };
+		19BEF41D0C22922400275D06 /* controllabels.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF41A0C22922400275D06 /* controllabels.xml */; };
+		19C190AB0C3267D700979F34 /* DasherViewAqua.h in Headers */ = {isa = PBXBuildFile; fileRef = 19C190A90C3267D700979F34 /* DasherViewAqua.h */; };
+		19C190AC0C3267D700979F34 /* DasherViewAqua.mm in Sources */ = {isa = PBXBuildFile; fileRef = 19C190AA0C3267D700979F34 /* DasherViewAqua.mm */; };
+		19C1AE820B130F18005C68D3 /* COSXMouseInput.h in Headers */ = {isa = PBXBuildFile; fileRef = 19C1AE810B130F18005C68D3 /* COSXMouseInput.h */; };
+		19E1AE4F0B0DB73300F3466C /* COSXDasherScreen.h in Headers */ = {isa = PBXBuildFile; fileRef = 19E1AE4D0B0DB73300F3466C /* COSXDasherScreen.h */; };
+		19E1AE500B0DB73300F3466C /* COSXDasherScreen.mm in Sources */ = {isa = PBXBuildFile; fileRef = 19E1AE4E0B0DB73300F3466C /* COSXDasherScreen.mm */; };
+		19E49DB50B10556100BA5CE8 /* DasherUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 196D8785048AA2750000000A /* DasherUtil.mm */; };
+		19E49DB60B10556200BA5CE8 /* DasherUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 196D8784048AA2750000000A /* DasherUtil.h */; };
+		19F36D8E0B18B60E002F41F1 /* ZippyStringImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 19F36D8A0B18B60E002F41F1 /* ZippyStringImage.h */; };
+		19F36D8F0B18B60E002F41F1 /* ZippyStringImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F36D8B0B18B60E002F41F1 /* ZippyStringImage.m */; };
+		19F36D900B18B60E002F41F1 /* ZippyStringGlyph.h in Headers */ = {isa = PBXBuildFile; fileRef = 19F36D8C0B18B60E002F41F1 /* ZippyStringGlyph.h */; };
+		19F36D910B18B60E002F41F1 /* ZippyStringGlyph.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F36D8D0B18B60E002F41F1 /* ZippyStringGlyph.m */; };
+		19F8C7E60C858A2800276B4F /* I18n.h in Headers */ = {isa = PBXBuildFile; fileRef = 19F8C7E50C858A2800276B4F /* I18n.h */; };
+		19F8C7F90C858E9900276B4F /* TrainingHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19F8C7F70C858E9900276B4F /* TrainingHelper.cpp */; };
+		19F8C7FA0C858E9900276B4F /* TrainingHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 19F8C7F80C858E9900276B4F /* TrainingHelper.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		1904CDA5048813400000000A /* DasherEdit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DasherEdit.h; sourceTree = "<group>"; };
+		1904CDA6048813400000000A /* DasherEdit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DasherEdit.mm; sourceTree = "<group>"; };
+		190697530492AACE0000000A /* Readme.html */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; path = Readme.html; sourceTree = "<group>"; };
+		190697550492B65B0000000A /* ReadmeDeveloper.txt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = ReadmeDeveloper.txt; sourceTree = "<group>"; };
+		191180E90B0FC91A001CB987 /* COSXSettingsStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COSXSettingsStore.h; sourceTree = "<group>"; };
+		191180EA0B0FC91A001CB987 /* COSXSettingsStore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = COSXSettingsStore.mm; sourceTree = "<group>"; };
+		191428E40B0E6CC6004F1C28 /* COSXDasherControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COSXDasherControl.h; sourceTree = "<group>"; };
+		191428E50B0E6CC6004F1C28 /* COSXDasherControl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = COSXDasherControl.mm; sourceTree = "<group>"; };
+		191CE19C04595BBA0000000A /* DasherApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DasherApp.icns; sourceTree = "<group>"; };
+		1921DB370C7ECAA400E6DAA5 /* OneButtonDynamicFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = OneButtonDynamicFilter.cpp; sourceTree = "<group>"; };
+		1921DB380C7ECAA400E6DAA5 /* OneButtonDynamicFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = OneButtonDynamicFilter.h; sourceTree = "<group>"; };
+		1921DB6C0C7ECB9900E6DAA5 /* GameScorer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = GameScorer.cpp; sourceTree = "<group>"; };
+		1921DB6D0C7ECB9900E6DAA5 /* GameScorer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GameScorer.h; sourceTree = "<group>"; };
+		19351BF304575C6C0000000A /* mktar.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = mktar.sh; sourceTree = "<group>"; };
+		193731A70C8586F20022CBC7 /* config.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		1946CAB90481AD440000000A /* ZippyCache.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ZippyCache.h; sourceTree = "<group>"; };
+		1946CABA0481AD440000000A /* ZippyCache.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ZippyCache.m; sourceTree = "<group>"; };
+		1946CABB0481AD440000000A /* ZippyString.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ZippyString.h; sourceTree = "<group>"; };
+		1946CABC0481AD440000000A /* ZippyString.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ZippyString.m; sourceTree = "<group>"; };
+		1948BDF60C226CFC001DFA32 /* ActionButton.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ActionButton.cpp; sourceTree = "<group>"; };
+		1948BDF70C226CFC001DFA32 /* ActionButton.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ActionButton.h; sourceTree = "<group>"; };
+		1948BDF90C226CFC001DFA32 /* .cvsignore */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = .cvsignore; sourceTree = "<group>"; };
+		1948BDFA0C226CFC001DFA32 /* Alphabet.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Alphabet.cpp; sourceTree = "<group>"; };
+		1948BDFB0C226CFC001DFA32 /* Alphabet.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Alphabet.h; sourceTree = "<group>"; };
+		1948BDFC0C226CFC001DFA32 /* AlphabetMap.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AlphabetMap.cpp; sourceTree = "<group>"; };
+		1948BDFD0C226CFC001DFA32 /* AlphabetMap.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AlphabetMap.h; sourceTree = "<group>"; };
+		1948BDFE0C226CFC001DFA32 /* AlphIO.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AlphIO.cpp; sourceTree = "<group>"; };
+		1948BDFF0C226CFC001DFA32 /* AlphIO.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AlphIO.h; sourceTree = "<group>"; };
+		1948BE000C226CFC001DFA32 /* GroupInfo.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GroupInfo.h; sourceTree = "<group>"; };
+		1948BE020C226CFC001DFA32 /* AlphabetManager.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AlphabetManager.cpp; sourceTree = "<group>"; };
+		1948BE030C226CFC001DFA32 /* AlphabetManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AlphabetManager.h; sourceTree = "<group>"; };
+		1948BE040C226CFC001DFA32 /* AlphabetManagerFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AlphabetManagerFactory.cpp; sourceTree = "<group>"; };
+		1948BE050C226CFC001DFA32 /* AlphabetManagerFactory.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AlphabetManagerFactory.h; sourceTree = "<group>"; };
+		1948BE060C226CFC001DFA32 /* AutoSpeedControl.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AutoSpeedControl.cpp; sourceTree = "<group>"; };
+		1948BE070C226CFC001DFA32 /* AutoSpeedControl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AutoSpeedControl.h; sourceTree = "<group>"; };
+		1948BE080C226CFC001DFA32 /* BasicLog.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = BasicLog.cpp; sourceTree = "<group>"; };
+		1948BE090C226CFC001DFA32 /* BasicLog.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = BasicLog.h; sourceTree = "<group>"; };
+		1948BE0A0C226CFC001DFA32 /* CannaConversionHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CannaConversionHelper.cpp; sourceTree = "<group>"; };
+		1948BE0B0C226CFC001DFA32 /* CannaConversionHelper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CannaConversionHelper.h; sourceTree = "<group>"; };
+		1948BE0C0C226CFC001DFA32 /* CircleStartHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CircleStartHandler.cpp; sourceTree = "<group>"; };
+		1948BE0D0C226CFC001DFA32 /* CircleStartHandler.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CircleStartHandler.h; sourceTree = "<group>"; };
+		1948BE0E0C226CFC001DFA32 /* ClickFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ClickFilter.cpp; sourceTree = "<group>"; };
+		1948BE0F0C226CFC001DFA32 /* ClickFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ClickFilter.h; sourceTree = "<group>"; };
+		1948BE100C226CFC001DFA32 /* ColourIO.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ColourIO.cpp; sourceTree = "<group>"; };
+		1948BE110C226CFC001DFA32 /* ColourIO.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ColourIO.h; sourceTree = "<group>"; };
+		1948BE120C226CFC001DFA32 /* ControlManager.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ControlManager.cpp; sourceTree = "<group>"; };
+		1948BE130C226CFC001DFA32 /* ControlManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ControlManager.h; sourceTree = "<group>"; };
+		1948BE140C226CFC001DFA32 /* ControlManagerFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ControlManagerFactory.cpp; sourceTree = "<group>"; };
+		1948BE150C226CFC001DFA32 /* ControlManagerFactory.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ControlManagerFactory.h; sourceTree = "<group>"; };
+		1948BE160C226CFC001DFA32 /* ConversionHelper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ConversionHelper.h; sourceTree = "<group>"; };
+		1948BE170C226CFC001DFA32 /* ConversionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ConversionManager.cpp; sourceTree = "<group>"; };
+		1948BE180C226CFC001DFA32 /* ConversionManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ConversionManager.h; sourceTree = "<group>"; };
+		1948BE190C226CFC001DFA32 /* ConversionManagerFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ConversionManagerFactory.cpp; sourceTree = "<group>"; };
+		1948BE1A0C226CFC001DFA32 /* ConversionManagerFactory.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ConversionManagerFactory.h; sourceTree = "<group>"; };
+		1948BE1B0C226CFC001DFA32 /* CustomColours.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CustomColours.cpp; sourceTree = "<group>"; };
+		1948BE1C0C226CFC001DFA32 /* CustomColours.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CustomColours.h; sourceTree = "<group>"; };
+		1948BE1D0C226CFC001DFA32 /* DasherButtons.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DasherButtons.cpp; sourceTree = "<group>"; };
+		1948BE1E0C226CFC001DFA32 /* DasherButtons.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherButtons.h; sourceTree = "<group>"; };
+		1948BE1F0C226CFC001DFA32 /* DasherComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DasherComponent.cpp; sourceTree = "<group>"; };
+		1948BE200C226CFC001DFA32 /* DasherComponent.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherComponent.h; sourceTree = "<group>"; };
+		1948BE280C226CFD001DFA32 /* DasherGameMode.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DasherGameMode.cpp; sourceTree = "<group>"; };
+		1948BE290C226CFD001DFA32 /* DasherGameMode.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherGameMode.h; sourceTree = "<group>"; };
+		1948BE2A0C226CFD001DFA32 /* DasherInput.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherInput.h; sourceTree = "<group>"; };
+		1948BE2B0C226CFD001DFA32 /* DasherInterfaceBase.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DasherInterfaceBase.cpp; sourceTree = "<group>"; };
+		1948BE2C0C226CFD001DFA32 /* DasherInterfaceBase.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherInterfaceBase.h; sourceTree = "<group>"; };
+		1948BE2D0C226CFD001DFA32 /* DasherModel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DasherModel.cpp; sourceTree = "<group>"; };
+		1948BE2E0C226CFD001DFA32 /* DasherModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherModel.h; sourceTree = "<group>"; };
+		1948BE2F0C226CFD001DFA32 /* DasherModule.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DasherModule.cpp; sourceTree = "<group>"; };
+		1948BE300C226CFD001DFA32 /* DasherModule.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherModule.h; sourceTree = "<group>"; };
+		1948BE310C226CFD001DFA32 /* DasherNode.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DasherNode.cpp; sourceTree = "<group>"; };
+		1948BE320C226CFD001DFA32 /* DasherNode.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherNode.h; sourceTree = "<group>"; };
+		1948BE330C226CFD001DFA32 /* DasherScreen.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherScreen.h; sourceTree = "<group>"; };
+		1948BE340C226CFD001DFA32 /* DasherTypes.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherTypes.h; sourceTree = "<group>"; };
+		1948BE350C226CFD001DFA32 /* DasherView.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DasherView.cpp; sourceTree = "<group>"; };
+		1948BE360C226CFD001DFA32 /* DasherView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherView.h; sourceTree = "<group>"; };
+		1948BE370C226CFD001DFA32 /* DasherView.inl */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = DasherView.inl; sourceTree = "<group>"; };
+		1948BE380C226CFD001DFA32 /* DasherViewSquare.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DasherViewSquare.cpp; sourceTree = "<group>"; };
+		1948BE390C226CFD001DFA32 /* DasherViewSquare.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherViewSquare.h; sourceTree = "<group>"; };
+		1948BE3A0C226CFD001DFA32 /* DasherViewSquare.inl */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = DasherViewSquare.inl; sourceTree = "<group>"; };
+		1948BE3B0C226CFD001DFA32 /* DefaultFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DefaultFilter.cpp; sourceTree = "<group>"; };
+		1948BE3C0C226CFD001DFA32 /* DefaultFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DefaultFilter.h; sourceTree = "<group>"; };
+		1948BE3D0C226CFD001DFA32 /* DelayedDraw.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DelayedDraw.cpp; sourceTree = "<group>"; };
+		1948BE3E0C226CFD001DFA32 /* DynamicFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DynamicFilter.cpp; sourceTree = "<group>"; };
+		1948BE3F0C226CFD001DFA32 /* DynamicFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DynamicFilter.h; sourceTree = "<group>"; };
+		1948BE400C226CFD001DFA32 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		1948BE410C226CFD001DFA32 /* EventHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = EventHandler.cpp; sourceTree = "<group>"; };
+		1948BE420C226CFD001DFA32 /* EventHandler.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = EventHandler.h; sourceTree = "<group>"; };
+		1948BE430C226CFD001DFA32 /* EyetrackerFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = EyetrackerFilter.cpp; sourceTree = "<group>"; };
+		1948BE440C226CFD001DFA32 /* EyetrackerFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = EyetrackerFilter.h; sourceTree = "<group>"; };
+		1948BE450C226CFD001DFA32 /* FileLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = FileLogger.cpp; sourceTree = "<group>"; };
+		1948BE460C226CFD001DFA32 /* FileLogger.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = FileLogger.h; sourceTree = "<group>"; };
+		1948BE470C226CFD001DFA32 /* FrameRate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = FrameRate.h; sourceTree = "<group>"; };
+		1948BE480C226CFD001DFA32 /* GnomeSettingsStore.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = GnomeSettingsStore.cpp; sourceTree = "<group>"; };
+		1948BE490C226CFD001DFA32 /* GnomeSettingsStore.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GnomeSettingsStore.h; sourceTree = "<group>"; };
+		1948BE4A0C226CFD001DFA32 /* IMEConversionHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = IMEConversionHelper.cpp; sourceTree = "<group>"; };
+		1948BE4B0C226CFD001DFA32 /* IMEConversionHelper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = IMEConversionHelper.h; sourceTree = "<group>"; };
+		1948BE4C0C226CFD001DFA32 /* InputFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = InputFilter.h; sourceTree = "<group>"; };
+		1948BE4F0C226CFD001DFA32 /* BigramLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = BigramLanguageModel.cpp; sourceTree = "<group>"; };
+		1948BE500C226CFD001DFA32 /* BigramLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = BigramLanguageModel.h; sourceTree = "<group>"; };
+		1948BE510C226CFD001DFA32 /* CTWLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CTWLanguageModel.cpp; sourceTree = "<group>"; };
+		1948BE520C226CFD001DFA32 /* CTWLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CTWLanguageModel.h; sourceTree = "<group>"; };
+		1948BE530C226CFD001DFA32 /* DictLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DictLanguageModel.cpp; sourceTree = "<group>"; };
+		1948BE540C226CFD001DFA32 /* DictLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DictLanguageModel.h; sourceTree = "<group>"; };
+		1948BE550C226CFD001DFA32 /* HashTable.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = HashTable.cpp; sourceTree = "<group>"; };
+		1948BE560C226CFD001DFA32 /* HashTable.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = HashTable.h; sourceTree = "<group>"; };
+		1948BE570C226CFD001DFA32 /* JapaneseLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = JapaneseLanguageModel.cpp; sourceTree = "<group>"; };
+		1948BE580C226CFD001DFA32 /* JapaneseLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = JapaneseLanguageModel.h; sourceTree = "<group>"; };
+		1948BE590C226CFD001DFA32 /* KanjiConversion.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = KanjiConversion.h; sourceTree = "<group>"; };
+		1948BE5A0C226CFD001DFA32 /* KanjiConversionCanna.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = KanjiConversionCanna.cpp; sourceTree = "<group>"; };
+		1948BE5B0C226CFD001DFA32 /* KanjiConversionCanna.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = KanjiConversionCanna.h; sourceTree = "<group>"; };
+		1948BE5C0C226CFD001DFA32 /* KanjiConversionIME.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = KanjiConversionIME.cpp; sourceTree = "<group>"; };
+		1948BE5D0C226CFD001DFA32 /* KanjiConversionIME.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = KanjiConversionIME.h; sourceTree = "<group>"; };
+		1948BE5E0C226CFD001DFA32 /* LanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = LanguageModel.cpp; sourceTree = "<group>"; };
+		1948BE5F0C226CFD001DFA32 /* LanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = LanguageModel.h; sourceTree = "<group>"; };
+		1948BE610C226CFD001DFA32 /* MixtureLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MixtureLanguageModel.h; sourceTree = "<group>"; };
+		1948BE620C226CFD001DFA32 /* PPMLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PPMLanguageModel.cpp; sourceTree = "<group>"; };
+		1948BE630C226CFD001DFA32 /* PPMLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PPMLanguageModel.h; sourceTree = "<group>"; };
+		1948BE640C226CFD001DFA32 /* SymbolAlphabet.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SymbolAlphabet.h; sourceTree = "<group>"; };
+		1948BE650C226CFD001DFA32 /* WordLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = WordLanguageModel.cpp; sourceTree = "<group>"; };
+		1948BE660C226CFD001DFA32 /* WordLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = WordLanguageModel.h; sourceTree = "<group>"; };
+		1948BE680C226CFD001DFA32 /* MemoryLeak.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MemoryLeak.cpp; sourceTree = "<group>"; };
+		1948BE690C226CFD001DFA32 /* MemoryLeak.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MemoryLeak.h; sourceTree = "<group>"; };
+		1948BE6A0C226CFD001DFA32 /* ModuleFactory.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ModuleFactory.h; sourceTree = "<group>"; };
+		1948BE6B0C226CFD001DFA32 /* ModuleManager.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ModuleManager.cpp; sourceTree = "<group>"; };
+		1948BE6C0C226CFD001DFA32 /* ModuleManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ModuleManager.h; sourceTree = "<group>"; };
+		1948BE6D0C226CFD001DFA32 /* NodeCreationManager.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = NodeCreationManager.cpp; sourceTree = "<group>"; };
+		1948BE6E0C226CFD001DFA32 /* NodeCreationManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NodeCreationManager.h; sourceTree = "<group>"; };
+		1948BE6F0C226CFD001DFA32 /* NodeManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NodeManager.h; sourceTree = "<group>"; };
+		1948BE700C226CFD001DFA32 /* NodeManagerFactory.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NodeManagerFactory.h; sourceTree = "<group>"; };
+		1948BE710C226CFD001DFA32 /* OneButtonFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = OneButtonFilter.cpp; sourceTree = "<group>"; };
+		1948BE720C226CFD001DFA32 /* OneButtonFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = OneButtonFilter.h; sourceTree = "<group>"; };
+		1948BE730C226CFD001DFA32 /* OneDimensionalFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = OneDimensionalFilter.cpp; sourceTree = "<group>"; };
+		1948BE740C226CFD001DFA32 /* OneDimensionalFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = OneDimensionalFilter.h; sourceTree = "<group>"; };
+		1948BE750C226CFD001DFA32 /* Parameters.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Parameters.h; sourceTree = "<group>"; };
+		1948BE760C226CFD001DFA32 /* PinYinConversionHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PinYinConversionHelper.cpp; sourceTree = "<group>"; };
+		1948BE770C226CFD001DFA32 /* PinYinConversionHelper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PinYinConversionHelper.h; sourceTree = "<group>"; };
+		1948BE780C226CFD001DFA32 /* SCENode.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = SCENode.cpp; sourceTree = "<group>"; };
+		1948BE790C226CFD001DFA32 /* SCENode.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SCENode.h; sourceTree = "<group>"; };
+		1948BE7A0C226CFD001DFA32 /* SettingsStore.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = SettingsStore.cpp; sourceTree = "<group>"; };
+		1948BE7B0C226CFD001DFA32 /* SettingsStore.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SettingsStore.h; sourceTree = "<group>"; };
+		1948BE7C0C226CFD001DFA32 /* SimpleTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = SimpleTimer.cpp; sourceTree = "<group>"; };
+		1948BE7D0C226CFD001DFA32 /* SimpleTimer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SimpleTimer.h; sourceTree = "<group>"; };
+		1948BE7E0C226CFD001DFA32 /* SocketInput.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = SocketInput.cpp; sourceTree = "<group>"; };
+		1948BE7F0C226CFD001DFA32 /* SocketInput.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SocketInput.h; sourceTree = "<group>"; };
+		1948BE800C226CFD001DFA32 /* SocketInputBase.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = SocketInputBase.cpp; sourceTree = "<group>"; };
+		1948BE810C226CFD001DFA32 /* SocketInputBase.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SocketInputBase.h; sourceTree = "<group>"; };
+		1948BE820C226CFD001DFA32 /* StartHandler.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = StartHandler.h; sourceTree = "<group>"; };
+		1948BE830C226CFD001DFA32 /* StylusFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = StylusFilter.cpp; sourceTree = "<group>"; };
+		1948BE840C226CFD001DFA32 /* StylusFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = StylusFilter.h; sourceTree = "<group>"; };
+		1948BE850C226CFD001DFA32 /* TimeSpan.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = TimeSpan.cpp; sourceTree = "<group>"; };
+		1948BE860C226CFD001DFA32 /* TimeSpan.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = TimeSpan.h; sourceTree = "<group>"; };
+		1948BE870C226CFD001DFA32 /* TwoBoxStartHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = TwoBoxStartHandler.cpp; sourceTree = "<group>"; };
+		1948BE880C226CFD001DFA32 /* TwoBoxStartHandler.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = TwoBoxStartHandler.h; sourceTree = "<group>"; };
+		1948BE890C226CFD001DFA32 /* TwoButtonDynamicFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = TwoButtonDynamicFilter.cpp; sourceTree = "<group>"; };
+		1948BE8A0C226CFD001DFA32 /* TwoButtonDynamicFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = TwoButtonDynamicFilter.h; sourceTree = "<group>"; };
+		1948BE8B0C226CFD001DFA32 /* UserButton.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = UserButton.cpp; sourceTree = "<group>"; };
+		1948BE8C0C226CFD001DFA32 /* UserButton.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = UserButton.h; sourceTree = "<group>"; };
+		1948BE8D0C226CFD001DFA32 /* UserLocation.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = UserLocation.cpp; sourceTree = "<group>"; };
+		1948BE8E0C226CFD001DFA32 /* UserLocation.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = UserLocation.h; sourceTree = "<group>"; };
+		1948BE8F0C226CFD001DFA32 /* UserLog.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = UserLog.cpp; sourceTree = "<group>"; };
+		1948BE900C226CFD001DFA32 /* UserLog.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = UserLog.h; sourceTree = "<group>"; };
+		1948BE910C226CFD001DFA32 /* UserLogBase.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = UserLogBase.h; sourceTree = "<group>"; };
+		1948BE920C226CFD001DFA32 /* UserLogParam.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = UserLogParam.cpp; sourceTree = "<group>"; };
+		1948BE930C226CFD001DFA32 /* UserLogParam.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = UserLogParam.h; sourceTree = "<group>"; };
+		1948BE940C226CFD001DFA32 /* UserLogTrial.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = UserLogTrial.cpp; sourceTree = "<group>"; };
+		1948BE950C226CFD001DFA32 /* UserLogTrial.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = UserLogTrial.h; sourceTree = "<group>"; };
+		1948BE970C226CFD001DFA32 /* DelayedDraw.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DelayedDraw.h; sourceTree = "<group>"; };
+		1948BE980C226CFD001DFA32 /* WrapperFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = WrapperFactory.cpp; sourceTree = "<group>"; };
+		1948BE990C226CFD001DFA32 /* WrapperFactory.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = WrapperFactory.h; sourceTree = "<group>"; };
+		1948BE9A0C226CFD001DFA32 /* XMLUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = XMLUtil.cpp; sourceTree = "<group>"; };
+		1948BE9B0C226CFD001DFA32 /* XMLUtil.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = XMLUtil.h; sourceTree = "<group>"; };
+		19558AD50C3182730054A193 /* DasherViewCocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DasherViewCocoa.h; sourceTree = "<group>"; };
+		196874000C2BDC2E00D63879 /* AlphabetLetter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AlphabetLetter.h; sourceTree = "<group>"; };
+		196874010C2BDC2E00D63879 /* AlphabetLetter.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = AlphabetLetter.m; sourceTree = "<group>"; };
+		196874040C2BDC2E00D63879 /* GLUtils.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GLUtils.h; sourceTree = "<group>"; };
+		196874050C2BDC2E00D63879 /* GLUtils.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = GLUtils.m; sourceTree = "<group>"; };
+		196874280C2BE12E00D63879 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
+		196D8784048AA2750000000A /* DasherUtil.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherUtil.h; sourceTree = "<group>"; };
+		196D8785048AA2750000000A /* DasherUtil.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = DasherUtil.mm; sourceTree = "<group>"; };
+		1974FD9C07145C6500B95DA0 /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
+		1974FE7A0714861B00B95DA0 /* Dasher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dasher.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1974FE7C0714861B00B95DA0 /* Info-Dasher.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Info-Dasher.plist"; sourceTree = SOURCE_ROOT; };
+		19836C1D0C22A7FA00047426 /* Canvas.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Canvas.cpp; sourceTree = "<group>"; };
+		19836C1E0C22A7FA00047426 /* Canvas.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Canvas.h; sourceTree = "<group>"; };
+		19836C1F0C22A7FA00047426 /* CanvasExperimental.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CanvasExperimental.cpp; sourceTree = "<group>"; };
+		19836C200C22A7FA00047426 /* CanvasExperimental.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CanvasExperimental.h; sourceTree = "<group>"; };
+		19836C210C22A7FA00047426 /* custom_marshal.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = custom_marshal.cpp; sourceTree = "<group>"; };
+		19836C220C22A7FA00047426 /* custom_marshal.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = custom_marshal.h; sourceTree = "<group>"; };
+		19836C230C22A7FA00047426 /* dasher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher.h; sourceTree = "<group>"; };
+		19836C240C22A7FA00047426 /* dasher_action.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_action.cpp; sourceTree = "<group>"; };
+		19836C250C22A7FA00047426 /* dasher_action.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_action.h; sourceTree = "<group>"; };
+		19836C260C22A7FA00047426 /* dasher_action_keyboard.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_action_keyboard.cpp; sourceTree = "<group>"; };
+		19836C270C22A7FA00047426 /* dasher_action_keyboard.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_action_keyboard.h; sourceTree = "<group>"; };
+		19836C280C22A7FA00047426 /* dasher_action_keyboard_maemo.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_action_keyboard_maemo.cpp; sourceTree = "<group>"; };
+		19836C290C22A7FA00047426 /* dasher_action_keyboard_maemo.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_action_keyboard_maemo.h; sourceTree = "<group>"; };
+		19836C2A0C22A7FA00047426 /* dasher_action_script.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_action_script.cpp; sourceTree = "<group>"; };
+		19836C2B0C22A7FA00047426 /* dasher_action_script.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_action_script.h; sourceTree = "<group>"; };
+		19836C2C0C22A7FA00047426 /* dasher_action_speech.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_action_speech.cpp; sourceTree = "<group>"; };
+		19836C2D0C22A7FA00047426 /* dasher_action_speech.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_action_speech.h; sourceTree = "<group>"; };
+		19836C2E0C22A7FA00047426 /* dasher_buffer_set.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_buffer_set.cpp; sourceTree = "<group>"; };
+		19836C2F0C22A7FA00047426 /* dasher_buffer_set.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_buffer_set.h; sourceTree = "<group>"; };
+		19836C300C22A7FA00047426 /* dasher_editor.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_editor.cpp; sourceTree = "<group>"; };
+		19836C310C22A7FA00047426 /* dasher_editor.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_editor.h; sourceTree = "<group>"; };
+		19836C320C22A7FA00047426 /* dasher_editor_external.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_editor_external.cpp; sourceTree = "<group>"; };
+		19836C330C22A7FA00047426 /* dasher_editor_external.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_editor_external.h; sourceTree = "<group>"; };
+		19836C340C22A7FA00047426 /* dasher_editor_internal.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_editor_internal.cpp; sourceTree = "<group>"; };
+		19836C350C22A7FA00047426 /* dasher_editor_internal.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_editor_internal.h; sourceTree = "<group>"; };
+		19836C360C22A7FA00047426 /* dasher_external_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_external_buffer.cpp; sourceTree = "<group>"; };
+		19836C370C22A7FA00047426 /* dasher_external_buffer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_external_buffer.h; sourceTree = "<group>"; };
+		19836C380C22A7FA00047426 /* dasher_internal_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_internal_buffer.cpp; sourceTree = "<group>"; };
+		19836C390C22A7FA00047426 /* dasher_internal_buffer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_internal_buffer.h; sourceTree = "<group>"; };
+		19836C3A0C22A7FA00047426 /* dasher_lock_dialogue.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_lock_dialogue.cpp; sourceTree = "<group>"; };
+		19836C3B0C22A7FA00047426 /* dasher_lock_dialogue.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_lock_dialogue.h; sourceTree = "<group>"; };
+		19836C3C0C22A7FA00047426 /* dasher_maemo_helper.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_maemo_helper.cpp; sourceTree = "<group>"; };
+		19836C3D0C22A7FA00047426 /* dasher_maemo_helper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_maemo_helper.h; sourceTree = "<group>"; };
+		19836C3E0C22A7FA00047426 /* dasher_main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_main.cpp; sourceTree = "<group>"; };
+		19836C3F0C22A7FA00047426 /* dasher_main.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_main.h; sourceTree = "<group>"; };
+		19836C400C22A7FA00047426 /* DasherAppSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DasherAppSettings.cpp; sourceTree = "<group>"; };
+		19836C410C22A7FA00047426 /* DasherAppSettings.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherAppSettings.h; sourceTree = "<group>"; };
+		19836C420C22A7FA00047426 /* DasherControl.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DasherControl.cpp; sourceTree = "<group>"; };
+		19836C430C22A7FA00047426 /* DasherControl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherControl.h; sourceTree = "<group>"; };
+		19836C440C22A7FA00047426 /* game_mode_helper.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = game_mode_helper.cpp; sourceTree = "<group>"; };
+		19836C450C22A7FA00047426 /* game_mode_helper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = game_mode_helper.h; sourceTree = "<group>"; };
+		19836C460C22A7FA00047426 /* GenerateSchema.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = GenerateSchema.cpp; sourceTree = "<group>"; };
+		19836C470C22A7FA00047426 /* gpesettings_store.cc */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = gpesettings_store.cc; sourceTree = "<group>"; };
+		19836C480C22A7FA00047426 /* gpesettings_store.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = gpesettings_store.h; sourceTree = "<group>"; };
+		19836C490C22A7FA00047426 /* GtkDasherControl.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = GtkDasherControl.cpp; sourceTree = "<group>"; };
+		19836C4A0C22A7FA00047426 /* GtkDasherControl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GtkDasherControl.h; sourceTree = "<group>"; };
+		19836C4B0C22A7FA00047426 /* joystick_input.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = joystick_input.h; sourceTree = "<group>"; };
+		19836C4C0C22A7FA00047426 /* KeyboardHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = KeyboardHelper.cpp; sourceTree = "<group>"; };
+		19836C4D0C22A7FA00047426 /* KeyboardHelper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = KeyboardHelper.h; sourceTree = "<group>"; };
+		19836C4E0C22A7FA00047426 /* Makefile.am */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		19836C4F0C22A7FA00047426 /* module_settings_window.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = module_settings_window.cpp; sourceTree = "<group>"; };
+		19836C500C22A7FA00047426 /* module_settings_window.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = module_settings_window.h; sourceTree = "<group>"; };
+		19836C510C22A7FA00047426 /* mouse_input.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = mouse_input.h; sourceTree = "<group>"; };
+		19836C520C22A7FA00047426 /* PangoCache.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PangoCache.cpp; sourceTree = "<group>"; };
+		19836C530C22A7FA00047426 /* PangoCache.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PangoCache.h; sourceTree = "<group>"; };
+		19836C540C22A7FA00047426 /* Preferences.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Preferences.cpp; sourceTree = "<group>"; };
+		19836C550C22A7FA00047426 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
+		19836C560C22A7FA00047426 /* tilt_input.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tilt_input.h; sourceTree = "<group>"; };
+		19836C570C22A7FA00047426 /* Timer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Timer.cpp; sourceTree = "<group>"; };
+		19836C580C22A7FA00047426 /* Timer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Timer.h; sourceTree = "<group>"; };
+		1987561F071AFB470034ECCB /* Chatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chatter.h; sourceTree = "<group>"; };
+		19875620071AFB470034ECCB /* Chatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chatter.m; sourceTree = "<group>"; };
+		198EC7AE07153D6E00474B38 /* KeyboardEvent.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = KeyboardEvent.h; sourceTree = "<group>"; };
+		198EC7AF07153D6E00474B38 /* KeyboardEvent.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = KeyboardEvent.m; sourceTree = "<group>"; };
+		198EC7B007153D6E00474B38 /* LowLevelKeyboardHandling.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = LowLevelKeyboardHandling.c; sourceTree = "<group>"; };
+		198EC7B107153D6E00474B38 /* LowLevelKeyboardHandling.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = LowLevelKeyboardHandling.h; sourceTree = "<group>"; };
+		198EC7B207153D6E00474B38 /* UnicharGenerator.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = UnicharGenerator.h; sourceTree = "<group>"; };
+		198EC7B307153D6E00474B38 /* UnicharGenerator.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = UnicharGenerator.m; sourceTree = "<group>"; };
+		198EC7C307153DD400474B38 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		198ECBFC071701B100474B38 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
+		199DCCD70450B94C0000000A /* DasherViewOpenGL.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = DasherViewOpenGL.mm; sourceTree = "<group>"; };
+		19B57A72080D4E4000BCE3C6 /* AppWatcher.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = AppWatcher.m; sourceTree = "<group>"; };
+		19B57A74080D4E4900BCE3C6 /* AppWatcher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AppWatcher.h; sourceTree = "<group>"; };
+		19BDB54F0455ED620000000A /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
+		19BEF2CF0C228F7300275D06 /* alphabet-nest.xsl */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = "alphabet-nest.xsl"; sourceTree = "<group>"; };
+		19BEF2D00C228F7300275D06 /* alphabet-nest2.xsl */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = "alphabet-nest2.xsl"; sourceTree = "<group>"; };
+		19BEF2D10C228F7300275D06 /* alphabet.abc.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.abc.xml; sourceTree = "<group>"; };
+		19BEF2D20C228F7300275D06 /* alphabet.adangbe.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.adangbe.xml; sourceTree = "<group>"; };
+		19BEF2D30C228F7300275D06 /* alphabet.AfaanOromo.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.AfaanOromo.xml; sourceTree = "<group>"; };
+		19BEF2D40C228F7300275D06 /* alphabet.afrikaans.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.afrikaans.xml; sourceTree = "<group>"; };
+		19BEF2D50C228F7300275D06 /* alphabet.akan.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.akan.xml; sourceTree = "<group>"; };
+		19BEF2D60C228F7300275D06 /* alphabet.albanian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.albanian.xml; sourceTree = "<group>"; };
+		19BEF2D70C228F7300275D06 /* alphabet.amharic.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.amharic.xml; sourceTree = "<group>"; };
+		19BEF2D80C228F7300275D06 /* alphabet.arabic.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.arabic.xml; sourceTree = "<group>"; };
+		19BEF2D90C228F7300275D06 /* alphabet.Armenian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Armenian.xml; sourceTree = "<group>"; };
+		19BEF2DA0C228F7300275D06 /* alphabet.Assamese.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Assamese.xml; sourceTree = "<group>"; };
+		19BEF2DB0C228F7300275D06 /* alphabet.Austen.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Austen.xml; sourceTree = "<group>"; };
+		19BEF2DC0C228F7300275D06 /* alphabet.Azerbaijani.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Azerbaijani.xml; sourceTree = "<group>"; };
+		19BEF2DD0C228F7300275D06 /* alphabet.basque.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.basque.xml; sourceTree = "<group>"; };
+		19BEF2DE0C228F7300275D06 /* alphabet.Belarusian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Belarusian.xml; sourceTree = "<group>"; };
+		19BEF2DF0C228F7300275D06 /* alphabet.bengali.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.bengali.xml; sourceTree = "<group>"; };
+		19BEF2E00C228F7300275D06 /* alphabet.bopomofo.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.bopomofo.xml; sourceTree = "<group>"; };
+		19BEF2E10C228F7300275D06 /* alphabet.bosnian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.bosnian.xml; sourceTree = "<group>"; };
+		19BEF2E20C228F7300275D06 /* alphabet.breton.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.breton.xml; sourceTree = "<group>"; };
+		19BEF2E30C228F7300275D06 /* alphabet.Bulgarian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Bulgarian.xml; sourceTree = "<group>"; };
+		19BEF2E40C228F7300275D06 /* alphabet.catalan.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.catalan.xml; sourceTree = "<group>"; };
+		19BEF2E50C228F7300275D06 /* alphabet.cherokee.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.cherokee.xml; sourceTree = "<group>"; };
+		19BEF2E60C228F7300275D06 /* alphabet.chinese.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.chinese.xml; sourceTree = "<group>"; };
+		19BEF2E70C228F7300275D06 /* alphabet.chineseRuby.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.chineseRuby.xml; sourceTree = "<group>"; };
+		19BEF2E80C228F7300275D06 /* alphabet.corsican.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.corsican.xml; sourceTree = "<group>"; };
+		19BEF2E90C228F7300275D06 /* alphabet.croatian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.croatian.xml; sourceTree = "<group>"; };
+		19BEF2EA0C228F7300275D06 /* alphabet.czech.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.czech.xml; sourceTree = "<group>"; };
+		19BEF2EB0C228F7300275D06 /* alphabet.danish.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.danish.xml; sourceTree = "<group>"; };
+		19BEF2EC0C228F7300275D06 /* alphabet.dtd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.dtd; sourceTree = "<group>"; };
+		19BEF2ED0C228F7300275D06 /* alphabet.dutch.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.dutch.xml; sourceTree = "<group>"; };
+		19BEF2EE0C228F7300275D06 /* alphabet.english.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.english.xml; sourceTree = "<group>"; };
+		19BEF2EF0C228F7300275D06 /* alphabet.englishC.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.englishC.xml; sourceTree = "<group>"; };
+		19BEF2F00C228F7300275D06 /* alphabet.Esperanto.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Esperanto.xml; sourceTree = "<group>"; };
+		19BEF2F10C228F7300275D06 /* alphabet.Estonian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Estonian.xml; sourceTree = "<group>"; };
+		19BEF2F20C228F7300275D06 /* alphabet.ethiopic.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.ethiopic.xml; sourceTree = "<group>"; };
+		19BEF2F30C228F7300275D06 /* alphabet.ewe.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.ewe.xml; sourceTree = "<group>"; };
+		19BEF2F40C228F7300275D06 /* alphabet.faroese.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.faroese.xml; sourceTree = "<group>"; };
+		19BEF2F50C228F7300275D06 /* alphabet.Filipino.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Filipino.xml; sourceTree = "<group>"; };
+		19BEF2F60C228F7300275D06 /* alphabet.finnish.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.finnish.xml; sourceTree = "<group>"; };
+		19BEF2F70C228F7300275D06 /* alphabet.finnish2.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.finnish2.xml; sourceTree = "<group>"; };
+		19BEF2F80C228F7300275D06 /* alphabet.french.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.french.xml; sourceTree = "<group>"; };
+		19BEF2F90C228F7300275D06 /* alphabet.ga.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.ga.xml; sourceTree = "<group>"; };
+		19BEF2FA0C228F7300275D06 /* alphabet.galician.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.galician.xml; sourceTree = "<group>"; };
+		19BEF2FB0C228F7300275D06 /* alphabet.georgian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.georgian.xml; sourceTree = "<group>"; };
+		19BEF2FC0C228F7300275D06 /* alphabet.german.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.german.xml; sourceTree = "<group>"; };
+		19BEF2FD0C228F7300275D06 /* alphabet.Greek.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Greek.xml; sourceTree = "<group>"; };
+		19BEF2FE0C228F7300275D06 /* alphabet.Gujarati.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Gujarati.xml; sourceTree = "<group>"; };
+		19BEF2FF0C228F7300275D06 /* alphabet.hausa.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.hausa.xml; sourceTree = "<group>"; };
+		19BEF3000C228F7300275D06 /* alphabet.Hawaiian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Hawaiian.xml; sourceTree = "<group>"; };
+		19BEF3010C228F7300275D06 /* alphabet.Hebrew.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Hebrew.xml; sourceTree = "<group>"; };
+		19BEF3020C228F7300275D06 /* alphabet.Hindi.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Hindi.xml; sourceTree = "<group>"; };
+		19BEF3030C228F7300275D06 /* alphabet.hiragana.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.hiragana.xml; sourceTree = "<group>"; };
+		19BEF3040C228F7300275D06 /* alphabet.hiragana2.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.hiragana2.xml; sourceTree = "<group>"; };
+		19BEF3050C228F7300275D06 /* alphabet.hungarian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.hungarian.xml; sourceTree = "<group>"; };
+		19BEF3060C228F7300275D06 /* alphabet.Icelandic.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Icelandic.xml; sourceTree = "<group>"; };
+		19BEF3070C228F7300275D06 /* alphabet.Igbo.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Igbo.xml; sourceTree = "<group>"; };
+		19BEF3080C228F7300275D06 /* alphabet.Indonesian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Indonesian.xml; sourceTree = "<group>"; };
+		19BEF3090C228F7300275D06 /* alphabet.ipa.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.ipa.xml; sourceTree = "<group>"; };
+		19BEF30A0C228F7300275D06 /* alphabet.IrishGaelic.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.IrishGaelic.xml; sourceTree = "<group>"; };
+		19BEF30B0C228F7300275D06 /* alphabet.italian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.italian.xml; sourceTree = "<group>"; };
+		19BEF30C0C228F7300275D06 /* alphabet.japanese.canna.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.japanese.canna.xml; sourceTree = "<group>"; };
+		19BEF30D0C228F7300275D06 /* alphabet.Kannada.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Kannada.xml; sourceTree = "<group>"; };
+		19BEF30E0C228F7300275D06 /* alphabet.Katakana.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Katakana.xml; sourceTree = "<group>"; };
+		19BEF30F0C228F7300275D06 /* alphabet.kazakh.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.kazakh.xml; sourceTree = "<group>"; };
+		19BEF3100C228F7300275D06 /* alphabet.kirghiz.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.kirghiz.xml; sourceTree = "<group>"; };
+		19BEF3110C228F7300275D06 /* alphabet.kirundi.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.kirundi.xml; sourceTree = "<group>"; };
+		19BEF3120C228F7300275D06 /* alphabet.klingon.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.klingon.xml; sourceTree = "<group>"; };
+		19BEF3130C228F7300275D06 /* alphabet.korean.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.korean.xml; sourceTree = "<group>"; };
+		19BEF3140C228F7300275D06 /* alphabet.koreanNested.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.koreanNested.xml; sourceTree = "<group>"; };
+		19BEF3150C228F7300275D06 /* alphabet.kurdish.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.kurdish.xml; sourceTree = "<group>"; };
+		19BEF3160C228F7300275D06 /* alphabet.lao.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.lao.xml; sourceTree = "<group>"; };
+		19BEF3170C228F7300275D06 /* alphabet.latex.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.latex.xml; sourceTree = "<group>"; };
+		19BEF3180C228F7300275D06 /* alphabet.latin.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.latin.xml; sourceTree = "<group>"; };
+		19BEF3190C228F7300275D06 /* alphabet.latvian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.latvian.xml; sourceTree = "<group>"; };
+		19BEF31A0C228F7300275D06 /* alphabet.lithuanian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.lithuanian.xml; sourceTree = "<group>"; };
+		19BEF31B0C228F7300275D06 /* alphabet.luxembourgish.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.luxembourgish.xml; sourceTree = "<group>"; };
+		19BEF31C0C228F7300275D06 /* alphabet.macedonian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.macedonian.xml; sourceTree = "<group>"; };
+		19BEF31D0C228F7300275D06 /* alphabet.Malay.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Malay.xml; sourceTree = "<group>"; };
+		19BEF31E0C228F7300275D06 /* alphabet.Malayalam.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Malayalam.xml; sourceTree = "<group>"; };
+		19BEF31F0C228F7300275D06 /* alphabet.maltese.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.maltese.xml; sourceTree = "<group>"; };
+		19BEF3200C228F7300275D06 /* alphabet.Marathi.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Marathi.xml; sourceTree = "<group>"; };
+		19BEF3210C228F7300275D06 /* alphabet.Moldavian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Moldavian.xml; sourceTree = "<group>"; };
+		19BEF3220C228F7300275D06 /* alphabet.mongolian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.mongolian.xml; sourceTree = "<group>"; };
+		19BEF3230C228F7300275D06 /* alphabet.myanmar.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.myanmar.xml; sourceTree = "<group>"; };
+		19BEF3240C228F7300275D06 /* alphabet.Ndebele.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Ndebele.xml; sourceTree = "<group>"; };
+		19BEF3250C228F7300275D06 /* alphabet.nepali.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.nepali.xml; sourceTree = "<group>"; };
+		19BEF3260C228F7300275D06 /* alphabet.norwegian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.norwegian.xml; sourceTree = "<group>"; };
+		19BEF3270C228F7300275D06 /* alphabet.occitan.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.occitan.xml; sourceTree = "<group>"; };
+		19BEF3280C228F7300275D06 /* alphabet.ogham.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.ogham.xml; sourceTree = "<group>"; };
+		19BEF3290C228F7300275D06 /* alphabet.Oriya.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Oriya.xml; sourceTree = "<group>"; };
+		19BEF32A0C228F7300275D06 /* alphabet.pashto.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.pashto.xml; sourceTree = "<group>"; };
+		19BEF32B0C228F7300275D06 /* alphabet.perl.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.perl.xml; sourceTree = "<group>"; };
+		19BEF32C0C228F7300275D06 /* alphabet.persian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.persian.xml; sourceTree = "<group>"; };
+		19BEF32D0C228F7300275D06 /* alphabet.pinyin.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.pinyin.xml; sourceTree = "<group>"; };
+		19BEF32E0C228F7300275D06 /* alphabet.pinyin2.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.pinyin2.xml; sourceTree = "<group>"; };
+		19BEF32F0C228F7300275D06 /* alphabet.polish.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.polish.xml; sourceTree = "<group>"; };
+		19BEF3300C228F7300275D06 /* alphabet.portuguese.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.portuguese.xml; sourceTree = "<group>"; };
+		19BEF3310C228F7300275D06 /* alphabet.Punjabi.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Punjabi.xml; sourceTree = "<group>"; };
+		19BEF3320C228F7300275D06 /* alphabet.Romanian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Romanian.xml; sourceTree = "<group>"; };
+		19BEF3330C228F7300275D06 /* alphabet.romansch.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.romansch.xml; sourceTree = "<group>"; };
+		19BEF3340C228F7300275D06 /* alphabet.runic.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.runic.xml; sourceTree = "<group>"; };
+		19BEF3350C228F7300275D06 /* alphabet.russian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.russian.xml; sourceTree = "<group>"; };
+		19BEF3360C228F7300275D06 /* alphabet.Sami.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Sami.xml; sourceTree = "<group>"; };
+		19BEF3370C228F7300275D06 /* alphabet.sanskrit.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.sanskrit.xml; sourceTree = "<group>"; };
+		19BEF3380C228F7300275D06 /* alphabet.ScotsGaelic.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.ScotsGaelic.xml; sourceTree = "<group>"; };
+		19BEF3390C228F7300275D06 /* alphabet.Sepedi.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Sepedi.xml; sourceTree = "<group>"; };
+		19BEF33A0C228F7300275D06 /* alphabet.serbian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.serbian.xml; sourceTree = "<group>"; };
+		19BEF33B0C228F7300275D06 /* alphabet.Sesotho.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Sesotho.xml; sourceTree = "<group>"; };
+		19BEF33C0C228F7300275D06 /* alphabet.Sinhala.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Sinhala.xml; sourceTree = "<group>"; };
+		19BEF33D0C228F7300275D06 /* alphabet.Slovak.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Slovak.xml; sourceTree = "<group>"; };
+		19BEF33E0C228F7300275D06 /* alphabet.Slovenian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Slovenian.xml; sourceTree = "<group>"; };
+		19BEF33F0C228F7300275D06 /* alphabet.somali.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.somali.xml; sourceTree = "<group>"; };
+		19BEF3400C228F7300275D06 /* alphabet.spanish.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.spanish.xml; sourceTree = "<group>"; };
+		19BEF3410C228F7300275D06 /* alphabet.swahili.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.swahili.xml; sourceTree = "<group>"; };
+		19BEF3420C228F7300275D06 /* alphabet.Swati.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Swati.xml; sourceTree = "<group>"; };
+		19BEF3430C228F7300275D06 /* alphabet.swedish.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.swedish.xml; sourceTree = "<group>"; };
+		19BEF3440C228F7300275D06 /* alphabet.Tajik.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Tajik.xml; sourceTree = "<group>"; };
+		19BEF3450C228F7300275D06 /* alphabet.Tamil.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Tamil.xml; sourceTree = "<group>"; };
+		19BEF3460C228F7300275D06 /* alphabet.Telugu.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Telugu.xml; sourceTree = "<group>"; };
+		19BEF3470C228F7300275D06 /* alphabet.thaana.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.thaana.xml; sourceTree = "<group>"; };
+		19BEF3480C228F7300275D06 /* alphabet.Thai.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Thai.xml; sourceTree = "<group>"; };
+		19BEF3490C228F7300275D06 /* alphabet.Thai2.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Thai2.xml; sourceTree = "<group>"; };
+		19BEF34A0C228F7300275D06 /* alphabet.tigrinya.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.tigrinya.xml; sourceTree = "<group>"; };
+		19BEF34B0C228F7300275D06 /* alphabet.Tsonga.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Tsonga.xml; sourceTree = "<group>"; };
+		19BEF34C0C228F7300275D06 /* alphabet.Tswana.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Tswana.xml; sourceTree = "<group>"; };
+		19BEF34D0C228F7300275D06 /* alphabet.Turkish.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Turkish.xml; sourceTree = "<group>"; };
+		19BEF34E0C228F7300275D06 /* alphabet.turkmen.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.turkmen.xml; sourceTree = "<group>"; };
+		19BEF34F0C228F7300275D06 /* alphabet.ukrainian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.ukrainian.xml; sourceTree = "<group>"; };
+		19BEF3500C228F7300275D06 /* alphabet.Urdu.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Urdu.xml; sourceTree = "<group>"; };
+		19BEF3510C228F7300275D06 /* alphabet.uzbek.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.uzbek.xml; sourceTree = "<group>"; };
+		19BEF3520C228F7300275D06 /* alphabet.venda.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.venda.xml; sourceTree = "<group>"; };
+		19BEF3530C228F7300275D06 /* alphabet.Vietnamese.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Vietnamese.xml; sourceTree = "<group>"; };
+		19BEF3540C228F7300275D06 /* alphabet.welsh.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.welsh.xml; sourceTree = "<group>"; };
+		19BEF3550C228F7300275D06 /* alphabet.Xhosa.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Xhosa.xml; sourceTree = "<group>"; };
+		19BEF3560C228F7300275D06 /* alphabet.xsl */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.xsl; sourceTree = "<group>"; };
+		19BEF3570C228F7300275D06 /* alphabet.xsl.good */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.xsl.good; sourceTree = "<group>"; };
+		19BEF3580C228F7300275D06 /* alphabet.Yoruba.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Yoruba.xml; sourceTree = "<group>"; };
+		19BEF3590C228F7300275D06 /* alphabet.Zulu.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Zulu.xml; sourceTree = "<group>"; };
+		19BEF3FD0C2291CE00275D06 /* colour.blue.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = colour.blue.xml; sourceTree = "<group>"; };
+		19BEF3FE0C2291CE00275D06 /* colour.dtd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = colour.dtd; sourceTree = "<group>"; };
+		19BEF3FF0C2291CE00275D06 /* colour.euroasian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = colour.euroasian.xml; sourceTree = "<group>"; };
+		19BEF4000C2291CE00275D06 /* colour.euroasian2.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = colour.euroasian2.xml; sourceTree = "<group>"; };
+		19BEF4010C2291CE00275D06 /* colour.euroasian3.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = colour.euroasian3.xml; sourceTree = "<group>"; };
+		19BEF4020C2291CE00275D06 /* colour.jamie.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = colour.jamie.xml; sourceTree = "<group>"; };
+		19BEF4030C2291CE00275D06 /* colour.rainbow.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = colour.rainbow.xml; sourceTree = "<group>"; };
+		19BEF4040C2291CE00275D06 /* colour.thai.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = colour.thai.xml; sourceTree = "<group>"; };
+		19BEF4050C2291CE00275D06 /* colour.vowels.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = colour.vowels.xml; sourceTree = "<group>"; };
+		19BEF4060C2291CE00275D06 /* colour.vowels2.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = colour.vowels2.xml; sourceTree = "<group>"; };
+		19BEF4070C2291CE00275D06 /* colour.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = colour.xml; sourceTree = "<group>"; };
+		19BEF4080C2291CE00275D06 /* colour.xsl */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = colour.xsl; sourceTree = "<group>"; };
+		19BEF4190C22922400275D06 /* controllabels.dtd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = controllabels.dtd; sourceTree = "<group>"; };
+		19BEF41A0C22922400275D06 /* controllabels.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = controllabels.xml; sourceTree = "<group>"; };
+		19C190A90C3267D700979F34 /* DasherViewAqua.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherViewAqua.h; sourceTree = "<group>"; };
+		19C190AA0C3267D700979F34 /* DasherViewAqua.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = DasherViewAqua.mm; sourceTree = "<group>"; };
+		19C1AE810B130F18005C68D3 /* COSXMouseInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COSXMouseInput.h; sourceTree = "<group>"; };
+		19C49619045029A40000000A /* DasherApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DasherApp.h; sourceTree = "<group>"; };
+		19C4961D045029D70000000A /* DasherViewOpenGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DasherViewOpenGL.h; sourceTree = "<group>"; };
+		19D4423A0454667F0000000A /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/Preferences.nib; sourceTree = "<group>"; };
+		19D4423C04546C410000000A /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
+		19D4423D04546C410000000A /* PreferencesController.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = PreferencesController.mm; sourceTree = "<group>"; };
+		19E1AE4D0B0DB73300F3466C /* COSXDasherScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COSXDasherScreen.h; sourceTree = "<group>"; };
+		19E1AE4E0B0DB73300F3466C /* COSXDasherScreen.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = COSXDasherScreen.mm; sourceTree = "<group>"; };
+		19EEDB310450E75F0000000A /* DasherApp.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = DasherApp.mm; sourceTree = "<group>"; };
+		19F36D8A0B18B60E002F41F1 /* ZippyStringImage.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ZippyStringImage.h; sourceTree = "<group>"; };
+		19F36D8B0B18B60E002F41F1 /* ZippyStringImage.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ZippyStringImage.m; sourceTree = "<group>"; };
+		19F36D8C0B18B60E002F41F1 /* ZippyStringGlyph.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ZippyStringGlyph.h; sourceTree = "<group>"; };
+		19F36D8D0B18B60E002F41F1 /* ZippyStringGlyph.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ZippyStringGlyph.m; sourceTree = "<group>"; };
+		19F8C7E50C858A2800276B4F /* I18n.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = I18n.h; path = ../Common/I18n.h; sourceTree = SOURCE_ROOT; };
+		19F8C7F70C858E9900276B4F /* TrainingHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = TrainingHelper.cpp; sourceTree = "<group>"; };
+		19F8C7F80C858E9900276B4F /* TrainingHelper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = TrainingHelper.h; sourceTree = "<group>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
+		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1974FE770714861B00B95DA0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1974FE780714861B00B95DA0 /* Cocoa.framework in Frameworks */,
+				198EC7C407153DD400474B38 /* Carbon.framework in Frameworks */,
+				198ECBFD071701B100474B38 /* ApplicationServices.framework in Frameworks */,
+				196874290C2BE12E00D63879 /* OpenGL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Mac OS X Classes */ = {
+			isa = PBXGroup;
+			children = (
+				193731A70C8586F20022CBC7 /* config.h */,
+				19C1AE810B130F18005C68D3 /* COSXMouseInput.h */,
+				191180E90B0FC91A001CB987 /* COSXSettingsStore.h */,
+				191180EA0B0FC91A001CB987 /* COSXSettingsStore.mm */,
+				191428E40B0E6CC6004F1C28 /* COSXDasherControl.h */,
+				191428E50B0E6CC6004F1C28 /* COSXDasherControl.mm */,
+				19E1AE4D0B0DB73300F3466C /* COSXDasherScreen.h */,
+				19E1AE4E0B0DB73300F3466C /* COSXDasherScreen.mm */,
+				19B57A74080D4E4900BCE3C6 /* AppWatcher.h */,
+				19B57A72080D4E4000BCE3C6 /* AppWatcher.m */,
+				1987561F071AFB470034ECCB /* Chatter.h */,
+				19875620071AFB470034ECCB /* Chatter.m */,
+				19C49619045029A40000000A /* DasherApp.h */,
+				19EEDB310450E75F0000000A /* DasherApp.mm */,
+				1904CDA5048813400000000A /* DasherEdit.h */,
+				1904CDA6048813400000000A /* DasherEdit.mm */,
+				19558AD50C3182730054A193 /* DasherViewCocoa.h */,
+				19C190A90C3267D700979F34 /* DasherViewAqua.h */,
+				19C190AA0C3267D700979F34 /* DasherViewAqua.mm */,
+				19C4961D045029D70000000A /* DasherViewOpenGL.h */,
+				199DCCD70450B94C0000000A /* DasherViewOpenGL.mm */,
+				196874000C2BDC2E00D63879 /* AlphabetLetter.h */,
+				196874010C2BDC2E00D63879 /* AlphabetLetter.m */,
+				196874040C2BDC2E00D63879 /* GLUtils.h */,
+				196874050C2BDC2E00D63879 /* GLUtils.m */,
+				19D4423C04546C410000000A /* PreferencesController.h */,
+				19D4423D04546C410000000A /* PreferencesController.mm */,
+				198EC7AE07153D6E00474B38 /* KeyboardEvent.h */,
+				198EC7AF07153D6E00474B38 /* KeyboardEvent.m */,
+				198EC7B107153D6E00474B38 /* LowLevelKeyboardHandling.h */,
+				198EC7B007153D6E00474B38 /* LowLevelKeyboardHandling.c */,
+				198EC7B207153D6E00474B38 /* UnicharGenerator.h */,
+				198EC7B307153D6E00474B38 /* UnicharGenerator.m */,
+				196D8784048AA2750000000A /* DasherUtil.h */,
+				196D8785048AA2750000000A /* DasherUtil.mm */,
+				1946CAB90481AD440000000A /* ZippyCache.h */,
+				1946CABA0481AD440000000A /* ZippyCache.m */,
+				1946CABB0481AD440000000A /* ZippyString.h */,
+				1946CABC0481AD440000000A /* ZippyString.m */,
+				19F36D8C0B18B60E002F41F1 /* ZippyStringGlyph.h */,
+				19F36D8D0B18B60E002F41F1 /* ZippyStringGlyph.m */,
+				19F36D8A0B18B60E002F41F1 /* ZippyStringImage.h */,
+				19F36D8B0B18B60E002F41F1 /* ZippyStringImage.m */,
+			);
+			name = "Mac OS X Classes";
+			sourceTree = "<group>";
+		};
+		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				198EC7C307153DD400474B38 /* Carbon.framework */,
+				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+				196874280C2BE12E00D63879 /* OpenGL.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				198ECBFC071701B100474B38 /* ApplicationServices.framework */,
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		190254FC0B0C8A9300178CCD /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				19F8C7E30C858A1500276B4F /* Common */,
+				1948BDF40C226CFC001DFA32 /* DasherCore */,
+				080E96DDFE201D6D7F000001 /* Mac OS X Classes */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		1948BDF40C226CFC001DFA32 /* DasherCore */ = {
+			isa = PBXGroup;
+			children = (
+				1948BDF60C226CFC001DFA32 /* ActionButton.cpp */,
+				1948BDF70C226CFC001DFA32 /* ActionButton.h */,
+				1948BDF80C226CFC001DFA32 /* Alphabet */,
+				1948BE020C226CFC001DFA32 /* AlphabetManager.cpp */,
+				1948BE030C226CFC001DFA32 /* AlphabetManager.h */,
+				1948BE040C226CFC001DFA32 /* AlphabetManagerFactory.cpp */,
+				1948BE050C226CFC001DFA32 /* AlphabetManagerFactory.h */,
+				1948BE060C226CFC001DFA32 /* AutoSpeedControl.cpp */,
+				1948BE070C226CFC001DFA32 /* AutoSpeedControl.h */,
+				1948BE080C226CFC001DFA32 /* BasicLog.cpp */,
+				1948BE090C226CFC001DFA32 /* BasicLog.h */,
+				1948BE0A0C226CFC001DFA32 /* CannaConversionHelper.cpp */,
+				1948BE0B0C226CFC001DFA32 /* CannaConversionHelper.h */,
+				1948BE0C0C226CFC001DFA32 /* CircleStartHandler.cpp */,
+				1948BE0D0C226CFC001DFA32 /* CircleStartHandler.h */,
+				1948BE0E0C226CFC001DFA32 /* ClickFilter.cpp */,
+				1948BE0F0C226CFC001DFA32 /* ClickFilter.h */,
+				1948BE100C226CFC001DFA32 /* ColourIO.cpp */,
+				1948BE110C226CFC001DFA32 /* ColourIO.h */,
+				1948BE120C226CFC001DFA32 /* ControlManager.cpp */,
+				1948BE130C226CFC001DFA32 /* ControlManager.h */,
+				1948BE140C226CFC001DFA32 /* ControlManagerFactory.cpp */,
+				1948BE150C226CFC001DFA32 /* ControlManagerFactory.h */,
+				1948BE160C226CFC001DFA32 /* ConversionHelper.h */,
+				1948BE170C226CFC001DFA32 /* ConversionManager.cpp */,
+				1948BE180C226CFC001DFA32 /* ConversionManager.h */,
+				1948BE190C226CFC001DFA32 /* ConversionManagerFactory.cpp */,
+				1948BE1A0C226CFC001DFA32 /* ConversionManagerFactory.h */,
+				1948BE1B0C226CFC001DFA32 /* CustomColours.cpp */,
+				1948BE1C0C226CFC001DFA32 /* CustomColours.h */,
+				1948BE1D0C226CFC001DFA32 /* DasherButtons.cpp */,
+				1948BE1E0C226CFC001DFA32 /* DasherButtons.h */,
+				1948BE1F0C226CFC001DFA32 /* DasherComponent.cpp */,
+				1948BE200C226CFC001DFA32 /* DasherComponent.h */,
+				1948BE280C226CFD001DFA32 /* DasherGameMode.cpp */,
+				1948BE290C226CFD001DFA32 /* DasherGameMode.h */,
+				1948BE2A0C226CFD001DFA32 /* DasherInput.h */,
+				1948BE2B0C226CFD001DFA32 /* DasherInterfaceBase.cpp */,
+				1948BE2C0C226CFD001DFA32 /* DasherInterfaceBase.h */,
+				1948BE2D0C226CFD001DFA32 /* DasherModel.cpp */,
+				1948BE2E0C226CFD001DFA32 /* DasherModel.h */,
+				1948BE2F0C226CFD001DFA32 /* DasherModule.cpp */,
+				1948BE300C226CFD001DFA32 /* DasherModule.h */,
+				1948BE310C226CFD001DFA32 /* DasherNode.cpp */,
+				1948BE320C226CFD001DFA32 /* DasherNode.h */,
+				1948BE330C226CFD001DFA32 /* DasherScreen.h */,
+				1948BE340C226CFD001DFA32 /* DasherTypes.h */,
+				1948BE350C226CFD001DFA32 /* DasherView.cpp */,
+				1948BE360C226CFD001DFA32 /* DasherView.h */,
+				1948BE370C226CFD001DFA32 /* DasherView.inl */,
+				1948BE380C226CFD001DFA32 /* DasherViewSquare.cpp */,
+				1948BE390C226CFD001DFA32 /* DasherViewSquare.h */,
+				1948BE3A0C226CFD001DFA32 /* DasherViewSquare.inl */,
+				1948BE3B0C226CFD001DFA32 /* DefaultFilter.cpp */,
+				1948BE3C0C226CFD001DFA32 /* DefaultFilter.h */,
+				1948BE3D0C226CFD001DFA32 /* DelayedDraw.cpp */,
+				1948BE3E0C226CFD001DFA32 /* DynamicFilter.cpp */,
+				1948BE3F0C226CFD001DFA32 /* DynamicFilter.h */,
+				1948BE400C226CFD001DFA32 /* Event.h */,
+				1948BE410C226CFD001DFA32 /* EventHandler.cpp */,
+				1948BE420C226CFD001DFA32 /* EventHandler.h */,
+				1948BE430C226CFD001DFA32 /* EyetrackerFilter.cpp */,
+				1948BE440C226CFD001DFA32 /* EyetrackerFilter.h */,
+				1948BE450C226CFD001DFA32 /* FileLogger.cpp */,
+				1948BE460C226CFD001DFA32 /* FileLogger.h */,
+				1948BE470C226CFD001DFA32 /* FrameRate.h */,
+				1921DB6C0C7ECB9900E6DAA5 /* GameScorer.cpp */,
+				1921DB6D0C7ECB9900E6DAA5 /* GameScorer.h */,
+				1948BE480C226CFD001DFA32 /* GnomeSettingsStore.cpp */,
+				1948BE490C226CFD001DFA32 /* GnomeSettingsStore.h */,
+				1948BE4A0C226CFD001DFA32 /* IMEConversionHelper.cpp */,
+				1948BE4B0C226CFD001DFA32 /* IMEConversionHelper.h */,
+				1948BE4C0C226CFD001DFA32 /* InputFilter.h */,
+				1948BE4D0C226CFD001DFA32 /* LanguageModelling */,
+				1948BE680C226CFD001DFA32 /* MemoryLeak.cpp */,
+				1948BE690C226CFD001DFA32 /* MemoryLeak.h */,
+				1948BE6A0C226CFD001DFA32 /* ModuleFactory.h */,
+				1948BE6B0C226CFD001DFA32 /* ModuleManager.cpp */,
+				1948BE6C0C226CFD001DFA32 /* ModuleManager.h */,
+				1948BE6D0C226CFD001DFA32 /* NodeCreationManager.cpp */,
+				1948BE6E0C226CFD001DFA32 /* NodeCreationManager.h */,
+				1948BE6F0C226CFD001DFA32 /* NodeManager.h */,
+				1948BE700C226CFD001DFA32 /* NodeManagerFactory.h */,
+				1948BE710C226CFD001DFA32 /* OneButtonFilter.cpp */,
+				1948BE720C226CFD001DFA32 /* OneButtonFilter.h */,
+				1921DB370C7ECAA400E6DAA5 /* OneButtonDynamicFilter.cpp */,
+				1921DB380C7ECAA400E6DAA5 /* OneButtonDynamicFilter.h */,
+				1948BE730C226CFD001DFA32 /* OneDimensionalFilter.cpp */,
+				1948BE740C226CFD001DFA32 /* OneDimensionalFilter.h */,
+				1948BE750C226CFD001DFA32 /* Parameters.h */,
+				1948BE760C226CFD001DFA32 /* PinYinConversionHelper.cpp */,
+				1948BE770C226CFD001DFA32 /* PinYinConversionHelper.h */,
+				1948BE780C226CFD001DFA32 /* SCENode.cpp */,
+				1948BE790C226CFD001DFA32 /* SCENode.h */,
+				1948BE7A0C226CFD001DFA32 /* SettingsStore.cpp */,
+				1948BE7B0C226CFD001DFA32 /* SettingsStore.h */,
+				1948BE7C0C226CFD001DFA32 /* SimpleTimer.cpp */,
+				1948BE7D0C226CFD001DFA32 /* SimpleTimer.h */,
+				1948BE7E0C226CFD001DFA32 /* SocketInput.cpp */,
+				1948BE7F0C226CFD001DFA32 /* SocketInput.h */,
+				1948BE800C226CFD001DFA32 /* SocketInputBase.cpp */,
+				1948BE810C226CFD001DFA32 /* SocketInputBase.h */,
+				1948BE820C226CFD001DFA32 /* StartHandler.h */,
+				1948BE830C226CFD001DFA32 /* StylusFilter.cpp */,
+				1948BE840C226CFD001DFA32 /* StylusFilter.h */,
+				1948BE850C226CFD001DFA32 /* TimeSpan.cpp */,
+				1948BE860C226CFD001DFA32 /* TimeSpan.h */,
+				19F8C7F70C858E9900276B4F /* TrainingHelper.cpp */,
+				19F8C7F80C858E9900276B4F /* TrainingHelper.h */,
+				1948BE870C226CFD001DFA32 /* TwoBoxStartHandler.cpp */,
+				1948BE880C226CFD001DFA32 /* TwoBoxStartHandler.h */,
+				1948BE890C226CFD001DFA32 /* TwoButtonDynamicFilter.cpp */,
+				1948BE8A0C226CFD001DFA32 /* TwoButtonDynamicFilter.h */,
+				1948BE8B0C226CFD001DFA32 /* UserButton.cpp */,
+				1948BE8C0C226CFD001DFA32 /* UserButton.h */,
+				1948BE8D0C226CFD001DFA32 /* UserLocation.cpp */,
+				1948BE8E0C226CFD001DFA32 /* UserLocation.h */,
+				1948BE8F0C226CFD001DFA32 /* UserLog.cpp */,
+				1948BE900C226CFD001DFA32 /* UserLog.h */,
+				1948BE910C226CFD001DFA32 /* UserLogBase.h */,
+				1948BE920C226CFD001DFA32 /* UserLogParam.cpp */,
+				1948BE930C226CFD001DFA32 /* UserLogParam.h */,
+				1948BE940C226CFD001DFA32 /* UserLogTrial.cpp */,
+				1948BE950C226CFD001DFA32 /* UserLogTrial.h */,
+				1948BE960C226CFD001DFA32 /* View */,
+				1948BE980C226CFD001DFA32 /* WrapperFactory.cpp */,
+				1948BE990C226CFD001DFA32 /* WrapperFactory.h */,
+				1948BE9A0C226CFD001DFA32 /* XMLUtil.cpp */,
+				1948BE9B0C226CFD001DFA32 /* XMLUtil.h */,
+			);
+			name = DasherCore;
+			path = ../DasherCore;
+			sourceTree = SOURCE_ROOT;
+		};
+		1948BDF80C226CFC001DFA32 /* Alphabet */ = {
+			isa = PBXGroup;
+			children = (
+				1948BDF90C226CFC001DFA32 /* .cvsignore */,
+				1948BDFA0C226CFC001DFA32 /* Alphabet.cpp */,
+				1948BDFB0C226CFC001DFA32 /* Alphabet.h */,
+				1948BDFC0C226CFC001DFA32 /* AlphabetMap.cpp */,
+				1948BDFD0C226CFC001DFA32 /* AlphabetMap.h */,
+				1948BDFE0C226CFC001DFA32 /* AlphIO.cpp */,
+				1948BDFF0C226CFC001DFA32 /* AlphIO.h */,
+				1948BE000C226CFC001DFA32 /* GroupInfo.h */,
+			);
+			path = Alphabet;
+			sourceTree = "<group>";
+		};
+		1948BE4D0C226CFD001DFA32 /* LanguageModelling */ = {
+			isa = PBXGroup;
+			children = (
+				1948BE4F0C226CFD001DFA32 /* BigramLanguageModel.cpp */,
+				1948BE500C226CFD001DFA32 /* BigramLanguageModel.h */,
+				1948BE510C226CFD001DFA32 /* CTWLanguageModel.cpp */,
+				1948BE520C226CFD001DFA32 /* CTWLanguageModel.h */,
+				1948BE530C226CFD001DFA32 /* DictLanguageModel.cpp */,
+				1948BE540C226CFD001DFA32 /* DictLanguageModel.h */,
+				1948BE550C226CFD001DFA32 /* HashTable.cpp */,
+				1948BE560C226CFD001DFA32 /* HashTable.h */,
+				1948BE570C226CFD001DFA32 /* JapaneseLanguageModel.cpp */,
+				1948BE580C226CFD001DFA32 /* JapaneseLanguageModel.h */,
+				1948BE590C226CFD001DFA32 /* KanjiConversion.h */,
+				1948BE5A0C226CFD001DFA32 /* KanjiConversionCanna.cpp */,
+				1948BE5B0C226CFD001DFA32 /* KanjiConversionCanna.h */,
+				1948BE5C0C226CFD001DFA32 /* KanjiConversionIME.cpp */,
+				1948BE5D0C226CFD001DFA32 /* KanjiConversionIME.h */,
+				1948BE5E0C226CFD001DFA32 /* LanguageModel.cpp */,
+				1948BE5F0C226CFD001DFA32 /* LanguageModel.h */,
+				1948BE610C226CFD001DFA32 /* MixtureLanguageModel.h */,
+				1948BE620C226CFD001DFA32 /* PPMLanguageModel.cpp */,
+				1948BE630C226CFD001DFA32 /* PPMLanguageModel.h */,
+				1948BE640C226CFD001DFA32 /* SymbolAlphabet.h */,
+				1948BE650C226CFD001DFA32 /* WordLanguageModel.cpp */,
+				1948BE660C226CFD001DFA32 /* WordLanguageModel.h */,
+			);
+			path = LanguageModelling;
+			sourceTree = "<group>";
+		};
+		1948BE960C226CFD001DFA32 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1948BE970C226CFD001DFA32 /* DelayedDraw.h */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		19836C1B0C22A7FA00047426 /* Gtk2 */ = {
+			isa = PBXGroup;
+			children = (
+				19836C1D0C22A7FA00047426 /* Canvas.cpp */,
+				19836C1E0C22A7FA00047426 /* Canvas.h */,
+				19836C1F0C22A7FA00047426 /* CanvasExperimental.cpp */,
+				19836C200C22A7FA00047426 /* CanvasExperimental.h */,
+				19836C210C22A7FA00047426 /* custom_marshal.cpp */,
+				19836C220C22A7FA00047426 /* custom_marshal.h */,
+				19836C230C22A7FA00047426 /* dasher.h */,
+				19836C240C22A7FA00047426 /* dasher_action.cpp */,
+				19836C250C22A7FA00047426 /* dasher_action.h */,
+				19836C260C22A7FA00047426 /* dasher_action_keyboard.cpp */,
+				19836C270C22A7FA00047426 /* dasher_action_keyboard.h */,
+				19836C280C22A7FA00047426 /* dasher_action_keyboard_maemo.cpp */,
+				19836C290C22A7FA00047426 /* dasher_action_keyboard_maemo.h */,
+				19836C2A0C22A7FA00047426 /* dasher_action_script.cpp */,
+				19836C2B0C22A7FA00047426 /* dasher_action_script.h */,
+				19836C2C0C22A7FA00047426 /* dasher_action_speech.cpp */,
+				19836C2D0C22A7FA00047426 /* dasher_action_speech.h */,
+				19836C2E0C22A7FA00047426 /* dasher_buffer_set.cpp */,
+				19836C2F0C22A7FA00047426 /* dasher_buffer_set.h */,
+				19836C300C22A7FA00047426 /* dasher_editor.cpp */,
+				19836C310C22A7FA00047426 /* dasher_editor.h */,
+				19836C320C22A7FA00047426 /* dasher_editor_external.cpp */,
+				19836C330C22A7FA00047426 /* dasher_editor_external.h */,
+				19836C340C22A7FA00047426 /* dasher_editor_internal.cpp */,
+				19836C350C22A7FA00047426 /* dasher_editor_internal.h */,
+				19836C360C22A7FA00047426 /* dasher_external_buffer.cpp */,
+				19836C370C22A7FA00047426 /* dasher_external_buffer.h */,
+				19836C380C22A7FA00047426 /* dasher_internal_buffer.cpp */,
+				19836C390C22A7FA00047426 /* dasher_internal_buffer.h */,
+				19836C3A0C22A7FA00047426 /* dasher_lock_dialogue.cpp */,
+				19836C3B0C22A7FA00047426 /* dasher_lock_dialogue.h */,
+				19836C3C0C22A7FA00047426 /* dasher_maemo_helper.cpp */,
+				19836C3D0C22A7FA00047426 /* dasher_maemo_helper.h */,
+				19836C3E0C22A7FA00047426 /* dasher_main.cpp */,
+				19836C3F0C22A7FA00047426 /* dasher_main.h */,
+				19836C400C22A7FA00047426 /* DasherAppSettings.cpp */,
+				19836C410C22A7FA00047426 /* DasherAppSettings.h */,
+				19836C420C22A7FA00047426 /* DasherControl.cpp */,
+				19836C430C22A7FA00047426 /* DasherControl.h */,
+				19836C440C22A7FA00047426 /* game_mode_helper.cpp */,
+				19836C450C22A7FA00047426 /* game_mode_helper.h */,
+				19836C460C22A7FA00047426 /* GenerateSchema.cpp */,
+				19836C470C22A7FA00047426 /* gpesettings_store.cc */,
+				19836C480C22A7FA00047426 /* gpesettings_store.h */,
+				19836C490C22A7FA00047426 /* GtkDasherControl.cpp */,
+				19836C4A0C22A7FA00047426 /* GtkDasherControl.h */,
+				19836C4B0C22A7FA00047426 /* joystick_input.h */,
+				19836C4C0C22A7FA00047426 /* KeyboardHelper.cpp */,
+				19836C4D0C22A7FA00047426 /* KeyboardHelper.h */,
+				19836C4E0C22A7FA00047426 /* Makefile.am */,
+				19836C4F0C22A7FA00047426 /* module_settings_window.cpp */,
+				19836C500C22A7FA00047426 /* module_settings_window.h */,
+				19836C510C22A7FA00047426 /* mouse_input.h */,
+				19836C520C22A7FA00047426 /* PangoCache.cpp */,
+				19836C530C22A7FA00047426 /* PangoCache.h */,
+				19836C540C22A7FA00047426 /* Preferences.cpp */,
+				19836C550C22A7FA00047426 /* Preferences.h */,
+				19836C560C22A7FA00047426 /* tilt_input.h */,
+				19836C570C22A7FA00047426 /* Timer.cpp */,
+				19836C580C22A7FA00047426 /* Timer.h */,
+			);
+			name = Gtk2;
+			path = ../Gtk2;
+			sourceTree = SOURCE_ROOT;
+		};
+		19BEF2CD0C228F7300275D06 /* alphabets */ = {
+			isa = PBXGroup;
+			children = (
+				19BEF2CF0C228F7300275D06 /* alphabet-nest.xsl */,
+				19BEF2D00C228F7300275D06 /* alphabet-nest2.xsl */,
+				19BEF2D10C228F7300275D06 /* alphabet.abc.xml */,
+				19BEF2D20C228F7300275D06 /* alphabet.adangbe.xml */,
+				19BEF2D30C228F7300275D06 /* alphabet.AfaanOromo.xml */,
+				19BEF2D40C228F7300275D06 /* alphabet.afrikaans.xml */,
+				19BEF2D50C228F7300275D06 /* alphabet.akan.xml */,
+				19BEF2D60C228F7300275D06 /* alphabet.albanian.xml */,
+				19BEF2D70C228F7300275D06 /* alphabet.amharic.xml */,
+				19BEF2D80C228F7300275D06 /* alphabet.arabic.xml */,
+				19BEF2D90C228F7300275D06 /* alphabet.Armenian.xml */,
+				19BEF2DA0C228F7300275D06 /* alphabet.Assamese.xml */,
+				19BEF2DB0C228F7300275D06 /* alphabet.Austen.xml */,
+				19BEF2DC0C228F7300275D06 /* alphabet.Azerbaijani.xml */,
+				19BEF2DD0C228F7300275D06 /* alphabet.basque.xml */,
+				19BEF2DE0C228F7300275D06 /* alphabet.Belarusian.xml */,
+				19BEF2DF0C228F7300275D06 /* alphabet.bengali.xml */,
+				19BEF2E00C228F7300275D06 /* alphabet.bopomofo.xml */,
+				19BEF2E10C228F7300275D06 /* alphabet.bosnian.xml */,
+				19BEF2E20C228F7300275D06 /* alphabet.breton.xml */,
+				19BEF2E30C228F7300275D06 /* alphabet.Bulgarian.xml */,
+				19BEF2E40C228F7300275D06 /* alphabet.catalan.xml */,
+				19BEF2E50C228F7300275D06 /* alphabet.cherokee.xml */,
+				19BEF2E60C228F7300275D06 /* alphabet.chinese.xml */,
+				19BEF2E70C228F7300275D06 /* alphabet.chineseRuby.xml */,
+				19BEF2E80C228F7300275D06 /* alphabet.corsican.xml */,
+				19BEF2E90C228F7300275D06 /* alphabet.croatian.xml */,
+				19BEF2EA0C228F7300275D06 /* alphabet.czech.xml */,
+				19BEF2EB0C228F7300275D06 /* alphabet.danish.xml */,
+				19BEF2EC0C228F7300275D06 /* alphabet.dtd */,
+				19BEF2ED0C228F7300275D06 /* alphabet.dutch.xml */,
+				19BEF2EE0C228F7300275D06 /* alphabet.english.xml */,
+				19BEF2EF0C228F7300275D06 /* alphabet.englishC.xml */,
+				19BEF2F00C228F7300275D06 /* alphabet.Esperanto.xml */,
+				19BEF2F10C228F7300275D06 /* alphabet.Estonian.xml */,
+				19BEF2F20C228F7300275D06 /* alphabet.ethiopic.xml */,
+				19BEF2F30C228F7300275D06 /* alphabet.ewe.xml */,
+				19BEF2F40C228F7300275D06 /* alphabet.faroese.xml */,
+				19BEF2F50C228F7300275D06 /* alphabet.Filipino.xml */,
+				19BEF2F60C228F7300275D06 /* alphabet.finnish.xml */,
+				19BEF2F70C228F7300275D06 /* alphabet.finnish2.xml */,
+				19BEF2F80C228F7300275D06 /* alphabet.french.xml */,
+				19BEF2F90C228F7300275D06 /* alphabet.ga.xml */,
+				19BEF2FA0C228F7300275D06 /* alphabet.galician.xml */,
+				19BEF2FB0C228F7300275D06 /* alphabet.georgian.xml */,
+				19BEF2FC0C228F7300275D06 /* alphabet.german.xml */,
+				19BEF2FD0C228F7300275D06 /* alphabet.Greek.xml */,
+				19BEF2FE0C228F7300275D06 /* alphabet.Gujarati.xml */,
+				19BEF2FF0C228F7300275D06 /* alphabet.hausa.xml */,
+				19BEF3000C228F7300275D06 /* alphabet.Hawaiian.xml */,
+				19BEF3010C228F7300275D06 /* alphabet.Hebrew.xml */,
+				19BEF3020C228F7300275D06 /* alphabet.Hindi.xml */,
+				19BEF3030C228F7300275D06 /* alphabet.hiragana.xml */,
+				19BEF3040C228F7300275D06 /* alphabet.hiragana2.xml */,
+				19BEF3050C228F7300275D06 /* alphabet.hungarian.xml */,
+				19BEF3060C228F7300275D06 /* alphabet.Icelandic.xml */,
+				19BEF3070C228F7300275D06 /* alphabet.Igbo.xml */,
+				19BEF3080C228F7300275D06 /* alphabet.Indonesian.xml */,
+				19BEF3090C228F7300275D06 /* alphabet.ipa.xml */,
+				19BEF30A0C228F7300275D06 /* alphabet.IrishGaelic.xml */,
+				19BEF30B0C228F7300275D06 /* alphabet.italian.xml */,
+				19BEF30C0C228F7300275D06 /* alphabet.japanese.canna.xml */,
+				19BEF30D0C228F7300275D06 /* alphabet.Kannada.xml */,
+				19BEF30E0C228F7300275D06 /* alphabet.Katakana.xml */,
+				19BEF30F0C228F7300275D06 /* alphabet.kazakh.xml */,
+				19BEF3100C228F7300275D06 /* alphabet.kirghiz.xml */,
+				19BEF3110C228F7300275D06 /* alphabet.kirundi.xml */,
+				19BEF3120C228F7300275D06 /* alphabet.klingon.xml */,
+				19BEF3130C228F7300275D06 /* alphabet.korean.xml */,
+				19BEF3140C228F7300275D06 /* alphabet.koreanNested.xml */,
+				19BEF3150C228F7300275D06 /* alphabet.kurdish.xml */,
+				19BEF3160C228F7300275D06 /* alphabet.lao.xml */,
+				19BEF3170C228F7300275D06 /* alphabet.latex.xml */,
+				19BEF3180C228F7300275D06 /* alphabet.latin.xml */,
+				19BEF3190C228F7300275D06 /* alphabet.latvian.xml */,
+				19BEF31A0C228F7300275D06 /* alphabet.lithuanian.xml */,
+				19BEF31B0C228F7300275D06 /* alphabet.luxembourgish.xml */,
+				19BEF31C0C228F7300275D06 /* alphabet.macedonian.xml */,
+				19BEF31D0C228F7300275D06 /* alphabet.Malay.xml */,
+				19BEF31E0C228F7300275D06 /* alphabet.Malayalam.xml */,
+				19BEF31F0C228F7300275D06 /* alphabet.maltese.xml */,
+				19BEF3200C228F7300275D06 /* alphabet.Marathi.xml */,
+				19BEF3210C228F7300275D06 /* alphabet.Moldavian.xml */,
+				19BEF3220C228F7300275D06 /* alphabet.mongolian.xml */,
+				19BEF3230C228F7300275D06 /* alphabet.myanmar.xml */,
+				19BEF3240C228F7300275D06 /* alphabet.Ndebele.xml */,
+				19BEF3250C228F7300275D06 /* alphabet.nepali.xml */,
+				19BEF3260C228F7300275D06 /* alphabet.norwegian.xml */,
+				19BEF3270C228F7300275D06 /* alphabet.occitan.xml */,
+				19BEF3280C228F7300275D06 /* alphabet.ogham.xml */,
+				19BEF3290C228F7300275D06 /* alphabet.Oriya.xml */,
+				19BEF32A0C228F7300275D06 /* alphabet.pashto.xml */,
+				19BEF32B0C228F7300275D06 /* alphabet.perl.xml */,
+				19BEF32C0C228F7300275D06 /* alphabet.persian.xml */,
+				19BEF32D0C228F7300275D06 /* alphabet.pinyin.xml */,
+				19BEF32E0C228F7300275D06 /* alphabet.pinyin2.xml */,
+				19BEF32F0C228F7300275D06 /* alphabet.polish.xml */,
+				19BEF3300C228F7300275D06 /* alphabet.portuguese.xml */,
+				19BEF3310C228F7300275D06 /* alphabet.Punjabi.xml */,
+				19BEF3320C228F7300275D06 /* alphabet.Romanian.xml */,
+				19BEF3330C228F7300275D06 /* alphabet.romansch.xml */,
+				19BEF3340C228F7300275D06 /* alphabet.runic.xml */,
+				19BEF3350C228F7300275D06 /* alphabet.russian.xml */,
+				19BEF3360C228F7300275D06 /* alphabet.Sami.xml */,
+				19BEF3370C228F7300275D06 /* alphabet.sanskrit.xml */,
+				19BEF3380C228F7300275D06 /* alphabet.ScotsGaelic.xml */,
+				19BEF3390C228F7300275D06 /* alphabet.Sepedi.xml */,
+				19BEF33A0C228F7300275D06 /* alphabet.serbian.xml */,
+				19BEF33B0C228F7300275D06 /* alphabet.Sesotho.xml */,
+				19BEF33C0C228F7300275D06 /* alphabet.Sinhala.xml */,
+				19BEF33D0C228F7300275D06 /* alphabet.Slovak.xml */,
+				19BEF33E0C228F7300275D06 /* alphabet.Slovenian.xml */,
+				19BEF33F0C228F7300275D06 /* alphabet.somali.xml */,
+				19BEF3400C228F7300275D06 /* alphabet.spanish.xml */,
+				19BEF3410C228F7300275D06 /* alphabet.swahili.xml */,
+				19BEF3420C228F7300275D06 /* alphabet.Swati.xml */,
+				19BEF3430C228F7300275D06 /* alphabet.swedish.xml */,
+				19BEF3440C228F7300275D06 /* alphabet.Tajik.xml */,
+				19BEF3450C228F7300275D06 /* alphabet.Tamil.xml */,
+				19BEF3460C228F7300275D06 /* alphabet.Telugu.xml */,
+				19BEF3470C228F7300275D06 /* alphabet.thaana.xml */,
+				19BEF3480C228F7300275D06 /* alphabet.Thai.xml */,
+				19BEF3490C228F7300275D06 /* alphabet.Thai2.xml */,
+				19BEF34A0C228F7300275D06 /* alphabet.tigrinya.xml */,
+				19BEF34B0C228F7300275D06 /* alphabet.Tsonga.xml */,
+				19BEF34C0C228F7300275D06 /* alphabet.Tswana.xml */,
+				19BEF34D0C228F7300275D06 /* alphabet.Turkish.xml */,
+				19BEF34E0C228F7300275D06 /* alphabet.turkmen.xml */,
+				19BEF34F0C228F7300275D06 /* alphabet.ukrainian.xml */,
+				19BEF3500C228F7300275D06 /* alphabet.Urdu.xml */,
+				19BEF3510C228F7300275D06 /* alphabet.uzbek.xml */,
+				19BEF3520C228F7300275D06 /* alphabet.venda.xml */,
+				19BEF3530C228F7300275D06 /* alphabet.Vietnamese.xml */,
+				19BEF3540C228F7300275D06 /* alphabet.welsh.xml */,
+				19BEF3550C228F7300275D06 /* alphabet.Xhosa.xml */,
+				19BEF3560C228F7300275D06 /* alphabet.xsl */,
+				19BEF3570C228F7300275D06 /* alphabet.xsl.good */,
+				19BEF3580C228F7300275D06 /* alphabet.Yoruba.xml */,
+				19BEF3590C228F7300275D06 /* alphabet.Zulu.xml */,
+			);
+			name = alphabets;
+			path = ../../Data/alphabets;
+			sourceTree = SOURCE_ROOT;
+		};
+		19BEF3FC0C2291CE00275D06 /* colours */ = {
+			isa = PBXGroup;
+			children = (
+				19BEF3FD0C2291CE00275D06 /* colour.blue.xml */,
+				19BEF3FE0C2291CE00275D06 /* colour.dtd */,
+				19BEF3FF0C2291CE00275D06 /* colour.euroasian.xml */,
+				19BEF4000C2291CE00275D06 /* colour.euroasian2.xml */,
+				19BEF4010C2291CE00275D06 /* colour.euroasian3.xml */,
+				19BEF4020C2291CE00275D06 /* colour.jamie.xml */,
+				19BEF4030C2291CE00275D06 /* colour.rainbow.xml */,
+				19BEF4040C2291CE00275D06 /* colour.thai.xml */,
+				19BEF4050C2291CE00275D06 /* colour.vowels.xml */,
+				19BEF4060C2291CE00275D06 /* colour.vowels2.xml */,
+				19BEF4070C2291CE00275D06 /* colour.xml */,
+				19BEF4080C2291CE00275D06 /* colour.xsl */,
+			);
+			name = colours;
+			path = ../../Data/colours;
+			sourceTree = SOURCE_ROOT;
+		};
+		19BEF4180C22922400275D06 /* controllabels */ = {
+			isa = PBXGroup;
+			children = (
+				19BEF4190C22922400275D06 /* controllabels.dtd */,
+				19BEF41A0C22922400275D06 /* controllabels.xml */,
+			);
+			name = controllabels;
+			path = ../../Data/controllabels;
+			sourceTree = SOURCE_ROOT;
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1974FE7A0714861B00B95DA0 /* Dasher.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		19F8C7E30C858A1500276B4F /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				19F8C7E50C858A2800276B4F /* I18n.h */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* MacOSX */ = {
+			isa = PBXGroup;
+			children = (
+				19BDB54F0455ED620000000A /* TODO */,
+				19351BF304575C6C0000000A /* mktar.sh */,
+				190697550492B65B0000000A /* ReadmeDeveloper.txt */,
+				190697530492AACE0000000A /* Readme.html */,
+				19836C1B0C22A7FA00047426 /* Gtk2 */,
+				19BEF4180C22922400275D06 /* controllabels */,
+				19BEF3FC0C2291CE00275D06 /* colours */,
+				19BEF2CD0C228F7300275D06 /* alphabets */,
+				190254FC0B0C8A9300178CCD /* Source */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+				1974FE7C0714861B00B95DA0 /* Info-Dasher.plist */,
+			);
+			name = MacOSX;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1974FD9C07145C6500B95DA0 /* Credits.html */,
+				191CE19C04595BBA0000000A /* DasherApp.icns */,
+				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+				19D442390454667F0000000A /* Preferences.nib */,
+				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		1974FE1D0714861B00B95DA0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1974FE340714861B00B95DA0 /* DasherApp.h in Headers */,
+				1974FE370714861B00B95DA0 /* ZippyCache.h in Headers */,
+				1974FE380714861B00B95DA0 /* ZippyString.h in Headers */,
+				198EC7B407153D6E00474B38 /* KeyboardEvent.h in Headers */,
+				198EC7B707153D6E00474B38 /* LowLevelKeyboardHandling.h in Headers */,
+				198EC7B807153D6E00474B38 /* UnicharGenerator.h in Headers */,
+				19875621071AFB470034ECCB /* Chatter.h in Headers */,
+				19B57A75080D4E4900BCE3C6 /* AppWatcher.h in Headers */,
+				190257FD0B0C981300178CCD /* DasherEdit.h in Headers */,
+				190258010B0C981900178CCD /* DasherViewOpenGL.h in Headers */,
+				190258030B0C981900178CCD /* PreferencesController.h in Headers */,
+				19E1AE4F0B0DB73300F3466C /* COSXDasherScreen.h in Headers */,
+				191428E60B0E6CC6004F1C28 /* COSXDasherControl.h in Headers */,
+				191180EB0B0FC91A001CB987 /* COSXSettingsStore.h in Headers */,
+				19E49DB60B10556200BA5CE8 /* DasherUtil.h in Headers */,
+				19C1AE820B130F18005C68D3 /* COSXMouseInput.h in Headers */,
+				19F36D8E0B18B60E002F41F1 /* ZippyStringImage.h in Headers */,
+				19F36D900B18B60E002F41F1 /* ZippyStringGlyph.h in Headers */,
+				1948BE9E0C226CFD001DFA32 /* ActionButton.h in Headers */,
+				1948BEA10C226CFD001DFA32 /* Alphabet.h in Headers */,
+				1948BEA30C226CFD001DFA32 /* AlphabetMap.h in Headers */,
+				1948BEA50C226CFD001DFA32 /* AlphIO.h in Headers */,
+				1948BEA60C226CFD001DFA32 /* GroupInfo.h in Headers */,
+				1948BEA90C226CFD001DFA32 /* AlphabetManager.h in Headers */,
+				1948BEAB0C226CFD001DFA32 /* AlphabetManagerFactory.h in Headers */,
+				1948BEAD0C226CFD001DFA32 /* AutoSpeedControl.h in Headers */,
+				1948BEAF0C226CFD001DFA32 /* BasicLog.h in Headers */,
+				1948BEB10C226CFD001DFA32 /* CannaConversionHelper.h in Headers */,
+				1948BEB30C226CFD001DFA32 /* CircleStartHandler.h in Headers */,
+				1948BEB50C226CFD001DFA32 /* ClickFilter.h in Headers */,
+				1948BEB70C226CFD001DFA32 /* ColourIO.h in Headers */,
+				1948BEB90C226CFD001DFA32 /* ControlManager.h in Headers */,
+				1948BEBB0C226CFD001DFA32 /* ControlManagerFactory.h in Headers */,
+				1948BEBC0C226CFD001DFA32 /* ConversionHelper.h in Headers */,
+				1948BEBE0C226CFD001DFA32 /* ConversionManager.h in Headers */,
+				1948BEC00C226CFD001DFA32 /* ConversionManagerFactory.h in Headers */,
+				1948BEC20C226CFD001DFA32 /* CustomColours.h in Headers */,
+				1948BEC40C226CFD001DFA32 /* DasherButtons.h in Headers */,
+				1948BEC60C226CFD001DFA32 /* DasherComponent.h in Headers */,
+				1948BED00C226CFD001DFA32 /* DasherInput.h in Headers */,
+				1948BED20C226CFD001DFA32 /* DasherInterfaceBase.h in Headers */,
+				1948BED40C226CFD001DFA32 /* DasherModel.h in Headers */,
+				1948BED60C226CFD001DFA32 /* DasherModule.h in Headers */,
+				1948BED80C226CFD001DFA32 /* DasherNode.h in Headers */,
+				1948BED90C226CFD001DFA32 /* DasherScreen.h in Headers */,
+				1948BEDA0C226CFD001DFA32 /* DasherTypes.h in Headers */,
+				1948BEDC0C226CFD001DFA32 /* DasherView.h in Headers */,
+				1948BEDF0C226CFD001DFA32 /* DasherViewSquare.h in Headers */,
+				1948BEE20C226CFD001DFA32 /* DefaultFilter.h in Headers */,
+				1948BEE50C226CFD001DFA32 /* DynamicFilter.h in Headers */,
+				1948BEE60C226CFD001DFA32 /* Event.h in Headers */,
+				1948BEE80C226CFD001DFA32 /* EventHandler.h in Headers */,
+				1948BEEA0C226CFD001DFA32 /* EyetrackerFilter.h in Headers */,
+				1948BEEC0C226CFD001DFA32 /* FileLogger.h in Headers */,
+				1948BEED0C226CFD001DFA32 /* FrameRate.h in Headers */,
+				1948BEF10C226CFD001DFA32 /* IMEConversionHelper.h in Headers */,
+				1948BEF20C226CFD001DFA32 /* InputFilter.h in Headers */,
+				1948BEF70C226CFD001DFA32 /* CTWLanguageModel.h in Headers */,
+				1948BEF90C226CFD001DFA32 /* DictLanguageModel.h in Headers */,
+				1948BEFB0C226CFD001DFA32 /* HashTable.h in Headers */,
+				1948BF040C226CFD001DFA32 /* LanguageModel.h in Headers */,
+				1948BF060C226CFD001DFA32 /* MixtureLanguageModel.h in Headers */,
+				1948BF080C226CFD001DFA32 /* PPMLanguageModel.h in Headers */,
+				1948BF090C226CFD001DFA32 /* SymbolAlphabet.h in Headers */,
+				1948BF0B0C226CFD001DFA32 /* WordLanguageModel.h in Headers */,
+				1948BF0E0C226CFD001DFA32 /* MemoryLeak.h in Headers */,
+				1948BF0F0C226CFD001DFA32 /* ModuleFactory.h in Headers */,
+				1948BF110C226CFD001DFA32 /* ModuleManager.h in Headers */,
+				1948BF130C226CFD001DFA32 /* NodeCreationManager.h in Headers */,
+				1948BF140C226CFD001DFA32 /* NodeManager.h in Headers */,
+				1948BF150C226CFD001DFA32 /* NodeManagerFactory.h in Headers */,
+				1948BF170C226CFD001DFA32 /* OneButtonFilter.h in Headers */,
+				1948BF190C226CFD001DFA32 /* OneDimensionalFilter.h in Headers */,
+				1948BF1A0C226CFD001DFA32 /* Parameters.h in Headers */,
+				1948BF1E0C226CFD001DFA32 /* SCENode.h in Headers */,
+				1948BF200C226CFD001DFA32 /* SettingsStore.h in Headers */,
+				1948BF220C226CFD001DFA32 /* SimpleTimer.h in Headers */,
+				1948BF260C226CFD001DFA32 /* SocketInputBase.h in Headers */,
+				1948BF270C226CFD001DFA32 /* StartHandler.h in Headers */,
+				1948BF290C226CFD001DFA32 /* StylusFilter.h in Headers */,
+				1948BF2B0C226CFD001DFA32 /* TimeSpan.h in Headers */,
+				1948BF2D0C226CFD001DFA32 /* TwoBoxStartHandler.h in Headers */,
+				1948BF2F0C226CFD001DFA32 /* TwoButtonDynamicFilter.h in Headers */,
+				1948BF310C226CFD001DFA32 /* UserButton.h in Headers */,
+				1948BF330C226CFD001DFA32 /* UserLocation.h in Headers */,
+				1948BF350C226CFD001DFA32 /* UserLog.h in Headers */,
+				1948BF360C226CFD001DFA32 /* UserLogBase.h in Headers */,
+				1948BF380C226CFD001DFA32 /* UserLogParam.h in Headers */,
+				1948BF3A0C226CFD001DFA32 /* UserLogTrial.h in Headers */,
+				1948BF3B0C226CFD001DFA32 /* DelayedDraw.h in Headers */,
+				1948BF3D0C226CFD001DFA32 /* WrapperFactory.h in Headers */,
+				1948BF3F0C226CFD001DFA32 /* XMLUtil.h in Headers */,
+				196874060C2BDC2E00D63879 /* AlphabetLetter.h in Headers */,
+				1968740A0C2BDC2E00D63879 /* GLUtils.h in Headers */,
+				19558AD60C3182730054A193 /* DasherViewCocoa.h in Headers */,
+				19C190AB0C3267D700979F34 /* DasherViewAqua.h in Headers */,
+				1921DB3A0C7ECAA400E6DAA5 /* OneButtonDynamicFilter.h in Headers */,
+				1921DB3F0C7ECB4A00E6DAA5 /* DasherGameMode.h in Headers */,
+				1921DB6F0C7ECB9900E6DAA5 /* GameScorer.h in Headers */,
+				193731A80C8586F20022CBC7 /* config.h in Headers */,
+				19F8C7E60C858A2800276B4F /* I18n.h in Headers */,
+				19F8C7FA0C858E9900276B4F /* TrainingHelper.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		1974FE1C0714861B00B95DA0 /* Dasher */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 198D19F908965C4800CE3CC9 /* Build configuration list for PBXNativeTarget "Dasher" */;
+			buildPhases = (
+				1974FE1D0714861B00B95DA0 /* Headers */,
+				1974FE3F0714861B00B95DA0 /* Resources */,
+				1974FE5C0714861B00B95DA0 /* Sources */,
+				1974FE770714861B00B95DA0 /* Frameworks */,
+				1974FE790714861B00B95DA0 /* Rez */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Dasher;
+			productInstallPath = "$(USER_APPS_DIR)";
+			productName = Dasher;
+			productReference = 1974FE7A0714861B00B95DA0 /* Dasher.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 198D19FD08965C4800CE3CC9 /* Build configuration list for PBXProject "Dasher" */;
+			hasScannedForEncodings = 1;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* MacOSX */;
+			projectDirPath = "";
+			targets = (
+				1974FE1C0714861B00B95DA0 /* Dasher */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1974FE3F0714861B00B95DA0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1974FE420714861B00B95DA0 /* InfoPlist.strings in Resources */,
+				1974FE430714861B00B95DA0 /* Preferences.nib in Resources */,
+				1974FE440714861B00B95DA0 /* DasherApp.icns in Resources */,
+				1974FE5A0714861B00B95DA0 /* Credits.html in Resources */,
+				198EC6D5071493BB00474B38 /* MainMenu.nib in Resources */,
+				1948BE9F0C226CFD001DFA32 /* .cvsignore in Resources */,
+				1948BEDD0C226CFD001DFA32 /* DasherView.inl in Resources */,
+				1948BEE00C226CFD001DFA32 /* DasherViewSquare.inl in Resources */,
+				19BEF35C0C228F7300275D06 /* alphabet-nest.xsl in Resources */,
+				19BEF35D0C228F7300275D06 /* alphabet-nest2.xsl in Resources */,
+				19BEF35E0C228F7300275D06 /* alphabet.abc.xml in Resources */,
+				19BEF35F0C228F7300275D06 /* alphabet.adangbe.xml in Resources */,
+				19BEF3600C228F7300275D06 /* alphabet.AfaanOromo.xml in Resources */,
+				19BEF3610C228F7300275D06 /* alphabet.afrikaans.xml in Resources */,
+				19BEF3620C228F7300275D06 /* alphabet.akan.xml in Resources */,
+				19BEF3630C228F7300275D06 /* alphabet.albanian.xml in Resources */,
+				19BEF3640C228F7300275D06 /* alphabet.amharic.xml in Resources */,
+				19BEF3650C228F7300275D06 /* alphabet.arabic.xml in Resources */,
+				19BEF3660C228F7300275D06 /* alphabet.Armenian.xml in Resources */,
+				19BEF3670C228F7300275D06 /* alphabet.Assamese.xml in Resources */,
+				19BEF3680C228F7300275D06 /* alphabet.Austen.xml in Resources */,
+				19BEF3690C228F7300275D06 /* alphabet.Azerbaijani.xml in Resources */,
+				19BEF36A0C228F7300275D06 /* alphabet.basque.xml in Resources */,
+				19BEF36B0C228F7300275D06 /* alphabet.Belarusian.xml in Resources */,
+				19BEF36C0C228F7300275D06 /* alphabet.bengali.xml in Resources */,
+				19BEF36D0C228F7300275D06 /* alphabet.bopomofo.xml in Resources */,
+				19BEF36E0C228F7300275D06 /* alphabet.bosnian.xml in Resources */,
+				19BEF36F0C228F7300275D06 /* alphabet.breton.xml in Resources */,
+				19BEF3700C228F7300275D06 /* alphabet.Bulgarian.xml in Resources */,
+				19BEF3710C228F7300275D06 /* alphabet.catalan.xml in Resources */,
+				19BEF3720C228F7300275D06 /* alphabet.cherokee.xml in Resources */,
+				19BEF3730C228F7300275D06 /* alphabet.chinese.xml in Resources */,
+				19BEF3740C228F7300275D06 /* alphabet.chineseRuby.xml in Resources */,
+				19BEF3750C228F7300275D06 /* alphabet.corsican.xml in Resources */,
+				19BEF3760C228F7300275D06 /* alphabet.croatian.xml in Resources */,
+				19BEF3770C228F7300275D06 /* alphabet.czech.xml in Resources */,
+				19BEF3780C228F7300275D06 /* alphabet.danish.xml in Resources */,
+				19BEF3790C228F7300275D06 /* alphabet.dtd in Resources */,
+				19BEF37A0C228F7300275D06 /* alphabet.dutch.xml in Resources */,
+				19BEF37B0C228F7300275D06 /* alphabet.english.xml in Resources */,
+				19BEF37C0C228F7300275D06 /* alphabet.englishC.xml in Resources */,
+				19BEF37D0C228F7300275D06 /* alphabet.Esperanto.xml in Resources */,
+				19BEF37E0C228F7300275D06 /* alphabet.Estonian.xml in Resources */,
+				19BEF37F0C228F7300275D06 /* alphabet.ethiopic.xml in Resources */,
+				19BEF3800C228F7300275D06 /* alphabet.ewe.xml in Resources */,
+				19BEF3810C228F7300275D06 /* alphabet.faroese.xml in Resources */,
+				19BEF3820C228F7300275D06 /* alphabet.Filipino.xml in Resources */,
+				19BEF3830C228F7300275D06 /* alphabet.finnish.xml in Resources */,
+				19BEF3840C228F7300275D06 /* alphabet.finnish2.xml in Resources */,
+				19BEF3850C228F7300275D06 /* alphabet.french.xml in Resources */,
+				19BEF3860C228F7300275D06 /* alphabet.ga.xml in Resources */,
+				19BEF3870C228F7300275D06 /* alphabet.galician.xml in Resources */,
+				19BEF3880C228F7300275D06 /* alphabet.georgian.xml in Resources */,
+				19BEF3890C228F7300275D06 /* alphabet.german.xml in Resources */,
+				19BEF38A0C228F7300275D06 /* alphabet.Greek.xml in Resources */,
+				19BEF38B0C228F7300275D06 /* alphabet.Gujarati.xml in Resources */,
+				19BEF38C0C228F7300275D06 /* alphabet.hausa.xml in Resources */,
+				19BEF38D0C228F7300275D06 /* alphabet.Hawaiian.xml in Resources */,
+				19BEF38E0C228F7300275D06 /* alphabet.Hebrew.xml in Resources */,
+				19BEF38F0C228F7300275D06 /* alphabet.Hindi.xml in Resources */,
+				19BEF3900C228F7300275D06 /* alphabet.hiragana.xml in Resources */,
+				19BEF3910C228F7300275D06 /* alphabet.hiragana2.xml in Resources */,
+				19BEF3920C228F7300275D06 /* alphabet.hungarian.xml in Resources */,
+				19BEF3930C228F7300275D06 /* alphabet.Icelandic.xml in Resources */,
+				19BEF3940C228F7300275D06 /* alphabet.Igbo.xml in Resources */,
+				19BEF3950C228F7300275D06 /* alphabet.Indonesian.xml in Resources */,
+				19BEF3960C228F7300275D06 /* alphabet.ipa.xml in Resources */,
+				19BEF3970C228F7300275D06 /* alphabet.IrishGaelic.xml in Resources */,
+				19BEF3980C228F7300275D06 /* alphabet.italian.xml in Resources */,
+				19BEF3990C228F7300275D06 /* alphabet.japanese.canna.xml in Resources */,
+				19BEF39A0C228F7300275D06 /* alphabet.Kannada.xml in Resources */,
+				19BEF39B0C228F7300275D06 /* alphabet.Katakana.xml in Resources */,
+				19BEF39C0C228F7300275D06 /* alphabet.kazakh.xml in Resources */,
+				19BEF39D0C228F7300275D06 /* alphabet.kirghiz.xml in Resources */,
+				19BEF39E0C228F7300275D06 /* alphabet.kirundi.xml in Resources */,
+				19BEF39F0C228F7300275D06 /* alphabet.klingon.xml in Resources */,
+				19BEF3A00C228F7300275D06 /* alphabet.korean.xml in Resources */,
+				19BEF3A10C228F7300275D06 /* alphabet.koreanNested.xml in Resources */,
+				19BEF3A20C228F7300275D06 /* alphabet.kurdish.xml in Resources */,
+				19BEF3A30C228F7300275D06 /* alphabet.lao.xml in Resources */,
+				19BEF3A40C228F7300275D06 /* alphabet.latex.xml in Resources */,
+				19BEF3A50C228F7300275D06 /* alphabet.latin.xml in Resources */,
+				19BEF3A60C228F7300275D06 /* alphabet.latvian.xml in Resources */,
+				19BEF3A70C228F7300275D06 /* alphabet.lithuanian.xml in Resources */,
+				19BEF3A80C228F7300275D06 /* alphabet.luxembourgish.xml in Resources */,
+				19BEF3A90C228F7300275D06 /* alphabet.macedonian.xml in Resources */,
+				19BEF3AA0C228F7300275D06 /* alphabet.Malay.xml in Resources */,
+				19BEF3AB0C228F7300275D06 /* alphabet.Malayalam.xml in Resources */,
+				19BEF3AC0C228F7300275D06 /* alphabet.maltese.xml in Resources */,
+				19BEF3AD0C228F7300275D06 /* alphabet.Marathi.xml in Resources */,
+				19BEF3AE0C228F7300275D06 /* alphabet.Moldavian.xml in Resources */,
+				19BEF3AF0C228F7300275D06 /* alphabet.mongolian.xml in Resources */,
+				19BEF3B00C228F7300275D06 /* alphabet.myanmar.xml in Resources */,
+				19BEF3B10C228F7300275D06 /* alphabet.Ndebele.xml in Resources */,
+				19BEF3B20C228F7300275D06 /* alphabet.nepali.xml in Resources */,
+				19BEF3B30C228F7300275D06 /* alphabet.norwegian.xml in Resources */,
+				19BEF3B40C228F7300275D06 /* alphabet.occitan.xml in Resources */,
+				19BEF3B50C228F7300275D06 /* alphabet.ogham.xml in Resources */,
+				19BEF3B60C228F7300275D06 /* alphabet.Oriya.xml in Resources */,
+				19BEF3B70C228F7300275D06 /* alphabet.pashto.xml in Resources */,
+				19BEF3B80C228F7300275D06 /* alphabet.perl.xml in Resources */,
+				19BEF3B90C228F7300275D06 /* alphabet.persian.xml in Resources */,
+				19BEF3BA0C228F7300275D06 /* alphabet.pinyin.xml in Resources */,
+				19BEF3BB0C228F7300275D06 /* alphabet.pinyin2.xml in Resources */,
+				19BEF3BC0C228F7300275D06 /* alphabet.polish.xml in Resources */,
+				19BEF3BD0C228F7300275D06 /* alphabet.portuguese.xml in Resources */,
+				19BEF3BE0C228F7300275D06 /* alphabet.Punjabi.xml in Resources */,
+				19BEF3BF0C228F7300275D06 /* alphabet.Romanian.xml in Resources */,
+				19BEF3C00C228F7300275D06 /* alphabet.romansch.xml in Resources */,
+				19BEF3C10C228F7300275D06 /* alphabet.runic.xml in Resources */,
+				19BEF3C20C228F7300275D06 /* alphabet.russian.xml in Resources */,
+				19BEF3C30C228F7300275D06 /* alphabet.Sami.xml in Resources */,
+				19BEF3C40C228F7300275D06 /* alphabet.sanskrit.xml in Resources */,
+				19BEF3C50C228F7300275D06 /* alphabet.ScotsGaelic.xml in Resources */,
+				19BEF3C60C228F7300275D06 /* alphabet.Sepedi.xml in Resources */,
+				19BEF3C70C228F7300275D06 /* alphabet.serbian.xml in Resources */,
+				19BEF3C80C228F7300275D06 /* alphabet.Sesotho.xml in Resources */,
+				19BEF3C90C228F7300275D06 /* alphabet.Sinhala.xml in Resources */,
+				19BEF3CA0C228F7300275D06 /* alphabet.Slovak.xml in Resources */,
+				19BEF3CB0C228F7300275D06 /* alphabet.Slovenian.xml in Resources */,
+				19BEF3CC0C228F7300275D06 /* alphabet.somali.xml in Resources */,
+				19BEF3CD0C228F7300275D06 /* alphabet.spanish.xml in Resources */,
+				19BEF3CE0C228F7300275D06 /* alphabet.swahili.xml in Resources */,
+				19BEF3CF0C228F7300275D06 /* alphabet.Swati.xml in Resources */,
+				19BEF3D00C228F7300275D06 /* alphabet.swedish.xml in Resources */,
+				19BEF3D10C228F7300275D06 /* alphabet.Tajik.xml in Resources */,
+				19BEF3D20C228F7300275D06 /* alphabet.Tamil.xml in Resources */,
+				19BEF3D30C228F7300275D06 /* alphabet.Telugu.xml in Resources */,
+				19BEF3D40C228F7300275D06 /* alphabet.thaana.xml in Resources */,
+				19BEF3D50C228F7300275D06 /* alphabet.Thai.xml in Resources */,
+				19BEF3D60C228F7300275D06 /* alphabet.Thai2.xml in Resources */,
+				19BEF3D70C228F7300275D06 /* alphabet.tigrinya.xml in Resources */,
+				19BEF3D80C228F7300275D06 /* alphabet.Tsonga.xml in Resources */,
+				19BEF3D90C228F7300275D06 /* alphabet.Tswana.xml in Resources */,
+				19BEF3DA0C228F7300275D06 /* alphabet.Turkish.xml in Resources */,
+				19BEF3DB0C228F7300275D06 /* alphabet.turkmen.xml in Resources */,
+				19BEF3DC0C228F7300275D06 /* alphabet.ukrainian.xml in Resources */,
+				19BEF3DD0C228F7300275D06 /* alphabet.Urdu.xml in Resources */,
+				19BEF3DE0C228F7300275D06 /* alphabet.uzbek.xml in Resources */,
+				19BEF3DF0C228F7300275D06 /* alphabet.venda.xml in Resources */,
+				19BEF3E00C228F7300275D06 /* alphabet.Vietnamese.xml in Resources */,
+				19BEF3E10C228F7300275D06 /* alphabet.welsh.xml in Resources */,
+				19BEF3E20C228F7300275D06 /* alphabet.Xhosa.xml in Resources */,
+				19BEF3E30C228F7300275D06 /* alphabet.xsl in Resources */,
+				19BEF3E40C228F7300275D06 /* alphabet.xsl.good in Resources */,
+				19BEF3E50C228F7300275D06 /* alphabet.Yoruba.xml in Resources */,
+				19BEF3E60C228F7300275D06 /* alphabet.Zulu.xml in Resources */,
+				19BEF40A0C2291CE00275D06 /* colour.blue.xml in Resources */,
+				19BEF40B0C2291CE00275D06 /* colour.dtd in Resources */,
+				19BEF40C0C2291CE00275D06 /* colour.euroasian.xml in Resources */,
+				19BEF40D0C2291CE00275D06 /* colour.euroasian2.xml in Resources */,
+				19BEF40E0C2291CE00275D06 /* colour.euroasian3.xml in Resources */,
+				19BEF40F0C2291CE00275D06 /* colour.jamie.xml in Resources */,
+				19BEF4100C2291CE00275D06 /* colour.rainbow.xml in Resources */,
+				19BEF4110C2291CE00275D06 /* colour.thai.xml in Resources */,
+				19BEF4120C2291CE00275D06 /* colour.vowels.xml in Resources */,
+				19BEF4130C2291CE00275D06 /* colour.vowels2.xml in Resources */,
+				19BEF4140C2291CE00275D06 /* colour.xml in Resources */,
+				19BEF4150C2291CE00275D06 /* colour.xsl in Resources */,
+				19BEF41C0C22922400275D06 /* controllabels.dtd in Resources */,
+				19BEF41D0C22922400275D06 /* controllabels.xml in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		1974FE790714861B00B95DA0 /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1974FE5C0714861B00B95DA0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1974FE6B0714861B00B95DA0 /* main.m in Sources */,
+				1974FE6F0714861B00B95DA0 /* ZippyCache.m in Sources */,
+				1974FE700714861B00B95DA0 /* ZippyString.m in Sources */,
+				198EC7B507153D6E00474B38 /* KeyboardEvent.m in Sources */,
+				198EC7B607153D6E00474B38 /* LowLevelKeyboardHandling.c in Sources */,
+				198EC7B907153D6E00474B38 /* UnicharGenerator.m in Sources */,
+				19875622071AFB470034ECCB /* Chatter.m in Sources */,
+				19B57A73080D4E4000BCE3C6 /* AppWatcher.m in Sources */,
+				190257FC0B0C980800178CCD /* DasherApp.mm in Sources */,
+				190257FE0B0C981400178CCD /* DasherEdit.mm in Sources */,
+				190258040B0C981A00178CCD /* PreferencesController.mm in Sources */,
+				19E1AE500B0DB73300F3466C /* COSXDasherScreen.mm in Sources */,
+				191427A80B0E0C68004F1C28 /* DasherViewOpenGL.mm in Sources */,
+				191428E70B0E6CC6004F1C28 /* COSXDasherControl.mm in Sources */,
+				191180EC0B0FC91A001CB987 /* COSXSettingsStore.mm in Sources */,
+				19E49DB50B10556100BA5CE8 /* DasherUtil.mm in Sources */,
+				19F36D8F0B18B60E002F41F1 /* ZippyStringImage.m in Sources */,
+				19F36D910B18B60E002F41F1 /* ZippyStringGlyph.m in Sources */,
+				1948BE9D0C226CFD001DFA32 /* ActionButton.cpp in Sources */,
+				1948BEA00C226CFD001DFA32 /* Alphabet.cpp in Sources */,
+				1948BEA20C226CFD001DFA32 /* AlphabetMap.cpp in Sources */,
+				1948BEA40C226CFD001DFA32 /* AlphIO.cpp in Sources */,
+				1948BEA80C226CFD001DFA32 /* AlphabetManager.cpp in Sources */,
+				1948BEAA0C226CFD001DFA32 /* AlphabetManagerFactory.cpp in Sources */,
+				1948BEAC0C226CFD001DFA32 /* AutoSpeedControl.cpp in Sources */,
+				1948BEAE0C226CFD001DFA32 /* BasicLog.cpp in Sources */,
+				1948BEB20C226CFD001DFA32 /* CircleStartHandler.cpp in Sources */,
+				1948BEB40C226CFD001DFA32 /* ClickFilter.cpp in Sources */,
+				1948BEB60C226CFD001DFA32 /* ColourIO.cpp in Sources */,
+				1948BEB80C226CFD001DFA32 /* ControlManager.cpp in Sources */,
+				1948BEBA0C226CFD001DFA32 /* ControlManagerFactory.cpp in Sources */,
+				1948BEBD0C226CFD001DFA32 /* ConversionManager.cpp in Sources */,
+				1948BEBF0C226CFD001DFA32 /* ConversionManagerFactory.cpp in Sources */,
+				1948BEC10C226CFD001DFA32 /* CustomColours.cpp in Sources */,
+				1948BEC30C226CFD001DFA32 /* DasherButtons.cpp in Sources */,
+				1948BEC50C226CFD001DFA32 /* DasherComponent.cpp in Sources */,
+				1948BED10C226CFD001DFA32 /* DasherInterfaceBase.cpp in Sources */,
+				1948BED30C226CFD001DFA32 /* DasherModel.cpp in Sources */,
+				1948BED50C226CFD001DFA32 /* DasherModule.cpp in Sources */,
+				1948BED70C226CFD001DFA32 /* DasherNode.cpp in Sources */,
+				1948BEDB0C226CFD001DFA32 /* DasherView.cpp in Sources */,
+				1948BEDE0C226CFD001DFA32 /* DasherViewSquare.cpp in Sources */,
+				1948BEE10C226CFD001DFA32 /* DefaultFilter.cpp in Sources */,
+				1948BEE30C226CFD001DFA32 /* DelayedDraw.cpp in Sources */,
+				1948BEE40C226CFD001DFA32 /* DynamicFilter.cpp in Sources */,
+				1948BEE70C226CFD001DFA32 /* EventHandler.cpp in Sources */,
+				1948BEE90C226CFD001DFA32 /* EyetrackerFilter.cpp in Sources */,
+				1948BEEB0C226CFD001DFA32 /* FileLogger.cpp in Sources */,
+				1948BEF00C226CFD001DFA32 /* IMEConversionHelper.cpp in Sources */,
+				1948BEF60C226CFD001DFA32 /* CTWLanguageModel.cpp in Sources */,
+				1948BEF80C226CFD001DFA32 /* DictLanguageModel.cpp in Sources */,
+				1948BEFA0C226CFD001DFA32 /* HashTable.cpp in Sources */,
+				1948BF030C226CFD001DFA32 /* LanguageModel.cpp in Sources */,
+				1948BF070C226CFD001DFA32 /* PPMLanguageModel.cpp in Sources */,
+				1948BF0A0C226CFD001DFA32 /* WordLanguageModel.cpp in Sources */,
+				1948BF0D0C226CFD001DFA32 /* MemoryLeak.cpp in Sources */,
+				1948BF100C226CFD001DFA32 /* ModuleManager.cpp in Sources */,
+				1948BF120C226CFD001DFA32 /* NodeCreationManager.cpp in Sources */,
+				1948BF160C226CFD001DFA32 /* OneButtonFilter.cpp in Sources */,
+				1948BF180C226CFD001DFA32 /* OneDimensionalFilter.cpp in Sources */,
+				1948BF1D0C226CFD001DFA32 /* SCENode.cpp in Sources */,
+				1948BF1F0C226CFD001DFA32 /* SettingsStore.cpp in Sources */,
+				1948BF210C226CFD001DFA32 /* SimpleTimer.cpp in Sources */,
+				1948BF250C226CFD001DFA32 /* SocketInputBase.cpp in Sources */,
+				1948BF280C226CFD001DFA32 /* StylusFilter.cpp in Sources */,
+				1948BF2A0C226CFD001DFA32 /* TimeSpan.cpp in Sources */,
+				1948BF2C0C226CFD001DFA32 /* TwoBoxStartHandler.cpp in Sources */,
+				1948BF2E0C226CFD001DFA32 /* TwoButtonDynamicFilter.cpp in Sources */,
+				1948BF300C226CFD001DFA32 /* UserButton.cpp in Sources */,
+				1948BF320C226CFD001DFA32 /* UserLocation.cpp in Sources */,
+				1948BF340C226CFD001DFA32 /* UserLog.cpp in Sources */,
+				1948BF370C226CFD001DFA32 /* UserLogParam.cpp in Sources */,
+				1948BF390C226CFD001DFA32 /* UserLogTrial.cpp in Sources */,
+				1948BF3C0C226CFD001DFA32 /* WrapperFactory.cpp in Sources */,
+				1948BF3E0C226CFD001DFA32 /* XMLUtil.cpp in Sources */,
+				196874070C2BDC2E00D63879 /* AlphabetLetter.m in Sources */,
+				1968740B0C2BDC2E00D63879 /* GLUtils.m in Sources */,
+				19C190AC0C3267D700979F34 /* DasherViewAqua.mm in Sources */,
+				1921DB390C7ECAA400E6DAA5 /* OneButtonDynamicFilter.cpp in Sources */,
+				1921DB400C7ECB4B00E6DAA5 /* DasherGameMode.cpp in Sources */,
+				1921DB6E0C7ECB9900E6DAA5 /* GameScorer.cpp in Sources */,
+				19F8C7F90C858E9900276B4F /* TrainingHelper.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C165DFE840E0CC02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		19D442390454667F0000000A /* Preferences.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				19D4423A0454667F0000000A /* English */,
+			);
+			name = Preferences.nib;
+			sourceTree = "<group>";
+		};
+		29B97318FDCFA39411CA2CEA /* MainMenu.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				29B97319FDCFA39411CA2CEA /* English */,
+			);
+			name = MainMenu.nib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		198D19FA08965C4800CE3CC9 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = "Info-Dasher.plist";
+				LIBRARY_SEARCH_PATHS = /Volumes/Home/UsersAnnex/dougie/Projects/Dasher/Dasher_17/Src/Common/Expat;
+				OPTIMIZATION_CFLAGS = "-O0";
+				OTHER_CFLAGS = (
+					"-D",
+					EXCLUDE_CONFIG,
+				);
+				OTHER_LDFLAGS = "-lexpat";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = Dasher;
+				SECTORDER_FLAGS = "";
+				USER_HEADER_SEARCH_PATHS = /usr/local/include;
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Development;
+		};
+		198D19FB08965C4800CE3CC9 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				INFOPLIST_FILE = "Info-Dasher.plist";
+				OTHER_CFLAGS = (
+					"-D",
+					EXCLUDE_CONFIG,
+				);
+				OTHER_LDFLAGS = /usr/local/lib/libexpat.a;
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = Dasher;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		198D19FC08965C4800CE3CC9 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				INFOPLIST_FILE = "Info-Dasher.plist";
+				OTHER_CFLAGS = (
+					"-D",
+					EXCLUDE_CONFIG,
+				);
+				OTHER_LDFLAGS = /usr/local/lib/libexpat.a;
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = Dasher;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = app;
+			};
+			name = Default;
+		};
+		198D19FE08965C4800CE3CC9 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Development;
+		};
+		198D19FF08965C4800CE3CC9 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Deployment;
+		};
+		198D1A0008965C4800CE3CC9 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Default;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		198D19F908965C4800CE3CC9 /* Build configuration list for PBXNativeTarget "Dasher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				198D19FA08965C4800CE3CC9 /* Development */,
+				198D19FB08965C4800CE3CC9 /* Deployment */,
+				198D19FC08965C4800CE3CC9 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		198D19FD08965C4800CE3CC9 /* Build configuration list for PBXProject "Dasher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				198D19FE08965C4800CE3CC9 /* Development */,
+				198D19FF08965C4800CE3CC9 /* Deployment */,
+				198D1A0008965C4800CE3CC9 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}
