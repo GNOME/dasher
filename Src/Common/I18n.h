@@ -21,7 +21,7 @@
 #ifndef __i18n_h__
 #define __i18n_h__
 
-#ifdef DASHER_WIN32
+#if defined(DASHER_WIN32) || defined(__APPLE__)
 
 #define _(szText) szText
 
