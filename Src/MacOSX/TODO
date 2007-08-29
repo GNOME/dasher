@@ -1,4 +1,40 @@
+CONVERTING TO 4.0:
+
+There's more recent doxygen pages at:
+
+http://www.inference.phy.cam.ac.uk/pjc51/dasher_doxygen/
+
+Although it's not very user friendly at the moment.
+
+Basically the way things work right now is that you should subclass CDasherInterfaceBase, implementing all of the pure virtual functions which provide various bits and pieces which Dasher needs and which have platform dependent implementations. These are listed at:
+
+http://www.inference.phy.cam.ac.uk/pjc51/dasher_doxygen/classDasher_1_1CDasherInterfaceBase.html
+
+under 'Platform dependent utility functions'. The GTK implementation of these is CDasherControl, which might help explain what they're supposed to do. The general aim is for the CDasherInterfaceBase subclass to be something which can be treated as a custom user interface component in the appropriate platform toolkit (like a button or a list box), so SetupUI() should be used to set up anything needed for that. Once a drawing area has been created, a subclass of CDasherScreen should be created, and CDasherInterfaceBase::ChangeScreen should be called to tell the core about it.
+
+Having created the custom UI component derived from CDasherInterfaceBase, embed it in the rest of the user interface as normal. Communication into the core is mainly through setting parameters (eg CDasherInterfaceBase::SetBoolParameter), which should cause instantaneous changes to Dasher's state. See Parameters.h for a list of all parameters (some of which are obsolete I'm afraid). Outbound messages are passed through CDasherInterfaceBase::ExternalEventHandler, which receives event objects which are either directly passed to a callback, or translated into platform dependent messages as would be used to eg notify an application that a menu item had been selected.
+
+User input is now via child classes of CDasherInput, which allows a selection of drivers. See mouse_input.h for an example - it's fairly simple. These are instantiated through factory objects, which are created in CDasherInterfaceBase::CreateLocalFactories. The objects themselves are singletons which have a reference in the interface used to update the current coordinates. You'll need to do reference counting here.
+
+
+
+
 TODO
+
+-  problems in rectangleCallbackX1, rectangles have negative coordinates - what do i do? ignore?  also, why is there a 42 vertical white stripe at the far left edge of dasher window?  is this related to the rects?  I discovered this when I stopped painting the whole view at the top of drawRect: assuming everything gets drawn - is this true?
+- investigate NSWindow useOptimizedDrawing
+- now that it notices what is the current app and avoids changing when it is Dasher, it could be made a normal app rather than one which avoids displaying the interface
+- there are some calls to NSUserDefaults in DasherView which are called a lot.  Try to replace them with variables which somehow (notification?) get changed when the prefs change
+- if the mouse doesn't move for a short time (a couple seconds) the pointer disappears.  This is correct behaviour in a text-editing app (and when I am dashing, because my app doesn't take focus, the system thinks a text-editing app has focus) but is not desired for Dasher - how to fix?
+- add speech prefs - voice choice, lag?
+- when speaking, how to handle backing up?
+- start on spacebar doesn't work if focus is in the target app (which it had better always be!)
+- tool bar to make up for menu being hard to get to
+- detect not focusing on text field and either don't start or beep or what? by default it runs and beeps on every character - or maybe that _is_ the right behaviour?
+- context from current document, detect changing focus to start a new context - is it good enough just to detect when they start dasher, or must we receive notifications of changing focus?  here's the plan: when they stop dashing, remember the current app/focused widget and selected text range.  When they start dashing, if new app/focus/range is same, keep with current context, otherwise, start a new context.  see if there's a selected range, if so, use that as the context, if not, select the last n chars, get selection, then put the selection back where it was.  use the n chars as the context.  this may not work in for example terminal, in which case the context will have to be 0 chars.
+- shouldn't become current app on launch?
+- "return" is \r rather than \n; i've currently hardcoded this, suggest per-platform xml config file
+- shouldn't the code (currently in the GTK files) which decides when and what to speak be part of the core?  With a callback for actually speaking the string?
 
 - i18n, strings need extracting from the app and nibs
 - help text
@@ -6,10 +42,12 @@ TODO
 - keyboard control - pref is there, the actual kb handling (arrow keys) is not
 - file encoding pref - is that needed on MacOSX, or something different?  see ProjectBuilder Format->File Encodings! for example
 - reading a training file is rather slow.  this is especially noticeable when it is read at startup, the icon bounces about 10 times rather than just 1 or 2
-- need pretty splash window at startup to hide training file loading time
+- need pretty splash window at startup to hide training file loading time.  or, could the Dasher window itself come up, inactive with a barber pole working indicator?
+- remove prefs UI for unsupported stuff like eye tracker
+- have a "preview" pane in the dasher window where the last n characters are displayed.  Allow user to choose font.  also could allow user to position at bottom or top of dasher window.  n defined by user?  how does this differ from putting the dasher panel over the text window?
 
 (NICE TO HAVE)
-- make an image with "paused" in it, display that when it is, yes, paused
+- make an image with "paused" in it, display that when it is paused
 
 (BUGS)
 - should display displayName rather than fontName in font pref
@@ -20,6 +58,26 @@ TODO
 - suppose the timer is firing 20 times per second.  But the app is working slower than that, say 15 fps.  Well, the overall speed will be about 10-12 fps!  I think this is because of the overhead of all those extra timers.  Maybe the timer rate should be adjusted dynamically depending on the fps?  Would require being able to get the fps from the Core.  It doesn't really make sense to hard-code the timer firing rate in the app - it depends on how fast the machine is and how much other work it is doing.  I know Windows machines won't be doing much else, but Macs have a plethora of other, important work to be getting on with!
 
 DONE
+
+20-11-2004
+- oops, made a bunch of changes without mentioning them, ummm, let's see
+- got rid of multi-document stuff, main goal now is to type into other apps
+- added the unbelievable overhead of the keyboard stuff to generate keycodes to send to other apps.  From reading Apple mailing lists, and looking at other programs (such as VNC clients) this is the only way to do this.  Most of the code I've added to do this is lifted (with attribution) from elsewhere.
+- changed local event suppression to .1 sec so as not to miss mouse downs shortly after sending a character to the target app
+
+6-10-2004
+- changed name of editing app to DasherEditor
+- removed old Dasher target
+- removed Credits.rtf added Credits.html for clickable links in about box
+
+21-08-2004
+- changed colour mode to an "internal preference" ie because we support it, it is turned on; the user cannot control it.
+
+29-02-2004
+- add new preferences to panel: uniform, draw position line, eye tracker, control mode, colour mode, keyboard mode, mouse position start, speech, outline, palette change, colour scheme choosing
+- search system and user preference dirs for alphabets and colours
+- use new colour scheme; get rid of old colour scheme stuff
+- get rid of lots of compiler warnings, mostly by putting method defs in .h files
 
 05-06-2003
 - put the English training file into the app's resources

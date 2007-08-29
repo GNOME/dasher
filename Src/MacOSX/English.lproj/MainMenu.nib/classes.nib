@@ -1,19 +1,30 @@
 {
     IBClasses = (
         {
-            ACTIONS = {changeSpeed = id; importTrainingText = id; showPreferences = id; }; 
+            CLASS = AppWatcher; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {appsController = NSArrayController; }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {importTrainingText = id; showPreferences = id; }; 
             CLASS = DasherApp; 
             LANGUAGE = ObjC; 
-            OUTLETS = {dasherView = DasherView; dasherWindow = NSWindow; }; 
+            OUTLETS = {appWatcher = AppWatcher; dasherPanelUI = NSPanel; }; 
             SUPERCLASS = NSObject; 
         }, 
         {
             CLASS = DasherEdit; 
             LANGUAGE = ObjC; 
-            OUTLETS = {dasherTextUI = NSTextView; }; 
+            OUTLETS = {appWatcher = AppWatcher; dasherApp = DasherApp; }; 
             SUPERCLASS = NSObject; 
         }, 
-        {CLASS = DasherView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {
+            CLASS = DasherViewOpenGL; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {dasherApp = DasherApp; }; 
+            SUPERCLASS = NSOpenGLView; 
+        }, 
         {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }
     ); 
     IBVersion = 1; 
