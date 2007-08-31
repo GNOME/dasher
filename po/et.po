@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-18 03:24+0100\n"
-"PO-Revision-Date: 2007-08-29 08:19+0300\n"
+"PO-Revision-Date: 2007-08-30 17:15+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -737,12 +737,11 @@ msgstr "Klõpsurežiim"
 
 #: ../Src/DasherCore/DasherButtons.cpp:24
 msgid "Zoom steps"
-msgstr ""
+msgstr "Suurendusastmeid"
 
 #: ../Src/DasherCore/DasherButtons.cpp:25
-#, fuzzy
 msgid "Right zoom"
-msgstr "Paremalt vasakule"
+msgstr ""
 
 #: ../Src/DasherCore/DasherButtons.cpp:26
 msgid "Number of boxes"
@@ -840,7 +839,7 @@ msgstr "Vähim X:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:30
 msgid "X maximum:"
-msgstr "Suurim X:"
+msgstr "Suurim X"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:31
 msgid "Y label:"
@@ -895,14 +894,12 @@ msgid "Two Button Dynamic Mode"
 msgstr "Kahenupuline dünaamiline režiim"
 
 #: ../Src/Gtk2/Preferences.cpp:417 ../Src/Gtk2/Preferences.cpp:983
-#, fuzzy
 msgid "Action"
-msgstr "Rakendus"
+msgstr "Toiming"
 
 #: ../Src/Gtk2/Preferences.cpp:989
-#, fuzzy
 msgid "Show Button"
-msgstr "Tööriistariba on nähtaval"
+msgstr ""
 
 #: ../Src/Gtk2/Preferences.cpp:994
 msgid "Control Mode"
@@ -919,7 +916,7 @@ msgstr ""
 
 #: ../Src/Gtk2/dasher_action_script.cpp:91
 msgid "Script"
-msgstr ""
+msgstr "Skript"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:129
 msgid "Speak"
@@ -927,11 +924,11 @@ msgstr ""
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:141
 msgid "All"
-msgstr ""
+msgstr "Kõik"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:143
 msgid "Last"
-msgstr ""
+msgstr "Viimane"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:145
 msgid "Repeat"
@@ -995,7 +992,7 @@ msgstr ""
 
 #: ../Src/Gtk2/module_settings_window.cpp:85
 msgid "Dasher Module Options"
-msgstr "Dasheri mooduli valikud"
+msgstr ""
 
 #: ../Src/Gtk2/module_settings_window.cpp:91
 #, c-format
