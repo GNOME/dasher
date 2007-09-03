@@ -2,19 +2,20 @@
 # Copyright © 2007 Gnome i18n Project for Vietnamese
 # Nguyễn Thái Ngọc Duy <pclouds@vnlinux.org>, 2002
 # Clytie Siddall <clytie@riverland.net.au>, 2005-2007.
-# 
+# Phạm Thành Long <lngt@ngonngu.net>, 2007.
 msgid ""
-""
-msgstr "Project-Id-Version: dasher Gnome HEAD\n"
+msgstr ""
+"Project-Id-Version: dasher Gnome HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-02 03:21+0100\n"
-"PO-Revision-Date: 2007-07-06 16:19+0700\n"
-"Last-Translator: Phạm Thành Long <lngt@ngonngu.net>\n"
+"POT-Creation-Date: 2007-08-18 03:24+0100\n"
+"PO-Revision-Date: 2007-09-03 16:56+0930\n"
+"Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: LocFactoryEditor 1.7b1\n"
 
 #: ../Data/dasher.desktop.in.in.h:1
 #: ../Data/glade/dasher.compose.glade.h:34
@@ -23,7 +24,7 @@ msgstr "Project-Id-Version: dasher Gnome HEAD\n"
 #: ../Data/glade/dasher.traditional.glade.h:35
 #: ../Data/glade/dashermaemo.glade.h:17
 #: ../Data/glade/dashermaemofullscreen.glade.h:15
-#: ../Src/Gtk2/dasher_main.cpp:1123
+#: ../Src/Gtk2/dasher_main.cpp:1162
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -214,7 +215,8 @@ msgstr "Đáy lên đỉnh"
 msgid ""
 "Centre circle\n"
 "Two box"
-msgstr "Hình vòng giữa\n"
+msgstr ""
+"Hình vòng giữa\n"
 "Hai hộp"
 
 #: ../Data/glade/dasher.compose.glade.h:26
@@ -445,9 +447,9 @@ msgstr "Lưu tập tin là"
 #: ../Data/glade/dasher.traditional.glade.h:64
 #: ../Data/glade/dashermaemo.glade.h:28
 #: ../Data/glade/dashermaemofullscreen.glade.h:25
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1347
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1380
-#: ../Src/Gtk2/dasher_main.cpp:965
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1361
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1394
+#: ../Src/Gtk2/dasher_main.cpp:1004
 msgid "Select File"
 msgstr "Chọn tập tin"
 
@@ -726,67 +728,90 @@ msgstr "_Tuỳ chọn"
 msgid "_Reset fonts"
 msgstr "Đặt _lại phông chữ"
 
-#: ../Src/DasherCore/ClickFilter.cpp:9
+#: ../Src/DasherCore/ClickFilter.h:11
 msgid "Click Mode"
 msgstr "Chế độ nhấn"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:958
+#: ../Src/DasherCore/DasherButtons.cpp:24
+msgid "Zoom steps"
+msgstr "Bước thu/phóng"
+
+#: ../Src/DasherCore/DasherButtons.cpp:25
+msgid "Right zoom"
+msgstr "Thu phóng bên phải"
+
+#: ../Src/DasherCore/DasherButtons.cpp:26
+msgid "Number of boxes"
+msgstr "Số hộp"
+
+#: ../Src/DasherCore/DasherButtons.cpp:27
+msgid "Safety margin"
+msgstr "Hệ số an toàn"
+
+#: ../Src/DasherCore/DasherButtons.cpp:28
+msgid "Box non-uniformity"
+msgstr "Hộp không thống nhất"
+
+#: ../Src/DasherCore/DasherButtons.cpp:29
+msgid "Global keyboard grab"
+msgstr "Lấy bàn phím toàn cục"
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:988
 msgid "Normal Control"
 msgstr "Điều khiển chuẩn"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:963
-msgid "Two Button Dynamic Mode"
-msgstr "Chế độ động hai cái nút"
-
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:965
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:995
 #. TODO: specialist factory for button mode
 msgid "Menu Mode"
 msgstr "Chế độ trình đơn"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:966
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:996
 msgid "Direct Mode"
 msgstr "Nhập trực tiếp"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:968
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:998
 #. RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
 msgid "Alternating Direct Mode"
 msgstr "Chế độ trực tiếp xen kẽ"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:969
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:999
 msgid "Compass Mode"
 msgstr "Chế độ la bàn"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:970
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:1000
 msgid "Stylus Control"
 msgstr "Điều khiển bút trâm"
 
-#: ../Src/DasherCore/DynamicFilter.cpp:9
-msgid "Long press time"
-msgstr "Thời gian bấm lâu"
-
-#: ../Src/DasherCore/DynamicFilter.cpp:10
-msgid "Multiple press time"
-msgstr "Thời gian đa bấm"
-
-#: ../Src/DasherCore/DynamicFilter.cpp:11
-msgid "Multiple press count"
-msgstr "Đếm đa bấm"
-
-#: ../Src/DasherCore/DynamicFilter.cpp:12
-msgid "Enable backoff button"
-msgstr "Bật nút lùi ra"
-
-#: ../Src/DasherCore/DynamicFilter.cpp:16
-msgid "One Button Dynamic Mode"
-msgstr "Chế độ động một cái nút"
-
 #: ../Src/DasherCore/EyetrackerFilter.cpp:7
-msgid "Automatic calibration:"
-msgstr "Tự động định chuẩn:"
+msgid "Automatic calibration"
+msgstr "Tự động định chuẩn"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:11
 msgid "Eyetracker Mode"
 msgstr "Chế độ theo mặt"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:28
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:29
+msgid "Long press time"
+msgstr "Thời gian bấm lâu"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:29
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
+msgid "Multiple press time"
+msgstr "Thời gian đa bấm"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:30
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:31
+msgid "Multiple press count"
+msgstr "Đếm đa bấm"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
+msgid "Enable backoff button"
+msgstr "Bật nút lùi ra"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
+msgid "One Button Dynamic Mode"
+msgstr "Chế độ động một cái nút"
 
 #: ../Src/DasherCore/OneDimensionalFilter.cpp:5
 msgid "One Dimensional Mode"
@@ -833,6 +858,80 @@ msgstr "In vào bàn giao tiếp thông tin gỡ lỗi liên quan đến ổ c�
 msgid "Socket Input"
 msgstr "Ổ cắm nhập vào"
 
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:28
+msgid "Button offset"
+msgstr "Hiệu số nút"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
+msgid "Enable backoff and start/stop buttons"
+msgstr "Bật nút thu nhỏ và chạy/dừng"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:33
+msgid "Reverse up and down buttons"
+msgstr "Đảo ngước nút lên và xuống"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:34
+msgid "Slow startup"
+msgstr "Khởi chạy chậm"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:35
+msgid "Startup time"
+msgstr "Thời gian khởi chạy"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:36
+msgid "Auto speed control"
+msgstr "Tự động điều khiển tốc độ"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:37
+msgid "Auto speed threshold"
+msgstr "Ngưỡng tốc độ tự động"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
+msgid "Two Button Dynamic Mode"
+msgstr "Chế độ động hai cái nút"
+
+#: ../Src/Gtk2/Preferences.cpp:417
+#: ../Src/Gtk2/Preferences.cpp:983
+msgid "Action"
+msgstr "Hành động"
+
+#: ../Src/Gtk2/Preferences.cpp:989
+msgid "Show Button"
+msgstr "Hiện nút"
+
+#: ../Src/Gtk2/Preferences.cpp:994
+msgid "Control Mode"
+msgstr "Chế độ điều khiển"
+
+#: ../Src/Gtk2/Preferences.cpp:999
+msgid "Auto On Stop"
+msgstr "Tự động khi dừng"
+
+#: ../Src/Gtk2/dasher_action_keyboard.cpp:60
+#: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:94
+msgid "Enter Text"
+msgstr "Gõ văn bản"
+
+#: ../Src/Gtk2/dasher_action_script.cpp:91
+msgid "Script"
+msgstr "Văn lệnh"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:129
+msgid "Speak"
+msgstr "Nói"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:141
+msgid "All"
+msgstr "Tất cả"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:143
+msgid "Last"
+msgstr "Cuối"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:145
+msgid "Repeat"
+msgstr "Lặp lại"
+
 #: ../Src/Gtk2/dasher_action_speech.cpp:163
 #, c-format
 msgid "Unable to initialize speech support\n"
@@ -846,48 +945,54 @@ msgstr "Không thể khởi tạo giọng nói\n"
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Cảnh báo: không thể đặt các tham số tiếng nói\n"
 
-#: ../Src/Gtk2/dasher_main.cpp:1003
+#: ../Src/Gtk2/dasher_main.cpp:1042
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
 "\n"
 "Your changes will be lost if you don't save them."
-msgstr "Bạn có muốn lưu các thay đổi vào %s không?\n"
+msgstr ""
+"Bạn có muốn lưu các thay đổi vào %s không?\n"
 "\n"
 "Nếu bạn không lưu, các thay đổi sẽ bị mất hoàn toàn."
 
-#: ../Src/Gtk2/dasher_main.cpp:1009
+#: ../Src/Gtk2/dasher_main.cpp:1048
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
 "Your changes will be lost if you don't save them."
-msgstr "Bạn có muốn lưu các thay đổi không?\n"
+msgstr ""
+"Bạn có muốn lưu các thay đổi không?\n"
 "\n"
 "Nếu bạn không lưu, các thay đổi sẽ bị mất hoàn toàn."
 
-#: ../Src/Gtk2/dasher_main.cpp:1013
+#: ../Src/Gtk2/dasher_main.cpp:1052
 msgid "Don't save"
 msgstr "Không lưu"
 
-#: ../Src/Gtk2/dasher_main.cpp:1014
+#: ../Src/Gtk2/dasher_main.cpp:1053
 msgid "Don't quit"
 msgstr "Không thoát"
 
-#: ../Src/Gtk2/dasher_main.cpp:1015
+#: ../Src/Gtk2/dasher_main.cpp:1054
 msgid "Save and quit"
 msgstr "Lưu rồi thoát"
 
-#: ../Src/Gtk2/dasher_main.cpp:1110
-#: ../Src/Gtk2/dasher_main.cpp:1126
+#: ../Src/Gtk2/dasher_main.cpp:1149
+#: ../Src/Gtk2/dasher_main.cpp:1165
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher là một ứng dụng nhập đoạn chữ dự đoán"
 
-#: ../Src/Gtk2/dasher_main.cpp:1115
-#: ../Src/Gtk2/dasher_main.cpp:1121
+#: ../Src/Gtk2/dasher_main.cpp:1154
+#: ../Src/Gtk2/dasher_main.cpp:1160
 msgid "translator-credits"
 msgstr "Nhóm Việt hóa GNOME (http://gnomevi.sourceforge.net)"
 
-#: ../Src/Gtk2/module_settings_window.cpp:71
+#: ../Src/Gtk2/module_settings_window.cpp:85
+msgid "Dasher Module Options"
+msgstr "Tùy chọn mô-đun Dasher"
+
+#: ../Src/Gtk2/module_settings_window.cpp:91
 #, c-format
 msgid "%s Options:"
 msgstr "Tuỳ chọn %s:"
@@ -895,6 +1000,10 @@ msgstr "Tuỳ chọn %s:"
 #: ../Src/Gtk2/mouse_input.h:15
 msgid "Mouse Input"
 msgstr "Chuột nhập vào"
+
+#: ../Src/Gtk2/mouse_input.h:51
+msgid "Pixels covering Y range"
+msgstr "Điểm ảnh chiếm phạm vi Y"
 
 #: ../Src/Gtk2/mouse_input.h:57
 msgid "One Dimensional Mouse Input"
