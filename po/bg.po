@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-09-01 13:19+0300\n"
-"PO-Revision-Date: 2007-09-01 09:51+0300\n"
+"POT-Creation-Date: 2007-09-03 11:05+0300\n"
+"PO-Revision-Date: 2007-09-03 11:05+0300\n"
 "Last-Translator: Alexander Shopov <ash@contact.bg>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
@@ -378,9 +378,8 @@ msgstr "От ляво - надясно"
 #: ../Data/glade/dasher.traditional.glade.h:49
 #: ../Data/glade/dashermaemo.glade.h:23
 #: ../Data/glade/dashermaemofullscreen.glade.h:21
-#, fuzzy
 msgid "Mixture model (PPM/dictionary)"
-msgstr "Смесен модел (с речник)"
+msgstr "Смесен модел (предсказване по частично съвпадение/речник)"
 
 #: ../Data/glade/dasher.compose.glade.h:49
 #: ../Data/glade/dasher.traditional.glade.h:50
@@ -508,9 +507,8 @@ msgstr "Самостоятелно"
 #: ../Data/glade/dasher.traditional.glade.h:71
 #: ../Data/glade/dashermaemo.glade.h:30
 #: ../Data/glade/dashermaemofullscreen.glade.h:27
-#, fuzzy
 msgid "Standard letter-based PPM"
-msgstr "Стандартен, базиран на букви"
+msgstr "Стандартно побуквено предсказване по частично съвпадение"
 
 #: ../Data/glade/dasher.compose.glade.h:68
 #: ../Data/glade/dasher.direct.glade.h:59
