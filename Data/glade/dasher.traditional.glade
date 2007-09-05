@@ -1791,7 +1791,9 @@ your writing speed.</property>
 					  <child>
 					    <widget class="GtkComboBoxEntry" id="MousePosStyle">
 					      <property name="visible">True</property>
-					      <property name="items" translatable="yes">Centre circle
+					      <property name="items" translatable="yes" comments="Centre circle = start and stop by dwelling over a circle in the centre of the window
+Two box = start and stop by dwelling in sequence over two boxes
+(both of these are methods for starting and stopping without pressing a mouse button)">Centre circle
 Two box</property>
 					      <property name="add_tearoffs">False</property>
 					      <property name="has_frame">True</property>

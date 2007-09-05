@@ -26,14 +26,20 @@
 
 static SModuleSettings sSettings[] = {
   {LP_TWO_BUTTON_OFFSET, T_LONG, 1024, 2048, 2048, 100, _("Button offset")},
+  /* TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press. */
   {LP_HOLD_TIME, T_LONG, 100, 10000, 1000, 100, _("Long press time")},
+  /* TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the time in which the button must be pressed multiple times to count.*/
   {LP_MULTIPRESS_TIME, T_LONG, 100, 10000, 1000, 100, _("Multiple press time")},
-  {LP_MULTIPRESS_COUNT,T_LONG, 2, 10, 1, 1, _("Multiple press count")},
+  /* TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the number of times a button must be pressed to count as a multiple press.*/
+  {LP_MULTIPRESS_COUNT,T_LONG, 2, 10, 1, 1, _("Multiple press count")}, 
+  /* TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.*/
   {BP_BACKOFF_BUTTON,T_BOOL, -1, -1, -1, -1, _("Enable backoff and start/stop buttons")},
+  /* TRANSLATORS: What is normally the up button becomes the down button etc. */
   {BP_TWOBUTTON_REVERSE,T_BOOL, -1, -1, -1, -1, _("Reverse up and down buttons")},
   {BP_SLOW_START,T_BOOL, -1, -1, -1, -1, _("Slow startup")},
   {LP_SLOW_START_TIME, T_LONG, 0, 10000, 1000, 100, _("Startup time")},
   {BP_TWOBUTTON_SPEED,T_BOOL, -1, -1, -1, -1, _("Auto speed control")},
+  /* TRANSLATORS: The threshold time above which auto speed control is used. */
   {LP_DYNAMIC_MEDIAN_FACTOR, T_LONG, 10, 200, 100, 10, _("Auto speed threshold")}
 };
 

@@ -54,6 +54,7 @@ static SModuleSettings sSettings[] = {
 class CDasher1DMouseInput:public CDasherInput {
 public:
   CDasher1DMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
+    /* TRANSLATORS: Only use the vertical mouse coordinate - this is prefered for some disabled users. */
     : CDasherInput(pEventHandler, pSettingsStore, 2, 0, _("One Dimensional Mouse Input")) {
 
     m_iOffset = 0;

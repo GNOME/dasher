@@ -986,6 +986,7 @@ void dasher_preferences_dialogue_populate_actions(DasherPreferencesDialogue *pSe
 
   pRenderer = gtk_cell_renderer_toggle_new();
   g_signal_connect(pRenderer, "toggled", (GCallback)on_action_toggle, pColumnIndex);
+  /* TRANSLATORS: Show a button for the selected action in the Dasher window. */
   pColumn = gtk_tree_view_column_new_with_attributes(_("Show Button"), pRenderer, "active", ACTIONS_SHOW_COLUMN, NULL);
   gtk_tree_view_append_column(GTK_TREE_VIEW(pPrivate->pActionTreeView), pColumn);
 
@@ -996,6 +997,7 @@ void dasher_preferences_dialogue_populate_actions(DasherPreferencesDialogue *pSe
 
   pRenderer = gtk_cell_renderer_toggle_new();
   g_signal_connect(pRenderer, "toggled", (GCallback)on_action_toggle, pColumnIndex + 2);
+  /* TRANSLATORS: Automatically perform the selected action when Dasher is stopped. */
   pColumn = gtk_tree_view_column_new_with_attributes(_("Auto On Stop"), pRenderer, "active", ACTIONS_AUTO_COLUMN, NULL);
   gtk_tree_view_append_column(GTK_TREE_VIEW(pPrivate->pActionTreeView), pColumn);
 
