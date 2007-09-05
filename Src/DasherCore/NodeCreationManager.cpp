@@ -153,3 +153,16 @@ void CNodeCreationManager::EnterText(CLanguageModel::Context context, std::strin
   for(unsigned int i = 0; i < Symbols.size(); i++)
     m_pLanguageModel->EnterSymbol(context, Symbols[i]); // FIXME - conversion to symbol alphabet
 }
+
+void 
+CNodeCreationManager::ImportTrainingText(const std::string &strPath) {
+  CTrainer *pTrainer = NULL;
+
+  if(m_pAlphabetManagerFactory)
+    pTrainer = m_pAlphabetManagerFactory->GetTrainer();
+
+  if(m_pAlphabet && pTrainer)
+    m_pAlphabet->Train(strPath, pTrainer);
+
+  delete pTrainer;
+}

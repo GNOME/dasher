@@ -116,18 +116,6 @@ public:
 
   GArray *GetAllowedValues(int iParameter);
 
-  /// 
-  /// Load a file and use to train the language model
-  /// \param filename The file to load.
-  ///
-
-  void Train(const gchar * filename) {
-    // TODO: Fix this
-    // TODO: Shouldn't call this directly - need a wrapper function which stats for filesize etc.
-    // Better - allow user to pass a vector of filenames
-    //    TrainFile(filename,0,0);
-  };
-
   ///
   /// Called by UI needs to signal a new user trial is starting.
   ///

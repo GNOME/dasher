@@ -102,7 +102,7 @@ CDasherInterfaceBase::CDasherInterfaceBase() {
   m_iCurrentState = ST_START;
   
   m_iLockCount = 0;
-  m_bGlobalLock = false;
+  //  m_bGlobalLock = false;
 
   // TODO: Are these actually needed?
   strCurrentContext = ". ";
@@ -121,6 +121,8 @@ CDasherInterfaceBase::CDasherInterfaceBase() {
                               g_iLogLevel,
                               g_iLogOptions);
 #endif
+
+  m_iNextLockID = 1;
 
 }
 
@@ -349,7 +351,7 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
 // 	ReleaseLock(0);
 //     }
     
-    m_bGlobalLock = pLockEvent->m_bLock;
+//    m_bGlobalLock = pLockEvent->m_bLock;
   }
 }
 
@@ -394,13 +396,14 @@ void CDasherInterfaceBase::CreateNCManager() {
     return;
 
  // Train the new language model
-    CLockEvent *pEvent;
+  //    CLockEvent *pEvent;
     
-    pEvent = new CLockEvent("Training Dasher", true, 0);
-    m_pEventHandler->InsertEvent(pEvent);
-    delete pEvent;
+    //    pEvent = new CLockEvent("Training Dasher", true, 0);
+    //  m_pEventHandler->InsertEvent(pEvent);
+    //  delete pEvent;
 
-    AddLock(0);
+    // TODO: Move training into nc manager
+    int iTrainingLock = AddLock("Training Dasher");
 
     int iOffset;
 
@@ -424,12 +427,14 @@ void CDasherInterfaceBase::CreateNCManager() {
 
     m_Alphabet = m_pNCManager->GetAlphabet();
    
+    ReleaseLock(iTrainingLock);
 
-    pEvent = new CLockEvent("Training Dasher", false, 0);
-    m_pEventHandler->InsertEvent(pEvent);
-    delete pEvent;
 
-    ReleaseLock(0);
+//     pEvent = new CLockEvent("Training Dasher", false, 0);
+//     m_pEventHandler->InsertEvent(pEvent);
+//     delete pEvent;
+
+//     ReleaseLock(0);
 
     // TODO: Eventually we'll not have to pass the NC manager to the model...
     CreateModel(iOffset);
@@ -1093,18 +1098,28 @@ void CDasherInterfaceBase::EnterState(EState iState) {
   }
 }
 
-void CDasherInterfaceBase::AddLock(int iLockFlags) {
-  if(m_iLockCount == 0)
+int CDasherInterfaceBase::AddLock(const std::string &strDisplay) {
+  std::cout << "Adding lock " << strDisplay << std::endl;
+  SLockData sNewLock;
+
+  sNewLock.strDisplay = strDisplay;
+  sNewLock.iPercent = 0;
+
+  if(m_mapCurrentLocks.size() == 0)
     ChangeState(TR_LOCK);
 
-  ++m_iLockCount;
+  m_mapCurrentLocks[m_iNextLockID] = sNewLock;
+  ++m_iNextLockID;
 }
 
-void CDasherInterfaceBase::ReleaseLock(int iLockFlags) {
-  if(m_iLockCount > 0)
-    --m_iLockCount;
+void CDasherInterfaceBase::ReleaseLock(int iLockID) {
+  std::map<int, SLockData>::iterator it = m_mapCurrentLocks.find(iLockID);
 
-  if(m_iLockCount == 0)
+  if(it != m_mapCurrentLocks.end()) {
+    m_mapCurrentLocks.erase(it);
+  }
+
+  if(m_mapCurrentLocks.size() == 0)
     ChangeState(TR_UNLOCK);
 }
 
@@ -1134,3 +1149,11 @@ void CDasherInterfaceBase::ClSet(const std::string &strKey, const std::string &s
   if(m_pSettingsStore)
     m_pSettingsStore->ClSet(strKey, strValue);
 }
+
+
+void 
+CDasherInterfaceBase::ImportTrainingText(const std::string &strPath) {
+  if(m_pNCManager)
+    m_pNCManager->ImportTrainingText(strPath);
+}
+

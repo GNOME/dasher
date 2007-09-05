@@ -120,6 +120,8 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
     return m_pAlphabet;
   }
 
+  void ImportTrainingText(const std::string &strPath);
+
  private:
   CLanguageModel *m_pLanguageModel;     // pointer to the language model
   CAlphabet *m_pAlphabet;        // pointer to the alphabet

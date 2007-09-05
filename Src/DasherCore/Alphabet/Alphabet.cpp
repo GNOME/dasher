@@ -275,9 +275,10 @@ int CAlphabet::GetTextColour(symbol Symbol) {
 }
 
 
-void CAlphabet::Train(const std::string &strUserLoc, 
-		      const std::string &strSystemLoc, 
-		      CTrainer *pTrainer) {
+void 
+CAlphabet::Train(const std::string &strUserLoc, 
+		 const std::string &strSystemLoc, 
+		 CTrainer *pTrainer) {
 
   std::string strTrainingFile = GetTrainingFile();
 
@@ -285,4 +286,11 @@ void CAlphabet::Train(const std::string &strUserLoc,
 
   m_pTrainingHelper->LoadFile(strUserPathFull, pTrainer, this);
   m_pTrainingHelper->LoadFile(strSystemLoc + strTrainingFile, pTrainer, this);
+}
+
+void 
+CAlphabet::Train(const std::string &strPath, 
+      CTrainer *pTrainer) {
+  
+  m_pTrainingHelper->LoadFile(strPath, pTrainer, this);
 }

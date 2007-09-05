@@ -173,6 +173,9 @@ namespace Dasher {
     void Train(const std::string &strUserLoc, 
 	       const std::string &strSystemLoc, 
 	       CTrainer *pTrainer);
+
+    void Train(const std::string &strPath, 
+	       CTrainer *pTrainer);
     
   private:
 

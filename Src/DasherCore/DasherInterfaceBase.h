@@ -40,7 +40,6 @@
 #include "ColourIO.h"
 #include "InputFilter.h"
 #include "ModuleManager.h"
-//#include "TrainingHelper.h"
 
 #include <map>
 #include <algorithm>
@@ -53,15 +52,9 @@ namespace Dasher {
   class CEventHandler;
   class CEvent;
   // Eh? What's the point of this
-  class CDasherInterfaceBase;
+    class CDasherInterfaceBase;
 }
 
-//class Dasher::CDasherScreen;
-//class Dasher::CDasherView;
-//class Dasher::CDasherInput;
-//class Dasher::CDasherModel;
-//class Dasher::CEventHandler;
-//class Dasher::CEvent;
 class CSettingsStore;
 class CUserLogBase;
 class CNodeCreationManager;
@@ -255,7 +248,7 @@ public:
   /// \param Filename File to load.
   /// \param iTotalBytes documentme
   /// \param iOffset Document me
-  int TrainFile(std::string Filename, int iTotalBytes, int iOffset);
+  //  int TrainFile(std::string Filename, int iTotalBytes, int iOffset);
 
   /// Set the context in which Dasher makes predictions
   /// \param strNewContext The new context (UTF-8)
@@ -366,6 +359,8 @@ public:
   ///
   void ClSet(const std::string &strKey, const std::string &strValue);
 
+  void ImportTrainingText(const std::string &strPath);
+
 protected:
 
   /// @name Startup
@@ -433,6 +428,11 @@ protected:
   CSettingsStore *m_pSettingsStore;
 
  private:
+
+  struct SLockData {
+    std::string strDisplay;
+    int iPercent;
+  };
 
   /// @name Platform dependent utility functions 
   /// These functions provide various platform dependent functions
@@ -552,14 +552,14 @@ protected:
   /// Add a lock
   ///
 
-  void AddLock(int iLockFlags);
+  int AddLock(const std::string &strDisplay);
 
   ///
   /// Release an existing lock. Note that these functions have minimal
   /// error checking at the moment, so be careful.
   ///
 
-  void ReleaseLock(int iLockFlags);
+  void ReleaseLock(int iLockID);
 
   /// @}
   
@@ -594,11 +594,15 @@ protected:
   /// @name State variables
   /// Represent the current overall state of the core
   /// @{
-  bool m_bGlobalLock; // The big lock
+  //  bool m_bGlobalLock; // The big lock
   bool m_bRedrawScheduled;
   int m_iLockCount;
   EState m_iCurrentState;
   bool m_bOldVisible;
+
+  std::map<int, SLockData> m_mapCurrentLocks;
+  int m_iNextLockID;
+
   /// @}
 
   bool m_bLastChanged;

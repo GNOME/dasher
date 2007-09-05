@@ -182,7 +182,7 @@ gtk_dasher_control_get_allowed_values(GtkDasherControl *pControl, int iParameter
 void 
 gtk_dasher_control_train(GtkDasherControl *pControl, const gchar *szFilename) {
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  pPrivate->pControl->Train(szFilename);
+  pPrivate->pControl->ImportTrainingText(szFilename);
 };
 
 void 
