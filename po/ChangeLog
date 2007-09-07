@@ -1,3 +1,9 @@
+2007-09-07  Claude Paroz  <claude@2xlibre.net>
+
+	* LINGUAS: Added uz@cyrillic.
+	* uz@cyrillic.po: Added Uzbek translation on behalf of Nurali
+	Abdurahmonov <mavnur@gmail.com>.
+
 2007-09-06  Vincent van Adrighem  <adrighem@gnome.org>
 
 	* nl.po: Translation updated by Tino Meinen.
