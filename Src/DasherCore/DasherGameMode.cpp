@@ -10,6 +10,7 @@
 //#include "Logger/LoggerMacros.h"
 
 #include "GameScorer.h"
+#include "GameLevel.h"
 #include "GameMessages.h"
 
 #include <limits>
@@ -44,7 +45,8 @@ CDasherGameMode::CDasherGameMode(CEventHandler *pEventHandler,
    m_pView(NULL), m_pModel(NULL),
    m_pScorer(NULL), m_pDemo(NULL),
    m_iCrossX((myint)GetLongParameter(LP_OX)),
-   m_iCrossY((myint)GetLongParameter(LP_OY))
+   m_iCrossY((myint)GetLongParameter(LP_OY)),
+   m_iMaxY((myint)GetLongParameter(LP_MAX_Y))
 
 {
   // Create the GameMode object in the background
@@ -63,6 +65,12 @@ CDasherGameMode::CDasherGameMode(CEventHandler *pEventHandler,
   m_iCurrentString = -1;
   m_iNumStrings = 0;
   m_bSentenceFinished = true;
+
+  // Start the oscillator, intially flipping every second.
+  m_ulTime = 0;
+  m_iOscillatorOn = 1000;
+  m_iOscillatorOff = 1000;
+  Oscillator();
 
   if(m_bGameModeOn)
     GameModeStart();
@@ -136,9 +144,10 @@ void CDasherGameMode::GameModeStart()
 				     "Sentences appear in this box which YOU get to write!"));
   m_bSentenceFinished = true;
 
-  // Create a new scorer to tally up points and the like
+  // Create a new scorer to measure player stats and the like
   if(!m_pScorer)
     m_pScorer = new Scorer;
+  m_pLevel = new Level1(this);
 }
 
 // This routine is used when the interactive game is turned off
@@ -146,6 +155,8 @@ void CDasherGameMode::GameModeStop()
 {
   delete m_pScorer;
   m_pScorer = NULL;
+  delete m_pLevel;
+  m_pLevel = NULL;
 }
 
 void CDasherGameMode::DemoModeStart(bool bFullDemo)
@@ -221,14 +232,13 @@ void CDasherGameMode::HandleEvent(Dasher::CEvent * pEvent)
 	  break;
 	case EV_STOP:
 	  if(m_pScorer)
-	    m_pScorer->Stop(m_ulTime);
+	    m_pScorer->Stop();
 	  break;
 	case EV_START:
 	  if(m_pDemo)
 	    CalculateDemoParameters();
-	  
 	  if(m_pScorer)
-	    m_pScorer->Start(m_ulTime);
+	    m_pScorer->Start();
 	  break;
 	case EV_EDIT:
 	  if(m_bSentenceFinished) break;
@@ -251,8 +261,8 @@ void CDasherGameMode::HandleEvent(Dasher::CEvent * pEvent)
 
 void CDasherGameMode::GameNext()
 {
-  // Choose next string at random...
-  NextString(true);
+  // Choose next string (NOT) at random...
+  NextString(false);//true);
   
   // ...display it to the user...
   const std::string * pStr = &m_strCurrentTarget;
@@ -261,6 +271,7 @@ void CDasherGameMode::GameNext()
   // ...reset our internal state...
   m_bDrawPoints=false;
   m_pScorer->Reset();
+  m_pLevel->Reset();
   m_bSentenceFinished = false;
 
   // ...then reset the external state, and leave them at the start ready to go.
@@ -268,7 +279,8 @@ void CDasherGameMode::GameNext()
   m_pDasherInterface->SetContext(std::string(""));
   m_pDasherInterface->SetBuffer(0);
   m_pDasherInterface->PauseAt(0,0);
-
+ 
+  RunningScoreUpdates();
 }
 
 void CDasherGameMode::FullDemoNext()
@@ -307,7 +319,7 @@ void CDasherGameMode::FullDemoNext()
   m_pDasherInterface->PauseAt(0,0);
 
   // We start in 3 seconds.
-  m_lCallbacks.push_back(std::pair<GameFncPtr, unsigned long>(&CDasherGameMode::DemoGo,m_ulTime+3000));
+  Callback(&CDasherGameMode::DemoGo,3000);
 }
 
 void CDasherGameMode::DemoGo()
@@ -320,24 +332,35 @@ void CDasherGameMode::DemoGo()
 
 void CDasherGameMode::NewFrame(unsigned long Time)
 {
+  // NewFrame acts as a main loop for DasherGameMode.
+
+  // There is a risk that we end up in here recursively, thus corrupting the Callback's list.
+  // thus we require this check.
   static int depth = 0;
   if(depth==1) return;
   ++depth;
 
   // Set our internal clock
   m_ulTime = Time;
-  if(m_pScorer)
-    m_pScorer->NewFrame(Time,0,0, m_Target.iTargetY);
 
-  // DasherInterfaceBase doesn't provide callback functionality, so we create our own
-  // We only callback member functions of this class
+  // Pass on relevant game information to the scorer, and execute help rules according to level
+  if(!m_bSentenceFinished)
+    {
+      if(m_pScorer)
+	{
+	  m_pScorer->NewFrame(Scorer::GameInfo(Time, m_iUserX, m_iUserY, m_Target.iTargetY, m_pModel->GetNats()));
+	  m_pLevel->DoGameLogic();
+	}
+    }
+
+  // Timed callbacks, for demo mode and oscillators, and the like
   std::vector<CallbackList::iterator> vDeleteList;
   for(CallbackList::iterator it = m_lCallbacks.begin();
       it != m_lCallbacks.end(); ++it)
     {
-      if((*it).second < Time)
+      if((*it).first <= Time)
 	{
-	  (this->*(*it).first)();
+	  mem_fun((*it).second)(this);
 	  vDeleteList.push_back(it);
 	}
     }
@@ -346,14 +369,32 @@ void CDasherGameMode::NewFrame(unsigned long Time)
     {
       m_lCallbacks.erase(*it);
     }
+  
+  // Functor callbacks, for utility things like DelaySet.
+  std::vector<FunctorCallbackList::iterator> vFunctorDeleteList;
+  for(FunctorCallbackList::iterator it = m_lFunctorCallbacks.begin();
+      it != m_lFunctorCallbacks.end(); ++it)
+    {
+      if((*it).first <= Time)
+	{
+	  ((*it).second)->Callback();
+	  vFunctorDeleteList.push_back(it);
+	}
+    }
+  for(std::vector<FunctorCallbackList::iterator>::iterator it = vFunctorDeleteList.begin();
+      it != vFunctorDeleteList.end(); ++it)
+    {
+      m_lFunctorCallbacks.erase(*it);
+    }
+  
   --depth;  
 }
 
 
 void CDasherGameMode::SetTargetY(const std::vector<std::pair<myint,bool> >& vTargetY)
 {
-
-  
+  // Called by the Node Rendering Routine to let us know where the target sentence is
+  // vTargetY is a vector of the centerpoints of all drawn targets.
   if(vTargetY.size()!=0)
     {
       // Save the real target...
@@ -372,17 +413,11 @@ void CDasherGameMode::SetTargetY(const std::vector<std::pair<myint,bool> >& vTar
 	    }
 	}
     }
-  
-
-  if(m_Target.iTargetY < 0 || 4096 < m_Target.iTargetY)
-    m_bDrawHelperArrow = true;
-  else
-    m_bDrawHelperArrow = false;
-}
-
+} 
 
 void CDasherGameMode::CalculateDemoParameters()
 {
+  // Recalculates the parameters used in the demo following a change in framerate or speed.
   double spring = GetLongParameter(LP_DEMO_SPRING)/100.0;
   double noisemem = GetLongParameter(LP_DEMO_NOISE_MEM)/100.0;
   double lambda = 0.7*double(GetLongParameter(LP_MAX_BITRATE))/(100.0*m_pModel->Framerate());
@@ -479,21 +514,24 @@ int CDasherGameMode::LoadTargetStrings(istream& in)
 
 void CDasherGameMode::DemoModeGetCoordinates(myint& iDasherX, myint& iDasherY)
 {
-  static bool madeError=false;
-
+  static bool bNavError, bFixingNavError=false;
   // First choose an appropriate target...
   myint iTargetY=(m_Target.iVisibleTargetY);
 
   if(m_Target.iTargetY>10000 || m_Target.iTargetY <-6000)
-    {
-      madeError=true;
-    }
-  if(madeError)
+      bNavError=true;
+
+  if(bNavError)
     {
       iTargetY=m_Target.iTargetY;
-      if(abs(iTargetY-m_iCrossY) < 300 && abs(iTargetY - m_Target.iVisibleTargetY)<10)
+      if(!bFixingNavError &&
+	 abs(iTargetY-m_iCrossY) < 300 &&
+	 abs(iTargetY - m_Target.iVisibleTargetY)<10 )
 	{
-	  madeError=false;
+	  // Now we seem on the right track, give ourselves one second to get sorted.
+	  new DelaySet(this, 1000, &bNavError, false);
+	  new DelaySet(this, 1000, &bFixingNavError, false);
+	  bFixingNavError = true;
 	}
     }
 
@@ -502,9 +540,9 @@ void CDasherGameMode::DemoModeGetCoordinates(myint& iDasherX, myint& iDasherY)
   
   myint iCenterY = ComputeBrachCenter(iTargetY, m_iCrossX, m_iCrossY);
 
-  iIdealUnitVec[0] = (m_iCrossY<iTargetY)?(iCenterY-m_iCrossY):(m_iCrossY-iCenterY);
-  iIdealUnitVec[1] = (m_iCrossY<iTargetY)?m_iCrossX:-m_iCrossX;
-  myint mag = sqrt((double)(iIdealUnitVec[0]*iIdealUnitVec[0]+iIdealUnitVec[1]*iIdealUnitVec[1]));
+  iIdealUnitVec[0] = double(m_iCrossY<iTargetY?(iCenterY-m_iCrossY):(m_iCrossY-iCenterY));
+  iIdealUnitVec[1] = double(m_iCrossY<iTargetY?m_iCrossX:-m_iCrossX);
+  double mag = sqrt((double)(iIdealUnitVec[0]*iIdealUnitVec[0]+iIdealUnitVec[1]*iIdealUnitVec[1]));
   iIdealUnitVec[0] = iIdealUnitVec[0]/mag;
   iIdealUnitVec[1] = iIdealUnitVec[1]/mag;
 
@@ -520,15 +558,15 @@ void CDasherGameMode::DemoModeGetCoordinates(myint& iDasherX, myint& iDasherY)
   if(!m_bSentenceFinished)
     {
       //      CalculateNewDemoCoordinates()
-      m_iDemoX = (m_iCrossX+(1500*iIdealUnitVec[0])+m_DemoCfg.iNoiseMag*noiseX)*m_DemoCfg.dSpring
-	+(1.0-m_DemoCfg.dSpring)*m_iDemoX;
-      m_iDemoY = (m_iCrossY+(1500*iIdealUnitVec[1])+m_DemoCfg.iNoiseMag*noiseY)*m_DemoCfg.dSpring
-	+(1.0-m_DemoCfg.dSpring)*m_iDemoY;
+      m_iDemoX = myint((m_iCrossX+(1500*iIdealUnitVec[0])+m_DemoCfg.iNoiseMag*noiseX)*m_DemoCfg.dSpring
+	+(1.0-m_DemoCfg.dSpring)*m_iDemoX);
+      m_iDemoY = myint((m_iCrossY+(1500*iIdealUnitVec[1])+m_DemoCfg.iNoiseMag*noiseY)*m_DemoCfg.dSpring
+	+(1.0-m_DemoCfg.dSpring)*m_iDemoY);
     }
   else
     {
-      m_iDemoX = m_iCrossX*m_DemoCfg.dSpring + (1.0-m_DemoCfg.dSpring)*m_iDemoX;
-      m_iDemoY = m_iCrossY*m_DemoCfg.dSpring + (1.0-m_DemoCfg.dSpring)*m_iDemoY;
+      m_iDemoX = myint(m_iCrossX*m_DemoCfg.dSpring + (1.0-m_DemoCfg.dSpring)*m_iDemoX);
+      m_iDemoY = myint(m_iCrossY*m_DemoCfg.dSpring + (1.0-m_DemoCfg.dSpring)*m_iDemoY);
     }
 
   // ...and finally set the mouse coordinates.
@@ -544,38 +582,50 @@ void CDasherGameMode::SetUserMouseCoordinates(myint iDasherX, myint iDasherY)
 {
   m_iUserX = iDasherX;
   m_iUserY = iDasherY;
-  if(m_iUserX > 2048 && !m_pDemo)
-    m_bDrawTargetArrow=true;
-  else
-    m_bDrawTargetArrow=false;
+}
+
+// Used to turn on running updates of the score, every second.
+void CDasherGameMode::RunningScoreUpdates()
+{
+  stringstream score;
+  score << m_pLevel->GetCurrentScore();
+  m_pDasherInterface->GameMessageOut(GAME_MESSAGE_SET_SCORE,
+				     reinterpret_cast<const void *>(score.str().c_str()));
+  m_pDasherInterface->GameMessageOut(GAME_MESSAGE_SET_LEVEL,
+				     reinterpret_cast<const void *>("5"));
+  if(!m_bSentenceFinished)
+    Callback(&CDasherGameMode::RunningScoreUpdates, 1000);
 }
 
 void CDasherGameMode::SentenceFinished()
 {
+  if(m_bSentenceFinished) return;
+
   if(m_pScorer)
     {
-      m_pScorer->SentenceFinished(m_ulTime);
-  
-      stringstream score;
-      score << m_pScorer->GetScore();
-      m_pDasherInterface->GameMessageOut(GAME_MESSAGE_SET_SCORE,
-					 reinterpret_cast<const void *>(score.str().c_str()));
-
+      m_pScorer->SentenceFinished();
+      m_pLevel->SentenceFinished();
       m_pDasherInterface->GameMessageOut(GAME_MESSAGE_DISPLAY_TEXT, _("Well done!"));
     }
   
-  if(m_pDemo && !m_bSentenceFinished)
+  if(m_pDemo)
     {
       if(m_pDemo->bFullDemo)
-	m_lCallbacks.push_back(std::pair<GameFncPtr, unsigned long>(&CDasherGameMode::FullDemoNext,m_ulTime+6000));
+	Callback(&CDasherGameMode::FullDemoNext, 6000);
       else
 	{
-	  m_lCallbacks.push_back(std::pair<GameFncPtr, unsigned long>(&CDasherGameMode::GameNext,m_ulTime+6000));
-	  m_lCallbacks.push_back(std::pair<GameFncPtr, unsigned long>(&CDasherGameMode::DemoGo,m_ulTime+8000));
+	  Callback(&CDasherGameMode::GameNext, 6000);
+	  Callback(&CDasherGameMode::DemoGo, 9000);
 	}
     }
-  m_bSentenceFinished=true;  
+  m_bDrawHelperArrow=false;
+  m_bDrawTargetArrow=false;
+  m_bSentenceFinished=true;
+  m_pDasherInterface->PauseAt(0,0);
+  string msg = m_pLevel->m_strPerformance.str();
+  m_pDasherInterface->GameMessageOut(GAME_MESSAGE_HELP_MESSAGE, &msg);
 }
+
 
 UTF8Char CDasherGameMode::GetSymbolAtOffset(int iOffset)
 { 
@@ -597,7 +647,7 @@ int CDasherGameMode::NextString(bool bRandomString)
   m_strCurrentTarget = "";
 
   int ret=GM_ERR_NO_ERROR;
-  if(m_iNumStrings <= 0)
+  if(m_iNumStrings == 0)
     {
       m_iCurrentString = -1;
       return GM_ERR_NO_STRING;
@@ -620,6 +670,23 @@ int CDasherGameMode::NextString(bool bRandomString)
   return ret;
 }
 
+void CDasherGameMode::Oscillator()
+{
+  // Provides an oscillator for general use, eg flashing arrows.
+  // The oscillator is true for m_iOscillatorOn ms, and false
+  // for m_iOscillatorOff ms.
+  if(m_bOscillator)
+    {
+      m_bOscillator = false;
+      Callback(&CDasherGameMode::Oscillator,m_iOscillatorOff);
+    }
+  else
+    {
+      m_bOscillator = true;
+      Callback(&CDasherGameMode::Oscillator,m_iOscillatorOn);
+    }
+}
+
 // Drawing Methods for Game/Teacher Mode
 
 // Public function, called by DasherInterfaceBase::Redraw()
@@ -631,7 +698,7 @@ void CDasherGameMode::DrawGameDecorations(CDasherView* pView)
     DrawHelperArrow(pView);
   if(m_bDrawTargetArrow)
     DrawTargetArrow(pView);
-  if(m_bDrawPoints)
+  if(m_bDrawPoints) // || m_bSentenceFinished)
     DrawPoints(pView);
 }
 
@@ -695,49 +762,38 @@ void CDasherGameMode::DrawTargetArrow(CDasherView* pView) {
   // Probably too much floating point maths here, sort later.
 
   const int gameColour = 135; //Neon green. (!)
-  const int noOfPoints = 2; // The curve will be made up of 9 straigt segments...
-  const int arrowPoints = 3; // ...and two straight segments for the arrow.
-  myint iX[noOfPoints+arrowPoints];
-  myint iY[noOfPoints+arrowPoints];
+  const int noOfPoints = 2; // The curve will be made up of 2 straigt segments...
+
+  myint iX[noOfPoints];
+  myint iY[noOfPoints];
   myint iLength = m_iCrossX/5; 
   myint iYmax = GetLongParameter(LP_MAX_Y);
   if(m_Target.iTargetY > 0 && m_Target.iTargetY < iYmax)
     {
-      iX[0] = -1.5*iLength;
+      iX[0] = myint(-1.5*iLength);
       iY[0] = m_Target.iTargetY;
-      iX[1] = -0.5*iLength;
+      iX[1] = myint(-0.5*iLength);
       iY[1] = m_Target.iTargetY;
       
     }
   else if(m_Target.iTargetY <= 0)
     {
-      iX[0] = -0.5*iLength;
+      iX[0] = myint(-0.5*iLength);
       iY[0] = iLength;
-      iX[1] = -0.5*iLength;
+      iX[1] = myint(-0.5*iLength);
       iY[1] = 0;
     }
   else
     {
-      iX[0] = -0.5*iLength;
+      iX[0] = myint(-0.5*iLength);
       iY[0] = iYmax - iLength;
-      iX[1] = -0.5*iLength;
+      iX[1] = myint(-0.5*iLength);
       iY[1] = iYmax;
     }
-  // Put an arrow on the end of the arc. i.e, two straight segments 45 deg either side.
-  myint iXvec = (iX[noOfPoints-2] - iX[noOfPoints-1])*0.6;
-  myint iYvec = (iY[noOfPoints-2] - iY[noOfPoints-1])*0.6;
-  
-  iX[noOfPoints  ] = iX[noOfPoints-1] + iXvec + iYvec;
-  iY[noOfPoints  ] = iY[noOfPoints-1] - iXvec + iYvec;
-  iX[noOfPoints+1] = iX[noOfPoints-1] ;
-  iY[noOfPoints+1] = iY[noOfPoints-1] ;
-  iX[noOfPoints+2] = iX[noOfPoints-1] + iXvec - iYvec;
-  iY[noOfPoints+2] = iY[noOfPoints-1] + iXvec + iYvec;
   
   // Now draw it
   pView->DasherPolyarrow(iX, iY, noOfPoints, GetLongParameter(LP_LINE_WIDTH)*4, gameColour);
 }
-
 
 std::pair<double,double> GaussianRand() // Is there a random number class already?
 {
@@ -747,5 +803,4 @@ std::pair<double,double> GaussianRand() // Is there a random number class alread
   double g2 = sqrt(-2.0*log(u1))*sin(6.283185307*u2);
   //  std::cout << u1 << " : " << u2 << " : " << g1 << std::endl;
   return std::pair<double,double>(g1,g2);
-  
 }

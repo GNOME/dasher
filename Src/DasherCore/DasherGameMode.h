@@ -24,14 +24,19 @@ namespace Dasher {
   class CDasherGameMode;
   class CDasherComponent;
   class CDasherView;
+  class Zero_aryCallback;
 }
 
 enum {GM_ERR_NO_ERROR = 0, GM_ERR_NO_GAME_FILE, GM_ERR_BAD_GAME_FILE, GM_ERR_NO_STRING,
       GM_ERR_LOOP};
 
+typedef void (*CallbackFunction)(Dasher::CDasherGameMode * const);
+typedef std::unary_function<Dasher::CDasherGameMode* const, void> CallbackFunctor;
+
 typedef void (CDasherGameMode::*GameFncPtr)();
 typedef std::string UTF8Char;
-typedef std::list< std::pair<GameFncPtr, unsigned long> > CallbackList;
+typedef std::list< std::pair<unsigned long, GameFncPtr > > CallbackList;
+typedef std::list< std::pair<unsigned long, Zero_aryCallback* > > FunctorCallbackList;
 
 /// \defgroup GameMode Game mode support
 /// @{
@@ -60,6 +65,8 @@ public:
   void DrawGameDecorations(CDasherView* pView);
 
   void Message(int message, void* messagedata);
+  class Level;
+  friend class Level;
   
 private:
   CDasherGameMode(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase * pDashIface);
@@ -67,21 +74,24 @@ private:
 
   class Demo : public CDasherComponent {
   public:
-    Demo(CSettingsStore * pSettingsStore, bool full=false):CDasherComponent(NULL, pSettingsStore),
+    Demo(CSettingsStore * pSettingsStore, bool fullDemo=false):CDasherComponent(NULL, pSettingsStore),
       sp_alphabet_id(GetStringParameter(SP_ALPHABET_ID)),
       bp_draw_mouse(GetBoolParameter(BP_DRAW_MOUSE)),
-      bFullDemo(full){
+      bp_auto_speedcontrol(GetBoolParameter(BP_AUTO_SPEEDCONTROL)),
+      bFullDemo(fullDemo){
       SetBoolParameter(BP_DRAW_MOUSE, true);}
     ~Demo(){SetBoolParameter(BP_DRAW_MOUSE, bp_draw_mouse);
-    SetStringParameter(SP_ALPHABET_ID, sp_alphabet_id);}
+    SetStringParameter(SP_ALPHABET_ID, sp_alphabet_id);
+    SetBoolParameter(BP_AUTO_SPEEDCONTROL, bp_auto_speedcontrol);}
     
     const std::string sp_alphabet_id;
     const bool bp_draw_mouse;
+    const bool bp_auto_speedcontrol;
     bool bFullDemo;
   };
 
   class Scorer;
-
+  
   struct TargetInfo {
     myint iTargetY, iVisibleTargetY;
     myint iCenterY, iVisibleCenterY;    
@@ -94,12 +104,25 @@ private:
     double dNoiseOld;
   };
 
+  struct Oscillator {
+    bool* pVariable;
+    unsigned int timeOn;
+    unsigned int timeOff;
+  };
+  
+  struct Score {
+    unsigned int Level;
+    unsigned int Score;
+  };
+
   // Performs the necessary notifications to the rest of DasherCore
   void NotifyGameCooperators(bool bGameOn);
   
   // Starting an stopping the interactive game
   void GameModeStart();
   void GameModeStop();
+  void Oscillator();
+  void RunningScoreUpdates();
 
   // Starting and stopping the demo behaviour
   void DemoModeStart(bool bFullDemo);
@@ -123,13 +146,20 @@ private:
   void DrawTargetArrow(CDasherView* pView);
   void DrawPoints(CDasherView* pView);
 
+  inline void Callback(GameFncPtr f, unsigned long wait){
+    m_lCallbacks.push_back(std::pair<unsigned long,GameFncPtr>(m_ulTime+wait,f) );
+  }
+
+  inline void FunctorCallback(Zero_aryCallback* f, unsigned long wait){
+    m_lFunctorCallbacks.push_back(std::pair<unsigned long,Zero_aryCallback*>(m_ulTime+wait,f) );
+  }
+
+  friend class Zero_aryCallback;
+
   myint ComputeBrachCenter(const myint& iTargetY, const myint& iCrossX, const myint& iCrossY);
 
   // The one instance of ourself.
   static CDasherGameMode* pTeacher;
-
-  // Cross hair position
-  const myint m_iCrossX, m_iCrossY;
 
   // The classes from whom we require some cooperation
   CDasherInterfaceBase *m_pDasherInterface;
@@ -139,17 +169,21 @@ private:
   // Storing the target strings
   std::string m_strCurrentTarget;
   std::vector < std::vector<UTF8Char> > m_vTargetStrings;
-  int m_iNumStrings;
+  unsigned int m_iNumStrings;
   int m_iCurrentString;
 
   std::string m_strGameTextFile;
 
   CallbackList m_lCallbacks;
+  FunctorCallbackList m_lFunctorCallbacks;
 
   // Internal status
   bool m_bGameModeOn;
   bool m_bSentenceFinished;
   bool m_bDemoModeOn;
+  bool m_bOscillator;
+  unsigned int m_iOscillatorOn;
+  unsigned int m_iOscillatorOff;
   unsigned long m_ulTime;
 
   myint m_iUserX, m_iUserY; // User mouse position in Dasher Coordinates
@@ -159,6 +193,7 @@ private:
 
   // owned objects
   Scorer* m_pScorer;
+  Level* m_pLevel;
   Demo* m_pDemo;
 
   // Graphics instruction flags
@@ -166,6 +201,9 @@ private:
   bool m_bDrawTargetArrow;
   bool m_bDrawPoints;
 
+  // Cross hair position
+  const myint m_iCrossX, m_iCrossY, m_iMaxY;
+  Score m_Score;  
 };
 /// @}
 
@@ -184,6 +222,33 @@ inline myint CDasherGameMode::ComputeBrachCenter(const myint& iTargetY, const my
 
   return iCenterY;
 }
+
+
+class Dasher::Zero_aryCallback
+{
+ public:
+  Zero_aryCallback(Dasher::CDasherGameMode* pGame, unsigned int wait)
+    {
+      pGame->FunctorCallback(this, wait);
+    }
+  virtual ~Zero_aryCallback(){}
+  void Callback(){Action(); delete this;}
+  virtual void Action() = 0;
+};
+
+class DelaySet : public Dasher::Zero_aryCallback
+{
+ public:
+  DelaySet(Dasher::CDasherGameMode* pGame, unsigned int wait, bool* pVariable, bool bValue):
+    Zero_aryCallback(pGame, wait),
+    m_bValue(bValue), m_pVariable(pVariable){}
+  void Action(void){*m_pVariable=m_bValue;}
+ private:
+  bool m_bValue;
+  bool* m_pVariable;
+};
+
+
 
 #endif
 

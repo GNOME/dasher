@@ -477,7 +477,9 @@ void CDasherInterfaceBase::Unpause(unsigned long Time) {
   Dasher::CStartEvent oEvent;
   m_pEventHandler->InsertEvent(&oEvent);
 
-  ResetNats();
+  // Commenting this out, can't see a good reason to ResetNats,
+  // just because we are not paused anymore - pconlon
+  // ResetNats();
 
 #ifndef _WIN32_WCE
   if (m_pUserLog != NULL)

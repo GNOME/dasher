@@ -342,7 +342,7 @@ public:
 
   void GameMessageIn(int message, void* messagedata);
 
-  virtual void GameMessageOut(int message, const void* messagedata) = 0;
+  virtual void GameMessageOut(int message, const void* messagedata) {}
 
   void ScheduleRedraw() { 
     m_bRedrawScheduled = true; 

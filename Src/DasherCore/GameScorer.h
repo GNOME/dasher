@@ -6,29 +6,40 @@
 
 class Dasher::CDasherGameMode::Scorer {
  public:
-  Scorer(): m_bInPlay(false){}
+  Scorer(): m_bInPlay(false), m_bSentenceFinished(true){}
   ~Scorer(){}
   struct Stats {
     double sum, m1, m2, m3, m4, dev, skew, kurt;
   };
-  void SentenceFinished(unsigned long time);
-  int GetScore();
+  struct GameInfo {
+    GameInfo(unsigned long time, myint iMouseX, myint iMouseY, myint iTargetY, double dTotalNats):
+      m_ulTime(time), m_iMouseX(iMouseX), m_iMouseY(iMouseY), m_iTargetY(iTargetY), m_dTotalNats(dTotalNats){}
+    unsigned long m_ulTime;
+    myint m_iMouseX;
+    myint m_iMouseY;
+    myint m_iTargetY;
+    double m_dTotalNats;
+  };
+  void SentenceFinished();
+  unsigned int GetTime();
+  double GetNats();
+
   std::string GetBreakdown();
-  void NewFrame(unsigned long time, myint iMouseX, myint iMouseY, myint iTargetY);
-  void Start(unsigned long time);
-  void Stop(unsigned long time);
+  void NewFrame(const GameInfo&);
+  void Start();
+  void Stop();
   void Reset();
+
  private:
-  void CalculateStats();
+  void ComputeStats();
   bool m_bInPlay;
   bool m_bPaused;
-  int samples;
-  int m_iErrors;
-  double runningMean;
+  bool m_bSentenceFinished;
+
   std::vector<myint> m_vTargetData;
+  std::vector<GameInfo> m_vGameInfoData;
   std::ostringstream m_Statsbreakdown;
-  unsigned long m_iStartTime;
-  unsigned long m_iStopTime;
+
   Stats m_stats;
 };
 #endif

@@ -127,7 +127,8 @@ libdashercore_a_SOURCES = \
 		WrapperFactory.h \
 		XMLUtil.cpp \
 		XMLUtil.h \
-		GameScorer.cpp
+		GameScorer.cpp \
+		GameLevel.cpp
 
 libdashercore_a_LIBADD = @CHINESE_SOURCES@ @JAPANESE_SOURCES@
 libdashercore_a_DEPENDENCIES = @CHINESE_SOURCES@ @JAPANESE_SOURCES@

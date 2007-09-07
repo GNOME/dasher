@@ -9,6 +9,7 @@ struct _GameModeHelperPrivate {
   GtkWidget* pGameGroup;
   GtkLabel* pGameInfoLabel;
   GtkEntry* pScore;
+  GtkEntry* pLevel;
   GtkWidget* pGameToggleButton;
   GtkWidget* pDemoToggleButton;
   GtkWidget* pNewSentence;
@@ -27,6 +28,7 @@ static void game_mode_helper_init(GameModeHelper * pControl);
 static void game_mode_helper_destroy(GObject * pObject);
 static void game_mode_helper_get_next_string(GameModeHelper *pSelf);
 static void game_mode_helper_update_target_label(GameModeHelper *pSelf);
+static void game_mode_helper_dialog_box(GameModeHelper* pSelf, const char* message);
 
 extern "C" gboolean game_mode_helper_cb_gametoggle(GtkWidget *pWidget, gpointer pUserData);
 extern "C" gboolean game_mode_helper_cb_next_sentence(GtkWidget *pWidget, gpointer pUserData);
@@ -95,6 +97,7 @@ GObject *game_mode_helper_new(GladeXML *pGladeXML, void* pDasherEditor) {
   pPrivate->pDemoToggleButton = glade_xml_get_widget(pGladeXML, "demo_toggle");
   pPrivate->pFullDemo = glade_xml_get_widget(pGladeXML, "fulldemo");
   pPrivate->pScore = GTK_ENTRY(glade_xml_get_widget(pGladeXML, "score_box"));
+  pPrivate->pLevel = GTK_ENTRY(glade_xml_get_widget(pGladeXML, "level_box"));
   pPrivate->pstrTarget = new std::string;
   pPrivate->pstrOutput = new std::string;
   
@@ -243,9 +246,16 @@ void game_mode_helper_message(GameModeHelper *pSelf, int message, const void * m
   case GAME_MESSAGE_SET_SCORE:
     gtk_entry_set_text(pPrivate->pScore, reinterpret_cast<const char*>(messagedata));
     break;
+  case GAME_MESSAGE_SET_LEVEL:
+    gtk_entry_set_text(pPrivate->pLevel, reinterpret_cast<const char*>(messagedata));
+    break;
   case GAME_MESSAGE_CLEAR_BUFFER:
     dasher_editor_internal_cleartext(pPrivate->pEditor);
     pPrivate->pstrOutput->clear();
+    break;
+  case GAME_MESSAGE_HELP_MESSAGE:
+    pStr = reinterpret_cast<const std::string *>(messagedata);
+    game_mode_helper_dialog_box(pSelf, pStr->c_str());
     break;
   }
 }
@@ -297,4 +307,23 @@ void game_mode_helper_update_target_label(GameModeHelper *pSelf) {
   labelStr.insert(ct, "</span>");
   labelStr.insert(0, "<span background=\"green\">");
   gtk_label_set_markup(pPrivate->pGameInfoLabel, labelStr.c_str());
+}
+
+void game_mode_helper_dialog_box(GameModeHelper* pSelf, const gchar* message)
+{
+  GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
+
+  GtkWidget* pDialog;
+  pDialog = gtk_message_dialog_new (NULL,
+				    GTK_DIALOG_NO_SEPARATOR,
+                                  GTK_MESSAGE_INFO,
+                                  GTK_BUTTONS_CLOSE,
+                                  message);
+
+  gtk_widget_show(GTK_WIDGET(pDialog));
+ /* Destroy the dialog when the user responds to it (e.g. clicks a button) */
+ g_signal_connect_swapped (pDialog, "response",
+                           G_CALLBACK (gtk_widget_destroy),
+                           pDialog);
+
 }
