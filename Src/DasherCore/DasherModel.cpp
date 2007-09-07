@@ -1003,7 +1003,7 @@ void CDasherModel::ScheduleZoom(dasherint iDasherX, dasherint iDasherY, int iMax
   
   int iSteps = GetLongParameter(LP_ZOOMSTEPS);
  
-  if(iDasherX == 2048) {
+  if(iDasherX == (dasherint)2048) {
     // Special case for pure vertical motion. Note that ideally there
     // would be a smooth transition here from general case, but we
     // need to avoid gimbal lock.

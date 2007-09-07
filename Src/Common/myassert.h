@@ -57,7 +57,7 @@ void __cdecl __debugbreak(void);
 #else
 
 // Non-debug version (assertions disabled)
-#define DASHER_ASSERT(expr)
+#define DASHER_ASSERT(expr) true
 
 #endif // DEBUG
 

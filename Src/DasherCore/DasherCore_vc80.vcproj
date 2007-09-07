@@ -1900,6 +1900,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\TrainingHelper.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\TrainingHelper.h"
+			>
+		</File>
+		<File
 			RelativePath=".\TwoButtonDynamicFilter.cpp"
 			>
 		</File>

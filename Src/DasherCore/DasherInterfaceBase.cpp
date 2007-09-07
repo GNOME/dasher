@@ -1112,6 +1112,8 @@ int CDasherInterfaceBase::AddLock(const std::string &strDisplay) {
 
   m_mapCurrentLocks[m_iNextLockID] = sNewLock;
   ++m_iNextLockID;
+
+  return (m_iNextLockID - 1);
 }
 
 void CDasherInterfaceBase::ReleaseLock(int iLockID) {

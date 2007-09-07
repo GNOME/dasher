@@ -5,7 +5,7 @@
 
 
 /* File created by MIDL compiler version 5.01.0164 */
-/* at Sun Jun 10 22:43:47 2007
+/* at Fri Sep 07 11:07:56 2007
  */
 /* Compiler settings for .\DasherIM.idl:
     Oicf (OptLev=i2), W1, Zp8, env=Win32, ms_ext, c_ext
