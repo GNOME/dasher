@@ -1580,6 +1580,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\DasherGameMode.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\DasherGameMode.h"
+			>
+		</File>
+		<File
 			RelativePath="DasherInput.h"
 			>
 		</File>
@@ -1693,6 +1701,30 @@
 		</File>
 		<File
 			RelativePath="FrameRate.h"
+			>
+		</File>
+		<File
+			RelativePath=".\GameLevel.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\GameLevel.h"
+			>
+		</File>
+		<File
+			RelativePath=".\GameMessages.h"
+			>
+		</File>
+		<File
+			RelativePath=".\GameScorer.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\GameScorer.h"
+			>
+		</File>
+		<File
+			RelativePath=".\GameStatistics.h"
 			>
 		</File>
 		<File
@@ -1821,6 +1853,14 @@
 		</File>
 		<File
 			RelativePath=".\NodeCreationManager.h"
+			>
+		</File>
+		<File
+			RelativePath=".\OneButtonDynamicFilter.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\OneButtonDynamicFilter.h"
 			>
 		</File>
 		<File

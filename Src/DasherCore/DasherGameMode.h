@@ -111,8 +111,8 @@ private:
   };
   
   struct Score {
-    unsigned int Level;
-    unsigned int Score;
+    unsigned int m_iLevel;
+    unsigned int m_iScore;
   };
 
   // Performs the necessary notifications to the rest of DasherCore

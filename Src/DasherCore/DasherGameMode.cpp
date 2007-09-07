@@ -16,7 +16,6 @@
 #include <limits>
 #include <iostream>
 #include <fstream>
-#include <pthread.h>
 
 std::pair<double,double> GaussianRand();
 
@@ -525,8 +524,8 @@ void CDasherGameMode::DemoModeGetCoordinates(myint& iDasherX, myint& iDasherY)
     {
       iTargetY=m_Target.iTargetY;
       if(!bFixingNavError &&
-	 abs(iTargetY-m_iCrossY) < 300 &&
-	 abs(iTargetY - m_Target.iVisibleTargetY)<10 )
+	 abs((int)(iTargetY-m_iCrossY)) < 300 &&
+		abs(int(iTargetY - m_Target.iVisibleTargetY))<10 )
 	{
 	  // Now we seem on the right track, give ourselves one second to get sorted.
 	  new DelaySet(this, 1000, &bNavError, false);
@@ -732,13 +731,13 @@ void CDasherGameMode::DrawHelperArrow(CDasherView* pView)
 
   if(m_Target.iTargetY < a && m_Target.iCenterY < m_iCrossY-defaultlength/2)
     {
-      myint x = sqrt((double)(r*r-pow((long double)(m_Target.iCenterY-a),2)));
-      iLength = sqrt((double)(pow((long double)(x-m_iCrossX),2)+pow((long double)(a-m_iCrossY),2)));
+      myint x = sqrt((double)(r*r-pow((double)(m_Target.iCenterY-a),2)));
+      iLength = sqrt((double)(pow((double)(x-m_iCrossX),2)+pow((double)(a-m_iCrossY),2)));
     }
   else if(m_Target.iTargetY > 2*m_iCrossY-a && m_Target.iCenterY > m_iCrossY+defaultlength/2)
     {
-      myint x = sqrt((double)(r*r-pow((long double)(m_Target.iCenterY+a-2*m_iCrossY),2)));
-      iLength = sqrt((double)(pow((long double)(x-m_iCrossX),2)+pow((long double)(a-m_iCrossY),2)));
+      myint x = sqrt((double)(r*r-pow((double)(m_Target.iCenterY+a-2*m_iCrossY),2)));
+      iLength = sqrt((double)(pow((double)(x-m_iCrossX),2)+pow((double)(a-m_iCrossY),2)));
     }
   else
     iLength = defaultlength;
