@@ -282,8 +282,8 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
       }
     }
     else { 
-      // Direct entry is now the default
-      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 2);
+      // By default use traditional mode
+      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 0);
     }
 
     dasher_main_load_interface(pDasherMain);
