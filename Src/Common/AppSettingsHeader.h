@@ -32,4 +32,9 @@ enum {
   END_OF_APP_SPS
 };
 
+enum {
+  APP_STYLE_TRAD = 0,
+  APP_STYLE_COMPOSE,
+  APP_STYLE_DIRECT,
+  APP_STYLE_FULLSCREEN };
 #endif
