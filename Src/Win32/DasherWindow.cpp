@@ -364,6 +364,7 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
     m_pGameModeHelper = new CGameModeHelper(m_pDasher);
     return 0;
   case ID_GAMEMODE:
+    m_pDasher->GameMessageIn(m_pGameGroup->IsWindowVisible()?GAME_MESSAGE_GAME_OFF:GAME_MESSAGE_GAME_ON, NULL);
     m_pGameGroup->ShowWindow(m_pGameGroup->IsWindowVisible()?SW_HIDE:SW_SHOW);
     Layout();
     return 0;

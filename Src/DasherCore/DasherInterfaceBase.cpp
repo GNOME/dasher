@@ -183,6 +183,8 @@ void CDasherInterfaceBase::Realize() {
 
   // Create the teacher singleton object. 
   CDasherGameMode::CreateTeacher(m_pEventHandler, m_pSettingsStore, this);
+  CDasherGameMode::GetTeacher()->SetDasherView(m_pDasherView);
+  CDasherGameMode::GetTeacher()->SetDasherModel(m_pDasherModel);
 }
 
 CDasherInterfaceBase::~CDasherInterfaceBase() {

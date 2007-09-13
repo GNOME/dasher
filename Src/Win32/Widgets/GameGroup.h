@@ -3,10 +3,13 @@
 
 #include "../Common/WinCommon.h"
 #include "../../DasherCore/DasherInterfaceBase.h"
+#include "../../DasherCore/GameMessages.h"
 
 #include <atlbase.h>
 #include <atlwin.h>
 
+#define ID_DEMOBUTTON 1
+#define ID_NEXTBUTTON 2
 class CGameGroup : public ATL::CWindowImpl<CGameGroup> {
 public:
   CGameGroup(CDasherInterfaceBase *pDasherInterface);
@@ -14,7 +17,8 @@ public:
   // ATL boilerplate code
   DECLARE_WND_CLASS_EX(NULL, 0, COLOR_ACTIVECAPTION);
   BEGIN_MSG_MAP(CGameGroup)
-    MESSAGE_HANDLER(WM_COMMAND, OnCommand)
+    COMMAND_HANDLER(ID_DEMOBUTTON,BN_CLICKED,OnDemoClick)
+//    MESSAGE_HANDLER(WM_COMMAND, OnCommand)  
     MESSAGE_HANDLER(WM_NOTIFY, OnNotify)
     MESSAGE_HANDLER(WM_SIZE, OnSize)
     MESSAGE_HANDLER(WM_CREATE, OnCreate)
@@ -27,7 +31,7 @@ public:
   LRESULT OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
   LRESULT OnCreate(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
   LRESULT OnShow(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-
+  LRESULT OnDemoClick(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
 
   // Create the window, with children
   HWND Create(HWND hParent);

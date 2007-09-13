@@ -1,5 +1,6 @@
-#include "GameGroup.h"
 #include "WinCommon.h"
+#include "GameGroup.h"
+#include "../../DasherCore/GameMessages.h"
 
 #include <string>
 
@@ -13,6 +14,11 @@ CGameGroup::CGameGroup(CDasherInterfaceBase *pDasherInterface) {
 
 // TODO: ATL has more sophisticated handlers for conrol and notify messages - consider using them instead
 LRESULT CGameGroup::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
+  int id = LOWORD(wParam);
+  int code = HIWORD(wParam);
+  BN_CLICKED;
+  ID_NEXTBUTTON;
+  ID_DEMOBUTTON;
   switch(HIWORD(wParam)) {
     case CBN_SELCHANGE:
 //      SelectAlphabet();
@@ -56,6 +62,14 @@ LRESULT CGameGroup::OnShow(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHa
   bVisible = wParam;
   return 0;
 }
+
+LRESULT CGameGroup::OnDemoClick(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
+{  
+  int message = (m_pDemoButton->SendMessage(BM_GETCHECK)==BST_CHECKED)?GAME_MESSAGE_DEMO_ON:GAME_MESSAGE_DEMO_OFF;
+  m_pDasherInterface->GameMessageIn(message, NULL);
+  return 0;
+}
+
 
 void CGameGroup::Message(int message,const void* messagedata)
 { 
@@ -150,7 +164,8 @@ void CGameGroup::CreateChildren() {
   //SendMessage(m_hSpeedLabel, WM_SETFONT, (WPARAM) hGuiFont, true);
   //SendMessage(m_hAlphabetLabel, WM_SETFONT, (WPARAM) hGuiFont, true);
   m_pDemoButton = new CWindow;
-  m_pDemoButton->Create(WC_BUTTON, m_hWnd,0,TEXT("Demo"),WS_CHILD | BS_AUTOCHECKBOX | BS_PUSHLIKE);
+  m_pDemoButton->Create(WC_BUTTON, m_hWnd,0,TEXT("Demo"),WS_CHILD | BS_AUTOCHECKBOX | BS_PUSHLIKE,
+    0,ID_DEMOBUTTON);
   m_pDemoButton->SetFont((HFONT)hGuiFont);
   HDC hDemoDC(m_pDemoButton->GetDC());
   SelectObject(hDemoDC, hGuiFont);
@@ -158,9 +173,9 @@ void CGameGroup::CreateChildren() {
   m_pDemoButton->ReleaseDC(hDemoDC);
   m_sDemoSize.cx += 5;
   m_sDemoSize.cy += 5;
-
+  
   m_pNextButton = new CWindow;
-  m_pNextButton->Create(WC_BUTTON, m_hWnd,0,TEXT("Next"),WS_CHILD);
+  m_pNextButton->Create(WC_BUTTON, m_hWnd,0,TEXT("Next"),WS_CHILD,0,ID_NEXTBUTTON);
   m_pNextButton->SetFont((HFONT)hGuiFont);
   HDC hNextDC(m_pNextButton->GetDC());
   SelectObject(hNextDC, hGuiFont);
@@ -168,6 +183,7 @@ void CGameGroup::CreateChildren() {
   m_pNextButton->ReleaseDC(hNextDC);
   m_sNextSize.cx += 5;
   m_sNextSize.cy += 5;
+
 /*  SIZE sSize;
 
   HDC hSpeedDC(::GetDC(m_hSpeedLabel));
