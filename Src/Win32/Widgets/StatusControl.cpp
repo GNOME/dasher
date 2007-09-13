@@ -124,7 +124,7 @@ void CStatusControl::CreateChildren() {
   DeleteObject(hGuiFont);
 
   // Set the height to what is finally required. The extra pixel is needed to get everything to line up nicely
-  MoveWindow(0, 0, 0, m_iEditHeight + 1, false);
+  MoveWindow(0, 0, 0, m_iEditHeight+1, false);
 }
 
 void CStatusControl::LayoutChildrenInitial() {

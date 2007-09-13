@@ -507,7 +507,6 @@ void CEdit::get_new_context(string &str, int max) {
 void CEdit::output(const std::string &sText) {
   wstring String;
   WinUTF8::UTF8string_to_wstring(sText, String);
-
   InsertText(String);
 
   if(m_pAppSettings->GetLongParameter(APP_LP_STYLE) == 2) {

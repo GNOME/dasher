@@ -1338,6 +1338,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Widgets\GameGroup.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Widgets\GameGroup.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Widgets\Menu.cpp"
 				>
 			</File>

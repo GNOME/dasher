@@ -26,10 +26,10 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 CSlidebar::CSlidebar(HWND ParentWindow, CDasherInterfaceBase *NewDasherInterface) {
-  m_hRebar = CreateWindowEx(WS_EX_TOOLWINDOW,
+  m_hRebar = CreateWindowEx(WS_EX_WINDOWEDGE,
                             REBARCLASSNAME,
                             NULL,
-                            WS_CHILD  | WS_CLIPSIBLINGS |
+                            WS_CHILD  | //WS_CLIPSIBLINGS |
                              RBS_VARHEIGHT |
                             CCS_BOTTOM | CCS_NODIVIDER,
                             0,0,0,0,
@@ -64,6 +64,8 @@ CSlidebar::CSlidebar(HWND ParentWindow, CDasherInterfaceBase *NewDasherInterface
 
 void CSlidebar::Resize() {
   SendMessage(m_pStatusControl->m_hWnd, WM_SIZE, 0, 0);
+  int j = 0;
+int i = 5/j;  
 }
 
 int CSlidebar::GetHeight() {

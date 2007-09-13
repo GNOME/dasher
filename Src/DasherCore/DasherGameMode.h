@@ -180,7 +180,6 @@ private:
   // Internal status
   bool m_bGameModeOn;
   bool m_bSentenceFinished;
-  bool m_bDemoModeOn;
   bool m_bOscillator;
   unsigned int m_iOscillatorOn;
   unsigned int m_iOscillatorOff;

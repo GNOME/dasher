@@ -70,9 +70,6 @@ CDasherGameMode::CDasherGameMode(CEventHandler *pEventHandler,
   m_iOscillatorOn = 1000;
   m_iOscillatorOff = 1000;
   Oscillator();
-
-  if(m_bGameModeOn)
-    GameModeStart();
 }
 
 CDasherGameMode::~CDasherGameMode()
@@ -167,7 +164,6 @@ void CDasherGameMode::DemoModeStart(bool bFullDemo)
   m_iDemoX = m_iUserX;
   m_iDemoY = m_iUserY;
   LoadDemoConfigFile();
-  m_bDemoModeOn=true;
 
   // ...then do external  
   m_pView->SetDemoMode(true);
@@ -180,7 +176,6 @@ void CDasherGameMode::DemoModeStop()
   m_pView->SetDemoMode(false);
 
   // ... then internal.
-  m_bDemoModeOn=false;
   delete m_pDemo;
   m_pDemo=NULL;
 }
@@ -189,7 +184,7 @@ void CDasherGameMode::DemoModeStop()
 void CDasherGameMode::HandleEvent(Dasher::CEvent * pEvent) 
 {
   // If we are not active, return
-  if(!m_bGameModeOn && !m_bDemoModeOn)
+  if(!m_bGameModeOn && !m_pDemo)
     {
       //      if(pEvent->m_iEventType == EV_PARAM_NOTIFY)
       //	{

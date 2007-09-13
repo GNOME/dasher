@@ -34,12 +34,7 @@ HWND CSplitter::Create(HWND hParent)
 void CSplitter::Move(int iPos, int Width) 
 {
 	m_iPos = iPos;
-#ifndef _WIN32_WCE
-	MoveWindow(0, m_iPos, Width, GetSystemMetrics(SM_CYSIZEFRAME), TRUE);
-#else
-  // TODO: Fix this on Windows CE
-  MoveWindow(0, m_iPos, Width, 8, TRUE);
-#endif
+	MoveWindow(0, m_iPos, Width, GetHeight(), TRUE);
 }
 
 /////////////////////////////////////////////////////////////////////////////

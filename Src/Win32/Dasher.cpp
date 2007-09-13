@@ -29,6 +29,7 @@ using namespace WinUTF8;
 
 CONST UINT WM_DASHER_EVENT = RegisterWindowMessage(_WM_DASHER_EVENT);
 CONST UINT WM_DASHER_FOCUS = RegisterWindowMessage(_WM_DASHER_FOCUS);
+CONST UINT WM_DASHER_GAME_MESSAGE = RegisterWindowMessage(_WM_DASHER_GAME_MESSAGE);
 
 CDasher::CDasher(HWND Parent):m_hParent(Parent) {
   // This class will be a wrapper for the Dasher 'control' - think ActiveX
@@ -103,6 +104,11 @@ void CDasher::Log() {
 
 void Dasher::CDasher::ExternalEventHandler(CEvent* pEvent) {
   SendMessage(m_hParent, WM_DASHER_EVENT, 0, (LPARAM)pEvent);
+}
+
+void Dasher::CDasher::GameMessageOut(int message, const void *messagedata)
+{
+  SendMessage(m_hParent, WM_DASHER_GAME_MESSAGE, (WPARAM)message, (LPARAM)messagedata);
 }
 
 // Gets the size of the window in screen coordinates.  

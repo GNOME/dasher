@@ -665,8 +665,9 @@ void CDasherInterfaceBase::ChangeScreen(CDasherScreen *NewScreen) {
 
 void CDasherInterfaceBase::ChangeView() {
   // TODO: Actually respond to LP_VIEW_ID parameter (although there is only one view at the moment)
-
-  if(m_DasherScreen != 0 && m_pDasherModel != 0) {
+  
+  // removed condition that m_pDasherModel != 0. Surely the view can exist without the model?-pconlon
+    if(m_DasherScreen != 0 /*&& m_pDasherModel != 0*/) { 
     delete m_pDasherView;
     
     m_pDasherView = new CDasherViewSquare(m_pEventHandler, m_pSettingsStore, m_DasherScreen);

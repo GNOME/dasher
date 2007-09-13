@@ -89,7 +89,7 @@ BEGIN
     CONTROL         "Radio5",IDC_RADIO5,"Button",BS_AUTORADIOBUTTON,181,161,38,10
     LTEXT           "Degree of uniformity (small values increase prediction, large values decrease prediction)",IDC_STATIC,124,33,156,18
     EDITTEXT        IDC_UNIFORMVAL,133,63,38,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
-    CONTROL         "",IDC_UNIFORMSLIDER,"msctls_trackbar32", WS_TABSTOP,175,63,118,12
+    CONTROL         "",IDC_UNIFORMSLIDER,"msctls_trackbar32",WS_TABSTOP,175,63,118,12
     CONTROL         "Language model adapts as you write",IDC_ADAPTIVE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,131,17,133,10
 END
 
@@ -137,7 +137,7 @@ BEGIN
     LTEXT           "dasher@mrao.cam.ac.uk",IDC_STATIC,67,63,168,10
     LTEXT           "http://www.dasher.org.uk/",IDC_STATIC,67,53,168,10
     LTEXT           "FAQ: http://www.metafaq.com/faq/dasher/",IDC_STATIC,67,86,168,10
-    CONTROL         "",IDC_STATIC,"Static",0,67,112,168,1
+    LTEXT           "",IDC_STATIC,67,112,168,1,NOT WS_GROUP
 END
 
 IDD_ALPHABETPAGE DIALOGEX 0, 0, 381, 238
@@ -152,7 +152,7 @@ BEGIN
     GROUPBOX        "Prediction:",IDC_STATIC,194,7,180,90
     LTEXT           "Use this control to adjustthe relative sizes of the letter boxes. Note that selecting high values will slow your writing speed.",IDC_STATIC,201,50,166,26
     EDITTEXT        IDC_UNIFORMVAL,201,78,30,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
-    CONTROL         "",IDC_UNIFORMSLIDER,"msctls_trackbar32", WS_TABSTOP,235,78,131,12
+    CONTROL         "",IDC_UNIFORMSLIDER,"msctls_trackbar32",WS_TABSTOP,235,78,131,12
     GROUPBOX        "Orientation:",IDC_STATIC,194,99,180,88
     CONTROL         "Alphabet default",IDC_OR_DEFAULT,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,201,110,69,10
     CONTROL         "Custom:",IDC_OR_CUSTOM,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,201,122,43,10
@@ -178,7 +178,7 @@ BEGIN
     GROUPBOX        "Speed:",IDC_STATIC,194,79,180,42
     CONTROL         "Adapt speed automatically",IDC_AUTOSPEED,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,201,106,101,8
     EDITTEXT        IDC_SPEEDVAL,201,90,30,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
-    CONTROL         "",IDC_SPEEDSLIDER,"msctls_trackbar32", WS_TABSTOP,236,90,131,12
+    CONTROL         "",IDC_SPEEDSLIDER,"msctls_trackbar32",WS_TABSTOP,236,90,131,12
     GROUPBOX        "Starting And Stopping:",IDC_CONTROL,194,123,180,78
     CONTROL         "Start on left mouse button",IDC_LEFT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,201,134,147,8
     CONTROL         "Start on space bar",IDC_SPACE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,201,146,126,8
@@ -246,7 +246,7 @@ BEGIN
 END
 
 IDD_LMPAGE DIALOGEX 0, 0, 218, 238
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Dialog"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
@@ -431,6 +431,7 @@ BEGIN
         MENUITEM "&Help Topics",                ID_HELP_CONTENTS
         MENUITEM SEPARATOR
         MENUITEM "&About Dasher",               IDM_ABOUT
+        MENUITEM "Game Mode",                   ID_GAMEMODE
     END
 END
 

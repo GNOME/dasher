@@ -30,6 +30,7 @@
 
 #include "Widgets/Slidebar.h"
 #include "Widgets/Toolbar.h"
+#include "Widgets/GameGroup.h"
 #include "WinCommon.h"
 
 #ifndef _WIN32_WCE
@@ -50,9 +51,10 @@ using namespace std;
 CDasherWindow::CDasherWindow() {
   m_pToolbar = 0;
   m_pEdit = 0;
-  m_pSlidebar = 0;
+  m_pSpeedAlphabetBar = 0;
   m_pSplitter = 0;
   m_pDasher = 0;
+  m_pGameGroup = 0;
 
   m_hIconSm = (HICON) LoadImage(WinHelper::hInstApp, (LPCTSTR) IDI_DASHER, IMAGE_ICON, GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON), LR_DEFAULTCOLOR);
   
@@ -113,9 +115,12 @@ HWND CDasherWindow::Create() {
 
   m_pEdit->SetInterface(m_pDasher);
 
-  m_pSlidebar = new CStatusControl(m_pDasher);
-  m_pSlidebar->Create(hWnd);
+  m_pSpeedAlphabetBar = new CStatusControl(m_pDasher);
+  m_pSpeedAlphabetBar->Create(hWnd);
 
+  m_pGameGroup = new CGameGroup(m_pDasher);
+  m_pGameGroup->Create(hWnd);
+  m_pGameGroup->ShowWindow(SW_HIDE);
 
   m_pSplitter = new CSplitter(this,100);
   HWND hSplitter =  m_pSplitter->Create(hWnd);
@@ -358,6 +363,10 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
   case ID_HELP_DASHERTUTORIAL:
     m_pGameModeHelper = new CGameModeHelper(m_pDasher);
     return 0;
+  case ID_GAMEMODE:
+    m_pGameGroup->ShowWindow(m_pGameGroup->IsWindowVisible()?SW_HIDE:SW_SHOW);
+    Layout();
+    return 0;
   case IDM_EXIT:
     DestroyWindow();
     return 0;
@@ -455,6 +464,12 @@ LRESULT CDasherWindow::OnDasherEvent(UINT message, WPARAM wParam, LPARAM lParam,
   return 0;
 }
 
+LRESULT CDasherWindow::OnGameMessage(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
+  m_pGameGroup->Message(static_cast<int>(wParam), reinterpret_cast<const void*>(lParam));
+  bHandled=true;
+	return 0;
+}
+
 LRESULT CDasherWindow::OnDasherFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
 	::SetFocus(m_pEdit->GetHwnd());
 
@@ -472,7 +487,7 @@ LRESULT CDasherWindow::OnDestroy(UINT message, WPARAM wParam, LPARAM lParam, BOO
 #ifndef _WIN32_WCE
 LRESULT CDasherWindow::OnGetMinMaxInfo(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
 	// not yet created
-	if (m_pToolbar == 0 || m_pSplitter == 0 || m_pSlidebar == 0)
+	if (m_pToolbar == 0 || m_pSplitter == 0 || m_pSpeedAlphabetBar == 0)
 		return 0;
 
 	bHandled = TRUE;
@@ -482,10 +497,10 @@ LRESULT CDasherWindow::OnGetMinMaxInfo(UINT message, WPARAM wParam, LPARAM lPara
     // Set minimum height:
     if(m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR))
       lppt[3].y = m_pToolbar->GetHeight() + m_pSplitter->GetPos()
-        + m_pSplitter->GetHeight() + m_pSlidebar->GetHeight() + GetSystemMetrics(SM_CYEDGE) * 10;
+        + m_pSplitter->GetHeight() + m_pSpeedAlphabetBar->GetHeight() + GetSystemMetrics(SM_CYEDGE) * 10;
     else
       lppt[3].y = m_pSplitter->GetPos()
-        + m_pSplitter->GetHeight() + m_pSlidebar->GetHeight() + GetSystemMetrics(SM_CYEDGE) * 10;
+        + m_pSplitter->GetHeight() + m_pSpeedAlphabetBar->GetHeight() + GetSystemMetrics(SM_CYEDGE) * 10;
 
 	return 0;
 }
@@ -522,15 +537,21 @@ LRESULT CDasherWindow::OnSetFocus(UINT message, WPARAM wParam, LPARAM lParam, BO
 }
 
 LRESULT CDasherWindow::OnOther(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
+	// A switch statement would be preferable, except the message ids are
+  // not constant-expressions since they are provided by the system at
+  // runtime.
   if (message == WM_DASHER_EVENT)
     return OnDasherEvent( message, wParam, lParam, bHandled);
   else if (message == WM_DASHER_FOCUS)
     return OnDasherFocus(message, wParam, lParam, bHandled);
+  else if (message == WM_DASHER_GAME_MESSAGE)
+    return OnGameMessage(message, wParam, lParam, bHandled);
   else if (message == DASHER_SHOW_PREFS) {
 #ifndef _WIN32_WCE
     CPrefs Prefs(m_hWnd, m_pDasher, m_pAppSettings);
 #endif
   }
+  
   return 0;
 }
 
@@ -551,32 +572,41 @@ void CDasherWindow::Layout() {
 
   // Now do the actual layout
 
-  bool bHorizontal(iStyle == 1); 
-  bool bShowEdit(iStyle != 2);
+  bool bHorizontal(iStyle == APP_STYLE_COMPOSE); 
+  bool bShowEdit(iStyle != APP_STYLE_DIRECT);
 
+  // Get the width of the window
   RECT ClientRect;
   GetClientRect( &ClientRect);
   const int Width = ClientRect.right;
   const int Height = ClientRect.bottom;
 
+  // Get the height of the toolbar widget
   int ToolbarHeight;
   if(m_pToolbar && m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR))
     ToolbarHeight = m_pToolbar->GetHeight();
   else
     ToolbarHeight = 0;
-  int CurY = ToolbarHeight;
 
-  int SlidebarHeight;
-  if(m_pSlidebar != 0)
-    SlidebarHeight = m_pSlidebar->GetHeight();
+  // Get the height of the control bar at the bottom of the screen
+  int SpeedAlphabetHeight;
+  if(m_pSpeedAlphabetBar != 0)
+    SpeedAlphabetHeight = m_pSpeedAlphabetBar->GetHeight();
   else
-    SlidebarHeight = 0;
-  int MaxCanvas = Height - SlidebarHeight;
+    SpeedAlphabetHeight = 0;
+
+  int GameGroupHeight = m_pGameGroup->GetHeight();
+  int GameGroupWidth = m_pGameGroup->GetWidth();
+  int GameLabelHeight = m_pGameGroup->GetLabelHeight();
+
+  int MaxCanvas = Height - SpeedAlphabetHeight*2;
+  int CurY = ToolbarHeight;
 
   if(m_pSplitter) {
     int SplitterPos = m_pSplitter->GetPos();
     int SplitterHeight = m_pSplitter->GetHeight();
-    SplitterPos = max(CurY + 2 * SplitterHeight, SplitterPos);
+    //SplitterPos = max(CurY + 2 * SplitterHeight, SplitterPos);
+    SplitterPos = max(CurY + GameGroupHeight, SplitterPos);
     SplitterPos = min(SplitterPos, MaxCanvas - 3 * SplitterHeight);
     m_pSplitter->Move(SplitterPos, Width);
 
@@ -591,9 +621,13 @@ void CDasherWindow::Layout() {
       if(bShowEdit) {
         m_pEdit->ShowWindow(SW_SHOW);
         m_pSplitter->ShowWindow(SW_SHOW);
+        m_pGameGroup->MoveWindow(0,CurY,Width,GameGroupHeight);
 
         if(m_pEdit)
-          m_pEdit->Move(2, CurY + 2, Width - 4, SplitterPos - CurY - 2);
+        {
+          //m_pEdit->Move(2, CurY+2, Width, SplitterPos - CurY-2);
+          m_pEdit->Move(0, CurY+GameLabelHeight, Width-GameGroupWidth, SplitterPos - CurY-GameLabelHeight);
+        }
 
         CurY = SplitterPos + SplitterHeight;
       }
@@ -602,16 +636,20 @@ void CDasherWindow::Layout() {
         m_pSplitter->ShowWindow(SW_HIDE);
       }
 
-      int CanvasHeight = Height - CurY - SlidebarHeight - GetSystemMetrics(SM_CYEDGE);
- 
+      int CanvasHeight = Height - CurY - SpeedAlphabetHeight ;
+      //- GetSystemMetrics(SM_CYEDGE);
+      
+      // Put the DasherControl in the correct place...
       if(m_pDasher)
-        m_pDasher->Move(2, CurY+2, Width-4, CanvasHeight-2);
+        m_pDasher->Move(0, CurY, Width, CanvasHeight-5);
+        //m_pDasher->Move(2, CurY+2, Width-4, CanvasHeight-2);
+      
+      // ...with the bottom bar just below it.
+      if(m_pSpeedAlphabetBar)
+        m_pSpeedAlphabetBar->MoveWindow(0, Height - SpeedAlphabetHeight, Width, SpeedAlphabetHeight);
+      //  m_pSlidebar->MoveWindow(2, Height - SlidebarHeight, Width-4, SlidebarHeight);
 
-      if(m_pSlidebar)
-        m_pSlidebar->MoveWindow(2, Height - SlidebarHeight, Width-4, SlidebarHeight);
-     }
-
-
+    }
   }
 }
 

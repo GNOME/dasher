@@ -13,6 +13,10 @@ extern CONST UINT WM_DASHER_EVENT;
 extern CONST UINT WM_DASHER_FOCUS;
 #define _WM_DASHER_FOCUS (LPCWSTR)"wm_dasher_focus"
 
+extern CONST UINT WM_DASHER_GAME_MESSAGE;
+#define _WM_DASHER_GAME_MESSAGE (LPCWSTR)"wm_dasher_game_message"
+
+
 class CCanvas;
 class CSlidebar;
 class CDashEditbox;
@@ -39,7 +43,8 @@ public:
   void SetEdit(CDashEditbox * pEdit);
 
   void ExternalEventHandler(Dasher::CEvent *pEvent);
-
+  void GameMessageOut(int message, const void* messagedata);
+  
   virtual void WriteTrainFile(const std::string &strNewText);
 
   void Main(); 

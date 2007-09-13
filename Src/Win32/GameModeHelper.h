@@ -13,12 +13,13 @@ public:
 
   void Output(std::string strText);
   void Delete(int iCount);
-
+  void Message(int message, const void* messagedata);
 private:
   Dasher::CDasherInterfaceBase *m_pInterface;
 
-  std::string strTarget;
-  std::string strOutput;
+    void UpdateTargetLabel();
+  std::string m_strTarget;
+  std::string m_strOutput;
 };
 
 #endif

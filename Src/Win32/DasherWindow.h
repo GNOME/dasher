@@ -23,7 +23,7 @@
 #include "../Common/WinOptions.h"
 
 class CToolbar;
-class CSlidebar;
+class CGameGroup;
 namespace Dasher {
   class CDasher;
 };
@@ -70,6 +70,7 @@ public:
 #endif
 	LRESULT OnOther(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnDasherEvent(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+	LRESULT OnGameMessage(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnDasherFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnDestroy(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
@@ -115,7 +116,8 @@ private:
 	CEdit *m_pEdit;
 	//CCanvas *m_pCanvas;
 	CSplitter *m_pSplitter;
-	CStatusControl *m_pSlidebar;
+	CStatusControl *m_pSpeedAlphabetBar;
+  CGameGroup* m_pGameGroup;
 	CMenu WinMenu;
 	//CSplash *Splash;
 
