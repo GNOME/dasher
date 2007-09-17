@@ -69,10 +69,8 @@ static PreferencesController *preferencesController = nil;
   [panel makeKeyAndOrderFront:self];
 }
 
-// TODO colour and alphabet should have their own classes because the code is exactly the same except a few choice name alterations
-
 - (NSArray *)permittedValuesForAlphabetID {
-  return [dasherApp getAlphabets];
+  return [dasherApp permittedValuesForParameter:SP_ALPHABET_ID];
 }
 
 - (NSIndexSet *)selectionIndexesForAlphabetID {
@@ -83,8 +81,9 @@ static PreferencesController *preferencesController = nil;
   [self setValue:[[[self permittedValuesForAlphabetID] objectsAtIndexes:anIndexSet] lastObject] forKey:@"AlphabetID"];
 }
 
+
 - (NSArray *)permittedValuesForColourID {
-  return [dasherApp getColours];
+  return [dasherApp permittedValuesForParameter:SP_COLOUR_ID];
 }
 
 - (NSIndexSet *)selectionIndexesForColourID {
@@ -93,6 +92,19 @@ static PreferencesController *preferencesController = nil;
 
 - (void)setSelectionIndexesForColourID:(NSIndexSet *)anIndexSet {
   [self setValue:[[[self permittedValuesForColourID] objectsAtIndexes:anIndexSet] lastObject] forKey:@"ColourID"];
+}
+
+
+- (NSArray *)permittedValuesForInputFilter {
+  return [dasherApp permittedValuesForParameter:SP_INPUT_FILTER];
+}
+
+- (NSIndexSet *)selectionIndexesForInputFilter {
+  return [NSIndexSet indexSetWithIndex:[[self permittedValuesForInputFilter] indexOfObject:[self valueForKey:@"InputFilter"]]];
+}
+
+- (void)setSelectionIndexesForInputFilter:(NSIndexSet *)anIndexSet {
+  [self setValue:[[[self permittedValuesForInputFilter] objectsAtIndexes:anIndexSet] lastObject] forKey:@"InputFilter"];
 }
 
 

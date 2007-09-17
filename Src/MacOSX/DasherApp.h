@@ -36,8 +36,7 @@
 - (void)pauseAtX:(int)x y:(int)y;
 - (void)unpause:(unsigned long int)time;
 - (NSDictionary *)parameterDictionary;
-- (NSArray *)getAlphabets;
-- (NSArray *)getColours;
+- (NSArray *)permittedValuesForParameter:(int)aParameter;
 - (id)getParameterValueForKey:(NSString *)aKey;
 - (void)setParameterValue:(id)aValue forKey:(NSString *)aKey;
 - (AXUIElementRef)targetAppUIElementRef;

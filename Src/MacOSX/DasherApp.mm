@@ -47,11 +47,11 @@
   return aquaDasherControl->ParameterDictionary();
 }
 
-- (NSArray *)getAlphabets {
+- (NSArray *)permittedValuesForParameter:(int)aParameter {
   
   vector< string > alist;
-
-  aquaDasherControl->GetPermittedValues(SP_ALPHABET_ID, alist);
+  
+  aquaDasherControl->GetPermittedValues(aParameter, alist);
   
   NSMutableArray *result = [NSMutableArray arrayWithCapacity:alist.size()];
   
@@ -63,21 +63,6 @@
   return result;
 }
 
-- (NSArray *)getColours {
-  
-  vector< string > alist;
-  
-  aquaDasherControl->GetPermittedValues(SP_COLOUR_ID, alist);
-  
-  NSMutableArray *result = [NSMutableArray arrayWithCapacity:alist.size()];
-  
-  for (vector<string>::iterator it = alist.begin(); it != alist.end(); it++)
-    {
-    [result addObject:NSStringFromStdString(*it)];
-    }
-  
-  return result;
-}
 
 - (id)getParameterValueForKey:(NSString *)aKey {
   return aquaDasherControl->GetParameter(aKey);
