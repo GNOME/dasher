@@ -450,7 +450,7 @@ void CEdit::SetInterface(Dasher::CDasherInterfaceBase *DasherInterface) {
   m_pDasherInterface = DasherInterface;
 #ifndef _WIN32_WCE
   // TODO: What on Earth is this doing here?
-  SetFont(m_FontName, m_FontSize);
+  //SetFont(m_FontName, m_FontSize);
 #endif
 }
 

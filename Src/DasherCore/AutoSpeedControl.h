@@ -7,6 +7,7 @@
 
 #include <deque>
 
+// Why is this using-directive in global scope?
 using namespace Dasher;
 
 /// \defgroup AutoSpeed Auto speed control

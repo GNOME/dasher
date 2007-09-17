@@ -39,7 +39,6 @@ void Level1::Reset()
   oldNats=m_pScorer->GetNats();
   iErrors=0;
   m_dSentenceScore=0.0;
-  m_strPerformance.str("");
 }
 
 void Level1::ComputeNewPoints()
@@ -56,7 +55,7 @@ void Level1::SentenceFinished()
   int bonusFactor = std::max(2-iErrors,0);
   int bonusPoints = int(m_dSentenceScore)*bonusFactor;
 
-  
+  m_strPerformance.str("");  
   m_strPerformance << "Well done!\n" << "This sentence was worth " << int(m_dSentenceScore) << " points.\n";
   if(bonusPoints!=0)
     {
@@ -65,14 +64,10 @@ void Level1::SentenceFinished()
     }
   int speed = 14426*m_pScorer->GetNats()/double(m_pScorer->GetTime());
   int speedBonus = std::max((speed-15)*5,0);
-  
+
   m_strPerformance << "You also get a writing speed bonus of " << speedBonus << "\n";
   m_dSentenceScore+=bonusPoints+speedBonus;
   m_dLevelScore+=m_dSentenceScore;
   m_dSentenceScore=0.0;
-  
-  if(bonusPoints==2)
-    true;
-  else
-    Reset();
+  Reset();
 }

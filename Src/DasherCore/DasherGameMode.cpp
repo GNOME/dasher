@@ -473,8 +473,10 @@ int CDasherGameMode::LoadTargetStrings(istream& in)
       std::string strOneTarget;
       getline(in, strOneTarget, delimiter);
       if(strOneTarget.length()>=4)
-	vTargetStrings.push_back(strOneTarget);
+	    vTargetStrings.push_back(strOneTarget);
     }
+  /*std::string test = "this is a test of dasher game mode by pconlon";
+  vTargetStrings.push_back(test);*/
 
   // ...then split them into separate UTF-8 characters
 

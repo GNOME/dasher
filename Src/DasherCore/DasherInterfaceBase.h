@@ -51,8 +51,8 @@ namespace Dasher {
   class CDasherModel;
   class CEventHandler;
   class CEvent;
-  // Eh? What's the point of this
-    class CDasherInterfaceBase;
+  
+  class CDasherInterfaceBase;
 }
 
 class CSettingsStore;

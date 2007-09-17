@@ -99,7 +99,7 @@ HWND CDasherWindow::Create() {
   m_pEdit = new CEdit(m_pAppSettings);
   m_pEdit->Create(hWnd, m_pAppSettings->GetBoolParameter(APP_BP_TIME_STAMP));
   m_pEdit->SetFont(m_pAppSettings->GetStringParameter(APP_SP_EDIT_FONT), m_pAppSettings->GetLongParameter(APP_LP_EDIT_FONT_SIZE));
-
+ 
 #ifdef PJC_EXPERIMENTAL
   g_hWnd = m_pEdit->GetHwnd();
 #endif
@@ -118,9 +118,10 @@ HWND CDasherWindow::Create() {
   m_pSpeedAlphabetBar = new CStatusControl(m_pDasher);
   m_pSpeedAlphabetBar->Create(hWnd);
 
-  m_pGameGroup = new CGameGroup(m_pDasher);
+  m_pGameGroup = new CGameGroup(m_pDasher, m_pEdit);
   m_pGameGroup->Create(hWnd);
   m_pGameGroup->ShowWindow(SW_HIDE);
+  m_pGameGroup->SetEditFont(m_pAppSettings->GetStringParameter(APP_SP_EDIT_FONT), m_pAppSettings->GetLongParameter(APP_LP_EDIT_FONT_SIZE));
 
   m_pSplitter = new CSplitter(this,100);
   HWND hSplitter =  m_pSplitter->Create(hWnd);

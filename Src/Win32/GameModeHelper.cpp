@@ -86,4 +86,5 @@ void CGameModeHelper::Delete(int iCount) {
 
 void CGameModeHelper::UpdateTargetLabel()
 {
+
 }
