@@ -229,7 +229,7 @@ void game_mode_helper_message(GameModeHelper *pSelf, int message, const void * m
     gtk_label_set_use_markup(pPrivate->pGameInfoLabel, true);
     gtk_label_set_justify(pPrivate->pGameInfoLabel, GTK_JUSTIFY_CENTER);
     //    std::string strText ="<span background=\"purple\">";
-    strText+=(reinterpret_cast<const char*>(messagedata));
+    strText+=(reinterpret_cast<const std::string*>(messagedata)->c_str());
     strText+="</span>";
     gtk_label_set_markup(pPrivate->pGameInfoLabel, strText.c_str());
     break;
@@ -244,10 +244,10 @@ void game_mode_helper_message(GameModeHelper *pSelf, int message, const void * m
     game_mode_helper_update_target_label(pSelf);
     break;
   case GAME_MESSAGE_SET_SCORE:
-    gtk_entry_set_text(pPrivate->pScore, reinterpret_cast<const char*>(messagedata));
+    gtk_entry_set_text(pPrivate->pScore, reinterpret_cast<const std::string*>(messagedata)->c_str());
     break;
   case GAME_MESSAGE_SET_LEVEL:
-    gtk_entry_set_text(pPrivate->pLevel, reinterpret_cast<const char*>(messagedata));
+    gtk_entry_set_text(pPrivate->pLevel, reinterpret_cast<const std::string*>(messagedata)->c_str());
     break;
   case GAME_MESSAGE_CLEAR_BUFFER:
     dasher_editor_internal_cleartext(pPrivate->pEditor);

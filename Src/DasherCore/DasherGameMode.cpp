@@ -136,8 +136,9 @@ void CDasherGameMode::GameModeStart()
   std::cout << "Welcome to Dasher Game Mode! \n"
 	    << "Current game file is:" << m_strGameTextFile << std::endl; 
   InitializeTargets();
-  m_pDasherInterface->GameMessageOut(GAME_MESSAGE_DISPLAY_TEXT, _("Welcome to Dasher Game Mode!\n"
-				     "Sentences appear in this box which YOU get to write!"));
+  m_pDasherInterface->GameMessageOut(GAME_MESSAGE_DISPLAY_TEXT,
+				     reinterpret_cast<const void*>(&string(_("Welcome to Dasher Game Mode!\n"
+				     "Sentences appear in this box which YOU get to write!"))));
   m_bSentenceFinished = true;
 
   // Create a new scorer to measure player stats and the like
@@ -216,7 +217,8 @@ void CDasherGameMode::HandleEvent(Dasher::CEvent * pEvent)
 	      m_strGameTextFile = GetStringParameter(SP_GAME_TEXT_FILE);
 	      std::cout << "Change of game file to " << m_strGameTextFile << std::endl;
      	      InitializeTargets();
-	      m_pDasherInterface->GameMessageOut(GAME_MESSAGE_DISPLAY_TEXT, "Welcome to Dasher Game Mode!");
+	      m_pDasherInterface->GameMessageOut(GAME_MESSAGE_DISPLAY_TEXT,
+						 reinterpret_cast<const void*>(&string("Welcome to Dasher Game Mode!")));
 	      m_bSentenceFinished = true;
 	      break;
 	    case LP_MAX_BITRATE: 
@@ -583,10 +585,11 @@ void CDasherGameMode::RunningScoreUpdates()
 {
   stringstream score;
   score << m_pLevel->GetCurrentScore();
+  std::string strScore = score.str();
   m_pDasherInterface->GameMessageOut(GAME_MESSAGE_SET_SCORE,
-				     reinterpret_cast<const void *>(score.str().c_str()));
+				     reinterpret_cast<const void *>(&strScore));
   m_pDasherInterface->GameMessageOut(GAME_MESSAGE_SET_LEVEL,
-				     reinterpret_cast<const void *>("5"));
+				     reinterpret_cast<const void *>(&string("5")));
   if(!m_bSentenceFinished)
     Callback(&CDasherGameMode::RunningScoreUpdates, 1000);
 }
@@ -599,7 +602,8 @@ void CDasherGameMode::SentenceFinished()
     {
       m_pScorer->SentenceFinished();
       m_pLevel->SentenceFinished();
-      m_pDasherInterface->GameMessageOut(GAME_MESSAGE_DISPLAY_TEXT, _("Well done!"));
+      m_pDasherInterface->GameMessageOut(GAME_MESSAGE_DISPLAY_TEXT,
+					 reinterpret_cast<const void*>(&string(_("Well done!"))));
     }
   
   if(m_pDemo)
