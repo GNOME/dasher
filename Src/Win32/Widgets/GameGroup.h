@@ -26,21 +26,19 @@ public:
   CGameGroup(Dasher::CDasherInterfaceBase *pDasherInterface, CEdit* pEdit);
 
   // ATL boilerplate code
-  DECLARE_WND_CLASS_EX(NULL, 0, COLOR_ACTIVECAPTION);
+  DECLARE_WND_CLASS_EX(NULL, 0, COLOR_MENUBAR);
   BEGIN_MSG_MAP(CGameGroup)
     COMMAND_HANDLER(ID_DEMOBUTTON,BN_CLICKED,OnDemoClick)
     COMMAND_HANDLER(ID_NEXTBUTTON,BN_CLICKED,OnNextClick)
-//    MESSAGE_HANDLER(WM_COMMAND, OnCommand)  
+
     MESSAGE_HANDLER(WM_CTLCOLOREDIT, OnEditPaint)
     MESSAGE_HANDLER(WM_CTLCOLORSTATIC, OnEditPaint)
-    MESSAGE_HANDLER(WM_NOTIFY, OnNotify)
     MESSAGE_HANDLER(WM_SIZE, OnSize)
     MESSAGE_HANDLER(WM_CREATE, OnCreate)
     MESSAGE_HANDLER(WM_SHOWWINDOW, OnShow)
   END_MSG_MAP()
 
   // Message handlers:
-  LRESULT OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
   LRESULT OnEditPaint(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
   LRESULT OnNotify(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
   LRESULT OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
@@ -74,17 +72,10 @@ private:
   // Incremental update of child windows
   void LayoutChildrenUpdate();
 
-  // Update the contents of the alphabet seletion combo
-  void PopulateCombo();
+  void UpdateTargetLabel();
+
   // Update Dasher to reflect the new alphabet selection
   //void SelectAlphabet();
-
-  // Update the contents of the speed control
-  void PopulateSpeed();
-
-  // Update Dasher and the edit box to represent the current speed
-  void UpdateSpeed(int iPos, int iDelta);
-
   // The Dasher interface with which this control communicates
   Dasher::CDasherInterfaceBase *m_pDasherInterface;
 
@@ -108,7 +99,6 @@ private:
   int m_iLabelHeight;
   int m_iWidth;
   int m_iButtonX, m_iButtonY, m_iSpacing;
-  void UpdateTargetLabel();
   std::string m_strTarget;
   std::string m_strOutput;
 };

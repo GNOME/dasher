@@ -81,16 +81,16 @@ void CAdvancedPage::PopulateList() {
 
   
   switch(m_pAppSettings->GetLongParameter(APP_LP_STYLE)) {
-    case 0:
+    case APP_STYLE_TRAD:
       SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_STANDALONE), BM_SETCHECK, BST_CHECKED, 0);
       break;
-    case 1:
+    case APP_STYLE_COMPOSE:
       SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_COMPOSITION), BM_SETCHECK, BST_CHECKED, 0);
       break;
-    case 2:
+    case APP_STYLE_DIRECT:
       SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_DIRECT), BM_SETCHECK, BST_CHECKED, 0);
       break;
-    case 3:
+    case APP_STYLE_FULLSCREEN:
       SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_FULL), BM_SETCHECK, BST_CHECKED, 0);
       break;
   }

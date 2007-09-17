@@ -81,7 +81,7 @@ HWND CDasherWindow::Create() {
   HWND hWnd;
 
 #ifndef _WIN32_WCE
-  if((iStyle == 1) || (iStyle == 2))
+  if((iStyle == APP_STYLE_COMPOSE) || (iStyle == APP_STYLE_DIRECT))
     hWnd = CWindowImpl<CDasherWindow >::Create(NULL, NULL, WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN,  WS_EX_NOACTIVATE | WS_EX_APPWINDOW | WS_EX_TOPMOST);
   else
     hWnd = CWindowImpl<CDasherWindow >::Create(NULL, NULL, WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN);
@@ -562,7 +562,7 @@ void CDasherWindow::Layout() {
   
   // Set up the window properties
 #ifndef _WIN32_WCE
-  if((iStyle == 1) || (iStyle == 2)) {
+  if((iStyle == APP_STYLE_COMPOSE) || (iStyle == APP_STYLE_DIRECT)) {
     SetWindowLong(GWL_EXSTYLE, GetWindowLong(GWL_EXSTYLE) | WS_EX_NOACTIVATE | WS_EX_APPWINDOW);
     SetWindowPos(HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
   }
@@ -658,7 +658,7 @@ void CDasherWindow::Layout() {
 #ifndef _WIN32_WCE
 void CDasherWindow::HandleWinEvent(HWINEVENTHOOK hWinEventHook, DWORD event, HWND hwnd, LONG idObject, LONG idChild, DWORD dwEventThread, DWORD dwmsEventTime) {
   // Ignore events if not in direct mode
-  if(m_pAppSettings && (m_pAppSettings->GetLongParameter(APP_LP_STYLE) != 2))
+  if(m_pAppSettings && (m_pAppSettings->GetLongParameter(APP_LP_STYLE) != APP_STYLE_DIRECT))
     return;
 
   // For now assume all events are focus changes, so reset the buffer

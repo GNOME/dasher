@@ -509,7 +509,7 @@ void CEdit::output(const std::string &sText) {
   WinUTF8::UTF8string_to_wstring(sText, String);
   InsertText(String);
 
-  if(m_pAppSettings->GetLongParameter(APP_LP_STYLE) == 2) {
+  if(m_pAppSettings->GetLongParameter(APP_LP_STYLE) == APP_STYLE_DIRECT) {
     const char *DisplayText = sText.c_str();
 #ifdef UNICODE
     if(DisplayText[0] == 0xd && DisplayText[1] == 0xa) {
@@ -918,7 +918,7 @@ void CEdit::deletetext(const std::string &sText) {
   // a single symbol
 
 //  if(targetwindow != NULL && textentry == true) {
-if(m_pAppSettings->GetLongParameter(APP_LP_STYLE) == 2) {
+if(m_pAppSettings->GetLongParameter(APP_LP_STYLE) == APP_STYLE_DIRECT) {
 
 #ifdef _UNICODE
     fakekey[0].type = fakekey[1].type = INPUT_KEYBOARD;
@@ -953,7 +953,7 @@ void CEdit::speak(int what) {
   // TODO: The remainder of this function is somewhat horrible and hacky...
   
   // TODO: Horrible hack - don't speak in direct entry mode
-  if(m_pAppSettings->GetLongParameter(APP_LP_STYLE) == 2)
+  if(m_pAppSettings->GetLongParameter(APP_LP_STYLE) == APP_STYLE_DIRECT)
     return;
 
   std::wstring strSpeech;

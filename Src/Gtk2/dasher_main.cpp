@@ -266,23 +266,23 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
     /* Load the user interface from the glade file */
     if(pCommandLine && pCommandLine->szAppStyle) {
       if(!strcmp(pCommandLine->szAppStyle, "traditional")) {
-	dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 0);
+	dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, APP_STYLE_TRAD);
       }
       else if(!strcmp(pCommandLine->szAppStyle, "compose")) {
-	dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 1);
+	dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, APP_STYLE_COMPOSE);
       }
       else if(!strcmp(pCommandLine->szAppStyle, "direct")) {
-	dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 2);
+	dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, APP_STYLE_DIRECT);
       }
       else if(!strcmp(pCommandLine->szAppStyle, "fullscreen")) {
-	dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 3);
+	dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, APP_STYLE_FULLSCREEN);
       }
       else {
 	g_error("Application style %s is not supported", pCommandLine->szAppStyle);
       }
     }
     else { 
-      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 2);
+      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, APP_STYLE_DIRECT);
     }
 
     dasher_main_load_interface(pDasherMain);
@@ -399,20 +399,17 @@ dasher_main_load_interface(DasherMain *pSelf) {
 #endif
 #else
   switch(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE)) {
-  case 0:
+  case APP_STYLE_TRAD:
     szGladeFilename = PROGDATA "/dasher.traditional.glade";
     break;
-  case 1:
+  case APP_STYLE_COMPOSE:
     szGladeFilename = PROGDATA "/dasher.compose.glade";
     break;
-  case 2:
+  case APP_STYLE_DIRECT:
     szGladeFilename = PROGDATA "/dasher.direct.glade";
     break;
-  case 3:
+  case APP_STYLE_FULLSCREEN:
     szGladeFilename = PROGDATA "/dasher.fullscreen.glade";
-    break;
-  case 22:
-    szGladeFilename = PROGDATA "/dasher.debug.glade";
     break;
   default:
     g_error("Inconsistent application style specified.");
@@ -562,7 +559,7 @@ dasher_main_load_interface(DasherMain *pSelf) {
   
   // Hide any widgets which aren't appropriate for this mode
   
-  if(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE) == 2) {
+  if(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE) == APP_STYLE_DIRECT) {
     gtk_widget_hide(glade_xml_get_widget(pPrivate->pGladeXML, "dasher_menu_bar"));
       
     gtk_widget_hide(glade_xml_get_widget(pPrivate->pGladeXML, "tb_command_new"));
@@ -671,7 +668,7 @@ dasher_main_load_state(DasherMain *pSelf) {
   int iWindowHeight;
   int iEditHeight;
   
-  if(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE) != 1) {
+  if(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE) != APP_STYLE_COMPOSE) {
     iEditHeight = dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_EDIT_HEIGHT);
     iWindowWidth = dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_SCREEN_WIDTH);
     iWindowHeight = dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_SCREEN_HEIGHT);
@@ -718,7 +715,7 @@ dasher_main_save_state(DasherMain *pSelf) {
    gtk_window_get_size(GTK_WINDOW(pPrivate->pMainWindow), &iWindowWidth, &iWindowHeight);
    iEditHeight = gtk_paned_get_position(GTK_PANED(pPrivate->pDivider));
 
-   if(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE) != 1) {
+   if(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE) != APP_STYLE_COMPOSE) {
      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_EDIT_HEIGHT, iEditHeight);
      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_SCREEN_WIDTH, iWindowWidth);
      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_SCREEN_HEIGHT, iWindowHeight);
@@ -889,13 +886,13 @@ dasher_main_setup_window_style(DasherMain *pSelf) {
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
 
   switch(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE)) {
-  case 0:
+  case APP_STYLE_TRAD:
     // Nothing to do
     break;
-  case 1:
+  case APP_STYLE_COMPOSE:
     // Nothing to do
     break;
-  case 2:
+  case APP_STYLE_DIRECT:
     // Direct mode - set always on top
     gtk_window_set_keep_above(GTK_WINDOW(pPrivate->pMainWindow), true);
 
@@ -905,12 +902,9 @@ dasher_main_setup_window_style(DasherMain *pSelf) {
     // Stick on all desktops
     gtk_window_stick(GTK_WINDOW(pPrivate->pMainWindow));
     break;
-  case 3:
+  case APP_STYLE_FULLSCREEN:
     // Fullscreen mode - set fullscreen
     gtk_window_fullscreen(GTK_WINDOW(pPrivate->pMainWindow));
-    break;
-  case 22:
-    gtk_window_set_accept_focus(GTK_WINDOW(pPrivate->pMainWindow), false);
     break;
   default:
     g_error("Inconsistent application style specified.");
@@ -1336,7 +1330,7 @@ create_dasher_editor(gchar *szName, gchar *szString1, gchar *szString2, gint iIn
   DasherMain *pDasherMain = DASHER_MAIN(g_pDasherMain);
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pDasherMain);
 
-  if(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE) == 2)
+  if(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE) == APP_STYLE_DIRECT)
     return GTK_WIDGET(dasher_editor_external_new());
   else
     return GTK_WIDGET(dasher_editor_internal_new());
