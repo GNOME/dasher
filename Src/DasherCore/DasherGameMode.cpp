@@ -622,8 +622,10 @@ void CDasherGameMode::SentenceFinished()
   m_bDrawTargetArrow=false;
   m_bSentenceFinished=true;
   m_pDasherInterface->PauseAt(0,0);
-  string msg = m_pLevel->m_strPerformance.str();
-  m_pDasherInterface->GameMessageOut(GAME_MESSAGE_HELP_MESSAGE, &msg);
+  if(!m_pDemo) {
+    string msg = m_pLevel->m_strPerformance.str();
+    m_pDasherInterface->GameMessageOut(GAME_MESSAGE_HELP_MESSAGE, &msg);
+  }
 }
 
 
