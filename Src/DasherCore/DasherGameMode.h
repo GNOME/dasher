@@ -129,10 +129,10 @@ private:
   void DemoModeStop();
 
   // Routines for getting the next sentence
+  void PrivateSentenceFinished();
   void FullDemoNext();
   void GameNext();
   int NextString(bool bRandomString = false);
-
   void DemoGo();
   
   // Loading the target strings, and demo settings

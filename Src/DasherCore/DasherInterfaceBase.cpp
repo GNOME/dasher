@@ -507,6 +507,12 @@ void CDasherInterfaceBase::CreateInput() {
 }
 
 void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
+  // Prevent NewFrame from being reentered. This can happen occasionally and
+  // cause crashes. 
+  static bool bReentered=false;
+  if(bReentered) return;
+  bReentered=true;
+  
   // Fail if Dasher is locked
   if(m_iCurrentState != ST_NORMAL)
     return;
@@ -566,7 +572,8 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   if(m_pDasherModel != 0)
     m_pDasherModel->NewFrame(iTime);
 
- }
+  bReentered=false;
+}
 
 void CDasherInterfaceBase::CheckRedraw() {
   if(m_bRedrawScheduled)

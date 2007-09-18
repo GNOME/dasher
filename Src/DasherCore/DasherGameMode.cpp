@@ -598,6 +598,12 @@ void CDasherGameMode::RunningScoreUpdates()
 
 void CDasherGameMode::SentenceFinished()
 {
+  // We delay processing until the NewFrame function is called
+  Callback(&CDasherGameMode::PrivateSentenceFinished,0);
+}
+
+void CDasherGameMode::PrivateSentenceFinished()
+{
   if(m_bSentenceFinished) return;
 
   if(m_pScorer)

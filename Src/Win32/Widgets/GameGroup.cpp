@@ -4,6 +4,7 @@
 #include "../../DasherCore/DasherInterfaceBase.h"
 #include "../../DasherCore/GameMessages.h"
 #include <string>
+#include <sstream>
 
 // TODO: Make this a notify?
 
@@ -229,7 +230,7 @@ void CGameGroup::Message(int message,const void* messagedata)
 { 
   const std::string* pStr;
   wstring strText;
-    
+    std::stringstream s;
   switch(message) {
   case GAME_MESSAGE_SET_TARGET_STRING:
     pStr = reinterpret_cast<const std::string *>(messagedata);
@@ -256,6 +257,10 @@ void CGameGroup::Message(int message,const void* messagedata)
   case GAME_MESSAGE_SET_SCORE:
     pStr = reinterpret_cast<const std::string *>(messagedata);
     WinUTF8::UTF8string_to_wstring(*pStr, strText);
+    m_pScoreEdit->SetWindowTextW(strText.c_str());
+    
+    s << m_pDasherInterface->GetFramerate()<<std::endl;
+    WinUTF8::UTF8string_to_wstring(s.str(), strText);
     m_pScoreEdit->SetWindowTextW(strText.c_str());
     break;
 

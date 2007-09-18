@@ -170,13 +170,13 @@ CDasherWindow::~CDasherWindow() {
 
 void CDasherWindow::Main() {
   // TODO: Sort this sort ofthing out, figure out how it fits into ATL etc.
-
+  // This function is not called by anybody...
 #ifndef _WIN32_WCE
 	DASHER_ASSERT_VALIDPTR_RW(m_pDasher);
 #endif
 
 	m_pDasher->Main();
-	Sleep(50); // limits framerate to 50fps
+	Sleep(50); // limits framerate to 20fps
 }
 
 int CDasherWindow::MessageLoop() {
@@ -367,6 +367,7 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
   case ID_GAMEMODE:
     m_pDasher->GameMessageIn(m_pGameGroup->IsWindowVisible()?GAME_MESSAGE_GAME_OFF:GAME_MESSAGE_GAME_ON, NULL);
     m_pGameGroup->ShowWindow(m_pGameGroup->IsWindowVisible()?SW_HIDE:SW_SHOW);
+    m_pEdit->Clear();
     Layout();
     return 0;
   case IDM_EXIT:

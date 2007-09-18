@@ -274,7 +274,8 @@ void CDasher::CreateSettingsStore(void) {
 
 void CDasher::StartTimer() {
   // TODO: See MessageLoop, Main in CDasherWindow - should be brought into this class
-  SetTimer(m_pCanvas->getwindow(), 1, 50, NULL);
+  // Framerate settings: currently 40fps.
+  SetTimer(m_pCanvas->getwindow(), 1, 25, NULL);
 }
 
 void CDasher::ShutdownTimer() {
