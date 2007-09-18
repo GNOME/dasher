@@ -259,10 +259,10 @@ void CDasherControl::RealizeCanvas(GtkWidget *pWidget) {
 
 void CDasherControl::StartTimer() {
   // Start the timer loops as everything is set up
-  // Aim for 20 frames per second
+  // Aim for 40 frames per second, computers are getting faster
 
   if(g_iTimeoutID == 0) {
-    g_iTimeoutID = g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE, 50, timer_callback, this, NULL);
+    g_iTimeoutID = g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE, 25, timer_callback, this, NULL);
     // TODO: Reimplement this (or at least reimplement some kind of status reporting)
     //g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE, 5000, long_timer_callback, this, NULL);
   }
