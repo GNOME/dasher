@@ -17,6 +17,8 @@
 #include <iostream>
 #include <fstream>
 
+using namespace Dasher::GameMode;
+
 std::pair<double,double> GaussianRand();
 
 CDasherGameMode* CDasherGameMode::pTeacher = NULL;
@@ -133,6 +135,8 @@ void CDasherGameMode::NotifyGameCooperators(bool bGameOn)
 // This routine is used when the interactive game is turned on
 void CDasherGameMode::GameModeStart()
 {
+  m_strGameTextFile = GetStringParameter(SP_GAME_TEXT_FILE);
+
   std::cout << "Welcome to Dasher Game Mode! \n"
 	    << "Current game file is:" << m_strGameTextFile << std::endl; 
   InitializeTargets();
@@ -144,7 +148,8 @@ void CDasherGameMode::GameModeStart()
   // Create a new scorer to measure player stats and the like
   if(!m_pScorer)
     m_pScorer = new Scorer;
-  m_pLevel = new Level1(this);
+  m_pLevel = new LevelStart(this);
+
 }
 
 // This routine is used when the interactive game is turned off
@@ -257,6 +262,14 @@ void CDasherGameMode::HandleEvent(Dasher::CEvent * pEvent)
 
 void CDasherGameMode::GameNext()
 {
+  if(m_pLevel->m_bIsCompleted)
+  {
+    m_pLevel = m_pLevel->GetNextLevel();
+    m_pDasherInterface->GameMessageOut(GAME_MESSAGE_SET_LEVEL,
+				     reinterpret_cast<const void *>(&m_pLevel->GetLevel()));
+    m_pDasherInterface->GameMessageOut(GAME_MESSAGE_HELP_MESSAGE, &m_pLevel->GetRules());
+  }
+  
   // Choose next string (NOT) at random...
   NextString(false);//true);
   
@@ -585,29 +598,33 @@ void CDasherGameMode::SetUserMouseCoordinates(myint iDasherX, myint iDasherY)
 // Used to turn on running updates of the score, every second.
 void CDasherGameMode::RunningScoreUpdates()
 {
+  ScoreUpdate();
+
+  if(!m_bSentenceFinished)
+    Callback(&CDasherGameMode::RunningScoreUpdates, 1000);
+}
+
+void CDasherGameMode::ScoreUpdate()
+{
   stringstream score;
   score << m_pLevel->GetCurrentScore();
   std::string strScore = score.str();
   m_pDasherInterface->GameMessageOut(GAME_MESSAGE_SET_SCORE,
 				     reinterpret_cast<const void *>(&strScore));
-  m_pDasherInterface->GameMessageOut(GAME_MESSAGE_SET_LEVEL,
-				     reinterpret_cast<const void *>(&string("5")));
-  if(!m_bSentenceFinished)
-    Callback(&CDasherGameMode::RunningScoreUpdates, 1000);
 }
 
 void CDasherGameMode::SentenceFinished()
 {
+  if(m_bSentenceFinished) return;
   // We delay processing until the NewFrame function is called
   Callback(&CDasherGameMode::PrivateSentenceFinished,0);
 }
 
 void CDasherGameMode::PrivateSentenceFinished()
 {
-  if(m_bSentenceFinished) return;
-
   if(m_pScorer)
     {
+      ScoreUpdate();
       m_pScorer->SentenceFinished();
       m_pLevel->SentenceFinished();
       m_pDasherInterface->GameMessageOut(GAME_MESSAGE_DISPLAY_TEXT,
@@ -631,6 +648,13 @@ void CDasherGameMode::PrivateSentenceFinished()
   if(!m_pDemo) {
     string msg = m_pLevel->m_strPerformance.str();
     m_pDasherInterface->GameMessageOut(GAME_MESSAGE_HELP_MESSAGE, &msg);
+    ScoreUpdate();
+    if(m_pLevel->GetCurrentScore()>=1000)
+    {
+      m_pLevel->m_bIsCompleted = true;
+      msg = "---------\nYou now progress to the next level!";
+      m_pDasherInterface->GameMessageOut(GAME_MESSAGE_HELP_MESSAGE, &msg);
+    }
   }
 }
 

@@ -19,7 +19,7 @@
 namespace Dasher {
   class CSocketInputBase;
 }
-
+// Namespace pollution...
 using namespace Dasher;
 using namespace std;
 /// \ingroup Input 

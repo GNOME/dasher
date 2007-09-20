@@ -11,6 +11,7 @@
 
 #include "../Common/Common.h"
 
+// Should this using directive really be in a header file?
 using namespace Dasher;
 
 const double LN2 = log(2.0);

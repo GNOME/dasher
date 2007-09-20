@@ -7,8 +7,8 @@
 #include <sstream>
 
 // TODO: Make this a notify?
+//using namespace Dasher::GameMode;
 
-using Dasher::CDasherInterfaceBase;
 
 CGameGroup::CGameGroup(CDasherInterfaceBase *pDasherInterface, CEdit* pEdit) {
   m_pDasherInterface = pDasherInterface;
@@ -214,23 +214,25 @@ LRESULT CGameGroup::OnShow(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHa
 
 LRESULT CGameGroup::OnDemoClick(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
 {  
-  int message = (m_pDemoButton->SendMessage(BM_GETCHECK)==BST_CHECKED)?GAME_MESSAGE_DEMO_ON:GAME_MESSAGE_DEMO_OFF;
+  int message = (m_pDemoButton->SendMessage(BM_GETCHECK)==BST_CHECKED)?
+    (GameMode::GAME_MESSAGE_DEMO_ON):(GameMode::GAME_MESSAGE_DEMO_OFF);
   m_pDasherInterface->GameMessageIn(message, NULL);
   return 0;
 }
 
 LRESULT CGameGroup::OnNextClick(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
 {  
-  m_pDasherInterface->GameMessageIn(GAME_MESSAGE_NEXT, NULL);
+  m_pDasherInterface->GameMessageIn(GameMode::GAME_MESSAGE_NEXT, NULL);
   return 0;
 }
 
 
 void CGameGroup::Message(int message,const void* messagedata)
 { 
+  using namespace Dasher::GameMode;
   const std::string* pStr;
   wstring strText;
-    std::stringstream s;
+  //std::stringstream s;
   switch(message) {
   case GAME_MESSAGE_SET_TARGET_STRING:
     pStr = reinterpret_cast<const std::string *>(messagedata);
@@ -258,10 +260,11 @@ void CGameGroup::Message(int message,const void* messagedata)
     pStr = reinterpret_cast<const std::string *>(messagedata);
     WinUTF8::UTF8string_to_wstring(*pStr, strText);
     m_pScoreEdit->SetWindowTextW(strText.c_str());
-    
+    /*
     s << m_pDasherInterface->GetFramerate()<<std::endl;
     WinUTF8::UTF8string_to_wstring(s.str(), strText);
     m_pScoreEdit->SetWindowTextW(strText.c_str());
+    */
     break;
 
   case GAME_MESSAGE_SET_LEVEL:

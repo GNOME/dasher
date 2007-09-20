@@ -3,15 +3,15 @@
 #include "GameStatistics.h"
 #include <sstream>
 
-using Dasher::CDasherGameMode;
+using namespace Dasher::GameMode;
 
-void CDasherGameMode::Scorer::NewFrame(const GameInfo& gameInfo)
+void Scorer::NewFrame(const GameInfo& gameInfo)
 {
   if(m_bInPlay && !m_bPaused)
     m_vGameInfoData.push_back(gameInfo);
 }
 
-void CDasherGameMode::Scorer::Reset()
+void Scorer::Reset()
 {
   m_vGameInfoData.clear();
   m_Statsbreakdown.str("");
@@ -19,26 +19,26 @@ void CDasherGameMode::Scorer::Reset()
   m_bInPlay = false;
 }
 
-void CDasherGameMode::Scorer::Start()
+void Scorer::Start()
 {
   if(!m_bSentenceFinished)
     m_bInPlay=true;
   m_bPaused=false; 
 }
 
-void CDasherGameMode::Scorer::Stop()
+void Scorer::Stop()
 {
   m_bPaused=true;
 }
 
-void CDasherGameMode::Scorer::SentenceFinished()
+void Scorer::SentenceFinished()
 {
   m_bSentenceFinished = true;
   m_bInPlay = false;
   ComputeStats();
 }
 
-void CDasherGameMode::Scorer::ComputeStats()
+void Scorer::ComputeStats()
 {
   const std::vector<GameInfo>& v = m_vGameInfoData;
   m_Statsbreakdown.str("");
@@ -65,13 +65,13 @@ void CDasherGameMode::Scorer::ComputeStats()
 		   << "Kurt: " << m_stats.kurt << "\n";
 }
 
-std::string CDasherGameMode::Scorer::GetBreakdown()
+std::string Scorer::GetBreakdown()
 {
   ComputeStats();
   return m_Statsbreakdown.str();
 }
 
-double CDasherGameMode::Scorer::GetNats()
+double Scorer::GetNats()
 {
   if(m_vGameInfoData.size()==0)
     return 0.0;
@@ -80,7 +80,7 @@ double CDasherGameMode::Scorer::GetNats()
 
 }
 
-unsigned int CDasherGameMode::Scorer::GetTime()
+unsigned int Scorer::GetTime()
 {
   if(m_vGameInfoData.size()==0)
     return 0;

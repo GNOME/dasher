@@ -21,26 +21,32 @@ namespace Dasher {
   class CDasherModel;
   class CDasherInterfaceBase;
   class CEventHandler;
-  class CDasherGameMode;
   class CDasherComponent;
   class CDasherView;
-  class Zero_aryCallback;
-}
+  
+  namespace GameMode {
+    using namespace Dasher;
+    class CDasherGameMode;
+    class Level;
+    class Scorer;
+    class Zero_aryCallback;
+    class DelaySet;
 
-enum {GM_ERR_NO_ERROR = 0, GM_ERR_NO_GAME_FILE, GM_ERR_BAD_GAME_FILE, GM_ERR_NO_STRING,
+    enum {GM_ERR_NO_ERROR = 0, GM_ERR_NO_GAME_FILE, GM_ERR_BAD_GAME_FILE, GM_ERR_NO_STRING,
       GM_ERR_LOOP};
 
-typedef void (*CallbackFunction)(Dasher::CDasherGameMode * const);
-typedef std::unary_function<Dasher::CDasherGameMode* const, void> CallbackFunctor;
-
-typedef void (CDasherGameMode::*GameFncPtr)();
-typedef std::string UTF8Char;
-typedef std::list< std::pair<unsigned long, GameFncPtr > > CallbackList;
-typedef std::list< std::pair<unsigned long, Zero_aryCallback* > > FunctorCallbackList;
+    typedef void (*CallbackFunction)(Dasher::GameMode::CDasherGameMode * const);
+    typedef std::unary_function<Dasher::GameMode::CDasherGameMode* const, void> CallbackFunctor;
+    typedef void (Dasher::GameMode::CDasherGameMode::*GameFncPtr)();
+    typedef std::string UTF8Char;
+    typedef std::list< std::pair<unsigned long, GameFncPtr > > CallbackList;
+    typedef std::list< std::pair<unsigned long, Zero_aryCallback* > > FunctorCallbackList;
+  }
+}
 
 /// \defgroup GameMode Game mode support
 /// @{
-class Dasher::CDasherGameMode:public CDasherComponent, private NoClones {
+class Dasher::GameMode::CDasherGameMode:public CDasherComponent, private NoClones {
 
 public:
   
@@ -65,7 +71,6 @@ public:
   void DrawGameDecorations(CDasherView* pView);
 
   void Message(int message, void* messagedata);
-  class Level;
   friend class Level;
   
 private:
@@ -90,8 +95,6 @@ private:
     bool bFullDemo;
   };
 
-  class Scorer;
-  
   struct TargetInfo {
     myint iTargetY, iVisibleTargetY;
     myint iCenterY, iVisibleCenterY;    
@@ -123,6 +126,7 @@ private:
   void GameModeStop();
   void Oscillator();
   void RunningScoreUpdates();
+  void ScoreUpdate();
 
   // Starting and stopping the demo behaviour
   void DemoModeStart(bool bFullDemo);
@@ -208,9 +212,8 @@ private:
 
 
 
-inline myint CDasherGameMode::ComputeBrachCenter(const myint& iTargetY, const myint& iCrossX, const myint& iCrossY)
+inline myint Dasher::GameMode::CDasherGameMode::ComputeBrachCenter(const myint& iTargetY, const myint& iCrossX, const myint& iCrossY)
 {
-
   // This formula computes the Dasher Y Coordinate of the center of the circle on which
   // the dasher brachistochrone lies : iCenterY
 
@@ -223,10 +226,10 @@ inline myint CDasherGameMode::ComputeBrachCenter(const myint& iTargetY, const my
 }
 
 
-class Dasher::Zero_aryCallback
+class Dasher::GameMode::Zero_aryCallback
 {
  public:
-  Zero_aryCallback(Dasher::CDasherGameMode* pGame, unsigned int wait)
+  Zero_aryCallback(CDasherGameMode* pGame, unsigned int wait)
     {
       pGame->FunctorCallback(this, wait);
     }
@@ -235,10 +238,10 @@ class Dasher::Zero_aryCallback
   virtual void Action() = 0;
 };
 
-class DelaySet : public Dasher::Zero_aryCallback
+class Dasher::GameMode::DelaySet : public Zero_aryCallback
 {
  public:
-  DelaySet(Dasher::CDasherGameMode* pGame, unsigned int wait, bool* pVariable, bool bValue):
+  DelaySet(CDasherGameMode* pGame, unsigned int wait, bool* pVariable, bool bValue):
     Zero_aryCallback(pGame, wait),
     m_bValue(bValue), m_pVariable(pVariable){}
   void Action(void){*m_pVariable=m_bValue;}
@@ -249,5 +252,5 @@ class DelaySet : public Dasher::Zero_aryCallback
 
 
 
-#endif
+#endif // __DasherGameMode_h__
 

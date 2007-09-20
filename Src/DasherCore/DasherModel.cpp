@@ -530,7 +530,7 @@ bool CDasherModel::UpdatePosition(myint miMousex, myint miMousey, unsigned long 
 void CDasherModel::NewFrame(unsigned long Time) {
   m_fr.NewFrame(Time);
   ///GAME MODE TEMP///Pass new frame events onto our teacher
-  CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher();
+  GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher();
   if(m_bGameMode && pTeacher)
     pTeacher->NewFrame(Time);
 }
@@ -608,7 +608,7 @@ void CDasherModel::RecursiveOutput(CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PRO
   // notify the game mode teacher.
   if(m_bGameMode)
     if(pNode->GetFlag(NF_END_GAME))
-      CDasherGameMode::GetTeacher()->SentenceFinished();
+      GameMode::CDasherGameMode::GetTeacher()->SentenceFinished();
 }
 
 void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
@@ -775,7 +775,7 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
   ///GAME MODE TEMP///////////
   // If we are in GameMode, then we do a bit of cooperation with the teacher object when we create
   // new children.
-  CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher();
+  GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher();
   if(m_bGameMode && pNode->GetFlag(NF_GAME) && pTeacher )
     {
       std::string strTargetUtf8Char;
@@ -882,7 +882,7 @@ bool CDasherModel::RenderToView(CDasherView *pView, bool bRedrawDisplay) {
   
   /////////GAME MODE TEMP//////////////
   if(m_bGameMode)
-    if(CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher())
+    if(GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher())
       pTeacher->SetTargetY(vGameTargetY);
   //////////////////////////////////////
 

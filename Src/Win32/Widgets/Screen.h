@@ -25,6 +25,7 @@
 #include <cmath>
 #endif
 
+// Should this using-directive really be in a header file?
 using namespace Dasher;
 
 /////////////////////////////////////////////////////////////////////////////

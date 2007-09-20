@@ -271,8 +271,10 @@ class Dasher::CDasherNode:private NoClones {
 // Inline functions
 /////////////////////////////////////////////////////////////////////////////
 
+// Why are these using-directives in a header file?
 using namespace Dasher;
 using namespace Opts;
+// TODO: move to the top of file.
 #include "DasherModel.h"
 
 inline CDasherNode::CDasherNode(CDasherNode *pParent, int iLbnd, int iHbnd, SDisplayInfo *pDisplayInfo) {

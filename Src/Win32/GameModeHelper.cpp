@@ -11,6 +11,7 @@ CGameModeHelper::CGameModeHelper(Dasher::CDasherInterfaceBase *pInterface) {
 }
 
 void CGameModeHelper::Message(int message, const void *messagedata) {
+  using namespace Dasher::GameMode;
   const std::string* pStr;
   std::string strText ="<span background=\"purple\" foreground=\"white\">";
   switch(message) {

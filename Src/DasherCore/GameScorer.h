@@ -4,7 +4,7 @@
 #include "DasherGameMode.h"
 #include <sstream>
 
-class Dasher::CDasherGameMode::Scorer {
+class Dasher::GameMode::Scorer {
  public:
   Scorer(): m_bInPlay(false), m_bSentenceFinished(true){}
   ~Scorer(){}

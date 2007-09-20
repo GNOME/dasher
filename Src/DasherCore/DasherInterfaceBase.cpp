@@ -181,6 +181,7 @@ void CDasherInterfaceBase::Realize() {
   // TODO: Make things work when model is created latet
   ChangeState(TR_MODEL_INIT);
 
+  using GameMode::CDasherGameMode;
   // Create the teacher singleton object. 
   CDasherGameMode::CreateTeacher(m_pEventHandler, m_pSettingsStore, this);
   CDasherGameMode::GetTeacher()->SetDasherView(m_pDasherView);
@@ -190,7 +191,7 @@ void CDasherInterfaceBase::Realize() {
 CDasherInterfaceBase::~CDasherInterfaceBase() {
   DASHER_ASSERT(m_iCurrentState == ST_SHUTDOWN);
 
-  CDasherGameMode::DestroyTeacher();
+  GameMode::CDasherGameMode::DestroyTeacher();
 
   delete m_pDasherModel;        // The order of some of these deletions matters
   delete m_Alphabet;
@@ -381,7 +382,7 @@ void CDasherInterfaceBase::CreateModel(int iOffset) {
   m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, m_pNCManager, this, m_pDasherView, iOffset);
   
   // Notify the teacher of the new model
-  if(CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher())
+  if(GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher())
     pTeacher->SetDasherModel(m_pDasherModel);
   
 }
@@ -458,7 +459,7 @@ void CDasherInterfaceBase::PauseAt(int MouseX, int MouseY) {
 }
 
 void CDasherInterfaceBase::GameMessageIn(int message, void* messagedata) {
-  CDasherGameMode::GetTeacher()->Message(message, messagedata);
+  GameMode::CDasherGameMode::GetTeacher()->Message(message, messagedata);
 }
 
 
@@ -599,7 +600,7 @@ void CDasherInterfaceBase::Redraw(bool bRedrawNodes) {
   
   m_pDasherView->Screen()->SendMarker(1);
   
-  if(CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher())
+  if(GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher())
     pTeacher->DrawGameDecorations(m_pDasherView);
     
   bool bDecorationsChanged(false);
@@ -684,7 +685,7 @@ void CDasherInterfaceBase::ChangeView() {
     if (m_pInput)
       m_pDasherView->SetInput(m_pInput);
     // Tell the Teacher which view we are using
-    if(CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher())
+    if(GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher())
 	pTeacher->SetDasherView(m_pDasherView);
   }
 }

@@ -375,8 +375,9 @@ int CDasherView::GetCoordinates(myint &iDasherX, myint &iDasherY) {
   ///GAME///
   if(m_bGameMode)
     {
+      using GameMode::CDasherGameMode;
       if(m_bDemoMode)
-	CDasherGameMode::GetTeacher()->DemoModeGetCoordinates(iDasherX, iDasherY);
+        CDasherGameMode::GetTeacher()->DemoModeGetCoordinates(iDasherX, iDasherY);
       CDasherGameMode::GetTeacher()->SetUserMouseCoordinates(iDasherX, iDasherY);
     }
       
