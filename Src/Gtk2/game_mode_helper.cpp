@@ -117,7 +117,7 @@ game_mode_helper_cb_next_sentence(GtkWidget *pWidget, gpointer pUserData) {
  GameModeHelper *pSelf = (GameModeHelper *)pUserData;
  GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
 
- gtk_dasher_control_game_messagein(pPrivate->pControl, GAME_MESSAGE_NEXT, NULL);
+ gtk_dasher_control_game_messagein(pPrivate->pControl, Dasher::GameMode::GAME_MESSAGE_NEXT, NULL);
  
   return FALSE; // TODO: Scheck semantics of return value
 }
@@ -128,9 +128,9 @@ game_mode_helper_cb_demo(GtkWidget *pWidget, gpointer pUserData) {
  GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
 
  if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pWidget)))
-   gtk_dasher_control_game_messagein(pPrivate->pControl, GAME_MESSAGE_DEMO_ON, NULL);
+   gtk_dasher_control_game_messagein(pPrivate->pControl, Dasher::GameMode::GAME_MESSAGE_DEMO_ON, NULL);
  else
-   gtk_dasher_control_game_messagein(pPrivate->pControl, GAME_MESSAGE_DEMO_OFF, NULL);
+   gtk_dasher_control_game_messagein(pPrivate->pControl, Dasher::GameMode::GAME_MESSAGE_DEMO_OFF, NULL);
  
   return FALSE; // TODO: Scheck semantics of return value
 }
@@ -140,7 +140,7 @@ game_mode_helper_cb_fulldemo(GtkWidget *pWidget, gpointer pUserData) {
  GameModeHelper *pSelf = (GameModeHelper *)pUserData;
  GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
 
- gtk_dasher_control_game_messagein(pPrivate->pControl, GAME_MESSAGE_FULL_DEMO, NULL);
+ gtk_dasher_control_game_messagein(pPrivate->pControl, Dasher::GameMode::GAME_MESSAGE_FULL_DEMO, NULL);
   
   return FALSE; // TODO: Scheck semantics of return value
 }
@@ -156,13 +156,13 @@ game_mode_helper_cb_gametoggle(GtkWidget *pWidget, gpointer pUserData) {
     {
       gtk_widget_hide(GTK_WIDGET(pPrivate->pGameGroup));
       gtk_widget_hide(GTK_WIDGET(pPrivate->pGameInfoLabel));
-      gtk_dasher_control_game_messagein(pPrivate->pControl, GAME_MESSAGE_GAME_OFF, NULL);
+      gtk_dasher_control_game_messagein(pPrivate->pControl, Dasher::GameMode::GAME_MESSAGE_GAME_OFF, NULL);
     }
   else
     {
       gtk_widget_show(GTK_WIDGET(pPrivate->pGameGroup));
       gtk_widget_show(GTK_WIDGET(pPrivate->pGameInfoLabel));
-      gtk_dasher_control_game_messagein(pPrivate->pControl, GAME_MESSAGE_GAME_ON, NULL);
+      gtk_dasher_control_game_messagein(pPrivate->pControl, Dasher::GameMode::GAME_MESSAGE_GAME_ON, NULL);
     }
 
   dasher_editor_internal_cleartext(pPrivate->pEditor);
@@ -213,6 +213,7 @@ void game_mode_helper_delete(GameModeHelper *pSelf, int iLength) {
 }
 
 void game_mode_helper_message(GameModeHelper *pSelf, int message, const void * messagedata) {
+  using namespace Dasher::GameMode;
   GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
   const std::string* pStr;
   std::string strText ="<span background=\"purple\" foreground=\"white\">";
@@ -314,16 +315,18 @@ void game_mode_helper_dialog_box(GameModeHelper* pSelf, const gchar* message)
   GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
 
   GtkWidget* pDialog;
-  pDialog = gtk_message_dialog_new (NULL,
-				    GTK_DIALOG_NO_SEPARATOR,
-                                  GTK_MESSAGE_INFO,
-                                  GTK_BUTTONS_CLOSE,
-                                  message);
+  pDialog = gtk_message_dialog_new(NULL,
+				   GTK_DIALOG_MODAL,
+				   GTK_MESSAGE_INFO,
+				   GTK_BUTTONS_OK,
+				   message);
+  gtk_dialog_run (GTK_DIALOG (pDialog));
+  gtk_widget_destroy (pDialog);
 
-  gtk_widget_show(GTK_WIDGET(pDialog));
+  //gtk_widget_show(GTK_WIDGET(pDialog));
  /* Destroy the dialog when the user responds to it (e.g. clicks a button) */
- g_signal_connect_swapped (pDialog, "response",
-                           G_CALLBACK (gtk_widget_destroy),
-                           pDialog);
+  // g_signal_connect_swapped (pDialog, "response",
+  //                       G_CALLBACK (gtk_widget_destroy),
+  //                       pDialog);
 
 }
