@@ -649,7 +649,7 @@ void CDasherGameMode::PrivateSentenceFinished()
     string msg = m_pLevel->m_strPerformance.str();
     m_pDasherInterface->GameMessageOut(GAME_MESSAGE_HELP_MESSAGE, &msg);
     ScoreUpdate();
-    if(m_pLevel->GetCurrentScore()>=1000)
+    if(m_pLevel->GetCurrentScore()>=400)
     {
       m_pLevel->m_bIsCompleted = true;
       msg = "---------\nYou now progress to the next level!";

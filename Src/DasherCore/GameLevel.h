@@ -10,6 +10,7 @@ namespace Dasher {
     class Level1;
     class Level2;
     class Level3;
+    class LevelEnd;
   }
 }
 
@@ -35,8 +36,15 @@ class Dasher::GameMode::Level {
   virtual void SentenceFinished() {}
   virtual void Reset() {}
   inline std::string GetLevel(){return m_strLevel;}
-  virtual Level* GetNextLevel()=0;
-  virtual std::string GetRules(){return std::string("Generic Rules");};
+  Level* GetNextLevel(){
+    Level* p = NextLevel();
+    p->m_bIsCompleted = false;
+    delete this;
+    return p;
+  }
+  virtual std::string GetRules(){
+    return std::string("Generic Rules");
+  }
   std::ostringstream m_strPerformance;
   bool m_bIsCompleted;
  protected:
@@ -56,6 +64,64 @@ class Dasher::GameMode::Level {
   std::string m_strLevel;
   int m_iLevelScore;
   double m_dSentenceScore;
+private:
+  virtual Level* NextLevel() = 0;
+};
+
+
+class Dasher::GameMode::LevelEnd : public Level {
+public:
+  LevelEnd(CDasherGameMode* pGameParent):Level(pGameParent){
+    m_strLevel = "Done!";
+  }
+  std::string GetRules(){
+    return std::string("Final rules and congratulations go here");
+  }
+private:
+  Level* NextLevel() {
+    return new LevelEnd(m_pGameParent);
+    }
+};
+
+
+
+class Dasher::GameMode::Level3 : public Level {
+ public:
+  Level3(CDasherGameMode* pGameParent):Level(pGameParent)
+  { m_iOscillatorOn=0;
+    m_iOscillatorOff=2000;
+    m_strLevel="3";}
+};
+
+class Dasher::GameMode::Level2 : public Level {
+public:
+ Level2(CDasherGameMode* pGameParent):Level(pGameParent),
+    oldTime(0), oldNats(0.0), m_dCurrentScore(0), m_iErrorSize(2048),
+    bFixing(false), bMadeError(false), iErrors(0)
+    {m_iOscillatorOn=2000;
+     m_iOscillatorOff=500;
+     m_strLevel = "2";}
+ std::string GetRules() {
+    return std::string("Level 2 rules go here");
+  }
+
+  void DoGameLogic();
+  int GetCurrentScore();
+  void SentenceFinished();
+  void Reset();
+ private:
+  void ComputeNewPoints();
+  Level* NextLevel() {
+    return new LevelEnd(m_pGameParent);
+  };
+
+  unsigned int oldTime;
+  double m_dCurrentScore;
+  double oldNats;
+  int iErrors;
+  const myint m_iErrorSize;
+  bool bFixing;
+  bool bMadeError;
 };
 
 class Dasher::GameMode::Level1 : public Level {
@@ -67,79 +133,39 @@ class Dasher::GameMode::Level1 : public Level {
      m_iOscillatorOff=2000;
      m_strLevel = "1";}
 
-  Level* GetNextLevel();
   void DoGameLogic();
   int GetCurrentScore();
   void SentenceFinished();
   void Reset();
- private:
-  void ComputeNewPoints();
-  unsigned int oldTime;
-  double m_dCurrentScore;
-  double oldNats;
-  int iErrors;
-  const myint m_iErrorSize;
-  bool bFixing;
-  bool bMadeError;
-};
 
-
-class Dasher::GameMode::Level2 : public Level {
-public:
- Level2(CDasherGameMode* pGameParent):Level(pGameParent),
-    oldTime(0), oldNats(0.0), m_dCurrentScore(0), m_iErrorSize(2048),
-    bFixing(false), bMadeError(false), iErrors(0)
-    {m_iOscillatorOn=2000;
-     m_iOscillatorOff=500;
-     m_strLevel = "2";}
-
-  Level* GetNextLevel();
-  void DoGameLogic();
-  int GetCurrentScore();
-  void SentenceFinished();
-  void Reset();
- private:
-  void ComputeNewPoints();
-  unsigned int oldTime;
-  double m_dCurrentScore;
-  double oldNats;
-  int iErrors;
-  const myint m_iErrorSize;
-  bool bFixing;
-  bool bMadeError;
-};
-
-class Dasher::GameMode::Level3 : public Level {
- public:
-  Level3(CDasherGameMode* pGameParent):Level(pGameParent) {m_iOscillatorOn=0; m_iOscillatorOff=2000;}
-  void DoGameLogic()
-    {
-      if(m_Target.iTargetY < -500 || m_iMaxY+500 < m_Target.iTargetY)
-	m_bDrawHelperArrow = true;
-      else
-	m_bDrawHelperArrow = false;
-      
-      if((m_bOscillator || m_iUserX > m_iCrossX))
-	m_bDrawTargetArrow=true;
-      else
-	m_bDrawTargetArrow=false;
-    }
-  int GetCurrentScore()
-  {
-    //    double dNats = m_pModel->GetNats();
-    //    double efficieny = 1.4427*(100.0*1000*dNats)/(double(m_pScorer->GetTime())*m_pGameParent->GetLongParameter(LP_MAX_BITRATE));
-    //    return efficieny*100;
-    return 0;
+  std::string GetRules() {
+    return std::string("Level 1 rules go here");
   }
+ private:
+  void ComputeNewPoints();
+  Level* NextLevel() {
+    return new Level2(m_pGameParent);
+  }
+
+  unsigned int oldTime;
+  double m_dCurrentScore;
+  double oldNats;
+  int iErrors;
+  const myint m_iErrorSize;
+  bool bFixing;
+  bool bMadeError;
+  
 };
 
 class Dasher::GameMode::LevelStart : public Level {
 public:
   LevelStart(CDasherGameMode* pGameParent):Level(pGameParent){}
-  Level* GetNextLevel() {
-    Level* p = new Level1(m_pGameParent);
-    p->m_bIsCompleted = false;
-    delete this;
-    return p;}
+  std::string GetRules() {
+    return std::string("These are the opening rules");
+  }
+private:
+  Level* NextLevel() {
+    return new Level1(m_pGameParent);
+    }
 };
 #endif

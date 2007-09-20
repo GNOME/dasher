@@ -995,6 +995,10 @@ void CEdit::HandleEvent(Dasher::CEvent *pEvent) {
   case EV_STOP:
     HandleStop();
     break;
+  case EV_EDIT_CONTEXT:
+    // TODO: Make this return the context properly. cf Linux 
+    m_pDasherInterface->SetContext("");
+    break;
   }
 }
 

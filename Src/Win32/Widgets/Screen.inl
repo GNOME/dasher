@@ -133,6 +133,15 @@ inline HPEN& CScreen::GetPen(int iColor, int iWidth) {
 inline HBRUSH& CScreen::GetBrush(int iColor) {
   stdext::hash_map <int, HBRUSH> :: const_iterator hm1_RcIter;
   int key = iColor;
+  // TODO: fix this hack. Why is iColor sometimes negative (-1)?
+  if(key<0)
+  {
+    // This hack is here to prevent unchecked subcript access with negative
+    // index to the colour vectors below,
+    // which causes crashes.
+    m_cBrushes[key] = (HBRUSH)GetStockObject(GRAY_BRUSH);
+  }
+  ////////////////////////////////////////////////////////
 
   hm1_RcIter = m_cBrushes.find( key );
   if( hm1_RcIter == m_cBrushes.end() ) {

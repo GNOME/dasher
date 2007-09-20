@@ -18,7 +18,7 @@ void Level1::DoGameLogic()
       m_bDrawHelperArrow=true;
     }
   else if(bMadeError)
-    m_bDrawHelperArrow=false;//true;
+    m_bDrawHelperArrow = true;
   else
     m_bDrawHelperArrow = false;
   
@@ -41,14 +41,6 @@ void Level1::Reset()
   m_dSentenceScore=0.0;
 }
 
-Level* Level1::GetNextLevel()
-{
-  Level* p = new Level2(m_pGameParent);
-  p->m_bIsCompleted = false;
-  delete this;
-
-  return p;
-}
 
 void Level1::ComputeNewPoints()
 {
@@ -102,7 +94,7 @@ void Level2::DoGameLogic()
       m_bDrawHelperArrow=true;
     }
   else if(bMadeError)
-    m_bDrawHelperArrow=false;//true;
+    m_bDrawHelperArrow=true;
   else
     m_bDrawHelperArrow = false;
   
@@ -125,14 +117,6 @@ void Level2::Reset()
   m_dSentenceScore=0.0;
 }
 
-Level* Level2::GetNextLevel()
-{
-  Level* p = new Level2(m_pGameParent);
-  p->m_bIsCompleted = false;
-  delete this;
-
-  return p;
-}
 
 void Level2::ComputeNewPoints()
 {
