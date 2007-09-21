@@ -1,21 +1,15 @@
 #ifndef __DasherGameMode_h__
 #define __DasherGameMode_h__
 
-#include "../Common/NoClones.h"
-#include "LanguageModelling/LanguageModel.h"
-#include "DasherComponent.h"
-#include "Alphabet/Alphabet.h"
-#include "AlphabetManagerFactory.h"
-#include "ControlManagerFactory.h"
-#include <math.h>
-#include "DasherTypes.h"
-#include "FrameRate.h"
-
 #include <vector>
 #include <list>
-#include <deque>
-#include <fstream>
-#include <iostream>
+#include <cmath>
+
+#include "../Common/NoClones.h"
+
+#include "DasherComponent.h"
+#include "DasherTypes.h"
+
 
 namespace Dasher {
   class CDasherModel;
@@ -83,15 +77,22 @@ private:
       sp_alphabet_id(GetStringParameter(SP_ALPHABET_ID)),
       bp_draw_mouse(GetBoolParameter(BP_DRAW_MOUSE)),
       bp_auto_speedcontrol(GetBoolParameter(BP_AUTO_SPEEDCONTROL)),
+      sp_input_filter(GetStringParameter(SP_INPUT_FILTER)),
       bFullDemo(fullDemo){
-      SetBoolParameter(BP_DRAW_MOUSE, true);}
-    ~Demo(){SetBoolParameter(BP_DRAW_MOUSE, bp_draw_mouse);
-    SetStringParameter(SP_ALPHABET_ID, sp_alphabet_id);
-    SetBoolParameter(BP_AUTO_SPEEDCONTROL, bp_auto_speedcontrol);}
+      SetBoolParameter(BP_DRAW_MOUSE, true);
+      SetStringParameter(SP_INPUT_FILTER, "Normal Control");}
+    ~Demo()
+    {
+      SetBoolParameter(BP_DRAW_MOUSE, bp_draw_mouse);
+      SetStringParameter(SP_ALPHABET_ID, sp_alphabet_id);
+      SetBoolParameter(BP_AUTO_SPEEDCONTROL, bp_auto_speedcontrol);
+      SetStringParameter(SP_INPUT_FILTER, sp_input_filter);
+    }
     
     const std::string sp_alphabet_id;
     const bool bp_draw_mouse;
     const bool bp_auto_speedcontrol;
+    const std::string sp_input_filter;
     bool bFullDemo;
   };
 
@@ -148,7 +149,7 @@ private:
   // Private graphics routines
   void DrawHelperArrow(CDasherView* pView);
   void DrawTargetArrow(CDasherView* pView);
-  void DrawPoints(CDasherView* pView);
+  //void DrawPoints(CDasherView* pView);
 
   inline void Callback(GameFncPtr f, unsigned long wait){
     m_lCallbacks.push_back(std::pair<unsigned long,GameFncPtr>(m_ulTime+wait,f) );
@@ -249,8 +250,6 @@ class Dasher::GameMode::DelaySet : public Zero_aryCallback
   bool m_bValue;
   bool* m_pVariable;
 };
-
-
 
 #endif // __DasherGameMode_h__
 

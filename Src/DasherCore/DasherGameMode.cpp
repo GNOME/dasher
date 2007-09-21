@@ -7,7 +7,6 @@
 #include "DasherNode.h"
 #include "DasherView.h"
 #include "Event.h"
-//#include "Logger/LoggerMacros.h"
 
 #include "GameScorer.h"
 #include "GameLevel.h"
@@ -17,7 +16,8 @@
 #include <iostream>
 #include <fstream>
 
-using namespace Dasher::GameMode;
+using Dasher::GameMode::CDasherGameMode;
+using Dasher::GameMode::UTF8Char;
 
 std::pair<double,double> GaussianRand();
 
@@ -136,13 +136,9 @@ void CDasherGameMode::NotifyGameCooperators(bool bGameOn)
 void CDasherGameMode::GameModeStart()
 {
   m_strGameTextFile = GetStringParameter(SP_GAME_TEXT_FILE);
-
-  std::cout << "Welcome to Dasher Game Mode! \n"
-	    << "Current game file is:" << m_strGameTextFile << std::endl; 
   InitializeTargets();
   m_pDasherInterface->GameMessageOut(GAME_MESSAGE_DISPLAY_TEXT,
-				     reinterpret_cast<const void*>(&string(_("Welcome to Dasher Game Mode!\n"
-				     "Sentences appear in this box which YOU get to write!"))));
+				     reinterpret_cast<const void*>(&string("Click \"Next\" to begin")));
   m_bSentenceFinished = true;
 
   // Create a new scorer to measure player stats and the like
@@ -488,9 +484,7 @@ int CDasherGameMode::LoadTargetStrings(istream& in)
       if(strOneTarget.length()>=4)
 	    vTargetStrings.push_back(strOneTarget);
     }
-  /*std::string test = "this is a test of dasher game mode by pconlon";
-  vTargetStrings.push_back(test);*/
-
+  
   // ...then split them into separate UTF-8 characters
 
   for(std::vector<UTF8Char>::const_iterator it = vTargetStrings.begin();
@@ -649,10 +643,10 @@ void CDasherGameMode::PrivateSentenceFinished()
     string msg = m_pLevel->m_strPerformance.str();
     m_pDasherInterface->GameMessageOut(GAME_MESSAGE_HELP_MESSAGE, &msg);
     ScoreUpdate();
-    if(m_pLevel->GetCurrentScore()>=400)
+    if(m_pLevel->GetCurrentScore()>=1000)
     {
       m_pLevel->m_bIsCompleted = true;
-      msg = "---------\nYou now progress to the next level!";
+      msg = "You now progress to the next level!";
       m_pDasherInterface->GameMessageOut(GAME_MESSAGE_HELP_MESSAGE, &msg);
     }
   }
@@ -730,15 +724,17 @@ void CDasherGameMode::DrawGameDecorations(CDasherView* pView)
     DrawHelperArrow(pView);
   if(m_bDrawTargetArrow)
     DrawTargetArrow(pView);
-  if(m_bDrawPoints) // || m_bSentenceFinished)
-    DrawPoints(pView);
+  /*
+  if(m_bDrawPoints)
+    DrawPoints(pView);*/
 }
-
+/*
 void CDasherGameMode::DrawPoints(CDasherView* pView)
 {
   if(m_pScorer)
     pView->DrawText(m_pScorer->GetBreakdown(),16000,1000, 20);
 }
+*/
 
 void CDasherGameMode::DrawHelperArrow(CDasherView* pView)
 {

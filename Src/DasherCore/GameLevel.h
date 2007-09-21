@@ -3,17 +3,19 @@
 
 #include "DasherGameMode.h"
 #include <sstream>
-// Base class to represent different levels in the Dasher Game.
+
 namespace Dasher {
   namespace GameMode {
-    class LevelStart;
-    class Level1;
-    class Level2;
-    class Level3;
     class LevelEnd;
+    class Level3;
+    class Level2;
+    class Level1;
+    class LevelStart;
   }
 }
 
+// Base class to represent different levels in the Dasher Game, provides
+// the appropriate access to the GameParent
 class Dasher::GameMode::Level {
  public:
   Level(CDasherGameMode* p):m_pGameParent(p),
@@ -26,11 +28,15 @@ class Dasher::GameMode::Level {
     m_ulTime(p->m_ulTime),
     m_iUserX(p->m_iUserX), m_iUserY(p->m_iUserY),
     m_iMaxY(p->m_iMaxY), m_iCrossX(p->m_iCrossX),
-    m_Target(p->m_Target), m_pScorer(p->m_pScorer),
-    m_pModel(p->m_pModel)
-    {m_bIsCompleted=true;
-    m_iLevelScore=0; m_dSentenceScore=0.0;}
+    m_Target(p->m_Target), m_pScorer(p->m_pScorer)
+  {
+    m_bIsCompleted=true;
+    m_iLevelScore=0;
+    m_dSentenceScore=0.0;
+  }
   virtual ~Level() {}
+ 
+  // Interface
   virtual void DoGameLogic() {}
   virtual int GetCurrentScore() {return 0;}
   virtual void SentenceFinished() {}
@@ -43,8 +49,9 @@ class Dasher::GameMode::Level {
     return p;
   }
   virtual std::string GetRules(){
-    return std::string("Generic Rules");
+    return std::string("The rules of the level.");
   }
+  // TODO: make these methods?
   std::ostringstream m_strPerformance;
   bool m_bIsCompleted;
  protected:
@@ -60,7 +67,6 @@ class Dasher::GameMode::Level {
   const myint& m_iMaxY, m_iCrossX;
   CDasherGameMode::TargetInfo& m_Target;
   Scorer*& m_pScorer;
-  CDasherModel*& m_pModel;
   std::string m_strLevel;
   int m_iLevelScore;
   double m_dSentenceScore;
@@ -68,14 +74,14 @@ private:
   virtual Level* NextLevel() = 0;
 };
 
-
+// The end level - not a real level
 class Dasher::GameMode::LevelEnd : public Level {
 public:
   LevelEnd(CDasherGameMode* pGameParent):Level(pGameParent){
     m_strLevel = "Done!";
   }
   std::string GetRules(){
-    return std::string("Final rules and congratulations go here");
+    return std::string("Well done, well done, etc etc");
   }
 private:
   Level* NextLevel() {
@@ -83,25 +89,30 @@ private:
     }
 };
 
-
-
+// Level 3
 class Dasher::GameMode::Level3 : public Level {
  public:
   Level3(CDasherGameMode* pGameParent):Level(pGameParent)
-  { m_iOscillatorOn=0;
+  {
+    // In level 3, the flashing arrow is always off
+    m_iOscillatorOn=0;
     m_iOscillatorOff=2000;
-    m_strLevel="3";}
+    m_strLevel="3";
+  }
 };
 
 class Dasher::GameMode::Level2 : public Level {
 public:
- Level2(CDasherGameMode* pGameParent):Level(pGameParent),
+  Level2(CDasherGameMode* pGameParent):Level(pGameParent),
     oldTime(0), oldNats(0.0), m_dCurrentScore(0), m_iErrorSize(2048),
     bFixing(false), bMadeError(false), iErrors(0)
-    {m_iOscillatorOn=2000;
-     m_iOscillatorOff=500;
-     m_strLevel = "2";}
- std::string GetRules() {
+  {
+    // In level 2, the flashing arrow is mainly off
+    m_iOscillatorOn=500;
+    m_iOscillatorOff=3000;
+    m_strLevel = "2";
+  }
+  std::string GetRules() {
     return std::string("Level 2 rules go here");
   }
 
@@ -109,12 +120,14 @@ public:
   int GetCurrentScore();
   void SentenceFinished();
   void Reset();
- private:
-  void ComputeNewPoints();
+private:
+  // We must provide this function to be instantiated
   Level* NextLevel() {
     return new LevelEnd(m_pGameParent);
   };
 
+  // Internal functions
+  void ComputeNewPoints();
   unsigned int oldTime;
   double m_dCurrentScore;
   double oldNats;
@@ -124,14 +137,18 @@ public:
   bool bMadeError;
 };
 
+// Level 1
 class Dasher::GameMode::Level1 : public Level {
- public:
+public:
   Level1(CDasherGameMode* pGameParent):Level(pGameParent),
-    oldTime(0), oldNats(0.0), m_dCurrentScore(0), m_iErrorSize(2048),
-    bFixing(false), bMadeError(false), iErrors(0)
-    {m_iOscillatorOn=500;
-     m_iOscillatorOff=2000;
-     m_strLevel = "1";}
+   oldTime(0), oldNats(0.0), m_dCurrentScore(0), m_iErrorSize(2048),
+   bFixing(false), bMadeError(false), iErrors(0)
+  {
+    // In Level 1, the flashing arrow is often on
+    m_iOscillatorOn=1000;
+    m_iOscillatorOff=2000;
+    m_strLevel = "1";
+  }
 
   void DoGameLogic();
   int GetCurrentScore();
@@ -142,10 +159,11 @@ class Dasher::GameMode::Level1 : public Level {
     return std::string("Level 1 rules go here");
   }
  private:
-  void ComputeNewPoints();
   Level* NextLevel() {
     return new Level2(m_pGameParent);
   }
+
+  void ComputeNewPoints();
 
   unsigned int oldTime;
   double m_dCurrentScore;
@@ -154,9 +172,9 @@ class Dasher::GameMode::Level1 : public Level {
   const myint m_iErrorSize;
   bool bFixing;
   bool bMadeError;
-  
 };
 
+// The start level - this is not a real level.
 class Dasher::GameMode::LevelStart : public Level {
 public:
   LevelStart(CDasherGameMode* pGameParent):Level(pGameParent){}
