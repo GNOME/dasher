@@ -788,7 +788,7 @@ void CDasherInterfaceBase::ResetNats() {
 
 std::string CDasherInterfaceBase::GetContext(int iStart, int iLength) {
   m_strContext = "";
-  
+
   CEditContextEvent oEvent(iStart, iLength);
   m_pEventHandler->InsertEvent(&oEvent);
 
