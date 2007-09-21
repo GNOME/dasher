@@ -213,7 +213,7 @@ private:
 
 
 
-inline myint Dasher::GameMode::CDasherGameMode::ComputeBrachCenter(const myint& iTargetY, const myint& iCrossX, const myint& iCrossY)
+inline Dasher::myint Dasher::GameMode::CDasherGameMode::ComputeBrachCenter(const myint& iTargetY, const myint& iCrossX, const myint& iCrossY)
 {
   // This formula computes the Dasher Y Coordinate of the center of the circle on which
   // the dasher brachistochrone lies : iCenterY

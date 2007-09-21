@@ -146,6 +146,8 @@ void CDasherGameMode::GameModeStart()
     m_pScorer = new Scorer;
   m_pLevel = new LevelStart(this);
 
+  m_pDasherInterface->GameMessageOut(GAME_MESSAGE_SET_LEVEL,
+    reinterpret_cast<const void*>(&m_pLevel->GetLevel()));
 }
 
 // This routine is used when the interactive game is turned off
