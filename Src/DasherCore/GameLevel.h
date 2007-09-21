@@ -7,6 +7,7 @@
 namespace Dasher {
   namespace GameMode {
     class LevelEnd;
+    class Level4;
     class Level3;
     class Level2;
     class Level1;
@@ -51,9 +52,11 @@ class Dasher::GameMode::Level {
   virtual std::string GetRules(){
     return std::string("The rules of the level.");
   }
-  // TODO: make these methods?
+  virtual bool IsCompleted() {
+    return m_bIsCompleted;
+  }
+  // TODO: make this a method interface?
   std::ostringstream m_strPerformance;
-  bool m_bIsCompleted;
  protected:
   CDasherGameMode* m_pGameParent;
   bool& m_bDrawHelperArrow;
@@ -70,6 +73,7 @@ class Dasher::GameMode::Level {
   std::string m_strLevel;
   int m_iLevelScore;
   double m_dSentenceScore;
+  bool m_bIsCompleted;
 private:
   virtual Level* NextLevel() = 0;
 };
@@ -88,6 +92,22 @@ private:
     return new LevelEnd(m_pGameParent);
     }
 };
+// Level 4
+class Dasher::GameMode::Level4 : public Level {
+ public:
+  Level4(CDasherGameMode* pGameParent):Level(pGameParent)
+  {
+    // In Level 4, there are no arrows at all.
+    m_iOscillatorOn=0;
+    m_iOscillatorOff=2000;
+    m_strLevel="4";
+  }
+private:
+  // We must provide this function to be instantiated
+  Level* NextLevel() {
+    return new Level4(m_pGameParent);
+  };
+};
 
 // Level 3
 class Dasher::GameMode::Level3 : public Level {
@@ -99,6 +119,11 @@ class Dasher::GameMode::Level3 : public Level {
     m_iOscillatorOff=2000;
     m_strLevel="3";
   }
+private:
+  // We must provide this function to be instantiated
+  Level* NextLevel() {
+    return new Level4(m_pGameParent);
+  };
 };
 
 class Dasher::GameMode::Level2 : public Level {
@@ -123,7 +148,7 @@ public:
 private:
   // We must provide this function to be instantiated
   Level* NextLevel() {
-    return new LevelEnd(m_pGameParent);
+    return new Level3(m_pGameParent);
   };
 
   // Internal functions

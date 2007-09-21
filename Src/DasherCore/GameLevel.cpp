@@ -73,6 +73,7 @@ void Level1::SentenceFinished()
   iSentenceScore+=bonusPoints+speedBonus;
   m_iLevelScore+=iSentenceScore;
   m_dSentenceScore=0.0;
+  m_bIsCompleted = (m_iLevelScore>450);
   Reset();
 }
 
@@ -149,5 +150,6 @@ void Level2::SentenceFinished()
   iSentenceScore+=bonusPoints+speedBonus;
   m_iLevelScore+=iSentenceScore;
   m_dSentenceScore=0.0;
+  m_bIsCompleted = (m_iLevelScore>450);
   Reset();
 }

@@ -90,6 +90,8 @@ void CDasherGameMode::Message(int message, void* messagedata)
     break;
   case GAME_MESSAGE_DEMO_ON:
     DemoModeStart(false);
+    // Start in 2 seconds
+    Callback(&CDasherGameMode::DemoGo,2000);
     break;
   case GAME_MESSAGE_FULL_DEMO:
     // Start internally...
@@ -260,7 +262,7 @@ void CDasherGameMode::HandleEvent(Dasher::CEvent * pEvent)
 
 void CDasherGameMode::GameNext()
 {
-  if(m_pLevel->m_bIsCompleted)
+  if(m_pLevel->IsCompleted())
   {
     m_pLevel = m_pLevel->GetNextLevel();
     m_pDasherInterface->GameMessageOut(GAME_MESSAGE_SET_LEVEL,
@@ -630,12 +632,12 @@ void CDasherGameMode::PrivateSentenceFinished()
   if(m_pDemo)
     {
       if(m_pDemo->bFullDemo)
-	Callback(&CDasherGameMode::FullDemoNext, 6000);
+        Callback(&CDasherGameMode::FullDemoNext, 6000);
       else
-	{
-	  Callback(&CDasherGameMode::GameNext, 6000);
-	  Callback(&CDasherGameMode::DemoGo, 9000);
-	}
+      {
+	      Callback(&CDasherGameMode::GameNext, 6000);
+	      Callback(&CDasherGameMode::DemoGo, 9000);
+	    }
     }
   m_bDrawHelperArrow=false;
   m_bDrawTargetArrow=false;
@@ -645,9 +647,8 @@ void CDasherGameMode::PrivateSentenceFinished()
     string msg = m_pLevel->m_strPerformance.str();
     m_pDasherInterface->GameMessageOut(GAME_MESSAGE_HELP_MESSAGE, &msg);
     ScoreUpdate();
-    if(m_pLevel->GetCurrentScore()>=1000)
+    if(m_pLevel->IsCompleted())
     {
-      m_pLevel->m_bIsCompleted = true;
       msg = "You now progress to the next level!";
       m_pDasherInterface->GameMessageOut(GAME_MESSAGE_HELP_MESSAGE, &msg);
     }
