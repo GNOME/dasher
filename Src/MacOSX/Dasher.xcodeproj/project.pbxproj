@@ -27,7 +27,6 @@
 		193731A80C8586F20022CBC7 /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 193731A70C8586F20022CBC7 /* config.h */; };
 		1948BE9D0C226CFD001DFA32 /* ActionButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BDF60C226CFC001DFA32 /* ActionButton.cpp */; };
 		1948BE9E0C226CFD001DFA32 /* ActionButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BDF70C226CFC001DFA32 /* ActionButton.h */; };
-		1948BE9F0C226CFD001DFA32 /* .cvsignore in Resources */ = {isa = PBXBuildFile; fileRef = 1948BDF90C226CFC001DFA32 /* .cvsignore */; };
 		1948BEA00C226CFD001DFA32 /* Alphabet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BDFA0C226CFC001DFA32 /* Alphabet.cpp */; };
 		1948BEA10C226CFD001DFA32 /* Alphabet.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BDFB0C226CFC001DFA32 /* Alphabet.h */; };
 		1948BEA20C226CFD001DFA32 /* AlphabetMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BDFC0C226CFC001DFA32 /* AlphabetMap.cpp */; };
@@ -178,6 +177,11 @@
 		1974FE780714861B00B95DA0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		19875621071AFB470034ECCB /* Chatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1987561F071AFB470034ECCB /* Chatter.h */; };
 		19875622071AFB470034ECCB /* Chatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 19875620071AFB470034ECCB /* Chatter.m */; };
+		1988ABBD0C9FF97000D97977 /* GameMessages.h in Headers */ = {isa = PBXBuildFile; fileRef = 1988ABB80C9FF97000D97977 /* GameMessages.h */; };
+		1988ABBE0C9FF97000D97977 /* GameStatistics.h in Headers */ = {isa = PBXBuildFile; fileRef = 1988ABB90C9FF97000D97977 /* GameStatistics.h */; };
+		1988ABBF0C9FF97000D97977 /* PinyinParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1988ABBA0C9FF97000D97977 /* PinyinParser.cpp */; };
+		1988ABC00C9FF97000D97977 /* PinyinParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 1988ABBB0C9FF97000D97977 /* PinyinParser.h */; };
+		1988ABCF0C9FFADA00D97977 /* GameLevel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1988ABB70C9FF97000D97977 /* GameLevel.cpp */; };
 		198EC6D5071493BB00474B38 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		198EC7B407153D6E00474B38 /* KeyboardEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 198EC7AE07153D6E00474B38 /* KeyboardEvent.h */; };
 		198EC7B507153D6E00474B38 /* KeyboardEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 198EC7AF07153D6E00474B38 /* KeyboardEvent.m */; };
@@ -382,7 +386,6 @@
 		1946CABC0481AD440000000A /* ZippyString.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ZippyString.m; sourceTree = "<group>"; };
 		1948BDF60C226CFC001DFA32 /* ActionButton.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ActionButton.cpp; sourceTree = "<group>"; };
 		1948BDF70C226CFC001DFA32 /* ActionButton.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ActionButton.h; sourceTree = "<group>"; };
-		1948BDF90C226CFC001DFA32 /* .cvsignore */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = .cvsignore; sourceTree = "<group>"; };
 		1948BDFA0C226CFC001DFA32 /* Alphabet.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Alphabet.cpp; sourceTree = "<group>"; };
 		1948BDFB0C226CFC001DFA32 /* Alphabet.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Alphabet.h; sourceTree = "<group>"; };
 		1948BDFC0C226CFC001DFA32 /* AlphabetMap.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AlphabetMap.cpp; sourceTree = "<group>"; };
@@ -605,6 +608,11 @@
 		19836C580C22A7FA00047426 /* Timer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Timer.h; sourceTree = "<group>"; };
 		1987561F071AFB470034ECCB /* Chatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chatter.h; sourceTree = "<group>"; };
 		19875620071AFB470034ECCB /* Chatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chatter.m; sourceTree = "<group>"; };
+		1988ABB70C9FF97000D97977 /* GameLevel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = GameLevel.cpp; sourceTree = "<group>"; };
+		1988ABB80C9FF97000D97977 /* GameMessages.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GameMessages.h; sourceTree = "<group>"; };
+		1988ABB90C9FF97000D97977 /* GameStatistics.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GameStatistics.h; sourceTree = "<group>"; };
+		1988ABBA0C9FF97000D97977 /* PinyinParser.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PinyinParser.cpp; sourceTree = "<group>"; };
+		1988ABBB0C9FF97000D97977 /* PinyinParser.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PinyinParser.h; sourceTree = "<group>"; };
 		198EC7AE07153D6E00474B38 /* KeyboardEvent.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = KeyboardEvent.h; sourceTree = "<group>"; };
 		198EC7AF07153D6E00474B38 /* KeyboardEvent.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = KeyboardEvent.m; sourceTree = "<group>"; };
 		198EC7B007153D6E00474B38 /* LowLevelKeyboardHandling.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = LowLevelKeyboardHandling.c; sourceTree = "<group>"; };
@@ -892,6 +900,11 @@
 		1948BDF40C226CFC001DFA32 /* DasherCore */ = {
 			isa = PBXGroup;
 			children = (
+				1988ABB70C9FF97000D97977 /* GameLevel.cpp */,
+				1988ABB80C9FF97000D97977 /* GameMessages.h */,
+				1988ABB90C9FF97000D97977 /* GameStatistics.h */,
+				1988ABBA0C9FF97000D97977 /* PinyinParser.cpp */,
+				1988ABBB0C9FF97000D97977 /* PinyinParser.h */,
 				1948BDF60C226CFC001DFA32 /* ActionButton.cpp */,
 				1948BDF70C226CFC001DFA32 /* ActionButton.h */,
 				1948BDF80C226CFC001DFA32 /* Alphabet */,
@@ -1029,7 +1042,6 @@
 		1948BDF80C226CFC001DFA32 /* Alphabet */ = {
 			isa = PBXGroup;
 			children = (
-				1948BDF90C226CFC001DFA32 /* .cvsignore */,
 				1948BDFA0C226CFC001DFA32 /* Alphabet.cpp */,
 				1948BDFB0C226CFC001DFA32 /* Alphabet.h */,
 				1948BDFC0C226CFC001DFA32 /* AlphabetMap.cpp */,
@@ -1499,6 +1511,9 @@
 				193731A80C8586F20022CBC7 /* config.h in Headers */,
 				19F8C7E60C858A2800276B4F /* I18n.h in Headers */,
 				19F8C7FA0C858E9900276B4F /* TrainingHelper.h in Headers */,
+				1988ABBD0C9FF97000D97977 /* GameMessages.h in Headers */,
+				1988ABBE0C9FF97000D97977 /* GameStatistics.h in Headers */,
+				1988ABC00C9FF97000D97977 /* PinyinParser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1550,7 +1565,6 @@
 				1974FE440714861B00B95DA0 /* DasherApp.icns in Resources */,
 				1974FE5A0714861B00B95DA0 /* Credits.html in Resources */,
 				198EC6D5071493BB00474B38 /* MainMenu.nib in Resources */,
-				1948BE9F0C226CFD001DFA32 /* .cvsignore in Resources */,
 				1948BEDD0C226CFD001DFA32 /* DasherView.inl in Resources */,
 				1948BEE00C226CFD001DFA32 /* DasherViewSquare.inl in Resources */,
 				19BEF35C0C228F7300275D06 /* alphabet-nest.xsl in Resources */,
@@ -1808,6 +1822,8 @@
 				1921DB400C7ECB4B00E6DAA5 /* DasherGameMode.cpp in Sources */,
 				1921DB6E0C7ECB9900E6DAA5 /* GameScorer.cpp in Sources */,
 				19F8C7F90C858E9900276B4F /* TrainingHelper.cpp in Sources */,
+				1988ABBF0C9FF97000D97977 /* PinyinParser.cpp in Sources */,
+				1988ABCF0C9FFADA00D97977 /* GameLevel.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

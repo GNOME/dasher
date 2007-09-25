@@ -167,14 +167,11 @@ void COSXDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
   
   switch (pEvent->m_iEventType) {
     case EV_PARAM_NOTIFY:
-      /*
-       * How this works:  the PreferencesController gets values from, and reports new values to the Core,
-       * it doesn't mess with user defaults.  This code, will store the new value in the user defaults.
-       * Any other bit of code which wants to know about pref changes should register for
-       * NSUserDefaultsDidChangeNotification.
-       *
-       */
+      // don't need to do anything because the PreferencesController is observing changes to the 
+      // user defaults controller which is observing the user defaults and will be notified when
+      // the parameter is actually written by COSXSettingsStore.
 //      CParameterNotificationEvent *parameterEvent(static_cast < CParameterNotificationEvent * >(pEvent));
+//      NSLog(@"CParameterNotificationEvent, m_iParameter: %d", parameterEvent->m_iParameter);
       break;
     case EV_EDIT:
 //      NSLog(@"ExternalEventHandler, m_iEventType = EV_EDIT");
@@ -211,7 +208,7 @@ void COSXDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
       NSLog(@"ExternalEventHandler, m_iEventType = EV_CONTROL");
       break;
     case EV_LOCK:
-      CLockEvent *lockEvent(static_cast < CLockEvent * >(pEvent));
+//      CLockEvent *lockEvent(static_cast < CLockEvent * >(pEvent));
 //      NSLog(@"ExternalEventHandler, m_iEventType = EV_LOCK, mess: %@, bLock = %d, pct = %d", NSStringFromStdString(lockEvent->m_strMessage), lockEvent->m_bLock, lockEvent->m_iPercent);
       break;
     case EV_COMMAND:

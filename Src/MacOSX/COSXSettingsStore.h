@@ -22,10 +22,12 @@ public:
   COSXSettingsStore(Dasher::CEventHandler * pEventHandler);
   ~COSXSettingsStore();
   
-  int GetParameterIndex(const std::string &  Key);
   NSDictionary *ParameterDictionary();
 
+  int GetParameterIndex(const std::string &  Key);
+
 private:
+
   bool LoadSetting(const std::string & Key, bool * Value);
   bool LoadSetting(const std::string & Key, long *Value);
   bool LoadSetting(const std::string & Key, std::string * Value);

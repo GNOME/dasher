@@ -19,22 +19,15 @@ static PreferencesController *preferencesController = nil;
 
 @implementation PreferencesController
 
-/*
- IMPORTANT: this code (and associated nib(s)) should not access the user defaults.  It stores and retrieves preferences via the core.  COSXSettingsStore accesses user defaults and core talks directly to it.  The rest of the Cocoa code should get values of parameters via the core and, if necessary, ask for user default notification of parameter changes.
- */
-
-// any keys for which there are no ivars or methods will be caught as undefined keys,
-// and we can just shove them straight into the core
-- (id)valueForUndefinedKey:(NSString *)aKey {
-  return [dasherApp getParameterValueForKey:aKey];
+- (id)defaultsValueForKey:(NSString *)aKey {
+  return [[NSUserDefaultsController sharedUserDefaultsController] valueForKeyPath:[NSString stringWithFormat:@"values.%@", aKey]];
 }
 
-- (void)setValue:(id)aValue forUndefinedKey:(NSString *)aKey {
-  [dasherApp setParameterValue:aValue forKey:aKey];
+- (void)setDefaultsValue:(id)aValue forKey:(NSString *)aKey {
+  [[NSUserDefaultsController sharedUserDefaultsController] setValue:aValue forKeyPath:[NSString stringWithFormat:@"values.%@", aKey]];
 }
 
-+ (id)preferencesController
-{
++ (id)preferencesController {
   if (preferencesController == nil)
     {
     preferencesController = [[self alloc] init];  // retain to use as singleton
@@ -44,27 +37,44 @@ static PreferencesController *preferencesController = nil;
   return preferencesController;
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+  NSString *key = [keyPath substringFromIndex:[@"values." length]];
+  NSString *value = [self defaultsValueForKey:key];
+  
+  [dasherApp setParameterValue:value forKey:key];
+}
+
+- (void)observeDefaults {
+  NSEnumerator *e = [[dasherApp parameterDictionary] keyEnumerator];
+  NSString *key = nil;
+  NSUserDefaultsController *udc = [NSUserDefaultsController sharedUserDefaultsController];
+  
+  while (key = [e nextObject]) {
+    [udc addObserver:self forKeyPath:[NSString stringWithFormat:@"values.%@", key] options:0 context:NULL];
+  }
+}
+
+- (void)awakeFromNib {
+  [self observeDefaults];
+}
+
 - (NSDictionary *)parameterDictionary {
   return [dasherApp parameterDictionary];
 }
 
-- (id)init
-{
-  if (self = [super init])
-    {
+- (id)init {
+  if (self = [super init]) {
     dasherApp = [[NSApplication sharedApplication] delegate];
-    }
+  }
   
   return self;
 }
 
 
-- (void)makeKeyAndOrderFront:(id)sender
-{
-  if (panel == nil)
-    {
+- (void)makeKeyAndOrderFront:(id)sender {
+  if (panel == nil) {
     [NSBundle loadNibNamed:@"Preferences" owner:self];
-    }
+  }
   
   [panel makeKeyAndOrderFront:self];
 }
@@ -74,11 +84,11 @@ static PreferencesController *preferencesController = nil;
 }
 
 - (NSIndexSet *)selectionIndexesForAlphabetID {
-  return [NSIndexSet indexSetWithIndex:[[self permittedValuesForAlphabetID] indexOfObject:[self valueForKey:@"AlphabetID"]]];
+  return [NSIndexSet indexSetWithIndex:[[self permittedValuesForAlphabetID] indexOfObject:[self defaultsValueForKey:@"AlphabetID"]]];
 }
 
 - (void)setSelectionIndexesForAlphabetID:(NSIndexSet *)anIndexSet {
-  [self setValue:[[[self permittedValuesForAlphabetID] objectsAtIndexes:anIndexSet] lastObject] forKey:@"AlphabetID"];
+  [self setDefaultsValue:[[[self permittedValuesForAlphabetID] objectsAtIndexes:anIndexSet] lastObject] forKey:@"AlphabetID"];
 }
 
 
@@ -87,11 +97,11 @@ static PreferencesController *preferencesController = nil;
 }
 
 - (NSIndexSet *)selectionIndexesForColourID {
-  return [NSIndexSet indexSetWithIndex:[[self permittedValuesForColourID] indexOfObject:[self valueForKey:@"ColourID"]]];
+  return [NSIndexSet indexSetWithIndex:[[self permittedValuesForColourID] indexOfObject:[self defaultsValueForKey:@"ColourID"]]];
 }
 
 - (void)setSelectionIndexesForColourID:(NSIndexSet *)anIndexSet {
-  [self setValue:[[[self permittedValuesForColourID] objectsAtIndexes:anIndexSet] lastObject] forKey:@"ColourID"];
+  [self setDefaultsValue:[[[self permittedValuesForColourID] objectsAtIndexes:anIndexSet] lastObject] forKey:@"ColourID"];
 }
 
 
@@ -100,11 +110,11 @@ static PreferencesController *preferencesController = nil;
 }
 
 - (NSIndexSet *)selectionIndexesForInputFilter {
-  return [NSIndexSet indexSetWithIndex:[[self permittedValuesForInputFilter] indexOfObject:[self valueForKey:@"InputFilter"]]];
+  return [NSIndexSet indexSetWithIndex:[[self permittedValuesForInputFilter] indexOfObject:[self defaultsValueForKey:@"InputFilter"]]];
 }
 
 - (void)setSelectionIndexesForInputFilter:(NSIndexSet *)anIndexSet {
-  [self setValue:[[[self permittedValuesForInputFilter] objectsAtIndexes:anIndexSet] lastObject] forKey:@"InputFilter"];
+  [self setDefaultsValue:[[[self permittedValuesForInputFilter] objectsAtIndexes:anIndexSet] lastObject] forKey:@"InputFilter"];
 }
 
 

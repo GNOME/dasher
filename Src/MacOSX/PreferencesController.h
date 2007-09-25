@@ -23,8 +23,7 @@
   int fontToAlter;
   
 }
-- (id)valueForUndefinedKey:(NSString *)aKey;
-- (void)setValue:(id)aValue forUndefinedKey:(NSString *)aKey;
+
 + (id)preferencesController;
 - (id)init;
 - (void)makeKeyAndOrderFront:(id)sender;
