@@ -813,6 +813,14 @@
 			</File>
 		</Filter>
 		<File
+			RelativePath=".\BTSocketInput.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\BTSocketInput.h"
+			>
+		</File>
+		<File
 			RelativePath="..\Win32\Dasher.cpp"
 			>
 		</File>

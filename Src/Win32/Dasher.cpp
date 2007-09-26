@@ -11,6 +11,7 @@
 
 #ifndef _WIN32_WCE
 #include "Sockets/SocketInput.h"
+#include "BTSocketInput.h"
 #endif
 
 #include "Common/WinOptions.h"
@@ -51,6 +52,7 @@ CDasher::~CDasher(void) {
 void CDasher::CreateLocalFactories() {
 #ifndef _WIN32_WCE
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CSocketInput(m_pEventHandler, m_pSettingsStore)));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CBTSocketInput(m_pEventHandler, m_pSettingsStore)));
 #endif
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherMouseInput(m_pEventHandler, m_pSettingsStore, m_pCanvas->getwindow())));
 }
