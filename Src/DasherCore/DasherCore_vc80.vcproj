@@ -1824,6 +1824,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\OneButtonDynamicFilter.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\OneButtonDynamicFilter.h"
+			>
+		</File>
+		<File
 			RelativePath=".\OneDimensionalFilter.cpp"
 			>
 		</File>

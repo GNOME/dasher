@@ -38,7 +38,7 @@
 #include "BasicLog.h"
 #endif
 #include "WrapperFactory.h"
-#include "DasherGameMode.h"
+//#include "DasherGameMode.h"
 
 // Input filters
 #include "ClickFilter.h" 
@@ -182,7 +182,7 @@ void CDasherInterfaceBase::Realize() {
   ChangeState(TR_MODEL_INIT);
 
   // Create the teacher singleton object. 
-  CDasherGameMode::CreateTeacher(m_pEventHandler, m_pSettingsStore, this);
+  //CDasherGameMode::CreateTeacher(m_pEventHandler, m_pSettingsStore, this);
 }
 
 CDasherInterfaceBase::~CDasherInterfaceBase() {
@@ -190,7 +190,7 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
 
   // It may seem odd that InterfaceBase does not "own" the teacher.
   // This is because game mode is a different layer, in a sense.
-  CDasherGameMode::DestroyTeacher();
+  //CDasherGameMode::DestroyTeacher();
 
   delete m_pDasherModel;        // The order of some of these deletions matters
   delete m_Alphabet;
@@ -381,8 +381,8 @@ void CDasherInterfaceBase::CreateModel(int iOffset) {
   m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, m_pNCManager, this, m_pDasherView, iOffset);
   
   // Notify the teacher of the new model
-  if(CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher())
-    pTeacher->SetDasherModel(m_pDasherModel);
+ // if(CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher())
+  //  pTeacher->SetDasherModel(m_pDasherModel);
   
 }
 
@@ -471,7 +471,7 @@ void CDasherInterfaceBase::PauseAt(int MouseX, int MouseY) {
 }
 
 void CDasherInterfaceBase::GameMessageIn(int message, void* messagedata) {
-  CDasherGameMode::GetTeacher()->Message(message, messagedata);
+ // CDasherGameMode::GetTeacher()->Message(message, messagedata);
 }
 
 
@@ -602,8 +602,8 @@ void CDasherInterfaceBase::Redraw(bool bRedrawNodes) {
   
   m_pDasherView->Screen()->SendMarker(1);
   
-  if(CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher())
-    pTeacher->DrawGameDecorations(m_pDasherView);
+ // if(CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher())
+ //   pTeacher->DrawGameDecorations(m_pDasherView);
     
   bool bDecorationsChanged(false);
 
@@ -686,10 +686,10 @@ void CDasherInterfaceBase::ChangeView() {
     if (m_pInput)
       m_pDasherView->SetInput(m_pInput);
     // Tell the Teacher which view we are using
-    if(CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher())
-      {
-	pTeacher->SetDasherView(m_pDasherView);
-      }
+   // if(CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher())
+  //    {
+//	pTeacher->SetDasherView(m_pDasherView);
+   //   }
   }
 }
 

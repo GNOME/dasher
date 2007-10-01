@@ -33,7 +33,7 @@
 #include "LanguageModelling/DictLanguageModel.h"
 #include "LanguageModelling/MixtureLanguageModel.h"
 #include "NodeCreationManager.h"
-#include "DasherGameMode.h"
+//#include "DasherGameMode.h"
 #include "AlphabetManager.h"
 
 using namespace Dasher;
@@ -535,9 +535,9 @@ bool CDasherModel::UpdatePosition(myint miMousex, myint miMousey, unsigned long 
 void CDasherModel::NewFrame(unsigned long Time) {
   m_fr.NewFrame(Time);
   ///GAME MODE TEMP///Pass new frame events onto our teacher
-  CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher();
-  if(m_bGameMode && pTeacher)
-    pTeacher->NewFrame(Time);
+ // CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher();
+ // if(m_bGameMode && pTeacher)
+  //  pTeacher->NewFrame(Time);
 }
 
 void CDasherModel::OldPush(myint iMousex, myint iMousey) {
@@ -609,9 +609,9 @@ void CDasherModel::RecursiveOutput(CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PRO
   pNode->SetFlag(NF_SEEN, true);
   pNode->m_pNodeManager->Output(pNode, pAdded, GetLongParameter(LP_NORMALIZATION));
 
-  if(m_bGameMode)
-    if(pNode->GetFlag(NF_END_GAME))
-      CDasherGameMode::GetTeacher()->SentenceFinished();
+ // if(m_bGameMode)
+  //  if(pNode->GetFlag(NF_END_GAME))
+   //   CDasherGameMode::GetTeacher()->SentenceFinished();
 }
 
 void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
@@ -779,59 +779,59 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
   ///GAME MODE TEMP///////////
   // If we are in GameMode, then we do a bit of cooperation with the teacher object when we create
   // new children.
-  CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher();
-  if(m_bGameMode && pNode->GetFlag(NF_GAME) && pTeacher )
-    {
-      std::string strTarget;
-      CAlphabetManager::SAlphabetData * pAlphabetData =
-	static_cast<CAlphabetManager::SAlphabetData *>(pNode->m_pUserData);
-      strTarget = pTeacher->GetSymbolAtOffset(pAlphabetData->iOffset+1);
-      CDasherNode::ChildMap::iterator i, j;
-      /////////////FIX/////////////////
-      if(strTarget == "GameEnd")
-	{
-	  pNode->SetFlag(NF_END_GAME, true);
-	  goto multibreak;
-	}
-      for(i = pNode->Children().begin(); i != pNode->Children().end(); i++)
-	{
-	  if((*i)->GetDisplayInfo()->strDisplayText == "Control") continue;
-
-	  if((*i)->GetFlag(NF_SUBNODE))
-	    {
-	      for(j = (*i)->Children().begin(); j != (*i)->Children().end(); j++)
-		{
-		  std::string strNode;
-		  CDasherNode * pTempNode = (*j);
-		  pAlphabetData = static_cast<CAlphabetManager::SAlphabetData *>(pTempNode->m_pUserData);
-		  strNode = m_pNodeCreationManager->GetAlphabet()->GetText(pAlphabetData->iSymbol);
-		  if(strNode == strTarget)
-		    {
-		      (*j)->SetFlag(NF_GAME, true);
-		      (*i)->SetFlag(NF_GAME, true);
-		      goto multibreak;
-		    }
-		}
-	    }
-	  else
-	    {
-	      std::string strNode;
-	      CDasherNode * pTempNode = (*i);
-	      pAlphabetData = static_cast<CAlphabetManager::SAlphabetData *>(pTempNode->m_pUserData);
-	      strNode = m_pNodeCreationManager->GetAlphabet()->GetText(pAlphabetData->iSymbol);
-	      if(strNode == strTarget)
-		{
-		  (*i)->SetFlag(NF_GAME, true);
-		  goto multibreak;
-		}	 
-	    }
-	}
-    multibreak:
-      true;
-    }
+  //CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher();
+//  if(m_bGameMode && pNode->GetFlag(NF_GAME) && pTeacher )
+//  {
+//	  std::string strTarget;
+//	  CAlphabetManager::SAlphabetData * pAlphabetData =
+//		  static_cast<CAlphabetManager::SAlphabetData *>(pNode->m_pUserData);
+//	  strTarget = pTeacher->GetSymbolAtOffset(pAlphabetData->iOffset+1);
+//	  CDasherNode::ChildMap::iterator i, j;
+//	  /////////////FIX/////////////////
+//	  if(strTarget == "GameEnd")
+//	  {
+//		  pNode->SetFlag(NF_END_GAME, true);
+//		  goto multibreak;
+//	  }
+//	  for(i = pNode->Children().begin(); i != pNode->Children().end(); i++)
+//	  {
+//		  if((*i)->GetDisplayInfo()->strDisplayText == "Control") continue;
+//
+//		  if((*i)->GetFlag(NF_SUBNODE))
+//		  {
+//			  for(j = (*i)->Children().begin(); j != (*i)->Children().end(); j++)
+//			  {
+//				  std::string strNode;
+//				  CDasherNode * pTempNode = (*j);
+//				  pAlphabetData = static_cast<CAlphabetManager::SAlphabetData *>(pTempNode->m_pUserData);
+//				  strNode = m_pNodeCreationManager->GetAlphabet()->GetText(pAlphabetData->iSymbol);
+//				  if(strNode == strTarget)
+//				  {
+//					  (*j)->SetFlag(NF_GAME, true);
+//					  (*i)->SetFlag(NF_GAME, true);
+//					  goto multibreak;
+//				  }
+//			  }
+//		  }
+//		  else
+//		  {
+//			  std::string strNode;
+//			  CDasherNode * pTempNode = (*i);
+//			  pAlphabetData = static_cast<CAlphabetManager::SAlphabetData *>(pTempNode->m_pUserData);
+//			  strNode = m_pNodeCreationManager->GetAlphabet()->GetText(pAlphabetData->iSymbol);
+//			  if(strNode == strTarget)
+//			  {
+//				  (*i)->SetFlag(NF_GAME, true);
+//				  goto multibreak;
+//			  }	 
+//		  }
+//	  }
+//multibreak:
+//	  true;
+//  }
   ////////////////////////////
-  
- }
+
+}
 
 void CDasherModel::Recursive_Push_Node(CDasherNode *pNode, int iDepth) {
   // TODO: is this really useful? Doesn't Push_node itself recurse
@@ -871,9 +871,9 @@ bool CDasherModel::RenderToView(CDasherView *pView, bool bRedrawDisplay) {
   bReturnValue = pView->Render(m_Root, m_Rootmin + m_iTargetOffset, m_Rootmax + m_iTargetOffset, vNodeList, vDeleteList, bRedrawDisplay, &vGameTargetY);
   
   /////////GAME MODE TEMP//////////////
-  if(m_bGameMode)
+ /* if(m_bGameMode)
     if(CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher())
-      pTeacher->SetTargetY(vGameTargetY);
+      pTeacher->SetTargetY(vGameTargetY);*/
   //////////////////////////////////////
 
 

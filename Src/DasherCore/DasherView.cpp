@@ -14,7 +14,7 @@
 #include "DasherModel.h"
 #include "DasherInput.h"
 
-#include "DasherGameMode.h"
+//#include "DasherGameMode.h"
 
 #include <iostream>
 
@@ -375,9 +375,9 @@ int CDasherView::GetCoordinates(myint &iDasherX, myint &iDasherY) {
   ///GAME///
   if(m_bGameMode)
     {
-      if(m_bDemoMode)
-	CDasherGameMode::GetTeacher()->DemoModeGetCoordinates(iDasherX, iDasherY);
-      CDasherGameMode::GetTeacher()->SetUserMouseCoordinates(iDasherX, iDasherY);
+ //     if(m_bDemoMode)
+//	CDasherGameMode::GetTeacher()->DemoModeGetCoordinates(iDasherX, iDasherY);
+   //   CDasherGameMode::GetTeacher()->SetUserMouseCoordinates(iDasherX, iDasherY);
     }
       
   return iType;
