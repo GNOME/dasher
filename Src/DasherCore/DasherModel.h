@@ -294,7 +294,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   // Whether game mode is active
   // TODO: This isn't very functional at the moment
-  bool m_bGameMode;
+  //  bool m_bGameMode;
 
   // Whether characters entered by alphabet manager are expected to
   // require conversion.

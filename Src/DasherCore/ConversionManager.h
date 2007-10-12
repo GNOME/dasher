@@ -149,7 +149,7 @@ namespace Dasher {
     /// Rebuild the parent of a given node - used for when backoff occurs beyond the start of the tree
     ///
 
-    virtual CDasherNode *RebuildParent(CDasherNode *pNode, int iGeneration) {
+    virtual CDasherNode *RebuildParent(CDasherNode *pNode) {
       return 0;
     }
 

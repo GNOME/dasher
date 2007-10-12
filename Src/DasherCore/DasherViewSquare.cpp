@@ -8,7 +8,7 @@
 #include "..\Win32\Common\WinCommon.h"
 #endif
 
-#include "DasherGameMode.h"
+//#include "DasherGameMode.h"
 #include "DasherViewSquare.h"
 #include "DasherModel.h"
 #include "DasherView.h"

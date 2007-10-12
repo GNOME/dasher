@@ -81,7 +81,7 @@ CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUp
     BuildContext(strContext, false, iContext, iSymbol);
 
     iOffset = static_cast<SRootData *>(pUserData)->iOffset - 1;
-    iColour = m_pNCManager->GetColour(iSymbol);
+    iColour = m_pNCManager->GetColour(iSymbol, 0);
   }
   else {
     // Create a root node
@@ -237,24 +237,9 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CDasherNode *pParent, symbol iSy
   }         
   else {
     int iPhase = (pParentData->iPhase + 1) % 2;
-    int iColour = m_pNCManager->GetColour(iSymbol);
+    int iColour = m_pNCManager->GetColour(iSymbol, iPhase);
     
-    // This is for backwards compatibility with old alphabet files -
-    // ideally make this log a warning (unrelated TODO: automate
-    // validation of alphabet files, plus maintenance of repository
-    // etc.)
-    if(iColour == -1) {
-      if(iSymbol == m_pNCManager->GetSpaceSymbol()) {
-	iColour = 9;
-      }
-      else {
-	iColour = (iSymbol % 3) + 10;
-      }
-    }
-    
-    // Loop on low colours for nodes (TODO: go back to colour namespaces?)
-    if(iPhase == 1 && iColour < 130)
-      iColour += 130;
+   
     
     // TODO: Exceptions / error handling in general
 
@@ -404,8 +389,6 @@ void CAlphabetManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* p
 void CAlphabetManager::Undo( CDasherNode *pNode ) {
   symbol t = static_cast<SAlphabetData *>(pNode->m_pUserData)->iSymbol;
 
-  //std::cout << pNode << " " << pNode->Parent() << ": Undo at offset " << static_cast<SAlphabetData *>(pNode->m_pUserData)->iOffset << " *" << m_pNCManager->GetAlphabet()->GetText(t) << "* " << std::endl;
-
   if(t) { // Ignore symbol 0 (root node)
     Dasher::CEditEvent oEvent(2, m_pNCManager->GetAlphabet()->GetText(t), static_cast<SAlphabetData *>(pNode->m_pUserData)->iOffset);
     m_pNCManager->InsertEvent(&oEvent);
@@ -413,10 +396,7 @@ void CAlphabetManager::Undo( CDasherNode *pNode ) {
 }
 
 // TODO: Sort out node deletion etc.
-CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode, int iGeneration) {
-
-  // TODO: iGeneration obsolete?
-
+CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode) {
   int iOffset(static_cast<SAlphabetData *>(pNode->m_pUserData)->iOffset);
   int iNewOffset = iOffset - 1;
 
@@ -429,9 +409,10 @@ CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode, int iGeneration
 
   std::string strContext;
   CLanguageModel::Context iContext;
-   
-  if(iOffset == -1) {
-    // pNode is already a root
+
+  if((iOffset == -1) || (static_cast<SAlphabetData *>(pNode->m_pUserData)->iSymbol == 0)) {
+    // pNode is already a root, or for some other reason has the null
+    // symbol (eg because it was generated from a different alphabet)
     return NULL;
   }
   else if(iOffset == 0) {
@@ -457,15 +438,12 @@ CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode, int iGeneration
       iStart = 0;
 
     strContext = m_pInterface->GetContext(iStart, iOffset - iStart);
+
     BuildContext(strContext, false, iContext, iNewSymbol);
 
     iNewPhase = ((iOldPhase + 2 - 1) % 2);
 
-    int iColour(m_pNCManager->GetColour(iNewSymbol));
-
-    // Loop colours if necessary for the colour scheme
-    if(iNewPhase == 1)
-      iColour += 130;
+    int iColour(m_pNCManager->GetColour(iNewSymbol, iNewPhase));
             
     CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
     pDisplayInfo->iColour = iColour;
@@ -493,6 +471,8 @@ CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode, int iGeneration
 
   PopulateChildrenWithSymbol(pNewNode, static_cast<SAlphabetData *>(pNode->m_pUserData)->iSymbol, pNode);
   
+  //  std::cout << "**" << std::endl;
+
   return pNewNode;
 }
 
@@ -514,13 +494,14 @@ void CAlphabetManager::BuildContext(std::string strContext, bool bRoot, CLanguag
   // redundant code
 
   std::vector<symbol> vContextSymbols;
-  m_pNCManager->GetAlphabet()->GetSymbols(&vContextSymbols, &strContext, false);
+  m_pNCManager->GetAlphabet()->GetSymbolsFull(&vContextSymbols, &strContext);
  
   oContext = m_pLanguageModel->CreateEmptyContext();
   
   for(std::vector<symbol>::iterator it(vContextSymbols.begin()); it != vContextSymbols.end(); ++it)
-    m_pLanguageModel->EnterSymbol(oContext, *it);
-
+    if(*it != 0)
+      m_pLanguageModel->EnterSymbol(oContext, *it);
+  
   if((vContextSymbols.size() == 0) || bRoot)
     iSymbol = 0;
   else

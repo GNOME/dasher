@@ -62,7 +62,7 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler,
   m_pNodeCreationManager = pNCManager;
   m_pDasherInterface = pDasherInterface;
 
-  m_bGameMode = GetBoolParameter(BP_GAME_MODE);
+  //  m_bGameMode = GetBoolParameter(BP_GAME_MODE);
   m_iOffset = iOffset; // TODO: Set through build routine
 
   DASHER_ASSERT(m_pNodeCreationManager != NULL);
@@ -135,7 +135,7 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
 	m_iStartTime = 1;
       break;
     case BP_GAME_MODE:
-      m_bGameMode = GetBoolParameter(BP_GAME_MODE);
+      //      m_bGameMode = GetBoolParameter(BP_GAME_MODE);
       // Maybe reload something here to begin game mode?
       break;
     default:
@@ -158,6 +158,8 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
 void CDasherModel::Make_root(CDasherNode *pNewRoot) {
   // TODO: Note that subnodes can be the root transiently during the
   // re-rooting process.
+
+  //  std::cout << "Make root" << std::endl;
 
   DASHER_ASSERT(pNewRoot != NULL);
   DASHER_ASSERT(pNewRoot->NodeIsParent(m_Root));
@@ -231,34 +233,18 @@ void CDasherModel::RebuildAroundNode(CDasherNode *pNode) {
   m_pLastOutput = m_Root;
 }
 
-// TODO: Need to make this do the right thing with subnodes
 void CDasherModel::Reparent_root(int lower, int upper) {
   DASHER_ASSERT(m_Root != NULL);
 
   // Change the root node to the parent of the existing node. We need
   // to recalculate the coordinates for the "new" root as the user may
   // have moved around within the current root
-
   CDasherNode *pNewRoot;
 
   if(oldroots.size() == 0) {
-    //    std::cout << "a" << std::endl;
-
-    // No nodes in the stack, so make a new one
-
-    // TODO: iGenerations is redundant, get rid of it
-    int iGenerations(0);
-    pNewRoot = m_Root->m_pNodeManager->RebuildParent(m_Root, iGenerations);
-
+    pNewRoot = m_Root->m_pNodeManager->RebuildParent(m_Root);
   }
   else {
-    //    std::cout << "b" << std::endl;
-
-    //    for(int i(0); i < oldroots.size(); ++i)
-    //      std::cout << oldroots[i]->GetFlag(NF_SUBNODE) << " ";
-    
-    //   std::cout << std::endl;
-
     pNewRoot = oldroots.back();
     oldroots.pop_back();
 
@@ -266,13 +252,6 @@ void CDasherModel::Reparent_root(int lower, int upper) {
       pNewRoot = oldroots.back();
       oldroots.pop_back();
     }
-
-    //    for(int i(0); i < oldroots.size(); ++i)
-    // std::cout << oldroots[i]->GetFlag(NF_SUBNODE) << " ";
-    
-    //std::cout << std::endl;
-    
-    // std::cout << "---" << std::endl;
   }
 
   // Return if there's no existing parent and no way of recreating one
@@ -297,10 +276,11 @@ void CDasherModel::Reparent_root(int lower, int upper) {
     myint iRootWidth = m_Rootmax - m_Rootmin;
     
     // Fail and undo root creation if the new root is bigger than allowed by normalisation
-    if(!(pNewRoot->GetFlag(NF_SUBNODE)) && (((myint((GetLongParameter(LP_NORMALIZATION) - upper)) / static_cast<double>(iWidth)) 
-	> (m_Rootmax_max - m_Rootmax)/static_cast<double>(iRootWidth)) || 
-       ((myint(lower) / static_cast<double>(iWidth)) 
-	> (m_Rootmin - m_Rootmin_min) / static_cast<double>(iRootWidth)))) {
+    if(!(pNewRoot->GetFlag(NF_SUBNODE)) && 
+       (((myint((GetLongParameter(LP_NORMALIZATION) - upper)) / static_cast<double>(iWidth)) >
+	 (m_Rootmax_max - m_Rootmax)/static_cast<double>(iRootWidth)) || 
+       ((myint(lower) / static_cast<double>(iWidth)) > 
+	(m_Rootmin - m_Rootmin_min) / static_cast<double>(iRootWidth)))) {
       pNewRoot->OrphanChild(m_Root);
       delete pNewRoot;
       return;
@@ -535,8 +515,8 @@ bool CDasherModel::UpdatePosition(myint miMousex, myint miMousey, unsigned long 
 void CDasherModel::NewFrame(unsigned long Time) {
   m_fr.NewFrame(Time);
   ///GAME MODE TEMP///Pass new frame events onto our teacher
- // CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher();
- // if(m_bGameMode && pTeacher)
+  //  CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher();
+  // if(m_bGameMode && pTeacher)
   //  pTeacher->NewFrame(Time);
 }
 
@@ -609,9 +589,9 @@ void CDasherModel::RecursiveOutput(CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PRO
   pNode->SetFlag(NF_SEEN, true);
   pNode->m_pNodeManager->Output(pNode, pAdded, GetLongParameter(LP_NORMALIZATION));
 
- // if(m_bGameMode)
-  //  if(pNode->GetFlag(NF_END_GAME))
-   //   CDasherGameMode::GetTeacher()->SentenceFinished();
+  //  if(m_bGameMode)
+  // if(pNode->GetFlag(NF_END_GAME))
+  //   CDasherGameMode::GetTeacher()->SentenceFinished();
 }
 
 void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
@@ -779,57 +759,56 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
   ///GAME MODE TEMP///////////
   // If we are in GameMode, then we do a bit of cooperation with the teacher object when we create
   // new children.
-  //CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher();
-//  if(m_bGameMode && pNode->GetFlag(NF_GAME) && pTeacher )
-//  {
-//	  std::string strTarget;
-//	  CAlphabetManager::SAlphabetData * pAlphabetData =
-//		  static_cast<CAlphabetManager::SAlphabetData *>(pNode->m_pUserData);
-//	  strTarget = pTeacher->GetSymbolAtOffset(pAlphabetData->iOffset+1);
-//	  CDasherNode::ChildMap::iterator i, j;
-//	  /////////////FIX/////////////////
-//	  if(strTarget == "GameEnd")
-//	  {
-//		  pNode->SetFlag(NF_END_GAME, true);
-//		  goto multibreak;
-//	  }
-//	  for(i = pNode->Children().begin(); i != pNode->Children().end(); i++)
-//	  {
-//		  if((*i)->GetDisplayInfo()->strDisplayText == "Control") continue;
-//
-//		  if((*i)->GetFlag(NF_SUBNODE))
-//		  {
-//			  for(j = (*i)->Children().begin(); j != (*i)->Children().end(); j++)
-//			  {
-//				  std::string strNode;
-//				  CDasherNode * pTempNode = (*j);
-//				  pAlphabetData = static_cast<CAlphabetManager::SAlphabetData *>(pTempNode->m_pUserData);
-//				  strNode = m_pNodeCreationManager->GetAlphabet()->GetText(pAlphabetData->iSymbol);
-//				  if(strNode == strTarget)
-//				  {
-//					  (*j)->SetFlag(NF_GAME, true);
-//					  (*i)->SetFlag(NF_GAME, true);
-//					  goto multibreak;
-//				  }
-//			  }
-//		  }
-//		  else
-//		  {
-//			  std::string strNode;
-//			  CDasherNode * pTempNode = (*i);
-//			  pAlphabetData = static_cast<CAlphabetManager::SAlphabetData *>(pTempNode->m_pUserData);
-//			  strNode = m_pNodeCreationManager->GetAlphabet()->GetText(pAlphabetData->iSymbol);
-//			  if(strNode == strTarget)
-//			  {
-//				  (*i)->SetFlag(NF_GAME, true);
-//				  goto multibreak;
-//			  }	 
-//		  }
-//	  }
-//multibreak:
-//	  true;
-//  }
-  ////////////////////////////
+//   CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher();
+//   if(m_bGameMode && pNode->GetFlag(NF_GAME) && pTeacher )
+//     {
+//       std::string strTarget;
+//       CAlphabetManager::SAlphabetData * pAlphabetData =
+// 	static_cast<CAlphabetManager::SAlphabetData *>(pNode->m_pUserData);
+//       strTarget = pTeacher->GetSymbolAtOffset(pAlphabetData->iOffset+1);
+//       CDasherNode::ChildMap::iterator i, j;
+//       /////////////FIX/////////////////
+//       if(strTarget == "GameEnd")
+// 	{
+// 	  pNode->SetFlag(NF_END_GAME, true);
+// 	  goto multibreak;
+// 	}
+//       for(i = pNode->Children().begin(); i != pNode->Children().end(); i++)
+// 	{
+// 	  if((*i)->GetDisplayInfo()->strDisplayText == "Control") continue;
+
+// 	  if((*i)->GetFlag(NF_SUBNODE))
+// 	    {
+// 	      for(j = (*i)->Children().begin(); j != (*i)->Children().end(); j++)
+// 		{
+// 		  std::string strNode;
+// 		  CDasherNode * pTempNode = (*j);
+// 		  pAlphabetData = static_cast<CAlphabetManager::SAlphabetData *>(pTempNode->m_pUserData);
+// 		  strNode = m_pNodeCreationManager->GetAlphabet()->GetText(pAlphabetData->iSymbol);
+// 		  if(strNode == strTarget)
+// 		    {
+// 		      (*j)->SetFlag(NF_GAME, true);
+// 		      (*i)->SetFlag(NF_GAME, true);
+// 		      goto multibreak;
+// 		    }
+// 		}
+// 	    }
+// 	  else
+// 	    {
+// 	      std::string strNode;
+// 	      CDasherNode * pTempNode = (*i);
+// 	      pAlphabetData = static_cast<CAlphabetManager::SAlphabetData *>(pTempNode->m_pUserData);
+// 	      strNode = m_pNodeCreationManager->GetAlphabet()->GetText(pAlphabetData->iSymbol);
+// 	      if(strNode == strTarget)
+// 		{
+// 		  (*i)->SetFlag(NF_GAME, true);
+// 		  goto multibreak;
+// 		}	 
+// 	    }
+// 	}
+//     multibreak:
+//       true;
+//     }
 
 }
 
@@ -871,9 +850,9 @@ bool CDasherModel::RenderToView(CDasherView *pView, bool bRedrawDisplay) {
   bReturnValue = pView->Render(m_Root, m_Rootmin + m_iTargetOffset, m_Rootmax + m_iTargetOffset, vNodeList, vDeleteList, bRedrawDisplay, &vGameTargetY);
   
   /////////GAME MODE TEMP//////////////
- /* if(m_bGameMode)
-    if(CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher())
-      pTeacher->SetTargetY(vGameTargetY);*/
+//   if(m_bGameMode)
+//     if(CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher())
+//       pTeacher->SetTargetY(vGameTargetY);
   //////////////////////////////////////
 
 
@@ -950,13 +929,11 @@ bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
     // TODO: I think this if statement is reduncdent, return value of above is always equal to bFound
     // not true - pconlon
     ////GAME MODE TEMP - only change the root if it is on the game path/////////
-      if(bFound && (!m_bGameMode || pNewRoot->GetFlag(NF_GAME)))
-	{
-	  m_Root->DeleteNephews(pNewRoot);
-	  //      std::cout << "m..." << std::endl;
-	  RecursiveMakeRoot(pNewRoot);
-	  //std::cout << "...m" << std::endl;
-	}
+//       if(bFound && (!m_bGameMode || pNewRoot->GetFlag(NF_GAME)))
+    if(bFound) {
+      m_Root->DeleteNephews(pNewRoot);
+      RecursiveMakeRoot(pNewRoot);
+    }
   }
 
   CDasherNode *pNewNode = Get_node_under_crosshair();
@@ -1046,6 +1023,8 @@ void CDasherModel::SetOffset(int iLocation, CDasherView *pView) {
   if(iLocation == m_iOffset)
     return; // We're already there
   
+  //  std::cout << "Initialising at offset: " << iLocation << std::endl;
+
   // TODO: Special cases, ie this can be done without rebuilding the
   // model
 

@@ -37,8 +37,6 @@ libdashercore_a_SOURCES = \
 		DasherButtons.h \
 		DasherComponent.cpp \
 		DasherComponent.h \
-		DasherGameMode.cpp \
-		DasherGameMode.h \
 		DasherInput.h \
 		DasherInterfaceBase.cpp \
 		DasherInterfaceBase.h \
@@ -117,8 +115,7 @@ libdashercore_a_SOURCES = \
 		WrapperFactory.cpp \
 		WrapperFactory.h \
 		XMLUtil.cpp \
-		XMLUtil.h \
-		GameScorer.cpp
+		XMLUtil.h
 
 libdashercore_a_LIBADD = @CHINESE_SOURCES@ @JAPANESE_SOURCES@
 libdashercore_a_DEPENDENCIES = @CHINESE_SOURCES@ @JAPANESE_SOURCES@

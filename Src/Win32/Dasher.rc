@@ -132,7 +132,7 @@ FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,185,130,50,14
     ICON            IDI_DASHER,IDC_MYICON,23,18,20,20
-    LTEXT           "Dasher 4.5.2",IDC_STATIC,67,18,168,10,SS_NOPREFIX
+    LTEXT           "Dasher 4.6.0",IDC_STATIC,67,18,168,10,SS_NOPREFIX
     LTEXT           "Copyright (C) 1998-2007 The Dasher Project",IDC_STATIC,67,30,168,10
     LTEXT           "dasher@mrao.cam.ac.uk",IDC_STATIC,67,63,168,10
     LTEXT           "http://www.dasher.org.uk/",IDC_STATIC,67,53,168,10
@@ -461,8 +461,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 4,5,2,0
- PRODUCTVERSION 4,5,2,0
+ FILEVERSION 4,6,0,0
+ PRODUCTVERSION 4,6,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x3L
@@ -480,12 +480,12 @@ BEGIN
             VALUE "Comments", "Dasher is an information efficient text-entry system controlled by a pointer. It is licensed under the GPL."
             VALUE "CompanyName", "Inference Group, Cavendish Laboratory, University of Cambridge"
             VALUE "FileDescription", "Dasher"
-            VALUE "FileVersion", "4, 5, 2, 0"
+            VALUE "FileVersion", "4, 6, 0, 0"
             VALUE "InternalName", "Dasher"
             VALUE "LegalCopyright", "Copyright © 1998-2007 The Dasher Project"
             VALUE "OriginalFilename", "dasher.exe"
             VALUE "ProductName", "Dasher"
-            VALUE "ProductVersion", "4, 5, 2, 0"
+            VALUE "ProductVersion", "4, 6, 0, 0"
         END
     END
     BLOCK "VarFileInfo"

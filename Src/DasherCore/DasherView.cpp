@@ -373,12 +373,12 @@ int CDasherView::GetCoordinates(myint &iDasherX, myint &iDasherY) {
   // iDasherY = m_ymap.map(iDasherY);
 #endif
   ///GAME///
-  if(m_bGameMode)
-    {
- //     if(m_bDemoMode)
-//	CDasherGameMode::GetTeacher()->DemoModeGetCoordinates(iDasherX, iDasherY);
-   //   CDasherGameMode::GetTeacher()->SetUserMouseCoordinates(iDasherX, iDasherY);
-    }
+//   if(m_bGameMode)
+//     {
+//       if(m_bDemoMode)
+// 	CDasherGameMode::GetTeacher()->DemoModeGetCoordinates(iDasherX, iDasherY);
+//       CDasherGameMode::GetTeacher()->SetUserMouseCoordinates(iDasherX, iDasherY);
+//     }
       
   return iType;
 }

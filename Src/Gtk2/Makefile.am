@@ -94,8 +94,6 @@ libdashergtk_a_SOURCES = \
 			 dasher_maemo_helper.h \
                          dasher_main.cpp \
                          dasher_main.h \
-			 game_mode_helper.cpp \
-			 game_mode_helper.h \
 			 module_settings_window.cpp \
 			 module_settings_window.h 
 
