@@ -186,8 +186,6 @@ gtk_dasher_control_train(GtkDasherControl *pControl, const gchar *szFilename) {
 
 void 
 gtk_dasher_control_set_context(GtkDasherControl *pControl, const gchar *szContext) {
-  
-
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
   pPrivate->pControl->SetContext(szContext);
 }

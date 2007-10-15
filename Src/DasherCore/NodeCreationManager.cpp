@@ -77,7 +77,7 @@ CDasherNode *CNodeCreationManager::GetRoot(int iType, Dasher::CDasherNode *pPare
 void CNodeCreationManager::GetProbs(CLanguageModel::Context context, std::vector <symbol >&NewSymbols, std::vector <unsigned int >&Probs, int iNorm) const {
   // Total number of symbols
   int iSymbols = m_pAlphabet->GetNumberSymbols();      // note that this includes the control node and the root node
-
+  
   // Number of text symbols, for which the language model gives the distribution
   // int iTextSymbols = m_pAlphabet->GetNumberTextSymbols();
   
