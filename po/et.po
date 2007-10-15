@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-18 03:24+0100\n"
-"PO-Revision-Date: 2007-08-30 17:15+0300\n"
+"PO-Revision-Date: 2007-10-13 11:49+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -609,7 +609,7 @@ msgstr "_Fail"
 #: ../Data/glade/dasher.traditional.glade.h:86
 #: ../Data/glade/dashermaemofullscreen.glade.h:38
 msgid "_Help"
-msgstr "_Abi"
+msgstr "A_bi"
 
 #: ../Data/glade/dasher.compose.glade.h:84
 msgid "_Import Training Text"
@@ -641,7 +641,7 @@ msgstr "Eelistused"
 
 #: ../Data/glade/dasher.traditional.glade.h:58
 msgid "Quit"
-msgstr "Lõpeta"
+msgstr ""
 
 #: ../Data/glade/dasher.traditional.glade.h:62
 msgid "Select Dasher Font"
@@ -741,15 +741,15 @@ msgstr "Suurendusastmeid"
 
 #: ../Src/DasherCore/DasherButtons.cpp:25
 msgid "Right zoom"
-msgstr ""
+msgstr "Parempoolne suurendus"
 
 #: ../Src/DasherCore/DasherButtons.cpp:26
 msgid "Number of boxes"
-msgstr ""
+msgstr "Kastide arv"
 
 #: ../Src/DasherCore/DasherButtons.cpp:27
 msgid "Safety margin"
-msgstr ""
+msgstr "Ohutusmärgis"
 
 #: ../Src/DasherCore/DasherButtons.cpp:28
 msgid "Box non-uniformity"
@@ -796,17 +796,17 @@ msgstr ""
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:28
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:29
 msgid "Long press time"
-msgstr ""
+msgstr "Pika vajutuse kestus"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:29
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
 msgid "Multiple press time"
-msgstr ""
+msgstr "Mitmekordse vajutuse kestus"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:30
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:31
 msgid "Multiple press count"
-msgstr ""
+msgstr "Mitmekordsete vajutuste arv"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
 msgid "Enable backoff button"
@@ -847,15 +847,15 @@ msgstr "Y-silt:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:32
 msgid "Y minimum:"
-msgstr "Vähim Y:"
+msgstr "Vähim Y"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:33
 msgid "Y maximum:"
-msgstr "Suurim Y:"
+msgstr "Suurim Y"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:34
 msgid "Print socket-related debugging information to console:"
-msgstr "Sokliga seotud silumisandmete printimine konsoolile:"
+msgstr "Sokliga seotud silumisandmed prinditakse konsoolile"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:38
 msgid "Socket Input"
@@ -863,7 +863,7 @@ msgstr "Soklisisend"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:28
 msgid "Button offset"
-msgstr ""
+msgstr "Nupu nihe"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
 msgid "Enable backoff and start/stop buttons"
@@ -879,15 +879,15 @@ msgstr ""
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:35
 msgid "Startup time"
-msgstr ""
+msgstr "Käivitusaeg"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:36
 msgid "Auto speed control"
-msgstr ""
+msgstr "Automaatne kiirusekontroll"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:37
 msgid "Auto speed threshold"
-msgstr ""
+msgstr "Automaatkiiruse lävi"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
 msgid "Two Button Dynamic Mode"
@@ -895,11 +895,11 @@ msgstr "Kahenupuline dünaamiline režiim"
 
 #: ../Src/Gtk2/Preferences.cpp:417 ../Src/Gtk2/Preferences.cpp:983
 msgid "Action"
-msgstr "Toiming"
+msgstr "Tegevus"
 
 #: ../Src/Gtk2/Preferences.cpp:989
 msgid "Show Button"
-msgstr ""
+msgstr "Nupp on nähtaval"
 
 #: ../Src/Gtk2/Preferences.cpp:994
 msgid "Control Mode"
@@ -912,15 +912,15 @@ msgstr ""
 #: ../Src/Gtk2/dasher_action_keyboard.cpp:60
 #: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:94
 msgid "Enter Text"
-msgstr ""
+msgstr "Tekstisisestus"
 
 #: ../Src/Gtk2/dasher_action_script.cpp:91
 msgid "Script"
-msgstr "Skript"
+msgstr ""
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:129
 msgid "Speak"
-msgstr ""
+msgstr "Rääkimine"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:141
 msgid "All"
@@ -992,7 +992,7 @@ msgstr ""
 
 #: ../Src/Gtk2/module_settings_window.cpp:85
 msgid "Dasher Module Options"
-msgstr ""
+msgstr "Dasheri mooduli valikud"
 
 #: ../Src/Gtk2/module_settings_window.cpp:91
 #, c-format
@@ -1005,8 +1005,8 @@ msgstr "Hiiresisend"
 
 #: ../Src/Gtk2/mouse_input.h:51
 msgid "Pixels covering Y range"
-msgstr ""
+msgstr "Y-vahemikku katvate pikslite arv"
 
 #: ../Src/Gtk2/mouse_input.h:57
 msgid "One Dimensional Mouse Input"
-msgstr ""
+msgstr "Ühemõõtmeline hiiresisend"
