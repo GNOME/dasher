@@ -521,8 +521,6 @@ void CDasherModel::NewFrame(unsigned long Time) {
 }
 
 void CDasherModel::OldPush(myint iMousex, myint iMousey) {
-  std::cout << "Old Push" << std::endl;
-
   // push node under mouse
   CDasherNode *pUnderMouse = Get_node_under_mouse(iMousex, iMousey);
 
@@ -849,6 +847,7 @@ bool CDasherModel::RenderToView(CDasherView *pView, bool bRedrawDisplay) {
   // the appropriate Nodes.
   bReturnValue = pView->Render(m_Root, m_Rootmin + m_iTargetOffset, m_Rootmax + m_iTargetOffset, vNodeList, vDeleteList, bRedrawDisplay, &vGameTargetY);
   
+
   /////////GAME MODE TEMP//////////////
 //   if(m_bGameMode)
 //     if(CDasherGameMode* pTeacher = CDasherGameMode::GetTeacher())

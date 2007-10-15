@@ -136,7 +136,7 @@ CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUp
 }
 
 void CAlphabetManager::PopulateChildren( CDasherNode *pNode ) {
-   PopulateChildrenWithSymbol( pNode, -2, 0 );
+  PopulateChildrenWithSymbol( pNode, -2, 0 );
 }
 
 CDasherNode *CAlphabetManager::CreateGroupNode(CDasherNode *pParent, SGroupInfo *pInfo, std::vector<unsigned int> *pCProb, unsigned int iStart, unsigned int iEnd, unsigned int iMin, unsigned int iMax) {
@@ -302,6 +302,7 @@ void CAlphabetManager::RecursiveIterateGroup(CDasherNode *pParent, SGroupInfo *p
 					     pCurrentNode->iStart,
 					     pCurrentNode->iEnd,
 					     iMin, iMax);
+
     RecursiveIterateGroup(pNewChild,
 			  pCurrentNode->pChild,
 			  pSymbols,
@@ -356,7 +357,8 @@ void CAlphabetManager::PopulateChildrenWithSymbol( CDasherNode *pNode, int iExis
     cum[i] += cum[i - 1];
   }
 
-  RecursiveIterateGroup(pNode, m_pNCManager->GetAlphabet()->m_pBaseGroup, &newchars, &cum, 1, iChildCount, iExistingSymbol, pExistingChild);
+  RecursiveIterateGroup(pNode, m_pNCManager->GetAlphabet()->m_pBaseGroup, &newchars, 
+    &cum, 1, iChildCount, iExistingSymbol, pExistingChild);
 }
 
 void CAlphabetManager::ClearNode( CDasherNode *pNode ) {

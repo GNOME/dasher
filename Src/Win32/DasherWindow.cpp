@@ -436,12 +436,18 @@ LRESULT CDasherWindow::OnDasherEvent(UINT message, WPARAM wParam, LPARAM lParam,
       
       switch (pEvt->m_iEditType) {
       case 1:
-	m_pGameModeHelper->Output(pEvt->m_sText);
-	break;
+	      m_pGameModeHelper->Output(pEvt->m_sText);
+	      break;
       case 2:
-	m_pGameModeHelper->Delete(pEvt->m_sText.size());
-	break;
+	      m_pGameModeHelper->Delete(pEvt->m_sText.size());
+	      break;
       }
+    }
+    break;
+  case EV_EDIT_CONTEXT:
+    {
+      Dasher::CEditContextEvent *pEvt = static_cast< Dasher::CEditContextEvent * >(pEvent);
+      m_pDasher->SetContext(m_pEdit->get_context(pEvt->m_iOffset, pEvt->m_iLength));
     }
     break;
   default:
