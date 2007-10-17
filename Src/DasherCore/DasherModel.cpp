@@ -862,7 +862,10 @@ void CDasherModel::Recursive_Push_Node(CDasherNode *pNode, int iDepth) {
   }
 }
 
-bool CDasherModel::RenderToView(CDasherView *pView, bool bRedrawDisplay) {
+bool CDasherModel::RenderToView(CDasherView *pView, bool bRedrawDisplay, SLockData *pLockData) {
+
+  if(pLockData)
+    std::cout << "Rendering locked: " << pLockData->strDisplay << std::endl;
 
   DASHER_ASSERT(pView != NULL);
   DASHER_ASSERT(m_Root != NULL);

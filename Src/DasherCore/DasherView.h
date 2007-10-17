@@ -59,7 +59,7 @@ public:
   /// \param DasherScreen Pointer to the CDasherScreen object used to do rendering
   CDasherView(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherScreen * DasherScreen);
 
-  virtual ~ CDasherView() {
+  virtual ~CDasherView() {
   }
   ///
   /// Event handler
@@ -129,6 +129,8 @@ public:
   /// @name High level drawing
   /// Drawing more complex structures, generally implemented by derived class
   /// @{
+
+  void RenderModel(CDasherModel *pModel);
 
   /// Renders Dasher with mouse-dependent items
   /// \todo Clarify relationship between Render functions and probably only expose one

@@ -62,6 +62,13 @@ class CNodeCreationManager;
 /// \defgroup Core Core Dasher classes
 /// @{
 
+
+struct Dasher::SLockData {
+  std::string strDisplay;
+  int iPercent;
+};
+
+
 /// The central class in the core of Dasher. Ties together the rest of
 /// the platform independent stuff and provides a single interface for
 /// the UI to use.
@@ -69,7 +76,7 @@ class Dasher::CDasherInterfaceBase:private NoClones
 {
 public:
   CDasherInterfaceBase();
-  virtual ~ CDasherInterfaceBase();
+  virtual ~CDasherInterfaceBase();
 
   /// @name Access to internal member classes
   /// Access various classes contained within the interface. These
@@ -429,11 +436,6 @@ protected:
 
  private:
 
-  struct SLockData {
-    std::string strDisplay;
-    int iPercent;
-  };
-
   /// @name Platform dependent utility functions 
   /// These functions provide various platform dependent functions
   /// required by the core. A derived class is created for each
@@ -561,6 +563,11 @@ protected:
 
   void ReleaseLock(int iLockID);
 
+  ///
+  /// Return the lock to display, or NULL for no locks present
+  ///
+
+  SLockData *GetCurrentLock(); 
   /// @}
   
   std::deque<std::string> m_deGameModeStrings;

@@ -41,6 +41,8 @@ namespace Dasher {
   class CDasherModel;
   class CDasherInterfaceBase;
   class CDasherView;
+  
+  struct SLockData;
 }
 
 /// \defgroup Model The Dasher model
@@ -162,7 +164,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   /// Render the model to a given view
   ///
 
-  bool RenderToView(CDasherView *pView, bool bRedrawDisplay);
+  bool RenderToView(CDasherView *pView, bool bRedrawDisplay, SLockData *pLockData);
 
   /// @}
 

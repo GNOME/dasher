@@ -59,6 +59,12 @@ void CDasherView::ChangeScreen(CDasherScreen *NewScreen) {
 
 /////////////////////////////////////////////////////////////////////////////
 
+void CDasherView::RenderModel(CDasherModel *pModel) {
+  if(pModel)
+    pModel->RenderToView(this, true, NULL);
+}
+
+
 bool CDasherView::Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, bool bRedrawDisplay, std::vector<std::pair<myint,bool> >* pvGameTargetY) {
 
   m_iRenderCount = 0;

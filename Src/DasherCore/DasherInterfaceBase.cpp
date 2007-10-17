@@ -515,8 +515,8 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   bReentered=true;
   
   // Fail if Dasher is locked
-  if(m_iCurrentState != ST_NORMAL)
-    return;
+  // if(m_iCurrentState != ST_NORMAL)
+  //  return;
 
   bool bChanged(false);
 
@@ -583,21 +583,18 @@ void CDasherInterfaceBase::CheckRedraw() {
   m_bRedrawScheduled = false;
 }
 
-/// Full redraw - renders model, decorations and blits onto display
-/// buffer. Not recommended if nothing has changed with the model,
-/// otherwise we're wasting effort.
-
 void CDasherInterfaceBase::Redraw(bool bRedrawNodes) {
-  if(!m_pDasherView || !m_pDasherModel)
+  // No point continuing if there's nothing to draw on...
+  if(!m_pDasherView)
     return;
   
-  // TODO: More generic notion of 'layers'?
-
+  // Draw the nodes
   if(bRedrawNodes) {
     m_pDasherView->Screen()->SendMarker(0);
-    m_pDasherModel->RenderToView(m_pDasherView, true);
+    m_pDasherView->RenderModel(m_pDasherModel);
   }
-  
+
+  // Draw the decorations
   m_pDasherView->Screen()->SendMarker(1);
   
   if(GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher())
@@ -614,6 +611,12 @@ void CDasherInterfaceBase::Redraw(bool bRedrawNodes) {
   bActionButtonsChanged = DrawActionButtons();
 #endif
 
+  SLockData *pCurrentLock = GetCurrentLock();
+  if(pCurrentLock) {
+    std::cout << "Rendering lock" << std::endl;
+  }
+
+  // Only blit the image to the display if something has actually changed
   if(bRedrawNodes || bDecorationsChanged || bActionButtonsChanged)
     m_pDasherView->Display();
 }
@@ -1124,18 +1127,31 @@ int CDasherInterfaceBase::AddLock(const std::string &strDisplay) {
   m_mapCurrentLocks[m_iNextLockID] = sNewLock;
   ++m_iNextLockID;
 
+  Redraw(false);
+
   return (m_iNextLockID - 1);
 }
 
 void CDasherInterfaceBase::ReleaseLock(int iLockID) {
+  std::cout << "Releasing Lock" << std::endl;
   std::map<int, SLockData>::iterator it = m_mapCurrentLocks.find(iLockID);
 
   if(it != m_mapCurrentLocks.end()) {
     m_mapCurrentLocks.erase(it);
   }
 
+  Redraw(false);
+
   if(m_mapCurrentLocks.size() == 0)
     ChangeState(TR_UNLOCK);
+}
+
+SLockData *CDasherInterfaceBase::GetCurrentLock() {
+
+  if(m_mapCurrentLocks.size() > 0)
+    return &(m_mapCurrentLocks.begin()->second);
+  else
+    return NULL;
 }
 
 void CDasherInterfaceBase::SetBuffer(int iOffset) { 
