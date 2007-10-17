@@ -138,10 +138,13 @@ static const gchar *
 dasher_action_speech_get_sub_name(DasherAction *pSelf, int iIdx) {
   switch(iIdx) {
   case 0:
+    /* TRANSLATORS: Send all text to the text-to-speech engine. */
     return _("All");
   case 1:
+    /* TRANSLATORS: Send most recently entered text to the text-to-speech engine. */
     return _("Last");
   case 2:
+    /* TRANSLATORS: Repeat the last phrase sent to the text-to-speech engine. */
     return _("Repeat");
   default:
     return NULL;

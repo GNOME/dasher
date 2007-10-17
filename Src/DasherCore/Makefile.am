@@ -76,6 +76,12 @@ libdashercore_a_SOURCES = \
 		FileLogger.cpp \
 		FileLogger.h \
 		FrameRate.h \
+		GameLevel.cpp \
+		GameLevel.h \
+		GameMessages.h \
+		GameScorer.cpp \
+		GameScorer.h \
+		GameStatistics.h \
 		GnomeSettingsStore.cpp \
 		GnomeSettingsStore.h \
 		InputFilter.h \
@@ -126,9 +132,7 @@ libdashercore_a_SOURCES = \
 		WrapperFactory.cpp \
 		WrapperFactory.h \
 		XMLUtil.cpp \
-		XMLUtil.h \
-		GameScorer.cpp \
-		GameLevel.cpp
+		XMLUtil.h
 
 libdashercore_a_LIBADD = @CHINESE_SOURCES@ @JAPANESE_SOURCES@
 libdashercore_a_DEPENDENCIES = @CHINESE_SOURCES@ @JAPANESE_SOURCES@

@@ -94,19 +94,7 @@ namespace Dasher {
     } 
     // return string for i'th symbol
 
-    int GetColour(symbol i) const {
-      return m_Colours[i];
-    } 
-    // return the colour for i'th symbol
-
-/*     int GetGroupColour(int i) const { */
-/*       return m_GroupColour[i]; */
-/*     }  */
-    // return the colour for i'th group 
-
-/*     std::string GetGroupLabel(int i)const { */
-/*       return m_GroupLabel[i]; */
-/*     } */
+    int GetColour(symbol i, int iPhase) const;
 
     int GetTextColour(symbol i);      // return the foreground colour for i'th symbol
     const std::string & GetForeground(symbol i) const {
@@ -131,6 +119,14 @@ namespace Dasher {
     // text and so a symbol will be returned for a final "a" even if "ae" is
     // defined as its own symbol. }}}
     void GetSymbols(std::vector<symbol> *Symbols, std::string * Input, bool IsMore) const;
+
+
+    /// Look up symbols corresponding to string. Cannot cope with
+    /// parial input, but knows about UTF-8, so can include 'unknown
+    /// symbol' as 0 in the output. Slower than GetSymbols, so don't
+    /// use for import, but is useful for looking up contexts.
+    void GetSymbolsFull(std::vector<symbol > *Symbols, std::string *Input) const;
+
 
     void Trace() const;         // diagnostic
 

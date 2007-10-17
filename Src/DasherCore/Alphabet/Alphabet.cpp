@@ -191,6 +191,43 @@ void CAlphabet::GetSymbols(std::vector<symbol > *Symbols, std::string *Input, bo
     Symbols->push_back(CurSymbol);
 }
 
+void CAlphabet::GetSymbolsFull(std::vector<symbol > *Symbols, std::string *Input) const {
+ 
+  std::string::iterator it = Input->begin();
+
+  while(it != Input->end()) {
+    unsigned char c = static_cast<unsigned char>(*it);
+
+    int iNBytes;
+
+    if(c <= 0x7F)
+      iNBytes = 1;
+    else if((c >= 0xC2) && (c <= 0xDF))
+      iNBytes = 2;
+    else if((c >= 0xE0) && (c <= 0xEF))
+      iNBytes = 3;
+    else if((c >= 0xF0) && (c <= 0xF4))
+      iNBytes = 4;
+    else {
+      // TODO: Error condition - handle this.
+      iNBytes = 1;
+    }
+
+    std::string strCurrentSymbol(1, *it);
+
+    for(int i = 0; i < iNBytes - 1; ++i) {
+      ++it;
+      strCurrentSymbol += *it;
+    }
+
+    // TODO: Error condition on reaching end of string prematurely.
+
+    Symbols->push_back(TextMap.Get(strCurrentSymbol, false));
+
+    ++it;
+  }
+}
+
 // add single char to the character set
 void CAlphabet::AddChar(const std::string NewCharacter, const std::string Display, int Colour, const std::string Foreground) {
   m_Characters.push_back(NewCharacter);
@@ -294,3 +331,28 @@ CAlphabet::Train(const std::string &strPath,
   
   m_pTrainingHelper->LoadFile(strPath, pTrainer, this);
 }
+
+int 
+CAlphabet::GetColour(symbol i, int iPhase) const {
+  int iColour = m_Colours[i];
+  
+  // This is for backwards compatibility with old alphabet files -
+  // ideally make this log a warning (unrelated TODO: automate
+  // validation of alphabet files, plus maintenance of repository
+  // etc.)
+  if(iColour == -1) {
+    if(i == m_SpaceSymbol) {
+      iColour = 9;
+    }
+    else {
+      iColour = (i % 3) + 10;
+    }
+  }
+  
+  // Loop on low colours for nodes (TODO: go back to colour namespaces?)
+  if(iPhase == 1 && iColour < 130)
+    iColour += 130;
+  
+  return iColour;
+} 
+

@@ -27,7 +27,7 @@
 #include "dasher_internal_buffer.h"
 #include "dasher_lock_dialogue.h"
 #include "dasher_main.h"
-#include "game_mode_helper.h"
+//#include "game_mode_helper.h"
 
 // TODO: Maybe reimplement something along the lines of the following, which used to be in edit.cc
 
@@ -87,7 +87,7 @@ struct _DasherEditorInternalPrivate {
   gint iNextActionID;
   IDasherBufferSet *pBufferSet;
   IDasherBufferSet *pExternalBuffer;
-  GameModeHelper *pGameModeHelper;
+  //  GameModeHelper *pGameModeHelper;
   GtkTextMark *pNewMark;
   DasherAppSettings *pAppSettings;
   gchar *szFilename;
@@ -250,7 +250,7 @@ dasher_editor_internal_init(DasherEditorInternal *pDasherControl) {
   pPrivate->pPrimarySelection = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
   pPrivate->pActionRing = NULL;
   pPrivate->iNextActionID = 0;
-  pPrivate->pGameModeHelper = NULL;
+  //  pPrivate->pGameModeHelper = NULL;
   pPrivate->bFileModified = FALSE;
 }
 
@@ -352,7 +352,7 @@ dasher_editor_internal_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSe
     dasher_editor_internal_clear(pSelf, false);
   }
   
-  pPrivate->pGameModeHelper = GAME_MODE_HELPER(game_mode_helper_new(pGladeXML, (void*)pSelf));
+//  pPrivate->pGameModeHelper = GAME_MODE_HELPER(game_mode_helper_new(pGladeXML, (void*)pSelf));
 }
 
 static void 
@@ -639,8 +639,8 @@ dasher_editor_internal_output(DasherEditor *pSelf, const gchar *szText, int iOff
   if(pPrivate->pBufferSet)
     idasher_buffer_set_insert(pPrivate->pBufferSet, szText, iOffset);
 
-  if(pPrivate->pGameModeHelper)
-    game_mode_helper_output(pPrivate->pGameModeHelper, szText);
+//   if(pPrivate->pGameModeHelper)
+//     game_mode_helper_output(pPrivate->pGameModeHelper, szText);
 
   pPrivate->bFileModified = TRUE;
 }
@@ -652,8 +652,8 @@ dasher_editor_internal_delete(DasherEditor *pSelf, int iLength, int iOffset) {
   if(pPrivate->pBufferSet)
     idasher_buffer_set_delete(pPrivate->pBufferSet, iLength, iOffset);
 
-  if(pPrivate->pGameModeHelper)
-    game_mode_helper_delete(pPrivate->pGameModeHelper, iLength);
+//   if(pPrivate->pGameModeHelper)
+//     game_mode_helper_delete(pPrivate->pGameModeHelper, iLength);
 
   pPrivate->bFileModified = TRUE;
 }
@@ -1317,7 +1317,6 @@ dasher_editor_internal_action_save_state(DasherEditor *pSelf, EditorAction *pAct
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
   dasher_app_settings_set_free_long(pPrivate->pAppSettings, szRegistryName, iState);
 }
-
 
 static void 
 dasher_editor_internal_command_new(DasherEditor *pSelf) {

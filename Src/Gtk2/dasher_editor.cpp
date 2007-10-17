@@ -41,7 +41,7 @@
 #include "dasher_internal_buffer.h"
 #include "dasher_lock_dialogue.h"
 #include "dasher_main.h"
-#include "game_mode_helper.h"
+//#include "game_mode_helper.h"
 
 #define ACTION_STATE_SHOW 1
 #define ACTION_STATE_CONTROL 2
@@ -77,7 +77,7 @@ struct _DasherEditorPrivate {
   IDasherBufferSet *pBufferSet;
   IDasherBufferSet *pExternalBuffer;
   IDasherBufferSet *pInternalBuffer;
-  GameModeHelper *pGameModeHelper;
+  //  GameModeHelper *pGameModeHelper;
   GtkTextMark *pNewMark;
   DasherAppSettings *pAppSettings;
   gchar *szFilename;
@@ -175,7 +175,7 @@ dasher_editor_init(DasherEditor *pDasherControl) {
   pPrivate->pPrimarySelection = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
   pPrivate->pActionRing = NULL;
   pPrivate->iNextActionID = 0;
-  pPrivate->pGameModeHelper = NULL;
+  //  pPrivate->pGameModeHelper = NULL;
   pPrivate->bFileModified = FALSE;
 }
 

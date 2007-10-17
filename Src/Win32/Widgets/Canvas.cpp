@@ -341,9 +341,7 @@ LRESULT CCanvas::OnLButtonDblClk(UINT message, WPARAM wParam, LPARAM lParam, BOO
 
 LRESULT CCanvas::OnLButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
   bHandled = TRUE;
-  
-  OutputDebugString(TEXT("Canvas::LButtonDown\n"));
-
+ 
 #ifndef _WIN32_WCE
   // FIXME - what does this do - please document
   LPARAM lp = GetMessageExtraInfo();

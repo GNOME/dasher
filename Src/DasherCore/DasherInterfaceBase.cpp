@@ -191,6 +191,8 @@ void CDasherInterfaceBase::Realize() {
 CDasherInterfaceBase::~CDasherInterfaceBase() {
   DASHER_ASSERT(m_iCurrentState == ST_SHUTDOWN);
 
+  // It may seem odd that InterfaceBase does not "own" the teacher.
+  // This is because game mode is a different layer, in a sense.
   GameMode::CDasherGameMode::DestroyTeacher();
 
   delete m_pDasherModel;        // The order of some of these deletions matters
@@ -556,7 +558,6 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   // - m_bRedrawScheduled = Display invalidated internally
   // - bForceRedraw = Display invalidated externally
 
-
   // TODO: This is a bit hacky - we really need to sort out the redraw logic
   if((!bChanged && m_bLastChanged) || m_bRedrawScheduled || bForceRedraw) {
     m_pDasherView->Screen()->SetCaptureBackground(true);
@@ -687,6 +688,7 @@ void CDasherInterfaceBase::ChangeView() {
  
     if (m_pInput)
       m_pDasherView->SetInput(m_pInput);
+
     // Tell the Teacher which view we are using
     if(GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher())
 	pTeacher->SetDasherView(m_pDasherView);

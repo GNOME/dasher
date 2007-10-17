@@ -7,7 +7,7 @@
 #include "dasher_external_buffer.h"
 #include "dasher_lock_dialogue.h"
 #include "dasher_main.h"
-#include "game_mode_helper.h"
+//#include "game_mode_helper.h"
 
 typedef struct _DasherEditorExternalPrivate DasherEditorExternalPrivate;
 

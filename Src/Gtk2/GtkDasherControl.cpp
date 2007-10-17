@@ -1,11 +1,31 @@
+// GtkDasherControl.cpp
+//
+// Copyright (c) 2007 The Dasher Team
+//
+// This file is part of Dasher.
+//
+// Dasher is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// Dasher is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Dasher; if not, write to the Free Software 
+// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
 #include "../Common/Common.h"
 
-#include <gtk/gtkmarshal.h>
-
-#include "GtkDasherControl.h"
-#include "game_mode_helper.h"
 #include "DasherControl.h"
+#include "GtkDasherControl.h"
 #include "custom_marshal.h"
+#include "game_mode_helper.h"
+
+#include <gtk/gtkmarshal.h>
 
 struct _GtkDasherControlPrivate {
   CDasherControl *pControl;
@@ -187,8 +207,6 @@ gtk_dasher_control_train(GtkDasherControl *pControl, const gchar *szFilename) {
 
 void 
 gtk_dasher_control_set_context(GtkDasherControl *pControl, const gchar *szContext) {
-  
-
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
   pPrivate->pControl->SetContext(szContext);
 }

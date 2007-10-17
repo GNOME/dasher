@@ -2,55 +2,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <ProductVersion>3.0</ProductVersion>
-    <ProjectGuid>{bbe9e817-e2c5-4081-9612-0738e27cf55a}</ProjectGuid>
+    <ProjectGuid>{c4bfc988-da68-4f51-bab0-db5b7d5cd53b}</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>Dasher 4.6</OutputName>
+    <OutputName>Dasher 4.6 (MyTobii)</OutputName>
     <OutputType>Package</OutputType>
-    <WixToolPath>C:\Program Files\Windows Installer XML v3\bin\</WixToolPath>
+    <WixToolPath>$(ProgramFiles)\Windows Installer XML v3\bin\</WixToolPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>bin\Debug\</OutputPath>
     <IntermediateOutputPath>obj\Debug\</IntermediateOutputPath>
     <DefineConstants>Debug</DefineConstants>
-    <AllowIdenticalRows>False</AllowIdenticalRows>
-    <CabinetCachePath>
-    </CabinetCachePath>
-    <CabinetCreationThreadCount>-1</CabinetCreationThreadCount>
-    <Cultures>en-US</Cultures>
-    <LeaveTemporaryFiles>False</LeaveTemporaryFiles>
-    <LinkerPedantic>False</LinkerPedantic>
-    <ReuseCabinetCache>False</ReuseCabinetCache>
-    <SetMsiAssemblyNameFileVersion>False</SetMsiAssemblyNameFileVersion>
-    <SuppressAclReset>False</SuppressAclReset>
-    <SuppressAssemblies>False</SuppressAssemblies>
-    <SuppressDefaultAdminSequenceActions>False</SuppressDefaultAdminSequenceActions>
-    <SuppressDefaultAdvSequenceActions>False</SuppressDefaultAdvSequenceActions>
-    <SuppressDefaultUISequenceActions>False</SuppressDefaultUISequenceActions>
-    <SuppressDroppingUnrealTables>False</SuppressDroppingUnrealTables>
-    <SuppressFileHashAndInfo>False</SuppressFileHashAndInfo>
-    <SuppressFiles>False</SuppressFiles>
-    <SuppressIces>
-    </SuppressIces>
-    <LinkerSuppressIntermediateFileVersionMatching>False</LinkerSuppressIntermediateFileVersionMatching>
-    <SuppressLayout>False</SuppressLayout>
-    <SuppressMsiAssemblyTableProcessing>False</SuppressMsiAssemblyTableProcessing>
-    <LinkerSuppressSchemaValidation>True</LinkerSuppressSchemaValidation>
-    <LinkerSuppressSpecificWarnings>
-    </LinkerSuppressSpecificWarnings>
-    <SuppressValidation>False</SuppressValidation>
-    <LinkerTreatWarningsAsErrors>False</LinkerTreatWarningsAsErrors>
-    <LinkerVerboseOutput>True</LinkerVerboseOutput>
-    <WixVariables>
-    </WixVariables>
-    <IncludeSearchPaths>
-    </IncludeSearchPaths>
-    <Pedantic>False</Pedantic>
-    <ShowSourceTrace>False</ShowSourceTrace>
-    <SuppressSchemaValidation>True</SuppressSchemaValidation>
-    <SuppressSpecificWarnings>
-    </SuppressSpecificWarnings>
-    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
-    <VerboseOutput>False</VerboseOutput>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -121,10 +82,18 @@
     <OutputPath>bin\Release (W2K)\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Dasher.wxs" />
+    <Compile Include="InstallerTobii.wxs" />
   </ItemGroup>
   <ItemGroup>
     <WixExtension Include="C:\Program Files\Windows Installer XML v3\bin\WixUIExtension.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WiX\v3.0\Wix.targets" />
+  <!--
+	To modify your build process, add your task inside one of the targets below and uncomment it.
+	Other similar extension points exist, see Wix.targets.
+	<Target Name="BeforeBuild">
+	</Target>
+	<Target Name="AfterBuild">
+	</Target>
+	-->
 </Project>

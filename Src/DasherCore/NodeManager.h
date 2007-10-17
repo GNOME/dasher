@@ -108,7 +108,7 @@ namespace Dasher {
     virtual void Enter(CDasherNode *pNode) {};
     virtual void Leave(CDasherNode *pNode) {};
 
-    virtual CDasherNode *RebuildParent(CDasherNode *pNode, int iGeneration) {
+    virtual CDasherNode *RebuildParent(CDasherNode *pNode) {
       return 0;
     }
 

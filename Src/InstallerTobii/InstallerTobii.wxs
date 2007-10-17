@@ -1,16 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
 
-  <Product Name='Dasher 4.6' Id='A98A5ADD-D87E-4516-9CCB-AD11D20E6AAA'
+  <Product Name='Dasher 4.6 (MyTobii)' Id='8903D8E8-8AF4-46dd-A685-C1E5379912B4'
    Language='1033' Codepage='1252' Version='4.6.1' Manufacturer='Dasher'
-   UpgradeCode='9964EF40-A6E5-4562-9141-8EEC1828A451'>
+   UpgradeCode='761FEE49-85EE-4c63-8A70-9A3CA5D70D3E'>
 
     <Package Keywords='Installer'
-     Description="Dasher 4.6 Installer"
-     Comments='This will install Dasher' Manufacturer='The Dasher Group.'
+     Description="Dasher 4.6 (MyTobii Version) Installer"
+     Comments='This will install Dasher (MyTobii Version)' Manufacturer='The Dasher Group.'
      InstallerVersion='100' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
     <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' DiskPrompt="CD-ROM #1" />
-    <Property Id='DiskPrompt' Value="Dasher 4.6 Installation [1]" />
+    <Property Id='DiskPrompt' Value="Dasher 4.6 (MyTobii) Installation [1]" />
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
       <Directory Id='ProgramFilesFolder' Name='PFiles'>
@@ -19,8 +19,8 @@
             <Component Id='MainExecutable' Guid='5a93ba53-2e2d-4f88-8a1f-5bdd8f130394'>
               <File Id='DasherEXE' Name='Dasher.exe' DiskId='1'
                Source='..\Win32\Target\Release\Dasher.exe' Vital='yes'>
-               <Shortcut Id="startmenuDasher44" Directory="ProgramMenuDir" Name="Dasher 4.6" WorkingDirectory='INSTALLDIR'
-                 Icon="Dasher.exe" IconIndex="0" Advertise="yes"/>
+                <Shortcut Id="startmenuDasher44" Directory="ProgramMenuDir" Name="Dasher 4.6" WorkingDirectory='INSTALLDIR'
+                  Icon="Dasher.exe" IconIndex="0" Advertise="yes"/>
                 <Shortcut Id="desktopDasher44" Directory="DesktopFolder" Name="Dasher 4.6" WorkingDirectory='INSTALLDIR'
                  Icon="Dasher.exe" IconIndex="0" Advertise="yes"/>
               </File>
@@ -219,17 +219,17 @@
         </Directory>
       </Directory>
 
-     <Directory Id="ProgramMenuFolder" Name="Programs">
-       <Directory Id="ProgramMenuDir" Name="Dasher 4.6">
-         <Component  Id="Random" Guid="D28C2189-5E40-4f93-B42E-0CD76D8B5B37" KeyPath="no">
-           <Registry Id='DummyReg' Root='HKCU' Key='Software\Inference Group\Dasher3' Name='Dummy'
-              Action='write' Type='string' Value='Dummy Key' KeyPath='yes'/>
-           <RemoveFolder Id="RandomRemove" On="uninstall" />
-         </Component>
-       </Directory>
-     </Directory>
+      <Directory Id="ProgramMenuFolder" Name="Programs">
+        <Directory Id="ProgramMenuDir" Name="Dasher 4.6">
+          <Component  Id="Random" Guid="D28C2189-5E40-4f93-B42E-0CD76D8B5B37" KeyPath="no">
+            <Registry Id='DummyReg' Root='HKCU' Key='Software\Inference Group\Dasher3' Name='Dummy'
+               Action='write' Type='string' Value='Dummy Key' KeyPath='yes'/>
+            <RemoveFolder Id="RandomRemove" On="uninstall" />
+          </Component>
+        </Directory>
+      </Directory>
 
-     <Directory Id="DesktopFolder" Name="Desktop" />
+      <Directory Id="DesktopFolder" Name="Desktop" />
       <Component Id="RegistryTobii" Guid="63287558-8a18-4103-89d5-2c1116cffc52">
         <Registry Id='TobiiExecutable' Root='HKLM' Key='Software\Tobii\MyTobii\MPA\Dasher45' Name='ExecutablePath'
          Action='write' Type='string' Value='[INSTALLDIR]Dasher.exe' />
@@ -242,12 +242,12 @@
       </Component>
 
       <Component Id="RegistryTobiiDefaults" Guid="6EBE4DD9-850E-4a7b-BEBF-A33B0580F3EC">
-	  <Registry Id="RegistryCircleStart" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="CircleStart" Action="write" Type="integer" Value="1" />
-	  <Registry Id="RegistryInputFilter" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="InputFilter" Action="write" Type="string" Value="Eyetracker Mode" />
-    <Registry Id="RegistryStartOnLeft" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="StartOnLeft" Action="write" Type="integer" Value="0" />
-	</Component>
+        <Registry Id="RegistryCircleStart" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="CircleStart" Action="write" Type="integer" Value="1" />
+        <Registry Id="RegistryInputFilter" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="InputFilter" Action="write" Type="string" Value="Eyetracker Mode" />
+        <Registry Id="RegistryStartOnLeft" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="StartOnLeft" Action="write" Type="integer" Value="0" />
+      </Component>
 
-	<!--<Component Id="RegistryNonTobii" Guid="a3bf552d-9622-4d4a-b17b-ebb47a18955b">
+      <!--<Component Id="RegistryNonTobii" Guid="a3bf552d-9622-4d4a-b17b-ebb47a18955b">
 	  <Condition>NOT TOBII</Condition>
 
 	  <Registry Id="RegistryCircleStart" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="CircleStart" Action="write" Type="integer" Value="0" />
@@ -256,7 +256,7 @@
     </Component>-->
 
 
-       <!--<Component Id="RegistryCore" Guid="5999aef1-3ba7-4af2-8d56-5f3f4e7a4410">
+      <!--<Component Id="RegistryCore" Guid="5999aef1-3ba7-4af2-8d56-5f3f4e7a4410">
 	<Registry Id="RegistryDrawMouseLine" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="DrawMouseLine" Action="write" Type="integer" Value="1" />
 	<Registry Id="RegistryDrawMouse" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="DrawMouse" Action="write" Type="integer" Value="0" />
 	<Registry Id="RegistryShowSpeedSlider" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ShowSpeedSlider" Action="write" Type="integer" Value="1" />
@@ -380,13 +380,13 @@
 	<Registry Id="RegistryEditFont" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="EditFont" Action="write" Type="string" Value="Sans 10" />
 	<Registry Id="RegistryWindowState" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="WindowState" Action="write" Type="string" Value="" />
     </Component>-->
-  </Directory>
+    </Directory>
 
 
 
     <Feature Id='Complete' Title='Dasher 4.6' Description='The full Dasher installation.' Display='expand' Level='1' ConfigurableDirectory='INSTALLDIR'>
       <Feature Id="Core" Title="Core" Description="Core programs and data files." Level="1">
-       
+
         <ComponentRef Id='MainExecutable' />
         <ComponentRef Id='Random' />
         <ComponentRef Id="Alphabets" />
@@ -398,7 +398,7 @@
       <Feature Id="Documentation" Title="Documentation" Description="The Dasher manual." Level="1">
         <ComponentRef Id="Help" />
       </Feature>
-      <Feature Id="Tobii" Title="MyTobii Support" Description="Support for the MyTobii gaze tracker." Level="1000">
+      <Feature Id="Tobii" Title="MyTobii Support" Description="Support for the MyTobii gaze tracker." Level="1">
         <ComponentRef Id="Tobii" />
         <ComponentRef Id="RegistryTobii" />
         <ComponentRef Id="RegistryTobiiDefaults" />
@@ -412,7 +412,7 @@
     <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
     <WixVariable Id="WixUIDialogBmp" Value="Background.bmp" />
     <WixVariable Id="WixUIBannerBmp" Value="Top.bmp" />
-                   
+
     <UIRef Id="WixUI_Mondo" />
     <UIRef Id="WixUI_ErrorProgressText" />
 

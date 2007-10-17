@@ -80,7 +80,7 @@ namespace Dasher {
     virtual void Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization);
     virtual void Undo( CDasherNode *pNode );
 
-    virtual CDasherNode *RebuildParent(CDasherNode *pNode, int iGeneration);
+    virtual CDasherNode *RebuildParent(CDasherNode *pNode);
 
     virtual void SetFlag(CDasherNode *pNode, int iFlag, bool bValue);
 

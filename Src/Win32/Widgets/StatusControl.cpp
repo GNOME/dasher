@@ -31,6 +31,15 @@ LRESULT CStatusControl::OnNotify(UINT message, WPARAM wParam, LPARAM lParam, BOO
     case UDN_DELTAPOS:
       UpdateSpeed(((LPNMUPDOWN) lParam)->iPos, ((LPNMUPDOWN) lParam)->iDelta);
       break;
+    case EN_CHANGE:
+      {
+        TCHAR wszBuffer[32];
+        SendMessage(m_hEdit, WM_GETTEXT, 32, (long)wszBuffer);
+        double dNewSpeed = _tstof(wszBuffer);
+
+        m_pDasherInterface->SetLongParameter(LP_MAX_BITRATE, dNewSpeed * 100);
+      }
+      break;
     default:
       bHandled = false;
       break;

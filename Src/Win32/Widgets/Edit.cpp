@@ -454,55 +454,19 @@ void CEdit::SetInterface(Dasher::CDasherInterfaceBase *DasherInterface) {
 #endif
 }
 
-// void CEdit::write_to_file() {
-//   // TODO: Reimplement if necessary
+std::string CEdit::get_context(int iOffset, int iLength) {
+  TCHAR *wszContent = new TCHAR[iOffset + iLength + 1];
+  
+  SendMessage(WM_GETTEXT, (LONG) (iOffset + iLength + 1), (LONG) wszContent);
 
-//   //const string & TrainFile = m_pDasherInterface->GetTrainFile();
-//   //if(TrainFile == "")
-//   //  return;
-//   //Tstring TTrainFile;
-//   //UTF8string_to_wstring(TrainFile, TTrainFile);
+  std::string strReturn;
+  wstring_to_UTF8string(wszContent + iOffset, strReturn);
 
-//   //HANDLE hFile = CreateFile(TTrainFile.c_str(),
-//   //                          GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
+  delete[] wszContent;
 
-//   //if(hFile == INVALID_HANDLE_VALUE) {
-//   //  OutputDebugString(TEXT("Can not open file\n"));
-//   //}
-//   //else {
-//   //  DWORD NumberOfBytesWritten;
-//   //  SetFilePointer(hFile, 0, NULL, FILE_END);
-//   //  for(unsigned int i = 0; i < m_Output.size(); i++) {
-//   //    WriteFile(hFile, &m_Output[i], 1, &NumberOfBytesWritten, NULL);
-//   //  }
-
-//   //  m_Output = "";
-//   //  CloseHandle(hFile);
-//   //}
-// }
-
-void CEdit::get_new_context(string &str, int max) {
-  // Currently all of the edit box up to the caret is copied
-  // and then a few characters taken from that.
-  // This is a bit silly, but works for now. IAM 2002/08
-
-  int iStart, iFinish;
-  SendMessage(EM_GETSEL, (LONG) & iStart, (LONG) & iFinish);
-
-  TCHAR *tString = new TCHAR[iFinish + 1];
-
-  SendMessage(WM_GETTEXT, (LONG) (iStart + 1), (LONG) tString);
-
-  string Wasteful;
-  wstring_to_UTF8string(tString, Wasteful);
-
-  if(Wasteful.size() > max)
-    str = Wasteful.substr(Wasteful.size() - max, max);
-  else
-    str = Wasteful;
-
-  delete[]tString;
+  return strReturn;
 }
+
 
 void CEdit::output(const std::string &sText) {
   wstring String;

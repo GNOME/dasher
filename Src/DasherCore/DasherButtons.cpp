@@ -21,11 +21,15 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 static SModuleSettings sSettings[] = {
+  /* TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode. */
   {LP_ZOOMSTEPS, T_LONG, 1, 63, 1, 1, _("Zoom steps")},
+  /* TRANSLATORS: The zoom factor per press when moving to the right in compass mode. */
   {LP_RIGHTZOOM, T_LONG, 1024, 10240, 1024, 1024, _("Right zoom")},
   {LP_B, T_LONG, 2, 10, 1, 1, _("Number of boxes")},
   {LP_S, T_LONG, 0, 256, 1, 1, _("Safety margin")},
+  /* TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other. */
   {LP_R, T_LONG, -400, 400, 1, 10, _("Box non-uniformity")},
+  /* TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.*/
   {BP_GLOBAL_KEYBOARD, T_BOOL, -1, -1, -1, -1, _("Global keyboard grab")}
 };
 

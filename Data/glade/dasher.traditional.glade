@@ -835,7 +835,7 @@
 				  <child>
 				    <widget class="GtkRadioButton" id="radiobutton6">
 				      <property name="can_focus">True</property>
-				      <property name="label" translatable="yes">Standard letter-based PPM</property>
+				      <property name="label" translatable="yes" comments="PPM = Prediction by Partial Match, a statistical language model.">Standard letter-based PPM</property>
 				      <property name="use_underline">True</property>
 				      <property name="relief">GTK_RELIEF_NORMAL</property>
 				      <property name="focus_on_click">True</property>
@@ -874,7 +874,7 @@
 				  <child>
 				    <widget class="GtkRadioButton" id="radiobutton8">
 				      <property name="can_focus">True</property>
-				      <property name="label" translatable="yes">Mixture model (PPM/dictionary)</property>
+				      <property name="label" translatable="yes" comments="PPM =  Prediction by Partial Match, a styatistical language model.">Mixture model (PPM/dictionary)</property>
 				      <property name="use_underline">True</property>
 				      <property name="relief">GTK_RELIEF_NORMAL</property>
 				      <property name="focus_on_click">True</property>
@@ -1093,7 +1093,7 @@ your writing speed.</property>
 				      <property name="border_width">2</property>
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
-				      <property name="label" translatable="yes">Alphabet Default</property>
+				      <property name="label" translatable="yes" comments="The default display orientation for the selected alphabet, ie left to right for English, right to left for Arabic, etc.">Alphabet Default</property>
 				      <property name="use_underline">True</property>
 				      <property name="relief">GTK_RELIEF_NORMAL</property>
 				      <property name="focus_on_click">True</property>
@@ -1791,7 +1791,9 @@ your writing speed.</property>
 					  <child>
 					    <widget class="GtkComboBoxEntry" id="MousePosStyle">
 					      <property name="visible">True</property>
-					      <property name="items" translatable="yes">Centre circle
+					      <property name="items" translatable="yes" comments="Centre circle = start and stop by dwelling over a circle in the centre of the window
+Two box = start and stop by dwelling in sequence over two boxes
+(both of these are methods for starting and stopping without pressing a mouse button)">Centre circle
 Two box</property>
 					      <property name="add_tearoffs">False</property>
 					      <property name="has_frame">True</property>

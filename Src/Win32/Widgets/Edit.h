@@ -127,12 +127,9 @@ class CEdit : public ATL::CWindowImpl<CEdit> {
   
   void SetInterface(Dasher::CDasherInterfaceBase * DasherInterface);
   
-  // write some buffered output to file
-  //	void write_to_file();
-  
-  // get the context from the current cursor position with max history
-  void get_new_context(std::string & str, int max);
-  
+  // Get context (new version)
+  std::string get_context(int iOffset, int iLength);
+
   // called when characters fall of the LHS of the screen
   void output(const std::string & sText);
     

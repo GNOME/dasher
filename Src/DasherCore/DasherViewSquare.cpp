@@ -8,7 +8,7 @@
 #include "..\Win32\Common\WinCommon.h"
 #endif
 
-#include "DasherGameMode.h"
+//#include "DasherGameMode.h"
 #include "DasherViewSquare.h"
 #include "DasherModel.h"
 #include "DasherView.h"
@@ -194,11 +194,11 @@ bool CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
 
   // TODO: This should be elsewhere
   
-  if(pRender->GetFlag(NF_GAME))// && !pRender->GetFlag(NF_SUBNODE))
-    {
+  //if(pRender->GetFlag(NF_GAME))// && !pRender->GetFlag(NF_SUBNODE))
+  //  {
 
-      pvGamePointer->push_back(std::pair<myint,bool>((y1 + y2) / 2, (bDrewFather&&bDraw)));
-    }
+  //    pvGamePointer->push_back(std::pair<myint,bool>((y1 + y2) / 2, (bDrewFather&&bDraw)));
+  //  }
 
   
   if(!bDraw || !bDrewFather)
