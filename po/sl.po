@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-15 13:58+0100\n"
-"PO-Revision-Date: 2007-10-18 13:06+0100\n"
+"PO-Revision-Date: 2007-10-18 21:13+0100\n"
 "Last-Translator: Matej Urbančič <matej.urban@gmail.com>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,7 @@ msgstr ""
 #: ../Data/glade/dasher.compose.glade.h:34
 #: ../Data/glade/dasher.direct.glade.h:31
 #: ../Data/glade/dasher.fullscreen.glade.h:30
+#: ../Data/glade/dasher.gameWIP.glade.h:35
 #: ../Data/glade/dasher.traditional.glade.h:39
 #: ../Data/glade/dashermaemo.glade.h:17
 #: ../Data/glade/dashermaemofullscreen.glade.h:15
@@ -39,6 +40,7 @@ msgstr "Vnos besedila brez tipkovnice"
 #: ../Data/glade/dasher.compose.glade.h:1
 #: ../Data/glade/dasher.direct.glade.h:1
 #: ../Data/glade/dasher.fullscreen.glade.h:1
+#: ../Data/glade/dasher.gameWIP.glade.h:1
 #: ../Data/glade/dasher.traditional.glade.h:1
 msgid "<b>Actions:</b>"
 msgstr "<b>Dejanja:</b>"
@@ -46,6 +48,7 @@ msgstr "<b>Dejanja:</b>"
 #: ../Data/glade/dasher.compose.glade.h:2
 #: ../Data/glade/dasher.direct.glade.h:2
 #: ../Data/glade/dasher.fullscreen.glade.h:2
+#: ../Data/glade/dasher.gameWIP.glade.h:2
 #: ../Data/glade/dasher.traditional.glade.h:2
 #: ../Data/glade/dashermaemo.glade.h:3
 #: ../Data/glade/dashermaemofullscreen.glade.h:1
@@ -55,6 +58,7 @@ msgstr "<b>Prilagoditev:</b>"
 #: ../Data/glade/dasher.compose.glade.h:3
 #: ../Data/glade/dasher.direct.glade.h:3
 #: ../Data/glade/dasher.fullscreen.glade.h:3
+#: ../Data/glade/dasher.gameWIP.glade.h:3
 #: ../Data/glade/dasher.traditional.glade.h:3
 #: ../Data/glade/dashermaemo.glade.h:4
 #: ../Data/glade/dashermaemofullscreen.glade.h:2
@@ -64,6 +68,7 @@ msgstr "<b>Izbira abecede:</b>"
 #: ../Data/glade/dasher.compose.glade.h:4
 #: ../Data/glade/dasher.direct.glade.h:4
 #: ../Data/glade/dasher.fullscreen.glade.h:4
+#: ../Data/glade/dasher.gameWIP.glade.h:4
 #: ../Data/glade/dasher.traditional.glade.h:4
 msgid "<b>Appearance Options:</b>"
 msgstr "<b>Možnosti videza:</b>"
@@ -71,6 +76,7 @@ msgstr "<b>Možnosti videza:</b>"
 #: ../Data/glade/dasher.compose.glade.h:5
 #: ../Data/glade/dasher.direct.glade.h:5
 #: ../Data/glade/dasher.fullscreen.glade.h:5
+#: ../Data/glade/dasher.gameWIP.glade.h:5
 #: ../Data/glade/dasher.traditional.glade.h:5
 msgid "<b>Application Options:</b>"
 msgstr "<b>Možnosti programa:</b>"
@@ -78,6 +84,7 @@ msgstr "<b>Možnosti programa:</b>"
 #: ../Data/glade/dasher.compose.glade.h:6
 #: ../Data/glade/dasher.direct.glade.h:6
 #: ../Data/glade/dasher.fullscreen.glade.h:6
+#: ../Data/glade/dasher.gameWIP.glade.h:6
 #: ../Data/glade/dasher.traditional.glade.h:6
 msgid "<b>Application Style:</b>"
 msgstr "<b>Stil programa:</b>"
@@ -85,6 +92,7 @@ msgstr "<b>Stil programa:</b>"
 #: ../Data/glade/dasher.compose.glade.h:7
 #: ../Data/glade/dasher.direct.glade.h:7
 #: ../Data/glade/dasher.fullscreen.glade.h:7
+#: ../Data/glade/dasher.gameWIP.glade.h:7
 #: ../Data/glade/dasher.traditional.glade.h:7
 msgid "<b>Colour Scheme:</b>"
 msgstr "<b>Barvna shema:</b>"
@@ -92,6 +100,7 @@ msgstr "<b>Barvna shema:</b>"
 #: ../Data/glade/dasher.compose.glade.h:8
 #: ../Data/glade/dasher.direct.glade.h:8
 #: ../Data/glade/dasher.fullscreen.glade.h:8
+#: ../Data/glade/dasher.gameWIP.glade.h:8
 #: ../Data/glade/dasher.traditional.glade.h:8
 msgid "<b>Control Style:</b>"
 msgstr "<b>Nadzorni stil:</b>"
@@ -99,6 +108,7 @@ msgstr "<b>Nadzorni stil:</b>"
 #: ../Data/glade/dasher.compose.glade.h:9
 #: ../Data/glade/dasher.direct.glade.h:9
 #: ../Data/glade/dasher.fullscreen.glade.h:9
+#: ../Data/glade/dasher.gameWIP.glade.h:9
 #: ../Data/glade/dasher.traditional.glade.h:9
 msgid "<b>Dasher Font:</b>"
 msgstr "<b>Dasher pisava:</b>"
@@ -106,6 +116,7 @@ msgstr "<b>Dasher pisava:</b>"
 #: ../Data/glade/dasher.compose.glade.h:10
 #: ../Data/glade/dasher.direct.glade.h:10
 #: ../Data/glade/dasher.fullscreen.glade.h:10
+#: ../Data/glade/dasher.gameWIP.glade.h:10
 #: ../Data/glade/dasher.traditional.glade.h:10
 msgid "<b>Direction:</b>"
 msgstr "<b>Smer:</b>"
@@ -113,6 +124,7 @@ msgstr "<b>Smer:</b>"
 #: ../Data/glade/dasher.compose.glade.h:11
 #: ../Data/glade/dasher.direct.glade.h:11
 #: ../Data/glade/dasher.fullscreen.glade.h:11
+#: ../Data/glade/dasher.gameWIP.glade.h:11
 #: ../Data/glade/dasher.traditional.glade.h:11
 msgid "<b>Editor Font:</b>"
 msgstr "<b>Pisava urejevalnika:</b>"
@@ -120,6 +132,7 @@ msgstr "<b>Pisava urejevalnika:</b>"
 #: ../Data/glade/dasher.compose.glade.h:12
 #: ../Data/glade/dasher.direct.glade.h:12
 #: ../Data/glade/dasher.fullscreen.glade.h:12
+#: ../Data/glade/dasher.gameWIP.glade.h:12
 #: ../Data/glade/dasher.traditional.glade.h:12
 msgid "<b>Input Device:</b>"
 msgstr "<b>Vhodna naprava:</b>"
@@ -127,6 +140,7 @@ msgstr "<b>Vhodna naprava:</b>"
 #: ../Data/glade/dasher.compose.glade.h:13
 #: ../Data/glade/dasher.direct.glade.h:13
 #: ../Data/glade/dasher.fullscreen.glade.h:13
+#: ../Data/glade/dasher.gameWIP.glade.h:13
 #: ../Data/glade/dasher.traditional.glade.h:13
 #: ../Data/glade/dashermaemo.glade.h:6
 #: ../Data/glade/dashermaemofullscreen.glade.h:3
@@ -136,6 +150,7 @@ msgstr "<b>Jezikovni model:</b>"
 #: ../Data/glade/dasher.compose.glade.h:14
 #: ../Data/glade/dasher.direct.glade.h:14
 #: ../Data/glade/dasher.fullscreen.glade.h:14
+#: ../Data/glade/dasher.gameWIP.glade.h:14
 #: ../Data/glade/dasher.traditional.glade.h:14
 msgid "<b>Prediction:</b>"
 msgstr "<b>Napoved:</b>"
@@ -143,6 +158,7 @@ msgstr "<b>Napoved:</b>"
 #: ../Data/glade/dasher.compose.glade.h:15
 #: ../Data/glade/dasher.direct.glade.h:15
 #: ../Data/glade/dasher.fullscreen.glade.h:15
+#: ../Data/glade/dasher.gameWIP.glade.h:15
 #: ../Data/glade/dasher.traditional.glade.h:15
 #: ../Data/glade/dashermaemo.glade.h:8
 #: ../Data/glade/dashermaemofullscreen.glade.h:5
@@ -152,6 +168,7 @@ msgstr "<b>Glajenje:</b>"
 #: ../Data/glade/dasher.compose.glade.h:16
 #: ../Data/glade/dasher.direct.glade.h:16
 #: ../Data/glade/dasher.fullscreen.glade.h:16
+#: ../Data/glade/dasher.gameWIP.glade.h:16
 #: ../Data/glade/dasher.traditional.glade.h:16
 #: ../Data/glade/dashermaemo.glade.h:9
 #: ../Data/glade/dashermaemofullscreen.glade.h:6
@@ -161,6 +178,7 @@ msgstr "<b>Hitrost:</b>"
 #: ../Data/glade/dasher.compose.glade.h:17
 #: ../Data/glade/dasher.direct.glade.h:17
 #: ../Data/glade/dasher.fullscreen.glade.h:17
+#: ../Data/glade/dasher.gameWIP.glade.h:17
 #: ../Data/glade/dasher.traditional.glade.h:17
 msgid "<b>Starting And Stopping:</b>"
 msgstr "<b>Zagon in izklop:</b>"
@@ -168,6 +186,7 @@ msgstr "<b>Zagon in izklop:</b>"
 #: ../Data/glade/dasher.compose.glade.h:18
 #: ../Data/glade/dasher.direct.glade.h:18
 #: ../Data/glade/dasher.fullscreen.glade.h:18
+#: ../Data/glade/dasher.gameWIP.glade.h:19
 #: ../Data/glade/dasher.traditional.glade.h:19
 #: ../Data/glade/dashermaemo.glade.h:10
 #: ../Data/glade/dashermaemofullscreen.glade.h:7
@@ -178,6 +197,7 @@ msgstr "Samodejno prilagodi hitrost"
 #: ../Data/glade/dasher.compose.glade.h:19
 #: ../Data/glade/dasher.direct.glade.h:19
 #: ../Data/glade/dasher.fullscreen.glade.h:19
+#: ../Data/glade/dasher.gameWIP.glade.h:20
 #: ../Data/glade/dasher.traditional.glade.h:21
 #: ../Data/glade/dashermaemo.glade.h:12
 #: ../Data/glade/dashermaemofullscreen.glade.h:9
@@ -186,6 +206,7 @@ msgstr "Privzeta abeceda"
 
 #: ../Data/glade/dasher.compose.glade.h:20
 #: ../Data/glade/dasher.direct.glade.h:20
+#: ../Data/glade/dasher.gameWIP.glade.h:21
 #: ../Data/glade/dasher.traditional.glade.h:22
 msgid "Alphabet:"
 msgstr "Abeceda:"
@@ -193,6 +214,7 @@ msgstr "Abeceda:"
 #: ../Data/glade/dasher.compose.glade.h:21
 #: ../Data/glade/dasher.direct.glade.h:21
 #: ../Data/glade/dasher.fullscreen.glade.h:20
+#: ../Data/glade/dasher.gameWIP.glade.h:22
 #: ../Data/glade/dasher.traditional.glade.h:23
 msgid "Appearance"
 msgstr "Videz"
@@ -200,6 +222,7 @@ msgstr "Videz"
 #: ../Data/glade/dasher.compose.glade.h:22
 #: ../Data/glade/dasher.direct.glade.h:22
 #: ../Data/glade/dasher.fullscreen.glade.h:21
+#: ../Data/glade/dasher.gameWIP.glade.h:23
 #: ../Data/glade/dasher.traditional.glade.h:24
 msgid "Application"
 msgstr "Program"
@@ -207,6 +230,7 @@ msgstr "Program"
 #: ../Data/glade/dasher.compose.glade.h:23
 #: ../Data/glade/dasher.direct.glade.h:23
 #: ../Data/glade/dasher.fullscreen.glade.h:22
+#: ../Data/glade/dasher.gameWIP.glade.h:24
 #: ../Data/glade/dasher.traditional.glade.h:25
 #: ../Data/glade/dashermaemo.glade.h:13
 #: ../Data/glade/dashermaemofullscreen.glade.h:10
@@ -219,6 +243,7 @@ msgstr "Z dna proti vrhu."
 #: ../Data/glade/dasher.compose.glade.h:24
 #: ../Data/glade/dasher.direct.glade.h:24
 #: ../Data/glade/dasher.fullscreen.glade.h:23
+#: ../Data/glade/dasher.gameWIP.glade.h:25
 #: ../Data/glade/dasher.traditional.glade.h:29
 msgid ""
 "Centre circle\n"
@@ -230,6 +255,7 @@ msgstr ""
 #: ../Data/glade/dasher.compose.glade.h:26
 #: ../Data/glade/dasher.direct.glade.h:26
 #: ../Data/glade/dasher.fullscreen.glade.h:25
+#: ../Data/glade/dasher.gameWIP.glade.h:27
 #: ../Data/glade/dasher.traditional.glade.h:31
 msgid "Composition"
 msgstr "Sestavek"
@@ -237,6 +263,7 @@ msgstr "Sestavek"
 #: ../Data/glade/dasher.compose.glade.h:27
 #: ../Data/glade/dasher.direct.glade.h:27
 #: ../Data/glade/dasher.fullscreen.glade.h:26
+#: ../Data/glade/dasher.gameWIP.glade.h:28
 #: ../Data/glade/dasher.traditional.glade.h:32
 #: ../Data/glade/dashermaemo.glade.h:14
 #: ../Data/glade/dashermaemofullscreen.glade.h:11
@@ -246,16 +273,19 @@ msgstr "Nadzor"
 #: ../Data/glade/dasher.compose.glade.h:28
 #: ../Data/glade/dasher.direct.glade.h:28
 #: ../Data/glade/dasher.fullscreen.glade.h:27
+#: ../Data/glade/dasher.gameWIP.glade.h:29
 #: ../Data/glade/dasher.traditional.glade.h:33
 msgid "Control mode"
 msgstr "Nadzorni način"
 
 #: ../Data/glade/dasher.compose.glade.h:29
+#: ../Data/glade/dasher.gameWIP.glade.h:30
 #: ../Data/glade/dasher.traditional.glade.h:34
 msgid "Copy"
 msgstr "Kopiraj"
 
 #: ../Data/glade/dasher.compose.glade.h:30
+#: ../Data/glade/dasher.gameWIP.glade.h:31
 #: ../Data/glade/dasher.traditional.glade.h:35
 #: ../Data/glade/dashermaemofullscreen.glade.h:12
 msgid "Copy _All"
@@ -264,6 +294,7 @@ msgstr "Kopiraj _vse"
 #: ../Data/glade/dasher.compose.glade.h:31
 #: ../Data/glade/dasher.direct.glade.h:29
 #: ../Data/glade/dasher.fullscreen.glade.h:28
+#: ../Data/glade/dasher.gameWIP.glade.h:32
 #: ../Data/glade/dasher.traditional.glade.h:36
 #: ../Data/glade/dashermaemo.glade.h:15
 #: ../Data/glade/dashermaemofullscreen.glade.h:13
@@ -273,6 +304,7 @@ msgstr "Poljubna barvna shema:"
 #: ../Data/glade/dasher.compose.glade.h:32
 #: ../Data/glade/dasher.direct.glade.h:30
 #: ../Data/glade/dasher.fullscreen.glade.h:29
+#: ../Data/glade/dasher.gameWIP.glade.h:33
 #: ../Data/glade/dasher.traditional.glade.h:37
 #: ../Data/glade/dashermaemo.glade.h:16
 #: ../Data/glade/dashermaemofullscreen.glade.h:14
@@ -280,6 +312,7 @@ msgid "Custom:"
 msgstr "Poljubno:"
 
 #: ../Data/glade/dasher.compose.glade.h:33
+#: ../Data/glade/dasher.gameWIP.glade.h:34
 #: ../Data/glade/dasher.traditional.glade.h:38
 msgid "Cut"
 msgstr "Izreži"
@@ -287,6 +320,7 @@ msgstr "Izreži"
 #: ../Data/glade/dasher.compose.glade.h:35
 #: ../Data/glade/dasher.direct.glade.h:32
 #: ../Data/glade/dasher.fullscreen.glade.h:31
+#: ../Data/glade/dasher.gameWIP.glade.h:36
 #: ../Data/glade/dasher.traditional.glade.h:40
 #: ../Data/glade/dashermaemo.glade.h:18
 #: ../Data/glade/dashermaemofullscreen.glade.h:16
@@ -300,6 +334,7 @@ msgstr "_Navodila uporabe programa Dasher"
 #: ../Data/glade/dasher.compose.glade.h:37
 #: ../Data/glade/dasher.direct.glade.h:33
 #: ../Data/glade/dasher.fullscreen.glade.h:32
+#: ../Data/glade/dasher.gameWIP.glade.h:38
 #: ../Data/glade/dasher.traditional.glade.h:41
 msgid "Direct entry"
 msgstr "Neposreden vnos"
@@ -307,6 +342,7 @@ msgstr "Neposreden vnos"
 #: ../Data/glade/dasher.compose.glade.h:38
 #: ../Data/glade/dasher.direct.glade.h:34
 #: ../Data/glade/dasher.fullscreen.glade.h:33
+#: ../Data/glade/dasher.gameWIP.glade.h:39
 #: ../Data/glade/dasher.traditional.glade.h:42
 msgid "Dock application window"
 msgstr "Zasidraj okno programa"
@@ -314,6 +350,7 @@ msgstr "Zasidraj okno programa"
 #: ../Data/glade/dasher.compose.glade.h:39
 #: ../Data/glade/dasher.direct.glade.h:35
 #: ../Data/glade/dasher.fullscreen.glade.h:34
+#: ../Data/glade/dasher.gameWIP.glade.h:40
 #: ../Data/glade/dasher.traditional.glade.h:43
 msgid "Draw box outlines"
 msgstr "Nariši obris okna"
@@ -321,6 +358,7 @@ msgstr "Nariši obris okna"
 #: ../Data/glade/dasher.compose.glade.h:40
 #: ../Data/glade/dasher.direct.glade.h:36
 #: ../Data/glade/dasher.fullscreen.glade.h:35
+#: ../Data/glade/dasher.gameWIP.glade.h:41
 #: ../Data/glade/dasher.traditional.glade.h:44
 msgid "Draw line between crosshairs and mouse"
 msgstr "Nariši črto med prečnimi črtami in miško"
@@ -328,6 +366,7 @@ msgstr "Nariši črto med prečnimi črtami in miško"
 #: ../Data/glade/dasher.compose.glade.h:41
 #: ../Data/glade/dasher.direct.glade.h:37
 #: ../Data/glade/dasher.fullscreen.glade.h:36
+#: ../Data/glade/dasher.gameWIP.glade.h:43
 #: ../Data/glade/dasher.traditional.glade.h:45
 msgid "Full Screen"
 msgstr "Celozaslonski način"
@@ -335,6 +374,7 @@ msgstr "Celozaslonski način"
 #: ../Data/glade/dasher.compose.glade.h:42
 #: ../Data/glade/dasher.direct.glade.h:38
 #: ../Data/glade/dasher.fullscreen.glade.h:37
+#: ../Data/glade/dasher.gameWIP.glade.h:45
 #: ../Data/glade/dasher.traditional.glade.h:47
 msgid "Increase line thickness"
 msgstr "Povečaj debelino črt"
@@ -342,6 +382,7 @@ msgstr "Povečaj debelino črt"
 #: ../Data/glade/dasher.compose.glade.h:43
 #: ../Data/glade/dasher.direct.glade.h:39
 #: ../Data/glade/dasher.fullscreen.glade.h:38
+#: ../Data/glade/dasher.gameWIP.glade.h:46
 #: ../Data/glade/dasher.traditional.glade.h:48
 #: ../Data/glade/dashermaemo.glade.h:20
 #: ../Data/glade/dashermaemofullscreen.glade.h:17
@@ -351,6 +392,7 @@ msgstr "japonščina"
 #: ../Data/glade/dasher.compose.glade.h:44
 #: ../Data/glade/dasher.direct.glade.h:40
 #: ../Data/glade/dasher.fullscreen.glade.h:39
+#: ../Data/glade/dasher.gameWIP.glade.h:47
 #: ../Data/glade/dasher.traditional.glade.h:49
 msgid "Language"
 msgstr "Jezik"
@@ -358,6 +400,7 @@ msgstr "Jezik"
 #: ../Data/glade/dasher.compose.glade.h:45
 #: ../Data/glade/dasher.direct.glade.h:41
 #: ../Data/glade/dasher.fullscreen.glade.h:40
+#: ../Data/glade/dasher.gameWIP.glade.h:48
 #: ../Data/glade/dasher.traditional.glade.h:50
 #: ../Data/glade/dashermaemo.glade.h:21
 #: ../Data/glade/dashermaemofullscreen.glade.h:18
@@ -367,6 +410,7 @@ msgstr "Med pisanjem se jezikovni način se prilagaja."
 #: ../Data/glade/dasher.compose.glade.h:46
 #: ../Data/glade/dasher.direct.glade.h:42
 #: ../Data/glade/dasher.fullscreen.glade.h:41
+#: ../Data/glade/dasher.gameWIP.glade.h:49
 #: ../Data/glade/dasher.traditional.glade.h:51
 msgid "Large font "
 msgstr "Velika pisava"
@@ -374,6 +418,7 @@ msgstr "Velika pisava"
 #: ../Data/glade/dasher.compose.glade.h:47
 #: ../Data/glade/dasher.direct.glade.h:43
 #: ../Data/glade/dasher.fullscreen.glade.h:42
+#: ../Data/glade/dasher.gameWIP.glade.h:51
 #: ../Data/glade/dasher.traditional.glade.h:52
 #: ../Data/glade/dashermaemo.glade.h:22
 #: ../Data/glade/dashermaemofullscreen.glade.h:20
@@ -384,6 +429,7 @@ msgstr "Z leve proti desni"
 #: ../Data/glade/dasher.compose.glade.h:48
 #: ../Data/glade/dasher.direct.glade.h:44
 #: ../Data/glade/dasher.fullscreen.glade.h:43
+#: ../Data/glade/dasher.gameWIP.glade.h:53
 #: ../Data/glade/dasher.traditional.glade.h:54
 #: ../Data/glade/dashermaemo.glade.h:23
 #: ../Data/glade/dashermaemofullscreen.glade.h:21
@@ -391,11 +437,13 @@ msgid "Mixture model (PPM/dictionary)"
 msgstr "Mešani način (PPM/slovar)"
 
 #: ../Data/glade/dasher.compose.glade.h:49
+#: ../Data/glade/dasher.gameWIP.glade.h:54
 #: ../Data/glade/dasher.traditional.glade.h:55
 msgid "New file"
 msgstr "Nova datoteka"
 
 #: ../Data/glade/dasher.compose.glade.h:50
+#: ../Data/glade/dasher.gameWIP.glade.h:56
 #: ../Data/glade/dasher.traditional.glade.h:56
 msgid "Open file"
 msgstr "Odpri datoteko"
@@ -403,11 +451,13 @@ msgstr "Odpri datoteko"
 #: ../Data/glade/dasher.compose.glade.h:51
 #: ../Data/glade/dasher.direct.glade.h:45
 #: ../Data/glade/dasher.fullscreen.glade.h:44
+#: ../Data/glade/dasher.gameWIP.glade.h:57
 #: ../Data/glade/dasher.traditional.glade.h:57
 msgid "Options"
 msgstr "Možnosti"
 
 #: ../Data/glade/dasher.compose.glade.h:52
+#: ../Data/glade/dasher.gameWIP.glade.h:58
 #: ../Data/glade/dasher.traditional.glade.h:58
 msgid "Paste"
 msgstr "Prilepi"
@@ -415,6 +465,7 @@ msgstr "Prilepi"
 #: ../Data/glade/dasher.compose.glade.h:53
 #: ../Data/glade/dasher.direct.glade.h:46
 #: ../Data/glade/dasher.fullscreen.glade.h:45
+#: ../Data/glade/dasher.gameWIP.glade.h:59
 #: ../Data/glade/dasher.traditional.glade.h:59
 msgid "Pause outside of canvas"
 msgstr "Ustavi izven okna"
@@ -422,6 +473,7 @@ msgstr "Ustavi izven okna"
 #: ../Data/glade/dasher.compose.glade.h:54
 #: ../Data/glade/dasher.direct.glade.h:47
 #: ../Data/glade/dasher.fullscreen.glade.h:46
+#: ../Data/glade/dasher.gameWIP.glade.h:60
 #: ../Data/glade/dasher.traditional.glade.h:60
 #: ../Data/glade/dashermaemo.glade.h:25
 msgid "Please Wait..."
@@ -434,6 +486,7 @@ msgstr "_Nastavitve"
 #: ../Data/glade/dasher.compose.glade.h:56
 #: ../Data/glade/dasher.direct.glade.h:48
 #: ../Data/glade/dasher.fullscreen.glade.h:47
+#: ../Data/glade/dasher.gameWIP.glade.h:64
 #: ../Data/glade/dasher.traditional.glade.h:64
 #: ../Data/glade/dashermaemo.glade.h:27
 #: ../Data/glade/dashermaemofullscreen.glade.h:24
@@ -441,11 +494,13 @@ msgid "Right to Left"
 msgstr "Z desne proti levi"
 
 #: ../Data/glade/dasher.compose.glade.h:57
+#: ../Data/glade/dasher.gameWIP.glade.h:65
 #: ../Data/glade/dasher.traditional.glade.h:65
 msgid "Save file"
 msgstr "Shrani datoteko"
 
 #: ../Data/glade/dasher.compose.glade.h:58
+#: ../Data/glade/dasher.gameWIP.glade.h:66
 #: ../Data/glade/dasher.traditional.glade.h:66
 msgid "Save file as"
 msgstr "Shrani datoteko kot"
@@ -453,6 +508,7 @@ msgstr "Shrani datoteko kot"
 #: ../Data/glade/dasher.compose.glade.h:59
 #: ../Data/glade/dasher.direct.glade.h:51
 #: ../Data/glade/dasher.fullscreen.glade.h:48
+#: ../Data/glade/dasher.gameWIP.glade.h:70
 #: ../Data/glade/dasher.traditional.glade.h:69
 #: ../Data/glade/dashermaemo.glade.h:28
 #: ../Data/glade/dashermaemofullscreen.glade.h:25
@@ -472,6 +528,7 @@ msgstr "Izberi pisavo"
 #: ../Data/glade/dasher.compose.glade.h:61
 #: ../Data/glade/dasher.direct.glade.h:52
 #: ../Data/glade/dasher.fullscreen.glade.h:50
+#: ../Data/glade/dasher.gameWIP.glade.h:71
 #: ../Data/glade/dasher.traditional.glade.h:70
 msgid "Show mouse position"
 msgstr "Pokaži položaj miške"
@@ -479,6 +536,7 @@ msgstr "Pokaži položaj miške"
 #: ../Data/glade/dasher.compose.glade.h:62
 #: ../Data/glade/dasher.direct.glade.h:53
 #: ../Data/glade/dasher.fullscreen.glade.h:51
+#: ../Data/glade/dasher.gameWIP.glade.h:72
 #: ../Data/glade/dasher.traditional.glade.h:71
 msgid "Show speed slider"
 msgstr "Pokaži drsnik hitrosti"
@@ -486,6 +544,7 @@ msgstr "Pokaži drsnik hitrosti"
 #: ../Data/glade/dasher.compose.glade.h:63
 #: ../Data/glade/dasher.direct.glade.h:54
 #: ../Data/glade/dasher.fullscreen.glade.h:52
+#: ../Data/glade/dasher.gameWIP.glade.h:73
 #: ../Data/glade/dasher.traditional.glade.h:72
 msgid "Show toolbar"
 msgstr "Pokaži orodno vrstico"
@@ -493,12 +552,14 @@ msgstr "Pokaži orodno vrstico"
 #: ../Data/glade/dasher.compose.glade.h:64
 #: ../Data/glade/dasher.direct.glade.h:55
 #: ../Data/glade/dasher.fullscreen.glade.h:53
+#: ../Data/glade/dasher.gameWIP.glade.h:74
 #: ../Data/glade/dasher.traditional.glade.h:73
 msgid "Small font"
 msgstr "Majhna pisava"
 
 #: ../Data/glade/dasher.compose.glade.h:65
 #: ../Data/glade/dasher.direct.glade.h:56
+#: ../Data/glade/dasher.gameWIP.glade.h:75
 #: ../Data/glade/dasher.traditional.glade.h:74
 msgid "Speed:"
 msgstr "Hitrost:"
@@ -506,6 +567,7 @@ msgstr "Hitrost:"
 #: ../Data/glade/dasher.compose.glade.h:66
 #: ../Data/glade/dasher.direct.glade.h:57
 #: ../Data/glade/dasher.fullscreen.glade.h:54
+#: ../Data/glade/dasher.gameWIP.glade.h:76
 #: ../Data/glade/dasher.traditional.glade.h:75
 msgid "Stand-alone"
 msgstr "Samostojen"
@@ -514,6 +576,7 @@ msgstr "Samostojen"
 #: ../Data/glade/dasher.compose.glade.h:67
 #: ../Data/glade/dasher.direct.glade.h:58
 #: ../Data/glade/dasher.fullscreen.glade.h:55
+#: ../Data/glade/dasher.gameWIP.glade.h:77
 #: ../Data/glade/dasher.traditional.glade.h:77
 #: ../Data/glade/dashermaemo.glade.h:30
 #: ../Data/glade/dashermaemofullscreen.glade.h:27
@@ -523,6 +586,7 @@ msgstr "Standardni, na črkah temelječ način napovedovanja PPM"
 #: ../Data/glade/dasher.compose.glade.h:68
 #: ../Data/glade/dasher.direct.glade.h:59
 #: ../Data/glade/dasher.fullscreen.glade.h:56
+#: ../Data/glade/dasher.gameWIP.glade.h:78
 #: ../Data/glade/dasher.traditional.glade.h:78
 msgid "Start on left mouse button"
 msgstr "Začni z levim klikom miške"
@@ -530,6 +594,7 @@ msgstr "Začni z levim klikom miške"
 #: ../Data/glade/dasher.compose.glade.h:69
 #: ../Data/glade/dasher.direct.glade.h:60
 #: ../Data/glade/dasher.fullscreen.glade.h:57
+#: ../Data/glade/dasher.gameWIP.glade.h:79
 #: ../Data/glade/dasher.traditional.glade.h:79
 msgid "Start on space bar"
 msgstr "Začni ob pritisku na preslednico"
@@ -537,6 +602,7 @@ msgstr "Začni ob pritisku na preslednico"
 #: ../Data/glade/dasher.compose.glade.h:70
 #: ../Data/glade/dasher.direct.glade.h:61
 #: ../Data/glade/dasher.fullscreen.glade.h:58
+#: ../Data/glade/dasher.gameWIP.glade.h:80
 #: ../Data/glade/dasher.traditional.glade.h:80
 msgid "Start with mouse position:"
 msgstr "Začni, ko bo miška v položaju:"
@@ -544,6 +610,7 @@ msgstr "Začni, ko bo miška v položaju:"
 #: ../Data/glade/dasher.compose.glade.h:71
 #: ../Data/glade/dasher.direct.glade.h:62
 #: ../Data/glade/dasher.fullscreen.glade.h:59
+#: ../Data/glade/dasher.gameWIP.glade.h:81
 #: ../Data/glade/dasher.traditional.glade.h:81
 msgid "Timestamp new files"
 msgstr "Novim datotekam pripni časovni žig"
@@ -551,6 +618,7 @@ msgstr "Novim datotekam pripni časovni žig"
 #: ../Data/glade/dasher.compose.glade.h:72
 #: ../Data/glade/dasher.direct.glade.h:63
 #: ../Data/glade/dasher.fullscreen.glade.h:60
+#: ../Data/glade/dasher.gameWIP.glade.h:82
 #: ../Data/glade/dasher.traditional.glade.h:82
 #: ../Data/glade/dashermaemo.glade.h:31
 #: ../Data/glade/dashermaemofullscreen.glade.h:28
@@ -560,6 +628,7 @@ msgstr "Z vrha proti dnu"
 #: ../Data/glade/dasher.compose.glade.h:73
 #: ../Data/glade/dasher.direct.glade.h:64
 #: ../Data/glade/dasher.fullscreen.glade.h:61
+#: ../Data/glade/dasher.gameWIP.glade.h:83
 #: ../Data/glade/dasher.traditional.glade.h:83
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
@@ -573,6 +642,7 @@ msgstr ""
 #: ../Data/glade/dasher.compose.glade.h:76
 #: ../Data/glade/dasher.direct.glade.h:67
 #: ../Data/glade/dasher.fullscreen.glade.h:64
+#: ../Data/glade/dasher.gameWIP.glade.h:86
 #: ../Data/glade/dasher.traditional.glade.h:86
 msgid "Very large font"
 msgstr "Zelo velika pisava"
@@ -580,6 +650,7 @@ msgstr "Zelo velika pisava"
 #: ../Data/glade/dasher.compose.glade.h:77
 #: ../Data/glade/dasher.direct.glade.h:68
 #: ../Data/glade/dasher.fullscreen.glade.h:65
+#: ../Data/glade/dasher.gameWIP.glade.h:87
 #: ../Data/glade/dasher.traditional.glade.h:87
 #: ../Data/glade/dashermaemo.glade.h:33
 #: ../Data/glade/dashermaemofullscreen.glade.h:31
@@ -600,18 +671,21 @@ msgid "_Contents"
 msgstr "_Vsebina"
 
 #: ../Data/glade/dasher.compose.glade.h:81
+#: ../Data/glade/dasher.gameWIP.glade.h:90
 #: ../Data/glade/dasher.traditional.glade.h:90
 #: ../Data/glade/dashermaemofullscreen.glade.h:35
 msgid "_Edit"
 msgstr "_Uredi"
 
 #: ../Data/glade/dasher.compose.glade.h:82
+#: ../Data/glade/dasher.gameWIP.glade.h:91
 #: ../Data/glade/dasher.traditional.glade.h:91
 #: ../Data/glade/dashermaemofullscreen.glade.h:37
 msgid "_File"
 msgstr "_Datoteka"
 
 #: ../Data/glade/dasher.compose.glade.h:83
+#: ../Data/glade/dasher.gameWIP.glade.h:92
 #: ../Data/glade/dasher.traditional.glade.h:92
 #: ../Data/glade/dashermaemofullscreen.glade.h:38
 msgid "_Help"
@@ -629,43 +703,77 @@ msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "abcdefghijk ABCDEFGHIJK"
 
 #: ../Data/glade/dasher.direct.glade.h:49
+#: ../Data/glade/dasher.gameWIP.glade.h:68
 #: ../Data/glade/dasher.traditional.glade.h:67
 msgid "Select Dasher Font"
 msgstr "Izbor pisave programa"
 
 #: ../Data/glade/dasher.direct.glade.h:50
+#: ../Data/glade/dasher.gameWIP.glade.h:69
 #: ../Data/glade/dasher.traditional.glade.h:68
 msgid "Select Editor Font"
 msgstr "Izbor pisave urejevalnika"
 
+#: ../Data/glade/dasher.gameWIP.glade.h:18
 #: ../Data/glade/dasher.traditional.glade.h:18
 msgid "A_ppend to file..."
 msgstr "Pripni d_atoteki ..."
 
+#: ../Data/glade/dasher.gameWIP.glade.h:37
+msgid "Demo!"
+msgstr "Demo!"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:42
+msgid "Full Demo"
+msgstr "Polni demo"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:44
 #: ../Data/glade/dasher.traditional.glade.h:46
 msgid "Help"
 msgstr "Pomoč"
 
+#: ../Data/glade/dasher.gameWIP.glade.h:50
+msgid "Launch Dasher Game & Demo mode!"
+msgstr "Zagon Dasher igre in Demo!"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:52
+msgid "Level:"
+msgstr "Raven:"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:55
+msgid "New sentence"
+msgstr "Nov stavek!"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:61
 #: ../Data/glade/dasher.traditional.glade.h:61
 msgid "Pr_eferences..."
 msgstr "_Nastavitve ..."
 
+#: ../Data/glade/dasher.gameWIP.glade.h:62
 #: ../Data/glade/dasher.traditional.glade.h:62
 msgid "Preferences"
 msgstr "Lastnosti"
 
+#: ../Data/glade/dasher.gameWIP.glade.h:63
 #: ../Data/glade/dasher.traditional.glade.h:63
 msgid "Quit"
 msgstr "Končaj"
 
+#: ../Data/glade/dasher.gameWIP.glade.h:67
+msgid "Score:"
+msgstr "Točke:"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:88
 #: ../Data/glade/dasher.traditional.glade.h:88
 msgid "_About..."
 msgstr "_O programu ..."
 
+#: ../Data/glade/dasher.gameWIP.glade.h:89
 #: ../Data/glade/dasher.traditional.glade.h:89
 msgid "_Contents..."
 msgstr "_Vsebina ..."
 
+#: ../Data/glade/dasher.gameWIP.glade.h:93
 #: ../Data/glade/dasher.traditional.glade.h:93
 msgid "_Import Training Text..."
 msgstr "_Uvozi besedilo za urjenje ..."
@@ -799,6 +907,10 @@ msgstr "Kompas način"
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:932
 msgid "Stylus Control"
 msgstr "Stylus nadzor"
+
+#: ../Src/DasherCore/DasherGameMode.cpp:629
+msgid "Well done!"
+msgstr "Zelo dobro!"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:7
 msgid "Automatic calibration"
