@@ -4,6 +4,7 @@ Data/dasher.desktop.in.in
 Data/glade/dasher.compose.glade
 Data/glade/dasher.direct.glade
 Data/glade/dasher.fullscreen.glade
+Data/glade/dasher.gameWIP.glade
 Data/glade/dasher.traditional.glade
 Data/glade/dashermaemo.glade
 Data/glade/dashermaemofullscreen.glade
@@ -11,6 +12,7 @@ Src/DasherCore/ClickFilter.cpp
 Src/DasherCore/ClickFilter.h
 Src/DasherCore/DasherButtons.cpp
 Src/DasherCore/DasherInterfaceBase.cpp
+Src/DasherCore/DasherGameMode.cpp
 Src/DasherCore/DynamicFilter.cpp
 Src/DasherCore/EyetrackerFilter.cpp
 Src/DasherCore/OneButtonDynamicFilter.cpp
