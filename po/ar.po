@@ -12,17 +12,17 @@ msgstr ""
 "Project-Id-Version: dasher.gnome-2-16.ar\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-23 21:33+0100\n"
-"PO-Revision-Date: 2007-09-08 14:09-0000\n"
-"Last-Translator: Youssef Chahibi <chahibi@gmail.com>\n"
+"PO-Revision-Date: 2007-10-24 20:27+0100\n"
+"Last-Translator: Djihed Afifi <djihed@gmail.com>\n"
 "Language-Team: Arabic <support@arabeyes.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: Plural-Forms: nplurals=4; plural=n==1 ? 0 : n==2 ? 1 : n>=3 && "
-"n<=10 ? 2 : 3\n"
+"Plural-Forms: Plural-Forms: nplurals=4; plural=n==1 ? 0 : n==2 ? 1 : n>=3 && n<=10 ? 2 : 3\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../Data/dasher.desktop.in.in.h:1 ../Data/glade/dasher.compose.glade.h:34
+#: ../Data/dasher.desktop.in.in.h:1
+#: ../Data/glade/dasher.compose.glade.h:34
 #: ../Data/glade/dasher.direct.glade.h:31
 #: ../Data/glade/dasher.fullscreen.glade.h:30
 #: ../Data/glade/dasher.gameWIP.glade.h:35
@@ -720,12 +720,11 @@ msgstr "أ_لحِق للملف..."
 
 #: ../Data/glade/dasher.gameWIP.glade.h:37
 msgid "Demo!"
-msgstr ""
+msgstr "عرض!"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:42
-#, fuzzy
 msgid "Full Demo"
-msgstr "ملأ الشاشة"
+msgstr "عرض كامل"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:44
 #: ../Data/glade/dasher.traditional.glade.h:46
@@ -734,15 +733,15 @@ msgstr "مساعدة"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:50
 msgid "Launch Dasher Game & Demo mode!"
-msgstr ""
+msgstr "ابدأ لعبة داشر و نسق العرض!"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:52
 msgid "Level:"
-msgstr ""
+msgstr "المستوى:"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:55
 msgid "New sentence"
-msgstr ""
+msgstr "جملة جديدة"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:61
 #: ../Data/glade/dasher.traditional.glade.h:61
@@ -761,7 +760,7 @@ msgstr "اخرج"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:67
 msgid "Score:"
-msgstr ""
+msgstr "النّتيجة:"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:88
 #: ../Data/glade/dasher.traditional.glade.h:88
@@ -910,7 +909,7 @@ msgstr "التحكّم بالقلم"
 
 #: ../Src/DasherCore/DasherGameMode.cpp:629
 msgid "Well done!"
-msgstr ""
+msgstr "حسنا فعلت!"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:7
 msgid "Automatic calibration"
@@ -1027,7 +1026,8 @@ msgstr "حد آلي للسرعة"
 msgid "Two Button Dynamic Mode"
 msgstr "وضع حركي بزرين"
 
-#: ../Src/Gtk2/Preferences.cpp:417 ../Src/Gtk2/Preferences.cpp:983
+#: ../Src/Gtk2/Preferences.cpp:417
+#: ../Src/Gtk2/Preferences.cpp:983
 msgid "Action"
 msgstr "إجراء"
 
@@ -1119,11 +1119,13 @@ msgstr "لا تخرج"
 msgid "Save and quit"
 msgstr "احفظ و اخرج"
 
-#: ../Src/Gtk2/dasher_main.cpp:1145 ../Src/Gtk2/dasher_main.cpp:1161
+#: ../Src/Gtk2/dasher_main.cpp:1145
+#: ../Src/Gtk2/dasher_main.cpp:1161
 msgid "Dasher is a predictive text entry application"
 msgstr "داشر هو برنامج نُبُوئِيّ للكتابة"
 
-#: ../Src/Gtk2/dasher_main.cpp:1150 ../Src/Gtk2/dasher_main.cpp:1156
+#: ../Src/Gtk2/dasher_main.cpp:1150
+#: ../Src/Gtk2/dasher_main.cpp:1156
 msgid "translator-credits"
 msgstr ""
 "فريق عربآيز للترجمة http://www.arabeyes.org :\n"
@@ -1153,27 +1155,20 @@ msgstr "دخل فأرة أحادي البعد"
 
 #~ msgid "Enter text into other windows"
 #~ msgstr "أدخل النص في نوافذ أخرى"
-
 #~ msgid "(Message Placeholder - no need to translate)"
 #~ msgstr " (Message Placeholder - no need to translate)"
-
 #~ msgid "button33"
 #~ msgstr "زر33"
-
 #~ msgid "button34"
 #~ msgstr "زر34"
-
 #~ msgid "button35"
 #~ msgstr "زر35"
-
 #~ msgid "button36"
 #~ msgstr "زر36"
-
 #~ msgid "button37"
 #~ msgstr "زر37"
-
 #~ msgid "button38"
 #~ msgstr "زر38"
-
 #~ msgid "Training Dasher... please wait"
 #~ msgstr "يجري تدريب داشر... الرجاء الإنتظار"
+
