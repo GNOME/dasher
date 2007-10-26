@@ -23,7 +23,14 @@ bool CCircleStartHandler::DecorateView(CDasherView *pView) {
  
   pView->Dasher2Screen(2048, 2048 + m_iCircleRadius, iCX2, iCY2);
 
-  m_iScreenRadius = iCY2 - iCY;
+  int iDirection = GetLongParameter(LP_REAL_ORIENTATION);
+
+  if((iDirection == 2) || (iDirection == 3)) {
+    m_iScreenRadius = iCX2 - iCX;
+  }
+  else {
+    m_iScreenRadius = iCY2 - iCY;
+  }
 
   if((m_iStatus == 0) || (m_iStatus == 2))
     pView->Screen()->DrawCircle(iCX, iCY, m_iScreenRadius, 2, 242, 1, true);
