@@ -1,3 +1,22 @@
+// CircleStartHandler.cpp
+//
+// Copyright (c) 2007 The Dasher Team
+//
+// This file is part of Dasher.
+//
+// Dasher is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// Dasher is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Dasher; if not, write to the Free Software 
+// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "../Common/Common.h"
 
@@ -23,7 +42,14 @@ bool CCircleStartHandler::DecorateView(CDasherView *pView) {
  
   pView->Dasher2Screen(2048, 2048 + m_iCircleRadius, iCX2, iCY2);
 
-  m_iScreenRadius = iCY2 - iCY;
+  int iDirection = GetLongParameter(LP_REAL_ORIENTATION);
+
+  if((iDirection == 2) || (iDirection == 3)) {
+    m_iScreenRadius = iCX2 - iCX;
+  }
+  else {
+    m_iScreenRadius = iCY2 - iCY;
+  }
 
   if((m_iStatus == 0) || (m_iStatus == 2))
     pView->Screen()->DrawCircle(iCX, iCY, m_iScreenRadius, 2, 242, 1, true);

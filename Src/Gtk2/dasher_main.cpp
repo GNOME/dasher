@@ -1220,18 +1220,18 @@ dasher_main_alphabet_combo_changed(DasherMain *pSelf) {
 
   GtkTreeIter sIter;
   
-  gtk_combo_box_get_active_iter(GTK_COMBO_BOX(pPrivate->pAlphabetCombo), &sIter);
-
-  const char *szSelected;
-  gtk_tree_model_get(GTK_TREE_MODEL(pPrivate->pAlphabetList), &sIter, 0, &szSelected, -1);
-
-  if(!strcmp("More Alphabets...", szSelected)) {
-    gtk_combo_box_set_active(GTK_COMBO_BOX(pPrivate->pAlphabetCombo), 0);
-    //    dasher_preferences_dialogue_show(pPrivate->pPreferencesDialogue);
-    dasher_main_command(pSelf, "preferences_alphabet");
+  if(gtk_combo_box_get_active_iter(GTK_COMBO_BOX(pPrivate->pAlphabetCombo), &sIter)) {
+    const char *szSelected;
+    gtk_tree_model_get(GTK_TREE_MODEL(pPrivate->pAlphabetList), &sIter, 0, &szSelected, -1);
+    
+    if(!strcmp("More Alphabets...", szSelected)) {
+      gtk_combo_box_set_active(GTK_COMBO_BOX(pPrivate->pAlphabetCombo), 0);
+      //    dasher_preferences_dialogue_show(pPrivate->pPreferencesDialogue);
+      dasher_main_command(pSelf, "preferences_alphabet");
+    }
+    else 
+      dasher_app_settings_set_string(pPrivate->pAppSettings, SP_ALPHABET_ID, szSelected);
   }
-  else 
-    dasher_app_settings_set_string(pPrivate->pAppSettings, SP_ALPHABET_ID, szSelected);
 }
 
 static void 

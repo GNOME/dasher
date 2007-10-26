@@ -167,6 +167,13 @@ void CDasherInterfaceBase::Realize() {
   CreateInputFilter();
   SetupActionButtons();
 
+  // Set up real orientation to match selection
+  if(GetLongParameter(LP_ORIENTATION) == Dasher::Opts::AlphabetDefault)
+    SetLongParameter(LP_REAL_ORIENTATION, m_Alphabet->GetOrientation());
+  else
+    SetLongParameter(LP_REAL_ORIENTATION, GetLongParameter(LP_ORIENTATION));
+
+
   // FIXME - need to rationalise this sort of thing.
   // InvalidateContext(true);
   ScheduleRedraw();
