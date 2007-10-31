@@ -527,6 +527,16 @@ void CEdit::output(const std::string &sText) {
 
   UTF8string_to_wstring(sText, newchar);
   speech += newchar;
+
+  // Slightly hacky word by word preview
+  if(newchar == L" ") {
+    if(m_pActionSpeech->GetActive())
+      m_pActionSpeech->Preview(m_strCurrentWord);
+    m_strCurrentWord = L"";
+  } 
+  else {
+    m_strCurrentWord += newchar;
+  }
 }
 
 void CEdit::Move(int iDirection, int iDist) {
@@ -905,6 +915,11 @@ if(m_pAppSettings->GetLongParameter(APP_LP_STYLE) == 2) {
     speech.resize(speech.length() - iLength);
   }
 
+  // Shorten the speech buffer (?)
+  if(m_strCurrentWord.length() >= iLength) {
+    m_strCurrentWord.resize(m_strCurrentWord.length() - iLength);
+  }
+
   // And the output buffer (?)
   if(m_Output.length() >= iLength) {
     m_Output.resize(m_Output.length() - iLength);
@@ -941,7 +956,7 @@ void CEdit::speak(int what) {
     strSpeech = lastspeech;
   }
 
-  m_pActionSpeech->Execue(strSpeech);
+  m_pActionSpeech->Execute(strSpeech);
 }
 
 void CEdit::SetNewWithDate(bool bNewWithDate) {

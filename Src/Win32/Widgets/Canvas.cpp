@@ -364,6 +364,8 @@ LRESULT CCanvas::OnLButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL&
   //			m_pDasherInterface->Unpause(GetTickCount());
   //	}
   
+  SetFocus();
+
   m_bButtonDown = true;
   return 0;
 }

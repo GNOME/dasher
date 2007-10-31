@@ -18,7 +18,10 @@ public:
   virtual bool GetActive() = 0;
 
   // Execute the action
-  virtual bool Execue(const std::wstring &strText) = 0;
+  virtual bool Execute(const std::wstring &strText) = 0;
+
+  // `Preview' the action (eg word by word speech)
+  virtual void Preview(const std::wstring &strText) {};
 };
 
 #endif
