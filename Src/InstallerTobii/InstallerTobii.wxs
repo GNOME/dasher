@@ -2,7 +2,7 @@
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
 
   <Product Name='Dasher 4.6 (MyTobii)' Id='8903D8E8-8AF4-46dd-A685-C1E5379912B4'
-   Language='1033' Codepage='1252' Version='4.6.1' Manufacturer='Dasher'
+   Language='1033' Codepage='1252' Version='4.6.2' Manufacturer='Dasher'
    UpgradeCode='761FEE49-85EE-4c63-8A70-9A3CA5D70D3E'>
 
     <Package Keywords='Installer'

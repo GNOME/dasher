@@ -530,7 +530,7 @@ void CEdit::output(const std::string &sText) {
 
   // Slightly hacky word by word preview
   if(newchar == L" ") {
-    if(m_pActionSpeech->GetActive())
+    if(m_pAppSettings->GetBoolParameter(APP_BP_SPEECH_WORD) && m_pActionSpeech->GetActive())
       m_pActionSpeech->Preview(m_strCurrentWord);
     m_strCurrentWord = L"";
   } 
