@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-01 19:25+0200\n"
-"PO-Revision-Date: 2007-08-01 19:29+0100\n"
+"POT-Creation-Date: 2007-11-09 12:41+0100\n"
+"PO-Revision-Date: 2007-11-09 12:47+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -21,20 +21,22 @@ msgstr ""
 #: ../Data/glade/dasher.compose.glade.h:34
 #: ../Data/glade/dasher.direct.glade.h:31
 #: ../Data/glade/dasher.fullscreen.glade.h:30
-#: ../Data/glade/dasher.traditional.glade.h:35
+#: ../Data/glade/dasher.gameWIP.glade.h:35
+#: ../Data/glade/dasher.traditional.glade.h:39
 #: ../Data/glade/dashermaemo.glade.h:17
 #: ../Data/glade/dashermaemofullscreen.glade.h:15
-#: ../Src/Gtk2/dasher_main.cpp:1156
+#: ../Src/Gtk2/dasher_main.cpp:1158
 msgid "Dasher"
 msgstr "Dasher"
 
 #: ../Data/dasher.desktop.in.in.h:2
 msgid "Predictive text entry"
-msgstr "Förutsedd textpost"
+msgstr "Prediktiv textpost"
 
 #: ../Data/glade/dasher.compose.glade.h:1
 #: ../Data/glade/dasher.direct.glade.h:1
 #: ../Data/glade/dasher.fullscreen.glade.h:1
+#: ../Data/glade/dasher.gameWIP.glade.h:1
 #: ../Data/glade/dasher.traditional.glade.h:1
 msgid "<b>Actions:</b>"
 msgstr "<b>Åtgärder:</b>"
@@ -42,6 +44,7 @@ msgstr "<b>Åtgärder:</b>"
 #: ../Data/glade/dasher.compose.glade.h:2
 #: ../Data/glade/dasher.direct.glade.h:2
 #: ../Data/glade/dasher.fullscreen.glade.h:2
+#: ../Data/glade/dasher.gameWIP.glade.h:2
 #: ../Data/glade/dasher.traditional.glade.h:2
 #: ../Data/glade/dashermaemo.glade.h:3
 #: ../Data/glade/dashermaemofullscreen.glade.h:1
@@ -51,6 +54,7 @@ msgstr "<b>Anpassning:</b>"
 #: ../Data/glade/dasher.compose.glade.h:3
 #: ../Data/glade/dasher.direct.glade.h:3
 #: ../Data/glade/dasher.fullscreen.glade.h:3
+#: ../Data/glade/dasher.gameWIP.glade.h:3
 #: ../Data/glade/dasher.traditional.glade.h:3
 #: ../Data/glade/dashermaemo.glade.h:4
 #: ../Data/glade/dashermaemofullscreen.glade.h:2
@@ -60,6 +64,7 @@ msgstr "<b>Val av alfabet:</b>"
 #: ../Data/glade/dasher.compose.glade.h:4
 #: ../Data/glade/dasher.direct.glade.h:4
 #: ../Data/glade/dasher.fullscreen.glade.h:4
+#: ../Data/glade/dasher.gameWIP.glade.h:4
 #: ../Data/glade/dasher.traditional.glade.h:4
 msgid "<b>Appearance Options:</b>"
 msgstr "<b>Utseendealternativ:</b>"
@@ -67,6 +72,7 @@ msgstr "<b>Utseendealternativ:</b>"
 #: ../Data/glade/dasher.compose.glade.h:5
 #: ../Data/glade/dasher.direct.glade.h:5
 #: ../Data/glade/dasher.fullscreen.glade.h:5
+#: ../Data/glade/dasher.gameWIP.glade.h:5
 #: ../Data/glade/dasher.traditional.glade.h:5
 msgid "<b>Application Options:</b>"
 msgstr "<b>Programalternativ:</b>"
@@ -74,6 +80,7 @@ msgstr "<b>Programalternativ:</b>"
 #: ../Data/glade/dasher.compose.glade.h:6
 #: ../Data/glade/dasher.direct.glade.h:6
 #: ../Data/glade/dasher.fullscreen.glade.h:6
+#: ../Data/glade/dasher.gameWIP.glade.h:6
 #: ../Data/glade/dasher.traditional.glade.h:6
 msgid "<b>Application Style:</b>"
 msgstr "<b>Programstil:</b>"
@@ -81,6 +88,7 @@ msgstr "<b>Programstil:</b>"
 #: ../Data/glade/dasher.compose.glade.h:7
 #: ../Data/glade/dasher.direct.glade.h:7
 #: ../Data/glade/dasher.fullscreen.glade.h:7
+#: ../Data/glade/dasher.gameWIP.glade.h:7
 #: ../Data/glade/dasher.traditional.glade.h:7
 msgid "<b>Colour Scheme:</b>"
 msgstr "<b>Färgschema:</b>"
@@ -88,6 +96,7 @@ msgstr "<b>Färgschema:</b>"
 #: ../Data/glade/dasher.compose.glade.h:8
 #: ../Data/glade/dasher.direct.glade.h:8
 #: ../Data/glade/dasher.fullscreen.glade.h:8
+#: ../Data/glade/dasher.gameWIP.glade.h:8
 #: ../Data/glade/dasher.traditional.glade.h:8
 msgid "<b>Control Style:</b>"
 msgstr "<b>Styrningsstil:</b>"
@@ -95,6 +104,7 @@ msgstr "<b>Styrningsstil:</b>"
 #: ../Data/glade/dasher.compose.glade.h:9
 #: ../Data/glade/dasher.direct.glade.h:9
 #: ../Data/glade/dasher.fullscreen.glade.h:9
+#: ../Data/glade/dasher.gameWIP.glade.h:9
 #: ../Data/glade/dasher.traditional.glade.h:9
 msgid "<b>Dasher Font:</b>"
 msgstr "<b>Dasher-typsnitt:</b>"
@@ -102,6 +112,7 @@ msgstr "<b>Dasher-typsnitt:</b>"
 #: ../Data/glade/dasher.compose.glade.h:10
 #: ../Data/glade/dasher.direct.glade.h:10
 #: ../Data/glade/dasher.fullscreen.glade.h:10
+#: ../Data/glade/dasher.gameWIP.glade.h:10
 #: ../Data/glade/dasher.traditional.glade.h:10
 msgid "<b>Direction:</b>"
 msgstr "<b>Riktning:</b>"
@@ -109,6 +120,7 @@ msgstr "<b>Riktning:</b>"
 #: ../Data/glade/dasher.compose.glade.h:11
 #: ../Data/glade/dasher.direct.glade.h:11
 #: ../Data/glade/dasher.fullscreen.glade.h:11
+#: ../Data/glade/dasher.gameWIP.glade.h:11
 #: ../Data/glade/dasher.traditional.glade.h:11
 msgid "<b>Editor Font:</b>"
 msgstr "<b>Redigerartypsnitt:</b>"
@@ -116,6 +128,7 @@ msgstr "<b>Redigerartypsnitt:</b>"
 #: ../Data/glade/dasher.compose.glade.h:12
 #: ../Data/glade/dasher.direct.glade.h:12
 #: ../Data/glade/dasher.fullscreen.glade.h:12
+#: ../Data/glade/dasher.gameWIP.glade.h:12
 #: ../Data/glade/dasher.traditional.glade.h:12
 msgid "<b>Input Device:</b>"
 msgstr "<b>Inmatningsenhet:</b>"
@@ -123,6 +136,7 @@ msgstr "<b>Inmatningsenhet:</b>"
 #: ../Data/glade/dasher.compose.glade.h:13
 #: ../Data/glade/dasher.direct.glade.h:13
 #: ../Data/glade/dasher.fullscreen.glade.h:13
+#: ../Data/glade/dasher.gameWIP.glade.h:13
 #: ../Data/glade/dasher.traditional.glade.h:13
 #: ../Data/glade/dashermaemo.glade.h:6
 #: ../Data/glade/dashermaemofullscreen.glade.h:3
@@ -132,13 +146,15 @@ msgstr "<b>Språkmodell:</b>"
 #: ../Data/glade/dasher.compose.glade.h:14
 #: ../Data/glade/dasher.direct.glade.h:14
 #: ../Data/glade/dasher.fullscreen.glade.h:14
+#: ../Data/glade/dasher.gameWIP.glade.h:14
 #: ../Data/glade/dasher.traditional.glade.h:14
 msgid "<b>Prediction:</b>"
-msgstr "<b>Förutseende:</b>"
+msgstr "<b>Prediktion:</b>"
 
 #: ../Data/glade/dasher.compose.glade.h:15
 #: ../Data/glade/dasher.direct.glade.h:15
 #: ../Data/glade/dasher.fullscreen.glade.h:15
+#: ../Data/glade/dasher.gameWIP.glade.h:15
 #: ../Data/glade/dasher.traditional.glade.h:15
 #: ../Data/glade/dashermaemo.glade.h:8
 #: ../Data/glade/dashermaemofullscreen.glade.h:5
@@ -148,6 +164,7 @@ msgstr "<b>Utjämning:</b>"
 #: ../Data/glade/dasher.compose.glade.h:16
 #: ../Data/glade/dasher.direct.glade.h:16
 #: ../Data/glade/dasher.fullscreen.glade.h:16
+#: ../Data/glade/dasher.gameWIP.glade.h:16
 #: ../Data/glade/dasher.traditional.glade.h:16
 #: ../Data/glade/dashermaemo.glade.h:9
 #: ../Data/glade/dashermaemofullscreen.glade.h:6
@@ -157,23 +174,27 @@ msgstr "<b>Hastighet:</b>"
 #: ../Data/glade/dasher.compose.glade.h:17
 #: ../Data/glade/dasher.direct.glade.h:17
 #: ../Data/glade/dasher.fullscreen.glade.h:17
+#: ../Data/glade/dasher.gameWIP.glade.h:17
 #: ../Data/glade/dasher.traditional.glade.h:17
 msgid "<b>Starting And Stopping:</b>"
-msgstr "<b>Uppstart och stoppande:</b>"
+msgstr "<b>Start och stopp:</b>"
 
 #: ../Data/glade/dasher.compose.glade.h:18
 #: ../Data/glade/dasher.direct.glade.h:18
 #: ../Data/glade/dasher.fullscreen.glade.h:18
+#: ../Data/glade/dasher.gameWIP.glade.h:19
 #: ../Data/glade/dasher.traditional.glade.h:19
 #: ../Data/glade/dashermaemo.glade.h:10
 #: ../Data/glade/dashermaemofullscreen.glade.h:7
 msgid "Adapt speed automatically"
 msgstr "Anpassa hastighet automatiskt"
 
+#. The default display orientation for the selected alphabet, ie left to right for English, right to left for Arabic, etc.
 #: ../Data/glade/dasher.compose.glade.h:19
 #: ../Data/glade/dasher.direct.glade.h:19
 #: ../Data/glade/dasher.fullscreen.glade.h:19
-#: ../Data/glade/dasher.traditional.glade.h:20
+#: ../Data/glade/dasher.gameWIP.glade.h:20
+#: ../Data/glade/dasher.traditional.glade.h:21
 #: ../Data/glade/dashermaemo.glade.h:12
 #: ../Data/glade/dashermaemofullscreen.glade.h:9
 msgid "Alphabet Default"
@@ -181,55 +202,65 @@ msgstr "Standardalfabet"
 
 #: ../Data/glade/dasher.compose.glade.h:20
 #: ../Data/glade/dasher.direct.glade.h:20
-#: ../Data/glade/dasher.traditional.glade.h:21
+#: ../Data/glade/dasher.gameWIP.glade.h:21
+#: ../Data/glade/dasher.traditional.glade.h:22
 msgid "Alphabet:"
 msgstr "Alfabet:"
 
 #: ../Data/glade/dasher.compose.glade.h:21
 #: ../Data/glade/dasher.direct.glade.h:21
 #: ../Data/glade/dasher.fullscreen.glade.h:20
-#: ../Data/glade/dasher.traditional.glade.h:22
+#: ../Data/glade/dasher.gameWIP.glade.h:22
+#: ../Data/glade/dasher.traditional.glade.h:23
 msgid "Appearance"
 msgstr "Utseende"
 
 #: ../Data/glade/dasher.compose.glade.h:22
 #: ../Data/glade/dasher.direct.glade.h:22
 #: ../Data/glade/dasher.fullscreen.glade.h:21
-#: ../Data/glade/dasher.traditional.glade.h:23
+#: ../Data/glade/dasher.gameWIP.glade.h:23
+#: ../Data/glade/dasher.traditional.glade.h:24
 msgid "Application"
 msgstr "Program"
 
 #: ../Data/glade/dasher.compose.glade.h:23
 #: ../Data/glade/dasher.direct.glade.h:23
 #: ../Data/glade/dasher.fullscreen.glade.h:22
-#: ../Data/glade/dasher.traditional.glade.h:24
+#: ../Data/glade/dasher.gameWIP.glade.h:24
+#: ../Data/glade/dasher.traditional.glade.h:25
 #: ../Data/glade/dashermaemo.glade.h:13
 #: ../Data/glade/dashermaemofullscreen.glade.h:10
 msgid "Bottom to Top"
 msgstr "Nedifrån och upp"
 
+#. Centre circle = start and stop by dwelling over a circle in the centre of the window
+#. Two box = start and stop by dwelling in sequence over two boxes
+#. (both of these are methods for starting and stopping without pressing a mouse button)
 #: ../Data/glade/dasher.compose.glade.h:24
 #: ../Data/glade/dasher.direct.glade.h:24
 #: ../Data/glade/dasher.fullscreen.glade.h:23
-#: ../Data/glade/dasher.traditional.glade.h:25
+#: ../Data/glade/dasher.gameWIP.glade.h:25
+#: ../Data/glade/dasher.traditional.glade.h:29
 msgid ""
 "Centre circle\n"
 "Two box"
 msgstr ""
 "Centrumcirkel\n"
-"Två lådor"
+"Två rutor"
 
 #: ../Data/glade/dasher.compose.glade.h:26
 #: ../Data/glade/dasher.direct.glade.h:26
 #: ../Data/glade/dasher.fullscreen.glade.h:25
-#: ../Data/glade/dasher.traditional.glade.h:27
+#: ../Data/glade/dasher.gameWIP.glade.h:27
+#: ../Data/glade/dasher.traditional.glade.h:31
 msgid "Composition"
 msgstr "Komposition"
 
 #: ../Data/glade/dasher.compose.glade.h:27
 #: ../Data/glade/dasher.direct.glade.h:27
 #: ../Data/glade/dasher.fullscreen.glade.h:26
-#: ../Data/glade/dasher.traditional.glade.h:28
+#: ../Data/glade/dasher.gameWIP.glade.h:28
+#: ../Data/glade/dasher.traditional.glade.h:32
 #: ../Data/glade/dashermaemo.glade.h:14
 #: ../Data/glade/dashermaemofullscreen.glade.h:11
 msgid "Control"
@@ -238,17 +269,20 @@ msgstr "Styrning"
 #: ../Data/glade/dasher.compose.glade.h:28
 #: ../Data/glade/dasher.direct.glade.h:28
 #: ../Data/glade/dasher.fullscreen.glade.h:27
-#: ../Data/glade/dasher.traditional.glade.h:29
+#: ../Data/glade/dasher.gameWIP.glade.h:29
+#: ../Data/glade/dasher.traditional.glade.h:33
 msgid "Control mode"
 msgstr "Styrningsläge"
 
 #: ../Data/glade/dasher.compose.glade.h:29
-#: ../Data/glade/dasher.traditional.glade.h:30
+#: ../Data/glade/dasher.gameWIP.glade.h:30
+#: ../Data/glade/dasher.traditional.glade.h:34
 msgid "Copy"
 msgstr "Kopiera"
 
 #: ../Data/glade/dasher.compose.glade.h:30
-#: ../Data/glade/dasher.traditional.glade.h:31
+#: ../Data/glade/dasher.gameWIP.glade.h:31
+#: ../Data/glade/dasher.traditional.glade.h:35
 #: ../Data/glade/dashermaemofullscreen.glade.h:12
 msgid "Copy _All"
 msgstr "Kopiera _alla"
@@ -256,7 +290,8 @@ msgstr "Kopiera _alla"
 #: ../Data/glade/dasher.compose.glade.h:31
 #: ../Data/glade/dasher.direct.glade.h:29
 #: ../Data/glade/dasher.fullscreen.glade.h:28
-#: ../Data/glade/dasher.traditional.glade.h:32
+#: ../Data/glade/dasher.gameWIP.glade.h:32
+#: ../Data/glade/dasher.traditional.glade.h:36
 #: ../Data/glade/dashermaemo.glade.h:15
 #: ../Data/glade/dashermaemofullscreen.glade.h:13
 msgid "Custom colour scheme:"
@@ -265,21 +300,24 @@ msgstr "Anpassat färgschema:"
 #: ../Data/glade/dasher.compose.glade.h:32
 #: ../Data/glade/dasher.direct.glade.h:30
 #: ../Data/glade/dasher.fullscreen.glade.h:29
-#: ../Data/glade/dasher.traditional.glade.h:33
+#: ../Data/glade/dasher.gameWIP.glade.h:33
+#: ../Data/glade/dasher.traditional.glade.h:37
 #: ../Data/glade/dashermaemo.glade.h:16
 #: ../Data/glade/dashermaemofullscreen.glade.h:14
 msgid "Custom:"
 msgstr "Anpassad:"
 
 #: ../Data/glade/dasher.compose.glade.h:33
-#: ../Data/glade/dasher.traditional.glade.h:34
+#: ../Data/glade/dasher.gameWIP.glade.h:34
+#: ../Data/glade/dasher.traditional.glade.h:38
 msgid "Cut"
 msgstr "Klipp ut"
 
 #: ../Data/glade/dasher.compose.glade.h:35
 #: ../Data/glade/dasher.direct.glade.h:32
 #: ../Data/glade/dasher.fullscreen.glade.h:31
-#: ../Data/glade/dasher.traditional.glade.h:36
+#: ../Data/glade/dasher.gameWIP.glade.h:36
+#: ../Data/glade/dasher.traditional.glade.h:40
 #: ../Data/glade/dashermaemo.glade.h:18
 #: ../Data/glade/dashermaemofullscreen.glade.h:16
 msgid "Dasher Preferences"
@@ -292,49 +330,56 @@ msgstr "_Handledning för Dasher"
 #: ../Data/glade/dasher.compose.glade.h:37
 #: ../Data/glade/dasher.direct.glade.h:33
 #: ../Data/glade/dasher.fullscreen.glade.h:32
-#: ../Data/glade/dasher.traditional.glade.h:37
+#: ../Data/glade/dasher.gameWIP.glade.h:38
+#: ../Data/glade/dasher.traditional.glade.h:41
 msgid "Direct entry"
 msgstr "Direktpost"
 
 #: ../Data/glade/dasher.compose.glade.h:38
 #: ../Data/glade/dasher.direct.glade.h:34
 #: ../Data/glade/dasher.fullscreen.glade.h:33
-#: ../Data/glade/dasher.traditional.glade.h:38
+#: ../Data/glade/dasher.gameWIP.glade.h:39
+#: ../Data/glade/dasher.traditional.glade.h:42
 msgid "Dock application window"
 msgstr "Programdockningsfönster"
 
 #: ../Data/glade/dasher.compose.glade.h:39
 #: ../Data/glade/dasher.direct.glade.h:35
 #: ../Data/glade/dasher.fullscreen.glade.h:34
-#: ../Data/glade/dasher.traditional.glade.h:39
+#: ../Data/glade/dasher.gameWIP.glade.h:40
+#: ../Data/glade/dasher.traditional.glade.h:43
 msgid "Draw box outlines"
-msgstr "Rita lådkonturer"
+msgstr "Rita rutkonturer"
 
 #: ../Data/glade/dasher.compose.glade.h:40
 #: ../Data/glade/dasher.direct.glade.h:36
 #: ../Data/glade/dasher.fullscreen.glade.h:35
-#: ../Data/glade/dasher.traditional.glade.h:40
+#: ../Data/glade/dasher.gameWIP.glade.h:41
+#: ../Data/glade/dasher.traditional.glade.h:44
 msgid "Draw line between crosshairs and mouse"
 msgstr "Rita linje mellan korshår och mus"
 
 #: ../Data/glade/dasher.compose.glade.h:41
 #: ../Data/glade/dasher.direct.glade.h:37
 #: ../Data/glade/dasher.fullscreen.glade.h:36
-#: ../Data/glade/dasher.traditional.glade.h:41
+#: ../Data/glade/dasher.gameWIP.glade.h:43
+#: ../Data/glade/dasher.traditional.glade.h:45
 msgid "Full Screen"
 msgstr "Helskärm"
 
 #: ../Data/glade/dasher.compose.glade.h:42
 #: ../Data/glade/dasher.direct.glade.h:38
 #: ../Data/glade/dasher.fullscreen.glade.h:37
-#: ../Data/glade/dasher.traditional.glade.h:43
+#: ../Data/glade/dasher.gameWIP.glade.h:45
+#: ../Data/glade/dasher.traditional.glade.h:47
 msgid "Increase line thickness"
 msgstr "Öka linjetjockhet"
 
 #: ../Data/glade/dasher.compose.glade.h:43
 #: ../Data/glade/dasher.direct.glade.h:39
 #: ../Data/glade/dasher.fullscreen.glade.h:38
-#: ../Data/glade/dasher.traditional.glade.h:44
+#: ../Data/glade/dasher.gameWIP.glade.h:46
+#: ../Data/glade/dasher.traditional.glade.h:48
 #: ../Data/glade/dashermaemo.glade.h:20
 #: ../Data/glade/dashermaemofullscreen.glade.h:17
 msgid "Japanese"
@@ -343,14 +388,16 @@ msgstr "Japanska"
 #: ../Data/glade/dasher.compose.glade.h:44
 #: ../Data/glade/dasher.direct.glade.h:40
 #: ../Data/glade/dasher.fullscreen.glade.h:39
-#: ../Data/glade/dasher.traditional.glade.h:45
+#: ../Data/glade/dasher.gameWIP.glade.h:47
+#: ../Data/glade/dasher.traditional.glade.h:49
 msgid "Language"
 msgstr "Språk"
 
 #: ../Data/glade/dasher.compose.glade.h:45
 #: ../Data/glade/dasher.direct.glade.h:41
 #: ../Data/glade/dasher.fullscreen.glade.h:40
-#: ../Data/glade/dasher.traditional.glade.h:46
+#: ../Data/glade/dasher.gameWIP.glade.h:48
+#: ../Data/glade/dasher.traditional.glade.h:50
 #: ../Data/glade/dashermaemo.glade.h:21
 #: ../Data/glade/dashermaemofullscreen.glade.h:18
 msgid "Language model adapts as you write."
@@ -359,61 +406,71 @@ msgstr "Språkmodellen anpassas när du skriver."
 #: ../Data/glade/dasher.compose.glade.h:46
 #: ../Data/glade/dasher.direct.glade.h:42
 #: ../Data/glade/dasher.fullscreen.glade.h:41
-#: ../Data/glade/dasher.traditional.glade.h:47
+#: ../Data/glade/dasher.gameWIP.glade.h:49
+#: ../Data/glade/dasher.traditional.glade.h:51
 msgid "Large font "
 msgstr "Stort typsnitt"
 
 #: ../Data/glade/dasher.compose.glade.h:47
 #: ../Data/glade/dasher.direct.glade.h:43
 #: ../Data/glade/dasher.fullscreen.glade.h:42
-#: ../Data/glade/dasher.traditional.glade.h:48
+#: ../Data/glade/dasher.gameWIP.glade.h:51
+#: ../Data/glade/dasher.traditional.glade.h:52
 #: ../Data/glade/dashermaemo.glade.h:22
 #: ../Data/glade/dashermaemofullscreen.glade.h:20
 msgid "Left to Right"
 msgstr "Vänster till höger"
 
+#. PPM =  Prediction by Partial Match, a styatistical language model.
 #: ../Data/glade/dasher.compose.glade.h:48
 #: ../Data/glade/dasher.direct.glade.h:44
 #: ../Data/glade/dasher.fullscreen.glade.h:43
-#: ../Data/glade/dasher.traditional.glade.h:49
+#: ../Data/glade/dasher.gameWIP.glade.h:53
+#: ../Data/glade/dasher.traditional.glade.h:54
 #: ../Data/glade/dashermaemo.glade.h:23
 #: ../Data/glade/dashermaemofullscreen.glade.h:21
 msgid "Mixture model (PPM/dictionary)"
 msgstr "Blandningsmodell (PPM/ordbok)"
 
 #: ../Data/glade/dasher.compose.glade.h:49
-#: ../Data/glade/dasher.traditional.glade.h:50
+#: ../Data/glade/dasher.gameWIP.glade.h:54
+#: ../Data/glade/dasher.traditional.glade.h:55
 msgid "New file"
 msgstr "Ny fil"
 
 #: ../Data/glade/dasher.compose.glade.h:50
-#: ../Data/glade/dasher.traditional.glade.h:51
+#: ../Data/glade/dasher.gameWIP.glade.h:56
+#: ../Data/glade/dasher.traditional.glade.h:56
 msgid "Open file"
 msgstr "Öppna fil"
 
 #: ../Data/glade/dasher.compose.glade.h:51
 #: ../Data/glade/dasher.direct.glade.h:45
 #: ../Data/glade/dasher.fullscreen.glade.h:44
-#: ../Data/glade/dasher.traditional.glade.h:52
+#: ../Data/glade/dasher.gameWIP.glade.h:57
+#: ../Data/glade/dasher.traditional.glade.h:57
 msgid "Options"
 msgstr "Alternativ"
 
 #: ../Data/glade/dasher.compose.glade.h:52
-#: ../Data/glade/dasher.traditional.glade.h:53
+#: ../Data/glade/dasher.gameWIP.glade.h:58
+#: ../Data/glade/dasher.traditional.glade.h:58
 msgid "Paste"
 msgstr "Klistra in"
 
 #: ../Data/glade/dasher.compose.glade.h:53
 #: ../Data/glade/dasher.direct.glade.h:46
 #: ../Data/glade/dasher.fullscreen.glade.h:45
-#: ../Data/glade/dasher.traditional.glade.h:54
+#: ../Data/glade/dasher.gameWIP.glade.h:59
+#: ../Data/glade/dasher.traditional.glade.h:59
 msgid "Pause outside of canvas"
 msgstr "Gör paus utanför fönster"
 
 #: ../Data/glade/dasher.compose.glade.h:54
 #: ../Data/glade/dasher.direct.glade.h:47
 #: ../Data/glade/dasher.fullscreen.glade.h:46
-#: ../Data/glade/dasher.traditional.glade.h:55
+#: ../Data/glade/dasher.gameWIP.glade.h:60
+#: ../Data/glade/dasher.traditional.glade.h:60
 #: ../Data/glade/dashermaemo.glade.h:25
 msgid "Please Wait..."
 msgstr "Var god vänta..."
@@ -425,36 +482,39 @@ msgstr "Instä_llningar"
 #: ../Data/glade/dasher.compose.glade.h:56
 #: ../Data/glade/dasher.direct.glade.h:48
 #: ../Data/glade/dasher.fullscreen.glade.h:47
-#: ../Data/glade/dasher.traditional.glade.h:59
+#: ../Data/glade/dasher.gameWIP.glade.h:64
+#: ../Data/glade/dasher.traditional.glade.h:64
 #: ../Data/glade/dashermaemo.glade.h:27
 #: ../Data/glade/dashermaemofullscreen.glade.h:24
 msgid "Right to Left"
 msgstr "Höger till vänster"
 
 #: ../Data/glade/dasher.compose.glade.h:57
-#: ../Data/glade/dasher.traditional.glade.h:60
+#: ../Data/glade/dasher.gameWIP.glade.h:65
+#: ../Data/glade/dasher.traditional.glade.h:65
 msgid "Save file"
 msgstr "Spara fil"
 
 #: ../Data/glade/dasher.compose.glade.h:58
-#: ../Data/glade/dasher.traditional.glade.h:61
+#: ../Data/glade/dasher.gameWIP.glade.h:66
+#: ../Data/glade/dasher.traditional.glade.h:66
 msgid "Save file as"
 msgstr "Spara fil som"
 
 #: ../Data/glade/dasher.compose.glade.h:59
-#: ../Data/glade/dasher.direct.glade.h:49
+#: ../Data/glade/dasher.direct.glade.h:51
 #: ../Data/glade/dasher.fullscreen.glade.h:48
-#: ../Data/glade/dasher.traditional.glade.h:64
+#: ../Data/glade/dasher.gameWIP.glade.h:70
+#: ../Data/glade/dasher.traditional.glade.h:69
 #: ../Data/glade/dashermaemo.glade.h:28
 #: ../Data/glade/dashermaemofullscreen.glade.h:25
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1322
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1355
-#: ../Src/Gtk2/dasher_main.cpp:998
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1331
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1364
+#: ../Src/Gtk2/dasher_main.cpp:1000
 msgid "Select File"
 msgstr "Välj fil"
 
 #: ../Data/glade/dasher.compose.glade.h:60
-#: ../Data/glade/dasher.direct.glade.h:50
 #: ../Data/glade/dasher.fullscreen.glade.h:49
 #: ../Data/glade/dashermaemo.glade.h:29
 #: ../Data/glade/dashermaemofullscreen.glade.h:26
@@ -462,96 +522,110 @@ msgid "Select Font"
 msgstr "Välj typsnitt"
 
 #: ../Data/glade/dasher.compose.glade.h:61
-#: ../Data/glade/dasher.direct.glade.h:51
+#: ../Data/glade/dasher.direct.glade.h:52
 #: ../Data/glade/dasher.fullscreen.glade.h:50
-#: ../Data/glade/dasher.traditional.glade.h:65
+#: ../Data/glade/dasher.gameWIP.glade.h:71
+#: ../Data/glade/dasher.traditional.glade.h:70
 msgid "Show mouse position"
 msgstr "Visa musposition"
 
 #: ../Data/glade/dasher.compose.glade.h:62
-#: ../Data/glade/dasher.direct.glade.h:52
+#: ../Data/glade/dasher.direct.glade.h:53
 #: ../Data/glade/dasher.fullscreen.glade.h:51
-#: ../Data/glade/dasher.traditional.glade.h:66
+#: ../Data/glade/dasher.gameWIP.glade.h:72
+#: ../Data/glade/dasher.traditional.glade.h:71
 msgid "Show speed slider"
 msgstr "Visa hastighetsskjutreglage"
 
 #: ../Data/glade/dasher.compose.glade.h:63
-#: ../Data/glade/dasher.direct.glade.h:53
+#: ../Data/glade/dasher.direct.glade.h:54
 #: ../Data/glade/dasher.fullscreen.glade.h:52
-#: ../Data/glade/dasher.traditional.glade.h:67
+#: ../Data/glade/dasher.gameWIP.glade.h:73
+#: ../Data/glade/dasher.traditional.glade.h:72
 msgid "Show toolbar"
 msgstr "Visa verktygsrad"
 
 #: ../Data/glade/dasher.compose.glade.h:64
-#: ../Data/glade/dasher.direct.glade.h:54
+#: ../Data/glade/dasher.direct.glade.h:55
 #: ../Data/glade/dasher.fullscreen.glade.h:53
-#: ../Data/glade/dasher.traditional.glade.h:68
+#: ../Data/glade/dasher.gameWIP.glade.h:74
+#: ../Data/glade/dasher.traditional.glade.h:73
 msgid "Small font"
 msgstr "Litet typsnitt"
 
 #: ../Data/glade/dasher.compose.glade.h:65
-#: ../Data/glade/dasher.direct.glade.h:55
-#: ../Data/glade/dasher.traditional.glade.h:69
+#: ../Data/glade/dasher.direct.glade.h:56
+#: ../Data/glade/dasher.gameWIP.glade.h:75
+#: ../Data/glade/dasher.traditional.glade.h:74
 msgid "Speed:"
 msgstr "Hastighet:"
 
 #: ../Data/glade/dasher.compose.glade.h:66
-#: ../Data/glade/dasher.direct.glade.h:56
+#: ../Data/glade/dasher.direct.glade.h:57
 #: ../Data/glade/dasher.fullscreen.glade.h:54
-#: ../Data/glade/dasher.traditional.glade.h:70
+#: ../Data/glade/dasher.gameWIP.glade.h:76
+#: ../Data/glade/dasher.traditional.glade.h:75
 msgid "Stand-alone"
 msgstr "Fristående"
 
+#. PPM = Prediction by Partial Match, a statistical language model.
 #: ../Data/glade/dasher.compose.glade.h:67
-#: ../Data/glade/dasher.direct.glade.h:57
+#: ../Data/glade/dasher.direct.glade.h:58
 #: ../Data/glade/dasher.fullscreen.glade.h:55
-#: ../Data/glade/dasher.traditional.glade.h:71
+#: ../Data/glade/dasher.gameWIP.glade.h:77
+#: ../Data/glade/dasher.traditional.glade.h:77
 #: ../Data/glade/dashermaemo.glade.h:30
 #: ../Data/glade/dashermaemofullscreen.glade.h:27
 msgid "Standard letter-based PPM"
 msgstr "Standard bokstavsbaserad PPM"
 
 #: ../Data/glade/dasher.compose.glade.h:68
-#: ../Data/glade/dasher.direct.glade.h:58
+#: ../Data/glade/dasher.direct.glade.h:59
 #: ../Data/glade/dasher.fullscreen.glade.h:56
-#: ../Data/glade/dasher.traditional.glade.h:72
+#: ../Data/glade/dasher.gameWIP.glade.h:78
+#: ../Data/glade/dasher.traditional.glade.h:78
 msgid "Start on left mouse button"
-msgstr "Starta vid vänster musknapp"
+msgstr "Starta på vänster musknapp"
 
 #: ../Data/glade/dasher.compose.glade.h:69
-#: ../Data/glade/dasher.direct.glade.h:59
+#: ../Data/glade/dasher.direct.glade.h:60
 #: ../Data/glade/dasher.fullscreen.glade.h:57
-#: ../Data/glade/dasher.traditional.glade.h:73
+#: ../Data/glade/dasher.gameWIP.glade.h:79
+#: ../Data/glade/dasher.traditional.glade.h:79
 msgid "Start on space bar"
-msgstr "Starta vid mellanslagstangent"
+msgstr "Starta på mellanslagstangent"
 
 #: ../Data/glade/dasher.compose.glade.h:70
-#: ../Data/glade/dasher.direct.glade.h:60
+#: ../Data/glade/dasher.direct.glade.h:61
 #: ../Data/glade/dasher.fullscreen.glade.h:58
-#: ../Data/glade/dasher.traditional.glade.h:74
+#: ../Data/glade/dasher.gameWIP.glade.h:80
+#: ../Data/glade/dasher.traditional.glade.h:80
 msgid "Start with mouse position:"
 msgstr "Starta med musposition:"
 
 #: ../Data/glade/dasher.compose.glade.h:71
-#: ../Data/glade/dasher.direct.glade.h:61
+#: ../Data/glade/dasher.direct.glade.h:62
 #: ../Data/glade/dasher.fullscreen.glade.h:59
-#: ../Data/glade/dasher.traditional.glade.h:75
+#: ../Data/glade/dasher.gameWIP.glade.h:81
+#: ../Data/glade/dasher.traditional.glade.h:81
 msgid "Timestamp new files"
 msgstr "Tidsstämpla nya filer"
 
 #: ../Data/glade/dasher.compose.glade.h:72
-#: ../Data/glade/dasher.direct.glade.h:62
+#: ../Data/glade/dasher.direct.glade.h:63
 #: ../Data/glade/dasher.fullscreen.glade.h:60
-#: ../Data/glade/dasher.traditional.glade.h:76
+#: ../Data/glade/dasher.gameWIP.glade.h:82
+#: ../Data/glade/dasher.traditional.glade.h:82
 #: ../Data/glade/dashermaemo.glade.h:31
 #: ../Data/glade/dashermaemofullscreen.glade.h:28
 msgid "Top to Bottom"
 msgstr "Uppifrån och ned"
 
 #: ../Data/glade/dasher.compose.glade.h:73
-#: ../Data/glade/dasher.direct.glade.h:63
+#: ../Data/glade/dasher.direct.glade.h:64
 #: ../Data/glade/dasher.fullscreen.glade.h:61
-#: ../Data/glade/dasher.traditional.glade.h:77
+#: ../Data/glade/dasher.gameWIP.glade.h:83
+#: ../Data/glade/dasher.traditional.glade.h:83
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -562,16 +636,18 @@ msgstr ""
 "kommer att sänka farten på din skrivhastighet."
 
 #: ../Data/glade/dasher.compose.glade.h:76
-#: ../Data/glade/dasher.direct.glade.h:66
+#: ../Data/glade/dasher.direct.glade.h:67
 #: ../Data/glade/dasher.fullscreen.glade.h:64
-#: ../Data/glade/dasher.traditional.glade.h:80
+#: ../Data/glade/dasher.gameWIP.glade.h:86
+#: ../Data/glade/dasher.traditional.glade.h:86
 msgid "Very large font"
 msgstr "Mycket stort typsnitt"
 
 #: ../Data/glade/dasher.compose.glade.h:77
-#: ../Data/glade/dasher.direct.glade.h:67
+#: ../Data/glade/dasher.direct.glade.h:68
 #: ../Data/glade/dasher.fullscreen.glade.h:65
-#: ../Data/glade/dasher.traditional.glade.h:81
+#: ../Data/glade/dasher.gameWIP.glade.h:87
+#: ../Data/glade/dasher.traditional.glade.h:87
 #: ../Data/glade/dashermaemo.glade.h:33
 #: ../Data/glade/dashermaemofullscreen.glade.h:31
 msgid "Word-based model"
@@ -591,19 +667,22 @@ msgid "_Contents"
 msgstr "_Innehåll"
 
 #: ../Data/glade/dasher.compose.glade.h:81
-#: ../Data/glade/dasher.traditional.glade.h:84
+#: ../Data/glade/dasher.gameWIP.glade.h:90
+#: ../Data/glade/dasher.traditional.glade.h:90
 #: ../Data/glade/dashermaemofullscreen.glade.h:35
 msgid "_Edit"
 msgstr "_Redigera"
 
 #: ../Data/glade/dasher.compose.glade.h:82
-#: ../Data/glade/dasher.traditional.glade.h:85
+#: ../Data/glade/dasher.gameWIP.glade.h:91
+#: ../Data/glade/dasher.traditional.glade.h:91
 #: ../Data/glade/dashermaemofullscreen.glade.h:37
 msgid "_File"
 msgstr "_Arkiv"
 
 #: ../Data/glade/dasher.compose.glade.h:83
-#: ../Data/glade/dasher.traditional.glade.h:86
+#: ../Data/glade/dasher.gameWIP.glade.h:92
+#: ../Data/glade/dasher.traditional.glade.h:92
 #: ../Data/glade/dashermaemofullscreen.glade.h:38
 msgid "_Help"
 msgstr "_Hjälp"
@@ -613,50 +692,85 @@ msgid "_Import Training Text"
 msgstr "_Importera träningstext"
 
 #: ../Data/glade/dasher.compose.glade.h:85
-#: ../Data/glade/dasher.direct.glade.h:68
 #: ../Data/glade/dasher.fullscreen.glade.h:66
 #: ../Data/glade/dashermaemo.glade.h:34
 #: ../Data/glade/dashermaemofullscreen.glade.h:41
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "abcdefghijk ABCDEFGHIJK"
 
+#: ../Data/glade/dasher.direct.glade.h:49
+#: ../Data/glade/dasher.gameWIP.glade.h:68
+#: ../Data/glade/dasher.traditional.glade.h:67
+msgid "Select Dasher Font"
+msgstr "Välj typsnitt för Dasher"
+
+#: ../Data/glade/dasher.direct.glade.h:50
+#: ../Data/glade/dasher.gameWIP.glade.h:69
+#: ../Data/glade/dasher.traditional.glade.h:68
+msgid "Select Editor Font"
+msgstr "Välj typsnitt för redigerare"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:18
 #: ../Data/glade/dasher.traditional.glade.h:18
 msgid "A_ppend to file..."
 msgstr "Lägg till _i fil..."
 
-#: ../Data/glade/dasher.traditional.glade.h:42
+#: ../Data/glade/dasher.gameWIP.glade.h:37
+msgid "Demo!"
+msgstr "Demo!"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:42
+msgid "Full Demo"
+msgstr "Fullständig demo"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:44
+#: ../Data/glade/dasher.traditional.glade.h:46
 msgid "Help"
 msgstr "Hjälp"
 
-#: ../Data/glade/dasher.traditional.glade.h:56
+#: ../Data/glade/dasher.gameWIP.glade.h:50
+msgid "Launch Dasher Game & Demo mode!"
+msgstr "Starta Dasher-spelet och demonstrationsläge!"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:52
+msgid "Level:"
+msgstr "Nivå:"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:55
+msgid "New sentence"
+msgstr "Ny mening"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:61
+#: ../Data/glade/dasher.traditional.glade.h:61
 msgid "Pr_eferences..."
 msgstr "Instä_llningar..."
 
-#: ../Data/glade/dasher.traditional.glade.h:57
+#: ../Data/glade/dasher.gameWIP.glade.h:62
+#: ../Data/glade/dasher.traditional.glade.h:62
 msgid "Preferences"
 msgstr "Inställningar"
 
-#: ../Data/glade/dasher.traditional.glade.h:58
+#: ../Data/glade/dasher.gameWIP.glade.h:63
+#: ../Data/glade/dasher.traditional.glade.h:63
 msgid "Quit"
 msgstr "Avsluta"
 
-#: ../Data/glade/dasher.traditional.glade.h:62
-msgid "Select Dasher Font"
-msgstr "Välj typsnitt för Dasher"
+#: ../Data/glade/dasher.gameWIP.glade.h:67
+msgid "Score:"
+msgstr "Poäng:"
 
-#: ../Data/glade/dasher.traditional.glade.h:63
-msgid "Select Editor Font"
-msgstr "Välj typsnitt för redigerare"
-
-#: ../Data/glade/dasher.traditional.glade.h:82
+#: ../Data/glade/dasher.gameWIP.glade.h:88
+#: ../Data/glade/dasher.traditional.glade.h:88
 msgid "_About..."
 msgstr "_Om..."
 
-#: ../Data/glade/dasher.traditional.glade.h:83
+#: ../Data/glade/dasher.gameWIP.glade.h:89
+#: ../Data/glade/dasher.traditional.glade.h:89
 msgid "_Contents..."
 msgstr "_Innehåll..."
 
-#: ../Data/glade/dasher.traditional.glade.h:87
+#: ../Data/glade/dasher.gameWIP.glade.h:93
+#: ../Data/glade/dasher.traditional.glade.h:93
 msgid "_Import Training Text..."
 msgstr "_Importera träningstext..."
 
@@ -689,7 +803,7 @@ msgstr "P"
 #: ../Data/glade/dashermaemo.glade.h:26
 #: ../Data/glade/dashermaemofullscreen.glade.h:23
 msgid "Prediction"
-msgstr "Förutsägelse"
+msgstr "Prediktion"
 
 #: ../Data/glade/dashermaemo.glade.h:32
 #: ../Data/glade/dashermaemofullscreen.glade.h:30
@@ -728,86 +842,71 @@ msgstr "_Alternativ"
 msgid "_Reset fonts"
 msgstr "_Återställ typsnitt"
 
-#: ../Src/DasherCore/ClickFilter.cpp:9
+#: ../Src/DasherCore/ClickFilter.cpp:7
+msgid "Maximum Zoom"
+msgstr "Maximal zoom"
+
+#: ../Src/DasherCore/ClickFilter.h:11
 msgid "Click Mode"
 msgstr "Klickläge"
 
-#: ../Src/DasherCore/DasherButtons.cpp:24
+#. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
+#: ../Src/DasherCore/DasherButtons.cpp:25
 msgid "Zoom steps"
 msgstr "Zoomsteg"
 
-#: ../Src/DasherCore/DasherButtons.cpp:25
+#. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
+#: ../Src/DasherCore/DasherButtons.cpp:27
 msgid "Right zoom"
 msgstr "Högerzoom"
 
-#: ../Src/DasherCore/DasherButtons.cpp:26
+#: ../Src/DasherCore/DasherButtons.cpp:28
 msgid "Number of boxes"
-msgstr "Antal lådor"
+msgstr "Antal rutor"
 
-#: ../Src/DasherCore/DasherButtons.cpp:27
+#: ../Src/DasherCore/DasherButtons.cpp:29
 msgid "Safety margin"
 msgstr "Säkerhetsmarginal"
 
-#: ../Src/DasherCore/DasherButtons.cpp:28
+#. TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other.
+#: ../Src/DasherCore/DasherButtons.cpp:31
 msgid "Box non-uniformity"
-msgstr "Icke-enhetlighet för låda"
+msgstr "Icke-enhetlighet för ruta"
 
-#: ../Src/DasherCore/DasherButtons.cpp:29
+#. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
+#: ../Src/DasherCore/DasherButtons.cpp:33
 msgid "Global keyboard grab"
 msgstr "Global tangentbordsfångst"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:985
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:927
 msgid "Normal Control"
 msgstr "Normal styrning"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:990
-msgid "Two Button Dynamic Mode"
-msgstr "Två-knapps dynamiskt läge"
-
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:992
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:934
 msgid "Menu Mode"
 msgstr "Menyläge"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:993
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:935
 msgid "Direct Mode"
 msgstr "Direktläge"
 
 #. RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:995
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:937
 msgid "Alternating Direct Mode"
 msgstr "Alternativt direktläge"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:996
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:938
 msgid "Compass Mode"
 msgstr "Kompassläge"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:997
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:939
 msgid "Stylus Control"
 msgstr "Styrning"
 
-#: ../Src/DasherCore/DynamicFilter.cpp:9
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:16
-msgid "Long press time"
-msgstr "Tid för lång nedtryckning"
-
-#: ../Src/DasherCore/DynamicFilter.cpp:10
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:17
-msgid "Multiple press time"
-msgstr "Tid för flera tryckningar"
-
-#: ../Src/DasherCore/DynamicFilter.cpp:11
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:18
-msgid "Multiple press count"
-msgstr "Antal för flera tryckningar"
-
-#: ../Src/DasherCore/DynamicFilter.cpp:12
-msgid "Enable backoff button"
-msgstr "Aktivera backa ur-knapp"
-
-#: ../Src/DasherCore/DynamicFilter.cpp:16
-msgid "One Button Dynamic Mode"
-msgstr "En-knapps dynamiskt läge"
+#: ../Src/DasherCore/DasherGameMode.cpp:629
+msgid "Well done!"
+msgstr "Mycket bra!"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:7
 msgid "Automatic calibration"
@@ -816,6 +915,33 @@ msgstr "Automatisk kalibrering"
 #: ../Src/DasherCore/EyetrackerFilter.cpp:11
 msgid "Eyetracker Mode"
 msgstr "Ögonspårningsläge"
+
+#. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:29
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
+msgid "Long press time"
+msgstr "Tid för lång nedtryckning"
+
+#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the time in which the button must be pressed multiple times to count.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
+msgid "Multiple press time"
+msgstr "Tid för flera tryckningar"
+
+#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the number of times a button must be pressed to count as a multiple press.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:34
+msgid "Multiple press count"
+msgstr "Antal för flera tryckningar"
+
+#. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
+msgid "Enable backoff button"
+msgstr "Aktivera backa ur-knapp"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
+msgid "One Button Dynamic Mode"
+msgstr "En-knapps dynamiskt läge"
 
 #: ../Src/DasherCore/OneDimensionalFilter.cpp:5
 msgid "One Dimensional Mode"
@@ -862,48 +988,57 @@ msgstr "Skriv ut uttagsrelaterad felsökningsinformation till konsollen."
 msgid "Socket Input"
 msgstr "Uttagsindata"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:15
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:28
 msgid "Button offset"
 msgstr "Knapposition"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:19
+#. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:36
 msgid "Enable backoff and start/stop buttons"
 msgstr "Aktivera backa ur och starta/stoppa-knappar"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:20
+#. TRANSLATORS: What is normally the up button becomes the down button etc.
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:38
 msgid "Reverse up and down buttons"
 msgstr "Vänd på uppåt- och nedåtknappar"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:21
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:39
 msgid "Slow startup"
 msgstr "Långsam uppstart"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:22
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:40
 msgid "Startup time"
 msgstr "Uppstartstid"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:23
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
 msgid "Auto speed control"
 msgstr "Automatisk hastighetskontroll"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:24
+#. TRANSLATORS: The threshold time above which auto speed control is used.
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
 msgid "Auto speed threshold"
 msgstr "Tröskelvärde för automatisk hastighet"
 
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:47
+msgid "Two Button Dynamic Mode"
+msgstr "Dynamiskt tvåknappsläge"
+
 #: ../Src/Gtk2/Preferences.cpp:417
-#: ../Src/Gtk2/Preferences.cpp:975
+#: ../Src/Gtk2/Preferences.cpp:983
 msgid "Action"
 msgstr "Åtgärd"
 
-#: ../Src/Gtk2/Preferences.cpp:981
+#. TRANSLATORS: Show a button for the selected action in the Dasher window.
+#: ../Src/Gtk2/Preferences.cpp:990
 msgid "Show Button"
 msgstr "Visa knapp"
 
-#: ../Src/Gtk2/Preferences.cpp:986
+#: ../Src/Gtk2/Preferences.cpp:995
 msgid "Control Mode"
 msgstr "Styrningsläge"
 
-#: ../Src/Gtk2/Preferences.cpp:991
+#. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
+#: ../Src/Gtk2/Preferences.cpp:1001
 msgid "Auto On Stop"
 msgstr "Automatiskt vid stopp"
 
@@ -920,32 +1055,35 @@ msgstr "Skript"
 msgid "Speak"
 msgstr "Läs upp"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:141
+#. TRANSLATORS: Send all text to the text-to-speech engine.
+#: ../Src/Gtk2/dasher_action_speech.cpp:142
 msgid "All"
 msgstr "Allt"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:143
+#. TRANSLATORS: Send most recently entered text to the text-to-speech engine.
+#: ../Src/Gtk2/dasher_action_speech.cpp:145
 msgid "Last"
 msgstr "Sista"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:145
+#. TRANSLATORS: Repeat the last phrase sent to the text-to-speech engine.
+#: ../Src/Gtk2/dasher_action_speech.cpp:148
 msgid "Repeat"
 msgstr "Upprepa"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:163
+#: ../Src/Gtk2/dasher_action_speech.cpp:166
 #, c-format
 msgid "Unable to initialize speech support\n"
-msgstr "Kan inte initiera röststöd\n"
+msgstr "Kan inte initiera uppläsningsstöd\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:186
+#: ../Src/Gtk2/dasher_action_speech.cpp:189
 msgid "Unable to initialize voices\n"
 msgstr "Kan inte initiera röster\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:198
+#: ../Src/Gtk2/dasher_action_speech.cpp:201
 msgid "Warning: unable to set speech parameters\n"
-msgstr "Varning: kan inte ställa in talparametrar\n"
+msgstr "Varning: kan inte ställa in uppläsningsparametrar\n"
 
-#: ../Src/Gtk2/dasher_main.cpp:1036
+#: ../Src/Gtk2/dasher_main.cpp:1038
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -956,7 +1094,7 @@ msgstr ""
 "\n"
 "Dina ändringar kommer att förloras om du inte sparar dem."
 
-#: ../Src/Gtk2/dasher_main.cpp:1042
+#: ../Src/Gtk2/dasher_main.cpp:1044
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -966,25 +1104,25 @@ msgstr ""
 "\n"
 "Dina ändringar kommer att förloras om du inte sparar dem."
 
-#: ../Src/Gtk2/dasher_main.cpp:1046
+#: ../Src/Gtk2/dasher_main.cpp:1048
 msgid "Don't save"
 msgstr "Spara inte"
 
-#: ../Src/Gtk2/dasher_main.cpp:1047
+#: ../Src/Gtk2/dasher_main.cpp:1049
 msgid "Don't quit"
 msgstr "Avsluta inte"
 
-#: ../Src/Gtk2/dasher_main.cpp:1048
+#: ../Src/Gtk2/dasher_main.cpp:1050
 msgid "Save and quit"
 msgstr "Spara och avsluta"
 
-#: ../Src/Gtk2/dasher_main.cpp:1143
-#: ../Src/Gtk2/dasher_main.cpp:1159
+#: ../Src/Gtk2/dasher_main.cpp:1145
+#: ../Src/Gtk2/dasher_main.cpp:1161
 msgid "Dasher is a predictive text entry application"
-msgstr "Dasher är ett program för förutseende textinmatning"
+msgstr "Dasher är ett program för prediktiv textinmatning"
 
-#: ../Src/Gtk2/dasher_main.cpp:1148
-#: ../Src/Gtk2/dasher_main.cpp:1154
+#: ../Src/Gtk2/dasher_main.cpp:1150
+#: ../Src/Gtk2/dasher_main.cpp:1156
 msgid "translator-credits"
 msgstr ""
 "Daniel Nylander\n"
@@ -1010,7 +1148,8 @@ msgstr "Musinmatning"
 msgid "Pixels covering Y range"
 msgstr "Bildpunkter täckandes Y-axeln"
 
-#: ../Src/Gtk2/mouse_input.h:57
+#. TRANSLATORS: Only use the vertical mouse coordinate - this is prefered for some disabled users.
+#: ../Src/Gtk2/mouse_input.h:58
 msgid "One Dimensional Mouse Input"
 msgstr "Endimensionell musinmatning"
 
