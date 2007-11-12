@@ -1546,9 +1546,11 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 198D19FD08965C4800CE3CC9 /* Build configuration list for PBXProject "Dasher" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 29B97314FDCFA39411CA2CEA /* MacOSX */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				1974FE1C0714861B00B95DA0 /* Dasher */,
 			);

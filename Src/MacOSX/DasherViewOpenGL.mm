@@ -255,13 +255,16 @@
 }
 
 - (void)userDefaultsDidChange:(NSNotification *)aNote {
-  [self flushCaches];
-  [dasherApp aquaDasherControl]->ScheduleRedraw();
+  if (![[[NSUserDefaults standardUserDefaults] objectForKey:@"DasherFont"] isEqualToString:[self cachedFontName]]) {
+    [self flushCaches];
+    [dasherApp aquaDasherControl]->ScheduleRedraw();
+  }
 }
 
 - (void)flushCaches {
   [_letterDict release];
   _letterDict = [[NSMutableDictionary alloc] init];
+  [self setCachedFontName:[[NSUserDefaults standardUserDefaults] objectForKey:@"DasherFont"]];
 }  
 
 - (void)adjustTrackingRect

@@ -8,6 +8,7 @@
 
 #import "DasherUtil.h"
 #import <Cocoa/Cocoa.h>
+#include <sys/time.h>
 
 unsigned long get_time() {
     // We need to provide a monotonic time source that ticks every millisecond

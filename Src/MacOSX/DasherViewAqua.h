@@ -81,6 +81,6 @@
 - (void)setZippyCache:(ZippyCache *)newZippyCache;
 - (NSString *)cachedFontName;
 - (void)setCachedFontName:(NSString *)newCachedFontName;
-
+- (void)setupFrame:(NSRect)newRect;
 @end
 

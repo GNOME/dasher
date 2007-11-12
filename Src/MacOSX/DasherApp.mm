@@ -155,7 +155,7 @@
   }
 
 - (void)startTimer {
-#define FPS 20.0f
+#define FPS 40.0f
   
   NSTimer *timer = [NSTimer timerWithTimeInterval:(1.0f/FPS) target:self selector:@selector(timerCallback:) userInfo:nil repeats:YES];
   [self setTimer:timer];

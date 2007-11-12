@@ -64,8 +64,12 @@
 }
 
 - (void)drawRect:(NSRect)rect {
-  [dasherApp aquaDasherControl]->goddamn(get_time(), false); //E
-
+  if (![dasherApp aquaDasherControl]->GetBoolParameter(BP_DASHER_PAUSED)) {
+//    [self blankCallback];
+    
+    [dasherApp aquaDasherControl]->goddamn(get_time(), false); //E
+  }
+  
 //  NSPoint p = NSMakePoint(0.0, [self bounds].size.height);
 //  [[self mouseBuffer] compositeToPoint:p operation:NSCompositeCopy];
 //  [[self boxesBuffer] compositeToPoint:p operation:NSCompositeCopy];
@@ -168,7 +172,7 @@
 - (void)drawTextCallbackWithString:(NSString *)aString x1:(int)x1 y1:(int)y1 size:(int)aSize colorIndex:(int)aColorIndex
 {
 
-  [[[self zippyCache] zippyStringWithString:aString size:aSize attributes:[self textAttributesWithTextSize:aSize color:[self colorWithColorIndex:aColorIndex]]] drawAtPoint:NSMakePoint(x1, y1 - [self textSizeCallbackWithString:aString size:aSize colorIndex:aColorIndex].height / 2.0)];
+  [[[self zippyCache] zippyStringWithString:aString size:aSize attributes:[self textAttributesWithTextSize:aSize color:[self colorWithColorIndex:aColorIndex]]] drawAtPoint:NSMakePoint(x1, y1 /*+ [self textSizeCallbackWithString:aString size:aSize colorIndex:aColorIndex].height / 2.0*/)];
 }
 
 
@@ -255,18 +259,24 @@
   }
 }
 
-- (id)initWithFrame:(NSRect)frame {
+- (id)initWithFrame:(NSRect)aFrame {
   
-  if (self = [super initWithFrame:frame]) {
-    [self setupCache];
+  if (self = [super initWithFrame:aFrame]) {
+    [self flushFontCache];
+    [self setFrameSize:aFrame.size];
+    [self setupFrame:aFrame];
+
+//    [self blankCallback];  
   }
   
   return self;
 }
 
 - (void)userDefaultsDidChange:(NSNotification *)aNote {
-  [self flushFontCache];
-  [dasherApp aquaDasherControl]->ScheduleRedraw();
+  if (![[[NSUserDefaults standardUserDefaults] objectForKey:@"DasherFont"] isEqualToString:[self cachedFontName]]) {
+    [self flushFontCache];
+    [dasherApp aquaDasherControl]->ScheduleRedraw();
+  }
 }
 
 - (void)setupCache {
@@ -289,17 +299,23 @@
 //  [m release];
 }
 
-- (void)setFrame:(NSRect)newRect
-{
-  // TODO is this the right method to override, or resizeWithOldSuperviewSize: ?
-  [super setFrame:newRect];
-  
+- (void)setupFrame:(NSRect)newRect {
   delete( aquaDasherScreen );
   aquaDasherScreen = new COSXDasherScreen(self);
   [dasherApp changeScreen:aquaDasherScreen];
   [self setupCache];
   
   [self adjustTrackingRect];
+  
+  [self flushFontCache];
+}
+
+- (void)setFrame:(NSRect)newRect
+{
+  // TODO is this the right method to override, or resizeWithOldSuperviewSize: ?
+  [super setFrame:newRect];
+  [self setupFrame:newRect];
+  
 }
 
 - (void)adjustTrackingRect
@@ -327,12 +343,9 @@
 
 - (void)awakeFromNib
 {
-  aquaDasherScreen = new COSXDasherScreen(self);
+//  aquaDasherScreen = new COSXDasherScreen(self);
   [dasherApp setDasherView:self];
 
-  [self adjustTrackingRect];
-  
-  [self flushFontCache];
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDefaultsDidChange:) name:NSUserDefaultsDidChangeNotification object:nil];
 }
 
