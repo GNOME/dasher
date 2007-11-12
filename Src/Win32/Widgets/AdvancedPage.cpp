@@ -41,9 +41,9 @@ static menuentry menutable[] = {
   {APP_BP_SHOW_TOOLBAR, IDC_CHECK1},
   {BP_SHOW_SLIDER, IDC_CHECK2},
   {APP_BP_TIME_STAMP, IDC_TIMESTAMP},
-  {BP_CONTROL_MODE, IDC_CONTROLMODE}  // Not global setting - specific to editbox/widget
-  //{APP_BP_COPY_ALL_ON_STOP, IDC_COPYALLONSTOP},
-  //{APP_BP_SPEECH_MODE, IDC_SPEECH}
+  {BP_CONTROL_MODE, IDC_CONTROLMODE},  // Not global setting - specific to editbox/widget
+  {APP_BP_SPEECH_WORD, IDC_CHECK4},
+  {APP_BP_SPEECH_MODE, IDC_CHECK3}
 };
 
 std::string CAdvancedPage::GetControlText(HWND Dialog, int ControlID) 

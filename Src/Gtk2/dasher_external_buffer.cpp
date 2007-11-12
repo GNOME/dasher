@@ -156,7 +156,7 @@ DasherExternalBuffer *dasher_external_buffer_new() {
   DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(pDasherControl->private_data);
 
   if(SPI_init() == 2) {
-    g_message("Could not initilaise SPI - accessibility options disabled");
+    g_message("Could not initialise SPI - accessibility options disabled");
     pPrivate->bSPIInit = false;
   }
   else {

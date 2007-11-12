@@ -31,7 +31,6 @@ static DasherMain *g_pDasherMain = NULL;
 static gboolean g_bSend = true;
 
 struct _DasherMainPrivate {
-  // The glade XML file - TODO: this shouldn't be kept after interface has been loaded
   GladeXML *pGladeXML;
 
   // Child objects owned here
@@ -369,6 +368,9 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
 #else
     dasher_lock_dialogue_new(pPrivate->pGladeXML, 0);
 #endif
+
+    g_object_unref(pPrivate->pGladeXML);
+    pPrivate->pGladeXML = 0;
 
     /* Set up various bits and pieces */
     dasher_main_set_filename(pDasherMain);
@@ -1221,7 +1223,7 @@ dasher_main_alphabet_combo_changed(DasherMain *pSelf) {
   GtkTreeIter sIter;
   
   if(gtk_combo_box_get_active_iter(GTK_COMBO_BOX(pPrivate->pAlphabetCombo), &sIter)) {
-    const char *szSelected;
+    char *szSelected;
     gtk_tree_model_get(GTK_TREE_MODEL(pPrivate->pAlphabetList), &sIter, 0, &szSelected, -1);
     
     if(!strcmp("More Alphabets...", szSelected)) {
@@ -1231,6 +1233,8 @@ dasher_main_alphabet_combo_changed(DasherMain *pSelf) {
     }
     else 
       dasher_app_settings_set_string(pPrivate->pAppSettings, SP_ALPHABET_ID, szSelected);
+
+    free(szSelected);
   }
 }
 

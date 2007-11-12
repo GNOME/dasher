@@ -215,6 +215,7 @@ static void dasher_preferences_dialogue_init(DasherPreferencesDialogue *pDasherC
 static void dasher_preferences_dialogue_destroy(GObject *pObject) {
   // FIXME - I think we need to chain up through the finalize methods
   // of the parent classes here...
+  delete DASHER_PREFERENCES_DIALOGUE(pObject)->private_data;
 }
 
 // Public methods
@@ -322,6 +323,7 @@ extern "C" gboolean dasher_preferences_refresh_foreach_function(GtkTreeModel *pM
   gtk_tree_model_get(pModel, pIter, 2, &szComparison, -1);
 
   if(!strcmp(szTarget, szComparison)) {
+    free(szComparison);
     // Todo: set selection here?
     gtk_tree_view_set_cursor((GtkTreeView *)pPointers[1], pPath, NULL, false);
 
@@ -329,6 +331,8 @@ extern "C" gboolean dasher_preferences_refresh_foreach_function(GtkTreeModel *pM
 
     return true;
   }
+
+  free(szComparison);
   
   return false;
 }
@@ -440,7 +444,9 @@ void dasher_preferences_dialogue_populate_list(DasherPreferencesDialogue *pSelf,
 
     // This is potentially horrible - maybe rethink in the future;
     gtk_list_store_set(pStore, &oIter, 0, iParameter, 1, pHelper, 2, szName, 3, szName, 4, pHelperWindow, 5, pHelperWindowRef, -1);
- 
+
+    delete[] szName;
+
     if(!strcmp(szCurrentFilter, szCurrentValue)) {
       gtk_tree_selection_select_iter(pSelection, &oIter);
       if(pHelper) {
@@ -470,7 +476,8 @@ extern "C" void on_list_selection(GtkTreeSelection *pSelection, gpointer pUserDa
     gtk_tree_model_get(pModel, &oIter, 0, &iParameter, 1, &pHelper, 2, &szValue, 4, &pHelperWindow, 5, &pHelperWindowRef, -1);
     
     dasher_app_settings_set_string(pPrivate->pAppSettings, iParameter, szValue);
-    
+    free(szValue);
+
     if(pHelper) {
       gtk_widget_set_sensitive(GTK_WIDGET(pHelper), pHelperWindow != NULL);
       *((GtkWidget **)pHelperWindowRef) = (GtkWidget *)pHelperWindow;

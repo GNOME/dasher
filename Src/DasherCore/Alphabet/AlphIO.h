@@ -99,6 +99,7 @@ public:
   };
 
   CAlphIO(std::string SystemLocation, std::string UserLocation, std::vector < std::string > Filenames);
+  ~CAlphIO();
   void GetAlphabets(std::vector < std::string > *AlphabetList) const;
   std::string GetDefault();
   const AlphInfo & GetInfo(const std::string & AlphID);
@@ -113,6 +114,9 @@ private:
 
   void Save(const std::string & AlphID);
   void CreateDefault();         // Give the user an English alphabet rather than nothing if anything goes horribly wrong.
+
+  void DeleteGroups(SGroupInfo *Info);
+  void DeleteAlphabet(AlphInfo *Alphabet);
 
   // XML handling:
   /////////////////////////

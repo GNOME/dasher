@@ -35,3 +35,8 @@ void CModuleManager::ListModules(int iType, std::vector<std::string> &vList) {
       vList.push_back((it->second)->GetName(it->first));
   }
 }
+
+CModuleManager::~CModuleManager() {
+  for(std::map<ModuleID_t, CModuleFactory *>::iterator it(m_mapModules.begin()); it != m_mapModules.end(); ++it)
+    delete it->second;
+}

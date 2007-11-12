@@ -59,9 +59,10 @@ app_bp_table app_boolparamtable[] = {
   {APP_BP_FIX_LAYOUT, "FixLayout", PERS, false, false, "FixLayout"},
   {APP_BP_COPY_ALL_ON_STOP, "CopyAllOnStop", PERS, false, false, "CopyAllOnStop"},
   {APP_BP_WINDOW_PAUSE, "PauseOutsideWindow", PERS, false, false, "PauseOutsideWindow"},
-  {APP_BP_SPEECH_MODE, "SpeechEnabled", PERS, false, false, "SpeechEnabled"},
+  {APP_BP_SPEECH_MODE, "SpeechEnabled", PERS, false, false, "Speak on stop"},
   {APP_BP_KEYBOARD_MODE, "KeyboardMode", PERS, false, false, "KeyboardMode"},
-  {APP_BP_DOCK, "Dock", PERS, false, false, "Dock main window"}
+  {APP_BP_DOCK, "Dock", PERS, false, false, "Dock main window"},
+  {APP_BP_SPEECH_WORD, "SpeechWord", PERS, false, false, "Speak on word boundaries"}
 };
 
 app_lp_table app_longparamtable[] = {

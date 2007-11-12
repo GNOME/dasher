@@ -74,8 +74,13 @@ CCanvas::~CCanvas() {
 
 #if WITH_CAIRO
   cr = NULL;
+  cairo_surface_destroy(m_pDisplaySurface);
+  cairo_surface_destroy(m_pDecorationSurface);
+  cairo_surface_destroy(m_pOnscreenSurface);  
   cairo_destroy(display_cr);
   cairo_destroy(decoration_cr);
+  cairo_destroy(onscreen_cr);
+  cairo_destroy(widget_cr);
 #else
   g_object_unref(m_pDummyBuffer);
   g_object_unref(m_pDisplayBuffer);
@@ -83,6 +88,7 @@ CCanvas::~CCanvas() {
   g_object_unref(m_pOnscreenBuffer);
 #endif
 
+  delete[] cairo_colours;
   delete m_pPangoInk;
 }
 

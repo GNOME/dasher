@@ -12,6 +12,7 @@
 /// \{
 class CModuleManager {
  public:
+  ~CModuleManager();
   void RegisterFactory(CModuleFactory *pFactory);
   CDasherModule *GetModule(ModuleID_t iID);
   CDasherModule *GetModuleByName(const std::string strName);

@@ -196,6 +196,7 @@ class CEdit : public ATL::CWindowImpl<CEdit> {
   
   CDasherAction *m_pActionSpeech;
 
+  std::wstring m_strCurrentWord;
 };
 
 #endif /* #ifndef __Edit_h__ */

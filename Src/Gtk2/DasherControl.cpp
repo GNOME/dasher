@@ -122,6 +122,7 @@ void CDasherControl::SetupPaths() {
 
   SetStringParameter(SP_SYSTEM_LOC, system_data_dir);
   SetStringParameter(SP_USER_LOC, user_data_dir);
+  delete[] user_data_dir;
 }
 
 void CDasherControl::CreateSettingsStore() {

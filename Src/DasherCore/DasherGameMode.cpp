@@ -71,6 +71,7 @@ CDasherGameMode::CDasherGameMode(CEventHandler *pEventHandler,
   m_ulTime = 0;
   m_iOscillatorOn = 1000;
   m_iOscillatorOff = 1000;
+  m_bOscillator = false;
   Oscillator();
 }
 

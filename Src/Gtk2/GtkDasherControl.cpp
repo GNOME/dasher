@@ -60,7 +60,7 @@ G_DEFINE_TYPE(GtkDasherControl, gtk_dasher_control, GTK_TYPE_VBOX);
 
 static void gtk_dasher_control_finalize(GObject * pObject);
 
-static guint gtk_dasher_control_signals[SIGNAL_NUM]; /* TODO: initilaise this? */
+static guint gtk_dasher_control_signals[SIGNAL_NUM]; /* TODO: initialise this? */
 
 static void 
 gtk_dasher_control_class_init(GtkDasherControlClass *pClass) {

@@ -1357,8 +1357,9 @@ static void
 dasher_editor_internal_command_save(DasherEditor *pSelf, gboolean bPrompt, gboolean bAppend) { 
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
-  gchar *szFilename;
+  gchar *szFilename = NULL;
 
+  // Hmm... this makes no sense - surely this always evaluates to true?
   if(bPrompt || !szFilename) {
     GtkWidget *pTopLevel = gtk_widget_get_toplevel(GTK_WIDGET(pPrivate->pTextView));
     GtkWidget *filesel = gtk_file_chooser_dialog_new(_("Select File"), 

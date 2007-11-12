@@ -145,9 +145,25 @@ void CAlphIO::SetInfo(const AlphInfo &NewInfo) {
   Save(NewInfo.AlphID);
 }
 
+void CAlphIO::DeleteGroups(SGroupInfo *Info) {
+  SGroupInfo *next;
+
+  while (Info) {
+    next = Info->pNext;
+
+    if (Info->pChild)
+      DeleteGroups(Info->pChild);
+
+    delete Info;
+    Info = next;
+  }
+}
+
 void CAlphIO::Delete(const std::string &AlphID) {
-  if(Alphabets.find(AlphID) != Alphabets.end()) {
-    Alphabets.erase(AlphID);
+  map<std::string, AlphInfo>::iterator it = Alphabets.find(AlphID);
+  if(it != Alphabets.end()) {
+    DeleteGroups(it->second.m_pBaseGroup);
+    Alphabets.erase(it);
     Save("");
   }
 }
@@ -753,4 +769,9 @@ void CAlphIO::XML_CharacterData(void *userData, const XML_Char *s, int len) {
   CAlphIO *Me = (CAlphIO *) userData;
 
   Me->CData.append(s, len);
+}
+
+CAlphIO::~CAlphIO() {
+  for (std::map<std::string, AlphInfo>::iterator it = Alphabets.begin(); it != Alphabets.end(); ++it)
+    DeleteGroups(it->second.m_pBaseGroup);
 }

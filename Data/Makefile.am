@@ -5,8 +5,8 @@ desktop_in_files = dasher.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 @INTLTOOL_DESKTOP_RULE@
 
-appicondir = $(datadir)/icons/hicolor/48x48/apps
-appicon_DATA = dasher.png
+icondir = $(datadir)/icons/hicolor/48x48/apps
+icon_DATA = dasher.png
 svgicondir = $(datadir)/icons/hicolor/scalable/apps
 svgicon_DATA = dasher.svg
 
@@ -39,16 +39,23 @@ install-data-local:
 endif
 
 
-install-data-hook:
+install-data-hook: update-icon-cache
+
+uninstall-hook: update-icon-cache
+
+update-icon-cache:
 	@-if test -z "$(DESTDIR)"; then \
 		echo "Updating Gtk icon cache."; \
 		$(gtk_update_icon_cache); \
 	else \
-		echo "*** Icon cache not updated.  After install, run this:"; \
+		echo "*** Icon cache not updated.  After (un)install, run this:"; \
 		echo "***   $(gtk_update_icon_cache)"; \
 	fi
 
-EXTRA_DIST = dasher.desktop dasher.png dasher.svg
+EXTRA_DIST = \
+		dasher.desktop \
+		$(icon_DATA) \
+		$(svgicon_DATA)
 
 DISTCLEANFILES = dasher.schemas
 

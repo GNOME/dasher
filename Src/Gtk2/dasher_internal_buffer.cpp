@@ -353,15 +353,12 @@ void dasher_internal_buffer_conversion_mode(DasherInternalBuffer *pSelf, gboolea
 
 void dasher_internal_buffer_clear(DasherInternalBuffer *pSelf) {
   DasherInternalBufferPrivate *pPrivate = (DasherInternalBufferPrivate *)(pSelf->private_data);
-  GtkTextIter *start, *end;
+  GtkTextIter start, end;
 
-  start = new GtkTextIter;
-  end = new GtkTextIter;
+  gtk_text_buffer_get_iter_at_offset(pPrivate->pBuffer, &start, 0);
+  gtk_text_buffer_get_iter_at_offset(pPrivate->pBuffer, &end, -1);
 
-  gtk_text_buffer_get_iter_at_offset(pPrivate->pBuffer, start, 0);
-  gtk_text_buffer_get_iter_at_offset(pPrivate->pBuffer, end, -1);
-
-  gtk_text_buffer_delete(pPrivate->pBuffer, start, end);
+  gtk_text_buffer_delete(pPrivate->pBuffer, &start, &end);
 
   /* TODO: this probably shouldn't emit a signal */
   g_signal_emit_by_name(G_OBJECT(pSelf), "buffer_changed", G_OBJECT(pSelf), NULL, NULL);

@@ -119,7 +119,7 @@ static void dasher_app_settings_init_gconf(DasherAppSettings *pSelf, int argc, c
   GError *pGConfError;
 
   if(!gconf_init(argc, argv, &pGConfError))
-    g_error("Failed to initilaise gconf: %s", pGConfError->message);
+    g_error("Failed to initialise gconf: %s", pGConfError->message);
   
   // FIXME - apparently there's a function gnome_gconf_get_client - maybe we should use this if building with gnome
     pPrivate->pGConfClient = gconf_client_get_default();

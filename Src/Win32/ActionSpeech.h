@@ -14,7 +14,8 @@ public:
   virtual bool Activate();
   virtual bool Deactivate();
   virtual bool GetActive();
-  virtual bool Execue(const std::wstring &strText);
+  virtual bool Execute(const std::wstring &strText);
+  virtual void Preview(const std::wstring &strText);
 
 private:
   bool m_bActive;

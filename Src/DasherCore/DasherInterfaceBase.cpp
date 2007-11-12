@@ -227,6 +227,13 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
   }
 #endif
 
+
+  for (std::vector<CActionButton *>::iterator it=m_vLeftButtons.begin(); it != m_vLeftButtons.end(); ++it)
+    delete *it;
+
+  for (std::vector<CActionButton *>::iterator it=m_vRightButtons.begin(); it != m_vRightButtons.end(); ++it)
+    delete *it;
+  
   // Must delete event handler after all CDasherComponent derived classes
 
   delete m_pEventHandler;

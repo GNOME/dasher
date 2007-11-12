@@ -41,7 +41,7 @@ bool CActionSpeech::GetActive() {
   return m_bActive;
 }
 
-bool CActionSpeech::Execue(const std::wstring &strText) {
+bool CActionSpeech::Execute(const std::wstring &strText) {
   if(!m_bActive)
     return false;
 
@@ -51,4 +51,8 @@ bool CActionSpeech::Execue(const std::wstring &strText) {
   pVoice->Speak(strText.c_str(), SPF_ASYNC, NULL);
 
   return true;
+}
+
+void CActionSpeech::Preview(const std::wstring &strText) {
+  Execute(strText);
 }
