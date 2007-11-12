@@ -38,3 +38,9 @@ Upgrade Code: 761FEE49-85EE-4c63-8A70-9A3CA5D70D3E
 Product ID: B454FAAB-A95C-4e2f-968D-655F94A35E3F
 Upgrade Code: EB7F9F64-6452-402a-8586-4BCBA860842F
 
+4.7.0 (Standard)
+================
+Product ID: A9572A11-5AB0-481c-8FBF-EAD6D7CB7F7D
+Upgrade Code: 56491DE8-EF73-42a6-82D4-8D05FE531583
+
+(Specislist installers not shipped for development release)
