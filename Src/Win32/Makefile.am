@@ -39,6 +39,8 @@ EXTRA_DIST = \
 		Widgets/Edit.h \
 		Widgets/FilenameGUI.cpp \
 		Widgets/FilenameGUI.h \
+		Widgets/GameGroup.cpp \
+		Widgets/GameGroup.h \
 		Widgets/KeyControl.cpp \
 		Widgets/KeyControl.h \
 		Widgets/LMPage.cpp \
@@ -74,6 +76,8 @@ EXTRA_DIST = \
 		ActionSpeech.h \
 		AppSettings.cpp \
 		AppSettings.h \
+		BTSocketInput.cpp \
+		BTSocketInput.h \
 		ButtonPrefs.cpp \
 		ButtonPrefs.h \
 		CopyAllLarge.bmp \

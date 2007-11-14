@@ -436,6 +436,8 @@ AC_CONFIG_FILES([Data/dasher.desktop.in
 		 Src/DasherIM/Makefile
 		 Src/Gtk2/Makefile
 		 Src/Installer/Makefile
+		 Src/InstallerTobii/Makefile
+		 Src/InstallerW2K/Makefile
 		 Src/Win32/Makefile
 		 Utils/Makefile
 		 po/Makefile.in])
