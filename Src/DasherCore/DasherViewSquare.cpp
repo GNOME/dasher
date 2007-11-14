@@ -818,7 +818,7 @@ inline myint CDasherViewSquare::CustomIDiv(myint iNumerator, myint iDenominator)
   else
     return quot;
 #else
-  lldiv_t res = __gnu_cxx::lldiv(iNumerator, iDenominator);
+  lldiv_t res = ::lldiv(iNumerator, iDenominator);
   
   if(res.rem < 0)
     return res.quot - 1;

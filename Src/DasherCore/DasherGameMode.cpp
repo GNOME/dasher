@@ -138,10 +138,11 @@ void CDasherGameMode::NotifyGameCooperators(bool bGameOn)
 // This routine is used when the interactive game is turned on
 void CDasherGameMode::GameModeStart()
 {
+  string output = "Click \"Next\" to begin";
   m_strGameTextFile = GetStringParameter(SP_GAME_TEXT_FILE);
   InitializeTargets();
   m_pDasherInterface->GameMessageOut(GAME_MESSAGE_DISPLAY_TEXT,
-				     reinterpret_cast<const void*>(&string("Click \"Next\" to begin")));
+				     reinterpret_cast<const void*>(&output));
   m_bSentenceFinished = true;
 
   // Create a new scorer to measure player stats and the like
@@ -149,8 +150,9 @@ void CDasherGameMode::GameModeStart()
     m_pScorer = new Scorer;
   m_pLevel = new LevelStart(this);
 
+  output = m_pLevel->GetLevel();
   m_pDasherInterface->GameMessageOut(GAME_MESSAGE_SET_LEVEL,
-    reinterpret_cast<const void*>(&m_pLevel->GetLevel()));
+    reinterpret_cast<const void*>(&output));
 }
 
 // This routine is used when the interactive game is turned off
@@ -206,6 +208,8 @@ void CDasherGameMode::HandleEvent(Dasher::CEvent * pEvent)
     }
   else
     {
+      string output;
+
       // Otherwise listen for all events and deal with them appropriately
       switch(pEvent->m_iEventType)
 	{
@@ -220,11 +224,12 @@ void CDasherGameMode::HandleEvent(Dasher::CEvent * pEvent)
 	      //	      NotifyGameCooperators(m_bGameModeOn);
 	      break;	  
 	    case SP_GAME_TEXT_FILE:
+              output = "Welcome to Dasher Game Mode!";
 	      m_strGameTextFile = GetStringParameter(SP_GAME_TEXT_FILE);
 	      std::cout << "Change of game file to " << m_strGameTextFile << std::endl;
      	      InitializeTargets();
 	      m_pDasherInterface->GameMessageOut(GAME_MESSAGE_DISPLAY_TEXT,
-						 reinterpret_cast<const void*>(&string("Welcome to Dasher Game Mode!")));
+						 reinterpret_cast<const void*>(&output));
 	      m_bSentenceFinished = true;
 	      break;
 	    case LP_MAX_BITRATE: 
@@ -265,10 +270,12 @@ void CDasherGameMode::GameNext()
 {
   if(m_pLevel->IsCompleted())
   {
+    string output = m_pLevel->GetLevel();
     m_pLevel = m_pLevel->GetNextLevel();
     m_pDasherInterface->GameMessageOut(GAME_MESSAGE_SET_LEVEL,
-				     reinterpret_cast<const void *>(&m_pLevel->GetLevel()));
-    m_pDasherInterface->GameMessageOut(GAME_MESSAGE_HELP_MESSAGE, &m_pLevel->GetRules());
+				     reinterpret_cast<const void *>(&output));
+    output = m_pLevel->GetRules();
+    m_pDasherInterface->GameMessageOut(GAME_MESSAGE_HELP_MESSAGE, &output);
   }
   
   // Choose next string (NOT) at random...
@@ -623,11 +630,12 @@ void CDasherGameMode::PrivateSentenceFinished()
 {
   if(m_pScorer)
     {
+      string output = _("Well done!");
       ScoreUpdate();
       m_pScorer->SentenceFinished();
       m_pLevel->SentenceFinished();
       m_pDasherInterface->GameMessageOut(GAME_MESSAGE_DISPLAY_TEXT,
-					 reinterpret_cast<const void*>(&string(_("Well done!"))));
+					 reinterpret_cast<const void*>(&output));
     }
   
   if(m_pDemo)

@@ -3,6 +3,7 @@ EXTRA_DIST = \
 		dasher.direct.glade \
 		dasher.compose.glade \
 		dasher.fullscreen.glade \
+		dasher.gameWIP.glade \
 		dashermaemo.glade \
 		dashermaemofullscreen.glade
 
@@ -11,5 +12,6 @@ pkgdata_DATA = \
 		dasher.direct.glade \
 		dasher.compose.glade \
 		dasher.fullscreen.glade \
+		dasher.gameWIP.glade \
 		dashermaemo.glade \
 		dashermaemofullscreen.glade

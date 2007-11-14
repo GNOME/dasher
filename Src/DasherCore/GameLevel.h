@@ -79,7 +79,7 @@ private:
 };
 
 // The end level - not a real level
-class Dasher::GameMode::LevelEnd : public Level {
+class Dasher::GameMode::LevelEnd : public Dasher::GameMode::Level {
 public:
   LevelEnd(CDasherGameMode* pGameParent):Level(pGameParent){
     m_strLevel = "Done!";
@@ -93,7 +93,7 @@ private:
     }
 };
 // Level 4
-class Dasher::GameMode::Level4 : public Level {
+class Dasher::GameMode::Level4 : public Dasher::GameMode::Level {
  public:
   Level4(CDasherGameMode* pGameParent):Level(pGameParent)
   {
@@ -110,7 +110,7 @@ private:
 };
 
 // Level 3
-class Dasher::GameMode::Level3 : public Level {
+class Dasher::GameMode::Level3 : public Dasher::GameMode::Level {
  public:
   Level3(CDasherGameMode* pGameParent):Level(pGameParent)
   {
@@ -126,7 +126,7 @@ private:
   };
 };
 
-class Dasher::GameMode::Level2 : public Level {
+class Dasher::GameMode::Level2 : public Dasher::GameMode::Level {
 public:
   Level2(CDasherGameMode* pGameParent):Level(pGameParent),
     oldTime(0), oldNats(0.0), m_dCurrentScore(0), m_iErrorSize(2048),
@@ -163,7 +163,7 @@ private:
 };
 
 // Level 1
-class Dasher::GameMode::Level1 : public Level {
+class Dasher::GameMode::Level1 : public Dasher::GameMode::Level {
 public:
   Level1(CDasherGameMode* pGameParent):Level(pGameParent),
    oldTime(0), oldNats(0.0), m_dCurrentScore(0), m_iErrorSize(2048),
@@ -200,7 +200,7 @@ public:
 };
 
 // The start level - this is not a real level.
-class Dasher::GameMode::LevelStart : public Level {
+class Dasher::GameMode::LevelStart : public Dasher::GameMode::Level {
 public:
   LevelStart(CDasherGameMode* pGameParent):Level(pGameParent){}
   std::string GetRules() {

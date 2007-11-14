@@ -40,7 +40,7 @@ namespace Dasher {
 
 /// \defgroup GameMode Game mode support
 /// @{
-class Dasher::GameMode::CDasherGameMode:public CDasherComponent, private NoClones {
+class Dasher::GameMode::CDasherGameMode:public Dasher::CDasherComponent, private NoClones {
 
 public:
   
@@ -239,7 +239,7 @@ class Dasher::GameMode::Zero_aryCallback
   virtual void Action() = 0;
 };
 
-class Dasher::GameMode::DelaySet : public Zero_aryCallback
+class Dasher::GameMode::DelaySet : public Dasher::GameMode::Zero_aryCallback
 {
  public:
   DelaySet(CDasherGameMode* pGame, unsigned int wait, bool* pVariable, bool bValue):

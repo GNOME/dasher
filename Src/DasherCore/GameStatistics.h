@@ -33,7 +33,7 @@ struct SumDiffNthPower
 template<class T, class Iter_T>
   T nthMoment(int n, Iter_T first, Iter_T last, T mean)
 {
-  size_t cnt = std::distance(first, last);
+  size_t cnt = last - first;
   return std::accumulate(first, last, T(), SumDiffNthPower<T>(mean, n))/cnt;
 }
 
@@ -53,7 +53,7 @@ struct MemberSumDiffNthPower
 template<class T, class Iter_T, class A, class B>
   B MemberNthMoment(int n, Iter_T first, Iter_T last, A T::* pmember, B mean)
 {
-  size_t cnt = std::distance(first, last);
+  size_t cnt = last - first;
   return std::accumulate(first, last, B(), MemberSumDiffNthPower<A,B,T>(pmember,mean,n))/cnt;
 }
 
