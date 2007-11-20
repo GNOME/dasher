@@ -13,6 +13,7 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkkeysyms.h>
 #include <sys/stat.h>
+#include <unistd.h>
 using namespace std;
 
 // 'Private' methods (only used in this file)

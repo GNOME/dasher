@@ -9,6 +9,7 @@
 #include <hildon-widgets/hildon-program.h>
 #endif
 #include <libgnome/libgnome.h>
+#include <unistd.h>
 
 #include "GtkDasherControl.h"
 #include "KeyboardHelper.h"
