@@ -11,14 +11,13 @@ msgstr ""
 "Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-18 03:24+0100\n"
-"PO-Revision-Date: 2007-11-20 14:29+0100\n"
+"PO-Revision-Date: 2007-11-21 18:57+0100\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);X-Generator: KBabel 1.11.4\n"
-"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);X-Generator: KBabel 1.11.4"
 
 #: ../Data/dasher.desktop.in.in.h:1 ../Data/glade/dasher.compose.glade.h:34
 #: ../Data/glade/dasher.direct.glade.h:31
@@ -106,7 +105,7 @@ msgstr "<b>Poliça de Dasher :</b>"
 #: ../Data/glade/dasher.fullscreen.glade.h:10
 #: ../Data/glade/dasher.traditional.glade.h:10
 msgid "<b>Direction:</b>"
-msgstr ""
+msgstr "<b>Direccion :</b>"
 
 #: ../Data/glade/dasher.compose.glade.h:11
 #: ../Data/glade/dasher.direct.glade.h:11
@@ -154,7 +153,7 @@ msgstr ""
 #: ../Data/glade/dashermaemo.glade.h:9
 #: ../Data/glade/dashermaemofullscreen.glade.h:6
 msgid "<b>Speed:</b>"
-msgstr ""
+msgstr "<b>Velocitat :</b>"
 
 #: ../Data/glade/dasher.compose.glade.h:17
 #: ../Data/glade/dasher.direct.glade.h:17
@@ -251,7 +250,7 @@ msgstr "Copiar"
 #: ../Data/glade/dasher.traditional.glade.h:31
 #: ../Data/glade/dashermaemofullscreen.glade.h:12
 msgid "Copy _All"
-msgstr ""
+msgstr "_Tot copiar"
 
 #: ../Data/glade/dasher.compose.glade.h:31
 #: ../Data/glade/dasher.direct.glade.h:29
