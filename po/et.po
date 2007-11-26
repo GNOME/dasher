@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-18 14:45+0100\n"
-"PO-Revision-Date: 2007-10-27 12:50+0300\n"
+"PO-Revision-Date: 2007-11-26 10:52+0000\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -874,12 +874,12 @@ msgstr "Ohutusmärgis"
 #. TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other.
 #: ../Src/DasherCore/DasherButtons.cpp:31
 msgid "Box non-uniformity"
-msgstr ""
+msgstr "Kastide suuruse erinevus"
 
 #. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
 #: ../Src/DasherCore/DasherButtons.cpp:33
 msgid "Global keyboard grab"
-msgstr ""
+msgstr "Klaviatuuri haaratakse globaalselt"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:920
 msgid "Normal Control"
@@ -897,7 +897,7 @@ msgstr "Otserežiim"
 #. RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:930
 msgid "Alternating Direct Mode"
-msgstr ""
+msgstr "Asendusega otserežiim"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:931
 msgid "Compass Mode"
@@ -905,7 +905,7 @@ msgstr "Kompassirežiim"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:932
 msgid "Stylus Control"
-msgstr ""
+msgstr "Krihvliga juhtimine"
 
 #: ../Src/DasherCore/DasherGameMode.cpp:629
 msgid "Well done!"
@@ -940,11 +940,11 @@ msgstr "Mitmekordsete vajutuste arv"
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
 msgid "Enable backoff button"
-msgstr ""
+msgstr "Tagasivõtmise nupp on lubatud"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
 msgid "One Button Dynamic Mode"
-msgstr ""
+msgstr "Ühenupuline dünaamiline režiim"
 
 #: ../Src/DasherCore/OneDimensionalFilter.cpp:5
 msgid "One Dimensional Mode"
@@ -998,16 +998,16 @@ msgstr "Nupu nihe"
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:36
 msgid "Enable backoff and start/stop buttons"
-msgstr ""
+msgstr "Käivitamise/seiskamise nuppudega lubatakse tagasi võtta"
 
 #. TRANSLATORS: What is normally the up button becomes the down button etc.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:38
 msgid "Reverse up and down buttons"
-msgstr ""
+msgstr "Üles/alla nupud on vahetuses"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:39
 msgid "Slow startup"
-msgstr ""
+msgstr "Aeglane käivitamine"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:40
 msgid "Startup time"
@@ -1135,7 +1135,7 @@ msgstr "Dasheri mooduli valikud"
 #: ../Src/Gtk2/module_settings_window.cpp:91
 #, c-format
 msgid "%s Options:"
-msgstr "%s valikud:"
+msgstr "%s - valikud:"
 
 #: ../Src/Gtk2/mouse_input.h:15
 msgid "Mouse Input"
