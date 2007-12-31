@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: dasher 4.6.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-15 05:58+0100\n"
-"PO-Revision-Date: 2007-11-26 10:52+0000\n"
+"PO-Revision-Date: 2007-12-31 10:13+0200\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -935,7 +935,7 @@ msgstr "Tekstisisestus"
 
 #: ../Src/Gtk2/dasher_action_script.cpp:91
 msgid "Script"
-msgstr ""
+msgstr "Skript"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:129
 msgid "Speak"
@@ -954,7 +954,7 @@ msgstr "Viimane"
 #. TRANSLATORS: Repeat the last phrase sent to the text-to-speech engine.
 #: ../Src/Gtk2/dasher_action_speech.cpp:148
 msgid "Repeat"
-msgstr ""
+msgstr "Kordus"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:166
 #, c-format
