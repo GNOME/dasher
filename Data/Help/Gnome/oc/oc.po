@@ -1,24 +1,20 @@
-# translation of oc.po to Occitan
-# French translation of dasher documentation.
+# Occitan translation of dasher documentation.
 # Copyright (C) 2006, 2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the dasher
 # documentation package.
 #
-#
-# Claude Paroz <claude@2xlibre.net>, 2006.
 # Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-25 21:59+0100\n"
-"PO-Revision-Date: 2007-11-20 14:29+0100\n"
+"PO-Revision-Date: 2007-11-24 22:23+0100\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"Content-Transfer-Encoding: 8bit"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
@@ -137,7 +133,7 @@ msgstr "1.0.0"
 
 #: ../C/dasher.xml:35(date)
 msgid "2004-02-08"
-msgstr ""
+msgstr "08/02/2004"
 
 #: ../C/dasher.xml:38(revnumber)
 msgid "1.1.0"
@@ -145,7 +141,7 @@ msgstr "1.1.0"
 
 #: ../C/dasher.xml:39(date)
 msgid "2006-03-31"
-msgstr ""
+msgstr "31/03/2006"
 
 #: ../C/dasher.xml:42(revnumber)
 msgid "1.2.0"
@@ -153,7 +149,7 @@ msgstr "1.2.0"
 
 #: ../C/dasher.xml:43(date)
 msgid "2006-07-11"
-msgstr ""
+msgstr "11/07/2006"
 
 #: ../C/dasher.xml:46(revnumber)
 msgid "1.2.1"
@@ -161,7 +157,7 @@ msgstr "1.2.1"
 
 #: ../C/dasher.xml:47(date)
 msgid "2006-09-02"
-msgstr ""
+msgstr "02/09/2006"
 
 #: ../C/dasher.xml:53(title)
 msgid "Introduction"
@@ -296,11 +292,11 @@ msgstr ""
 
 #: ../C/dasher.xml:135(title)
 msgid "How does Dasher work?"
-msgstr ""
+msgstr "Cossí marcha Dasher ?"
 
 #: ../C/dasher.xml:138(attribution)
 msgid "Financial Times, 5th February 2002"
-msgstr ""
+msgstr "Financial Times, lo 5 de febrièr de 2002"
 
 #: ../C/dasher.xml:139(para)
 msgid "Dasher is like an arcade game: `Attack of the killer alphabets', perhaps."
@@ -609,7 +605,7 @@ msgstr ""
 
 #: ../C/dasher.xml:410(title)
 msgid "Summary"
-msgstr "Somari"
+msgstr "Resumit"
 
 #: ../C/dasher.xml:412(emphasis)
 msgid "Don't click. Don't drag. And don't speed."
@@ -781,7 +777,7 @@ msgstr ""
 
 #: ../C/dasher.xml:809(title)
 msgid "Save to file"
-msgstr ""
+msgstr "Enregistrar dins lo fichièr"
 
 #: ../C/dasher.xml:811(para)
 msgid ""
@@ -820,7 +816,7 @@ msgstr ""
 
 #: ../C/dasher.xml:841(title)
 msgid "Personalizing Dasher"
-msgstr ""
+msgstr "Personalizacion de Dasher"
 
 #: ../C/dasher.xml:842(para)
 msgid ""
@@ -1275,7 +1271,7 @@ msgstr ""
 
 #: ../C/dasher.xml:1144(term)
 msgid "2.5"
-msgstr ""
+msgstr "2.5"
 
 #: ../C/dasher.xml:1146(para)
 msgid ""
@@ -1311,7 +1307,7 @@ msgstr ""
 
 #: ../C/dasher.xml:1172(term)
 msgid "4, 5, 6, or 7"
-msgstr ""
+msgstr "4, 5, 6, o 7"
 
 #: ../C/dasher.xml:1174(para)
 msgid ""
@@ -1323,7 +1319,7 @@ msgstr ""
 
 #: ../C/dasher.xml:1181(term)
 msgid "8 or more"
-msgstr ""
+msgstr "8 o mai"
 
 #: ../C/dasher.xml:1183(para)
 msgid ""
@@ -1511,5 +1507,5 @@ msgstr ""
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2.
 #: ../C/dasher.xml:0(None)
 msgid "translator-credits"
-msgstr "Yannig Marchegay (Kokoyaya) <yannig@marchegay.org)"
+msgstr "Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>"
 
