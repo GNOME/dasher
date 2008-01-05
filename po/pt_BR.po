@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-08 11:08-0200\n"
-"PO-Revision-Date: 2007-12-08 11:08-0200\n"
-"Last-Translator: Rodrigo Flores <rodrigomarquesflores@gmail.com>\n"
+"POT-Creation-Date: 2008-01-04 22:36-0200\n"
+"PO-Revision-Date: 2008-01-01 10:32-0300\n"
+"Last-Translator: Vladimir Melo <vladimirmelo@foresightlinux.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,7 +32,7 @@ msgstr "Dasher"
 
 #: ../Data/dasher.desktop.in.in.h:2
 msgid "Predictive text entry"
-msgstr "Entrada prevista de texto"
+msgstr "Entrada preditiva de texto"
 
 #: ../Data/glade/dasher.compose.glade.h:1
 #: ../Data/glade/dasher.direct.glade.h:1
@@ -306,7 +306,7 @@ msgstr "Esquema de cores personalizadas:"
 #: ../Data/glade/dashermaemo.glade.h:16
 #: ../Data/glade/dashermaemofullscreen.glade.h:14
 msgid "Custom:"
-msgstr "Personalizar:"
+msgstr "Personalizado:"
 
 #: ../Data/glade/dasher.compose.glade.h:33
 #: ../Data/glade/dasher.gameWIP.glade.h:34
@@ -366,7 +366,7 @@ msgstr "Desenhar uma linha entre a mira e o mouse"
 #: ../Data/glade/dasher.gameWIP.glade.h:43
 #: ../Data/glade/dasher.traditional.glade.h:45
 msgid "Full Screen"
-msgstr "Tela Inteira"
+msgstr "Tela Cheia"
 
 #: ../Data/glade/dasher.compose.glade.h:42
 #: ../Data/glade/dasher.direct.glade.h:38
@@ -443,7 +443,7 @@ msgstr "Novo arquivo"
 #: ../Data/glade/dasher.gameWIP.glade.h:56
 #: ../Data/glade/dasher.traditional.glade.h:56
 msgid "Open file"
-msgstr "Abrir arquivo"
+msgstr "Abre arquivo"
 
 #: ../Data/glade/dasher.compose.glade.h:51
 #: ../Data/glade/dasher.direct.glade.h:45
@@ -457,7 +457,7 @@ msgstr "Opções"
 #: ../Data/glade/dasher.gameWIP.glade.h:58
 #: ../Data/glade/dasher.traditional.glade.h:58
 msgid "Paste"
-msgstr "Colar"
+msgstr "Cola"
 
 #: ../Data/glade/dasher.compose.glade.h:53
 #: ../Data/glade/dasher.direct.glade.h:46
@@ -474,7 +474,7 @@ msgstr "Pausar fora da tela"
 #: ../Data/glade/dasher.traditional.glade.h:60
 #: ../Data/glade/dashermaemo.glade.h:25
 msgid "Please Wait..."
-msgstr "Por favor aguarde..."
+msgstr "Por Favor Aguarde..."
 
 #: ../Data/glade/dasher.compose.glade.h:55
 msgid "Pr_eferences"
@@ -494,13 +494,13 @@ msgstr "Direita para Esquerda"
 #: ../Data/glade/dasher.gameWIP.glade.h:65
 #: ../Data/glade/dasher.traditional.glade.h:65
 msgid "Save file"
-msgstr "Salvar arquivo"
+msgstr "Salva arquivo"
 
 #: ../Data/glade/dasher.compose.glade.h:58
 #: ../Data/glade/dasher.gameWIP.glade.h:66
 #: ../Data/glade/dasher.traditional.glade.h:66
 msgid "Save file as"
-msgstr "Salvar arquivo como"
+msgstr "Salva arquivo como"
 
 #: ../Data/glade/dasher.compose.glade.h:59
 #: ../Data/glade/dasher.direct.glade.h:51
@@ -528,7 +528,7 @@ msgstr "Selecionar Fonte"
 #: ../Data/glade/dasher.gameWIP.glade.h:71
 #: ../Data/glade/dasher.traditional.glade.h:70
 msgid "Show mouse position"
-msgstr "Exibir a posição do mouse"
+msgstr "Mostrar a posição do mouse"
 
 #: ../Data/glade/dasher.compose.glade.h:62
 #: ../Data/glade/dasher.direct.glade.h:53
@@ -536,7 +536,7 @@ msgstr "Exibir a posição do mouse"
 #: ../Data/glade/dasher.gameWIP.glade.h:72
 #: ../Data/glade/dasher.traditional.glade.h:71
 msgid "Show speed slider"
-msgstr "Exibir a barra de indicação de velocidade"
+msgstr "Mostrar a barra de indicação de velocidade"
 
 #: ../Data/glade/dasher.compose.glade.h:63
 #: ../Data/glade/dasher.direct.glade.h:54
@@ -544,7 +544,7 @@ msgstr "Exibir a barra de indicação de velocidade"
 #: ../Data/glade/dasher.gameWIP.glade.h:73
 #: ../Data/glade/dasher.traditional.glade.h:72
 msgid "Show toolbar"
-msgstr "Exibir a barra de ferramentas"
+msgstr "Mostrar a barra de ferramentas"
 
 #: ../Data/glade/dasher.compose.glade.h:64
 #: ../Data/glade/dasher.direct.glade.h:55
@@ -578,7 +578,7 @@ msgstr "Independente"
 #: ../Data/glade/dashermaemo.glade.h:30
 #: ../Data/glade/dashermaemofullscreen.glade.h:27
 msgid "Standard letter-based PPM"
-msgstr "Letras baseadas em PPM padrão"
+msgstr "PPM padrão baseado em letras"
 
 #: ../Data/glade/dasher.compose.glade.h:68
 #: ../Data/glade/dasher.direct.glade.h:59
@@ -610,7 +610,7 @@ msgstr "Iniciar com a posição do mouse:"
 #: ../Data/glade/dasher.gameWIP.glade.h:81
 #: ../Data/glade/dasher.traditional.glade.h:81
 msgid "Timestamp new files"
-msgstr "Adicionar horário nos arquivos novos"
+msgstr "Adicionar marca de tempo nos arquivos novos"
 
 #: ../Data/glade/dasher.compose.glade.h:72
 #: ../Data/glade/dasher.direct.glade.h:63
@@ -714,16 +714,15 @@ msgstr "Selecionar Fonte do Editor"
 #: ../Data/glade/dasher.gameWIP.glade.h:18
 #: ../Data/glade/dasher.traditional.glade.h:18
 msgid "A_ppend to file..."
-msgstr "A_crescentar a arquivo..."
+msgstr "A_nexar ao arquivo..."
 
 #: ../Data/glade/dasher.gameWIP.glade.h:37
 msgid "Demo!"
-msgstr ""
+msgstr "Demonstração!"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:42
-#, fuzzy
 msgid "Full Demo"
-msgstr "Tela Inteira"
+msgstr "Demonstração Completa"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:44
 #: ../Data/glade/dasher.traditional.glade.h:46
@@ -732,15 +731,15 @@ msgstr "Ajuda"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:50
 msgid "Launch Dasher Game & Demo mode!"
-msgstr ""
+msgstr "Lançar Jogo do Dasher & modo Demonstração!"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:52
 msgid "Level:"
-msgstr ""
+msgstr "Nível:"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:55
 msgid "New sentence"
-msgstr ""
+msgstr "Nova frase"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:61
 #: ../Data/glade/dasher.traditional.glade.h:61
@@ -755,11 +754,11 @@ msgstr "Preferências"
 #: ../Data/glade/dasher.gameWIP.glade.h:63
 #: ../Data/glade/dasher.traditional.glade.h:63
 msgid "Quit"
-msgstr "Sair"
+msgstr "Sai"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:67
 msgid "Score:"
-msgstr ""
+msgstr "Pontuação:"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:88
 #: ../Data/glade/dasher.traditional.glade.h:88
@@ -796,7 +795,7 @@ msgstr "Alfabeto"
 
 #: ../Data/glade/dashermaemo.glade.h:19
 msgid "Enlarge input window"
-msgstr "Aumentar a entrada da janela"
+msgstr "Aumentar a janela de entrada"
 
 #: ../Data/glade/dashermaemo.glade.h:24
 msgid "P"
@@ -810,7 +809,7 @@ msgstr "Predição"
 #: ../Data/glade/dashermaemo.glade.h:32
 #: ../Data/glade/dashermaemofullscreen.glade.h:30
 msgid "View"
-msgstr "Visualização"
+msgstr "Ver"
 
 #: ../Data/glade/dashermaemofullscreen.glade.h:19
 msgid "Large"
@@ -846,7 +845,7 @@ msgstr "_Restaurar fontes"
 
 #: ../Src/DasherCore/ClickFilter.cpp:7
 msgid "Maximum Zoom"
-msgstr ""
+msgstr "Zoom Máximo"
 
 #: ../Src/DasherCore/ClickFilter.h:11
 msgid "Click Mode"
@@ -873,7 +872,7 @@ msgstr "Margem de segurança"
 #. TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other.
 #: ../Src/DasherCore/DasherButtons.cpp:31
 msgid "Box non-uniformity"
-msgstr "Não-uniformidade de caixa"
+msgstr "Não-uniformidade das caixas"
 
 #. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
 #: ../Src/DasherCore/DasherButtons.cpp:33
@@ -908,7 +907,7 @@ msgstr "Modo Stylus"
 
 #: ../Src/DasherCore/DasherGameMode.cpp:633
 msgid "Well done!"
-msgstr ""
+msgstr "Parabéns!"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:7
 msgid "Automatic calibration"
@@ -952,7 +951,7 @@ msgstr "Modo Unidimensional"
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
 msgid "Dasher socket input: failed to launch reader thread."
-msgstr "Entrada do socket do Dasher: falha ao lançar o processo leitor."
+msgstr "Entrada de socket do Dasher: falha ao lançar o processo leitor."
 
 #: ../Src/DasherCore/SocketInputBase.cpp:27
 msgid "Port:"
@@ -1059,7 +1058,7 @@ msgstr "Falar"
 #. TRANSLATORS: Send all text to the text-to-speech engine.
 #: ../Src/Gtk2/dasher_action_speech.cpp:142
 msgid "All"
-msgstr "Todos"
+msgstr "Tudo"
 
 #. TRANSLATORS: Send most recently entered text to the text-to-speech engine.
 #: ../Src/Gtk2/dasher_action_speech.cpp:145
@@ -1091,7 +1090,7 @@ msgid ""
 "\n"
 "Your changes will be lost if you don't save them."
 msgstr ""
-"Você deseja salvar sua alterações para %s?\n"
+"Você deseja salvar sua alterações em \"%s?\"\n"
 "\n"
 "Suas alterações serão perdidas se você não salvá-las."
 
@@ -1137,11 +1136,11 @@ msgstr "Opções de Módulo do Dasher"
 #: ../Src/Gtk2/module_settings_window.cpp:91
 #, c-format
 msgid "%s Options:"
-msgstr "%s Opções:"
+msgstr "Opções para %s:"
 
 #: ../Src/Gtk2/mouse_input.h:15
 msgid "Mouse Input"
-msgstr "Entrada de Mouse"
+msgstr "Entrada de mouse"
 
 #: ../Src/Gtk2/mouse_input.h:51
 msgid "Pixels covering Y range"
