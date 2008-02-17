@@ -912,7 +912,7 @@ msgstr "Tự động định chuẩn"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:11
 msgid "Eyetracker Mode"
-msgstr "Chế độ theo mặt"
+msgstr "Chế độ theo mắt"
 
 #.TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:29
