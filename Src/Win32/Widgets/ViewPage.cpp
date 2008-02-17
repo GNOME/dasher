@@ -129,6 +129,10 @@ bool CViewPage::Apply() {
         m_pDasherInterface->SetStringParameter(SP_COLOUR_ID, m_CurrentColours);
   }
 
+  m_pAppSettings->SetBoolParameter(BP_PALETTE_CHANGE, 
+    SendMessage(GetDlgItem(m_hwnd, IDC_COLOURSCHEME), BM_GETCHECK, 0, 0) == BST_UNCHECKED );
+
+
   if(SendMessage(GetDlgItem(m_hwnd, IDC_FONT_SMALL), BM_GETCHECK, 0, 0) == BST_CHECKED)
     m_pAppSettings->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::Normal);
   else if(SendMessage(GetDlgItem(m_hwnd, IDC_FONT_LARGE), BM_GETCHECK, 0, 0) == BST_CHECKED)

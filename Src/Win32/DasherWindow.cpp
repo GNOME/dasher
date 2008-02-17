@@ -421,9 +421,7 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
       m_pEdit->SaveAs();
     return 0;
   case ID_IMPORT_TRAINFILE:
-    // TODO: Fix dummy arguments
-	  // Game temp comment for compiling
-    //m_pDasher->TrainFile(m_pEdit->Import(),0,0);
+    m_pDasher->ImportTrainingText(m_pEdit->Import());
     return 0;
   default:
     return DefWindowProc(message, wParam, lParam);

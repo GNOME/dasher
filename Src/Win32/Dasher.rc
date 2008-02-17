@@ -282,10 +282,10 @@ BEGIN
     CONTROL         "Show toolbar",IDC_CHECK1,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,30,58,10
     CONTROL         "Show speed control",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,42,79,10
     CONTROL         "Timestamp new files",IDC_TIMESTAMP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,14,18,80,8
-    CONTROL         "Stand-alone",IDC_STYLE_STANDALONE,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,201,58,55,10
+    CONTROL         "Stand-alone",IDC_STYLE_STANDALONE,"Button",BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,201,91,55,10
     CONTROL         "Composition",IDC_STYLE_COMPOSITION,"Button",BS_AUTORADIOBUTTON | NOT WS_VISIBLE | WS_TABSTOP,319,221,55,10
-    CONTROL         "Direct entry",IDC_STYLE_DIRECT,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,201,70,54,10
-    GROUPBOX        "Application Style:",IDC_STATIC,194,48,180,35
+    CONTROL         "Direct entry",IDC_STYLE_DIRECT,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,201,103,54,10
+    GROUPBOX        "Application Style:",IDC_STATIC,194,81,180,35
     CONTROL         "Full screen",IDC_STYLE_FULL,"Button",BS_AUTORADIOBUTTON | NOT WS_VISIBLE | WS_TABSTOP,234,218,50,10
     GROUPBOX        "Application Options:",IDC_STATIC,7,7,180,64
     GROUPBOX        "Speech:",IDC_STATIC,194,7,180,39
@@ -293,6 +293,8 @@ BEGIN
     PUSHBUTTON      "Change Font",IDC_EFONT_BUTTON,14,84,166,14
     CONTROL         "Speak on stop",IDC_CHECK3,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,201,18,99,10
     CONTROL         "Speak on word breaks",IDC_CHECK4,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,201,29,90,10
+    GROUPBOX        "Clipboard:",IDC_STATIC,194,50,180,26
+    CONTROL         "Copy all on stop",IDC_COPYONSTOP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,201,61,90,10
 END
 
 
@@ -408,7 +410,7 @@ BEGIN
         MENUITEM "Save &As...",                 ID_FILE_SAVE_AS
         MENUITEM "&Append to File...",          ID_FILE_APPEND, GRAYED
         MENUITEM SEPARATOR
-        MENUITEM "&Import Training Text",       ID_IMPORT_TRAINFILE
+        MENUITEM "&Import Training Text...",    ID_IMPORT_TRAINFILE
         MENUITEM SEPARATOR
         MENUITEM "E&xit",                       IDM_EXIT
     END
