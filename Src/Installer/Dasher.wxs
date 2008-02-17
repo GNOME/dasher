@@ -2,7 +2,7 @@
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
 
   <Product Name='Dasher 4.7' Id='A9572A11-5AB0-481c-8FBF-EAD6D7CB7F7D'
-   Language='1033' Codepage='1252' Version='4.7.0' Manufacturer='Dasher'
+   Language='1033' Codepage='1252' Version='4.7.1' Manufacturer='Dasher'
    UpgradeCode='56491DE8-EF73-42a6-82D4-8D05FE531583'>
 
     <Package Keywords='Installer'
