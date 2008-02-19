@@ -1,0 +1,1142 @@
+# translation of dasher.HEAD.po to Kannada
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Shankar Prasad <svenkate@redhat.com>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: dasher.HEAD\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-02-19 03:34+0000\n"
+"PO-Revision-Date: 2008-02-18 15:17+0530\n"
+"Last-Translator: \n"
+"Language-Team: Kannada <en@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+
+#: ../Data/dasher.desktop.in.in.h:1 ../Data/glade/dasher.compose.glade.h:34
+#: ../Data/glade/dasher.direct.glade.h:31
+#: ../Data/glade/dasher.fullscreen.glade.h:30
+#: ../Data/glade/dasher.gameWIP.glade.h:35
+#: ../Data/glade/dasher.traditional.glade.h:39
+#: ../Data/glade/dashermaemo.glade.h:17
+#: ../Data/glade/dashermaemofullscreen.glade.h:15
+#: ../Src/Gtk2/dasher_main.cpp:1161
+msgid "Dasher"
+msgstr "Dasher"
+
+#: ../Data/dasher.desktop.in.in.h:2
+msgid "Predictive text entry"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:1
+#: ../Data/glade/dasher.direct.glade.h:1
+#: ../Data/glade/dasher.fullscreen.glade.h:1
+#: ../Data/glade/dasher.gameWIP.glade.h:1
+#: ../Data/glade/dasher.traditional.glade.h:1
+msgid "<b>Actions:</b>"
+msgstr "<b>ಕಾರ್ಯಗಳು:</b>"
+
+#: ../Data/glade/dasher.compose.glade.h:2
+#: ../Data/glade/dasher.direct.glade.h:2
+#: ../Data/glade/dasher.fullscreen.glade.h:2
+#: ../Data/glade/dasher.gameWIP.glade.h:2
+#: ../Data/glade/dasher.traditional.glade.h:2
+#: ../Data/glade/dashermaemo.glade.h:3
+#: ../Data/glade/dashermaemofullscreen.glade.h:1
+msgid "<b>Adaptation:</b>"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:3
+#: ../Data/glade/dasher.direct.glade.h:3
+#: ../Data/glade/dasher.fullscreen.glade.h:3
+#: ../Data/glade/dasher.gameWIP.glade.h:3
+#: ../Data/glade/dasher.traditional.glade.h:3
+#: ../Data/glade/dashermaemo.glade.h:4
+#: ../Data/glade/dashermaemofullscreen.glade.h:2
+msgid "<b>Alphabet Selection:</b>"
+msgstr "<b>ವರ್ಣಮಾಲೆಯ ಆಯ್ಕೆ:</b>"
+
+#: ../Data/glade/dasher.compose.glade.h:4
+#: ../Data/glade/dasher.direct.glade.h:4
+#: ../Data/glade/dasher.fullscreen.glade.h:4
+#: ../Data/glade/dasher.gameWIP.glade.h:4
+#: ../Data/glade/dasher.traditional.glade.h:4
+msgid "<b>Appearance Options:</b>"
+msgstr "<b>ಗೋಚರಿಕೆ ಆಯ್ಕೆಗಳು:</b>"
+
+#: ../Data/glade/dasher.compose.glade.h:5
+#: ../Data/glade/dasher.direct.glade.h:5
+#: ../Data/glade/dasher.fullscreen.glade.h:5
+#: ../Data/glade/dasher.gameWIP.glade.h:5
+#: ../Data/glade/dasher.traditional.glade.h:5
+msgid "<b>Application Options:</b>"
+msgstr "<b>ಅನ್ವಯ ಆಯ್ಕೆಗಳು:</b>"
+
+#: ../Data/glade/dasher.compose.glade.h:6
+#: ../Data/glade/dasher.direct.glade.h:6
+#: ../Data/glade/dasher.fullscreen.glade.h:6
+#: ../Data/glade/dasher.gameWIP.glade.h:6
+#: ../Data/glade/dasher.traditional.glade.h:6
+msgid "<b>Application Style:</b>"
+msgstr "<b>ಅನ್ವಯ ಶೈಲಿ:</b>"
+
+#: ../Data/glade/dasher.compose.glade.h:7
+#: ../Data/glade/dasher.direct.glade.h:7
+#: ../Data/glade/dasher.fullscreen.glade.h:7
+#: ../Data/glade/dasher.gameWIP.glade.h:7
+#: ../Data/glade/dasher.traditional.glade.h:7
+msgid "<b>Colour Scheme:</b>"
+msgstr "<b>ಬಣ್ಣದ ಸ್ಕೀಮ್:</b>"
+
+#: ../Data/glade/dasher.compose.glade.h:8
+#: ../Data/glade/dasher.direct.glade.h:8
+#: ../Data/glade/dasher.fullscreen.glade.h:8
+#: ../Data/glade/dasher.gameWIP.glade.h:8
+#: ../Data/glade/dasher.traditional.glade.h:8
+msgid "<b>Control Style:</b>"
+msgstr "<b>ನಿಯಂತ್ರಣ ಶೈಲಿ</b>"
+
+#: ../Data/glade/dasher.compose.glade.h:9
+#: ../Data/glade/dasher.direct.glade.h:9
+#: ../Data/glade/dasher.fullscreen.glade.h:9
+#: ../Data/glade/dasher.gameWIP.glade.h:9
+#: ../Data/glade/dasher.traditional.glade.h:9
+msgid "<b>Dasher Font:</b>"
+msgstr "<b>Dasher ಅಕ್ಷರಶೈಲಿ:</b>"
+
+#: ../Data/glade/dasher.compose.glade.h:10
+#: ../Data/glade/dasher.direct.glade.h:10
+#: ../Data/glade/dasher.fullscreen.glade.h:10
+#: ../Data/glade/dasher.gameWIP.glade.h:10
+#: ../Data/glade/dasher.traditional.glade.h:10
+msgid "<b>Direction:</b>"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:11
+#: ../Data/glade/dasher.direct.glade.h:11
+#: ../Data/glade/dasher.fullscreen.glade.h:11
+#: ../Data/glade/dasher.gameWIP.glade.h:11
+#: ../Data/glade/dasher.traditional.glade.h:11
+msgid "<b>Editor Font:</b>"
+msgstr "<b>ಸಂಪಾದಕ ಅಕ್ಷರಶೈಲಿ:</b>"
+
+#: ../Data/glade/dasher.compose.glade.h:12
+#: ../Data/glade/dasher.direct.glade.h:12
+#: ../Data/glade/dasher.fullscreen.glade.h:12
+#: ../Data/glade/dasher.gameWIP.glade.h:12
+#: ../Data/glade/dasher.traditional.glade.h:12
+msgid "<b>Input Device:</b>"
+msgstr "<b>ಪ್ರದಾನ(ಇನ್‍ಪುಟ್) ಸಾಧನ:</b>"
+
+#: ../Data/glade/dasher.compose.glade.h:13
+#: ../Data/glade/dasher.direct.glade.h:13
+#: ../Data/glade/dasher.fullscreen.glade.h:13
+#: ../Data/glade/dasher.gameWIP.glade.h:13
+#: ../Data/glade/dasher.traditional.glade.h:13
+#: ../Data/glade/dashermaemo.glade.h:6
+#: ../Data/glade/dashermaemofullscreen.glade.h:3
+msgid "<b>Language Model:</b>"
+msgstr "<b>ಭಾಷೆ ಮಾದರಿ:</b>"
+
+#: ../Data/glade/dasher.compose.glade.h:14
+#: ../Data/glade/dasher.direct.glade.h:14
+#: ../Data/glade/dasher.fullscreen.glade.h:14
+#: ../Data/glade/dasher.gameWIP.glade.h:14
+#: ../Data/glade/dasher.traditional.glade.h:14
+msgid "<b>Prediction:</b>"
+msgstr "<b>ಮುನ್ಸೂಚನೆ:</b>"
+
+#: ../Data/glade/dasher.compose.glade.h:15
+#: ../Data/glade/dasher.direct.glade.h:15
+#: ../Data/glade/dasher.fullscreen.glade.h:15
+#: ../Data/glade/dasher.gameWIP.glade.h:15
+#: ../Data/glade/dasher.traditional.glade.h:15
+#: ../Data/glade/dashermaemo.glade.h:8
+#: ../Data/glade/dashermaemofullscreen.glade.h:5
+msgid "<b>Smoothing:</b>"
+msgstr "<b>ಮೃದುಗೊಳಿಕೆ:</b>"
+
+#: ../Data/glade/dasher.compose.glade.h:16
+#: ../Data/glade/dasher.direct.glade.h:16
+#: ../Data/glade/dasher.fullscreen.glade.h:16
+#: ../Data/glade/dasher.gameWIP.glade.h:16
+#: ../Data/glade/dasher.traditional.glade.h:16
+#: ../Data/glade/dashermaemo.glade.h:9
+#: ../Data/glade/dashermaemofullscreen.glade.h:6
+msgid "<b>Speed:</b>"
+msgstr "<b>ವೇಗ:</b>"
+
+#: ../Data/glade/dasher.compose.glade.h:17
+#: ../Data/glade/dasher.direct.glade.h:17
+#: ../Data/glade/dasher.fullscreen.glade.h:17
+#: ../Data/glade/dasher.gameWIP.glade.h:17
+#: ../Data/glade/dasher.traditional.glade.h:17
+msgid "<b>Starting And Stopping:</b>"
+msgstr "<b>ಆರಂಭಿಸುವುದ್ ಮತ್ತು ನಿಲ್ಲಿಸುವುದು:</b>"
+
+#: ../Data/glade/dasher.compose.glade.h:18
+#: ../Data/glade/dasher.direct.glade.h:18
+#: ../Data/glade/dasher.fullscreen.glade.h:18
+#: ../Data/glade/dasher.gameWIP.glade.h:19
+#: ../Data/glade/dasher.traditional.glade.h:19
+#: ../Data/glade/dashermaemo.glade.h:10
+#: ../Data/glade/dashermaemofullscreen.glade.h:7
+msgid "Adapt speed automatically"
+msgstr "ವೇಗವನ್ನು ತನ್ನಿಂದ ತಾನಾಗಿಯೆ ಹೊಂದಿಸಿಕೊ"
+
+#. The default display orientation for the selected alphabet, ie left to right for English, right to left for Arabic, etc.
+#: ../Data/glade/dasher.compose.glade.h:19
+#: ../Data/glade/dasher.direct.glade.h:19
+#: ../Data/glade/dasher.fullscreen.glade.h:19
+#: ../Data/glade/dasher.gameWIP.glade.h:20
+#: ../Data/glade/dasher.traditional.glade.h:21
+#: ../Data/glade/dashermaemo.glade.h:12
+#: ../Data/glade/dashermaemofullscreen.glade.h:9
+msgid "Alphabet Default"
+msgstr "ಪೂರ್ವನಿಯೋಜಿತ ವರ್ಣಮಾಲೆ"
+
+#: ../Data/glade/dasher.compose.glade.h:20
+#: ../Data/glade/dasher.direct.glade.h:20
+#: ../Data/glade/dasher.gameWIP.glade.h:21
+#: ../Data/glade/dasher.traditional.glade.h:22
+msgid "Alphabet:"
+msgstr "ವರ್ಣಮಾಲೆ:"
+
+#: ../Data/glade/dasher.compose.glade.h:21
+#: ../Data/glade/dasher.direct.glade.h:21
+#: ../Data/glade/dasher.fullscreen.glade.h:20
+#: ../Data/glade/dasher.gameWIP.glade.h:22
+#: ../Data/glade/dasher.traditional.glade.h:23
+msgid "Appearance"
+msgstr "ಗೋಚರಿಕೆ"
+
+#: ../Data/glade/dasher.compose.glade.h:22
+#: ../Data/glade/dasher.direct.glade.h:22
+#: ../Data/glade/dasher.fullscreen.glade.h:21
+#: ../Data/glade/dasher.gameWIP.glade.h:23
+#: ../Data/glade/dasher.traditional.glade.h:24
+msgid "Application"
+msgstr "ಅನ್ವಯ"
+
+#: ../Data/glade/dasher.compose.glade.h:23
+#: ../Data/glade/dasher.direct.glade.h:23
+#: ../Data/glade/dasher.fullscreen.glade.h:22
+#: ../Data/glade/dasher.gameWIP.glade.h:24
+#: ../Data/glade/dasher.traditional.glade.h:25
+#: ../Data/glade/dashermaemo.glade.h:13
+#: ../Data/glade/dashermaemofullscreen.glade.h:10
+msgid "Bottom to Top"
+msgstr "ಕೆಳಗಿನಿಂದ ಮೇಲಕ್ಕೆ"
+
+#. Centre circle = start and stop by dwelling over a circle in the centre of the window
+#. Two box = start and stop by dwelling in sequence over two boxes
+#. (both of these are methods for starting and stopping without pressing a mouse button)
+#: ../Data/glade/dasher.compose.glade.h:24
+#: ../Data/glade/dasher.direct.glade.h:24
+#: ../Data/glade/dasher.fullscreen.glade.h:23
+#: ../Data/glade/dasher.gameWIP.glade.h:25
+#: ../Data/glade/dasher.traditional.glade.h:29
+msgid ""
+"Centre circle\n"
+"Two box"
+msgstr ""
+"ಮಧ್ಯ ವೃತ್ತ\n"
+"ಎರಡು ಪೆಟ್ಟಿಗೆ"
+
+#: ../Data/glade/dasher.compose.glade.h:26
+#: ../Data/glade/dasher.direct.glade.h:26
+#: ../Data/glade/dasher.fullscreen.glade.h:25
+#: ../Data/glade/dasher.gameWIP.glade.h:27
+#: ../Data/glade/dasher.traditional.glade.h:31
+msgid "Composition"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:27
+#: ../Data/glade/dasher.direct.glade.h:27
+#: ../Data/glade/dasher.fullscreen.glade.h:26
+#: ../Data/glade/dasher.gameWIP.glade.h:28
+#: ../Data/glade/dasher.traditional.glade.h:32
+#: ../Data/glade/dashermaemo.glade.h:14
+#: ../Data/glade/dashermaemofullscreen.glade.h:11
+msgid "Control"
+msgstr "ನಿಯಂತ್ರಣ"
+
+#: ../Data/glade/dasher.compose.glade.h:28
+#: ../Data/glade/dasher.direct.glade.h:28
+#: ../Data/glade/dasher.fullscreen.glade.h:27
+#: ../Data/glade/dasher.gameWIP.glade.h:29
+#: ../Data/glade/dasher.traditional.glade.h:33
+msgid "Control mode"
+msgstr "ನಿಯಂತ್ರಣ ಕ್ರಮ"
+
+#: ../Data/glade/dasher.compose.glade.h:29
+#: ../Data/glade/dasher.gameWIP.glade.h:30
+#: ../Data/glade/dasher.traditional.glade.h:34
+msgid "Copy"
+msgstr "ನಕಲಿಸು"
+
+#: ../Data/glade/dasher.compose.glade.h:30
+#: ../Data/glade/dasher.gameWIP.glade.h:31
+#: ../Data/glade/dasher.traditional.glade.h:35
+#: ../Data/glade/dashermaemofullscreen.glade.h:12
+msgid "Copy _All"
+msgstr "ಎಲ್ಲವನ್ನು ನಕಲಿಸು(_A)"
+
+#: ../Data/glade/dasher.compose.glade.h:31
+#: ../Data/glade/dasher.direct.glade.h:29
+#: ../Data/glade/dasher.fullscreen.glade.h:28
+#: ../Data/glade/dasher.gameWIP.glade.h:32
+#: ../Data/glade/dasher.traditional.glade.h:36
+#: ../Data/glade/dashermaemo.glade.h:15
+#: ../Data/glade/dashermaemofullscreen.glade.h:13
+msgid "Custom colour scheme:"
+msgstr "ಕಸ್ಟಮ್ ಬಣ್ಣದ ಸ್ಕೀಮ್:"
+
+#: ../Data/glade/dasher.compose.glade.h:32
+#: ../Data/glade/dasher.direct.glade.h:30
+#: ../Data/glade/dasher.fullscreen.glade.h:29
+#: ../Data/glade/dasher.gameWIP.glade.h:33
+#: ../Data/glade/dasher.traditional.glade.h:37
+#: ../Data/glade/dashermaemo.glade.h:16
+#: ../Data/glade/dashermaemofullscreen.glade.h:14
+msgid "Custom:"
+msgstr "ಕಸ್ಟಮ:"
+
+#: ../Data/glade/dasher.compose.glade.h:33
+#: ../Data/glade/dasher.gameWIP.glade.h:34
+#: ../Data/glade/dasher.traditional.glade.h:38
+msgid "Cut"
+msgstr "ಕತ್ತರಿಸು"
+
+#: ../Data/glade/dasher.compose.glade.h:35
+#: ../Data/glade/dasher.direct.glade.h:32
+#: ../Data/glade/dasher.fullscreen.glade.h:31
+#: ../Data/glade/dasher.gameWIP.glade.h:36
+#: ../Data/glade/dasher.traditional.glade.h:40
+#: ../Data/glade/dashermaemo.glade.h:18
+#: ../Data/glade/dashermaemofullscreen.glade.h:16
+msgid "Dasher Preferences"
+msgstr "Dasher ಆದ್ಯತೆಗಳು"
+
+#: ../Data/glade/dasher.compose.glade.h:36
+msgid "Dasher _Tutorial"
+msgstr "Dasher ಟ್ಯುಟೋರಿಯಲ್(_T)"
+
+#: ../Data/glade/dasher.compose.glade.h:37
+#: ../Data/glade/dasher.direct.glade.h:33
+#: ../Data/glade/dasher.fullscreen.glade.h:32
+#: ../Data/glade/dasher.gameWIP.glade.h:38
+#: ../Data/glade/dasher.traditional.glade.h:41
+msgid "Direct entry"
+msgstr "ನೇರ ನಮೂದು"
+
+#: ../Data/glade/dasher.compose.glade.h:38
+#: ../Data/glade/dasher.direct.glade.h:34
+#: ../Data/glade/dasher.fullscreen.glade.h:33
+#: ../Data/glade/dasher.gameWIP.glade.h:39
+#: ../Data/glade/dasher.traditional.glade.h:42
+msgid "Dock application window"
+msgstr "ಡಾಕ್ ಅನ್ವಯ ವಿಂಡೊ"
+
+#: ../Data/glade/dasher.compose.glade.h:39
+#: ../Data/glade/dasher.direct.glade.h:35
+#: ../Data/glade/dasher.fullscreen.glade.h:34
+#: ../Data/glade/dasher.gameWIP.glade.h:40
+#: ../Data/glade/dasher.traditional.glade.h:43
+msgid "Draw box outlines"
+msgstr "ಪೆಟ್ಟಿಗೆಯ ಹೊರಗೆರೆಗಳನ್ನು ಎಳೆಯಿರಿ"
+
+#: ../Data/glade/dasher.compose.glade.h:40
+#: ../Data/glade/dasher.direct.glade.h:36
+#: ../Data/glade/dasher.fullscreen.glade.h:35
+#: ../Data/glade/dasher.gameWIP.glade.h:41
+#: ../Data/glade/dasher.traditional.glade.h:44
+msgid "Draw line between crosshairs and mouse"
+msgstr "ಕ್ರಾಸ್‍ಹೇರ್ ಹಾಗು ಮೌಸ್‍ನ ನಡುವೆ ಗೆರೆಯನ್ನು ಎಳೆಯಿರಿ"
+
+#: ../Data/glade/dasher.compose.glade.h:41
+#: ../Data/glade/dasher.direct.glade.h:37
+#: ../Data/glade/dasher.fullscreen.glade.h:36
+#: ../Data/glade/dasher.gameWIP.glade.h:43
+#: ../Data/glade/dasher.traditional.glade.h:45
+msgid "Full Screen"
+msgstr "ಸಂಪೂರ್ಣ ತೆರೆ"
+
+#: ../Data/glade/dasher.compose.glade.h:42
+#: ../Data/glade/dasher.direct.glade.h:38
+#: ../Data/glade/dasher.fullscreen.glade.h:37
+#: ../Data/glade/dasher.gameWIP.glade.h:45
+#: ../Data/glade/dasher.traditional.glade.h:47
+msgid "Increase line thickness"
+msgstr "ಗೆರೆಯ ದಪ್ಪವನ್ನು ಹೆಚ್ಚಿಸು"
+
+#: ../Data/glade/dasher.compose.glade.h:43
+#: ../Data/glade/dasher.direct.glade.h:39
+#: ../Data/glade/dasher.fullscreen.glade.h:38
+#: ../Data/glade/dasher.gameWIP.glade.h:46
+#: ../Data/glade/dasher.traditional.glade.h:48
+#: ../Data/glade/dashermaemo.glade.h:20
+#: ../Data/glade/dashermaemofullscreen.glade.h:17
+msgid "Japanese"
+msgstr "ಜಾಪನೀಸ್"
+
+#: ../Data/glade/dasher.compose.glade.h:44
+#: ../Data/glade/dasher.direct.glade.h:40
+#: ../Data/glade/dasher.fullscreen.glade.h:39
+#: ../Data/glade/dasher.gameWIP.glade.h:47
+#: ../Data/glade/dasher.traditional.glade.h:49
+msgid "Language"
+msgstr "ಭಾಷೆ"
+
+#: ../Data/glade/dasher.compose.glade.h:45
+#: ../Data/glade/dasher.direct.glade.h:41
+#: ../Data/glade/dasher.fullscreen.glade.h:40
+#: ../Data/glade/dasher.gameWIP.glade.h:48
+#: ../Data/glade/dasher.traditional.glade.h:50
+#: ../Data/glade/dashermaemo.glade.h:21
+#: ../Data/glade/dashermaemofullscreen.glade.h:18
+msgid "Language model adapts as you write."
+msgstr "ಭಾಷೆಯ ಮಾದರಿಯು ನೀವು ಬರೆದಂತೆಲ್ಲಾ ಹೊಂದಿಸುತ್ತಾ ಹೋಗುತ್ತದೆ."
+
+#: ../Data/glade/dasher.compose.glade.h:46
+#: ../Data/glade/dasher.direct.glade.h:42
+#: ../Data/glade/dasher.fullscreen.glade.h:41
+#: ../Data/glade/dasher.gameWIP.glade.h:49
+#: ../Data/glade/dasher.traditional.glade.h:51
+msgid "Large font "
+msgstr "ದೊಡ್ಡ ಅಕ್ಷರಶೈಲಿ "
+
+#: ../Data/glade/dasher.compose.glade.h:47
+#: ../Data/glade/dasher.direct.glade.h:43
+#: ../Data/glade/dasher.fullscreen.glade.h:42
+#: ../Data/glade/dasher.gameWIP.glade.h:51
+#: ../Data/glade/dasher.traditional.glade.h:52
+#: ../Data/glade/dashermaemo.glade.h:22
+#: ../Data/glade/dashermaemofullscreen.glade.h:20
+msgid "Left to Right"
+msgstr "ಎಡದಿಂದ ಬಲಕ್ಕೆ"
+
+#. PPM =  Prediction by Partial Match, a styatistical language model.
+#: ../Data/glade/dasher.compose.glade.h:48
+#: ../Data/glade/dasher.direct.glade.h:44
+#: ../Data/glade/dasher.fullscreen.glade.h:43
+#: ../Data/glade/dasher.gameWIP.glade.h:53
+#: ../Data/glade/dasher.traditional.glade.h:54
+#: ../Data/glade/dashermaemo.glade.h:23
+#: ../Data/glade/dashermaemofullscreen.glade.h:21
+msgid "Mixture model (PPM/dictionary)"
+msgstr "ಮಿಶ್ರಿತ ಮಾದರಿ (PPM/ಶಬ್ದಕೋಶ)"
+
+#: ../Data/glade/dasher.compose.glade.h:49
+#: ../Data/glade/dasher.gameWIP.glade.h:54
+#: ../Data/glade/dasher.traditional.glade.h:55
+msgid "New file"
+msgstr "ಹೊಸ ಕಡತ"
+
+#: ../Data/glade/dasher.compose.glade.h:50
+#: ../Data/glade/dasher.gameWIP.glade.h:56
+#: ../Data/glade/dasher.traditional.glade.h:56
+msgid "Open file"
+msgstr "ಕಡತವನ್ನು ತೆಗೆ"
+
+#: ../Data/glade/dasher.compose.glade.h:51
+#: ../Data/glade/dasher.direct.glade.h:45
+#: ../Data/glade/dasher.fullscreen.glade.h:44
+#: ../Data/glade/dasher.gameWIP.glade.h:57
+#: ../Data/glade/dasher.traditional.glade.h:57
+msgid "Options"
+msgstr "ಆಯ್ಕೆಗಳು"
+
+#: ../Data/glade/dasher.compose.glade.h:52
+#: ../Data/glade/dasher.gameWIP.glade.h:58
+#: ../Data/glade/dasher.traditional.glade.h:58
+msgid "Paste"
+msgstr "ಅಂಟಿಸು"
+
+#: ../Data/glade/dasher.compose.glade.h:53
+#: ../Data/glade/dasher.direct.glade.h:46
+#: ../Data/glade/dasher.fullscreen.glade.h:45
+#: ../Data/glade/dasher.gameWIP.glade.h:59
+#: ../Data/glade/dasher.traditional.glade.h:59
+msgid "Pause outside of canvas"
+msgstr "ಕ್ಯಾನ್ವಾಸ್‍ನ ಹೊರಗೆ ತಾತ್ಕಾಲಿಕವಾಗಿ ಸ್ಥಗಿತಗೊಳಿಸು"
+
+#: ../Data/glade/dasher.compose.glade.h:54
+#: ../Data/glade/dasher.direct.glade.h:47
+#: ../Data/glade/dasher.fullscreen.glade.h:46
+#: ../Data/glade/dasher.gameWIP.glade.h:60
+#: ../Data/glade/dasher.traditional.glade.h:60
+#: ../Data/glade/dashermaemo.glade.h:25
+msgid "Please Wait..."
+msgstr "ದಯವಿಟ್ಟು ಕಾಯಿರಿ..."
+
+#: ../Data/glade/dasher.compose.glade.h:55
+msgid "Pr_eferences"
+msgstr "ಆದ್ಯತೆಗಳು(_e)"
+
+#: ../Data/glade/dasher.compose.glade.h:56
+#: ../Data/glade/dasher.direct.glade.h:48
+#: ../Data/glade/dasher.fullscreen.glade.h:47
+#: ../Data/glade/dasher.gameWIP.glade.h:64
+#: ../Data/glade/dasher.traditional.glade.h:64
+#: ../Data/glade/dashermaemo.glade.h:27
+#: ../Data/glade/dashermaemofullscreen.glade.h:24
+msgid "Right to Left"
+msgstr "ಬಲದಿಂದ ಎಡಕ್ಕೆ"
+
+#: ../Data/glade/dasher.compose.glade.h:57
+#: ../Data/glade/dasher.gameWIP.glade.h:65
+#: ../Data/glade/dasher.traditional.glade.h:65
+msgid "Save file"
+msgstr "ಕಡತವನ್ನು ಉಳಿಸು"
+
+#: ../Data/glade/dasher.compose.glade.h:58
+#: ../Data/glade/dasher.gameWIP.glade.h:66
+#: ../Data/glade/dasher.traditional.glade.h:66
+msgid "Save file as"
+msgstr "ಕಡತವನ್ನು ಹೀಗೆ ಉಳಿಸು"
+
+#: ../Data/glade/dasher.compose.glade.h:59
+#: ../Data/glade/dasher.direct.glade.h:51
+#: ../Data/glade/dasher.fullscreen.glade.h:48
+#: ../Data/glade/dasher.gameWIP.glade.h:70
+#: ../Data/glade/dasher.traditional.glade.h:69
+#: ../Data/glade/dashermaemo.glade.h:28
+#: ../Data/glade/dashermaemofullscreen.glade.h:25
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1331
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1365
+#: ../Src/Gtk2/dasher_main.cpp:1003
+msgid "Select File"
+msgstr "ಕಡತವನ್ನು ಆರಿಸು"
+
+#: ../Data/glade/dasher.compose.glade.h:60
+#: ../Data/glade/dasher.fullscreen.glade.h:49
+#: ../Data/glade/dashermaemo.glade.h:29
+#: ../Data/glade/dashermaemofullscreen.glade.h:26
+msgid "Select Font"
+msgstr "ಅಕ್ಷರಶೈಲಿಯನ್ನು ಆರಿಸು"
+
+#: ../Data/glade/dasher.compose.glade.h:61
+#: ../Data/glade/dasher.direct.glade.h:52
+#: ../Data/glade/dasher.fullscreen.glade.h:50
+#: ../Data/glade/dasher.gameWIP.glade.h:71
+#: ../Data/glade/dasher.traditional.glade.h:70
+msgid "Show mouse position"
+msgstr "ಮೌಸ್‍ನ ಸ್ಥಾನವನ್ನು ತೋರಿಸು"
+
+#: ../Data/glade/dasher.compose.glade.h:62
+#: ../Data/glade/dasher.direct.glade.h:53
+#: ../Data/glade/dasher.fullscreen.glade.h:51
+#: ../Data/glade/dasher.gameWIP.glade.h:72
+#: ../Data/glade/dasher.traditional.glade.h:71
+msgid "Show speed slider"
+msgstr "ವೇಗ ಸ್ಲೈಡರನ್ನು ತೋರಿಸು"
+
+#: ../Data/glade/dasher.compose.glade.h:63
+#: ../Data/glade/dasher.direct.glade.h:54
+#: ../Data/glade/dasher.fullscreen.glade.h:52
+#: ../Data/glade/dasher.gameWIP.glade.h:73
+#: ../Data/glade/dasher.traditional.glade.h:72
+msgid "Show toolbar"
+msgstr "ಉಪಕರಣಪಟ್ಟಿಯನ್ನು ತೋರಿಸು"
+
+#: ../Data/glade/dasher.compose.glade.h:64
+#: ../Data/glade/dasher.direct.glade.h:55
+#: ../Data/glade/dasher.fullscreen.glade.h:53
+#: ../Data/glade/dasher.gameWIP.glade.h:74
+#: ../Data/glade/dasher.traditional.glade.h:73
+msgid "Small font"
+msgstr "ಚಿಕ್ಕ ಅಕ್ಷರಶೈಲಿ"
+
+#: ../Data/glade/dasher.compose.glade.h:65
+#: ../Data/glade/dasher.direct.glade.h:56
+#: ../Data/glade/dasher.gameWIP.glade.h:75
+#: ../Data/glade/dasher.traditional.glade.h:74
+msgid "Speed:"
+msgstr "ವೇಗ:"
+
+#: ../Data/glade/dasher.compose.glade.h:66
+#: ../Data/glade/dasher.direct.glade.h:57
+#: ../Data/glade/dasher.fullscreen.glade.h:54
+#: ../Data/glade/dasher.gameWIP.glade.h:76
+#: ../Data/glade/dasher.traditional.glade.h:75
+msgid "Stand-alone"
+msgstr "ಪ್ರತ್ಯೇಕವಾಗಿ ಇರು"
+
+#. PPM = Prediction by Partial Match, a statistical language model.
+#: ../Data/glade/dasher.compose.glade.h:67
+#: ../Data/glade/dasher.direct.glade.h:58
+#: ../Data/glade/dasher.fullscreen.glade.h:55
+#: ../Data/glade/dasher.gameWIP.glade.h:77
+#: ../Data/glade/dasher.traditional.glade.h:77
+#: ../Data/glade/dashermaemo.glade.h:30
+#: ../Data/glade/dashermaemofullscreen.glade.h:27
+msgid "Standard letter-based PPM"
+msgstr "PPM ಆಧರಿತ ಸಾಮಾನ್ಯ ಅಕ್ಷರ"
+
+#: ../Data/glade/dasher.compose.glade.h:68
+#: ../Data/glade/dasher.direct.glade.h:59
+#: ../Data/glade/dasher.fullscreen.glade.h:56
+#: ../Data/glade/dasher.gameWIP.glade.h:78
+#: ../Data/glade/dasher.traditional.glade.h:78
+msgid "Start on left mouse button"
+msgstr "ಮೌಸ್‍ನ ಎಡಭಾಗದ ಗುಂಡಿಯಿಂದ ಆರಂಭಿಸು"
+
+#: ../Data/glade/dasher.compose.glade.h:69
+#: ../Data/glade/dasher.direct.glade.h:60
+#: ../Data/glade/dasher.fullscreen.glade.h:57
+#: ../Data/glade/dasher.gameWIP.glade.h:79
+#: ../Data/glade/dasher.traditional.glade.h:79
+msgid "Start on space bar"
+msgstr "ಸ್ಪೇಸ್ ಬಾರಿನಲ್ಲಿ ಆರಂಭಿಸು"
+
+#: ../Data/glade/dasher.compose.glade.h:70
+#: ../Data/glade/dasher.direct.glade.h:61
+#: ../Data/glade/dasher.fullscreen.glade.h:58
+#: ../Data/glade/dasher.gameWIP.glade.h:80
+#: ../Data/glade/dasher.traditional.glade.h:80
+msgid "Start with mouse position:"
+msgstr "ಮೌಸ್ ಸ್ಥಾನದೊಂದಿಗೆ ಆರಂಭಿಸು:"
+
+#: ../Data/glade/dasher.compose.glade.h:71
+#: ../Data/glade/dasher.direct.glade.h:62
+#: ../Data/glade/dasher.fullscreen.glade.h:59
+#: ../Data/glade/dasher.gameWIP.glade.h:81
+#: ../Data/glade/dasher.traditional.glade.h:81
+msgid "Timestamp new files"
+msgstr "ಹೊಸ ಕಡತಗಳಿಗೆ ಟೈಮ್‍ಸ್ಟ್ಯಾಂಪ್ ಮಾಡು"
+
+#: ../Data/glade/dasher.compose.glade.h:72
+#: ../Data/glade/dasher.direct.glade.h:63
+#: ../Data/glade/dasher.fullscreen.glade.h:60
+#: ../Data/glade/dasher.gameWIP.glade.h:82
+#: ../Data/glade/dasher.traditional.glade.h:82
+#: ../Data/glade/dashermaemo.glade.h:31
+#: ../Data/glade/dashermaemofullscreen.glade.h:28
+msgid "Top to Bottom"
+msgstr "ಮೇಲಿನಿಂದ ಕೆಳಕ್ಕೆ"
+
+#: ../Data/glade/dasher.compose.glade.h:73
+#: ../Data/glade/dasher.direct.glade.h:64
+#: ../Data/glade/dasher.fullscreen.glade.h:61
+#: ../Data/glade/dasher.gameWIP.glade.h:83
+#: ../Data/glade/dasher.traditional.glade.h:83
+msgid ""
+"Use this control to adjust the relative sizes of the \n"
+"letter boxes. Note that selecting high values will slow\n"
+"your writing speed."
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:76
+#: ../Data/glade/dasher.direct.glade.h:67
+#: ../Data/glade/dasher.fullscreen.glade.h:64
+#: ../Data/glade/dasher.gameWIP.glade.h:86
+#: ../Data/glade/dasher.traditional.glade.h:86
+msgid "Very large font"
+msgstr "ಬಹಳ ದೊಡ್ಡದಾದ ಅಕ್ಷರಶೈಲಿ"
+
+#: ../Data/glade/dasher.compose.glade.h:77
+#: ../Data/glade/dasher.direct.glade.h:68
+#: ../Data/glade/dasher.fullscreen.glade.h:65
+#: ../Data/glade/dasher.gameWIP.glade.h:87
+#: ../Data/glade/dasher.traditional.glade.h:87
+#: ../Data/glade/dashermaemo.glade.h:33
+#: ../Data/glade/dashermaemofullscreen.glade.h:31
+msgid "Word-based model"
+msgstr "ಪದ-ಆಧರಿತ ಮಾದರಿ"
+
+#: ../Data/glade/dasher.compose.glade.h:78
+#: ../Data/glade/dashermaemofullscreen.glade.h:32
+msgid "_About"
+msgstr "ಇದರ ಬಗ್ಗೆ(_A)"
+
+#: ../Data/glade/dasher.compose.glade.h:79
+msgid "_Append to file"
+msgstr "ಕಡತಕ್ಕೆ ಅಪೆಂಡ್ ಮಾಡು(_A)"
+
+#: ../Data/glade/dasher.compose.glade.h:80
+msgid "_Contents"
+msgstr "ವಿಷಯಗಳು(_C)"
+
+#: ../Data/glade/dasher.compose.glade.h:81
+#: ../Data/glade/dasher.gameWIP.glade.h:90
+#: ../Data/glade/dasher.traditional.glade.h:90
+#: ../Data/glade/dashermaemofullscreen.glade.h:35
+msgid "_Edit"
+msgstr "ಸಂಪಾದಿಸು(_E)"
+
+#: ../Data/glade/dasher.compose.glade.h:82
+#: ../Data/glade/dasher.gameWIP.glade.h:91
+#: ../Data/glade/dasher.traditional.glade.h:91
+#: ../Data/glade/dashermaemofullscreen.glade.h:37
+msgid "_File"
+msgstr "ಕಡತ(_F)"
+
+#: ../Data/glade/dasher.compose.glade.h:83
+#: ../Data/glade/dasher.gameWIP.glade.h:92
+#: ../Data/glade/dasher.traditional.glade.h:92
+#: ../Data/glade/dashermaemofullscreen.glade.h:38
+msgid "_Help"
+msgstr "ಸಹಾಯ(_H)"
+
+#: ../Data/glade/dasher.compose.glade.h:84
+msgid "_Import Training Text"
+msgstr "ತರಬೇತಿ ಪಠ್ಯವನ್ನು ಆಮದು ಮಾಡಿಕೊ(_I)"
+
+#: ../Data/glade/dasher.compose.glade.h:85
+#: ../Data/glade/dasher.fullscreen.glade.h:66
+#: ../Data/glade/dashermaemo.glade.h:34
+#: ../Data/glade/dashermaemofullscreen.glade.h:41
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr "abcdefghijk ABCDEFGHIJK"
+
+#: ../Data/glade/dasher.direct.glade.h:49
+#: ../Data/glade/dasher.gameWIP.glade.h:68
+#: ../Data/glade/dasher.traditional.glade.h:67
+msgid "Select Dasher Font"
+msgstr "Dasher ಅಕ್ಷರಶೈಲಿಯನ್ನು ಆರಿಸು"
+
+#: ../Data/glade/dasher.direct.glade.h:50
+#: ../Data/glade/dasher.gameWIP.glade.h:69
+#: ../Data/glade/dasher.traditional.glade.h:68
+msgid "Select Editor Font"
+msgstr "ಸಂಪಾದಕ ಅಕ್ಷರಶೈಲಿಯನ್ನು ಆರಿಸು"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:18
+#: ../Data/glade/dasher.traditional.glade.h:18
+msgid "A_ppend to file..."
+msgstr "ಕಡತಕ್ಕೆ ಅಪೆಂಡ್ ಮಾಡು(_p)..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:37
+msgid "Demo!"
+msgstr "ಪ್ರಾಯೋಗಿಕ!"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:42
+msgid "Full Demo"
+msgstr "ಸಂಪೂರ್ಣ ಪ್ರಾಯೋಗಿಕ"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:44
+#: ../Data/glade/dasher.traditional.glade.h:46
+msgid "Help"
+msgstr "ಸಹಾಯ"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:50
+msgid "Launch Dasher Game & Demo mode!"
+msgstr "Dasher ಆಟವನ್ನು & ಪ್ರಾಯೋಗಿಕ ಮಾದರಿಯನ್ನು ಆರಂಭಿಸು!"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:52
+msgid "Level:"
+msgstr "ಮಟ್ಟ:"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:55
+msgid "New sentence"
+msgstr "ಹೊಸ ವಾಕ್ಯ"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:61
+#: ../Data/glade/dasher.traditional.glade.h:61
+msgid "Pr_eferences..."
+msgstr "ಆದ್ಯತೆಗಳು(_e)..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:62
+#: ../Data/glade/dasher.traditional.glade.h:62
+msgid "Preferences"
+msgstr "ಆದ್ಯತೆಗಳು"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:63
+#: ../Data/glade/dasher.traditional.glade.h:63
+msgid "Quit"
+msgstr "ನಿರ್ಗಮಿಸು"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:67
+msgid "Score:"
+msgstr "ಸ್ಕೋರ್:"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:88
+#: ../Data/glade/dasher.traditional.glade.h:88
+msgid "_About..."
+msgstr "ಬಗ್ಗೆ.(_A)..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:89
+#: ../Data/glade/dasher.traditional.glade.h:89
+msgid "_Contents..."
+msgstr "ವಿಷಯಗಳು(_C)..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:93
+#: ../Data/glade/dasher.traditional.glade.h:93
+msgid "_Import Training Text..."
+msgstr "ತರಬೇತಿ ಪಠ್ಯವನ್ನು ಆಮದು ಮಾಡಿಕೊ(_I)..."
+
+#: ../Data/glade/dashermaemo.glade.h:1
+msgid "\n"
+msgstr "\n"
+
+#: ../Data/glade/dashermaemo.glade.h:5
+msgid "<b>Display Size:</b>"
+msgstr "<b>ಪ್ರದರ್ಶಕದ ಗಾತ್ರ:</b>"
+
+#: ../Data/glade/dashermaemo.glade.h:7
+#: ../Data/glade/dashermaemofullscreen.glade.h:4
+msgid "<b>Orientation:</b>"
+msgstr "<b>ವಾಲಿಕೆ</b>"
+
+#: ../Data/glade/dashermaemo.glade.h:11
+#: ../Data/glade/dashermaemofullscreen.glade.h:8
+msgid "Alphabet"
+msgstr "ವರ್ಣಮಾಲೆ"
+
+#: ../Data/glade/dashermaemo.glade.h:19
+msgid "Enlarge input window"
+msgstr "ಪ್ರದಾನ ವಿಂಡೋದ ಗಾತ್ರವನ್ನು ಹೆಚ್ಚಿಸು"
+
+#: ../Data/glade/dashermaemo.glade.h:24
+msgid "P"
+msgstr "P"
+
+#: ../Data/glade/dashermaemo.glade.h:26
+#: ../Data/glade/dashermaemofullscreen.glade.h:23
+msgid "Prediction"
+msgstr ""
+
+#: ../Data/glade/dashermaemo.glade.h:32
+#: ../Data/glade/dashermaemofullscreen.glade.h:30
+msgid "View"
+msgstr "ನೋಟ"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:19
+msgid "Large"
+msgstr "ದೊಡ್ಡದಾದ"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:22
+msgid "Normal"
+msgstr "ಸಾಮಾನ್ಯ"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:29
+msgid "Very Large"
+msgstr "ಬಹಳ ದೊಡ್ಡದಾದ"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:33
+msgid "_Dasher Font"
+msgstr "_Dasher ಅಕ್ಷರಶೈಲಿ"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:34
+msgid "_Dasher Font Size"
+msgstr "_Dasher ಅಕ್ಷರಶೈಲಿಯ ಗಾತ್ರ"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:36
+msgid "_Edit Font"
+msgstr "ಸಂಪಾದಿಸು ಅಕ್ಷರಶೈಲಿ(_E)"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:39
+msgid "_Options"
+msgstr "ಆಯ್ಕೆಗಳು(_O)"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:40
+msgid "_Reset fonts"
+msgstr "ಅಕ್ಷರಶೈಲಿಗಳನ್ನು ಮರುಹೊಂದಿಸು(_R)"
+
+#: ../Src/DasherCore/ClickFilter.cpp:7
+msgid "Maximum Zoom"
+msgstr "ಗರಿಷ್ಟ ಗಾತ್ರಬದಲಿಕೆ"
+
+#: ../Src/DasherCore/ClickFilter.h:11
+msgid "Click Mode"
+msgstr "ಕ್ಲಿಕ್ ಕ್ರಮ"
+
+#. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
+#: ../Src/DasherCore/DasherButtons.cpp:25
+msgid "Zoom steps"
+msgstr "ಗಾತ್ರಬದಲಿಸುವ ಹಂತಗಳು"
+
+#. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
+#: ../Src/DasherCore/DasherButtons.cpp:27
+msgid "Right zoom"
+msgstr "ಬಲ ಗಾತ್ರಬದಲಿಕೆ"
+
+#: ../Src/DasherCore/DasherButtons.cpp:28
+msgid "Number of boxes"
+msgstr "ಪೆಟ್ಟಿಗೆಗಳ ಸಂಖ್ಯೆ"
+
+#: ../Src/DasherCore/DasherButtons.cpp:29
+msgid "Safety margin"
+msgstr "ಸುರಕ್ಷ ಅಂಚು"
+
+#. TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other.
+#: ../Src/DasherCore/DasherButtons.cpp:31
+msgid "Box non-uniformity"
+msgstr ""
+
+#. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
+#: ../Src/DasherCore/DasherButtons.cpp:33
+msgid "Global keyboard grab"
+msgstr "ಜಾಗತಿಕ ಕೀಲಿಮಣೆ ಗ್ರಾಬ್"
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:934
+msgid "Normal Control"
+msgstr "ಸಾಮಾನ್ಯ ನಿಯಂತ್ರಣ"
+
+#. TODO: specialist factory for button mode
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:941
+msgid "Menu Mode"
+msgstr "ಮೆನು ಕ್ರಮ"
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:942
+msgid "Direct Mode"
+msgstr "ನೇರ ಕ್ರಮ"
+
+#. RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:944
+msgid "Alternating Direct Mode"
+msgstr ""
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:945
+msgid "Compass Mode"
+msgstr "ದಿಕ್ಸೂಚಿ ಕ್ರಮ"
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:946
+msgid "Stylus Control"
+msgstr "ಸ್ಟೈಲಸ್ ನಿಯಂತ್ರಣ"
+
+#: ../Src/DasherCore/DasherGameMode.cpp:633
+msgid "Well done!"
+msgstr "ಚೆನ್ನಾಗಿ ಮಾಡಿದಿರಿ!"
+
+#: ../Src/DasherCore/EyetrackerFilter.cpp:7
+msgid "Automatic calibration"
+msgstr "ಸ್ವಯಂಚಾಲಿತ ಕ್ಯಾಲಿಬ್ರೇಶನ್"
+
+#: ../Src/DasherCore/EyetrackerFilter.cpp:11
+msgid "Eyetracker Mode"
+msgstr "ಐಟ್ರಾಕರ್ ಕ್ರಮ"
+
+#. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:29
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
+msgid "Long press time"
+msgstr ""
+
+#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the time in which the button must be pressed multiple times to count.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
+msgid "Multiple press time"
+msgstr ""
+
+#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the number of times a button must be pressed to count as a multiple press.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:34
+msgid "Multiple press count"
+msgstr ""
+
+#. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
+msgid "Enable backoff button"
+msgstr "ಬ್ಯಾಕ್ಅಫ್ ಗುಂಡಿಯನ್ನು ಶಕ್ತಗೊಳಿಸು"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
+msgid "One Button Dynamic Mode"
+msgstr ""
+
+#: ../Src/DasherCore/OneDimensionalFilter.cpp:5
+msgid "One Dimensional Mode"
+msgstr "ಒಂದು ಆಯಾಮದ ವಿಧಾನ"
+
+#. TODO should probably pop up a Gtk error message and think about how to do i18n:
+#: ../Src/DasherCore/SocketInput.cpp:34
+msgid "Dasher socket input: failed to launch reader thread."
+msgstr ""
+
+#: ../Src/DasherCore/SocketInputBase.cpp:27
+msgid "Port:"
+msgstr "ಸಂಪರ್ಕ ಸ್ಥಾನ:"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:28
+msgid "X label:"
+msgstr "X ಲೇಬಲ್:"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:29
+msgid "X minimum:"
+msgstr "X ಕನಿಷ್ಟ:"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:30
+msgid "X maximum:"
+msgstr "X ಗರಿಷ್ಟ:"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:31
+msgid "Y label:"
+msgstr "Y ಲೇಬಲ್:"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:32
+msgid "Y minimum:"
+msgstr "Y ಕನಿಷ್ಟ:"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:33
+msgid "Y maximum:"
+msgstr "Y ಗರಿಷ್ಟ:"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:34
+msgid "Print socket-related debugging information to console:"
+msgstr "ಸಾಕೆಟ್‍ಗೆ ಸಂಬಂಧಿತವಾದ ದೋಷನಿವಾರಣಾ ಮಾಹಿತಿಯನ್ನು ಕನ್ಸೋಲಿನಲ್ಲಿ ಮುದ್ರಿಸು:"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:38
+msgid "Socket Input"
+msgstr "ಸಾಕೆಟ್ ಪ್ರದಾನ(ಇನ್‍ಪುಟ್)"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:28
+msgid "Button offset"
+msgstr "ಆಫ್‍ಸೆಟ್ ಗುಂಡಿ"
+
+#. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:36
+msgid "Enable backoff and start/stop buttons"
+msgstr ""
+
+#. TRANSLATORS: What is normally the up button becomes the down button etc.
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:38
+msgid "Reverse up and down buttons"
+msgstr ""
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:39
+msgid "Slow startup"
+msgstr "ನಿಧಾನಗತಿಯ ಆರಂಭ"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:40
+msgid "Startup time"
+msgstr "ಆರಂಭದ ಸಮಯ"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
+msgid "Auto speed control"
+msgstr "ಸ್ವಯಂಚಾಲಿತ ವೇಗ ನಿಯಂತ್ರಣ"
+
+#. TRANSLATORS: The threshold time above which auto speed control is used.
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
+msgid "Auto speed threshold"
+msgstr "ಸ್ವಯಂಚಾಲಿತ ವೇಗ ಮಿತಿ"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:47
+msgid "Two Button Dynamic Mode"
+msgstr ""
+
+#: ../Src/Gtk2/Preferences.cpp:421 ../Src/Gtk2/Preferences.cpp:990
+msgid "Action"
+msgstr "ಕಾರ್ಯ"
+
+#. TRANSLATORS: Show a button for the selected action in the Dasher window.
+#: ../Src/Gtk2/Preferences.cpp:997
+msgid "Show Button"
+msgstr "ಗುಂಡಿಯನ್ನು ತೋರಿಸು"
+
+#: ../Src/Gtk2/Preferences.cpp:1002
+msgid "Control Mode"
+msgstr "ನಿಯಂತ್ರಣ ಕ್ರಮ"
+
+#. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
+#: ../Src/Gtk2/Preferences.cpp:1008
+msgid "Auto On Stop"
+msgstr "ನಿಲ್ಲಿಸಲ್ಪಟ್ಟಾಗ ಆರಂಭಿಸು"
+
+#: ../Src/Gtk2/dasher_action_keyboard.cpp:60
+#: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:94
+msgid "Enter Text"
+msgstr "ಪಠ್ಯವನ್ನು ನಮೂದಿಸು"
+
+#: ../Src/Gtk2/dasher_action_script.cpp:91
+msgid "Script"
+msgstr "ಸ್ಕ್ರಿಪ್ಟ್"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:129
+msgid "Speak"
+msgstr "ಮಾತನಾಡು"
+
+#. TRANSLATORS: Send all text to the text-to-speech engine.
+#: ../Src/Gtk2/dasher_action_speech.cpp:142
+msgid "All"
+msgstr "ಎಲ್ಲಾ"
+
+#. TRANSLATORS: Send most recently entered text to the text-to-speech engine.
+#: ../Src/Gtk2/dasher_action_speech.cpp:145
+msgid "Last"
+msgstr "ಕೊನೆಯ"
+
+#. TRANSLATORS: Repeat the last phrase sent to the text-to-speech engine.
+#: ../Src/Gtk2/dasher_action_speech.cpp:148
+msgid "Repeat"
+msgstr "ಪುನರಾವರ್ತಿಸು"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:166
+#, c-format
+msgid "Unable to initialize speech support\n"
+msgstr "ಮಾತಿನ ಬೆಂಬಲವನ್ನು ಆರಂಭಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:189
+msgid "Unable to initialize voices\n"
+msgstr "ಧ್ವನಿಗಳನ್ನು ಆರಂಭಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:201
+msgid "Warning: unable to set speech parameters\n"
+msgstr "ಎಚ್ಚರಿಕಾ ಸೂಚನೆ: ಮಾತಿನ ನಿಯತಾಂಕಗಳನ್ನು ಆರಂಭಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ\n"
+
+#: ../Src/Gtk2/dasher_main.cpp:1041
+#, c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"ನೀವು ಮಾಡಿದ ಬದಲಾವಣೆಗಳನ್ನು %s ಗೆ ಉಳಿಸಲು ಬಯಸುತ್ತೀರೆ?\n"
+"\n"
+"ಉಳಿಸದೇ ಹೋದಲ್ಲಿ ನೀವು ಮಾಡಿದ ಬದಲಾವಣೆಗಳು ನಾಶಗೊಳ್ಳುತ್ತವೆ."
+
+#: ../Src/Gtk2/dasher_main.cpp:1047
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"ನೀವು ಮಾಡಿದ ಬದಲಾವಣೆಗಳನ್ನು ಉಳಿಸಲು ಬಯಸುತ್ತೀರೆ?\n"
+"\n"
+"ಉಳಿಸದೇ ಹೋದಲ್ಲಿ ನೀವು ಮಾಡಿದ ಬದಲಾವಣೆಗಳು ನಾಶಗೊಳ್ಳುತ್ತವೆ."
+
+#: ../Src/Gtk2/dasher_main.cpp:1051
+msgid "Don't save"
+msgstr "ಉಳಿಸಬೇಡ"
+
+#: ../Src/Gtk2/dasher_main.cpp:1052
+msgid "Don't quit"
+msgstr "ನಿರ್ಗಮಿಸಬೇಡ"
+
+#: ../Src/Gtk2/dasher_main.cpp:1053
+msgid "Save and quit"
+msgstr "ಉಳಿಸು ಹಾಗು ನಿರ್ಗಮಿಸು"
+
+#: ../Src/Gtk2/dasher_main.cpp:1148 ../Src/Gtk2/dasher_main.cpp:1164
+msgid "Dasher is a predictive text entry application"
+msgstr ""
+
+#: ../Src/Gtk2/dasher_main.cpp:1153 ../Src/Gtk2/dasher_main.cpp:1159
+msgid "translator-credits"
+msgstr "ಶಂಕರ್ ಪ್ರಸಾದ್ ಎಂ. ವಿ."
+
+#: ../Src/Gtk2/module_settings_window.cpp:85
+msgid "Dasher Module Options"
+msgstr "Dasher ಘಟಕ ಆಯ್ಕೆಗಳು"
+
+#: ../Src/Gtk2/module_settings_window.cpp:91
+#, c-format
+msgid "%s Options:"
+msgstr "%s ಆಯ್ಕೆಗಳು:"
+
+#: ../Src/Gtk2/mouse_input.h:15
+msgid "Mouse Input"
+msgstr "ಮೌಸ್ ಪ್ರದಾನ(ಇನ್‍ಪುಟ್)"
+
+#: ../Src/Gtk2/mouse_input.h:51
+msgid "Pixels covering Y range"
+msgstr "Y ವ್ಯಾಪ್ತಿಯನ್ನು ಹೊಂದಿರುವ ಪಿಕ್ಸೆಲ್"
+
+#. TRANSLATORS: Only use the vertical mouse coordinate - this is prefered for some disabled users.
+#: ../Src/Gtk2/mouse_input.h:58
+msgid "One Dimensional Mouse Input"
+msgstr "ಒಂದು ಆಯಾಮದ ಮೌಸ್ ಪ್ರದಾನ"
