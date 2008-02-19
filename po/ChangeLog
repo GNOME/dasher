@@ -1,3 +1,8 @@
+2008-02-19  Runa Bhattacharjee <runabh@gmail.com>
+
+	* kn.po: Added Kannada Translations by Shankar Prasad
+	* LINGUAS: Added Kannada (kn) to the list of languages
+
 2008-02-18  Nguyễn Thái Ngọc Duy <pclouds@gmail.com>
 
 	* vi.po: Updated Vietnamese translation
