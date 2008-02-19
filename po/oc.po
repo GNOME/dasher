@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-27 13:21+0100\n"
+"POT-Creation-Date: 2008-02-19 20:17+0100\n"
 "PO-Revision-Date: 2007-12-27 16:11+0100\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan <ubuntu-l10n-oci@lists.ubuntu.com>\n"
@@ -433,7 +433,7 @@ msgstr ""
 #: ../Data/glade/dasher.gameWIP.glade.h:54
 #: ../Data/glade/dasher.traditional.glade.h:55
 msgid "New file"
-msgstr "Novèl fichièr"
+msgstr "Fichièr novèl"
 
 #: ../Data/glade/dasher.compose.glade.h:50
 #: ../Data/glade/dasher.gameWIP.glade.h:56
@@ -1132,4 +1132,3 @@ msgstr ""
 #: ../Src/Gtk2/mouse_input.h:58
 msgid "One Dimensional Mouse Input"
 msgstr ""
-
