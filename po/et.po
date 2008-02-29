@@ -2,18 +2,18 @@
 # Estonian translation of Dasher.
 #
 # Copyright (C) 2003, 2005 Free Software Foundation, Inc.
-# Copyright (C) 2007 The GNOME Project
+# Copyright (C) 2007, 2008 The GNOME Project
 # This file is distributed under the same license as the dasher package.
 #
 # Priit Laes <amd@tt.ee>, 2003-2005.
-# Ivar Smolin <okul@linux.ee>, 2005-2007.
+# Ivar Smolin <okul@linux.ee>, 2005-2008.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-18 14:45+0100\n"
-"PO-Revision-Date: 2007-12-31 10:13+0200\n"
+"PO-Revision-Date: 2008-02-25 16:12+0200\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -917,7 +917,7 @@ msgstr "Automaatne kalibreerimine"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:11
 msgid "Eyetracker Mode"
-msgstr ""
+msgstr "Silmadega jälgimise režiim"
 
 #. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:29
@@ -1042,7 +1042,7 @@ msgstr "Juhtimisrežiim"
 #. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
 #: ../Src/Gtk2/Preferences.cpp:1001
 msgid "Auto On Stop"
-msgstr ""
+msgstr "Automaattegevus seiskamisel"
 
 #: ../Src/Gtk2/dasher_action_keyboard.cpp:60
 #: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:94
@@ -1126,7 +1126,7 @@ msgstr "Dasher on ennustav tekstisisestusrakendus"
 msgid "translator-credits"
 msgstr ""
 "Priit Laes <amd@store20.com>, 2003-2005.\n"
-"Ivar Smolin <okul@linux.ee>, 2005-2007."
+"Ivar Smolin <okul@linux.ee>, 2005-2008."
 
 #: ../Src/Gtk2/module_settings_window.cpp:85
 msgid "Dasher Module Options"
