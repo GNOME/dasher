@@ -63,9 +63,11 @@ CDasherWindow::CDasherWindow() {
   wc.m_wc.hCursor = LoadCursor(NULL, IDC_ARROW);
   wc.m_wc.hbrBackground = (HBRUSH) (COLOR_WINDOW); 
  #ifndef _WIN32_WCE
-  wc.m_wc.lpszMenuName = (LPCTSTR) IDC_DASHER;
+ // wc.m_wc.lpszMenuName = (LPCTSTR) IDC_DASHER;
   wc.m_wc.hIconSm = m_hIconSm;
 #endif
+
+  m_hMenu = LoadMenu(WinHelper::hInstApp, (LPCTSTR) IDC_DASHER);
 }
 
 HWND CDasherWindow::Create() {
@@ -81,13 +83,19 @@ HWND CDasherWindow::Create() {
   HWND hWnd;
 
 #ifndef _WIN32_WCE
-  if((iStyle == APP_STYLE_COMPOSE) || (iStyle == APP_STYLE_DIRECT))
+  if((iStyle == APP_STYLE_COMPOSE) || (iStyle == APP_STYLE_DIRECT)) {
     hWnd = CWindowImpl<CDasherWindow >::Create(NULL, NULL, WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN,  WS_EX_NOACTIVATE | WS_EX_APPWINDOW | WS_EX_TOPMOST);
-  else
+    ::SetMenu(hWnd, NULL);
+  }
+  else {
     hWnd = CWindowImpl<CDasherWindow >::Create(NULL, NULL, WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN);
+    ::SetMenu(hWnd, m_hMenu);
+  }
 #else
   hWnd = CWindowImpl<CDasherWindow, CWindow, CWinTraits<WS_CLIPCHILDREN | WS_CLIPSIBLINGS> >::Create(NULL);
 #endif
+
+
 
   // Create Widgets
   m_pDasher = new CDasher(hWnd);
@@ -572,10 +580,12 @@ void CDasherWindow::Layout() {
   if((iStyle == APP_STYLE_COMPOSE) || (iStyle == APP_STYLE_DIRECT)) {
     SetWindowLong(GWL_EXSTYLE, GetWindowLong(GWL_EXSTYLE) | WS_EX_NOACTIVATE | WS_EX_APPWINDOW);
     SetWindowPos(HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+	SetMenu(NULL);
   }
   else {
     SetWindowLong(GWL_EXSTYLE, GetWindowLong(GWL_EXSTYLE) & !WS_EX_NOACTIVATE);
     SetWindowPos(HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+	SetMenu(m_hMenu);
   }
 #endif
 

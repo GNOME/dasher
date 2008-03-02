@@ -125,6 +125,8 @@ private:
 
 	HICON m_hIconSm;
 
+	HMENU m_hMenu;
+
 	LPCWSTR AutoOffset;
 	LPCWSTR DialogCaption;
 	char tmpAutoOffset[25];

@@ -508,6 +508,7 @@ BEGIN
     IDS_BUTTON_PREFS_DIALOGUE_TITLE "Button Mode Preferences"
     IDS_BUTTON_SETTINGS_TITLE "Button Setup"
     IDS_FILE_SAVE           "Save"
+    IDS_OPTIONS_PREFS       "Prefs"
     IDS_FILE_OPEN           "Open"
     IDS_FILE_NEW            "New"
 END

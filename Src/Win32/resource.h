@@ -13,6 +13,7 @@
 #define IDS_BUTTON_SETTINGS_TITLE       106
 #define IDS_FILE_SAVE                   107
 #define IDM_EXIT                        108
+#define IDS_OPTIONS_PREFS               108
 #define IDS_FILE_OPEN                   109
 #define IDS_HELLO                       110
 #define IDS_FILE_NEW                    111
