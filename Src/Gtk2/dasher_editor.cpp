@@ -1,6 +1,6 @@
 // dasher_editor.cpp
 //
-// Copyright (c) 2007 The Dasher Team
+// Copyright (c) 2008 The Dasher Team
 //
 // This file is part of Dasher.
 //
@@ -95,8 +95,6 @@ enum {
 };
 
 static guint dasher_editor_signals[SIGNAL_NUM];
-
-static DasherEditor *g_pEditor;
 
 /* TODO: Use appropriate macros here */
 /* G-object boilerplate code */

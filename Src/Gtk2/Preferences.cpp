@@ -2,6 +2,7 @@
 
 #include <glib/gi18n.h>
 #include <libintl.h>
+#include <cstring>
 
 #include "../Common/Common.h"
 #include "DasherTypes.h"
@@ -951,7 +952,7 @@ void dasher_preferences_dialogue_populate_actions(DasherPreferencesDialogue *pSe
   
   pPrivate->pListStore = gtk_list_store_new(ACTIONS_N_COLUMNS, G_TYPE_INT, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN);
 
-  GtkTreeIter oIter;
+//  GtkTreeIter oIter;
 
   // TODO: Reimplement this
 

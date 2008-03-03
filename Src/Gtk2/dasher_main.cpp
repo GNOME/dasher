@@ -1,5 +1,7 @@
 #include "config.h"
 
+#include <cstring>
+
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <glade/glade.h>

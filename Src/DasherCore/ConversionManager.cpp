@@ -28,6 +28,7 @@
 #include "NodeCreationManager.h"
 
 #include <iostream>
+#include <cstring>
 #include <string>
 #include <vector>
 #include <stdlib.h>

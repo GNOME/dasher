@@ -1,6 +1,6 @@
 // myassert.h
 //
-// Copyright (c) 2007 The Dasher Team
+// Copyright (c) 2008 The Dasher Team
 //
 // This file is part of Dasher.
 //
@@ -57,7 +57,7 @@ void __cdecl __debugbreak(void);
 #else
 
 // Non-debug version (assertions disabled)
-#define DASHER_ASSERT(expr) true
+#define DASHER_ASSERT(expr) ((void)true)
 
 #endif // DEBUG
 

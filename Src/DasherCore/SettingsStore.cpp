@@ -12,6 +12,8 @@
 #include "Event.h"
 #include "EventHandler.h"
 
+#include <cstring>
+#include <cstdlib>
 #include <iostream>
 
 using namespace std;

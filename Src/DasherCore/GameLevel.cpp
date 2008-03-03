@@ -66,7 +66,7 @@ void Level1::SentenceFinished()
       m_strPerformance << "You also get a bonus of " << bonusPoints << " for only making only "
 		       << iErrors << " errors.\n";
     }
-  int speed = 14426*m_pScorer->GetNats()/double(m_pScorer->GetTime());
+  int speed = (int)(14426*m_pScorer->GetNats()/double(m_pScorer->GetTime()));
   int speedBonus = std::max((speed-15)*5,0);
   if(speedBonus != 0)
     m_strPerformance << "You also get a writing speed bonus of " << speedBonus << "\n";
@@ -143,7 +143,7 @@ void Level2::SentenceFinished()
       m_strPerformance << "You also get a bonus of " << bonusPoints << " for only making only "
 		       << iErrors << " errors.\n";
     }
-  int speed = 14426*m_pScorer->GetNats()/double(m_pScorer->GetTime());
+  int speed = (int)(14426*m_pScorer->GetNats()/double(m_pScorer->GetTime()));
   int speedBonus = std::max((speed-15)*5,0);
   if(speedBonus != 0)
     m_strPerformance << "You also get a writing speed bonus of " << speedBonus << "\n";

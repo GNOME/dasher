@@ -1,6 +1,7 @@
 
 #include "../Common/Common.h"
 
+#include <cstring>
 #include "TimeSpan.h"
 
 #ifdef _WIN32

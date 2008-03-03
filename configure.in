@@ -1,5 +1,5 @@
 AC_PREREQ(2.56)
-AC_INIT([dasher],[4.7.0],[http://bugzilla.gnome.org/enter_bug.cgi?product=dasher])
+AC_INIT([dasher],[4.7.1],[http://bugzilla.gnome.org/enter_bug.cgi?product=dasher])
 AC_REVISION([$Id: configure.in,v])
 AC_CONFIG_SRCDIR([Src/main.cc])
 AC_CONFIG_HEADERS(config.h)
@@ -362,6 +362,7 @@ AM_CONDITIONAL(DOGTK2, test x$BUILDGTK2 = xtrue)
 AM_CONDITIONAL(DOQTE, test x$WITHQTE = xtrue)
 AM_CONDITIONAL(GNOME_SPEECH, test x$WITHSPEECH = xtrue)
 AM_CONDITIONAL(GNOME_A11Y, test x$WITHA11Y = xtrue)
+AM_CONDITIONAL(GNOME_HELP, test x$WITHGNOME = xtrue)
 AM_CONDITIONAL(WITH_GPE, test x$WITHGPE = xtrue)
 AM_CONDITIONAL(WITH_MAEMO, test x$WITHMAEMO = xtrue)
 AM_CONDITIONAL(WITH_MAEMOFULLSCREEN, test x$WITHMAEMOFULLSCREEN = xtrue)
@@ -412,9 +413,10 @@ AC_SUBST(GTK2BUILD_CFLAGS)
 AC_SUBST(GTK2BUILD_LIBS)
 
 if [[ x"$WITHGNOME" = xtrue ]]; then
-GNOME_DOC_INIT
+  GNOME_DOC_INIT
 else
-AM_CONDITIONAL(ENABLE_SK, false)
+  # Allows compilation if --without-gnome is passed
+  AM_CONDITIONAL(ENABLE_SK, test "x$enable_scrollkeeper" = "xyes")
 fi
 
 AC_CONFIG_FILES([Data/dasher.desktop.in

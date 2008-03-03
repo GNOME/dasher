@@ -1,6 +1,6 @@
 // DasherModel.cpp
 //
-// Copyright (c) 2007 The Dasher Team
+// Copyright (c) 2008 The Dasher Team
 //
 // This file is part of Dasher.
 //
@@ -21,6 +21,7 @@
 #include "../Common/Common.h"
 
 #include <iostream>
+#include <cstring>
 #include "../Common/Random.h"
 #include "DasherModel.h"
 #include "DasherView.h"
@@ -212,8 +213,6 @@ void CDasherModel::RecursiveMakeRoot(CDasherNode *pNewRoot) {
 // so not very often.
 void CDasherModel::RebuildAroundNode(CDasherNode *pNode) {
   DASHER_ASSERT(pNode != NULL);
-
-  CDasherNode *pNodeOrig = pNode;
 
   while(pNode->GetFlag(NF_SUBNODE))
     pNode = pNode->Parent();
@@ -927,7 +926,6 @@ bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
   CDasherNode *pOldNode = Get_node_under_crosshair();
 
   CDasherNode *root(m_Root);
-  CDasherNode::ChildMap & children = m_Root->Children();
 
   if(!(m_Root->GetFlag(NF_SUPER))) {
     Reparent_root(root->Lbnd(), root->Hbnd());
@@ -998,8 +996,8 @@ void CDasherModel::ScheduleZoom(dasherint iDasherX, dasherint iDasherY, int iMax
       double dFraction = s / static_cast<double>(iSteps - 1);
       
       SGotoItem sNewItem;
-      sNewItem.iN1 = m_Rootmin - dFraction * iOffset;
-      sNewItem.iN2 = m_Rootmax - dFraction * iOffset;
+      sNewItem.iN1 = m_Rootmin - static_cast<myint>(dFraction * iOffset);
+      sNewItem.iN2 = m_Rootmax - static_cast<myint>(dFraction * iOffset);
       
       m_deGotoQueue.push_back(sNewItem);
     }
@@ -1028,8 +1026,8 @@ void CDasherModel::ScheduleZoom(dasherint iDasherX, dasherint iDasherY, int iMax
       double dFraction = s / static_cast<double>(iSteps - 1);
       
       SGotoItem sNewItem;
-      sNewItem.iN1 = (m_Rootmin - iC) * exp(dFraction/dTau) + iC;
-      sNewItem.iN2 = (m_Rootmax - iC) * exp(dFraction/dTau) + iC;
+      sNewItem.iN1 = static_cast<myint>((m_Rootmin - iC) * exp(dFraction/dTau)) + iC;
+      sNewItem.iN2 = static_cast<myint>((m_Rootmax - iC) * exp(dFraction/dTau)) + iC;
       
       m_deGotoQueue.push_back(sNewItem);
     }

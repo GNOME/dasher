@@ -1,6 +1,7 @@
 #include "../Common/Common.h"
 #include "../../config.h"
 
+#include <cstring>
 #include <iostream>
 #include "DasherControl.h"
 #include "Timer.h"

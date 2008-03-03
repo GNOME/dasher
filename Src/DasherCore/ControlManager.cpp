@@ -21,6 +21,7 @@
 #include "../Common/Common.h"
 
 #include "ControlManager.h"
+#include <cstring>
 
 using namespace Dasher;
 using namespace std;

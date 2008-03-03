@@ -1,6 +1,6 @@
 // DasherInterfaceBase.cpp
 //
-// Copyright (c) 2007 The Dasher Team
+// Copyright (c) 2008 The Dasher Team
 //
 // This file is part of Dasher.
 //
@@ -358,7 +358,7 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
     }
   }
   else if(pEvent->m_iEventType == EV_LOCK) {
-    CLockEvent *pLockEvent(static_cast<CLockEvent *>(pEvent));
+//    CLockEvent *pLockEvent(static_cast<CLockEvent *>(pEvent));
 
 //     // TODO: Sort this out - at the moment these don't occur in pairs, so the old boolean variable is still needed
 //     if(pLockEvent->m_bLock) {

@@ -1,6 +1,6 @@
 // CTWLanguageModel.h
 //
-// Copyright (c) 2007 The Dasher Team
+// Copyright (c) 2008 The Dasher Team
 //
 // This file is part of Dasher.
 //
@@ -55,7 +55,7 @@ namespace Dasher {
 	}
 
 	Dasher::CHashTable HashTable; // Hashtable used for storing CCTWNodes in an array
-      int MaxDepth;	// Maximum depth of the tree
+      unsigned int MaxDepth;	// Maximum depth of the tree
 	int MaxTries;	// Determines how many times to try to find an empty index for a new node (max number of collisions)
 	int alpha;		// Parameter of the KT-estimator 
 	

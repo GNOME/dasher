@@ -4,6 +4,7 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdkx.h>
+#include <cstring>
 #include <iostream>
 #include <sstream>
 #include <string>

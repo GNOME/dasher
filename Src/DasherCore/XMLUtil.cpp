@@ -1,6 +1,8 @@
 
 #include "../Common/Common.h"
 
+#include <cstring>
+
 #include "XMLUtil.h"
 
 #include <sys/types.h>

@@ -772,13 +772,13 @@ void CDasherGameMode::DrawHelperArrow(CDasherView* pView)
 
   if(m_Target.iTargetY < a && m_Target.iCenterY < m_iCrossY-defaultlength/2)
     {
-      myint x = sqrt((double)(r*r-pow((double)(m_Target.iCenterY-a),2)));
-      iLength = sqrt((double)(pow((double)(x-m_iCrossX),2)+pow((double)(a-m_iCrossY),2)));
+      myint x = (myint) sqrt((double)(r*r-pow((double)(m_Target.iCenterY-a),2)));
+      iLength = (myint) sqrt((double)(pow((double)(x-m_iCrossX),2)+pow((double)(a-m_iCrossY),2)));
     }
   else if(m_Target.iTargetY > 2*m_iCrossY-a && m_Target.iCenterY > m_iCrossY+defaultlength/2)
     {
-      myint x = sqrt((double)(r*r-pow((double)(m_Target.iCenterY+a-2*m_iCrossY),2)));
-      iLength = sqrt((double)(pow((double)(x-m_iCrossX),2)+pow((double)(a-m_iCrossY),2)));
+      myint x = (myint) sqrt((double)(r*r-pow((double)(m_Target.iCenterY+a-2*m_iCrossY),2)));
+      iLength = (myint) sqrt((double)(pow((double)(x-m_iCrossX),2)+pow((double)(a-m_iCrossY),2)));
     }
   else
     iLength = defaultlength;
@@ -788,8 +788,8 @@ void CDasherGameMode::DrawHelperArrow(CDasherView* pView)
 
   for(int n = 1; n < noOfPoints; ++n)
     {
-      iX[n] = cos(angle)*(iX[n-1]) - sin(angle)*(iY[n-1]-m_Target.iCenterY);
-      iY[n] = m_Target.iCenterY + sin(angle)*(iX[n-1]) + cos(angle)*(iY[n-1]-m_Target.iCenterY);
+      iX[n] = (myint) (cos(angle)*(iX[n-1]) - sin(angle)*(iY[n-1]-m_Target.iCenterY));
+      iY[n] = (myint) (m_Target.iCenterY + sin(angle)*(iX[n-1]) + cos(angle)*(iY[n-1]-m_Target.iCenterY));
     }
   //...then plot it.
   pView->DasherPolyarrow(iX, iY, noOfPoints, GetLongParameter(LP_LINE_WIDTH)*4, gameColour, 1.414);

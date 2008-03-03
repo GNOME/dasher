@@ -5,6 +5,8 @@
 #include "../Common/Common.h"
 
 #include "ColourIO.h"
+#include <cstring>
+
 using namespace Dasher;
 using namespace std;
 //using namespace expat;

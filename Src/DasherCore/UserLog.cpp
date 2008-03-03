@@ -2,6 +2,7 @@
 
 #include "UserLog.h"
 #include <fstream>
+#include <cstring>
 
 #ifdef _WIN32
 #include <sys/timeb.h>

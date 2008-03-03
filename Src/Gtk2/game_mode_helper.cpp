@@ -26,7 +26,7 @@ typedef struct _GameModeHelperPrivate GameModeHelperPrivate;
 static void game_mode_helper_class_init(GameModeHelperClass * pClass);
 static void game_mode_helper_init(GameModeHelper * pControl);
 static void game_mode_helper_destroy(GObject * pObject);
-static void game_mode_helper_get_next_string(GameModeHelper *pSelf);
+//static void game_mode_helper_get_next_string(GameModeHelper *pSelf);
 static void game_mode_helper_update_target_label(GameModeHelper *pSelf);
 static void game_mode_helper_dialog_box(GameModeHelper* pSelf, const char* message);
 
@@ -169,9 +169,9 @@ game_mode_helper_cb_gametoggle(GtkWidget *pWidget, gpointer pUserData) {
   return FALSE; // TODO: Scheck semantics of return value
 }
 
+/*
 void game_mode_helper_get_next_string(GameModeHelper *pSelf) {
   GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
-  /*
   if(pPrivate->szOutput)
     delete[] pPrivate->szOutput;
 
@@ -189,10 +189,10 @@ void game_mode_helper_get_next_string(GameModeHelper *pSelf) {
 
   gtk_dasher_control_add_game_mode_string(GTK_DASHER_CONTROL(pPrivate->pControl),
 					  pPrivate->szTarget);
-  */
-
 }
+*/
 
+/*
 void game_mode_helper_output(GameModeHelper *pSelf, const gchar *szText) {
   GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
 
@@ -204,13 +204,16 @@ void game_mode_helper_output(GameModeHelper *pSelf, const gchar *szText) {
   //  if(!strcmp(pPrivate->szOutput, pPrivate->szTarget))
   //    game_mode_helper_get_next_string(pSelf);
 }
+*/
 
+/*
 void game_mode_helper_delete(GameModeHelper *pSelf, int iLength) {
   GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
 
   //  pPrivate->szOutput[pPrivate->iOutputLength - iLength] = '\0';
   //  pPrivate->iOutputLength -= iLength;
 }
+*/
 
 void game_mode_helper_message(GameModeHelper *pSelf, int message, const void * messagedata) {
   using namespace Dasher::GameMode;
@@ -312,7 +315,7 @@ void game_mode_helper_update_target_label(GameModeHelper *pSelf) {
 
 void game_mode_helper_dialog_box(GameModeHelper* pSelf, const gchar* message)
 {
-  GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
+  //  GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pSelf->private_data));
 
   GtkWidget* pDialog;
   pDialog = gtk_message_dialog_new(NULL,

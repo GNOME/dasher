@@ -1,5 +1,7 @@
 #include "config.h"
 
+#include <cstring>
+
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 /* TODO: r4epair gnome libs flags (or get rid of entirely) */
@@ -104,7 +106,7 @@ enum {
   SIGNAL_NUM
 };
 
-static guint dasher_editor_internal_signals[SIGNAL_NUM];
+//static guint dasher_editor_internal_signals[SIGNAL_NUM];
 
 static DasherEditorInternal *g_pEditor;
 
@@ -124,7 +126,7 @@ static void dasher_editor_internal_setup_actions(DasherEditor *pSelf);
 static void dasher_editor_internal_add_action(DasherEditor *pSelf, DasherAction *pNewAction);
 static EditorAction *dasher_editor_internal_get_action_by_id(DasherEditor *pSelf, int iID);
 static void dasher_editor_internal_rebuild_action_pane(DasherEditor *pSelf);
-static void dasher_editor_internal_display_message(DasherEditor *pSelf, DasherMessageInfo *pMessageInfo);
+//static void dasher_editor_internal_display_message(DasherEditor *pSelf, DasherMessageInfo *pMessageInfo);
 static void dasher_editor_internal_check_activity(DasherEditor *pSelf, EditorAction *pAction);
 static void dasher_editor_internal_action_save_state(DasherEditor *pSelf, EditorAction *pAction);
 
@@ -1275,12 +1277,12 @@ dasher_editor_internal_rebuild_action_pane(DasherEditor *pSelf) {
 }
 
 // TODO: This shouldn't be a part of the editor
-static void 
-dasher_editor_internal_display_message(DasherEditor *pSelf, DasherMessageInfo *pMessageInfo) {
-  GtkMessageDialog *pDialog = GTK_MESSAGE_DIALOG(gtk_message_dialog_new(0, GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, pMessageInfo->szMessage));
-  gtk_dialog_run(GTK_DIALOG(pDialog));
-  gtk_widget_destroy(GTK_WIDGET(pDialog));
-}
+//static void 
+//dasher_editor_internal_display_message(DasherEditor *pSelf, DasherMessageInfo *pMessageInfo) {
+//  GtkMessageDialog *pDialog = GTK_MESSAGE_DIALOG(gtk_message_dialog_new(0, GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, pMessageInfo->szMessage));
+//  gtk_dialog_run(GTK_DIALOG(pDialog));
+//  gtk_widget_destroy(GTK_WIDGET(pDialog));
+//}
 
 static void 
 dasher_editor_internal_check_activity(DasherEditor *pSelf, EditorAction *pAction) {

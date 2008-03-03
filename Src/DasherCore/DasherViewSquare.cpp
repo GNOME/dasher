@@ -1,6 +1,6 @@
 // DasherViewSquare.cpp
 //
-// Copyright (c) 2007 The Dasher Team
+// Copyright (c) 2008 The Dasher Team
 //
 // This file is part of Dasher.
 //
@@ -49,8 +49,6 @@ using namespace Dasher;
 static char THIS_FILE[] = __FILE__;
 #endif
 #endif
-
-static bool g_bDebug = false;
 
 // FIXME - quite a lot of the code here probably should be moved to
 // the parent class (DasherView). I think we really should make the

@@ -6,6 +6,7 @@
 #include <gconf/gconf-enum-types.h>
 #endif
 
+#include <cstring>
 #include "DasherAppSettings.h"
 #include "../Common/AppSettingsData.h"
 

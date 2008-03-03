@@ -1,6 +1,6 @@
 // CTWLanguageModel.cpp
 //
-// Copyright (c) 2007 The Dasher Team
+// Copyright (c) 2008 The Dasher Team
 //
 // This file is part of Dasher.
 //
@@ -25,6 +25,7 @@
 //#include "stdafx.h"
 #include "CTWLanguageModel.h"
 #include <math.h> // not in use anymore? needed it for log
+#include <cstring>
 
 using namespace Dasher;
 
@@ -55,7 +56,7 @@ CCTWLanguageModel::CCTWLanguageModel(Dasher::CEventHandler *pEventHandler, CSett
 	NrBits = 9;    // number of bits used for representation of probabilities
 	MaxValue = (1<<NrBits) -1;
     	
-    NrPhases = ceil(log((double)(GetSize()))/log(2.0)); // number of bits per input-symbol
+    NrPhases = (int)ceil(log((double)(GetSize()))/log(2.0)); // number of bits per input-symbol
 	Tree = new CCTWNode[MaxNrNodes]; // create array with all CCTWNodes. 
 	
 	// Fill RootIndex table with indices of the RootNodes <- now I round up to next power of 2, should only create for possible symbols
@@ -320,7 +321,6 @@ void CCTWLanguageModel::LearnSymbol(Context CurContext, int Symbol)
   {	// find indices of the tree nodes corresponding to the context
 	
 	int *Index = new int[Context.Context.size()+1]; // +1 for the rootnode	 
-	int phase = 0;
 	int ValidDepth = 0;	
 	for (int phase = 0;phase<NrPhases;phase++) 
 	{

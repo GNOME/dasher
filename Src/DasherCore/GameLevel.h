@@ -129,8 +129,8 @@ private:
 class Dasher::GameMode::Level2 : public Dasher::GameMode::Level {
 public:
   Level2(CDasherGameMode* pGameParent):Level(pGameParent),
-    oldTime(0), oldNats(0.0), m_dCurrentScore(0), m_iErrorSize(2048),
-    bFixing(false), bMadeError(false), iErrors(0)
+    oldTime(0), m_dCurrentScore(0), oldNats(0.0), iErrors(0),
+    m_iErrorSize(2048), bFixing(false), bMadeError(false)
   {
     // In level 2, the flashing arrow is mainly off
     m_iOscillatorOn=500;
@@ -166,8 +166,8 @@ private:
 class Dasher::GameMode::Level1 : public Dasher::GameMode::Level {
 public:
   Level1(CDasherGameMode* pGameParent):Level(pGameParent),
-   oldTime(0), oldNats(0.0), m_dCurrentScore(0), m_iErrorSize(2048),
-   bFixing(false), bMadeError(false), iErrors(0)
+   oldTime(0), m_dCurrentScore(0), oldNats(0.0), iErrors(0),
+   m_iErrorSize(2048), bFixing(false), bMadeError(false)
   {
     // In Level 1, the flashing arrow is often on
     m_iOscillatorOn=1000;

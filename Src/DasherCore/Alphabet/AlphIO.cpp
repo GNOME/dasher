@@ -22,6 +22,7 @@
 #include "AlphIO.h"
 
 #include <iostream>
+#include <cstring>
 
 using namespace Dasher;
 using namespace std;

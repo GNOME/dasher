@@ -1,6 +1,6 @@
 // DasherView.cpp
 //
-// Copyright (c) 2007 The Dasher Team
+// Copyright (c) 2008 The Dasher Team
 //
 // This file is part of Dasher.
 //
@@ -152,8 +152,8 @@ void CDasherView::DasherPolyarrow(myint *x, myint *y, int n, int iWidth, int iCo
   for(int i(0); i < n; ++i)
     Dasher2Screen(x[i], y[i], ScreenPoints[i].x, ScreenPoints[i].y);
 
-  int iXvec = (ScreenPoints[n-2].x - ScreenPoints[n-1].x)*dArrowSizeFactor;
-  int iYvec = (ScreenPoints[n-2].y - ScreenPoints[n-1].y)*dArrowSizeFactor;
+  int iXvec = (int)((ScreenPoints[n-2].x - ScreenPoints[n-1].x)*dArrowSizeFactor);
+  int iYvec = (int)((ScreenPoints[n-2].y - ScreenPoints[n-1].y)*dArrowSizeFactor);
 
   ScreenPoints[n].x   = ScreenPoints[n-1].x + iXvec + iYvec;
   ScreenPoints[n].y   = ScreenPoints[n-1].y - iXvec + iYvec;

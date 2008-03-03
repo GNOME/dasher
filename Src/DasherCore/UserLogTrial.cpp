@@ -1,5 +1,6 @@
 #include "../Common/Common.h"
 
+#include <cstring>
 #include "UserLogTrial.h"
 
 // Track memory leaks on Windows to the line that new'd the memory
