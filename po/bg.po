@@ -1,17 +1,18 @@
 # Bulgarian translation of Dasher po-file.
-# Copyright (C)  2004, 2005, 2006, 2007 Free Software Foundation, Inc.
+# Copyright (C) 2004, 2005, 2006, 2007, 2008 Free Software Foundation, Inc.
 # This file is distributed under the same license as the dasher package.
 # Vladimir Petkov <vpetkov@i-space.org>, 2004.
 # Alexander Shopov <ash@contact.bg>, 2005, 2006, 2007.
+# Yavor Doganov <yavor@gnu.org>, 2008.
 #
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher trunk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-09-03 11:05+0300\n"
-"PO-Revision-Date: 2007-09-03 11:05+0300\n"
-"Last-Translator: Alexander Shopov <ash@contact.bg>\n"
+"POT-Creation-Date: 2008-03-21 22:57+0200\n"
+"PO-Revision-Date: 2008-03-18 17:46+0200\n"
+"Last-Translator: Yavor Doganov <yavor@gnu.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,7 +22,8 @@ msgstr ""
 #: ../Data/dasher.desktop.in.in.h:1 ../Data/glade/dasher.compose.glade.h:34
 #: ../Data/glade/dasher.direct.glade.h:31
 #: ../Data/glade/dasher.fullscreen.glade.h:30
-#: ../Data/glade/dasher.traditional.glade.h:35
+#: ../Data/glade/dasher.gameWIP.glade.h:35
+#: ../Data/glade/dasher.traditional.glade.h:39
 #: ../Data/glade/dashermaemo.glade.h:17
 #: ../Data/glade/dashermaemofullscreen.glade.h:15
 #: ../Src/Gtk2/dasher_main.cpp:1163
@@ -35,6 +37,7 @@ msgstr "Въвеждане на текст с предсказване"
 #: ../Data/glade/dasher.compose.glade.h:1
 #: ../Data/glade/dasher.direct.glade.h:1
 #: ../Data/glade/dasher.fullscreen.glade.h:1
+#: ../Data/glade/dasher.gameWIP.glade.h:1
 #: ../Data/glade/dasher.traditional.glade.h:1
 msgid "<b>Actions:</b>"
 msgstr "<b>Действия:</b>"
@@ -42,6 +45,7 @@ msgstr "<b>Действия:</b>"
 #: ../Data/glade/dasher.compose.glade.h:2
 #: ../Data/glade/dasher.direct.glade.h:2
 #: ../Data/glade/dasher.fullscreen.glade.h:2
+#: ../Data/glade/dasher.gameWIP.glade.h:2
 #: ../Data/glade/dasher.traditional.glade.h:2
 #: ../Data/glade/dashermaemo.glade.h:3
 #: ../Data/glade/dashermaemofullscreen.glade.h:1
@@ -51,6 +55,7 @@ msgstr "<b>Адаптиране:</b>"
 #: ../Data/glade/dasher.compose.glade.h:3
 #: ../Data/glade/dasher.direct.glade.h:3
 #: ../Data/glade/dasher.fullscreen.glade.h:3
+#: ../Data/glade/dasher.gameWIP.glade.h:3
 #: ../Data/glade/dasher.traditional.glade.h:3
 #: ../Data/glade/dashermaemo.glade.h:4
 #: ../Data/glade/dashermaemofullscreen.glade.h:2
@@ -60,6 +65,7 @@ msgstr "<b>Избор на азбука:</b>"
 #: ../Data/glade/dasher.compose.glade.h:4
 #: ../Data/glade/dasher.direct.glade.h:4
 #: ../Data/glade/dasher.fullscreen.glade.h:4
+#: ../Data/glade/dasher.gameWIP.glade.h:4
 #: ../Data/glade/dasher.traditional.glade.h:4
 msgid "<b>Appearance Options:</b>"
 msgstr "<b>Настройки на външния вид:</b>"
@@ -67,6 +73,7 @@ msgstr "<b>Настройки на външния вид:</b>"
 #: ../Data/glade/dasher.compose.glade.h:5
 #: ../Data/glade/dasher.direct.glade.h:5
 #: ../Data/glade/dasher.fullscreen.glade.h:5
+#: ../Data/glade/dasher.gameWIP.glade.h:5
 #: ../Data/glade/dasher.traditional.glade.h:5
 msgid "<b>Application Options:</b>"
 msgstr "<b>Настройки на програмата:</b>"
@@ -74,6 +81,7 @@ msgstr "<b>Настройки на програмата:</b>"
 #: ../Data/glade/dasher.compose.glade.h:6
 #: ../Data/glade/dasher.direct.glade.h:6
 #: ../Data/glade/dasher.fullscreen.glade.h:6
+#: ../Data/glade/dasher.gameWIP.glade.h:6
 #: ../Data/glade/dasher.traditional.glade.h:6
 msgid "<b>Application Style:</b>"
 msgstr "<b>Начин на адаптиране:</b>"
@@ -81,6 +89,7 @@ msgstr "<b>Начин на адаптиране:</b>"
 #: ../Data/glade/dasher.compose.glade.h:7
 #: ../Data/glade/dasher.direct.glade.h:7
 #: ../Data/glade/dasher.fullscreen.glade.h:7
+#: ../Data/glade/dasher.gameWIP.glade.h:7
 #: ../Data/glade/dasher.traditional.glade.h:7
 msgid "<b>Colour Scheme:</b>"
 msgstr "<b>Цветова схема:</b>"
@@ -88,6 +97,7 @@ msgstr "<b>Цветова схема:</b>"
 #: ../Data/glade/dasher.compose.glade.h:8
 #: ../Data/glade/dasher.direct.glade.h:8
 #: ../Data/glade/dasher.fullscreen.glade.h:8
+#: ../Data/glade/dasher.gameWIP.glade.h:8
 #: ../Data/glade/dasher.traditional.glade.h:8
 msgid "<b>Control Style:</b>"
 msgstr "<b>Стил на управлението:</b>"
@@ -95,6 +105,7 @@ msgstr "<b>Стил на управлението:</b>"
 #: ../Data/glade/dasher.compose.glade.h:9
 #: ../Data/glade/dasher.direct.glade.h:9
 #: ../Data/glade/dasher.fullscreen.glade.h:9
+#: ../Data/glade/dasher.gameWIP.glade.h:9
 #: ../Data/glade/dasher.traditional.glade.h:9
 msgid "<b>Dasher Font:</b>"
 msgstr "<b>Шрифт на Dasher</b>"
@@ -102,6 +113,7 @@ msgstr "<b>Шрифт на Dasher</b>"
 #: ../Data/glade/dasher.compose.glade.h:10
 #: ../Data/glade/dasher.direct.glade.h:10
 #: ../Data/glade/dasher.fullscreen.glade.h:10
+#: ../Data/glade/dasher.gameWIP.glade.h:10
 #: ../Data/glade/dasher.traditional.glade.h:10
 msgid "<b>Direction:</b>"
 msgstr "<b>Посока:</b>"
@@ -109,6 +121,7 @@ msgstr "<b>Посока:</b>"
 #: ../Data/glade/dasher.compose.glade.h:11
 #: ../Data/glade/dasher.direct.glade.h:11
 #: ../Data/glade/dasher.fullscreen.glade.h:11
+#: ../Data/glade/dasher.gameWIP.glade.h:11
 #: ../Data/glade/dasher.traditional.glade.h:11
 msgid "<b>Editor Font:</b>"
 msgstr "<b>Шрифт на редактора:</b>"
@@ -116,6 +129,7 @@ msgstr "<b>Шрифт на редактора:</b>"
 #: ../Data/glade/dasher.compose.glade.h:12
 #: ../Data/glade/dasher.direct.glade.h:12
 #: ../Data/glade/dasher.fullscreen.glade.h:12
+#: ../Data/glade/dasher.gameWIP.glade.h:12
 #: ../Data/glade/dasher.traditional.glade.h:12
 msgid "<b>Input Device:</b>"
 msgstr "<b>Входящо устройство:</b>"
@@ -123,6 +137,7 @@ msgstr "<b>Входящо устройство:</b>"
 #: ../Data/glade/dasher.compose.glade.h:13
 #: ../Data/glade/dasher.direct.glade.h:13
 #: ../Data/glade/dasher.fullscreen.glade.h:13
+#: ../Data/glade/dasher.gameWIP.glade.h:13
 #: ../Data/glade/dasher.traditional.glade.h:13
 #: ../Data/glade/dashermaemo.glade.h:6
 #: ../Data/glade/dashermaemofullscreen.glade.h:3
@@ -132,6 +147,7 @@ msgstr "<b>Модел на езика:</b>"
 #: ../Data/glade/dasher.compose.glade.h:14
 #: ../Data/glade/dasher.direct.glade.h:14
 #: ../Data/glade/dasher.fullscreen.glade.h:14
+#: ../Data/glade/dasher.gameWIP.glade.h:14
 #: ../Data/glade/dasher.traditional.glade.h:14
 msgid "<b>Prediction:</b>"
 msgstr "<b>Предсказване:</b>"
@@ -139,6 +155,7 @@ msgstr "<b>Предсказване:</b>"
 #: ../Data/glade/dasher.compose.glade.h:15
 #: ../Data/glade/dasher.direct.glade.h:15
 #: ../Data/glade/dasher.fullscreen.glade.h:15
+#: ../Data/glade/dasher.gameWIP.glade.h:15
 #: ../Data/glade/dasher.traditional.glade.h:15
 #: ../Data/glade/dashermaemo.glade.h:8
 #: ../Data/glade/dashermaemofullscreen.glade.h:5
@@ -148,6 +165,7 @@ msgstr "<b>Заглаждане:</b>"
 #: ../Data/glade/dasher.compose.glade.h:16
 #: ../Data/glade/dasher.direct.glade.h:16
 #: ../Data/glade/dasher.fullscreen.glade.h:16
+#: ../Data/glade/dasher.gameWIP.glade.h:16
 #: ../Data/glade/dasher.traditional.glade.h:16
 #: ../Data/glade/dashermaemo.glade.h:9
 #: ../Data/glade/dashermaemofullscreen.glade.h:6
@@ -157,6 +175,7 @@ msgstr "<b>Скорост:</b>"
 #: ../Data/glade/dasher.compose.glade.h:17
 #: ../Data/glade/dasher.direct.glade.h:17
 #: ../Data/glade/dasher.fullscreen.glade.h:17
+#: ../Data/glade/dasher.gameWIP.glade.h:17
 #: ../Data/glade/dasher.traditional.glade.h:17
 msgid "<b>Starting And Stopping:</b>"
 msgstr "<b>Стартиране и спиране:</b>"
@@ -164,16 +183,19 @@ msgstr "<b>Стартиране и спиране:</b>"
 #: ../Data/glade/dasher.compose.glade.h:18
 #: ../Data/glade/dasher.direct.glade.h:18
 #: ../Data/glade/dasher.fullscreen.glade.h:18
+#: ../Data/glade/dasher.gameWIP.glade.h:19
 #: ../Data/glade/dasher.traditional.glade.h:19
 #: ../Data/glade/dashermaemo.glade.h:10
 #: ../Data/glade/dashermaemofullscreen.glade.h:7
 msgid "Adapt speed automatically"
 msgstr "Автоматична промяна на скоростта"
 
+#. The default display orientation for the selected alphabet, ie left to right for English, right to left for Arabic, etc.
 #: ../Data/glade/dasher.compose.glade.h:19
 #: ../Data/glade/dasher.direct.glade.h:19
 #: ../Data/glade/dasher.fullscreen.glade.h:19
-#: ../Data/glade/dasher.traditional.glade.h:20
+#: ../Data/glade/dasher.gameWIP.glade.h:20
+#: ../Data/glade/dasher.traditional.glade.h:21
 #: ../Data/glade/dashermaemo.glade.h:12
 #: ../Data/glade/dashermaemofullscreen.glade.h:9
 msgid "Alphabet Default"
@@ -181,55 +203,65 @@ msgstr "Стандартната за азбуката"
 
 #: ../Data/glade/dasher.compose.glade.h:20
 #: ../Data/glade/dasher.direct.glade.h:20
-#: ../Data/glade/dasher.traditional.glade.h:21
+#: ../Data/glade/dasher.gameWIP.glade.h:21
+#: ../Data/glade/dasher.traditional.glade.h:22
 msgid "Alphabet:"
 msgstr "Азбука:"
 
 #: ../Data/glade/dasher.compose.glade.h:21
 #: ../Data/glade/dasher.direct.glade.h:21
 #: ../Data/glade/dasher.fullscreen.glade.h:20
-#: ../Data/glade/dasher.traditional.glade.h:22
+#: ../Data/glade/dasher.gameWIP.glade.h:22
+#: ../Data/glade/dasher.traditional.glade.h:23
 msgid "Appearance"
 msgstr "Външен вид"
 
 #: ../Data/glade/dasher.compose.glade.h:22
 #: ../Data/glade/dasher.direct.glade.h:22
 #: ../Data/glade/dasher.fullscreen.glade.h:21
-#: ../Data/glade/dasher.traditional.glade.h:23
+#: ../Data/glade/dasher.gameWIP.glade.h:23
+#: ../Data/glade/dasher.traditional.glade.h:24
 msgid "Application"
 msgstr "Програма"
 
 #: ../Data/glade/dasher.compose.glade.h:23
 #: ../Data/glade/dasher.direct.glade.h:23
 #: ../Data/glade/dasher.fullscreen.glade.h:22
-#: ../Data/glade/dasher.traditional.glade.h:24
+#: ../Data/glade/dasher.gameWIP.glade.h:24
+#: ../Data/glade/dasher.traditional.glade.h:25
 #: ../Data/glade/dashermaemo.glade.h:13
 #: ../Data/glade/dashermaemofullscreen.glade.h:10
 msgid "Bottom to Top"
 msgstr "От долу - нагоре"
 
+#. Centre circle = start and stop by dwelling over a circle in the centre of the window
+#. Two box = start and stop by dwelling in sequence over two boxes
+#. (both of these are methods for starting and stopping without pressing a mouse button)
 #: ../Data/glade/dasher.compose.glade.h:24
 #: ../Data/glade/dasher.direct.glade.h:24
 #: ../Data/glade/dasher.fullscreen.glade.h:23
-#: ../Data/glade/dasher.traditional.glade.h:25
+#: ../Data/glade/dasher.gameWIP.glade.h:25
+#: ../Data/glade/dasher.traditional.glade.h:29
 msgid ""
 "Centre circle\n"
 "Two box"
 msgstr ""
 "в централния кръг\n"
-"между двете кутии"
+"между две кутии"
 
 #: ../Data/glade/dasher.compose.glade.h:26
 #: ../Data/glade/dasher.direct.glade.h:26
 #: ../Data/glade/dasher.fullscreen.glade.h:25
-#: ../Data/glade/dasher.traditional.glade.h:27
+#: ../Data/glade/dasher.gameWIP.glade.h:27
+#: ../Data/glade/dasher.traditional.glade.h:31
 msgid "Composition"
 msgstr "Съставяне"
 
 #: ../Data/glade/dasher.compose.glade.h:27
 #: ../Data/glade/dasher.direct.glade.h:27
 #: ../Data/glade/dasher.fullscreen.glade.h:26
-#: ../Data/glade/dasher.traditional.glade.h:28
+#: ../Data/glade/dasher.gameWIP.glade.h:28
+#: ../Data/glade/dasher.traditional.glade.h:32
 #: ../Data/glade/dashermaemo.glade.h:14
 #: ../Data/glade/dashermaemofullscreen.glade.h:11
 msgid "Control"
@@ -238,17 +270,20 @@ msgstr "Управление"
 #: ../Data/glade/dasher.compose.glade.h:28
 #: ../Data/glade/dasher.direct.glade.h:28
 #: ../Data/glade/dasher.fullscreen.glade.h:27
-#: ../Data/glade/dasher.traditional.glade.h:29
+#: ../Data/glade/dasher.gameWIP.glade.h:29
+#: ../Data/glade/dasher.traditional.glade.h:33
 msgid "Control mode"
 msgstr "Режим на управление"
 
 #: ../Data/glade/dasher.compose.glade.h:29
-#: ../Data/glade/dasher.traditional.glade.h:30
+#: ../Data/glade/dasher.gameWIP.glade.h:30
+#: ../Data/glade/dasher.traditional.glade.h:34
 msgid "Copy"
 msgstr "Копиране"
 
 #: ../Data/glade/dasher.compose.glade.h:30
-#: ../Data/glade/dasher.traditional.glade.h:31
+#: ../Data/glade/dasher.gameWIP.glade.h:31
+#: ../Data/glade/dasher.traditional.glade.h:35
 #: ../Data/glade/dashermaemofullscreen.glade.h:12
 msgid "Copy _All"
 msgstr "Копиране на _всичко"
@@ -256,7 +291,8 @@ msgstr "Копиране на _всичко"
 #: ../Data/glade/dasher.compose.glade.h:31
 #: ../Data/glade/dasher.direct.glade.h:29
 #: ../Data/glade/dasher.fullscreen.glade.h:28
-#: ../Data/glade/dasher.traditional.glade.h:32
+#: ../Data/glade/dasher.gameWIP.glade.h:32
+#: ../Data/glade/dasher.traditional.glade.h:36
 #: ../Data/glade/dashermaemo.glade.h:15
 #: ../Data/glade/dashermaemofullscreen.glade.h:13
 msgid "Custom colour scheme:"
@@ -265,21 +301,24 @@ msgstr "Потребителска цветова схема:"
 #: ../Data/glade/dasher.compose.glade.h:32
 #: ../Data/glade/dasher.direct.glade.h:30
 #: ../Data/glade/dasher.fullscreen.glade.h:29
-#: ../Data/glade/dasher.traditional.glade.h:33
+#: ../Data/glade/dasher.gameWIP.glade.h:33
+#: ../Data/glade/dasher.traditional.glade.h:37
 #: ../Data/glade/dashermaemo.glade.h:16
 #: ../Data/glade/dashermaemofullscreen.glade.h:14
 msgid "Custom:"
 msgstr "Потребителска:"
 
 #: ../Data/glade/dasher.compose.glade.h:33
-#: ../Data/glade/dasher.traditional.glade.h:34
+#: ../Data/glade/dasher.gameWIP.glade.h:34
+#: ../Data/glade/dasher.traditional.glade.h:38
 msgid "Cut"
 msgstr "Изрязване"
 
 #: ../Data/glade/dasher.compose.glade.h:35
 #: ../Data/glade/dasher.direct.glade.h:32
 #: ../Data/glade/dasher.fullscreen.glade.h:31
-#: ../Data/glade/dasher.traditional.glade.h:36
+#: ../Data/glade/dasher.gameWIP.glade.h:36
+#: ../Data/glade/dasher.traditional.glade.h:40
 #: ../Data/glade/dashermaemo.glade.h:18
 #: ../Data/glade/dashermaemofullscreen.glade.h:16
 msgid "Dasher Preferences"
@@ -292,49 +331,56 @@ msgstr "_Въведение в Dasher"
 #: ../Data/glade/dasher.compose.glade.h:37
 #: ../Data/glade/dasher.direct.glade.h:33
 #: ../Data/glade/dasher.fullscreen.glade.h:32
-#: ../Data/glade/dasher.traditional.glade.h:37
+#: ../Data/glade/dasher.gameWIP.glade.h:38
+#: ../Data/glade/dasher.traditional.glade.h:41
 msgid "Direct entry"
 msgstr "Директен вход"
 
 #: ../Data/glade/dasher.compose.glade.h:38
 #: ../Data/glade/dasher.direct.glade.h:34
 #: ../Data/glade/dasher.fullscreen.glade.h:33
-#: ../Data/glade/dasher.traditional.glade.h:38
+#: ../Data/glade/dasher.gameWIP.glade.h:39
+#: ../Data/glade/dasher.traditional.glade.h:42
 msgid "Dock application window"
 msgstr "Скачване на прозореца на приложението"
 
 #: ../Data/glade/dasher.compose.glade.h:39
 #: ../Data/glade/dasher.direct.glade.h:35
 #: ../Data/glade/dasher.fullscreen.glade.h:34
-#: ../Data/glade/dasher.traditional.glade.h:39
+#: ../Data/glade/dasher.gameWIP.glade.h:40
+#: ../Data/glade/dasher.traditional.glade.h:43
 msgid "Draw box outlines"
 msgstr "Рисуване на външните линии на кутиите"
 
 #: ../Data/glade/dasher.compose.glade.h:40
 #: ../Data/glade/dasher.direct.glade.h:36
 #: ../Data/glade/dasher.fullscreen.glade.h:35
-#: ../Data/glade/dasher.traditional.glade.h:40
+#: ../Data/glade/dasher.gameWIP.glade.h:41
+#: ../Data/glade/dasher.traditional.glade.h:44
 msgid "Draw line between crosshairs and mouse"
 msgstr "Рисуване на линия между центъра на интерес и мишката"
 
 #: ../Data/glade/dasher.compose.glade.h:41
 #: ../Data/glade/dasher.direct.glade.h:37
 #: ../Data/glade/dasher.fullscreen.glade.h:36
-#: ../Data/glade/dasher.traditional.glade.h:41
+#: ../Data/glade/dasher.gameWIP.glade.h:43
+#: ../Data/glade/dasher.traditional.glade.h:45
 msgid "Full Screen"
 msgstr "На цял екран"
 
 #: ../Data/glade/dasher.compose.glade.h:42
 #: ../Data/glade/dasher.direct.glade.h:38
 #: ../Data/glade/dasher.fullscreen.glade.h:37
-#: ../Data/glade/dasher.traditional.glade.h:43
+#: ../Data/glade/dasher.gameWIP.glade.h:45
+#: ../Data/glade/dasher.traditional.glade.h:47
 msgid "Increase line thickness"
 msgstr "Увеличаване на дебелината на линията"
 
 #: ../Data/glade/dasher.compose.glade.h:43
 #: ../Data/glade/dasher.direct.glade.h:39
 #: ../Data/glade/dasher.fullscreen.glade.h:38
-#: ../Data/glade/dasher.traditional.glade.h:44
+#: ../Data/glade/dasher.gameWIP.glade.h:46
+#: ../Data/glade/dasher.traditional.glade.h:48
 #: ../Data/glade/dashermaemo.glade.h:20
 #: ../Data/glade/dashermaemofullscreen.glade.h:17
 msgid "Japanese"
@@ -343,14 +389,16 @@ msgstr "Японски"
 #: ../Data/glade/dasher.compose.glade.h:44
 #: ../Data/glade/dasher.direct.glade.h:40
 #: ../Data/glade/dasher.fullscreen.glade.h:39
-#: ../Data/glade/dasher.traditional.glade.h:45
+#: ../Data/glade/dasher.gameWIP.glade.h:47
+#: ../Data/glade/dasher.traditional.glade.h:49
 msgid "Language"
 msgstr "Език"
 
 #: ../Data/glade/dasher.compose.glade.h:45
 #: ../Data/glade/dasher.direct.glade.h:41
 #: ../Data/glade/dasher.fullscreen.glade.h:40
-#: ../Data/glade/dasher.traditional.glade.h:46
+#: ../Data/glade/dasher.gameWIP.glade.h:48
+#: ../Data/glade/dasher.traditional.glade.h:50
 #: ../Data/glade/dashermaemo.glade.h:21
 #: ../Data/glade/dashermaemofullscreen.glade.h:18
 msgid "Language model adapts as you write."
@@ -359,61 +407,71 @@ msgstr "Езиковият модел се адаптира докато пиш�
 #: ../Data/glade/dasher.compose.glade.h:46
 #: ../Data/glade/dasher.direct.glade.h:42
 #: ../Data/glade/dasher.fullscreen.glade.h:41
-#: ../Data/glade/dasher.traditional.glade.h:47
+#: ../Data/glade/dasher.gameWIP.glade.h:49
+#: ../Data/glade/dasher.traditional.glade.h:51
 msgid "Large font "
 msgstr "Едър шрифт"
 
 #: ../Data/glade/dasher.compose.glade.h:47
 #: ../Data/glade/dasher.direct.glade.h:43
 #: ../Data/glade/dasher.fullscreen.glade.h:42
-#: ../Data/glade/dasher.traditional.glade.h:48
+#: ../Data/glade/dasher.gameWIP.glade.h:51
+#: ../Data/glade/dasher.traditional.glade.h:52
 #: ../Data/glade/dashermaemo.glade.h:22
 #: ../Data/glade/dashermaemofullscreen.glade.h:20
 msgid "Left to Right"
 msgstr "От ляво - надясно"
 
+#. PPM =  Prediction by Partial Match, a styatistical language model.
 #: ../Data/glade/dasher.compose.glade.h:48
 #: ../Data/glade/dasher.direct.glade.h:44
 #: ../Data/glade/dasher.fullscreen.glade.h:43
-#: ../Data/glade/dasher.traditional.glade.h:49
+#: ../Data/glade/dasher.gameWIP.glade.h:53
+#: ../Data/glade/dasher.traditional.glade.h:54
 #: ../Data/glade/dashermaemo.glade.h:23
 #: ../Data/glade/dashermaemofullscreen.glade.h:21
 msgid "Mixture model (PPM/dictionary)"
 msgstr "Смесен модел (предсказване по частично съвпадение/речник)"
 
 #: ../Data/glade/dasher.compose.glade.h:49
-#: ../Data/glade/dasher.traditional.glade.h:50
+#: ../Data/glade/dasher.gameWIP.glade.h:54
+#: ../Data/glade/dasher.traditional.glade.h:55
 msgid "New file"
 msgstr "Нов файл"
 
 #: ../Data/glade/dasher.compose.glade.h:50
-#: ../Data/glade/dasher.traditional.glade.h:51
+#: ../Data/glade/dasher.gameWIP.glade.h:56
+#: ../Data/glade/dasher.traditional.glade.h:56
 msgid "Open file"
 msgstr "Отваряне на файл"
 
 #: ../Data/glade/dasher.compose.glade.h:51
 #: ../Data/glade/dasher.direct.glade.h:45
 #: ../Data/glade/dasher.fullscreen.glade.h:44
-#: ../Data/glade/dasher.traditional.glade.h:52
+#: ../Data/glade/dasher.gameWIP.glade.h:57
+#: ../Data/glade/dasher.traditional.glade.h:57
 msgid "Options"
 msgstr "Настройки"
 
 #: ../Data/glade/dasher.compose.glade.h:52
-#: ../Data/glade/dasher.traditional.glade.h:53
+#: ../Data/glade/dasher.gameWIP.glade.h:58
+#: ../Data/glade/dasher.traditional.glade.h:58
 msgid "Paste"
 msgstr "Поставяне"
 
 #: ../Data/glade/dasher.compose.glade.h:53
 #: ../Data/glade/dasher.direct.glade.h:46
 #: ../Data/glade/dasher.fullscreen.glade.h:45
-#: ../Data/glade/dasher.traditional.glade.h:54
+#: ../Data/glade/dasher.gameWIP.glade.h:59
+#: ../Data/glade/dasher.traditional.glade.h:59
 msgid "Pause outside of canvas"
 msgstr "Пауза при излизане от прозореца"
 
 #: ../Data/glade/dasher.compose.glade.h:54
 #: ../Data/glade/dasher.direct.glade.h:47
 #: ../Data/glade/dasher.fullscreen.glade.h:46
-#: ../Data/glade/dasher.traditional.glade.h:55
+#: ../Data/glade/dasher.gameWIP.glade.h:60
+#: ../Data/glade/dasher.traditional.glade.h:60
 #: ../Data/glade/dashermaemo.glade.h:25
 msgid "Please Wait..."
 msgstr "Изчакайте..."
@@ -425,30 +483,34 @@ msgstr "_Настройки"
 #: ../Data/glade/dasher.compose.glade.h:56
 #: ../Data/glade/dasher.direct.glade.h:48
 #: ../Data/glade/dasher.fullscreen.glade.h:47
-#: ../Data/glade/dasher.traditional.glade.h:59
+#: ../Data/glade/dasher.gameWIP.glade.h:64
+#: ../Data/glade/dasher.traditional.glade.h:64
 #: ../Data/glade/dashermaemo.glade.h:27
 #: ../Data/glade/dashermaemofullscreen.glade.h:24
 msgid "Right to Left"
 msgstr "От дясно - наляво"
 
 #: ../Data/glade/dasher.compose.glade.h:57
-#: ../Data/glade/dasher.traditional.glade.h:60
+#: ../Data/glade/dasher.gameWIP.glade.h:65
+#: ../Data/glade/dasher.traditional.glade.h:65
 msgid "Save file"
 msgstr "Запазване на файл"
 
 #: ../Data/glade/dasher.compose.glade.h:58
-#: ../Data/glade/dasher.traditional.glade.h:61
+#: ../Data/glade/dasher.gameWIP.glade.h:66
+#: ../Data/glade/dasher.traditional.glade.h:66
 msgid "Save file as"
 msgstr "Запазване на файл като"
 
 #: ../Data/glade/dasher.compose.glade.h:59
 #: ../Data/glade/dasher.direct.glade.h:51
 #: ../Data/glade/dasher.fullscreen.glade.h:48
-#: ../Data/glade/dasher.traditional.glade.h:64
+#: ../Data/glade/dasher.gameWIP.glade.h:70
+#: ../Data/glade/dasher.traditional.glade.h:69
 #: ../Data/glade/dashermaemo.glade.h:28
 #: ../Data/glade/dashermaemofullscreen.glade.h:25
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1332
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1365
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1333
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1367
 #: ../Src/Gtk2/dasher_main.cpp:1005
 msgid "Select File"
 msgstr "Избор на файл"
@@ -463,48 +525,56 @@ msgstr "Избор на шрифт"
 #: ../Data/glade/dasher.compose.glade.h:61
 #: ../Data/glade/dasher.direct.glade.h:52
 #: ../Data/glade/dasher.fullscreen.glade.h:50
-#: ../Data/glade/dasher.traditional.glade.h:65
+#: ../Data/glade/dasher.gameWIP.glade.h:71
+#: ../Data/glade/dasher.traditional.glade.h:70
 msgid "Show mouse position"
 msgstr "Показване на мястото на мишката"
 
 #: ../Data/glade/dasher.compose.glade.h:62
 #: ../Data/glade/dasher.direct.glade.h:53
 #: ../Data/glade/dasher.fullscreen.glade.h:51
-#: ../Data/glade/dasher.traditional.glade.h:66
+#: ../Data/glade/dasher.gameWIP.glade.h:72
+#: ../Data/glade/dasher.traditional.glade.h:71
 msgid "Show speed slider"
 msgstr "Показване на плъзгача на скоростта"
 
 #: ../Data/glade/dasher.compose.glade.h:63
 #: ../Data/glade/dasher.direct.glade.h:54
 #: ../Data/glade/dasher.fullscreen.glade.h:52
-#: ../Data/glade/dasher.traditional.glade.h:67
+#: ../Data/glade/dasher.gameWIP.glade.h:73
+#: ../Data/glade/dasher.traditional.glade.h:72
 msgid "Show toolbar"
 msgstr "Показване на лентата с инструментите"
 
 #: ../Data/glade/dasher.compose.glade.h:64
 #: ../Data/glade/dasher.direct.glade.h:55
 #: ../Data/glade/dasher.fullscreen.glade.h:53
-#: ../Data/glade/dasher.traditional.glade.h:68
+#: ../Data/glade/dasher.gameWIP.glade.h:74
+#: ../Data/glade/dasher.traditional.glade.h:73
 msgid "Small font"
 msgstr "Дребен шрифт"
 
 #: ../Data/glade/dasher.compose.glade.h:65
 #: ../Data/glade/dasher.direct.glade.h:56
-#: ../Data/glade/dasher.traditional.glade.h:69
+#: ../Data/glade/dasher.gameWIP.glade.h:75
+#: ../Data/glade/dasher.traditional.glade.h:74
 msgid "Speed:"
 msgstr "Скорост:"
 
 #: ../Data/glade/dasher.compose.glade.h:66
 #: ../Data/glade/dasher.direct.glade.h:57
 #: ../Data/glade/dasher.fullscreen.glade.h:54
-#: ../Data/glade/dasher.traditional.glade.h:70
+#: ../Data/glade/dasher.gameWIP.glade.h:76
+#: ../Data/glade/dasher.traditional.glade.h:75
 msgid "Stand-alone"
 msgstr "Самостоятелно"
 
+#. PPM = Prediction by Partial Match, a statistical language model.
 #: ../Data/glade/dasher.compose.glade.h:67
 #: ../Data/glade/dasher.direct.glade.h:58
 #: ../Data/glade/dasher.fullscreen.glade.h:55
-#: ../Data/glade/dasher.traditional.glade.h:71
+#: ../Data/glade/dasher.gameWIP.glade.h:77
+#: ../Data/glade/dasher.traditional.glade.h:77
 #: ../Data/glade/dashermaemo.glade.h:30
 #: ../Data/glade/dashermaemofullscreen.glade.h:27
 msgid "Standard letter-based PPM"
@@ -513,35 +583,40 @@ msgstr "Стандартно побуквено предсказване по ч
 #: ../Data/glade/dasher.compose.glade.h:68
 #: ../Data/glade/dasher.direct.glade.h:59
 #: ../Data/glade/dasher.fullscreen.glade.h:56
-#: ../Data/glade/dasher.traditional.glade.h:72
+#: ../Data/glade/dasher.gameWIP.glade.h:78
+#: ../Data/glade/dasher.traditional.glade.h:78
 msgid "Start on left mouse button"
 msgstr "Започване при натискане на левия бутон на мишката"
 
 #: ../Data/glade/dasher.compose.glade.h:69
 #: ../Data/glade/dasher.direct.glade.h:60
 #: ../Data/glade/dasher.fullscreen.glade.h:57
-#: ../Data/glade/dasher.traditional.glade.h:73
+#: ../Data/glade/dasher.gameWIP.glade.h:79
+#: ../Data/glade/dasher.traditional.glade.h:79
 msgid "Start on space bar"
 msgstr "Започване с натискането на клавиша за интервал"
 
 #: ../Data/glade/dasher.compose.glade.h:70
 #: ../Data/glade/dasher.direct.glade.h:61
 #: ../Data/glade/dasher.fullscreen.glade.h:58
-#: ../Data/glade/dasher.traditional.glade.h:74
+#: ../Data/glade/dasher.gameWIP.glade.h:80
+#: ../Data/glade/dasher.traditional.glade.h:80
 msgid "Start with mouse position:"
 msgstr "Започване с позиция на мишката:"
 
 #: ../Data/glade/dasher.compose.glade.h:71
 #: ../Data/glade/dasher.direct.glade.h:62
 #: ../Data/glade/dasher.fullscreen.glade.h:59
-#: ../Data/glade/dasher.traditional.glade.h:75
+#: ../Data/glade/dasher.gameWIP.glade.h:81
+#: ../Data/glade/dasher.traditional.glade.h:81
 msgid "Timestamp new files"
 msgstr "Поставяне на време на новите файлове"
 
 #: ../Data/glade/dasher.compose.glade.h:72
 #: ../Data/glade/dasher.direct.glade.h:63
 #: ../Data/glade/dasher.fullscreen.glade.h:60
-#: ../Data/glade/dasher.traditional.glade.h:76
+#: ../Data/glade/dasher.gameWIP.glade.h:82
+#: ../Data/glade/dasher.traditional.glade.h:82
 #: ../Data/glade/dashermaemo.glade.h:31
 #: ../Data/glade/dashermaemofullscreen.glade.h:28
 msgid "Top to Bottom"
@@ -550,27 +625,30 @@ msgstr "От горе - надолу"
 #: ../Data/glade/dasher.compose.glade.h:73
 #: ../Data/glade/dasher.direct.glade.h:64
 #: ../Data/glade/dasher.fullscreen.glade.h:61
-#: ../Data/glade/dasher.traditional.glade.h:77
+#: ../Data/glade/dasher.gameWIP.glade.h:83
+#: ../Data/glade/dasher.traditional.glade.h:83
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
 "your writing speed."
 msgstr ""
-"С това да установявате относителните размери\n"
+"С това установявате относителните размери\n"
 "на кутиите за буквите. Големите стойности\n"
 "забавят скоростта на писане."
 
 #: ../Data/glade/dasher.compose.glade.h:76
 #: ../Data/glade/dasher.direct.glade.h:67
 #: ../Data/glade/dasher.fullscreen.glade.h:64
-#: ../Data/glade/dasher.traditional.glade.h:80
+#: ../Data/glade/dasher.gameWIP.glade.h:86
+#: ../Data/glade/dasher.traditional.glade.h:86
 msgid "Very large font"
 msgstr "Много едър шрифт"
 
 #: ../Data/glade/dasher.compose.glade.h:77
 #: ../Data/glade/dasher.direct.glade.h:68
 #: ../Data/glade/dasher.fullscreen.glade.h:65
-#: ../Data/glade/dasher.traditional.glade.h:81
+#: ../Data/glade/dasher.gameWIP.glade.h:87
+#: ../Data/glade/dasher.traditional.glade.h:87
 #: ../Data/glade/dashermaemo.glade.h:33
 #: ../Data/glade/dashermaemofullscreen.glade.h:31
 msgid "Word-based model"
@@ -587,22 +665,25 @@ msgstr "_Добавяне към файл"
 
 #: ../Data/glade/dasher.compose.glade.h:80
 msgid "_Contents"
-msgstr "_Съдържание"
+msgstr "_Ръководство"
 
 #: ../Data/glade/dasher.compose.glade.h:81
-#: ../Data/glade/dasher.traditional.glade.h:84
+#: ../Data/glade/dasher.gameWIP.glade.h:90
+#: ../Data/glade/dasher.traditional.glade.h:90
 #: ../Data/glade/dashermaemofullscreen.glade.h:35
 msgid "_Edit"
 msgstr "_Редактиране"
 
 #: ../Data/glade/dasher.compose.glade.h:82
-#: ../Data/glade/dasher.traditional.glade.h:85
+#: ../Data/glade/dasher.gameWIP.glade.h:91
+#: ../Data/glade/dasher.traditional.glade.h:91
 #: ../Data/glade/dashermaemofullscreen.glade.h:37
 msgid "_File"
 msgstr "_Файл"
 
 #: ../Data/glade/dasher.compose.glade.h:83
-#: ../Data/glade/dasher.traditional.glade.h:86
+#: ../Data/glade/dasher.gameWIP.glade.h:92
+#: ../Data/glade/dasher.traditional.glade.h:92
 #: ../Data/glade/dashermaemofullscreen.glade.h:38
 msgid "_Help"
 msgstr "_Помощ"
@@ -619,44 +700,78 @@ msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "абвгдежзийк АБВГДЕЖЗИЙК"
 
 #: ../Data/glade/dasher.direct.glade.h:49
-#: ../Data/glade/dasher.traditional.glade.h:62
+#: ../Data/glade/dasher.gameWIP.glade.h:68
+#: ../Data/glade/dasher.traditional.glade.h:67
 msgid "Select Dasher Font"
 msgstr "Избор на шрифт за Dasher"
 
 #: ../Data/glade/dasher.direct.glade.h:50
-#: ../Data/glade/dasher.traditional.glade.h:63
+#: ../Data/glade/dasher.gameWIP.glade.h:69
+#: ../Data/glade/dasher.traditional.glade.h:68
 msgid "Select Editor Font"
 msgstr "Избор на шрифт за редактора"
 
+#: ../Data/glade/dasher.gameWIP.glade.h:18
 #: ../Data/glade/dasher.traditional.glade.h:18
 msgid "A_ppend to file..."
 msgstr "_Добавяне към файл..."
 
-#: ../Data/glade/dasher.traditional.glade.h:42
+#: ../Data/glade/dasher.gameWIP.glade.h:37
+msgid "Demo!"
+msgstr "Демонстрация!"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:42
+msgid "Full Demo"
+msgstr "Пълна демонстрация"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:44
+#: ../Data/glade/dasher.traditional.glade.h:46
 msgid "Help"
 msgstr "Помощ"
 
-#: ../Data/glade/dasher.traditional.glade.h:56
+#: ../Data/glade/dasher.gameWIP.glade.h:50
+msgid "Launch Dasher Game & Demo mode!"
+msgstr "Стартиране на игра на Dasher и режим на демонстрация!"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:52
+msgid "Level:"
+msgstr "Ниво:"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:55
+msgid "New sentence"
+msgstr "Ново изречение"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:61
+#: ../Data/glade/dasher.traditional.glade.h:61
 msgid "Pr_eferences..."
 msgstr "_Настройки..."
 
-#: ../Data/glade/dasher.traditional.glade.h:57
+#: ../Data/glade/dasher.gameWIP.glade.h:62
+#: ../Data/glade/dasher.traditional.glade.h:62
 msgid "Preferences"
 msgstr "Настройки"
 
-#: ../Data/glade/dasher.traditional.glade.h:58
+#: ../Data/glade/dasher.gameWIP.glade.h:63
+#: ../Data/glade/dasher.traditional.glade.h:63
 msgid "Quit"
 msgstr "Спиране на програмата"
 
-#: ../Data/glade/dasher.traditional.glade.h:82
+#: ../Data/glade/dasher.gameWIP.glade.h:67
+msgid "Score:"
+msgstr "Точки:"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:88
+#: ../Data/glade/dasher.traditional.glade.h:88
 msgid "_About..."
 msgstr "_Относно..."
 
-#: ../Data/glade/dasher.traditional.glade.h:83
+#: ../Data/glade/dasher.gameWIP.glade.h:89
+#: ../Data/glade/dasher.traditional.glade.h:89
 msgid "_Contents..."
-msgstr "_Съдържание..."
+msgstr "_Ръководство..."
 
-#: ../Data/glade/dasher.traditional.glade.h:87
+#: ../Data/glade/dasher.gameWIP.glade.h:93
+#: ../Data/glade/dasher.traditional.glade.h:93
 msgid "_Import Training Text..."
 msgstr "_Внасяне на текст за обучение..."
 
@@ -736,55 +851,63 @@ msgstr "Максимално увеличение"
 msgid "Click Mode"
 msgstr "Чрез натискане"
 
-#: ../Src/DasherCore/DasherButtons.cpp:24
+#. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
+#: ../Src/DasherCore/DasherButtons.cpp:25
 msgid "Zoom steps"
 msgstr "Стъпки на увеличаване"
 
-#: ../Src/DasherCore/DasherButtons.cpp:25
+#. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
+#: ../Src/DasherCore/DasherButtons.cpp:27
 msgid "Right zoom"
 msgstr "Увеличаване надясно"
 
-#: ../Src/DasherCore/DasherButtons.cpp:26
+#: ../Src/DasherCore/DasherButtons.cpp:28
 msgid "Number of boxes"
 msgstr "Брой кутии"
 
-#: ../Src/DasherCore/DasherButtons.cpp:27
+#: ../Src/DasherCore/DasherButtons.cpp:29
 msgid "Safety margin"
 msgstr "Поле за безопасност"
 
-#: ../Src/DasherCore/DasherButtons.cpp:28
+#. TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other.
+#: ../Src/DasherCore/DasherButtons.cpp:31
 msgid "Box non-uniformity"
 msgstr "Разлика в размерите на кутиите"
 
-#: ../Src/DasherCore/DasherButtons.cpp:29
+#. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
+#: ../Src/DasherCore/DasherButtons.cpp:33
 msgid "Global keyboard grab"
 msgstr "Пълно прихващане на клавиатурата"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:897
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:934
 msgid "Normal Control"
 msgstr "Нормално управление"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:904
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:941
 msgid "Menu Mode"
 msgstr "С меню"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:905
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:942
 msgid "Direct Mode"
 msgstr "Директен"
 
 #. RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:907
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:944
 msgid "Alternating Direct Mode"
 msgstr "Директен с редуване"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:908
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:945
 msgid "Compass Mode"
 msgstr "Компас"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:909
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:946
 msgid "Stylus Control"
 msgstr "Чрез писалка"
+
+#: ../Src/DasherCore/DasherGameMode.cpp:633
+msgid "Well done!"
+msgstr "Много добре!"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:7
 msgid "Automatic calibration"
@@ -794,26 +917,30 @@ msgstr "Автоматична калибрация"
 msgid "Eyetracker Mode"
 msgstr "Следене на очите"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:28
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:29
+#. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:29
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
 msgid "Long press time"
 msgstr "Време за дълго натискане"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:29
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
+#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the time in which the button must be pressed multiple times to count.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
 msgid "Multiple press time"
 msgstr "Време за многократно натискане"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:30
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:31
+#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the number of times a button must be pressed to count as a multiple press.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:34
 msgid "Multiple press count"
 msgstr "Брой многократни натискания"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
+#. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
 msgid "Enable backoff button"
 msgstr "Включване на бутона за отказване"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
 msgid "One Button Dynamic Mode"
 msgstr "Еднобутонен, динамичен"
 
@@ -856,7 +983,7 @@ msgstr "Максимум по Y:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:34
 msgid "Print socket-related debugging information to console:"
-msgstr "Отпечатване на конзолата на информация за изчистване на грешки"
+msgstr "Отпечатване на конзолата на информация за изчистване на грешки:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:38
 msgid "Socket Input"
@@ -866,47 +993,52 @@ msgstr "Вход от гнездо"
 msgid "Button offset"
 msgstr "Отместване на бутоните"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
+#. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:36
 msgid "Enable backoff and start/stop buttons"
 msgstr "Включване на бутоните за отказване и стартиране/спиране"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:33
+#. TRANSLATORS: What is normally the up button becomes the down button etc.
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:38
 msgid "Reverse up and down buttons"
 msgstr "Размяна на бутоните за горе и долу"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:34
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:39
 msgid "Slow startup"
 msgstr "Бавно стартиране"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:35
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:40
 msgid "Startup time"
 msgstr "Време за стартиране"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:36
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
 msgid "Auto speed control"
 msgstr "Автоматичен контрол на скоростта"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:37
+#. TRANSLATORS: The threshold time above which auto speed control is used.
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
 msgid "Auto speed threshold"
 msgstr "Автоматичен праг на скоростта"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:47
 msgid "Two Button Dynamic Mode"
 msgstr "Двубутонен, динамичен"
 
-#: ../Src/Gtk2/Preferences.cpp:417 ../Src/Gtk2/Preferences.cpp:983
+#: ../Src/Gtk2/Preferences.cpp:422 ../Src/Gtk2/Preferences.cpp:991
 msgid "Action"
 msgstr "Действие"
 
-#: ../Src/Gtk2/Preferences.cpp:989
+#. TRANSLATORS: Show a button for the selected action in the Dasher window.
+#: ../Src/Gtk2/Preferences.cpp:998
 msgid "Show Button"
 msgstr "Показване на бутон"
 
-#: ../Src/Gtk2/Preferences.cpp:994
+#: ../Src/Gtk2/Preferences.cpp:1003
 msgid "Control Mode"
 msgstr "Режим на управление"
 
-#: ../Src/Gtk2/Preferences.cpp:999
+#. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
+#: ../Src/Gtk2/Preferences.cpp:1009
 msgid "Auto On Stop"
 msgstr "Автоматично при спиране"
 
@@ -923,28 +1055,31 @@ msgstr "Скрипт"
 msgid "Speak"
 msgstr "Произнасяне"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:141
+#. TRANSLATORS: Send all text to the text-to-speech engine.
+#: ../Src/Gtk2/dasher_action_speech.cpp:142
 msgid "All"
 msgstr "Всичко"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:143
+#. TRANSLATORS: Send most recently entered text to the text-to-speech engine.
+#: ../Src/Gtk2/dasher_action_speech.cpp:145
 msgid "Last"
 msgstr "Последно"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:145
+#. TRANSLATORS: Repeat the last phrase sent to the text-to-speech engine.
+#: ../Src/Gtk2/dasher_action_speech.cpp:148
 msgid "Repeat"
 msgstr "Повтаряне"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:163
+#: ../Src/Gtk2/dasher_action_speech.cpp:166
 #, c-format
 msgid "Unable to initialize speech support\n"
 msgstr "Поддръжката на гласовете не може да бъде инициализирана\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:186
+#: ../Src/Gtk2/dasher_action_speech.cpp:189
 msgid "Unable to initialize voices\n"
 msgstr "Гласовете не могат да бъдат инициализирани\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:198
+#: ../Src/Gtk2/dasher_action_speech.cpp:201
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Внимание: параметрите на речта не можаха да бъдат настроени\n"
 
@@ -967,7 +1102,7 @@ msgid ""
 msgstr ""
 "Искате ли да запазите промените?\n"
 "\n"
-"В противен случай те ще бъдат изгубени.<"
+"В противен случай те ще бъдат изгубени."
 
 #: ../Src/Gtk2/dasher_main.cpp:1053
 msgid "Don't save"
@@ -1002,7 +1137,7 @@ msgstr "Настройки на модул на Dasher"
 #: ../Src/Gtk2/module_settings_window.cpp:91
 #, c-format
 msgid "%s Options:"
-msgstr "Настройки на режима „%s“"
+msgstr "Настройки на режима „%s“:"
 
 #: ../Src/Gtk2/mouse_input.h:15
 msgid "Mouse Input"
@@ -1012,6 +1147,7 @@ msgstr "Вход от мишка"
 msgid "Pixels covering Y range"
 msgstr "Пиксели покриващи диапазона по Y"
 
-#: ../Src/Gtk2/mouse_input.h:57
+#. TRANSLATORS: Only use the vertical mouse coordinate - this is prefered for some disabled users.
+#: ../Src/Gtk2/mouse_input.h:58
 msgid "One Dimensional Mouse Input"
 msgstr "Едномерен вход от мишката"
