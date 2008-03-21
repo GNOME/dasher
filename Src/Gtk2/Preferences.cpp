@@ -234,7 +234,7 @@ DasherPreferencesDialogue *dasher_preferences_dialogue_new(GladeXML *pGladeWidge
   pPrivate->pEditor = pEditor;
   pPrivate->pAppSettings = pAppSettings;
 
-  pPrivate->pGladeXML = pGladeWidgets;
+  pPrivate->pGladeXML = g_object_ref(pGladeWidgets);
 
   pPrivate->pPreferencesWindow = glade_xml_get_widget(pGladeWidgets, "preferences");
 
