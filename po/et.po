@@ -10,7 +10,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher HEAD\n"
+"Project-Id-Version: dasher 4.6.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-18 14:45+0100\n"
 "PO-Revision-Date: 2008-02-25 16:12+0200\n"
