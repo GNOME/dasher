@@ -2,7 +2,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 2002 Iain Murray
+// Copyright (c) 2008 Iain Murray
 //
 /////////////////////////////////////////////////////////////////////////////
 
@@ -63,7 +63,7 @@ public:
 
   void LoadPersistent();
 
-  void ClSet(const std::string &strKey, const std::string &strValue);
+  const char *ClSet(const std::string &strKey, const std::string &strValue);
 
   // --- Deprecated functions below
   // although string functionality might be good for

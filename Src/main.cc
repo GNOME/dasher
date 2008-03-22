@@ -5,6 +5,9 @@
 #include <gdk/gdkx.h>
 #include <glade/glade.h>
 #include <signal.h>
+#if GLIB_CHECK_VERSION(2,6,0)
+#include <Gtk2/DasherAppSettings.h>
+#endif
 
 #ifdef WITH_MAEMO
 #include <libosso.h>
@@ -170,6 +173,7 @@ int main(int argc, char *argv[]) {
 
   // TODO: It would be nice to have command line parsing in version prior to goption (eg in Solaris 10)...
 #if GLIB_CHECK_VERSION(2,6,0)
+  gboolean do_option_help = false;
   static const GOptionEntry options[] = {
     //   {"timedata", 'w', 0, G_OPTION_ARG_NONE, &timedata, "Write basic timing information to stdout", NULL},
     //   {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences window only", NULL},
@@ -177,6 +181,7 @@ int main(int argc, char *argv[]) {
     //   {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
     {"appstyle", 'a', 0, G_OPTION_ARG_STRING, &(sCommandLine.szAppStyle), "Application style (traditional, direct, compose or fullscreen)", "traditional"},
     {"options", 'o', 0, G_OPTION_ARG_STRING, &(sCommandLine.szOptions), "Override stored options", NULL},
+    {"help-options", 0, 0, G_OPTION_ARG_NONE, &do_option_help, "Describe \"--options\".", NULL},
     {NULL}
   };
 
@@ -191,6 +196,11 @@ int main(int argc, char *argv[]) {
   if(argc > 1)
     sCommandLine.szFilename = g_strdup(argv[1]);    
   //later GnomeProgram will call g_option_context_free() when we unref it
+  if (do_option_help)
+  {
+    option_help();
+    return 0;
+  }
 #endif 
 
 #ifdef WITH_GPE

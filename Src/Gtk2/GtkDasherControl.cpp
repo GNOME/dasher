@@ -1,6 +1,6 @@
 // GtkDasherControl.cpp
 //
-// Copyright (c) 2007 The Dasher Team
+// Copyright (c) 2008 The Dasher Team
 //
 // This file is part of Dasher.
 //
@@ -339,8 +339,8 @@ gtk_dasher_control_set_control_offset(GtkDasherControl *pControl, gint iOffset) 
   pPrivate->pControl->SetControlOffset(iOffset);
 }
 
-void 
+const char *
 gtk_dasher_control_cl_set(GtkDasherControl *pControl, const gchar *szKey, const gchar *szValue) {
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  pPrivate->pControl->ClSet(szKey, szValue);
+  return pPrivate->pControl->ClSet(szKey, szValue);
 }

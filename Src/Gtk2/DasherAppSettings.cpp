@@ -505,34 +505,75 @@ gboolean dasher_app_settings_get_module_settings(DasherAppSettings *pSelf, const
   return gtk_dasher_control_get_module_settings(GTK_DASHER_CONTROL(pDasherWidget), szValue, pSettings, iCount);
 }
 
-void 
+// Set the option szKey to szValue.  Return NULL if everything worked, a
+// (literal) error string for unrecognized or illegal values.
+const gchar *
 dasher_app_settings_cl_set(DasherAppSettings *pSelf, const gchar *szKey, const gchar *szValue) {
 
   for(int i(0); i < NUM_OF_APP_BPS; ++i ) {
     if(!strcmp(app_boolparamtable[i].regName, szKey)) {
-      if(!strcmp(szValue, "1"))
-	dasher_app_settings_set_bool(pSelf, app_boolparamtable[i].key, true);
-      else if(!strcmp(szValue, "0"))
-	dasher_app_settings_set_bool(pSelf, app_boolparamtable[i].key, false);
+      
+      if(!strcmp(szValue, "1") || !strcmp(szValue, _("true")))
+        dasher_app_settings_set_bool(pSelf, app_boolparamtable[i].key, true);
+      else if(!strcmp(szValue, "0") || !strcmp(szValue, _("false")))
+        dasher_app_settings_set_bool(pSelf, app_boolparamtable[i].key, false);
       else
-	g_error("Could not parse value");
-      return;
+        return _("boolean value must be specified as 'true' or 'false'.");
+      return 0;
     }
   }
 
   for(int i(0); i < NUM_OF_APP_LPS; ++i ) {
     if(!strcmp(app_longparamtable[i].regName, szKey)) {
       dasher_app_settings_set_long(pSelf, app_longparamtable[i].key, atoi(szValue));
-      return;
+      return 0;
     }
   }
 
   for(int i(0); i < NUM_OF_APP_SPS; ++i ) {
     if(!strcmp(app_stringparamtable[i].regName, szKey)) {
       dasher_app_settings_set_string(pSelf, app_stringparamtable[i].key, szValue);
-      return;
+      return 0;
     }
   }  
 
-  gtk_dasher_control_cl_set(GTK_DASHER_CONTROL(pDasherWidget), szKey, szValue);
+  return gtk_dasher_control_cl_set(GTK_DASHER_CONTROL(pDasherWidget), szKey, szValue);
+}
+
+
+void option_help()
+{
+  g_print("\n");
+  g_print("%-30s %-12s  %s\n", _("Boolean parameters"), _("Default"), _("Description"));
+  g_print("%-30s %-12s  %s\n", "------------------------------", "------------", "------------------------------");
+  for(unsigned int i=0; i < sizeof(app_boolparamtable)/sizeof(app_boolparamtable[0]); ++i) {
+    g_print("%-30s %-12s  %s\n", app_boolparamtable[i].regName, (app_boolparamtable[i].bDefaultValue ? _("true") : _("false")), app_boolparamtable[i].humanReadable);
+  }
+
+  for(unsigned int i = 0; i < sizeof(boolparamtable)/sizeof(boolparamtable[0]); i++) {
+    g_print("%-30s %-12s  %s\n", boolparamtable[i].regName, (boolparamtable[i].defaultValue ? _("true") : _("false")), boolparamtable[i].humanReadable);
+  }
+
+  g_print("\n");
+  g_print("%-30s %-12s  %s\n", _("Integer parameters"), _("Default"), _("Description"));
+  g_print("%-30s %-12s  %s\n", "------------------------------", "------------", "------------------------------");
+  for(unsigned int i=0; i < sizeof(app_longparamtable)/sizeof(app_longparamtable[0]); ++i) {
+    g_print("%-30s %12li  %s\n", app_longparamtable[i].regName, app_longparamtable[i].iDefaultValue, app_longparamtable[i].humanReadable);
+  }
+
+  for(unsigned int i = 0; i < sizeof(longparamtable)/sizeof(longparamtable[0]); i++) {
+    g_print("%-30s %12li  %s\n", longparamtable[i].regName, longparamtable[i].defaultValue, longparamtable[i].humanReadable);
+  }
+
+  g_print("\n");
+  g_print("%-30s %-12s  %s\n", _("String parameters"), _("Default"), _("Description"));
+  g_print("%-30s %-12s  %s\n", "------------------------------", "------------", "------------------------------");
+  for(unsigned int i=0; i < sizeof(app_stringparamtable)/sizeof(app_stringparamtable[0]); ++i) {
+    g_print("%-30s %-12s  %s\n", app_stringparamtable[i].regName, app_stringparamtable[i].szDefaultValue, app_stringparamtable[i].humanReadable);
+  }
+
+  for(unsigned int i = 0; i < sizeof(stringparamtable)/sizeof(stringparamtable[0]); i++) {
+    g_print("%-30s %-12s  %s\n", stringparamtable[i].regName, stringparamtable[i].defaultValue, stringparamtable[i].humanReadable);
+  }
+
 }

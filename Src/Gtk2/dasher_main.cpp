@@ -280,7 +280,8 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
 	dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, APP_STYLE_FULLSCREEN);
       }
       else {
-	g_error("Application style %s is not supported", pCommandLine->szAppStyle);
+        g_critical("Application style %s is not supported", pCommandLine->szAppStyle);
+        return 0;
       }
     }
     else { 
@@ -302,6 +303,8 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
 
       while(*pszCurrent) {
 	gchar *szJoin = g_strrstr(*pszCurrent, "=");
+        // Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
+        const gchar *errorMessage = _("option setting is missing \"=\".");
 
 	if(szJoin) {
 	  int iLength = szJoin - *pszCurrent;
@@ -310,12 +313,15 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
 	  memcpy(szKey, *pszCurrent, iLength);
 	  szKey[iLength] = '\0';
 	  
-	  dasher_app_settings_cl_set(pPrivate->pAppSettings, szKey, szJoin + 1);
+	  errorMessage = dasher_app_settings_cl_set(pPrivate->pAppSettings, szKey, szJoin + 1);
 	  
 	  g_free(szKey);
 	}
-	else {
-	  g_error("Invalid option string specified");
+        
+	if (errorMessage) {
+          // Note to translators: This string will be output when --options= specifies an unknown option.
+	  g_critical("%s: '%s', %s", _("Invalid option string specified"), *pszCurrent, errorMessage);
+          return 0;
 	}
 
 	++pszCurrent;

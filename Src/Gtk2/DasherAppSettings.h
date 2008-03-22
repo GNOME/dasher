@@ -71,8 +71,9 @@ void dasher_app_settings_launch_advanced(DasherAppSettings *pSelf);
 GArray *dasher_app_settings_get_allowed_values(DasherAppSettings *pSelf, int iParameter);
 gboolean dasher_app_settings_get_module_settings(DasherAppSettings *pSelf, const gchar *szValue, SModuleSettings **pSettings, gint *iCount);
 
-void dasher_app_settings_cl_set(DasherAppSettings *pSelf, const gchar *szKey, const gchar *szValue);
+const gchar * dasher_app_settings_cl_set(DasherAppSettings *pSelf, const gchar *szKey, const gchar *szValue);
 
+void option_help();
 G_END_DECLS
 
 #endif

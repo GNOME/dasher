@@ -2,7 +2,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 2002 Iain Murray
+// Copyright (c) 2008 Iain Murray
 //
 /////////////////////////////////////////////////////////////////////////////
 
@@ -69,30 +69,39 @@ void CSettingsStore::LoadPersistent() {
 }
 
 
-void CSettingsStore::ClSet(const std::string &strKey, const std::string &strValue) {
+// Return 0 on success, an error string on failure.
+const char * CSettingsStore::ClSet(const std::string &strKey, const std::string &strValue) {
   for(int i(0); i < NUM_OF_BPS; ++i) {
     if(strKey == s_oParamTables.BoolParamTable[i].regName) {
-      if(strValue == "0")
+      if ((strValue == "0") || (strValue == _("true")))
 	SetBoolParameter(s_oParamTables.BoolParamTable[i].key, false);
-      else if(strValue == "1")
+      else if((strValue == "1") || (strValue == _("false")))
 	SetBoolParameter(s_oParamTables.BoolParamTable[i].key, true);
-      return;
+      else
+        // Note to translators: This message will be output for a command line
+        // with "--options foo=VAL" and foo is a boolean valued parameter, but
+        // "VAL" is not true or false.
+        return _("boolean value must be specified as 'true' or 'false'.");
+      return 0;
     }
   }
 
   for(int i(0); i < NUM_OF_LPS; ++i) {
     if(strKey == s_oParamTables.LongParamTable[i].regName) {
       SetLongParameter(s_oParamTables.LongParamTable[i].key, atoi(strValue.c_str()));
-      return;
+      return 0;
     }
   }
 
   for(int i(0); i < NUM_OF_SPS; ++i) {
     if(strKey == s_oParamTables.StringParamTable[i].regName) {
       SetStringParameter(s_oParamTables.StringParamTable[i].key, strValue);
-      return;
+      return 0;
     }
   }
+  // Note to translators: This is output when command line "--options" doesn't
+  // specify a known option.
+  return _("unknown option, use \"--help-options\" for more information.");
 }
 
 

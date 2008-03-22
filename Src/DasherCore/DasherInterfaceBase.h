@@ -1,6 +1,6 @@
 // DasherInterfaceBase.h
 //
-// Copyright (c) 2007 The Dasher Team
+// Copyright (c) 2008 The Dasher Team
 //
 // This file is part of Dasher.
 //
@@ -362,9 +362,9 @@ public:
   void SetControlOffset(int iOffset);
 
   /// Set a key value pair by name - designed to allow operation from
-  /// the command line
+  /// the command line.  Returns 0 on success, an error string on failure. 
   ///
-  void ClSet(const std::string &strKey, const std::string &strValue);
+  const char* ClSet(const std::string &strKey, const std::string &strValue);
 
   void ImportTrainingText(const std::string &strPath);
 

@@ -1131,7 +1131,9 @@ void CDasherInterfaceBase::EnterState(EState iState) {
 }
 
 int CDasherInterfaceBase::AddLock(const std::string &strDisplay) {
+#ifdef DEBUG
   std::cout << "Adding lock " << strDisplay << std::endl;
+#endif
   SLockData sNewLock;
 
   sNewLock.strDisplay = strDisplay;
@@ -1149,7 +1151,9 @@ int CDasherInterfaceBase::AddLock(const std::string &strDisplay) {
 }
 
 void CDasherInterfaceBase::ReleaseLock(int iLockID) {
+#ifdef DEBUG
   std::cout << "Releasing Lock" << std::endl;
+#endif
   std::map<int, SLockData>::iterator it = m_mapCurrentLocks.find(iLockID);
 
   if(it != m_mapCurrentLocks.end()) {
@@ -1192,9 +1196,11 @@ void CDasherInterfaceBase::SetControlOffset(int iOffset) {
     m_pDasherModel->SetControlOffset(iOffset);
 }
 
-void CDasherInterfaceBase::ClSet(const std::string &strKey, const std::string &strValue) {
+// Returns 0 on success, an error string on failure.
+const char* CDasherInterfaceBase::ClSet(const std::string &strKey, const std::string &strValue) {
   if(m_pSettingsStore)
-    m_pSettingsStore->ClSet(strKey, strValue);
+    return m_pSettingsStore->ClSet(strKey, strValue);
+  return 0;
 }
 
 
