@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-19 09:49+0100\n"
-"PO-Revision-Date: 2008-03-01 13:48+0100\n"
+"POT-Creation-Date: 2008-03-22 14:41+0000\n"
+"PO-Revision-Date: 2008-03-22 20:47+0100\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr ""
 #: ../Data/glade/dasher.traditional.glade.h:39
 #: ../Data/glade/dashermaemo.glade.h:17
 #: ../Data/glade/dashermaemofullscreen.glade.h:15
-#: ../Src/Gtk2/dasher_main.cpp:1158
+#: ../Src/Gtk2/dasher_main.cpp:1169
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -508,9 +508,9 @@ msgstr "Guardar archivo como"
 #: ../Data/glade/dasher.traditional.glade.h:69
 #: ../Data/glade/dashermaemo.glade.h:28
 #: ../Data/glade/dashermaemofullscreen.glade.h:25
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1331
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1364
-#: ../Src/Gtk2/dasher_main.cpp:1000
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1333
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1367
+#: ../Src/Gtk2/dasher_main.cpp:1011
 msgid "Select File"
 msgstr "Seleccionar archivo"
 
@@ -878,33 +878,33 @@ msgstr "Caja no uniforme"
 msgid "Global keyboard grab"
 msgstr "Obtención global del teclado"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:920
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:934
 msgid "Normal Control"
 msgstr "Control normal"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:927
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:941
 msgid "Menu Mode"
 msgstr "Modo menú"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:928
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:942
 msgid "Direct Mode"
 msgstr "Modo directo"
 
 #. RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:930
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:944
 msgid "Alternating Direct Mode"
 msgstr "Modo directo alternante"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:931
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:945
 msgid "Compass Mode"
 msgstr "Modo brújula"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:932
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:946
 msgid "Stylus Control"
 msgstr "Control"
 
-#: ../Src/DasherCore/DasherGameMode.cpp:629
+#: ../Src/DasherCore/DasherGameMode.cpp:633
 msgid "Well done!"
 msgstr "¡Bien hecho!"
 
@@ -1023,21 +1023,21 @@ msgstr "Umbral de la velocidad automática"
 msgid "Two Button Dynamic Mode"
 msgstr "Modo dinámico de dos botones"
 
-#: ../Src/Gtk2/Preferences.cpp:417 ../Src/Gtk2/Preferences.cpp:983
+#: ../Src/Gtk2/Preferences.cpp:422 ../Src/Gtk2/Preferences.cpp:991
 msgid "Action"
 msgstr "Acción"
 
 #. TRANSLATORS: Show a button for the selected action in the Dasher window.
-#: ../Src/Gtk2/Preferences.cpp:990
+#: ../Src/Gtk2/Preferences.cpp:998
 msgid "Show Button"
 msgstr "Mostrar botón"
 
-#: ../Src/Gtk2/Preferences.cpp:995
+#: ../Src/Gtk2/Preferences.cpp:1003
 msgid "Control Mode"
 msgstr "Modo de control"
 
 #. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
-#: ../Src/Gtk2/Preferences.cpp:1001
+#: ../Src/Gtk2/Preferences.cpp:1009
 msgid "Auto On Stop"
 msgstr "Automático al parar"
 
@@ -1082,7 +1082,17 @@ msgstr "Imposible inicializar las voces\n"
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Advertencia: No se pueden establecer los parámetros de habla\n"
 
-#: ../Src/Gtk2/dasher_main.cpp:1038
+#. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
+#: ../Src/Gtk2/dasher_main.cpp:307
+msgid "option setting is missing \"=\"."
+msgstr "falta el ajuste de la opción «=»."
+
+#. Note to translators: This string will be output when --options= specifies an unknown option.
+#: ../Src/Gtk2/dasher_main.cpp:323
+msgid "Invalid option string specified"
+msgstr "Cadena de opción especificada no válida"
+
+#: ../Src/Gtk2/dasher_main.cpp:1049
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -1093,7 +1103,7 @@ msgstr ""
 "\n"
 "Los cambios se perderán si no los guarda."
 
-#: ../Src/Gtk2/dasher_main.cpp:1044
+#: ../Src/Gtk2/dasher_main.cpp:1055
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -1103,33 +1113,33 @@ msgstr ""
 "\n"
 "Los cambios se perderán si no los guarda."
 
-#: ../Src/Gtk2/dasher_main.cpp:1048
+#: ../Src/Gtk2/dasher_main.cpp:1059
 msgid "Don't save"
 msgstr "No guardar"
 
-#: ../Src/Gtk2/dasher_main.cpp:1049
+#: ../Src/Gtk2/dasher_main.cpp:1060
 msgid "Don't quit"
 msgstr "No salir"
 
-#: ../Src/Gtk2/dasher_main.cpp:1050
+#: ../Src/Gtk2/dasher_main.cpp:1061
 msgid "Save and quit"
 msgstr "Guardar y salir"
 
-#: ../Src/Gtk2/dasher_main.cpp:1145 ../Src/Gtk2/dasher_main.cpp:1161
+#: ../Src/Gtk2/dasher_main.cpp:1156 ../Src/Gtk2/dasher_main.cpp:1172
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher es una aplicación de entrada de texto predictivo"
 
-#: ../Src/Gtk2/dasher_main.cpp:1150 ../Src/Gtk2/dasher_main.cpp:1156
+#: ../Src/Gtk2/dasher_main.cpp:1161 ../Src/Gtk2/dasher_main.cpp:1167
 msgid "translator-credits"
 msgstr ""
 "Jorge González <jorgegonz@svn.gnome.org>, 2007-2008\n"
 "Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2004-2006"
 
-#: ../Src/Gtk2/module_settings_window.cpp:85
+#: ../Src/Gtk2/module_settings_window.cpp:86
 msgid "Dasher Module Options"
 msgstr "Opciones de los módulos de Dasher"
 
-#: ../Src/Gtk2/module_settings_window.cpp:91
+#: ../Src/Gtk2/module_settings_window.cpp:92
 #, c-format
 msgid "%s Options:"
 msgstr "%s opciones:"
