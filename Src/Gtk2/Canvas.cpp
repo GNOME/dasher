@@ -88,7 +88,9 @@ CCanvas::~CCanvas() {
   g_object_unref(m_pOnscreenBuffer);
 #endif
 
+#if WITH_CAIRO
   delete[] cairo_colours;
+#endif
   delete m_pPangoInk;
 }
 
