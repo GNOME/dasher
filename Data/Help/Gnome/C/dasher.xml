@@ -27,7 +27,8 @@
       <para>All other trademarks are property of their respective owners.</para>
     </legalnotice>
     <abstract role="description">
-      <para>The user manual for the Dasher text entry application</para>
+      <para>Dasher is an accessible text entry application that uses pointing gestures
+        rather than typing. It is designed to be fast while fun to use.</para>
     </abstract>
     <revhistory>
       <revision>
