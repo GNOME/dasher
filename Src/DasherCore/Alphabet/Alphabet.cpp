@@ -1,6 +1,6 @@
 // Alphabet.cpp
 //
-// Copyright (c) 2007 The Dasher Team
+// Copyright (c) 2008 The Dasher Team
 //
 // This file is part of Dasher.
 //
@@ -222,7 +222,7 @@ void CAlphabet::GetSymbolsFull(std::vector<symbol > *Symbols, std::string *Input
 
     // TODO: Error condition on reaching end of string prematurely.
 
-    Symbols->push_back(TextMap.Get(strCurrentSymbol, false));
+    Symbols->push_back(TextMap.Get(strCurrentSymbol, NULL));
 
     ++it;
   }

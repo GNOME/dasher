@@ -1,5 +1,9 @@
 2008-03-22  Aaron Larson  <alarson@aaron2>
 
+	* Remove inappropriate assert from alphabet_map::Get() (#493797).
+
+2008-03-22  Aaron Larson  <alarson@aaron2>
+
 	* Update manpage.  Add "--help-options" command line argument to
 	list available options.  Generate better diagnostics for malformed
 	"--options", and permit boolean options to be specified as "true"

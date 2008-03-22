@@ -66,6 +66,9 @@ class Dasher::alphabet_map {
 public:
   alphabet_map(unsigned int InitialTableSize = 255);
   void Add(const std::string & Key, symbol Value);
+
+  // Return the symbol associated with Key or Undefined.  KeyIsPrefix, if non
+  // NULL, will be set to true if ???
   symbol Get(const std::string & Key, bool * KeyIsPrefix) const;
 
 private:

@@ -79,8 +79,6 @@ void alphabet_map::RecursiveAdd(const std::string &Key, symbol Value, bool Prefi
 
 symbol alphabet_map::Get(const std::string &Key, bool *KeyIsPrefix) const {
 
-  DASHER_ASSERT_VALIDPTR_RW(KeyIsPrefix);
-
   // Loop through Entries with the correct Hash value.
   for(Entry * i = HashTable[Hash(Key)]; i; i = i->Next) {
     if(i->Key == Key) {
