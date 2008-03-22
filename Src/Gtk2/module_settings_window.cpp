@@ -1,6 +1,6 @@
 // module_settings_window.cpp
 //
-// Copyright (c) 2007 The Dasher Team
+// Copyright (c) 2008 The Dasher Team
 //
 // This file is part of Dasher.
 //
@@ -18,9 +18,10 @@
 // along with Dasher; if not, write to the Free Software 
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-#include "module_settings_window.h"
-
+#include "config.h"
 #include <glib/gi18n.h>
+
+#include "module_settings_window.h"
 
 typedef struct _ModuleSettingsData ModuleSettingsData;
 

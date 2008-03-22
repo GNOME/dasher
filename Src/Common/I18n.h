@@ -1,6 +1,6 @@
 // I18n.h
 //
-// Copyright (c) 2007 The Dasher Team
+// Copyright (c) 2008 The Dasher Team
 //
 // This file is part of Dasher.
 //
@@ -28,8 +28,12 @@
 #else
 
 #include <libintl.h>
+// Attempt to get rid of '"_" rededined' compiler warnings.  I'm not sure the
+// proper way to verify that gnome i18n support is present, so if you have a
+// better idea...
+#ifndef _
 #define _(szText) gettext(szText)
-
+#endif
 #endif
 
 #endif

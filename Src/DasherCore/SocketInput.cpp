@@ -12,7 +12,7 @@
 #include <pthread.h>
 #include <libintl.h>
 
-#define _(_x) gettext(_x)
+#include "../Common/I18n.h"
 
 using namespace Dasher;
 
