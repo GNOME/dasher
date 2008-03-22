@@ -1,5 +1,9 @@
 2008-03-22  Aaron Larson  <alarson@aaron2>
 
+	* Prepend "Dasher" to window title (#493812).
+
+2008-03-22  Aaron Larson  <alarson@aaron2>
+
 	* Remove inappropriate assert from alphabet_map::Get() (#493797).
 
 2008-03-22  Aaron Larson  <alarson@aaron2>

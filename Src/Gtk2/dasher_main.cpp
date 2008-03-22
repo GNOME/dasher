@@ -134,7 +134,7 @@ static void dasher_main_setup_window_state(DasherMain *pSelf);
 static void dasher_main_setup_window_style(DasherMain *pSelf);
 static void dasher_main_setup_internal_layout(DasherMain *pSelf);
 //static void dasher_main_refresh_font(DasherMain *pSelf);
-static void dasher_main_set_filename(DasherMain *pSelf);
+static void dasher_main_set_window_title(DasherMain *pSelf);
 
 /* ... Table based menu/toolbar commands */
 static void dasher_main_connect_menus(DasherMain *pSelf);
@@ -286,7 +286,7 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
     }
     else { 
       // By default use traditional mode
-      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 0);
+      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, APP_STYLE_TRAD);
     }
 
     dasher_main_load_interface(pDasherMain);
@@ -382,7 +382,7 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
     pPrivate->pGladeXML = 0;
 
     /* Set up various bits and pieces */
-    dasher_main_set_filename(pDasherMain);
+    dasher_main_set_window_title(pDasherMain);
     dasher_main_populate_controls(pDasherMain);
     dasher_main_connect_control(pDasherMain);
 
@@ -955,17 +955,25 @@ dasher_main_setup_internal_layout(DasherMain *pSelf) {
 
 // TODO: Fold into setup controls?
 static void 
-dasher_main_set_filename(DasherMain *pSelf) {
+dasher_main_set_window_title(DasherMain *pSelf) {
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
 
   const gchar *szFilename = dasher_editor_get_filename(pPrivate->pEditor);
 
+  // Note to translators: This is the name of the dasher program as it appears
+  // in a window title without a file.
+  gchar * dasher = _("Dasher");
   if(szFilename == 0) {
-    gtk_window_set_title(GTK_WINDOW(pPrivate->pMainWindow), "Dasher");
+    gtk_window_set_title(GTK_WINDOW(pPrivate->pMainWindow), dasher);
   }
   else {
-    // TODO: Prepend 'Dasher - ' to filename?
-    gtk_window_set_title(GTK_WINDOW(pPrivate->pMainWindow), szFilename);
+    // Note to translators: This is a format string for the name of the dasher
+    // program as it appears in a window, %s will be the filename.
+    gchar * titleFormat = _("Dasher - %s");
+    int len = strlen(szFilename);
+    gchar title[len+strlen(titleFormat)];
+    snprintf(title, sizeof(title), titleFormat, szFilename);
+    gtk_window_set_title(GTK_WINDOW(pPrivate->pMainWindow), title);
   }
 }
 
@@ -1375,7 +1383,7 @@ alphabet_combo_changed(GtkWidget *pWidget, gpointer pUserData) {
 extern "C" void 
 dasher_main_cb_filename_changed(DasherEditor *pEditor, gpointer pUserData) {
   if(g_pDasherMain)
-    dasher_main_set_filename(g_pDasherMain);
+    dasher_main_set_window_title(g_pDasherMain);
 }
 
 extern "C" void 
