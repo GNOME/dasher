@@ -1,3 +1,7 @@
+2008-03-22  Aaron Larson  <alarson@aaron2>
+
+	* configure.in: Resolved autogen.sh build failure from #398103.
+
 2008-02-17  Phil Cowans  <pjc51@cam.ac.uk>
 
 	* Preparing for release

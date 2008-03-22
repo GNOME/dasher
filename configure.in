@@ -412,12 +412,15 @@ GTK2BUILD_LIBS="$X_LIBS $GTK2_LIBS $SETTINGS_LIBS $gthread_LIBS $gnome_speech_LI
 AC_SUBST(GTK2BUILD_CFLAGS)
 AC_SUBST(GTK2BUILD_LIBS)
 
-if [[ x"$WITHGNOME" = xtrue ]]; then
-  GNOME_DOC_INIT
-else
-  # Allows compilation if --without-gnome is passed
-  AM_CONDITIONAL(ENABLE_SK, test "x$enable_scrollkeeper" = "xyes")
+AC_MSG_CHECKING([for gnome-doc-utils])
+GNOME_DOC_INIT([0.9.0],[have_gdu=yes],[have_gdu=no])
+AC_MSG_RESULT($have_gdu)
+
+if [[ x"$WITHGNOME" = xtrue ]] && [[ "$have_gdu" = xno ]]; then
+    AC_MSG_ERROR([gnome-doc-utils not found!])
 fi
+
+AM_CONDITIONAL(ENABLE_SK, test x"$WITHGNOME" = xfalse -a "x$enable_scrollkeeper" = "xyes")
 
 AC_CONFIG_FILES([Data/dasher.desktop.in
 		 Data/Makefile
