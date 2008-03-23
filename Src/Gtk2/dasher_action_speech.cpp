@@ -8,6 +8,7 @@
 #include <glib/gi18n.h>
 #include <gnome-speech/gnome-speech.h>
 #include <libbonobo.h>
+#include <cstring>
 //#include <libintl.h>
 //#include <string.h>
 

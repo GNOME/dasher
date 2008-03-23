@@ -1,5 +1,9 @@
 2008-03-22  Aaron Larson  <alarson@aaron2>
 
+	* Permit compile on GCC 4.3 (#522121).
+
+2008-03-22  Aaron Larson  <alarson@aaron2>
+
 	* Prepend "Dasher" to window title (#493812).
 
 2008-03-22  Aaron Larson  <alarson@aaron2>
