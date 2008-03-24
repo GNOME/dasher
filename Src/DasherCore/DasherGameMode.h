@@ -58,7 +58,7 @@ public:
   void DemoModeGetCoordinates(myint& iDasherX, myint& iDasherY);
   void SetUserMouseCoordinates(myint iDasherX, myint iDasherY);
 
-  UTF8Char GetSymbolAtOffset(int iOffset);
+  UTF8Char GetSymbolAtOffset(unsigned int iOffset);
   void SentenceFinished();
 
   void HandleEvent(Dasher::CEvent *);

@@ -665,7 +665,7 @@ void CDasherGameMode::PrivateSentenceFinished()
 }
 
 
-UTF8Char CDasherGameMode::GetSymbolAtOffset(int iOffset)
+UTF8Char CDasherGameMode::GetSymbolAtOffset(unsigned int iOffset)
 { 
   // The string "GameEnd" indicates the NF_END_GAME flag should be set on the node.
   if(m_iCurrentString == -1)
@@ -694,7 +694,7 @@ int CDasherGameMode::NextString(bool bRandomString)
     {
       m_iCurrentString = rand() % m_iNumStrings;
     }
-  else if(m_iCurrentString<m_iNumStrings-1)
+  else if(m_iCurrentString<int(m_iNumStrings)-1)
     m_iCurrentString++;
   else
     {
