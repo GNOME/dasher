@@ -262,6 +262,9 @@ int main(int argc, char *argv[]) {
   g_free(sCommandLine.szAppStyle);
   g_free(sCommandLine.szOptions);
 
+  if (g_pDasherMain == 0)
+    return 1;
+
   dasher_main_show(g_pDasherMain);
 
   // 10.

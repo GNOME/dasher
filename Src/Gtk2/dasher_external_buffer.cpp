@@ -148,10 +148,7 @@ DasherExternalBuffer *dasher_external_buffer_new() {
   DasherExternalBuffer *pDasherControl;
   pDasherControl = (DasherExternalBuffer *)(g_object_new(dasher_external_buffer_get_type(), NULL));
 
-  g_message("1");
-
 #ifdef GNOME_A11Y
-  g_message("2");
 
   DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(pDasherControl->private_data);
 
