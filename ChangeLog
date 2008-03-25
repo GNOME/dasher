@@ -1,27 +1,31 @@
-2008-03-22  Aaron Larson  <alarson@aaron2>
+2008-03-24  Aaron Larson  <aaron@larsonsonline.net>
+
+	* Localize --help output (#454530).
+
+2008-03-22  Aaron Larson  <aaron@larsonsonline.net>
 
 	* Permit compile on GCC 4.3 (#522121).
 
-2008-03-22  Aaron Larson  <alarson@aaron2>
+2008-03-22  Aaron Larson  <aaron@larsonsonline.net>
 
 	* Prepend "Dasher" to window title (#493812).
 
-2008-03-22  Aaron Larson  <alarson@aaron2>
+2008-03-22  Aaron Larson  <aaron@larsonsonline.net>
 
 	* Remove inappropriate assert from alphabet_map::Get() (#493797).
 
-2008-03-22  Aaron Larson  <alarson@aaron2>
+2008-03-22  Aaron Larson  <aaron@larsonsonline.net>
 
 	* Update manpage.  Add "--help-options" command line argument to
 	list available options.  Generate better diagnostics for malformed
 	"--options", and permit boolean options to be specified as "true"
 	or "false" in addition to 0 and 1. (#496872)
 
-2008-03-22  Aaron Larson  <alarson@aaron2>
+2008-03-22  Aaron Larson  <aaron@larsonsonline.net>
 
 	* Eliminate most compiler redifintion warnings for "_" (#519254).
 
-2008-03-22  Aaron Larson  <alarson@aaron2>
+2008-03-22  Aaron Larson  <aaron@larsonsonline.net>
 
 	* configure.in: Resolved autogen.sh build failure from #398103.
 

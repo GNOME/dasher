@@ -1,5 +1,7 @@
 # Add files with translateable strings here.
 # Please keep this file sorted alphabetically.
+# Run this command at top level to check for missing files:
+# find * -iname '*.cc' -o -iname '*.h' -o -iname '*.cpp' | xargs egrep -l '[^a-z0-9A-MO-Z_]_\(' | sort
 Data/dasher.desktop.in.in
 Data/glade/dasher.compose.glade
 Data/glade/dasher.direct.glade
@@ -11,21 +13,23 @@ Data/glade/dashermaemofullscreen.glade
 Src/DasherCore/ClickFilter.cpp
 Src/DasherCore/ClickFilter.h
 Src/DasherCore/DasherButtons.cpp
-Src/DasherCore/DasherInterfaceBase.cpp
 Src/DasherCore/DasherGameMode.cpp
+Src/DasherCore/DasherInterfaceBase.cpp
 Src/DasherCore/DynamicFilter.cpp
 Src/DasherCore/EyetrackerFilter.cpp
 Src/DasherCore/OneButtonDynamicFilter.cpp
 Src/DasherCore/OneDimensionalFilter.cpp
+Src/DasherCore/SettingsStore.cpp
 Src/DasherCore/SocketInput.cpp
 Src/DasherCore/SocketInputBase.cpp
 Src/DasherCore/TwoButtonDynamicFilter.cpp
+Src/Gtk2/DasherAppSettings.cpp
 Src/Gtk2/Preferences.cpp
-Src/Gtk2/dasher_editor_internal.cpp
 Src/Gtk2/dasher_action_keyboard.cpp
 Src/Gtk2/dasher_action_keyboard_maemo.cpp
 Src/Gtk2/dasher_action_script.cpp
 Src/Gtk2/dasher_action_speech.cpp
+Src/Gtk2/dasher_editor_internal.cpp
 Src/Gtk2/dasher_main.cpp
 Src/Gtk2/module_settings_window.cpp
 Src/Gtk2/mouse_input.h

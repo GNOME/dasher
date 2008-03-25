@@ -1,3 +1,8 @@
+#include "config.h"
+#ifdef GNOME_LIBS
+#include <glib/gi18n.h>
+#endif
+
 #include "Common/Common.h"
 
 #include <gdk/gdk.h>
@@ -179,16 +184,21 @@ int main(int argc, char *argv[]) {
     //   {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences window only", NULL},
     //   {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
     //   {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
-    {"appstyle", 'a', 0, G_OPTION_ARG_STRING, &(sCommandLine.szAppStyle), "Application style (traditional, direct, compose or fullscreen)", "traditional"},
-    {"options", 'o', 0, G_OPTION_ARG_STRING, &(sCommandLine.szOptions), "Override stored options", NULL},
-    {"help-options", 0, 0, G_OPTION_ARG_NONE, &do_option_help, "Describe \"--options\".", NULL},
+    // Note to translators: This is the help string for "--appstyle"
+    {"appstyle", 'a', 0, G_OPTION_ARG_STRING, &(sCommandLine.szAppStyle), N_("Application style (traditional, direct, compose or fullscreen)"), "traditional"},
+    // Note to translators: This is the help string for "--options"
+    {"options", 'o', 0, G_OPTION_ARG_STRING, &(sCommandLine.szOptions), N_("Override stored options"), NULL},
+    // Note to translators: This is the help string for "--help-options"
+    {"help-options", 0, 0, G_OPTION_ARG_NONE, &do_option_help, N_("Describe \"--options\"."), NULL},
     {NULL}
   };
 
   //parse command line options
   GOptionContext *goptcontext;
-  goptcontext = g_option_context_new(("- A text input application honouring accessibility"));
-  g_option_context_add_main_entries(goptcontext, options, "Dasher");
+  // Note to translators: This is the "--help" description of dasher.
+  goptcontext = g_option_context_new(_("- A text input application honouring accessibility"));
+  g_option_context_add_main_entries(goptcontext, options, GETTEXT_PACKAGE);
+  g_option_context_add_group(goptcontext, gtk_get_option_group (TRUE));
   g_option_context_parse(goptcontext, &argc, &argv, NULL);
 
   // TODO: Check what happens here when goption has done its stuff
