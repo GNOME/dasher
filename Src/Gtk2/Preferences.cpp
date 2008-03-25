@@ -214,9 +214,14 @@ static void dasher_preferences_dialogue_init(DasherPreferencesDialogue *pDasherC
 }
 
 static void dasher_preferences_dialogue_destroy(GObject *pObject) {
+  DasherPreferencesDialogue *pSelf = (DasherPreferencesDialogue *)pObject;
+  DasherPreferencesDialoguePrivate *pPrivate = (DasherPreferencesDialoguePrivate *)(pSelf->private_data);
+
+  g_object_unref(pPrivate->pGladeXML);
+
   // FIXME - I think we need to chain up through the finalize methods
   // of the parent classes here...
-  delete DASHER_PREFERENCES_DIALOGUE(pObject)->private_data;
+  delete pPrivate;
 }
 
 // Public methods
@@ -249,6 +254,12 @@ DasherPreferencesDialogue *dasher_preferences_dialogue_new(GladeXML *pGladeWidge
   dasher_preferences_dialogue_initialise_tables(pDasherControl);
   dasher_preferences_dialogue_refresh_widget(pDasherControl, -1);
   dasher_preferences_dialogue_update_special(pDasherControl, -1);
+
+#ifdef WITH_MAEMO
+#ifndef WITH_MAEMOFULLSCREEN
+  gtk_widget_hide(glade_xml_get_widget(pGladeWidgets, "displaysizebox"));
+#endif
+#endif
 
 #ifndef JAPANESE
   gtk_widget_hide(glade_xml_get_widget(pGladeWidgets, "radiobutton9"));

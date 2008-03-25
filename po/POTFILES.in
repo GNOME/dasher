@@ -7,8 +7,10 @@ Data/glade/dasher.compose.glade
 Data/glade/dasher.direct.glade
 Data/glade/dasher.fullscreen.glade
 Data/glade/dasher.gameWIP.glade
+Data/glade/dasher.preferences.glade
 Data/glade/dasher.traditional.glade
 Data/glade/dashermaemo.glade
+Data/glade/dashermaemo.preferences.glade
 Data/glade/dashermaemofullscreen.glade
 Src/DasherCore/ClickFilter.cpp
 Src/DasherCore/ClickFilter.h

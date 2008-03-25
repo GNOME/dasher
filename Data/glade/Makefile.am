@@ -4,8 +4,10 @@ EXTRA_DIST = \
 		dasher.compose.glade \
 		dasher.fullscreen.glade \
 		dasher.gameWIP.glade \
+		dasher.preferences.glade \
 		dashermaemo.glade \
-		dashermaemofullscreen.glade
+		dashermaemofullscreen.glade \
+		dashermaemo.preferences.glade
 
 pkgdata_DATA = \
 		dasher.traditional.glade \
@@ -13,5 +15,7 @@ pkgdata_DATA = \
 		dasher.compose.glade \
 		dasher.fullscreen.glade \
 		dasher.gameWIP.glade \
+		dasher.preferences.glade \
 		dashermaemo.glade \
-		dashermaemofullscreen.glade
+		dashermaemofullscreen.glade \
+		dashermaemo.preferences.glade

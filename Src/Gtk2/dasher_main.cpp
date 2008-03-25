@@ -35,6 +35,7 @@ static gboolean g_bSend = true;
 
 struct _DasherMainPrivate {
   GladeXML *pGladeXML;
+  GladeXML *pPrefXML;
 
   // Child objects owned here
   DasherAppSettings *pAppSettings;
@@ -154,6 +155,7 @@ static void dasher_main_alphabet_combo_changed(DasherMain *pSelf);
 static void dasher_main_populate_alphabet_combo(DasherMain *pSelf);
 
 /* TODO: order these in file */
+static GladeXML *dasher_main_open_glade_xml(const char *szGladeFilename);
 static void dasher_main_load_interface(DasherMain *pSelf);
 static void dasher_main_create_preferences(DasherMain *pSelf);
 static void dasher_main_handle_parameter_change(DasherMain *pSelf, int iParameter);
@@ -381,6 +383,9 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
     g_object_unref(pPrivate->pGladeXML);
     pPrivate->pGladeXML = 0;
 
+    g_object_unref(pPrivate->pPrefXML);
+    pPrivate->pPrefXML = 0;
+
     /* Set up various bits and pieces */
     dasher_main_set_window_title(pDasherMain);
     dasher_main_populate_controls(pDasherMain);
@@ -392,12 +397,28 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
   }
 }
 
+static GladeXML *
+dasher_main_open_glade_xml(const char *szGladeFilename) {
+  g_message("Opening Glade file: %s", szGladeFilename);
+
+  GladeXML *xml = glade_xml_new(szGladeFilename, NULL, NULL);
+
+  if (!xml) {
+    g_error("Can't find Glade file: %s. Dasher is unlikely to be correctly installed.", szGladeFilename);
+  }
+
+  glade_xml_signal_autoconnect(xml);
+  
+  return xml;
+}
+
 /* Load the window interface from the glade file, and do various initialisation bits and pieces */
 static void 
 dasher_main_load_interface(DasherMain *pSelf) {
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
   
   const char *szGladeFilename = NULL;
+  const char *szPrefGladeFilename = NULL;
 
 #ifdef WITH_GPE
   szGladeFilename = PROGDATA "/dashergpe.glade";
@@ -409,6 +430,7 @@ dasher_main_load_interface(DasherMain *pSelf) {
   //szGladeFilename = "/var/lib/install" PROGDATA "/dashermaemo.glade";
   szGladeFilename = PROGDATA "/dashermaemo.glade";
 #endif
+  szPrefGladeFilename = PROGDATA "/dashermaemo.preferences.glade";
 #else
   switch(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE)) {
   case APP_STYLE_TRAD:
@@ -426,21 +448,22 @@ dasher_main_load_interface(DasherMain *pSelf) {
   default:
     g_error("Inconsistent application style specified.");
   }
+  szPrefGladeFilename = PROGDATA "/dasher.preferences.glade";
 #endif
 
   if(!szGladeFilename) {
     g_error("Failure to determine glade filename");
   }
 
-  g_message("Glade file is: %s", szGladeFilename);
+  pPrivate->pGladeXML = dasher_main_open_glade_xml(szGladeFilename);
 
-  pPrivate->pGladeXML = glade_xml_new(szGladeFilename, NULL, NULL);
-
-  if (!pPrivate->pGladeXML) {
-    g_error("Can't find Glade file: %s. Dasher is unlikely to be correctly installed.", szGladeFilename);
+  if (szPrefGladeFilename) {
+    pPrivate->pPrefXML = dasher_main_open_glade_xml(szPrefGladeFilename);
   }
-
-  glade_xml_signal_autoconnect(pPrivate->pGladeXML);
+  else {
+    // If no separate preference file, preferences widget is in main glade xml
+    pPrivate->pPrefXML = (GladeXML *) g_object_ref(pPrivate->pGladeXML);
+  }
 
   // Save the details of some of the widgets for later
   //  pPrivate->pActionPane = glade_xml_get_widget(pPrivate->pGladeXML, "vbox39");
@@ -597,7 +620,7 @@ dasher_main_load_interface(DasherMain *pSelf) {
 static void 
 dasher_main_create_preferences(DasherMain *pSelf) {
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
-  pPrivate->pPreferencesDialogue = dasher_preferences_dialogue_new(pPrivate->pGladeXML, pPrivate->pEditor, pPrivate->pAppSettings, GTK_WINDOW(pPrivate->pMainWindow));
+  pPrivate->pPreferencesDialogue = dasher_preferences_dialogue_new(pPrivate->pPrefXML, pPrivate->pEditor, pPrivate->pAppSettings, GTK_WINDOW(pPrivate->pMainWindow));
 }
 
 // DasherEditor *
