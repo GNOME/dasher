@@ -751,7 +751,9 @@ dasher_main_save_state(DasherMain *pSelf) {
    iEditHeight = gtk_paned_get_position(GTK_PANED(pPrivate->pDivider));
 
    if(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE) != APP_STYLE_COMPOSE) {
-     dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_EDIT_HEIGHT, iEditHeight);
+     // APP_STYLE_DIRECT doesn't have an edit window.
+     if (dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE) != APP_STYLE_DIRECT)
+       dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_EDIT_HEIGHT, iEditHeight);
      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_SCREEN_WIDTH, iWindowWidth);
      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_SCREEN_HEIGHT, iWindowHeight);
    }

@@ -1,5 +1,10 @@
 2008-03-26  Aaron Larson  <aaron@larsonsonline.net>
 
+	* Don't save edit window height on exit when appstyle is direct
+	(#521241).
+
+2008-03-26  Aaron Larson  <aaron@larsonsonline.net>
+
 	* In preference dialog, make Control/Input Device and
 	Application/Actions lists resize with the preferences dialog.
 
