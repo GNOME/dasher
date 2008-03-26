@@ -15,20 +15,17 @@ Requirements
 ------------
 Dasher makes use of the following third party software (note that this
 list is potentially inaccurate or incomplete - please send any
-corrections to 'dasher@mrao.cam.ac.uk'):
+corrections to 'dasher-text-entry@yahoogroups.com):
 
 General:
  * The Expat XML parser (required)
 
-Linux:
- * Autotools (required, build only)
- * Intltool (required, build only)
- * Libtool (required, build only)
+Linux (see INSTALL.Linux for build time requirements):
  * GTK+ (2.2 or greated) (required)
  * GNOME (optional, but highly recommended)
  * GNOME Speech (optional)
  * Libcanna (optional, for Hiragana to Kanji conversion)
-
+ 
 MS Windows:
  * MS Speech API (optional)
  * MS Table API (optional - required for tablet start/stop mode)
