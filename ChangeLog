@@ -1,3 +1,8 @@
+2008-03-26  Aaron Larson  <aaron@larsonsonline.net>
+
+	* In preference dialog, make Control/Input Device and
+	Application/Actions lists resize with the preferences dialog.
+
 2008-03-25  Aaron Larson  <aaron@larsonsonline.net>
 
 	* Update Linux installation instructions, factor out common text,
