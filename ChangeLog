@@ -1,5 +1,10 @@
 2008-03-25  Aaron Larson  <aaron@larsonsonline.net>
 
+	* Update Linux installation instructions, factor out common text,
+	add list of packages required to build.
+
+2008-03-25  Aaron Larson  <aaron@larsonsonline.net>
+
 	* Resolve HIG compliance issues, also remove duplication of
 	preferences dialogs from glade files (#506900).
 
