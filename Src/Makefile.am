@@ -24,17 +24,17 @@ AM_CXXFLAGS = \
 	-DPACKAGE_LOCALE_DIR=\"$(datadir)/locale\"
 
 dasher_LDADD = \
-	$(GTK2BUILD_LIBS) \
-	-lexpat \
-	$(POPT_LIBS) \
-	$(GPELIB) \
 	Common/libdashermisc.a \
 	Gtk2/libdashergtk.a \
 	Gtk2/libdashercontrol.a \
 	DasherCore/libdashercore.a \
 	DasherCore/libdasherprefs.a \
 	DasherCore/LanguageModelling/libdasherlm.a \
-	Common/libdashermisc.a
+	Common/libdashermisc.a \
+	$(GTK2BUILD_LIBS) \
+	-lexpat \
+	$(POPT_LIBS) \
+	$(GPELIB)
 #endif
 
 #if DOQTE

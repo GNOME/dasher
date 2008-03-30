@@ -1,3 +1,8 @@
+2008-03-30  Aaron Larson  <aaron@larsonsonline.net>
+
+	* Apply Gentoo dasher-4.7.0-as-needed.patch to permit linking with
+	"--as-needed" (#525028).
+
 2008-03-26  Aaron Larson  <aaron@larsonsonline.net>
 
 	* Don't save edit window height on exit when appstyle is direct
