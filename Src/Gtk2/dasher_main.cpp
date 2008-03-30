@@ -10,7 +10,9 @@
 #ifdef WITH_MAEMOFULLSCREEN
 #include <hildon-widgets/hildon-program.h>
 #endif
+#ifdef GNOME_LIBS
 #include <libgnome/libgnome.h>
+#endif
 #include <unistd.h>
 
 #include "GtkDasherControl.h"
