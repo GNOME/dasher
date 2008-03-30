@@ -1,7 +1,6 @@
 # Add files with translateable strings here.
 # Please keep this file sorted alphabetically.
-# Run this command at top level to check for missing files:
-# find * -iname '*.cc' -o -iname '*.h' -o -iname '*.cpp' | xargs egrep -l '[^a-z0-9A-MO-Z_]_\(' | sort
+# Use "make check" to check for missing files:
 Data/dasher.desktop.in.in
 Data/glade/dasher.compose.glade
 Data/glade/dasher.direct.glade
