@@ -4,10 +4,9 @@
 
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
-/* TODO: r4epair gnome libs flags (or get rid of entirely) */
-//#ifdef GNOME_LIBS 
+#ifdef GNOME_LIBS 
 #include <libgnomevfs/gnome-vfs.h> 
-//#endif
+#endif
 
 
 #ifdef WITH_MAEMO

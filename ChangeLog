@@ -1,5 +1,10 @@
 2008-03-30  Aaron Larson  <aaron@larsonsonline.net>
 
+	* Apply Gentoo dasher-4.6.1-gnome.patch permit compilation without
+	gnome.
+
+2008-03-30  Aaron Larson  <aaron@larsonsonline.net>
+
 	* Apply Gentoo dasher-4.7.0-as-needed.patch to permit linking with
 	"--as-needed" (#525028).
 
