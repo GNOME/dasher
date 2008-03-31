@@ -1,7 +1,11 @@
 2008-03-30  Aaron Larson  <aaron@larsonsonline.net>
 
+	* Minor changes for HIG compliance (#511808).
+
+2008-03-30  Aaron Larson  <aaron@larsonsonline.net>
+
 	* Apply Gentoo dasher-4.6.1-gnome.patch permit compilation without
-	gnome.
+	gnome (#525146).
 
 2008-03-30  Aaron Larson  <aaron@larsonsonline.net>
 
