@@ -9,6 +9,9 @@
 #include "WinCommon.h"
 #include "Splitter.h"
 
+#include <iostream>
+#include <cstring>
+
 // For WinCE
 #ifndef MAKEPOINTS
 #define MAKEPOINTS(l)   (*((POINTS FAR *) & (l)))
@@ -79,13 +82,16 @@ LRESULT CSplitter::OnMouseMove(UINT message, WPARAM wParam, LPARAM lParam, BOOL&
 #ifndef _WIN32_WCE
 		m_iPos = MousePos.y - GetSystemMetrics(SM_CYSIZEFRAME) / 2;
 #else
-    // TODO: Fix this on Windows CE
-    m_iPos = MousePos.y - 4;
+		// TODO: Fix this on Windows CE
+		m_iPos = MousePos.y - 4;
 #endif
-		// Layout();
+
+//		WCHAR wszDebugText[128];
+//		_snwprintf(wszDebugText, 128, L"Setting size: %d\n", m_iPos);
+//		OutputDebugStringW(wszDebugText);
+
 		m_pOwner->Layout();
 	}
 	return 0;
 }
 /////////////////////////////////////////////////////////////////////////////
-

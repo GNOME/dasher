@@ -538,10 +538,10 @@ LRESULT CDasherWindow::OnClose(UINT message, WPARAM wParam, LPARAM lParam, BOOL&
 LRESULT CDasherWindow::OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
   if(wParam == SIZE_MINIMIZED)
     return 0;
-  
-  m_pToolbar->Resize();
-//  m_pSlidebar->Resize();
-  
+
+  if(m_pToolbar)
+    m_pToolbar->Resize();
+
   Layout();
   
   return 0;
@@ -614,9 +614,15 @@ void CDasherWindow::Layout() {
   else
     SpeedAlphabetHeight = 0;
 
-  int GameGroupHeight = m_pGameGroup->GetHeight();
-  int GameGroupWidth = m_pGameGroup->GetWidth();
-  int GameLabelHeight = m_pGameGroup->GetLabelHeight();
+  int GameGroupHeight = 0;
+  int GameGroupWidth = 0;
+  int GameLabelHeight = 0;
+
+  if(m_pGameGroup) {
+    GameGroupHeight = m_pGameGroup->GetHeight();
+    GameGroupWidth = m_pGameGroup->GetWidth();
+    GameLabelHeight = m_pGameGroup->GetLabelHeight();
+  }
 
   int MaxCanvas = Height - SpeedAlphabetHeight*2;
   int CurY = ToolbarHeight;

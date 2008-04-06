@@ -1,7 +1,7 @@
 Dasher Release Instructions
 ---------------------------
 
-Last Updated 9th Jul 2006 by Phil Cowans.
+Last Updated 6th Apr 2008 by Phil Cowans.
 
 How to make a Dasher release. Note that most of this only makes sense
 if your're the Dasher maintainer, ie me!:
@@ -16,14 +16,15 @@ if your're the Dasher maintainer, ie me!:
    
    a) configure.in
 
-   b) Win32 resources files - both in the 'about' dialogue box and in
+   b) Win32 resources file (Src/Win32/Dasher.rc) - both in the 'about' dialogue box and in
    the version information structure.
 
    c) README
 
-   d) Docs/LICENSE.txt
-
-   e) Inno Setup script
+   d) WiX installer definition files:
+     - Src/Installer/Dasher.wxs
+	 - Src/InstallerW2K/Dasher.wxs (Windows 2K compatibility version)
+	 - Src/InstallerTobii/Dasher.wxs (MyTobii customised installer)
 
 4. Add an item to the ChangeLog and NEWS files
 
@@ -37,20 +38,17 @@ if your're the Dasher maintainer, ie me!:
 8. Copy the tarball to a Windows machine, build 'Unicode Release',
    check it works.
 
-9. Build Windows installer package and .debs.
+9. Build Windows installer package(s).
 
-10. Commit to CVS, tag CVS with release.
+10. Commit to SVN, tag SVN with release.
 
-11. Bump version numbers, commit to CVS again.
+11. Bump version numbers, commit to SVN again.
 
-12. Copy everything to Inference website, rebuild website.
+12. Copy everything to download website.
 
 13. Upload tarball to GNOME servers and install.
 
 14. Send announcement email
-
-15. Update local Inference group repository, run an upgrade on all of
-    the machines in the cluster.
 
 ----
 
