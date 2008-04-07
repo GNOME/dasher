@@ -1,5 +1,5 @@
 AC_PREREQ(2.56)
-AC_INIT([dasher],[4.7.1],[http://bugzilla.gnome.org/enter_bug.cgi?product=dasher])
+AC_INIT([dasher],[4.7.3],[http://bugzilla.gnome.org/enter_bug.cgi?product=dasher])
 AC_REVISION([$Id: configure.in,v])
 AC_CONFIG_SRCDIR([Src/main.cc])
 AC_CONFIG_HEADERS(config.h)
@@ -441,7 +441,6 @@ AC_CONFIG_FILES([Data/dasher.desktop.in
 		 Src/InstallerTobii/Makefile
 		 Src/InstallerW2K/Makefile
 		 Src/Win32/Makefile
-		 Utils/Makefile
 		 po/Makefile.in])
 
 AC_OUTPUT
