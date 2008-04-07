@@ -1,3 +1,7 @@
+2008-04-07  Jorge Gonzalez  <jorgegonz@svn.gnome.org>
+
+	* es.po: Updated Spanish translation
+
 2008-03-30  Aaron Larson  <aaron@larsonsonline.net>
 
 	* Add POTFILES.skip so dasher passes "make check" (#525035).
