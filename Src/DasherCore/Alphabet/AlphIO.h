@@ -25,20 +25,12 @@
 //#include "Alphabet.h"
 #include "GroupInfo.h"
 
-//#ifdef _WIN32
-//#include "../../Common/Expat/lib/expat.h"
-//#else
 #include <expat.h>
-//#endif
-
 #include <string>
 #include <map>
 #include <vector>
 #include <utility>              // for std::pair
 #include <stdio.h>              // for C style file IO
-
-
-//#include "../../Common/Expat/lib/expat.h"
 
 namespace Dasher {
   class CAlphIO;

@@ -38,22 +38,8 @@
 
 #include <string>
 
-//#ifdef _WIN32
-//#include "../Common/Expat/lib/expat.h"
-//#else
 #include <expat.h>
-//#endif
 
-/* /// \cond expat */
-
-/* // TODO: Make build with internal expat conditional */
-/* namespace expat { */
-/* #include "../Common/Expat/lib/expat.h" */
-/* } */
-
-/* /// \endcond */
-
-//using namespace expat;
 using namespace std;
 
 namespace Dasher {
