@@ -6,30 +6,35 @@ Prerequisites
 
 Microsoft Speech SDK
 Microsoft Tablet SDK
+Expat XML Parser
 
-Both SDKs can be installed individually, or as part of the Platform SDK. Downloads
-can be found at http://www.microsoft.com
+The Speech and Tablet SDKs can be installed individually, or as part of the 
+Platform SDK. Downloads can be found at http://www.microsoft.com and 
+http://expat.sourceforge.net
 
-Visual Studio should be configured with the appropriate include and library directories
-Tools->Options->Projects->VC++ directories
+The project files use environment variables to locate the root directories of 
+the prerequisites.  You can set these in the Windows control panel: 
+Control Panels->System->Advanced->Environment Variables.  
 
-Example includes (exact paths depend upon installation directory)
-C:\Program Files\Microsoft Speech SDK 5.1\Include
-C:\Program Files\Microsoft Tablet PC Platform SDK\Include
+Here are the variable names and their default install locations:
 
-Example libraries:
-C:\Program Files\Microsoft Speech SDK 5.1\Lib\i386
-C:\Program Files\Microsoft Tablet PC Platform SDK\Bin
+SPEECHSDK  C:\Program Files\Microsoft Speech SDK 5.1
+TABLETSDK  C:\Program Files\Microsoft Tablet PC Platform SDK
+EXPAT      C:\Program Files\Expat 2.0.1
+
+You should insure that your Visual Studio-wide VC++ directories don't have
+include or library directories for the platform SDK, look in: Tools->Options->
+Project and Solutions->VC++ Directories. 
 
 Building
 --------
 
-A Visual Studio 7.1 solution file is included in the Src/Win32
-directory. This should hopefully build without modification on any
-system.
+Visual Studio 8.0 (2005) solution/project files are included in the 
+Src/Win32 directory. This should hopefully build without modification on 
+any system.
 
 For earlier versions of Visual Studio, alternative project files are
-provided, although these may be out-of-date. Please consider the 7.1
-project file to be authoritative, and port any modifications to that
-if possible (or at least tell us so we can do it).
+provided, although these may be out-of-date. Please consider the 8.0
+files to be authoritative, and port any modifications to that if possible 
+(or at least tell us so we can do it).
 
