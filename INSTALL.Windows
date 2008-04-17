@@ -6,25 +6,24 @@ Prerequisites
 
 Microsoft Speech SDK
 Microsoft Tablet SDK
+Microsoft Windows SDK v5.0
 Expat XML Parser
 
-The Speech and Tablet SDKs can be installed individually, or as part of the 
-Platform SDK. Downloads can be found at http://www.microsoft.com and 
+The Speech, Tablet, and Windows SDKs can be installed individually, or as part 
+of the Platform SDK.  Downloads can be found at http://www.microsoft.com and 
 http://expat.sourceforge.net
 
 The project files use environment variables to locate the root directories of 
 the prerequisites.  You can set these in the Windows control panel: 
 Control Panels->System->Advanced->Environment Variables.  
 
-Here are the variable names and their default install locations:
+Here are the variable names and their default install locations (you may
+need to change these to reflect reality on your system):
 
-SPEECHSDK  C:\Program Files\Microsoft Speech SDK 5.1
-TABLETSDK  C:\Program Files\Microsoft Tablet PC Platform SDK
-EXPAT      C:\Program Files\Expat 2.0.1
-
-You should insure that your Visual Studio-wide VC++ directories don't have
-include or library directories for the platform SDK, look in: Tools->Options->
-Project and Solutions->VC++ Directories. 
+SPEECHSDK      C:\Program Files\Microsoft Speech SDK 5.1
+TABLETSDK      C:\Program Files\Microsoft Tablet PC Platform SDK
+EXPAT          C:\Program Files\Expat 2.0.1
+MICROSOFTSDK5  C:\Program Files\Microsoft SDKs\Windows\v5.0
 
 Building
 --------
@@ -37,4 +36,22 @@ For earlier versions of Visual Studio, alternative project files are
 provided, although these may be out-of-date. Please consider the 8.0
 files to be authoritative, and port any modifications to that if possible 
 (or at least tell us so we can do it).
+
+Building the installers
+-----------------------
+
+To build the installer MSI files, you need to install the Windows Install 
+XML (WiX) toolset, from http://wix.sourceforge.net/.  For Visual Studio
+2005, you first should install "ProjectAggregator" and then the 3.0 (beta)
+version of WiX.  If it installs successfully, you should see "Windows 
+Installer XML Version 3.0" listed in the about box of Visual Studio.
+
+Currently there are no scripts to create the dasher.chm help file required
+to build the installers.  So you'll need to copy a version from an existing
+Dasher installation to to the "data\help\Win32" directory.
+
+
+
+
+
 

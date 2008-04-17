@@ -1,4 +1,8 @@
-2008-03-30  Keith Vertanen <kv227@cam.ac.uk>
+2008-04-17  Keith Vertanen <kv227@cam.ac.uk>
+
+	* Added include paths to Microsoft Windows SDK v5.0
+
+2008-04-16  Keith Vertanen <kv227@cam.ac.uk>
 
 	* Replaced hard coded include and library paths in projects with
 	versions which use environment variables: TABLETSDK, SPEECHSDK

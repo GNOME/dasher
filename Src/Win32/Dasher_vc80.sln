@@ -22,9 +22,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Dasher", "Dasher_vc80.vcpro
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 	ProjectSection(ProjectDependencies) = postProject
-		{192C1E5C-2D1E-4AA3-91C3-FF2D7ABD67F8} = {192C1E5C-2D1E-4AA3-91C3-FF2D7ABD67F8}
-		{3998D966-9B9E-4214-ACEA-B777985AF4DD} = {3998D966-9B9E-4214-ACEA-B777985AF4DD}
 		{4A4CEB83-FBC8-4E93-831E-009875E54794} = {4A4CEB83-FBC8-4E93-831E-009875E54794}
+		{3998D966-9B9E-4214-ACEA-B777985AF4DD} = {3998D966-9B9E-4214-ACEA-B777985AF4DD}
+		{192C1E5C-2D1E-4AA3-91C3-FF2D7ABD67F8} = {192C1E5C-2D1E-4AA3-91C3-FF2D7ABD67F8}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DasherControl", "DasherControl_vc80.vcproj", "{3998D966-9B9E-4214-ACEA-B777985AF4DD}"
@@ -33,8 +33,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DasherControl", "DasherCont
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 	ProjectSection(ProjectDependencies) = postProject
-		{192C1E5C-2D1E-4AA3-91C3-FF2D7ABD67F8} = {192C1E5C-2D1E-4AA3-91C3-FF2D7ABD67F8}
 		{4A4CEB83-FBC8-4E93-831E-009875E54794} = {4A4CEB83-FBC8-4E93-831E-009875E54794}
+		{192C1E5C-2D1E-4AA3-91C3-FF2D7ABD67F8} = {192C1E5C-2D1E-4AA3-91C3-FF2D7ABD67F8}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DasherCore", "..\DasherCore\DasherCore_vc80.vcproj", "{192C1E5C-2D1E-4AA3-91C3-FF2D7ABD67F8}"
@@ -51,6 +51,9 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Installer", "..\Installer\I
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+		{752501D3-5B04-4F3C-A141-DE426E354D23} = {752501D3-5B04-4F3C-A141-DE426E354D23}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DasherIM", "..\DasherIM\DasherIM.vcproj", "{3A5A00A0-DEAB-46D5-9926-3BD370C460F7}"
 	ProjectSection(WebsiteProperties) = preProject
@@ -58,10 +61,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DasherIM", "..\DasherIM\Das
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 	ProjectSection(ProjectDependencies) = postProject
-		{192C1E5C-2D1E-4AA3-91C3-FF2D7ABD67F8} = {192C1E5C-2D1E-4AA3-91C3-FF2D7ABD67F8}
-		{3998D966-9B9E-4214-ACEA-B777985AF4DD} = {3998D966-9B9E-4214-ACEA-B777985AF4DD}
-		{4A4CEB83-FBC8-4E93-831E-009875E54794} = {4A4CEB83-FBC8-4E93-831E-009875E54794}
 		{752501D3-5B04-4F3C-A141-DE426E354D23} = {752501D3-5B04-4F3C-A141-DE426E354D23}
+		{4A4CEB83-FBC8-4E93-831E-009875E54794} = {4A4CEB83-FBC8-4E93-831E-009875E54794}
+		{3998D966-9B9E-4214-ACEA-B777985AF4DD} = {3998D966-9B9E-4214-ACEA-B777985AF4DD}
+		{192C1E5C-2D1E-4AA3-91C3-FF2D7ABD67F8} = {192C1E5C-2D1E-4AA3-91C3-FF2D7ABD67F8}
 	EndProjectSection
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "InstallerTobii", "..\InstallerTobii\InstallerTobii.wixproj", "{C4BFC988-DA68-4F51-BAB0-DB5B7D5CD53B}"
@@ -69,11 +72,17 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "InstallerTobii", "..\Instal
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+		{752501D3-5B04-4F3C-A141-DE426E354D23} = {752501D3-5B04-4F3C-A141-DE426E354D23}
+	EndProjectSection
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "InstallerW2K", "..\InstallerW2K\InstallerW2K.wixproj", "{C2E1F683-E2B1-4445-9748-E67E1D5156FD}"
 	ProjectSection(WebsiteProperties) = preProject
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+		{752501D3-5B04-4F3C-A141-DE426E354D23} = {752501D3-5B04-4F3C-A141-DE426E354D23}
 	EndProjectSection
 EndProject
 Global
