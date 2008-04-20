@@ -141,7 +141,7 @@ BEGIN
 END
 
 IDD_ALPHABETPAGE DIALOGEX 0, 0, 381, 238
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Select Alphabet"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
@@ -150,7 +150,7 @@ BEGIN
     CONTROL         "Language model adapts as you write.",IDC_ADAPTIVE,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,201,28,136,10
     GROUPBOX        "Prediction:",IDC_STATIC,194,7,180,90
-    LTEXT           "Use this control to adjustthe relative sizes of the letter boxes. Note that selecting high values will slow your writing speed.",IDC_STATIC,201,50,166,26
+    LTEXT           "Use this control to adjust the relative sizes of the letter boxes. Note that selecting high values will slow your writing speed.",IDC_STATIC,201,50,166,26
     EDITTEXT        IDC_UNIFORMVAL,201,78,30,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
     CONTROL         "",IDC_UNIFORMSLIDER,"msctls_trackbar32",WS_TABSTOP,235,78,131,12
     GROUPBOX        "Orientation:",IDC_STATIC,194,99,180,88
@@ -169,7 +169,7 @@ BEGIN
 END
 
 IDD_CONTROLPAGE DIALOGEX 0, 0, 381, 238
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Dasher Preferences"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
@@ -184,7 +184,7 @@ BEGIN
     CONTROL         "Start on space bar",IDC_SPACE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,201,146,126,8
     CONTROL         "Start with mouse position:",IDC_MOUSEPOS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,201,158,136,8
     COMBOBOX        IDC_MOUSEPOS_STYLE,214,170,153,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    CONTROL         "Pause outside of canvas",IDC_WINDOWPAUSE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,201,186,91,8
+    CONTROL         "Stop outside of canvas",IDC_WINDOWPAUSE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,201,186,91,8
     LISTBOX         IDC_INPUT_LIST,201,18,166,34,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     LISTBOX         IDC_CONTROL_LIST,14,18,166,188,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     GROUPBOX        "Input Device:",IDC_STATIC,194,7,180,70

@@ -15,7 +15,7 @@ http://expat.sourceforge.net
 
 The project files use environment variables to locate the root directories of 
 the prerequisites.  You can set these in the Windows control panel: 
-Control Panels->System->Advanced->Environment Variables.  
+Control Panels->System->Advanced->Environment Variables.
 
 Here are the variable names and their default install locations (you may
 need to change these to reflect reality on your system):
