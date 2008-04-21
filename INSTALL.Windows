@@ -25,6 +25,34 @@ TABLETSDK      C:\Program Files\Microsoft Tablet PC Platform SDK
 EXPAT          C:\Program Files\Expat 2.0.1
 MICROSOFTSDK5  C:\Program Files\Microsoft SDKs\Windows\v5.0
 
+Additional Prerequisits For Building HTML Help
+----------------------------------------------
+
+If you aren't building a release, and don't otherwise want to build the Windows
+help (.chm) file, you can ignore these and disable the 'Manual' project in the 
+solution. This project is only built for the 'Release' configurations anyway.
+
+LibXML2
+docbook-xsl
+Microsoft HTML Help Workshop
+
+LibXML2 is available at: http://www.zlatkovic.com/libxml.en.html. The minimum 
+requirement here is xslproc.exe, which can be installed along with the required
+dependencies by copying the contents of the bin directories from the libxml and 
+libxslt packages to (eg) C:\Program Files\LibXML2. If you want to be able to 
+use these libraries more generally you should probably put them somewhere in 
+the system wide library path.
+
+These need a few other environment variables
+
+LIBXML         C:\Program Files\LibXML2
+DOCBOOK_XSL    C:\Program Files\docbook-xsl-1.73.2
+HELP_COMPILER  C:\Program Files\HTML Help Workshop\hhc.exe
+
+Note that the last of these must be the full path of the compiler executable. This
+is due to technical limitations connected with hhc.exe (a) doing a bad job of 
+parsing the command line and (b) giving a non-zero return value on success.
+
 Building
 --------
 
