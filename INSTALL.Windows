@@ -78,10 +78,6 @@ XML (WiX) toolset, from http://wix.sourceforge.net/.  For Visual Studio
 version of WiX.  If it installs successfully, you should see "Windows 
 Installer XML Version 3.0" listed in the about box of Visual Studio.
 
-Currently there are no scripts to create the dasher.chm help file required
-to build the installers.  So you'll need to copy a version from an existing
-Dasher installation to to the "data\help\Win32" directory.
-
 
 
 
