@@ -1,3 +1,8 @@
+2008-04-21  Phil Cowans  <pjc51@mrao.cam.ac.uk>
+
+	* Preparing for release
+	* Added VS2005 project for building Windows help file
+
 2008-04-17  Keith Vertanen <kv227@cam.ac.uk>
 
 	* Added include paths to Microsoft Windows SDK v5.0
@@ -75,6 +80,7 @@
 
 	* configure.in: Resolved autogen.sh build failure from #398103.
 
+>>>>>>> .r3508
 2008-02-17  Phil Cowans  <pjc51@cam.ac.uk>
 
 	* Preparing for release
