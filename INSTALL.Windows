@@ -43,7 +43,7 @@ libxslt packages to (eg) C:\Program Files\LibXML2. If you want to be able to
 use these libraries more generally you should probably put them somewhere in 
 the system wide library path.
 
-These need a few other environment variables
+These need a few more environment variables
 
 LIBXML         C:\Program Files\LibXML2
 DOCBOOK_XSL    C:\Program Files\docbook-xsl-1.73.2
@@ -52,6 +52,10 @@ HELP_COMPILER  C:\Program Files\HTML Help Workshop\hhc.exe
 Note that the last of these must be the full path of the compiler executable. This
 is due to technical limitations connected with hhc.exe (a) doing a bad job of 
 parsing the command line and (b) giving a non-zero return value on success.
+
+** NOTE **
+The automated build step doesn't (yet) handle the image files, so you'll need to 
+manually copy Data\Help\Gnome\C\figures to Data\Help\Win32 before building.
 
 Building
 --------
