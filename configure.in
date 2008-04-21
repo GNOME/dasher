@@ -444,7 +444,6 @@ AC_CONFIG_FILES([Data/dasher.desktop.in
 		 Src/InstallerTobii/Makefile
 		 Src/InstallerW2K/Makefile
 		 Src/Win32/Makefile
-		 Utils/Makefile
 		 po/Makefile.in])
 
 AC_OUTPUT
