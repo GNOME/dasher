@@ -1,3 +1,7 @@
+2008-04-22  Phil Cowans  <phil@philcowans.com>
+
+	* Added patch for #519360
+
 2008-04-21  Phil Cowans  <phil@philcowans.com>
 
 	* Post-release increment of version number

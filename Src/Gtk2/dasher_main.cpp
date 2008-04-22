@@ -1111,14 +1111,22 @@ static void dasher_main_command_quit(DasherMain *pSelf) {
     }
   }
   else {
-    // It should be noted that write_to_file merely saves the new text to the training
-    // file rather than saving it to a file of the user's choice
+	pDialogue = gtk_message_dialog_new(GTK_WINDOW(pPrivate->pMainWindow), GTK_DIALOG_MODAL, 
+					 GTK_MESSAGE_QUESTION, GTK_BUTTONS_NONE, 
+					 _("Are you sure you wish to quit?"));
 
-    // FIXME - REIMPLEMENT
+    	gtk_dialog_add_buttons(GTK_DIALOG(pDialogue), 
+			   _("Don't quit"), GTK_RESPONSE_REJECT,
+			   _("Quit"), GTK_RESPONSE_ACCEPT, 
+			   NULL);
 
-    //    write_to_file();
-
-    gtk_main_quit();
+    switch (gtk_dialog_run(GTK_DIALOG(pDialogue))) {
+    case GTK_RESPONSE_REJECT:
+	gtk_widget_destroy(GTK_WIDGET(pDialogue));
+      break;
+    case GTK_RESPONSE_ACCEPT:
+      gtk_main_quit();
+    }
   }
 }
 
