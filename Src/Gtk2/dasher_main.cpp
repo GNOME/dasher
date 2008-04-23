@@ -1281,14 +1281,17 @@ dasher_main_command_about(DasherMain *pSelf) {
 
 static gboolean 
 dasher_main_speed_changed(DasherMain *pSelf) {
-#ifndef DASHER_WIN32
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
-  
+
+#ifdef DASHER_WIN32
+  int iNewValue( static_cast<int>(floor(gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(pPrivate->pSpeedBox)) * 100 + 0.5)));
+#else
   int iNewValue( static_cast<int>(round(gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(pPrivate->pSpeedBox)) * 100)));
+#endif
   
   if(dasher_app_settings_get_long(pPrivate->pAppSettings, LP_MAX_BITRATE) != iNewValue)
     dasher_app_settings_set_long(pPrivate->pAppSettings, LP_MAX_BITRATE, iNewValue);
-#endif
+
   return true;
 }
 

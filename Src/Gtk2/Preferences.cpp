@@ -490,7 +490,7 @@ extern "C" void on_list_selection(GtkTreeSelection *pSelection, gpointer pUserDa
     gtk_tree_model_get(pModel, &oIter, 0, &iParameter, 1, &pHelper, 2, &szValue, 4, &pHelperWindow, 5, &pHelperWindowRef, -1);
     
     dasher_app_settings_set_string(pPrivate->pAppSettings, iParameter, szValue);
-    free(szValue);
+    //free(szValue);
 
     if(pHelper) {
       gtk_widget_set_sensitive(GTK_WIDGET(pHelper), pHelperWindow != NULL);
@@ -786,13 +786,15 @@ extern "C" void startonmousepos(GtkWidget *widget, gpointer user_data) {
 }
 
 extern "C" void PrefsSpeedSliderChanged(GtkHScale *hscale, gpointer user_data) {
-#ifndef DASHER_WIN32
   //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
-  
+
+#ifdef DASHER_WIN32
+  long iNewValue = long(floor(gtk_range_get_value(GTK_RANGE(hscale)) * 100 + 0.5));
+#else  
   long iNewValue = long(round(gtk_range_get_value(GTK_RANGE(hscale)) * 100));
-  dasher_app_settings_set_long(pPrivate->pAppSettings, LP_MAX_BITRATE, iNewValue);
 #endif
+  dasher_app_settings_set_long(pPrivate->pAppSettings, LP_MAX_BITRATE, iNewValue);
 }
 
 extern "C" void orientation(GtkRadioButton *widget, gpointer user_data) {

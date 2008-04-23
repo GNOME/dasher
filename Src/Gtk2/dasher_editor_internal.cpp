@@ -632,14 +632,16 @@ dasher_editor_internal_output(DasherEditor *pSelf, const gchar *szText, int iOff
     gboolean bActionIterStarted = false;
     EditorAction *pActionIter = pPrivate->pActionRing;
     
-    while((pActionIter != pPrivate->pActionRing) || !bActionIterStarted) {
-      bActionIterStarted = true;
+	if(pActionIter) {
+      while((pActionIter != pPrivate->pActionRing) || !bActionIterStarted) {
+        bActionIterStarted = true;
       
-      if(!strcmp(dasher_action_get_name(pActionIter->pAction), "Speak")) {
-	dasher_action_preview(pActionIter->pAction, DASHER_EDITOR(pSelf));
-      }
+        if(!strcmp(dasher_action_get_name(pActionIter->pAction), "Speak")) {  
+          dasher_action_preview(pActionIter->pAction, DASHER_EDITOR(pSelf));
+        }
       
-      pActionIter = pActionIter->pNext;
+        pActionIter = pActionIter->pNext;
+	  }
     }
   }
 
