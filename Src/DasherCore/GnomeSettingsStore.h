@@ -1,7 +1,9 @@
 #ifndef __gnomesettingsstore_h__
 #define __gnomesettingsstore_h__
 
+#ifndef DASHER_WIN32
 #include "config.h"
+#endif
 
 #include <string>
 

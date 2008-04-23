@@ -1,11 +1,16 @@
 #ifndef __dashercontrol_h__
 #define __dashercontrol_h__
-
+#ifndef DASHER_WIN32
 #include "../../config.h"
+#endif
 
 #include "PangoCache.h"
 #include "Canvas.h"
+
+// Otherwise we need threading, and sockets work differently on Windows anyway
+#ifndef DASHER_WIN32
 #include "../DasherCore/SocketInput.h"
+#endif
 
 #ifdef JOYSTICK
 #include "joystick_input.h"
@@ -22,7 +27,7 @@
 
 //#include "../DasherCore/DasherSettingsInterface.h"
 #include "../DasherCore/DasherInterfaceBase.h"
-#include "../DasherCore/GnomeSettingsStore.h"
+//#include "../DasherCore/GnomeSettingsStore.h"
 #include "../DasherCore/UserLog.h"
 
 ///

@@ -23,7 +23,10 @@
 #include "DasherControl.h"
 #include "GtkDasherControl.h"
 #include "custom_marshal.h"
+
+#ifndef DASHER_WIN32
 #include "game_mode_helper.h"
+#endif
 
 #include <gtk/gtkmarshal.h>
 
@@ -309,10 +312,12 @@ gtk_dasher_control_game_helperreg(GtkDasherControl *pControl, void* gameHelper) 
 
 void 
 gtk_dasher_control_game_messageout(GtkDasherControl *pControl, int message, const void* messagedata) {
+#ifndef DASHER_WIN32
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
   GameModeHelper* pHelper = GAME_MODE_HELPER(pPrivate->pGameHelper);
   if(pHelper)
     game_mode_helper_message(pHelper, message, messagedata);
+#endif
 }
 
 void 

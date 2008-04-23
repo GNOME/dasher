@@ -1,4 +1,6 @@
-#include "../../config.h"
+#ifndef DASHER_WIN32
+#include "config.h"
+#endif
 
 #include "GtkDasherControl.h"
 #include "dasher.h"

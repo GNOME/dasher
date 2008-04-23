@@ -1,4 +1,6 @@
+#ifndef DASHER_WIN32
 #include "config.h"
+#endif
 
 #include <cstring>
 
@@ -24,7 +26,9 @@
 #endif 
 
 #include "dasher_editor_internal.h"
+#ifndef DASHER_WIN32
 #include "dasher_external_buffer.h"
+#endif
 #include "dasher_internal_buffer.h"
 #include "dasher_lock_dialogue.h"
 #include "dasher_main.h"
@@ -602,10 +606,12 @@ static void
 dasher_editor_internal_create_buffer(DasherEditor *pSelf) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
+#ifndef DASHER_WIN32
   /* Make an external buffer anyway, for keyboard command */
   /* TODO: Review this */
   if(!(pPrivate->pExternalBuffer))
     pPrivate->pExternalBuffer = IDASHER_BUFFER_SET(dasher_external_buffer_new());
+#endif
     
   if(!(pPrivate->pBufferSet))
     pPrivate->pBufferSet = IDASHER_BUFFER_SET(dasher_internal_buffer_new(pPrivate->pTextView));
@@ -690,6 +696,7 @@ dasher_editor_internal_generate_filename(DasherEditor *pSelf) {
   gchar *szNewFilename = NULL;
 
   if( dasher_app_settings_get_bool(pPrivate->pAppSettings,  APP_BP_TIME_STAMP )) {
+#ifndef DASHER_WIN32
     // Build a filename based on the current time and date
     tm *t_struct;
     time_t ctime;
@@ -704,6 +711,9 @@ dasher_editor_internal_generate_filename(DasherEditor *pSelf) {
     snprintf(tbuffer, 200, "dasher-%04d%02d%02d-%02d%02d.txt", (t_struct->tm_year + 1900), (t_struct->tm_mon + 1), t_struct->tm_mday, t_struct->tm_hour, t_struct->tm_min);
 
     szNewFilename = g_build_path("/", cwd, tbuffer, NULL);
+#else
+    szNewFilename = "TIMESTAMP_NOT_SUPPORTED";
+#endif
   }
 
   dasher_editor_internal_set_filename(pSelf, szNewFilename);
@@ -1064,16 +1074,18 @@ dasher_editor_internal_setup_actions(DasherEditor *pSelf) {
   dasher_editor_internal_add_action(pSelf, DASHER_ACTION(dasher_action_speech_new()));
 #endif
 
+#ifndef DASHER_WIN32
   dasher_editor_internal_add_action(pSelf, DASHER_ACTION(dasher_action_keyboard_new(pPrivate->pExternalBuffer)));
+#endif
 
 #ifdef WITH_MAEMO
   dasher_editor_internal_add_action(pSelf, DASHER_ACTION(dasher_action_keyboard_maemo_new()));
 #else
   //  dasher_editor_internal_add_action(pSelf, DASHER_ACTION(dasher_action_copy_new(pSelf)));
 
+#ifndef DASHER_WIN32
   GDir *pDirectory;
   G_CONST_RETURN gchar *szFilename;
-
 
   gchar *szUserScriptDir = new gchar[strlen(dasher_app_settings_get_string(pPrivate->pAppSettings, SP_USER_LOC))+9];
   strcpy(szUserScriptDir, dasher_app_settings_get_string(pPrivate->pAppSettings, SP_USER_LOC));
@@ -1106,6 +1118,7 @@ dasher_editor_internal_setup_actions(DasherEditor *pSelf) {
   }
 
   delete[] szSystemScriptDir;
+#endif
 #endif
 
   // TODO: Reimplement
@@ -1525,6 +1538,7 @@ dasher_editor_internal_gnome_vfs_save_file(DasherEditor *pSelf, const char *myfi
 
 static gboolean 
 dasher_editor_internal_unix_vfs_open_file(DasherEditor *pSelf, const char *myfilename, gchar **buffer, unsigned long long *size) {
+#ifndef DASHER_WIN32
   GtkWidget *error_dialog;
 
   struct stat file_stat;
@@ -1547,11 +1561,13 @@ dasher_editor_internal_unix_vfs_open_file(DasherEditor *pSelf, const char *myfil
   *buffer = (gchar *) g_malloc(*size);
   fread(*buffer, *size, 1, fp);
   fclose(fp);
+#endif
   return TRUE;
 }
 
 static gboolean 
 dasher_editor_internal_unix_vfs_save_file(DasherEditor *pSelf, const char *myfilename, gchar *buffer, unsigned long long length, bool append) {
+#ifndef DASHER_WIN32
   int opened = 1;
   GtkWidget *error_dialog;
 
@@ -1583,6 +1599,7 @@ dasher_editor_internal_unix_vfs_save_file(DasherEditor *pSelf, const char *myfil
 
   fwrite(buffer, 1, length, fp);
   fclose(fp);
+#endif
   return true;
 }
 #endif
@@ -1658,8 +1675,11 @@ main_window_realized(DasherMain *pMain, gpointer pUserData) {
 
 extern "C" void 
 action_button_callback(GtkWidget *pWidget, gpointer pUserData) { 
+// FIXME - REIMPLEMENT
+#ifndef DASHER_WIN32
   void **pPointers((void **)pUserData);
   dasher_editor_internal_action_button((DasherEditor *)pPointers[0], (DasherAction *)pPointers[1]);
+#endif
 }
 
 extern "C" void 

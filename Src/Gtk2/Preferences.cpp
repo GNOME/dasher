@@ -1,4 +1,6 @@
-#include "../../config.h"
+#ifndef DASHER_WIN32
+#include "config.h"
+#endif
 
 #include <glib/gi18n.h>
 #include <libintl.h>
@@ -344,7 +346,7 @@ extern "C" gboolean dasher_preferences_refresh_foreach_function(GtkTreeModel *pM
     return true;
   }
 
-  free(szComparison);
+  //free(szComparison);
   
   return false;
 }
@@ -784,11 +786,13 @@ extern "C" void startonmousepos(GtkWidget *widget, gpointer user_data) {
 }
 
 extern "C" void PrefsSpeedSliderChanged(GtkHScale *hscale, gpointer user_data) {
+#ifndef DASHER_WIN32
   //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
   
   long iNewValue = long(round(gtk_range_get_value(GTK_RANGE(hscale)) * 100));
   dasher_app_settings_set_long(pPrivate->pAppSettings, LP_MAX_BITRATE, iNewValue);
+#endif
 }
 
 extern "C" void orientation(GtkRadioButton *widget, gpointer user_data) {

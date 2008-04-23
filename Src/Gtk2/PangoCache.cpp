@@ -26,8 +26,11 @@ PangoLayout *CPangoCache::GetLayout(GtkWidget *pCanvas, std::string sDisplayText
   // includes the display text and the size.
 
    char buffer[128];             // FIXME - what if we exceed this?
-
+#ifdef DASHER_WIN32
+   sprintf_s(buffer, 128, "%d_%s", iSize, sDisplayText.c_str());
+#else
    snprintf(buffer, 128, "%d_%s", iSize, sDisplayText.c_str());
+#endif
 //   //  std::stringstream sCacheName;
 //   //sCacheName << iSize << "_" << sDisplayText;
 

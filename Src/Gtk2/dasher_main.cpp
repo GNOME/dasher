@@ -1,9 +1,16 @@
+#ifndef DASHER_WIN32
 #include "config.h"
+#endif
 
 #include <cstring>
 
 #include <gdk/gdk.h>
+
+// Obviously we can't do low level X11 stuff on Windows!
+#ifndef DASHER_WIN32
 #include <gdk/gdkx.h>
+#endif
+
 #include <glade/glade.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
@@ -13,10 +20,14 @@
 #ifdef GNOME_LIBS
 #include <libgnome/libgnome.h>
 #endif
+#ifndef DASHER_WIN32
 #include <unistd.h>
+#endif
 
 #include "GtkDasherControl.h"
+#ifndef DASHER_WIN32
 #include "KeyboardHelper.h"
+#endif
 #include "Preferences.h"
 #include "dasher_lock_dialogue.h"
 #ifdef WITH_MAEMO
@@ -43,8 +54,9 @@ struct _DasherMainPrivate {
   DasherAppSettings *pAppSettings;
   DasherPreferencesDialogue *pPreferencesDialogue;
   DasherEditor *pEditor;
-
+#ifndef DASHER_WIN32
   CKeyboardHelper *pKeyboardHelper;
+#endif
 
   // Various widgets which need to be cached:
   GtkWidget *pBufferView;
@@ -227,7 +239,9 @@ dasher_main_init(DasherMain *pDasherMain) {
   pPrivate->pEditor = NULL;
   pPrivate->pPreferencesDialogue = NULL;
 
+#ifndef DASHER_WIN32
   pPrivate->pKeyboardHelper = new CKeyboardHelper(NULL);
+#endif
 
   pPrivate->bWidgetsInitialised = false;
 }
@@ -345,6 +359,7 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
     /* Create the editor */
     gchar *szFullPath = NULL;
 
+#ifndef DASHER_WIN32
     if(pCommandLine) {
       if(pCommandLine->szFilename) {
 	if(!g_path_is_absolute(pCommandLine->szFilename)) {
@@ -358,6 +373,7 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
 	}
       }
     }
+#endif
 
     // TODO: Fix this
 //     pPrivate->pEditor = GTK_EDITOR(
@@ -998,9 +1014,16 @@ dasher_main_set_window_title(DasherMain *pSelf) {
     // program as it appears in a window, %s will be the filename.
     gchar * titleFormat = _("Dasher - %s");
     int len = strlen(szFilename);
-    gchar title[len+strlen(titleFormat)];
-    snprintf(title, sizeof(title), titleFormat, szFilename);
+    int iFullLen = len + strlen(titleFormat);
+
+    gchar *title = (gchar *)g_malloc(iFullLen);
+#ifdef DASHER_WIN32
+    sprintf_s(title, iFullLen, titleFormat, szFilename);
+#else
+    snprintf(title, iFullLen, titleFormat, szFilename);
+#endif
     gtk_window_set_title(GTK_WINDOW(pPrivate->pMainWindow), title);
+    g_free(title);
   }
 }
 
@@ -1258,13 +1281,14 @@ dasher_main_command_about(DasherMain *pSelf) {
 
 static gboolean 
 dasher_main_speed_changed(DasherMain *pSelf) {
+#ifndef DASHER_WIN32
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
   
   int iNewValue( static_cast<int>(round(gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(pPrivate->pSpeedBox)) * 100)));
   
   if(dasher_app_settings_get_long(pPrivate->pAppSettings, LP_MAX_BITRATE) != iNewValue)
     dasher_app_settings_set_long(pPrivate->pAppSettings, LP_MAX_BITRATE, iNewValue);
-
+#endif
   return true;
 }
 
@@ -1350,10 +1374,14 @@ static gint
 dasher_main_lookup_key(DasherMain *pSelf, guint iKeyVal) {
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
 
+#ifndef DASHER_WIN32
   if(pPrivate->pKeyboardHelper)
     return pPrivate->pKeyboardHelper->ConvertKeycode(iKeyVal);
   else
     return -1;
+#else
+return -1;
+#endif
 }
 
 
@@ -1387,10 +1415,14 @@ create_dasher_editor(gchar *szName, gchar *szString1, gchar *szString2, gint iIn
   DasherMain *pDasherMain = DASHER_MAIN(g_pDasherMain);
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pDasherMain);
 
+#ifndef DASHER_WIN32
   if(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE) == APP_STYLE_DIRECT)
     return GTK_WIDGET(dasher_editor_external_new());
   else
     return GTK_WIDGET(dasher_editor_internal_new());
+#else
+    return GTK_WIDGET(dasher_editor_internal_new());
+#endif
 }
 
 extern "C" gboolean 

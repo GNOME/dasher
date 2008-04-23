@@ -1,5 +1,10 @@
 #include "../Common/Common.h"
+#ifndef DASHER_WIN32
 #include "../../config.h"
+#endif
+
+#include "../DasherCore/GnomeSettingsStore.h"
+
 
 #include <cstring>
 #include <iostream>
@@ -14,7 +19,9 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkkeysyms.h>
 #include <sys/stat.h>
+#ifndef DASHER_WIN32
 #include <unistd.h>
+#endif
 using namespace std;
 
 // 'Private' methods (only used in this file)
@@ -45,7 +52,9 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
 
 void CDasherControl::CreateLocalFactories() {
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherMouseInput(m_pEventHandler, m_pSettingsStore)));
+#ifndef DASHER_WIN32
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CSocketInput(m_pEventHandler, m_pSettingsStore)));
+#endif
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasher1DMouseInput(m_pEventHandler, m_pSettingsStore)));
 
 #ifdef JOYSTICK
@@ -109,6 +118,7 @@ void CDasherControl::SetupUI() {
 
 
 void CDasherControl::SetupPaths() {
+#ifndef DASHER_WIN32
   char *home_dir;
   char *user_data_dir;
   char *system_data_dir;
@@ -119,15 +129,18 @@ void CDasherControl::SetupPaths() {
 
   mkdir(user_data_dir, S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
 
+  // FIXME - this isn't going to work in VS
   // PROGDATA is provided by the makefile
   system_data_dir = PROGDATA "/";
 
   SetStringParameter(SP_SYSTEM_LOC, system_data_dir);
   SetStringParameter(SP_USER_LOC, user_data_dir);
   delete[] user_data_dir;
+#endif
 }
 
 void CDasherControl::CreateSettingsStore() {
+  // FIXME - this needs to be reimplemented
   m_pSettingsStore = new CGnomeSettingsStore(m_pEventHandler);
 }
 
@@ -354,6 +367,7 @@ void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
 };
 
 void CDasherControl::WriteTrainFile(const std::string &strNewText) {
+#ifndef DASHER_WIN32
   if(strNewText.length() == 0)
     return;
 
@@ -362,6 +376,7 @@ void CDasherControl::WriteTrainFile(const std::string &strNewText) {
   int fd=open(strFilename.c_str(),O_CREAT|O_WRONLY|O_APPEND,S_IRUSR|S_IWUSR);
   write(fd,strNewText.c_str(),strNewText.length());
   close(fd);
+#endif
 }
 
 // TODO: Sort these methods out

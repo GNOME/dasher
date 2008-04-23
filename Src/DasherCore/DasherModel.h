@@ -21,7 +21,7 @@
 #ifndef __DasherModel_h__
 #define __DasherModel_h__
 
-#ifndef WIN32
+#ifndef DASHER_WIN32
 #include "config.h"
 #endif
 

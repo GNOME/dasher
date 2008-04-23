@@ -18,7 +18,10 @@
 // along with Dasher; if not, write to the Free Software 
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+#ifndef DASHER_WIN32
 #include "config.h"
+#endif 
+
 #include <glib/gi18n.h>
 
 #include "module_settings_window.h"
@@ -93,7 +96,7 @@ module_settings_window_new(DasherAppSettings *pAppSettings, const gchar *szName,
   
   GtkWidget *pFrame = gtk_frame_new(szFrameTitle);
 
-  free(szFrameTitle);
+  g_free(szFrameTitle);
 
   gtk_container_add(GTK_CONTAINER(pDasherControl->window.vbox), pFrame);
   g_object_set(G_OBJECT(pFrame), "border-width", 8, NULL);

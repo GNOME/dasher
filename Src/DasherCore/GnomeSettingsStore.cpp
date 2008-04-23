@@ -1,4 +1,6 @@
+#ifndef DASHER_WIN32
 #include "../../config.h"
+#endif
 
 #include "../Common/Common.h"
 

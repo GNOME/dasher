@@ -1,4 +1,6 @@
+#ifndef DASHER_WIN32
 #include "config.h"
+#endif
 
 #ifdef WITH_GCONF
 #include <gconf/gconf.h>
@@ -341,6 +343,9 @@ void dasher_app_settings_set_long(DasherAppSettings *pSelf, int iParameter, gint
 }
 
 gboolean dasher_app_settings_get_free_long(DasherAppSettings *pSelf, const gchar *szName, gint &iValue) {
+#ifdef DASHER_WIN32
+  return false;
+#else
   DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
 
   gchar szFullName[256];
@@ -361,9 +366,11 @@ gboolean dasher_app_settings_get_free_long(DasherAppSettings *pSelf, const gchar
   else {
     return false;
   }
+#endif
 }
 
 void dasher_app_settings_set_free_long(DasherAppSettings *pSelf, const gchar *szName, gint iValue) {   
+#ifndef DASHER_WIN32
   DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
 
   gchar szFullName[256];
@@ -373,6 +380,7 @@ void dasher_app_settings_set_free_long(DasherAppSettings *pSelf, const gchar *sz
 
   GError *pGConfError = NULL;
   gconf_client_set_int(pPrivate->pGConfClient, szFullName, iValue, &pGConfError);
+#endif
 }
 
 const gchar *dasher_app_settings_get_string(DasherAppSettings *pSelf, int iParameter) {

@@ -1,4 +1,7 @@
+#ifndef DASHER_WIN32
 #include "config.h"
+#endif 
+
 #ifdef GNOME_LIBS
 #include <glib/gi18n.h>
 #endif
@@ -7,11 +10,13 @@
 
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
+#ifndef DASHER_WIN32
 #include <gdk/gdkx.h>
+#endif
 #include <glade/glade.h>
 #include <signal.h>
 #if GLIB_CHECK_VERSION(2,6,0)
-#include <Gtk2/DasherAppSettings.h>
+#include "Gtk2/DasherAppSettings.h"
 #endif
 
 #ifdef WITH_MAEMO
@@ -34,16 +39,17 @@
 #include <libgnomevfs/gnome-vfs.h>
 #endif
 
-// #include <libintl.h>
+//#include <libintl.h>
+#include <glib/gi18n.h>
 // #include <locale.h>
 // #include <stdio.h>
 // #include <stdlib.h>
 // #include <iostream>
 
-#include "dasher.h"
+#include "Gtk2/dasher.h"
 //#include "DasherControl.h"
-#include "dasher_lock_dialogue.h"
-#include "dasher_main.h"
+#include "Gtk2/dasher_lock_dialogue.h"
+#include "Gtk2/dasher_main.h"
 
 #ifdef WITH_GPE
 #include "gpesettings_store.h"
