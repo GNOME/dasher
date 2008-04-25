@@ -174,7 +174,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Transforming DocBook source"
-						CommandLine="&quot;$(LIBXML)\xsltproc.exe&quot; --stringparam htmlhelp.chm dasher.chm --param manifest.in.base.dir 1 --stringparam base.dir .\Win32\ &quot;$(DOCBOOK_XSL)\htmlhelp\htmlhelp.xsl&quot; &quot;$(InputPath)&quot;"
+						CommandLine="&quot;$(LIBXML)\xsltproc.exe&quot; --stringparam htmlhelp.chm dasher.chm --param manifest.in.base.dir 1 --stringparam base.dir .\Win32\ &quot;$(DOCBOOK_XSL)\htmlhelp\htmlhelp.xsl&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
 						Outputs=".\Win32\htmlhelp.hhp"
 					/>
 				</FileConfiguration>
@@ -184,7 +184,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Transforming DocBook source"
-						CommandLine="&quot;$(LIBXML)\xsltproc.exe&quot; --stringparam htmlhelp.chm dasher.chm --param manifest.in.base.dir 1 --stringparam base.dir .\Win32\ &quot;$(DOCBOOK_XSL)\htmlhelp\htmlhelp.xsl&quot; &quot;$(InputPath)&quot;"
+						CommandLine="&quot;$(LIBXML)\xsltproc.exe&quot; --stringparam htmlhelp.chm dasher.chm --param manifest.in.base.dir 1 --stringparam base.dir .\Win32\ &quot;$(DOCBOOK_XSL)\htmlhelp\htmlhelp.xsl&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
 						Outputs=".\Win32\htmlhelp.hhp"
 					/>
 				</FileConfiguration>
@@ -198,7 +198,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Compiling HTML Help project"
-						CommandLine=".\compile_help.bat &quot;$(HELP_COMPILER)&quot; &quot;$(InputPath)&quot;"
+						CommandLine=".\compile_help.bat &quot;$(HELP_COMPILER)&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
 						Outputs=".\Win32\dasher.chm"
 					/>
 				</FileConfiguration>
@@ -208,7 +208,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Compiling HTML Help project"
-						CommandLine=".\compile_help.bat &quot;$(HELP_COMPILER)&quot; &quot;$(InputPath)&quot;"
+						CommandLine=".\compile_help.cmd &quot;$(HELP_COMPILER)&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
 						Outputs=".\Win32\dasher.chm"
 					/>
 				</FileConfiguration>
