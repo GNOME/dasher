@@ -1,3 +1,8 @@
+2008-04-26  Phil Cowans  <phil@philcowans.com>
+
+    * Removed unneccesary (and out-of-date) Expat source tree from SVN
+    * Removed obsolete Gtk2-Experimental directory from SVN
+
 2008-04-25  Aaron Larson  <aaron@larsonsonline.net>
 
 	* Added patch for #529907 plus resolve some compiler warnings.
