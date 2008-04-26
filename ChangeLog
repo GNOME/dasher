@@ -89,7 +89,6 @@
 
 	* configure.in: Resolved autogen.sh build failure from #398103.
 
->>>>>>> .r3508
 2008-02-17  Phil Cowans  <pjc51@cam.ac.uk>
 
 	* Preparing for release
