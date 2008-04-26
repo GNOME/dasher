@@ -198,7 +198,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Compiling HTML Help project"
-						CommandLine=".\compile_help.bat &quot;$(HELP_COMPILER)&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
+						CommandLine=".\compile_help.cmd &quot;$(HELP_COMPILER)&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
 						Outputs=".\Win32\dasher.chm"
 					/>
 				</FileConfiguration>
