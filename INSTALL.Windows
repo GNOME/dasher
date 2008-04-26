@@ -78,8 +78,17 @@ XML (WiX) toolset, from http://wix.sourceforge.net/.  For Visual Studio
 version of WiX.  If it installs successfully, you should see "Windows 
 Installer XML Version 3.0" listed in the about box of Visual Studio.
 
+setup.exe
+---------
 
+The installation itself is carried out by a small utility, setup.exe, which 
+downloads the .msi file and installs it. This is (a) to ensure that the
+correct version of the Windows Installer is present, and (b) to make sure
+that the installer is run with the right options to enable the desired
+upgrade behaviour.
 
+The setup.exe binary is built from source shipped as part of the MS Platform
+SDK, as si MSIStuff, which is a utility for configuring the resulting
+binary. The whole process is described in MS KB article 888473:
 
-
-
+http://support.microsoft.com/kb/888473
