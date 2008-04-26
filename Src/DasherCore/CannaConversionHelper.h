@@ -109,11 +109,9 @@ class CCannaConversionHelper : public CConversionHelper {
     if(strChar.size() == 0)
      return false;
 
-    int nbun;
     char *pQuery = (char *)strChar.c_str();
 
     unsigned char *buf = (unsigned char *)malloc(sizeof(unsigned char) * BUFSIZE);
-    unsigned char *str_utf8 = (unsigned char *)malloc(sizeof(unsigned char) * BUFSIZE);
 
     char *inbuf = (char *)pQuery;
     char *outbuf = (char *)buf;

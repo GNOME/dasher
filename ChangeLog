@@ -1,3 +1,7 @@
+2008-04-25  Aaron Larson  <aaron@larsonsonline.net>
+
+	* Added patch for #529907 plus resolve some compiler warnings.
+
 2008-04-22  Phil Cowans  <phil@philcowans.com>
 
 	* Added patch for #519360
