@@ -1286,7 +1286,7 @@ dasher_main_alphabet_combo_changed(DasherMain *pSelf) {
     else 
       dasher_app_settings_set_string(pPrivate->pAppSettings, SP_ALPHABET_ID, szSelected);
 
-    free(szSelected);
+    g_free(szSelected);
   }
 }
 

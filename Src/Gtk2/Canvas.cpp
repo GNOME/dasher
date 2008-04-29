@@ -189,7 +189,7 @@ void CCanvas::Display() {
   // gtk_main_iteration_do(0);
 }
 
-void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, bool bDrawOutline, bool bFill, int iThickness) {
+void CCanvas::DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, bool bDrawOutline, bool bFill, int iThickness) {
 
   //  std::cout << "Raw Rectangle, (" << x1 << ", " << y1 << ") - (" << x2 << ", " << y2 << ")" << std::endl;
 
@@ -383,7 +383,7 @@ void CCanvas::Polyline(Dasher::CDasherScreen::point *Points, int Number, int iWi
   END_DRAWING;
 }
 
-void CCanvas::DrawString(const std::string &String, int x1, int y1, int size) {
+void CCanvas::DrawString(const std::string &String, screenint x1, screenint y1, int size) {
   
 #if WITH_CAIRO
 #else
@@ -415,8 +415,7 @@ void CCanvas::DrawString(const std::string &String, int x1, int y1, int size) {
   END_DRAWING;
 }
 
-void CCanvas::TextSize(const std::string &String, int *Width, int *Height, int size) {
-
+void CCanvas::TextSize(const std::string &String, screenint *Width, screenint *Height, int size) {
 #if WITH_CAIRO
   PangoLayout *pLayout(m_pPangoCache->GetLayout(cr, String, size));
 #else

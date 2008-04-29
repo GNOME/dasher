@@ -93,7 +93,7 @@ module_settings_window_new(DasherAppSettings *pAppSettings, const gchar *szName,
   
   GtkWidget *pFrame = gtk_frame_new(szFrameTitle);
 
-  free(szFrameTitle);
+  g_free(szFrameTitle);
 
   gtk_container_add(GTK_CONTAINER(pDasherControl->window.vbox), pFrame);
   g_object_set(G_OBJECT(pFrame), "border-width", 8, NULL);

@@ -111,7 +111,7 @@ void CDasherControl::SetupUI() {
 void CDasherControl::SetupPaths() {
   char *home_dir;
   char *user_data_dir;
-  char *system_data_dir;
+  const char *system_data_dir;
 
   home_dir = getenv("HOME");
   user_data_dir = new char[strlen(home_dir) + 10];

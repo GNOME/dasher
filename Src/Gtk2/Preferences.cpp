@@ -22,7 +22,7 @@ typedef struct _BoolTranslation BoolTranslation;
 
 struct _BoolTranslation {
   gint iParameter;
-  gchar *szWidgetName;
+  const gchar *szWidgetName;
   GtkWidget *pWidget;
 };
 
@@ -54,9 +54,9 @@ typedef struct _StringTranslation StringTranslation;
 
 struct _StringTranslation {
   gint iParameter;
-  gchar *szWidgetName;
+  const gchar *szWidgetName;
   GtkWidget *pWidget;
-  gchar *szHelperName;
+  const gchar *szHelperName;
   GtkWidget *pHelper;
 };
 
@@ -335,7 +335,7 @@ extern "C" gboolean dasher_preferences_refresh_foreach_function(GtkTreeModel *pM
   gtk_tree_model_get(pModel, pIter, 2, &szComparison, -1);
 
   if(!strcmp(szTarget, szComparison)) {
-    free(szComparison);
+    g_free(szComparison);
     // Todo: set selection here?
     gtk_tree_view_set_cursor((GtkTreeView *)pPointers[1], pPath, NULL, false);
 
@@ -344,7 +344,7 @@ extern "C" gboolean dasher_preferences_refresh_foreach_function(GtkTreeModel *pM
     return true;
   }
 
-  free(szComparison);
+  g_free(szComparison);
   
   return false;
 }
@@ -488,7 +488,7 @@ extern "C" void on_list_selection(GtkTreeSelection *pSelection, gpointer pUserDa
     gtk_tree_model_get(pModel, &oIter, 0, &iParameter, 1, &pHelper, 2, &szValue, 4, &pHelperWindow, 5, &pHelperWindowRef, -1);
     
     dasher_app_settings_set_string(pPrivate->pAppSettings, iParameter, szValue);
-    free(szValue);
+    g_free(szValue);
 
     if(pHelper) {
       gtk_widget_set_sensitive(GTK_WIDGET(pHelper), pHelperWindow != NULL);
