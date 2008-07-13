@@ -1,3 +1,8 @@
+2008-07-14  Behdad Esfahbod  <behdad@gnome.org>
+
+	* Data/training/training_persian_IR.txt: Remove some lines that was
+	straight copy of a short story.
+
 2008-04-28  Aaron Larson  <aaron@larsonsonline.net>
 
 	* Applied patches for free() vs g_free() and misc cleanups
