@@ -9,13 +9,13 @@ msgstr ""
 "Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-07-02 08:55+0200\n"
-"PO-Revision-Date: 2007-12-27 16:11+0100\n"
+"PO-Revision-Date: 2008-07-27 13:25+0200\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);"
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title without a file.
@@ -32,11 +32,11 @@ msgstr "Dasher"
 
 #: ../Data/dasher.desktop.in.in.h:2
 msgid "Enter text without a keyboard"
-msgstr ""
+msgstr "Picar de tèxt sens clavièr"
 
 #: ../Data/dasher.desktop.in.in.h:3
 msgid "Predictive text entry"
-msgstr ""
+msgstr "Picada de tèxt predictiva"
 
 #: ../Data/glade/dasher.compose.glade.h:1
 #: ../Data/glade/dasher.direct.glade.h:1
@@ -66,7 +66,7 @@ msgstr "Talhar"
 
 #: ../Data/glade/dasher.compose.glade.h:6
 msgid "Dasher _Tutorial"
-msgstr ""
+msgstr "_Didacticial de Dasher"
 
 #: ../Data/glade/dasher.compose.glade.h:7
 #: ../Data/glade/dasher.gameWIP.glade.h:12
@@ -93,7 +93,7 @@ msgstr "Pegar"
 #: ../Data/glade/dasher.traditional.glade.h:11
 #: ../Data/glade/dashermaemo.glade.h:5
 msgid "Please Wait..."
-msgstr ""
+msgstr "Esperatz..."
 
 #: ../Data/glade/dasher.compose.glade.h:11
 msgid "Pr_eferences"
@@ -145,7 +145,7 @@ msgstr "_A prepaus"
 
 #: ../Data/glade/dasher.compose.glade.h:18
 msgid "_Append to file"
-msgstr ""
+msgstr "_Apondre al fichièr"
 
 #: ../Data/glade/dasher.compose.glade.h:19
 msgid "_Contents"
@@ -174,7 +174,7 @@ msgstr "_Ajuda"
 
 #: ../Data/glade/dasher.compose.glade.h:23
 msgid "_Import Training Text"
-msgstr ""
+msgstr "_Importar un tèxt d'aprendissatge"
 
 #: ../Data/glade/dasher.compose.glade.h:24
 #: ../Data/glade/dasher.fullscreen.glade.h:5
@@ -186,15 +186,15 @@ msgstr "abcdefghijk ABCDEFGHIJK"
 #: ../Data/glade/dasher.gameWIP.glade.h:1
 #: ../Data/glade/dasher.traditional.glade.h:1
 msgid "A_ppend to file..."
-msgstr ""
+msgstr "A_pondre al fichièr..."
 
 #: ../Data/glade/dasher.gameWIP.glade.h:7
 msgid "Demo!"
-msgstr ""
+msgstr "Demo !"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:8
 msgid "Full Demo"
-msgstr ""
+msgstr "Demo complèta"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:9
 #: ../Data/glade/dasher.traditional.glade.h:7
@@ -203,7 +203,7 @@ msgstr "Ajuda"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:10
 msgid "Launch Dasher Game & Demo mode!"
-msgstr ""
+msgstr "Aviar lo jòc Dasher e lo mòde demo !"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:11
 msgid "Level:"
@@ -211,7 +211,7 @@ msgstr "Nivèl :"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:13
 msgid "New sentence"
-msgstr ""
+msgstr "Frasa novèla"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:17
 #: ../Data/glade/dasher.traditional.glade.h:12
@@ -241,12 +241,12 @@ msgstr "_A prepaus..."
 #: ../Data/glade/dasher.gameWIP.glade.h:26
 #: ../Data/glade/dasher.traditional.glade.h:20
 msgid "_Contents..."
-msgstr ""
+msgstr "_Ensenhador..."
 
 #: ../Data/glade/dasher.gameWIP.glade.h:30
 #: ../Data/glade/dasher.traditional.glade.h:24
 msgid "_Import Training Text..."
-msgstr ""
+msgstr "_Importar un tèxt d'aprendissatge..."
 
 #
 #: ../Data/glade/dasher.preferences.glade.h:1
@@ -263,31 +263,31 @@ msgstr "<b>Adaptacion</b>"
 #: ../Data/glade/dasher.preferences.glade.h:3
 #: ../Data/glade/dashermaemo.preferences.glade.h:2
 msgid "<b>Alphabet Selection</b>"
-msgstr ""
+msgstr "<b>Seleccion de l'alfabet</b>"
 
 #
 #: ../Data/glade/dasher.preferences.glade.h:4
 msgid "<b>Appearance Options</b>"
-msgstr ""
+msgstr "<b>Opcions de visualizacion</b>"
 
 #
 #: ../Data/glade/dasher.preferences.glade.h:5
 msgid "<b>Application Options</b>"
-msgstr ""
+msgstr "<b>Opcions de l'aplicacion</b>"
 
 #
 #: ../Data/glade/dasher.preferences.glade.h:6
 msgid "<b>Application Style</b>"
-msgstr ""
+msgstr "<b>Estil de l'aplicacion</b>"
 
 #
 #: ../Data/glade/dasher.preferences.glade.h:7
 msgid "<b>Colour Scheme</b>"
-msgstr ""
+msgstr "<b>Jòc de colors</b>"
 
 #: ../Data/glade/dasher.preferences.glade.h:8
 msgid "<b>Control Style</b>"
-msgstr ""
+msgstr "<b>Estil de contraròtle</b>"
 
 #
 #: ../Data/glade/dasher.preferences.glade.h:9
@@ -302,12 +302,12 @@ msgstr "<b>Direccion</b>"
 #
 #: ../Data/glade/dasher.preferences.glade.h:11
 msgid "<b>Editor Font</b>"
-msgstr ""
+msgstr "<b>Editor de poliça</b>"
 
 #
 #: ../Data/glade/dasher.preferences.glade.h:12
 msgid "<b>Input Device</b>"
-msgstr ""
+msgstr "<b>Periferic de dintrada</b>"
 
 #
 #: ../Data/glade/dasher.preferences.glade.h:13
@@ -319,7 +319,7 @@ msgstr "<b>Modèl de lenga</b>"
 #: ../Data/glade/dasher.preferences.glade.h:14
 #: ../Data/glade/dashermaemo.preferences.glade.h:7
 msgid "<b>Smoothing</b>"
-msgstr ""
+msgstr "<b>Alisada</b>"
 
 #
 #: ../Data/glade/dasher.preferences.glade.h:15
@@ -329,18 +329,18 @@ msgstr "<b>Velocitat</b>"
 
 #: ../Data/glade/dasher.preferences.glade.h:16
 msgid "<b>Starting And Stopping</b>"
-msgstr ""
+msgstr "<b>Aviada e arrèst</b>"
 
 #: ../Data/glade/dasher.preferences.glade.h:17
 #: ../Data/glade/dashermaemo.preferences.glade.h:9
 msgid "Adapt speed automatically"
-msgstr ""
+msgstr "Adaptar la velocitat automaticament"
 
 #. The default display orientation for the selected alphabet, ie left to right for English, right to left for Arabic, etc.
 #: ../Data/glade/dasher.preferences.glade.h:19
 #: ../Data/glade/dashermaemo.preferences.glade.h:11
 msgid "Alphabet Default"
-msgstr ""
+msgstr "Segon l'alfabet"
 
 #: ../Data/glade/dasher.preferences.glade.h:20
 msgid "Appearance"
@@ -361,10 +361,12 @@ msgid ""
 "Centre circle\n"
 "Two box"
 msgstr ""
+"Cercle de centre\n"
+"Doas brústias"
 
 #: ../Data/glade/dasher.preferences.glade.h:26
 msgid "Composition"
-msgstr ""
+msgstr "Composicion"
 
 #: ../Data/glade/dasher.preferences.glade.h:27
 #: ../Data/glade/dashermaemo.preferences.glade.h:13
@@ -373,7 +375,7 @@ msgstr "Contraròtle"
 
 #: ../Data/glade/dasher.preferences.glade.h:28
 msgid "Control mode"
-msgstr ""
+msgstr "Mòde de contraròtle"
 
 #
 #: ../Data/glade/dasher.preferences.glade.h:29
@@ -384,7 +386,7 @@ msgstr "Personalizat"
 #: ../Data/glade/dasher.preferences.glade.h:30
 #: ../Data/glade/dashermaemo.preferences.glade.h:15
 msgid "Custom colour scheme:"
-msgstr ""
+msgstr "Esquèma de colors personalizat :"
 
 #: ../Data/glade/dasher.preferences.glade.h:31
 #: ../Data/glade/dashermaemo.preferences.glade.h:16
@@ -393,19 +395,19 @@ msgstr "Preferéncias de Dasher"
 
 #: ../Data/glade/dasher.preferences.glade.h:32
 msgid "Direct entry"
-msgstr ""
+msgstr "Zòna de dintrada dirècta"
 
 #: ../Data/glade/dasher.preferences.glade.h:33
 msgid "Dock application window"
-msgstr ""
+msgstr "Ancorar la fenèstra de l'aplicacion"
 
 #: ../Data/glade/dasher.preferences.glade.h:34
 msgid "Draw box outlines"
-msgstr ""
+msgstr "Dessenhar lo contorn de las brústias"
 
 #: ../Data/glade/dasher.preferences.glade.h:35
 msgid "Draw line between crosshairs and mouse"
-msgstr ""
+msgstr "Dessenhar una linha entre las croses e la mirga"
 
 #: ../Data/glade/dasher.preferences.glade.h:36
 msgid "Full Screen"
@@ -413,7 +415,7 @@ msgstr "Ecran complet"
 
 #: ../Data/glade/dasher.preferences.glade.h:37
 msgid "Increase line thickness"
-msgstr ""
+msgstr "Augmentar l'espessor de la linha"
 
 #: ../Data/glade/dasher.preferences.glade.h:38
 #: ../Data/glade/dashermaemo.preferences.glade.h:18
@@ -427,7 +429,7 @@ msgstr "Lenga"
 #: ../Data/glade/dasher.preferences.glade.h:40
 #: ../Data/glade/dashermaemo.preferences.glade.h:19
 msgid "Language model adapts as you write."
-msgstr ""
+msgstr "Adaptar lo modèl de la lenga pendent qu'escribètz."
 
 #: ../Data/glade/dasher.preferences.glade.h:41
 msgid "Large font "
@@ -436,13 +438,13 @@ msgstr "Poliça bèla "
 #: ../Data/glade/dasher.preferences.glade.h:42
 #: ../Data/glade/dashermaemo.preferences.glade.h:20
 msgid "Left to Right"
-msgstr ""
+msgstr "D'esquèrra a drecha"
 
 #. PPM =  Prediction by Partial Match, a styatistical language model.
 #: ../Data/glade/dasher.preferences.glade.h:44
 #: ../Data/glade/dashermaemo.preferences.glade.h:21
 msgid "Mixture model (PPM/dictionary)"
-msgstr ""
+msgstr "Modèl mixt (PPM/diccionari)"
 
 #: ../Data/glade/dasher.preferences.glade.h:45
 msgid "Options"
@@ -450,32 +452,32 @@ msgstr "Opcions"
 
 #: ../Data/glade/dasher.preferences.glade.h:46
 msgid "Pause outside of canvas"
-msgstr ""
+msgstr "Metre en pausa quand la mirga es en defòra de la fenèstra"
 
 #: ../Data/glade/dasher.preferences.glade.h:47
 #: ../Data/glade/dashermaemo.preferences.glade.h:23
 msgid "Right to Left"
-msgstr ""
+msgstr "Drecha a esquèrra"
 
 #: ../Data/glade/dasher.preferences.glade.h:48
 msgid "Select Dasher Font"
-msgstr ""
+msgstr "Seleccionatz la poliça de Dasher"
 
 #: ../Data/glade/dasher.preferences.glade.h:49
 msgid "Select Editor Font"
-msgstr ""
+msgstr "Seleccionatz la poliça de l'editor"
 
 #: ../Data/glade/dasher.preferences.glade.h:50
 msgid "Show mouse position"
-msgstr ""
+msgstr "Visualizar la posicion de la mirga"
 
 #: ../Data/glade/dasher.preferences.glade.h:51
 msgid "Show speed slider"
-msgstr ""
+msgstr "Visualizar lo cursor de velocitat"
 
 #: ../Data/glade/dasher.preferences.glade.h:52
 msgid "Show toolbar"
-msgstr ""
+msgstr "Visualizar la barra d'espleches"
 
 #: ../Data/glade/dasher.preferences.glade.h:53
 msgid "Small font"
@@ -483,34 +485,34 @@ msgstr "Poliça pichona"
 
 #: ../Data/glade/dasher.preferences.glade.h:54
 msgid "Stand-alone"
-msgstr ""
+msgstr "Autonòm"
 
 #. PPM = Prediction by Partial Match, a statistical language model.
 #: ../Data/glade/dasher.preferences.glade.h:56
 #: ../Data/glade/dashermaemo.preferences.glade.h:24
 msgid "Standard letter-based PPM"
-msgstr ""
+msgstr "PPM basa sus letra estàndar"
 
 #: ../Data/glade/dasher.preferences.glade.h:57
 msgid "Start on left mouse button"
-msgstr ""
+msgstr "Aviar amb lo boton esquèrre de la mirga"
 
 #: ../Data/glade/dasher.preferences.glade.h:58
 msgid "Start on space bar"
-msgstr ""
+msgstr "Aviar amb la barra d'espaci"
 
 #: ../Data/glade/dasher.preferences.glade.h:59
 msgid "Start with mouse position:"
-msgstr ""
+msgstr "Aviar amb la posicion de la mirga :"
 
 #: ../Data/glade/dasher.preferences.glade.h:60
 msgid "Timestamp new files"
-msgstr ""
+msgstr "Orodatar los fichièrs novèls"
 
 #: ../Data/glade/dasher.preferences.glade.h:61
 #: ../Data/glade/dashermaemo.preferences.glade.h:25
 msgid "Top to Bottom"
-msgstr ""
+msgstr "D'ennaut a enbàs"
 
 #: ../Data/glade/dasher.preferences.glade.h:62
 msgid ""
@@ -518,15 +520,18 @@ msgid ""
 "letter boxes. Note that selecting high values will slow\n"
 "your writing speed."
 msgstr ""
+"Utilizar aqueste contraròtle per reglar las talhas relativas \n"
+"de las brústias de letras. Notatz que seleccionar de valors \n"
+"elevadas alentirà vòstra velocitat d'escritura."
 
 #: ../Data/glade/dasher.preferences.glade.h:65
 msgid "Very large font"
-msgstr ""
+msgstr "Poliça fòrt bèla"
 
 #: ../Data/glade/dasher.preferences.glade.h:66
 #: ../Data/glade/dashermaemo.preferences.glade.h:27
 msgid "Word-based model"
-msgstr ""
+msgstr "Modèl basat suls mots"
 
 #: ../Data/glade/dashermaemo.glade.h:1
 msgid "\n"
@@ -539,11 +544,11 @@ msgstr "P"
 #
 #: ../Data/glade/dashermaemo.preferences.glade.h:3
 msgid "<b>Color Scheme</b>"
-msgstr ""
+msgstr "<b>Jòc de colors</b>"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:4
 msgid "<b>Display Size</b>"
-msgstr ""
+msgstr "<b>Talha de visualizacion</b>"
 
 #
 #: ../Data/glade/dashermaemo.preferences.glade.h:6
@@ -556,11 +561,11 @@ msgstr "Alfabet"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:17
 msgid "Enlarge input window"
-msgstr ""
+msgstr "Agrandir la fenèstra de dintrada"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:22
 msgid "Prediction"
-msgstr ""
+msgstr "Prediccion"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:26
 msgid "View"
@@ -596,118 +601,118 @@ msgstr "_Opcions"
 
 #: ../Data/glade/dashermaemofullscreen.glade.h:16
 msgid "_Reset fonts"
-msgstr ""
+msgstr "_Reinicializar las poliças"
 
 #: ../Src/DasherCore/ClickFilter.cpp:7
 msgid "Maximum Zoom"
-msgstr ""
+msgstr "Zoom maximum"
 
 #: ../Src/DasherCore/ClickFilter.h:11
 msgid "Click Mode"
-msgstr ""
+msgstr "Mòde de clic"
 
 #. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
 #: ../Src/DasherCore/DasherButtons.cpp:25
 msgid "Zoom steps"
-msgstr ""
+msgstr "Encrenas de zoom"
 
 #. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
 #: ../Src/DasherCore/DasherButtons.cpp:27
 msgid "Right zoom"
-msgstr ""
+msgstr "Zoom drech"
 
 #: ../Src/DasherCore/DasherButtons.cpp:28
 msgid "Number of boxes"
-msgstr ""
+msgstr "Nombre de brústias"
 
 #: ../Src/DasherCore/DasherButtons.cpp:29
 msgid "Safety margin"
-msgstr ""
+msgstr "Marge de seguretat"
 
 #. TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other.
 #: ../Src/DasherCore/DasherButtons.cpp:31
 msgid "Box non-uniformity"
-msgstr ""
+msgstr "Brústia pas uniforma"
 
 #. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
 #: ../Src/DasherCore/DasherButtons.cpp:33
 msgid "Global keyboard grab"
-msgstr ""
+msgstr "Captura globala del clavièr"
 
 #: ../Src/DasherCore/DasherGameMode.cpp:633
 msgid "Well done!"
-msgstr ""
+msgstr "Plan !"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:934
 msgid "Normal Control"
-msgstr ""
+msgstr "Contraròtle normal"
 
 #. TODO: specialist factory for button mode
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:941
 msgid "Menu Mode"
-msgstr ""
+msgstr "Mòde menut"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:942
 msgid "Direct Mode"
-msgstr ""
+msgstr "Mòde dirèct"
 
 #. RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:944
 msgid "Alternating Direct Mode"
-msgstr ""
+msgstr "Mòde dirèct alternatiu"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:945
 msgid "Compass Mode"
-msgstr ""
+msgstr "Mòde compàs"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:946
 msgid "Stylus Control"
-msgstr ""
+msgstr "Contraròtle a l'estilet"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:7
 msgid "Automatic calibration"
-msgstr ""
+msgstr "Calibratge automatic"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:11
 msgid "Eyetracker Mode"
-msgstr ""
+msgstr "Mòde de seguit a l'uèlh"
 
 #. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:29
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
 msgid "Long press time"
-msgstr ""
+msgstr "Temps d'apièja long"
 
 #. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the time in which the button must be pressed multiple times to count.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
 msgid "Multiple press time"
-msgstr ""
+msgstr "Temps d'apièja multiple"
 
 #. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the number of times a button must be pressed to count as a multiple press.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:34
 msgid "Multiple press count"
-msgstr ""
+msgstr "Contatge d'apièja multiple"
 
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
 msgid "Enable backoff button"
-msgstr ""
+msgstr "Activar lo boton de desblocatge"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
 msgid "One Button Dynamic Mode"
-msgstr ""
+msgstr "Mòde dinamic d'un boton"
 
 #: ../Src/DasherCore/OneDimensionalFilter.cpp:5
 msgid "One Dimensional Mode"
-msgstr ""
+msgstr "Mòde unidimensional"
 
 #: ../Src/DasherCore/SettingsStore.cpp:76
 #: ../Src/Gtk2/DasherAppSettings.cpp:516 ../Src/Gtk2/DasherAppSettings.cpp:550
 #: ../Src/Gtk2/DasherAppSettings.cpp:554
 msgid "true"
-msgstr ""
+msgstr "verai"
 
 #
 #: ../Src/DasherCore/SettingsStore.cpp:78
@@ -722,18 +727,18 @@ msgstr "fals"
 #: ../Src/DasherCore/SettingsStore.cpp:84
 #: ../Src/Gtk2/DasherAppSettings.cpp:521
 msgid "boolean value must be specified as 'true' or 'false'."
-msgstr ""
+msgstr "la valor booleana deu èsser 'verai' o 'fals'."
 
 #. Note to translators: This is output when command line "--options" doesn't
 #. specify a known option.
 #: ../Src/DasherCore/SettingsStore.cpp:104
 msgid "unknown option, use \"--help-options\" for more information."
-msgstr ""
+msgstr "opcion desconeguda, utilizatz \"--help-options\" per mai d'entresenhas."
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
 msgid "Dasher socket input: failed to launch reader thread."
-msgstr ""
+msgstr "Dintrada del connectaire de Dasher : impossible d'aviar lo fial legidor."
 
 #: ../Src/DasherCore/SocketInputBase.cpp:27
 msgid "Port:"
@@ -741,92 +746,93 @@ msgstr "Pòrt :"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:28
 msgid "X label:"
-msgstr ""
+msgstr "Etiqueta X :"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:29
 msgid "X minimum:"
-msgstr ""
+msgstr "X minimum :"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:30
 msgid "X maximum:"
-msgstr ""
+msgstr "X maximum :"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:31
 msgid "Y label:"
-msgstr ""
+msgstr "Etiqueta Y :"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:32
 msgid "Y minimum:"
-msgstr ""
+msgstr "Y minimum :"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:33
 msgid "Y maximum:"
-msgstr ""
+msgstr "Y maximum :"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:34
 msgid "Print socket-related debugging information to console:"
-msgstr ""
+msgstr "Estampar las entresenhas de debug relativas al connectaire "
+"dins la consòla :"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:38
 msgid "Socket Input"
-msgstr ""
+msgstr "Dintrada del connectaire"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:28
 msgid "Button offset"
-msgstr ""
+msgstr "Desencalatge del boton"
 
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:36
 msgid "Enable backoff and start/stop buttons"
-msgstr ""
+msgstr "Activar los botons de desblocatge e d'aviada/arrèst"
 
 #. TRANSLATORS: What is normally the up button becomes the down button etc.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:38
 msgid "Reverse up and down buttons"
-msgstr ""
+msgstr "Intervertir los botons naut e bas"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:39
 msgid "Slow startup"
-msgstr ""
+msgstr "Aviada lenta"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:40
 msgid "Startup time"
-msgstr ""
+msgstr "Temps d'aviada"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
 msgid "Auto speed control"
-msgstr ""
+msgstr "Contraròtle automatic de la velocitat"
 
 #. TRANSLATORS: The threshold time above which auto speed control is used.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
 msgid "Auto speed threshold"
-msgstr ""
+msgstr "Lindal de velocitat automatic"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:47
 msgid "Two Button Dynamic Mode"
-msgstr ""
+msgstr "Mòde dinamic de dos botons"
 
 #: ../Src/Gtk2/DasherAppSettings.cpp:547
 msgid "Boolean parameters"
-msgstr ""
+msgstr "Paramètres booleans"
 
 #: ../Src/Gtk2/DasherAppSettings.cpp:547 ../Src/Gtk2/DasherAppSettings.cpp:558
 #: ../Src/Gtk2/DasherAppSettings.cpp:569
 msgid "Default"
-msgstr ""
+msgstr "Defaut"
 
 #: ../Src/Gtk2/DasherAppSettings.cpp:547 ../Src/Gtk2/DasherAppSettings.cpp:558
 #: ../Src/Gtk2/DasherAppSettings.cpp:569
 msgid "Description"
-msgstr ""
+msgstr "Descripcion"
 
 #: ../Src/Gtk2/DasherAppSettings.cpp:558
 msgid "Integer parameters"
-msgstr ""
+msgstr "Paramètres entièrs"
 
 #: ../Src/Gtk2/DasherAppSettings.cpp:569
 msgid "String parameters"
-msgstr ""
+msgstr "Paramètres de cadena"
 
 #: ../Src/Gtk2/Preferences.cpp:433 ../Src/Gtk2/Preferences.cpp:1002
 msgid "Action"
@@ -835,16 +841,16 @@ msgstr "Accion"
 #. TRANSLATORS: Show a button for the selected action in the Dasher window.
 #: ../Src/Gtk2/Preferences.cpp:1009
 msgid "Show Button"
-msgstr ""
+msgstr "Visualizar lo boton"
 
 #: ../Src/Gtk2/Preferences.cpp:1014
 msgid "Control Mode"
-msgstr ""
+msgstr "Mòde de contraròtle"
 
 #. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
 #: ../Src/Gtk2/Preferences.cpp:1020
 msgid "Auto On Stop"
-msgstr ""
+msgstr "Automatic a l'arrèst"
 
 #: ../Src/Gtk2/dasher_action_keyboard.cpp:60
 #: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:94
@@ -877,25 +883,25 @@ msgstr "Repetar"
 #: ../Src/Gtk2/dasher_action_speech.cpp:167
 #, c-format
 msgid "Unable to initialize speech support\n"
-msgstr ""
+msgstr "Impossible d'inicializar la gestion de la sintèsi vocala\n"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:190
 msgid "Unable to initialize voices\n"
-msgstr ""
+msgstr "Impossible d'inicializar las voses\n"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:202
 msgid "Warning: unable to set speech parameters\n"
-msgstr ""
+msgstr "Atencion : impossible de definir los paramètres de la sintèsi vocala\n"
 
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
 #: ../Src/Gtk2/dasher_main.cpp:311
 msgid "option setting is missing \"=\"."
-msgstr ""
+msgstr "lo paramètre de l'opcion manca \"=\"."
 
 #. Note to translators: This string will be output when --options= specifies an unknown option.
 #: ../Src/Gtk2/dasher_main.cpp:327
 msgid "Invalid option string specified"
-msgstr ""
+msgstr "Cadena d'opcion invalida indicada"
 
 #. Note to translators: This is a format string for the name of the dasher
 #. program as it appears in a window, %s will be the filename.
@@ -911,6 +917,9 @@ msgid ""
 "\n"
 "Your changes will be lost if you don't save them."
 msgstr ""
+"Volètz enregistrar vòstras modificacions dins %s ?\n"
+"\n"
+"Se las enregistratz pas, vòstras modificacions seràn perdudas."
 
 #: ../Src/Gtk2/dasher_main.cpp:1090
 msgid ""
@@ -918,6 +927,9 @@ msgid ""
 "\n"
 "Your changes will be lost if you don't save them."
 msgstr ""
+"Volètz enregistrar vòstras modificacions ?\n"
+"\n"
+"Se las enregistratz pas, vòstras modificacions seràn perdudas."
 
 #: ../Src/Gtk2/dasher_main.cpp:1094
 msgid "Don't save"
@@ -933,11 +945,11 @@ msgstr "Enregistrar e sortir"
 
 #: ../Src/Gtk2/dasher_main.cpp:1116
 msgid "Are you sure you wish to quit?"
-msgstr ""
+msgstr "Sètz segur que volètz sortir ?"
 
 #: ../Src/Gtk2/dasher_main.cpp:1199 ../Src/Gtk2/dasher_main.cpp:1215
 msgid "Dasher is a predictive text entry application"
-msgstr ""
+msgstr "Dasher es una aplicacion de picada de tèxt predictiva"
 
 #: ../Src/Gtk2/dasher_main.cpp:1204 ../Src/Gtk2/dasher_main.cpp:1210
 msgid "translator-credits"
@@ -945,25 +957,25 @@ msgstr "Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>"
 
 #: ../Src/Gtk2/module_settings_window.cpp:86
 msgid "Dasher Module Options"
-msgstr ""
+msgstr "Opcions del modul de Dasher"
 
 #: ../Src/Gtk2/module_settings_window.cpp:92
 #, c-format
 msgid "%s Options:"
-msgstr ""
+msgstr "Opcions de %s :"
 
 #: ../Src/Gtk2/mouse_input.h:15
 msgid "Mouse Input"
-msgstr ""
+msgstr "Ditnrada de la mirga"
 
 #: ../Src/Gtk2/mouse_input.h:51
 msgid "Pixels covering Y range"
-msgstr ""
+msgstr "Pixels que cobrisson l'espandida Y"
 
 #. TRANSLATORS: Only use the vertical mouse coordinate - this is prefered for some disabled users.
 #: ../Src/Gtk2/mouse_input.h:58
 msgid "One Dimensional Mouse Input"
-msgstr ""
+msgstr "Dintrada de la mirga unidimensionala"
 
 #. {"timedata", 'w', 0, G_OPTION_ARG_NONE, &timedata, "Write basic timing information to stdout", NULL},
 #. {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences window only", NULL},
@@ -972,19 +984,20 @@ msgstr ""
 #. Note to translators: This is the help string for "--appstyle"
 #: ../Src/main.cc:188
 msgid "Application style (traditional, direct, compose or fullscreen)"
-msgstr ""
+msgstr "Estil de l'aplicacion (tradicional, dirèct, composicion o ecran complet)"
 
 #. Note to translators: This is the help string for "--options"
 #: ../Src/main.cc:190
 msgid "Override stored options"
-msgstr ""
+msgstr "Ignorar las opcions estocadas"
 
 #. Note to translators: This is the help string for "--help-options"
 #: ../Src/main.cc:192
 msgid "Describe \"--options\"."
-msgstr ""
+msgstr "Descriure \"--opcions\"."
 
 #. Note to translators: This is the "--help" description of dasher.
 #: ../Src/main.cc:199
 msgid "- A text input application honouring accessibility"
-msgstr ""
+msgstr "- Una aplicacion de dintrada de tèxt qu'onora l'accessibilitat"
+

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: oc\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-25 21:59+0100\n"
-"PO-Revision-Date: 2007-11-24 22:23+0100\n"
+"PO-Revision-Date: 2008-07-03 14:16+0200\n"
 "Last-Translator: Yannig Marchegay (Kokoyaya) <yannig@marchegay.org>\n"
 "Language-Team: Occitan <ubuntu-l10n-oci@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
@@ -188,7 +188,7 @@ msgstr "Que de nòu ?"
 
 #: ../C/dasher.xml:69(title)
 msgid "New features In version 4.2"
-msgstr ""
+msgstr "Foncions novèlas dins la version 4.2"
 
 #: ../C/dasher.xml:72(para)
 msgid ""
@@ -447,7 +447,7 @@ msgstr ""
 
 #: ../C/dasher.xml:277(title)
 msgid "Tips for novices"
-msgstr ""
+msgstr "Astúcias pels començants"
 
 #: ../C/dasher.xml:278(para)
 msgid ""
@@ -679,7 +679,7 @@ msgstr ""
 
 #: ../C/dasher.xml:464(title)
 msgid "How to start dasher (version 4)"
-msgstr ""
+msgstr "Cossí aviar dasher (version 4)"
 
 #: ../C/dasher.xml:465(para)
 msgid ""
@@ -698,7 +698,7 @@ msgstr ""
 
 #: ../C/dasher.xml:475(title)
 msgid "How to start dasher (version 2) on pocket PC"
-msgstr ""
+msgstr "Cossí aviar dasher (version 2) sus Pocket PC"
 
 #: ../C/dasher.xml:476(para)
 msgid ""
@@ -717,7 +717,7 @@ msgstr ""
 
 #: ../C/dasher.xml:772(title)
 msgid "How to use Dasher in real life"
-msgstr ""
+msgstr "Cossí utilizar Dasher dins la vertadièra vida"
 
 #: ../C/dasher.xml:774(para)
 msgid ""
@@ -741,7 +741,7 @@ msgstr ""
 
 #: ../C/dasher.xml:788(title)
 msgid "Speaking"
-msgstr ""
+msgstr "Parlar"
 
 #: ../C/dasher.xml:790(para)
 msgid ""
@@ -799,7 +799,7 @@ msgstr ""
 
 #: ../C/dasher.xml:828(title)
 msgid "Font sizes"
-msgstr ""
+msgstr "Talhas de poliça"
 
 #: ../C/dasher.xml:830(para)
 msgid ""
@@ -872,7 +872,7 @@ msgstr ""
 
 #: ../C/dasher.xml:876(title)
 msgid "Personalizing the alphabet"
-msgstr ""
+msgstr "Personalizacion de l'alfabet"
 
 #: ../C/dasher.xml:877(para)
 msgid ""
