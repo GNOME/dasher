@@ -12,33 +12,33 @@ msgstr ""
 "Project-Id-Version: dasher.gnome-2-16.ar\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-04-22 20:22+0000\n"
-"PO-Revision-Date: 2007-10-24 20:27+0100\n"
-"Last-Translator: Djihed Afifi <djihed@gmail.com>\n"
+"PO-Revision-Date: 2008-08-04 13:39-0000\n"
+"Last-Translator: Youssef Chahibi <chahibi@gmail.com>\n"
 "Language-Team: Arabic <support@arabeyes.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: Plural-Forms: nplurals=4; plural=n==1 ? 0 : n==2 ? 1 : n>=3 && "
-"n<=10 ? 2 : 3\n"
+"Plural-Forms: Plural-Forms: nplurals=4; plural=n==1 ? 0 : n==2 ? 1 : n>=3 && n<=10 ? 2 : 3\n"
 "X-Generator: KBabel 1.11.4\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title without a file.
-#: ../Data/dasher.desktop.in.in.h:1 ../Data/glade/dasher.compose.glade.h:5
+#: ../Data/dasher.desktop.in.in.h:1
+#: ../Data/glade/dasher.compose.glade.h:5
 #: ../Data/glade/dasher.direct.glade.h:2
 #: ../Data/glade/dasher.fullscreen.glade.h:1
 #: ../Data/glade/dasher.gameWIP.glade.h:6
 #: ../Data/glade/dasher.traditional.glade.h:6
 #: ../Data/glade/dashermaemo.glade.h:3
 #: ../Data/glade/dashermaemofullscreen.glade.h:2
-#: ../Src/Gtk2/dasher_main.cpp:992 ../Src/Gtk2/dasher_main.cpp:1212
+#: ../Src/Gtk2/dasher_main.cpp:992
+#: ../Src/Gtk2/dasher_main.cpp:1212
 msgid "Dasher"
 msgstr "داشر"
 
 #: ../Data/dasher.desktop.in.in.h:2
-#, fuzzy
 msgid "Enter text without a keyboard"
-msgstr "أدخل النص في نوافذ أخرى"
+msgstr "أدخل نصا دون لوحة مفاتيح"
 
 #: ../Data/dasher.desktop.in.in.h:3
 msgid "Predictive text entry"
@@ -255,89 +255,73 @@ msgid "_Import Training Text..."
 msgstr "استو_رد نص التدريب"
 
 #: ../Data/glade/dasher.preferences.glade.h:1
-#, fuzzy
 msgid "<b>Actions</b>"
-msgstr "<b>:أفعال</b>"
+msgstr "<b>أفعال</b>"
 
 #: ../Data/glade/dasher.preferences.glade.h:2
 #: ../Data/glade/dashermaemo.preferences.glade.h:1
-#, fuzzy
 msgid "<b>Adaptation</b>"
-msgstr "<b>التأقلم:</b>"
+msgstr "<b>التأقلم</b>"
 
 #: ../Data/glade/dasher.preferences.glade.h:3
 #: ../Data/glade/dashermaemo.preferences.glade.h:2
-#, fuzzy
 msgid "<b>Alphabet Selection</b>"
-msgstr "<b>الحرف المنتقى:</b>"
+msgstr "<b>الحرف المنتقى</b>"
 
 #: ../Data/glade/dasher.preferences.glade.h:4
-#, fuzzy
 msgid "<b>Appearance Options</b>"
-msgstr "<b>خيارات العرض:</b>"
+msgstr "<b>خيارات العرض</b>"
 
 #: ../Data/glade/dasher.preferences.glade.h:5
-#, fuzzy
 msgid "<b>Application Options</b>"
-msgstr "<b>خيارات البرنامج:</b>"
+msgstr "<b>خيارات البرنامج</b>"
 
 #: ../Data/glade/dasher.preferences.glade.h:6
-#, fuzzy
 msgid "<b>Application Style</b>"
-msgstr "<b>مظهر البرنامج:</b>"
+msgstr "<b>مظهر البرنامج</b>"
 
 #: ../Data/glade/dasher.preferences.glade.h:7
-#, fuzzy
 msgid "<b>Colour Scheme</b>"
-msgstr "<b>مخطط اللون:</b>"
+msgstr "<b>مخطط اللون</b>"
 
 #: ../Data/glade/dasher.preferences.glade.h:8
-#, fuzzy
 msgid "<b>Control Style</b>"
-msgstr "<b>أسلوب التحكّم:</b>"
+msgstr "<b>أسلوب التحكّم</b>"
 
 #: ../Data/glade/dasher.preferences.glade.h:9
-#, fuzzy
 msgid "<b>Dasher Font</b>"
-msgstr "<b>خط داشر:</b>"
+msgstr "<b>خط داشر</b>"
 
 #: ../Data/glade/dasher.preferences.glade.h:10
-#, fuzzy
 msgid "<b>Direction</b>"
-msgstr "<b>الإتجاه:</b>"
+msgstr "<b>الاتجاه</b>"
 
 #: ../Data/glade/dasher.preferences.glade.h:11
-#, fuzzy
 msgid "<b>Editor Font</b>"
-msgstr "<b>خط المحرر:</b>"
+msgstr "<b>خط المحرر</b>"
 
 #: ../Data/glade/dasher.preferences.glade.h:12
-#, fuzzy
 msgid "<b>Input Device</b>"
 msgstr "<b>جهاز الإدخال</b>"
 
 #: ../Data/glade/dasher.preferences.glade.h:13
 #: ../Data/glade/dashermaemo.preferences.glade.h:5
-#, fuzzy
 msgid "<b>Language Model</b>"
-msgstr "<b>نسق اللغة:</b>"
+msgstr "<b>نسق اللغة</b>"
 
 #: ../Data/glade/dasher.preferences.glade.h:14
 #: ../Data/glade/dashermaemo.preferences.glade.h:7
-#, fuzzy
 msgid "<b>Smoothing</b>"
-msgstr "<b>التنعيم:</b>"
+msgstr "<b>التنعيم</b>"
 
 #: ../Data/glade/dasher.preferences.glade.h:15
 #: ../Data/glade/dashermaemo.preferences.glade.h:8
-#, fuzzy
 msgid "<b>Speed</b>"
-msgstr "<b>السرعة:</b>"
+msgstr "<b>السرعة</b>"
 
 #: ../Data/glade/dasher.preferences.glade.h:16
-#, fuzzy
 msgid "<b>Starting And Stopping</b>"
-msgstr "<b>البدأ و الإيقاف:</b>"
+msgstr "<b>البدء و الإيقاف</b>"
 
 #: ../Data/glade/dasher.preferences.glade.h:17
 #: ../Data/glade/dashermaemo.preferences.glade.h:9
@@ -387,7 +371,6 @@ msgstr "نمط التحكّم"
 
 #: ../Data/glade/dasher.preferences.glade.h:29
 #: ../Data/glade/dashermaemo.preferences.glade.h:14
-#, fuzzy
 msgid "Custom"
 msgstr "مخصص:"
 
@@ -549,19 +532,16 @@ msgid "P"
 msgstr "P"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:3
-#, fuzzy
 msgid "<b>Color Scheme</b>"
 msgstr "<b>مخطط اللون:</b>"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:4
-#, fuzzy
 msgid "<b>Display Size</b>"
 msgstr "<b>حجم العرض:</b>"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:6
-#, fuzzy
 msgid "<b>Orientation</b>"
-msgstr "<b>الإتجاه:</b>"
+msgstr "<b>الاتجاه:</b>"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:10
 msgid "Alphabet"
@@ -717,17 +697,18 @@ msgid "One Dimensional Mode"
 msgstr "وضع أحادي البعد"
 
 #: ../Src/DasherCore/SettingsStore.cpp:76
-#: ../Src/Gtk2/DasherAppSettings.cpp:516 ../Src/Gtk2/DasherAppSettings.cpp:550
+#: ../Src/Gtk2/DasherAppSettings.cpp:516
+#: ../Src/Gtk2/DasherAppSettings.cpp:550
 #: ../Src/Gtk2/DasherAppSettings.cpp:554
 msgid "true"
-msgstr ""
+msgstr "صحيح"
 
 #: ../Src/DasherCore/SettingsStore.cpp:78
-#: ../Src/Gtk2/DasherAppSettings.cpp:518 ../Src/Gtk2/DasherAppSettings.cpp:550
+#: ../Src/Gtk2/DasherAppSettings.cpp:518
+#: ../Src/Gtk2/DasherAppSettings.cpp:550
 #: ../Src/Gtk2/DasherAppSettings.cpp:554
-#, fuzzy
 msgid "false"
-msgstr "الصق"
+msgstr "خطأ"
 
 #. Note to translators: This message will be output for a command line
 #. with "--options foo=VAL" and foo is a boolean valued parameter, but
@@ -735,13 +716,13 @@ msgstr "الصق"
 #: ../Src/DasherCore/SettingsStore.cpp:84
 #: ../Src/Gtk2/DasherAppSettings.cpp:521
 msgid "boolean value must be specified as 'true' or 'false'."
-msgstr ""
+msgstr "يجب تحديد إما 'صحيح' وإما 'خطأ' في القيم البولية."
 
 #. Note to translators: This is output when command line "--options" doesn't
 #. specify a known option.
 #: ../Src/DasherCore/SettingsStore.cpp:104
 msgid "unknown option, use \"--help-options\" for more information."
-msgstr ""
+msgstr "خيار مجهول، استعمل \"--help-options\" لمزيد من المعلومات."
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
@@ -821,28 +802,30 @@ msgstr "وضع حركي بزرين"
 
 #: ../Src/Gtk2/DasherAppSettings.cpp:547
 msgid "Boolean parameters"
-msgstr ""
+msgstr "المحددات البولية"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:547 ../Src/Gtk2/DasherAppSettings.cpp:558
+#: ../Src/Gtk2/DasherAppSettings.cpp:547
+#: ../Src/Gtk2/DasherAppSettings.cpp:558
 #: ../Src/Gtk2/DasherAppSettings.cpp:569
-#, fuzzy
 msgid "Default"
-msgstr "إفتراضي الأبجدية"
+msgstr "افتراضي"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:547 ../Src/Gtk2/DasherAppSettings.cpp:558
+#: ../Src/Gtk2/DasherAppSettings.cpp:547
+#: ../Src/Gtk2/DasherAppSettings.cpp:558
 #: ../Src/Gtk2/DasherAppSettings.cpp:569
 msgid "Description"
-msgstr ""
+msgstr "الوصف"
 
 #: ../Src/Gtk2/DasherAppSettings.cpp:558
 msgid "Integer parameters"
-msgstr ""
+msgstr "المحددات الصحيحة"
 
 #: ../Src/Gtk2/DasherAppSettings.cpp:569
 msgid "String parameters"
-msgstr ""
+msgstr "المحددات العبارية"
 
-#: ../Src/Gtk2/Preferences.cpp:433 ../Src/Gtk2/Preferences.cpp:1002
+#: ../Src/Gtk2/Preferences.cpp:433
+#: ../Src/Gtk2/Preferences.cpp:1002
 msgid "Action"
 msgstr "إجراء"
 
@@ -904,19 +887,19 @@ msgstr "تنبيه: لا يمكن ضبط مثبتات الكلام\n"
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
 #: ../Src/Gtk2/dasher_main.cpp:311
 msgid "option setting is missing \"=\"."
-msgstr ""
+msgstr "ينقص \"=\" في إعداد الخيار."
 
 #. Note to translators: This string will be output when --options= specifies an unknown option.
 #: ../Src/Gtk2/dasher_main.cpp:327
 msgid "Invalid option string specified"
-msgstr ""
+msgstr "الجملة المحددة في \"--options\" غير صالحة"
 
 #. Note to translators: This is a format string for the name of the dasher
 #. program as it appears in a window, %s will be the filename.
 #: ../Src/Gtk2/dasher_main.cpp:999
-#, fuzzy, c-format
+#, c-format
 msgid "Dasher - %s"
-msgstr "داشر"
+msgstr "داشر - %s"
 
 #: ../Src/Gtk2/dasher_main.cpp:1084
 #, c-format
@@ -943,7 +926,8 @@ msgstr ""
 msgid "Don't save"
 msgstr "لا تحفظ"
 
-#: ../Src/Gtk2/dasher_main.cpp:1095 ../Src/Gtk2/dasher_main.cpp:1119
+#: ../Src/Gtk2/dasher_main.cpp:1095
+#: ../Src/Gtk2/dasher_main.cpp:1119
 msgid "Don't quit"
 msgstr "لا تخرج"
 
@@ -953,13 +937,15 @@ msgstr "احفظ و اخرج"
 
 #: ../Src/Gtk2/dasher_main.cpp:1116
 msgid "Are you sure you wish to quit?"
-msgstr ""
+msgstr "هل تريد حقا المغادرة؟"
 
-#: ../Src/Gtk2/dasher_main.cpp:1199 ../Src/Gtk2/dasher_main.cpp:1215
+#: ../Src/Gtk2/dasher_main.cpp:1199
+#: ../Src/Gtk2/dasher_main.cpp:1215
 msgid "Dasher is a predictive text entry application"
 msgstr "داشر هو برنامج نُبُوئِيّ للكتابة"
 
-#: ../Src/Gtk2/dasher_main.cpp:1204 ../Src/Gtk2/dasher_main.cpp:1210
+#: ../Src/Gtk2/dasher_main.cpp:1204
+#: ../Src/Gtk2/dasher_main.cpp:1210
 msgid "translator-credits"
 msgstr ""
 "فريق عربآيز للترجمة http://www.arabeyes.org :\n"
@@ -994,46 +980,39 @@ msgstr "دخل فأرة أحادي البعد"
 #. Note to translators: This is the help string for "--appstyle"
 #: ../Src/main.cc:188
 msgid "Application style (traditional, direct, compose or fullscreen)"
-msgstr ""
+msgstr "أسلوب التطبيق (تقليدي، أو مباشر، أو مركّب، أو مِلء الشاشة)"
 
 #. Note to translators: This is the help string for "--options"
 #: ../Src/main.cc:190
 msgid "Override stored options"
-msgstr ""
+msgstr "تجاوز الخيارات المخزونة في \"--options\""
 
 #. Note to translators: This is the help string for "--help-options"
 #: ../Src/main.cc:192
 msgid "Describe \"--options\"."
-msgstr ""
+msgstr "صِف \"--options\"."
 
 #. Note to translators: This is the "--help" description of dasher.
 #: ../Src/main.cc:199
 msgid "- A text input application honouring accessibility"
-msgstr ""
+msgstr "- تطبيق إدخال النص للمعاقين"
 
 #~ msgid "<b>Prediction:</b>"
 #~ msgstr "<b>التوقع:</b>"
-
 #~ msgid "(Message Placeholder - no need to translate)"
 #~ msgstr " (Message Placeholder - no need to translate)"
-
 #~ msgid "button33"
 #~ msgstr "زر33"
-
 #~ msgid "button34"
 #~ msgstr "زر34"
-
 #~ msgid "button35"
 #~ msgstr "زر35"
-
 #~ msgid "button36"
 #~ msgstr "زر36"
-
 #~ msgid "button37"
 #~ msgstr "زر37"
-
 #~ msgid "button38"
 #~ msgstr "زر38"
-
 #~ msgid "Training Dasher... please wait"
 #~ msgstr "يجري تدريب داشر... الرجاء الإنتظار"
+
