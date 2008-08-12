@@ -1,14 +1,14 @@
-# translation of kn.po to Kannada
+# translation of dasher_merge.kn.po to Kannada
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Shankar Prasad <svenkate@redhat.com>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: kn\n"
+"Project-Id-Version: dasher_merge.kn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-02-19 03:34+0000\n"
-"PO-Revision-Date: 2008-08-12 14:55+0530\n"
+"PO-Revision-Date: 2008-08-12 15:42+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: Kannada <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -176,7 +176,7 @@ msgstr "<b>ವೇಗ:</b>"
 #: ../Data/glade/dasher.gameWIP.glade.h:17
 #: ../Data/glade/dasher.traditional.glade.h:17
 msgid "<b>Starting And Stopping:</b>"
-msgstr "<b>ಆರಂಭಿಸುವುದ್ ಮತ್ತು ನಿಲ್ಲಿಸುವುದು:</b>"
+msgstr "<b>ಆರಂಭಿಸುವುದು ಮತ್ತು ನಿಲ್ಲಿಸುವುದು:</b>"
 
 #: ../Data/glade/dasher.compose.glade.h:18
 #: ../Data/glade/dasher.direct.glade.h:18
@@ -304,7 +304,7 @@ msgstr "ಕಸ್ಟಮ್ ಬಣ್ಣದ ಸ್ಕೀಮ್:"
 #: ../Data/glade/dashermaemo.glade.h:16
 #: ../Data/glade/dashermaemofullscreen.glade.h:14
 msgid "Custom:"
-msgstr "ಕಸ್ಟಮ:"
+msgstr "ಕಸ್ಟಮ್:"
 
 #: ../Data/glade/dasher.compose.glade.h:33
 #: ../Data/glade/dasher.gameWIP.glade.h:34
