@@ -1,4 +1,4 @@
-# translation of dasher.HEAD.po to TAMIL
+# translation of dasher.HEAD.po to Tamil
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
@@ -6,215 +6,347 @@
 # Jayaradha <njayaradha@yahoo.com>, 2005.
 # Felix <ifelix@redhat.com>, 2006.
 # drtvasudevan <agnihot3@gmail.com>, 2006.
-# Dr.T.Vasudevan <agnihot3@gmail.com>, 2007.
+# Dr.T.Vasudevan <agnihot3@gmail.com>, 2007, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-21 03:47+0100\n"
-"PO-Revision-Date: 2007-08-13 17:29+0530\n"
+"POT-Creation-Date: 2008-04-22 20:22+0000\n"
+"PO-Revision-Date: 2008-08-23 10:50+0530\n"
 "Last-Translator: Dr.T.Vasudevan <agnihot3@gmail.com>\n"
-"Language-Team: TAMIL <ubuntu-l10n-tam@lists.ubuntu.com>\n"
+"Language-Team: Tamil <Ubuntu-l10n-tam@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../Data/dasher.desktop.in.in.h:1 ../Data/glade/dasher.compose.glade.h:34
-#: ../Data/glade/dasher.direct.glade.h:31
-#: ../Data/glade/dasher.fullscreen.glade.h:30
-#: ../Data/glade/dasher.traditional.glade.h:35
-#: ../Data/glade/dashermaemo.glade.h:17
-#: ../Data/glade/dashermaemofullscreen.glade.h:15
-#: ../Src/Gtk2/dasher_main.cpp:1156
+#. Note to translators: This is the name of the dasher program as it appears
+#. in a window title without a file.
+#: ../Data/dasher.desktop.in.in.h:1 ../Data/glade/dasher.compose.glade.h:5
+#: ../Data/glade/dasher.direct.glade.h:2
+#: ../Data/glade/dasher.fullscreen.glade.h:1
+#: ../Data/glade/dasher.gameWIP.glade.h:6
+#: ../Data/glade/dasher.traditional.glade.h:6
+#: ../Data/glade/dashermaemo.glade.h:3
+#: ../Data/glade/dashermaemofullscreen.glade.h:2
+#: ../Src/Gtk2/dasher_main.cpp:992 ../Src/Gtk2/dasher_main.cpp:1212
 msgid "Dasher"
 msgstr "டேஷர்"
 
 #: ../Data/dasher.desktop.in.in.h:2
+msgid "Enter text without a keyboard"
+msgstr "விசைப்பலகை இல்லாமல் உரையை உள்ளிடுக"
+
+#: ../Data/dasher.desktop.in.in.h:3
 msgid "Predictive text entry"
 msgstr "முன் கணிக்கும் உரை உள்ளீடு"
 
 #: ../Data/glade/dasher.compose.glade.h:1
 #: ../Data/glade/dasher.direct.glade.h:1
-#: ../Data/glade/dasher.fullscreen.glade.h:1
-#: ../Data/glade/dasher.traditional.glade.h:1
-msgid "<b>Actions:</b>"
-msgstr "<b>செயல்கள்:</b>"
-
-#: ../Data/glade/dasher.compose.glade.h:2
-#: ../Data/glade/dasher.direct.glade.h:2
-#: ../Data/glade/dasher.fullscreen.glade.h:2
+#: ../Data/glade/dasher.gameWIP.glade.h:2
 #: ../Data/glade/dasher.traditional.glade.h:2
-#: ../Data/glade/dashermaemo.glade.h:3
-#: ../Data/glade/dashermaemofullscreen.glade.h:1
-msgid "<b>Adaptation:</b>"
-msgstr "<b>தகவமைத்தல்</b>"
-
-#: ../Data/glade/dasher.compose.glade.h:3
-#: ../Data/glade/dasher.direct.glade.h:3
-#: ../Data/glade/dasher.fullscreen.glade.h:3
-#: ../Data/glade/dasher.traditional.glade.h:3
-#: ../Data/glade/dashermaemo.glade.h:4
-#: ../Data/glade/dashermaemofullscreen.glade.h:2
-msgid "<b>Alphabet Selection:</b>"
-msgstr "<b>எழுத்துக்கள் தேர்வு:</b>"
-
-#: ../Data/glade/dasher.compose.glade.h:4
-#: ../Data/glade/dasher.direct.glade.h:4
-#: ../Data/glade/dasher.fullscreen.glade.h:4
-#: ../Data/glade/dasher.traditional.glade.h:4
-msgid "<b>Appearance Options:</b>"
-msgstr "<b>தோற்றம் தேர்வு:</b>"
-
-#: ../Data/glade/dasher.compose.glade.h:5
-#: ../Data/glade/dasher.direct.glade.h:5
-#: ../Data/glade/dasher.fullscreen.glade.h:5
-#: ../Data/glade/dasher.traditional.glade.h:5
-msgid "<b>Application Options:</b>"
-msgstr "<b>பயன்பாடு தேர்வு: </b>"
-
-#: ../Data/glade/dasher.compose.glade.h:6
-#: ../Data/glade/dasher.direct.glade.h:6
-#: ../Data/glade/dasher.fullscreen.glade.h:6
-#: ../Data/glade/dasher.traditional.glade.h:6
-msgid "<b>Application Style:</b>"
-msgstr "<b>பயன்பாடு பாணி:</b>"
-
-#: ../Data/glade/dasher.compose.glade.h:7
-#: ../Data/glade/dasher.direct.glade.h:7
-#: ../Data/glade/dasher.fullscreen.glade.h:7
-#: ../Data/glade/dasher.traditional.glade.h:7
-msgid "<b>Colour Scheme:</b>"
-msgstr "<b>நிற அமைப்பு:</b>"
-
-#: ../Data/glade/dasher.compose.glade.h:8
-#: ../Data/glade/dasher.direct.glade.h:8
-#: ../Data/glade/dasher.fullscreen.glade.h:8
-#: ../Data/glade/dasher.traditional.glade.h:8
-msgid "<b>Control Style:</b>"
-msgstr "<b>கட்டுப்பாட்டு பாணி:</b>"
-
-#: ../Data/glade/dasher.compose.glade.h:9
-#: ../Data/glade/dasher.direct.glade.h:9
-#: ../Data/glade/dasher.fullscreen.glade.h:9
-#: ../Data/glade/dasher.traditional.glade.h:9
-msgid "<b>Dasher Font:</b>"
-msgstr "<b>டேஷர் எழுத்துரு:</b>"
-
-#: ../Data/glade/dasher.compose.glade.h:10
-#: ../Data/glade/dasher.direct.glade.h:10
-#: ../Data/glade/dasher.fullscreen.glade.h:10
-#: ../Data/glade/dasher.traditional.glade.h:10
-msgid "<b>Direction:</b>"
-msgstr "<b>திசைகள்:</b>"
-
-#: ../Data/glade/dasher.compose.glade.h:11
-#: ../Data/glade/dasher.direct.glade.h:11
-#: ../Data/glade/dasher.fullscreen.glade.h:11
-#: ../Data/glade/dasher.traditional.glade.h:11
-msgid "<b>Editor Font:</b>"
-msgstr "<b>திருத்தி எழுத்துரு:</b>"
-
-#: ../Data/glade/dasher.compose.glade.h:12
-#: ../Data/glade/dasher.direct.glade.h:12
-#: ../Data/glade/dasher.fullscreen.glade.h:12
-#: ../Data/glade/dasher.traditional.glade.h:12
-msgid "<b>Input Device:</b>"
-msgstr "<b>உள்ளீட்டு சாதனம்:</b>"
-
-#: ../Data/glade/dasher.compose.glade.h:13
-#: ../Data/glade/dasher.direct.glade.h:13
-#: ../Data/glade/dasher.fullscreen.glade.h:13
-#: ../Data/glade/dasher.traditional.glade.h:13
-#: ../Data/glade/dashermaemo.glade.h:6
-#: ../Data/glade/dashermaemofullscreen.glade.h:3
-msgid "<b>Language Model:</b>"
-msgstr "<b>மொழி மாதிரி:</b>"
-
-#: ../Data/glade/dasher.compose.glade.h:14
-#: ../Data/glade/dasher.direct.glade.h:14
-#: ../Data/glade/dasher.fullscreen.glade.h:14
-#: ../Data/glade/dasher.traditional.glade.h:14
-msgid "<b>Prediction:</b>"
-msgstr "<b>முன்கணிப்பு:</b>"
-
-#: ../Data/glade/dasher.compose.glade.h:15
-#: ../Data/glade/dasher.direct.glade.h:15
-#: ../Data/glade/dasher.fullscreen.glade.h:15
-#: ../Data/glade/dasher.traditional.glade.h:15
-#: ../Data/glade/dashermaemo.glade.h:8
-#: ../Data/glade/dashermaemofullscreen.glade.h:5
-msgid "<b>Smoothing:</b>"
-msgstr "<b>இசைவாக்கல்:</b>"
-
-#: ../Data/glade/dasher.compose.glade.h:16
-#: ../Data/glade/dasher.direct.glade.h:16
-#: ../Data/glade/dasher.fullscreen.glade.h:16
-#: ../Data/glade/dasher.traditional.glade.h:16
-#: ../Data/glade/dashermaemo.glade.h:9
-#: ../Data/glade/dashermaemofullscreen.glade.h:6
-msgid "<b>Speed:</b>"
-msgstr "<b>வேகம்:</b>"
-
-#: ../Data/glade/dasher.compose.glade.h:17
-#: ../Data/glade/dasher.direct.glade.h:17
-#: ../Data/glade/dasher.fullscreen.glade.h:17
-#: ../Data/glade/dasher.traditional.glade.h:17
-msgid "<b>Starting And Stopping:</b>"
-msgstr "<b>துவக்குதல் மற்றும் நிறுத்துதல்:</b>"
-
-#: ../Data/glade/dasher.compose.glade.h:18
-#: ../Data/glade/dasher.direct.glade.h:18
-#: ../Data/glade/dasher.fullscreen.glade.h:18
-#: ../Data/glade/dasher.traditional.glade.h:19
-#: ../Data/glade/dashermaemo.glade.h:10
-#: ../Data/glade/dashermaemofullscreen.glade.h:7
-msgid "Adapt speed automatically"
-msgstr "வேகத்தை தானாக தகவி"
-
-#: ../Data/glade/dasher.compose.glade.h:19
-#: ../Data/glade/dasher.direct.glade.h:19
-#: ../Data/glade/dasher.fullscreen.glade.h:19
-#: ../Data/glade/dasher.traditional.glade.h:20
-#: ../Data/glade/dashermaemo.glade.h:12
-#: ../Data/glade/dashermaemofullscreen.glade.h:9
-msgid "Alphabet Default"
-msgstr "இயல்பான எழுத்துக்கள்"
-
-#: ../Data/glade/dasher.compose.glade.h:20
-#: ../Data/glade/dasher.direct.glade.h:20
-#: ../Data/glade/dasher.traditional.glade.h:21
 msgid "Alphabet:"
 msgstr "எழுத்துக்கள்:"
 
+#: ../Data/glade/dasher.compose.glade.h:2
+#: ../Data/glade/dasher.gameWIP.glade.h:3
+#: ../Data/glade/dasher.traditional.glade.h:3
+msgid "Copy"
+msgstr "படியெடு"
+
+#: ../Data/glade/dasher.compose.glade.h:3
+#: ../Data/glade/dasher.gameWIP.glade.h:4
+#: ../Data/glade/dasher.traditional.glade.h:4
+#: ../Data/glade/dashermaemofullscreen.glade.h:1
+msgid "Copy _All"
+msgstr "_அனைத்தையும் படியெடு"
+
+#: ../Data/glade/dasher.compose.glade.h:4
+#: ../Data/glade/dasher.gameWIP.glade.h:5
+#: ../Data/glade/dasher.traditional.glade.h:5
+msgid "Cut"
+msgstr "வெட்டு"
+
+#: ../Data/glade/dasher.compose.glade.h:6
+msgid "Dasher _Tutorial"
+msgstr "டேஷர்_பயிற்சி"
+
+#: ../Data/glade/dasher.compose.glade.h:7
+#: ../Data/glade/dasher.gameWIP.glade.h:12
+#: ../Data/glade/dasher.traditional.glade.h:8
+msgid "New file"
+msgstr "புதிய கோப்பு"
+
+#: ../Data/glade/dasher.compose.glade.h:8
+#: ../Data/glade/dasher.gameWIP.glade.h:14
+#: ../Data/glade/dasher.traditional.glade.h:9
+msgid "Open file"
+msgstr "கோப்பைத் திற"
+
+#: ../Data/glade/dasher.compose.glade.h:9
+#: ../Data/glade/dasher.gameWIP.glade.h:15
+#: ../Data/glade/dasher.traditional.glade.h:10
+msgid "Paste"
+msgstr "ஒட்டு"
+
+#: ../Data/glade/dasher.compose.glade.h:10
+#: ../Data/glade/dasher.direct.glade.h:3
+#: ../Data/glade/dasher.fullscreen.glade.h:2
+#: ../Data/glade/dasher.gameWIP.glade.h:16
+#: ../Data/glade/dasher.traditional.glade.h:11
+#: ../Data/glade/dashermaemo.glade.h:5
+msgid "Please Wait..."
+msgstr "காத்திருக்கவும்..."
+
+#: ../Data/glade/dasher.compose.glade.h:11
+msgid "Pr_eferences"
+msgstr "_வ விருப்பங்கள்"
+
+#: ../Data/glade/dasher.compose.glade.h:12
+#: ../Data/glade/dasher.gameWIP.glade.h:20
+#: ../Data/glade/dasher.traditional.glade.h:15
+msgid "Save file"
+msgstr "கோப்பை சேமி"
+
+#: ../Data/glade/dasher.compose.glade.h:13
+#: ../Data/glade/dasher.gameWIP.glade.h:21
+#: ../Data/glade/dasher.traditional.glade.h:16
+msgid "Save file as"
+msgstr "கோப்பை இப்படி சேமி"
+
+#: ../Data/glade/dasher.compose.glade.h:14
+#: ../Data/glade/dasher.direct.glade.h:4
+#: ../Data/glade/dasher.fullscreen.glade.h:3
+#: ../Data/glade/dasher.gameWIP.glade.h:23
+#: ../Data/glade/dasher.traditional.glade.h:17
+#: ../Data/glade/dashermaemo.glade.h:6
+#: ../Data/glade/dashermaemofullscreen.glade.h:5
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1332
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1366
+#: ../Src/Gtk2/dasher_main.cpp:1046
+msgid "Select File"
+msgstr "கோப்பை தேர்வு செய்யவும்"
+
+#: ../Data/glade/dasher.compose.glade.h:15
+#: ../Data/glade/dasher.fullscreen.glade.h:4
+#: ../Data/glade/dashermaemo.glade.h:7
+#: ../Data/glade/dashermaemofullscreen.glade.h:6
+msgid "Select Font"
+msgstr "எழுத்துருவைத் தேர்வு செய்"
+
+#: ../Data/glade/dasher.compose.glade.h:16
+#: ../Data/glade/dasher.direct.glade.h:5
+#: ../Data/glade/dasher.gameWIP.glade.h:24
+#: ../Data/glade/dasher.traditional.glade.h:18
+msgid "Speed:"
+msgstr "வேகம்:"
+
+#: ../Data/glade/dasher.compose.glade.h:17
+#: ../Data/glade/dashermaemofullscreen.glade.h:8
+msgid "_About"
+msgstr "_பற்றி"
+
+#: ../Data/glade/dasher.compose.glade.h:18
+msgid "_Append to file"
+msgstr "_க கோப்பில் சேர்"
+
+#: ../Data/glade/dasher.compose.glade.h:19
+msgid "_Contents"
+msgstr "உள்ள_டக்கங்கள் "
+
+#: ../Data/glade/dasher.compose.glade.h:20
+#: ../Data/glade/dasher.gameWIP.glade.h:27
+#: ../Data/glade/dasher.traditional.glade.h:21
+#: ../Data/glade/dashermaemofullscreen.glade.h:11
+msgid "_Edit"
+msgstr "_த திருத்து"
+
 #: ../Data/glade/dasher.compose.glade.h:21
-#: ../Data/glade/dasher.direct.glade.h:21
-#: ../Data/glade/dasher.fullscreen.glade.h:20
+#: ../Data/glade/dasher.gameWIP.glade.h:28
 #: ../Data/glade/dasher.traditional.glade.h:22
+#: ../Data/glade/dashermaemofullscreen.glade.h:13
+msgid "_File"
+msgstr "_க கோப்பு"
+
+#: ../Data/glade/dasher.compose.glade.h:22
+#: ../Data/glade/dasher.gameWIP.glade.h:29
+#: ../Data/glade/dasher.traditional.glade.h:23
+#: ../Data/glade/dashermaemofullscreen.glade.h:14
+msgid "_Help"
+msgstr "_உதவி"
+
+#: ../Data/glade/dasher.compose.glade.h:23
+msgid "_Import Training Text"
+msgstr "_இ பயிற்சி உரையை இறக்குமதி செய்"
+
+#: ../Data/glade/dasher.compose.glade.h:24
+#: ../Data/glade/dasher.fullscreen.glade.h:5
+#: ../Data/glade/dashermaemo.glade.h:8
+#: ../Data/glade/dashermaemofullscreen.glade.h:17
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr "abcdefghijk ABCDEFGHIJK"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:1
+#: ../Data/glade/dasher.traditional.glade.h:1
+msgid "A_ppend to file..."
+msgstr "_க கோப்பில் சேர்"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:7
+msgid "Demo!"
+msgstr "நிரூபண காட்சி!"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:8
+msgid "Full Demo"
+msgstr "முழு அளவு நிரூபண காட்சி"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:9
+#: ../Data/glade/dasher.traditional.glade.h:7
+msgid "Help"
+msgstr "_உதவி"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:10
+msgid "Launch Dasher Game & Demo mode!"
+msgstr "டேஷர் விளையாட்டு மற்றும் நிரூபண காட்சி ஐ துவக்கு!"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:11
+msgid "Level:"
+msgstr "மட்டம்:"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:13
+msgid "New sentence"
+msgstr "புதிய சொற்றொடர்"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:17
+#: ../Data/glade/dasher.traditional.glade.h:12
+msgid "Pr_eferences..."
+msgstr "_வ விருப்பங்கள்..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:18
+#: ../Data/glade/dasher.traditional.glade.h:13
+msgid "Preferences"
+msgstr "விருப்பங்கள்"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:19
+#: ../Data/glade/dasher.traditional.glade.h:14
+#: ../Src/Gtk2/dasher_main.cpp:1120
+msgid "Quit"
+msgstr "வெளிச்செல்"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:22
+msgid "Score:"
+msgstr "மதிப்பெண்:"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:25
+#: ../Data/glade/dasher.traditional.glade.h:19
+msgid "_About..."
+msgstr "_பற்றி..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:26
+#: ../Data/glade/dasher.traditional.glade.h:20
+msgid "_Contents..."
+msgstr "உள்ள_டக்கங்கள்..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:30
+#: ../Data/glade/dasher.traditional.glade.h:24
+msgid "_Import Training Text..."
+msgstr "பயிற்சி உரையை _இறக்குமதி செய்க..."
+
+#: ../Data/glade/dasher.preferences.glade.h:1
+msgid "<b>Actions</b>"
+msgstr "<b>செயல்கள்</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:2
+#: ../Data/glade/dashermaemo.preferences.glade.h:1
+msgid "<b>Adaptation</b>"
+msgstr "<b>தகவமைத்தல்</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:3
+#: ../Data/glade/dashermaemo.preferences.glade.h:2
+msgid "<b>Alphabet Selection</b>"
+msgstr "<b>எழுத்துக்கள் தேர்வு</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:4
+msgid "<b>Appearance Options</b>"
+msgstr "<b>தோற்றம் தேர்வு</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:5
+msgid "<b>Application Options</b>"
+msgstr "<b>பயன்பாடு தேர்வு </b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:6
+msgid "<b>Application Style</b>"
+msgstr "<b>பயன்பாடு பாணி</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:7
+msgid "<b>Colour Scheme</b>"
+msgstr "<b>நிற அமைப்பு</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:8
+msgid "<b>Control Style</b>"
+msgstr "<b>கட்டுப்பாட்டு பாணி</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:9
+msgid "<b>Dasher Font</b>"
+msgstr "<b>டேஷர் எழுத்துரு</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:10
+msgid "<b>Direction</b>"
+msgstr "<b>திசை</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:11
+msgid "<b>Editor Font</b>"
+msgstr "<b>திருத்தி எழுத்துரு</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:12
+msgid "<b>Input Device</b>"
+msgstr "<b>உள்ளீட்டு சாதனம்</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:13
+#: ../Data/glade/dashermaemo.preferences.glade.h:5
+msgid "<b>Language Model</b>"
+msgstr "<b>மொழி மாதிரி</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:14
+#: ../Data/glade/dashermaemo.preferences.glade.h:7
+msgid "<b>Smoothing</b>"
+msgstr "<b>இசைவாக்கல்</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:15
+#: ../Data/glade/dashermaemo.preferences.glade.h:8
+msgid "<b>Speed</b>"
+msgstr "<b>வேகம்</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:16
+msgid "<b>Starting And Stopping</b>"
+msgstr "<b>துவக்குதல் மற்றும் நிறுத்துதல்</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:17
+#: ../Data/glade/dashermaemo.preferences.glade.h:9
+msgid "Adapt speed automatically"
+msgstr "வேகத்தை தானாக தகவி"
+
+#. The default display orientation for the selected alphabet, ie left to right for English, right to left for Arabic, etc.
+#: ../Data/glade/dasher.preferences.glade.h:19
+#: ../Data/glade/dashermaemo.preferences.glade.h:11
+msgid "Alphabet Default"
+msgstr "இயல்பான எழுத்துக்கள்"
+
+#: ../Data/glade/dasher.preferences.glade.h:20
 msgid "Appearance"
 msgstr "தோற்றம்"
 
-#: ../Data/glade/dasher.compose.glade.h:22
-#: ../Data/glade/dasher.direct.glade.h:22
-#: ../Data/glade/dasher.fullscreen.glade.h:21
-#: ../Data/glade/dasher.traditional.glade.h:23
+#: ../Data/glade/dasher.preferences.glade.h:21
 msgid "Application"
 msgstr "பயன்பாடு"
 
-#: ../Data/glade/dasher.compose.glade.h:23
-#: ../Data/glade/dasher.direct.glade.h:23
-#: ../Data/glade/dasher.fullscreen.glade.h:22
-#: ../Data/glade/dasher.traditional.glade.h:24
-#: ../Data/glade/dashermaemo.glade.h:13
-#: ../Data/glade/dashermaemofullscreen.glade.h:10
+#: ../Data/glade/dasher.preferences.glade.h:22
+#: ../Data/glade/dashermaemo.preferences.glade.h:12
 msgid "Bottom to Top"
 msgstr "கீழிருந்து மேல்"
 
-#: ../Data/glade/dasher.compose.glade.h:24
-#: ../Data/glade/dasher.direct.glade.h:24
-#: ../Data/glade/dasher.fullscreen.glade.h:23
-#: ../Data/glade/dasher.traditional.glade.h:25
+#. Centre circle = start and stop by dwelling over a circle in the centre of the window Two box = start and stop by dwelling in sequence over two boxes (both of these are methods for starting and stopping without pressing a mouse button)
+#: ../Data/glade/dasher.preferences.glade.h:24
 msgid ""
 "Centre circle\n"
 "Two box"
@@ -222,338 +354,156 @@ msgstr ""
 "மைய வட்டம்\n"
 "இரண்டு பெட்டி"
 
-#: ../Data/glade/dasher.compose.glade.h:26
-#: ../Data/glade/dasher.direct.glade.h:26
-#: ../Data/glade/dasher.fullscreen.glade.h:25
-#: ../Data/glade/dasher.traditional.glade.h:27
+#: ../Data/glade/dasher.preferences.glade.h:26
 msgid "Composition"
 msgstr "தொகுப்பு"
 
-#: ../Data/glade/dasher.compose.glade.h:27
-#: ../Data/glade/dasher.direct.glade.h:27
-#: ../Data/glade/dasher.fullscreen.glade.h:26
-#: ../Data/glade/dasher.traditional.glade.h:28
-#: ../Data/glade/dashermaemo.glade.h:14
-#: ../Data/glade/dashermaemofullscreen.glade.h:11
+#: ../Data/glade/dasher.preferences.glade.h:27
+#: ../Data/glade/dashermaemo.preferences.glade.h:13
 msgid "Control"
 msgstr "கட்டுப்பாடு"
 
-#: ../Data/glade/dasher.compose.glade.h:28
-#: ../Data/glade/dasher.direct.glade.h:28
-#: ../Data/glade/dasher.fullscreen.glade.h:27
-#: ../Data/glade/dasher.traditional.glade.h:29
+#: ../Data/glade/dasher.preferences.glade.h:28
 msgid "Control mode"
 msgstr "கட்டுப்பாடு பாங்கு"
 
-#: ../Data/glade/dasher.compose.glade.h:29
-#: ../Data/glade/dasher.traditional.glade.h:30
-msgid "Copy"
-msgstr "படியெடு"
+#: ../Data/glade/dasher.preferences.glade.h:29
+#: ../Data/glade/dashermaemo.preferences.glade.h:14
+msgid "Custom"
+msgstr "தனிப்பயன்"
 
-#: ../Data/glade/dasher.compose.glade.h:30
-#: ../Data/glade/dasher.traditional.glade.h:31
-#: ../Data/glade/dashermaemofullscreen.glade.h:12
-msgid "Copy _All"
-msgstr "_அனைத்தையும் படியெடு"
-
-#: ../Data/glade/dasher.compose.glade.h:31
-#: ../Data/glade/dasher.direct.glade.h:29
-#: ../Data/glade/dasher.fullscreen.glade.h:28
-#: ../Data/glade/dasher.traditional.glade.h:32
-#: ../Data/glade/dashermaemo.glade.h:15
-#: ../Data/glade/dashermaemofullscreen.glade.h:13
+#: ../Data/glade/dasher.preferences.glade.h:30
+#: ../Data/glade/dashermaemo.preferences.glade.h:15
 msgid "Custom colour scheme:"
 msgstr "தனிப்பயன் நிற திட்டம்:"
 
-#: ../Data/glade/dasher.compose.glade.h:32
-#: ../Data/glade/dasher.direct.glade.h:30
-#: ../Data/glade/dasher.fullscreen.glade.h:29
-#: ../Data/glade/dasher.traditional.glade.h:33
-#: ../Data/glade/dashermaemo.glade.h:16
-#: ../Data/glade/dashermaemofullscreen.glade.h:14
-msgid "Custom:"
-msgstr "தனிப்பயன்:"
-
-#: ../Data/glade/dasher.compose.glade.h:33
-#: ../Data/glade/dasher.traditional.glade.h:34
-msgid "Cut"
-msgstr "வெட்டு"
-
-#: ../Data/glade/dasher.compose.glade.h:35
-#: ../Data/glade/dasher.direct.glade.h:32
-#: ../Data/glade/dasher.fullscreen.glade.h:31
-#: ../Data/glade/dasher.traditional.glade.h:36
-#: ../Data/glade/dashermaemo.glade.h:18
-#: ../Data/glade/dashermaemofullscreen.glade.h:16
+#: ../Data/glade/dasher.preferences.glade.h:31
+#: ../Data/glade/dashermaemo.preferences.glade.h:16
 msgid "Dasher Preferences"
 msgstr "டேஷர் விருப்பங்கள்"
 
-#: ../Data/glade/dasher.compose.glade.h:36
-msgid "Dasher _Tutorial"
-msgstr "டேஷர்_பயிற்சி"
-
-#: ../Data/glade/dasher.compose.glade.h:37
-#: ../Data/glade/dasher.direct.glade.h:33
-#: ../Data/glade/dasher.fullscreen.glade.h:32
-#: ../Data/glade/dasher.traditional.glade.h:37
+#: ../Data/glade/dasher.preferences.glade.h:32
 msgid "Direct entry"
 msgstr "நேரடி உள்ளீடு"
 
-#: ../Data/glade/dasher.compose.glade.h:38
-#: ../Data/glade/dasher.direct.glade.h:34
-#: ../Data/glade/dasher.fullscreen.glade.h:33
-#: ../Data/glade/dasher.traditional.glade.h:38
+#: ../Data/glade/dasher.preferences.glade.h:33
 msgid "Dock application window"
 msgstr " பயன்பாடு சளராத்தை பொருத்ுக்"
 
-#: ../Data/glade/dasher.compose.glade.h:39
-#: ../Data/glade/dasher.direct.glade.h:35
-#: ../Data/glade/dasher.fullscreen.glade.h:34
-#: ../Data/glade/dasher.traditional.glade.h:39
+#: ../Data/glade/dasher.preferences.glade.h:34
 msgid "Draw box outlines"
 msgstr "பெட்டியில் வெளிக்கோட்டை வரை"
 
-#: ../Data/glade/dasher.compose.glade.h:40
-#: ../Data/glade/dasher.direct.glade.h:36
-#: ../Data/glade/dasher.fullscreen.glade.h:35
-#: ../Data/glade/dasher.traditional.glade.h:40
+#: ../Data/glade/dasher.preferences.glade.h:35
 msgid "Draw line between crosshairs and mouse"
 msgstr "குறிக்கும் சொடுக்கிக்கும் இடையே கோடு வரை"
 
-#: ../Data/glade/dasher.compose.glade.h:41
-#: ../Data/glade/dasher.direct.glade.h:37
-#: ../Data/glade/dasher.fullscreen.glade.h:36
-#: ../Data/glade/dasher.traditional.glade.h:41
+#: ../Data/glade/dasher.preferences.glade.h:36
 msgid "Full Screen"
 msgstr "முழுத்திரையிலும் காண்பி"
 
-#: ../Data/glade/dasher.compose.glade.h:42
-#: ../Data/glade/dasher.direct.glade.h:38
-#: ../Data/glade/dasher.fullscreen.glade.h:37
-#: ../Data/glade/dasher.traditional.glade.h:43
+#: ../Data/glade/dasher.preferences.glade.h:37
 msgid "Increase line thickness"
 msgstr "கோட்டின் தடிமனை அதிகரி"
 
-#: ../Data/glade/dasher.compose.glade.h:43
-#: ../Data/glade/dasher.direct.glade.h:39
-#: ../Data/glade/dasher.fullscreen.glade.h:38
-#: ../Data/glade/dasher.traditional.glade.h:44
-#: ../Data/glade/dashermaemo.glade.h:20
-#: ../Data/glade/dashermaemofullscreen.glade.h:17
+#: ../Data/glade/dasher.preferences.glade.h:38
+#: ../Data/glade/dashermaemo.preferences.glade.h:18
 msgid "Japanese"
 msgstr "ஜப்பானிய"
 
-#: ../Data/glade/dasher.compose.glade.h:44
-#: ../Data/glade/dasher.direct.glade.h:40
-#: ../Data/glade/dasher.fullscreen.glade.h:39
-#: ../Data/glade/dasher.traditional.glade.h:45
+#: ../Data/glade/dasher.preferences.glade.h:39
 msgid "Language"
 msgstr "மொழி"
 
-#: ../Data/glade/dasher.compose.glade.h:45
-#: ../Data/glade/dasher.direct.glade.h:41
-#: ../Data/glade/dasher.fullscreen.glade.h:40
-#: ../Data/glade/dasher.traditional.glade.h:46
-#: ../Data/glade/dashermaemo.glade.h:21
-#: ../Data/glade/dashermaemofullscreen.glade.h:18
+#: ../Data/glade/dasher.preferences.glade.h:40
+#: ../Data/glade/dashermaemo.preferences.glade.h:19
 msgid "Language model adapts as you write."
 msgstr "நீங்கள் எழுதும் போது மொழி. மாதிரி தன்னை மாற்றிக் கொள்ளுகிறது."
 
-#: ../Data/glade/dasher.compose.glade.h:46
-#: ../Data/glade/dasher.direct.glade.h:42
-#: ../Data/glade/dasher.fullscreen.glade.h:41
-#: ../Data/glade/dasher.traditional.glade.h:47
+#: ../Data/glade/dasher.preferences.glade.h:41
 msgid "Large font "
 msgstr "பெரிய எழுத்துரு"
 
-#: ../Data/glade/dasher.compose.glade.h:47
-#: ../Data/glade/dasher.direct.glade.h:43
-#: ../Data/glade/dasher.fullscreen.glade.h:42
-#: ../Data/glade/dasher.traditional.glade.h:48
-#: ../Data/glade/dashermaemo.glade.h:22
-#: ../Data/glade/dashermaemofullscreen.glade.h:20
+#: ../Data/glade/dasher.preferences.glade.h:42
+#: ../Data/glade/dashermaemo.preferences.glade.h:20
 msgid "Left to Right"
 msgstr "இடமிருந்து வலம்"
 
-#: ../Data/glade/dasher.compose.glade.h:48
-#: ../Data/glade/dasher.direct.glade.h:44
-#: ../Data/glade/dasher.fullscreen.glade.h:43
-#: ../Data/glade/dasher.traditional.glade.h:49
-#: ../Data/glade/dashermaemo.glade.h:23
-#: ../Data/glade/dashermaemofullscreen.glade.h:21
+#. PPM =  Prediction by Partial Match, a styatistical language model.
+#: ../Data/glade/dasher.preferences.glade.h:44
+#: ../Data/glade/dashermaemo.preferences.glade.h:21
 msgid "Mixture model (PPM/dictionary)"
 msgstr "கலவை மாதிரி (பிபிஎம்/அகராதி)"
 
-#: ../Data/glade/dasher.compose.glade.h:49
-#: ../Data/glade/dasher.traditional.glade.h:50
-msgid "New file"
-msgstr "புதிய கோப்பு"
-
-#: ../Data/glade/dasher.compose.glade.h:50
-#: ../Data/glade/dasher.traditional.glade.h:51
-msgid "Open file"
-msgstr "கோப்பைத் திற"
-
-#: ../Data/glade/dasher.compose.glade.h:51
-#: ../Data/glade/dasher.direct.glade.h:45
-#: ../Data/glade/dasher.fullscreen.glade.h:44
-#: ../Data/glade/dasher.traditional.glade.h:52
+#: ../Data/glade/dasher.preferences.glade.h:45
 msgid "Options"
 msgstr "தேர்வுகள் "
 
-#: ../Data/glade/dasher.compose.glade.h:52
-#: ../Data/glade/dasher.traditional.glade.h:53
-msgid "Paste"
-msgstr "ஒட்டு"
-
-#: ../Data/glade/dasher.compose.glade.h:53
-#: ../Data/glade/dasher.direct.glade.h:46
-#: ../Data/glade/dasher.fullscreen.glade.h:45
-#: ../Data/glade/dasher.traditional.glade.h:54
+#: ../Data/glade/dasher.preferences.glade.h:46
 msgid "Pause outside of canvas"
 msgstr "சாளரத்திற்கு வெளியே சற்று தாமதிக்கவும்"
 
-#: ../Data/glade/dasher.compose.glade.h:54
-#: ../Data/glade/dasher.direct.glade.h:47
-#: ../Data/glade/dasher.fullscreen.glade.h:46
-#: ../Data/glade/dasher.traditional.glade.h:55
-#: ../Data/glade/dashermaemo.glade.h:25
-msgid "Please Wait..."
-msgstr "காத்திருக்கவும்..."
-
-#: ../Data/glade/dasher.compose.glade.h:55
-msgid "Pr_eferences"
-msgstr "_வ விருப்பங்கள்"
-
-#: ../Data/glade/dasher.compose.glade.h:56
-#: ../Data/glade/dasher.direct.glade.h:48
-#: ../Data/glade/dasher.fullscreen.glade.h:47
-#: ../Data/glade/dasher.traditional.glade.h:59
-#: ../Data/glade/dashermaemo.glade.h:27
-#: ../Data/glade/dashermaemofullscreen.glade.h:24
+#: ../Data/glade/dasher.preferences.glade.h:47
+#: ../Data/glade/dashermaemo.preferences.glade.h:23
 msgid "Right to Left"
 msgstr "வலமிருந்து இடம்"
 
-#: ../Data/glade/dasher.compose.glade.h:57
-#: ../Data/glade/dasher.traditional.glade.h:60
-msgid "Save file"
-msgstr "கோப்பை சேமி"
+#: ../Data/glade/dasher.preferences.glade.h:48
+msgid "Select Dasher Font"
+msgstr "டேஷருக்கான எழுத்துருவைத் தேர்வு செய்க"
 
-#: ../Data/glade/dasher.compose.glade.h:58
-#: ../Data/glade/dasher.traditional.glade.h:61
-msgid "Save file as"
-msgstr "கோப்பை இப்படி சேமி"
+#: ../Data/glade/dasher.preferences.glade.h:49
+msgid "Select Editor Font"
+msgstr "திருத்திக்கான எழுத்துருவைத் தேர்வு செய்க"
 
-#: ../Data/glade/dasher.compose.glade.h:59
-#: ../Data/glade/dasher.direct.glade.h:49
-#: ../Data/glade/dasher.fullscreen.glade.h:48
-#: ../Data/glade/dasher.traditional.glade.h:64
-#: ../Data/glade/dashermaemo.glade.h:28
-#: ../Data/glade/dashermaemofullscreen.glade.h:25
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1322
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1355 ../Src/Gtk2/dasher_main.cpp:998
-msgid "Select File"
-msgstr "கோப்பை தேர்வு செய்யவும்"
-
-#: ../Data/glade/dasher.compose.glade.h:60
-#: ../Data/glade/dasher.direct.glade.h:50
-#: ../Data/glade/dasher.fullscreen.glade.h:49
-#: ../Data/glade/dashermaemo.glade.h:29
-#: ../Data/glade/dashermaemofullscreen.glade.h:26
-msgid "Select Font"
-msgstr "எழுத்துருவைத் தேர்வு செய்"
-
-#: ../Data/glade/dasher.compose.glade.h:61
-#: ../Data/glade/dasher.direct.glade.h:51
-#: ../Data/glade/dasher.fullscreen.glade.h:50
-#: ../Data/glade/dasher.traditional.glade.h:65
+#: ../Data/glade/dasher.preferences.glade.h:50
 msgid "Show mouse position"
 msgstr "சொடுக்கியின் நிலையை காட்டு"
 
-#: ../Data/glade/dasher.compose.glade.h:62
-#: ../Data/glade/dasher.direct.glade.h:52
-#: ../Data/glade/dasher.fullscreen.glade.h:51
-#: ../Data/glade/dasher.traditional.glade.h:66
+#: ../Data/glade/dasher.preferences.glade.h:51
 msgid "Show speed slider"
 msgstr "வேக சருக்கியை காட்டு"
 
-#: ../Data/glade/dasher.compose.glade.h:63
-#: ../Data/glade/dasher.direct.glade.h:53
-#: ../Data/glade/dasher.fullscreen.glade.h:52
-#: ../Data/glade/dasher.traditional.glade.h:67
+#: ../Data/glade/dasher.preferences.glade.h:52
 msgid "Show toolbar"
 msgstr "கருவிப்பட்டியைக் காட்டு"
 
-#: ../Data/glade/dasher.compose.glade.h:64
-#: ../Data/glade/dasher.direct.glade.h:54
-#: ../Data/glade/dasher.fullscreen.glade.h:53
-#: ../Data/glade/dasher.traditional.glade.h:68
+#: ../Data/glade/dasher.preferences.glade.h:53
 msgid "Small font"
 msgstr "சிறு எழுத்துரு"
 
-#: ../Data/glade/dasher.compose.glade.h:65
-#: ../Data/glade/dasher.direct.glade.h:55
-#: ../Data/glade/dasher.traditional.glade.h:69
-msgid "Speed:"
-msgstr "வேகம்:"
-
-#: ../Data/glade/dasher.compose.glade.h:66
-#: ../Data/glade/dasher.direct.glade.h:56
-#: ../Data/glade/dasher.fullscreen.glade.h:54
-#: ../Data/glade/dasher.traditional.glade.h:70
+#: ../Data/glade/dasher.preferences.glade.h:54
 msgid "Stand-alone"
 msgstr "தனியே செயல்படும்"
 
-#: ../Data/glade/dasher.compose.glade.h:67
-#: ../Data/glade/dasher.direct.glade.h:57
-#: ../Data/glade/dasher.fullscreen.glade.h:55
-#: ../Data/glade/dasher.traditional.glade.h:71
-#: ../Data/glade/dashermaemo.glade.h:30
-#: ../Data/glade/dashermaemofullscreen.glade.h:27
+#. PPM = Prediction by Partial Match, a statistical language model.
+#: ../Data/glade/dasher.preferences.glade.h:56
+#: ../Data/glade/dashermaemo.preferences.glade.h:24
 msgid "Standard letter-based PPM"
 msgstr "நிலையான எழுத்து சார்ந்த பிபிஎம்(PPM)"
 
-#: ../Data/glade/dasher.compose.glade.h:68
-#: ../Data/glade/dasher.direct.glade.h:58
-#: ../Data/glade/dasher.fullscreen.glade.h:56
-#: ../Data/glade/dasher.traditional.glade.h:72
+#: ../Data/glade/dasher.preferences.glade.h:57
 msgid "Start on left mouse button"
 msgstr "இடது சொடுக்கி பட்டனில் துவங்கு"
 
-#: ../Data/glade/dasher.compose.glade.h:69
-#: ../Data/glade/dasher.direct.glade.h:59
-#: ../Data/glade/dasher.fullscreen.glade.h:57
-#: ../Data/glade/dasher.traditional.glade.h:73
+#: ../Data/glade/dasher.preferences.glade.h:58
 msgid "Start on space bar"
 msgstr "இடைவெளி பட்டியில் துவங்கு"
 
-#: ../Data/glade/dasher.compose.glade.h:70
-#: ../Data/glade/dasher.direct.glade.h:60
-#: ../Data/glade/dasher.fullscreen.glade.h:58
-#: ../Data/glade/dasher.traditional.glade.h:74
+#: ../Data/glade/dasher.preferences.glade.h:59
 msgid "Start with mouse position:"
 msgstr "சொடுக்கி நிலையில் துவங்கு"
 
-#: ../Data/glade/dasher.compose.glade.h:71
-#: ../Data/glade/dasher.direct.glade.h:61
-#: ../Data/glade/dasher.fullscreen.glade.h:59
-#: ../Data/glade/dasher.traditional.glade.h:75
+#: ../Data/glade/dasher.preferences.glade.h:60
 msgid "Timestamp new files"
 msgstr "புதிய கோப்புகளின் நேரமுத்திரை"
 
-#: ../Data/glade/dasher.compose.glade.h:72
-#: ../Data/glade/dasher.direct.glade.h:62
-#: ../Data/glade/dasher.fullscreen.glade.h:60
-#: ../Data/glade/dasher.traditional.glade.h:76
-#: ../Data/glade/dashermaemo.glade.h:31
-#: ../Data/glade/dashermaemofullscreen.glade.h:28
+#: ../Data/glade/dasher.preferences.glade.h:61
+#: ../Data/glade/dashermaemo.preferences.glade.h:25
 msgid "Top to Bottom"
 msgstr "மேலிருந்து கீழ்"
 
-#: ../Data/glade/dasher.compose.glade.h:73
-#: ../Data/glade/dasher.direct.glade.h:63
-#: ../Data/glade/dasher.fullscreen.glade.h:61
-#: ../Data/glade/dasher.traditional.glade.h:77
+#: ../Data/glade/dasher.preferences.glade.h:62
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -563,253 +513,148 @@ msgstr ""
 "அதிக மதிப்பை தேர்வு செய்தால் உங்கள் எழுதும் வேகம்\n"
 "குறையும் என்பதை அறியவும். "
 
-#: ../Data/glade/dasher.compose.glade.h:76
-#: ../Data/glade/dasher.direct.glade.h:66
-#: ../Data/glade/dasher.fullscreen.glade.h:64
-#: ../Data/glade/dasher.traditional.glade.h:80
+#: ../Data/glade/dasher.preferences.glade.h:65
 msgid "Very large font"
 msgstr "மிகப் பெரிய எழுத்துரு"
 
-#: ../Data/glade/dasher.compose.glade.h:77
-#: ../Data/glade/dasher.direct.glade.h:67
-#: ../Data/glade/dasher.fullscreen.glade.h:65
-#: ../Data/glade/dasher.traditional.glade.h:81
-#: ../Data/glade/dashermaemo.glade.h:33
-#: ../Data/glade/dashermaemofullscreen.glade.h:31
+#: ../Data/glade/dasher.preferences.glade.h:66
+#: ../Data/glade/dashermaemo.preferences.glade.h:27
 msgid "Word-based model"
 msgstr "எழுத்து-சார்ந்த மாதிரி"
-
-#: ../Data/glade/dasher.compose.glade.h:78
-#: ../Data/glade/dashermaemofullscreen.glade.h:32
-msgid "_About"
-msgstr "_பற்றி"
-
-#: ../Data/glade/dasher.compose.glade.h:79
-msgid "_Append to file"
-msgstr "_க கோப்பில் சேர்"
-
-#: ../Data/glade/dasher.compose.glade.h:80
-msgid "_Contents"
-msgstr "உள்ள_டக்கங்கள் "
-
-#: ../Data/glade/dasher.compose.glade.h:81
-#: ../Data/glade/dasher.traditional.glade.h:84
-#: ../Data/glade/dashermaemofullscreen.glade.h:35
-msgid "_Edit"
-msgstr "_த திருத்து"
-
-#: ../Data/glade/dasher.compose.glade.h:82
-#: ../Data/glade/dasher.traditional.glade.h:85
-#: ../Data/glade/dashermaemofullscreen.glade.h:37
-msgid "_File"
-msgstr "_க கோப்பு"
-
-#: ../Data/glade/dasher.compose.glade.h:83
-#: ../Data/glade/dasher.traditional.glade.h:86
-#: ../Data/glade/dashermaemofullscreen.glade.h:38
-msgid "_Help"
-msgstr "_உதவி"
-
-#: ../Data/glade/dasher.compose.glade.h:84
-msgid "_Import Training Text"
-msgstr "_இ பயிற்சி உரையை இறக்குமதி செய்"
-
-#: ../Data/glade/dasher.compose.glade.h:85
-#: ../Data/glade/dasher.direct.glade.h:68
-#: ../Data/glade/dasher.fullscreen.glade.h:66
-#: ../Data/glade/dashermaemo.glade.h:34
-#: ../Data/glade/dashermaemofullscreen.glade.h:41
-msgid "abcdefghijk ABCDEFGHIJK"
-msgstr "abcdefghijk ABCDEFGHIJK"
-
-#: ../Data/glade/dasher.traditional.glade.h:18
-msgid "A_ppend to file..."
-msgstr "_க கோப்பில் சேர்"
-
-#: ../Data/glade/dasher.traditional.glade.h:42
-msgid "Help"
-msgstr "_உதவி"
-
-#: ../Data/glade/dasher.traditional.glade.h:56
-msgid "Pr_eferences..."
-msgstr "_வ விருப்பங்கள்..."
-
-#: ../Data/glade/dasher.traditional.glade.h:57
-msgid "Preferences"
-msgstr "விருப்பங்கள்"
-
-#: ../Data/glade/dasher.traditional.glade.h:58
-msgid "Quit"
-msgstr "வெளிச்செல்"
-
-#: ../Data/glade/dasher.traditional.glade.h:62
-msgid "Select Dasher Font"
-msgstr "டேஷருக்கான எழுத்துருவைத் தேர்வு செய்க"
-
-#: ../Data/glade/dasher.traditional.glade.h:63
-msgid "Select Editor Font"
-msgstr "திருத்திக்கான எழுத்துருவைத் தேர்வு செய்க"
-
-#: ../Data/glade/dasher.traditional.glade.h:82
-msgid "_About..."
-msgstr "_பற்றி..."
-
-#: ../Data/glade/dasher.traditional.glade.h:83
-msgid "_Contents..."
-msgstr "உள்ள_டக்கங்கள்..."
-
-#: ../Data/glade/dasher.traditional.glade.h:87
-msgid "_Import Training Text..."
-msgstr "பயிற்சி உரையை _இறக்குமதி செய்க..."
 
 #: ../Data/glade/dashermaemo.glade.h:1
 msgid "\n"
 msgstr "\n"
 
-#: ../Data/glade/dashermaemo.glade.h:5
-msgid "<b>Display Size:</b>"
-msgstr "<b>காட்டும் அளவு</b>"
-
-#: ../Data/glade/dashermaemo.glade.h:7
-#: ../Data/glade/dashermaemofullscreen.glade.h:4
-msgid "<b>Orientation:</b>"
-msgstr "<b>நிலை அமைப்பு:</b>"
-
-#: ../Data/glade/dashermaemo.glade.h:11
-#: ../Data/glade/dashermaemofullscreen.glade.h:8
-msgid "Alphabet"
-msgstr "அகரவரிசை:"
-
-#: ../Data/glade/dashermaemo.glade.h:19
-msgid "Enlarge input window"
-msgstr "உள்ளீடு சாளரத்தை பெரிதாக்கவும்"
-
-#: ../Data/glade/dashermaemo.glade.h:24
+#: ../Data/glade/dashermaemo.glade.h:4
 msgid "P"
 msgstr "P"
 
-#: ../Data/glade/dashermaemo.glade.h:26
-#: ../Data/glade/dashermaemofullscreen.glade.h:23
+#: ../Data/glade/dashermaemo.preferences.glade.h:3
+msgid "<b>Color Scheme</b>"
+msgstr "<b>நிற அமைப்பு</b>"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:4
+msgid "<b>Display Size</b>"
+msgstr "<b>காட்டும் அளவு</b>"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:6
+msgid "<b>Orientation</b>"
+msgstr "<b>நிலை அமைப்பு</b>"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:10
+msgid "Alphabet"
+msgstr "அகரவரிசை"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:17
+msgid "Enlarge input window"
+msgstr "உள்ளீடு சாளரத்தை பெரிதாக்கவும்"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:22
 msgid "Prediction"
 msgstr "கணிப்பு"
 
-#: ../Data/glade/dashermaemo.glade.h:32
-#: ../Data/glade/dashermaemofullscreen.glade.h:30
+#: ../Data/glade/dashermaemo.preferences.glade.h:26
 msgid "View"
 msgstr "பார்"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:19
+#: ../Data/glade/dashermaemofullscreen.glade.h:3
 msgid "Large"
 msgstr "பெரிய"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:22
+#: ../Data/glade/dashermaemofullscreen.glade.h:4
 msgid "Normal"
 msgstr "இயல்பான"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:29
+#: ../Data/glade/dashermaemofullscreen.glade.h:7
 msgid "Very Large"
 msgstr "மிக அதிக"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:33
+#: ../Data/glade/dashermaemofullscreen.glade.h:9
 msgid "_Dasher Font"
 msgstr "_ட டேஷர் எழுத்துரு"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:34
+#: ../Data/glade/dashermaemofullscreen.glade.h:10
 msgid "_Dasher Font Size"
 msgstr "_ட டேஷர் எழுத்துரு அளவு"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:36
+#: ../Data/glade/dashermaemofullscreen.glade.h:12
 msgid "_Edit Font"
 msgstr "_த எழுத்துருவைத் திருத்து"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:39
+#: ../Data/glade/dashermaemofullscreen.glade.h:15
 msgid "_Options"
 msgstr "_ர தேர்வுகள்"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:40
+#: ../Data/glade/dashermaemofullscreen.glade.h:16
 msgid "_Reset fonts"
 msgstr "_ம எழுத்துருவை மீட்டமை"
 
-#: ../Src/DasherCore/ClickFilter.cpp:9
+#: ../Src/DasherCore/ClickFilter.cpp:7
+msgid "Maximum Zoom"
+msgstr "அதிக பட்ச அணுகல்"
+
+#: ../Src/DasherCore/ClickFilter.h:11
 msgid "Click Mode"
 msgstr "சொடுக்கு பாணி"
 
-#: ../Src/DasherCore/DasherButtons.cpp:24
+#. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
+#: ../Src/DasherCore/DasherButtons.cpp:25
 msgid "Zoom steps"
 msgstr "அணுகி பார்த்தல் படிகள்"
 
-#: ../Src/DasherCore/DasherButtons.cpp:25
+#. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
+#: ../Src/DasherCore/DasherButtons.cpp:27
 msgid "Right zoom"
 msgstr "வலமிருந்து அணுகிப்பார்தல்"
 
-#: ../Src/DasherCore/DasherButtons.cpp:26
+#: ../Src/DasherCore/DasherButtons.cpp:28
 msgid "Number of boxes"
 msgstr "பெட்டிகளின் எண்ணிக்கை"
 
-#: ../Src/DasherCore/DasherButtons.cpp:27
+#: ../Src/DasherCore/DasherButtons.cpp:29
 msgid "Safety margin"
 msgstr "பாதுகாப்பு வரம்பு"
 
-#: ../Src/DasherCore/DasherButtons.cpp:28
+#. TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other.
+#: ../Src/DasherCore/DasherButtons.cpp:31
 msgid "Box non-uniformity"
 msgstr "ஒரே மாதிரியில்லாத பெட்டி"
 
-#: ../Src/DasherCore/DasherButtons.cpp:29
+#. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
+#: ../Src/DasherCore/DasherButtons.cpp:33
 msgid "Global keyboard grab"
 msgstr "முழுமையான விசைப்பலகை பிடிப்பு"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:985
+#: ../Src/DasherCore/DasherGameMode.cpp:633
+msgid "Well done!"
+msgstr "நன்றாக செய்தீர்கள்!"
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:934
 msgid "Normal Control"
 msgstr "இயல்பான கட்டுப்பாடு"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:990
-msgid "Two Button Dynamic Mode"
-msgstr "இரு பொத்தான்கள் இயங்குநிலை பாணி"
-
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:992
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:941
 msgid "Menu Mode"
 msgstr "பட்டி பாணி"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:993
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:942
 msgid "Direct Mode"
 msgstr "நேரடி உள்ளீடு"
 
 #. RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:995
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:944
 msgid "Alternating Direct Mode"
 msgstr "மாறி மாறி வரும் நேரடி பாணி"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:996
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:945
 msgid "Compass Mode"
 msgstr "திசை காட்டி பாணி"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:997
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:946
 msgid "Stylus Control"
 msgstr "எழுத்தணி கட்டுப்பாடு"
-
-#: ../Src/DasherCore/DynamicFilter.cpp:9
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:16
-msgid "Long press time"
-msgstr "அதிக அழுத்தும் நேரம்."
-
-#: ../Src/DasherCore/DynamicFilter.cpp:10
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:17
-msgid "Multiple press time"
-msgstr "பல அழுத்தும் நேரங்கள்"
-
-#: ../Src/DasherCore/DynamicFilter.cpp:11
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:18
-msgid "Multiple press count"
-msgstr "பல அழுத்தும் எண்ணிக்கை"
-
-#: ../Src/DasherCore/DynamicFilter.cpp:12
-msgid "Enable backoff button"
-msgstr "பின்செல் பொத்தானை செயல் படுத்து"
-
-#: ../Src/DasherCore/DynamicFilter.cpp:16
-msgid "One Button Dynamic Mode"
-msgstr "ஒரு பொத்தான் இயங்குநிலை பாணி"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:7
 msgid "Automatic calibration"
@@ -819,9 +664,63 @@ msgstr "தானியங்கி மதிப்பாராய்வு"
 msgid "Eyetracker Mode"
 msgstr "கண் தட இயங்கி பாணி"
 
+#. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:29
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
+msgid "Long press time"
+msgstr "அதிக அழுத்தும் நேரம்."
+
+#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the time in which the button must be pressed multiple times to count.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
+msgid "Multiple press time"
+msgstr "பல அழுத்தும் நேரங்கள்"
+
+#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the number of times a button must be pressed to count as a multiple press.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:34
+msgid "Multiple press count"
+msgstr "பல அழுத்தும் எண்ணிக்கை"
+
+#. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
+msgid "Enable backoff button"
+msgstr "பின்செல் பொத்தானை செயல் படுத்து"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
+msgid "One Button Dynamic Mode"
+msgstr "ஒரு பொத்தான் இயங்குநிலை பாணி"
+
 #: ../Src/DasherCore/OneDimensionalFilter.cpp:5
 msgid "One Dimensional Mode"
 msgstr "ஒரு உருவளவை பாணி"
+
+#: ../Src/DasherCore/SettingsStore.cpp:76
+#: ../Src/Gtk2/DasherAppSettings.cpp:516 ../Src/Gtk2/DasherAppSettings.cpp:550
+#: ../Src/Gtk2/DasherAppSettings.cpp:554
+msgid "true"
+msgstr "உண்மை"
+
+#: ../Src/DasherCore/SettingsStore.cpp:78
+#: ../Src/Gtk2/DasherAppSettings.cpp:518 ../Src/Gtk2/DasherAppSettings.cpp:550
+#: ../Src/Gtk2/DasherAppSettings.cpp:554
+msgid "false"
+msgstr "தவறு"
+
+#. Note to translators: This message will be output for a command line
+#. with "--options foo=VAL" and foo is a boolean valued parameter, but
+#. "VAL" is not true or false.
+#: ../Src/DasherCore/SettingsStore.cpp:84
+#: ../Src/Gtk2/DasherAppSettings.cpp:521
+msgid "boolean value must be specified as 'true' or 'false'."
+msgstr "பூலியன் மதிப்பு 'உண்மை' அல்லது 'தவறு' என குறிக்கப்பட வேண்டும்"
+
+#. Note to translators: This is output when command line "--options" doesn't
+#. specify a known option.
+#: ../Src/DasherCore/SettingsStore.cpp:104
+
+msgid "unknown option, use \"--help-options\" for more information."
+msgstr "தெரியாத தேர்வு,  அதிக தகவலுக்கு  \"--help-options\"ஐ பயன்படுத்துக"
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
@@ -864,47 +763,78 @@ msgstr "பொருத்து வாய் சார்ந்த பிழை
 msgid "Socket Input"
 msgstr "பொருத்துவாய் உள்ளீடு"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:15
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:28
 msgid "Button offset"
 msgstr "பொத்தான் விலக்கம்"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:19
+#. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:36
 msgid "Enable backoff and start/stop buttons"
 msgstr "பின்செல் மற்றும் துவக்கு/நிறுத்து பொத்தான்களை செயல் படுத்துக"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:20
+#. TRANSLATORS: What is normally the up button becomes the down button etc.
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:38
 msgid "Reverse up and down buttons"
 msgstr "திசை மாற்று மேல் மற்றும் கீழே பொத்தான்கள்"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:21
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:39
 msgid "Slow startup"
 msgstr "மெதுவான துவக்கம்"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:22
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:40
 msgid "Startup time"
 msgstr "துவக்க நேரம்"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:23
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
 msgid "Auto speed control"
 msgstr "தானியங்கி வேக கட்டுப்பாடு"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:24
+#. TRANSLATORS: The threshold time above which auto speed control is used.
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
 msgid "Auto speed threshold"
 msgstr "தானியங்கி வேக விளிம்பு"
 
-#: ../Src/Gtk2/Preferences.cpp:417 ../Src/Gtk2/Preferences.cpp:975
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:47
+msgid "Two Button Dynamic Mode"
+msgstr "இரு பொத்தான்கள் இயங்குநிலை பாணி"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:547
+msgid "Boolean parameters"
+msgstr "பூலியன் அளவுருக்கள்"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:547 ../Src/Gtk2/DasherAppSettings.cpp:558
+#: ../Src/Gtk2/DasherAppSettings.cpp:569
+msgid "Default"
+msgstr "முன்னிருப்பு"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:547 ../Src/Gtk2/DasherAppSettings.cpp:558
+#: ../Src/Gtk2/DasherAppSettings.cpp:569
+msgid "Description"
+msgstr "விவரணம்"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:558
+msgid "Integer parameters"
+msgstr "முழு எண் அளவுருக்கள்"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:569
+msgid "String parameters"
+msgstr "சர அளவுருக்கள்"
+
+#: ../Src/Gtk2/Preferences.cpp:433 ../Src/Gtk2/Preferences.cpp:1002
 msgid "Action"
 msgstr "செயல்பாடு"
 
-#: ../Src/Gtk2/Preferences.cpp:981
+#. TRANSLATORS: Show a button for the selected action in the Dasher window.
+#: ../Src/Gtk2/Preferences.cpp:1009
 msgid "Show Button"
 msgstr "பொத்தானைக் காட்டு"
 
-#: ../Src/Gtk2/Preferences.cpp:986
+#: ../Src/Gtk2/Preferences.cpp:1014
 msgid "Control Mode"
 msgstr "கட்டுப்பாடு பாணி"
 
-#: ../Src/Gtk2/Preferences.cpp:991
+#. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
+#: ../Src/Gtk2/Preferences.cpp:1020
 msgid "Auto On Stop"
 msgstr "நிறுத்தும்போது தானியங்கியாக"
 
@@ -917,36 +847,59 @@ msgstr "உரையை உள்ளிடு"
 msgid "Script"
 msgstr "சிறுநிரல்"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:129
+#: ../Src/Gtk2/dasher_action_speech.cpp:130
 msgid "Speak"
 msgstr "பேசுக"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:141
+#. TRANSLATORS: Send all text to the text-to-speech engine.
+#: ../Src/Gtk2/dasher_action_speech.cpp:143
 msgid "All"
 msgstr "அனைத்து"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:143
+#. TRANSLATORS: Send most recently entered text to the text-to-speech engine.
+#: ../Src/Gtk2/dasher_action_speech.cpp:146
 msgid "Last"
 msgstr "கடைசி"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:145
+#. TRANSLATORS: Repeat the last phrase sent to the text-to-speech engine.
+#: ../Src/Gtk2/dasher_action_speech.cpp:149
 msgid "Repeat"
 msgstr "மறுபடி செய்க"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:163
+#: ../Src/Gtk2/dasher_action_speech.cpp:167
 #, c-format
 msgid "Unable to initialize speech support\n"
 msgstr "பேச்சு ஆதரவை துவக்க முடியவில்லை\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:186
+#: ../Src/Gtk2/dasher_action_speech.cpp:190
 msgid "Unable to initialize voices\n"
 msgstr "ஓசையை ஆரம்பிக்க முடியவில்லை\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:198
+#: ../Src/Gtk2/dasher_action_speech.cpp:202
 msgid "Warning: unable to set speech parameters\n"
 msgstr "எச்சரிக்கை: பேச்சு அளவுருக்களை அமைக்க முடியவில்லை\n"
 
-#: ../Src/Gtk2/dasher_main.cpp:1036
+#. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
+#: ../Src/Gtk2/dasher_main.cpp:311
+
+msgid "option setting is missing \"=\"."
+msgstr "தேர்வு அமைப்பு காணவில்லை \"=\"."
+
+#. Note to translators: This string will be output when --options= specifies an unknown option.
+#: ../Src/Gtk2/dasher_main.cpp:327
+
+msgid "Invalid option string specified"
+msgstr "செல்லுபடியாகாத  சரம் குறிப்பிடப்பட்டது"
+
+
+#. Note to translators: This is a format string for the name of the dasher
+#. program as it appears in a window, %s will be the filename.
+#: ../Src/Gtk2/dasher_main.cpp:999
+#, c-format
+msgid "Dasher - %s"
+msgstr "டேஷர் - %s"
+
+#: ../Src/Gtk2/dasher_main.cpp:1084
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -957,7 +910,7 @@ msgstr ""
 "\n"
 "சேமிக்காவிட்டால் அவற்றை இழக்க நேரும்"
 
-#: ../Src/Gtk2/dasher_main.cpp:1042
+#: ../Src/Gtk2/dasher_main.cpp:1090
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -967,31 +920,36 @@ msgstr ""
 "\n"
 "சேமிக்காவிட்டால் அவற்றை இழக்க நேரும் "
 
-#: ../Src/Gtk2/dasher_main.cpp:1046
+#: ../Src/Gtk2/dasher_main.cpp:1094
 msgid "Don't save"
 msgstr "சேமிக்க வேண்டாம்"
 
-#: ../Src/Gtk2/dasher_main.cpp:1047
+#: ../Src/Gtk2/dasher_main.cpp:1095 ../Src/Gtk2/dasher_main.cpp:1119
 msgid "Don't quit"
 msgstr "வெளியேற வேண்டாம்"
 
-#: ../Src/Gtk2/dasher_main.cpp:1048
+#: ../Src/Gtk2/dasher_main.cpp:1096
 msgid "Save and quit"
 msgstr "சேமித்து வெளியேறவும்"
 
-#: ../Src/Gtk2/dasher_main.cpp:1143 ../Src/Gtk2/dasher_main.cpp:1159
+#: ../Src/Gtk2/dasher_main.cpp:1116
+
+msgid "Are you sure you wish to quit?"
+msgstr "நீங்கள் நிச்சயம் வெளியேற வேண்டுமா?"
+
+#: ../Src/Gtk2/dasher_main.cpp:1199 ../Src/Gtk2/dasher_main.cpp:1215
 msgid "Dasher is a predictive text entry application"
 msgstr "டேஷர் என்பது ஒரு முன் கணித்து உரை உள்ளிடும் நிரல் "
 
-#: ../Src/Gtk2/dasher_main.cpp:1148 ../Src/Gtk2/dasher_main.cpp:1154
+#: ../Src/Gtk2/dasher_main.cpp:1204 ../Src/Gtk2/dasher_main.cpp:1210
 msgid "translator-credits"
 msgstr "மொழிபெயர்ப்பாளர்-நன்றி அறிதல்"
 
-#: ../Src/Gtk2/module_settings_window.cpp:85
+#: ../Src/Gtk2/module_settings_window.cpp:86
 msgid "Dasher Module Options"
 msgstr "டாஷர் கூறு தேர்வுகள்"
 
-#: ../Src/Gtk2/module_settings_window.cpp:91
+#: ../Src/Gtk2/module_settings_window.cpp:92
 #, c-format
 msgid "%s Options:"
 msgstr "%s தேர்வுகள்:"
@@ -1004,7 +962,34 @@ msgstr "சொடுக்கி உள்ளீடு"
 msgid "Pixels covering Y range"
 msgstr "Y வீச்சில் பரவும் படத்துணுக்குகள்"
 
-#: ../Src/Gtk2/mouse_input.h:57
+#. TRANSLATORS: Only use the vertical mouse coordinate - this is prefered for some disabled users.
+#: ../Src/Gtk2/mouse_input.h:58
 msgid "One Dimensional Mouse Input"
 msgstr "ஒரு உருவளவை சொடுக்கி உள்ளீடு"
+
+#. {"timedata", 'w', 0, G_OPTION_ARG_NONE, &timedata, "Write basic timing information to stdout", NULL},
+#. {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences window only", NULL},
+#. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
+#. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
+#. Note to translators: This is the help string for "--appstyle"
+#: ../Src/main.cc:188
+
+msgid "Application style (traditional, direct, compose or fullscreen)"
+msgstr "பயன்பாடு பாங்கு (பாரம்பரிய, நேரடி, அமைத்தல் அல்லது முழுத்திரை)"
+
+#. Note to translators: This is the help string for "--options"
+#: ../Src/main.cc:190
+msgid "Override stored options"
+msgstr "சேமித்த தேர்வுகளை உதாசீனம் செய்"
+
+#. Note to translators: This is the help string for "--help-options"
+#: ../Src/main.cc:192
+msgid "Describe \"--options\"."
+msgstr "\"--options\". ஐ விவரி"
+
+#. Note to translators: This is the "--help" description of dasher.
+#: ../Src/main.cc:199
+
+msgid "- A text input application honouring accessibility"
+msgstr " - ஒரு அணுகலை ஆதரிக்கும்  உரை உள்ளீட்டு  பயன்பாடு"
 
