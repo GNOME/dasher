@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-22 20:22+0000\n"
-"PO-Revision-Date: 2008-04-26 13:05+0200\n"
+"POT-Creation-Date: 2008-04-26 11:57+0000\n"
+"PO-Revision-Date: 2008-08-29 15:39+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type:  text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
@@ -237,12 +237,12 @@ msgstr "Puntuación:"
 #: ../Data/glade/dasher.gameWIP.glade.h:25
 #: ../Data/glade/dasher.traditional.glade.h:19
 msgid "_About..."
-msgstr "_Acerca de..."
+msgstr "Acerca _de..."
 
 #: ../Data/glade/dasher.gameWIP.glade.h:26
 #: ../Data/glade/dasher.traditional.glade.h:20
 msgid "_Contents..."
-msgstr "_Contenido..."
+msgstr "_Índice..."
 
 #: ../Data/glade/dasher.gameWIP.glade.h:30
 #: ../Data/glade/dasher.traditional.glade.h:24
@@ -716,7 +716,8 @@ msgstr "el valor booleano debe especificarse como «true» o «false»"
 #. specify a known option.
 #: ../Src/DasherCore/SettingsStore.cpp:104
 msgid "unknown option, use \"--help-options\" for more information."
-msgstr "opción desconocida, use \"--help-options\" para obtener más información."
+msgstr ""
+"opción desconocida, use \"--help-options\" para obtener más información."
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
@@ -753,7 +754,8 @@ msgstr "Y máximo:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:34
 msgid "Print socket-related debugging information to console:"
-msgstr "Imprime la información de depuración relacionada con el socket en la consola:"
+msgstr ""
+"Imprime la información de depuración relacionada con el socket en la consola:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:38
 msgid "Socket Input"
@@ -968,7 +970,8 @@ msgstr "Una entrada dimensional del ratón"
 #. Note to translators: This is the help string for "--appstyle"
 #: ../Src/main.cc:188
 msgid "Application style (traditional, direct, compose or fullscreen)"
-msgstr "Estilo de la aplicación (tradicional, directo, compuesto o pantalla completa)"
+msgstr ""
+"Estilo de la aplicación (tradicional, directo, compuesto o pantalla completa)"
 
 #. Note to translators: This is the help string for "--options"
 #: ../Src/main.cc:190
@@ -984,4 +987,3 @@ msgstr "Describir \"--options\"."
 #: ../Src/main.cc:199
 msgid "- A text input application honouring accessibility"
 msgstr "- Una aplicación de entrada de texto para accesibilidad"
-
