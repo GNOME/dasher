@@ -1,46 +1,899 @@
 # translation of or.po to Oriya
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Subhransu Behera <arya_subhransu@yahoo.co.in>, 2006.
 #
+# Subhransu Behera <arya_subhransu@yahoo.co.in>, 2006.
+# Manoj Kumar Giri <mgiri@redhat.com>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-11 07:45+0200\n"
-"PO-Revision-Date: 2006-08-12 12:04+0530\n"
-"Last-Translator: Subhransu Behera <arya_subhransu@yahoo.co.in>\n"
-"Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
+"POT-Creation-Date: 2008-04-22 20:22+0000\n"
+"PO-Revision-Date: 2008-09-05 13:19+0530\n"
+"Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
+"Language-Team: Oriya\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2;plural=(n!=1)\n"
+"\n"
 
-#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/Menu.cc:439
-#: ../Src/Gtk2/dasher.glade.h:34 ../Src/Gtk2/dashergpe.glade.h:5
-#: ../Src/Gtk2/dashermaemo.glade.h:18
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:15
+#. Note to translators: This is the name of the dasher program as it appears
+#. in a window title without a file.
+#: ../Data/dasher.desktop.in.in.h:1 ../Data/glade/dasher.compose.glade.h:5
+#: ../Data/glade/dasher.direct.glade.h:2
+#: ../Data/glade/dasher.fullscreen.glade.h:1
+#: ../Data/glade/dasher.gameWIP.glade.h:6
+#: ../Data/glade/dasher.traditional.glade.h:6
+#: ../Data/glade/dashermaemo.glade.h:3
+#: ../Data/glade/dashermaemofullscreen.glade.h:2
+#: ../Src/Gtk2/dasher_main.cpp:992 ../Src/Gtk2/dasher_main.cpp:1212
 msgid "Dasher"
 msgstr "ଡେଶର"
 
 #: ../Data/dasher.desktop.in.in.h:2
+msgid "Enter text without a keyboard"
+msgstr "କିବୋର୍ଡ ବିନା ପାଠ୍ଯକୁ ଭରଣ କରନ୍ତୁ"
+
+#: ../Data/dasher.desktop.in.in.h:3
 msgid "Predictive text entry"
 msgstr "ଅନୁମାନିତ ପାଠ୍ଯ ଭରଣ"
+
+#: ../Data/glade/dasher.compose.glade.h:1
+#: ../Data/glade/dasher.direct.glade.h:1
+#: ../Data/glade/dasher.gameWIP.glade.h:2
+#: ../Data/glade/dasher.traditional.glade.h:2
+msgid "Alphabet:"
+msgstr "ବର୍ଣ୍ଣମାଳା:"
+
+#: ../Data/glade/dasher.compose.glade.h:2
+#: ../Data/glade/dasher.gameWIP.glade.h:3
+#: ../Data/glade/dasher.traditional.glade.h:3
+msgid "Copy"
+msgstr "ନକଲ କରନ୍ତୁ"
+
+#: ../Data/glade/dasher.compose.glade.h:3
+#: ../Data/glade/dasher.gameWIP.glade.h:4
+#: ../Data/glade/dasher.traditional.glade.h:4
+#: ../Data/glade/dashermaemofullscreen.glade.h:1
+msgid "Copy _All"
+msgstr "ସବୁକିଛି ନକଲ କରନ୍ତୁ (_A)"
+
+#: ../Data/glade/dasher.compose.glade.h:4
+#: ../Data/glade/dasher.gameWIP.glade.h:5
+#: ../Data/glade/dasher.traditional.glade.h:5
+msgid "Cut"
+msgstr "କାଟନ୍ତୁ"
+
+#: ../Data/glade/dasher.compose.glade.h:6
+msgid "Dasher _Tutorial"
+msgstr "ଡେଶର ଟ୍ଯୁଟୋରିୟାଲ (_T)"
+
+#: ../Data/glade/dasher.compose.glade.h:7
+#: ../Data/glade/dasher.gameWIP.glade.h:12
+#: ../Data/glade/dasher.traditional.glade.h:8
+msgid "New file"
+msgstr "ନୂତନ ଫାଇଲ"
+
+#: ../Data/glade/dasher.compose.glade.h:8
+#: ../Data/glade/dasher.gameWIP.glade.h:14
+#: ../Data/glade/dasher.traditional.glade.h:9
+msgid "Open file"
+msgstr "ଫାଇଲ ଖୋଲନ୍ତୁ"
+
+#: ../Data/glade/dasher.compose.glade.h:9
+#: ../Data/glade/dasher.gameWIP.glade.h:15
+#: ../Data/glade/dasher.traditional.glade.h:10
+msgid "Paste"
+msgstr "ଲଗାନ୍ତୁ"
+
+#: ../Data/glade/dasher.compose.glade.h:10
+#: ../Data/glade/dasher.direct.glade.h:3
+#: ../Data/glade/dasher.fullscreen.glade.h:2
+#: ../Data/glade/dasher.gameWIP.glade.h:16
+#: ../Data/glade/dasher.traditional.glade.h:11
+#: ../Data/glade/dashermaemo.glade.h:5
+msgid "Please Wait..."
+msgstr "ଦୟାକରି ଅପେକ୍ଷା କରନ୍ତୁ ..."
+
+#: ../Data/glade/dasher.compose.glade.h:11
+msgid "Pr_eferences"
+msgstr "ପସନ୍ଦ (_e)"
+
+#: ../Data/glade/dasher.compose.glade.h:12
+#: ../Data/glade/dasher.gameWIP.glade.h:20
+#: ../Data/glade/dasher.traditional.glade.h:15
+msgid "Save file"
+msgstr "ଫାଇଲକୁ ସଂରକ୍ଷଣ କରନ୍ତୁ"
+
+#: ../Data/glade/dasher.compose.glade.h:13
+#: ../Data/glade/dasher.gameWIP.glade.h:21
+#: ../Data/glade/dasher.traditional.glade.h:16
+msgid "Save file as"
+msgstr "ଫାଇଲକୁ ଏହିପରି ଭାବରେ ସଂରକ୍ଷଣ କରନ୍ତୁ"
+
+#: ../Data/glade/dasher.compose.glade.h:14
+#: ../Data/glade/dasher.direct.glade.h:4
+#: ../Data/glade/dasher.fullscreen.glade.h:3
+#: ../Data/glade/dasher.gameWIP.glade.h:23
+#: ../Data/glade/dasher.traditional.glade.h:17
+#: ../Data/glade/dashermaemo.glade.h:6
+#: ../Data/glade/dashermaemofullscreen.glade.h:5
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1332
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1366
+#: ../Src/Gtk2/dasher_main.cpp:1046
+msgid "Select File"
+msgstr "ଫାଇଲ ଚୟନ କରନ୍ତୁ"
+
+#: ../Data/glade/dasher.compose.glade.h:15
+#: ../Data/glade/dasher.fullscreen.glade.h:4
+#: ../Data/glade/dashermaemo.glade.h:7
+#: ../Data/glade/dashermaemofullscreen.glade.h:6
+msgid "Select Font"
+msgstr "ଅକ୍ଷରରୂପ ଚୟନ କରନ୍ତୁ"
+
+#: ../Data/glade/dasher.compose.glade.h:16
+#: ../Data/glade/dasher.direct.glade.h:5
+#: ../Data/glade/dasher.gameWIP.glade.h:24
+#: ../Data/glade/dasher.traditional.glade.h:18
+msgid "Speed:"
+msgstr "ବେଗ:"
+
+#: ../Data/glade/dasher.compose.glade.h:17
+#: ../Data/glade/dashermaemofullscreen.glade.h:8
+msgid "_About"
+msgstr "ବିବରଣୀ (_A)"
+
+#: ../Data/glade/dasher.compose.glade.h:18
+msgid "_Append to file"
+msgstr "ଫାଇଲ ଶେଷରେ ଯୋଗ କରନ୍ତୁ (_A)"
+
+#: ../Data/glade/dasher.compose.glade.h:19
+msgid "_Contents"
+msgstr "ସୂଚୀପତ୍ର (_C)"
+
+#: ../Data/glade/dasher.compose.glade.h:20
+#: ../Data/glade/dasher.gameWIP.glade.h:27
+#: ../Data/glade/dasher.traditional.glade.h:21
+#: ../Data/glade/dashermaemofullscreen.glade.h:11
+msgid "_Edit"
+msgstr "ସମ୍ପାଦନ କରନ୍ତୁ (_E)"
+
+#: ../Data/glade/dasher.compose.glade.h:21
+#: ../Data/glade/dasher.gameWIP.glade.h:28
+#: ../Data/glade/dasher.traditional.glade.h:22
+#: ../Data/glade/dashermaemofullscreen.glade.h:13
+msgid "_File"
+msgstr "ଫାଇଲ (_F)"
+
+#: ../Data/glade/dasher.compose.glade.h:22
+#: ../Data/glade/dasher.gameWIP.glade.h:29
+#: ../Data/glade/dasher.traditional.glade.h:23
+#: ../Data/glade/dashermaemofullscreen.glade.h:14
+msgid "_Help"
+msgstr "ସହାୟତା (_H)"
+
+#: ../Data/glade/dasher.compose.glade.h:23
+msgid "_Import Training Text"
+msgstr "ପ୍ରଶିକ୍ଷଣ ପାଠ୍ଯକୁ ଆୟତିତ କରନ୍ତୁ (_I)"
+
+#: ../Data/glade/dasher.compose.glade.h:24
+#: ../Data/glade/dasher.fullscreen.glade.h:5
+#: ../Data/glade/dashermaemo.glade.h:8
+#: ../Data/glade/dashermaemofullscreen.glade.h:17
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr "ଅଆଇଈଉଊଏଐ କଖଗଘଙଚଛ"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:1
+#: ../Data/glade/dasher.traditional.glade.h:1
+msgid "A_ppend to file..."
+msgstr "ଫାଇଲ ଶେଷରେ ଯୋଗ କରନ୍ତୁ (_p)..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:7
+msgid "Demo!"
+msgstr "ପ୍ରଦର୍ଶନ!"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:8
+msgid "Full Demo"
+msgstr "ସମ୍ପୁର୍ଣ୍ଣ ପ୍ରଦର୍ଶନ"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:9
+#: ../Data/glade/dasher.traditional.glade.h:7
+msgid "Help"
+msgstr "ସହାୟତା"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:10
+msgid "Launch Dasher Game & Demo mode!"
+msgstr "ଡେଶର ଖେଳ ଏବଂ ପ୍ରଦର୍ଶନ ଧାରା ଆରମ୍ଭକରନ୍ତୁ!"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:11
+msgid "Level:"
+msgstr "ସ୍ତର:"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:13
+msgid "New sentence"
+msgstr "ନୂତନ ବାକ୍ୟ"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:17
+#: ../Data/glade/dasher.traditional.glade.h:12
+msgid "Pr_eferences..."
+msgstr "ପସନ୍ଦ (_e)..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:18
+#: ../Data/glade/dasher.traditional.glade.h:13
+msgid "Preferences"
+msgstr "ପସନ୍ଦ"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:19
+#: ../Data/glade/dasher.traditional.glade.h:14
+#: ../Src/Gtk2/dasher_main.cpp:1120
+msgid "Quit"
+msgstr "ବିଦାୟ ନିଅନ୍ତୁ"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:22
+msgid "Score:"
+msgstr "ସ୍କୋର:"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:25
+#: ../Data/glade/dasher.traditional.glade.h:19
+msgid "_About..."
+msgstr "ବିବରଣୀ (_A)..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:26
+#: ../Data/glade/dasher.traditional.glade.h:20
+msgid "_Contents..."
+msgstr "ସୂଚୀପତ୍ର (_C)..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:30
+#: ../Data/glade/dasher.traditional.glade.h:24
+msgid "_Import Training Text..."
+msgstr "ପ୍ରଶିକ୍ଷଣ ପାଠ୍ଯକୁ ଆମଦାନୀ କରନ୍ତୁ (_I)..."
+
+#: ../Data/glade/dasher.preferences.glade.h:1
+msgid "<b>Actions</b>"
+msgstr "<b>କାର୍ଯ୍ଯ</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:2
+#: ../Data/glade/dashermaemo.preferences.glade.h:1
+msgid "<b>Adaptation</b>"
+msgstr "<b>ଅନୁକଳନ</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:3
+#: ../Data/glade/dashermaemo.preferences.glade.h:2
+msgid "<b>Alphabet Selection</b>"
+msgstr "<b>ବର୍ଣ୍ଣମାଳା ଚୟନ</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:4
+msgid "<b>Appearance Options</b>"
+msgstr "<b>ସାଦ୍ରୁଶ୍ଯ ବିକଳ୍ପଗୁଡ଼ିକ</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:5
+msgid "<b>Application Options</b>"
+msgstr "<b>ପ୍ରୟୋଗ ବିକଳ୍ପଗୁଡ଼ିକ</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:6
+msgid "<b>Application Style</b>"
+msgstr "<b>ପ୍ରୟୋଗ ଶୈଳୀ</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:7
+msgid "<b>Colour Scheme</b>"
+msgstr "<b>ରଙ୍ଗ ଯୋଜନା</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:8
+msgid "<b>Control Style</b>"
+msgstr "<b>ନିୟନ୍ତ୍ରଣ ଶୈଳୀ</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:9
+msgid "<b>Dasher Font</b>"
+msgstr "<b>ଡେଶର ଅକ୍ଷରରୂପ</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:10
+msgid "<b>Direction</b>"
+msgstr "<b>ଦିଗ</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:11
+msgid "<b>Editor Font</b>"
+msgstr "<b>ସମ୍ପାଦକ ଅକ୍ଷରରୂପ</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:12
+msgid "<b>Input Device</b>"
+msgstr "<b>ନିବେଶ ଯନ୍ତ୍ର</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:13
+#: ../Data/glade/dashermaemo.preferences.glade.h:5
+msgid "<b>Language Model</b>"
+msgstr "<b>ଭାଷା ମଡେଲ</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:14
+#: ../Data/glade/dashermaemo.preferences.glade.h:7
+msgid "<b>Smoothing</b>"
+msgstr "<b>ମସ୍ରୁଣ</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:15
+#: ../Data/glade/dashermaemo.preferences.glade.h:8
+msgid "<b>Speed</b>"
+msgstr "<b>ବେଗ</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:16
+msgid "<b>Starting And Stopping</b>"
+msgstr "<b>ପ୍ରାରମ୍ଭ କରୁଅଛି ଏବଂ ଅଟକାଉଛି</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:17
+#: ../Data/glade/dashermaemo.preferences.glade.h:9
+msgid "Adapt speed automatically"
+msgstr "ସ୍ବୟଂଚାଳିତ ଭାବରେ ବେଗ ସହିତ ଅନୁକୂଳ କରନ୍ତୁ"
+
+#. The default display orientation for the selected alphabet, ie left to right for English, right to left for Arabic, etc.
+#: ../Data/glade/dasher.preferences.glade.h:19
+#: ../Data/glade/dashermaemo.preferences.glade.h:11
+msgid "Alphabet Default"
+msgstr "ପୂର୍ବ ନିର୍ଦ୍ଧାରିତ ବର୍ଣ୍ଣମାଳା"
+
+#: ../Data/glade/dasher.preferences.glade.h:20
+msgid "Appearance"
+msgstr "ସାଦ୍ରୁଶ୍ଯ"
+
+#: ../Data/glade/dasher.preferences.glade.h:21
+msgid "Application"
+msgstr "ପ୍ରୟୋଗ"
+
+#: ../Data/glade/dasher.preferences.glade.h:22
+#: ../Data/glade/dashermaemo.preferences.glade.h:12
+msgid "Bottom to Top"
+msgstr "ତଳୁ ଉପରକୁ"
+
+#. Centre circle = start and stop by dwelling over a circle in the centre of the window Two box = start and stop by dwelling in sequence over two boxes (both of these are methods for starting and stopping without pressing a mouse button)
+#: ../Data/glade/dasher.preferences.glade.h:24
+msgid ""
+"Centre circle\n"
+"Two box"
+msgstr ""
+"କେନ୍ଦ୍ର ବ୍ରୁତ୍ତ\n"
+"ଦୁଇଟି ବାକ୍ସ"
+
+#: ../Data/glade/dasher.preferences.glade.h:26
+msgid "Composition"
+msgstr "ଗଠନ"
+
+#: ../Data/glade/dasher.preferences.glade.h:27
+#: ../Data/glade/dashermaemo.preferences.glade.h:13
+msgid "Control"
+msgstr "ନିୟନ୍ତ୍ରଣ"
+
+#: ../Data/glade/dasher.preferences.glade.h:28
+msgid "Control mode"
+msgstr "ନିୟନ୍ତ୍ରଣ ଧାରା"
+
+#: ../Data/glade/dasher.preferences.glade.h:29
+#: ../Data/glade/dashermaemo.preferences.glade.h:14
+msgid "Custom"
+msgstr "ଇଚ୍ଛାରୂପଣ"
+
+#: ../Data/glade/dasher.preferences.glade.h:30
+#: ../Data/glade/dashermaemo.preferences.glade.h:15
+msgid "Custom colour scheme:"
+msgstr "ଇଚ୍ଛାରୂପଣ ରଙ୍ଗ ଯୋଜନା:"
+
+#: ../Data/glade/dasher.preferences.glade.h:31
+#: ../Data/glade/dashermaemo.preferences.glade.h:16
+msgid "Dasher Preferences"
+msgstr "ଡେଶର ପସନ୍ଦ"
+
+#: ../Data/glade/dasher.preferences.glade.h:32
+msgid "Direct entry"
+msgstr "ପ୍ରତ୍ଯକ୍ଷ ଭରଣ"
+
+#: ../Data/glade/dasher.preferences.glade.h:33
+msgid "Dock application window"
+msgstr "ଡୋକ ପ୍ରୟୋଗ ଓ୍ବିଣ୍ଡୋ"
+
+#: ../Data/glade/dasher.preferences.glade.h:34
+msgid "Draw box outlines"
+msgstr "ବାକ୍ସ ବାହ୍ଯରେଖାକୁ ଆଙ୍କନ୍ତୁ"
+
+#: ../Data/glade/dasher.preferences.glade.h:35
+msgid "Draw line between crosshairs and mouse"
+msgstr "କ୍ରୋସ-ହେୟାର ଏବଂ ମାଉସ ମଧ୍ଯରେ ରେଖାଙ୍କନ କରନ୍ତୁ"
+
+#: ../Data/glade/dasher.preferences.glade.h:36
+msgid "Full Screen"
+msgstr "ସମ୍ପୁର୍ଣ୍ଣ ପରଦା ପ୍ରଦର୍ଶନ"
+
+#: ../Data/glade/dasher.preferences.glade.h:37
+msgid "Increase line thickness"
+msgstr "ରେଖାର ମୋଟାଇ ବଢାନ୍ତୁ"
+
+#: ../Data/glade/dasher.preferences.glade.h:38
+#: ../Data/glade/dashermaemo.preferences.glade.h:18
+msgid "Japanese"
+msgstr "ଜାପାନୀ"
+
+#: ../Data/glade/dasher.preferences.glade.h:39
+msgid "Language"
+msgstr "ଭାଷା"
+
+#: ../Data/glade/dasher.preferences.glade.h:40
+#: ../Data/glade/dashermaemo.preferences.glade.h:19
+msgid "Language model adapts as you write."
+msgstr "ଆପଣ ଯେଉଁଭଳି ଭାବରେ ଲେଖନ୍ତି ତାହା ସହିତ ଭାଷା ମଡେଲ ଅନୁକୂଳ ଅଟେ।"
+
+#: ../Data/glade/dasher.preferences.glade.h:41
+msgid "Large font "
+msgstr "ବଡ ଅକ୍ଷରରୂପ"
+
+#: ../Data/glade/dasher.preferences.glade.h:42
+#: ../Data/glade/dashermaemo.preferences.glade.h:20
+msgid "Left to Right"
+msgstr "ବାମରୁ ଡାହାଣ କୁ"
+
+#. PPM =  Prediction by Partial Match, a styatistical language model.
+#: ../Data/glade/dasher.preferences.glade.h:44
+#: ../Data/glade/dashermaemo.preferences.glade.h:21
+msgid "Mixture model (PPM/dictionary)"
+msgstr "ମିଶ୍ରିତ ମଡେଲ (PPM/ଡିରେକ୍ଟୋରି)"
+
+#: ../Data/glade/dasher.preferences.glade.h:45
+msgid "Options"
+msgstr "ବିକଲ୍ପ"
+
+#: ../Data/glade/dasher.preferences.glade.h:46
+msgid "Pause outside of canvas"
+msgstr "ଅଙ୍କନ କ୍ଷେତ୍ର ବାହାରେ କିଛି ସୟମ ବିରତି ନିଅନ୍ତୁ"
+
+#: ../Data/glade/dasher.preferences.glade.h:47
+#: ../Data/glade/dashermaemo.preferences.glade.h:23
+msgid "Right to Left"
+msgstr "ଡାହାଣରୁ ବାମ କୁ"
+
+#: ../Data/glade/dasher.preferences.glade.h:48
+msgid "Select Dasher Font"
+msgstr "ଡେଶର ଅକ୍ଷରରୂପ ଚୟନ କରନ୍ତୁ"
+
+#: ../Data/glade/dasher.preferences.glade.h:49
+msgid "Select Editor Font"
+msgstr "ସମ୍ପାଦକ ଅକ୍ଷରରୂପ ଚୟନ କରନ୍ତୁ"
+
+#: ../Data/glade/dasher.preferences.glade.h:50
+msgid "Show mouse position"
+msgstr "ମାଉସ ଅବସ୍ଥିତି ପ୍ରଦର୍ଶନ କରନ୍ତୁ"
+
+#: ../Data/glade/dasher.preferences.glade.h:51
+msgid "Show speed slider"
+msgstr "ବେଗ ନିର୍ଦ୍ଦେଶକକୁ ଦେଖାନ୍ତୁ"
+
+#: ../Data/glade/dasher.preferences.glade.h:52
+msgid "Show toolbar"
+msgstr "ସାଧନ ପଟିକୁ ଦେଖାନ୍ତୁ"
+
+#: ../Data/glade/dasher.preferences.glade.h:53
+msgid "Small font"
+msgstr "ଛୋଟ ଅକ୍ଷରରୂପ"
+
+#: ../Data/glade/dasher.preferences.glade.h:54
+msgid "Stand-alone"
+msgstr "ସ୍ବତନ୍ତ୍ର"
+
+#. PPM = Prediction by Partial Match, a statistical language model.
+#: ../Data/glade/dasher.preferences.glade.h:56
+#: ../Data/glade/dashermaemo.preferences.glade.h:24
+msgid "Standard letter-based PPM"
+msgstr "ମାନକ ଅକ୍ଷର-ଆଧାରିତ PPM"
+
+#: ../Data/glade/dasher.preferences.glade.h:57
+msgid "Start on left mouse button"
+msgstr "ବାମ ମାଉସ ବଟନରେ ପ୍ରାରମ୍ଭ କରନ୍ତୁ"
+
+#: ../Data/glade/dasher.preferences.glade.h:58
+msgid "Start on space bar"
+msgstr "ସ୍ପେସ-ବାରରେ ପ୍ରାରମ୍ଭ କରନ୍ତୁ"
+
+#: ../Data/glade/dasher.preferences.glade.h:59
+msgid "Start with mouse position:"
+msgstr "ମାଉସ ଅବସ୍ଥିତିରୁ ପ୍ରାରମ୍ଭ କରନ୍ତୁ:"
+
+#: ../Data/glade/dasher.preferences.glade.h:60
+msgid "Timestamp new files"
+msgstr "ନୂତନ ଫାଇଲ ମାନଙ୍କୁ ସମୟାଙ୍କନ କରନ୍ତୁ"
+
+#: ../Data/glade/dasher.preferences.glade.h:61
+#: ../Data/glade/dashermaemo.preferences.glade.h:25
+msgid "Top to Bottom"
+msgstr "ଉପରୁ ତଳକୁ"
+
+#: ../Data/glade/dasher.preferences.glade.h:62
+msgid ""
+"Use this control to adjust the relative sizes of the \n"
+"letter boxes. Note that selecting high values will slow\n"
+"your writing speed."
+msgstr ""
+"ଡାକ ବାକ୍ସର ଆପେକ୍ଷିକ ଆକାରକୁ ଯଥୋପଯୁକ୍ତ କରିବା ପାଇଁ \n"
+"ଏହି ନିୟନ୍ତ୍ରଣକୁ ବ୍ଯବହାର କରନ୍ତୁ। ଏହା ଦ୍ରୁଷ୍ଟି ରଖନ୍ତୁ ଯେ ଗୋଟିଏ ଉଚ୍ଚ ମୂଲ୍ଯର ଚୟନ \n"
+"ଆପଣଙ୍କ ଲିଖନ ବେଗକୁ ହ୍ରାସ କରିଦେବ।"
+
+#: ../Data/glade/dasher.preferences.glade.h:65
+msgid "Very large font"
+msgstr "ଅତିବଡ ଅକ୍ଷରରୂପ"
+
+#: ../Data/glade/dasher.preferences.glade.h:66
+#: ../Data/glade/dashermaemo.preferences.glade.h:27
+msgid "Word-based model"
+msgstr "ଶବ୍ଦ-ଆଧାରିତ ମଡେଲ"
+
+#: ../Data/glade/dashermaemo.glade.h:1
+msgid "\n"
+msgstr "\n"
+
+#: ../Data/glade/dashermaemo.glade.h:4
+msgid "P"
+msgstr "P"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:3
+msgid "<b>Color Scheme</b>"
+msgstr "<b>ରଙ୍ଗ ଯୋଜନା</b>"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:4
+msgid "<b>Display Size</b>"
+msgstr "<b>ପ୍ରଦର୍ଶନ ଆକାର</b>"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:6
+msgid "<b>Orientation</b>"
+msgstr "<b>ଅନୁସ୍ଥାପନ</b>"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:10
+msgid "Alphabet"
+msgstr "ବର୍ଣ୍ଣମାଳା"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:17
+msgid "Enlarge input window"
+msgstr "ନିବେଶ ଓ୍ବିଣ୍ଡୋକୁ ସଂପ୍ରସାରିତ କରନ୍ତୁ"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:22
+msgid "Prediction"
+msgstr "ଅନୁମାନ"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:26
+msgid "View"
+msgstr "ଦ୍ରୁଶ୍ଯ"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:3
+msgid "Large"
+msgstr "ବଡ"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:4
+msgid "Normal"
+msgstr "ସାଧାରଣ"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:7
+msgid "Very Large"
+msgstr "ଅତି ବଡ"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:9
+msgid "_Dasher Font"
+msgstr "ଡେଶର ଅକ୍ଷରରୂପ (_D)"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:10
+msgid "_Dasher Font Size"
+msgstr "ଡେଶର ଅକ୍ଷରରୂପ ଆକାର (_D)"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:12
+msgid "_Edit Font"
+msgstr "ଅକ୍ଷରରୂପକୁ ସମ୍ପାଦନ କରନ୍ତୁ (_E)"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:15
+msgid "_Options"
+msgstr "ବିକଲ୍ପ (_O)"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:16
+msgid "_Reset fonts"
+msgstr "ଅକ୍ଷରୂପକୁ ପୁନଃ ସ୍ଥାପନ କରନ୍ତୁ (_R)"
+
+#: ../Src/DasherCore/ClickFilter.cpp:7
+msgid "Maximum Zoom"
+msgstr "ସର୍ବାଧିକ ସାନବଡ଼"
+
+#: ../Src/DasherCore/ClickFilter.h:11
+msgid "Click Mode"
+msgstr "ଦବାଇବା ଅବସ୍ଥା"
+
+#. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
+#: ../Src/DasherCore/DasherButtons.cpp:25
+msgid "Zoom steps"
+msgstr "ସାନବଡ଼ କରିବା ପଦ୍ଧତିଗୁଡ଼ିକ"
+
+#. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
+#: ../Src/DasherCore/DasherButtons.cpp:27
+msgid "Right zoom"
+msgstr "ଡାହାଣ ସାନବଡ଼"
+
+#: ../Src/DasherCore/DasherButtons.cpp:28
+msgid "Number of boxes"
+msgstr "ବାକ୍ସଗୁଡ଼ିକର ସଂଖ୍ୟା"
+
+#: ../Src/DasherCore/DasherButtons.cpp:29
+msgid "Safety margin"
+msgstr "ସୁରକ୍ଷା ସୀମାରେଖା"
+
+#. TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other.
+#: ../Src/DasherCore/DasherButtons.cpp:31
+msgid "Box non-uniformity"
+msgstr "ବାକ୍ସ ଅସମାନତା"
+
+#. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
+#: ../Src/DasherCore/DasherButtons.cpp:33
+msgid "Global keyboard grab"
+msgstr "ଜାଗତିକ କିବୋର୍ଡ ଜାବୁଡ଼ିବା"
+
+#: ../Src/DasherCore/DasherGameMode.cpp:633
+msgid "Well done!"
+msgstr "ଭଲ ହେଲା!"
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:934
+msgid "Normal Control"
+msgstr "ସାଧାରଣ ନିୟନ୍ତ୍ରଣ"
+
+#. TODO: specialist factory for button mode
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:941
+msgid "Menu Mode"
+msgstr "ତାଲିକା ପଦ୍ଧତି"
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:942
+msgid "Direct Mode"
+msgstr "ପ୍ରତ୍ଯକ୍ଷ ଧାରା"
+
+#. RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:944
+msgid "Alternating Direct Mode"
+msgstr "ବୈକଳ୍ପିକ ପ୍ରତ୍ଯକ୍ଷ ଧାରା"
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:945
+msgid "Compass Mode"
+msgstr "କମ୍ପାସ ପଦ୍ଧତି"
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:946
+msgid "Stylus Control"
+msgstr "ସ୍ଟାଇଲସ ନିୟନ୍ତ୍ରଣ"
+
+#: ../Src/DasherCore/EyetrackerFilter.cpp:7
+msgid "Automatic calibration"
+msgstr "ସ୍ୱୟଂଚାଳିତ କେଲିବ୍ରେଶନ"
+
+#: ../Src/DasherCore/EyetrackerFilter.cpp:11
+msgid "Eyetracker Mode"
+msgstr "ଆଇଟ୍ରେକର ଅବସ୍ଥା"
+
+#. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:29
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
+msgid "Long press time"
+msgstr "ଅଧିକ ଦବାଇବା ସମୟ"
+
+#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the time in which the button must be pressed multiple times to count.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
+msgid "Multiple press time"
+msgstr "ଏକାଧିକ ଦବାଇବା ସମୟ"
+
+#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the number of times a button must be pressed to count as a multiple press.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:34
+msgid "Multiple press count"
+msgstr "ଏକାଧିକ ଦବାଇବା ସଂଖ୍ୟା"
+
+#. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
+msgid "Enable backoff button"
+msgstr "ବେକଅଫ ବଟନକୁ ସକ୍ରିୟକରନ୍ତୁ"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
+msgid "One Button Dynamic Mode"
+msgstr "ଗୋଟିଏ ବଟନ ଗତିଶୀଳ ଅବସ୍ଥା"
+
+#: ../Src/DasherCore/OneDimensionalFilter.cpp:5
+msgid "One Dimensional Mode"
+msgstr "ଏକ ପରିସର ବିଶିଷ୍ଟ ଅବସ୍ଥା"
+
+#: ../Src/DasherCore/SettingsStore.cpp:76
+#: ../Src/Gtk2/DasherAppSettings.cpp:516 ../Src/Gtk2/DasherAppSettings.cpp:550
+#: ../Src/Gtk2/DasherAppSettings.cpp:554
+msgid "true"
+msgstr "true"
+
+#: ../Src/DasherCore/SettingsStore.cpp:78
+#: ../Src/Gtk2/DasherAppSettings.cpp:518 ../Src/Gtk2/DasherAppSettings.cpp:550
+#: ../Src/Gtk2/DasherAppSettings.cpp:554
+msgid "false"
+msgstr "false"
+
+#. Note to translators: This message will be output for a command line
+#. with "--options foo=VAL" and foo is a boolean valued parameter, but
+#. "VAL" is not true or false.
+#: ../Src/DasherCore/SettingsStore.cpp:84
+#: ../Src/Gtk2/DasherAppSettings.cpp:521
+msgid "boolean value must be specified as 'true' or 'false'."
+msgstr "ବୁଲିଆନ ମୂଲ୍ୟଗୁଡ଼ିକୁ true' କିମ୍ବା 'false' ଆକାରରେ ଉଲ୍ଲେଖକରାଯିବା ଉଚିତ."
+
+#. Note to translators: This is output when command line "--options" doesn't
+#. specify a known option.
+#: ../Src/DasherCore/SettingsStore.cpp:104
+msgid "unknown option, use \"--help-options\" for more information."
+msgstr "ଅଜଣା ବିକଳ୍ପ, ଅଧିକ ସୂଚନା ପାଇଁ \"--ସହାୟତା-ବିକଳ୍ପଗୁଡ଼ିକୁ\" ବ୍ୟବହାର କରନ୍ତୁ."
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
 msgid "Dasher socket input: failed to launch reader thread."
 msgstr "ଡେଶର ସକେଟ ନିବେଶ: ପାଠକ ଥ୍ରେଡକୁ ଚଳାଇବାରେ ବିଫଳ"
 
-#: ../Src/Gtk2/Menu.cc:62 ../Src/Gtk2/Menu.cc:118 ../Src/Gtk2/Menu.cc:176
-#: ../Src/Gtk2/Menu.cc:219 ../Src/Gtk2/dasher.glade.h:59
-#: ../Src/Gtk2/dashergpe.glade.h:14 ../Src/Gtk2/dashermaemo.glade.h:29
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:25
-msgid "Select File"
-msgstr "ଫାଇଲ ଚୟନ କରନ୍ତୁ"
+#: ../Src/DasherCore/SocketInputBase.cpp:27
+msgid "Port:"
+msgstr "ସଂଯୋଗିକୀ:"
 
-#: ../Src/Gtk2/Menu.cc:302
+#: ../Src/DasherCore/SocketInputBase.cpp:28
+msgid "X label:"
+msgstr "X ସ୍ତର:"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:29
+msgid "X minimum:"
+msgstr "X ସର୍ବନିମ୍ନ:"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:30
+msgid "X maximum:"
+msgstr "X ସର୍ବାଧିକ:"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:31
+msgid "Y label:"
+msgstr "Y ସ୍ତର:"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:32
+msgid "Y minimum:"
+msgstr "Y ସର୍ବନିମ୍ନ:"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:33
+msgid "Y maximum:"
+msgstr "Y ସର୍ବାଧିକ:"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:34
+msgid "Print socket-related debugging information to console:"
+msgstr "କୋନସୋଲରେ ସକେଟ-ସମ୍ବନ୍ଧୀୟ ତ୍ରୁଟି ନିବାରଣ ସୂଚନାକୁ ମୁଦ୍ରଣକରନ୍ତୁ:"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:38
+msgid "Socket Input"
+msgstr "ସକେଟ ନିବେଶ"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:28
+msgid "Button offset"
+msgstr "ବଟନ ଅଫସେଟ"
+
+#. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:36
+msgid "Enable backoff and start/stop buttons"
+msgstr "ବେକଅଫ ଏବଂ ଆରମ୍ଭକରନ୍ତୁ/ବିରାମକରନ୍ତୁ ବଟନକୁ ସକ୍ରିୟକରନ୍ତୁ"
+
+#. TRANSLATORS: What is normally the up button becomes the down button etc.
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:38
+msgid "Reverse up and down buttons"
+msgstr "ଅଲଟା ଉପର ଏବଂ ତଳ ବଟନ"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:39
+msgid "Slow startup"
+msgstr "ମନ୍ଥର ଆରମ୍ଭ"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:40
+msgid "Startup time"
+msgstr "ଆରମ୍ଭ ସମୟ"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
+msgid "Auto speed control"
+msgstr "ସ୍ୱୟଂଚାଳିତ ବେଗ ନିୟନ୍ତ୍ରଣ"
+
+#. TRANSLATORS: The threshold time above which auto speed control is used.
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
+msgid "Auto speed threshold"
+msgstr "ସ୍ୱୟଂଚାଳିତ ବେଗ ପ୍ରଭାବସୀମା"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:47
+msgid "Two Button Dynamic Mode"
+msgstr "ଦୁଇ ବଟନ ଗତିଶୀଳ ଧାରା"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:547
+msgid "Boolean parameters"
+msgstr "ବୁଲିଆନ ପ୍ରାଚଳଗୁଡ଼ିକ"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:547 ../Src/Gtk2/DasherAppSettings.cpp:558
+#: ../Src/Gtk2/DasherAppSettings.cpp:569
+msgid "Default"
+msgstr "ପୂର୍ବ ନିର୍ଦ୍ଧାରିତ"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:547 ../Src/Gtk2/DasherAppSettings.cpp:558
+#: ../Src/Gtk2/DasherAppSettings.cpp:569
+msgid "Description"
+msgstr "ବର୍ଣ୍ଣନା"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:558
+msgid "Integer parameters"
+msgstr "ପୂର୍ଣ୍ଣ ସଂଖ୍ୟା ପ୍ରାଚଳ"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:569
+msgid "String parameters"
+msgstr "ବାକ୍ୟଖଣ୍ଡ ପ୍ରାଚଳ"
+
+#: ../Src/Gtk2/Preferences.cpp:433 ../Src/Gtk2/Preferences.cpp:1002
+msgid "Action"
+msgstr "କାର୍ଯ୍ୟ"
+
+#. TRANSLATORS: Show a button for the selected action in the Dasher window.
+#: ../Src/Gtk2/Preferences.cpp:1009
+msgid "Show Button"
+msgstr "ବଟନ ଦେଖାନ୍ତୁ"
+
+#: ../Src/Gtk2/Preferences.cpp:1014
+msgid "Control Mode"
+msgstr "ନିୟନ୍ତ୍ରଣ ପଦ୍ଧତି"
+
+#. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
+#: ../Src/Gtk2/Preferences.cpp:1020
+msgid "Auto On Stop"
+msgstr "Auto On Stop"
+
+#: ../Src/Gtk2/dasher_action_keyboard.cpp:60
+#: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:94
+msgid "Enter Text"
+msgstr "ପାଠ୍ୟ ଭରଣ କରନ୍ତୁ"
+
+#: ../Src/Gtk2/dasher_action_script.cpp:91
+msgid "Script"
+msgstr "ସ୍କ୍ରିପ୍ଟ"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:130
+msgid "Speak"
+msgstr "ଉଚ୍ଚାରଣ କରନ୍ତୁ"
+
+#. TRANSLATORS: Send all text to the text-to-speech engine.
+#: ../Src/Gtk2/dasher_action_speech.cpp:143
+msgid "All"
+msgstr "ସମସ୍ତ"
+
+#. TRANSLATORS: Send most recently entered text to the text-to-speech engine.
+#: ../Src/Gtk2/dasher_action_speech.cpp:146
+msgid "Last"
+msgstr "ଶେଷ"
+
+#. TRANSLATORS: Repeat the last phrase sent to the text-to-speech engine.
+#: ../Src/Gtk2/dasher_action_speech.cpp:149
+msgid "Repeat"
+msgstr "ପୁନରାବୃତ୍ତି"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:167
+#, c-format
+msgid "Unable to initialize speech support\n"
+msgstr "ବକ୍ତବ୍ଯ ସହାୟତାକୁ ପ୍ରାରମ୍ଭିକ୍ରୁତ କରିବାରେ ଅସମର୍ଥ\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:190
+msgid "Unable to initialize voices\n"
+msgstr "ସ୍ବରକୁ ପ୍ରାରମ୍ଭିକ୍ରୁତ କରିବାରେ ଅସମର୍ଥ\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:202
+msgid "Warning: unable to set speech parameters\n"
+msgstr "ଚେତାବନୀ: ବକ୍ତବ୍ଯ ପାରାମିଟରକୁ ବିନ୍ଯାସ କରିବାରେ ଅସମର୍ଥ\n"
+
+#. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
+#: ../Src/Gtk2/dasher_main.cpp:311
+msgid "option setting is missing \"=\"."
+msgstr "ବିକଳ୍ପ ବିନ୍ୟାସଟି ଅନୁପସ୍ଥିତ ଅଛି \"=\"."
+
+#. Note to translators: This string will be output when --options= specifies an unknown option.
+#: ../Src/Gtk2/dasher_main.cpp:327
+msgid "Invalid option string specified"
+msgstr "ଅବୈଧ ବିକଳ୍ପ ବାକ୍ଯଖଣ୍ଡ ଉଲ୍ଲେଖିତ"
+
+#. Note to translators: This is a format string for the name of the dasher
+#. program as it appears in a window, %s will be the filename.
+#: ../Src/Gtk2/dasher_main.cpp:999
+#, c-format
+msgid "Dasher - %s"
+msgstr "ଡେଶର - %s"
+
+#: ../Src/Gtk2/dasher_main.cpp:1084
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -51,7 +904,7 @@ msgstr ""
 "\n"
 "ଆପଣ ସେହି ପରିବର୍ତ୍ତନ ମାନଙ୍କୁ ସଂରକ୍ଷଣ ନକଲେ ତାହା ନଷ୍ଟ ହୋଇଯିବ।"
 
-#: ../Src/Gtk2/Menu.cc:305
+#: ../Src/Gtk2/dasher_main.cpp:1090
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -61,483 +914,75 @@ msgstr ""
 "\n"
 "ଆପଣ ସେହି ପରିବର୍ତ୍ତନ ମାନଙ୍କୁ ସଂରକ୍ଷଣ ନକଲେ ତାହା ନଷ୍ଟ ହୋଇଯିବ।"
 
-#: ../Src/Gtk2/Menu.cc:308
+#: ../Src/Gtk2/dasher_main.cpp:1094
 msgid "Don't save"
 msgstr "ସଂରକ୍ଷଣ କରନ୍ତୁ ନାହିଁ"
 
-#: ../Src/Gtk2/Menu.cc:308
+#: ../Src/Gtk2/dasher_main.cpp:1095 ../Src/Gtk2/dasher_main.cpp:1119
 msgid "Don't quit"
 msgstr "ପ୍ରସ୍ଥାନ କରନ୍ତୁ ନାହିଁ"
 
-#: ../Src/Gtk2/Menu.cc:308
+#: ../Src/Gtk2/dasher_main.cpp:1096
 msgid "Save and quit"
 msgstr "ସଂରକ୍ଷଣ କରନ୍ତୁ ଏବଂ ପ୍ରସ୍ଥାନ କରନ୍ତୁ"
 
-#: ../Src/Gtk2/Menu.cc:426 ../Src/Gtk2/Menu.cc:442
+#: ../Src/Gtk2/dasher_main.cpp:1116
+msgid "Are you sure you wish to quit?"
+msgstr "ଆପଣ ନିଶ୍ଚିତ କି ଆପଣ ବିଦାୟ ନେବାକୁ ଚାହୁଁଛନ୍ତି?"
+
+#: ../Src/Gtk2/dasher_main.cpp:1199 ../Src/Gtk2/dasher_main.cpp:1215
 msgid "Dasher is a predictive text entry application"
 msgstr "ଡେଶର ଗୋଟିଏ ଅନୁମାନିତ ପାଠ୍ଯ ଭରଣ ପ୍ରୟୋଗ"
 
-#: ../Src/Gtk2/Menu.cc:431 ../Src/Gtk2/Menu.cc:437
+#: ../Src/Gtk2/dasher_main.cpp:1204 ../Src/Gtk2/dasher_main.cpp:1210
 msgid "translator-credits"
-msgstr "ଶୁଭ୍ରାଂଶୁ ବେହେରା <arya_subhransu@yahoo.co.in>"
-
-#: ../Src/Gtk2/Preferences.cpp:822 ../Src/Gtk2/Preferences.cpp:824
-msgid "Training Dasher... please wait"
-msgstr "ଡେଶରକୁ ପ୍ରଶିକ୍ଷିତ କରୁଅଛି ... ଦୟାକରି ଅପେକ୍ଷା କରନ୍ତୁ"
-
-#: ../Src/Gtk2/dasher.glade.h:1
-msgid "<b>Actions:</b>"
-msgstr "<b>କାର୍ଯ୍ଯ:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:2 ../Src/Gtk2/dashermaemo.glade.h:4
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:1
-msgid "<b>Adaptation:</b>"
-msgstr "<b>ଅନୁକୂଳନ:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:3 ../Src/Gtk2/dashermaemo.glade.h:5
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:2
-msgid "<b>Alphabet Selection:</b>"
-msgstr "<b>ବର୍ଣ୍ଣମାଳା ଚୟନ:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:4
-msgid "<b>Appearance Options:</b>"
-msgstr "<b>ସାଦ୍ରୁଶ୍ଯ ଚୟନ:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:5
-msgid "<b>Application Options:</b>"
-msgstr "<b>ପ୍ରୟୋଗ ଚୟନ:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:6
-msgid "<b>Application Style:</b>"
-msgstr "<b>ପ୍ରୟୋଗ ଶୈଳୀ:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:7
-msgid "<b>Colour Scheme:</b>"
-msgstr "<b>ରଙ୍ଗ ଯୋଜନା:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:8
-msgid "<b>Control Style:</b>"
-msgstr "<b>ନିୟନ୍ତ୍ରଣ ଶୈଳୀ:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:9
-msgid "<b>Dasher Font:</b>"
-msgstr "<b>ଡେଶର ଅକ୍ଷରରୂପ:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:10
-msgid "<b>Direction:</b>"
-msgstr "<b>ଦିଗ:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:11
-msgid "<b>Editor Font:</b>"
-msgstr "<b>ସମ୍ପାଦକ ଅକ୍ଷରରୂପ:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:12
-msgid "<b>Input Device:</b>"
-msgstr "<b>ନିବେଶ ଯନ୍ତ୍ର:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashermaemo.glade.h:7
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:3
-msgid "<b>Language Model:</b>"
-msgstr "<b>ଭାଷା ମଡେଲ:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:14
-msgid "<b>Prediction:</b>"
-msgstr "<b>ଅନୁମାନ:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:9
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:5
-msgid "<b>Smoothing:</b>"
-msgstr "<b>ମସ୍ରୁଣ:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:10
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:6
-msgid "<b>Speed:</b>"
-msgstr "<b>ବେଗ:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:17
-msgid "<b>Starting And Stopping:</b>"
-msgstr "<b>ପ୍ରାରମ୍ଭ କରୁଅଛି ଏବଂ ଅଟକାଉଛି:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:18 ../Src/Gtk2/dashermaemo.glade.h:11
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:7
-msgid "Adapt speed automatically"
-msgstr "ସ୍ବୟଂଚାଳିତ ଭାବରେ ବେଗ ସହିତ ଅନୁକୂଳ କରନ୍ତୁ"
-
-#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:13
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:9
-msgid "Alphabet Default"
-msgstr "ପୂର୍ବ ନିର୍ଦ୍ଧାରିତ ବର୍ଣ୍ଣମାଳା"
-
-#: ../Src/Gtk2/dasher.glade.h:20
-msgid "Alphabet:"
-msgstr "ବର୍ଣ୍ଣମାଳା:"
-
-#: ../Src/Gtk2/dasher.glade.h:21
-msgid "Appearance"
-msgstr "ସାଦ୍ରୁଶ୍ଯ"
-
-#: ../Src/Gtk2/dasher.glade.h:22
-msgid "Application"
-msgstr "ପ୍ରୟୋଗ"
-
-#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashermaemo.glade.h:14
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:10
-msgid "Bottom to Top"
-msgstr "ତଳୁ ଉପରକୁ"
-
-#: ../Src/Gtk2/dasher.glade.h:24
-msgid ""
-"Centre circle\n"
-"Two box"
 msgstr ""
-"କେନ୍ଦ୍ର ବ୍ରୁତ୍ତ\n"
-"ଦୁଇଟି ବାକ୍ସ"
+"ଶୁଭ୍ରାଂଶୁ ବେହେରା <arya_subhransu@yahoo.co.in> "
+"ମନୋଜ କୁମାର ଗିରି <mgiri@redhat.com>"
 
-#: ../Src/Gtk2/dasher.glade.h:26
-msgid "Composition"
-msgstr "ଗଠନ"
+#: ../Src/Gtk2/module_settings_window.cpp:86
+msgid "Dasher Module Options"
+msgstr "ଡେଶର ଏକକାଂଶ ବିକଳ୍ପଗୁଡ଼ିକ"
 
-#: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashermaemo.glade.h:15
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:11
-msgid "Control"
-msgstr "ନିୟନ୍ତ୍ରଣ"
-
-#: ../Src/Gtk2/dasher.glade.h:28 ../Src/Gtk2/dashergpe.glade.h:1
-msgid "Control mode"
-msgstr "ନିୟନ୍ତ୍ରଣ ଧାରା"
-
-#: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:2
-msgid "Copy"
-msgstr "ନକଲ କରନ୍ତୁ"
-
-#: ../Src/Gtk2/dasher.glade.h:30 ../Src/Gtk2/dashergpe.glade.h:3
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:12
-msgid "Copy _All"
-msgstr "ସବୁକିଛି ନକଲ କରନ୍ତୁ (_A)"
-
-#: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashermaemo.glade.h:16
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:13
-msgid "Custom colour scheme:"
-msgstr "ଇଚ୍ଛାରୂପଣ ରଙ୍ଗ ଯୋଜନା:"
-
-#: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashermaemo.glade.h:17
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:14
-msgid "Custom:"
-msgstr "ଇଚ୍ଛାରୂପଣ:"
-
-#: ../Src/Gtk2/dasher.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:4
-msgid "Cut"
-msgstr "କାଟନ୍ତୁ"
-
-#: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:19
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:16
-msgid "Dasher Preferences"
-msgstr "ଡେଶର ପସନ୍ଦ"
-
-#: ../Src/Gtk2/dasher.glade.h:36
-msgid "Dasher _Tutorial"
-msgstr "ଡେଶର ଟ୍ଯୁଟୋରିୟାଲ (_T)"
-
-#: ../Src/Gtk2/dasher.glade.h:37
-msgid "Direct entry"
-msgstr "ପ୍ରତ୍ଯକ୍ଷ ଭରଣ"
-
-#: ../Src/Gtk2/dasher.glade.h:38
-msgid "Dock application window"
-msgstr "ଡୋକ ପ୍ରୟୋଗ ଓ୍ବିଣ୍ଡୋ"
-
-#: ../Src/Gtk2/dasher.glade.h:39
-msgid "Draw box outlines"
-msgstr "ବାକ୍ସ ବାହ୍ଯରେଖାକୁ ଆଙ୍କନ୍ତୁ"
-
-#: ../Src/Gtk2/dasher.glade.h:40
-msgid "Draw line between crosshairs and mouse"
-msgstr "କ୍ରୋସ-ହେୟାର ଏବଂ ମାଉସ ମଧ୍ଯରେ ରେଖାଙ୍କନ କରନ୍ତୁ"
-
-#: ../Src/Gtk2/dasher.glade.h:41
-msgid "Full Screen"
-msgstr "ସମ୍ପୁର୍ଣ୍ଣ ପରଦା ପ୍ରଦର୍ଶନ"
-
-#: ../Src/Gtk2/dasher.glade.h:42
-msgid "Increase line thickness"
-msgstr "ରେଖାର ମୋଟାଇ ବଢାନ୍ତୁ"
-
-#: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashermaemo.glade.h:21
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
-msgid "Japanese"
-msgstr "ଜାପାନୀ"
-
-#: ../Src/Gtk2/dasher.glade.h:44
-msgid "Language"
-msgstr "ଭାଷା"
-
-#: ../Src/Gtk2/dasher.glade.h:45 ../Src/Gtk2/dashermaemo.glade.h:22
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:18
-msgid "Language model adapts as you write."
-msgstr "ଆପଣ ଯେଉଁଭଳି ଭାବରେ ଲେଖନ୍ତି ତାହା ସହିତ ଭାଷା ମଡେଲ ଅନୁକୂଳ ଅଟେ।"
-
-#: ../Src/Gtk2/dasher.glade.h:46
-msgid "Large font "
-msgstr "ବଡ ଅକ୍ଷରରୂପ"
-
-#: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:23
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:20
-msgid "Left to Right"
-msgstr "ବାମରୁ ଡାହାଣ କୁ"
-
-#: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashermaemo.glade.h:24
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:21
-msgid "Mixture model (PPM/dictionary)"
-msgstr "ମିଶ୍ରିତ ମଡେଲ (PPM/ଡିରେକ୍ଟୋରି)"
-
-#: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:8
-msgid "New file"
-msgstr "ନୂତନ ଫାଇଲ"
-
-#: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:10
-msgid "Open file"
-msgstr "ଫାଇଲ ଖୋଲନ୍ତୁ"
-
-#: ../Src/Gtk2/dasher.glade.h:51
-msgid "Options"
-msgstr "ବିକଲ୍ପ"
-
-#: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:11
-msgid "Paste"
-msgstr "ଲଗାନ୍ତୁ"
-
-#: ../Src/Gtk2/dasher.glade.h:53
-msgid "Pause outside of canvas"
-msgstr "ଅଙ୍କନ କ୍ଷେତ୍ର ବାହାରେ କିଛି ସୟମ ବିରତି ନିଅନ୍ତୁ"
-
-#: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashermaemo.glade.h:26
-msgid "Please Wait..."
-msgstr "ଦୟାକରି ଅପେକ୍ଷା କରନ୍ତୁ ..."
-
-#: ../Src/Gtk2/dasher.glade.h:55
-msgid "Pr_eferences"
-msgstr "ପସନ୍ଦ (_e)"
-
-#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashermaemo.glade.h:28
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
-msgid "Right to Left"
-msgstr "ଡାହାଣରୁ ବାମ କୁ"
-
-#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:12
-msgid "Save file"
-msgstr "ଫାଇଲକୁ ସଂରକ୍ଷଣ କରନ୍ତୁ"
-
-#: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:13
-msgid "Save file as"
-msgstr "ଫାଇଲକୁ ଏହିପରି ଭାବରେ ସଂରକ୍ଷଣ କରନ୍ତୁ"
-
-#: ../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:15
-#: ../Src/Gtk2/dashermaemo.glade.h:30
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:26
-msgid "Select Font"
-msgstr "ଅକ୍ଷରରୂପ ଚୟନ କରନ୍ତୁ"
-
-#: ../Src/Gtk2/dasher.glade.h:61
-msgid "Show mouse position"
-msgstr "ମାଉସ ଅବସ୍ଥିତି ପ୍ରଦର୍ଶନ କରନ୍ତୁ"
-
-#: ../Src/Gtk2/dasher.glade.h:62
-msgid "Show speed slider"
-msgstr "ବେଗ ନିର୍ଦ୍ଦେଶକକୁ ଦେଖାନ୍ତୁ"
-
-#: ../Src/Gtk2/dasher.glade.h:63
-msgid "Show toolbar"
-msgstr "ସାଧନ ପଟିକୁ ଦେଖାନ୍ତୁ"
-
-#: ../Src/Gtk2/dasher.glade.h:64
-msgid "Small font"
-msgstr "ଛୋଟ ଅକ୍ଷରରୂପ"
-
-#: ../Src/Gtk2/dasher.glade.h:65
-msgid "Speed:"
-msgstr "ବେଗ:"
-
-#: ../Src/Gtk2/dasher.glade.h:66
-msgid "Stand-alone"
-msgstr "ସ୍ବତନ୍ତ୍ର"
-
-#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashermaemo.glade.h:31
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
-msgid "Standard letter-based PPM"
-msgstr "ମାନକ ଅକ୍ଷର-ଆଧାରିତ PPM"
-
-#: ../Src/Gtk2/dasher.glade.h:68
-msgid "Start on left mouse button"
-msgstr "ବାମ ମାଉସ ବଟନରେ ପ୍ରାରମ୍ଭ କରନ୍ତୁ"
-
-#: ../Src/Gtk2/dasher.glade.h:69
-msgid "Start on space bar"
-msgstr "ସ୍ପେସ-ବାରରେ ପ୍ରାରମ୍ଭ କରନ୍ତୁ"
-
-#: ../Src/Gtk2/dasher.glade.h:70
-msgid "Start with mouse position:"
-msgstr "ମାଉସ ଅବସ୍ଥିତିରୁ ପ୍ରାରମ୍ଭ କରନ୍ତୁ:"
-
-#: ../Src/Gtk2/dasher.glade.h:71
-msgid "Timestamp new files"
-msgstr "ନୂତନ ଫାଇଲ ମାନଙ୍କୁ ସମୟାଙ୍କନ କରନ୍ତୁ"
-
-#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashermaemo.glade.h:32
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
-msgid "Top to Bottom"
-msgstr "ଉପରୁ ତଳକୁ"
-
-#: ../Src/Gtk2/dasher.glade.h:73
-msgid ""
-"Use this control to adjust the relative sizes of the \n"
-"letter boxes. Note that selecting high values will slow\n"
-"your writing speed."
-msgstr ""
-"ଡାକ ବାକ୍ସର ଆପେକ୍ଷିକ ଆକାରକୁ ଯଥୋପଯୁକ୍ତ କରିବା ପାଇଁ \n"
-"ଏହି ନିୟନ୍ତ୍ରଣକୁ ବ୍ଯବହାର କରନ୍ତୁ। ଏହା ଦ୍ରୁଷ୍ଟି ରଖନ୍ତୁ ଯେ ଗୋଟିଏ ଉଚ୍ଚ ମୂଲ୍ଯର ଚୟନ \n"
-"ଆପଣଙ୍କ ଲିଖନ ବେଗକୁ ହ୍ରାସ କରିଦେବ।"
-
-#: ../Src/Gtk2/dasher.glade.h:76
-msgid "Very large font"
-msgstr "ଅତିବଡ ଅକ୍ଷରରୂପ"
-
-#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashermaemo.glade.h:34
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
-msgid "Word-based model"
-msgstr "ଶବ୍ଦ-ଆଧାରିତ ମଡେଲ"
-
-#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:17
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:32
-msgid "_About"
-msgstr "ବିବରଣୀ (_A)"
-
-#: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashergpe.glade.h:18
-msgid "_Append to file"
-msgstr "ଫାଇଲ ଶେଷରେ ଯୋଗ କରନ୍ତୁ (_A)"
-
-#: ../Src/Gtk2/dasher.glade.h:80
-msgid "_Contents"
-msgstr "ସୂଚୀପତ୍ର (_C)"
-
-#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:21
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
-msgid "_Edit"
-msgstr "ସମ୍ପାଦନ କରନ୍ତୁ (_E)"
-
-#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:23
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:37
-msgid "_File"
-msgstr "ଫାଇଲ (_F)"
-
-#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:24
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:38
-msgid "_Help"
-msgstr "ସହାୟତା (_H)"
-
-#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:25
-msgid "_Import Training Text"
-msgstr "ପ୍ରଶିକ୍ଷଣ ପାଠ୍ଯକୁ ଆୟତିତ କରନ୍ତୁ (_I)"
-
-#: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:28
-#: ../Src/Gtk2/dashermaemo.glade.h:35
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:41
-msgid "abcdefghijk ABCDEFGHIJK"
-msgstr "ଅଆଇଈଉଊଏଐ କଖଗଘଙଚଛ"
-
-#: ../Src/Gtk2/dasher_action_speech.cpp:115
+#: ../Src/Gtk2/module_settings_window.cpp:92
 #, c-format
-msgid "Unable to initialize speech support\n"
-msgstr "ବକ୍ତବ୍ଯ ସହାୟତାକୁ ପ୍ରାରମ୍ଭିକ୍ରୁତ କରିବାରେ ଅସମର୍ଥ\n"
+msgid "%s Options:"
+msgstr "%s ବିକଳ୍ପଗୁଡ଼ିକ:"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:138
-msgid "Unable to initialize voices\n"
-msgstr "ସ୍ବରକୁ ପ୍ରାରମ୍ଭିକ୍ରୁତ କରିବାରେ ଅସମର୍ଥ\n"
+#: ../Src/Gtk2/mouse_input.h:15
+msgid "Mouse Input"
+msgstr "ମାଉସ ନିବେଷ"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:150
-msgid "Warning: unable to set speech parameters\n"
-msgstr "ଚେତାବନୀ: ବକ୍ତବ୍ଯ ପାରାମିଟରକୁ ବିନ୍ଯାସ କରିବାରେ ଅସମର୍ଥ\n"
+#: ../Src/Gtk2/mouse_input.h:51
+msgid "Pixels covering Y range"
+msgstr "Y ପରିସରକୁ ଅଧିକୃତ କରିଥିବା ପିକସେଲଗୁଡ଼ିକ"
 
-#: ../Src/Gtk2/dashergpe.glade.h:6
-msgid "Enter text into other windows"
-msgstr "ଅନ୍ଯାନ୍ଯ ଓ୍ବିଣ୍ଡୋ ମାନଙ୍କରେ ପାଠ୍ଯକୁ ଭରଣ କରନ୍ତୁ"
+#. TRANSLATORS: Only use the vertical mouse coordinate - this is prefered for some disabled users.
+#: ../Src/Gtk2/mouse_input.h:58
+msgid "One Dimensional Mouse Input"
+msgstr "ଏକ ପରିସରଭୁକ୍ତ ମାଉସ ନିବେଶ"
 
-#: ../Src/Gtk2/dashergpe.glade.h:7
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:19
-msgid "Large"
-msgstr "ବଡ"
+#. {"timedata", 'w', 0, G_OPTION_ARG_NONE, &timedata, "Write basic timing information to stdout", NULL},
+#. {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences window only", NULL},
+#. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
+#. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
+#. Note to translators: This is the help string for "--appstyle"
+#: ../Src/main.cc:188
+msgid "Application style (traditional, direct, compose or fullscreen)"
+msgstr "ପ୍ରୟୋଗ ଶୈଳୀ (ପାରମ୍ପରିକ, ସିଧାସଳଖ, ସଙ୍ଘଟିତ କିମ୍ବା ପୂର୍ଣ୍ଣ ପରଦା)"
 
-#: ../Src/Gtk2/dashergpe.glade.h:9
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:22
-msgid "Normal"
-msgstr "ସାଧାରଣ"
+#. Note to translators: This is the help string for "--options"
+#: ../Src/main.cc:190
+msgid "Override stored options"
+msgstr "ସଂରକ୍ଷିତ ବିକଳ୍ପଗୁଡ଼ିକୁ ଦାବିଦେଇଯିବା"
 
-#: ../Src/Gtk2/dashergpe.glade.h:16
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:29
-msgid "Very Large"
-msgstr "ଅତି ବଡ"
+#. Note to translators: This is the help string for "--help-options"
+#: ../Src/main.cc:192
+msgid "Describe \"--options\"."
+msgstr "\"--ବିକଳ୍ପଗୁଡ଼ିକୁ\" ବ୍ୟାଖ୍ୟା କରନ୍ତୁ."
 
-#: ../Src/Gtk2/dashergpe.glade.h:19
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:33
-msgid "_Dasher Font"
-msgstr "ଡେଶର ଅକ୍ଷରରୂପ (_D)"
-
-#: ../Src/Gtk2/dashergpe.glade.h:20
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:34
-msgid "_Dasher Font Size"
-msgstr "ଡେଶର ଅକ୍ଷରରୂପ ଆକାର (_D)"
-
-#: ../Src/Gtk2/dashergpe.glade.h:22
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:36
-msgid "_Edit Font"
-msgstr "ଅକ୍ଷରରୂପକୁ ସମ୍ପାଦନ କରନ୍ତୁ (_E)"
-
-#: ../Src/Gtk2/dashergpe.glade.h:26
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:39
-msgid "_Options"
-msgstr "ବିକଲ୍ପ (_O)"
-
-#: ../Src/Gtk2/dashergpe.glade.h:27
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:40
-msgid "_Reset fonts"
-msgstr "ଅକ୍ଷରୂପକୁ ପୁନଃ ସ୍ଥାପନ କରନ୍ତୁ (_R)"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:1
-msgid "\n"
-msgstr "\n"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:3
-msgid "(Message Placeholder - no need to translate)"
-msgstr "(Message Placeholder - no need to translate)"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:6
-msgid "<b>Display Size:</b>"
-msgstr "<b>ପ୍ରଦର୍ଶନ ଆକାର:</b>"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:8
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:4
-msgid "<b>Orientation:</b>"
-msgstr "<b>ଅନୁସ୍ଥାପନ:</b>"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:12
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:8
-msgid "Alphabet"
-msgstr "ବର୍ଣ୍ଣମାଳା"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:20
-msgid "Enlarge input window"
-msgstr "ନିବେଶ ଓ୍ବିଣ୍ଡୋକୁ ସଂପ୍ରସାରିତ କରନ୍ତୁ"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:25
-msgid "P"
-msgstr "P"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:27
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:23
-msgid "Prediction"
-msgstr "ଅନୁମାନ"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:33
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:30
-msgid "View"
-msgstr "ଦ୍ରୁଶ୍ଯ"
+#. Note to translators: This is the "--help" description of dasher.
+#: ../Src/main.cc:199
+msgid "- A text input application honouring accessibility"
+msgstr "- ଗୋଟିଏ ପାଠ୍ୟ ନିବେଶ ପ୍ରୟୋଗକୁ ସମ୍ମାନ ଦେଖାଉଥିବା ଅଭିଗମ୍ୟତା"
 
