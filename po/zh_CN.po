@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-18 14:45+0100\n"
+"POT-Creation-Date: 2008-09-06 03:47+0000\n"
 "PO-Revision-Date: 2008-03-03 19:39+0800\n"
 "Last-Translator: Yang Zhang <zyangmath@gmail.com>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
@@ -15,229 +15,332 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../Data/dasher.desktop.in.in.h:1 ../Data/glade/dasher.compose.glade.h:34
-#: ../Data/glade/dasher.direct.glade.h:31
-#: ../Data/glade/dasher.fullscreen.glade.h:30
-#: ../Data/glade/dasher.gameWIP.glade.h:35
-#: ../Data/glade/dasher.traditional.glade.h:39
-#: ../Data/glade/dashermaemo.glade.h:17
-#: ../Data/glade/dashermaemofullscreen.glade.h:15
-#: ../Src/Gtk2/dasher_main.cpp:1158
+#. Note to translators: This is the name of the dasher program as it appears
+#. in a window title without a file.
+#: ../Data/dasher.desktop.in.in.h:1 ../Data/glade/dasher.compose.glade.h:5
+#: ../Data/glade/dasher.direct.glade.h:2
+#: ../Data/glade/dasher.fullscreen.glade.h:1
+#: ../Data/glade/dasher.gameWIP.glade.h:6
+#: ../Data/glade/dasher.traditional.glade.h:6
+#: ../Data/glade/dashermaemo.glade.h:3
+#: ../Data/glade/dashermaemofullscreen.glade.h:2
+#: ../Src/Gtk2/dasher_main.cpp:992 ../Src/Gtk2/dasher_main.cpp:1212
 msgid "Dasher"
 msgstr "Dasher"
 
 #: ../Data/dasher.desktop.in.in.h:2
+msgid "Enter text without a keyboard"
+msgstr "不使用键盘输入文本"
+
+#: ../Data/dasher.desktop.in.in.h:3
 msgid "Predictive text entry"
 msgstr "预测型文本输入"
 
 #: ../Data/glade/dasher.compose.glade.h:1
 #: ../Data/glade/dasher.direct.glade.h:1
-#: ../Data/glade/dasher.fullscreen.glade.h:1
-#: ../Data/glade/dasher.gameWIP.glade.h:1
-#: ../Data/glade/dasher.traditional.glade.h:1
-msgid "<b>Actions:</b>"
-msgstr "<b>动作：</b>"
-
-#: ../Data/glade/dasher.compose.glade.h:2
-#: ../Data/glade/dasher.direct.glade.h:2
-#: ../Data/glade/dasher.fullscreen.glade.h:2
 #: ../Data/glade/dasher.gameWIP.glade.h:2
 #: ../Data/glade/dasher.traditional.glade.h:2
-#: ../Data/glade/dashermaemo.glade.h:3
-#: ../Data/glade/dashermaemofullscreen.glade.h:1
-msgid "<b>Adaptation:</b>"
-msgstr "<b>适应性：</b>"
+msgid "Alphabet:"
+msgstr "字母："
 
-#: ../Data/glade/dasher.compose.glade.h:3
-#: ../Data/glade/dasher.direct.glade.h:3
-#: ../Data/glade/dasher.fullscreen.glade.h:3
+#: ../Data/glade/dasher.compose.glade.h:2
 #: ../Data/glade/dasher.gameWIP.glade.h:3
 #: ../Data/glade/dasher.traditional.glade.h:3
-#: ../Data/glade/dashermaemo.glade.h:4
-#: ../Data/glade/dashermaemofullscreen.glade.h:2
-msgid "<b>Alphabet Selection:</b>"
-msgstr "<b>字母选择：</b>"
+msgid "Copy"
+msgstr "复制"
 
-#: ../Data/glade/dasher.compose.glade.h:4
-#: ../Data/glade/dasher.direct.glade.h:4
-#: ../Data/glade/dasher.fullscreen.glade.h:4
+#: ../Data/glade/dasher.compose.glade.h:3
 #: ../Data/glade/dasher.gameWIP.glade.h:4
 #: ../Data/glade/dasher.traditional.glade.h:4
-msgid "<b>Appearance Options:</b>"
-msgstr "<b>外观选项：</b>"
+#: ../Data/glade/dashermaemofullscreen.glade.h:1
+msgid "Copy _All"
+msgstr "全部复制(_A)"
 
-#: ../Data/glade/dasher.compose.glade.h:5
-#: ../Data/glade/dasher.direct.glade.h:5
-#: ../Data/glade/dasher.fullscreen.glade.h:5
+#: ../Data/glade/dasher.compose.glade.h:4
 #: ../Data/glade/dasher.gameWIP.glade.h:5
 #: ../Data/glade/dasher.traditional.glade.h:5
-msgid "<b>Application Options:</b>"
-msgstr "<b>应用程序选项：</b>"
+msgid "Cut"
+msgstr "剪切"
 
 #: ../Data/glade/dasher.compose.glade.h:6
-#: ../Data/glade/dasher.direct.glade.h:6
-#: ../Data/glade/dasher.fullscreen.glade.h:6
-#: ../Data/glade/dasher.gameWIP.glade.h:6
-#: ../Data/glade/dasher.traditional.glade.h:6
-msgid "<b>Application Style:</b>"
-msgstr "<b>应用程序风格：</b>"
+msgid "Dasher _Tutorial"
+msgstr "Dasher 导航(_T)"
 
 #: ../Data/glade/dasher.compose.glade.h:7
-#: ../Data/glade/dasher.direct.glade.h:7
-#: ../Data/glade/dasher.fullscreen.glade.h:7
-#: ../Data/glade/dasher.gameWIP.glade.h:7
-#: ../Data/glade/dasher.traditional.glade.h:7
-msgid "<b>Colour Scheme:</b>"
-msgstr "<b>颜色方案：</b>"
+#: ../Data/glade/dasher.gameWIP.glade.h:12
+#: ../Data/glade/dasher.traditional.glade.h:8
+msgid "New file"
+msgstr "新文件"
 
 #: ../Data/glade/dasher.compose.glade.h:8
-#: ../Data/glade/dasher.direct.glade.h:8
-#: ../Data/glade/dasher.fullscreen.glade.h:8
-#: ../Data/glade/dasher.gameWIP.glade.h:8
-#: ../Data/glade/dasher.traditional.glade.h:8
-msgid "<b>Control Style:</b>"
-msgstr "<b>控件风格：</b>"
+#: ../Data/glade/dasher.gameWIP.glade.h:14
+#: ../Data/glade/dasher.traditional.glade.h:9
+msgid "Open file"
+msgstr "打开文件"
 
 #: ../Data/glade/dasher.compose.glade.h:9
-#: ../Data/glade/dasher.direct.glade.h:9
-#: ../Data/glade/dasher.fullscreen.glade.h:9
-#: ../Data/glade/dasher.gameWIP.glade.h:9
-#: ../Data/glade/dasher.traditional.glade.h:9
-msgid "<b>Dasher Font:</b>"
-msgstr "<b>Dasher 字体：</b>"
+#: ../Data/glade/dasher.gameWIP.glade.h:15
+#: ../Data/glade/dasher.traditional.glade.h:10
+msgid "Paste"
+msgstr "粘贴"
 
 #: ../Data/glade/dasher.compose.glade.h:10
-#: ../Data/glade/dasher.direct.glade.h:10
-#: ../Data/glade/dasher.fullscreen.glade.h:10
-#: ../Data/glade/dasher.gameWIP.glade.h:10
-#: ../Data/glade/dasher.traditional.glade.h:10
-msgid "<b>Direction:</b>"
-msgstr "<b>方向：</b>"
+#: ../Data/glade/dasher.direct.glade.h:3
+#: ../Data/glade/dasher.fullscreen.glade.h:2
+#: ../Data/glade/dasher.gameWIP.glade.h:16
+#: ../Data/glade/dasher.traditional.glade.h:11
+#: ../Data/glade/dashermaemo.glade.h:5
+msgid "Please Wait..."
+msgstr "请稍等..."
 
 #: ../Data/glade/dasher.compose.glade.h:11
-#: ../Data/glade/dasher.direct.glade.h:11
-#: ../Data/glade/dasher.fullscreen.glade.h:11
-#: ../Data/glade/dasher.gameWIP.glade.h:11
-#: ../Data/glade/dasher.traditional.glade.h:11
-msgid "<b>Editor Font:</b>"
-msgstr "<b>编辑器字体：</b>"
+msgid "Pr_eferences"
+msgstr "首选项(_E)"
 
 #: ../Data/glade/dasher.compose.glade.h:12
-#: ../Data/glade/dasher.direct.glade.h:12
-#: ../Data/glade/dasher.fullscreen.glade.h:12
-#: ../Data/glade/dasher.gameWIP.glade.h:12
-#: ../Data/glade/dasher.traditional.glade.h:12
-msgid "<b>Input Device:</b>"
-msgstr "<b>输入设备：</b>"
+#: ../Data/glade/dasher.gameWIP.glade.h:20
+#: ../Data/glade/dasher.traditional.glade.h:15
+msgid "Save file"
+msgstr "保存文件"
 
 #: ../Data/glade/dasher.compose.glade.h:13
-#: ../Data/glade/dasher.direct.glade.h:13
-#: ../Data/glade/dasher.fullscreen.glade.h:13
-#: ../Data/glade/dasher.gameWIP.glade.h:13
-#: ../Data/glade/dasher.traditional.glade.h:13
-#: ../Data/glade/dashermaemo.glade.h:6
-#: ../Data/glade/dashermaemofullscreen.glade.h:3
-msgid "<b>Language Model:</b>"
-msgstr "<b>语言模型：</b>"
+#: ../Data/glade/dasher.gameWIP.glade.h:21
+#: ../Data/glade/dasher.traditional.glade.h:16
+msgid "Save file as"
+msgstr "文件另存为"
 
 #: ../Data/glade/dasher.compose.glade.h:14
-#: ../Data/glade/dasher.direct.glade.h:14
-#: ../Data/glade/dasher.fullscreen.glade.h:14
-#: ../Data/glade/dasher.gameWIP.glade.h:14
-#: ../Data/glade/dasher.traditional.glade.h:14
-msgid "<b>Prediction:</b>"
-msgstr "<b>预测：</b>"
+#: ../Data/glade/dasher.direct.glade.h:4
+#: ../Data/glade/dasher.fullscreen.glade.h:3
+#: ../Data/glade/dasher.gameWIP.glade.h:23
+#: ../Data/glade/dasher.traditional.glade.h:17
+#: ../Data/glade/dashermaemo.glade.h:6
+#: ../Data/glade/dashermaemofullscreen.glade.h:5
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1332
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1366
+#: ../Src/Gtk2/dasher_main.cpp:1046
+msgid "Select File"
+msgstr "选择文件"
 
 #: ../Data/glade/dasher.compose.glade.h:15
-#: ../Data/glade/dasher.direct.glade.h:15
-#: ../Data/glade/dasher.fullscreen.glade.h:15
-#: ../Data/glade/dasher.gameWIP.glade.h:15
-#: ../Data/glade/dasher.traditional.glade.h:15
-#: ../Data/glade/dashermaemo.glade.h:8
-#: ../Data/glade/dashermaemofullscreen.glade.h:5
-msgid "<b>Smoothing:</b>"
-msgstr "<b>平滑：</b>"
+#: ../Data/glade/dasher.fullscreen.glade.h:4
+#: ../Data/glade/dashermaemo.glade.h:7
+#: ../Data/glade/dashermaemofullscreen.glade.h:6
+msgid "Select Font"
+msgstr "选择字体"
 
 #: ../Data/glade/dasher.compose.glade.h:16
-#: ../Data/glade/dasher.direct.glade.h:16
-#: ../Data/glade/dasher.fullscreen.glade.h:16
-#: ../Data/glade/dasher.gameWIP.glade.h:16
-#: ../Data/glade/dasher.traditional.glade.h:16
-#: ../Data/glade/dashermaemo.glade.h:9
-#: ../Data/glade/dashermaemofullscreen.glade.h:6
-msgid "<b>Speed:</b>"
-msgstr "<b>速度：</b>"
+#: ../Data/glade/dasher.direct.glade.h:5
+#: ../Data/glade/dasher.gameWIP.glade.h:24
+#: ../Data/glade/dasher.traditional.glade.h:18
+msgid "Speed:"
+msgstr "速度："
 
 #: ../Data/glade/dasher.compose.glade.h:17
-#: ../Data/glade/dasher.direct.glade.h:17
-#: ../Data/glade/dasher.fullscreen.glade.h:17
-#: ../Data/glade/dasher.gameWIP.glade.h:17
-#: ../Data/glade/dasher.traditional.glade.h:17
-msgid "<b>Starting And Stopping:</b>"
-msgstr "<b>启动和停止：</b>"
+#: ../Data/glade/dashermaemofullscreen.glade.h:8
+msgid "_About"
+msgstr "关于(_A)"
 
 #: ../Data/glade/dasher.compose.glade.h:18
-#: ../Data/glade/dasher.direct.glade.h:18
-#: ../Data/glade/dasher.fullscreen.glade.h:18
+msgid "_Append to file"
+msgstr "追加到文件(_A)"
+
+#: ../Data/glade/dasher.compose.glade.h:19
+msgid "_Contents"
+msgstr "内容(_C)"
+
+#: ../Data/glade/dasher.compose.glade.h:20
+#: ../Data/glade/dasher.gameWIP.glade.h:27
+#: ../Data/glade/dasher.traditional.glade.h:21
+#: ../Data/glade/dashermaemofullscreen.glade.h:11
+msgid "_Edit"
+msgstr "编辑(_E)"
+
+#: ../Data/glade/dasher.compose.glade.h:21
+#: ../Data/glade/dasher.gameWIP.glade.h:28
+#: ../Data/glade/dasher.traditional.glade.h:22
+#: ../Data/glade/dashermaemofullscreen.glade.h:13
+msgid "_File"
+msgstr "文件(_F)"
+
+#: ../Data/glade/dasher.compose.glade.h:22
+#: ../Data/glade/dasher.gameWIP.glade.h:29
+#: ../Data/glade/dasher.traditional.glade.h:23
+#: ../Data/glade/dashermaemofullscreen.glade.h:14
+msgid "_Help"
+msgstr "帮助(_H)"
+
+#: ../Data/glade/dasher.compose.glade.h:23
+msgid "_Import Training Text"
+msgstr "导入训练文本(_I)"
+
+#: ../Data/glade/dasher.compose.glade.h:24
+#: ../Data/glade/dasher.fullscreen.glade.h:5
+#: ../Data/glade/dashermaemo.glade.h:8
+#: ../Data/glade/dashermaemofullscreen.glade.h:17
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr "abcdefghijk ABCDEFGHIJK"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:1
+#: ../Data/glade/dasher.traditional.glade.h:1
+msgid "A_ppend to file..."
+msgstr "追加到文件(_P)..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:7
+msgid "Demo!"
+msgstr "演示！"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:8
+msgid "Full Demo"
+msgstr "完整演示"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:9
+#: ../Data/glade/dasher.traditional.glade.h:7
+msgid "Help"
+msgstr "帮助"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:10
+msgid "Launch Dasher Game & Demo mode!"
+msgstr ""
+
+#: ../Data/glade/dasher.gameWIP.glade.h:11
+msgid "Level:"
+msgstr "级别："
+
+#: ../Data/glade/dasher.gameWIP.glade.h:13
+msgid "New sentence"
+msgstr ""
+
+#: ../Data/glade/dasher.gameWIP.glade.h:17
+#: ../Data/glade/dasher.traditional.glade.h:12
+msgid "Pr_eferences..."
+msgstr "首选项(_E)..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:18
+#: ../Data/glade/dasher.traditional.glade.h:13
+msgid "Preferences"
+msgstr "首选项"
+
 #: ../Data/glade/dasher.gameWIP.glade.h:19
+#: ../Data/glade/dasher.traditional.glade.h:14
+#: ../Src/Gtk2/dasher_main.cpp:1120
+msgid "Quit"
+msgstr "退出"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:22
+msgid "Score:"
+msgstr ""
+
+#: ../Data/glade/dasher.gameWIP.glade.h:25
 #: ../Data/glade/dasher.traditional.glade.h:19
-#: ../Data/glade/dashermaemo.glade.h:10
-#: ../Data/glade/dashermaemofullscreen.glade.h:7
+msgid "_About..."
+msgstr "关于(_A)..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:26
+#: ../Data/glade/dasher.traditional.glade.h:20
+msgid "_Contents..."
+msgstr "内容(_C)..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:30
+#: ../Data/glade/dasher.traditional.glade.h:24
+msgid "_Import Training Text..."
+msgstr "导入训练文本(_I)..."
+
+#: ../Data/glade/dasher.preferences.glade.h:1
+msgid "<b>Actions</b>"
+msgstr "<b>动作</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:2
+#: ../Data/glade/dashermaemo.preferences.glade.h:1
+msgid "<b>Adaptation</b>"
+msgstr "<b>适应性</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:3
+#: ../Data/glade/dashermaemo.preferences.glade.h:2
+msgid "<b>Alphabet Selection</b>"
+msgstr "<b>字母选择</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:4
+msgid "<b>Appearance Options</b>"
+msgstr "<b>外观选项</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:5
+msgid "<b>Application Options</b>"
+msgstr "<b>应用程序选项</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:6
+msgid "<b>Application Style</b>"
+msgstr "<b>应用程序风格</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:7
+msgid "<b>Colour Scheme</b>"
+msgstr "<b>配色方案</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:8
+msgid "<b>Control Style</b>"
+msgstr "<b>控件风格</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:9
+msgid "<b>Dasher Font</b>"
+msgstr "<b>Dasher 字体</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:10
+msgid "<b>Direction</b>"
+msgstr "<b>方向</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:11
+msgid "<b>Editor Font</b>"
+msgstr "<b>编辑器字体</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:12
+msgid "<b>Input Device</b>"
+msgstr "<b>输入设备</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:13
+#: ../Data/glade/dashermaemo.preferences.glade.h:5
+msgid "<b>Language Model</b>"
+msgstr "<b>语言模型</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:14
+#: ../Data/glade/dashermaemo.preferences.glade.h:7
+msgid "<b>Smoothing</b>"
+msgstr "<b>平滑</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:15
+#: ../Data/glade/dashermaemo.preferences.glade.h:8
+msgid "<b>Speed</b>"
+msgstr "<b>速度</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:16
+msgid "<b>Starting And Stopping</b>"
+msgstr "<b>启动和停止</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:17
+#: ../Data/glade/dashermaemo.preferences.glade.h:9
 msgid "Adapt speed automatically"
 msgstr "自动调节速度"
 
 #. The default display orientation for the selected alphabet, ie left to right for English, right to left for Arabic, etc.
-#: ../Data/glade/dasher.compose.glade.h:19
-#: ../Data/glade/dasher.direct.glade.h:19
-#: ../Data/glade/dasher.fullscreen.glade.h:19
-#: ../Data/glade/dasher.gameWIP.glade.h:20
-#: ../Data/glade/dasher.traditional.glade.h:21
-#: ../Data/glade/dashermaemo.glade.h:12
-#: ../Data/glade/dashermaemofullscreen.glade.h:9
+#: ../Data/glade/dasher.preferences.glade.h:19
+#: ../Data/glade/dashermaemo.preferences.glade.h:11
 msgid "Alphabet Default"
 msgstr "默认字母"
 
-#: ../Data/glade/dasher.compose.glade.h:20
-#: ../Data/glade/dasher.direct.glade.h:20
-#: ../Data/glade/dasher.gameWIP.glade.h:21
-#: ../Data/glade/dasher.traditional.glade.h:22
-msgid "Alphabet:"
-msgstr "字母："
-
-#: ../Data/glade/dasher.compose.glade.h:21
-#: ../Data/glade/dasher.direct.glade.h:21
-#: ../Data/glade/dasher.fullscreen.glade.h:20
-#: ../Data/glade/dasher.gameWIP.glade.h:22
-#: ../Data/glade/dasher.traditional.glade.h:23
+#: ../Data/glade/dasher.preferences.glade.h:20
 msgid "Appearance"
 msgstr "外观"
 
-#: ../Data/glade/dasher.compose.glade.h:22
-#: ../Data/glade/dasher.direct.glade.h:22
-#: ../Data/glade/dasher.fullscreen.glade.h:21
-#: ../Data/glade/dasher.gameWIP.glade.h:23
-#: ../Data/glade/dasher.traditional.glade.h:24
+#: ../Data/glade/dasher.preferences.glade.h:21
 msgid "Application"
 msgstr "应用程序"
 
-#: ../Data/glade/dasher.compose.glade.h:23
-#: ../Data/glade/dasher.direct.glade.h:23
-#: ../Data/glade/dasher.fullscreen.glade.h:22
-#: ../Data/glade/dasher.gameWIP.glade.h:24
-#: ../Data/glade/dasher.traditional.glade.h:25
-#: ../Data/glade/dashermaemo.glade.h:13
-#: ../Data/glade/dashermaemofullscreen.glade.h:10
+#: ../Data/glade/dasher.preferences.glade.h:22
+#: ../Data/glade/dashermaemo.preferences.glade.h:12
 msgid "Bottom to Top"
 msgstr "从下到上"
 
-#. Centre circle = start and stop by dwelling over a circle in the centre of the window
-#. Two box = start and stop by dwelling in sequence over two boxes
-#. (both of these are methods for starting and stopping without pressing a mouse button)
-#: ../Data/glade/dasher.compose.glade.h:24
-#: ../Data/glade/dasher.direct.glade.h:24
-#: ../Data/glade/dasher.fullscreen.glade.h:23
-#: ../Data/glade/dasher.gameWIP.glade.h:25
-#: ../Data/glade/dasher.traditional.glade.h:29
+#. Centre circle = start and stop by dwelling over a circle in the centre of the window Two box = start and stop by dwelling in sequence over two boxes (both of these are methods for starting and stopping without pressing a mouse button)
+#: ../Data/glade/dasher.preferences.glade.h:24
 msgid ""
 "Centre circle\n"
 "Two box"
@@ -245,384 +348,156 @@ msgstr ""
 "居中圆圈\n"
 "两个方框"
 
-#: ../Data/glade/dasher.compose.glade.h:26
-#: ../Data/glade/dasher.direct.glade.h:26
-#: ../Data/glade/dasher.fullscreen.glade.h:25
-#: ../Data/glade/dasher.gameWIP.glade.h:27
-#: ../Data/glade/dasher.traditional.glade.h:31
+#: ../Data/glade/dasher.preferences.glade.h:26
 msgid "Composition"
 msgstr "写作"
 
-#: ../Data/glade/dasher.compose.glade.h:27
-#: ../Data/glade/dasher.direct.glade.h:27
-#: ../Data/glade/dasher.fullscreen.glade.h:26
-#: ../Data/glade/dasher.gameWIP.glade.h:28
-#: ../Data/glade/dasher.traditional.glade.h:32
-#: ../Data/glade/dashermaemo.glade.h:14
-#: ../Data/glade/dashermaemofullscreen.glade.h:11
+#: ../Data/glade/dasher.preferences.glade.h:27
+#: ../Data/glade/dashermaemo.preferences.glade.h:13
 msgid "Control"
 msgstr "控制"
 
-#: ../Data/glade/dasher.compose.glade.h:28
-#: ../Data/glade/dasher.direct.glade.h:28
-#: ../Data/glade/dasher.fullscreen.glade.h:27
-#: ../Data/glade/dasher.gameWIP.glade.h:29
-#: ../Data/glade/dasher.traditional.glade.h:33
+#: ../Data/glade/dasher.preferences.glade.h:28
 msgid "Control mode"
 msgstr "控件模式"
 
-#: ../Data/glade/dasher.compose.glade.h:29
-#: ../Data/glade/dasher.gameWIP.glade.h:30
-#: ../Data/glade/dasher.traditional.glade.h:34
-msgid "Copy"
-msgstr "复制"
+#: ../Data/glade/dasher.preferences.glade.h:29
+#: ../Data/glade/dashermaemo.preferences.glade.h:14
+msgid "Custom"
+msgstr "自定义"
 
-#: ../Data/glade/dasher.compose.glade.h:30
-#: ../Data/glade/dasher.gameWIP.glade.h:31
-#: ../Data/glade/dasher.traditional.glade.h:35
-#: ../Data/glade/dashermaemofullscreen.glade.h:12
-msgid "Copy _All"
-msgstr "全部复制(_A)"
-
-#: ../Data/glade/dasher.compose.glade.h:31
-#: ../Data/glade/dasher.direct.glade.h:29
-#: ../Data/glade/dasher.fullscreen.glade.h:28
-#: ../Data/glade/dasher.gameWIP.glade.h:32
-#: ../Data/glade/dasher.traditional.glade.h:36
-#: ../Data/glade/dashermaemo.glade.h:15
-#: ../Data/glade/dashermaemofullscreen.glade.h:13
+#: ../Data/glade/dasher.preferences.glade.h:30
+#: ../Data/glade/dashermaemo.preferences.glade.h:15
 msgid "Custom colour scheme:"
-msgstr "自定义颜色方案："
+msgstr "自定义配色方案："
 
-#: ../Data/glade/dasher.compose.glade.h:32
-#: ../Data/glade/dasher.direct.glade.h:30
-#: ../Data/glade/dasher.fullscreen.glade.h:29
-#: ../Data/glade/dasher.gameWIP.glade.h:33
-#: ../Data/glade/dasher.traditional.glade.h:37
-#: ../Data/glade/dashermaemo.glade.h:16
-#: ../Data/glade/dashermaemofullscreen.glade.h:14
-msgid "Custom:"
-msgstr "自定义："
-
-#: ../Data/glade/dasher.compose.glade.h:33
-#: ../Data/glade/dasher.gameWIP.glade.h:34
-#: ../Data/glade/dasher.traditional.glade.h:38
-msgid "Cut"
-msgstr "剪切"
-
-#: ../Data/glade/dasher.compose.glade.h:35
-#: ../Data/glade/dasher.direct.glade.h:32
-#: ../Data/glade/dasher.fullscreen.glade.h:31
-#: ../Data/glade/dasher.gameWIP.glade.h:36
-#: ../Data/glade/dasher.traditional.glade.h:40
-#: ../Data/glade/dashermaemo.glade.h:18
-#: ../Data/glade/dashermaemofullscreen.glade.h:16
+#: ../Data/glade/dasher.preferences.glade.h:31
+#: ../Data/glade/dashermaemo.preferences.glade.h:16
 msgid "Dasher Preferences"
 msgstr "Dasher 首选项"
 
-#: ../Data/glade/dasher.compose.glade.h:36
-msgid "Dasher _Tutorial"
-msgstr "Dasher 导航(_T)"
-
-#: ../Data/glade/dasher.compose.glade.h:37
-#: ../Data/glade/dasher.direct.glade.h:33
-#: ../Data/glade/dasher.fullscreen.glade.h:32
-#: ../Data/glade/dasher.gameWIP.glade.h:38
-#: ../Data/glade/dasher.traditional.glade.h:41
+#: ../Data/glade/dasher.preferences.glade.h:32
 msgid "Direct entry"
 msgstr "直接输入"
 
-#: ../Data/glade/dasher.compose.glade.h:38
-#: ../Data/glade/dasher.direct.glade.h:34
-#: ../Data/glade/dasher.fullscreen.glade.h:33
-#: ../Data/glade/dasher.gameWIP.glade.h:39
-#: ../Data/glade/dasher.traditional.glade.h:42
+#: ../Data/glade/dasher.preferences.glade.h:33
 msgid "Dock application window"
 msgstr "固定应用程序窗口"
 
-#: ../Data/glade/dasher.compose.glade.h:39
-#: ../Data/glade/dasher.direct.glade.h:35
-#: ../Data/glade/dasher.fullscreen.glade.h:34
-#: ../Data/glade/dasher.gameWIP.glade.h:40
-#: ../Data/glade/dasher.traditional.glade.h:43
+#: ../Data/glade/dasher.preferences.glade.h:34
 msgid "Draw box outlines"
 msgstr "画四周边框"
 
-#: ../Data/glade/dasher.compose.glade.h:40
-#: ../Data/glade/dasher.direct.glade.h:36
-#: ../Data/glade/dasher.fullscreen.glade.h:35
-#: ../Data/glade/dasher.gameWIP.glade.h:41
-#: ../Data/glade/dasher.traditional.glade.h:44
+#: ../Data/glade/dasher.preferences.glade.h:35
 msgid "Draw line between crosshairs and mouse"
 msgstr "在十字准线和鼠标之间画直线"
 
-#: ../Data/glade/dasher.compose.glade.h:41
-#: ../Data/glade/dasher.direct.glade.h:37
-#: ../Data/glade/dasher.fullscreen.glade.h:36
-#: ../Data/glade/dasher.gameWIP.glade.h:43
-#: ../Data/glade/dasher.traditional.glade.h:45
+#: ../Data/glade/dasher.preferences.glade.h:36
 msgid "Full Screen"
 msgstr "全屏"
 
-#: ../Data/glade/dasher.compose.glade.h:42
-#: ../Data/glade/dasher.direct.glade.h:38
-#: ../Data/glade/dasher.fullscreen.glade.h:37
-#: ../Data/glade/dasher.gameWIP.glade.h:45
-#: ../Data/glade/dasher.traditional.glade.h:47
+#: ../Data/glade/dasher.preferences.glade.h:37
 msgid "Increase line thickness"
 msgstr "增加线宽"
 
-#: ../Data/glade/dasher.compose.glade.h:43
-#: ../Data/glade/dasher.direct.glade.h:39
-#: ../Data/glade/dasher.fullscreen.glade.h:38
-#: ../Data/glade/dasher.gameWIP.glade.h:46
-#: ../Data/glade/dasher.traditional.glade.h:48
-#: ../Data/glade/dashermaemo.glade.h:20
-#: ../Data/glade/dashermaemofullscreen.glade.h:17
+#: ../Data/glade/dasher.preferences.glade.h:38
+#: ../Data/glade/dashermaemo.preferences.glade.h:18
 msgid "Japanese"
 msgstr "日语"
 
-#: ../Data/glade/dasher.compose.glade.h:44
-#: ../Data/glade/dasher.direct.glade.h:40
-#: ../Data/glade/dasher.fullscreen.glade.h:39
-#: ../Data/glade/dasher.gameWIP.glade.h:47
-#: ../Data/glade/dasher.traditional.glade.h:49
+#: ../Data/glade/dasher.preferences.glade.h:39
 msgid "Language"
 msgstr "语言"
 
-#: ../Data/glade/dasher.compose.glade.h:45
-#: ../Data/glade/dasher.direct.glade.h:41
-#: ../Data/glade/dasher.fullscreen.glade.h:40
-#: ../Data/glade/dasher.gameWIP.glade.h:48
-#: ../Data/glade/dasher.traditional.glade.h:50
-#: ../Data/glade/dashermaemo.glade.h:21
-#: ../Data/glade/dashermaemofullscreen.glade.h:18
+#: ../Data/glade/dasher.preferences.glade.h:40
+#: ../Data/glade/dashermaemo.preferences.glade.h:19
 msgid "Language model adapts as you write."
 msgstr "语言模型会当您输入时进行适应。"
 
-#: ../Data/glade/dasher.compose.glade.h:46
-#: ../Data/glade/dasher.direct.glade.h:42
-#: ../Data/glade/dasher.fullscreen.glade.h:41
-#: ../Data/glade/dasher.gameWIP.glade.h:49
-#: ../Data/glade/dasher.traditional.glade.h:51
+#: ../Data/glade/dasher.preferences.glade.h:41
 msgid "Large font "
 msgstr "大字体"
 
-#: ../Data/glade/dasher.compose.glade.h:47
-#: ../Data/glade/dasher.direct.glade.h:43
-#: ../Data/glade/dasher.fullscreen.glade.h:42
-#: ../Data/glade/dasher.gameWIP.glade.h:51
-#: ../Data/glade/dasher.traditional.glade.h:52
-#: ../Data/glade/dashermaemo.glade.h:22
-#: ../Data/glade/dashermaemofullscreen.glade.h:20
+#: ../Data/glade/dasher.preferences.glade.h:42
+#: ../Data/glade/dashermaemo.preferences.glade.h:20
 msgid "Left to Right"
 msgstr "从左向右"
 
 #. PPM =  Prediction by Partial Match, a styatistical language model.
-#: ../Data/glade/dasher.compose.glade.h:48
-#: ../Data/glade/dasher.direct.glade.h:44
-#: ../Data/glade/dasher.fullscreen.glade.h:43
-#: ../Data/glade/dasher.gameWIP.glade.h:53
-#: ../Data/glade/dasher.traditional.glade.h:54
-#: ../Data/glade/dashermaemo.glade.h:23
-#: ../Data/glade/dashermaemofullscreen.glade.h:21
+#: ../Data/glade/dasher.preferences.glade.h:44
+#: ../Data/glade/dashermaemo.preferences.glade.h:21
 msgid "Mixture model (PPM/dictionary)"
 msgstr "混合模型(PPM/字典)"
 
-#: ../Data/glade/dasher.compose.glade.h:49
-#: ../Data/glade/dasher.gameWIP.glade.h:54
-#: ../Data/glade/dasher.traditional.glade.h:55
-msgid "New file"
-msgstr "新文件"
-
-#: ../Data/glade/dasher.compose.glade.h:50
-#: ../Data/glade/dasher.gameWIP.glade.h:56
-#: ../Data/glade/dasher.traditional.glade.h:56
-msgid "Open file"
-msgstr "打开文件"
-
-#: ../Data/glade/dasher.compose.glade.h:51
-#: ../Data/glade/dasher.direct.glade.h:45
-#: ../Data/glade/dasher.fullscreen.glade.h:44
-#: ../Data/glade/dasher.gameWIP.glade.h:57
-#: ../Data/glade/dasher.traditional.glade.h:57
+#: ../Data/glade/dasher.preferences.glade.h:45
 msgid "Options"
 msgstr "选项"
 
-#: ../Data/glade/dasher.compose.glade.h:52
-#: ../Data/glade/dasher.gameWIP.glade.h:58
-#: ../Data/glade/dasher.traditional.glade.h:58
-msgid "Paste"
-msgstr "粘贴"
-
-#: ../Data/glade/dasher.compose.glade.h:53
-#: ../Data/glade/dasher.direct.glade.h:46
-#: ../Data/glade/dasher.fullscreen.glade.h:45
-#: ../Data/glade/dasher.gameWIP.glade.h:59
-#: ../Data/glade/dasher.traditional.glade.h:59
+#: ../Data/glade/dasher.preferences.glade.h:46
 msgid "Pause outside of canvas"
 msgstr "超出画布后暂停"
 
-#: ../Data/glade/dasher.compose.glade.h:54
-#: ../Data/glade/dasher.direct.glade.h:47
-#: ../Data/glade/dasher.fullscreen.glade.h:46
-#: ../Data/glade/dasher.gameWIP.glade.h:60
-#: ../Data/glade/dasher.traditional.glade.h:60
-#: ../Data/glade/dashermaemo.glade.h:25
-msgid "Please Wait..."
-msgstr "请稍等..."
-
-#: ../Data/glade/dasher.compose.glade.h:55
-msgid "Pr_eferences"
-msgstr "首选项(_E)"
-
-#: ../Data/glade/dasher.compose.glade.h:56
-#: ../Data/glade/dasher.direct.glade.h:48
-#: ../Data/glade/dasher.fullscreen.glade.h:47
-#: ../Data/glade/dasher.gameWIP.glade.h:64
-#: ../Data/glade/dasher.traditional.glade.h:64
-#: ../Data/glade/dashermaemo.glade.h:27
-#: ../Data/glade/dashermaemofullscreen.glade.h:24
+#: ../Data/glade/dasher.preferences.glade.h:47
+#: ../Data/glade/dashermaemo.preferences.glade.h:23
 msgid "Right to Left"
 msgstr "从右向左"
 
-#: ../Data/glade/dasher.compose.glade.h:57
-#: ../Data/glade/dasher.gameWIP.glade.h:65
-#: ../Data/glade/dasher.traditional.glade.h:65
-msgid "Save file"
-msgstr "保存文件"
+#: ../Data/glade/dasher.preferences.glade.h:48
+msgid "Select Dasher Font"
+msgstr "选择 Dasher 字体"
 
-#: ../Data/glade/dasher.compose.glade.h:58
-#: ../Data/glade/dasher.gameWIP.glade.h:66
-#: ../Data/glade/dasher.traditional.glade.h:66
-msgid "Save file as"
-msgstr "文件另存为"
+#: ../Data/glade/dasher.preferences.glade.h:49
+msgid "Select Editor Font"
+msgstr "选择编辑器字体"
 
-#: ../Data/glade/dasher.compose.glade.h:59
-#: ../Data/glade/dasher.direct.glade.h:51
-#: ../Data/glade/dasher.fullscreen.glade.h:48
-#: ../Data/glade/dasher.gameWIP.glade.h:70
-#: ../Data/glade/dasher.traditional.glade.h:69
-#: ../Data/glade/dashermaemo.glade.h:28
-#: ../Data/glade/dashermaemofullscreen.glade.h:25
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1331
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1364
-#: ../Src/Gtk2/dasher_main.cpp:1000
-msgid "Select File"
-msgstr "选择文件"
-
-#: ../Data/glade/dasher.compose.glade.h:60
-#: ../Data/glade/dasher.fullscreen.glade.h:49
-#: ../Data/glade/dashermaemo.glade.h:29
-#: ../Data/glade/dashermaemofullscreen.glade.h:26
-msgid "Select Font"
-msgstr "选择字体"
-
-#: ../Data/glade/dasher.compose.glade.h:61
-#: ../Data/glade/dasher.direct.glade.h:52
-#: ../Data/glade/dasher.fullscreen.glade.h:50
-#: ../Data/glade/dasher.gameWIP.glade.h:71
-#: ../Data/glade/dasher.traditional.glade.h:70
+#: ../Data/glade/dasher.preferences.glade.h:50
 msgid "Show mouse position"
 msgstr "显示鼠标位置"
 
-#: ../Data/glade/dasher.compose.glade.h:62
-#: ../Data/glade/dasher.direct.glade.h:53
-#: ../Data/glade/dasher.fullscreen.glade.h:51
-#: ../Data/glade/dasher.gameWIP.glade.h:72
-#: ../Data/glade/dasher.traditional.glade.h:71
+#: ../Data/glade/dasher.preferences.glade.h:51
 msgid "Show speed slider"
 msgstr "显示速度滑动杆"
 
-#: ../Data/glade/dasher.compose.glade.h:63
-#: ../Data/glade/dasher.direct.glade.h:54
-#: ../Data/glade/dasher.fullscreen.glade.h:52
-#: ../Data/glade/dasher.gameWIP.glade.h:73
-#: ../Data/glade/dasher.traditional.glade.h:72
+#: ../Data/glade/dasher.preferences.glade.h:52
 msgid "Show toolbar"
 msgstr "显示工具栏"
 
-#: ../Data/glade/dasher.compose.glade.h:64
-#: ../Data/glade/dasher.direct.glade.h:55
-#: ../Data/glade/dasher.fullscreen.glade.h:53
-#: ../Data/glade/dasher.gameWIP.glade.h:74
-#: ../Data/glade/dasher.traditional.glade.h:73
+#: ../Data/glade/dasher.preferences.glade.h:53
 msgid "Small font"
 msgstr "小字体"
 
-#: ../Data/glade/dasher.compose.glade.h:65
-#: ../Data/glade/dasher.direct.glade.h:56
-#: ../Data/glade/dasher.gameWIP.glade.h:75
-#: ../Data/glade/dasher.traditional.glade.h:74
-msgid "Speed:"
-msgstr "速度："
-
-#: ../Data/glade/dasher.compose.glade.h:66
-#: ../Data/glade/dasher.direct.glade.h:57
-#: ../Data/glade/dasher.fullscreen.glade.h:54
-#: ../Data/glade/dasher.gameWIP.glade.h:76
-#: ../Data/glade/dasher.traditional.glade.h:75
+#: ../Data/glade/dasher.preferences.glade.h:54
 msgid "Stand-alone"
 msgstr "独立"
 
 #. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/glade/dasher.compose.glade.h:67
-#: ../Data/glade/dasher.direct.glade.h:58
-#: ../Data/glade/dasher.fullscreen.glade.h:55
-#: ../Data/glade/dasher.gameWIP.glade.h:77
-#: ../Data/glade/dasher.traditional.glade.h:77
-#: ../Data/glade/dashermaemo.glade.h:30
-#: ../Data/glade/dashermaemofullscreen.glade.h:27
+#: ../Data/glade/dasher.preferences.glade.h:56
+#: ../Data/glade/dashermaemo.preferences.glade.h:24
 msgid "Standard letter-based PPM"
 msgstr "标准的基于字母的 PPM"
 
-#: ../Data/glade/dasher.compose.glade.h:68
-#: ../Data/glade/dasher.direct.glade.h:59
-#: ../Data/glade/dasher.fullscreen.glade.h:56
-#: ../Data/glade/dasher.gameWIP.glade.h:78
-#: ../Data/glade/dasher.traditional.glade.h:78
+#: ../Data/glade/dasher.preferences.glade.h:57
 msgid "Start on left mouse button"
 msgstr "以鼠标左键开始"
 
-#: ../Data/glade/dasher.compose.glade.h:69
-#: ../Data/glade/dasher.direct.glade.h:60
-#: ../Data/glade/dasher.fullscreen.glade.h:57
-#: ../Data/glade/dasher.gameWIP.glade.h:79
-#: ../Data/glade/dasher.traditional.glade.h:79
+#: ../Data/glade/dasher.preferences.glade.h:58
 msgid "Start on space bar"
 msgstr "以空格键开始"
 
-#: ../Data/glade/dasher.compose.glade.h:70
-#: ../Data/glade/dasher.direct.glade.h:61
-#: ../Data/glade/dasher.fullscreen.glade.h:58
-#: ../Data/glade/dasher.gameWIP.glade.h:80
-#: ../Data/glade/dasher.traditional.glade.h:80
+#: ../Data/glade/dasher.preferences.glade.h:59
 msgid "Start with mouse position:"
 msgstr "从鼠标位置开始："
 
-#: ../Data/glade/dasher.compose.glade.h:71
-#: ../Data/glade/dasher.direct.glade.h:62
-#: ../Data/glade/dasher.fullscreen.glade.h:59
-#: ../Data/glade/dasher.gameWIP.glade.h:81
-#: ../Data/glade/dasher.traditional.glade.h:81
+#: ../Data/glade/dasher.preferences.glade.h:60
 msgid "Timestamp new files"
 msgstr "给新文件打时间戳"
 
-#: ../Data/glade/dasher.compose.glade.h:72
-#: ../Data/glade/dasher.direct.glade.h:63
-#: ../Data/glade/dasher.fullscreen.glade.h:60
-#: ../Data/glade/dasher.gameWIP.glade.h:82
-#: ../Data/glade/dasher.traditional.glade.h:82
-#: ../Data/glade/dashermaemo.glade.h:31
-#: ../Data/glade/dashermaemofullscreen.glade.h:28
+#: ../Data/glade/dasher.preferences.glade.h:61
+#: ../Data/glade/dashermaemo.preferences.glade.h:25
 msgid "Top to Bottom"
 msgstr "从上到下"
 
-#: ../Data/glade/dasher.compose.glade.h:73
-#: ../Data/glade/dasher.direct.glade.h:64
-#: ../Data/glade/dasher.fullscreen.glade.h:61
-#: ../Data/glade/dasher.gameWIP.glade.h:83
-#: ../Data/glade/dasher.traditional.glade.h:83
+#: ../Data/glade/dasher.preferences.glade.h:62
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -631,220 +506,90 @@ msgstr ""
 "使用此控件来调节字母框的相对大小。注意，选择大尺寸将\n"
 "会减慢您写字的速度。"
 
-#: ../Data/glade/dasher.compose.glade.h:76
-#: ../Data/glade/dasher.direct.glade.h:67
-#: ../Data/glade/dasher.fullscreen.glade.h:64
-#: ../Data/glade/dasher.gameWIP.glade.h:86
-#: ../Data/glade/dasher.traditional.glade.h:86
+#: ../Data/glade/dasher.preferences.glade.h:65
 msgid "Very large font"
 msgstr "特大字体"
 
-#: ../Data/glade/dasher.compose.glade.h:77
-#: ../Data/glade/dasher.direct.glade.h:68
-#: ../Data/glade/dasher.fullscreen.glade.h:65
-#: ../Data/glade/dasher.gameWIP.glade.h:87
-#: ../Data/glade/dasher.traditional.glade.h:87
-#: ../Data/glade/dashermaemo.glade.h:33
-#: ../Data/glade/dashermaemofullscreen.glade.h:31
+#: ../Data/glade/dasher.preferences.glade.h:66
+#: ../Data/glade/dashermaemo.preferences.glade.h:27
 msgid "Word-based model"
 msgstr "基于单词的模型"
-
-#: ../Data/glade/dasher.compose.glade.h:78
-#: ../Data/glade/dashermaemofullscreen.glade.h:32
-msgid "_About"
-msgstr "关于(_A)"
-
-#: ../Data/glade/dasher.compose.glade.h:79
-msgid "_Append to file"
-msgstr "追加到文件(_A)"
-
-#: ../Data/glade/dasher.compose.glade.h:80
-msgid "_Contents"
-msgstr "内容(_C)"
-
-#: ../Data/glade/dasher.compose.glade.h:81
-#: ../Data/glade/dasher.gameWIP.glade.h:90
-#: ../Data/glade/dasher.traditional.glade.h:90
-#: ../Data/glade/dashermaemofullscreen.glade.h:35
-msgid "_Edit"
-msgstr "编辑(_E)"
-
-#: ../Data/glade/dasher.compose.glade.h:82
-#: ../Data/glade/dasher.gameWIP.glade.h:91
-#: ../Data/glade/dasher.traditional.glade.h:91
-#: ../Data/glade/dashermaemofullscreen.glade.h:37
-msgid "_File"
-msgstr "文件(_F)"
-
-#: ../Data/glade/dasher.compose.glade.h:83
-#: ../Data/glade/dasher.gameWIP.glade.h:92
-#: ../Data/glade/dasher.traditional.glade.h:92
-#: ../Data/glade/dashermaemofullscreen.glade.h:38
-msgid "_Help"
-msgstr "帮助(_H)"
-
-#: ../Data/glade/dasher.compose.glade.h:84
-msgid "_Import Training Text"
-msgstr "导入训练文本(_I)"
-
-#: ../Data/glade/dasher.compose.glade.h:85
-#: ../Data/glade/dasher.fullscreen.glade.h:66
-#: ../Data/glade/dashermaemo.glade.h:34
-#: ../Data/glade/dashermaemofullscreen.glade.h:41
-msgid "abcdefghijk ABCDEFGHIJK"
-msgstr "abcdefghijk ABCDEFGHIJK"
-
-#: ../Data/glade/dasher.direct.glade.h:49
-#: ../Data/glade/dasher.gameWIP.glade.h:68
-#: ../Data/glade/dasher.traditional.glade.h:67
-msgid "Select Dasher Font"
-msgstr "选择 Dasher 字体"
-
-#: ../Data/glade/dasher.direct.glade.h:50
-#: ../Data/glade/dasher.gameWIP.glade.h:69
-#: ../Data/glade/dasher.traditional.glade.h:68
-msgid "Select Editor Font"
-msgstr "选择编辑器字体"
-
-#: ../Data/glade/dasher.gameWIP.glade.h:18
-#: ../Data/glade/dasher.traditional.glade.h:18
-msgid "A_ppend to file..."
-msgstr "追加到文件(_P)..."
-
-#: ../Data/glade/dasher.gameWIP.glade.h:37
-msgid "Demo!"
-msgstr "演示！"
-
-#: ../Data/glade/dasher.gameWIP.glade.h:42
-msgid "Full Demo"
-msgstr ""
-
-#: ../Data/glade/dasher.gameWIP.glade.h:44
-#: ../Data/glade/dasher.traditional.glade.h:46
-msgid "Help"
-msgstr "帮助"
-
-#: ../Data/glade/dasher.gameWIP.glade.h:50
-msgid "Launch Dasher Game & Demo mode!"
-msgstr ""
-
-#: ../Data/glade/dasher.gameWIP.glade.h:52
-msgid "Level:"
-msgstr ""
-
-#: ../Data/glade/dasher.gameWIP.glade.h:55
-msgid "New sentence"
-msgstr ""
-
-#: ../Data/glade/dasher.gameWIP.glade.h:61
-#: ../Data/glade/dasher.traditional.glade.h:61
-msgid "Pr_eferences..."
-msgstr "首选项(_E)..."
-
-#: ../Data/glade/dasher.gameWIP.glade.h:62
-#: ../Data/glade/dasher.traditional.glade.h:62
-msgid "Preferences"
-msgstr "首选项"
-
-#: ../Data/glade/dasher.gameWIP.glade.h:63
-#: ../Data/glade/dasher.traditional.glade.h:63
-msgid "Quit"
-msgstr ""
-
-#: ../Data/glade/dasher.gameWIP.glade.h:67
-msgid "Score:"
-msgstr ""
-
-#: ../Data/glade/dasher.gameWIP.glade.h:88
-#: ../Data/glade/dasher.traditional.glade.h:88
-msgid "_About..."
-msgstr "关于(_A)..."
-
-#: ../Data/glade/dasher.gameWIP.glade.h:89
-#: ../Data/glade/dasher.traditional.glade.h:89
-msgid "_Contents..."
-msgstr "内容(_C)..."
-
-#: ../Data/glade/dasher.gameWIP.glade.h:93
-#: ../Data/glade/dasher.traditional.glade.h:93
-msgid "_Import Training Text..."
-msgstr "导入训练文本(_I)..."
 
 #: ../Data/glade/dashermaemo.glade.h:1
 msgid "\n"
 msgstr "\n"
 
-#: ../Data/glade/dashermaemo.glade.h:5
-msgid "<b>Display Size:</b>"
-msgstr "<b>显示大小：</b>"
-
-#: ../Data/glade/dashermaemo.glade.h:7
-#: ../Data/glade/dashermaemofullscreen.glade.h:4
-msgid "<b>Orientation:</b>"
-msgstr "<b>方向：</b>"
-
-#: ../Data/glade/dashermaemo.glade.h:11
-#: ../Data/glade/dashermaemofullscreen.glade.h:8
-msgid "Alphabet"
-msgstr "字母"
-
-#: ../Data/glade/dashermaemo.glade.h:19
-msgid "Enlarge input window"
-msgstr "放大输入窗口"
-
-#: ../Data/glade/dashermaemo.glade.h:24
+#: ../Data/glade/dashermaemo.glade.h:4
 msgid "P"
 msgstr "P"
 
-#: ../Data/glade/dashermaemo.glade.h:26
-#: ../Data/glade/dashermaemofullscreen.glade.h:23
+#: ../Data/glade/dashermaemo.preferences.glade.h:3
+msgid "<b>Color Scheme</b>"
+msgstr "<b>配色方案</b>"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:4
+msgid "<b>Display Size</b>"
+msgstr "<b>显示大小</b>"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:6
+msgid "<b>Orientation</b>"
+msgstr "<b>方向</b>"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:10
+msgid "Alphabet"
+msgstr "字母"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:17
+msgid "Enlarge input window"
+msgstr "放大输入窗口"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:22
 msgid "Prediction"
 msgstr "预测"
 
-#: ../Data/glade/dashermaemo.glade.h:32
-#: ../Data/glade/dashermaemofullscreen.glade.h:30
+#: ../Data/glade/dashermaemo.preferences.glade.h:26
 msgid "View"
 msgstr "查看"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:19
+#: ../Data/glade/dashermaemofullscreen.glade.h:3
 msgid "Large"
 msgstr "大"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:22
+#: ../Data/glade/dashermaemofullscreen.glade.h:4
 msgid "Normal"
 msgstr "正常"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:29
+#: ../Data/glade/dashermaemofullscreen.glade.h:7
 msgid "Very Large"
 msgstr "特大"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:33
+#: ../Data/glade/dashermaemofullscreen.glade.h:9
 msgid "_Dasher Font"
 msgstr "Dasher 字体(_D)"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:34
+#: ../Data/glade/dashermaemofullscreen.glade.h:10
 msgid "_Dasher Font Size"
 msgstr "Dasher 字体大小(_D)"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:36
+#: ../Data/glade/dashermaemofullscreen.glade.h:12
 msgid "_Edit Font"
 msgstr "编辑字体(_E)"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:39
+#: ../Data/glade/dashermaemofullscreen.glade.h:15
 msgid "_Options"
 msgstr "选项(_O)"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:40
+#: ../Data/glade/dashermaemofullscreen.glade.h:16
 msgid "_Reset fonts"
 msgstr "重置字体(_R)"
 
 #: ../Src/DasherCore/ClickFilter.cpp:7
 msgid "Maximum Zoom"
-msgstr ""
+msgstr "放到最大"
 
 #: ../Src/DasherCore/ClickFilter.h:11
 msgid "Click Mode"
-msgstr ""
+msgstr "单击模式"
 
 #. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
 #: ../Src/DasherCore/DasherButtons.cpp:25
@@ -872,43 +617,42 @@ msgstr ""
 #. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
 #: ../Src/DasherCore/DasherButtons.cpp:33
 msgid "Global keyboard grab"
-msgstr ""
+msgstr "全局键盘抓取"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:920
-#, fuzzy
+#: ../Src/DasherCore/DasherGameMode.cpp:633
+msgid "Well done!"
+msgstr "干得好！"
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:934
 msgid "Normal Control"
-msgstr "控制"
+msgstr "普通控制"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:927
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:941
 msgid "Menu Mode"
 msgstr "菜单模式"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:928
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:942
 msgid "Direct Mode"
 msgstr "直接模式"
 
 #. RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:930
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:944
 msgid "Alternating Direct Mode"
 msgstr ""
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:931
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:945
 msgid "Compass Mode"
 msgstr ""
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:932
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:946
 #, fuzzy
 msgid "Stylus Control"
 msgstr "控制"
 
-#: ../Src/DasherCore/DasherGameMode.cpp:629
-msgid "Well done!"
-msgstr "干得好！"
-
 #: ../Src/DasherCore/EyetrackerFilter.cpp:7
 msgid "Automatic calibration"
-msgstr ""
+msgstr "自动校正"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:11
 msgid "Eyetracker Mode"
@@ -943,6 +687,32 @@ msgstr ""
 
 #: ../Src/DasherCore/OneDimensionalFilter.cpp:5
 msgid "One Dimensional Mode"
+msgstr ""
+
+#: ../Src/DasherCore/SettingsStore.cpp:76
+#: ../Src/Gtk2/DasherAppSettings.cpp:516 ../Src/Gtk2/DasherAppSettings.cpp:550
+#: ../Src/Gtk2/DasherAppSettings.cpp:554
+msgid "true"
+msgstr "true"
+
+#: ../Src/DasherCore/SettingsStore.cpp:78
+#: ../Src/Gtk2/DasherAppSettings.cpp:518 ../Src/Gtk2/DasherAppSettings.cpp:550
+#: ../Src/Gtk2/DasherAppSettings.cpp:554
+msgid "false"
+msgstr "false"
+
+#. Note to translators: This message will be output for a command line
+#. with "--options foo=VAL" and foo is a boolean valued parameter, but
+#. "VAL" is not true or false.
+#: ../Src/DasherCore/SettingsStore.cpp:84
+#: ../Src/Gtk2/DasherAppSettings.cpp:521
+msgid "boolean value must be specified as 'true' or 'false'."
+msgstr ""
+
+#. Note to translators: This is output when command line "--options" doesn't
+#. specify a known option.
+#: ../Src/DasherCore/SettingsStore.cpp:104
+msgid "unknown option, use \"--help-options\" for more information."
 msgstr ""
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
@@ -1021,66 +791,105 @@ msgstr ""
 msgid "Two Button Dynamic Mode"
 msgstr ""
 
-#: ../Src/Gtk2/Preferences.cpp:417 ../Src/Gtk2/Preferences.cpp:983
+#: ../Src/Gtk2/DasherAppSettings.cpp:547
+msgid "Boolean parameters"
+msgstr ""
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:547 ../Src/Gtk2/DasherAppSettings.cpp:558
+#: ../Src/Gtk2/DasherAppSettings.cpp:569
+msgid "Default"
+msgstr "默认"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:547 ../Src/Gtk2/DasherAppSettings.cpp:558
+#: ../Src/Gtk2/DasherAppSettings.cpp:569
+msgid "Description"
+msgstr "描述"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:558
+msgid "Integer parameters"
+msgstr ""
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:569
+msgid "String parameters"
+msgstr ""
+
+#: ../Src/Gtk2/Preferences.cpp:433 ../Src/Gtk2/Preferences.cpp:1002
 msgid "Action"
 msgstr "动作"
 
 #. TRANSLATORS: Show a button for the selected action in the Dasher window.
-#: ../Src/Gtk2/Preferences.cpp:990
+#: ../Src/Gtk2/Preferences.cpp:1009
 msgid "Show Button"
 msgstr "显示按钮"
 
-#: ../Src/Gtk2/Preferences.cpp:995
+#: ../Src/Gtk2/Preferences.cpp:1014
 msgid "Control Mode"
 msgstr "控制模式"
 
 #. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
-#: ../Src/Gtk2/Preferences.cpp:1001
+#: ../Src/Gtk2/Preferences.cpp:1020
 msgid "Auto On Stop"
 msgstr ""
 
 #: ../Src/Gtk2/dasher_action_keyboard.cpp:60
 #: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:94
 msgid "Enter Text"
-msgstr ""
+msgstr "输入文本"
 
 #: ../Src/Gtk2/dasher_action_script.cpp:91
 msgid "Script"
-msgstr ""
+msgstr "手写"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:129
+#: ../Src/Gtk2/dasher_action_speech.cpp:130
 msgid "Speak"
-msgstr ""
+msgstr "读出"
 
 #. TRANSLATORS: Send all text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:142
+#: ../Src/Gtk2/dasher_action_speech.cpp:143
 msgid "All"
 msgstr "全部"
 
 #. TRANSLATORS: Send most recently entered text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:145
+#: ../Src/Gtk2/dasher_action_speech.cpp:146
 msgid "Last"
 msgstr "最近"
 
 #. TRANSLATORS: Repeat the last phrase sent to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:148
+#: ../Src/Gtk2/dasher_action_speech.cpp:149
 msgid "Repeat"
 msgstr "重复"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:166
+#: ../Src/Gtk2/dasher_action_speech.cpp:167
 #, c-format
 msgid "Unable to initialize speech support\n"
 msgstr "无法初始化语音支持\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:189
+#: ../Src/Gtk2/dasher_action_speech.cpp:190
 msgid "Unable to initialize voices\n"
 msgstr "无法初始化语音\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:201
+#: ../Src/Gtk2/dasher_action_speech.cpp:202
 msgid "Warning: unable to set speech parameters\n"
 msgstr "警告：无法设定语音参数\n"
 
-#: ../Src/Gtk2/dasher_main.cpp:1038
+#. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
+#: ../Src/Gtk2/dasher_main.cpp:311
+msgid "option setting is missing \"=\"."
+msgstr ""
+
+#. Note to translators: This string will be output when --options= specifies an unknown option.
+#: ../Src/Gtk2/dasher_main.cpp:327
+msgid "Invalid option string specified"
+msgstr ""
+
+#. Note to translators: This is a format string for the name of the dasher
+#. program as it appears in a window, %s will be the filename.
+#: ../Src/Gtk2/dasher_main.cpp:999
+#, c-format
+msgid "Dasher - %s"
+msgstr "Dasher - %s"
+
+#: ../Src/Gtk2/dasher_main.cpp:1084
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -1091,7 +900,7 @@ msgstr ""
 "\n"
 "如果您不保存的话，所作的更改将丢失。"
 
-#: ../Src/Gtk2/dasher_main.cpp:1044
+#: ../Src/Gtk2/dasher_main.cpp:1090
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -1101,36 +910,40 @@ msgstr ""
 "\n"
 "如果您不保存的话，所作的更改将丢失。"
 
-#: ../Src/Gtk2/dasher_main.cpp:1048
+#: ../Src/Gtk2/dasher_main.cpp:1094
 msgid "Don't save"
 msgstr "不保存"
 
-#: ../Src/Gtk2/dasher_main.cpp:1049
+#: ../Src/Gtk2/dasher_main.cpp:1095 ../Src/Gtk2/dasher_main.cpp:1119
 msgid "Don't quit"
 msgstr "不退出"
 
-#: ../Src/Gtk2/dasher_main.cpp:1050
+#: ../Src/Gtk2/dasher_main.cpp:1096
 msgid "Save and quit"
 msgstr "保存并退出"
 
-#: ../Src/Gtk2/dasher_main.cpp:1145 ../Src/Gtk2/dasher_main.cpp:1161
+#: ../Src/Gtk2/dasher_main.cpp:1116
+msgid "Are you sure you wish to quit?"
+msgstr "您确定想要退出吗？"
+
+#: ../Src/Gtk2/dasher_main.cpp:1199 ../Src/Gtk2/dasher_main.cpp:1215
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher 是预测型文本输入应用程序"
 
-#: ../Src/Gtk2/dasher_main.cpp:1150 ../Src/Gtk2/dasher_main.cpp:1156
+#: ../Src/Gtk2/dasher_main.cpp:1204 ../Src/Gtk2/dasher_main.cpp:1210
 msgid "translator-credits"
 msgstr ""
 "Funda Wang <fundawang@linux.net.cn>, 2005\n"
 "Yang Zhang <zyangmath@gmail.com>, 2007"
 
-#: ../Src/Gtk2/module_settings_window.cpp:85
+#: ../Src/Gtk2/module_settings_window.cpp:86
 msgid "Dasher Module Options"
-msgstr ""
+msgstr "Dasher 模块选项"
 
-#: ../Src/Gtk2/module_settings_window.cpp:91
+#: ../Src/Gtk2/module_settings_window.cpp:92
 #, c-format
 msgid "%s Options:"
-msgstr "%d 选项："
+msgstr "%s 选项："
 
 #: ../Src/Gtk2/mouse_input.h:15
 msgid "Mouse Input"
@@ -1143,4 +956,28 @@ msgstr ""
 #. TRANSLATORS: Only use the vertical mouse coordinate - this is prefered for some disabled users.
 #: ../Src/Gtk2/mouse_input.h:58
 msgid "One Dimensional Mouse Input"
+msgstr ""
+
+#. {"timedata", 'w', 0, G_OPTION_ARG_NONE, &timedata, "Write basic timing information to stdout", NULL},
+#. {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences window only", NULL},
+#. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
+#. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
+#. Note to translators: This is the help string for "--appstyle"
+#: ../Src/main.cc:188
+msgid "Application style (traditional, direct, compose or fullscreen)"
+msgstr ""
+
+#. Note to translators: This is the help string for "--options"
+#: ../Src/main.cc:190
+msgid "Override stored options"
+msgstr ""
+
+#. Note to translators: This is the help string for "--help-options"
+#: ../Src/main.cc:192
+msgid "Describe \"--options\"."
+msgstr ""
+
+#. Note to translators: This is the "--help" description of dasher.
+#: ../Src/main.cc:199
+msgid "- A text input application honouring accessibility"
 msgstr ""
