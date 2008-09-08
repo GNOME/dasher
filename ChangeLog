@@ -1,3 +1,9 @@
+2008-09-08  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* Src/DasherCore/DasherModel.cpp: Rewrite ScheduleZoom() so text
+	doesn't leak from the selected box in button mode, a zoom step
+	of one works, and log() and exp() functions are no longer used.
+
 2008-07-14  Behdad Esfahbod  <behdad@gnome.org>
 
 	* Data/training/training_persian_IR.txt: Remove some lines that was

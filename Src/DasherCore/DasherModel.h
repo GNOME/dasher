@@ -1,6 +1,6 @@
 // DasherModel.h
 //
-// Copyright (c) 2007 The Dasher Team
+// Copyright (c) 2008 The Dasher Team
 //
 // This file is part of Dasher.
 //
@@ -347,9 +347,6 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   ///
   void Get_new_root_coords(myint mousex, myint mousey, myint &iNewMin, myint &iNewMax, unsigned long iTime);
 
-
-  /// Called from ScheduleZoom
-  double CorrectionFactor(int dasherx, int dashery);
 
   /// Should be public?
   void InitialiseAtOffset(int iOffset, CDasherView *pView);

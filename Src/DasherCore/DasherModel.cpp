@@ -960,79 +960,76 @@ bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
   return false;
 }
 
-double CDasherModel::CorrectionFactor(int dasherx, int dashery) {
-  double dX = 1 - dasherx/2048.0;
-  double dY = dashery/2048.0 - 1;
 
-  double dR = sqrt(pow(dX, 2.0) + pow(dY, 2.0));
+void CDasherModel::ScheduleZoom(dasherint X, dasherint Y, int iMaxZoom)
+{
+  // XXX PRLW Are these parameters really long?
+  const int nsteps = GetLongParameter(LP_ZOOMSTEPS);
+  const int safety = GetLongParameter(LP_S); // over safety_denom gives %
+  const int safety_denom = 1024;
+  const int ymax = GetLongParameter(LP_MAX_Y);
+  const int scale = ymax; // (0,1) -> (ymin=0,ymax)
 
-  if(fabs(dX) < 0.1)
-    return dR * (1 + dX /2.0+ pow(dX, 2.0) / 3.0 + pow(dX, 3.0) / 4.0 + pow(dX, 4.0) / 5.0);
-  else
-    return -dR * log(1 - dX) / dX;
-}
+  // (X,Y) is mouse position in dasher coordinates
+  // Prevent clicking too far to the right => y1 <> y2 see below
+  if (X < 2) X = 2;
 
-void CDasherModel::ScheduleZoom(dasherint iDasherX, dasherint iDasherY, int iMaxZoom) {
+  // Lines with gradient +/- 1 passing through (X,Y) intersect y-axis at
+  dasherint y1 = Y - X;     // y =  x + (Y - X)
+  dasherint y2 = Y + X;     // y = -x + (Y + X)
 
-  // Prevent clicking too far to the right
-  if (iDasherX < 2) { iDasherX = 2; }
-  
-  // TODO: Document this 
-  // double dCFactor = CorrectionFactor(iDasherX, iDasherY);
-  // int iSteps = static_cast<int>(GetLongParameter(LP_ZOOMSTEPS) * dCFactor);
-  
-  int iSteps = GetLongParameter(LP_ZOOMSTEPS);
- 
-  if(iDasherX == (dasherint)2048) {
-    // Special case for pure vertical motion. Note that ideally there
-    // would be a smooth transition here from general case, but we
-    // need to avoid gimbal lock.
+  // The maximum linear region of the y-axis is from 5% - 95% of ymax
+  // 5% and 95% come from dY3, dY2 in CDasherViewSquare::Cymap::Cymap,
+  // and non-linearity between dasher coords m_Y3 to m_Y2 in
+  // CDasherViewSquare::Cymap::map
+  // (It is good to test with Y1 = 0, Y2 = ymax.)
+  // XXX PRLW But m_Y3, m_Y2 are out of scope...
+  const dasherint Y1 = ( 5 * scale) / 100;  // m_Y3;
+  const dasherint Y2 = (95 * scale) / 100;  // m_Y2;
 
-    dasherint iOffset = iDasherY - 2048;
+  // So, want to zoom (y1 - safety/2, y2 + safety/2) -> (Y1, Y2)
+  // Adjust y1, y2 for safety margin
+  dasherint ds = (safety * scale) / (2 * safety_denom);
+  y1 -= ds;
+  y2 += ds;
 
-    m_deGotoQueue.clear();
-    
-    for(int s = 0; s < iSteps; ++s) {
-      double dFraction = s / static_cast<double>(iSteps - 1);
-      
-      SGotoItem sNewItem;
-      sNewItem.iN1 = m_Rootmin - static_cast<myint>(dFraction * iOffset);
-      sNewItem.iN2 = m_Rootmax - static_cast<myint>(dFraction * iOffset);
-      
-      m_deGotoQueue.push_back(sNewItem);
-    }
+  // There is a point C on the y-axis such the ratios (y1-C):(Y1-C) and
+  // (y2-C):(Y2-C) are equal. (Obvious when drawn on separate parallel axes.)
+  // (Y2 - Y1 is large.)
+  dasherint C = (y1 * Y2 - y2 * Y1) / (y1 + Y2 - y2 - Y1);
+
+  // So another point r's zoomed y coordinate R, has the same ratio (r-C):(R-C)
+  // Rename for readability.
+  const dasherint rmin = m_Rootmin;
+  const dasherint rmax = m_Rootmax;
+  dasherint Rmin, Rmax;
+  if (y1 != C) {
+      Rmin = ((rmin - C) * (Y1 - C)) / (y1 - C) + C;
+      Rmax = ((rmax - C) * (Y1 - C)) / (y1 - C) + C;
+  } else if (y2 != C) {
+      Rmin = ((rmin - C) * (Y2 - C)) / (y2 - C) + C;
+      Rmax = ((rmax - C) * (Y2 - C)) / (y2 - C) + C;
+  } else { // implies y1 = y2
+      std::cerr << "Impossible geometry in CDasherModel::ScheduleZoom\n";
   }
-  else {
-    myint iC;
-    
-    if(iDasherX < 2048)
-      iC = ((iDasherY - 2048) * iDasherX) / 2048 + iDasherY;
-    else
-      iC = iDasherY - ((iDasherY - 2048) * iDasherX) / 2048;
-    
-    myint iTarget1 = iDasherY - iDasherX;
-    myint iTarget2 = iDasherY + iDasherX;
-    
-    double dZ = 4096 / static_cast<double>(iTarget2 - iTarget1);
 
-    if((iMaxZoom != 0) && (dZ > iMaxZoom / 10.0))
-      dZ = iMaxZoom / 10.0;
+  // iMaxZoom seems to be in tenths
+  if (iMaxZoom != 0 && 10 * (Rmax - Rmin) > iMaxZoom * (rmax - rmin)) {
+      Rmin = ((rmin - C) * iMaxZoom) / 10 + C;
+      Rmax = ((rmax - C) * iMaxZoom) / 10 + C;
+  }
 
-    double dTau = 1.0/log(dZ);
-    
-    m_deGotoQueue.clear();
-    
-    for(int s = 0; s < iSteps; ++s) {
-      double dFraction = s / static_cast<double>(iSteps - 1);
-      
+  // sNewItem seems to contain a list of root{min,max} for the frames of the
+  // zoom, so split r -> R into n steps, with accurate R
+  m_deGotoQueue.clear();
+  for (int s = nsteps - 1; s >= 0; --s) {
       SGotoItem sNewItem;
-      sNewItem.iN1 = static_cast<myint>((m_Rootmin - iC) * exp(dFraction/dTau)) + iC;
-      sNewItem.iN2 = static_cast<myint>((m_Rootmax - iC) * exp(dFraction/dTau)) + iC;
-      
+      sNewItem.iN1 = Rmin - (s * (Rmin - rmin)) / nsteps;
+      sNewItem.iN2 = Rmax - (s * (Rmax - rmax)) / nsteps;
       m_deGotoQueue.push_back(sNewItem);
-    }
   }
 }
+
 
 void CDasherModel::Offset(int iOffset) {
   m_Rootmin += iOffset;
