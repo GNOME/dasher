@@ -424,7 +424,7 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Select A&ll\tCtrl+A",         ID_EDIT_SELECTALL
         MENUITEM SEPARATOR
-        MENUITEM "Pr&eferences...",              ID_OPTIONS_PREFS
+        MENUITEM "Pr&eferences...",             ID_OPTIONS_PREFS
     END
     POPUP "&Help"
     BEGIN
