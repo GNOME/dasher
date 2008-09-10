@@ -4,7 +4,7 @@
     <ProductVersion>3.0</ProductVersion>
     <ProjectGuid>{bbe9e817-e2c5-4081-9612-0738e27cf55a}</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>Dasher 4.7</OutputName>
+    <OutputName>Dasher 4.9</OutputName>
     <OutputType>Package</OutputType>
     <WixToolPath>C:\Program Files\Windows Installer XML v3\bin\</WixToolPath>
   </PropertyGroup>
