@@ -1,3 +1,7 @@
+2008-09-10  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* Repair windows preferences short-cut
+
 2008-09-08  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* Src/DasherCore/DasherModel.cpp: Rewrite ScheduleZoom() so text
