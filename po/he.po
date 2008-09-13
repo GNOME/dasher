@@ -8,832 +8,498 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-21 15:52+0200\n"
+"POT-Creation-Date: 2008-04-22 20:22+0000\n"
 "PO-Revision-Date: 2006-01-21 16:13+0200\n"
 "Last-Translator: Gil Osher <dolfin@rpg.org.il>\n"
 "Language-Team: Hebrew <he@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#. TODO should probably pop up a Gtk error message and think about how to do i18n:
-#: ../Src/DasherCore/SocketInput.cpp:32
-msgid "Dasher socket input: failed to launch reader thread."
-msgstr ""
-
-#: ../Src/Gtk2/Menu.cc:70 ../Src/Gtk2/Menu.cc:126 ../Src/Gtk2/Menu.cc:184
-#: ../Src/Gtk2/Menu.cc:227 ../Src/Gtk2/dasher.glade.h:102
-#: ../Src/Gtk2/dashergpe.glade.h:60 ../Src/Gtk2/dashermaemo.glade.h:100
-msgid "Select File"
-msgstr "בחר קובץ"
-
-#. This gets pulled out via gettext
-#: ../Src/Gtk2/Menu.cc:463
-msgid "translator-credits"
-msgstr ""
-
-#: ../Src/Gtk2/Menu.cc:465 ../Src/Gtk2/dasher.glade.h:55
-#: ../Src/Gtk2/dashergpe.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:54
+#. Note to translators: This is the name of the dasher program as it appears
+#. in a window title without a file.
+#: ../Data/dasher.desktop.in.in.h:1 ../Data/glade/dasher.compose.glade.h:5
+#: ../Data/glade/dasher.direct.glade.h:2
+#: ../Data/glade/dasher.fullscreen.glade.h:1
+#: ../Data/glade/dasher.gameWIP.glade.h:6
+#: ../Data/glade/dasher.traditional.glade.h:6
+#: ../Data/glade/dashermaemo.glade.h:3
+#: ../Data/glade/dashermaemofullscreen.glade.h:2
+#: ../Src/Gtk2/dasher_main.cpp:992 ../Src/Gtk2/dasher_main.cpp:1212
 msgid "Dasher"
-msgstr "דאשר"
+msgstr "Dasher"
 
-#: ../Src/Gtk2/Menu.cc:465
-msgid "Dasher is a predictive text entry application"
+#: ../Data/dasher.desktop.in.in.h:2
+msgid "Enter text without a keyboard"
+msgstr "הכנס טקסט ללא מקלדת"
+
+#: ../Data/dasher.desktop.in.in.h:3
+msgid "Predictive text entry"
 msgstr ""
 
-#: ../Src/Gtk2/Preferences.cpp:583 ../Src/Gtk2/Preferences.cpp:585
-#: ../Src/Gtk2/dasher.glade.h:121 ../Src/Gtk2/dashergpe.glade.h:72
-#: ../Src/Gtk2/dashermaemo.glade.h:117
-msgid "Training Dasher... please wait"
-msgstr ""
-"מאמן את Dasher... אנא המתן"
-
-#. Paneltree
-#. |         /-menutree
-#. Widgettree------buttontree
-#. \-edittree
-#.
-#. Tree, parent, children, next, pointer, data, string, colour
-#: ../Src/Gtk2/accessibility.cc:83
-msgid "Panels"
-msgstr "לוחות"
-
-#: ../Src/Gtk2/accessibility.cc:84
-msgid "Application"
-msgstr "יישומים"
-
-#: ../Src/Gtk2/accessibility.cc:85
-msgid "Menus"
-msgstr "תפריטים"
-
-#: ../Src/Gtk2/accessibility.cc:86 ../Src/Gtk2/dashermaemo.glade.h:42
-msgid "Buttons"
-msgstr "כפתורים"
-
-#: ../Src/Gtk2/accessibility.cc:87
-msgid "Text"
-msgstr "טקסט"
-
-#: ../Src/Gtk2/accessibility.cc:170 ../Src/Gtk2/dasher.glade.h:46
-#: ../Src/Gtk2/dashergpe.glade.h:28 ../Src/Gtk2/dashermaemo.glade.h:45
-msgid "Control"
-msgstr "בקרה"
-
-#: ../Src/Gtk2/accessibility.cc:177
-msgid "Windows"
-msgstr "חלונות"
-
-#: ../Src/Gtk2/accessibility.cc:185
-msgid "Stop"
-msgstr "עצור"
-
-#: ../Src/Gtk2/accessibility.cc:192
-msgid "Pause"
-msgstr "הפסק"
-
-#: ../Src/Gtk2/accessibility.cc:199
-msgid "Move"
-msgstr "הזז"
-
-#: ../Src/Gtk2/accessibility.cc:206
-msgid "Delete"
-msgstr "מחק"
-
-#: ../Src/Gtk2/accessibility.cc:216
-msgid "Speak"
-msgstr "דבר"
-
-#: ../Src/Gtk2/accessibility.cc:248 ../Src/Gtk2/accessibility.cc:402
-msgid "<"
-msgstr "<"
-
-#: ../Src/Gtk2/accessibility.cc:254 ../Src/Gtk2/accessibility.cc:396
-msgid ">"
-msgstr ">"
-
-#: ../Src/Gtk2/accessibility.cc:260
-msgid "<<<"
-msgstr "<<<"
-
-#: ../Src/Gtk2/accessibility.cc:266
-msgid ">>>"
-msgstr ">>>"
-
-#: ../Src/Gtk2/accessibility.cc:279
-msgid "Everything"
-msgstr "כל דבר"
-
-#: ../Src/Gtk2/accessibility.cc:285
-msgid "New"
-msgstr "חדש"
-
-#: ../Src/Gtk2/accessibility.cc:291
-msgid "Repeat"
-msgstr "חזור"
-
-#: ../Src/Gtk2/accessibility.cc:313
-msgid "1"
-msgstr "1"
-
-#: ../Src/Gtk2/accessibility.cc:320
-msgid "2"
-msgstr "2"
-
-#: ../Src/Gtk2/accessibility.cc:327
-msgid "3"
-msgstr "3"
-
-#: ../Src/Gtk2/accessibility.cc:334
-msgid "4"
-msgstr "4"
-
-#: ../Src/Gtk2/accessibility.cc:341
-msgid "5"
-msgstr "5"
-
-#: ../Src/Gtk2/accessibility.cc:348
-msgid "6"
-msgstr "6"
-
-#: ../Src/Gtk2/accessibility.cc:355
-msgid "7"
-msgstr "7"
-
-#: ../Src/Gtk2/accessibility.cc:362
-msgid "8"
-msgstr "8"
-
-#: ../Src/Gtk2/accessibility.cc:369
-msgid "9"
-msgstr "9"
-
-#: ../Src/Gtk2/accessibility.cc:376
-msgid "10"
-msgstr "10"
-
-#: ../Src/Gtk2/accessibility.cc:408 ../Src/Gtk2/accessibility.cc:432
-msgid "Character"
-msgstr "תו"
-
-#: ../Src/Gtk2/accessibility.cc:420 ../Src/Gtk2/accessibility.cc:443
-msgid "Word"
-msgstr "מילה"
-
-#: ../Src/Gtk2/accessibility.cc:425 ../Src/Gtk2/accessibility.cc:449
-msgid "Line"
-msgstr "שורה"
-
-#: ../Src/Gtk2/accessibility.cc:563
-msgid "Unknown"
-msgstr "לא ידוע"
-
-#. void interface_setup(GladeXML *xml) {
-#. What's this doing here? I'm sure we ought to just be using whatever
-#. the core provides us with
-#. float initial_bitrate = 3.0;
-#. the_canvas=glade_xml_get_widget(xml, "the_canvas");
-#. Needed so we can make it visible or not as we wish
-#. FIXME - all of the stuff below commented out - we no longer have access to the registry here - need to fix it
-#. // interface specific preferences
-#. if(get_long_option_callback("Mouseposstartdistance",&mouseposstartdist)!=false) {
-#. gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"mouseposstartscale")),mouseposstartdist);
-#. }
-#. if(get_long_option_callback("YScale",&yscale)!=false) {
-#. gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"yaxisscale")),yscale);
-#. }
-#. if(get_bool_option_callback("Cyclicalbuttons",&cyclickeyboardmodeon)!=false) {
-#. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"cyclicalbuttons")),cyclickeyboardmodeon);
-#. }
-#. // Configure the buttons. FIXME - more enums?
-#. if (get_long_option_callback("Button1X",&(buttons[1].x))==false) {
-#. buttons[1].x=0;
-#. }
-#. if (get_long_option_callback("Button2X",&(buttons[2].x))==false) {
-#. buttons[2].x=0;
-#. }
-#. if (get_long_option_callback("Button3X",&(buttons[3].x))==false) {
-#. buttons[3].x=0;
-#. }
-#. if (get_long_option_callback("Button4X",&(buttons[4].x))==false) {
-#. buttons[4].x=0;
-#. }
-#. if (get_long_option_callback("Button5X",&(buttons[5].x))==false) {
-#. buttons[5].x=0;
-#. }
-#. if (get_long_option_callback("Button6X",&(buttons[6].x))==false) {
-#. buttons[6].x=0;
-#. }
-#. if (get_long_option_callback("Button7X",&(buttons[7].x))==false) {
-#. buttons[7].x=0;
-#. }
-#. if (get_long_option_callback("Button8X",&(buttons[8].x))==false) {
-#. buttons[8].x=0;
-#. }
-#. if (get_long_option_callback("Button9X",&(buttons[9].x))==false) {
-#. buttons[9].x=0;
-#. }
-#. if (get_long_option_callback("Button1Y",&(buttons[1].y))==false) {
-#. buttons[1].y=0;
-#. }
-#. if (get_long_option_callback("Button2Y",&(buttons[2].y))==false) {
-#. buttons[2].y=0;
-#. }
-#. if (get_long_option_callback("Button3Y",&(buttons[3].y))==false) {
-#. buttons[3].y=0;
-#. }
-#. if (get_long_option_callback("Button4Y",&(buttons[4].y))==false) {
-#. buttons[4].y=0;
-#. }
-#. if (get_long_option_callback("Button5Y",&(buttons[5].y))==false) {
-#. buttons[5].y=0;
-#. }
-#. if (get_long_option_callback("Button6Y",&(buttons[6].y))==false) {
-#. buttons[6].y=0;
-#. }
-#. if (get_long_option_callback("Button7Y",&(buttons[7].y))==false) {
-#. buttons[7].y=0;
-#. }
-#. if (get_long_option_callback("Button8Y",&(buttons[8].y))==false) {
-#. buttons[8].y=0;
-#. }
-#. if (get_long_option_callback("Button9Y",&(buttons[9].y))==false) {
-#. buttons[9].y=0;
-#. }
-#. }
-#. void
-#. interface_late_setup() {
-#. Stuff that needs to be done after the core has
-#. set itself up
-#. dasher_set_parameter_int(INT_ONEBUTTON, 0);
-#. alphabet=dasher_get_current_alphabet();
-#. colourscheme=dasher_get_current_colours();
-#. }
-#. void
-#. open_window(GladeXML *xml) {
-#. I have no idea why we need to do this when Glade has theoretically done
-#. so already, but...
-#. FIXME - REIMPLEMENT
-#. }
-#: ../Src/Gtk2/dasher.glade.h:1 ../Src/Gtk2/dashergpe.glade.h:1
-#: ../Src/Gtk2/dashermaemo.glade.h:1
-msgid "5:"
-msgstr "5:"
-
-#: ../Src/Gtk2/dasher.glade.h:2 ../Src/Gtk2/dashergpe.glade.h:2
-#: ../Src/Gtk2/dashermaemo.glade.h:2
-msgid "6:"
-msgstr "6:"
-
-#: ../Src/Gtk2/dasher.glade.h:3 ../Src/Gtk2/dashergpe.glade.h:3
-#: ../Src/Gtk2/dashermaemo.glade.h:3
-msgid "7:"
-msgstr "7:"
-
-#: ../Src/Gtk2/dasher.glade.h:4 ../Src/Gtk2/dashergpe.glade.h:4
-#: ../Src/Gtk2/dashermaemo.glade.h:4
-msgid "8:"
-msgstr "8:"
-
-#: ../Src/Gtk2/dasher.glade.h:5 ../Src/Gtk2/dashergpe.glade.h:5
-#: ../Src/Gtk2/dashermaemo.glade.h:5
-msgid "9:"
-msgstr "9:"
-
-#: ../Src/Gtk2/dasher.glade.h:6 ../Src/Gtk2/dashermaemo.glade.h:6
-msgid "<b>Adaptation:</b>"
-msgstr ""
-"‏<b>הסתגלות:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:7 ../Src/Gtk2/dashermaemo.glade.h:7
-msgid "<b>Advanced Settings:</b>"
-msgstr ""
-"‏<b>אפשרויות מתקדמות:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:8 ../Src/Gtk2/dashergpe.glade.h:6
-#: ../Src/Gtk2/dashermaemo.glade.h:8
-msgid "<b>Alphabet Selection:</b>"
-msgstr "<b>בחירת אלף-בית:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:9 ../Src/Gtk2/dashergpe.glade.h:7
-#: ../Src/Gtk2/dashermaemo.glade.h:9
-msgid "<b>Button control setup</b>"
-msgstr "<b>הגדרת שליטת כפתורים</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:10 ../Src/Gtk2/dashermaemo.glade.h:10
-msgid "<b>Button modes:</b>"
-msgstr ""
-"‏<b>מצבי כפתור:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:11 ../Src/Gtk2/dashergpe.glade.h:8
-#: ../Src/Gtk2/dashermaemo.glade.h:11
-msgid "<b>Color Selection:</b>"
-msgstr "<b>בחירת צבע:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:12 ../Src/Gtk2/dashermaemo.glade.h:12
-msgid "<b>Compass Mode</b>"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashergpe.glade.h:9
-#: ../Src/Gtk2/dashermaemo.glade.h:13
-msgid "<b>Control Style:</b>"
-msgstr "<b>סגנון בקרה:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:14
-msgid "<b>External Input:</b>"
-msgstr ""
-"‏<b>קלט חיצוני:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:14
-msgid "<b>Language Model:</b>"
-msgstr ""
-"‏<b>מודל שפה:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:15
-msgid "<b>Menu Mode</b>"
-msgstr ""
-"‏<b>מצב תפריט</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:17 ../Src/Gtk2/dashergpe.glade.h:10
-#: ../Src/Gtk2/dashermaemo.glade.h:16
-msgid "<b>Miscellaneous Options:</b>"
-msgstr "<b>אפשרויות שונות:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:18 ../Src/Gtk2/dashermaemo.glade.h:17
-msgid "<b>One-Button Dynamic Mode</b>"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:18
-#, fuzzy
-msgid "<b>One-Button Static Mode</b>"
-msgstr "<b>מיתוג מצב כפתור:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:20 ../Src/Gtk2/dashergpe.glade.h:11
-#: ../Src/Gtk2/dashermaemo.glade.h:19
-msgid "<b>Orientation:</b>"
-msgstr "<b>יישור:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:21 ../Src/Gtk2/dashergpe.glade.h:12
-#: ../Src/Gtk2/dashermaemo.glade.h:20
-msgid "<b>Smoothing:</b>"
-msgstr "<b>החלקה:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:22 ../Src/Gtk2/dashermaemo.glade.h:21
-#, fuzzy
-msgid "<b>Socket Input</b>"
-msgstr "<b>החלקה:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashermaemo.glade.h:22
-msgid "<b>Speed:</b>"
-msgstr ""
-"‏<b>מהירות:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:24 ../Src/Gtk2/dashergpe.glade.h:14
-#: ../Src/Gtk2/dashermaemo.glade.h:23
-msgid "<b>Starting And Stopping:</b>"
-msgstr "<b>התחלה ועצירה:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:25 ../Src/Gtk2/dashergpe.glade.h:15
-#: ../Src/Gtk2/dashermaemo.glade.h:24
-msgid "<b>Toggle button Mode:</b>"
-msgstr "<b>מיתוג מצב כפתור:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:26 ../Src/Gtk2/dashergpe.glade.h:16
-#: ../Src/Gtk2/dashermaemo.glade.h:25
-msgid "<b>View Options:</b>"
-msgstr "<b>אפשרויות תצוגה:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashermaemo.glade.h:26
-#, fuzzy
-msgid "<b>X Coordinate</b>"
-msgstr "<b>קורדינטות X/Y:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:28 ../Src/Gtk2/dashergpe.glade.h:17
-#: ../Src/Gtk2/dashermaemo.glade.h:27
-msgid "<b>X/Y Coordinates:</b>"
-msgstr "<b>קורדינטות X/Y:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:18
-#: ../Src/Gtk2/dashermaemo.glade.h:28
-msgid "<b>Y Axis Options:</b>"
-msgstr "<b>אפשרויות ציר Y:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:30 ../Src/Gtk2/dashermaemo.glade.h:29
-#, fuzzy
-msgid "<b>Y Coordinate</b>"
-msgstr "<b>קורדינטות X/Y:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashermaemo.glade.h:30
-#, fuzzy
-msgid "<b>Zoom steps:</b>"
-msgstr "<b>סגנון בקרה:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashermaemo.glade.h:31
-msgid "Adapt speed automatically"
-msgstr "התאם את המהירות אוטומטית"
-
-#: ../Src/Gtk2/dasher.glade.h:33
-msgid "Advanced Settings"
-msgstr "הגדרות מתקדמות"
-
-#: ../Src/Gtk2/dasher.glade.h:34 ../Src/Gtk2/dashergpe.glade.h:20
-#: ../Src/Gtk2/dashermaemo.glade.h:33
-msgid "Alphabet"
-msgstr "אלף-בית"
-
-#: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashergpe.glade.h:21
-#: ../Src/Gtk2/dashermaemo.glade.h:34
-msgid "Alphabet Default"
-msgstr "אלף-בית ברירת-מחדל"
-
-#: ../Src/Gtk2/dasher.glade.h:36 ../Src/Gtk2/dashermaemo.glade.h:35
-msgid "Alternating direct mode"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:37 ../Src/Gtk2/dashergpe.glade.h:22
-#: ../Src/Gtk2/dashermaemo.glade.h:36
-msgid "Bottom to Top"
-msgstr "מלמטה למעלה"
-
-#: ../Src/Gtk2/dasher.glade.h:38 ../Src/Gtk2/dashermaemo.glade.h:37
-msgid "Box non-uniformity:"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:39
-#, fuzzy
-msgid "Button Preferences"
-msgstr "העדפות דאשר"
-
-#: ../Src/Gtk2/dasher.glade.h:40
-#, fuzzy
-msgid "Button Setup"
-msgstr "הגדרת בקרת כפתור"
-
-#: ../Src/Gtk2/dasher.glade.h:41 ../Src/Gtk2/dashergpe.glade.h:23
-#: ../Src/Gtk2/dashermaemo.glade.h:38
-msgid "Button control setup"
-msgstr "הגדרת בקרת כפתור"
-
-#: ../Src/Gtk2/dasher.glade.h:42 ../Src/Gtk2/dashergpe.glade.h:24
-#: ../Src/Gtk2/dashermaemo.glade.h:39
-msgid "Button mode"
-msgstr "מצב כפתור"
-
-#: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashergpe.glade.h:25
-#: ../Src/Gtk2/dashermaemo.glade.h:41
-msgid "Button:"
-msgstr "מקש"
-
-#: ../Src/Gtk2/dasher.glade.h:44 ../Src/Gtk2/dashermaemo.glade.h:43
-#, fuzzy
-msgid "Click mode"
-msgstr "מצב בקרה"
-
-#: ../Src/Gtk2/dasher.glade.h:45 ../Src/Gtk2/dashermaemo.glade.h:44
-msgid "Compass mode"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:46
-msgid "Control dasher from network socket instead of mouse (advanced)"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashergpe.glade.h:29
-#: ../Src/Gtk2/dashermaemo.glade.h:47
-msgid "Control mode"
-msgstr "מצב בקרה"
-
-#: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:30
-#: ../Src/Gtk2/dashermaemo.glade.h:48
+#: ../Data/glade/dasher.compose.glade.h:1
+#: ../Data/glade/dasher.direct.glade.h:1
+#: ../Data/glade/dasher.gameWIP.glade.h:2
+#: ../Data/glade/dasher.traditional.glade.h:2
+msgid "Alphabet:"
+msgstr "אלף-בית:"
+
+#: ../Data/glade/dasher.compose.glade.h:2
+#: ../Data/glade/dasher.gameWIP.glade.h:3
+#: ../Data/glade/dasher.traditional.glade.h:3
 msgid "Copy"
 msgstr "העתק"
 
-#: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:31
-#: ../Src/Gtk2/dashermaemo.glade.h:49
+#: ../Data/glade/dasher.compose.glade.h:3
+#: ../Data/glade/dasher.gameWIP.glade.h:4
+#: ../Data/glade/dasher.traditional.glade.h:4
+#: ../Data/glade/dashermaemofullscreen.glade.h:1
 msgid "Copy _All"
 msgstr "העתק ה_כל"
 
-#: ../Src/Gtk2/dasher.glade.h:51 ../Src/Gtk2/dashergpe.glade.h:32
-#: ../Src/Gtk2/dashermaemo.glade.h:50
-msgid "Copy all on stop"
-msgstr "העתק הכל בעצירה"
-
-#: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashermaemo.glade.h:51
-msgid "Custom:"
-msgstr ""
-"מותאם:"
-
-#: ../Src/Gtk2/dasher.glade.h:53 ../Src/Gtk2/dashergpe.glade.h:33
-#: ../Src/Gtk2/dashermaemo.glade.h:52
+#: ../Data/glade/dasher.compose.glade.h:4
+#: ../Data/glade/dasher.gameWIP.glade.h:5
+#: ../Data/glade/dasher.traditional.glade.h:5
 msgid "Cut"
 msgstr "גזור"
 
-#: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashergpe.glade.h:34
-#: ../Src/Gtk2/dashermaemo.glade.h:53
-msgid "Cyclical button mode"
-msgstr "מצב כפתור מעגלי"
+#: ../Data/glade/dasher.compose.glade.h:6
+msgid "Dasher _Tutorial"
+msgstr "מד_ריך Dasher"
 
-#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashergpe.glade.h:36
-#: ../Src/Gtk2/dashermaemo.glade.h:55
-msgid "Dasher Preferences"
-msgstr "העדפות דאשר"
-
-#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:37
-#: ../Src/Gtk2/dashermaemo.glade.h:56
-msgid "Distance from centerline for start on mouse position:"
-msgstr "מרחק מקו האמצע להתחלה במיקום העכבר:"
-
-#: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:38
-#: ../Src/Gtk2/dashermaemo.glade.h:57
-msgid "Down/3:"
-msgstr "מטה/3:"
-
-#: ../Src/Gtk2/dasher.glade.h:59 ../Src/Gtk2/dashergpe.glade.h:39
-#: ../Src/Gtk2/dashermaemo.glade.h:58
-msgid "Draw box outlines"
-msgstr "צייר קווי תיבה חיצוניים"
-
-#: ../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:40
-#: ../Src/Gtk2/dashermaemo.glade.h:59
-msgid "Draw line between crosshairs and mouse"
-msgstr "צייר קו בין ההצטלבות והעכבר"
-
-#: ../Src/Gtk2/dasher.glade.h:61 ../Src/Gtk2/dashermaemo.glade.h:60
-msgid "Drop time:  "
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:62 ../Src/Gtk2/dashergpe.glade.h:41
-#: ../Src/Gtk2/dashermaemo.glade.h:61
-msgid "Edit Button-control options"
-msgstr "עריכת אפשרויות פקד-כפתור"
-
-#: ../Src/Gtk2/dasher.glade.h:63 ../Src/Gtk2/dashergpe.glade.h:42
-#: ../Src/Gtk2/dashermaemo.glade.h:62
-msgid "Enter text into other windows"
-msgstr "הכנס טקסט לחלונות האחרים"
-
-#: ../Src/Gtk2/dasher.glade.h:64 ../Src/Gtk2/dashergpe.glade.h:43
-#: ../Src/Gtk2/dashermaemo.glade.h:63
-msgid "Eyetracker mode"
-msgstr "מצב עקיבת עיניים"
-
-#: ../Src/Gtk2/dasher.glade.h:65 ../Src/Gtk2/dashermaemo.glade.h:64
-msgid "Four-button direct mode"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:66
-msgid "General"
-msgstr "כללי"
-
-#: ../Src/Gtk2/dasher.glade.h:67
-msgid ""
-"If this mode is selected, up and down will\n"
-"cycle backwards and forwards between coordinates and right will confirm the "
-"choice"
-msgstr ""
-"אם מצב זה נבחר, מעלה ומטה ינועו\n"
-"קדימה ואחורה בין הקורדינטות וימינה יאשר את הבחירה"
-
-#: ../Src/Gtk2/dasher.glade.h:69 ../Src/Gtk2/dashermaemo.glade.h:67
-msgid "Increase line thickness"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:70 ../Src/Gtk2/dashermaemo.glade.h:68
-msgid "Japanese"
-msgstr "יפנית"
-
-#: ../Src/Gtk2/dasher.glade.h:71 ../Src/Gtk2/dashermaemo.glade.h:69
-msgid "Label"
-msgstr "תוית"
-
-#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashermaemo.glade.h:70
-msgid "Language model adapts as you write."
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:73 ../Src/Gtk2/dashergpe.glade.h:45
-#: ../Src/Gtk2/dashermaemo.glade.h:71
-msgid "Large"
-msgstr "גדול"
-
-#: ../Src/Gtk2/dasher.glade.h:74 ../Src/Gtk2/dashergpe.glade.h:46
-#: ../Src/Gtk2/dashermaemo.glade.h:72
-msgid "Left to Right"
-msgstr "שמאל לימין"
-
-#: ../Src/Gtk2/dasher.glade.h:75 ../Src/Gtk2/dashergpe.glade.h:47
-#: ../Src/Gtk2/dashermaemo.glade.h:73
-msgid "Left/2:"
-msgstr "שמאל/2:"
-
-#: ../Src/Gtk2/dasher.glade.h:76 ../Src/Gtk2/dashermaemo.glade.h:74
-msgid "Max"
-msgstr "מקסימום"
-
-#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashermaemo.glade.h:75
-msgid "Min"
-msgstr "מינימום"
-
-#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashermaemo.glade.h:76
-msgid "Miscellaneous"
-msgstr ""
-"שונות"
-
-#: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashermaemo.glade.h:77
-msgid "Mixture model (PPM/dictionary)"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:80 ../Src/Gtk2/dashergpe.glade.h:48
-#: ../Src/Gtk2/dashermaemo.glade.h:78
+#: ../Data/glade/dasher.compose.glade.h:7
+#: ../Data/glade/dasher.gameWIP.glade.h:12
+#: ../Data/glade/dasher.traditional.glade.h:8
 msgid "New file"
 msgstr "קובץ חדש"
 
-#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:49
-#: ../Src/Gtk2/dashermaemo.glade.h:79
-msgid "Normal"
-msgstr "רגיל"
-
-#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashermaemo.glade.h:80
-msgid "Number of \"zoom-out boxes\":"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashermaemo.glade.h:81
-msgid "Number of boxes:"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:51
-#: ../Src/Gtk2/dashermaemo.glade.h:82
-msgid "One dimensional mode"
-msgstr "מצב חד-מימדי"
-
-#: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashermaemo.glade.h:83
-msgid "One-button dynamic mode"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:86 ../Src/Gtk2/dashermaemo.glade.h:84
-#, fuzzy
-msgid "One-button static mode"
-msgstr "מצב כפתור"
-
-#: ../Src/Gtk2/dasher.glade.h:87 ../Src/Gtk2/dashergpe.glade.h:52
-#: ../Src/Gtk2/dashermaemo.glade.h:85
+#: ../Data/glade/dasher.compose.glade.h:8
+#: ../Data/glade/dasher.gameWIP.glade.h:14
+#: ../Data/glade/dasher.traditional.glade.h:9
 msgid "Open file"
 msgstr "פתח קובץ"
 
-#: ../Src/Gtk2/dasher.glade.h:88 ../Src/Gtk2/dashermaemo.glade.h:86
-msgid "Ordinary control"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:89 ../Src/Gtk2/dashergpe.glade.h:54
-#: ../Src/Gtk2/dashermaemo.glade.h:87
+#: ../Data/glade/dasher.compose.glade.h:9
+#: ../Data/glade/dasher.gameWIP.glade.h:15
+#: ../Data/glade/dasher.traditional.glade.h:10
 msgid "Paste"
 msgstr "הדבק"
 
-#: ../Src/Gtk2/dasher.glade.h:90 ../Src/Gtk2/dashergpe.glade.h:55
-#: ../Src/Gtk2/dashermaemo.glade.h:88
-msgid "Pause outside window"
-msgstr "הפסק חלון חוץ"
+#: ../Data/glade/dasher.compose.glade.h:10
+#: ../Data/glade/dasher.direct.glade.h:3
+#: ../Data/glade/dasher.fullscreen.glade.h:2
+#: ../Data/glade/dasher.gameWIP.glade.h:16
+#: ../Data/glade/dasher.traditional.glade.h:11
+#: ../Data/glade/dashermaemo.glade.h:5
+msgid "Please Wait..."
+msgstr "נא להמתיו..."
 
-#: ../Src/Gtk2/dasher.glade.h:91 ../Src/Gtk2/dashermaemo.glade.h:89
-msgid "Port"
-msgstr "שער"
+#: ../Data/glade/dasher.compose.glade.h:11
+msgid "Pr_eferences"
+msgstr "ה_עדפות"
 
-#: ../Src/Gtk2/dasher.glade.h:92 ../Src/Gtk2/dashermaemo.glade.h:90
-msgid "Prediction"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:93 ../Src/Gtk2/dashermaemo.glade.h:91
-msgid "Print socket-related debugging information to console"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:94 ../Src/Gtk2/dashermaemo.glade.h:92
-#, fuzzy
-msgid "Pulsing mode"
-msgstr "מצב כפתור"
-
-#: ../Src/Gtk2/dasher.glade.h:95 ../Src/Gtk2/dashergpe.glade.h:56
-#: ../Src/Gtk2/dashermaemo.glade.h:93
-msgid "Right to Left"
-msgstr "ימין לשמאל"
-
-#: ../Src/Gtk2/dasher.glade.h:96 ../Src/Gtk2/dashermaemo.glade.h:94
-#, fuzzy
-msgid "Right zoom:  "
-msgstr "ימין לשמאל"
-
-#: ../Src/Gtk2/dasher.glade.h:97 ../Src/Gtk2/dashergpe.glade.h:57
-#: ../Src/Gtk2/dashermaemo.glade.h:95
-msgid "Right/4:"
-msgstr "ימין/4:"
-
-#: ../Src/Gtk2/dasher.glade.h:98 ../Src/Gtk2/dashermaemo.glade.h:96
-msgid "Safety margin:"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:99 ../Src/Gtk2/dashergpe.glade.h:58
-#: ../Src/Gtk2/dashermaemo.glade.h:97
+#: ../Data/glade/dasher.compose.glade.h:12
+#: ../Data/glade/dasher.gameWIP.glade.h:20
+#: ../Data/glade/dasher.traditional.glade.h:15
 msgid "Save file"
-msgstr "שמור"
+msgstr "שמור קובץ"
 
-#: ../Src/Gtk2/dasher.glade.h:100 ../Src/Gtk2/dashergpe.glade.h:59
-#: ../Src/Gtk2/dashermaemo.glade.h:98
+#: ../Data/glade/dasher.compose.glade.h:13
+#: ../Data/glade/dasher.gameWIP.glade.h:21
+#: ../Data/glade/dasher.traditional.glade.h:16
 msgid "Save file as"
 msgstr "שמור קובץ בשם"
 
-#: ../Src/Gtk2/dasher.glade.h:101 ../Src/Gtk2/dashermaemo.glade.h:99
-msgid "Scaling amount (1D mode):"
-msgstr ""
+#: ../Data/glade/dasher.compose.glade.h:14
+#: ../Data/glade/dasher.direct.glade.h:4
+#: ../Data/glade/dasher.fullscreen.glade.h:3
+#: ../Data/glade/dasher.gameWIP.glade.h:23
+#: ../Data/glade/dasher.traditional.glade.h:17
+#: ../Data/glade/dashermaemo.glade.h:6
+#: ../Data/glade/dashermaemofullscreen.glade.h:5
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1332
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1366
+#: ../Src/Gtk2/dasher_main.cpp:1046
+msgid "Select File"
+msgstr "בחר קובץ"
 
-#: ../Src/Gtk2/dasher.glade.h:103 ../Src/Gtk2/dashergpe.glade.h:61
-#: ../Src/Gtk2/dashermaemo.glade.h:101
+#: ../Data/glade/dasher.compose.glade.h:15
+#: ../Data/glade/dasher.fullscreen.glade.h:4
+#: ../Data/glade/dashermaemo.glade.h:7
+#: ../Data/glade/dashermaemofullscreen.glade.h:6
 msgid "Select Font"
 msgstr "בחר גופן"
 
-#: ../Src/Gtk2/dasher.glade.h:104
-msgid "Show Advanced Settings"
-msgstr ""
-"הצג הגדרות מתקדמות"
+#: ../Data/glade/dasher.compose.glade.h:16
+#: ../Data/glade/dasher.direct.glade.h:5
+#: ../Data/glade/dasher.gameWIP.glade.h:24
+#: ../Data/glade/dasher.traditional.glade.h:18
+msgid "Speed:"
+msgstr "‏מהירות:"
 
-#: ../Src/Gtk2/dasher.glade.h:105 ../Src/Gtk2/dashergpe.glade.h:62
-#: ../Src/Gtk2/dashermaemo.glade.h:102
+#: ../Data/glade/dasher.compose.glade.h:17
+#: ../Data/glade/dashermaemofullscreen.glade.h:8
+msgid "_About"
+msgstr "_אודות"
+
+#: ../Data/glade/dasher.compose.glade.h:18
+msgid "_Append to file"
+msgstr "_צרף לקובץ"
+
+#: ../Data/glade/dasher.compose.glade.h:19
+msgid "_Contents"
+msgstr "_תכנים"
+
+#: ../Data/glade/dasher.compose.glade.h:20
+#: ../Data/glade/dasher.gameWIP.glade.h:27
+#: ../Data/glade/dasher.traditional.glade.h:21
+#: ../Data/glade/dashermaemofullscreen.glade.h:11
+msgid "_Edit"
+msgstr "_עריכה"
+
+#: ../Data/glade/dasher.compose.glade.h:21
+#: ../Data/glade/dasher.gameWIP.glade.h:28
+#: ../Data/glade/dasher.traditional.glade.h:22
+#: ../Data/glade/dashermaemofullscreen.glade.h:13
+msgid "_File"
+msgstr "_קובץ"
+
+#: ../Data/glade/dasher.compose.glade.h:22
+#: ../Data/glade/dasher.gameWIP.glade.h:29
+#: ../Data/glade/dasher.traditional.glade.h:23
+#: ../Data/glade/dashermaemofullscreen.glade.h:14
+msgid "_Help"
+msgstr "_עזרה"
+
+#: ../Data/glade/dasher.compose.glade.h:23
+msgid "_Import Training Text"
+msgstr "_ייבא קובץ אימון"
+
+#: ../Data/glade/dasher.compose.glade.h:24
+#: ../Data/glade/dasher.fullscreen.glade.h:5
+#: ../Data/glade/dashermaemo.glade.h:8
+#: ../Data/glade/dashermaemofullscreen.glade.h:17
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr "אבגדהוזחטיכ abcdefghijk ABCDEFGHIJK"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:1
+#: ../Data/glade/dasher.traditional.glade.h:1
+msgid "A_ppend to file..."
+msgstr "_צרף לקובץ..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:7
+msgid "Demo!"
+msgstr ""
+
+#: ../Data/glade/dasher.gameWIP.glade.h:8
+msgid "Full Demo"
+msgstr ""
+
+#: ../Data/glade/dasher.gameWIP.glade.h:9
+#: ../Data/glade/dasher.traditional.glade.h:7
+msgid "Help"
+msgstr "עזרה"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:10
+msgid "Launch Dasher Game & Demo mode!"
+msgstr ""
+
+#: ../Data/glade/dasher.gameWIP.glade.h:11
+msgid "Level:"
+msgstr "רמה:"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:13
+msgid "New sentence"
+msgstr "משפט חד"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:17
+#: ../Data/glade/dasher.traditional.glade.h:12
+msgid "Pr_eferences..."
+msgstr "ה_עדפות..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:18
+#: ../Data/glade/dasher.traditional.glade.h:13
+msgid "Preferences"
+msgstr "העדפות"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:19
+#: ../Data/glade/dasher.traditional.glade.h:14
+#: ../Src/Gtk2/dasher_main.cpp:1120
+msgid "Quit"
+msgstr "יציאה"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:22
+msgid "Score:"
+msgstr "תוצאה:"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:25
+#: ../Data/glade/dasher.traditional.glade.h:19
+msgid "_About..."
+msgstr "_אודות..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:26
+#: ../Data/glade/dasher.traditional.glade.h:20
+msgid "_Contents..."
+msgstr "_תכנים..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:30
+#: ../Data/glade/dasher.traditional.glade.h:24
+msgid "_Import Training Text..."
+msgstr "_ייבא קובץ אימון..."
+
+#: ../Data/glade/dasher.preferences.glade.h:1
+msgid "<b>Actions</b>"
+msgstr "‏<b>פעולות</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:2
+#: ../Data/glade/dashermaemo.preferences.glade.h:1
+msgid "<b>Adaptation</b>"
+msgstr "‏<b>הסתגלות</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:3
+#: ../Data/glade/dashermaemo.preferences.glade.h:2
+msgid "<b>Alphabet Selection</b>"
+msgstr "<b>בחירת אלף-בית</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:4
+msgid "<b>Appearance Options</b>"
+msgstr "<b>אפשרויות מראה</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:5
+msgid "<b>Application Options</b>"
+msgstr "<b>אפשרויות יישום</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:6
+msgid "<b>Application Style</b>"
+msgstr "‏<b>סגנון יישום</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:7
+msgid "<b>Colour Scheme</b>"
+msgstr "<b>סכימת צבעים</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:8
+msgid "<b>Control Style</b>"
+msgstr "<b>סגנון בקרה</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:9
+msgid "<b>Dasher Font</b>"
+msgstr "<b>גופן Dasher</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:10
+msgid "<b>Direction</b>"
+msgstr "<b>כיוון</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:11
+msgid "<b>Editor Font</b>"
+msgstr "‏<b>גופן עורך</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:12
+msgid "<b>Input Device</b>"
+msgstr "<b>התקן קלט</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:13
+#: ../Data/glade/dashermaemo.preferences.glade.h:5
+msgid "<b>Language Model</b>"
+msgstr "‏<b>מודל שפה</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:14
+#: ../Data/glade/dashermaemo.preferences.glade.h:7
+msgid "<b>Smoothing</b>"
+msgstr "<b>החלקה</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:15
+#: ../Data/glade/dashermaemo.preferences.glade.h:8
+msgid "<b>Speed</b>"
+msgstr "<b>מהירות</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:16
+msgid "<b>Starting And Stopping</b>"
+msgstr "<b>התחלה ועצירה</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:17
+#: ../Data/glade/dashermaemo.preferences.glade.h:9
+msgid "Adapt speed automatically"
+msgstr "התאם את המהירות אוטומטית"
+
+#. The default display orientation for the selected alphabet, ie left to right for English, right to left for Arabic, etc.
+#: ../Data/glade/dasher.preferences.glade.h:19
+#: ../Data/glade/dashermaemo.preferences.glade.h:11
+msgid "Alphabet Default"
+msgstr "אלף-בית ברירת-מחדל"
+
+#: ../Data/glade/dasher.preferences.glade.h:20
+msgid "Appearance"
+msgstr "מראה"
+
+#: ../Data/glade/dasher.preferences.glade.h:21
+msgid "Application"
+msgstr "יישום"
+
+#: ../Data/glade/dasher.preferences.glade.h:22
+#: ../Data/glade/dashermaemo.preferences.glade.h:12
+msgid "Bottom to Top"
+msgstr "מלמטה למעלה"
+
+#. Centre circle = start and stop by dwelling over a circle in the centre of the window Two box = start and stop by dwelling in sequence over two boxes (both of these are methods for starting and stopping without pressing a mouse button)
+#: ../Data/glade/dasher.preferences.glade.h:24
+msgid ""
+"Centre circle\n"
+"Two box"
+msgstr ""
+
+#: ../Data/glade/dasher.preferences.glade.h:26
+msgid "Composition"
+msgstr "חיבור"
+
+#: ../Data/glade/dasher.preferences.glade.h:27
+#: ../Data/glade/dashermaemo.preferences.glade.h:13
+msgid "Control"
+msgstr "בקרה"
+
+#: ../Data/glade/dasher.preferences.glade.h:28
+msgid "Control mode"
+msgstr "מצב בקרה"
+
+#: ../Data/glade/dasher.preferences.glade.h:29
+#: ../Data/glade/dashermaemo.preferences.glade.h:14
+msgid "Custom"
+msgstr "מותאם אישית"
+
+#: ../Data/glade/dasher.preferences.glade.h:30
+#: ../Data/glade/dashermaemo.preferences.glade.h:15
+msgid "Custom colour scheme:"
+msgstr "סכימת צבעים מואמת אישית"
+
+#: ../Data/glade/dasher.preferences.glade.h:31
+#: ../Data/glade/dashermaemo.preferences.glade.h:16
+msgid "Dasher Preferences"
+msgstr "העדפות Dasher"
+
+#: ../Data/glade/dasher.preferences.glade.h:32
+#, fuzzy
+msgid "Direct entry"
+msgstr "הזנת הטקסט של דאשר"
+
+#: ../Data/glade/dasher.preferences.glade.h:33
+msgid "Dock application window"
+msgstr ""
+
+#: ../Data/glade/dasher.preferences.glade.h:34
+msgid "Draw box outlines"
+msgstr "צייר קווי תיבה חיצוניים"
+
+#: ../Data/glade/dasher.preferences.glade.h:35
+msgid "Draw line between crosshairs and mouse"
+msgstr "צייר קו בין ההצטלבות והעכבר"
+
+#: ../Data/glade/dasher.preferences.glade.h:36
+msgid "Full Screen"
+msgstr "מסך מלא"
+
+#: ../Data/glade/dasher.preferences.glade.h:37
+msgid "Increase line thickness"
+msgstr ""
+
+#: ../Data/glade/dasher.preferences.glade.h:38
+#: ../Data/glade/dashermaemo.preferences.glade.h:18
+msgid "Japanese"
+msgstr "יפנית"
+
+#: ../Data/glade/dasher.preferences.glade.h:39
+msgid "Language"
+msgstr "שפה"
+
+#: ../Data/glade/dasher.preferences.glade.h:40
+#: ../Data/glade/dashermaemo.preferences.glade.h:19
+msgid "Language model adapts as you write."
+msgstr ""
+
+#: ../Data/glade/dasher.preferences.glade.h:41
+msgid "Large font "
+msgstr "גופן גדול "
+
+#: ../Data/glade/dasher.preferences.glade.h:42
+#: ../Data/glade/dashermaemo.preferences.glade.h:20
+msgid "Left to Right"
+msgstr "שמאל לימין"
+
+#. PPM =  Prediction by Partial Match, a styatistical language model.
+#: ../Data/glade/dasher.preferences.glade.h:44
+#: ../Data/glade/dashermaemo.preferences.glade.h:21
+msgid "Mixture model (PPM/dictionary)"
+msgstr ""
+
+#: ../Data/glade/dasher.preferences.glade.h:45
+msgid "Options"
+msgstr "אפשרויות"
+
+#: ../Data/glade/dasher.preferences.glade.h:46
+#, fuzzy
+msgid "Pause outside of canvas"
+msgstr "הפסק חלון חוץ"
+
+#: ../Data/glade/dasher.preferences.glade.h:47
+#: ../Data/glade/dashermaemo.preferences.glade.h:23
+msgid "Right to Left"
+msgstr "ימין לשמאל"
+
+#: ../Data/glade/dasher.preferences.glade.h:48
+msgid "Select Dasher Font"
+msgstr "בחר גופן Dasher"
+
+#: ../Data/glade/dasher.preferences.glade.h:49
+msgid "Select Editor Font"
+msgstr "בחר גופן עורך"
+
+#: ../Data/glade/dasher.preferences.glade.h:50
 msgid "Show mouse position"
 msgstr "הצג מיקום עכבר"
 
-#: ../Src/Gtk2/dasher.glade.h:106 ../Src/Gtk2/dashergpe.glade.h:63
-#: ../Src/Gtk2/dashermaemo.glade.h:103
+#: ../Data/glade/dasher.preferences.glade.h:51
 msgid "Show speed slider"
 msgstr "הצג מחוון מהירות"
 
-#: ../Src/Gtk2/dasher.glade.h:107 ../Src/Gtk2/dashergpe.glade.h:64
-#: ../Src/Gtk2/dashermaemo.glade.h:104
+#: ../Data/glade/dasher.preferences.glade.h:52
 msgid "Show toolbar"
 msgstr "הצג סרגל כלים"
 
-#: ../Src/Gtk2/dasher.glade.h:108
-#, fuzzy
-msgid "Socket Options"
-msgstr "_אפשרויות"
+#: ../Data/glade/dasher.preferences.glade.h:53
+msgid "Small font"
+msgstr "גופן קטן"
 
-#: ../Src/Gtk2/dasher.glade.h:109
-#, fuzzy
-msgid "Socket Preferences"
-msgstr "העדפות דאשר"
+#: ../Data/glade/dasher.preferences.glade.h:54
+msgid "Stand-alone"
+msgstr ""
 
-#: ../Src/Gtk2/dasher.glade.h:110 ../Src/Gtk2/dashergpe.glade.h:65
-#: ../Src/Gtk2/dashermaemo.glade.h:106
-msgid "Speak on stop"
-msgstr "דבר בעצירה"
-
-#: ../Src/Gtk2/dasher.glade.h:111 ../Src/Gtk2/dashermaemo.glade.h:107
+#. PPM = Prediction by Partial Match, a statistical language model.
+#: ../Data/glade/dasher.preferences.glade.h:56
+#: ../Data/glade/dashermaemo.preferences.glade.h:24
 msgid "Standard letter-based PPM"
 msgstr ""
 
-#: ../Src/Gtk2/dasher.glade.h:112 ../Src/Gtk2/dashergpe.glade.h:66
-#: ../Src/Gtk2/dashermaemo.glade.h:108
+#: ../Data/glade/dasher.preferences.glade.h:57
 msgid "Start on left mouse button"
 msgstr "התחל בלחיצה על הלחצן השמאלי בעכבר"
 
-#: ../Src/Gtk2/dasher.glade.h:113 ../Src/Gtk2/dashergpe.glade.h:67
-#: ../Src/Gtk2/dashermaemo.glade.h:109
+#: ../Data/glade/dasher.preferences.glade.h:58
 msgid "Start on space bar"
 msgstr "התחל בלחיצה על מקש הרווח"
 
-#: ../Src/Gtk2/dasher.glade.h:114 ../Src/Gtk2/dashergpe.glade.h:68
-#: ../Src/Gtk2/dashermaemo.glade.h:110
-msgid "Start with mouse position"
-msgstr "התחל עם מיקום עכבר"
+#: ../Data/glade/dasher.preferences.glade.h:59
+msgid "Start with mouse position:"
+msgstr "התחל עם מיקום עכבר:"
 
-#: ../Src/Gtk2/dasher.glade.h:115 ../Src/Gtk2/dashermaemo.glade.h:111
-msgid "Static menu mode"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:116 ../Src/Gtk2/dashermaemo.glade.h:112
-msgid "Steady mode"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:117 ../Src/Gtk2/dashermaemo.glade.h:113
-msgid "Three-button direct mode"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:118 ../Src/Gtk2/dashergpe.glade.h:69
-#: ../Src/Gtk2/dashermaemo.glade.h:114
+#: ../Data/glade/dasher.preferences.glade.h:60
 msgid "Timestamp new files"
 msgstr "חותמת זמן בקבצים חדשים"
 
-#: ../Src/Gtk2/dasher.glade.h:119 ../Src/Gtk2/dashergpe.glade.h:70
-#: ../Src/Gtk2/dashermaemo.glade.h:115
+#: ../Data/glade/dasher.preferences.glade.h:61
+#: ../Data/glade/dashermaemo.preferences.glade.h:25
 msgid "Top to Bottom"
 msgstr "מלמעלה למטה"
 
-#: ../Src/Gtk2/dasher.glade.h:120 ../Src/Gtk2/dashergpe.glade.h:71
-#: ../Src/Gtk2/dashermaemo.glade.h:116
-msgid "Training"
-msgstr "אימון"
-
-#: ../Src/Gtk2/dasher.glade.h:122 ../Src/Gtk2/dashergpe.glade.h:73
-#: ../Src/Gtk2/dashermaemo.glade.h:118
-msgid "Up/1:"
-msgstr "מעלה/1:"
-
-#: ../Src/Gtk2/dasher.glade.h:123 ../Src/Gtk2/dashermaemo.glade.h:119
+#: ../Data/glade/dasher.preferences.glade.h:62
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -843,174 +509,737 @@ msgstr ""
 "תיבות האותיות. שים לב שבחירת ערך גבוהה תאט\n"
 "את קצב הכתיבה שלך."
 
-#: ../Src/Gtk2/dasher.glade.h:126 ../Src/Gtk2/dashergpe.glade.h:75
-#: ../Src/Gtk2/dashermaemo.glade.h:122
-msgid "Very Large"
-msgstr "גדול מאוד"
+#: ../Data/glade/dasher.preferences.glade.h:65
+msgid "Very large font"
+msgstr "גופן גדול מאוד"
 
-#: ../Src/Gtk2/dasher.glade.h:127 ../Src/Gtk2/dashergpe.glade.h:76
-#: ../Src/Gtk2/dashermaemo.glade.h:123
-msgid "View"
-msgstr "תצוגה"
-
-#: ../Src/Gtk2/dasher.glade.h:128 ../Src/Gtk2/dashermaemo.glade.h:124
+#: ../Data/glade/dasher.preferences.glade.h:66
+#: ../Data/glade/dashermaemo.preferences.glade.h:27
 msgid "Word-based model"
 msgstr ""
 
-#: ../Src/Gtk2/dasher.glade.h:129 ../Src/Gtk2/dashergpe.glade.h:77
-#: ../Src/Gtk2/dashermaemo.glade.h:125
-msgid "X:"
-msgstr "X:"
+#: ../Data/glade/dashermaemo.glade.h:1
+msgid "\n"
+msgstr "\n"
 
-#: ../Src/Gtk2/dasher.glade.h:130 ../Src/Gtk2/dashergpe.glade.h:78
-#: ../Src/Gtk2/dashermaemo.glade.h:126
-msgid "Y:"
-msgstr "Y:"
-
-#: ../Src/Gtk2/dasher.glade.h:131 ../Src/Gtk2/dashermaemo.glade.h:127
-msgid "Zoom:"
+#: ../Data/glade/dashermaemo.glade.h:4
+msgid "P"
 msgstr ""
 
-#: ../Src/Gtk2/dasher.glade.h:132 ../Src/Gtk2/dashergpe.glade.h:79
-#: ../Src/Gtk2/dashermaemo.glade.h:128
-msgid "_About"
-msgstr "_אודות"
+#: ../Data/glade/dashermaemo.preferences.glade.h:3
+msgid "<b>Color Scheme</b>"
+msgstr "<b>סכימת צבעים</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:133 ../Src/Gtk2/dashergpe.glade.h:80
-#: ../Src/Gtk2/dashermaemo.glade.h:129
-msgid "_Append to file"
-msgstr "_צרף לקובץ"
+#: ../Data/glade/dashermaemo.preferences.glade.h:4
+msgid "<b>Display Size</b>"
+msgstr "<b>גודל תצוגה</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:134 ../Src/Gtk2/dashergpe.glade.h:81
-#: ../Src/Gtk2/dashermaemo.glade.h:130
+#: ../Data/glade/dashermaemo.preferences.glade.h:6
+msgid "<b>Orientation</b>"
+msgstr "<b>כיווניות</b>"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:10
+msgid "Alphabet"
+msgstr "אלף-בית"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:17
+#, fuzzy
+msgid "Enlarge input window"
+msgstr "הכנס טקסט לחלונות האחרים"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:22
+msgid "Prediction"
+msgstr ""
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:26
+msgid "View"
+msgstr "תצוגה"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:3
+msgid "Large"
+msgstr "גדול"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:4
+msgid "Normal"
+msgstr "רגיל"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:7
+msgid "Very Large"
+msgstr "גדול מאוד"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:9
 msgid "_Dasher Font"
-msgstr "_גופן דאשר"
+msgstr "_גופן Dasher"
 
-#: ../Src/Gtk2/dasher.glade.h:135 ../Src/Gtk2/dashergpe.glade.h:82
-#: ../Src/Gtk2/dashermaemo.glade.h:131
+#: ../Data/glade/dashermaemofullscreen.glade.h:10
 msgid "_Dasher Font Size"
-msgstr "_גודל הגופן של דאשר"
+msgstr "_גודל הגופן של Dasher"
 
-#: ../Src/Gtk2/dasher.glade.h:136 ../Src/Gtk2/dashergpe.glade.h:83
-#: ../Src/Gtk2/dashermaemo.glade.h:132
-msgid "_Edit"
-msgstr "_עריכה"
-
-#: ../Src/Gtk2/dasher.glade.h:137 ../Src/Gtk2/dashergpe.glade.h:84
-#: ../Src/Gtk2/dashermaemo.glade.h:133
+#: ../Data/glade/dashermaemofullscreen.glade.h:12
 msgid "_Edit Font"
 msgstr "_ערוך גופן"
 
-#: ../Src/Gtk2/dasher.glade.h:138 ../Src/Gtk2/dashergpe.glade.h:85
-#: ../Src/Gtk2/dashermaemo.glade.h:134
-msgid "_File"
-msgstr "_קובץ"
-
-#: ../Src/Gtk2/dasher.glade.h:139 ../Src/Gtk2/dashergpe.glade.h:86
-#: ../Src/Gtk2/dashermaemo.glade.h:135
-msgid "_Help"
-msgstr "_עזרה"
-
-#: ../Src/Gtk2/dasher.glade.h:140 ../Src/Gtk2/dashergpe.glade.h:87
-#: ../Src/Gtk2/dashermaemo.glade.h:136
-msgid "_Import Training Text"
-msgstr "_ייבא קובץ אימון"
-
-#: ../Src/Gtk2/dasher.glade.h:141 ../Src/Gtk2/dashergpe.glade.h:88
-#: ../Src/Gtk2/dashermaemo.glade.h:137
+#: ../Data/glade/dashermaemofullscreen.glade.h:15
 msgid "_Options"
 msgstr "_אפשרויות"
 
-#: ../Src/Gtk2/dasher.glade.h:142 ../Src/Gtk2/dashergpe.glade.h:89
-#: ../Src/Gtk2/dashermaemo.glade.h:138
+#: ../Data/glade/dashermaemofullscreen.glade.h:16
 msgid "_Reset fonts"
 msgstr "_אתחל גופנים"
 
-#: ../Src/Gtk2/dasher.glade.h:143 ../Src/Gtk2/dashergpe.glade.h:90
-#: ../Src/Gtk2/dashermaemo.glade.h:139
-msgid "abcdefghijk ABCDEFGHIJK"
-msgstr "אבגדהוזחטיכ abcdefghijk ABCDEFGHIJK"
+#: ../Src/DasherCore/ClickFilter.cpp:7
+msgid "Maximum Zoom"
+msgstr "תקריב מקסימאלי"
 
-#: ../Src/Gtk2/dashergpe.glade.h:13
-msgid "<b>Speed</b>"
-msgstr "<b>מהירות</b>"
-
-#: ../Src/Gtk2/dashergpe.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:32
-msgid "Advanced"
-msgstr "מתקדם"
-
-#: ../Src/Gtk2/dashergpe.glade.h:26
+#: ../Src/DasherCore/ClickFilter.h:11
 #, fuzzy
-msgid "Change color scheme automatically"
-msgstr "שנה את סכימת הצבעים אוטומטית"
+msgid "Click Mode"
+msgstr "מצב בקרה"
 
-#: ../Src/Gtk2/dashergpe.glade.h:27
-msgid "Color"
-msgstr "צבע"
+#. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
+#: ../Src/DasherCore/DasherButtons.cpp:25
+msgid "Zoom steps"
+msgstr "צעדי תקריב"
 
-#: ../Src/Gtk2/dashergpe.glade.h:44
-#, fuzzy
-msgid ""
-"If this mode is selected, up and down will cycle backwards and forwards "
-"between coordinates and right will confirm the choice"
+#. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
+#: ../Src/DasherCore/DasherButtons.cpp:27
+msgid "Right zoom"
+msgstr "תקריב ימני"
+
+#: ../Src/DasherCore/DasherButtons.cpp:28
+msgid "Number of boxes"
 msgstr ""
-"אם מצב זה נבחר, מעלה ומטה ינועו\n"
-"קדימה ואחורה בין הקורדינטות וימינה יאשר את הבחירה"
 
-#: ../Src/Gtk2/dashergpe.glade.h:50
-#, fuzzy
-msgid "Number of pixels that should cover the entire Y range:"
-msgstr "מספר הפיקסלים שצריכים לכסות את כל טווח ה Y:"
+#: ../Src/DasherCore/DasherButtons.cpp:29
+msgid "Safety margin"
+msgstr "שול בטיחות"
 
-#: ../Src/Gtk2/dashergpe.glade.h:53
-msgid "Orientation"
-msgstr "יישור"
-
-#: ../Src/Gtk2/dashergpe.glade.h:74
-#, fuzzy
-msgid ""
-"Use this control to adjust the relative sizes of the letter boxes. Note that "
-"selecting high values will slow your writing speed."
+#. TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other.
+#: ../Src/DasherCore/DasherButtons.cpp:31
+msgid "Box non-uniformity"
 msgstr ""
-"השתמש בפקד זה כדי לכוון את הגודל היחסי של\n"
-"תיבות האותיות. שים לב שבחירת ערך גבוהה תאט\n"
-"את קצב הכתיבה שלך."
 
-#: ../Src/Gtk2/dashermaemo.glade.h:40
+#. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
+#: ../Src/DasherCore/DasherButtons.cpp:33
+msgid "Global keyboard grab"
+msgstr ""
+
+#: ../Src/DasherCore/DasherGameMode.cpp:633
+msgid "Well done!"
+msgstr "כל הכבוד!"
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:934
 #, fuzzy
-msgid "Button setup"
+msgid "Normal Control"
+msgstr "בקרה"
+
+#. TODO: specialist factory for button mode
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:941
+msgid "Menu Mode"
+msgstr "מצב תפריט"
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:942
+msgid "Direct Mode"
+msgstr ""
+
+#. RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:944
+msgid "Alternating Direct Mode"
+msgstr ""
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:945
+msgid "Compass Mode"
+msgstr ""
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:946
+#, fuzzy
+msgid "Stylus Control"
+msgstr "בקרה"
+
+#: ../Src/DasherCore/EyetrackerFilter.cpp:7
+msgid "Automatic calibration"
+msgstr ""
+
+#: ../Src/DasherCore/EyetrackerFilter.cpp:11
+#, fuzzy
+msgid "Eyetracker Mode"
+msgstr "מצב עקיבת עיניים"
+
+#. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:29
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
+msgid "Long press time"
+msgstr "זמן לחיצה ארוכה"
+
+#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the time in which the button must be pressed multiple times to count.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
+msgid "Multiple press time"
+msgstr ""
+
+#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the number of times a button must be pressed to count as a multiple press.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:34
+msgid "Multiple press count"
+msgstr ""
+
+#. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
+msgid "Enable backoff button"
+msgstr ""
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
+#, fuzzy
+msgid "One Button Dynamic Mode"
+msgstr "מצב כפתור"
+
+#: ../Src/DasherCore/OneDimensionalFilter.cpp:5
+#, fuzzy
+msgid "One Dimensional Mode"
+msgstr "מצב חד-מימדי"
+
+#: ../Src/DasherCore/SettingsStore.cpp:76
+#: ../Src/Gtk2/DasherAppSettings.cpp:516 ../Src/Gtk2/DasherAppSettings.cpp:550
+#: ../Src/Gtk2/DasherAppSettings.cpp:554
+msgid "true"
+msgstr ""
+
+#: ../Src/DasherCore/SettingsStore.cpp:78
+#: ../Src/Gtk2/DasherAppSettings.cpp:518 ../Src/Gtk2/DasherAppSettings.cpp:550
+#: ../Src/Gtk2/DasherAppSettings.cpp:554
+#, fuzzy
+msgid "false"
+msgstr "הפסק"
+
+#. Note to translators: This message will be output for a command line
+#. with "--options foo=VAL" and foo is a boolean valued parameter, but
+#. "VAL" is not true or false.
+#: ../Src/DasherCore/SettingsStore.cpp:84
+#: ../Src/Gtk2/DasherAppSettings.cpp:521
+msgid "boolean value must be specified as 'true' or 'false'."
+msgstr ""
+
+#. Note to translators: This is output when command line "--options" doesn't
+#. specify a known option.
+#: ../Src/DasherCore/SettingsStore.cpp:104
+msgid "unknown option, use \"--help-options\" for more information."
+msgstr ""
+
+#. TODO should probably pop up a Gtk error message and think about how to do i18n:
+#: ../Src/DasherCore/SocketInput.cpp:34
+msgid "Dasher socket input: failed to launch reader thread."
+msgstr ""
+
+#: ../Src/DasherCore/SocketInputBase.cpp:27
+msgid "Port:"
+msgstr "שער:"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:28
+msgid "X label:"
+msgstr "תווית X:"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:29
+msgid "X minimum:"
+msgstr ""
+"‏X מינימאלי"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:30
+msgid "X maximum:"
+msgstr ""
+"‏X מקסימאלי"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:31
+msgid "Y label:"
+msgstr "תווית Y:"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:32
+msgid "Y minimum:"
+msgstr ""
+"‏Y מינימאלי"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:33
+msgid "Y maximum:"
+msgstr ""
+"‏Y מקסימאלי"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:34
+msgid "Print socket-related debugging information to console:"
+msgstr ""
+
+#: ../Src/DasherCore/SocketInputBase.cpp:38
+#, fuzzy
+msgid "Socket Input"
+msgstr "<b>החלקה:</b>"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:28
+#, fuzzy
+msgid "Button offset"
 msgstr "הגדרת בקרת כפתור"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:65
-msgid ""
-"If this mode is selected, up  and down will\n"
-"cycle backwards and forwards between coordinates and right will confirm the "
-"choice"
-msgstr ""
-"אם מצב זה נבחר, מעלה ומטה ינועו\n"
-"קדימה ואחורה בין הקורדינטות וימינה יאשר את הבחירה"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:105
-msgid "Socket"
+#. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:36
+msgid "Enable backoff and start/stop buttons"
 msgstr ""
 
-#: ../Src/Gtk2/speech.cc:27
+#. TRANSLATORS: What is normally the up button becomes the down button etc.
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:38
+msgid "Reverse up and down buttons"
+msgstr ""
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:39
+msgid "Slow startup"
+msgstr "התחלה איטית"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:40
+msgid "Startup time"
+msgstr "זמן התחלה"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
+msgid "Auto speed control"
+msgstr ""
+
+#. TRANSLATORS: The threshold time above which auto speed control is used.
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
+msgid "Auto speed threshold"
+msgstr ""
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:47
+#, fuzzy
+msgid "Two Button Dynamic Mode"
+msgstr "מצב כפתור"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:547
+msgid "Boolean parameters"
+msgstr "פרמטר בוליאני"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:547 ../Src/Gtk2/DasherAppSettings.cpp:558
+#: ../Src/Gtk2/DasherAppSettings.cpp:569
+msgid "Default"
+msgstr "ברירת מחדל"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:547 ../Src/Gtk2/DasherAppSettings.cpp:558
+#: ../Src/Gtk2/DasherAppSettings.cpp:569
+msgid "Description"
+msgstr "תיאור"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:558
+msgid "Integer parameters"
+msgstr ""
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:569
+msgid "String parameters"
+msgstr ""
+
+#: ../Src/Gtk2/Preferences.cpp:433 ../Src/Gtk2/Preferences.cpp:1002
+msgid "Action"
+msgstr "פעולה"
+
+#. TRANSLATORS: Show a button for the selected action in the Dasher window.
+#: ../Src/Gtk2/Preferences.cpp:1009
+#, fuzzy
+msgid "Show Button"
+msgstr "כפתורים"
+
+#: ../Src/Gtk2/Preferences.cpp:1014
+#, fuzzy
+msgid "Control Mode"
+msgstr "מצב בקרה"
+
+#. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
+#: ../Src/Gtk2/Preferences.cpp:1020
+#, fuzzy
+msgid "Auto On Stop"
+msgstr "הגדרת בקרת כפתור"
+
+#: ../Src/Gtk2/dasher_action_keyboard.cpp:60
+#: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:94
+msgid "Enter Text"
+msgstr "הכנס טקסט"
+
+#: ../Src/Gtk2/dasher_action_script.cpp:91
+msgid "Script"
+msgstr "תסריט"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:130
+msgid "Speak"
+msgstr "דבר"
+
+#. TRANSLATORS: Send all text to the text-to-speech engine.
+#: ../Src/Gtk2/dasher_action_speech.cpp:143
+msgid "All"
+msgstr "הכל"
+
+#. TRANSLATORS: Send most recently entered text to the text-to-speech engine.
+#: ../Src/Gtk2/dasher_action_speech.cpp:146
+msgid "Last"
+msgstr "אחרון"
+
+#. TRANSLATORS: Repeat the last phrase sent to the text-to-speech engine.
+#: ../Src/Gtk2/dasher_action_speech.cpp:149
+msgid "Repeat"
+msgstr "חזור"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:167
 #, c-format
 msgid "Unable to initialize speech support\n"
 msgstr "לא ניתן לאתחל את תמיכת הדיבור\n"
 
-#: ../Src/Gtk2/speech.cc:50
-#, c-format
+#: ../Src/Gtk2/dasher_action_speech.cpp:190
 msgid "Unable to initialize voices\n"
-msgstr ""
-"לא ניתן לאתחל קולות\n"
+msgstr "לא ניתן לאתחל קולות\n"
 
-#: ../Src/Gtk2/speech.cc:62
-#, c-format
+#: ../Src/Gtk2/dasher_action_speech.cpp:202
 msgid "Warning: unable to set speech parameters\n"
 msgstr "אזהרה: לא ניתן לקבוע פרמטרי דיבור\n"
 
-#: ../Src/main.cc:127
-msgid "Dasher Text Entry"
-msgstr "הזנת הטקסט של דאשר"
+#. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
+#: ../Src/Gtk2/dasher_main.cpp:311
+msgid "option setting is missing \"=\"."
+msgstr ""
 
+#. Note to translators: This string will be output when --options= specifies an unknown option.
+#: ../Src/Gtk2/dasher_main.cpp:327
+msgid "Invalid option string specified"
+msgstr ""
+
+#. Note to translators: This is a format string for the name of the dasher
+#. program as it appears in a window, %s will be the filename.
+#: ../Src/Gtk2/dasher_main.cpp:999
+#, c-format
+msgid "Dasher - %s"
+msgstr ""
+"‏Dasher - ‏%s"
+
+#: ../Src/Gtk2/dasher_main.cpp:1084
+#, c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+
+#: ../Src/Gtk2/dasher_main.cpp:1090
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+
+#: ../Src/Gtk2/dasher_main.cpp:1094
+msgid "Don't save"
+msgstr "אל תשמור"
+
+#: ../Src/Gtk2/dasher_main.cpp:1095 ../Src/Gtk2/dasher_main.cpp:1119
+msgid "Don't quit"
+msgstr "אל תצא"
+
+#: ../Src/Gtk2/dasher_main.cpp:1096
+msgid "Save and quit"
+msgstr "שמור וצא"
+
+#: ../Src/Gtk2/dasher_main.cpp:1116
+msgid "Are you sure you wish to quit?"
+msgstr ""
+
+#: ../Src/Gtk2/dasher_main.cpp:1199 ../Src/Gtk2/dasher_main.cpp:1215
+msgid "Dasher is a predictive text entry application"
+msgstr ""
+
+#: ../Src/Gtk2/dasher_main.cpp:1204 ../Src/Gtk2/dasher_main.cpp:1210
+msgid "translator-credits"
+msgstr ""
+
+#: ../Src/Gtk2/module_settings_window.cpp:86
+msgid "Dasher Module Options"
+msgstr ""
+
+#: ../Src/Gtk2/module_settings_window.cpp:92
+#, c-format
+msgid "%s Options:"
+msgstr "אפשרויות %s:"
+
+#: ../Src/Gtk2/mouse_input.h:15
+msgid "Mouse Input"
+msgstr ""
+
+#: ../Src/Gtk2/mouse_input.h:51
+msgid "Pixels covering Y range"
+msgstr ""
+
+#. TRANSLATORS: Only use the vertical mouse coordinate - this is prefered for some disabled users.
+#: ../Src/Gtk2/mouse_input.h:58
+#, fuzzy
+msgid "One Dimensional Mouse Input"
+msgstr "מצב חד-מימדי"
+
+#. {"timedata", 'w', 0, G_OPTION_ARG_NONE, &timedata, "Write basic timing information to stdout", NULL},
+#. {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences window only", NULL},
+#. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
+#. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
+#. Note to translators: This is the help string for "--appstyle"
+#: ../Src/main.cc:188
+msgid "Application style (traditional, direct, compose or fullscreen)"
+msgstr "Application style (traditional, direct, compose or fullscreen)"
+
+#. Note to translators: This is the help string for "--options"
+#: ../Src/main.cc:190
+msgid "Override stored options"
+msgstr "Override stored options"
+
+#. Note to translators: This is the help string for "--help-options"
+#: ../Src/main.cc:192
+msgid "Describe \"--options\"."
+msgstr "Describe \"--options\"."
+
+#. Note to translators: This is the "--help" description of dasher.
+#: ../Src/main.cc:199
+msgid "- A text input application honouring accessibility"
+msgstr "- A text input application honouring accessibility"
+
+#~ msgid "Training Dasher... please wait"
+#~ msgstr "מאמן את Dasher... אנא המתן"
+
+#~ msgid "Panels"
+#~ msgstr "לוחות"
+
+#~ msgid "Menus"
+#~ msgstr "תפריטים"
+
+#~ msgid "Text"
+#~ msgstr "טקסט"
+
+#~ msgid "Windows"
+#~ msgstr "חלונות"
+
+#~ msgid "Stop"
+#~ msgstr "עצור"
+
+#~ msgid "Move"
+#~ msgstr "הזז"
+
+#~ msgid "<"
+#~ msgstr "<"
+
+#~ msgid ">"
+#~ msgstr ">"
+
+#~ msgid "<<<"
+#~ msgstr "<<<"
+
+#~ msgid ">>>"
+#~ msgstr ">>>"
+
+#~ msgid "Everything"
+#~ msgstr "כל דבר"
+
+#~ msgid "New"
+#~ msgstr "חדש"
+
+#~ msgid "1"
+#~ msgstr "1"
+
+#~ msgid "2"
+#~ msgstr "2"
+
+#~ msgid "3"
+#~ msgstr "3"
+
+#~ msgid "4"
+#~ msgstr "4"
+
+#~ msgid "5"
+#~ msgstr "5"
+
+#~ msgid "6"
+#~ msgstr "6"
+
+#~ msgid "7"
+#~ msgstr "7"
+
+#~ msgid "8"
+#~ msgstr "8"
+
+#~ msgid "9"
+#~ msgstr "9"
+
+#~ msgid "10"
+#~ msgstr "10"
+
+#~ msgid "Character"
+#~ msgstr "תו"
+
+#~ msgid "Word"
+#~ msgstr "מילה"
+
+#~ msgid "Line"
+#~ msgstr "שורה"
+
+#~ msgid "Unknown"
+#~ msgstr "לא ידוע"
+
+#~ msgid "5:"
+#~ msgstr "5:"
+
+#~ msgid "6:"
+#~ msgstr "6:"
+
+#~ msgid "7:"
+#~ msgstr "7:"
+
+#~ msgid "8:"
+#~ msgstr "8:"
+
+#~ msgid "9:"
+#~ msgstr "9:"
+
+#~ msgid "<b>Advanced Settings:</b>"
+#~ msgstr "‏<b>אפשרויות מתקדמות:</b>"
+
+#~ msgid "<b>Button control setup</b>"
+#~ msgstr "<b>הגדרת שליטת כפתורים</b>"
+
+#~ msgid "<b>Button modes:</b>"
+#~ msgstr "‏<b>מצבי כפתור:</b>"
+
+#~ msgid "<b>Miscellaneous Options:</b>"
+#~ msgstr "<b>אפשרויות שונות:</b>"
+
+#, fuzzy
+#~ msgid "<b>One-Button Static Mode</b>"
+#~ msgstr "<b>מיתוג מצב כפתור:</b>"
+
+#~ msgid "<b>Toggle button Mode:</b>"
+#~ msgstr "<b>מיתוג מצב כפתור:</b>"
+
+#, fuzzy
+#~ msgid "<b>X Coordinate</b>"
+#~ msgstr "<b>קורדינטות X/Y:</b>"
+
+#~ msgid "<b>X/Y Coordinates:</b>"
+#~ msgstr "<b>קורדינטות X/Y:</b>"
+
+#, fuzzy
+#~ msgid "<b>Y Coordinate</b>"
+#~ msgstr "<b>קורדינטות X/Y:</b>"
+
+#~ msgid "Advanced Settings"
+#~ msgstr "הגדרות מתקדמות"
+
+#~ msgid "Button control setup"
+#~ msgstr "הגדרת בקרת כפתור"
+
+#~ msgid "Button:"
+#~ msgstr "מקש"
+
+#~ msgid "Copy all on stop"
+#~ msgstr "העתק הכל בעצירה"
+
+#~ msgid "Cyclical button mode"
+#~ msgstr "מצב כפתור מעגלי"
+
+#~ msgid "Distance from centerline for start on mouse position:"
+#~ msgstr "מרחק מקו האמצע להתחלה במיקום העכבר:"
+
+#~ msgid "Down/3:"
+#~ msgstr "מטה/3:"
+
+#~ msgid "Edit Button-control options"
+#~ msgstr "עריכת אפשרויות פקד-כפתור"
+
+#~ msgid "General"
+#~ msgstr "כללי"
+
+#~ msgid ""
+#~ "If this mode is selected, up and down will\n"
+#~ "cycle backwards and forwards between coordinates and right will confirm "
+#~ "the choice"
+#~ msgstr ""
+#~ "אם מצב זה נבחר, מעלה ומטה ינועו\n"
+#~ "קדימה ואחורה בין הקורדינטות וימינה יאשר את הבחירה"
+
+#~ msgid "Left/2:"
+#~ msgstr "שמאל/2:"
+
+#~ msgid "Max"
+#~ msgstr "מקסימום"
+
+#~ msgid "Min"
+#~ msgstr "מינימום"
+
+#~ msgid "Miscellaneous"
+#~ msgstr "שונות"
+
+#, fuzzy
+#~ msgid "Pulsing mode"
+#~ msgstr "מצב כפתור"
+
+#~ msgid "Right/4:"
+#~ msgstr "ימין/4:"
+
+#~ msgid "Show Advanced Settings"
+#~ msgstr "הצג הגדרות מתקדמות"
+
+#, fuzzy
+#~ msgid "Socket Options"
+#~ msgstr "_אפשרויות"
+
+#, fuzzy
+#~ msgid "Socket Preferences"
+#~ msgstr "העדפות דאשר"
+
+#~ msgid "Speak on stop"
+#~ msgstr "דבר בעצירה"
+
+#~ msgid "Training"
+#~ msgstr "אימון"
+
+#~ msgid "Up/1:"
+#~ msgstr "מעלה/1:"
+
+#~ msgid "X:"
+#~ msgstr "X:"
+
+#~ msgid "Y:"
+#~ msgstr "Y:"
+
+#~ msgid "Advanced"
+#~ msgstr "מתקדם"
+
+#, fuzzy
+#~ msgid "Change color scheme automatically"
+#~ msgstr "שנה את סכימת הצבעים אוטומטית"
+
+#~ msgid "Color"
+#~ msgstr "צבע"
+
+#, fuzzy
+#~ msgid ""
+#~ "If this mode is selected, up and down will cycle backwards and forwards "
+#~ "between coordinates and right will confirm the choice"
+#~ msgstr ""
+#~ "אם מצב זה נבחר, מעלה ומטה ינועו\n"
+#~ "קדימה ואחורה בין הקורדינטות וימינה יאשר את הבחירה"
+
+#, fuzzy
+#~ msgid "Number of pixels that should cover the entire Y range:"
+#~ msgstr "מספר הפיקסלים שצריכים לכסות את כל טווח ה Y:"
+
+#~ msgid "Orientation"
+#~ msgstr "יישור"
+
+#, fuzzy
+#~ msgid ""
+#~ "Use this control to adjust the relative sizes of the letter boxes. Note "
+#~ "that selecting high values will slow your writing speed."
+#~ msgstr ""
+#~ "השתמש בפקד זה כדי לכוון את הגודל היחסי של\n"
+#~ "תיבות האותיות. שים לב שבחירת ערך גבוהה תאט\n"
+#~ "את קצב הכתיבה שלך."
+
+#~ msgid ""
+#~ "If this mode is selected, up  and down will\n"
+#~ "cycle backwards and forwards between coordinates and right will confirm "
+#~ "the choice"
+#~ msgstr ""
+#~ "אם מצב זה נבחר, מעלה ומטה ינועו\n"
+#~ "קדימה ואחורה בין הקורדינטות וימינה יאשר את הבחירה"
