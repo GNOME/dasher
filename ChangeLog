@@ -1,6 +1,7 @@
 2008-09-15  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* configure.in: Cleaner way of fixing #324067 (libglade autoconnect)
+	* Expat removal was already decided on 2008-04-26
 
 2008-09-10  Patrick Welche  <prlw1@cam.ac.uk>
 
