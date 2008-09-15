@@ -328,6 +328,13 @@ dnl	        AC_DEFINE([HAVE_WNCK], 1, [wnck is present])
 dnl	fi
 fi
 
+# libglade's autoconnect feature requires dasher to be linked with
+# the --export-dynamic flag. pkg-config does not provide it, and libtool
+# knows what to do with -export-dynamic.
+if [[ x"$glade_LIBS" != x ]]; then
+	glade_LIBS="$glade_LIBS -export-dynamic"
+fi
+
 if [[ x"$GCONF2HERE" = xtrue ]]; then
         AM_GCONF_SOURCE_2
         AC_DEFINE([WITH_GCONF], 1, [Use GConf])
@@ -388,26 +395,7 @@ AC_SUBST(SETTINGS_LIBS)
 
 GTK2BUILD_CFLAGS="$GTK2_CFLAGS $SETTINGS_CFLAGS $gthread_CFLAGS $gnome_speech_CFLAGS $gnome_a11y_CFLAGS $glade_CFLAGS $gnome_CFLAGS $wnck_CFLAGS $hildon_CFLAGS"
 
-dnl Check for GNU ld stolen from libtool.m4 - code reuse would be nice here
-
-AC_CACHE_CHECK([if the linker ($LD) is GNU ld], have_prog_gnu_ld,
-[# I'd rather use --version here, but apparently some GNU lds only accept -v.
-case `$LD -v 2>&1 </dev/null` in
-*GNU* | *'with BFD'*)
-have_prog_gnu_ld=yes
-;;
-*)
-have_prog_gnu_ld=no
-;;
-esac])
-
-if [[ x"$have_prog_gnu_ld" = xyes ]]; then
-   ed_flags="-Wl,--export-dynamic,"
-else
-   ed_flags=""
-fi
-
-GTK2BUILD_LIBS="$X_LIBS $GTK2_LIBS $SETTINGS_LIBS $gthread_LIBS $gnome_speech_LIBS $gnome_a11y_LIBS $glade_LIBS $gnome_LIBS $wnck_LIBS $hildon_LIBS $ed_flags"
+GTK2BUILD_LIBS="$X_LIBS $GTK2_LIBS $SETTINGS_LIBS $gthread_LIBS $gnome_speech_LIBS $gnome_a11y_LIBS $glade_LIBS $gnome_LIBS $wnck_LIBS $hildon_LIBS"
 
 AC_SUBST(GTK2BUILD_CFLAGS)
 AC_SUBST(GTK2BUILD_LIBS)
