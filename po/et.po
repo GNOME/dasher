@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-04-22 20:22+0000\n"
-"PO-Revision-Date: 2008-06-04 19:41+0300\n"
+"PO-Revision-Date: 2008-09-16 11:43+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -699,13 +699,13 @@ msgstr "Ühemõõtmeline režiim"
 #: ../Src/Gtk2/DasherAppSettings.cpp:516 ../Src/Gtk2/DasherAppSettings.cpp:550
 #: ../Src/Gtk2/DasherAppSettings.cpp:554
 msgid "true"
-msgstr ""
+msgstr "true"
 
 #: ../Src/DasherCore/SettingsStore.cpp:78
 #: ../Src/Gtk2/DasherAppSettings.cpp:518 ../Src/Gtk2/DasherAppSettings.cpp:550
 #: ../Src/Gtk2/DasherAppSettings.cpp:554
 msgid "false"
-msgstr ""
+msgstr "false"
 
 #. Note to translators: This message will be output for a command line
 #. with "--options foo=VAL" and foo is a boolean valued parameter, but
@@ -713,13 +713,14 @@ msgstr ""
 #: ../Src/DasherCore/SettingsStore.cpp:84
 #: ../Src/Gtk2/DasherAppSettings.cpp:521
 msgid "boolean value must be specified as 'true' or 'false'."
-msgstr ""
+msgstr "tõeväärtusteks on 'true' (tõene) või 'false' (väär)."
 
 #. Note to translators: This is output when command line "--options" doesn't
 #. specify a known option.
 #: ../Src/DasherCore/SettingsStore.cpp:104
 msgid "unknown option, use \"--help-options\" for more information."
 msgstr ""
+"tundmatu võti, täiendava teabe saamiseks kasuta võtit \"--help-options\"."
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
@@ -881,12 +882,12 @@ msgstr "Hoiatus: kõnemootori parameetreid pole võimalik määrata\n"
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
 #: ../Src/Gtk2/dasher_main.cpp:311
 msgid "option setting is missing \"=\"."
-msgstr ""
+msgstr "võtme määramisel puudub märk \"=\"."
 
 #. Note to translators: This string will be output when --options= specifies an unknown option.
 #: ../Src/Gtk2/dasher_main.cpp:327
 msgid "Invalid option string specified"
-msgstr ""
+msgstr "Vigane võtmestring"
 
 #. Note to translators: This is a format string for the name of the dasher
 #. program as it appears in a window, %s will be the filename.
@@ -971,22 +972,22 @@ msgstr "Ühemõõtmeline hiiresisend"
 #. Note to translators: This is the help string for "--appstyle"
 #: ../Src/main.cc:188
 msgid "Application style (traditional, direct, compose or fullscreen)"
-msgstr ""
+msgstr "Rakenduse laad (traditional, direct, compose või fullscreen)"
 
 #. Note to translators: This is the help string for "--options"
 #: ../Src/main.cc:190
 msgid "Override stored options"
-msgstr ""
+msgstr "Salvestatud võtmete asemel siinmääratud võtmete kasutamine"
 
 #. Note to translators: This is the help string for "--help-options"
 #: ../Src/main.cc:192
 msgid "Describe \"--options\"."
-msgstr ""
+msgstr "\"--options\" kirjeldamine."
 
 #. Note to translators: This is the "--help" description of dasher.
 #: ../Src/main.cc:199
 msgid "- A text input application honouring accessibility"
-msgstr ""
+msgstr "- Hõlbustuste jaoks mõeldud tekstisisestamise rakendus"
 
 #~ msgid "<b>Prediction:</b>"
 #~ msgstr "<b>Ennustamine:</b>"
