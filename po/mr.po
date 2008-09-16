@@ -1,246 +1,349 @@
-# translation of dasher.HEAD.mr.po to marathi
+# translation of mr.po to marathi
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
 # Rahul Bhalerao <b.rahul.pm@gmail.com>, 2006.
-# sandeep shedmake <sandeep.shedmake@gmail.com>, 2008.
+# Sandeep Shedmake <sandeep.shedmake@gmail.com>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher.HEAD.mr\n"
+"Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-18 14:45+0100\n"
-"PO-Revision-Date: 2008-02-15 18:27+0530\n"
-"Last-Translator: sandeep shedmake <sandeep.shedmake@gmail.com>\n"
+"POT-Creation-Date: 2008-04-22 20:22+0000\n"
+"PO-Revision-Date: 2008-09-16 14:49+0530\n"
+"Last-Translator: Sandeep Shedmake <sandeep.shedmake@gmail.com>\n"
 "Language-Team: marathi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
-#: ../Data/dasher.desktop.in.in.h:1 ../Data/glade/dasher.compose.glade.h:34
-#: ../Data/glade/dasher.direct.glade.h:31
-#: ../Data/glade/dasher.fullscreen.glade.h:30
-#: ../Data/glade/dasher.gameWIP.glade.h:35
-#: ../Data/glade/dasher.traditional.glade.h:39
-#: ../Data/glade/dashermaemo.glade.h:17
-#: ../Data/glade/dashermaemofullscreen.glade.h:15
-#: ../Src/Gtk2/dasher_main.cpp:1158
+#. Note to translators: This is the name of the dasher program as it appears
+#. in a window title without a file.
+#: ../Data/dasher.desktop.in.in.h:1 ../Data/glade/dasher.compose.glade.h:5
+#: ../Data/glade/dasher.direct.glade.h:2
+#: ../Data/glade/dasher.fullscreen.glade.h:1
+#: ../Data/glade/dasher.gameWIP.glade.h:6
+#: ../Data/glade/dasher.traditional.glade.h:6
+#: ../Data/glade/dashermaemo.glade.h:3
+#: ../Data/glade/dashermaemofullscreen.glade.h:2
+#: ../Src/Gtk2/dasher_main.cpp:992 ../Src/Gtk2/dasher_main.cpp:1212
 msgid "Dasher"
 msgstr "Dasher"
 
 #: ../Data/dasher.desktop.in.in.h:2
+msgid "Enter text without a keyboard"
+msgstr "पाठ्य विना मुळशब्द प्रविष्ट करा"
+
+#: ../Data/dasher.desktop.in.in.h:3
 msgid "Predictive text entry"
 msgstr "भाकित पाठ प्रविष्ट"
 
 #: ../Data/glade/dasher.compose.glade.h:1
 #: ../Data/glade/dasher.direct.glade.h:1
-#: ../Data/glade/dasher.fullscreen.glade.h:1
-#: ../Data/glade/dasher.gameWIP.glade.h:1
-#: ../Data/glade/dasher.traditional.glade.h:1
-msgid "<b>Actions:</b>"
-msgstr "<b>क्रिया:</b>"
-
-#: ../Data/glade/dasher.compose.glade.h:2
-#: ../Data/glade/dasher.direct.glade.h:2
-#: ../Data/glade/dasher.fullscreen.glade.h:2
 #: ../Data/glade/dasher.gameWIP.glade.h:2
 #: ../Data/glade/dasher.traditional.glade.h:2
-#: ../Data/glade/dashermaemo.glade.h:3
-#: ../Data/glade/dashermaemofullscreen.glade.h:1
-msgid "<b>Adaptation:</b>"
-msgstr "<b>दत्तकत्व:</b>"
+msgid "Alphabet:"
+msgstr "अक्षर:"
 
-#: ../Data/glade/dasher.compose.glade.h:3
-#: ../Data/glade/dasher.direct.glade.h:3
-#: ../Data/glade/dasher.fullscreen.glade.h:3
+#: ../Data/glade/dasher.compose.glade.h:2
 #: ../Data/glade/dasher.gameWIP.glade.h:3
 #: ../Data/glade/dasher.traditional.glade.h:3
-#: ../Data/glade/dashermaemo.glade.h:4
-#: ../Data/glade/dashermaemofullscreen.glade.h:2
-msgid "<b>Alphabet Selection:</b>"
-msgstr "<b>अक्षर निवड:</b>"
+msgid "Copy"
+msgstr "प्रतिलिपी"
 
-#: ../Data/glade/dasher.compose.glade.h:4
-#: ../Data/glade/dasher.direct.glade.h:4
-#: ../Data/glade/dasher.fullscreen.glade.h:4
+#: ../Data/glade/dasher.compose.glade.h:3
 #: ../Data/glade/dasher.gameWIP.glade.h:4
 #: ../Data/glade/dasher.traditional.glade.h:4
-msgid "<b>Appearance Options:</b>"
-msgstr "<b>दर्शन पर्याय:</b>"
+#: ../Data/glade/dashermaemofullscreen.glade.h:1
+msgid "Copy _All"
+msgstr "सर्व प्रतिलिपी(_A)"
 
-#: ../Data/glade/dasher.compose.glade.h:5
-#: ../Data/glade/dasher.direct.glade.h:5
-#: ../Data/glade/dasher.fullscreen.glade.h:5
+#: ../Data/glade/dasher.compose.glade.h:4
 #: ../Data/glade/dasher.gameWIP.glade.h:5
 #: ../Data/glade/dasher.traditional.glade.h:5
-msgid "<b>Application Options:</b>"
-msgstr "<b>अनुप्रयोग पर्याय:</b>"
+msgid "Cut"
+msgstr "कापा"
 
 #: ../Data/glade/dasher.compose.glade.h:6
-#: ../Data/glade/dasher.direct.glade.h:6
-#: ../Data/glade/dasher.fullscreen.glade.h:6
-#: ../Data/glade/dasher.gameWIP.glade.h:6
-#: ../Data/glade/dasher.traditional.glade.h:6
-msgid "<b>Application Style:</b>"
-msgstr "<b>अनुप्रयोग शैली:</b>"
+msgid "Dasher _Tutorial"
+msgstr "Dasher शिकवणी(_T)"
 
 #: ../Data/glade/dasher.compose.glade.h:7
-#: ../Data/glade/dasher.direct.glade.h:7
-#: ../Data/glade/dasher.fullscreen.glade.h:7
-#: ../Data/glade/dasher.gameWIP.glade.h:7
-#: ../Data/glade/dasher.traditional.glade.h:7
-msgid "<b>Colour Scheme:</b>"
-msgstr "<b>रंग स्कीम:</b>"
+#: ../Data/glade/dasher.gameWIP.glade.h:12
+#: ../Data/glade/dasher.traditional.glade.h:8
+msgid "New file"
+msgstr "नविन फाइल"
 
 #: ../Data/glade/dasher.compose.glade.h:8
-#: ../Data/glade/dasher.direct.glade.h:8
-#: ../Data/glade/dasher.fullscreen.glade.h:8
-#: ../Data/glade/dasher.gameWIP.glade.h:8
-#: ../Data/glade/dasher.traditional.glade.h:8
-msgid "<b>Control Style:</b>"
-msgstr "<b>रंग शैली:</b>"
+#: ../Data/glade/dasher.gameWIP.glade.h:14
+#: ../Data/glade/dasher.traditional.glade.h:9
+msgid "Open file"
+msgstr "फाइल उघडा"
 
 #: ../Data/glade/dasher.compose.glade.h:9
-#: ../Data/glade/dasher.direct.glade.h:9
-#: ../Data/glade/dasher.fullscreen.glade.h:9
-#: ../Data/glade/dasher.gameWIP.glade.h:9
-#: ../Data/glade/dasher.traditional.glade.h:9
-msgid "<b>Dasher Font:</b>"
-msgstr "<b>Dasher फॉन्ट:</b>"
+#: ../Data/glade/dasher.gameWIP.glade.h:15
+#: ../Data/glade/dasher.traditional.glade.h:10
+msgid "Paste"
+msgstr "चिटकवा"
 
 #: ../Data/glade/dasher.compose.glade.h:10
-#: ../Data/glade/dasher.direct.glade.h:10
-#: ../Data/glade/dasher.fullscreen.glade.h:10
-#: ../Data/glade/dasher.gameWIP.glade.h:10
-#: ../Data/glade/dasher.traditional.glade.h:10
-msgid "<b>Direction:</b>"
-msgstr "<b>दिशा:</b>"
+#: ../Data/glade/dasher.direct.glade.h:3
+#: ../Data/glade/dasher.fullscreen.glade.h:2
+#: ../Data/glade/dasher.gameWIP.glade.h:16
+#: ../Data/glade/dasher.traditional.glade.h:11
+#: ../Data/glade/dashermaemo.glade.h:5
+msgid "Please Wait..."
+msgstr "कृपया प्रतिक्षा करा..."
 
 #: ../Data/glade/dasher.compose.glade.h:11
-#: ../Data/glade/dasher.direct.glade.h:11
-#: ../Data/glade/dasher.fullscreen.glade.h:11
-#: ../Data/glade/dasher.gameWIP.glade.h:11
-#: ../Data/glade/dasher.traditional.glade.h:11
-msgid "<b>Editor Font:</b>"
-msgstr "<b>संपादक फॉन्ट:</b>"
+msgid "Pr_eferences"
+msgstr "प्राधान्यता(_e)"
 
 #: ../Data/glade/dasher.compose.glade.h:12
-#: ../Data/glade/dasher.direct.glade.h:12
-#: ../Data/glade/dasher.fullscreen.glade.h:12
-#: ../Data/glade/dasher.gameWIP.glade.h:12
-#: ../Data/glade/dasher.traditional.glade.h:12
-msgid "<b>Input Device:</b>"
-msgstr "<b>आदान यंत्र:</b>"
+#: ../Data/glade/dasher.gameWIP.glade.h:20
+#: ../Data/glade/dasher.traditional.glade.h:15
+msgid "Save file"
+msgstr "फाइल संग्रहा"
 
 #: ../Data/glade/dasher.compose.glade.h:13
-#: ../Data/glade/dasher.direct.glade.h:13
-#: ../Data/glade/dasher.fullscreen.glade.h:13
-#: ../Data/glade/dasher.gameWIP.glade.h:13
-#: ../Data/glade/dasher.traditional.glade.h:13
-#: ../Data/glade/dashermaemo.glade.h:6
-#: ../Data/glade/dashermaemofullscreen.glade.h:3
-msgid "<b>Language Model:</b>"
-msgstr "<b>भाषा नमुना:</b>"
+#: ../Data/glade/dasher.gameWIP.glade.h:21
+#: ../Data/glade/dasher.traditional.glade.h:16
+msgid "Save file as"
+msgstr "फाइल अशी संग्रहा"
 
 #: ../Data/glade/dasher.compose.glade.h:14
-#: ../Data/glade/dasher.direct.glade.h:14
-#: ../Data/glade/dasher.fullscreen.glade.h:14
-#: ../Data/glade/dasher.gameWIP.glade.h:14
-#: ../Data/glade/dasher.traditional.glade.h:14
-msgid "<b>Prediction:</b>"
-msgstr "<b>भाकित:</b>"
+#: ../Data/glade/dasher.direct.glade.h:4
+#: ../Data/glade/dasher.fullscreen.glade.h:3
+#: ../Data/glade/dasher.gameWIP.glade.h:23
+#: ../Data/glade/dasher.traditional.glade.h:17
+#: ../Data/glade/dashermaemo.glade.h:6
+#: ../Data/glade/dashermaemofullscreen.glade.h:5
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1332
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1366
+#: ../Src/Gtk2/dasher_main.cpp:1046
+msgid "Select File"
+msgstr "फाइल निवडा"
 
 #: ../Data/glade/dasher.compose.glade.h:15
-#: ../Data/glade/dasher.direct.glade.h:15
-#: ../Data/glade/dasher.fullscreen.glade.h:15
-#: ../Data/glade/dasher.gameWIP.glade.h:15
-#: ../Data/glade/dasher.traditional.glade.h:15
-#: ../Data/glade/dashermaemo.glade.h:8
-#: ../Data/glade/dashermaemofullscreen.glade.h:5
-msgid "<b>Smoothing:</b>"
-msgstr "<b>सुरळीत होत आहे:</b>"
+#: ../Data/glade/dasher.fullscreen.glade.h:4
+#: ../Data/glade/dashermaemo.glade.h:7
+#: ../Data/glade/dashermaemofullscreen.glade.h:6
+msgid "Select Font"
+msgstr "फॉन्ट निवडा"
 
 #: ../Data/glade/dasher.compose.glade.h:16
-#: ../Data/glade/dasher.direct.glade.h:16
-#: ../Data/glade/dasher.fullscreen.glade.h:16
-#: ../Data/glade/dasher.gameWIP.glade.h:16
-#: ../Data/glade/dasher.traditional.glade.h:16
-#: ../Data/glade/dashermaemo.glade.h:9
-#: ../Data/glade/dashermaemofullscreen.glade.h:6
-msgid "<b>Speed:</b>"
-msgstr "<b>वेग:</b>"
+#: ../Data/glade/dasher.direct.glade.h:5
+#: ../Data/glade/dasher.gameWIP.glade.h:24
+#: ../Data/glade/dasher.traditional.glade.h:18
+msgid "Speed:"
+msgstr "वेग:"
 
 #: ../Data/glade/dasher.compose.glade.h:17
-#: ../Data/glade/dasher.direct.glade.h:17
-#: ../Data/glade/dasher.fullscreen.glade.h:17
-#: ../Data/glade/dasher.gameWIP.glade.h:17
-#: ../Data/glade/dasher.traditional.glade.h:17
-msgid "<b>Starting And Stopping:</b>"
-msgstr "<b>सुरू आणि बंद करत आहे:</b>"
+#: ../Data/glade/dashermaemofullscreen.glade.h:8
+msgid "_About"
+msgstr "च्या विषयी(_A)"
 
 #: ../Data/glade/dasher.compose.glade.h:18
-#: ../Data/glade/dasher.direct.glade.h:18
-#: ../Data/glade/dasher.fullscreen.glade.h:18
+msgid "_Append to file"
+msgstr "फाइलला जोडा(_A)"
+
+#: ../Data/glade/dasher.compose.glade.h:19
+msgid "_Contents"
+msgstr "अंतर्भूत बाबी(_C)"
+
+#: ../Data/glade/dasher.compose.glade.h:20
+#: ../Data/glade/dasher.gameWIP.glade.h:27
+#: ../Data/glade/dasher.traditional.glade.h:21
+#: ../Data/glade/dashermaemofullscreen.glade.h:11
+msgid "_Edit"
+msgstr "संपादा(_E)"
+
+#: ../Data/glade/dasher.compose.glade.h:21
+#: ../Data/glade/dasher.gameWIP.glade.h:28
+#: ../Data/glade/dasher.traditional.glade.h:22
+#: ../Data/glade/dashermaemofullscreen.glade.h:13
+msgid "_File"
+msgstr "फाइल(_F)"
+
+#: ../Data/glade/dasher.compose.glade.h:22
+#: ../Data/glade/dasher.gameWIP.glade.h:29
+#: ../Data/glade/dasher.traditional.glade.h:23
+#: ../Data/glade/dashermaemofullscreen.glade.h:14
+msgid "_Help"
+msgstr "मदत(_H)"
+
+#: ../Data/glade/dasher.compose.glade.h:23
+msgid "_Import Training Text"
+msgstr "ट्रेनिंग पाठ आयात करा(_I)"
+
+#: ../Data/glade/dasher.compose.glade.h:24
+#: ../Data/glade/dasher.fullscreen.glade.h:5
+#: ../Data/glade/dashermaemo.glade.h:8
+#: ../Data/glade/dashermaemofullscreen.glade.h:17
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr "abcdefghijk ABCDEFGHIJK"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:1
+#: ../Data/glade/dasher.traditional.glade.h:1
+msgid "A_ppend to file..."
+msgstr "फाइलला जोडा(_p)..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:7
+msgid "Demo!"
+msgstr "डेमो!"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:8
+msgid "Full Demo"
+msgstr "पूर्ण डेमो"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:9
+#: ../Data/glade/dasher.traditional.glade.h:7
+msgid "Help"
+msgstr "मदत"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:10
+msgid "Launch Dasher Game & Demo mode!"
+msgstr "Dasher खेळ दाखल करा & डेमो पध्दती!"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:11
+msgid "Level:"
+msgstr "पातळी:"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:13
+msgid "New sentence"
+msgstr "नविन वाक्य"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:17
+#: ../Data/glade/dasher.traditional.glade.h:12
+msgid "Pr_eferences..."
+msgstr "प्राधान्यता(_e)..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:18
+#: ../Data/glade/dasher.traditional.glade.h:13
+msgid "Preferences"
+msgstr "प्राधान्यता"
+
 #: ../Data/glade/dasher.gameWIP.glade.h:19
+#: ../Data/glade/dasher.traditional.glade.h:14
+#: ../Src/Gtk2/dasher_main.cpp:1120
+msgid "Quit"
+msgstr "बाहेर पडा"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:22
+msgid "Score:"
+msgstr "गुण:"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:25
 #: ../Data/glade/dasher.traditional.glade.h:19
-#: ../Data/glade/dashermaemo.glade.h:10
-#: ../Data/glade/dashermaemofullscreen.glade.h:7
+msgid "_About..."
+msgstr "च्या विषयी(_A)..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:26
+#: ../Data/glade/dasher.traditional.glade.h:20
+msgid "_Contents..."
+msgstr "अंतर्भूत बाबी(_C)..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:30
+#: ../Data/glade/dasher.traditional.glade.h:24
+msgid "_Import Training Text..."
+msgstr "ट्रेनिंग पाठ आयात करा(_I)..."
+
+#: ../Data/glade/dasher.preferences.glade.h:1
+msgid "<b>Actions</b>"
+msgstr "<b>क्रिया</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:2
+#: ../Data/glade/dashermaemo.preferences.glade.h:1
+msgid "<b>Adaptation</b>"
+msgstr "<b>परिचीतता</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:3
+#: ../Data/glade/dashermaemo.preferences.glade.h:2
+msgid "<b>Alphabet Selection</b>"
+msgstr "<b>अक्षर निवड</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:4
+msgid "<b>Appearance Options</b>"
+msgstr "<b>प्रस्तुती पर्याय</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:5
+msgid "<b>Application Options</b>"
+msgstr "<b>अनुप्रयोग पर्याय</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:6
+msgid "<b>Application Style</b>"
+msgstr "<b>अनुप्रयोग शैली</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:7
+msgid "<b>Colour Scheme</b>"
+msgstr "<b>रंग सुत्रोयजना</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:8
+msgid "<b>Control Style</b>"
+msgstr "<b>नियंत्रण शैली</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:9
+msgid "<b>Dasher Font</b>"
+msgstr "<b>Dasher फॉन्ट</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:10
+msgid "<b>Direction</b>"
+msgstr "<b>दिशा</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:11
+msgid "<b>Editor Font</b>"
+msgstr "<b>संपादक फॉन्ट</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:12
+msgid "<b>Input Device</b>"
+msgstr "<b>इन्पुट साधन</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:13
+#: ../Data/glade/dashermaemo.preferences.glade.h:5
+msgid "<b>Language Model</b>"
+msgstr "<b>भाषा प्रारूप</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:14
+#: ../Data/glade/dashermaemo.preferences.glade.h:7
+msgid "<b>Smoothing</b>"
+msgstr "<b>सुरळीत होत आहे</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:15
+#: ../Data/glade/dashermaemo.preferences.glade.h:8
+msgid "<b>Speed</b>"
+msgstr "<b>वेग</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:16
+msgid "<b>Starting And Stopping</b>"
+msgstr "<b>सुरू व थांबवित आहे:</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:17
+#: ../Data/glade/dashermaemo.preferences.glade.h:9
 msgid "Adapt speed automatically"
 msgstr "वेग आपोआप दत्तक घ्या"
 
 #. The default display orientation for the selected alphabet, ie left to right for English, right to left for Arabic, etc.
-#: ../Data/glade/dasher.compose.glade.h:19
-#: ../Data/glade/dasher.direct.glade.h:19
-#: ../Data/glade/dasher.fullscreen.glade.h:19
-#: ../Data/glade/dasher.gameWIP.glade.h:20
-#: ../Data/glade/dasher.traditional.glade.h:21
-#: ../Data/glade/dashermaemo.glade.h:12
-#: ../Data/glade/dashermaemofullscreen.glade.h:9
+#: ../Data/glade/dasher.preferences.glade.h:19
+#: ../Data/glade/dashermaemo.preferences.glade.h:11
 msgid "Alphabet Default"
 msgstr "मुलभूत अक्षर"
 
-#: ../Data/glade/dasher.compose.glade.h:20
-#: ../Data/glade/dasher.direct.glade.h:20
-#: ../Data/glade/dasher.gameWIP.glade.h:21
-#: ../Data/glade/dasher.traditional.glade.h:22
-msgid "Alphabet:"
-msgstr "अक्षर:"
-
-#: ../Data/glade/dasher.compose.glade.h:21
-#: ../Data/glade/dasher.direct.glade.h:21
-#: ../Data/glade/dasher.fullscreen.glade.h:20
-#: ../Data/glade/dasher.gameWIP.glade.h:22
-#: ../Data/glade/dasher.traditional.glade.h:23
+#: ../Data/glade/dasher.preferences.glade.h:20
 msgid "Appearance"
 msgstr "दर्शन"
 
-#: ../Data/glade/dasher.compose.glade.h:22
-#: ../Data/glade/dasher.direct.glade.h:22
-#: ../Data/glade/dasher.fullscreen.glade.h:21
-#: ../Data/glade/dasher.gameWIP.glade.h:23
-#: ../Data/glade/dasher.traditional.glade.h:24
+#: ../Data/glade/dasher.preferences.glade.h:21
 msgid "Application"
 msgstr "अनुप्रयोग"
 
-#: ../Data/glade/dasher.compose.glade.h:23
-#: ../Data/glade/dasher.direct.glade.h:23
-#: ../Data/glade/dasher.fullscreen.glade.h:22
-#: ../Data/glade/dasher.gameWIP.glade.h:24
-#: ../Data/glade/dasher.traditional.glade.h:25
-#: ../Data/glade/dashermaemo.glade.h:13
-#: ../Data/glade/dashermaemofullscreen.glade.h:10
+#: ../Data/glade/dasher.preferences.glade.h:22
+#: ../Data/glade/dashermaemo.preferences.glade.h:12
 msgid "Bottom to Top"
 msgstr "तळ ते टॉप"
 
-#. Centre circle = start and stop by dwelling over a circle in the centre of the window
-#. Two box = start and stop by dwelling in sequence over two boxes
-#. (both of these are methods for starting and stopping without pressing a mouse button)
-#: ../Data/glade/dasher.compose.glade.h:24
-#: ../Data/glade/dasher.direct.glade.h:24
-#: ../Data/glade/dasher.fullscreen.glade.h:23
-#: ../Data/glade/dasher.gameWIP.glade.h:25
-#: ../Data/glade/dasher.traditional.glade.h:29
+#. Centre circle = start and stop by dwelling over a circle in the centre of the window Two box = start and stop by dwelling in sequence over two boxes (both of these are methods for starting and stopping without pressing a mouse button)
+#: ../Data/glade/dasher.preferences.glade.h:24
 msgid ""
 "Centre circle\n"
 "Two box"
@@ -248,384 +351,156 @@ msgstr ""
 "केंद्र वर्तुळ\n"
 "दोन खोके"
 
-#: ../Data/glade/dasher.compose.glade.h:26
-#: ../Data/glade/dasher.direct.glade.h:26
-#: ../Data/glade/dasher.fullscreen.glade.h:25
-#: ../Data/glade/dasher.gameWIP.glade.h:27
-#: ../Data/glade/dasher.traditional.glade.h:31
+#: ../Data/glade/dasher.preferences.glade.h:26
 msgid "Composition"
 msgstr "घडण"
 
-#: ../Data/glade/dasher.compose.glade.h:27
-#: ../Data/glade/dasher.direct.glade.h:27
-#: ../Data/glade/dasher.fullscreen.glade.h:26
-#: ../Data/glade/dasher.gameWIP.glade.h:28
-#: ../Data/glade/dasher.traditional.glade.h:32
-#: ../Data/glade/dashermaemo.glade.h:14
-#: ../Data/glade/dashermaemofullscreen.glade.h:11
+#: ../Data/glade/dasher.preferences.glade.h:27
+#: ../Data/glade/dashermaemo.preferences.glade.h:13
 msgid "Control"
 msgstr "नियंत्रण"
 
-#: ../Data/glade/dasher.compose.glade.h:28
-#: ../Data/glade/dasher.direct.glade.h:28
-#: ../Data/glade/dasher.fullscreen.glade.h:27
-#: ../Data/glade/dasher.gameWIP.glade.h:29
-#: ../Data/glade/dasher.traditional.glade.h:33
+#: ../Data/glade/dasher.preferences.glade.h:28
 msgid "Control mode"
 msgstr "नियंत्रण रीत"
 
-#: ../Data/glade/dasher.compose.glade.h:29
-#: ../Data/glade/dasher.gameWIP.glade.h:30
-#: ../Data/glade/dasher.traditional.glade.h:34
-msgid "Copy"
-msgstr "प्रतिलिपी"
+#: ../Data/glade/dasher.preferences.glade.h:29
+#: ../Data/glade/dashermaemo.preferences.glade.h:14
+msgid "Custom"
+msgstr "इच्छिक"
 
-#: ../Data/glade/dasher.compose.glade.h:30
-#: ../Data/glade/dasher.gameWIP.glade.h:31
-#: ../Data/glade/dasher.traditional.glade.h:35
-#: ../Data/glade/dashermaemofullscreen.glade.h:12
-msgid "Copy _All"
-msgstr "सर्व प्रतिलिपी(_A)"
-
-#: ../Data/glade/dasher.compose.glade.h:31
-#: ../Data/glade/dasher.direct.glade.h:29
-#: ../Data/glade/dasher.fullscreen.glade.h:28
-#: ../Data/glade/dasher.gameWIP.glade.h:32
-#: ../Data/glade/dasher.traditional.glade.h:36
-#: ../Data/glade/dashermaemo.glade.h:15
-#: ../Data/glade/dashermaemofullscreen.glade.h:13
+#: ../Data/glade/dasher.preferences.glade.h:30
+#: ../Data/glade/dashermaemo.preferences.glade.h:15
 msgid "Custom colour scheme:"
 msgstr "स्वेच्छेची रंग स्कीम:"
 
-#: ../Data/glade/dasher.compose.glade.h:32
-#: ../Data/glade/dasher.direct.glade.h:30
-#: ../Data/glade/dasher.fullscreen.glade.h:29
-#: ../Data/glade/dasher.gameWIP.glade.h:33
-#: ../Data/glade/dasher.traditional.glade.h:37
-#: ../Data/glade/dashermaemo.glade.h:16
-#: ../Data/glade/dashermaemofullscreen.glade.h:14
-msgid "Custom:"
-msgstr "स्वेच्छा:"
-
-#: ../Data/glade/dasher.compose.glade.h:33
-#: ../Data/glade/dasher.gameWIP.glade.h:34
-#: ../Data/glade/dasher.traditional.glade.h:38
-msgid "Cut"
-msgstr "कापा"
-
-#: ../Data/glade/dasher.compose.glade.h:35
-#: ../Data/glade/dasher.direct.glade.h:32
-#: ../Data/glade/dasher.fullscreen.glade.h:31
-#: ../Data/glade/dasher.gameWIP.glade.h:36
-#: ../Data/glade/dasher.traditional.glade.h:40
-#: ../Data/glade/dashermaemo.glade.h:18
-#: ../Data/glade/dashermaemofullscreen.glade.h:16
+#: ../Data/glade/dasher.preferences.glade.h:31
+#: ../Data/glade/dashermaemo.preferences.glade.h:16
 msgid "Dasher Preferences"
 msgstr "Dasher प्राधान्यता"
 
-#: ../Data/glade/dasher.compose.glade.h:36
-msgid "Dasher _Tutorial"
-msgstr "Dasher शिकवणी(_T)"
-
-#: ../Data/glade/dasher.compose.glade.h:37
-#: ../Data/glade/dasher.direct.glade.h:33
-#: ../Data/glade/dasher.fullscreen.glade.h:32
-#: ../Data/glade/dasher.gameWIP.glade.h:38
-#: ../Data/glade/dasher.traditional.glade.h:41
+#: ../Data/glade/dasher.preferences.glade.h:32
 msgid "Direct entry"
 msgstr "थेट प्रविष्ट"
 
-#: ../Data/glade/dasher.compose.glade.h:38
-#: ../Data/glade/dasher.direct.glade.h:34
-#: ../Data/glade/dasher.fullscreen.glade.h:33
-#: ../Data/glade/dasher.gameWIP.glade.h:39
-#: ../Data/glade/dasher.traditional.glade.h:42
+#: ../Data/glade/dasher.preferences.glade.h:33
 msgid "Dock application window"
 msgstr "Dock अनुप्रयोग खिडकी"
 
-#: ../Data/glade/dasher.compose.glade.h:39
-#: ../Data/glade/dasher.direct.glade.h:35
-#: ../Data/glade/dasher.fullscreen.glade.h:34
-#: ../Data/glade/dasher.gameWIP.glade.h:40
-#: ../Data/glade/dasher.traditional.glade.h:43
+#: ../Data/glade/dasher.preferences.glade.h:34
 msgid "Draw box outlines"
 msgstr "खोक्याला किनार काढा"
 
-#: ../Data/glade/dasher.compose.glade.h:40
-#: ../Data/glade/dasher.direct.glade.h:36
-#: ../Data/glade/dasher.fullscreen.glade.h:35
-#: ../Data/glade/dasher.gameWIP.glade.h:41
-#: ../Data/glade/dasher.traditional.glade.h:44
+#: ../Data/glade/dasher.preferences.glade.h:35
 msgid "Draw line between crosshairs and mouse"
 msgstr "क्रॉसहेअरर्स व माऊसमध्ये ओळी बनवा"
 
-#: ../Data/glade/dasher.compose.glade.h:41
-#: ../Data/glade/dasher.direct.glade.h:37
-#: ../Data/glade/dasher.fullscreen.glade.h:36
-#: ../Data/glade/dasher.gameWIP.glade.h:43
-#: ../Data/glade/dasher.traditional.glade.h:45
+#: ../Data/glade/dasher.preferences.glade.h:36
 msgid "Full Screen"
 msgstr "पूर्ण स्क्रीन"
 
-#: ../Data/glade/dasher.compose.glade.h:42
-#: ../Data/glade/dasher.direct.glade.h:38
-#: ../Data/glade/dasher.fullscreen.glade.h:37
-#: ../Data/glade/dasher.gameWIP.glade.h:45
-#: ../Data/glade/dasher.traditional.glade.h:47
+#: ../Data/glade/dasher.preferences.glade.h:37
 msgid "Increase line thickness"
 msgstr "रेषेची जाडी वाढवा"
 
-#: ../Data/glade/dasher.compose.glade.h:43
-#: ../Data/glade/dasher.direct.glade.h:39
-#: ../Data/glade/dasher.fullscreen.glade.h:38
-#: ../Data/glade/dasher.gameWIP.glade.h:46
-#: ../Data/glade/dasher.traditional.glade.h:48
-#: ../Data/glade/dashermaemo.glade.h:20
-#: ../Data/glade/dashermaemofullscreen.glade.h:17
+#: ../Data/glade/dasher.preferences.glade.h:38
+#: ../Data/glade/dashermaemo.preferences.glade.h:18
 msgid "Japanese"
 msgstr "जपानी"
 
-#: ../Data/glade/dasher.compose.glade.h:44
-#: ../Data/glade/dasher.direct.glade.h:40
-#: ../Data/glade/dasher.fullscreen.glade.h:39
-#: ../Data/glade/dasher.gameWIP.glade.h:47
-#: ../Data/glade/dasher.traditional.glade.h:49
+#: ../Data/glade/dasher.preferences.glade.h:39
 msgid "Language"
 msgstr "भाषा"
 
-#: ../Data/glade/dasher.compose.glade.h:45
-#: ../Data/glade/dasher.direct.glade.h:41
-#: ../Data/glade/dasher.fullscreen.glade.h:40
-#: ../Data/glade/dasher.gameWIP.glade.h:48
-#: ../Data/glade/dasher.traditional.glade.h:50
-#: ../Data/glade/dashermaemo.glade.h:21
-#: ../Data/glade/dashermaemofullscreen.glade.h:18
+#: ../Data/glade/dasher.preferences.glade.h:40
+#: ../Data/glade/dashermaemo.preferences.glade.h:19
 msgid "Language model adapts as you write."
 msgstr "तुम्ही जसे लिहाल तसे भाषा प्रारूप संरचीत केले जाईल."
 
-#: ../Data/glade/dasher.compose.glade.h:46
-#: ../Data/glade/dasher.direct.glade.h:42
-#: ../Data/glade/dasher.fullscreen.glade.h:41
-#: ../Data/glade/dasher.gameWIP.glade.h:49
-#: ../Data/glade/dasher.traditional.glade.h:51
+#: ../Data/glade/dasher.preferences.glade.h:41
 msgid "Large font "
 msgstr "मोठा फॉन्ट"
 
-#: ../Data/glade/dasher.compose.glade.h:47
-#: ../Data/glade/dasher.direct.glade.h:43
-#: ../Data/glade/dasher.fullscreen.glade.h:42
-#: ../Data/glade/dasher.gameWIP.glade.h:51
-#: ../Data/glade/dasher.traditional.glade.h:52
-#: ../Data/glade/dashermaemo.glade.h:22
-#: ../Data/glade/dashermaemofullscreen.glade.h:20
+#: ../Data/glade/dasher.preferences.glade.h:42
+#: ../Data/glade/dashermaemo.preferences.glade.h:20
 msgid "Left to Right"
 msgstr "डावीकडून उजवीकडे"
 
 #. PPM =  Prediction by Partial Match, a styatistical language model.
-#: ../Data/glade/dasher.compose.glade.h:48
-#: ../Data/glade/dasher.direct.glade.h:44
-#: ../Data/glade/dasher.fullscreen.glade.h:43
-#: ../Data/glade/dasher.gameWIP.glade.h:53
-#: ../Data/glade/dasher.traditional.glade.h:54
-#: ../Data/glade/dashermaemo.glade.h:23
-#: ../Data/glade/dashermaemofullscreen.glade.h:21
+#: ../Data/glade/dasher.preferences.glade.h:44
+#: ../Data/glade/dashermaemo.preferences.glade.h:21
 msgid "Mixture model (PPM/dictionary)"
 msgstr "संमिश्र नमुना (PPM/dictionary)"
 
-#: ../Data/glade/dasher.compose.glade.h:49
-#: ../Data/glade/dasher.gameWIP.glade.h:54
-#: ../Data/glade/dasher.traditional.glade.h:55
-msgid "New file"
-msgstr "नविन फाइल"
-
-#: ../Data/glade/dasher.compose.glade.h:50
-#: ../Data/glade/dasher.gameWIP.glade.h:56
-#: ../Data/glade/dasher.traditional.glade.h:56
-msgid "Open file"
-msgstr "फाइल उघडा"
-
-#: ../Data/glade/dasher.compose.glade.h:51
-#: ../Data/glade/dasher.direct.glade.h:45
-#: ../Data/glade/dasher.fullscreen.glade.h:44
-#: ../Data/glade/dasher.gameWIP.glade.h:57
-#: ../Data/glade/dasher.traditional.glade.h:57
+#: ../Data/glade/dasher.preferences.glade.h:45
 msgid "Options"
 msgstr "पर्याय"
 
-#: ../Data/glade/dasher.compose.glade.h:52
-#: ../Data/glade/dasher.gameWIP.glade.h:58
-#: ../Data/glade/dasher.traditional.glade.h:58
-msgid "Paste"
-msgstr "चिटकवा"
-
-#: ../Data/glade/dasher.compose.glade.h:53
-#: ../Data/glade/dasher.direct.glade.h:46
-#: ../Data/glade/dasher.fullscreen.glade.h:45
-#: ../Data/glade/dasher.gameWIP.glade.h:59
-#: ../Data/glade/dasher.traditional.glade.h:59
+#: ../Data/glade/dasher.preferences.glade.h:46
 msgid "Pause outside of canvas"
 msgstr "कँवासच्या बाहेर स्तब्ध करा"
 
-#: ../Data/glade/dasher.compose.glade.h:54
-#: ../Data/glade/dasher.direct.glade.h:47
-#: ../Data/glade/dasher.fullscreen.glade.h:46
-#: ../Data/glade/dasher.gameWIP.glade.h:60
-#: ../Data/glade/dasher.traditional.glade.h:60
-#: ../Data/glade/dashermaemo.glade.h:25
-msgid "Please Wait..."
-msgstr "कृपया प्रतिक्षा करा..."
-
-#: ../Data/glade/dasher.compose.glade.h:55
-msgid "Pr_eferences"
-msgstr "प्राधान्यता(_e)"
-
-#: ../Data/glade/dasher.compose.glade.h:56
-#: ../Data/glade/dasher.direct.glade.h:48
-#: ../Data/glade/dasher.fullscreen.glade.h:47
-#: ../Data/glade/dasher.gameWIP.glade.h:64
-#: ../Data/glade/dasher.traditional.glade.h:64
-#: ../Data/glade/dashermaemo.glade.h:27
-#: ../Data/glade/dashermaemofullscreen.glade.h:24
+#: ../Data/glade/dasher.preferences.glade.h:47
+#: ../Data/glade/dashermaemo.preferences.glade.h:23
 msgid "Right to Left"
 msgstr "उजवीकडून डावीकडे"
 
-#: ../Data/glade/dasher.compose.glade.h:57
-#: ../Data/glade/dasher.gameWIP.glade.h:65
-#: ../Data/glade/dasher.traditional.glade.h:65
-msgid "Save file"
-msgstr "फाइल संग्रहा"
+#: ../Data/glade/dasher.preferences.glade.h:48
+msgid "Select Dasher Font"
+msgstr "Dasher फॉन्ट निवडा"
 
-#: ../Data/glade/dasher.compose.glade.h:58
-#: ../Data/glade/dasher.gameWIP.glade.h:66
-#: ../Data/glade/dasher.traditional.glade.h:66
-msgid "Save file as"
-msgstr "फाइल अशी संग्रहा"
+#: ../Data/glade/dasher.preferences.glade.h:49
+msgid "Select Editor Font"
+msgstr "संपादक फॉन्ट निवडा"
 
-#: ../Data/glade/dasher.compose.glade.h:59
-#: ../Data/glade/dasher.direct.glade.h:51
-#: ../Data/glade/dasher.fullscreen.glade.h:48
-#: ../Data/glade/dasher.gameWIP.glade.h:70
-#: ../Data/glade/dasher.traditional.glade.h:69
-#: ../Data/glade/dashermaemo.glade.h:28
-#: ../Data/glade/dashermaemofullscreen.glade.h:25
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1331
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1364
-#: ../Src/Gtk2/dasher_main.cpp:1000
-msgid "Select File"
-msgstr "फाइल निवडा"
-
-#: ../Data/glade/dasher.compose.glade.h:60
-#: ../Data/glade/dasher.fullscreen.glade.h:49
-#: ../Data/glade/dashermaemo.glade.h:29
-#: ../Data/glade/dashermaemofullscreen.glade.h:26
-msgid "Select Font"
-msgstr "फॉन्ट निवडा"
-
-#: ../Data/glade/dasher.compose.glade.h:61
-#: ../Data/glade/dasher.direct.glade.h:52
-#: ../Data/glade/dasher.fullscreen.glade.h:50
-#: ../Data/glade/dasher.gameWIP.glade.h:71
-#: ../Data/glade/dasher.traditional.glade.h:70
+#: ../Data/glade/dasher.preferences.glade.h:50
 msgid "Show mouse position"
-msgstr "माउसची जागा दाखवा"
+msgstr "माउसची जागा दर्शवा"
 
-#: ../Data/glade/dasher.compose.glade.h:62
-#: ../Data/glade/dasher.direct.glade.h:53
-#: ../Data/glade/dasher.fullscreen.glade.h:51
-#: ../Data/glade/dasher.gameWIP.glade.h:72
-#: ../Data/glade/dasher.traditional.glade.h:71
+#: ../Data/glade/dasher.preferences.glade.h:51
 msgid "Show speed slider"
-msgstr "वेग स्लाइडर दाखवा"
+msgstr "वेग स्लाइडर दर्शवा"
 
-#: ../Data/glade/dasher.compose.glade.h:63
-#: ../Data/glade/dasher.direct.glade.h:54
-#: ../Data/glade/dasher.fullscreen.glade.h:52
-#: ../Data/glade/dasher.gameWIP.glade.h:73
-#: ../Data/glade/dasher.traditional.glade.h:72
+#: ../Data/glade/dasher.preferences.glade.h:52
 msgid "Show toolbar"
-msgstr "उपकरणपट्टी दाखवा"
+msgstr "उपकरणपट्टी दर्शवा"
 
-#: ../Data/glade/dasher.compose.glade.h:64
-#: ../Data/glade/dasher.direct.glade.h:55
-#: ../Data/glade/dasher.fullscreen.glade.h:53
-#: ../Data/glade/dasher.gameWIP.glade.h:74
-#: ../Data/glade/dasher.traditional.glade.h:73
+#: ../Data/glade/dasher.preferences.glade.h:53
 msgid "Small font"
 msgstr "लहान फॉन्ट"
 
-#: ../Data/glade/dasher.compose.glade.h:65
-#: ../Data/glade/dasher.direct.glade.h:56
-#: ../Data/glade/dasher.gameWIP.glade.h:75
-#: ../Data/glade/dasher.traditional.glade.h:74
-msgid "Speed:"
-msgstr "वेग:"
-
-#: ../Data/glade/dasher.compose.glade.h:66
-#: ../Data/glade/dasher.direct.glade.h:57
-#: ../Data/glade/dasher.fullscreen.glade.h:54
-#: ../Data/glade/dasher.gameWIP.glade.h:76
-#: ../Data/glade/dasher.traditional.glade.h:75
+#: ../Data/glade/dasher.preferences.glade.h:54
 msgid "Stand-alone"
 msgstr "स्टँड-अलोन"
 
 #. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/glade/dasher.compose.glade.h:67
-#: ../Data/glade/dasher.direct.glade.h:58
-#: ../Data/glade/dasher.fullscreen.glade.h:55
-#: ../Data/glade/dasher.gameWIP.glade.h:77
-#: ../Data/glade/dasher.traditional.glade.h:77
-#: ../Data/glade/dashermaemo.glade.h:30
-#: ../Data/glade/dashermaemofullscreen.glade.h:27
+#: ../Data/glade/dasher.preferences.glade.h:56
+#: ../Data/glade/dashermaemo.preferences.glade.h:24
 msgid "Standard letter-based PPM"
 msgstr "मानक अक्षर-आधारित PPM"
 
-#: ../Data/glade/dasher.compose.glade.h:68
-#: ../Data/glade/dasher.direct.glade.h:59
-#: ../Data/glade/dasher.fullscreen.glade.h:56
-#: ../Data/glade/dasher.gameWIP.glade.h:78
-#: ../Data/glade/dasher.traditional.glade.h:78
+#: ../Data/glade/dasher.preferences.glade.h:57
 msgid "Start on left mouse button"
 msgstr "डाव्या माउस बटनावर आरंभ"
 
-#: ../Data/glade/dasher.compose.glade.h:69
-#: ../Data/glade/dasher.direct.glade.h:60
-#: ../Data/glade/dasher.fullscreen.glade.h:57
-#: ../Data/glade/dasher.gameWIP.glade.h:79
-#: ../Data/glade/dasher.traditional.glade.h:79
+#: ../Data/glade/dasher.preferences.glade.h:58
 msgid "Start on space bar"
 msgstr "स्पेसबारवर आरंभ"
 
-#: ../Data/glade/dasher.compose.glade.h:70
-#: ../Data/glade/dasher.direct.glade.h:61
-#: ../Data/glade/dasher.fullscreen.glade.h:58
-#: ../Data/glade/dasher.gameWIP.glade.h:80
-#: ../Data/glade/dasher.traditional.glade.h:80
+#: ../Data/glade/dasher.preferences.glade.h:59
 msgid "Start with mouse position:"
 msgstr "माउस जागेसह आरंभ:"
 
-#: ../Data/glade/dasher.compose.glade.h:71
-#: ../Data/glade/dasher.direct.glade.h:62
-#: ../Data/glade/dasher.fullscreen.glade.h:59
-#: ../Data/glade/dasher.gameWIP.glade.h:81
-#: ../Data/glade/dasher.traditional.glade.h:81
+#: ../Data/glade/dasher.preferences.glade.h:60
 msgid "Timestamp new files"
 msgstr "नविन फाइल्सवर वेळेचा स्टॅम्प करा"
 
-#: ../Data/glade/dasher.compose.glade.h:72
-#: ../Data/glade/dasher.direct.glade.h:63
-#: ../Data/glade/dasher.fullscreen.glade.h:60
-#: ../Data/glade/dasher.gameWIP.glade.h:82
-#: ../Data/glade/dasher.traditional.glade.h:82
-#: ../Data/glade/dashermaemo.glade.h:31
-#: ../Data/glade/dashermaemofullscreen.glade.h:28
+#: ../Data/glade/dasher.preferences.glade.h:61
+#: ../Data/glade/dashermaemo.preferences.glade.h:25
 msgid "Top to Bottom"
 msgstr "टॉप ते तळ"
 
-#: ../Data/glade/dasher.compose.glade.h:73
-#: ../Data/glade/dasher.direct.glade.h:64
-#: ../Data/glade/dasher.fullscreen.glade.h:61
-#: ../Data/glade/dasher.gameWIP.glade.h:83
-#: ../Data/glade/dasher.traditional.glade.h:83
+#: ../Data/glade/dasher.preferences.glade.h:62
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -634,210 +509,80 @@ msgstr ""
 "पत्रपेटीचा सापेक्ष आकार बदलण्यासाठी हा नियंत्रक वापरा. मोठे मूल्य निवडल्यास तुमचा "
 "लिहिण्याचा वेग कमी होईल."
 
-#: ../Data/glade/dasher.compose.glade.h:76
-#: ../Data/glade/dasher.direct.glade.h:67
-#: ../Data/glade/dasher.fullscreen.glade.h:64
-#: ../Data/glade/dasher.gameWIP.glade.h:86
-#: ../Data/glade/dasher.traditional.glade.h:86
+#: ../Data/glade/dasher.preferences.glade.h:65
 msgid "Very large font"
 msgstr "खूप मोठा फॉन्ट"
 
-#: ../Data/glade/dasher.compose.glade.h:77
-#: ../Data/glade/dasher.direct.glade.h:68
-#: ../Data/glade/dasher.fullscreen.glade.h:65
-#: ../Data/glade/dasher.gameWIP.glade.h:87
-#: ../Data/glade/dasher.traditional.glade.h:87
-#: ../Data/glade/dashermaemo.glade.h:33
-#: ../Data/glade/dashermaemofullscreen.glade.h:31
+#: ../Data/glade/dasher.preferences.glade.h:66
+#: ../Data/glade/dashermaemo.preferences.glade.h:27
 msgid "Word-based model"
 msgstr "शब्द आधारित नमुना"
-
-#: ../Data/glade/dasher.compose.glade.h:78
-#: ../Data/glade/dashermaemofullscreen.glade.h:32
-msgid "_About"
-msgstr "च्या विषयी(_A)"
-
-#: ../Data/glade/dasher.compose.glade.h:79
-msgid "_Append to file"
-msgstr "फाइलला जोडा(_A)"
-
-#: ../Data/glade/dasher.compose.glade.h:80
-msgid "_Contents"
-msgstr "अंतर्भूत बाबी(_C)"
-
-#: ../Data/glade/dasher.compose.glade.h:81
-#: ../Data/glade/dasher.gameWIP.glade.h:90
-#: ../Data/glade/dasher.traditional.glade.h:90
-#: ../Data/glade/dashermaemofullscreen.glade.h:35
-msgid "_Edit"
-msgstr "संपादा(_E)"
-
-#: ../Data/glade/dasher.compose.glade.h:82
-#: ../Data/glade/dasher.gameWIP.glade.h:91
-#: ../Data/glade/dasher.traditional.glade.h:91
-#: ../Data/glade/dashermaemofullscreen.glade.h:37
-msgid "_File"
-msgstr "फाइल(_F)"
-
-#: ../Data/glade/dasher.compose.glade.h:83
-#: ../Data/glade/dasher.gameWIP.glade.h:92
-#: ../Data/glade/dasher.traditional.glade.h:92
-#: ../Data/glade/dashermaemofullscreen.glade.h:38
-msgid "_Help"
-msgstr "मदत(_H)"
-
-#: ../Data/glade/dasher.compose.glade.h:84
-msgid "_Import Training Text"
-msgstr "ट्रेनिंग पाठ आयात करा(_I)"
-
-#: ../Data/glade/dasher.compose.glade.h:85
-#: ../Data/glade/dasher.fullscreen.glade.h:66
-#: ../Data/glade/dashermaemo.glade.h:34
-#: ../Data/glade/dashermaemofullscreen.glade.h:41
-msgid "abcdefghijk ABCDEFGHIJK"
-msgstr "abcdefghijk ABCDEFGHIJK"
-
-#: ../Data/glade/dasher.direct.glade.h:49
-#: ../Data/glade/dasher.gameWIP.glade.h:68
-#: ../Data/glade/dasher.traditional.glade.h:67
-msgid "Select Dasher Font"
-msgstr "Dasher फॉन्ट निवडा"
-
-#: ../Data/glade/dasher.direct.glade.h:50
-#: ../Data/glade/dasher.gameWIP.glade.h:69
-#: ../Data/glade/dasher.traditional.glade.h:68
-msgid "Select Editor Font"
-msgstr "संपादक फॉन्ट निवडा"
-
-#: ../Data/glade/dasher.gameWIP.glade.h:18
-#: ../Data/glade/dasher.traditional.glade.h:18
-msgid "A_ppend to file..."
-msgstr "फाइलला जोडा(_p)..."
-
-#: ../Data/glade/dasher.gameWIP.glade.h:37
-msgid "Demo!"
-msgstr "डेमो!"
-
-#: ../Data/glade/dasher.gameWIP.glade.h:42
-msgid "Full Demo"
-msgstr "पूर्ण डेमो"
-
-#: ../Data/glade/dasher.gameWIP.glade.h:44
-#: ../Data/glade/dasher.traditional.glade.h:46
-msgid "Help"
-msgstr "मदत"
-
-#: ../Data/glade/dasher.gameWIP.glade.h:50
-msgid "Launch Dasher Game & Demo mode!"
-msgstr "Dasher खेळ दाखल करा & डेमो पध्दती!"
-
-#: ../Data/glade/dasher.gameWIP.glade.h:52
-msgid "Level:"
-msgstr "पातळी:"
-
-#: ../Data/glade/dasher.gameWIP.glade.h:55
-msgid "New sentence"
-msgstr "नविन वाक्य"
-
-#: ../Data/glade/dasher.gameWIP.glade.h:61
-#: ../Data/glade/dasher.traditional.glade.h:61
-msgid "Pr_eferences..."
-msgstr "प्राधान्यता(_e)..."
-
-#: ../Data/glade/dasher.gameWIP.glade.h:62
-#: ../Data/glade/dasher.traditional.glade.h:62
-msgid "Preferences"
-msgstr "प्राधान्यता"
-
-#: ../Data/glade/dasher.gameWIP.glade.h:63
-#: ../Data/glade/dasher.traditional.glade.h:63
-msgid "Quit"
-msgstr "बाहेर पडा"
-
-#: ../Data/glade/dasher.gameWIP.glade.h:67
-msgid "Score:"
-msgstr "गुण:"
-
-#: ../Data/glade/dasher.gameWIP.glade.h:88
-#: ../Data/glade/dasher.traditional.glade.h:88
-msgid "_About..."
-msgstr "च्या विषयी(_A)..."
-
-#: ../Data/glade/dasher.gameWIP.glade.h:89
-#: ../Data/glade/dasher.traditional.glade.h:89
-msgid "_Contents..."
-msgstr "अंतर्भूत बाबी(_C)..."
-
-#: ../Data/glade/dasher.gameWIP.glade.h:93
-#: ../Data/glade/dasher.traditional.glade.h:93
-msgid "_Import Training Text..."
-msgstr "ट्रेनिंग पाठ आयात करा(_I)..."
 
 #: ../Data/glade/dashermaemo.glade.h:1
 msgid "\n"
 msgstr "\n"
 
-#: ../Data/glade/dashermaemo.glade.h:5
-msgid "<b>Display Size:</b>"
-msgstr "<b>प्रदर्शन आकार:</b>"
-
-#: ../Data/glade/dashermaemo.glade.h:7
-#: ../Data/glade/dashermaemofullscreen.glade.h:4
-msgid "<b>Orientation:</b>"
-msgstr "<b>प्राङ्मुखीकरण:</b>"
-
-#: ../Data/glade/dashermaemo.glade.h:11
-#: ../Data/glade/dashermaemofullscreen.glade.h:8
-msgid "Alphabet"
-msgstr "अक्षर"
-
-#: ../Data/glade/dashermaemo.glade.h:19
-msgid "Enlarge input window"
-msgstr "आदान खिडकी मोठी करा"
-
-#: ../Data/glade/dashermaemo.glade.h:24
+#: ../Data/glade/dashermaemo.glade.h:4
 msgid "P"
 msgstr "P"
 
-#: ../Data/glade/dashermaemo.glade.h:26
-#: ../Data/glade/dashermaemofullscreen.glade.h:23
+#: ../Data/glade/dashermaemo.preferences.glade.h:3
+msgid "<b>Color Scheme</b>"
+msgstr "<b>रंग सुत्रयोजना</b>"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:4
+msgid "<b>Display Size</b>"
+msgstr "<b>दृश्य आकार</b>"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:6
+msgid "<b>Orientation</b>"
+msgstr "<b>मार्गदर्शन</b>"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:10
+msgid "Alphabet"
+msgstr "अक्षर"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:17
+msgid "Enlarge input window"
+msgstr "आदान खिडकी मोठी करा"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:22
 msgid "Prediction"
 msgstr "भाकित"
 
-#: ../Data/glade/dashermaemo.glade.h:32
-#: ../Data/glade/dashermaemofullscreen.glade.h:30
+#: ../Data/glade/dashermaemo.preferences.glade.h:26
 msgid "View"
 msgstr "दृश्य"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:19
+#: ../Data/glade/dashermaemofullscreen.glade.h:3
 msgid "Large"
 msgstr "मोठा"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:22
+#: ../Data/glade/dashermaemofullscreen.glade.h:4
 msgid "Normal"
 msgstr "सामान्य"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:29
+#: ../Data/glade/dashermaemofullscreen.glade.h:7
 msgid "Very Large"
 msgstr "खूप मोठा"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:33
+#: ../Data/glade/dashermaemofullscreen.glade.h:9
 msgid "_Dasher Font"
 msgstr "_Dasher फॉन्ट"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:34
+#: ../Data/glade/dashermaemofullscreen.glade.h:10
 msgid "_Dasher Font Size"
 msgstr "_Dasher फॉन्ट आकार"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:36
+#: ../Data/glade/dashermaemofullscreen.glade.h:12
 msgid "_Edit Font"
 msgstr "फॉन्ट संपादन करा(_E)"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:39
+#: ../Data/glade/dashermaemofullscreen.glade.h:15
 msgid "_Options"
 msgstr "पर्याय(_O)"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:40
+#: ../Data/glade/dashermaemofullscreen.glade.h:16
 msgid "_Reset fonts"
 msgstr "फॉन्ट पुनःनिर्धारण(_R)"
 
@@ -877,35 +622,35 @@ msgstr "चौरस विना-पूर्णत्व"
 msgid "Global keyboard grab"
 msgstr "जागतिक कळफलक ओढा"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:920
+#: ../Src/DasherCore/DasherGameMode.cpp:633
+msgid "Well done!"
+msgstr "शाबास!"
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:934
 msgid "Normal Control"
 msgstr "सर्वसाधारण नियंत्रण"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:927
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:941
 msgid "Menu Mode"
 msgstr "मेन्यु पध्दती"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:928
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:942
 msgid "Direct Mode"
 msgstr "थेट पध्दती"
 
 #. RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:930
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:944
 msgid "Alternating Direct Mode"
 msgstr "पर्यायी थेट पध्दती"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:931
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:945
 msgid "Compass Mode"
 msgstr "कंपास पध्दती"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:932
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:946
 msgid "Stylus Control"
 msgstr "Stylus नियंत्रण"
-
-#: ../Src/DasherCore/DasherGameMode.cpp:629
-msgid "Well done!"
-msgstr "शाबास!"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:7
 msgid "Automatic calibration"
@@ -946,6 +691,32 @@ msgstr "एक बटण गतिक पध्दती"
 msgid "One Dimensional Mode"
 msgstr "एक बाजू पध्दती"
 
+#: ../Src/DasherCore/SettingsStore.cpp:76
+#: ../Src/Gtk2/DasherAppSettings.cpp:516 ../Src/Gtk2/DasherAppSettings.cpp:550
+#: ../Src/Gtk2/DasherAppSettings.cpp:554
+msgid "true"
+msgstr "खरे"
+
+#: ../Src/DasherCore/SettingsStore.cpp:78
+#: ../Src/Gtk2/DasherAppSettings.cpp:518 ../Src/Gtk2/DasherAppSettings.cpp:550
+#: ../Src/Gtk2/DasherAppSettings.cpp:554
+msgid "false"
+msgstr "खोटे"
+
+#. Note to translators: This message will be output for a command line
+#. with "--options foo=VAL" and foo is a boolean valued parameter, but
+#. "VAL" is not true or false.
+#: ../Src/DasherCore/SettingsStore.cpp:84
+#: ../Src/Gtk2/DasherAppSettings.cpp:521
+msgid "boolean value must be specified as 'true' or 'false'."
+msgstr "बूलीयन मुल्य 'खरे' किंवा 'खोटे' म्हणून निर्देशीत केले पाहिजे."
+
+#. Note to translators: This is output when command line "--options" doesn't
+#. specify a known option.
+#: ../Src/DasherCore/SettingsStore.cpp:104
+msgid "unknown option, use \"--help-options\" for more information."
+msgstr "अपरिचीत पर्याय, अधिक माहिती करीता \"--help-options\" वापरा."
+
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
 msgid "Dasher socket input: failed to launch reader thread."
@@ -981,7 +752,7 @@ msgstr "Y कमाल:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:34
 msgid "Print socket-related debugging information to console:"
-msgstr "कंसोलवर सॉकेट संबंधी डिबगींग माहिती छापा"
+msgstr "कंसोलवर सॉकेट संबंधित डिबगींग माहितीची छपाई करा:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:38
 msgid "Socket Input"
@@ -1022,21 +793,43 @@ msgstr "स्व गति मर्यादा"
 msgid "Two Button Dynamic Mode"
 msgstr "टोन बटणी गतिक पध्दती"
 
-#: ../Src/Gtk2/Preferences.cpp:417 ../Src/Gtk2/Preferences.cpp:983
+#: ../Src/Gtk2/DasherAppSettings.cpp:547
+msgid "Boolean parameters"
+msgstr "बूलीयन बाब"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:547 ../Src/Gtk2/DasherAppSettings.cpp:558
+#: ../Src/Gtk2/DasherAppSettings.cpp:569
+msgid "Default"
+msgstr "मुलभूत"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:547 ../Src/Gtk2/DasherAppSettings.cpp:558
+#: ../Src/Gtk2/DasherAppSettings.cpp:569
+msgid "Description"
+msgstr "वर्णन"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:558
+msgid "Integer parameters"
+msgstr "इन्टीजर बाब"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:569
+msgid "String parameters"
+msgstr "अक्षरमाळा बाब"
+
+#: ../Src/Gtk2/Preferences.cpp:433 ../Src/Gtk2/Preferences.cpp:1002
 msgid "Action"
 msgstr "कृती"
 
 #. TRANSLATORS: Show a button for the selected action in the Dasher window.
-#: ../Src/Gtk2/Preferences.cpp:990
+#: ../Src/Gtk2/Preferences.cpp:1009
 msgid "Show Button"
-msgstr "बटण दाखवा"
+msgstr "बटण दर्शवा"
 
-#: ../Src/Gtk2/Preferences.cpp:995
+#: ../Src/Gtk2/Preferences.cpp:1014
 msgid "Control Mode"
 msgstr "नियंत्रण रीत"
 
 #. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
-#: ../Src/Gtk2/Preferences.cpp:1001
+#: ../Src/Gtk2/Preferences.cpp:1020
 msgid "Auto On Stop"
 msgstr "थांबविल्यास स्वतः सुरू करा"
 
@@ -1049,39 +842,56 @@ msgstr "पाठ्य प्रविष्ट करा"
 msgid "Script"
 msgstr "लिपी"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:129
+#: ../Src/Gtk2/dasher_action_speech.cpp:130
 msgid "Speak"
 msgstr "बोला"
 
 #. TRANSLATORS: Send all text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:142
+#: ../Src/Gtk2/dasher_action_speech.cpp:143
 msgid "All"
 msgstr "सर्व"
 
 #. TRANSLATORS: Send most recently entered text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:145
+#: ../Src/Gtk2/dasher_action_speech.cpp:146
 msgid "Last"
 msgstr "शेवटचे"
 
 #. TRANSLATORS: Repeat the last phrase sent to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:148
+#: ../Src/Gtk2/dasher_action_speech.cpp:149
 msgid "Repeat"
 msgstr "परत"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:166
+#: ../Src/Gtk2/dasher_action_speech.cpp:167
 #, c-format
 msgid "Unable to initialize speech support\n"
 msgstr "संवादन सुरू करता येत नाही\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:189
+#: ../Src/Gtk2/dasher_action_speech.cpp:190
 msgid "Unable to initialize voices\n"
 msgstr "आवाज प्रारंभ करू शकत नाही\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:201
+#: ../Src/Gtk2/dasher_action_speech.cpp:202
 msgid "Warning: unable to set speech parameters\n"
 msgstr "सावधानता: वाचा बाबी निश्चित करण्यास अपयशी\n"
 
-#: ../Src/Gtk2/dasher_main.cpp:1038
+#. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
+#: ../Src/Gtk2/dasher_main.cpp:311
+msgid "option setting is missing \"=\"."
+msgstr "पर्याय संयोजना \"=\" आढळले नाही."
+
+#. Note to translators: This string will be output when --options= specifies an unknown option.
+#: ../Src/Gtk2/dasher_main.cpp:327
+msgid "Invalid option string specified"
+msgstr "अवैध अक्षरमाळा पर्याय निर्देशीत केले"
+
+#. Note to translators: This is a format string for the name of the dasher
+#. program as it appears in a window, %s will be the filename.
+#: ../Src/Gtk2/dasher_main.cpp:999
+#, c-format
+msgid "Dasher - %s"
+msgstr "Dasher - %s"
+
+#: ../Src/Gtk2/dasher_main.cpp:1084
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -1092,7 +902,7 @@ msgstr ""
 "\n"
 "तुम्ही संचयन करीत नसल्यास बदल लुप्त होतील."
 
-#: ../Src/Gtk2/dasher_main.cpp:1044
+#: ../Src/Gtk2/dasher_main.cpp:1090
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -1102,31 +912,35 @@ msgstr ""
 "\n"
 "तुम्ही संचयन करीत नसल्यास बदल लुप्त होतील."
 
-#: ../Src/Gtk2/dasher_main.cpp:1048
+#: ../Src/Gtk2/dasher_main.cpp:1094
 msgid "Don't save"
 msgstr "संग्रहू नका"
 
-#: ../Src/Gtk2/dasher_main.cpp:1049
+#: ../Src/Gtk2/dasher_main.cpp:1095 ../Src/Gtk2/dasher_main.cpp:1119
 msgid "Don't quit"
 msgstr "सोडून देऊ नका"
 
-#: ../Src/Gtk2/dasher_main.cpp:1050
+#: ../Src/Gtk2/dasher_main.cpp:1096
 msgid "Save and quit"
 msgstr "संग्रहो आणि सोडून द्या"
 
-#: ../Src/Gtk2/dasher_main.cpp:1145 ../Src/Gtk2/dasher_main.cpp:1161
+#: ../Src/Gtk2/dasher_main.cpp:1116
+msgid "Are you sure you wish to quit?"
+msgstr "तुम्हाला नक्की बाहेर पडायचे?"
+
+#: ../Src/Gtk2/dasher_main.cpp:1199 ../Src/Gtk2/dasher_main.cpp:1215
 msgid "Dasher is a predictive text entry application"
 msgstr "डॅशर हा एक भविष्यवेधी मजकूर कार्यक्रम आहे"
 
-#: ../Src/Gtk2/dasher_main.cpp:1150 ../Src/Gtk2/dasher_main.cpp:1156
+#: ../Src/Gtk2/dasher_main.cpp:1204 ../Src/Gtk2/dasher_main.cpp:1210
 msgid "translator-credits"
-msgstr "राहुल भालेराव <b.rahul.pm@gmail.com>"
+msgstr "राहुल भालेराव <b.rahul.pm@gmail.com>; संदिप शेडमाके <sandeep.shedmake@gmail.com>, 2008."
 
-#: ../Src/Gtk2/module_settings_window.cpp:85
+#: ../Src/Gtk2/module_settings_window.cpp:86
 msgid "Dasher Module Options"
 msgstr "Dasher विभाग पर्याय"
 
-#: ../Src/Gtk2/module_settings_window.cpp:91
+#: ../Src/Gtk2/module_settings_window.cpp:92
 #, c-format
 msgid "%s Options:"
 msgstr "%s पर्याय:"
@@ -1143,4 +957,28 @@ msgstr "Y क्षेत्र व्यप्तीकरीताचे प�
 #: ../Src/Gtk2/mouse_input.h:58
 msgid "One Dimensional Mouse Input"
 msgstr "एक बाजू माउस इंपुट"
+
+#. {"timedata", 'w', 0, G_OPTION_ARG_NONE, &timedata, "Write basic timing information to stdout", NULL},
+#. {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences window only", NULL},
+#. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
+#. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
+#. Note to translators: This is the help string for "--appstyle"
+#: ../Src/main.cc:188
+msgid "Application style (traditional, direct, compose or fullscreen)"
+msgstr "अनुप्रयोग शैली (पारंपारिक, प्रत्यक्ष, संयोजीत किंवा पूर्णपडदा)"
+
+#. Note to translators: This is the help string for "--options"
+#: ../Src/main.cc:190
+msgid "Override stored options"
+msgstr "संचयीत पर्याय वर रेखांकीत करा"
+
+#. Note to translators: This is the help string for "--help-options"
+#: ../Src/main.cc:192
+msgid "Describe \"--options\"."
+msgstr "\"--options\" चे वर्णन करा."
+
+#. Note to translators: This is the "--help" description of dasher.
+#: ../Src/main.cc:199
+msgid "- A text input application honouring accessibility"
+msgstr "- प्रवेश प्रदान करणारे पाठ्य इन्पुट अनुप्रयोग"
 
