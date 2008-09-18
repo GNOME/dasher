@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher.HEAD.gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-22 20:22+0000\n"
-"PO-Revision-Date: 2008-09-05 16:43+0530\n"
+"POT-Creation-Date: 2008-09-05 11:14+0000\n"
+"PO-Revision-Date: 2008-09-18 13:09+0530\n"
 "Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
 "Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
@@ -953,7 +953,7 @@ msgstr "ડેશર એ ધારણાવાળું લખાણ પ્ર�
 
 #: ../Src/Gtk2/dasher_main.cpp:1204 ../Src/Gtk2/dasher_main.cpp:1210
 msgid "translator-credits"
-msgstr "અંકિત પટેલ <ankit644@yahoo.com>"
+msgstr "અંકિત પટેલ <ankit644@yahoo.com>, શ્ર્વેતા કોઠારી <swkothar@redhat.com>"
 
 #: ../Src/Gtk2/module_settings_window.cpp:86
 msgid "Dasher Module Options"
@@ -989,7 +989,7 @@ msgstr "કાર્યક્રમ શૈલી (પરંપરાગત, સ�
 #. Note to translators: This is the help string for "--options"
 #: ../Src/main.cc:190
 msgid "Override stored options"
-msgstr ""
+msgstr "સંગ્રહેલ વિકલ્પો પર રેખાંકિત કરો"
 
 #. Note to translators: This is the help string for "--help-options"
 #: ../Src/main.cc:192
@@ -999,5 +999,5 @@ msgstr "વર્ણન \"--options\"."
 #. Note to translators: This is the "--help" description of dasher.
 #: ../Src/main.cc:199
 msgid "- A text input application honouring accessibility"
-msgstr ""
+msgstr "- ઉપયોગિતાનો આદર કરી રહ્યા હોય ત્યારે લખાણ ઇનપુટ કાર્યક્રમ"
 
