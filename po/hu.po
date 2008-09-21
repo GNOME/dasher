@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: hu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-04-22 20:22+0000\n"
-"PO-Revision-Date: 2008-09-10 23:16+0200\n"
+"PO-Revision-Date: 2008-09-21 13:22+0200\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@fsf.hu>\n"
 "MIME-Version: 1.0\n"
@@ -869,11 +869,11 @@ msgstr "Ismétlés"
 #: ../Src/Gtk2/dasher_action_speech.cpp:167
 #, c-format
 msgid "Unable to initialize speech support\n"
-msgstr "Nem lehet inicializálni a beszédtámogatást\n"
+msgstr "Nem lehet előkészíteni a beszédtámogatást\n"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:190
 msgid "Unable to initialize voices\n"
-msgstr "A hangok nem inicializálhatók\n"
+msgstr "A hangok nem készíthetők elő\n"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:202
 msgid "Warning: unable to set speech parameters\n"
