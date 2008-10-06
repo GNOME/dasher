@@ -16,15 +16,6 @@ dnl AC_PROG_INTLTOOL(0.30)
 
 AC_DISABLE_STATIC
 AC_PROG_LIBTOOL
-changequote(,)dnl
-if test "x$GCC" = "xyes"; then
-  CXXFLAGS="$CXXFLAGS -Wall -Wno-non-virtual-dtor"
-  case " $CXXFLAGS " in
-  *[\ \	]-O*) ;;
-  *) CXXFLAGS="$CXXFLAGS -O2" ;;
-  esac
-fi
-changequote([,])dnl
 
 dnl AM_ICONV
 

@@ -1,3 +1,7 @@
+2008-10-06  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* remove changequote nastiness from configure.in
+
 2008-09-15  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* configure.in: Cleaner way of fixing #324067 (libglade autoconnect)
