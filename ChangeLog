@@ -1,3 +1,9 @@
+2008-10-10  Patrick Welche  <prlw1@cam.ac.uk>
+
+	After Brian Cameron in #536926:
+	* dasher_main.cpp: avoid declaring variable length array.
+	* int64.h: INT64_{MIN,MAX} shouldn't be redefined
+
 2008-10-06  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* remove changequote nastiness from configure.in

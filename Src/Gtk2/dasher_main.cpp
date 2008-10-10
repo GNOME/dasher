@@ -988,19 +988,15 @@ dasher_main_set_window_title(DasherMain *pSelf) {
   const gchar *szFilename = dasher_editor_get_filename(pPrivate->pEditor);
 
   // Note to translators: This is the name of the dasher program as it appears
-  // in a window title without a file.
+  // in a window title.
   gchar * dasher = _("Dasher");
   if(szFilename == 0) {
     gtk_window_set_title(GTK_WINDOW(pPrivate->pMainWindow), dasher);
   }
   else {
-    // Note to translators: This is a format string for the name of the dasher
-    // program as it appears in a window, %s will be the filename.
-    gchar * titleFormat = _("Dasher - %s");
-    int len = strlen(szFilename);
-    gchar title[len+strlen(titleFormat)];
-    snprintf(title, sizeof(title), titleFormat, szFilename);
+    gchar *title = g_strdup_printf("%s - %s", dasher, szFilename);
     gtk_window_set_title(GTK_WINDOW(pPrivate->pMainWindow), title);
+    g_free (title);
   }
 }
 
