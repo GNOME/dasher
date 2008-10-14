@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="English with accents, numerals, punctuation">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>European/Asian (New)</palette>
+<train>training_english_GB.txt</train>
+<space d="&#x25a1;" t=" "  b="9"/>
+<control d="Control" t=""  b="8"/>
+<paragraph d="&#182;" b="9"/>
+<group name="Combining accents" b="47" visible="on">
+<s d="&#x25cc;&#x0300;"  t="&#x0300;" b="40" note="&#x0060; COMBINING GRAVE ACCENT  "/>
+<s d="&#x25cc;&#x0301;"  t="&#x0301;" b="41" note="&#x00B4; COMBINING ACUTE ACCENT  "/>
+<s d="&#x25cc;&#x0302;"  t="&#x0302;" b="40" note="&#x005E; COMBINING CIRCUMFLEX ACCENT  "/>
+<s d="&#x25cc;&#x0303;"  t="&#x0303;" b="41" note="&#x007E; COMBINING TILDE  "/>
+<s d="&#x25cc;&#x0304;"  t="&#x0304;" b="40" note="&#x00AF; COMBINING MACRON  "/>
+<s d="&#x25cc;&#x0306;"  t="&#x0306;" b="41" note="&#x02D8; COMBINING BREVE"/>
+<s d="&#x25cc;&#x0307;"  t="&#x0307;" b="40" note="&#x02D9; COMBINING DOT ABOVE"/>
+<s d="&#x25cc;&#x0308;"  t="&#x0308;" b="41" note="&#x00A8; COMBINING DIAERESIS or UMLAUT "/>
+<s d="&#x25cc;&#x030A;"  t="&#x030A;" b="40" note="&#x02DA; COMBINING RING ABOVE"/>
+<s d="&#x25cc;&#x030B;"  t="&#x030B;" b="41" note="&#x02DD; COMBINING DOUBLE ACUTE ACCENT"/>
+<s d="&#x25cc;&#x030C;"  t="&#x030C;" b="40" note="&#x02C7; COMBINING CARON"/>
+<s d="&#x25cc;&#x0326;"  t="&#x0326;" b="41" note="       COMBINING COMMA BELOW"/>
+<s d="&#x25cc;&#x0327;"  t="&#x0327;" b="40" note="&#x00B8; COMBINING CEDILLA  "/>
+<s d="&#x25cc;&#x0328;"  t="&#x0328;" b="41" note="&#x02DB; COMBINING OGONEK"/>
+</group>
+<group name="Lower case Latin letters" b="0" visible="off">
+<s d="a" t="a" b="10"/>
+<s d="b" t="b" b="11"/>
+<s d="c" t="c" b="12"/>
+<s d="d" t="d" b="13"/>
+<s d="e" t="e" b="14"/>
+<s d="f" t="f" b="15"/>
+<s d="g" t="g" b="16"/>
+<s d="h" t="h" b="17"/>
+<s d="i" t="i" b="18"/>
+<s d="j" t="j" b="19"/>
+<s d="k" t="k" b="20"/>
+<s d="l" t="l" b="21"/>
+<s d="m" t="m" b="22"/>
+<s d="n" t="n" b="23"/>
+<s d="o" t="o" b="24"/>
+<s d="p" t="p" b="25"/>
+<s d="q" t="q" b="26"/>
+<s d="r" t="r" b="27"/>
+<s d="s" t="s" b="28"/>
+<s d="t" t="t" b="29"/>
+<s d="u" t="u" b="30"/>
+<s d="v" t="v" b="31"/>
+<s d="w" t="w" b="32"/>
+<s d="x" t="x" b="33"/>
+<s d="y" t="y" b="34"/>
+<s d="z" t="z" b="35"/>
+</group>
+<group name="Upper case Latin letters" b="46">
+<s d="A" t="A" b="10"/>
+<s d="B" t="B" b="11"/>
+<s d="C" t="C" b="12"/>
+<s d="D" t="D" b="13"/>
+<s d="E" t="E" b="14"/>
+<s d="F" t="F" b="15"/>
+<s d="G" t="G" b="16"/>
+<s d="H" t="H" b="17"/>
+<s d="I" t="I" b="18"/>
+<s d="J" t="J" b="19"/>
+<s d="K" t="K" b="20"/>
+<s d="L" t="L" b="21"/>
+<s d="M" t="M" b="22"/>
+<s d="N" t="N" b="23"/>
+<s d="O" t="O" b="24"/>
+<s d="P" t="P" b="25"/>
+<s d="Q" t="Q" b="26"/>
+<s d="R" t="R" b="27"/>
+<s d="S" t="S" b="28"/>
+<s d="T" t="T" b="29"/>
+<s d="U" t="U" b="30"/>
+<s d="V" t="V" b="31"/>
+<s d="W" t="W" b="32"/>
+<s d="X" t="X" b="33"/>
+<s d="Y" t="Y" b="34"/>
+<s d="Z" t="Z" b="35"/>
+</group>
+<group name="Numbers" b="48">
+<s d="1" t="1" b="42"/>
+<s d="2" t="2" b="41"/>
+<s d="3" t="3" b="42"/>
+<s d="4" t="4" b="41"/>
+<s d="5" t="5" b="42"/>
+<s d="6" t="6" b="41"/>
+<s d="7" t="7" b="42"/>
+<s d="8" t="8" b="41"/>
+<s d="9" t="9" b="42"/>
+<s d="0" t="0" b="41"/>
+</group>
+<group name="Punctuation" b="49">
+<s b="40" d="[" t="["/>
+<s b="41" d="]" t="]"/>
+<s b="40" d="{" t="{"/>
+<s b="41" d="}" t="}"/>
+<s b="40" d="&lt;" t="&lt;"/>
+<s b="41" d="&gt;" t="&gt;"/>
+<s b="40" d="(" t="("/>
+<s b="41" d=")" t=")"/>
+<s b="40" d="&amp;" t="&amp;"/> 
+<s b="42" d="$" t="$"/>
+<s b="41" d="%" t="%"/>
+<s b="42" d="=" t="="/>
+<s b="41" d="+" t="+"/>
+<s b="42" d="-" t="-"/>
+<s b="41" d="*" t="*"/>
+<s b="42" d="/" t="/"/>
+<s b="40" d="\" t="\"/>
+<s b="41" d="#" t="#"/>
+<s b="40" d="|" t="|"/>
+<s b="41" d="~" t="~"/>
+<s b="40" d="^" t="^"/>
+<s b="41" d="@" t="@"/>
+<s b="40" d="_" t="_"/>
+<s b="42" d="&#x201C;" t="&#x201C;" note="left double quotation mark" />
+<s b="41" d="&#x0022;" t="&#x0022;" note="deprecated vertical double quotation mark" />
+<s b="42" d="&#x201D;" t="&#x201D;" note="right double quotation mark" />
+<s b="41" d="&#x2018;" t="&#x2018;" note="left single quotation mark" />
+<s b="42" d="&#x2019;" t="&#x2019;" note="right single quotation mark and apostrophe" />
+<s b="41" d="`" t="`" note="left quote from keyboard" />
+<s b="42" d="&#x25cc;&#x0313;" t="&apos;" note=" apostrophe"/>
+<s b="40"  d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
+<s b="41" d=":" t=":"/>
+<s b="40" d=";" t=";"/>
+<s b="41" d="?" t="?"/>
+<s b="40" d="!" t="!"/>
+<s b="41" d="," t=","/>
+<s d="&#183;" t="." b="40"/>
+</group>
+</alphabet>
+</alphabets>

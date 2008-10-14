@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE colours SYSTEM "colour.dtd">
+<?xml-stylesheet type="text/xsl" href="colour.xsl"?>
+<colours>
+<palette name="European/Asian">
+<!-- Summary: 
+ Letters 10-109 are divided up as follows:
+   10-39: principal European area. Currently coloured with 3 cycling colours. 
+   40-69: unused    European area. Currently coloured with 3 cycling colours. 
+   70-79: 10 Hiragana rainbow colours
+   80-89: 10 Hiragana rainbow colours, slightly different shades
+   90-: Distinctive Colours recommended for use in Punctuation, numerals
+       90-94: five shades of pink, can be used periodically 
+       95-99: five shades of grey, can be used periodically 
+       100-104: redundant; filled with greys at the moment
+       105-109: five shades of purple, can be used periodically
+ Groups:
+    110-113: contain the yellow, green, red groups used in European alphabets
+    115-129: other group colour schemes for use when there are many groups
+       115-119: pinks
+       120-124: purples
+       125-129:  greys
+  -->
+<!-- background 0 -->
+<colour r="255" g="255" b="255"/>
+<!-- mouse line 1 (red) -->
+<colour r="255" g="0" b="0"/>
+<!-- mouse position 2 (black) -->
+<colour r="0" g="0" b="0"/>
+<!-- box outlines 3 (grey) -->
+<colour r="218" g="218" b="218"/>
+<!-- text 4 (black) -->
+<colour r="0" g="0" b="0"/>
+<!-- crosshairs 5 (black) -->
+<colour r="0" g="0" b="0"/>
+<!-- keyboard positioning 6 (black) -->
+<colour r="0" g="0" b="0"/>
+<!-- root node 7 (soft green) -->
+<colour r="180" g="238" b="180"  />
+<!-- control node 8 (dark grey ) -->
+<colour r="80" g="80" b="80"/>
+<!-- space 9  (off-white)  -->
+<colour r="235" g="235" b="235"/>
+<!-- letters (10-109) -->
+<!-- first 30 colours for use by european alphabets -->
+<colour r="0" g="255" b="255"/>
+<colour r="180" g="238" b="180"/>
+<colour r="155" g="205" b="155"/>
+<colour r="0" g="255" b="255"/>
+<colour r="180" g="238" b="180"/>
+<colour r="155" g="205" b="155"/>
+<colour r="0" g="255" b="255"/>
+<colour r="180" g="238" b="180"/>
+<colour r="155" g="205" b="155"/>
+<colour r="0" g="255" b="255"/>
+<colour r="180" g="238" b="180"/>
+<colour r="155" g="205" b="155"/>
+<colour r="0" g="255" b="255"/>
+<colour r="180" g="238" b="180"/>
+<colour r="155" g="205" b="155"/>
+<colour r="0" g="255" b="255"/>
+<colour r="180" g="238" b="180"/>
+<colour r="155" g="205" b="155"/>
+<colour r="0" g="255" b="255"/>
+<colour r="180" g="238" b="180"/>
+<colour r="155" g="205" b="155"/>
+<colour r="0" g="255" b="255"/>
+<colour r="180" g="238" b="180"/>
+<colour r="155" g="205" b="155"/>
+<colour r="0" g="255" b="255"/>
+<colour r="180" g="238" b="180"/>
+<colour r="155" g="205" b="155"/>
+<colour r="0" g="255" b="255"/>
+<colour r="180" g="238" b="180"/>
+<colour r="155" g="205" b="155"/>
+<!-- next 10 letters unallocated -->
+<colour r="0" g="255" b="255"/>
+<colour r="180" g="238" b="180"/>
+<colour r="155" g="205" b="155"/>
+<colour r="0" g="255" b="255"/>
+<colour r="180" g="238" b="180"/>
+<colour r="155" g="205" b="155"/>
+<colour r="0" g="255" b="255"/>
+<colour r="180" g="238" b="180"/>
+<colour r="155" g="205" b="155"/>
+<colour r="0" g="255" b="255"/>
+<!-- that is the first 40 letters   Here are restored bland colours for 50-59 --> 
+<colour r="180" g="238" b="180"/>
+<colour r="155" g="205" b="155"/>
+<colour r="0" g="255" b="255"/>
+<colour r="180" g="238" b="180"/>
+<colour r="155" g="205" b="155"/>
+<colour r="0" g="255" b="255"/>
+<colour r="180" g="238" b="180"/>
+<colour r="155" g="205" b="155"/>
+<colour r="0" g="255" b="255"/>
+<colour r="180" g="238" b="180"/>
+<!-- that is the first 50 letters --> 
+<!-- Here I have a pale Hiragana section, for use as an additional group  resource. See also 190-199 -->
+<!-- red colour 50+10 -->
+<colour r="255" g="119" b="119"/>
+<!-- orange 50+11 -->
+<colour r="255" g="200" b="136"/>
+<!-- yel  50+12 -->
+<colour r="255" g="240" b="130"/>
+<!-- NEW lime yel/green  50+13 <colour r="190" g="255" b="0"/> -->
+<colour r="230" g="255" b="160"/>
+<!-- green 14 -->
+<colour r="100" g="255" b="120"/>
+<!-- NEW greenblue  60+15 -->
+<colour r="100" g="255" b="200"/>
+<!-- NEW light blue 16  -->
+<colour r="140" g="215" b="255"/>
+<!-- darkerblue 17   -->
+<colour r="140" g="140" b="255"/>
+<!-- blue purple 18  -->
+<colour r="215" g="110" b="255"/>
+<!-- red purple  60+19   -->
+<colour r="255" g="119" b="209"/>
+<!-- that is the first 60 letters --> 
+<!-- now 20 colours for hiragana rainbow.
+  10 and 10, almost identical, just intensity difference
+  between the two groups
+  -->
+<!-- red colour 60+10 -->
+<colour r="255" g="69" b="69"/>
+<!-- orange 60+11 -->
+<colour r="255" g="156" b="96"/>
+<!-- yel  60+12 -->
+<colour r="255" g="230" b="0"/>
+<!-- NEW lime yel/green  60+13 <colour r="190" g="255" b="0"/> -->
+<colour r="200" g="255" b="80"/>
+<!-- green 14 -->
+<colour r="0" g="247" b="20"/>
+<!-- NEW greenblue  60+15 -->
+<colour r="0" g="255" b="185"/>
+<!-- NEW light blue 16  -->
+<colour r="0" g="205" b="255"/>
+<!-- darkerblue 17   -->
+<colour r="90" g="90" b="255"/>
+<!-- blue purple 18  -->
+<colour r="195" g="90" b="255"/>
+<!-- red purple  60+19   -->
+<colour r="255" g="90" b="192"/>
+<!-- end of first 10 hiragana letter colours -->
+<!-- the second rainbow is slightly less bright -->
+<!-- red colour 70+10 -->
+<colour r="240" g="56" b="56"/>
+<!-- orange 11 r="255" g="156" b="96" -->
+<colour r="240" g="145" b="80"/>
+<!-- yel  12  r="255" g="230" b="0"  or dirty yellow r="240" g="220" b="0" -->
+<colour r="255" g="230" b="110"/>
+<!-- NEW yel/green  13   r="190" g="255" b="0"  <colour r="176" g="240" b="0"/> -->
+<colour r="186" g="248" b="0"/>
+<!-- green 14 -->
+<colour r="0" g="240" b="0"/>
+<!-- NEW greenblue  15 -->
+<colour r="0" g="240" b="177"/>
+<!-- NEW light blue  -->
+<colour r="0" g="189" b="240"/>
+<!-- darkerblue 17   -->
+<colour r="90" g="70" b="230"/>
+<!-- blue purple 18 (19 is biggest colour used by hiragana) -->
+<colour r="182" g="72" b="235"/>
+<!-- red purple  70+19   -->
+<colour r="235" g="72" b="182"/>
+<!-- end of first 20 hiragana letter colours -->
+<!-- 20 shades of pink and grey useful for punctuation -->
+<!-- pink recommend using all five periodically -->
+<!-- pinks 90 91 92 93 94 --> 
+<!-- pink  used by old Hiragana  90  had g,b 192 -->
+<colour r="255" g="172" b="172"/>
+<colour r="255" g="132" b="132"/>
+<colour r="255" g="192" b="192"/>
+<colour r="255" g="154" b="154"/>
+<colour r="255" g="210" b="210"/>
+<!-- greys: recommend using 95..99 periodically (five colours) -->
+<!-- light grey 95   -->
+<colour r="170" g="170" b="170"/>
+<!--  dark grey 96  -->
+<colour r="120" g="120" b="120"/>
+<!--  grey  97  -->
+<colour r="195" g="195" b="195"/>
+<!--  v light grey  98  -->
+<colour r="145" g="145" b="145"/>
+<!--  v light grey  99  -->
+<colour r="220" g="220" b="220"/>
+<!-- slate blues     100  101 102 103 104  -->
+<colour r="142" g="172" b="222"/>
+<colour r="110" g="130" b="188"/>
+<colour r="170" g="200" b="232"/>
+<colour r="114" g="154" b="204"/>
+<colour r="200" g="228" b="243"/>
+<!-- light purple  used by old hiragana, (182) in 5 shades 105 106 107 108 109  -->
+<colour r="255" g="145" b="255"/>
+<colour r="255" g="82"  b="255"/>
+<colour r="255" g="162" b="255"/>
+<colour r="255" g="128" b="255"/>
+<colour r="255" g="182" b="255"/>
+<!-- end of first 90 letter colours -->
+<!-- groups (110-129)-->
+<!-- slate blue  110  -->
+<colour r="100" g="155" b="200"/>
+<!-- yellow = capitals 111  -->
+<colour r="255" g="255" b="0"/>
+<!-- NOW GREEN - was dark red 112  (punctuation 112 is usually green)  -->
+<colour r="0" g="200" b="0"/>
+<!-- NOW RED   - was green 113 - (red 113 usually used for numbers) -->
+<colour r="255" g="0" b="0"/>
+<!-- dark purple  114 -->
+<colour r="200" g="0" b="200"/>
+<!-- khaki (as used in english)  115 -->
+<colour r="155" g="205" b="155"/>
+ <!-- pink as used by old Hiragana  115-119  (116-120?) -->
+<colour r="255" g="172" b="172"/>
+<colour r="255" g="132" b="132"/>
+<!-- pink  19  used by old Hiragana  -->
+<colour r="255" g="192" b="192"/>
+<colour r="255" g="154" b="154"/>
+<colour r="255" g="210" b="210"/>
+<!-- light purple as used by old hiragana 120-124 five shades  -->
+<colour r="255" g="145" b="255"/>
+<colour r="255" g="82"  b="255"/>
+<colour r="255" g="162" b="255"/>
+<!-- light purple 18 used by old hiragana  -->
+<colour r="255" g="128" b="255"/>
+<colour r="255" g="182" b="255"/>
+<!-- FIVE greys 125-129 for use in groups, identical to five in the punctuation letters area --> 
+<!-- light grey 125   -->
+<colour r="170" g="170" b="170"/>
+<!--  dark grey 126  -->
+<colour r="120" g="120" b="120"/>
+<!--  grey  127  -->
+<colour r="195" g="195" b="195"/>
+<!--  v light grey  128  -->
+<colour r="145" g="145" b="145"/>
+<!--  v light grey  129  -->
+<colour r="220" g="220" b="220"/>
+<!-- end of groups -->
+<!-- currently unused (130-137) -->
+<colour r="255" g="128" b="255"/>
+<colour r="255" g="192" b="192"/>
+<!-- light grey  -->
+<colour r="192" g="192" b="192"/>
+<!--  orange, pink, and fluorescent green; to be used for decorations like arrows  -->
+<colour r="255" g="160" b="100"/>
+<colour r="255" g="100" b="204"/>
+<colour r="200" g="255" b="20"/>
+<colour r="150" g="255" b="50"/>
+<!-- and that ^^ is 137 -->
+<!-- alternate colours, used in alternation with the ones above -->
+<!-- alternate control node -->
+<colour r="80" g="80" b="80"/>
+<!-- alternate space -->
+<colour r="255" g="255" b="255"/>
+<!-- alternate colours for letters (140-239) -->
+<colour r="135" g="206" b="255"/>
+<colour r="255" g="174" b="185"/>
+<colour r="255" g="187" b="255"/>
+<colour r="135" g="206" b="255"/>
+<colour r="255" g="174" b="185"/>
+<colour r="255" g="187" b="255"/>
+<colour r="135" g="206" b="255"/>
+<colour r="255" g="174" b="185"/>
+<colour r="255" g="187" b="255"/>
+<colour r="135" g="206" b="255"/>
+<colour r="255" g="174" b="185"/>
+<colour r="255" g="187" b="255"/>
+<colour r="135" g="206" b="255"/>
+<colour r="255" g="174" b="185"/>
+<colour r="255" g="187" b="255"/>
+<colour r="135" g="206" b="255"/>
+<colour r="255" g="174" b="185"/>
+<colour r="255" g="187" b="255"/>
+<colour r="135" g="206" b="255"/>
+<colour r="255" g="174" b="185"/>
+<colour r="255" g="187" b="255"/>
+<colour r="135" g="206" b="255"/>
+<colour r="255" g="174" b="185"/>
+<colour r="255" g="187" b="255"/>
+<colour r="135" g="206" b="255"/>
+<colour r="255" g="174" b="185"/>
+<colour r="255" g="187" b="255"/>
+<colour r="135" g="206" b="255"/>
+<colour r="255" g="174" b="185"/>
+<colour r="255" g="187" b="255"/>
+<!-- end of first 30 letters -->
+<colour r="135" g="206" b="255"/>
+<colour r="255" g="174" b="185"/>
+<colour r="255" g="187" b="255"/>
+<colour r="135" g="206" b="255"/>
+<colour r="255" g="174" b="185"/>
+<colour r="255" g="187" b="255"/>
+<colour r="135" g="206" b="255"/>
+<colour r="255" g="174" b="185"/>
+<colour r="255" g="187" b="255"/>
+<colour r="135" g="206" b="255"/>
+<colour r="255" g="174" b="185"/>
+<colour r="255" g="187" b="255"/>
+<colour r="135" g="206" b="255"/>
+<colour r="255" g="174" b="185"/>
+<colour r="255" g="187" b="255"/>
+<colour r="135" g="206" b="255"/>
+<colour r="255" g="174" b="185"/>
+<colour r="255" g="187" b="255"/>
+<colour r="135" g="206" b="255"/>
+<colour r="255" g="174" b="185"/>
+<!-- Here I have a DARK, INTENSE Hiragana section, for use as an additional group  resource. Used to be known as 50-59.
+     Now known as 130+60 = 190-199 -->
+<!-- red colour 50+10 -->
+<colour r="245" g="0" b="0"/>
+<!-- orange 50+11 -->
+<colour r="249" g="139" b="0"/>
+<!-- yel  50+12 -->
+<colour r="255" g="250" b="0"/>
+<!-- NEW lime yel/green  50+13 <colour r="190" g="255" b="0"/> -->
+<colour r="223" g="255" b="0"/>
+<!-- green 14 -->
+<colour r="0" g="250" b="0"/>
+<!-- NEW greenblue  60+15 -->
+<colour r="0" g="255" b="200"/>
+<!-- NEW light blue 16  -->
+<colour r="0" g="215" b="240"/>
+<!-- darkerblue 17   -->
+<colour r="0" g="100" b="245"/>
+<!-- blue purple 18  -->
+<colour r="215" g="0" b="250"/>
+<!-- red purple  60+19   -->
+<colour r="250" g="0" b="209"/>
+<!-- end of 60 letters -->
+<!-- red colour 10 -->
+<colour r="255" g="69" b="69"/>
+<!-- orange 11 -->
+<colour r="255" g="156" b="96"/>
+<!-- yel  12 -->
+<colour r="255" g="230" b="0"/>
+<!-- NEW yel/green  13 -->
+<colour r="200" g="255" b="80"/>
+<!-- green 14 -->
+<colour r="0" g="247" b="20"/>
+<!-- NEW greenblue  15 -->
+<colour r="0" g="255" b="185"/>
+<!-- NEW light blue 16  -->
+<colour r="0" g="205" b="255"/>
+<!-- darkerblue 17   -->
+<colour r="90" g="90" b="255"/>
+<!-- blue purple 18 (19 is biggest colour used by hiragana) -->
+<colour r="195" g="90" b="255"/>
+<!-- red purple  19   -->
+<colour r="255" g="90" b="192"/>
+<!-- end of first 10 letter colours -->
+<!-- the second rainbow is slightly less bright -->
+<!-- red colour 70+10 -->
+<colour r="240" g="56" b="56"/>
+<!-- orange 11 r="255" g="156" b="96" -->
+<colour r="240" g="145" b="80"/>
+<!-- yel  12  r="255" g="230" b="0" -->
+<colour r="255" g="230" b="110"/>
+<!-- NEW yel/green  13   r="190" g="255" b="0" -->
+<colour r="186" g="248" b="50"/>
+<!-- green 14 -->
+<colour r="0" g="240" b="0"/>
+<!-- NEW greenblue  15 -->
+<colour r="0" g="240" b="177"/>
+<!-- NEW light blue  -->
+<colour r="0" g="189" b="240"/>
+<!-- darkerblue 17   -->
+<colour r="90" g="70" b="230"/>
+<!-- blue purple 18 (19 is biggest colour used by hiragana) -->
+<colour r="182" g="72" b="235"/>
+<!-- red purple  70+19   -->
+<colour r="235" g="72" b="182"/>
+<!-- end of first 20 hiragana letter colours -->
+<!-- end of  20 hiragana  letter colours -->
+<!-- 20 shades of pink and grey useful for punctuation -->
+<!-- pink  used by old Hiragana  90  was 192 -->
+<!-- other  pinks 91 92 93 94 --> 
+<colour r="255" g="172" b="172"/>
+<colour r="255" g="132" b="132"/>
+<colour r="255" g="192" b="192"/>
+<colour r="255" g="154" b="154"/>
+<colour r="255" g="210" b="210"/>
+<!-- greys: recommend using 95..99 periodically (five colours) -->
+<!-- light grey 95   -->
+<colour r="170" g="170" b="170"/>
+<!--  dark grey 96  -->
+<colour r="120" g="120" b="120"/>
+<!--  grey  97  -->
+<colour r="195" g="195" b="195"/>
+<!--  v light grey  98  -->
+<colour r="145" g="145" b="145"/>
+<!--  v light grey  99  -->
+<colour r="220" g="220" b="220"/>
+<!-- slate blues     100  101 102 103 104  -->
+<colour r="142" g="172" b="222"/>
+<colour r="110" g="130" b="188"/>
+<colour r="170" g="200" b="232"/>
+<colour r="114" g="154" b="204"/>
+<colour r="200" g="228" b="243"/>
+<!-- light purple  105-109 used by old hiragana, in 5 shades  -->
+<colour r="255" g="145" b="255"/>
+<colour r="255" g="82"  b="255"/>
+<colour r="255" g="162" b="255"/>
+<colour r="255" g="128" b="255"/>
+<colour r="255" g="182" b="255"/>
+<!-- end of first 90 letter colours -->
+<!-- Control mode colours -->
+<!-- Green (240) -->
+<colour r="0" g="255" b="0"/>
+<!-- Amber (241) -->
+<colour r="240" g="240" b="0"/>
+<!-- Red (242) -->
+<colour r="255" g="0" b="0"/>
+</palette>
+</colours>

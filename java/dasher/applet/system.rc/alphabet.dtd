@@ -1,0 +1,63 @@
+<!-- alphabets contains groups of valid symbols for use in Dasher,
+along with some useful information. It does nothing to tell Dasher,
+how those symbols may be used. -->
+
+<!ELEMENT alphabets (alphabet*)>
+
+<!ELEMENT alphabet (orientation, encoding, train, paragraph, space, control, group*)>
+<!ATTLIST alphabet name CDATA #REQUIRED>
+
+<!-- Left-Right, Right-Left, Top-Bottom or Bottom-Top?
+Which way up should Dasher do its rendering by default? -->
+<!ELEMENT orientation EMPTY>
+<!ATTLIST orientation type (LR|RL|TB|BT) #REQUIRED>
+
+<!-- The encoding field just helps Dasher decide on some Localisation
+issues. In theory it could see which characters are there and pick
+a suitable file encoding and font. Sometimes this is difficult.
+It does not dictate the file format. For example, traditionally Unix
+and Windows use different encodings for some languages. A platform
+should do what what it thinks best given the vague group Dasher
+has put the alphabet into. If this doesn't work out, the user
+can over-ride the alphabet anyway. -->
+<!ELEMENT encoding EMPTY>
+<!ATTLIST encoding type CDATA #REQUIRED>
+
+<!-- Default training file for this alphabet -->
+<!ELEMENT train (#PCDATA)>
+
+<!-- Traditionally the paragraph character is rendered differently to all
+others. Can set d (display) to "" to disable. -->
+<!ELEMENT paragraph EMPTY>
+<!ATTLIST paragraph d CDATA #REQUIRED>
+<!ATTLIST paragraph f CDATA #IMPLIED>
+<!ATTLIST paragraph b CDATA #IMPLIED>
+
+<!-- Traditionally the space character is rendered differently to all
+others. Can set both d (display) and t (text) to "" to disable. -->
+<!ELEMENT space EMPTY>
+<!ATTLIST space d CDATA #REQUIRED>
+<!ATTLIST space t CDATA #REQUIRED>
+<!ATTLIST space f CDATA #IMPLIED>
+<!ATTLIST space b CDATA #IMPLIED>
+
+<!-- The control character is special, and not part of the main alphabet. -->
+
+<!ELEMENT control EMPTY>
+<!ATTLIST control d CDATA #REQUIRED>
+<!ATTLIST control t CDATA #REQUIRED>
+<!ATTLIST control f CDATA #IMPLIED>
+<!ATTLIST control b CDATA #IMPLIED>
+
+<!-- Logical groups of symbols, eg name="Lower case letters" -->
+<!ELEMENT group (s*)>
+<!ATTLIST group name CDATA #REQUIRED>
+<!ATTLIST group b CDATA #IMPLIED>
+
+<!-- Symbols Dasher can use. It shows text d in the nodes and sends
+text t to the edit box -->
+<!ELEMENT s EMPTY>
+<!ATTLIST s d CDATA #REQUIRED>
+<!ATTLIST s t CDATA #REQUIRED>
+<!ATTLIST s f CDATA #IMPLIED>
+<!ATTLIST s b CDATA #IMPLIED>

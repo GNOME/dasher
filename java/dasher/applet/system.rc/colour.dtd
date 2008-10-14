@@ -1,0 +1,13 @@
+<!-- Colour schemes contain lists of colours to be used by Dasher -->
+
+<!ELEMENT colours (palette*)>
+
+<!ELEMENT palette (colour*)>
+<!ATTLIST palette name CDATA #REQUIRED>
+
+<!-- A list of rgb values -->
+<!ELEMENT colour EMPTY>
+<!ATTLIST colour r CDATA #REQUIRED>
+<!ATTLIST colour g CDATA #REQUIRED>
+<!ATTLIST colour b CDATA #REQUIRED>
+
