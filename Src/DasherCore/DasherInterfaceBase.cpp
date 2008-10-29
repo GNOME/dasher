@@ -37,7 +37,6 @@
 #include "UserLog.h"
 #include "BasicLog.h"
 #endif
-#include "WrapperFactory.h"
 #include "DasherGameMode.h"
 
 // Input filters
@@ -90,10 +89,10 @@ CDasherInterfaceBase::CDasherInterfaceBase() {
   m_DasherScreen = NULL;
   m_pDasherView = NULL;
   m_pInput = NULL;
+  m_pInputFilter = NULL;
   m_AlphIO = NULL;
   m_ColourIO = NULL;
   m_pUserLog = NULL;
-  m_pInputFilter = NULL;
   m_pNCManager = NULL;
 
   // Various state variables
@@ -207,7 +206,6 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
   delete m_pDasherView;
   delete m_ColourIO;
   delete m_AlphIO;
-  delete m_pInputFilter;
   delete m_pNCManager;
   //  delete m_pTrainingHelper;
   // Do NOT delete Edit box or Screen. This class did not create them.
@@ -509,13 +507,14 @@ void CDasherInterfaceBase::Unpause(unsigned long Time) {
 void CDasherInterfaceBase::CreateInput() {
   if(m_pInput) {
     m_pInput->Deactivate();
-    m_pInput->Unref();
   }
 
   m_pInput = (CDasherInput *)GetModuleByName(GetStringParameter(SP_INPUT_DEVICE));
 
+  if (m_pInput == NULL)
+    m_pInput = (CDasherInput *)GetDefaultInputDevice();
+
   if(m_pInput) {
-    m_pInput->Ref();
     m_pInput->Activate();
   }
 
@@ -896,54 +895,69 @@ void CDasherInterfaceBase::CreateInputFilter()
 {
   if(m_pInputFilter) {
     m_pInputFilter->Deactivate();
-    m_pInputFilter->Unref();
     m_pInputFilter = NULL;
   }
 
 #ifndef _WIN32_WCE
   m_pInputFilter = (CInputFilter *)GetModuleByName(GetStringParameter(SP_INPUT_FILTER));
-#else
-  m_pInputFilter = (CInputFilter *)GetModuleByName("Click Mode");
 #endif
 
-  if(m_pInputFilter) {
-    m_pInputFilter->Ref();
-    m_pInputFilter->Activate();
-  }
-  else {
-    // Fall back to a sensible alternative if for some reason the
-    // current choice isn't valid.
-    if(GetStringParameter(SP_INPUT_FILTER) != "Normal Control")
-      SetStringParameter(SP_INPUT_FILTER, "Normal Control");
-  }
+  if (m_pInputFilter == NULL)
+    m_pInputFilter = (CInputFilter *)GetDefaultInputMethod();
+
+  m_pInputFilter->Activate();
 }
 
-void CDasherInterfaceBase::RegisterFactory(CModuleFactory *pFactory) {
-  m_oModuleManager.RegisterFactory(pFactory);
+CDasherModule *CDasherInterfaceBase::RegisterModule(CDasherModule *pModule) {
+    return m_oModuleManager.RegisterModule(pModule);
 }
  
 CDasherModule *CDasherInterfaceBase::GetModule(ModuleID_t iID) {
-   return m_oModuleManager.GetModule(iID);
+    return m_oModuleManager.GetModule(iID);
 }
 
 CDasherModule *CDasherInterfaceBase::GetModuleByName(const std::string &strName) {
-   return m_oModuleManager.GetModuleByName(strName);
+    return m_oModuleManager.GetModuleByName(strName);
+}
+
+CDasherModule *CDasherInterfaceBase::GetDefaultInputDevice() {
+    return m_oModuleManager.GetDefaultInputDevice();
+}
+
+CDasherModule *CDasherInterfaceBase::GetDefaultInputMethod() {
+    return m_oModuleManager.GetDefaultInputMethod();
+}
+
+void CDasherInterfaceBase::SetDefaultInputDevice(CDasherModule *pModule) {
+    m_oModuleManager.SetDefaultInputDevice(pModule);
+}
+
+void CDasherInterfaceBase::SetDefaultInputMethod(CDasherModule *pModule) {
+    m_oModuleManager.SetDefaultInputMethod(pModule);
 }
 
 void CDasherInterfaceBase::CreateFactories() {
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDefaultFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel,3, _("Normal Control"))));
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new COneDimensionalFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel)));
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CEyetrackerFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel)));
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CClickFilter(m_pEventHandler, m_pSettingsStore, this)));
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new COneButtonDynamicFilter(m_pEventHandler, m_pSettingsStore, this)));
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CTwoButtonDynamicFilter(m_pEventHandler, m_pSettingsStore, this)));
+  SetDefaultInputMethod(
+    RegisterModule(new CDefaultFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel,3, _("Normal Control")))
+  );
+  RegisterModule(new COneDimensionalFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel));
+  RegisterModule(new CEyetrackerFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel));
+#ifndef _WIN32_WCE
+  RegisterModule(new CClickFilter(m_pEventHandler, m_pSettingsStore, this));
+#else
+  SetDefaultInputMethod(
+    RegisterModule(new CClickFilter(m_pEventHandler, m_pSettingsStore, this));
+  );
+#endif
+  RegisterModule(new COneButtonDynamicFilter(m_pEventHandler, m_pSettingsStore, this));
+  RegisterModule(new CTwoButtonDynamicFilter(m_pEventHandler, m_pSettingsStore, this));
   // TODO: specialist factory for button mode
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 5, 1, true,8, _("Menu Mode"))));
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 3, 0, false,10, _("Direct Mode"))));
-  //  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 3, 3, false,12, _("Alternating Direct Mode"))));
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 2, false,13, _("Compass Mode"))));
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CStylusFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel,15, _("Stylus Control"))));
+  RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 5, 1, true,8, _("Menu Mode")));
+  RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 3, 0, false,10, _("Direct Mode")));
+  //  RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3"));
+  RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 3, 3, false,12, _("Alternating Direct Mode")));
+  RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 2, false,13, _("Compass Mode")));
+  RegisterModule(new CStylusFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel,15, _("Stylus Control")));
 
 }
 

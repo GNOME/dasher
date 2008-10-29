@@ -1,4 +1,4 @@
-// TrainingHelper.cpp.h
+// TrainingHelper.h
 //
 // Copyright (c) 2007 The Dasher Team
 //

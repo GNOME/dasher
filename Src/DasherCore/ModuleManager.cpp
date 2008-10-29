@@ -1,42 +1,108 @@
+// ModuleManager.cpp
+//
+// Copyright (c) 2008 The Dasher Team
+//
+// This file is part of Dasher.
+//
+// Dasher is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// Dasher is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Dasher; if not, write to the Free Software 
+// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+#include <iostream>
+#include <stdexcept>
+
 #include "ModuleManager.h"
 
-void CModuleManager::RegisterFactory(CModuleFactory *pFactory) {
-  pFactory->Start();
+using namespace Dasher;
 
-  while(pFactory->IsMore()) {
-    ModuleID_t iID;
-    int iType;
-    std::string strName;
+CDasherModule *CModuleManager::RegisterModule(CDasherModule *pModule) {
+    m_vModules.push_back(pModule);
+    ModuleID_t id = m_vModules.size() - 1;
+    pModule->SetID(id);
 
-    pFactory->GetNext(&iID, &iType, &strName);
+    // This does
+    //     m_mapNameToID[pModule->GetName()] = id;
+    // but with error checking.
+    std::pair<std::map<const std::string, ModuleID_t>::iterator, bool> res;
+    std::pair<const std::string, ModuleID_t> keyvalue(pModule->GetName(), id);
+    res = m_mapNameToID.insert(keyvalue);
+    if (!res.second)
+        std::cerr << "Module \"" << pModule->GetName()
+                  << "\" registered twice" << std::endl;
 
-    m_mapModules[iID] = pFactory;
-  }
+    return pModule;
 }
 
 CDasherModule *CModuleManager::GetModule(ModuleID_t iID) {
-  // TODO: Error checking here
-  
-  return m_mapModules[iID]->GetModule(iID);
+    // This does
+    //     return m_vModules[iID];
+    // but with error checking.
+    try {
+        return m_vModules.at(iID);
+    }
+    catch (std::out_of_range) {
+        std::cerr << "Module with ID " << iID << " not found" << std::endl;
+        return NULL;
+    }
 }
 
 CDasherModule *CModuleManager::GetModuleByName(const std::string strName) {
-  for(std::map<ModuleID_t, CModuleFactory *>::iterator it(m_mapModules.begin()); it != m_mapModules.end(); ++it) {
-    if(strName == (it->second)->GetName(it->first))
-      return (it->second)->GetModule(it->first);
-  }
-
-  return 0;
+    // This does
+    //    return m_vModules[m_mapNameToID[strName]];
+    // but with error checking.
+    std::map<const std::string, ModuleID_t>::iterator res;
+    res = m_mapNameToID.find(strName);
+    if (res == m_mapNameToID.end()) {
+        std::cerr << "Module \"" << strName << "\" not registered" <<std::endl;
+        return NULL;
+    } else {
+        return m_vModules[res->second];
+    }
 }
 
 void CModuleManager::ListModules(int iType, std::vector<std::string> &vList) {
-  for(std::map<ModuleID_t, CModuleFactory *>::iterator it(m_mapModules.begin()); it != m_mapModules.end(); ++it) {
-    if((it->second)->GetType(it->first) == iType)
-      vList.push_back((it->second)->GetName(it->first));
-  }
+    for (ModuleID_t i = 0; i < m_vModules.size(); ++i) {
+        if(m_vModules[i]->GetType() == iType)
+            vList.push_back(m_vModules[i]->GetName());
+    }
 }
 
 CModuleManager::~CModuleManager() {
-  for(std::map<ModuleID_t, CModuleFactory *>::iterator it(m_mapModules.begin()); it != m_mapModules.end(); ++it)
-    delete it->second;
+    for (ModuleID_t i = 0; i < m_vModules.size(); ++i) {
+        delete m_vModules[i];
+    }
+}
+
+CDasherModule *CModuleManager::GetDefaultInputDevice() {
+    return m_pDefaultInputDevice;
+}
+
+CDasherModule *CModuleManager::GetDefaultInputMethod() {
+    return m_pDefaultInputMethod;
+}
+
+void CModuleManager::SetDefaultInputDevice(CDasherModule *p) {
+    if (p->GetType() == InputDevice)
+        m_pDefaultInputDevice = p;
+    else
+        std::cerr << "Tried to register " << p->GetName()
+                  << " as an input device" << std::endl;
+}
+
+void CModuleManager::SetDefaultInputMethod(CDasherModule *p) {
+    if (p->GetType() == InputMethod)
+        m_pDefaultInputMethod = p;
+    else
+        std::cerr << "Tried to register " << p->GetName()
+                  << " as an input method" << std::endl;
 }

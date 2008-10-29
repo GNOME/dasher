@@ -6,7 +6,7 @@
 #include "DasherControl.h"
 #include "Timer.h"
 #include "../DasherCore/Event.h"
-#include "../DasherCore/WrapperFactory.h"
+#include "../DasherCore/ModuleManager.h"
 
 #include <fcntl.h>
 
@@ -44,29 +44,23 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
 }
 
 void CDasherControl::CreateLocalFactories() {
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherMouseInput(m_pEventHandler, m_pSettingsStore)));
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CSocketInput(m_pEventHandler, m_pSettingsStore)));
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasher1DMouseInput(m_pEventHandler, m_pSettingsStore)));
+  // Create locally cached copies of the mouse input objects, as we
+  // need to pass coordinates to them from the timer callback
+  m_pMouseInput =
+    (CDasherMouseInput *)  RegisterModule(new CDasherMouseInput(m_pEventHandler, m_pSettingsStore));
+  SetDefaultInputDevice(m_pMouseInput);
+  m_p1DMouseInput =
+    (CDasher1DMouseInput *)RegisterModule(new CDasher1DMouseInput(m_pEventHandler, m_pSettingsStore));
+  RegisterModule(new CSocketInput(m_pEventHandler, m_pSettingsStore));
 
 #ifdef JOYSTICK
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherJoystickInput(m_pEventHandler, m_pSettingsStore, this)));
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherJoystickInputDiscrete(m_pEventHandler, m_pSettingsStore, this)));
+  RegisterModule(new CDasherJoystickInput(m_pEventHandler, m_pSettingsStore, this));
+  RegisterModule(new CDasherJoystickInputDiscrete(m_pEventHandler, m_pSettingsStore, this));
 #endif
   
 #ifdef TILT
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherTiltInput(m_pEventHandler, m_pSettingsStore, this)));
+  RegisterModule(new CDasherTiltInput(m_pEventHandler, m_pSettingsStore, this));
 #endif
-  
-  
-  // Create locally cached copies of the mouse input objects, as we
-  // need to pass coordinates to them from the timer callback
-  
-  m_pMouseInput = (CDasherMouseInput *)GetModule(0);
-  m_pMouseInput->Ref();
-
-  m_p1DMouseInput = (CDasher1DMouseInput *)GetModule(2);
-  m_p1DMouseInput->Ref();
-
 }
 
 void CDasherControl::SetupUI() {
@@ -192,12 +186,10 @@ void CDasherControl::ScanColourFiles(std::vector<std::string> &vFileList) {
 
 CDasherControl::~CDasherControl() {
   if(m_pMouseInput) {
-    m_pMouseInput->Unref();
     m_pMouseInput = NULL;
   }
 
   if(m_p1DMouseInput) {
-    m_p1DMouseInput->Unref();
     m_p1DMouseInput = NULL;
   }
 

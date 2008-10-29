@@ -10,7 +10,7 @@
 #import <Cocoa/Cocoa.h>
 #import "COSXDasherControl.h"
 #import "COSXSettingsStore.h"
-#import "WrapperFactory.h"
+#import "ModuleManager.h"
 #import "COSXMouseInput.h"
 #import "DasherUtil.h"
 #import "DasherApp.h"
@@ -39,32 +39,20 @@ COSXDasherControl::COSXDasherControl(DasherApp *aDasherApp) {
 }
 
 void COSXDasherControl::CreateLocalFactories() {
-  
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new COSXMouseInput(m_pEventHandler, m_pSettingsStore)));
-
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new COSX1DMouseInput(m_pEventHandler, m_pSettingsStore)));
-  
-  
-  
   // Create locally cached copies of the mouse input objects, as we
   // need to pass coordinates to them from the timer callback
-  
-  m_pMouseInput = (COSXMouseInput *)GetModule(0);
-  m_pMouseInput->Ref();
-  
-  m_p1DMouseInput = (COSX1DMouseInput *)GetModule(2);
-  m_p1DMouseInput->Ref();
-  
+  m_pMouseInput =
+    (COSXMouseInput *)  RegisterModule(new COSXMouseInput(m_pEventHandler, m_pSettingsStore));
+  m_p1DMouseInput =
+    (COSX1DMouseInput *)RegisterModule(new COSX1DMouseInput(m_pEventHandler, m_pSettingsStore));
 }
   
 COSXDasherControl::~COSXDasherControl() {
   if(m_pMouseInput) {
-    m_pMouseInput->Unref();
     m_pMouseInput = NULL;
   }
   
   if(m_p1DMouseInput) {
-    m_p1DMouseInput->Unref();
     m_p1DMouseInput = NULL;
   }
 }

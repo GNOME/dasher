@@ -87,7 +87,6 @@ libdashercore_a_SOURCES = \
 		InputFilter.h \
 		MemoryLeak.cpp \
 		MemoryLeak.h \
-		ModuleFactory.h \
 		ModuleManager.cpp \
 		ModuleManager.h \
 		NodeCreationManager.cpp \
@@ -129,8 +128,6 @@ libdashercore_a_SOURCES = \
 		UserLogTrial.cpp \
 		UserLogTrial.h \
 		View/DelayedDraw.h \
-		WrapperFactory.cpp \
-		WrapperFactory.h \
 		XMLUtil.cpp \
 		XMLUtil.h
 

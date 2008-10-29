@@ -335,7 +335,13 @@ public:
   /// @}
 
   // Module management functions
-  void RegisterFactory(CModuleFactory *pFactory);
+  CDasherModule *RegisterModule(CDasherModule *pModule);
+  CDasherModule *GetModule(ModuleID_t iID);
+  CDasherModule *GetModuleByName(const std::string &strName);
+  CDasherModule *GetDefaultInputDevice();
+  CDasherModule *GetDefaultInputMethod();
+  void SetDefaultInputDevice(CDasherModule *);
+  void SetDefaultInputMethod(CDasherModule *);
 
   void StartShutdown();
 
@@ -427,9 +433,6 @@ protected:
   void ChangeState(ETransition iTransition);
 
   /// @}
-
-  CDasherModule *GetModule(ModuleID_t iID);
-  CDasherModule *GetModuleByName(const std::string &strName);
 
   CEventHandler *m_pEventHandler;
   CSettingsStore *m_pSettingsStore;
@@ -584,12 +587,12 @@ protected:
   CDasherScreen *m_DasherScreen;
   CDasherView *m_pDasherView;
   CDasherInput *m_pInput;
+  CInputFilter* m_pInputFilter;
+  CModuleManager m_oModuleManager;
   CAlphIO *m_AlphIO;
   CColourIO *m_ColourIO;
   CNodeCreationManager *m_pNCManager;
   CUserLogBase *m_pUserLog; 
-  CInputFilter* m_pInputFilter;
-  CModuleManager m_oModuleManager;
   //  CTrainingHelper *m_pTrainingHelper;
   /// @}
 

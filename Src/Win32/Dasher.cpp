@@ -1,7 +1,7 @@
 
 #include "Common\WinCommon.h"          // must include pch first
 
-#include "../DasherCore/WrapperFactory.h"
+#include "../DasherCore/ModuleManager.h"
 
 #include "Dasher.h"
 #include "../DasherCore/Event.h"
@@ -51,10 +51,10 @@ CDasher::~CDasher(void) {
 
 void CDasher::CreateLocalFactories() {
 #ifndef _WIN32_WCE
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CSocketInput(m_pEventHandler, m_pSettingsStore)));
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CBTSocketInput(m_pEventHandler, m_pSettingsStore)));
+  RegisterModule(new CSocketInput(m_pEventHandler, m_pSettingsStore));
+  RegisterModule(new CBTSocketInput(m_pEventHandler, m_pSettingsStore));
 #endif
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherMouseInput(m_pEventHandler, m_pSettingsStore, m_pCanvas->getwindow())));
+  RegisterModule(new CDasherMouseInput(m_pEventHandler, m_pSettingsStore, m_pCanvas->getwindow()));
 }
 
 void CDasher::Main() {
