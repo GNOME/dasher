@@ -6,6 +6,8 @@
 	refcounting which caused double freeing of modules. ModuleID
 	of 0 and 2 are no longer special. Delete ModuleFactory.h and
 	WrapperFactory.{h,cpp}
+	* Also remove those files from the windows build, and build
+	a release by default.
 
 2008-10-14  Chris Smowton  <chris.smowton@cl.cam.ac.uk>
 
