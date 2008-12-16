@@ -78,9 +78,14 @@ void CModuleManager::ListModules(int iType, std::vector<std::string> &vList) {
 }
 
 CModuleManager::~CModuleManager() {
+/* XXX PRLW: Modules are Components. Components are registered
+ * with an event handler on creation. When they are unregistered,
+ * they are deleted, so this part is not necessary. One question
+ * then is why are effectively maintaining two lists.
     for (ModuleID_t i = 0; i < m_vModules.size(); ++i) {
         delete m_vModules[i];
     }
+ */
 }
 
 CDasherModule *CModuleManager::GetDefaultInputDevice() {
