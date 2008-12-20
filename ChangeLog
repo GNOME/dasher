@@ -1,3 +1,10 @@
+2008-12-20  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* Convert from gnome-vfs to gvfs from gio in glib based on
+	Arun Chaganty's patch in #559174. Invented --without-gvfs
+	configure switch to help test - remove in the future.
+	* dasher depends on glib.
+
 2008-12-16  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* Avoid double freeing of modules.

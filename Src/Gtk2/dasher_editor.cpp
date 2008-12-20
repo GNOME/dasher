@@ -22,9 +22,6 @@
 
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
-#ifdef GNOME_LIBS 
-#include <libgnomevfs/gnome-vfs.h> 
-#endif
 
 #include "dasher_action_keyboard.h"
 #ifdef WITH_MAEMO

@@ -3,11 +3,10 @@
 #include <cstring>
 
 #include <glib/gi18n.h>
-#include <gtk/gtk.h>
-#ifdef GNOME_LIBS 
-#include <libgnomevfs/gnome-vfs.h> 
+#ifdef HAVE_GIO
+#include <gio/gio.h>
 #endif
-
+#include <gtk/gtk.h>
 
 #ifdef WITH_MAEMO
 #include "dasher_action_keyboard_maemo.h"
@@ -133,13 +132,14 @@ static void dasher_editor_internal_command_new(DasherEditor *pSelf);
 static void dasher_editor_internal_command_open(DasherEditor *pSelf);
 static void dasher_editor_internal_command_save(DasherEditor *pSelf, gboolean bPrompt, gboolean bAppend);
 
-#ifdef GNOME_LIBS
-static void dasher_editor_internal_vfs_print_error(DasherEditor *pSelf, GnomeVFSResult * result, const char *myfilename);
-static gboolean dasher_editor_internal_gnome_vfs_open_file(DasherEditor *pSelf, const char *filename, gchar ** buffer, unsigned long long *size);
-static gboolean dasher_editor_internal_gnome_vfs_save_file(DasherEditor *pSelf, const char *filename, gchar * buffer, unsigned long long length, bool append);
+#ifdef HAVE_GIO
+static void dasher_editor_internal_gvfs_print_error(DasherEditor *pSelf, GError *error, const char *myfilename);
+static GFileOutputStream *append_or_replace_file(GFile *file, bool append, GError **error);
+static gboolean dasher_editor_internal_gvfs_open_file(DasherEditor *pSelf, const char *filename, gchar ** buffer, gsize *size);
+static gboolean dasher_editor_internal_gvfs_save_file(DasherEditor *pSelf, const char *filename, gchar * buffer, gsize length, bool append);
 #else
-static gboolean dasher_editor_internal_unix_vfs_open_file(DasherEditor *pSelf, const char *filename, gchar ** buffer, unsigned long long *size);
-static gboolean dasher_editor_internal_unix_vfs_save_file(DasherEditor *pSelf, const char *filename, gchar * buffer, unsigned long long length, bool append);
+static gboolean dasher_editor_internal_unix_vfs_open_file(DasherEditor *pSelf, const char *filename, gchar ** buffer, gsize *size);
+static gboolean dasher_editor_internal_unix_vfs_save_file(DasherEditor *pSelf, const char *filename, gchar * buffer, gsize length, bool append);
 #endif
 
 static void dasher_editor_internal_set_filename(DasherEditor *pSelf, const gchar *szFilename);
@@ -664,7 +664,7 @@ dasher_editor_internal_get_context(DasherEditor *pSelf, int iOffset, int iLength
   // TODO: Check where this function is used
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
-  gchar *szContext;
+  const gchar *szContext;
 
   if(pPrivate->pBufferSet)
     szContext = idasher_buffer_set_get_context(pPrivate->pBufferSet, iOffset, iLength);
@@ -715,11 +715,11 @@ static void
 dasher_editor_internal_open(DasherEditor *pSelf, const gchar *szFilename) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
-  unsigned long long size;
+  gsize size;
   gchar *buffer;
 
-#ifdef GNOME_LIBS
-  if(!dasher_editor_internal_gnome_vfs_open_file(pSelf, szFilename, &buffer, &size)) {
+#ifdef HAVE_GIO
+  if(!dasher_editor_internal_gvfs_open_file(pSelf, szFilename, &buffer, &size)) {
     return;
   }
 #else
@@ -734,12 +734,12 @@ dasher_editor_internal_open(DasherEditor *pSelf, const gchar *szFilename) {
   if(size != 0) {
     // Don't attempt to insert new text if the file is empty as it makes
     // GTK cry
-    if(!g_utf8_validate(buffer, size, NULL)) {
+    if(!g_utf8_validate(buffer, size, NULL)) { // PRLW: size as gssize = signed int
       // It's not UTF8, so we do the best we can...
 
       // If there are zero bytes in the file then we have a problem -
       // for now, just assert that we can't load these files.
-      for(unsigned int i(0); i < size; ++i)
+      for(gsize i = 0; i < size; ++i)
 	if(buffer[i] == 0) {
 // 	  GtkWidget *pErrorBox = gtk_message_dialog_new(GTK_WINDOW(window), 
 // 							GTK_DIALOG_MODAL, 
@@ -854,8 +854,8 @@ dasher_editor_internal_save_as(DasherEditor *pSelf, const gchar *szFilename, boo
     bytes_written = length;
     //  }
 
-#ifdef GNOME_LIBS
-  if(!dasher_editor_internal_gnome_vfs_save_file(pSelf, szFilename, outbuffer, bytes_written, bAppend)) {
+#ifdef HAVE_GIO
+  if(!dasher_editor_internal_gvfs_save_file(pSelf, szFilename, outbuffer, bytes_written, bAppend)) {
     return false;
   }
 #else
@@ -1337,12 +1337,12 @@ dasher_editor_internal_command_open(DasherEditor *pSelf) {
 						   GTK_STOCK_CANCEL, 
 						   GTK_RESPONSE_CANCEL, NULL);
 
-#ifdef GNOME_LIBS
+#ifdef HAVE_GIO
   gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(filesel), FALSE);
 #endif
 
   if(gtk_dialog_run(GTK_DIALOG(filesel)) == GTK_RESPONSE_ACCEPT) {
-#ifdef GNOME_LIBS
+#ifdef HAVE_GIO
     char *filename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(filesel));
 #else
     char *filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel));
@@ -1371,12 +1371,12 @@ dasher_editor_internal_command_save(DasherEditor *pSelf, gboolean bPrompt, gbool
 						     GTK_STOCK_CANCEL, 
 						     GTK_RESPONSE_CANCEL, NULL);
     
-#ifdef GNOME_LIBS
+#ifdef HAVE_GIO
     gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(filesel), FALSE);
 #endif
     
     if(gtk_dialog_run(GTK_DIALOG(filesel)) == GTK_RESPONSE_ACCEPT) {
-#ifdef GNOME_LIBS
+#ifdef HAVE_GIO
       szFilename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(filesel));
 #else
       szFilename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel));
@@ -1397,13 +1397,13 @@ dasher_editor_internal_command_save(DasherEditor *pSelf, gboolean bPrompt, gbool
   g_free(szFilename);
 }
 
-#ifdef GNOME_LIBS
+#ifdef HAVE_GIO
 static void 
-dasher_editor_internal_vfs_print_error(DasherEditor *pSelf, GnomeVFSResult *result, const char *myfilename) {
-  // Turns a Gnome VFS error into English
+dasher_editor_internal_gvfs_print_error(DasherEditor *pSelf, GError *error, const char *myfilename) {
+  // Turns a GVFS error into English
   GtkWidget *error_dialog;
   // error_dialog = gtk_message_dialog_new(GTK_WINDOW(window), GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "Could not open the file \"%s\"\n%s\n", myfilename, gnome_vfs_result_to_string(*result));
-  error_dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "Could not open the file \"%s\"\n%s\n", myfilename, gnome_vfs_result_to_string(*result));
+  error_dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL, GTK_MESSAGE_ERROR, GTK_BUTTONS_OK, "Could not open the file \"%s\"\n%s\n", myfilename, error->message);
   gtk_dialog_set_default_response(GTK_DIALOG(error_dialog), GTK_RESPONSE_OK);
   gtk_window_set_resizable(GTK_WINDOW(error_dialog), FALSE);
   gtk_dialog_run(GTK_DIALOG(error_dialog));
@@ -1412,119 +1412,141 @@ dasher_editor_internal_vfs_print_error(DasherEditor *pSelf, GnomeVFSResult *resu
 }
 
 static gboolean 
-dasher_editor_internal_gnome_vfs_open_file(DasherEditor *pSelf, const char *myfilename, gchar **buffer, unsigned long long *size) {
-  GnomeVFSHandle *read_handle;
-  GnomeVFSResult result;
-  GnomeVFSFileInfo info;
-  GnomeVFSFileSize bytes_read;
-  GnomeVFSURI *uri;
+dasher_editor_internal_gvfs_open_file(DasherEditor *pSelf, const char *uri, gchar **buffer, gsize *size)
+{
+  GFile *file;
+  GFileInputStream *read_handle;
+  GError *error;
+  GFileInfo *info;
+  gssize bytes_read;
 
-  uri = gnome_vfs_uri_new(myfilename);
+  file = g_file_new_for_uri (uri);
 
-  if(uri == NULL) {             // It's not a URI we can cope with - assume it's a filename
-    char *tmpfilename = gnome_vfs_get_uri_from_local_path(myfilename);
-    // TODO: figure out how this is supposed to work, and reimplement
-//     if(myfilename != filename) {
-//       g_free((void *)myfilename);
-//     }
-    myfilename = tmpfilename;
-    uri = gnome_vfs_uri_new(myfilename);
-    if(uri == NULL) {
+  read_handle = g_file_read (file, NULL, &error);
+
+  /* If URI didn't work, try path */
+  if (read_handle == NULL)
+    { // PRLW: g_object_unref isn't actually stipulated by g_file_new_for_uri
+      g_object_unref (file);
+      file = g_file_new_for_path (uri);
+      read_handle = g_file_read (file, NULL, &error);
+    }
+
+  if (read_handle == NULL)
+    {
+      dasher_editor_internal_gvfs_print_error (pSelf, error, uri);
+      g_object_unref (file);
       return FALSE;
     }
-  }
 
-  result = gnome_vfs_open_uri(&read_handle, uri, GNOME_VFS_OPEN_READ);
-  if(result != GNOME_VFS_OK) {
-    dasher_editor_internal_vfs_print_error(pSelf, &result, myfilename);
-    g_free(uri);
-    return FALSE;
-  }
+  info = g_file_query_info (file, G_FILE_ATTRIBUTE_STANDARD_SIZE,
+                            G_FILE_QUERY_INFO_NONE, NULL, &error);
 
-  result = gnome_vfs_get_file_info_uri(uri, &info, GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
-  if(result != GNOME_VFS_OK) {
-    dasher_editor_internal_vfs_print_error(pSelf, &result, myfilename);
-    g_free(uri);
-    return FALSE;
-  }
+  if (info == NULL)
+    {
+      dasher_editor_internal_gvfs_print_error (pSelf, error, uri);
+      g_input_stream_close (G_INPUT_STREAM(read_handle), NULL, &error);
+      g_object_unref (read_handle);
+      g_object_unref (file);
+      return FALSE;
+    }
 
-  *size = (gint) info.size;
-  *buffer = (gchar *) g_malloc(*size);
-  result = gnome_vfs_read(read_handle, *buffer, *size, &bytes_read);
+  // XXX PRLW: cases info > max(size) as max(size) < max(uint64),
+  // and bytes_read < size aren't handled.
+  *size = g_file_info_get_attribute_uint64(info,G_FILE_ATTRIBUTE_STANDARD_SIZE);
+  *buffer = (gchar *) g_malloc (*size);
+  bytes_read = g_input_stream_read (G_INPUT_STREAM(read_handle), *buffer,
+                                    *size, NULL, &error);
 
-  if(result != GNOME_VFS_OK) {
-    dasher_editor_internal_vfs_print_error(pSelf, &result, myfilename);
-    g_free(uri);
-    return FALSE;
-  }
-  gnome_vfs_close(read_handle);
-  g_free(uri);
+  if (bytes_read == -1)
+    {
+      dasher_editor_internal_gvfs_print_error (pSelf, error, uri);
+      g_input_stream_close (G_INPUT_STREAM(read_handle), NULL, &error);
+      g_object_unref (read_handle);
+      g_object_unref (info);
+      g_object_unref (file);
+      return FALSE;
+    }
+
+  g_input_stream_close (G_INPUT_STREAM(read_handle), NULL, NULL);
+  g_object_unref (read_handle);
+  g_object_unref (info);
+  g_object_unref (file);
   return TRUE;
 }
 
+static GFileOutputStream *append_or_replace_file(GFile *file, bool append, GError **error)
+{
+  GFileOutputStream *write_handle;
+  if (append)
+      write_handle = g_file_append_to (file, G_FILE_CREATE_NONE, NULL, error);
+  else
+      write_handle = g_file_replace (file, NULL, FALSE, G_FILE_CREATE_NONE,
+                                     NULL, error);
+
+  return write_handle;
+}
+
 static gboolean 
-dasher_editor_internal_gnome_vfs_save_file(DasherEditor *pSelf, const char *myfilename, gchar *buffer, unsigned long long length, bool append) {
-  GnomeVFSHandle *write_handle;
-  GnomeVFSResult result;
-  GnomeVFSFileSize bytes_written;
-  GnomeVFSURI *uri;
+dasher_editor_internal_gvfs_save_file(DasherEditor *pSelf, const char *uri, gchar *buffer, gsize length, bool append)
+{
+  GFile *file;
+  GFileOutputStream *write_handle;
+  GError *error;
+  gssize bytes_written;
 
-  uri = gnome_vfs_uri_new(myfilename);
+  file = g_file_new_for_uri (uri);
 
-  if(uri == NULL) {             // It's not a URI we can cope with - assume it's a filename
-    char *tmpfilename = gnome_vfs_get_uri_from_local_path(myfilename);
-    // TODO: figure out what this is supposed to do and reimplement
- //    if(myfilename != filename) {
-//       g_free((void *)myfilename);
-//     }
-    myfilename = tmpfilename;
-    uri = gnome_vfs_uri_new(myfilename);
-    if(uri == NULL) {
+  write_handle = append_or_replace_file (file, append, &error);
+
+  /* If URI didn't work, try path */
+  if (write_handle == NULL)
+    {
+      g_object_unref (file);
+      file = g_file_new_for_path (uri);
+      write_handle = append_or_replace_file (file, append, &error);
+    }
+
+  if (write_handle == NULL)
+    {
+      dasher_editor_internal_gvfs_print_error (pSelf, error, uri);
+      g_object_unref (file);
       return FALSE;
     }
-  }
 
-  result = gnome_vfs_create_uri(&write_handle, uri, GnomeVFSOpenMode(GNOME_VFS_OPEN_WRITE | GNOME_VFS_OPEN_RANDOM), TRUE, 0666);
-
-  if(result == GNOME_VFS_ERROR_FILE_EXISTS) {
-    if(append) {
-      result = gnome_vfs_open_uri(&write_handle, uri, GnomeVFSOpenMode(GNOME_VFS_OPEN_WRITE | GNOME_VFS_OPEN_RANDOM));
+  if (append)
+    {
+      if (!g_seekable_seek(G_SEEKABLE(write_handle),0,G_SEEK_END, NULL, &error))
+        {
+          dasher_editor_internal_gvfs_print_error (pSelf, error, uri);
+          g_object_unref (write_handle);
+          g_object_unref (file);
+          return FALSE;
+        }
     }
-    else {
-      result = gnome_vfs_create_uri(&write_handle, uri, GnomeVFSOpenMode(GNOME_VFS_OPEN_WRITE | GNOME_VFS_OPEN_RANDOM), FALSE, 0666);
-    }
-  }
 
-  if(result != GNOME_VFS_OK) {
-    dasher_editor_internal_vfs_print_error(pSelf, &result, myfilename);
-    g_free(uri);
-    return FALSE;
-  }
-
-  if(append) {
-    result = gnome_vfs_seek(write_handle, GNOME_VFS_SEEK_END, 0);
-    if(result != GNOME_VFS_OK) {
-      dasher_editor_internal_vfs_print_error(pSelf, &result, myfilename);
-      g_free(uri);
+  bytes_written = g_output_stream_write (G_OUTPUT_STREAM(write_handle), buffer,
+                                         length, NULL, &error);
+  // XXX PRLW: case bytes_written < length not handled.
+  if (bytes_written == -1)
+    {
+      dasher_editor_internal_gvfs_print_error (pSelf, error, uri);
+      g_output_stream_close (G_OUTPUT_STREAM(write_handle), NULL, NULL);
+      g_object_unref (write_handle);
+      g_object_unref (file);
       return FALSE;
     }
-  }
 
-  result = gnome_vfs_write(write_handle, buffer, length, &bytes_written);
-  if(result != GNOME_VFS_OK) {
-    dasher_editor_internal_vfs_print_error(pSelf, &result, myfilename);
-    g_free(uri);
-    return FALSE;
-  }
-
-  gnome_vfs_close(write_handle);
-  g_free(uri);
+  g_output_stream_close (G_OUTPUT_STREAM(write_handle), NULL, NULL);
+  g_object_unref (write_handle);
+  g_object_unref (file);
   return TRUE;
 }
-#else
+
+#else /* not HAVE_GIO */
 
 static gboolean 
-dasher_editor_internal_unix_vfs_open_file(DasherEditor *pSelf, const char *myfilename, gchar **buffer, unsigned long long *size) {
+dasher_editor_internal_unix_vfs_open_file(DasherEditor *pSelf, const char *myfilename, gchar **buffer, gsize *size) {
   GtkWidget *error_dialog;
 
   struct stat file_stat;
@@ -1543,7 +1565,7 @@ dasher_editor_internal_unix_vfs_open_file(DasherEditor *pSelf, const char *myfil
     return FALSE;
   }
 
-  *size = file_stat.st_size;
+  *size = file_stat.st_size; // PRLW: is off_t = uint64_t, size is size_t, MD
   *buffer = (gchar *) g_malloc(*size);
   fread(*buffer, *size, 1, fp);
   fclose(fp);
@@ -1551,7 +1573,7 @@ dasher_editor_internal_unix_vfs_open_file(DasherEditor *pSelf, const char *myfil
 }
 
 static gboolean 
-dasher_editor_internal_unix_vfs_save_file(DasherEditor *pSelf, const char *myfilename, gchar *buffer, unsigned long long length, bool append) {
+dasher_editor_internal_unix_vfs_save_file(DasherEditor *pSelf, const char *myfilename, gchar *buffer, gsize length, bool append) {
   int opened = 1;
   GtkWidget *error_dialog;
 
