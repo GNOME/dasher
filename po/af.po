@@ -1,0 +1,975 @@
+# Afrikaans translation of dasher.
+# Copyright (C) 2008
+# This file is distributed under the same license as the dasher package.
+# F Wolff <friedel@translate.org.za>, 2008
+msgid ""
+msgstr ""
+"Project-Id-Version: dasher\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-12-28 14:26+0100\n"
+"PO-Revision-Date: 2008-12-27 16:06+0200\n"
+"Last-Translator: F Wolff <friedel@translate.org.za>\n"
+"Language-Team: <translate-discuss-af@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.2\n"
+
+#. Note to translators: This is the name of the dasher program as it appears
+#. in a window title.
+#: ../Data/dasher.desktop.in.in.h:1 ../Data/glade/dasher.compose.glade.h:5
+#: ../Data/glade/dasher.direct.glade.h:2
+#: ../Data/glade/dasher.fullscreen.glade.h:1
+#: ../Data/glade/dasher.gameWIP.glade.h:6
+#: ../Data/glade/dasher.traditional.glade.h:6
+#: ../Data/glade/dashermaemo.glade.h:3
+#: ../Data/glade/dashermaemofullscreen.glade.h:2
+#: ../Src/Gtk2/dasher_main.cpp:992 ../Src/Gtk2/dasher_main.cpp:1208
+msgid "Dasher"
+msgstr "Dasher"
+
+#: ../Data/dasher.desktop.in.in.h:2
+msgid "Enter text without a keyboard"
+msgstr "Tik teks sonder 'n sleutelbord"
+
+#: ../Data/dasher.desktop.in.in.h:3
+msgid "Predictive text entry"
+msgstr "Voorspellende tekstoevoer"
+
+#: ../Data/glade/dasher.compose.glade.h:1
+#: ../Data/glade/dasher.direct.glade.h:1
+#: ../Data/glade/dasher.gameWIP.glade.h:2
+#: ../Data/glade/dasher.traditional.glade.h:2
+msgid "Alphabet:"
+msgstr "Alfabet:"
+
+#: ../Data/glade/dasher.compose.glade.h:2
+#: ../Data/glade/dasher.gameWIP.glade.h:3
+#: ../Data/glade/dasher.traditional.glade.h:3
+msgid "Copy"
+msgstr "Kopieer"
+
+#: ../Data/glade/dasher.compose.glade.h:3
+#: ../Data/glade/dasher.gameWIP.glade.h:4
+#: ../Data/glade/dasher.traditional.glade.h:4
+#: ../Data/glade/dashermaemofullscreen.glade.h:1
+msgid "Copy _All"
+msgstr "Kopieer _alles"
+
+#: ../Data/glade/dasher.compose.glade.h:4
+#: ../Data/glade/dasher.gameWIP.glade.h:5
+#: ../Data/glade/dasher.traditional.glade.h:5
+msgid "Cut"
+msgstr "Knip"
+
+#: ../Data/glade/dasher.compose.glade.h:6
+msgid "Dasher _Tutorial"
+msgstr "Dasher-_tutoriaal"
+
+#: ../Data/glade/dasher.compose.glade.h:7
+#: ../Data/glade/dasher.gameWIP.glade.h:12
+#: ../Data/glade/dasher.traditional.glade.h:8
+msgid "New file"
+msgstr "Nuwer lêer"
+
+#: ../Data/glade/dasher.compose.glade.h:8
+#: ../Data/glade/dasher.gameWIP.glade.h:14
+#: ../Data/glade/dasher.traditional.glade.h:9
+msgid "Open file"
+msgstr "Open lêer"
+
+#: ../Data/glade/dasher.compose.glade.h:9
+#: ../Data/glade/dasher.gameWIP.glade.h:15
+#: ../Data/glade/dasher.traditional.glade.h:10
+msgid "Paste"
+msgstr "Plak"
+
+#: ../Data/glade/dasher.compose.glade.h:10
+#: ../Data/glade/dasher.direct.glade.h:3
+#: ../Data/glade/dasher.fullscreen.glade.h:2
+#: ../Data/glade/dasher.gameWIP.glade.h:16
+#: ../Data/glade/dasher.traditional.glade.h:11
+#: ../Data/glade/dashermaemo.glade.h:5
+msgid "Please Wait..."
+msgstr "Wag asseblief..."
+
+#: ../Data/glade/dasher.compose.glade.h:11
+msgid "Pr_eferences"
+msgstr "Vo_orkeure"
+
+#: ../Data/glade/dasher.compose.glade.h:12
+#: ../Data/glade/dasher.gameWIP.glade.h:20
+#: ../Data/glade/dasher.traditional.glade.h:15
+msgid "Save file"
+msgstr "Stoor lêer"
+
+#: ../Data/glade/dasher.compose.glade.h:13
+#: ../Data/glade/dasher.gameWIP.glade.h:21
+#: ../Data/glade/dasher.traditional.glade.h:16
+msgid "Save file as"
+msgstr "Stoor lêer as"
+
+#: ../Data/glade/dasher.compose.glade.h:14
+#: ../Data/glade/dasher.direct.glade.h:4
+#: ../Data/glade/dasher.fullscreen.glade.h:3
+#: ../Data/glade/dasher.gameWIP.glade.h:23
+#: ../Data/glade/dasher.traditional.glade.h:17
+#: ../Data/glade/dashermaemo.glade.h:6
+#: ../Data/glade/dashermaemofullscreen.glade.h:5
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1332
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1366
+#: ../Src/Gtk2/dasher_main.cpp:1042
+msgid "Select File"
+msgstr "Kies lêer"
+
+#: ../Data/glade/dasher.compose.glade.h:15
+#: ../Data/glade/dasher.fullscreen.glade.h:4
+#: ../Data/glade/dashermaemo.glade.h:7
+#: ../Data/glade/dashermaemofullscreen.glade.h:6
+msgid "Select Font"
+msgstr "Kies skriftipe"
+
+#: ../Data/glade/dasher.compose.glade.h:16
+#: ../Data/glade/dasher.direct.glade.h:5
+#: ../Data/glade/dasher.gameWIP.glade.h:24
+#: ../Data/glade/dasher.traditional.glade.h:18
+msgid "Speed:"
+msgstr "Spoed:"
+
+#: ../Data/glade/dasher.compose.glade.h:17
+#: ../Data/glade/dashermaemofullscreen.glade.h:8
+msgid "_About"
+msgstr "_Aangaande"
+
+#: ../Data/glade/dasher.compose.glade.h:18
+msgid "_Append to file"
+msgstr ""
+
+#: ../Data/glade/dasher.compose.glade.h:19
+msgid "_Contents"
+msgstr "_Inhoud"
+
+#: ../Data/glade/dasher.compose.glade.h:20
+#: ../Data/glade/dasher.gameWIP.glade.h:27
+#: ../Data/glade/dasher.traditional.glade.h:21
+#: ../Data/glade/dashermaemofullscreen.glade.h:11
+msgid "_Edit"
+msgstr "_Redigeer"
+
+#: ../Data/glade/dasher.compose.glade.h:21
+#: ../Data/glade/dasher.gameWIP.glade.h:28
+#: ../Data/glade/dasher.traditional.glade.h:22
+#: ../Data/glade/dashermaemofullscreen.glade.h:13
+msgid "_File"
+msgstr "_Lêer"
+
+#: ../Data/glade/dasher.compose.glade.h:22
+#: ../Data/glade/dasher.gameWIP.glade.h:29
+#: ../Data/glade/dasher.traditional.glade.h:23
+#: ../Data/glade/dashermaemofullscreen.glade.h:14
+msgid "_Help"
+msgstr "_Hulp"
+
+#: ../Data/glade/dasher.compose.glade.h:23
+msgid "_Import Training Text"
+msgstr "Voer _opleidingsteks in"
+
+#: ../Data/glade/dasher.compose.glade.h:24
+#: ../Data/glade/dasher.fullscreen.glade.h:5
+#: ../Data/glade/dashermaemo.glade.h:8
+#: ../Data/glade/dashermaemofullscreen.glade.h:17
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr ""
+
+#: ../Data/glade/dasher.gameWIP.glade.h:1
+#: ../Data/glade/dasher.traditional.glade.h:1
+msgid "A_ppend to file..."
+msgstr ""
+
+#: ../Data/glade/dasher.gameWIP.glade.h:7
+msgid "Demo!"
+msgstr "Demo!"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:8
+msgid "Full Demo"
+msgstr "Volledige demonstrasie"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:9
+#: ../Data/glade/dasher.traditional.glade.h:7
+msgid "Help"
+msgstr "Hulp"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:10
+msgid "Launch Dasher Game & Demo mode!"
+msgstr "Lanseer Dasher se spel en demo-modus!"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:11
+msgid "Level:"
+msgstr "Vlak:"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:13
+msgid "New sentence"
+msgstr "Nuwe sin"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:17
+#: ../Data/glade/dasher.traditional.glade.h:12
+msgid "Pr_eferences..."
+msgstr "Vo_orkeure..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:18
+#: ../Data/glade/dasher.traditional.glade.h:13
+msgid "Preferences"
+msgstr "Voorkeure"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:19
+#: ../Data/glade/dasher.traditional.glade.h:14
+#: ../Src/Gtk2/dasher_main.cpp:1116
+msgid "Quit"
+msgstr "Sluit"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:22
+msgid "Score:"
+msgstr "Telling:"
+
+#: ../Data/glade/dasher.gameWIP.glade.h:25
+#: ../Data/glade/dasher.traditional.glade.h:19
+msgid "_About..."
+msgstr "_Aangaande..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:26
+#: ../Data/glade/dasher.traditional.glade.h:20
+msgid "_Contents..."
+msgstr "_Inhoud..."
+
+#: ../Data/glade/dasher.gameWIP.glade.h:30
+#: ../Data/glade/dasher.traditional.glade.h:24
+msgid "_Import Training Text..."
+msgstr "Voer _opleidingsteks in..."
+
+#: ../Data/glade/dasher.preferences.glade.h:1
+msgid "<b>Actions</b>"
+msgstr "<b>Aksies</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:2
+#: ../Data/glade/dashermaemo.preferences.glade.h:1
+msgid "<b>Adaptation</b>"
+msgstr "<b>Aanpassing</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:3
+#: ../Data/glade/dashermaemo.preferences.glade.h:2
+msgid "<b>Alphabet Selection</b>"
+msgstr "<b>Alfabetkeuse</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:4
+msgid "<b>Appearance Options</b>"
+msgstr "<b>Voorkomskeuses</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:5
+msgid "<b>Application Options</b>"
+msgstr "<b>Toepassingkeuses</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:6
+msgid "<b>Application Style</b>"
+msgstr "<b>Toepassingstyl</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:7
+msgid "<b>Colour Scheme</b>"
+msgstr "<b>Kleurskema</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:8
+msgid "<b>Control Style</b>"
+msgstr "<b>Beheerstyl</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:9
+msgid "<b>Dasher Font</b>"
+msgstr "<b>Dasher-skriftipe</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:10
+msgid "<b>Direction</b>"
+msgstr "<b>Rigting</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:11
+msgid "<b>Editor Font</b>"
+msgstr "<b>Skriftipe se redigeerder</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:12
+msgid "<b>Input Device</b>"
+msgstr "<b>Toevoertoestel</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:13
+#: ../Data/glade/dashermaemo.preferences.glade.h:5
+msgid "<b>Language Model</b>"
+msgstr "<b>Taalmodel</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:14
+#: ../Data/glade/dashermaemo.preferences.glade.h:7
+msgid "<b>Smoothing</b>"
+msgstr ""
+
+#: ../Data/glade/dasher.preferences.glade.h:15
+#: ../Data/glade/dashermaemo.preferences.glade.h:8
+msgid "<b>Speed</b>"
+msgstr "<b>Spoed</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:16
+msgid "<b>Starting And Stopping</b>"
+msgstr "<b>Begin en stop</b>"
+
+#: ../Data/glade/dasher.preferences.glade.h:17
+#: ../Data/glade/dashermaemo.preferences.glade.h:9
+msgid "Adapt speed automatically"
+msgstr "Pas spoed outomaties aan"
+
+#. The default display orientation for the selected alphabet, ie left to right for English, right to left for Arabic, etc.
+#: ../Data/glade/dasher.preferences.glade.h:19
+#: ../Data/glade/dashermaemo.preferences.glade.h:11
+msgid "Alphabet Default"
+msgstr "Alfabet se verstek"
+
+#: ../Data/glade/dasher.preferences.glade.h:20
+msgid "Appearance"
+msgstr "Voorkoms"
+
+#: ../Data/glade/dasher.preferences.glade.h:21
+msgid "Application"
+msgstr "Toepassing"
+
+#: ../Data/glade/dasher.preferences.glade.h:22
+#: ../Data/glade/dashermaemo.preferences.glade.h:12
+msgid "Bottom to Top"
+msgstr "Onder na bo"
+
+#. Centre circle = start and stop by dwelling over a circle in the centre of the window Two box = start and stop by dwelling in sequence over two boxes (both of these are methods for starting and stopping without pressing a mouse button)
+#: ../Data/glade/dasher.preferences.glade.h:24
+msgid ""
+"Centre circle\n"
+"Two box"
+msgstr ""
+"Sirkel in die middel\n"
+"Twee boksie"
+
+#: ../Data/glade/dasher.preferences.glade.h:26
+msgid "Composition"
+msgstr ""
+
+#: ../Data/glade/dasher.preferences.glade.h:27
+#: ../Data/glade/dashermaemo.preferences.glade.h:13
+msgid "Control"
+msgstr "Beheer"
+
+#: ../Data/glade/dasher.preferences.glade.h:28
+msgid "Control mode"
+msgstr "Beheermodus"
+
+#: ../Data/glade/dasher.preferences.glade.h:29
+#: ../Data/glade/dashermaemo.preferences.glade.h:14
+msgid "Custom"
+msgstr "Pasgemaak"
+
+#: ../Data/glade/dasher.preferences.glade.h:30
+#: ../Data/glade/dashermaemo.preferences.glade.h:15
+msgid "Custom colour scheme:"
+msgstr "Pasgemaakte kleurskema:"
+
+#: ../Data/glade/dasher.preferences.glade.h:31
+#: ../Data/glade/dashermaemo.preferences.glade.h:16
+msgid "Dasher Preferences"
+msgstr "Dasher-voorkeure"
+
+#: ../Data/glade/dasher.preferences.glade.h:32
+msgid "Direct entry"
+msgstr "Direkte toevoer"
+
+#: ../Data/glade/dasher.preferences.glade.h:33
+msgid "Dock application window"
+msgstr ""
+
+#: ../Data/glade/dasher.preferences.glade.h:34
+msgid "Draw box outlines"
+msgstr "Teken boksbuitelyne"
+
+#: ../Data/glade/dasher.preferences.glade.h:35
+msgid "Draw line between crosshairs and mouse"
+msgstr ""
+
+#: ../Data/glade/dasher.preferences.glade.h:36
+msgid "Full Screen"
+msgstr "Volskerm"
+
+#: ../Data/glade/dasher.preferences.glade.h:37
+msgid "Increase line thickness"
+msgstr "Maak lyn dikker"
+
+#: ../Data/glade/dasher.preferences.glade.h:38
+#: ../Data/glade/dashermaemo.preferences.glade.h:18
+msgid "Japanese"
+msgstr "Japannees"
+
+#: ../Data/glade/dasher.preferences.glade.h:39
+msgid "Language"
+msgstr "Taal"
+
+#: ../Data/glade/dasher.preferences.glade.h:40
+#: ../Data/glade/dashermaemo.preferences.glade.h:19
+msgid "Language model adapts as you write."
+msgstr "Die taalmodel pas aan terwyl u tik."
+
+#: ../Data/glade/dasher.preferences.glade.h:41
+msgid "Large font "
+msgstr "Groot skrif"
+
+#: ../Data/glade/dasher.preferences.glade.h:42
+#: ../Data/glade/dashermaemo.preferences.glade.h:20
+msgid "Left to Right"
+msgstr "Links na regs"
+
+#. PPM =  Prediction by Partial Match, a styatistical language model.
+#: ../Data/glade/dasher.preferences.glade.h:44
+#: ../Data/glade/dashermaemo.preferences.glade.h:21
+msgid "Mixture model (PPM/dictionary)"
+msgstr ""
+
+#: ../Data/glade/dasher.preferences.glade.h:45
+msgid "Options"
+msgstr "Keuses"
+
+#: ../Data/glade/dasher.preferences.glade.h:46
+msgid "Pause outside of canvas"
+msgstr ""
+
+#: ../Data/glade/dasher.preferences.glade.h:47
+#: ../Data/glade/dashermaemo.preferences.glade.h:23
+msgid "Right to Left"
+msgstr "Regs na links"
+
+#: ../Data/glade/dasher.preferences.glade.h:48
+msgid "Select Dasher Font"
+msgstr "Kies skriftipe vir Dasher"
+
+#: ../Data/glade/dasher.preferences.glade.h:49
+msgid "Select Editor Font"
+msgstr "Kies skriftipe vir redigeerder"
+
+#: ../Data/glade/dasher.preferences.glade.h:50
+msgid "Show mouse position"
+msgstr "Wys muisposisie"
+
+#: ../Data/glade/dasher.preferences.glade.h:51
+msgid "Show speed slider"
+msgstr "Wys spoedbeheer"
+
+#: ../Data/glade/dasher.preferences.glade.h:52
+msgid "Show toolbar"
+msgstr "Vertoon nutsbalk"
+
+#: ../Data/glade/dasher.preferences.glade.h:53
+msgid "Small font"
+msgstr "Klein skriftipe"
+
+#: ../Data/glade/dasher.preferences.glade.h:54
+msgid "Stand-alone"
+msgstr "Aleenstaande"
+
+#. PPM = Prediction by Partial Match, a statistical language model.
+#: ../Data/glade/dasher.preferences.glade.h:56
+#: ../Data/glade/dashermaemo.preferences.glade.h:24
+msgid "Standard letter-based PPM"
+msgstr ""
+
+#: ../Data/glade/dasher.preferences.glade.h:57
+msgid "Start on left mouse button"
+msgstr "Begin met linker muisknoppie"
+
+#: ../Data/glade/dasher.preferences.glade.h:58
+msgid "Start on space bar"
+msgstr "Begin met spasiebalk"
+
+#: ../Data/glade/dasher.preferences.glade.h:59
+msgid "Start with mouse position:"
+msgstr "Begin met muisposisie:"
+
+#: ../Data/glade/dasher.preferences.glade.h:60
+msgid "Timestamp new files"
+msgstr ""
+
+#: ../Data/glade/dasher.preferences.glade.h:61
+#: ../Data/glade/dashermaemo.preferences.glade.h:25
+msgid "Top to Bottom"
+msgstr "Bo na onder"
+
+#: ../Data/glade/dasher.preferences.glade.h:62
+msgid ""
+"Use this control to adjust the relative sizes of the \n"
+"letter boxes. Note that selecting high values will slow\n"
+"your writing speed."
+msgstr ""
+"Gebruik hierdie kontrole om die relatiewe groottes van \n"
+"die letterboksies aan te pas. Let op dat hoë waardes u\n"
+"skryfspoed sal verminder."
+
+#: ../Data/glade/dasher.preferences.glade.h:65
+msgid "Very large font"
+msgstr "Baie groot skrif"
+
+#: ../Data/glade/dasher.preferences.glade.h:66
+#: ../Data/glade/dashermaemo.preferences.glade.h:27
+msgid "Word-based model"
+msgstr "Woordgebaseerde model"
+
+#: ../Data/glade/dashermaemo.glade.h:1
+msgid "\n"
+msgstr ""
+
+#: ../Data/glade/dashermaemo.glade.h:4
+msgid "P"
+msgstr ""
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:3
+msgid "<b>Color Scheme</b>"
+msgstr "<b>Kleurskema</b>"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:4
+msgid "<b>Display Size</b>"
+msgstr "<b>Vertoongrootte</b>"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:6
+msgid "<b>Orientation</b>"
+msgstr "<b>Oriëntasie</b>"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:10
+msgid "Alphabet"
+msgstr "Alfabet"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:17
+msgid "Enlarge input window"
+msgstr "Vergroot toevoervenster"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:22
+msgid "Prediction"
+msgstr "Voorspelling"
+
+#: ../Data/glade/dashermaemo.preferences.glade.h:26
+msgid "View"
+msgstr ""
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:3
+msgid "Large"
+msgstr "Groot"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:4
+msgid "Normal"
+msgstr "Normaal"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:7
+msgid "Very Large"
+msgstr "Baie groot"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:9
+msgid "_Dasher Font"
+msgstr "Skriftipe vir _Dasher"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:10
+msgid "_Dasher Font Size"
+msgstr "Skrifgrootte vir _Dasher"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:12
+msgid "_Edit Font"
+msgstr "R_edigeer skriftipe"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:15
+msgid "_Options"
+msgstr "_Keuses"
+
+#: ../Data/glade/dashermaemofullscreen.glade.h:16
+msgid "_Reset fonts"
+msgstr "Stel skriftipes te_rug"
+
+#: ../Src/DasherCore/ClickFilter.cpp:7
+msgid "Maximum Zoom"
+msgstr "Maksimum zoem"
+
+#: ../Src/DasherCore/ClickFilter.h:11
+msgid "Click Mode"
+msgstr "Klikmodus"
+
+#. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
+#: ../Src/DasherCore/DasherButtons.cpp:25
+msgid "Zoom steps"
+msgstr "Zoemstappe"
+
+#. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
+#: ../Src/DasherCore/DasherButtons.cpp:27
+msgid "Right zoom"
+msgstr "Regs-zoem"
+
+#: ../Src/DasherCore/DasherButtons.cpp:28
+msgid "Number of boxes"
+msgstr "Aantal boksies"
+
+#: ../Src/DasherCore/DasherButtons.cpp:29
+msgid "Safety margin"
+msgstr "Veiligheidsdrempel"
+
+#. TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other.
+#: ../Src/DasherCore/DasherButtons.cpp:31
+msgid "Box non-uniformity"
+msgstr "Mate van verskil tussen boksies"
+
+#. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
+#: ../Src/DasherCore/DasherButtons.cpp:33
+msgid "Global keyboard grab"
+msgstr "Globale sleutelbordoorheersing"
+
+#: ../Src/DasherCore/DasherGameMode.cpp:633
+msgid "Well done!"
+msgstr "Goed gedoen!"
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:941
+msgid "Normal Control"
+msgstr "Normale beheer"
+
+#. TODO: specialist factory for button mode
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:955
+msgid "Menu Mode"
+msgstr "Kieslysmodus"
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:956
+msgid "Direct Mode"
+msgstr "Direkte modus"
+
+#. RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3"));
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:958
+msgid "Alternating Direct Mode"
+msgstr "Alternerende direkte modus"
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:959
+msgid "Compass Mode"
+msgstr "Kompasmodus"
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:960
+msgid "Stylus Control"
+msgstr ""
+
+#: ../Src/DasherCore/EyetrackerFilter.cpp:7
+msgid "Automatic calibration"
+msgstr "Outomatiese kalibrering"
+
+#: ../Src/DasherCore/EyetrackerFilter.cpp:11
+msgid "Eyetracker Mode"
+msgstr ""
+
+#. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:29
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
+msgid "Long press time"
+msgstr "Lang indruktyd"
+
+#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the time in which the button must be pressed multiple times to count.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
+msgid "Multiple press time"
+msgstr "Veelvuldige indruktydperk"
+
+#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the number of times a button must be pressed to count as a multiple press.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:34
+msgid "Multiple press count"
+msgstr "Veeluldige aantal knoppiedrukke"
+
+#. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons.
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
+msgid "Enable backoff button"
+msgstr "Aktiveer knoppie vir teruggaan"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
+msgid "One Button Dynamic Mode"
+msgstr "Enkelknop dinamiese modus"
+
+#: ../Src/DasherCore/OneDimensionalFilter.cpp:5
+msgid "One Dimensional Mode"
+msgstr "Eendimensionele modus"
+
+#: ../Src/DasherCore/SettingsStore.cpp:76
+#: ../Src/Gtk2/DasherAppSettings.cpp:516 ../Src/Gtk2/DasherAppSettings.cpp:550
+#: ../Src/Gtk2/DasherAppSettings.cpp:554
+msgid "true"
+msgstr ""
+
+#: ../Src/DasherCore/SettingsStore.cpp:78
+#: ../Src/Gtk2/DasherAppSettings.cpp:518 ../Src/Gtk2/DasherAppSettings.cpp:550
+#: ../Src/Gtk2/DasherAppSettings.cpp:554
+msgid "false"
+msgstr ""
+
+#. Note to translators: This message will be output for a command line
+#. with "--options foo=VAL" and foo is a boolean valued parameter, but
+#. "VAL" is not true or false.
+#: ../Src/DasherCore/SettingsStore.cpp:84
+#: ../Src/Gtk2/DasherAppSettings.cpp:521
+msgid "boolean value must be specified as 'true' or 'false'."
+msgstr ""
+
+#. Note to translators: This is output when command line "--options" doesn't
+#. specify a known option.
+#: ../Src/DasherCore/SettingsStore.cpp:104
+msgid "unknown option, use \"--help-options\" for more information."
+msgstr ""
+
+#. TODO should probably pop up a Gtk error message and think about how to do i18n:
+#: ../Src/DasherCore/SocketInput.cpp:34
+msgid "Dasher socket input: failed to launch reader thread."
+msgstr ""
+
+#: ../Src/DasherCore/SocketInputBase.cpp:27
+msgid "Port:"
+msgstr "Poort:"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:28
+msgid "X label:"
+msgstr "X-etiket:"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:29
+msgid "X minimum:"
+msgstr "X-minimum:"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:30
+msgid "X maximum:"
+msgstr "X-maksimum:"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:31
+msgid "Y label:"
+msgstr "Y-etiket:"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:32
+msgid "Y minimum:"
+msgstr "Y-minimum:"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:33
+msgid "Y maximum:"
+msgstr "Y-maksimum:"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:34
+msgid "Print socket-related debugging information to console:"
+msgstr ""
+
+#: ../Src/DasherCore/SocketInputBase.cpp:38
+msgid "Socket Input"
+msgstr ""
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:28
+msgid "Button offset"
+msgstr ""
+
+#. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:36
+msgid "Enable backoff and start/stop buttons"
+msgstr "Aktiveer knoppies vir teruggaan en begin/stop"
+
+#. TRANSLATORS: What is normally the up button becomes the down button etc.
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:38
+msgid "Reverse up and down buttons"
+msgstr "Keer op- en af-knopies om"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:39
+msgid "Slow startup"
+msgstr "Stadige begin"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:40
+msgid "Startup time"
+msgstr "Begintyd"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
+msgid "Auto speed control"
+msgstr "Outomatiese spoedbeheer"
+
+#. TRANSLATORS: The threshold time above which auto speed control is used.
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
+msgid "Auto speed threshold"
+msgstr "Outomatiese spoeddrempel"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:47
+msgid "Two Button Dynamic Mode"
+msgstr "Tweeknop dinamiese modus"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:547
+msgid "Boolean parameters"
+msgstr ""
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:547 ../Src/Gtk2/DasherAppSettings.cpp:558
+#: ../Src/Gtk2/DasherAppSettings.cpp:569
+msgid "Default"
+msgstr "Verstek"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:547 ../Src/Gtk2/DasherAppSettings.cpp:558
+#: ../Src/Gtk2/DasherAppSettings.cpp:569
+msgid "Description"
+msgstr "Beskrywing"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:558
+msgid "Integer parameters"
+msgstr "Heelgetalparameters"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:569
+msgid "String parameters"
+msgstr "Stringparameters"
+
+#: ../Src/Gtk2/Preferences.cpp:433 ../Src/Gtk2/Preferences.cpp:1002
+msgid "Action"
+msgstr "Aksie"
+
+#. TRANSLATORS: Show a button for the selected action in the Dasher window.
+#: ../Src/Gtk2/Preferences.cpp:1009
+msgid "Show Button"
+msgstr "Wys knoppie"
+
+#: ../Src/Gtk2/Preferences.cpp:1014
+msgid "Control Mode"
+msgstr "Beheermodus"
+
+#. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
+#: ../Src/Gtk2/Preferences.cpp:1020
+msgid "Auto On Stop"
+msgstr ""
+
+#: ../Src/Gtk2/dasher_action_keyboard.cpp:60
+#: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:94
+msgid "Enter Text"
+msgstr ""
+
+#: ../Src/Gtk2/dasher_action_script.cpp:91
+msgid "Script"
+msgstr ""
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:130
+msgid "Speak"
+msgstr ""
+
+#. TRANSLATORS: Send all text to the text-to-speech engine.
+#: ../Src/Gtk2/dasher_action_speech.cpp:143
+msgid "All"
+msgstr ""
+
+#. TRANSLATORS: Send most recently entered text to the text-to-speech engine.
+#: ../Src/Gtk2/dasher_action_speech.cpp:146
+msgid "Last"
+msgstr "Laaste"
+
+#. TRANSLATORS: Repeat the last phrase sent to the text-to-speech engine.
+#: ../Src/Gtk2/dasher_action_speech.cpp:149
+msgid "Repeat"
+msgstr "Herhaal"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:167
+#, c-format
+msgid "Unable to initialize speech support\n"
+msgstr ""
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:190
+msgid "Unable to initialize voices\n"
+msgstr ""
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:202
+msgid "Warning: unable to set speech parameters\n"
+msgstr ""
+
+#. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
+#: ../Src/Gtk2/dasher_main.cpp:311
+msgid "option setting is missing \"=\"."
+msgstr ""
+
+#. Note to translators: This string will be output when --options= specifies an unknown option.
+#: ../Src/Gtk2/dasher_main.cpp:327
+msgid "Invalid option string specified"
+msgstr ""
+
+#: ../Src/Gtk2/dasher_main.cpp:1080
+#, c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Wil u die veranderinge aan %s stoor?\n"
+"\n"
+"Die veranderinge sal verlore wees as hulle nie gestoor word nie."
+
+#: ../Src/Gtk2/dasher_main.cpp:1086
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Wil u die veranderinge stoor?\n"
+"\n"
+"Die veranderinge sal verlore wees as hulle nie gestoor word nie."
+
+#: ../Src/Gtk2/dasher_main.cpp:1090
+msgid "Don't save"
+msgstr "Moenie stoor nie"
+
+#: ../Src/Gtk2/dasher_main.cpp:1091 ../Src/Gtk2/dasher_main.cpp:1115
+msgid "Don't quit"
+msgstr "Moenie afsluit nie"
+
+#: ../Src/Gtk2/dasher_main.cpp:1092
+msgid "Save and quit"
+msgstr "Stoor en sluit af"
+
+#: ../Src/Gtk2/dasher_main.cpp:1112
+msgid "Are you sure you wish to quit?"
+msgstr "Wil u beslis afsluit?"
+
+#: ../Src/Gtk2/dasher_main.cpp:1195 ../Src/Gtk2/dasher_main.cpp:1211
+msgid "Dasher is a predictive text entry application"
+msgstr "Dasher is 'n toepassing vir voorspellende tekstoevoer"
+
+#: ../Src/Gtk2/dasher_main.cpp:1200 ../Src/Gtk2/dasher_main.cpp:1206
+msgid "translator-credits"
+msgstr "Friedel Wolff"
+
+#: ../Src/Gtk2/module_settings_window.cpp:86
+msgid "Dasher Module Options"
+msgstr ""
+
+#: ../Src/Gtk2/module_settings_window.cpp:92
+#, c-format
+msgid "%s Options:"
+msgstr "%s-keuses:"
+
+#: ../Src/Gtk2/mouse_input.h:15
+msgid "Mouse Input"
+msgstr "Muistoevoer"
+
+#: ../Src/Gtk2/mouse_input.h:51
+msgid "Pixels covering Y range"
+msgstr ""
+
+#. TRANSLATORS: Only use the vertical mouse coordinate - this is prefered for some disabled users.
+#: ../Src/Gtk2/mouse_input.h:58
+msgid "One Dimensional Mouse Input"
+msgstr "Eendimensionele muistoevoer"
+
+#. {"timedata", 'w', 0, G_OPTION_ARG_NONE, &timedata, "Write basic timing information to stdout", NULL},
+#. {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences window only", NULL},
+#. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
+#. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
+#. Note to translators: This is the help string for "--appstyle"
+#: ../Src/main.cc:188
+msgid "Application style (traditional, direct, compose or fullscreen)"
+msgstr "Toepassingstyl (traditional, direct, compose of fullscreen)"
+
+#. Note to translators: This is the help string for "--options"
+#: ../Src/main.cc:190
+msgid "Override stored options"
+msgstr "Oorheers gestoorde keuses"
+
+#. Note to translators: This is the help string for "--help-options"
+#: ../Src/main.cc:192
+msgid "Describe \"--options\"."
+msgstr "Beskryf \"--options\"."
+
+#. Note to translators: This is the "--help" description of dasher.
+#: ../Src/main.cc:199
+msgid "- A text input application honouring accessibility"
+msgstr "- 'n Toepassing vir tekstoevoer wat toeganklikheid respekteer"

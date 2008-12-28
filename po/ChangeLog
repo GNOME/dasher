@@ -1,3 +1,9 @@
+2008-12-28  Andre Klapper  <a9016009@gmx.de>
+
+	* af.po: Added Afrikaans translation by Friedel Wolff.
+	* LINGUAS: Added Afrikaans (af).
+	Fixes bug #565775.
+
 2008-10-28 Maxim Dziumanenko <dziumanenko@gmail.com>
 
 	* uk.po: Update Ukrainian translation.
