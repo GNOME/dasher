@@ -155,6 +155,7 @@
   if (shouldOutline) {
     int oci = anOutlineColorIndex == -1 ? 3 : anOutlineColorIndex;
     glColor3f(colourTable[oci].r, colourTable[oci].g, colourTable[oci].b);
+    glLineWidth(1.0f);
     glBegin(GL_LINE_LOOP);
     glVertex2i (x1, y1);
     glVertex2i (x1, y2);
@@ -203,25 +204,18 @@
 
 - (void)polylineCallbackPoints:(NSArray *)points width:(int)aWidth colorIndex:(int)aColorIndex
 {
-//  int len = [points count];
-//  int i;
-//  NSBezierPath *bp = [NSBezierPath bezierPath];
-//
-//  if (len < 1)
-//    {
-//    return;
-//    }
-//
-//  [bp moveToPoint:[[points objectAtIndex:0] pointValue]];
-//
-//  for (i = 1; i < len; i++)
-//    {
-//    [bp lineToPoint:[[points objectAtIndex:i] pointValue]];
-//    }
-//  
-//  [[self colorWithColorIndex:aColorIndex] set];
-//  [bp setLineWidth:aWidth];
-//  [bp stroke];
+	int len = [points count];
+	if (len < 2) return;
+	glDisable(GL_TEXTURE_2D);
+	glColor3f(colourTable[aColorIndex].r, colourTable[aColorIndex].g, colourTable[aColorIndex].b);
+	glLineWidth(aWidth);
+	glBegin(GL_LINE_STRIP);
+	for (int i = 0; i < len; i++)
+	{
+		NSPoint nsp = [[points objectAtIndex:i] pointValue];
+		glVertex2i(nsp.x,nsp.y);
+	}
+	glEnd();
 }
 
 

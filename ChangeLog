@@ -1,3 +1,8 @@
+2009-02-17  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Fix MacOS xcode project build, adding training data.
+	* Implemented OpenGL polyline drawing
+
 2008-12-20  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* Convert from gnome-vfs to gvfs from gio in glib based on

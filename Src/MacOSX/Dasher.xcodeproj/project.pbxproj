@@ -154,8 +154,6 @@
 		1948BF390C226CFD001DFA32 /* UserLogTrial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE940C226CFD001DFA32 /* UserLogTrial.cpp */; };
 		1948BF3A0C226CFD001DFA32 /* UserLogTrial.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE950C226CFD001DFA32 /* UserLogTrial.h */; };
 		1948BF3B0C226CFD001DFA32 /* DelayedDraw.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE970C226CFD001DFA32 /* DelayedDraw.h */; };
-		1948BF3C0C226CFD001DFA32 /* WrapperFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE980C226CFD001DFA32 /* WrapperFactory.cpp */; };
-		1948BF3D0C226CFD001DFA32 /* WrapperFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE990C226CFD001DFA32 /* WrapperFactory.h */; };
 		1948BF3E0C226CFD001DFA32 /* XMLUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE9A0C226CFD001DFA32 /* XMLUtil.cpp */; };
 		1948BF3F0C226CFD001DFA32 /* XMLUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE9B0C226CFD001DFA32 /* XMLUtil.h */; };
 		19558AD60C3182730054A193 /* DasherViewCocoa.h in Headers */ = {isa = PBXBuildFile; fileRef = 19558AD50C3182730054A193 /* DasherViewCocoa.h */; };
@@ -360,6 +358,38 @@
 		19F8C7E60C858A2800276B4F /* I18n.h in Headers */ = {isa = PBXBuildFile; fileRef = 19F8C7E50C858A2800276B4F /* I18n.h */; };
 		19F8C7F90C858E9900276B4F /* TrainingHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19F8C7F70C858E9900276B4F /* TrainingHelper.cpp */; };
 		19F8C7FA0C858E9900276B4F /* TrainingHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 19F8C7F80C858E9900276B4F /* TrainingHelper.h */; };
+		33E173C70F3E0B6400D19B38 /* Makefile.am in Resources */ = {isa = PBXBuildFile; fileRef = 33E173A70F3E0B6400D19B38 /* Makefile.am */; };
+		33E173C80F3E0B6400D19B38 /* training_albanian_SQ.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173A80F3E0B6400D19B38 /* training_albanian_SQ.txt */; };
+		33E173C90F3E0B6400D19B38 /* training_albanian_SQ.txt.old in Resources */ = {isa = PBXBuildFile; fileRef = 33E173A90F3E0B6400D19B38 /* training_albanian_SQ.txt.old */; };
+		33E173CA0F3E0B6400D19B38 /* training_basque_EU.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173AA0F3E0B6400D19B38 /* training_basque_EU.txt */; };
+		33E173CB0F3E0B6400D19B38 /* training_bengali_BD.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173AB0F3E0B6400D19B38 /* training_bengali_BD.txt */; };
+		33E173CC0F3E0B6400D19B38 /* training_bengali_bn.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173AC0F3E0B6400D19B38 /* training_bengali_bn.txt */; };
+		33E173CD0F3E0B6400D19B38 /* training_canna_JP.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173AD0F3E0B6400D19B38 /* training_canna_JP.txt */; };
+		33E173CE0F3E0B6400D19B38 /* training_czech_CS.COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 33E173AE0F3E0B6400D19B38 /* training_czech_CS.COPYING */; };
+		33E173CF0F3E0B6400D19B38 /* training_czech_CS.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173AF0F3E0B6400D19B38 /* training_czech_CS.txt */; };
+		33E173D00F3E0B6400D19B38 /* training_danish_DK.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173B00F3E0B6400D19B38 /* training_danish_DK.txt */; };
+		33E173D10F3E0B6400D19B38 /* training_danish_DK.txt.bak in Resources */ = {isa = PBXBuildFile; fileRef = 33E173B10F3E0B6400D19B38 /* training_danish_DK.txt.bak */; };
+		33E173D20F3E0B6400D19B38 /* training_dutch_NL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173B20F3E0B6400D19B38 /* training_dutch_NL.txt */; };
+		33E173D30F3E0B6400D19B38 /* training_english_GB.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173B30F3E0B6400D19B38 /* training_english_GB.txt */; };
+		33E173D40F3E0B6400D19B38 /* training_finnish_FI.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173B40F3E0B6400D19B38 /* training_finnish_FI.txt */; };
+		33E173D50F3E0B6400D19B38 /* training_french_FR.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173B50F3E0B6400D19B38 /* training_french_FR.txt */; };
+		33E173D60F3E0B6400D19B38 /* training_german_DE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173B60F3E0B6400D19B38 /* training_german_DE.txt */; };
+		33E173D70F3E0B6400D19B38 /* training_greek_GR.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173B70F3E0B6400D19B38 /* training_greek_GR.txt */; };
+		33E173D80F3E0B6400D19B38 /* training_hebrew_IL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173B80F3E0B6400D19B38 /* training_hebrew_IL.txt */; };
+		33E173D90F3E0B6400D19B38 /* training_hiragana60_JP.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173B90F3E0B6400D19B38 /* training_hiragana60_JP.txt */; };
+		33E173DA0F3E0B6400D19B38 /* training_hiragana83_JP.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173BA0F3E0B6400D19B38 /* training_hiragana83_JP.txt */; };
+		33E173DB0F3E0B6400D19B38 /* training_hungarian_HU.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173BB0F3E0B6400D19B38 /* training_hungarian_HU.txt */; };
+		33E173DC0F3E0B6400D19B38 /* training_italian_IT.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173BC0F3E0B6400D19B38 /* training_italian_IT.txt */; };
+		33E173DD0F3E0B6400D19B38 /* training_mongolian_MN.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173BD0F3E0B6400D19B38 /* training_mongolian_MN.txt */; };
+		33E173DE0F3E0B6400D19B38 /* training_persian_IR.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173BE0F3E0B6400D19B38 /* training_persian_IR.txt */; };
+		33E173DF0F3E0B6400D19B38 /* training_polish_PL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173BF0F3E0B6400D19B38 /* training_polish_PL.txt */; };
+		33E173E00F3E0B6400D19B38 /* training_portuguese_BR.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173C00F3E0B6400D19B38 /* training_portuguese_BR.txt */; };
+		33E173E10F3E0B6400D19B38 /* training_russian_RU.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173C10F3E0B6400D19B38 /* training_russian_RU.txt */; };
+		33E173E20F3E0B6400D19B38 /* training_spanish_ES.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173C20F3E0B6400D19B38 /* training_spanish_ES.txt */; };
+		33E173E30F3E0B6400D19B38 /* training_swahili_KE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173C30F3E0B6400D19B38 /* training_swahili_KE.txt */; };
+		33E173E40F3E0B6400D19B38 /* training_swedish_SE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173C40F3E0B6400D19B38 /* training_swedish_SE.txt */; };
+		33E173E50F3E0B6400D19B38 /* training_turkish_TR.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173C50F3E0B6400D19B38 /* training_turkish_TR.txt */; };
+		33E173E60F3E0B6400D19B38 /* training_welsh_GB.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173C60F3E0B6400D19B38 /* training_welsh_GB.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -531,8 +561,6 @@
 		1948BE940C226CFD001DFA32 /* UserLogTrial.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = UserLogTrial.cpp; sourceTree = "<group>"; };
 		1948BE950C226CFD001DFA32 /* UserLogTrial.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = UserLogTrial.h; sourceTree = "<group>"; };
 		1948BE970C226CFD001DFA32 /* DelayedDraw.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DelayedDraw.h; sourceTree = "<group>"; };
-		1948BE980C226CFD001DFA32 /* WrapperFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = WrapperFactory.cpp; sourceTree = "<group>"; };
-		1948BE990C226CFD001DFA32 /* WrapperFactory.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = WrapperFactory.h; sourceTree = "<group>"; };
 		1948BE9A0C226CFD001DFA32 /* XMLUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = XMLUtil.cpp; sourceTree = "<group>"; };
 		1948BE9B0C226CFD001DFA32 /* XMLUtil.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = XMLUtil.h; sourceTree = "<group>"; };
 		19558AD50C3182730054A193 /* DasherViewCocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DasherViewCocoa.h; sourceTree = "<group>"; };
@@ -545,7 +573,7 @@
 		196D8785048AA2750000000A /* DasherUtil.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = DasherUtil.mm; sourceTree = "<group>"; };
 		1974FD9C07145C6500B95DA0 /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
 		1974FE7A0714861B00B95DA0 /* Dasher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dasher.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		1974FE7C0714861B00B95DA0 /* Info-Dasher.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Info-Dasher.plist"; sourceTree = SOURCE_ROOT; };
+		1974FE7C0714861B00B95DA0 /* Info-Dasher.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Dasher.plist"; sourceTree = SOURCE_ROOT; };
 		19836C1D0C22A7FA00047426 /* Canvas.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Canvas.cpp; sourceTree = "<group>"; };
 		19836C1E0C22A7FA00047426 /* Canvas.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Canvas.h; sourceTree = "<group>"; };
 		19836C1F0C22A7FA00047426 /* CanvasExperimental.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CanvasExperimental.cpp; sourceTree = "<group>"; };
@@ -800,6 +828,38 @@
 		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		33E173A70F3E0B6400D19B38 /* Makefile.am */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		33E173A80F3E0B6400D19B38 /* training_albanian_SQ.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_albanian_SQ.txt; sourceTree = "<group>"; };
+		33E173A90F3E0B6400D19B38 /* training_albanian_SQ.txt.old */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_albanian_SQ.txt.old; sourceTree = "<group>"; };
+		33E173AA0F3E0B6400D19B38 /* training_basque_EU.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_basque_EU.txt; sourceTree = "<group>"; };
+		33E173AB0F3E0B6400D19B38 /* training_bengali_BD.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_bengali_BD.txt; sourceTree = "<group>"; };
+		33E173AC0F3E0B6400D19B38 /* training_bengali_bn.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_bengali_bn.txt; sourceTree = "<group>"; };
+		33E173AD0F3E0B6400D19B38 /* training_canna_JP.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_canna_JP.txt; sourceTree = "<group>"; };
+		33E173AE0F3E0B6400D19B38 /* training_czech_CS.COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_czech_CS.COPYING; sourceTree = "<group>"; };
+		33E173AF0F3E0B6400D19B38 /* training_czech_CS.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_czech_CS.txt; sourceTree = "<group>"; };
+		33E173B00F3E0B6400D19B38 /* training_danish_DK.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_danish_DK.txt; sourceTree = "<group>"; };
+		33E173B10F3E0B6400D19B38 /* training_danish_DK.txt.bak */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_danish_DK.txt.bak; sourceTree = "<group>"; };
+		33E173B20F3E0B6400D19B38 /* training_dutch_NL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_dutch_NL.txt; sourceTree = "<group>"; };
+		33E173B30F3E0B6400D19B38 /* training_english_GB.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_english_GB.txt; sourceTree = "<group>"; };
+		33E173B40F3E0B6400D19B38 /* training_finnish_FI.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_finnish_FI.txt; sourceTree = "<group>"; };
+		33E173B50F3E0B6400D19B38 /* training_french_FR.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_french_FR.txt; sourceTree = "<group>"; };
+		33E173B60F3E0B6400D19B38 /* training_german_DE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_german_DE.txt; sourceTree = "<group>"; };
+		33E173B70F3E0B6400D19B38 /* training_greek_GR.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_greek_GR.txt; sourceTree = "<group>"; };
+		33E173B80F3E0B6400D19B38 /* training_hebrew_IL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_hebrew_IL.txt; sourceTree = "<group>"; };
+		33E173B90F3E0B6400D19B38 /* training_hiragana60_JP.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_hiragana60_JP.txt; sourceTree = "<group>"; };
+		33E173BA0F3E0B6400D19B38 /* training_hiragana83_JP.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_hiragana83_JP.txt; sourceTree = "<group>"; };
+		33E173BB0F3E0B6400D19B38 /* training_hungarian_HU.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_hungarian_HU.txt; sourceTree = "<group>"; };
+		33E173BC0F3E0B6400D19B38 /* training_italian_IT.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_italian_IT.txt; sourceTree = "<group>"; };
+		33E173BD0F3E0B6400D19B38 /* training_mongolian_MN.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_mongolian_MN.txt; sourceTree = "<group>"; };
+		33E173BE0F3E0B6400D19B38 /* training_persian_IR.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_persian_IR.txt; sourceTree = "<group>"; };
+		33E173BF0F3E0B6400D19B38 /* training_polish_PL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_polish_PL.txt; sourceTree = "<group>"; };
+		33E173C00F3E0B6400D19B38 /* training_portuguese_BR.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_portuguese_BR.txt; sourceTree = "<group>"; };
+		33E173C10F3E0B6400D19B38 /* training_russian_RU.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_russian_RU.txt; sourceTree = "<group>"; };
+		33E173C20F3E0B6400D19B38 /* training_spanish_ES.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_spanish_ES.txt; sourceTree = "<group>"; };
+		33E173C30F3E0B6400D19B38 /* training_swahili_KE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_swahili_KE.txt; sourceTree = "<group>"; };
+		33E173C40F3E0B6400D19B38 /* training_swedish_SE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_swedish_SE.txt; sourceTree = "<group>"; };
+		33E173C50F3E0B6400D19B38 /* training_turkish_TR.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_turkish_TR.txt; sourceTree = "<group>"; };
+		33E173C60F3E0B6400D19B38 /* training_welsh_GB.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_welsh_GB.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1030,8 +1090,6 @@
 				1948BE940C226CFD001DFA32 /* UserLogTrial.cpp */,
 				1948BE950C226CFD001DFA32 /* UserLogTrial.h */,
 				1948BE960C226CFD001DFA32 /* View */,
-				1948BE980C226CFD001DFA32 /* WrapperFactory.cpp */,
-				1948BE990C226CFD001DFA32 /* WrapperFactory.h */,
 				1948BE9A0C226CFD001DFA32 /* XMLUtil.cpp */,
 				1948BE9B0C226CFD001DFA32 /* XMLUtil.h */,
 			);
@@ -1363,6 +1421,7 @@
 				19BEF4180C22922400275D06 /* controllabels */,
 				19BEF3FC0C2291CE00275D06 /* colours */,
 				19BEF2CD0C228F7300275D06 /* alphabets */,
+				33E173A60F3E0B6400D19B38 /* training */,
 				190254FC0B0C8A9300178CCD /* Source */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -1401,6 +1460,46 @@
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
+		};
+		33E173A60F3E0B6400D19B38 /* training */ = {
+			isa = PBXGroup;
+			children = (
+				33E173A70F3E0B6400D19B38 /* Makefile.am */,
+				33E173A80F3E0B6400D19B38 /* training_albanian_SQ.txt */,
+				33E173A90F3E0B6400D19B38 /* training_albanian_SQ.txt.old */,
+				33E173AA0F3E0B6400D19B38 /* training_basque_EU.txt */,
+				33E173AB0F3E0B6400D19B38 /* training_bengali_BD.txt */,
+				33E173AC0F3E0B6400D19B38 /* training_bengali_bn.txt */,
+				33E173AD0F3E0B6400D19B38 /* training_canna_JP.txt */,
+				33E173AE0F3E0B6400D19B38 /* training_czech_CS.COPYING */,
+				33E173AF0F3E0B6400D19B38 /* training_czech_CS.txt */,
+				33E173B00F3E0B6400D19B38 /* training_danish_DK.txt */,
+				33E173B10F3E0B6400D19B38 /* training_danish_DK.txt.bak */,
+				33E173B20F3E0B6400D19B38 /* training_dutch_NL.txt */,
+				33E173B30F3E0B6400D19B38 /* training_english_GB.txt */,
+				33E173B40F3E0B6400D19B38 /* training_finnish_FI.txt */,
+				33E173B50F3E0B6400D19B38 /* training_french_FR.txt */,
+				33E173B60F3E0B6400D19B38 /* training_german_DE.txt */,
+				33E173B70F3E0B6400D19B38 /* training_greek_GR.txt */,
+				33E173B80F3E0B6400D19B38 /* training_hebrew_IL.txt */,
+				33E173B90F3E0B6400D19B38 /* training_hiragana60_JP.txt */,
+				33E173BA0F3E0B6400D19B38 /* training_hiragana83_JP.txt */,
+				33E173BB0F3E0B6400D19B38 /* training_hungarian_HU.txt */,
+				33E173BC0F3E0B6400D19B38 /* training_italian_IT.txt */,
+				33E173BD0F3E0B6400D19B38 /* training_mongolian_MN.txt */,
+				33E173BE0F3E0B6400D19B38 /* training_persian_IR.txt */,
+				33E173BF0F3E0B6400D19B38 /* training_polish_PL.txt */,
+				33E173C00F3E0B6400D19B38 /* training_portuguese_BR.txt */,
+				33E173C10F3E0B6400D19B38 /* training_russian_RU.txt */,
+				33E173C20F3E0B6400D19B38 /* training_spanish_ES.txt */,
+				33E173C30F3E0B6400D19B38 /* training_swahili_KE.txt */,
+				33E173C40F3E0B6400D19B38 /* training_swedish_SE.txt */,
+				33E173C50F3E0B6400D19B38 /* training_turkish_TR.txt */,
+				33E173C60F3E0B6400D19B38 /* training_welsh_GB.txt */,
+			);
+			name = training;
+			path = ../../Data/training;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -1499,7 +1598,6 @@
 				1948BF380C226CFD001DFA32 /* UserLogParam.h in Headers */,
 				1948BF3A0C226CFD001DFA32 /* UserLogTrial.h in Headers */,
 				1948BF3B0C226CFD001DFA32 /* DelayedDraw.h in Headers */,
-				1948BF3D0C226CFD001DFA32 /* WrapperFactory.h in Headers */,
 				1948BF3F0C226CFD001DFA32 /* XMLUtil.h in Headers */,
 				196874060C2BDC2E00D63879 /* AlphabetLetter.h in Headers */,
 				1968740A0C2BDC2E00D63879 /* GLUtils.h in Headers */,
@@ -1722,6 +1820,38 @@
 				19BEF4150C2291CE00275D06 /* colour.xsl in Resources */,
 				19BEF41C0C22922400275D06 /* controllabels.dtd in Resources */,
 				19BEF41D0C22922400275D06 /* controllabels.xml in Resources */,
+				33E173C70F3E0B6400D19B38 /* Makefile.am in Resources */,
+				33E173C80F3E0B6400D19B38 /* training_albanian_SQ.txt in Resources */,
+				33E173C90F3E0B6400D19B38 /* training_albanian_SQ.txt.old in Resources */,
+				33E173CA0F3E0B6400D19B38 /* training_basque_EU.txt in Resources */,
+				33E173CB0F3E0B6400D19B38 /* training_bengali_BD.txt in Resources */,
+				33E173CC0F3E0B6400D19B38 /* training_bengali_bn.txt in Resources */,
+				33E173CD0F3E0B6400D19B38 /* training_canna_JP.txt in Resources */,
+				33E173CE0F3E0B6400D19B38 /* training_czech_CS.COPYING in Resources */,
+				33E173CF0F3E0B6400D19B38 /* training_czech_CS.txt in Resources */,
+				33E173D00F3E0B6400D19B38 /* training_danish_DK.txt in Resources */,
+				33E173D10F3E0B6400D19B38 /* training_danish_DK.txt.bak in Resources */,
+				33E173D20F3E0B6400D19B38 /* training_dutch_NL.txt in Resources */,
+				33E173D30F3E0B6400D19B38 /* training_english_GB.txt in Resources */,
+				33E173D40F3E0B6400D19B38 /* training_finnish_FI.txt in Resources */,
+				33E173D50F3E0B6400D19B38 /* training_french_FR.txt in Resources */,
+				33E173D60F3E0B6400D19B38 /* training_german_DE.txt in Resources */,
+				33E173D70F3E0B6400D19B38 /* training_greek_GR.txt in Resources */,
+				33E173D80F3E0B6400D19B38 /* training_hebrew_IL.txt in Resources */,
+				33E173D90F3E0B6400D19B38 /* training_hiragana60_JP.txt in Resources */,
+				33E173DA0F3E0B6400D19B38 /* training_hiragana83_JP.txt in Resources */,
+				33E173DB0F3E0B6400D19B38 /* training_hungarian_HU.txt in Resources */,
+				33E173DC0F3E0B6400D19B38 /* training_italian_IT.txt in Resources */,
+				33E173DD0F3E0B6400D19B38 /* training_mongolian_MN.txt in Resources */,
+				33E173DE0F3E0B6400D19B38 /* training_persian_IR.txt in Resources */,
+				33E173DF0F3E0B6400D19B38 /* training_polish_PL.txt in Resources */,
+				33E173E00F3E0B6400D19B38 /* training_portuguese_BR.txt in Resources */,
+				33E173E10F3E0B6400D19B38 /* training_russian_RU.txt in Resources */,
+				33E173E20F3E0B6400D19B38 /* training_spanish_ES.txt in Resources */,
+				33E173E30F3E0B6400D19B38 /* training_swahili_KE.txt in Resources */,
+				33E173E40F3E0B6400D19B38 /* training_swedish_SE.txt in Resources */,
+				33E173E50F3E0B6400D19B38 /* training_turkish_TR.txt in Resources */,
+				33E173E60F3E0B6400D19B38 /* training_welsh_GB.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1815,7 +1945,6 @@
 				1948BF340C226CFD001DFA32 /* UserLog.cpp in Sources */,
 				1948BF370C226CFD001DFA32 /* UserLogParam.cpp in Sources */,
 				1948BF390C226CFD001DFA32 /* UserLogTrial.cpp in Sources */,
-				1948BF3C0C226CFD001DFA32 /* WrapperFactory.cpp in Sources */,
 				1948BF3E0C226CFD001DFA32 /* XMLUtil.cpp in Sources */,
 				196874070C2BDC2E00D63879 /* AlphabetLetter.m in Sources */,
 				1968740B0C2BDC2E00D63879 /* GLUtils.m in Sources */,
@@ -1870,7 +1999,6 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = "Info-Dasher.plist";
 				LIBRARY_SEARCH_PATHS = /Volumes/Home/UsersAnnex/dougie/Projects/Dasher/Dasher_17/Src/Common/Expat;
-				OPTIMIZATION_CFLAGS = "-O0";
 				OTHER_CFLAGS = (
 					"-D",
 					EXCLUDE_CONFIG,

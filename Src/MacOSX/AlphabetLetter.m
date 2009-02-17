@@ -128,7 +128,7 @@
 
         // load our coordinates
         glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
+        glPushMatrix();
     
         // seed initial position
         glTranslatef(x + (size.width / 2), y + (size.height / 2), 0.0);
@@ -151,6 +151,7 @@
             glTexCoord2f(1.0,1.0);  glVertex3f(r, t, z);
             glTexCoord2f(1.0,0.0);  glVertex3f(r, b, z);
         glEnd();
+        glPopMatrix();
     } else {
         // we don't support fade-out effects if we're not using textures
 //        format = [_imageRep hasAlpha] ? GL_RGBA : GL_RGB;
