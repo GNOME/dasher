@@ -27,6 +27,7 @@
 #include "GroupInfo.h"
 
 #include <cstdlib>
+#include <iostream>
 #include <vector>
 
 namespace Dasher {
@@ -119,6 +120,7 @@ namespace Dasher {
     // text and so a symbol will be returned for a final "a" even if "ae" is
     // defined as its own symbol. }}}
     void GetSymbols(std::vector<symbol> *Symbols, std::string * Input, bool IsMore) const;
+    void GetSymbols(std::vector<symbol> &symbols, std::istream &in) const;
 
 
     /// Look up symbols corresponding to string. Cannot cope with
@@ -186,6 +188,17 @@ namespace Dasher {
     std::string m_TrainingFile;
     std::string m_GameModeFile;
     std::string m_DefaultPalette;
+
+    class utf8_length
+      {
+        public:
+          utf8_length();
+          int operator[](const int) const;
+          int max_length;
+        private:
+          int utf8_count_array[0x100];
+      };
+    static utf8_length m_utf8_count_array;
 
     // TODO: This is inane
     std::vector < std::string > m_Characters;   // stores the characters

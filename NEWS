@@ -1,7 +1,7 @@
 ============
 Dasher 4.9.0
 ============
-  * New development branch
+  * Fix UTF-8 bug so e.g., Japanese and Hebrew work.
 
 ============
 Dasher 4.7.2

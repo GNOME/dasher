@@ -124,7 +124,64 @@ CAlphabet::~CAlphabet() {
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CAlphabet::GetSymbols(std::vector<symbol > *Symbols, std::string *Input, bool IsMore) const {
+CAlphabet::utf8_length::utf8_length()
+{
+  int i;
+
+  memset(utf8_count_array, 0, sizeof(utf8_count_array));
+  for (i = 0x00; i <= 0x7f; ++i) utf8_count_array[i] = 1;
+  for (i = 0xc0; i <= 0xdf; ++i) utf8_count_array[i] = 2;
+  for (i = 0xe0; i <= 0xef; ++i) utf8_count_array[i] = 3;
+  for (i = 0xf0; i <= 0xf7; ++i) utf8_count_array[i] = 4;
+  max_length = 4;
+/* The following would be valid according to RFC 2279 which was rendered
+ * obsolete by RFC 3629
+ * for (i = 0xf8; i <= 0xfb; ++i) utf8_count_array[i] = 5;
+ * for (i = 0xfc; i <= 0xfd; ++i) utf8_count_array[i] = 6;
+ * max_length = 6;
+ *
+ * and from RFC 3629:
+ * o  The octet values C0, C1, F5 to FF never appear.
+ */
+  utf8_count_array[0xc0] = utf8_count_array[0xc1] = 0;
+  for (i = 0xf5; i <= 0xff; ++i) utf8_count_array[i] = 0;
+}
+
+CAlphabet::utf8_length CAlphabet::m_utf8_count_array;
+
+int CAlphabet::utf8_length::operator[](const int i) const
+{
+  return utf8_count_array[i];
+}
+
+void CAlphabet::GetSymbols(std::vector<symbol> &symbols, std::istream &in) const
+{
+  bool unused;
+  char skip, *utfchar = new char[m_utf8_count_array.max_length + 1];
+  symbol sym;
+  int len, ch = in.peek();
+  while (!in.eof())
+    {
+      len = m_utf8_count_array[ch];
+      if (len == 0)
+        {
+          std::cerr << "Read invalid UTF-8 character 0x" << ch << std::endl;
+          in >> skip;
+        }
+      else
+        {
+          in.read(utfchar, len);
+          utfchar[len] = '\0';
+          sym = TextMap.Get(string(utfchar), &unused);
+          symbols.push_back(sym);
+        }
+      ch = in.peek();
+    }
+  delete [] utfchar;
+}
+
+void CAlphabet::GetSymbols(std::vector<symbol> *Symbols, std::string * Input, bool IsMore) const
+{
   string Tmp;
   symbol CurSymbol = 0, TmpSymbol = 0;
   bool KeyIsPrefix = false;

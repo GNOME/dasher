@@ -24,6 +24,9 @@
 #include <cstdio>
 #include <cstring>
 #include <expat.h>
+#include <fstream>
+#include <ios>
+#include <iostream>
 #include <vector>
 
 //using namespace Dasher;
@@ -63,34 +66,26 @@ Dasher::CTrainingHelper::LoadPlain(const std::string &strFileName,
 			   Dasher::CTrainer *pTrainer, 
 			   const Dasher::CAlphabet *pAlphabet) {
   
-  if(strFileName == "")
-    return;
-  
-  FILE *pInputFile;
-  if((pInputFile = fopen(strFileName.c_str(), "r")) == (FILE *) 0)
-    return;
+  if (strFileName.empty())
+    {
+      std::cerr << "LoadPlain called with empty filename" << std::endl;
+      return;
+    }
 
-  const int iBufferSize = 1024;
-  char szInputBuffer[iBufferSize];
-  std::string strBuffer;
+  std::ifstream in(strFileName.c_str(), std::ios::binary);
+  if (in.bad())
+    {
+      std::cerr << "Unable to open file \"" << strFileName << "\" for reading"
+                << std::endl;
+      return;
+    }
+
   std::vector<Dasher::symbol> vSymbols;
-  int iNumberRead;
+  vSymbols.clear();
+  pAlphabet->GetSymbols(vSymbols, in);
+  pTrainer->Train(vSymbols);
 
-  do {
-    iNumberRead = fread(szInputBuffer, 1, iBufferSize - 1, pInputFile);
-    szInputBuffer[iNumberRead] = '\0';
-    strBuffer += szInputBuffer;
-
-    bool bIsMore = (iNumberRead == (iBufferSize - 1));
-    
-    vSymbols.clear();
-    pAlphabet->GetSymbols(&vSymbols, &strBuffer, bIsMore);
-
-    pTrainer->Train(vSymbols);
-
-  } while(iNumberRead == iBufferSize - 1); 
-
-  fclose(pInputFile);
+  in.close();
 }
 
 void 
