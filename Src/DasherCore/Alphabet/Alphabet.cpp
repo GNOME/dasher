@@ -23,6 +23,7 @@
 #include "Alphabet.h"
 #include "../AlphabetManagerFactory.h"
 #include "AlphabetMap.h"
+#include <cstring>
 
 
 using namespace Dasher;

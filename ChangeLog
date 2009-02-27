@@ -1,3 +1,7 @@
+2009-02-27  Andre Klapper  <a9016009@gmx.de>
+
+	* Fix the build blocker that was introduced by the last commit.
+
 2009-02-19  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* Fix loading of UTF-8 training text which for instance
