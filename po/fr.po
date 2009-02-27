@@ -985,7 +985,7 @@ msgstr "Entrée de la souris unidimensionelle"
 #. Note to translators: This is the help string for "--appstyle"
 #: ../Src/main.cc:188
 msgid "Application style (traditional, direct, compose or fullscreen)"
-msgstr "Style d'application (traditionnel, direct, composé ou plein écran)"
+msgstr "Style d'application (traditional, direct, compose ou fullscreen)"
 
 #. Note to translators: This is the help string for "--options"
 #: ../Src/main.cc:190
