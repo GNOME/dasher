@@ -1,6 +1,12 @@
 2009-02-27  Andre Klapper  <a9016009@gmx.de>
 
+	* Add translator comment.
+	Fixes GNOME bug #551137.
+
+2009-02-27  Andre Klapper  <a9016009@gmx.de>
+
 	* Fix the build blocker that was introduced by the last commit.
+	Fixes GNOME bug #572850.
 
 2009-02-19  Patrick Welche  <prlw1@cam.ac.uk>
 

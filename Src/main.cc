@@ -184,7 +184,7 @@ int main(int argc, char *argv[]) {
     //   {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences window only", NULL},
     //   {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
     //   {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
-    // Note to translators: This is the help string for "--appstyle"
+    /* Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option. */
     {"appstyle", 'a', 0, G_OPTION_ARG_STRING, &(sCommandLine.szAppStyle), N_("Application style (traditional, direct, compose or fullscreen)"), "traditional"},
     // Note to translators: This is the help string for "--options"
     {"options", 'o', 0, G_OPTION_ARG_STRING, &(sCommandLine.szOptions), N_("Override stored options"), NULL},
