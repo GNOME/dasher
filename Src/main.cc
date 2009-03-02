@@ -31,7 +31,6 @@
 #ifdef GNOME_LIBS
 #include <libgnome/libgnome.h>
 #include <libgnomeui/libgnomeui.h>
-#include <libgnomevfs/gnome-vfs.h>
 #endif
 
 // #include <libintl.h>
@@ -237,9 +236,7 @@ int main(int argc, char *argv[]) {
      argc, argv,
      GNOME_PARAM_NONE);
 #endif
-
-  gnome_vfs_init();
-#endif
+#endif /* GNOME_LIBS */
 
 #if (defined GNOME_SPEECH || defined GNOME_A11Y)
   if(!bonobo_is_initialized()) {
@@ -284,10 +281,6 @@ void clean_up() {
   /* TODO: check that this really does the right thing with the references counting */
   if(g_pDasherMain)
     g_object_unref(G_OBJECT(g_pDasherMain));
-
-#ifdef GNOME_LIBS
-  gnome_vfs_shutdown();
-#endif
 }
 
 void sigint_handler(int iSigNum) { 
