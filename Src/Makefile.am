@@ -12,10 +12,10 @@ SUBDIRS = Common DasherCore DasherIM Gtk2 Installer InstallerTobii InstallerW2K 
 dasher_SOURCES = main.cc
 
 AM_CXXFLAGS = \
-	$(GTK2BUILD_CFLAGS) \
 	-I$(srcdir)/Gtk2 \
 	-I$(srcdir)/DasherCore \
 	-I$(top_srcdir)/intl \
+	$(GTK2BUILD_CFLAGS) \
 	-DPREFIX=\"$(PREFIX)\" \
 	-DLIBDIR=\"$(libdir)\" \
 	-DDATADIR=\"$(datadir)\" \

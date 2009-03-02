@@ -8,6 +8,8 @@
 	--disable-speech --without-cairo --without-gnome". Reported by
 	Gilles Dartiguelongue in #566043.
 	* Take over as maintainer from Phil Cowans.
+	* Makefile.ams: #560103 from Daniel Macks: put local -I flags before
+	global ones in AM_CXXFLAGS.
 
 2009-03-02  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
