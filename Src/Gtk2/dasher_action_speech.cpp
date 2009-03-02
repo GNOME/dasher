@@ -1,5 +1,7 @@
 // TODO: Make inclusion in build system conditional
-#include "config.h"
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 #ifdef GNOME_SPEECH
 
 #include "dasher_action_speech.h"

@@ -2,6 +2,8 @@
 
 	* main.cc: #572134 from Tom Parker - remove remaining references
 	to gnome-vfs (cf r3605 2008-12-20)
+	* Fix building outside source tree, making inclusion of config.h
+	consistent. Reported by Theppitak Karoonboonyanan in #569957.
 
 2009-03-02  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 

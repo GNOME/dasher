@@ -16,7 +16,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #if HAVE_CONFIG_H
-# include <config.h>
+#include <config.h>
 #endif
 
 // Deduce the platform, setting macros of the form DASHER_......

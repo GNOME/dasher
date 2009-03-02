@@ -1,7 +1,9 @@
 #ifndef __dashercontrol_h__
 #define __dashercontrol_h__
 
-#include "../../config.h"
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 
 #include "PangoCache.h"
 #include "Canvas.h"

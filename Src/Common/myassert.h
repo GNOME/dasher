@@ -23,8 +23,8 @@
 
 #include "Platform.h"
 
-#ifndef DASHER_WIN32
-#include "config.h"
+#ifdef HAVE_CONFIG_H
+#include <config.h>
 #endif
 
 // The DASHER_ASSERT macro causes execution to break into the debugger in DEBUG mode

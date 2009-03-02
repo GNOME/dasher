@@ -2,8 +2,8 @@
 #define __appsettingsheader_h__
 
 #include "../DasherCore/Parameters.h"
-#ifndef _WIN32
-#include "../../config.h"
+#ifdef HAVE_CONFIG_H
+#include <config.h>
 #endif
 
 enum { 

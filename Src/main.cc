@@ -1,4 +1,6 @@
-#include "config.h"
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 #ifdef GNOME_LIBS
 #include <glib/gi18n.h>
 #endif

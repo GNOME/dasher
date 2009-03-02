@@ -1,4 +1,6 @@
-#include "config.h"
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 
 #ifdef WITH_GCONF
 #include <gconf/gconf.h>

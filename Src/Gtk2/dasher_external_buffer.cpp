@@ -1,5 +1,7 @@
 // TODO: Make build system conditional
-#include "config.h"
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 
 #include <string.h>
 

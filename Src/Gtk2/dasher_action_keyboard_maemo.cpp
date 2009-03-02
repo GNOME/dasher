@@ -1,5 +1,7 @@
-// TODO: Make inc lusion of this file in build conditional
-#include "config.h"
+// TODO: Make inclusion of this file in build conditional
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 #ifdef WITH_MAEMO
 
 #include "dasher.h"
