@@ -1,3 +1,8 @@
+2009-03-02  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* DasherModel.cpp: Fix rounding bug in Get_new_root_coords
+	leading to expansion not being centered on correct point
+
 2009-02-27  Andre Klapper  <a9016009@gmx.de>
 
 	* Add translator comment.

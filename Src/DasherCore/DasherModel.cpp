@@ -419,6 +419,10 @@ void CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey, myint &iNewMi
   int iTargetMin(Mousey - ((myint)iMaxY * Mousex) / (2 * (myint)iOX));
   int iTargetMax(Mousey + ((myint)iMaxY * Mousex) / (2 * (myint)iOY));
 
+  // Compute the point C which is thus the center of expansion
+  // (it divides iTargetMin-Max into the same proportions at it divides 0-iMaxY)
+  const dasherint C = (iTargetMin * iMaxY) / (iTargetMin + iMaxY - iTargetMax);
+
   // iSteps is the number of update steps we need to get the point
   // under the cursor over to the cross hair. Calculated in order to
   // keep a constant bit-rate.
@@ -453,8 +457,9 @@ void CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey, myint &iNewMi
     iTargetMax = iNewTargetMax;
   }
 
-  iNewMin = (((m_Rootmin - iTargetMin) * (myint)GetLongParameter(LP_MAX_Y)) / (iTargetMax - iTargetMin));
-  iNewMax = (((m_Rootmax - iTargetMax) * (myint)GetLongParameter(LP_MAX_Y)) / (iTargetMax - iTargetMin) + (myint)GetLongParameter(LP_MAX_Y));
+  //...and go there in one step, as we've already "stepped" the desired viewport
+  iNewMin = ((m_Rootmin - C) * iMaxY) / (iTargetMax - iTargetMin) + C;
+  iNewMax = ((m_Rootmax - C) * iMaxY) / (iTargetMax - iTargetMin) + C;
 }
 
 bool CDasherModel::UpdatePosition(myint miMousex, myint miMousey, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
