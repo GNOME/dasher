@@ -105,4 +105,3 @@ libdashergtk_a_DEPENDENCIES = @SPEECH_SOURCES@
 AM_CXXFLAGS = $(GTK2BUILD_CFLAGS) -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" -I../../intl -I$(top_srcdir)/intl 
 
 AM_CFLAGS = $(GTK2_CFLAGS)
-

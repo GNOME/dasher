@@ -4,6 +4,9 @@
 	to gnome-vfs (cf r3605 2008-12-20)
 	* Fix building outside source tree, making inclusion of config.h
 	consistent. Reported by Theppitak Karoonboonyanan in #569957.
+	* I18n.h, configure.in: fix build with "configure --disable-a11y
+	--disable-speech --without-cairo --without-gnome". Reported by
+	Gilles Dartiguelongue in #566043.
 
 2009-03-02  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
