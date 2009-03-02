@@ -1,3 +1,7 @@
+2009-03-02  Sandeep Shedmake  <sshedmak@redhat.com>
+
+	* mr.po: Bug fix for #573447
+
 2009-03-02  Sweta Kothari  <swkothar@redhat.com>
 
 	* gu.po: Committed Gujarati Translation.
