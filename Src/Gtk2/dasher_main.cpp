@@ -254,7 +254,7 @@ dasher_main_finalize(GObject *pObject) {
 
   gtk_widget_destroy(pPrivate->pMainWindow);
 
-  /* TDO: Do we need to take down anything else? */
+  /* TODO: Do we need to take down anything else? */
 }
 
 /* Public methods */
@@ -1074,6 +1074,8 @@ static void dasher_main_command_quit(DasherMain *pSelf) {
   GtkWidget *pDialogue = NULL;
 
   if(dasher_editor_file_changed(pPrivate->pEditor)) {
+// XXX PRLW: Just open the save dialogue box.
+#if 0
     const gchar *szFilename = dasher_editor_get_filename(pPrivate->pEditor);
 
     if(szFilename) {
@@ -1083,10 +1085,13 @@ static void dasher_main_command_quit(DasherMain *pSelf) {
 					 szFilename);
     }
     else {
+#endif
       pDialogue = gtk_message_dialog_new(GTK_WINDOW(pPrivate->pMainWindow), GTK_DIALOG_MODAL, 
 					 GTK_MESSAGE_QUESTION, GTK_BUTTONS_NONE, 
 					 _("Do you want to save your changes?\n\nYour changes will be lost if you don't save them."));
+#if 0
     }
+#endif
 
     gtk_dialog_add_buttons(GTK_DIALOG(pDialogue), 
 			   _("Don't save"), GTK_RESPONSE_REJECT,
@@ -1096,16 +1101,15 @@ static void dasher_main_command_quit(DasherMain *pSelf) {
 
     switch (gtk_dialog_run(GTK_DIALOG(pDialogue))) {
     case GTK_RESPONSE_REJECT:
-      //      write_to_file(); // FIXME - REIMPLEMENT
       gtk_main_quit();
       break;
     case GTK_RESPONSE_CANCEL:
       gtk_widget_destroy(GTK_WIDGET(pDialogue));
       break;
     case GTK_RESPONSE_ACCEPT:
-      gtk_widget_destroy(GTK_WIDGET(pDialogue));
-      //      write_to_file(); // FIXME - REIMPLEMENT
-      //      save_file_and_quit(NULL, NULL);
+      dasher_editor_command(pPrivate->pEditor, "save");
+      gtk_main_quit();
+      break;
     }
   }
   else {
