@@ -5,6 +5,8 @@
 	* dasher_main.cpp: Actually do something when save & quit is clicked.
 	* Import pkg.m4 from pkg-config-0.23. (Not actually used.)
 	* Update AUTHORS
+	* TrainingHelper.cpp, Alphabet.cpp: Move test for empty training
+	filename to a place where it hasn't had a path prepended to it.
 
 2009-03-02  Patrick Welche  <prlw1@cam.ac.uk>
 

@@ -66,14 +66,8 @@ Dasher::CTrainingHelper::LoadPlain(const std::string &strFileName,
 			   Dasher::CTrainer *pTrainer, 
 			   const Dasher::CAlphabet *pAlphabet) {
   
-  if (strFileName.empty())
-    {
-      std::cerr << "LoadPlain called with empty filename" << std::endl;
-      return;
-    }
-
   std::ifstream in(strFileName.c_str(), std::ios::binary);
-  if (in.bad())
+  if (in.fail())
     {
       std::cerr << "Unable to open file \"" << strFileName << "\" for reading"
                 << std::endl;

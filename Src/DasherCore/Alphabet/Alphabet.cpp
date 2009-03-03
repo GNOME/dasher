@@ -377,17 +377,27 @@ CAlphabet::Train(const std::string &strUserLoc,
 
   std::string strTrainingFile = GetTrainingFile();
 
-  std::string strUserPathFull = strUserLoc + strTrainingFile;
-
-  m_pTrainingHelper->LoadFile(strUserPathFull, pTrainer, this);
-  m_pTrainingHelper->LoadFile(strSystemLoc + strTrainingFile, pTrainer, this);
+  if (strTrainingFile.empty()) {
+#ifdef DEBUG
+    std::cerr << "Trying to load empty training file (location)" << std::endl;
+#endif
+  } else {
+    m_pTrainingHelper->LoadFile(strUserLoc   + strTrainingFile, pTrainer, this);
+    m_pTrainingHelper->LoadFile(strSystemLoc + strTrainingFile, pTrainer, this);
+  }
 }
 
 void 
 CAlphabet::Train(const std::string &strPath, 
       CTrainer *pTrainer) {
   
-  m_pTrainingHelper->LoadFile(strPath, pTrainer, this);
+  if (strPath.empty()) {
+#ifdef DEBUG
+    std::cerr << "Trying to load empty training file (path)" << std::endl;
+#endif
+  } else {
+    m_pTrainingHelper->LoadFile(strPath, pTrainer, this);
+  }
 }
 
 int 
