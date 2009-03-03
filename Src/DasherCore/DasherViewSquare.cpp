@@ -804,27 +804,33 @@ void CDasherViewSquare::GetScaleFactor( int eOrientation, myint *iScaleFactorX, 
 
 inline myint CDasherViewSquare::CustomIDiv(myint iNumerator, myint iDenominator) { 
   // Integer division rounding away from zero
-  
-#ifdef _WIN32
-  myint quot = iNumerator / iDenominator;
-  myint rem = (int64)iNumerator % (int64)iDenominator;
 
-  if(rem < 0)
-    return quot - 1;
-  else if (rem > 0)
-    return quot + 1;
-  else
-    return quot;
+  long long int num, denom, quot, rem;
+  myint res;
+
+  num   = iNumerator;
+  denom = iDenominator;
+
+  DASHER_ASSERT(denom != 0);
+
+#ifdef HAVE_LLDIV
+  lldiv_t ans = ::lldiv(num, denom);
+
+  quot = ans.quot;
+  rem  = ans.rem;
 #else
-  lldiv_t res = ::lldiv(iNumerator, iDenominator);
-  
-  if(res.rem < 0)
-    return res.quot - 1;
-  else if (res.rem > 0)
-    return res.quot + 1;
-  else
-    return res.quot;
+  quot = num / denom;
+  rem  = num % denom;
 #endif
+  
+  if (rem < 0)
+    res = quot - 1;
+  else if (rem > 0)
+    res = quot + 1;
+  else
+    res = quot;
+
+  return res;
 
   // return (iNumerator + iDenominator - 1) / iDenominator;
 }

@@ -7,6 +7,8 @@
 	* Update AUTHORS
 	* TrainingHelper.cpp, Alphabet.cpp: Move test for empty training
 	filename to a place where it hasn't had a path prepended to it.
+	* DasherViewSquare.cpp: Only use lldiv if we have it, and avoid
+	code duplication.
 
 2009-03-02  Patrick Welche  <prlw1@cam.ac.uk>
 
