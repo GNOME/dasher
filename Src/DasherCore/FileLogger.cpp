@@ -504,6 +504,7 @@ std::string CFileLogger::GetTimeDateStamp()
 #else
     struct timeval sTimeBuffer;
     struct timezone sTimezoneBuffer;
+    time_t t;
 #endif
     char* szTimeLine = NULL;
 
@@ -512,7 +513,8 @@ std::string CFileLogger::GetTimeDateStamp()
     szTimeLine = ctime(&(sTimeBuffer.time));
 #else
     gettimeofday(&sTimeBuffer, &sTimezoneBuffer);
-    szTimeLine = ctime((const time_t *)&(sTimeBuffer.tv_sec));
+    t = sTimeBuffer.tv_sec;
+    szTimeLine = ctime(&t);
 #endif
  
     // Format is:

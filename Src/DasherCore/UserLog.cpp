@@ -652,22 +652,11 @@ void CUserLog::SetOuputFilename(const string& strFilename)
   else
   {
     m_strFilename = USER_LOG_DETAILED_PREFIX;
-
-#ifdef _WIN32
-    struct timeb sTimeBuffer;
-#else
-    struct timeval sTimeBuffer;
-    struct timezone sTimezoneBuffer;
-#endif
     char* szTimeLine = NULL;
+    time_t t;
 
-#ifdef _WIN32
-    ftime(&sTimeBuffer);
-    szTimeLine = ctime(&(sTimeBuffer.time));
-#else
-    gettimeofday(&sTimeBuffer, &sTimezoneBuffer);
-    szTimeLine = ctime((const time_t *)&(sTimeBuffer.tv_sec));
-#endif
+    t = time(NULL);
+    szTimeLine = ctime(&t);
 
     if ((szTimeLine != NULL) && (strlen(szTimeLine) > 18))
     {
@@ -686,7 +675,6 @@ void CUserLog::SetOuputFilename(const string& strFilename)
   // Make sure we store a fully qualified form, to prevent movent
   // if the working directory changes
   m_strFilename = CFileLogger::GetFullFilenamePath(m_strFilename);
-
 }
 
 // Find out what level mask this object was created with

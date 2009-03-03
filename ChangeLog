@@ -9,6 +9,9 @@
 	filename to a place where it hasn't had a path prepended to it.
 	* DasherViewSquare.cpp: Only use lldiv if we have it, and avoid
 	code duplication.
+	* TimeSpan.cpp, FileLogger.cpp, BasicLog.cpp, UserLog.cpp: Audit use
+	of ctime for potential 32-bit time_t 64-bit long in struct timeval
+	problems. Reported by Matthias Drochner.
 
 2009-03-02  Patrick Welche  <prlw1@cam.ac.uk>
 

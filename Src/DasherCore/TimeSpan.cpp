@@ -115,6 +115,7 @@ string CTimeSpan::GetTimeStamp()
 #else
     struct timeval sTimeBuffer;
     struct timezone sTimezoneBuffer;
+    time_t t;
 #endif
     char* szTimeLine = NULL;
 
@@ -123,7 +124,8 @@ string CTimeSpan::GetTimeStamp()
     szTimeLine = ctime(&(sTimeBuffer.time));
 #else
     gettimeofday(&sTimeBuffer, &sTimezoneBuffer);
-    szTimeLine = ctime((const time_t *)&(sTimeBuffer.tv_sec));
+    t = sTimeBuffer.tv_sec;
+    szTimeLine = ctime(&t);
 #endif
   
   if ((szTimeLine != NULL) && (strlen(szTimeLine) > 18))
@@ -183,24 +185,12 @@ double CTimeSpan::GetElapsed()
 string CTimeSpan::GetDateStamp()
 {
   std::string strDateStamp = "";
-
-#ifdef _WIN32
-  struct timeb sTimeBuffer;
-#else
-  struct timeval sTimeBuffer;
-  struct timezone sTimezoneBuffer;
-#endif
   char* szTimeLine = NULL;
+  time_t t;
 
-#ifdef _WIN32
-    ftime(&sTimeBuffer);
-    szTimeLine = ctime(&(sTimeBuffer.time));
-#else
-    gettimeofday(&sTimeBuffer, &sTimezoneBuffer);
-    szTimeLine = ctime((const time_t *)&(sTimeBuffer.tv_sec));
-#endif
+  t = time(NULL);
+  szTimeLine = ctime(&t);
 
- 
   // Format is:
   // Wed Jun 22 10:22:00 2005
   // 0123456789012345678901234

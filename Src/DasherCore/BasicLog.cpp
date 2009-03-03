@@ -72,23 +72,11 @@ void CBasicLog::EndTrial() {
 }
 
 std::string CBasicLog::GetDateStamp() {
-  std::string strDateStamp = "";
-
-#ifdef _WIN32
-  struct timeb sTimeBuffer;
-#else
-  struct timeval sTimeBuffer;
-  struct timezone sTimezoneBuffer;
-#endif
   char* szTimeLine = NULL;
+  time_t t;
 
-#ifdef _WIN32
-    ftime(&sTimeBuffer);
-    szTimeLine = ctime(&(sTimeBuffer.time));
-#else
-    gettimeofday(&sTimeBuffer, &sTimezoneBuffer);
-    szTimeLine = ctime((const time_t *)&(sTimeBuffer.tv_sec));
-#endif
+  t = time(NULL);
+  szTimeLine = ctime(&t);
 
-    return std::string(szTimeLine).substr(0, 24);
+  return std::string(szTimeLine).substr(0, 24);
 }
