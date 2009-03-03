@@ -4,6 +4,7 @@
 	as part of #571384.
 	* dasher_main.cpp: Actually do something when save & quit is clicked.
 	* Import pkg.m4 from pkg-config-0.23. (Not actually used.)
+	* Update AUTHORS
 
 2009-03-02  Patrick Welche  <prlw1@cam.ac.uk>
 
