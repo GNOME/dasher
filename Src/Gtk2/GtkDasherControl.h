@@ -25,10 +25,10 @@ struct _DasherMessageInfo {
 
 G_BEGIN_DECLS
 #define TYPE_GTK_DASHER_CONTROL         (gtk_dasher_control_get_type())
-#define GTK_DASHER_CONTROL(obj)         (GTK_CHECK_CAST((obj), TYPE_GTK_DASHER_CONTROL, GtkDasherControl ))
-#define GTK_DASHER_CONTROL_CLASS(klass)	(GTK_CHECK_CLASS_CAST ((klass), TYPE_GTK_DASHER_CONTROL, GtkDasherControlClass ))
-#define IS_GTK_DASHER_CONTROL(obj)		(GTK_CHECK_TYPE ((obj), TYPE_GTK_DASHER_CONTROL))
-#define IS_GTK_DASHER_CONTROL_CLASS(klass)	(GTK_CHECK_CLASS_TYPE ((klass), TYPE_GTK_DASHER_CONTROL))
+#define GTK_DASHER_CONTROL(obj)         (G_TYPE_CHECK_INSTANCE_CAST((obj), TYPE_GTK_DASHER_CONTROL, GtkDasherControl ))
+#define GTK_DASHER_CONTROL_CLASS(klass)	(G_TYPE_CHECK_CLASS_CAST ((klass), TYPE_GTK_DASHER_CONTROL, GtkDasherControlClass ))
+#define IS_GTK_DASHER_CONTROL(obj)		(G_TYPE_CHECK_INSTANCE_TYPE ((obj), TYPE_GTK_DASHER_CONTROL))
+#define IS_GTK_DASHER_CONTROL_CLASS(klass)	(G_TYPE_CHECK_CLASS_TYPE ((klass), TYPE_GTK_DASHER_CONTROL))
 
 typedef struct _GtkDasherControl GtkDasherControl;
 typedef struct _GtkDasherControlClass GtkDasherControlClass;

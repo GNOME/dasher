@@ -1,3 +1,8 @@
+2009-03-03  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* Replace GTK_CHECK_* with G_TYPE_* equivalents from Thomas Andersen
+	as part of #571384.
+
 2009-03-02  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* main.cc: #572134 from Tom Parker - remove remaining references
