@@ -1,3 +1,7 @@
+2009-03-04  Alexander Shopov  <ash@contact.bg>
+
+	* Replace alphabet.Bulgarian.xml of 2007-09-01 according to #573739.
+
 2009-03-03  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* Replace GTK_CHECK_* with G_TYPE_* equivalents from Thomas Andersen
