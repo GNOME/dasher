@@ -181,8 +181,7 @@ void CCanvas::Display() {
 
   graphics_context = m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)];
 
-
-  gdk_pixbuf_render_to_drawable(display_pixbuf,m_pCanvas->window, graphics_context,0, 0,0,0, m_iWidth,m_iHeight,  GDK_RGB_DITHER_NORMAL,0,0);
+  gdk_draw_pixbuf(m_pCanvas->window, graphics_context, display_pixbuf, 0, 0, 0, 0, m_iWidth,m_iHeight, GDK_RGB_DITHER_NORMAL, 0, 0);
 }
 
 void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, bool bDrawOutline, bool bFill, int iThickness) {

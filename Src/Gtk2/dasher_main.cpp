@@ -536,16 +536,16 @@ dasher_main_load_interface(DasherMain *pSelf) {
   g_object_ref(options_menu);
   g_object_ref(help_menu);
 
-  gtk_menu_item_remove_submenu(GTK_MENU_ITEM(glade_xml_get_widget(pPrivate->pGladeXML, "menuitem4")));
-  gtk_menu_item_remove_submenu(GTK_MENU_ITEM(glade_xml_get_widget(pPrivate->pGladeXML, "options1")));
-  gtk_menu_item_remove_submenu(GTK_MENU_ITEM(glade_xml_get_widget(pPrivate->pGladeXML, "menuitem7")));
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(glade_xml_get_widget(pPrivate->pGladeXML, "menuitem4")), NULL);
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(glade_xml_get_widget(pPrivate->pGladeXML, "options1")), NULL);
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(glade_xml_get_widget(pPrivate->pGladeXML, "menuitem7")), NULL);
 
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(file_menu_item),file_menu);
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(options_menu_item),options_menu); 
   gtk_menu_item_set_submenu(GTK_MENU_ITEM(help_menu_item),help_menu);
-  gtk_menu_append(main_menu, file_menu_item);
-  gtk_menu_append(main_menu, options_menu_item);
-  gtk_menu_append(main_menu, help_menu_item);
+  gtk_menu_shell_append((GtkMenuShell *)main_menu, file_menu_item);
+  gtk_menu_shell_append((GtkMenuShell *)main_menu, options_menu_item);
+  gtk_menu_shell_append((GtkMenuShell *)main_menu, help_menu_item); 
 
   g_object_unref(file_menu);
   g_object_unref(options_menu);
@@ -1262,7 +1262,7 @@ static gboolean
 dasher_main_speed_changed(DasherMain *pSelf) {
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
   
-  int iNewValue( static_cast<int>(round(gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(pPrivate->pSpeedBox)) * 100)));
+  int iNewValue( static_cast<int>(round(gtk_spin_button_get_value(GTK_SPIN_BUTTON(pPrivate->pSpeedBox)) * 100)));
   
   if(dasher_app_settings_get_long(pPrivate->pAppSettings, LP_MAX_BITRATE) != iNewValue)
     dasher_app_settings_set_long(pPrivate->pAppSettings, LP_MAX_BITRATE, iNewValue);

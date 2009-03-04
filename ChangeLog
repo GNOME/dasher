@@ -1,3 +1,10 @@
+2009-03-04  Thomas H.P. Andersen  <phomes@gmail.com>
+
+	* Src/Gtk2/dasher_main.cpp:
+	* Src/Gtk2/CanvasExperimental.cpp: Replace deprecated gtk symbols: 
+	gtk_menu_item_remove_submenu, gtk_menu_append, gtk_spin_button_get_value,
+	gdk_pixbuf_render_to_drawable. Bug #571384
+
 2009-03-04  Alexander Shopov  <ash@contact.bg>
 
 	* Replace alphabet.Bulgarian.xml of 2007-09-01 according to #573739.
