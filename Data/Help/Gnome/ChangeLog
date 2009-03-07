@@ -1,3 +1,8 @@
+2009-03-07  Mario Blättermann  <mariobl@svn.gnome.org>
+
+	* de/de.po: Added German translation.
+	* Makefile.am: Added de to DOC_LINGUAS.
+
 2009-02-16  Inaki Larranaga Murgoitio  <dooteo@euskalgnu.org>
 
 	* eu/eu.po: Added Basque translation.
