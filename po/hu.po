@@ -1,17 +1,16 @@
-# translation of hu.po to
 # Hungarian translation of dasher.
 # Copyright (C) 2004, 2006, 2007, 2008 Free Software Foundation, Inc.
 # This file is distributed under the same license as the dasher package.
 #
 # Andras Timar <timar@gnome.hu>, 2004.
 # Laszlo Dvornik <dvornik@gnome.hu>, 2004.
-# Gabor Kelemen <kelemeng@gnome.hu>, 2006, 2007, 2008.
+# Gabor Kelemen <kelemeng@gnome.hu>, 2006, 2007, 2008, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: hu\n"
+"Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-04-22 20:22+0000\n"
-"PO-Revision-Date: 2008-09-21 13:22+0200\n"
+"PO-Revision-Date: 2009-03-10 11:00+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@fsf.hu>\n"
 "MIME-Version: 1.0\n"
@@ -713,7 +712,7 @@ msgstr "hamis"
 #: ../Src/DasherCore/SettingsStore.cpp:84
 #: ../Src/Gtk2/DasherAppSettings.cpp:521
 msgid "boolean value must be specified as 'true' or 'false'."
-msgstr "a logikai értéknek a „true” vagy „false” egyikének kell lennie."
+msgstr "a logikai értéknek az „igaz” vagy „hamis” egyikének kell lennie."
 
 #. Note to translators: This is output when command line "--options" doesn't
 #. specify a known option.
