@@ -1,3 +1,8 @@
+2009-03-11  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* Parameters.h: Change DynamicFilter defaults to something more
+	sensible. Reported by David MacKay.
+
 2009-03-04  Thomas H.P. Andersen  <phomes@gmail.com>
 
 	* Src/Gtk2/dasher_main.cpp:
