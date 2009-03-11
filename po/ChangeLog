@@ -1,7 +1,11 @@
+2009-03-11  Wadim Dziedzic  <wdziedzic@aviary.pl>
+
+	* pl.po: Fixed bug #573430 and other found issues
+
 2009-03-11  Gabor Kelemen  <kelemeng@gnome.hu>
 
 	* hu.po: Translation updated. Fixing bug #574822.
-	
+
 2009-03-11  Inaki Larranaga Murgoitio  <dooteo@euskalgnu.org>
 
 	* eu.po: Updated Basque translation.
