@@ -1,3 +1,9 @@
+2009-03-11  Philip Withnall  <philip@tecnocode.co.uk>
+
+	* Makefile.am:
+	* en_GB/en_GB.po: Added British English translation by Jennifer
+	Ockwell <jenfraggleubuntu@gmail.com>.
+
 2009-03-07  Mario Blättermann  <mariobl@svn.gnome.org>
 
 	* de/de.po: Added German translation.
