@@ -67,7 +67,7 @@ void CDynamicFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherMode
   
   // Check for multiple clicks
   if(iId == m_iQueueId) {
-    while((m_deQueueTimes.size() > 0) && (iTime - m_deQueueTimes.front()) > GetLongParameter(LP_HOLD_TIME))
+    while((m_deQueueTimes.size() > 0) && (iTime - m_deQueueTimes.front()) > GetLongParameter(LP_MULTIPRESS_TIME))
       m_deQueueTimes.pop_front();
 
     if(m_deQueueTimes.size() == static_cast<unsigned int>(GetLongParameter(LP_MULTIPRESS_COUNT) - 1)) { 
