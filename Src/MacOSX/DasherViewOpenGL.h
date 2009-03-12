@@ -14,6 +14,7 @@
 #import "AlphabetLetter.h"
 #import "ColourIO.h"
 #import "DasherViewCocoa.h"
+#import "KeyboardHelper.h"
 
 @class NSColor, NSTimer, NSTextField, NSString, NSMutableDictionary;
 @class NSBezierPath;
@@ -48,7 +49,7 @@ typedef struct {
   colour_t *colourTable;
   
   NSMutableDictionary *_letterDict;
-  
+  CKeyboardHelper *_keyboardHelper;
   
 }
 
@@ -61,6 +62,7 @@ typedef struct {
 - (void)mouseDown:(NSEvent *)e;
 - (void)mouseUp:(NSEvent *)e;
 - (void)keyDown:(NSEvent *)e;
+- (void)keyUp:(NSEvent *)e;
 - (void)circleCallbackCentrePoint:(NSPoint)aCentrePoint radius:(float)aRadius outlineColorIndex:(int)anOutlineColorIndex fillColourIndex:(int)aFillColourIndex shouldFill:(BOOL)shouldFill lineWidth:(int)aLineWidth;
 - (void)rectangleCallbackX1:(int)x1 y1:(int)y1 x2:(int)x2 y2:(int)y2 fillColorIndex:(int)aFillColorIndex outlineColorIndex:(int)anOutlineColorIndex shouldOutline:(BOOL)shouldOutline shouldFill:(BOOL)shouldFill lineWidth:(int)aLineWidth;
 - (AlphabetLetter *)letterForString:(NSString *)aString;
@@ -73,7 +75,6 @@ typedef struct {
 - (void)adjustTrackingRect;
 - (BOOL)isFlipped;
 - (BOOL)isOpaque;
-- (BOOL)acceptsFirstMouse:(NSEvent *)theEvent;
 - (void)awakeFromNib;
 - (void)finishRealization;
 - (COSXDasherScreen *)aquaDasherScreen;

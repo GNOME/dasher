@@ -390,6 +390,8 @@
 		33E173E40F3E0B6400D19B38 /* training_swedish_SE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173C40F3E0B6400D19B38 /* training_swedish_SE.txt */; };
 		33E173E50F3E0B6400D19B38 /* training_turkish_TR.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173C50F3E0B6400D19B38 /* training_turkish_TR.txt */; };
 		33E173E60F3E0B6400D19B38 /* training_welsh_GB.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173C60F3E0B6400D19B38 /* training_welsh_GB.txt */; };
+		33E91A770F55E60B00B5F513 /* KeyboardHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33E91A750F55E60B00B5F513 /* KeyboardHelper.cpp */; };
+		33E91A780F55E60B00B5F513 /* KeyboardHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 33E91A760F55E60B00B5F513 /* KeyboardHelper.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -574,66 +576,6 @@
 		1974FD9C07145C6500B95DA0 /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
 		1974FE7A0714861B00B95DA0 /* Dasher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dasher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1974FE7C0714861B00B95DA0 /* Info-Dasher.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Dasher.plist"; sourceTree = SOURCE_ROOT; };
-		19836C1D0C22A7FA00047426 /* Canvas.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Canvas.cpp; sourceTree = "<group>"; };
-		19836C1E0C22A7FA00047426 /* Canvas.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Canvas.h; sourceTree = "<group>"; };
-		19836C1F0C22A7FA00047426 /* CanvasExperimental.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CanvasExperimental.cpp; sourceTree = "<group>"; };
-		19836C200C22A7FA00047426 /* CanvasExperimental.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CanvasExperimental.h; sourceTree = "<group>"; };
-		19836C210C22A7FA00047426 /* custom_marshal.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = custom_marshal.cpp; sourceTree = "<group>"; };
-		19836C220C22A7FA00047426 /* custom_marshal.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = custom_marshal.h; sourceTree = "<group>"; };
-		19836C230C22A7FA00047426 /* dasher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher.h; sourceTree = "<group>"; };
-		19836C240C22A7FA00047426 /* dasher_action.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_action.cpp; sourceTree = "<group>"; };
-		19836C250C22A7FA00047426 /* dasher_action.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_action.h; sourceTree = "<group>"; };
-		19836C260C22A7FA00047426 /* dasher_action_keyboard.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_action_keyboard.cpp; sourceTree = "<group>"; };
-		19836C270C22A7FA00047426 /* dasher_action_keyboard.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_action_keyboard.h; sourceTree = "<group>"; };
-		19836C280C22A7FA00047426 /* dasher_action_keyboard_maemo.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_action_keyboard_maemo.cpp; sourceTree = "<group>"; };
-		19836C290C22A7FA00047426 /* dasher_action_keyboard_maemo.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_action_keyboard_maemo.h; sourceTree = "<group>"; };
-		19836C2A0C22A7FA00047426 /* dasher_action_script.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_action_script.cpp; sourceTree = "<group>"; };
-		19836C2B0C22A7FA00047426 /* dasher_action_script.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_action_script.h; sourceTree = "<group>"; };
-		19836C2C0C22A7FA00047426 /* dasher_action_speech.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_action_speech.cpp; sourceTree = "<group>"; };
-		19836C2D0C22A7FA00047426 /* dasher_action_speech.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_action_speech.h; sourceTree = "<group>"; };
-		19836C2E0C22A7FA00047426 /* dasher_buffer_set.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_buffer_set.cpp; sourceTree = "<group>"; };
-		19836C2F0C22A7FA00047426 /* dasher_buffer_set.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_buffer_set.h; sourceTree = "<group>"; };
-		19836C300C22A7FA00047426 /* dasher_editor.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_editor.cpp; sourceTree = "<group>"; };
-		19836C310C22A7FA00047426 /* dasher_editor.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_editor.h; sourceTree = "<group>"; };
-		19836C320C22A7FA00047426 /* dasher_editor_external.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_editor_external.cpp; sourceTree = "<group>"; };
-		19836C330C22A7FA00047426 /* dasher_editor_external.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_editor_external.h; sourceTree = "<group>"; };
-		19836C340C22A7FA00047426 /* dasher_editor_internal.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_editor_internal.cpp; sourceTree = "<group>"; };
-		19836C350C22A7FA00047426 /* dasher_editor_internal.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_editor_internal.h; sourceTree = "<group>"; };
-		19836C360C22A7FA00047426 /* dasher_external_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_external_buffer.cpp; sourceTree = "<group>"; };
-		19836C370C22A7FA00047426 /* dasher_external_buffer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_external_buffer.h; sourceTree = "<group>"; };
-		19836C380C22A7FA00047426 /* dasher_internal_buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_internal_buffer.cpp; sourceTree = "<group>"; };
-		19836C390C22A7FA00047426 /* dasher_internal_buffer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_internal_buffer.h; sourceTree = "<group>"; };
-		19836C3A0C22A7FA00047426 /* dasher_lock_dialogue.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_lock_dialogue.cpp; sourceTree = "<group>"; };
-		19836C3B0C22A7FA00047426 /* dasher_lock_dialogue.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_lock_dialogue.h; sourceTree = "<group>"; };
-		19836C3C0C22A7FA00047426 /* dasher_maemo_helper.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_maemo_helper.cpp; sourceTree = "<group>"; };
-		19836C3D0C22A7FA00047426 /* dasher_maemo_helper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_maemo_helper.h; sourceTree = "<group>"; };
-		19836C3E0C22A7FA00047426 /* dasher_main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = dasher_main.cpp; sourceTree = "<group>"; };
-		19836C3F0C22A7FA00047426 /* dasher_main.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = dasher_main.h; sourceTree = "<group>"; };
-		19836C400C22A7FA00047426 /* DasherAppSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DasherAppSettings.cpp; sourceTree = "<group>"; };
-		19836C410C22A7FA00047426 /* DasherAppSettings.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherAppSettings.h; sourceTree = "<group>"; };
-		19836C420C22A7FA00047426 /* DasherControl.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DasherControl.cpp; sourceTree = "<group>"; };
-		19836C430C22A7FA00047426 /* DasherControl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherControl.h; sourceTree = "<group>"; };
-		19836C440C22A7FA00047426 /* game_mode_helper.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = game_mode_helper.cpp; sourceTree = "<group>"; };
-		19836C450C22A7FA00047426 /* game_mode_helper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = game_mode_helper.h; sourceTree = "<group>"; };
-		19836C460C22A7FA00047426 /* GenerateSchema.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = GenerateSchema.cpp; sourceTree = "<group>"; };
-		19836C470C22A7FA00047426 /* gpesettings_store.cc */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = gpesettings_store.cc; sourceTree = "<group>"; };
-		19836C480C22A7FA00047426 /* gpesettings_store.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = gpesettings_store.h; sourceTree = "<group>"; };
-		19836C490C22A7FA00047426 /* GtkDasherControl.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = GtkDasherControl.cpp; sourceTree = "<group>"; };
-		19836C4A0C22A7FA00047426 /* GtkDasherControl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GtkDasherControl.h; sourceTree = "<group>"; };
-		19836C4B0C22A7FA00047426 /* joystick_input.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = joystick_input.h; sourceTree = "<group>"; };
-		19836C4C0C22A7FA00047426 /* KeyboardHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = KeyboardHelper.cpp; sourceTree = "<group>"; };
-		19836C4D0C22A7FA00047426 /* KeyboardHelper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = KeyboardHelper.h; sourceTree = "<group>"; };
-		19836C4E0C22A7FA00047426 /* Makefile.am */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
-		19836C4F0C22A7FA00047426 /* module_settings_window.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = module_settings_window.cpp; sourceTree = "<group>"; };
-		19836C500C22A7FA00047426 /* module_settings_window.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = module_settings_window.h; sourceTree = "<group>"; };
-		19836C510C22A7FA00047426 /* mouse_input.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = mouse_input.h; sourceTree = "<group>"; };
-		19836C520C22A7FA00047426 /* PangoCache.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PangoCache.cpp; sourceTree = "<group>"; };
-		19836C530C22A7FA00047426 /* PangoCache.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PangoCache.h; sourceTree = "<group>"; };
-		19836C540C22A7FA00047426 /* Preferences.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Preferences.cpp; sourceTree = "<group>"; };
-		19836C550C22A7FA00047426 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
-		19836C560C22A7FA00047426 /* tilt_input.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = tilt_input.h; sourceTree = "<group>"; };
-		19836C570C22A7FA00047426 /* Timer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Timer.cpp; sourceTree = "<group>"; };
-		19836C580C22A7FA00047426 /* Timer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Timer.h; sourceTree = "<group>"; };
 		1987561F071AFB470034ECCB /* Chatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chatter.h; sourceTree = "<group>"; };
 		19875620071AFB470034ECCB /* Chatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chatter.m; sourceTree = "<group>"; };
 		1988ABB70C9FF97000D97977 /* GameLevel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = GameLevel.cpp; sourceTree = "<group>"; };
@@ -860,6 +802,8 @@
 		33E173C40F3E0B6400D19B38 /* training_swedish_SE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_swedish_SE.txt; sourceTree = "<group>"; };
 		33E173C50F3E0B6400D19B38 /* training_turkish_TR.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_turkish_TR.txt; sourceTree = "<group>"; };
 		33E173C60F3E0B6400D19B38 /* training_welsh_GB.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_welsh_GB.txt; sourceTree = "<group>"; };
+		33E91A750F55E60B00B5F513 /* KeyboardHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyboardHelper.cpp; sourceTree = "<group>"; };
+		33E91A760F55E60B00B5F513 /* KeyboardHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardHelper.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -909,6 +853,8 @@
 				19D4423D04546C410000000A /* PreferencesController.mm */,
 				198EC7AE07153D6E00474B38 /* KeyboardEvent.h */,
 				198EC7AF07153D6E00474B38 /* KeyboardEvent.m */,
+				33E91A760F55E60B00B5F513 /* KeyboardHelper.h */,
+				33E91A750F55E60B00B5F513 /* KeyboardHelper.cpp */,
 				198EC7B107153D6E00474B38 /* LowLevelKeyboardHandling.h */,
 				198EC7B007153D6E00474B38 /* LowLevelKeyboardHandling.c */,
 				198EC7B207153D6E00474B38 /* UnicharGenerator.h */,
@@ -1149,74 +1095,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		19836C1B0C22A7FA00047426 /* Gtk2 */ = {
-			isa = PBXGroup;
-			children = (
-				19836C1D0C22A7FA00047426 /* Canvas.cpp */,
-				19836C1E0C22A7FA00047426 /* Canvas.h */,
-				19836C1F0C22A7FA00047426 /* CanvasExperimental.cpp */,
-				19836C200C22A7FA00047426 /* CanvasExperimental.h */,
-				19836C210C22A7FA00047426 /* custom_marshal.cpp */,
-				19836C220C22A7FA00047426 /* custom_marshal.h */,
-				19836C230C22A7FA00047426 /* dasher.h */,
-				19836C240C22A7FA00047426 /* dasher_action.cpp */,
-				19836C250C22A7FA00047426 /* dasher_action.h */,
-				19836C260C22A7FA00047426 /* dasher_action_keyboard.cpp */,
-				19836C270C22A7FA00047426 /* dasher_action_keyboard.h */,
-				19836C280C22A7FA00047426 /* dasher_action_keyboard_maemo.cpp */,
-				19836C290C22A7FA00047426 /* dasher_action_keyboard_maemo.h */,
-				19836C2A0C22A7FA00047426 /* dasher_action_script.cpp */,
-				19836C2B0C22A7FA00047426 /* dasher_action_script.h */,
-				19836C2C0C22A7FA00047426 /* dasher_action_speech.cpp */,
-				19836C2D0C22A7FA00047426 /* dasher_action_speech.h */,
-				19836C2E0C22A7FA00047426 /* dasher_buffer_set.cpp */,
-				19836C2F0C22A7FA00047426 /* dasher_buffer_set.h */,
-				19836C300C22A7FA00047426 /* dasher_editor.cpp */,
-				19836C310C22A7FA00047426 /* dasher_editor.h */,
-				19836C320C22A7FA00047426 /* dasher_editor_external.cpp */,
-				19836C330C22A7FA00047426 /* dasher_editor_external.h */,
-				19836C340C22A7FA00047426 /* dasher_editor_internal.cpp */,
-				19836C350C22A7FA00047426 /* dasher_editor_internal.h */,
-				19836C360C22A7FA00047426 /* dasher_external_buffer.cpp */,
-				19836C370C22A7FA00047426 /* dasher_external_buffer.h */,
-				19836C380C22A7FA00047426 /* dasher_internal_buffer.cpp */,
-				19836C390C22A7FA00047426 /* dasher_internal_buffer.h */,
-				19836C3A0C22A7FA00047426 /* dasher_lock_dialogue.cpp */,
-				19836C3B0C22A7FA00047426 /* dasher_lock_dialogue.h */,
-				19836C3C0C22A7FA00047426 /* dasher_maemo_helper.cpp */,
-				19836C3D0C22A7FA00047426 /* dasher_maemo_helper.h */,
-				19836C3E0C22A7FA00047426 /* dasher_main.cpp */,
-				19836C3F0C22A7FA00047426 /* dasher_main.h */,
-				19836C400C22A7FA00047426 /* DasherAppSettings.cpp */,
-				19836C410C22A7FA00047426 /* DasherAppSettings.h */,
-				19836C420C22A7FA00047426 /* DasherControl.cpp */,
-				19836C430C22A7FA00047426 /* DasherControl.h */,
-				19836C440C22A7FA00047426 /* game_mode_helper.cpp */,
-				19836C450C22A7FA00047426 /* game_mode_helper.h */,
-				19836C460C22A7FA00047426 /* GenerateSchema.cpp */,
-				19836C470C22A7FA00047426 /* gpesettings_store.cc */,
-				19836C480C22A7FA00047426 /* gpesettings_store.h */,
-				19836C490C22A7FA00047426 /* GtkDasherControl.cpp */,
-				19836C4A0C22A7FA00047426 /* GtkDasherControl.h */,
-				19836C4B0C22A7FA00047426 /* joystick_input.h */,
-				19836C4C0C22A7FA00047426 /* KeyboardHelper.cpp */,
-				19836C4D0C22A7FA00047426 /* KeyboardHelper.h */,
-				19836C4E0C22A7FA00047426 /* Makefile.am */,
-				19836C4F0C22A7FA00047426 /* module_settings_window.cpp */,
-				19836C500C22A7FA00047426 /* module_settings_window.h */,
-				19836C510C22A7FA00047426 /* mouse_input.h */,
-				19836C520C22A7FA00047426 /* PangoCache.cpp */,
-				19836C530C22A7FA00047426 /* PangoCache.h */,
-				19836C540C22A7FA00047426 /* Preferences.cpp */,
-				19836C550C22A7FA00047426 /* Preferences.h */,
-				19836C560C22A7FA00047426 /* tilt_input.h */,
-				19836C570C22A7FA00047426 /* Timer.cpp */,
-				19836C580C22A7FA00047426 /* Timer.h */,
-			);
-			name = Gtk2;
-			path = ../Gtk2;
-			sourceTree = SOURCE_ROOT;
-		};
 		19BEF2CD0C228F7300275D06 /* alphabets */ = {
 			isa = PBXGroup;
 			children = (
@@ -1417,7 +1295,6 @@
 				19351BF304575C6C0000000A /* mktar.sh */,
 				190697550492B65B0000000A /* ReadmeDeveloper.txt */,
 				190697530492AACE0000000A /* Readme.html */,
-				19836C1B0C22A7FA00047426 /* Gtk2 */,
 				19BEF4180C22922400275D06 /* controllabels */,
 				19BEF3FC0C2291CE00275D06 /* colours */,
 				19BEF2CD0C228F7300275D06 /* alphabets */,
@@ -1612,6 +1489,7 @@
 				1988ABBD0C9FF97000D97977 /* GameMessages.h in Headers */,
 				1988ABBE0C9FF97000D97977 /* GameStatistics.h in Headers */,
 				1988ABC00C9FF97000D97977 /* PinyinParser.h in Headers */,
+				33E91A780F55E60B00B5F513 /* KeyboardHelper.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1955,6 +1833,7 @@
 				19F8C7F90C858E9900276B4F /* TrainingHelper.cpp in Sources */,
 				1988ABBF0C9FF97000D97977 /* PinyinParser.cpp in Sources */,
 				1988ABCF0C9FFADA00D97977 /* GameLevel.cpp in Sources */,
+				33E91A770F55E60B00B5F513 /* KeyboardHelper.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

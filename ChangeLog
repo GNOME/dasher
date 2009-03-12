@@ -1,3 +1,9 @@
+2009-03-12  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* MacOSX:
+	* makes the control mode list box (in the preferences pane) non-editable
+	* fixes keyboard input in the OpenGL implementation.
+
 2009-03-11  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* Parameters.h: Change DynamicFilter defaults to something more

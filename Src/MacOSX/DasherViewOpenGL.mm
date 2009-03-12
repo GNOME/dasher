@@ -104,6 +104,25 @@
 
 - (void)keyDown:(NSEvent *)e
 {
+  /*TODO, note that this isn't really "key down", rather it's "character entered"
+	or similar - if the key is held down long enough to repeat, we get multiple keyDowns
+   before a keyUp, and we just send them all along to the DasherCore code...*/
+  NSString *chars = [e characters];
+  if ([chars length] > 1)
+    NSLog(@"KeyDown event for %i chars %@ - what to do? Ignoring all but first...\n", [chars length], chars);
+  int keyCode = _keyboardHelper->ConvertKeyCode([chars characterAtIndex:0]);
+  if (keyCode != -1)
+    [dasherApp aquaDasherControl]->KeyDown(get_time(), keyCode);
+}
+
+- (void)keyUp:(NSEvent *)e
+{
+  NSString *chars = [e characters];
+  if ([chars length] > 1)
+    NSLog(@"KeyUp event for %i chars %@ - what to do? Ignoring all but first...\n", [chars length], chars);
+  int keyCode = _keyboardHelper->ConvertKeyCode([chars characterAtIndex:0]);
+  if (keyCode != -1)
+    [dasherApp aquaDasherControl]->KeyUp(get_time(), keyCode);
 }
 
 - (void)circleCallbackCentrePoint:(NSPoint)aCentrePoint radius:(float)aRadius outlineColorIndex:(int)anOutlineColorIndex fillColourIndex:(int)aFillColourIndex shouldFill:(BOOL)shouldFill lineWidth:(int)aLineWidth {
@@ -245,6 +264,7 @@
     [self blankCallback];  
   }
   
+  _keyboardHelper = new CKeyboardHelper();
   return self;
 }
 
@@ -279,11 +299,6 @@
   return YES;
 }
 
-- (BOOL)acceptsFirstMouse:(NSEvent *)theEvent
-{
-  return YES;
-}
-
 - (void)awakeFromNib
 {
 //  aquaDasherScreen = new COSXDasherScreen(self);
@@ -305,7 +320,7 @@
 
 - (BOOL)acceptsFirstResponder
 {
-  return NO;
+  return YES;
 }
 
 
