@@ -18,6 +18,9 @@
 // along with Dasher; if not, write to the Free Software 
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 #include "../../Common/Common.h"
 #include "../TrainingHelper.h"
 #include "Alphabet.h"
@@ -166,7 +169,10 @@ void CAlphabet::GetSymbols(std::vector<symbol> &symbols, std::istream &in) const
       len = m_utf8_count_array[ch];
       if (len == 0)
         {
-          std::cerr << "Read invalid UTF-8 character 0x" << ch << std::endl;
+#ifdef DEBUG
+          std::cerr << "Read invalid UTF-8 character 0x" << hex << ch
+                    << dec << std::endl;
+#endif
           in >> skip;
         }
       else

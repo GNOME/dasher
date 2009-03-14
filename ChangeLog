@@ -4,6 +4,7 @@
 	* dasher_main.cpp: synch with AUTHORS
 	* fix typos. Correcting automake conditional JOYSTICK is a functional
 	change.
+	* Alphabet.cpp: Only print error if DEBUG.
 
 2009-03-12  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
