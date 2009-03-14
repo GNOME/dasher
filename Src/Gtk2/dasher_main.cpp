@@ -469,6 +469,10 @@ dasher_main_load_interface(DasherMain *pSelf) {
     pPrivate->pPrefXML = (GladeXML *) g_object_ref(pPrivate->pGladeXML);
   }
 
+  // XXX PRLW: Hide the Help Contents as there is no handler to display help.
+  // #575365
+  gtk_widget_hide(glade_xml_get_widget(pPrivate->pGladeXML, "menu_command_help"));
+
   // Save the details of some of the widgets for later
   //  pPrivate->pActionPane = glade_xml_get_widget(pPrivate->pGladeXML, "vbox39");
   pPrivate->pBufferView = glade_xml_get_widget(pPrivate->pGladeXML, "the_text_view");
