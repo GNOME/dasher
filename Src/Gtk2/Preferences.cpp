@@ -132,7 +132,7 @@ static void dasher_preferences_dialogue_populate_list(DasherPreferencesDialogue 
 static void dasher_preferences_dialogue_update_special(DasherPreferencesDialogue *pSelf, int iID);
 static void dasher_preferences_dialogue_refresh_parameter(DasherPreferencesDialogue *pSelf, GtkWidget *pWidget, gpointer pUserData);
 
-/* Special privalte members called via table (see below) */
+/* Special private members called via table (see below) */
 static void dasher_preferences_dialogue_populate_special_speed(DasherPreferencesDialogue *pSelf);
 static void dasher_preferences_dialogue_populate_special_mouse_start(DasherPreferencesDialogue *pSelf);
 static void dasher_preferences_dialogue_populate_special_orientation(DasherPreferencesDialogue *pSelf);

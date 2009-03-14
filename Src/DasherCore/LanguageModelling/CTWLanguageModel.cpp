@@ -49,7 +49,7 @@ CCTWLanguageModel::CCTWLanguageModel(Dasher::CEventHandler *pEventHandler, CSett
 	alpha = 14;		// 2: KT-estimator, 1: Laplace estimator, 14 = found by P.A.J. Volf to be 'good' for text
 	MaxNrNodes = 4194304; // Max number of CCTWNodes in the table, trade-off between compression and memory usage. 2^22 = 4M
     TotalNodes = 0; // to keep track of how many nodes are created in the table.
-	MaxFill = 0.9;  // Treshold to decide when to freeze the tree
+	MaxFill = 0.9;  // Threshold to decide when to freeze the tree
 	Failed = 0;		// keep track of how many nodes couldn't be found or created //debug	
 	Frozen = false; // to indicate if there is still room in the array of CCTWNodes	
 	MaxCount = 255; // Maximum value for the counts for count-halving

@@ -56,7 +56,7 @@ public:
 
   ///
   /// @name Context manipulation
-  /// Functions for creating, destroying and alteringn contexts
+  /// Functions for creating, destroying and altering contexts
   /// @{
 
   ///

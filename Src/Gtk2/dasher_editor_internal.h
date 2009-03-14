@@ -72,7 +72,7 @@ GType dasher_editor_internal_get_type();
 /* void dasher_editor_internal_handle_start(DasherEditorInternal *pSelf); */
 /* void dasher_editor_internal_handle_control(DasherEditorInternal *pSelf, int iNodeID); */
 
-/* /\* Action related methods - TODO: a lot of this should be moved to dasher_main (eg action on stop etc) - that way we get a better level of abstraction, and can incorporate commands from otehr modules too. Actions should only be externally visible as a list of string commands*\/ */
+/* /\* Action related methods - TODO: a lot of this should be moved to dasher_main (eg action on stop etc) - that way we get a better level of abstraction, and can incorporate commands from other modules too. Actions should only be externally visible as a list of string commands*\/ */
 /* void dasher_editor_internal_action_button(DasherEditorInternal *pSelf, DasherAction *pAction); */
 /* void dasher_editor_internal_actions_start(DasherEditorInternal *pSelf); */
 /* bool dasher_editor_internal_actions_more(DasherEditorInternal *pSelf); */

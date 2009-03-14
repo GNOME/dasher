@@ -32,7 +32,7 @@
 // yet been created (it should be intialized to NULL).  Also has versions that
 // automatically indicate the log level without sending a parameter.
 //
-// Note: to use these you must use double open and close paranethesis, this
+// Note: to use these you must use double open and close parentheses, this
 // is due to the variable parameter list that logging can take to do printf
 // style output.  GCC supports variadic macros, but Visual Studio doesn't yet.
 //
@@ -112,13 +112,13 @@ public:
     ~CFileLogger();
 
 
-    void Log(const char* szText, eLogLevel iLogLevel = logNORMAL, ...);         // Logs a string to our file if it meets our exceeds our logging level
+    void Log(const char* szText, eLogLevel iLogLevel = logNORMAL, ...);         // Logs a string to our file if it meets or exceeds our logging level
     void LogDebug(const char* szText, ...);                                     // Logs debug level messages
     void LogNormal(const char* szText, ...);                                    // Logs normal level messages    
     void LogCritical(const char* szText, ...);                                  // Logs critical level messages
 
     // Versions that exists so we can pass in STL strings
-    void Log(const std::string strText, eLogLevel iLogLevel = logNORMAL, ...);        // Logs a string to our file if it meets our exceeds our logging level
+    void Log(const std::string strText, eLogLevel iLogLevel = logNORMAL, ...);        // Logs a string to our file if it meets or exceeds our logging level
     
     void SetFilename(const std::string& strFilename);
     void SetLogLevel(const eLogLevel newLevel);

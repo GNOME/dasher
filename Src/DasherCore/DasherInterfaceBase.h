@@ -510,9 +510,9 @@ protected:
   virtual void ShutdownTimer() = 0;
 
   ///
-  /// Append text to the trainign file - used to store state between
+  /// Append text to the training file - used to store state between
   /// sessions
-  /// @todo Pass file path to the fuction rather than having implementations work it out themselves
+  /// @todo Pass file path to the function rather than having implementations work it out themselves
   ///
   
   virtual void WriteTrainFile(const std::string &strNewText) {

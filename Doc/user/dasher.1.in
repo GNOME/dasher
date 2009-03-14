@@ -69,11 +69,11 @@ dasher expands to the entire screen.
 .SH MENUS
 .SS File
 .IP New
-Clear the edit box and associated a random filename with it.
+Clear the edit box and associate a random filename with it.
 .IP Open
 Read a text file into the edit box for further editing.
 .IP Save
-Save the contents of the edit box to it's associated file.
+Save the contents of the edit box to its associated file.
 .IP "Save as"
 Save the contents of the edit box to a selected file.
 .IP "Append to file"

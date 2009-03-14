@@ -4,7 +4,7 @@ Dasher Release Instructions
 Last Updated 6th Apr 2008 by Phil Cowans.
 
 How to make a Dasher release. Note that most of this only makes sense
-if your're the Dasher maintainer, ie me!:
+if you're the Dasher maintainer, i.e., me!:
 
 1. Check that Dasher builds!
 

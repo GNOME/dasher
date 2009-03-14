@@ -74,7 +74,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   ///
   /// Update the root location - called in response to regular timer
-  /// callbacks, mainly from the tier events of various button
+  /// callbacks, mainly from the timer events of various button
   /// handlers
   /// TODO: Make this a bit more central in the button handler hierarchy
   ///

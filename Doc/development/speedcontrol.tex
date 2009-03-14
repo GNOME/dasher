@@ -65,7 +65,7 @@ comfortable bit rate for themselves. Worse still, users may even be
 \emph{unable} to play around with the speed slider. This could make using
 Dasher frustrating, so an automatic speed control is a desirable feature.
 
-In order to implement automatic speed contorl for Dasher, why not ask
+In order to implement automatic speed control for Dasher, why not ask
 the question ``how can we tell how well a user is doing'' or perhaps
 ``how can we tell how stressful a user is finding using Dasher''? If
 a user was doing badly or finding the experience stressful we could
@@ -137,7 +137,7 @@ the bit rate, $\tau_c$. If $\tau_v \gg \tau_c$, this is bad
 news\footnote{DJCM}! This means the speed is changing more quickly
 than our measure of user stress adapts and the change will
 ``overshoot''. Making sure that our system avoids this is very
-important. We should aim for $\tau_c \gg \tau_g$. However, if the
+important. We should aim for $\tau_c \gg \tau_v$. However, if the
 speed changes \emph{too slowly}, the system will be of limited use.
 
 \subsection{Misleading Scenarios}\label{item:back} 
@@ -148,7 +148,7 @@ behaviour probably isn't giving us useful information on their
 performance while writing (which hopefully is the majority of the
 time!). Furthermore, movement of the mouse backwards and forwards
 creates annoying spikes in any measure of the variance. Though this
-may well be a sign that Dasher is running to fast for the user, it may
+may well be a sign that Dasher is running too fast for the user, it may
 also be that they have changed their mind about what to write. We
 don't want to give too much emphasis to this. Furthermore, a user in
 trouble may spend a lot of time `scrolling' vertically. Typically,

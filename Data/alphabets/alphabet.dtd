@@ -17,7 +17,7 @@ issues. In theory it could see which characters are there and pick
 a suitable file encoding and font. Sometimes this is difficult.
 It does not dictate the file format. For example, traditionally Unix
 and Windows use different encodings for some languages. A platform
-should do what what it thinks best given the vague group Dasher
+should do what it thinks best given the vague group Dasher
 has put the alphabet into. If this doesn't work out, the user
 can over-ride the alphabet anyway. -->
 <!ELEMENT encoding EMPTY>

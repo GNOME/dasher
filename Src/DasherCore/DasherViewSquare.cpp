@@ -137,7 +137,7 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
   //if(iScreenRight > Screen()->GetWidth()) 
   //  iScreenRight=Screen()->GetWidth();
 
-  // Blank the regoin around the root node:
+  // Blank the region around the root node:
   
   if(iRootMin > iDasherMinY)
     DasherDrawRectangle(iDasherMaxX, iDasherMinY, iDasherMinX, iRootMin, 0, 0, Nodes1, false,true, 1);

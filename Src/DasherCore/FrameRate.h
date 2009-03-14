@@ -106,7 +106,7 @@ inline void CFrameRate::NewFrame(unsigned long Time)
     }
 
     // Calculate the framerate and reset framerate statistics for next
-    // sampleing period
+    // sampling period
     if(m_iTime2 - m_iTime) {
       m_dFr = m_iFrames * 1000.0 / (m_iTime2 - m_iTime);
       m_iTime = m_iTime2;
