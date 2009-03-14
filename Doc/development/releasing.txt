@@ -25,6 +25,7 @@ if you're the Dasher maintainer, i.e., me!:
      - Src/Installer/Dasher.wxs
 	 - Src/InstallerW2K/Dasher.wxs (Windows 2K compatibility version)
 	 - Src/InstallerTobii/Dasher.wxs (MyTobii customised installer)
+     - Src/Installer*/Installer*.wixproj
 
 4. Add an item to the ChangeLog and NEWS files
 

@@ -46,5 +46,11 @@ Upgrade Code: 56491DE8-EF73-42a6-82D4-8D05FE531583
 (Specialist installers not shipped for development release)
 
 4.9.0 (Standard)
+================
 Product ID: ABC998A2-E21A-4453-B104-FA1C20E0CFD8
 Upgrade Code: B258EB55-13B0-4b4d-91FE-FEFAE823E802
+
+4.10.0 (Standard)
+================
+Product ID: 5ce7dc54-10e5-11de-bf4f-000e7b9b7395
+Upgrade Code: 881c50ca-10e6-11de-bf4f-000e7b9b7395

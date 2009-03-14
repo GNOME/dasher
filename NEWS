@@ -1,7 +1,14 @@
 ============
+Dasher 4.10.0
+============
+  * Fix click modes where letters near the edge of the selection box to "leak"
+    out so they could not be selected.
+  * Fix UTF-8 bug so e.g., Japanese and Hebrew work.
+
+============
 Dasher 4.9.0
 ============
-  * Fix UTF-8 bug so e.g., Japanese and Hebrew work.
+  * New development branch
 
 ============
 Dasher 4.7.2

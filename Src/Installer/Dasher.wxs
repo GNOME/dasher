@@ -1,16 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
 
-  <Product Name='Dasher 4.9' Id='ABC998A2-E21A-4453-B104-FA1C20E0CFD8'
-   Language='1033' Codepage='1252' Version='4.9.1' Manufacturer='Dasher'
-   UpgradeCode='B258EB55-13B0-4b4d-91FE-FEFAE823E802'>
+  <Product Name='Dasher 4.10' Id='5ce7dc54-10e5-11de-bf4f-000e7b9b7395'
+   Language='1033' Codepage='1252' Version='4.10.0' Manufacturer='Dasher'
+   UpgradeCode='881c50ca-10e6-11de-bf4f-000e7b9b7395'>
 
     <Package Keywords='Installer'
-     Description="Dasher 4.9 Installer"
+     Description="Dasher 4.10 Installer"
      Comments='This will install Dasher' Manufacturer='The Dasher Group.'
      InstallerVersion='100' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
     <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' DiskPrompt="CD-ROM #1" />
-    <Property Id='DiskPrompt' Value="Dasher 4.9 Installation [1]" />
+    <Property Id='DiskPrompt' Value="Dasher 4.10 Installation [1]" />
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
       <Directory Id='ProgramFilesFolder' Name='PFiles'>

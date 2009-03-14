@@ -4,7 +4,7 @@
     <ProductVersion>3.0</ProductVersion>
     <ProjectGuid>{c4bfc988-da68-4f51-bab0-db5b7d5cd53b}</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>Dasher 4.6 (MyTobii)</OutputName>
+    <OutputName>Dasher 4.10 (MyTobii)</OutputName>
     <OutputType>Package</OutputType>
     <WixToolPath>$(ProgramFiles)\Windows Installer XML v3\bin\</WixToolPath>
   </PropertyGroup>
