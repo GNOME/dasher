@@ -419,6 +419,15 @@ void CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey, myint &iNewMi
   int iTargetMin(Mousey - ((myint)iMaxY * Mousex) / (2 * (myint)iOX));
   int iTargetMax(Mousey + ((myint)iMaxY * Mousex) / (2 * (myint)iOY));
 
+  // If (0,iMaxY) = (iTargetMin,iTargetMax), the "zoom factor" is 1, we
+  // don't want to do anything.
+  if (0 == iTargetMin && iMaxY == iTargetMax)
+    {
+      iNewMin = m_Rootmin;
+      iNewMax = m_Rootmax;
+      return;
+    }
+
   // Compute the point C which is thus the center of expansion
   // (it divides iTargetMin-Max into the same proportions at it divides 0-iMaxY)
   const dasherint C = (iTargetMin * iMaxY) / (iTargetMin + iMaxY - iTargetMax);
@@ -997,6 +1006,10 @@ void CDasherModel::ScheduleZoom(dasherint X, dasherint Y, int iMaxZoom)
   dasherint ds = (safety * scale) / (2 * safety_denom);
   y1 -= ds;
   y2 += ds;
+
+  // If (y1,y2) = (Y1,Y2), the "zoom factor" is 1, we don't want to do
+  // anything.
+  if (y1 == Y1 && y2 == Y2) return;
 
   // There is a point C on the y-axis such the ratios (y1-C):(Y1-C) and
   // (y2-C):(Y2-C) are equal. (Obvious when drawn on separate parallel axes.)
