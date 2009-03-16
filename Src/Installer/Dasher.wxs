@@ -15,13 +15,13 @@
     <Directory Id='TARGETDIR' Name='SourceDir'>
       <Directory Id='ProgramFilesFolder' Name='PFiles'>
         <Directory Id='Dasher' Name='Dasher'>
-          <Directory Id='INSTALLDIR' Name='Dasher 4.9'>
+          <Directory Id='INSTALLDIR' Name='Dasher 4.10'>
             <Component Id='MainExecutable' Guid='5a93ba53-2e2d-4f88-8a1f-5bdd8f130394'>
               <File Id='DasherEXE' Name='Dasher.exe' DiskId='1'
                Source='..\Win32\Target\Release\Dasher.exe' Vital='yes'>
-               <Shortcut Id="startmenuDasher44" Directory="ProgramMenuDir" Name="Dasher 4.9" WorkingDirectory='INSTALLDIR'
+               <Shortcut Id="startmenuDasher44" Directory="ProgramMenuDir" Name="Dasher 4.10" WorkingDirectory='INSTALLDIR'
                  Icon="Dasher.exe" IconIndex="0" Advertise="yes"/>
-                <Shortcut Id="desktopDasher44" Directory="DesktopFolder" Name="Dasher 4.9" WorkingDirectory='INSTALLDIR'
+                <Shortcut Id="desktopDasher44" Directory="DesktopFolder" Name="Dasher 4.10" WorkingDirectory='INSTALLDIR'
                  Icon="Dasher.exe" IconIndex="0" Advertise="yes"/>
               </File>              
               <File Id="ExpatDLL" Name="libexpat.dll" DiskId="1" Source="$(env.EXPAT)\bin\libexpat.dll" Vital="yes"/>              
@@ -220,7 +220,7 @@
       </Directory>
 
      <Directory Id="ProgramMenuFolder" Name="Programs">
-       <Directory Id="ProgramMenuDir" Name="Dasher 4.9">
+       <Directory Id="ProgramMenuDir" Name="Dasher 4.10">
          <Component  Id="Random" Guid="D28C2189-5E40-4f93-B42E-0CD76D8B5B37" KeyPath="no">
            <Registry Id='DummyReg' Root='HKCU' Key='Software\Inference Group\Dasher3' Name='Dummy'
               Action='write' Type='string' Value='Dummy Key' KeyPath='yes'/>
@@ -384,7 +384,7 @@
 
 
 
-    <Feature Id='Complete' Title='Dasher 4.9' Description='The full Dasher installation.' Display='expand' Level='1' ConfigurableDirectory='INSTALLDIR'>
+    <Feature Id='Complete' Title='Dasher 4.10' Description='The full Dasher installation.' Display='expand' Level='1' ConfigurableDirectory='INSTALLDIR'>
       <Feature Id="Core" Title="Core" Description="Core programs and data files." Level="1">
        
         <ComponentRef Id='MainExecutable' />

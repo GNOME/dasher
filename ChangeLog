@@ -2,6 +2,7 @@
 
 	* DasherModel.cpp: Fix division by zero introduced in r3631 (and
 	possible case in r3573).
+	* Welcome version 4.10
 
 2009-03-14  Patrick Welche  <prlw1@cam.ac.uk>
 
