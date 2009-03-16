@@ -1,3 +1,8 @@
+2009-03-16  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* DasherModel.cpp: Fix division by zero introduced in r3631 (and
+	possible case in r3573).
+
 2009-03-14  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* dasher_main.cpp: Hide the Help / Contents menu option. #575365
