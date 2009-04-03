@@ -694,13 +694,13 @@ msgstr "Endimensjonal modus"
 #: ../Src/Gtk2/DasherAppSettings.cpp:518 ../Src/Gtk2/DasherAppSettings.cpp:552
 #: ../Src/Gtk2/DasherAppSettings.cpp:556
 msgid "true"
-msgstr "sann"
+msgstr "true"
 
 #: ../Src/DasherCore/SettingsStore.cpp:78
 #: ../Src/Gtk2/DasherAppSettings.cpp:520 ../Src/Gtk2/DasherAppSettings.cpp:552
 #: ../Src/Gtk2/DasherAppSettings.cpp:556
 msgid "false"
-msgstr "usann"
+msgstr "false"
 
 #. Note to translators: This message will be output for a command line
 #. with "--options foo=VAL" and foo is a boolean valued parameter, but

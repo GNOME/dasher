@@ -1,3 +1,7 @@
+2009-03-19  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* nb.po: Fix bug #574828. Thanks to André Klapper.
+
 2009-03-22  Mișu Moldovan  <dumol@gnome.ro>
 
 	* ro.po: Updated Romanian translation by Adi Roiban
