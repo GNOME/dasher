@@ -378,14 +378,8 @@ void CDasherModel::InitialiseAtOffset(int iOffset, CDasherView *pView) {
   m_pDasherInterface->ScheduleRedraw();
 }
 
-void CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey, myint &iNewMin, myint &iNewMax, unsigned long iTime) {
+void CDasherModel::Get_new_root_coords(dasherint X, dasherint Y, dasherint &r1, dasherint &r2, unsigned long iTime) {
   DASHER_ASSERT(m_Root != NULL);
-
-  // Avoid Mousex == 0, as this corresponds to infinite zoom
-  if(Mousex <= 0) {
-    Mousex = 1;
-  }
-
   if(m_iStartTime == 0)
     m_iStartTime = iTime;
 
@@ -400,37 +394,29 @@ void CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey, myint &iNewMi
 
   iSteps = static_cast<int>(iSteps / dFactor);
 
-  // If Mousex is too large we risk overflow errors, so limit it
-  int iMaxX = (1 << 29) / iSteps;
+  // Avoid X == 0, as this corresponds to infinite zoom
+  if (X <= 0) X = 1;
 
-  if(Mousex > iMaxX)
-    Mousex = iMaxX;
+  // If X is too large we risk overflow errors, so limit it
+  dasherint iMaxX = (1 << 29) / iSteps;
+  if (X > iMaxX) X = iMaxX;
 
-  // Cache some results so we don't do a huge number of parameter lookups
+  // Mouse coords X, Y
+  // new root{min,max} r1,r2, old root{min,max} R1,R2
+  const dasherint R1 = m_Rootmin;
+  const dasherint R2 = m_Rootmax;
+  const dasherint Y1 = 0;
+  dasherint Y2(GetLongParameter(LP_MAX_Y));
+  dasherint iOX(GetLongParameter(LP_OX));
+  dasherint iOY(GetLongParameter(LP_OY));
 
-  myint iMaxY(GetLongParameter(LP_MAX_Y));
-  myint iOX(GetLongParameter(LP_OX));
-  myint iOY(GetLongParameter(LP_OY));
 
   // Calculate what the extremes of the viewport will be when the
   // point under the cursor is at the cross-hair. This is where 
   // we want to be in iSteps updates
 
-  int iTargetMin(Mousey - ((myint)iMaxY * Mousex) / (2 * (myint)iOX));
-  int iTargetMax(Mousey + ((myint)iMaxY * Mousex) / (2 * (myint)iOY));
-
-  // If (0,iMaxY) = (iTargetMin,iTargetMax), the "zoom factor" is 1, we
-  // don't want to do anything.
-  if (0 == iTargetMin && iMaxY == iTargetMax)
-    {
-      iNewMin = m_Rootmin;
-      iNewMax = m_Rootmax;
-      return;
-    }
-
-  // Compute the point C which is thus the center of expansion
-  // (it divides iTargetMin-Max into the same proportions at it divides 0-iMaxY)
-  const dasherint C = (iTargetMin * iMaxY) / (iTargetMin + iMaxY - iTargetMax);
+  dasherint y1(Y - (Y2 * X) / (2 * iOX));
+  dasherint y2(Y + (Y2 * X) / (2 * iOY));
 
   // iSteps is the number of update steps we need to get the point
   // under the cursor over to the cross hair. Calculated in order to
@@ -438,37 +424,45 @@ void CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey, myint &iNewMi
 
   DASHER_ASSERT(iSteps > 0);
 
-  // Calculate the new values of iTargetMin and iTargetMax required to
-  // perform a single update step. Note that the slightly awkward
-  // expressions are in order to reproduce the behaviour of the old
-  // algorithm
+  // Calculate the new values of y1 and y2 required to perform a single update
+  // step.
 
-  int iNewTargetMin;
-  int iNewTargetMax;
+  dasherint newy1, newy2, denom;
 
-  iNewTargetMin = (iTargetMin * iMaxY / (iMaxY + (iSteps - 1) * (iTargetMax - iTargetMin)));
+  denom = Y2 + (iSteps - 1) * (y2 - y1);
+  newy1 = y1 * Y2 / denom;
+  newy2 = ((y2 * iSteps - y1 * (iSteps - 1)) * Y2) / denom;
 
-  iNewTargetMax = ((iTargetMax * iSteps - iTargetMin * (iSteps - 1)) * iMaxY) / (iMaxY + (iSteps - 1) * (iTargetMax - iTargetMin));
-
-  iTargetMin = iNewTargetMin;
-  iTargetMax = iNewTargetMax;
+  y1 = newy1;
+  y2 = newy2;
 
   // Calculate the minimum size of the viewport corresponding to the
   // maximum zoom.
 
-  myint iMinSize(m_fr.MinSize(iMaxY, dFactor));
+  dasherint iMinSize(m_fr.MinSize(Y2, dFactor));
 
-  if((iTargetMax - iTargetMin) < iMinSize) {
-    iNewTargetMin = iTargetMin * (iMaxY - iMinSize) / (iMaxY - (iTargetMax - iTargetMin));
-    iNewTargetMax = iNewTargetMin + iMinSize;
+  if((y2 - y1) < iMinSize) {
+    newy1 = y1 * (Y2 - iMinSize) / (Y2 - (y2 - y1));
+    newy2 = newy1 + iMinSize;
 
-    iTargetMin = iNewTargetMin;
-    iTargetMax = iNewTargetMax;
+    y1 = newy1;
+    y2 = newy2;
   }
 
-  //...and go there in one step, as we've already "stepped" the desired viewport
-  iNewMin = ((m_Rootmin - C) * iMaxY) / (iTargetMax - iTargetMin) + C;
-  iNewMax = ((m_Rootmax - C) * iMaxY) / (iTargetMax - iTargetMin) + C;
+  // If |(0,Y2)| = |(y1,y2)|, the "zoom factor" is 1, so we just translate.
+  if (Y2 == y2 - y1)
+    {
+      r1 = R1 - y1;
+      r2 = R2 - y1;
+      return;
+    }
+
+  // There is a point C on the y-axis such the ratios (y1-C):(Y1-C) and
+  // (y2-C):(Y2-C) are equal. (Obvious when drawn on separate parallel axes.)
+  const dasherint C = (y1 * Y2) / (y1 + Y2 - y2);
+
+  r1 = ((R1 - C) * Y2) / (y2 - y1) + C;
+  r2 = ((R2 - C) * Y2) / (y2 - y1) + C;
 }
 
 bool CDasherModel::UpdatePosition(myint miMousex, myint miMousey, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
@@ -977,7 +971,8 @@ bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
 
 void CDasherModel::ScheduleZoom(dasherint X, dasherint Y, int iMaxZoom)
 {
-  // XXX PRLW Are these parameters really long?
+  // 1 = min, 2 = max. y1, y2 is the length we select from Y1, Y2. With
+  // that ratio we calculate the new root{min,max} r1, r2 from current R1, R2.
   const int nsteps = GetLongParameter(LP_ZOOMSTEPS);
   const int safety = GetLongParameter(LP_S); // over safety_denom gives %
   const int safety_denom = 1024;
@@ -1000,6 +995,9 @@ void CDasherModel::ScheduleZoom(dasherint X, dasherint Y, int iMaxZoom)
   // XXX PRLW But m_Y3, m_Y2 are out of scope...
   const dasherint Y1 = ( 5 * scale) / 100;  // m_Y3;
   const dasherint Y2 = (95 * scale) / 100;  // m_Y2;
+  // Rename for readability.
+  const dasherint R1 = m_Rootmin;
+  const dasherint R2 = m_Rootmax;
 
   // So, want to zoom (y1 - safety/2, y2 + safety/2) -> (Y1, Y2)
   // Adjust y1, y2 for safety margin
@@ -1007,34 +1005,34 @@ void CDasherModel::ScheduleZoom(dasherint X, dasherint Y, int iMaxZoom)
   y1 -= ds;
   y2 += ds;
 
-  // If (y1,y2) = (Y1,Y2), the "zoom factor" is 1, we don't want to do
-  // anything.
-  if (y1 == Y1 && y2 == Y2) return;
+  dasherint C, r1, r2;
 
+  // If |(y1,y2)| = |(Y1,Y2)|, the "zoom factor" is 1, so we just translate.
+  // y2 - y1 == Y2 - Y1 => y1 - Y1 == y2 - Y2
+  C = y1 - Y1;
+  if (C == y2 - Y2) {
+      r1 = R1 + C;
+      r2 = R2 + C;
+  } else {
   // There is a point C on the y-axis such the ratios (y1-C):(Y1-C) and
   // (y2-C):(Y2-C) are equal. (Obvious when drawn on separate parallel axes.)
-  // (Y2 - Y1 is large.)
-  dasherint C = (y1 * Y2 - y2 * Y1) / (y1 + Y2 - y2 - Y1);
+      C = (y1 * Y2 - y2 * Y1) / (y1 + Y2 - y2 - Y1);
 
   // So another point r's zoomed y coordinate R, has the same ratio (r-C):(R-C)
-  // Rename for readability.
-  const dasherint rmin = m_Rootmin;
-  const dasherint rmax = m_Rootmax;
-  dasherint Rmin, Rmax;
-  if (y1 != C) {
-      Rmin = ((rmin - C) * (Y1 - C)) / (y1 - C) + C;
-      Rmax = ((rmax - C) * (Y1 - C)) / (y1 - C) + C;
-  } else if (y2 != C) {
-      Rmin = ((rmin - C) * (Y2 - C)) / (y2 - C) + C;
-      Rmax = ((rmax - C) * (Y2 - C)) / (y2 - C) + C;
-  } else { // implies y1 = y2
-      std::cerr << "Impossible geometry in CDasherModel::ScheduleZoom\n";
-  }
-
+      if (y1 != C) {
+          r1 = ((R1 - C) * (Y1 - C)) / (y1 - C) + C;
+          r2 = ((R2 - C) * (Y1 - C)) / (y1 - C) + C;
+      } else if (y2 != C) {
+          r1 = ((R1 - C) * (Y2 - C)) / (y2 - C) + C;
+          r2 = ((R2 - C) * (Y2 - C)) / (y2 - C) + C;
+      } else { // implies y1 = y2
+          std::cerr << "Impossible geometry in CDasherModel::ScheduleZoom\n";
+      }
   // iMaxZoom seems to be in tenths
-  if (iMaxZoom != 0 && 10 * (Rmax - Rmin) > iMaxZoom * (rmax - rmin)) {
-      Rmin = ((rmin - C) * iMaxZoom) / 10 + C;
-      Rmax = ((rmax - C) * iMaxZoom) / 10 + C;
+      if (iMaxZoom != 0 && 10 * (r2 - r1) > iMaxZoom * (R2 - R1)) {
+          r1 = ((R1 - C) * iMaxZoom) / 10 + C;
+          r2 = ((R2 - C) * iMaxZoom) / 10 + C;
+      }
   }
 
   // sNewItem seems to contain a list of root{min,max} for the frames of the
@@ -1042,8 +1040,8 @@ void CDasherModel::ScheduleZoom(dasherint X, dasherint Y, int iMaxZoom)
   m_deGotoQueue.clear();
   for (int s = nsteps - 1; s >= 0; --s) {
       SGotoItem sNewItem;
-      sNewItem.iN1 = Rmin - (s * (Rmin - rmin)) / nsteps;
-      sNewItem.iN2 = Rmax - (s * (Rmax - rmax)) / nsteps;
+      sNewItem.iN1 = r1 - (s * (r1 - R1)) / nsteps;
+      sNewItem.iN2 = r2 - (s * (r2 - R2)) / nsteps;
       m_deGotoQueue.push_back(sNewItem);
   }
 }

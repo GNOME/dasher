@@ -1,3 +1,8 @@
+2009-04-08  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* DasherModel.cpp: Better division by zero fix. Reported by
+	Andrew Gillett and David MacKay.
+
 2009-03-16  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* DasherModel.cpp: Fix division by zero introduced in r3631 (and

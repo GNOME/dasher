@@ -1,4 +1,9 @@
 ============
+Dasher 4.10.1
+============
+  * Fix crash when scrolling precisely vertically.
+
+============
 Dasher 4.10.0
 ============
   * Fix click modes where letters near the edge of the selection box to "leak"
