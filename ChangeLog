@@ -1,3 +1,8 @@
+2009-04-09  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* Prepare for Windows 4.10.1, as previous bug fix prevents
+	crashes.
+
 2009-04-08  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* DasherModel.cpp: Better division by zero fix. Reported by

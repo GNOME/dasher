@@ -54,3 +54,8 @@ Upgrade Code: B258EB55-13B0-4b4d-91FE-FEFAE823E802
 ================
 Product ID: 5ce7dc54-10e5-11de-bf4f-000e7b9b7395
 Upgrade Code: 881c50ca-10e6-11de-bf4f-000e7b9b7395
+
+4.10.1 (Standard)
+================
+Product ID: 6eeb2808-2516-11de-ae8d-000e7b9b7395
+Upgrade Code: 6fd13190-2516-11de-ae8d-000e7b9b7395
