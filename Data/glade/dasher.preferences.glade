@@ -261,8 +261,8 @@ your writing speed.</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="update_policy">GTK_UPDATE_DISCONTINUOUS</property>
-                                        <property name="adjustment">5.0999999999999996 0 100 0.10000000149 0.10000000149 0</property>
-                                        <signal name="value_changed" handler="uniform_changed"/>
+                                        <property name="adjustment">5 0 100 0.1 0.1 0</property>
+                                        <signal name="value-changed" handler="uniform_changed"/>
                                       </widget>
                                       <packing>
                                         <property name="expand">False</property>
@@ -632,8 +632,8 @@ your writing speed.</property>
                                       <widget class="GtkHScale" id="hscale1">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="adjustment">1 0.10000000149 8 0.10000000149 1 0</property>
-                                        <signal name="value_changed" handler="PrefsSpeedSliderChanged"/>
+                                        <property name="adjustment">1 0.1 8 0.1 1 0</property>
+                                        <signal name="value-changed" handler="PrefsSpeedSliderChanged"/>
                                       </widget>
                                     </child>
                                     <child>

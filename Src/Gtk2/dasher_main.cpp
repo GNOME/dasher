@@ -182,7 +182,7 @@ extern "C" GtkWidget *create_dasher_editor(gchar *szName, gchar *szString1, gcha
 
 /* ... Message handling from main window widgets */
 extern "C" gboolean dasher_main_cb_menu_command(GtkWidget *pWidget, gpointer pUserData);
-extern "C" gboolean speed_changed(GtkWidget *pWidget, gpointer user_data);
+extern "C" void speed_changed(GtkWidget *pWidget, gpointer user_data);
 extern "C" void alphabet_combo_changed(GtkWidget *pWidget, gpointer pUserData);
 extern "C" void dasher_main_cb_filename_changed(DasherEditor *pEditor, gpointer pUserData);
 extern "C" void dasher_main_cb_buffer_changed(DasherEditor *pEditor, gpointer pUserData);
@@ -1409,13 +1409,10 @@ dasher_main_cb_menu_command(GtkWidget *pWidget, gpointer pUserData) {
   return FALSE; // TODO: Scheck semantics of return value
 }
 
-extern "C" gboolean 
+extern "C" void 
 speed_changed(GtkWidget *pWidget, gpointer user_data) {
   if(g_pDasherMain)
-    return dasher_main_speed_changed(g_pDasherMain);
-
-  // TODO: Check callback return functions
-  return false;
+    dasher_main_speed_changed(g_pDasherMain);
 }
 
 extern "C" void 

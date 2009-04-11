@@ -2,6 +2,8 @@
 Dasher 4.10.1
 ============
   * Fix crash when scrolling precisely vertically.
+  * Gtk: the speed spin button on the main screen now changes and is in
+    synch with the value in preferences.
 
 ============
 Dasher 4.10.0

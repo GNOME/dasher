@@ -1,3 +1,9 @@
+2009-04-11  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* dasher_main.cpp and glade files: the speed spin button on the
+	main screen now changes and is in synch with the value in
+	preferences. (First part of #575730)
+
 2009-04-09  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* Prepare for Windows 4.10.1, as previous bug fix prevents
