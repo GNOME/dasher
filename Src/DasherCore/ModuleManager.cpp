@@ -33,7 +33,7 @@ CDasherModule *CModuleManager::RegisterModule(CDasherModule *pModule) {
     // This does
     //     m_mapNameToID[pModule->GetName()] = id;
     // but with error checking.
-    std::pair<std::map<const std::string, ModuleID_t>::iterator, bool> res;
+    std::pair<std::map<std::string, ModuleID_t>::iterator, bool> res;
     std::pair<const std::string, ModuleID_t> keyvalue(pModule->GetName(), id);
     res = m_mapNameToID.insert(keyvalue);
     if (!res.second)
@@ -60,7 +60,7 @@ CDasherModule *CModuleManager::GetModuleByName(const std::string strName) {
     // This does
     //    return m_vModules[m_mapNameToID[strName]];
     // but with error checking.
-    std::map<const std::string, ModuleID_t>::iterator res;
+    std::map<std::string, ModuleID_t>::iterator res;
     res = m_mapNameToID.find(strName);
     if (res == m_mapNameToID.end()) {
         std::cerr << "Module \"" << strName << "\" not registered" <<std::endl;

@@ -1,3 +1,8 @@
+2009-04-12  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* ModuleManger.{h,cpp}: #575729 Solaris build fix from Brian Cameron.
+	Current C++ spec says the key in a map<key,value> cannot be const.
+
 2009-04-11  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* dasher_main.cpp and glade files: the speed spin button on the

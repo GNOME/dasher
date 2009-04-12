@@ -48,7 +48,7 @@ class CModuleManager {
 
  private:
   std::vector<CDasherModule *> m_vModules;
-  std::map<const std::string, ModuleID_t> m_mapNameToID;
+  std::map<std::string, ModuleID_t> m_mapNameToID;
   CDasherModule *m_pDefaultInputDevice;
   CDasherModule *m_pDefaultInputMethod;
 };
