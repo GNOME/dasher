@@ -7,9 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher.HEAD\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-11-07 08:49+0100\n"
-"PO-Revision-Date: 2009-02-27 19:46+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=dasher&component=general\n"
+"POT-Creation-Date: 2009-02-27 19:02+0000\n"
+"PO-Revision-Date: 2009-04-12 14:42+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -94,7 +95,7 @@ msgstr "Pegar"
 #: ../Data/glade/dasher.traditional.glade.h:11
 #: ../Data/glade/dashermaemo.glade.h:5
 msgid "Please Wait..."
-msgstr "Espere..."
+msgstr "Espere…"
 
 #: ../Data/glade/dasher.compose.glade.h:11
 msgid "Pr_eferences"
@@ -187,7 +188,7 @@ msgstr "abcdefghijk ABCDEFGHIJK"
 #: ../Data/glade/dasher.gameWIP.glade.h:1
 #: ../Data/glade/dasher.traditional.glade.h:1
 msgid "A_ppend to file..."
-msgstr "A_ñadir al archivo..."
+msgstr "A_ñadir al archivo…"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:7
 msgid "Demo!"
@@ -217,7 +218,7 @@ msgstr "Nueva oración"
 #: ../Data/glade/dasher.gameWIP.glade.h:17
 #: ../Data/glade/dasher.traditional.glade.h:12
 msgid "Pr_eferences..."
-msgstr "Prefere_ncias..."
+msgstr "Prefere_ncias…"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:18
 #: ../Data/glade/dasher.traditional.glade.h:13
@@ -237,17 +238,17 @@ msgstr "Puntuación:"
 #: ../Data/glade/dasher.gameWIP.glade.h:25
 #: ../Data/glade/dasher.traditional.glade.h:19
 msgid "_About..."
-msgstr "Acerca _de..."
+msgstr "Acerca _de…"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:26
 #: ../Data/glade/dasher.traditional.glade.h:20
 msgid "_Contents..."
-msgstr "_Índice..."
+msgstr "Índ_ice…"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:30
 #: ../Data/glade/dasher.traditional.glade.h:24
 msgid "_Import Training Text..."
-msgstr "_Importar texto de entrenamiento..."
+msgstr "_Importar texto de entrenamiento…"
 
 #: ../Data/glade/dasher.preferences.glade.h:1
 msgid "<b>Actions</b>"
@@ -960,7 +961,7 @@ msgstr "Una entrada dimensional del ratón"
 #. {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences window only", NULL},
 #. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
 #. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
-#. Note to translators: This is the help string for "--appstyle"
+#. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
 #: ../Src/main.cc:188
 msgid "Application style (traditional, direct, compose or fullscreen)"
 msgstr ""
