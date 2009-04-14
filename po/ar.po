@@ -965,7 +965,7 @@ msgstr "دخل فأرة أحادي البعد"
 #. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
 #: ../Src/main.cc:189
 msgid "Application style (traditional, direct, compose or fullscreen)"
-msgstr "أسلوب التطبيق (تقليدي، أو مباشر، أو مركّب، أو مِلء الشاشة)"
+msgstr "أسلوب التطبيق (traditional \"تقليدي\"، أو direct \"مباشر\"، أو compose \"مركّب\"، أو fullscreen \"مِلء الشاشة\")"
 
 #. Note to translators: This is the help string for "--options"
 #: ../Src/main.cc:191
