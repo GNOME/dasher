@@ -1,3 +1,7 @@
+2009-04-15  Gil Forcada  <gforcada@gnome.org>
+
+	* ca.po: Fixed bug #573429.
+
 2009-04-14  Khaled Hosny  <khaledhosny@eglug.org>
 
 	* ar.po: Don't translate command line parameters, fixes 573423.
