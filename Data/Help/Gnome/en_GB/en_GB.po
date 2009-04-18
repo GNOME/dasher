@@ -6,10 +6,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dasher Manual\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-11 16:23+0000\n"
+"POT-Creation-Date: 2009-04-16 19:12+0000\n"
 "PO-Revision-Date: 2009-03-11 18:51+0000\n"
 "Last-Translator: Jen Ockwell <jenfraggleubuntu@gmail.com>\n"
-"Language-Team: English/GB <en@li.org>\n"
+"Language-Team: British English <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,58 +17,50 @@ msgstr ""
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/dasher.xml:188(None) C/dasher.xml:232(None)
-msgid "@@image: 'figures/a-z.gif'; md5=0df765cb06d1873c4b77ccfa2aec273a"
-msgstr "@@image: 'figures/a-z.gif'; md5=0df765cb06d1873c4b77ccfa2aec273a"
+msgid "@@image: 'figures/a-z.gif'; md5=THIS FILE DOESN'T EXIST"
+msgstr "@@image: 'figures/a-z.gif'; md5=THIS FILE DOESN'T EXIST"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/dasher.xml:191(None) C/dasher.xml:235(None)
-msgid "@@image: 'figures/aa-az.gif'; md5=499378b5a346d9a1fff3317ed7bca624"
-msgstr "@@image: 'figures/aa-az.gif'; md5=499378b5a346d9a1fff3317ed7bca624"
+msgid "@@image: 'figures/aa-az.gif'; md5=THIS FILE DOESN'T EXIST"
+msgstr "@@image: 'figures/aa-az.gif'; md5=THIS FILE DOESN'T EXIST"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/dasher.xml:194(None) C/dasher.xml:238(None)
-msgid "@@image: 'figures/ala-alz.gif'; md5=c1d38e5e5cd6234737ff5e80c8120416"
-msgstr "@@image: 'figures/ala-alz.gif'; md5=c1d38e5e5cd6234737ff5e80c8120416"
+msgid "@@image: 'figures/ala-alz.gif'; md5=THIS FILE DOESN'T EXIST"
+msgstr "@@image: 'figures/ala-alz.gif'; md5=THIS FILE DOESN'T EXIST"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/dasher.xml:263(None)
-msgid "@@image: 'figures/object.gif'; md5=f961ced3b16182985421dba58cbb130d"
-msgstr "@@image: 'figures/object.gif'; md5=f961ced3b16182985421dba58cbb130d"
+msgid "@@image: 'figures/object.gif'; md5=THIS FILE DOESN'T EXIST"
+msgstr "@@image: 'figures/object.gif'; md5=THIS FILE DOESN'T EXIST"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/dasher.xml:340(None)
-msgid ""
-"@@image: 'figures/exampleHad2.png'; md5=c3a7c8f985519a90d739117aa4e1e064"
-msgstr ""
-"@@image: 'figures/exampleHad2.png'; md5=c3a7c8f985519a90d739117aa4e1e064"
+msgid "@@image: 'figures/exampleHad2.png'; md5=THIS FILE DOESN'T EXIST"
+msgstr "@@image: 'figures/exampleHad2.png'; md5=THIS FILE DOESN'T EXIST"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/dasher.xml:358(None)
-msgid ""
-"@@image: 'figures/exampleHad2a.png'; md5=1d124560d223498f876122bcd85afaac"
-msgstr ""
-"@@image: 'figures/exampleHad2a.png'; md5=1d124560d223498f876122bcd85afaac"
+msgid "@@image: 'figures/exampleHad2a.png'; md5=THIS FILE DOESN'T EXIST"
+msgstr "@@image: 'figures/exampleHad2a.png'; md5=THIS FILE DOESN'T EXIST"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/dasher.xml:370(None)
-msgid ""
-"@@image: 'figures/exampleHad3a.png'; md5=0bcd661209391842cf47f00b767146b3"
-msgstr ""
-"@@image: 'figures/exampleHad3a.png'; md5=0bcd661209391842cf47f00b767146b3"
+msgid "@@image: 'figures/exampleHad3a.png'; md5=THIS FILE DOESN'T EXIST"
+msgstr "@@image: 'figures/exampleHad3a.png'; md5=THIS FILE DOESN'T EXIST"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/dasher.xml:399(None)
-msgid ""
-"@@image: 'figures/exampleHad4.png'; md5=9974616612b5c811cb2c161093c8523c"
-msgstr ""
-"@@image: 'figures/exampleHad4.png'; md5=9974616612b5c811cb2c161093c8523c"
+msgid "@@image: 'figures/exampleHad4.png'; md5=THIS FILE DOESN'T EXIST"
+msgstr "@@image: 'figures/exampleHad4.png'; md5=THIS FILE DOESN'T EXIST"
 
 #: C/dasher.xml:5(title)
 msgid "Dasher Manual"
@@ -2104,3 +2096,36 @@ msgstr ""
 #: C/dasher.xml:0(None)
 msgid "translator-credits"
 msgstr "Jen Ockwell <jenfraggleubuntu@gmail.com>, 2009"
+
+#~ msgid "@@image: 'figures/a-z.gif'; md5=0df765cb06d1873c4b77ccfa2aec273a"
+#~ msgstr "@@image: 'figures/a-z.gif'; md5=0df765cb06d1873c4b77ccfa2aec273a"
+
+#~ msgid "@@image: 'figures/aa-az.gif'; md5=499378b5a346d9a1fff3317ed7bca624"
+#~ msgstr "@@image: 'figures/aa-az.gif'; md5=499378b5a346d9a1fff3317ed7bca624"
+
+#~ msgid "@@image: 'figures/ala-alz.gif'; md5=c1d38e5e5cd6234737ff5e80c8120416"
+#~ msgstr ""
+#~ "@@image: 'figures/ala-alz.gif'; md5=c1d38e5e5cd6234737ff5e80c8120416"
+
+#~ msgid "@@image: 'figures/object.gif'; md5=f961ced3b16182985421dba58cbb130d"
+#~ msgstr "@@image: 'figures/object.gif'; md5=f961ced3b16182985421dba58cbb130d"
+
+#~ msgid ""
+#~ "@@image: 'figures/exampleHad2.png'; md5=c3a7c8f985519a90d739117aa4e1e064"
+#~ msgstr ""
+#~ "@@image: 'figures/exampleHad2.png'; md5=c3a7c8f985519a90d739117aa4e1e064"
+
+#~ msgid ""
+#~ "@@image: 'figures/exampleHad2a.png'; md5=1d124560d223498f876122bcd85afaac"
+#~ msgstr ""
+#~ "@@image: 'figures/exampleHad2a.png'; md5=1d124560d223498f876122bcd85afaac"
+
+#~ msgid ""
+#~ "@@image: 'figures/exampleHad3a.png'; md5=0bcd661209391842cf47f00b767146b3"
+#~ msgstr ""
+#~ "@@image: 'figures/exampleHad3a.png'; md5=0bcd661209391842cf47f00b767146b3"
+
+#~ msgid ""
+#~ "@@image: 'figures/exampleHad4.png'; md5=9974616612b5c811cb2c161093c8523c"
+#~ msgstr ""
+#~ "@@image: 'figures/exampleHad4.png'; md5=9974616612b5c811cb2c161093c8523c"
