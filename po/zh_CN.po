@@ -1,22 +1,24 @@
 # Simplified Chinese translation for dasher.
-# Copyright (C) 2004 Free Software Foundation, Inc.
+# Copyright (C) 2004-2009 Free Software Foundation, Inc.
 # Fan Zhang <a17841@bigpond.com>, 2004
 # QAed by Funda Wang <fundawang@linux.net.cn>, 2004
+# yaoms <yms541@gmail.com>, 2009
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-06 03:47+0000\n"
-"PO-Revision-Date: 2008-03-03 19:39+0800\n"
-"Last-Translator: Yang Zhang <zyangmath@gmail.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=dasher&component=general\n"
+"POT-Creation-Date: 2009-04-18 15:47+0000\n"
+"PO-Revision-Date: 2009-04-19 16:19+0800\n"
+"Last-Translator: yaoms <yms541@gmail.com>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
-#. in a window title without a file.
+#. in a window title.
 #: ../Data/dasher.desktop.in.in.h:1 ../Data/glade/dasher.compose.glade.h:5
 #: ../Data/glade/dasher.direct.glade.h:2
 #: ../Data/glade/dasher.fullscreen.glade.h:1
@@ -24,7 +26,7 @@ msgstr ""
 #: ../Data/glade/dasher.traditional.glade.h:6
 #: ../Data/glade/dashermaemo.glade.h:3
 #: ../Data/glade/dashermaemofullscreen.glade.h:2
-#: ../Src/Gtk2/dasher_main.cpp:992 ../Src/Gtk2/dasher_main.cpp:1212
+#: ../Src/Gtk2/dasher_main.cpp:998 ../Src/Gtk2/dasher_main.cpp:1221
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -91,7 +93,7 @@ msgstr "粘贴"
 #: ../Data/glade/dasher.traditional.glade.h:11
 #: ../Data/glade/dashermaemo.glade.h:5
 msgid "Please Wait..."
-msgstr "请稍等..."
+msgstr "请稍候..."
 
 #: ../Data/glade/dasher.compose.glade.h:11
 msgid "Pr_eferences"
@@ -116,9 +118,9 @@ msgstr "文件另存为"
 #: ../Data/glade/dasher.traditional.glade.h:17
 #: ../Data/glade/dashermaemo.glade.h:6
 #: ../Data/glade/dashermaemofullscreen.glade.h:5
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1332
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1366
-#: ../Src/Gtk2/dasher_main.cpp:1046
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1334
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1368
+#: ../Src/Gtk2/dasher_main.cpp:1048
 msgid "Select File"
 msgstr "选择文件"
 
@@ -201,7 +203,7 @@ msgstr "帮助"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:10
 msgid "Launch Dasher Game & Demo mode!"
-msgstr ""
+msgstr "启动 Dasher 游戏 & 演示模式！"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:11
 msgid "Level:"
@@ -209,7 +211,7 @@ msgstr "级别："
 
 #: ../Data/glade/dasher.gameWIP.glade.h:13
 msgid "New sentence"
-msgstr ""
+msgstr "新句子"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:17
 #: ../Data/glade/dasher.traditional.glade.h:12
@@ -223,13 +225,13 @@ msgstr "首选项"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:19
 #: ../Data/glade/dasher.traditional.glade.h:14
-#: ../Src/Gtk2/dasher_main.cpp:1120
+#: ../Src/Gtk2/dasher_main.cpp:1126
 msgid "Quit"
 msgstr "退出"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:22
 msgid "Score:"
-msgstr ""
+msgstr "得分："
 
 #: ../Data/glade/dasher.gameWIP.glade.h:25
 #: ../Data/glade/dasher.traditional.glade.h:19
@@ -594,7 +596,7 @@ msgstr "单击模式"
 #. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
 #: ../Src/DasherCore/DasherButtons.cpp:25
 msgid "Zoom steps"
-msgstr ""
+msgstr "缩放步数"
 
 #. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
 #: ../Src/DasherCore/DasherButtons.cpp:27
@@ -611,8 +613,9 @@ msgstr "安全空白"
 
 #. TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other.
 #: ../Src/DasherCore/DasherButtons.cpp:31
+#, fuzzy
 msgid "Box non-uniformity"
-msgstr ""
+msgstr "盒子差距"
 
 #. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
 #: ../Src/DasherCore/DasherButtons.cpp:33
@@ -623,32 +626,33 @@ msgstr "全局键盘抓取"
 msgid "Well done!"
 msgstr "干得好！"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:934
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:941
 msgid "Normal Control"
 msgstr "普通控制"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:941
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:955
 msgid "Menu Mode"
 msgstr "菜单模式"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:942
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:956
 msgid "Direct Mode"
 msgstr "直接模式"
 
-#. RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:944
+#. RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3"));
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:958
+#, fuzzy
 msgid "Alternating Direct Mode"
-msgstr ""
+msgstr "交替直接模式"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:945
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:959
 msgid "Compass Mode"
-msgstr ""
+msgstr "罗盘模式"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:946
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:960
 #, fuzzy
 msgid "Stylus Control"
-msgstr "控制"
+msgstr "指针控制"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:7
 msgid "Automatic calibration"
@@ -656,48 +660,48 @@ msgstr "自动校正"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:11
 msgid "Eyetracker Mode"
-msgstr ""
+msgstr "视线追踪模式"
 
 #. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:29
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
 msgid "Long press time"
-msgstr ""
+msgstr "长按时限"
 
 #. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the time in which the button must be pressed multiple times to count.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
 msgid "Multiple press time"
-msgstr ""
+msgstr "多按时限"
 
 #. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the number of times a button must be pressed to count as a multiple press.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:34
 msgid "Multiple press count"
-msgstr ""
+msgstr "多按阈值"
 
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
 msgid "Enable backoff button"
-msgstr ""
+msgstr "启用回退按钮"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
 msgid "One Button Dynamic Mode"
-msgstr ""
+msgstr "一键动态模式"
 
 #: ../Src/DasherCore/OneDimensionalFilter.cpp:5
 msgid "One Dimensional Mode"
-msgstr ""
+msgstr "一维模式"
 
 #: ../Src/DasherCore/SettingsStore.cpp:76
-#: ../Src/Gtk2/DasherAppSettings.cpp:516 ../Src/Gtk2/DasherAppSettings.cpp:550
-#: ../Src/Gtk2/DasherAppSettings.cpp:554
+#: ../Src/Gtk2/DasherAppSettings.cpp:518 ../Src/Gtk2/DasherAppSettings.cpp:552
+#: ../Src/Gtk2/DasherAppSettings.cpp:556
 msgid "true"
 msgstr "true"
 
 #: ../Src/DasherCore/SettingsStore.cpp:78
-#: ../Src/Gtk2/DasherAppSettings.cpp:518 ../Src/Gtk2/DasherAppSettings.cpp:550
-#: ../Src/Gtk2/DasherAppSettings.cpp:554
+#: ../Src/Gtk2/DasherAppSettings.cpp:520 ../Src/Gtk2/DasherAppSettings.cpp:552
+#: ../Src/Gtk2/DasherAppSettings.cpp:556
 msgid "false"
 msgstr "false"
 
@@ -705,15 +709,15 @@ msgstr "false"
 #. with "--options foo=VAL" and foo is a boolean valued parameter, but
 #. "VAL" is not true or false.
 #: ../Src/DasherCore/SettingsStore.cpp:84
-#: ../Src/Gtk2/DasherAppSettings.cpp:521
+#: ../Src/Gtk2/DasherAppSettings.cpp:523
 msgid "boolean value must be specified as 'true' or 'false'."
-msgstr ""
+msgstr "布尔值必须被指定为“true”或者“false”。"
 
 #. Note to translators: This is output when command line "--options" doesn't
 #. specify a known option.
 #: ../Src/DasherCore/SettingsStore.cpp:104
 msgid "unknown option, use \"--help-options\" for more information."
-msgstr ""
+msgstr "未知选项，用“--help-options”获取更多信息。"
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
@@ -738,7 +742,7 @@ msgstr ""
 
 #: ../Src/DasherCore/SocketInputBase.cpp:31
 msgid "Y label:"
-msgstr ""
+msgstr "Y"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:32
 msgid "Y minimum:"
@@ -750,7 +754,7 @@ msgstr ""
 
 #: ../Src/DasherCore/SocketInputBase.cpp:34
 msgid "Print socket-related debugging information to console:"
-msgstr ""
+msgstr "打印 Socket 相关的调试信息到控制台："
 
 #: ../Src/DasherCore/SocketInputBase.cpp:38
 msgid "Socket Input"
@@ -763,133 +767,126 @@ msgstr "按钮偏移量"
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:36
 msgid "Enable backoff and start/stop buttons"
-msgstr ""
+msgstr "启用回退和开始/停止按钮。"
 
 #. TRANSLATORS: What is normally the up button becomes the down button etc.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:38
 msgid "Reverse up and down buttons"
-msgstr ""
+msgstr "翻转向上和向下按钮"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:39
 msgid "Slow startup"
-msgstr ""
+msgstr "缓慢启动"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:40
 msgid "Startup time"
-msgstr ""
+msgstr "启动时间"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
 msgid "Auto speed control"
-msgstr ""
+msgstr "自动速度控制"
 
 #. TRANSLATORS: The threshold time above which auto speed control is used.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
 msgid "Auto speed threshold"
-msgstr ""
+msgstr "自动速度阈值"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:47
 msgid "Two Button Dynamic Mode"
-msgstr ""
+msgstr "两按钮动态模式"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:547
+#: ../Src/Gtk2/DasherAppSettings.cpp:549
 msgid "Boolean parameters"
-msgstr ""
+msgstr "布尔型参数"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:547 ../Src/Gtk2/DasherAppSettings.cpp:558
-#: ../Src/Gtk2/DasherAppSettings.cpp:569
+#: ../Src/Gtk2/DasherAppSettings.cpp:549 ../Src/Gtk2/DasherAppSettings.cpp:560
+#: ../Src/Gtk2/DasherAppSettings.cpp:571
 msgid "Default"
 msgstr "默认"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:547 ../Src/Gtk2/DasherAppSettings.cpp:558
-#: ../Src/Gtk2/DasherAppSettings.cpp:569
+#: ../Src/Gtk2/DasherAppSettings.cpp:549 ../Src/Gtk2/DasherAppSettings.cpp:560
+#: ../Src/Gtk2/DasherAppSettings.cpp:571
 msgid "Description"
 msgstr "描述"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:558
+#: ../Src/Gtk2/DasherAppSettings.cpp:560
 msgid "Integer parameters"
-msgstr ""
+msgstr "整形参数"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:569
+#: ../Src/Gtk2/DasherAppSettings.cpp:571
 msgid "String parameters"
-msgstr ""
+msgstr "字符串参数"
 
-#: ../Src/Gtk2/Preferences.cpp:433 ../Src/Gtk2/Preferences.cpp:1002
+#: ../Src/Gtk2/Preferences.cpp:435 ../Src/Gtk2/Preferences.cpp:1004
 msgid "Action"
 msgstr "动作"
 
 #. TRANSLATORS: Show a button for the selected action in the Dasher window.
-#: ../Src/Gtk2/Preferences.cpp:1009
+#: ../Src/Gtk2/Preferences.cpp:1011
 msgid "Show Button"
 msgstr "显示按钮"
 
-#: ../Src/Gtk2/Preferences.cpp:1014
+#: ../Src/Gtk2/Preferences.cpp:1016
 msgid "Control Mode"
 msgstr "控制模式"
 
 #. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
-#: ../Src/Gtk2/Preferences.cpp:1020
+#: ../Src/Gtk2/Preferences.cpp:1022
 msgid "Auto On Stop"
 msgstr ""
 
-#: ../Src/Gtk2/dasher_action_keyboard.cpp:60
-#: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:94
+#: ../Src/Gtk2/dasher_action_keyboard.cpp:62
+#: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:96
 msgid "Enter Text"
 msgstr "输入文本"
 
 #: ../Src/Gtk2/dasher_action_script.cpp:91
 msgid "Script"
-msgstr "手写"
+msgstr "脚本"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:130
+#: ../Src/Gtk2/dasher_action_speech.cpp:132
 msgid "Speak"
 msgstr "读出"
 
 #. TRANSLATORS: Send all text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:143
+#: ../Src/Gtk2/dasher_action_speech.cpp:145
 msgid "All"
 msgstr "全部"
 
 #. TRANSLATORS: Send most recently entered text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:146
+#: ../Src/Gtk2/dasher_action_speech.cpp:148
 msgid "Last"
 msgstr "最近"
 
 #. TRANSLATORS: Repeat the last phrase sent to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:149
+#: ../Src/Gtk2/dasher_action_speech.cpp:151
 msgid "Repeat"
 msgstr "重复"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:167
+#: ../Src/Gtk2/dasher_action_speech.cpp:169
 #, c-format
 msgid "Unable to initialize speech support\n"
 msgstr "无法初始化语音支持\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:190
+#: ../Src/Gtk2/dasher_action_speech.cpp:192
 msgid "Unable to initialize voices\n"
 msgstr "无法初始化语音\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:202
+#: ../Src/Gtk2/dasher_action_speech.cpp:204
 msgid "Warning: unable to set speech parameters\n"
 msgstr "警告：无法设定语音参数\n"
 
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
-#: ../Src/Gtk2/dasher_main.cpp:311
+#: ../Src/Gtk2/dasher_main.cpp:313
 msgid "option setting is missing \"=\"."
-msgstr ""
+msgstr "选项设置缺少“=”。"
 
 #. Note to translators: This string will be output when --options= specifies an unknown option.
-#: ../Src/Gtk2/dasher_main.cpp:327
+#: ../Src/Gtk2/dasher_main.cpp:329
 msgid "Invalid option string specified"
-msgstr ""
+msgstr "无效的选项"
 
-#. Note to translators: This is a format string for the name of the dasher
-#. program as it appears in a window, %s will be the filename.
-#: ../Src/Gtk2/dasher_main.cpp:999
-#, c-format
-msgid "Dasher - %s"
-msgstr "Dasher - %s"
-
-#: ../Src/Gtk2/dasher_main.cpp:1084
+#: ../Src/Gtk2/dasher_main.cpp:1088
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -900,7 +897,7 @@ msgstr ""
 "\n"
 "如果您不保存的话，所作的更改将丢失。"
 
-#: ../Src/Gtk2/dasher_main.cpp:1090
+#: ../Src/Gtk2/dasher_main.cpp:1095
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -910,37 +907,38 @@ msgstr ""
 "\n"
 "如果您不保存的话，所作的更改将丢失。"
 
-#: ../Src/Gtk2/dasher_main.cpp:1094
+#: ../Src/Gtk2/dasher_main.cpp:1101
 msgid "Don't save"
 msgstr "不保存"
 
-#: ../Src/Gtk2/dasher_main.cpp:1095 ../Src/Gtk2/dasher_main.cpp:1119
+#: ../Src/Gtk2/dasher_main.cpp:1102 ../Src/Gtk2/dasher_main.cpp:1125
 msgid "Don't quit"
 msgstr "不退出"
 
-#: ../Src/Gtk2/dasher_main.cpp:1096
+#: ../Src/Gtk2/dasher_main.cpp:1103
 msgid "Save and quit"
 msgstr "保存并退出"
 
-#: ../Src/Gtk2/dasher_main.cpp:1116
+#: ../Src/Gtk2/dasher_main.cpp:1122
 msgid "Are you sure you wish to quit?"
 msgstr "您确定想要退出吗？"
 
-#: ../Src/Gtk2/dasher_main.cpp:1199 ../Src/Gtk2/dasher_main.cpp:1215
+#: ../Src/Gtk2/dasher_main.cpp:1208 ../Src/Gtk2/dasher_main.cpp:1224
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher 是预测型文本输入应用程序"
 
-#: ../Src/Gtk2/dasher_main.cpp:1204 ../Src/Gtk2/dasher_main.cpp:1210
+#: ../Src/Gtk2/dasher_main.cpp:1213 ../Src/Gtk2/dasher_main.cpp:1219
 msgid "translator-credits"
 msgstr ""
 "Funda Wang <fundawang@linux.net.cn>, 2005\n"
-"Yang Zhang <zyangmath@gmail.com>, 2007"
+"Yang Zhang <zyangmath@gmail.com>, 2007\n"
+"Yaoms <yms541@gmail.com>, 2009"
 
-#: ../Src/Gtk2/module_settings_window.cpp:86
+#: ../Src/Gtk2/module_settings_window.cpp:88
 msgid "Dasher Module Options"
 msgstr "Dasher 模块选项"
 
-#: ../Src/Gtk2/module_settings_window.cpp:92
+#: ../Src/Gtk2/module_settings_window.cpp:94
 #, c-format
 msgid "%s Options:"
 msgstr "%s 选项："
@@ -951,33 +949,36 @@ msgstr "鼠标输入"
 
 #: ../Src/Gtk2/mouse_input.h:51
 msgid "Pixels covering Y range"
-msgstr ""
+msgstr "垂直像素覆盖范围"
 
 #. TRANSLATORS: Only use the vertical mouse coordinate - this is prefered for some disabled users.
 #: ../Src/Gtk2/mouse_input.h:58
 msgid "One Dimensional Mouse Input"
-msgstr ""
+msgstr "一维鼠标输入"
 
 #. {"timedata", 'w', 0, G_OPTION_ARG_NONE, &timedata, "Write basic timing information to stdout", NULL},
 #. {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences window only", NULL},
 #. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
 #. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
-#. Note to translators: This is the help string for "--appstyle"
-#: ../Src/main.cc:188
+#. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
+#: ../Src/main.cc:189
 msgid "Application style (traditional, direct, compose or fullscreen)"
 msgstr ""
 
 #. Note to translators: This is the help string for "--options"
-#: ../Src/main.cc:190
+#: ../Src/main.cc:191
 msgid "Override stored options"
-msgstr ""
+msgstr "覆盖已存的选项"
 
 #. Note to translators: This is the help string for "--help-options"
-#: ../Src/main.cc:192
+#: ../Src/main.cc:193
 msgid "Describe \"--options\"."
-msgstr ""
+msgstr "描述 “--options”。"
 
 #. Note to translators: This is the "--help" description of dasher.
-#: ../Src/main.cc:199
+#: ../Src/main.cc:200
 msgid "- A text input application honouring accessibility"
 msgstr ""
+
+#~ msgid "Dasher - %s"
+#~ msgstr "Dasher - %s"
