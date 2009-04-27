@@ -186,32 +186,32 @@ AC_ARG_WITH([cairo],
          fi, 
 	 WITHCAIRO=true)
 
-if [[ x"$WITHGTK2" = xtrue ]]
+if test x"$WITHGTK2" = xtrue
 then 
 	PKG_CHECK_MODULES(GTK2, gtk+-2.0 >= 2.4.0,[GTK2HERE=true],[GTK2HERE=false]) 
 	PKG_CHECK_MODULES(GCONF, gconf-2.0,[GCONF2HERE=true],[GCONF2HERE=false])
-	if [[ x$GCONF2HERE = xfalse ]]; then
+	if test x$GCONF2HERE = xfalse; then
 	   AC_MSG_WARN("GConf was not detected - user preferences will not be stored.")
 	fi
 fi
 
-if [[ x"$GTK2HERE" = xtrue ]] && [[ x"$WITHGTK2" = xtrue ]] && [[ x"$WITHQTE" != xtrue ]]
+if test x"$GTK2HERE" = xtrue -a x"$WITHGTK2" = xtrue -a x"$WITHQTE" != xtrue
 then
 	BUILDGTK2=true
-elif [[ x"$GTK2HERE" = xtrue ]] && [[ x"$WITHQTE" != xtrue ]]
+elif test x"$GTK2HERE" = xtrue -a x"$WITHQTE" != xtrue
 then
 	BUILDGTK2=true
 else 
 	BUILDGTK2=false
 fi
 
-if [[ x$BUILDGTK2 = xfalse ]] && [[ x"$WITHQTE" != xtrue ]]
+if test x$BUILDGTK2 = xfalse -a x"$WITHQTE" != xtrue
 then
 	echo $WITHGTK2
 	AC_ERROR("Unable to find GTK2 or another necessary library. See the previous line for more useful data.")
 fi
 
-if [[ x"$WITHQTE" != xtrue ]]
+if test x"$WITHQTE" != xtrue
 then
 dnl test for X libraries
 	if test	x$no_x = xyes ; then
@@ -247,27 +247,27 @@ dnl path to Xtst
 AC_SUBST(X_LIBS)
 fi
 
-if [[ x"$DEBUG" = xtrue ]]; then
+if test x"$DEBUG" = xtrue; then
 	AC_DEFINE([DEBUG], 1, [Additional debug checks enabled])
 fi
 
-if [[ x"$WITHGNOME" = xtrue ]]; then
+if test x"$WITHGNOME" = xtrue; then
 	PKG_CHECK_MODULES(gnome, libgnome-2.0 libgnomeui-2.0 )
 	AC_DEFINE([GNOME_LIBS], 1, [libgnome-2 and libgnomeui-2 are present])
 fi
 
-if [[ x"$WITHSPEECH" = xtrue ]]; then
+if test x"$WITHSPEECH" = xtrue; then
 	PKG_CHECK_MODULES(gnome_speech, gnome-speech-1.0 bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0)
 	AC_DEFINE([GNOME_SPEECH], 1, [gnome_speech-1 libraries are present])
 #	SPEECH_SOURCES='speech.$(OBJEXT)'
 fi
 
-if [[ x"$WITHA11Y" = xtrue ]]; then
+if test x"$WITHA11Y" = xtrue; then
 	PKG_CHECK_MODULES(gnome_a11y, bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0 libgnomeui-2.0 cspi-1.0 atk)
 	AC_DEFINE([GNOME_A11Y], 1, [gnome_a11y libraries are present])
 fi
 
-if [[ x"$WITHJAPANESE" = xtrue ]]; then
+if test x"$WITHJAPANESE" = xtrue; then
 	AC_DEFINE([JAPANESE], 1, [Japanese support enabled])
 	JAPANESE_SOURCES='CannaConversionHelper.$(OBJEXT)'
 else
@@ -276,7 +276,7 @@ fi
 
 AC_SUBST(JAPANESE_SOURCES)
 
-if [[ x"$WITHCHINESE" = xtrue ]]; then
+if test x"$WITHCHINESE" = xtrue; then
 	AC_DEFINE([CHINESE], 1, [Chinese support enabled])
 	CHINESE_SOURCES='PinYinConversionHelper.$(OBJEXT) PinyinParser.$(OBJEXT)'
 
@@ -286,23 +286,23 @@ fi
 
 AC_SUBST(CHINESE_SOURCES)
 
-if [[ x"$WITHJOYSTICK" = xtrue ]]; then
+if test x"$WITHJOYSTICK" = xtrue; then
 	AC_DEFINE([JOYSTICK], 1, [Linux joystick support enabled])
 fi
 
-if [[ x"$WITHTILT" = xtrue ]]; then
+if test x"$WITHTILT" = xtrue; then
 	AC_DEFINE([TILT], 1, [Tilt input support enabled])
 fi
 
-if [[ x"$WITHGPE" = xtrue ]]; then
+if test x"$WITHGPE" = xtrue; then
 	AC_DEFINE([WITH_GPE], 1, [gpe is present])
 fi
 
-dnl if [[ x"$WITHDARWIN" = xtrue ]]; then
+dnl if test x"$WITHDARWIN" = xtrue ; then
 dnl         AC_DEFINE([WITH_DARWIN], 1, [Targeting Darwin/X11])
 dnl fi
 
-if [[ x"$WITHMAEMO" = xtrue ]]; then
+if test x"$WITHMAEMO" = xtrue; then
       AC_DEFINE([WITH_MAEMO], 1, [Maemo is present])
       dnl Yes, this sucks
       glade_LIBS="/usr/lib/libglade-2.0.a"
@@ -310,18 +310,18 @@ if [[ x"$WITHMAEMO" = xtrue ]]; then
       AC_CHECK_LIB(osso, osso_initialize,, AC_MSG_ERROR([Osso library not found.]))
 fi			
 
-if [[ x"$WITHMAEMOFULLSCREEN" = xtrue ]]; then
+if test x"$WITHMAEMOFULLSCREEN" = xtrue; then
       AC_DEFINE([WITH_MAEMOFULLSCREEN], 1, [Building as fullscreen Maemo app])
 fi
 
-if [[ x"$WITHCAIRO" = xtrue ]]; then
+if test x"$WITHCAIRO" = xtrue; then
 	PKG_CHECK_MODULES(cairo, gtk+-2.0 >= 2.8.0)
 	AC_DEFINE([WITH_CAIRO], 1, [use cairo (needs Gtk+ >= 2.8.0)])
 fi
 
-if [[ x"$BUILDGTK2" = xtrue ]]; then 
+if test x"$BUILDGTK2" = xtrue; then 
 	PKG_CHECK_MODULES(glade, libglade-2.0)
-	if [[ x"$WITHMAEMO" = xtrue ]]; then
+	if test x"$WITHMAEMO" = xtrue; then
 	        dnl Yes, this sucks
 		glade_LIBS=`echo $glade_LIBS | sed s/-lglade-2.0//`
 		glade_LIBS="$glade_LIBS /usr/lib/libglade-2.0.a"
@@ -330,7 +330,7 @@ if [[ x"$BUILDGTK2" = xtrue ]]; then
 	PKG_CHECK_MODULES(gthread, gthread-2.0)
 
 
-dnl	if [[ x"$WITHMAEMO" = xfalse ]]; then
+dnl	if test x"$WITHMAEMO" = xfalse; then
 dnl		PKG_CHECK_MODULES(wnck, libwnck-1.0)
 dnl	        AC_DEFINE([HAVE_WNCK], 1, [wnck is present])
 dnl	fi
@@ -339,11 +339,11 @@ fi
 # libglade's autoconnect feature requires dasher to be linked with
 # the --export-dynamic flag. pkg-config does not provide it, and libtool
 # knows what to do with -export-dynamic.
-if [[ x"$glade_LIBS" != x ]]; then
+if test x"$glade_LIBS" != x ; then
 	glade_LIBS="$glade_LIBS -export-dynamic"
 fi
 
-if [[ x"$GCONF2HERE" = xtrue ]]; then
+if test x"$GCONF2HERE" = xtrue ; then
         AM_GCONF_SOURCE_2
         AC_DEFINE([WITH_GCONF], 1, [Use GConf])
 fi
@@ -391,7 +391,7 @@ AC_SUBST(GTK2_LIBS)
 AC_SUBST(GCONF_CFLAGS)
 AC_SUBST(GCONF_LIBS)
 
-if [[ x"$WITHGPE" = xtrue ]]; then
+if test x"$WITHGPE" = xtrue ; then
 	SETTINGS_CFLAGS=" "
 	SETTINGS_LIBS="-lgpewidget -lXsettings-client -lXsettings"
 else
@@ -412,7 +412,7 @@ AC_MSG_CHECKING([for gnome-doc-utils])
 GNOME_DOC_INIT([0.9.0],[have_gdu=yes],[have_gdu=no])
 AC_MSG_RESULT($have_gdu)
 
-if [[ x"$WITHGNOME" = xtrue ]] && [[ x"$have_gdu" = xno ]]; then
+if test x"$WITHGNOME" = xtrue -a x"$have_gdu" = xno ; then
     AC_MSG_ERROR([gnome-doc-utils not found!])
 fi
 

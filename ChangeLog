@@ -1,3 +1,8 @@
+2009-04-27  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* configure.in: #579462 Use test instead of [] (which then needs
+	quoting), from Gilles Dartiguelongue <eva@gentoo.org>.
+
 2009-04-12  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* ModuleManger.{h,cpp}: #575729 Solaris build fix from Brian Cameron.
