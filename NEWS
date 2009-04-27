@@ -1,13 +1,13 @@
-============
+=============
 Dasher 4.10.1
-============
+=============
   * Fix crash when scrolling precisely vertically.
   * Gtk: the speed spin button on the main screen now changes and is in
     synch with the value in preferences.
 
-============
+=============
 Dasher 4.10.0
-============
+=============
   * Fix click modes where letters near the edge of the selection box to "leak"
     out so they could not be selected.
   * Fix UTF-8 bug so e.g., Japanese and Hebrew work.

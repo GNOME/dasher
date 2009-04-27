@@ -2,6 +2,7 @@
 
 	* configure.in: #579462 Use test instead of [] (which then needs
 	quoting), from Gilles Dartiguelongue <eva@gentoo.org>.
+	* configure.in: Welcome version 4.10.1
 
 2009-04-12  Patrick Welche  <prlw1@cam.ac.uk>
 

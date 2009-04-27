@@ -1,5 +1,5 @@
-Dasher Version 4.10.0
---------------------
+Dasher Version 4.10.1
+---------------------
 Dasher is a zooming predictive text entry system, designed for situations
 where keyboard input is impractical (for instance, accessibility or PDAs). It
 is usable with highly limited amounts of physical input while still allowing
@@ -48,7 +48,7 @@ Currently GNU make (gmake) must be used.
 date and will almost definitely require considerable effort to
 build. We do not currently have the resources to maintain this port,
 but if you are interested in contributing then let us know
-(dasher@mrao.cam.ac.uk). The GTK2 front end should build on Darwin
+(dasher@inf.phy.cam.ac.uk). The GTK2 front end should build on Darwin
 with minimal changes, and with a recent enough version of GTK will not
 require the X11 server.
 
