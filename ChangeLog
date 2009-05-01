@@ -1,3 +1,8 @@
+2009-04-30  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* MacOSX: Do compositing via OpenGL framebuffers to separate out
+	rendering of the boxes from other drawing.
+
 2009-04-27  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* configure.in: #579462 Use test instead of [] (which then needs

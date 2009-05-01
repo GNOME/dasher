@@ -41,7 +41,6 @@
 - (void)finishRealization;
 
 - (void)sendMarker:(int)iMarker;
-- (void)blankCallback;
 - (void)displayCallback;
 - (void)drawRect:(NSRect)rect;
 - (void)mouseEntered:(NSEvent *)theEvent;

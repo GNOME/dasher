@@ -29,51 +29,50 @@
 
 /*
  BEWARE!
- This is doing funny stuff with lockFocus and two buffers in order to make drawing as swift as possible.  The buffer handling is in sendMarker:
+ This is doing funny stuff with OpenGL framebuffers - rendering the boxes and the decorations to separate buffers, then compositing the two together.  The buffer switching is in sendMarker:
  */
 
 - (void)sendMarker:(int)iMarker {
-
-  // TODO this lock/unlock technique doesn't work; if they go to prefs and fiddle around, they get:
-  // Unlocking Focus on wrong view (<NSTableView: 0x74ed880>), expected <NSImageCacheView: 0x74da1e0>
-  // would a lock/unlock on enter/exit work?
-  
-//  [currentBuffer unlockFocus];
-  
-//  if (iMarker == 0) {
-//    currentBuffer = [self boxesBuffer];
-//  } else if (iMarker == 1) {
-//    currentBuffer = [self mouseBuffer];
-//    [currentBuffer lockFocus];
-//    [[self boxesBuffer] compositeToPoint:NSMakePoint(0.0, [self bounds].size.height) operation:NSCompositeCopy];
-//    [currentBuffer unlockFocus];
-//  }
-//  [currentBuffer lockFocus];
-}
-
-- (void)blankCallback
-{
   [[self openGLContext] makeCurrentContext];
+  if (iMarker != -1) glDisable(GL_TEXTURE_2D);
+  glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, iMarker==-1 ? 0 : frameBuffers[iMarker]);
+  //glMatrixMode(GL_PROJECTION); glLoadIdentity();
+  //glOrtho(0, [self boundsWidth], [self boundsHeight], 0, -1.0, 1.0);
+  //glMatrixMode(GL_MODELVIEW); glLoadIdentity();
+  glClearColor(1.0, 1.0, 1.0, iMarker == 1 ? 0.0 /*transparent*/ : 1.0);
   glClear(GL_COLOR_BUFFER_BIT);
 }
 
 - (void)displayCallback
 {
-//E  [self setNeedsDisplay:YES];
+  [self sendMarker:-1];
+  glEnable(GL_TEXTURE_2D);
+  glColor4f(1.0, 1.0, 1.0, 1.0);
+  NSSize r = [self bounds].size;
+  glEnableClientState(GL_VERTEX_ARRAY);
+  glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+  GLshort coords[] = {0,0, r.width,0, 0,r.height, r.width,r.height};
+  glVertexPointer(2, GL_SHORT, 0, coords);
+  GLfloat texcoords[] = {0.0,1.0, 1.0,1.0, 0.0,0.0, 1.0,0.0};
+  glTexCoordPointer(2, GL_FLOAT, 0, texcoords);
+  
+  for (int i=0; i<2; i++)
+  {
+    glBindTexture(GL_TEXTURE_2D, textures[i]);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+  }
+  glFlush();
 }
 
 - (void)drawRect:(NSRect)rect {
-  [[self openGLContext] makeCurrentContext];
-  if (![dasherApp aquaDasherControl]->GetBoolParameter(BP_DASHER_PAUSED)) {
-   [self blankCallback];
-    
-    glLoadIdentity();
+  //if (![dasherApp aquaDasherControl]->GetBoolParameter(BP_DASHER_PAUSED)) {
+    // (ACL) want to redraw even if paused, to get mouse line etc. So invoke
+    // standard Dasher redraw procedure (but not too early or it'll crash!)
+  if ([dasherApp timer]) {	
     [dasherApp aquaDasherControl]->goddamn(get_time(), false); //E
     
-//  [[self openGLContext] flushBuffer];
+//  [[self openGLContext] flushBuffer]; // (ACL) done in displayCallback
   }
-  
-  glFlush();
   
 }
 
@@ -164,23 +163,22 @@
   //    y = y2;
   //    height = y1 - y2;
   //  }
-  
+  glDisable(GL_TEXTURE_2D);
+  glEnableClientState(GL_VERTEX_ARRAY);
   if (shouldFill) {
-    glColor3f(colourTable[aFillColorIndex].r, colourTable[aFillColorIndex].g, colourTable[aFillColorIndex].b);
-    glRecti(x1, y1, x2, y2);
+    glColor4f(colourTable[aFillColorIndex].r, colourTable[aFillColorIndex].g, colourTable[aFillColorIndex].b, 1.0);
+    GLshort coords[8] = {x1,y1, x2,y1, x1,y2, x2,y2};
+    glVertexPointer(2, GL_SHORT, 0, coords);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
   }
   
-  glDisable(GL_TEXTURE_2D);
   if (shouldOutline) {
     int oci = anOutlineColorIndex == -1 ? 3 : anOutlineColorIndex;
-    glColor3f(colourTable[oci].r, colourTable[oci].g, colourTable[oci].b);
+    glColor4f(colourTable[oci].r, colourTable[oci].g, colourTable[oci].b, 1.0);
     glLineWidth(1.0f);
-    glBegin(GL_LINE_LOOP);
-    glVertex2i (x1, y1);
-    glVertex2i (x1, y2);
-    glVertex2i (x2, y2);
-    glVertex2i (x2, y1);    
-    glEnd();
+    GLshort coords[] = {x1,y1, x2,y1, x2,y2, x1,y2};
+    glVertexPointer(2, GL_SHORT, 0, coords);
+    glDrawArrays(GL_LINE_LOOP, 0, 4);
   }
   
   
@@ -205,10 +203,10 @@
 - (void)drawTextCallbackWithString:(NSString *)aString x1:(int)x1 y1:(int)y1 size:(int)aSize colorIndex:(int)aColorIndex
 {
   AlphabetLetter *letter = [self letterForString:aString];
-  
   glEnable(GL_TEXTURE_2D);
   // TODO could pass the whole colour_t in and let it deal with splitting out the items
   [letter drawWithSize:/*1.0*/ aSize / 18.0 x:x1 y:y1 r:colourTable[aColorIndex].r g:colourTable[aColorIndex].g b:colourTable[aColorIndex].b];
+  glDisable(GL_TEXTURE_2D);
 }
 
 - (void)colourSchemeCallbackWithColourTable:(colour_t *)aColourTable {
@@ -240,7 +238,6 @@
 
 
 - (id)initWithFrame:(NSRect)aFrame {
-  
   NSOpenGLPixelFormatAttribute attrs[] =
   {
     NSOpenGLPFADoubleBuffer,
@@ -260,10 +257,27 @@
     [self gl_init];
     [self flushCaches];
     [self setFrameSize:aFrame.size];
-    
-    [self blankCallback];  
+	int w = aFrame.size.width, h = aFrame.size.height;
+	glGenFramebuffersEXT(2, frameBuffers);
+	glGenTextures(2, textures);
+
+	for (int i=0; i<2; i++)
+    {
+      glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBuffers[i]);
+      glBindTexture(GL_TEXTURE_2D, textures[i]);
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, nil);
+      glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, textures[i], 0);
+      if(glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT) != GL_FRAMEBUFFER_COMPLETE_EXT)
+      {
+        NSLog(@"failed to make complete framebuffer object %x", glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT));
+        return nil;
+      }
+    }
+    glClearColor(1.0, 1.0, 1.0, 1.0);
+    glClear(GL_COLOR_BUFFER_BIT);
   }
-  
   _keyboardHelper = new CKeyboardHelper();
   return self;
 }
@@ -352,29 +366,6 @@
   [self colourSchemeCallbackWithColourTable:ct];
 }
 
-
-- (NSImage *)boxesBuffer {
-  return [[_boxesBuffer retain] autorelease];
-}
-
-- (void)setBoxesBuffer:(NSImage *)value {
-  if (_boxesBuffer != value) {
-    [_boxesBuffer release];
-    _boxesBuffer = [value retain];
-  }
-}
-
-- (NSImage *)mouseBuffer {
-  return [[_mouseBuffer retain] autorelease];
-}
-
-- (void)setMouseBuffer:(NSImage *)value {
-  if (_mouseBuffer != value) {
-    [_mouseBuffer release];
-    _mouseBuffer = [value retain];
-  }
-}
-
 - (ZippyCache *)zippyCache {
   return _zippyCache;
 }
@@ -399,8 +390,6 @@
   }
 }
 
-
-
 - (void)dealloc
 {
   [_cachedFontName release];
@@ -422,13 +411,12 @@
 - (void)gl_init
 {
   [[self openGLContext] makeCurrentContext];
-  glClearColor(1.0, 1.0, 1.0, 1.0);
+  //glClearColor(1.0, 1.0, 1.0, 1.0);
   glShadeModel(GL_FLAT);
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-  glEnable(GL_TEXTURE_2D);
-
+  //glEnable(GL_TEXTURE_2D);
 }
 
 - (void)reshape {

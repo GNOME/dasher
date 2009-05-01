@@ -22,7 +22,6 @@ COSXDasherScreen::~COSXDasherScreen() {
 }
 
 void COSXDasherScreen::Blank() {
-  [dasherView blankCallback];
 }
 
 void COSXDasherScreen::Display() {

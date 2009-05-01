@@ -51,13 +51,6 @@
 //  [currentBuffer lockFocus];
 }
 
-- (void)blankCallback
-{
-  NSRect r = [self bounds];
-  [[NSColor whiteColor] set];
-  NSRectFill(r);
-}
-
 - (void)displayCallback
 {
 //E  [self setNeedsDisplay:YES];
@@ -65,7 +58,6 @@
 
 - (void)drawRect:(NSRect)rect {
   if (![dasherApp aquaDasherControl]->GetBoolParameter(BP_DASHER_PAUSED)) {
-//    [self blankCallback];
     
     [dasherApp aquaDasherControl]->goddamn(get_time(), false); //E
   }
@@ -265,8 +257,6 @@
     [self flushFontCache];
     [self setFrameSize:aFrame.size];
     [self setupFrame:aFrame];
-
-//    [self blankCallback];  
   }
   
   return self;

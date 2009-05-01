@@ -41,11 +41,10 @@ typedef struct {
   NSMutableDictionary *_textAttributeCache;
 
   NSArray *_colourScheme;
-  
-  NSImage *_boxesBuffer;
-  NSImage *_mouseBuffer;
-  NSImage *currentBuffer;
-  
+
+  GLuint frameBuffers[2];
+  GLuint textures[2];
+	
   colour_t *colourTable;
   
   NSMutableDictionary *_letterDict;
@@ -54,7 +53,6 @@ typedef struct {
 }
 
 - (void)sendMarker:(int)iMarker;
-- (void)blankCallback;
 - (void)displayCallback;
 - (void)drawRect:(NSRect)rect;
 - (void)mouseEntered:(NSEvent *)theEvent;
@@ -82,10 +80,6 @@ typedef struct {
 - (NSArray *)colourScheme;
 - (void)setColourScheme:(NSArray *)newColourScheme;
 - (void)setColourSchemeFromColourInfo:(const CColourIO::ColourInfo *)pColourScheme;
-- (NSImage *)boxesBuffer;
-- (void)setBoxesBuffer:(NSImage *)value;
-- (NSImage *)mouseBuffer;
-- (void)setMouseBuffer:(NSImage *)value;
 - (ZippyCache *)zippyCache;
 - (void)setZippyCache:(ZippyCache *)newZippyCache;
 - (NSString *)cachedFontName;
