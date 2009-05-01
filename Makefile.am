@@ -1,5 +1,7 @@
 SUBDIRS = Src Data po Doc
 
+ACLOCAL_AMFLAGS = -I m4
+
 distuninstallcheck_listfiles = \
 		find . -type f -print | \
 		grep -v '^\./var/scrollkeeper' | \

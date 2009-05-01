@@ -8,7 +8,7 @@ REQUIRED_AUTOMAKE_VERSION=1.8
 
 PKG_NAME="dasher"
 
-(test -f $srcdir/configure.in \
+(test -f $srcdir/configure.ac \
   && test -f $srcdir/README \
   && test -d $srcdir/Src) || {
     echo -n "**Error**: Directory "\`$srcdir\'" does not look like the"

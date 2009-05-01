@@ -1,3 +1,13 @@
+2009-05-01  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* configure.ac,autogen.sh: Rename configure.in to configure.ac,
+	require autoconf 2.59 (released November 2003),
+	AC_HELP_STRING->AS_HELP_STRING.
+	* m4: delete most files, and add/replace gconf-2.m4,
+	glib-gettext.m4, gnome-doc-utils.m4, intltool.m4,
+	nls.m4, pkg.m4, for versions cf m4/README.
+	* add gnome-doc-utils.make from gnome-doc-utils of 2009-04-28 (0.16.1)
+
 2009-04-30  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* MacOSX: Do compositing via OpenGL framebuffers to separate out

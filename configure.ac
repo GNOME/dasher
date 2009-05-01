@@ -1,8 +1,12 @@
-AC_PREREQ(2.56)
+AC_PREREQ(2.59)
 AC_INIT([dasher],[4.10.1],[http://bugzilla.gnome.org/enter_bug.cgi?product=dasher])
 AC_REVISION([$Id: configure.in,v])
 AC_CONFIG_SRCDIR([Src/main.cc])
 AC_CONFIG_HEADERS(config.h)
+dnl Can't use build-aux unless we insist on IT_PROG_INTLTOOL([0.40.1])
+dnl c.f. bug #323968, but e.g. Ubuntu 8.04 LTS ships with 0.37.1
+dnl AC_CONFIG_AUX_DIR([build-aux])
+AC_CONFIG_MACRO_DIR([m4])
 
 dnl The following two changes are required currently for the Maemo build (but will break the GNOME build)
 
@@ -12,7 +16,7 @@ AM_MAINTAINER_MODE
 
 AC_PROG_MAKE_SET
 IT_PROG_INTLTOOL([0.34.90])
-dnl AC_PROG_INTLTOOL(0.30)
+dnl IT_PROG_INTLTOOL([0.40.1])  c.f. bug #323968
 
 AC_DISABLE_STATIC
 AC_PROG_LIBTOOL
@@ -39,7 +43,7 @@ AC_CHECK_FUNC(socket,,[AC_CHECK_LIB(socket,socket)])
 AC_LANG_POP(C++)
 
 AC_ARG_ENABLE(debug,
-	AC_HELP_STRING([--enable-debug],[build with additional debugging checks (default is NO)]),
+	AS_HELP_STRING([--enable-debug],[build with additional debugging checks (default is NO)]),
 	 if test $withval = "no"; then
 	   DEBUG=false;
 	 else
@@ -48,7 +52,7 @@ AC_ARG_ENABLE(debug,
          DEBUG=false)
 
 AC_ARG_WITH([gnome],
-	 AC_HELP_STRING([--with-gnome],[build with GNOME support (default is YES)]), 
+	 AS_HELP_STRING([--with-gnome],[build with GNOME support (default is YES)]), 
 	 if test $withval = "no"; then
 	   WITHGNOME=false; 
 	 else
@@ -58,7 +62,7 @@ AC_ARG_WITH([gnome],
 
 dnl Just useful for debugging
 AC_ARG_WITH([gvfs],
-	AC_HELP_STRING([--with-gvfs],
+	AS_HELP_STRING([--with-gvfs],
 		[build with gvfs from gio in glib (default is YES)]),
 	[],
 	with_gvfs="yes")
@@ -70,7 +74,7 @@ if test $with_gvfs != "no"; then
 fi
 
 AC_ARG_ENABLE([speech],
-	 AC_HELP_STRING([--enable-speech],[build with speech support (default is NO)]),
+	 AS_HELP_STRING([--enable-speech],[build with speech support (default is NO)]),
 	 if test $enableval = "no"; then
 	   WITHSPEECH=false; 
 	 else
@@ -79,7 +83,7 @@ AC_ARG_ENABLE([speech],
 	 WITHSPEECH=false)
 
 AC_ARG_WITH([qte],
-	 AC_HELP_STRING([--with-qte],[build with QTE support (default is NO -- currently untested)]), 
+	 AS_HELP_STRING([--with-qte],[build with QTE support (default is NO -- currently untested)]), 
 	 if test $withval = "no"; then
 	   WITHQTE=false; 
 	 else
@@ -88,7 +92,7 @@ AC_ARG_WITH([qte],
 	 WITHQTE=false)
 
 AC_ARG_WITH([gpe],
-	 AC_HELP_STRING([--with-gpe],[build with GPE support (default is NO -- currently untested)]), 
+	 AS_HELP_STRING([--with-gpe],[build with GPE support (default is NO -- currently untested)]), 
 	 if test $withval = "no"; then
 	   WITHGPE=false; 
 	 else
@@ -97,7 +101,7 @@ AC_ARG_WITH([gpe],
 	 WITHGPE=false)
 
 AC_ARG_ENABLE([a11y],
-	 AC_HELP_STRING([--enable-a11y],[build with support for the GNOME accessibility framework (default is YES)]),
+	 AS_HELP_STRING([--enable-a11y],[build with support for the GNOME accessibility framework (default is YES)]),
 	 if test $enableval = "no"; then
 	   WITHA11Y=false; 
 	 else
@@ -106,7 +110,7 @@ AC_ARG_ENABLE([a11y],
 	 WITHA11Y=true)
 
 AC_ARG_ENABLE([japanese],
-	 AC_HELP_STRING([--enable-japanese],[build with support for Japanese Kanji entry (experimental -- default is NO)]),
+	 AS_HELP_STRING([--enable-japanese],[build with support for Japanese Kanji entry (experimental -- default is NO)]),
 	 if test $enableval = "no"; then
 	   WITHJAPANESE=false; 
 	 else
@@ -116,7 +120,7 @@ AC_ARG_ENABLE([japanese],
 	 WITHJAPANESE=false)
 
 AC_ARG_ENABLE([chinese],
-	 AC_HELP_STRING([--enable-chinese],[build with support for Chinese PinYin entry (experimental -- default is NO)]),
+	 AS_HELP_STRING([--enable-chinese],[build with support for Chinese PinYin entry (experimental -- default is NO)]),
 	 if test $enableval = "no"; then
 	   WITHCHINESE=false; 
 	 else
@@ -125,7 +129,7 @@ AC_ARG_ENABLE([chinese],
 	 WITHCHINESE=false)
 
 AC_ARG_ENABLE([joystick],
-	 AC_HELP_STRING([--enable-joystick],[Build with Linux joystick support (note that other UNIX based operating systems aren't supported here)]),
+	 AS_HELP_STRING([--enable-joystick],[Build with Linux joystick support (note that other UNIX based operating systems aren't supported here)]),
 	 if test $enableval = "no"; then
 	   WITHJOYSTICK=false; 
 	 else
@@ -135,7 +139,7 @@ AC_ARG_ENABLE([joystick],
 
 
 AC_ARG_ENABLE([tilt],
-	 AC_HELP_STRING([--enable-tilt],[Build with experimental support for tilt sensor input (experimental -- default is NO)]),
+	 AS_HELP_STRING([--enable-tilt],[Build with experimental support for tilt sensor input (experimental -- default is NO)]),
 	 if test $enableval = "no"; then
 	   WITHTILT=false; 
 	 else
@@ -145,7 +149,7 @@ AC_ARG_ENABLE([tilt],
 
 
 AC_ARG_WITH([maemo],
-	AC_HELP_STRING([--with-maemo],[build with Maemo support (default is NO)]),
+	AS_HELP_STRING([--with-maemo],[build with Maemo support (default is NO)]),
 	if test $withval = "yes"; then
 	   WITHMAEMO=true;
 	   WITHGNOME=false;
@@ -156,7 +160,7 @@ AC_ARG_WITH([maemo],
 	WITHMAEMO=false)
 
 AC_ARG_WITH([maemo-fullscreen],
-	AC_HELP_STRING([--with-maemo-fullscreen],[build as standalone Maemo fullscreen app (default is NO)]),
+	AS_HELP_STRING([--with-maemo-fullscreen],[build as standalone Maemo fullscreen app (default is NO)]),
 	if test $withval = "yes"; then
 	   WITHMAEMOFULLSCREEN=true;
 	   WITHMAEMO=true;
@@ -169,7 +173,7 @@ AC_ARG_WITH([maemo-fullscreen],
 
 
 dnl AC_ARG_WITH([darwin],
-dnl 	AC_HELP_STRING([--with-darwin],[build with Darwin (Mac OS X) support (default is NO)]),
+dnl 	AS_HELP_STRING([--with-darwin],[build with Darwin (Mac OS X) support (default is NO)]),
 dnl 	if test $withval = "yes"; then
 dnl 	   WITHDARWIN=true;
 dnl 	else
@@ -178,7 +182,7 @@ dnl 	fi,
 dnl 	WITHDARWIN=false)
 
 AC_ARG_WITH([cairo],
-	 AC_HELP_STRING([--with-cairo],[build with cairo support (default is YES)]),
+	 AS_HELP_STRING([--with-cairo],[build with cairo support (default is YES)]),
 	 if test $withval = "no"; then
 	   WITHCAIRO=false; 
 	 else
