@@ -34,7 +34,7 @@ AC_PROG_LD_GNU
 
 WITHGTK2=true;
 
-PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.4)
+PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.6)
 
 AC_CHECK_LIB(expat, XML_Parse,, AC_MSG_ERROR([Expat library not found.]))
 AC_LANG_PUSH(C++)
@@ -192,7 +192,7 @@ AC_ARG_WITH([cairo],
 
 if test x"$WITHGTK2" = xtrue
 then 
-	PKG_CHECK_MODULES(GTK2, gtk+-2.0 >= 2.4.0,[GTK2HERE=true],[GTK2HERE=false]) 
+	PKG_CHECK_MODULES(GTK2, gtk+-2.0 >= 2.6.0,[GTK2HERE=true],[GTK2HERE=false]) 
 	PKG_CHECK_MODULES(GCONF, gconf-2.0,[GCONF2HERE=true],[GCONF2HERE=false])
 	if test x$GCONF2HERE = xfalse; then
 	   AC_MSG_WARN("GConf was not detected - user preferences will not be stored.")

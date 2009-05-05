@@ -494,9 +494,7 @@ dasher_main_load_interface(DasherMain *pSelf) {
 
   GtkCellRenderer *pRenderer;
   pRenderer = gtk_cell_renderer_text_new();
-#if GTK_CHECK_VERSION(2,6,0)
   g_object_set(G_OBJECT(pRenderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
-#endif
   gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(pPrivate->pAlphabetCombo), pRenderer, true);
   gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(pPrivate->pAlphabetCombo), pRenderer, "text", 0, NULL);
 
@@ -1165,8 +1163,6 @@ static void
 dasher_main_command_about(DasherMain *pSelf) {
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
 
-#if (defined GNOME_LIBS) || (GTK_CHECK_VERSION(2,6,0))
-
   // In alphabetical order - please keep this in sync with the AUTHORS
   // file at root of the package tree
   const gchar *authors[] = {
@@ -1202,7 +1198,6 @@ dasher_main_command_about(DasherMain *pSelf) {
     NULL
   };
 
-#if GTK_CHECK_VERSION(2,6,0)
   gtk_show_about_dialog(GTK_WINDOW(pPrivate->pMainWindow),
 			"authors", authors,
 			"comments", _("Dasher is a predictive text entry application"), 
@@ -1215,54 +1210,6 @@ dasher_main_command_about(DasherMain *pSelf) {
 			"website", "http://www.dasher.org.uk/",
 			"wrap-license", true,
 			NULL);
-#else
-  gchar *translator_credits = _("translator-credits");
-
-  GtkWidget *about = gnome_about_new (_("Dasher"), 
-			   PACKAGE_VERSION, 
-			   "Copyright The Dasher Project\n",
-			   _("Dasher is a predictive text entry application"),
-			   (const char **)authors,
-			   (const char **)documenters,
-			   strcmp (translator_credits, "translator-credits") != 0 ? (const char *)translator_credits : NULL,
-			   NULL);
-  
-  gtk_window_set_transient_for (GTK_WINDOW(about), GTK_WINDOW(pPrivate->pMainWindow));
-  //  g_signal_connect (G_OBJECT (about), "destory", G_CALLBACK (gtk_widget_destroyed), &about);
-  gtk_widget_show(about);
-
-#endif
-  
-#else
-  // EAT UGLY ABOUT BOX, PHILISTINE
-  GtkWidget *label, *button;
-  char *tmp;
-
-  GtkWidget *about = gtk_dialog_new();
-
-  gtk_dialog_set_has_separator(GTK_DIALOG(about), FALSE);
-  gtk_window_set_title(GTK_WINDOW(about), "About Dasher");
-
-  tmp = g_strdup_printf("Dasher Version %s ", VERSION);
-  label = gtk_label_new(tmp);
-  gtk_widget_show(label);
-  gtk_box_pack_start(GTK_BOX(GTK_DIALOG(about)->vbox), label, FALSE, FALSE, 0);
-
-  label = gtk_label_new("http://www.dasher.org.uk/");
-  gtk_widget_show(label);
-  gtk_box_pack_start(GTK_BOX(GTK_DIALOG(about)->vbox), label, FALSE, FALSE, 0);
-
-  label = gtk_label_new("Copyright The Dasher Project");
-  gtk_widget_show(label);
-  gtk_box_pack_start(GTK_BOX(GTK_DIALOG(about)->vbox), label, TRUE, TRUE, 0);
-
-  button = gtk_button_new_from_stock(GTK_STOCK_OK);
-  gtk_widget_show(button);
-  gtk_box_pack_start(GTK_BOX(GTK_DIALOG(about)->vbox), button, FALSE, FALSE, 0);
-  g_signal_connect_swapped(G_OBJECT(button), "clicked", G_CALLBACK(gtk_widget_destroy), G_OBJECT(about));
-
-  gtk_widget_show(about);
-#endif
 }
 
 static gboolean 

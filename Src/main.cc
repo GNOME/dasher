@@ -12,9 +12,7 @@
 #include <gdk/gdkx.h>
 #include <glade/glade.h>
 #include <signal.h>
-#if GLIB_CHECK_VERSION(2,6,0)
 #include <Gtk2/DasherAppSettings.h>
-#endif
 
 #ifdef WITH_MAEMO
 #include <libosso.h>
@@ -177,8 +175,6 @@ int main(int argc, char *argv[]) {
   sCommandLine.szAppStyle = NULL;
   sCommandLine.szOptions = NULL;
 
-  // TODO: It would be nice to have command line parsing in version prior to goption (eg in Solaris 10)...
-#if GLIB_CHECK_VERSION(2,6,0)
   gboolean do_option_help = false;
   static const GOptionEntry options[] = {
     //   {"timedata", 'w', 0, G_OPTION_ARG_NONE, &timedata, "Write basic timing information to stdout", NULL},
@@ -212,7 +208,6 @@ int main(int argc, char *argv[]) {
     option_help();
     return 0;
   }
-#endif 
 
 #ifdef WITH_GPE
   gpe_application_init(&argc, &argv);
@@ -250,7 +245,7 @@ int main(int argc, char *argv[]) {
 #endif
 
   g_set_application_name("Dasher");
-#if (!defined WITH_MAEMO) && GTK_CHECK_VERSION(2,6,0)
+#ifndef WITH_MAEMO
   gtk_window_set_default_icon_name("dasher");
 #endif
 
