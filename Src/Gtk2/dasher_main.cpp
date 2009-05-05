@@ -1050,13 +1050,13 @@ dasher_main_command_import(DasherMain *pSelf) {
 						    GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, 
 						    NULL);
 
-#ifdef GNOME_LIBS
+#ifdef TEACH_TRAINING_HELPER_LOAD_FILE_ABOUT_URI
   gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(pFileSel), FALSE);
 #endif
 
   if(gtk_dialog_run(GTK_DIALOG(pFileSel)) == GTK_RESPONSE_ACCEPT) {
 
-#ifdef GNOME_LIBS
+#ifdef TEACH_TRAINING_HELPER_LOAD_FILE_ABOUT_URI
     gchar *szFilename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(pFileSel));
 #else
     gchar *szFilename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(pFileSel));

@@ -1,3 +1,8 @@
+2009-05-05  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* dasher_main.cpp: Don't accept a uri from GtkFileChooser as
+	LoadFile will fopen it.
+
 2009-05-02  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* Require glib and gtk 2.6.0 (in maemo and released December 2004),
