@@ -1,3 +1,8 @@
+2009-05-06  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* DasherButtons.cpp: Change box non-uniformity range to something more
+	sensible. Reported by David MacKay. (Also some whitespace changes)
+
 2009-05-05  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* dasher_main.cpp: Don't accept a uri from GtkFileChooser as
