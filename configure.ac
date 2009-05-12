@@ -215,42 +215,6 @@ then
 	AC_ERROR("Unable to find GTK2 or another necessary library. See the previous line for more useful data.")
 fi
 
-if test x"$WITHQTE" != xtrue
-then
-dnl test for X libraries
-	if test	x$no_x = xyes ; then
-	  AC_MSG_ERROR([X development libraries not found])
-	else
-	  X_LIBS="$X_LIBS $X_PRE_LIBS -lX11 $X_EXTRA_LIBS"
-	fi
-
-dnl path to Xtst
-	AC_CHECK_LIB(Xtst, XTestFakeKeyEvent, XTST_LIBS=-lXtst)
-	if test "x$XTST_LIBS" = x; then
-	  save_LIBS="$LIBS"
-	  for xtstpath in /usr/X11R6/lib64 /usr/X11R6/lib /usr/openwin/lib $x_libraries; do
-	    LIBS="-L$xtstpath -lXtst"
-	    case "$host" in
-	    *solaris*) XTST_RPATH_FLAGS="-R$xtstpath" ;;
-	    esac
-	    AC_MSG_CHECKING(for -lXtst in $xtstpath)
-	    AC_TRY_LINK([], [XTestFakeKeyEvent()], [
-	        AC_MSG_RESULT(yes)
-	        XTST_LIBS="$XTST_RPATH_FLAGS -L$xtstpath -lXtst"
-	        LIBS="$save_LIBS"
-	        break],[AC_MSG_RESULT(no)])
-	  done
-	fi
-	if test "x$XTST_LIBS" = x; then
-	  AC_MSG_ERROR(Couldn't find the Xtst library. Check config.log for details)
-	else
-	  X_LIBS="$X_LIBS $XTST_LIBS"
-	  AC_DEFINE(HAVE_XTST, 1, [The XTest extension is present])
-	fi
-
-AC_SUBST(X_LIBS)
-fi
-
 if test x"$DEBUG" = xtrue; then
 	AC_DEFINE([DEBUG], 1, [Additional debug checks enabled])
 fi
@@ -270,6 +234,25 @@ if test x"$WITHA11Y" = xtrue; then
 	PKG_CHECK_MODULES(gnome_a11y, bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0 libgnomeui-2.0 cspi-1.0 atk)
 	AC_DEFINE([GNOME_A11Y], 1, [gnome_a11y libraries are present])
 fi
+
+if test x"$WITHQTE" != xtrue -a x"$WITHA11Y" != xtrue; then
+	AC_PATH_XTRA
+	if test	x$no_x = xyes ; then
+		AC_MSG_ERROR([X development libraries not found])
+	else
+		X_LIBS="$X_LIBS $X_PRE_LIBS -lX11 $X_EXTRA_LIBS"
+	fi
+
+	save_LIBS="$LIBS"
+	AC_CHECK_LIB([Xtst], [XTestFakeKeyEvent],
+	             [X_LIBS="$X_LIBS -lXtst"
+	              AC_DEFINE(HAVE_XTST, 1, [The XTest extension is present])],
+	             [AC_MSG_ERROR([Couldn't find the Xtst library. Check config.log for details])],
+	             $X_LIBS)
+	LIBS="$save_LIBS"
+	AC_SUBST(X_LIBS)
+fi
+
 
 if test x"$WITHJAPANESE" = xtrue; then
 	AC_DEFINE([JAPANESE], 1, [Japanese support enabled])
