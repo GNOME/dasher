@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
-"POT-Creation-Date: 2009-04-03 00:06+0000\n"
-"PO-Revision-Date: 2009-04-07 00:13+0100\n"
+"POT-Creation-Date: 2009-04-23 16:34+0000\n"
+"PO-Revision-Date: 2009-05-13 22:37+0300\n"
 "Last-Translator: Simos Xenitellis <simos@gnome.org>\n"
 "Language-Team: Greek <team@gnome.gr>\n"
 "MIME-Version: 1.0\n"
@@ -68,11 +68,11 @@ msgstr ""
 
 #: C/dasher.xml:5(title)
 msgid "Dasher Manual"
-msgstr ""
+msgstr "Εγχειρίδιο Dasher"
 
 #: C/dasher.xml:6(corpauthor) C/dasher.xml:9(holder)
 msgid "The Dasher Project"
-msgstr ""
+msgstr "Έργο Dasher"
 
 #: C/dasher.xml:8(year)
 msgid "2006"
@@ -84,6 +84,10 @@ msgid ""
 "provided the copyright notice and this permission notice are preserved on "
 "all copies."
 msgstr ""
+"Χορηγείται άδεια δημιουργίας και διανομής ακριβών αντιγράφων του παρόντος "
+"εγχειριδίου με την προϋπόθεση ότι η ένδειξη δικαιωμάτων πνευματικής "
+"ιδιοκτησίας και η παρούσα ένδειξη άδειας θα παραμείνουν ως έχει σε όλα τα "
+"αντίγραφα."
 
 #: C/dasher.xml:14(para)
 msgid ""
@@ -92,6 +96,10 @@ msgid ""
 "resulting derived work is distributed under the terms of a permission notice "
 "identical to this one."
 msgstr ""
+"Χορηγείται άδεια αντιγραφής και διανομής τροποποιημένων εκδόσεων του "
+"παρόντος εγχειριδίου υπό τους όρους που ισχύουν για τα ακριβή αντίγραφα, με "
+"την προϋπόθεση ότι το συνολικό παράγωγο έργο θα διανέμεται υπό τους όρους "
+"ένδειξης άδειας πανομοιότυπης με την παρούσα."
 
 #: C/dasher.xml:17(para)
 msgid ""
@@ -100,36 +108,45 @@ msgid ""
 "except that this permission notice may be stated in a translation approved "
 "by the Free Software Foundation."
 msgstr ""
+"Χορηγείται άδεια αντιγραφής και διανομής μεταφράσεων σε άλλες γλώσσες του "
+"παρόντος εγχειριδίου υπό τους ανωτέρω όρους για τις τροποποιημένες εκδόσεις, "
+"με τη διαφορά ότι, αν παρέχεται μετάφραση της παρούσας ένδειξης άδειας, αυτή "
+"θα πρέπει να είναι εγκεκριμένη από το Ίδρυμα Ελεύθερου Λογισμικού."
 
 #: C/dasher.xml:20(para)
 msgid "UNIX is a trademark of X/Open Group."
-msgstr ""
+msgstr "Το UNIX είναι εμπορικό σήμα του X/Open."
 
 #: C/dasher.xml:21(para)
 msgid "Linux is a trademark of Linus Torvalds."
-msgstr ""
+msgstr "Το Linux είναι εμπορικό σήμα του Linus Torvalds."
 
 #: C/dasher.xml:22(para)
 msgid "X Window System is a trademark of X Consortium, Inc."
 msgstr ""
+"Το X Window System (σύστημα παραθύρων Χ) είναι εμπορικό σήμα της X "
+"Consortium, Inc."
 
 #: C/dasher.xml:23(para)
 msgid "Windows is a trademark of Microsoft Corp."
-msgstr ""
+msgstr "Το Windows είναι εμπορικό σήμα της Microsoft Corp."
 
 #: C/dasher.xml:24(para)
 msgid "Macintosh and Apple are trademarks of Apple Computer, Inc."
-msgstr ""
+msgstr "Τα Macintosh και Apple είναι εμπορικά σήματα της Apple Computer, Inc."
 
 #: C/dasher.xml:25(para)
 msgid "All other trademarks are property of their respective owners."
-msgstr ""
+msgstr "Όλα τα υπόλοιπα εμπορικά σήματα είναι ιδιοκτησία των ιδιοκτητών τους."
 
 #: C/dasher.xml:28(para)
 msgid ""
 "Dasher is an accessible text entry application that uses pointing gestures "
 "rather than typing. It is designed to be fast while fun to use."
 msgstr ""
+"Το Dasher είναι μια προσιτή εφαρμογή εισαγωγής κειμένου που χρησιμοποιεί "
+"χειρονομίες κατάδειξης αντί για πληκτρολόγηση. Φιλοδοξεί να είναι γρήγορο "
+"και, παράλληλα, ευχάριστο στη χρήση."
 
 #: C/dasher.xml:33(revnumber)
 msgid "1.0.0"
@@ -165,7 +182,7 @@ msgstr "2006-09-02"
 
 #: C/dasher.xml:52(title)
 msgid "Introduction"
-msgstr ""
+msgstr "Εισαγωγή"
 
 #: C/dasher.xml:53(para)
 msgid ""
@@ -177,6 +194,15 @@ msgid ""
 "mouse or eyetracker). This document describes version 4.2.0 of "
 "<application>Dasher</application>."
 msgstr ""
+"Το <application>Dasher</application> είναι μια διεπαφή εισαγωγής κειμένου "
+"που βασίζεται στην αποδοτική χρήση πληροφοριών και χρησιμοποιεί φυσικές, "
+"συνεχείς χειρονομίες κατάδειξης. Το Dasher αποτελεί ανταγωνιστική μέθοδο "
+"εισαγωγής κειμένου σε περιπτώσεις όπου δεν είναι δυνατή η χρήση "
+"πληκτρολογίου κανονικών διαστάσεων. Για παράδειγμα, σε υπολογιστές τσέπης, "
+"καθώς και σε υπολογιστές που κατευθύνονται μόνο με το ένα χέρι (μέσω "
+"joystick, οθόνης αφής ή ποντικιού) ή με κανένα χέρι (μέσω ποντικιού κεφαλής "
+"ή ανιχνευτή κίνησης ματιού). Αυτό το έγγραφο περιγράφει την έκδοση 4.2.0 του "
+"<application>Dasher</application>."
 
 #: C/dasher.xml:59(para)
 msgid ""
@@ -185,32 +211,43 @@ msgid ""
 "guisubmenu> submenu of the <guimenu>Main Menu</guimenu>, or by running the "
 "command <command>dasher</command> on the command line."
 msgstr ""
+"Μπορείτε να εκκινήσετε το <application>Dasher</application> επιλέγοντας "
+"<guimenuitem>Dasher</guimenuitem> από το υπομενού <guisubmenu>Προσιτότητα/"
+"Γενική Πρόσβαση</guisubmenu> του <guimenu>Κύριου μενού</guimenu>, ή "
+"εκτελώντας την εντολή <command>dasher</command> από τη γραμμή εντολών."
 
 #: C/dasher.xml:65(title)
 msgid "What's New"
-msgstr ""
+msgstr "Νέα"
 
 #: C/dasher.xml:68(title)
 msgid "New features In version 4.2"
-msgstr ""
+msgstr "Νέες λειτουργίες στην έκδοση 4.2"
 
 #: C/dasher.xml:71(para)
 msgid ""
 "There is an automatic speed control, which will speed up Dasher when it "
 "senses you are able to go faster."
 msgstr ""
+"Αυτόματος έλεγχος ταχύτητας που επιταχύνει το Dasher όταν διαπιστώνει ότι "
+"είστε σε θέση να επιταχύνετε."
 
 #: C/dasher.xml:74(para)
 msgid ""
 "There is a new socket interface allowing Dasher to listen to head-trackers "
 "or gaze-trackers or EEG-interfaces without going through the mouse."
 msgstr ""
+"Νέα διεπαφή υποδοχών που επιτρέπει στο Dasher να λαμβάνει σήματα από "
+"ανιχνευτές κίνησης κεφαλής ή ματιού και από διεπαφές "
+"ηλεκτροεγκεφαλογραφήματος χωρίς τη μεσολάβηση του ποντικιού."
 
 #: C/dasher.xml:77(para)
 msgid ""
 "There are several `button modes' for people who want to drive Dasher using "
 "one, two, three, or four switches."
 msgstr ""
+"Πολλές 'λειτουργίες κουμπιών' για άτομα που θέλουν να χειρίζονται το Dasher "
+"μέσω ενός, δύο, τριών ή τεσσάρων διακοπτών."
 
 #: C/dasher.xml:80(para)
 msgid ""
@@ -218,10 +255,13 @@ msgid ""
 "and click to take a single step in that direction. This is aimed at "
 "beginners, in particular"
 msgstr ""
+"'Λειτουργία κλικ' για άτομα που επιθυμούν να δείχνουν το σημείο όπου θέλουν "
+"να πάνε, και να κάνουν κλικ για να κάνουν ένα βήμα προς αυτή την κατεύθυνση. "
+"Αυτή η λειτουργία προορίζεται ειδικά για τους αρχάριους χρήστες."
 
 #: C/dasher.xml:86(title)
 msgid "What's coming in version 4.4"
-msgstr ""
+msgstr "Αναμένονται για την έκδοση 4.4"
 
 #: C/dasher.xml:87(para)
 msgid ""
@@ -229,46 +269,59 @@ msgid ""
 "write. A teaching hand will guide the novice when he goes astray, and "
 "novices who write fast without needing much guidance will win lots of points."
 msgstr ""
+"Λειτουργία παιχνιδιού που θα επιτρέπει στους αρχάριους χρήστες να μαθαίνουν "
+"να γράφουν. Ένα χέρι θα καθοδηγεί τον αρχάριο όταν κάνει λάθη, ενώ οι "
+"αρχάριοι που γράφουν γρήγορα χωρίς ιδιαίτερη καθοδήγηση θα κερδίζουν πολλούς "
+"βαθμούς."
 
 #: C/dasher.xml:91(para)
 msgid ""
 "New language models will be added, which will make predictions at the word "
 "level as well as the letter level."
 msgstr ""
+"Νέα μοντέλα γλωσσών, που θα επιτρέπουν την πρόβλεψη σε επίπεδο λέξεων και "
+"όχι μόνο γραμμάτων."
 
 #: C/dasher.xml:94(para)
 msgid "Japanese and Chinese will be fully supported."
-msgstr ""
+msgstr "Πλήρης υποστήριξη Ιαπωνικών και Κινεζικών."
 
 #: C/dasher.xml:96(para)
 msgid ""
 "The Dasher team also hopes to create a free web-cam-based head tracker and "
 "gaze tracker, `FreeVIM', by December 2006."
 msgstr ""
+"Επίσης, η ομάδα του Dasher ελπίζει να δημιουργήσει το 'FreeVIM', έναν "
+"ελεύθερο ανιχνευτή κίνησης κεφαλής ή ματιού, ο οποίος θα βασίζεται στη χρήση "
+"κάμερας web, μέχρι το Δεκέμβριο του 2006."
 
 #: C/dasher.xml:101(title)
 msgid "Dasher Basics"
-msgstr ""
+msgstr "Βασικά για το Dasher"
 
 #: C/dasher.xml:106(para)
 msgid "On a palmtop computer;"
-msgstr ""
+msgstr "Από υπολογιστή τσέπης (palmtop)·"
 
 #: C/dasher.xml:109(para)
 msgid "on a wearable computer;"
-msgstr ""
+msgstr "από τον υπολογιστή που φοράτε·"
 
 #: C/dasher.xml:112(para)
 msgid ""
 "when operating a computer one-handed, by joystick, touchscreen, trackball, "
 "or mouse;"
 msgstr ""
+"αν χειρίζεστε τον υπολογιστή με το ένα χέρι, με joystick, οθόνη αφής, "
+"trackball ή ποντίκι·"
 
 #: C/dasher.xml:116(para)
 msgid ""
 "when operating a computer with zero hands (i.e., by head-mouse or by "
 "eyetracker)."
 msgstr ""
+"αν χειρίζεστε τον υπολογιστή χωρίς χέρια (π.χ. με ποντίκι κεφαλής ή "
+"ανιχνευτή κίνησης ματιού)."
 
 #: C/dasher.xml:102(para)
 msgid ""
@@ -279,33 +332,47 @@ msgid ""
 "as fast as normal handwriting - 29 words per minute; using a mouse, "
 "experienced users can write at 39 words per minute."
 msgstr ""
+"Το Dasher είναι μια διεπαφή εισαγωγής κειμένου που βασίζεται στην αποδοτική "
+"χρήση πληροφοριών και χρησιμοποιεί φυσικές, συνεχείς χειρονομίες κατάδειξης. "
+"Το Dasher αποτελεί ανταγωνιστική μέθοδο εισαγωγής κειμένου σε περιπτώσεις "
+"όπου δεν είναι δυνατή η χρήση πληκτρολογίου κανονικών διαστάσεων. Π.χ.: "
+"<placeholder-1/>. Με την έκδοση ανίχνευσης κίνησης ματιού ένας έμπειρος "
+"χρήστης μπορεί να γράφει κείμενο με την ίδια ταχύτητα που θα το έγραφε και "
+"με το χέρι - 29 λέξεις το λεπτό· με το ποντίκι, οι έμπειροι χρήστες μπορούν "
+"να γράφουν με ταχύτητα 39 λέξεις το λεπτό."
 
 #: C/dasher.xml:123(para)
 msgid "Dasher can be used to write efficiently in any language."
 msgstr ""
+"Το Dasher μπορεί να χρησιμοποιηθεί αποτελεσματικά για να γράφετε σε "
+"οποιαδήποτε γλώσσα."
 
 #: C/dasher.xml:125(para)
 msgid "Dasher is fast and fun to learn."
-msgstr ""
+msgstr "Το Dasher είναι γρήγορο και ευχάριστο στην εκμάθηση."
 
 #: C/dasher.xml:130(para)
 msgid ""
 "Dasher is <emphasis>free software</emphasis>. It's distributed under the "
 "same license as GNU/Linux, the GPL."
 msgstr ""
+"Το Dasher είναι <emphasis>ελεύθερο λογισμικό</emphasis>. Διανέμεται υπό τους "
+"όρους της ίδιας άδειας με το GNU/Linux, της GPL."
 
 #: C/dasher.xml:134(title)
 msgid "How does Dasher work?"
-msgstr ""
+msgstr "Πώς λειτουργεί το Dasher;"
 
 #: C/dasher.xml:137(attribution)
 msgid "Financial Times, 5th February 2002"
-msgstr ""
+msgstr "Financial Times, 5 Φεβρουαρίου 2002"
 
 #: C/dasher.xml:138(para)
 msgid ""
 "Dasher is like an arcade game: `Attack of the killer alphabets', perhaps."
 msgstr ""
+"Το Dasher είναι σαν ηλεκτρονικό παιχνίδι: 'Επίθεση του αλφάβητου δολοφόνου', "
+"π.χ."
 
 #: C/dasher.xml:141(para)
 msgid ""
@@ -315,6 +382,11 @@ msgid ""
 "piece of text. The more you zoom in, the longer the piece of text you have "
 "written. You choose what you write by choosing where to zoom."
 msgstr ""
+"Το Dasher βασίζεται στην εστίαση. Δείχνετε που θέλετε να πάτε και η οθόνη "
+"εστιάζει στο σημείο αυτό. Ο κόσμος στον οποίο εστιάζετε κατοικείται από "
+"γράμματα, οπότε, κάθε σημείο που δείχνετε αντιστοιχεί σε ένα κομμάτι "
+"κειμένου. Όσο πιο πολύ εστιάζετε, τόσο αυξάνεται το μήκος του κειμένου σας. "
+"Ουσιαστικά, επιλέγετε το τι θα γράψετε επιλέγοντας το πού θα εστιάσετε."
 
 #: C/dasher.xml:146(para)
 msgid ""
@@ -325,6 +397,14 @@ msgid ""
 "are given less space, so they are harder to write. The language model learns "
 "all the time: if you use a novel word once, it is easier to write next time."
 msgstr ""
+"Για να βελτιώσουμε την αποδοτικότητα της εφαρμογής, χρησιμοποιούμε "
+"προβλέψεις γλωσσικού μοντέλου προκειμένου να αποφασίσουμε τι ποσοστό του "
+"κόσμου θα ανήκει σε κάθε κομμάτι κειμένου. Τα πιο πιθανά κομμάτια "
+"καταλαμβάνουν μεγαλύτερο χώρο, ώστε να μπορούν να επιλέγονται πιο εύκολα και "
+"γρήγορα. Τα λιγότερο πιθανά κομμάτια (π.χ., λέξεις με ορθογραφικά λάθη) "
+"καταλαμβάνουν λιγότερο χώρο και, άρα, η εισαγωγή τους είναι δυσκολότερη. Το "
+"γλωσσικό μοντέλο μαθαίνει συνεχώς: αφού χρησιμοποιήσετε μια νέα λέξη, την "
+"επόμενη φορά θα μπορείτε να τη γράψετε ευκολότερα."
 
 #: C/dasher.xml:154(para)
 msgid ""
@@ -333,12 +413,20 @@ msgid ""
 "emphasis>: the user does not need to switch from a writing mode to an "
 "<quote>accept-model-predictions</quote> mode."
 msgstr ""
+"Ένα βασικό πλεονέκτημα του Dasher σε σχέση με άλλες εφαρμογές εισαγωγής "
+"κειμένου με πρόβλεψη λέξεων είναι ότι <emphasis>δεν χρησιμοποιεί "
+"διαφορετικές λειτουργίες</emphasis>: ο χρήστης δεν χρειάζεται να "
+"εναλλάσσεται μεταξύ λειτουργίας γραφής και λειτουργίας <quote>αποδοχής "
+"προβλέψεων μοντέλου</quote>."
 
 #: C/dasher.xml:158(para)
 msgid ""
 "Another advantage is that it is easy to train the model on any writing "
 "style: simply load up an example file, then write away!"
 msgstr ""
+"Άλλο ένα πλεονέκτημα του Dasher είναι ότι είναι εύκολο να εκπαιδεύσετε το "
+"μοντέλο σε οποιοδήποτε στυλ γραφής: απλά φορτώστε ένα αρχείο-υπόδειγμα και "
+"ξεκινήστε να γράφετε!"
 
 #: C/dasher.xml:161(para)
 msgid ""
@@ -346,10 +434,13 @@ msgid ""
 "<ulink url=\"http://www.dasher.org.uk/\" type=\"http\">www.dasher.org.uk</"
 "ulink> to see movies."
 msgstr ""
+"Είναι αρκετά δύσκολο να περιγράψουμε την εμφάνιση του Dasher, οπότε σας "
+"παρακαλούμε να επισκεφθείτε τη διεύθυνση <ulink url=\"http://www.dasher.org."
+"uk/\" type=\"http\">www.dasher.org.uk</ulink> για να δείτε τα σχετικά βίντεο."
 
 #: C/dasher.xml:166(title)
 msgid "Dasher explained -- the library analogy"
-msgstr ""
+msgstr "Εξηγώντας το Dasher -- το παράδειγμα της βιβλιοθήκης"
 
 #: C/dasher.xml:167(para)
 msgid ""
@@ -366,6 +457,18 @@ msgid ""
 "are books that start <quote><computeroutput>all good things must come to an\n"
 "        enema</computeroutput>...</quote>."
 msgstr ""
+"Φανταστείτε <emphasis>μια βιβλιοθήκη που περιέχει όλα τα βιβλία στον κόσμο</"
+"emphasis>, ταξινομημένα με αλφαβητική σειρά σε ένα μόνο ράφι. Τα βιβλία που "
+"ξεκινούν από <quote>α</quote> βρίσκονται στα αριστερά και τα βιβλία που "
+"ξεκινούν από <quote>ω</quote> στα δεξιά. Στην εικόνα (i) που ακολουθεί, "
+"βλέπετε το ράφι τοποθετημένο κατακόρυφα, με το <quote>α</quote> στην κορυφή "
+"και το <quote>ω</quote> στο τέλος. Το πρώτο βιβλίο από αυτά που ξεκινούν με "
+"<quote>α</quote> είναι το <quote><computeroutput>ααααααααααααα</"
+"computeroutput>...</quote>· δίπλα του βρίσκονται τα βιβλία που ξεκινούν με "
+"<quote><computeroutput>αγάπη όμορφη και\n"
+".........ιδανική</computeroutput>...</quote>· λίγο παρακάτω όσα ξεκινούν με "
+"<quote><computeroutput>αγάπη όμορφη και\n"
+".........καλόπιστη</computeroutput>...</quote>."
 
 #: C/dasher.xml:180(para)
 msgid ""
@@ -375,10 +478,15 @@ msgid ""
 "imagine they want to write <quote><computeroutput>all good things</"
 "computeroutput>...</quote>;"
 msgstr ""
+"Όταν ένα άτομο γράφει κείμενο, μπορούμε να υποθέσουμε ότι το κείμενο που "
+"επέλεξε αντιστοιχεί σε ένα βιβλίο της βιβλιοθήκης όλων των βιβλίων - το "
+"βιβλίο που περιέχει κατά λέξη το επιλεγμένο κείμενο. Πώς όμως επελέγη το "
+"βιβλίο; Ας υποθέσουμε ότι το άτομο θέλει να γράψει "
+"<quote><computeroutput>αγάπη όμορφη και</computeroutput>...</quote>."
 
 #: C/dasher.xml:185(title) C/dasher.xml:229(title)
 msgid "The library of all books."
-msgstr ""
+msgstr "Η βιβλιοθήκη όλων των βιβλίων."
 
 #: C/dasher.xml:198(para)
 msgid ""
@@ -394,6 +502,17 @@ msgid ""
 "quote>;,...; <quote><computeroutput>alz</computeroutput></quote>; [Picture "
 "(iii)]."
 msgstr ""
+"Πρώτα, περπατάει μέχρι το τμήμα του <quote><computeroutput>α</"
+"computeroutput></quote> στη βιβλιοθήκη. Εκεί βλέπει βιβλία που ξεκινούν από "
+"<quote><computeroutput>αα</computeroutput></quote>, "
+"<quote><computeroutput>αβ</computeroutput></quote>, "
+"<quote><computeroutput>αγ</computeroutput>...</quote> "
+"<quote><computeroutput>αω</computeroutput></quote> [Εικόνα (ii)]. "
+"Κοιτάζοντας πιο προσεκτικά το τμήμα του <quote><computeroutput>αγ</"
+"computeroutput></quote>, μπορεί να βρει βιβλία που ξεκινούν από "
+"<quote><computeroutput>αγα</computeroutput></quote>, "
+"<quote><computeroutput>αγβ</computeroutput></quote>,... "
+"<quote><computeroutput>αγω</computeroutput></quote> [Εικόνα(iii)]."
 
 #: C/dasher.xml:214(para)
 msgid ""
@@ -402,6 +521,10 @@ msgid ""
 "<emphasis>zooming in on an alphabetical library, steering as you go</"
 "emphasis>."
 msgstr ""
+"Κοιτάζοντας το ράφι ακόμη πιο προσεκτικά, το άτομο βρίσκει το βιβλίο που "
+"περιέχει το ζητούμενο κείμενο. Άρα, μπορούμε να περιγράψουμε τη γραφή ως "
+"<emphasis>εστίαση σε μια αλφαβητικά ταξινομημένη βιβλιοθήκη, διορθώνοντας "
+"την κατεύθυνση στην πορεία</emphasis>."
 
 #: C/dasher.xml:218(para)
 msgid ""
@@ -413,12 +536,22 @@ msgid ""
 "quote>; books, and more to the more plausible books, thus making it easier "
 "to find books that contain probable text."
 msgstr ""
+"Το Dasher λειτουργεί κατ' αυτόν ακριβώς τον τρόπο, εκτός από μια ουσιώδη "
+"διαφορά: <emphasis>το ΜΕΓΕΘΟΣ του ραφιού που φιλοξενεί κάθε βιβλίο αλλάζει "
+"ανάλογα με το πόσο πιθανό είναι το αντίστοιχο κείμενο.</emphasis> Π.χ. δεν "
+"υπάρχουν πολλά βιβλία που να αρχίζουν από <quote><computeroutput>χ</"
+"computeroutput></quote>. Επομένως, παραχωρούμε λιγότερο χώρο στα βιβλία από "
+"<quote><computeroutput>χ</computeroutput>...</quote> και περισσότερο σε πιο "
+"πιθανά βιβλία, διευκολύνοντας την εύρεση βιβλίων που περιέχουν περισσότερο "
+"πιθανό κείμενο."
 
 #: C/dasher.xml:226(para)
 msgid ""
 "Here is the corresponding sequence of pictures of the library in Dasher. "
 "(The character <quote>_</quote>; denotes the space character.)"
 msgstr ""
+"Εδώ βλέπετε την αλληλουχία χαρακτήρων της βιβλιοθήκης του Dasher. (Ο "
+"χαρακτήρας <quote>_</quote> αντιστοιχεί στο διάστημα.)"
 
 #. \begin{center}
 #. \begin{tabular}{ccc}
@@ -431,6 +564,9 @@ msgid ""
 "Dasher can be trained on examples of any writing style, and it learns all "
 "the time, picking up your personal turns of phrase."
 msgstr ""
+"Μπορείτε να εκπαιδεύσετε το Dasher χρησιμοποιώντας παραδείγματα από "
+"οποιοδήποτε στυλ γραφής. Παράλληλα, το Dasher μαθαίνει συνεχώς και "
+"απομνημονεύει τις προσωπικές σας εκφράσεις."
 
 #: C/dasher.xml:256(para)
 msgid ""
@@ -438,10 +574,13 @@ msgid ""
 "writing the word `objection'; alternative words that could easily be written "
 "at this point include `objective', `objects_', and `object_oriented'."
 msgstr ""
+"Η παρακάτω εικόνα δείχνει το παράθυρο του Dasher ενώ ο χρήστης γράφει τη "
+"λέξη 'objection'. Άλλες λέξεις που θα μπορούσαν να εισαχθούν σε αυτή τη φάση "
+"είναι οι 'objective', 'objects_', και 'object_oriented'."
 
 #: C/dasher.xml:260(title)
 msgid "Writing `objection' in Dasher."
-msgstr ""
+msgstr "Γράφοντας 'objection' στο Dasher."
 
 #: C/dasher.xml:268(para)
 msgid ""
@@ -449,10 +588,13 @@ msgid ""
 "take a look at the movies on <ulink url=\"http://www.dasher.org.uk/\" type="
 "\"http\">www.dasher.org.uk</ulink>."
 msgstr ""
+"Αν δυσκολεύεστε να φανταστείτε το Dasher με βάση αυτές τις στατικές εικόνες, "
+"παρακαλούμε δείτε τα βίντεο στο <ulink url=\"http://www.dasher.org.uk/\" "
+"type=\"http\">www.dasher.org.uk</ulink>."
 
 #: C/dasher.xml:276(title)
 msgid "Tips for novices"
-msgstr ""
+msgstr "Συμβουλές για αρχαρίους"
 
 #: C/dasher.xml:277(para)
 msgid ""
@@ -469,6 +611,19 @@ msgid ""
 "by dragging either. <emphasis>Do not try to grab things and drag them. Just "
 "decide where you want to go, and point there.</emphasis>"
 msgstr ""
+"Μην εγκαταλείψετε την προσπάθεια αν δεν τα καταφέρετε στα πρώτα ένα δύο "
+"λεπτά - μετά από δέκα λεπτά θα προχωράτε ακάθεκτοι. Μοιάζει λίγο με την "
+"οδήγηση. Στην αρχή, <emphasis>πρέπει να οδηγείτε προσεκτικά</emphasis>. Αν "
+"δεν βλέπετε πού πάτε, <emphasis>σταματήστε</emphasis>. Ουσιαστικά, ίσως να "
+"εξοικειωθείτε ταχύτερα με το Dasher, αν το σκέφτεστε ως οδήγηση αυτοκινήτου "
+"αντί για χρήση υπολογιστή. Π.χ., μη σκέφτεστε την πλοήγηση ως ΣΥΡΣΙΜΟ αλλά "
+"ως ΟΔΗΓΗΣΗ. Αν τα αυτοκίνητα λειτουργούσαν ως υπολογιστές, θα έπρεπε να "
+"<quote>αρπάζετε</quote> το κομμάτι του δρόμου όπου θέλετε να πάτε και να το "
+"<quote>σέρνετε</quote> προς το μέρος σας. Όμως, αυτό που κάνετε είναι ότι, "
+"αν θέλετε να πάτε δεξιά, ΔΕΙΧΝΕΤΕ ΔΕΞΙΑ με το τιμόνι σας. Ομοίως, ούτε και "
+"το Dasher χρησιμοποιεί το σύρσιμο. <emphasis>Δεν αρπάζετε και σέρνετε "
+"πράγματα. Απλά, αποφασίζετε που θέλετε να πάτε και δείχνετε προς τη σωστή "
+"κατεύθυνση</emphasis>."
 
 #: C/dasher.xml:288(para)
 msgid ""
@@ -483,6 +638,16 @@ msgid ""
 "<quote>all</quote>; section <emphasis>within</emphasis> the <quote>al</"
 "quote>; section."
 msgstr ""
+"<emphasis>Το πιο σημαντικό πράγμα</emphasis> που πρέπει να κατανοήσει ο "
+"αρχάριος χρήστης είναι ότι πρέπει πάντα να συνεχίζει να κινείται "
+"<emphasis>μέσα</emphasis> στο κείμενο που έχει ήδη γράψει: για να επιλέξετε "
+"ένα βιβλίο με πρώτη λέξη τη λέξη <quote>όλα</quote>, <emphasis>δεν</"
+"emphasis> πρέπει να μπείτε στο τμήμα του <quote>ό</quote> στη βιβλιοθήκη και "
+"μετά να βγείτε και να μπείτε στο τμήμα του <quote>λ</quote>. Πρέπει να "
+"μπείτε στο τμήμα του <quote>ό</quote>, μετά να βρείτε το τμήμα του "
+"<quote>όλ</quote> <emphasis>μέσα</emphasis> στο <quote>ό</quote>, και τέλος "
+"να βρείτε το τμήμα <quote>όλα</quote> <emphasis>μέσα</emphasis> στο "
+"<quote>όλ</quote>."
 
 #: C/dasher.xml:298(para)
 msgid ""
@@ -496,6 +661,14 @@ msgid ""
 "<quote><computeroutput>Al</computeroutput></quote>; section, you never leave "
 "it."
 msgstr ""
+"Ακριβώς όπως βρίσκετε ένα όνομα στον τηλεφωνικό κατάλογο. Για να βρείτε την "
+"<quote><computeroutput>Αλίκη</computeroutput></quote>, δεν πηγαίνετε πρώτα "
+"στο <quote><computeroutput>Α</computeroutput></quote> και μετά στο "
+"<quote><computeroutput>Λ</computeroutput></quote>· πηγαίνετε στο "
+"<quote><computeroutput>Α</computeroutput></quote> και μετά βρίσκετε το "
+"<quote><computeroutput>Αλ</computeroutput></quote> <emphasis>εντός του</"
+"emphasis>, κοκ. Από τη στιγμή που θα μπείτε στο <quote><computeroutput>Αλ</"
+"computeroutput></quote>, δεν φεύγετε από αυτό το τμήμα."
 
 #: C/dasher.xml:311(para)
 msgid ""
@@ -508,6 +681,14 @@ msgid ""
 "letters `are', even if this takes the mouse across the unwanted grey `i' "
 "square.)"
 msgstr ""
+"<emphasis>Το δεύτερο σημαντικότερο πράγμα</emphasis> είναι ότι το κείμενο "
+"που θα γράψετε εξαρτάται <emphasis>μόνο</emphasis> από το πού θα καταλήξετε "
+"μέσα στη βιβλιοθήκη και όχι από το πώς θα φτάσετε εκεί. Άρα, δεν χρειάζεται "
+"να οδηγείτε με απόλυτη ακρίβεια μέχρι να φτάσετε στον προορισμό σας. "
+"<emphasis>Μπορείτε να κόβετε δρόμο</emphasis>. (Π.χ., στην προηγούμενη "
+"εικόνα, αν θέλατε να γράψετε 'objects_are', θα μπορούσατε να μετακινήσετε το "
+"ποντίκι απευθείας στο 'are', χωρίς να πειράζει πού το ποντίκι περνάει από το "
+"γκρίζο τετράγωνο με το 'i'."
 
 #: C/dasher.xml:321(para)
 msgid ""
@@ -524,16 +705,29 @@ msgid ""
 "must be on the basis of the letters you <emphasis>can</emphasis> see. Then "
 "point to the right place and enter the second letter's square."
 msgstr ""
+"<emphasis>Συχνά λάθη.</emphasis> Συχνά, οι αρχάριοι, προσπαθώντας να βρουν "
+"ένα γράμμα, προχωρούν γρήγορα ενώ ψάχνουν. Όμως, για το Dasher ισχύει ό,τι "
+"και για το αυτοκίνητο: δεν προχωράμε μπροστά, αν δεν έχουμε βρει πού θέλουμε "
+"να πάμε! Οπότε, αφού βρείτε το πρώτο γράμμα της πρότασής σας και εστιάσετε "
+"σε αυτό, <emphasis>ΕΠΙΒΡΑΔΥΝΕΤΕ, και μην προχωρήσετε άλλο μέσα στο "
+"τετράγωνό, αν δεν εντοπίσετε προς τα πού πρέπει να κατευθυνθείτε</emphasis>. "
+"Το επόμενο γράμμα <emphasis>βρίσκεται</emphasis> εκεί, μέσα στο πρώτο "
+"τετράγωνο στο οποίο μπήκατε. Τα γράμματα είναι ταξινομημένα με αλφαβητική "
+"σειρά. Αν δεν βλέπετε το γράμμα που ψάχνετε, μαντέψτε πού βρίσκεται με βάση "
+"τα γράμματα που <emphasis>μπορείτε</emphasis> να δείτε. Στη συνέχεια, δείξτε "
+"το κατάλληλο σημείο και θα εισέλθετε στο τετράγωνο του δεύτερου γράμματος."
 
 #: C/dasher.xml:333(title)
 msgid "Example"
-msgstr ""
+msgstr "Παράδειγμα"
 
 #: C/dasher.xml:335(title)
 msgid ""
 "Writing <quote><computeroutput>I once had a whim</computeroutput></quote>;. "
 "Where should the user steer now?"
 msgstr ""
+"Γράφετε <quote><computeroutput>I once had a whim</computeroutput></quote>. "
+"Προς τα πού πρέπει να κατευθυνθείτε τώρα;"
 
 #: C/dasher.xml:344(para)
 msgid ""
@@ -549,12 +743,25 @@ msgid ""
 "`<computeroutput>b</computeroutput>', and `<computeroutput>c</"
 "computeroutput>' above it."
 msgstr ""
+"Έστω ότι θέλετε να γράψετε '<computeroutput>I once had a whim</"
+"computeroutput>'. Γράφετε '<computeroutput>I once ha...</computeroutput>' "
+"και το παράθυρο του Dasher έχει την εξής εμφάνιση <xref linkend=\"figHad1\"/"
+">. Θέλετε όμως να γράψετε '<computeroutput>had</computeroutput>'. Τι πρέπει "
+"να κάνετε; Υπάρχουν πολλά <computeroutput>d</computeroutput> στην οθόνη, "
+"αλλά είναι όλα αρκετά μικρά. Τα πέντε βέλη στην <xref linkend=\"figHad1\"/> "
+"δείχνουν ορισμένα <computeroutput>d</computeroutput>. Το μοβ βέλος δείχνει "
+"ένα <computeroutput>d</computeroutput> που δε φαίνεται ακόμη, αλλά που "
+"γνωρίζουμε ότι υπάρχει, καθώς βλέπουμε τα '<computeroutput>a</"
+"computeroutput>', '<computeroutput>b</computeroutput>' και "
+"'<computeroutput>c</computeroutput>' που προηγούνται."
 
 #: C/dasher.xml:354(title)
 msgid ""
 "Some alternative letter <computeroutput>d</computeroutput>s, with a "
 "beginner's error highlighted"
 msgstr ""
+"Ορισμένα εναλλακτικά <computeroutput>d</computeroutput>, με επισημασμένο ένα "
+"πιθανό λάθος αρχαρίου"
 
 #: C/dasher.xml:362(para)
 msgid ""
@@ -564,11 +771,16 @@ msgid ""
 "shows what happens if the user zooms towards the <computeroutput>d</"
 "computeroutput> highlighted in <xref linkend=\"figHad2\"/>."
 msgstr ""
+"Ένα συνηθισμένο λάθος αρχαρίων είναι ότι τρέχουν συνεχώς προς τα εμπρός και "
+"εστιάζουν σε <emphasis>οποιοδήποτε</emphasis> <computeroutput>d</"
+"computeroutput> βρουν στο δρόμο τους. Π.χ., η <xref linkend=\"figHad3\"/> "
+"δείχνει τι θα συμβεί αν ο χρήστης εστιάσει στο <computeroutput>d</"
+"computeroutput> που είχε επισημανθεί στην <xref linkend=\"figHad2\"/>."
 
 #: C/dasher.xml:367(title)
 msgid ""
 "What happens when you select the wrong <computeroutput>d</computeroutput>"
-msgstr ""
+msgstr "Τι θα συμβεί αν επιλέξετε λάθος <computeroutput>d</computeroutput>"
 
 #: C/dasher.xml:376(para)
 msgid ""
@@ -583,6 +795,16 @@ msgid ""
 "        </computeroutput><emphasis>hedge</emphasis><computeroutput>...</"
 "computeroutput>'."
 msgstr ""
+"Αν μπείτε στο τετράγωνο αυτού του <computeroutput>d</computeroutput>, θα "
+"γράψετε '<computeroutput>I\n"
+"          once </computeroutput><emphasis>head</emphasis><computeroutput>..."
+"</computeroutput>'. Τα άλλα δύο <computeroutput>d</computeroutput> που είχαν "
+"σημειωθεί με κόκκινα βέλη (στην <xref linkend=\"figHad1\"/>) αντιστοιχούν "
+"στο '<computeroutput>I once\n"
+"          </computeroutput><emphasis>heard</emphasis><computeroutput>...</"
+"computeroutput>' και στο '<computeroutput>I once\n"
+"        </computeroutput><emphasis>hedge</emphasis><computeroutput>...</"
+"computeroutput>'."
 
 #: C/dasher.xml:385(para)
 msgid ""
@@ -593,6 +815,11 @@ msgid ""
 "`<computeroutput>I once ha</computeroutput>'. That blue box is highlighted "
 "in <xref linkend=\"figHad4\"/>."
 msgstr ""
+"Είναι σημαντικό να καταλάβετε ότι υπάρχει ένα μόνο σωστό <computeroutput>d</"
+"computeroutput>, το <computeroutput>d</computeroutput> που βρίσκεται μέσα "
+"στο γαλάζιο τετράγωνο που αντιστοιχεί στο γράμμα '<computeroutput>a</"
+"computeroutput>' της φράσης '<computeroutput>I once ha</computeroutput>'. "
+"Στην <xref linkend=\"figHad4\"/> έχει επισημανθεί αυτό το γαλάζιο τετράγωνο."
 
 #: C/dasher.xml:391(title)
 msgid ""
@@ -602,42 +829,56 @@ msgid ""
 "blue box associated with the letter <computeroutput>a</computeroutput> of "
 "the word <quote><computeroutput>had</computeroutput></quote>;"
 msgstr ""
+"Το σωστό <computeroutput>d</computeroutput> έχει σημειωθεί με ένα πράσινο "
+"βέλος. Αυτό το παράδειγμα εξηγεί τι εννοούμε όταν λέμε ότι πρέπει να "
+"<quote>προχωράτε πάντα <emphasis>μέσα</emphasis> στο τετράγωνο που σας "
+"ενδιαφέρει</quote>· σε αυτή την περίπτωση, σας ενδιαφέρει το γαλάζιο "
+"τετράγωνο που αντιστοιχεί στο γράμμα <computeroutput>a</computeroutput> της "
+"λέξης <quote><computeroutput>had</computeroutput></quote>."
 
 #: C/dasher.xml:404(para)
 msgid ""
 "If you ever leave that blue box (as we did in <xref linkend=\"figHad3\"/>) "
 "then we lose the letter `<computeroutput>a</computeroutput>'."
 msgstr ""
+"Αν βγείτε από το γαλάζιο τετράγωνο (όπως στην <xref linkend=\"figHad3\"/>), "
+"τότε θα χάσετε το γράμμα '<computeroutput>a</computeroutput>'."
 
 #: C/dasher.xml:409(title)
 msgid "Summary"
-msgstr ""
+msgstr "Περίληψη"
 
 #: C/dasher.xml:411(emphasis)
 msgid "Don't click. Don't drag. And don't speed."
-msgstr ""
+msgstr "Μην κάνετε κλικ. Μη σέρνετε. Και μην τρέχετε."
 
 #: C/dasher.xml:416(title)
 msgid "What do the colours mean?"
-msgstr ""
+msgstr "Τι σημαίνουν τα χρώματα;"
 
 #: C/dasher.xml:419(para)
 msgid ""
 "<emphasis>white</emphasis> squares contain the space characters (always "
 "placed at the bottom of the alphabet);"
 msgstr ""
+"τα <emphasis>λευκά</emphasis> τετράγωνα περιέχουν τα διαστήματα (πάντα στο "
+"τέλος του αλφαβήτου)·"
 
 #: C/dasher.xml:424(para)
 msgid ""
 "a special <emphasis>yellow</emphasis> box contains the upper case characters "
 "[A-Z];"
 msgstr ""
+"ένα ειδικό <emphasis>κίτρινο</emphasis> τετράγωνο περιλαμβάνει τα κεφαλαία "
+"γράμματα [Α-Ω]·"
 
 #: C/dasher.xml:429(para)
 msgid ""
 "a <emphasis>red</emphasis> box contains numerals [0-9] (if the full alphabet "
 "is enabled);"
 msgstr ""
+"Ένα <emphasis>κόκκινο</emphasis> τετράγωνο περιέχει τους αριθμούς [0-9] (αν "
+"έχει ενεργοποιηθεί το πλήρες αλφάβητο)·"
 
 #: C/dasher.xml:434(para)
 msgid ""
@@ -647,34 +888,49 @@ msgid ""
 "punctuation section, letters with similar roles are coloured similarly: "
 "punctuation characters similar to the period [.,;:-] are coloured slate-blue;"
 msgstr ""
+"ένα <emphasis>πράσινο</emphasis> τετράγωνο περιέχει τα σημεία στίξης (με τα "
+"σημεία στίξης που είναι πιο συγγενικά στο διάστημα [.,·:-] να εμφανίζονται "
+"στο τέλος, δίπλα στο <emphasis>λευκό</emphasis> τετράγωνο του διαστήματος. "
+"Εντός του τετραγώνου με τα σημεία στίξης, τα σημεία που έχουν παρόμοια χρήση "
+"έχουν και το ίδιο χρώμα: τα σημεία στίξης που είναι σχετικά με την τελεία [.,"
+"·:-] έχουν μπλε χρώμα·"
 
 #: C/dasher.xml:441(para)
 msgid ""
 "the other colours are included simply to discriminate the squares from each "
 "other."
 msgstr ""
+"τα άλλα χρώματα χρησιμοποιούνται απλά για να μπορείτε να διακρίνετε τα "
+"τετράγωνα μεταξύ τους."
 
 #: C/dasher.xml:445(para)
 msgid ""
 "In languages with accents (grave, acute, circumflex, etc), the accents are "
 "displayed in an <emphasis>orange</emphasis> box."
 msgstr ""
+"Στις γλώσσες που χρησιμοποιούν τόνους (ψιλή, δασεία, περισπωμένη, κτλ) οι "
+"τόνοι περιέχονται σε ένα <emphasis>πορτοκαλί</emphasis> τετράγωνο."
 
 #: C/dasher.xml:449(para)
 msgid ""
 "In the Japanese version of Dasher, colours are used to distinguish the "
 "different hiragana groups (eg ka,ki,ku,ke,ko are orange)."
 msgstr ""
+"Στην ιαπωνική έκδοση του Dasher, τα χρώματα χρησιμοποιούνται για τη διάκριση "
+"μεταξύ διαφορετικών ομάδων hiragana (π.χ., τα ka,ki,ku,ke,ko είναι "
+"πορτοκαλί)."
 
 #: C/dasher.xml:453(para)
 msgid ""
 "In the Korean version of Dasher, three different colours are used to "
 "distinguish initial consonants, vowels, and terminal consonants."
 msgstr ""
+"Στην κορεατική έκδοση του Dasher, χρησιμοποιούνται τρία διαφορετικά χρώματα "
+"για να διακρίνουν μεταξύ αρχικών συμφώνων, φωνηέντων και τελικών συμφώνων."
 
 #: C/dasher.xml:417(para)
 msgid "In the English-language desktop version 3 of Dasher, <placeholder-1/>"
-msgstr ""
+msgstr "Στην αγγλική έκδοση 3 του Dasher, <placeholder-1/>"
 
 #: C/dasher.xml:458(para)
 msgid ""
@@ -682,10 +938,14 @@ msgid ""
 "computeroutput> and <computeroutput>alphabet</computeroutput> xml files, as "
 "described in <xref linkend=\"personalising\"/>."
 msgstr ""
+"Μπορείτε να χρησιμοποιήσετε χρώματα της αρεσκείας σας, τροποποιώντας τα "
+"αρχεία xml <computeroutput>colour</computeroutput> και "
+"<computeroutput>alphabet</computeroutput>, όπως περιγράφεται στην <xref "
+"linkend=\"personalising\"/>."
 
 #: C/dasher.xml:463(title)
 msgid "How to start dasher (version 4)"
-msgstr ""
+msgstr "Εκκίνηση του Dasher (έκδοση 4)"
 
 #: C/dasher.xml:464(para)
 msgid ""
@@ -694,6 +954,11 @@ msgid ""
 "these two will work.] Repeat this action (click or space), when you are "
 "finished, to stop dasher from dashing. Your computer's mouse controls Dasher."
 msgstr ""
+"Εκκινήστε την εφαρμογή dasher. Όταν εμφανιστεί το παράθυρο, κάντε αριστερό "
+"κλικ με το ποντίκι ή πατήστε διάστημα για να ξεκινήσετε. [Ένας από τους δύο "
+"τρόπους θα δουλέψει σίγουρα.] Επαναλάβετε την ίδια ενέργεια (κλικ ή "
+"διάστημα) αφού τελειώσετε, για να διακόψετε το Dasher. Το Dasher ελέγχεται "
+"από το ποντίκι του υπολογιστή σας."
 
 #: C/dasher.xml:469(para)
 msgid ""
@@ -701,16 +966,22 @@ msgid ""
 "speed of 1 is good for a beginner, increasing to 2 after 5 minutes' "
 "practice, and to 4 when you are expert."
 msgstr ""
+"Ρυθμίστε τη μέγιστη ταχύτητα εστίασης. Για τους αρχάριους το 1 είναι μια "
+"καλή ταχύτητα, αυξανόμενη σε 2 μετά από 5 λεπτά εξάσκησης και καταλήγοντας "
+"σε 4 για τους έμπειρους χρήστες."
 
 #: C/dasher.xml:474(title)
 msgid "How to start dasher (version 2) on pocket PC"
-msgstr ""
+msgstr "Εκκίνηση του Dasher (έκδοση 2) σε υπολογιστή τσέπης"
 
 #: C/dasher.xml:475(para)
 msgid ""
 "Install, run (wait a few seconds for it to load up the training file), then "
 "touch the screen with the stylus to make dasher move."
 msgstr ""
+"Εγκαταστήστε την εφαρμογή, εκκινήστε τη (περιμένετε κάποια δευτερόλεπτα για "
+"να φορτωθεί το αρχείο εκπαίδευσης), και στη συνέχεια αγγίξτε την οθόνη με τη "
+"γραφίδα για να ξεκινήσετε να χρησιμοποιείτε το dasher."
 
 #: C/dasher.xml:478(para)
 msgid ""
@@ -720,10 +991,15 @@ msgid ""
 "alphabet. (Uppercase Alphabet, Numerals (in some releases only), and "
 "Punctuation.)"
 msgstr ""
+"Σε αυτή την έκδοση του Dasher υπάρχουν τρία ειδικά τετράγωνα, χρωματισμένα "
+"με έντονα χρώματα: κίτρινο, κόκκινο (σε ορισμένες εκδόσεις) και πράσινο. "
+"Αυτά τα τρία τετράγωνα δεν αντιστοιχούν σε κάποιο χαρακτήρα· απλά, "
+"υποδηλώνουν συγκεκριμένες υποομάδες του αλφαβήτου (κεφαλαία, αριθμοί (σε "
+"ορισμένες εκδόσεις) και σημεία στίξης)."
 
 #: C/dasher.xml:771(title)
 msgid "How to use Dasher in real life"
-msgstr ""
+msgstr "Χρήση του Dasher στην καθημερινή σας ζωή"
 
 #: C/dasher.xml:773(para)
 msgid ""
@@ -732,10 +1008,16 @@ msgid ""
 "with Dasher is to have the person you're talking to watch the screen as you "
 "write. But there are lots of other ways to communicate through Dasher."
 msgstr ""
+"Μπορείτε να χρησιμοποιείτε το Dasher για να επικοινωνείτε μέσω του "
+"υπολογιστή σας και (σε κάποιο βαθμό) για να ελέγχετε τον υπολογιστή σας. "
+"Προφανώς, ο απλούστερος τρόπος να χρησιμοποιήσετε το Dasher για να "
+"επικοινωνήσετε είναι να ζητήσετε από το άτομο με το οποίο συζητάτε να "
+"παρακολουθεί την οθόνη. Αλλά υπάρχουν και πολλοί άλλοι τρόποι για να "
+"επικοινωνήσετε μέσω του Dasher."
 
 #: C/dasher.xml:779(title)
 msgid "Copy to clipboard"
-msgstr ""
+msgstr "Αντιγραφή στο πρόχειρο"
 
 #: C/dasher.xml:781(para)
 msgid ""
@@ -744,16 +1026,24 @@ msgid ""
 "computer's clipboard. You can then use the `Paste' function of another "
 "application to transfer what you've written."
 msgstr ""
+"Αν έχετε ενεργοποιήσει τη λειτουργία 'αντιγραφή στη διακοπή', τότε κάθε φορά "
+"που διακόπτετε το Dasher, τα περιεχόμενα του πλαισίου κειμένου του Dasher "
+"αντιγράφονται αυτόματα στο πρόχειρο του υπολογιστή σας. Μπορείτε στη "
+"συνέχεια να χρησιμοποιήσετε τη λειτουργία 'Επικόλλησης' μιας δεύτερης "
+"εφαρμογής για να μεταφέρετε το κείμενό σας σε αυτή."
 
 #: C/dasher.xml:787(title)
 msgid "Speaking"
-msgstr ""
+msgstr "Ομιλία"
 
 #: C/dasher.xml:789(para)
 msgid ""
 "Dasher connects to your computer's built-in text-to-speech system. There are "
 "several ways to use Dasher for speaking."
 msgstr ""
+"Το Dasher συνδέεται στο ενσωματωμένο σύστημα μετατροπής κειμένου σε ομιλία "
+"του υπολογιστή σας. Υπάρχουν διάφοροι τρόποι με τους οποίους μπορείτε να "
+"χρησιμοποιήσετε το Dasher για την παραγωγή ομιλίας."
 
 #: C/dasher.xml:792(para)
 msgid ""
@@ -761,12 +1051,18 @@ msgid ""
 "the end of a word (by entering a space character for example), that word "
 "gets spoken immediately."
 msgstr ""
+"Μπορείτε να επιλέξετε την 'εκφώνηση κάθε λέξης': κάθε φορά που φτάνετε στο "
+"τέλος μιας λέξης (π.χ., όταν εισάγετε ένα διάστημα), αμέσως εκφωνείται η "
+"λέξη αυτή."
 
 #: C/dasher.xml:795(para)
 msgid ""
 "You can also choose to have Dasher `speak on stop': every time you stop "
 "Dasher moving, everything that is in the text box gets spoken."
 msgstr ""
+"Μπορείτε επίσης να επιλέξετε την 'εκφώνηση στη διακοπή': κάθε φορά που "
+"σταματάτε την κίνηση του Dasher, εκφωνούνται όλα τα περιεχόμενα του πλαισίου "
+"κειμένου."
 
 #: C/dasher.xml:798(para)
 msgid ""
@@ -780,10 +1076,22 @@ msgid ""
 "wrote since the last utterance), and `speak again' (which re-speaks whatever "
 "was last spoken)."
 msgstr ""
+"Τέλος, μπορείτε να επιλέγετε ακριβώς πότε θα γίνεται η εκφώνηση, "
+"χρησιμοποιώντας τη <emphasis>Λειτουργία ελέγχου</emphasis> (η επιλογή "
+"βρίσκεται στο μενού προτιμήσεων/επιλογών της έκδοσης 4 του Dasher). Αυτή η "
+"λειτουργία προσθέτει ένα ακόμη τετράγωνο, γκρι χρώματος, στο αλφάβητο του "
+"Dasher. Το τετράγωνο αυτό λειτουργεί περίπου όπως και το πλήκτρο escape στο "
+"πληκτρολόγιο. Περιέχει διάφορες επιλογές ελέγχου: Stop (διακοπή: κόκκινο), "
+"pause (παύση: κίτρινο), Move (μετακίνηση), Delete (διαγραφή) και Speak "
+"(εκφώνηση). Εντός του τετραγώνου Speak περιέχονται οι επιλογές 'speak "
+"everything (εκφώνηση όλων)', 'speak new (εκφώνηση νέων)' (μόνο οι λέξεις που "
+"εισήχθησαν μετά την τελευταία εκφώνηση) και 'speak again (επανάληψη "
+"εκφώνησης)' (που επαναλαμβάνει το κείμενο που είχε εκφωνηθεί την τελευταία "
+"φορά)."
 
 #: C/dasher.xml:808(title)
 msgid "Save to file"
-msgstr ""
+msgstr "Αποθήκευση σε αρχείο"
 
 #: C/dasher.xml:810(para)
 msgid ""
@@ -791,10 +1099,14 @@ msgid ""
 "clicking the `Save file' icon in the icon bar, or using the menus at the top "
 "of the Dasher window (selecting File then Save)."
 msgstr ""
+"Μπορείτε να αποθηκεύσετε όλο το περιεχόμενο του πλαισίου κειμένου του Dasher "
+"ως αρχείο απλού κειμένου, κάνοντας κλικ στο εικονίδιο 'Αποθήκευση αρχείου' "
+"της εργαλειοθήκης, ή χρησιμοποιώντας τα μενού στο πάνω μέρος του παραθύρου "
+"(επιλέγοντας Αρχείο και μετά Αποθήκευση)."
 
 #: C/dasher.xml:816(title)
 msgid "Send text to other window"
-msgstr ""
+msgstr "Αποστολή κειμένου σε άλλο παράθυρο"
 
 #: C/dasher.xml:818(para)
 msgid ""
@@ -802,10 +1114,14 @@ msgid ""
 "another window. Enable the `send text to other window' option under the "
 "options menu. Then the window that you select will get Dasher's output."
 msgstr ""
+"Μπορείτε επίσης να στέλνετε απευθείας ό,τι έχετε γράψει στο Dasher σε άλλο "
+"παράθυρο. Ενεργοποιήστε την επιλογή 'αποστολή κειμένου σε άλλο παράθυρο' από "
+"το μενού προτιμήσεων/επιλογών. Το παράθυρο που επιλέξατε θα λαμβάνει το "
+"κείμενο του Dasher."
 
 #: C/dasher.xml:827(title)
 msgid "Font sizes"
-msgstr ""
+msgstr "Μεγέθη Γραμματοσειρών"
 
 #: C/dasher.xml:829(para)
 msgid ""
@@ -819,10 +1135,20 @@ msgid ""
 "which offers three to choose from, named something like: small, medium, and "
 "large."
 msgstr ""
+"Το Dasher διαθέτει ένα πλαίσιο κειμένου (όπου εμφανίζεται το κείμενο) και "
+"τον καμβά του Dasher (όπου παίζετε με τις εστιάσεις). Μπορείτε να αλλάξετε "
+"το μέγεθος των γραμματοσειρών και για τις δύο αυτές περιοχές, "
+"χρησιμοποιώντας τα μενού στο πάνω μέρος του παραθύρου του Dasher. Οι δύο "
+"γραμματοσειρές ονομάζονται 'Γραμματοσειρά επεξεργαστή' (πλαίσιο κειμένου) "
+"και 'Γραμματοσειρά Dasher' (καμβάς). Για να αλλάξετε το μέγεθος της "
+"γραμματοσειράς επεξεργαστή, χρησιμοποιείτε τον κλασικό διάλογο. Για να "
+"αλλάξετε τη γραμματοσειρά του καμβά του Dasher, βρίσκετε την επιλογή "
+"'Γραμματοσειρά Dasher' και επιλέγετε ένα από τα τρία διαθέσιμα μεγέθη "
+"(μικρή, μεγάλη και πολύ μεγάλη γραμματοσειρά)."
 
 #: C/dasher.xml:840(title)
 msgid "Personalizing Dasher"
-msgstr ""
+msgstr "Προσαρμογή του Dasher στις προτιμήσεις σας"
 
 #: C/dasher.xml:841(para)
 msgid ""
@@ -831,10 +1157,14 @@ msgid ""
 "<computeroutput>colour</computeroutput> files, and <computeroutput>training</"
 "computeroutput> files."
 msgstr ""
+"Υπάρχουν τρεις τύποι αρχείων που μπορείτε να τροποποιήσετε για να βελτιώσετε "
+"τη λειτουργία του Dasher: αρχεία <computeroutput>alphabet (αλφαβήτου)</"
+"computeroutput>, <computeroutput>colour (χρωμάτων)</computeroutput>, και "
+"<computeroutput>training (εκπαίδευσης)</computeroutput>."
 
 #: C/dasher.xml:846(title)
 msgid "Personalizing the language model"
-msgstr ""
+msgstr "Προσαρμογή του μοντέλου γλώσσας"
 
 #: C/dasher.xml:847(para)
 msgid ""
@@ -844,6 +1174,11 @@ msgid ""
 "txt</filename>. This is 300 kbytes of ordinary english harvested from "
 "various documents on the internet."
 msgstr ""
+"Οι προβλέψεις του Dasher (έκδοση 3) δεν βασίζονται σε λεξικό, αλλά σε ένα "
+"απλό κείμενο που χρησιμοποιείται ως κείμενο εκπαίδευσης. Π.χ., η έκδοση 3 "
+"του Dasher συνοδεύεται από ένα αρχείο με όνομα <filename>training_english_GB."
+"txt</filename>. Πρόκειται για 300 kb απλών Αγγλικών, προερχόμενων από "
+"διάφορα έγγραφα που συλλέχθηκαν από το διαδίκτυο."
 
 #: C/dasher.xml:857(para)
 msgid ""
@@ -852,6 +1187,11 @@ msgid ""
 "your own pet phrases, friends' names, and so forth. Either append this file "
 "to the training file, or replace the original training file."
 msgstr ""
+"Αν μπορείτε, προμηθεύστε το Dasher με ένα κείμενο εκπαίδευσης στο ύφος σας "
+"-- ένα αρχείο απλού κειμένου αποτελούμενο από έγγραφα που γράψατε στο "
+"παρελθόν και το οποίο θα περιλαμβάνει τις αγαπημένες σας εκφράσεις, τα "
+"ονόματα των φίλων σας, κτλ. Μπορείτε να προσθέσετε αυτό το αρχείο στο αρχικό "
+"αρχείο εκπαίδευσης, ή να αντικαταστήσετε το αρχικό αρχείο."
 
 #: C/dasher.xml:863(para)
 msgid ""
@@ -859,6 +1199,10 @@ msgid ""
 "rubbish text, edit it using any plain text editor. (Or ask a friend to do "
 "this for you.)"
 msgstr ""
+"Αν φοβάστε ότι το προσωπικό σας αρχείο εκπαίδευσης έχει φθαρεί και έχουν "
+"συμπεριληφθεί ακαταλαβίστικες φράσεις, μπορείτε να το διορθώσετε "
+"χρησιμοποιώντας οποιονδήποτε επεξεργαστή απλού κειμένου (ή να ζητήσετε από "
+"έναν φίλο σας να το διορθώσει)."
 
 #: C/dasher.xml:868(para)
 msgid ""
@@ -866,6 +1210,10 @@ msgid ""
 "large that Dasher becomes slow to start up; if so, edit the training file "
 "using a plain text editor."
 msgstr ""
+"Αν χρησιμοποιείτε το Dasher για πολλούς μήνες, το προσωπικό σας αρχείο "
+"εκπαίδευσης μπορεί να καταλήξει υπερβολικά μεγάλο, με αποτέλεσμα να "
+"καθυστερεί η εκκίνηση του Dasher. Σε αυτή την περίπτωση, τροποποιήστε το "
+"αρχείο χρησιμοποιώντας επεξεργαστή απλού κειμένου."
 
 #: C/dasher.xml:852(para)
 msgid ""
@@ -875,10 +1223,16 @@ msgid ""
 "predict better. Dasher learns all the time. To get the best results from "
 "Dasher: <placeholder-1/>"
 msgstr ""
+"Όταν χρησιμοποιείτε το Dasher, η εφαρμογή αποθηκεύει ό,τι γράφετε σε ένα "
+"προσωπικό αρχείο που έχει το ίδιο όνομα με το αρχείο εκπαίδευσης. Την "
+"επόμενη φορά που θα χρησιμοποιήσετε την εφαρμογή, το Dasher διαβάζει το "
+"αρχικό αρχείο εκπαίδευσης, καθώς και όλο το κείμενο που γράψατε την "
+"προηγούμενη φορά, προκειμένου να βελτιώσει τις προβλέψεις του. Το Dasher "
+"μαθαίνει συνεχώς. Για να επιτύχετε καλύτερα αποτελέσματα: <placeholder-1/>"
 
 #: C/dasher.xml:875(title)
 msgid "Personalizing the alphabet"
-msgstr ""
+msgstr "Προσαρμογή του αλφαβήτου"
 
 #: C/dasher.xml:876(para)
 msgid ""
@@ -895,10 +1249,25 @@ msgid ""
 "computeroutput>...); and the background colour number of the box for this "
 "symbol (<computeroutput>b=</computeroutput>...), of which more below."
 msgstr ""
+"Οι χαρακτήρες που έχετε στη διάθεσή σας, και η σειρά εμφάνισής τους, "
+"καθορίζονται από το αρχείο αλφαβήτου. Για παράδειγμα, μπορείτε να "
+"χρησιμοποιήσετε το αρχείο <filename>alphabet.english.xml</filename>. Το "
+"Dasher περιλαμβάνει πολλά εναλλακτικά αλφάβητα. Μπορείτε όμως να "
+"επεξεργαστείτε τα αρχεία αλφαβήτων για να αλλάξετε τους χαρακτήρες που "
+"περιέχονται ή τη σειρά τους. Όταν επεξεργάζεστε αυτά τα αρχεία xml, "
+"συνιστάται να αποθηκεύετε το νέο αρχείο με νέο όνομα και να αλλάζετε το "
+"όνομα του αλφαβήτου στο νέο αρχείο, ώστε να αποφευχθούν τυχόν παρανοήσεις. "
+"Κάθε πεδίο του αρχείου xml χρησιμοποιεί τρία στοιχεία για την περιγραφή ενός "
+"συμβόλου: το χαρακτήρα που <emphasis>εμφανίζεται</emphasis> στον καμβά "
+"(<computeroutput>d=</computeroutput>...), το χαρακτήρα που εισάγεται στο "
+"<emphasis>κείμενο</emphasis> όταν επιλεγεί το σύμβολο (<computeroutput>t=</"
+"computeroutput>...), και τον αριθμό χρώματος παρασκηνίου του τετραγώνου που "
+"θα περιέχει το σύμβολο (<computeroutput>b=</computeroutput>...). "
+"Περισσότερες λεπτομέρειες στη συνέχεια."
 
 #: C/dasher.xml:888(title)
 msgid "Personalizing the colour scheme"
-msgstr ""
+msgstr "Προσαρμογή του σχήματος χρωμάτων"
 
 #: C/dasher.xml:889(para)
 msgid ""
@@ -907,6 +1276,10 @@ msgid ""
 "xml</filename>) specifies the 200 colours in the palette that Dasher uses. "
 "Each line specifies red, green, blue values."
 msgstr ""
+"Υπάρχουν δύο τρόποι αλλαγής των χρωμάτων του Dasher. Το αρχείο χρωμάτων (π."
+"χ. <filename>colour.xml</filename> ή <filename>colour.euroasian.xml</"
+"filename>) ορίζει τα 200 χρώματα της παλέτας του Dasher. Κάθε γραμμή "
+"περιλαμβάνει τιμές για κόκκινο, πράσινο, μπλε."
 
 #: C/dasher.xml:894(para)
 msgid ""
@@ -916,20 +1289,28 @@ msgid ""
 "colour r=\"255\"\n"
 "          g=\"0\" b=\"0\"/&gt;</computeroutput>."
 msgstr ""
+"Αυτά τα χρώματα χρησιμοποιούνται για διάφορα αντικείμενα στο Dasher. Αν, π."
+"χ., επιθυμείτε να αλλάξετε το χρώμα της <quote>κόκκινης γραμμής</quote>, "
+"αλλάξτε τη δεύτερη γραμμή του αρχείου χρωμάτων, που περιέχει το "
+"<computeroutput>&lt;colour r=\"255\"\n"
+"          g=\"0\" b=\"0\"/&gt;</computeroutput>."
 
 #: C/dasher.xml:900(para)
 msgid ""
 "You can change which of these colours is used for each symbol's box by "
 "changing the <quote>b</quote>; field for that symbol in the alphabet file."
 msgstr ""
+"Μπορείτε να αλλάξετε το χρώμα που χρησιμοποιείται για το τετράγωνο κάθε "
+"συμβόλου, αν τροποποιήσετε το πεδίο <quote>b</quote> για το συγκεκριμένο "
+"σύμβολο στο αρχείο αλφαβήτου."
 
 #: C/dasher.xml:909(title)
 msgid "Languages"
-msgstr ""
+msgstr "Γλώσσες"
 
 #: C/dasher.xml:911(para)
 msgid "Dasher works in hundreds of languages."
-msgstr ""
+msgstr "Το Dasher λειτουργεί σε εκατοντάδες διαφορετικές γλώσσες."
 
 #: C/dasher.xml:913(para)
 msgid ""
@@ -938,6 +1319,11 @@ msgid ""
 "text for each language. If we don't have a good training text for your "
 "language, please help us by making one and sending it to us."
 msgstr ""
+"Για κάθε γλώσσα υπάρχει ένα αρχείο αλφαβήτου (και ενδεχομένως περισσότερα). "
+"Στόχος μας είναι να προσφέρουμε τουλάχιστον ένα κείμενο εκπαίδευσης για κάθε "
+"γλώσσα στην ιστοσελίδα του Dasher. Αν δεν έχουμε καλό κείμενο εκπαίδευσης "
+"για τη γλώσσα σας, παρακαλώ βοηθήστε μας, φτιάχνοντας και στέλνοντάς μας ένα "
+"κείμενο."
 
 #: C/dasher.xml:918(para)
 msgid ""
@@ -947,16 +1333,24 @@ msgid ""
 "only phonetic support (hiragana and pin-yin). In Dasher version 4, we will "
 "provide full support for Japanese and Chinese."
 msgstr ""
+"Ανατρέξτε στον ιστότοπο του Dasher για να δείτε τη λίστα των γλωσσών που "
+"υποστηρίζει το Dasher. Από τον Οκτώβριο του 2005 υποστηρίζονται όλες οι "
+"σημαντικές γλώσσες του κόσμου, με την εξαίρεση των Ιαπωνικών και των "
+"Κινεζικών, για τις οποίες η έκδοση 3 του Dasher υποστηρίζει μόνο φωνητική "
+"μεταγραφή ((hiragana και pin-yin). Ωστόσο, στην έκδοση 4 του Dasher θα "
+"υποστηρίζονται πλήρως τα Ιαπωνικά και τα Κινέζικα."
 
 #: C/dasher.xml:931(title)
 msgid "Dasher Special Needs Guide"
-msgstr ""
+msgstr "Οδηγός για ειδικές ανάγκες"
 
 #: C/dasher.xml:933(para)
 msgid ""
 "Dasher is designed on the principle of getting <emphasis>as much information "
 "as possible</emphasis> from the gestures you can make."
 msgstr ""
+"Το Dasher έχει σχεδιαστεί με στόχο να συλλέγει <emphasis>όσο το δυνατόν "
+"περισσότερες πληροφορίες</emphasis> από τις χειρονομίες σας."
 
 #: C/dasher.xml:938(para)
 msgid ""
@@ -964,12 +1358,17 @@ msgid ""
 "head mouse, or gaze tracker, for example) often achieve the highest rates of "
 "writing."
 msgstr ""
+"Οι <emphasis>συνεχείς</emphasis> χειρονομίες (π.χ. μέσω joystick, trackpad, "
+"ποντικιού κεφαλής ή ανιχνευτή κίνησης ματιού) συνήθως προσφέρουν υψηλότερες "
+"ταχύτητες γραφής."
 
 #: C/dasher.xml:943(para)
 msgid ""
 "<emphasis>Discrete</emphasis> gestures (switches, button presses) may be "
 "able to convey information in three different ways:"
 msgstr ""
+"Οι <emphasis>διακριτές</emphasis> χειρονομίες (διακόπτες, πατήματα κουμπιών) "
+"μπορούν να παρέχουν πληροφορίες με τρεις διαφορετικούς τρόπους:"
 
 #: C/dasher.xml:948(para)
 msgid ""
@@ -977,28 +1376,39 @@ msgid ""
 "information. (This idea is used in grid systems controlled by a single "
 "button.)"
 msgstr ""
+"Η <emphasis>χρονική στιγμή</emphasis> που πατάτε ένα κουμπί μπορεί να "
+"παρέχει πληροφορίες. (Αυτή η ιδιότητα χρησιμοποιείται από συστήματα πινάκων "
+"που ελέγχονται από ένα κουμπί.)"
 
 #: C/dasher.xml:953(para)
 msgid ""
 "<emphasis>How long</emphasis> you press a button for can convey information. "
 "(This idea is used in Morse code, where two durations are distinguished.)"
 msgstr ""
+"Η <emphasis>διάρκεια</emphasis> για την οποία πατάτε ένα κουμπί μπορεί να "
+"παρέχει πληροφορίες. (Αυτή η ιδιότητα χρησιμοποιείται στα σήματα Μορς, που "
+"διακρίνουν μεταξύ δύο διαφορετικών δυνατοτήτων για τη διάρκεια)."
 
 #: C/dasher.xml:958(para)
 msgid ""
 "The <emphasis>choice</emphasis> of <emphasis>which</emphasis> button you "
 "press can convey information. (This idea is used in ordinary keyboards.)"
 msgstr ""
+"Η <emphasis>επιλογή</emphasis> του <emphasis>ποιο</emphasis> κουμπί θα "
+"πατηθεί μπορεί να παρέχει πληροφορίες. (Αυτή η ιδιότητα χρησιμοποιείται στα "
+"κλασικά πληκτρολόγια)."
 
 #: C/dasher.xml:936(para)
 msgid ""
 "We can get information from whichever of the following is easiest for you: "
 "<placeholder-1/>"
 msgstr ""
+"Το Dasher μπορεί να συλλέγει πληροφορίες από την επιλογή που είναι "
+"περισσότερο εύκολη για εσάς: <placeholder-1/>"
 
 #: C/dasher.xml:966(title)
 msgid "Continuous gestures"
-msgstr ""
+msgstr "Συνεχείς χειρονομίες"
 
 #: C/dasher.xml:967(para)
 msgid ""
@@ -1006,6 +1416,10 @@ msgid ""
 "dimensional continuous steering gesture. Dasher also has a <emphasis>one-"
 "dimensional mode</emphasis>, for users who can control only one dimension."
 msgstr ""
+"Η κανονική λειτουργία του Dasher (<emphasis>λειτουργία ποντικιού</emphasis>) "
+"χρησιμοποιεί μια δισδιάστατη, συνεχή χειρονομία κατεύθυνσης. Το Dasher "
+"περιλαμβάνει επίσης μια <emphasis>μονοδιάστατη λειτουργία</emphasis>, για "
+"χρήστες που μπορούν να ελέγχουν μόνο μία διάσταση."
 
 #: C/dasher.xml:971(para)
 msgid ""
@@ -1026,6 +1440,24 @@ msgid ""
 "inference.phy.cam.ac.uk/dasher/Headmouse.html\" type=\"http\">http://www."
 "inference.phy.cam.ac.uk/dasher/Headmouse.html</ulink>."
 msgstr ""
+"Μπορείτε να κάνετε μία ή δύο συνεχείς χειρονομίες; Αν μπορείτε να "
+"χρησιμοποιείτε joystick, ποντίκι, trackpad ή rollerball, τότε διαθέτετε "
+"δισδιάστατο έλεγχο. Ομοίως αν μπορείτε να δείχνετε σε οθόνη αφής. Μπορείτε "
+"να κουνάτε τη μύτη σας; Αν μπορείτε να κουνάτε το κεφάλι σας, έχετε "
+"μονοδιάστατο έλεγχο· αν μπορείτε να γνέφετε καταφατικά, έχετε δισδιάστατο. "
+"Τα ποντίκια κεφαλής είναι σχετικά φθηνά και είναι ένας βολικός τρόπος για "
+"χρήση του Dasher. (Συνιστούμε το <emphasis>SmartNav3</emphasis> της "
+"NaturalPoint, που κοστίζει περίπου $200, και λειτουργεί μόνο σε microsoft "
+"windows· πρόκειται για τη συσκευή που μέχρι το 2002 ήταν γνωστή ως NavPoint "
+"TrackIR, αλλά πλέον αυτό το όνομα χρησιμοποιείται για διαφορετική συσκευή. "
+"Επίσης, συνιστούμε το <emphasis>Headmouse Extreme</emphasis> της Origin "
+"instruments, που στοιχίζει περίπου $1000 και λειτουργεί σε οποιονδήποτε "
+"υπολογιστή ως ποντίκι USB.) Μπορείτε να κουνάτε ένα δάχτυλο χεριού ή ποδιού; "
+"Αυτά τα ποντίκια κεφαλής μπορούν να χρησιμοποιηθούν και στα δάχτυλα του "
+"χεριού ή του ποδίου. Για μια αναλυτική σύγκριση των SmartNav3 και Headmouse "
+"Extreme, δείτε την ιστοσελίδα <ulink url=\"http://www.inference.phy.cam.ac."
+"uk/dasher/Headmouse.html\" type=\"http\">http://www.inference.phy.cam.ac.uk/"
+"dasher/Headmouse.html</ulink>."
 
 #: C/dasher.xml:986(para)
 msgid ""
@@ -1041,6 +1473,19 @@ msgid ""
 "three of these systems are complete computers with eye-tracking cameras "
 "attached."
 msgstr ""
+"Αν πάσχετε από σοβαρή παράλυση, η καλύτερη επιλογή ίσως είναι ένας "
+"ανιχνευτής κίνησης ματιού. Μπορείτε να ελέγχετε την κίνηση των ματιών σας; "
+"Με έναν ανιχνευτή κίνησης ματιού μπορείτε να γράφετε με ταχύτητα 25 λέξεις "
+"το λεπτό. Οι ανιχνευτές κίνησης ματιού είναι αρκετά ακριβοί: το QuickGlance "
+"της EyeTech Digital Systems μας στοίχισε $2000, ενώ το Tobii στοιχίζει "
+"περίπου $20.000. [Συνιστούμε και τα δύο αυτά συστήματα. Το QuickGlance "
+"συνδέεται στον υπάρχοντα υπολογιστή σας. Το QuickGlance ΙΙ κοστίζει περίπου "
+"$4000. Το Tobii είναι ένας πλήρης υπολογιστής με ενσωματωμένες κάμερες "
+"ανίχνευσης κίνησης ματιού.] Το Dasher λειτουργεί επίσης με το "
+"<emphasis>Erica</emphasis> της Eye response, το <emphasis>Eyegaze</emphasis> "
+"της LC και τον ανιχνευτή κίνησης ματιού της Metrovision. Και τα τρία αυτά "
+"συστήματα είναι πλήρεις υπολογιστές με ενσωματωμένες κάμερες ανίχνευσης "
+"κίνησης ματιού."
 
 #: C/dasher.xml:996(para)
 msgid ""
@@ -1053,10 +1498,20 @@ msgid ""
 "elastic, and our most experienced user can write at 15 words per minute by "
 "breath alone."
 msgstr ""
+"Αν δεν μπορείτε να χρησιμοποιήσετε joystick, ποντίκι, rollerball ή ανιχνευτή "
+"κίνησης ματιού, ίσως υπάρχουν άλλοι τρόποι που μπορείτε να χρησιμοποιήσετε "
+"για να στέλνετε συνεχή μονοδιάστατα σήματα. Π.χ., θα μπορούσαν να "
+"χρησιμοποιηθούν τα χείλη ή τα φρύδια, αν και δεν γνωρίζουμε κάποιον "
+"κατασκευαστή που να παράγει τέτοιου είδους συσκευές. Η αναπνοή μπορεί επίσης "
+"να στείλει μονοδιάστατο σήμα. Αν μπορείτε να ελέγχετε την αναπνοή σας, τότε "
+"θα μπορούσατε να κατασκευάσετε ένα ποντίκι αναπνοής. Εμείς κατασκευάσαμε ένα "
+"ποντίκι αναπνοής χρησιμοποιώντας ένα οπτικό ποντίκι USB, μια ζώνη και λίγο "
+"λάστιχο. Κόστισε $22 και ο πιο έμπειρος χρήστης μας μπορεί να γράφει 15 "
+"λέξεις το λεπτό χρησιμοποιώντας μόνο την αναπνοή του."
 
 #: C/dasher.xml:1004(title)
 msgid "Starting and stopping"
-msgstr ""
+msgstr "Εκκίνηση και διακοπή"
 
 #: C/dasher.xml:1005(para)
 msgid ""
@@ -1075,6 +1530,24 @@ msgid ""
 "same behaviour, except <command>stop</command> may cause other automatic "
 "actions, such as `speak on stop', or `copy the text on stop'."
 msgstr ""
+"Υπάρχουν διάφοροι τρόποι εκκίνησης και διακοπής του Dasher. Μια επιλογή "
+"είναι το πάτημα ενός κουμπιού (π.χ., το αριστερό κουμπί του ποντικιού ή το "
+"πλήκτρο του διαστήματος). Αν όμως δεν μπορείτε να πατήσετε κουμπιά, τότε "
+"μπορείτε να ξεκινάτε και να σταματάτε χρησιμοποιώντας συνεχείς κινήσεις: στο "
+"μενού των προτιμήσεων/επιλογών, επιλέξτε <quote>Εκκίνηση με τη θέση του "
+"ποντικιού</quote> και ενεργοποιήστε τη <quote>λειτουργία ελέγχου</quote>. "
+"Όταν είναι ενεργοποιημένη η λειτουργία ελέγχου, το αλφάβητο του Dasher "
+"περιλαμβάνει ένα ειδικό τετράγωνο χαρακτήρων ελέγχου, που λειτουργούν "
+"περίπου όπως το πλήκτρο <computeroutput>Esc</computeroutput> στο "
+"πληκτρολόγιο, και που παρέχουν διάφορες λειτουργίες ελέγχου. Όταν βρίσκεστε "
+"μέσα στο τετράγωνο ελέγχου, το Dasher κινείται πιο αργά από συνήθως, για "
+"λόγους ασφαλείας. Οι επιλογές του τετραγώνου ελέγχου συμπεριλαμβάνουν το "
+"'pause/παύση' και 'stop/διακοπή'. Χρησιμοποιήστε το 'pause' αν βρίσκεστε στη "
+"μέση μιας φράσης και θέλετε να κάνετε μια σύντομη παύση. Χρησιμοποιήστε το "
+"'stop' αν έχετε τελειώσει. Τα <command>pause</command> και <command>stop</"
+"command> έχουν την ίδια συμπεριφορά, με τη διαφορά ότι το <command>stop</"
+"command> μπορεί να προκαλεί ορισμένες αυτόματες συμπεριφορές, όπως η "
+"'εκφώνηση στη διακοπή' ή η 'αντιγραφή κειμένου στη διακοπή'."
 
 #: C/dasher.xml:1019(para)
 msgid ""
@@ -1085,10 +1558,17 @@ msgid ""
 "then the second (yellow) target. (We use two targets in sequence to make it "
 "difficult to start Dasher by accident.)"
 msgstr ""
+"Αν το Dasher έχει παυθεί ή διακοπεί, μπορεί να επανεκκινηθεί χρησιμοποιώντας "
+"τις ίδιες μεθόδους που χρησιμοποιούνται και για την εκκίνηση. Αν είναι "
+"ενεργοποιημένη η 'εκκίνηση με τη θέση του ποντικιού', όποτε διακόπτεται το "
+"Dasher εμφανίζεται μια σειρά από ευμεγέθεις στόχους. Για να επανεκκινήσετε "
+"το Dasher, δείξτε (ή κοιτάξτε) πρώτα τον πρώτο (κόκκινο) στόχο και μετά το "
+"δεύτερο (κίτρινο). (Χρησιμοποιούμε τους δύο διαδοχικούς στόχους για να "
+"αποφύγουμε την εκκίνηση του Dasher κατά λάθος.)"
 
 #: C/dasher.xml:1026(title)
 msgid "Recommendations for head-tracking"
-msgstr ""
+msgstr "Συστάσεις για την ανίχνευση κινήσεων κεφαλής"
 
 #: C/dasher.xml:1027(para)
 msgid ""
@@ -1098,6 +1578,12 @@ msgid ""
 "smoothing. We like instant, live, raw and jerky mouse coordinates. If there "
 "is a `smoothing' control, turn it right down."
 msgstr ""
+"Πολλοί ανιχνευτές προσφέρουν επιλογές 'εξομάλυνσης', που καθορίζουν τη "
+"συχνότητα με την οποία ενημερώνεται η θέση του ποντικιού. Συνήθως "
+"χρησιμοποιούνται για να εξομαλύνουν και να απαλύνουν την κίνηση του "
+"ποντικιού. Το Dasher δεν χρειάζεται τέτοιου είδους εξομάλυνση. Προτιμά τις "
+"στιγμιαίες, ζωντανές, ωμές και σπασμωδικές μετακινήσεις του ποντικιού. Αν η "
+"συσκευή σας περιλαμβάνει επιλογή 'εξομάλυνσης', απενεργοποιήστε την."
 
 #: C/dasher.xml:1032(para)
 msgid ""
@@ -1110,10 +1596,19 @@ msgid ""
 "comfortable. I like high gain because it allows me to steer with very small "
 "head motions."
 msgstr ""
+"Το 'όφελος' ('gain', ονομάζεται και 'ταχύτητα') του ανιχνευτή κεφαλής είναι "
+"μια ακόμη σημαντική ρύθμιση που θα πρέπει να προσαρμόσετε στις απαιτήσεις "
+"σας. Το όφελος ορισμένων ανιχνευτών μπορεί να ρυθμιστεί από το λογισμικό. "
+"Παράλληλα, μπορείτε να προσαρμόσετε το όφελος αλλάζοντας τη γεωμετρία του "
+"ανιχνευτή. Π.χ., αν μετακινήσετε την ανιχνευόμενη κουκίδα από το μέτωπό σας "
+"στο γείσο ενός καπέλου τζόκεϊ, το όφελος σχεδόν διπλασιάζεται· αν καθήσετε "
+"πιο κοντά στον ανιχνευτή, επίσης μπορεί να αυξηθεί το όφελος. Βρείτε μία "
+"ρύθμιση που σας βολεύει. Προσωπικά, προτιμώ να έχω υψηλή τιμή οφέλους, γιατί "
+"μου επιτρέπει να κατευθύνω με πολύ μικρές κινήσεις της κεφαλής."
 
 #: C/dasher.xml:1041(title)
 msgid "Recommendations for gaze-tracking"
-msgstr ""
+msgstr "Συστάσεις για την ανίχνευση κίνησης ματιού"
 
 #: C/dasher.xml:1042(para)
 msgid ""
@@ -1130,6 +1625,20 @@ msgid ""
 "eyetracker manufacturer to make it easy to change the settings when "
 "switching application."
 msgstr ""
+"Για να βελτιώσετε την απόδοση των ανιχνευτών κίνησης ματιού, σας συνιστούμε "
+"θερμά να ρυθμίσετε τον ανιχνευτή έτσι ώστε να ανταποκρίνεται όσο το δυνατόν "
+"περισσότερο. Πολλοί ανιχνευτές προσφέρουν επιλογές 'εξομάλυνσης', που "
+"καθορίζουν τη συχνότητα με την οποία ενημερώνεται η θέση του ποντικιού και "
+"τον αριθμό τον διαδοχικών εικόνων του ματιού που χρησιμοποιούνται για τον "
+"υπολογισμό της θέσης του ποντικιού. Συνήθως χρησιμοποιούνται για να "
+"εξομαλύνουν και να απαλύνουν την κίνηση του ποντικιού. Το Dasher δεν "
+"χρειάζεται τέτοιου είδους εξομάλυνση. Προτιμά τις στιγμιαίες, ζωντανές, ωμές "
+"και σπασμωδικές μετακινήσεις του ποντικιού. Όταν πλοηγείστε, τα μάτια σας "
+"εστιάζουν ταχύτατα στο στόχο τους, οπότε θέλουμε το Dasher να ανταποκρίνεται "
+"εξίσου ταχύτατα. Οι ιδανικές ρυθμίσεις για το Dasher μπορεί να αποδειχτούν "
+"πολύ διαφορετικές από τις ιδανικές ρυθμίσεις για άλλα λογισμικά. Ζητήστε από "
+"τον κατασκευαστή του ανιχνευτή να σας επιτρέψει να αλλάζετε εύκολα τις "
+"ρυθμίσεις σας όταν αλλάζετε εφαρμογή."
 
 #: C/dasher.xml:1053(para)
 msgid ""
@@ -1138,6 +1647,12 @@ msgid ""
 "Control). In this mode, the dynamics of Dasher are slightly different from "
 "standard dynamics, making error-correction easier by gaze."
 msgstr ""
+"Το Dasher διαθέτει αρκετές επιλογές που έχουν σχεδιαστεί για χρήση με "
+"ανιχνευτές κίνησης ματιού. Προτείνουμε τη χρήση της λειτουργίας "
+"<emphasis>ανιχνευτή ματιού</emphasis> (από την καρτέλα Έλεγχος του μενού "
+"Προτιμήσεις/Ρυθμίσεις). Σε αυτή τη λειτουργία οι ρυθμίσεις του Dasher "
+"αλλάζουν ελαφρώς και επιτρέπουν την ευκολότερη διόρθωση λαθών μέσω του "
+"ματιού."
 
 #: C/dasher.xml:1058(para)
 msgid ""
@@ -1150,6 +1665,15 @@ msgid ""
 "red line) and the gaze-tracker's mouse position (shown by the system's mouse "
 "cursor)."
 msgstr ""
+"Αν η βαθμονόμηση του ανιχνευτή σας διαφοροποιείται κατά καιρούς, π.χ. όταν "
+"μετακινείται το κεφάλι σας, σημειώστε την επιλογή <emphasis>Αυτόματη "
+"βαθμονόμηση ανιχνευτή ματιού</emphasis>. Με αυτή την επιλογή ενεργοποιημένη, "
+"το Dasher αποθηκεύει τις κινήσεις σας, τις χρησιμοποιεί για να εκτιμήσει το "
+"σφάλμα στην κάθετη βαθμονόμηση, και διορθώνει το σφάλμα. Μπορείτε να δείτε "
+"πότε γίνεται διόρθωση, γιατί θα παρατηρήσετε διαφορά ανάμεσα στη θέση του "
+"ποντικιού για το Dasher (που υποδηλώνεται από την άκρη της κόκκινης γραμμής) "
+"και τη θέση του ποντικιού για τον ανιχνευτή κίνησης ματιού (που αντιστοιχεί "
+"στη θέση του δρομέα του συστήματος)."
 
 #: C/dasher.xml:1066(para)
 msgid ""
@@ -1158,6 +1682,11 @@ msgid ""
 "<emphasis>not</emphasis> full-screen in size. Place the Dasher window so "
 "that there is a margin above and below the Dasher canvas."
 msgstr ""
+"Για να μην μπλοκαριστεί το ποντίκι σας στο πάνω ή κάτω μέρος της οθόνης, "
+"προτείνουμε να χρησιμοποιείτε το Dasher με παράθυρο που <emphasis>δεν</"
+"emphasis> θα αντιστοιχεί σε μέγεθος πλήρους οθόνης. Τοποθετήστε το παράθυρο "
+"του Dasher έτσι ώστε να υπάρχει κάποιο περιθώριο τόσο πάνω όσο και κάτω από "
+"τον καμβά."
 
 #: C/dasher.xml:1071(para)
 msgid ""
@@ -1167,20 +1696,27 @@ msgid ""
 "option can be configured in the 'Input Device' section of the 'preferences' "
 "dialogue."
 msgstr ""
+"<emphasis>Τεχνική σημείωση:</emphasis> Πέρα από την εξομοίωση ποντικιού, το "
+"Dasher μπορεί να λαμβάνει πληροφορίες από ανιχνευτές κίνησης ματιού και "
+"κεφαλής ή άλλα παρόμοια συστήματα απευθείας μέσω υποδοχής (socket) του "
+"συστήματος. Αυτή η ρύθμιση μπορεί να επιλεγεί από την ενότητα 'Συσκευή "
+"εισόδου' του διαλόγου 'Προτιμήσεων/ρυθμίσεων'."
 
 #: C/dasher.xml:1078(title)
 msgid "Discrete Gestures"
-msgstr ""
+msgstr "Διακριτές χειρονομίες"
 
 #: C/dasher.xml:1079(para)
 msgid ""
 "We have several versions of <emphasis>button Dasher</emphasis>, available in "
 "Dasher Version 4."
 msgstr ""
+"Η έκδοση 4 του Dasher περιλαμβάνει διάφορες εκδοχές του <emphasis>Dasher με "
+"κουμπιά</emphasis>."
 
 #: C/dasher.xml:1083(title)
 msgid "Are time-critical gestures not an option?"
-msgstr ""
+msgstr "Χρήση χρόνου πραγματοποίησης χειρονομίας"
 
 #: C/dasher.xml:1084(para)
 msgid ""
@@ -1189,34 +1725,48 @@ msgid ""
 "required instant. For example, spastics find it very difficult to do an "
 "action `exactly now!'"
 msgstr ""
+"Ορισμένοι τρόποι διαβίβασης πληροφοριών αξιοποιούν το <emphasis>χρόνο</"
+"emphasis> πραγματοποίησης των χειρονομιών. Ωστόσο, υπάρχουν άνθρωποι που δεν "
+"μπορούν να κάνουν χειρονομίες ακριβώς τη στιγμή που τους ζητείται. Π.χ., οι "
+"σπαστικοί δυσκολεύονται πολύ στο να κάνουν πράγματα 'τώρα αμέσως!'"
 
 #: C/dasher.xml:1088(para)
 msgid ""
 "If time-critical gestures are not an option, go to <xref linkend="
 "\"no_time_critical\"/>."
 msgstr ""
+"Αν η χρήση του χρόνου πραγματοποίησης χειρονομιών δεν είναι δυνατή στην "
+"περίπτωσή σας, πηγαίνετε στην <xref linkend=\"no_time_critical\"/>."
 
 #: C/dasher.xml:1090(para)
 msgid ""
 "If you <emphasis>can</emphasis> convey information by <emphasis>precisely "
 "timed</emphasis> gestures, go to section <xref linkend=\"timed\"/>."
 msgstr ""
+"Αν <emphasis>μπορείτε</emphasis> να διαβιβάζετε πληροφορίες μέσω χειρονομιών "
+"που πραγματοποιούνται σε <emphasis>ακριβείς χρονικές στιγμές</emphasis>, "
+"πηγαίνετε στην <xref linkend=\"timed\"/>."
 
 #: C/dasher.xml:1095(title)
 msgid "`Timeless' choices of Dasher"
-msgstr ""
+msgstr "'Άχρονο' Dasher"
 
 #: C/dasher.xml:1101(para)
 msgid ""
 "If so, try <emphasis>click mode</emphasis>. Go to <xref linkend="
 "\"time_critical_button\"/>."
 msgstr ""
+"Αν ναι, δοκιμάστε τη <emphasis>λειτουργία κλικ</emphasis>. Πηγαίνετε στην "
+"<xref linkend=\"time_critical_button\"/>."
 
 #: C/dasher.xml:1105(para)
 msgid ""
 "Otherwise try <emphasis>direct button mode</emphasis> or <emphasis>menu "
 "button mode</emphasis>. Go to <xref linkend=\"no_time_critical_button\"/>."
 msgstr ""
+"Διαφορετικά, δοκιμάστε την <emphasis>απευθείας λειτουργία με κουμπιά</"
+"emphasis> ή τη <emphasis>λειτουργία μενού με κουμπιά</emphasis>. Πηγαίνετε "
+"στην <xref linkend=\"no_time_critical_button\"/>."
 
 #: C/dasher.xml:1096(para)
 msgid ""
@@ -1225,10 +1775,15 @@ msgid ""
 "accurately on a screen, then press a button to indicate that you are ready? "
 "Or can you touch a touch-screen fairly accurately? <placeholder-1/>"
 msgstr ""
+"Θέλετε λοιπόν να κατευθύνετε το Dasher χωρίς χρονικούς περιορισμούς. "
+"Μπορείτε να κάνετε σχετικά ακριβείς συνεχείς χειρονομίες, αν έχετε αρκετό "
+"χρόνο στη διάθεσή σας; Π.χ., μπορείτε να τοποθετήσετε με ακρίβεια το δείκτη "
+"στην οθόνη και μετά να πατήσετε ένα κουμπί για να δείξετε ότι είστε έτοιμοι; "
+"Ή να αγγίζετε με σχετική ακρίβεια μια οθόνη αφής; <placeholder-1/>"
 
 #: C/dasher.xml:1111(title)
 msgid "`Timeless' continuous Dasher: click mode"
-msgstr ""
+msgstr "'Άχρονο' συνεχές Dasher: λειτουργία κλικ"
 
 #: C/dasher.xml:1113(para)
 msgid ""
@@ -1236,20 +1791,27 @@ msgid ""
 "want to go, then press a button when you are ready. Dasher then zooms in on "
 "the position you chose."
 msgstr ""
+"Στη <emphasis>λειτουργία κλικ</emphasis> τοποθετείτε το δείκτη του ποντικιού "
+"εκεί που θέλετε να πάτε και μετά πατάτε ένα κουμπί για να δείξετε ότι είστε "
+"έτοιμοι. Το Dasher εστιάζει στο σημείο που επιλέξατε."
 
 #: C/dasher.xml:1117(para)
 msgid ""
 "Alternatively, if you have a touch screen, a single touch on the screen "
 "initiates a zoom to that position."
 msgstr ""
+"Εναλλακτικά, αν έχετε οθόνη αφής, με ένα μόνο άγγιγμα της οθόνης εστιάζετε "
+"στο συγκεκριμένο σημείο."
 
 #: C/dasher.xml:1121(title)
 msgid "`Timeless' choices of Button Dasher"
-msgstr ""
+msgstr "'Άχρονο' Dasher με κουμπιά"
 
 #: C/dasher.xml:1122(para)
 msgid "How many different switches, keys, or buttons can you easily operate?"
 msgstr ""
+"Πόσους διαφορετικούς διακόπτες, πλήκτρα ή κουμπιά μπορείτε να χειρίζεστε με "
+"ευκολία;"
 
 #: C/dasher.xml:1125(term)
 msgid "1"
@@ -1263,6 +1825,12 @@ msgid ""
 "<emphasis>menu button-Dasher</emphasis>. Connect up your short press to the "
 "`menu' action, and your long press to the `select' action."
 msgstr ""
+"Αν χρησιμοποιείτε ένα μόνο κουμπί, ο μόνος 'άχρονος' τρόπος διαβίβασης "
+"πληροφοριών είναι μέσω της <emphasis>διάρκειας</emphasis> των πατημάτων. "
+"Μπορείτε να παράγετε διακριτά βραχέα και μακρά πατήματα; Αν ναι, τότε "
+"μπορείτε να χρησιμοποιήσετε τη <emphasis>λειτουργία μενού με κουμπιά</"
+"emphasis>. Αντιστοιχίστε το βραχύ σας πάτημα στην ενέργεια 'μενού' και το "
+"μακρό στην ενέργεια 'επιλογή'."
 
 #: C/dasher.xml:1135(term)
 msgid "2"
@@ -1274,10 +1842,14 @@ msgid ""
 "the `menu' action, and the other to the `select' action. If one button is "
 "easier to press, make that button the `menu' button."
 msgstr ""
+"Μπορείτε να χρησιμοποιήσετε τη <emphasis>λειτουργία μενού με κουμπιά</"
+"emphasis>. Αντιστοιχίστε το ένα κουμπί στην ενέργεια 'μενού' και το άλλο "
+"στην ενέργεια 'επιλογή'. Για την ενέργεια 'μενού' επιλέξτε το κουμπί που "
+"είναι ευκολότερο στο πάτημα."
 
 #: C/dasher.xml:1143(term)
 msgid "2.5"
-msgstr "2.5"
+msgstr "2,5"
 
 #: C/dasher.xml:1145(para)
 msgid ""
@@ -1285,6 +1857,10 @@ msgid ""
 "able to press a third button, you can use <emphasis>menu button-Dasher</"
 "emphasis> or <emphasis>direct button-Dasher</emphasis>."
 msgstr ""
+"Αν μπορείτε να πατάτε δύο κουμπιά με ευκολία και, σε ειδικές περιπτώσεις, "
+"μπορείτε να πατάτε και ένα τρίτο κουμπί, μπορείτε να χρησιμοποιήσετε τη "
+"<emphasis>λειτουργία μενού με κουμπιά</emphasis> ή την <emphasis>απευθείας "
+"λειτουργία με κουμπιά</emphasis>."
 
 #: C/dasher.xml:1150(para)
 msgid ""
@@ -1292,6 +1868,10 @@ msgid ""
 "the third button as your escape key -- to make Dasher go away, for example. "
 "[This feature is not currently provided within Dasher.]"
 msgstr ""
+"Ρυθμίστε τα κουμπιά της <emphasis>λειτουργίας μενού</emphasis> όπως "
+"περιγράφεται παραπάνω και χρησιμοποιήστε το τρίτο κουμπί ως πλήκτρο διαφυγής "
+"-- π.χ. για να εξαφανίζετε το Dasher. [Αυτή η λειτουργία δεν υποστηρίζεται "
+"προς το παρόν.]"
 
 #: C/dasher.xml:1155(para)
 msgid ""
@@ -1300,6 +1880,10 @@ msgid ""
 "2.5 buttons, map the convenient two to `up' and `down', and the inconvenient "
 "button to `back'."
 msgstr ""
+"Στην <emphasis>απευθείας λειτουργία με κουμπιά</emphasis> κάθε κουμπί "
+"αντιστοιχεί σε μια συγκεκριμένη ενέργεια πλοήγησης, όπως 'πάνω', 'κάτω' ή "
+"'πίσω'. Αν έχετε 2,5 κουμπιά στη διάθεσή σας, χρησιμοποιήστε τα δύο "
+"ευκολότερα στη χρήση ως 'πάνω' και 'κάτω' και το δυσκολότερο ως 'πίσω'."
 
 #: C/dasher.xml:1164(term)
 msgid "3"
@@ -1310,6 +1894,9 @@ msgid ""
 "You can use <emphasis>direct button-Dasher</emphasis> or <emphasis>menu "
 "button-Dasher</emphasis> as described above."
 msgstr ""
+"Μπορείτε να χρησιμοποιήσετε την <emphasis>απευθείας λειτουργία με κουμπιά</"
+"emphasis> ή τη <emphasis>λειτουργία μενού με κουμπιά</emphasis>, όπως "
+"περιγράφονται παραπάνω."
 
 #: C/dasher.xml:1171(term)
 msgid "4, 5, 6, or 7"
@@ -1322,6 +1909,11 @@ msgid ""
 "directions. Please try <emphasis>menu button-Dasher</emphasis> too, even "
 "though it uses only two buttons."
 msgstr ""
+"Αν έχετε περισσότερα από τρία κουμπιά στη διάθεσή σας, μπορείτε να "
+"χρησιμοποιήσετε την <emphasis>απευθείας λειτουργία με κουμπιά</emphasis> "
+"χρησιμοποιώντας τρεις, τέσσερις, πέντε ή έξι κατευθύνσεις 'προς τα εμπρός'. "
+"Δοκιμάστε πάντως και τη </emphasis>λειτουργία μενού με κουμπιά<emphasis>, "
+"παρόλο που χρησιμοποιεί μόνο δύο κουμπιά."
 
 #: C/dasher.xml:1180(term)
 msgid "8 or more"
@@ -1335,20 +1927,29 @@ msgid ""
 "You may wish to investigate <emphasis>Tapir</emphasis>, a disambiguating on-"
 "screen keyboard from the developers of Dasher."
 msgstr ""
+"Δοκιμάστε την <emphasis>απευθείας λειτουργία με κουμπιά</emphasis> και τη "
+"<emphasis>λειτουργία μενού με κουμπιά</emphasis>. Με τόσο πολλά κουμπιά στη "
+"διάθεσή σας, έχετε τη δυνατότητα να χρησιμοποιήσετε ένα σύστημα όπως το T9 "
+"-- το σύστημα πρόβλεψης κειμένου που χρησιμοποιούν πολλά κινητά τηλέφωνα. Σε "
+"αυτή την περίπτωση ίσως σας ενδιαφέρει να δείτε το <emphasis>Tapir</"
+"emphasis>, ένα πληκτρολόγιο οθόνης από τους δημιουργούς του Dasher."
 
 #: C/dasher.xml:1194(title)
 msgid "Button Dashers that exploit timing"
-msgstr ""
+msgstr "Dasher με κουμπιά που αξιοποιεί το χρόνο πατήματος"
 
 #: C/dasher.xml:1195(para)
 msgid ""
 "There are two Dasher modes which make use of precise timing information, and "
 "generally require fewer button presses than the nn-time-critical modes:"
 msgstr ""
+"Υπάρχουν δύο λειτουργίες του Dasher που συλλέγουν ακριβείς πληροφορίες για "
+"το χρόνο του πατήματος. Σε γενικές γραμμές απαιτούν λιγότερα πατήματα "
+"κουμπιών από τις 'άχρονες' λειτουργίες:"
 
 #: C/dasher.xml:1198(title)
 msgid "(One button) dynamic mode"
-msgstr ""
+msgstr "Δυναμική λειτουργία (ενός κουμπιού)"
 
 #: C/dasher.xml:1199(para)
 msgid ""
@@ -1357,10 +1958,14 @@ msgid ""
 "oposite side. Text can be entered by pressing the button when the desired "
 "phrase reaches the edge of the display."
 msgstr ""
+"Κατά την εκκίνησή του, το Dasher εστιάζει σε ένα σημείο στο πάνω ή στο κάτω "
+"μέρος της οθόνης. Ένα βραχύ πάτημα κουμπιού εστιάζει στην αντίθετη πλευρά. "
+"Εισάγετε κείμενο με το να πατάτε το κουμπί όταν η επιθυμητή φράση φτάσει "
+"στην άκρη της οθόνης."
 
 #: C/dasher.xml:1205(title)
 msgid "Two button dynamic mode"
-msgstr ""
+msgstr "Δυναμική λειτουργία δύο κουμπιών"
 
 #: C/dasher.xml:1206(para)
 msgid ""
@@ -1368,10 +1973,14 @@ msgid ""
 "buttons being used to shift the display up and down. The buttons should be "
 "pressed whenever the desired text is aligned with the two markers."
 msgstr ""
+"Το Dasher εστιάζει συνεχώς στο κέντρο της οθόνης, ενώ χρησιμοποιούνται δύο "
+"κουμπιά για να μετατοπίζουν την οθόνη πάνω ή κάτω. Πρέπει να πατάτε τα "
+"κουμπιά όταν το επιθυμητό κείμενο έχει ευθυγραμμιστεί μεταξύ των δύο γραμμών "
+"σήμανσης."
 
 #: C/dasher.xml:1211(title)
 msgid "Correcting errors"
-msgstr ""
+msgstr "Διόρθωση λαθών"
 
 #: C/dasher.xml:1212(para)
 msgid ""
@@ -1381,10 +1990,16 @@ msgid ""
 "mode, one more press will stop Dasher and a second press will return Dasher "
 "to forward zooming."
 msgstr ""
+"Υπάρχουν τρεις δυνατότητες διόρθωσης λαθών που ισχύουν και για τις δύο "
+"δυναμικές λειτουργίες: χρήση διαφορετικού κουμπιού, μακρού πατήματος ή "
+"πολλαπλών πατημάτων. Και στις τρεις περιπτώσεις το Dasher αρχίζει να μειώνει "
+"την εστίαση με σταθερό ρυθμό. Σε αυτή τη λειτουργία, ένα ακόμη πάτημα "
+"διακόπτει το Dasher, ενώ ένα δεύτερο πάτημα επαναφέρει το Dasher στην "
+"κανονική εστίαση προς τα εμπρός."
 
 #: C/dasher.xml:1221(title)
 msgid "Summary of Dasher Modes"
-msgstr ""
+msgstr "Επισκόπηση των λειτουργιών του Dasher"
 
 #: C/dasher.xml:1222(para)
 msgid ""
@@ -1395,10 +2010,18 @@ msgid ""
 "variable parameters associated with it which can be adjusted using the "
 "<emphasis>options</emphasis> button located below the mode menu."
 msgstr ""
+"Οι διάφορες λειτουργίες του <application>Dasher</application> αναφέρονται "
+"παρακάτω. Μπορείτε να αλλάξετε τη λειτουργία από το μενού "
+"<emphasis><quote>Επεξεργασία</quote></emphasis>. Επιλέξτε "
+"<emphasis><quote>Προτιμήσεις</quote></emphasis> και στη συνέχεια "
+"<emphasis><quote>Έλεγχος</quote></emphasis>. Σε κάθε λειτουργία ενδέχεται να "
+"αντιστοιχούν ορισμένες παράμετροι τις οποίες μπορείτε να ρυθμίσετε "
+"επιλέγοντας το κουμπί <emphasis>Επιλογές</emphasis> στο κάτω μέρος της "
+"λίστας των λειτουργιών."
 
 #: C/dasher.xml:1233(title)
 msgid "Normal"
-msgstr ""
+msgstr "Κανονική"
 
 #: C/dasher.xml:1234(para)
 msgid ""
@@ -1412,10 +2035,21 @@ msgid ""
 "display. The 'Two Box' start mode starts Dasher by dwelling in the two boxes "
 "in sequence. In the latter case stopping must be done through control mode."
 msgstr ""
+"Η αρχική λειτουργία του <application>Dasher</application>. Χρησιμοποιεί "
+"δισδιάστατη χειρονομία οδήγησης, π.χ. από ποντίκι. Υπάρχει και μονοδιάστατη "
+"λειτουργία, για χρήστες που δεν μπορούν να ελέγχουν δύο διαστάσεις, καθώς "
+"και ειδική λειτουργία ανιχνευτή ματιού, για χρήση του Dasher με ανιχνευτή "
+"κινήσεων ματιού ή κεφαλής. Αν δεν μπορείτε να κάνετε κλικ, μπορείτε να "
+"εκκινείτε το Dasher με βάση τη θέση του ποντικιού: Επιλέξτε 'Εκκίνηση με τη "
+"θέση του ποντικιού' και 'Κύκλος στο κέντρο' για να συνδέσετε την εκκίνηση "
+"και τη διακοπή του Dasher με την παραμονή του δείκτη στον κύκλο στο κέντρο "
+"της οθόνης. Η επιλογή 'Δύο τετράγωνα' εκκινεί το Dasher όταν ο δείκτης "
+"τοποθετείται διαδοχικά μέσα σε δύο τετράγωνα. Στην περίπτωση των δύο "
+"τετραγώνων η διακοπή επιτυγχάνεται μόνο μέσω της λειτουργίας ελέγχου."
 
 #: C/dasher.xml:1245(title)
 msgid "Click Mode"
-msgstr ""
+msgstr "Λειτουργία κλικ"
 
 #: C/dasher.xml:1246(para)
 msgid ""
@@ -1423,10 +2057,14 @@ msgid ""
 "want to go, then press the button when you are ready. <application>Dasher</"
 "application> then zooms into the place where you clicked."
 msgstr ""
+"Στη <emphasis>λειτουργία κλικ</emphasis> τοποθετείτε το δείκτη του ποντικιού "
+"στο σημείο όπου θέλετε να καταλήξετε και, όταν είστε έτοιμοι, πατάτε το "
+"κουμπί. Το <application>Dasher</application> εστιάζει αμέσως στο σημείο όπου "
+"κάνατε κλικ."
 
 #: C/dasher.xml:1252(title)
 msgid "Menu Mode"
-msgstr ""
+msgstr "Λειτουργία μενού"
 
 #: C/dasher.xml:1253(para)
 msgid ""
@@ -1434,20 +2072,27 @@ msgid ""
 "<application>Dasher</application> zooms to that location. The large box "
 "occuring last in the cycle is used to zoom out."
 msgstr ""
+"Ένα κουμπί χρησιμοποιείται για την επιλογή τοποθεσίας και ένα δεύτερο ζητάει "
+"από το <application>Dasher</application> να εστιάσει στη συγκεκριμένη "
+"τοποθεσία. Το μεγάλο τετράγωνο στο τέλος του κύκλου χρησιμοποιείται για να "
+"αντιστρέψει την εστίαση."
 
 #: C/dasher.xml:1259(title)
 msgid "Direct Mode"
-msgstr ""
+msgstr "Απευθείας λειτουργία"
 
 #: C/dasher.xml:1260(para)
 msgid ""
 "Direct mode is similar to menu mode, except boxes are assigned directly to "
 "each button rather than being selected in sequence."
 msgstr ""
+"Η απευθείας λειτουργία είναι παρόμοια με τη λειτουργία μενού, με τη μόνη "
+"διαφορά ότι εδώ τα τετράγωνα αντιστοιχίζονται απευθείας σε συγκεκριμένα "
+"κουμπιά και δεν χρειάζεται να επιλέγονται με τη σειρά."
 
 #: C/dasher.xml:1265(title)
 msgid "Compass Mode"
-msgstr ""
+msgstr "Λειτουργία πυξίδας"
 
 #: C/dasher.xml:1266(para)
 msgid ""
@@ -1457,10 +2102,15 @@ msgid ""
 "user once more selects vertical position. A forth button zooms out if an "
 "error is made."
 msgstr ""
+"Η λειτουργία πυξίδας χρησιμοποιεί τέσσερα κουμπιά. Δύο κουμπιά ελέγχουν την "
+"κατακόρυφη τοποθέτηση. Αφού επιλεγεί η κατάλληλη κατακόρυφη θέση, πατιέται "
+"ένα τρίτο κουμπί για να γίνει εστίαση στη συγκεκριμένη θέση. Μετά την "
+"εστίαση ο χρήστης επιλέγει μια νέα κατακόρυφη θέση. Το τέταρτο κουμπί "
+"χρησιμοποιείται για να αντιστρέφει την εστίαση σε περίπτωση λάθους."
 
 #: C/dasher.xml:1273(title)
 msgid "(One Button) Dynamic Mode"
-msgstr ""
+msgstr "Δυναμική λειτουργία (ενός κουμπιού)"
 
 #: C/dasher.xml:1274(para)
 msgid ""
@@ -1470,10 +2120,17 @@ msgid ""
 "control motions <quote>up</quote> and <quote>down</quote>. A third button, "
 "long presses or multiple presses can be used to unzoom and correct errors."
 msgstr ""
+"Το <application>Dasher</application> εστιάζει συνεχώς, και χρησιμοποιείται "
+"ένα μόνο κουμπί για μετακίνηση <quote>πάνω</quote> και <quote>κάτω</quote>. "
+"Υπάρχει επίσης και η <emphasis>Δυναμική λειτουργία δύο κουμπιών</emphasis>, "
+"στην οποία χρησιμοποιούνται δύο κουμπιά για τη μετακίνηση <quote>πάνω</"
+"quote> και <quote>κάτω</quote>. Μπορείτε να χρησιμοποιήσετε ένα τρίτο "
+"κουμπί, ένα μακρό πάτημα ή πολλαπλά πατήματα για την αντιστροφή της εστίασης "
+"και τη διόρθωση λαθών."
 
 #: C/dasher.xml:1283(title)
 msgid "Two Button Dynamic Mode"
-msgstr ""
+msgstr "Δυναμική λειτουργία δύο κουμπιών"
 
 #: C/dasher.xml:1284(para)
 msgid ""
@@ -1481,10 +2138,13 @@ msgid ""
 "are used to control vertical motion. Correction is performed in the same way "
 "as One button dynamic mode."
 msgstr ""
+"Το <application>Dasher</application> εστιάζει συνεχώς, και χρησιμοποιούνται "
+"δύο κουμπιά για τον έλεγχο της κατακόρυφης κίνησης. Οι διορθώσεις γίνονται "
+"με τον ίδιο τρόπο όπως και στη Δυναμική λειτουργία δύο κουμπιών."
 
 #: C/dasher.xml:1296(title)
 msgid "Authors"
-msgstr ""
+msgstr "Συγγραφείς"
 
 #: C/dasher.xml:1297(para)
 msgid ""
@@ -1500,6 +2160,18 @@ msgid ""
 "you can also use command <command>bug-buddy</command> for submitting bug "
 "reports."
 msgstr ""
+"Το <application>Dasher</application> γράφτηκε από τα μέλη του Έργου Dasher "
+"(<email>dasher@mrao.cam.ac.uk</email>). Για να μάθετε περισσότερα, "
+"επισκεφθείτε την <ulink url=\"http://www.inference.phy.cam.ac.uk/dasher/\" "
+"type=\"http\">ιστοσελίδα του <application>Dasher</application></ulink>. "
+"Παρακαλούμε, απευθύνετε όλα τα σχόλια, τις υποδείξεις και τις αναφορές "
+"σφαλμάτων σας στη <ulink url=\"http://bugs.gnome.org\" type=\"http\">βάση "
+"σφαλμάτων του GNOME</ulink>. Οδηγίες για την υποβολή αναφορών σφαλμάτων "
+"μπορείτε να βρείτε στη διεύθυνση <ulink url=\"http://bugs.gnome.org/"
+"Reporting.html\" type=\"http\"> http://bugs.gnome.org/Reporting.html</"
+"ulink>. Αν χρησιμοποιείτε το GNOME 1.1 ή μεταγενέστερη έκδοση, μπορείτε "
+"επίσης να χρησιμοποιήσετε την εντολή <command>bug-buddy</command> για την "
+"υποβολή αναφορών σφαλμάτων."
 
 #: C/dasher.xml:1307(para)
 msgid ""
@@ -1509,8 +2181,18 @@ msgid ""
 "also add your comments online by using <ulink type=\"http\" url=\"http://www."
 "gnome.org/gdp/doctable/\">GNOME Documentation Status Table</ulink>."
 msgstr ""
+"Αυτό το εγχειρίδιο γράφτηκε από το Έργο Dasher (<email>dasher@mrao.cam.ac."
+"uk</email>). Παρακαλούμε, απευθύνετε όλα τα σχόλια και τις υποδείξεις σας "
+"για το εγχειρίδιο στο Έργο Τεκμηρίωσης GNOME στη διεύθυνση <email>docs@gnome."
+"org</email>. Μπορείτε επίσης να προσθέσετε τα σχόλιά σας στον <ulink type="
+"\"http\" url=\"http://www.gnome.org/gdp/doctable/\">Πίνακα Κατάστασης "
+"Τεκμηρίωσης GNOME</ulink>."
 
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2.
 #: C/dasher.xml:0(None)
 msgid "translator-credits"
 msgstr ""
+"Ελληνική μεταφραστική ομάδα GNOME\n"
+" Τζένη Πετούμενου <epetoumenou@gmail.gr>\n"
+"\n"
+"Για περισσότερες πληροφορίες, επισκεφθείτε την σελίδα http://www.gnome.gr/"
