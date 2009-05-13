@@ -6,14 +6,16 @@
 # Kostas Papadimas <pkst@gnome.org>, 2004, 2006.
 # Nikos Charonitakis <charosn@her.forthnet.gr>, 2004.
 # Fotis Tsamis <ftsamis@gmail.com>, 2009.
+#  <>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher.HEAD\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-14 18:28+0200\n"
-"PO-Revision-Date: 2009-03-14 18:32+0200\n"
-"Last-Translator: \n"
-"Language-Team: Greek\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=dasher&component=general\n"
+"POT-Creation-Date: 2009-04-23 16:34+0000\n"
+"PO-Revision-Date: 2009-05-13 22:47+0300\n"
+"Last-Translator:  <>\n"
+"Language-Team: Greek <>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,16 +24,14 @@ msgstr ""
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
-#: ../Data/dasher.desktop.in.in.h:1
-#: ../Data/glade/dasher.compose.glade.h:5
+#: ../Data/dasher.desktop.in.in.h:1 ../Data/glade/dasher.compose.glade.h:5
 #: ../Data/glade/dasher.direct.glade.h:2
 #: ../Data/glade/dasher.fullscreen.glade.h:1
 #: ../Data/glade/dasher.gameWIP.glade.h:6
 #: ../Data/glade/dasher.traditional.glade.h:6
 #: ../Data/glade/dashermaemo.glade.h:3
 #: ../Data/glade/dashermaemofullscreen.glade.h:2
-#: ../Src/Gtk2/dasher_main.cpp:994
-#: ../Src/Gtk2/dasher_main.cpp:1214
+#: ../Src/Gtk2/dasher_main.cpp:998 ../Src/Gtk2/dasher_main.cpp:1221
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -41,7 +41,7 @@ msgstr "Εισάγετε κείμενο χωρίς πληκτρολόγιο"
 
 #: ../Data/dasher.desktop.in.in.h:3
 msgid "Predictive text entry"
-msgstr "Πρόγνωσης καταχώρισης κειμένου"
+msgstr "Εισαγωγή κειμένου με πρόβλεψη"
 
 #: ../Data/glade/dasher.compose.glade.h:1
 #: ../Data/glade/dasher.direct.glade.h:1
@@ -61,7 +61,7 @@ msgstr "Αντιγραφή"
 #: ../Data/glade/dasher.traditional.glade.h:4
 #: ../Data/glade/dashermaemofullscreen.glade.h:1
 msgid "Copy _All"
-msgstr "Αντιγραφή Ό_λων"
+msgstr "Αντιγραφή ό_λων"
 
 #: ../Data/glade/dasher.compose.glade.h:4
 #: ../Data/glade/dasher.gameWIP.glade.h:5
@@ -71,7 +71,7 @@ msgstr "Αποκοπή"
 
 #: ../Data/glade/dasher.compose.glade.h:6
 msgid "Dasher _Tutorial"
-msgstr "Εγ_χειρίδιο Dasher"
+msgstr "_Οδηγός εκμάθησης Dasher"
 
 #: ../Data/glade/dasher.compose.glade.h:7
 #: ../Data/glade/dasher.gameWIP.glade.h:12
@@ -125,16 +125,16 @@ msgstr "Αποθήκευση αρχείου ως"
 #: ../Data/glade/dashermaemofullscreen.glade.h:5
 #: ../Src/Gtk2/dasher_editor_internal.cpp:1334
 #: ../Src/Gtk2/dasher_editor_internal.cpp:1368
-#: ../Src/Gtk2/dasher_main.cpp:1044
+#: ../Src/Gtk2/dasher_main.cpp:1048
 msgid "Select File"
-msgstr "Επιλογή Αρχείου"
+msgstr "Επιλογή αρχείου"
 
 #: ../Data/glade/dasher.compose.glade.h:15
 #: ../Data/glade/dasher.fullscreen.glade.h:4
 #: ../Data/glade/dashermaemo.glade.h:7
 #: ../Data/glade/dashermaemofullscreen.glade.h:6
 msgid "Select Font"
-msgstr "Επιλογή Γραμματοσειράς"
+msgstr "Επιλογή γραμματοσειράς"
 
 #: ../Data/glade/dasher.compose.glade.h:16
 #: ../Data/glade/dasher.direct.glade.h:5
@@ -150,7 +150,7 @@ msgstr "Π_ερί"
 
 #: ../Data/glade/dasher.compose.glade.h:18
 msgid "_Append to file"
-msgstr "Π_ρόσθεση σε αρχείο"
+msgstr "Π_ροσθήκη σε αρχείο"
 
 #: ../Data/glade/dasher.compose.glade.h:19
 msgid "_Contents"
@@ -186,12 +186,12 @@ msgstr "Ε_ισαγωγή κειμένου εκπαίδευσης"
 #: ../Data/glade/dashermaemo.glade.h:8
 #: ../Data/glade/dashermaemofullscreen.glade.h:17
 msgid "abcdefghijk ABCDEFGHIJK"
-msgstr "αβγδεζηθικ ΑΒΓΔΕΖΗΘΙΚ"
+msgstr "αβγδέ abcde ΆΒΓΔΕ ABCDE"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:1
 #: ../Data/glade/dasher.traditional.glade.h:1
 msgid "A_ppend to file..."
-msgstr "Π_ρόσθηκη σε αρχείο"
+msgstr "Π_ροσθήκη σε αρχείο..."
 
 #: ../Data/glade/dasher.gameWIP.glade.h:7
 msgid "Demo!"
@@ -208,7 +208,7 @@ msgstr "Βοήθεια"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:10
 msgid "Launch Dasher Game & Demo mode!"
-msgstr "Εκκίνηση παιχνιδιού Dasher & λειτουργίας Demo!"
+msgstr "Εκκίνηση παιχνιδιού & λειτουργίας Demo!"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:11
 msgid "Level:"
@@ -230,13 +230,13 @@ msgstr "Προτιμήσεις"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:19
 #: ../Data/glade/dasher.traditional.glade.h:14
-#: ../Src/Gtk2/dasher_main.cpp:1122
+#: ../Src/Gtk2/dasher_main.cpp:1126
 msgid "Quit"
 msgstr "Έξοδος"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:22
 msgid "Score:"
-msgstr "Σκορ:"
+msgstr "Βαθμολογία:"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:25
 #: ../Data/glade/dasher.traditional.glade.h:19
@@ -265,7 +265,7 @@ msgstr "<b>Προσαρμογή</b>"
 #: ../Data/glade/dasher.preferences.glade.h:3
 #: ../Data/glade/dashermaemo.preferences.glade.h:2
 msgid "<b>Alphabet Selection</b>"
-msgstr "<b>Επιλογή Αλφάβητου</b>"
+msgstr "<b>Επιλογή αλφαβήτου</b>"
 
 #: ../Data/glade/dasher.preferences.glade.h:4
 msgid "<b>Appearance Options</b>"
@@ -281,11 +281,11 @@ msgstr "<b>Στυλ εφαρμογής</b>"
 
 #: ../Data/glade/dasher.preferences.glade.h:7
 msgid "<b>Colour Scheme</b>"
-msgstr "<b>Σχήμα χρώματος</b>"
+msgstr "<b>Σχήμα χρωμάτων</b>"
 
 #: ../Data/glade/dasher.preferences.glade.h:8
 msgid "<b>Control Style</b>"
-msgstr "<b>Στυλ Ελέγχου</b>"
+msgstr "<b>Στυλ ελέγχων</b>"
 
 #: ../Data/glade/dasher.preferences.glade.h:9
 msgid "<b>Dasher Font</b>"
@@ -301,7 +301,7 @@ msgstr "<b>Γραμματοσειρά επεξεργαστή</b>"
 
 #: ../Data/glade/dasher.preferences.glade.h:12
 msgid "<b>Input Device</b>"
-msgstr "<b>Συσκευή εισαγωγής</b>"
+msgstr "<b>Συσκευή εισόδου</b>"
 
 #: ../Data/glade/dasher.preferences.glade.h:13
 #: ../Data/glade/dashermaemo.preferences.glade.h:5
@@ -331,7 +331,7 @@ msgstr "Αυτόματη προσαρμογή ταχύτητας"
 #: ../Data/glade/dasher.preferences.glade.h:19
 #: ../Data/glade/dashermaemo.preferences.glade.h:11
 msgid "Alphabet Default"
-msgstr "Προεπιλογή Αλφαβήτου"
+msgstr "Προεπιλογή αλφαβήτου"
 
 #: ../Data/glade/dasher.preferences.glade.h:20
 msgid "Appearance"
@@ -344,7 +344,7 @@ msgstr "Εφαρμογή"
 #: ../Data/glade/dasher.preferences.glade.h:22
 #: ../Data/glade/dashermaemo.preferences.glade.h:12
 msgid "Bottom to Top"
-msgstr "Κάτω προς Πάνω"
+msgstr "Από κάτω προς τα πάνω"
 
 #. Centre circle = start and stop by dwelling over a circle in the centre of the window Two box = start and stop by dwelling in sequence over two boxes (both of these are methods for starting and stopping without pressing a mouse button)
 #: ../Data/glade/dasher.preferences.glade.h:24
@@ -352,8 +352,8 @@ msgid ""
 "Centre circle\n"
 "Two box"
 msgstr ""
-"Κέντρο κύκλου\n"
-"Δύο κουτιά"
+"Κύκλος στο κέντρο\n"
+"Δύο τετράγωνα"
 
 #: ../Data/glade/dasher.preferences.glade.h:26
 msgid "Composition"
@@ -371,12 +371,12 @@ msgstr "Λειτουργία ελέγχου"
 #: ../Data/glade/dasher.preferences.glade.h:29
 #: ../Data/glade/dashermaemo.preferences.glade.h:14
 msgid "Custom"
-msgstr "Προσαρμοσμένο"
+msgstr "Προσαρμοσμένη"
 
 #: ../Data/glade/dasher.preferences.glade.h:30
 #: ../Data/glade/dashermaemo.preferences.glade.h:15
 msgid "Custom colour scheme:"
-msgstr "Προσαρμοσμένο σχήμα χρώματος:"
+msgstr "Προσαρμοσμένο σχήμα χρωμάτων:"
 
 #: ../Data/glade/dasher.preferences.glade.h:31
 #: ../Data/glade/dashermaemo.preferences.glade.h:16
@@ -385,7 +385,7 @@ msgstr "Προτιμήσεις Dasher "
 
 #: ../Data/glade/dasher.preferences.glade.h:32
 msgid "Direct entry"
-msgstr "Απευθείας καταχώριση"
+msgstr "Απευθείας εισαγωγή"
 
 #: ../Data/glade/dasher.preferences.glade.h:33
 msgid "Dock application window"
@@ -393,11 +393,11 @@ msgstr "Αγκύρωση παραθύρου εφαρμογής"
 
 #: ../Data/glade/dasher.preferences.glade.h:34
 msgid "Draw box outlines"
-msgstr "Σχεδίαση περιγραμμάτων κουτιών"
+msgstr "Σχεδίαση περιγραμμάτων τετραγώνων"
 
 #: ../Data/glade/dasher.preferences.glade.h:35
 msgid "Draw line between crosshairs and mouse"
-msgstr "Σχεδίαση γραμμής μεταξύ crosshairs και ποντικιού"
+msgstr "Σχεδίαση γραμμής μεταξύ στοχάστρου και ποντικιού"
 
 #: ../Data/glade/dasher.preferences.glade.h:36
 msgid "Full Screen"
@@ -428,13 +428,13 @@ msgstr "Μεγάλη γραμματοσειρά"
 #: ../Data/glade/dasher.preferences.glade.h:42
 #: ../Data/glade/dashermaemo.preferences.glade.h:20
 msgid "Left to Right"
-msgstr "Αριστερά πρός τα Δεξιά"
+msgstr "Από αριστερά προς Δεξιά"
 
 #. PPM =  Prediction by Partial Match, a styatistical language model.
 #: ../Data/glade/dasher.preferences.glade.h:44
 #: ../Data/glade/dashermaemo.preferences.glade.h:21
 msgid "Mixture model (PPM/dictionary)"
-msgstr "Μοντέλο μίξης (PPM/λεξικό)"
+msgstr "Μικτό μοντέλο (PPM/λεξικό)"
 
 #: ../Data/glade/dasher.preferences.glade.h:45
 msgid "Options"
@@ -442,12 +442,12 @@ msgstr "Επιλογές"
 
 #: ../Data/glade/dasher.preferences.glade.h:46
 msgid "Pause outside of canvas"
-msgstr "Παύση έξω από το καμβά"
+msgstr "Παύση εκτός καμβά"
 
 #: ../Data/glade/dasher.preferences.glade.h:47
 #: ../Data/glade/dashermaemo.preferences.glade.h:23
 msgid "Right to Left"
-msgstr "Δεξιά προς τα Αριστερά"
+msgstr "Από δεξιά προς αριστερά"
 
 #: ../Data/glade/dasher.preferences.glade.h:48
 msgid "Select Dasher Font"
@@ -475,34 +475,34 @@ msgstr "Μικρή γραμματοσειρά"
 
 #: ../Data/glade/dasher.preferences.glade.h:54
 msgid "Stand-alone"
-msgstr "Stand-alone"
+msgstr "Αυτόνομη"
 
 #. PPM = Prediction by Partial Match, a statistical language model.
 #: ../Data/glade/dasher.preferences.glade.h:56
 #: ../Data/glade/dashermaemo.preferences.glade.h:24
 msgid "Standard letter-based PPM"
-msgstr "PPM βασισμένο σε κανονικό γράμμα"
+msgstr "Κλασικό PPM βάσει γραμμάτων"
 
 #: ../Data/glade/dasher.preferences.glade.h:57
 msgid "Start on left mouse button"
-msgstr "Εκκίνηση στο πάτημα του αριστερού κουμπιού του ποντικιού"
+msgstr "Εκκίνηση με το αριστερό κουμπί του ποντικιού"
 
 #: ../Data/glade/dasher.preferences.glade.h:58
 msgid "Start on space bar"
-msgstr "Εκκίνηση στο πάτημα του space bar"
+msgstr "Εκκίνηση με το πλήκτρο διαστήματος"
 
 #: ../Data/glade/dasher.preferences.glade.h:59
 msgid "Start with mouse position:"
-msgstr "Εκκίνηση με την θέση του ποντικιού:"
+msgstr "Εκκίνηση με τη θέση του ποντικιού:"
 
 #: ../Data/glade/dasher.preferences.glade.h:60
 msgid "Timestamp new files"
-msgstr "Αποτύπωση ώρας σε νέα αρχεία"
+msgstr "Αποτύπωση ώρας στα νέα αρχεία"
 
 #: ../Data/glade/dasher.preferences.glade.h:61
 #: ../Data/glade/dashermaemo.preferences.glade.h:25
 msgid "Top to Bottom"
-msgstr "Πάνω προς τα Κάτω"
+msgstr "Από πάνω προς τα κάτω"
 
 #: ../Data/glade/dasher.preferences.glade.h:62
 msgid ""
@@ -510,9 +510,10 @@ msgid ""
 "letter boxes. Note that selecting high values will slow\n"
 "your writing speed."
 msgstr ""
-"Χρήση αυτού του ελέγχου για τη ρύθμιση σχετικών μεγεθών των\n"
-"κουτιών γραμμάτων. Σημειώστε ότι η επιλογή υψηλών τιμών θα επιβραδύνει\n"
-"την ταχύτητα γραφής σας."
+"Χρησιμοποιήστε αυτόν τον έλεγχο για να ρυθμίσετε το \n"
+"σχετικό μέγεθος των τετραγώνων των γραμμάτων. \n"
+"Σημειώστε ότι η επιλογή υψηλών τιμών επιβραδύνει την \n"
+"ταχύτητα γραφής σας."
 
 #: ../Data/glade/dasher.preferences.glade.h:65
 msgid "Very large font"
@@ -521,7 +522,7 @@ msgstr "Πολύ μεγάλη γραμματοσειρά"
 #: ../Data/glade/dasher.preferences.glade.h:66
 #: ../Data/glade/dashermaemo.preferences.glade.h:27
 msgid "Word-based model"
-msgstr "Μοντέλο βασισμένο σε λέξεις"
+msgstr "Μοντέλο βάσει λέξεων"
 
 #: ../Data/glade/dashermaemo.glade.h:1
 msgid "\n"
@@ -533,11 +534,11 @@ msgstr "P"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:3
 msgid "<b>Color Scheme</b>"
-msgstr "<b>Σχήμα χρώματος</b>"
+msgstr "<b>Σχήμα χρωμάτων</b>"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:4
 msgid "<b>Display Size</b>"
-msgstr "<b>Μέγεθος εμφάνισης</b>"
+msgstr "<b>Μέγεθος οθόνης</b>"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:6
 msgid "<b>Orientation</b>"
@@ -549,11 +550,11 @@ msgstr "Αλφάβητο"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:17
 msgid "Enlarge input window"
-msgstr "Μεγιστοποίηση παραθύρου εισαγωγής"
+msgstr "Μεγέθυνση παραθύρου εισαγωγής"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:22
 msgid "Prediction"
-msgstr "Πρόγνωση"
+msgstr "Πρόβλεψη"
 
 #: ../Data/glade/dashermaemo.preferences.glade.h:26
 msgid "View"
@@ -561,15 +562,15 @@ msgstr "Προβολή"
 
 #: ../Data/glade/dashermaemofullscreen.glade.h:3
 msgid "Large"
-msgstr "Μεγάλο"
+msgstr "Μεγάλη"
 
 #: ../Data/glade/dashermaemofullscreen.glade.h:4
 msgid "Normal"
-msgstr "Κανονικό"
+msgstr "Κανονική"
 
 #: ../Data/glade/dashermaemofullscreen.glade.h:7
 msgid "Very Large"
-msgstr "Πολύ μεγάλο"
+msgstr "Πολύ μεγάλη"
 
 #: ../Data/glade/dashermaemofullscreen.glade.h:9
 msgid "_Dasher Font"
@@ -581,7 +582,7 @@ msgstr "Μέγεθος Γραμματοσειράς _Dasher"
 
 #: ../Data/glade/dashermaemofullscreen.glade.h:12
 msgid "_Edit Font"
-msgstr "_Επεξεργασία Γραμματοσειράς"
+msgstr "Γραμματοσειρά _επεξεργαστή"
 
 #: ../Data/glade/dashermaemofullscreen.glade.h:15
 msgid "_Options"
@@ -593,16 +594,16 @@ msgstr "Επαναφο_ρά γραμματοσειρών"
 
 #: ../Src/DasherCore/ClickFilter.cpp:7
 msgid "Maximum Zoom"
-msgstr "Μέγιστη μεγέθυνση"
+msgstr "Μέγιστη εστίαση"
 
 #: ../Src/DasherCore/ClickFilter.h:11
 msgid "Click Mode"
-msgstr "Λειτουργία κλικ"
+msgstr "Κλικ"
 
 #. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
 #: ../Src/DasherCore/DasherButtons.cpp:25
 msgid "Zoom steps"
-msgstr "Βήματα μεγέθυνσης"
+msgstr "Βήματα εστίασης"
 
 #. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
 #: ../Src/DasherCore/DasherButtons.cpp:27
@@ -611,7 +612,7 @@ msgstr "Δεξιά εστίαση"
 
 #: ../Src/DasherCore/DasherButtons.cpp:28
 msgid "Number of boxes"
-msgstr "Αριθμός κουτιών"
+msgstr "Αριθμός τετραγώνων"
 
 #: ../Src/DasherCore/DasherButtons.cpp:29
 msgid "Safety margin"
@@ -620,12 +621,12 @@ msgstr "Περιθώριο ασφαλείας"
 #. TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other.
 #: ../Src/DasherCore/DasherButtons.cpp:31
 msgid "Box non-uniformity"
-msgstr "Ανομοιομορφία κουτιών"
+msgstr "Διαφοροποίηση τετραγώνων"
 
 #. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
 #: ../Src/DasherCore/DasherButtons.cpp:33
 msgid "Global keyboard grab"
-msgstr "Γενική σύλληψη πληκτρολογίου"
+msgstr "Αποκλειστική χρήση πληκτρολογίου"
 
 #: ../Src/DasherCore/DasherGameMode.cpp:633
 msgid "Well done!"
@@ -633,82 +634,80 @@ msgstr "Μπράβο!"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:941
 msgid "Normal Control"
-msgstr "Κανονικός έλεγχος"
+msgstr "Κανονική"
 
 #. TODO: specialist factory for button mode
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:955
 msgid "Menu Mode"
-msgstr "Λειτουργία μενού"
+msgstr "Μενού"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:956
 msgid "Direct Mode"
-msgstr "Απευθείας λειτουργία"
+msgstr "Απευθείας"
 
 #. RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3"));
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:958
 msgid "Alternating Direct Mode"
-msgstr "Εναλλακτική απευθείας λειτουργία"
+msgstr "Εναλλ. απευθείας"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:959
 msgid "Compass Mode"
-msgstr "Λειτουργία πυξίδας"
+msgstr "Πυξίδας"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:960
 msgid "Stylus Control"
-msgstr "Έλεγχος Stylus"
+msgstr "Γραφίδας"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:7
 msgid "Automatic calibration"
-msgstr "Αυτόματη ρύθμιση"
+msgstr "Αυτόματη βαθμονόμηση"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:11
 msgid "Eyetracker Mode"
-msgstr "Λειτουργία Eyetracker"
+msgstr "Ανιχνευτή ματιού"
 
 #. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:29
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
 msgid "Long press time"
-msgstr "Χρόνος συνεχόμενου πατήματος"
+msgstr "Διάρκεια μακρού πατήματος"
 
 #. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the time in which the button must be pressed multiple times to count.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
 msgid "Multiple press time"
-msgstr "Χρόνος πολλαπλού πατήματος"
+msgstr "Διάρκεια πολλαπλών πατημάτων"
 
 #. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the number of times a button must be pressed to count as a multiple press.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:34
 msgid "Multiple press count"
-msgstr "Μέτρηση πολλαπλού πατήματος"
+msgstr "Αριθμός πολλαπλών πατημάτων"
 
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
 msgid "Enable backoff button"
-msgstr "Ενεργοπο"
+msgstr "Ενεργοποίηση κουμπιού 'πίσω'"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
 msgid "One Button Dynamic Mode"
-msgstr "Δυναμική λειτουργία ενός πλήκτρου"
+msgstr "Δυναμική ενός πλήκτρου"
 
 #: ../Src/DasherCore/OneDimensionalFilter.cpp:5
 msgid "One Dimensional Mode"
-msgstr "Μονοδιάστατη λειτουργία"
+msgstr "Μονοδιάστατη"
 
 #: ../Src/DasherCore/SettingsStore.cpp:76
-#: ../Src/Gtk2/DasherAppSettings.cpp:518
-#: ../Src/Gtk2/DasherAppSettings.cpp:552
+#: ../Src/Gtk2/DasherAppSettings.cpp:518 ../Src/Gtk2/DasherAppSettings.cpp:552
 #: ../Src/Gtk2/DasherAppSettings.cpp:556
 msgid "true"
-msgstr "αληθές"
+msgstr "true"
 
 #: ../Src/DasherCore/SettingsStore.cpp:78
-#: ../Src/Gtk2/DasherAppSettings.cpp:520
-#: ../Src/Gtk2/DasherAppSettings.cpp:552
+#: ../Src/Gtk2/DasherAppSettings.cpp:520 ../Src/Gtk2/DasherAppSettings.cpp:552
 #: ../Src/Gtk2/DasherAppSettings.cpp:556
 msgid "false"
-msgstr "ψευδές"
+msgstr "false"
 
 #. Note to translators: This message will be output for a command line
 #. with "--options foo=VAL" and foo is a boolean valued parameter, but
@@ -716,18 +715,20 @@ msgstr "ψευδές"
 #: ../Src/DasherCore/SettingsStore.cpp:84
 #: ../Src/Gtk2/DasherAppSettings.cpp:523
 msgid "boolean value must be specified as 'true' or 'false'."
-msgstr "η τιμή boolean πρέπει να καθορισθεί ως 'true' ή 'false'."
+msgstr "η τιμή πρέπει να είναι 'true' (αληθής) ή 'false' (ψευδής)."
 
 #. Note to translators: This is output when command line "--options" doesn't
 #. specify a known option.
 #: ../Src/DasherCore/SettingsStore.cpp:104
 msgid "unknown option, use \"--help-options\" for more information."
-msgstr "άγνωστη επιλογή, χρησιμοποιήστε το \"--help-options\" για περισσότερες πληροφορίες."
+msgstr ""
+"άγνωστη επιλογή, χρησιμοποιήστε το \"--help-options\" για περισσότερες "
+"πληροφορίες."
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
 msgid "Dasher socket input: failed to launch reader thread."
-msgstr "Dasher socket input: αποτυχία εκκίνησης νήματος εκκινητή."
+msgstr "Είσοδος υποδοχής Dasher: αποτυχία εκκίνησης νήματος αναγνώστη."
 
 #: ../Src/DasherCore/SocketInputBase.cpp:27
 msgid "Port:"
@@ -759,25 +760,25 @@ msgstr "Μέγιστο Υ:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:34
 msgid "Print socket-related debugging information to console:"
-msgstr "Εκτύπωση πληροφοριών σχετικών με τις socket στην κονσόλα:"
+msgstr "Εκτύπωση πληροφοριών αποσφαλμάτωσης υποδοχών στην κονσόλα:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:38
 msgid "Socket Input"
-msgstr "Socket Input"
+msgstr "Είσοδος υποδοχής"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:28
 msgid "Button offset"
-msgstr "Offset κουμπιού"
+msgstr "Απομάκρυνση κουμπιών"
 
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:36
 msgid "Enable backoff and start/stop buttons"
-msgstr "Ενεργοποίηση κουμπιών εκκίνησης/διακοπής και backoff"
+msgstr "Ενεργοποίηση κουμπιών εκκίνησης/διακοπής και 'πίσω'"
 
 #. TRANSLATORS: What is normally the up button becomes the down button etc.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:38
 msgid "Reverse up and down buttons"
-msgstr "Κουμπιά Reverse up και down"
+msgstr "Αντιστροφή των κουμπιών πάνω και κάτω"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:39
 msgid "Slow startup"
@@ -785,54 +786,51 @@ msgstr "Αργή εκκίνηση"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:40
 msgid "Startup time"
-msgstr "Χρόνος εκκίνησης"
+msgstr "Διάρκεια εκκίνησης"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
 msgid "Auto speed control"
-msgstr "Έλεγχος αυτόματης ταχύτητας"
+msgstr "Αυτόματος έλεγχος ταχύτητας"
 
 #. TRANSLATORS: The threshold time above which auto speed control is used.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
 msgid "Auto speed threshold"
-msgstr "Κατώφλι αυτόματης ταχύτητας"
+msgstr "Όριο εκκίνησης αυτ. ελέγχου"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:47
 msgid "Two Button Dynamic Mode"
-msgstr "Δυναμική λειτουργία δύο πλήκτρων"
+msgstr "Δυναμική δύο πλήκτρων"
 
 #: ../Src/Gtk2/DasherAppSettings.cpp:549
 msgid "Boolean parameters"
-msgstr "Παράμετροι Boolean"
+msgstr "Λογικές παράμετροι"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:549
-#: ../Src/Gtk2/DasherAppSettings.cpp:560
+#: ../Src/Gtk2/DasherAppSettings.cpp:549 ../Src/Gtk2/DasherAppSettings.cpp:560
 #: ../Src/Gtk2/DasherAppSettings.cpp:571
 msgid "Default"
 msgstr "Προεπιλογή"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:549
-#: ../Src/Gtk2/DasherAppSettings.cpp:560
+#: ../Src/Gtk2/DasherAppSettings.cpp:549 ../Src/Gtk2/DasherAppSettings.cpp:560
 #: ../Src/Gtk2/DasherAppSettings.cpp:571
 msgid "Description"
 msgstr "Περιγραφή"
 
 #: ../Src/Gtk2/DasherAppSettings.cpp:560
 msgid "Integer parameters"
-msgstr "Παράμετροι ακεραίου"
+msgstr "Ακέραιες παράμετροι"
 
 #: ../Src/Gtk2/DasherAppSettings.cpp:571
 msgid "String parameters"
-msgstr "Παράμετροι αλφαριθμητικού"
+msgstr "Αλφαριθμητικές παράμετροι"
 
-#: ../Src/Gtk2/Preferences.cpp:435
-#: ../Src/Gtk2/Preferences.cpp:1004
+#: ../Src/Gtk2/Preferences.cpp:435 ../Src/Gtk2/Preferences.cpp:1004
 msgid "Action"
 msgstr "Ενέργεια"
 
 #. TRANSLATORS: Show a button for the selected action in the Dasher window.
 #: ../Src/Gtk2/Preferences.cpp:1011
 msgid "Show Button"
-msgstr "Προβολή κουμπιού"
+msgstr "Εμφάνιση κουμπιού"
 
 #: ../Src/Gtk2/Preferences.cpp:1016
 msgid "Control Mode"
@@ -841,7 +839,7 @@ msgstr "Λειτουργία ελέγχου"
 #. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
 #: ../Src/Gtk2/Preferences.cpp:1022
 msgid "Auto On Stop"
-msgstr "Auto On Stop"
+msgstr "Αυτόματα στη διακοπή"
 
 #: ../Src/Gtk2/dasher_action_keyboard.cpp:62
 #: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:96
@@ -850,11 +848,11 @@ msgstr "Εισαγωγή κειμένου"
 
 #: ../Src/Gtk2/dasher_action_script.cpp:91
 msgid "Script"
-msgstr "Γραφή"
+msgstr "Σενάριο"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:132
 msgid "Speak"
-msgstr "Ομιλία"
+msgstr "Εκφώνηση"
 
 #. TRANSLATORS: Send all text to the text-to-speech engine.
 #: ../Src/Gtk2/dasher_action_speech.cpp:145
@@ -887,25 +885,25 @@ msgstr "Προειδοποίηση: αδυναμία ορισμού παραμέ
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
 #: ../Src/Gtk2/dasher_main.cpp:313
 msgid "option setting is missing \"=\"."
-msgstr "option setting is missing \"=\"."
+msgstr "λείπει το \"=\" από το γνώρισμα."
 
 #. Note to translators: This string will be output when --options= specifies an unknown option.
 #: ../Src/Gtk2/dasher_main.cpp:329
 msgid "Invalid option string specified"
-msgstr "Invalid option string specified"
+msgstr "Άγνωστο αλφαριθμητικό γνωρίσματος"
 
-#: ../Src/Gtk2/dasher_main.cpp:1084
+#: ../Src/Gtk2/dasher_main.cpp:1088
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
 "\n"
 "Your changes will be lost if you don't save them."
 msgstr ""
-"Θέλετε να αποθηκεύσετε τις αλλαγές σας στο %s?\n"
+"Θέλετε να αποθηκεύσετε τις αλλαγές σας στο %s;\n"
 "\n"
 "Οι αλλαγές σας θα χαθούν αν δεν τις αποθηκεύσετε."
 
-#: ../Src/Gtk2/dasher_main.cpp:1091
+#: ../Src/Gtk2/dasher_main.cpp:1095
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -915,32 +913,34 @@ msgstr ""
 "\n"
 "Οι αλλαγές σας θα χαθούν αν δεν τις αποθηκεύσετε."
 
-#: ../Src/Gtk2/dasher_main.cpp:1097
+#: ../Src/Gtk2/dasher_main.cpp:1101
 msgid "Don't save"
 msgstr "Όχι αποθήκευση"
 
-#: ../Src/Gtk2/dasher_main.cpp:1098
-#: ../Src/Gtk2/dasher_main.cpp:1121
+#: ../Src/Gtk2/dasher_main.cpp:1102 ../Src/Gtk2/dasher_main.cpp:1125
 msgid "Don't quit"
 msgstr "Όχι έξοδος"
 
-#: ../Src/Gtk2/dasher_main.cpp:1099
+#: ../Src/Gtk2/dasher_main.cpp:1103
 msgid "Save and quit"
 msgstr "Αποθήκευση και έξοδος"
 
-#: ../Src/Gtk2/dasher_main.cpp:1118
+#: ../Src/Gtk2/dasher_main.cpp:1122
 msgid "Are you sure you wish to quit?"
-msgstr "Είστε σίγουρος πως θέλετε να βγείτε;"
+msgstr "Σίγουρα επιθυμείτε να εξέλθετε;"
 
-#: ../Src/Gtk2/dasher_main.cpp:1201
-#: ../Src/Gtk2/dasher_main.cpp:1217
+#: ../Src/Gtk2/dasher_main.cpp:1208 ../Src/Gtk2/dasher_main.cpp:1224
 msgid "Dasher is a predictive text entry application"
-msgstr "Ο Dasher είναι μια εφαρμογή πρόγνωσης καταχώρισης κειμένου"
+msgstr "Το Dasher είναι μια εφαρμογή εισαγωγής κειμένου με πρόβλεψη"
 
-#: ../Src/Gtk2/dasher_main.cpp:1206
-#: ../Src/Gtk2/dasher_main.cpp:1212
+#: ../Src/Gtk2/dasher_main.cpp:1213 ../Src/Gtk2/dasher_main.cpp:1219
 msgid "translator-credits"
-msgstr "Nikos Charonitakis <charosn@her.forthnet.gr>"
+msgstr ""
+"Ελληνική μεταφραστική ομάδα GNOME\n"
+" Nikos Charonitakis <charosn@her.forthnet.gr>\n"
+" Τζένη Πετούμενου <epetoumenou@gmail.gr>\n"
+"\n"
+"Για περισσότερες πληροφορίες, επισκεφθείτε την σελίδα http://www.gnome.gr/"
 
 #: ../Src/Gtk2/module_settings_window.cpp:88
 msgid "Dasher Module Options"
@@ -957,7 +957,7 @@ msgstr "Είσοδος ποντικιού"
 
 #: ../Src/Gtk2/mouse_input.h:51
 msgid "Pixels covering Y range"
-msgstr "Εικονοστοιχεία που καλύπτουν το εύρος Y:"
+msgstr "Εικονοστοιχεία του άξονα Y"
 
 #. TRANSLATORS: Only use the vertical mouse coordinate - this is prefered for some disabled users.
 #: ../Src/Gtk2/mouse_input.h:58
@@ -971,20 +971,21 @@ msgstr "Μονοδιάστατη είσοδος ποντικιού"
 #. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
 #: ../Src/main.cc:189
 msgid "Application style (traditional, direct, compose or fullscreen)"
-msgstr "Στυλ εφαρμογής (παραδοσιακό, άμεσο, σύνθετο ή πλήρης οθόνη)"
+msgstr ""
+"Στυλ εφαρμογής (traditional (παραδοσιακό), direct (απευθείας), compose "
+"(σύνταξη) ή fullscreen (πλήρης οθόνη))"
 
 #. Note to translators: This is the help string for "--options"
 #: ../Src/main.cc:191
 msgid "Override stored options"
-msgstr "Παράλειψη αποθηκευμένων επιλογών"
+msgstr "Υποκατάσταση αποθηκευμένων επιλογών"
 
 #. Note to translators: This is the help string for "--help-options"
 #: ../Src/main.cc:193
 msgid "Describe \"--options\"."
-msgstr "Describe \"--options\"."
+msgstr "Περιγραφή του \"--options\"."
 
 #. Note to translators: This is the "--help" description of dasher.
 #: ../Src/main.cc:200
 msgid "- A text input application honouring accessibility"
-msgstr "- Μια εφαρμογή εισαγωγής κειμένου με στόχο την προσβασιμότητα"
-
+msgstr "- Μια εφαρμογή εισαγωγής κειμένου με στόχο την προσιτότητα"
