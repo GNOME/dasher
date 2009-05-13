@@ -12,9 +12,6 @@
 #ifdef WITH_MAEMOFULLSCREEN
 #include <hildon-widgets/hildon-program.h>
 #endif
-#ifdef GNOME_LIBS
-#include <libgnome/libgnome.h>
-#endif
 #include <unistd.h>
 
 #include "GtkDasherControl.h"
@@ -469,9 +466,9 @@ dasher_main_load_interface(DasherMain *pSelf) {
     pPrivate->pPrefXML = (GladeXML *) g_object_ref(pPrivate->pGladeXML);
   }
 
-  // XXX PRLW: Hide the Help Contents as there is no handler to display help.
-  // #575365
+#ifndef HAVE_GTK_SHOW_URI
   gtk_widget_hide(glade_xml_get_widget(pPrivate->pGladeXML, "menu_command_help"));
+#endif
 
   // Save the details of some of the widgets for later
   //  pPrivate->pActionPane = glade_xml_get_widget(pPrivate->pGladeXML, "vbox39");
@@ -1153,9 +1150,25 @@ dasher_main_command_tutorial(DasherMain *pSelf) {
 
 static void 
 dasher_main_command_help(DasherMain *pSelf) {
-  // TODO: Need to disable the menu if gnome libs aren't present (or get rid of without gnome option) 
-#ifdef GNOME_LIBS
-  gnome_help_display_desktop(NULL, "dasher", "dasher", NULL, NULL);
+#ifdef HAVE_GTK_SHOW_URI
+  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
+  GdkScreen *scr;
+  GError *err = NULL;
+
+  scr = gtk_widget_get_screen(pPrivate->pMainWindow);
+  if (!gtk_show_uri(scr, "ghelp:dasher", gtk_get_current_event_time(), &err)) {
+    GtkWidget *d;
+    d = gtk_message_dialog_new(GTK_WINDOW(pPrivate->pMainWindow),
+                               GTK_DIALOG_MODAL,
+                               GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
+                               "%s", _("Unable to open help file"));
+    gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(d),
+                               "%s", err->message);
+    g_signal_connect(d, "response", G_CALLBACK(gtk_widget_destroy), NULL);
+    gtk_window_present(GTK_WINDOW(d));
+
+    g_error_free (err);
+  }
 #endif
 }
 

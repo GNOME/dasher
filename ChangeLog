@@ -1,3 +1,9 @@
+2009-05-13  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* dasher_main, configure.ac: Remove gnome_help_display_desktop and
+	use gtk_show_uri if it exists (e.g. not in Ubuntu 8.04.2).
+	(#575365 and part of #573964)
+
 2009-05-12  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* configure.ac: We either need gnome a11y libraries such as cspi, or

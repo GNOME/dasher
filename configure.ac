@@ -195,8 +195,15 @@ then
 	PKG_CHECK_MODULES(GTK2, gtk+-2.0 >= 2.6.0,[GTK2HERE=true],[GTK2HERE=false]) 
 	PKG_CHECK_MODULES(GCONF, gconf-2.0,[GCONF2HERE=true],[GCONF2HERE=false])
 	if test x$GCONF2HERE = xfalse; then
-	   AC_MSG_WARN("GConf was not detected - user preferences will not be stored.")
+		AC_MSG_WARN([GConf was not detected - user preferences will not be stored.])
 	fi
+	save_CFLAGS="$CFLAGS"
+	save_LIBS="$LIBS"
+	CFLAGS="$CFLAGS $GTK2_CFLAGS"
+	LIBS="$LIBS $GTK2_LIBS"
+	AC_CHECK_FUNCS([gtk_show_uri]) dnl which appeared in Gtk 2.13.1
+	CFLAGS="$save_CFLAGS"
+	LIBS="$save_LIBS"
 fi
 
 if test x"$GTK2HERE" = xtrue -a x"$WITHGTK2" = xtrue -a x"$WITHQTE" != xtrue
