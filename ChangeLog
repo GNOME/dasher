@@ -1,3 +1,7 @@
+2009-05-14  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* DasherButtons.cpp: Change box non-uniformity range again.
+
 2009-05-14  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* Carry on excision of Factories, renaming Create{,Local}Factories

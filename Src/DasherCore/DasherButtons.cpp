@@ -28,7 +28,11 @@ static SModuleSettings sSettings[] = {
   {LP_B, T_LONG, 2, 10, 1, 1, _("Number of boxes")},
   {LP_S, T_LONG, 0, 256, 1, 1, _("Safety margin")},
   /* TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other. */
-  {LP_R, T_LONG, -80, 80, 1, 10, _("Box non-uniformity")},
+  /* XXX PRLW: 128 log(2) = 89, where 2 is the ratio of adjacent boxes
+   * however the code seems to use ratio = (129/127)^-r, instead of
+   * ratio = exp(r/128) used in the design document
+   */
+  {LP_R, T_LONG, -89, 89, 1, 10, _("Box non-uniformity")},
   /* TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.*/
   {BP_GLOBAL_KEYBOARD, T_BOOL, -1, -1, -1, -1, _("Global keyboard grab")}
 };
