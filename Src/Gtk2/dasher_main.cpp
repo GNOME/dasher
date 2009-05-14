@@ -1158,12 +1158,20 @@ dasher_main_command_help(DasherMain *pSelf) {
   scr = gtk_widget_get_screen(pPrivate->pMainWindow);
   if (!gtk_show_uri(scr, "ghelp:dasher", gtk_get_current_event_time(), &err)) {
     GtkWidget *d;
+// XXX PRLW: after string thaw use the following:
+#if 0
     d = gtk_message_dialog_new(GTK_WINDOW(pPrivate->pMainWindow),
                                GTK_DIALOG_MODAL,
                                GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
                                "%s", _("Unable to open help file"));
     gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(d),
                                "%s", err->message);
+#else
+    d = gtk_message_dialog_new(GTK_WINDOW(pPrivate->pMainWindow),
+                               GTK_DIALOG_MODAL,
+                               GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
+                               "%s", err->message);
+#endif
     g_signal_connect(d, "response", G_CALLBACK(gtk_widget_destroy), NULL);
     gtk_window_present(GTK_WINDOW(d));
 

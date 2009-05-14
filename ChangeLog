@@ -1,7 +1,8 @@
 2009-05-14  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* DasherButtons.cpp: Change box non-uniformity range again.
-	* AlphabetBox.cpp: hack to avoid crash when LP_UNIFORM is zero.
+	* AlphabetBox.cpp: Hack to avoid crash when LP_UNIFORM is zero.
+	* dasher_main.cpp: Avoid adding a string during string freeze.
 
 2009-05-14  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
