@@ -1,9 +1,7 @@
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
-#ifdef GNOME_LIBS
 #include <glib/gi18n.h>
-#endif
 
 #include "Common/Common.h"
 
@@ -26,11 +24,6 @@
 
 #ifdef WITH_GPE
 #include <gpe/init.h>
-#endif
-
-#ifdef GNOME_LIBS
-#include <libgnome/libgnome.h>
-#include <libgnomeui/libgnomeui.h>
 #endif
 
 // #include <libintl.h>
@@ -219,21 +212,6 @@ int main(int argc, char *argv[]) {
 #ifdef WITH_MAEMO
   osso_context = osso_initialize("dasher", PACKAGE_VERSION, TRUE, NULL);
 #endif
-
-#ifdef GNOME_LIBS
-  GnomeProgram *program = 0;
-#if GLIB_CHECK_VERSION(2,14,0)
-  program = gnome_program_init
-    (argv[0], PACKAGE_VERSION, LIBGNOMEUI_MODULE,
-     argc, argv,
-     GNOME_PARAM_GOPTION_CONTEXT, goptcontext, GNOME_PARAM_NONE);
-#else
-  program = gnome_program_init
-    (argv[0], PACKAGE_VERSION, LIBGNOMEUI_MODULE,
-     argc, argv,
-     GNOME_PARAM_NONE);
-#endif
-#endif /* GNOME_LIBS */
 
 #if (defined GNOME_SPEECH || defined GNOME_A11Y)
   if(!bonobo_is_initialized()) {

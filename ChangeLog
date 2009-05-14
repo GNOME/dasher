@@ -1,3 +1,8 @@
+2009-05-14  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* configure.ac, main.cc: Dasher no longer depends directly
+	on libgnome nor libgnomeui. Fixes #573964.
+
 2009-05-13  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* dasher_main, configure.ac: Remove gnome_help_display_desktop and

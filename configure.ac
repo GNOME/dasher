@@ -52,7 +52,7 @@ AC_ARG_ENABLE(debug,
          DEBUG=false)
 
 AC_ARG_WITH([gnome],
-	 AS_HELP_STRING([--with-gnome],[build with GNOME support (default is YES)]), 
+	 AS_HELP_STRING([--with-gnome],[build GNOME documentation (default is YES)]), 
 	 if test $withval = "no"; then
 	   WITHGNOME=false; 
 	 else
@@ -224,11 +224,6 @@ fi
 
 if test x"$DEBUG" = xtrue; then
 	AC_DEFINE([DEBUG], 1, [Additional debug checks enabled])
-fi
-
-if test x"$WITHGNOME" = xtrue; then
-	PKG_CHECK_MODULES(gnome, libgnome-2.0 libgnomeui-2.0 )
-	AC_DEFINE([GNOME_LIBS], 1, [libgnome-2 and libgnomeui-2 are present])
 fi
 
 if test x"$WITHSPEECH" = xtrue; then

@@ -20,8 +20,6 @@ distributions the following can be used.
 	    gnome-doc-utils
 	    libatspi-dev
 	    libgconf2-dev
-	    libgnome2-dev
-	    libgnomeui-dev
 	    libgtk2.0-dev
 	    libxtst-dev"
   sudo apt-get install $packages
