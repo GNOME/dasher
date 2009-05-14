@@ -132,7 +132,7 @@ FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,185,130,50,14
     ICON            IDI_DASHER,IDC_MYICON,23,18,20,20
-    LTEXT           "Dasher 4.10.1",IDC_STATIC,67,18,168,10,SS_NOPREFIX
+    LTEXT           "Dasher 4.10.1a",IDC_STATIC,67,18,168,10,SS_NOPREFIX
     LTEXT           "Copyright (C) 1998-2009 The Dasher Project",IDC_STATIC,67,30,168,10
     LTEXT           "dasher@inf.phy.cam.ac.uk",IDC_STATIC,67,63,168,10
     LTEXT           "http://www.dasher.org.uk/",IDC_STATIC,67,53,168,10

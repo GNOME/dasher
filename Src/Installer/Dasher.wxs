@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
 
-  <Product Name='Dasher 4.10.1' Id='6eeb2808-2516-11de-ae8d-000e7b9b7395'
+  <Product Name='Dasher 4.10.1a' Id='6eeb2808-2516-11de-ae8d-000e7b9b7395'
    Language='1033' Codepage='1252' Version='4.10.1' Manufacturer='The Dasher Team'
    UpgradeCode='6fd13190-2516-11de-ae8d-000e7b9b7395'>
 
