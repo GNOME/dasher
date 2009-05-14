@@ -38,7 +38,8 @@ COSXDasherControl::COSXDasherControl(DasherApp *aDasherApp) {
   
 }
 
-void COSXDasherControl::CreateLocalFactories() {
+void COSXDasherControl::CreateModules() {
+  CDasherInterfaceBase::CreateModules();
   // Create locally cached copies of the mouse input objects, as we
   // need to pass coordinates to them from the timer callback
   m_pMouseInput =

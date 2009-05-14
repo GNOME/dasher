@@ -393,6 +393,12 @@ protected:
   ///
 
   void OnUIRealised();
+	
+  ///
+  /// Creates a default set of modules. Override in subclasses to create any
+  /// extra/different modules specific to the platform (eg input device drivers)
+  ///	
+  virtual void CreateModules();
 
   /// @}
 
@@ -475,13 +481,6 @@ protected:
   virtual void SetupUI() = 0;
 
   ///
-  /// Create any module factories which are specific to the platform
-  /// (eg input device drivers)
-  ///
-
-  virtual void CreateLocalFactories() = 0;
-
-  ///
   /// Create settings store object, which will be platform dependent
   /// TODO: Can this not be done just by selecting which settings
   /// store implementation to instantiate?
@@ -524,8 +523,7 @@ protected:
   /// Provide a new CDasherInput input device object.
 
   void CreateInput();
-
-  void CreateFactories();
+	
   void CreateInputFilter();
 
   void CreateModel(int iOffset);

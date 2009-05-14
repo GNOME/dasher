@@ -14,7 +14,7 @@ under 'Platform dependent utility functions'. The GTK implementation of these is
 
 Having created the custom UI component derived from CDasherInterfaceBase, embed it in the rest of the user interface as normal. Communication into the core is mainly through setting parameters (eg CDasherInterfaceBase::SetBoolParameter), which should cause instantaneous changes to Dasher's state. See Parameters.h for a list of all parameters (some of which are obsolete I'm afraid). Outbound messages are passed through CDasherInterfaceBase::ExternalEventHandler, which receives event objects which are either directly passed to a callback, or translated into platform dependent messages as would be used to eg notify an application that a menu item had been selected.
 
-User input is now via child classes of CDasherInput, which allows a selection of drivers. See mouse_input.h for an example - it's fairly simple. These are instantiated through factory objects, which are created in CDasherInterfaceBase::CreateLocalFactories. The objects themselves are singletons which have a reference in the interface used to update the current coordinates. You'll need to do reference counting here.
+User input is now via child classes of CDasherInput, which allows a selection of drivers. See mouse_input.h for an example - it's fairly simple. These are instantiated in (subclasses ofCDasherInterfaceBase)::CreateModules. The objects themselves are singletons which have a reference in the interface used to update the current coordinates. You'll need to do reference counting here.
 
 
 

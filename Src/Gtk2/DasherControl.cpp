@@ -45,7 +45,8 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
   //  m_pKeyboardHelper->Grab(GetBoolParameter(BP_GLOBAL_KEYBOARD));
 }
 
-void CDasherControl::CreateLocalFactories() {
+void CDasherControl::CreateModules() {
+  CDasherInterfaceBase::CreateModules(); //create default set first
   // Create locally cached copies of the mouse input objects, as we
   // need to pass coordinates to them from the timer callback
   m_pMouseInput =

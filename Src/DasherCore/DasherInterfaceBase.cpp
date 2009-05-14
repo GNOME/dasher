@@ -159,8 +159,7 @@ void CDasherInterfaceBase::Realize() {
   m_pUserLog = NULL;
 #endif
 
-  CreateFactories();
-  CreateLocalFactories();
+  CreateModules();
 
   CreateInput();
   CreateInputFilter();
@@ -936,7 +935,7 @@ void CDasherInterfaceBase::SetDefaultInputMethod(CDasherModule *pModule) {
     m_oModuleManager.SetDefaultInputMethod(pModule);
 }
 
-void CDasherInterfaceBase::CreateFactories() {
+void CDasherInterfaceBase::CreateModules() {
   SetDefaultInputMethod(
     RegisterModule(new CDefaultFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel,3, _("Normal Control")))
   );

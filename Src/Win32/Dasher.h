@@ -56,7 +56,7 @@ private:
   virtual void ScanColourFiles(std::vector<std::string> &vFileList);
   virtual void SetupPaths();
   virtual void SetupUI();
-  virtual void CreateLocalFactories();
+  virtual void CreateModules();
   virtual void StartTimer();
   virtual void ShutdownTimer();
   void CreateSettingsStore();

@@ -1,3 +1,10 @@
+2009-05-14  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Carry on excision of Factories, renaming Create{,Local}Factories
+	to CreateModules. Class' CreateModules is "Local" and usually calls
+	DasherInterfaceBase::CreateModules to load the defaults if it wants
+	to override it.
+
 2009-05-14  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* configure.ac, main.cc: Dasher no longer depends directly
