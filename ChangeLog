@@ -2,6 +2,7 @@
 
 	* configure.ac, main.cc: Dasher no longer depends directly
 	on libgnome nor libgnomeui. Fixes #573964.
+	* Dasher.rc: Game mode isn't ready for prime time.
 
 2009-05-13  Patrick Welche  <prlw1@cam.ac.uk>
 
