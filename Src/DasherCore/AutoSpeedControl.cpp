@@ -181,17 +181,9 @@ inline void CAutoSpeedControl::UpdateSigmas(double r, double dFrameRate)
 void CAutoSpeedControl::SpeedControl(myint iDasherX, myint iDasherY, double dFrameRate, CDasherView *pView) {
   if(GetBoolParameter(BP_AUTO_SPEEDCONTROL) && !GetBoolParameter(BP_DASHER_PAUSED)) {
     
-//  Coordinate transforms:    
-    iDasherX = myint(pView->xmap(iDasherX / static_cast < double >(GetLongParameter(LP_MAX_Y))) * GetLongParameter(LP_MAX_Y));
-    iDasherY = myint(pView->ymap(iDasherY));
-
-    myint iDasherOX = myint(pView->xmap(GetLongParameter(LP_OX) / static_cast < double >(GetLongParameter(LP_MAX_Y))) * GetLongParameter(LP_MAX_Y));
-    myint iDasherOY = myint(pView->ymap(GetLongParameter(LP_OY)));
-
-    double x = -(iDasherX - iDasherOX) / double(iDasherOX); //Use normalised coords so min r works 
-    double y = -(iDasherY - iDasherOY) / double(iDasherOY); 
-    double theta = atan2(y, x);
-    double r = sqrt(x * x + y * y);
+//  Coordinate transforms:
+	double r,theta;
+	pView->Dasher2Polar(iDasherX, iDasherY, r, theta);
 
     m_dBitrate = GetLongParameter(LP_MAX_BITRATE) / 100.0; //  stored as long(round(true bitrate * 100))
 

@@ -894,6 +894,19 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
   }
 }
 
+void CDasherViewSquare::Dasher2Polar(myint iDasherX, myint iDasherY, double &r, double &theta) {
+	iDasherX = myint(xmap(iDasherX / static_cast < double >(GetLongParameter(LP_MAX_Y))) * GetLongParameter(LP_MAX_Y));
+    iDasherY = myint(m_ymap.map(iDasherY));
+	
+    myint iDasherOX = myint(xmap(GetLongParameter(LP_OX) / static_cast < double >(GetLongParameter(LP_MAX_Y))) * GetLongParameter(LP_MAX_Y));
+    myint iDasherOY = myint(m_ymap.map(GetLongParameter(LP_OY)));
+	
+    double x = -(iDasherX - iDasherOX) / double(iDasherOX); //Use normalised coords so min r works 
+    double y = -(iDasherY - iDasherOY) / double(iDasherOY); 
+    theta = atan2(y, x);
+    r = sqrt(x * x + y * y);
+}
+
 void CDasherViewSquare::VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, myint &iDasherMaxX, myint &iDasherMaxY ) {
   // TODO: Change output parameters to pointers and allow NULL to mean
   // 'I don't care'. Need to be slightly careful about this as it will

@@ -104,20 +104,14 @@ public:
 
   virtual void Dasher2Screen(myint iDasherX, myint iDasherY, screenint & iScreenX, screenint & iScreenY) = 0;
 
+  ///
+  /// Convert Dasher co-ordinates to polar co-ordinates (r,theta), with 0<r<1, 0<theta<2*pi
+  ///
+  virtual void Dasher2Polar(myint iDasherX, myint iDasherY, double &r, double &theta) = 0;
 
   virtual bool IsNodeVisible(myint y1, myint y2) { return true; };
 
   virtual void VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, myint &iDasherMaxX, myint &iDasherMaxY ) = 0;
-
-  /// \todo This function is only public (and in the parent class)
-  /// because of the slightly hacky conversion needed for auto speed
-  /// control. At some point find a way to make this more sensible.
-  virtual double xmap(double x) const = 0;
-
-  /// \todo This function is only public (and in the parent class)
-  /// because of the slightly hacky conversion needed for auto speed
-  /// control. At some point find a way to make this more sensible.
-  virtual double ymap(double x) const = 0;
 
   /// @}
 

@@ -78,6 +78,11 @@ public:
   ///
   void Dasher2Screen(myint iDasherX, myint iDasherY, screenint & iScreenX, screenint & iScreenY);
 
+  ///
+  /// Convert Dasher co-ordinates to polar co-ordinates (r,theta), with 0<r<1, 0<theta<2*pi
+  ///
+  virtual void Dasher2Polar(myint iDasherX, myint iDasherY, double &r, double &theta);	
+	
   /// 
   /// Return true if a node spanning y1 to y2 is entirely enclosed by
   /// the screen boundary
@@ -88,11 +93,6 @@ public:
   /// Get the bounding box of the visible region.
   ///
   void VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, myint &iDasherMaxX, myint &iDasherMaxY );
-
-  double xmap(double x) const;
-  double ymap(double x) const {
-    return m_ymap.map( (myint)x );
-  };
 
   /// @}
 
@@ -151,7 +151,7 @@ private:
 #endif
 
   // Class definitions
-
+  ///Implements the non-linearity near the extremes of the Y axis
   class Cymap {
   public:
     Cymap(myint iScale);
@@ -162,6 +162,7 @@ private:
     myint m_Y1, m_Y2, m_Y3;
   };
 
+  double xmap(double x) const;
   double xmax(double x, double y) const;
   double ixmap(double x) const;
   inline void Crosshair(myint sx);

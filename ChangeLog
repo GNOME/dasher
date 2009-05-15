@@ -2,6 +2,10 @@
 
 	* Backport to OS X 10.4 universal binary for PPC.
 	* DasherModel.{h,cpp}: Remove unused Recursive_Push_Node method.
+	* AutoSpeedControl.cpp, DasherView.h, DasherViewSquare.{h,cpp}:
+	Refactored computation of polar co-ordinates for auto speed
+	control.
+
 
 2009-05-14  Patrick Welche  <prlw1@cam.ac.uk>
 
