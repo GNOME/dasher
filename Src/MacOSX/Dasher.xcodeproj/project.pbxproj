@@ -158,9 +158,9 @@
 		1948BF3F0C226CFD001DFA32 /* XMLUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE9B0C226CFD001DFA32 /* XMLUtil.h */; };
 		19558AD60C3182730054A193 /* DasherViewCocoa.h in Headers */ = {isa = PBXBuildFile; fileRef = 19558AD50C3182730054A193 /* DasherViewCocoa.h */; };
 		196874060C2BDC2E00D63879 /* AlphabetLetter.h in Headers */ = {isa = PBXBuildFile; fileRef = 196874000C2BDC2E00D63879 /* AlphabetLetter.h */; };
-		196874070C2BDC2E00D63879 /* AlphabetLetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 196874010C2BDC2E00D63879 /* AlphabetLetter.m */; };
+		196874070C2BDC2E00D63879 /* AlphabetLetter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 196874010C2BDC2E00D63879 /* AlphabetLetter.mm */; };
 		1968740A0C2BDC2E00D63879 /* GLUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 196874040C2BDC2E00D63879 /* GLUtils.h */; };
-		1968740B0C2BDC2E00D63879 /* GLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 196874050C2BDC2E00D63879 /* GLUtils.m */; };
+		1968740B0C2BDC2E00D63879 /* GLUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 196874050C2BDC2E00D63879 /* GLUtils.mm */; };
 		196874290C2BE12E00D63879 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 196874280C2BE12E00D63879 /* OpenGL.framework */; };
 		1974FE340714861B00B95DA0 /* DasherApp.h in Headers */ = {isa = PBXBuildFile; fileRef = 19C49619045029A40000000A /* DasherApp.h */; };
 		1974FE370714861B00B95DA0 /* ZippyCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 1946CAB90481AD440000000A /* ZippyCache.h */; };
@@ -567,9 +567,9 @@
 		1948BE9B0C226CFD001DFA32 /* XMLUtil.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = XMLUtil.h; sourceTree = "<group>"; };
 		19558AD50C3182730054A193 /* DasherViewCocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DasherViewCocoa.h; sourceTree = "<group>"; };
 		196874000C2BDC2E00D63879 /* AlphabetLetter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AlphabetLetter.h; sourceTree = "<group>"; };
-		196874010C2BDC2E00D63879 /* AlphabetLetter.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = AlphabetLetter.m; sourceTree = "<group>"; };
+		196874010C2BDC2E00D63879 /* AlphabetLetter.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = AlphabetLetter.mm; sourceTree = "<group>"; };
 		196874040C2BDC2E00D63879 /* GLUtils.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GLUtils.h; sourceTree = "<group>"; };
-		196874050C2BDC2E00D63879 /* GLUtils.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = GLUtils.m; sourceTree = "<group>"; };
+		196874050C2BDC2E00D63879 /* GLUtils.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = GLUtils.mm; sourceTree = "<group>"; };
 		196874280C2BE12E00D63879 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		196D8784048AA2750000000A /* DasherUtil.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherUtil.h; sourceTree = "<group>"; };
 		196D8785048AA2750000000A /* DasherUtil.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = DasherUtil.mm; sourceTree = "<group>"; };
@@ -846,9 +846,9 @@
 				19C4961D045029D70000000A /* DasherViewOpenGL.h */,
 				199DCCD70450B94C0000000A /* DasherViewOpenGL.mm */,
 				196874000C2BDC2E00D63879 /* AlphabetLetter.h */,
-				196874010C2BDC2E00D63879 /* AlphabetLetter.m */,
+				196874010C2BDC2E00D63879 /* AlphabetLetter.mm */,
 				196874040C2BDC2E00D63879 /* GLUtils.h */,
-				196874050C2BDC2E00D63879 /* GLUtils.m */,
+				196874050C2BDC2E00D63879 /* GLUtils.mm */,
 				19D4423C04546C410000000A /* PreferencesController.h */,
 				19D4423D04546C410000000A /* PreferencesController.mm */,
 				198EC7AE07153D6E00474B38 /* KeyboardEvent.h */,
@@ -1824,8 +1824,8 @@
 				1948BF370C226CFD001DFA32 /* UserLogParam.cpp in Sources */,
 				1948BF390C226CFD001DFA32 /* UserLogTrial.cpp in Sources */,
 				1948BF3E0C226CFD001DFA32 /* XMLUtil.cpp in Sources */,
-				196874070C2BDC2E00D63879 /* AlphabetLetter.m in Sources */,
-				1968740B0C2BDC2E00D63879 /* GLUtils.m in Sources */,
+				196874070C2BDC2E00D63879 /* AlphabetLetter.mm in Sources */,
+				1968740B0C2BDC2E00D63879 /* GLUtils.mm in Sources */,
 				19C190AC0C3267D700979F34 /* DasherViewAqua.mm in Sources */,
 				1921DB390C7ECAA400E6DAA5 /* OneButtonDynamicFilter.cpp in Sources */,
 				1921DB400C7ECB4B00E6DAA5 /* DasherGameMode.cpp in Sources */,
@@ -1955,6 +1955,8 @@
 		198D19FF08965C4800CE3CC9 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
 			};
 			name = Deployment;
 		};
@@ -1975,7 +1977,7 @@
 				198D19FC08965C4800CE3CC9 /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Development;
 		};
 		198D19FD08965C4800CE3CC9 /* Build configuration list for PBXProject "Dasher" */ = {
 			isa = XCConfigurationList;
@@ -1985,7 +1987,7 @@
 				198D1A0008965C4800CE3CC9 /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Default;
+			defaultConfigurationName = Development;
 		};
 /* End XCConfigurationList section */
 	};

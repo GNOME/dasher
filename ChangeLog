@@ -1,3 +1,7 @@
+2009-05-15  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Backport to OS X 10.4 universal binary for PPC
+
 2009-05-14  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* DasherButtons.cpp: Change box non-uniformity range again.

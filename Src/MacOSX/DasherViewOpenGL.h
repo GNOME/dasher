@@ -44,6 +44,7 @@ typedef struct {
 
   GLuint frameBuffers[2];
   GLuint textures[2];
+  GLfloat texcoords[8];
 	
   colour_t *colourTable;
   

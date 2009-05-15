@@ -20,6 +20,7 @@
 #import "Chatter.h"
 #import "DasherUtil.h"
 #import "DasherApp.h"
+#import "GLUtils.h"
 
 #import "COSXDasherScreen.h"
 
@@ -34,8 +35,17 @@
 
 - (void)sendMarker:(int)iMarker {
   [[self openGLContext] makeCurrentContext];
-  if (iMarker != -1) glDisable(GL_TEXTURE_2D);
-  glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, iMarker==-1 ? 0 : frameBuffers[iMarker]);
+  if (iMarker == -1)
+  {
+	  glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+  }
+  else
+  {
+	  //NSLog(@"SendMarker %i\n",iMarker);
+	  glDisable(GL_TEXTURE_2D);
+	  glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBuffers[iMarker]);
+	  glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, textures[iMarker], 0);
+  }
   //glMatrixMode(GL_PROJECTION); glLoadIdentity();
   //glOrtho(0, [self boundsWidth], [self boundsHeight], 0, -1.0, 1.0);
   //glMatrixMode(GL_MODELVIEW); glLoadIdentity();
@@ -53,7 +63,6 @@
   glEnableClientState(GL_TEXTURE_COORD_ARRAY);
   GLshort coords[] = {0,0, r.width,0, 0,r.height, r.width,r.height};
   glVertexPointer(2, GL_SHORT, 0, coords);
-  GLfloat texcoords[] = {0.0,1.0, 1.0,1.0, 0.0,0.0, 1.0,0.0};
   glTexCoordPointer(2, GL_FLOAT, 0, texcoords);
   
   for (int i=0; i<2; i++)
@@ -188,7 +197,7 @@
 - (AlphabetLetter *)letterForString:(NSString *)aString {
   AlphabetLetter *result = [_letterDict objectForKey:aString];
   if (result == nil) {
-    result = [[AlphabetLetter alloc] initWithString:aString small:YES];
+    result = [[AlphabetLetter alloc] initWithString:aString];
     [_letterDict setObject:result forKey:aString];
   }
   return result;
@@ -205,7 +214,7 @@
   AlphabetLetter *letter = [self letterForString:aString];
   glEnable(GL_TEXTURE_2D);
   // TODO could pass the whole colour_t in and let it deal with splitting out the items
-  [letter drawWithSize:/*1.0*/ aSize / 18.0 x:x1 y:y1 r:colourTable[aColorIndex].r g:colourTable[aColorIndex].g b:colourTable[aColorIndex].b];
+  [letter drawWithSize:/*1.0*/ aSize x:x1 y:y1 r:colourTable[aColorIndex].r g:colourTable[aColorIndex].g b:colourTable[aColorIndex].b];
   glDisable(GL_TEXTURE_2D);
 }
 
@@ -257,13 +266,13 @@
     [self gl_init];
     [self flushCaches];
     [self setFrameSize:aFrame.size];
-	int w = aFrame.size.width, h = aFrame.size.height;
+	int w = P2Ceiling(aFrame.size.width), h = P2Ceiling(aFrame.size.height);
 	glGenFramebuffersEXT(2, frameBuffers);
 	glGenTextures(2, textures);
 
 	for (int i=0; i<2; i++)
     {
-      glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBuffers[i]);
+	  glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBuffers[i]);
       glBindTexture(GL_TEXTURE_2D, textures[i]);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -277,8 +286,14 @@
     }
     glClearColor(1.0, 1.0, 1.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
+	  
+    GLfloat tc_x = aFrame.size.width/(double)w, tc_y = aFrame.size.height/(double)h;
+    texcoords[0] = 0.0; texcoords[1] = tc_y;
+    texcoords[2] = tc_x; texcoords[3] = tc_y;
+    texcoords[4] = 0.0; texcoords[5] = 0.0;
+    texcoords[6] = tc_x; texcoords[7] = 0.0;
+    _keyboardHelper = new CKeyboardHelper();	  
   }
-  _keyboardHelper = new CKeyboardHelper();
   return self;
 }
 
