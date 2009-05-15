@@ -351,8 +351,10 @@ void CDasherModel::InitialiseAtOffset(int iOffset, CDasherView *pView) {
   // Create children of the root
   // TODO: What about parents?
 
-  Recursive_Push_Node(m_Root, 0);
-
+  if(m_Root->Range() >= 0.1 * GetLongParameter(LP_NORMALIZATION)) {
+    Push_Node(m_Root);
+  }
+	
   // Set the root coordinates so that the root node is an appropriate
   // size and we're not in any of the children
 
@@ -829,25 +831,6 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
   ////////////////////////////
   
 
-}
-
-void CDasherModel::Recursive_Push_Node(CDasherNode *pNode, int iDepth) {
-  // TODO: is this really useful? Doesn't Push_node itself recurse
-
-  DASHER_ASSERT(pNode != NULL);
-
-  if(pNode->Range() < 0.1 * GetLongParameter(LP_NORMALIZATION)) {
-    return;
-  }
-
-  Push_Node(pNode);
-
-  if(iDepth == 0)
-    return;
-
-  for(unsigned int i(0); i < pNode->ChildCount(); i++) {
-    Recursive_Push_Node(pNode->Children()[i], iDepth - 1);
-  }
 }
 
 bool CDasherModel::RenderToView(CDasherView *pView, bool bRedrawDisplay, SLockData *pLockData) {

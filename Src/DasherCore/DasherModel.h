@@ -354,10 +354,6 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   /// Called from InitialiseAtOffset
   void DeleteTree();
 
-  /// Push nodes recursively (d'oh!) - seems to be a little broken at the moment, need to check where this gets called
-  /// TODO: Need to sort out, need to check that this isn't generating too many nodes
-  void Recursive_Push_Node(CDasherNode * pNode, int depth);
-
   /// Create the children of a Dasher node
   void Push_Node(CDasherNode * pNode); 
 
