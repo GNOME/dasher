@@ -8,10 +8,7 @@ dnl c.f. bug #323968, but e.g. Ubuntu 8.04 LTS ships with 0.37.1
 dnl AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 
-dnl The following two changes are required currently for the Maemo build (but will break the GNOME build)
-
-dnl AM_INIT_AUTOMAKE([1.9 gnu check-news dist-bzip2 no-dist-gzip])
-AM_INIT_AUTOMAKE([1.8 gnu check-news dist-bzip2 no-dist-gzip])
+AM_INIT_AUTOMAKE([1.8 gnu check-news dist-bzip2])
 AM_MAINTAINER_MODE
 
 AC_PROG_MAKE_SET
@@ -398,13 +395,16 @@ AC_SUBST(GTK2BUILD_CFLAGS)
 AC_SUBST(GTK2BUILD_LIBS)
 
 AC_MSG_CHECKING([for gnome-doc-utils])
-GNOME_DOC_INIT([0.9.0],[have_gdu=yes],[have_gdu=no])
-AC_MSG_RESULT($have_gdu)
+dnl Avoid default action which is to complain if not found
+GNOME_DOC_INIT([0.9.0],[gdu_cv_have_gdu=yes],[gdu_cv_have_gdu=no])
+AC_MSG_RESULT($gdu_cv_have_gdu)
 
-if test x"$WITHGNOME" = xtrue -a x"$have_gdu" = xno ; then
+if test x"$WITHGNOME" = xtrue -a x"$gdu_cv_have_gdu" = xno ; then
     AC_MSG_ERROR([gnome-doc-utils not found!])
 fi
 
+dnl XXX PRLW How is this better than the standard
+dnl gdu_cv_have_gdu && enable_scrollkeeper ?
 AM_CONDITIONAL(ENABLE_SK, test x"$WITHGNOME" = xfalse -a x"$enable_scrollkeeper" = "xyes")
 
 AC_CONFIG_FILES([Data/dasher.desktop.in

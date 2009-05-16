@@ -1,3 +1,15 @@
+2009-05-16  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* Makefile.am, configure.ac: Don't delete gnome-doc-utils.make
+	whose m4 file already sets --disable-scrollkeeper, use
+	cached variable for gdu, NEWS is dealt with by gnu, we
+	don't distribute Expat, there is no configure.ac in Src/Test,
+	and gnome still likes distributing gzipped source archives.
+	It seems that make distcheck requires an internet connection
+	as as gnome-doc-utils' xmllint hunts for scrollkeeper-omf.dtd
+	at scrollkeeper.sf.net. Remove unused {omf,xmldocs}.make
+	from Data/Help?Gnome.
+
 2009-05-15  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* Backport to OS X 10.4 universal binary for PPC.
@@ -5,7 +17,6 @@
 	* AutoSpeedControl.cpp, DasherView.h, DasherViewSquare.{h,cpp}:
 	Refactored computation of polar co-ordinates for auto speed
 	control.
-
 
 2009-05-14  Patrick Welche  <prlw1@cam.ac.uk>
 
