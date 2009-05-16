@@ -2,18 +2,19 @@
 # Estonian translation of Dasher.
 #
 # Copyright (C) 2003, 2005 Free Software Foundation, Inc.
-# Copyright (C) 2007, 2008 The GNOME Project
+# Copyright (C) 2007-2009 The GNOME Project
 # This file is distributed under the same license as the dasher package.
 #
 # Priit Laes <amd@tt.ee>, 2003-2005.
-# Ivar Smolin <okul@linux.ee>, 2005-2008.
+# Ivar Smolin <okul@linux.ee>, 2005-2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher HEAD\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-22 20:22+0000\n"
-"PO-Revision-Date: 2008-09-16 11:43+0300\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=dasher&component=general\n"
+"POT-Creation-Date: 2009-05-13 11:38+0000\n"
+"PO-Revision-Date: 2009-05-16 10:48+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -22,331 +23,192 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
-#. in a window title without a file.
-#: ../Data/dasher.desktop.in.in.h:1 ../Data/glade/dasher.compose.glade.h:5
-#: ../Data/glade/dasher.direct.glade.h:2
-#: ../Data/glade/dasher.fullscreen.glade.h:1
-#: ../Data/glade/dasher.gameWIP.glade.h:6
-#: ../Data/glade/dasher.traditional.glade.h:6
-#: ../Data/glade/dashermaemo.glade.h:3
-#: ../Data/glade/dashermaemofullscreen.glade.h:2
-#: ../Src/Gtk2/dasher_main.cpp:992 ../Src/Gtk2/dasher_main.cpp:1212
+#. in a window title.
 msgid "Dasher"
 msgstr "Dasher"
 
-#: ../Data/dasher.desktop.in.in.h:2
 msgid "Enter text without a keyboard"
 msgstr "Teksti sisestamine ilma klaviatuuri abita"
 
-#: ../Data/dasher.desktop.in.in.h:3
 msgid "Predictive text entry"
 msgstr "Ennustav tekstisisestus"
 
-#: ../Data/glade/dasher.compose.glade.h:1
-#: ../Data/glade/dasher.direct.glade.h:1
-#: ../Data/glade/dasher.gameWIP.glade.h:2
-#: ../Data/glade/dasher.traditional.glade.h:2
 msgid "Alphabet:"
 msgstr "Tähestik:"
 
-#: ../Data/glade/dasher.compose.glade.h:2
-#: ../Data/glade/dasher.gameWIP.glade.h:3
-#: ../Data/glade/dasher.traditional.glade.h:3
 msgid "Copy"
 msgstr "Kopeerimine"
 
-#: ../Data/glade/dasher.compose.glade.h:3
-#: ../Data/glade/dasher.gameWIP.glade.h:4
-#: ../Data/glade/dasher.traditional.glade.h:4
-#: ../Data/glade/dashermaemofullscreen.glade.h:1
 msgid "Copy _All"
 msgstr "Kopeeri _kõik"
 
-#: ../Data/glade/dasher.compose.glade.h:4
-#: ../Data/glade/dasher.gameWIP.glade.h:5
-#: ../Data/glade/dasher.traditional.glade.h:5
 msgid "Cut"
 msgstr "Lõikamine"
 
-#: ../Data/glade/dasher.compose.glade.h:6
 msgid "Dasher _Tutorial"
 msgstr "Dasheri _algtõed"
 
-#: ../Data/glade/dasher.compose.glade.h:7
-#: ../Data/glade/dasher.gameWIP.glade.h:12
-#: ../Data/glade/dasher.traditional.glade.h:8
 msgid "New file"
 msgstr "Uus fail"
 
-#: ../Data/glade/dasher.compose.glade.h:8
-#: ../Data/glade/dasher.gameWIP.glade.h:14
-#: ../Data/glade/dasher.traditional.glade.h:9
 msgid "Open file"
 msgstr "Faili avamine"
 
-#: ../Data/glade/dasher.compose.glade.h:9
-#: ../Data/glade/dasher.gameWIP.glade.h:15
-#: ../Data/glade/dasher.traditional.glade.h:10
 msgid "Paste"
 msgstr "Asetamine"
 
-#: ../Data/glade/dasher.compose.glade.h:10
-#: ../Data/glade/dasher.direct.glade.h:3
-#: ../Data/glade/dasher.fullscreen.glade.h:2
-#: ../Data/glade/dasher.gameWIP.glade.h:16
-#: ../Data/glade/dasher.traditional.glade.h:11
-#: ../Data/glade/dashermaemo.glade.h:5
 msgid "Please Wait..."
 msgstr "Palun oota..."
 
-#: ../Data/glade/dasher.compose.glade.h:11
 msgid "Pr_eferences"
 msgstr "_Eelistused"
 
-#: ../Data/glade/dasher.compose.glade.h:12
-#: ../Data/glade/dasher.gameWIP.glade.h:20
-#: ../Data/glade/dasher.traditional.glade.h:15
 msgid "Save file"
 msgstr "Faili salvestamine"
 
-#: ../Data/glade/dasher.compose.glade.h:13
-#: ../Data/glade/dasher.gameWIP.glade.h:21
-#: ../Data/glade/dasher.traditional.glade.h:16
 msgid "Save file as"
 msgstr "Teise nimega faili salvestamine"
 
-#: ../Data/glade/dasher.compose.glade.h:14
-#: ../Data/glade/dasher.direct.glade.h:4
-#: ../Data/glade/dasher.fullscreen.glade.h:3
-#: ../Data/glade/dasher.gameWIP.glade.h:23
-#: ../Data/glade/dasher.traditional.glade.h:17
-#: ../Data/glade/dashermaemo.glade.h:6
-#: ../Data/glade/dashermaemofullscreen.glade.h:5
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1332
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1366
-#: ../Src/Gtk2/dasher_main.cpp:1046
 msgid "Select File"
 msgstr "Faili valimine"
 
-#: ../Data/glade/dasher.compose.glade.h:15
-#: ../Data/glade/dasher.fullscreen.glade.h:4
-#: ../Data/glade/dashermaemo.glade.h:7
-#: ../Data/glade/dashermaemofullscreen.glade.h:6
 msgid "Select Font"
 msgstr "Kirjatüübi valimine"
 
-#: ../Data/glade/dasher.compose.glade.h:16
-#: ../Data/glade/dasher.direct.glade.h:5
-#: ../Data/glade/dasher.gameWIP.glade.h:24
-#: ../Data/glade/dasher.traditional.glade.h:18
 msgid "Speed:"
 msgstr "Kiirus:"
 
-#: ../Data/glade/dasher.compose.glade.h:17
-#: ../Data/glade/dashermaemofullscreen.glade.h:8
 msgid "_About"
 msgstr "_Programmist lähemalt"
 
-#: ../Data/glade/dasher.compose.glade.h:18
 msgid "_Append to file"
 msgstr "Lisa _failile"
 
-#: ../Data/glade/dasher.compose.glade.h:19
 msgid "_Contents"
 msgstr "_Sisukord"
 
-#: ../Data/glade/dasher.compose.glade.h:20
-#: ../Data/glade/dasher.gameWIP.glade.h:27
-#: ../Data/glade/dasher.traditional.glade.h:21
-#: ../Data/glade/dashermaemofullscreen.glade.h:11
 msgid "_Edit"
 msgstr "_Redaktor"
 
-#: ../Data/glade/dasher.compose.glade.h:21
-#: ../Data/glade/dasher.gameWIP.glade.h:28
-#: ../Data/glade/dasher.traditional.glade.h:22
-#: ../Data/glade/dashermaemofullscreen.glade.h:13
 msgid "_File"
 msgstr "_Fail"
 
-#: ../Data/glade/dasher.compose.glade.h:22
-#: ../Data/glade/dasher.gameWIP.glade.h:29
-#: ../Data/glade/dasher.traditional.glade.h:23
-#: ../Data/glade/dashermaemofullscreen.glade.h:14
 msgid "_Help"
 msgstr "A_bi"
 
-#: ../Data/glade/dasher.compose.glade.h:23
 msgid "_Import Training Text"
 msgstr "_Impordi harjutustekst"
 
-#: ../Data/glade/dasher.compose.glade.h:24
-#: ../Data/glade/dasher.fullscreen.glade.h:5
-#: ../Data/glade/dashermaemo.glade.h:8
-#: ../Data/glade/dashermaemofullscreen.glade.h:17
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "abcdefghijk ABCDEFGHIJK"
 
-#: ../Data/glade/dasher.gameWIP.glade.h:1
-#: ../Data/glade/dasher.traditional.glade.h:1
 msgid "A_ppend to file..."
 msgstr "Lisa _failile..."
 
-#: ../Data/glade/dasher.gameWIP.glade.h:7
 msgid "Demo!"
 msgstr "Demo!"
 
-#: ../Data/glade/dasher.gameWIP.glade.h:8
 msgid "Full Demo"
 msgstr "Täisdemo"
 
-#: ../Data/glade/dasher.gameWIP.glade.h:9
-#: ../Data/glade/dasher.traditional.glade.h:7
 msgid "Help"
 msgstr "Abi"
 
-#: ../Data/glade/dasher.gameWIP.glade.h:10
 msgid "Launch Dasher Game & Demo mode!"
 msgstr "Dasheri käivitamine mängimis- ja näidisrežiimis!"
 
-#: ../Data/glade/dasher.gameWIP.glade.h:11
 msgid "Level:"
 msgstr "Tase:"
 
-#: ../Data/glade/dasher.gameWIP.glade.h:13
 msgid "New sentence"
 msgstr "Uus lause"
 
-#: ../Data/glade/dasher.gameWIP.glade.h:17
-#: ../Data/glade/dasher.traditional.glade.h:12
 msgid "Pr_eferences..."
 msgstr "_Eelistused..."
 
-#: ../Data/glade/dasher.gameWIP.glade.h:18
-#: ../Data/glade/dasher.traditional.glade.h:13
 msgid "Preferences"
 msgstr "Eelistused"
 
-#: ../Data/glade/dasher.gameWIP.glade.h:19
-#: ../Data/glade/dasher.traditional.glade.h:14
-#: ../Src/Gtk2/dasher_main.cpp:1120
 msgid "Quit"
 msgstr "Lõpetamine"
 
-#: ../Data/glade/dasher.gameWIP.glade.h:22
 msgid "Score:"
 msgstr "Tulemus:"
 
-#: ../Data/glade/dasher.gameWIP.glade.h:25
-#: ../Data/glade/dasher.traditional.glade.h:19
 msgid "_About..."
 msgstr "_Programmist lähemalt"
 
-#: ../Data/glade/dasher.gameWIP.glade.h:26
-#: ../Data/glade/dasher.traditional.glade.h:20
 msgid "_Contents..."
 msgstr "_Sisukord..."
 
-#: ../Data/glade/dasher.gameWIP.glade.h:30
-#: ../Data/glade/dasher.traditional.glade.h:24
 msgid "_Import Training Text..."
 msgstr "_Impordi harjutustekst..."
 
-#: ../Data/glade/dasher.preferences.glade.h:1
 msgid "<b>Actions</b>"
 msgstr "<b>Toimingud</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:2
-#: ../Data/glade/dashermaemo.preferences.glade.h:1
 msgid "<b>Adaptation</b>"
 msgstr "<b>Õppimine</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:3
-#: ../Data/glade/dashermaemo.preferences.glade.h:2
 msgid "<b>Alphabet Selection</b>"
 msgstr "<b>Tähestiku valimine</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:4
 msgid "<b>Appearance Options</b>"
 msgstr "<b>Välimuse valikud</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:5
 msgid "<b>Application Options</b>"
 msgstr "<b>Rakenduse valikud</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:6
 msgid "<b>Application Style</b>"
 msgstr "<b>Rakenduse laad</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:7
 msgid "<b>Colour Scheme</b>"
 msgstr "<b>Värviskeem</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:8
 msgid "<b>Control Style</b>"
 msgstr "<b>Juhtimislaad</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:9
 msgid "<b>Dasher Font</b>"
 msgstr "<b>Dasheri kirjatüüp</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:10
 msgid "<b>Direction</b>"
 msgstr "<b>Suund</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:11
 msgid "<b>Editor Font</b>"
 msgstr "<b>Redaktori kirjatüüp</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:12
 msgid "<b>Input Device</b>"
 msgstr "<b>Sisendseade</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:13
-#: ../Data/glade/dashermaemo.preferences.glade.h:5
 msgid "<b>Language Model</b>"
 msgstr "<b>Keelemudel</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:14
-#: ../Data/glade/dashermaemo.preferences.glade.h:7
 msgid "<b>Smoothing</b>"
 msgstr "<b>Pehmendamine</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:15
-#: ../Data/glade/dashermaemo.preferences.glade.h:8
 msgid "<b>Speed</b>"
 msgstr "<b>Kiirus</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:16
 msgid "<b>Starting And Stopping</b>"
 msgstr "<b>Käivitamine ja seiskamine</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:17
-#: ../Data/glade/dashermaemo.preferences.glade.h:9
 msgid "Adapt speed automatically"
 msgstr "Kiiruse automaatne õppimine"
 
 #. The default display orientation for the selected alphabet, ie left to right for English, right to left for Arabic, etc.
-#: ../Data/glade/dasher.preferences.glade.h:19
-#: ../Data/glade/dashermaemo.preferences.glade.h:11
 msgid "Alphabet Default"
 msgstr "Vaikimisi tähestik"
 
-#: ../Data/glade/dasher.preferences.glade.h:20
 msgid "Appearance"
 msgstr "Välimus"
 
-#: ../Data/glade/dasher.preferences.glade.h:21
 msgid "Application"
 msgstr "Rakendus"
 
-#: ../Data/glade/dasher.preferences.glade.h:22
-#: ../Data/glade/dashermaemo.preferences.glade.h:12
 msgid "Bottom to Top"
 msgstr "Alt üles"
 
 #. Centre circle = start and stop by dwelling over a circle in the centre of the window Two box = start and stop by dwelling in sequence over two boxes (both of these are methods for starting and stopping without pressing a mouse button)
-#: ../Data/glade/dasher.preferences.glade.h:24
 msgid ""
 "Centre circle\n"
 "Two box"
@@ -354,156 +216,110 @@ msgstr ""
 "Keskjoondatud ring\n"
 "Kaks kasti"
 
-#: ../Data/glade/dasher.preferences.glade.h:26
 msgid "Composition"
 msgstr "Kombineeritud"
 
-#: ../Data/glade/dasher.preferences.glade.h:27
-#: ../Data/glade/dashermaemo.preferences.glade.h:13
 msgid "Control"
 msgstr "Juhtimine"
 
-#: ../Data/glade/dasher.preferences.glade.h:28
 msgid "Control mode"
 msgstr "Juhtimisrežiim"
 
-#: ../Data/glade/dasher.preferences.glade.h:29
-#: ../Data/glade/dashermaemo.preferences.glade.h:14
 msgid "Custom"
 msgstr "Kohandatud"
 
-#: ../Data/glade/dasher.preferences.glade.h:30
-#: ../Data/glade/dashermaemo.preferences.glade.h:15
 msgid "Custom colour scheme:"
 msgstr "Kohandatud värviskeem:"
 
-#: ../Data/glade/dasher.preferences.glade.h:31
-#: ../Data/glade/dashermaemo.preferences.glade.h:16
 msgid "Dasher Preferences"
 msgstr "Dasheri eelistused"
 
-#: ../Data/glade/dasher.preferences.glade.h:32
 msgid "Direct entry"
 msgstr "Otsesisestusega"
 
-#: ../Data/glade/dasher.preferences.glade.h:33
 msgid "Dock application window"
 msgstr "Rakenduse aken on dokitud"
 
-#: ../Data/glade/dasher.preferences.glade.h:34
 msgid "Draw box outlines"
 msgstr "Kastile joonistatakse äärised"
 
-#: ../Data/glade/dasher.preferences.glade.h:35
 msgid "Draw line between crosshairs and mouse"
 msgstr "Sihiku ja kiire vahele tõmmatakse joon"
 
-#: ../Data/glade/dasher.preferences.glade.h:36
 msgid "Full Screen"
 msgstr "Täisekraaniline"
 
-#: ../Data/glade/dasher.preferences.glade.h:37
 msgid "Increase line thickness"
 msgstr "Joone paksus on suurendatud"
 
-#: ../Data/glade/dasher.preferences.glade.h:38
-#: ../Data/glade/dashermaemo.preferences.glade.h:18
 msgid "Japanese"
 msgstr "Jaapani"
 
-#: ../Data/glade/dasher.preferences.glade.h:39
 msgid "Language"
 msgstr "Keel"
 
-#: ../Data/glade/dasher.preferences.glade.h:40
-#: ../Data/glade/dashermaemo.preferences.glade.h:19
 msgid "Language model adapts as you write."
 msgstr "Keelemudel kohandub vastavalt sinu sisestamistele."
 
-#: ../Data/glade/dasher.preferences.glade.h:41
 msgid "Large font "
 msgstr "Suur kirjatüüp"
 
-#: ../Data/glade/dasher.preferences.glade.h:42
-#: ../Data/glade/dashermaemo.preferences.glade.h:20
 msgid "Left to Right"
 msgstr "Vasakult paremale"
 
 #. PPM =  Prediction by Partial Match, a styatistical language model.
-#: ../Data/glade/dasher.preferences.glade.h:44
-#: ../Data/glade/dashermaemo.preferences.glade.h:21
 msgid "Mixture model (PPM/dictionary)"
 msgstr "Segatud mudel (PPM/sõnastik)"
 
-#: ../Data/glade/dasher.preferences.glade.h:45
 msgid "Options"
 msgstr "Valikud"
 
-#: ../Data/glade/dasher.preferences.glade.h:46
 msgid "Pause outside of canvas"
 msgstr "Pausimine kui lõuendilt väljas"
 
-#: ../Data/glade/dasher.preferences.glade.h:47
-#: ../Data/glade/dashermaemo.preferences.glade.h:23
 msgid "Right to Left"
 msgstr "Paremalt vasakule"
 
-#: ../Data/glade/dasher.preferences.glade.h:48
 msgid "Select Dasher Font"
 msgstr "Dasheri kirjatüübi valimine"
 
-#: ../Data/glade/dasher.preferences.glade.h:49
 msgid "Select Editor Font"
 msgstr "Redaktori kirjatüübi valimine"
 
-#: ../Data/glade/dasher.preferences.glade.h:50
 msgid "Show mouse position"
 msgstr "Hiire asukoht on nähtaval"
 
-#: ../Data/glade/dasher.preferences.glade.h:51
 msgid "Show speed slider"
 msgstr "Kiiruse liugur on nähtaval"
 
-#: ../Data/glade/dasher.preferences.glade.h:52
 msgid "Show toolbar"
 msgstr "Tööriistariba on nähtaval"
 
-#: ../Data/glade/dasher.preferences.glade.h:53
 msgid "Small font"
 msgstr "Väike kirjatüüp"
 
-#: ../Data/glade/dasher.preferences.glade.h:54
 msgid "Stand-alone"
 msgstr "Eraldiseisev"
 
 #. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/glade/dasher.preferences.glade.h:56
-#: ../Data/glade/dashermaemo.preferences.glade.h:24
 msgid "Standard letter-based PPM"
 msgstr "Standardne sõnapõhine PPM"
 
-#: ../Data/glade/dasher.preferences.glade.h:57
 msgid "Start on left mouse button"
 msgstr "Alustamine pärast vasaku hiirenupu vajutamist"
 
-#: ../Data/glade/dasher.preferences.glade.h:58
 msgid "Start on space bar"
 msgstr "Alustamine pärast tühiku vajutamist"
 
-#: ../Data/glade/dasher.preferences.glade.h:59
 msgid "Start with mouse position:"
 msgstr "Alustamine hiire asukoha järgi:"
 
-#: ../Data/glade/dasher.preferences.glade.h:60
 msgid "Timestamp new files"
 msgstr "Uute failide ajatembeldamine"
 
-#: ../Data/glade/dasher.preferences.glade.h:61
-#: ../Data/glade/dashermaemo.preferences.glade.h:25
 msgid "Top to Bottom"
 msgstr "Ülevalt alla"
 
-#: ../Data/glade/dasher.preferences.glade.h:62
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -513,390 +329,286 @@ msgstr ""
 "kohandamiseks. Tasub tähele panna, et suuremad väärtused\n"
 "aeglustavad kirjutamiskiirust."
 
-#: ../Data/glade/dasher.preferences.glade.h:65
 msgid "Very large font"
 msgstr "Väga suur kirjatüüp"
 
-#: ../Data/glade/dasher.preferences.glade.h:66
-#: ../Data/glade/dashermaemo.preferences.glade.h:27
 msgid "Word-based model"
 msgstr "Sõnapõhine mudel"
 
-#: ../Data/glade/dashermaemo.glade.h:1
 msgid "\n"
 msgstr "\n"
 
-#: ../Data/glade/dashermaemo.glade.h:4
 msgid "P"
 msgstr "E"
 
-#: ../Data/glade/dashermaemo.preferences.glade.h:3
 msgid "<b>Color Scheme</b>"
 msgstr "<b>Värviskeem</b>"
 
-#: ../Data/glade/dashermaemo.preferences.glade.h:4
 msgid "<b>Display Size</b>"
 msgstr "<b>Kuva suurus</b>"
 
-#: ../Data/glade/dashermaemo.preferences.glade.h:6
 msgid "<b>Orientation</b>"
 msgstr "<b>Suund</b>"
 
-#: ../Data/glade/dashermaemo.preferences.glade.h:10
 msgid "Alphabet"
 msgstr "Tähestik"
 
-#: ../Data/glade/dashermaemo.preferences.glade.h:17
 msgid "Enlarge input window"
 msgstr "Sisestusakna suurendamine"
 
-#: ../Data/glade/dashermaemo.preferences.glade.h:22
 msgid "Prediction"
 msgstr "Ennustamine"
 
-#: ../Data/glade/dashermaemo.preferences.glade.h:26
 msgid "View"
 msgstr "Vaade"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:3
 msgid "Large"
 msgstr "Suur"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:4
 msgid "Normal"
 msgstr "Normaalne"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:7
 msgid "Very Large"
 msgstr "Väga suur"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:9
 msgid "_Dasher Font"
 msgstr "_Dasheri kirjatüüp"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:10
 msgid "_Dasher Font Size"
 msgstr "_Dasheri kirjatüübi suurus"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:12
 msgid "_Edit Font"
 msgstr "_Redigeeri kirjatüüpi"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:15
 msgid "_Options"
 msgstr "_Valikud"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:16
 msgid "_Reset fonts"
 msgstr "_Lähtesta kirjatüübid"
 
-#: ../Src/DasherCore/ClickFilter.cpp:7
 msgid "Maximum Zoom"
 msgstr "Suurim suurendus"
 
-#: ../Src/DasherCore/ClickFilter.h:11
 msgid "Click Mode"
 msgstr "Klõpsurežiim"
 
 #. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
-#: ../Src/DasherCore/DasherButtons.cpp:25
 msgid "Zoom steps"
 msgstr "Suurendusastmeid"
 
 #. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
-#: ../Src/DasherCore/DasherButtons.cpp:27
 msgid "Right zoom"
 msgstr "Parempoolne suurendus"
 
-#: ../Src/DasherCore/DasherButtons.cpp:28
 msgid "Number of boxes"
 msgstr "Kastide arv"
 
-#: ../Src/DasherCore/DasherButtons.cpp:29
 msgid "Safety margin"
 msgstr "Ohutusmärgis"
 
 #. TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other.
-#: ../Src/DasherCore/DasherButtons.cpp:31
 msgid "Box non-uniformity"
 msgstr "Kastide suuruse erinevus"
 
 #. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
-#: ../Src/DasherCore/DasherButtons.cpp:33
 msgid "Global keyboard grab"
 msgstr "Klaviatuuri haaratakse globaalselt"
 
-#: ../Src/DasherCore/DasherGameMode.cpp:633
 msgid "Well done!"
 msgstr "Hästi tehtud!"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:934
 msgid "Normal Control"
 msgstr "Tavaline juhtimine"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:941
 msgid "Menu Mode"
 msgstr "Menüürežiim"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:942
 msgid "Direct Mode"
 msgstr "Otserežiim"
 
-#. RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:944
+#. RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3"));
 msgid "Alternating Direct Mode"
 msgstr "Asendusega otserežiim"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:945
 msgid "Compass Mode"
 msgstr "Kompassirežiim"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:946
 msgid "Stylus Control"
 msgstr "Krihvliga juhtimine"
 
-#: ../Src/DasherCore/EyetrackerFilter.cpp:7
 msgid "Automatic calibration"
 msgstr "Automaatne kalibreerimine"
 
-#: ../Src/DasherCore/EyetrackerFilter.cpp:11
 msgid "Eyetracker Mode"
 msgstr "Silmadega jälgimise režiim"
 
 #. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:29
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
 msgid "Long press time"
 msgstr "Pika vajutuse kestus"
 
 #. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the time in which the button must be pressed multiple times to count.
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
 msgid "Multiple press time"
 msgstr "Mitmekordse vajutuse kestus"
 
 #. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the number of times a button must be pressed to count as a multiple press.
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:34
 msgid "Multiple press count"
 msgstr "Mitmekordsete vajutuste arv"
 
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons.
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
 msgid "Enable backoff button"
 msgstr "Tagasivõtmise nupp on lubatud"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
 msgid "One Button Dynamic Mode"
 msgstr "Ühenupuline dünaamiline režiim"
 
-#: ../Src/DasherCore/OneDimensionalFilter.cpp:5
 msgid "One Dimensional Mode"
 msgstr "Ühemõõtmeline režiim"
 
-#: ../Src/DasherCore/SettingsStore.cpp:76
-#: ../Src/Gtk2/DasherAppSettings.cpp:516 ../Src/Gtk2/DasherAppSettings.cpp:550
-#: ../Src/Gtk2/DasherAppSettings.cpp:554
 msgid "true"
 msgstr "true"
 
-#: ../Src/DasherCore/SettingsStore.cpp:78
-#: ../Src/Gtk2/DasherAppSettings.cpp:518 ../Src/Gtk2/DasherAppSettings.cpp:550
-#: ../Src/Gtk2/DasherAppSettings.cpp:554
 msgid "false"
 msgstr "false"
 
 #. Note to translators: This message will be output for a command line
 #. with "--options foo=VAL" and foo is a boolean valued parameter, but
 #. "VAL" is not true or false.
-#: ../Src/DasherCore/SettingsStore.cpp:84
-#: ../Src/Gtk2/DasherAppSettings.cpp:521
 msgid "boolean value must be specified as 'true' or 'false'."
 msgstr "tõeväärtusteks on 'true' (tõene) või 'false' (väär)."
 
 #. Note to translators: This is output when command line "--options" doesn't
 #. specify a known option.
-#: ../Src/DasherCore/SettingsStore.cpp:104
 msgid "unknown option, use \"--help-options\" for more information."
 msgstr ""
 "tundmatu võti, täiendava teabe saamiseks kasuta võtit \"--help-options\"."
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
-#: ../Src/DasherCore/SocketInput.cpp:34
 msgid "Dasher socket input: failed to launch reader thread."
 msgstr "Dasheri soklisisend: tõrge lugejalõime käivitamisel."
 
-#: ../Src/DasherCore/SocketInputBase.cpp:27
 msgid "Port:"
 msgstr "Port:"
 
-#: ../Src/DasherCore/SocketInputBase.cpp:28
 msgid "X label:"
 msgstr "X-silt:"
 
-#: ../Src/DasherCore/SocketInputBase.cpp:29
 msgid "X minimum:"
 msgstr "Vähim X:"
 
-#: ../Src/DasherCore/SocketInputBase.cpp:30
 msgid "X maximum:"
 msgstr "Suurim X"
 
-#: ../Src/DasherCore/SocketInputBase.cpp:31
 msgid "Y label:"
 msgstr "Y-silt:"
 
-#: ../Src/DasherCore/SocketInputBase.cpp:32
 msgid "Y minimum:"
 msgstr "Vähim Y"
 
-#: ../Src/DasherCore/SocketInputBase.cpp:33
 msgid "Y maximum:"
 msgstr "Suurim Y"
 
-#: ../Src/DasherCore/SocketInputBase.cpp:34
 msgid "Print socket-related debugging information to console:"
 msgstr "Sokliga seotud silumisandmed prinditakse konsoolile"
 
-#: ../Src/DasherCore/SocketInputBase.cpp:38
 msgid "Socket Input"
 msgstr "Soklisisend"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:28
 msgid "Button offset"
 msgstr "Nupu nihe"
 
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:36
 msgid "Enable backoff and start/stop buttons"
 msgstr "Käivitamise/seiskamise nuppudega lubatakse tagasi võtta"
 
 #. TRANSLATORS: What is normally the up button becomes the down button etc.
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:38
 msgid "Reverse up and down buttons"
 msgstr "Üles/alla nupud on vahetuses"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:39
 msgid "Slow startup"
 msgstr "Aeglane käivitamine"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:40
 msgid "Startup time"
 msgstr "Käivitusaeg"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
 msgid "Auto speed control"
 msgstr "Automaatne kiirusekontroll"
 
 #. TRANSLATORS: The threshold time above which auto speed control is used.
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
 msgid "Auto speed threshold"
 msgstr "Automaatkiiruse lävi"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:47
 msgid "Two Button Dynamic Mode"
 msgstr "Kahenupuline dünaamiline režiim"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:547
 msgid "Boolean parameters"
 msgstr "Tõeväärtuselised parameetrid"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:547 ../Src/Gtk2/DasherAppSettings.cpp:558
-#: ../Src/Gtk2/DasherAppSettings.cpp:569
 msgid "Default"
 msgstr "Vaikimisi"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:547 ../Src/Gtk2/DasherAppSettings.cpp:558
-#: ../Src/Gtk2/DasherAppSettings.cpp:569
 msgid "Description"
 msgstr "Kirjeldus"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:558
 msgid "Integer parameters"
 msgstr "Täisarvulised parameetrid"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:569
 msgid "String parameters"
 msgstr "Stringiparameetrid"
 
-#: ../Src/Gtk2/Preferences.cpp:433 ../Src/Gtk2/Preferences.cpp:1002
 msgid "Action"
 msgstr "Tegevus"
 
 #. TRANSLATORS: Show a button for the selected action in the Dasher window.
-#: ../Src/Gtk2/Preferences.cpp:1009
 msgid "Show Button"
 msgstr "Nupp on nähtaval"
 
-#: ../Src/Gtk2/Preferences.cpp:1014
 msgid "Control Mode"
 msgstr "Juhtimisrežiim"
 
 #. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
-#: ../Src/Gtk2/Preferences.cpp:1020
 msgid "Auto On Stop"
 msgstr "Automaattegevus seiskamisel"
 
-#: ../Src/Gtk2/dasher_action_keyboard.cpp:60
-#: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:94
 msgid "Enter Text"
 msgstr "Tekstisisestus"
 
-#: ../Src/Gtk2/dasher_action_script.cpp:91
 msgid "Script"
 msgstr "Skript"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:130
 msgid "Speak"
 msgstr "Rääkimine"
 
 #. TRANSLATORS: Send all text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:143
 msgid "All"
 msgstr "Kõik"
 
 #. TRANSLATORS: Send most recently entered text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:146
 msgid "Last"
 msgstr "Viimane"
 
 #. TRANSLATORS: Repeat the last phrase sent to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:149
 msgid "Repeat"
 msgstr "Kordus"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:167
 #, c-format
 msgid "Unable to initialize speech support\n"
 msgstr "Kõnemootorit pole võimalik lähtestada\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:190
 msgid "Unable to initialize voices\n"
 msgstr "Hääli pole võimalik lähtestada\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:202
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Hoiatus: kõnemootori parameetreid pole võimalik määrata\n"
 
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
-#: ../Src/Gtk2/dasher_main.cpp:311
 msgid "option setting is missing \"=\"."
 msgstr "võtme määramisel puudub märk \"=\"."
 
 #. Note to translators: This string will be output when --options= specifies an unknown option.
-#: ../Src/Gtk2/dasher_main.cpp:327
 msgid "Invalid option string specified"
 msgstr "Vigane võtmestring"
 
-#. Note to translators: This is a format string for the name of the dasher
-#. program as it appears in a window, %s will be the filename.
-#: ../Src/Gtk2/dasher_main.cpp:999
-#, c-format
-msgid "Dasher - %s"
-msgstr "Dasher - %s"
-
-#: ../Src/Gtk2/dasher_main.cpp:1084
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -907,7 +619,6 @@ msgstr ""
 "\n"
 "Salvestamata muudatused lähevad kaotsi."
 
-#: ../Src/Gtk2/dasher_main.cpp:1090
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -917,51 +628,43 @@ msgstr ""
 "\n"
 "Salvestamata muudatused lähevad kaotsi."
 
-#: ../Src/Gtk2/dasher_main.cpp:1094
 msgid "Don't save"
 msgstr "Ära salvesta"
 
-#: ../Src/Gtk2/dasher_main.cpp:1095 ../Src/Gtk2/dasher_main.cpp:1119
 msgid "Don't quit"
 msgstr "Ära lõpeta"
 
-#: ../Src/Gtk2/dasher_main.cpp:1096
 msgid "Save and quit"
 msgstr "Salvesta ja lõpeta"
 
-#: ../Src/Gtk2/dasher_main.cpp:1116
 msgid "Are you sure you wish to quit?"
 msgstr "Kas soovid lõpetada?"
 
-#: ../Src/Gtk2/dasher_main.cpp:1199 ../Src/Gtk2/dasher_main.cpp:1215
+msgid "Unable to open help file"
+msgstr "Abiteabe faili pole võimalik avada"
+
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher on ennustav tekstisisestusrakendus"
 
-#: ../Src/Gtk2/dasher_main.cpp:1204 ../Src/Gtk2/dasher_main.cpp:1210
 msgid "translator-credits"
 msgstr ""
 "Priit Laes <amd@store20.com>, 2003-2005.\n"
-"Ivar Smolin <okul@linux.ee>, 2005-2008."
+"Ivar Smolin <okul@linux.ee>, 2005-2009."
 
-#: ../Src/Gtk2/module_settings_window.cpp:86
 msgid "Dasher Module Options"
 msgstr "Dasheri mooduli valikud"
 
-#: ../Src/Gtk2/module_settings_window.cpp:92
 #, c-format
 msgid "%s Options:"
 msgstr "%s - valikud:"
 
-#: ../Src/Gtk2/mouse_input.h:15
 msgid "Mouse Input"
 msgstr "Hiiresisend"
 
-#: ../Src/Gtk2/mouse_input.h:51
 msgid "Pixels covering Y range"
 msgstr "Y-vahemikku katvate pikslite arv"
 
 #. TRANSLATORS: Only use the vertical mouse coordinate - this is prefered for some disabled users.
-#: ../Src/Gtk2/mouse_input.h:58
 msgid "One Dimensional Mouse Input"
 msgstr "Ühemõõtmeline hiiresisend"
 
@@ -969,25 +672,18 @@ msgstr "Ühemõõtmeline hiiresisend"
 #. {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences window only", NULL},
 #. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
 #. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
-#. Note to translators: This is the help string for "--appstyle"
-#: ../Src/main.cc:188
+#. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
 msgid "Application style (traditional, direct, compose or fullscreen)"
 msgstr "Rakenduse laad (traditional, direct, compose või fullscreen)"
 
 #. Note to translators: This is the help string for "--options"
-#: ../Src/main.cc:190
 msgid "Override stored options"
 msgstr "Salvestatud võtmete asemel siinmääratud võtmete kasutamine"
 
 #. Note to translators: This is the help string for "--help-options"
-#: ../Src/main.cc:192
 msgid "Describe \"--options\"."
 msgstr "\"--options\" kirjeldamine."
 
 #. Note to translators: This is the "--help" description of dasher.
-#: ../Src/main.cc:199
 msgid "- A text input application honouring accessibility"
 msgstr "- Hõlbustuste jaoks mõeldud tekstisisestamise rakendus"
-
-#~ msgid "<b>Prediction:</b>"
-#~ msgstr "<b>Ennustamine:</b>"
