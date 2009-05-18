@@ -75,7 +75,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   ///
   /// Update the root location with *one step* towards the specified
   /// co-ordinates - used by timer callbacks (for non-button modes)
-  bool UpdatePosition(myint, myint, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);  
+  bool OneStepTowards(myint, myint, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);  
 
   ///
   /// Notify the framerate class that a new frame has occurred
@@ -215,7 +215,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   ///
   /// Check whether a change of root node is needed, and perform the
   /// update if so
-  /// TODO: Could be done in UpdatePosition?
+  /// TODO: Could be done in UpdateBounds?
   ///
 
   bool CheckForNewRoot(CDasherView *pView);
@@ -241,7 +241,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
  private:
 
-  /// Common portion of UpdatePosition / NextScheduledStep, taking
+  /// Common portion of OneStepTowards / NextScheduledStep, taking
   /// bounds for the root node in the next frame.
   bool UpdateBounds(myint iNewMin, myint iNewMax, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted);
 

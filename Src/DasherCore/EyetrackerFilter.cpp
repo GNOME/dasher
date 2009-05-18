@@ -92,9 +92,6 @@ void CEyetrackerFilter::ApplyAutoCalibration(myint &iDasherX, myint &iDasherY, b
 
   iDasherY += 10 * m_iYAutoOffset;
 
-  if(GetBoolParameter(BP_DASHER_PAUSED))
-    return;
-
   if(!bUpdate)
     return;
 

@@ -93,7 +93,7 @@ bool COneButtonDynamicFilter::DecorateView(CDasherView *pView) {
 }
 
 bool COneButtonDynamicFilter::TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) {
-  return m_pDasherModel->UpdatePosition(m_iTargetX[m_iTarget], m_iTargetY[m_iTarget], Time, pAdded, pNumDeleted);
+  return m_pDasherModel->OneStepTowards(m_iTargetX[m_iTarget], m_iTargetY[m_iTarget], Time, pAdded, pNumDeleted);
 }
 
 void COneButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) {

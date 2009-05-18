@@ -96,7 +96,7 @@ bool CTwoButtonDynamicFilter::DecorateView(CDasherView *pView) {
 }
 
 bool CTwoButtonDynamicFilter::TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) {
-  return m_pDasherModel->UpdatePosition(100,2048, Time, pAdded, pNumDeleted);
+  return m_pDasherModel->OneStepTowards(100,2048, Time, pAdded, pNumDeleted);
 }
 
 void CTwoButtonDynamicFilter::Activate() {

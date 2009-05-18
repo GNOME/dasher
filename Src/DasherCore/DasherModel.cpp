@@ -479,8 +479,8 @@ bool CDasherModel::NextScheduledStep(unsigned long iTime, Dasher::VECTOR_SYMBOL_
   return UpdateBounds(iNewMin, iNewMax, iTime, pAdded, pNumDeleted);
 }
 
-bool CDasherModel::UpdatePosition(myint miMousex, myint miMousey, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
-  if (GetBoolParameter(BP_DASHER_PAUSED)) return false;
+bool CDasherModel::OneStepTowards(myint miMousex, myint miMousey, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
+  //if (GetBoolParameter(BP_DASHER_PAUSED)) return false;
   DASHER_ASSERT(m_deGotoQueue.size() == 0);
 
   myint iNewMin, iNewMax;

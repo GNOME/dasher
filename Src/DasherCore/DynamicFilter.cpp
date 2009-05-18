@@ -35,8 +35,8 @@ bool CDynamicFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
     return true;
   }
 
-  if(m_iState == 2)
-    return m_pDasherModel->UpdatePosition(41943,2048, Time, pAdded, pNumDeleted);
+  if(m_iState == 2) //backing off
+    return m_pDasherModel->OneStepTowards(41943,2048, Time, pAdded, pNumDeleted);
   else if(m_iState == 1)
     return TimerImpl(Time, m_pDasherView, m_pDasherModel, pAdded, pNumDeleted);
   else

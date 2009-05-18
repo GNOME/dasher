@@ -41,30 +41,35 @@ bool CDefaultFilter::DecorateView(CDasherView *pView) {
 }
 
 bool CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) {
-  myint iDasherX;
-  myint iDasherY;
-
-  m_pDasherView->GetCoordinates(iDasherX, iDasherY);
-
-  ApplyAutoCalibration(iDasherX, iDasherY, true);
-  ApplyTransform(iDasherX, iDasherY);
-
-  if(GetBoolParameter(BP_PAUSE_OUTSIDE) && !GetBoolParameter(BP_DASHER_PAUSED)) {
-    myint iDasherMinX;
-    myint iDasherMinY;
-    myint iDasherMaxX;
-    myint iDasherMaxY;
-    m_pDasherView->VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
-  
-    if((iDasherX > iDasherMaxX) || (iDasherX < iDasherMinX) || (iDasherY > iDasherMaxY) || (iDasherY < iDasherMinY))
-      m_pInterface->PauseAt(0,0);
-  }
-
   bool bDidSomething;
-  bDidSomething = m_pDasherModel->UpdatePosition(iDasherX,iDasherY, Time, pAdded, pNumDeleted);
+  if (!GetBoolParameter(BP_DASHER_PAUSED))
+  {
+    myint iDasherX;
+    myint iDasherY;
 
-  m_pAutoSpeedControl->SpeedControl(iDasherX, iDasherY, m_pDasherModel->Framerate(), m_pDasherView);
+    m_pDasherView->GetCoordinates(iDasherX, iDasherY);
 
+    ApplyAutoCalibration(iDasherX, iDasherY, true);
+    ApplyTransform(iDasherX, iDasherY);
+
+    if(GetBoolParameter(BP_PAUSE_OUTSIDE)) {
+      myint iDasherMinX;
+      myint iDasherMinY;
+      myint iDasherMaxX;
+      myint iDasherMaxY;
+      m_pDasherView->VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
+  
+      if((iDasherX > iDasherMaxX) || (iDasherX < iDasherMinX) || (iDasherY > iDasherMaxY) || (iDasherY < iDasherMinY))
+        m_pInterface->PauseAt(0,0);
+		return false;
+    }
+
+    bDidSomething = m_pDasherModel->OneStepTowards(iDasherX,iDasherY, Time, pAdded, pNumDeleted);
+	DASHER_ASSERT (bDidSomething);
+
+    m_pAutoSpeedControl->SpeedControl(iDasherX, iDasherY, m_pDasherModel->Framerate(), m_pDasherView);
+  }
+	
   if(m_pStartHandler)
     m_pStartHandler->Timer(Time, m_pDasherView, m_pDasherModel);
 

@@ -179,7 +179,7 @@ inline void CAutoSpeedControl::UpdateSigmas(double r, double dFrameRate)
 
 
 void CAutoSpeedControl::SpeedControl(myint iDasherX, myint iDasherY, double dFrameRate, CDasherView *pView) {
-  if(GetBoolParameter(BP_AUTO_SPEEDCONTROL) && !GetBoolParameter(BP_DASHER_PAUSED)) {
+  if(GetBoolParameter(BP_AUTO_SPEEDCONTROL)) {
     
 //  Coordinate transforms:
 	double r,theta;
