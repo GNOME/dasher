@@ -41,7 +41,7 @@ bool CDefaultFilter::DecorateView(CDasherView *pView) {
 }
 
 bool CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) {
-  bool bDidSomething;
+  bool bDidSomething = false;
   if (!GetBoolParameter(BP_DASHER_PAUSED))
   {
     myint iDasherX;
