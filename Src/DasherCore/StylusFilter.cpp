@@ -8,12 +8,12 @@ CStylusFilter::CStylusFilter(Dasher::CEventHandler *pEventHandler, CSettingsStor
 }
 
 
-void CStylusFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) {
+void CStylusFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog) {
   if(iId == 100)
     m_pInterface->Unpause(iTime);
 }
 
-void CStylusFilter::KeyUp(int iTime, int iId, CDasherModel *pModel) {
+void CStylusFilter::KeyUp(int iTime, int iId, CDasherView *pView, CDasherModel *pModel) {
   if(iId == 100)
     m_pInterface->PauseAt(0, 0);
 }

@@ -3,6 +3,8 @@
 	* ClickFilter.cpp, DasherButtons.cpp, DasherModel.{h,cpp}:
 	Split UpdatePosition into NextScheduledStep and UpdatePosition, with
 	common code in UpdateBounds.
+	* StylusFilter.{h,cpp}: KeyUp/Down were missing parameters, so were
+	not actually overriding corresponding methods in DefaultFilter.
 
 2009-05-16  Patrick Welche  <prlw1@cam.ac.uk>
 
@@ -14,7 +16,7 @@
 	It seems that make distcheck requires an internet connection
 	as as gnome-doc-utils' xmllint hunts for scrollkeeper-omf.dtd
 	at scrollkeeper.sf.net. Remove unused {omf,xmldocs}.make
-	from Data/Help?Gnome.
+	from Data/Help/Gnome.
 
 2009-05-15  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
