@@ -73,11 +73,8 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   /// @{
 
   ///
-  /// Update the root location - called in response to regular timer
-  /// callbacks, mainly from the timer events of various button
-  /// handlers
-  /// TODO: Make this a bit more central in the button handler hierarchy
-  ///
+  /// Update the root location with *one step* towards the specified
+  /// co-ordinates - used by timer callbacks (for non-button modes)
   bool UpdatePosition(myint, myint, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);  
 
   ///
@@ -181,12 +178,11 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   void ScheduleZoom(dasherint iDasherX, dasherint iDasherY, int iMaxZoom = 0);
 
   ///
-  /// Return the number of remaining zoom steps
+  /// Update the bounds of the root node for the next step in any
+  /// still-in-progress zoom scheduled by ScheduleZoom (does nothing
+  /// if no steps remaining / no zoom scheduled).
   ///
-
-  int ScheduledSteps() {
-    return m_deGotoQueue.size();
-  }
+  bool NextScheduledStep(unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int *pNumDeleted = NULL);
 
   /// @}
 
@@ -244,6 +240,10 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   void SetControlOffset(int iOffset);
 
  private:
+
+  /// Common portion of UpdatePosition / NextScheduledStep, taking
+  /// bounds for the root node in the next frame.
+  bool UpdateBounds(myint iNewMin, myint iNewMax, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted);
 
   /// Struct representing intermediate stages in the goto queue
   ///

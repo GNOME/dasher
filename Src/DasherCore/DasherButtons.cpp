@@ -418,7 +418,7 @@ bool CDasherButtons::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
   m_pDasherView->GetCoordinates(iDasherX, iDasherY);
   // ----
 
-  return m_pDasherModel->UpdatePosition(0, 0, Time, pAdded, pNumDeleted);
+  return m_pDasherModel->NextScheduledStep(Time, pAdded, pNumDeleted);
 }
 
 void CDasherButtons::HandleEvent(Dasher::CEvent * pEvent) {

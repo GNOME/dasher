@@ -467,35 +467,35 @@ void CDasherModel::Get_new_root_coords(dasherint X, dasherint Y, dasherint &r1, 
   r2 = ((R2 - C) * Y2) / (y2 - y1) + C;
 }
 
+bool CDasherModel::NextScheduledStep(unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted)
+{
+  DASHER_ASSERT(GetBoolParameter(BP_DASHER_PAUSED));
+  if (m_deGotoQueue.size() == 0) return false;
+  myint iNewMin, iNewMax;
+  iNewMin = m_deGotoQueue.front().iN1;
+  iNewMax = m_deGotoQueue.front().iN2;
+  m_deGotoQueue.pop_front();
+
+  return UpdateBounds(iNewMin, iNewMax, iTime, pAdded, pNumDeleted);
+}
+
 bool CDasherModel::UpdatePosition(myint miMousex, myint miMousey, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
-  // Clear out parameters that might get passed in to track user activity
-  if (pAdded != NULL)
-    pAdded->clear();
-  if (pNumDeleted != NULL)
-    *pNumDeleted = 0;
+  if (GetBoolParameter(BP_DASHER_PAUSED)) return false;
+  DASHER_ASSERT(m_deGotoQueue.size() == 0);
 
-  if(GetBoolParameter(BP_DASHER_PAUSED) && (m_deGotoQueue.size() == 0))
-    return false;
-
-  // Find out the current node under the crosshair
-  CDasherNode *old_under_cross=Get_node_under_crosshair();
-
-
-  myint iNewMin;
-  myint iNewMax;
-
-  if(m_deGotoQueue.size() == 0) {
-    // works out next viewpoint
+  myint iNewMin, iNewMax;
+  // works out next viewpoint
     Get_new_root_coords(miMousex, miMousey, iNewMin, iNewMax, iTime);
   
     if(GetBoolParameter(BP_OLD_STYLE_PUSH))
       OldPush(miMousex, miMousey);
-  }
-  else {
-    iNewMin = m_deGotoQueue.front().iN1;
-    iNewMax = m_deGotoQueue.front().iN2;
-    m_deGotoQueue.pop_front();
-  }
+
+  UpdateBounds(iNewMin, iNewMax, iTime, pAdded, pNumDeleted);
+}
+
+bool CDasherModel::UpdateBounds(myint iNewMin, myint iNewMax, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
+  // Find out the current node under the crosshair
+  CDasherNode *old_under_cross=Get_node_under_crosshair();
 
   m_dTotalNats += log((iNewMax - iNewMin) / static_cast<double>(m_Rootmax - m_Rootmin));
 

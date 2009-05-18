@@ -1,3 +1,9 @@
+2009-05-18  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* ClickFilter.cpp, DasherButtons.cpp, DasherModel.{h,cpp}:
+	Split UpdatePosition into NextScheduledStep and UpdatePosition, with
+	common code in UpdateBounds.
+
 2009-05-16  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* Makefile.am, configure.ac: Don't delete gnome-doc-utils.make

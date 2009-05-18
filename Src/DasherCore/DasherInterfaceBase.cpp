@@ -537,7 +537,9 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   if(m_pDasherView != 0) {
     if(!GetBoolParameter(BP_TRAINING)) {
       if (m_pUserLog != NULL) {
-	
+	//ACL note that as of 15/5/09, splitting UpdatePosition into two,
+	//DasherModel no longer guarantees to empty these two if it didn't do anything.
+	//So initialise appropriately...
 	Dasher::VECTOR_SYMBOL_PROB vAdded;
 	int iNumDeleted = 0;
 	
