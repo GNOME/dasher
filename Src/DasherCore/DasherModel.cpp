@@ -970,15 +970,9 @@ void CDasherModel::ScheduleZoom(dasherint X, dasherint Y, int iMaxZoom)
   dasherint y1 = Y - X;     // y =  x + (Y - X)
   dasherint y2 = Y + X;     // y = -x + (Y + X)
 
-  // The maximum linear region of the y-axis is from 5% - 95% of ymax
-  // 5% and 95% come from dY3, dY2 in CDasherViewSquare::Cymap::Cymap,
-  // and non-linearity between dasher coords m_Y3 to m_Y2 in
-  // CDasherViewSquare::Cymap::map
-  // (It is good to test with Y1 = 0, Y2 = ymax.)
-  // XXX PRLW But m_Y3, m_Y2 are out of scope...
-  const dasherint Y1 = ( 5 * scale) / 100;  // m_Y3;
-  const dasherint Y2 = (95 * scale) / 100;  // m_Y2;
   // Rename for readability.
+  const dasherint Y1 = 0;
+  const dasherint Y2 = ymax;
   const dasherint R1 = m_Rootmin;
   const dasherint R2 = m_Rootmax;
 

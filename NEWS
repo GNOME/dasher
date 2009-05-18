@@ -1,4 +1,10 @@
 =============
+Dasher 4.10.2
+=============
+  * MacOS X version uses OpenGL
+  * Fix compass mode (broken by letter leakage fix in 4.10.0)
+
+=============
 Dasher 4.10.1
 =============
   * Fix crash when scrolling precisely vertically.
