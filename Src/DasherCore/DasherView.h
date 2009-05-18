@@ -61,11 +61,6 @@ public:
 
   virtual ~CDasherView() {
   }
-  ///
-  /// Event handler
-  /// \param pEvent Pointer to incoming event
-  virtual void HandleEvent(Dasher::CEvent * pEvent);
-
 
   /// @name Pointing device mappings 
   /// @{

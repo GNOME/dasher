@@ -46,20 +46,6 @@ CDasherView::CDasherView(CEventHandler *pEventHandler, CSettingsStore *pSettings
    m_bDemoMode(false), m_bGameMode(false) {
 }
 
-void CDasherView::HandleEvent(Dasher::CEvent *pEvent) {
-  if(pEvent->m_iEventType == 1) {
-    Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
-    
-    switch (pEvt->m_iParameter) {
-        case BP_DASHER_PAUSED:  
-	
-                  break;    
-	default:
-      break;
-    }
-  }
-};
-
 /////////////////////////////////////////////////////////////////////////////
 
 void CDasherView::ChangeScreen(CDasherScreen *NewScreen) {

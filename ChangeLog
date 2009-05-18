@@ -5,6 +5,7 @@
 	common code in UpdateBounds.
 	* StylusFilter.{h,cpp}: KeyUp/Down were missing parameters, so were
 	not actually overriding corresponding methods in DefaultFilter.
+	* DasherView.{h,cpp}: Remove empty CDasherView::HandleEvent method.
 
 2009-05-16  Patrick Welche  <prlw1@cam.ac.uk>
 
