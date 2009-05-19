@@ -50,7 +50,7 @@ private:
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
   virtual void ScanColourFiles(std::vector<std::string> &vFileList);
   virtual void SetupPaths();
-  virtual void CreateLocalFactories();
+  virtual void CreateModules();
   virtual void SetupUI();
   virtual void CreateSettingsStore();
   virtual int GetFileSize(const std::string &strFileName);
