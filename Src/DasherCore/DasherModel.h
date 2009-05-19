@@ -250,7 +250,6 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   struct SGotoItem {
     myint iN1;
     myint iN2;
-    int iStyle;
   };
   
   // Pointers to various auxilliary objects

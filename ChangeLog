@@ -1,3 +1,7 @@
+2009-05-19  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* DasherModel.h: Removed unused 'iStyle' member of SGotoItem
+
 2009-05-18  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* Fix compass mode (no longer shrinks when moving up/down.
