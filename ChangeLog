@@ -1,3 +1,7 @@
+2009-05-21  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* configure.ac: Look for expat in the X distribution.
+
 2009-05-19  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* DasherModel.h: Removed unused 'iStyle' member of SGotoItem

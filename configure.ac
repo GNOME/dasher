@@ -33,7 +33,6 @@ WITHGTK2=true;
 
 PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.6)
 
-AC_CHECK_LIB(expat, XML_Parse,, AC_MSG_ERROR([Expat library not found.]))
 AC_LANG_PUSH(C++)
 AC_CHECK_FUNCS(lldiv)
 AC_CHECK_FUNC(socket,,[AC_CHECK_LIB(socket,socket)])
@@ -234,8 +233,19 @@ if test x"$WITHA11Y" = xtrue; then
 	AC_DEFINE([GNOME_A11Y], 1, [gnome_a11y libraries are present])
 fi
 
+AC_PATH_XTRA
+AC_CHECK_LIB(expat, XML_Parse,,[
+	if test	x$no_x = xyes ; then
+		AC_MSG_ERROR([Expat library not found.])
+	else
+		CPPFLAGS="$CPPFLAGS $X_CFLAGS"
+		LDFLAGS="$LDFLAGS $X_LIBS"
+		dnl Check for different function to avoid cached "no" result.
+		AC_CHECK_LIB(expat, XML_SetElementHandler,,
+		             [AC_MSG_ERROR([Expat library not found.])])
+	fi
+])
 if test x"$WITHQTE" != xtrue -a x"$WITHA11Y" != xtrue; then
-	AC_PATH_XTRA
 	if test	x$no_x = xyes ; then
 		AC_MSG_ERROR([X development libraries not found])
 	else
@@ -251,7 +261,6 @@ if test x"$WITHQTE" != xtrue -a x"$WITHA11Y" != xtrue; then
 	LIBS="$save_LIBS"
 	AC_SUBST(X_LIBS)
 fi
-
 
 if test x"$WITHJAPANESE" = xtrue; then
 	AC_DEFINE([JAPANESE], 1, [Japanese support enabled])
