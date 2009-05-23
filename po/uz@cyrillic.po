@@ -1,16 +1,16 @@
-# translation of dasher.HEAD.po to Uzbek
+# translation of uz@cyrillic.po to Uzbek
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Nurali Abdurahmonov <mavnur@gmail.com>, 2007.
+# Nurali Abdurahmonov <mavnur@gmail.com>, 2007, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher.HEAD\n"
+"Project-Id-Version: uz@cyrillic\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-09-07 20:26+0200\n"
-"PO-Revision-Date: 2007-09-06 14:49+0500\n"
+"PO-Revision-Date: 2009-05-23 06:39+0500\n"
 "Last-Translator: Nurali Abdurahmonov <mavnur@gmail.com>\n"
-"Language-Team: Uzbek\n"
+"Language-Team: Uzbek <mavnur@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -166,7 +166,7 @@ msgstr "<b>Ишга тушириш ва тўхтатиш:</b>"
 #: ../Data/glade/dashermaemo.glade.h:10
 #: ../Data/glade/dashermaemofullscreen.glade.h:7
 msgid "Adapt speed automatically"
-msgstr ""
+msgstr "Тезликни автоматик мослаштириш"
 
 #: ../Data/glade/dasher.compose.glade.h:19
 #: ../Data/glade/dasher.direct.glade.h:19
@@ -290,7 +290,7 @@ msgstr ""
 #: ../Data/glade/dasher.fullscreen.glade.h:32
 #: ../Data/glade/dasher.traditional.glade.h:37
 msgid "Direct entry"
-msgstr ""
+msgstr "Тўғридан-тўғри киритиш"
 
 #: ../Data/glade/dasher.compose.glade.h:38
 #: ../Data/glade/dasher.direct.glade.h:34
@@ -1002,3 +1002,4 @@ msgstr ""
 #: ../Src/Gtk2/mouse_input.h:57
 msgid "One Dimensional Mouse Input"
 msgstr ""
+
