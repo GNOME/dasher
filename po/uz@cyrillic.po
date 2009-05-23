@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: uz@cyrillic\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-09-07 20:26+0200\n"
-"PO-Revision-Date: 2009-05-23 06:39+0500\n"
+"PO-Revision-Date: 2009-05-23 20:30+0500\n"
 "Last-Translator: Nurali Abdurahmonov <mavnur@gmail.com>\n"
 "Language-Team: Uzbek <mavnur@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -404,7 +404,7 @@ msgstr "Қўйиш"
 #: ../Data/glade/dasher.fullscreen.glade.h:45
 #: ../Data/glade/dasher.traditional.glade.h:54
 msgid "Pause outside of canvas"
-msgstr ""
+msgstr "Ойна ташқарисида тўхтатиш"
 
 #: ../Data/glade/dasher.compose.glade.h:54
 #: ../Data/glade/dasher.direct.glade.h:47
@@ -495,7 +495,7 @@ msgstr "Тезлик:"
 #: ../Data/glade/dasher.fullscreen.glade.h:54
 #: ../Data/glade/dasher.traditional.glade.h:70
 msgid "Stand-alone"
-msgstr ""
+msgstr "Мустақил"
 
 #: ../Data/glade/dasher.compose.glade.h:67
 #: ../Data/glade/dasher.direct.glade.h:58
@@ -518,7 +518,7 @@ msgstr "Сичқонча чап тугмаси босилганда бошлаш
 #: ../Data/glade/dasher.fullscreen.glade.h:57
 #: ../Data/glade/dasher.traditional.glade.h:73
 msgid "Start on space bar"
-msgstr ""
+msgstr "Бўшлиқ тугмасини босиб бошлаш"
 
 #: ../Data/glade/dasher.compose.glade.h:70
 #: ../Data/glade/dasher.direct.glade.h:61
@@ -602,7 +602,7 @@ msgstr "_Ёрдам"
 
 #: ../Data/glade/dasher.compose.glade.h:84
 msgid "_Import Training Text"
-msgstr ""
+msgstr "Ўргатадиган матнни _импорт қилиш"
 
 #: ../Data/glade/dasher.compose.glade.h:85
 #: ../Data/glade/dasher.fullscreen.glade.h:66
@@ -651,7 +651,7 @@ msgstr "_Таркибидагилар..."
 
 #: ../Data/glade/dasher.traditional.glade.h:87
 msgid "_Import Training Text..."
-msgstr ""
+msgstr "Ўргатадиган матнни _импорт қилиш..."
 
 #: ../Data/glade/dashermaemo.glade.h:1
 msgid "\n"
@@ -723,27 +723,27 @@ msgstr "Шрифтларни _тиклаш"
 
 #: ../Src/DasherCore/ClickFilter.cpp:7
 msgid "Maximum Zoom"
-msgstr ""
+msgstr "Максимал катталаштириш"
 
 #: ../Src/DasherCore/ClickFilter.h:11
 msgid "Click Mode"
-msgstr ""
+msgstr "Чертиш усули"
 
 #: ../Src/DasherCore/DasherButtons.cpp:24
 msgid "Zoom steps"
-msgstr ""
+msgstr "Катталаштириш босқичлари"
 
 #: ../Src/DasherCore/DasherButtons.cpp:25
 msgid "Right zoom"
-msgstr ""
+msgstr "Ўнг яқинлаштириши"
 
 #: ../Src/DasherCore/DasherButtons.cpp:26
 msgid "Number of boxes"
-msgstr ""
+msgstr "Қутилар сони"
 
 #: ../Src/DasherCore/DasherButtons.cpp:27
 msgid "Safety margin"
-msgstr ""
+msgstr "Хавфсизлик чегараси"
 
 #: ../Src/DasherCore/DasherButtons.cpp:28
 msgid "Box non-uniformity"
@@ -755,7 +755,7 @@ msgstr ""
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:904
 msgid "Normal Control"
-msgstr ""
+msgstr "Оддий бошқарув"
 
 #. TODO: specialist factory for button mode
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:911
@@ -764,7 +764,7 @@ msgstr "Меню усули"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:912
 msgid "Direct Mode"
-msgstr ""
+msgstr "Тўғрида-тўғри усул"
 
 #. RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:914
@@ -773,15 +773,15 @@ msgstr ""
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:915
 msgid "Compass Mode"
-msgstr ""
+msgstr "Компас усули"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:916
 msgid "Stylus Control"
-msgstr ""
+msgstr "Стилус бошқаруви"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:7
 msgid "Automatic calibration"
-msgstr ""
+msgstr "Автоматик калибровка"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:11
 msgid "Eyetracker Mode"
@@ -804,11 +804,11 @@ msgstr "Бир неча босиш сони"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
 msgid "Enable backoff button"
-msgstr ""
+msgstr "Тўғрилаш тугмасини активлаштириш"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
 msgid "One Button Dynamic Mode"
-msgstr ""
+msgstr "Битта тугмали динамик усул"
 
 #: ../Src/DasherCore/OneDimensionalFilter.cpp:5
 msgid "One Dimensional Mode"
@@ -829,11 +829,11 @@ msgstr "X ёрлиғи:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:29
 msgid "X minimum:"
-msgstr ""
+msgstr "X минимум:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:30
 msgid "X maximum:"
-msgstr ""
+msgstr "X максимум:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:31
 msgid "Y label:"
@@ -841,11 +841,11 @@ msgstr "Y ёрлиғи:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:32
 msgid "Y minimum:"
-msgstr ""
+msgstr "Y минимум:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:33
 msgid "Y maximum:"
-msgstr ""
+msgstr "Y максимум:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:34
 msgid "Print socket-related debugging information to console:"
@@ -853,7 +853,7 @@ msgstr ""
 
 #: ../Src/DasherCore/SocketInputBase.cpp:38
 msgid "Socket Input"
-msgstr ""
+msgstr "Сокет киритиши"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:28
 msgid "Button offset"
@@ -865,11 +865,11 @@ msgstr ""
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:33
 msgid "Reverse up and down buttons"
-msgstr ""
+msgstr "Усга ва пастга тугмаларини тескари қилиш"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:34
 msgid "Slow startup"
-msgstr ""
+msgstr "Секин бошлаш"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:35
 msgid "Startup time"
@@ -881,11 +881,11 @@ msgstr "Тезликни автоматик бошқариш"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:37
 msgid "Auto speed threshold"
-msgstr ""
+msgstr "Автоматик тезлик аниқлиги"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
 msgid "Two Button Dynamic Mode"
-msgstr ""
+msgstr "Икки тугмали динамик усул"
 
 #: ../Src/Gtk2/Preferences.cpp:417 ../Src/Gtk2/Preferences.cpp:983
 msgid "Action"
@@ -901,7 +901,7 @@ msgstr "Бошқарув усули"
 
 #: ../Src/Gtk2/Preferences.cpp:999
 msgid "Auto On Stop"
-msgstr ""
+msgstr "Автоматик тўхтатиш"
 
 #: ../Src/Gtk2/dasher_action_keyboard.cpp:60
 #: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:94
@@ -914,7 +914,7 @@ msgstr "Скрипт"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:129
 msgid "Speak"
-msgstr ""
+msgstr "Гапириш"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:141
 msgid "All"
@@ -939,7 +939,7 @@ msgstr ""
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:198
 msgid "Warning: unable to set speech parameters\n"
-msgstr ""
+msgstr "Огоҳлантириш: нутқ параметрларини ўрнатиб бўлмади\n"
 
 #: ../Src/Gtk2/dasher_main.cpp:1043
 #, c-format
@@ -984,20 +984,20 @@ msgstr "Нурали Абдураҳмонов <mavnur@gmail.com>"
 
 #: ../Src/Gtk2/module_settings_window.cpp:85
 msgid "Dasher Module Options"
-msgstr ""
+msgstr "Dasher модули параметрлари"
 
 #: ../Src/Gtk2/module_settings_window.cpp:91
 #, c-format
 msgid "%s Options:"
-msgstr ""
+msgstr "%s параметрлари:"
 
 #: ../Src/Gtk2/mouse_input.h:15
 msgid "Mouse Input"
-msgstr ""
+msgstr "Сичқонча ёрдамида киритиш"
 
 #: ../Src/Gtk2/mouse_input.h:51
 msgid "Pixels covering Y range"
-msgstr ""
+msgstr "Y оралиғини қоплаган пикселлар"
 
 #: ../Src/Gtk2/mouse_input.h:57
 msgid "One Dimensional Mouse Input"
