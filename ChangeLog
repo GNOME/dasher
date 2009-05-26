@@ -5,6 +5,7 @@
 2009-05-19  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* DasherModel.h: Removed unused 'iStyle' member of SGotoItem
+	* Files and changes missed from previous MacOS X patch.
 
 2009-05-18  Patrick Welche  <prlw1@cam.ac.uk>
 
