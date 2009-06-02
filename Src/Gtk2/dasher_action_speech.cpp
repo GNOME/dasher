@@ -90,11 +90,16 @@ dasher_action_speech_execute(DasherAction *pSelf, DasherEditor *pEditor, int iId
   }
 
   if(szData && (strlen(szData) > 0)) {
+    // XXX PRLW - bolt-on
+    if(pDasherActionSpeechPrivate->speaker == NULL)
+      dasher_action_speech_activate(pSelf);
+    if(pDasherActionSpeechPrivate->speaker == NULL)
+      cerr << "Didn't activate speech\n";
     if(pDasherActionSpeechPrivate->speaker != NULL) {
       GNOME_Speech_Speaker_say(pDasherActionSpeechPrivate->speaker, szData, &(pDasherActionSpeechPrivate->ev));
 
       if(pDasherActionSpeechPrivate->szLast)
-	g_free(pDasherActionSpeechPrivate->szLast);
+        g_free(pDasherActionSpeechPrivate->szLast);
 
       pDasherActionSpeechPrivate->szLast = g_strdup(szData);
 
