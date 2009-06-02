@@ -558,7 +558,7 @@ void CDasherModel::OldPush(myint iMousex, myint iMousey) {
     Push_Node(pRight);
   }
 
-  // only do this is Dasher is flying
+  // only do this if Dasher is flying
   if(Framerate() > 30) {
     for(int i = 1; i < int (Framerate() - 30) / 3; i++) {
 

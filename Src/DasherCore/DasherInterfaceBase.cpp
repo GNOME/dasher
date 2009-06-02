@@ -591,6 +591,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   bReentered=false;
 }
 
+// PRLW: this is never called.
 void CDasherInterfaceBase::CheckRedraw() {
   if(m_bRedrawScheduled)
     Redraw(true);

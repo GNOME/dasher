@@ -1,6 +1,8 @@
 2009-06-02  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* dasher_main.cpp: enable error message if help not found.
+	* Gtk2/DasherControl.cpp: lower the frame rate so we don't
+	abuse the CPU.
 
 2009-06-01  Patrick Welche  <prlw1@cam.ac.uk>
 
