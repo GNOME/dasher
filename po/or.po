@@ -3,24 +3,24 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
 # Subhransu Behera <arya_subhransu@yahoo.co.in>, 2006.
-# Manoj Kumar Giri <mgiri@redhat.com>, 2008.
+# Manoj Kumar Giri <mgiri@redhat.com>, 2008, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: or\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-04-22 20:22+0000\n"
-"PO-Revision-Date: 2008-09-05 13:19+0530\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&component=general\n"
+"POT-Creation-Date: 2009-05-13 11:38+0000\n"
+"PO-Revision-Date: 2009-06-08 16:00+0530\n"
 "Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
-"Language-Team: Oriya\n"
+"Language-Team: Oriya <oriya-it@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=2;plural=(n!=1)\n"
+"Plural-Forms:  nplurals=2; plural=(n!=1);\n\n"
 "\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
-#. in a window title without a file.
+#. in a window title.
 #: ../Data/dasher.desktop.in.in.h:1 ../Data/glade/dasher.compose.glade.h:5
 #: ../Data/glade/dasher.direct.glade.h:2
 #: ../Data/glade/dasher.fullscreen.glade.h:1
@@ -28,9 +28,9 @@ msgstr ""
 #: ../Data/glade/dasher.traditional.glade.h:6
 #: ../Data/glade/dashermaemo.glade.h:3
 #: ../Data/glade/dashermaemofullscreen.glade.h:2
-#: ../Src/Gtk2/dasher_main.cpp:992 ../Src/Gtk2/dasher_main.cpp:1212
+#: ../Src/Gtk2/dasher_main.cpp:993
 msgid "Dasher"
-msgstr "ଡେଶର"
+msgstr "Dasher"
 
 #: ../Data/dasher.desktop.in.in.h:2
 msgid "Enter text without a keyboard"
@@ -120,9 +120,9 @@ msgstr "ଫାଇଲକୁ ଏହିପରି ଭାବରେ ସଂରକ୍ଷ
 #: ../Data/glade/dasher.traditional.glade.h:17
 #: ../Data/glade/dashermaemo.glade.h:6
 #: ../Data/glade/dashermaemofullscreen.glade.h:5
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1332
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1366
-#: ../Src/Gtk2/dasher_main.cpp:1046
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1334
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1368
+#: ../Src/Gtk2/dasher_main.cpp:1043
 msgid "Select File"
 msgstr "ଫାଇଲ ଚୟନ କରନ୍ତୁ"
 
@@ -227,7 +227,7 @@ msgstr "ପସନ୍ଦ"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:19
 #: ../Data/glade/dasher.traditional.glade.h:14
-#: ../Src/Gtk2/dasher_main.cpp:1120
+#: ../Src/Gtk2/dasher_main.cpp:1121
 msgid "Quit"
 msgstr "ବିଦାୟ ନିଅନ୍ତୁ"
 
@@ -628,29 +628,29 @@ msgstr "ଜାଗତିକ କିବୋର୍ଡ ଜାବୁଡ଼ିବା"
 msgid "Well done!"
 msgstr "ଭଲ ହେଲା!"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:934
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:941
 msgid "Normal Control"
 msgstr "ସାଧାରଣ ନିୟନ୍ତ୍ରଣ"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:941
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:955
 msgid "Menu Mode"
 msgstr "ତାଲିକା ପଦ୍ଧତି"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:942
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:956
 msgid "Direct Mode"
 msgstr "ପ୍ରତ୍ଯକ୍ଷ ଧାରା"
 
-#. RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:944
+#. RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3"));
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:958
 msgid "Alternating Direct Mode"
 msgstr "ବୈକଳ୍ପିକ ପ୍ରତ୍ଯକ୍ଷ ଧାରା"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:945
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:959
 msgid "Compass Mode"
 msgstr "କମ୍ପାସ ପଦ୍ଧତି"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:946
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:960
 msgid "Stylus Control"
 msgstr "ସ୍ଟାଇଲସ ନିୟନ୍ତ୍ରଣ"
 
@@ -694,14 +694,14 @@ msgid "One Dimensional Mode"
 msgstr "ଏକ ପରିସର ବିଶିଷ୍ଟ ଅବସ୍ଥା"
 
 #: ../Src/DasherCore/SettingsStore.cpp:76
-#: ../Src/Gtk2/DasherAppSettings.cpp:516 ../Src/Gtk2/DasherAppSettings.cpp:550
-#: ../Src/Gtk2/DasherAppSettings.cpp:554
+#: ../Src/Gtk2/DasherAppSettings.cpp:518 ../Src/Gtk2/DasherAppSettings.cpp:552
+#: ../Src/Gtk2/DasherAppSettings.cpp:556
 msgid "true"
 msgstr "true"
 
 #: ../Src/DasherCore/SettingsStore.cpp:78
-#: ../Src/Gtk2/DasherAppSettings.cpp:518 ../Src/Gtk2/DasherAppSettings.cpp:550
-#: ../Src/Gtk2/DasherAppSettings.cpp:554
+#: ../Src/Gtk2/DasherAppSettings.cpp:520 ../Src/Gtk2/DasherAppSettings.cpp:552
+#: ../Src/Gtk2/DasherAppSettings.cpp:556
 msgid "false"
 msgstr "false"
 
@@ -709,7 +709,7 @@ msgstr "false"
 #. with "--options foo=VAL" and foo is a boolean valued parameter, but
 #. "VAL" is not true or false.
 #: ../Src/DasherCore/SettingsStore.cpp:84
-#: ../Src/Gtk2/DasherAppSettings.cpp:521
+#: ../Src/Gtk2/DasherAppSettings.cpp:523
 msgid "boolean value must be specified as 'true' or 'false'."
 msgstr "ବୁଲିଆନ ମୂଲ୍ୟଗୁଡ଼ିକୁ true' କିମ୍ବା 'false' ଆକାରରେ ଉଲ୍ଲେଖକରାଯିବା ଉଚିତ."
 
@@ -795,48 +795,48 @@ msgstr "ସ୍ୱୟଂଚାଳିତ ବେଗ ପ୍ରଭାବସୀମା"
 msgid "Two Button Dynamic Mode"
 msgstr "ଦୁଇ ବଟନ ଗତିଶୀଳ ଧାରା"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:547
+#: ../Src/Gtk2/DasherAppSettings.cpp:549
 msgid "Boolean parameters"
 msgstr "ବୁଲିଆନ ପ୍ରାଚଳଗୁଡ଼ିକ"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:547 ../Src/Gtk2/DasherAppSettings.cpp:558
-#: ../Src/Gtk2/DasherAppSettings.cpp:569
+#: ../Src/Gtk2/DasherAppSettings.cpp:549 ../Src/Gtk2/DasherAppSettings.cpp:560
+#: ../Src/Gtk2/DasherAppSettings.cpp:571
 msgid "Default"
 msgstr "ପୂର୍ବ ନିର୍ଦ୍ଧାରିତ"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:547 ../Src/Gtk2/DasherAppSettings.cpp:558
-#: ../Src/Gtk2/DasherAppSettings.cpp:569
+#: ../Src/Gtk2/DasherAppSettings.cpp:549 ../Src/Gtk2/DasherAppSettings.cpp:560
+#: ../Src/Gtk2/DasherAppSettings.cpp:571
 msgid "Description"
 msgstr "ବର୍ଣ୍ଣନା"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:558
+#: ../Src/Gtk2/DasherAppSettings.cpp:560
 msgid "Integer parameters"
 msgstr "ପୂର୍ଣ୍ଣ ସଂଖ୍ୟା ପ୍ରାଚଳ"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:569
+#: ../Src/Gtk2/DasherAppSettings.cpp:571
 msgid "String parameters"
 msgstr "ବାକ୍ୟଖଣ୍ଡ ପ୍ରାଚଳ"
 
-#: ../Src/Gtk2/Preferences.cpp:433 ../Src/Gtk2/Preferences.cpp:1002
+#: ../Src/Gtk2/Preferences.cpp:435 ../Src/Gtk2/Preferences.cpp:1004
 msgid "Action"
 msgstr "କାର୍ଯ୍ୟ"
 
 #. TRANSLATORS: Show a button for the selected action in the Dasher window.
-#: ../Src/Gtk2/Preferences.cpp:1009
+#: ../Src/Gtk2/Preferences.cpp:1011
 msgid "Show Button"
 msgstr "ବଟନ ଦେଖାନ୍ତୁ"
 
-#: ../Src/Gtk2/Preferences.cpp:1014
+#: ../Src/Gtk2/Preferences.cpp:1016
 msgid "Control Mode"
 msgstr "ନିୟନ୍ତ୍ରଣ ପଦ୍ଧତି"
 
 #. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
-#: ../Src/Gtk2/Preferences.cpp:1020
+#: ../Src/Gtk2/Preferences.cpp:1022
 msgid "Auto On Stop"
 msgstr "Auto On Stop"
 
-#: ../Src/Gtk2/dasher_action_keyboard.cpp:60
-#: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:94
+#: ../Src/Gtk2/dasher_action_keyboard.cpp:62
+#: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:96
 msgid "Enter Text"
 msgstr "ପାଠ୍ୟ ଭରଣ କରନ୍ତୁ"
 
@@ -844,56 +844,49 @@ msgstr "ପାଠ୍ୟ ଭରଣ କରନ୍ତୁ"
 msgid "Script"
 msgstr "ସ୍କ୍ରିପ୍ଟ"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:130
+#: ../Src/Gtk2/dasher_action_speech.cpp:132
 msgid "Speak"
 msgstr "ଉଚ୍ଚାରଣ କରନ୍ତୁ"
 
 #. TRANSLATORS: Send all text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:143
+#: ../Src/Gtk2/dasher_action_speech.cpp:145
 msgid "All"
 msgstr "ସମସ୍ତ"
 
 #. TRANSLATORS: Send most recently entered text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:146
+#: ../Src/Gtk2/dasher_action_speech.cpp:148
 msgid "Last"
 msgstr "ଶେଷ"
 
 #. TRANSLATORS: Repeat the last phrase sent to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:149
+#: ../Src/Gtk2/dasher_action_speech.cpp:151
 msgid "Repeat"
 msgstr "ପୁନରାବୃତ୍ତି"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:167
+#: ../Src/Gtk2/dasher_action_speech.cpp:169
 #, c-format
 msgid "Unable to initialize speech support\n"
 msgstr "ବକ୍ତବ୍ଯ ସହାୟତାକୁ ପ୍ରାରମ୍ଭିକ୍ରୁତ କରିବାରେ ଅସମର୍ଥ\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:190
+#: ../Src/Gtk2/dasher_action_speech.cpp:192
 msgid "Unable to initialize voices\n"
 msgstr "ସ୍ବରକୁ ପ୍ରାରମ୍ଭିକ୍ରୁତ କରିବାରେ ଅସମର୍ଥ\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:202
+#: ../Src/Gtk2/dasher_action_speech.cpp:204
 msgid "Warning: unable to set speech parameters\n"
 msgstr "ଚେତାବନୀ: ବକ୍ତବ୍ଯ ପାରାମିଟରକୁ ବିନ୍ଯାସ କରିବାରେ ଅସମର୍ଥ\n"
 
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
-#: ../Src/Gtk2/dasher_main.cpp:311
+#: ../Src/Gtk2/dasher_main.cpp:310
 msgid "option setting is missing \"=\"."
 msgstr "ବିକଳ୍ପ ବିନ୍ୟାସଟି ଅନୁପସ୍ଥିତ ଅଛି \"=\"."
 
 #. Note to translators: This string will be output when --options= specifies an unknown option.
-#: ../Src/Gtk2/dasher_main.cpp:327
+#: ../Src/Gtk2/dasher_main.cpp:326
 msgid "Invalid option string specified"
 msgstr "ଅବୈଧ ବିକଳ୍ପ ବାକ୍ଯଖଣ୍ଡ ଉଲ୍ଲେଖିତ"
 
-#. Note to translators: This is a format string for the name of the dasher
-#. program as it appears in a window, %s will be the filename.
-#: ../Src/Gtk2/dasher_main.cpp:999
-#, c-format
-msgid "Dasher - %s"
-msgstr "ଡେଶର - %s"
-
-#: ../Src/Gtk2/dasher_main.cpp:1084
+#: ../Src/Gtk2/dasher_main.cpp:1083
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -914,37 +907,39 @@ msgstr ""
 "\n"
 "ଆପଣ ସେହି ପରିବର୍ତ୍ତନ ମାନଙ୍କୁ ସଂରକ୍ଷଣ ନକଲେ ତାହା ନଷ୍ଟ ହୋଇଯିବ।"
 
-#: ../Src/Gtk2/dasher_main.cpp:1094
+#: ../Src/Gtk2/dasher_main.cpp:1096
 msgid "Don't save"
 msgstr "ସଂରକ୍ଷଣ କରନ୍ତୁ ନାହିଁ"
 
-#: ../Src/Gtk2/dasher_main.cpp:1095 ../Src/Gtk2/dasher_main.cpp:1119
+#: ../Src/Gtk2/dasher_main.cpp:1097 ../Src/Gtk2/dasher_main.cpp:1120
 msgid "Don't quit"
 msgstr "ପ୍ରସ୍ଥାନ କରନ୍ତୁ ନାହିଁ"
 
-#: ../Src/Gtk2/dasher_main.cpp:1096
+#: ../Src/Gtk2/dasher_main.cpp:1098
 msgid "Save and quit"
 msgstr "ସଂରକ୍ଷଣ କରନ୍ତୁ ଏବଂ ପ୍ରସ୍ଥାନ କରନ୍ତୁ"
 
-#: ../Src/Gtk2/dasher_main.cpp:1116
+#: ../Src/Gtk2/dasher_main.cpp:1117
 msgid "Are you sure you wish to quit?"
 msgstr "ଆପଣ ନିଶ୍ଚିତ କି ଆପଣ ବିଦାୟ ନେବାକୁ ଚାହୁଁଛନ୍ତି?"
 
-#: ../Src/Gtk2/dasher_main.cpp:1199 ../Src/Gtk2/dasher_main.cpp:1215
+#: ../Src/Gtk2/dasher_main.cpp:1164
+msgid "Unable to open help file"
+msgstr "ସହାୟତା ଫାଇଲକୁ ଖୋଲିବାରେ ଅସମର୍ଥ"
+
+#: ../Src/Gtk2/dasher_main.cpp:1216
 msgid "Dasher is a predictive text entry application"
 msgstr "ଡେଶର ଗୋଟିଏ ଅନୁମାନିତ ପାଠ୍ଯ ଭରଣ ପ୍ରୟୋଗ"
 
-#: ../Src/Gtk2/dasher_main.cpp:1204 ../Src/Gtk2/dasher_main.cpp:1210
+#: ../Src/Gtk2/dasher_main.cpp:1221
 msgid "translator-credits"
-msgstr ""
-"ଶୁଭ୍ରାଂଶୁ ବେହେରା <arya_subhransu@yahoo.co.in> "
-"ମନୋଜ କୁମାର ଗିରି <mgiri@redhat.com>"
+msgstr "ଶୁଭ୍ରାଂଶୁ ବେହେରା <arya_subhransu@yahoo.co.in> ମନୋଜ କୁମାର ଗିରି <mgiri@redhat.com>"
 
-#: ../Src/Gtk2/module_settings_window.cpp:86
+#: ../Src/Gtk2/module_settings_window.cpp:88
 msgid "Dasher Module Options"
 msgstr "ଡେଶର ଏକକାଂଶ ବିକଳ୍ପଗୁଡ଼ିକ"
 
-#: ../Src/Gtk2/module_settings_window.cpp:92
+#: ../Src/Gtk2/module_settings_window.cpp:94
 #, c-format
 msgid "%s Options:"
 msgstr "%s ବିକଳ୍ପଗୁଡ଼ିକ:"
@@ -966,23 +961,23 @@ msgstr "ଏକ ପରିସରଭୁକ୍ତ ମାଉସ ନିବେଶ"
 #. {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences window only", NULL},
 #. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
 #. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
-#. Note to translators: This is the help string for "--appstyle"
-#: ../Src/main.cc:188
+#. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
+#: ../Src/main.cc:185
 msgid "Application style (traditional, direct, compose or fullscreen)"
 msgstr "ପ୍ରୟୋଗ ଶୈଳୀ (ପାରମ୍ପରିକ, ସିଧାସଳଖ, ସଙ୍ଘଟିତ କିମ୍ବା ପୂର୍ଣ୍ଣ ପରଦା)"
 
 #. Note to translators: This is the help string for "--options"
-#: ../Src/main.cc:190
+#: ../Src/main.cc:187
 msgid "Override stored options"
 msgstr "ସଂରକ୍ଷିତ ବିକଳ୍ପଗୁଡ଼ିକୁ ଦାବିଦେଇଯିବା"
 
 #. Note to translators: This is the help string for "--help-options"
-#: ../Src/main.cc:192
+#: ../Src/main.cc:189
 msgid "Describe \"--options\"."
 msgstr "\"--ବିକଳ୍ପଗୁଡ଼ିକୁ\" ବ୍ୟାଖ୍ୟା କରନ୍ତୁ."
 
 #. Note to translators: This is the "--help" description of dasher.
-#: ../Src/main.cc:199
+#: ../Src/main.cc:196
 msgid "- A text input application honouring accessibility"
 msgstr "- ଗୋଟିଏ ପାଠ୍ୟ ନିବେଶ ପ୍ରୟୋଗକୁ ସମ୍ମାନ ଦେଖାଉଥିବା ଅଭିଗମ୍ୟତା"
 
