@@ -1,3 +1,8 @@
+2009-06-11  Andre Klapper  <a9016009@gmx.de>
+
+	* Src/main.cc: Remove commented "#include <gnome.h>" to clean up 
+	grep results.
+
 2009-06-02  Patrick Welche  <prlw1@cam.ac.uk>
 
 	* dasher_main.cpp: enable error message if help not found.

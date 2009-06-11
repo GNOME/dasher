@@ -18,7 +18,6 @@
 
 // TODO: This shouldn't need to be here
 #if (defined GNOME_SPEECH || defined GNOME_A11Y)
-//#include <gnome.h>
 #include <libbonobo.h>
 #endif
 
