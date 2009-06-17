@@ -1,5 +1,15 @@
 2009-06-17  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
+	* Re-implement dynamic mode speed control:
+	Periodically increase speed as long as in a 'running' state;
+	decrease every time we start to reverse.
+	(Controlled by new settings for time period, increase
+	and decrease, added to both existing dynamic modes:
+	LP_DYNAMIC_SPEED_{FREQ, INC, DEC} respectively).
+
+
+2009-06-17  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
 	* Remove CDasherModel parameter to inputfilter constructor.
 	* Make DynamicFilter's states observable and changeable by
 	subclasses, and create a CButtonMultiPress subclass for

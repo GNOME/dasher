@@ -38,25 +38,13 @@ static SModuleSettings sSettings[] = {
   {BP_TWOBUTTON_REVERSE,T_BOOL, -1, -1, -1, -1, _("Reverse up and down buttons")},
   {BP_SLOW_START,T_BOOL, -1, -1, -1, -1, _("Slow startup")},
   {LP_SLOW_START_TIME, T_LONG, 0, 10000, 1000, 100, _("Startup time")},
-  {BP_TWOBUTTON_SPEED,T_BOOL, -1, -1, -1, -1, _("Auto speed control")},
-  /* TRANSLATORS: The threshold time above which auto speed control is used. */
-  {LP_DYNAMIC_MEDIAN_FACTOR, T_LONG, 10, 200, 100, 10, _("Auto speed threshold")}
+  {LP_DYNAMIC_SPEED_INC, T_LONG, 1, 100, 1, 1, _("%age by which to automatically increase speed")},
+  {LP_DYNAMIC_SPEED_FREQ, T_LONG, 1, 1000, 1, 1, _("Time after which to automatically increase speed (secs)")},
+  {LP_DYNAMIC_SPEED_DEC, T_LONG, 1, 99, 1, 1, _("%age by which to decrease speed upon reverse")}
 };
 
 CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
-  : CButtonMultiPress(pEventHandler, pSettingsStore, pInterface, 14, 1, _("Two Button Dynamic Mode")) { 
-
-  m_iLastTime = -1;
-
-  m_pTree = new SBTree(2000);
-  m_pTree->Add(2000);
-  m_pTree->Add(2000);
-}
-
-CTwoButtonDynamicFilter::~CTwoButtonDynamicFilter() {
-  if(m_pTree)
-    delete m_pTree;
-}
+  : CButtonMultiPress(pEventHandler, pSettingsStore, pInterface, 14, 1, _("Two Button Dynamic Mode")) { }
 
 bool CTwoButtonDynamicFilter::DecorateView(CDasherView *pView) {
   CDasherScreen *pScreen(pView->Screen());
@@ -117,15 +105,11 @@ void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CD
     pModel->Offset(iFactor * GetLongParameter(LP_TWO_BUTTON_OFFSET));
     if(pUserLog)
       pUserLog->KeyDown(iButton, iType, 3);
-    if(GetBoolParameter(BP_TWOBUTTON_SPEED))
-      AutoSpeedSample(iTime, pModel);
   }
   else if((iButton == 3) || (iButton == 4)) {
     pModel->Offset(iFactor * -GetLongParameter(LP_TWO_BUTTON_OFFSET));
     if(pUserLog)
       pUserLog->KeyDown(iButton, iType, 4);
-    if(GetBoolParameter(BP_TWOBUTTON_SPEED))
-      AutoSpeedSample(iTime, pModel);
   }
   else {
     if(pUserLog)
@@ -139,134 +123,6 @@ bool CTwoButtonDynamicFilter::GetSettings(SModuleSettings **pSettings, int *iCou
 
   return true;
 };
-
-void CTwoButtonDynamicFilter::AutoSpeedSample(int iTime, CDasherModel *pModel) {
-  if(m_iLastTime == -1) {
-    m_iLastTime = iTime;
-    return;
-  }
-
-  if(pModel->IsSlowdown(iTime))
-    return;
-
-  int iDiff(iTime - m_iLastTime);
-  m_iLastTime = iTime;
-  if(m_pTree) {
-    int iMedian(m_pTree->GetOffset(m_pTree->GetCount() / 2));
-    if((iDiff <= 300) || (iDiff < (iMedian * GetLongParameter(LP_DYNAMIC_MEDIAN_FACTOR)) / 100)) {
-      pModel->TriggerSlowdown();
-    }
-    m_pTree->Add(iDiff);
-  }
-  else m_pTree = new SBTree(iDiff);  
-
-  m_deOffsetQueue.push_back(iDiff);
-
-  while(m_deOffsetQueue.size() > 10) {
-    m_pTree = m_pTree->Delete(m_deOffsetQueue.front());
-    m_deOffsetQueue.pop_front();
-  }
-}
-
-void CTwoButtonDynamicFilter::AutoSpeedUndo(int iCount) {
-  for(int i(0); i < iCount; ++i) {
-    if(m_deOffsetQueue.size() == 0)
-      return;
-
-    if(m_pTree)
-      m_pTree = m_pTree->Delete(m_deOffsetQueue.back());
-    m_deOffsetQueue.pop_back();
-  }
-}
-
-CTwoButtonDynamicFilter::SBTree::SBTree(int iValue) {
-  m_iValue = iValue;
-  m_pLeft = NULL;
-  m_pRight = NULL;
-  m_iCount = 1;
-}
-
-CTwoButtonDynamicFilter::SBTree::~SBTree() {
-  if(m_pLeft)
-    delete m_pLeft;
-
-  if(m_pRight)
-    delete m_pRight;
-}
-
-void CTwoButtonDynamicFilter::SBTree::Add(int iValue) {
-  ++m_iCount;
-
-  if(iValue > m_iValue) {
-    if(m_pRight)
-      m_pRight->Add(iValue);
-    else
-      m_pRight = new SBTree(iValue);
-  }
-  else {
-    if(m_pLeft)
-      m_pLeft->Add(iValue);
-    else
-      m_pLeft = new SBTree(iValue);
-  }
-}
-
-CTwoButtonDynamicFilter::SBTree* CTwoButtonDynamicFilter::SBTree::Delete(int iValue) {
-  // Hmm... deleting is awkward in binary trees
-
-  if(iValue == m_iValue) {
-    if(!m_pLeft) {
-      SBTree *pOldRight = m_pRight;
-      m_pRight = NULL;
-      delete this;
-      return pOldRight;
-    }
-    else {
-      SBTree *pOldLeft = m_pLeft;
-      pOldLeft->SetRightMost(m_pRight);
-      m_pLeft = NULL;
-      m_pRight = NULL;
-      delete this;
-      return pOldLeft;
-    }
-  }
-  else if(iValue > m_iValue) {
-    --m_iCount;
-    m_pRight = m_pRight->Delete(iValue);
-  }
-  else {
-    --m_iCount;
-    m_pLeft = m_pLeft->Delete(iValue);
-  }
-
-  return this;
-}
-
-void CTwoButtonDynamicFilter::SBTree::SetRightMost(CTwoButtonDynamicFilter::SBTree* pNewTree) {
-  if(pNewTree)
-    m_iCount += pNewTree->GetCount();
-
-  if(m_pRight)
-    m_pRight->SetRightMost(pNewTree);
-  else
-    m_pRight = pNewTree;
-}
-
-int CTwoButtonDynamicFilter::SBTree::GetOffset(int iOffset) {
-  if(m_pLeft && (m_pLeft->GetCount() > iOffset))
-    return m_pLeft->GetOffset(iOffset);
-  else if((m_pLeft && (m_pLeft->GetCount() == iOffset)) || (!m_pLeft && (iOffset == 0)))
-    return m_iValue;
-  else if(m_pLeft)
-    return m_pRight->GetOffset(iOffset - m_pLeft->GetCount() - 1);
-  else
-    return m_pRight->GetOffset(iOffset - 1);
-}
-
-void CTwoButtonDynamicFilter::RevertPresses(int iCount) {
-  if(GetBoolParameter(BP_TWOBUTTON_SPEED))
-    AutoSpeedUndo(iCount);
-}
 
 bool CTwoButtonDynamicFilter::GetMinWidth(int &iMinWidth) {
   iMinWidth = 1024;

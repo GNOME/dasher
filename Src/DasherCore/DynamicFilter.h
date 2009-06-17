@@ -50,11 +50,8 @@ class CDynamicFilter : public CInputFilter {
   bool isRunning(int &iSubclassState)
     {if (m_iState < 2) return false; iSubclassState = m_iState-2; return true;}
   virtual void pause() {m_iState = 0;}
-  virtual void reverse() {m_iState = 1;}
-  virtual void run(int iSubclassState) {
-    DASHER_ASSERT(iSubclassState>=0);
-    m_iState = iSubclassState+2;
-  }
+  virtual void reverse();
+  virtual void run(int iSubclassState);
 
   virtual bool TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) = 0;
 
@@ -62,9 +59,9 @@ class CDynamicFilter : public CInputFilter {
     int m_iState; // 0 = paused, 1 = reversing, >=2 = running (extensible by subclasses)
     int m_iHeldId;
     int m_iKeyDownTime;
-  
+    int m_iSpeedControlTime;
+	
     CUserLogBase *m_pUserLog;
-
 };
 
 #endif

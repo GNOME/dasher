@@ -44,7 +44,7 @@ enum {
   BP_COMPASSMODE, BP_SOCKET_INPUT_ENABLE, BP_SOCKET_DEBUG, 
   BP_OLD_STYLE_PUSH, BP_CIRCLE_START, BP_GLOBAL_KEYBOARD, 
   BP_DELAY_VIEW, BP_CONVERSION_MODE, BP_PAUSE_OUTSIDE, BP_BACKOFF_BUTTON, 
-  BP_TWOBUTTON_REVERSE, BP_SLOW_START, BP_TWOBUTTON_SPEED, END_OF_BPS
+  BP_TWOBUTTON_REVERSE, BP_SLOW_START, END_OF_BPS
 };
 
 enum { 
@@ -59,8 +59,9 @@ enum {
   LP_BOOSTFACTOR, LP_AUTOSPEED_SENSITIVITY, LP_SOCKET_PORT, LP_SOCKET_INPUT_X_MIN, LP_SOCKET_INPUT_X_MAX,
   LP_SOCKET_INPUT_Y_MIN, LP_SOCKET_INPUT_Y_MAX, LP_OX, LP_OY, LP_MAX_Y, LP_INPUT_FILTER, 
   LP_CIRCLE_PERCENT, LP_TWO_BUTTON_OFFSET, LP_HOLD_TIME, LP_MULTIPRESS_TIME, LP_MULTIPRESS_COUNT, 
-  LP_SLOW_START_TIME, LP_DYNAMIC_MEDIAN_FACTOR, LP_CONVERSION_ORDER, LP_CONVERSION_TYPE,
-  LP_DEMO_SPRING, LP_DEMO_NOISE_MEM, LP_DEMO_NOISE_MAG, LP_MAXZOOM, END_OF_LPS
+  LP_SLOW_START_TIME, LP_CONVERSION_ORDER, LP_CONVERSION_TYPE,
+  LP_DEMO_SPRING, LP_DEMO_NOISE_MEM, LP_DEMO_NOISE_MAG, LP_MAXZOOM, 
+  LP_DYNAMIC_SPEED_INC, LP_DYNAMIC_SPEED_FREQ, LP_DYNAMIC_SPEED_DEC, END_OF_LPS
 };
 
 enum {
@@ -160,7 +161,6 @@ static bp_table boolparamtable[] = {
   {BP_BACKOFF_BUTTON, "BackoffButton", PERS, true, "Whether to enable the extra backoff button in dynamic mode"},
   {BP_TWOBUTTON_REVERSE, "TwoButtonReverse", PERS, false, "Reverse the up/down buttons in two button mode"},
   {BP_SLOW_START, "SlowStart", PERS, false, "Start at low speed and insrease"},
-  {BP_TWOBUTTON_SPEED, "TwoButtonSpeed", PERS, true, "Two button mode auto speed control"}
 };
 
 static lp_table longparamtable[] = {
@@ -211,13 +211,15 @@ static lp_table longparamtable[] = {
   {LP_MULTIPRESS_TIME, "MultipressTime", PERS, 1000, "Time in which multiple presses must occur, in ms"},
   {LP_MULTIPRESS_COUNT, "MultipressCount", PERS, 2, "Time in which multiple presses must occur to count"},
   {LP_SLOW_START_TIME, "SlowStartTime", PERS, 1000, "Time over which slow start occurs"},
-  {LP_DYNAMIC_MEDIAN_FACTOR, "DynamicMedianFactor", PERS, 30, "Percentage of the median at which dynamic mode auto speed control kicks in"},
   {LP_CONVERSION_ORDER, "ConversionOrder", PERS, 0, "Conversion ordering"},
   {LP_CONVERSION_TYPE, "ConversionType", PERS, 0, "Conversion type"},
   {LP_DEMO_SPRING, "DemoSpring", PERS, 100, "Springyness in Demo-mode"},
   {LP_DEMO_NOISE_MEM, "DemoNoiseMem", PERS, 100, "Memory parameter for noise in Demo-mode"},
   {LP_DEMO_NOISE_MAG, "DemoNoiseMag", PERS, 325, "Magnitude of noise in Demo-mode"},
-  {LP_MAXZOOM, "ClickMaxZoom", PERS, 200, "Maximum zoom possible in click mode (times 10)"}
+  {LP_MAXZOOM, "ClickMaxZoom", PERS, 200, "Maximum zoom possible in click mode (times 10)"},
+  {LP_DYNAMIC_SPEED_INC, "DynamicSpeedInc", PERS, 1, "%age by which dynamic mode auto speed control increases speed"},
+  {LP_DYNAMIC_SPEED_FREQ, "DynamicSpeedFreq", PERS, 10, "Seconds after which dynamic mode auto speed control increases speed"},
+  {LP_DYNAMIC_SPEED_DEC, "DynamicSpeedDec", PERS, 10, "%age by which dynamic mode auto speed control decreases speed on reverse"},
 };
 
 static sp_table stringparamtable[] = {
