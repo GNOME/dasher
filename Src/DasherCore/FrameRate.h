@@ -83,3 +83,4 @@ private:
 };
 /// \}
 #endif /* #ifndef __FrameRate_h__ */
+
