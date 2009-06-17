@@ -166,15 +166,6 @@ class Dasher::CDasherModel:public CFrameRate, private NoClones
   };
 
   ///
-  /// Return whether Dasher is currently being temporarily slowed or
-  /// not.
-  ///
-
-  bool IsSlowdown(unsigned long iTime) {
-    return ((iTime - m_iStartTime) < static_cast<unsigned long>(GetLongParameter(LP_SLOW_START_TIME)));
-  };
-
-  ///
   /// Check whether a change of root node is needed, and perform the
   /// update if so
   /// TODO: Could be done in UpdateBounds?

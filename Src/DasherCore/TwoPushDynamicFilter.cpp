@@ -1,0 +1,263 @@
+// TwoPushDynamicFilter.cpp
+//
+// Copyright (c) 2007 The Dasher Team
+//
+// This file is part of Dasher.
+//
+// Dasher is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// Dasher is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Dasher; if not, write to the Free Software 
+// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+#include "../Common/Common.h"
+
+#include "TwoPushDynamicFilter.h"
+#include "DasherInterfaceBase.h"
+#include "Event.h"
+
+static SModuleSettings sSettings[] = {
+  {LP_TWO_PUSH_OUTER, T_LONG, 1024, 2048, 2048, 128, _("Offset for outer (second) button")},
+  {LP_TWO_PUSH_UP, T_LONG, 256, 2048, 2048/*divisor*/, 128/*step*/, _("Distance for 1st button UP")},
+  {LP_TWO_PUSH_DOWN, T_LONG, 256, 2048, 2048, 128, _("Distance for 1st button DOWN")},
+  {LP_TWO_PUSH_TOLERANCE, T_LONG, 50, 1000, 1, 10, _("Tolerance for inaccurate timing of button pushes (in ms)")},
+  /* TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press. */
+  {LP_HOLD_TIME, T_LONG, 100, 10000, 1000, 100, _("Long press time")},
+  /* TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.*/
+  {BP_BACKOFF_BUTTON,T_BOOL, -1, -1, -1, -1, _("Enable backoff and start/stop buttons")},
+  {BP_FIXED_MARKERS, T_BOOL, -1, -1, -1, -1, _("Markers fixed to canvas")},
+  {BP_SLOW_START,T_BOOL, -1, -1, -1, -1, _("Slow startup")},
+  {LP_SLOW_START_TIME, T_LONG, 0, 10000, 1000, 100, _("Slow startup time")},
+  {LP_DYNAMIC_SPEED_INC, T_LONG, 1, 100, 1, 1, _("%age by which to automatically increase speed")},
+  {LP_DYNAMIC_SPEED_FREQ, T_LONG, 1, 1000, 1, 1, _("Time after which to automatically increase speed (secs)")},
+  {LP_DYNAMIC_SPEED_DEC, T_LONG, 1, 99, 1, 1, _("%age by which to decrease speed upon reverse")},
+  {LP_DYNAMIC_BUTTON_LAG, T_LONG, 0, 1000, 1, 25, _("Lag before user actually pushes button (ms)")}, 
+};
+
+CTwoPushDynamicFilter::CTwoPushDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
+  : CDynamicFilter(pEventHandler, pSettingsStore, pInterface, 14, 1, _("Two-push Dynamic Mode (New One Button)")) {
+  
+  Dasher::CParameterNotificationEvent oEvent(LP_TWO_PUSH_OUTER);//and all the others too!
+  HandleEvent(&oEvent);
+}
+
+void GuideLine(CDasherView *pView, const myint iDasherY, const int iColour)
+{
+  myint iDasherX = -100;
+  CDasherScreen::point p[2];
+  CDasherScreen *pScreen(pView->Screen());
+  
+  pView->Dasher2Screen(iDasherX, iDasherY, p[0].x, p[0].y);
+
+  iDasherX = -1000;
+
+  pView->Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
+
+  pScreen->Polyline(p, 2, 3, iColour);
+}  
+
+bool CTwoPushDynamicFilter::DecorateView(CDasherView *pView)
+{  
+  //outer guides (yellow rects)
+  for (int i=0; i<2; i++)
+  {
+    screenint x1, y1, x2, y2;
+    CDasherScreen *pScreen(pView->Screen());
+  
+    pView->Dasher2Screen(-100, m_aaiGuideAreas[i][0], x1, y1);
+    pView->Dasher2Screen(-1000, m_aaiGuideAreas[i][1], x2, y2);
+  
+    pScreen->DrawRectangle(x1, y1, x2, y2, 62/*pale yellow*/, -1, Opts::Nodes1, false, true, 0);
+  }
+
+  //inner guides (red lines)
+  GuideLine(pView, 2048 - GetLongParameter(LP_TWO_PUSH_UP), 1);
+  GuideLine(pView, 2048 + GetLongParameter(LP_TWO_PUSH_DOWN), 1);
+
+  if (GetBoolParameter(BP_FIXED_MARKERS))
+  { //outer guides (at center of rects) - red lines
+    GuideLine(pView, 2048 - GetLongParameter(LP_TWO_PUSH_OUTER), 1);
+    GuideLine(pView, 2048 + GetLongParameter(LP_TWO_PUSH_OUTER), 1);
+  }
+
+  //moving markers - green if active, else yellow
+  int myState;
+  if (m_bDecorationChanged && isRunning(myState) && myState == 1)
+  {
+    for (int i = 0; i < 2; i++)
+    {
+      GuideLine(pView, m_aiMarker[i], (i == m_iActiveMarker) ? 240 : 61/*orange*/);
+    }
+  }
+  bool bRV(m_bDecorationChanged);
+  m_bDecorationChanged = false;
+  return bRV;
+}
+
+void CTwoPushDynamicFilter::HandleEvent(Dasher::CEvent * pEvent)
+{
+  if(pEvent->m_iEventType == EV_PARAM_NOTIFY)
+  {
+    Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
+    switch (pEvt->m_iParameter)
+    {
+      case LP_TWO_PUSH_OUTER: //deliberate fallthrough
+      case LP_TWO_PUSH_UP: //deliberate fallthrough
+      case LP_TWO_PUSH_DOWN:
+      {
+//cout << "Initializing - outer " << GetLongParameter(LP_TWO_PUSH_OUTER) << " up " << GetLongParameter(LP_TWO_PUSH_UP) << " down " << GetLongParameter(LP_TWO_PUSH_DOWN) << "\n";
+	DASHER_ASSERT (GetLongParameter(LP_TWO_PUSH_UP) < GetLongParameter(LP_TWO_PUSH_OUTER));
+	DASHER_ASSERT (GetLongParameter(LP_TWO_PUSH_DOWN) < GetLongParameter(LP_TWO_PUSH_OUTER));
+	DASHER_ASSERT (GetLongParameter(LP_TWO_PUSH_UP) > GetLongParameter(LP_TWO_PUSH_DOWN));
+		//TODO, that means short gap at the top - allow other way around also?
+
+	double dOuter = GetLongParameter(LP_TWO_PUSH_OUTER);
+	m_dLogUpMul = log(dOuter / (double)GetLongParameter(LP_TWO_PUSH_UP));
+	m_dLogDownMul = log(dOuter / (double)GetLongParameter(LP_TWO_PUSH_DOWN));
+	m_dSqrtUpDist = exp(m_dLogUpMul / 2.0);
+	m_dSqrtDownDist = exp(m_dLogDownMul / 2.0);
+//cout << "bitsUp " << m_dLogUpMul << " bitsDown " << m_dLogDownMul << " upDist " << m_dSqrtUpDist << " downDist " << m_dSqrtDownDist << "\n";
+      } //and fallthrough
+      case LP_TWO_PUSH_TOLERANCE:
+      case LP_MAX_BITRATE:
+      case LP_BOOSTFACTOR: // Deliberate fallthrough
+      {
+	double dMaxRate = GetLongParameter(LP_MAX_BITRATE) * GetLongParameter(LP_BOOSTFACTOR) / 10000.0;
+	double dPressBits = dMaxRate * (double) GetLongParameter(LP_TWO_PUSH_TOLERANCE) / 1000.0;
+//cout << "Max Bitrate changed - now " << dMaxRate << " user accuracy " << dPressBits;
+	m_dMinShortTwoPushTime = m_dLogUpMul - dPressBits;
+//cout << "bits; minShort " << m_dMinShortTwoPushTime;
+	m_dMaxShortTwoPushTime = m_dLogUpMul + dPressBits;
+	m_dMinLongTwoPushTime = m_dLogDownMul - dPressBits;
+	if (m_dMaxShortTwoPushTime > m_dMinLongTwoPushTime)
+          m_dMaxShortTwoPushTime = m_dMinLongTwoPushTime = (m_dLogUpMul + m_dLogDownMul)/2.0;
+	m_dMaxLongTwoPushTime = m_dLogDownMul + dPressBits;
+//TODO, what requirements do we actually need to make to ensure sanity (specifically, that computed m_aiTarget's are in range)?
+//cout << " maxShort " << m_dMaxShortTwoPushTime << " minLong " << m_dMinLongTwoPushTime << " maxLong " << m_dMaxLongTwoPushTime << "\n";
+	m_bDecorationChanged = true;
+     }  //and fallthrough again
+     case LP_DYNAMIC_BUTTON_LAG:
+     {
+       double dMaxRate = GetLongParameter(LP_MAX_BITRATE) * GetLongParameter(LP_BOOSTFACTOR) / 10000.0;
+       m_dLagBits = dMaxRate * GetLongParameter(LP_DYNAMIC_BUTTON_LAG)/1000.0;
+  //cout << " lag (" << m_dLagBits[0] << ", " << m_dLagBits[1] << ", " << m_dLagBits[2] << ", " << m_dLagBits[3] << ")";
+     } //and fallthrough
+     case BP_FIXED_MARKERS:
+        if (GetBoolParameter(BP_FIXED_MARKERS))
+        {
+           m_aaiGuideAreas[0][0] = 2048 - GetLongParameter(LP_TWO_PUSH_UP)*exp(m_dMaxShortTwoPushTime);
+           m_aaiGuideAreas[0][1] = 2048 - GetLongParameter(LP_TWO_PUSH_UP)*exp(m_dMinShortTwoPushTime);
+           m_aaiGuideAreas[1][0] = 2048 + GetLongParameter(LP_TWO_PUSH_DOWN)*exp(m_dMinLongTwoPushTime);
+           m_aaiGuideAreas[1][1] = 2048 + GetLongParameter(LP_TWO_PUSH_DOWN)*exp(m_dMaxLongTwoPushTime);
+        }
+        else
+        {
+          m_aaiGuideAreas[0][0] = 2048 - GetLongParameter(LP_TWO_PUSH_UP) * exp(m_dMaxShortTwoPushTime / 2.0) * m_dSqrtUpDist;
+          m_aaiGuideAreas[0][1] = 2048 - GetLongParameter(LP_TWO_PUSH_UP) * exp(m_dMinShortTwoPushTime / 2.0) * m_dSqrtUpDist;
+          m_aaiGuideAreas[1][0] = 2048 + GetLongParameter(LP_TWO_PUSH_DOWN) * exp(m_dMinLongTwoPushTime / 2.0) * m_dSqrtDownDist;
+          m_aaiGuideAreas[1][1] = 2048 + GetLongParameter(LP_TWO_PUSH_DOWN) * exp(m_dMaxLongTwoPushTime / 2.0) * m_dSqrtDownDist;
+        }
+	break;
+    }
+  }
+
+};
+
+void CTwoPushDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) {
+  // Types:
+  // 0 = ordinary click
+  // 1 = long click  
+  int myState;
+  if (!isRunning(myState)) DASHER_ASSERT(false);
+
+  if (myState == 0) //no button pushed (recently)
+  {
+//cout << "First push - event type " << iType << " \n";
+    pModel->GetNats();
+    run(1);
+    pModel->ResetNats();
+  }
+  else
+  {
+    DASHER_ASSERT (myState == 1);
+//cout << "Second push - event type " << iType << " logGrowth " << pModel->GetNats() << "\n";
+    if (m_iActiveMarker == -1)
+      reverse();
+    else
+    {
+      pModel->Offset(m_aiTarget[m_iActiveMarker]);
+      pModel->ResetNats();
+      run(0);
+    }
+  }
+}
+bool doSet(int &var, const int val)
+{
+  if (var == val) return false;
+  var = val;
+  return true;
+}
+
+bool CTwoPushDynamicFilter::TimerImpl(int iTime, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted)
+{
+  int myState;
+  if (!isRunning(myState)) DASHER_ASSERT(false);
+  if (myState == 1) // button pushed
+  {
+    double dLogGrowth(m_pDasherModel->GetNats());
+    double dUpDist = exp(dLogGrowth/2.0) * m_dSqrtUpDist * GetLongParameter(LP_TWO_PUSH_UP);
+    double dDownDist = exp(dLogGrowth/2.0)*m_dSqrtDownDist*GetLongParameter(LP_TWO_PUSH_DOWN);
+    m_aiTarget[0] = dUpDist * exp(m_dLagBits);
+    m_aiTarget[1] = -dDownDist * exp(m_dLagBits);
+    if (GetBoolParameter(BP_FIXED_MARKERS))
+    {
+      m_bDecorationChanged |= doSet(m_aiMarker[0], 2048 - GetLongParameter(LP_TWO_PUSH_UP)*exp(m_dLagBits + dLogGrowth));
+      m_bDecorationChanged |= doSet(m_aiMarker[1], 2048 + GetLongParameter(LP_TWO_PUSH_DOWN)*exp(m_dLagBits + dLogGrowth));
+    }
+    else
+    {
+      m_bDecorationChanged |= doSet(m_aiMarker[0], 2048 - dUpDist * exp(m_dLagBits/2.0));
+      m_bDecorationChanged |= doSet(m_aiMarker[1], 2048 + dDownDist * exp(m_dLagBits/2.0));
+    }
+    if (dLogGrowth > m_dMaxLongTwoPushTime)
+    {
+//cout << " growth " << dLogGrowth << " - reversing\n";
+      //button pushed, but then waited too long.
+      reverse();
+    }
+    else if (dLogGrowth >= m_dMinShortTwoPushTime && dLogGrowth <= m_dMaxShortTwoPushTime)
+      m_bDecorationChanged |= doSet(m_iActiveMarker, 0 /*up*/);
+    else if (dLogGrowth >= m_dMinLongTwoPushTime)
+      m_bDecorationChanged |= doSet(m_iActiveMarker, 1 /*down*/);
+    else m_bDecorationChanged |= doSet(m_iActiveMarker, -1 /*in middle (neither/both) or too short*/);
+  }
+  m_pDasherModel->OneStepTowards(100, 2048, iTime, pAdded, pNumDeleted);
+}
+
+void CTwoPushDynamicFilter::Activate() {
+  SetBoolParameter(BP_DELAY_VIEW, true);
+}
+
+void CTwoPushDynamicFilter::Deactivate() {
+  SetBoolParameter(BP_DELAY_VIEW, false);
+}
+
+bool CTwoPushDynamicFilter::GetSettings(SModuleSettings **pSettings, int *iCount) {
+  *pSettings = sSettings;
+  *iCount = sizeof(sSettings) / sizeof(SModuleSettings);
+
+  return true;
+};
+
+bool CTwoPushDynamicFilter::GetMinWidth(int &iMinWidth) {
+  iMinWidth = 1024;
+  return true;
+}

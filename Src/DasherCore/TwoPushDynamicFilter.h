@@ -1,4 +1,4 @@
-// TwoButtonDynamicFilter.h
+// TwoPushDynamicFilter.h
 //
 // Copyright (c) 2007 The Dasher Team
 //
@@ -18,35 +18,38 @@
 // along with Dasher; if not, write to the Free Software 
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-#ifndef __TWO_BUTTON_DYNAMIC_FILTER_H__
-#define __TWO_BUTTON_DYNAMIC_FILTER_H__
+#ifndef __TWO_PUSH_DYNAMIC_FILTER_H__
+#define __TWO_PUSH_DYNAMIC_FILTER_H__
 
-#include "ButtonMultiPress.h"
-
-#include <deque>
+#include "DynamicFilter.h"
 
 /// \ingroup InputFilter
 /// @{
-class CTwoButtonDynamicFilter : public CButtonMultiPress {
+class CTwoPushDynamicFilter : public CDynamicFilter /*long push, but do our own "multi-push" detection*/ {
  public:
-  CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface);
-
+  CTwoPushDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface);
+  
   // Inherited methods
   virtual bool DecorateView(CDasherView *pView);
  
   virtual void Activate();
   virtual void Deactivate();
-
-  virtual bool GetSettings(SModuleSettings **pSettings, int *iCount);
-
   virtual bool GetMinWidth(int &iMinWidth);
-
-  virtual void HandleEvent(Dasher::CEvent *pEvent);
-  
- private:
+  virtual bool GetSettings(SModuleSettings **pSettings, int *iCount);
+ protected:
   virtual bool TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted);
   virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog);
-  double m_dLagMul;
+
+  virtual void HandleEvent(Dasher::CEvent * pEvent);
+
+ private:
+  double m_dLogUpMul, m_dLogDownMul, m_dSqrtUpDist, m_dSqrtDownDist, m_dLagBits;
+  double m_dMinShortTwoPushTime, m_dMaxShortTwoPushTime,
+    m_dMinLongTwoPushTime, m_dMaxLongTwoPushTime;
+  int m_aiMarker[2];
+  int m_iActiveMarker;
+  int m_aiTarget[2];
+  int m_aaiGuideAreas[2][2];
 };
 /// @}
 

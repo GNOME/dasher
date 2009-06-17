@@ -48,6 +48,7 @@
 #include "OneDimensionalFilter.h"
 #include "StylusFilter.h"
 #include "TwoButtonDynamicFilter.h"
+#include "TwoPushDynamicFilter.h"
 
 // STL headers
 #include <cstdio>
@@ -946,6 +947,7 @@ void CDasherInterfaceBase::CreateModules() {
 #endif
   RegisterModule(new COneButtonDynamicFilter(m_pEventHandler, m_pSettingsStore, this));
   RegisterModule(new CTwoButtonDynamicFilter(m_pEventHandler, m_pSettingsStore, this));
+  RegisterModule(new CTwoPushDynamicFilter(m_pEventHandler, m_pSettingsStore, this));
   // TODO: specialist factory for button mode
   RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 5, 1, true,8, _("Menu Mode")));
   RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 3, 0, false,10, _("Direct Mode")));

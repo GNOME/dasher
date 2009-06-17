@@ -38,13 +38,19 @@ static SModuleSettings sSettings[] = {
   {BP_TWOBUTTON_REVERSE,T_BOOL, -1, -1, -1, -1, _("Reverse up and down buttons")},
   {BP_SLOW_START,T_BOOL, -1, -1, -1, -1, _("Slow startup")},
   {LP_SLOW_START_TIME, T_LONG, 0, 10000, 1000, 100, _("Startup time")},
+  {LP_DYNAMIC_BUTTON_LAG, T_LONG, 0, 1000, 1, 25, _("Lag before user actually pushes button (ms)")}, 
   {LP_DYNAMIC_SPEED_INC, T_LONG, 1, 100, 1, 1, _("%age by which to automatically increase speed")},
   {LP_DYNAMIC_SPEED_FREQ, T_LONG, 1, 1000, 1, 1, _("Time after which to automatically increase speed (secs)")},
   {LP_DYNAMIC_SPEED_DEC, T_LONG, 1, 99, 1, 1, _("%age by which to decrease speed upon reverse")}
 };
 
 CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
-  : CButtonMultiPress(pEventHandler, pSettingsStore, pInterface, 14, 1, _("Two Button Dynamic Mode")) { }
+  : CButtonMultiPress(pEventHandler, pSettingsStore, pInterface, 14, 1, _("Two Button Dynamic Mode"))
+{
+  //ensure that m_dLagMul is properly initialised
+  Dasher::CParameterNotificationEvent oEvent(LP_DYNAMIC_BUTTON_LAG);
+  HandleEvent(&oEvent);
+}
 
 bool CTwoButtonDynamicFilter::DecorateView(CDasherView *pView) {
   CDasherScreen *pScreen(pView->Screen());
@@ -102,12 +108,12 @@ void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CD
     iFactor = -1;
 
   if(iButton == 2) {
-    pModel->Offset(iFactor * GetLongParameter(LP_TWO_BUTTON_OFFSET));
+    pModel->Offset(iFactor * GetLongParameter(LP_TWO_BUTTON_OFFSET) * m_dLagMul);
     if(pUserLog)
       pUserLog->KeyDown(iButton, iType, 3);
   }
   else if((iButton == 3) || (iButton == 4)) {
-    pModel->Offset(iFactor * -GetLongParameter(LP_TWO_BUTTON_OFFSET));
+    pModel->Offset(iFactor * -GetLongParameter(LP_TWO_BUTTON_OFFSET) * m_dLagMul);
     if(pUserLog)
       pUserLog->KeyDown(iButton, iType, 4);
   }
@@ -127,4 +133,22 @@ bool CTwoButtonDynamicFilter::GetSettings(SModuleSettings **pSettings, int *iCou
 bool CTwoButtonDynamicFilter::GetMinWidth(int &iMinWidth) {
   iMinWidth = 1024;
   return true;
+}
+
+void CTwoButtonDynamicFilter::HandleEvent(Dasher::CEvent *pEvent)
+{
+  if (pEvent->m_iEventType == EV_PARAM_NOTIFY)
+  {
+    Dasher::CParameterNotificationEvent *pEvt = static_cast<Dasher::CParameterNotificationEvent *>(pEvent);
+    switch (pEvt->m_iParameter)
+    {
+    case LP_MAX_BITRATE:
+    case LP_BOOSTFACTOR: // Deliberate fallthrough
+    case LP_DYNAMIC_BUTTON_LAG:
+      {
+        double dMaxRate = GetLongParameter(LP_MAX_BITRATE) * GetLongParameter(LP_BOOSTFACTOR) / 10000.0;
+        m_dLagMul = exp(dMaxRate * GetLongParameter(LP_DYNAMIC_BUTTON_LAG)/1000.0);
+      }
+    }
+  }
 }

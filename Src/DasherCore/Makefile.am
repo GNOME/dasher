@@ -119,6 +119,8 @@ libdashercore_a_SOURCES = \
 		TwoBoxStartHandler.h \
 		TwoButtonDynamicFilter.cpp \
 		TwoButtonDynamicFilter.h \
+		TwoPushDynamicFilter.cpp \
+		TwoPushDynamicFilter.h \
 		UserButton.cpp \
 		UserButton.h \
 		UserLocation.cpp \

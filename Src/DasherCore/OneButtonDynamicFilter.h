@@ -18,8 +18,8 @@
 // along with Dasher; if not, write to the Free Software 
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-#ifndef __DYNAMIC_FILTER_H__
-#define __DYNAMIC_FILTER_H__
+#ifndef __ONE_BUTTON_DYNAMIC_FILTER_H__
+#define __ONE_BUTTON_DYNAMIC_FILTER_H__
 
 #include "ButtonMultiPress.h"
 

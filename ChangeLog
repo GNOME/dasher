@@ -1,5 +1,10 @@
 2009-06-17  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
+	* Implement new two-push dynamic mode (TwoPushDynamicFilter.{h,cpp}).
+	Also added dynamic button lag to two-button dynamic mode.
+
+2009-06-17  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
 	* Re-implement dynamic mode speed control:
 	Periodically increase speed as long as in a 'running' state;
 	decrease every time we start to reverse.

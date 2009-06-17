@@ -380,7 +380,8 @@ void CDasherModel::Get_new_root_coords(dasherint X, dasherint Y, dasherint &r1, 
 
   double dFactor;
 
-  if(IsSlowdown(iTime))
+  if(GetBoolParameter(BP_SLOW_START) &&
+     ((iTime - m_iStartTime) < GetLongParameter(LP_SLOW_START_TIME)))
     dFactor = 0.1 * (1 + 9 * ((iTime - m_iStartTime) / static_cast<double>(GetLongParameter(LP_SLOW_START_TIME))));
   else 
     dFactor = 1.0;
