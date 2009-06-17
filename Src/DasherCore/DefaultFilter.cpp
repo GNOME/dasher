@@ -8,10 +8,10 @@
 
 #include <iostream>
 
-CDefaultFilter::CDefaultFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel, ModuleID_t iID, const char *szName)
+CDefaultFilter::CDefaultFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
   : CInputFilter(pEventHandler, pSettingsStore, pInterface, iID, 1, szName) {
   m_pStartHandler = 0;
-  m_pAutoSpeedControl = new CAutoSpeedControl(m_pEventHandler, m_pSettingsStore, m_pDasherModel->Framerate());
+  m_pAutoSpeedControl = new CAutoSpeedControl(m_pEventHandler, m_pSettingsStore);
 
   CreateStartHandler();
 }

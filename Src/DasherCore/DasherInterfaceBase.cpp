@@ -933,10 +933,10 @@ void CDasherInterfaceBase::SetDefaultInputMethod(CDasherModule *pModule) {
 
 void CDasherInterfaceBase::CreateModules() {
   SetDefaultInputMethod(
-    RegisterModule(new CDefaultFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel,3, _("Normal Control")))
+    RegisterModule(new CDefaultFilter(m_pEventHandler, m_pSettingsStore, this, 3, _("Normal Control")))
   );
-  RegisterModule(new COneDimensionalFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel));
-  RegisterModule(new CEyetrackerFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel));
+  RegisterModule(new COneDimensionalFilter(m_pEventHandler, m_pSettingsStore, this));
+  RegisterModule(new CEyetrackerFilter(m_pEventHandler, m_pSettingsStore, this));
 #ifndef _WIN32_WCE
   RegisterModule(new CClickFilter(m_pEventHandler, m_pSettingsStore, this));
 #else
@@ -952,7 +952,7 @@ void CDasherInterfaceBase::CreateModules() {
   //  RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3"));
   RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 3, 3, false,12, _("Alternating Direct Mode")));
   RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 2, false,13, _("Compass Mode")));
-  RegisterModule(new CStylusFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel,15, _("Stylus Control")));
+  RegisterModule(new CStylusFilter(m_pEventHandler, m_pSettingsStore, this, 15, _("Stylus Control")));
 
 }
 

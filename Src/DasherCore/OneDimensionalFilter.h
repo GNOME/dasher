@@ -7,7 +7,7 @@
 /// @{
 class COneDimensionalFilter : public CDefaultFilter {
  public:
-  COneDimensionalFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel);
+  COneDimensionalFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface);
 
  private:
    virtual void ApplyTransform(myint &iDasherX, myint &iDasherY);

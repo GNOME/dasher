@@ -3,8 +3,8 @@
 #include "DasherInterfaceBase.h"
 #include "Event.h"
 
-CStylusFilter::CStylusFilter(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *pDasherModel, ModuleID_t iID, const char *szName)
-  : CDefaultFilter(pEventHandler, pSettingsStore, pInterface, pDasherModel, iID, szName) {
+CStylusFilter::CStylusFilter(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
+  : CDefaultFilter(pEventHandler, pSettingsStore, pInterface, iID, szName) {
 }
 
 

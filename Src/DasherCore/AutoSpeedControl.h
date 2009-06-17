@@ -14,7 +14,7 @@ using namespace Dasher;
 /// @{
 class CAutoSpeedControl : public Dasher::CDasherComponent {
  public:
-  CAutoSpeedControl(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, double dFrameRate);
+  CAutoSpeedControl(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore);
   
   ///
   /// AUTO-SPEED-CONTROL

@@ -7,7 +7,7 @@
 /// @{
 class CEyetrackerFilter : public CDefaultFilter {
  public:
-  CEyetrackerFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel);
+  CEyetrackerFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface);
 
   bool GetSettings(SModuleSettings **pSettings, int *iCount);
 

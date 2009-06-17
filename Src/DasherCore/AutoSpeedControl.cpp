@@ -22,7 +22,7 @@ double round(double dVal) {
 }
 #endif
 
-CAutoSpeedControl::CAutoSpeedControl(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, double dFrameRate) 
+CAutoSpeedControl::CAutoSpeedControl(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
   : CDasherComponent(pEventHandler, pSettingsStore) {
   //scale #samples by #samples = m_dSamplesScale / (current bitrate) + m_dSampleOffset
   m_dSampleScale = 1.5;
@@ -50,7 +50,7 @@ CAutoSpeedControl::CAutoSpeedControl(Dasher::CEventHandler * pEventHandler, CSet
   m_dBitrate = double(round(GetLongParameter(LP_MAX_BITRATE) / 100.0));
 
   UpdateMinRadius();
-  UpdateSampleSize(dFrameRate); 
+  UpdateSampleSize(GetLongParameter(LP_FRAMERATE) / 100.0); 
 }
 
   ////////////////////////////////////////////////

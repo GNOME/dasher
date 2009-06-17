@@ -7,8 +7,8 @@ static SModuleSettings sSettings[] = {
   {BP_AUTOCALIBRATE, T_BOOL, -1, -1, -1, -1, _("Automatic calibration")}
 };
 
-CEyetrackerFilter::CEyetrackerFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel)
-  : CDefaultFilter(pEventHandler, pSettingsStore, pInterface, m_pDasherModel, 5, _("Eyetracker Mode")) {
+CEyetrackerFilter::CEyetrackerFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
+  : CDefaultFilter(pEventHandler, pSettingsStore, pInterface, 5, _("Eyetracker Mode")) {
 
   // Setup some autocalibration parameters
   m_iYAutoOffset = 0;
