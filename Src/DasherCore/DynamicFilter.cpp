@@ -38,11 +38,12 @@ bool CDynamicFilter::Timer(int iTime, CDasherView *m_pDasherView, CDasherModel *
   if (isPaused()) return false;
   if (isReversing()) return m_pDasherModel->OneStepTowards(41943,2048, iTime, pAdded, pNumDeleted);
   //moving forwards. Check auto speed control...
-  if (GetLongParameter(BP_AUTO_SPEEDCONTROL) && m_iSpeedControlTime < iTime)
+  unsigned int uTime = static_cast<unsigned int>(iTime);
+  if (GetBoolParameter(BP_AUTO_SPEEDCONTROL) && m_uSpeedControlTime < uTime)
   {
-	  if (m_iSpeedControlTime > 0) //has actually been set?
+	  if (m_uSpeedControlTime > 0) //has actually been set?
         SetLongParameter(LP_MAX_BITRATE, GetLongParameter(LP_MAX_BITRATE) * (1.0 + GetLongParameter(LP_DYNAMIC_SPEED_INC)/100.0));
-	  m_iSpeedControlTime = iTime + 1000*GetLongParameter(LP_DYNAMIC_SPEED_FREQ);
+	  m_uSpeedControlTime = uTime + 1000*GetLongParameter(LP_DYNAMIC_SPEED_FREQ);
   }
   return TimerImpl(iTime, m_pDasherView, m_pDasherModel, pAdded, pNumDeleted);
 }
@@ -81,7 +82,7 @@ void CDynamicFilter::Event(int iTime, int iButton, int iType, CDasherModel *pMod
   
   // First sanity check - if Dasher is paused then jump to the
   // appropriate state
-  if(GetBoolParameter(BP_DASHER_PAUSED))
+  if(GetBoolParameter(BP_DASHER_PAUSED) && !isPaused())
     pause();
 
   // TODO: Check that state diagram implemented here is what we
@@ -154,7 +155,7 @@ void CDynamicFilter::run(int iSubclassState)
 {
   DASHER_ASSERT(iSubclassState>=0);
   if (m_iState<2) //wasn't running previously
-    m_iSpeedControlTime = 0; //will be set in Timer()
+    m_uSpeedControlTime = 0; //will be set in Timer()
   m_iState = iSubclassState+2;
 }
 

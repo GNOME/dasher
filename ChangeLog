@@ -6,6 +6,7 @@
 	(Controlled by new settings for time period, increase
 	and decrease, added to both existing dynamic modes:
 	LP_DYNAMIC_SPEED_{FREQ, INC, DEC} respectively).
+	* DynamicFilter: Fixes to dynamic mode states / auto speed control
 
 
 2009-06-17  Alan Lawrence <acl33@inf.phy.cam.ac.uk>

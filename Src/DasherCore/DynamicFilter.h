@@ -59,7 +59,7 @@ class CDynamicFilter : public CInputFilter {
     int m_iState; // 0 = paused, 1 = reversing, >=2 = running (extensible by subclasses)
     int m_iHeldId;
     int m_iKeyDownTime;
-    int m_iSpeedControlTime;
+    unsigned int m_uSpeedControlTime;
 	
     CUserLogBase *m_pUserLog;
 };
