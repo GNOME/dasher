@@ -43,7 +43,7 @@ class CTwoPushDynamicFilter : public CDynamicFilter /*long push, but do our own 
   virtual void HandleEvent(Dasher::CEvent * pEvent);
 
  private:
-  double m_dLogUpMul, m_dLogDownMul, m_dSqrtUpDist, m_dSqrtDownDist, m_dLagBits;
+  double m_dLogUpMul, m_dLogDownMul, m_dLagBits;
   double m_dMinShortTwoPushTime, m_dMaxShortTwoPushTime,
     m_dMinLongTwoPushTime, m_dMaxLongTwoPushTime;
   int m_aiMarker[2];

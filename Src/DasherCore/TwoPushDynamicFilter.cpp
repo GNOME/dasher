@@ -122,9 +122,7 @@ void CTwoPushDynamicFilter::HandleEvent(Dasher::CEvent * pEvent)
 	double dOuter = GetLongParameter(LP_TWO_PUSH_OUTER);
 	m_dLogUpMul = log(dOuter / (double)GetLongParameter(LP_TWO_PUSH_UP));
 	m_dLogDownMul = log(dOuter / (double)GetLongParameter(LP_TWO_PUSH_DOWN));
-	m_dSqrtUpDist = exp(m_dLogUpMul / 2.0);
-	m_dSqrtDownDist = exp(m_dLogDownMul / 2.0);
-//cout << "bitsUp " << m_dLogUpMul << " bitsDown " << m_dLogDownMul << " upDist " << m_dSqrtUpDist << " downDist " << m_dSqrtDownDist << "\n";
+//cout << "bitsUp " << m_dLogUpMul << " bitsDown " << m_dLogDownMul << "\n";
       } //and fallthrough
       case LP_TWO_PUSH_TOLERANCE:
       case LP_MAX_BITRATE:
@@ -160,10 +158,12 @@ void CTwoPushDynamicFilter::HandleEvent(Dasher::CEvent * pEvent)
         }
         else
         {
-          m_aaiGuideAreas[0][0] = 2048 - GetLongParameter(LP_TWO_PUSH_UP) * exp(m_dMaxShortTwoPushTime / 2.0) * m_dSqrtUpDist;
-          m_aaiGuideAreas[0][1] = 2048 - GetLongParameter(LP_TWO_PUSH_UP) * exp(m_dMinShortTwoPushTime / 2.0) * m_dSqrtUpDist;
-          m_aaiGuideAreas[1][0] = 2048 + GetLongParameter(LP_TWO_PUSH_DOWN) * exp(m_dMinLongTwoPushTime / 2.0) * m_dSqrtDownDist;
-          m_aaiGuideAreas[1][1] = 2048 + GetLongParameter(LP_TWO_PUSH_DOWN) * exp(m_dMaxLongTwoPushTime / 2.0) * m_dSqrtDownDist;
+          double dUp(GetLongParameter(LP_TWO_PUSH_UP)), dDown(GetLongParameter(LP_TWO_PUSH_DOWN)),
+                 dOuter(GetLongParameter(LP_TWO_PUSH_OUTER));
+          m_aaiGuideAreas[0][0] = 2048 - dUp * exp((m_dMaxShortTwoPushTime*dUp + m_dLogUpMul*dOuter) / (dOuter+dUp));
+          m_aaiGuideAreas[0][1] = 2048 - dUp * exp((m_dMinShortTwoPushTime*dUp + m_dLogUpMul*dOuter) / (dOuter+dUp));
+          m_aaiGuideAreas[1][0] = 2048 + dDown * exp((m_dMinLongTwoPushTime*dDown + m_dLogDownMul*dOuter) / (dOuter+dDown));
+          m_aaiGuideAreas[1][1] = 2048 + dDown * exp((m_dMaxLongTwoPushTime*dDown + m_dLogDownMul*dOuter) / (dOuter+dDown));
         }
 	break;
     }
@@ -212,20 +212,33 @@ bool CTwoPushDynamicFilter::TimerImpl(int iTime, CDasherView *m_pDasherView, CDa
   if (!isRunning(myState)) DASHER_ASSERT(false);
   if (myState == 1) // button pushed
   {
-    double dLogGrowth(m_pDasherModel->GetNats());
-    double dUpDist = exp(dLogGrowth/2.0) * m_dSqrtUpDist * GetLongParameter(LP_TWO_PUSH_UP);
-    double dDownDist = exp(dLogGrowth/2.0)*m_dSqrtDownDist*GetLongParameter(LP_TWO_PUSH_DOWN);
+    double dLogGrowth(m_pDasherModel->GetNats()), dOuter(GetLongParameter(LP_TWO_PUSH_OUTER)),
+           dUp(GetLongParameter(LP_TWO_PUSH_UP)), dDown(GetLongParameter(LP_TWO_PUSH_DOWN));
+    
+    //to move to point currently at outer marker: set m_aiTarget to dOuter==exp( log(dOuter/dUp) ) * dUp
+              // (note that m_dLogUpMul has already been set to log(dOuter/dUp)...)
+    //to move to point that _was_ at inner marker: set to exp(dLogGrowth) * dUp
+    //to move to midpoint - weighting both equally - set to exp( (log(dOuter/dup)+dLogGrowth)/2.0 ) * dUp
+    //we move to a WEIGHTED average, with the weights being given by dUp, dDown, and dOuter...
+    double dUpBits = (m_dLogUpMul * dOuter + dLogGrowth * dUp) / (dOuter + dUp);
+    double dDownBits = (m_dLogDownMul * dOuter + dLogGrowth * dDown) / (dOuter + dDown);
+    
+    // (note it's actually slightly more complicated even than that, we have to add in m_dLagBits too!)
+
+    double dUpDist = exp( dUpBits ) * dUp;
+    double dDownDist = exp( dDownBits ) * dDown;
     m_aiTarget[0] = dUpDist * exp(m_dLagBits);
     m_aiTarget[1] = -dDownDist * exp(m_dLagBits);
     if (GetBoolParameter(BP_FIXED_MARKERS))
     {
-      m_bDecorationChanged |= doSet(m_aiMarker[0], 2048 - GetLongParameter(LP_TWO_PUSH_UP)*exp(m_dLagBits + dLogGrowth));
-      m_bDecorationChanged |= doSet(m_aiMarker[1], 2048 + GetLongParameter(LP_TWO_PUSH_DOWN)*exp(m_dLagBits + dLogGrowth));
+      m_bDecorationChanged |= doSet(m_aiMarker[0], 2048 - exp(m_dLagBits + dLogGrowth) * dUp);
+      m_bDecorationChanged |= doSet(m_aiMarker[1], 2048 + exp(m_dLagBits + dLogGrowth) * dDown);
     }
     else
     {
-      m_bDecorationChanged |= doSet(m_aiMarker[0], 2048 - dUpDist * exp(m_dLagBits/2.0));
-      m_bDecorationChanged |= doSet(m_aiMarker[1], 2048 + dDownDist * exp(m_dLagBits/2.0));
+      //apply amount of lag corresponding to the first (inner) push only
+      m_bDecorationChanged |= doSet(m_aiMarker[0], 2048 - dUpDist * exp(m_dLagBits * (dUp/(dOuter+dUp))));
+      m_bDecorationChanged |= doSet(m_aiMarker[1], 2048 + dDownDist * exp(m_dLagBits * (dDown/(dOuter+dUp))));
     }
     if (dLogGrowth > m_dMaxLongTwoPushTime)
     {
@@ -239,7 +252,7 @@ bool CTwoPushDynamicFilter::TimerImpl(int iTime, CDasherView *m_pDasherView, CDa
       m_bDecorationChanged |= doSet(m_iActiveMarker, 1 /*down*/);
     else m_bDecorationChanged |= doSet(m_iActiveMarker, -1 /*in middle (neither/both) or too short*/);
   }
-  m_pDasherModel->OneStepTowards(100, 2048, iTime, pAdded, pNumDeleted);
+  return m_pDasherModel->OneStepTowards(100, 2048, iTime, pAdded, pNumDeleted);
 }
 
 void CTwoPushDynamicFilter::Activate() {

@@ -2,6 +2,7 @@
 
 	* Implement new two-push dynamic mode (TwoPushDynamicFilter.{h,cpp}).
 	Also added dynamic button lag to two-button dynamic mode.
+	* Weight the pushes by their respective LP_TWO_PUSH_ parameters.
 
 2009-06-17  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
