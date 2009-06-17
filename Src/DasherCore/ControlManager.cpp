@@ -375,25 +375,33 @@ void CControlManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pA
 void CControlManager::Undo( CDasherNode *pNode ) {
   // Do we ever need this?
   // One other thing we probably want is notification when we leave a node - that way we can eg speed up again if we slowed down
-  m_pNCManager->SetLongParameter(LP_SPEED_DIVISOR, 100);
+  m_pNCManager->SetLongParameter(LP_BOOSTFACTOR, 100);
   //Re-enable auto speed control!
-  m_pNCManager->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 1);
-  
+  if (bDisabledSpeedControl)
+  {
+    bDisabledSpeedControl = false;
+    m_pNCManager->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 1);
+  }
 }
 
 void CControlManager::Enter(CDasherNode *pNode) {
   // Slow down to half the speed we were at
-  m_pNCManager->SetLongParameter(LP_SPEED_DIVISOR, 200);
+  m_pNCManager->SetLongParameter(LP_BOOSTFACTOR, 50);
   //Disable auto speed control!
-  m_pNCManager->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 0);
+  if ((bDisabledSpeedControl = m_pNCManager->GetBoolParameter(BP_AUTO_SPEEDCONTROL)) == true)
+    m_pNCManager->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 0);
 }
 
 
 void CControlManager::Leave(CDasherNode *pNode) {
   // Now speed back up, by doubling the speed we were at in control mode
-  m_pNCManager->SetLongParameter(LP_SPEED_DIVISOR, 100);
+  m_pNCManager->SetLongParameter(LP_BOOSTFACTOR, 100);
   //Re-enable auto speed control!
-  m_pNCManager->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 1);
+  if (bDisabledSpeedControl)
+  {
+    bDisabledSpeedControl = false;
+    m_pNCManager->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 1);
+  }
 }
 
 

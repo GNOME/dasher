@@ -225,10 +225,6 @@ public:
 
   void PauseAt(int MouseX, int MouseY); // are required to make
 
-  /// Halt Dasher. This simply freezes Dasher but does not emit a stop event, so does not result in speech etc.
-
-  void Halt();
-
   /// Unpause Dasher
   /// \param Time Time in ms, used to keep a constant frame rate
 

@@ -1,3 +1,14 @@
+2009-06-16  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Frame- and bit-rate calculation are centralised in CFrameRate,
+	which is now a superclass to CDasherModel (rather than
+	a contained object). Framerate preserved in LP_FRAMERATE
+	setting; LP_SPEEDDIVISOR removed in favour of preserving
+	LP_BOOSTFACTOR. Control mode's pause method inlined/removed,
+	awaiting further refactoring in future, and changed to use same
+	BP_SLOW_START mechanism as elsewhere (rather than resetting
+	framerate!).
+
 2009-06-11  Andre Klapper  <a9016009@gmx.de>
 
 	* Src/main.cc: Remove commented "#include <gnome.h>" to clean up 

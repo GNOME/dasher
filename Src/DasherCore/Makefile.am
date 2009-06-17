@@ -76,6 +76,7 @@ libdashercore_a_SOURCES = \
 		FileLogger.cpp \
 		FileLogger.h \
 		FrameRate.h \
+		FrameRate.cpp \
 		GameLevel.cpp \
 		GameLevel.h \
 		GameMessages.h \

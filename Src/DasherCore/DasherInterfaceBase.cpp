@@ -350,8 +350,10 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       PauseAt(0,0);
       break;
     case CControlManager::CTL_PAUSE:
-      Halt();
-      break;
+  //Halt Dasher - without a stop event, so does not result in speech etc.
+      SetBoolParameter(BP_DASHER_PAUSED, true);
+
+      m_pDasherModel->TriggerSlowdown();
     }
   }
   else if(pEvent->m_iEventType == EV_LOCK) {
@@ -473,15 +475,6 @@ void CDasherInterfaceBase::PauseAt(int MouseX, int MouseY) {
 
 void CDasherInterfaceBase::GameMessageIn(int message, void* messagedata) {
   GameMode::CDasherGameMode::GetTeacher()->Message(message, messagedata);
-}
-
-
-void CDasherInterfaceBase::Halt() {
-  SetBoolParameter(BP_DASHER_PAUSED, true);
-
-  // This will cause us to reinitialise the frame rate counter - ie we start off slowly
-  if(m_pDasherModel != 0)
-    m_pDasherModel->Halt();
 }
 
 void CDasherInterfaceBase::Unpause(unsigned long Time) {

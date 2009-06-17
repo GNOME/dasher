@@ -139,6 +139,11 @@ namespace Dasher {
       CControlNode *pControlNode;
       int iOffset;
     };
+
+    ///Whether we'd temporarily disabled Automatic Speed Control
+    ///(if _and only if_ so, should re-enable it when leaving a node)
+    bool bDisabledSpeedControl;
+
   };
   /// @}
 }

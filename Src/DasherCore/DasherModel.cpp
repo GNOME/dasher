@@ -59,7 +59,7 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler,
 			   CNodeCreationManager *pNCManager,
 			   CDasherInterfaceBase *pDasherInterface,
 			   CDasherView *pView, int iOffset)
-  : CDasherComponent(pEventHandler, pSettingsStore) {
+  : CFrameRate(pEventHandler, pSettingsStore) {
   m_pNodeCreationManager = pNCManager;
   m_pDasherInterface = pDasherInterface;
 
@@ -85,9 +85,6 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler,
 
   SetBoolParameter(BP_CONVERSION_MODE, m_bRequireConversion);
 
-  // Set max bitrate in the FrameRate class
-  m_dMaxRate = GetLongParameter(LP_MAX_BITRATE) / 100.0;
-  m_fr.SetMaxBitrate(m_dMaxRate);
   m_dAddProb = 0.003;
 
   int iNormalization = GetLongParameter(LP_NORMALIZATION);
@@ -112,17 +109,12 @@ CDasherModel::~CDasherModel() {
 }
 
 void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
+  CFrameRate::HandleEvent(pEvent);
 
   if(pEvent->m_iEventType == EV_PARAM_NOTIFY) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
 
     switch (pEvt->m_iParameter) {
-    case LP_MAX_BITRATE: // Delibarate fallthrough
-    case LP_BOOSTFACTOR: // Deliberate fallthrough
-    case LP_SPEED_DIVISOR:
-      m_dMaxRate = GetLongParameter(LP_MAX_BITRATE) * GetLongParameter(LP_BOOSTFACTOR) / 100 / static_cast<double>(GetLongParameter(LP_SPEED_DIVISOR));
-      m_fr.SetMaxBitrate(m_dMaxRate);
-      break;
     case BP_CONTROL_MODE: // Rebuild the model if control mode is switched on/off
       RebuildAroundNode(Get_node_under_crosshair());
       break;
@@ -131,9 +123,8 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
       break;
     case BP_DASHER_PAUSED:
       if(GetBoolParameter(BP_SLOW_START))
-	m_iStartTime = 0;
-      else
-	m_iStartTime = 1;
+	TriggerSlowdown();
+      //else, leave m_iStartTime as is - will result in no slow start
       break;
     case BP_GAME_MODE:
       m_bGameMode = GetBoolParameter(BP_GAME_MODE);
@@ -385,7 +376,7 @@ void CDasherModel::Get_new_root_coords(dasherint X, dasherint Y, dasherint &r1, 
   if(m_iStartTime == 0)
     m_iStartTime = iTime;
 
-  int iSteps = m_fr.Steps();
+  int iSteps = Steps();
 
   double dFactor;
 
@@ -441,7 +432,7 @@ void CDasherModel::Get_new_root_coords(dasherint X, dasherint Y, dasherint &r1, 
   // Calculate the minimum size of the viewport corresponding to the
   // maximum zoom.
 
-  dasherint iMinSize(m_fr.MinSize(Y2, dFactor));
+  dasherint iMinSize(MinSize(Y2, dFactor));
 
   if((y2 - y1) < iMinSize) {
     newy1 = y1 * (Y2 - iMinSize) / (Y2 - (y2 - y1));
@@ -517,7 +508,7 @@ bool CDasherModel::UpdateBounds(myint iNewMin, myint iNewMax, unsigned long iTim
 }
 
 void CDasherModel::NewFrame(unsigned long Time) {
-  m_fr.NewFrame(Time);
+  CFrameRate::NewFrame(Time);
   ///GAME MODE TEMP///Pass new frame events onto our teacher
   GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher();
   if(m_bGameMode && pTeacher)

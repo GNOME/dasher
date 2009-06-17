@@ -9,7 +9,11 @@
 #ifndef __FrameRate_h__
 #define __FrameRate_h__
 
+#include <cmath>
 #include "../Common/Common.h"
+#include "Event.h"
+#include "Parameters.h"
+#include "DasherComponent.h"
 
 // Should this using directive really be in a header file?
 using namespace Dasher;
@@ -22,10 +26,11 @@ const double LN2 = log(2.0);
 /// keeps track of framerate
 /// computes the Steps parameter
 /// computes RXmax - which controls the maximum rate of zooming in
-class CFrameRate {
+class CFrameRate : public CDasherComponent {
 public:
-  CFrameRate();
-  void Initialise();
+  CFrameRate(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore);
+  
+  virtual void HandleEvent(Dasher::CEvent *pEvent);
 
   /// Get the minimum size of the target viewport
   ////// TODO: Eventually fix this so that it uses integer maths internally. 
@@ -43,104 +48,38 @@ public:
     return m_iSteps;
   }; 
 
+  ///
+  /// Get the current framerate
+  ///
   double Framerate() const {
     return m_dFr;
   };
 
-  void Reset(unsigned long Time);
-  void NewFrame(unsigned long Time);
-  void SetBitrate(double TargetRate);
-  void SetMaxBitrate(double MaxRate);
+  double Bitrate() const {
+    return m_dMaxbitrate;
+  }
 
+  virtual void BitrateChanged(double dMaxbitrate) {m_dMaxbitrate = dMaxbitrate;}
+  virtual void FramerateChanged(double dFr) {m_dFr = dFr;}
+  ///
+  /// Reset the framerate class
+  /// TODO: Need to check semantics here
+  /// Called from CDasherInterfaceBase::UnPause;
+  ///
+  void Reset_framerate(unsigned long Time) {
+    m_iFrames = 0;
+    m_iTime = Time;
+  }
+
+
+  void NewFrame(unsigned long Time);
+  
 private:
-  double m_dFr;
-  double m_dMaxbitrate;         // the maximum rate of entering information
+  double m_dFr;                 // current frame rate (cache of LP_FRAMERATE/100.0)
+  double m_dMaxbitrate;         // the maximum rate of entering information (cache)
   double m_dRXmax;              // the maximum zoomin per frame
   int m_iFrames, m_iTime, m_iTime2, m_iSamples;
   int m_iSteps;                 // the 'Steps' parameter. See djw thesis.
 };
 /// \}
-
-inline CFrameRate::CFrameRate() {
-  // TODO: This looks obsolete - need to rationalise this
-  // maxbitrate should be user-defined and/or adaptive. Currently it is not.
-#if defined(_WIN32_WCE)
-  m_dMaxbitrate = 5;
-#else
-  m_dMaxbitrate = 5.5;
-#endif
-
-  Initialise();
-}
-
-inline void CFrameRate::Initialise(void) {
-  m_dRXmax = 2;                 // only a transient effect
-  m_iFrames = 0;
-  m_iSamples = 1;
-
-  // we dont know the framerate yet - play it safe by setting it high
-  m_dFr = 1 << 5;
-
-  // start off very slow until we have sampled framerate adequately
-  m_iSteps = 2000;
-  m_iTime = 0;                  // Hmmm, User must reset framerate before starting.
-}
-
-inline void CFrameRate::NewFrame(unsigned long Time)
-{
-  m_iFrames++;
-
-  // Update values once enough samples have been collected
-  if(m_iFrames == m_iSamples) {
-    m_iTime2 = Time;
-
-    // If samples are collected in < 50ms, collect more
-    if(m_iTime2 - m_iTime < 50)
-      m_iSamples++; 
-    // And if it's taking longer than > 80ms, collect fewer, down to a
-    // limit of 2
-    else if(m_iTime2 - m_iTime > 80) {
-      m_iSamples--;
-      if(m_iSamples < 2)
-        m_iSamples = 2;
-    }
-
-    // Calculate the framerate and reset framerate statistics for next
-    // sampling period
-    if(m_iTime2 - m_iTime) {
-      m_dFr = m_iFrames * 1000.0 / (m_iTime2 - m_iTime);
-      m_iTime = m_iTime2;
-      m_iFrames = 0;
-    }
-
-    // Update auxiliary variablesq
-    m_dRXmax = exp(m_dMaxbitrate * LN2 / m_dFr);
-    
-    // Note that m_iSteps is smoothed here - 50:50 interpolation with
-    // previous value
-    m_iSteps = m_iSteps / 2 + (int)(-log(0.2) * m_dFr / LN2 / m_dMaxbitrate) / 2;
-
-    // If the framerate slows to < 4 then we end up with steps < 1 ! 
-    if(m_iSteps == 0)
-      m_iSteps = 1;
-
-    DASHER_TRACEOUTPUT("Fr %f Steps %d Samples %d Time2 %d rxmax %f\n", m_dFr, m_iSteps, m_iSamples, m_iTime2, m_dRXmax);
-  }
-}
-
-inline void CFrameRate::Reset(unsigned long Time) {
-  m_iFrames = 0;
-  m_iTime = Time;
-}
-
-// TODO: Need to clarify the exact relation between these two values -
-// at the moment the max bitrate is all that is used
-inline void CFrameRate::SetBitrate(double TargetRate) {
-  m_dMaxbitrate = TargetRate;
-}
-
-inline void CFrameRate::SetMaxBitrate(double MaxRate) {
-  m_dMaxbitrate = MaxRate;
-}
-
 #endif /* #ifndef __FrameRate_h__ */

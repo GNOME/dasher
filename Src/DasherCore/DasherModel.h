@@ -55,7 +55,7 @@ namespace Dasher {
 ///             knows the current viewpoint
 ///             knows how to evolve the viewpoint
 ///
-class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
+class Dasher::CDasherModel:public CFrameRate, private NoClones
 {
  public:
 
@@ -97,44 +97,6 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   void MatchTarget(bool bReverse);
 
   /// @}
-
-  ///
-  /// Get the current framerate
-  ///
-
-  double Framerate() const {
-    return m_fr.Framerate();
-  }
-
-  ///
-  /// Reset the framerate class
-  /// TODO: Need to check semantics here
-  /// Called from CDasherInterfaceBase::UnPause;
-  ///
-
-  void Reset_framerate(unsigned long Time) {
-    m_fr.Reset(Time);
-  }
-
-  ///
-  /// Initialise the framerate class - presumably called whenever
-  /// dasher is stoppe, but the actual semantics here need to be
-  /// verified
-  /// Called from CDasherInterfacebase::Halt 
-  ///
-
-  void Halt() {
-    m_fr.Initialise();
-  }
-
-  ///
-  /// Set the target bitrate - probably shouldn't be called externally
-  /// - could implement through the event subsystem instead
-  ///
-  
-/*   void SetBitrate(double TargetRate) { */
-/*     m_fr.SetBitrate(TargetRate); */
-/*   }  */
 
   ///
   /// Reset counter of total nats entered
@@ -304,12 +266,13 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   // Model status...
 
-  // Helper class to estimate frame rate
-  CFrameRate m_fr;  
 
   // Time at which the model was started (ie last unpaused, used for gradual speed up)
   // TODO: Implementation is very hacky at the moment
-  // TODO: Duplicates functionality previously implemented elsewhere
+  // TODO: Duplicates functionality previously implemented elsewhere...
+  //   ...ACL 22/5/09 does it? There was an even hackier implementation, of resetting the
+  //   framerate, used for control mode (ControlManager.cpp), but that's all I could find
+  //   - and that seemed even worse, so I've removed it in favour of this here....?
   unsigned long m_iStartTime;
   
   // Offset into buffer of node currently under crosshair
