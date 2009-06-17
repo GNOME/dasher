@@ -1,6 +1,9 @@
 2009-06-17  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* Remove CDasherModel parameter to inputfilter constructor.
+	* Make DynamicFilter's states observable and changeable by
+	subclasses, and create a CButtonMultiPress subclass for
+	detection of multiple button-presses.
 
 2009-06-16  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 

@@ -25,36 +25,46 @@
 
 /// \ingroup InputFilter
 /// @{
+
+///filter with three states: paused, reversing, running. Hold any button down to reverse.
 class CDynamicFilter : public CInputFilter {
  public:
   CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, int iType, const char *szName);
   
+  ///when reversing, backs off; when paused, does nothing; when running, delegates to TimerImpl
   virtual bool Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted); 
-
-  virtual bool GetMinWidth(int &iMinWidth);
 
   virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog);
   virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherModel *pModel);
 
- protected:
-  bool m_bDecorationChanged;
 
- private:
-  virtual bool TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) = 0;
+ protected:
   virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) = 0;
   void Event(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog);
-  virtual void RevertPresses(int iCount) {};
 
   bool m_bKeyDown;
   bool m_bKeyHandled;
-  int m_iHeldId;
-  int m_iLastButton;
-  int m_iKeyDownTime;
-  int m_iState; // 0 = paused, 1 = running 2 = backing off
-  int m_iQueueId;
-  std::deque<int> m_deQueueTimes;
- 
-  CUserLogBase *m_pUserLog;
+  bool m_bDecorationChanged;
+  bool isPaused() {return m_iState == 0;}
+  bool isReversing() {return m_iState == 1;}
+  bool isRunning(int &iSubclassState)
+    {if (m_iState < 2) return false; iSubclassState = m_iState-2; return true;}
+  virtual void pause() {m_iState = 0;}
+  virtual void reverse() {m_iState = 1;}
+  virtual void run(int iSubclassState) {
+    DASHER_ASSERT(iSubclassState>=0);
+    m_iState = iSubclassState+2;
+  }
+
+  virtual bool TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) = 0;
+
+  private:
+    int m_iState; // 0 = paused, 1 = reversing, >=2 = running (extensible by subclasses)
+    int m_iHeldId;
+    int m_iKeyDownTime;
+  
+    CUserLogBase *m_pUserLog;
+
 };
 
 #endif

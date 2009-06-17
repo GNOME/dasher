@@ -358,6 +358,8 @@
 		19F8C7E60C858A2800276B4F /* I18n.h in Headers */ = {isa = PBXBuildFile; fileRef = 19F8C7E50C858A2800276B4F /* I18n.h */; };
 		19F8C7F90C858E9900276B4F /* TrainingHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19F8C7F70C858E9900276B4F /* TrainingHelper.cpp */; };
 		19F8C7FA0C858E9900276B4F /* TrainingHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 19F8C7F80C858E9900276B4F /* TrainingHelper.h */; };
+		33ABFEC60FC379EA00EA2BA5 /* ButtonMultiPress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33ABFEC40FC379EA00EA2BA5 /* ButtonMultiPress.cpp */; };
+		33ABFEC70FC379EA00EA2BA5 /* ButtonMultiPress.h in Headers */ = {isa = PBXBuildFile; fileRef = 33ABFEC50FC379EA00EA2BA5 /* ButtonMultiPress.h */; };
 		33E173C70F3E0B6400D19B38 /* Makefile.am in Resources */ = {isa = PBXBuildFile; fileRef = 33E173A70F3E0B6400D19B38 /* Makefile.am */; };
 		33E173C80F3E0B6400D19B38 /* training_albanian_SQ.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173A80F3E0B6400D19B38 /* training_albanian_SQ.txt */; };
 		33E173C90F3E0B6400D19B38 /* training_albanian_SQ.txt.old in Resources */ = {isa = PBXBuildFile; fileRef = 33E173A90F3E0B6400D19B38 /* training_albanian_SQ.txt.old */; };
@@ -770,6 +772,8 @@
 		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		33ABFEC40FC379EA00EA2BA5 /* ButtonMultiPress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ButtonMultiPress.cpp; path = ../DasherCore/ButtonMultiPress.cpp; sourceTree = SOURCE_ROOT; };
+		33ABFEC50FC379EA00EA2BA5 /* ButtonMultiPress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ButtonMultiPress.h; path = ../DasherCore/ButtonMultiPress.h; sourceTree = SOURCE_ROOT; };
 		33E173A70F3E0B6400D19B38 /* Makefile.am */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
 		33E173A80F3E0B6400D19B38 /* training_albanian_SQ.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_albanian_SQ.txt; sourceTree = "<group>"; };
 		33E173A90F3E0B6400D19B38 /* training_albanian_SQ.txt.old */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_albanian_SQ.txt.old; sourceTree = "<group>"; };
@@ -824,6 +828,8 @@
 		080E96DDFE201D6D7F000001 /* Mac OS X Classes */ = {
 			isa = PBXGroup;
 			children = (
+				33ABFEC40FC379EA00EA2BA5 /* ButtonMultiPress.cpp */,
+				33ABFEC50FC379EA00EA2BA5 /* ButtonMultiPress.h */,
 				193731A70C8586F20022CBC7 /* config.h */,
 				19C1AE810B130F18005C68D3 /* COSXMouseInput.h */,
 				191180E90B0FC91A001CB987 /* COSXSettingsStore.h */,
@@ -1490,6 +1496,7 @@
 				1988ABBE0C9FF97000D97977 /* GameStatistics.h in Headers */,
 				1988ABC00C9FF97000D97977 /* PinyinParser.h in Headers */,
 				33E91A780F55E60B00B5F513 /* KeyboardHelper.h in Headers */,
+				33ABFEC70FC379EA00EA2BA5 /* ButtonMultiPress.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1834,6 +1841,7 @@
 				1988ABBF0C9FF97000D97977 /* PinyinParser.cpp in Sources */,
 				1988ABCF0C9FFADA00D97977 /* GameLevel.cpp in Sources */,
 				33E91A770F55E60B00B5F513 /* KeyboardHelper.cpp in Sources */,
+				33ABFEC60FC379EA00EA2BA5 /* ButtonMultiPress.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

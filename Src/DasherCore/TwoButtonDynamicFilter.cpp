@@ -44,7 +44,7 @@ static SModuleSettings sSettings[] = {
 };
 
 CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
-  : CDynamicFilter(pEventHandler, pSettingsStore, pInterface, 14, 1, _("Two Button Dynamic Mode")) { 
+  : CButtonMultiPress(pEventHandler, pSettingsStore, pInterface, 14, 1, _("Two Button Dynamic Mode")) { 
 
   m_iLastTime = -1;
 
@@ -151,19 +151,14 @@ void CTwoButtonDynamicFilter::AutoSpeedSample(int iTime, CDasherModel *pModel) {
 
   int iDiff(iTime - m_iLastTime);
   m_iLastTime = iTime;
-
   if(m_pTree) {
     int iMedian(m_pTree->GetOffset(m_pTree->GetCount() / 2));
-    
     if((iDiff <= 300) || (iDiff < (iMedian * GetLongParameter(LP_DYNAMIC_MEDIAN_FACTOR)) / 100)) {
       pModel->TriggerSlowdown();
     }
-  }
-  
-  if(!m_pTree)
-    m_pTree = new SBTree(iDiff);
-  else
     m_pTree->Add(iDiff);
+  }
+  else m_pTree = new SBTree(iDiff);  
 
   m_deOffsetQueue.push_back(iDiff);
 
@@ -271,4 +266,9 @@ int CTwoButtonDynamicFilter::SBTree::GetOffset(int iOffset) {
 void CTwoButtonDynamicFilter::RevertPresses(int iCount) {
   if(GetBoolParameter(BP_TWOBUTTON_SPEED))
     AutoSpeedUndo(iCount);
+}
+
+bool CTwoButtonDynamicFilter::GetMinWidth(int &iMinWidth) {
+  iMinWidth = 1024;
+  return true;
 }

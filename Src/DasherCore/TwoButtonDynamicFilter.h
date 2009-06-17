@@ -21,13 +21,13 @@
 #ifndef __TWO_BUTTON_DYNAMIC_FILTER_H__
 #define __TWO_BUTTON_DYNAMIC_FILTER_H__
 
-#include "DynamicFilter.h"
+#include "ButtonMultiPress.h"
 
 #include <deque>
 
 /// \ingroup InputFilter
 /// @{
-class CTwoButtonDynamicFilter : public CDynamicFilter {
+class CTwoButtonDynamicFilter : public CButtonMultiPress {
  public:
   CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface);
   ~CTwoButtonDynamicFilter();
@@ -40,7 +40,7 @@ class CTwoButtonDynamicFilter : public CDynamicFilter {
 
   virtual bool GetSettings(SModuleSettings **pSettings, int *iCount);
 
- 
+  virtual bool GetMinWidth(int &iMinWidth);
   
  private:
   virtual bool TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted);

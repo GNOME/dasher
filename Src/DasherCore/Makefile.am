@@ -25,6 +25,8 @@ libdashercore_a_SOURCES = \
 		AutoSpeedControl.h \
 		BasicLog.cpp \
 		BasicLog.h \
+		ButtonMultiPress.h \
+		ButtonMultiPress.cpp \
 		CircleStartHandler.cpp \
 		CircleStartHandler.h \
 		ClickFilter.cpp \

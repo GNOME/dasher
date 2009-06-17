@@ -21,11 +21,11 @@
 #ifndef __DYNAMIC_FILTER_H__
 #define __DYNAMIC_FILTER_H__
 
-#include "DynamicFilter.h"
+#include "ButtonMultiPress.h"
 
 /// \ingroup InputFilter
 /// @{
-class COneButtonDynamicFilter : public CDynamicFilter {
+class COneButtonDynamicFilter : public CButtonMultiPress {
  public:
   COneButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface);
   ~COneButtonDynamicFilter();
