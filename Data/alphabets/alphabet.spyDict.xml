@@ -1,0 +1,4963 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Chinese Super Pin Yin, grouped by Dictionary">
+<!--The nature of this alphabet is to represent all possible pin yin combinations in a list. This list is then grouped in alphabetical order so that the interface is able to produce nodes automatically. Such grouping enables the user to find the specific super pin yin (pronouciation) by indexing on the graphical interface-->
+<!--Note: the treatment of pin yin symbol uu or v in this alphabet is 'uu', (only occurs in luu, lue, nuu, lue) and grouped with the starting u strictly according to roman alphabetical order (so to type luu, one must go for 'l', then 'u', then another 'u', finally the tone)--> 
+<conversionmode id="2"/>
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>European/Asian</palette>
+<train>training_spyDict.txt</train>
+<paragraph d="&#182;" b="9"/>
+<space d="&#x25a1;" t=" " b="9" note="box" />
+<control d="Control" t="" b="8"/>
+<group name="a" label="a" b="57" visible="yes">
+<group name="a1" label="1" b="58" visible="yes">
+<s d="a1" t="&#x554A;" b="59" visible="no"/>
+</group>
+<group name="a2" label="2" b="60" visible="yes">
+<s d="a2" t="&#x55C4;" b="61" visible="no"/>
+</group>
+<group name="a3" label="3" b="62" visible="yes">
+<s d="a3" t="&#x3829;" b="63" visible="no"/>
+</group>
+<group name="a4" label="4" b="64" visible="yes">
+<s d="a4" t="&#x3801;" b="65" visible="no"/>
+</group>
+<group name="a5" label="5" b="66" visible="yes">
+<s d="a5" t="&#x5475;" b="67" visible="no"/>
+</group>
+<group name="ai" label="i" b="68" visible="yes">
+<group name="ai1" label="1" b="69" visible="yes">
+<s d="ai1" t="&#x57C3;" b="70" visible="no"/>
+</group>
+<group name="ai2" label="2" b="71" visible="yes">
+<s d="ai2" t="&#x6328;" b="72" visible="no"/>
+</group>
+<group name="ai3" label="3" b="73" visible="yes">
+<s d="ai3" t="&#x853C;" b="74" visible="no"/>
+</group>
+<group name="ai4" label="4" b="75" visible="yes">
+<s d="ai4" t="&#x5509;" b="76" visible="no"/>
+</group>
+</group>
+<group name="an" label="n" b="77" visible="yes">
+<group name="an1" label="1" b="78" visible="yes">
+<s d="an1" t="&#x978D;" b="79" visible="no"/>
+</group>
+<group name="an3" label="3" b="80" visible="yes">
+<s d="an3" t="&#x4FFA;" b="81" visible="no"/>
+</group>
+<group name="an4" label="4" b="82" visible="yes">
+<s d="an4" t="&#x6309;" b="83" visible="no"/>
+</group>
+<group name="ang" label="g" b="84" visible="yes">
+<group name="ang1" label="1" b="85" visible="yes">
+<s d="ang1" t="&#x80AE;" b="86" visible="no"/>
+</group>
+<group name="ang2" label="2" b="87" visible="yes">
+<s d="ang2" t="&#x6602;" b="88" visible="no"/>
+</group>
+<group name="ang4" label="4" b="89" visible="yes">
+<s d="ang4" t="&#x76CE;" b="90" visible="no"/>
+</group>
+</group>
+</group>
+<group name="ao" label="o" b="57" visible="yes">
+<group name="ao1" label="1" b="58" visible="yes">
+<s d="ao1" t="&#x51F9;" b="59" visible="no"/>
+</group>
+<group name="ao2" label="2" b="60" visible="yes">
+<s d="ao2" t="&#x6556;" b="61" visible="no"/>
+</group>
+<group name="ao3" label="3" b="62" visible="yes">
+<s d="ao3" t="&#x8884;" b="63" visible="no"/>
+</group>
+<group name="ao4" label="4" b="64" visible="yes">
+<s d="ao4" t="&#x50B2;" b="65" visible="no"/>
+</group>
+</group>
+</group>
+<group name="b" label="b" b="66" visible="yes">
+<group name="ba" label="a" b="67" visible="yes">
+<group name="ba1" label="1" b="68" visible="yes">
+<s d="ba1" t="&#x82AD;" b="69" visible="no"/>
+</group>
+<group name="ba2" label="2" b="70" visible="yes">
+<s d="ba2" t="&#x62D4;" b="71" visible="no"/>
+</group>
+<group name="ba3" label="3" b="72" visible="yes">
+<s d="ba3" t="&#x9776;" b="73" visible="no"/>
+</group>
+<group name="ba4" label="4" b="74" visible="yes">
+<s d="ba4" t="&#x628A;" b="75" visible="no"/>
+</group>
+<group name="ba5" label="5" b="76" visible="yes">
+<s d="ba5" t="&#x5427;" b="77" visible="no"/>
+</group>
+<group name="bai" label="i" b="78" visible="yes">
+<group name="bai1" label="1" b="79" visible="yes">
+<s d="bai1" t="&#x63B0;" b="80" visible="no"/>
+</group>
+<group name="bai2" label="2" b="81" visible="yes">
+<s d="bai2" t="&#x767D;" b="82" visible="no"/>
+</group>
+<group name="bai3" label="3" b="83" visible="yes">
+<s d="bai3" t="&#x67CF;" b="84" visible="no"/>
+</group>
+<group name="bai4" label="4" b="85" visible="yes">
+<s d="bai4" t="&#x8D25;" b="86" visible="no"/>
+</group>
+</group>
+<group name="ban" label="n" b="87" visible="yes">
+<group name="ban1" label="1" b="88" visible="yes">
+<s d="ban1" t="&#x6591;" b="89" visible="no"/>
+</group>
+<group name="ban3" label="3" b="90" visible="yes">
+<s d="ban3" t="&#x677F;" b="57" visible="no"/>
+</group>
+<group name="ban4" label="4" b="58" visible="yes">
+<s d="ban4" t="&#x626E;" b="59" visible="no"/>
+</group>
+<group name="bang" label="g" b="60" visible="yes">
+<group name="bang1" label="1" b="61" visible="yes">
+<s d="bang1" t="&#x90A6;" b="62" visible="no"/>
+</group>
+<group name="bang3" label="3" b="63" visible="yes">
+<s d="bang3" t="&#x699C;" b="64" visible="no"/>
+</group>
+<group name="bang4" label="4" b="65" visible="yes">
+<s d="bang4" t="&#x68D2;" b="66" visible="no"/>
+</group>
+</group>
+</group>
+<group name="bao" label="o" b="67" visible="yes">
+<group name="bao1" label="1" b="68" visible="yes">
+<s d="bao1" t="&#x82DE;" b="69" visible="no"/>
+</group>
+<group name="bao2" label="2" b="70" visible="yes">
+<s d="bao2" t="&#x8584;" b="71" visible="no"/>
+</group>
+<group name="bao3" label="3" b="72" visible="yes">
+<s d="bao3" t="&#x4FDD;" b="73" visible="no"/>
+</group>
+<group name="bao4" label="4" b="74" visible="yes">
+<s d="bao4" t="&#x62B1;" b="75" visible="no"/>
+</group>
+</group>
+</group>
+<group name="be" label="e" b="76" visible="yes">
+<group name="bei" label="i" b="77" visible="yes">
+<group name="bei1" label="1" b="78" visible="yes">
+<s d="bei1" t="&#x676F;" b="79" visible="no"/>
+</group>
+<group name="bei3" label="3" b="80" visible="yes">
+<s d="bei3" t="&#x5317;" b="81" visible="no"/>
+</group>
+<group name="bei4" label="4" b="82" visible="yes">
+<s d="bei4" t="&#x8F88;" b="83" visible="no"/>
+</group>
+<group name="bei5" label="5" b="84" visible="yes">
+<s d="bei5" t="&#x81C2;" b="85" visible="no"/>
+</group>
+</group>
+<group name="ben" label="n" b="86" visible="yes">
+<group name="ben1" label="1" b="87" visible="yes">
+<s d="ben1" t="&#x5954;" b="88" visible="no"/>
+</group>
+<group name="ben3" label="3" b="89" visible="yes">
+<s d="ben3" t="&#x82EF;" b="90" visible="no"/>
+</group>
+<group name="ben4" label="4" b="57" visible="yes">
+<s d="ben4" t="&#x7B28;" b="58" visible="no"/>
+</group>
+<group name="beng" label="g" b="59" visible="yes">
+<group name="beng1" label="1" b="60" visible="yes">
+<s d="beng1" t="&#x5D29;" b="61" visible="no"/>
+</group>
+<group name="beng2" label="2" b="62" visible="yes">
+<s d="beng2" t="&#x752D;" b="63" visible="no"/>
+</group>
+<group name="beng3" label="3" b="64" visible="yes">
+<s d="beng3" t="&#x7EF7;" b="65" visible="no"/>
+</group>
+<group name="beng4" label="4" b="66" visible="yes">
+<s d="beng4" t="&#x868C;" b="67" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="bi" label="i" b="68" visible="yes">
+<group name="bi1" label="1" b="69" visible="yes">
+<s d="bi1" t="&#x903C;" b="70" visible="no"/>
+</group>
+<group name="bi2" label="2" b="71" visible="yes">
+<s d="bi2" t="&#x9F3B;" b="72" visible="no"/>
+</group>
+<group name="bi3" label="3" b="73" visible="yes">
+<s d="bi3" t="&#x6BD4;" b="74" visible="no"/>
+</group>
+<group name="bi4" label="4" b="75" visible="yes">
+<s d="bi4" t="&#x78A7;" b="76" visible="no"/>
+</group>
+<group name="bia" label="a" b="77" visible="yes">
+<group name="bian" label="n" b="78" visible="yes">
+<group name="bian1" label="1" b="79" visible="yes">
+<s d="bian1" t="&#x97AD;" b="80" visible="no"/>
+</group>
+<group name="bian3" label="3" b="81" visible="yes">
+<s d="bian3" t="&#x8D2C;" b="82" visible="no"/>
+</group>
+<group name="bian4" label="4" b="83" visible="yes">
+<s d="bian4" t="&#x4FBF;" b="84" visible="no"/>
+</group>
+</group>
+<group name="biao" label="o" b="85" visible="yes">
+<group name="biao1" label="1" b="86" visible="yes">
+<s d="biao1" t="&#x6807;" b="87" visible="no"/>
+</group>
+<group name="biao3" label="3" b="88" visible="yes">
+<s d="biao3" t="&#x8868;" b="89" visible="no"/>
+</group>
+<group name="biao4" label="4" b="90" visible="yes">
+<s d="biao4" t="&#x9CD4;" b="57" visible="no"/>
+</group>
+</group>
+</group>
+<group name="bie" label="e" b="58" visible="yes">
+<group name="bie1" label="1" b="59" visible="yes">
+<s d="bie1" t="&#x9CD6;" b="60" visible="no"/>
+</group>
+<group name="bie2" label="2" b="61" visible="yes">
+<s d="bie2" t="&#x522B;" b="62" visible="no"/>
+</group>
+<group name="bie3" label="3" b="63" visible="yes">
+<s d="bie3" t="&#x762A;" b="64" visible="no"/>
+</group>
+<group name="bie4" label="4" b="65" visible="yes">
+<s d="bie4" t="&#x3802;" b="66" visible="no"/>
+</group>
+</group>
+<group name="bin" label="n" b="67" visible="yes">
+<group name="bin1" label="1" b="68" visible="yes">
+<s d="bin1" t="&#x5F6C;" b="69" visible="no"/>
+</group>
+<group name="bin4" label="4" b="70" visible="yes">
+<s d="bin4" t="&#x6448;" b="71" visible="no"/>
+</group>
+<group name="bing" label="g" b="72" visible="yes">
+<group name="bing1" label="1" b="73" visible="yes">
+<s d="bing1" t="&#x5175;" b="74" visible="no"/>
+</group>
+<group name="bing3" label="3" b="75" visible="yes">
+<s d="bing3" t="&#x67C4;" b="76" visible="no"/>
+</group>
+<group name="bing4" label="4" b="77" visible="yes">
+<s d="bing4" t="&#x75C5;" b="78" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="bo" label="o" b="79" visible="yes">
+<group name="bo1" label="1" b="80" visible="yes">
+<s d="bo1" t="&#x5265;" b="81" visible="no"/>
+</group>
+<group name="bo2" label="2" b="82" visible="yes">
+<s d="bo2" t="&#x535A;" b="83" visible="no"/>
+</group>
+<group name="bo3" label="3" b="84" visible="yes">
+<s d="bo3" t="&#x7C38;" b="85" visible="no"/>
+</group>
+<group name="bo4" label="4" b="86" visible="yes">
+<s d="bo4" t="&#x6A97;" b="87" visible="no"/>
+</group>
+<group name="bo5" label="5" b="88" visible="yes">
+<s d="bo5" t="&#x535C;" b="89" visible="no"/>
+</group>
+</group>
+<group name="bu" label="u" b="90" visible="yes">
+<group name="bu1" label="1" b="57" visible="yes">
+<s d="bu1" t="&#x900B;" b="58" visible="no"/>
+</group>
+<group name="bu2" label="2" b="59" visible="yes">
+<s d="bu2" t="&#x4E0D;" b="60" visible="no"/>
+</group>
+<group name="bu3" label="3" b="61" visible="yes">
+<s d="bu3" t="&#x5821;" b="62" visible="no"/>
+</group>
+<group name="bu4" label="4" b="63" visible="yes">
+<s d="bu4" t="&#x57E0;" b="64" visible="no"/>
+</group>
+</group>
+</group>
+<group name="c" label="c" b="65" visible="yes">
+<group name="ca" label="a" b="66" visible="yes">
+<group name="ca1" label="1" b="67" visible="yes">
+<s d="ca1" t="&#x64E6;" b="68" visible="no"/>
+</group>
+<group name="ca3" label="3" b="69" visible="yes">
+<s d="ca3" t="&#x7924;" b="70" visible="no"/>
+</group>
+<group name="cai" label="i" b="71" visible="yes">
+<group name="cai1" label="1" b="72" visible="yes">
+<s d="cai1" t="&#x731C;" b="73" visible="no"/>
+</group>
+<group name="cai2" label="2" b="74" visible="yes">
+<s d="cai2" t="&#x88C1;" b="75" visible="no"/>
+</group>
+<group name="cai3" label="3" b="76" visible="yes">
+<s d="cai3" t="&#x776C;" b="77" visible="no"/>
+</group>
+<group name="cai4" label="4" b="78" visible="yes">
+<s d="cai4" t="&#x91C7;" b="79" visible="no"/>
+</group>
+</group>
+<group name="can" label="n" b="80" visible="yes">
+<group name="can1" label="1" b="81" visible="yes">
+<s d="can1" t="&#x9910;" b="82" visible="no"/>
+</group>
+<group name="can2" label="2" b="83" visible="yes">
+<s d="can2" t="&#x8695;" b="84" visible="no"/>
+</group>
+<group name="can3" label="3" b="85" visible="yes">
+<s d="can3" t="&#x60E8;" b="86" visible="no"/>
+</group>
+<group name="can4" label="4" b="87" visible="yes">
+<s d="can4" t="&#x707F;" b="88" visible="no"/>
+</group>
+<group name="cang" label="g" b="89" visible="yes">
+<group name="cang1" label="1" b="90" visible="yes">
+<s d="cang1" t="&#x82CD;" b="57" visible="no"/>
+</group>
+<group name="cang2" label="2" b="58" visible="yes">
+<s d="cang2" t="&#x85CF;" b="59" visible="no"/>
+</group>
+</group>
+</group>
+<group name="cao" label="o" b="60" visible="yes">
+<group name="cao1" label="1" b="61" visible="yes">
+<s d="cao1" t="&#x64CD;" b="62" visible="no"/>
+</group>
+<group name="cao2" label="2" b="63" visible="yes">
+<s d="cao2" t="&#x69FD;" b="64" visible="no"/>
+</group>
+<group name="cao3" label="3" b="65" visible="yes">
+<s d="cao3" t="&#x8349;" b="66" visible="no"/>
+</group>
+</group>
+</group>
+<group name="ce" label="e" b="67" visible="yes">
+<group name="ce4" label="4" b="68" visible="yes">
+<s d="ce4" t="&#x5395;" b="69" visible="no"/>
+</group>
+<group name="cen" label="n" b="70" visible="yes">
+<group name="cen1" label="1" b="71" visible="yes">
+<s d="cen1" t="&#x53C2;" b="72" visible="no"/>
+</group>
+<group name="cen2" label="2" b="73" visible="yes">
+<s d="cen2" t="&#x5C91;" b="74" visible="no"/>
+</group>
+<group name="ceng" label="g" b="75" visible="yes">
+<group name="ceng1" label="1" b="76" visible="yes">
+<s d="ceng1" t="&#x564C;" b="77" visible="no"/>
+</group>
+<group name="ceng2" label="2" b="78" visible="yes">
+<s d="ceng2" t="&#x5C42;" b="79" visible="no"/>
+</group>
+<group name="ceng4" label="4" b="80" visible="yes">
+<s d="ceng4" t="&#x8E6D;" b="81" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="ch" label="h" b="82" visible="yes">
+<group name="cha" label="a" b="83" visible="yes">
+<group name="cha1" label="1" b="84" visible="yes">
+<s d="cha1" t="&#x63D2;" b="85" visible="no"/>
+</group>
+<group name="cha2" label="2" b="86" visible="yes">
+<s d="cha2" t="&#x53C9;" b="87" visible="no"/>
+</group>
+<group name="cha3" label="3" b="88" visible="yes">
+<s d="cha3" t="&#x9572;" b="89" visible="no"/>
+</group>
+<group name="cha4" label="4" b="90" visible="yes">
+<s d="cha4" t="&#x5C94;" b="57" visible="no"/>
+</group>
+<group name="chai" label="i" b="58" visible="yes">
+<group name="chai1" label="1" b="59" visible="yes">
+<s d="chai1" t="&#x5DEE;" b="60" visible="no"/>
+</group>
+<group name="chai2" label="2" b="61" visible="yes">
+<s d="chai2" t="&#x67F4;" b="62" visible="no"/>
+</group>
+<group name="chai4" label="4" b="63" visible="yes">
+<s d="chai4" t="&#x7625;" b="64" visible="no"/>
+</group>
+</group>
+<group name="chan" label="n" b="65" visible="yes">
+<group name="chan1" label="1" b="66" visible="yes">
+<s d="chan1" t="&#x6400;" b="67" visible="no"/>
+</group>
+<group name="chan2" label="2" b="68" visible="yes">
+<s d="chan2" t="&#x8749;" b="69" visible="no"/>
+</group>
+<group name="chan3" label="3" b="70" visible="yes">
+<s d="chan3" t="&#x94F2;" b="71" visible="no"/>
+</group>
+<group name="chan4" label="4" b="72" visible="yes">
+<s d="chan4" t="&#x98A4;" b="73" visible="no"/>
+</group>
+<group name="chang" label="g" b="74" visible="yes">
+<group name="chang1" label="1" b="75" visible="yes">
+<s d="chang1" t="&#x660C;" b="76" visible="no"/>
+</group>
+<group name="chang2" label="2" b="77" visible="yes">
+<s d="chang2" t="&#x573A;" b="78" visible="no"/>
+</group>
+<group name="chang3" label="3" b="79" visible="yes">
+<s d="chang3" t="&#x5382;" b="80" visible="no"/>
+</group>
+<group name="chang4" label="4" b="81" visible="yes">
+<s d="chang4" t="&#x7545;" b="82" visible="no"/>
+</group>
+</group>
+</group>
+<group name="chao" label="o" b="83" visible="yes">
+<group name="chao1" label="1" b="84" visible="yes">
+<s d="chao1" t="&#x8D85;" b="85" visible="no"/>
+</group>
+<group name="chao2" label="2" b="86" visible="yes">
+<s d="chao2" t="&#x671D;" b="87" visible="no"/>
+</group>
+<group name="chao3" label="3" b="88" visible="yes">
+<s d="chao3" t="&#x5435;" b="89" visible="no"/>
+</group>
+<group name="chao4" label="4" b="90" visible="yes">
+<s d="chao4" t="&#x8016;" b="57" visible="no"/>
+</group>
+</group>
+</group>
+<group name="che" label="e" b="58" visible="yes">
+<group name="che1" label="1" b="59" visible="yes">
+<s d="che1" t="&#x8F66;" b="60" visible="no"/>
+</group>
+<group name="che3" label="3" b="61" visible="yes">
+<s d="che3" t="&#x626F;" b="62" visible="no"/>
+</group>
+<group name="che4" label="4" b="63" visible="yes">
+<s d="che4" t="&#x64A4;" b="64" visible="no"/>
+</group>
+<group name="chen" label="n" b="65" visible="yes">
+<group name="chen1" label="1" b="66" visible="yes">
+<s d="chen1" t="&#x90F4;" b="67" visible="no"/>
+</group>
+<group name="chen2" label="2" b="68" visible="yes">
+<s d="chen2" t="&#x81E3;" b="69" visible="no"/>
+</group>
+<group name="chen3" label="3" b="70" visible="yes">
+<s d="chen3" t="&#x789C;" b="71" visible="no"/>
+</group>
+<group name="chen4" label="4" b="72" visible="yes">
+<s d="chen4" t="&#x8D81;" b="73" visible="no"/>
+</group>
+<group name="cheng" label="g" b="74" visible="yes">
+<group name="cheng1" label="1" b="75" visible="yes">
+<s d="cheng1" t="&#x6491;" b="76" visible="no"/>
+</group>
+<group name="cheng2" label="2" b="77" visible="yes">
+<s d="cheng2" t="&#x57CE;" b="78" visible="no"/>
+</group>
+<group name="cheng3" label="3" b="79" visible="yes">
+<s d="cheng3" t="&#x901E;" b="80" visible="no"/>
+</group>
+<group name="cheng4" label="4" b="81" visible="yes">
+<s d="cheng4" t="&#x79F0;" b="82" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="chi" label="i" b="83" visible="yes">
+<group name="chi1" label="1" b="84" visible="yes">
+<s d="chi1" t="&#x5403;" b="85" visible="no"/>
+</group>
+<group name="chi2" label="2" b="86" visible="yes">
+<s d="chi2" t="&#x6301;" b="87" visible="no"/>
+</group>
+<group name="chi3" label="3" b="88" visible="yes">
+<s d="chi3" t="&#x803B;" b="89" visible="no"/>
+</group>
+<group name="chi4" label="4" b="90" visible="yes">
+<s d="chi4" t="&#x8D64;" b="57" visible="no"/>
+</group>
+</group>
+<group name="cho" label="o" b="58" visible="yes">
+<group name="chon" label="n" b="59" visible="yes">
+<group name="chong" label="g" b="60" visible="yes">
+<group name="chong1" label="1" b="61" visible="yes">
+<s d="chong1" t="&#x5145;" b="62" visible="no"/>
+</group>
+<group name="chong2" label="2" b="63" visible="yes">
+<s d="chong2" t="&#x866B;" b="64" visible="no"/>
+</group>
+<group name="chong3" label="3" b="65" visible="yes">
+<s d="chong3" t="&#x5BA0;" b="66" visible="no"/>
+</group>
+<group name="chong4" label="4" b="67" visible="yes">
+<s d="chong4" t="&#x51B2;" b="68" visible="no"/>
+</group>
+</group>
+</group>
+<group name="chou" label="u" b="69" visible="yes">
+<group name="chou1" label="1" b="70" visible="yes">
+<s d="chou1" t="&#x62BD;" b="71" visible="no"/>
+</group>
+<group name="chou2" label="2" b="72" visible="yes">
+<s d="chou2" t="&#x916C;" b="73" visible="no"/>
+</group>
+<group name="chou3" label="3" b="74" visible="yes">
+<s d="chou3" t="&#x7785;" b="75" visible="no"/>
+</group>
+</group>
+</group>
+<group name="chu" label="u" b="76" visible="yes">
+<group name="chu1" label="1" b="77" visible="yes">
+<s d="chu1" t="&#x521D;" b="78" visible="no"/>
+</group>
+<group name="chu2" label="2" b="79" visible="yes">
+<s d="chu2" t="&#x6A71;" b="80" visible="no"/>
+</group>
+<group name="chu3" label="3" b="81" visible="yes">
+<s d="chu3" t="&#x695A;" b="82" visible="no"/>
+</group>
+<group name="chu4" label="4" b="83" visible="yes">
+<s d="chu4" t="&#x77D7;" b="84" visible="no"/>
+</group>
+<group name="chua" label="a" b="85" visible="yes">
+<group name="chuai" label="i" b="86" visible="yes">
+<group name="chuai1" label="1" b="87" visible="yes">
+<s d="chuai1" t="&#x63E3;" b="88" visible="no"/>
+</group>
+<group name="chuai3" label="3" b="89" visible="yes">
+<s d="chuai3" t="&#x3803;" b="90" visible="no"/>
+</group>
+<group name="chuai4" label="4" b="57" visible="yes">
+<s d="chuai4" t="&#x555C;" b="58" visible="no"/>
+</group>
+</group>
+<group name="chuan" label="n" b="59" visible="yes">
+<group name="chuan1" label="1" b="60" visible="yes">
+<s d="chuan1" t="&#x5DDD;" b="61" visible="no"/>
+</group>
+<group name="chuan2" label="2" b="62" visible="yes">
+<s d="chuan2" t="&#x693D;" b="63" visible="no"/>
+</group>
+<group name="chuan3" label="3" b="64" visible="yes">
+<s d="chuan3" t="&#x5598;" b="65" visible="no"/>
+</group>
+<group name="chuan4" label="4" b="66" visible="yes">
+<s d="chuan4" t="&#x4E32;" b="67" visible="no"/>
+</group>
+<group name="chuang" label="g" b="68" visible="yes">
+<group name="chuang1" label="1" b="69" visible="yes">
+<s d="chuang1" t="&#x75AE;" b="70" visible="no"/>
+</group>
+<group name="chuang2" label="2" b="71" visible="yes">
+<s d="chuang2" t="&#x5E62;" b="72" visible="no"/>
+</group>
+<group name="chuang3" label="3" b="73" visible="yes">
+<s d="chuang3" t="&#x95EF;" b="74" visible="no"/>
+</group>
+<group name="chuang4" label="4" b="75" visible="yes">
+<s d="chuang4" t="&#x521B;" b="76" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="chui" label="i" b="77" visible="yes">
+<group name="chui1" label="1" b="78" visible="yes">
+<s d="chui1" t="&#x5439;" b="79" visible="no"/>
+</group>
+<group name="chui2" label="2" b="80" visible="yes">
+<s d="chui2" t="&#x6376;" b="81" visible="no"/>
+</group>
+</group>
+<group name="chun" label="n" b="82" visible="yes">
+<group name="chun1" label="1" b="83" visible="yes">
+<s d="chun1" t="&#x6625;" b="84" visible="no"/>
+</group>
+<group name="chun2" label="2" b="85" visible="yes">
+<s d="chun2" t="&#x9187;" b="86" visible="no"/>
+</group>
+<group name="chun3" label="3" b="87" visible="yes">
+<s d="chun3" t="&#x8822;" b="88" visible="no"/>
+</group>
+</group>
+<group name="chuo" label="o" b="89" visible="yes">
+<group name="chuo1" label="1" b="90" visible="yes">
+<s d="chuo1" t="&#x6233;" b="57" visible="no"/>
+</group>
+<group name="chuo4" label="4" b="58" visible="yes">
+<s d="chuo4" t="&#x7EF0;" b="59" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="ci" label="i" b="60" visible="yes">
+<group name="ci1" label="1" b="61" visible="yes">
+<s d="ci1" t="&#x75B5;" b="62" visible="no"/>
+</group>
+<group name="ci2" label="2" b="63" visible="yes">
+<s d="ci2" t="&#x8328;" b="64" visible="no"/>
+</group>
+<group name="ci3" label="3" b="65" visible="yes">
+<s d="ci3" t="&#x6B64;" b="66" visible="no"/>
+</group>
+<group name="ci4" label="4" b="67" visible="yes">
+<s d="ci4" t="&#x523A;" b="68" visible="no"/>
+</group>
+</group>
+<group name="co" label="o" b="69" visible="yes">
+<group name="con" label="n" b="70" visible="yes">
+<group name="cong" label="g" b="71" visible="yes">
+<group name="cong1" label="1" b="72" visible="yes">
+<s d="cong1" t="&#x806A;" b="73" visible="no"/>
+</group>
+<group name="cong2" label="2" b="74" visible="yes">
+<s d="cong2" t="&#x4ECE;" b="75" visible="no"/>
+</group>
+</group>
+</group>
+<group name="cou" label="u" b="76" visible="yes">
+<group name="cou4" label="4" b="77" visible="yes">
+<s d="cou4" t="&#x51D1;" b="78" visible="no"/>
+</group>
+</group>
+</group>
+<group name="cu" label="u" b="79" visible="yes">
+<group name="cu1" label="1" b="80" visible="yes">
+<s d="cu1" t="&#x7C97;" b="81" visible="no"/>
+</group>
+<group name="cu2" label="2" b="82" visible="yes">
+<s d="cu2" t="&#x5F82;" b="83" visible="no"/>
+</group>
+<group name="cu4" label="4" b="84" visible="yes">
+<s d="cu4" t="&#x918B;" b="85" visible="no"/>
+</group>
+<group name="cua" label="a" b="86" visible="yes">
+<group name="cuan" label="n" b="87" visible="yes">
+<group name="cuan1" label="1" b="88" visible="yes">
+<s d="cuan1" t="&#x8E7F;" b="89" visible="no"/>
+</group>
+<group name="cuan2" label="2" b="90" visible="yes">
+<s d="cuan2" t="&#x6512;" b="57" visible="no"/>
+</group>
+<group name="cuan4" label="4" b="58" visible="yes">
+<s d="cuan4" t="&#x7BE1;" b="59" visible="no"/>
+</group>
+</group>
+</group>
+<group name="cui" label="i" b="60" visible="yes">
+<group name="cui1" label="1" b="61" visible="yes">
+<s d="cui1" t="&#x6467;" b="62" visible="no"/>
+</group>
+<group name="cui3" label="3" b="63" visible="yes">
+<s d="cui3" t="&#x7480;" b="64" visible="no"/>
+</group>
+<group name="cui4" label="4" b="65" visible="yes">
+<s d="cui4" t="&#x8106;" b="66" visible="no"/>
+</group>
+</group>
+<group name="cun" label="n" b="67" visible="yes">
+<group name="cun1" label="1" b="68" visible="yes">
+<s d="cun1" t="&#x6751;" b="69" visible="no"/>
+</group>
+<group name="cun2" label="2" b="70" visible="yes">
+<s d="cun2" t="&#x5B58;" b="71" visible="no"/>
+</group>
+<group name="cun3" label="3" b="72" visible="yes">
+<s d="cun3" t="&#x5FD6;" b="73" visible="no"/>
+</group>
+<group name="cun4" label="4" b="74" visible="yes">
+<s d="cun4" t="&#x5BF8;" b="75" visible="no"/>
+</group>
+</group>
+<group name="cuo" label="o" b="76" visible="yes">
+<group name="cuo1" label="1" b="77" visible="yes">
+<s d="cuo1" t="&#x78CB;" b="78" visible="no"/>
+</group>
+<group name="cuo2" label="2" b="79" visible="yes">
+<s d="cuo2" t="&#x5D6F;" b="80" visible="no"/>
+</group>
+<group name="cuo3" label="3" b="81" visible="yes">
+<s d="cuo3" t="&#x811E;" b="82" visible="no"/>
+</group>
+<group name="cuo4" label="4" b="83" visible="yes">
+<s d="cuo4" t="&#x63AA;" b="84" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="d" label="d" b="85" visible="yes">
+<group name="da" label="a" b="86" visible="yes">
+<group name="da1" label="1" b="87" visible="yes">
+<s d="da1" t="&#x642D;" b="88" visible="no"/>
+</group>
+<group name="da2" label="2" b="89" visible="yes">
+<s d="da2" t="&#x8FBE;" b="90" visible="no"/>
+</group>
+<group name="da3" label="3" b="57" visible="yes">
+<s d="da3" t="&#x6253;" b="58" visible="no"/>
+</group>
+<group name="da4" label="4" b="59" visible="yes">
+<s d="da4" t="&#x5927;" b="60" visible="no"/>
+</group>
+<group name="da5" label="5" b="61" visible="yes">
+<s d="da5" t="&#x7629;" b="62" visible="no"/>
+</group>
+<group name="dai" label="i" b="63" visible="yes">
+<group name="dai1" label="1" b="64" visible="yes">
+<s d="dai1" t="&#x5446;" b="65" visible="no"/>
+</group>
+<group name="dai3" label="3" b="66" visible="yes">
+<s d="dai3" t="&#x6B79;" b="67" visible="no"/>
+</group>
+<group name="dai4" label="4" b="68" visible="yes">
+<s d="dai4" t="&#x6234;" b="69" visible="no"/>
+</group>
+</group>
+<group name="dan" label="n" b="70" visible="yes">
+<group name="dan1" label="1" b="71" visible="yes">
+<s d="dan1" t="&#x803D;" b="72" visible="no"/>
+</group>
+<group name="dan3" label="3" b="73" visible="yes">
+<s d="dan3" t="&#x62C5;" b="74" visible="no"/>
+</group>
+<group name="dan4" label="4" b="75" visible="yes">
+<s d="dan4" t="&#x65E6;" b="76" visible="no"/>
+</group>
+<group name="dang" label="g" b="77" visible="yes">
+<group name="dang1" label="1" b="78" visible="yes">
+<s d="dang1" t="&#x5F53;" b="79" visible="no"/>
+</group>
+<group name="dang3" label="3" b="80" visible="yes">
+<s d="dang3" t="&#x6321;" b="81" visible="no"/>
+</group>
+<group name="dang4" label="4" b="82" visible="yes">
+<s d="dang4" t="&#x8361;" b="83" visible="no"/>
+</group>
+</group>
+</group>
+<group name="dao" label="o" b="84" visible="yes">
+<group name="dao1" label="1" b="85" visible="yes">
+<s d="dao1" t="&#x5200;" b="86" visible="no"/>
+</group>
+<group name="dao3" label="3" b="87" visible="yes">
+<s d="dao3" t="&#x6363;" b="88" visible="no"/>
+</group>
+<group name="dao4" label="4" b="89" visible="yes">
+<s d="dao4" t="&#x5012;" b="90" visible="no"/>
+</group>
+</group>
+</group>
+<group name="de" label="e" b="57" visible="yes">
+<group name="de2" label="2" b="58" visible="yes">
+<s d="de2" t="&#x5FB7;" b="59" visible="no"/>
+</group>
+<group name="de5" label="5" b="60" visible="yes">
+<s d="de5" t="&#x5F97;" b="61" visible="no"/>
+</group>
+<group name="dei" label="i" b="62" visible="yes">
+<group name="dei3" label="3" b="63" visible="yes">
+<s d="dei3" t="&#x3804;" b="64" visible="no"/>
+</group>
+</group>
+<group name="den" label="n" b="65" visible="yes">
+<group name="deng" label="g" b="66" visible="yes">
+<group name="deng1" label="1" b="67" visible="yes">
+<s d="deng1" t="&#x8E6C;" b="68" visible="no"/>
+</group>
+<group name="deng3" label="3" b="69" visible="yes">
+<s d="deng3" t="&#x7B49;" b="70" visible="no"/>
+</group>
+<group name="deng4" label="4" b="71" visible="yes">
+<s d="deng4" t="&#x6F84;" b="72" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="di" label="i" b="73" visible="yes">
+<group name="di1" label="1" b="74" visible="yes">
+<s d="di1" t="&#x5824;" b="75" visible="no"/>
+</group>
+<group name="di2" label="2" b="76" visible="yes">
+<s d="di2" t="&#x7684;" b="77" visible="no"/>
+</group>
+<group name="di3" label="3" b="78" visible="yes">
+<s d="di3" t="&#x62B5;" b="79" visible="no"/>
+</group>
+<group name="di4" label="4" b="80" visible="yes">
+<s d="di4" t="&#x5730;" b="81" visible="no"/>
+</group>
+<group name="dia" label="a" b="82" visible="yes">
+<group name="dia3" label="3" b="83" visible="yes">
+<s d="dia3" t="&#x55F2;" b="84" visible="no"/>
+</group>
+<group name="dian" label="n" b="85" visible="yes">
+<group name="dian1" label="1" b="86" visible="yes">
+<s d="dian1" t="&#x98A0;" b="87" visible="no"/>
+</group>
+<group name="dian3" label="3" b="88" visible="yes">
+<s d="dian3" t="&#x7898;" b="89" visible="no"/>
+</group>
+<group name="dian4" label="4" b="90" visible="yes">
+<s d="dian4" t="&#x975B;" b="57" visible="no"/>
+</group>
+</group>
+<group name="diao" label="o" b="58" visible="yes">
+<group name="diao1" label="1" b="59" visible="yes">
+<s d="diao1" t="&#x7889;" b="60" visible="no"/>
+</group>
+<group name="diao3" label="3" b="61" visible="yes">
+<s d="diao3" t="&#x9E1F;" b="62" visible="no"/>
+</group>
+<group name="diao4" label="4" b="63" visible="yes">
+<s d="diao4" t="&#x6389;" b="64" visible="no"/>
+</group>
+</group>
+</group>
+<group name="die" label="e" b="65" visible="yes">
+<group name="die1" label="1" b="66" visible="yes">
+<s d="die1" t="&#x8DCC;" b="67" visible="no"/>
+</group>
+<group name="die2" label="2" b="68" visible="yes">
+<s d="die2" t="&#x789F;" b="69" visible="no"/>
+</group>
+</group>
+<group name="din" label="n" b="70" visible="yes">
+<group name="ding" label="g" b="71" visible="yes">
+<group name="ding1" label="1" b="72" visible="yes">
+<s d="ding1" t="&#x4E01;" b="73" visible="no"/>
+</group>
+<group name="ding3" label="3" b="74" visible="yes">
+<s d="ding3" t="&#x9876;" b="75" visible="no"/>
+</group>
+<group name="ding4" label="4" b="76" visible="yes">
+<s d="ding4" t="&#x9489;" b="77" visible="no"/>
+</group>
+</group>
+</group>
+<group name="diu" label="u" b="78" visible="yes">
+<group name="diu1" label="1" b="79" visible="yes">
+<s d="diu1" t="&#x4E22;" b="80" visible="no"/>
+</group>
+</group>
+</group>
+<group name="do" label="o" b="81" visible="yes">
+<group name="don" label="n" b="82" visible="yes">
+<group name="dong" label="g" b="83" visible="yes">
+<group name="dong1" label="1" b="84" visible="yes">
+<s d="dong1" t="&#x4E1C;" b="85" visible="no"/>
+</group>
+<group name="dong3" label="3" b="86" visible="yes">
+<s d="dong3" t="&#x8463;" b="87" visible="no"/>
+</group>
+<group name="dong4" label="4" b="88" visible="yes">
+<s d="dong4" t="&#x52A8;" b="89" visible="no"/>
+</group>
+</group>
+</group>
+<group name="dou" label="u" b="90" visible="yes">
+<group name="dou1" label="1" b="57" visible="yes">
+<s d="dou1" t="&#x515C;" b="58" visible="no"/>
+</group>
+<group name="dou3" label="3" b="59" visible="yes">
+<s d="dou3" t="&#x6296;" b="60" visible="no"/>
+</group>
+<group name="dou4" label="4" b="61" visible="yes">
+<s d="dou4" t="&#x6597;" b="62" visible="no"/>
+</group>
+</group>
+</group>
+<group name="du" label="u" b="63" visible="yes">
+<group name="du1" label="1" b="64" visible="yes">
+<s d="du1" t="&#x90FD;" b="65" visible="no"/>
+</group>
+<group name="du2" label="2" b="66" visible="yes">
+<s d="du2" t="&#x6BD2;" b="67" visible="no"/>
+</group>
+<group name="du3" label="3" b="68" visible="yes">
+<s d="du3" t="&#x5835;" b="69" visible="no"/>
+</group>
+<group name="du4" label="4" b="70" visible="yes">
+<s d="du4" t="&#x675C;" b="71" visible="no"/>
+</group>
+<group name="dua" label="a" b="72" visible="yes">
+<group name="duan" label="n" b="73" visible="yes">
+<group name="duan1" label="1" b="74" visible="yes">
+<s d="duan1" t="&#x7AEF;" b="75" visible="no"/>
+</group>
+<group name="duan3" label="3" b="76" visible="yes">
+<s d="duan3" t="&#x77ED;" b="77" visible="no"/>
+</group>
+<group name="duan4" label="4" b="78" visible="yes">
+<s d="duan4" t="&#x953B;" b="79" visible="no"/>
+</group>
+</group>
+</group>
+<group name="dui" label="i" b="80" visible="yes">
+<group name="dui1" label="1" b="81" visible="yes">
+<s d="dui1" t="&#x5806;" b="82" visible="no"/>
+</group>
+<group name="dui4" label="4" b="83" visible="yes">
+<s d="dui4" t="&#x5151;" b="84" visible="no"/>
+</group>
+</group>
+<group name="dun" label="n" b="85" visible="yes">
+<group name="dun1" label="1" b="86" visible="yes">
+<s d="dun1" t="&#x58A9;" b="87" visible="no"/>
+</group>
+<group name="dun3" label="3" b="88" visible="yes">
+<s d="dun3" t="&#x76F9;" b="89" visible="no"/>
+</group>
+<group name="dun4" label="4" b="90" visible="yes">
+<s d="dun4" t="&#x987F;" b="57" visible="no"/>
+</group>
+</group>
+<group name="duo" label="o" b="58" visible="yes">
+<group name="duo1" label="1" b="59" visible="yes">
+<s d="duo1" t="&#x6387;" b="60" visible="no"/>
+</group>
+<group name="duo2" label="2" b="61" visible="yes">
+<s d="duo2" t="&#x593A;" b="62" visible="no"/>
+</group>
+<group name="duo3" label="3" b="63" visible="yes">
+<s d="duo3" t="&#x579B;" b="64" visible="no"/>
+</group>
+<group name="duo4" label="4" b="65" visible="yes">
+<s d="duo4" t="&#x8DFA;" b="66" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="e" label="e" b="67" visible="yes">
+<group name="e1" label="1" b="68" visible="yes">
+<s d="e1" t="&#x963F;" b="69" visible="no"/>
+</group>
+<group name="e2" label="2" b="70" visible="yes">
+<s d="e2" t="&#x86FE;" b="71" visible="no"/>
+</group>
+<group name="e3" label="3" b="72" visible="yes">
+<s d="e3" t="&#x6076;" b="73" visible="no"/>
+</group>
+<group name="e4" label="4" b="74" visible="yes">
+<s d="e4" t="&#x5384;" b="75" visible="no"/>
+</group>
+<group name="ei" label="i" b="76" visible="yes">
+<group name="ei2" label="2" b="77" visible="yes">
+<s d="ei2" t="&#x8BF6;" b="78" visible="no"/>
+</group>
+<group name="ei3" label="3" b="79" visible="yes">
+<s d="ei3" t="&#x3805;" b="80" visible="no"/>
+</group>
+<group name="ei4" label="4" b="81" visible="yes">
+<s d="ei4" t="&#x3806;" b="82" visible="no"/>
+</group>
+</group>
+<group name="en" label="n" b="83" visible="yes">
+<group name="en1" label="1" b="84" visible="yes">
+<s d="en1" t="&#x6069;" b="85" visible="no"/>
+</group>
+<group name="en4" label="4" b="86" visible="yes">
+<s d="en4" t="&#x6441;" b="87" visible="no"/>
+</group>
+</group>
+<group name="er" label="r" b="88" visible="yes">
+<group name="er2" label="2" b="89" visible="yes">
+<s d="er2" t="&#x800C;" b="90" visible="no"/>
+</group>
+<group name="er3" label="3" b="57" visible="yes">
+<s d="er3" t="&#x8033;" b="58" visible="no"/>
+</group>
+<group name="er4" label="4" b="59" visible="yes">
+<s d="er4" t="&#x4E8C;" b="60" visible="no"/>
+</group>
+</group>
+</group>
+<group name="f" label="f" b="61" visible="yes">
+<group name="fa" label="a" b="62" visible="yes">
+<group name="fa1" label="1" b="63" visible="yes">
+<s d="fa1" t="&#x53D1;" b="64" visible="no"/>
+</group>
+<group name="fa2" label="2" b="65" visible="yes">
+<s d="fa2" t="&#x7F5A;" b="66" visible="no"/>
+</group>
+<group name="fa3" label="3" b="67" visible="yes">
+<s d="fa3" t="&#x6CD5;" b="68" visible="no"/>
+</group>
+<group name="fa4" label="4" b="69" visible="yes">
+<s d="fa4" t="&#x73D0;" b="70" visible="no"/>
+</group>
+<group name="fan" label="n" b="71" visible="yes">
+<group name="fan1" label="1" b="72" visible="yes">
+<s d="fan1" t="&#x85E9;" b="73" visible="no"/>
+</group>
+<group name="fan2" label="2" b="74" visible="yes">
+<s d="fan2" t="&#x6A0A;" b="75" visible="no"/>
+</group>
+<group name="fan3" label="3" b="76" visible="yes">
+<s d="fan3" t="&#x53CD;" b="77" visible="no"/>
+</group>
+<group name="fan4" label="4" b="78" visible="yes">
+<s d="fan4" t="&#x8303;" b="79" visible="no"/>
+</group>
+<group name="fang" label="g" b="80" visible="yes">
+<group name="fang1" label="1" b="81" visible="yes">
+<s d="fang1" t="&#x574A;" b="82" visible="no"/>
+</group>
+<group name="fang2" label="2" b="83" visible="yes">
+<s d="fang2" t="&#x80AA;" b="84" visible="no"/>
+</group>
+<group name="fang3" label="3" b="85" visible="yes">
+<s d="fang3" t="&#x4EFF;" b="86" visible="no"/>
+</group>
+<group name="fang4" label="4" b="87" visible="yes">
+<s d="fang4" t="&#x653E;" b="88" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="fe" label="e" b="89" visible="yes">
+<group name="fei" label="i" b="90" visible="yes">
+<group name="fei1" label="1" b="57" visible="yes">
+<s d="fei1" t="&#x83F2;" b="58" visible="no"/>
+</group>
+<group name="fei2" label="2" b="59" visible="yes">
+<s d="fei2" t="&#x80A5;" b="60" visible="no"/>
+</group>
+<group name="fei3" label="3" b="61" visible="yes">
+<s d="fei3" t="&#x532A;" b="62" visible="no"/>
+</group>
+<group name="fei4" label="4" b="63" visible="yes">
+<s d="fei4" t="&#x5420;" b="64" visible="no"/>
+</group>
+</group>
+<group name="fen" label="n" b="65" visible="yes">
+<group name="fen1" label="1" b="66" visible="yes">
+<s d="fen1" t="&#x82AC;" b="67" visible="no"/>
+</group>
+<group name="fen2" label="2" b="68" visible="yes">
+<s d="fen2" t="&#x575F;" b="69" visible="no"/>
+</group>
+<group name="fen3" label="3" b="70" visible="yes">
+<s d="fen3" t="&#x7C89;" b="71" visible="no"/>
+</group>
+<group name="fen4" label="4" b="72" visible="yes">
+<s d="fen4" t="&#x5206;" b="73" visible="no"/>
+</group>
+<group name="feng" label="g" b="74" visible="yes">
+<group name="feng1" label="1" b="75" visible="yes">
+<s d="feng1" t="&#x4E30;" b="76" visible="no"/>
+</group>
+<group name="feng2" label="2" b="77" visible="yes">
+<s d="feng2" t="&#x9022;" b="78" visible="no"/>
+</group>
+<group name="feng3" label="3" b="79" visible="yes">
+<s d="feng3" t="&#x8BBD;" b="80" visible="no"/>
+</group>
+<group name="feng4" label="4" b="81" visible="yes">
+<s d="feng4" t="&#x7F1D;" b="82" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="fo" label="o" b="83" visible="yes">
+<group name="fo2" label="2" b="84" visible="yes">
+<s d="fo2" t="&#x4F5B;" b="85" visible="no"/>
+</group>
+<group name="fou" label="u" b="86" visible="yes">
+<group name="fou3" label="3" b="87" visible="yes">
+<s d="fou3" t="&#x5426;" b="88" visible="no"/>
+</group>
+</group>
+</group>
+<group name="fu" label="u" b="89" visible="yes">
+<group name="fu1" label="1" b="90" visible="yes">
+<s d="fu1" t="&#x592B;" b="57" visible="no"/>
+</group>
+<group name="fu2" label="2" b="58" visible="yes">
+<s d="fu2" t="&#x6276;" b="59" visible="no"/>
+</group>
+<group name="fu3" label="3" b="60" visible="yes">
+<s d="fu3" t="&#x752B;" b="61" visible="no"/>
+</group>
+<group name="fu4" label="4" b="62" visible="yes">
+<s d="fu4" t="&#x670D;" b="63" visible="no"/>
+</group>
+</group>
+</group>
+<group name="g" label="g" b="64" visible="yes">
+<group name="ga" label="a" b="65" visible="yes">
+<group name="ga1" label="1" b="66" visible="yes">
+<s d="ga1" t="&#x560E;" b="67" visible="no"/>
+</group>
+<group name="ga2" label="2" b="68" visible="yes">
+<s d="ga2" t="&#x5676;" b="69" visible="no"/>
+</group>
+<group name="ga3" label="3" b="70" visible="yes">
+<s d="ga3" t="&#x5C15;" b="71" visible="no"/>
+</group>
+<group name="ga4" label="4" b="72" visible="yes">
+<s d="ga4" t="&#x5C2C;" b="73" visible="no"/>
+</group>
+<group name="gai" label="i" b="74" visible="yes">
+<group name="gai1" label="1" b="75" visible="yes">
+<s d="gai1" t="&#x8BE5;" b="76" visible="no"/>
+</group>
+<group name="gai3" label="3" b="77" visible="yes">
+<s d="gai3" t="&#x6539;" b="78" visible="no"/>
+</group>
+<group name="gai4" label="4" b="79" visible="yes">
+<s d="gai4" t="&#x6982;" b="80" visible="no"/>
+</group>
+</group>
+<group name="gan" label="n" b="81" visible="yes">
+<group name="gan1" label="1" b="82" visible="yes">
+<s d="gan1" t="&#x5E72;" b="83" visible="no"/>
+</group>
+<group name="gan3" label="3" b="84" visible="yes">
+<s d="gan3" t="&#x6746;" b="85" visible="no"/>
+</group>
+<group name="gan4" label="4" b="86" visible="yes">
+<s d="gan4" t="&#x8D63;" b="87" visible="no"/>
+</group>
+<group name="gang" label="g" b="88" visible="yes">
+<group name="gang1" label="1" b="89" visible="yes">
+<s d="gang1" t="&#x5188;" b="90" visible="no"/>
+</group>
+<group name="gang3" label="3" b="57" visible="yes">
+<s d="gang3" t="&#x5C97;" b="58" visible="no"/>
+</group>
+<group name="gang4" label="4" b="59" visible="yes">
+<s d="gang4" t="&#x94A2;" b="60" visible="no"/>
+</group>
+</group>
+</group>
+<group name="gao" label="o" b="61" visible="yes">
+<group name="gao1" label="1" b="62" visible="yes">
+<s d="gao1" t="&#x7BD9;" b="63" visible="no"/>
+</group>
+<group name="gao3" label="3" b="64" visible="yes">
+<s d="gao3" t="&#x641E;" b="65" visible="no"/>
+</group>
+<group name="gao4" label="4" b="66" visible="yes">
+<s d="gao4" t="&#x818F;" b="67" visible="no"/>
+</group>
+</group>
+</group>
+<group name="ge" label="e" b="68" visible="yes">
+<group name="ge1" label="1" b="69" visible="yes">
+<s d="ge1" t="&#x54E5;" b="70" visible="no"/>
+</group>
+<group name="ge2" label="2" b="71" visible="yes">
+<s d="ge2" t="&#x6401;" b="72" visible="no"/>
+</group>
+<group name="ge3" label="3" b="73" visible="yes">
+<s d="ge3" t="&#x76D6;" b="74" visible="no"/>
+</group>
+<group name="ge4" label="4" b="75" visible="yes">
+<s d="ge4" t="&#x94EC;" b="76" visible="no"/>
+</group>
+<group name="gei" label="i" b="77" visible="yes">
+<group name="gei3" label="3" b="78" visible="yes">
+<s d="gei3" t="&#x7ED9;" b="79" visible="no"/>
+</group>
+</group>
+<group name="gen" label="n" b="80" visible="yes">
+<group name="gen1" label="1" b="81" visible="yes">
+<s d="gen1" t="&#x6839;" b="82" visible="no"/>
+</group>
+<group name="gen2" label="2" b="83" visible="yes">
+<s d="gen2" t="&#x54CF;" b="84" visible="no"/>
+</group>
+<group name="gen3" label="3" b="85" visible="yes">
+<s d="gen3" t="&#x826E;" b="86" visible="no"/>
+</group>
+<group name="gen4" label="4" b="87" visible="yes">
+<s d="gen4" t="&#x4E98;" b="88" visible="no"/>
+</group>
+<group name="geng" label="g" b="89" visible="yes">
+<group name="geng1" label="1" b="90" visible="yes">
+<s d="geng1" t="&#x8015;" b="57" visible="no"/>
+</group>
+<group name="geng3" label="3" b="58" visible="yes">
+<s d="geng3" t="&#x57C2;" b="59" visible="no"/>
+</group>
+<group name="geng4" label="4" b="60" visible="yes">
+<s d="geng4" t="&#x66F4;" b="61" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="go" label="o" b="62" visible="yes">
+<group name="gon" label="n" b="63" visible="yes">
+<group name="gong" label="g" b="64" visible="yes">
+<group name="gong1" label="1" b="65" visible="yes">
+<s d="gong1" t="&#x5DE5;" b="66" visible="no"/>
+</group>
+<group name="gong3" label="3" b="67" visible="yes">
+<s d="gong3" t="&#x5DE9;" b="68" visible="no"/>
+</group>
+<group name="gong4" label="4" b="69" visible="yes">
+<s d="gong4" t="&#x4F9B;" b="70" visible="no"/>
+</group>
+</group>
+</group>
+<group name="gou" label="u" b="71" visible="yes">
+<group name="gou1" label="1" b="72" visible="yes">
+<s d="gou1" t="&#x94A9;" b="73" visible="no"/>
+</group>
+<group name="gou3" label="3" b="74" visible="yes">
+<s d="gou3" t="&#x82DF;" b="75" visible="no"/>
+</group>
+<group name="gou4" label="4" b="76" visible="yes">
+<s d="gou4" t="&#x52FE;" b="77" visible="no"/>
+</group>
+</group>
+</group>
+<group name="gu" label="u" b="78" visible="yes">
+<group name="gu1" label="1" b="79" visible="yes">
+<s d="gu1" t="&#x8F9C;" b="80" visible="no"/>
+</group>
+<group name="gu3" label="3" b="81" visible="yes">
+<s d="gu3" t="&#x9F13;" b="82" visible="no"/>
+</group>
+<group name="gu4" label="4" b="83" visible="yes">
+<s d="gu4" t="&#x4F30;" b="84" visible="no"/>
+</group>
+<group name="gua" label="a" b="85" visible="yes">
+<group name="gua1" label="1" b="86" visible="yes">
+<s d="gua1" t="&#x522E;" b="87" visible="no"/>
+</group>
+<group name="gua3" label="3" b="88" visible="yes">
+<s d="gua3" t="&#x5250;" b="89" visible="no"/>
+</group>
+<group name="gua4" label="4" b="90" visible="yes">
+<s d="gua4" t="&#x6302;" b="57" visible="no"/>
+</group>
+<group name="guai" label="i" b="58" visible="yes">
+<group name="guai1" label="1" b="59" visible="yes">
+<s d="guai1" t="&#x4E56;" b="60" visible="no"/>
+</group>
+<group name="guai3" label="3" b="61" visible="yes">
+<s d="guai3" t="&#x62D0;" b="62" visible="no"/>
+</group>
+<group name="guai4" label="4" b="63" visible="yes">
+<s d="guai4" t="&#x602A;" b="64" visible="no"/>
+</group>
+</group>
+<group name="guan" label="n" b="65" visible="yes">
+<group name="guan1" label="1" b="66" visible="yes">
+<s d="guan1" t="&#x68FA;" b="67" visible="no"/>
+</group>
+<group name="guan3" label="3" b="68" visible="yes">
+<s d="guan3" t="&#x7BA1;" b="69" visible="no"/>
+</group>
+<group name="guan4" label="4" b="70" visible="yes">
+<s d="guan4" t="&#x51A0;" b="71" visible="no"/>
+</group>
+<group name="guang" label="g" b="72" visible="yes">
+<group name="guang1" label="1" b="73" visible="yes">
+<s d="guang1" t="&#x5149;" b="74" visible="no"/>
+</group>
+<group name="guang3" label="3" b="75" visible="yes">
+<s d="guang3" t="&#x5E7F;" b="76" visible="no"/>
+</group>
+<group name="guang4" label="4" b="77" visible="yes">
+<s d="guang4" t="&#x901B;" b="78" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="gui" label="i" b="79" visible="yes">
+<group name="gui1" label="1" b="80" visible="yes">
+<s d="gui1" t="&#x7470;" b="81" visible="no"/>
+</group>
+<group name="gui3" label="3" b="82" visible="yes">
+<s d="gui3" t="&#x8F68;" b="83" visible="no"/>
+</group>
+<group name="gui4" label="4" b="84" visible="yes">
+<s d="gui4" t="&#x6842;" b="85" visible="no"/>
+</group>
+</group>
+<group name="gun" label="n" b="86" visible="yes">
+<group name="gun3" label="3" b="87" visible="yes">
+<s d="gun3" t="&#x8F8A;" b="88" visible="no"/>
+</group>
+<group name="gun4" label="4" b="89" visible="yes">
+<s d="gun4" t="&#x68CD;" b="90" visible="no"/>
+</group>
+</group>
+<group name="guo" label="o" b="57" visible="yes">
+<group name="guo1" label="1" b="58" visible="yes">
+<s d="guo1" t="&#x9505;" b="59" visible="no"/>
+</group>
+<group name="guo2" label="2" b="60" visible="yes">
+<s d="guo2" t="&#x56FD;" b="61" visible="no"/>
+</group>
+<group name="guo3" label="3" b="62" visible="yes">
+<s d="guo3" t="&#x679C;" b="63" visible="no"/>
+</group>
+<group name="guo4" label="4" b="64" visible="yes">
+<s d="guo4" t="&#x8FC7;" b="65" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="h" label="h" b="66" visible="yes">
+<group name="ha" label="a" b="67" visible="yes">
+<group name="ha1" label="1" b="68" visible="yes">
+<s d="ha1" t="&#x54C8;" b="69" visible="no"/>
+</group>
+<group name="ha2" label="2" b="70" visible="yes">
+<s d="ha2" t="&#x86E4;" b="71" visible="no"/>
+</group>
+<group name="ha3" label="3" b="72" visible="yes">
+<s d="ha3" t="&#x3807;" b="73" visible="no"/>
+</group>
+<group name="ha4" label="4" b="74" visible="yes">
+<s d="ha4" t="&#x3808;" b="75" visible="no"/>
+</group>
+<group name="hai" label="i" b="76" visible="yes">
+<group name="hai1" label="1" b="77" visible="yes">
+<s d="hai1" t="&#x54B3;" b="78" visible="no"/>
+</group>
+<group name="hai2" label="2" b="79" visible="yes">
+<s d="hai2" t="&#x9AB8;" b="80" visible="no"/>
+</group>
+<group name="hai3" label="3" b="81" visible="yes">
+<s d="hai3" t="&#x6D77;" b="82" visible="no"/>
+</group>
+<group name="hai4" label="4" b="83" visible="yes">
+<s d="hai4" t="&#x6C26;" b="84" visible="no"/>
+</group>
+</group>
+<group name="han" label="n" b="85" visible="yes">
+<group name="han1" label="1" b="86" visible="yes">
+<s d="han1" t="&#x9163;" b="87" visible="no"/>
+</group>
+<group name="han2" label="2" b="88" visible="yes">
+<s d="han2" t="&#x90AF;" b="89" visible="no"/>
+</group>
+<group name="han3" label="3" b="90" visible="yes">
+<s d="han3" t="&#x558A;" b="57" visible="no"/>
+</group>
+<group name="han4" label="4" b="58" visible="yes">
+<s d="han4" t="&#x7FF0;" b="59" visible="no"/>
+</group>
+<group name="hang" label="g" b="60" visible="yes">
+<group name="hang1" label="1" b="61" visible="yes">
+<s d="hang1" t="&#x592F;" b="62" visible="no"/>
+</group>
+<group name="hang2" label="2" b="63" visible="yes">
+<s d="hang2" t="&#x676D;" b="64" visible="no"/>
+</group>
+<group name="hang4" label="4" b="65" visible="yes">
+<s d="hang4" t="&#x5DF7;" b="66" visible="no"/>
+</group>
+</group>
+</group>
+<group name="hao" label="o" b="67" visible="yes">
+<group name="hao1" label="1" b="68" visible="yes">
+<s d="hao1" t="&#x84BF;" b="69" visible="no"/>
+</group>
+<group name="hao2" label="2" b="70" visible="yes">
+<s d="hao2" t="&#x58D5;" b="71" visible="no"/>
+</group>
+<group name="hao3" label="3" b="72" visible="yes">
+<s d="hao3" t="&#x90DD;" b="73" visible="no"/>
+</group>
+<group name="hao4" label="4" b="74" visible="yes">
+<s d="hao4" t="&#x9550;" b="75" visible="no"/>
+</group>
+</group>
+</group>
+<group name="he" label="e" b="76" visible="yes">
+<group name="he1" label="1" b="77" visible="yes">
+<s d="he1" t="&#x559D;" b="78" visible="no"/>
+</group>
+<group name="he2" label="2" b="79" visible="yes">
+<s d="he2" t="&#x8377;" b="80" visible="no"/>
+</group>
+<group name="he4" label="4" b="81" visible="yes">
+<s d="he4" t="&#x548C;" b="82" visible="no"/>
+</group>
+<group name="hei" label="i" b="83" visible="yes">
+<group name="hei1" label="1" b="84" visible="yes">
+<s d="hei1" t="&#x563F;" b="85" visible="no"/>
+</group>
+</group>
+<group name="hen" label="n" b="86" visible="yes">
+<group name="hen2" label="2" b="87" visible="yes">
+<s d="hen2" t="&#x75D5;" b="88" visible="no"/>
+</group>
+<group name="hen3" label="3" b="89" visible="yes">
+<s d="hen3" t="&#x5F88;" b="90" visible="no"/>
+</group>
+<group name="hen4" label="4" b="57" visible="yes">
+<s d="hen4" t="&#x6068;" b="58" visible="no"/>
+</group>
+<group name="heng" label="g" b="59" visible="yes">
+<group name="heng1" label="1" b="60" visible="yes">
+<s d="heng1" t="&#x54FC;" b="61" visible="no"/>
+</group>
+<group name="heng2" label="2" b="62" visible="yes">
+<s d="heng2" t="&#x6A2A;" b="63" visible="no"/>
+</group>
+<group name="heng4" label="4" b="64" visible="yes">
+<s d="heng4" t="&#x3809;" b="65" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="hn" label="n" b="66" visible="yes">
+<group name="hng" label="g" b="67" visible="yes">
+<group name="hng5" label="5" b="68" visible="yes">
+<s d="hng5" t="&#x3810;" b="69" visible="no"/>
+</group>
+</group>
+</group>
+<group name="ho" label="o" b="70" visible="yes">
+<group name="hon" label="n" b="71" visible="yes">
+<group name="hong" label="g" b="72" visible="yes">
+<group name="hong1" label="1" b="73" visible="yes">
+<s d="hong1" t="&#x8F70;" b="74" visible="no"/>
+</group>
+<group name="hong2" label="2" b="75" visible="yes">
+<s d="hong2" t="&#x8679;" b="76" visible="no"/>
+</group>
+<group name="hong3" label="3" b="77" visible="yes">
+<s d="hong3" t="&#x54C4;" b="78" visible="no"/>
+</group>
+<group name="hong4" label="4" b="79" visible="yes">
+<s d="hong4" t="&#x8BA7;" b="80" visible="no"/>
+</group>
+</group>
+</group>
+<group name="hou" label="u" b="81" visible="yes">
+<group name="hou2" label="2" b="82" visible="yes">
+<s d="hou2" t="&#x5589;" b="83" visible="no"/>
+</group>
+<group name="hou3" label="3" b="84" visible="yes">
+<s d="hou3" t="&#x543C;" b="85" visible="no"/>
+</group>
+<group name="hou4" label="4" b="86" visible="yes">
+<s d="hou4" t="&#x4FAF;" b="87" visible="no"/>
+</group>
+</group>
+</group>
+<group name="hu" label="u" b="88" visible="yes">
+<group name="hu1" label="1" b="89" visible="yes">
+<s d="hu1" t="&#x547C;" b="90" visible="no"/>
+</group>
+<group name="hu2" label="2" b="57" visible="yes">
+<s d="hu2" t="&#x6838;" b="58" visible="no"/>
+</group>
+<group name="hu3" label="3" b="59" visible="yes">
+<s d="hu3" t="&#x864E;" b="60" visible="no"/>
+</group>
+<group name="hu4" label="4" b="61" visible="yes">
+<s d="hu4" t="&#x7CCA;" b="62" visible="no"/>
+</group>
+<group name="hua" label="a" b="63" visible="yes">
+<group name="hua1" label="1" b="64" visible="yes">
+<s d="hua1" t="&#x82B1;" b="65" visible="no"/>
+</group>
+<group name="hua2" label="2" b="66" visible="yes">
+<s d="hua2" t="&#x54D7;" b="67" visible="no"/>
+</group>
+<group name="hua4" label="4" b="68" visible="yes">
+<s d="hua4" t="&#x534E;" b="69" visible="no"/>
+</group>
+<group name="huai" label="i" b="70" visible="yes">
+<group name="huai2" label="2" b="71" visible="yes">
+<s d="huai2" t="&#x69D0;" b="72" visible="no"/>
+</group>
+<group name="huai4" label="4" b="73" visible="yes">
+<s d="huai4" t="&#x574F;" b="74" visible="no"/>
+</group>
+<group name="huai5" label="5" b="75" visible="yes">
+<s d="huai5" t="&#x5212;" b="76" visible="no"/>
+</group>
+</group>
+<group name="huan" label="n" b="77" visible="yes">
+<group name="huan1" label="1" b="78" visible="yes">
+<s d="huan1" t="&#x6B22;" b="79" visible="no"/>
+</group>
+<group name="huan2" label="2" b="80" visible="yes">
+<s d="huan2" t="&#x73AF;" b="81" visible="no"/>
+</group>
+<group name="huan3" label="3" b="82" visible="yes">
+<s d="huan3" t="&#x7F13;" b="83" visible="no"/>
+</group>
+<group name="huan4" label="4" b="84" visible="yes">
+<s d="huan4" t="&#x6362;" b="85" visible="no"/>
+</group>
+<group name="huang" label="g" b="86" visible="yes">
+<group name="huang1" label="1" b="87" visible="yes">
+<s d="huang1" t="&#x8352;" b="88" visible="no"/>
+</group>
+<group name="huang2" label="2" b="89" visible="yes">
+<s d="huang2" t="&#x9EC4;" b="90" visible="no"/>
+</group>
+<group name="huang3" label="3" b="57" visible="yes">
+<s d="huang3" t="&#x6643;" b="58" visible="no"/>
+</group>
+<group name="huang4" label="4" b="59" visible="yes">
+<s d="huang4" t="&#x3811;" b="60" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="hui" label="i" b="61" visible="yes">
+<group name="hui1" label="1" b="62" visible="yes">
+<s d="hui1" t="&#x7070;" b="63" visible="no"/>
+</group>
+<group name="hui2" label="2" b="64" visible="yes">
+<s d="hui2" t="&#x86D4;" b="65" visible="no"/>
+</group>
+<group name="hui3" label="3" b="66" visible="yes">
+<s d="hui3" t="&#x6BC1;" b="67" visible="no"/>
+</group>
+<group name="hui4" label="4" b="68" visible="yes">
+<s d="hui4" t="&#x6167;" b="69" visible="no"/>
+</group>
+</group>
+<group name="hun" label="n" b="70" visible="yes">
+<group name="hun1" label="1" b="71" visible="yes">
+<s d="hun1" t="&#x8364;" b="72" visible="no"/>
+</group>
+<group name="hun2" label="2" b="73" visible="yes">
+<s d="hun2" t="&#x9B42;" b="74" visible="no"/>
+</group>
+<group name="hun4" label="4" b="75" visible="yes">
+<s d="hun4" t="&#x6DF7;" b="76" visible="no"/>
+</group>
+</group>
+<group name="huo" label="o" b="77" visible="yes">
+<group name="huo1" label="1" b="78" visible="yes">
+<s d="huo1" t="&#x8C41;" b="79" visible="no"/>
+</group>
+<group name="huo2" label="2" b="80" visible="yes">
+<s d="huo2" t="&#x6D3B;" b="81" visible="no"/>
+</group>
+<group name="huo3" label="3" b="82" visible="yes">
+<s d="huo3" t="&#x4F19;" b="83" visible="no"/>
+</group>
+<group name="huo4" label="4" b="84" visible="yes">
+<s d="huo4" t="&#x83B7;" b="85" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="j" label="j" b="86" visible="yes">
+<group name="ji" label="i" b="87" visible="yes">
+<group name="ji1" label="1" b="88" visible="yes">
+<s d="ji1" t="&#x51FB;" b="89" visible="no"/>
+</group>
+<group name="ji2" label="2" b="90" visible="yes">
+<s d="ji2" t="&#x9769;" b="57" visible="no"/>
+</group>
+<group name="ji3" label="3" b="58" visible="yes">
+<s d="ji3" t="&#x6324;" b="59" visible="no"/>
+</group>
+<group name="ji4" label="4" b="60" visible="yes">
+<s d="ji4" t="&#x8FF9;" b="61" visible="no"/>
+</group>
+<group name="jia" label="a" b="62" visible="yes">
+<group name="jia1" label="1" b="63" visible="yes">
+<s d="jia1" t="&#x5609;" b="64" visible="no"/>
+</group>
+<group name="jia2" label="2" b="65" visible="yes">
+<s d="jia2" t="&#x5939;" b="66" visible="no"/>
+</group>
+<group name="jia3" label="3" b="67" visible="yes">
+<s d="jia3" t="&#x8D3E;" b="68" visible="no"/>
+</group>
+<group name="jia4" label="4" b="69" visible="yes">
+<s d="jia4" t="&#x5047;" b="70" visible="no"/>
+</group>
+<group name="jian" label="n" b="71" visible="yes">
+<group name="jian1" label="1" b="72" visible="yes">
+<s d="jian1" t="&#x6B7C;" b="73" visible="no"/>
+</group>
+<group name="jian2" label="2" b="74" visible="yes">
+<s d="jian2" t="&#x76D1;" b="75" visible="no"/>
+</group>
+<group name="jian3" label="3" b="76" visible="yes">
+<s d="jian3" t="&#x8327;" b="77" visible="no"/>
+</group>
+<group name="jian4" label="4" b="78" visible="yes">
+<s d="jian4" t="&#x95F4;" b="79" visible="no"/>
+</group>
+<group name="jiang" label="g" b="80" visible="yes">
+<group name="jiang1" label="1" b="81" visible="yes">
+<s d="jiang1" t="&#x50F5;" b="82" visible="no"/>
+</group>
+<group name="jiang3" label="3" b="83" visible="yes">
+<s d="jiang3" t="&#x848B;" b="84" visible="no"/>
+</group>
+<group name="jiang4" label="4" b="85" visible="yes">
+<s d="jiang4" t="&#x5C06;" b="86" visible="no"/>
+</group>
+</group>
+</group>
+<group name="jiao" label="o" b="87" visible="yes">
+<group name="jiao1" label="1" b="88" visible="yes">
+<s d="jiao1" t="&#x8549;" b="89" visible="no"/>
+</group>
+<group name="jiao2" label="2" b="90" visible="yes">
+<s d="jiao2" t="&#x56BC;" b="57" visible="no"/>
+</group>
+<group name="jiao3" label="3" b="58" visible="yes">
+<s d="jiao3" t="&#x6405;" b="59" visible="no"/>
+</group>
+<group name="jiao4" label="4" b="60" visible="yes">
+<s d="jiao4" t="&#x6559;" b="61" visible="no"/>
+</group>
+</group>
+</group>
+<group name="jie" label="e" b="62" visible="yes">
+<group name="jie1" label="1" b="63" visible="yes">
+<s d="jie1" t="&#x63ED;" b="64" visible="no"/>
+</group>
+<group name="jie2" label="2" b="65" visible="yes">
+<s d="jie2" t="&#x622A;" b="66" visible="no"/>
+</group>
+<group name="jie3" label="3" b="67" visible="yes">
+<s d="jie3" t="&#x89E3;" b="68" visible="no"/>
+</group>
+<group name="jie4" label="4" b="69" visible="yes">
+<s d="jie4" t="&#x4EF7;" b="70" visible="no"/>
+</group>
+<group name="jie5" label="5" b="71" visible="yes">
+<s d="jie5" t="&#x5BB6;" b="72" visible="no"/>
+</group>
+</group>
+<group name="jin" label="n" b="73" visible="yes">
+<group name="jin1" label="1" b="74" visible="yes">
+<s d="jin1" t="&#x5DFE;" b="75" visible="no"/>
+</group>
+<group name="jin3" label="3" b="76" visible="yes">
+<s d="jin3" t="&#x7D27;" b="77" visible="no"/>
+</group>
+<group name="jin4" label="4" b="78" visible="yes">
+<s d="jin4" t="&#x4EC5;" b="79" visible="no"/>
+</group>
+<group name="jing" label="g" b="80" visible="yes">
+<group name="jing1" label="1" b="81" visible="yes">
+<s d="jing1" t="&#x8346;" b="82" visible="no"/>
+</group>
+<group name="jing3" label="3" b="83" visible="yes">
+<s d="jing3" t="&#x4E95;" b="84" visible="no"/>
+</group>
+<group name="jing4" label="4" b="85" visible="yes">
+<s d="jing4" t="&#x52B2;" b="86" visible="no"/>
+</group>
+</group>
+</group>
+<group name="jio" label="o" b="87" visible="yes">
+<group name="jion" label="n" b="88" visible="yes">
+<group name="jiong" label="g" b="89" visible="yes">
+<group name="jiong1" label="1" b="90" visible="yes">
+<s d="jiong1" t="&#x6243;" b="57" visible="no"/>
+</group>
+<group name="jiong3" label="3" b="58" visible="yes">
+<s d="jiong3" t="&#x70AF;" b="59" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="jiu" label="u" b="60" visible="yes">
+<group name="jiu1" label="1" b="61" visible="yes">
+<s d="jiu1" t="&#x63EA;" b="62" visible="no"/>
+</group>
+<group name="jiu3" label="3" b="63" visible="yes">
+<s d="jiu3" t="&#x7396;" b="64" visible="no"/>
+</group>
+<group name="jiu4" label="4" b="65" visible="yes">
+<s d="jiu4" t="&#x53A9;" b="66" visible="no"/>
+</group>
+</group>
+</group>
+<group name="ju" label="u" b="67" visible="yes">
+<group name="ju1" label="1" b="68" visible="yes">
+<s d="ju1" t="&#x97A0;" b="69" visible="no"/>
+</group>
+<group name="ju2" label="2" b="70" visible="yes">
+<s d="ju2" t="&#x6854;" b="71" visible="no"/>
+</group>
+<group name="ju3" label="3" b="72" visible="yes">
+<s d="ju3" t="&#x67DC;" b="73" visible="no"/>
+</group>
+<group name="ju4" label="4" b="74" visible="yes">
+<s d="ju4" t="&#x6CAE;" b="75" visible="no"/>
+</group>
+<group name="jua" label="a" b="76" visible="yes">
+<group name="juan" label="n" b="77" visible="yes">
+<group name="juan1" label="1" b="78" visible="yes">
+<s d="juan1" t="&#x6350;" b="79" visible="no"/>
+</group>
+<group name="juan3" label="3" b="80" visible="yes">
+<s d="juan3" t="&#x5377;" b="81" visible="no"/>
+</group>
+<group name="juan4" label="4" b="82" visible="yes">
+<s d="juan4" t="&#x5026;" b="83" visible="no"/>
+</group>
+</group>
+</group>
+<group name="jue" label="e" b="84" visible="yes">
+<group name="jue1" label="1" b="85" visible="yes">
+<s d="jue1" t="&#x6485;" b="86" visible="no"/>
+</group>
+<group name="jue2" label="2" b="87" visible="yes">
+<s d="jue2" t="&#x811A;" b="88" visible="no"/>
+</group>
+<group name="jue3" label="3" b="89" visible="yes">
+<s d="jue3" t="&#x8E76;" b="90" visible="no"/>
+</group>
+<group name="jue4" label="4" b="57" visible="yes">
+<s d="jue4" t="&#x5014;" b="58" visible="no"/>
+</group>
+</group>
+<group name="jun" label="n" b="59" visible="yes">
+<group name="jun1" label="1" b="60" visible="yes">
+<s d="jun1" t="&#x9F9F;" b="61" visible="no"/>
+</group>
+<group name="jun4" label="4" b="62" visible="yes">
+<s d="jun4" t="&#x83CC;" b="63" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="k" label="k" b="64" visible="yes">
+<group name="ka" label="a" b="65" visible="yes">
+<group name="ka1" label="1" b="66" visible="yes">
+<s d="ka1" t="&#x5580;" b="67" visible="no"/>
+</group>
+<group name="ka3" label="3" b="68" visible="yes">
+<s d="ka3" t="&#x5361;" b="69" visible="no"/>
+</group>
+<group name="kai" label="i" b="70" visible="yes">
+<group name="kai1" label="1" b="71" visible="yes">
+<s d="kai1" t="&#x5F00;" b="72" visible="no"/>
+</group>
+<group name="kai3" label="3" b="73" visible="yes">
+<s d="kai3" t="&#x6977;" b="74" visible="no"/>
+</group>
+<group name="kai4" label="4" b="75" visible="yes">
+<s d="kai4" t="&#x5FFE;" b="76" visible="no"/>
+</group>
+</group>
+<group name="kan" label="n" b="77" visible="yes">
+<group name="kan1" label="1" b="78" visible="yes">
+<s d="kan1" t="&#x520A;" b="79" visible="no"/>
+</group>
+<group name="kan3" label="3" b="80" visible="yes">
+<s d="kan3" t="&#x69DB;" b="81" visible="no"/>
+</group>
+<group name="kan4" label="4" b="82" visible="yes">
+<s d="kan4" t="&#x770B;" b="83" visible="no"/>
+</group>
+<group name="kang" label="g" b="84" visible="yes">
+<group name="kang1" label="1" b="85" visible="yes">
+<s d="kang1" t="&#x5EB7;" b="86" visible="no"/>
+</group>
+<group name="kang2" label="2" b="87" visible="yes">
+<s d="kang2" t="&#x625B;" b="88" visible="no"/>
+</group>
+<group name="kang4" label="4" b="89" visible="yes">
+<s d="kang4" t="&#x6297;" b="90" visible="no"/>
+</group>
+</group>
+</group>
+<group name="kao" label="o" b="57" visible="yes">
+<group name="kao1" label="1" b="58" visible="yes">
+<s d="kao1" t="&#x5C3B;" b="59" visible="no"/>
+</group>
+<group name="kao3" label="3" b="60" visible="yes">
+<s d="kao3" t="&#x8003;" b="61" visible="no"/>
+</group>
+<group name="kao4" label="4" b="62" visible="yes">
+<s d="kao4" t="&#x9760;" b="63" visible="no"/>
+</group>
+</group>
+</group>
+<group name="ke" label="e" b="64" visible="yes">
+<group name="ke1" label="1" b="65" visible="yes">
+<s d="ke1" t="&#x5777;" b="66" visible="no"/>
+</group>
+<group name="ke2" label="2" b="67" visible="yes">
+<s d="ke2" t="&#x58F3;" b="68" visible="no"/>
+</group>
+<group name="ke3" label="3" b="69" visible="yes">
+<s d="ke3" t="&#x53EF;" b="70" visible="no"/>
+</group>
+<group name="ke4" label="4" b="71" visible="yes">
+<s d="ke4" t="&#x514B;" b="72" visible="no"/>
+</group>
+<group name="ken" label="n" b="73" visible="yes">
+<group name="ken3" label="3" b="74" visible="yes">
+<s d="ken3" t="&#x80AF;" b="75" visible="no"/>
+</group>
+<group name="ken4" label="4" b="76" visible="yes">
+<s d="ken4" t="&#x88C9;" b="77" visible="no"/>
+</group>
+<group name="keng" label="g" b="78" visible="yes">
+<group name="keng1" label="1" b="79" visible="yes">
+<s d="keng1" t="&#x5751;" b="80" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="ko" label="o" b="81" visible="yes">
+<group name="kon" label="n" b="82" visible="yes">
+<group name="kong" label="g" b="83" visible="yes">
+<group name="kong1" label="1" b="84" visible="yes">
+<s d="kong1" t="&#x7A7A;" b="85" visible="no"/>
+</group>
+<group name="kong3" label="3" b="86" visible="yes">
+<s d="kong3" t="&#x6050;" b="87" visible="no"/>
+</group>
+<group name="kong4" label="4" b="88" visible="yes">
+<s d="kong4" t="&#x63A7;" b="89" visible="no"/>
+</group>
+</group>
+</group>
+<group name="kou" label="u" b="90" visible="yes">
+<group name="kou1" label="1" b="57" visible="yes">
+<s d="kou1" t="&#x62A0;" b="58" visible="no"/>
+</group>
+<group name="kou3" label="3" b="59" visible="yes">
+<s d="kou3" t="&#x53E3;" b="60" visible="no"/>
+</group>
+<group name="kou4" label="4" b="61" visible="yes">
+<s d="kou4" t="&#x6263;" b="62" visible="no"/>
+</group>
+</group>
+</group>
+<group name="ku" label="u" b="63" visible="yes">
+<group name="ku1" label="1" b="64" visible="yes">
+<s d="ku1" t="&#x67AF;" b="65" visible="no"/>
+</group>
+<group name="ku3" label="3" b="66" visible="yes">
+<s d="ku3" t="&#x82E6;" b="67" visible="no"/>
+</group>
+<group name="ku4" label="4" b="68" visible="yes">
+<s d="ku4" t="&#x9177;" b="69" visible="no"/>
+</group>
+<group name="kua" label="a" b="70" visible="yes">
+<group name="kua1" label="1" b="71" visible="yes">
+<s d="kua1" t="&#x5938;" b="72" visible="no"/>
+</group>
+<group name="kua3" label="3" b="73" visible="yes">
+<s d="kua3" t="&#x57AE;" b="74" visible="no"/>
+</group>
+<group name="kua4" label="4" b="75" visible="yes">
+<s d="kua4" t="&#x630E;" b="76" visible="no"/>
+</group>
+<group name="kuai" label="i" b="77" visible="yes">
+<group name="kuai3" label="3" b="78" visible="yes">
+<s d="kuai3" t="&#x84AF;" b="79" visible="no"/>
+</group>
+<group name="kuai4" label="4" b="80" visible="yes">
+<s d="kuai4" t="&#x4F1A;" b="81" visible="no"/>
+</group>
+</group>
+<group name="kuan" label="n" b="82" visible="yes">
+<group name="kuan1" label="1" b="83" visible="yes">
+<s d="kuan1" t="&#x5BBD;" b="84" visible="no"/>
+</group>
+<group name="kuan3" label="3" b="85" visible="yes">
+<s d="kuan3" t="&#x6B3E;" b="86" visible="no"/>
+</group>
+<group name="kuang" label="g" b="87" visible="yes">
+<group name="kuang1" label="1" b="88" visible="yes">
+<s d="kuang1" t="&#x5321;" b="89" visible="no"/>
+</group>
+<group name="kuang2" label="2" b="90" visible="yes">
+<s d="kuang2" t="&#x72C2;" b="57" visible="no"/>
+</group>
+<group name="kuang3" label="3" b="58" visible="yes">
+<s d="kuang3" t="&#x593C;" b="59" visible="no"/>
+</group>
+<group name="kuang4" label="4" b="60" visible="yes">
+<s d="kuang4" t="&#x6846;" b="61" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="kui" label="i" b="62" visible="yes">
+<group name="kui1" label="1" b="63" visible="yes">
+<s d="kui1" t="&#x4E8F;" b="64" visible="no"/>
+</group>
+<group name="kui2" label="2" b="65" visible="yes">
+<s d="kui2" t="&#x8475;" b="66" visible="no"/>
+</group>
+<group name="kui3" label="3" b="67" visible="yes">
+<s d="kui3" t="&#x5080;" b="68" visible="no"/>
+</group>
+<group name="kui4" label="4" b="69" visible="yes">
+<s d="kui4" t="&#x9988;" b="70" visible="no"/>
+</group>
+</group>
+<group name="kun" label="n" b="71" visible="yes">
+<group name="kun1" label="1" b="72" visible="yes">
+<s d="kun1" t="&#x5764;" b="73" visible="no"/>
+</group>
+<group name="kun3" label="3" b="74" visible="yes">
+<s d="kun3" t="&#x6346;" b="75" visible="no"/>
+</group>
+<group name="kun4" label="4" b="76" visible="yes">
+<s d="kun4" t="&#x56F0;" b="77" visible="no"/>
+</group>
+</group>
+<group name="kuo" label="o" b="78" visible="yes">
+<group name="kuo4" label="4" b="79" visible="yes">
+<s d="kuo4" t="&#x62EC;" b="80" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="l" label="l" b="81" visible="yes">
+<group name="la" label="a" b="61" visible="yes">
+<group name="la1" label="1" b="62" visible="yes">
+<s d="la1" t="&#x5783;" b="63" visible="no"/>
+</group>
+<group name="la2" label="2" b="64" visible="yes">
+<s d="la2" t="&#x62C9;" b="65" visible="no"/>
+</group>
+<group name="la3" label="3" b="66" visible="yes">
+<s d="la3" t="&#x5587;" b="67" visible="no"/>
+</group>
+<group name="la4" label="4" b="68" visible="yes">
+<s d="la4" t="&#x8721;" b="69" visible="no"/>
+</group>
+<group name="la5" label="5" b="70" visible="yes">
+<s d="la5" t="&#x5566;" b="71" visible="no"/>
+</group>
+<group name="lai" label="i" b="72" visible="yes">
+<group name="lai2" label="2" b="73" visible="yes">
+<s d="lai2" t="&#x83B1;" b="74" visible="no"/>
+</group>
+<group name="lai4" label="4" b="75" visible="yes">
+<s d="lai4" t="&#x8D56;" b="76" visible="no"/>
+</group>
+</group>
+<group name="lan" label="n" b="77" visible="yes">
+<group name="lan2" label="2" b="78" visible="yes">
+<s d="lan2" t="&#x84DD;" b="79" visible="no"/>
+</group>
+<group name="lan3" label="3" b="80" visible="yes">
+<s d="lan3" t="&#x63FD;" b="81" visible="no"/>
+</group>
+<group name="lan4" label="4" b="82" visible="yes">
+<s d="lan4" t="&#x70C2;" b="83" visible="no"/>
+</group>
+<group name="lang" label="g" b="84" visible="yes">
+<group name="lang1" label="1" b="85" visible="yes">
+<s d="lang1" t="&#x5577;" b="86" visible="no"/>
+</group>
+<group name="lang2" label="2" b="87" visible="yes">
+<s d="lang2" t="&#x7405;" b="88" visible="no"/>
+</group>
+<group name="lang3" label="3" b="89" visible="yes">
+<s d="lang3" t="&#x6717;" b="90" visible="no"/>
+</group>
+<group name="lang4" label="4" b="57" visible="yes">
+<s d="lang4" t="&#x6D6A;" b="58" visible="no"/>
+</group>
+</group>
+</group>
+<group name="lao" label="o" b="59" visible="yes">
+<group name="lao1" label="1" b="60" visible="yes">
+<s d="lao1" t="&#x635E;" b="61" visible="no"/>
+</group>
+<group name="lao2" label="2" b="62" visible="yes">
+<s d="lao2" t="&#x52B3;" b="63" visible="no"/>
+</group>
+<group name="lao3" label="3" b="64" visible="yes">
+<s d="lao3" t="&#x8001;" b="65" visible="no"/>
+</group>
+<group name="lao4" label="4" b="66" visible="yes">
+<s d="lao4" t="&#x916A;" b="67" visible="no"/>
+</group>
+</group>
+</group>
+<group name="le" label="e" b="68" visible="yes">
+<group name="le1" label="1" b="69" visible="yes">
+<s d="le1" t="&#x808B;" b="70" visible="no"/>
+</group>
+<group name="le4" label="4" b="71" visible="yes">
+<s d="le4" t="&#x52D2;" b="72" visible="no"/>
+</group>
+<group name="le5" label="5" b="73" visible="yes">
+<s d="le5" t="&#x4E86;" b="74" visible="no"/>
+</group>
+<group name="lei" label="i" b="75" visible="yes">
+<group name="lei1" label="1" b="76" visible="yes">
+<s d="lei1" t="&#x3812;" b="77" visible="no"/>
+</group>
+<group name="lei2" label="2" b="78" visible="yes">
+<s d="lei2" t="&#x96F7;" b="79" visible="no"/>
+</group>
+<group name="lei3" label="3" b="80" visible="yes">
+<s d="lei3" t="&#x857E;" b="81" visible="no"/>
+</group>
+<group name="lei4" label="4" b="82" visible="yes">
+<s d="lei4" t="&#x7D2F;" b="83" visible="no"/>
+</group>
+<group name="lei5" label="5" b="84" visible="yes">
+<s d="lei5" t="&#x561E;" b="85" visible="no"/>
+</group>
+</group>
+<group name="len" label="n" b="86" visible="yes">
+<group name="leng" label="g" b="87" visible="yes">
+<group name="leng1" label="1" b="88" visible="yes">
+<s d="leng1" t="&#x68F1;" b="89" visible="no"/>
+</group>
+<group name="leng2" label="2" b="90" visible="yes">
+<s d="leng2" t="&#x695E;" b="57" visible="no"/>
+</group>
+<group name="leng3" label="3" b="58" visible="yes">
+<s d="leng3" t="&#x51B7;" b="59" visible="no"/>
+</group>
+<group name="leng4" label="4" b="60" visible="yes">
+<s d="leng4" t="&#x6123;" b="61" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="li" label="i" b="62" visible="yes">
+<group name="li1" label="1" b="63" visible="yes">
+<s d="li1" t="&#x54E9;" b="64" visible="no"/>
+</group>
+<group name="li2" label="2" b="65" visible="yes">
+<s d="li2" t="&#x5398;" b="66" visible="no"/>
+</group>
+<group name="li3" label="3" b="67" visible="yes">
+<s d="li3" t="&#x7406;" b="68" visible="no"/>
+</group>
+<group name="li4" label="4" b="69" visible="yes">
+<s d="li4" t="&#x8389;" b="70" visible="no"/>
+</group>
+<group name="li5" label="5" b="71" visible="yes">
+<s d="li5" t="&#x3813;" b="72" visible="no"/>
+</group>
+<group name="lia" label="a" b="73" visible="yes">
+<group name="lia3" label="3" b="74" visible="yes">
+<s d="lia3" t="&#x4FE9;" b="75" visible="no"/>
+</group>
+<group name="lian" label="n" b="76" visible="yes">
+<group name="lian2" label="2" b="77" visible="yes">
+<s d="lian2" t="&#x8054;" b="78" visible="no"/>
+</group>
+<group name="lian3" label="3" b="79" visible="yes">
+<s d="lian3" t="&#x655B;" b="80" visible="no"/>
+</group>
+<group name="lian4" label="4" b="81" visible="yes">
+<s d="lian4" t="&#x94FE;" b="82" visible="no"/>
+</group>
+<group name="liang" label="g" b="83" visible="yes">
+<group name="liang2" label="2" b="84" visible="yes">
+<s d="liang2" t="&#x7CAE;" b="85" visible="no"/>
+</group>
+<group name="liang3" label="3" b="86" visible="yes">
+<s d="liang3" t="&#x4E24;" b="87" visible="no"/>
+</group>
+<group name="liang4" label="4" b="88" visible="yes">
+<s d="liang4" t="&#x51C9;" b="89" visible="no"/>
+</group>
+</group>
+</group>
+<group name="liao" label="o" b="90" visible="yes">
+<group name="liao1" label="1" b="57" visible="yes">
+<s d="liao1" t="&#x64A9;" b="58" visible="no"/>
+</group>
+<group name="liao2" label="2" b="59" visible="yes">
+<s d="liao2" t="&#x804A;" b="60" visible="no"/>
+</group>
+<group name="liao3" label="3" b="61" visible="yes">
+<s d="liao3" t="&#x71CE;" b="62" visible="no"/>
+</group>
+<group name="liao4" label="4" b="63" visible="yes">
+<s d="liao4" t="&#x6482;" b="64" visible="no"/>
+</group>
+</group>
+</group>
+<group name="lie" label="e" b="65" visible="yes">
+<group name="lie1" label="1" b="66" visible="yes">
+<s d="lie1" t="&#x54A7;" b="67" visible="no"/>
+</group>
+<group name="lie3" label="3" b="68" visible="yes">
+<s d="lie3" t="&#x88C2;" b="69" visible="no"/>
+</group>
+<group name="lie4" label="4" b="70" visible="yes">
+<s d="lie4" t="&#x5217;" b="71" visible="no"/>
+</group>
+<group name="lie5" label="5" b="72" visible="yes">
+<s d="lie5" t="&#x3814;" b="73" visible="no"/>
+</group>
+</group>
+<group name="lin" label="n" b="74" visible="yes">
+<group name="lin1" label="1" b="75" visible="yes">
+<s d="lin1" t="&#x62CE;" b="76" visible="no"/>
+</group>
+<group name="lin2" label="2" b="77" visible="yes">
+<s d="lin2" t="&#x7433;" b="78" visible="no"/>
+</group>
+<group name="lin3" label="3" b="79" visible="yes">
+<s d="lin3" t="&#x51DB;" b="80" visible="no"/>
+</group>
+<group name="lin4" label="4" b="81" visible="yes">
+<s d="lin4" t="&#x6DCB;" b="82" visible="no"/>
+</group>
+<group name="ling" label="g" b="83" visible="yes">
+<group name="ling2" label="2" b="84" visible="yes">
+<s d="ling2" t="&#x73B2;" b="85" visible="no"/>
+</group>
+<group name="ling3" label="3" b="86" visible="yes">
+<s d="ling3" t="&#x5CAD;" b="87" visible="no"/>
+</group>
+<group name="ling4" label="4" b="88" visible="yes">
+<s d="ling4" t="&#x53E6;" b="89" visible="no"/>
+</group>
+</group>
+</group>
+<group name="liu" label="u" b="90" visible="yes">
+<group name="liu1" label="1" b="57" visible="yes">
+<s d="liu1" t="&#x6E9C;" b="58" visible="no"/>
+</group>
+<group name="liu2" label="2" b="59" visible="yes">
+<s d="liu2" t="&#x7409;" b="60" visible="no"/>
+</group>
+<group name="liu3" label="3" b="61" visible="yes">
+<s d="liu3" t="&#x67F3;" b="62" visible="no"/>
+</group>
+<group name="liu4" label="4" b="63" visible="yes">
+<s d="liu4" t="&#x998F;" b="64" visible="no"/>
+</group>
+</group>
+</group>
+<group name="lo" label="o" b="65" visible="yes">
+<group name="lo5" label="5" b="66" visible="yes">
+<s d="lo5" t="&#x54AF;" b="67" visible="no"/>
+</group>
+<group name="lon" label="n" b="68" visible="yes">
+<group name="long" label="g" b="69" visible="yes">
+<group name="long1" label="1" b="70" visible="yes">
+<s d="long1" t="&#x9686;" b="71" visible="no"/>
+</group>
+<group name="long2" label="2" b="72" visible="yes">
+<s d="long2" t="&#x9F99;" b="73" visible="no"/>
+</group>
+<group name="long3" label="3" b="74" visible="yes">
+<s d="long3" t="&#x7B3C;" b="75" visible="no"/>
+</group>
+<group name="long4" label="4" b="76" visible="yes">
+<s d="long4" t="&#x5F04;" b="77" visible="no"/>
+</group>
+</group>
+</group>
+<group name="lou" label="u" b="78" visible="yes">
+<group name="lou1" label="1" b="79" visible="yes">
+<s d="lou1" t="&#x6402;" b="80" visible="no"/>
+</group>
+<group name="lou2" label="2" b="81" visible="yes">
+<s d="lou2" t="&#x697C;" b="82" visible="no"/>
+</group>
+<group name="lou3" label="3" b="83" visible="yes">
+<s d="lou3" t="&#x7BD3;" b="84" visible="no"/>
+</group>
+<group name="lou4" label="4" b="85" visible="yes">
+<s d="lou4" t="&#x6F0F;" b="86" visible="no"/>
+</group>
+<group name="lou5" label="5" b="87" visible="yes">
+<s d="lou5" t="&#x55BD;" b="88" visible="no"/>
+</group>
+</group>
+</group>
+<group name="lu" label="u" b="89" visible="yes">
+<group name="lu1" label="1" b="90" visible="yes">
+<s d="lu1" t="&#x64B8;" b="57" visible="no"/>
+</group>
+<group name="lu2" label="2" b="58" visible="yes">
+<s d="lu2" t="&#x82A6;" b="59" visible="no"/>
+</group>
+<group name="lu3" label="3" b="60" visible="yes">
+<s d="lu3" t="&#x63B3;" b="61" visible="no"/>
+</group>
+<group name="lu4" label="4" b="62" visible="yes">
+<s d="lu4" t="&#x516D;" b="63" visible="no"/>
+</group>
+<group name="lu5" label="5" b="64" visible="yes">
+<s d="lu5" t="&#x6C07;" b="65" visible="no"/>
+</group>
+<group name="lua" label="a" b="66" visible="yes">
+<group name="luan" label="n" b="67" visible="yes">
+<group name="luan2" label="2" b="68" visible="yes">
+<s d="luan2" t="&#x5CE6;" b="69" visible="no"/>
+</group>
+<group name="luan3" label="3" b="70" visible="yes">
+<s d="luan3" t="&#x5375;" b="71" visible="no"/>
+</group>
+<group name="luan4" label="4" b="72" visible="yes">
+<s d="luan4" t="&#x4E71;" b="73" visible="no"/>
+</group>
+</group>
+</group>
+<group name="lue" label="e" b="90" visible="yes">
+<group name="lue3" label="3" b="57" visible="yes">
+<s d="lue3" t="&#x63A0;" b="58" visible="no"/>
+</group>
+<group name="lue4" label="4" b="59" visible="yes">
+<s d="lue4" t="&#x7565;" b="60" visible="no"/>
+</group>
+</group>
+<group name="lun" label="n" b="74" visible="yes">
+<group name="lun1" label="1" b="75" visible="yes">
+<s d="lun1" t="&#x62A1;" b="76" visible="no"/>
+</group>
+<group name="lun2" label="2" b="77" visible="yes">
+<s d="lun2" t="&#x8F6E;" b="78" visible="no"/>
+</group>
+<group name="lun4" label="4" b="79" visible="yes">
+<s d="lun4" t="&#x8BBA;" b="80" visible="no"/>
+</group>
+</group>
+<group name="luo" label="o" b="81" visible="yes">
+<group name="luo1" label="1" b="82" visible="yes">
+<s d="luo1" t="&#x634B;" b="83" visible="no"/>
+</group>
+<group name="luo2" label="2" b="84" visible="yes">
+<s d="luo2" t="&#x841D;" b="85" visible="no"/>
+</group>
+<group name="luo3" label="3" b="86" visible="yes">
+<s d="luo3" t="&#x88F8;" b="87" visible="no"/>
+</group>
+<group name="luo4" label="4" b="88" visible="yes">
+<s d="luo4" t="&#x70D9;" b="89" visible="no"/>
+</group>
+</group>
+<group name="luu" label="u" b="83" visible="yes">
+<group name="luu2" label="2" b="84" visible="yes">
+<s d="luu2" t="&#x9A74;" b="85" visible="no"/>
+</group>
+<group name="luu3" label="3" b="86" visible="yes">
+<s d="luu3" t="&#x5415;" b="87" visible="no"/>
+</group>
+<group name="luu4" label="4" b="88" visible="yes">
+<s d="luu4" t="&#x8651;" b="89" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="m" label="m" b="90" visible="yes">
+<group name="m2" label="2" b="57" visible="yes">
+<s d="m2" t="&#x5452;" b="58" visible="no"/>
+</group>
+<group name="ma" label="a" b="59" visible="yes">
+<group name="ma1" label="1" b="60" visible="yes">
+<s d="ma1" t="&#x5988;" b="61" visible="no"/>
+</group>
+<group name="ma2" label="2" b="62" visible="yes">
+<s d="ma2" t="&#x9EBB;" b="63" visible="no"/>
+</group>
+<group name="ma3" label="3" b="64" visible="yes">
+<s d="ma3" t="&#x739B;" b="65" visible="no"/>
+</group>
+<group name="ma4" label="4" b="66" visible="yes">
+<s d="ma4" t="&#x8682;" b="67" visible="no"/>
+</group>
+<group name="ma5" label="5" b="68" visible="yes">
+<s d="ma5" t="&#x561B;" b="69" visible="no"/>
+</group>
+<group name="mai" label="i" b="70" visible="yes">
+<group name="mai2" label="2" b="71" visible="yes">
+<s d="mai2" t="&#x57CB;" b="72" visible="no"/>
+</group>
+<group name="mai3" label="3" b="73" visible="yes">
+<s d="mai3" t="&#x4E70;" b="74" visible="no"/>
+</group>
+<group name="mai4" label="4" b="75" visible="yes">
+<s d="mai4" t="&#x9EA6;" b="76" visible="no"/>
+</group>
+</group>
+<group name="man" label="n" b="77" visible="yes">
+<group name="man1" label="1" b="78" visible="yes">
+<s d="man1" t="&#x989F;" b="79" visible="no"/>
+</group>
+<group name="man2" label="2" b="80" visible="yes">
+<s d="man2" t="&#x7792;" b="81" visible="no"/>
+</group>
+<group name="man3" label="3" b="82" visible="yes">
+<s d="man3" t="&#x6EE1;" b="83" visible="no"/>
+</group>
+<group name="man4" label="4" b="84" visible="yes">
+<s d="man4" t="&#x8513;" b="85" visible="no"/>
+</group>
+<group name="mang" label="g" b="86" visible="yes">
+<group name="mang2" label="2" b="87" visible="yes">
+<s d="mang2" t="&#x8292;" b="88" visible="no"/>
+</group>
+<group name="mang3" label="3" b="89" visible="yes">
+<s d="mang3" t="&#x83BD;" b="90" visible="no"/>
+</group>
+</group>
+</group>
+<group name="mao" label="o" b="57" visible="yes">
+<group name="mao1" label="1" b="58" visible="yes">
+<s d="mao1" t="&#x732B;" b="59" visible="no"/>
+</group>
+<group name="mao2" label="2" b="60" visible="yes">
+<s d="mao2" t="&#x8305;" b="61" visible="no"/>
+</group>
+<group name="mao3" label="3" b="62" visible="yes">
+<s d="mao3" t="&#x94C6;" b="63" visible="no"/>
+</group>
+<group name="mao4" label="4" b="64" visible="yes">
+<s d="mao4" t="&#x8302;" b="65" visible="no"/>
+</group>
+</group>
+</group>
+<group name="me" label="e" b="66" visible="yes">
+<group name="me5" label="5" b="67" visible="yes">
+<s d="me5" t="&#x4E48;" b="68" visible="no"/>
+</group>
+<group name="mei" label="i" b="69" visible="yes">
+<group name="mei2" label="2" b="70" visible="yes">
+<s d="mei2" t="&#x73AB;" b="71" visible="no"/>
+</group>
+<group name="mei3" label="3" b="72" visible="yes">
+<s d="mei3" t="&#x9541;" b="73" visible="no"/>
+</group>
+<group name="mei4" label="4" b="74" visible="yes">
+<s d="mei4" t="&#x6627;" b="75" visible="no"/>
+</group>
+</group>
+<group name="men" label="n" b="76" visible="yes">
+<group name="men1" label="1" b="77" visible="yes">
+<s d="men1" t="&#x95F7;" b="78" visible="no"/>
+</group>
+<group name="men2" label="2" b="79" visible="yes">
+<s d="men2" t="&#x95E8;" b="80" visible="no"/>
+</group>
+<group name="men4" label="4" b="81" visible="yes">
+<s d="men4" t="&#x7116;" b="82" visible="no"/>
+</group>
+<group name="men5" label="5" b="83" visible="yes">
+<s d="men5" t="&#x4EEC;" b="84" visible="no"/>
+</group>
+<group name="meng" label="g" b="85" visible="yes">
+<group name="meng1" label="1" b="86" visible="yes">
+<s d="meng1" t="&#x8499;" b="87" visible="no"/>
+</group>
+<group name="meng2" label="2" b="88" visible="yes">
+<s d="meng2" t="&#x6C13;" b="89" visible="no"/>
+</group>
+<group name="meng3" label="3" b="90" visible="yes">
+<s d="meng3" t="&#x9530;" b="57" visible="no"/>
+</group>
+<group name="meng4" label="4" b="58" visible="yes">
+<s d="meng4" t="&#x68A6;" b="59" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="mi" label="i" b="60" visible="yes">
+<group name="mi1" label="1" b="61" visible="yes">
+<s d="mi1" t="&#x772F;" b="62" visible="no"/>
+</group>
+<group name="mi2" label="2" b="63" visible="yes">
+<s d="mi2" t="&#x919A;" b="64" visible="no"/>
+</group>
+<group name="mi3" label="3" b="65" visible="yes">
+<s d="mi3" t="&#x9761;" b="66" visible="no"/>
+</group>
+<group name="mi4" label="4" b="67" visible="yes">
+<s d="mi4" t="&#x79D8;" b="68" visible="no"/>
+</group>
+<group name="mia" label="a" b="69" visible="yes">
+<group name="mian" label="n" b="70" visible="yes">
+<group name="mian2" label="2" b="71" visible="yes">
+<s d="mian2" t="&#x68C9;" b="72" visible="no"/>
+</group>
+<group name="mian3" label="3" b="73" visible="yes">
+<s d="mian3" t="&#x5195;" b="74" visible="no"/>
+</group>
+<group name="mian4" label="4" b="75" visible="yes">
+<s d="mian4" t="&#x9762;" b="76" visible="no"/>
+</group>
+</group>
+<group name="miao" label="o" b="77" visible="yes">
+<group name="miao1" label="1" b="78" visible="yes">
+<s d="miao1" t="&#x55B5;" b="79" visible="no"/>
+</group>
+<group name="miao2" label="2" b="80" visible="yes">
+<s d="miao2" t="&#x82D7;" b="81" visible="no"/>
+</group>
+<group name="miao3" label="3" b="82" visible="yes">
+<s d="miao3" t="&#x85D0;" b="83" visible="no"/>
+</group>
+<group name="miao4" label="4" b="84" visible="yes">
+<s d="miao4" t="&#x5E99;" b="85" visible="no"/>
+</group>
+</group>
+</group>
+<group name="mie" label="e" b="86" visible="yes">
+<group name="mie1" label="1" b="87" visible="yes">
+<s d="mie1" t="&#x4E5C;" b="88" visible="no"/>
+</group>
+<group name="mie4" label="4" b="89" visible="yes">
+<s d="mie4" t="&#x8511;" b="90" visible="no"/>
+</group>
+</group>
+<group name="min" label="n" b="57" visible="yes">
+<group name="min2" label="2" b="58" visible="yes">
+<s d="min2" t="&#x6C11;" b="59" visible="no"/>
+</group>
+<group name="min3" label="3" b="60" visible="yes">
+<s d="min3" t="&#x62BF;" b="61" visible="no"/>
+</group>
+<group name="ming" label="g" b="62" visible="yes">
+<group name="ming2" label="2" b="63" visible="yes">
+<s d="ming2" t="&#x660E;" b="64" visible="no"/>
+</group>
+<group name="ming3" label="3" b="65" visible="yes">
+<s d="ming3" t="&#x9169;" b="66" visible="no"/>
+</group>
+<group name="ming4" label="4" b="67" visible="yes">
+<s d="ming4" t="&#x547D;" b="68" visible="no"/>
+</group>
+</group>
+</group>
+<group name="miu" label="u" b="69" visible="yes">
+<group name="miu4" label="4" b="70" visible="yes">
+<s d="miu4" t="&#x8C2C;" b="71" visible="no"/>
+</group>
+</group>
+</group>
+<group name="mo" label="o" b="72" visible="yes">
+<group name="mo1" label="1" b="73" visible="yes">
+<s d="mo1" t="&#x6478;" b="74" visible="no"/>
+</group>
+<group name="mo2" label="2" b="75" visible="yes">
+<s d="mo2" t="&#x6479;" b="76" visible="no"/>
+</group>
+<group name="mo3" label="3" b="77" visible="yes">
+<s d="mo3" t="&#x62B9;" b="78" visible="no"/>
+</group>
+<group name="mo4" label="4" b="79" visible="yes">
+<s d="mo4" t="&#x8109;" b="80" visible="no"/>
+</group>
+<group name="mou" label="u" b="81" visible="yes">
+<group name="mou1" label="1" b="82" visible="yes">
+<s d="mou1" t="&#x54DE;" b="83" visible="no"/>
+</group>
+<group name="mou2" label="2" b="84" visible="yes">
+<s d="mou2" t="&#x8C0B;" b="85" visible="no"/>
+</group>
+<group name="mou3" label="3" b="86" visible="yes">
+<s d="mou3" t="&#x67D0;" b="87" visible="no"/>
+</group>
+</group>
+</group>
+<group name="mu" label="u" b="88" visible="yes">
+<group name="mu2" label="2" b="89" visible="yes">
+<s d="mu2" t="&#x6A21;" b="90" visible="no"/>
+</group>
+<group name="mu3" label="3" b="57" visible="yes">
+<s d="mu3" t="&#x59E5;" b="58" visible="no"/>
+</group>
+<group name="mu4" label="4" b="59" visible="yes">
+<s d="mu4" t="&#x725F;" b="60" visible="no"/>
+</group>
+</group>
+</group>
+<group name="n" label="n" b="61" visible="yes">
+<s d="n" t="&#x55EF;" b="62" visible="no"/>
+
+
+
+<group name="na" label="a" b="72" visible="yes">
+<group name="na1" label="1" b="73" visible="yes">
+<s d="na1" t="&#x90A3;" b="74" visible="no"/>
+</group>
+<group name="na2" label="2" b="75" visible="yes">
+<s d="na2" t="&#x62FF;" b="76" visible="no"/>
+</group>
+<group name="na3" label="3" b="77" visible="yes">
+<s d="na3" t="&#x54EA;" b="78" visible="no"/>
+</group>
+<group name="na4" label="4" b="79" visible="yes">
+<s d="na4" t="&#x5450;" b="80" visible="no"/>
+</group>
+<group name="na5" label="5" b="81" visible="yes">
+<s d="na5" t="&#x3815;" b="82" visible="no"/>
+</group>
+<group name="nai" label="i" b="83" visible="yes">
+<group name="nai3" label="3" b="84" visible="yes">
+<s d="nai3" t="&#x6C16;" b="85" visible="no"/>
+</group>
+<group name="nai4" label="4" b="86" visible="yes">
+<s d="nai4" t="&#x8010;" b="87" visible="no"/>
+</group>
+</group>
+<group name="nan" label="n" b="88" visible="yes">
+<group name="nan1" label="1" b="89" visible="yes">
+<s d="nan1" t="&#x56DD;" b="90" visible="no"/>
+</group>
+<group name="nan2" label="2" b="57" visible="yes">
+<s d="nan2" t="&#x5357;" b="58" visible="no"/>
+</group>
+<group name="nan3" label="3" b="59" visible="yes">
+<s d="nan3" t="&#x8169;" b="60" visible="no"/>
+</group>
+<group name="nan4" label="4" b="61" visible="yes">
+<s d="nan4" t="&#x96BE;" b="62" visible="no"/>
+</group>
+<group name="nang" label="g" b="63" visible="yes">
+<group name="nang1" label="1" b="64" visible="yes">
+<s d="nang1" t="&#x56CA;" b="65" visible="no"/>
+</group>
+<group name="nang2" label="2" b="66" visible="yes">
+<s d="nang2" t="&#x9995;" b="67" visible="no"/>
+</group>
+<group name="nang3" label="3" b="68" visible="yes">
+<s d="nang3" t="&#x652E;" b="69" visible="no"/>
+</group>
+</group>
+</group>
+<group name="nao" label="o" b="70" visible="yes">
+<group name="nao1" label="1" b="71" visible="yes">
+<s d="nao1" t="&#x5B6C;" b="72" visible="no"/>
+</group>
+<group name="nao2" label="2" b="73" visible="yes">
+<s d="nao2" t="&#x6320;" b="74" visible="no"/>
+</group>
+<group name="nao3" label="3" b="75" visible="yes">
+<s d="nao3" t="&#x8111;" b="76" visible="no"/>
+</group>
+<group name="nao4" label="4" b="77" visible="yes">
+<s d="nao4" t="&#x95F9;" b="78" visible="no"/>
+</group>
+</group>
+</group>
+<group name="ne" label="e" b="79" visible="yes">
+<group name="ne2" label="2" b="80" visible="yes">
+<s d="ne2" t="&#x3816;" b="81" visible="no"/>
+</group>
+<group name="ne4" label="4" b="82" visible="yes">
+<s d="ne4" t="&#x8BB7;" b="83" visible="no"/>
+</group>
+<group name="ne5" label="5" b="84" visible="yes">
+<s d="ne5" t="&#x5462;" b="85" visible="no"/>
+</group>
+<group name="nei" label="i" b="86" visible="yes">
+<group name="nei3" label="3" b="87" visible="yes">
+<s d="nei3" t="&#x9981;" b="88" visible="no"/>
+</group>
+<group name="nei4" label="4" b="89" visible="yes">
+<s d="nei4" t="&#x5185;" b="90" visible="no"/>
+</group>
+</group>
+<group name="nen" label="n" b="57" visible="yes">
+<group name="nen4" label="4" b="58" visible="yes">
+<s d="nen4" t="&#x5AE9;" b="59" visible="no"/>
+</group>
+<group name="neng" label="g" b="60" visible="yes">
+<group name="neng2" label="2" b="61" visible="yes">
+<s d="neng2" t="&#x80FD;" b="62" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="ng" label="g" b="63" visible="yes">
+<s d="ng" t="&#x5514;" b="64" visible="no"/>
+</group>
+<group name="ni" label="i" b="65" visible="yes">
+<group name="ni1" label="1" b="66" visible="yes">
+<s d="ni1" t="&#x59AE;" b="67" visible="no"/>
+</group>
+<group name="ni2" label="2" b="68" visible="yes">
+<s d="ni2" t="&#x9713;" b="69" visible="no"/>
+</group>
+<group name="ni3" label="3" b="70" visible="yes">
+<s d="ni3" t="&#x62DF;" b="71" visible="no"/>
+</group>
+<group name="ni4" label="4" b="72" visible="yes">
+<s d="ni4" t="&#x6CE5;" b="73" visible="no"/>
+</group>
+<group name="nia" label="a" b="74" visible="yes">
+<group name="nian" label="n" b="75" visible="yes">
+<group name="nian1" label="1" b="76" visible="yes">
+<s d="nian1" t="&#x852B;" b="77" visible="no"/>
+</group>
+<group name="nian2" label="2" b="78" visible="yes">
+<s d="nian2" t="&#x5E74;" b="79" visible="no"/>
+</group>
+<group name="nian3" label="3" b="80" visible="yes">
+<s d="nian3" t="&#x78BE;" b="81" visible="no"/>
+</group>
+<group name="nian4" label="4" b="82" visible="yes">
+<s d="nian4" t="&#x5FF5;" b="83" visible="no"/>
+</group>
+<group name="niang" label="g" b="84" visible="yes">
+<group name="niang2" label="2" b="85" visible="yes">
+<s d="niang2" t="&#x5A18;" b="86" visible="no"/>
+</group>
+<group name="niang4" label="4" b="87" visible="yes">
+<s d="niang4" t="&#x917F;" b="88" visible="no"/>
+</group>
+</group>
+</group>
+<group name="niao" label="o" b="89" visible="yes">
+<group name="niao3" label="3" b="90" visible="yes">
+<s d="niao3" t="&#x8311;" b="57" visible="no"/>
+</group>
+<group name="niao4" label="4" b="58" visible="yes">
+<s d="niao4" t="&#x6EBA;" b="59" visible="no"/>
+</group>
+</group>
+</group>
+<group name="nie" label="e" b="60" visible="yes">
+<group name="nie1" label="1" b="61" visible="yes">
+<s d="nie1" t="&#x634F;" b="62" visible="no"/>
+</group>
+<group name="nie4" label="4" b="63" visible="yes">
+<s d="nie4" t="&#x8042;" b="64" visible="no"/>
+</group>
+</group>
+<group name="nin" label="n" b="65" visible="yes">
+<group name="nin2" label="2" b="66" visible="yes">
+<s d="nin2" t="&#x60A8;" b="67" visible="no"/>
+</group>
+<group name="ning" label="g" b="68" visible="yes">
+<group name="ning2" label="2" b="69" visible="yes">
+<s d="ning2" t="&#x67E0;" b="70" visible="no"/>
+</group>
+<group name="ning3" label="3" b="71" visible="yes">
+<s d="ning3" t="&#x62E7;" b="72" visible="no"/>
+</group>
+<group name="ning4" label="4" b="73" visible="yes">
+<s d="ning4" t="&#x5B81;" b="74" visible="no"/>
+</group>
+</group>
+</group>
+<group name="niu" label="u" b="75" visible="yes">
+<group name="niu1" label="1" b="76" visible="yes">
+<s d="niu1" t="&#x599E;" b="77" visible="no"/>
+</group>
+<group name="niu2" label="2" b="78" visible="yes">
+<s d="niu2" t="&#x725B;" b="79" visible="no"/>
+</group>
+<group name="niu3" label="3" b="80" visible="yes">
+<s d="niu3" t="&#x626D;" b="81" visible="no"/>
+</group>
+<group name="niu4" label="4" b="82" visible="yes">
+<s d="niu4" t="&#x62D7;" b="83" visible="no"/>
+</group>
+</group>
+</group>
+<group name="no" label="o" b="84" visible="yes">
+<group name="non" label="n" b="85" visible="yes">
+<group name="nong" label="g" b="86" visible="yes">
+<group name="nong2" label="2" b="87" visible="yes">
+<s d="nong2" t="&#x8113;" b="88" visible="no"/>
+</group>
+<group name="nong4" label="4" b="89" visible="yes">
+<s d="nong4" t="&#x3817;" b="90" visible="no"/>
+</group>
+</group>
+</group>
+<group name="nou" label="u" b="57" visible="yes">
+<group name="nou4" label="4" b="58" visible="yes">
+<s d="nou4" t="&#x8028;" b="59" visible="no"/>
+</group>
+</group>
+</group>
+<group name="nu" label="u" b="60" visible="yes">
+<group name="nu2" label="2" b="61" visible="yes">
+<s d="nu2" t="&#x5974;" b="62" visible="no"/>
+</group>
+<group name="nu3" label="3" b="63" visible="yes">
+<s d="nu3" t="&#x52AA;" b="64" visible="no"/>
+</group>
+<group name="nu4" label="4" b="65" visible="yes">
+<s d="nu4" t="&#x6012;" b="66" visible="no"/>
+</group>
+<group name="nua" label="a" b="67" visible="yes">
+<group name="nuan" label="n" b="68" visible="yes">
+<group name="nuan3" label="3" b="69" visible="yes">
+<s d="nuan3" t="&#x6696;" b="70" visible="no"/>
+</group>
+</group>
+</group>
+<group name="nue" label="e" b="69" visible="yes">
+<group name="nue4" label="4" b="70" visible="yes">
+<s d="nue4" t="&#x8650;" b="71" visible="no"/>
+</group>
+</group>
+<group name="nuo" label="o" b="71" visible="yes">
+<group name="nuo2" label="2" b="72" visible="yes">
+<s d="nuo2" t="&#x5A1C;" b="73" visible="no"/>
+</group>
+<group name="nuo4" label="4" b="74" visible="yes">
+<s d="nuo4" t="&#x61E6;" b="75" visible="no"/>
+</group>
+</group>
+<group name="nuu" label="u" b="64" visible="yes">
+<group name="nuu3" label="3" b="65" visible="yes">
+<s d="nuu3" t="&#x5973;" b="66" visible="no"/>
+</group>
+<group name="nuu4" label="4" b="67" visible="yes">
+<s d="nuu4" t="&#x6067;" b="68" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="o" label="o" b="76" visible="yes">
+<group name="o1" label="1" b="77" visible="yes">
+<s d="o1" t="&#x5594;" b="78" visible="no"/>
+</group>
+<group name="o2" label="2" b="79" visible="yes">
+<s d="o2" t="&#x54E6;" b="80" visible="no"/>
+</group>
+<group name="o4" label="4" b="81" visible="yes">
+<s d="o4" t="&#x3818;" b="82" visible="no"/>
+</group>
+<group name="ou" label="u" b="83" visible="yes">
+<group name="ou1" label="1" b="84" visible="yes">
+<s d="ou1" t="&#x6B27;" b="85" visible="no"/>
+</group>
+<group name="ou3" label="3" b="86" visible="yes">
+<s d="ou3" t="&#x85D5;" b="87" visible="no"/>
+</group>
+<group name="ou4" label="4" b="88" visible="yes">
+<s d="ou4" t="&#x6CA4;" b="89" visible="no"/>
+</group>
+</group>
+</group>
+<group name="p" label="p" b="90" visible="yes">
+<group name="pa" label="a" b="57" visible="yes">
+<group name="pa1" label="1" b="58" visible="yes">
+<s d="pa1" t="&#x556A;" b="59" visible="no"/>
+</group>
+<group name="pa2" label="2" b="60" visible="yes">
+<s d="pa2" t="&#x6252;" b="61" visible="no"/>
+</group>
+<group name="pa4" label="4" b="62" visible="yes">
+<s d="pa4" t="&#x5E15;" b="63" visible="no"/>
+</group>
+<group name="pai" label="i" b="64" visible="yes">
+<group name="pai1" label="1" b="65" visible="yes">
+<s d="pai1" t="&#x62CD;" b="66" visible="no"/>
+</group>
+<group name="pai2" label="2" b="67" visible="yes">
+<s d="pai2" t="&#x6392;" b="68" visible="no"/>
+</group>
+<group name="pai3" label="3" b="69" visible="yes">
+<s d="pai3" t="&#x8FEB;" b="70" visible="no"/>
+</group>
+<group name="pai4" label="4" b="71" visible="yes">
+<s d="pai4" t="&#x6E43;" b="72" visible="no"/>
+</group>
+</group>
+<group name="pan" label="n" b="73" visible="yes">
+<group name="pan1" label="1" b="74" visible="yes">
+<s d="pan1" t="&#x756A;" b="75" visible="no"/>
+</group>
+<group name="pan2" label="2" b="76" visible="yes">
+<s d="pan2" t="&#x76D8;" b="77" visible="no"/>
+</group>
+<group name="pan4" label="4" b="78" visible="yes">
+<s d="pan4" t="&#x76FC;" b="79" visible="no"/>
+</group>
+<group name="pang" label="g" b="80" visible="yes">
+<group name="pang1" label="1" b="81" visible="yes">
+<s d="pang1" t="&#x8180;" b="82" visible="no"/>
+</group>
+<group name="pang2" label="2" b="83" visible="yes">
+<s d="pang2" t="&#x78C5;" b="84" visible="no"/>
+</group>
+<group name="pang3" label="3" b="85" visible="yes">
+<s d="pang3" t="&#x802A;" b="86" visible="no"/>
+</group>
+<group name="pang4" label="4" b="87" visible="yes">
+<s d="pang4" t="&#x80D6;" b="88" visible="no"/>
+</group>
+</group>
+</group>
+<group name="pao" label="o" b="89" visible="yes">
+<group name="pao1" label="1" b="90" visible="yes">
+<s d="pao1" t="&#x629B;" b="57" visible="no"/>
+</group>
+<group name="pao2" label="2" b="58" visible="yes">
+<s d="pao2" t="&#x5486;" b="59" visible="no"/>
+</group>
+<group name="pao3" label="3" b="60" visible="yes">
+<s d="pao3" t="&#x8DD1;" b="61" visible="no"/>
+</group>
+<group name="pao4" label="4" b="62" visible="yes">
+<s d="pao4" t="&#x70AE;" b="63" visible="no"/>
+</group>
+</group>
+</group>
+<group name="pe" label="e" b="64" visible="yes">
+<group name="pei" label="i" b="65" visible="yes">
+<group name="pei1" label="1" b="66" visible="yes">
+<s d="pei1" t="&#x5478;" b="67" visible="no"/>
+</group>
+<group name="pei2" label="2" b="68" visible="yes">
+<s d="pei2" t="&#x57F9;" b="69" visible="no"/>
+</group>
+<group name="pei4" label="4" b="70" visible="yes">
+<s d="pei4" t="&#x914D;" b="71" visible="no"/>
+</group>
+</group>
+<group name="pen" label="n" b="72" visible="yes">
+<group name="pen1" label="1" b="73" visible="yes">
+<s d="pen1" t="&#x55B7;" b="74" visible="no"/>
+</group>
+<group name="pen2" label="2" b="75" visible="yes">
+<s d="pen2" t="&#x76C6;" b="76" visible="no"/>
+</group>
+<group name="pen4" label="4" b="77" visible="yes">
+<s d="pen4" t="&#x3819;" b="78" visible="no"/>
+</group>
+<group name="peng" label="g" b="79" visible="yes">
+<group name="peng1" label="1" b="80" visible="yes">
+<s d="peng1" t="&#x7830;" b="81" visible="no"/>
+</group>
+<group name="peng2" label="2" b="82" visible="yes">
+<s d="peng2" t="&#x6F8E;" b="83" visible="no"/>
+</group>
+<group name="peng3" label="3" b="84" visible="yes">
+<s d="peng3" t="&#x6367;" b="85" visible="no"/>
+</group>
+<group name="peng4" label="4" b="86" visible="yes">
+<s d="peng4" t="&#x78B0;" b="87" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="pi" label="i" b="88" visible="yes">
+<group name="pi1" label="1" b="89" visible="yes">
+<s d="pi1" t="&#x576F;" b="90" visible="no"/>
+</group>
+<group name="pi2" label="2" b="57" visible="yes">
+<s d="pi2" t="&#x7435;" b="58" visible="no"/>
+</group>
+<group name="pi3" label="3" b="59" visible="yes">
+<s d="pi3" t="&#x5288;" b="60" visible="no"/>
+</group>
+<group name="pi4" label="4" b="61" visible="yes">
+<s d="pi4" t="&#x8F9F;" b="62" visible="no"/>
+</group>
+<group name="pia" label="a" b="63" visible="yes">
+<group name="pian" label="n" b="64" visible="yes">
+<group name="pian1" label="1" b="65" visible="yes">
+<s d="pian1" t="&#x6241;" b="66" visible="no"/>
+</group>
+<group name="pian2" label="2" b="67" visible="yes">
+<s d="pian2" t="&#x9A88;" b="68" visible="no"/>
+</group>
+<group name="pian3" label="3" b="69" visible="yes">
+<s d="pian3" t="&#x8C1D;" b="70" visible="no"/>
+</group>
+<group name="pian4" label="4" b="71" visible="yes">
+<s d="pian4" t="&#x7247;" b="72" visible="no"/>
+</group>
+</group>
+<group name="piao" label="o" b="73" visible="yes">
+<group name="piao1" label="1" b="74" visible="yes">
+<s d="piao1" t="&#x98D8;" b="75" visible="no"/>
+</group>
+<group name="piao2" label="2" b="76" visible="yes">
+<s d="piao2" t="&#x74E2;" b="77" visible="no"/>
+</group>
+<group name="piao3" label="3" b="78" visible="yes">
+<s d="piao3" t="&#x6F02;" b="79" visible="no"/>
+</group>
+<group name="piao4" label="4" b="80" visible="yes">
+<s d="piao4" t="&#x7968;" b="81" visible="no"/>
+</group>
+</group>
+</group>
+<group name="pie" label="e" b="82" visible="yes">
+<group name="pie1" label="1" b="83" visible="yes">
+<s d="pie1" t="&#x6487;" b="84" visible="no"/>
+</group>
+<group name="pie3" label="3" b="85" visible="yes">
+<s d="pie3" t="&#x82E4;" b="86" visible="no"/>
+</group>
+</group>
+<group name="pin" label="n" b="87" visible="yes">
+<group name="pin1" label="1" b="88" visible="yes">
+<s d="pin1" t="&#x62FC;" b="89" visible="no"/>
+</group>
+<group name="pin2" label="2" b="90" visible="yes">
+<s d="pin2" t="&#x9891;" b="57" visible="no"/>
+</group>
+<group name="pin3" label="3" b="58" visible="yes">
+<s d="pin3" t="&#x54C1;" b="59" visible="no"/>
+</group>
+<group name="pin4" label="4" b="60" visible="yes">
+<s d="pin4" t="&#x8058;" b="61" visible="no"/>
+</group>
+<group name="ping" label="g" b="62" visible="yes">
+<group name="ping1" label="1" b="63" visible="yes">
+<s d="ping1" t="&#x4E52;" b="64" visible="no"/>
+</group>
+<group name="ping2" label="2" b="65" visible="yes">
+<s d="ping2" t="&#x576A;" b="66" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="po" label="o" b="67" visible="yes">
+<group name="po1" label="1" b="68" visible="yes">
+<s d="po1" t="&#x6CCA;" b="69" visible="no"/>
+</group>
+<group name="po2" label="2" b="70" visible="yes">
+<s d="po2" t="&#x7E41;" b="71" visible="no"/>
+</group>
+<group name="po3" label="3" b="72" visible="yes">
+<s d="po3" t="&#x53F5;" b="73" visible="no"/>
+</group>
+<group name="po4" label="4" b="74" visible="yes">
+<s d="po4" t="&#x7834;" b="75" visible="no"/>
+</group>
+<group name="pou" label="u" b="76" visible="yes">
+<group name="pou1" label="1" b="77" visible="yes">
+<s d="pou1" t="&#x5256;" b="78" visible="no"/>
+</group>
+<group name="pou2" label="2" b="79" visible="yes">
+<s d="pou2" t="&#x88D2;" b="80" visible="no"/>
+</group>
+<group name="pou3" label="3" b="81" visible="yes">
+<s d="pou3" t="&#x638A;" b="82" visible="no"/>
+</group>
+</group>
+</group>
+<group name="pu" label="u" b="83" visible="yes">
+<group name="pu1" label="1" b="84" visible="yes">
+<s d="pu1" t="&#x6251;" b="85" visible="no"/>
+</group>
+<group name="pu2" label="2" b="86" visible="yes">
+<s d="pu2" t="&#x812F;" b="87" visible="no"/>
+</group>
+<group name="pu3" label="3" b="88" visible="yes">
+<s d="pu3" t="&#x57D4;" b="89" visible="no"/>
+</group>
+<group name="pu4" label="4" b="90" visible="yes">
+<s d="pu4" t="&#x66B4;" b="57" visible="no"/>
+</group>
+</group>
+</group>
+<group name="q" label="q" b="58" visible="yes">
+<group name="qi" label="i" b="59" visible="yes">
+<group name="qi1" label="1" b="60" visible="yes">
+<s d="qi1" t="&#x7F09;" b="61" visible="no"/>
+</group>
+<group name="qi2" label="2" b="62" visible="yes">
+<s d="qi2" t="&#x5176;" b="63" visible="no"/>
+</group>
+<group name="qi3" label="3" b="64" visible="yes">
+<s d="qi3" t="&#x7A3D;" b="65" visible="no"/>
+</group>
+<group name="qi4" label="4" b="66" visible="yes">
+<s d="qi4" t="&#x59BB;" b="67" visible="no"/>
+</group>
+<group name="qi5" label="5" b="68" visible="yes">
+<s d="qi5" t="&#x8360;" b="69" visible="no"/>
+</group>
+<group name="qia" label="a" b="70" visible="yes">
+<group name="qia1" label="1" b="71" visible="yes">
+<s d="qia1" t="&#x6390;" b="72" visible="no"/>
+</group>
+<group name="qia3" label="3" b="73" visible="yes">
+<s d="qia3" t="&#x3820;" b="74" visible="no"/>
+</group>
+<group name="qia4" label="4" b="75" visible="yes">
+<s d="qia4" t="&#x6070;" b="76" visible="no"/>
+</group>
+<group name="qian" label="n" b="77" visible="yes">
+<group name="qian1" label="1" b="78" visible="yes">
+<s d="qian1" t="&#x7275;" b="79" visible="no"/>
+</group>
+<group name="qian2" label="2" b="80" visible="yes">
+<s d="qian2" t="&#x4E7E;" b="81" visible="no"/>
+</group>
+<group name="qian3" label="3" b="82" visible="yes">
+<s d="qian3" t="&#x9063;" b="83" visible="no"/>
+</group>
+<group name="qian4" label="4" b="84" visible="yes">
+<s d="qian4" t="&#x5811;" b="85" visible="no"/>
+</group>
+<group name="qiang" label="g" b="86" visible="yes">
+<group name="qiang1" label="1" b="87" visible="yes">
+<s d="qiang1" t="&#x67AA;" b="88" visible="no"/>
+</group>
+<group name="qiang2" label="2" b="89" visible="yes">
+<s d="qiang2" t="&#x5899;" b="90" visible="no"/>
+</group>
+<group name="qiang3" label="3" b="57" visible="yes">
+<s d="qiang3" t="&#x62A2;" b="58" visible="no"/>
+</group>
+<group name="qiang4" label="4" b="59" visible="yes">
+<s d="qiang4" t="&#x545B;" b="60" visible="no"/>
+</group>
+</group>
+</group>
+<group name="qiao" label="o" b="61" visible="yes">
+<group name="qiao1" label="1" b="62" visible="yes">
+<s d="qiao1" t="&#x6A47;" b="63" visible="no"/>
+</group>
+<group name="qiao2" label="2" b="64" visible="yes">
+<s d="qiao2" t="&#x6865;" b="65" visible="no"/>
+</group>
+<group name="qiao3" label="3" b="66" visible="yes">
+<s d="qiao3" t="&#x6084;" b="67" visible="no"/>
+</group>
+<group name="qiao4" label="4" b="68" visible="yes">
+<s d="qiao4" t="&#x9798;" b="69" visible="no"/>
+</group>
+</group>
+</group>
+<group name="qie" label="e" b="70" visible="yes">
+<group name="qie1" label="1" b="71" visible="yes">
+<s d="qie1" t="&#x5207;" b="72" visible="no"/>
+</group>
+<group name="qie2" label="2" b="73" visible="yes">
+<s d="qie2" t="&#x8304;" b="74" visible="no"/>
+</group>
+<group name="qie3" label="3" b="75" visible="yes">
+<s d="qie3" t="&#x4E14;" b="76" visible="no"/>
+</group>
+<group name="qie4" label="4" b="77" visible="yes">
+<s d="qie4" t="&#x602F;" b="78" visible="no"/>
+</group>
+</group>
+<group name="qin" label="n" b="79" visible="yes">
+<group name="qin1" label="1" b="80" visible="yes">
+<s d="qin1" t="&#x94A6;" b="81" visible="no"/>
+</group>
+<group name="qin2" label="2" b="82" visible="yes">
+<s d="qin2" t="&#x79E6;" b="83" visible="no"/>
+</group>
+<group name="qin3" label="3" b="84" visible="yes">
+<s d="qin3" t="&#x5BDD;" b="85" visible="no"/>
+</group>
+<group name="qin4" label="4" b="86" visible="yes">
+<s d="qin4" t="&#x6C81;" b="87" visible="no"/>
+</group>
+<group name="qing" label="g" b="88" visible="yes">
+<group name="qing1" label="1" b="89" visible="yes">
+<s d="qing1" t="&#x9752;" b="90" visible="no"/>
+</group>
+<group name="qing2" label="2" b="57" visible="yes">
+<s d="qing2" t="&#x64CE;" b="58" visible="no"/>
+</group>
+<group name="qing3" label="3" b="59" visible="yes">
+<s d="qing3" t="&#x9877;" b="60" visible="no"/>
+</group>
+<group name="qing4" label="4" b="61" visible="yes">
+<s d="qing4" t="&#x4EB2;" b="62" visible="no"/>
+</group>
+</group>
+</group>
+<group name="qio" label="o" b="63" visible="yes">
+<group name="qion" label="n" b="64" visible="yes">
+<group name="qiong" label="g" b="65" visible="yes">
+<group name="qiong2" label="2" b="66" visible="yes">
+<s d="qiong2" t="&#x743C;" b="67" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="qiu" label="u" b="68" visible="yes">
+<group name="qiu1" label="1" b="69" visible="yes">
+<s d="qiu1" t="&#x79CB;" b="70" visible="no"/>
+</group>
+<group name="qiu2" label="2" b="71" visible="yes">
+<s d="qiu2" t="&#x4EC7;" b="72" visible="no"/>
+</group>
+<group name="qiu3" label="3" b="73" visible="yes">
+<s d="qiu3" t="&#x7CD7;" b="74" visible="no"/>
+</group>
+</group>
+</group>
+<group name="qu" label="u" b="75" visible="yes">
+<group name="qu1" label="1" b="76" visible="yes">
+<s d="qu1" t="&#x8D8B;" b="77" visible="no"/>
+</group>
+<group name="qu2" label="2" b="78" visible="yes">
+<s d="qu2" t="&#x6E20;" b="79" visible="no"/>
+</group>
+<group name="qu3" label="3" b="80" visible="yes">
+<s d="qu3" t="&#x66F2;" b="81" visible="no"/>
+</group>
+<group name="qu4" label="4" b="82" visible="yes">
+<s d="qu4" t="&#x8DA3;" b="83" visible="no"/>
+</group>
+<group name="qu5" label="5" b="84" visible="yes">
+<s d="qu5" t="&#x620C;" b="85" visible="no"/>
+</group>
+<group name="qua" label="a" b="86" visible="yes">
+<group name="quan" label="n" b="87" visible="yes">
+<group name="quan1" label="1" b="88" visible="yes">
+<s d="quan1" t="&#x5708;" b="89" visible="no"/>
+</group>
+<group name="quan2" label="2" b="90" visible="yes">
+<s d="quan2" t="&#x98A7;" b="57" visible="no"/>
+</group>
+<group name="quan3" label="3" b="58" visible="yes">
+<s d="quan3" t="&#x72AC;" b="59" visible="no"/>
+</group>
+<group name="quan4" label="4" b="60" visible="yes">
+<s d="quan4" t="&#x5238;" b="61" visible="no"/>
+</group>
+</group>
+</group>
+<group name="que" label="e" b="62" visible="yes">
+<group name="que1" label="1" b="63" visible="yes">
+<s d="que1" t="&#x7F3A;" b="64" visible="no"/>
+</group>
+<group name="que2" label="2" b="65" visible="yes">
+<s d="que2" t="&#x7638;" b="66" visible="no"/>
+</group>
+<group name="que4" label="4" b="67" visible="yes">
+<s d="que4" t="&#x5374;" b="68" visible="no"/>
+</group>
+</group>
+<group name="qun" label="n" b="69" visible="yes">
+<group name="qun1" label="1" b="70" visible="yes">
+<s d="qun1" t="&#x9021;" b="71" visible="no"/>
+</group>
+<group name="qun2" label="2" b="72" visible="yes">
+<s d="qun2" t="&#x88D9;" b="73" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="r" label="r" b="74" visible="yes">
+<group name="ra" label="a" b="75" visible="yes">
+<group name="ran" label="n" b="76" visible="yes">
+<group name="ran2" label="2" b="77" visible="yes">
+<s d="ran2" t="&#x7136;" b="78" visible="no"/>
+</group>
+<group name="ran3" label="3" b="79" visible="yes">
+<s d="ran3" t="&#x5189;" b="80" visible="no"/>
+</group>
+<group name="rang" label="g" b="81" visible="yes">
+<group name="rang1" label="1" b="82" visible="yes">
+<s d="rang1" t="&#x56B7;" b="83" visible="no"/>
+</group>
+<group name="rang2" label="2" b="84" visible="yes">
+<s d="rang2" t="&#x74E4;" b="85" visible="no"/>
+</group>
+<group name="rang3" label="3" b="86" visible="yes">
+<s d="rang3" t="&#x58E4;" b="87" visible="no"/>
+</group>
+<group name="rang4" label="4" b="88" visible="yes">
+<s d="rang4" t="&#x8BA9;" b="89" visible="no"/>
+</group>
+</group>
+</group>
+<group name="rao" label="o" b="90" visible="yes">
+<group name="rao2" label="2" b="57" visible="yes">
+<s d="rao2" t="&#x9976;" b="58" visible="no"/>
+</group>
+<group name="rao3" label="3" b="59" visible="yes">
+<s d="rao3" t="&#x6270;" b="60" visible="no"/>
+</group>
+<group name="rao5" label="5" b="61" visible="yes">
+<s d="rao5" t="&#x7ED5;" b="62" visible="no"/>
+</group>
+</group>
+</group>
+<group name="re" label="e" b="63" visible="yes">
+<group name="re3" label="3" b="64" visible="yes">
+<s d="re3" t="&#x60F9;" b="65" visible="no"/>
+</group>
+<group name="re4" label="4" b="66" visible="yes">
+<s d="re4" t="&#x70ED;" b="67" visible="no"/>
+</group>
+<group name="ren" label="n" b="68" visible="yes">
+<group name="ren2" label="2" b="69" visible="yes">
+<s d="ren2" t="&#x58EC;" b="70" visible="no"/>
+</group>
+<group name="ren3" label="3" b="71" visible="yes">
+<s d="ren3" t="&#x5FCD;" b="72" visible="no"/>
+</group>
+<group name="ren4" label="4" b="73" visible="yes">
+<s d="ren4" t="&#x97E7;" b="74" visible="no"/>
+</group>
+<group name="reng" label="g" b="75" visible="yes">
+<group name="reng1" label="1" b="76" visible="yes">
+<s d="reng1" t="&#x6254;" b="77" visible="no"/>
+</group>
+<group name="reng2" label="2" b="78" visible="yes">
+<s d="reng2" t="&#x4ECD;" b="79" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="ri" label="i" b="80" visible="yes">
+<group name="ri4" label="4" b="81" visible="yes">
+<s d="ri4" t="&#x65E5;" b="82" visible="no"/>
+</group>
+</group>
+<group name="ro" label="o" b="83" visible="yes">
+<group name="ron" label="n" b="84" visible="yes">
+<group name="rong" label="g" b="85" visible="yes">
+<group name="rong2" label="2" b="86" visible="yes">
+<s d="rong2" t="&#x620E;" b="87" visible="no"/>
+</group>
+<group name="rong3" label="3" b="88" visible="yes">
+<s d="rong3" t="&#x5197;" b="89" visible="no"/>
+</group>
+</group>
+</group>
+<group name="rou" label="u" b="90" visible="yes">
+<group name="rou2" label="2" b="57" visible="yes">
+<s d="rou2" t="&#x63C9;" b="58" visible="no"/>
+</group>
+<group name="rou4" label="4" b="59" visible="yes">
+<s d="rou4" t="&#x8089;" b="60" visible="no"/>
+</group>
+</group>
+</group>
+<group name="ru" label="u" b="61" visible="yes">
+<group name="ru2" label="2" b="62" visible="yes">
+<s d="ru2" t="&#x8339;" b="63" visible="no"/>
+</group>
+<group name="ru3" label="3" b="64" visible="yes">
+<s d="ru3" t="&#x8FB1;" b="65" visible="no"/>
+</group>
+<group name="ru4" label="4" b="66" visible="yes">
+<s d="ru4" t="&#x5165;" b="67" visible="no"/>
+</group>
+<group name="rua" label="a" b="68" visible="yes">
+<group name="ruan" label="n" b="69" visible="yes">
+<group name="ruan3" label="3" b="70" visible="yes">
+<s d="ruan3" t="&#x8F6F;" b="71" visible="no"/>
+</group>
+</group>
+</group>
+<group name="rui" label="i" b="72" visible="yes">
+<group name="rui2" label="2" b="73" visible="yes">
+<s d="rui2" t="&#x8564;" b="74" visible="no"/>
+</group>
+<group name="rui3" label="3" b="75" visible="yes">
+<s d="rui3" t="&#x854A;" b="76" visible="no"/>
+</group>
+<group name="rui4" label="4" b="77" visible="yes">
+<s d="rui4" t="&#x745E;" b="78" visible="no"/>
+</group>
+</group>
+<group name="run" label="n" b="79" visible="yes">
+<group name="run4" label="4" b="80" visible="yes">
+<s d="run4" t="&#x95F0;" b="81" visible="no"/>
+</group>
+</group>
+<group name="ruo" label="o" b="82" visible="yes">
+<group name="ruo4" label="4" b="83" visible="yes">
+<s d="ruo4" t="&#x82E5;" b="84" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="s" label="s" b="85" visible="yes">
+<group name="sa" label="a" b="86" visible="yes">
+<group name="sa1" label="1" b="87" visible="yes">
+<s d="sa1" t="&#x6492;" b="88" visible="no"/>
+</group>
+<group name="sa3" label="3" b="89" visible="yes">
+<s d="sa3" t="&#x6D12;" b="90" visible="no"/>
+</group>
+<group name="sa4" label="4" b="57" visible="yes">
+<s d="sa4" t="&#x8428;" b="58" visible="no"/>
+</group>
+<group name="sai" label="i" b="59" visible="yes">
+<group name="sai1" label="1" b="60" visible="yes">
+<s d="sai1" t="&#x816E;" b="61" visible="no"/>
+</group>
+<group name="sai4" label="4" b="62" visible="yes">
+<s d="sai4" t="&#x585E;" b="63" visible="no"/>
+</group>
+</group>
+<group name="san" label="n" b="64" visible="yes">
+<group name="san1" label="1" b="65" visible="yes">
+<s d="san1" t="&#x4E09;" b="66" visible="no"/>
+</group>
+<group name="san3" label="3" b="67" visible="yes">
+<s d="san3" t="&#x4F1E;" b="68" visible="no"/>
+</group>
+<group name="san4" label="4" b="69" visible="yes">
+<s d="san4" t="&#x6563;" b="70" visible="no"/>
+</group>
+<group name="sang" label="g" b="71" visible="yes">
+<group name="sang1" label="1" b="72" visible="yes">
+<s d="sang1" t="&#x6851;" b="73" visible="no"/>
+</group>
+<group name="sang3" label="3" b="74" visible="yes">
+<s d="sang3" t="&#x55D3;" b="75" visible="no"/>
+</group>
+<group name="sang4" label="4" b="76" visible="yes">
+<s d="sang4" t="&#x4E27;" b="77" visible="no"/>
+</group>
+</group>
+</group>
+<group name="sao" label="o" b="78" visible="yes">
+<group name="sao1" label="1" b="79" visible="yes">
+<s d="sao1" t="&#x6414;" b="80" visible="no"/>
+</group>
+<group name="sao3" label="3" b="81" visible="yes">
+<s d="sao3" t="&#x626B;" b="82" visible="no"/>
+</group>
+<group name="sao4" label="4" b="83" visible="yes">
+<s d="sao4" t="&#x68A2;" b="84" visible="no"/>
+</group>
+</group>
+</group>
+<group name="se" label="e" b="85" visible="yes">
+<group name="se4" label="4" b="86" visible="yes">
+<s d="se4" t="&#x745F;" b="87" visible="no"/>
+</group>
+<group name="sen" label="n" b="88" visible="yes">
+<group name="sen1" label="1" b="89" visible="yes">
+<s d="sen1" t="&#x68EE;" b="90" visible="no"/>
+</group>
+<group name="seng" label="g" b="57" visible="yes">
+<group name="seng1" label="1" b="58" visible="yes">
+<s d="seng1" t="&#x50E7;" b="59" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="sh" label="h" b="60" visible="yes">
+<group name="sha" label="a" b="61" visible="yes">
+<group name="sha1" label="1" b="62" visible="yes">
+<s d="sha1" t="&#x838E;" b="63" visible="no"/>
+</group>
+<group name="sha2" label="2" b="64" visible="yes">
+<s d="sha2" t="&#x5565;" b="65" visible="no"/>
+</group>
+<group name="sha3" label="3" b="66" visible="yes">
+<s d="sha3" t="&#x50BB;" b="67" visible="no"/>
+</group>
+<group name="sha4" label="4" b="68" visible="yes">
+<s d="sha4" t="&#x6C99;" b="69" visible="no"/>
+</group>
+<group name="shai" label="i" b="70" visible="yes">
+<group name="shai1" label="1" b="71" visible="yes">
+<s d="shai1" t="&#x7B5B;" b="72" visible="no"/>
+</group>
+<group name="shai3" label="3" b="73" visible="yes">
+<s d="shai3" t="&#x8272;" b="74" visible="no"/>
+</group>
+<group name="shai4" label="4" b="75" visible="yes">
+<s d="shai4" t="&#x6652;" b="76" visible="no"/>
+</group>
+</group>
+<group name="shan" label="n" b="77" visible="yes">
+<group name="shan1" label="1" b="78" visible="yes">
+<s d="shan1" t="&#x73CA;" b="79" visible="no"/>
+</group>
+<group name="shan3" label="3" b="80" visible="yes">
+<s d="shan3" t="&#x63BA;" b="81" visible="no"/>
+</group>
+<group name="shan4" label="4" b="82" visible="yes">
+<s d="shan4" t="&#x5355;" b="83" visible="no"/>
+</group>
+<group name="shang" label="g" b="84" visible="yes">
+<group name="shang1" label="1" b="85" visible="yes">
+<s d="shang1" t="&#x5892;" b="86" visible="no"/>
+</group>
+<group name="shang3" label="3" b="87" visible="yes">
+<s d="shang3" t="&#x8D4F;" b="88" visible="no"/>
+</group>
+<group name="shang4" label="4" b="89" visible="yes">
+<s d="shang4" t="&#x4E0A;" b="90" visible="no"/>
+</group>
+<group name="shang5" label="5" b="57" visible="yes">
+<s d="shang5" t="&#x88F3;" b="58" visible="no"/>
+</group>
+</group>
+</group>
+<group name="shao" label="o" b="59" visible="yes">
+<group name="shao1" label="1" b="60" visible="yes">
+<s d="shao1" t="&#x634E;" b="61" visible="no"/>
+</group>
+<group name="shao2" label="2" b="62" visible="yes">
+<s d="shao2" t="&#x828D;" b="63" visible="no"/>
+</group>
+<group name="shao3" label="3" b="64" visible="yes">
+<s d="shao3" t="&#x5C11;" b="65" visible="no"/>
+</group>
+<group name="shao4" label="4" b="66" visible="yes">
+<s d="shao4" t="&#x7A0D;" b="67" visible="no"/>
+</group>
+</group>
+</group>
+<group name="she" label="e" b="68" visible="yes">
+<group name="she1" label="1" b="69" visible="yes">
+<s d="she1" t="&#x5962;" b="70" visible="no"/>
+</group>
+<group name="she2" label="2" b="71" visible="yes">
+<s d="she2" t="&#x86C7;" b="72" visible="no"/>
+</group>
+<group name="she3" label="3" b="73" visible="yes">
+<s d="she3" t="&#x820D;" b="74" visible="no"/>
+</group>
+<group name="she4" label="4" b="75" visible="yes">
+<s d="she4" t="&#x8D66;" b="76" visible="no"/>
+</group>
+<group name="shei" label="i" b="77" visible="yes">
+<group name="shei2" label="2" b="78" visible="yes">
+<s d="shei2" t="&#x8C01;" b="79" visible="no"/>
+</group>
+</group>
+<group name="shen" label="n" b="80" visible="yes">
+<group name="shen1" label="1" b="81" visible="yes">
+<s d="shen1" t="&#x7837;" b="82" visible="no"/>
+</group>
+<group name="shen2" label="2" b="83" visible="yes">
+<s d="shen2" t="&#x795E;" b="84" visible="no"/>
+</group>
+<group name="shen3" label="3" b="85" visible="yes">
+<s d="shen3" t="&#x6C88;" b="86" visible="no"/>
+</group>
+<group name="shen4" label="4" b="87" visible="yes">
+<s d="shen4" t="&#x751A;" b="88" visible="no"/>
+</group>
+<group name="sheng" label="g" b="89" visible="yes">
+<group name="sheng1" label="1" b="90" visible="yes">
+<s d="sheng1" t="&#x58F0;" b="57" visible="no"/>
+</group>
+<group name="sheng2" label="2" b="58" visible="yes">
+<s d="sheng2" t="&#x7EF3;" b="59" visible="no"/>
+</group>
+<group name="sheng3" label="3" b="60" visible="yes">
+<s d="sheng3" t="&#x7701;" b="61" visible="no"/>
+</group>
+<group name="sheng4" label="4" b="62" visible="yes">
+<s d="sheng4" t="&#x4E58;" b="63" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="shi" label="i" b="64" visible="yes">
+<group name="shi1" label="1" b="65" visible="yes">
+<s d="shi1" t="&#x5E08;" b="66" visible="no"/>
+</group>
+<group name="shi2" label="2" b="67" visible="yes">
+<s d="shi2" t="&#x5341;" b="68" visible="no"/>
+</group>
+<group name="shi3" label="3" b="69" visible="yes">
+<s d="shi3" t="&#x53F2;" b="70" visible="no"/>
+</group>
+<group name="shi4" label="4" b="71" visible="yes">
+<s d="shi4" t="&#x5F0F;" b="72" visible="no"/>
+</group>
+<group name="shi5" label="5" b="73" visible="yes">
+<s d="shi5" t="&#x5319;" b="74" visible="no"/>
+</group>
+</group>
+<group name="sho" label="o" b="75" visible="yes">
+<group name="shou" label="u" b="76" visible="yes">
+<group name="shou1" label="1" b="77" visible="yes">
+<s d="shou1" t="&#x6536;" b="78" visible="no"/>
+</group>
+<group name="shou2" label="2" b="79" visible="yes">
+<s d="shou2" t="&#x719F;" b="80" visible="no"/>
+</group>
+<group name="shou3" label="3" b="81" visible="yes">
+<s d="shou3" t="&#x624B;" b="82" visible="no"/>
+</group>
+<group name="shou4" label="4" b="83" visible="yes">
+<s d="shou4" t="&#x5BFF;" b="84" visible="no"/>
+</group>
+</group>
+</group>
+<group name="shu" label="u" b="85" visible="yes">
+<group name="shu1" label="1" b="86" visible="yes">
+<s d="shu1" t="&#x852C;" b="87" visible="no"/>
+</group>
+<group name="shu2" label="2" b="88" visible="yes">
+<s d="shu2" t="&#x8D4E;" b="89" visible="no"/>
+</group>
+<group name="shu3" label="3" b="90" visible="yes">
+<s d="shu3" t="&#x85AF;" b="57" visible="no"/>
+</group>
+<group name="shu4" label="4" b="58" visible="yes">
+<s d="shu4" t="&#x672F;" b="59" visible="no"/>
+</group>
+<group name="shua" label="a" b="60" visible="yes">
+<group name="shua1" label="1" b="61" visible="yes">
+<s d="shua1" t="&#x5237;" b="62" visible="no"/>
+</group>
+<group name="shua3" label="3" b="63" visible="yes">
+<s d="shua3" t="&#x800D;" b="64" visible="no"/>
+</group>
+<group name="shua4" label="4" b="65" visible="yes">
+<s d="shua4" t="&#x3821;" b="66" visible="no"/>
+</group>
+<group name="shuai" label="i" b="67" visible="yes">
+<group name="shuai1" label="1" b="68" visible="yes">
+<s d="shuai1" t="&#x6454;" b="69" visible="no"/>
+</group>
+<group name="shuai3" label="3" b="70" visible="yes">
+<s d="shuai3" t="&#x7529;" b="71" visible="no"/>
+</group>
+<group name="shuai4" label="4" b="72" visible="yes">
+<s d="shuai4" t="&#x7387;" b="73" visible="no"/>
+</group>
+</group>
+<group name="shuan" label="n" b="74" visible="yes">
+<group name="shuan1" label="1" b="75" visible="yes">
+<s d="shuan1" t="&#x6813;" b="76" visible="no"/>
+</group>
+<group name="shuan4" label="4" b="77" visible="yes">
+<s d="shuan4" t="&#x6DAE;" b="78" visible="no"/>
+</group>
+<group name="shuang" label="g" b="79" visible="yes">
+<group name="shuang1" label="1" b="80" visible="yes">
+<s d="shuang1" t="&#x971C;" b="81" visible="no"/>
+</group>
+<group name="shuang3" label="3" b="82" visible="yes">
+<s d="shuang3" t="&#x723D;" b="83" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="shui" label="i" b="84" visible="yes">
+<group name="shui2" label="2" b="85" visible="yes">
+<s d="shui2" t="&#x3822;" b="86" visible="no"/>
+</group>
+<group name="shui3" label="3" b="87" visible="yes">
+<s d="shui3" t="&#x6C34;" b="88" visible="no"/>
+</group>
+<group name="shui4" label="4" b="89" visible="yes">
+<s d="shui4" t="&#x7761;" b="90" visible="no"/>
+</group>
+</group>
+<group name="shun" label="n" b="57" visible="yes">
+<group name="shun3" label="3" b="58" visible="yes">
+<s d="shun3" t="&#x542E;" b="59" visible="no"/>
+</group>
+<group name="shun4" label="4" b="60" visible="yes">
+<s d="shun4" t="&#x77AC;" b="61" visible="no"/>
+</group>
+</group>
+<group name="shuo" label="o" b="62" visible="yes">
+<group name="shuo1" label="1" b="63" visible="yes">
+<s d="shuo1" t="&#x8BF4;" b="64" visible="no"/>
+</group>
+<group name="shuo4" label="4" b="65" visible="yes">
+<s d="shuo4" t="&#x6570;" b="66" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="si" label="i" b="67" visible="yes">
+<group name="si1" label="1" b="68" visible="yes">
+<s d="si1" t="&#x65AF;" b="69" visible="no"/>
+</group>
+<group name="si3" label="3" b="70" visible="yes">
+<s d="si3" t="&#x6B7B;" b="71" visible="no"/>
+</group>
+<group name="si4" label="4" b="72" visible="yes">
+<s d="si4" t="&#x98DF;" b="73" visible="no"/>
+</group>
+</group>
+<group name="so" label="o" b="74" visible="yes">
+<group name="son" label="n" b="75" visible="yes">
+<group name="song" label="g" b="76" visible="yes">
+<group name="song1" label="1" b="77" visible="yes">
+<s d="song1" t="&#x677E;" b="78" visible="no"/>
+</group>
+<group name="song3" label="3" b="79" visible="yes">
+<s d="song3" t="&#x8038;" b="80" visible="no"/>
+</group>
+<group name="song4" label="4" b="81" visible="yes">
+<s d="song4" t="&#x9882;" b="82" visible="no"/>
+</group>
+</group>
+</group>
+<group name="sou" label="u" b="83" visible="yes">
+<group name="sou1" label="1" b="84" visible="yes">
+<s d="sou1" t="&#x641C;" b="85" visible="no"/>
+</group>
+<group name="sou3" label="3" b="86" visible="yes">
+<s d="sou3" t="&#x64DE;" b="87" visible="no"/>
+</group>
+<group name="sou4" label="4" b="88" visible="yes">
+<s d="sou4" t="&#x55FD;" b="89" visible="no"/>
+</group>
+</group>
+</group>
+<group name="su" label="u" b="90" visible="yes">
+<group name="su1" label="1" b="57" visible="yes">
+<s d="su1" t="&#x82CF;" b="58" visible="no"/>
+</group>
+<group name="su2" label="2" b="59" visible="yes">
+<s d="su2" t="&#x4FD7;" b="60" visible="no"/>
+</group>
+<group name="su4" label="4" b="61" visible="yes">
+<s d="su4" t="&#x7D20;" b="62" visible="no"/>
+</group>
+<group name="sua" label="a" b="63" visible="yes">
+<group name="suan" label="n" b="64" visible="yes">
+<group name="suan1" label="1" b="65" visible="yes">
+<s d="suan1" t="&#x9178;" b="66" visible="no"/>
+</group>
+<group name="suan4" label="4" b="67" visible="yes">
+<s d="suan4" t="&#x849C;" b="68" visible="no"/>
+</group>
+</group>
+</group>
+<group name="sui" label="i" b="69" visible="yes">
+<group name="sui1" label="1" b="70" visible="yes">
+<s d="sui1" t="&#x5C3F;" b="71" visible="no"/>
+</group>
+<group name="sui2" label="2" b="72" visible="yes">
+<s d="sui2" t="&#x968B;" b="73" visible="no"/>
+</group>
+<group name="sui3" label="3" b="74" visible="yes">
+<s d="sui3" t="&#x9AD3;" b="75" visible="no"/>
+</group>
+<group name="sui4" label="4" b="76" visible="yes">
+<s d="sui4" t="&#x788E;" b="77" visible="no"/>
+</group>
+</group>
+<group name="sun" label="n" b="78" visible="yes">
+<group name="sun1" label="1" b="79" visible="yes">
+<s d="sun1" t="&#x5B59;" b="80" visible="no"/>
+</group>
+<group name="sun3" label="3" b="81" visible="yes">
+<s d="sun3" t="&#x635F;" b="82" visible="no"/>
+</group>
+</group>
+<group name="suo" label="o" b="83" visible="yes">
+<group name="suo1" label="1" b="84" visible="yes">
+<s d="suo1" t="&#x84D1;" b="85" visible="no"/>
+</group>
+<group name="suo3" label="3" b="86" visible="yes">
+<s d="suo3" t="&#x7410;" b="87" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="t" label="t" b="88" visible="yes">
+<group name="ta" label="a" b="89" visible="yes">
+<group name="ta1" label="1" b="90" visible="yes">
+<s d="ta1" t="&#x584C;" b="57" visible="no"/>
+</group>
+<group name="ta3" label="3" b="58" visible="yes">
+<s d="ta3" t="&#x5854;" b="59" visible="no"/>
+</group>
+<group name="ta4" label="4" b="60" visible="yes">
+<s d="ta4" t="&#x631E;" b="61" visible="no"/>
+</group>
+<group name="tai" label="i" b="62" visible="yes">
+<group name="tai1" label="1" b="63" visible="yes">
+<s d="tai1" t="&#x80CE;" b="64" visible="no"/>
+</group>
+<group name="tai2" label="2" b="65" visible="yes">
+<s d="tai2" t="&#x82D4;" b="66" visible="no"/>
+</group>
+<group name="tai4" label="4" b="67" visible="yes">
+<s d="tai4" t="&#x6CF0;" b="68" visible="no"/>
+</group>
+</group>
+<group name="tan" label="n" b="69" visible="yes">
+<group name="tan1" label="1" b="70" visible="yes">
+<s d="tan1" t="&#x574D;" b="71" visible="no"/>
+</group>
+<group name="tan2" label="2" b="72" visible="yes">
+<s d="tan2" t="&#x5F39;" b="73" visible="no"/>
+</group>
+<group name="tan3" label="3" b="74" visible="yes">
+<s d="tan3" t="&#x5766;" b="75" visible="no"/>
+</group>
+<group name="tan4" label="4" b="76" visible="yes">
+<s d="tan4" t="&#x78B3;" b="77" visible="no"/>
+</group>
+<group name="tang" label="g" b="78" visible="yes">
+<group name="tang1" label="1" b="79" visible="yes">
+<s d="tang1" t="&#x6C64;" b="80" visible="no"/>
+</group>
+<group name="tang2" label="2" b="81" visible="yes">
+<s d="tang2" t="&#x5858;" b="82" visible="no"/>
+</group>
+<group name="tang3" label="3" b="83" visible="yes">
+<s d="tang3" t="&#x655E;" b="84" visible="no"/>
+</group>
+<group name="tang4" label="4" b="85" visible="yes">
+<s d="tang4" t="&#x8D9F;" b="86" visible="no"/>
+</group>
+</group>
+</group>
+<group name="tao" label="o" b="87" visible="yes">
+<group name="tao1" label="1" b="88" visible="yes">
+<s d="tao1" t="&#x638F;" b="89" visible="no"/>
+</group>
+<group name="tao2" label="2" b="90" visible="yes">
+<s d="tao2" t="&#x8404;" b="57" visible="no"/>
+</group>
+<group name="tao3" label="3" b="58" visible="yes">
+<s d="tao3" t="&#x8BA8;" b="59" visible="no"/>
+</group>
+<group name="tao4" label="4" b="60" visible="yes">
+<s d="tao4" t="&#x5957;" b="61" visible="no"/>
+</group>
+</group>
+</group>
+<group name="te" label="e" b="62" visible="yes">
+<group name="te4" label="4" b="63" visible="yes">
+<s d="te4" t="&#x7279;" b="64" visible="no"/>
+</group>
+<group name="ten" label="n" b="65" visible="yes">
+<group name="teng" label="g" b="66" visible="yes">
+<group name="teng2" label="2" b="67" visible="yes">
+<s d="teng2" t="&#x85E4;" b="68" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="ti" label="i" b="69" visible="yes">
+<group name="ti1" label="1" b="70" visible="yes">
+<s d="ti1" t="&#x68AF;" b="71" visible="no"/>
+</group>
+<group name="ti2" label="2" b="72" visible="yes">
+<s d="ti2" t="&#x63D0;" b="73" visible="no"/>
+</group>
+<group name="ti3" label="3" b="74" visible="yes">
+<s d="ti3" t="&#x4F53;" b="75" visible="no"/>
+</group>
+<group name="ti4" label="4" b="76" visible="yes">
+<s d="ti4" t="&#x66FF;" b="77" visible="no"/>
+</group>
+<group name="tia" label="a" b="78" visible="yes">
+<group name="tian" label="n" b="79" visible="yes">
+<group name="tian1" label="1" b="80" visible="yes">
+<s d="tian1" t="&#x5929;" b="81" visible="no"/>
+</group>
+<group name="tian2" label="2" b="82" visible="yes">
+<s d="tian2" t="&#x4F43;" b="83" visible="no"/>
+</group>
+<group name="tian3" label="3" b="84" visible="yes">
+<s d="tian3" t="&#x8214;" b="85" visible="no"/>
+</group>
+<group name="tian4" label="4" b="86" visible="yes">
+<s d="tian4" t="&#x63AD;" b="87" visible="no"/>
+</group>
+</group>
+<group name="tiao" label="o" b="88" visible="yes">
+<group name="tiao1" label="1" b="89" visible="yes">
+<s d="tiao1" t="&#x6311;" b="90" visible="no"/>
+</group>
+<group name="tiao2" label="2" b="57" visible="yes">
+<s d="tiao2" t="&#x8C03;" b="58" visible="no"/>
+</group>
+<group name="tiao3" label="3" b="59" visible="yes">
+<s d="tiao3" t="&#x7A95;" b="60" visible="no"/>
+</group>
+<group name="tiao4" label="4" b="61" visible="yes">
+<s d="tiao4" t="&#x773A;" b="62" visible="no"/>
+</group>
+</group>
+</group>
+<group name="tie" label="e" b="63" visible="yes">
+<group name="tie1" label="1" b="64" visible="yes">
+<s d="tie1" t="&#x8D34;" b="65" visible="no"/>
+</group>
+<group name="tie3" label="3" b="66" visible="yes">
+<s d="tie3" t="&#x94C1;" b="67" visible="no"/>
+</group>
+<group name="tie4" label="4" b="68" visible="yes">
+<s d="tie4" t="&#x5E16;" b="69" visible="no"/>
+</group>
+</group>
+<group name="tin" label="n" b="70" visible="yes">
+<group name="ting" label="g" b="71" visible="yes">
+<group name="ting1" label="1" b="72" visible="yes">
+<s d="ting1" t="&#x5385;" b="73" visible="no"/>
+</group>
+<group name="ting2" label="2" b="74" visible="yes">
+<s d="ting2" t="&#x5EF7;" b="75" visible="no"/>
+</group>
+<group name="ting3" label="3" b="76" visible="yes">
+<s d="ting3" t="&#x633A;" b="77" visible="no"/>
+</group>
+<group name="ting4" label="4" b="78" visible="yes">
+<s d="ting4" t="&#x6883;" b="79" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="to" label="o" b="80" visible="yes">
+<group name="ton" label="n" b="81" visible="yes">
+<group name="tong" label="g" b="82" visible="yes">
+<group name="tong1" label="1" b="83" visible="yes">
+<s d="tong1" t="&#x901A;" b="84" visible="no"/>
+</group>
+<group name="tong2" label="2" b="85" visible="yes">
+<s d="tong2" t="&#x4F97;" b="86" visible="no"/>
+</group>
+<group name="tong3" label="3" b="87" visible="yes">
+<s d="tong3" t="&#x6876;" b="88" visible="no"/>
+</group>
+<group name="tong4" label="4" b="89" visible="yes">
+<s d="tong4" t="&#x540C;" b="90" visible="no"/>
+</group>
+</group>
+</group>
+<group name="tou" label="u" b="57" visible="yes">
+<group name="tou1" label="1" b="58" visible="yes">
+<s d="tou1" t="&#x5077;" b="59" visible="no"/>
+</group>
+<group name="tou2" label="2" b="60" visible="yes">
+<s d="tou2" t="&#x6295;" b="61" visible="no"/>
+</group>
+<group name="tou3" label="3" b="62" visible="yes">
+<s d="tou3" t="&#x94AD;" b="63" visible="no"/>
+</group>
+<group name="tou4" label="4" b="64" visible="yes">
+<s d="tou4" t="&#x900F;" b="65" visible="no"/>
+</group>
+</group>
+</group>
+<group name="tu" label="u" b="66" visible="yes">
+<group name="tu1" label="1" b="67" visible="yes">
+<s d="tu1" t="&#x51F8;" b="68" visible="no"/>
+</group>
+<group name="tu2" label="2" b="69" visible="yes">
+<s d="tu2" t="&#x56FE;" b="70" visible="no"/>
+</group>
+<group name="tu3" label="3" b="71" visible="yes">
+<s d="tu3" t="&#x571F;" b="72" visible="no"/>
+</group>
+<group name="tu4" label="4" b="73" visible="yes">
+<s d="tu4" t="&#x5410;" b="74" visible="no"/>
+</group>
+<group name="tua" label="a" b="75" visible="yes">
+<group name="tuan" label="n" b="76" visible="yes">
+<group name="tuan1" label="1" b="77" visible="yes">
+<s d="tuan1" t="&#x6E4D;" b="78" visible="no"/>
+</group>
+<group name="tuan2" label="2" b="79" visible="yes">
+<s d="tuan2" t="&#x56E2;" b="80" visible="no"/>
+</group>
+<group name="tuan3" label="3" b="81" visible="yes">
+<s d="tuan3" t="&#x7583;" b="82" visible="no"/>
+</group>
+<group name="tuan4" label="4" b="83" visible="yes">
+<s d="tuan4" t="&#x5F56;" b="84" visible="no"/>
+</group>
+</group>
+</group>
+<group name="tui" label="i" b="85" visible="yes">
+<group name="tui1" label="1" b="86" visible="yes">
+<s d="tui1" t="&#x63A8;" b="87" visible="no"/>
+</group>
+<group name="tui2" label="2" b="88" visible="yes">
+<s d="tui2" t="&#x9893;" b="89" visible="no"/>
+</group>
+<group name="tui3" label="3" b="90" visible="yes">
+<s d="tui3" t="&#x817F;" b="57" visible="no"/>
+</group>
+<group name="tui4" label="4" b="58" visible="yes">
+<s d="tui4" t="&#x8715;" b="59" visible="no"/>
+</group>
+</group>
+<group name="tun" label="n" b="60" visible="yes">
+<group name="tun1" label="1" b="61" visible="yes">
+<s d="tun1" t="&#x541E;" b="62" visible="no"/>
+</group>
+<group name="tun2" label="2" b="63" visible="yes">
+<s d="tun2" t="&#x56E4;" b="64" visible="no"/>
+</group>
+<group name="tun3" label="3" b="65" visible="yes">
+<s d="tun3" t="&#x6C3D;" b="66" visible="no"/>
+</group>
+<group name="tun4" label="4" b="67" visible="yes">
+<s d="tun4" t="&#x892A;" b="68" visible="no"/>
+</group>
+</group>
+<group name="tuo" label="o" b="69" visible="yes">
+<group name="tuo1" label="1" b="70" visible="yes">
+<s d="tuo1" t="&#x62D6;" b="71" visible="no"/>
+</group>
+<group name="tuo2" label="2" b="72" visible="yes">
+<s d="tuo2" t="&#x9E35;" b="73" visible="no"/>
+</group>
+<group name="tuo3" label="3" b="74" visible="yes">
+<s d="tuo3" t="&#x692D;" b="75" visible="no"/>
+</group>
+<group name="tuo4" label="4" b="76" visible="yes">
+<s d="tuo4" t="&#x9B44;" b="77" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="w" label="w" b="78" visible="yes">
+<group name="wa" label="a" b="79" visible="yes">
+<group name="wa1" label="1" b="80" visible="yes">
+<s d="wa1" t="&#x6316;" b="81" visible="no"/>
+</group>
+<group name="wa2" label="2" b="82" visible="yes">
+<s d="wa2" t="&#x5A03;" b="83" visible="no"/>
+</group>
+<group name="wa3" label="3" b="84" visible="yes">
+<s d="wa3" t="&#x74E6;" b="85" visible="no"/>
+</group>
+<group name="wa4" label="4" b="86" visible="yes">
+<s d="wa4" t="&#x889C;" b="87" visible="no"/>
+</group>
+<group name="wa5" label="5" b="88" visible="yes">
+<s d="wa5" t="&#x54C7;" b="89" visible="no"/>
+</group>
+<group name="wai" label="i" b="90" visible="yes">
+<group name="wai1" label="1" b="57" visible="yes">
+<s d="wai1" t="&#x6B6A;" b="58" visible="no"/>
+</group>
+<group name="wai3" label="3" b="59" visible="yes">
+<s d="wai3" t="&#x5D34;" b="60" visible="no"/>
+</group>
+<group name="wai4" label="4" b="61" visible="yes">
+<s d="wai4" t="&#x5916;" b="62" visible="no"/>
+</group>
+</group>
+<group name="wan" label="n" b="63" visible="yes">
+<group name="wan1" label="1" b="64" visible="yes">
+<s d="wan1" t="&#x8C4C;" b="65" visible="no"/>
+</group>
+<group name="wan2" label="2" b="66" visible="yes">
+<s d="wan2" t="&#x73A9;" b="67" visible="no"/>
+</group>
+<group name="wan3" label="3" b="68" visible="yes">
+<s d="wan3" t="&#x7897;" b="69" visible="no"/>
+</group>
+<group name="wan4" label="4" b="70" visible="yes">
+<s d="wan4" t="&#x4E07;" b="71" visible="no"/>
+</group>
+<group name="wang" label="g" b="72" visible="yes">
+<group name="wang1" label="1" b="73" visible="yes">
+<s d="wang1" t="&#x6C6A;" b="74" visible="no"/>
+</group>
+<group name="wang2" label="2" b="75" visible="yes">
+<s d="wang2" t="&#x738B;" b="76" visible="no"/>
+</group>
+<group name="wang3" label="3" b="77" visible="yes">
+<s d="wang3" t="&#x6789;" b="78" visible="no"/>
+</group>
+<group name="wang4" label="4" b="79" visible="yes">
+<s d="wang4" t="&#x65FA;" b="80" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="we" label="e" b="81" visible="yes">
+<group name="wei" label="i" b="82" visible="yes">
+<group name="wei1" label="1" b="83" visible="yes">
+<s d="wei1" t="&#x5A01;" b="84" visible="no"/>
+</group>
+<group name="wei2" label="2" b="85" visible="yes">
+<s d="wei2" t="&#x97E6;" b="86" visible="no"/>
+</group>
+<group name="wei3" label="3" b="87" visible="yes">
+<s d="wei3" t="&#x82C7;" b="88" visible="no"/>
+</group>
+<group name="wei4" label="4" b="89" visible="yes">
+<s d="wei4" t="&#x4E3A;" b="90" visible="no"/>
+</group>
+</group>
+<group name="wen" label="n" b="57" visible="yes">
+<group name="wen1" label="1" b="58" visible="yes">
+<s d="wen1" t="&#x761F;" b="59" visible="no"/>
+</group>
+<group name="wen2" label="2" b="60" visible="yes">
+<s d="wen2" t="&#x868A;" b="61" visible="no"/>
+</group>
+<group name="wen3" label="3" b="62" visible="yes">
+<s d="wen3" t="&#x543B;" b="63" visible="no"/>
+</group>
+<group name="wen4" label="4" b="64" visible="yes">
+<s d="wen4" t="&#x7EB9;" b="65" visible="no"/>
+</group>
+<group name="weng" label="g" b="66" visible="yes">
+<group name="weng1" label="1" b="67" visible="yes">
+<s d="weng1" t="&#x55E1;" b="68" visible="no"/>
+</group>
+<group name="weng3" label="3" b="69" visible="yes">
+<s d="weng3" t="&#x84CA;" b="70" visible="no"/>
+</group>
+<group name="weng4" label="4" b="71" visible="yes">
+<s d="weng4" t="&#x74EE;" b="72" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="wo" label="o" b="73" visible="yes">
+<group name="wo1" label="1" b="74" visible="yes">
+<s d="wo1" t="&#x631D;" b="75" visible="no"/>
+</group>
+<group name="wo3" label="3" b="76" visible="yes">
+<s d="wo3" t="&#x6211;" b="77" visible="no"/>
+</group>
+<group name="wo4" label="4" b="78" visible="yes">
+<s d="wo4" t="&#x65A1;" b="79" visible="no"/>
+</group>
+</group>
+<group name="wu" label="u" b="80" visible="yes">
+<group name="wu1" label="1" b="81" visible="yes">
+<s d="wu1" t="&#x5DEB;" b="82" visible="no"/>
+</group>
+<group name="wu2" label="2" b="83" visible="yes">
+<s d="wu2" t="&#x4EA1;" b="84" visible="no"/>
+</group>
+<group name="wu3" label="3" b="85" visible="yes">
+<s d="wu3" t="&#x6B66;" b="86" visible="no"/>
+</group>
+<group name="wu4" label="4" b="87" visible="yes">
+<s d="wu4" t="&#x575E;" b="88" visible="no"/>
+</group>
+</group>
+</group>
+<group name="x" label="x" b="89" visible="yes">
+<group name="xi" label="i" b="90" visible="yes">
+<group name="xi1" label="1" b="57" visible="yes">
+<s d="xi1" t="&#x814A;" b="58" visible="no"/>
+</group>
+<group name="xi2" label="2" b="59" visible="yes">
+<s d="xi2" t="&#x6A84;" b="60" visible="no"/>
+</group>
+<group name="xi3" label="3" b="61" visible="yes">
+<s d="xi3" t="&#x559C;" b="62" visible="no"/>
+</group>
+<group name="xi4" label="4" b="63" visible="yes">
+<s d="xi4" t="&#x7CFB;" b="64" visible="no"/>
+</group>
+<group name="xia" label="a" b="65" visible="yes">
+<group name="xia1" label="1" b="66" visible="yes">
+<s d="xia1" t="&#x778E;" b="67" visible="no"/>
+</group>
+<group name="xia2" label="2" b="68" visible="yes">
+<s d="xia2" t="&#x5323;" b="69" visible="no"/>
+</group>
+<group name="xia4" label="4" b="70" visible="yes">
+<s d="xia4" t="&#x552C;" b="71" visible="no"/>
+</group>
+<group name="xian" label="n" b="72" visible="yes">
+<group name="xian1" label="1" b="73" visible="yes">
+<s d="xian1" t="&#x6380;" b="74" visible="no"/>
+</group>
+<group name="xian2" label="2" b="75" visible="yes">
+<s d="xian2" t="&#x54B8;" b="76" visible="no"/>
+</group>
+<group name="xian3" label="3" b="77" visible="yes">
+<s d="xian3" t="&#x94E3;" b="78" visible="no"/>
+</group>
+<group name="xian4" label="4" b="79" visible="yes">
+<s d="xian4" t="&#x89C1;" b="80" visible="no"/>
+</group>
+<group name="xiang" label="g" b="81" visible="yes">
+<group name="xiang1" label="1" b="82" visible="yes">
+<s d="xiang1" t="&#x76F8;" b="83" visible="no"/>
+</group>
+<group name="xiang2" label="2" b="84" visible="yes">
+<s d="xiang2" t="&#x964D;" b="85" visible="no"/>
+</group>
+<group name="xiang3" label="3" b="86" visible="yes">
+<s d="xiang3" t="&#x60F3;" b="87" visible="no"/>
+</group>
+<group name="xiang4" label="4" b="88" visible="yes">
+<s d="xiang4" t="&#x9879;" b="89" visible="no"/>
+</group>
+</group>
+</group>
+<group name="xiao" label="o" b="90" visible="yes">
+<group name="xiao1" label="1" b="57" visible="yes">
+<s d="xiao1" t="&#x8427;" b="58" visible="no"/>
+</group>
+<group name="xiao2" label="2" b="59" visible="yes">
+<s d="xiao2" t="&#x6DC6;" b="60" visible="no"/>
+</group>
+<group name="xiao3" label="3" b="61" visible="yes">
+<s d="xiao3" t="&#x6653;" b="62" visible="no"/>
+</group>
+<group name="xiao4" label="4" b="63" visible="yes">
+<s d="xiao4" t="&#x54EE;" b="64" visible="no"/>
+</group>
+</group>
+</group>
+<group name="xie" label="e" b="65" visible="yes">
+<group name="xie1" label="1" b="66" visible="yes">
+<s d="xie1" t="&#x6954;" b="67" visible="no"/>
+</group>
+<group name="xie2" label="2" b="68" visible="yes">
+<s d="xie2" t="&#x978B;" b="69" visible="no"/>
+</group>
+<group name="xie3" label="3" b="70" visible="yes">
+<s d="xie3" t="&#x5199;" b="71" visible="no"/>
+</group>
+<group name="xie4" label="4" b="72" visible="yes">
+<s d="xie4" t="&#x6CE3;" b="73" visible="no"/>
+</group>
+</group>
+<group name="xin" label="n" b="74" visible="yes">
+<group name="xin1" label="1" b="75" visible="yes">
+<s d="xin1" t="&#x85AA;" b="76" visible="no"/>
+</group>
+<group name="xin2" label="2" b="77" visible="yes">
+<s d="xin2" t="&#x9561;" b="78" visible="no"/>
+</group>
+<group name="xin4" label="4" b="79" visible="yes">
+<s d="xin4" t="&#x82AF;" b="80" visible="no"/>
+</group>
+<group name="xing" label="g" b="81" visible="yes">
+<group name="xing1" label="1" b="82" visible="yes">
+<s d="xing1" t="&#x661F;" b="83" visible="no"/>
+</group>
+<group name="xing2" label="2" b="84" visible="yes">
+<s d="xing2" t="&#x5211;" b="85" visible="no"/>
+</group>
+<group name="xing3" label="3" b="86" visible="yes">
+<s d="xing3" t="&#x9192;" b="87" visible="no"/>
+</group>
+<group name="xing4" label="4" b="88" visible="yes">
+<s d="xing4" t="&#x5174;" b="89" visible="no"/>
+</group>
+</group>
+</group>
+<group name="xio" label="o" b="90" visible="yes">
+<group name="xion" label="n" b="57" visible="yes">
+<group name="xiong" label="g" b="58" visible="yes">
+<group name="xiong1" label="1" b="59" visible="yes">
+<s d="xiong1" t="&#x5144;" b="60" visible="no"/>
+</group>
+<group name="xiong2" label="2" b="61" visible="yes">
+<s d="xiong2" t="&#x96C4;" b="62" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="xiu" label="u" b="63" visible="yes">
+<group name="xiu1" label="1" b="64" visible="yes">
+<s d="xiu1" t="&#x4F11;" b="65" visible="no"/>
+</group>
+<group name="xiu3" label="3" b="66" visible="yes">
+<s d="xiu3" t="&#x5BBF;" b="67" visible="no"/>
+</group>
+<group name="xiu4" label="4" b="68" visible="yes">
+<s d="xiu4" t="&#x81ED;" b="69" visible="no"/>
+</group>
+</group>
+</group>
+<group name="xu" label="u" b="70" visible="yes">
+<group name="xu1" label="1" b="71" visible="yes">
+<s d="xu1" t="&#x589F;" b="72" visible="no"/>
+</group>
+<group name="xu2" label="2" b="73" visible="yes">
+<s d="xu2" t="&#x5F90;" b="74" visible="no"/>
+</group>
+<group name="xu3" label="3" b="75" visible="yes">
+<s d="xu3" t="&#x8BB8;" b="76" visible="no"/>
+</group>
+<group name="xu4" label="4" b="77" visible="yes">
+<s d="xu4" t="&#x84C4;" b="78" visible="no"/>
+</group>
+<group name="xu5" label="5" b="79" visible="yes">
+<s d="xu5" t="&#x84FF;" b="80" visible="no"/>
+</group>
+<group name="xua" label="a" b="81" visible="yes">
+<group name="xuan" label="n" b="82" visible="yes">
+<group name="xuan1" label="1" b="83" visible="yes">
+<s d="xuan1" t="&#x8F69;" b="84" visible="no"/>
+</group>
+<group name="xuan2" label="2" b="85" visible="yes">
+<s d="xuan2" t="&#x60AC;" b="86" visible="no"/>
+</group>
+<group name="xuan3" label="3" b="87" visible="yes">
+<s d="xuan3" t="&#x9009;" b="88" visible="no"/>
+</group>
+<group name="xuan4" label="4" b="89" visible="yes">
+<s d="xuan4" t="&#x65CB;" b="90" visible="no"/>
+</group>
+</group>
+</group>
+<group name="xue" label="e" b="57" visible="yes">
+<group name="xue1" label="1" b="58" visible="yes">
+<s d="xue1" t="&#x524A;" b="59" visible="no"/>
+</group>
+<group name="xue2" label="2" b="60" visible="yes">
+<s d="xue2" t="&#x5B66;" b="61" visible="no"/>
+</group>
+<group name="xue3" label="3" b="62" visible="yes">
+<s d="xue3" t="&#x96EA;" b="63" visible="no"/>
+</group>
+<group name="xue4" label="4" b="64" visible="yes">
+<s d="xue4" t="&#x8840;" b="65" visible="no"/>
+</group>
+</group>
+<group name="xun" label="n" b="66" visible="yes">
+<group name="xun1" label="1" b="67" visible="yes">
+<s d="xun1" t="&#x52CB;" b="68" visible="no"/>
+</group>
+<group name="xun2" label="2" b="69" visible="yes">
+<s d="xun2" t="&#x5FAA;" b="70" visible="no"/>
+</group>
+<group name="xun4" label="4" b="71" visible="yes">
+<s d="xun4" t="&#x6D5A;" b="72" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="y" label="y" b="73" visible="yes">
+<group name="ya" label="a" b="74" visible="yes">
+<group name="ya1" label="1" b="75" visible="yes">
+<s d="ya1" t="&#x538B;" b="76" visible="no"/>
+</group>
+<group name="ya2" label="2" b="77" visible="yes">
+<s d="ya2" t="&#x82BD;" b="78" visible="no"/>
+</group>
+<group name="ya3" label="3" b="79" visible="yes">
+<s d="ya3" t="&#x96C5;" b="80" visible="no"/>
+</group>
+<group name="ya4" label="4" b="81" visible="yes">
+<s d="ya4" t="&#x4E9A;" b="82" visible="no"/>
+</group>
+<group name="ya5" label="5" b="83" visible="yes">
+<s d="ya5" t="&#x5440;" b="84" visible="no"/>
+</group>
+<group name="yan" label="n" b="85" visible="yes">
+<group name="yan1" label="1" b="86" visible="yes">
+<s d="yan1" t="&#x7109;" b="87" visible="no"/>
+</group>
+<group name="yan2" label="2" b="88" visible="yes">
+<s d="yan2" t="&#x94C5;" b="89" visible="no"/>
+</group>
+<group name="yan3" label="3" b="90" visible="yes">
+<s d="yan3" t="&#x5944;" b="57" visible="no"/>
+</group>
+<group name="yan4" label="4" b="58" visible="yes">
+<s d="yan4" t="&#x54BD;" b="59" visible="no"/>
+</group>
+<group name="yang" label="g" b="60" visible="yes">
+<group name="yang1" label="1" b="61" visible="yes">
+<s d="yang1" t="&#x6B83;" b="62" visible="no"/>
+</group>
+<group name="yang2" label="2" b="63" visible="yes">
+<s d="yang2" t="&#x6768;" b="64" visible="no"/>
+</group>
+<group name="yang3" label="3" b="65" visible="yes">
+<s d="yang3" t="&#x6C27;" b="66" visible="no"/>
+</group>
+<group name="yang4" label="4" b="67" visible="yes">
+<s d="yang4" t="&#x6837;" b="68" visible="no"/>
+</group>
+</group>
+</group>
+<group name="yao" label="o" b="69" visible="yes">
+<group name="yao1" label="1" b="70" visible="yes">
+<s d="yao1" t="&#x9080;" b="71" visible="no"/>
+</group>
+<group name="yao2" label="2" b="72" visible="yes">
+<s d="yao2" t="&#x4FA5;" b="73" visible="no"/>
+</group>
+<group name="yao3" label="3" b="74" visible="yes">
+<s d="yao3" t="&#x54AC;" b="75" visible="no"/>
+</group>
+<group name="yao4" label="4" b="76" visible="yes">
+<s d="yao4" t="&#x759F;" b="77" visible="no"/>
+</group>
+</group>
+</group>
+<group name="ye" label="e" b="78" visible="yes">
+<group name="ye1" label="1" b="79" visible="yes">
+<s d="ye1" t="&#x6930;" b="80" visible="no"/>
+</group>
+<group name="ye2" label="2" b="81" visible="yes">
+<s d="ye2" t="&#x90AA;" b="82" visible="no"/>
+</group>
+<group name="ye3" label="3" b="83" visible="yes">
+<s d="ye3" t="&#x91CE;" b="84" visible="no"/>
+</group>
+<group name="ye4" label="4" b="85" visible="yes">
+<s d="ye4" t="&#x9875;" b="86" visible="no"/>
+</group>
+</group>
+<group name="yi" label="i" b="87" visible="yes">
+<group name="yi1" label="1" b="88" visible="yes">
+<s d="yi1" t="&#x4E00;" b="89" visible="no"/>
+</group>
+<group name="yi2" label="2" b="90" visible="yes">
+<s d="yi2" t="&#x9890;" b="57" visible="no"/>
+</group>
+<group name="yi3" label="3" b="58" visible="yes">
+<s d="yi3" t="&#x5C3E;" b="59" visible="no"/>
+</group>
+<group name="yi4" label="4" b="60" visible="yes">
+<s d="yi4" t="&#x827E;" b="61" visible="no"/>
+</group>
+<group name="yin" label="n" b="62" visible="yes">
+<group name="yin1" label="1" b="63" visible="yes">
+<s d="yin1" t="&#x8335;" b="64" visible="no"/>
+</group>
+<group name="yin2" label="2" b="65" visible="yes">
+<s d="yin2" t="&#x541F;" b="66" visible="no"/>
+</group>
+<group name="yin3" label="3" b="67" visible="yes">
+<s d="yin3" t="&#x996E;" b="68" visible="no"/>
+</group>
+<group name="yin4" label="4" b="69" visible="yes">
+<s d="yin4" t="&#x836B;" b="70" visible="no"/>
+</group>
+<group name="ying" label="g" b="71" visible="yes">
+<group name="ying1" label="1" b="72" visible="yes">
+<s d="ying1" t="&#x82F1;" b="73" visible="no"/>
+</group>
+<group name="ying2" label="2" b="74" visible="yes">
+<s d="ying2" t="&#x83B9;" b="75" visible="no"/>
+</group>
+<group name="ying3" label="3" b="76" visible="yes">
+<s d="ying3" t="&#x5F71;" b="77" visible="no"/>
+</group>
+<group name="ying4" label="4" b="78" visible="yes">
+<s d="ying4" t="&#x5E94;" b="79" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="yo" label="o" b="80" visible="yes">
+<group name="yo1" label="1" b="81" visible="yes">
+<s d="yo1" t="&#x54DF;" b="82" visible="no"/>
+</group>
+<group name="yo5" label="5" b="83" visible="yes">
+<s d="yo5" t="&#x3823;" b="84" visible="no"/>
+</group>
+<group name="yon" label="n" b="85" visible="yes">
+<group name="yong" label="g" b="86" visible="yes">
+<group name="yong1" label="1" b="87" visible="yes">
+<s d="yong1" t="&#x62E5;" b="88" visible="no"/>
+</group>
+<group name="yong2" label="2" b="89" visible="yes">
+<s d="yong2" t="&#x5581;" b="90" visible="no"/>
+</group>
+<group name="yong3" label="3" b="57" visible="yes">
+<s d="yong3" t="&#x8E0A;" b="58" visible="no"/>
+</group>
+<group name="yong4" label="4" b="59" visible="yes">
+<s d="yong4" t="&#x4F63;" b="60" visible="no"/>
+</group>
+</group>
+</group>
+<group name="you" label="u" b="61" visible="yes">
+<group name="you1" label="1" b="62" visible="yes">
+<s d="you1" t="&#x5E7D;" b="63" visible="no"/>
+</group>
+<group name="you2" label="2" b="64" visible="yes">
+<s d="you2" t="&#x5C24;" b="65" visible="no"/>
+</group>
+<group name="you3" label="3" b="66" visible="yes">
+<s d="you3" t="&#x9149;" b="67" visible="no"/>
+</group>
+<group name="you4" label="4" b="68" visible="yes">
+<s d="you4" t="&#x6709;" b="69" visible="no"/>
+</group>
+</group>
+</group>
+<group name="yu" label="u" b="70" visible="yes">
+<group name="yu1" label="1" b="71" visible="yes">
+<s d="yu1" t="&#x8FC2;" b="72" visible="no"/>
+</group>
+<group name="yu2" label="2" b="73" visible="yes">
+<s d="yu2" t="&#x4E8E;" b="74" visible="no"/>
+</group>
+<group name="yu3" label="3" b="75" visible="yes">
+<s d="yu3" t="&#x4E88;" b="76" visible="no"/>
+</group>
+<group name="yu4" label="4" b="77" visible="yes">
+<s d="yu4" t="&#x8C37;" b="78" visible="no"/>
+</group>
+<group name="yua" label="a" b="79" visible="yes">
+<group name="yuan" label="n" b="80" visible="yes">
+<group name="yuan1" label="1" b="81" visible="yes">
+<s d="yuan1" t="&#x9E33;" b="82" visible="no"/>
+</group>
+<group name="yuan2" label="2" b="83" visible="yes">
+<s d="yuan2" t="&#x5143;" b="84" visible="no"/>
+</group>
+<group name="yuan3" label="3" b="85" visible="yes">
+<s d="yuan3" t="&#x8FDC;" b="86" visible="no"/>
+</group>
+<group name="yuan4" label="4" b="87" visible="yes">
+<s d="yuan4" t="&#x82D1;" b="88" visible="no"/>
+</group>
+</group>
+</group>
+<group name="yue" label="e" b="89" visible="yes">
+<group name="yue1" label="1" b="90" visible="yes">
+<s d="yue1" t="&#x66F0;" b="57" visible="no"/>
+</group>
+<group name="yue3" label="3" b="58" visible="yes">
+<s d="yue3" t="&#x54D5;" b="59" visible="no"/>
+</group>
+<group name="yue4" label="4" b="60" visible="yes">
+<s d="yue4" t="&#x4E50;" b="61" visible="no"/>
+</group>
+</group>
+<group name="yun" label="n" b="62" visible="yes">
+<group name="yun1" label="1" b="63" visible="yes">
+<s d="yun1" t="&#x6655;" b="64" visible="no"/>
+</group>
+<group name="yun2" label="2" b="65" visible="yes">
+<s d="yun2" t="&#x5458;" b="66" visible="no"/>
+</group>
+<group name="yun3" label="3" b="67" visible="yes">
+<s d="yun3" t="&#x9668;" b="68" visible="no"/>
+</group>
+<group name="yun4" label="4" b="69" visible="yes">
+<s d="yun4" t="&#x8FD0;" b="70" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="z" label="z" b="71" visible="yes">
+<group name="za" label="a" b="72" visible="yes">
+<group name="za1" label="1" b="73" visible="yes">
+<s d="za1" t="&#x531D;" b="74" visible="no"/>
+</group>
+<group name="za2" label="2" b="75" visible="yes">
+<s d="za2" t="&#x7838;" b="76" visible="no"/>
+</group>
+<group name="za3" label="3" b="77" visible="yes">
+<s d="za3" t="&#x548B;" b="78" visible="no"/>
+</group>
+<group name="zai" label="i" b="79" visible="yes">
+<group name="zai1" label="1" b="80" visible="yes">
+<s d="zai1" t="&#x683D;" b="81" visible="no"/>
+</group>
+<group name="zai3" label="3" b="82" visible="yes">
+<s d="zai3" t="&#x5BB0;" b="83" visible="no"/>
+</group>
+<group name="zai4" label="4" b="84" visible="yes">
+<s d="zai4" t="&#x8F7D;" b="85" visible="no"/>
+</group>
+</group>
+<group name="zan" label="n" b="86" visible="yes">
+<group name="zan1" label="1" b="87" visible="yes">
+<s d="zan1" t="&#x7C2A;" b="88" visible="no"/>
+</group>
+<group name="zan2" label="2" b="89" visible="yes">
+<s d="zan2" t="&#x54B1;" b="90" visible="no"/>
+</group>
+<group name="zan3" label="3" b="57" visible="yes">
+<s d="zan3" t="&#x62F6;" b="58" visible="no"/>
+</group>
+<group name="zan4" label="4" b="59" visible="yes">
+<s d="zan4" t="&#x6682;" b="60" visible="no"/>
+</group>
+<group name="zan5" label="5" b="61" visible="yes">
+<s d="zan5" t="&#x3824;" b="62" visible="no"/>
+</group>
+<group name="zang" label="g" b="63" visible="yes">
+<group name="zang1" label="1" b="64" visible="yes">
+<s d="zang1" t="&#x8D43;" b="65" visible="no"/>
+</group>
+<group name="zang3" label="3" b="66" visible="yes">
+<s d="zang3" t="&#x9A75;" b="67" visible="no"/>
+</group>
+<group name="zang4" label="4" b="68" visible="yes">
+<s d="zang4" t="&#x810F;" b="69" visible="no"/>
+</group>
+</group>
+</group>
+<group name="zao" label="o" b="70" visible="yes">
+<group name="zao1" label="1" b="71" visible="yes">
+<s d="zao1" t="&#x906D;" b="72" visible="no"/>
+</group>
+<group name="zao2" label="2" b="73" visible="yes">
+<s d="zao2" t="&#x51FF;" b="74" visible="no"/>
+</group>
+<group name="zao3" label="3" b="75" visible="yes">
+<s d="zao3" t="&#x85FB;" b="76" visible="no"/>
+</group>
+<group name="zao4" label="4" b="77" visible="yes">
+<s d="zao4" t="&#x8E81;" b="78" visible="no"/>
+</group>
+</group>
+</group>
+<group name="ze" label="e" b="79" visible="yes">
+<group name="ze2" label="2" b="80" visible="yes">
+<s d="ze2" t="&#x8D23;" b="81" visible="no"/>
+</group>
+<group name="ze4" label="4" b="82" visible="yes">
+<s d="ze4" t="&#x4FA7;" b="83" visible="no"/>
+</group>
+<group name="zei" label="i" b="84" visible="yes">
+<group name="zei2" label="2" b="85" visible="yes">
+<s d="zei2" t="&#x8D3C;" b="86" visible="no"/>
+</group>
+</group>
+<group name="zen" label="n" b="87" visible="yes">
+<group name="zen3" label="3" b="88" visible="yes">
+<s d="zen3" t="&#x600E;" b="89" visible="no"/>
+</group>
+<group name="zen4" label="4" b="90" visible="yes">
+<s d="zen4" t="&#x8C2E;" b="57" visible="no"/>
+</group>
+<group name="zeng" label="g" b="58" visible="yes">
+<group name="zeng1" label="1" b="59" visible="yes">
+<s d="zeng1" t="&#x589E;" b="60" visible="no"/>
+</group>
+<group name="zeng4" label="4" b="61" visible="yes">
+<s d="zeng4" t="&#x8D60;" b="62" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="zh" label="h" b="63" visible="yes">
+<group name="zha" label="a" b="64" visible="yes">
+<group name="zha1" label="1" b="65" visible="yes">
+<s d="zha1" t="&#x832C;" b="66" visible="no"/>
+</group>
+<group name="zha2" label="2" b="67" visible="yes">
+<s d="zha2" t="&#x624E;" b="68" visible="no"/>
+</group>
+<group name="zha3" label="3" b="69" visible="yes">
+<s d="zha3" t="&#x7728;" b="70" visible="no"/>
+</group>
+<group name="zha4" label="4" b="71" visible="yes">
+<s d="zha4" t="&#x6805;" b="72" visible="no"/>
+</group>
+<group name="zhai" label="i" b="73" visible="yes">
+<group name="zhai1" label="1" b="74" visible="yes">
+<s d="zhai1" t="&#x6458;" b="75" visible="no"/>
+</group>
+<group name="zhai2" label="2" b="76" visible="yes">
+<s d="zhai2" t="&#x7FDF;" b="77" visible="no"/>
+</group>
+<group name="zhai3" label="3" b="78" visible="yes">
+<s d="zhai3" t="&#x7A84;" b="79" visible="no"/>
+</group>
+<group name="zhai4" label="4" b="80" visible="yes">
+<s d="zhai4" t="&#x503A;" b="81" visible="no"/>
+</group>
+</group>
+<group name="zhan" label="n" b="82" visible="yes">
+<group name="zhan1" label="1" b="83" visible="yes">
+<s d="zhan1" t="&#x77BB;" b="84" visible="no"/>
+</group>
+<group name="zhan3" label="3" b="85" visible="yes">
+<s d="zhan3" t="&#x76CF;" b="86" visible="no"/>
+</group>
+<group name="zhan4" label="4" b="87" visible="yes">
+<s d="zhan4" t="&#x8638;" b="88" visible="no"/>
+</group>
+<group name="zhang" label="g" b="89" visible="yes">
+<group name="zhang1" label="1" b="90" visible="yes">
+<s d="zhang1" t="&#x6A1F;" b="57" visible="no"/>
+</group>
+<group name="zhang3" label="3" b="58" visible="yes">
+<s d="zhang3" t="&#x957F;" b="59" visible="no"/>
+</group>
+<group name="zhang4" label="4" b="60" visible="yes">
+<s d="zhang4" t="&#x6DA8;" b="61" visible="no"/>
+</group>
+</group>
+</group>
+<group name="zhao" label="o" b="62" visible="yes">
+<group name="zhao1" label="1" b="63" visible="yes">
+<s d="zhao1" t="&#x5632;" b="64" visible="no"/>
+</group>
+<group name="zhao2" label="2" b="65" visible="yes">
+<s d="zhao2" t="&#x7740;" b="66" visible="no"/>
+</group>
+<group name="zhao3" label="3" b="67" visible="yes">
+<s d="zhao3" t="&#x627E;" b="68" visible="no"/>
+</group>
+<group name="zhao4" label="4" b="69" visible="yes">
+<s d="zhao4" t="&#x8D75;" b="70" visible="no"/>
+</group>
+</group>
+</group>
+<group name="zhe" label="e" b="71" visible="yes">
+<group name="zhe1" label="1" b="72" visible="yes">
+<s d="zhe1" t="&#x906E;" b="73" visible="no"/>
+</group>
+<group name="zhe2" label="2" b="74" visible="yes">
+<s d="zhe2" t="&#x6298;" b="75" visible="no"/>
+</group>
+<group name="zhe3" label="3" b="76" visible="yes">
+<s d="zhe3" t="&#x8005;" b="77" visible="no"/>
+</group>
+<group name="zhe4" label="4" b="78" visible="yes">
+<s d="zhe4" t="&#x8517;" b="79" visible="no"/>
+</group>
+<group name="zhe5" label="5" b="80" visible="yes">
+<s d="zhe5" t="&#x3825;" b="81" visible="no"/>
+</group>
+<group name="zhei" label="i" b="82" visible="yes">
+<group name="zhei4" label="4" b="83" visible="yes">
+<s d="zhei4" t="&#x8FD9;" b="84" visible="no"/>
+</group>
+</group>
+<group name="zhen" label="n" b="85" visible="yes">
+<group name="zhen1" label="1" b="86" visible="yes">
+<s d="zhen1" t="&#x73CD;" b="87" visible="no"/>
+</group>
+<group name="zhen3" label="3" b="88" visible="yes">
+<s d="zhen3" t="&#x6795;" b="89" visible="no"/>
+</group>
+<group name="zhen4" label="4" b="90" visible="yes">
+<s d="zhen4" t="&#x9707;" b="57" visible="no"/>
+</group>
+<group name="zheng" label="g" b="58" visible="yes">
+<group name="zheng1" label="1" b="59" visible="yes">
+<s d="zheng1" t="&#x84B8;" b="60" visible="no"/>
+</group>
+<group name="zheng3" label="3" b="61" visible="yes">
+<s d="zheng3" t="&#x6574;" b="62" visible="no"/>
+</group>
+<group name="zheng4" label="4" b="63" visible="yes">
+<s d="zheng4" t="&#x6323;" b="64" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="zhi" label="i" b="65" visible="yes">
+<group name="zhi1" label="1" b="66" visible="yes">
+<s d="zhi1" t="&#x6C0F;" b="67" visible="no"/>
+</group>
+<group name="zhi2" label="2" b="68" visible="yes">
+<s d="zhi2" t="&#x804C;" b="69" visible="no"/>
+</group>
+<group name="zhi3" label="3" b="70" visible="yes">
+<s d="zhi3" t="&#x5740;" b="71" visible="no"/>
+</group>
+<group name="zhi4" label="4" b="72" visible="yes">
+<s d="zhi4" t="&#x8BC6;" b="73" visible="no"/>
+</group>
+</group>
+<group name="zho" label="o" b="74" visible="yes">
+<group name="zhon" label="n" b="75" visible="yes">
+<group name="zhong" label="g" b="76" visible="yes">
+<group name="zhong1" label="1" b="77" visible="yes">
+<s d="zhong1" t="&#x4E2D;" b="78" visible="no"/>
+</group>
+<group name="zhong3" label="3" b="79" visible="yes">
+<s d="zhong3" t="&#x79CD;" b="80" visible="no"/>
+</group>
+<group name="zhong4" label="4" b="81" visible="yes">
+<s d="zhong4" t="&#x91CD;" b="82" visible="no"/>
+</group>
+</group>
+</group>
+<group name="zhou" label="u" b="83" visible="yes">
+<group name="zhou1" label="1" b="84" visible="yes">
+<s d="zhou1" t="&#x821F;" b="85" visible="no"/>
+</group>
+<group name="zhou2" label="2" b="86" visible="yes">
+<s d="zhou2" t="&#x8F74;" b="87" visible="no"/>
+</group>
+<group name="zhou3" label="3" b="88" visible="yes">
+<s d="zhou3" t="&#x8098;" b="89" visible="no"/>
+</group>
+<group name="zhou4" label="4" b="90" visible="yes">
+<s d="zhou4" t="&#x5492;" b="57" visible="no"/>
+</group>
+</group>
+</group>
+<group name="zhu" label="u" b="58" visible="yes">
+<group name="zhu1" label="1" b="59" visible="yes">
+<s d="zhu1" t="&#x73E0;" b="60" visible="no"/>
+</group>
+<group name="zhu2" label="2" b="61" visible="yes">
+<s d="zhu2" t="&#x9010;" b="62" visible="no"/>
+</group>
+<group name="zhu3" label="3" b="63" visible="yes">
+<s d="zhu3" t="&#x5C5E;" b="64" visible="no"/>
+</group>
+<group name="zhu4" label="4" b="65" visible="yes">
+<s d="zhu4" t="&#x8457;" b="66" visible="no"/>
+</group>
+<group name="zhua" label="a" b="67" visible="yes">
+<group name="zhua1" label="1" b="68" visible="yes">
+<s d="zhua1" t="&#x6293;" b="69" visible="no"/>
+</group>
+<group name="zhua3" label="3" b="70" visible="yes">
+<s d="zhua3" t="&#x722A;" b="71" visible="no"/>
+</group>
+<group name="zhuai" label="i" b="72" visible="yes">
+<group name="zhuai1" label="1" b="73" visible="yes">
+<s d="zhuai1" t="&#x62FD;" b="74" visible="no"/>
+</group>
+<group name="zhuai3" label="3" b="75" visible="yes">
+<s d="zhuai3" t="&#x8F6C;" b="76" visible="no"/>
+</group>
+<group name="zhuai4" label="4" b="77" visible="yes">
+<s d="zhuai4" t="&#x3826;" b="78" visible="no"/>
+</group>
+</group>
+<group name="zhuan" label="n" b="79" visible="yes">
+<group name="zhuan1" label="1" b="80" visible="yes">
+<s d="zhuan1" t="&#x4E13;" b="81" visible="no"/>
+</group>
+<group name="zhuan3" label="3" b="82" visible="yes">
+<s d="zhuan3" t="&#x3827;" b="83" visible="no"/>
+</group>
+<group name="zhuan4" label="4" b="84" visible="yes">
+<s d="zhuan4" t="&#x4F20;" b="85" visible="no"/>
+</group>
+<group name="zhuang" label="g" b="86" visible="yes">
+<group name="zhuang1" label="1" b="87" visible="yes">
+<s d="zhuang1" t="&#x6869;" b="88" visible="no"/>
+</group>
+<group name="zhuang3" label="3" b="89" visible="yes">
+<s d="zhuang3" t="&#x5958;" b="90" visible="no"/>
+</group>
+<group name="zhuang4" label="4" b="57" visible="yes">
+<s d="zhuang4" t="&#x649E;" b="58" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="zhui" label="i" b="59" visible="yes">
+<group name="zhui1" label="1" b="60" visible="yes">
+<s d="zhui1" t="&#x690E;" b="61" visible="no"/>
+</group>
+<group name="zhui4" label="4" b="62" visible="yes">
+<s d="zhui4" t="&#x8D58;" b="63" visible="no"/>
+</group>
+</group>
+<group name="zhun" label="n" b="64" visible="yes">
+<group name="zhun1" label="1" b="65" visible="yes">
+<s d="zhun1" t="&#x5C6F;" b="66" visible="no"/>
+</group>
+<group name="zhun3" label="3" b="67" visible="yes">
+<s d="zhun3" t="&#x51C6;" b="68" visible="no"/>
+</group>
+</group>
+<group name="zhuo" label="o" b="69" visible="yes">
+<group name="zhuo1" label="1" b="70" visible="yes">
+<s d="zhuo1" t="&#x6349;" b="71" visible="no"/>
+</group>
+<group name="zhuo2" label="2" b="72" visible="yes">
+<s d="zhuo2" t="&#x7F34;" b="73" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+<group name="zi" label="i" b="74" visible="yes">
+<group name="zi1" label="1" b="75" visible="yes">
+<s d="zi1" t="&#x5431;" b="76" visible="no"/>
+</group>
+<group name="zi3" label="3" b="77" visible="yes">
+<s d="zi3" t="&#x7D2B;" b="78" visible="no"/>
+</group>
+<group name="zi4" label="4" b="79" visible="yes">
+<s d="zi4" t="&#x81EA;" b="80" visible="no"/>
+</group>
+<group name="zi5" label="5" b="81" visible="yes">
+<s d="zi5" t="&#x3828;" b="82" visible="no"/>
+</group>
+</group>
+<group name="zo" label="o" b="83" visible="yes">
+<group name="zon" label="n" b="84" visible="yes">
+<group name="zong" label="g" b="85" visible="yes">
+<group name="zong1" label="1" b="86" visible="yes">
+<s d="zong1" t="&#x9B03;" b="87" visible="no"/>
+</group>
+<group name="zong3" label="3" b="88" visible="yes">
+<s d="zong3" t="&#x603B;" b="89" visible="no"/>
+</group>
+<group name="zong4" label="4" b="90" visible="yes">
+<s d="zong4" t="&#x7EB5;" b="57" visible="no"/>
+</group>
+</group>
+</group>
+<group name="zou" label="u" b="58" visible="yes">
+<group name="zou1" label="1" b="59" visible="yes">
+<s d="zou1" t="&#x90B9;" b="60" visible="no"/>
+</group>
+<group name="zou3" label="3" b="61" visible="yes">
+<s d="zou3" t="&#x8D70;" b="62" visible="no"/>
+</group>
+<group name="zou4" label="4" b="63" visible="yes">
+<s d="zou4" t="&#x594F;" b="64" visible="no"/>
+</group>
+</group>
+</group>
+<group name="zu" label="u" b="65" visible="yes">
+<group name="zu1" label="1" b="66" visible="yes">
+<s d="zu1" t="&#x79DF;" b="67" visible="no"/>
+</group>
+<group name="zu2" label="2" b="68" visible="yes">
+<s d="zu2" t="&#x8DB3;" b="69" visible="no"/>
+</group>
+<group name="zu3" label="3" b="70" visible="yes">
+<s d="zu3" t="&#x7956;" b="71" visible="no"/>
+</group>
+<group name="zua" label="a" b="72" visible="yes">
+<group name="zuan" label="n" b="73" visible="yes">
+<group name="zuan1" label="1" b="74" visible="yes">
+<s d="zuan1" t="&#x94BB;" b="75" visible="no"/>
+</group>
+<group name="zuan3" label="3" b="76" visible="yes">
+<s d="zuan3" t="&#x7E82;" b="77" visible="no"/>
+</group>
+<group name="zuan4" label="4" b="78" visible="yes">
+<s d="zuan4" t="&#x8D5A;" b="79" visible="no"/>
+</group>
+</group>
+</group>
+<group name="zui" label="i" b="80" visible="yes">
+<group name="zui3" label="3" b="81" visible="yes">
+<s d="zui3" t="&#x5480;" b="82" visible="no"/>
+</group>
+<group name="zui4" label="4" b="83" visible="yes">
+<s d="zui4" t="&#x9189;" b="84" visible="no"/>
+</group>
+</group>
+<group name="zun" label="n" b="85" visible="yes">
+<group name="zun1" label="1" b="86" visible="yes">
+<s d="zun1" t="&#x5C0A;" b="87" visible="no"/>
+</group>
+<group name="zun3" label="3" b="88" visible="yes">
+<s d="zun3" t="&#x6499;" b="89" visible="no"/>
+</group>
+</group>
+<group name="zuo" label="o" b="90" visible="yes">
+<group name="zuo1" label="1" b="57" visible="yes">
+<s d="zuo1" t="&#x4F5C;" b="58" visible="no"/>
+</group>
+<group name="zuo2" label="2" b="59" visible="yes">
+<s d="zuo2" t="&#x6628;" b="60" visible="no"/>
+</group>
+<group name="zuo3" label="3" b="61" visible="yes">
+<s d="zuo3" t="&#x64AE;" b="62" visible="no"/>
+</group>
+<group name="zuo4" label="4" b="63" visible="yes">
+<s d="zuo4" t="&#x67DE;" b="64" visible="no"/>
+</group>
+</group>
+</group>
+</group>
+
+<group name="Punctuation" b="112" visible="yes">
+<!--Mandarin (frequently used) punctuation-->
+<!--Reference: http://input.foruto.com/source/source_03.htm-->
+<!--Reference: http://www.zdic.net/appendix/f3.htm-->
+<s d="&#x3002;" t="&#x3002;" b="17" visible="yes" note="Full stop"  />
+<s d="&#xFF0C;" t="&#xFF0C;" b="20" visible="yes" note="Comma" />
+<s d="&#x3001;" t="&#x3001;" b="17" visible="yes" note="Dun Hao (symbol of brief stop)"  />
+<s d="&#xFF1B;" t="&#xFF1B;" b="20" visible="yes" note="Semicolon" />
+<s d="&#xFF1A;"  t="&#xFF1A;"  b="17" visible="yes" note="Colon" />
+<s d="&#xFF1F;" t="&#xFF1F;" b="20" visible="yes" note="Question mark"/>
+<s d="&#xFF01;" t="&#xFF01;" b="17" visible="yes" note="Exclamation mark"/>
+<s d="&#x201C;" t="&#x201C;"   b="20" visible="yes" note="Double quotation mark (left)"/>
+<s d="&#x201D;" t="&#x201D;"   b="17" visible="yes" note="Double quotation mark (right)"/>
+<s d="&#x2018;" t="&#x2018;" b="20" visible="yes" note="Single quotation mark (left)"/>
+<s d="&#x2019;" t="&#x2019;" b="17" visible="yes" note="Single quotation mark (right)"/>
+<s d="&#xFF08;" t="&#xFF08;" b="20" visible="yes" note="Left bracket"/>
+<s d="&#xFF09;" t="&#xFF09;" b="17" visible="yes" note="Right bracket" />
+<s d="&#x2026;" t="&#x2026;" b="20" visible="yes" note="Elipses" />
+<s d="&#x2026;&#x2026;" t="&#x2026;&#x2026;" b="20" visible="yes" note="Double elipses" />
+<s d="&#x2014;" t="&#x2014;" b="17" visible="yes" note="Long dash" />
+<s d="&#x300A;" t="&#x300A;" b="20" visible="yes" note="Double title (reference) brackets (left)" />
+<s d="&#x300B;" t="&#x300B;" b="17" visible="yes" note="Double title (reference) brackets (right)" />
+<s d="&#x3008;" t="&#x3008;" b="20" visible="yes" note="Single title (reference) brackets (left)" />
+<s d="&#x3009;" t="&#x3009;" b="17" visible="yes" note="Single title (reference) brackets (right)" />
+<s d="&#xFF0E;" t="&#xFF0E;" b="20" visible="yes" note="Separation dot" />
+
+</group>
+
+<group name="Roman alphabet and numbers" b="112" visible="yes">
+<group name="Lower case Latin letters" b="0">
+<s d="a" t="a" b="10"/>
+<s d="b" t="b" b="11"/>
+<s d="c" t="c" b="12"/>
+<s d="d" t="d" b="13"/>
+<s d="e" t="e" b="14"/>
+<s d="f" t="f" b="15"/>
+<s d="g" t="g" b="16"/>
+<s d="h" t="h" b="17"/>
+<s d="i" t="i" b="18"/>
+<s d="j" t="j" b="19"/>
+<s d="k" t="k" b="20"/>
+<s d="l" t="l" b="21"/>
+<s d="m" t="m" b="22"/>
+<s d="n" t="n" b="23"/>
+<s d="o" t="o" b="24"/>
+<s d="p" t="p" b="25"/>
+<s d="q" t="q" b="26"/>
+<s d="r" t="r" b="27"/>
+<s d="s" t="s" b="28"/>
+<s d="t" t="t" b="29"/>
+<s d="u" t="u" b="30"/>
+<s d="v" t="v" b="31"/>
+<s d="w" t="w" b="32"/>
+<s d="x" t="x" b="33"/>
+<s d="y" t="y" b="34"/>
+<s d="z" t="z" b="35"/>
+</group>
+<group name="Upper case Latin letters" b="111">
+<s d="A" t="A" b="10"/>
+<s d="B" t="B" b="11"/>
+<s d="C" t="C" b="12"/>
+<s d="D" t="D" b="13"/>
+<s d="E" t="E" b="14"/>
+<s d="F" t="F" b="15"/>
+<s d="G" t="G" b="16"/>
+<s d="H" t="H" b="17"/>
+<s d="I" t="I" b="18"/>
+<s d="J" t="J" b="19"/>
+<s d="K" t="K" b="20"/>
+<s d="L" t="L" b="21"/>
+<s d="M" t="M" b="22"/>
+<s d="N" t="N" b="23"/>
+<s d="O" t="O" b="24"/>
+<s d="P" t="P" b="25"/>
+<s d="Q" t="Q" b="26"/>
+<s d="R" t="R" b="27"/>
+<s d="S" t="S" b="28"/>
+<s d="T" t="T" b="29"/>
+<s d="U" t="U" b="30"/>
+<s d="V" t="V" b="31"/>
+<s d="W" t="W" b="32"/>
+<s d="X" t="X" b="33"/>
+<s d="Y" t="Y" b="34"/>
+<s d="Z" t="Z" b="35"/>
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1" b="90"/>
+<s d="2" t="2" b="91"/>
+<s d="3" t="3" b="92"/>
+<s d="4" t="4" b="93"/>
+<s d="5" t="5" b="94"/>
+<s d="6" t="6" b="90"/>
+<s d="7" t="7" b="91"/>
+<s d="8" t="8" b="92"/>
+<s d="9" t="9" b="93"/>
+<s d="0" t="0" b="94"/>
+</group>
+</group>
+</alphabet>
+</alphabets>

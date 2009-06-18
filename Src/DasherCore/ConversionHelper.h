@@ -27,11 +27,6 @@
 #include "LanguageModelling/LanguageModel.h"
 #include "LanguageModelling/PPMLanguageModel.h"
 
-//THESE DEFINITIONS ARE SHARED BETWEEN PYCONVERSIONHELPER AND CONVERSIONMANAGER
-#define MAX_CARE_CAND 100
-#define MAX_CARE_PHRASE 20
-#define MAX_HZ_NUM 50
-#define MAX_CM_NUM 10 
 
 //trial change
 namespace Dasher{
@@ -69,7 +64,7 @@ class CConversionHelper {
   /// @param CMid A unique identifier for the conversion helper 'context'.
   ///
   /// @return True if conversion succeeded, false otherwise
-  virtual bool Convert(const std::string &strSource, SCENode ** pRoot, int * childCount, int CMid) = 0;
+  virtual bool Convert(const std::string &strSource, SCENode ** pRoot) = 0;
 
   /// Assign sizes to the children of a given conversion node. This
   /// happens when the conversion manager populates the children of
@@ -86,17 +81,6 @@ class CConversionHelper {
   //TODO: figure out why this function cannot return a CLanguageModel
   virtual Dasher::CLanguageModel * GetLanguageModel()=0;
  
-  /*   virtual bool GetPhraseList(int HZIndex, SCENode ** psOutput, int CMid)=0; */
-  /*   virtual void BuildDataBase()=0; */
-
-  /// Clear any data associated with a given conversion context (not sure whether this is necessary any more) 
-  ///
-  /// @param CMid The conversion context ID to clear
-  ///
-  virtual void ClearData(int CMid)=0; 
-  
-/*   virtual std::vector<std::vector<std::vector<std::vector<std::vector<int> > > > > * GetDP(int CMid)=0;//get data pointer */
-
   /// Assign colours to the children of a given conversion node.
   /// This function needs a rethink.
   ///

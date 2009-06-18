@@ -22,6 +22,7 @@
 #define __PinyinParser_h__
 
 #include "SCENode.h"
+#include "Alphabet/Alphabet.h"
 
 #include <expat.h>
 #include <iostream>
@@ -40,7 +41,8 @@ class CPinyinParser {
   CPinyinParser(const std::string &strAlphabetPath);
   ~CPinyinParser();
 
-  bool Convert(const std::string &strPhrase, SCENode **pRoot);
+  bool Convert(const std::string &pystr, SCENode **pRoot);
+
 
  private:
   static void XML_StartElement(void *userData, const XML_Char * name, const XML_Char ** atts);
@@ -94,7 +96,7 @@ class CPinyinParser {
       
       return NULL;
     };
-    
+        
     void RecursivelyDump(int iDepth) {
       for(int i(0); i < iDepth; ++i)
 	std::cout << " ";
@@ -119,113 +121,23 @@ class CPinyinParser {
       delete this;
     }
     
-  private:
+    //For debugging/testing
+    void PrintSymbol(){
+      if(m_cSymbol)
+	std::cout<<m_cSymbol<<std::endl;
+    }
+
+    CTrieNode * GetChild(){
+      return m_pChild;
+    }
+    
+    std::set<std::string> *m_pList;
+ 
+ private:
     CTrieNode *m_pChild;
     CTrieNode *m_pNext;
-    
-    std::set<std::string> *m_pList;
-    
+       
     char m_cSymbol;
-  };
-  
-  class CLatticeNode {
-  public:
-    CLatticeNode(char cSymbol, CLatticeNode *pParent, std::set<std::string> *pList, int iDepth, int iTerminalDepth) {
-      m_cSymbol = cSymbol;
-      m_pParent = pParent;
-      m_pChild = NULL;
-      m_pNext = NULL;
-      
-      if(m_pParent)
-	m_pParent->Ref();
-
-      m_pList = pList;
-      
-      m_iRefCount = 1;
-
-      m_iDepth = iDepth;
-      m_iTerminalDepth = iTerminalDepth;
-
-      // TODO: This is a bit of a hack to enforce the minimum priority rule
-      m_iPriority = 10;
-    }
-
-    ~CLatticeNode() {
-      if(m_pParent)
-	m_pParent->Unref();
-
-      // Note that we don't own the list
-    }
-
-    CLatticeNode *GetParent() {
-      return m_pParent;
-    };
-
-    std::set<std::string> *GetList() {
-      return m_pList;
-    };
-
-    void Ref() {
-      ++m_iRefCount;
-    };
-    
-    void Unref() {
-      --m_iRefCount;
-
-      if(m_iRefCount <= 0)
-	delete this;
-    };
-
-    void SetChild(CLatticeNode *pChild) {
-      m_pChild = pChild;
-    };
-
-    CLatticeNode *GetChild() {
-      return m_pChild;
-    };
-
-    void SetNext(CLatticeNode *pNext) {
-      m_pNext = pNext;
-    };
-
-    CLatticeNode *GetNext() {
-      return m_pNext;
-    };
-
-    int GetDepth() {
-      return m_iDepth;
-    };
-
-    int GetTerminalDepth() {
-      return m_iTerminalDepth;
-    };
-
-    void SetPriority(int iPriority) {
-      m_iPriority = iPriority;
-    };
-
-    int GetPriority() {
-      return m_iPriority;
-    };
-
-    SCENode *RecursiveAddList(SCENode *pOldTail);
-
-    char GetSymbol() {
-      return m_cSymbol;
-    };
-
-  private:
-    char m_cSymbol;
-    // It actually makes more sense here to work backwards, so store pointers to parent
-    CLatticeNode *m_pParent;
-    CLatticeNode *m_pChild;
-    CLatticeNode *m_pNext;
-
-    std::set<std::string> *m_pList;
-    int m_iRefCount;
-    int m_iDepth;
-    int m_iTerminalDepth;
-    int m_iPriority;
   };
 
   std::set<std::string> *pCurrentList;

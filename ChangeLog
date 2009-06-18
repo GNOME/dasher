@@ -1,3 +1,12 @@
+2009-06-18  Will Zou <zouyouzhi@gmail.com>
+
+	* Chinese dasher:
+	  - More and more and more optimization in speed (will need even more)
+	  - Fix code integrity when changing alphabets/languages 
+	  - Fix special Pin Yin cases like 'uu'; tested, updating alphabets to be
+	    complete and proper
+	  - Add numbers, Roman letters, full length punctuation
+
 2009-06-17  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* Implement new two-push dynamic mode (TwoPushDynamicFilter.{h,cpp}).

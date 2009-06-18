@@ -4,6 +4,7 @@
 #include "LanguageModelling/WordLanguageModel.h"
 #include "LanguageModelling/DictLanguageModel.h"
 #include "LanguageModelling/MixtureLanguageModel.h"
+#include "LanguageModelling/PPMPYLanguageModel.h"
 #include "NodeCreationManager.h"
 
 
@@ -21,12 +22,21 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
   m_pLanguageModel = m_pAlphabetManagerFactory->GetLanguageModel();
   m_pAlphabet = m_pAlphabetManagerFactory->GetAlphabet();
 
+  int iConversionID(m_pAlphabetManagerFactory->GetConversionID());
+
   // Train the language model
   CTrainer *pTrainer =  m_pAlphabetManagerFactory->GetTrainer();
-  m_pAlphabet->Train(GetStringParameter(SP_USER_LOC), GetStringParameter(SP_SYSTEM_LOC), pTrainer);
+
+  //WZ: Mandarin Dasher Change
+  if((iConversionID==2)&&(pSettingsStore->GetStringParameter(SP_ALPHABET_ID)=="Chinese Super Pin Yin, grouped by Dictionary"))
+    pTrainer->TrainMandarin(GetStringParameter(SP_USER_LOC), GetStringParameter(SP_SYSTEM_LOC));
+  else{
+    //End Mandarin Dasher Change  
+    m_pAlphabet->Train(GetStringParameter(SP_USER_LOC), GetStringParameter(SP_SYSTEM_LOC), pTrainer);
+  }
   delete pTrainer;
 
-  int iConversionID(m_pAlphabetManagerFactory->GetConversionID());
+
 
 #ifndef _WIN32_WCE
   m_pControlManagerFactory = new CControlManagerFactory(this);
@@ -113,7 +123,15 @@ void CNodeCreationManager::GetProbs(CLanguageModel::Context context, std::vector
    }
    
    //  m_pLanguageModel->GetProbs(context, Probs, iNorm, ((iNorm * uniform) / 1000));
-   m_pLanguageModel->GetProbs(context, Probs, iNorm, 0);
+   
+   //WZ: Mandarin Dasher Change
+   if(m_pAlphabetManagerFactory->GetConversionID()==2){
+     //Mark: static cast ok?
+     static_cast<CPPMPYLanguageModel *>(m_pLanguageModel)->GetPYProbs(context, Probs, iNorm, 0);
+   }
+   else
+     //End Mandarin Dasher Change
+     m_pLanguageModel->GetProbs(context, Probs, iNorm, 0);
 
    // #if _DEBUG
    //int iTotal = 0;

@@ -64,7 +64,7 @@ namespace Dasher {
   class CConversionManager : public CNodeManager {
   public:
     // TODO: We shouldn't need to know about this stuff, but the code is somewhat in knots at the moment
-    CConversionManager(CNodeCreationManager *pNCManager, CConversionHelper *pHelper, CAlphabet *pAlphabet, int CMid);
+    CConversionManager(CNodeCreationManager *pNCManager, CConversionHelper *pHelper, CAlphabet *pAlphabet);
     ~CConversionManager();
 
     ///
@@ -155,6 +155,17 @@ namespace Dasher {
 
     virtual void SetFlag(CDasherNode *pNode, int iFlag, bool bValue);
 
+    //TODO: REVISE
+    struct SConversionData {
+      symbol iSymbol;
+      //     int iPhase;
+      CLanguageModel *pLanguageModel;
+      CLanguageModel::Context iContext;
+      SCENode * pSCENode;
+      bool bisRoot; // True for root conversion nodes 
+      int iOffset;
+      //int iGameOffset;
+    };
   private:
 
     /// 
@@ -219,19 +230,8 @@ namespace Dasher {
     /// without state collisions
     ///
 
-    int m_iCMID;
 
-    //TODO: REVISE
-    struct SConversionData {
-      //     symbol iSymbol;
-      //     int iPhase;
-      CLanguageModel *pLanguageModel;
-      CLanguageModel::Context iContext;
-      SCENode * pSCENode;
-      bool bType; // True for termial nodes (bit of a hack)
-      int iOffset;
-      //int iGameOffset;
-    };
+   
   };
   /// @}
 }

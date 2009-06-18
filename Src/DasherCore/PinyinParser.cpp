@@ -19,6 +19,8 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "PinyinParser.h"
+#include "Alphabet/Alphabet.h"
+#include "DasherTypes.h"
 
 #include <cstdio>
 #include <cstring>
@@ -51,6 +53,8 @@ CPinyinParser::CPinyinParser(const std::string &strAlphabetPath) {
       break;
     }
   } while(!Done);
+
+  //RepairPYTrainingFile();
 }
 
 CPinyinParser::~CPinyinParser() {
@@ -95,15 +99,15 @@ std::set<std::string> *CPinyinParser::ParseGroupName(const std::string &strName)
 
     std::string strSymbol;
 
-    
+    //Changed for with tones!!!
     if(isdigit(strName[i2-1]))
-      strSymbol = strName.substr(i1+1, i2-i1-2);
+      strSymbol = strName.substr(i1+1, i2-i1-1);
     else
       strSymbol = strName.substr(i1+1, i2-i1-1);
 
     std::string strShortName = strSymbol;
 
-    strSymbol += '1';
+    strSymbol += '9';
 
     std::string strTone = strName.substr(i2-1,1);
     int iTone = atoi(strTone.c_str());
@@ -141,209 +145,63 @@ std::set<std::string> *CPinyinParser::ParseGroupName(const std::string &strName)
   }
 }
 
-bool CPinyinParser::Convert(const std::string &strPhrase, SCENode **pRoot) {
+
+bool CPinyinParser::Convert(const std::string &pystr, SCENode **pRoot) {
   *pRoot = NULL;
 
-  // TODO: Need to implement real latice here with merges
 
-  typedef std::pair<CTrieNode *, CLatticeNode *> tLPair;
-
-  std::vector<tLPair> *pCurrentList = new std::vector<tLPair>;
-  pCurrentList->push_back(tLPair(m_pRoot, NULL));
-
-  for(std::string::const_iterator it = strPhrase.begin(); it != strPhrase.end(); ++it) {
-    std::vector<tLPair> *pNewList = new std::vector<tLPair>;
-
-    for(std::vector<tLPair>::iterator it2 = pCurrentList->begin(); it2 != pCurrentList->end(); ++it2) {
-      // First see if we can directly continue:
-      CTrieNode *pCurrentChild = it2->first->LookupChild(*it);
-
-      if(pCurrentChild) {
-	int iNewDepth;
-
-	if(it2->second)
-	  iNewDepth = it2->second->GetDepth();
-	else
-	  iNewDepth = 0;
-
-	CLatticeNode *pNewLNode = new CLatticeNode(pCurrentChild->GetSymbol(), it2->second, NULL, iNewDepth, 0);
-	pNewList->push_back(tLPair(pCurrentChild, pNewLNode));
-      }
-
-       // Now see if we can start a new symbol here
-      pCurrentChild = it2->first->LookupChild('1');
-
-      if(pCurrentChild) {
-	CTrieNode *pCurrentChild2 = m_pRoot->LookupChild(*it);
-	if(pCurrentChild2) {
-	  int iOldDepth;
-
-	  if(it2->second)
-	    iOldDepth = it2->second->GetDepth();
-	  else
-	    iOldDepth = 0;
-
-	  CLatticeNode *pNewLNode = new CLatticeNode('|', it2->second, pCurrentChild->GetList(), iOldDepth, 0);
-	  CLatticeNode *pNewLNode2 = new CLatticeNode(pCurrentChild->GetSymbol(), pNewLNode, NULL, iOldDepth + 1, 0);
-	  pNewList->push_back(tLPair(pCurrentChild2, pNewLNode2));
-
-	  // Unref the initial count on the intermediate node
-	  pNewLNode->Unref();
-	}
-      }
-
-      if(it2->second)
-	it2->second->Unref();
-    }
-
-    delete pCurrentList;
-    pCurrentList = pNewList;
-  }
-
-  // Need to also look for terminating symbols at the end of the phrase
-  {
-    std::vector<tLPair> *pNewList = new std::vector<tLPair>;
-
-    for(std::vector<tLPair>::iterator it2 = pCurrentList->begin(); it2 != pCurrentList->end(); ++it2) {
-
-      // First see if we can directly continue:
-      CTrieNode *pCurrentChild = it2->first->LookupChild('1');
-
-      if(pCurrentChild) { 
-	  int iOldDepth;
-
-	  if(it2->second)
-	    iOldDepth = it2->second->GetDepth();
-	  else
-	    iOldDepth = 0;
-
-	CLatticeNode *pNewLNode = new CLatticeNode('|', it2->second, pCurrentChild->GetList(), iOldDepth, 0);
-	CLatticeNode *pNewLNode2 = new CLatticeNode(pCurrentChild->GetSymbol(), pNewLNode, NULL, iOldDepth + 1, 0);
-
-	pNewList->push_back(tLPair(pCurrentChild, pNewLNode2));
-
-	pNewLNode->Unref();
-      }
-
-      if(it2->second)
-	it2->second->Unref();
-    }
-
-    delete pCurrentList;
-    pCurrentList = pNewList;
-
-  }
-
-  CLatticeNode *pPreviousNode = NULL;
-
-  int iMinDepth = 1000000;
-
-
-  for(std::vector<tLPair>::iterator it2 = pCurrentList->begin(); it2 != pCurrentList->end(); ++it2) {
-    if(it2->second && (it2->second->GetDepth() < iMinDepth))
-      iMinDepth = it2->second->GetDepth();
-  }
-
-  // Now trace back through the remaining paths
-  for(std::vector<tLPair>::iterator it2 = pCurrentList->begin(); it2 != pCurrentList->end(); ++it2) {
-
-    pPreviousNode = NULL;
-
-    CLatticeNode *pCurrentNode = it2->second;
-
-    int iPromotion;
-
-    if(pCurrentNode && (pCurrentNode->GetDepth() == iMinDepth))
-      iPromotion = 0;
-    else
-      iPromotion = 1;
-
-    while(pCurrentNode) {
-      if(pCurrentNode->GetPriority() > iPromotion)
-	pCurrentNode->SetPriority(iPromotion);
-
-      // Check to see whether child has already been added (this could be made more efficient)
-
-      if(pPreviousNode) {
-	bool bFound = false;
-
-	CLatticeNode *pCurrentCh = pCurrentNode->GetChild();
-	
-	while(pCurrentCh) {
-	  if(pCurrentCh == pPreviousNode) {
-	    bFound = true;
-	  }
-
-	  pCurrentCh = pCurrentCh->GetNext();
-	}
-
-	if(!bFound) {
-	  pPreviousNode->SetNext(pCurrentNode->GetChild());
-	  pCurrentNode->SetChild(pPreviousNode);
-	}
-      }
-
-      pPreviousNode = pCurrentNode;
-      pCurrentNode = pCurrentNode->GetParent();
-    }
-  }
+  //    std::cout<<"full string is "<<pystr<<std::endl;
   
-  // TODO: Put reference counting back in here
+  CTrieNode * pCurrentNode = m_pRoot;
+  CTrieNode * pCurrentChild;
 
-  // pPreviousNode should now be the root (assuming it exists)
-
-  if(pPreviousNode) {
-    *pRoot = pPreviousNode->RecursiveAddList(NULL);
-  }
-
-  for(std::vector<tLPair>::iterator it2 = pCurrentList->begin(); it2 != pCurrentList->end(); ++it2)
-    if(it2->second)
-      it2->second->Unref();
-
-
-  return (*pRoot != NULL);
-}
-
-SCENode *CPinyinParser::CLatticeNode::RecursiveAddList(SCENode *pOldTail) {
-  // pOldTail  is the tail from which to aggregate
-
-  CLatticeNode *pCurrentChild = m_pChild;
-
-  SCENode *pTail;
-
-  if(m_pList)
-    pTail = NULL;
-  else
-    pTail = pOldTail;
-
-  while(pCurrentChild) {
-    pTail = pCurrentChild->RecursiveAddList(pTail);
+  for(std::string::const_iterator it = pystr.begin();it!=pystr.end();++it){
+    pCurrentChild = pCurrentNode->LookupChild(*it);
     
-    pCurrentChild = pCurrentChild->GetNext();
+    if(!pCurrentChild)
+      return 0;
+    else
+      pCurrentNode = pCurrentChild;
   }
+  pCurrentNode = pCurrentNode->LookupChild('9');
+  if(!pCurrentNode)
+    return 0;
+  else{
 
-  // pTail now points towards the aggregated list of children, so that becomes the child of the new nodes:
+    if(!pCurrentNode->m_pList)
+      return 0;
 
-  if(m_pList) {
-     SCENode *pNewTail = pOldTail;
+    *pRoot = new SCENode;
+    SCENode *pCurrent = *pRoot;
 
-     for(std::set<std::string>::iterator it = m_pList->begin(); it != m_pList->end(); ++it) {
-       SCENode *pNewNode = new SCENode;
-       
-       pNewNode->SetChild(pTail);
-       pNewNode->SetNext(pNewTail);
-       pNewNode->SetPriority(m_iPriority);
-       
-       pNewNode->pszConversion = new char[it->size() + 1];
-       strcpy(pNewNode->pszConversion, it->c_str());
-       
-       pNewTail = pNewNode;
-     }
+    pCurrent->pszConversion = "";
+    SCENode *pNewNode = new SCENode;
+    pCurrent->SetChild(pNewNode);
 
-     pTail = pNewTail;
+    for(std::set<std::string>::iterator it = pCurrentNode->m_pList->begin(); it != pCurrentNode->m_pList->end(); ++it) {
+        
+      pNewNode->pszConversion = new char[it->size() + 1];
+      strcpy(pNewNode->pszConversion, it->c_str());
+
+      //            std::string strChar(pNewNode->pszConversion);
+      // std::cout<<"Mandarin Char: "<<strChar<<std::endl;
+      // std::vector<int> CHSym;
+      // m_pCHAlphabet->GetSymbols(&CHSym, &strChar, 0);
+      // pNewNode->Symbol = CHSym[0];
+
+      pCurrent = pNewNode; 
+      
+      pNewNode = new SCENode;
+      pCurrent->SetNext(pNewNode);
+      pCurrent->SetChild(NULL);
+    }
+    pCurrent->SetNext(NULL);
+
+    //Test code: will make program crash
+    //    SCENode * pTemp = *pRoot;
+    // if(pTemp->GetChild()->GetChild())
+    //  std::cout<<"We have trouble in PYParser."<<std::endl;
+    return 1;    
+    
   }
-  
-  // With no list the just passign through should be okay here.
-  
-  return pTail;
 }

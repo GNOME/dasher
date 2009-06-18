@@ -1,5 +1,5 @@
-#ifdef HAVE_CONFIG_H
-#include <config.h>
+#ifndef WIN32
+#include "config.h"
 #endif
 
 #include "ConversionManager.h"
@@ -32,20 +32,14 @@ CConversionManagerFactory::CConversionManagerFactory(Dasher::CEventHandler *pEve
   // TODO: Need to deal with the case of GetHelper returning NULL
   m_pHelper = GetHelper(pEventHandler, pSettingsStore, iID, pCAlphIO);
 
+  //To clean up:
   // TODO: These shouldn't be here - need to figure out exactly how it all works
   pagecount = 0; // TODO: Doesn't actually appear to do anything
   m_iCMCount = 0; // Unique identifier passed to conversion managers
 }
 
 CDasherNode *CConversionManagerFactory::GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData) {
-  CConversionManager *pConversionManager(new CConversionManager(m_pNCManager, m_pHelper, m_pAlphabet, m_iCMCount));
-
-  if(m_iCMCount >= MAX_CM_NUM-1){
-    pagecount ++;
-    m_iCMCount =0;
-  }
-  else
-    m_iCMCount++;
+  CConversionManager *pConversionManager(new CConversionManager(m_pNCManager, m_pHelper, m_pAlphabet));
 
   CDasherNode *pNewRoot = pConversionManager->GetRoot(pParent, iLower, iUpper, pUserData);
   pConversionManager->Unref();
@@ -79,10 +73,10 @@ CConversionHelper *CConversionManagerFactory::GetHelper(Dasher::CEventHandler *p
 
 CConversionHelper *CConversionManagerFactory::GetHelperChinese(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, Dasher::CAlphIO *pCAlphIO) {
 #ifdef CHINESE
-  std::string strAlphabetPath = pSettingsStore->GetStringParameter(SP_SYSTEM_LOC);
-  strAlphabetPath += "/alphabet.chineseRuby.xml";
+  std::string strCHAlphabetPath = pSettingsStore->GetStringParameter(SP_SYSTEM_LOC);
+  strCHAlphabetPath += "/alphabet.chineseRuby.xml";
 
-  return new CPinYinConversionHelper(pEventHandler,pSettingsStore, pCAlphIO, strAlphabetPath);
+  return new CPinYinConversionHelper(pEventHandler,pSettingsStore, pCAlphIO, strCHAlphabetPath, m_pAlphabet, m_pNCManager->GetLanguageModel());
 #else
   return NULL;
 #endif

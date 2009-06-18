@@ -4776,12 +4776,12 @@
 <group name="l&#117; (lu5)" label="l&#117;"  f="113"  b="116">
 <s d="&#x6C07;" t="&#x6C07;" />
 </group>
-<group name="l&#472; (lU2)" label="l&#472;"  f="113"  b="117">
+<group name="l&#472; (luu2)" label="l&#472;"  f="113"  b="117"> <!--Note: changed from lU to luu-->
 <s d="&#x9A74;" t="&#x9A74;" />
 <s d="&#x95FE;" t="&#x95FE;" />
 <s d="&#x6988;" t="&#x6988;" />
 </group>
-<group name="l&#474; (lU3)" label="l&#474;"  f="113"  b="118">
+<group name="l&#474; (luu3)" label="l&#474;"  f="113"  b="118">
 <s d="&#x5415;" t="&#x5415;" />
 <s d="&#x94DD;" t="&#x94DD;" />
 <s d="&#x4FA3;" t="&#x4FA3;" />
@@ -4795,7 +4795,7 @@
 <s d="&#x7A06;" t="&#x7A06;" />
 <s d="&#x891B;" t="&#x891B;" />
 </group>
-<group name="l&#476; (lU4)" label="l&#476;"  f="113"  b="119">
+<group name="l&#476; (luu4)" label="l&#476;"  f="113"  b="119">
 <s d="&#x8651;" t="&#x8651;" />
 <s d="&#x6C2F;" t="&#x6C2F;" />
 <s d="&#x5F8B;" t="&#x5F8B;" />
@@ -4820,10 +4820,10 @@
 <group name="l&#249;an (luan4)" label="l&#249;an"  f="113"  b="122">
 <s d="&#x4E71;" t="&#x4E71;" />
 </group>
-<group name="l&#474;e (lUe3)" label="l&#474;e"  f="113"  b="123">
+<group name="l&#474;e (lue3)" label="l&#474;e"  f="113"  b="123"><!--Note: Changed from lUe to lue-->
 <s d="&#x63A0;" t="&#x63A0;" />
 </group>
-<group name="l&#476;e (lUe4)" label="l&#476;e"  f="113"  b="113">
+<group name="l&#476;e (lue4)" label="l&#476;e"  f="113"  b="113">
 <s d="&#x63A0;" t="&#x63A0;" />
 <s d="&#x7565;" t="&#x7565;" />
 <s d="&#x950A;" t="&#x950A;" />
@@ -5594,18 +5594,18 @@
 <group name="n&#249; (nu4)" label="n&#249;"  f="113"  b="114">
 <s d="&#x6012;" t="&#x6012;" />
 </group>
-<group name="n&#474; (nU3)" label="n&#474;"  f="113"  b="115">
+<group name="n&#474; (nuu3)" label="n&#474;"  f="113"  b="115"><!--Note: Changed from nU to nuu-->
 <s d="&#x5973;" t="&#x5973;" />
 <s d="&#x9495;" t="&#x9495;" />
 </group>
-<group name="n&#476; (nU4)" label="n&#476;"  f="113"  b="116">
+<group name="n&#476; (nuu4)" label="n&#476;"  f="113"  b="116">
 <s d="&#x6067;" t="&#x6067;" />
 <s d="&#x8844;" t="&#x8844;" />
 </group>
 <group name="n&#468;an (nuan3)" label="n&#468;an"  f="113"  b="117">
 <s d="&#x6696;" t="&#x6696;" />
 </group>
-<group name="n&#476;e (nUe4)" label="n&#476;e"  f="113"  b="118">
+<group name="n&#476;e (nue4)" label="n&#476;e"  f="113"  b="118"><!--Note: Changed from nUe to nue-->
 <s d="&#x8650;" t="&#x8650;" />
 <s d="&#x759F;" t="&#x759F;" />
 </group>
@@ -10137,6 +10137,9 @@
 <s d="&#x5B57;" t="&#x5B57;" />
 <s d="&#x6063;" t="&#x6063;" />
 <s d="&#x7726;" t="&#x7726;" />
+</group>
+<group name="z&#105; (zi5)" label="z&#105;" f="113" b="115">
+<s d="&#x5B50;" t="&#x5B50;" />
 </group>
 <group name="z&#333;ng (zong1)" label="z&#333;ng"  f="113"  b="116">
 <s d="&#x9B03;" t="&#x9B03;" />

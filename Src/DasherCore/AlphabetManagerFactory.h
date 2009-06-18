@@ -15,9 +15,12 @@ namespace Dasher {
   // TODO: Move this into a new file
   class CTrainer {
   public:
-    CTrainer(CLanguageModel *pLanguageModel);
+    CTrainer(CLanguageModel *pLanguageModel, CAlphabet *pAlphabet, CAlphabet *pCHAlphabet);
     
     void Train(const std::vector < symbol > &vSymbols);
+    void TrainMandarin(const std::string &strUserLoc,
+		       const std::string &strSystemLoc);
+	       
     void Reset();
     
     ~CTrainer();
@@ -25,6 +28,8 @@ namespace Dasher {
   private:
     CLanguageModel *m_pLanguageModel;
     CLanguageModel::Context m_Context;
+    CAlphabet * m_pAlphabet;
+    CAlphabet * m_pCHAlphabet;
   };
 
   /// \ingroup Model
@@ -60,6 +65,10 @@ namespace Dasher {
       return m_pAlphabet;
     };
 
+    CAlphabet *GetCHAlphabet() {
+      return m_pCHAlphabet;
+    }
+
     int GetConversionID() {
       return m_iConversionID;
     };
@@ -72,6 +81,7 @@ namespace Dasher {
     CLanguageModel *m_pLanguageModel;     // pointer to the language model
     CLanguageModel::Context m_iLearnContext; // Used to add data to model as it is entered
     CAlphabet *m_pAlphabet;        // pointer to the alphabet
+    CAlphabet *m_pCHAlphabet;      // pointer to the Mandarin alphabet
 
     int m_iConversionID;
   };

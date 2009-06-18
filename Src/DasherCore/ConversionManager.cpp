@@ -18,8 +18,8 @@
 // along with Dasher; if not, write to the Free Software 
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
+#ifndef WIN32
+#include "config.h"
 #endif 
 
 #include "ConversionManager.h"
@@ -33,9 +33,12 @@
 #include <vector>
 #include <stdlib.h>
 
+//Note the new implementation in Mandarin Dasher may not be compatible with the previous implementation of Japanese Dasher
+//Need to reconcile (a small project)
+
 using namespace Dasher;
 
-CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, CConversionHelper *pHelper, CAlphabet *pAlphabet, int CMid) 
+CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, CConversionHelper *pHelper, CAlphabet *pAlphabet) 
   : CNodeManager(2) {
 
   m_pNCManager = pNCManager;
@@ -43,10 +46,10 @@ CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, CConver
   m_pAlphabet = pAlphabet;
   m_pRoot = NULL;
    
-//DOESN'T SEEM INTRINSIC
-//and check why pHelper may be empty
+  //DOESN'T SEEM INTRINSIC
+  //and check why pHelper may be empty
   if(pHelper)
-    m_pLanguageModel = pHelper->GetLanguageModel();
+    m_pLanguageModel = pNCManager->GetLanguageModel();
   else
     m_pLanguageModel = NULL;
 
@@ -54,10 +57,17 @@ CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, CConver
     m_iLearnContext = m_pLanguageModel->CreateEmptyContext();
 
   m_iRefCount = 1;
-  m_iCMID = CMid;
-  //  m_iHZCount = 0;
 
   m_bTreeBuilt = false; 
+
+
+  //Testing for alphabet details, delete if needed: 
+  /*
+  int alphSize = pNCManager->GetAlphabet()->GetNumberSymbols();
+  std::cout<<"Alphabet size: "<<alphSize<<std::endl;
+  for(int i =0; i<alphSize; i++)
+    std::cout<<"symbol: "<<i<<"    display text:"<<pNCManager->GetAlphabet()->GetDisplayText(i)<<std::endl;
+  */
 }
 
 CConversionManager::~CConversionManager(){  
@@ -77,7 +87,7 @@ CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int i
   pDisplayInfo->iColour = 9; // TODO: Hard coded value
   pDisplayInfo->bShove = true;
   pDisplayInfo->bVisible = true;
-  pDisplayInfo->strDisplayText = ">"; // TODO: Hard coded value, needs i18n
+  pDisplayInfo->strDisplayText = ""; // TODO: Hard coded value, needs i18n
        
   pNewNode = new CDasherNode(pParent, iLower, iUpper, pDisplayInfo);
  
@@ -92,20 +102,27 @@ CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int i
 
   SConversionData *pNodeUserData = new SConversionData;
   pNewNode->m_pUserData = pNodeUserData;
-  pNodeUserData->bType = false;
+  pNodeUserData->bisRoot = true;
   pNodeUserData->iOffset = iOffset + 1;
 
   if(m_pHelper)
-    pNodeUserData->pLanguageModel = m_pHelper->GetLanguageModel();
+    pNodeUserData->pLanguageModel = m_pLanguageModel;
   else
     pNodeUserData->pLanguageModel = NULL;
   
-  //   // std::cout<<m_pLanguageModel<<"lala"<<std::endl;
   if(m_pLanguageModel) {
+    CAlphabetManager::SAlphabetData *pParentAlphabetData = static_cast<CAlphabetManager::SAlphabetData *>(pParent->m_pUserData);      
+    if((pParent->m_pNodeManager->GetID()==0)&&(pParentAlphabetData->iContext)){
+      pNodeUserData->iContext=m_pLanguageModel->CloneContext(pParentAlphabetData->iContext); 
+    }
+    else{
     CLanguageModel::Context iContext;
     iContext = m_pLanguageModel->CreateEmptyContext();
     pNodeUserData->iContext = iContext;
+    }
   }
+
+  
 
   pNodeUserData->pSCENode = 0;
 
@@ -181,104 +198,37 @@ void CConversionManager::AssignChildSizes(SCENode **pNode, CLanguageModel::Conte
     // - Sharing of language model infrastructure?
     
 
-
+  
     // Lookup scores for each of the children
-
+  
     // TODO: Reimplement -----
-    
-//     for(int i(0); i < pCurrentSCEChild->IsHeadAndCandNum; ++i){
-//       score[i] = CalculateScore(pNode, i);
-//       total += score[i];
-//       if(i!=0)
-// 	if (score[i]>score[i-1])
-// 	  max = score[i];
-//     }
-
-    // -----
-
-    // Use the scores to calculate the size of the nodes
-
-
+  
+  //     for(int i(0); i < pCurrentSCEChild->IsHeadAndCandNum; ++i){
+  //       score[i] = CalculateScore(pNode, i);
+  //       total += score[i];
+  //       if(i!=0)
+  // 	if (score[i]>score[i-1])
+  // 	  max = score[i];
+  //     }
+  
+  // -----
+  
+  // Use the scores to calculate the size of the nodes
+  
+  
   iNChildren = 0;
   SCENode *pChild(*pNode);
-
+  
   while(pChild) {
     pChild = pChild->GetNext();
     ++iNChildren;
   }
 
-
+  //  std::cout<<"iNChildren: "<<iNChildren<<std::endl;
   m_pHelper->AssignSizes(pNode, context, m_pNCManager->GetLongParameter(LP_NORMALIZATION), m_pNCManager->GetLongParameter(LP_UNIFORM), iNChildren);
 
+  
 }
-    //    for(int i(0); i < iNChildren; ++i) {
-
-      //TESTING FOR RESIZING FREQUENT HZ CHARACTERS
-      //if(i<5)
-      //	if(score[i]<max-5){
-      //	  std::cout<<"first scores are"<<score[i]<<std::endl;
-      //  score[i]=max-5;
-      //	}
-
-      // TODO: Reimplement new model -----
-
-//       if(CandNum == 1)
-//       	iSize[i] = m_pNCManager->GetLongParameter(LP_NORMALIZATION);
-//       else
-// 	iSize[i] = m_pNCManager->GetLongParameter(LP_NORMALIZATION)*((CandNum-i-1)+2*CandNum*score[i])/(CandNum*(CandNum-1)/2+2*CandNum*total);
-      
-      // ----
-
-      //PREVIOUS MODEL: m_pNCManager->GetLongParameter(LP_NORMALIZATION)/((i + 1) * (i + 2));
-
-
-      /*
-      SCENode * pIt;
-      
-      pIt=pNode;
-
-      uint freq[iNChildren];
-      for(int i(0); i<iNChildren; i++)
-	freq[i] = 0;
-      uint totalFreq=0;
-      uint maxFreq=0;
-
-    
-      while(pIt){
-	freq[pIt->CandIndex]=pIt->HZFreq;
-	totalFreq+=freq[pIt->CandIndex];
-	if(pIt->HZFreq>maxFreq)
-	  maxFreq=pIt->HZFreq;
-	pIt = pIt->pNext;
-      }
-
-      pSizes[i] = m_pNCManager->GetLongParameter(LP_NORMALIZATION)*(100+5*freq[i])/(100*iNChildren+5*totalFreq);
-      */
-	//((i + 1) * (i + 2));
-
-    /*
-
-      if(pSizes[i] < 1)
-	pSizes[i] = 1;
-      
-      iRemaining -= pSizes[i];
-    }
-
-    // Distribute the remaining space evenly
-
-    int iLeft(iNChildren);
-    
-    for(int i(0); i < iNChildren; ++i) {
-      int iDiff(iRemaining / iLeft);
-
-      pSizes[i] += iDiff;
-      
-      iRemaining -= iDiff;
-      --iLeft;
-    }
-}
-
-    */
 
 void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
   DASHER_ASSERT(m_pNCManager);
@@ -294,6 +244,7 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
     int iLbnd(0);
     int iHbnd(m_pNCManager->GetLongParameter(LP_NORMALIZATION)); 
     
+
     CAlphabetManager::SRootData oRootData;
     oRootData.szContext = NULL;
     oRootData.iOffset = pCurrentDataNode->iOffset + 1;
@@ -309,24 +260,29 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
   // Do the conversion and build the tree (lattice) if it hasn't been
   // done already.
   //
-  if(!m_bTreeBuilt) {
+  
+
+  if(pCurrentDataNode->bisRoot) {
     BuildTree(pNode);
-    m_bTreeBuilt = true;
   }
 
   SCENode *pCurrentSCEChild;
 
-  if(pCurrentDataNode->pSCENode)
+  if(pCurrentDataNode->pSCENode){
+    
+    //    RecursiveDumpTree(pCurrentDataNode->pSCENode, 1);
     pCurrentSCEChild = pCurrentDataNode->pSCENode->GetChild();
+
+  }
   else {
-    if(m_pRoot && !pCurrentDataNode->bType)
-      pCurrentSCEChild = m_pRoot[0];
-    else
+    //    if(m_pRoot && !pCurrentDataNode->bType)
+    //  pCurrentSCEChild = m_pRoot[0];
+    //else
       pCurrentSCEChild = 0;
   }
   
   if(pCurrentSCEChild) {
-
+    //    std::cout<<"Populating character nodes!"<<std::endl;
     //    std::cout << "Current SCE Child: " << pCurrentSCEChild << std::endl;
 
     // TODO: Reimplement (in subclass) -----
@@ -361,6 +317,7 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
 
       int iLbnd(iCum);
       int iHbnd(iCum + pCurrentSCEChild->NodeSize);
+		//m_pNCManager->GetLongParameter(LP_NORMALIZATION));//
 
       iCum = iHbnd;
       
@@ -389,7 +346,7 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
       pNewNode->m_pNodeManager->Ref();
 
       SConversionData *pNodeUserData = new SConversionData;
-      pNodeUserData->bType = false;
+      pNodeUserData->bisRoot = false;
       pNodeUserData->pSCENode = pCurrentSCEChild;
       pNodeUserData->pLanguageModel = pCurrentDataNode->pLanguageModel;
       pNodeUserData->iOffset = pCurrentDataNode->iOffset + 1;
@@ -406,12 +363,6 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
       }
       
       pNewNode->m_pUserData = pNodeUserData;
-      // SAlphabetData *pNodeUserData = new SAlphabetData;
-      
-      //pNewNode->m_pUserData = pNodeUserData;
-      
-      //pNodeUserData->iPhase = iNewPhase;
-      //pNodeUserData->iSymbol = iIdx;
       
       pNode->Children().push_back(pNewNode);
 
@@ -419,12 +370,11 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
       ++iIdx;
     }while(pCurrentSCEChild);
 
-
-    // delete[] iSize;
   }
 
-  else {
-    if((static_cast<SConversionData *>(pNode->m_pUserData))->bType) {
+  else {//End of conversion -> defalt to alphabet
+   
+      //Phil//
       // TODO: Placeholder algorithm here
       // TODO: Add an 'end of conversion' node?
       int iLbnd(0);
@@ -439,8 +389,11 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
       
       pNode->Children().push_back(pNewNode);
       //    pNode->SetHasAllChildren(false);
-    }
+      //}
+    /* What do the following code do?
     else {
+
+      std::cout<<"DOES IT EVER COME TO HERE?"<<std::endl;
       int iLbnd(0);
       int iHbnd(m_pNCManager->GetLongParameter(LP_NORMALIZATION)); 
 
@@ -473,15 +426,29 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
       
       pNode->Children().push_back(pNewNode);
     }
+    */
   }
 }
 
 void CConversionManager::ClearNode( CDasherNode *pNode ) {
-  if(pNode->m_pUserData)
+  if(pNode->m_pUserData){
+    SConversionData *pUserData(static_cast<SConversionData *>(pNode->m_pUserData));
+    
+    pUserData->pLanguageModel->ReleaseContext(pUserData->iContext);
     delete (SConversionData *)(pNode->m_pUserData);
+  }
 }
 
 void CConversionManager::RecursiveDumpTree(SCENode *pCurrent, unsigned int iDepth) {
+  pCurrent = pCurrent->GetChild();
+
+  if(pCurrent){
+    while(pCurrent){
+        std::cout << " " << pCurrent->pszConversion << " " << pCurrent->IsHeadAndCandNum << " " << pCurrent->CandIndex << " " << pCurrent->IsComplete << " " << pCurrent->AcCharCount << std::endl;
+	pCurrent = pCurrent->GetNext();
+    }
+  }
+  /*
   while(pCurrent) {
     for(unsigned int i(0); i < iDepth; ++i) 
       std::cout << "-";
@@ -491,53 +458,44 @@ void CConversionManager::RecursiveDumpTree(SCENode *pCurrent, unsigned int iDept
     RecursiveDumpTree(pCurrent->GetChild(), iDepth + 1);
     pCurrent = pCurrent->GetNext();
   }
+  */
 }
 
 void CConversionManager::BuildTree(CDasherNode *pRoot) {
   DASHER_ASSERT(m_pHelper);
 
-  CDasherNode *pCurrentNode(pRoot->Parent());
- 
-  std::string strCurrentString;
-  //  m_pHelper->ClearData(m_iCMID);
+  std::string strCurrentString; 
 
-  while(pCurrentNode) {
-    if(pCurrentNode->m_pNodeManager->GetID() == 2) {
-      break;
-    }
+  //Find the pinyin (roman) text (stored in Display text) of the previous alphabet node
 
-    // TODO: Need to make this the edit text rather than the display text
-    CAlphabetManager::SAlphabetData *pAlphabetData = 
-      static_cast<CAlphabetManager::SAlphabetData *>(pCurrentNode->m_pUserData);
+    CAlphabetManager::SAlphabetData *pRootAlphabetData = static_cast<CAlphabetManager::SAlphabetData *>(pRoot->m_pUserData);
 
-    strCurrentString = m_pAlphabet->GetText(pAlphabetData->iSymbol) + strCurrentString;
-
-    pCurrentNode = pCurrentNode->Parent();
-  }
-
-  // TODO: The remainder of this function is messy - to be sorted out
-  int iHZCount;
-  SCENode *pStartTemp;
-  bool ConversionSuccess;
-
-  ConversionSuccess = m_pHelper->Convert(strCurrentString, &pStartTemp , &iHZCount, m_iCMID); 
-
-  if((!ConversionSuccess)||(iHZCount==0)) {
-    m_pRoot = 0;
-  }
-  else{
-    m_pRoot = new SCENode *[1];
-    m_pRoot[0] = pStartTemp;
-  } 
-}
+    //Get pinyin string (to translate) from 'Display Text' in the alphabet file (refer to alphabet.spyDict.xml)
+    strCurrentString = m_pAlphabet->GetDisplayText(pRootAlphabetData->iSymbol);
     
+    SCENode *pStartTemp;
+    bool ConversionSuccess = m_pHelper->Convert(strCurrentString, &pStartTemp); 
+    
+    
+ CConversionManager:SConversionData *pRootConversionData = static_cast<CConversionManager::SConversionData *>(pRoot->m_pUserData);
+    
+    if(!(pRootConversionData->bisRoot))
+      std::cout<<"ERROR IN BUILD TREE"<<std::endl;
+
+    //Store all conversion trees(SCENode trees) in the pUserData->pSCENode of each Conversion Root
+    
+    else{
+      pRootConversionData->pSCENode = pStartTemp;
+    } 
+}
+
 void CConversionManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {
   // TODO: Reimplement this
   //  m_pNCManager->m_bContextSensitive = true; 
-
+  
   SCENode *pCurrentSCENode((static_cast<SConversionData *>(pNode->m_pUserData))->pSCENode);
-
-  if(pCurrentSCENode) {
+  
+  if(pCurrentSCENode){
     Dasher::CEditEvent oEvent(1, pCurrentSCENode->pszConversion, static_cast<SConversionData *>(pNode->m_pUserData)->iOffset);
     m_pNCManager->InsertEvent(&oEvent);
     
@@ -547,7 +505,7 @@ void CConversionManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB*
     }
   }
   else {
-    if((static_cast<SConversionData *>(pNode->m_pUserData))->bType) {
+    if(!((static_cast<SConversionData *>(pNode->m_pUserData))->bisRoot)) {
       Dasher::CEditEvent oOPEvent(1, "|", static_cast<SConversionData *>(pNode->m_pUserData)->iOffset);
       m_pNCManager->InsertEvent(&oOPEvent);
     }
@@ -571,7 +529,7 @@ void CConversionManager::Undo( CDasherNode *pNode ) {
     }
   } 
   else {
-    if((static_cast<SConversionData *>(pNode->m_pUserData))->bType) {
+    if(!((static_cast<SConversionData *>(pNode->m_pUserData))->bisRoot)) {
       Dasher::CEditEvent oOPEvent(2, "|", static_cast<SConversionData *>(pNode->m_pUserData)->iOffset);
       m_pNCManager->InsertEvent(&oOPEvent);
     }
@@ -586,9 +544,9 @@ void CConversionManager::SetFlag(CDasherNode *pNode, int iFlag, bool bValue) {
   switch(iFlag) {
   case NF_COMMITTED:
     if(bValue){
-      // TODO: Reimplement (need a learning context, check whether
-      // symbol actually corresponds to character)
+      //Blanked out for new Mandarin Dasher, if we want to have the language model learn as one types, need to work on this part
 
+      /*
       CLanguageModel * pLan =  static_cast<SConversionData *>(pNode->m_pUserData)->pLanguageModel;
 
       SCENode * pSCENode = static_cast<SConversionData *>(pNode->m_pUserData)->pSCENode; 
@@ -601,6 +559,7 @@ void CConversionManager::SetFlag(CDasherNode *pNode, int iFlag, bool bValue) {
      
       if((s!=-1) && m_pLanguageModel)
 	pLan->LearnSymbol(m_iLearnContext, s);
+      */
     }
     break;
   }

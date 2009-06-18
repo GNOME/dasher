@@ -44,7 +44,7 @@ namespace Dasher {
   class CAlphabetManager : public CNodeManager {
   public:
 
-    CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel, CLanguageModel::Context iLearnContext);
+    CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel, CLanguageModel::Context iLearnContext, int iConversionID);
 
     ///
     /// Does nothing - alphabet manager isn't reference counted.
@@ -95,6 +95,7 @@ namespace Dasher {
       int iPhase;
       CLanguageModel *pLanguageModel;
       CLanguageModel::Context iContext;
+ 
       int iGameOffset;
       int iOffset;
     };
@@ -113,6 +114,8 @@ namespace Dasher {
     CNodeCreationManager *m_pNCManager;
     CLanguageModel::Context m_iLearnContext;
     CDasherInterfaceBase *m_pInterface;
+    //Added for Mandarin Dasher
+    int m_iConversionID;
 
   };
   /// @}
