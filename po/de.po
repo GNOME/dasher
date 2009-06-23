@@ -10,11 +10,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher 3.2.11\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=dasher&component=general\n"
-"POT-Creation-Date: 2009-05-13 11:38+0000\n"
-"PO-Revision-Date: 2009-05-24 12:32+0200\n"
+"Project-Id-Version: dasher 4.10.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-06-24 00:08+0200\n"
+"PO-Revision-Date: 2009-06-24 00:15+0200\n"
 "Last-Translator: Christian Kirbach <Christian.Kirbach@googlemail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -618,12 +617,16 @@ msgid "Safety margin"
 msgstr "Sicherheitsrand"
 
 #. TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other.
-#: ../Src/DasherCore/DasherButtons.cpp:31
+#. XXX PRLW: 128 log(2) = 89, where 2 is the ratio of adjacent boxes
+#. * however the code seems to use ratio = (129/127)^-r, instead of
+#. * ratio = exp(r/128) used in the design document
+#.
+#: ../Src/DasherCore/DasherButtons.cpp:35
 msgid "Box non-uniformity"
 msgstr "Ungleichförmigeit der Box"
 
 #. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
-#: ../Src/DasherCore/DasherButtons.cpp:33
+#: ../Src/DasherCore/DasherButtons.cpp:37
 msgid "Global keyboard grab"
 msgstr "Globales Erfassen der Tastatur"
 
@@ -631,29 +634,29 @@ msgstr "Globales Erfassen der Tastatur"
 msgid "Well done!"
 msgstr "Gut gemacht!"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:941
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:937
 msgid "Normal Control"
 msgstr "Normale Steuerung"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:955
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:952
 msgid "Menu Mode"
 msgstr "Menümodus"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:956
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:953
 msgid "Direct Mode"
 msgstr "Direkter Modus"
 
 #. RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3"));
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:958
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:955
 msgid "Alternating Direct Mode"
 msgstr "Abwechselnder direkter Modus"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:959
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:956
 msgid "Compass Mode"
 msgstr "Kompass-Modus"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:960
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:957
 msgid "Stylus Control"
 msgstr "Stift-Steuerung"
 
@@ -688,7 +691,36 @@ msgstr "Anzahl für mehrfaches Drücken"
 msgid "Enable backoff button"
 msgstr "Backoff-Schaltfläche aktivieren"
 
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:36
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:39
+msgid "Slow startup"
+msgstr "Langsamer Start"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:37
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:40
+msgid "Startup time"
+msgstr "Startzeit"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:38
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:42
+#, fuzzy, c-format
+msgid "%age by which to automatically increase speed"
+msgstr "%Laufzeit nach der automatisch die Geschwindigkeit erhöht wird"
+
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
+msgid "Time after which to automatically increase speed (secs)"
+msgstr ""
+"Zeit (in Sekunden), nach der automatisch die Geschwindigkeit erhöht werden "
+"soll"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:40
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:44
+#, fuzzy, c-format
+msgid "%age by which to decrease speed upon reverse"
+msgstr "%Laufzeit nach der automatisch die Geschwindigkeit gesenkt wird"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:44
 msgid "One Button Dynamic Mode"
 msgstr "Dynamischer Modus mit Einknopfsteuerung"
 
@@ -779,26 +811,11 @@ msgstr "Backoff- und Start/Stop-Knöpfe aktivieren"
 msgid "Reverse up and down buttons"
 msgstr "Hoch- und Runter-Knöpfe umkehren"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:39
-msgid "Slow startup"
-msgstr "Langsamer Start"
-
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:40
-msgid "Startup time"
-msgstr "Startzeit"
-
-# CHECK: translation too long?
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
-msgid "Auto speed control"
-msgstr "Automatische Geschwindigkeitskontrolle"
+msgid "Lag before user actually pushes button (ms)"
+msgstr "Verzögerung (in ms), bevor der Benutzer tatsächlich den Knopf drückt"
 
-# CHECK: trans. too long?
-#. TRANSLATORS: The threshold time above which auto speed control is used.
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
-msgid "Auto speed threshold"
-msgstr "Automatischer Geschwindigkeitsschwellenwert"
-
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:47
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:48
 msgid "Two Button Dynamic Mode"
 msgstr "Dynamischer Modus mit Zweiknopfsteuerung"
 
@@ -851,35 +868,35 @@ msgstr "Text eingeben"
 msgid "Script"
 msgstr "Skript"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:132
+#: ../Src/Gtk2/dasher_action_speech.cpp:137
 msgid "Speak"
 msgstr "Sprechen"
 
 #. TRANSLATORS: Send all text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:145
+#: ../Src/Gtk2/dasher_action_speech.cpp:150
 msgid "All"
 msgstr "Alle"
 
 #. TRANSLATORS: Send most recently entered text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:148
+#: ../Src/Gtk2/dasher_action_speech.cpp:153
 msgid "Last"
 msgstr "Letzter"
 
 #. TRANSLATORS: Repeat the last phrase sent to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:151
+#: ../Src/Gtk2/dasher_action_speech.cpp:156
 msgid "Repeat"
 msgstr "Wiederholen"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:169
+#: ../Src/Gtk2/dasher_action_speech.cpp:174
 #, c-format
 msgid "Unable to initialize speech support\n"
 msgstr "Initialisierung der Sprachunterstützung fehlgeschlagen\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:192
+#: ../Src/Gtk2/dasher_action_speech.cpp:197
 msgid "Unable to initialize voices\n"
 msgstr "Stimmen konnten nicht initialisiert werden\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:204
+#: ../Src/Gtk2/dasher_action_speech.cpp:209
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Warnung: Sprachparameter konnten nicht gesetzt werden\n"
 
@@ -973,24 +990,32 @@ msgstr "Eindimensionale Mauseingabe"
 #. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
 #. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
 #. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
-#: ../Src/main.cc:185
+#: ../Src/main.cc:177
 msgid "Application style (traditional, direct, compose or fullscreen)"
 msgstr "Anwendungsstil (»traditional«, »direct«, »compose« or »fullscreen«)"
 
 #. Note to translators: This is the help string for "--options"
-#: ../Src/main.cc:187
+#: ../Src/main.cc:179
 msgid "Override stored options"
 msgstr "Gespeicherte Optionen überschreiben"
 
 #. Note to translators: This is the help string for "--help-options"
-#: ../Src/main.cc:189
+#: ../Src/main.cc:181
 msgid "Describe \"--options\"."
 msgstr "Beschreibt »--options«\"."
 
 #. Note to translators: This is the "--help" description of dasher.
-#: ../Src/main.cc:196
+#: ../Src/main.cc:188
 msgid "- A text input application honouring accessibility"
 msgstr "- Eine Anwendung zur barrierefreien Texteingabe"
+
+# CHECK: translation too long?
+#~ msgid "Auto speed control"
+#~ msgstr "Automatische Geschwindigkeitskontrolle"
+
+# CHECK: trans. too long?
+#~ msgid "Auto speed threshold"
+#~ msgstr "Automatischer Geschwindigkeitsschwellenwert"
 
 #~ msgid "Dasher - %s"
 #~ msgstr "Dasher - %s"
