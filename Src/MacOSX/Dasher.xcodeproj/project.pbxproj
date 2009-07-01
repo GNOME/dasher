@@ -394,6 +394,9 @@
 		33E173E60F3E0B6400D19B38 /* training_welsh_GB.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173C60F3E0B6400D19B38 /* training_welsh_GB.txt */; };
 		33E91A770F55E60B00B5F513 /* KeyboardHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33E91A750F55E60B00B5F513 /* KeyboardHelper.cpp */; };
 		33E91A780F55E60B00B5F513 /* KeyboardHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 33E91A760F55E60B00B5F513 /* KeyboardHelper.h */; };
+		33FC93390FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33FC93370FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp */; };
+		33FC933A0FEFA2C900A9F08D /* TwoPushDynamicFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 33FC93380FEFA2C900A9F08D /* TwoPushDynamicFilter.h */; };
+		33FC93430FEFA2FB00A9F08D /* FrameRate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33FC93420FEFA2FB00A9F08D /* FrameRate.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -808,6 +811,9 @@
 		33E173C60F3E0B6400D19B38 /* training_welsh_GB.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_welsh_GB.txt; sourceTree = "<group>"; };
 		33E91A750F55E60B00B5F513 /* KeyboardHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyboardHelper.cpp; sourceTree = "<group>"; };
 		33E91A760F55E60B00B5F513 /* KeyboardHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardHelper.h; sourceTree = "<group>"; };
+		33FC93370FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TwoPushDynamicFilter.cpp; sourceTree = "<group>"; };
+		33FC93380FEFA2C900A9F08D /* TwoPushDynamicFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoPushDynamicFilter.h; sourceTree = "<group>"; };
+		33FC93420FEFA2FB00A9F08D /* FrameRate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameRate.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -912,6 +918,9 @@
 		1948BDF40C226CFC001DFA32 /* DasherCore */ = {
 			isa = PBXGroup;
 			children = (
+				33FC93420FEFA2FB00A9F08D /* FrameRate.cpp */,
+				33FC93370FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp */,
+				33FC93380FEFA2C900A9F08D /* TwoPushDynamicFilter.h */,
 				1988ABB70C9FF97000D97977 /* GameLevel.cpp */,
 				1988ABB80C9FF97000D97977 /* GameMessages.h */,
 				1988ABB90C9FF97000D97977 /* GameStatistics.h */,
@@ -1497,6 +1506,7 @@
 				1988ABC00C9FF97000D97977 /* PinyinParser.h in Headers */,
 				33E91A780F55E60B00B5F513 /* KeyboardHelper.h in Headers */,
 				33ABFEC70FC379EA00EA2BA5 /* ButtonMultiPress.h in Headers */,
+				33FC933A0FEFA2C900A9F08D /* TwoPushDynamicFilter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1842,6 +1852,8 @@
 				1988ABCF0C9FFADA00D97977 /* GameLevel.cpp in Sources */,
 				33E91A770F55E60B00B5F513 /* KeyboardHelper.cpp in Sources */,
 				33ABFEC60FC379EA00EA2BA5 /* ButtonMultiPress.cpp in Sources */,
+				33FC93390FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp in Sources */,
+				33FC93430FEFA2FB00A9F08D /* FrameRate.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
