@@ -226,8 +226,7 @@ int COSXDasherControl::GetFileSize(const std::string &strFileName) {
 void COSXDasherControl::Train(NSString *fileName) {
   std::string f = StdStringFromNSString(fileName);
   NSLog(@"Read train file: %s", f.c_str());
-  NSLog(@"method disappeared!! doing nuffink");
-//  CDasherInterfaceBase::TrainFile(f, GetFileSize(f), 0);
+  CDasherInterfaceBase::ImportTrainingText(f);
 }
 
 void COSXDasherControl::WriteTrainFile(const std::string &strNewText) {
