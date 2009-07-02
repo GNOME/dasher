@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&component=general\n"
 "POT-Creation-Date: 2009-07-02 12:33+0000\n"
-"PO-Revision-Date: 2009-07-02 19:03+0530\n"
+"PO-Revision-Date: 2009-07-02 19:07+0530\n"
 "Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
 "Language-Team: Oriya <oriya-it@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n!=1);\n\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -70,7 +71,7 @@ msgstr "କାଟନ୍ତୁ"
 
 #: ../Data/glade/dasher.compose.glade.h:6
 msgid "Dasher _Tutorial"
-msgstr "ଡେଶର ଟ୍ଯୁଟୋରିୟାଲ (_T)"
+msgstr "Dasher ଟ୍ଯୁଟୋରିୟାଲ (_T)"
 
 #: ../Data/glade/dasher.compose.glade.h:7
 #: ../Data/glade/dasher.gameWIP.glade.h:12
