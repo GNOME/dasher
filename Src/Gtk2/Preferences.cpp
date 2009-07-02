@@ -15,6 +15,8 @@
 
 #define DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf) (DasherPreferencesDialoguePrivate *)(pSelf->private_data);
 
+using namespace Dasher;
+
 /* Static global member - use to deal with callbacks */
 static DasherPreferencesDialogue *g_pPreferencesDialogue = NULL;
 

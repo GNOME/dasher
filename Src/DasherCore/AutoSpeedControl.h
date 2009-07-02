@@ -7,9 +7,6 @@
 
 #include <deque>
 
-// Why is this using-directive in global scope in a header file?
-using namespace Dasher;
-
 /// \defgroup AutoSpeed Auto speed control
 /// @{
 class CAutoSpeedControl : public Dasher::CDasherComponent {

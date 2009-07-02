@@ -19,7 +19,6 @@ namespace Dasher {
   class CDasherView;
   
   namespace GameMode {
-    using namespace Dasher;
     class CDasherGameMode;
     class Level;
     class Scorer;

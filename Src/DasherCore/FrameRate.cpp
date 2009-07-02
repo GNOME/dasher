@@ -1,5 +1,5 @@
 #include "FrameRate.h"
-
+namespace Dasher {
 CFrameRate::CFrameRate(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore) :
   CDasherComponent(pEventHandler, pSettingsStore) {
 
@@ -75,4 +75,6 @@ void CFrameRate::HandleEvent(Dasher::CEvent *pEvent) {
       FramerateChanged(GetLongParameter(LP_FRAMERATE) / 100.0);
     }
   }
+}
+
 }

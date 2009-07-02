@@ -24,7 +24,7 @@
 #include "../Common/Common.h"
 #include "../Common/NoClones.h"
 #include "DasherTypes.h"
-
+#include "DasherModel.h"
 #include "NodeManager.h"
 
 // These includes no longer required? - pconlon
@@ -271,12 +271,7 @@ class Dasher::CDasherNode:private NoClones {
 // Inline functions
 /////////////////////////////////////////////////////////////////////////////
 
-// Why are these using-directives in a header file?
-using namespace Dasher;
-using namespace Opts;
-// TODO: move to the top of file.
-#include "DasherModel.h"
-
+namespace Dasher {
 inline CDasherNode::CDasherNode(CDasherNode *pParent, int iLbnd, int iHbnd, SDisplayInfo *pDisplayInfo) {
   // TODO: Check that these are disabled for debug builds, and that we're not shipping such a build
   DASHER_ASSERT(iHbnd >= iLbnd);
@@ -334,6 +329,5 @@ inline void CDasherNode::SetRange(int iLower, int iUpper) {
   m_iLbnd = iLower;
   m_iHbnd = iUpper;
 }
-  
-
+}
 #endif /* #ifndef __DasherNode_h__ */

@@ -17,6 +17,7 @@ namespace Dasher {
   class CDasherNode;
   class CDasherInterfaceBase;
 };
+//TODO why is CNodeCreationManager _not_ in namespace Dasher?!?!
 /// \ingroup Model
 /// @{
 class CNodeCreationManager : public Dasher::CDasherComponent {
@@ -31,7 +32,7 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   /// Get a root node of a given type
   ///
 
-  CDasherNode *GetRoot(int iType, Dasher::CDasherNode *pParent, int iLower, int iUpper, void *pUserData);
+  Dasher::CDasherNode *GetRoot(int iType, Dasher::CDasherNode *pParent, int iLower, int iUpper, void *pUserData);
 
   ///
   /// Resgister a control node 
@@ -64,19 +65,19 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   /// Temporary methods: TODO: remove
   ///
 
-  CLanguageModel *GetLanguageModel() {
+  Dasher::CLanguageModel *GetLanguageModel() {
     return m_pLanguageModel;
   };
 
-  CLanguageModel::Context GetLearnContext() {
+  Dasher::CLanguageModel::Context GetLearnContext() {
     return m_pAlphabetManagerFactory->GetLearnContext();
   }
 
-  void GetProbs(CLanguageModel::Context context, std::vector <symbol >&NewSymbols, std::vector <unsigned int >&Probs, int iNorm) const;
-  void LearnText(CLanguageModel::Context context, std::string *TheText, bool IsMore);
-  void EnterText(CLanguageModel::Context context, std::string TheText) const;
+  void GetProbs(Dasher::CLanguageModel::Context context, std::vector <Dasher::symbol >&NewSymbols, std::vector <unsigned int >&Probs, int iNorm) const;
+  void LearnText(Dasher::CLanguageModel::Context context, std::string *TheText, bool IsMore);
+  void EnterText(Dasher::CLanguageModel::Context context, std::string TheText) const;
 
-  inline int GetColour(symbol s, int iPhase) const { 
+  inline int GetColour(Dasher::symbol s, int iPhase) const {
     return m_pAlphabet->GetColour(s, iPhase); 
   };
 
@@ -84,7 +85,7 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   /// Get the symbol ID representing space
   ///
 
-  symbol GetSpaceSymbol() const {
+  Dasher::symbol GetSpaceSymbol() const {
     return m_pAlphabet->GetSpaceSymbol();
   }
 
@@ -92,7 +93,7 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   /// Get the symbol ID representing the control node 
   ///
 
-  symbol GetControlSymbol() const {
+  Dasher::symbol GetControlSymbol() const {
     return m_pAlphabet->GetControlSymbol();
   }
 
@@ -100,7 +101,7 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   /// Get the symbol ID representing the conversion pseudo-character
   ///
 
-  symbol GetStartConversionSymbol() const {
+  Dasher::symbol GetStartConversionSymbol() const {
     return m_pAlphabet->GetStartConversionSymbol();
   }
 
@@ -116,19 +117,19 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   /// Get a reference to the alphabet
   ///
 
-  CAlphabet *GetAlphabet() {
+  Dasher::CAlphabet *GetAlphabet() {
     return m_pAlphabet;
   }
 
   void ImportTrainingText(const std::string &strPath);
 
  private:
-  CLanguageModel *m_pLanguageModel;     // pointer to the language model
-  CAlphabet *m_pAlphabet;        // pointer to the alphabet
+  Dasher::CLanguageModel *m_pLanguageModel;     // pointer to the language model
+  Dasher::CAlphabet *m_pAlphabet;        // pointer to the alphabet
 
-  CAlphabetManagerFactory *m_pAlphabetManagerFactory;
-  CControlManagerFactory *m_pControlManagerFactory;
-  CConversionManagerFactory *m_pConversionManagerFactory;
+  Dasher::CAlphabetManagerFactory *m_pAlphabetManagerFactory;
+  Dasher::CControlManagerFactory *m_pControlManagerFactory;
+  Dasher::CConversionManagerFactory *m_pConversionManagerFactory;
 };
 /// @}
 

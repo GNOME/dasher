@@ -18,13 +18,11 @@
 
 namespace Dasher {
   class CSocketInputBase;
-}
-// Namespace pollution...
-using namespace Dasher;
+
 using namespace std;
 /// \ingroup Input 
 /// \{
-class Dasher::CSocketInputBase : public CDasherInput {
+class CSocketInputBase : public CDasherInput {
 
 public:
 
@@ -32,7 +30,7 @@ public:
 
   virtual ~CSocketInputBase();
 
-  virtual void HandleEvent(Dasher::CEvent * pEvent);
+  virtual void HandleEvent(CEvent * pEvent);
 
   virtual void SetDebug(bool _debug);
 
@@ -131,6 +129,7 @@ protected:
   virtual void SocketDebugMsg(const char *pszFormat, ...);
   
 };
+}
 /// \}
 #endif
 

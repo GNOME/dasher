@@ -25,13 +25,11 @@ namespace Dasher {
 #if GCC_VERSION >= 40100
   void *ThreadLauncherStub(void *_myClass);
 #endif
-}
 
-using namespace Dasher;
 using namespace std;
 /// \ingroup Input
 /// \{
-class Dasher::CSocketInput:public CSocketInputBase {
+class CSocketInput:public CSocketInputBase {
 
   // This non-member launcher stub function is required because pthreads can't launch a non-static member method.
   friend void *ThreadLauncherStub(void *_myClass) {
@@ -61,5 +59,6 @@ private:
   // TODO: should probably override ReportErrnoError() to popup a Gtk error message
 
 };
+}
 /// \}
 #endif
