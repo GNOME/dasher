@@ -4,7 +4,6 @@
 #include "Alphabet/Alphabet.h"
 #include "Alphabet/AlphIO.h"
 #include "AlphabetManagerFactory.h"
-#include "ControlManagerFactory.h"
 #include "ConversionManagerFactory.h"
 #include "DasherComponent.h"
 
@@ -16,6 +15,7 @@
 namespace Dasher {
   class CDasherNode;
   class CDasherInterfaceBase;
+  class CControlManagerFactory;
 };
 //TODO why is CNodeCreationManager _not_ in namespace Dasher?!?!
 /// \ingroup Model
@@ -38,28 +38,19 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   /// Resgister a control node 
   ///
 
-  void RegisterNode( int iID, const std::string &strLabel, int iColour ) {
-    if(m_pControlManagerFactory)
-      m_pControlManagerFactory->RegisterNode(iID, strLabel, iColour);
-  }
+  void RegisterNode( int iID, const std::string &strLabel, int iColour );
 
   ///
   /// Connect control nodes in the tree
   ///
   
-  void ConnectNode(int iChild, int iParent, int iAfter) {
-    if(m_pControlManagerFactory)
-      m_pControlManagerFactory->ConnectNode(iChild, iParent, iAfter);
-  }
+  void ConnectNode(int iChild, int iParent, int iAfter);
 
   ///
   /// Disconnect control nodes
   ///
 
-  void DisconnectNode(int iChild, int iParent) {
-    if(m_pControlManagerFactory)
-      m_pControlManagerFactory->DisconnectNode(iChild, iParent);
-  }
+  void DisconnectNode(int iChild, int iParent);
 
   ///
   /// Temporary methods: TODO: remove

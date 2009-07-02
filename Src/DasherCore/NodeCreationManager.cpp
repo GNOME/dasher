@@ -6,7 +6,7 @@
 #include "LanguageModelling/MixtureLanguageModel.h"
 #include "LanguageModelling/PPMPYLanguageModel.h"
 #include "NodeCreationManager.h"
-
+#include "ControlManagerFactory.h"
 
 CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterface,
 					   Dasher::CEventHandler *pEventHandler, 
@@ -67,6 +67,20 @@ CNodeCreationManager::~CNodeCreationManager() {
     delete m_pConversionManagerFactory;
 }
 
+void CNodeCreationManager::RegisterNode( int iID, const std::string &strLabel, int iColour ) {
+  if(m_pControlManagerFactory)
+    m_pControlManagerFactory->RegisterNode(iID, strLabel, iColour);
+}
+
+void CNodeCreationManager::ConnectNode(int iChild, int iParent, int iAfter) {
+  if(m_pControlManagerFactory)
+    m_pControlManagerFactory->ConnectNode(iChild, iParent, iAfter);
+}
+
+void CNodeCreationManager::DisconnectNode(int iChild, int iParent) {
+  if(m_pControlManagerFactory)
+    m_pControlManagerFactory->DisconnectNode(iChild, iParent);
+}
 
 CDasherNode *CNodeCreationManager::GetRoot(int iType, Dasher::CDasherNode *pParent, int iLower, int iUpper, void *pUserData ) {
 

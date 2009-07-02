@@ -4,7 +4,6 @@
 #include "ConversionHelper.h"
 //#include "DasherModel.h"
 #include "LanguageModelling/LanguageModel.h" // Urgh - we really shouldn't need to know about language models here
-#include "NodeManagerFactory.h"
 
 #include <map>
 
@@ -13,7 +12,7 @@ namespace Dasher {
 
   /// \ingroup Model
   /// @{
-  class CConversionManagerFactory : public CNodeManagerFactory {
+  class CConversionManagerFactory {
   public:
     CConversionManagerFactory(Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, CNodeCreationManager *pNCManager, int iID, Dasher::CAlphIO *pCAlphIO, CAlphabet *pAlphabet);
     virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData);

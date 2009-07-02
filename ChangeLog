@@ -2,6 +2,7 @@
 
 	* Remove global 'using namespace Dasher' from top-level of header
 	files and move CFrameRate class into namespace Dasher.
+	* Remove NodeManagerFactory class.
 
 2009-07-02  Patrick Welche <prlw1@cam.ac.uk>
 

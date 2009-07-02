@@ -1,8 +1,8 @@
 #ifndef __controlmanagerfactory_h__
 #define __controlmanagerfactory_h__
 
-#include "NodeManagerFactory.h"
 #include "LanguageModelling/LanguageModel.h"
+#include "DasherNode.h"
 
 class CNodeCreationManager;
 
@@ -15,7 +15,7 @@ namespace Dasher {
 
   /// \ingroup Model
   /// @{
-  class CControlManagerFactory : public CNodeManagerFactory {
+  class CControlManagerFactory {
   public:
     CControlManagerFactory(CNodeCreationManager *pNCManager);
     ~CControlManagerFactory();

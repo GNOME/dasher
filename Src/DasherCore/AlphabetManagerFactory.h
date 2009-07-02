@@ -2,7 +2,6 @@
 #define __alphabetmanagerfactory_h__
 
 #include "AlphabetManager.h"
-#include "NodeManagerFactory.h"
 #include "LanguageModelling/LanguageModel.h"
 
 class CNodeCreationManager;
@@ -34,7 +33,7 @@ namespace Dasher {
 
   /// \ingroup Model
   /// @{
-  class CAlphabetManagerFactory : public CNodeManagerFactory {
+  class CAlphabetManagerFactory {
   public:
 
     CAlphabetManagerFactory(CDasherInterfaceBase *pInterface,

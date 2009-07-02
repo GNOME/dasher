@@ -113,13 +113,11 @@
 		1948BF0B0C226CFD001DFA32 /* WordLanguageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE660C226CFD001DFA32 /* WordLanguageModel.h */; };
 		1948BF0D0C226CFD001DFA32 /* MemoryLeak.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE680C226CFD001DFA32 /* MemoryLeak.cpp */; };
 		1948BF0E0C226CFD001DFA32 /* MemoryLeak.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE690C226CFD001DFA32 /* MemoryLeak.h */; };
-		1948BF0F0C226CFD001DFA32 /* ModuleFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE6A0C226CFD001DFA32 /* ModuleFactory.h */; };
 		1948BF100C226CFD001DFA32 /* ModuleManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE6B0C226CFD001DFA32 /* ModuleManager.cpp */; };
 		1948BF110C226CFD001DFA32 /* ModuleManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE6C0C226CFD001DFA32 /* ModuleManager.h */; };
 		1948BF120C226CFD001DFA32 /* NodeCreationManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE6D0C226CFD001DFA32 /* NodeCreationManager.cpp */; };
 		1948BF130C226CFD001DFA32 /* NodeCreationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE6E0C226CFD001DFA32 /* NodeCreationManager.h */; };
 		1948BF140C226CFD001DFA32 /* NodeManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE6F0C226CFD001DFA32 /* NodeManager.h */; };
-		1948BF150C226CFD001DFA32 /* NodeManagerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE700C226CFD001DFA32 /* NodeManagerFactory.h */; };
 		1948BF160C226CFD001DFA32 /* OneButtonFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE710C226CFD001DFA32 /* OneButtonFilter.cpp */; };
 		1948BF170C226CFD001DFA32 /* OneButtonFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE720C226CFD001DFA32 /* OneButtonFilter.h */; };
 		1948BF180C226CFD001DFA32 /* OneDimensionalFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE730C226CFD001DFA32 /* OneDimensionalFilter.cpp */; };
@@ -523,13 +521,11 @@
 		1948BE660C226CFD001DFA32 /* WordLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = WordLanguageModel.h; sourceTree = "<group>"; };
 		1948BE680C226CFD001DFA32 /* MemoryLeak.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MemoryLeak.cpp; sourceTree = "<group>"; };
 		1948BE690C226CFD001DFA32 /* MemoryLeak.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MemoryLeak.h; sourceTree = "<group>"; };
-		1948BE6A0C226CFD001DFA32 /* ModuleFactory.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ModuleFactory.h; sourceTree = "<group>"; };
 		1948BE6B0C226CFD001DFA32 /* ModuleManager.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ModuleManager.cpp; sourceTree = "<group>"; };
 		1948BE6C0C226CFD001DFA32 /* ModuleManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ModuleManager.h; sourceTree = "<group>"; };
 		1948BE6D0C226CFD001DFA32 /* NodeCreationManager.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = NodeCreationManager.cpp; sourceTree = "<group>"; };
 		1948BE6E0C226CFD001DFA32 /* NodeCreationManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NodeCreationManager.h; sourceTree = "<group>"; };
 		1948BE6F0C226CFD001DFA32 /* NodeManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NodeManager.h; sourceTree = "<group>"; };
-		1948BE700C226CFD001DFA32 /* NodeManagerFactory.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NodeManagerFactory.h; sourceTree = "<group>"; };
 		1948BE710C226CFD001DFA32 /* OneButtonFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = OneButtonFilter.cpp; sourceTree = "<group>"; };
 		1948BE720C226CFD001DFA32 /* OneButtonFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = OneButtonFilter.h; sourceTree = "<group>"; };
 		1948BE730C226CFD001DFA32 /* OneDimensionalFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = OneDimensionalFilter.cpp; sourceTree = "<group>"; };
@@ -1002,13 +998,11 @@
 				1948BE4D0C226CFD001DFA32 /* LanguageModelling */,
 				1948BE680C226CFD001DFA32 /* MemoryLeak.cpp */,
 				1948BE690C226CFD001DFA32 /* MemoryLeak.h */,
-				1948BE6A0C226CFD001DFA32 /* ModuleFactory.h */,
 				1948BE6B0C226CFD001DFA32 /* ModuleManager.cpp */,
 				1948BE6C0C226CFD001DFA32 /* ModuleManager.h */,
 				1948BE6D0C226CFD001DFA32 /* NodeCreationManager.cpp */,
 				1948BE6E0C226CFD001DFA32 /* NodeCreationManager.h */,
 				1948BE6F0C226CFD001DFA32 /* NodeManager.h */,
-				1948BE700C226CFD001DFA32 /* NodeManagerFactory.h */,
 				1948BE710C226CFD001DFA32 /* OneButtonFilter.cpp */,
 				1948BE720C226CFD001DFA32 /* OneButtonFilter.h */,
 				1921DB370C7ECAA400E6DAA5 /* OneButtonDynamicFilter.cpp */,
@@ -1466,11 +1460,9 @@
 				1948BF090C226CFD001DFA32 /* SymbolAlphabet.h in Headers */,
 				1948BF0B0C226CFD001DFA32 /* WordLanguageModel.h in Headers */,
 				1948BF0E0C226CFD001DFA32 /* MemoryLeak.h in Headers */,
-				1948BF0F0C226CFD001DFA32 /* ModuleFactory.h in Headers */,
 				1948BF110C226CFD001DFA32 /* ModuleManager.h in Headers */,
 				1948BF130C226CFD001DFA32 /* NodeCreationManager.h in Headers */,
 				1948BF140C226CFD001DFA32 /* NodeManager.h in Headers */,
-				1948BF150C226CFD001DFA32 /* NodeManagerFactory.h in Headers */,
 				1948BF170C226CFD001DFA32 /* OneButtonFilter.h in Headers */,
 				1948BF190C226CFD001DFA32 /* OneDimensionalFilter.h in Headers */,
 				1948BF1A0C226CFD001DFA32 /* Parameters.h in Headers */,
