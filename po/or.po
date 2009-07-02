@@ -1,4 +1,4 @@
-# translation of dasher.master.or.po to Oriya
+# translation of or.po to Oriya
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
@@ -6,10 +6,10 @@
 # Manoj Kumar Giri <mgiri@redhat.com>, 2008, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher.master.or\n"
+"Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&component=general\n"
-"POT-Creation-Date: 2009-06-17 18:29+0000\n"
-"PO-Revision-Date: 2009-06-30 12:00+0530\n"
+"POT-Creation-Date: 2009-07-02 12:33+0000\n"
+"PO-Revision-Date: 2009-07-02 19:03+0530\n"
 "Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
 "Language-Team: Oriya <oriya-it@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n!=1);\n\n"
+"\n"
 "\n"
 "\n"
 
@@ -673,51 +674,45 @@ msgstr "ଆଇଟ୍ରେକର ଅବସ୍ଥା"
 msgid "Long press time"
 msgstr "ଅଧିକ ଦବାଇବା ସମୟ"
 
-#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the time in which the button must be pressed multiple times to count.
+#. TRANSLATORS: Double-clicks are special in some situations (they cause us to start reversing). This is the time in which the button must be pressed twice to count.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
-msgid "Multiple press time"
-msgstr "ଏକାଧିକ ଦବାଇବା ସମୟ"
-
-#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the number of times a button must be pressed to count as a multiple press.
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:34
-msgid "Multiple press count"
-msgstr "ଏକାଧିକ ଦବାଇବା ସଂଖ୍ୟା"
+#| msgid "Multiple press time"
+msgid "Double-press time"
+msgstr "ଦୁଇଥର ଦବାଇବା ସମୟ"
 
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons.
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
 msgid "Enable backoff button"
 msgstr "ବେକଅଫ ବଟନକୁ ସକ୍ରିୟକରନ୍ତୁ"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:36
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:39
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:34
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
 msgid "Slow startup"
 msgstr "ମନ୍ଥର ଆରମ୍ଭ"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:37
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:40
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:42
 msgid "Startup time"
 msgstr "ଆରମ୍ଭ ସମୟ"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:38
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:42
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:36
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:44
 #, c-format
 msgid "%age by which to automatically increase speed"
 msgstr "%age ଯାହା ଦ୍ୱାରା ସ୍ୱୟଂଚାଳିତ ଭାବରେ ଗତି ବୃଦ୍ଧି ହୋଇଥାଏ"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:37
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
 msgid "Time after which to automatically increase speed (secs)"
 msgstr "ସମୟ ପରିମାଣ ଯାହା ପରେ ସ୍ୱୟଂଚାଳିତ ଭାବରେ ଗତିବୃଦ୍ଧି ହୋଇଥାଏ (ସେକଣ୍ଡରେ)"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:40
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:44
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:38
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:46
 #, c-format
 msgid "%age by which to decrease speed upon reverse"
 msgstr "%age ଯାହା ଦ୍ୱାରା ଗତି ପରିବର୍ତ୍ତନ ହୋଇଥାଏ"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:44
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:42
 msgid "One Button Dynamic Mode"
 msgstr "ଗୋଟିଏ ବଟନ ଗତିଶୀଳ ଅବସ୍ଥା"
 
@@ -796,21 +791,34 @@ msgstr "ସକେଟ ନିବେଶ"
 msgid "Button offset"
 msgstr "ବଟନ ଅଫସେଟ"
 
+#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the maximum time between two presses to count as _part_of_ a multi-press gesture
+#. (potentially more than two presses).
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:33
+#| msgid "Multiple press time"
+msgid "Multiple press interval"
+msgstr "ଏକାଧିକବାର ଦବାଇବା ସମୟ"
+
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:36
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:35
 msgid "Enable backoff and start/stop buttons"
 msgstr "ବେକଅଫ ଏବଂ ଆରମ୍ଭକରନ୍ତୁ/ବିରାମକରନ୍ତୁ ବଟନକୁ ସକ୍ରିୟକରନ୍ତୁ"
 
 #. TRANSLATORS: What is normally the up button becomes the down button etc.
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:38
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:37
 msgid "Reverse up and down buttons"
 msgstr "ଅଲଟା ଉପର ଏବଂ ତଳ ବଟନ"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
+#. TRANSLATORS: Pushing the up/down button twice quickly has the same effect as pushing the other
+#. button once; in this case, one must push three times (or push-and-hold) to reverse.
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:40
+msgid "Double-click is opposite up/down - triple to reverse"
+msgstr "ଦୁଇଥର କ୍ଲିକଟି ଉପର/ତଳର ବିପରୀତ - ଏଲଟା ପାଇଁ ତିନିଥର କରନ୍ତୁ"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
 msgid "Lag before user actually pushes button (ms)"
 msgstr "ଚାଳକ ବଟନ ଦବାଇବା ପରବର୍ତ୍ତି ସମୟ (ms)"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:48
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:50
 msgid "Two Button Dynamic Mode"
 msgstr "ଦୁଇ ବଟନ ଗତିଶୀଳ ଧାରା"
 
@@ -836,21 +844,21 @@ msgstr "ପୂର୍ଣ୍ଣ ସଂଖ୍ୟା ପ୍ରାଚଳ"
 msgid "String parameters"
 msgstr "ବାକ୍ୟଖଣ୍ଡ ପ୍ରାଚଳ"
 
-#: ../Src/Gtk2/Preferences.cpp:435 ../Src/Gtk2/Preferences.cpp:1004
+#: ../Src/Gtk2/Preferences.cpp:437 ../Src/Gtk2/Preferences.cpp:1006
 msgid "Action"
 msgstr "କାର୍ଯ୍ୟ"
 
 #. TRANSLATORS: Show a button for the selected action in the Dasher window.
-#: ../Src/Gtk2/Preferences.cpp:1011
+#: ../Src/Gtk2/Preferences.cpp:1013
 msgid "Show Button"
 msgstr "ବଟନ ଦେଖାନ୍ତୁ"
 
-#: ../Src/Gtk2/Preferences.cpp:1016
+#: ../Src/Gtk2/Preferences.cpp:1018
 msgid "Control Mode"
 msgstr "ନିୟନ୍ତ୍ରଣ ପଦ୍ଧତି"
 
 #. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
-#: ../Src/Gtk2/Preferences.cpp:1022
+#: ../Src/Gtk2/Preferences.cpp:1024
 msgid "Auto On Stop"
 msgstr "Auto On Stop"
 
