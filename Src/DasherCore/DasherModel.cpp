@@ -1028,7 +1028,6 @@ void CDasherModel::Offset(int iOffset) {
 } 
 
 void CDasherModel::AbortOffset() {
-  
   m_Rootmin += m_iDisplayOffset;
   m_Rootmax += m_iDisplayOffset;
 

@@ -231,7 +231,7 @@ class Dasher::CDasherModel:public CFrameRate, private NoClones
 
   // Offset used when presenting the model to the user, specified as
   // Displayed rootmin/max - actual rootmin/rootmax
-  myint m_iDisplayOffset; 
+  myint m_iDisplayOffset;
 
   CDasherNode *m_pLastOutput;
 

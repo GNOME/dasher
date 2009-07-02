@@ -130,7 +130,7 @@ void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherMo
   }
   CDynamicFilter::Event(iTime, iButton, iType, pModel, pUserLog);
 }
-    
+
 void CTwoButtonDynamicFilter::ApplyOffset(CDasherModel *pModel, long lOffset)
 {
   lOffset *= m_dMulSinceFirstPush; m_dMulSinceFirstPush = 1.0;

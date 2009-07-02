@@ -51,10 +51,10 @@ void CButtonMultiPress::KeyDown(int iTime, int iId, CDasherView *pView, CDasherM
     m_deQueueTimes.clear(); //clear record of previous, different, button
     m_iQueueId = iId;
   }
-   
-  //record press...
+
+  // Record press...
   m_deQueueTimes.push_back(iTime);
-  //...and process normally; if it changes the state, pause()/reverse()'ll clear the queue
+  // ... and process normally; if it changes the state, pause()/reverse()'ll clear the queue
   CDynamicFilter::KeyDown(iTime, iId, pView, pModel, pUserLog);
 }
 
