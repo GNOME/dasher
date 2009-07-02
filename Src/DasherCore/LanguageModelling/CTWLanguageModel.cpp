@@ -434,13 +434,11 @@ void CCTWLanguageModel::GetProbs(Context context, std::vector<unsigned int> &Pro
 
 bool CCTWLanguageModel::WriteToFile(std::string strFilename, std::string AlphabetName){	
 	SLMFileHeader GenericHeader;
-	//GenericHeader.szMagic = "%DLF"; //char szMagic[5], Magic number ("%DLF" in ASCII)
-	// why doesn't the compiler like this? ugly work-around 
+	// Magic number ("%DLF" in ASCII)
 	GenericHeader.szMagic[0] = '%'; 
 	GenericHeader.szMagic[1] = 'D';
 	GenericHeader.szMagic[2] = 'L';
 	GenericHeader.szMagic[3] = 'F';
-	GenericHeader.szMagic[4] = '\0';
 
 	GenericHeader.iAlphabetSize = GetSize(); // Number of characters in the alphabet
 	GenericHeader.iHeaderVersion = 1; // Version of the header
@@ -501,7 +499,7 @@ bool CCTWLanguageModel::ReadFromFile(std::string strFilename, std::string Alphab
 		char * ReadAlphabetName;
 
 		fread(&GenericHeader.szMagic , sizeof(GenericHeader.szMagic[0]), sizeof(GenericHeader.szMagic), InputFile);
-		if(strcmp(GenericHeader.szMagic,"%DLF"))
+		if(memcmp(GenericHeader.szMagic,"%DLF",4))
 		{ // magic strings not equal			
 			return false; 
 		}
