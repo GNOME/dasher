@@ -2,6 +2,7 @@
 
 	* White space to keep gcc happy, and typos.
 	* OneStepTowards now returns true.
+	* Replace HAVE_CONFIG_H removed by Chinese dasher.
 
 2009-07-02  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
