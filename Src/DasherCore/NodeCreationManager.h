@@ -15,7 +15,7 @@
 namespace Dasher {
   class CDasherNode;
   class CDasherInterfaceBase;
-  class CControlManagerFactory;
+  class CControlManager;
 };
 //TODO why is CNodeCreationManager _not_ in namespace Dasher?!?!
 /// \ingroup Model
@@ -119,7 +119,7 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   Dasher::CAlphabet *m_pAlphabet;        // pointer to the alphabet
 
   Dasher::CAlphabetManagerFactory *m_pAlphabetManagerFactory;
-  Dasher::CControlManagerFactory *m_pControlManagerFactory;
+  Dasher::CControlManager *m_pControlManager;
   Dasher::CConversionManagerFactory *m_pConversionManagerFactory;
 };
 /// @}

@@ -35,8 +35,6 @@ libdashercore_a_SOURCES = \
 		ColourIO.h \
 		ControlManager.cpp \
 		ControlManager.h \
-		ControlManagerFactory.cpp \
-		ControlManagerFactory.h \
 		ConversionHelper.h \
 		ConversionManager.cpp \
 		ConversionManager.h \

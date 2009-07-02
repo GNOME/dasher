@@ -6,7 +6,7 @@
 #include "LanguageModelling/MixtureLanguageModel.h"
 #include "LanguageModelling/PPMPYLanguageModel.h"
 #include "NodeCreationManager.h"
-#include "ControlManagerFactory.h"
+#include "ControlManager.h"
 
 CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterface,
 					   Dasher::CEventHandler *pEventHandler, 
@@ -39,9 +39,9 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
 
 
 #ifndef _WIN32_WCE
-  m_pControlManagerFactory = new CControlManagerFactory(this);
+  m_pControlManager = new CControlManager(this);
 #else
-  m_pControlManagerFactory = 0;
+  m_pControlManager = 0;
 #endif
   m_pConversionManagerFactory = new CConversionManagerFactory(pEventHandler,
 							      pSettingsStore,
@@ -60,26 +60,26 @@ CNodeCreationManager::~CNodeCreationManager() {
   if(m_pAlphabetManagerFactory)
     delete m_pAlphabetManagerFactory;
   
-  if(m_pControlManagerFactory)
-    delete m_pControlManagerFactory;
+  if(m_pControlManager)
+    delete m_pControlManager;
 
   if(m_pConversionManagerFactory)
     delete m_pConversionManagerFactory;
 }
 
 void CNodeCreationManager::RegisterNode( int iID, const std::string &strLabel, int iColour ) {
-  if(m_pControlManagerFactory)
-    m_pControlManagerFactory->RegisterNode(iID, strLabel, iColour);
+  if(m_pControlManager)
+    m_pControlManager->RegisterNode(iID, strLabel, iColour);
 }
 
 void CNodeCreationManager::ConnectNode(int iChild, int iParent, int iAfter) {
-  if(m_pControlManagerFactory)
-    m_pControlManagerFactory->ConnectNode(iChild, iParent, iAfter);
+  if(m_pControlManager)
+    m_pControlManager->ConnectNode(iChild, iParent, iAfter);
 }
 
 void CNodeCreationManager::DisconnectNode(int iChild, int iParent) {
-  if(m_pControlManagerFactory)
-    m_pControlManagerFactory->DisconnectNode(iChild, iParent);
+  if(m_pControlManager)
+    m_pControlManager->DisconnectNode(iChild, iParent);
 }
 
 CDasherNode *CNodeCreationManager::GetRoot(int iType, Dasher::CDasherNode *pParent, int iLower, int iUpper, void *pUserData ) {
@@ -88,8 +88,8 @@ CDasherNode *CNodeCreationManager::GetRoot(int iType, Dasher::CDasherNode *pPare
   case 0:
     return m_pAlphabetManagerFactory->GetRoot(pParent, iLower, iUpper, pUserData);
   case 1:
-    if(m_pControlManagerFactory)
-      return m_pControlManagerFactory->GetRoot(pParent, iLower, iUpper, pUserData);
+    if(m_pControlManager)
+      return m_pControlManager->GetRoot(pParent, iLower, iUpper, pUserData);
     else
       return NULL;
   case 2:
