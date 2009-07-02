@@ -90,11 +90,11 @@ class Dasher::CDasherModel:public CFrameRate, private NoClones
   void Offset(int iOffset);
  
   ///
-  /// Reset the 'target' root coordinates to match those currently visible. 
-  /// Appropriate for abrubt changes in behaviour (such as backing off in 
-  /// button modes)
-  /// 
-  void MatchTarget(bool bReverse);
+  /// Make the 'target' root coordinates match those currently visible, so any
+  /// Offset(int) currently in progress (i.e. being smoothed over several
+  /// frames) stops (at whatever point it's currently reached). Appropriate for
+  /// abrupt changes in behaviour (such as backing off in  button modes)
+  void AbortOffset();
 
   /// @}
 
@@ -231,7 +231,7 @@ class Dasher::CDasherModel:public CFrameRate, private NoClones
 
   // Offset used when presenting the model to the user, specified as
   // Displayed rootmin/max - actual rootmin/rootmax
-  myint m_iTargetOffset; 
+  myint m_iDisplayOffset; 
 
   CDasherNode *m_pLastOutput;
 

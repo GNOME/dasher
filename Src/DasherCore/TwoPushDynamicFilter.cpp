@@ -256,11 +256,28 @@ bool CTwoPushDynamicFilter::TimerImpl(int iTime, CDasherView *m_pDasherView, CDa
 }
 
 void CTwoPushDynamicFilter::Activate() {
-  SetBoolParameter(BP_DELAY_VIEW, true);
+  SetBoolParameter(BP_SMOOTH_OFFSET, true);
 }
 
 void CTwoPushDynamicFilter::Deactivate() {
-  SetBoolParameter(BP_DELAY_VIEW, false);
+  SetBoolParameter(BP_SMOOTH_OFFSET, false);
+}
+
+void CTwoPushDynamicFilter::run(int iState) {
+  SetBoolParameter(BP_SMOOTH_OFFSET, true);
+  CDynamicFilter::run(iState);
+}
+
+void CTwoPushDynamicFilter::pause() {
+  SetBoolParameter(BP_SMOOTH_OFFSET, false);
+  CDynamicFilter::pause();
+}
+
+void CTwoPushDynamicFilter::reverse() {
+  //hmmmm. If we ever actually did Offset() while reversing,
+  // we might want BP_SMOOTH_OFFSET on....
+  SetBoolParameter(BP_SMOOTH_OFFSET, false);
+  CDynamicFilter::reverse();
 }
 
 bool CTwoPushDynamicFilter::GetSettings(SModuleSettings **pSettings, int *iCount) {

@@ -43,6 +43,11 @@ class CTwoButtonDynamicFilter : public CButtonMultiPress {
 
   virtual void HandleEvent(Dasher::CEvent *pEvent);
   
+ protected:
+  virtual void run(int iState);
+  virtual void pause();
+  virtual void reverse();
+
  private:
   virtual bool TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted);
   virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog);

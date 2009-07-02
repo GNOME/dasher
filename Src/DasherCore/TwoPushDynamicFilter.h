@@ -42,6 +42,10 @@ class CTwoPushDynamicFilter : public CDynamicFilter /*long push, but do our own 
 
   virtual void HandleEvent(Dasher::CEvent * pEvent);
 
+  virtual void run(int iState);
+  virtual void pause();
+  virtual void reverse();
+
  private:
   double m_dLogUpMul, m_dLogDownMul, m_dLagBits;
   double m_dMinShortTwoPushTime, m_dMaxShortTwoPushTime,

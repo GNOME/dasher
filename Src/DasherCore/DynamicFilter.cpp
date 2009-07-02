@@ -94,7 +94,6 @@ void CDynamicFilter::Event(int iTime, int iButton, int iType, CDasherModel *pMod
     if(pUserLog)
       pUserLog->KeyDown(iButton, iType, 1);
     m_pInterface->Unpause(iTime);
-    SetBoolParameter(BP_DELAY_VIEW, true);
     run(0);
   } else if (isReversing()) {
     if(pUserLog)
@@ -110,13 +109,11 @@ void CDynamicFilter::Event(int iTime, int iButton, int iType, CDasherModel *pMod
 	if(pUserLog)
 	  pUserLog->KeyDown(iButton, iType, 2);
 	pause();
-	SetBoolParameter(BP_DELAY_VIEW, false);
 	m_pInterface->PauseAt(0, 0);
       }
       else if(iButton == 1) {
 	if(pUserLog)
 	  pUserLog->KeyDown(iButton, iType, 6);
-	SetBoolParameter(BP_DELAY_VIEW, false);
 	reverse();
       }
       else {
@@ -128,7 +125,6 @@ void CDynamicFilter::Event(int iTime, int iButton, int iType, CDasherModel *pMod
       if((iButton >= 2) && (iButton <= 4)) {
 	if(pUserLog)
 	  pUserLog->KeyDown(iButton, iType, 6);
-	SetBoolParameter(BP_DELAY_VIEW, false);
 	reverse(); //reversing!
        }
       else {

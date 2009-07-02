@@ -94,11 +94,28 @@ bool CTwoButtonDynamicFilter::TimerImpl(int Time, CDasherView *m_pDasherView, CD
 }
 
 void CTwoButtonDynamicFilter::Activate() {
-  SetBoolParameter(BP_DELAY_VIEW, true);
+  SetBoolParameter(BP_SMOOTH_OFFSET, true);
 }
 
 void CTwoButtonDynamicFilter::Deactivate() {
-  SetBoolParameter(BP_DELAY_VIEW, false);
+  SetBoolParameter(BP_SMOOTH_OFFSET, false);
+}
+
+void CTwoButtonDynamicFilter::run(int iState) {
+  SetBoolParameter(BP_SMOOTH_OFFSET, true);
+  CDynamicFilter::run(iState);
+}
+
+void CTwoButtonDynamicFilter::pause() {
+  SetBoolParameter(BP_SMOOTH_OFFSET, false);
+  CDynamicFilter::pause();
+}
+
+void CTwoButtonDynamicFilter::reverse() {
+  //hmmmm. If we ever actually did Offset() while reversing,
+  // we might want BP_SMOOTH_OFFSET on....
+  SetBoolParameter(BP_SMOOTH_OFFSET, false);
+  CDynamicFilter::reverse();
 }
 
 void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) {

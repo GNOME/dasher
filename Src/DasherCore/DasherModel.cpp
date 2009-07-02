@@ -73,7 +73,7 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler,
 
   m_Rootmin = 0;
   m_Rootmax = 0;
-  m_iTargetOffset = 0;
+  m_iDisplayOffset = 0;
   m_dTotalNats = 0.0;
  
   // TODO: Need to rationalise the require conversion methods
@@ -118,8 +118,11 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
     case BP_CONTROL_MODE: // Rebuild the model if control mode is switched on/off
       RebuildAroundNode(Get_node_under_crosshair());
       break;
-    case BP_DELAY_VIEW:
-      MatchTarget(GetBoolParameter(BP_DELAY_VIEW));
+    case BP_SMOOTH_OFFSET:
+      if (!GetBoolParameter(BP_SMOOTH_OFFSET))
+        //smoothing has just been turned off. End any transition/jump currently
+        // in progress at it's current point
+        AbortOffset();
       break;
     case BP_DASHER_PAUSED:
       if(GetBoolParameter(BP_SLOW_START))
@@ -301,13 +304,13 @@ void CDasherModel::ClearRootQueue() {
 CDasherNode *CDasherModel::Get_node_under_crosshair() {
   DASHER_ASSERT(m_Root != NULL);
 
-  return m_Root->Get_node_under(GetLongParameter(LP_NORMALIZATION), m_Rootmin + m_iTargetOffset, m_Rootmax + m_iTargetOffset, GetLongParameter(LP_OX), GetLongParameter(LP_OY));
+  return m_Root->Get_node_under(GetLongParameter(LP_NORMALIZATION), m_Rootmin + m_iDisplayOffset, m_Rootmax + m_iDisplayOffset, GetLongParameter(LP_OX), GetLongParameter(LP_OY));
 }
 
 CDasherNode *CDasherModel::Get_node_under_mouse(myint Mousex, myint Mousey) {
   DASHER_ASSERT(m_Root != NULL);
 
-  return m_Root->Get_node_under(GetLongParameter(LP_NORMALIZATION), m_Rootmin + m_iTargetOffset, m_Rootmax + m_iTargetOffset, Mousex, Mousey);
+  return m_Root->Get_node_under(GetLongParameter(LP_NORMALIZATION), m_Rootmin + m_iDisplayOffset, m_Rootmax + m_iDisplayOffset, Mousex, Mousey);
 }
 
 void CDasherModel::DeleteTree() {
@@ -356,7 +359,7 @@ void CDasherModel::InitialiseAtOffset(int iOffset, CDasherView *pView) {
   m_Rootmin = GetLongParameter(LP_MAX_Y) / 2 - iWidth / 2;
   m_Rootmax = GetLongParameter(LP_MAX_Y) / 2 + iWidth / 2;
 
-  m_iTargetOffset = 0;
+  m_iDisplayOffset = 0;
 
   if(pView) {
     while(pView->IsNodeVisible(m_Rootmin,m_Rootmax)) {
@@ -596,11 +599,11 @@ void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax, Dasher::VECTOR_SY
   // Update the max and min of the root node to make iTargetMin and
   // iTargetMax the edges of the viewport.
 
-  if(newRootmin + m_iTargetOffset > (myint)GetLongParameter(LP_MAX_Y) / 2 - 1)
-    newRootmin = (myint)GetLongParameter(LP_MAX_Y) / 2 - 1 - m_iTargetOffset;
+  if(newRootmin + m_iDisplayOffset > (myint)GetLongParameter(LP_MAX_Y) / 2 - 1)
+    newRootmin = (myint)GetLongParameter(LP_MAX_Y) / 2 - 1 - m_iDisplayOffset;
 
-  if(newRootmax + m_iTargetOffset < (myint)GetLongParameter(LP_MAX_Y) / 2 + 1)
-    newRootmax = (myint)GetLongParameter(LP_MAX_Y) / 2 + 1 - m_iTargetOffset;
+  if(newRootmax + m_iDisplayOffset < (myint)GetLongParameter(LP_MAX_Y) / 2 + 1)
+    newRootmax = (myint)GetLongParameter(LP_MAX_Y) / 2 + 1 - m_iDisplayOffset;
 
   // Check that we haven't drifted too far. The rule is that we're not
   // allowed to let the root max and min cross the midpoint of the
@@ -618,7 +621,7 @@ void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax, Dasher::VECTOR_SY
     m_Rootmax = newRootmax;
     m_Rootmin = newRootmin;
 
-    m_iTargetOffset = (m_iTargetOffset * 90) / 100;
+    m_iDisplayOffset = (m_iDisplayOffset * 90) / 100;
   }
   else {
     // TODO - force a new root to be chosen, so that we get better
@@ -844,7 +847,7 @@ bool CDasherModel::RenderToView(CDasherView *pView, bool bRedrawDisplay, SLockDa
   // The Render routine will fill iGameTargetY with the Dasher Coordinate of the 
   // youngest node with NF_GAME set. The model is responsible for setting NF_GAME on
   // the appropriate Nodes.
-  bReturnValue = pView->Render(m_Root, m_Rootmin + m_iTargetOffset, m_Rootmax + m_iTargetOffset, vNodeList, vDeleteList, bRedrawDisplay, &vGameTargetY);
+  bReturnValue = pView->Render(m_Root, m_Rootmin + m_iDisplayOffset, m_Rootmax + m_iDisplayOffset, vNodeList, vDeleteList, bRedrawDisplay, &vGameTargetY);
   
 
   /////////GAME MODE TEMP//////////////
@@ -1020,16 +1023,16 @@ void CDasherModel::Offset(int iOffset) {
   m_Rootmin += iOffset;
   m_Rootmax += iOffset;
 
-  m_iTargetOffset -= iOffset;
+  if (GetBoolParameter(BP_SMOOTH_OFFSET))
+    m_iDisplayOffset -= iOffset;
 } 
 
-void CDasherModel::MatchTarget(bool bReverse) {
-  // TODO: Does anything need to happen wrt bReverse here?
+void CDasherModel::AbortOffset() {
+  
+  m_Rootmin += m_iDisplayOffset;
+  m_Rootmax += m_iDisplayOffset;
 
-  m_Rootmin += m_iTargetOffset;
-  m_Rootmax += m_iTargetOffset;
-
-  m_iTargetOffset = 0;
+  m_iDisplayOffset = 0;
 }
 
 void CDasherModel::LimitRoot(int iMaxWidth) {

@@ -4,6 +4,7 @@
 	files and move CFrameRate class into namespace Dasher.
 	* Remove NodeManagerFactory class.
 	* Remove CControlManagerFactory class.
+	* Rename BP_DELAY_VIEW to BP_SMOOTH_OFFSET and tidy its handling.
 
 2009-07-02  Patrick Welche <prlw1@cam.ac.uk>
 
