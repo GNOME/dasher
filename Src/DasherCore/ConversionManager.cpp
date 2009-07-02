@@ -477,7 +477,7 @@ void CConversionManager::BuildTree(CDasherNode *pRoot) {
     bool ConversionSuccess = m_pHelper->Convert(strCurrentString, &pStartTemp); 
     
     
- CConversionManager:SConversionData *pRootConversionData = static_cast<CConversionManager::SConversionData *>(pRoot->m_pUserData);
+    SConversionData *pRootConversionData = static_cast<CConversionManager::SConversionData *>(pRoot->m_pUserData);
     
     if(!(pRootConversionData->bisRoot))
       std::cout<<"ERROR IN BUILD TREE"<<std::endl;

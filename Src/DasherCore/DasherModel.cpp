@@ -480,12 +480,12 @@ bool CDasherModel::OneStepTowards(myint miMousex, myint miMousey, unsigned long 
 
   myint iNewMin, iNewMax;
   // works out next viewpoint
-    Get_new_root_coords(miMousex, miMousey, iNewMin, iNewMax, iTime);
+  Get_new_root_coords(miMousex, miMousey, iNewMin, iNewMax, iTime);
   
-    if(GetBoolParameter(BP_OLD_STYLE_PUSH))
-      OldPush(miMousex, miMousey);
+  if(GetBoolParameter(BP_OLD_STYLE_PUSH))
+    OldPush(miMousex, miMousey);
 
-  UpdateBounds(iNewMin, iNewMax, iTime, pAdded, pNumDeleted);
+  return UpdateBounds(iNewMin, iNewMax, iTime, pAdded, pNumDeleted);
 }
 
 bool CDasherModel::UpdateBounds(myint iNewMin, myint iNewMax, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {

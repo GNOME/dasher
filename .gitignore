@@ -1,0 +1,4 @@
+*.make
+*.m4
+Makefile
+Makefile.in
