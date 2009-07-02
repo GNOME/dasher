@@ -28,14 +28,16 @@ static SModuleSettings sSettings[] = {
   {LP_TWO_BUTTON_OFFSET, T_LONG, 1024, 2048, 2048, 100, _("Button offset")},
   /* TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press. */
   {LP_HOLD_TIME, T_LONG, 100, 10000, 1000, 100, _("Long press time")},
-  /* TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the time in which the button must be pressed multiple times to count.*/
-  {LP_MULTIPRESS_TIME, T_LONG, 100, 10000, 1000, 100, _("Multiple press time")},
-  /* TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the number of times a button must be pressed to count as a multiple press.*/
-  {LP_MULTIPRESS_COUNT,T_LONG, 2, 10, 1, 1, _("Multiple press count")}, 
+  /* TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the maximum time between two presses to count as _part_of_ a multi-press gesture
+  (potentially more than two presses). */
+  {LP_MULTIPRESS_TIME, T_LONG, 100, 10000, 1000, 100, _("Multiple press interval")},
   /* TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.*/
   {BP_BACKOFF_BUTTON,T_BOOL, -1, -1, -1, -1, _("Enable backoff and start/stop buttons")},
   /* TRANSLATORS: What is normally the up button becomes the down button etc. */
   {BP_TWOBUTTON_REVERSE,T_BOOL, -1, -1, -1, -1, _("Reverse up and down buttons")},
+  /* TRANSLATORS: Pushing the up/down button twice quickly has the same effect as pushing the other
+  button once; in this case, one must push three times (or push-and-hold) to reverse. */
+  {BP_2B_INVERT_DOUBLE, T_BOOL, -1, -1, -1, -1, _("Double-click is opposite up/down - triple to reverse")},
   {BP_SLOW_START,T_BOOL, -1, -1, -1, -1, _("Slow startup")},
   {LP_SLOW_START_TIME, T_LONG, 0, 10000, 1000, 100, _("Startup time")},
   {LP_DYNAMIC_BUTTON_LAG, T_LONG, 0, 1000, 1, 25, _("Lag before user actually pushes button (ms)")}, 
@@ -45,7 +47,7 @@ static SModuleSettings sSettings[] = {
 };
 
 CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
-  : CButtonMultiPress(pEventHandler, pSettingsStore, pInterface, 14, 1, _("Two Button Dynamic Mode"))
+  : CButtonMultiPress(pEventHandler, pSettingsStore, pInterface, 14, 1, _("Two Button Dynamic Mode")), m_dMulSinceFirstPush(1.0)
 {
   //ensure that m_dLagMul is properly initialised
   Dasher::CParameterNotificationEvent oEvent(LP_DYNAMIC_BUTTON_LAG);
@@ -103,19 +105,50 @@ void CTwoButtonDynamicFilter::Deactivate() {
 
 void CTwoButtonDynamicFilter::run(int iState) {
   SetBoolParameter(BP_SMOOTH_OFFSET, true);
-  CDynamicFilter::run(iState);
+  CButtonMultiPress::run(iState);
 }
 
 void CTwoButtonDynamicFilter::pause() {
   SetBoolParameter(BP_SMOOTH_OFFSET, false);
-  CDynamicFilter::pause();
+  CButtonMultiPress::pause();
 }
 
 void CTwoButtonDynamicFilter::reverse() {
   //hmmmm. If we ever actually did Offset() while reversing,
   // we might want BP_SMOOTH_OFFSET on....
   SetBoolParameter(BP_SMOOTH_OFFSET, false);
-  CDynamicFilter::reverse();
+  CButtonMultiPress::reverse();
+}
+
+void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog)
+{
+  if (GetBoolParameter(BP_2B_INVERT_DOUBLE) && iType == 2 && iButton>=2 && iButton<=4)
+  { //double-press - treat as single-press of the other button....
+    iType = 0; //0=normal, 1=long press
+    iButton = (iButton == 2) ? 3 : 2;
+    m_dMulSinceFirstPush = exp(pModel->GetNats());
+  }
+  CDynamicFilter::Event(iTime, iButton, iType, pModel, pUserLog);
+}
+    
+void CTwoButtonDynamicFilter::ApplyOffset(CDasherModel *pModel, long lOffset)
+{
+  lOffset *= m_dMulSinceFirstPush; m_dMulSinceFirstPush = 1.0;
+  pModel->Offset(lOffset);
+  m_pModel = pModel;
+  m_lOffsetApplied = lOffset;
+  pModel->ResetNats();
+}
+
+void CTwoButtonDynamicFilter::RevertPresses(int iCount)
+{
+  //invert the *last* invocation of ApplyOffset.
+  //this'll handle reverting single clicks and (if BP_2B_INVERT_DOUBLE is on) double-clicks,
+  //but we'll get into trouble if the user e.g. double-presses the reverse button!
+
+  //correct for expansion since the first click, if any (if we've rendered any frames!)
+  m_pModel->Offset(-m_lOffsetApplied * exp(m_pModel->GetNats()));
+  m_lOffsetApplied = 0;
 }
 
 void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) {
@@ -125,12 +158,12 @@ void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CD
     iFactor = -1;
 
   if(iButton == 2) {
-    pModel->Offset(iFactor * GetLongParameter(LP_TWO_BUTTON_OFFSET) * m_dLagMul);
+    ApplyOffset(pModel, iFactor * GetLongParameter(LP_TWO_BUTTON_OFFSET) * m_dLagMul);
     if(pUserLog)
       pUserLog->KeyDown(iButton, iType, 3);
   }
   else if((iButton == 3) || (iButton == 4)) {
-    pModel->Offset(iFactor * -GetLongParameter(LP_TWO_BUTTON_OFFSET) * m_dLagMul);
+    ApplyOffset(pModel, iFactor * -GetLongParameter(LP_TWO_BUTTON_OFFSET) * m_dLagMul);
     if(pUserLog)
       pUserLog->KeyDown(iButton, iType, 4);
   }

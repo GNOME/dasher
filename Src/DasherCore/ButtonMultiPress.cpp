@@ -30,34 +30,32 @@ void CButtonMultiPress::KeyDown(int iTime, int iId, CDasherView *pView, CDasherM
   if (m_bKeyDown) return;
       
   // Check for multiple clicks
-  if(iId == m_iQueueId) {
-    while((m_deQueueTimes.size() > 0) && (iTime - m_deQueueTimes.front()) > GetLongParameter(LP_MULTIPRESS_TIME))
-      m_deQueueTimes.pop_front();
-
-    //if that's the final press...  
-    if(m_deQueueTimes.size() == static_cast<unsigned int>(GetLongParameter(LP_MULTIPRESS_COUNT) - 1)) { 
-      //undo the preceding ones...
-      RevertPresses(GetLongParameter(LP_MULTIPRESS_COUNT) - 1);
-      //execute the event
-      Event(iTime, iId, 2, pModel, pUserLog);
-      m_deQueueTimes.clear();
-    }
-    else {
-      //not the final press; so record...
-    m_deQueueTimes.push_back(iTime);
-      //and process normally
-      //(this may clear the queue if it changes the state)
-      CDynamicFilter::KeyDown(iTime, iId, pView, pModel, pUserLog);
+  if(iId == m_iQueueId && m_deQueueTimes.size()) {
+    if ( (iTime - m_deQueueTimes.back()) > GetLongParameter(LP_MULTIPRESS_TIME) )
+      m_deQueueTimes.clear(); //and fall through to record+process normally, below
+    else
+    {
+      //previous presses should not be treated as such....
+      RevertPresses(m_deQueueTimes.size());
+      //...but should be combined with this one into a new event (type = #presses)
+      Event(iTime, iId, m_deQueueTimes.size()+1, pModel, pUserLog);
+      if (m_deQueueTimes.size() >= maxClickCount() - 1)
+	m_deQueueTimes.clear(); //final press
+      else //may still be more presses to come
+	m_deQueueTimes.push_back(iTime);
+      return; //we've called Event ourselves, so finished.
     }
   }
-  else {
-    //record as first press...
-    m_deQueueTimes.clear();
-    m_deQueueTimes.push_back(iTime);
+  else
+  {
+    m_deQueueTimes.clear(); //clear record of previous, different, button
     m_iQueueId = iId;
-    //...and process normally; if it changes the state, pause()/reverse()'ll clear the queue
-    CDynamicFilter::KeyDown(iTime, iId, pView, pModel, pUserLog);
   }
+   
+  //record press...
+  m_deQueueTimes.push_back(iTime);
+  //...and process normally; if it changes the state, pause()/reverse()'ll clear the queue
+  CDynamicFilter::KeyDown(iTime, iId, pView, pModel, pUserLog);
 }
 
 void CButtonMultiPress::pause()

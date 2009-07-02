@@ -120,8 +120,7 @@ void CDynamicFilter::Event(int iTime, int iButton, int iType, CDasherModel *pMod
 	ActionButton(iTime, iButton, iType, pModel, pUserLog);
       }
       break;
-    case 1: // Delibarate fallthrough
-    case 2: 
+    default: // _Any_ other kind of event - long, double, triple, ...
       if((iButton >= 2) && (iButton <= 4)) {
 	if(pUserLog)
 	  pUserLog->KeyDown(iButton, iType, 6);

@@ -40,7 +40,7 @@ class CDynamicFilter : public CInputFilter {
 
  protected:
   virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) = 0;
-  void Event(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual void Event(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog);
 
   bool m_bKeyDown;
   bool m_bKeyHandled;

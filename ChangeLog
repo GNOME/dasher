@@ -5,6 +5,8 @@
 	* Remove NodeManagerFactory class.
 	* Remove CControlManagerFactory class.
 	* Rename BP_DELAY_VIEW to BP_SMOOTH_OFFSET and tidy its handling.
+	* In two-button dynamic mode, add option to invert the sense of a
+	  double-click.
 
 2009-07-02  Patrick Welche <prlw1@cam.ac.uk>
 

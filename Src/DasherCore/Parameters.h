@@ -44,7 +44,7 @@ enum {
   BP_COMPASSMODE, BP_SOCKET_INPUT_ENABLE, BP_SOCKET_DEBUG, 
   BP_OLD_STYLE_PUSH, BP_CIRCLE_START, BP_GLOBAL_KEYBOARD, 
   BP_SMOOTH_OFFSET, BP_CONVERSION_MODE, BP_PAUSE_OUTSIDE, BP_BACKOFF_BUTTON, 
-  BP_TWOBUTTON_REVERSE, BP_SLOW_START, BP_FIXED_MARKERS, END_OF_BPS
+  BP_TWOBUTTON_REVERSE, BP_2B_INVERT_DOUBLE, BP_SLOW_START, BP_FIXED_MARKERS, END_OF_BPS
 };
 
 enum { 
@@ -58,7 +58,7 @@ enum {
   LP_ZOOMSTEPS, LP_B, LP_S, LP_Z, LP_R, LP_RIGHTZOOM,
   LP_BOOSTFACTOR, LP_AUTOSPEED_SENSITIVITY, LP_SOCKET_PORT, LP_SOCKET_INPUT_X_MIN, LP_SOCKET_INPUT_X_MAX,
   LP_SOCKET_INPUT_Y_MIN, LP_SOCKET_INPUT_Y_MAX, LP_OX, LP_OY, LP_MAX_Y, LP_INPUT_FILTER, 
-  LP_CIRCLE_PERCENT, LP_TWO_BUTTON_OFFSET, LP_HOLD_TIME, LP_MULTIPRESS_TIME, LP_MULTIPRESS_COUNT, 
+  LP_CIRCLE_PERCENT, LP_TWO_BUTTON_OFFSET, LP_HOLD_TIME, LP_MULTIPRESS_TIME,
   LP_SLOW_START_TIME, LP_CONVERSION_ORDER, LP_CONVERSION_TYPE,
   LP_TWO_PUSH_OUTER, LP_TWO_PUSH_UP, LP_TWO_PUSH_DOWN, LP_TWO_PUSH_TOLERANCE,
   LP_DYNAMIC_BUTTON_LAG,
@@ -157,11 +157,12 @@ static bp_table boolparamtable[] = {
   {BP_OLD_STYLE_PUSH, "OldStylePush", PERS, false, "Old style node pushing algorithm"},
   {BP_CIRCLE_START, "CircleStart", PERS, false, "Start on circle mode"},
   {BP_GLOBAL_KEYBOARD, "GlobalKeyboard", PERS, false, "Whether to assume global control of the keyboard"},
-  {BP_SMOOTH_OFFSET, "DelayView", !PERS, false, "Smooth dynamic button mode jumps over several frames"},
+  {BP_SMOOTH_OFFSET, "DelayView", !PERS, false, "Smooth dynamic-button-mode jumps over several frames"},
   {BP_CONVERSION_MODE, "ConversionMode", !PERS, false, "Whether Dasher is operating in conversion (eg Japanese) mode"},
   {BP_PAUSE_OUTSIDE, "PauseOutside", PERS, false, "Whether to pause when pointer leaves canvas area"},
   {BP_BACKOFF_BUTTON, "BackoffButton", PERS, true, "Whether to enable the extra backoff button in dynamic mode"},
   {BP_TWOBUTTON_REVERSE, "TwoButtonReverse", PERS, false, "Reverse the up/down buttons in two button mode"},
+  {BP_2B_INVERT_DOUBLE, "TwoButtonInvertDouble", PERS, false, "Double-press acts as opposite button in two-button mode"},
   {BP_SLOW_START, "SlowStart", PERS, false, "Start at low speed and increase"},
   {BP_FIXED_MARKERS, "TwoPushMarkersFixed", PERS, false, "Two-push Dynamic Mode markers fixed to canvas"},
 };
@@ -212,7 +213,6 @@ static lp_table longparamtable[] = {
   {LP_TWO_BUTTON_OFFSET, "TwoButtonOffset", PERS, 1638, "Offset for two button dynamic mode"},
   {LP_HOLD_TIME, "HoldTime", PERS, 1000, "Time for which buttons must be held to count as long presses, in ms"},
   {LP_MULTIPRESS_TIME, "MultipressTime", PERS, 1000, "Time in which multiple presses must occur, in ms"},
-  {LP_MULTIPRESS_COUNT, "MultipressCount", PERS, 2, "Time in which multiple presses must occur to count"},
   {LP_SLOW_START_TIME, "SlowStartTime", PERS, 1000, "Time over which slow start occurs"},
   {LP_CONVERSION_ORDER, "ConversionOrder", PERS, 0, "Conversion ordering"},
   {LP_CONVERSION_TYPE, "ConversionType", PERS, 0, "Conversion type"},

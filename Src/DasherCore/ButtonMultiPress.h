@@ -33,6 +33,7 @@ class CButtonMultiPress : public CDynamicFilter {
   virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog);
 
  protected:
+  virtual unsigned int maxClickCount()=0;
   virtual void reverse();
   virtual void pause();
   virtual void run(int iSubclassState);
