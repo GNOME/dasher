@@ -13,10 +13,12 @@
 
 //both of these start from 0
 
+namespace Dasher {
+
 class CPinYinConversionHelper : public CConversionHelper {
  public:
 
-  CPinYinConversionHelper(Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, Dasher::CAlphIO *pAlphIO, const std::string strCHAlphabetPath, CAlphabet * pAlphabet, CLanguageModel * pLanguageModel);
+  CPinYinConversionHelper(Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, Dasher::CAlphIO *pAlphIO, const std::string strCHAlphabetPath, Dasher::CAlphabet * pAlphabet, Dasher::CLanguageModel * pLanguageModel);
   
   virtual bool Convert(const std::string &strSource, SCENode ** pRoot);
 
@@ -43,5 +45,7 @@ class CPinYinConversionHelper : public CConversionHelper {
   int m_iPriorityScale;
 
 };
+
+}
 
 #endif

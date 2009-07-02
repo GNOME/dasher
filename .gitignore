@@ -1,4 +1,10 @@
+*.a
 *.make
 *.m4
+*.gmo
+*.mo
+*.o
+*.omf
 Makefile
 Makefile.in
+dasher.xml
