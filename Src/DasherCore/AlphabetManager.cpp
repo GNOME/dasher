@@ -305,7 +305,7 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CDasherNode *pParent, symbol iSy
       else{
 	CLanguageModel::Context iContext;
 	iContext = m_pLanguageModel->CloneContext(pParentData->iContext);
-	//m_pLanguageModel->EnterSymbol(iContext, iSymbol); 
+	m_pLanguageModel->EnterSymbol(iContext, iSymbol); // TODO: Don't use symbols?
 	
 	pNodeUserData->iContext = iContext;
       }
@@ -529,8 +529,9 @@ CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode) {
 void CAlphabetManager::SetFlag(CDasherNode *pNode, int iFlag, bool bValue) {
   switch(iFlag) {
   case NF_COMMITTED:
-    if(bValue && !pNode->GetFlag(NF_GAME) && m_pInterface->GetBoolParameter(BP_LM_ADAPTIVE))
-      //static_cast<SAlphabetData *>(pNode->m_pUserData)->pLanguageModel->LearnSymbol(m_iLearnContext, static_cast<SAlphabetData *>(pNode->m_pUserData)->iSymbol);
+    if(bValue && !pNode->GetFlag(NF_GAME) && m_pInterface->GetBoolParameter(BP_LM_ADAPTIVE)
+       && m_iConversionID!=2)
+      static_cast<SAlphabetData *>(pNode->m_pUserData)->pLanguageModel->LearnSymbol(m_iLearnContext, static_cast<SAlphabetData *>(pNode->m_pUserData)->iSymbol);
     break;
   }
 }
