@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher.HEAD.ta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-24 11:23+0530\n"
-"PO-Revision-Date: 2009-06-24 11:24+0530\n"
+"POT-Creation-Date: 2009-07-03 06:51+0530\n"
+"PO-Revision-Date: 2009-07-03 17:41+0530\n"
 "Last-Translator: Dr.T.Vasudevan <agnihot3@gmail.com>\n"
 "Language-Team: Tamil <Ubuntu-l10n-tam@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
@@ -634,29 +634,29 @@ msgstr "முழுமையான விசைப்பலகை பிடி�
 msgid "Well done!"
 msgstr "நன்றாக செய்தீர்கள்!"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:942
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:937
 msgid "Normal Control"
 msgstr "இயல்பான கட்டுப்பாடு"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:956
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:952
 msgid "Menu Mode"
 msgstr "பட்டி பாணி"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:957
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:953
 msgid "Direct Mode"
 msgstr "நேரடி உள்ளீடு"
 
 #. RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3"));
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:959
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:955
 msgid "Alternating Direct Mode"
 msgstr "மாறி மாறி வரும் நேரடி பாணி"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:960
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:956
 msgid "Compass Mode"
 msgstr "திசை காட்டி பாணி"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:961
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:957
 msgid "Stylus Control"
 msgstr "எழுத்தணி கட்டுப்பாடு"
 
@@ -674,24 +674,44 @@ msgstr "கண் தட இயங்கி பாணி"
 msgid "Long press time"
 msgstr "அதிக அழுத்தும் நேரம்."
 
-#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the time in which the button must be pressed multiple times to count.
+#. TRANSLATORS: Double-clicks are special in some situations (they cause us to start reversing). This is the time in which the button must be pressed twice to count.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
-msgid "Multiple press time"
-msgstr "பல அழுத்தும் நேரங்கள்"
-
-#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the number of times a button must be pressed to count as a multiple press.
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:34
-msgid "Multiple press count"
-msgstr "பல அழுத்தும் எண்ணிக்கை"
+msgid "Double-press time"
+msgstr "இரட்டிப்பு- அழுத்தும் நேரம்"
 
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons.
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
 msgid "Enable backoff button"
 msgstr "பின்செல் பொத்தானை செயல் படுத்து"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:34
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
+msgid "Slow startup"
+msgstr "மெதுவான துவக்கம்"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:42
+msgid "Startup time"
+msgstr "துவக்க நேரம்"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:36
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:44
+#, c-format
+msgid "%age by which to automatically increase speed"
+msgstr "தானியங்கியாக வேகத்தை அதிகரிக்க வேண்டிய சதவிகிதம்"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:37
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
+msgid "Time after which to automatically increase speed (secs)"
+msgstr "தானியங்கியாக வேகத்தை அதிகரிக்கும் முன் தாமதிக்க நேரம்"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:38
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:46
+#, c-format
+msgid "%age by which to decrease speed upon reverse"
+msgstr "திருப்பும் போது வேகத்தை குறைக்க வேண்டிய சதவிகிதம்"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:42
 msgid "One Button Dynamic Mode"
 msgstr "ஒரு பொத்தான் இயங்குநிலை பாணி"
 
@@ -770,34 +790,33 @@ msgstr "பொருத்துவாய் உள்ளீடு"
 msgid "Button offset"
 msgstr "பொத்தான் விலக்கம்"
 
+#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the maximum time between two presses to count as _part_of_ a multi-press gesture
+#. (potentially more than two presses).
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:33
+msgid "Multiple press interval"
+msgstr "பல அழுத்தும் இடைவெளி"
+
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:36
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:35
 msgid "Enable backoff and start/stop buttons"
 msgstr "பின்செல் மற்றும் துவக்கு/நிறுத்து பொத்தான்களை செயல் படுத்துக"
 
 #. TRANSLATORS: What is normally the up button becomes the down button etc.
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:38
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:37
 msgid "Reverse up and down buttons"
 msgstr "திசை மாற்று மேல் மற்றும் கீழே பொத்தான்கள்"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:39
-msgid "Slow startup"
-msgstr "மெதுவான துவக்கம்"
-
+#. TRANSLATORS: Pushing the up/down button twice quickly has the same effect as pushing the other
+#. button once; in this case, one must push three times (or push-and-hold) to reverse.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:40
-msgid "Startup time"
-msgstr "துவக்க நேரம்"
+msgid "Double-click is opposite up/down - triple to reverse"
+msgstr "இரட்டிப்பு சொடுக்கு மேல்/கீழ க்கு எதிர் - திருப்ப முச்சொடுக்கு"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
-msgid "Auto speed control"
-msgstr "தானியங்கி வேக கட்டுப்பாடு"
-
-#. TRANSLATORS: The threshold time above which auto speed control is used.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
-msgid "Auto speed threshold"
-msgstr "தானியங்கி வேக விளிம்பு"
+msgid "Lag before user actually pushes button (ms)"
+msgstr "பயனர் பொத்தானை நிஜமாக அழுத்து முன் தாமதம் (மி.செ)"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:47
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:50
 msgid "Two Button Dynamic Mode"
 msgstr "இரு பொத்தான்கள் இயங்குநிலை பாணி"
 
@@ -823,21 +842,21 @@ msgstr "முழு எண் அளவுருக்கள்"
 msgid "String parameters"
 msgstr "சர அளவுருக்கள்"
 
-#: ../Src/Gtk2/Preferences.cpp:435 ../Src/Gtk2/Preferences.cpp:1004
+#: ../Src/Gtk2/Preferences.cpp:437 ../Src/Gtk2/Preferences.cpp:1006
 msgid "Action"
 msgstr "செயல்பாடு"
 
 #. TRANSLATORS: Show a button for the selected action in the Dasher window.
-#: ../Src/Gtk2/Preferences.cpp:1011
+#: ../Src/Gtk2/Preferences.cpp:1013
 msgid "Show Button"
 msgstr "பொத்தானைக் காட்டு"
 
-#: ../Src/Gtk2/Preferences.cpp:1016
+#: ../Src/Gtk2/Preferences.cpp:1018
 msgid "Control Mode"
 msgstr "கட்டுப்பாடு பாணி"
 
 #. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
-#: ../Src/Gtk2/Preferences.cpp:1022
+#: ../Src/Gtk2/Preferences.cpp:1024
 msgid "Auto On Stop"
 msgstr "நிறுத்தும்போது தானியங்கியாக"
 
@@ -850,35 +869,35 @@ msgstr "உரையை உள்ளிடு"
 msgid "Script"
 msgstr "சிறுநிரல்"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:132
+#: ../Src/Gtk2/dasher_action_speech.cpp:137
 msgid "Speak"
 msgstr "பேசுக"
 
 #. TRANSLATORS: Send all text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:145
+#: ../Src/Gtk2/dasher_action_speech.cpp:150
 msgid "All"
 msgstr "அனைத்து"
 
 #. TRANSLATORS: Send most recently entered text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:148
+#: ../Src/Gtk2/dasher_action_speech.cpp:153
 msgid "Last"
 msgstr "கடைசி"
 
 #. TRANSLATORS: Repeat the last phrase sent to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:151
+#: ../Src/Gtk2/dasher_action_speech.cpp:156
 msgid "Repeat"
 msgstr "மறுபடி செய்க"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:169
+#: ../Src/Gtk2/dasher_action_speech.cpp:174
 #, c-format
 msgid "Unable to initialize speech support\n"
 msgstr "பேச்சு ஆதரவை துவக்க முடியவில்லை\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:192
+#: ../Src/Gtk2/dasher_action_speech.cpp:197
 msgid "Unable to initialize voices\n"
 msgstr "ஓசையை ஆரம்பிக்க முடியவில்லை\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:204
+#: ../Src/Gtk2/dasher_action_speech.cpp:209
 msgid "Warning: unable to set speech parameters\n"
 msgstr "எச்சரிக்கை: பேச்சு அளவுருக்களை அமைக்க முடியவில்லை\n"
 
@@ -929,15 +948,15 @@ msgstr "சேமித்து வெளியேறவும்"
 msgid "Are you sure you wish to quit?"
 msgstr "நீங்கள் நிச்சயம் வெளியேற வேண்டுமா?"
 
-#: ../Src/Gtk2/dasher_main.cpp:1166
+#: ../Src/Gtk2/dasher_main.cpp:1164
 msgid "Unable to open help file"
 msgstr "உதவி கோப்பினை திறக்க முடியவில்லை"
 
-#: ../Src/Gtk2/dasher_main.cpp:1224
+#: ../Src/Gtk2/dasher_main.cpp:1216
 msgid "Dasher is a predictive text entry application"
 msgstr "டேஷர் என்பது ஒரு முன் கணித்து உரை உள்ளிடும் நிரல் "
 
-#: ../Src/Gtk2/dasher_main.cpp:1229
+#: ../Src/Gtk2/dasher_main.cpp:1221
 msgid "translator-credits"
 msgstr "மொழிபெயர்ப்பாளர்-நன்றி அறிதல்"
 
@@ -968,22 +987,30 @@ msgstr "ஒரு உருவளவை சொடுக்கி உள்ளீ
 #. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
 #. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
 #. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
-#: ../Src/main.cc:178
+#: ../Src/main.cc:177
 msgid "Application style (traditional, direct, compose or fullscreen)"
 msgstr "Application style (traditional, direct, compose or fullscreen)"
 
 #. Note to translators: This is the help string for "--options"
-#: ../Src/main.cc:180
+#: ../Src/main.cc:179
 msgid "Override stored options"
 msgstr "சேமித்த தேர்வுகளை உதாசீனம் செய்"
 
 #. Note to translators: This is the help string for "--help-options"
-#: ../Src/main.cc:182
+#: ../Src/main.cc:181
 msgid "Describe \"--options\"."
 msgstr "\"--options\". ஐ விவரி"
 
 #. Note to translators: This is the "--help" description of dasher.
-#: ../Src/main.cc:189
+#: ../Src/main.cc:188
 msgid "- A text input application honouring accessibility"
 msgstr " - ஒரு அணுகலை ஆதரிக்கும்  உரை உள்ளீட்டு  பயன்பாடு"
 
+#~ msgid "Multiple press count"
+#~ msgstr "பல அழுத்தும் எண்ணிக்கை"
+
+#~ msgid "Auto speed control"
+#~ msgstr "தானியங்கி வேக கட்டுப்பாடு"
+
+#~ msgid "Auto speed threshold"
+#~ msgstr "தானியங்கி வேக விளிம்பு"
