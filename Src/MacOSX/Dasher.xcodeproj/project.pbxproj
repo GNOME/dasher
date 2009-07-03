@@ -51,8 +51,6 @@
 		1948BEB70C226CFD001DFA32 /* ColourIO.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE110C226CFC001DFA32 /* ColourIO.h */; };
 		1948BEB80C226CFD001DFA32 /* ControlManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE120C226CFC001DFA32 /* ControlManager.cpp */; };
 		1948BEB90C226CFD001DFA32 /* ControlManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE130C226CFC001DFA32 /* ControlManager.h */; };
-		1948BEBA0C226CFD001DFA32 /* ControlManagerFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE140C226CFC001DFA32 /* ControlManagerFactory.cpp */; };
-		1948BEBB0C226CFD001DFA32 /* ControlManagerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE150C226CFC001DFA32 /* ControlManagerFactory.h */; };
 		1948BEBC0C226CFD001DFA32 /* ConversionHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE160C226CFC001DFA32 /* ConversionHelper.h */; };
 		1948BEBD0C226CFD001DFA32 /* ConversionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE170C226CFC001DFA32 /* ConversionManager.cpp */; };
 		1948BEBE0C226CFD001DFA32 /* ConversionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE180C226CFC001DFA32 /* ConversionManager.h */; };
@@ -356,6 +354,8 @@
 		19F8C7E60C858A2800276B4F /* I18n.h in Headers */ = {isa = PBXBuildFile; fileRef = 19F8C7E50C858A2800276B4F /* I18n.h */; };
 		19F8C7F90C858E9900276B4F /* TrainingHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19F8C7F70C858E9900276B4F /* TrainingHelper.cpp */; };
 		19F8C7FA0C858E9900276B4F /* TrainingHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 19F8C7F80C858E9900276B4F /* TrainingHelper.h */; };
+		3306E0220FFD1CE60017324C /* PPMPYLanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3306E0200FFD1CE60017324C /* PPMPYLanguageModel.cpp */; };
+		3306E0230FFD1CE60017324C /* PPMPYLanguageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 3306E0210FFD1CE60017324C /* PPMPYLanguageModel.h */; };
 		33ABFEC60FC379EA00EA2BA5 /* ButtonMultiPress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33ABFEC40FC379EA00EA2BA5 /* ButtonMultiPress.cpp */; };
 		33ABFEC70FC379EA00EA2BA5 /* ButtonMultiPress.h in Headers */ = {isa = PBXBuildFile; fileRef = 33ABFEC50FC379EA00EA2BA5 /* ButtonMultiPress.h */; };
 		33E173C70F3E0B6400D19B38 /* Makefile.am in Resources */ = {isa = PBXBuildFile; fileRef = 33E173A70F3E0B6400D19B38 /* Makefile.am */; };
@@ -446,8 +446,6 @@
 		1948BE110C226CFC001DFA32 /* ColourIO.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ColourIO.h; sourceTree = "<group>"; };
 		1948BE120C226CFC001DFA32 /* ControlManager.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ControlManager.cpp; sourceTree = "<group>"; };
 		1948BE130C226CFC001DFA32 /* ControlManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ControlManager.h; sourceTree = "<group>"; };
-		1948BE140C226CFC001DFA32 /* ControlManagerFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ControlManagerFactory.cpp; sourceTree = "<group>"; };
-		1948BE150C226CFC001DFA32 /* ControlManagerFactory.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ControlManagerFactory.h; sourceTree = "<group>"; };
 		1948BE160C226CFC001DFA32 /* ConversionHelper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ConversionHelper.h; sourceTree = "<group>"; };
 		1948BE170C226CFC001DFA32 /* ConversionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ConversionManager.cpp; sourceTree = "<group>"; };
 		1948BE180C226CFC001DFA32 /* ConversionManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ConversionManager.h; sourceTree = "<group>"; };
@@ -771,6 +769,8 @@
 		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		3306E0200FFD1CE60017324C /* PPMPYLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PPMPYLanguageModel.cpp; sourceTree = "<group>"; };
+		3306E0210FFD1CE60017324C /* PPMPYLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPMPYLanguageModel.h; sourceTree = "<group>"; };
 		33ABFEC40FC379EA00EA2BA5 /* ButtonMultiPress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ButtonMultiPress.cpp; path = ../DasherCore/ButtonMultiPress.cpp; sourceTree = SOURCE_ROOT; };
 		33ABFEC50FC379EA00EA2BA5 /* ButtonMultiPress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ButtonMultiPress.h; path = ../DasherCore/ButtonMultiPress.h; sourceTree = SOURCE_ROOT; };
 		33E173A70F3E0B6400D19B38 /* Makefile.am */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
@@ -943,8 +943,6 @@
 				1948BE110C226CFC001DFA32 /* ColourIO.h */,
 				1948BE120C226CFC001DFA32 /* ControlManager.cpp */,
 				1948BE130C226CFC001DFA32 /* ControlManager.h */,
-				1948BE140C226CFC001DFA32 /* ControlManagerFactory.cpp */,
-				1948BE150C226CFC001DFA32 /* ControlManagerFactory.h */,
 				1948BE160C226CFC001DFA32 /* ConversionHelper.h */,
 				1948BE170C226CFC001DFA32 /* ConversionManager.cpp */,
 				1948BE180C226CFC001DFA32 /* ConversionManager.h */,
@@ -1069,6 +1067,8 @@
 		1948BE4D0C226CFD001DFA32 /* LanguageModelling */ = {
 			isa = PBXGroup;
 			children = (
+				3306E0200FFD1CE60017324C /* PPMPYLanguageModel.cpp */,
+				3306E0210FFD1CE60017324C /* PPMPYLanguageModel.h */,
 				1948BE4F0C226CFD001DFA32 /* BigramLanguageModel.cpp */,
 				1948BE500C226CFD001DFA32 /* BigramLanguageModel.h */,
 				1948BE510C226CFD001DFA32 /* CTWLanguageModel.cpp */,
@@ -1426,7 +1426,6 @@
 				1948BEB50C226CFD001DFA32 /* ClickFilter.h in Headers */,
 				1948BEB70C226CFD001DFA32 /* ColourIO.h in Headers */,
 				1948BEB90C226CFD001DFA32 /* ControlManager.h in Headers */,
-				1948BEBB0C226CFD001DFA32 /* ControlManagerFactory.h in Headers */,
 				1948BEBC0C226CFD001DFA32 /* ConversionHelper.h in Headers */,
 				1948BEBE0C226CFD001DFA32 /* ConversionManager.h in Headers */,
 				1948BEC00C226CFD001DFA32 /* ConversionManagerFactory.h in Headers */,
@@ -1499,6 +1498,7 @@
 				33E91A780F55E60B00B5F513 /* KeyboardHelper.h in Headers */,
 				33ABFEC70FC379EA00EA2BA5 /* ButtonMultiPress.h in Headers */,
 				33FC933A0FEFA2C900A9F08D /* TwoPushDynamicFilter.h in Headers */,
+				3306E0230FFD1CE60017324C /* PPMPYLanguageModel.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1789,7 +1789,6 @@
 				1948BEB40C226CFD001DFA32 /* ClickFilter.cpp in Sources */,
 				1948BEB60C226CFD001DFA32 /* ColourIO.cpp in Sources */,
 				1948BEB80C226CFD001DFA32 /* ControlManager.cpp in Sources */,
-				1948BEBA0C226CFD001DFA32 /* ControlManagerFactory.cpp in Sources */,
 				1948BEBD0C226CFD001DFA32 /* ConversionManager.cpp in Sources */,
 				1948BEBF0C226CFD001DFA32 /* ConversionManagerFactory.cpp in Sources */,
 				1948BEC10C226CFD001DFA32 /* CustomColours.cpp in Sources */,
@@ -1846,6 +1845,7 @@
 				33ABFEC60FC379EA00EA2BA5 /* ButtonMultiPress.cpp in Sources */,
 				33FC93390FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp in Sources */,
 				33FC93430FEFA2FB00A9F08D /* FrameRate.cpp in Sources */,
+				3306E0220FFD1CE60017324C /* PPMPYLanguageModel.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
