@@ -698,7 +698,7 @@ msgstr "துவக்க நேரம்"
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:44
 #, c-format
 msgid "%age by which to automatically increase speed"
-msgstr "தானியங்கியாக வேகத்தை அதிகரிக்க வேண்டிய சதவிகிதம்"
+msgstr "%aதானியங்கியாக வேகத்தை அதிகரிக்க வேண்டிய சதவிகிதம்"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:37
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
