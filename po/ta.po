@@ -709,7 +709,7 @@ msgstr "தானியங்கியாக வேகத்தை அதிக�
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:46
 #, c-format
 msgid "%age by which to decrease speed upon reverse"
-msgstr "திருப்பும் போது வேகத்தை குறைக்க வேண்டிய சதவிகிதம்"
+msgstr "%aதிருப்பும் போது வேகத்தை குறைக்க வேண்டிய சதவிகிதம்"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:42
 msgid "One Button Dynamic Mode"
