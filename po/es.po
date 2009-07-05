@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: dasher.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&component=general\n"
-"POT-Creation-Date: 2009-06-17 18:29+0000\n"
-"PO-Revision-Date: 2009-06-21 10:57+0200\n"
+"POT-Creation-Date: 2009-07-03 11:31+0000\n"
+"PO-Revision-Date: 2009-07-05 11:16+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -672,52 +672,46 @@ msgstr "Modo de rastreo visual"
 msgid "Long press time"
 msgstr "Tiempo de pulsación largo"
 
-#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the time in which the button must be pressed multiple times to count.
+#. TRANSLATORS: Double-clicks are special in some situations (they cause us to start reversing). This is the time in which the button must be pressed twice to count.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
-msgid "Multiple press time"
-msgstr "Tiempo de pulsación múltiple"
-
-#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the number of times a button must be pressed to count as a multiple press.
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:34
-msgid "Multiple press count"
-msgstr "Cuenta de pulsación múltiple"
+#| msgid "Multiple press time"
+msgid "Double-press time"
+msgstr "Tiempo de pulsación doble"
 
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons.
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
 msgid "Enable backoff button"
 msgstr "Activar botón de parada"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:36
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:39
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:34
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
 msgid "Slow startup"
 msgstr "Inicio lento"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:37
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:40
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:42
 msgid "Startup time"
 msgstr "Tiempo de inicio"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:38
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:42
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:36
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:44
 #, c-format
 msgid "%age by which to automatically increase speed"
 msgstr "%age para aumentar la velocidad automáticamente"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:37
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
 msgid "Time after which to automatically increase speed (secs)"
 msgstr ""
 "Tiempo después del que se aumentará automáticamente la velocidad (segs)"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:40
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:44
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:38
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:46
 #, c-format
 msgid "%age by which to decrease speed upon reverse"
 msgstr "%age para reducir la velocidad a la inversa"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:44
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:42
 msgid "One Button Dynamic Mode"
 msgstr "Modo dinámico de un botón"
 
@@ -798,21 +792,36 @@ msgstr "Entrada del socket"
 msgid "Button offset"
 msgstr "Desplazamiento del botón"
 
+#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the maximum time between two presses to count as _part_of_ a multi-press gesture
+#. (potentially more than two presses).
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:33
+#| msgid "Multiple press time"
+msgid "Multiple press interval"
+msgstr "Intervalo de pulsación múltiple"
+
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:36
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:35
 msgid "Enable backoff and start/stop buttons"
 msgstr "Activar botones de parada e inicio/parada"
 
 #. TRANSLATORS: What is normally the up button becomes the down button etc.
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:38
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:37
 msgid "Reverse up and down buttons"
 msgstr "Invertir botones de arriba y abajo"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
+#. TRANSLATORS: Pushing the up/down button twice quickly has the same effect as pushing the other
+#. button once; in this case, one must push three times (or push-and-hold) to reverse.
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:40
+msgid "Double-click is opposite up/down - triple to reverse"
+msgstr ""
+"La doble pulsación es opuesta a flecha arriba/flecha abajo- triple para "
+"invertir"
+
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
 msgid "Lag before user actually pushes button (ms)"
 msgstr "Retardo antes de que el usuario pulse el botón (ms)"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:48
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:50
 msgid "Two Button Dynamic Mode"
 msgstr "Modo dinámico de dos botones"
 
@@ -838,21 +847,21 @@ msgstr "Parámetros enteros"
 msgid "String parameters"
 msgstr "Parámetros de cadena"
 
-#: ../Src/Gtk2/Preferences.cpp:435 ../Src/Gtk2/Preferences.cpp:1004
+#: ../Src/Gtk2/Preferences.cpp:437 ../Src/Gtk2/Preferences.cpp:1006
 msgid "Action"
 msgstr "Acción"
 
 #. TRANSLATORS: Show a button for the selected action in the Dasher window.
-#: ../Src/Gtk2/Preferences.cpp:1011
+#: ../Src/Gtk2/Preferences.cpp:1013
 msgid "Show Button"
 msgstr "Mostrar botón"
 
-#: ../Src/Gtk2/Preferences.cpp:1016
+#: ../Src/Gtk2/Preferences.cpp:1018
 msgid "Control Mode"
 msgstr "Modo de control"
 
 #. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
-#: ../Src/Gtk2/Preferences.cpp:1022
+#: ../Src/Gtk2/Preferences.cpp:1024
 msgid "Auto On Stop"
 msgstr "Automático al parar"
 
@@ -955,7 +964,7 @@ msgstr "Dasher es una aplicación de entrada de texto predictivo"
 #: ../Src/Gtk2/dasher_main.cpp:1221
 msgid "translator-credits"
 msgstr ""
-"Jorge González <jorgegonz@svn.gnome.org>, 2007-2008\n"
+"Jorge González <jorgegonz@svn.gnome.org>, 2007-2009\n"
 "Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2004-2006"
 
 #: ../Src/Gtk2/module_settings_window.cpp:88
@@ -1004,6 +1013,9 @@ msgstr "Describir \"--options\"."
 #: ../Src/main.cc:188
 msgid "- A text input application honouring accessibility"
 msgstr "- Una aplicación de entrada de texto para accesibilidad"
+
+#~ msgid "Multiple press count"
+#~ msgstr "Cuenta de pulsación múltiple"
 
 #~ msgid "Auto speed control"
 #~ msgstr "Control de velocidad automático"
