@@ -24,6 +24,7 @@ Src/DasherCore/SettingsStore.cpp
 Src/DasherCore/SocketInput.cpp
 Src/DasherCore/SocketInputBase.cpp
 Src/DasherCore/TwoButtonDynamicFilter.cpp
+Src/DasherCore/TwoPushDynamicFilter.cpp
 Src/Gtk2/DasherAppSettings.cpp
 Src/Gtk2/Preferences.cpp
 Src/Gtk2/dasher_action_keyboard.cpp
