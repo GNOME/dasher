@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: dasher.HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&component=general\n"
-"POT-Creation-Date: 2009-07-05 09:17+0000\n"
-"PO-Revision-Date: 2009-07-05 11:42+0200\n"
+"POT-Creation-Date: 2009-07-07 15:50+0000\n"
+"PO-Revision-Date: 2009-07-07 20:36+0200\n"
 "Last-Translator: Jorge González <jorgegonz@svn.gnome.org>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -696,10 +696,9 @@ msgstr "Tiempo de inicio"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:36
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:44
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
-#, c-format
-msgid "%age by which to automatically increase speed"
-msgstr "%age para aumentar la velocidad automáticamente"
+#| msgid "%age by which to automatically increase speed"
+msgid "Percentage by which to automatically increase speed"
+msgstr "Porcentaje en el que aumentar la velocidad automáticamente"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:37
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
@@ -710,10 +709,9 @@ msgstr ""
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:38
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:46
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:41
-#, c-format
-msgid "%age by which to decrease speed upon reverse"
-msgstr "%age para reducir la velocidad a la inversa"
+#| msgid "%age by which to decrease speed upon reverse"
+msgid "Percentage by which to decrease speed upon reverse"
+msgstr "Porcentaje en el que reducir la velocidad a la inversa"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:42
 msgid "One Button Dynamic Mode"
@@ -849,14 +847,22 @@ msgid "Tolerance for inaccurate timing of button pushes (in ms)"
 msgstr "Tolerancia para tiempos imprecisos de pulsaciones del botón (en ms)"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:36
-#| msgid "Pause outside of canvas"
 msgid "Markers fixed to canvas"
 msgstr "Marcadores ajustados al lienzo"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
-#| msgid "Slow startup"
 msgid "Slow startup time"
 msgstr "Retardar el tiempo de inicio"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
+#, c-format
+msgid "%age by which to automatically increase speed"
+msgstr "%age para aumentar la velocidad automáticamente"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:41
+#, c-format
+msgid "%age by which to decrease speed upon reverse"
+msgstr "%age para reducir la velocidad a la inversa"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:46
 msgid "Two-push Dynamic Mode (New One Button)"
