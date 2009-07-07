@@ -8,7 +8,6 @@ Terminal=false
 Type=Application
 StartupNotify=true
 Categories=GNOME;GTK;Utility;Accessibility;
-Encoding=UTF-8
 X-GNOME-Bugzilla-Bugzilla=GNOME
 X-GNOME-Bugzilla-Product=dasher
 X-GNOME-Bugzilla-Component=general

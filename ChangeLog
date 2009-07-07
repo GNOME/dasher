@@ -1,6 +1,7 @@
 2009-07-07  Patrick Welche <prlw1@cam.ac.uk>
 
 	* Fix printf format strings containing "%age" closing #587736.
+	* dasher.desktop.in.in: #587972 Remove deprecated Encoding key.
 
 2009-07-03  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
