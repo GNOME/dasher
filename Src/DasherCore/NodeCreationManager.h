@@ -35,7 +35,7 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   Dasher::CDasherNode *GetRoot(int iType, Dasher::CDasherNode *pParent, int iLower, int iUpper, void *pUserData);
 
   ///
-  /// Resgister a control node 
+  /// Register a control node 
   ///
 
   void RegisterNode( int iID, const std::string &strLabel, int iColour );

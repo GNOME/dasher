@@ -105,7 +105,7 @@ public:
   /// @}
 
   /// @name Status reporting
-  /// Return information usful for debgging purposes
+  /// Return information useful for debugging purposes
   /// @{
 
   /// Get some measure of the memory usage for diagnostic
