@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the dasher package.
 # Maxim Dziumanenko <dziumanenko@gmail.com>, 2004-2007
 #
+# wanderlust <wanderlust@ukr.net>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-28 16:59+0000\n"
-"PO-Revision-Date: 2008-10-28 10:40+0300\n"
-"Last-Translator: Maxim Dziumanenko <dziumanenko@gmail.com>\n"
-"Language-Team: Ukrainian <uk@li.org>\n"
+"POT-Creation-Date: 2009-07-09 14:07+0300\n"
+"PO-Revision-Date: 2009-07-06 17:20+0300\n"
+"Last-Translator: wanderlust <wanderlust@ukr.net>\n"
+"Language-Team: ukrainian <Ukrainian <uk@li.org>>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,7 +25,7 @@ msgstr ""
 #: ../Data/glade/dasher.traditional.glade.h:6
 #: ../Data/glade/dashermaemo.glade.h:3
 #: ../Data/glade/dashermaemofullscreen.glade.h:2
-#: ../Src/Gtk2/dasher_main.cpp:992 ../Src/Gtk2/dasher_main.cpp:1208
+#: ../Src/Gtk2/dasher_main.cpp:993
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -116,9 +117,9 @@ msgstr "Зберегти файл як"
 #: ../Data/glade/dasher.traditional.glade.h:17
 #: ../Data/glade/dashermaemo.glade.h:6
 #: ../Data/glade/dashermaemofullscreen.glade.h:5
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1332
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1366
-#: ../Src/Gtk2/dasher_main.cpp:1042
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1334
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1368
+#: ../Src/Gtk2/dasher_main.cpp:1043
 msgid "Select File"
 msgstr "Вибір файлу"
 
@@ -223,7 +224,7 @@ msgstr "Параметри"
 
 #: ../Data/glade/dasher.gameWIP.glade.h:19
 #: ../Data/glade/dasher.traditional.glade.h:14
-#: ../Src/Gtk2/dasher_main.cpp:1116
+#: ../Src/Gtk2/dasher_main.cpp:1121
 msgid "Quit"
 msgstr "Вийти"
 
@@ -611,12 +612,16 @@ msgid "Safety margin"
 msgstr "Безпечне поле "
 
 #. TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other.
-#: ../Src/DasherCore/DasherButtons.cpp:31
+#. XXX PRLW: 128 log(2) = 89, where 2 is the ratio of adjacent boxes
+#. * however the code seems to use ratio = (129/127)^-r, instead of
+#. * ratio = exp(r/128) used in the design document
+#.
+#: ../Src/DasherCore/DasherButtons.cpp:35
 msgid "Box non-uniformity"
 msgstr "Прямокутники не одноманітно"
 
 #. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
-#: ../Src/DasherCore/DasherButtons.cpp:33
+#: ../Src/DasherCore/DasherButtons.cpp:37
 msgid "Global keyboard grab"
 msgstr "Захоплювати клавіатуру глобально"
 
@@ -624,29 +629,29 @@ msgstr "Захоплювати клавіатуру глобально"
 msgid "Well done!"
 msgstr "Добрий результат!"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:934
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:937
 msgid "Normal Control"
 msgstr "Звичайне керування"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:941
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:952
 msgid "Menu Mode"
 msgstr "Режим меню"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:942
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:953
 msgid "Direct Mode"
 msgstr "Прямий режим"
 
-#. RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:944
+#. RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3"));
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:955
 msgid "Alternating Direct Mode"
 msgstr "Альтернативний прямий режим"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:945
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:956
 msgid "Compass Mode"
 msgstr "Режим компасу"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:946
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:957
 msgid "Stylus Control"
 msgstr "Керування стилусом"
 
@@ -661,27 +666,48 @@ msgstr "Режим слідкування за подіями"
 #. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:29
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:33
 msgid "Long press time"
 msgstr "Час тривалого натискання"
 
-#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the time in which the button must be pressed multiple times to count.
+#. TRANSLATORS: Double-clicks are special in some situations (they cause us to start reversing). This is the time in which the button must be pressed twice to count.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
-msgid "Multiple press time"
-msgstr "Час багаторазового натискання"
-
-#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the number of times a button must be pressed to count as a multiple press.
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:34
-msgid "Multiple press count"
-msgstr "Кількість багаторазового натискання"
+msgid "Double-press time"
+msgstr "Час подвійного натискання"
 
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons.
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
 msgid "Enable backoff button"
 msgstr "Увімкнути кнопку повернення"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:34
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:37
+msgid "Slow startup"
+msgstr "Повільний запуск"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:42
+msgid "Startup time"
+msgstr "Час запуску"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:36
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:44
+msgid "Percentage by which to automatically increase speed"
+msgstr "Відсоток при якому автоматично збільшувати швидкість"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:37
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
+msgid "Time after which to automatically increase speed (secs)"
+msgstr "Час після якого автоматично збільшувати швидкість (сек)"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:38
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:46
+msgid "Percentage by which to decrease speed upon reverse"
+msgstr "Відсоток при якому зменшується швидкість повернення"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:42
 msgid "One Button Dynamic Mode"
 msgstr "Динамічний режим однієї кнопки"
 
@@ -690,14 +716,14 @@ msgid "One Dimensional Mode"
 msgstr "Одновимірний режим"
 
 #: ../Src/DasherCore/SettingsStore.cpp:76
-#: ../Src/Gtk2/DasherAppSettings.cpp:516 ../Src/Gtk2/DasherAppSettings.cpp:550
-#: ../Src/Gtk2/DasherAppSettings.cpp:554
+#: ../Src/Gtk2/DasherAppSettings.cpp:518 ../Src/Gtk2/DasherAppSettings.cpp:552
+#: ../Src/Gtk2/DasherAppSettings.cpp:556
 msgid "true"
 msgstr "істина"
 
 #: ../Src/DasherCore/SettingsStore.cpp:78
-#: ../Src/Gtk2/DasherAppSettings.cpp:518 ../Src/Gtk2/DasherAppSettings.cpp:550
-#: ../Src/Gtk2/DasherAppSettings.cpp:554
+#: ../Src/Gtk2/DasherAppSettings.cpp:520 ../Src/Gtk2/DasherAppSettings.cpp:552
+#: ../Src/Gtk2/DasherAppSettings.cpp:556
 msgid "false"
 msgstr "хибність"
 
@@ -705,7 +731,7 @@ msgstr "хибність"
 #. with "--options foo=VAL" and foo is a boolean valued parameter, but
 #. "VAL" is not true or false.
 #: ../Src/DasherCore/SettingsStore.cpp:84
-#: ../Src/Gtk2/DasherAppSettings.cpp:521
+#: ../Src/Gtk2/DasherAppSettings.cpp:523
 msgid "boolean value must be specified as 'true' or 'false'."
 msgstr "логічне значення має бути вказане як 'істина' або 'хибність'."
 
@@ -713,7 +739,9 @@ msgstr "логічне значення має бути вказане як 'і�
 #. specify a known option.
 #: ../Src/DasherCore/SettingsStore.cpp:104
 msgid "unknown option, use \"--help-options\" for more information."
-msgstr "невідомий ключ, використовуйте «--help-options» для отримання повного списку ключів."
+msgstr ""
+"невідомий ключ, використовуйте «--help-options» для отримання повного списку "
+"ключів."
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
@@ -760,79 +788,120 @@ msgstr "Сокет вводу"
 msgid "Button offset"
 msgstr "Зсув кнопки"
 
+#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the maximum time between two presses to count as _part_of_ a multi-press gesture
+#. (potentially more than two presses).
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:33
+msgid "Multiple press interval"
+msgstr "Інтервал багаторазового натискання"
+
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:36
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:35
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:35
 msgid "Enable backoff and start/stop buttons"
 msgstr "Увімкнути кнопки повернення та пуск/стоп"
 
 #. TRANSLATORS: What is normally the up button becomes the down button etc.
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:38
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:37
 msgid "Reverse up and down buttons"
 msgstr "Поміняти функцію кнопок вгору вниз"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:39
-msgid "Slow startup"
-msgstr "Повільний запуск"
-
+#. TRANSLATORS: Pushing the up/down button twice quickly has the same effect as pushing the other
+#. button once; in this case, one must push three times (or push-and-hold) to reverse.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:40
-msgid "Startup time"
-msgstr "Час запуску"
+msgid "Double-click is opposite up/down - triple to reverse"
+msgstr "Подвійне клацання є протилежним догори/донизу - потрійне - зворотнє"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
-msgid "Auto speed control"
-msgstr "Автоматичне керування швидкістю"
-
-#. TRANSLATORS: The threshold time above which auto speed control is used.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
-msgid "Auto speed threshold"
-msgstr "Межа автоматичного керування швидкістю"
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
+msgid "Lag before user actually pushes button (ms)"
+msgstr "Затримка перед тим, як користувач справді натисне кнопку (мс)"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:47
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:50
 msgid "Two Button Dynamic Mode"
 msgstr "Динамічний режим з двома кнопками"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:547
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:28
+msgid "Offset for outer (second) button"
+msgstr "Зсув для зовнішньої (другої) кнопки"
+
+#. divisor
+#. step
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:29
+msgid "Distance for 1st button UP"
+msgstr "Відстань для першої кнопки ВГОРУ"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:30
+msgid "Distance for 1st button DOWN"
+msgstr "Відстань для першої кнопки ВНИЗ"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:31
+msgid "Tolerance for inaccurate timing of button pushes (in ms)"
+msgstr "Допуск відхилення часу при натисканні кнопки (у мс)"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:36
+msgid "Markers fixed to canvas"
+msgstr "Призупиняти за межами вікна"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
+msgid "Slow startup time"
+msgstr "Повільний запуск"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
+#, c-format
+msgid "%age by which to automatically increase speed"
+msgstr "%age при якому автоматично збільшувати швидкість"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:41
+#, c-format
+msgid "%age by which to decrease speed upon reverse"
+msgstr "%age при якому зменшується швидкість повернення"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:46
+msgid "Two-push Dynamic Mode (New One Button)"
+msgstr "Динамічний режим подвійного натиску (Ще одна кнопка)"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:549
 msgid "Boolean parameters"
 msgstr "Логічні параметри"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:547 ../Src/Gtk2/DasherAppSettings.cpp:558
-#: ../Src/Gtk2/DasherAppSettings.cpp:569
+#: ../Src/Gtk2/DasherAppSettings.cpp:549 ../Src/Gtk2/DasherAppSettings.cpp:560
+#: ../Src/Gtk2/DasherAppSettings.cpp:571
 msgid "Default"
 msgstr "Типово"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:547 ../Src/Gtk2/DasherAppSettings.cpp:558
-#: ../Src/Gtk2/DasherAppSettings.cpp:569
+#: ../Src/Gtk2/DasherAppSettings.cpp:549 ../Src/Gtk2/DasherAppSettings.cpp:560
+#: ../Src/Gtk2/DasherAppSettings.cpp:571
 msgid "Description"
 msgstr "Опис"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:558
+#: ../Src/Gtk2/DasherAppSettings.cpp:560
 msgid "Integer parameters"
 msgstr "Цілі параметри"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:569
+#: ../Src/Gtk2/DasherAppSettings.cpp:571
 msgid "String parameters"
 msgstr "Рядкові параметри"
 
-#: ../Src/Gtk2/Preferences.cpp:433 ../Src/Gtk2/Preferences.cpp:1002
+#: ../Src/Gtk2/Preferences.cpp:437 ../Src/Gtk2/Preferences.cpp:1006
 msgid "Action"
 msgstr "Дія"
 
 #. TRANSLATORS: Show a button for the selected action in the Dasher window.
-#: ../Src/Gtk2/Preferences.cpp:1009
+#: ../Src/Gtk2/Preferences.cpp:1013
 msgid "Show Button"
 msgstr "Показувати кнопку"
 
-#: ../Src/Gtk2/Preferences.cpp:1014
+#: ../Src/Gtk2/Preferences.cpp:1018
 msgid "Control Mode"
 msgstr "Режим керування"
 
 #. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
-#: ../Src/Gtk2/Preferences.cpp:1020
+#: ../Src/Gtk2/Preferences.cpp:1024
 msgid "Auto On Stop"
 msgstr "Автоматично при зупинках"
 
-#: ../Src/Gtk2/dasher_action_keyboard.cpp:60
-#: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:94
+#: ../Src/Gtk2/dasher_action_keyboard.cpp:62
+#: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:96
 msgid "Enter Text"
 msgstr "Введіть текст"
 
@@ -840,49 +909,49 @@ msgstr "Введіть текст"
 msgid "Script"
 msgstr "Сценарій"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:130
+#: ../Src/Gtk2/dasher_action_speech.cpp:137
 msgid "Speak"
 msgstr "Розмова"
 
 #. TRANSLATORS: Send all text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:143
+#: ../Src/Gtk2/dasher_action_speech.cpp:150
 msgid "All"
 msgstr "Все"
 
 #. TRANSLATORS: Send most recently entered text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:146
+#: ../Src/Gtk2/dasher_action_speech.cpp:153
 msgid "Last"
 msgstr "Останній"
 
 #. TRANSLATORS: Repeat the last phrase sent to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:149
+#: ../Src/Gtk2/dasher_action_speech.cpp:156
 msgid "Repeat"
 msgstr "Повтор"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:167
+#: ../Src/Gtk2/dasher_action_speech.cpp:174
 #, c-format
 msgid "Unable to initialize speech support\n"
 msgstr "Не вдається ініціалізувати підтримку мовлення\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:190
+#: ../Src/Gtk2/dasher_action_speech.cpp:197
 msgid "Unable to initialize voices\n"
 msgstr "Не вдається ініціалізувати голоси\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:202
+#: ../Src/Gtk2/dasher_action_speech.cpp:209
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Попередження: не вдається встановити параметри мовлення\n"
 
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
-#: ../Src/Gtk2/dasher_main.cpp:311
+#: ../Src/Gtk2/dasher_main.cpp:310
 msgid "option setting is missing \"=\"."
 msgstr "у ключі відсутній «=»"
 
 #. Note to translators: This string will be output when --options= specifies an unknown option.
-#: ../Src/Gtk2/dasher_main.cpp:327
+#: ../Src/Gtk2/dasher_main.cpp:326
 msgid "Invalid option string specified"
 msgstr "Вказано некоректну назву ключа"
 
-#: ../Src/Gtk2/dasher_main.cpp:1080
+#: ../Src/Gtk2/dasher_main.cpp:1083
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -893,7 +962,7 @@ msgstr ""
 "\n"
 "Якщо ви не збережете зміни, ви їх не збережете."
 
-#: ../Src/Gtk2/dasher_main.cpp:1086
+#: ../Src/Gtk2/dasher_main.cpp:1090
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -903,35 +972,39 @@ msgstr ""
 "\n"
 "Якщо ви не збережете зміни, ви їх не збережете."
 
-#: ../Src/Gtk2/dasher_main.cpp:1090
+#: ../Src/Gtk2/dasher_main.cpp:1096
 msgid "Don't save"
 msgstr "Не зберігати"
 
-#: ../Src/Gtk2/dasher_main.cpp:1091 ../Src/Gtk2/dasher_main.cpp:1115
+#: ../Src/Gtk2/dasher_main.cpp:1097 ../Src/Gtk2/dasher_main.cpp:1120
 msgid "Don't quit"
 msgstr "Не виходити"
 
-#: ../Src/Gtk2/dasher_main.cpp:1092
+#: ../Src/Gtk2/dasher_main.cpp:1098
 msgid "Save and quit"
 msgstr "Зберегти та вийти"
 
-#: ../Src/Gtk2/dasher_main.cpp:1112
+#: ../Src/Gtk2/dasher_main.cpp:1117
 msgid "Are you sure you wish to quit?"
 msgstr "Хочете вийти?"
 
-#: ../Src/Gtk2/dasher_main.cpp:1195 ../Src/Gtk2/dasher_main.cpp:1211
+#: ../Src/Gtk2/dasher_main.cpp:1164
+msgid "Unable to open help file"
+msgstr "Не можу відкрити файл довідки"
+
+#: ../Src/Gtk2/dasher_main.cpp:1216
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher - програма прорікання вводу у текстових полях"
 
-#: ../Src/Gtk2/dasher_main.cpp:1200 ../Src/Gtk2/dasher_main.cpp:1206
+#: ../Src/Gtk2/dasher_main.cpp:1221
 msgid "translator-credits"
 msgstr "Максим Дзюманенко <dziumanenko@gmail.com>"
 
-#: ../Src/Gtk2/module_settings_window.cpp:86
+#: ../Src/Gtk2/module_settings_window.cpp:88
 msgid "Dasher Module Options"
 msgstr "Параметри модуля Dasher"
 
-#: ../Src/Gtk2/module_settings_window.cpp:92
+#: ../Src/Gtk2/module_settings_window.cpp:94
 #, c-format
 msgid "%s Options:"
 msgstr "Параметри %s:"
@@ -953,24 +1026,31 @@ msgstr "Одновимірний ввід мишею"
 #. {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences window only", NULL},
 #. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
 #. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
-#. Note to translators: This is the help string for "--appstyle"
-#: ../Src/main.cc:188
+#. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
+#: ../Src/main.cc:177
 msgid "Application style (traditional, direct, compose or fullscreen)"
 msgstr "Стиль програми (традиційний, прямий, композитний або на повний екран)"
 
 #. Note to translators: This is the help string for "--options"
-#: ../Src/main.cc:190
+#: ../Src/main.cc:179
 msgid "Override stored options"
 msgstr "Перезаписати збережені параметри"
 
 #. Note to translators: This is the help string for "--help-options"
-#: ../Src/main.cc:192
+#: ../Src/main.cc:181
 msgid "Describe \"--options\"."
 msgstr "Описати «--options»."
 
 #. Note to translators: This is the "--help" description of dasher.
-#: ../Src/main.cc:199
+#: ../Src/main.cc:188
 msgid "- A text input application honouring accessibility"
 msgstr "- Допоміжні програми для вводу тексту"
 
+#~ msgid "Multiple press count"
+#~ msgstr "Кількість багаторазового натискання"
 
+#~ msgid "Auto speed control"
+#~ msgstr "Автоматичне керування швидкістю"
+
+#~ msgid "Auto speed threshold"
+#~ msgstr "Межа автоматичного керування швидкістю"
