@@ -1493,7 +1493,7 @@ dasher_editor_internal_gvfs_save_file(DasherEditor *pSelf, const char *uri, gcha
 {
   GFile *file;
   GFileOutputStream *write_handle;
-  GError *error;
+  GError *error = NULL;
   gssize bytes_written;
 
   file = g_file_new_for_uri (uri);
