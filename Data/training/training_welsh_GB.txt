@@ -1,20 +1,4 @@
-Welsh training text for Dasher, processed from the corpus
-
-Cronfa Electroneg o Gymraeg (CEG)
-A 1 million word lexical database and frequency count for Welsh
-Ellis, N. C., O'Dochartaigh, C., Hicks, W., Morgan, M., & Laporte, N.  (2001)
-
-    You are welcome to use the materials for any non-commercial
-purpose. We have produced these analyses in good faith to the best of
-our abilities given the limited resources. As we have described above,
-you should be aware that there are some inaccuracies in the
-taggings. We bear no responsibility for any damaging consequences that
-may result from these.
-
-    We welcome further research to extend or correct these linguistic descriptions.
-
-    Articles based on the use of the database should cite:
-            Ellis, N. C., O'Dochartaigh, C., Hicks, W., Morgan, M., & Laporte, N.  (2001). Cronfa Electroneg o Gymraeg (CEG): A 1 million word lexical database and frequency count for Welsh. [On-line], Available: http://www.bangor.ac.uk/ar/cb/ceg/ceg_eng.html\n\n CRYFHAU SAFLE'R GYMRAEG YNG NGHWRS ADDYSG YSGOLION
+CRYFHAU SAFLE'R GYMRAEG YNG NGHWRS ADDYSG YSGOLION
 Mewn adran arall canolbwyntir ar y cyfle a rydd y Ddeddf Diwygio
 Addysg 1988 i ymestyn addysg Gymraeg fel pwnc a chyfrwng. Dengys
 ystadegau diweddaraf y Swyddfa Gymreig y tir y mae'n bosibl ei
@@ -2412,7 +2396,7 @@ BYW MEWN DYLED Y mis diwethaf fe addawyd y buasem yn rhoi sylw i gwestiwn arall 
 WYTHNOS YR AMGYLCHEDD Dechreuodd Cyngor Bwrdeistref Taf El√° i nifer o weithgareddau ailgylchu yn ystod Wythnos yr Amgylchedd cyntaf y cyngor ar ddiwedd mis Medi. Canolbwyntiodd yr wythnos ar sut i helpu plant i werthfawrogi'r amgylchedd ac hefyd sut i helpu pobl ailgylchu pethau.  Daeth gr˛p o blant Pontypridd i Swyddfa'r Cyngor i ddarganfod sut mae'r cyngor yn ceisio dod o hyd i bobl sy'n gadael ysbwriel ar ochr y ffordd. Daeth arbenigwyr gyda ystlumod, adar prin a neidr i nifer o ysgolion gan gynnwys Ysgol Tonyrefail, Ysgol Gwaelod y Garth ac Ysgol Ffynnon Taf. Aeth disgyblion dosbarth pedwar Ysgol Creigiau i weld fferm Garth Uchaf. Gorffenodd yr wythnos gyda thaith dros y Garth.  "Rydyn ni wedi cael ymateb arbennig o dda o'r ysgolion, a does dim dwywaith amdani, mae'n rhaid i ni ddechrau gyda'r plant os ydym am ddatrys y broblem o ysbwriel a diogelu ein cefn gwlad", meddai'r Cynghorydd Tony Hughes.  Yn ystod y misoedd nesaf bydd y nifer o fanciau papur yn treblu a bydd y nifer o fanciau caniau yn dyblu. Bydd safleoedd banciau newydd sbon ym Makro Nantgarw ac yng Nghanolfan Gymuned Brynna.  Gobeithir y bydd y cyfleusterau newydd yn galluogi'r cyngor i gyrraedd at ei darged ailgylchu. Cymeradwywyd y targed gan y Swyddfa Gymreig a cheir manylion pellach am y targed ailgylchu yng Nghynllun Ailgylchu'r Cyngor sydd ar werth o Swyddfeydd y Cyngor. Ceir crynodeb o'r cynllun mewn pamffled sydd ar gael mewn llyfrgelloedd ac adeiladau'r cyngor.  Mae'r cynllun yn pwysleisio'r angen i ailgylchu ac arbed adnoddau, e.e. bydd blychau gwneud tail ar gael i ysgolion sydd eisiau eu defnyddio mewn prosiectau gwyddoniaeth. (Mae pry genwair yn gallu bwyta gwastraff gegin ac yn gadael gwrtaith defnyddiol). Dengys adroddiad a gyhoeddwyd ym mis Hydref gan Hybu Iechyd Cymru fod angen gwella deiet pobl ifanc yng Nghymru. Mae'r adroddiad, Deiet a Phobl Ifanc yng Nghymru, 1986-1992, yn dangos y newididau mewn arferion bwyta dros y blynyddoedd diwethaf. Ymysg y canlyniadau gwelir fod nifer y pobl ifanc sy'n bwyta prydau bwyd rheolaidd wedi syrthio er 1986 ac mae bwyta byrbrydau rheolaidd -sy'n aml yn cynnwys cryn dipyn o fraster, siwgr a halen - ar gynnydd hefyd. Mae'r cyfanwsm o ffrwythau a gaiff eu bwyta yn isel yn ol safonau rhyngwladol.  Ar yr ochr gadarnhaol, dywed yr adroddiad fod mwy o bobl ifanc yn hoffi cinio ysgol a gwelwyd cynnydd yn y nifer sy'n yfed llaeth sydd a llai o fraster.  Mae Hybu Iechyd Cymru eisoes yn chwarae rhan mewn amryw fentrau sy'n annog bwyta'n iach ymhlith oedolion a phlant. 
 Yn y Bocs Sebon y mis hwn mae Gill Rees yn mynd √¢ ni i fyd y gyfraith ac yn trafod un o'n hawliau sylfaenol. 
 RHEITHGOR AI PEIDIO 
-A ddylai diffinydd gerbron llys troseddol gadw'r dewis sydd ganddo ar hyn o bryd o gael ei achos wedi ei glywed o flaen rheithgor ai peidio?  Un o argymhellion y Comisiwn Brenhinol ar Gyfiawnder Troseddol yw y dylid cwtogi ymhellach ar hawl diffinydd i ddewis rheithgor i glywed ei achos - hawl sydd yn deillio o'r Magna Carta. Dywed rhai mae pendraw'r broses a argymhellir fydd dileu'r rheithgor yn gyfangwbl.  Mae'r dadleuon a roddir o blaid cwtogi ymhellach ar yr hawl hon wedi'u seilio ar ddiffyg cyllid, a'r angen i leihau costau achosion gerbron Llys y Goron ac i esmwytho gweinyddiad y llysoedd hynny.  Gellid cyfiawnhau pob un o'r dadleuon hyn ond ystyriwch am eiliad un o ganlyniadau gweithredu argymhelliad y Comisiwn. Ar hyn o bryd, mae gan ddiffinydd, sydd wedi ei gyhuddo o ddwyn, yr hawl i ddewis gwrandawiad o'i achos naill a'i gerbron Llys yr Ynadon neu gerbron rheithgor yn Llys y Goron. Un o argymhellion y Comisiwn yw y dylid cwtogi'r hawl i ddewis gwrandawiad gerbron rheithgor, mewn achos o ddwyn, i'r achosion hynny sydd yn ymwneud ag arian neu eiddo o werth lleiafswm penodol (crybwyllwyd gan rai ú200 fel y swm priodol).  Byddai gweithredu argymhelliad o'r fath yn golygu y byddai diffynydd sydd wedi ei gyhuddo o ddwyn arian neu eiddo o werth ú199 yn colli'r hawl i ddewis gwrandawiad gerbron rheithgor yn Llys y Goron, ond ni fyddai'n colli'r hawl petai gwerth yr arian neu'r eiddo yn ú201.  O ystyried y mater o safbwynt ariannol yn unig, hawdd yw anghofio difrifoldeb sylfaenol y cyhuddiad o ddwyn, beth bynnag yw'r swm penodol, ac effaith dedfryd o euogrwydd o gyhuddiad o'r fath nid yn unig ar enw da a chymeriad y diffinydd ond hefyd ar ei swydd, ei deulu a'i safle yn y gymdeithas.  Felly, nid ar chwarae bach y dylid diddymu'r hawl i ddiffinydd ymddangos gerbron rheithgor. Cred y cyhoedd y c√¢nt wrandawiad teg gan y bobl gyffredin hynny sydd yn aelodau o'r rheithgor ac mae ganddynt ffydd, felly, ym mhenderfyniadau'r rheithgor.  Mae'r dewis o gael ymddangos gerbron rheithgor yn hawl sylfaenol ac ni ddylid ei chwtogi ymhellach. Fel y dywedodd yr Arglwydd Devlin - "Y rheithgor yw'r llusern sydd yn dangos fod democratiaeth yn fyw%.  
+A ddylai diffinydd gerbron llys troseddol gadw'r dewis sydd ganddo ar hyn o bryd o gael ei achos wedi ei glywed o flaen rheithgor ai peidio?  Un o argymhellion y Comisiwn Brenhinol ar Gyfiawnder Troseddol yw y dylid cwtogi ymhellach ar hawl diffinydd i ddewis rheithgor i glywed ei achos - hawl sydd yn deillio o'r Magna Carta. Dywed rhai mae pendraw'r broses a argymhellir fydd dileu'r rheithgor yn gyfangwbl.  Mae'r dadleuon a roddir o blaid cwtogi ymhellach ar yr hawl hon wedi'u seilio ar ddiffyg cyllid, a'r angen i leihau costau achosion gerbron Llys y Goron ac i esmwytho gweinyddiad y llysoedd hynny.  Gellid cyfiawnhau pob un o'r dadleuon hyn ond ystyriwch am eiliad un o ganlyniadau gweithredu argymhelliad y Comisiwn. Ar hyn o bryd, mae gan ddiffinydd, sydd wedi ei gyhuddo o ddwyn, yr hawl i ddewis gwrandawiad o'i achos naill a'i gerbron Llys yr Ynadon neu gerbron rheithgor yn Llys y Goron. Un o argymhellion y Comisiwn yw y dylid cwtogi'r hawl i ddewis gwrandawiad gerbron rheithgor, mewn achos o ddwyn, i'r achosion hynny sydd yn ymwneud ag arian neu eiddo o werth lleiafswm penodol (crybwyllwyd gan rai ú200 fel y swm priodol).  Byddai gweithredu argymhelliad o'r fath yn golygu y byddai diffynydd sydd wedi ei gyhuddo o ddwyn arian neu eiddo o werth ú199 yn colli'r hawl i ddewis gwrandawiad gerbron rheithgor yn Llys y Goron, ond ni fyddai'n colli'r hawl petai gwerth yr arian neu'r eiddo yn ú201.  O ystyried y mater o safbwynt ariannol yn unig, hawdd yw anghofio difrifoldeb sylfaenol y cyhuddiad o ddwyn, beth bynnag yw'r swm penodol, ac effaith dedfryd o euogrwydd o gyhuddiad o'r fath nid yn unig ar enw da a chymeriad y diffinydd ond hefyd ar ei swydd, ei deulu a'i safle yn y gymdeithas.  Felly, nid ar chwarae bach y dylid diddymu'r hawl i ddiffinydd ymddangos gerbron rheithgor. Cred y cyhoedd y c√¢nt wrandawiad teg gan y bobl gyffredin hynny sydd yn aelodau o'r rheithgor ac mae ganddynt ffydd, felly, ym mhenderfyniadau'r rheithgor.  Mae'r dewis o gael ymddangos gerbron rheithgor yn hawl sylfaenol ac ni ddylid ei chwtogi ymhellach. Fel y dywedodd yr Arglwydd Devlin - "Y rheithgor yw'r llusern sydd yn dangos fod democratiaeth yn fyw%.
 ESECIEL
 Ple bynnag yr oedd yr ysbryd yn mynd, yno yr aent
 hwythau hefyd; ac fe godai'r olwynion i'w canlyn, oherwydd
@@ -2828,7 +2812,7 @@ megis y gylfinir, a hwyaid a gwyddau gwyllt.
  Mae gweirgloddiau, sy'n bwysig mewn rhannau o Ddyfed ar gyfer
 cadwraeth rhai mathau o bili pala a thegeirian, hefyd dan
 fygythiad.  Ymhlith y planhigion prin sydd mewn perygl, rhestrir lili'r
-Wyddfa, a'r lafant mor unigryw, Dewi Sant.
+Wyddfa, a'r lafant mor unigryw, Dewi Sant.
 Diwrnod Tan Gamp - Gruff Roberts (Tud. 38-58)
 
 
@@ -3048,7 +3032,7 @@ ar ei thraed i'r plismyn.
  "Ac mi ddangosodd y siwpar ei gyrn i mi," oedd ei hymateb
 pan oedd pawb yn dweud y drefn wrthi. "Ww - traed mawr oedd
 ganddo fo."
-
+
 Cymro ar y Copa - Emrys Roberts (Tud. 15-21)
 
 
@@ -3249,7 +3233,7 @@ pennaeth y gwersyll yma gan gymryd coesau metel oddi arno.
 Bader, yr oedd wedi edmygu ei ddewrder ers blynyddoedd. Newidiodd ei feddwl.
  "Dyma ti'r coesau yn √¥l, ond cofia dy fod wedi addo,"
 meddai'n garedig.
-
+
 Straeon ac Arwyr Gwerin Llydaw (tud. 40-46)
 
 Craig o ithfaen caled yn dal ei thir yn nannedd tonnau M√¥r

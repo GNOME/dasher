@@ -1,3 +1,8 @@
+2009-07-09  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Make the alphabet's dtd match the parser more closely.
+	* Clean up training text.
+
 2009-07-07  Patrick Welche <prlw1@cam.ac.uk>
 
 	* Fix printf format strings containing "%age" closing #587736.
