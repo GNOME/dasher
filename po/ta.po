@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher.HEAD.ta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-03 06:51+0530\n"
-"PO-Revision-Date: 2009-07-03 17:41+0530\n"
+"POT-Creation-Date: 2009-07-09 17:25+0530\n"
+"PO-Revision-Date: 2009-07-10 22:46+0530\n"
 "Last-Translator: Dr.T.Vasudevan <agnihot3@gmail.com>\n"
 "Language-Team: Tamil <Ubuntu-l10n-tam@lists.ubuntu.com>\n"
 "MIME-Version: 1.0\n"
@@ -671,6 +671,7 @@ msgstr "கண் தட இயங்கி பாணி"
 #. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:29
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:33
 msgid "Long press time"
 msgstr "அதிக அழுத்தும் நேரம்."
 
@@ -686,6 +687,7 @@ msgstr "பின்செல் பொத்தானை செயல் பட
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:34
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:37
 msgid "Slow startup"
 msgstr "மெதுவான துவக்கம்"
 
@@ -696,20 +698,19 @@ msgstr "துவக்க நேரம்"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:36
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:44
-#, c-format
-msgid "%age by which to automatically increase speed"
-msgstr "%aதானியங்கியாக வேகத்தை அதிகரிக்க வேண்டிய சதவிகிதம்"
+msgid "Percentage by which to automatically increase speed"
+msgstr "தானியங்கியாக வேகத்தை அதிகரிக்க வேண்டிய சதவிகிதம்"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:37
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
 msgid "Time after which to automatically increase speed (secs)"
 msgstr "தானியங்கியாக வேகத்தை அதிகரிக்கும் முன் தாமதிக்க நேரம்"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:38
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:46
-#, c-format
-msgid "%age by which to decrease speed upon reverse"
-msgstr "%aதிருப்பும் போது வேகத்தை குறைக்க வேண்டிய சதவிகிதம்"
+msgid "Percentage by which to decrease speed upon reverse"
+msgstr "திருப்பும் போது வேகத்தை குறைக்க வேண்டிய சதவிகிதம்"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:42
 msgid "One Button Dynamic Mode"
@@ -798,6 +799,7 @@ msgstr "பல அழுத்தும் இடைவெளி"
 
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:35
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:35
 msgid "Enable backoff and start/stop buttons"
 msgstr "பின்செல் மற்றும் துவக்கு/நிறுத்து பொத்தான்களை செயல் படுத்துக"
 
@@ -813,12 +815,54 @@ msgid "Double-click is opposite up/down - triple to reverse"
 msgstr "இரட்டிப்பு சொடுக்கு மேல்/கீழ க்கு எதிர் - திருப்ப முச்சொடுக்கு"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
 msgid "Lag before user actually pushes button (ms)"
 msgstr "பயனர் பொத்தானை நிஜமாக அழுத்து முன் தாமதம் (மி.செ)"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:50
 msgid "Two Button Dynamic Mode"
 msgstr "இரு பொத்தான்கள் இயங்குநிலை பாணி"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:28
+msgid "Offset for outer (second) button"
+msgstr "வெளி (இரண்டாம்) பொத்தானுக்கு குத்து நீட்டம்"
+
+#. divisor
+#. step
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:29
+msgid "Distance for 1st button UP"
+msgstr "முதல் பொத்தானுக்கு மேலிருக்க தூரம்"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:30
+msgid "Distance for 1st button DOWN"
+msgstr "முதல் பொத்தானுக்கு கீழிருக்க தூரம்"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:31
+msgid "Tolerance for inaccurate timing of button pushes (in ms)"
+msgstr ""
+"சரியான நேரத்தில் பொத்தானை அழுத்தாமல் இருக்க நீக்கி போக்கு(மி.வினாடிகளில்)"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:36
+msgid "Markers fixed to canvas"
+msgstr "படச்சீலைக்கு குறிகள் பொருத்தப்பட்டன"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
+msgid "Slow startup time"
+msgstr "மெதுவான துவக்க நேரம்"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
+#, c-format
+msgid "%age by which to automatically increase speed"
+msgstr "%aதானியங்கியாக வேகத்தை அதிகரிக்க வேண்டிய சதவிகிதம்"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:41
+#, c-format
+msgid "%age by which to decrease speed upon reverse"
+msgstr "%aதிருப்பும் போது வேகத்தை குறைக்க வேண்டிய சதவிகிதம்"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:46
+msgid "Two-push Dynamic Mode (New One Button)"
+msgstr "இரு பொத்தான்கள் இயங்குநிலை பாணி (புதிய ஒரு பொத்தான்)"
 
 #: ../Src/Gtk2/DasherAppSettings.cpp:549
 msgid "Boolean parameters"
