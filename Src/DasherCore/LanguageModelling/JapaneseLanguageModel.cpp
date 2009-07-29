@@ -62,7 +62,7 @@ CJapaneseLanguageModel::~CJapaneseLanguageModel() {
 // Get the probability distribution at the context
 
 void CJapaneseLanguageModel::GetProbs(Context context, std::vector<unsigned int> &probs, int norm) const {
-  CPPMContext *ppmcontext = (CPPMContext *) (context);
+  CJaPPMContext *ppmcontext = (CJaPPMContext *) (context);
 
   int iNumSymbols = GetSize();
 
@@ -86,7 +86,7 @@ void CJapaneseLanguageModel::GetProbs(Context context, std::vector<unsigned int>
 
   unsigned int iToSpend = norm;
 
-  CPPMnode *pTemp = ppmcontext->head;
+  CJaPPMnode *pTemp = ppmcontext->head;
 
   bool has_convert_symbol = 0;  // Flag to show if a conversion symbol appears in the history
   std::vector < symbol > hiragana;      // Hiragana sequence to be converted
@@ -158,7 +158,7 @@ void CJapaneseLanguageModel::GetProbs(Context context, std::vector<unsigned int>
         //cout << "[" << j << "]" << cand_list[j] << endl;
         std::vector < symbol > new_cand;
         //SetCandidateString(cand_list[j]);
-        GetSymbols(&new_cand, &cand_list[j], false);
+        GetSymbols(new_cand, cand_list[j]);
         /*for( int k=0; k<new_cand.size(); k++ )
            cout << GetText(new_cand[k]) << "[" << new_cand[k] << "] ";
            cout << endl; */
@@ -251,7 +251,7 @@ void CJapaneseLanguageModel::GetProbs(Context context, std::vector<unsigned int>
   while(pTemp != 0) {
     int iTotal = 0;
 
-    CPPMnode *pSymbol = pTemp->child;
+    CJaPPMnode *pSymbol = pTemp->child;
     while(pSymbol) {
       int sym = pSymbol->symbol;
       if(!(exclusions[sym] && doExclusion))
@@ -318,14 +318,14 @@ void CJapaneseLanguageModel::GetProbs(Context context, std::vector<unsigned int>
   DASHER_ASSERT(iToSpend == 0);
 }
 
-void CJapaneseLanguageModel::AddSymbol(CJapaneseLanguageModel::CPPMContext &context, int sym)
+void CJapaneseLanguageModel::AddSymbol(CJapaneseLanguageModel::CJaPPMContext &context, int sym)
         // add symbol to the context
         // creates new nodes, updates counts
         // and leaves 'context' at the new context
 {
   DASHER_ASSERT(sym >= 0 && sym <= GetSize());
 
-  CPPMnode *vineptr, *temp;
+  CJaPPMnode *vineptr, *temp;
   int updatecnt = 1;
 
   temp = context.head->vine;
@@ -355,9 +355,9 @@ void CJapaneseLanguageModel::AddSymbol(CJapaneseLanguageModel::CPPMContext &cont
 void CJapaneseLanguageModel::EnterSymbol(Context c, int Symbol) {
   DASHER_ASSERT(Symbol >= 0 && Symbol <= GetSize());
 
-  CJapaneseLanguageModel::CPPMContext & context = *(CPPMContext *) (c);
+  CJapaneseLanguageModel::CJaPPMContext & context = *(CJaPPMContext *) (c);
 
-  CPPMnode *find;
+  CJaPPMnode *find;
 
   context.history.push_back(Symbol);
   if(context.history.size() > 100) {
@@ -399,7 +399,7 @@ void CJapaneseLanguageModel::EnterSymbol(Context c, int Symbol) {
 void CJapaneseLanguageModel::LearnSymbol(Context c, int Symbol) {
   DASHER_ASSERT(Symbol >= 0 && Symbol <= GetSize());
 
-  CJapaneseLanguageModel::CPPMContext & context = *(CPPMContext *) (c);
+  CJapaneseLanguageModel::CJaPPMContext & context = *(CJaPPMContext *) (c);
   AddSymbol(context, Symbol);
 }
 
@@ -424,14 +424,14 @@ void CJapaneseLanguageModel::dumpString(char *str, int pos, int len)
   }
 }
 
-void CJapaneseLanguageModel::dumpTrie(CJapaneseLanguageModel::CPPMnode *t, int d)
+void CJapaneseLanguageModel::dumpTrie(CJapaneseLanguageModel::CJaPPMnode *t, int d)
         // diagnostic display of the PPM trie from node t and deeper
 {
 //TODO
 /*
 	dchar debug[256];
 	int sym;
-	CPPMnode *s;
+	CJaPPMnode *s;
 	Usprintf( debug,TEXT("%5d %7x "), d, t );
 	//TODO: Uncomment this when headers sort out
 	//DebugOutput(debug);
@@ -489,11 +489,11 @@ void CJapaneseLanguageModel::dump()
 /// PPMnode definitions 
 ////////////////////////////////////////////////////////////////////////
 
-CJapaneseLanguageModel::CPPMnode * CJapaneseLanguageModel::CPPMnode::find_symbol(int sym) const
+CJapaneseLanguageModel::CJaPPMnode * CJapaneseLanguageModel::CJaPPMnode::find_symbol(int sym) const
 // see if symbol is a child of node
 {
   //  printf("finding symbol %d at node %d\n",sym,node->id);
-  CPPMnode *found = child;
+  CJaPPMnode *found = child;
 
   while(found) {
     if(found->symbol == sym) {
@@ -504,8 +504,8 @@ CJapaneseLanguageModel::CPPMnode * CJapaneseLanguageModel::CPPMnode::find_symbol
   return 0;
 }
 
-CJapaneseLanguageModel::CPPMnode * CJapaneseLanguageModel::AddSymbolToNode(CPPMnode *pNode, int sym, int *update) {
-  CPPMnode *pReturn = pNode->find_symbol(sym);
+CJapaneseLanguageModel::CJaPPMnode * CJapaneseLanguageModel::AddSymbolToNode(CJaPPMnode *pNode, int sym, int *update) {
+  CJaPPMnode *pReturn = pNode->find_symbol(sym);
 
   //      std::cout << sym << ",";
 

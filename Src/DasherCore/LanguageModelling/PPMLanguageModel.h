@@ -29,6 +29,33 @@ namespace Dasher {
   ///
 
   class CPPMLanguageModel:public CLanguageModel, private NoClones {
+  private:
+    class CPPMnode {
+	  public:
+      CPPMnode * find_symbol(symbol sym)const;
+      CPPMnode *child;
+      CPPMnode *next;
+      CPPMnode *vine;
+      unsigned short int count;
+      symbol sym;
+      CPPMnode(symbol sym);
+      CPPMnode();
+	  };
+
+    class CPPMContext {
+    public:
+      CPPMContext(CPPMContext const &input) {
+        head = input.head;
+        order = input.order;
+      } CPPMContext(CPPMnode * _head = 0, int _order = 0):head(_head), order(_order) {
+      };
+      ~CPPMContext() {
+      };
+      void dump();
+      CPPMnode *head;
+      int order;
+    };
+    
   public:
     CPPMLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CSymbolAlphabet & alph);
 
@@ -45,43 +72,16 @@ namespace Dasher {
 
     void dump();
 
-    class CPPMnode {
-    public:
-      CPPMnode * find_symbol(int sym)const;
-      CPPMnode *child;
-      CPPMnode *next;
-      CPPMnode *vine;
-      unsigned short int count;
-      short int symbol;
-      CPPMnode(int sym);
-      CPPMnode();
-    };
-
-
     virtual bool WriteToFile(std::string strFilename);
     virtual bool ReadFromFile(std::string strFilename);
     bool RecursiveWrite(CPPMnode *pNode, std::map<CPPMnode *, int> *pmapIdx, int *pNextIdx, std::ofstream *pOutputFile);
     int GetIndex(CPPMnode *pAddr, std::map<CPPMnode *, int> *pmapIdx, int *pNextIdx);
     CPPMnode *GetAddress(int iIndex, std::map<int, CPPMnode*> *pMap);
 
-    class CPPMContext {
-    public:
-      CPPMContext(CPPMContext const &input) {
-        head = input.head;
-        order = input.order;
-      } CPPMContext(CPPMnode * _head = 0, int _order = 0):head(_head), order(_order) {
-      };
-      ~CPPMContext() {
-      };
-      void dump();
-      CPPMnode *head;
-      int order;
-    };
+    CPPMnode *AddSymbolToNode(CPPMnode * pNode, symbol sym, int *update);
 
-    CPPMnode *AddSymbolToNode(CPPMnode * pNode, int sym, int *update);
-
-    virtual void AddSymbol(CPPMContext & context, int sym);
-    void dumpSymbol(int sym);
+    virtual void AddSymbol(CPPMContext & context, symbol sym);
+    void dumpSymbol(symbol sym);
     void dumpString(char *str, int pos, int len);
     void dumpTrie(CPPMnode * t, int d);
 
@@ -103,7 +103,7 @@ namespace Dasher {
 
   /// @}
 
-  inline Dasher::CPPMLanguageModel::CPPMnode::CPPMnode(int sym):symbol(sym) {
+  inline Dasher::CPPMLanguageModel::CPPMnode::CPPMnode(symbol _sym):sym(_sym) {
     child = next = vine = 0;
     count = 1;
   }

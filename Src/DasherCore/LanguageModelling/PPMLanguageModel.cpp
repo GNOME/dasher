@@ -32,7 +32,7 @@ static char THIS_FILE[] = __FILE__;
 CPPMLanguageModel::CPPMLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet &SymbolAlphabet)
 :CLanguageModel(pEventHandler, pSettingsStore, SymbolAlphabet), m_iMaxOrder(4), NodesAllocated(0), m_NodeAlloc(8192), m_ContextAlloc(1024) {
   m_pRoot = m_NodeAlloc.Alloc();
-  m_pRoot->symbol = -1;
+  m_pRoot->sym = -1;
 
   m_pRootContext = m_ContextAlloc.Alloc();
   m_pRootContext->head = m_pRoot;
@@ -95,7 +95,7 @@ void CPPMLanguageModel::GetProbs(Context context, std::vector<unsigned int> &pro
 
     CPPMnode *pSymbol = pTemp->child;
     while(pSymbol) {
-      int sym = pSymbol->symbol;
+      symbol sym = pSymbol->sym;
       if(!(exclusions[sym] && doExclusion))
         iTotal += pSymbol->count;
       pSymbol = pSymbol->next;
@@ -105,12 +105,12 @@ void CPPMLanguageModel::GetProbs(Context context, std::vector<unsigned int> &pro
       unsigned int size_of_slice = iToSpend;
       pSymbol = pTemp->child;
       while(pSymbol) {
-        if(!(exclusions[pSymbol->symbol] && doExclusion)) {
-          exclusions[pSymbol->symbol] = 1;
+        if(!(exclusions[pSymbol->sym] && doExclusion)) {
+          exclusions[pSymbol->sym] = 1;
 
           unsigned int p = static_cast < myint > (size_of_slice) * (100 * pSymbol->count - beta) / (100 * iTotal + alpha);
 
-          probs[pSymbol->symbol] += p;
+          probs[pSymbol->sym] += p;
           iToSpend -= p;
         }
         //                              Usprintf(debug,TEXT("sym %u counts %d p %u tospend %u \n"),sym,s->count,p,tospend);      
@@ -160,7 +160,7 @@ void CPPMLanguageModel::GetProbs(Context context, std::vector<unsigned int> &pro
   DASHER_ASSERT(iToSpend == 0);
 }
 
-void CPPMLanguageModel::AddSymbol(CPPMLanguageModel::CPPMContext &context, int sym)
+void CPPMLanguageModel::AddSymbol(CPPMLanguageModel::CPPMContext &context, symbol sym)
         // add symbol to the context
         // creates new nodes, updates counts
         // and leaves 'context' at the new context
@@ -251,7 +251,7 @@ void CPPMLanguageModel::LearnSymbol(Context c, int Symbol) {
   AddSymbol(context, Symbol);
 }
 
-void CPPMLanguageModel::dumpSymbol(int sym) {
+void CPPMLanguageModel::dumpSymbol(symbol sym) {
   if((sym <= 32) || (sym >= 127))
     printf("<%d>", sym);
   else
@@ -286,7 +286,7 @@ void CPPMLanguageModel::dumpTrie(CPPMLanguageModel::CPPMnode *t, int d)
 	if (t < 0) // pointer to input
 		printf( "                     <" );
 	else {
-		Usprintf(debug,TEXT( " %3d %5d %7x  %7x  %7x    <"), t->symbol,t->count, t->vine, t->child, t->next );
+		Usprintf(debug,TEXT( " %3d %5d %7x  %7x  %7x    <"), t->sym,t->count, t->vine, t->child, t->next );
 		//TODO: Uncomment this when headers sort out
 		//DebugOutput(debug);
 	}
@@ -298,7 +298,7 @@ void CPPMLanguageModel::dumpTrie(CPPMLanguageModel::CPPMnode *t, int d)
 	if (t != 0) {
 		s = t->child;
 		while (s != 0) {
-			sym =s->symbol;
+			sym =s->sym;
 			
 			dumpTrieStr [d] = sym;
 			dumpTrie( s, d+1 );
@@ -337,14 +337,14 @@ void CPPMLanguageModel::dump()
 /// PPMnode definitions 
 ////////////////////////////////////////////////////////////////////////
 
-CPPMLanguageModel::CPPMnode * CPPMLanguageModel::CPPMnode::find_symbol(int sym) const
+CPPMLanguageModel::CPPMnode * CPPMLanguageModel::CPPMnode::find_symbol(symbol sym) const
 // see if symbol is a child of node
 {
   //  printf("finding symbol %d at node %d\n",sym,node->id);
   CPPMnode *found = child;
 
   while(found) {
-    if(found->symbol == sym) {
+    if(found->sym == sym) {
       return found;
     }
     found = found->next;
@@ -352,7 +352,7 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::CPPMnode::find_symbol(int sym) 
   return 0;
 }
 
-CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode *pNode, int sym, int *update) {
+CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode *pNode, symbol sym, int *update) {
   CPPMnode *pReturn = pNode->find_symbol(sym);
 
   //      std::cout << sym << ",";
@@ -371,7 +371,7 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode *pNode
   //       std::cout << "Creating new node" << std::endl;
 
   pReturn = m_NodeAlloc.Alloc();        // count is initialized to 1
-  pReturn->symbol = sym;
+  pReturn->sym = sym;
   pReturn->next = pNode->child;
   pNode->child = pReturn;
 
@@ -415,7 +415,7 @@ bool CPPMLanguageModel::RecursiveWrite(CPPMnode *pNode, std::map<CPPMnode *, int
   sBR.m_iNext = GetIndex(pNode->next, pmapIdx, pNextIdx); 
   sBR.m_iVine = GetIndex(pNode->vine, pmapIdx, pNextIdx);
   sBR.m_iCount = pNode->count;
-  sBR.m_iSymbol = pNode->symbol;
+  sBR.m_iSymbol = pNode->sym;
 
   pOutputFile->write(reinterpret_cast<char*>(&sBR), sizeof(BinaryRecord));
 
@@ -465,7 +465,7 @@ bool CPPMLanguageModel::ReadFromFile(std::string strFilename) {
     pCurrent->next = GetAddress(sBR.m_iNext, &oMap);
     pCurrent->vine = GetAddress(sBR.m_iVine, &oMap);
     pCurrent->count = sBR.m_iCount;
-    pCurrent->symbol = sBR.m_iSymbol;
+    pCurrent->sym = sBR.m_iSymbol;
 
     if(!bStarted) {
       m_pRoot = pCurrent;

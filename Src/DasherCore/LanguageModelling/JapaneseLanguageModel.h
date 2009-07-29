@@ -14,6 +14,7 @@
 #include "../../Common/Allocators/PooledAlloc.h"
 
 #include "LanguageModel.h"
+#include "Alphabet.h"
 
 namespace Dasher {
   /// \ingroup LM
@@ -37,35 +38,35 @@ namespace Dasher {
 
   private:
 
-    class CPPMnode {
+    class CJaPPMnode {
     public:
-      CPPMnode * find_symbol(int sym) const;
-      CPPMnode *child;
-      CPPMnode *next;
-      CPPMnode *vine;
+      CJaPPMnode * find_symbol(int sym) const;
+      CJaPPMnode *child;
+      CJaPPMnode *next;
+      CJaPPMnode *vine;
       unsigned short int count;
       short int symbol;
-      CPPMnode(int sym);
-      CPPMnode();
+      CJaPPMnode(int sym);
+      CJaPPMnode();
     };
 
-    class CPPMContext {
+    class CJaPPMContext {
     public:
-      CPPMContext(CPPMContext const &input) {
+      CJaPPMContext(CJaPPMContext const &input) {
         head = input.head;
         order = input.order;
         history = input.history;
-      } CPPMContext(CPPMnode * _head = 0, int _order = 0):head(_head), order(_order) {
+      } CJaPPMContext(CJaPPMnode * _head = 0, int _order = 0):head(_head), order(_order) {
       };
-      ~CPPMContext() {
+      ~CJaPPMContext() {
       };
       void dump();
-      CPPMnode *head;
+      CJaPPMnode *head;
       int order;
       std::vector < symbol > history;
     };
 
-    CPPMnode *AddSymbolToNode(CPPMnode * pNode, int sym, int *update);
+    CJaPPMnode *AddSymbolToNode(CJaPPMnode * pNode, int sym, int *update);
 
     //--Start:Kanji Conversion Related Addition
     symbol GetStartConversionSymbol() const {
@@ -80,17 +81,17 @@ namespace Dasher {
     const std::string & GetDisplayText(symbol i) const {
       return SymbolAlphabet().GetAlphabetPointer()->GetDisplayText(i);
     } // return string for i'th symbol 
-    const void GetSymbols(std::vector < symbol > *Symbols, std::string * Input, bool IsMore) const {
-      SymbolAlphabet().GetAlphabetPointer()->GetSymbols(Symbols, Input, IsMore);
+    const void GetSymbols(std::vector < symbol > &Symbols, std::string &Input) const {
+      SymbolAlphabet().GetAlphabetPointer()->GetSymbols(Symbols, Input);
     }
     //--End:Kanji Conversion Related
-    virtual void AddSymbol(CPPMContext & context, int sym);
+    virtual void AddSymbol(CJaPPMContext & context, int sym);
     void dumpSymbol(int sym);
     void dumpString(char *str, int pos, int len);
-    void dumpTrie(CPPMnode * t, int d);
+    void dumpTrie(CJaPPMnode * t, int d);
 
-    CPPMContext *m_pRootContext;
-    CPPMnode *m_pRoot;
+    CJaPPMContext *m_pRootContext;
+    CJaPPMnode *m_pRoot;
 
     int m_iMaxOrder;
     double m_dBackOffConstat;
@@ -99,21 +100,21 @@ namespace Dasher {
 
     bool bUpdateExclusion;
 
-    mutable CSimplePooledAlloc < CPPMnode > m_NodeAlloc;
-    CPooledAlloc < CPPMContext > m_ContextAlloc;
+    mutable CSimplePooledAlloc < CJaPPMnode > m_NodeAlloc;
+    CPooledAlloc < CJaPPMContext > m_ContextAlloc;
   };
   /// \}
 
   ////////////////////////////////////////////////////////////////////////
 
-  inline Dasher::CJapaneseLanguageModel::CPPMnode::CPPMnode(int sym):symbol(sym) {
+  inline Dasher::CJapaneseLanguageModel::CJaPPMnode::CJaPPMnode(int sym):symbol(sym) {
     child = next = vine = 0;
     count = 1;
   }
 
   ////////////////////////////////////////////////////////////////////////
 
-  inline CJapaneseLanguageModel::CPPMnode::CPPMnode() {
+  inline CJapaneseLanguageModel::CJaPPMnode::CJaPPMnode() {
     child = next = vine = 0;
     count = 1;
   }
@@ -121,7 +122,7 @@ namespace Dasher {
   ///////////////////////////////////////////////////////////////////
 
   inline CLanguageModel::Context CJapaneseLanguageModel::CreateEmptyContext() {
-    CPPMContext *pCont = m_ContextAlloc.Alloc();
+    CJaPPMContext *pCont = m_ContextAlloc.Alloc();
     *pCont = *m_pRootContext;
     return (Context) pCont;
   }
@@ -129,8 +130,8 @@ namespace Dasher {
   ///////////////////////////////////////////////////////////////////
 
   inline CLanguageModel::Context CJapaneseLanguageModel::CloneContext(Context Copy) {
-    CPPMContext *pCont = m_ContextAlloc.Alloc();
-    CPPMContext *pCopy = (CPPMContext *) Copy;
+    CJaPPMContext *pCont = m_ContextAlloc.Alloc();
+    CJaPPMContext *pCopy = (CJaPPMContext *) Copy;
     *pCont = *pCopy;
     return (Context) pCont;
   }
@@ -138,7 +139,7 @@ namespace Dasher {
   ///////////////////////////////////////////////////////////////////
 
   inline void CJapaneseLanguageModel::ReleaseContext(Context release) {
-    m_ContextAlloc.Free((CPPMContext *) release);
+    m_ContextAlloc.Free((CJaPPMContext *) release);
   }
 
   ///////////////////////////////////////////////////////////////////
