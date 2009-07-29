@@ -50,10 +50,6 @@ namespace Dasher {
 	virtual void LearnSymbol(Context context, int Symbol); 	
 	virtual void GetProbs(Context context, std::vector < unsigned int >&Probs, int Norm, int iUniform) const; 
 	
-	virtual int GetMemory() {			
-		return 0;		
-	}
-
 	Dasher::CHashTable HashTable; // Hashtable used for storing CCTWNodes in an array
       unsigned int MaxDepth;	// Maximum depth of the tree
 	int MaxTries;	// Determines how many times to try to find an empty index for a new node (max number of collisions)

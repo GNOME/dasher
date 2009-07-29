@@ -35,10 +35,6 @@ namespace Dasher {
 
     void dump();
 
-    virtual int GetMemory() {
-      return NodesAllocated;
-    }
-
   private:
 
     class CPPMnode {

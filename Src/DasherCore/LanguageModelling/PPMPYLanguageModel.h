@@ -63,10 +63,6 @@ namespace Dasher {
 
     void dump();
 
-    virtual int GetMemory() {
-      return NodesAllocated;
-    }
-
     class CPPMnode {
     public:
       CPPMnode * find_symbol(int sym)const;

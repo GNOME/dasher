@@ -42,9 +42,7 @@ namespace Dasher {
       EnterSymbol(context, Symbol);
     };                          // Never learn in this model
 
-    virtual int GetMemory() {
-      return NodesAllocated;
-  } private:
+  private:
 
     void MyLearnSymbol(Context context, int Symbol);
 
