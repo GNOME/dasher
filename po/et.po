@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&component=general\n"
-"POT-Creation-Date: 2009-05-13 11:38+0000\n"
-"PO-Revision-Date: 2009-05-16 10:48+0300\n"
+"POT-Creation-Date: 2009-07-07 15:50+0000\n"
+"PO-Revision-Date: 2009-07-30 08:49+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -407,6 +407,10 @@ msgid "Safety margin"
 msgstr "Ohutusmärgis"
 
 #. TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other.
+#. XXX PRLW: 128 log(2) = 89, where 2 is the ratio of adjacent boxes
+#. * however the code seems to use ratio = (129/127)^-r, instead of
+#. * ratio = exp(r/128) used in the design document
+#.
 msgid "Box non-uniformity"
 msgstr "Kastide suuruse erinevus"
 
@@ -447,17 +451,28 @@ msgstr "Silmadega jälgimise režiim"
 msgid "Long press time"
 msgstr "Pika vajutuse kestus"
 
-#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the time in which the button must be pressed multiple times to count.
-msgid "Multiple press time"
-msgstr "Mitmekordse vajutuse kestus"
-
-#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the number of times a button must be pressed to count as a multiple press.
-msgid "Multiple press count"
-msgstr "Mitmekordsete vajutuste arv"
+#. TRANSLATORS: Double-clicks are special in some situations (they cause us to start reversing). This is the time in which the button must be pressed twice to count.
+msgid "Double-press time"
+msgstr "Topeltvajutuse kestus"
 
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons.
 msgid "Enable backoff button"
 msgstr "Tagasivõtmise nupp on lubatud"
+
+msgid "Slow startup"
+msgstr "Aeglane käivitamine"
+
+msgid "Startup time"
+msgstr "Käivitusaeg"
+
+msgid "Percentage by which to automatically increase speed"
+msgstr ""
+
+msgid "Time after which to automatically increase speed (secs)"
+msgstr "Aeg, pärast mida tõstetakse automaatselt kiirust (sekundites)"
+
+msgid "Percentage by which to decrease speed upon reverse"
+msgstr ""
 
 msgid "One Button Dynamic Mode"
 msgstr "Ühenupuline dünaamiline režiim"
@@ -517,6 +532,11 @@ msgstr "Soklisisend"
 msgid "Button offset"
 msgstr "Nupu nihe"
 
+#. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the maximum time between two presses to count as _part_of_ a multi-press gesture
+#. (potentially more than two presses).
+msgid "Multiple press interval"
+msgstr "Mitmekordse vajutuse vahemik"
+
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
 msgid "Enable backoff and start/stop buttons"
 msgstr "Käivitamise/seiskamise nuppudega lubatakse tagasi võtta"
@@ -525,21 +545,47 @@ msgstr "Käivitamise/seiskamise nuppudega lubatakse tagasi võtta"
 msgid "Reverse up and down buttons"
 msgstr "Üles/alla nupud on vahetuses"
 
-msgid "Slow startup"
-msgstr "Aeglane käivitamine"
+#. TRANSLATORS: Pushing the up/down button twice quickly has the same effect as pushing the other
+#. button once; in this case, one must push three times (or push-and-hold) to reverse.
+msgid "Double-click is opposite up/down - triple to reverse"
+msgstr ""
 
-msgid "Startup time"
-msgstr "Käivitusaeg"
-
-msgid "Auto speed control"
-msgstr "Automaatne kiirusekontroll"
-
-#. TRANSLATORS: The threshold time above which auto speed control is used.
-msgid "Auto speed threshold"
-msgstr "Automaatkiiruse lävi"
+msgid "Lag before user actually pushes button (ms)"
+msgstr ""
 
 msgid "Two Button Dynamic Mode"
 msgstr "Kahenupuline dünaamiline režiim"
+
+msgid "Offset for outer (second) button"
+msgstr ""
+
+#. divisor
+#. step
+msgid "Distance for 1st button UP"
+msgstr ""
+
+msgid "Distance for 1st button DOWN"
+msgstr ""
+
+msgid "Tolerance for inaccurate timing of button pushes (in ms)"
+msgstr ""
+
+msgid "Markers fixed to canvas"
+msgstr "Lõuendile määratud markerid"
+
+msgid "Slow startup time"
+msgstr "Aeglase käivitamise aeg"
+
+#, c-format
+msgid "%age by which to automatically increase speed"
+msgstr ""
+
+#, c-format
+msgid "%age by which to decrease speed upon reverse"
+msgstr ""
+
+msgid "Two-push Dynamic Mode (New One Button)"
+msgstr ""
 
 msgid "Boolean parameters"
 msgstr "Tõeväärtuselised parameetrid"
@@ -687,3 +733,12 @@ msgstr "\"--options\" kirjeldamine."
 #. Note to translators: This is the "--help" description of dasher.
 msgid "- A text input application honouring accessibility"
 msgstr "- Hõlbustuste jaoks mõeldud tekstisisestamise rakendus"
+
+#~ msgid "Multiple press count"
+#~ msgstr "Mitmekordsete vajutuste arv"
+
+#~ msgid "Auto speed control"
+#~ msgstr "Automaatne kiirusekontroll"
+
+#~ msgid "Auto speed threshold"
+#~ msgstr "Automaatkiiruse lävi"
