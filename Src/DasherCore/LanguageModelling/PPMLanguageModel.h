@@ -44,6 +44,7 @@ namespace Dasher {
       symbol sym;
       CPPMnode(symbol sym);
       CPPMnode();
+      bool eq(CPPMnode *other, std::map<CPPMnode *,CPPMnode *> &equivs);
 	  };
     class ChildIterator {
     public:
@@ -74,7 +75,7 @@ namespace Dasher {
     };
   public:
     CPPMLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CSymbolAlphabet & alph);
-
+    bool eq(CPPMLanguageModel *other);
     virtual ~ CPPMLanguageModel();
 
     Context CreateEmptyContext();

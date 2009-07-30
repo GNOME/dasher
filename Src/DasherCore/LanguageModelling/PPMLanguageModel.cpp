@@ -329,9 +329,44 @@ void CPPMLanguageModel::dump()
 */
 }
 
+bool CPPMLanguageModel::eq(CPPMLanguageModel *other) {
+  std::map<CPPMnode *,CPPMnode *> equivs;
+  if (!m_pRoot->eq(other->m_pRoot,equivs)) return false;
+  //have first & second being equivalent, for all entries in map, except vine ptrs not checked.
+  for (std::map<CPPMnode *,CPPMnode *>::iterator it=equivs.begin(); it!=equivs.end(); it++) {
+    CPPMnode *myVine = it->first->vine;
+    CPPMnode *oVine = it->second->vine;
+    if (myVine==NULL) {
+      if (oVine==NULL) continue;
+      return false;
+    } else if (oVine==NULL) return false;
+    std::map<CPPMnode *,CPPMnode *>::iterator found = equivs.find(myVine);
+    if (found->second != oVine) return false;
+  }
+  return true;
+}
+
 ////////////////////////////////////////////////////////////////////////
 /// PPMnode definitions 
 ////////////////////////////////////////////////////////////////////////
+
+bool CPPMLanguageModel::CPPMnode::eq(CPPMLanguageModel::CPPMnode *other, std::map<CPPMnode *,CPPMnode *> &equivs) {
+  if (sym != other->sym)
+    return false;
+  if (count != other->count)
+    return false;
+  //check children....but allow for different orders by sorting into symbol order
+  std::map<symbol, CPPMnode *> thisCh, otherCh;
+  for (ChildIterator it = children(); it != end(); it++) thisCh[(*it)->sym] = *it;
+  for (ChildIterator it = other->children(); it != other->end(); it++) otherCh[(*it)->sym] = *it;
+  if (thisCh.size() != otherCh.size())
+    return false;
+  for (std::map<symbol, CPPMnode *>::iterator it1 = thisCh.begin(), it2=otherCh.begin(); it1 != thisCh.end() ; it1++, it2++)
+    if (!it1->second->eq(it2->second, equivs))
+      return false; //different - note eq checks symbol
+  equivs.insert(std::pair<CPPMnode *,CPPMnode *>(this,other));
+  return true;
+}
 
 CPPMLanguageModel::CPPMnode * CPPMLanguageModel::CPPMnode::find_symbol(symbol sym) const
 // see if symbol is a child of node
@@ -498,6 +533,7 @@ bool CPPMLanguageModel::ReadFromFile(std::string strFilename) {
 };
 
 CPPMLanguageModel::CPPMnode *CPPMLanguageModel::GetAddress(int iIndex, std::map<int, CPPMnode*> *pMap) {
+  if (iIndex==0) return NULL;
   std::map<int, CPPMnode*>::iterator it(pMap->find(iIndex));
 
   if(it == pMap->end()) {

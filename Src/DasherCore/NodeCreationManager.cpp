@@ -30,7 +30,20 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
   pTrainer->Train(GetStringParameter(SP_USER_LOC), GetStringParameter(SP_SYSTEM_LOC));
 
   delete pTrainer;
-
+#ifdef DEBUG_LM_READWRITE
+  {
+    //test...
+    m_pLanguageModel->WriteToFile("test.model");
+    CPPMLanguageModel *pLan = (CPPMLanguageModel *)m_pLanguageModel;
+    CPPMLanguageModel *pLM2 = new CPPMLanguageModel(pEventHandler, pSettingsStore, pLan->SymbolAlphabet());
+    pLM2->ReadFromFile("test.model");
+    if (!pLan->eq(pLM2)) {
+      std::cout << "Not equal!" << std::endl;
+      pLM2->WriteToFile("test2.model");
+    }
+    delete pLM2;
+  }
+#endif
 #ifndef _WIN32_WCE
   m_pControlManager = new CControlManager(this);
 #else
