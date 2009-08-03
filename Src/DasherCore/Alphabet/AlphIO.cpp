@@ -37,7 +37,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CAlphIO::CAlphIO(std::string SystemLocation, std::string UserLocation, std::vector<std::string> Filenames)
+CAlphIO::CAlphIO(std::string SystemLocation, std::string UserLocation, std::vector<std::string> &Filenames)
 :BlankInfo(), SystemLocation(SystemLocation), UserLocation(UserLocation), Filenames(Filenames), LoadMutable(false), CData("") {
   CreateDefault();
 
