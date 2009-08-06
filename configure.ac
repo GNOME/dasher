@@ -189,17 +189,6 @@ AC_ARG_WITH([cairo],
 if test x"$WITHGTK2" = xtrue
 then 
 	PKG_CHECK_MODULES(GTK2, gtk+-2.0 >= 2.6.0,[GTK2HERE=true],[GTK2HERE=false]) 
-	PKG_CHECK_MODULES(GCONF, gconf-2.0,[GCONF2HERE=true],[GCONF2HERE=false])
-	if test x$GCONF2HERE = xfalse; then
-		AC_MSG_WARN([GConf was not detected - user preferences will not be stored.])
-	fi
-	save_CFLAGS="$CFLAGS"
-	save_LIBS="$LIBS"
-	CFLAGS="$CFLAGS $GTK2_CFLAGS"
-	LIBS="$LIBS $GTK2_LIBS"
-	AC_CHECK_FUNCS([gtk_show_uri]) dnl which appeared in Gtk 2.13.1
-	CFLAGS="$save_CFLAGS"
-	LIBS="$save_LIBS"
 fi
 
 if test x"$GTK2HERE" = xtrue -a x"$WITHGTK2" = xtrue -a x"$WITHQTE" != xtrue
@@ -212,10 +201,34 @@ else
 	BUILDGTK2=false
 fi
 
-if test x$BUILDGTK2 = xfalse -a x"$WITHQTE" != xtrue
+if test x$BUILDGTK2 = xtrue
 then
-	echo $WITHGTK2
-	AC_ERROR("Unable to find GTK2 or another necessary library. See the previous line for more useful data.")
+# GtkBuilder's autoconnect feature requires dasher to be linked with
+# the --export-dynamic flag. pkg-config does not provide it, and libtool
+# knows what to do with -export-dynamic.
+# (We need this e.g., for <object class="DasherEditor">)
+	GTK2_LIBS="$GTK2_LIBS -export-dynamic"
+
+	PKG_CHECK_MODULES(GCONF, gconf-2.0,[GCONF2HERE=true],[GCONF2HERE=false])
+	if test x$GCONF2HERE = xfalse; then
+		AC_MSG_WARN([GConf was not detected - user preferences will not be stored.])
+	fi
+	save_CFLAGS="$CFLAGS"
+	save_LIBS="$LIBS"
+	CFLAGS="$CFLAGS $GTK2_CFLAGS"
+	LIBS="$LIBS $GTK2_LIBS"
+	AC_CHECK_FUNCS([gtk_builder_new gtk_show_uri], [],
+		[if test "x$ac_cv_func_gtk_builder_new" = "xno"; then
+			AC_MSG_ERROR([A version of GTK+ providing GtkBuilder is necessary.])
+		fi
+		if test "x$ac_cv_func_gtk_show_uri" = "xno"; then
+			AC_MSG_WARN([This version of GTK+ doesn't provide gtk_show_uri - help will not be displayed from within dasher.])
+		fi]
+	)
+	CFLAGS="$save_CFLAGS"
+	LIBS="$save_LIBS"
+else
+	AC_MSG_ERROR("Unable to find GTK2 or another necessary library.")
 fi
 
 if test x"$DEBUG" = xtrue; then
@@ -299,8 +312,6 @@ dnl fi
 
 if test x"$WITHMAEMO" = xtrue; then
       AC_DEFINE([WITH_MAEMO], 1, [Maemo is present])
-      dnl Yes, this sucks
-      glade_LIBS="/usr/lib/libglade-2.0.a"
       PKG_CHECK_MODULES(hildon, hildon-libs)
       AC_CHECK_LIB(osso, osso_initialize,, AC_MSG_ERROR([Osso library not found.]))
 fi			
@@ -315,13 +326,6 @@ if test x"$WITHCAIRO" = xtrue; then
 fi
 
 if test x"$BUILDGTK2" = xtrue; then 
-	PKG_CHECK_MODULES(glade, libglade-2.0)
-	if test x"$WITHMAEMO" = xtrue; then
-	        dnl Yes, this sucks
-		glade_LIBS=`echo $glade_LIBS | sed s/-lglade-2.0//`
-		glade_LIBS="$glade_LIBS /usr/lib/libglade-2.0.a"
-	fi
-
 	PKG_CHECK_MODULES(gthread, gthread-2.0)
 
 
@@ -329,13 +333,6 @@ dnl	if test x"$WITHMAEMO" = xfalse; then
 dnl		PKG_CHECK_MODULES(wnck, libwnck-1.0)
 dnl	        AC_DEFINE([HAVE_WNCK], 1, [wnck is present])
 dnl	fi
-fi
-
-# libglade's autoconnect feature requires dasher to be linked with
-# the --export-dynamic flag. pkg-config does not provide it, and libtool
-# knows what to do with -export-dynamic.
-if test x"$glade_LIBS" != x ; then
-	glade_LIBS="$glade_LIBS -export-dynamic"
 fi
 
 if test x"$GCONF2HERE" = xtrue ; then
@@ -353,9 +350,6 @@ AC_SUBST([A11Y_SOURCES])
 
 AC_SUBST(gnome_LIBS)
 AC_SUBST(gnome_CFLAGS)
-
-AC_SUBST(glade_LIBS)
-AC_SUBST(glade_CFLAGS)
 
 AC_SUBST(gthread_LIBS)
 AC_SUBST(gthread_CFLAGS)
@@ -396,9 +390,9 @@ fi
 AC_SUBST(SETTINGS_CFLAGS)
 AC_SUBST(SETTINGS_LIBS)
 
-GTK2BUILD_CFLAGS="$GTK2_CFLAGS $GIO_CFLAGS $SETTINGS_CFLAGS $gthread_CFLAGS $gnome_speech_CFLAGS $gnome_a11y_CFLAGS $glade_CFLAGS $gnome_CFLAGS $wnck_CFLAGS $hildon_CFLAGS"
+GTK2BUILD_CFLAGS="$GTK2_CFLAGS $GIO_CFLAGS $SETTINGS_CFLAGS $gthread_CFLAGS $gnome_speech_CFLAGS $gnome_a11y_CFLAGS $gnome_CFLAGS $wnck_CFLAGS $hildon_CFLAGS"
 
-GTK2BUILD_LIBS="$X_LIBS $GTK2_LIBS $GIO_LIBS $SETTINGS_LIBS $gthread_LIBS $gnome_speech_LIBS $gnome_a11y_LIBS $glade_LIBS $gnome_LIBS $wnck_LIBS $hildon_LIBS"
+GTK2BUILD_LIBS="$X_LIBS $GTK2_LIBS $GIO_LIBS $SETTINGS_LIBS $gthread_LIBS $gnome_speech_LIBS $gnome_a11y_LIBS $gnome_LIBS $wnck_LIBS $hildon_LIBS"
 
 AC_SUBST(GTK2BUILD_CFLAGS)
 AC_SUBST(GTK2BUILD_LIBS)
@@ -420,9 +414,9 @@ AC_CONFIG_FILES([Data/dasher.desktop.in
 		 Data/Makefile
 		 Data/training/Makefile
 		 Data/alphabets/Makefile
-		 Data/glade/Makefile
 		 Data/colours/Makefile
 		 Data/controllabels/Makefile
+		 Data/GUI/Makefile
 		 Data/Help/Makefile
 		 Data/Help/Gnome/Makefile
 		 Doc/Makefile

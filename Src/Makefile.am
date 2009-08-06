@@ -25,8 +25,8 @@ AM_CXXFLAGS = \
 
 dasher_LDADD = \
 	Common/libdashermisc.a \
-	Gtk2/libdashergtk.a \
-	Gtk2/libdashercontrol.a \
+	Gtk2/libdashergtk.la \
+	Gtk2/libdashercontrol.la \
 	DasherCore/libdashercore.a \
 	DasherCore/libdasherprefs.a \
 	DasherCore/LanguageModelling/libdasherlm.a \

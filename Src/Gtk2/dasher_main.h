@@ -5,12 +5,12 @@
 #include <glib-object.h>
 
 G_BEGIN_DECLS
-#define TYPE_DASHER_MAIN            (dasher_main_get_type())
-#define DASHER_MAIN(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), TYPE_DASHER_MAIN, DasherMain ))
-#define DASHER_MAIN_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TYPE_DASHER_MAIN, DasherMainClass ))
-#define IS_DASHER_MAIN(obj)	    (G_TYPE_CHECK_INSTANCE_TYPE((obj), TYPE_DASHER_MAIN))
-#define IS_DASHER_MAIN_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TYPE_DASHER_MAIN))
-#define DASHER_MAIN_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TYPE_DASHER_MAIN, DasherMainClass))
+#define DASHER_TYPE_MAIN            (dasher_main_get_type())
+#define DASHER_MAIN(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), DASHER_TYPE_MAIN, DasherMain ))
+#define DASHER_MAIN_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), DASHER_TYPE_MAIN, DasherMainClass ))
+#define DASHER_IS_MAIN(obj)	    (G_TYPE_CHECK_INSTANCE_TYPE((obj), DASHER_TYPE_MAIN))
+#define DASHER_IS_MAIN_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), DASHER_TYPE_MAIN))
+#define DASHER_MAIN_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), DASHER_TYPE_MAIN, DasherMainClass))
 
 typedef struct _DasherMain DasherMain;
 typedef struct _DasherMainClass DasherMainClass;

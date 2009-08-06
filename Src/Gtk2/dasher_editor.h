@@ -1,7 +1,6 @@
 #ifndef __dasher_editor_h__
 #define __dasher_editor_h__
 
-#include <glade/glade.h>
 #include <glib.h>
 #include <glib-object.h>
 #include <gtk/gtk.h>
@@ -15,12 +14,12 @@ typedef struct _DasherMain DasherMain;
 struct _DasherMain;
 
 G_BEGIN_DECLS
-#define TYPE_DASHER_EDITOR            (dasher_editor_get_type())
-#define DASHER_EDITOR(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), TYPE_DASHER_EDITOR, DasherEditor ))
-#define DASHER_EDITOR_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TYPE_DASHER_EDITOR, DasherEditorClass ))
-#define IS_DASHER_EDITOR(obj)	      (G_TYPE_CHECK_INSTANCE_TYPE((obj), TYPE_DASHER_EDITOR))
-#define IS_DASHER_EDITOR_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TYPE_DASHER_EDITOR))
-#define DASHER_EDITOR_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TYPE_DASHER_EDITOR, DasherEditorClass))
+#define DASHER_TYPE_EDITOR            (dasher_editor_get_type())
+#define DASHER_EDITOR(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), DASHER_TYPE_EDITOR, DasherEditor ))
+#define DASHER_EDITOR_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), DASHER_TYPE_EDITOR, DasherEditorClass ))
+#define DASHER_IS_EDITOR(obj)	      (G_TYPE_CHECK_INSTANCE_TYPE((obj), DASHER_TYPE_EDITOR))
+#define DASHER_IS_EDITOR_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), DASHER_TYPE_EDITOR))
+#define DASHER_EDITOR_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), DASHER_TYPE_EDITOR, DasherEditorClass))
 
 typedef struct _DasherEditor DasherEditor;
 typedef struct _DasherEditorClass DasherEditorClass;
@@ -33,7 +32,7 @@ struct _DasherEditorClass {
   GtkVBoxClass parent_class;
 
   /* VTable */
-  void (*initialise)(DasherEditor *, DasherAppSettings *, DasherMain *, GladeXML *, const gchar *);
+  void (*initialise)(DasherEditor *, DasherAppSettings *, DasherMain *, GtkBuilder *, const gchar *);
   gboolean (*command)(DasherEditor *, const gchar *);
   void (*action_button)(DasherEditor *, DasherAction *);
   void (*actions_start)(DasherEditor *);
@@ -68,11 +67,12 @@ struct _DasherEditorClass {
 GType dasher_editor_get_type();
 
 /* Functions for initialisation and takedown */
-void dasher_editor_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, 
-			      DasherMain *pDasherMain, GladeXML *pGladeXML, 
-			      const gchar *szFullPath);
+void dasher_editor_initialise(DasherEditor *pSelf,
+                              DasherAppSettings *pAppSettings, 
+                              DasherMain *pDasherMain, GtkBuilder *pXML, 
+                              const gchar *szFullPath);
 
-/* Abstract commadn handler */
+/* Abstract command handler */
 gboolean dasher_editor_command(DasherEditor *pSelf, const gchar *szCommand);
 
 /* Action related methods */
@@ -113,4 +113,3 @@ const gchar *dasher_editor_get_filename(DasherEditor *pSelf);
 G_END_DECLS
 
 #endif
-

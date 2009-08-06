@@ -1,0 +1,452 @@
+<?xml version="1.0"?>
+<!--*- mode: xml -*-->
+<interface>
+  <object class="GtkAdjustment" id="adjustment1">
+    <property name="upper">8</property>
+    <property name="lower">0.1</property>
+    <property name="page_increment">1</property>
+    <property name="step_increment">0.1</property>
+    <property name="page_size">0</property>
+    <property name="value">1</property>
+  </object>
+  <object class="GtkUIManager" id="uimanager1">
+    <child>
+      <object class="GtkActionGroup" id="actiongroup1">
+        <child>
+          <object class="GtkAction" id="file_menu">
+            <property name="label" translatable="yes">_File</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="action_new">
+            <property name="stock_id">gtk-new</property>
+            <property name="tooltip" translatable="yes">New file</property>
+            <signal name="activate" handler="dasher_main_cb_editor"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="action_open">
+            <property name="stock_id">gtk-open</property>
+            <property name="tooltip" translatable="yes">Open file</property>
+            <signal name="activate" handler="dasher_main_cb_editor"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="action_save">
+            <property name="stock_id">gtk-save</property>
+            <property name="tooltip" translatable="yes">Save file</property>
+            <signal name="activate" handler="dasher_main_cb_editor"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="action_saveas">
+            <property name="stock_id">gtk-save-as</property>
+            <property name="tooltip" translatable="yes">Save file as</property>
+            <signal name="activate" handler="dasher_main_cb_editor"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="action_append">
+            <property name="name">action_append</property>
+            <property name="label" translatable="yes">A_ppend to file...</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="action_import">
+            <property name="label" translatable="yes">_Import Training Text...</property>
+            <signal name="activate" handler="dasher_main_cb_import"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="action_quit">
+            <property name="stock_id">gtk-quit</property>
+            <property name="tooltip" translatable="yes">Quit</property>
+            <signal name="activate" handler="dasher_main_cb_quit"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="edit_menu">
+            <property name="label" translatable="yes">_Edit</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="action_cut">
+            <property name="stock_id">gtk-cut</property>
+            <property name="tooltip" translatable="yes">Cut</property>
+            <signal name="activate" handler="dasher_main_cb_editor"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="action_copy">
+            <property name="stock_id">gtk-copy</property>
+            <property name="tooltip" translatable="yes">Copy</property>
+            <signal name="activate" handler="dasher_main_cb_editor"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="action_copyall">
+            <property name="label" translatable="yes">Copy _All</property>
+            <signal name="activate" handler="dasher_main_cb_editor"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="action_paste">
+            <property name="stock_id">gtk-paste</property>
+            <property name="tooltip" translatable="yes">Paste</property>
+            <signal name="activate" handler="dasher_main_cb_editor"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="action_preferences">
+            <property name="stock_id">gtk-preferences</property>
+            <property name="label" translatable="yes">Pr_eferences...</property>
+            <property name="tooltip" translatable="yes">Preferences</property>
+            <signal name="activate" handler="dasher_main_cb_preferences"/>
+          </object>
+          <accelerator key="S" modifiers="GDK_CONTROL_MASK | GDK_SHIFT_MASK"/>
+        </child>
+        <child>
+          <object class="GtkAction" id="help_menu">
+            <property name="label" translatable="yes">_Help</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="action_help">
+            <property name="stock_id">gtk-help</property>
+            <property name="label"   translatable="yes">_Contents...</property>
+            <property name="tooltip" translatable="yes">Help</property>
+            <signal name="activate" handler="dasher_main_cb_help"/>
+          </object>
+          <accelerator key="F1" modifiers="0"/>
+        </child>
+        <child>
+          <object class="GtkAction" id="action_about">
+            <property name="stock_id">gtk-about</property>
+            <property name="label" translatable="yes">_About...</property>
+            <signal name="activate" handler="dasher_main_cb_about"/>
+          </object>
+        </child>
+      </object>
+    </child>
+    <ui>
+      <menubar name="dasher_menu_bar">
+        <menu action="file_menu">
+          <menuitem action="action_new"/>
+          <menuitem action="action_open"/>
+          <menuitem action="action_save"/>
+          <menuitem action="action_saveas"/>
+          <menuitem action="action_append"/>
+          <separator/>
+          <menuitem action="action_import"/>
+          <menuitem action="action_quit"/>
+        </menu>
+        <menu action="edit_menu">
+          <menuitem action="action_cut"/>
+          <menuitem action="action_copy"/>
+          <menuitem action="action_copyall"/>
+          <menuitem action="action_paste"/>
+          <separator/>
+          <menuitem action="action_preferences"/>
+        </menu>
+        <menu action="help_menu">
+          <menuitem action="action_help"/>
+          <menuitem action="action_about"/>
+        </menu>
+      </menubar>
+      <toolbar name="dasher_tool_bar">
+        <toolitem action="action_new"/>
+        <toolitem action="action_open"/>
+        <toolitem action="action_save"/>
+        <toolitem action="action_saveas"/>
+        <separator/>
+        <toolitem action="action_cut"/>
+        <toolitem action="action_copy"/>
+        <toolitem action="action_paste"/>
+        <separator/>
+        <toolitem action="action_preferences"/>
+        <toolitem action="action_help"/>
+        <separator/>
+        <toolitem action="action_quit"/>
+      </toolbar>
+    </ui>
+  </object>
+  <object class="GtkWindow" id="window">
+    <property name="can_focus">True</property>
+    <property name="has_focus">True</property>
+    <property name="events">GDK_BUTTON_RELEASE_MASK</property>
+    <property name="title" translatable="yes">Dasher</property>
+    <property name="type">GTK_WINDOW_TOPLEVEL</property>
+    <property name="window_position">GTK_WIN_POS_NONE</property>
+    <property name="modal">False</property>
+    <property name="resizable">True</property>
+    <property name="destroy_with_parent">False</property>
+    <property name="decorated">True</property>
+    <property name="skip_taskbar_hint">False</property>
+    <property name="skip_pager_hint">False</property>
+    <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
+    <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
+    <property name="focus_on_map">True</property>
+    <property name="urgency_hint">False</property>
+    <signal handler="dasher_main_cb_window_close" name="delete_event"/>
+    <signal handler="test_focus_handler" name="focus-in-event"/>
+    <child>
+      <object class="GtkVBox" id="vbox1">
+        <property name="visible">True</property>
+        <property name="homogeneous">False</property>
+        <property name="spacing">0</property>
+        <signal handler="test_focus_handler" name="focus-in-event"/>
+        <child>
+          <object class="GtkMenuBar" constructor="uimanager1" id="dasher_menu_bar">
+            <property name="visible">True</property>
+            <property name="tooltip-text" translatable="yes">Quit</property>
+            <property name="pack_direction">GTK_PACK_DIRECTION_LTR</property>
+            <property name="child_pack_direction">GTK_PACK_DIRECTION_LTR</property>
+            <signal handler="test_focus_handler" name="focus-in-event"/>
+          </object>
+          <packing>
+            <property name="padding">0</property>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkToolbar" constructor="uimanager1" id="dasher_tool_bar">
+            <property name="toolbar_style">GTK_TOOLBAR_ICONS</property>
+          </object>
+          <packing>
+            <property name="padding">0</property>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkVPaned" id="main_divider">
+            <property name="visible">True</property>
+            <property name="position">0</property>
+            <signal handler="test_focus_handler" name="focus-in-event"/>
+            <child>
+              <object class="DasherEditorInternal" id="DasherEditor">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <signal handler="dasher_main_cb_filename_changed" name="filename_changed"/>
+                <signal handler="dasher_main_cb_buffer_changed" name="buffer_changed"/>
+                <signal handler="dasher_main_cb_context_changed" name="context_changed"/>
+              </object>
+              <packing>
+                <property name="shrink">True</property>
+                <property name="resize">False</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkDasherControl" id="DasherControl">
+                <property name="width_request">200</property>
+                <property name="height_request">200</property>
+                <property name="visible">True</property>
+                <signal handler="parameter_notification" name="dasher_changed"/>
+                <signal handler="handle_start_event" name="dasher_start"/>
+                <signal handler="handle_stop_event" name="dasher_stop"/>
+                <signal handler="handle_control_event" name="dasher_control"/>
+                <signal handler="gtk2_edit_output_callback" name="dasher_edit_insert"/>
+                <signal handler="gtk2_edit_delete_callback" name="dasher_edit_delete"/>
+                <signal handler="handle_context_request" name="dasher_context_request"/>
+                <signal handler="handle_request_settings" name="dasher_request_settings"/>
+                <signal handler="focus_in_event" name="focus_in_event"/>
+                <signal handler="on_lock_info" name="dasher_lock_info"/>
+                <signal handler="on_message" name="dasher_message"/>
+                <signal handler="convert_cb" name="dasher_edit_convert"/>
+                <signal handler="protect_cb" name="dasher_edit_protect"/>
+                <signal handler="on_command" name="dasher_command"/>
+                <signal handler="test_focus_handler" name="focus-in-event"/>
+              </object>
+              <packing>
+                <property name="shrink">True</property>
+                <property name="resize">True</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="padding">0</property>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHBox" id="hbox8">
+            <property name="border_width">2</property>
+            <property name="visible">True</property>
+            <property name="homogeneous">False</property>
+            <property name="spacing">2</property>
+            <signal handler="test_focus_handler" name="focus-in-event"/>
+            <child>
+              <object class="GtkLabel" id="label109">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Speed:</property>
+                <property name="use_underline">False</property>
+                <property name="use_markup">False</property>
+                <property name="justify">GTK_JUSTIFY_LEFT</property>
+                <property name="wrap">False</property>
+                <property name="selectable">False</property>
+                <property name="xalign">0.5</property>
+                <property name="yalign">0.5</property>
+                <property name="xpad">2</property>
+                <property name="ypad">0</property>
+                <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+                <property name="width_chars">-1</property>
+                <property name="single_line_mode">False</property>
+                <property name="angle">0</property>
+                <signal handler="test_focus_handler" name="focus-in-event"/>
+              </object>
+              <packing>
+                <property name="padding">0</property>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinButton" id="spinbutton1">
+                <property name="width_request">64</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="climb_rate">0.10000000149</property>
+                <property name="digits">1</property>
+                <property name="numeric">True</property>
+                <property name="update_policy">GTK_UPDATE_IF_VALID</property>
+                <property name="snap_to_ticks">False</property>
+                <property name="wrap">False</property>
+                <property name="adjustment">adjustment1</property>
+                <signal handler="speed_changed" name="value-changed"/>
+                <signal handler="test_focus_handler" name="focus-in-event"/>
+              </object>
+              <packing>
+                <property name="padding">0</property>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label110">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Alphabet:</property>
+                <property name="use_underline">False</property>
+                <property name="use_markup">False</property>
+                <property name="justify">GTK_JUSTIFY_LEFT</property>
+                <property name="wrap">False</property>
+                <property name="selectable">False</property>
+                <property name="xalign">0.5</property>
+                <property name="yalign">0.5</property>
+                <property name="xpad">2</property>
+                <property name="ypad">0</property>
+                <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+                <property name="width_chars">-1</property>
+                <property name="single_line_mode">False</property>
+                <property name="angle">0</property>
+                <signal handler="test_focus_handler" name="focus-in-event"/>
+              </object>
+              <packing>
+                <property name="padding">0</property>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkComboBox" id="combobox1">
+                <property name="width_request">32</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="add_tearoffs">False</property>
+                <property name="focus_on_click">True</property>
+                <signal handler="alphabet_combo_changed" name="changed"/>
+                <signal handler="test_focus_handler" name="focus-in-event"/>
+              </object>
+              <packing>
+                <property name="padding">0</property>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="padding">0</property>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkWindow" id="lock_window">
+    <property name="visible">True</property>
+    <property name="title" translatable="yes">Please Wait...</property>
+    <property name="type">GTK_WINDOW_TOPLEVEL</property>
+    <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
+    <property name="modal">False</property>
+    <property name="resizable">True</property>
+    <property name="destroy_with_parent">True</property>
+    <property name="decorated">True</property>
+    <property name="skip_taskbar_hint">False</property>
+    <property name="skip_pager_hint">False</property>
+    <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
+    <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
+    <property name="focus_on_map">True</property>
+    <property name="urgency_hint">False</property>
+    <child>
+      <object class="GtkVBox" id="vbox43">
+        <property name="visible">True</property>
+        <property name="homogeneous">False</property>
+        <property name="spacing">0</property>
+        <child>
+          <object class="GtkLabel" id="lock_message">
+            <property name="visible">True</property>
+            <property name="label"/>
+            <property name="use_underline">False</property>
+            <property name="use_markup">False</property>
+            <property name="justify">GTK_JUSTIFY_LEFT</property>
+            <property name="wrap">False</property>
+            <property name="selectable">False</property>
+            <property name="xalign">0.5</property>
+            <property name="yalign">0.5</property>
+            <property name="xpad">0</property>
+            <property name="ypad">0</property>
+            <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+            <property name="width_chars">-1</property>
+            <property name="single_line_mode">False</property>
+            <property name="angle">0</property>
+          </object>
+          <packing>
+            <property name="padding">8</property>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkAlignment" id="alignment38">
+            <property name="border_width">8</property>
+            <property name="visible">True</property>
+            <property name="xalign">0.5</property>
+            <property name="yalign">0.5</property>
+            <property name="xscale">1</property>
+            <property name="yscale">1</property>
+            <property name="top_padding">0</property>
+            <property name="bottom_padding">0</property>
+            <property name="left_padding">0</property>
+            <property name="right_padding">0</property>
+            <child>
+              <object class="GtkProgressBar" id="lock_progress">
+                <property name="visible">True</property>
+                <property name="orientation">GTK_PROGRESS_LEFT_TO_RIGHT</property>
+                <property name="fraction">0</property>
+                <property name="pulse_step">0.10000000149</property>
+                <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="padding">0</property>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

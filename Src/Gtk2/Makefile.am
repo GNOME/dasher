@@ -1,28 +1,13 @@
 LIBS = @INTLLIBS@ @LIBS@
 
-noinst_LIBRARIES = libdashergtk.a libdashercontrol.a
+noinst_LTLIBRARIES = libdashergtk.la libdashercontrol.la
 noinst_PROGRAMS = generate-schema
 
 #bin_PROGRAMS = dasher-config
 
 if WITH_GPE
-gladefile = dashergpe.glade
 settings_store = gpesettings_store.cc gpesettings_store.h
-
 else
-
-if WITH_MAEMO
-
-if WITH_MAEMOFULLSCREEN
-gladefile = dashermaemofullscreen.glade
-else
-gladefile = dashermaemo.glade
-endif
-
-else
-gladefile = dasher.glade
-endif
-
 settings_store = 
 endif
 
@@ -40,7 +25,7 @@ generate_schema_SOURCES = GenerateSchema.cpp
 #dasher_config_LDADD = \
 #	$(GTK2BUILD_LIBS)
 
-libdashercontrol_a_SOURCES = \
+libdashercontrol_la_SOURCES = \
 		Canvas.cpp \
 		Canvas.h \
 		DasherControl.cpp \
@@ -61,7 +46,7 @@ libdashercontrol_a_SOURCES = \
 		mouse_input.h \
 		$(settings_store)
 
-libdashergtk_a_SOURCES = \
+libdashergtk_la_SOURCES = \
 		DasherAppSettings.cpp \
 		DasherAppSettings.h \
 		GtkDasherControl.h \
@@ -97,10 +82,10 @@ libdashergtk_a_SOURCES = \
 		dasher_main.cpp \
 		dasher_main.h \
 		module_settings_window.cpp \
-		module_settings_window.h 
+		module_settings_window.h
 
-libdashergtk_a_LIBADD = @SPEECH_SOURCES@
-libdashergtk_a_DEPENDENCIES = @SPEECH_SOURCES@
+libdashergtk_la_LIBADD = @SPEECH_SOURCES@
+libdashergtk_la_DEPENDENCIES = @SPEECH_SOURCES@
 
 AM_CXXFLAGS = -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" -I../../intl -I$(top_srcdir)/intl $(GTK2BUILD_CFLAGS) 
 

@@ -13,26 +13,22 @@
 
 // TODO: Make this a real class
 
-GtkWidget *m_pLockWindow;
-GtkWidget *m_pLockProgress;
-GtkWidget *m_pLockMessage;
+GtkWindow *m_pLockWindow;
+GtkProgressBar *m_pLockProgress;
+GtkLabel *m_pLockMessage;
 
-void dasher_lock_dialogue_new(GladeXML *pGladeXML, GtkWindow *pMainWindow) {
+void dasher_lock_dialogue_new(GtkBuilder *pXML, GtkWindow *pMainWindow) {
 #ifndef WITH_MAEMO
-  m_pLockWindow = glade_xml_get_widget(pGladeXML, "lock_window");
-  m_pLockProgress = glade_xml_get_widget(pGladeXML, "lock_progress");
-  m_pLockMessage = glade_xml_get_widget(pGladeXML, "lock_message");
+  m_pLockWindow = GTK_WINDOW(gtk_builder_get_object(pXML, "lock_window"));
+  m_pLockProgress = GTK_PROGRESS_BAR(gtk_builder_get_object(pXML, "lock_progress"));
+  m_pLockMessage = GTK_LABEL(gtk_builder_get_object(pXML, "lock_message"));
 
-  gtk_widget_hide(m_pLockWindow);
+  gtk_widget_hide(GTK_WIDGET(m_pLockWindow));
   
-  dasher_lock_dialogue_set_transient(pMainWindow);
+  gtk_window_set_transient_for(m_pLockWindow, pMainWindow);
 #else
   m_pLockWindow = 0;
 #endif
-}
-
-void dasher_lock_dialogue_set_transient(GtkWindow *pMainWindow) {
-  gtk_window_set_transient_for(GTK_WINDOW(m_pLockWindow), pMainWindow);
 }
 
 extern "C" void on_lock_info(GtkDasherControl *pDasherControl, gpointer pLockInfo, gpointer pUserData) {
@@ -43,13 +39,13 @@ extern "C" void on_lock_info(GtkDasherControl *pDasherControl, gpointer pLockInf
   DasherLockInfo *pInfo = (DasherLockInfo *)pLockInfo;
 
 #ifndef WITH_MAEMO
-  gtk_label_set_text(GTK_LABEL(m_pLockMessage), pInfo->szMessage);
-  gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(m_pLockProgress), pInfo->iPercent / 100.0);
+  gtk_label_set_text(m_pLockMessage, pInfo->szMessage);
+  gtk_progress_bar_set_fraction(m_pLockProgress, pInfo->iPercent / 100.0);
 
   if(pInfo->bLock)
-    gtk_widget_show(m_pLockWindow);
+    gtk_widget_show(GTK_WIDGET(m_pLockWindow));
   else
-    gtk_widget_hide(m_pLockWindow);
+    gtk_widget_hide(GTK_WIDGET(m_pLockWindow));
 #else
   if(pInfo->bLock) {
     if(!m_pLockWindow)
@@ -59,7 +55,7 @@ extern "C" void on_lock_info(GtkDasherControl *pDasherControl, gpointer pLockInf
   }
   else {
     if(m_pLockWindow)
-      gtk_widget_destroy(m_pLockWindow);
+      gtk_widget_destroy(GTK_WIDGET(m_pLockWindow));
     m_pLockWindow = 0;
   }
 #endif

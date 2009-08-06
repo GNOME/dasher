@@ -8,9 +8,9 @@
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
 #include <gdk/gdkx.h>
-#include <glade/glade.h>
 #include <signal.h>
 #include <Gtk2/DasherAppSettings.h>
+#include <Gtk2/dasher_editor_internal.h>
 
 #ifdef WITH_MAEMO
 #include <libosso.h>
@@ -25,15 +25,7 @@
 #include <gpe/init.h>
 #endif
 
-// #include <libintl.h>
-// #include <locale.h>
-// #include <stdio.h>
-// #include <stdlib.h>
-// #include <iostream>
-
 #include "dasher.h"
-//#include "DasherControl.h"
-#include "dasher_lock_dialogue.h"
 #include "dasher_main.h"
 
 #ifdef WITH_GPE
@@ -237,6 +229,9 @@ int main(int argc, char *argv[]) {
     return 1;
 
   dasher_main_show(g_pDasherMain);
+
+  // This call is just to force the linker to export the following symbol.
+  dasher_editor_internal_get_type();
 
   // 10.
   gtk_main();

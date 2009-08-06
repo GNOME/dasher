@@ -1,7 +1,6 @@
 #ifndef __dasher_editor_internal_h__
 #define __dasher_editor_internal_h__
 
-#include <glade/glade.h>
 #include <glib.h>
 #include <glib-object.h>
 #include <gtk/gtk.h>
@@ -25,12 +24,12 @@ typedef enum {
 } clipboard_action;
 
 G_BEGIN_DECLS
-#define TYPE_DASHER_EDITOR_INTERNAL            (dasher_editor_internal_get_type())
-#define DASHER_EDITOR_INTERNAL(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), TYPE_DASHER_EDITOR_INTERNAL, DasherEditorInternal ))
-#define DASHER_EDITOR_INTERNAL_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TYPE_DASHER_EDITOR_INTERNAL, DasherEditorInternalClass ))
-#define IS_DASHER_EDITOR_INTERNAL(obj)	      (G_TYPE_CHECK_INSTANCE_TYPE((obj), TYPE_DASHER_EDITOR_INTERNAL))
-#define IS_DASHER_EDITOR_INTERNAL_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TYPE_DASHER_EDITOR_INTERNAL))
-#define DASHER_EDITOR_INTERNAL_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TYPE_DASHER_EDITOR_INTERNAL, DasherEditorInternalClass))
+#define DASHER_TYPE_EDITOR_INTERNAL            (dasher_editor_internal_get_type())
+#define DASHER_EDITOR_INTERNAL(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), DASHER_TYPE_EDITOR_INTERNAL, DasherEditorInternal ))
+#define DASHER_EDITOR_INTERNAL_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), DASHER_TYPE_EDITOR_INTERNAL, DasherEditorInternalClass ))
+#define DASHER_IS_EDITOR_INTERNAL(obj)	      (G_TYPE_CHECK_INSTANCE_TYPE((obj), DASHER_TYPE_EDITOR_INTERNAL))
+#define DASHER_IS_EDITOR_INTERNAL_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), DASHER_TYPE_EDITOR_INTERNAL))
+#define DASHER_EDITOR_INTERNAL_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), DASHER_TYPE_EDITOR_INTERNAL, DasherEditorInternalClass))
 
 typedef struct _DasherEditorInternal DasherEditorInternal;
 typedef struct _DasherEditorInternalClass DasherEditorInternalClass;
@@ -48,7 +47,7 @@ struct _DasherEditorInternalClass {
 };
 
 DasherEditorInternal *dasher_editor_internal_new();
-void dasher_editor_internal_initialise(DasherEditorInternal *pSelf, DasherAppSettings *pAppSettings, DasherMain *pDasherMain, GladeXML *pGladeXML, const gchar *szFullPath);
+void dasher_editor_internal_initialise(DasherEditorInternal *pSelf, DasherAppSettings *pAppSettings, DasherMain *pDasherMain, GtkBuilder *pXML, const gchar *szFullPath);
 
 void dasher_editor_internal_cleartext(DasherEditorInternal *pSelf);
 GType dasher_editor_internal_get_type();
@@ -95,4 +94,3 @@ GType dasher_editor_internal_get_type();
 G_END_DECLS
 
 #endif
-

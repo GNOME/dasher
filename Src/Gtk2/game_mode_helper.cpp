@@ -80,24 +80,24 @@ static void game_mode_helper_destroy(GObject *pObject) {
   // of the parent classes here...
 }
 
-GObject *game_mode_helper_new(GladeXML *pGladeXML, void* pDasherEditor) {
+GObject *game_mode_helper_new(GtkBuilder *pXML, void* pDasherEditor) {
   GameModeHelper *pHelper;
   pHelper = GAME_MODE_HELPER(g_object_new(game_mode_helper_get_type(), NULL));
   
   GameModeHelperPrivate *pPrivate((GameModeHelperPrivate *)(pHelper->private_data));
 
-  pPrivate->pControl = GTK_DASHER_CONTROL(glade_xml_get_widget(pGladeXML, "DasherControl"));
+  pPrivate->pControl = GTK_DASHER_CONTROL(gtk_builder_get_object(pXML, "DasherControl"));
   //  pPrivate->szOutput = 0;
 
   pPrivate->pEditor = (DasherEditorInternal *)pDasherEditor;
-  pPrivate->pGameGroup = glade_xml_get_widget(pGladeXML, "game_group");
-  pPrivate->pGameInfoLabel = GTK_LABEL(glade_xml_get_widget(pGladeXML, "game_info_label"));
-  pPrivate->pGameToggleButton = glade_xml_get_widget(pGladeXML, "tb_command_game");
-  pPrivate->pNewSentence = glade_xml_get_widget(pGladeXML, "game_new_sentence");
-  pPrivate->pDemoToggleButton = glade_xml_get_widget(pGladeXML, "demo_toggle");
-  pPrivate->pFullDemo = glade_xml_get_widget(pGladeXML, "fulldemo");
-  pPrivate->pScore = GTK_ENTRY(glade_xml_get_widget(pGladeXML, "score_box"));
-  pPrivate->pLevel = GTK_ENTRY(glade_xml_get_widget(pGladeXML, "level_box"));
+  pPrivate->pGameGroup = GTK_WIDGET(gtk_builder_get_object(pXML, "game_group"));
+  pPrivate->pGameInfoLabel = GTK_LABEL(gtk_builder_get_object(pXML, "game_info_label"));
+  pPrivate->pGameToggleButton = GTK_WIDGET(gtk_builder_get_object(pXML, "tb_command_game"));
+  pPrivate->pNewSentence = GTK_WIDGET(gtk_builder_get_object(pXML, "game_new_sentence"));
+  pPrivate->pDemoToggleButton = GTK_WIDGET(gtk_builder_get_object(pXML, "demo_toggle"));
+  pPrivate->pFullDemo = GTK_WIDGET(gtk_builder_get_object(pXML, "fulldemo"));
+  pPrivate->pScore = GTK_ENTRY(gtk_builder_get_object(pXML, "score_box"));
+  pPrivate->pLevel = GTK_ENTRY(gtk_builder_get_object(pXML, "level_box"));
   pPrivate->pstrTarget = new std::string;
   pPrivate->pstrOutput = new std::string;
   
@@ -165,7 +165,8 @@ game_mode_helper_cb_gametoggle(GtkWidget *pWidget, gpointer pUserData) {
       gtk_dasher_control_game_messagein(pPrivate->pControl, Dasher::GameMode::GAME_MESSAGE_GAME_ON, NULL);
     }
 
-  dasher_editor_internal_cleartext(pPrivate->pEditor);
+  // XXX PRLW: something like pPrivate->pEditor->clear() may be more apt
+  // dasher_editor_internal_cleartext(pPrivate->pEditor);
   return FALSE; // TODO: Scheck semantics of return value
 }
 
@@ -254,7 +255,8 @@ void game_mode_helper_message(GameModeHelper *pSelf, int message, const void * m
     gtk_entry_set_text(pPrivate->pLevel, reinterpret_cast<const std::string*>(messagedata)->c_str());
     break;
   case GAME_MESSAGE_CLEAR_BUFFER:
-    dasher_editor_internal_cleartext(pPrivate->pEditor);
+  // XXX PRLW: something like pPrivate->pEditor->clear() may be more apt
+  //  dasher_editor_internal_cleartext(pPrivate->pEditor);
     pPrivate->pstrOutput->clear();
     break;
   case GAME_MESSAGE_HELP_MESSAGE:

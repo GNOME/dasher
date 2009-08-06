@@ -96,7 +96,7 @@ struct _DasherEditorInternalPrivate {
   gboolean bFileModified; // TODO: Make this work properly, export to main for quit etc
 };
 
-#define DASHER_EDITOR_INTERNAL_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE((o), TYPE_DASHER_EDITOR_INTERNAL, DasherEditorInternalPrivate))
+#define DASHER_EDITOR_INTERNAL_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE((o), DASHER_TYPE_EDITOR_INTERNAL, DasherEditorInternalPrivate))
 
 /* Signals */
 enum {
@@ -110,7 +110,7 @@ enum {
 
 static DasherEditorInternal *g_pEditor;
 
-G_DEFINE_TYPE(DasherEditorInternal, dasher_editor_internal, TYPE_DASHER_EDITOR);
+G_DEFINE_TYPE(DasherEditorInternal, dasher_editor_internal, DASHER_TYPE_EDITOR);
 
 static void dasher_editor_internal_finalize(GObject *pObject);
 
@@ -118,7 +118,7 @@ static void dasher_editor_internal_finalize(GObject *pObject);
 static void dasher_editor_internal_handle_font(DasherEditor *pSelf, const gchar *szFont);
 
 gboolean dasher_editor_internal_command(DasherEditor *pSelf, const gchar *szCommand);
-void dasher_editor_internal_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, DasherMain *pDasherMain, GladeXML *pGladeXML, const gchar *szFullPath);
+void dasher_editor_internal_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, DasherMain *pDasherMain, GtkBuilder *pXML, const gchar *szFullPath);
 
 /* Private methods */
 static void dasher_editor_internal_select_all(DasherEditor *pSelf);
@@ -170,7 +170,7 @@ void dasher_editor_internal_handle_stop(DasherEditor *pSelf);
 void dasher_editor_internal_handle_start(DasherEditor *pSelf);
 void dasher_editor_internal_handle_control(DasherEditor *pSelf, int iNodeID);
 
-/* Action related methods - TODO: a lot of this should be moved to dasher_main (eg action on stop etc) - that way we get a better level of abstraction, and can incorporate commands from otehr modules too. Actions should only be externally visible as a list of string commands*/
+/* Action related methods - TODO: a lot of this should be moved to dasher_main (eg action on stop etc) - that way we get a better level of abstraction, and can incorporate commands from other modules too. Actions should only be externally visible as a list of string commands*/
 void dasher_editor_internal_action_button(DasherEditor *pSelf, DasherAction *pAction);
 void dasher_editor_internal_actions_start(DasherEditor *pSelf);
 bool dasher_editor_internal_actions_more(DasherEditor *pSelf);
@@ -217,7 +217,6 @@ dasher_editor_internal_class_init(DasherEditorInternalClass *pClass) {
   pObjectClass->finalize = dasher_editor_internal_finalize;
 
   DasherEditorClass *pParentClass = (DasherEditorClass *)pClass;
-
   pParentClass->initialise = dasher_editor_internal_initialise;
   pParentClass->command = dasher_editor_internal_command;
   pParentClass->output = dasher_editor_internal_output;
@@ -243,9 +242,13 @@ dasher_editor_internal_class_init(DasherEditorInternalClass *pClass) {
 }
 
 static void 
-dasher_editor_internal_init(DasherEditorInternal *pDasherControl) {
-  DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pDasherControl);
+dasher_editor_internal_init(DasherEditorInternal *pSelf) {
+  DasherEditorInternalPrivate *pPrivate =
+                                   DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
+  pPrivate->pTextView = GTK_TEXT_VIEW(gtk_text_view_new());
+    gtk_text_view_set_wrap_mode(pPrivate->pTextView, GTK_WRAP_WORD);
+  pPrivate->pBuffer = gtk_text_view_get_buffer(pPrivate->pTextView);
   pPrivate->pBufferSet = NULL;
   pPrivate->pExternalBuffer = NULL;
   pPrivate->szFilename = NULL;
@@ -254,7 +257,28 @@ dasher_editor_internal_init(DasherEditorInternal *pDasherControl) {
   pPrivate->pActionRing = NULL;
   pPrivate->iNextActionID = 0;
   //  pPrivate->pGameModeHelper = NULL;
+  GtkTextIter oStartIter;
+  gtk_text_buffer_get_start_iter(pPrivate->pBuffer, &oStartIter);
+  pPrivate->pNewMark =
+       gtk_text_buffer_create_mark(pPrivate->pBuffer, NULL, &oStartIter, TRUE);
   pPrivate->bFileModified = FALSE;
+
+  GtkWidget *pScrolledWindow = gtk_scrolled_window_new(NULL, NULL);
+
+  gtk_container_add(GTK_CONTAINER(pScrolledWindow),
+                    GTK_WIDGET(pPrivate->pTextView));
+
+  gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(pScrolledWindow),
+                                 GTK_POLICY_AUTOMATIC,
+                                 GTK_POLICY_AUTOMATIC);
+
+  gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(pScrolledWindow),
+                                      GTK_SHADOW_IN);
+
+  gtk_box_pack_start(GTK_BOX(&(pSelf->parent.box)),
+                     pScrolledWindow, true, true, 0);
+
+  gtk_widget_show_all(GTK_WIDGET(&(pSelf->parent.box)));
 }
 
 static void 
@@ -282,46 +306,15 @@ dasher_editor_internal_finalize(GObject *pObject) {
 }
 
 /* Public methods */
-DasherEditorInternal *
-dasher_editor_internal_new() {
-  DasherEditorInternal *pDasherEditor;
-  pDasherEditor = (DasherEditorInternal *)(g_object_new(dasher_editor_internal_get_type(), NULL));
-
-  g_pEditor = pDasherEditor;
-
-  DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pDasherEditor);
-  
-  GtkWidget *pScrolledWindow = gtk_scrolled_window_new(NULL, NULL);
-
-  GtkWidget *pTextView = gtk_text_view_new();
-  gtk_widget_grab_focus(pTextView);
-  
-
-  pPrivate->pTextView = GTK_TEXT_VIEW(pTextView);
-
-  gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(pTextView),
-			      GTK_WRAP_WORD);
-
-  gtk_container_add(GTK_CONTAINER(pScrolledWindow), pTextView);
-
-  gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(pScrolledWindow),
-				 GTK_POLICY_AUTOMATIC,
-				 GTK_POLICY_AUTOMATIC);
-
-  gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(pScrolledWindow),
-				      GTK_SHADOW_IN);
-
-  gtk_box_pack_start(GTK_BOX(&(pDasherEditor->parent.box)), pScrolledWindow, true, true, 0);
-  
-  
-  gtk_widget_show_all(GTK_WIDGET(&(pDasherEditor->parent.box)));
-
-  return pDasherEditor;
+DasherEditorInternal*
+dasher_editor_internal_new(void)
+{
+  return
+    DASHER_EDITOR_INTERNAL(g_object_new(DASHER_TYPE_EDITOR_INTERNAL, NULL));
 }
 
 void
-dasher_editor_internal_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, DasherMain *pDasherMain, GladeXML *pGladeXML, const gchar *szFullPath) {
-
+dasher_editor_internal_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, DasherMain *pDasherMain, GtkBuilder *pXML, const gchar *szFullPath) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
   pPrivate->pAppSettings = pAppSettings;
@@ -331,14 +324,8 @@ dasher_editor_internal_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSe
 				     dasher_app_settings_get_string(pPrivate->pAppSettings, 
 								    APP_SP_EDIT_FONT));
   
-  GtkVBox *pActionPane = GTK_VBOX(glade_xml_get_widget(pGladeXML, "vbox39"));
-  pPrivate->pBuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(pPrivate->pTextView));
+  GtkVBox *pActionPane = GTK_VBOX(gtk_builder_get_object(pXML, "vbox39"));
 
-  gtk_widget_show_all(GTK_WIDGET(pPrivate->pTextView));
-
-  GtkTextIter oStartIter;
-  gtk_text_buffer_get_start_iter(pPrivate->pBuffer, &oStartIter);
-  pPrivate->pNewMark = gtk_text_buffer_create_mark(pPrivate->pBuffer, NULL, &oStartIter, TRUE);
 
   pPrivate->pActionPane = pActionPane;
 
@@ -355,7 +342,7 @@ dasher_editor_internal_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSe
     dasher_editor_internal_clear(pSelf, false);
   }
   
-//  pPrivate->pGameModeHelper = GAME_MODE_HELPER(game_mode_helper_new(pGladeXML, (void*)pSelf));
+//  pPrivate->pGameModeHelper = GAME_MODE_HELPER(game_mode_helper_new(pXML, (void*)pSelf));
 }
 
 static void 
@@ -401,7 +388,6 @@ dasher_editor_internal_clipboard(DasherEditor *pSelf, clipboard_action act) {
 void dasher_editor_internal_cleartext(DasherEditorInternal *pSelf)
 {
   dasher_editor_internal_clear((DasherEditor *)pSelf, true);
-
 }
 
 void 
@@ -885,53 +871,53 @@ gboolean
 dasher_editor_internal_command(DasherEditor *pSelf, const gchar *szCommand) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
-  if(!strcmp(szCommand, "new")) { //select_new_file
+  if(!strcmp(szCommand, "action_new")) { //select_new_file
     dasher_editor_internal_command_new(pSelf);
     return TRUE;
   }
   
-  if(!strcmp(szCommand, "open")) { //select open file
+  if(!strcmp(szCommand, "action_open")) { //select open file
     dasher_editor_internal_command_open(pSelf);
     return TRUE;
   }
   
-  if(!strcmp(szCommand, "save")) { //save_file
+  if(!strcmp(szCommand, "action_save")) { //save_file
     dasher_editor_internal_command_save(pSelf, FALSE, FALSE);
     return TRUE;
   }
 
-  if(!strcmp(szCommand, "saveas")) { // select_save_file_as
+  if(!strcmp(szCommand, "action_saveas")) { // select_save_file_as
     dasher_editor_internal_command_save(pSelf, TRUE, FALSE);
     return TRUE;
   }
 
-  if(!strcmp(szCommand, "append")) { // select_append_file
+  if(!strcmp(szCommand, "action_append")) { // select_append_file
     dasher_editor_internal_command_save(pSelf, TRUE, TRUE);
     return TRUE;
   }
 
-  if(!strcmp(szCommand, "cut")) { // clipboard_cut
+  if(!strcmp(szCommand, "action_cut")) { // clipboard_cut
     dasher_editor_internal_clipboard(pSelf, CLIPBOARD_CUT);
     return TRUE;
   }
 
-  if(!strcmp(szCommand, "copy")) { // clipboard_copy
+  if(!strcmp(szCommand, "action_copy")) { // clipboard_copy
     dasher_editor_internal_clipboard(pSelf, CLIPBOARD_COPY);
     return TRUE;
   }
 
-  if(!strcmp(szCommand, "copyall")) { // clipboard_copyall 
+  if(!strcmp(szCommand, "action_copyall")) { // clipboard_copyall 
     dasher_editor_internal_clipboard(pSelf, CLIPBOARD_COPYALL);
     return TRUE;
   }
 
-  if(!strcmp(szCommand, "paste")) { // clipboard_paste
+  if(!strcmp(szCommand, "action_paste")) { // clipboard_paste
     dasher_editor_internal_clipboard(pSelf, CLIPBOARD_PASTE);
     return TRUE;
   }
  
   // TODO: This isn't actually accessible from anywhere
-  if(!strcmp(szCommand, "selectall")) { // clipboard_paste
+  if(!strcmp(szCommand, "action_selectall")) { // clipboard_paste
     dasher_editor_internal_clipboard(pSelf, CLIPBOARD_SELECTALL);
     return TRUE;
   }
@@ -1659,7 +1645,6 @@ dasher_editor_internal_new_buffer(DasherEditor *pSelf, const gchar *szFilename) 
 static void
 dasher_editor_internal_handle_parameter_change(DasherEditor *pSelf, gint iParameter) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
-
   switch(iParameter) {
   case APP_SP_EDIT_FONT:
     dasher_editor_internal_handle_font(pSelf,

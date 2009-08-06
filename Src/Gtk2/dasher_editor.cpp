@@ -82,7 +82,7 @@ struct _DasherEditorPrivate {
   gboolean bFileModified; // TODO: Make this work properly, export to main for quit etc
 };
 
-#define DASHER_EDITOR_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE((o), TYPE_DASHER_EDITOR, DasherEditorPrivate))
+#define DASHER_EDITOR_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE((o), DASHER_TYPE_EDITOR, DasherEditorPrivate))
 
 /* Signals */
 enum {
@@ -107,7 +107,7 @@ static void
 dasher_editor_class_init(DasherEditorClass *pClass) {
   g_type_class_add_private(pClass, sizeof(DasherEditorPrivate));
 
-  GObjectClass *pObjectClass = (GObjectClass *) pClass;
+  GObjectClass *pObjectClass = G_OBJECT_CLASS(pClass);
   pObjectClass->finalize = dasher_editor_finalize;
 
   /* Setup signals */
@@ -202,9 +202,9 @@ dasher_editor_finalize(GObject *pObject) {
 }
 
 void
-dasher_editor_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, DasherMain *pDasherMain, GladeXML *pGladeXML, const gchar *szFullPath) {
+dasher_editor_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, DasherMain *pDasherMain, GtkBuilder *pXML, const gchar *szFullPath) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->initialise)
-    DASHER_EDITOR_GET_CLASS(pSelf)->initialise(pSelf, pAppSettings, pDasherMain, pGladeXML, szFullPath);
+    DASHER_EDITOR_GET_CLASS(pSelf)->initialise(pSelf, pAppSettings, pDasherMain, pXML, szFullPath);
 }
 
 void 

@@ -53,7 +53,7 @@ enum {
   SIGNAL_NUM
 };
 
-#define GTK_DASHER_CONTROL_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE((o), TYPE_GTK_DASHER_CONTROL, GtkDasherControlPrivate));
+#define GTK_DASHER_CONTROL_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE((o), GTK_DASHER_TYPE_CONTROL, GtkDasherControlPrivate));
 
 /* TODO: is it still sensible to derive from VBox, given that its just a cnavas now*/
 G_DEFINE_TYPE(GtkDasherControl, gtk_dasher_control, GTK_TYPE_VBOX);
@@ -144,11 +144,7 @@ gtk_dasher_control_finalize(GObject *pObject) {
 
 GtkWidget *
 gtk_dasher_control_new() {
-  GtkDasherControl *pDasherControl;
-
-  pDasherControl = GTK_DASHER_CONTROL(g_object_new(gtk_dasher_control_get_type(), NULL));
-
-  return GTK_WIDGET(pDasherControl);
+  return GTK_WIDGET(g_object_new(GTK_DASHER_TYPE_CONTROL, NULL));
 }
 
 void 

@@ -19,7 +19,6 @@ EXTRA_DIST = \
 		intltool-update.in
 
 DISTCLEANFILES = \
-		m4 \
 		intltool-merge \
 		intltool-extract \
 		intltool-update \
@@ -54,8 +53,8 @@ maemo-install: all
 	cp -a Data/maemo/* tmp_build
 	cp Src/dasher tmp_build/usr/bin/dasher
 	strip tmp_build/usr/bin/dasher
-	cp Src/Gtk2/dashermaemo.glade Src/Gtk2/dashermaemofullscreen.glade tmp_build/usr/share/dasher
-	cp Data/system.rc/training_english_GB.txt Data/system.rc/alphabet.english.xml Data/system.rc/colour.xml tmp_build/usr/share/dasher
+	cp Data/GUI/dashermaemo.ui Data/GUI/dashermaemofullscreen.ui tmp_build/usr/share/dasher
+	cp Data/training/training_english_GB.txt Data/alphabets/alphabet.english.xml Data/colours/colour.xml tmp_build/usr/share/dasher
 	ln -sf /usr/share/applications/hildon/dasher.desktop tmp_build/etc/others-menu/extra_applications/0301_dasher.desktop
 	- find tmp_build -name .git -exec rm -rf \{\} \;
 	dpkg-deb -b tmp_build dasher_4.10.1.0inferencemaemo1_armel.deb 

@@ -23,7 +23,7 @@ struct _DasherEditorExternalPrivate {
 
 static DasherEditorExternal *g_pEditor;
 
-G_DEFINE_TYPE(DasherEditorExternal, dasher_editor_external, TYPE_DASHER_EDITOR);
+G_DEFINE_TYPE(DasherEditorExternal, dasher_editor_external, DASHER_TYPE_EDITOR);
 
 
 static void dasher_editor_external_finalize(GObject *pObject);
@@ -32,7 +32,7 @@ static void dasher_editor_external_finalize(GObject *pObject);
 
 static gboolean dasher_editor_external_command(DasherEditor *pSelf, const gchar *szCommand);
 static void dasher_editor_external_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, 
-					      DasherMain *pDasherMain, GladeXML *pGladeXML, 
+					      DasherMain *pDasherMain, GtkBuilder *pXML, 
 					      const gchar *szFullPath);
 static void dasher_editor_external_convert(DasherEditor *pSelf);
 static void dasher_editor_external_protect(DasherEditor *pSelf);
@@ -110,7 +110,7 @@ dasher_editor_external_new() {
 }
 
 static void
-dasher_editor_external_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, DasherMain *pDasherMain, GladeXML *pGladeXML, const gchar *szFullPath) {
+dasher_editor_external_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, DasherMain *pDasherMain, GtkBuilder *pXML, const gchar *szFullPath) {
 
   DasherEditorExternalPrivate *pPrivate = DASHER_EDITOR_EXTERNAL_GET_PRIVATE(pSelf);
 

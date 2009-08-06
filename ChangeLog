@@ -1,3 +1,10 @@
+2009-08-06  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Use GtkBuilder instead of Glade, removing last vestiges of
+	  GtkFileSelection.
+	* Use GtkActions. Callbacks are in dasher_main.
+	* Reduce / simplify number of creation functions of DasherEditorInternal.
+
 2009-07-09  Patrick Welche <prlw1@cam.ac.uk>
 
 	* Make the alphabet's dtd match the parser more closely.

@@ -1,4 +1,4 @@
-SUBDIRS =  training alphabets colours controllabels glade Help
+SUBDIRS =  training alphabets colours controllabels GUI Help
 
 desktopdir = $(datadir)/applications
 desktop_in_files = dasher.desktop.in
