@@ -3,6 +3,7 @@
 
 #include "AlphabetManager.h"
 #include "LanguageModelling/LanguageModel.h"
+#include "Trainer.h"
 
 class CNodeCreationManager;
 
@@ -10,26 +11,6 @@ namespace Dasher {
   class CAlphabet;
   class CAlphIO;
   class CDasherInterfaceBase;
-
-  // TODO: Move this into a new file
-  class CTrainer {
-  public:
-    CTrainer(CLanguageModel *pLanguageModel, CAlphabet *pAlphabet, CAlphabet *pCHAlphabet);
-    
-    void Train(const std::vector < symbol > &vSymbols);
-    void TrainMandarin(const std::string &strUserLoc,
-		       const std::string &strSystemLoc);
-	       
-    void Reset();
-    
-    ~CTrainer();
-    
-  private:
-    CLanguageModel *m_pLanguageModel;
-    CLanguageModel::Context m_Context;
-    CAlphabet * m_pAlphabet;
-    CAlphabet * m_pCHAlphabet;
-  };
 
   /// \ingroup Model
   /// @{
@@ -72,7 +53,7 @@ namespace Dasher {
       return m_iConversionID;
     };
 
-    CTrainer *GetTrainer();
+	CTrainer *GetTrainer() {return m_pTrainer;}
 
   private:
     CAlphabetManager *m_pAlphabetManager;
@@ -81,7 +62,8 @@ namespace Dasher {
     CLanguageModel::Context m_iLearnContext; // Used to add data to model as it is entered
     CAlphabet *m_pAlphabet;        // pointer to the alphabet
     CAlphabet *m_pCHAlphabet;      // pointer to the Mandarin alphabet
-
+	CTrainer *m_pTrainer;
+	  
     int m_iConversionID;
   };
   /// @}  

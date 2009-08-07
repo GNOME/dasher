@@ -31,10 +31,6 @@
 #include <vector>
 
 namespace Dasher {
-  // Forward declarations
-  class CTrainer;
-  class CTrainingHelper;
-
   ///
   /// \defgroup Alphabet Alphabet information
   /// @{
@@ -43,9 +39,6 @@ namespace Dasher {
   public:
     CAlphabet();
     CAlphabet(const CAlphIO::AlphInfo & AlphInfo);
-
-    ~CAlphabet();
-
 
     // Return size of alphabet, including control symbols
     int GetNumberSymbols() const {
@@ -69,7 +62,7 @@ namespace Dasher {
       return m_DefaultEncoding;
     }
 
-    std::string & GetTrainingFile() {
+    const std::string & GetTrainingFile() const {
       return m_TrainingFile;
     }
     std::string GetGameModeFile() {
@@ -167,13 +160,6 @@ namespace Dasher {
     }
 
     SGroupInfo *m_pBaseGroup;
-
-    void Train(const std::string &strUserLoc, 
-	       const std::string &strSystemLoc, 
-	       CTrainer *pTrainer);
-
-    void Train(const std::string &strPath, 
-	       CTrainer *pTrainer);
     
   private:
 
@@ -206,9 +192,6 @@ namespace Dasher {
     std::vector < int >m_Colours;       // stores the colour of the characters
     std::vector < std::string > m_Foreground;   // stores the colour of the character foreground
     // ----
-
-    CTrainingHelper *m_pTrainingHelper;
-
 
     SGroupInfo *pFirstGroup;
 

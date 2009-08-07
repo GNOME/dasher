@@ -22,8 +22,6 @@
 #define __TrainingHelper_h__
 
 #include "Alphabet/Alphabet.h"
-#include "AlphabetManagerFactory.h"
-#include "TrainingHelper.h"
 
 #include <string>
 
@@ -31,10 +29,8 @@ namespace Dasher {
 
   class CTrainingHelper {
   public:
-    void LoadFile(const std::string &strFileName, 
-		  Dasher::CTrainer *pTrainer, 
-		  const Dasher::CAlphabet *pAlphabet);
-    
+	CTrainingHelper(const CAlphabet *m_pAlphabet);
+	  
     void HandleStartElement(const XML_Char *szName, 
 			    const XML_Char **pAtts);
   
@@ -42,20 +38,21 @@ namespace Dasher {
     
     void HandleCData(const XML_Char *szS, 
 		     int iLen);
-    
-  private:
-    void LoadPlain(const std::string &strFileName, 
-		   Dasher::CTrainer *pTrainer, 
-		   const Dasher::CAlphabet *pAlphabet);
-    
-    void LoadXML(const std::string &strFileName, 
-		 Dasher::CTrainer *pTrainer,
-		 const Dasher::CAlphabet *pAlphabet);
-    
+
+  protected:
+	void LoadFile(const std::string &strFileName);
+
+	const Dasher::CAlphabet *m_pAlphabet;
+
+	virtual void Train(const std::vector<symbol> &symbols)=0;
+	  
+  private:  
+	void LoadPlain(const std::string &strFileName);
+	  
+	void LoadXML(const std::string &strFileName);
+	  
     bool m_bInSegment;
     std::string m_strCurrentText;
-    Dasher::CTrainer *m_pTrainer;
-    const Dasher::CAlphabet *m_pAlphabet;
   };
 };
 

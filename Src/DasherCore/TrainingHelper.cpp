@@ -35,10 +35,11 @@ static void XML_StartElement(void *pUserData, const XML_Char *szName, const XML_
 static void XML_EndElement(void *pUserData, const XML_Char *szName);
 static void XML_CharacterData(void *pUserData, const XML_Char *szS, int iLen);
 
+Dasher::CTrainingHelper::CTrainingHelper(const Dasher::CAlphabet *pAlphabet) : m_pAlphabet(pAlphabet) {
+}
+
 void 
-Dasher::CTrainingHelper::LoadFile(const std::string &strFileName, 
-				  Dasher::CTrainer *pTrainer, 
-				  const Dasher::CAlphabet *pAlphabet) {
+Dasher::CTrainingHelper::LoadFile(const std::string &strFileName) {
    if(strFileName == "")
     return;
 
@@ -54,17 +55,15 @@ Dasher::CTrainingHelper::LoadFile(const std::string &strFileName,
    fclose(pInputFile);
 
    if(!strcmp(szTestBuffer, "<?xml")) {
-     LoadXML(strFileName, pTrainer, pAlphabet);
+	 LoadXML(strFileName);
    }
    else {
-     LoadPlain(strFileName, pTrainer, pAlphabet);
+	LoadPlain(strFileName);
    }
 }
 
 void
-Dasher::CTrainingHelper::LoadPlain(const std::string &strFileName, 
-			   Dasher::CTrainer *pTrainer, 
-			   const Dasher::CAlphabet *pAlphabet) {
+Dasher::CTrainingHelper::LoadPlain(const std::string &strFileName) {
   
   std::ifstream in(strFileName.c_str(), std::ios::binary);
   if (in.fail())
@@ -76,20 +75,16 @@ Dasher::CTrainingHelper::LoadPlain(const std::string &strFileName,
 
   std::vector<Dasher::symbol> vSymbols;
   vSymbols.clear();
-  pAlphabet->GetSymbols(vSymbols, in);
-  pTrainer->Train(vSymbols);
+  m_pAlphabet->GetSymbols(vSymbols, in);
+  Train(vSymbols);
 
   in.close();
 }
 
 void 
-Dasher::CTrainingHelper::LoadXML(const std::string &strFileName, 
-			 Dasher::CTrainer *pTrainer, 
-			 const Dasher::CAlphabet *pAlphabet) {
+Dasher::CTrainingHelper::LoadXML(const std::string &strFileName) {
 
   m_bInSegment = false;
-  m_pAlphabet = pAlphabet;
-  m_pTrainer = pTrainer;
 
   FILE *pInput;
   if((pInput = fopen(strFileName.c_str(), "r")) == (FILE *) 0) {
@@ -134,11 +129,9 @@ Dasher::CTrainingHelper::HandleStartElement(const XML_Char *szName,
 void 
 Dasher::CTrainingHelper::HandleEndElement(const XML_Char *szName) {
   if(!strcmp(szName, "segment")) {
-    m_pTrainer->Reset();
-
     std::vector<Dasher::symbol> vSymbols;
     m_pAlphabet->GetSymbols(&vSymbols, &m_strCurrentText, false);
-    m_pTrainer->Train(vSymbols);
+    Train(vSymbols);
     
     m_bInSegment = false;
   }

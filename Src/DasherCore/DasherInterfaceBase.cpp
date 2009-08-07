@@ -113,8 +113,6 @@ CDasherInterfaceBase::CDasherInterfaceBase() {
 
   m_bLastChanged = true;
 
-  //  m_pTrainingHelper = new CTrainingHelper;
-
 #ifndef _WIN32_WCE
   // Global logging object we can use from anywhere
   g_pLogger = new CFileLogger("dasher.log",
@@ -207,7 +205,6 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
   delete m_ColourIO;
   delete m_AlphIO;
   delete m_pNCManager;
-  //  delete m_pTrainingHelper;
   // Do NOT delete Edit box or Screen. This class did not create them.
 
 #ifndef _WIN32_WCE

@@ -50,8 +50,6 @@ CAlphabet::CAlphabet()
   m_Display.push_back("");
   m_Colours.push_back(-1);
   m_Foreground.push_back("");
-
-  m_pTrainingHelper = new CTrainingHelper;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -65,8 +63,6 @@ CAlphabet::CAlphabet(const CAlphIO::AlphInfo &AlphInfo)
 
   m_StartConversionSymbol = -1;
   m_EndConversionSymbol = -1;
-
-  m_pTrainingHelper = NULL;
 
   m_strDefaultContext = AlphInfo.m_strDefaultContext;
 
@@ -120,10 +116,6 @@ CAlphabet::CAlphabet(const CAlphIO::AlphInfo &AlphInfo)
 #ifdef DASHER_TRACE
   Trace();
 #endif
-}
-
-CAlphabet::~CAlphabet() {
-  delete m_pTrainingHelper;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -372,37 +364,6 @@ int CAlphabet::GetTextColour(symbol Symbol) {
   }
   else {
     return 4;
-  }
-}
-
-
-void 
-CAlphabet::Train(const std::string &strUserLoc, 
-		 const std::string &strSystemLoc, 
-		 CTrainer *pTrainer) {
-
-  std::string strTrainingFile = GetTrainingFile();
-
-  if (strTrainingFile.empty()) {
-#ifdef DEBUG
-    std::cerr << "Trying to load empty training file (location)" << std::endl;
-#endif
-  } else {
-    m_pTrainingHelper->LoadFile(strUserLoc   + strTrainingFile, pTrainer, this);
-    m_pTrainingHelper->LoadFile(strSystemLoc + strTrainingFile, pTrainer, this);
-  }
-}
-
-void 
-CAlphabet::Train(const std::string &strPath, 
-      CTrainer *pTrainer) {
-  
-  if (strPath.empty()) {
-#ifdef DEBUG
-    std::cerr << "Trying to load empty training file (path)" << std::endl;
-#endif
-  } else {
-    m_pTrainingHelper->LoadFile(strPath, pTrainer, this);
   }
 }
 

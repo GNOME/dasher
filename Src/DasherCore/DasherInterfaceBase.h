@@ -587,7 +587,6 @@ protected:
   CColourIO *m_ColourIO;
   CNodeCreationManager *m_pNCManager;
   CUserLogBase *m_pUserLog; 
-  //  CTrainingHelper *m_pTrainingHelper;
   /// @}
 
   std::string strTrainfileBuffer;

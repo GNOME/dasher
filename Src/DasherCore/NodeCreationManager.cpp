@@ -22,21 +22,14 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
   m_pLanguageModel = m_pAlphabetManagerFactory->GetLanguageModel();
   m_pAlphabet = m_pAlphabetManagerFactory->GetAlphabet();
 
-  int iConversionID(m_pAlphabetManagerFactory->GetConversionID());
-
   // Train the language model
   CTrainer *pTrainer =  m_pAlphabetManagerFactory->GetTrainer();
 
-  //WZ: Mandarin Dasher Change
-  if((iConversionID==2)&&(pSettingsStore->GetStringParameter(SP_ALPHABET_ID)=="Chinese Super Pin Yin, grouped by Dictionary"))
-    pTrainer->TrainMandarin(GetStringParameter(SP_USER_LOC), GetStringParameter(SP_SYSTEM_LOC));
-  else{
-    //End Mandarin Dasher Change  
-    m_pAlphabet->Train(GetStringParameter(SP_USER_LOC), GetStringParameter(SP_SYSTEM_LOC), pTrainer);
-  }
+  pTrainer->Train(GetStringParameter(SP_USER_LOC), GetStringParameter(SP_SYSTEM_LOC));
+  
   delete pTrainer;
 
-
+  int iConversionID(m_pAlphabetManagerFactory->GetConversionID());
 
 #ifndef _WIN32_WCE
   m_pControlManager = new CControlManager(this);
@@ -194,7 +187,7 @@ CNodeCreationManager::ImportTrainingText(const std::string &strPath) {
     pTrainer = m_pAlphabetManagerFactory->GetTrainer();
 
   if(m_pAlphabet && pTrainer)
-    m_pAlphabet->Train(strPath, pTrainer);
+	pTrainer->Train(strPath);
 
   delete pTrainer;
 }
