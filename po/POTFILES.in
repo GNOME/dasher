@@ -2,15 +2,15 @@
 # Please keep this file sorted alphabetically.
 # Use "make check" to check for missing files:
 Data/dasher.desktop.in.in
-Data/glade/dasher.compose.glade
-Data/glade/dasher.direct.glade
-Data/glade/dasher.fullscreen.glade
-Data/glade/dasher.gameWIP.glade
-Data/glade/dasher.preferences.glade
-Data/glade/dasher.traditional.glade
-Data/glade/dashermaemo.glade
-Data/glade/dashermaemo.preferences.glade
-Data/glade/dashermaemofullscreen.glade
+[type: gettext/glade]Data/GUI/dasher.compose.ui
+[type: gettext/glade]Data/GUI/dasher.direct.ui
+[type: gettext/glade]Data/GUI/dasher.fullscreen.ui
+[type: gettext/glade]Data/GUI/dasher.gameWIP.ui
+[type: gettext/glade]Data/GUI/dasher.preferences.ui
+[type: gettext/glade]Data/GUI/dasher.traditional.ui
+[type: gettext/glade]Data/GUI/dashermaemo.ui
+[type: gettext/glade]Data/GUI/dashermaemo.preferences.ui
+[type: gettext/glade]Data/GUI/dashermaemofullscreen.ui
 Src/DasherCore/ClickFilter.cpp
 Src/DasherCore/ClickFilter.h
 Src/DasherCore/DasherButtons.cpp
