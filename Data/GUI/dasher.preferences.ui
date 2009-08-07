@@ -269,7 +269,7 @@
                                         <property name="xalign">0</property>
                                         <property name="xpad">2</property>
                                         <property name="ypad">2</property>
-                                        <property name="label" translatable="yes">Use this control to adjust the relative sizes of the 
+                                        <property name="label" translatable="yes">Use this control to adjust the relative sizes of the
 letter boxes. Note that selecting high values will slow
 your writing speed.</property>
                                         <property name="wrap">True</property>

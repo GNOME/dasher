@@ -519,7 +519,7 @@ static void dasher_preferences_dialogue_populate_special_speed(DasherPreferences
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
 
   double dNewValue = dasher_app_settings_get_long(pPrivate->pAppSettings, LP_MAX_BITRATE) / 100.0;
-  gtk_range_set_value(pPrivate->pSpeedSlider, dNewValue); 
+  gtk_range_set_value(pPrivate->pSpeedSlider, dNewValue);
 }
 
 static void dasher_preferences_dialogue_populate_special_mouse_start(DasherPreferencesDialogue *pSelf) {
@@ -554,7 +554,7 @@ static void dasher_preferences_dialogue_populate_special_orientation(DasherPrefe
   switch (dasher_app_settings_get_long(pPrivate->pAppSettings, LP_ORIENTATION)) {
   case Dasher::Opts::Alphabet:
     if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton1"))) != TRUE)
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton1")), TRUE); 
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton1")), TRUE);
     
     pPrivate->bIgnoreSignals = true;
 
@@ -587,9 +587,9 @@ static void dasher_preferences_dialogue_populate_special_orientation(DasherPrefe
 
   case Dasher::Opts::LeftToRight:
     if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton2"))) != TRUE)
-       gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton2")), TRUE); 
+       gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton2")), TRUE);
     if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton12"))) != TRUE)
-       gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton12")), TRUE); 
+       gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton12")), TRUE);
 
     gtk_widget_set_sensitive(GTK_WIDGET(pPrivate->pLRButton), TRUE);
     gtk_widget_set_sensitive(GTK_WIDGET(pPrivate->pRLButton), TRUE);
@@ -599,9 +599,9 @@ static void dasher_preferences_dialogue_populate_special_orientation(DasherPrefe
 
   case Dasher::Opts::RightToLeft:
     if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton3"))) != TRUE)
-       gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton3")), TRUE); 
+       gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton3")), TRUE);
     if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton12"))) != TRUE)
-       gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton12")), TRUE); 
+       gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton12")), TRUE);
 
     gtk_widget_set_sensitive(GTK_WIDGET(pPrivate->pLRButton), TRUE);
     gtk_widget_set_sensitive(GTK_WIDGET(pPrivate->pRLButton), TRUE);
@@ -623,9 +623,9 @@ static void dasher_preferences_dialogue_populate_special_orientation(DasherPrefe
 
   case Dasher::Opts::BottomToTop:
     if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton5"))) != TRUE)
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton5")), TRUE); 
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton5")), TRUE);
     if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton12"))) != TRUE)
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton12")), TRUE); 
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "radiobutton12")), TRUE);
 
     gtk_widget_set_sensitive(GTK_WIDGET(pPrivate->pLRButton), TRUE);
     gtk_widget_set_sensitive(GTK_WIDGET(pPrivate->pRLButton), TRUE);
@@ -648,7 +648,7 @@ static void dasher_preferences_dialogue_populate_special_appstyle(DasherPreferen
     break;
   case 2:
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "appstyle_direct")), TRUE);
-    break;   
+    break;  
   case 3:
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "appstyle_fullscreen")), TRUE);
     break;
@@ -702,7 +702,7 @@ static void dasher_preferences_dialogue_populate_special_uniform(DasherPreferenc
 static void dasher_preferences_dialogue_populate_special_colour(DasherPreferencesDialogue *pSelf) {
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
 
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "manual_colour")), !dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_PALETTE_CHANGE)); 
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "manual_colour")), !dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_PALETTE_CHANGE));
   gtk_widget_set_sensitive(GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "ColorTree")), !dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_PALETTE_CHANGE));
 }
 
