@@ -356,11 +356,13 @@
 		19F8C7FA0C858E9900276B4F /* TrainingHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 19F8C7F80C858E9900276B4F /* TrainingHelper.h */; };
 		3306E0220FFD1CE60017324C /* PPMPYLanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3306E0200FFD1CE60017324C /* PPMPYLanguageModel.cpp */; };
 		3306E0230FFD1CE60017324C /* PPMPYLanguageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 3306E0210FFD1CE60017324C /* PPMPYLanguageModel.h */; };
+		335DB0FB100B332C006DB155 /* alphabet.spyDict.xml in Resources */ = {isa = PBXBuildFile; fileRef = 335DB0FA100B332C006DB155 /* alphabet.spyDict.xml */; };
+		335DB101100B3358006DB155 /* training_spyDict.txt in Resources */ = {isa = PBXBuildFile; fileRef = 335DB100100B3358006DB155 /* training_spyDict.txt */; };
+		335DB122100B3606006DB155 /* PinYinConversionHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE760C226CFD001DFA32 /* PinYinConversionHelper.cpp */; };
 		33ABFEC60FC379EA00EA2BA5 /* ButtonMultiPress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33ABFEC40FC379EA00EA2BA5 /* ButtonMultiPress.cpp */; };
 		33ABFEC70FC379EA00EA2BA5 /* ButtonMultiPress.h in Headers */ = {isa = PBXBuildFile; fileRef = 33ABFEC50FC379EA00EA2BA5 /* ButtonMultiPress.h */; };
 		33E173C70F3E0B6400D19B38 /* Makefile.am in Resources */ = {isa = PBXBuildFile; fileRef = 33E173A70F3E0B6400D19B38 /* Makefile.am */; };
 		33E173C80F3E0B6400D19B38 /* training_albanian_SQ.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173A80F3E0B6400D19B38 /* training_albanian_SQ.txt */; };
-		33E173C90F3E0B6400D19B38 /* training_albanian_SQ.txt.old in Resources */ = {isa = PBXBuildFile; fileRef = 33E173A90F3E0B6400D19B38 /* training_albanian_SQ.txt.old */; };
 		33E173CA0F3E0B6400D19B38 /* training_basque_EU.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173AA0F3E0B6400D19B38 /* training_basque_EU.txt */; };
 		33E173CB0F3E0B6400D19B38 /* training_bengali_BD.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173AB0F3E0B6400D19B38 /* training_bengali_BD.txt */; };
 		33E173CC0F3E0B6400D19B38 /* training_bengali_bn.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173AC0F3E0B6400D19B38 /* training_bengali_bn.txt */; };
@@ -368,7 +370,6 @@
 		33E173CE0F3E0B6400D19B38 /* training_czech_CS.COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 33E173AE0F3E0B6400D19B38 /* training_czech_CS.COPYING */; };
 		33E173CF0F3E0B6400D19B38 /* training_czech_CS.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173AF0F3E0B6400D19B38 /* training_czech_CS.txt */; };
 		33E173D00F3E0B6400D19B38 /* training_danish_DK.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173B00F3E0B6400D19B38 /* training_danish_DK.txt */; };
-		33E173D10F3E0B6400D19B38 /* training_danish_DK.txt.bak in Resources */ = {isa = PBXBuildFile; fileRef = 33E173B10F3E0B6400D19B38 /* training_danish_DK.txt.bak */; };
 		33E173D20F3E0B6400D19B38 /* training_dutch_NL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173B20F3E0B6400D19B38 /* training_dutch_NL.txt */; };
 		33E173D30F3E0B6400D19B38 /* training_english_GB.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173B30F3E0B6400D19B38 /* training_english_GB.txt */; };
 		33E173D40F3E0B6400D19B38 /* training_finnish_FI.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173B40F3E0B6400D19B38 /* training_finnish_FI.txt */; };
@@ -529,7 +530,7 @@
 		1948BE730C226CFD001DFA32 /* OneDimensionalFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = OneDimensionalFilter.cpp; sourceTree = "<group>"; };
 		1948BE740C226CFD001DFA32 /* OneDimensionalFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = OneDimensionalFilter.h; sourceTree = "<group>"; };
 		1948BE750C226CFD001DFA32 /* Parameters.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Parameters.h; sourceTree = "<group>"; };
-		1948BE760C226CFD001DFA32 /* PinYinConversionHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PinYinConversionHelper.cpp; sourceTree = "<group>"; };
+		1948BE760C226CFD001DFA32 /* PinYinConversionHelper.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; path = PinYinConversionHelper.cpp; sourceTree = "<group>"; };
 		1948BE770C226CFD001DFA32 /* PinYinConversionHelper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PinYinConversionHelper.h; sourceTree = "<group>"; };
 		1948BE780C226CFD001DFA32 /* SCENode.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = SCENode.cpp; sourceTree = "<group>"; };
 		1948BE790C226CFD001DFA32 /* SCENode.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SCENode.h; sourceTree = "<group>"; };
@@ -771,11 +772,12 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		3306E0200FFD1CE60017324C /* PPMPYLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PPMPYLanguageModel.cpp; sourceTree = "<group>"; };
 		3306E0210FFD1CE60017324C /* PPMPYLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPMPYLanguageModel.h; sourceTree = "<group>"; };
-		33ABFEC40FC379EA00EA2BA5 /* ButtonMultiPress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ButtonMultiPress.cpp; path = ../DasherCore/ButtonMultiPress.cpp; sourceTree = SOURCE_ROOT; };
-		33ABFEC50FC379EA00EA2BA5 /* ButtonMultiPress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ButtonMultiPress.h; path = ../DasherCore/ButtonMultiPress.h; sourceTree = SOURCE_ROOT; };
+		335DB0FA100B332C006DB155 /* alphabet.spyDict.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.spyDict.xml; sourceTree = "<group>"; };
+		335DB100100B3358006DB155 /* training_spyDict.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_spyDict.txt; sourceTree = "<group>"; };
+		33ABFEC40FC379EA00EA2BA5 /* ButtonMultiPress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ButtonMultiPress.cpp; sourceTree = "<group>"; };
+		33ABFEC50FC379EA00EA2BA5 /* ButtonMultiPress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonMultiPress.h; sourceTree = "<group>"; };
 		33E173A70F3E0B6400D19B38 /* Makefile.am */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
 		33E173A80F3E0B6400D19B38 /* training_albanian_SQ.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_albanian_SQ.txt; sourceTree = "<group>"; };
-		33E173A90F3E0B6400D19B38 /* training_albanian_SQ.txt.old */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_albanian_SQ.txt.old; sourceTree = "<group>"; };
 		33E173AA0F3E0B6400D19B38 /* training_basque_EU.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_basque_EU.txt; sourceTree = "<group>"; };
 		33E173AB0F3E0B6400D19B38 /* training_bengali_BD.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_bengali_BD.txt; sourceTree = "<group>"; };
 		33E173AC0F3E0B6400D19B38 /* training_bengali_bn.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_bengali_bn.txt; sourceTree = "<group>"; };
@@ -783,7 +785,6 @@
 		33E173AE0F3E0B6400D19B38 /* training_czech_CS.COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_czech_CS.COPYING; sourceTree = "<group>"; };
 		33E173AF0F3E0B6400D19B38 /* training_czech_CS.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_czech_CS.txt; sourceTree = "<group>"; };
 		33E173B00F3E0B6400D19B38 /* training_danish_DK.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_danish_DK.txt; sourceTree = "<group>"; };
-		33E173B10F3E0B6400D19B38 /* training_danish_DK.txt.bak */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_danish_DK.txt.bak; sourceTree = "<group>"; };
 		33E173B20F3E0B6400D19B38 /* training_dutch_NL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_dutch_NL.txt; sourceTree = "<group>"; };
 		33E173B30F3E0B6400D19B38 /* training_english_GB.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_english_GB.txt; sourceTree = "<group>"; };
 		33E173B40F3E0B6400D19B38 /* training_finnish_FI.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_finnish_FI.txt; sourceTree = "<group>"; };
@@ -830,8 +831,6 @@
 		080E96DDFE201D6D7F000001 /* Mac OS X Classes */ = {
 			isa = PBXGroup;
 			children = (
-				33ABFEC40FC379EA00EA2BA5 /* ButtonMultiPress.cpp */,
-				33ABFEC50FC379EA00EA2BA5 /* ButtonMultiPress.h */,
 				193731A70C8586F20022CBC7 /* config.h */,
 				19C1AE810B130F18005C68D3 /* COSXMouseInput.h */,
 				191180E90B0FC91A001CB987 /* COSXSettingsStore.h */,
@@ -933,6 +932,8 @@
 				1948BE070C226CFC001DFA32 /* AutoSpeedControl.h */,
 				1948BE080C226CFC001DFA32 /* BasicLog.cpp */,
 				1948BE090C226CFC001DFA32 /* BasicLog.h */,
+				33ABFEC40FC379EA00EA2BA5 /* ButtonMultiPress.cpp */,
+				33ABFEC50FC379EA00EA2BA5 /* ButtonMultiPress.h */,
 				1948BE0A0C226CFC001DFA32 /* CannaConversionHelper.cpp */,
 				1948BE0B0C226CFC001DFA32 /* CannaConversionHelper.h */,
 				1948BE0C0C226CFC001DFA32 /* CircleStartHandler.cpp */,
@@ -1107,6 +1108,7 @@
 		19BEF2CD0C228F7300275D06 /* alphabets */ = {
 			isa = PBXGroup;
 			children = (
+				335DB0FA100B332C006DB155 /* alphabet.spyDict.xml */,
 				19BEF2CF0C228F7300275D06 /* alphabet-nest.xsl */,
 				19BEF2D00C228F7300275D06 /* alphabet-nest2.xsl */,
 				19BEF2D10C228F7300275D06 /* alphabet.abc.xml */,
@@ -1350,9 +1352,9 @@
 		33E173A60F3E0B6400D19B38 /* training */ = {
 			isa = PBXGroup;
 			children = (
+				335DB100100B3358006DB155 /* training_spyDict.txt */,
 				33E173A70F3E0B6400D19B38 /* Makefile.am */,
 				33E173A80F3E0B6400D19B38 /* training_albanian_SQ.txt */,
-				33E173A90F3E0B6400D19B38 /* training_albanian_SQ.txt.old */,
 				33E173AA0F3E0B6400D19B38 /* training_basque_EU.txt */,
 				33E173AB0F3E0B6400D19B38 /* training_bengali_BD.txt */,
 				33E173AC0F3E0B6400D19B38 /* training_bengali_bn.txt */,
@@ -1360,7 +1362,6 @@
 				33E173AE0F3E0B6400D19B38 /* training_czech_CS.COPYING */,
 				33E173AF0F3E0B6400D19B38 /* training_czech_CS.txt */,
 				33E173B00F3E0B6400D19B38 /* training_danish_DK.txt */,
-				33E173B10F3E0B6400D19B38 /* training_danish_DK.txt.bak */,
 				33E173B20F3E0B6400D19B38 /* training_dutch_NL.txt */,
 				33E173B30F3E0B6400D19B38 /* training_english_GB.txt */,
 				33E173B40F3E0B6400D19B38 /* training_finnish_FI.txt */,
@@ -1709,7 +1710,6 @@
 				19BEF41D0C22922400275D06 /* controllabels.xml in Resources */,
 				33E173C70F3E0B6400D19B38 /* Makefile.am in Resources */,
 				33E173C80F3E0B6400D19B38 /* training_albanian_SQ.txt in Resources */,
-				33E173C90F3E0B6400D19B38 /* training_albanian_SQ.txt.old in Resources */,
 				33E173CA0F3E0B6400D19B38 /* training_basque_EU.txt in Resources */,
 				33E173CB0F3E0B6400D19B38 /* training_bengali_BD.txt in Resources */,
 				33E173CC0F3E0B6400D19B38 /* training_bengali_bn.txt in Resources */,
@@ -1717,7 +1717,6 @@
 				33E173CE0F3E0B6400D19B38 /* training_czech_CS.COPYING in Resources */,
 				33E173CF0F3E0B6400D19B38 /* training_czech_CS.txt in Resources */,
 				33E173D00F3E0B6400D19B38 /* training_danish_DK.txt in Resources */,
-				33E173D10F3E0B6400D19B38 /* training_danish_DK.txt.bak in Resources */,
 				33E173D20F3E0B6400D19B38 /* training_dutch_NL.txt in Resources */,
 				33E173D30F3E0B6400D19B38 /* training_english_GB.txt in Resources */,
 				33E173D40F3E0B6400D19B38 /* training_finnish_FI.txt in Resources */,
@@ -1739,6 +1738,8 @@
 				33E173E40F3E0B6400D19B38 /* training_swedish_SE.txt in Resources */,
 				33E173E50F3E0B6400D19B38 /* training_turkish_TR.txt in Resources */,
 				33E173E60F3E0B6400D19B38 /* training_welsh_GB.txt in Resources */,
+				335DB0FB100B332C006DB155 /* alphabet.spyDict.xml in Resources */,
+				335DB101100B3358006DB155 /* training_spyDict.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1846,6 +1847,7 @@
 				33FC93390FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp in Sources */,
 				33FC93430FEFA2FB00A9F08D /* FrameRate.cpp in Sources */,
 				3306E0220FFD1CE60017324C /* PPMPYLanguageModel.cpp in Sources */,
+				335DB122100B3606006DB155 /* PinYinConversionHelper.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1961,6 +1963,7 @@
 		198D19FE08965C4800CE3CC9 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 			};
 			name = Development;
 		};
@@ -1969,12 +1972,14 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
 				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 			};
 			name = Deployment;
 		};
 		198D1A0008965C4800CE3CC9 /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 			};
 			name = Default;
 		};

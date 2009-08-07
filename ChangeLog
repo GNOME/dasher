@@ -1,3 +1,8 @@
+2009-08-07  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* MacOSX build now includes Mandarin Dasher training texts,
+	  PinYinConversionHelper.
+
 2009-08-06  Patrick Welche <prlw1@cam.ac.uk>
 
 	* Use GtkBuilder instead of Glade, removing last vestiges of
