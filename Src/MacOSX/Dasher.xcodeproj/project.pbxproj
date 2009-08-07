@@ -358,6 +358,8 @@
 		3306E0230FFD1CE60017324C /* PPMPYLanguageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 3306E0210FFD1CE60017324C /* PPMPYLanguageModel.h */; };
 		3306E1F70FFE6CAD0017324C /* Trainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3306E1F50FFE6CAD0017324C /* Trainer.cpp */; };
 		3306E1F80FFE6CAD0017324C /* Trainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3306E1F60FFE6CAD0017324C /* Trainer.h */; };
+		3306E33D0FFFB9880017324C /* MandarinAlphMgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3306E33B0FFFB9880017324C /* MandarinAlphMgr.cpp */; };
+		3306E33E0FFFB9880017324C /* MandarinAlphMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 3306E33C0FFFB9880017324C /* MandarinAlphMgr.h */; };
 		335DB0FB100B332C006DB155 /* alphabet.spyDict.xml in Resources */ = {isa = PBXBuildFile; fileRef = 335DB0FA100B332C006DB155 /* alphabet.spyDict.xml */; };
 		335DB101100B3358006DB155 /* training_spyDict.txt in Resources */ = {isa = PBXBuildFile; fileRef = 335DB100100B3358006DB155 /* training_spyDict.txt */; };
 		335DB122100B3606006DB155 /* PinYinConversionHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE760C226CFD001DFA32 /* PinYinConversionHelper.cpp */; };
@@ -776,6 +778,8 @@
 		3306E0210FFD1CE60017324C /* PPMPYLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPMPYLanguageModel.h; sourceTree = "<group>"; };
 		3306E1F50FFE6CAD0017324C /* Trainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Trainer.cpp; sourceTree = "<group>"; };
 		3306E1F60FFE6CAD0017324C /* Trainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trainer.h; sourceTree = "<group>"; };
+		3306E33B0FFFB9880017324C /* MandarinAlphMgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MandarinAlphMgr.cpp; sourceTree = "<group>"; };
+		3306E33C0FFFB9880017324C /* MandarinAlphMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MandarinAlphMgr.h; sourceTree = "<group>"; };
 		335DB0FA100B332C006DB155 /* alphabet.spyDict.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.spyDict.xml; sourceTree = "<group>"; };
 		335DB100100B3358006DB155 /* training_spyDict.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_spyDict.txt; sourceTree = "<group>"; };
 		33ABFEC40FC379EA00EA2BA5 /* ButtonMultiPress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ButtonMultiPress.cpp; sourceTree = "<group>"; };
@@ -1006,6 +1010,8 @@
 				1948BE6B0C226CFD001DFA32 /* ModuleManager.cpp */,
 				1948BE6C0C226CFD001DFA32 /* ModuleManager.h */,
 				1948BE6D0C226CFD001DFA32 /* NodeCreationManager.cpp */,
+				3306E33B0FFFB9880017324C /* MandarinAlphMgr.cpp */,
+				3306E33C0FFFB9880017324C /* MandarinAlphMgr.h */,
 				1948BE6E0C226CFD001DFA32 /* NodeCreationManager.h */,
 				1948BE6F0C226CFD001DFA32 /* NodeManager.h */,
 				1948BE710C226CFD001DFA32 /* OneButtonFilter.cpp */,
@@ -1507,6 +1513,7 @@
 				33FC933A0FEFA2C900A9F08D /* TwoPushDynamicFilter.h in Headers */,
 				3306E0230FFD1CE60017324C /* PPMPYLanguageModel.h in Headers */,
 				3306E1F80FFE6CAD0017324C /* Trainer.h in Headers */,
+				3306E33E0FFFB9880017324C /* MandarinAlphMgr.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1854,8 +1861,9 @@
 				33FC93390FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp in Sources */,
 				33FC93430FEFA2FB00A9F08D /* FrameRate.cpp in Sources */,
 				3306E0220FFD1CE60017324C /* PPMPYLanguageModel.cpp in Sources */,
-				335DB122100B3606006DB155 /* PinYinConversionHelper.cpp in Sources */,
 				3306E1F70FFE6CAD0017324C /* Trainer.cpp in Sources */,
+				3306E33D0FFFB9880017324C /* MandarinAlphMgr.cpp in Sources */,
+				335DB122100B3606006DB155 /* PinYinConversionHelper.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

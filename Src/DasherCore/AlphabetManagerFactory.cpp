@@ -2,6 +2,7 @@
 #include "../Common/Common.h"
 
 #include "AlphabetManagerFactory.h"
+#include "MandarinAlphMgr.h"
 #include "DasherInterfaceBase.h"
 #include "LanguageModelling/PPMLanguageModel.h"
 #include "LanguageModelling/WordLanguageModel.h"
@@ -105,7 +106,11 @@ CAlphabetManagerFactory::CAlphabetManagerFactory(CDasherInterfaceBase *pInterfac
   // TODO: Tell the alphabet manager about the alphabet here, so we
   // don't end up having to duck out to the NCM all the time
   
-  m_pAlphabetManager = new CAlphabetManager(pInterface, pNCManager, m_pLanguageModel, m_iLearnContext,m_iConversionID);
+  //(ACL) Modify AlphabetManager for Mandarin Dasher
+  if (m_iConversionID == 2)
+	m_pAlphabetManager = new CMandarinAlphMgr(pInterface, pNCManager, m_pLanguageModel, m_iLearnContext);
+  else
+    m_pAlphabetManager = new CAlphabetManager(pInterface, pNCManager, m_pLanguageModel, m_iLearnContext);
 }
 
 CAlphabetManagerFactory::~CAlphabetManagerFactory() {

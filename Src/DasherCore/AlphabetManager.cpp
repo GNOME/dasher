@@ -45,14 +45,11 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CAlphabetManager::CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel, CLanguageModel::Context iLearnContext, int iConversionID) 
+CAlphabetManager::CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel, CLanguageModel::Context iLearnContext) 
   : CNodeManager(0), m_pLanguageModel(pLanguageModel), m_pNCManager(pNCManager) {
   m_pInterface = pInterface;
 
   m_iLearnContext = iLearnContext;
-
-  //Added for Mandarin Dasher
-  m_iConversionID = iConversionID;
 
 }
 
@@ -122,21 +119,7 @@ CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUp
   pNodeUserData->iPhase = 0;
   pNodeUserData->iSymbol = iSymbol;
 
-
-
-  //Added for Mandarin Dasher
-  if((m_iConversionID==2)&&(pParent)){
-    CConversionManager::SConversionData *pParentConversionData = static_cast<CConversionManager::SConversionData *>(pParent->m_pUserData);
-  
-    pNodeUserData->iContext = m_pLanguageModel->CloneContext(pParentConversionData->iContext);
-    
-  }
-  else if(m_iConversionID==2){
-    pNodeUserData->iContext = m_pLanguageModel->CreateEmptyContext();
-  }
-  else
-    pNodeUserData->iContext = iContext;
-
+  pNodeUserData->iContext = iContext;
 
   pNodeUserData->pLanguageModel = m_pLanguageModel;
 
@@ -223,17 +206,22 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CDasherNode *pParent, symbol iSy
 	  ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]);
 #endif
 
+  return CreateSymbolNode(pParent, iSymbol, iLbnd, iHbnd, iExistingSymbol, pExistingChild);
+}
+
+CLanguageModel::Context CAlphabetManager::CreateSymbolContext(SAlphabetData *pParentData, symbol iSymbol)
+{
+  CLanguageModel::Context iContext = m_pLanguageModel->CloneContext(pParentData->iContext);
+  m_pLanguageModel->EnterSymbol(iContext, iSymbol); // TODO: Don't use symbols?
+  return iContext;
+}	
+
+CDasherNode *CAlphabetManager::CreateSymbolNode(CDasherNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd, symbol iExistingSymbol, CDasherNode *pExistingChild) {
 
   SAlphabetData *pParentData = static_cast<SAlphabetData *>(pParent->m_pUserData);
   CDasherNode *pNewNode = NULL;
 
-  
-  //Modified for Mandarin Dasher
-
-  //The following logic switch allows punctuation nodes in Mandarin to be treated in the same way as English (i.e. display and populate next round) instead of invoking a conversion node
-
-  if((m_iConversionID!=2)||((m_iConversionID==2)&&(iSymbol>1288))){
-    //Does not invoke conversion node
+  //Does not invoke conversion node
 
   // TODO: Better way of specifying alternate roots
   // TODO: Building with existing node
@@ -294,32 +282,10 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CDasherNode *pParent, symbol iSy
       pNodeUserData->iOffset = pParentData->iOffset + 1;
       pNodeUserData->iPhase = iPhase;
       pNodeUserData->iSymbol = iSymbol;
+          
+	pNodeUserData->iContext = CreateSymbolContext(pParentData, iSymbol);
       
-      pNodeUserData->pLanguageModel = pParentData->pLanguageModel; // TODO: inconsistent with above?
-      
-
-      //Context carry-over. This code may worth looking at debug      
-      if(m_iConversionID==2){     
-	pNodeUserData->iContext = m_pLanguageModel->CloneContext(pParentData->iContext);
-      }
-      else{
-	CLanguageModel::Context iContext;
-	iContext = m_pLanguageModel->CloneContext(pParentData->iContext);
-	m_pLanguageModel->EnterSymbol(iContext, iSymbol); // TODO: Don't use symbols?
-	
-	pNodeUserData->iContext = iContext;
-      }
-      
-    }
-  }
-  
-  //modified for Mandarin dasher
-  else{    
-    
-    pNewNode = m_pNCManager->GetRoot(2, pParent, iLbnd, iHbnd, &(pParentData->iOffset));
-    
-    static_cast<SAlphabetData *>(pNewNode->m_pUserData)->iSymbol = iSymbol;
-    
+    pNodeUserData->pLanguageModel = pParentData->pLanguageModel; // TODO: inconsistent with above?
   }
   
   return pNewNode;
@@ -529,8 +495,7 @@ CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode) {
 void CAlphabetManager::SetFlag(CDasherNode *pNode, int iFlag, bool bValue) {
   switch(iFlag) {
   case NF_COMMITTED:
-    if(bValue && !pNode->GetFlag(NF_GAME) && m_pInterface->GetBoolParameter(BP_LM_ADAPTIVE)
-       && m_iConversionID!=2)
+    if(bValue && !pNode->GetFlag(NF_GAME) && m_pInterface->GetBoolParameter(BP_LM_ADAPTIVE))
       static_cast<SAlphabetData *>(pNode->m_pUserData)->pLanguageModel->LearnSymbol(m_iLearnContext, static_cast<SAlphabetData *>(pNode->m_pUserData)->iSymbol);
     break;
   }

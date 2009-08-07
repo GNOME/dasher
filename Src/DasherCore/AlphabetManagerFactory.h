@@ -62,7 +62,7 @@ namespace Dasher {
     CLanguageModel::Context m_iLearnContext; // Used to add data to model as it is entered
     CAlphabet *m_pAlphabet;        // pointer to the alphabet
     CAlphabet *m_pCHAlphabet;      // pointer to the Mandarin alphabet
-	CTrainer *m_pTrainer;
+    CTrainer *m_pTrainer;
 
     int m_iConversionID;
   };

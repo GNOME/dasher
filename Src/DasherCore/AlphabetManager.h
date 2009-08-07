@@ -44,7 +44,7 @@ namespace Dasher {
   class CAlphabetManager : public CNodeManager {
   public:
 
-    CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel, CLanguageModel::Context iLearnContext, int iConversionID);
+    CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel, CLanguageModel::Context iLearnContext);
 
     ///
     /// Does nothing - alphabet manager isn't reference counted.
@@ -100,6 +100,12 @@ namespace Dasher {
       int iOffset;
     };
 
+  protected:
+	virtual CDasherNode *CreateSymbolNode(CDasherNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd, symbol iExistingSymbol, CDasherNode *pExistingChild);
+    virtual CLanguageModel::Context CreateSymbolContext(SAlphabetData *pParentData, symbol iSymbol);
+
+    CLanguageModel *m_pLanguageModel;
+	CNodeCreationManager *m_pNCManager;
 
   private:
     
@@ -110,12 +116,8 @@ namespace Dasher {
     CDasherNode *CreateGroupNode(CDasherNode *pParent, SGroupInfo *pInfo, std::vector<unsigned int> *pCProb, unsigned int iStart, unsigned int iEnd, unsigned int iMin, unsigned int iMax);
     CDasherNode *CreateSymbolNode(CDasherNode *pParent, symbol iSymbol, std::vector<unsigned int> *pCProb, unsigned int iStart, unsigned int iEnd, unsigned int iMin, unsigned int iMax, symbol iExistingSymbol, CDasherNode *pExistingChild);
 
-    CLanguageModel *m_pLanguageModel;
-    CNodeCreationManager *m_pNCManager;
     CLanguageModel::Context m_iLearnContext;
     CDasherInterfaceBase *m_pInterface;
-    //Added for Mandarin Dasher
-    int m_iConversionID;
 
   };
   /// @}

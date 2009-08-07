@@ -29,8 +29,6 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
 
   delete pTrainer;
 
-  int iConversionID(m_pAlphabetManagerFactory->GetConversionID());
-
 #ifndef _WIN32_WCE
   m_pControlManager = new CControlManager(this);
 #else
@@ -39,7 +37,7 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
   m_pConversionManagerFactory = new CConversionManagerFactory(pEventHandler,
 							      pSettingsStore,
 							      this,
-							      iConversionID,
+							      m_pAlphabetManagerFactory->GetConversionID(),
 							      pAlphIO,
 							      m_pAlphabet);
 }

@@ -86,6 +86,8 @@ libdashercore_a_SOURCES = \
 		GnomeSettingsStore.cpp \
 		GnomeSettingsStore.h \
 		InputFilter.h \
+		MandarinAlphMgr.cpp \
+		MandarinAlphMgr.h \
 		MemoryLeak.cpp \
 		MemoryLeak.h \
 		ModuleManager.cpp \

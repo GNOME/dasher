@@ -3,6 +3,8 @@
 	* MacOSX build now includes Mandarin Dasher training texts,
 	  PinYinConversionHelper.
 	* Move training code from CAlphabet into CTrainer.
+	* Refactor Mandarin changes to CAlphabetManager into CMandarinAlphMgr
+	  subclass.
 
 2009-08-06  Patrick Welche <prlw1@cam.ac.uk>
 
