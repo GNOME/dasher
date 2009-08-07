@@ -26,7 +26,7 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
   CTrainer *pTrainer =  m_pAlphabetManagerFactory->GetTrainer();
 
   pTrainer->Train(GetStringParameter(SP_USER_LOC), GetStringParameter(SP_SYSTEM_LOC));
-  
+
   delete pTrainer;
 
   int iConversionID(m_pAlphabetManagerFactory->GetConversionID());

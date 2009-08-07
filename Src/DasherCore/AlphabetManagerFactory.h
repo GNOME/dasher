@@ -63,7 +63,7 @@ namespace Dasher {
     CAlphabet *m_pAlphabet;        // pointer to the alphabet
     CAlphabet *m_pCHAlphabet;      // pointer to the Mandarin alphabet
 	CTrainer *m_pTrainer;
-	  
+
     int m_iConversionID;
   };
   /// @}  

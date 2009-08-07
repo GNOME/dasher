@@ -26,11 +26,11 @@ CTrainer::CTrainer(CLanguageModel *pLanguageModel, CAlphabet *pAlphabet)
   : CTrainingHelper(pAlphabet), m_pLanguageModel(pLanguageModel) {
 }
 
-void CTrainer::Train(const std::string &strUserLoc, 
+void CTrainer::Train(const std::string &strUserLoc,
 				 const std::string &strSystemLoc) {
-	
+
 	std::string strTrainingFile = m_pAlphabet->GetTrainingFile();
-	
+
 	if (strTrainingFile.empty()) {
 #ifdef DEBUG
 		std::cerr << "Trying to load empty training file (location)" << std::endl;
