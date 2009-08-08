@@ -3,6 +3,8 @@
 	* Tidy up ConversionManager and use a single instance per Factory.
 	* Make CConversionHelper a subclass of CConversionManager, rather than a
 	  delegate.
+	* Make both one-button dynamic modes operable by mouse if extra backoff
+	  buttons are disabled.
 
 2009-08-07  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 

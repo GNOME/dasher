@@ -95,6 +95,24 @@ bool COneButtonDynamicFilter::DecorateView(CDasherView *pView) {
   return bRV;
 }
 
+void COneButtonDynamicFilter::KeyDown(int Time, int iId, CDasherView *pDasherView, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {
+  if (iId == 100 && !GetBoolParameter(BP_BACKOFF_BUTTON))
+    //mouse click - will be ignored by superclass method.
+    //simulate press of button 2...
+    CButtonMultiPress::KeyDown(Time, 2, pDasherView, pModel, pUserLog);
+  else
+    CInputFilter::KeyDown(Time, iId, pDasherView, pModel, pUserLog, bPos, iX, iY);
+}
+
+void COneButtonDynamicFilter::KeyUp(int Time, int iId, CDasherView *pDasherView, CDasherModel *pModel, bool bPos, int iX, int iY) {
+  if (iId == 100 && !GetBoolParameter(BP_BACKOFF_BUTTON))
+    //mouse click - will be ignored by superclass method.
+    //simulate press of button 2...
+    CButtonMultiPress::KeyUp(Time, 2, pDasherView, pModel);
+  else
+    CInputFilter::KeyUp(Time, iId, pDasherView, pModel, bPos, iX, iY);
+}
+
 bool COneButtonDynamicFilter::TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) {
   return m_pDasherModel->OneStepTowards(m_iTargetX[m_iTarget], m_iTargetY[m_iTarget], Time, pAdded, pNumDeleted);
 }

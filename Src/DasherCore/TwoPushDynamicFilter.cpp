@@ -171,6 +171,24 @@ void CTwoPushDynamicFilter::HandleEvent(Dasher::CEvent * pEvent)
 
 };
 
+void CTwoPushDynamicFilter::KeyDown(int Time, int iId, CDasherView *pDasherView, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {
+  if (iId == 100 && !GetBoolParameter(BP_BACKOFF_BUTTON))
+    //mouse click - will be ignored by superclass method.
+    //simulate press of button 2...
+    CDynamicFilter::KeyDown(Time, 2, pDasherView, pModel, pUserLog);
+  else
+    CInputFilter::KeyDown(Time, iId, pDasherView, pModel, pUserLog, bPos, iX, iY);
+}
+
+void CTwoPushDynamicFilter::KeyUp(int Time, int iId, CDasherView *pDasherView, CDasherModel *pModel, bool bPos, int iX, int iY) {
+  if (iId == 100 && !GetBoolParameter(BP_BACKOFF_BUTTON))
+  //mouse click - will be ignored by superclass method.
+  //simulate press of button 2...
+    CDynamicFilter::KeyUp(Time, 2, pDasherView, pModel);
+  else
+    CInputFilter::KeyUp(Time, iId, pDasherView, pModel, bPos, iX, iY);
+}
+
 void CTwoPushDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) {
   // Types:
   // 0 = ordinary click
