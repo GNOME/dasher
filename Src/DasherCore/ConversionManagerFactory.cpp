@@ -30,8 +30,9 @@ CConversionManagerFactory::CConversionManagerFactory(Dasher::CEventHandler *pEve
   m_pAlphabet = pAlphabet;
 
   // TODO: Need to deal with the case of GetHelper returning NULL
-  m_pHelper = GetHelper(pEventHandler, pSettingsStore, iID, pCAlphIO);
-
+  CConversionHelper *pHelper = GetHelper(pEventHandler, pSettingsStore, iID, pCAlphIO);
+  m_pMgr = new CConversionManager(m_pNCManager, pHelper, m_pAlphabet);
+	
   //To clean up:
   // TODO: These shouldn't be here - need to figure out exactly how it all works
   pagecount = 0; // TODO: Doesn't actually appear to do anything
@@ -39,12 +40,11 @@ CConversionManagerFactory::CConversionManagerFactory(Dasher::CEventHandler *pEve
 }
 
 CDasherNode *CConversionManagerFactory::GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData) {
-  CConversionManager *pConversionManager(new CConversionManager(m_pNCManager, m_pHelper, m_pAlphabet));
+  return m_pMgr->GetRoot(pParent, iLower, iUpper, pUserData);
+}
 
-  CDasherNode *pNewRoot = pConversionManager->GetRoot(pParent, iLower, iUpper, pUserData);
-  pConversionManager->Unref();
-
-  return pNewRoot;
+CConversionManagerFactory::~CConversionManagerFactory() {
+  m_pMgr->Unref();
 }
 
 // TODO: Japanese/Chinese are currently disabled in Win32 - see 'exclude from build' on individual files' property pages, plus preprocessor defines

@@ -44,7 +44,6 @@ CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, CConver
   m_pNCManager = pNCManager;
   m_pHelper = pHelper;
   m_pAlphabet = pAlphabet;
-  m_pRoot = NULL;
    
   //DOESN'T SEEM INTRINSIC
   //and check why pHelper may be empty
@@ -58,9 +57,6 @@ CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, CConver
 
   m_iRefCount = 1;
 
-  m_bTreeBuilt = false; 
-
-
   //Testing for alphabet details, delete if needed: 
   /*
   int alphSize = pNCManager->GetAlphabet()->GetNumberSymbols();
@@ -69,12 +65,6 @@ CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, CConver
     std::cout<<"symbol: "<<i<<"    display text:"<<pNCManager->GetAlphabet()->GetDisplayText(i)<<std::endl;
   */
 }
-
-CConversionManager::~CConversionManager(){  
-  if(m_pRoot && *m_pRoot)
-    (*m_pRoot)->Unref();
-}
-
 
 CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData) {
   CDasherNode *pNewNode;

@@ -1,3 +1,7 @@
+2009-08-08  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Tidy up ConversionManager and use a single instance per Factory.
+
 2009-08-07  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* MacOSX build now includes Mandarin Dasher training texts,

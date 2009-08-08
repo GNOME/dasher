@@ -2,6 +2,7 @@
 #define __conversion_manager_factory_h__
 
 #include "ConversionHelper.h"
+#include "ConversionManager.h"
 //#include "DasherModel.h"
 #include "LanguageModelling/LanguageModel.h" // Urgh - we really shouldn't need to know about language models here
 
@@ -9,6 +10,7 @@
 
 namespace Dasher {
   class CDasherModel; // Forward declaraion
+  class CConversionManager;
 
   /// \ingroup Model
   /// @{
@@ -16,14 +18,15 @@ namespace Dasher {
   public:
     CConversionManagerFactory(Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, CNodeCreationManager *pNCManager, int iID, Dasher::CAlphIO *pCAlphIO, CAlphabet *pAlphabet);
     virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData);
-
+    ~CConversionManagerFactory();
+	  
   private:
     CConversionHelper *GetHelper(Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, int iID, Dasher::CAlphIO *pCAlphIO);
 
     CConversionHelper *GetHelperChinese(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, Dasher::CAlphIO *pCAlphIO);
 
     CNodeCreationManager *m_pNCManager;
-    CConversionHelper *m_pHelper;
+    CConversionManager *m_pMgr;
     CAlphabet *m_pAlphabet;
     
     int m_iCMCount;

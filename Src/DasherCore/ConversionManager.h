@@ -65,7 +65,6 @@ namespace Dasher {
   public:
     // TODO: We shouldn't need to know about this stuff, but the code is somewhat in knots at the moment
     CConversionManager(CNodeCreationManager *pNCManager, CConversionHelper *pHelper, CAlphabet *pAlphabet);
-    ~CConversionManager();
 
     ///
     /// Increment reference count
@@ -181,18 +180,6 @@ namespace Dasher {
     ///
     
     void RecursiveDumpTree(SCENode *pCurrent, unsigned int iDepth);
-
-    ///
-    /// Flag whether the tree has already been built
-    ///
-
-    bool m_bTreeBuilt;
-
-    ///
-    /// Root of the tree (TODO: Why is this a double pointer?)
-    ///
-
-    SCENode **m_pRoot;
 
     ///
     /// Dasher model (TODO: We ideally shouldn't need to know about this)
