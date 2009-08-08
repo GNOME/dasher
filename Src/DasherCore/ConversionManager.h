@@ -21,15 +21,11 @@
 #ifndef __conversion_manager_h__
 #define __conversion_manager_h__
 
-#include "ConversionHelper.h"
 #include "AlphabetManager.h"
-#include "DasherModel.h"
 #include "DasherTypes.h"
 #include "LanguageModelling/LanguageModel.h" // Urgh - we really shouldn't need to know about language models here
 #include "NodeManager.h"
 #include "SCENode.h"
-
-#include <vector>
 
 // TODO: Conversion manager needs to deal with offsets and contexts - Will: See Phil for an explanation.
 
@@ -64,7 +60,7 @@ namespace Dasher {
   class CConversionManager : public CNodeManager {
   public:
     // TODO: We shouldn't need to know about this stuff, but the code is somewhat in knots at the moment
-    CConversionManager(CNodeCreationManager *pNCManager, CConversionHelper *pHelper, CAlphabet *pAlphabet);
+    CConversionManager(CNodeCreationManager *pNCManager, CAlphabet *pAlphabet);
 
     ///
     /// Increment reference count
@@ -95,17 +91,6 @@ namespace Dasher {
     ///
 
     virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData);
-
-    ///
-    /// Calculate sizes for each of the children - default
-    /// implementation assigns decending probabilities in a power law
-    /// fashion (so assumes ordering), but specific subclasses are
-    /// free to implement their own behaviour. The only restriction is
-    /// that sizes should be posivive and sum to the appropriate
-    /// normalisation constant
-    ///
-    
-    virtual void AssignChildSizes(SCENode **pNode, CLanguageModel::Context context, int iNChildren);
 
     ///
     /// Provide children for the supplied node
@@ -152,8 +137,6 @@ namespace Dasher {
       return 0;
     }
 
-    virtual void SetFlag(CDasherNode *pNode, int iFlag, bool bValue);
-
     //TODO: REVISE
     struct SConversionData {
       symbol iSymbol;
@@ -165,50 +148,24 @@ namespace Dasher {
       int iOffset;
       //int iGameOffset;
     };
+	  
+  protected:
+	CNodeCreationManager *m_pNCManager;
+	CAlphabet *m_pAlphabet;
+	
   private:
-
-    /// 
-    /// Build the conversion tree (lattice) for the given string -
-    /// evaluated late to prevent unnecessary conversions when the
-    /// children of the root node are never instantiated
-    ///
-    
-    void BuildTree(CDasherNode *pRoot);
 
     /// 
     /// Dump tree to stdout (debug)
     ///
     
     void RecursiveDumpTree(SCENode *pCurrent, unsigned int iDepth);
-
-    ///
-    /// Dasher model (TODO: We ideally shouldn't need to know about this)
-    ///
-    
-    CNodeCreationManager *m_pNCManager;
-
-    ///
-    /// Language model (TODO: We don't need to know about this, surely)
-    ///
-
-    CLanguageModel *m_pLanguageModel;
-
-    ///
-    /// Conversion helper
-    ///
-    
-    CConversionHelper *m_pHelper;
-
-    CAlphabet *m_pAlphabet;
-
-    ///
-    /// Reference count 
-    ///
-
-
-    CLanguageModel::Context m_iLearnContext;
-
-    
+	  
+	///
+	/// Reference count 
+	///
+	  
+	  
     int m_iRefCount;
 
     ///

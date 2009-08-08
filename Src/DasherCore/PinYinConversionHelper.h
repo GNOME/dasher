@@ -18,7 +18,7 @@ namespace Dasher {
 class CPinYinConversionHelper : public CConversionHelper {
  public:
 
-  CPinYinConversionHelper(Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, Dasher::CAlphIO *pAlphIO, const std::string strCHAlphabetPath, Dasher::CAlphabet * pAlphabet, Dasher::CLanguageModel * pLanguageModel);
+  CPinYinConversionHelper(CNodeCreationManager *pNCManager, Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, Dasher::CAlphIO *pAlphIO, const std::string strCHAlphabetPath, Dasher::CAlphabet * pAlphabet);
   
   virtual bool Convert(const std::string &strSource, SCENode ** pRoot);
 
@@ -32,6 +32,9 @@ class CPinYinConversionHelper : public CConversionHelper {
     return m_pLanguageModel;
   }
 
+  //override to blank out learn-as-write for Mandarin Dasher
+  virtual void SetFlag(CDasherNode *pNode, int iFlag, bool bValue);
+	
  private:
      
   void TrainChPPM(CSettingsStore *pSettingsStore);

@@ -12,7 +12,8 @@
 
 #include <iostream>             //For testing 23 June 2005
 
-CCannaConversionHelper::CCannaConversionHelper(int Type, int Order) {
+CCannaConversionHelper::CCannaConversionHelper(CNodeCreationManager *pNCManager, CAlphabet *pAlphabet, int Type, int Order)
+: CConversionHelper(pNCManager, pAlphabet) {
 
   int ret;
   char *buf;

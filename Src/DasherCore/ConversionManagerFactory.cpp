@@ -2,7 +2,6 @@
 #include <config.h>
 #endif
 
-#include "ConversionManager.h"
 #include "ConversionManagerFactory.h"
 #include "DasherModel.h"
 
@@ -30,8 +29,7 @@ CConversionManagerFactory::CConversionManagerFactory(Dasher::CEventHandler *pEve
   m_pAlphabet = pAlphabet;
 
   // TODO: Need to deal with the case of GetHelper returning NULL
-  CConversionHelper *pHelper = GetHelper(pEventHandler, pSettingsStore, iID, pCAlphIO);
-  m_pMgr = new CConversionManager(m_pNCManager, pHelper, m_pAlphabet);
+  m_pMgr = GetHelper(pEventHandler, pSettingsStore, iID, pCAlphIO);
 	
   //To clean up:
   // TODO: These shouldn't be here - need to figure out exactly how it all works
@@ -49,16 +47,16 @@ CConversionManagerFactory::~CConversionManagerFactory() {
 
 // TODO: Japanese/Chinese are currently disabled in Win32 - see 'exclude from build' on individual files' property pages, plus preprocessor defines
 
-CConversionHelper *CConversionManagerFactory::GetHelper(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, int iID, Dasher::CAlphIO *pCAlphIO) {
+CConversionManager *CConversionManagerFactory::GetHelper(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, int iID, Dasher::CAlphIO *pCAlphIO) {
   switch(iID) {
   case 0: // No conversion required (shouldn't really be called)
-    return NULL;
+	return NULL; //or, new CConversionManager(m_pNCManager, pHelper, m_pAlphabet); ??
   case 1: // Japanese
 #ifdef JAPANESE
 #ifdef WIN32
     return new CIMEConversionHelper;
 #else
-    return new CCannaConversionHelper(pSettingsStore->GetLongParameter(LP_CONVERSION_TYPE), pSettingsStore->GetLongParameter(LP_CONVERSION_ORDER));
+    return new CCannaConversionHelper(m_pNCManager, m_pAlphabet, pSettingsStore->GetLongParameter(LP_CONVERSION_TYPE), pSettingsStore->GetLongParameter(LP_CONVERSION_ORDER));
 #endif
 #else
     return NULL;
@@ -67,17 +65,17 @@ CConversionHelper *CConversionManagerFactory::GetHelper(Dasher::CEventHandler *p
     return GetHelperChinese(pEventHandler, pSettingsStore, pCAlphIO);
   default:
     // TODO: Error reporting here
-    return NULL;
+    return new CConversionManager(m_pNCManager, m_pAlphabet);
   }
 }
 
-CConversionHelper *CConversionManagerFactory::GetHelperChinese(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, Dasher::CAlphIO *pCAlphIO) {
+CConversionManager *CConversionManagerFactory::GetHelperChinese(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, Dasher::CAlphIO *pCAlphIO) {
 #ifdef CHINESE
   std::string strCHAlphabetPath = pSettingsStore->GetStringParameter(SP_SYSTEM_LOC);
   strCHAlphabetPath += "/alphabet.chineseRuby.xml";
 
-  return new CPinYinConversionHelper(pEventHandler,pSettingsStore, pCAlphIO, strCHAlphabetPath, m_pAlphabet, m_pNCManager->GetLanguageModel());
+  return new CPinYinConversionHelper(m_pNCManager, pEventHandler,pSettingsStore, pCAlphIO, strCHAlphabetPath, m_pAlphabet);
 #else
-  return NULL;
+  return NULL; //or, new ConversionManager(m_pNCManager, m_pAlphabet); ??
 #endif
 }

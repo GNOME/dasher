@@ -1,6 +1,8 @@
 2009-08-08  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* Tidy up ConversionManager and use a single instance per Factory.
+	* Make CConversionHelper a subclass of CConversionManager, rather than a
+	  delegate.
 
 2009-08-07  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 

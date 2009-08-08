@@ -16,10 +16,11 @@
 
 using namespace Dasher;
 
-CPinYinConversionHelper::CPinYinConversionHelper(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, Dasher::CAlphIO *pCAlphIO, const std::string strCHAlphabetPath, CAlphabet * pAlphabet, CLanguageModel * pLanguageModel){
+CPinYinConversionHelper::CPinYinConversionHelper(CNodeCreationManager *pNCManager, Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, Dasher::CAlphIO *pCAlphIO, const std::string strCHAlphabetPath, CAlphabet * pAlphabet)
+: CConversionHelper(pNCManager,pAlphabet) {
 
   m_pPYAlphabet = pAlphabet;
-  m_pLanguageModel = static_cast<CPPMPYLanguageModel *>(pLanguageModel);
+  m_pLanguageModel = static_cast<CPPMPYLanguageModel *>(pNCManager->GetLanguageModel());
   // This section cleans initialises the Chinese character alphabet 
 
   const std::string CHAlphabet = "Chinese / 简体中文 (simplified chinese, in pin yin groups)";
@@ -231,5 +232,9 @@ void CPinYinConversionHelper::AssignSizes(SCENode **pStart, Dasher::CLanguageMod
     //    std::cout<<"Not equal! sum is "<<sumSize<<std::endl;
 //  }
 
-
-
+void CPinYinConversionHelper::SetFlag(CDasherNode *pNode, int iFlag, bool bValue)
+{
+	//Blanked out for new Mandarin Dasher, if we want to have the language model learn as one types, need to work on this part
+	if (iFlag == NF_COMMITTED && bValue) return;
+	CConversionHelper::SetFlag(pNode, iFlag, bValue);
+}

@@ -9,7 +9,7 @@
 /// \{
 class CIMEConversionHelper : public CConversionHelper {
  public:
-  CIMEConversionHelper();
+  CIMEConversionHelper(CNodeCreationManager *pNCManager, CAlphabet *pAlphabet);
   ~CIMEConversionHelper();
 
   virtual bool Convert(const std::string &strSource, std::vector<std::vector<std::string> > &vResult);

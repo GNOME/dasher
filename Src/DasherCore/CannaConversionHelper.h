@@ -11,7 +11,7 @@
 /// @{
 class CCannaConversionHelper : public CConversionHelper {
  public:
-  CCannaConversionHelper(int Type, int Order);
+  CCannaConversionHelper(CNodeCreationManager pNCManager, CAlphabet *pAlphabet, int Type, int Order);
   ~CCannaConversionHelper();
 
   virtual bool Convert(const std::string &strSource, SCENode ** pRoot, int * childCount, int CMid);
