@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-19 13:12+0200\n"
-"PO-Revision-Date: 2009-05-19 13:12+0200\n"
+"POT-Creation-Date: 2009-08-09 11:48+0200\n"
+"PO-Revision-Date: 2009-08-09 11:48+0200\n"
 "Last-Translator: Gil Forcada <gilforcada@guifi.net>\n"
 "Language-Team: catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
@@ -852,35 +852,35 @@ msgstr "Introduïu text"
 msgid "Script"
 msgstr "Script"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:132
+#: ../Src/Gtk2/dasher_action_speech.cpp:137
 msgid "Speak"
 msgstr "Pronuncieu"
 
 #. TRANSLATORS: Send all text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:145
+#: ../Src/Gtk2/dasher_action_speech.cpp:150
 msgid "All"
 msgstr "Tot"
 
 #. TRANSLATORS: Send most recently entered text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:148
+#: ../Src/Gtk2/dasher_action_speech.cpp:153
 msgid "Last"
 msgstr "Últim"
 
 #. TRANSLATORS: Repeat the last phrase sent to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:151
+#: ../Src/Gtk2/dasher_action_speech.cpp:156
 msgid "Repeat"
 msgstr "Repetiu"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:169
+#: ../Src/Gtk2/dasher_action_speech.cpp:174
 #, c-format
 msgid "Unable to initialize speech support\n"
 msgstr "No s'ha pogut inicialitzar el sistema de pronunciació\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:192
+#: ../Src/Gtk2/dasher_action_speech.cpp:197
 msgid "Unable to initialize voices\n"
 msgstr "No s'ha pogut inicialitzar les veus\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:204
+#: ../Src/Gtk2/dasher_action_speech.cpp:209
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Avís: no s'han pogut especificar els paràmetres de la pronunciació\n"
 
@@ -987,7 +987,7 @@ msgstr "Sobreescriu les opcions desades"
 #. Note to translators: This is the help string for "--help-options"
 #: ../Src/main.cc:182
 msgid "Describe \"--options\"."
-msgstr "Descriiu «--options»."
+msgstr "Descriu «--options»."
 
 #. Note to translators: This is the "--help" description of dasher.
 #: ../Src/main.cc:189
