@@ -37,6 +37,29 @@ using namespace std;
 static char THIS_FILE[] = __FILE__;
 #endif
 #endif
+static int iNumNodes = 0;
+
+int Dasher::currentNumNodeObjects() {return iNumNodes;}
+
+//TODO this used to be inline - should we make it so again?
+CDasherNode::CDasherNode(CDasherNode *pParent, int iLbnd, int iHbnd, SDisplayInfo *pDisplayInfo) {
+  // TODO: Check that these are disabled for debug builds, and that we're not shipping such a build
+  DASHER_ASSERT(iHbnd >= iLbnd);
+  DASHER_ASSERT(pDisplayInfo != NULL);
+	
+  m_pParent = pParent;  
+  m_iLbnd = iLbnd;
+  m_iHbnd = iHbnd;
+  m_pDisplayInfo = pDisplayInfo;
+  onlyChildRendered = NULL;
+	
+  // Default flags (make a definition somewhere, pass flags to constructor?)
+  m_iFlags = 0;
+	
+  m_iRefCount = 0;
+  m_iNumSymbols = 0;
+  iNumNodes++;
+}
 
 // TODO: put this back to being inlined
 CDasherNode::~CDasherNode() {
@@ -51,6 +74,7 @@ CDasherNode::~CDasherNode() {
   //  std::cout << "done." << std::endl;
 
   delete m_pDisplayInfo;
+  iNumNodes--;
 }
 
 
@@ -82,9 +106,6 @@ bool CDasherNode::NodeIsParent(CDasherNode *oldnode) const {
 
 CDasherNode *const CDasherNode::Get_node_under(int iNormalization, myint miY1, myint miY2, myint miMousex, myint miMousey) {
   myint miRange = miY2 - miY1;
-
-  // TODO: Manipulating flags in a 'get' method?
-  SetFlag(NF_ALIVE, true);
 
   ChildMap::const_iterator i;
   for(i = GetChildren().begin(); i != GetChildren().end(); i++) {

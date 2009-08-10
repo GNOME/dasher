@@ -355,8 +355,6 @@ public:
     m_bRedrawScheduled = true; 
   }; 
 
-  void CheckRedraw();
-
   std::string GetContext(int iStart, int iLength);
 
   void SetControlOffset(int iOffset);
@@ -526,7 +524,7 @@ protected:
   void ChangeAlphabet();
   void ChangeColours();
   void ChangeView();
-  void Redraw(bool bRedrawNodes);
+  void Redraw(bool bRedrawNodes, NodeQueue &nodeQueue);
   void SetupActionButtons();
   void DestroyActionButtons();
   void PositionActionButtons();

@@ -109,15 +109,17 @@ private:
   ///
   /// Render the current state of the model.
   ///
-
-  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, std::vector<std::pair<myint,bool> > *pvGamePointer);
-
+  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, NodeQueue &nodeQueue, std::vector<std::pair<myint,bool> > *pvGamePointer);
   
   ///
   /// Recursively render all nodes in a tree. Responsible for all the Render_node calls
   ///
 
-  bool RecursiveRender(CDasherNode * Render, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, std::vector<std::pair<myint,bool> > *pvGamePointer, bool bDraw,myint parent_width,int parent_color, int iDepth);
+  void RecursiveRender(CDasherNode * Render, myint y1, myint y2, int mostleft, NodeQueue &nodeQueue, std::vector<std::pair<myint,bool> > *pvGamePointer, myint parent_width,int parent_color, int iDepth);
+
+  ///Check that a node is large enough, and onscreen, to render;
+  ///calls RecursiveRender if so, or collapses the node immediately if not
+  bool CheckRender(CDasherNode * Render, myint y1, myint y2, int mostleft, NodeQueue &nodeQueue, std::vector<std::pair<myint,bool> > *pvGamePointer, myint parent_width,int parent_color, int iDepth);
 
   /// Render a single node
   /// \param Color The colour to draw it
@@ -134,7 +136,6 @@ private:
 
   int RenderNodeOutlineFast(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove); 
   int RenderNodePartFast(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove, myint iParentWidth);
-  int RenderNodeFatherFast(const int parent_color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove,myint iParentWidth, bool bVisible);
 #ifdef _WIN32
   ///
   /// FIXME - couldn't find windows version of round(double) so here's one!

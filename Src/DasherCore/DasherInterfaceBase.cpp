@@ -568,10 +568,14 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
     m_pDasherView->Screen()->SetCaptureBackground(true);
     m_pDasherView->Screen()->SetLoadBackground(true);
   }
-
-  Redraw((bChanged || m_bLastChanged) || m_bRedrawScheduled || bForceRedraw);
-
-  m_bLastChanged = bChanged;
+  
+  bForceRedraw |= m_bLastChanged;
+  m_bLastChanged = bChanged; //will also be set in Redraw if any nodes were expanded.
+	
+  //limit the number of nodes we expand per frame...
+  LimitedNodeQueue nq(max(1l,(500+GetLongParameter(LP_NODE_BUDGET))/1000)); //amortize over multiple frames
+  Redraw(bChanged || m_bRedrawScheduled || bForceRedraw, nq);
+  
   m_bRedrawScheduled = false;
 
   // This just passes the time through to the framerate tracker, so we
@@ -582,15 +586,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   bReentered=false;
 }
 
-// PRLW: this is never called.
-void CDasherInterfaceBase::CheckRedraw() {
-  if(m_bRedrawScheduled)
-    Redraw(true);
-
-  m_bRedrawScheduled = false;
-}
-
-void CDasherInterfaceBase::Redraw(bool bRedrawNodes) {
+void CDasherInterfaceBase::Redraw(bool bRedrawNodes, NodeQueue &nodeQueue) {
   // No point continuing if there's nothing to draw on...
   if(!m_pDasherView)
     return;
@@ -598,7 +594,7 @@ void CDasherInterfaceBase::Redraw(bool bRedrawNodes) {
   // Draw the nodes
   if(bRedrawNodes) {
     m_pDasherView->Screen()->SendMarker(0);
-    m_pDasherView->RenderModel(m_pDasherModel);
+	if (m_pDasherModel) m_bLastChanged |= m_pDasherModel->RenderToView(m_pDasherView,nodeQueue);
   }
 
   // Draw the decorations
@@ -680,7 +676,14 @@ void CDasherInterfaceBase::ChangeScreen(CDasherScreen *NewScreen) {
   }
 
   PositionActionButtons();
-  Redraw(true);
+  UnlimitedNodeQueue nq; //maintain budget, but allow arbitrary amount of work.
+  Redraw(true, nq); // (we're assuming resolution changes are occasional, i.e.
+	// we don't need to worry about maintaining the frame rate - so we can do
+	// as much work as necessary. We'll only do *any* if the new Screen somehow
+	// allocates pixels to nodes in a different (rather than strictly more/less
+	// generous) fashion - so this is probably more to do with the View changing
+	// (it's behaviour), rather than the Screen. But I guess it allows for future
+	// Views, and/or the View to behave differently on different aspect ratios...
 }
 
 void CDasherInterfaceBase::ChangeView() {
@@ -1146,7 +1149,8 @@ int CDasherInterfaceBase::AddLock(const std::string &strDisplay) {
   m_mapCurrentLocks[m_iNextLockID] = sNewLock;
   ++m_iNextLockID;
 
-  Redraw(false);
+  NoNodeQueue nnq; //don't allow change to expansion state.
+  Redraw(false, nnq); 
 
   return (m_iNextLockID - 1);
 }
@@ -1161,7 +1165,8 @@ void CDasherInterfaceBase::ReleaseLock(int iLockID) {
     m_mapCurrentLocks.erase(it);
   }
 
-  Redraw(false);
+  NoNodeQueue nnq; //don't allow changes to expansion state.
+  Redraw(false, nnq);
 
   if(m_mapCurrentLocks.size() == 0)
     ChangeState(TR_UNLOCK);

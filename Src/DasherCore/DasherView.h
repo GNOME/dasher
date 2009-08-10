@@ -17,6 +17,7 @@ namespace Dasher {
 #include "DasherTypes.h"
 #include "DasherComponent.h"
 #include "View/DelayedDraw.h"
+#include "NodeQueue.h"
 
 /// \defgroup View Visualisation of the model
 /// @{
@@ -119,11 +120,9 @@ public:
   /// Drawing more complex structures, generally implemented by derived class
   /// @{
 
-  void RenderModel(CDasherModel *pModel);
-
   /// Renders Dasher with mouse-dependent items
   /// \todo Clarify relationship between Render functions and probably only expose one
-  virtual bool Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, bool bRedrawDisplay, std::vector<std::pair<myint,bool> >* pvGameTargetY);
+  virtual void Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, NodeQueue &nodeQueue, bool bRedrawDisplay, std::vector<std::pair<myint,bool> >* pvGameTargetY);
 
   /// @}
 
@@ -194,7 +193,7 @@ private:
   CDasherInput *m_pInput;       // Input device abstraction
 
   /// Renders the Dasher node structure
-  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, std::vector<std::pair<myint,bool> > *pvGamePointer) = 0;
+  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, NodeQueue &nodeQueue, std::vector<std::pair<myint,bool> > *pvGamePointer) = 0;
 
 
   /// Get the co-ordinates from the input device

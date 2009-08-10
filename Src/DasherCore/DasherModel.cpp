@@ -482,9 +482,6 @@ bool CDasherModel::OneStepTowards(myint miMousex, myint miMousey, unsigned long 
   // works out next viewpoint
   Get_new_root_coords(miMousex, miMousey, iNewMin, iNewMax, iTime);
   
-  if(GetBoolParameter(BP_OLD_STYLE_PUSH))
-    OldPush(miMousex, miMousey);
-
   return UpdateBounds(iNewMin, iNewMax, iTime, pAdded, pNumDeleted);
 }
 
@@ -517,61 +514,6 @@ void CDasherModel::NewFrame(unsigned long Time) {
   GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher();
   if(m_bGameMode && pTeacher)
     pTeacher->NewFrame(Time);
-}
-
-void CDasherModel::OldPush(myint iMousex, myint iMousey) {
-  // push node under mouse
-  CDasherNode *pUnderMouse = Get_node_under_mouse(iMousex, iMousey);
-
-  Push_Node(pUnderMouse);
-
-  if(Framerate() > 4) {
-    // push node under mouse but with x coord on RHS
-    CDasherNode *pRight = Get_node_under_mouse(50, iMousey);
-    Push_Node(pRight);
-  }
-
-  if(Framerate() > 8) {
-    // push node under the crosshair
-    CDasherNode *pUnderCross = Get_node_under_crosshair();
-    Push_Node(pUnderCross);
-  }
-
-  int iRandom = RandomInt();
-
-  if(Framerate() > 8) {
-    // add some noise and push another node
-    CDasherNode *pRight = Get_node_under_mouse(50, iMousey + iRandom % 500 - 250);
-    Push_Node(pRight);
-  }
-
-  iRandom = RandomInt();
-
-  if(Framerate() > 15) {
-    // add some noise and push another node
-    CDasherNode *pRight = Get_node_under_mouse(50, iMousey + iRandom % 500 - 250);
-    Push_Node(pRight);
-  }
-
-  // only do this if Dasher is flying
-  if(Framerate() > 30) {
-    for(int i = 1; i < int (Framerate() - 30) / 3; i++) {
-
-      int iRandom = RandomInt();
-      
-      if(Framerate() > 8) {
-	// add some noise and push another node
-      	CDasherNode *pRight = Get_node_under_mouse(50, iMousey + iRandom % 500 - 250);
-	Push_Node(pRight);
-      }
-      
-      iRandom = RandomInt();
-      // push at a random node on the RHS
-      CDasherNode *pRight = Get_node_under_mouse(50, iMousey + iRandom % 1000 - 500);
-      Push_Node(pRight);
-
-    }
-  }
 }
 
 void CDasherModel::RecursiveOutput(CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded) {
@@ -736,17 +678,11 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
 
   if(pNode->GetFlag(NF_ALLCHILDREN)) {
     DASHER_ASSERT(pNode->Children().size() > 0);
-    // if there are children just give them a poke
-    CDasherNode::ChildMap::iterator i;
-    for(i = pNode->Children().begin(); i != pNode->Children().end(); i++)
-      (*i)->SetFlag(NF_ALIVE, true);
     return;
   }
 
   // TODO: Do we really need to delete all of the children at this point?
   pNode->Delete_children(); // trial commented out - pconlon
-
-  pNode->SetFlag(NF_ALIVE, true);
 
   // Populate children creates two levels at once - the groups and their children.
   pNode->m_pNodeManager->PopulateChildren(pNode);
@@ -828,27 +764,20 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
 
 }
 
-bool CDasherModel::RenderToView(CDasherView *pView, bool bRedrawDisplay, SLockData *pLockData) {
-
-  if(pLockData)
-    std::cout << "Rendering locked: " << pLockData->strDisplay << std::endl;
+bool CDasherModel::RenderToView(CDasherView *pView, NodeQueue &nodeQueue) {
 
   DASHER_ASSERT(pView != NULL);
   DASHER_ASSERT(m_Root != NULL);
 
   CDasherNode *pOldNode = Get_node_under_crosshair();
 
-  std::vector<CDasherNode *> vNodeList;
-  std::vector<CDasherNode *> vDeleteList;
-
-  bool bReturnValue;
+  bool bReturnValue = false;
   std::vector<std::pair<myint,bool> > vGameTargetY;
   
   // The Render routine will fill iGameTargetY with the Dasher Coordinate of the 
   // youngest node with NF_GAME set. The model is responsible for setting NF_GAME on
   // the appropriate Nodes.
-  bReturnValue = pView->Render(m_Root, m_Rootmin + m_iDisplayOffset, m_Rootmax + m_iDisplayOffset, vNodeList, vDeleteList, bRedrawDisplay, &vGameTargetY);
-  
+  pView->Render(m_Root, m_Rootmin + m_iDisplayOffset, m_Rootmax + m_iDisplayOffset, nodeQueue, true, &vGameTargetY);  
 
   /////////GAME MODE TEMP//////////////
   if(m_bGameMode)
@@ -856,19 +785,49 @@ bool CDasherModel::RenderToView(CDasherView *pView, bool bRedrawDisplay, SLockDa
       pTeacher->SetTargetY(vGameTargetY);
   //////////////////////////////////////
 
-
-  if(!GetBoolParameter(BP_OLD_STYLE_PUSH)) {
-    for(std::vector<CDasherNode *>::iterator it(vNodeList.begin()); it != vNodeList.end(); ++it)
-      Push_Node(*it);
+  //ACL Off-screen nodes (zero collapse cost) will have been collapsed already.
+  //Hence, here we act to maintain the node budget....
+  //(however, note that doing this here will only expand one level per frame,
+  //and won't really take effect until the *next* frame!)
+  int iNodeBudget = GetLongParameter(LP_NODE_BUDGET);
+  //note: the 'number of symbols' is the number of leaves in the subtree created by
+  //expanding a node, i.e. excluding group nodes; it also counts only 1 for both
+  //the node at the root of any control mode group, *and* the same for any conversion node.
+  //So, expanding a node could create significantly more children than this.
+  //Doubling this is arbitrary, but I'm just hoping it's a reasonably upper bound for the
+  //number of descendants that'll actually be created; if expansion creates more nodes than
+  //this, the logic below will perform one more contraction, and expansion, per frame than
+  //we want - a performance issue, but hopefully not a correctness issue ;-).
+  int iExpansion = m_pNodeCreationManager->GetAlphabet()->GetNumberSymbols()*2;
+  //first, make sure we are within our budget (probably only in case the budget's changed)
+  while (nodeQueue.hasNodesToCollapse()
+		 && currentNumNodeObjects() > iNodeBudget + iExpansion)
+  {
+    nodeQueue.nodeToCollapse()->Delete_children();
+    nodeQueue.popNodeToCollapse();
   }
-  
-  // TODO: Fix this
-  for(std::vector<CDasherNode *>::iterator it(vDeleteList.begin()); it != vDeleteList.end(); ++it)
-    {
-      if(!(*it)->GetFlag(NF_SUBNODE))
-	(*it)->Delete_children();
-      
-    }
+
+  //ok. Since we're within budget, there's no point in doing anything if there aren't
+  //nodes to expand (as zero-cost collapses have already been performed)
+  while (nodeQueue.hasNodesToExpand())
+  {
+	if (currentNumNodeObjects() < iNodeBudget)
+	{
+		Push_Node(nodeQueue.nodeToExpand());
+		nodeQueue.popNodeToExpand();
+		bReturnValue = true;
+		//...and loop.
+	}
+	else if (nodeQueue.hasNodesToCollapse()
+		  && nodeQueue.nodeToCollapse()->m_dCost < nodeQueue.nodeToExpand()->m_dCost)
+	{
+	  //make room by performing collapse...
+	  nodeQueue.nodeToCollapse()->Delete_children();
+	  nodeQueue.popNodeToCollapse();
+	  //...and see how much room that makes
+	}
+	else break; //not enough room, nothing to collapse.
+  }
   
   CDasherNode *pNewNode = Get_node_under_crosshair();
 

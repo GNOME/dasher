@@ -24,7 +24,6 @@
 #include "../Common/Common.h"
 #include "../Common/NoClones.h"
 #include "DasherTypes.h"
-#include "DasherModel.h"
 #include "NodeManager.h"
 
 // These includes no longer required? - pconlon
@@ -36,20 +35,13 @@
 
 // Node flag constants
 #define NF_COMMITTED 1
-#define NF_ACTIVE 2
-#define NF_ALIVE 4
-#define NF_SEEN 8
-#define NF_CONVERTED 16
-#define NF_GAME 32
-#define NF_ALLCHILDREN 64
-#define NF_SUBNODE 128
-#define NF_SUPER 256
-#define NF_END_GAME 512
-
-namespace Dasher {
-  class CDasherNode;
-  class CDasherModel;
-}
+#define NF_SEEN 2
+#define NF_CONVERTED 4
+#define NF_GAME 8
+#define NF_ALLCHILDREN 16
+#define NF_SUBNODE 32
+#define NF_SUPER 64
+#define NF_END_GAME 128
 
 /// \ingroup Model
 /// @{
@@ -75,6 +67,8 @@ class Dasher::CDasherNode:private NoClones {
     bool bVisible;
     std::string strDisplayText;
   };
+  CDasherNode *onlyChildRendered; //cache that only one child was rendered (as it filled the screen)
+  double m_dCost; //to expand or collapse
 
   /// Container type for storing children. Note that it's worth
   /// optimising this as lookup happens a lot
@@ -87,7 +81,7 @@ class Dasher::CDasherNode:private NoClones {
   /// @param iHbnd Upper bound of node within parent
   /// @param pDisplayInfo Struct containing information on how to display the node
   ///
-  inline CDasherNode(CDasherNode *pParent, int iLbnd, int iHbnd, SDisplayInfo *pDisplayInfo);
+  CDasherNode(CDasherNode *pParent, int iLbnd, int iHbnd, SDisplayInfo *pDisplayInfo);
 
   /// @brief Destructor
   ///
@@ -107,10 +101,6 @@ class Dasher::CDasherNode:private NoClones {
   ///
   /// NF_COMMITTED - Node is 'above' the root, so corresponding symbol
   /// has been added to text box, language model trained etc
-  ///
-  /// NF_ACTIVE - Node is a decendent of the root node (TODO: Isnt this everything?)
-  ///
-  /// NF_ALIVE - Node is large enough to be displayed
   ///
   /// NF_SEEN - Node has already been output
   ///
@@ -267,27 +257,17 @@ class Dasher::CDasherNode:private NoClones {
 };
 /// @}
 
+namespace Dasher {
+  /// Return the number of CDasherNode objects currently in existence.
+  int currentNumNodeObjects();
+}
+
+
 /////////////////////////////////////////////////////////////////////////////
 // Inline functions
 /////////////////////////////////////////////////////////////////////////////
 
 namespace Dasher {
-inline CDasherNode::CDasherNode(CDasherNode *pParent, int iLbnd, int iHbnd, SDisplayInfo *pDisplayInfo) {
-  // TODO: Check that these are disabled for debug builds, and that we're not shipping such a build
-  DASHER_ASSERT(iHbnd >= iLbnd);
-  DASHER_ASSERT(pDisplayInfo != NULL);
-
-  m_pParent = pParent;  
-  m_iLbnd = iLbnd;
-  m_iHbnd = iHbnd;
-  m_pDisplayInfo = pDisplayInfo;
-
-  // Default flags (make a definition somewhere, pass flags to constructor)
-  m_iFlags = NF_ACTIVE | NF_ALIVE;
-
-  m_iRefCount = 0;
-  m_iNumSymbols = 0;
-}
 
 inline const CDasherNode::SDisplayInfo *CDasherNode::GetDisplayInfo() const {
   return m_pDisplayInfo;

@@ -36,6 +36,7 @@
 #include "DasherTypes.h"
 #include "FrameRate.h"
 #include "NodeCreationManager.h"
+#include "NodeQueue.h"
 
 namespace Dasher {
   class CDasherModel;
@@ -120,10 +121,12 @@ class Dasher::CDasherModel:public CFrameRate, private NoClones
   /// @{
 
   /// 
-  /// Render the model to a given view
+  /// Render the model to a given view. Return if any nodes were
+  /// expanded, as if so we may want to render *another* frame to
+  /// perform further expansion.
   ///
 
-  bool RenderToView(CDasherView *pView, bool bRedrawDisplay, SLockData *pLockData);
+  bool RenderToView(CDasherView *pView, NodeQueue &nodeQueue);
 
   /// @}
 
@@ -274,10 +277,6 @@ class Dasher::CDasherModel:public CFrameRate, private NoClones
   // Information entered so far in this model
   double m_dTotalNats; 
 
-  // Number of nodes rendered
-  int m_iRenderCount;
-
-
 
   CDasherNode *Get_node_under_mouse(myint smousex, myint smousey);
 
@@ -326,13 +325,6 @@ class Dasher::CDasherModel:public CFrameRate, private NoClones
 
   void OutputCharacters(CDasherNode * node);
   bool DeleteCharacters(CDasherNode * newnode, CDasherNode * oldnode, int* pNumDeleted = NULL);
-
-  /// 
-  /// Old style drilling down of nodes - optionally can still be
-  /// called
-  ///
-
-  void OldPush(myint iMousex, myint iMousey);
 
   /// 
   /// Make a child of the root into a new root
