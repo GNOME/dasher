@@ -30,26 +30,13 @@ alphabet_map::alphabet_map(unsigned int InitialTableSize)
 }
 
 void alphabet_map::Add(const std::string &Key, symbol Value) {
-  RecursiveAdd(Key, Value, false);
-}
-
-void alphabet_map::RecursiveAdd(const std::string &Key, symbol Value, bool PrefixFlag) {
   Entry *&HashEntry = HashTable[Hash(Key)];
 
   // Loop through Entries with the correct Hash value.
   for(Entry * i = HashEntry; i; i = i->Next) {
     if(i->Key == Key) {
-      if(PrefixFlag) {
-        // Just tagging - don't change symbol. Recurse if necessary
-        i->KeyIsPrefix = true;
-        if(Key.size() > 1)
-          RecursiveAdd(Key.substr(Key.size() - 1), Undefined, true);
-      }
-      else {
-        // Add symbol and leave
-        i->Symbol = Value;
-      }
-      return;
+      // Add symbol and leave
+	  i->Symbol = Value;
     }
   }
 
@@ -69,7 +56,7 @@ void alphabet_map::RecursiveAdd(const std::string &Key, symbol Value, bool Prefi
     }
 
     // Have to recall this function as the key's hash needs recalculating
-    RecursiveAdd(Key, Value, PrefixFlag);
+    Add(Key, Value);
     return;
   }
 
@@ -77,18 +64,14 @@ void alphabet_map::RecursiveAdd(const std::string &Key, symbol Value, bool Prefi
   HashEntry = &Entries.back();
 }
 
-symbol alphabet_map::Get(const std::string &Key, bool *KeyIsPrefix) const {
+symbol alphabet_map::Get(const std::string &Key) const {
 
   // Loop through Entries with the correct Hash value.
   for(Entry * i = HashTable[Hash(Key)]; i; i = i->Next) {
     if(i->Key == Key) {
-      if(KeyIsPrefix != 0)
-        *KeyIsPrefix = i->KeyIsPrefix;
       return i->Symbol;
     }
   }
 
-  if(KeyIsPrefix != 0)
-    *KeyIsPrefix = false;
   return Undefined;
 }

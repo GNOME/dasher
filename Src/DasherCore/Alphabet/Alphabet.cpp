@@ -152,7 +152,6 @@ int CAlphabet::utf8_length::operator[](const int i) const
 
 void CAlphabet::GetSymbols(std::vector<symbol> &symbols, std::istream &in) const
 {
-  bool unused;
   char skip, *utfchar = new char[m_utf8_count_array.max_length + 1];
   symbol sym;
   int len, ch = in.peek();
@@ -171,7 +170,7 @@ void CAlphabet::GetSymbols(std::vector<symbol> &symbols, std::istream &in) const
         {
           in.read(utfchar, len);
           utfchar[len] = '\0';
-          sym = TextMap.Get(string(utfchar), &unused);
+          sym = TextMap.Get(string(utfchar));
           symbols.push_back(sym);
         }
       ch = in.peek();
@@ -183,7 +182,6 @@ void CAlphabet::GetSymbols(std::vector<symbol> *Symbols, std::string * Input, bo
 {
   string Tmp;
   symbol CurSymbol = 0, TmpSymbol = 0;
-  bool KeyIsPrefix = false;
   int extras;
   unsigned int bit;
 
@@ -207,44 +205,14 @@ void CAlphabet::GetSymbols(std::vector<symbol> *Symbols, std::string * Input, bo
       }
     }
 
-    CurSymbol = TextMap.Get(Tmp, &KeyIsPrefix);
+    CurSymbol = TextMap.Get(Tmp);
 
-    if(KeyIsPrefix) {
-      CurSymbol = 0;
-      for(; i < Input->size(); i++) {
-
-        Tmp += (*Input)[i];
-
-        TmpSymbol = TextMap.Get(Tmp, &KeyIsPrefix);
-        if(TmpSymbol > 0) {
-          CurSymbol = TmpSymbol;
-        }
-        if(!KeyIsPrefix) {
-          if(CurSymbol != 0) {
-            Symbols->push_back(CurSymbol);
-          }
-          else {
-            i -= Tmp.size() - 1;
-            //Tmp.erase(Tmp.begin(), Tmp.end());
-            Tmp = "";
-          }
-          break;
-        }
-      }
-    }
-    else {
-      if(CurSymbol != 0)
-        Symbols->push_back(CurSymbol);
-    }
+    if(CurSymbol != 0)
+      Symbols->push_back(CurSymbol);
   }
 
   if(IsMore)
-    if(KeyIsPrefix)
-      *Input = Tmp;
-    else
-      *Input = "";
-  else if(KeyIsPrefix)
-    Symbols->push_back(CurSymbol);
+    *Input = "";
 }
 
 void CAlphabet::GetSymbolsFull(std::vector<symbol > *Symbols, std::string *Input) const {
@@ -278,7 +246,7 @@ void CAlphabet::GetSymbolsFull(std::vector<symbol > *Symbols, std::string *Input
 
     // TODO: Error condition on reaching end of string prematurely.
 
-    Symbols->push_back(TextMap.Get(strCurrentSymbol, NULL));
+    Symbols->push_back(TextMap.Get(strCurrentSymbol));
 
     ++it;
   }

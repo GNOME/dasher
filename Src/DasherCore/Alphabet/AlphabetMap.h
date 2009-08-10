@@ -67,22 +67,18 @@ public:
   alphabet_map(unsigned int InitialTableSize = 255);
   void Add(const std::string & Key, symbol Value);
 
-  // Return the symbol associated with Key or Undefined.  KeyIsPrefix, if non
-  // NULL, will be set to true if ???
-  symbol Get(const std::string & Key, bool * KeyIsPrefix) const;
+  // Return the symbol associated with Key or Undefined.
+  symbol Get(const std::string & Key) const;
 
 private:
   class Entry {
   public:
     Entry(std::string Key, symbol Symbol, Entry * Next)
-  :  Key(Key), KeyIsPrefix(false), Symbol(Symbol), Next(Next) {
+  :  Key(Key), Symbol(Symbol), Next(Next) {
     } std::string Key;
-    bool KeyIsPrefix;
     symbol Symbol;
     Entry *Next;
   };
-
-  void RecursiveAdd(const std::string & Key, symbol Value, bool PrefixFlag);
 
   // A standard hash -- could try and research something specific.
   inline unsigned int Hash(const std::string & Input) const {

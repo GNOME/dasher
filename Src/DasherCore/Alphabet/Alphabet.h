@@ -151,10 +151,6 @@ namespace Dasher {
       m_DefaultPalette = Palette;
     }
 
-    const alphabet_map GetAlphabetMap() const {
-      return TextMap;
-    } 
-
     const std::string &GetDefaultContext() const {
       return m_strDefaultContext;
     }
