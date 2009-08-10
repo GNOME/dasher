@@ -62,7 +62,7 @@ enum {
   LP_CIRCLE_PERCENT, LP_TWO_BUTTON_OFFSET, LP_HOLD_TIME, LP_MULTIPRESS_TIME,
   LP_SLOW_START_TIME, LP_CONVERSION_ORDER, LP_CONVERSION_TYPE,
   LP_TWO_PUSH_OUTER, LP_TWO_PUSH_UP, LP_TWO_PUSH_DOWN, LP_TWO_PUSH_TOLERANCE,
-  LP_DYNAMIC_BUTTON_LAG,
+  LP_DYNAMIC_BUTTON_LAG, LP_STATIC1B_TIME, LP_STATIC1B_ZOOM,
   LP_DEMO_SPRING, LP_DEMO_NOISE_MEM, LP_DEMO_NOISE_MAG, LP_MAXZOOM, 
   LP_DYNAMIC_SPEED_INC, LP_DYNAMIC_SPEED_FREQ, LP_DYNAMIC_SPEED_DEC, END_OF_LPS
 };
@@ -222,6 +222,8 @@ static lp_table longparamtable[] = {
   {LP_TWO_PUSH_DOWN, "TwoPushDown", PERS, 1280, "Offset to down marker in one button dynamic"},
   {LP_TWO_PUSH_TOLERANCE, "TwoPushTolerance", PERS, 100, "Tolerance of two-push-mode pushes, in ms"},
   {LP_DYNAMIC_BUTTON_LAG, "DynamicButtonLag", PERS, 50, "Lag of pushes in dynamic button mode (ms)"},
+  {LP_STATIC1B_TIME, "Static1BTime", PERS, 2000, "Time for static-1B mode to scan from top to bottom (ms)"},
+  {LP_STATIC1B_ZOOM, "Static1BZoom", PERS, 8, "Zoom factor for static-1B mode"},
   {LP_DEMO_SPRING, "DemoSpring", PERS, 100, "Springyness in Demo-mode"},
   {LP_DEMO_NOISE_MEM, "DemoNoiseMem", PERS, 100, "Memory parameter for noise in Demo-mode"},
   {LP_DEMO_NOISE_MAG, "DemoNoiseMag", PERS, 325, "Magnitude of noise in Demo-mode"},

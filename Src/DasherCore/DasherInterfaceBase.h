@@ -595,7 +595,6 @@ protected:
   /// @{
   //  bool m_bGlobalLock; // The big lock
   bool m_bRedrawScheduled;
-  int m_iLockCount;
   EState m_iCurrentState;
   bool m_bOldVisible;
 

@@ -44,6 +44,7 @@
 #include "DefaultFilter.h"
 #include "DasherButtons.h"
 #include "EyetrackerFilter.h"
+#include "OneButtonFilter.h"
 #include "OneButtonDynamicFilter.h"
 #include "OneDimensionalFilter.h"
 #include "StylusFilter.h"
@@ -101,7 +102,6 @@ CDasherInterfaceBase::CDasherInterfaceBase() {
   
   m_iCurrentState = ST_START;
   
-  m_iLockCount = 0;
   //  m_bGlobalLock = false;
 
   // TODO: Are these actually needed?
@@ -945,6 +945,7 @@ void CDasherInterfaceBase::CreateModules() {
     RegisterModule(new CClickFilter(m_pEventHandler, m_pSettingsStore, this));
   );
 #endif
+  RegisterModule(new COneButtonFilter(m_pEventHandler, m_pSettingsStore, this));
   RegisterModule(new COneButtonDynamicFilter(m_pEventHandler, m_pSettingsStore, this));
   RegisterModule(new CTwoButtonDynamicFilter(m_pEventHandler, m_pSettingsStore, this));
   RegisterModule(new CTwoPushDynamicFilter(m_pEventHandler, m_pSettingsStore, this));
