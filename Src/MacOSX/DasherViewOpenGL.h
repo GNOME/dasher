@@ -18,7 +18,6 @@
 
 @class NSColor, NSTimer, NSTextField, NSString, NSMutableDictionary;
 @class NSBezierPath;
-@class ZippyCache;
 @class DasherApp;
 
 typedef struct {
@@ -35,8 +34,6 @@ typedef struct {
   NSTrackingRectTag trackingRectTag;
 
   NSString *_cachedFontName;
-
-  ZippyCache *_zippyCache;
 
   NSMutableDictionary *_textAttributeCache;
 
@@ -81,8 +78,6 @@ typedef struct {
 - (NSArray *)colourScheme;
 - (void)setColourScheme:(NSArray *)newColourScheme;
 - (void)setColourSchemeFromColourInfo:(const CColourIO::ColourInfo *)pColourScheme;
-- (ZippyCache *)zippyCache;
-- (void)setZippyCache:(ZippyCache *)newZippyCache;
 - (NSString *)cachedFontName;
 - (void)setCachedFontName:(NSString *)newCachedFontName;
 - (void)dealloc;

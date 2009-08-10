@@ -15,8 +15,6 @@
 
 #import <sys/time.h>
 
-#import "ZippyCache.h"
-#import "ZippyString.h"
 #import "Chatter.h"
 #import "DasherUtil.h"
 #import "DasherApp.h"
@@ -381,18 +379,6 @@
   [self colourSchemeCallbackWithColourTable:ct];
 }
 
-- (ZippyCache *)zippyCache {
-  return _zippyCache;
-}
-
-- (void)setZippyCache:(ZippyCache *)newZippyCache {
-  if (_zippyCache != newZippyCache) {
-    ZippyCache *oldValue = _zippyCache;
-    _zippyCache = [newZippyCache retain];
-    [oldValue release];
-  }
-}
-
 - (NSString *)cachedFontName {
   return _cachedFontName;
 }
@@ -408,7 +394,6 @@
 - (void)dealloc
 {
   [_cachedFontName release];
-  [_zippyCache release];
   [_textAttributeCache release];
   
   [[self openGLContext] makeCurrentContext];
