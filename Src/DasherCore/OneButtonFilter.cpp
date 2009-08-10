@@ -8,7 +8,7 @@
 using namespace Dasher;
 
 static SModuleSettings sSettings[] = {
-  {LP_STATIC1B_TIME, T_LONG, 100, 5000, 100, 1, _("Scan time (each direction), in ms")},
+  {LP_STATIC1B_TIME, T_LONG, 100, 5000, 1, 100, _("Scan time (each direction), in ms")},
   {LP_STATIC1B_ZOOM, T_LONG, 1, 16, 1, 1, _("Factor by which to zoom in")},
   {LP_DYNAMIC_BUTTON_LAG, T_LONG, 0, 1000, 1, 25, _("Lag before user actually pushes button (ms)")},
 };

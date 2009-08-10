@@ -13,6 +13,7 @@
 	* Level-of-detail algorithm maintains LP_NODE_BUDGET extant DasherNode
 	  objects.
 	* Reimplement and resurrect "one button mode" as per manual.
+	* Fix for previous..
 
 
 2009-08-08  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
