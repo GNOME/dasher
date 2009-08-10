@@ -296,8 +296,6 @@ public:
 
   double GetFramerate();
 
-  int GetRenderCount();
-
   /// @}
 
   /// @name Control hierarchy and action buttons

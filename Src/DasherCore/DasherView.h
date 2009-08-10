@@ -125,10 +125,6 @@ public:
   /// \todo Clarify relationship between Render functions and probably only expose one
   virtual bool Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, bool bRedrawDisplay, std::vector<std::pair<myint,bool> >* pvGameTargetY);
 
-  int GetRenderCount() {
-    return m_iRenderCount;
-  };
-
   /// @}
 
   ////// Return a reference to the screen - can't be protected due to circlestarthandler

@@ -1084,13 +1084,6 @@ double CDasherInterfaceBase::GetFramerate() {
     return 0.0;
 }
 
-int CDasherInterfaceBase::GetRenderCount() {
-  if(m_pDasherView)
-    return(m_pDasherView->GetRenderCount());
-  else
-    return 0;
-}
-
 void CDasherInterfaceBase::AddActionButton(const std::string &strName) {
   m_vRightButtons.push_back(new CActionButton(this, strName, false));
 }

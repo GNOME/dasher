@@ -1,3 +1,7 @@
+2009-08-10  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Remove unused GetRenderCount methods
+
 2009-08-08  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* Tidy up ConversionManager and use a single instance per Factory.
