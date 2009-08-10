@@ -3,6 +3,8 @@
 #include "DasherInterfaceBase.h"
 #include "Event.h"
 
+using namespace Dasher;
+
 static SModuleSettings sSettings[] = {
   {LP_MAXZOOM, T_LONG, 11, 400, 10, 1, _("Maximum Zoom")},
 };

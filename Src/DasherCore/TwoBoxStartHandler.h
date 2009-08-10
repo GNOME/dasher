@@ -3,6 +3,7 @@
 
 #include "StartHandler.h"
 
+namespace Dasher {
 /// \ingroup Start
 /// @{
 class CTwoBoxStartHandler : public CStartHandler {
@@ -18,6 +19,7 @@ public:
   int m_iBoxStart;
   bool m_bInBox;
 };
+}
 /// @}
 
 #endif

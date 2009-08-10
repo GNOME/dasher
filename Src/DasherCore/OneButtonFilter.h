@@ -3,6 +3,7 @@
 
 #include "InputFilter.h"
 
+namespace Dasher {
 /// \ingroup InputFilter
 /// @{
 class COneButtonFilter : public CInputFilter {
@@ -22,6 +23,7 @@ class COneButtonFilter : public CInputFilter {
   int iStartTime;
   int iLocation;
 };
+}
 /// @}
 
 #endif

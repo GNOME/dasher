@@ -5,6 +5,7 @@
 	* Alphabet{,Map}: Optimise single byte UTF8 case.
 	* DasherView{,Square}: Remove b1D/bNonLinearity.
 	* MacOSX: Remove ZippyCache as DasherViewOpenGL makes no use of it.
+	* Remove empty DasherView.inl and move input filters into namespace Dasher.
 
 2009-08-08  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 

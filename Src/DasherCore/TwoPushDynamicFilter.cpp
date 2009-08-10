@@ -24,6 +24,8 @@
 #include "DasherInterfaceBase.h"
 #include "Event.h"
 
+using namespace Dasher;
+
 static SModuleSettings sSettings[] = {
   {LP_TWO_PUSH_OUTER, T_LONG, 1024, 2048, 2048, 128, _("Offset for outer (second) button")},
   {LP_TWO_PUSH_UP, T_LONG, 256, 2048, 2048/*divisor*/, 128/*step*/, _("Distance for 1st button UP")},

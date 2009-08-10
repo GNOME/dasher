@@ -25,7 +25,7 @@
 
 /// \ingroup InputFilter
 /// @{
-
+namespace Dasher {
 ///filter with three states: paused, reversing, running. Hold any button down to reverse.
 class CDynamicFilter : public CInputFilter {
  public:
@@ -63,5 +63,5 @@ class CDynamicFilter : public CInputFilter {
 	
     CUserLogBase *m_pUserLog;
 };
-
+}
 #endif

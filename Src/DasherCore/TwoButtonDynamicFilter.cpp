@@ -24,6 +24,8 @@
 #include "DasherInterfaceBase.h"
 #include "Event.h"
 
+using namespace Dasher;
+
 static SModuleSettings sSettings[] = {
   {LP_TWO_BUTTON_OFFSET, T_LONG, 1024, 2048, 2048, 100, _("Button offset")},
   /* TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press. */

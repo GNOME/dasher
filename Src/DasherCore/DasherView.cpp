@@ -26,6 +26,7 @@
 #include "DasherView.h"
 #include "Event.h"
 #include "EventHandler.h"
+#include "DasherScreen.h"
 
 using namespace Dasher;
 

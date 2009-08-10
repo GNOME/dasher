@@ -3,6 +3,7 @@
 
 #include "DasherInterfaceBase.h"
 #include "DasherComponent.h"
+namespace Dasher {
 /// \defgroup Start Start handlers
 /// @{
 class CStartHandler : public CDasherComponent {
@@ -19,6 +20,7 @@ public:
 protected:
   CDasherInterfaceBase *m_pInterface;
 };
+}
 /// @}
 
 #endif

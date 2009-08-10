@@ -9,9 +9,9 @@
 namespace Dasher {
   class CDasherInterfaceBase;
 }
-
 /// \defgroup InputFilter Input filters
 /// @{
+namespace Dasher {
 class CInputFilter : public CDasherModule {
  public:
   CInputFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, int iType, const char *szName)
@@ -45,6 +45,7 @@ class CInputFilter : public CDasherModule {
   virtual void KeyDown(int Time, int iId, CDasherView *pDasherView, CDasherModel *pModel, CUserLogBase *pUserLog) {};
   virtual void KeyUp(int Time, int iId, CDasherView *pDasherView, CDasherModel *pModel) {};
 };
+}
 /// @}
 
 #endif

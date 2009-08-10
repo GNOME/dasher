@@ -21,6 +21,8 @@
 #include "DasherInterfaceBase.h"
 #include "DynamicFilter.h"
 
+using namespace Dasher;
+
 CDynamicFilter::CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, int iType, const char *szName)
   : CInputFilter(pEventHandler, pSettingsStore, pInterface, iID, iType, szName) {
   m_bDecorationChanged = true;

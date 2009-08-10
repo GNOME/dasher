@@ -4,6 +4,7 @@
 #include "StartHandler.h"
 /// \ingroup Start
 /// @{
+namespace Dasher {
 class CCircleStartHandler : public CStartHandler {
 public:
   CCircleStartHandler(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface);
@@ -18,6 +19,7 @@ private:
   int m_iCircleRadius;
   int m_iScreenRadius;
 };
+}
 /// @}
 
 #endif

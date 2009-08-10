@@ -24,6 +24,8 @@
 #include "DasherInterfaceBase.h"
 #include "Event.h"
 
+using namespace Dasher;
+
 static SModuleSettings sSettings[] = {
   /* TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press. */
   {LP_HOLD_TIME, T_LONG, 100, 10000, 1000, 100, _("Long press time")},

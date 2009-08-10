@@ -22,7 +22,7 @@
 #define __TWO_PUSH_DYNAMIC_FILTER_H__
 
 #include "DynamicFilter.h"
-
+namespace Dasher {
 /// \ingroup InputFilter
 /// @{
 class CTwoPushDynamicFilter : public CDynamicFilter /*long push, but do our own "multi-push" detection*/ {
@@ -60,6 +60,7 @@ class CTwoPushDynamicFilter : public CDynamicFilter /*long push, but do our own 
   int m_aiTarget[2];
   int m_aaiGuideAreas[2][2];
 };
+}
 /// @}
 
 #endif

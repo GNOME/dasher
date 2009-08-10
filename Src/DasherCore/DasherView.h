@@ -204,6 +204,5 @@ private:
   bool m_bGameMode;
 };
 /// @}
-#include "DasherView.inl"
 
 #endif /* #ifndef __DasherView_h_ */

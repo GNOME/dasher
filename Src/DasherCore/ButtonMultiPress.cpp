@@ -21,6 +21,8 @@
 #include "DasherInterfaceBase.h"
 #include "ButtonMultiPress.h"
 
+using namespace Dasher;
+
 CButtonMultiPress::CButtonMultiPress(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, int iType, const char *szName)
   : CDynamicFilter(pEventHandler, pSettingsStore, pInterface, iID, iType, szName) {
 }

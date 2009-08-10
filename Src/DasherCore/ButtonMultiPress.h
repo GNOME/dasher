@@ -23,6 +23,7 @@
 
 #include "DynamicFilter.h"
 
+namespace Dasher {
 /// \ingroup InputFilter
 /// @{
 ///DynamicFilter which additionally starts reversing whenever a button is pushed enough times in a short interval
@@ -44,5 +45,6 @@ class CButtonMultiPress : public CDynamicFilter {
   int m_iQueueId;
   std::deque<int> m_deQueueTimes;
  };
+}
 
 #endif

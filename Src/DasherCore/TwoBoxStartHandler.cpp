@@ -1,6 +1,8 @@
 #include "TwoBoxStartHandler.h"
 #include "Event.h"
 
+using namespace Dasher;
+
 CTwoBoxStartHandler::CTwoBoxStartHandler(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface)
   : CStartHandler(pEventHandler, pSettingsStore, pInterface) {
   m_bInBox = false;

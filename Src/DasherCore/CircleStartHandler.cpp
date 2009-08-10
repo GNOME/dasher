@@ -23,6 +23,8 @@
 #include "CircleStartHandler.h"
 #include "Event.h"
 
+using namespace Dasher;
+
 CCircleStartHandler::CCircleStartHandler(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface) 
   : CStartHandler(pEventHandler, pSettingsStore, pInterface) {
   m_iStatus = -1;

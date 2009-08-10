@@ -27,6 +27,7 @@
 //#include "DasherGameMode.h"
 #include "DasherViewSquare.h"
 #include "DasherModel.h"
+#include "DasherScreen.h"
 #include "DasherView.h"
 #include "DasherTypes.h"
 #include "Event.h"

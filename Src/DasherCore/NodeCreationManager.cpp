@@ -8,6 +8,8 @@
 #include "NodeCreationManager.h"
 #include "ControlManager.h"
 
+using namespace Dasher;
+
 CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterface,
 					   Dasher::CEventHandler *pEventHandler, 
 					   CSettingsStore *pSettingsStore,

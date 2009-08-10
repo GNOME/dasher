@@ -75,7 +75,6 @@
 		1948BEDA0C226CFD001DFA32 /* DasherTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE340C226CFD001DFA32 /* DasherTypes.h */; };
 		1948BEDB0C226CFD001DFA32 /* DasherView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE350C226CFD001DFA32 /* DasherView.cpp */; };
 		1948BEDC0C226CFD001DFA32 /* DasherView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE360C226CFD001DFA32 /* DasherView.h */; };
-		1948BEDD0C226CFD001DFA32 /* DasherView.inl in Resources */ = {isa = PBXBuildFile; fileRef = 1948BE370C226CFD001DFA32 /* DasherView.inl */; };
 		1948BEDE0C226CFD001DFA32 /* DasherViewSquare.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE380C226CFD001DFA32 /* DasherViewSquare.cpp */; };
 		1948BEDF0C226CFD001DFA32 /* DasherViewSquare.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE390C226CFD001DFA32 /* DasherViewSquare.h */; };
 		1948BEE00C226CFD001DFA32 /* DasherViewSquare.inl in Resources */ = {isa = PBXBuildFile; fileRef = 1948BE3A0C226CFD001DFA32 /* DasherViewSquare.inl */; };
@@ -478,7 +477,6 @@
 		1948BE340C226CFD001DFA32 /* DasherTypes.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherTypes.h; sourceTree = "<group>"; };
 		1948BE350C226CFD001DFA32 /* DasherView.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DasherView.cpp; sourceTree = "<group>"; };
 		1948BE360C226CFD001DFA32 /* DasherView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherView.h; sourceTree = "<group>"; };
-		1948BE370C226CFD001DFA32 /* DasherView.inl */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = DasherView.inl; sourceTree = "<group>"; };
 		1948BE380C226CFD001DFA32 /* DasherViewSquare.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DasherViewSquare.cpp; sourceTree = "<group>"; };
 		1948BE390C226CFD001DFA32 /* DasherViewSquare.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherViewSquare.h; sourceTree = "<group>"; };
 		1948BE3A0C226CFD001DFA32 /* DasherViewSquare.inl */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = DasherViewSquare.inl; sourceTree = "<group>"; };
@@ -983,7 +981,6 @@
 				1948BE340C226CFD001DFA32 /* DasherTypes.h */,
 				1948BE350C226CFD001DFA32 /* DasherView.cpp */,
 				1948BE360C226CFD001DFA32 /* DasherView.h */,
-				1948BE370C226CFD001DFA32 /* DasherView.inl */,
 				1948BE380C226CFD001DFA32 /* DasherViewSquare.cpp */,
 				1948BE390C226CFD001DFA32 /* DasherViewSquare.h */,
 				1948BE3A0C226CFD001DFA32 /* DasherViewSquare.inl */,
@@ -1570,7 +1567,6 @@
 				1974FE440714861B00B95DA0 /* DasherApp.icns in Resources */,
 				1974FE5A0714861B00B95DA0 /* Credits.html in Resources */,
 				198EC6D5071493BB00474B38 /* MainMenu.nib in Resources */,
-				1948BEDD0C226CFD001DFA32 /* DasherView.inl in Resources */,
 				1948BEE00C226CFD001DFA32 /* DasherViewSquare.inl in Resources */,
 				19BEF35C0C228F7300275D06 /* alphabet-nest.xsl in Resources */,
 				19BEF35D0C228F7300275D06 /* alphabet-nest2.xsl in Resources */,

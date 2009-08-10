@@ -3,6 +3,7 @@
 
 #include "DefaultFilter.h"
 
+namespace Dasher {
 /// \ingroup InputFilter
 /// @{
 class CEyetrackerFilter : public CDefaultFilter {
@@ -24,6 +25,7 @@ class CEyetrackerFilter : public CDefaultFilter {
   int m_iCounter;
   int m_iFilterTimescale;
 };
+}
 /// @}
 
 #endif

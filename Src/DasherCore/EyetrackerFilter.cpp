@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+using namespace Dasher;
+
 static SModuleSettings sSettings[] = {
   {BP_AUTOCALIBRATE, T_BOOL, -1, -1, -1, -1, _("Automatic calibration")}
 };

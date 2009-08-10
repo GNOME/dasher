@@ -17,7 +17,7 @@
 
 
 using namespace std;
-
+namespace Dasher {
 /// \ingroup Input
 /// @{
 class CDasherButtons : public CInputFilter
@@ -69,6 +69,7 @@ class CDasherButtons : public CInputFilter
   bool m_bDecorationChanged;
 
 };
+}
 /// @}
 
 #endif

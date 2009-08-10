@@ -5,6 +5,7 @@
 #include "AutoSpeedControl.h"
 #include "StartHandler.h"
 
+namespace Dasher {
 /// \ingroup InputFilter
 /// @{
 class CDefaultFilter : public CInputFilter {
@@ -30,6 +31,7 @@ class CDefaultFilter : public CInputFilter {
   CAutoSpeedControl *m_pAutoSpeedControl;
   CStartHandler *m_pStartHandler;
 };
+}
 /// @}
 
 #endif

@@ -3,6 +3,9 @@
 
 #include "OneButtonFilter.h"
 #include "Event.h"
+#include "DasherScreen.h"
+
+using namespace Dasher;
 
 COneButtonFilter::COneButtonFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
   : CInputFilter(pEventHandler, pSettingsStore, pInterface, 9, 1, "One Button Mode") {

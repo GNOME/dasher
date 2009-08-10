@@ -5,6 +5,7 @@
 
 /// \ingroup InputFilter
 /// @{
+namespace Dasher {
 class CStylusFilter : public CDefaultFilter {
  public:
   CStylusFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName);
@@ -12,6 +13,7 @@ class CStylusFilter : public CDefaultFilter {
   virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog);
   virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherModel *pModel);
 };
+}
 /// @}
 
 #endif

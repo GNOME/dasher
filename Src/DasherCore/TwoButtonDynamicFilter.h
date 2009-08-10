@@ -25,6 +25,7 @@
 
 #include <deque>
 
+namespace Dasher {
 /// \ingroup InputFilter
 /// @{
 class CTwoButtonDynamicFilter : public CButtonMultiPress {
@@ -61,6 +62,7 @@ class CTwoButtonDynamicFilter : public CButtonMultiPress {
   long m_lOffsetApplied;
   double m_dMulSinceFirstPush;
 };
+}
 /// @}
 
 #endif

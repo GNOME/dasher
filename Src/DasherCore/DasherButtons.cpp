@@ -7,6 +7,7 @@
 
 
 #include "DasherButtons.h"
+#include "DasherScreen.h"
 #include <valarray>
 #include <iostream>
 
@@ -19,6 +20,8 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 #endif
+
+using namespace Dasher;
 
 static SModuleSettings sSettings[] = {
   /* TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode. */

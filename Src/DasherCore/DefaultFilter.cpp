@@ -8,6 +8,8 @@
 
 #include <iostream>
 
+using namespace Dasher;
+
 CDefaultFilter::CDefaultFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
   : CInputFilter(pEventHandler, pSettingsStore, pInterface, iID, 1, szName) {
   m_pStartHandler = 0;

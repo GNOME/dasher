@@ -25,6 +25,7 @@
 
 /// \ingroup InputFilter
 /// @{
+namespace Dasher {
 class COneButtonDynamicFilter : public CButtonMultiPress {
  public:
   COneButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface);
@@ -48,6 +49,7 @@ class COneButtonDynamicFilter : public CButtonMultiPress {
   int *m_iTargetX;
   int *m_iTargetY;
 };
+}
 /// @}
 
 #endif

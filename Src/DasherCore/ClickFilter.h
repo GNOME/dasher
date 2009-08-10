@@ -5,6 +5,7 @@
 
 /// \ingroup InputFilter
 /// @{
+namespace Dasher {
 class CClickFilter : public CInputFilter {
  public:
   CClickFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
@@ -18,6 +19,7 @@ class CClickFilter : public CInputFilter {
   virtual bool GetSettings(SModuleSettings **pSettings, int *iCount);
 
 };
+}
 /// @}
 
 #endif
