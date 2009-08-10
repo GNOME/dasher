@@ -163,18 +163,9 @@ void CNodeCreationManager::GetProbs(CLanguageModel::Context context, std::vector
 
 }
 
-void CNodeCreationManager::LearnText(CLanguageModel::Context context, std::string *TheText, bool IsMore) {
-  std::vector < symbol > Symbols;
-
-  m_pAlphabet->GetSymbols(&Symbols, TheText, IsMore);
-
-  for(unsigned int i = 0; i < Symbols.size(); i++)
-    m_pLanguageModel->LearnSymbol(context, Symbols[i]); // FIXME - conversion to symbol alphabet
-}
-
 void CNodeCreationManager::EnterText(CLanguageModel::Context context, std::string TheText) const {
   std::vector < symbol > Symbols;
-  m_pAlphabet->GetSymbols(&Symbols, &TheText, false);
+  m_pAlphabet->GetSymbols(Symbols, TheText);
   for(unsigned int i = 0; i < Symbols.size(); i++)
     m_pLanguageModel->EnterSymbol(context, Symbols[i]); // FIXME - conversion to symbol alphabet
 }

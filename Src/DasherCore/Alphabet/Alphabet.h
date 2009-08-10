@@ -107,21 +107,10 @@ namespace Dasher {
     // return group membership of i'th symbol
     // Fills Symbols with the symbols corresponding to Input. {{{ Note that this
     // is not necessarily reversible by repeated use of GetText. Some text
-    // may not be recognised and so discarded. If IsMore is true then Input
-    // is truncated to any final characters that were not used due to ambiguous
-    // continuation. If IsMore is false Input is assumed to be all the available
-    // text and so a symbol will be returned for a final "a" even if "ae" is
-    // defined as its own symbol. }}}
-    void GetSymbols(std::vector<symbol> *Symbols, std::string * Input, bool IsMore) const;
+    // may not be recognised and so discarded. }}}
+
+    void GetSymbols(std::vector<symbol> &Symbols, std::string& Input, bool IsMore) const;
     void GetSymbols(std::vector<symbol> &symbols, std::istream &in) const;
-
-
-    /// Look up symbols corresponding to string. Cannot cope with
-    /// parial input, but knows about UTF-8, so can include 'unknown
-    /// symbol' as 0 in the output. Slower than GetSymbols, so don't
-    /// use for import, but is useful for looking up contexts.
-    void GetSymbolsFull(std::vector<symbol > *Symbols, std::string *Input) const;
-
 
     void Trace() const;         // diagnostic
 

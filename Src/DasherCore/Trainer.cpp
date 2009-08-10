@@ -103,7 +103,6 @@ void CMandarinTrainer::Train(const std::string &strUserLoc, const std::string &s
     
   std::string strChar;
   std::string strPY;
-  //char ctemp[4];
   CLanguageModel::Context trainContext = m_pLanguageModel->CreateEmptyContext();
   std::string pyID = "》";
   std::vector<symbol> Symchar;
@@ -140,17 +139,17 @@ void CMandarinTrainer::Train(const std::string &strUserLoc, const std::string &s
       strChar.append(strBuffer.substr(3*pos,3));
       std::string strtemp = strBuffer.substr(3*(pos),3);
       Symchar.clear();
-      m_pCHAlphabet->GetSymbols(&Symchar, &strtemp, 0);
+      m_pCHAlphabet->GetSymbols(Symchar, strtemp);
 
       pos++;
           
     }
     Symchar.clear();
     Sympy.clear();
-    m_pCHAlphabet->GetSymbols(&Symchar, &strChar, 0);
-    m_pAlphabet->GetSymbols(&Sympy, &strPY, 0);      
+    m_pCHAlphabet->GetSymbols(Symchar, strChar);
+    m_pAlphabet->GetSymbols(Sympy, strPY);      
     
-    for(int i =0; i<Symchar.size(); i++){
+    for(unsigned int i =0; i<Symchar.size(); i++){
 
       if((Symchar[i]<7603)&&(Symchar[i]>-1)){//Hack here? to prevent lan model from failing
 	

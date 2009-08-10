@@ -72,7 +72,7 @@ unsigned int CPinYinConversionHelper::GetSumPYProbs(Dasher::CLanguageModel::Cont
     std::string HZ = static_cast<std::string>(pCurrentNode->pszConversion);
     // Distribute the remaining space evenly
     
-    m_pCHAlphabet->GetSymbols(&Symbols, &HZ, 0);    
+    m_pCHAlphabet->GetSymbols(Symbols, HZ);    
 
     if(Symbols.size()!=0)
       sumProb += Probs[Symbols[0]];
@@ -126,7 +126,7 @@ void CPinYinConversionHelper::AssignSizes(SCENode **pStart, Dasher::CLanguageMod
 
     std::string HZ(pNode->pszConversion);
 
-    m_pCHAlphabet->GetSymbols(&Symbols, &HZ, 0);    
+    m_pCHAlphabet->GetSymbols(Symbols, HZ);    
 
     if(Symbols.size()!=0){
       pNode->Symbol = Symbols[0];

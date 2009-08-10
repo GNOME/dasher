@@ -501,13 +501,13 @@ void CAlphabetManager::SetFlag(CDasherNode *pNode, int iFlag, bool bValue) {
   }
 }
 
-void CAlphabetManager::BuildContext(std::string strContext, bool bRoot, CLanguageModel::Context &oContext, symbol &iSymbol) {
+void CAlphabetManager::BuildContext(std::string &strContext, bool bRoot, CLanguageModel::Context &oContext, symbol &iSymbol) {
   // Hopefully this will obsolete any need to handle contexts outside
   // of the alphabet manager - check this and remove resulting
   // redundant code
 
   std::vector<symbol> vContextSymbols;
-  m_pNCManager->GetAlphabet()->GetSymbolsFull(&vContextSymbols, &strContext);
+  m_pNCManager->GetAlphabet()->GetSymbols(vContextSymbols, strContext);
  
   oContext = m_pLanguageModel->CreateEmptyContext();
   

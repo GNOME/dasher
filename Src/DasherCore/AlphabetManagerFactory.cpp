@@ -37,7 +37,7 @@ CAlphabetManagerFactory::CAlphabetManagerFactory(CDasherInterfaceBase *pInterfac
   // if this is the case then the parameter value should be updated,
   // but not in such a way that it causes everything to be rebuilt.
 
-  Dasher::CAlphIO::AlphInfo oAlphInfo = pAlphIO->GetInfo(pSettingsStore->GetStringParameter(SP_ALPHABET_ID));
+  const Dasher::CAlphIO::AlphInfo &oAlphInfo(pAlphIO->GetInfo(pSettingsStore->GetStringParameter(SP_ALPHABET_ID)));
   m_pAlphabet = new CAlphabet(oAlphInfo);
   m_pCHAlphabet = NULL;
 

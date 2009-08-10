@@ -184,30 +184,30 @@ void CAlphabet::GetSymbols(std::vector<symbol> &symbols, std::istream &in) const
   delete [] utfchar;
 }
 
-void CAlphabet::GetSymbols(std::vector<symbol> *Symbols, std::string * Input, bool IsMore) const
+void CAlphabet::GetSymbols(std::vector<symbol>& Symbols, std::string& Input) const
 {
   string Tmp;
-  symbol CurSymbol = 0, TmpSymbol = 0;
+  symbol CurSymbol = 0;
   int extras;
   unsigned int bit;
 
-  for(unsigned int i = 0; i < Input->size(); i++) {
+  for(unsigned int i = 0; i < Input.size(); i++) {
 
-    Tmp = (*Input)[i];
+    Tmp = Input[i];
 
     /* The string we've been given is in UTF-8. The symbols are
        also in UTF-8, so we need to pass the entire UTF-8 character
        which may be several bytes long. RFC 2279 describes this
        encoding */
 
-    if((*Input)[i] & 0x80) {    // Character is more than 1 byte long
+    if(Input[i] & 0x80) {    // Character is more than 1 byte long
       extras = 1;
-      for(bit = 0x20; ((*Input)[i] & bit) != 0; bit >>= 1)
+      for(bit = 0x20; (Input[i] & bit) != 0; bit >>= 1)
         extras++;
       if(extras > 5) {
       }                         // Malformed character
       while(extras-- > 0) {
-        Tmp += (*Input)[++i];
+        Tmp += Input[++i];
       }
     }
 
@@ -215,46 +215,6 @@ void CAlphabet::GetSymbols(std::vector<symbol> *Symbols, std::string * Input, bo
 
     if(CurSymbol != 0)
       Symbols->push_back(CurSymbol);
-  }
-
-  if(IsMore)
-    *Input = "";
-}
-
-void CAlphabet::GetSymbolsFull(std::vector<symbol > *Symbols, std::string *Input) const {
- 
-  std::string::iterator it = Input->begin();
-
-  while(it != Input->end()) {
-    unsigned char c = static_cast<unsigned char>(*it);
-
-    int iNBytes;
-
-    if(c <= 0x7F)
-      iNBytes = 1;
-    else if((c >= 0xC2) && (c <= 0xDF))
-      iNBytes = 2;
-    else if((c >= 0xE0) && (c <= 0xEF))
-      iNBytes = 3;
-    else if((c >= 0xF0) && (c <= 0xF4))
-      iNBytes = 4;
-    else {
-      // TODO: Error condition - handle this.
-      iNBytes = 1;
-    }
-
-    std::string strCurrentSymbol(1, *it);
-
-    for(int i = 0; i < iNBytes - 1; ++i) {
-      ++it;
-      strCurrentSymbol += *it;
-    }
-
-    // TODO: Error condition on reaching end of string prematurely.
-
-    Symbols->push_back(TextMap.Get(strCurrentSymbol));
-
-    ++it;
   }
 }
 

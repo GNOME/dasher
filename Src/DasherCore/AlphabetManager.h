@@ -109,7 +109,7 @@ namespace Dasher {
 
   private:
     
-    void BuildContext(std::string strContext, bool bRoot, CLanguageModel::Context &oContext, symbol &iSymbol);
+    void BuildContext(std::string& strContext, bool bRoot, CLanguageModel::Context &oContext, symbol &iSymbol);
 
     void RecursiveIterateGroup(CDasherNode *pParent, SGroupInfo *pInfo, std::vector<symbol> *pSymbols, std::vector<unsigned int> *pCProb, int iMin, int iMax, symbol iExistingSymbol, CDasherNode *pExistingChild);
 

@@ -114,7 +114,7 @@ CDictLanguageModel::CDictLanguageModel(Dasher::CEventHandler *pEventHandler, CSe
     //      std::cout << SymbolAlphabet().GetAlphabetPointer() << std::endl;
 
     std::vector < symbol > Symbols;
-    SymbolAlphabet().GetAlphabetPointer()->GetSymbols(&Symbols, &CurrentWord, false);
+    SymbolAlphabet().GetAlphabetPointer()->GetSymbols(Symbols, CurrentWord);
 
     for(std::vector < symbol >::iterator it(Symbols.begin()); it != Symbols.end(); ++it) {
       MyLearnSymbol(TempContext, *it);

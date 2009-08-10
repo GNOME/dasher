@@ -130,7 +130,7 @@ void
 Dasher::CTrainingHelper::HandleEndElement(const XML_Char *szName) {
   if(!strcmp(szName, "segment")) {
     std::vector<Dasher::symbol> vSymbols;
-    m_pAlphabet->GetSymbols(&vSymbols, &m_strCurrentText, false);
+    m_pAlphabet->GetSymbols(vSymbols, m_strCurrentText);
     Train(vSymbols);
     
     m_bInSegment = false;

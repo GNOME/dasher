@@ -65,7 +65,6 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   }
 
   void GetProbs(Dasher::CLanguageModel::Context context, std::vector <Dasher::symbol >&NewSymbols, std::vector <unsigned int >&Probs, int iNorm) const;
-  void LearnText(Dasher::CLanguageModel::Context context, std::string *TheText, bool IsMore);
   void EnterText(Dasher::CLanguageModel::Context context, std::string TheText) const;
 
   inline int GetColour(Dasher::symbol s, int iPhase) const {
