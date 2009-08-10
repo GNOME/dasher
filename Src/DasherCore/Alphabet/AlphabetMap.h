@@ -65,10 +65,12 @@ class Dasher::alphabet_map {
 
 public:
   alphabet_map(unsigned int InitialTableSize = 255);
+  ~alphabet_map();
   void Add(const std::string & Key, symbol Value);
 
   // Return the symbol associated with Key or Undefined.
   symbol Get(const std::string & Key) const;
+  symbol GetSingleChar(char key) const;
 
 private:
   class Entry {
@@ -105,6 +107,7 @@ private:
   } std::vector < Entry > Entries;
   std::vector < Entry * >HashTable;
   const symbol Undefined;
+  symbol *m_pSingleChars;
 };
 /// \}
 

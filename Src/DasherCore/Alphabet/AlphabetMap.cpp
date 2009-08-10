@@ -9,7 +9,7 @@
 #include "../../Common/Common.h"
 
 #include "AlphabetMap.h"
-
+#include <limits>
 
 using namespace Dasher;
 using namespace std;
@@ -27,9 +27,21 @@ static char THIS_FILE[] = __FILE__;
 alphabet_map::alphabet_map(unsigned int InitialTableSize)
 :HashTable(InitialTableSize <<1), Undefined(0) {
   Entries.reserve(InitialTableSize);
+
+  const int numChars = numeric_limits<char>::max() + 1;
+  m_pSingleChars = new symbol[numChars];
+  for (int i = 0; i<numChars; i++) m_pSingleChars[i] = Undefined;
+}
+
+alphabet_map::~alphabet_map() {
+  delete m_pSingleChars;
 }
 
 void alphabet_map::Add(const std::string &Key, symbol Value) {
+  if (Key.length() == 1) {
+    m_pSingleChars[Key[0]] = Value;
+    return;
+  }
   Entry *&HashEntry = HashTable[Hash(Key)];
 
   // Loop through Entries with the correct Hash value.
@@ -65,7 +77,9 @@ void alphabet_map::Add(const std::string &Key, symbol Value) {
 }
 
 symbol alphabet_map::Get(const std::string &Key) const {
-
+  if (Key.length() == 1) {
+	return GetSingleChar(Key[0]);
+  }
   // Loop through Entries with the correct Hash value.
   for(Entry * i = HashTable[Hash(Key)]; i; i = i->Next) {
     if(i->Key == Key) {
@@ -75,3 +89,5 @@ symbol alphabet_map::Get(const std::string &Key) const {
 
   return Undefined;
 }
+
+symbol alphabet_map::GetSingleChar(char key) const {return m_pSingleChars[key];}

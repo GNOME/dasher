@@ -167,10 +167,16 @@ void CAlphabet::GetSymbols(std::vector<symbol> &symbols, std::istream &in) const
           in >> skip;
         }
       else
-        {
-          in.read(utfchar, len);
-          utfchar[len] = '\0';
-          sym = TextMap.Get(string(utfchar));
+	  {
+		  if (len == 1) {
+			in.ignore(1);
+			sym = TextMap.GetSingleChar(ch);
+		  }
+		  else {
+            in.read(utfchar, len);
+			utfchar[len] = '\0';
+			sym = TextMap.Get(string(utfchar));
+		  }
           symbols.push_back(sym);
         }
       ch = in.peek();

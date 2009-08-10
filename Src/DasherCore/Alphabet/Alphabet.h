@@ -125,16 +125,6 @@ namespace Dasher {
 
     void Trace() const;         // diagnostic
 
-    // Add the characters that can appear in Nodes
-    void AddChar(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);    // add single char to the alphabet
-
-    // Alphabet language parameters
-    void AddParagraphSymbol(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);
-    void AddSpaceSymbol(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);
-    void AddControlSymbol(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);
-    void AddStartConversionSymbol(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);
-    void AddEndConversionSymbol(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);
-
     void SetOrientation(Opts::ScreenOrientations Orientation) {
       m_Orientation = Orientation;
     }
@@ -156,8 +146,18 @@ namespace Dasher {
     }
 
     SGroupInfo *m_pBaseGroup;
-    
+
   private:
+
+    // Add the characters that can appear in Nodes
+    void AddChar(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);    // add single char to the alphabet
+
+    // Alphabet language parameters
+    void AddParagraphSymbol(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);
+    void AddSpaceSymbol(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);
+    void AddControlSymbol(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);
+    void AddStartConversionSymbol(std::string NewCharacter, std::string Display , int Colour, std::string Foreground);
+    void AddEndConversionSymbol(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);
 
     Opts::AlphabetTypes m_DefaultEncoding;
     Opts::ScreenOrientations m_Orientation;
