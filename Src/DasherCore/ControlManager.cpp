@@ -407,7 +407,7 @@ void CControlManager::Leave(CDasherNode *pNode) {
 
 void CControlManager::XmlStartHandler(void *pUserData, const XML_Char *szName, const XML_Char **aszAttr) {
   
-  int colour;
+  int colour=-1;
   string str;
   if(0==strcmp(szName, "label"))
   {

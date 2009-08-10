@@ -371,7 +371,7 @@ void CCTWLanguageModel::GetProbs(Context context, std::vector<unsigned int> &Pro
 	uint64 IntervalB = 0; // 'base' interval
 	uint64 IntervalZ = 0; // divided interval for the 0-branch
 	uint64 IntervalO = 0; // divided interval for the 1-branch
-	int MinInterval = 0;	
+	unsigned int MinInterval = 0;	
 	unsigned short int Pw0 = 0;
 	unsigned short int Pw1 = 0;
 

@@ -362,7 +362,7 @@ void CConversionHelper::BuildTree(CDasherNode *pRoot) {
     strCurrentString = m_pAlphabet->GetDisplayText(pRootAlphabetData->iSymbol);
     
     SCENode *pStartTemp;
-    bool ConversionSuccess = Convert(strCurrentString, &pStartTemp); 
+    Convert(strCurrentString, &pStartTemp); 
     
     SConversionData *pRootConversionData = static_cast<CConversionHelper::SConversionData *>(pRoot->m_pUserData);
     

@@ -105,7 +105,6 @@ void CPinYinConversionHelper::AssignSizes(SCENode **pStart, Dasher::CLanguageMod
 
   int uniform_add;
   int nonuniform_norm;
-  int control_space;
   int iNorm = normalization;
 
   //Kept normalization base from old code   

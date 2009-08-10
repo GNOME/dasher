@@ -110,7 +110,6 @@ std::set<std::string> *CPinyinParser::ParseGroupName(const std::string &strName)
     strSymbol += '9';
 
     std::string strTone = strName.substr(i2-1,1);
-    int iTone = atoi(strTone.c_str());
 
     CTrieNode *pCurrentNode = m_pRoot;
 
