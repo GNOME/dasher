@@ -705,7 +705,7 @@ int CDasherViewSquare::RenderNodeFatherFast(const int parent_color, myint y1, my
 /// just the inverse of the mapping used to calculate the screen
 /// positions of boxes etc.
 
-void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myint &iDasherX, myint &iDasherY, bool b1D, bool bNonlinearity) {
+void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myint &iDasherX, myint &iDasherY) {
 
   // Things we're likely to need:
 
@@ -714,14 +714,6 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
 
   screenint iScreenWidth = Screen()->GetWidth();
   screenint iScreenHeight = Screen()->GetHeight();
-
-  // TODO: Is this used any more?
-  if( b1D ) { // Special case for 1D mode...
-    DASHER_ASSERT(false);
-    //    iDasherX = iInputX * iDasherWidth / iScreenWidth;
-    // iDasherY = iInputY * iDasherHeight / iScreenHeight;
-    //return;
-  }
 
   int eOrientation(GetLongParameter(LP_REAL_ORIENTATION));
 
@@ -751,10 +743,8 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
 
 #ifndef WITH_MAEMO
   // FIXME - disabled to avoid floating point
-  if( bNonlinearity ) {
     iDasherX = myint(ixmap(iDasherX / static_cast < double >(GetLongParameter(LP_MAX_Y))) * (myint)GetLongParameter(LP_MAX_Y));
     iDasherY = m_ymap.unmap(iDasherY);
-  }
 #endif
   
 }
@@ -919,20 +909,20 @@ void CDasherViewSquare::VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, m
     
     switch( eOrientation ) {
     case Dasher::Opts::LeftToRight:
-      Screen2Dasher(Screen()->GetWidth(),0,m_iDasherMinX,m_iDasherMinY,false,true);
-      Screen2Dasher(0,Screen()->GetHeight(),m_iDasherMaxX,m_iDasherMaxY,false,true);
+      Screen2Dasher(Screen()->GetWidth(),0,m_iDasherMinX,m_iDasherMinY);
+      Screen2Dasher(0,Screen()->GetHeight(),m_iDasherMaxX,m_iDasherMaxY);
       break;
     case Dasher::Opts::RightToLeft:
-      Screen2Dasher(0,0,m_iDasherMinX,m_iDasherMinY,false,true);
-      Screen2Dasher(Screen()->GetWidth(),Screen()->GetHeight(),m_iDasherMaxX,m_iDasherMaxY,false,true);
+      Screen2Dasher(0,0,m_iDasherMinX,m_iDasherMinY);
+      Screen2Dasher(Screen()->GetWidth(),Screen()->GetHeight(),m_iDasherMaxX,m_iDasherMaxY);
       break;
     case Dasher::Opts::TopToBottom:
-      Screen2Dasher(0,Screen()->GetHeight(),m_iDasherMinX,m_iDasherMinY,false,true);
-      Screen2Dasher(Screen()->GetWidth(),0,m_iDasherMaxX,m_iDasherMaxY,false,true);
+      Screen2Dasher(0,Screen()->GetHeight(),m_iDasherMinX,m_iDasherMinY);
+      Screen2Dasher(Screen()->GetWidth(),0,m_iDasherMaxX,m_iDasherMaxY);
       break;
     case Dasher::Opts::BottomToTop:
-      Screen2Dasher(0,0,m_iDasherMinX,m_iDasherMinY,false,true);
-      Screen2Dasher(Screen()->GetWidth(),Screen()->GetHeight(),m_iDasherMaxX,m_iDasherMaxY,false,true);
+      Screen2Dasher(0,0,m_iDasherMinX,m_iDasherMinY);
+      Screen2Dasher(Screen()->GetWidth(),Screen()->GetHeight(),m_iDasherMaxX,m_iDasherMaxY);
       break;
     }
     

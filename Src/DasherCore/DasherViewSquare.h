@@ -71,7 +71,7 @@ public:
   /// 
   /// Convert a screen co-ordinate to Dasher co-ordinates
   ///
-  void Screen2Dasher(screenint iInputX, screenint iInputY, myint & iDasherX, myint & iDasherY,bool b1D, bool bNonlinearity);
+  void Screen2Dasher(screenint iInputX, screenint iInputY, myint & iDasherX, myint & iDasherY);
 
   ///
   /// Convert Dasher co-ordinates to screen co-ordinates

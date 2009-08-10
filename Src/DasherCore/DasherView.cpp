@@ -304,8 +304,8 @@ void CDasherView::DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint iAnchor
     myint iDasherNewRight;
     myint iDasherNewBottom;
     
-    Screen2Dasher(newleft2, newtop2, iDasherNewLeft, iDasherNewTop,false,true);
-    Screen2Dasher(newright2, newbottom2, iDasherNewRight, iDasherNewBottom,false,true);
+    Screen2Dasher(newleft2, newtop2, iDasherNewLeft, iDasherNewTop);
+    Screen2Dasher(newright2, newbottom2, iDasherNewRight, iDasherNewBottom);
     
     mostleft = std::min(iDasherNewRight, iDasherNewLeft);
   }
@@ -357,7 +357,7 @@ int CDasherView::GetCoordinates(myint &iDasherX, myint &iDasherY) {
 
   switch(iType) {
   case 0:
-    Screen2Dasher(mousex, mousey, iDasherX, iDasherY, false, true );
+    Screen2Dasher(mousex, mousey, iDasherX, iDasherY);
     break;
   case 1:
     iDasherX = mousex;

@@ -91,7 +91,7 @@ public:
   /// Convert a screen co-ordinate to Dasher co-ordinates
   ///
 
-  virtual void Screen2Dasher(screenint iInputX, screenint iInputY, myint & iDasherX, myint & iDasherY,bool b1D, bool bNonlinearity) = 0;
+  virtual void Screen2Dasher(screenint iInputX, screenint iInputY, myint & iDasherX, myint & iDasherY) = 0;
 
   ///
   /// Convert Dasher co-ordinates to screen co-ordinates
