@@ -1,6 +1,7 @@
 2009-08-11  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* Split DasherButtons into one class per style; add option for scanning menu
+	* Add tapping facility to StylusFilter.
 
 2009-08-10  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
