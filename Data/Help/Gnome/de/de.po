@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
-"POT-Creation-Date: 2009-03-05 18:17+0000\n"
-"PO-Revision-Date: 2009-03-07 21:53+0100\n"
+"POT-Creation-Date: 2009-08-09 10:48+0000\n"
+"PO-Revision-Date: 2009-08-11 21:23+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,31 +18,32 @@ msgstr ""
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/dasher.xml:188(None) C/dasher.xml:232(None)
 msgid "@@image: 'figures/a-z.gif'; md5=0df765cb06d1873c4b77ccfa2aec273a"
-msgstr ""
+msgstr "@@image: 'figures/a-z.gif'; md5=0df765cb06d1873c4b77ccfa2aec273a"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/dasher.xml:191(None) C/dasher.xml:235(None)
 msgid "@@image: 'figures/aa-az.gif'; md5=499378b5a346d9a1fff3317ed7bca624"
-msgstr ""
+msgstr "@@image: 'figures/aa-az.gif'; md5=499378b5a346d9a1fff3317ed7bca624"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/dasher.xml:194(None) C/dasher.xml:238(None)
 msgid "@@image: 'figures/ala-alz.gif'; md5=c1d38e5e5cd6234737ff5e80c8120416"
-msgstr ""
+msgstr "@@image: 'figures/ala-alz.gif'; md5=c1d38e5e5cd6234737ff5e80c8120416"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/dasher.xml:263(None)
 msgid "@@image: 'figures/object.gif'; md5=f961ced3b16182985421dba58cbb130d"
-msgstr ""
+msgstr "@@image: 'figures/object.gif'; md5=f961ced3b16182985421dba58cbb130d"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/dasher.xml:340(None)
 msgid "@@image: 'figures/exampleHad2.png'; md5=c3a7c8f985519a90d739117aa4e1e064"
 msgstr ""
+"@@image: 'figures/exampleHad2.png'; md5=c3a7c8f985519a90d739117aa4e1e064"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
@@ -50,6 +51,7 @@ msgstr ""
 msgid ""
 "@@image: 'figures/exampleHad2a.png'; md5=1d124560d223498f876122bcd85afaac"
 msgstr ""
+"@@image: 'figures/exampleHad2a.png'; md5=1d124560d223498f876122bcd85afaac"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
@@ -57,12 +59,14 @@ msgstr ""
 msgid ""
 "@@image: 'figures/exampleHad3a.png'; md5=0bcd661209391842cf47f00b767146b3"
 msgstr ""
+"@@image: 'figures/exampleHad3a.png'; md5=0bcd661209391842cf47f00b767146b3"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
 #: C/dasher.xml:399(None)
 msgid "@@image: 'figures/exampleHad4.png'; md5=9974616612b5c811cb2c161093c8523c"
 msgstr ""
+"@@image: 'figures/exampleHad4.png'; md5=9974616612b5c811cb2c161093c8523c"
 
 #: C/dasher.xml:5(title)
 msgid "Dasher Manual"
@@ -230,6 +234,8 @@ msgid ""
 "There are several `button modes' for people who want to drive Dasher using "
 "one, two, three, or four switches."
 msgstr ""
+"Es gibt verschiedene »Knopf-Modi«, je nachdem, ob Sie Dasher mit einem, zwei, "
+"drei oder vier Schaltern bedienen wollen."
 
 #: C/dasher.xml:80(para)
 msgid ""
@@ -248,12 +254,18 @@ msgid ""
 "write. A teaching hand will guide the novice when he goes astray, and novices "
 "who write fast without needing much guidance will win lots of points."
 msgstr ""
+"Wir werden Dasher einen Spielmodus einverleiben, der Neulingen beim Schreiben "
+"lernen helfen wird. Eine helfende Hand wird den Neuling davor bewahren, vom "
+"rechten Wege ab zu kommen, und wer schnell und ohne viel Hilfe schreiben "
+"kann, wird mit Punkten überhäuft."
 
 #: C/dasher.xml:91(para)
 msgid ""
 "New language models will be added, which will make predictions at the word "
 "level as well as the letter level."
 msgstr ""
+"Neue Sprachmodelle werden hinzugefügt, die zuverlässige Voraussagen sowohl "
+"auf Wortebene wie auch auf Buchstabenebene ermöglichen."
 
 #: C/dasher.xml:94(para)
 msgid "Japanese and Chinese will be fully supported."
@@ -271,23 +283,26 @@ msgstr "Dasher-Grundlagen"
 
 #: C/dasher.xml:106(para)
 msgid "On a palmtop computer;"
-msgstr ""
+msgstr "auf einem Hosentaschen-Computer (PDA),"
 
 #: C/dasher.xml:109(para)
 msgid "on a wearable computer;"
-msgstr ""
+msgstr "auf einem tragbaren Computer,"
 
 #: C/dasher.xml:112(para)
 msgid ""
 "when operating a computer one-handed, by joystick, touchscreen, trackball, or "
 "mouse;"
 msgstr ""
+"wenn der Computer einhändig bedient wird, zum Beispiel per Joystick, "
+"Berührungsbildschirm, Trackball oder Maus,"
 
 #: C/dasher.xml:116(para)
 msgid ""
 "when operating a computer with zero hands (i.e., by head-mouse or by "
 "eyetracker)."
 msgstr ""
+"wenn der Computer freihändig bedient wird (z.B. per Kopfmaus oder Eyetracker)."
 
 #: C/dasher.xml:102(para)
 msgid ""
@@ -298,6 +313,14 @@ msgid ""
 "fast as normal handwriting - 29 words per minute; using a mouse, experienced "
 "users can write at 39 words per minute."
 msgstr ""
+"Dasher ist eine informationseffiziente Schnittstelle zur Eingabe von Text, "
+"gesteuert durch fortwährende natürliche Zeigegesten. Es ist ein durchaus "
+"konkurrenzfähiges Texteingabesystem für Fälle, in denen ein gewöhnliche "
+"Tastatur nicht benutzt werden kann, zum Beispiel: <placeholder-1/> Mit der "
+"auf einen Eyetracker zugeschnittenen Version von Tracker schreibt ein "
+"einigermaßen erfahrener Benutzer ebenso schnell wie per Hand - 29 Wörter pro "
+"Minute. Mit einer Maus ein trainierter Schreiber bis zu 39 Wörter pro Minute "
+"aufs virtuelle Papier legen."
 
 #: C/dasher.xml:123(para)
 msgid "Dasher can be used to write efficiently in any language."
@@ -306,7 +329,7 @@ msgstr ""
 
 #: C/dasher.xml:125(para)
 msgid "Dasher is fast and fun to learn."
-msgstr ""
+msgstr "Der Umgang mit Dasher ist schnell und leicht zu erlernen."
 
 #: C/dasher.xml:130(para)
 msgid ""
@@ -339,6 +362,12 @@ msgid ""
 "of text. The more you zoom in, the longer the piece of text you have written. "
 "You choose what you write by choosing where to zoom."
 msgstr ""
+"Dasher ist eine Art Vergrößerungsschnittstelle. Sie peilen den gewünschten "
+"Punkt an, und die Anzeige vergrößert den entsprechenden Bereich. Die Welt, in "
+"die Sie eintauchen, ist mit Buchstaben gefüllt, so dass jeder von Ihnen "
+"gewählte Punkt mit einem Stück Text korrespondiert. Je weiter Sie "
+"hineingehen, umso länger wird der geschriebene Text. Wo Sie auch vergrößern, "
+"wählen Sie damit aus, was Sie schreiben."
 
 #: C/dasher.xml:146(para)
 msgid ""
@@ -349,6 +378,14 @@ msgid ""
 "given less space, so they are harder to write. The language model learns all "
 "the time: if you use a novel word once, it is easier to write next time."
 msgstr ""
+"Um effektiv mit dieser Schnittstelle arbeiten zu können, verwenden wir die "
+"vorausschauende Logik eines Sprachmodells, um jedem Stück Text ein Stück "
+"dieser Welt zuzuweisen. Möglichen Textschnipseln wird mehr Platz gegönnt, um "
+"sie schneller und leichter auswählen zu können. Unnötiger Text, zum Beispiel "
+"Text, der mit Rechtschreibfehlern gespickt ist, erhält weniger Platz, um das "
+"Schreiben zu erschweren. Das Sprachmodell lernt fortwährend dazu: Wenn Sie "
+"ein neues Wort einmal benutzt haben, werden Sie es beim nächsten Mal viel "
+"leichter schreiben können."
 
 #: C/dasher.xml:154(para)
 msgid ""
@@ -357,12 +394,18 @@ msgid ""
 "emphasis>: the user does not need to switch from a writing mode to an "
 "<quote>accept-model-predictions</quote> mode."
 msgstr ""
+"Ein bedeutender Vorzug gegenüber anderen, vorausschauenden, automatisch "
+"vervollständigenden Texteingabeschnittstellen ist der <emphasis>freie Modus</"
+"emphasis>: Der Benutzer muss nicht zwischen einem Schreibmodus auf einen "
+"»Vorschlag-Akzeptier-Modus« umschalten."
 
 #: C/dasher.xml:158(para)
 msgid ""
 "Another advantage is that it is easy to train the model on any writing style: "
 "simply load up an example file, then write away!"
 msgstr ""
+"Ein weiterer Vorzug ist die leichte Erlernbarkeit dieses Modells mit jedem "
+"Schreibstil: Laden Sie einfach eine Beispieldatei, und legen Sie los!"
 
 #: C/dasher.xml:161(para)
 msgid ""
@@ -370,10 +413,13 @@ msgid ""
 "<ulink url=\"http://www.dasher.org.uk/\" type=\"http\">www.dasher.org.uk</"
 "ulink> to see movies."
 msgstr ""
+"Es lässt sich schwer in Worte fassen, wie Dasher aussieht, schauen Sie sich "
+"hierzu auf <ulink url=\"http://www.dasher.org.uk/\" type=\"http\">www.dasher."
+"org.uk</ulink> einige Videos an."
 
 #: C/dasher.xml:166(title)
 msgid "Dasher explained -- the library analogy"
-msgstr ""
+msgstr "Dasher erklärt -- Das Bibliotheksmodell"
 
 #: C/dasher.xml:167(para)
 msgid ""
@@ -496,6 +542,20 @@ msgid ""
 "dragging either. <emphasis>Do not try to grab things and drag them. Just "
 "decide where you want to go, and point there.</emphasis>"
 msgstr ""
+"Geben Sie nicht gleich auf, wenn es zu Beginn ein, zwei Minuten dauert - zehn "
+"Minuten später sind Sie mühelos auf Touren. Es ist wie in einem fahrenden "
+"Auto. Sie sollten <emphasis>zu Beginn vorsichtig fahren</emphasis>. Wenn Sie "
+"nicht begreifen, was Sie tun, <emphasis>halten Sie einfach an</emphasis>. "
+"Tatsächlich, Sie können sich Dasher schneller nähern, wenn Sie immer die "
+"Analogie zum Auto im Hinterkopf behalten, viel schneller, als Sie es in der "
+"üblichen Computer-Begriffswelt könnten. Beispielsweise funktioniert die "
+"Navigation nicht durch ERFASSEN, sondern durch LENKEN: Wenn Autos wie Windows-"
+"Rechner funktionieren würden, dann müssten Sie den Straßenabschnitt »erfassen« "
+"und dann neben sich »ablegen«. Im Auto jedoch »zeigen« Sie mit dem Lenkrad "
+"einfach nach rechts, und der Wgen wendet sich nach rechts. Dasher bietet "
+"dieses Erfassen nicht. <emphasis>Erfassen Sie die Dinge nicht und legen Sie "
+"sie irgendwo ab. Entscheiden Sie sich, was Sie wollen, und zeigen Sie einfach "
+"darauf.</emphasis>"
 
 #: C/dasher.xml:288(para)
 msgid ""
@@ -761,6 +821,11 @@ msgid ""
 "Dasher is to have the person you're talking to watch the screen as you write. "
 "But there are lots of other ways to communicate through Dasher."
 msgstr ""
+"Mit Dasher können Sie mit Hilfe Ihres Rechners kommunizieren und bis zu einem "
+"gewissen Grad auch ihren Rechner steuern. Offensichtlich ist die einfachste "
+"Art der Kommunikation mittels Dasher, wenn Sie eine Person, mit der Sie reden "
+"wollen, einfach vom Bildschirm ablesen lassen, was Sie schreiben. Aber das "
+"ist bei weitem nicht die einzige Möglichkeit."
 
 #: C/dasher.xml:779(title)
 msgid "Copy to clipboard"
@@ -985,6 +1050,8 @@ msgid ""
 "Dasher is designed on the principle of getting <emphasis>as much information "
 "as possible</emphasis> from the gestures you can make."
 msgstr ""
+"Dasher wurde nach dem Prinzip entworfen, <emphasis>so viel Information wie "
+"möglich</emphasis> aus Ihren Zeigegesten zu erhalten."
 
 #: C/dasher.xml:938(para)
 msgid ""
@@ -1196,7 +1263,7 @@ msgstr ""
 
 #: C/dasher.xml:1078(title)
 msgid "Discrete Gestures"
-msgstr ""
+msgstr "Diskrete Gesten"
 
 #: C/dasher.xml:1079(para)
 msgid ""
