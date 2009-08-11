@@ -17,7 +17,7 @@ namespace Dasher {
     CConversionManagerFactory(Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, CNodeCreationManager *pNCManager, int iID, Dasher::CAlphIO *pCAlphIO, CAlphabet *pAlphabet);
     virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData);
     ~CConversionManagerFactory();
-	  
+
   private:
     CConversionManager *GetHelper(Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, int iID, Dasher::CAlphIO *pCAlphIO);
 
@@ -26,7 +26,7 @@ namespace Dasher {
     CNodeCreationManager *m_pNCManager;
     CConversionManager *m_pMgr;
     CAlphabet *m_pAlphabet;
-    
+
     int m_iCMCount;
     int pagecount;//test
   };

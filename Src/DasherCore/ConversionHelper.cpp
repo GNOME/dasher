@@ -15,12 +15,12 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Dasher; if not, write to the Free Software 
+// along with Dasher; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif 
+#endif
 
 #include "ConversionHelper.h"
 #include "Event.h"
@@ -58,10 +58,10 @@ CDasherNode *CConversionHelper::GetRoot(CDasherNode *pParent, int iLower, int iU
   SConversionData *pNodeUserData = static_cast<SConversionData *>(pNewNode->m_pUserData);
 	
   pNodeUserData->pLanguageModel = m_pLanguageModel;
-  
-  CAlphabetManager::SAlphabetData *pParentAlphabetData = static_cast<CAlphabetManager::SAlphabetData *>(pParent->m_pUserData);      
+
+  CAlphabetManager::SAlphabetData *pParentAlphabetData = static_cast<CAlphabetManager::SAlphabetData *>(pParent->m_pUserData);
   if((pParent->m_pNodeManager->GetID()==0)&&(pParentAlphabetData->iContext)){
-	pNodeUserData->iContext=m_pLanguageModel->CloneContext(pParentAlphabetData->iContext); 
+	pNodeUserData->iContext=m_pLanguageModel->CloneContext(pParentAlphabetData->iContext);
   }
   else{
     CLanguageModel::Context iContext;
@@ -122,11 +122,11 @@ void CConversionHelper::AssignChildSizes(SCENode **pNode, CLanguageModel::Contex
     // imagine:
     //
     // 1. Probabilities provided directly with translation? Maybe hard
-    // to represent in the lattice itself. 
+    // to represent in the lattice itself.
     //
     // 2. Full n-gram language model provided - in general assign
     // probabilities to paths through the lattice
-    // 
+    //
     // 3. Ordered results, but no probabilities - using a power law
     // rule or the like.
     //
@@ -137,13 +137,13 @@ void CConversionHelper::AssignChildSizes(SCENode **pNode, CLanguageModel::Contex
     // Things to be thought out:
     // - How to deal with contexts - backtrace at time of call or stored in node?
     // - Sharing of language model infrastructure?
-    
 
-  
+
+
     // Lookup scores for each of the children
-  
+
     // TODO: Reimplement -----
-  
+
   //     for(int i(0); i < pCurrentSCEChild->IsHeadAndCandNum; ++i){
   //       score[i] = CalculateScore(pNode, i);
   //       total += score[i];
@@ -151,15 +151,15 @@ void CConversionHelper::AssignChildSizes(SCENode **pNode, CLanguageModel::Contex
   // 	if (score[i]>score[i-1])
   // 	  max = score[i];
   //     }
-  
+
   // -----
-  
+
   // Use the scores to calculate the size of the nodes
-  
-  
+
+
   iNChildren = 0;
   SCENode *pChild(*pNode);
-  
+
   while(pChild) {
     pChild = pChild->GetNext();
     ++iNChildren;
@@ -168,7 +168,7 @@ void CConversionHelper::AssignChildSizes(SCENode **pNode, CLanguageModel::Contex
   //  std::cout<<"iNChildren: "<<iNChildren<<std::endl;
   AssignSizes(pNode, context, m_pNCManager->GetLongParameter(LP_NORMALIZATION), m_pNCManager->GetLongParameter(LP_UNIFORM), iNChildren);
 
-  
+
 }
 
 void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
@@ -180,7 +180,7 @@ void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
   // Do the conversion and build the tree (lattice) if it hasn't been
   // done already.
   //
-  
+
 
   if(pCurrentDataNode->bisRoot) {
     BuildTree(pNode);
@@ -189,7 +189,7 @@ void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
   SCENode *pCurrentSCEChild;
 
   if(pCurrentDataNode->pSCENode){
-    
+
     //    RecursiveDumpTree(pCurrentDataNode->pSCENode, 1);
     pCurrentSCEChild = pCurrentDataNode->pSCENode->GetChild();
 
@@ -200,13 +200,13 @@ void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
     //else
       pCurrentSCEChild = 0;
   }
-  
+
   if(pCurrentSCEChild) {
     //    std::cout<<"Populating character nodes!"<<std::endl;
     //    std::cout << "Current SCE Child: " << pCurrentSCEChild << std::endl;
 
     // TODO: Reimplement (in subclass) -----
-    
+
 //     if(m_iHZCount>1)
 //       if(!m_bPhrasesProcessed[pCurrentSCEChild->AcCharCount-1])
 //    	if(pCurrentSCEChild->AcCharCount<m_iHZCount)
@@ -215,17 +215,17 @@ void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
     // -----
 
     //int *iSize;
-    
+
     //    iSize = new int[pCurrentSCEChild->IsHeadAndCandNum];
 
-    
 
-    
+
+
     AssignChildSizes(&pCurrentSCEChild, pCurrentDataNode->iContext, pCurrentSCEChild->IsHeadAndCandNum);
 
     int iIdx(0);
     int iCum(0);
-  
+
     //    int parentClr = pNode->Colour();
     // TODO: Fixme
     int parentClr = 0;
@@ -240,28 +240,28 @@ void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
 		//m_pNCManager->GetLongParameter(LP_NORMALIZATION));//
 
       iCum = iHbnd;
-      
+
       // TODO: Parameters here are placeholders - need to figure out
       // what's right
-      
+
 
       CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
       pDisplayInfo->iColour = AssignColour(parentClr, pCurrentSCEChild, iIdx);
       pDisplayInfo->bShove = true;
       pDisplayInfo->bVisible = true;
-      
+
       //  std::cout << "#" << pCurrentSCEChild->pszConversion << "#" << std::endl;
 
       pDisplayInfo->strDisplayText = pCurrentSCEChild->pszConversion;
-       
+
       pNewNode = new CDasherNode(pNode, iLbnd, iHbnd, pDisplayInfo);
-      
+
       // TODO: Reimplement ----
 
       // FIXME - handle context properly
       //      pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
       // -----
-      
+
       pNewNode->m_pNodeManager = this;
       pNewNode->m_pNodeManager->Ref();
 
@@ -277,13 +277,13 @@ void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
 	
 	if(pCurrentSCEChild ->Symbol !=-1)
 	  pNodeUserData->pLanguageModel->EnterSymbol(iContext, pCurrentSCEChild->Symbol); // TODO: Don't use symbols?
-      
-      
+
+
 	pNodeUserData->iContext = iContext;
       }
-      
+
       pNewNode->m_pUserData = pNodeUserData;
-      
+
       pNode->Children().push_back(pNewNode);
 
       pCurrentSCEChild = pCurrentSCEChild->GetNext();
@@ -293,20 +293,20 @@ void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
   }
 
   else {//End of conversion -> default to alphabet
-   
+
       //Phil//
       // TODO: Placeholder algorithm here
       // TODO: Add an 'end of conversion' node?
       int iLbnd(0);
-      int iHbnd(m_pNCManager->GetLongParameter(LP_NORMALIZATION)); 
-      
+      int iHbnd(m_pNCManager->GetLongParameter(LP_NORMALIZATION));
+
       CAlphabetManager::SRootData oRootData;
       oRootData.szContext = NULL;
       oRootData.iOffset = pCurrentDataNode->iOffset;
-   
+
       pNewNode = m_pNCManager->GetRoot(0, pNode, iLbnd, iHbnd, &oRootData);
       pNewNode->SetFlag(NF_SEEN, false);
-      
+
       pNode->Children().push_back(pNewNode);
       //    pNode->SetHasAllChildren(false);
       //}
@@ -315,22 +315,22 @@ void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
 
       std::cout<<"DOES IT EVER COME TO HERE?"<<std::endl;
       int iLbnd(0);
-      int iHbnd(m_pNCManager->GetLongParameter(LP_NORMALIZATION)); 
+      int iHbnd(m_pNCManager->GetLongParameter(LP_NORMALIZATION));
 
       CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
       pDisplayInfo->iColour = AssignColour(0, pCurrentSCEChild, 0);
       pDisplayInfo->bShove = true;
       pDisplayInfo->bVisible = true;
       pDisplayInfo->strDisplayText = "";
-       
+
       pNewNode = new CDasherNode(pNode, iLbnd, iHbnd, pDisplayInfo);
-      
+
       // TODO: Reimplement ----
 
       // FIXME - handle context properly
       //      pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
       // -----
-      
+
       pNewNode->m_pNodeManager = this;
       pNewNode->m_pNodeManager->Ref();
 
@@ -339,11 +339,11 @@ void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
       pNodeUserData->pSCENode = NULL;
       pNodeUserData->pLanguageModel = pCurrentDataNode->pLanguageModel;
       pNodeUserData->iOffset = pCurrentDataNode->iOffset + 1;
-     
+
       pNewNode->m_pUserData = pNodeUserData;
 
       pNewNode->SetFlag(NF_SEEN, false);
-      
+
       pNode->Children().push_back(pNewNode);
     }
     */
@@ -352,7 +352,7 @@ void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
 
 void CConversionHelper::BuildTree(CDasherNode *pRoot) {
 
-  std::string strCurrentString; 
+  std::string strCurrentString;
 
   //Find the pinyin (roman) text (stored in Display text) of the previous alphabet node
 
@@ -360,20 +360,20 @@ void CConversionHelper::BuildTree(CDasherNode *pRoot) {
 
     //Get pinyin string (to translate) from 'Display Text' in the alphabet file (refer to alphabet.spyDict.xml)
     strCurrentString = m_pAlphabet->GetDisplayText(pRootAlphabetData->iSymbol);
-    
+
     SCENode *pStartTemp;
-    Convert(strCurrentString, &pStartTemp); 
-    
+    Convert(strCurrentString, &pStartTemp);
+
     SConversionData *pRootConversionData = static_cast<CConversionHelper::SConversionData *>(pRoot->m_pUserData);
-    
+
     if(!(pRootConversionData->bisRoot))
       std::cout<<"ERROR IN BUILD TREE"<<std::endl;
 
     //Store all conversion trees(SCENode trees) in the pUserData->pSCENode of each Conversion Root
-    
+
     else{
       pRootConversionData->pSCENode = pStartTemp;
-    } 
+    }
 }
 
 void CConversionHelper::SetFlag(CDasherNode *pNode, int iFlag, bool bValue) {
@@ -382,14 +382,14 @@ void CConversionHelper::SetFlag(CDasherNode *pNode, int iFlag, bool bValue) {
     if(bValue){
       CLanguageModel * pLan =  static_cast<SConversionData *>(pNode->m_pUserData)->pLanguageModel;
 
-      SCENode * pSCENode = static_cast<SConversionData *>(pNode->m_pUserData)->pSCENode; 
+      SCENode * pSCENode = static_cast<SConversionData *>(pNode->m_pUserData)->pSCENode;
 
       if(!pSCENode)
 	return;
 
       symbol s =pSCENode ->Symbol;
-    
-     
+
+
       if(s!=-1)
 	pLan->LearnSymbol(m_iLearnContext, s);
     }

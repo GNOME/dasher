@@ -25,9 +25,9 @@ COneButtonFilter::~COneButtonFilter() {
 }
 
 bool COneButtonFilter::DecorateView(CDasherView *pView) {
-    
+
   CDasherScreen *pScreen(pView->Screen());
-  
+
   if (iLocation == 0) {
     if (!bStarted) return false;
     //reverse!
@@ -39,7 +39,7 @@ bool COneButtonFilter::DecorateView(CDasherView *pView) {
     pScreen->Polyline(p, 4, 1, 1);
   } else {
     CDasherScreen::point p[2];
-  
+
     pView->Dasher2Screen(-100, iLocation, p[0].x, p[0].y);
     pView->Dasher2Screen(-1000, iLocation, p[1].x, p[1].y);
     pScreen->Polyline(p, 2, 1, 1);
@@ -61,7 +61,7 @@ bool COneButtonFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel 
       iLocation = 8192-iLocation;
     }
   }
-    
+
   return m_pDasherModel->NextScheduledStep(Time, pAdded, pNumDeleted);
 }
 
@@ -85,6 +85,6 @@ void COneButtonFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherMo
 bool COneButtonFilter::GetSettings(SModuleSettings **pSettings, int *iCount) {
   *pSettings = sSettings;
   *iCount = sizeof(sSettings) / sizeof(SModuleSettings);
-  
+
   return true;
 };

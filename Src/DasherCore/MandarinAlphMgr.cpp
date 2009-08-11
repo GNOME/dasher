@@ -15,7 +15,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Dasher; if not, write to the Free Software 
+// along with Dasher; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "../Common/Common.h"
@@ -45,7 +45,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel, CLanguageModel::Context iLearnContext) 
+CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel, CLanguageModel::Context iLearnContext)
   : CAlphabetManager(pInterface, pNCManager, pLanguageModel, iLearnContext) {
 }
 
@@ -59,7 +59,7 @@ CDasherNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, int iLower, int iUp
     CConversionManager::SConversionData *pParentConversionData = static_cast<CConversionManager::SConversionData *>(pParent->m_pUserData);
     pNodeUserData->iContext = m_pLanguageModel->CloneContext(pParentConversionData->iContext);
   }
-  else 
+  else
 	pNodeUserData->iContext = m_pLanguageModel->CreateEmptyContext();
 
   return pNewNode;
@@ -69,7 +69,7 @@ CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CDasherNode *pParent, symbol iSy
 
   if (iSymbol <= 1288) {
 	SAlphabetData *pParentData = static_cast<SAlphabetData *>(pParent->m_pUserData);	
-	  
+
     //Modified for Mandarin Dasher
     //The following logic switch allows punctuation nodes in Mandarin to be treated in the same way as English (i.e. display and populate next round) instead of invoking a conversion node
 	  CDasherNode *pNewNode = m_pNCManager->GetRoot(2, pParent, iLbnd, iHbnd, &(pParentData->iOffset));
@@ -81,7 +81,7 @@ CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CDasherNode *pParent, symbol iSy
 
 CLanguageModel::Context CMandarinAlphMgr::CreateSymbolContext(SAlphabetData *pParentData, symbol iSymbol)
 {
-	//Context carry-over. This code may worth looking at debug      
+	//Context carry-over. This code may worth looking at debug
 	return m_pLanguageModel->CloneContext(pParentData->iContext);
 }
 

@@ -51,20 +51,20 @@ void CAlternatingDirectMode::SetupBoxes()
   m_pBoxes[2].iTop = 0;
   m_pBoxes[2].iBottom = 3096;
   m_pBoxes[3].iTop = 1000;
-  m_pBoxes[3].iBottom = 4096; 
+  m_pBoxes[3].iBottom = 4096;
 
-  m_pBoxes[0].iDisplayTop = m_pBoxes[0].iTop; 
+  m_pBoxes[0].iDisplayTop = m_pBoxes[0].iTop;
   m_pBoxes[0].iDisplayBottom = m_pBoxes[0].iBottom;
-  m_pBoxes[1].iDisplayTop = m_pBoxes[1].iTop; 
+  m_pBoxes[1].iDisplayTop = m_pBoxes[1].iTop;
   m_pBoxes[1].iDisplayBottom = m_pBoxes[1].iBottom;
-  m_pBoxes[2].iDisplayTop = m_pBoxes[2].iTop; 
+  m_pBoxes[2].iDisplayTop = m_pBoxes[2].iTop;
   m_pBoxes[2].iDisplayBottom = m_pBoxes[2].iBottom;
-  m_pBoxes[3].iDisplayTop = m_pBoxes[3].iTop; 
+  m_pBoxes[3].iDisplayTop = m_pBoxes[3].iTop;
   m_pBoxes[3].iDisplayBottom = m_pBoxes[3].iBottom;
 
   m_pBoxes[m_iNumBoxes-1].iDisplayTop = 0;
   m_pBoxes[m_iNumBoxes-1].iDisplayBottom = iDasherY;
-  
+
   m_pBoxes[m_iNumBoxes-1].iTop = int(- iDasherY / 2);
   m_pBoxes[m_iNumBoxes-1].iBottom = int(iDasherY * 1.5);
 
@@ -88,7 +88,7 @@ bool CAlternatingDirectMode::DecorateView(CDasherView *pView) {
   m_bDecorationChanged = false;
   return bRV;
 }
- 
+
 
 void CAlternatingDirectMode::DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog) {
 
@@ -99,7 +99,7 @@ void CAlternatingDirectMode::DirectKeyDown(int iTime, int iId, CDasherView *pVie
     else
       pModel->ScheduleZoom((m_pBoxes[0].iBottom - m_pBoxes[0].iTop)/2, (m_pBoxes[0].iBottom + m_pBoxes[0].iTop)/2);
     m_iLastBox = 1;
-    break; 
+    break;
   case 3:
   case 4:
     if(m_iLastBox == 2)

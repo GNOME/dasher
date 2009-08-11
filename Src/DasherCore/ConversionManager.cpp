@@ -15,12 +15,12 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Dasher; if not, write to the Free Software 
+// along with Dasher; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
-#endif 
+#endif
 
 #include "ConversionManager.h"
 #include "Event.h"
@@ -39,7 +39,7 @@
 
 using namespace Dasher;
 
-CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, CAlphabet *pAlphabet) 
+CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, CAlphabet *pAlphabet)
   : CNodeManager(2) {
 
   m_pNCManager = pNCManager;
@@ -47,7 +47,7 @@ CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, CAlphab
 
   m_iRefCount = 1;
 
-  //Testing for alphabet details, delete if needed: 
+  //Testing for alphabet details, delete if needed:
   /*
   int alphSize = pNCManager->GetAlphabet()->GetNumberSymbols();
   std::cout<<"Alphabet size: "<<alphSize<<std::endl;
@@ -60,7 +60,7 @@ CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int i
   CDasherNode *pNewNode;
 
   int iOffset = *(static_cast<int *>(pUserData));
- 
+
   // TODO: Parameters here are placeholders - need to figure out what's right
 
   CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
@@ -68,9 +68,9 @@ CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int i
   pDisplayInfo->bShove = true;
   pDisplayInfo->bVisible = true;
   pDisplayInfo->strDisplayText = ""; // TODO: Hard coded value, needs i18n
-       
+
   pNewNode = new CDasherNode(pParent, iLower, iUpper, pDisplayInfo);
- 
+
   // FIXME - handle context properly
   // TODO: Reimplemnt -----
   //  pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
@@ -86,7 +86,7 @@ CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int i
   pNodeUserData->iOffset = iOffset + 1;
 
   pNodeUserData->pLanguageModel = NULL;
-  
+
   pNodeUserData->pSCENode = 0;
 
   return pNewNode;
@@ -104,8 +104,8 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
   // user should have been warned here.
   //
   int iLbnd(0);
-  int iHbnd(m_pNCManager->GetLongParameter(LP_NORMALIZATION)); 
-    
+  int iHbnd(m_pNCManager->GetLongParameter(LP_NORMALIZATION));
+
 
   CAlphabetManager::SRootData oRootData;
   oRootData.szContext = NULL;
@@ -113,7 +113,7 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
 
   pNewNode = m_pNCManager->GetRoot(0, pNode, iLbnd, iHbnd, &oRootData);
   pNewNode->SetFlag(NF_SEEN, false);
-    
+
   pNode->Children().push_back(pNewNode);
 
   return;
@@ -122,7 +122,7 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
 void CConversionManager::ClearNode( CDasherNode *pNode ) {
   if(pNode->m_pUserData){
     SConversionData *pUserData(static_cast<SConversionData *>(pNode->m_pUserData));
-    
+
     pUserData->pLanguageModel->ReleaseContext(pUserData->iContext);
     delete (SConversionData *)(pNode->m_pUserData);
   }
@@ -139,9 +139,9 @@ void CConversionManager::RecursiveDumpTree(SCENode *pCurrent, unsigned int iDept
   }
   /*
   while(pCurrent) {
-    for(unsigned int i(0); i < iDepth; ++i) 
+    for(unsigned int i(0); i < iDepth; ++i)
       std::cout << "-";
-    
+
     std::cout << " " << pCurrent->pszConversion << " " << pCurrent->IsHeadAndCandNum << " " << pCurrent->CandIndex << " " << pCurrent->IsComplete << " " << pCurrent->AcCharCount << std::endl;
 
     RecursiveDumpTree(pCurrent->GetChild(), iDepth + 1);
@@ -152,14 +152,14 @@ void CConversionManager::RecursiveDumpTree(SCENode *pCurrent, unsigned int iDept
 
 void CConversionManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {
   // TODO: Reimplement this
-  //  m_pNCManager->m_bContextSensitive = true; 
-  
+  //  m_pNCManager->m_bContextSensitive = true;
+
   SCENode *pCurrentSCENode((static_cast<SConversionData *>(pNode->m_pUserData))->pSCENode);
-  
+
   if(pCurrentSCENode){
     Dasher::CEditEvent oEvent(1, pCurrentSCENode->pszConversion, static_cast<SConversionData *>(pNode->m_pUserData)->iOffset);
     m_pNCManager->InsertEvent(&oEvent);
-    
+
     if((pNode->GetChildren())[0]->m_pNodeManager != this) {
       Dasher::CEditEvent oEvent(11, "", 0);
       m_pNCManager->InsertEvent(&oEvent);
@@ -174,13 +174,13 @@ void CConversionManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB*
       Dasher::CEditEvent oOPEvent(1, ">", static_cast<SConversionData *>(pNode->m_pUserData)->iOffset);
       m_pNCManager->InsertEvent(&oOPEvent);
     }
-    
+
     Dasher::CEditEvent oEvent(10, "", 0);
     m_pNCManager->InsertEvent(&oEvent);
   }
 }
 
-void CConversionManager::Undo( CDasherNode *pNode ) {  
+void CConversionManager::Undo( CDasherNode *pNode ) {
   SCENode *pCurrentSCENode((static_cast<SConversionData *>(pNode->m_pUserData))->pSCENode);
 
   if(pCurrentSCENode) {
@@ -188,7 +188,7 @@ void CConversionManager::Undo( CDasherNode *pNode ) {
       Dasher::CEditEvent oEvent(2, pCurrentSCENode->pszConversion, static_cast<SConversionData *>(pNode->m_pUserData)->iOffset);
       m_pNCManager->InsertEvent(&oEvent);
     }
-  } 
+  }
   else {
     if(!((static_cast<SConversionData *>(pNode->m_pUserData))->bisRoot)) {
       Dasher::CEditEvent oOPEvent(2, "|", static_cast<SConversionData *>(pNode->m_pUserData)->iOffset);

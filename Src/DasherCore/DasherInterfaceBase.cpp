@@ -15,7 +15,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Dasher; if not, write to the Free Software 
+// along with Dasher; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "../Common/Common.h"
@@ -42,7 +42,7 @@
 // Input filters
 #include "AlternatingDirectMode.h"
 #include "ButtonMode.h"
-#include "ClickFilter.h" 
+#include "ClickFilter.h"
 #include "CompassMode.h"
 #include "DefaultFilter.h"
 
@@ -63,7 +63,7 @@
 #include "../DasherCore/FileLogger.h"
 #ifdef _DEBUG
 const eLogLevel g_iLogLevel   = logDEBUG;
-const int       g_iLogOptions = logTimeStamp | logDateStamp | logDeleteOldFile;    
+const int       g_iLogOptions = logTimeStamp | logDateStamp | logDeleteOldFile;
 #else
 const eLogLevel g_iLogLevel   = logNORMAL;
 const int       g_iLogOptions = logTimeStamp | logDateStamp;
@@ -102,9 +102,9 @@ CDasherInterfaceBase::CDasherInterfaceBase() {
 
   // Various state variables
   m_bRedrawScheduled = false;
-  
+
   m_iCurrentState = ST_START;
-  
+
   //  m_bGlobalLock = false;
 
   // TODO: Are these actually needed?
@@ -132,7 +132,7 @@ void CDasherInterfaceBase::Realize() {
   CreateSettingsStore();
   SetupUI();
   SetupPaths();
-  
+
   std::vector<std::string> vAlphabetFiles;
   ScanAlphabetFiles(vAlphabetFiles);
   m_AlphIO = new CAlphIO(GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), vAlphabetFiles);
@@ -155,8 +155,8 @@ void CDasherInterfaceBase::Realize() {
 
   if(iUserLogLevel == 10)
     m_pUserLog = new CBasicLog(m_pEventHandler, m_pSettingsStore);
-  else if (iUserLogLevel > 0) 
-    m_pUserLog = new CUserLog(m_pEventHandler, m_pSettingsStore, iUserLogLevel, m_Alphabet);  
+  else if (iUserLogLevel > 0)
+    m_pUserLog = new CUserLog(m_pEventHandler, m_pSettingsStore, iUserLogLevel, m_Alphabet);
 #else
   m_pUserLog = NULL;
 #endif
@@ -177,11 +177,11 @@ void CDasherInterfaceBase::Realize() {
   // FIXME - need to rationalise this sort of thing.
   // InvalidateContext(true);
   ScheduleRedraw();
-    
+
 #ifndef _WIN32_WCE
   // All the setup is done by now, so let the user log object know
   // that future parameter changes should be logged.
-  if (m_pUserLog != NULL) 
+  if (m_pUserLog != NULL)
     m_pUserLog->InitIsDone();
 #endif
 
@@ -189,7 +189,7 @@ void CDasherInterfaceBase::Realize() {
   ChangeState(TR_MODEL_INIT);
 
   using GameMode::CDasherGameMode;
-  // Create the teacher singleton object. 
+  // Create the teacher singleton object.
   CDasherGameMode::CreateTeacher(m_pEventHandler, m_pSettingsStore, this);
   CDasherGameMode::GetTeacher()->SetDasherView(m_pDasherView);
   CDasherGameMode::GetTeacher()->SetDasherModel(m_pDasherModel);
@@ -231,7 +231,7 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
 
   for (std::vector<CActionButton *>::iterator it=m_vRightButtons.begin(); it != m_vRightButtons.end(); ++it)
     delete *it;
-  
+
   // Must delete event handler after all CDasherComponent derived classes
 
   delete m_pEventHandler;
@@ -243,20 +243,20 @@ void CDasherInterfaceBase::PreSetNotify(int iParameter, const std::string &sNewV
   // infrastructure
 
   switch(iParameter) {
-  case SP_ALPHABET_ID: 
+  case SP_ALPHABET_ID:
     // Cycle the alphabet history
     if(GetStringParameter(SP_ALPHABET_ID) != sNewValue) {
       if(GetStringParameter(SP_ALPHABET_1) != sNewValue) {
 	if(GetStringParameter(SP_ALPHABET_2) != sNewValue) {
 	  if(GetStringParameter(SP_ALPHABET_3) != sNewValue)
 	    SetStringParameter(SP_ALPHABET_4, GetStringParameter(SP_ALPHABET_3));
-	  
+
 	  SetStringParameter(SP_ALPHABET_3, GetStringParameter(SP_ALPHABET_2));
 	}
-	
+
 	SetStringParameter(SP_ALPHABET_2, GetStringParameter(SP_ALPHABET_1));
       }
-      
+
       SetStringParameter(SP_ALPHABET_1, GetStringParameter(SP_ALPHABET_ID));
     }
 
@@ -300,7 +300,7 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       ScheduleRedraw();
       break;
     case SP_DEFAULT_COLOUR_ID: // Delibarate fallthrough
-    case BP_PALETTE_CHANGE: 
+    case BP_PALETTE_CHANGE:
       if(GetBoolParameter(BP_PALETTE_CHANGE))
 	 SetStringParameter(SP_COLOUR_ID, GetStringParameter(SP_DEFAULT_COLOUR_ID));
       break;
@@ -329,7 +329,7 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
   }
   else if(pEvent->m_iEventType == EV_EDIT && !GetBoolParameter(BP_GAME_MODE)) {
     CEditEvent *pEditEvent(static_cast < CEditEvent * >(pEvent));
-    
+
     if(pEditEvent->m_iEditType == 1) {
       strCurrentContext += pEditEvent->m_sText;
       if( strCurrentContext.size() > 20 )
@@ -369,7 +369,7 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
 //       if(!m_bGlobalLock)
 // 	ReleaseLock(0);
 //     }
-    
+
 //    m_bGlobalLock = pLockEvent->m_bLock;
   }
 }
@@ -394,13 +394,13 @@ void CDasherInterfaceBase::CreateModel(int iOffset) {
     delete m_pDasherModel;
     m_pDasherModel = 0;
   }
-  
+
   m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, m_pNCManager, this, m_pDasherView, iOffset);
-  
+
   // Notify the teacher of the new model
   if(GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher())
     pTeacher->SetDasherModel(m_pDasherModel);
-  
+
 }
 
 void CDasherInterfaceBase::CreateNCManager() {
@@ -411,12 +411,12 @@ void CDasherInterfaceBase::CreateNCManager() {
 
   int lmID = GetLongParameter(LP_LANGUAGE_MODEL_ID);
 
-  if( lmID == -1 ) 
+  if( lmID == -1 )
     return;
 
  // Train the new language model
   //    CLockEvent *pEvent;
-    
+
     //    pEvent = new CLockEvent("Training Dasher", true, 0);
     //  m_pEventHandler->InsertEvent(pEvent);
     //  delete pEvent;
@@ -441,11 +441,11 @@ void CDasherInterfaceBase::CreateNCManager() {
       delete m_pNCManager;
       m_pNCManager = 0;
     }
-  
+
     m_pNCManager = new CNodeCreationManager(this, m_pEventHandler, m_pSettingsStore, m_AlphIO);
 
     m_Alphabet = m_pNCManager->GetAlphabet();
-   
+
     ReleaseLock(iTrainingLock);
 
 
@@ -481,7 +481,7 @@ void CDasherInterfaceBase::GameMessageIn(int message, void* messagedata) {
 void CDasherInterfaceBase::Unpause(unsigned long Time) {
   SetBoolParameter(BP_DASHER_PAUSED, false);
 
-  if(m_pDasherModel != 0) 
+  if(m_pDasherModel != 0)
     m_pDasherModel->Reset_framerate(Time);
 
   Dasher::CStartEvent oEvent;
@@ -517,11 +517,11 @@ void CDasherInterfaceBase::CreateInput() {
 
 void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   // Prevent NewFrame from being reentered. This can happen occasionally and
-  // cause crashes. 
+  // cause crashes.
   static bool bReentered=false;
   if(bReentered) return;
   bReentered=true;
-  
+
   // Fail if Dasher is locked
   // if(m_iCurrentState != ST_NORMAL)
   //  return;
@@ -536,7 +536,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
 	//So initialise appropriately...
 	Dasher::VECTOR_SYMBOL_PROB vAdded;
 	int iNumDeleted = 0;
-	
+
 	if(m_pInputFilter) {
 	  bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pDasherModel, &vAdded, &iNumDeleted);
 	}
@@ -547,14 +547,14 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
 	if (vAdded.size() > 0)
 	  m_pUserLog->AddSymbols(&vAdded);
 #endif
-	
+
       }
       else {
 	if(m_pInputFilter) {
 	  bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pDasherModel, 0, 0);
 	}
       }
-      
+
       m_pDasherModel->CheckForNewRoot(m_pDasherView);
     }
   }
@@ -571,14 +571,14 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
     m_pDasherView->Screen()->SetCaptureBackground(true);
     m_pDasherView->Screen()->SetLoadBackground(true);
   }
-  
+
   bForceRedraw |= m_bLastChanged;
   m_bLastChanged = bChanged; //will also be set in Redraw if any nodes were expanded.
-	
+
   //limit the number of nodes we expand per frame...
   LimitedNodeQueue nq(max(1l,(500+GetLongParameter(LP_NODE_BUDGET))/1000)); //amortize over multiple frames
   Redraw(bChanged || m_bRedrawScheduled || bForceRedraw, nq);
-  
+
   m_bRedrawScheduled = false;
 
   // This just passes the time through to the framerate tracker, so we
@@ -593,7 +593,7 @@ void CDasherInterfaceBase::Redraw(bool bRedrawNodes, NodeQueue &nodeQueue) {
   // No point continuing if there's nothing to draw on...
   if(!m_pDasherView)
     return;
-  
+
   // Draw the nodes
   if(bRedrawNodes) {
     m_pDasherView->Screen()->SendMarker(0);
@@ -602,10 +602,10 @@ void CDasherInterfaceBase::Redraw(bool bRedrawNodes, NodeQueue &nodeQueue) {
 
   // Draw the decorations
   m_pDasherView->Screen()->SendMarker(1);
-  
+
   if(GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher())
     pTeacher->DrawGameDecorations(m_pDasherView);
-    
+
   bool bDecorationsChanged(false);
 
   if(m_pInputFilter) {
@@ -634,7 +634,7 @@ void CDasherInterfaceBase::ChangeAlphabet() {
     // exit from the first recursion
     return;
   }
-  
+
   // Send a lock event
 
   WriteTrainFileFull();
@@ -662,13 +662,13 @@ void CDasherInterfaceBase::ChangeAlphabet() {
 void CDasherInterfaceBase::ChangeColours() {
   if(!m_ColourIO || !m_DasherScreen)
     return;
- 
+
   // TODO: Make fuction return a pointer directly
   m_DasherScreen->SetColourScheme(&(m_ColourIO->GetInfo(GetStringParameter(SP_COLOUR_ID))));
 }
 
 void CDasherInterfaceBase::ChangeScreen(CDasherScreen *NewScreen) {
-  // What does ChangeScreen do? 
+  // What does ChangeScreen do?
   m_DasherScreen = NewScreen;
   ChangeColours();
 
@@ -691,13 +691,13 @@ void CDasherInterfaceBase::ChangeScreen(CDasherScreen *NewScreen) {
 
 void CDasherInterfaceBase::ChangeView() {
   // TODO: Actually respond to LP_VIEW_ID parameter (although there is only one view at the moment)
-  
+
   // removed condition that m_pDasherModel != 0. Surely the view can exist without the model?-pconlon
-    if(m_DasherScreen != 0 /*&& m_pDasherModel != 0*/) { 
+    if(m_DasherScreen != 0 /*&& m_pDasherModel != 0*/) {
     delete m_pDasherView;
-    
+
     m_pDasherView = new CDasherViewSquare(m_pEventHandler, m_pSettingsStore, m_DasherScreen);
- 
+
     if (m_pInput)
       m_pDasherView->SetInput(m_pInput);
 
@@ -780,7 +780,7 @@ void CDasherInterfaceBase::ResetNats() {
 //  	PauseAt(0,0);
 //        }
 //      }
-    
+
 //      strCurrentContext = strNewContext;
 //      WriteTrainFileFull();
 //    }
@@ -834,7 +834,7 @@ void CDasherInterfaceBase::SetBoolParameter(int iParameter, bool bValue) {
   m_pSettingsStore->SetBoolParameter(iParameter, bValue);
 };
 
-void CDasherInterfaceBase::SetLongParameter(int iParameter, long lValue) { 
+void CDasherInterfaceBase::SetLongParameter(int iParameter, long lValue) {
   m_pSettingsStore->SetLongParameter(iParameter, lValue);
 };
 
@@ -910,7 +910,7 @@ void CDasherInterfaceBase::CreateInputFilter()
 CDasherModule *CDasherInterfaceBase::RegisterModule(CDasherModule *pModule) {
     return m_oModuleManager.RegisterModule(pModule);
 }
- 
+
 CDasherModule *CDasherInterfaceBase::GetModule(ModuleID_t iID) {
     return m_oModuleManager.GetModule(iID);
 }
@@ -1128,7 +1128,7 @@ void CDasherInterfaceBase::LeaveState(EState iState) {
 void CDasherInterfaceBase::EnterState(EState iState) {
   switch(iState) {
   case ST_SHUTDOWN:
-    ShutdownTimer();  
+    ShutdownTimer();
     WriteTrainFileFull();
     break;
   default:
@@ -1153,7 +1153,7 @@ int CDasherInterfaceBase::AddLock(const std::string &strDisplay) {
   ++m_iNextLockID;
 
   NoNodeQueue nnq; //don't allow change to expansion state.
-  Redraw(false, nnq); 
+  Redraw(false, nnq);
 
   return (m_iNextLockID - 1);
 }
@@ -1183,7 +1183,7 @@ SLockData *CDasherInterfaceBase::GetCurrentLock() {
     return NULL;
 }
 
-void CDasherInterfaceBase::SetBuffer(int iOffset) { 
+void CDasherInterfaceBase::SetBuffer(int iOffset) {
    CreateModel(iOffset);
 }
 
@@ -1213,7 +1213,7 @@ const char* CDasherInterfaceBase::ClSet(const std::string &strKey, const std::st
 }
 
 
-void 
+void
 CDasherInterfaceBase::ImportTrainingText(const std::string &strPath) {
   if(m_pNCManager)
     m_pNCManager->ImportTrainingText(strPath);

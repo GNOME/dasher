@@ -30,7 +30,7 @@ CConversionManagerFactory::CConversionManagerFactory(Dasher::CEventHandler *pEve
 
   // TODO: Need to deal with the case of GetHelper returning NULL
   m_pMgr = GetHelper(pEventHandler, pSettingsStore, iID, pCAlphIO);
-	
+
   //To clean up:
   // TODO: These shouldn't be here - need to figure out exactly how it all works
   pagecount = 0; // TODO: Doesn't actually appear to do anything
