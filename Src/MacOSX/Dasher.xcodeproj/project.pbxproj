@@ -355,6 +355,12 @@
 		19F8C7FA0C858E9900276B4F /* TrainingHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 19F8C7F80C858E9900276B4F /* TrainingHelper.h */; };
 		3306E0220FFD1CE60017324C /* PPMPYLanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3306E0200FFD1CE60017324C /* PPMPYLanguageModel.cpp */; };
 		3306E0230FFD1CE60017324C /* PPMPYLanguageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 3306E0210FFD1CE60017324C /* PPMPYLanguageModel.h */; };
+		33135351102C6D8E00E28220 /* AlternatingDirectMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33135349102C6D8E00E28220 /* AlternatingDirectMode.cpp */; };
+		33135352102C6D8E00E28220 /* AlternatingDirectMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 3313534A102C6D8E00E28220 /* AlternatingDirectMode.h */; };
+		33135353102C6D8E00E28220 /* CompassMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3313534B102C6D8E00E28220 /* CompassMode.cpp */; };
+		33135354102C6D8E00E28220 /* CompassMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 3313534C102C6D8E00E28220 /* CompassMode.h */; };
+		33135355102C6D8E00E28220 /* ButtonMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3313534D102C6D8E00E28220 /* ButtonMode.cpp */; };
+		33135356102C6D8E00E28220 /* ButtonMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 3313534E102C6D8E00E28220 /* ButtonMode.h */; };
 		3306E1F70FFE6CAD0017324C /* Trainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3306E1F50FFE6CAD0017324C /* Trainer.cpp */; };
 		3306E1F80FFE6CAD0017324C /* Trainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3306E1F60FFE6CAD0017324C /* Trainer.h */; };
 		3306E33D0FFFB9880017324C /* MandarinAlphMgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3306E33B0FFFB9880017324C /* MandarinAlphMgr.cpp */; };
@@ -776,6 +782,12 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		3306E0200FFD1CE60017324C /* PPMPYLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PPMPYLanguageModel.cpp; sourceTree = "<group>"; };
 		3306E0210FFD1CE60017324C /* PPMPYLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPMPYLanguageModel.h; sourceTree = "<group>"; };
+		33135349102C6D8E00E28220 /* AlternatingDirectMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AlternatingDirectMode.cpp; sourceTree = "<group>"; };
+		3313534A102C6D8E00E28220 /* AlternatingDirectMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlternatingDirectMode.h; sourceTree = "<group>"; };
+		3313534B102C6D8E00E28220 /* CompassMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CompassMode.cpp; sourceTree = "<group>"; };
+		3313534C102C6D8E00E28220 /* CompassMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompassMode.h; sourceTree = "<group>"; };
+		3313534D102C6D8E00E28220 /* ButtonMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ButtonMode.cpp; sourceTree = "<group>"; };
+		3313534E102C6D8E00E28220 /* ButtonMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonMode.h; sourceTree = "<group>"; };
 		3306E1F50FFE6CAD0017324C /* Trainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Trainer.cpp; sourceTree = "<group>"; };
 		3306E1F60FFE6CAD0017324C /* Trainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trainer.h; sourceTree = "<group>"; };
 		3306E33B0FFFB9880017324C /* MandarinAlphMgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MandarinAlphMgr.cpp; sourceTree = "<group>"; };
@@ -923,6 +935,13 @@
 		1948BDF40C226CFC001DFA32 /* DasherCore */ = {
 			isa = PBXGroup;
 			children = (
+				33135349102C6D8E00E28220 /* AlternatingDirectMode.cpp */,
+				3313534A102C6D8E00E28220 /* AlternatingDirectMode.h */,
+				3313534B102C6D8E00E28220 /* CompassMode.cpp */,
+				3313534C102C6D8E00E28220 /* CompassMode.h */,
+				3313534D102C6D8E00E28220 /* ButtonMode.cpp */,
+				3313534E102C6D8E00E28220 /* ButtonMode.h */,
+ 				336C2D12101A31EE00CCD70D /* NodeQueue.h */,
 				3306E1F50FFE6CAD0017324C /* Trainer.cpp */,
 				3306E1F60FFE6CAD0017324C /* Trainer.h */,
 				33FC93420FEFA2FB00A9F08D /* FrameRate.cpp */,
@@ -1516,6 +1535,10 @@
 				3306E0230FFD1CE60017324C /* PPMPYLanguageModel.h in Headers */,
 				3306E1F80FFE6CAD0017324C /* Trainer.h in Headers */,
 				3306E33E0FFFB9880017324C /* MandarinAlphMgr.h in Headers */,
+ 				336C2D13101A31EE00CCD70D /* NodeQueue.h in Headers */,
+				33135352102C6D8E00E28220 /* AlternatingDirectMode.h in Headers */,
+				33135354102C6D8E00E28220 /* CompassMode.h in Headers */,
+				33135356102C6D8E00E28220 /* ButtonMode.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1866,6 +1889,9 @@
 				3306E33D0FFFB9880017324C /* MandarinAlphMgr.cpp in Sources */,
 				335DB122100B3606006DB155 /* PinYinConversionHelper.cpp in Sources */,
 				335901B41009E5A900821255 /* ConversionHelper.cpp in Sources */,
+				33135351102C6D8E00E28220 /* AlternatingDirectMode.cpp in Sources */,
+				33135353102C6D8E00E28220 /* CompassMode.cpp in Sources */,
+				33135355102C6D8E00E28220 /* ButtonMode.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

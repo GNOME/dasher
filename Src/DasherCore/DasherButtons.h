@@ -23,20 +23,16 @@ namespace Dasher {
 class CDasherButtons : public CInputFilter
 {
  public:
-  CDasherButtons(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface, int iNumBoxes, int iStyle, bool bMenu, ModuleID_t iID, const char *szName);
-
+  CDasherButtons(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface, bool bMenu, ModuleID_t iID, const char *szName);
 
   ~CDasherButtons();
 
-  virtual void HandleEvent(Dasher::CEvent * pEvent);
-  
-  bool DecorateView(CDasherView *pView);
+  virtual bool DecorateView(CDasherView *pView)=0;
   
   void KeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog);
   bool Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted);
-
-  void SetupBoxes();
-
+  void Activate();
+  
   struct SBoxInfo {
     int iTop;
     int iBottom;
@@ -44,30 +40,16 @@ class CDasherButtons : public CInputFilter
     int iDisplayBottom;
   };
 
-  bool GetSettings(SModuleSettings **pSettings, int *iCount);
-
+ protected:
+  virtual void SetupBoxes()=0;
   void NewDrawGoTo(CDasherView *pView, myint iDasherMin, myint iDasherMax, bool bActive);
-
-    
- private:
-  CSettingsStore*  m_pSettingsStore;
-  
-  SBoxInfo *m_pBoxes;
-
-  int m_iNumBoxes;
-  int m_iStyle;
   bool m_bMenu;
-  
-  int iActiveBox;
-
-  int m_iLastBox;
-
-  int iTargetWidth;
-
-  int m_iLastTime;
-  bool m_bHighlight;
   bool m_bDecorationChanged;
-
+  SBoxInfo *m_pBoxes;
+  int m_iNumBoxes, iActiveBox;
+  int m_iScanTime;
+  
+  virtual void DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog);
 };
 }
 /// @}

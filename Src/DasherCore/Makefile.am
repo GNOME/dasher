@@ -15,6 +15,8 @@ libdashercore_a_SOURCES = \
                 Alphabet/AlphabetMap.cpp \
                 Alphabet/AlphabetMap.h \
                 Alphabet/GroupInfo.h \
+		AlternatingDirectMode.cpp \
+		AlternatingDirectMode.h \
 		ActionButton.cpp \
 		ActionButton.h \
 		AlphabetManager.cpp \
@@ -25,6 +27,8 @@ libdashercore_a_SOURCES = \
 		AutoSpeedControl.h \
 		BasicLog.cpp \
 		BasicLog.h \
+		ButtonMode.cpp \
+		ButtonMode.h \
 		ButtonMultiPress.h \
 		ButtonMultiPress.cpp \
 		CircleStartHandler.cpp \
@@ -33,6 +37,8 @@ libdashercore_a_SOURCES = \
 		ClickFilter.h \
 		ColourIO.cpp \
 		ColourIO.h \
+		CompassMode.cpp \
+		CompassMode.h \
 		ControlManager.cpp \
 		ControlManager.h \
 		ConversionHelper.cpp \

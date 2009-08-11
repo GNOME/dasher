@@ -40,9 +40,12 @@
 #include "DasherGameMode.h"
 
 // Input filters
+#include "AlternatingDirectMode.h"
+#include "ButtonMode.h"
 #include "ClickFilter.h" 
+#include "CompassMode.h"
 #include "DefaultFilter.h"
-#include "DasherButtons.h"
+
 #include "EyetrackerFilter.h"
 #include "OneButtonFilter.h"
 #include "OneButtonDynamicFilter.h"
@@ -950,13 +953,12 @@ void CDasherInterfaceBase::CreateModules() {
   RegisterModule(new CTwoButtonDynamicFilter(m_pEventHandler, m_pSettingsStore, this));
   RegisterModule(new CTwoPushDynamicFilter(m_pEventHandler, m_pSettingsStore, this));
   // TODO: specialist factory for button mode
-  RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 5, 1, true,8, _("Menu Mode")));
-  RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 3, 0, false,10, _("Direct Mode")));
+  RegisterModule(new CButtonMode(m_pEventHandler, m_pSettingsStore, this, true, 8, _("Menu Mode")));
+  RegisterModule(new CButtonMode(m_pEventHandler, m_pSettingsStore, this, false,10, _("Direct Mode")));
   //  RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3"));
-  RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 3, 3, false,12, _("Alternating Direct Mode")));
-  RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 2, false,13, _("Compass Mode")));
+  RegisterModule(new CAlternatingDirectMode(m_pEventHandler, m_pSettingsStore, this));
+  RegisterModule(new CCompassMode(m_pEventHandler, m_pSettingsStore, this));
   RegisterModule(new CStylusFilter(m_pEventHandler, m_pSettingsStore, this, 15, _("Stylus Control")));
-
 }
 
 void CDasherInterfaceBase::GetPermittedValues(int iParameter, std::vector<std::string> &vList) {
