@@ -504,13 +504,14 @@ install-doc-docs:
 install-doc-figs:
 	@list='$(patsubst C/%,%,$(_DOC_C_FIGURES))'; for fig in $$list; do \
 	  for lc in C $(_DOC_REAL_LINGUAS); do \
-	    figsymlink=false; \
 	    if test -f "$$lc/$$fig"; then \
 	      figfile="$$lc/$$fig"; \
 	    elif test -f "$(srcdir)/$$lc/$$fig"; then \
 	      figfile="$(srcdir)/$$lc/$$fig"; \
+	    elif test -f "C/$$fig"; then \
+	      figfile="C/$$fig"; \
 	    else \
-	      figsymlink=true; \
+	      figfile="$(srcdir)/C/$$fig"; \
 	    fi; \
 	    figdir="$$lc/"`echo $$fig | sed -e 's/^\(.*\/\).*/\1/' -e '/\//!s/.*//'`; \
 	    figdir="$(DESTDIR)$(HELP_DIR)/$(DOC_MODULE)/$$figdir"; \
@@ -519,13 +520,8 @@ install-doc-figs:
 	      $(mkinstalldirs) "$$figdir"; \
 	    fi; \
 	    figbase=`echo $$fig | sed -e 's/^.*\///'`; \
-	    if $$figsymlink; then \
-	      echo "cd $$figdir && $(LN_S) -f ../../C/$$fig $$figbase"; \
-	      ( cd "$$figdir" && $(LN_S) -f "../../C/$$fig" "$$figbase" ); \
-	    else \
-	      echo "$(INSTALL_DATA) $$figfile $$figdir$$figbase"; \
-	      $(INSTALL_DATA) "$$figfile" "$$figdir$$figbase"; \
-	    fi; \
+	    echo "$(INSTALL_DATA) $$figfile $$figdir$$figbase"; \
+	    $(INSTALL_DATA) "$$figfile" "$$figdir$$figbase"; \
 	  done; \
 	done
 
