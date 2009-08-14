@@ -2,6 +2,7 @@
 
 	* Trivial fix so Chinese will compile - ConversionNodes are still
 	  unhappy.
+	* Make button modes receive key presses.
 
 2009-08-11  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 

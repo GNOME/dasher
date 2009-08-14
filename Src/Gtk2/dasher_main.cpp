@@ -1437,7 +1437,8 @@ handle_start_event(GtkDasherControl *pDasherControl, gpointer data) {
 
 // TODO: Make this only work for children of the main window
 extern "C" gint 
-dasher_main_key_snooper(GtkWidget *pWidget, GdkEventKey *pEvent, gpointer pUserData) {
+dasher_main_key_snooper(GtkWidget *pWidget, GdkEventKey *pEvent,
+                        gpointer pUserData) {
   DasherMain *pSelf = DASHER_MAIN(pUserData);
 
   gint iButton = dasher_main_lookup_key(pSelf, pEvent->keyval);
@@ -1445,7 +1446,8 @@ dasher_main_key_snooper(GtkWidget *pWidget, GdkEventKey *pEvent, gpointer pUserD
   if(iButton != -1) {
     DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
 
-    if(gtk_widget_is_ancestor(pWidget, GTK_WIDGET(pPrivate->pMainWindow))) {
+    if (pWidget == GTK_WIDGET(pPrivate->pMainWindow) ||
+        gtk_widget_is_ancestor(pWidget, GTK_WIDGET(pPrivate->pMainWindow))) {
       if(pPrivate->pDasherWidget) {
         if(pEvent->type == GDK_KEY_PRESS)
           gtk_dasher_control_external_key_down(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), iButton);
