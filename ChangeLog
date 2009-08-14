@@ -1,3 +1,8 @@
+2009-08-14  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Trivial fix so Chinese will compile - ConversionNodes are still
+	  unhappy.
+
 2009-08-11  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* Split DasherButtons into one class per style; add option for scanning menu

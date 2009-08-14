@@ -42,7 +42,7 @@ CDasherNode *CConversionManagerFactory::GetRoot(CDasherNode *pParent, int iLower
 }
 
 CConversionManagerFactory::~CConversionManagerFactory() {
-  m_pMgr->Unref();
+  if (m_pMgr) m_pMgr->Unref();
 }
 
 // TODO: Japanese/Chinese are currently disabled in Win32 - see 'exclude from build' on individual files' property pages, plus preprocessor defines

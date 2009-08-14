@@ -3,7 +3,7 @@
 
 #include "ConversionManager.h"
 #include "LanguageModelling/LanguageModel.h" // Urgh - we really shouldn't need to know about language models here
-#include "alphabet/AlphIO.h"
+#include "Alphabet/AlphIO.h"
 
 #include <map>
 

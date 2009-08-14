@@ -5,7 +5,7 @@
 #include "LanguageModelling/LanguageModel.h"
 #include "LanguageModelling/PPMPYLanguageModel.h"
 #include "PinYinConversionHelper.h"
-
+#include "NodeCreationManager.h"
 
 #include "SCENode.h"
 

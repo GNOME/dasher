@@ -108,7 +108,7 @@ namespace Dasher{
     /// implementation assigns decending probabilities in a power law
     /// fashion (so assumes ordering), but specific subclasses are
     /// free to implement their own behaviour. The only restriction is
-    /// that sizes should be posivive and sum to the appropriate
+    /// that sizes should be positive and sum to the appropriate
     /// normalisation constant
     ///
     
@@ -120,7 +120,7 @@ namespace Dasher{
 	
     virtual void PopulateChildren( CDasherNode *pNode );
     	
-	virtual void SetFlag(CDasherNode *pNode, int iFlag, bool bValue);
+    virtual void SetFlag(CDasherNode *pNode, int iFlag, bool bValue);
 
 private:
 	
