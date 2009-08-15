@@ -1,3 +1,7 @@
+2009-08-15  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* OneStepTowards clears goto queue - improves handling of CStylusFilter.
+
 2009-08-14  Patrick Welche <prlw1@cam.ac.uk>
 
 	* Trivial fix so Chinese will compile - ConversionNodes are still

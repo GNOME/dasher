@@ -476,7 +476,7 @@ bool CDasherModel::NextScheduledStep(unsigned long iTime, Dasher::VECTOR_SYMBOL_
 
 bool CDasherModel::OneStepTowards(myint miMousex, myint miMousey, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
   //if (GetBoolParameter(BP_DASHER_PAUSED)) return false;
-  DASHER_ASSERT(m_deGotoQueue.size() == 0);
+  m_deGotoQueue.clear();
 
   myint iNewMin, iNewMax;
   // works out next viewpoint
