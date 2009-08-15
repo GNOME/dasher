@@ -36,7 +36,8 @@ AM_CONDITIONAL([HAVE_GNOME_DOC_UTILS],[test "$gdu_cv_have_gdu" = "yes"])
 # GNOME_DOC_INIT ([MINIMUM-VERSION],[ACTION-IF-FOUND],[ACTION-IF-NOT-FOUND])
 #
 AC_DEFUN([GNOME_DOC_INIT],
-[
+[AC_REQUIRE([AC_PROG_LN_S])dnl
+
 ifelse([$1],,[gdu_cv_version_required=0.3.2],[gdu_cv_version_required=$1])
 
 PKG_CHECK_EXISTS([gnome-doc-utils >= $gdu_cv_version_required],
