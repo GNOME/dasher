@@ -8,12 +8,12 @@
 #include <gtk/gtk.h>
 
 G_BEGIN_DECLS
-#define TYPE_DASHER_EDITOR_EXTERNAL            (dasher_editor_external_get_type())
-#define DASHER_EDITOR_EXTERNAL(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), TYPE_DASHER_EDITOR_EXTERNAL, DasherEditorExternal ))
-#define DASHER_EDITOR_EXTERNAL_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TYPE_DASHER_EDITOR_EXTERNAL, DasherEditorExternalClass ))
-#define IS_DASHER_EDITOR_EXTERNAL(obj)	       (G_TYPE_CHECK_INSTANCE_TYPE((obj), TYPE_DASHER_EDITOR_EXTERNAL))
-#define IS_DASHER_EDITOR_EXTERNAL_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TYPE_DASHER_EDITOR_EXTERNAL))
-#define DASHER_EDITOR_EXTERNAL_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TYPE_DASHER_EDITOR_EXTERNAL, DasherEditorExternalClass))
+#define DASHER_TYPE_EDITOR_EXTERNAL            (dasher_editor_external_get_type())
+#define DASHER_EDITOR_EXTERNAL(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), DASHER_TYPE_EDITOR_EXTERNAL, DasherEditorExternal ))
+#define DASHER_EDITOR_EXTERNAL_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), DASHER_TYPE_EDITOR_EXTERNAL, DasherEditorExternalClass ))
+#define IS_DASHER_EDITOR_EXTERNAL(obj)	       (G_TYPE_CHECK_INSTANCE_TYPE((obj), DASHER_TYPE_EDITOR_EXTERNAL))
+#define IS_DASHER_EDITOR_EXTERNAL_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), DASHER_TYPE_EDITOR_EXTERNAL))
+#define DASHER_EDITOR_EXTERNAL_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), DASHER_TYPE_EDITOR_EXTERNAL, DasherEditorExternalClass))
 
 typedef struct _DasherEditorExternal DasherEditorExternal;
 typedef struct _DasherEditorExternalClass DasherEditorExternalClass;

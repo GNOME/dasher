@@ -19,7 +19,7 @@ struct _DasherEditorExternalPrivate {
   IDasherBufferSet *pBufferSet;
 };
 
-#define DASHER_EDITOR_EXTERNAL_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE((o), TYPE_DASHER_EDITOR_EXTERNAL, DasherEditorExternalPrivate))
+#define DASHER_EDITOR_EXTERNAL_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE((o), DASHER_TYPE_EDITOR_EXTERNAL, DasherEditorExternalPrivate))
 
 static DasherEditorExternal *g_pEditor;
 
@@ -98,7 +98,8 @@ dasher_editor_external_new() {
   // TODO: Handle singleton class a little more sensibly
 
   DasherEditorExternal *pDasherEditor;
-  pDasherEditor = (DasherEditorExternal *)(g_object_new(dasher_editor_external_get_type(), NULL));
+  pDasherEditor =
+        DASHER_EDITOR_EXTERNAL(g_object_new(DASHER_TYPE_EDITOR_EXTERNAL, NULL));
   g_pEditor = pDasherEditor;
 
   // TODO: Just add a simple placeholder widget here (eventually need
@@ -269,8 +270,3 @@ external_buffer_changed_handler(GObject *pSource, gpointer pUserData) {
   // TODO: plumb signal back into control
   g_signal_emit_by_name(G_OBJECT(pSelf), "buffer_changed", G_OBJECT(pSelf), NULL, NULL);
 }
-
-
-
-
-

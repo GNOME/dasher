@@ -1,3 +1,7 @@
+2009-08-16  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Complete GtkBuilder move for direct mode.
+
 2009-08-15  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* OneStepTowards clears goto queue - improves handling of CStylusFilter.

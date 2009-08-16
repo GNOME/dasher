@@ -24,8 +24,8 @@
     <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
     <property name="focus_on_map">False</property>
     <property name="urgency_hint">False</property>
-    <signal handler="dasher_main_cb_window_close" last_modification_time="Mon, 22 Sep 2003 19:53:44 GMT" name="delete_event"/>
-    <signal handler="test_focus_handler" last_modification_time="Fri, 02 Feb 2007 14:30:40 GMT" name="focus-in-event"/>
+    <signal handler="dasher_main_cb_window_close" name="delete_event"/>
+    <signal handler="test_focus_handler" name="focus-in-event"/>
     <child>
       <object class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
@@ -36,15 +36,11 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <child>
-              <object class="Custom" id="DasherEditor">
+              <object class="DasherEditorExternal" id="DasherEditor">
                 <property name="visible">True</property>
-                <property name="creation_function">create_dasher_editor</property>
-                <property name="int1">0</property>
-                <property name="int2">0</property>
-                <property name="last_modification_time">Sat, 31 Mar 2007 14:56:08 GMT</property>
-                <signal handler="dasher_main_cb_filename_changed" last_modification_time="Sat, 31 Mar 2007 15:42:49 GMT" name="filename_changed"/>
-                <signal handler="dasher_main_cb_buffer_changed" last_modification_time="Sat, 31 Mar 2007 15:43:06 GMT" name="buffer_changed"/>
-                <signal handler="dasher_main_cb_context_changed" last_modification_time="Sat, 31 Mar 2007 15:43:20 GMT" name="context_changed"/>
+                <signal handler="dasher_main_cb_filename_changed" name="filename_changed"/>
+                <signal handler="dasher_main_cb_buffer_changed" name="buffer_changed"/>
+                <signal handler="dasher_main_cb_context_changed" name="context_changed"/>
               </object>
               <packing>
                 <property name="shrink">True</property>
@@ -52,30 +48,26 @@
               </packing>
             </child>
             <child>
-              <object class="Custom" id="DasherControl">
+              <object class="GtkDasherControl" id="DasherControl">
                 <property name="width_request">200</property>
                 <property name="height_request">200</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="has_focus">True</property>
-                <property name="creation_function">create_dasher_control</property>
-                <property name="int1">0</property>
-                <property name="int2">0</property>
-                <property name="last_modification_time">Sun, 05 Mar 2006 19:33:03 GMT</property>
-                <signal handler="parameter_notification" last_modification_time="Sun, 05 Mar 2006 19:45:23 GMT" name="dasher_changed"/>
-                <signal handler="handle_start_event" last_modification_time="Sun, 05 Mar 2006 19:45:35 GMT" name="dasher_start"/>
-                <signal handler="handle_stop_event" last_modification_time="Sun, 05 Mar 2006 19:45:43 GMT" name="dasher_stop"/>
-                <signal handler="handle_control_event" last_modification_time="Sun, 05 Mar 2006 19:45:53 GMT" name="dasher_control"/>
-                <signal handler="gtk2_edit_output_callback" last_modification_time="Sun, 05 Mar 2006 19:46:13 GMT" name="dasher_edit_insert"/>
-                <signal handler="gtk2_edit_delete_callback" last_modification_time="Sun, 05 Mar 2006 19:46:32 GMT" name="dasher_edit_delete"/>
-                <signal handler="handle_context_request" last_modification_time="Sun, 05 Mar 2006 19:46:54 GMT" name="dasher_context_request"/>
-                <signal handler="handle_request_settings" last_modification_time="Sun, 05 Mar 2006 19:47:12 GMT" name="dasher_request_settings"/>
-                <signal handler="focus_in_event" last_modification_time="Sun, 05 Mar 2006 19:47:28 GMT" name="focus_in_event"/>
-                <signal handler="on_lock_info" last_modification_time="Wed, 22 Mar 2006 10:38:44 GMT" name="dasher_lock_info"/>
-                <signal handler="on_message" last_modification_time="Wed, 22 Mar 2006 14:24:04 GMT" name="dasher_message"/>
-                <signal handler="convert_cb" last_modification_time="Tue, 30 May 2006 14:21:15 GMT" name="dasher_edit_convert"/>
-                <signal handler="protect_cb" last_modification_time="Tue, 30 May 2006 14:21:26 GMT" name="dasher_edit_protect"/>
-                <signal handler="on_command" last_modification_time="Thu, 14 Sep 2006 12:13:36 GMT" name="dasher_command"/>
+                <signal handler="parameter_notification" name="dasher_changed"/>
+                <signal handler="handle_start_event" name="dasher_start"/>
+                <signal handler="handle_stop_event" name="dasher_stop"/>
+                <signal handler="handle_control_event" name="dasher_control"/>
+                <signal handler="gtk2_edit_output_callback" name="dasher_edit_insert"/>
+                <signal handler="gtk2_edit_delete_callback" name="dasher_edit_delete"/>
+                <signal handler="handle_context_request" name="dasher_context_request"/>
+                <signal handler="handle_request_settings" name="dasher_request_settings"/>
+                <signal handler="focus_in_event" name="focus_in_event"/>
+                <signal handler="on_lock_info" name="dasher_lock_info"/>
+                <signal handler="on_message" name="dasher_message"/>
+                <signal handler="convert_cb" name="dasher_edit_convert"/>
+                <signal handler="protect_cb" name="dasher_edit_protect"/>
+                <signal handler="on_command" name="dasher_command"/>
               </object>
               <packing>
                 <property name="shrink">True</property>
@@ -169,7 +161,7 @@
                 <property name="visible">True</property>
                 <property name="add_tearoffs">False</property>
                 <property name="focus_on_click">True</property>
-                <signal handler="alphabet_combo_changed" last_modification_time="Tue, 27 Jun 2006 07:42:21 GMT" name="changed"/>
+                <signal handler="alphabet_combo_changed" name="changed"/>
               </object>
               <packing>
                 <property name="padding">0</property>
@@ -184,186 +176,6 @@
             <property name="fill">True</property>
           </packing>
         </child>
-      </object>
-    </child>
-  </object>
-  <object class="GtkFileSelection" id="open_fileselector">
-    <property name="border_width">10</property>
-    <property name="title" translatable="yes">Select File</property>
-    <property name="type">GTK_WINDOW_TOPLEVEL</property>
-    <property name="window_position">GTK_WIN_POS_NONE</property>
-    <property name="modal">False</property>
-    <property name="resizable">True</property>
-    <property name="destroy_with_parent">True</property>
-    <property name="decorated">True</property>
-    <property name="skip_taskbar_hint">False</property>
-    <property name="skip_pager_hint">False</property>
-    <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
-    <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
-    <property name="focus_on_map">True</property>
-    <property name="urgency_hint">False</property>
-    <property name="show_fileops">True</property>
-    <signal handler="gtk_widget_hide_on_delete" last_modification_time="Tue, 23 Sep 2003 13:19:39 GMT" name="delete_event"/>
-    <child internal-child="cancel_button">
-      <object class="GtkButton" id="cancel_button1">
-        <property name="visible">True</property>
-        <property name="can_default">True</property>
-        <property name="can_focus">True</property>
-        <property name="relief">GTK_RELIEF_NORMAL</property>
-        <property name="focus_on_click">True</property>
-      </object>
-    </child>
-    <child internal-child="ok_button">
-      <object class="GtkButton" id="ok_button1">
-        <property name="visible">True</property>
-        <property name="can_default">True</property>
-        <property name="can_focus">True</property>
-        <property name="relief">GTK_RELIEF_NORMAL</property>
-        <property name="focus_on_click">True</property>
-      </object>
-    </child>
-  </object>
-  <object class="GtkFileSelection" id="save_fileselector">
-    <property name="border_width">10</property>
-    <property name="title" translatable="yes">Select File</property>
-    <property name="type">GTK_WINDOW_TOPLEVEL</property>
-    <property name="window_position">GTK_WIN_POS_NONE</property>
-    <property name="modal">False</property>
-    <property name="resizable">True</property>
-    <property name="destroy_with_parent">True</property>
-    <property name="decorated">True</property>
-    <property name="skip_taskbar_hint">False</property>
-    <property name="skip_pager_hint">False</property>
-    <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
-    <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
-    <property name="focus_on_map">True</property>
-    <property name="urgency_hint">False</property>
-    <property name="show_fileops">True</property>
-    <signal handler="gtk_widget_hide_on_delete" last_modification_time="Tue, 23 Sep 2003 13:19:39 GMT" name="delete_event"/>
-    <child internal-child="cancel_button">
-      <object class="GtkButton" id="button14">
-        <property name="visible">True</property>
-        <property name="can_default">True</property>
-        <property name="can_focus">True</property>
-        <property name="relief">GTK_RELIEF_NORMAL</property>
-        <property name="focus_on_click">True</property>
-      </object>
-    </child>
-    <child internal-child="ok_button">
-      <object class="GtkButton" id="button15">
-        <property name="visible">True</property>
-        <property name="can_default">True</property>
-        <property name="can_focus">True</property>
-        <property name="relief">GTK_RELIEF_NORMAL</property>
-        <property name="focus_on_click">True</property>
-      </object>
-    </child>
-  </object>
-  <object class="GtkFileSelection" id="append_fileselector">
-    <property name="border_width">10</property>
-    <property name="title" translatable="yes">Select File</property>
-    <property name="type">GTK_WINDOW_TOPLEVEL</property>
-    <property name="window_position">GTK_WIN_POS_NONE</property>
-    <property name="modal">False</property>
-    <property name="resizable">True</property>
-    <property name="destroy_with_parent">True</property>
-    <property name="decorated">True</property>
-    <property name="skip_taskbar_hint">False</property>
-    <property name="skip_pager_hint">False</property>
-    <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
-    <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
-    <property name="focus_on_map">True</property>
-    <property name="urgency_hint">False</property>
-    <property name="show_fileops">True</property>
-    <signal handler="gtk_widget_hide_on_delete" last_modification_time="Tue, 23 Sep 2003 13:19:39 GMT" name="delete_event"/>
-    <child internal-child="cancel_button">
-      <object class="GtkButton" id="button16">
-        <property name="visible">True</property>
-        <property name="can_default">True</property>
-        <property name="can_focus">True</property>
-        <property name="relief">GTK_RELIEF_NORMAL</property>
-        <property name="focus_on_click">True</property>
-      </object>
-    </child>
-    <child internal-child="ok_button">
-      <object class="GtkButton" id="button17">
-        <property name="visible">True</property>
-        <property name="can_default">True</property>
-        <property name="can_focus">True</property>
-        <property name="relief">GTK_RELIEF_NORMAL</property>
-        <property name="focus_on_click">True</property>
-      </object>
-    </child>
-  </object>
-  <object class="GtkFileSelection" id="import_fileselector">
-    <property name="border_width">10</property>
-    <property name="title" translatable="yes">Select File</property>
-    <property name="type">GTK_WINDOW_TOPLEVEL</property>
-    <property name="window_position">GTK_WIN_POS_NONE</property>
-    <property name="modal">False</property>
-    <property name="resizable">True</property>
-    <property name="destroy_with_parent">True</property>
-    <property name="decorated">True</property>
-    <property name="skip_taskbar_hint">False</property>
-    <property name="skip_pager_hint">False</property>
-    <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
-    <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
-    <property name="focus_on_map">True</property>
-    <property name="urgency_hint">False</property>
-    <property name="show_fileops">True</property>
-    <signal handler="gtk_widget_hide_on_delete" last_modification_time="Tue, 23 Sep 2003 13:19:39 GMT" name="delete_event"/>
-    <child internal-child="cancel_button">
-      <object class="GtkButton" id="button18">
-        <property name="visible">True</property>
-        <property name="can_default">True</property>
-        <property name="can_focus">True</property>
-        <property name="relief">GTK_RELIEF_NORMAL</property>
-        <property name="focus_on_click">True</property>
-      </object>
-    </child>
-    <child internal-child="ok_button">
-      <object class="GtkButton" id="button19">
-        <property name="visible">True</property>
-        <property name="can_default">True</property>
-        <property name="can_focus">True</property>
-        <property name="relief">GTK_RELIEF_NORMAL</property>
-        <property name="focus_on_click">True</property>
-      </object>
-    </child>
-  </object>
-  <object class="GtkFileSelection" id="save_and_quit_fileselector">
-    <property name="border_width">10</property>
-    <property name="title" translatable="yes">Select File</property>
-    <property name="type">GTK_WINDOW_TOPLEVEL</property>
-    <property name="window_position">GTK_WIN_POS_NONE</property>
-    <property name="modal">False</property>
-    <property name="resizable">True</property>
-    <property name="destroy_with_parent">True</property>
-    <property name="decorated">True</property>
-    <property name="skip_taskbar_hint">False</property>
-    <property name="skip_pager_hint">False</property>
-    <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
-    <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
-    <property name="focus_on_map">True</property>
-    <property name="urgency_hint">False</property>
-    <property name="show_fileops">True</property>
-    <signal handler="gtk_widget_hide_on_delete" last_modification_time="Tue, 23 Sep 2003 13:19:39 GMT" name="delete_event"/>
-    <child internal-child="cancel_button">
-      <object class="GtkButton" id="button20">
-        <property name="visible">True</property>
-        <property name="can_default">True</property>
-        <property name="can_focus">True</property>
-        <property name="relief">GTK_RELIEF_NORMAL</property>
-        <property name="focus_on_click">True</property>
-      </object>
-    </child>
-    <child internal-child="ok_button">
-      <object class="GtkButton" id="button21">
-        <property name="visible">True</property>
-        <property name="can_default">True</property>
-        <property name="can_focus">True</property>
-        <property name="relief">GTK_RELIEF_NORMAL</property>
-        <property name="focus_on_click">True</property>
       </object>
     </child>
   </object>
@@ -398,10 +210,10 @@
     <property name="visible">True</property>
     <property name="title" translatable="yes">Please Wait...</property>
     <property name="type">GTK_WINDOW_TOPLEVEL</property>
-    <property name="window_position">GTK_WIN_POS_NONE</property>
+    <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
     <property name="modal">False</property>
     <property name="resizable">True</property>
-    <property name="destroy_with_parent">False</property>
+    <property name="destroy_with_parent">True</property>
     <property name="decorated">True</property>
     <property name="skip_taskbar_hint">False</property>
     <property name="skip_pager_hint">False</property>
