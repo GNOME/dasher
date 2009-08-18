@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-18 14:22+0300\n"
-"PO-Revision-Date: 2009-08-18 14:26+0300\n"
+"POT-Creation-Date: 2009-08-19 00:58+0300\n"
+"PO-Revision-Date: 2009-08-19 00:58+0300\n"
 "Last-Translator: Alexander Shopov <ash@contact.bg>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
@@ -304,11 +304,8 @@ msgid "Bottom to Top"
 msgstr "От долу — нагоре"
 
 #: ../Data/GUI/dasher.preferences.ui.h:22
-#, fuzzy
 msgid "Centre circle"
-msgstr ""
-"в централния кръг\n"
-"между две кутии"
+msgstr "в централния кръг"
 
 #: ../Data/GUI/dasher.preferences.ui.h:23
 msgid "Composition"
@@ -459,7 +456,7 @@ msgstr "От горе — надолу"
 
 #: ../Data/GUI/dasher.preferences.ui.h:57
 msgid "Two box"
-msgstr "Две кутии"
+msgstr "между две кутии"
 
 #: ../Data/GUI/dasher.preferences.ui.h:58
 msgid ""
@@ -594,9 +591,8 @@ msgstr "Време за дълго натискане"
 
 #. TRANSLATORS: Double-clicks are special in some situations (they cause us to start reversing). This is the time in which the button must be pressed twice to count.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
-#, fuzzy
 msgid "Double-press time"
-msgstr "Време за многократно натискане"
+msgstr "Време за двукратно натискане"
 
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
@@ -623,7 +619,7 @@ msgstr "Процент за автоматично увеличаване на �
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:47
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
 msgid "Time after which to automatically increase speed (secs)"
-msgstr "Врме в секунди, след което скоростта да се увеличи автоматично"
+msgstr "Време в секунди, след което скоростта да се увеличи автоматично"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:40
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:48
@@ -712,7 +708,6 @@ msgstr "Отместване на бутоните"
 #. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the maximum time between two presses to count as _part_of_ a multi-press gesture
 #. (potentially more than two presses).
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:35
-#, fuzzy
 msgid "Multiple press interval"
 msgstr "Време за многократно натискане"
 
@@ -731,12 +726,13 @@ msgstr "Размяна на бутоните за горе и долу"
 #. button once; in this case, one must push three times (or push-and-hold) to reverse.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:42
 msgid "Double-click is opposite up/down - triple to reverse"
-msgstr ""
+msgstr "Двойното натискане е обратно нагоре/надолу — тройното обръща наново"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:44
 msgid "Lag before user actually pushes button (ms)"
-msgstr "Забявяне в милисекунди преди потребителят действително да натисне бутона"
+msgstr ""
+"Забавяне в милисекунди преди потребителят действително да натисне бутона"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:52
 msgid "Two Button Dynamic Mode"
@@ -744,45 +740,43 @@ msgstr "Двубутонен, динамичен"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:30
 msgid "Offset for outer (second) button"
-msgstr ""
+msgstr "Отместване за външния (втория) бутон"
 
 #. divisor
 #. step
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:31
 msgid "Distance for 1st button UP"
-msgstr ""
+msgstr "Разстояние за отпускане на 1-я бутон"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:32
 msgid "Distance for 1st button DOWN"
-msgstr ""
+msgstr "Разстояние за натискане на 1-я бутон"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:33
 msgid "Tolerance for inaccurate timing of button pushes (in ms)"
-msgstr ""
+msgstr "Допустим интервал за ненавременно натискане на бутон (в ms)"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
-#, fuzzy
 msgid "Markers fixed to canvas"
-msgstr "Пауза при излизане от прозореца"
+msgstr "Маркерите са спрямо прозореца"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
-#, fuzzy
 msgid "Slow startup time"
 msgstr "Бавно стартиране"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:41
 #, c-format
 msgid "%age by which to automatically increase speed"
-msgstr ""
+msgstr "%a %%, с които автоматично да се увеличи скоростта при въртене"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:43
 #, c-format
 msgid "%age by which to decrease speed upon reverse"
-msgstr ""
+msgstr "%a %%, с които автоматично да се намали скоростта при въртене обратно"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:48
 msgid "Two-push Dynamic Mode (New One Button)"
-msgstr ""
+msgstr "Динамичен режим с двукратно натискане (нов бутон)"
 
 #: ../Src/Gtk2/DasherAppSettings.cpp:549
 msgid "Boolean parameters"
@@ -979,36 +973,3 @@ msgstr "Описание на „--options“."
 #: ../Src/main.cc:180
 msgid "- A text input application honouring accessibility"
 msgstr "— приложение за достъпно въвеждане на текст"
-
-#~ msgid "Zoom steps"
-#~ msgstr "Стъпки на увеличаване"
-
-#~ msgid "Right zoom"
-#~ msgstr "Увеличаване надясно"
-
-#~ msgid "Number of boxes"
-#~ msgstr "Брой кутии"
-
-#~ msgid "Safety margin"
-#~ msgstr "Поле за безопасност"
-
-#~ msgid "Box non-uniformity"
-#~ msgstr "Разлика в размерите на кутиите"
-
-#~ msgid "Global keyboard grab"
-#~ msgstr "Пълно прихващане на клавиатурата"
-
-#~ msgid "Alternating Direct Mode"
-#~ msgstr "Директен с редуване"
-
-#~ msgid "Compass Mode"
-#~ msgstr "Компас"
-
-#~ msgid "Multiple press count"
-#~ msgstr "Брой многократни натискания"
-
-#~ msgid "Auto speed control"
-#~ msgstr "Автоматичен контрол на скоростта"
-
-#~ msgid "Auto speed threshold"
-#~ msgstr "Автоматичен праг на скоростта"
