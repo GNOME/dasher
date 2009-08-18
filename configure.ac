@@ -327,12 +327,6 @@ fi
 
 if test x"$BUILDGTK2" = xtrue; then 
 	PKG_CHECK_MODULES(gthread, gthread-2.0)
-
-
-dnl	if test x"$WITHMAEMO" = xfalse; then
-dnl		PKG_CHECK_MODULES(wnck, libwnck-1.0)
-dnl	        AC_DEFINE([HAVE_WNCK], 1, [wnck is present])
-dnl	fi
 fi
 
 if test x"$GCONF2HERE" = xtrue ; then
@@ -353,9 +347,6 @@ AC_SUBST(gnome_CFLAGS)
 
 AC_SUBST(gthread_LIBS)
 AC_SUBST(gthread_CFLAGS)
-
-AC_SUBST(wnck_LIBS)
-AC_SUBST(wnck_CFLAGS)
 
 AC_SUBST(hildon_LIBS)
 AC_SUBST(hildon_CFLAGS)
@@ -390,9 +381,9 @@ fi
 AC_SUBST(SETTINGS_CFLAGS)
 AC_SUBST(SETTINGS_LIBS)
 
-GTK2BUILD_CFLAGS="$GTK2_CFLAGS $GIO_CFLAGS $SETTINGS_CFLAGS $gthread_CFLAGS $gnome_speech_CFLAGS $gnome_a11y_CFLAGS $gnome_CFLAGS $wnck_CFLAGS $hildon_CFLAGS"
+GTK2BUILD_CFLAGS="$GTK2_CFLAGS $GIO_CFLAGS $SETTINGS_CFLAGS $gthread_CFLAGS $gnome_speech_CFLAGS $gnome_a11y_CFLAGS $gnome_CFLAGS $hildon_CFLAGS"
 
-GTK2BUILD_LIBS="$X_LIBS $GTK2_LIBS $GIO_LIBS $SETTINGS_LIBS $gthread_LIBS $gnome_speech_LIBS $gnome_a11y_LIBS $gnome_LIBS $wnck_LIBS $hildon_LIBS"
+GTK2BUILD_LIBS="$X_LIBS $GTK2_LIBS $GIO_LIBS $SETTINGS_LIBS $gthread_LIBS $gnome_speech_LIBS $gnome_a11y_LIBS $gnome_LIBS $hildon_LIBS"
 
 AC_SUBST(GTK2BUILD_CFLAGS)
 AC_SUBST(GTK2BUILD_LIBS)

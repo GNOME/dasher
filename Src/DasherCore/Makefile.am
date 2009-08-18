@@ -9,19 +9,19 @@ libdasherprefs_a_SOURCES = \
 
 libdashercore_a_SOURCES = \
 		Alphabet/AlphIO.cpp \
-                Alphabet/AlphIO.h \
-                Alphabet/Alphabet.cpp \
-                Alphabet/Alphabet.h \
-                Alphabet/AlphabetMap.cpp \
-                Alphabet/AlphabetMap.h \
-                Alphabet/GroupInfo.h \
+		Alphabet/AlphIO.h \
+		Alphabet/Alphabet.cpp \
+		Alphabet/Alphabet.h \
+		Alphabet/AlphabetMap.cpp \
+		Alphabet/AlphabetMap.h \
+		Alphabet/GroupInfo.h \
 		AlternatingDirectMode.cpp \
 		AlternatingDirectMode.h \
 		ActionButton.cpp \
 		ActionButton.h \
 		AlphabetManager.cpp \
 		AlphabetManager.h \
-                AlphabetManagerFactory.cpp \
+		AlphabetManagerFactory.cpp \
 		AlphabetManagerFactory.h \
 		AutoSpeedControl.cpp \
 		AutoSpeedControl.h \
@@ -157,7 +157,7 @@ EXTRA_libdashercore_a_SOURCES = \
 		PinyinParser.cpp \
 		PinyinParser.h
 
-AM_CXXFLAGS = -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" -I../../intl -I$(top_srcdir)/intl $(GTK2_CFLAGS) $(SETTINGS_CFLAGS) $(gnome_speech_CFLAGS) $(gnome_a11y_CFLAGS) $(gnome_CFLAGS) $(wnck_CFLAGS) -DWNCK_I_KNOW_THIS_IS_UNSTABLE
+AM_CXXFLAGS = -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" -I../../intl -I$(top_srcdir)/intl $(GTK2_CFLAGS) $(SETTINGS_CFLAGS) $(gnome_speech_CFLAGS) $(gnome_a11y_CFLAGS) $(gnome_CFLAGS)
 
 EXTRA_DIST = \
 		LanguageModelling/BigramLanguageModel.cpp \

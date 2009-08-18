@@ -1,3 +1,7 @@
+2009-08-18  Patrick Welche <prlw1@cam.ac.uk>
+
+	* libwnck really isn't used.
+
 2009-08-16  Patrick Welche <prlw1@cam.ac.uk>
 
 	* Complete GtkBuilder move for direct mode.
