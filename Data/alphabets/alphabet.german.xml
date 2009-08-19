@@ -206,7 +206,7 @@
 <s d="." t="."/>
 </group>
 </alphabet>
-<alphabet name="Deutsch / German lower case">
+<!--<alphabet name="Deutsch / German lower case">
 <orientation type="LR"/>
 <encoding type="Western"/>
 <palette>Default</palette>
@@ -249,5 +249,5 @@
 <group name="Punctuation" b="112">
 <s d="." t="."/>
 </group>
-</alphabet>
+</alphabet>-->
 </alphabets>
