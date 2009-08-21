@@ -49,7 +49,7 @@ static SModuleSettings sSettings[] = {
 };
 
 CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
-  : CButtonMultiPress(pEventHandler, pSettingsStore, pInterface, 14, 1, _("Two Button Dynamic Mode")), m_dMulSinceFirstPush(1.0)
+  : CButtonMultiPress(pEventHandler, pSettingsStore, pInterface, 14, 1, _("Two Button Dynamic Mode"))
 {
   //ensure that m_dLagMul is properly initialised
   Dasher::CParameterNotificationEvent oEvent(LP_DYNAMIC_BUTTON_LAG);
@@ -122,57 +122,43 @@ void CTwoButtonDynamicFilter::reverse() {
   CButtonMultiPress::reverse();
 }
 
-void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog)
-{
-  if (GetBoolParameter(BP_2B_INVERT_DOUBLE) && iType == 2 && iButton>=2 && iButton<=4)
-  { //double-press - treat as single-press of the other button....
-    iType = 0; //0=normal, 1=long press
-    iButton = (iButton == 2) ? 3 : 2;
-    m_dMulSinceFirstPush = exp(pModel->GetNats());
-  }
-  CDynamicFilter::Event(iTime, iButton, iType, pModel, pUserLog);
-}
-
-void CTwoButtonDynamicFilter::ApplyOffset(CDasherModel *pModel, long lOffset)
-{
-  lOffset *= m_dMulSinceFirstPush; m_dMulSinceFirstPush = 1.0;
-  pModel->Offset(lOffset);
-  m_pModel = pModel;
-  m_lOffsetApplied = lOffset;
-  pModel->ResetNats();
-}
-
-void CTwoButtonDynamicFilter::RevertPresses(int iCount)
-{
-  //invert the *last* invocation of ApplyOffset.
-  //this'll handle reverting single clicks and (if BP_2B_INVERT_DOUBLE is on) double-clicks,
-  //but we'll get into trouble if the user e.g. double-presses the reverse button!
-
-  //correct for expansion since the first click, if any (if we've rendered any frames!)
-  m_pModel->Offset(-m_lOffsetApplied * exp(m_pModel->GetNats()));
-  m_lOffsetApplied = 0;
-}
-
 void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) {
-  int iFactor(1);
+  
+  double dFactor(GetBoolParameter(BP_TWOBUTTON_REVERSE) ? -1.0 : 1.0);
+  int iEffect; //for user log
 
-  if(GetBoolParameter(BP_TWOBUTTON_REVERSE))
-    iFactor = -1;
-
+  if (GetBoolParameter(BP_2B_INVERT_DOUBLE) && iType == 2 && iButton>=2 && iButton<=4)
+  { //double-press - go BACK in opposite direction,
+    //far enough to invert previous jump (from first press of double-)
+    //and then AGAIN.
+    dFactor *= - (1.0 + exp(pModel->GetNats())); //prev jump is further now
+  }
+  else if (iType != 0) {
+    reverse();
+    return;
+  }
+  
   if(iButton == 2) {
-    ApplyOffset(pModel, iFactor * GetLongParameter(LP_TWO_BUTTON_OFFSET) * m_dLagMul);
-    if(pUserLog)
-      pUserLog->KeyDown(iButton, iType, 3);
+    iEffect = 3;
+    //fall through to apply offset.
   }
   else if((iButton == 3) || (iButton == 4)) {
-    ApplyOffset(pModel, iFactor * -GetLongParameter(LP_TWO_BUTTON_OFFSET) * m_dLagMul);
-    if(pUserLog)
-      pUserLog->KeyDown(iButton, iType, 4);
+    dFactor = -dFactor;
+    iEffect = 4;
+    //fall through to apply offset
   }
   else {
     if(pUserLog)
       pUserLog->KeyDown(iButton, iType, 0);
+    return;
   }
+  //fell through to apply offset
+  int iOffset(dFactor * GetLongParameter(LP_TWO_BUTTON_OFFSET) * m_dLagMul);
+  pModel->Offset(iOffset);
+  pModel->ResetNats();
+  
+  if(pUserLog)
+    pUserLog->KeyDown(iButton, iType, iEffect);  
 }
 
 bool CTwoButtonDynamicFilter::GetSettings(SModuleSettings **pSettings, int *iCount) {

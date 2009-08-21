@@ -194,10 +194,14 @@ void CTwoPushDynamicFilter::KeyUp(int Time, int iId, CDasherView *pDasherView, C
 void CTwoPushDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) {
   // Types:
   // 0 = ordinary click
-  // 1 = long click  
+  // 1 = long click
   int myState;
   if (!isRunning(myState)) DASHER_ASSERT(false);
-
+  
+  if (iType != 0) {
+    reverse();
+    return;
+  }
   if (myState == 0) //no button pushed (recently)
   {
 //cout << "First push - event type " << iType << " \n";

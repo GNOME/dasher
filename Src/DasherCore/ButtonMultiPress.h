@@ -26,7 +26,9 @@
 namespace Dasher {
 /// \ingroup InputFilter
 /// @{
-///DynamicFilter which additionally starts reversing whenever a button is pushed enough times in a short interval
+///DynamicFilter which detects multiple presses of the same button occurring in a short space of time
+/// (such multi-presses are then passed onto the standard 'ActionButton' method, with iType equal
+/// to the number of presses, for subclasses to handle/decide how to respond.)
 class CButtonMultiPress : public CDynamicFilter {
  public:
   CButtonMultiPress(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, int iType, const char *szName);

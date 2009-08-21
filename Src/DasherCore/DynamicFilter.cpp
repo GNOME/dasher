@@ -104,35 +104,27 @@ void CDynamicFilter::Event(int iTime, int iButton, int iType, CDasherModel *pMod
     pause();
     m_pInterface->PauseAt(0, 0);
   } else {
-    //examine event/button-press type
+    //running; examine event/button-press type
     switch(iType) {
-    case 0:
+    case 0: //single press
       if((iButton == 0) || (iButton == 100)) {
-	if(pUserLog)
-	  pUserLog->KeyDown(iButton, iType, 2);
-	pause();
-	m_pInterface->PauseAt(0, 0);
+        //dedicated pause button
+        if(pUserLog)
+          pUserLog->KeyDown(iButton, iType, 2);
+        pause();
+        m_pInterface->PauseAt(0, 0);
+        break;
       }
       else if(iButton == 1) {
-	if(pUserLog)
-	  pUserLog->KeyDown(iButton, iType, 6);
-	reverse();
+        //dedicated reverse button
+        if(pUserLog)
+          pUserLog->KeyDown(iButton, iType, 6);
+        reverse();
+        break;
       }
-      else {
-	ActionButton(iTime, iButton, iType, pModel, pUserLog);
-      }
-      break;
-    default: // _Any_ other kind of event - long, double, triple, ...
-      if((iButton >= 2) && (iButton <= 4)) {
-	if(pUserLog)
-	  pUserLog->KeyDown(iButton, iType, 6);
-	reverse(); //reversing!
-       }
-      else {
-	if(pUserLog)
-	  pUserLog->KeyDown(iButton, iType, 0);
-      }
-      break;
+      //else - any non-special button - fall through
+    default: //or, Any special kind of event - long, double, triple, ... 
+      ActionButton(iTime, iButton, iType, pModel, pUserLog);
     }
   }
 }

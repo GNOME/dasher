@@ -45,7 +45,6 @@ class CTwoButtonDynamicFilter : public CButtonMultiPress {
   virtual void HandleEvent(Dasher::CEvent *pEvent);
   
  protected:
-  void Event(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog);
   virtual void run(int iState);
   virtual void pause();
   virtual void reverse();
@@ -56,11 +55,7 @@ class CTwoButtonDynamicFilter : public CButtonMultiPress {
   virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog);
   double m_dLagMul;
 
-  void RevertPresses(int iCount);
   void ApplyOffset(CDasherModel *pModel, long lOffset);
-  CDasherModel *m_pModel;
-  long m_lOffsetApplied;
-  double m_dMulSinceFirstPush;
 };
 }
 /// @}

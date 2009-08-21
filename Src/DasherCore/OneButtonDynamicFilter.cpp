@@ -120,6 +120,12 @@ bool COneButtonDynamicFilter::TimerImpl(int Time, CDasherView *m_pDasherView, CD
 }
 
 void COneButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) {
+  if (iType != 0) {
+    //double/long push
+    reverse();
+    return;
+  }
+    
   if((iButton == 2) || (iButton == 3) || (iButton == 4)) {
     if(pUserLog)
       pUserLog->KeyDown(iButton, iType, 5);
