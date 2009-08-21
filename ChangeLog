@@ -1,6 +1,8 @@
 2009-08-21  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* Move handling of double/long/etc. clicks into subclasses.
+	* Subclasses of DynamicFilter now handle their own states, and
+	  BP_FIXED_MARKERS is now compulsory.
 
 2009-08-18  Patrick Welche <prlw1@cam.ac.uk>
 

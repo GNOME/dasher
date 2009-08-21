@@ -47,7 +47,7 @@ class CTwoPushDynamicFilter : public CDynamicFilter /*long push, but do our own 
 
   virtual void HandleEvent(Dasher::CEvent * pEvent);
 
-  virtual void run(int iState);
+  virtual void run();
   virtual void pause();
   virtual void reverse();
 
@@ -59,6 +59,8 @@ class CTwoPushDynamicFilter : public CDynamicFilter /*long push, but do our own 
   int m_iActiveMarker;
   int m_aiTarget[2];
   int m_aaiGuideAreas[2][2];
+  
+  double m_dNatsSinceFirstPush;
 };
 }
 /// @}

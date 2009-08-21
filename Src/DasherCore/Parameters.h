@@ -44,7 +44,7 @@ enum {
   BP_COMPASSMODE, BP_SOCKET_INPUT_ENABLE, BP_SOCKET_DEBUG, 
   BP_CIRCLE_START, BP_GLOBAL_KEYBOARD, 
   BP_SMOOTH_OFFSET, BP_CONVERSION_MODE, BP_PAUSE_OUTSIDE, BP_BACKOFF_BUTTON,
-  BP_TWOBUTTON_REVERSE, BP_2B_INVERT_DOUBLE, BP_SLOW_START, BP_FIXED_MARKERS, END_OF_BPS
+  BP_TWOBUTTON_REVERSE, BP_2B_INVERT_DOUBLE, BP_SLOW_START, END_OF_BPS
 };
 
 enum { 
@@ -165,7 +165,6 @@ static bp_table boolparamtable[] = {
   {BP_TWOBUTTON_REVERSE, "TwoButtonReverse", PERS, false, "Reverse the up/down buttons in two button mode"},
   {BP_2B_INVERT_DOUBLE, "TwoButtonInvertDouble", PERS, false, "Double-press acts as opposite button in two-button mode"},
   {BP_SLOW_START, "SlowStart", PERS, false, "Start at low speed and increase"},
-  {BP_FIXED_MARKERS, "TwoPushMarkersFixed", PERS, false, "Two-push Dynamic Mode markers fixed to canvas"},
 };
 
 static lp_table longparamtable[] = {

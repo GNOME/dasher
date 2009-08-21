@@ -72,13 +72,8 @@ void CButtonMultiPress::reverse()
   m_deQueueTimes.clear();
 }
 
-void CButtonMultiPress::run(int newState)
+void CButtonMultiPress::run()
 {
-  int oldState;
-  if (isRunning(oldState))
-  {
-    if (oldState == newState) return;
-  }
-  CDynamicFilter::run(newState);
-  m_deQueueTimes.clear();
+  if (!isRunning()) m_deQueueTimes.clear();
+  CDynamicFilter::run();
 }

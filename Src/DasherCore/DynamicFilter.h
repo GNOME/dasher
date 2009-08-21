@@ -47,11 +47,10 @@ class CDynamicFilter : public CInputFilter {
   bool m_bDecorationChanged;
   bool isPaused() {return m_iState == 0;}
   bool isReversing() {return m_iState == 1;}
-  bool isRunning(int &iSubclassState)
-    {if (m_iState < 2) return false; iSubclassState = m_iState-2; return true;}
+  bool isRunning() {return m_iState==2;}
   virtual void pause() {m_iState = 0;}
   virtual void reverse();
-  virtual void run(int iSubclassState);
+  virtual void run();
 
   virtual bool TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) = 0;
 

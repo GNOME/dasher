@@ -96,7 +96,7 @@ void CDynamicFilter::Event(int iTime, int iButton, int iType, CDasherModel *pMod
     if(pUserLog)
       pUserLog->KeyDown(iButton, iType, 1);
     m_pInterface->Unpause(iTime);
-    run(0);
+    run();
   } else if (isReversing()) {
     if(pUserLog)
       pUserLog->KeyDown(iButton, iType, 2);
@@ -140,11 +140,10 @@ void CDynamicFilter::reverse()
   }
 }
 
-void CDynamicFilter::run(int iSubclassState)
+void CDynamicFilter::run()
 {
-  DASHER_ASSERT(iSubclassState>=0);
   if (m_iState<2) //wasn't running previously
     m_uSpeedControlTime = 0; //will be set in Timer()
-  m_iState = iSubclassState+2;
+  m_iState = 2;
 }
 

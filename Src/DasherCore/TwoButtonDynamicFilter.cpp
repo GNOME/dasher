@@ -105,9 +105,9 @@ void CTwoButtonDynamicFilter::Deactivate() {
   SetBoolParameter(BP_SMOOTH_OFFSET, false);
 }
 
-void CTwoButtonDynamicFilter::run(int iState) {
+void CTwoButtonDynamicFilter::run() {
   SetBoolParameter(BP_SMOOTH_OFFSET, true);
-  CButtonMultiPress::run(iState);
+  CButtonMultiPress::run();
 }
 
 void CTwoButtonDynamicFilter::pause() {

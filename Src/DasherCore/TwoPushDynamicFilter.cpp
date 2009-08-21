@@ -35,7 +35,6 @@ static SModuleSettings sSettings[] = {
   {LP_HOLD_TIME, T_LONG, 100, 10000, 1000, 100, _("Long press time")},
   /* TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.*/
   {BP_BACKOFF_BUTTON,T_BOOL, -1, -1, -1, -1, _("Enable backoff and start/stop buttons")},
-  {BP_FIXED_MARKERS, T_BOOL, -1, -1, -1, -1, _("Markers fixed to canvas")},
   {BP_SLOW_START,T_BOOL, -1, -1, -1, -1, _("Slow startup")},
   {LP_SLOW_START_TIME, T_LONG, 0, 10000, 1000, 100, _("Slow startup time")},
   {LP_DYNAMIC_SPEED_INC, T_LONG, 1, 100, 1, 1, _("%age by which to automatically increase speed")},
@@ -45,7 +44,7 @@ static SModuleSettings sSettings[] = {
 };
 
 CTwoPushDynamicFilter::CTwoPushDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
-  : CDynamicFilter(pEventHandler, pSettingsStore, pInterface, 14, 1, _("Two-push Dynamic Mode (New One Button)")) {
+  : CDynamicFilter(pEventHandler, pSettingsStore, pInterface, 14, 1, _("Two-push Dynamic Mode (New One Button)")), m_dNatsSinceFirstPush(-INFINITY) {
   
   Dasher::CParameterNotificationEvent oEvent(LP_TWO_PUSH_OUTER);//and all the others too!
   HandleEvent(&oEvent);
@@ -84,15 +83,12 @@ bool CTwoPushDynamicFilter::DecorateView(CDasherView *pView)
   GuideLine(pView, 2048 - GetLongParameter(LP_TWO_PUSH_UP), 1);
   GuideLine(pView, 2048 + GetLongParameter(LP_TWO_PUSH_DOWN), 1);
 
-  if (GetBoolParameter(BP_FIXED_MARKERS))
-  { //outer guides (at center of rects) - red lines
-    GuideLine(pView, 2048 - GetLongParameter(LP_TWO_PUSH_OUTER), 1);
-    GuideLine(pView, 2048 + GetLongParameter(LP_TWO_PUSH_OUTER), 1);
-  }
+  //outer guides (at center of rects) - red lines
+  GuideLine(pView, 2048 - GetLongParameter(LP_TWO_PUSH_OUTER), 1);
+  GuideLine(pView, 2048 + GetLongParameter(LP_TWO_PUSH_OUTER), 1);
 
   //moving markers - green if active, else yellow
-  int myState;
-  if (m_bDecorationChanged && isRunning(myState) && myState == 1)
+  if (m_bDecorationChanged && isRunning() && m_dNatsSinceFirstPush > -INFINITY)
   {
     for (int i = 0; i < 2; i++)
     {
@@ -149,25 +145,12 @@ void CTwoPushDynamicFilter::HandleEvent(Dasher::CEvent * pEvent)
        double dMaxRate = GetLongParameter(LP_MAX_BITRATE) * GetLongParameter(LP_BOOSTFACTOR) / 10000.0;
        m_dLagBits = dMaxRate * GetLongParameter(LP_DYNAMIC_BUTTON_LAG)/1000.0;
   //cout << " lag (" << m_dLagBits[0] << ", " << m_dLagBits[1] << ", " << m_dLagBits[2] << ", " << m_dLagBits[3] << ")";
-     } //and fallthrough
-     case BP_FIXED_MARKERS:
-        if (GetBoolParameter(BP_FIXED_MARKERS))
-        {
-           m_aaiGuideAreas[0][0] = 2048 - GetLongParameter(LP_TWO_PUSH_UP)*exp(m_dMaxShortTwoPushTime);
-           m_aaiGuideAreas[0][1] = 2048 - GetLongParameter(LP_TWO_PUSH_UP)*exp(m_dMinShortTwoPushTime);
-           m_aaiGuideAreas[1][0] = 2048 + GetLongParameter(LP_TWO_PUSH_DOWN)*exp(m_dMinLongTwoPushTime);
-           m_aaiGuideAreas[1][1] = 2048 + GetLongParameter(LP_TWO_PUSH_DOWN)*exp(m_dMaxLongTwoPushTime);
-        }
-        else
-        {
-          double dUp(GetLongParameter(LP_TWO_PUSH_UP)), dDown(GetLongParameter(LP_TWO_PUSH_DOWN)),
-                 dOuter(GetLongParameter(LP_TWO_PUSH_OUTER));
-          m_aaiGuideAreas[0][0] = 2048 - dUp * exp((m_dMaxShortTwoPushTime*dUp + m_dLogUpMul*dOuter) / (dOuter+dUp));
-          m_aaiGuideAreas[0][1] = 2048 - dUp * exp((m_dMinShortTwoPushTime*dUp + m_dLogUpMul*dOuter) / (dOuter+dUp));
-          m_aaiGuideAreas[1][0] = 2048 + dDown * exp((m_dMinLongTwoPushTime*dDown + m_dLogDownMul*dOuter) / (dOuter+dDown));
-          m_aaiGuideAreas[1][1] = 2048 + dDown * exp((m_dMaxLongTwoPushTime*dDown + m_dLogDownMul*dOuter) / (dOuter+dDown));
-        }
-	break;
+       m_aaiGuideAreas[0][0] = 2048 - GetLongParameter(LP_TWO_PUSH_UP)*exp(m_dMaxShortTwoPushTime);
+       m_aaiGuideAreas[0][1] = 2048 - GetLongParameter(LP_TWO_PUSH_UP)*exp(m_dMinShortTwoPushTime);
+       m_aaiGuideAreas[1][0] = 2048 + GetLongParameter(LP_TWO_PUSH_DOWN)*exp(m_dMinLongTwoPushTime);
+       m_aaiGuideAreas[1][1] = 2048 + GetLongParameter(LP_TWO_PUSH_DOWN)*exp(m_dMaxLongTwoPushTime);
+	     break;
+     }
     }
   }
 
@@ -195,23 +178,19 @@ void CTwoPushDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDas
   // Types:
   // 0 = ordinary click
   // 1 = long click
-  int myState;
-  if (!isRunning(myState)) DASHER_ASSERT(false);
   
   if (iType != 0) {
     reverse();
     return;
   }
-  if (myState == 0) //no button pushed (recently)
+  if (m_dNatsSinceFirstPush == -INFINITY) //no button pushed (recently)
   {
-//cout << "First push - event type " << iType << " \n";
-    pModel->GetNats();
-    run(1);
-    pModel->ResetNats();
+    m_dNatsSinceFirstPush = pModel->GetNats();
+    //note, could be negative if overall reversed since last ResetNats (Offset)
+//cout << "First push - got " << m_dNatsSinceFirstPush << std::endl;
   }
   else
   {
-    DASHER_ASSERT (myState == 1);
 //cout << "Second push - event type " << iType << " logGrowth " << pModel->GetNats() << "\n";
     if (m_iActiveMarker == -1)
       reverse();
@@ -219,10 +198,12 @@ void CTwoPushDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDas
     {
       pModel->Offset(m_aiTarget[m_iActiveMarker]);
       pModel->ResetNats();
-      run(0);
+      //don't really have to reset there, but seems as good a place as any
+      m_dNatsSinceFirstPush = -INFINITY; //"waiting for first push"
     }
   }
 }
+
 bool doSet(int &var, const int val)
 {
   if (var == val) return false;
@@ -232,11 +213,10 @@ bool doSet(int &var, const int val)
 
 bool CTwoPushDynamicFilter::TimerImpl(int iTime, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted)
 {
-  int myState;
-  if (!isRunning(myState)) DASHER_ASSERT(false);
-  if (myState == 1) // button pushed
+  DASHER_ASSERT(isRunning());
+  if (m_dNatsSinceFirstPush > -INFINITY) // first button has been pushed
   {
-    double dLogGrowth(m_pDasherModel->GetNats()), dOuter(GetLongParameter(LP_TWO_PUSH_OUTER)),
+    double dLogGrowth(m_pDasherModel->GetNats() - m_dNatsSinceFirstPush), dOuter(GetLongParameter(LP_TWO_PUSH_OUTER)),
            dUp(GetLongParameter(LP_TWO_PUSH_UP)), dDown(GetLongParameter(LP_TWO_PUSH_DOWN));
     
     //to move to point currently at outer marker: set m_aiTarget to dOuter==exp( log(dOuter/dUp) ) * dUp
@@ -253,17 +233,8 @@ bool CTwoPushDynamicFilter::TimerImpl(int iTime, CDasherView *m_pDasherView, CDa
     double dDownDist = exp( dDownBits ) * dDown;
     m_aiTarget[0] = dUpDist * exp(m_dLagBits);
     m_aiTarget[1] = -dDownDist * exp(m_dLagBits);
-    if (GetBoolParameter(BP_FIXED_MARKERS))
-    {
-      m_bDecorationChanged |= doSet(m_aiMarker[0], 2048 - exp(m_dLagBits + dLogGrowth) * dUp);
-      m_bDecorationChanged |= doSet(m_aiMarker[1], 2048 + exp(m_dLagBits + dLogGrowth) * dDown);
-    }
-    else
-    {
-      //apply amount of lag corresponding to the first (inner) push only
-      m_bDecorationChanged |= doSet(m_aiMarker[0], 2048 - dUpDist * exp(m_dLagBits * (dUp/(dOuter+dUp))));
-      m_bDecorationChanged |= doSet(m_aiMarker[1], 2048 + dDownDist * exp(m_dLagBits * (dDown/(dOuter+dUp))));
-    }
+    m_bDecorationChanged |= doSet(m_aiMarker[0], 2048 - exp(m_dLagBits + dLogGrowth) * dUp);
+    m_bDecorationChanged |= doSet(m_aiMarker[1], 2048 + exp(m_dLagBits + dLogGrowth) * dDown);
     if (dLogGrowth > m_dMaxLongTwoPushTime)
     {
 //cout << " growth " << dLogGrowth << " - reversing\n";
@@ -287,9 +258,10 @@ void CTwoPushDynamicFilter::Deactivate() {
   SetBoolParameter(BP_SMOOTH_OFFSET, false);
 }
 
-void CTwoPushDynamicFilter::run(int iState) {
+void CTwoPushDynamicFilter::run() {
+  m_dNatsSinceFirstPush = -INFINITY;
   SetBoolParameter(BP_SMOOTH_OFFSET, true);
-  CDynamicFilter::run(iState);
+  CDynamicFilter::run();
 }
 
 void CTwoPushDynamicFilter::pause() {

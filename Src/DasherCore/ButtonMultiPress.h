@@ -39,7 +39,7 @@ class CButtonMultiPress : public CDynamicFilter {
   virtual unsigned int maxClickCount()=0;
   virtual void reverse();
   virtual void pause();
-  virtual void run(int iSubclassState);
+  virtual void run();
 
  private:
   virtual void RevertPresses(int iCount) {};

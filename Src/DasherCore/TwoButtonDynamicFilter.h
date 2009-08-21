@@ -45,7 +45,7 @@ class CTwoButtonDynamicFilter : public CButtonMultiPress {
   virtual void HandleEvent(Dasher::CEvent *pEvent);
   
  protected:
-  virtual void run(int iState);
+  virtual void run();
   virtual void pause();
   virtual void reverse();
 
