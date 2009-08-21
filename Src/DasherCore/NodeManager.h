@@ -80,10 +80,9 @@ namespace Dasher {
 
     ///
     /// Get a new root node owned by this manager
-    ///
-
-
-    virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData) = 0;
+    /// ACL 12/8/09 this is never called polymorphically;
+    /// hence deleting it so subclasses can each use different types
+    //virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData) = 0;
 
     ///
     /// Provide children for the supplied node

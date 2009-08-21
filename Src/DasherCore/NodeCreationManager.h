@@ -29,10 +29,12 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   ~CNodeCreationManager();
   
   ///
-  /// Get a root node of a given type
+  /// Get a root node of a particular type
   ///
 
-  Dasher::CDasherNode *GetRoot(int iType, Dasher::CDasherNode *pParent, int iLower, int iUpper, void *pUserData);
+  Dasher::CDasherNode *GetAlphRoot(Dasher::CDasherNode *pParent, int iLower, int iUpper, char *szContext, int iOffset);
+  Dasher::CDasherNode *GetCtrlRoot(Dasher::CDasherNode *pParent, int iLower, int iUpper, int iOffset);
+  Dasher::CDasherNode *GetConvRoot(Dasher::CDasherNode *pParent, int iLower, int iUpper, int iOffset);
 
   ///
   /// Register a control node

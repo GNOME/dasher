@@ -15,7 +15,7 @@ namespace Dasher {
   class CConversionManagerFactory {
   public:
     CConversionManagerFactory(Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, CNodeCreationManager *pNCManager, int iID, Dasher::CAlphIO *pCAlphIO, CAlphabet *pAlphabet);
-    virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData);
+    virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, int iOffset);
     ~CConversionManagerFactory();
 
   private:

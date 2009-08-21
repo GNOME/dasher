@@ -26,7 +26,7 @@ namespace Dasher {
     //    CAlphabetManagerFactory( CDasherModel *pModel, CLanguageModel *pLanguageModel, bool bGameMode, const std::string &strGameModeText );
     ~CAlphabetManagerFactory();
     
-    virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData);
+    virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, char *szContext, int iOffset);
     
     ///
     /// Functions for backwards compatibility - hopefully these will

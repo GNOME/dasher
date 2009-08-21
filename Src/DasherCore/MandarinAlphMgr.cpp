@@ -49,9 +49,9 @@ CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreati
   : CAlphabetManager(pInterface, pNCManager, pLanguageModel, iLearnContext) {
 }
 
-CDasherNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData) {
+CDasherNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, int iLower, int iUpper, char *szContext, int iOffset) {
 
-  CDasherNode *pNewNode = CAlphabetManager::GetRoot(pParent, iLower, iUpper, pUserData);
+  CDasherNode *pNewNode = CAlphabetManager::GetRoot(pParent, iLower, iUpper, szContext, iOffset);
   SAlphabetData *pNodeUserData = static_cast<SAlphabetData *>(pNewNode->m_pUserData);
 
   //Override context for Mandarin Dasher
@@ -72,7 +72,7 @@ CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CDasherNode *pParent, symbol iSy
 
     //Modified for Mandarin Dasher
     //The following logic switch allows punctuation nodes in Mandarin to be treated in the same way as English (i.e. display and populate next round) instead of invoking a conversion node
-	  CDasherNode *pNewNode = m_pNCManager->GetRoot(2, pParent, iLbnd, iHbnd, &(pParentData->iOffset));
+	  CDasherNode *pNewNode = m_pNCManager->GetConvRoot(pParent, iLbnd, iHbnd, pParentData->iOffset);
 	  static_cast<SAlphabetData *>(pNewNode->m_pUserData)->iSymbol = iSymbol;
 	  return pNewNode;
   }

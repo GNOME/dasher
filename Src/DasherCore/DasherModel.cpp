@@ -323,21 +323,17 @@ void CDasherModel::InitialiseAtOffset(int iOffset, CDasherView *pView) {
   DeleteTree();
 
   if(iOffset == 0)
-    m_Root = m_pNodeCreationManager->GetRoot(0, NULL, 0,GetLongParameter(LP_NORMALIZATION), NULL);
+    m_Root = m_pNodeCreationManager->GetAlphRoot(NULL, 0,GetLongParameter(LP_NORMALIZATION), NULL, -1);
   else {
     // Get the most recent character
     std::string strContext = m_pDasherInterface->GetContext(iOffset - 1, 1);
 
-    CAlphabetManager::SRootData oData;
+    char *szContext = new char[strContext.size() + 1];
+    strcpy(szContext, strContext.c_str());
 
-    oData.szContext = new char[strContext.size() + 1];
-    strcpy(oData.szContext, strContext.c_str());
+    m_Root = m_pNodeCreationManager->GetAlphRoot(NULL, 0, GetLongParameter(LP_NORMALIZATION), szContext, iOffset);
 
-    oData.iOffset = iOffset;
-
-    m_Root = m_pNodeCreationManager->GetRoot(0, NULL, 0, GetLongParameter(LP_NORMALIZATION), &oData);
-
-    delete[] oData.szContext;
+    delete[] szContext;
   }
 
   m_pLastOutput = m_Root;

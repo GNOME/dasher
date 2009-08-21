@@ -37,8 +37,8 @@ CConversionManagerFactory::CConversionManagerFactory(Dasher::CEventHandler *pEve
   m_iCMCount = 0; // Unique identifier passed to conversion managers
 }
 
-CDasherNode *CConversionManagerFactory::GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData) {
-  return m_pMgr->GetRoot(pParent, iLower, iUpper, pUserData);
+CDasherNode *CConversionManagerFactory::GetRoot(CDasherNode *pParent, int iLower, int iUpper, int iOffset) {
+  return m_pMgr->GetRoot(pParent, iLower, iUpper, iOffset);
 }
 
 CConversionManagerFactory::~CConversionManagerFactory() {

@@ -267,7 +267,7 @@ void CControlManager::DisconnectNode(int iChild, int iParent) {
 }
 
 
-CDasherNode *CControlManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData) {
+CDasherNode *CControlManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, int iOffset) {
   CDasherNode *pNewNode;
 
   // TODO: Tie this structure to info contained in control map
@@ -278,8 +278,6 @@ CDasherNode *CControlManager::GetRoot(CDasherNode *pParent, int iLower, int iUpp
   pDisplayInfo->strDisplayText = m_mapControlMap[0]->strLabel;
   
   pNewNode = new CDasherNode(pParent, iLower, iUpper, pDisplayInfo);
-
-  int iOffset = *((int *)pUserData);
  
   // FIXME - handle context properly
 
@@ -316,14 +314,8 @@ void CControlManager::PopulateChildren( CDasherNode *pNode ) {
 
      if( *it == NULL ) {
        // Escape back to alphabet
-       CAlphabetManager::SRootData *pRootData = new CAlphabetManager::SRootData;
 
-       // TODO: Check that these are eventually getting deleted
-
-       pRootData->iOffset = (static_cast<SControlData *>(pNode->m_pUserData))->iOffset;
-       pRootData->szContext = NULL; // TODO: Fix this
-
-       pNewNode = m_pNCManager->GetRoot(0, pNode, iLbnd, iHbnd, pRootData);
+       pNewNode = m_pNCManager->GetAlphRoot(pNode, iLbnd, iHbnd, NULL/*TODO fix this*/, static_cast<SControlData *>(pNode->m_pUserData)->iOffset);
        pNewNode->SetFlag(NF_SEEN, false);
      }
      else {

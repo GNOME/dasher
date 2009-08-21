@@ -3,6 +3,8 @@
 	* Move handling of double/long/etc. clicks into subclasses.
 	* Subclasses of DynamicFilter now handle their own states, and
 	  BP_FIXED_MARKERS is now compulsory.
+	* Remove NodeCreationManager::GetRoot(int,...) in favour of
+	  Get{Alph,Conv,Ctrl}Root(...).
 
 2009-08-18  Patrick Welche <prlw1@cam.ac.uk>
 

@@ -53,45 +53,36 @@ CAlphabetManager::CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreati
 
 }
 
-CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData) {
+CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, char *szContext, int iOffset) {
 
   CDasherNode *pNewNode;
 
-  // TODO: iOffset has gotten a bit hacky here
-
   int iSymbol;
-  int iOffset;
   int iColour;
 
   std::string strContext;
 
   CLanguageModel::Context iContext;
 
-  if(pUserData && static_cast<SRootData *>(pUserData)->szContext) {
-    std::string strRootText(static_cast<SRootData *>(pUserData)->szContext);
-
+  if(szContext) {
     int iMaxContextLength = m_pLanguageModel->GetContextLength() + 1;
 
     // TODO: No need to explicitly pass context
     // TODO: Utility function for looking up symbolic context
 
-    int iStart = static_cast<SRootData *>(pUserData)->iOffset - iMaxContextLength;
+    int iStart = iOffset - iMaxContextLength;
     if(iStart < 0)
       iStart = 0;
 
-    strContext = m_pInterface->GetContext(iStart, static_cast<SRootData *>(pUserData)->iOffset - iStart);
+    strContext = m_pInterface->GetContext(iStart, iOffset - iStart);
     BuildContext(strContext, false, iContext, iSymbol);
 
-    iOffset = static_cast<SRootData *>(pUserData)->iOffset - 1;
+    iOffset = iOffset - 1;
     iColour = m_pNCManager->GetColour(iSymbol, 0);
   }
   else {
     // Create a root node
 
-    if(pUserData)
-      iOffset = static_cast<SRootData *>(pUserData)->iOffset;
-    else
-      iOffset = -1;
     iColour = 7;
 
     strContext = m_pNCManager->GetAlphabet()->GetDefaultContext();
@@ -99,7 +90,6 @@ CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUp
   }
 
   // FIXME - Make this a CDasherComponent
-
 
   // Stuff which could in principle be done in the symbol node creation routine
   CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
@@ -235,18 +225,18 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CDasherNode *pParent, symbol iSy
     }
     // TODO: Need to fix fact that this is created even when control mode is switched off
     else if(iSymbol == m_pNCManager->GetControlSymbol()) {
-      pNewNode = m_pNCManager->GetRoot(1, pParent, iLbnd, iHbnd, &(pParentData->iOffset));
+      pNewNode = m_pNCManager->GetCtrlRoot(pParent, iLbnd, iHbnd, pParentData->iOffset); 
 
       // For now, just hack it so we get a normal root node here
       if(!pNewNode) {
-	pNewNode = m_pNCManager->GetRoot(0, pParent, iLbnd, iHbnd, NULL);
+	pNewNode = m_pNCManager->GetAlphRoot(pParent, iLbnd, iHbnd, NULL, -1);
       }
     }
     else if(iSymbol == m_pNCManager->GetStartConversionSymbol()) {
       //  else if(iSymbol == m_pNCManager->GetSpaceSymbol()) {
 
       // TODO: Need to consider the case where there is no compile-time support for this
-      pNewNode = m_pNCManager->GetRoot(2, pParent, iLbnd, iHbnd, &(pParentData->iOffset));
+      pNewNode = m_pNCManager->GetConvRoot(pParent, iLbnd, iHbnd, pParentData->iOffset);
     }
     else {
       int iPhase = (pParentData->iPhase + 1) % 2;

@@ -61,8 +61,10 @@ namespace Dasher {
     ///
     /// Get a new root node owned by this manager
     ///
-
-    virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData);
+    // ACL note 12/8/09 - if previously passed in an SRootData (containing a char* and int),
+    //   then pass in the same char* and int here (the char* may be null); if previously passed
+    //   in null SRootData, then pass in szContext==null and iOffset==-1.
+    virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, char *szContext, int iOffset);
 
     ///
     /// Provide children for the supplied node
@@ -83,12 +85,6 @@ namespace Dasher {
     virtual CDasherNode *RebuildParent(CDasherNode *pNode);
 
     virtual void SetFlag(CDasherNode *pNode, int iFlag, bool bValue);
-
-    struct SRootData {
-      char *szContext;
-      int iOffset;
-    };
-
 
     struct SAlphabetData {
       symbol iSymbol;

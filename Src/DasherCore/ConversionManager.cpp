@@ -56,10 +56,8 @@ CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, CAlphab
   */
 }
 
-CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData) {
+CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, int iOffset) {
   CDasherNode *pNewNode;
-
-  int iOffset = *(static_cast<int *>(pUserData));
 
   // TODO: Parameters here are placeholders - need to figure out what's right
 
@@ -106,12 +104,7 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
   int iLbnd(0);
   int iHbnd(m_pNCManager->GetLongParameter(LP_NORMALIZATION));
 
-
-  CAlphabetManager::SRootData oRootData;
-  oRootData.szContext = NULL;
-  oRootData.iOffset = pCurrentDataNode->iOffset + 1;
-
-  pNewNode = m_pNCManager->GetRoot(0, pNode, iLbnd, iHbnd, &oRootData);
+  pNewNode = m_pNCManager->GetAlphRoot(pNode, iLbnd, iHbnd, NULL, pCurrentDataNode->iOffset + 1);
   pNewNode->SetFlag(NF_SEEN, false);
 
   pNode->Children().push_back(pNewNode);

@@ -75,26 +75,23 @@ void CNodeCreationManager::DisconnectNode(int iChild, int iParent) {
     m_pControlManager->DisconnectNode(iChild, iParent);
 }
 
-CDasherNode *CNodeCreationManager::GetRoot(int iType, Dasher::CDasherNode *pParent, int iLower, int iUpper, void *pUserData ) {
-
-  switch(iType) {
-  case 0:
-    return m_pAlphabetManagerFactory->GetRoot(pParent, iLower, iUpper, pUserData);
-  case 1:
-    if(m_pControlManager)
-      return m_pControlManager->GetRoot(pParent, iLower, iUpper, pUserData);
-    else
-      return NULL;
-  case 2:
-    if(m_pConversionManagerFactory)
-      return m_pConversionManagerFactory->GetRoot(pParent, iLower, iUpper, pUserData);
-    else
-      return NULL;
-  default:
-    return NULL;
-  }
+CDasherNode *CNodeCreationManager::GetAlphRoot(Dasher::CDasherNode *pParent, int iLower, int iUpper, char *szContext, int iOffset) { 
+ return m_pAlphabetManagerFactory->GetRoot(pParent, iLower, iUpper, szContext, iOffset);
 }
 
+CDasherNode *CNodeCreationManager::GetCtrlRoot(Dasher::CDasherNode *pParent, int iLower, int iUpper, int iOffset) { 
+ if(m_pControlManager)
+ return m_pControlManager->GetRoot(pParent, iLower, iUpper, iOffset);
+ else
+ return NULL;
+}
+
+CDasherNode *CNodeCreationManager::GetConvRoot(Dasher::CDasherNode *pParent, int iLower, int iUpper, int iOffset) { 
+ if(m_pConversionManagerFactory)
+ return m_pConversionManagerFactory->GetRoot(pParent, iLower, iUpper, iOffset);
+ else
+ return NULL;
+}
 
 void CNodeCreationManager::GetProbs(CLanguageModel::Context context, std::vector <symbol >&NewSymbols, std::vector <unsigned int >&Probs, int iNorm) const {
   // Total number of symbols
