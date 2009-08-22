@@ -19,6 +19,8 @@ class CPinYinConversionHelper : public CConversionHelper {
  public:
 
   CPinYinConversionHelper(CNodeCreationManager *pNCManager, Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, Dasher::CAlphIO *pAlphIO, const std::string strCHAlphabetPath, Dasher::CAlphabet * pAlphabet);
+
+  virtual void BuildTree(CDasherNode *pRoot);
   
   virtual bool Convert(const std::string &strSource, SCENode ** pRoot);
 

@@ -347,29 +347,26 @@ void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
 }
 
 void CConversionHelper::BuildTree(CDasherNode *pRoot) {
-
+  // Build the string to convert.
   std::string strCurrentString;
+  // Search backwards but stop at any conversion node.
+  for (CDasherNode *pNode = pRoot->Parent();
+       pNode && pNode->m_pNodeManager->GetID() != 2;
+       pNode = pNode->Parent()) {
+      
+    // TODO: Need to make this the edit text rather than the display text
+    CAlphabetManager::SAlphabetData *pAlphabetData = static_cast<CAlphabetManager::SAlphabetData *>(pNode->m_pUserData);
+      
+    strCurrentString = m_pAlphabet->GetText(pAlphabetData->iSymbol) + strCurrentString;
+  }
+  // Handle/store the result.
+  SCENode *pStartTemp;
+  Convert(strCurrentString, &pStartTemp);
 
-  //Find the pinyin (roman) text (stored in Display text) of the previous alphabet node
+  // Store all conversion trees (SCENode trees) in the pUserData->pSCENode
+  // of each Conversion Root.
 
-    CAlphabetManager::SAlphabetData *pRootAlphabetData = static_cast<CAlphabetManager::SAlphabetData *>(pRoot->m_pUserData);
-
-    //Get pinyin string (to translate) from 'Display Text' in the alphabet file (refer to alphabet.spyDict.xml)
-    strCurrentString = m_pAlphabet->GetDisplayText(pRootAlphabetData->iSymbol);
-
-    SCENode *pStartTemp;
-    Convert(strCurrentString, &pStartTemp);
-
-    SConversionData *pRootConversionData = static_cast<CConversionHelper::SConversionData *>(pRoot->m_pUserData);
-
-    if(!(pRootConversionData->bisRoot))
-      std::cout<<"ERROR IN BUILD TREE"<<std::endl;
-
-    //Store all conversion trees(SCENode trees) in the pUserData->pSCENode of each Conversion Root
-
-    else{
-      pRootConversionData->pSCENode = pStartTemp;
-    }
+  static_cast<SConversionData *>(pRoot->m_pUserData)->pSCENode = pStartTemp;
 }
 
 void CConversionHelper::SetFlag(CDasherNode *pNode, int iFlag, bool bValue) {

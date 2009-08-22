@@ -49,11 +49,35 @@ CPinYinConversionHelper::CPinYinConversionHelper(CNodeCreationManager *pNCManage
 
   pParser = new CPinyinParser(strCHAlphabetPath);
 }
-  
+
+void CPinYinConversionHelper::BuildTree(CDasherNode *pRoot) {
+  DASHER_ASSERT(pRoot->m_pNodeManager == this);
+
+  // Find the pinyin (roman) text (stored in Display text) of the
+  // previous alphabet node.
+
+  SConversionData *pRootData = static_cast<SConversionData *>(pRoot->m_pUserData);
+
+  DASHER_ASSERT(pRootData->bisRoot);
+
+  // Get pinyin string (to translate) from 'Display Text' in the
+  // alphabet file (refer to alphabet.spyDict.xml).
+
+  std::string strCurrentString(m_pAlphabet->GetDisplayText(pRootData->iSymbol));
+
+  SCENode *pStartTemp;
+  Convert(strCurrentString, &pStartTemp);
+
+  // Store all conversion trees (SCENode trees) in the pUserData->pSCENode
+  // of each Conversion Root.
+
+  pRootData->pSCENode = pStartTemp;
+}
+
 bool CPinYinConversionHelper::Convert(const std::string &strSource, SCENode ** pRoot) {
 
   *pRoot = 0;
- 
+cout<<"Convert \"" << strSource << "\"\n"; 
   return (pParser && pParser->Convert(strSource, pRoot));
 }
 

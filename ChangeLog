@@ -5,6 +5,8 @@
 	* AlphabetManager.cpp: Move node creation outside of if statement.
 	* Move searching for target in game mode from DasherModel to DasherNode
 	  and AlphabetManager.
+	* Restore CConversionHelper::BuildTree, and move Chinese version to
+	  CPinYinConversionHelper.
 
 2009-08-21  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
