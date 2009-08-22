@@ -415,20 +415,20 @@ CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode) {
     // symbol (eg because it was generated from a different alphabet)
     return NULL;
   }
-  else if(iOffset == 0) {
+
+  CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
+  pDisplayInfo->bShove = true;
+  pDisplayInfo->bVisible = true;
+  
+  if(iOffset == 0) {
     // TODO: Creating a root node, Shouldn't be a special case
     iNewPhase = 0;
     iNewSymbol = 0;
     strContext = m_pNCManager->GetAlphabet()->GetDefaultContext();
     BuildContext(strContext, true, iContext, iNewSymbol);
 
-    CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
     pDisplayInfo->iColour = 7; // TODO: Hard coded value
-    pDisplayInfo->bShove = true;
-    pDisplayInfo->bVisible = true;
     pDisplayInfo->strDisplayText = "";
-
-    pNewNode = new CDasherNode(NULL, 0, 0, pDisplayInfo);
   }
   else {
     int iMaxContextLength = m_pLanguageModel->GetContextLength() + 1;
@@ -445,16 +445,12 @@ CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode) {
 
     int iColour(m_pNCManager->GetColour(iNewSymbol, iNewPhase));
 
-    CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
     pDisplayInfo->iColour = iColour;
-    pDisplayInfo->bShove = true;
-    pDisplayInfo->bVisible = true;
     pDisplayInfo->strDisplayText = m_pNCManager->GetAlphabet()->GetDisplayText(iNewSymbol);
-
-    // TODO: Node creation outside of if statement
-    pNewNode = new CDasherNode(NULL, 0, 0, pDisplayInfo);
   }
 
+  pNewNode = new CDasherNode(NULL, 0, 0, pDisplayInfo);
+  
   // TODO: Some of this context stuff could be consolidated
 
   pNewNode->m_pNodeManager = this;
