@@ -285,12 +285,8 @@ CDasherNode *CControlManager::GetRoot(CDasherNode *pParent, int iLower, int iUpp
 
   pNewNode->m_pNodeManager = this;
 
-  SControlData *pNodeUserData = new SControlData;
-
-  pNodeUserData->pControlNode = m_mapControlMap[0];
+  pNewNode->m_pUserData = m_mapControlMap[0];
   pNewNode->m_iOffset = iOffset;
-
-  pNewNode->m_pUserData = pNodeUserData;
 
   return pNewNode;
 }
@@ -299,7 +295,7 @@ void CControlManager::PopulateChildren( CDasherNode *pNode ) {
   
   CDasherNode *pNewNode;
 
-   CControlNode *pControlNode((static_cast<SControlData *>(pNode->m_pUserData))->pControlNode);
+   CControlNode *pControlNode(static_cast<CControlNode *>(pNode->m_pUserData));
 
    int iNChildren( pControlNode->vChildren.size() );
 
@@ -336,14 +332,7 @@ void CControlManager::PopulateChildren( CDasherNode *pNode ) {
 
        pNewNode->m_pNodeManager = this;
        pNewNode->m_pUserData = *it;
-
-       SControlData *pNodeUserData = new SControlData;
-
-       pNodeUserData->pControlNode = *it;
        pNewNode->m_iOffset = pNode->m_iOffset;
-
-       pNewNode->m_pUserData = pNodeUserData;
-
      }
      pNode->Children().push_back(pNewNode);
      ++iIdx;
@@ -351,12 +340,11 @@ void CControlManager::PopulateChildren( CDasherNode *pNode ) {
 }
 
 void CControlManager::ClearNode( CDasherNode *pNode ) {
-  delete (static_cast<SControlData *>(pNode->m_pUserData));
 }
 
 void CControlManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization ) {
 
-  CControlNode *pControlNode((static_cast<SControlData *>(pNode->m_pUserData))->pControlNode);
+  CControlNode *pControlNode(static_cast<CControlNode *>(pNode->m_pUserData));
 
   CControlEvent oEvent(pControlNode->iID);
   // TODO: Need to reimplement this

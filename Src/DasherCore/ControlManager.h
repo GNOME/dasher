@@ -135,10 +135,6 @@ namespace Dasher {
     CLanguageModel *m_pLanguageModel;
     std::map<int,CControlNode*> m_mapControlMap;
 
-    struct SControlData {
-      CControlNode *pControlNode;
-    };
-
     ///Whether we'd temporarily disabled Automatic Speed Control
     ///(if _and only if_ so, should re-enable it when leaving a node)
     bool bDisabledSpeedControl;
