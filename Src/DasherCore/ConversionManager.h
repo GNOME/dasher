@@ -145,7 +145,6 @@ namespace Dasher {
       CLanguageModel::Context iContext;
       SCENode * pSCENode;
       bool bisRoot; // True for root conversion nodes 
-      int iOffset;
       //int iGameOffset;
     };
 	  

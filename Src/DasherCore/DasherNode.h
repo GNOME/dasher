@@ -237,6 +237,7 @@ class Dasher::CDasherNode:private NoClones {
   /// node size, colour and display text.
   /// \todo Make private, read only access?
   void *m_pUserData;
+  int m_iOffset;
 
   // A hack, to allow this node to be tied to a particular number of symbols;
   int m_iNumSymbols;

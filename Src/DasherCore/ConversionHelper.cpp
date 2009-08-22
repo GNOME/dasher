@@ -269,7 +269,7 @@ void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
       pNodeUserData->bisRoot = false;
       pNodeUserData->pSCENode = pCurrentSCEChild;
       pNodeUserData->pLanguageModel = pCurrentDataNode->pLanguageModel;
-      pNodeUserData->iOffset = pCurrentDataNode->iOffset + 1;
+      pNewNode->m_iOffset = pNode->m_iOffset + 1;
 
       if(pCurrentDataNode->pLanguageModel) {
 	CLanguageModel::Context iContext;
@@ -300,7 +300,7 @@ void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
       int iLbnd(0);
       int iHbnd(m_pNCManager->GetLongParameter(LP_NORMALIZATION));
 
-      pNewNode = m_pNCManager->GetAlphRoot(pNode, iLbnd, iHbnd, NULL, pCurrentDataNode->iOffset);
+      pNewNode = m_pNCManager->GetAlphRoot(pNode, iLbnd, iHbnd, NULL, pNode->m_iOffset);
       pNewNode->SetFlag(NF_SEEN, false);
 
       pNode->Children().push_back(pNewNode);
@@ -334,7 +334,7 @@ void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
       pNodeUserData->bType = true;
       pNodeUserData->pSCENode = NULL;
       pNodeUserData->pLanguageModel = pCurrentDataNode->pLanguageModel;
-      pNodeUserData->iOffset = pCurrentDataNode->iOffset + 1;
+      pNewNode->m_iOffset = pNode->m_iOffset + 1;
 
       pNewNode->m_pUserData = pNodeUserData;
 

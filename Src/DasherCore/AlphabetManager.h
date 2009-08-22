@@ -93,7 +93,6 @@ namespace Dasher {
       CLanguageModel::Context iContext;
  
       int iGameOffset;
-      int iOffset;
     };
 
   protected:

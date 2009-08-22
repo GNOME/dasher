@@ -105,7 +105,7 @@ CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUp
   SAlphabetData *pNodeUserData = new SAlphabetData;
   pNewNode->m_pUserData = pNodeUserData;
 
-  pNodeUserData->iOffset = iOffset;
+  pNewNode->m_iOffset = iOffset;
   pNodeUserData->iPhase = 0;
   pNodeUserData->iSymbol = iSymbol;
 
@@ -165,7 +165,7 @@ CDasherNode *CAlphabetManager::CreateGroupNode(CDasherNode *pParent, SGroupInfo 
   pNewNode->m_pUserData = pNodeUserData;
 
   // When creating a group node...
-  pNodeUserData->iOffset = pParentData->iOffset; // ...the offset is the same as the parent...
+  pNewNode->m_iOffset = pParent->m_iOffset; // ...the offset is the same as the parent...
   pNodeUserData->iPhase = pParentData->iPhase;
   // TODO: Sort out symbol for groups
   pNodeUserData->iSymbol = 0; //...but the Symbol is just a 0.
@@ -220,12 +220,12 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CDasherNode *pParent, symbol iSy
       pNewNode->SetRange(iLbnd, iHbnd);
       pNewNode->SetParent(pParent);
 
-      DASHER_ASSERT(static_cast<SAlphabetData *>(pExistingChild->m_pUserData)->iOffset == pParentData->iOffset + 1);
+      DASHER_ASSERT(pExistingChild->m_iOffset == pParentData->m_iOffset + 1);
 
     }
     // TODO: Need to fix fact that this is created even when control mode is switched off
     else if(iSymbol == m_pNCManager->GetControlSymbol()) {
-      pNewNode = m_pNCManager->GetCtrlRoot(pParent, iLbnd, iHbnd, pParentData->iOffset); 
+      pNewNode = m_pNCManager->GetCtrlRoot(pParent, iLbnd, iHbnd, pParent->m_iOffset); 
 
       // For now, just hack it so we get a normal root node here
       if(!pNewNode) {
@@ -236,7 +236,7 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CDasherNode *pParent, symbol iSy
       //  else if(iSymbol == m_pNCManager->GetSpaceSymbol()) {
 
       // TODO: Need to consider the case where there is no compile-time support for this
-      pNewNode = m_pNCManager->GetConvRoot(pParent, iLbnd, iHbnd, pParentData->iOffset);
+      pNewNode = m_pNCManager->GetConvRoot(pParent, iLbnd, iHbnd, pParent->m_iOffset);
     }
     else {
       int iPhase = (pParentData->iPhase + 1) % 2;
@@ -266,7 +266,7 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CDasherNode *pParent, symbol iSy
       SAlphabetData *pNodeUserData = new SAlphabetData;
       pNewNode->m_pUserData = pNodeUserData;
 
-      pNodeUserData->iOffset = pParentData->iOffset + 1;
+      pNewNode->m_iOffset = pParent->m_iOffset + 1;
       pNodeUserData->iPhase = iPhase;
       pNodeUserData->iSymbol = iSymbol;
 
@@ -369,10 +369,10 @@ void CAlphabetManager::ClearNode( CDasherNode *pNode ) {
 void CAlphabetManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {
   symbol t = static_cast<SAlphabetData *>(pNode->m_pUserData)->iSymbol;
 
-  //std::cout << pNode << " " << pNode->Parent() << ": Output at offset " << static_cast<SAlphabetData *>(pNode->m_pUserData)->iOffset << " *" << m_pNCManager->GetAlphabet()->GetText(t) << "* " << std::endl;
+  //std::cout << pNode << " " << pNode->Parent() << ": Output at offset " << pNode->m_iOffset << " *" << m_pNCManager->GetAlphabet()->GetText(t) << "* " << std::endl;
 
   if(t) { // Ignore symbol 0 (root node)
-    Dasher::CEditEvent oEvent(1, m_pNCManager->GetAlphabet()->GetText(t), static_cast<SAlphabetData *>(pNode->m_pUserData)->iOffset);
+    Dasher::CEditEvent oEvent(1, m_pNCManager->GetAlphabet()->GetText(t), pNode->m_iOffset);
     m_pNCManager->InsertEvent(&oEvent);
 
     // Track this symbol and its probability for logging purposes
@@ -390,14 +390,14 @@ void CAlphabetManager::Undo( CDasherNode *pNode ) {
   symbol t = static_cast<SAlphabetData *>(pNode->m_pUserData)->iSymbol;
 
   if(t) { // Ignore symbol 0 (root node)
-    Dasher::CEditEvent oEvent(2, m_pNCManager->GetAlphabet()->GetText(t), static_cast<SAlphabetData *>(pNode->m_pUserData)->iOffset);
+    Dasher::CEditEvent oEvent(2, m_pNCManager->GetAlphabet()->GetText(t), pNode->m_iOffset);
     m_pNCManager->InsertEvent(&oEvent);
   }
 }
 
 // TODO: Sort out node deletion etc.
 CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode) {
-  int iOffset(static_cast<SAlphabetData *>(pNode->m_pUserData)->iOffset);
+  int iOffset(pNode->m_iOffset);
   int iNewOffset = iOffset - 1;
 
   CDasherNode *pNewNode;
@@ -463,7 +463,7 @@ CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode) {
   SAlphabetData *pNodeUserData = new SAlphabetData;
   pNewNode->m_pUserData = pNodeUserData;
 
-  pNodeUserData->iOffset = iNewOffset;
+  pNewNode->m_iOffset = iNewOffset;
   pNodeUserData->iPhase = iNewPhase;
   pNodeUserData->iSymbol = iNewSymbol;
   pNodeUserData->pLanguageModel = m_pLanguageModel;

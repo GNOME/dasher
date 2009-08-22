@@ -68,11 +68,9 @@ CDasherNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, int iLower, int iUp
 CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CDasherNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd, symbol iExistingSymbol, CDasherNode *pExistingChild) {
 
   if (iSymbol <= 1288) {
-	SAlphabetData *pParentData = static_cast<SAlphabetData *>(pParent->m_pUserData);	
-
     //Modified for Mandarin Dasher
     //The following logic switch allows punctuation nodes in Mandarin to be treated in the same way as English (i.e. display and populate next round) instead of invoking a conversion node
-	  CDasherNode *pNewNode = m_pNCManager->GetConvRoot(pParent, iLbnd, iHbnd, pParentData->iOffset);
+	  CDasherNode *pNewNode = m_pNCManager->GetConvRoot(pParent, iLbnd, iHbnd, pParent->m_iOffset);
 	  static_cast<SAlphabetData *>(pNewNode->m_pUserData)->iSymbol = iSymbol;
 	  return pNewNode;
   }

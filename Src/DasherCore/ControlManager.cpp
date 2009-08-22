@@ -288,7 +288,7 @@ CDasherNode *CControlManager::GetRoot(CDasherNode *pParent, int iLower, int iUpp
   SControlData *pNodeUserData = new SControlData;
 
   pNodeUserData->pControlNode = m_mapControlMap[0];
-  pNodeUserData->iOffset = iOffset;
+  pNewNode->m_iOffset = iOffset;
 
   pNewNode->m_pUserData = pNodeUserData;
 
@@ -315,7 +315,7 @@ void CControlManager::PopulateChildren( CDasherNode *pNode ) {
      if( *it == NULL ) {
        // Escape back to alphabet
 
-       pNewNode = m_pNCManager->GetAlphRoot(pNode, iLbnd, iHbnd, NULL/*TODO fix this*/, static_cast<SControlData *>(pNode->m_pUserData)->iOffset);
+       pNewNode = m_pNCManager->GetAlphRoot(pNode, iLbnd, iHbnd, NULL/*TODO fix this*/, pNode->m_iOffset);
        pNewNode->SetFlag(NF_SEEN, false);
      }
      else {
@@ -340,7 +340,7 @@ void CControlManager::PopulateChildren( CDasherNode *pNode ) {
        SControlData *pNodeUserData = new SControlData;
 
        pNodeUserData->pControlNode = *it;
-       pNodeUserData->iOffset = (static_cast<SControlData *>(pNode->m_pUserData))->iOffset;
+       pNewNode->m_iOffset = pNode->m_iOffset;
 
        pNewNode->m_pUserData = pNodeUserData;
 
@@ -428,5 +428,5 @@ void CControlManager::XmlCDataHandler(void *pUserData, const XML_Char *szData, i
 }
 
 void CControlManager::SetControlOffset(CDasherNode *pNode, int iOffset) {
-  (static_cast<SControlData *>(pNode->m_pUserData))->iOffset = iOffset;
+  pNode->m_iOffset = iOffset;
 }

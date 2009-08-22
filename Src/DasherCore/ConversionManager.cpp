@@ -81,7 +81,7 @@ CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int i
   SConversionData *pNodeUserData = new SConversionData;
   pNewNode->m_pUserData = pNodeUserData;
   pNodeUserData->bisRoot = true;
-  pNodeUserData->iOffset = iOffset + 1;
+  pNewNode->m_iOffset = iOffset + 1;
 
   pNodeUserData->pLanguageModel = NULL;
 
@@ -104,7 +104,7 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
   int iLbnd(0);
   int iHbnd(m_pNCManager->GetLongParameter(LP_NORMALIZATION));
 
-  pNewNode = m_pNCManager->GetAlphRoot(pNode, iLbnd, iHbnd, NULL, pCurrentDataNode->iOffset + 1);
+  pNewNode = m_pNCManager->GetAlphRoot(pNode, iLbnd, iHbnd, NULL, pNode->m_iOffset + 1);
   pNewNode->SetFlag(NF_SEEN, false);
 
   pNode->Children().push_back(pNewNode);
@@ -150,7 +150,7 @@ void CConversionManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB*
   SCENode *pCurrentSCENode((static_cast<SConversionData *>(pNode->m_pUserData))->pSCENode);
 
   if(pCurrentSCENode){
-    Dasher::CEditEvent oEvent(1, pCurrentSCENode->pszConversion, static_cast<SConversionData *>(pNode->m_pUserData)->iOffset);
+    Dasher::CEditEvent oEvent(1, pCurrentSCENode->pszConversion, pNode->m_iOffset);
     m_pNCManager->InsertEvent(&oEvent);
 
     if((pNode->GetChildren())[0]->m_pNodeManager != this) {
@@ -160,11 +160,11 @@ void CConversionManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB*
   }
   else {
     if(!((static_cast<SConversionData *>(pNode->m_pUserData))->bisRoot)) {
-      Dasher::CEditEvent oOPEvent(1, "|", static_cast<SConversionData *>(pNode->m_pUserData)->iOffset);
+      Dasher::CEditEvent oOPEvent(1, "|", pNode->m_iOffset);
       m_pNCManager->InsertEvent(&oOPEvent);
     }
     else {
-      Dasher::CEditEvent oOPEvent(1, ">", static_cast<SConversionData *>(pNode->m_pUserData)->iOffset);
+      Dasher::CEditEvent oOPEvent(1, ">", pNode->m_iOffset);
       m_pNCManager->InsertEvent(&oOPEvent);
     }
 
@@ -178,17 +178,17 @@ void CConversionManager::Undo( CDasherNode *pNode ) {
 
   if(pCurrentSCENode) {
     if(pCurrentSCENode->pszConversion && (strlen(pCurrentSCENode->pszConversion) > 0)) {
-      Dasher::CEditEvent oEvent(2, pCurrentSCENode->pszConversion, static_cast<SConversionData *>(pNode->m_pUserData)->iOffset);
+      Dasher::CEditEvent oEvent(2, pCurrentSCENode->pszConversion, pNode->m_iOffset);
       m_pNCManager->InsertEvent(&oEvent);
     }
   }
   else {
     if(!((static_cast<SConversionData *>(pNode->m_pUserData))->bisRoot)) {
-      Dasher::CEditEvent oOPEvent(2, "|", static_cast<SConversionData *>(pNode->m_pUserData)->iOffset);
+      Dasher::CEditEvent oOPEvent(2, "|", pNode->m_iOffset);
       m_pNCManager->InsertEvent(&oOPEvent);
     }
     else {
-      Dasher::CEditEvent oOPEvent(2, ">", static_cast<SConversionData *>(pNode->m_pUserData)->iOffset);
+      Dasher::CEditEvent oOPEvent(2, ">", pNode->m_iOffset);
       m_pNCManager->InsertEvent(&oOPEvent);
     }
   }

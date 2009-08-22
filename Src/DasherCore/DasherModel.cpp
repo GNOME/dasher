@@ -696,10 +696,7 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
     {
       std::string strTargetUtf8Char;
       
-      CAlphabetManager::SAlphabetData * pAlphabetData =
-	static_cast<CAlphabetManager::SAlphabetData *>(pNode->m_pUserData);
-      
-      strTargetUtf8Char = pTeacher->GetSymbolAtOffset(pAlphabetData->iOffset+1);
+      strTargetUtf8Char = pTeacher->GetSymbolAtOffset(pNode->m_iOffset + 1);
       
       CDasherNode::ChildMap::iterator i, j;
       // Check if this is the last node in the sentence...
@@ -708,6 +705,7 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
 	  pNode->SetFlag(NF_END_GAME, true);
 	  goto multibreak;
 	}
+      CAlphabetManager::SAlphabetData * pAlphabetData;
       // ...if it is not then find which child is next in line.
       for(i = pNode->Children().begin(); i != pNode->Children().end(); i++)
 	{

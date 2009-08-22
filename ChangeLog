@@ -1,3 +1,7 @@
+2009-08-22  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Move iOffset field into DasherNode (now m_iOffset).
+
 2009-08-21  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* Move handling of double/long/etc. clicks into subclasses.

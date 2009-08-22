@@ -137,7 +137,6 @@ namespace Dasher {
 
     struct SControlData {
       CControlNode *pControlNode;
-      int iOffset;
     };
 
     ///Whether we'd temporarily disabled Automatic Speed Control
