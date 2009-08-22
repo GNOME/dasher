@@ -223,6 +223,14 @@ class Dasher::CDasherNode:private NoClones {
   ///
   void Delete_children();
   /// @}
+  
+  ///
+  /// Sees if a *child* / descendant of the specified node (not that node itself)
+  /// represents the specified character. If so, set the child & intervening nodes'
+  /// NF_SUBNODE flag, and return true; otherwise, return false.
+  ///
+  bool GameSearchChildren(std::string strTargetUtf8Char);
+  
 
   /// \todo Make private, read only access?
   // leave public, or implement a get method - pconlon

@@ -3,6 +3,8 @@
 	* Move iOffset field into DasherNode (now m_iOffset).
 	* Remove SControlData structure and use its single member directly.
 	* AlphabetManager.cpp: Move node creation outside of if statement.
+	* Move searching for target in game mode from DasherModel to DasherNode
+	  and AlphabetManager.
 
 2009-08-21  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 

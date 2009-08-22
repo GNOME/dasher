@@ -114,6 +114,13 @@ namespace Dasher {
     virtual void SetFlag(CDasherNode *pNode, int iFlag, bool bValue) {};
 
     virtual void SetControlOffset(CDasherNode *pNode, int iOffset) {};
+    
+    ///
+    /// See if this node, or *if an NF_SUBNODE* a descendant (recursively),
+    /// represents the specified alphanumeric character; if so, set it's NF_GAME flag and
+    /// return true; otherwise, return false.
+    ///
+    virtual bool GameSearchNode(CDasherNode *pNode, std::string strTargetUtf8Char) {return false;}
 
   private:
     int m_iID;

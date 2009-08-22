@@ -693,66 +693,18 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
 
   GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher();
   if(m_bGameMode && pNode->GetFlag(NF_GAME) && pTeacher )
-    {
-      std::string strTargetUtf8Char;
+  {
+    std::string strTargetUtf8Char(pTeacher->GetSymbolAtOffset(pNode->m_iOffset + 1));
       
-      strTargetUtf8Char = pTeacher->GetSymbolAtOffset(pNode->m_iOffset + 1);
-      
-      CDasherNode::ChildMap::iterator i, j;
-      // Check if this is the last node in the sentence...
-      if(strTargetUtf8Char == "GameEnd")
-	{
-	  pNode->SetFlag(NF_END_GAME, true);
-	  goto multibreak;
-	}
-      CAlphabetManager::SAlphabetData * pAlphabetData;
-      // ...if it is not then find which child is next in line.
-      for(i = pNode->Children().begin(); i != pNode->Children().end(); i++)
-	{
-	  // Only look for children who are the same type of node as pNode is (i.e. alphabet)
-	  if((*i)->m_pNodeManager != pNode->m_pNodeManager) continue;
-	  
-	  // Look at the children of the group nodes while we search
-	  if((*i)->GetFlag(NF_SUBNODE))
-	    {
-	      for(j = (*i)->Children().begin(); j != (*i)->Children().end(); j++)
-		{
-		  std::string strNodeUtf8Char;
-		  CDasherNode * pTempNode = (*j);
-		  
-		  pAlphabetData = static_cast<CAlphabetManager::SAlphabetData *>(pTempNode->m_pUserData);
-		  strNodeUtf8Char = m_pNodeCreationManager->GetAlphabet()->GetText(pAlphabetData->iSymbol);
-		  
-		  if(strNodeUtf8Char == strTargetUtf8Char)
-		    {
-		      (*j)->SetFlag(NF_GAME, true);
-		      (*i)->SetFlag(NF_GAME, true);
-		      goto multibreak;
-		    }
-		}
-	    }
-	  else
-	    {
-	      std::string strNodeUtf8Char;
-	      CDasherNode * pTempNode = (*i);
-
-	      pAlphabetData = static_cast<CAlphabetManager::SAlphabetData *>(pTempNode->m_pUserData);
-	      strNodeUtf8Char = m_pNodeCreationManager->GetAlphabet()->GetText(pAlphabetData->iSymbol);
-
-	      if(strNodeUtf8Char == strTargetUtf8Char)
-		{
-		  (*i)->SetFlag(NF_GAME, true);
-		  goto multibreak;
-		}	 
-	    }
-	}
-      // If this line runs then we have a target character which is not in our current alphabet.
-      // So let's give up!
-      pNode->SetFlag(NF_END_GAME, true);
-      
-    multibreak:
-      ; // A lonely semicolon is the null statement - it does nothing.
+    // Check if this is the last node in the sentence...
+    if(strTargetUtf8Char == "GameEnd")
+	    pNode->SetFlag(NF_END_GAME, true);
+	  else if (!pNode->GameSearchChildren(strTargetUtf8Char)) {
+      // Target character not found - not in our current alphabet?!?!
+      // Let's give up!
+      pNode->SetFlag(NF_END_GAME, true); 
     }
+  }
   ////////////////////////////
   
 

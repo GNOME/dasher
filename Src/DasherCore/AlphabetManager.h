@@ -86,6 +86,8 @@ namespace Dasher {
 
     virtual void SetFlag(CDasherNode *pNode, int iFlag, bool bValue);
 
+    virtual bool GameSearchNode(CDasherNode *pNode, std::string strTargetUtf8Char);
+    
     struct SAlphabetData {
       symbol iSymbol;
       int iPhase;

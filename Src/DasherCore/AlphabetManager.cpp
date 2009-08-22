@@ -125,6 +125,19 @@ CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUp
   return pNewNode;
 }
 
+bool CAlphabetManager::GameSearchNode(CDasherNode *pNode, string strTargetUtf8Char) {
+  if (pNode->GetFlag(NF_SUBNODE)) {
+    if (pNode->GameSearchChildren(strTargetUtf8Char)) {
+      pNode->SetFlag(NF_GAME, true);
+      return true;
+    }
+  } else if (m_pNCManager->GetAlphabet()->GetText(static_cast<SAlphabetData *>(pNode->m_pUserData)->iSymbol) == strTargetUtf8Char) {
+    pNode->SetFlag(NF_GAME, true);
+    return true;
+  }
+  return false;
+}
+
 void CAlphabetManager::PopulateChildren( CDasherNode *pNode ) {
   PopulateChildrenWithSymbol( pNode, -2, 0 );
 }
