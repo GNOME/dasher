@@ -138,6 +138,16 @@ bool CAlphabetManager::GameSearchNode(CDasherNode *pNode, string strTargetUtf8Ch
   return false;
 }
 
+CLanguageModel::Context CAlphabetManager::CloneAlphContext(CDasherNode *pNode, CLanguageModel *pLanguageModel) {
+  SAlphabetData *pData = static_cast<SAlphabetData *>(pNode->m_pUserData);      
+  if(pData->iContext) return pLanguageModel->CloneContext(pData->iContext);
+  return CNodeManager::CloneAlphContext(pNode, pLanguageModel);
+}
+
+symbol CAlphabetManager::GetAlphSymbol(CDasherNode *pNode) {
+  return static_cast<SAlphabetData *>(pNode->m_pUserData)->iSymbol;
+}
+
 void CAlphabetManager::PopulateChildren( CDasherNode *pNode ) {
   PopulateChildrenWithSymbol( pNode, -2, 0 );
 }

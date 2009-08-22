@@ -88,6 +88,9 @@ namespace Dasher {
 
     virtual bool GameSearchNode(CDasherNode *pNode, std::string strTargetUtf8Char);
     
+    virtual CLanguageModel::Context CloneAlphContext(CDasherNode *pNode, CLanguageModel *pLanguageModel);
+    virtual symbol GetAlphSymbol(CDasherNode *pNode);
+    
     struct SAlphabetData {
       symbol iSymbol;
       int iPhase;

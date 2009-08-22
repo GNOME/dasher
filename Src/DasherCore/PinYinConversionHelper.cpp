@@ -77,7 +77,7 @@ void CPinYinConversionHelper::BuildTree(CDasherNode *pRoot) {
 bool CPinYinConversionHelper::Convert(const std::string &strSource, SCENode ** pRoot) {
 
   *pRoot = 0;
-cout<<"Convert \"" << strSource << "\"\n"; 
+std::cout<<"Convert \"" << strSource << "\"\n"; 
   return (pParser && pParser->Convert(strSource, pRoot));
 }
 

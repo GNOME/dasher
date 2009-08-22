@@ -1,5 +1,12 @@
 2009-08-22  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
+	* Modularise the NodeManager-subclass-specific void *'s
+	* Add virtual methods to support ConversionManager/ConversionHelper:
+	  - cloning of parent alph node context
+	  - accessing iSymbols of preceding alph nodes
+
+2009-08-22  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
 	* Move iOffset field into DasherNode (now m_iOffset).
 	* Remove SControlData structure and use its single member directly.
 	* AlphabetManager.cpp: Move node creation outside of if statement.

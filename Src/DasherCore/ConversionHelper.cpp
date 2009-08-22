@@ -59,15 +59,10 @@ CDasherNode *CConversionHelper::GetRoot(CDasherNode *pParent, int iLower, int iU
 	
   pNodeUserData->pLanguageModel = m_pLanguageModel;
 
-  CAlphabetManager::SAlphabetData *pParentAlphabetData = static_cast<CAlphabetManager::SAlphabetData *>(pParent->m_pUserData);
-  if((pParent->m_pNodeManager->GetID()==0)&&(pParentAlphabetData->iContext)){
-	pNodeUserData->iContext=m_pLanguageModel->CloneContext(pParentAlphabetData->iContext);
-  }
-  else{
-    CLanguageModel::Context iContext;
-    iContext = m_pLanguageModel->CreateEmptyContext();
-    pNodeUserData->iContext = iContext;
-  }
+  // context of a conversion node (e.g. ^) is the context of the
+  // letter (e.g. e) before it (as the ^ entails replacing the e with
+  // a single accented character e-with-^)
+  pNodeUserData->iContext = pParent->m_pNodeManager->CloneAlphContext(pParent, m_pLanguageModel);
   return pNewNode;
 }
 
@@ -355,9 +350,9 @@ void CConversionHelper::BuildTree(CDasherNode *pRoot) {
        pNode = pNode->Parent()) {
       
     // TODO: Need to make this the edit text rather than the display text
-    CAlphabetManager::SAlphabetData *pAlphabetData = static_cast<CAlphabetManager::SAlphabetData *>(pNode->m_pUserData);
-      
-    strCurrentString = m_pAlphabet->GetText(pAlphabetData->iSymbol) + strCurrentString;
+    strCurrentString =
+              m_pAlphabet->GetText(pNode->m_pNodeManager->GetAlphSymbol(pNode))
+              + strCurrentString;
   }
   // Handle/store the result.
   SCENode *pStartTemp;

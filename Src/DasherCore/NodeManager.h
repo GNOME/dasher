@@ -20,7 +20,7 @@
 
 #ifndef __nodemanager_h__
 #define __nodemanager_h__
-
+#include "LanguageModel.h"
 #include "DasherTypes.h"
 
 namespace Dasher {
@@ -121,6 +121,16 @@ namespace Dasher {
     /// return true; otherwise, return false.
     ///
     virtual bool GameSearchNode(CDasherNode *pNode, std::string strTargetUtf8Char) {return false;}
+
+    /// Clone the context of the specified node, if it's an alphabet node;
+    /// else return an empty context. (Used by ConversionManager)
+    virtual CLanguageModel::Context CloneAlphContext(CDasherNode *pNode, CLanguageModel *pLanguageModel) {
+      return pLanguageModel->CreateEmptyContext();
+    };
+    
+    virtual symbol GetAlphSymbol(CDasherNode *pNode) {
+      throw "Hack for pre-MandarinDasher ConversionManager::BuildTree method, needs to access CAlphabetManager-private struct";
+    }
 
   private:
     int m_iID;

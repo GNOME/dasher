@@ -71,7 +71,7 @@ CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CDasherNode *pParent, symbol iSy
     //Modified for Mandarin Dasher
     //The following logic switch allows punctuation nodes in Mandarin to be treated in the same way as English (i.e. display and populate next round) instead of invoking a conversion node
 	  CDasherNode *pNewNode = m_pNCManager->GetConvRoot(pParent, iLbnd, iHbnd, pParent->m_iOffset);
-	  static_cast<SAlphabetData *>(pNewNode->m_pUserData)->iSymbol = iSymbol;
+	  static_cast<CConversionManager::SConversionData *>(pNewNode->m_pUserData)->iSymbol = iSymbol;
 	  return pNewNode;
   }
   return CAlphabetManager::CreateSymbolNode(pParent, iSymbol, iLbnd, iHbnd, iExistingSymbol, pExistingChild);
