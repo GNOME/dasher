@@ -1,3 +1,7 @@
+2009-08-24  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Fixup Chinese BuildTree.
+
 2009-08-22  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* Modularise the NodeManager-subclass-specific void *'s

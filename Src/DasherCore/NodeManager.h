@@ -20,7 +20,7 @@
 
 #ifndef __nodemanager_h__
 #define __nodemanager_h__
-#include "LanguageModel.h"
+#include "LanguageModelling/LanguageModel.h"
 #include "DasherTypes.h"
 
 namespace Dasher {
