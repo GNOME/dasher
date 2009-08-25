@@ -1,4 +1,4 @@
-# translation of dasher.master.or.po to Oriya
+# translation of or.po to Oriya
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
@@ -6,10 +6,10 @@
 # Manoj Kumar Giri <mgiri@redhat.com>, 2008, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher.master.or\n"
+"Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&component=general\n"
-"POT-Creation-Date: 2009-08-09 10:48+0000\n"
-"PO-Revision-Date: 2009-08-12 14:10+0530\n"
+"POT-Creation-Date: 2009-08-24 17:59+0000\n"
+"PO-Revision-Date: 2009-08-25 16:29+0530\n"
 "Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
 "Language-Team: Oriya <oriya-it@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n!=1);\n\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -101,9 +102,9 @@ msgstr "ଫାଇଲକୁ ସଂରକ୍ଷଣ କରନ୍ତୁ"
 msgid "Save file as"
 msgstr "ଫାଇଲକୁ ଏହିପରି ଭାବରେ ସଂରକ୍ଷଣ କରନ୍ତୁ"
 
-#: ../Data/GUI/dasher.compose.ui.h:14 ../Data/GUI/dasher.direct.ui.h:4
-#: ../Data/GUI/dasher.fullscreen.ui.h:3 ../Data/GUI/dasher.gameWIP.ui.h:23
-#: ../Data/GUI/dashermaemo.ui.h:6 ../Data/GUI/dashermaemofullscreen.ui.h:5
+#: ../Data/GUI/dasher.compose.ui.h:14 ../Data/GUI/dasher.fullscreen.ui.h:3
+#: ../Data/GUI/dasher.gameWIP.ui.h:23 ../Data/GUI/dashermaemo.ui.h:6
+#: ../Data/GUI/dashermaemofullscreen.ui.h:5
 #: ../Src/Gtk2/dasher_editor_internal.cpp:1320
 #: ../Src/Gtk2/dasher_editor_internal.cpp:1354 ../Src/Gtk2/dasher_main.cpp:968
 msgid "Select File"
@@ -114,7 +115,7 @@ msgstr "ଫାଇଲ ଚୟନ କରନ୍ତୁ"
 msgid "Select Font"
 msgstr "ଅକ୍ଷରରୂପ ଚୟନ କରନ୍ତୁ"
 
-#: ../Data/GUI/dasher.compose.ui.h:16 ../Data/GUI/dasher.direct.ui.h:5
+#: ../Data/GUI/dasher.compose.ui.h:16 ../Data/GUI/dasher.direct.ui.h:4
 #: ../Data/GUI/dasher.gameWIP.ui.h:24 ../Data/GUI/dasher.traditional.ui.h:17
 msgid "Speed:"
 msgstr "ବେଗ:"
@@ -308,14 +309,11 @@ msgid "Bottom to Top"
 msgstr "ତଳୁ ଉପରକୁ"
 
 #: ../Data/GUI/dasher.preferences.ui.h:22
-#, fuzzy
 #| msgid ""
 #| "Centre circle\n"
 #| "Two box"
 msgid "Centre circle"
-msgstr ""
-"କେନ୍ଦ୍ର ବ୍ରୁତ୍ତ\n"
-"ଦୁଇଟି ବାକ୍ସ"
+msgstr "କେନ୍ଦ୍ରିୟ ବୃତ୍ତ"
 
 #: ../Data/GUI/dasher.preferences.ui.h:23
 msgid "Composition"
@@ -466,10 +464,9 @@ msgstr "ଉପରୁ ତଳକୁ"
 
 #: ../Data/GUI/dasher.preferences.ui.h:57
 msgid "Two box"
-msgstr ""
+msgstr "ଦୁଇଟି ବାକ୍ସ"
 
 #: ../Data/GUI/dasher.preferences.ui.h:58
-#, fuzzy
 #| msgid ""
 #| "Use this control to adjust the relative sizes of the \n"
 #| "letter boxes. Note that selecting high values will slow\n"
@@ -479,8 +476,8 @@ msgid ""
 "letter boxes. Note that selecting high values will slow\n"
 "your writing speed."
 msgstr ""
-"ଡାକ ବାକ୍ସର ଆପେକ୍ଷିକ ଆକାରକୁ ଯଥୋପଯୁକ୍ତ କରିବା ପାଇଁ \n"
-"ଏହି ନିୟନ୍ତ୍ରଣକୁ ବ୍ଯବହାର କରନ୍ତୁ। ଏହା ଦ୍ରୁଷ୍ଟି ରଖନ୍ତୁ ଯେ ଗୋଟିଏ ଉଚ୍ଚ ମୂଲ୍ଯର ଚୟନ \n"
+"ଡାକ ବାକ୍ସର ଆପେକ୍ଷିକ ଆକାରକୁ ଯଥୋପଯୁକ୍ତ କରିବା ପାଇଁ\n"
+"ଏହି ନିୟନ୍ତ୍ରଣକୁ ବ୍ଯବହାର କରନ୍ତୁ। ଏହା ମନେ ରଖନ୍ତୁ ଯେ ଗୋଟିଏ ଉଚ୍ଚ ମୂଲ୍ଯର ଚୟନ\n"
 "ଆପଣଙ୍କ ଲିଖନ ବେଗକୁ ହ୍ରାସ କରିଦେବ।"
 
 #: ../Data/GUI/dasher.preferences.ui.h:61
@@ -560,137 +557,94 @@ msgstr "ବିକଲ୍ପ (_O)"
 msgid "_Reset fonts"
 msgstr "ଅକ୍ଷରୂପକୁ ପୁନଃ ସ୍ଥାପନ କରନ୍ତୁ (_R)"
 
-#: ../Src/DasherCore/ClickFilter.cpp:7
+#: ../Src/DasherCore/ClickFilter.cpp:9
 msgid "Maximum Zoom"
 msgstr "ସର୍ବାଧିକ ସାନବଡ଼"
 
-#: ../Src/DasherCore/ClickFilter.h:11
+#: ../Src/DasherCore/ClickFilter.h:12
 msgid "Click Mode"
 msgstr "ଦବାଇବା ଅବସ୍ଥା"
-
-#. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
-#: ../Src/DasherCore/DasherButtons.cpp:25
-msgid "Zoom steps"
-msgstr "ସାନବଡ଼ କରିବା ପଦ୍ଧତିଗୁଡ଼ିକ"
-
-#. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
-#: ../Src/DasherCore/DasherButtons.cpp:27
-msgid "Right zoom"
-msgstr "ଡାହାଣ ସାନବଡ଼"
-
-#: ../Src/DasherCore/DasherButtons.cpp:28
-msgid "Number of boxes"
-msgstr "ବାକ୍ସଗୁଡ଼ିକର ସଂଖ୍ୟା"
-
-#: ../Src/DasherCore/DasherButtons.cpp:29
-msgid "Safety margin"
-msgstr "ସୁରକ୍ଷା ସୀମାରେଖା"
-
-#. TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other.
-#. XXX PRLW: 128 log(2) = 89, where 2 is the ratio of adjacent boxes
-#. * however the code seems to use ratio = (129/127)^-r, instead of
-#. * ratio = exp(r/128) used in the design document
-#.
-#: ../Src/DasherCore/DasherButtons.cpp:35
-msgid "Box non-uniformity"
-msgstr "ବାକ୍ସ ଅସମାନତା"
-
-#. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
-#: ../Src/DasherCore/DasherButtons.cpp:37
-msgid "Global keyboard grab"
-msgstr "ଜାଗତିକ କିବୋର୍ଡ ଜାବୁଡ଼ିବା"
 
 #: ../Src/DasherCore/DasherGameMode.cpp:633
 msgid "Well done!"
 msgstr "ଭଲ ହେଲା!"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:934
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:940
 msgid "Normal Control"
 msgstr "ସାଧାରଣ ନିୟନ୍ତ୍ରଣ"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:949
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:956
 msgid "Menu Mode"
 msgstr "ତାଲିକା ପଦ୍ଧତି"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:950
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:957
 msgid "Direct Mode"
 msgstr "ପ୍ରତ୍ଯକ୍ଷ ଧାରା"
 
-#. RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3"));
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:952
-msgid "Alternating Direct Mode"
-msgstr "ବୈକଳ୍ପିକ ପ୍ରତ୍ଯକ୍ଷ ଧାରା"
-
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:953
-msgid "Compass Mode"
-msgstr "କମ୍ପାସ ପଦ୍ଧତି"
-
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:954
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:961
 msgid "Stylus Control"
 msgstr "ସ୍ଟାଇଲସ ନିୟନ୍ତ୍ରଣ"
 
-#: ../Src/DasherCore/EyetrackerFilter.cpp:7
+#: ../Src/DasherCore/EyetrackerFilter.cpp:9
 msgid "Automatic calibration"
 msgstr "ସ୍ୱୟଂଚାଳିତ କେଲିବ୍ରେଶନ"
 
-#: ../Src/DasherCore/EyetrackerFilter.cpp:11
+#: ../Src/DasherCore/EyetrackerFilter.cpp:13
 msgid "Eyetracker Mode"
 msgstr "ଆଇଟ୍ରେକର ଅବସ୍ଥା"
 
 #. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:29
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:33
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:35
 msgid "Long press time"
 msgstr "ଅଧିକ ଦବାଇବା ସମୟ"
 
 #. TRANSLATORS: Double-clicks are special in some situations (they cause us to start reversing). This is the time in which the button must be pressed twice to count.
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
 msgid "Double-press time"
 msgstr "ଦୁଇଥର ଦବାଇବା ସମୟ"
 
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons.
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
 msgid "Enable backoff button"
 msgstr "ବେକଅଫ ବଟନକୁ ସକ୍ରିୟକରନ୍ତୁ"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:34
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:37
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:36
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
 msgid "Slow startup"
 msgstr "ମନ୍ଥର ଆରମ୍ଭ"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:42
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:37
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:44
 msgid "Startup time"
 msgstr "ଆରମ୍ଭ ସମୟ"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:36
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:44
-#, fuzzy
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:38
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:46
 #| msgid "%age by which to automatically increase speed"
 msgid "Percentage by which to automatically increase speed"
-msgstr "%age ଯାହା ଦ୍ୱାରା ସ୍ୱୟଂଚାଳିତ ଭାବରେ ଗତି ବୃଦ୍ଧି ହୋଇଥାଏ"
+msgstr "ସ୍ୱୟଂଚାଳିତ ଭାବରେ ଗତି ବୃଦ୍ଧିର ପ୍ରତିଶତ"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:37
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:47
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:41
 msgid "Time after which to automatically increase speed (secs)"
 msgstr "ସମୟ ପରିମାଣ ଯାହା ପରେ ସ୍ୱୟଂଚାଳିତ ଭାବରେ ଗତିବୃଦ୍ଧି ହୋଇଥାଏ (ସେକଣ୍ଡରେ)"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:38
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:46
-#, fuzzy
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:40
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:48
 #| msgid "%age by which to decrease speed upon reverse"
 msgid "Percentage by which to decrease speed upon reverse"
-msgstr "%age ଯାହା ଦ୍ୱାରା ଗତି ପରିବର୍ତ୍ତନ ହୋଇଥାଏ"
+msgstr "ଗତି ପରିବର୍ତ୍ତନର ପ୍ରତିଶତ"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:42
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:44
 msgid "One Button Dynamic Mode"
 msgstr "ଗୋଟିଏ ବଟନ ଗତିଶୀଳ ଅବସ୍ଥା"
 
-#: ../Src/DasherCore/OneDimensionalFilter.cpp:5
+#: ../Src/DasherCore/OneDimensionalFilter.cpp:7
 msgid "One Dimensional Mode"
 msgstr "ଏକ ପରିସର ବିଶିଷ୍ଟ ଅବସ୍ଥା"
 
@@ -761,85 +715,78 @@ msgstr "କୋନସୋଲରେ ସକେଟ-ସମ୍ବନ୍ଧୀୟ ତ୍
 msgid "Socket Input"
 msgstr "ସକେଟ ନିବେଶ"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:28
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
 msgid "Button offset"
 msgstr "ବଟନ ଅଫସେଟ"
 
 #. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the maximum time between two presses to count as _part_of_ a multi-press gesture
 #. (potentially more than two presses).
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:33
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:35
 msgid "Multiple press interval"
 msgstr "ଏକାଧିକବାର ଦବାଇବା ସମୟ"
 
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:35
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:35
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:37
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:37
 msgid "Enable backoff and start/stop buttons"
 msgstr "ବେକଅଫ ଏବଂ ଆରମ୍ଭକରନ୍ତୁ/ବିରାମକରନ୍ତୁ ବଟନକୁ ସକ୍ରିୟକରନ୍ତୁ"
 
 #. TRANSLATORS: What is normally the up button becomes the down button etc.
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:37
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:39
 msgid "Reverse up and down buttons"
 msgstr "ଅଲଟା ଉପର ଏବଂ ତଳ ବଟନ"
 
 #. TRANSLATORS: Pushing the up/down button twice quickly has the same effect as pushing the other
 #. button once; in this case, one must push three times (or push-and-hold) to reverse.
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:40
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:42
 msgid "Double-click is opposite up/down - triple to reverse"
 msgstr "ଦୁଇଥର କ୍ଲିକଟି ଉପର/ତଳର ବିପରୀତ - ଏଲଟା ପାଇଁ ତିନିଥର କରନ୍ତୁ"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:43
 msgid "Lag before user actually pushes button (ms)"
 msgstr "ଚାଳକ ବଟନ ଦବାଇବା ପରବର୍ତ୍ତି ସମୟ (ms)"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:50
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:52
 msgid "Two Button Dynamic Mode"
 msgstr "ଦୁଇ ବଟନ ଗତିଶୀଳ ଧାରା"
 
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:28
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:30
 msgid "Offset for outer (second) button"
-msgstr ""
+msgstr "ବାହ୍ୟ ବଟନ ପାଇଁ ଅଫସେଟ (ସେକଣ୍ଡ)"
 
 #. divisor
 #. step
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:29
-msgid "Distance for 1st button UP"
-msgstr ""
-
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:30
-msgid "Distance for 1st button DOWN"
-msgstr ""
-
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:31
+msgid "Distance for 1st button UP"
+msgstr "1st ବଟନ UP ପାଇଁ ଦୂରତା"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:32
+msgid "Distance for 1st button DOWN"
+msgstr "1st ବଟନ DOWN ପାଇଁ ଦୂରତା"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:33
 msgid "Tolerance for inaccurate timing of button pushes (in ms)"
-msgstr ""
-
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:36
-#, fuzzy
-#| msgid "Pause outside of canvas"
-msgid "Markers fixed to canvas"
-msgstr "ଅଙ୍କନ କ୍ଷେତ୍ର ବାହାରେ କିଛି ସୟମ ବିରତି ନିଅନ୍ତୁ"
-
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
-#, fuzzy
-#| msgid "Slow startup"
-msgid "Slow startup time"
-msgstr "ମନ୍ଥର ଆରମ୍ଭ"
+msgstr "ବଟନ ଦବାଇବା ମଧ୍ଯବର୍ତ୍ତୀ ଗ୍ରହଣୀୟ ସମୟ ବିଲମ୍ବ (ମିଲି ସେକଣ୍ଡରେ)"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
+#| msgid "Slow startup"
+msgid "Slow startup time"
+msgstr "ମନ୍ଥର ଆରମ୍ଭ ସମୟ"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
 #, c-format
 msgid "%age by which to automatically increase speed"
 msgstr "%age ଯାହା ଦ୍ୱାରା ସ୍ୱୟଂଚାଳିତ ଭାବରେ ଗତି ବୃଦ୍ଧି ହୋଇଥାଏ"
 
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:41
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
 #, c-format
 msgid "%age by which to decrease speed upon reverse"
 msgstr "%age ଯାହା ଦ୍ୱାରା ଗତି ପରିବର୍ତ୍ତନ ହୋଇଥାଏ"
 
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:46
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:47
 msgid "Two-push Dynamic Mode (New One Button)"
-msgstr ""
+msgstr "ଦୁଇଥର ଦବାଇବା ଗତିଜ ଅବସ୍ଥା (ନୂତନ ଗୋଟିକିଆ ବଟନ)"
 
 #: ../Src/Gtk2/DasherAppSettings.cpp:549
 msgid "Boolean parameters"
@@ -1008,22 +955,22 @@ msgstr "ଏକ ପରିସରଭୁକ୍ତ ମାଉସ ନିବେଶ"
 #. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
 #. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
 #. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
-#: ../Src/main.cc:169
+#: ../Src/main.cc:171
 msgid "Application style (traditional, direct, compose or fullscreen)"
 msgstr "ପ୍ରୟୋଗ ଶୈଳୀ (ପାରମ୍ପରିକ, ସିଧାସଳଖ, ସଙ୍ଘଟିତ କିମ୍ବା ପୂର୍ଣ୍ଣ ପରଦା)"
 
 #. Note to translators: This is the help string for "--options"
-#: ../Src/main.cc:171
+#: ../Src/main.cc:173
 msgid "Override stored options"
 msgstr "ସଂରକ୍ଷିତ ବିକଳ୍ପଗୁଡ଼ିକୁ ଦାବିଦେଇଯିବା"
 
 #. Note to translators: This is the help string for "--help-options"
-#: ../Src/main.cc:173
+#: ../Src/main.cc:175
 msgid "Describe \"--options\"."
 msgstr "\"--ବିକଳ୍ପଗୁଡ଼ିକୁ\" ବ୍ୟାଖ୍ୟା କରନ୍ତୁ."
 
 #. Note to translators: This is the "--help" description of dasher.
-#: ../Src/main.cc:180
+#: ../Src/main.cc:182
 msgid "- A text input application honouring accessibility"
 msgstr "- ଗୋଟିଏ ପାଠ୍ୟ ନିବେଶ ପ୍ରୟୋଗକୁ ସମ୍ମାନ ଦେଖାଉଥିବା ଅଭିଗମ୍ୟତା"
 
