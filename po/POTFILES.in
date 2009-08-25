@@ -11,14 +11,18 @@ Data/dasher.desktop.in.in
 [type: gettext/glade]Data/GUI/dashermaemo.ui
 [type: gettext/glade]Data/GUI/dashermaemo.preferences.ui
 [type: gettext/glade]Data/GUI/dashermaemofullscreen.ui
+Src/DasherCore/AlternatingDirectMode.cpp
+Src/DasherCore/ButtonMode.cpp
 Src/DasherCore/ClickFilter.cpp
 Src/DasherCore/ClickFilter.h
+Src/DasherCore/CompassMode.cpp
 Src/DasherCore/DasherButtons.cpp
 Src/DasherCore/DasherGameMode.cpp
 Src/DasherCore/DasherInterfaceBase.cpp
 Src/DasherCore/DynamicFilter.cpp
 Src/DasherCore/EyetrackerFilter.cpp
 Src/DasherCore/OneButtonDynamicFilter.cpp
+Src/DasherCore/OneButtonFilter.cpp
 Src/DasherCore/OneDimensionalFilter.cpp
 Src/DasherCore/SettingsStore.cpp
 Src/DasherCore/SocketInput.cpp
