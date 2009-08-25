@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: dasher.master.kn\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&component=general\n"
 "POT-Creation-Date: 2009-08-15 14:22+0000\n"
-"PO-Revision-Date: 2009-08-25 15:19+0530\n"
+"PO-Revision-Date: 2009-08-25 16:11+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: Kannada <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -760,7 +760,7 @@ msgstr "ಮೊದಲನೆ ಗುಂಡಿ DOWN ಗಾಗಿನ ದೂರ"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:33
 msgid "Tolerance for inaccurate timing of button pushes (in ms)"
-msgstr ""
+msgstr "ನಿಖರವಲ್ಲದ ಗುಂಡಿ ಒತ್ತುವಿಕೆಗಳಿಗಾಗಿನ ತಾಳ್ಮೆ (ಮಿಲಿಸೆಕೆಂಡುಗಳಲ್ಲಿ)"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
 #| msgid "Pause outside of canvas"
