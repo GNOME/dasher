@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher.master.ta\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&component=general\n"
-"POT-Creation-Date: 2009-08-24 17:59+0000\n"
-"PO-Revision-Date: 2009-08-25 14:29+0530\n"
+"POT-Creation-Date: 2009-08-25 17:49+0000\n"
+"PO-Revision-Date: 2009-08-26 15:52+0530\n"
 "Last-Translator: I. Felix <ifelix@redhat.com>\n"
 "Language-Team: Tamil <fedora-trans-ta@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\\n\n"
+"\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
@@ -308,9 +309,6 @@ msgid "Bottom to Top"
 msgstr "கீழிருந்து மேல்"
 
 #: ../Data/GUI/dasher.preferences.ui.h:22
-#| msgid ""
-#| "Centre circle\n"
-#| "Two box"
 msgid "Centre circle"
 msgstr "மைய வட்டம்"
 
@@ -466,10 +464,6 @@ msgid "Two box"
 msgstr "இரண்டு பெட்டி"
 
 #: ../Data/GUI/dasher.preferences.ui.h:58
-#| msgid ""
-#| "Use this control to adjust the relative sizes of the \n"
-#| "letter boxes. Note that selecting high values will slow\n"
-#| "your writing speed."
 msgid ""
 "Use this control to adjust the relative sizes of the\n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -556,6 +550,45 @@ msgstr "_ர தேர்வுகள்"
 msgid "_Reset fonts"
 msgstr "_ம எழுத்துருவை மீட்டமை"
 
+#. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
+#: ../Src/DasherCore/AlternatingDirectMode.cpp:28
+#: ../Src/DasherCore/ButtonMode.cpp:28 ../Src/DasherCore/CompassMode.cpp:28
+msgid "Zoom steps"
+msgstr "அளவிடு படிநிலைகள்"
+
+#. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
+#: ../Src/DasherCore/AlternatingDirectMode.cpp:30
+#: ../Src/DasherCore/ButtonMode.cpp:39 ../Src/DasherCore/CompassMode.cpp:32
+msgid "Global keyboard grab"
+msgstr "முழு விசைப்பலகை எடுத்தல்"
+
+#. menu
+#: ../Src/DasherCore/AlternatingDirectMode.cpp:34
+#| msgid "Direct Mode"
+msgid "Alternating Direct Mode"
+msgstr "மாற்று நேரடி முறைமை"
+
+#: ../Src/DasherCore/ButtonMode.cpp:29
+msgid "Scan time in menu mode (0 for don't scan)"
+msgstr "மெனு முறைமையிலுள்ள ஸ்கேன் நேரம் (0 ஸ்கேன் செய்யாததற்கு)"
+
+#: ../Src/DasherCore/ButtonMode.cpp:30
+msgid "Number of boxes"
+msgstr "பெட்டிகளின் எண்ணிக்கை"
+
+#: ../Src/DasherCore/ButtonMode.cpp:31
+msgid "Safety margin"
+msgstr "பாதுகாப்பு ஓரம்"
+
+#. TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other.
+#. XXX PRLW: 128 log(2) = 89, where 2 is the ratio of adjacent boxes
+#. * however the code seems to use ratio = (129/127)^-r, instead of
+#. * ratio = exp(r/128) used in the design document
+#.
+#: ../Src/DasherCore/ButtonMode.cpp:37
+msgid "Box non-uniformity"
+msgstr "பெட்டி ஒழுங்கின்மை"
+
 #: ../Src/DasherCore/ClickFilter.cpp:9
 msgid "Maximum Zoom"
 msgstr "அதிக பட்ச அணுகல்"
@@ -563,6 +596,17 @@ msgstr "அதிக பட்ச அணுகல்"
 #: ../Src/DasherCore/ClickFilter.h:12
 msgid "Click Mode"
 msgstr "சொடுக்கு பாணி"
+
+#. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
+#: ../Src/DasherCore/CompassMode.cpp:30
+#| msgid "Right to Left"
+msgid "Right zoom"
+msgstr "வலது அளவிடுதல்"
+
+#. bMenu
+#: ../Src/DasherCore/CompassMode.cpp:38
+msgid "Compass Mode"
+msgstr "காம்பெஸ் முறைமை"
 
 #: ../Src/DasherCore/DasherGameMode.cpp:633
 msgid "Well done!"
@@ -623,6 +667,7 @@ msgstr "துவக்க நேரம்"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:38
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:46
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
 msgid "Percentage by which to automatically increase speed"
 msgstr "தானியங்கியாக வேகத்தை அதிகரிக்க வேண்டிய சதவிகிதம்"
 
@@ -634,12 +679,27 @@ msgstr "தானியங்கியாக வேகத்தை அதிக�
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:40
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:48
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
 msgid "Percentage by which to decrease speed upon reverse"
 msgstr "திருப்பும் போது வேகத்தை குறைக்க வேண்டிய சதவிகிதம்"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:44
 msgid "One Button Dynamic Mode"
 msgstr "ஒரு பொத்தான் இயங்குநிலை பாணி"
+
+#: ../Src/DasherCore/OneButtonFilter.cpp:11
+msgid "Scan time (each direction), in ms"
+msgstr "ஸ்கேன் நேரம் (ஒவ்வொரு திசைக்கும்), msஇல்"
+
+#: ../Src/DasherCore/OneButtonFilter.cpp:12
+msgid "Factor by which to zoom in"
+msgstr "எது பெரிதாக்க வேண்டும் என்ற அளவு"
+
+#: ../Src/DasherCore/OneButtonFilter.cpp:13
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:43
+msgid "Lag before user actually pushes button (ms)"
+msgstr "பயனர் பொத்தானை நிஜமாக அழுத்து முன் தாமதம் (மி.செ)"
 
 #: ../Src/DasherCore/OneDimensionalFilter.cpp:7
 msgid "One Dimensional Mode"
@@ -739,11 +799,6 @@ msgstr "திசை மாற்று மேல் மற்றும் க�
 msgid "Double-click is opposite up/down - triple to reverse"
 msgstr "இரட்டிப்பு சொடுக்கு மேல்/கீழ க்கு எதிர் - திருப்ப முச்சொடுக்கு"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:43
-msgid "Lag before user actually pushes button (ms)"
-msgstr "பயனர் பொத்தானை நிஜமாக அழுத்து முன் தாமதம் (மி.செ)"
-
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:52
 msgid "Two Button Dynamic Mode"
 msgstr "இரு பொத்தான்கள் இயங்குநிலை பாணி"
@@ -769,16 +824,6 @@ msgstr "சரியான நேரத்தில் பொத்தானை 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
 msgid "Slow startup time"
 msgstr "மெதுவான துவக்க நேரம்"
-
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
-#, c-format
-msgid "%age by which to automatically increase speed"
-msgstr "%aதானியங்கியாக வேகத்தை அதிகரிக்க வேண்டிய சதவிகிதம்"
-
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
-#, c-format
-msgid "%age by which to decrease speed upon reverse"
-msgstr "%aதிருப்பும் போது வேகத்தை குறைக்க வேண்டிய சதவிகிதம்"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:47
 msgid "Two-push Dynamic Mode (New One Button)"
