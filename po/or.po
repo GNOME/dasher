@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&component=general\n"
-"POT-Creation-Date: 2009-08-24 17:59+0000\n"
-"PO-Revision-Date: 2009-08-25 16:29+0530\n"
+"POT-Creation-Date: 2009-08-25 17:49+0000\n"
+"PO-Revision-Date: 2009-08-26 15:41+0530\n"
 "Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
 "Language-Team: Oriya <oriya-it@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n!=1);\n\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -309,9 +310,6 @@ msgid "Bottom to Top"
 msgstr "ତଳୁ ଉପରକୁ"
 
 #: ../Data/GUI/dasher.preferences.ui.h:22
-#| msgid ""
-#| "Centre circle\n"
-#| "Two box"
 msgid "Centre circle"
 msgstr "କେନ୍ଦ୍ରିୟ ବୃତ୍ତ"
 
@@ -467,10 +465,6 @@ msgid "Two box"
 msgstr "ଦୁଇଟି ବାକ୍ସ"
 
 #: ../Data/GUI/dasher.preferences.ui.h:58
-#| msgid ""
-#| "Use this control to adjust the relative sizes of the \n"
-#| "letter boxes. Note that selecting high values will slow\n"
-#| "your writing speed."
 msgid ""
 "Use this control to adjust the relative sizes of the\n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -557,6 +551,45 @@ msgstr "ବିକଲ୍ପ (_O)"
 msgid "_Reset fonts"
 msgstr "ଅକ୍ଷରୂପକୁ ପୁନଃ ସ୍ଥାପନ କରନ୍ତୁ (_R)"
 
+#. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
+#: ../Src/DasherCore/AlternatingDirectMode.cpp:28
+#: ../Src/DasherCore/ButtonMode.cpp:28 ../Src/DasherCore/CompassMode.cpp:28
+msgid "Zoom steps"
+msgstr "ଛୋଟବଡ଼ କରିବା ପଦକ୍ଷେପଗୁଡ଼ିକ"
+
+#. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
+#: ../Src/DasherCore/AlternatingDirectMode.cpp:30
+#: ../Src/DasherCore/ButtonMode.cpp:39 ../Src/DasherCore/CompassMode.cpp:32
+msgid "Global keyboard grab"
+msgstr "ଜାଗତିକ କିବୋର୍ଡ ଜାବୁଡ଼ିବା"
+
+#. menu
+#: ../Src/DasherCore/AlternatingDirectMode.cpp:34
+#| msgid "Direct Mode"
+msgid "Alternating Direct Mode"
+msgstr "ବୈକଳ୍ପିକ ପ୍ରତ୍ଯକ୍ଷ ଧାରା"
+
+#: ../Src/DasherCore/ButtonMode.cpp:29
+msgid "Scan time in menu mode (0 for don't scan)"
+msgstr "ତାଲିକା ଧାରାରେ କ୍ରମବୀକ୍ଷଣ ସମୟ (କ୍ରମବୀକ୍ଷଣ ନକରିବା ପାଇଁ 0)"
+
+#: ../Src/DasherCore/ButtonMode.cpp:30
+msgid "Number of boxes"
+msgstr "ବାକ୍ସ ସଂଖ୍ୟା"
+
+#: ../Src/DasherCore/ButtonMode.cpp:31
+msgid "Safety margin"
+msgstr "ସୁରକ୍ଷା ସୀମା"
+
+#. TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other.
+#. XXX PRLW: 128 log(2) = 89, where 2 is the ratio of adjacent boxes
+#. * however the code seems to use ratio = (129/127)^-r, instead of
+#. * ratio = exp(r/128) used in the design document
+#.
+#: ../Src/DasherCore/ButtonMode.cpp:37
+msgid "Box non-uniformity"
+msgstr "ବାକ୍ସ ଅସମାନତା"
+
 #: ../Src/DasherCore/ClickFilter.cpp:9
 msgid "Maximum Zoom"
 msgstr "ସର୍ବାଧିକ ସାନବଡ଼"
@@ -564,6 +597,17 @@ msgstr "ସର୍ବାଧିକ ସାନବଡ଼"
 #: ../Src/DasherCore/ClickFilter.h:12
 msgid "Click Mode"
 msgstr "ଦବାଇବା ଅବସ୍ଥା"
+
+#. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
+#: ../Src/DasherCore/CompassMode.cpp:30
+#| msgid "Right to Left"
+msgid "Right zoom"
+msgstr "ଡାହାଣପାଖକୁ ଛୋଟବଡ଼ କରିବା"
+
+#. bMenu
+#: ../Src/DasherCore/CompassMode.cpp:38
+msgid "Compass Mode"
+msgstr "କମ୍ପାସ ଧାରା"
 
 #: ../Src/DasherCore/DasherGameMode.cpp:633
 msgid "Well done!"
@@ -624,7 +668,7 @@ msgstr "ଆରମ୍ଭ ସମୟ"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:38
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:46
-#| msgid "%age by which to automatically increase speed"
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
 msgid "Percentage by which to automatically increase speed"
 msgstr "ସ୍ୱୟଂଚାଳିତ ଭାବରେ ଗତି ବୃଦ୍ଧିର ପ୍ରତିଶତ"
 
@@ -636,13 +680,27 @@ msgstr "ସମୟ ପରିମାଣ ଯାହା ପରେ ସ୍ୱୟଂଚ�
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:40
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:48
-#| msgid "%age by which to decrease speed upon reverse"
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
 msgid "Percentage by which to decrease speed upon reverse"
 msgstr "ଗତି ପରିବର୍ତ୍ତନର ପ୍ରତିଶତ"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:44
 msgid "One Button Dynamic Mode"
 msgstr "ଗୋଟିଏ ବଟନ ଗତିଶୀଳ ଅବସ୍ଥା"
+
+#: ../Src/DasherCore/OneButtonFilter.cpp:11
+msgid "Scan time (each direction), in ms"
+msgstr "କ୍ରମବୀକ୍ଷଣ ସମୟ (ପ୍ରତ୍ୟେକ ଦିଗରେ), ମିଲି ସେକଣ୍ଡରେ"
+
+#: ../Src/DasherCore/OneButtonFilter.cpp:12
+msgid "Factor by which to zoom in"
+msgstr "ଛୋଟ କରିବା ଗୁଣାତ୍ମକ"
+
+#: ../Src/DasherCore/OneButtonFilter.cpp:13
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:43
+msgid "Lag before user actually pushes button (ms)"
+msgstr "ଚାଳକ ବଟନ ଦବାଇବା ପରବର୍ତ୍ତି ସମୟ (ms)"
 
 #: ../Src/DasherCore/OneDimensionalFilter.cpp:7
 msgid "One Dimensional Mode"
@@ -742,11 +800,6 @@ msgstr "ଅଲଟା ଉପର ଏବଂ ତଳ ବଟନ"
 msgid "Double-click is opposite up/down - triple to reverse"
 msgstr "ଦୁଇଥର କ୍ଲିକଟି ଉପର/ତଳର ବିପରୀତ - ଏଲଟା ପାଇଁ ତିନିଥର କରନ୍ତୁ"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:43
-msgid "Lag before user actually pushes button (ms)"
-msgstr "ଚାଳକ ବଟନ ଦବାଇବା ପରବର୍ତ୍ତି ସମୟ (ms)"
-
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:52
 msgid "Two Button Dynamic Mode"
 msgstr "ଦୁଇ ବଟନ ଗତିଶୀଳ ଧାରା"
@@ -770,19 +823,8 @@ msgid "Tolerance for inaccurate timing of button pushes (in ms)"
 msgstr "ବଟନ ଦବାଇବା ମଧ୍ଯବର୍ତ୍ତୀ ଗ୍ରହଣୀୟ ସମୟ ବିଲମ୍ବ (ମିଲି ସେକଣ୍ଡରେ)"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
-#| msgid "Slow startup"
 msgid "Slow startup time"
 msgstr "ମନ୍ଥର ଆରମ୍ଭ ସମୟ"
-
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
-#, c-format
-msgid "%age by which to automatically increase speed"
-msgstr "%age ଯାହା ଦ୍ୱାରା ସ୍ୱୟଂଚାଳିତ ଭାବରେ ଗତି ବୃଦ୍ଧି ହୋଇଥାଏ"
-
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
-#, c-format
-msgid "%age by which to decrease speed upon reverse"
-msgstr "%age ଯାହା ଦ୍ୱାରା ଗତି ପରିବର୍ତ୍ତନ ହୋଇଥାଏ"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:47
 msgid "Two-push Dynamic Mode (New One Button)"
