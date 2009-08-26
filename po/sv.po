@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-23 23:04+0200\n"
-"PO-Revision-Date: 2009-08-23 23:17+0100\n"
+"POT-Creation-Date: 2009-08-26 05:56+0200\n"
+"PO-Revision-Date: 2009-08-26 05:57+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -113,7 +113,6 @@ msgid "Save file as"
 msgstr "Spara fil som"
 
 #: ../Data/GUI/dasher.compose.ui.h:14
-#: ../Data/GUI/dasher.direct.ui.h:4
 #: ../Data/GUI/dasher.fullscreen.ui.h:3
 #: ../Data/GUI/dasher.gameWIP.ui.h:23
 #: ../Data/GUI/dashermaemo.ui.h:6
@@ -132,7 +131,7 @@ msgid "Select Font"
 msgstr "Välj typsnitt"
 
 #: ../Data/GUI/dasher.compose.ui.h:16
-#: ../Data/GUI/dasher.direct.ui.h:5
+#: ../Data/GUI/dasher.direct.ui.h:4
 #: ../Data/GUI/dasher.gameWIP.ui.h:24
 #: ../Data/GUI/dasher.traditional.ui.h:17
 msgid "Speed:"
@@ -582,6 +581,46 @@ msgstr "_Alternativ"
 msgid "_Reset fonts"
 msgstr "_Återställ typsnitt"
 
+#. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
+#: ../Src/DasherCore/AlternatingDirectMode.cpp:28
+#: ../Src/DasherCore/ButtonMode.cpp:28
+#: ../Src/DasherCore/CompassMode.cpp:28
+msgid "Zoom steps"
+msgstr "Zoomsteg"
+
+#. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
+#: ../Src/DasherCore/AlternatingDirectMode.cpp:30
+#: ../Src/DasherCore/ButtonMode.cpp:39
+#: ../Src/DasherCore/CompassMode.cpp:32
+msgid "Global keyboard grab"
+msgstr "Global tangentbordsfångst"
+
+#. menu
+#: ../Src/DasherCore/AlternatingDirectMode.cpp:34
+msgid "Alternating Direct Mode"
+msgstr "Alternativt direktläge"
+
+#: ../Src/DasherCore/ButtonMode.cpp:29
+msgid "Scan time in menu mode (0 for don't scan)"
+msgstr "Avsökningstid i menyläge (0 för ingen avsökning)"
+
+#: ../Src/DasherCore/ButtonMode.cpp:30
+msgid "Number of boxes"
+msgstr "Antal rutor"
+
+#: ../Src/DasherCore/ButtonMode.cpp:31
+msgid "Safety margin"
+msgstr "Säkerhetsmarginal"
+
+#. TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other.
+#. XXX PRLW: 128 log(2) = 89, where 2 is the ratio of adjacent boxes
+#. * however the code seems to use ratio = (129/127)^-r, instead of
+#. * ratio = exp(r/128) used in the design document
+#.
+#: ../Src/DasherCore/ButtonMode.cpp:37
+msgid "Box non-uniformity"
+msgstr "Icke-enhetlighet för ruta"
+
 #: ../Src/DasherCore/ClickFilter.cpp:9
 msgid "Maximum Zoom"
 msgstr "Maximal zoom"
@@ -589,6 +628,16 @@ msgstr "Maximal zoom"
 #: ../Src/DasherCore/ClickFilter.h:12
 msgid "Click Mode"
 msgstr "Klickläge"
+
+#. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
+#: ../Src/DasherCore/CompassMode.cpp:30
+msgid "Right zoom"
+msgstr "Högerzoom"
+
+#. bMenu
+#: ../Src/DasherCore/CompassMode.cpp:38
+msgid "Compass Mode"
+msgstr "Kompassläge"
 
 #: ../Src/DasherCore/DasherGameMode.cpp:633
 msgid "Well done!"
@@ -638,7 +687,7 @@ msgstr "Aktivera backa ur-knapp"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:36
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
 msgid "Slow startup"
 msgstr "Långsam uppstart"
 
@@ -649,23 +698,39 @@ msgstr "Uppstartstid"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:38
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:46
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
 msgid "Percentage by which to automatically increase speed"
 msgstr "Procentandel med vilken hastigheten automatiskt ökas"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:47
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:41
 msgid "Time after which to automatically increase speed (secs)"
 msgstr "Tid efter vilken hastigheten automatiskt ökas (sekunder)"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:40
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:48
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
 msgid "Percentage by which to decrease speed upon reverse"
 msgstr "Procentandel med vilken hastigheten minskas vid omvänd riktning"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:44
 msgid "One Button Dynamic Mode"
 msgstr "En-knapps dynamiskt läge"
+
+#: ../Src/DasherCore/OneButtonFilter.cpp:11
+msgid "Scan time (each direction), in ms"
+msgstr "Avsökningstid (varje riktning), i ms"
+
+#: ../Src/DasherCore/OneButtonFilter.cpp:12
+msgid "Factor by which to zoom in"
+msgstr "Faktor för inzoomning"
+
+#: ../Src/DasherCore/OneButtonFilter.cpp:13
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:43
+msgid "Lag before user actually pushes button (ms)"
+msgstr "Fördröjning innan användare faktiskt trycker på knappen (ms)"
 
 #: ../Src/DasherCore/OneDimensionalFilter.cpp:7
 msgid "One Dimensional Mode"
@@ -767,11 +832,6 @@ msgstr "Vänd på uppåt- och nedåtknappar"
 msgid "Double-click is opposite up/down - triple to reverse"
 msgstr "Dubbelklick är samma som upp/ned - trippelklick för omvänd riktning"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:44
-msgid "Lag before user actually pushes button (ms)"
-msgstr "Fördröjning innan användare faktiskt trycker på knappen (ms)"
-
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:52
 msgid "Two Button Dynamic Mode"
 msgstr "Dynamiskt tvåknappsläge"
@@ -794,25 +854,11 @@ msgstr "Avstånd för första knappen NED"
 msgid "Tolerance for inaccurate timing of button pushes (in ms)"
 msgstr "Tolerans för inkorrekt tid för knapptryck (i ms)"
 
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
-msgid "Markers fixed to canvas"
-msgstr "Markörer fästa mot yta"
-
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
 msgid "Slow startup time"
 msgstr "Långsam uppstartstid"
 
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:41
-#, c-format
-msgid "%age by which to automatically increase speed"
-msgstr "%age med vilken hastigheten automatiskt ökas"
-
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:43
-#, c-format
-msgid "%age by which to decrease speed upon reverse"
-msgstr "%age med vilken hastigheten minskas vid omvänd riktning"
-
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:48
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:47
 msgid "Two-push Dynamic Mode (New One Button)"
 msgstr "Tvåtrycks dynamiskt läge (Nytt enknappsläge)"
 
@@ -992,41 +1038,31 @@ msgstr "Endimensionell musinmatning"
 #. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
 #. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
 #. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
-#: ../Src/main.cc:169
+#: ../Src/main.cc:171
 msgid "Application style (traditional, direct, compose or fullscreen)"
 msgstr "Programstil (traditional, direct, compose eller fullscreen)"
 
 #. Note to translators: This is the help string for "--options"
-#: ../Src/main.cc:171
+#: ../Src/main.cc:173
 msgid "Override stored options"
 msgstr "Åsidosätt lagrade alternativ"
 
 #. Note to translators: This is the help string for "--help-options"
-#: ../Src/main.cc:173
+#: ../Src/main.cc:175
 msgid "Describe \"--options\"."
 msgstr "Beskriv \"--options\"."
 
 #. Note to translators: This is the "--help" description of dasher.
-#: ../Src/main.cc:180
+#: ../Src/main.cc:182
 msgid "- A text input application honouring accessibility"
 msgstr "- Ett textinmatningsprogram som använder hjälpmedelsfunktioner"
 
-#~ msgid "Zoom steps"
-#~ msgstr "Zoomsteg"
-#~ msgid "Right zoom"
-#~ msgstr "Högerzoom"
-#~ msgid "Number of boxes"
-#~ msgstr "Antal rutor"
-#~ msgid "Safety margin"
-#~ msgstr "Säkerhetsmarginal"
-#~ msgid "Box non-uniformity"
-#~ msgstr "Icke-enhetlighet för ruta"
-#~ msgid "Global keyboard grab"
-#~ msgstr "Global tangentbordsfångst"
-#~ msgid "Alternating Direct Mode"
-#~ msgstr "Alternativt direktläge"
-#~ msgid "Compass Mode"
-#~ msgstr "Kompassläge"
+#~ msgid "Markers fixed to canvas"
+#~ msgstr "Markörer fästa mot yta"
+#~ msgid "%age by which to automatically increase speed"
+#~ msgstr "%age med vilken hastigheten automatiskt ökas"
+#~ msgid "%age by which to decrease speed upon reverse"
+#~ msgstr "%age med vilken hastigheten minskas vid omvänd riktning"
 #~ msgid "Multiple press count"
 #~ msgstr "Antal för flera tryckningar"
 #~ msgid "Auto speed control"
