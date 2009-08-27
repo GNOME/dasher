@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher.master.kn\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&component=general\n"
-"POT-Creation-Date: 2009-08-15 14:22+0000\n"
-"PO-Revision-Date: 2009-08-25 16:11+0530\n"
+"POT-Creation-Date: 2009-08-25 17:49+0000\n"
+"PO-Revision-Date: 2009-08-27 16:51+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: Kannada <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -95,9 +95,9 @@ msgstr "ಕಡತವನ್ನು ಉಳಿಸು"
 msgid "Save file as"
 msgstr "ಕಡತವನ್ನು ಹೀಗೆ ಉಳಿಸು"
 
-#: ../Data/GUI/dasher.compose.ui.h:14 ../Data/GUI/dasher.direct.ui.h:4
-#: ../Data/GUI/dasher.fullscreen.ui.h:3 ../Data/GUI/dasher.gameWIP.ui.h:23
-#: ../Data/GUI/dashermaemo.ui.h:6 ../Data/GUI/dashermaemofullscreen.ui.h:5
+#: ../Data/GUI/dasher.compose.ui.h:14 ../Data/GUI/dasher.fullscreen.ui.h:3
+#: ../Data/GUI/dasher.gameWIP.ui.h:23 ../Data/GUI/dashermaemo.ui.h:6
+#: ../Data/GUI/dashermaemofullscreen.ui.h:5
 #: ../Src/Gtk2/dasher_editor_internal.cpp:1320
 #: ../Src/Gtk2/dasher_editor_internal.cpp:1354 ../Src/Gtk2/dasher_main.cpp:968
 msgid "Select File"
@@ -108,7 +108,7 @@ msgstr "ಕಡತವನ್ನು ಆರಿಸು"
 msgid "Select Font"
 msgstr "ಅಕ್ಷರಶೈಲಿಯನ್ನು ಆರಿಸು"
 
-#: ../Data/GUI/dasher.compose.ui.h:16 ../Data/GUI/dasher.direct.ui.h:5
+#: ../Data/GUI/dasher.compose.ui.h:16 ../Data/GUI/dasher.direct.ui.h:4
 #: ../Data/GUI/dasher.gameWIP.ui.h:24 ../Data/GUI/dasher.traditional.ui.h:17
 msgid "Speed:"
 msgstr "ವೇಗ:"
@@ -302,9 +302,6 @@ msgid "Bottom to Top"
 msgstr "ಕೆಳಗಿನಿಂದ ಮೇಲಕ್ಕೆ"
 
 #: ../Data/GUI/dasher.preferences.ui.h:22
-#| msgid ""
-#| "Centre circle\n"
-#| "Two box"
 msgid "Centre circle"
 msgstr "ಮಧ್ಯ ವೃತ್ತ"
 
@@ -460,10 +457,6 @@ msgid "Two box"
 msgstr "ಎರಡು ಪೆಟ್ಟಿಗೆ"
 
 #: ../Data/GUI/dasher.preferences.ui.h:58
-#| msgid ""
-#| "Use this control to adjust the relative sizes of the \n"
-#| "letter boxes. Note that selecting high values will slow\n"
-#| "your writing speed."
 msgid ""
 "Use this control to adjust the relative sizes of the\n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -550,6 +543,45 @@ msgstr "ಆಯ್ಕೆಗಳು(_O)"
 msgid "_Reset fonts"
 msgstr "ಅಕ್ಷರಶೈಲಿಗಳನ್ನು ಮರುಹೊಂದಿಸು(_R)"
 
+#. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
+#: ../Src/DasherCore/AlternatingDirectMode.cpp:28
+#: ../Src/DasherCore/ButtonMode.cpp:28 ../Src/DasherCore/CompassMode.cpp:28
+msgid "Zoom steps"
+msgstr "ಗಾತ್ರಬದಲಾವಣೆ ಹಂತಗಳು"
+
+#. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
+#: ../Src/DasherCore/AlternatingDirectMode.cpp:30
+#: ../Src/DasherCore/ButtonMode.cpp:39 ../Src/DasherCore/CompassMode.cpp:32
+msgid "Global keyboard grab"
+msgstr "ಜಾಗತಿಕ ಕೀಲಿಮಣೆ ಸೆಳೆತ"
+
+#. menu
+#: ../Src/DasherCore/AlternatingDirectMode.cpp:34
+#| msgid "Direct Mode"
+msgid "Alternating Direct Mode"
+msgstr "ನೇರ ಕ್ರಮಕ್ಕೆ ಪರ್ಯಾಯಗೊಳಿಸುವುದು"
+
+#: ../Src/DasherCore/ButtonMode.cpp:29
+msgid "Scan time in menu mode (0 for don't scan)"
+msgstr "ಮೆನು ಕ್ರಮದಲ್ಲಿ ಸ್ಕ್ಯಾನ್ ಮಾಡುವಿಕೆ (0 ಎಂದರೆ ಸ್ಕ್ಯಾನ್ ಮಾಡದೆ ಇರು ಎಂದರ್ಥ)"
+
+#: ../Src/DasherCore/ButtonMode.cpp:30
+msgid "Number of boxes"
+msgstr "ಚೌಕಗಳ ಸಂಖ್ಯೆ"
+
+#: ../Src/DasherCore/ButtonMode.cpp:31
+msgid "Safety margin"
+msgstr "ಸುರಕ್ಷಿತ ಅಂಚು"
+
+#. TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other.
+#. XXX PRLW: 128 log(2) = 89, where 2 is the ratio of adjacent boxes
+#. * however the code seems to use ratio = (129/127)^-r, instead of
+#. * ratio = exp(r/128) used in the design document
+#.
+#: ../Src/DasherCore/ButtonMode.cpp:37
+msgid "Box non-uniformity"
+msgstr "ಏಕರೂಪವಾಗಿರದ ಚೌಕ"
+
 #: ../Src/DasherCore/ClickFilter.cpp:9
 msgid "Maximum Zoom"
 msgstr "ಗರಿಷ್ಟ ಗಾತ್ರಬದಲಿಕೆ"
@@ -557,6 +589,17 @@ msgstr "ಗರಿಷ್ಟ ಗಾತ್ರಬದಲಿಕೆ"
 #: ../Src/DasherCore/ClickFilter.h:12
 msgid "Click Mode"
 msgstr "ಕ್ಲಿಕ್ ಕ್ರಮ"
+
+#. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
+#: ../Src/DasherCore/CompassMode.cpp:30
+#| msgid "Right to Left"
+msgid "Right zoom"
+msgstr "ಬಲಕ್ಕೆ ಗಾತ್ರ ಬದಲಾವಣೆ"
+
+#. bMenu
+#: ../Src/DasherCore/CompassMode.cpp:38
+msgid "Compass Mode"
+msgstr "ಕಂಪಾಸ್ ವಿಧಾನ"
 
 #: ../Src/DasherCore/DasherGameMode.cpp:633
 msgid "Well done!"
@@ -596,7 +639,6 @@ msgstr "ಬಹಳ ಹೊತ್ತಿನವರೆಗೆ ಒತ್ತಿ ಹಿಡ
 
 #. TRANSLATORS: Double-clicks are special in some situations (they cause us to start reversing). This is the time in which the button must be pressed twice to count.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
-#| msgid "Multiple press time"
 msgid "Double-press time"
 msgstr "ಎರಡು-ಬಾರಿ ಒತ್ತುವ ಸಮಯ"
 
@@ -607,7 +649,7 @@ msgstr "ಬ್ಯಾಕ್ಅಫ್ ಗುಂಡಿಯನ್ನು ಶಕ್ತ�
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:36
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
 msgid "Slow startup"
 msgstr "ನಿಧಾನಗತಿಯ ಆರಂಭ"
 
@@ -618,23 +660,39 @@ msgstr "ಆರಂಭದ ಸಮಯ"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:38
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:46
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
 msgid "Percentage by which to automatically increase speed"
 msgstr "ಯಾವ ಪ್ರತಿಶತದಲ್ಲಿ ವೇಗವು ತಾನಾಗಿಯೆ ಹೆಚ್ಚಾಗುವಂತೆ ಮಾಡಬೇಕು ಆ ಪ್ರತಿಶತ"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:47
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:41
 msgid "Time after which to automatically increase speed (secs)"
 msgstr "ಯಾವ ಸಮಯದ ನಂತರ ವೇಗವು ತಾನಾಗಿಯೆ ಹೆಚ್ಚಾಗಬೇಕೊ ಆ ಸಮಯ(ಸೆಕೆಂಡುಗಳು)"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:40
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:48
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
 msgid "Percentage by which to decrease speed upon reverse"
 msgstr "ವಿಲೋಮಗೊಳಿಸಿದಾಗ ಯಾವ ಪ್ರತಿಶತದಲ್ಲಿ ವೇಗವು ಕಡಿಮೆಯಾಗಬೇಕೊ ಆ ಪ್ರತಿಶತ"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:44
 msgid "One Button Dynamic Mode"
 msgstr "ಒಂದು ಗುಂಡಿ ಡೈನಮಿಕ್ ಕ್ರಮ"
+
+#: ../Src/DasherCore/OneButtonFilter.cpp:11
+msgid "Scan time (each direction), in ms"
+msgstr "ಸ್ಕ್ಯಾನ್ ಸಮಯ (ಪ್ರತಿ ದಿಕ್ಕಿಗೂ), ಮಿಲಿಸೆಕೆಂಡುಗಳಲ್ಲಿ"
+
+#: ../Src/DasherCore/OneButtonFilter.cpp:12
+msgid "Factor by which to zoom in"
+msgstr "ಯಾವ ಅಂಶದಲ್ಲಿ ಗಾತ್ರ ಬದಲಾಯಿಸಬೇಕು"
+
+#: ../Src/DasherCore/OneButtonFilter.cpp:13
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:43
+msgid "Lag before user actually pushes button (ms)"
+msgstr "ಬಳಕೆದಾರರು ನಿಜವಾಗಲೂ ಗುಂಡಿಯನ್ನು ಒತ್ತುವುದಕ್ಕೂ ಮುಂಚಿನ ವಿಳಂಬ (ಮಿಲಿಸೆಕೆಂಡು)"
 
 #: ../Src/DasherCore/OneDimensionalFilter.cpp:7
 msgid "One Dimensional Mode"
@@ -714,7 +772,6 @@ msgstr "ಆಫ್‍ಸೆಟ್ ಗುಂಡಿ"
 #. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the maximum time between two presses to count as _part_of_ a multi-press gesture
 #. (potentially more than two presses).
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:35
-#| msgid "Multiple press time"
 msgid "Multiple press interval"
 msgstr "ಅನೇಕ ಬಾರಿ ಒತ್ತುವ ಕಾಲಾವಧಿ"
 
@@ -733,12 +790,9 @@ msgstr "ಮೇಲೆ ಹಾಗು ಕೆಳಗೆ ಗುಂಡಿಗಳನ್ನ
 #. button once; in this case, one must push three times (or push-and-hold) to reverse.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:42
 msgid "Double-click is opposite up/down - triple to reverse"
-msgstr "ಎರಡು ಬಾರಿ ಕ್ಲಿಕ್ಕಿಸುವುದು ಮೇಲೆ/ಕೆಳಗೆ ಗೆ ವಿರುದ್ಧವಾಗಿರುತ್ತದೆ - ವಿಲೋಮಗೊಳಿಸಲು ಮೂರು ಬಾರಿ"
-
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:44
-msgid "Lag before user actually pushes button (ms)"
-msgstr "ಬಳಕೆದಾರರು ನಿಜವಾಗಲೂ ಗುಂಡಿಯನ್ನು ಒತ್ತುವುದಕ್ಕೂ ಮುಂಚಿನ ವಿಳಂಬ (ಮಿಲಿಸೆಕೆಂಡು)"
+msgstr ""
+"ಎರಡು ಬಾರಿ ಕ್ಲಿಕ್ಕಿಸುವುದು ಮೇಲೆ/ಕೆಳಗೆ ಗೆ ವಿರುದ್ಧವಾಗಿರುತ್ತದೆ - ವಿಲೋಮಗೊಳಿಸಲು ಮೂರು "
+"ಬಾರಿ"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:52
 msgid "Two Button Dynamic Mode"
@@ -762,27 +816,11 @@ msgstr "ಮೊದಲನೆ ಗುಂಡಿ DOWN ಗಾಗಿನ ದೂರ"
 msgid "Tolerance for inaccurate timing of button pushes (in ms)"
 msgstr "ನಿಖರವಲ್ಲದ ಗುಂಡಿ ಒತ್ತುವಿಕೆಗಳಿಗಾಗಿನ ತಾಳ್ಮೆ (ಮಿಲಿಸೆಕೆಂಡುಗಳಲ್ಲಿ)"
 
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
-#| msgid "Pause outside of canvas"
-msgid "Markers fixed to canvas"
-msgstr "ಕ್ಯಾನ್ವಾಸಿಗೆ ನಿಗದಿಪಡಿಸಲಾದ ಗುರುತುಗಳು"
-
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
-#| msgid "Slow startup"
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
 msgid "Slow startup time"
 msgstr "ನಿಧಾನಗತಿಯ ಆರಂಭದ ಸಮಯ"
 
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:41
-#, c-format
-msgid "%age by which to automatically increase speed"
-msgstr "ವಿಲೋಮಗೊಳಿಸಿದಾಗ ಯಾವ ಪ್ರತಿಶತದಲ್ಲಿ ವೇಗವು ತಾನಾಗಿಯೆ ಹೆಚ್ಚಾಗಬೇಕೊ ಆ %age"
-
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:43
-#, c-format
-msgid "%age by which to decrease speed upon reverse"
-msgstr "ವಿಲೋಮಗೊಳಿಸಿದಾಗ ಯಾವ ಪ್ರತಿಶತದಲ್ಲಿ ವೇಗವನ್ನು ಕಡಿಮೆ ಮಾಡಬೇಕೊ ಆ %age"
-
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:48
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:47
 msgid "Two-push Dynamic Mode (New One Button)"
 msgstr "ಎರಡು-ಒತ್ತುವಿಕೆಯ ಡೈನಮಿಕ್ ಕ್ರಮ (ಹೊಸ ಒಂದು ಗುಂಡಿ)"
 
@@ -953,22 +991,22 @@ msgstr "ಒಂದು ಆಯಾಮದ ಮೌಸ್ ಪ್ರದಾನ"
 #. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
 #. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
 #. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
-#: ../Src/main.cc:169
+#: ../Src/main.cc:171
 msgid "Application style (traditional, direct, compose or fullscreen)"
 msgstr "ಅನ್ವಯ ಶೈಲಿ (ಸಾಂಪ್ರದಾಯಿಕ, ನೇರ, ಕಂಪೂಸ್ ಅಥವ ಸಂಪೂರ್ಣತೆರೆ)"
 
 #. Note to translators: This is the help string for "--options"
-#: ../Src/main.cc:171
+#: ../Src/main.cc:173
 msgid "Override stored options"
 msgstr "ಶೇಖರಿಸಲಾದ ಆಯ್ಕೆಗಳನ್ನು ಅತಿಕ್ರಮಿಸು"
 
 #. Note to translators: This is the help string for "--help-options"
-#: ../Src/main.cc:173
+#: ../Src/main.cc:175
 msgid "Describe \"--options\"."
 msgstr "\"--options\" ಅನ್ನು ವಿವರಿಸು."
 
 #. Note to translators: This is the "--help" description of dasher.
-#: ../Src/main.cc:180
+#: ../Src/main.cc:182
 msgid "- A text input application honouring accessibility"
 msgstr "- ನಿಲುಕಣೆಯನ್ನು ಅನುಮೋದಿಸುವ ಒಂದು ಪಠ್ಯ ಪ್ರದಾನ(ಇನ್‌ಪುಟ್) ಅನ್ವಯ"
 
