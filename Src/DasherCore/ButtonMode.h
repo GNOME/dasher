@@ -29,6 +29,9 @@ class CButtonMode : public CDasherButtons
   bool Timer(int Time, CDasherView *pView, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted);
   bool DecorateView(CDasherView *pView);
 
+  //override to get mouse clicks/taps back again
+  virtual void KeyDown(int Time, int iId, CDasherView *pDasherView, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY);
+  
   bool GetSettings(SModuleSettings **pSettings, int *iCount);
  protected: 
   void SetupBoxes();

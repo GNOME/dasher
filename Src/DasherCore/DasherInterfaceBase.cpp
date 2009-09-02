@@ -1053,7 +1053,7 @@ void CDasherInterfaceBase::HandleClickUp(int iTime, int iX, int iY) {
   }
 #endif
 
-  KeyUp(iTime, 100);
+  KeyUp(iTime, 100, true, iX, iY);
 }
 
 void CDasherInterfaceBase::HandleClickDown(int iTime, int iX, int iY) {
@@ -1071,7 +1071,7 @@ void CDasherInterfaceBase::HandleClickDown(int iTime, int iX, int iY) {
   }
 #endif
 
-  KeyDown(iTime, 100);
+  KeyDown(iTime, 100, true, iX, iY);
 }
 
 
