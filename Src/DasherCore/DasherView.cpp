@@ -361,11 +361,6 @@ int CDasherView::GetCoordinates(myint &iDasherX, myint &iDasherY) {
     break;
   }
 
-#ifndef WITH_MAEMO
-  // FIXME
-  //  iDasherX = myint(xmap(iDasherX / static_cast < double >(GetLongParameter(LP_MAX_Y))) * GetLongParameter(LP_MAX_Y));
-  // iDasherY = m_ymap.map(iDasherY);
-#endif
   ///GAME///
   if(m_bGameMode)
     {

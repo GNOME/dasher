@@ -579,11 +579,10 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
     break;
   }
 
-#ifndef WITH_MAEMO
-  // FIXME - disabled to avoid floating point
+  if (GetBoolParameter(BP_NONLINEAR_Y)) {
     iDasherX = myint(ixmap(iDasherX / static_cast < double >(GetLongParameter(LP_MAX_Y))) * (myint)GetLongParameter(LP_MAX_Y));
     iDasherY = m_ymap.unmap(iDasherY);
-#endif
+  }
   
 }
 
@@ -668,12 +667,10 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
 
   // Apply the nonlinearities
 
-#ifndef WITH_MAEMO
-  // FIXME
-  iDasherX = myint(xmap(iDasherX / static_cast < double >(GetLongParameter(LP_MAX_Y))) * (myint)GetLongParameter(LP_MAX_Y));
-  iDasherY = m_ymap.map(iDasherY);
-#endif
-
+  if (GetBoolParameter(BP_NONLINEAR_Y)) {
+    iDasherX = myint(xmap(iDasherX / static_cast < double >(GetLongParameter(LP_MAX_Y))) * (myint)GetLongParameter(LP_MAX_Y));
+    iDasherY = m_ymap.map(iDasherY);
+  }
 
   // Things we're likely to need:
 
