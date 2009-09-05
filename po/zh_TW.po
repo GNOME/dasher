@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher 4.9.1\n"
+"Project-Id-Version: dasher 4.10.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-14 22:13+0800\n"
-"PO-Revision-Date: 2009-07-13 15:01+0800\n"
+"POT-Creation-Date: 2009-09-06 07:56+0800\n"
+"PO-Revision-Date: 2009-09-06 06:30+0800\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: Chinese (Taiwan) <zh-l10n@lists.linux.org.tw>\n"
 "MIME-Version: 1.0\n"
@@ -16,14 +16,11 @@ msgstr ""
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
-#: ../Data/dasher.desktop.in.in.h:1 ../Data/glade/dasher.compose.glade.h:5
-#: ../Data/glade/dasher.direct.glade.h:2
-#: ../Data/glade/dasher.fullscreen.glade.h:1
-#: ../Data/glade/dasher.gameWIP.glade.h:6
-#: ../Data/glade/dasher.traditional.glade.h:6
-#: ../Data/glade/dashermaemo.glade.h:3
-#: ../Data/glade/dashermaemofullscreen.glade.h:2
-#: ../Src/Gtk2/dasher_main.cpp:993
+#: ../Data/dasher.desktop.in.in.h:1 ../Data/GUI/dasher.compose.ui.h:5
+#: ../Data/GUI/dasher.direct.ui.h:2 ../Data/GUI/dasher.fullscreen.ui.h:1
+#: ../Data/GUI/dasher.gameWIP.ui.h:6 ../Data/GUI/dasher.traditional.ui.h:6
+#: ../Data/GUI/dashermaemo.ui.h:3 ../Data/GUI/dashermaemofullscreen.ui.h:2
+#: ../Src/Gtk2/dasher_main.cpp:953
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -35,576 +32,540 @@ msgstr "不使用鍵盤輸入文字"
 msgid "Predictive text entry"
 msgstr "預測方式輸入文字"
 
-#: ../Data/glade/dasher.compose.glade.h:1
-#: ../Data/glade/dasher.direct.glade.h:1
-#: ../Data/glade/dasher.gameWIP.glade.h:2
-#: ../Data/glade/dasher.traditional.glade.h:2
+#: ../Data/GUI/dasher.compose.ui.h:1 ../Data/GUI/dasher.direct.ui.h:1
+#: ../Data/GUI/dasher.gameWIP.ui.h:2 ../Data/GUI/dasher.traditional.ui.h:2
 msgid "Alphabet:"
 msgstr "字母："
 
-#: ../Data/glade/dasher.compose.glade.h:2
-#: ../Data/glade/dasher.gameWIP.glade.h:3
-#: ../Data/glade/dasher.traditional.glade.h:3
+#: ../Data/GUI/dasher.compose.ui.h:2 ../Data/GUI/dasher.gameWIP.ui.h:3
+#: ../Data/GUI/dasher.traditional.ui.h:3
 msgid "Copy"
 msgstr "複製"
 
-#: ../Data/glade/dasher.compose.glade.h:3
-#: ../Data/glade/dasher.gameWIP.glade.h:4
-#: ../Data/glade/dasher.traditional.glade.h:4
-#: ../Data/glade/dashermaemofullscreen.glade.h:1
+#: ../Data/GUI/dasher.compose.ui.h:3 ../Data/GUI/dasher.gameWIP.ui.h:4
+#: ../Data/GUI/dasher.traditional.ui.h:4
+#: ../Data/GUI/dashermaemofullscreen.ui.h:1
 msgid "Copy _All"
 msgstr "全部複製(_A)"
 
-#: ../Data/glade/dasher.compose.glade.h:4
-#: ../Data/glade/dasher.gameWIP.glade.h:5
-#: ../Data/glade/dasher.traditional.glade.h:5
+#: ../Data/GUI/dasher.compose.ui.h:4 ../Data/GUI/dasher.gameWIP.ui.h:5
+#: ../Data/GUI/dasher.traditional.ui.h:5
 msgid "Cut"
 msgstr "剪下"
 
-#: ../Data/glade/dasher.compose.glade.h:6
+#: ../Data/GUI/dasher.compose.ui.h:6
 msgid "Dasher _Tutorial"
 msgstr "Dasher 教學(_T)"
 
-#: ../Data/glade/dasher.compose.glade.h:7
-#: ../Data/glade/dasher.gameWIP.glade.h:12
-#: ../Data/glade/dasher.traditional.glade.h:8
+#: ../Data/GUI/dasher.compose.ui.h:7 ../Data/GUI/dasher.gameWIP.ui.h:12
+#: ../Data/GUI/dasher.traditional.ui.h:8
 msgid "New file"
 msgstr "新增檔案"
 
-#: ../Data/glade/dasher.compose.glade.h:8
-#: ../Data/glade/dasher.gameWIP.glade.h:14
-#: ../Data/glade/dasher.traditional.glade.h:9
+#: ../Data/GUI/dasher.compose.ui.h:8 ../Data/GUI/dasher.gameWIP.ui.h:14
+#: ../Data/GUI/dasher.traditional.ui.h:9
 msgid "Open file"
 msgstr "開啟檔案"
 
-#: ../Data/glade/dasher.compose.glade.h:9
-#: ../Data/glade/dasher.gameWIP.glade.h:15
-#: ../Data/glade/dasher.traditional.glade.h:10
+#: ../Data/GUI/dasher.compose.ui.h:9 ../Data/GUI/dasher.gameWIP.ui.h:15
+#: ../Data/GUI/dasher.traditional.ui.h:10
 msgid "Paste"
 msgstr "貼上"
 
-#: ../Data/glade/dasher.compose.glade.h:10
-#: ../Data/glade/dasher.direct.glade.h:3
-#: ../Data/glade/dasher.fullscreen.glade.h:2
-#: ../Data/glade/dasher.gameWIP.glade.h:16
-#: ../Data/glade/dasher.traditional.glade.h:11
-#: ../Data/glade/dashermaemo.glade.h:5
+#: ../Data/GUI/dasher.compose.ui.h:10 ../Data/GUI/dasher.direct.ui.h:3
+#: ../Data/GUI/dasher.fullscreen.ui.h:2 ../Data/GUI/dasher.gameWIP.ui.h:16
+#: ../Data/GUI/dasher.traditional.ui.h:11 ../Data/GUI/dashermaemo.ui.h:5
 msgid "Please Wait..."
 msgstr "請稍候..."
 
-#: ../Data/glade/dasher.compose.glade.h:11
+#: ../Data/GUI/dasher.compose.ui.h:11
 msgid "Pr_eferences"
 msgstr "偏好設定(_E)"
 
-#: ../Data/glade/dasher.compose.glade.h:12
-#: ../Data/glade/dasher.gameWIP.glade.h:20
-#: ../Data/glade/dasher.traditional.glade.h:15
+#: ../Data/GUI/dasher.compose.ui.h:12 ../Data/GUI/dasher.gameWIP.ui.h:20
+#: ../Data/GUI/dasher.traditional.ui.h:15
 msgid "Save file"
 msgstr "儲存檔案"
 
-#: ../Data/glade/dasher.compose.glade.h:13
-#: ../Data/glade/dasher.gameWIP.glade.h:21
-#: ../Data/glade/dasher.traditional.glade.h:16
+#: ../Data/GUI/dasher.compose.ui.h:13 ../Data/GUI/dasher.gameWIP.ui.h:21
+#: ../Data/GUI/dasher.traditional.ui.h:16
 msgid "Save file as"
 msgstr "另存檔案為"
 
-#: ../Data/glade/dasher.compose.glade.h:14
-#: ../Data/glade/dasher.direct.glade.h:4
-#: ../Data/glade/dasher.fullscreen.glade.h:3
-#: ../Data/glade/dasher.gameWIP.glade.h:23
-#: ../Data/glade/dasher.traditional.glade.h:17
-#: ../Data/glade/dashermaemo.glade.h:6
-#: ../Data/glade/dashermaemofullscreen.glade.h:5
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1334
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1368
-#: ../Src/Gtk2/dasher_main.cpp:1043
+#: ../Data/GUI/dasher.compose.ui.h:14 ../Data/GUI/dasher.fullscreen.ui.h:3
+#: ../Data/GUI/dasher.gameWIP.ui.h:23 ../Data/GUI/dashermaemo.ui.h:6
+#: ../Data/GUI/dashermaemofullscreen.ui.h:5
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1320
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1354 ../Src/Gtk2/dasher_main.cpp:968
 msgid "Select File"
 msgstr "選擇檔案"
 
-#: ../Data/glade/dasher.compose.glade.h:15
-#: ../Data/glade/dasher.fullscreen.glade.h:4
-#: ../Data/glade/dashermaemo.glade.h:7
-#: ../Data/glade/dashermaemofullscreen.glade.h:6
+#: ../Data/GUI/dasher.compose.ui.h:15 ../Data/GUI/dasher.fullscreen.ui.h:4
+#: ../Data/GUI/dashermaemo.ui.h:7 ../Data/GUI/dashermaemofullscreen.ui.h:6
 msgid "Select Font"
 msgstr "選擇字型"
 
-#: ../Data/glade/dasher.compose.glade.h:16
-#: ../Data/glade/dasher.direct.glade.h:5
-#: ../Data/glade/dasher.gameWIP.glade.h:24
-#: ../Data/glade/dasher.traditional.glade.h:18
+#: ../Data/GUI/dasher.compose.ui.h:16 ../Data/GUI/dasher.direct.ui.h:4
+#: ../Data/GUI/dasher.gameWIP.ui.h:24 ../Data/GUI/dasher.traditional.ui.h:17
 msgid "Speed:"
 msgstr "速度："
 
-#: ../Data/glade/dasher.compose.glade.h:17
-#: ../Data/glade/dashermaemofullscreen.glade.h:8
+#: ../Data/GUI/dasher.compose.ui.h:17 ../Data/GUI/dashermaemofullscreen.ui.h:8
 msgid "_About"
 msgstr "關於(_A)"
 
-#: ../Data/glade/dasher.compose.glade.h:18
+#: ../Data/GUI/dasher.compose.ui.h:18
 msgid "_Append to file"
 msgstr "加入到檔案(_A)"
 
-#: ../Data/glade/dasher.compose.glade.h:19
+#: ../Data/GUI/dasher.compose.ui.h:19
 msgid "_Contents"
 msgstr "內容(_C)"
 
-#: ../Data/glade/dasher.compose.glade.h:20
-#: ../Data/glade/dasher.gameWIP.glade.h:27
-#: ../Data/glade/dasher.traditional.glade.h:21
-#: ../Data/glade/dashermaemofullscreen.glade.h:11
+#: ../Data/GUI/dasher.compose.ui.h:20 ../Data/GUI/dasher.gameWIP.ui.h:27
+#: ../Data/GUI/dasher.traditional.ui.h:20
+#: ../Data/GUI/dashermaemofullscreen.ui.h:11
 msgid "_Edit"
 msgstr "編輯(_E)"
 
-#: ../Data/glade/dasher.compose.glade.h:21
-#: ../Data/glade/dasher.gameWIP.glade.h:28
-#: ../Data/glade/dasher.traditional.glade.h:22
-#: ../Data/glade/dashermaemofullscreen.glade.h:13
+#: ../Data/GUI/dasher.compose.ui.h:21 ../Data/GUI/dasher.gameWIP.ui.h:28
+#: ../Data/GUI/dasher.traditional.ui.h:21
+#: ../Data/GUI/dashermaemofullscreen.ui.h:13
 msgid "_File"
 msgstr "檔案(_F)"
 
-#: ../Data/glade/dasher.compose.glade.h:22
-#: ../Data/glade/dasher.gameWIP.glade.h:29
-#: ../Data/glade/dasher.traditional.glade.h:23
-#: ../Data/glade/dashermaemofullscreen.glade.h:14
+#: ../Data/GUI/dasher.compose.ui.h:22 ../Data/GUI/dasher.gameWIP.ui.h:29
+#: ../Data/GUI/dasher.traditional.ui.h:22
+#: ../Data/GUI/dashermaemofullscreen.ui.h:14
 msgid "_Help"
 msgstr "求助(_H)"
 
-#: ../Data/glade/dasher.compose.glade.h:23
+#: ../Data/GUI/dasher.compose.ui.h:23
 msgid "_Import Training Text"
 msgstr "匯入文字(_I)"
 
-#: ../Data/glade/dasher.compose.glade.h:24
-#: ../Data/glade/dasher.fullscreen.glade.h:5
-#: ../Data/glade/dashermaemo.glade.h:8
-#: ../Data/glade/dashermaemofullscreen.glade.h:17
+#: ../Data/GUI/dasher.compose.ui.h:24 ../Data/GUI/dasher.fullscreen.ui.h:5
+#: ../Data/GUI/dashermaemo.ui.h:8 ../Data/GUI/dashermaemofullscreen.ui.h:17
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "The following is Chinese: ‘中文測試’"
 
-#: ../Data/glade/dasher.gameWIP.glade.h:1
-#: ../Data/glade/dasher.traditional.glade.h:1
+#: ../Data/GUI/dasher.gameWIP.ui.h:1 ../Data/GUI/dasher.traditional.ui.h:1
 msgid "A_ppend to file..."
 msgstr "加入到檔案(_P)..."
 
-#: ../Data/glade/dasher.gameWIP.glade.h:7
+#: ../Data/GUI/dasher.gameWIP.ui.h:7
 msgid "Demo!"
 msgstr "展示！"
 
-#: ../Data/glade/dasher.gameWIP.glade.h:8
+#: ../Data/GUI/dasher.gameWIP.ui.h:8
 msgid "Full Demo"
 msgstr "完整展示"
 
-#: ../Data/glade/dasher.gameWIP.glade.h:9
-#: ../Data/glade/dasher.traditional.glade.h:7
+#: ../Data/GUI/dasher.gameWIP.ui.h:9 ../Data/GUI/dasher.traditional.ui.h:7
 msgid "Help"
 msgstr "求助"
 
-#: ../Data/glade/dasher.gameWIP.glade.h:10
+#: ../Data/GUI/dasher.gameWIP.ui.h:10
 msgid "Launch Dasher Game & Demo mode!"
 msgstr "啓動 Dasher 遊戲 & 展示模式！"
 
-#: ../Data/glade/dasher.gameWIP.glade.h:11
+#: ../Data/GUI/dasher.gameWIP.ui.h:11
 msgid "Level:"
 msgstr "等級:"
 
-#: ../Data/glade/dasher.gameWIP.glade.h:13
+#: ../Data/GUI/dasher.gameWIP.ui.h:13
 msgid "New sentence"
 msgstr "新增句子"
 
-#: ../Data/glade/dasher.gameWIP.glade.h:17
-#: ../Data/glade/dasher.traditional.glade.h:12
+#: ../Data/GUI/dasher.gameWIP.ui.h:17 ../Data/GUI/dasher.traditional.ui.h:12
 msgid "Pr_eferences..."
 msgstr "偏好設定(_E)..."
 
-#: ../Data/glade/dasher.gameWIP.glade.h:18
-#: ../Data/glade/dasher.traditional.glade.h:13
+#: ../Data/GUI/dasher.gameWIP.ui.h:18 ../Data/GUI/dasher.traditional.ui.h:13
 msgid "Preferences"
 msgstr "偏好設定"
 
-#: ../Data/glade/dasher.gameWIP.glade.h:19
-#: ../Data/glade/dasher.traditional.glade.h:14
-#: ../Src/Gtk2/dasher_main.cpp:1121
+#: ../Data/GUI/dasher.gameWIP.ui.h:19 ../Data/GUI/dasher.traditional.ui.h:14
+#: ../Src/Gtk2/dasher_main.cpp:1046
 msgid "Quit"
 msgstr "結束"
 
-#: ../Data/glade/dasher.gameWIP.glade.h:22
+#: ../Data/GUI/dasher.gameWIP.ui.h:22
 msgid "Score:"
 msgstr "分數:"
 
-#: ../Data/glade/dasher.gameWIP.glade.h:25
-#: ../Data/glade/dasher.traditional.glade.h:19
+#: ../Data/GUI/dasher.gameWIP.ui.h:25 ../Data/GUI/dasher.traditional.ui.h:18
 msgid "_About..."
 msgstr "關於(_A)..."
 
-#: ../Data/glade/dasher.gameWIP.glade.h:26
-#: ../Data/glade/dasher.traditional.glade.h:20
+#: ../Data/GUI/dasher.gameWIP.ui.h:26 ../Data/GUI/dasher.traditional.ui.h:19
 msgid "_Contents..."
 msgstr "內容(_C)..."
 
-#: ../Data/glade/dasher.gameWIP.glade.h:30
-#: ../Data/glade/dasher.traditional.glade.h:24
+#: ../Data/GUI/dasher.gameWIP.ui.h:30 ../Data/GUI/dasher.traditional.ui.h:23
 msgid "_Import Training Text..."
 msgstr "匯入文字(_I)..."
 
-#: ../Data/glade/dasher.preferences.glade.h:1
+#: ../Data/GUI/dasher.preferences.ui.h:1
 msgid "<b>Actions</b>"
 msgstr "<b>動作</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:2
-#: ../Data/glade/dashermaemo.preferences.glade.h:1
+#: ../Data/GUI/dasher.preferences.ui.h:2
+#: ../Data/GUI/dashermaemo.preferences.ui.h:1
 msgid "<b>Adaptation</b>"
 msgstr "<b>適應性</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:3
-#: ../Data/glade/dashermaemo.preferences.glade.h:2
+#: ../Data/GUI/dasher.preferences.ui.h:3
+#: ../Data/GUI/dashermaemo.preferences.ui.h:2
 msgid "<b>Alphabet Selection</b>"
 msgstr "<b>字母選定範圍</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:4
+#: ../Data/GUI/dasher.preferences.ui.h:4
 msgid "<b>Appearance Options</b>"
 msgstr "<b>外觀選項</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:5
+#: ../Data/GUI/dasher.preferences.ui.h:5
 msgid "<b>Application Options</b>"
 msgstr "<b>應用程式選項</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:6
+#: ../Data/GUI/dasher.preferences.ui.h:6
 msgid "<b>Application Style</b>"
 msgstr "<b>應用程式風格</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:7
+#: ../Data/GUI/dasher.preferences.ui.h:7
 msgid "<b>Colour Scheme</b>"
 msgstr "<b>色彩配置</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:8
+#: ../Data/GUI/dasher.preferences.ui.h:8
 msgid "<b>Control Style</b>"
 msgstr "<b>控制風格</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:9
+#: ../Data/GUI/dasher.preferences.ui.h:9
 msgid "<b>Dasher Font</b>"
 msgstr "<b>Dasher 字型</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:10
+#: ../Data/GUI/dasher.preferences.ui.h:10
 msgid "<b>Direction</b>"
 msgstr "<b>方向</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:11
+#: ../Data/GUI/dasher.preferences.ui.h:11
 msgid "<b>Editor Font</b>"
 msgstr "<b>編輯器字型</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:12
+#: ../Data/GUI/dasher.preferences.ui.h:12
 msgid "<b>Input Device</b>"
 msgstr "<b>輸入裝置</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:13
-#: ../Data/glade/dashermaemo.preferences.glade.h:5
+#: ../Data/GUI/dasher.preferences.ui.h:13
+#: ../Data/GUI/dashermaemo.preferences.ui.h:5
 msgid "<b>Language Model</b>"
 msgstr "<b>語言模型</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:14
-#: ../Data/glade/dashermaemo.preferences.glade.h:7
+#: ../Data/GUI/dasher.preferences.ui.h:14
+#: ../Data/GUI/dashermaemo.preferences.ui.h:7
 msgid "<b>Smoothing</b>"
 msgstr "<b>平滑化</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:15
-#: ../Data/glade/dashermaemo.preferences.glade.h:8
+#: ../Data/GUI/dasher.preferences.ui.h:15
+#: ../Data/GUI/dashermaemo.preferences.ui.h:8
 msgid "<b>Speed</b>"
 msgstr "<b>速度</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:16
+#: ../Data/GUI/dasher.preferences.ui.h:16
 msgid "<b>Starting And Stopping</b>"
 msgstr "<b>開始與停止</b>"
 
-#: ../Data/glade/dasher.preferences.glade.h:17
-#: ../Data/glade/dashermaemo.preferences.glade.h:9
+#: ../Data/GUI/dasher.preferences.ui.h:17
+#: ../Data/GUI/dashermaemo.preferences.ui.h:9
 msgid "Adapt speed automatically"
 msgstr "自動調整速度"
 
-#. The default display orientation for the selected alphabet, ie left to right for English, right to left for Arabic, etc.
-#: ../Data/glade/dasher.preferences.glade.h:19
-#: ../Data/glade/dashermaemo.preferences.glade.h:11
+#: ../Data/GUI/dasher.preferences.ui.h:18
+#: ../Data/GUI/dashermaemo.preferences.ui.h:11
 msgid "Alphabet Default"
 msgstr "預設字母"
 
-#: ../Data/glade/dasher.preferences.glade.h:20
+#: ../Data/GUI/dasher.preferences.ui.h:19
 msgid "Appearance"
 msgstr "外觀"
 
-#: ../Data/glade/dasher.preferences.glade.h:21
+#: ../Data/GUI/dasher.preferences.ui.h:20
 msgid "Application"
 msgstr "應用程式"
 
-#: ../Data/glade/dasher.preferences.glade.h:22
-#: ../Data/glade/dashermaemo.preferences.glade.h:12
+#: ../Data/GUI/dasher.preferences.ui.h:21
+#: ../Data/GUI/dashermaemo.preferences.ui.h:12
 msgid "Bottom to Top"
 msgstr "下至上"
 
-#. Centre circle = start and stop by dwelling over a circle in the centre of the window Two box = start and stop by dwelling in sequence over two boxes (both of these are methods for starting and stopping without pressing a mouse button)
-#: ../Data/glade/dasher.preferences.glade.h:24
-msgid ""
-"Centre circle\n"
-"Two box"
-msgstr ""
-"置中圓圈\n"
-"兩個方塊"
+#: ../Data/GUI/dasher.preferences.ui.h:22
+msgid "Centre circle"
+msgstr "置中圓圈"
 
-#: ../Data/glade/dasher.preferences.glade.h:26
+#: ../Data/GUI/dasher.preferences.ui.h:23
 msgid "Composition"
 msgstr "寫作"
 
-#: ../Data/glade/dasher.preferences.glade.h:27
-#: ../Data/glade/dashermaemo.preferences.glade.h:13
+#: ../Data/GUI/dasher.preferences.ui.h:24
+#: ../Data/GUI/dashermaemo.preferences.ui.h:13
 msgid "Control"
 msgstr "控制"
 
-#: ../Data/glade/dasher.preferences.glade.h:28
+#: ../Data/GUI/dasher.preferences.ui.h:25
 msgid "Control mode"
 msgstr "控制模式"
 
-#: ../Data/glade/dasher.preferences.glade.h:29
-#: ../Data/glade/dashermaemo.preferences.glade.h:14
+#: ../Data/GUI/dasher.preferences.ui.h:26
+#: ../Data/GUI/dashermaemo.preferences.ui.h:14
 msgid "Custom"
 msgstr "自訂"
 
-#: ../Data/glade/dasher.preferences.glade.h:30
-#: ../Data/glade/dashermaemo.preferences.glade.h:15
+#: ../Data/GUI/dasher.preferences.ui.h:27
+#: ../Data/GUI/dashermaemo.preferences.ui.h:15
 msgid "Custom colour scheme:"
 msgstr "自訂色調搭配："
 
-#: ../Data/glade/dasher.preferences.glade.h:31
-#: ../Data/glade/dashermaemo.preferences.glade.h:16
+#: ../Data/GUI/dasher.preferences.ui.h:28
+#: ../Data/GUI/dashermaemo.preferences.ui.h:16
 msgid "Dasher Preferences"
 msgstr "Dasher 偏好設定"
 
-#: ../Data/glade/dasher.preferences.glade.h:32
+#: ../Data/GUI/dasher.preferences.ui.h:29
 msgid "Direct entry"
 msgstr "直接輸入"
 
-#: ../Data/glade/dasher.preferences.glade.h:33
+#: ../Data/GUI/dasher.preferences.ui.h:30
 msgid "Dock application window"
 msgstr "固定程式視窗"
 
-#: ../Data/glade/dasher.preferences.glade.h:34
+#: ../Data/GUI/dasher.preferences.ui.h:31
 msgid "Draw box outlines"
 msgstr "顯示方塊外框"
 
-#: ../Data/glade/dasher.preferences.glade.h:35
+#: ../Data/GUI/dasher.preferences.ui.h:32
 msgid "Draw line between crosshairs and mouse"
 msgstr "在十字準星跟滑鼠游標間顯示一直線"
 
-#: ../Data/glade/dasher.preferences.glade.h:36
+#: ../Data/GUI/dasher.preferences.ui.h:33
 msgid "Full Screen"
 msgstr "全螢幕"
 
-#: ../Data/glade/dasher.preferences.glade.h:37
+#: ../Data/GUI/dasher.preferences.ui.h:34
 msgid "Increase line thickness"
 msgstr "增加線的厚度"
 
-#: ../Data/glade/dasher.preferences.glade.h:38
-#: ../Data/glade/dashermaemo.preferences.glade.h:18
+#: ../Data/GUI/dasher.preferences.ui.h:35
+#: ../Data/GUI/dashermaemo.preferences.ui.h:18
 msgid "Japanese"
 msgstr "日文"
 
-#: ../Data/glade/dasher.preferences.glade.h:39
+#: ../Data/GUI/dasher.preferences.ui.h:36
 msgid "Language"
 msgstr "語言"
 
-#: ../Data/glade/dasher.preferences.glade.h:40
-#: ../Data/glade/dashermaemo.preferences.glade.h:19
+#: ../Data/GUI/dasher.preferences.ui.h:37
+#: ../Data/GUI/dashermaemo.preferences.ui.h:19
 msgid "Language model adapts as you write."
 msgstr "適應您書寫的語言模式。"
 
-#: ../Data/glade/dasher.preferences.glade.h:41
+#: ../Data/GUI/dasher.preferences.ui.h:38
 msgid "Large font "
 msgstr "大字型"
 
-#: ../Data/glade/dasher.preferences.glade.h:42
-#: ../Data/glade/dashermaemo.preferences.glade.h:20
+#: ../Data/GUI/dasher.preferences.ui.h:39
+#: ../Data/GUI/dashermaemo.preferences.ui.h:20
 msgid "Left to Right"
 msgstr "左至右"
 
-#. PPM =  Prediction by Partial Match, a styatistical language model.
-#: ../Data/glade/dasher.preferences.glade.h:44
-#: ../Data/glade/dashermaemo.preferences.glade.h:21
+#: ../Data/GUI/dasher.preferences.ui.h:40
+#: ../Data/GUI/dashermaemo.preferences.ui.h:21
 msgid "Mixture model (PPM/dictionary)"
 msgstr "混合模式（PPM/字典）"
 
-#: ../Data/glade/dasher.preferences.glade.h:45
+#: ../Data/GUI/dasher.preferences.ui.h:41
 msgid "Options"
 msgstr "選項"
 
-#: ../Data/glade/dasher.preferences.glade.h:46
+#: ../Data/GUI/dasher.preferences.ui.h:42
 msgid "Pause outside of canvas"
 msgstr "超出畫布後暫停"
 
-#: ../Data/glade/dasher.preferences.glade.h:47
-#: ../Data/glade/dashermaemo.preferences.glade.h:23
+#: ../Data/GUI/dasher.preferences.ui.h:43
+#: ../Data/GUI/dashermaemo.preferences.ui.h:23
 msgid "Right to Left"
 msgstr "右至左"
 
-#: ../Data/glade/dasher.preferences.glade.h:48
+#: ../Data/GUI/dasher.preferences.ui.h:44
 msgid "Select Dasher Font"
 msgstr "選擇 Dasher 字型"
 
-#: ../Data/glade/dasher.preferences.glade.h:49
+#: ../Data/GUI/dasher.preferences.ui.h:45
 msgid "Select Editor Font"
 msgstr "選擇編輯器字型"
 
-#: ../Data/glade/dasher.preferences.glade.h:50
+#: ../Data/GUI/dasher.preferences.ui.h:46
 msgid "Show mouse position"
 msgstr "顯示滑鼠位置"
 
-#: ../Data/glade/dasher.preferences.glade.h:51
+#: ../Data/GUI/dasher.preferences.ui.h:47
 msgid "Show speed slider"
 msgstr "顯示速度控制桿"
 
-#: ../Data/glade/dasher.preferences.glade.h:52
+#: ../Data/GUI/dasher.preferences.ui.h:48
 msgid "Show toolbar"
 msgstr "顯示工具列"
 
-#: ../Data/glade/dasher.preferences.glade.h:53
+#: ../Data/GUI/dasher.preferences.ui.h:49
 msgid "Small font"
 msgstr "小字型"
 
-#: ../Data/glade/dasher.preferences.glade.h:54
+#: ../Data/GUI/dasher.preferences.ui.h:50
 msgid "Stand-alone"
 msgstr "獨立"
 
-#. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/glade/dasher.preferences.glade.h:56
-#: ../Data/glade/dashermaemo.preferences.glade.h:24
+#: ../Data/GUI/dasher.preferences.ui.h:51
+#: ../Data/GUI/dashermaemo.preferences.ui.h:24
 msgid "Standard letter-based PPM"
 msgstr "標準字母模式"
 
-#: ../Data/glade/dasher.preferences.glade.h:57
+#: ../Data/GUI/dasher.preferences.ui.h:52
 msgid "Start on left mouse button"
 msgstr "以滑鼠左鍵開始"
 
-#: ../Data/glade/dasher.preferences.glade.h:58
+#: ../Data/GUI/dasher.preferences.ui.h:53
 msgid "Start on space bar"
 msgstr "以空白鍵開始"
 
-#: ../Data/glade/dasher.preferences.glade.h:59
+#: ../Data/GUI/dasher.preferences.ui.h:54
 msgid "Start with mouse position:"
 msgstr "在滑鼠的位置開始："
 
-#: ../Data/glade/dasher.preferences.glade.h:60
+#: ../Data/GUI/dasher.preferences.ui.h:55
 msgid "Timestamp new files"
 msgstr "以時間標記作為新檔案的名稱"
 
-#: ../Data/glade/dasher.preferences.glade.h:61
-#: ../Data/glade/dashermaemo.preferences.glade.h:25
+#: ../Data/GUI/dasher.preferences.ui.h:56
+#: ../Data/GUI/dashermaemo.preferences.ui.h:25
 msgid "Top to Bottom"
 msgstr "上至下"
 
-#: ../Data/glade/dasher.preferences.glade.h:62
+#: ../Data/GUI/dasher.preferences.ui.h:57
+msgid "Two box"
+msgstr "兩個方塊"
+
+#: ../Data/GUI/dasher.preferences.ui.h:58
 msgid ""
-"Use this control to adjust the relative sizes of the \n"
+"Use this control to adjust the relative sizes of the\n"
 "letter boxes. Note that selecting high values will slow\n"
 "your writing speed."
 msgstr ""
 "使用此控制來調整文字方塊的相對大小。\n"
-"注意選擇較大數值將會減慢您的書寫速度。"
+"注意選擇較大數值將會減慢您的書寫\n"
+"速度。"
 
-#: ../Data/glade/dasher.preferences.glade.h:65
+#: ../Data/GUI/dasher.preferences.ui.h:61
 msgid "Very large font"
 msgstr "特大字型"
 
-#: ../Data/glade/dasher.preferences.glade.h:66
-#: ../Data/glade/dashermaemo.preferences.glade.h:27
+#: ../Data/GUI/dasher.preferences.ui.h:62
+#: ../Data/GUI/dashermaemo.preferences.ui.h:27
 msgid "Word-based model"
 msgstr "字詞模式"
 
-#: ../Data/glade/dashermaemo.glade.h:1
+#: ../Data/GUI/dashermaemo.ui.h:1
 msgid "\n"
 msgstr "\n"
 
-#: ../Data/glade/dashermaemo.glade.h:4
+#: ../Data/GUI/dashermaemo.ui.h:4
 msgid "P"
 msgstr "P"
 
-#: ../Data/glade/dashermaemo.preferences.glade.h:3
+#: ../Data/GUI/dashermaemo.preferences.ui.h:3
 msgid "<b>Color Scheme</b>"
 msgstr "<b>色彩配置</b>"
 
-#: ../Data/glade/dashermaemo.preferences.glade.h:4
+#: ../Data/GUI/dashermaemo.preferences.ui.h:4
 msgid "<b>Display Size</b>"
 msgstr "<b>畫面大小</b>"
 
-#: ../Data/glade/dashermaemo.preferences.glade.h:6
+#: ../Data/GUI/dashermaemo.preferences.ui.h:6
 msgid "<b>Orientation</b>"
 msgstr "<b>定向</b>"
 
-#: ../Data/glade/dashermaemo.preferences.glade.h:10
+#: ../Data/GUI/dashermaemo.preferences.ui.h:10
 msgid "Alphabet"
 msgstr "字母"
 
-#: ../Data/glade/dashermaemo.preferences.glade.h:17
+#: ../Data/GUI/dashermaemo.preferences.ui.h:17
 msgid "Enlarge input window"
 msgstr "放大輸入視窗"
 
-#: ../Data/glade/dashermaemo.preferences.glade.h:22
+#: ../Data/GUI/dashermaemo.preferences.ui.h:22
 msgid "Prediction"
 msgstr "預測"
 
-#: ../Data/glade/dashermaemo.preferences.glade.h:26
+#: ../Data/GUI/dashermaemo.preferences.ui.h:26
 msgid "View"
 msgstr "檢視"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:3
+#: ../Data/GUI/dashermaemofullscreen.ui.h:3
 msgid "Large"
 msgstr "大"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:4
+#: ../Data/GUI/dashermaemofullscreen.ui.h:4
 msgid "Normal"
 msgstr "一般"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:7
+#: ../Data/GUI/dashermaemofullscreen.ui.h:7
 msgid "Very Large"
 msgstr "特大"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:9
+#: ../Data/GUI/dashermaemofullscreen.ui.h:9
 msgid "_Dasher Font"
 msgstr "_Dasher 字型"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:10
+#: ../Data/GUI/dashermaemofullscreen.ui.h:10
 msgid "_Dasher Font Size"
 msgstr "_Dasher 字型大小"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:12
+#: ../Data/GUI/dashermaemofullscreen.ui.h:12
 msgid "_Edit Font"
 msgstr "編輯字型(_E)"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:15
+#: ../Data/GUI/dashermaemofullscreen.ui.h:15
 msgid "_Options"
 msgstr "選項(_O)"
 
-#: ../Data/glade/dashermaemofullscreen.glade.h:16
+#: ../Data/GUI/dashermaemofullscreen.ui.h:16
 msgid "_Reset fonts"
 msgstr "重置字型(_R)"
 
-#: ../Src/DasherCore/ClickFilter.cpp:7
-msgid "Maximum Zoom"
-msgstr "放大極限"
-
-#: ../Src/DasherCore/ClickFilter.h:11
-msgid "Click Mode"
-msgstr "點選模式"
-
 #. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
-#: ../Src/DasherCore/DasherButtons.cpp:25
+#: ../Src/DasherCore/AlternatingDirectMode.cpp:28
+#: ../Src/DasherCore/ButtonMode.cpp:28 ../Src/DasherCore/CompassMode.cpp:28
 msgid "Zoom steps"
 msgstr "縮放級數"
 
-#. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
-#: ../Src/DasherCore/DasherButtons.cpp:27
-msgid "Right zoom"
-msgstr "向右縮放"
+#. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
+#: ../Src/DasherCore/AlternatingDirectMode.cpp:30
+#: ../Src/DasherCore/ButtonMode.cpp:39 ../Src/DasherCore/CompassMode.cpp:32
+msgid "Global keyboard grab"
+msgstr "全域抓取鍵盤"
 
-#: ../Src/DasherCore/DasherButtons.cpp:28
+#. menu
+#: ../Src/DasherCore/AlternatingDirectMode.cpp:34
+msgid "Alternating Direct Mode"
+msgstr "另一種直接模式"
+
+#: ../Src/DasherCore/ButtonMode.cpp:29
+msgid "Scan time in menu mode (0 for don't scan)"
+msgstr "選單模式中的掃描時間 (0 為不掃描)"
+
+#: ../Src/DasherCore/ButtonMode.cpp:30
 msgid "Number of boxes"
 msgstr "方塊數目"
 
-#: ../Src/DasherCore/DasherButtons.cpp:29
+#: ../Src/DasherCore/ButtonMode.cpp:31
 msgid "Safety margin"
 msgstr "安全邊界"
 
@@ -613,102 +574,122 @@ msgstr "安全邊界"
 #. * however the code seems to use ratio = (129/127)^-r, instead of
 #. * ratio = exp(r/128) used in the design document
 #.
-#: ../Src/DasherCore/DasherButtons.cpp:35
+#: ../Src/DasherCore/ButtonMode.cpp:37
 msgid "Box non-uniformity"
 msgstr "方塊非相等性"
 
-#. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
-#: ../Src/DasherCore/DasherButtons.cpp:37
-msgid "Global keyboard grab"
-msgstr "全域抓取鍵盤"
+#: ../Src/DasherCore/ClickFilter.cpp:9
+msgid "Maximum Zoom"
+msgstr "放大極限"
+
+#: ../Src/DasherCore/ClickFilter.h:12
+msgid "Click Mode"
+msgstr "點選模式"
+
+#. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
+#: ../Src/DasherCore/CompassMode.cpp:30
+msgid "Right zoom"
+msgstr "向右縮放"
+
+#. bMenu
+#: ../Src/DasherCore/CompassMode.cpp:38
+msgid "Compass Mode"
+msgstr "指南針模式"
 
 #: ../Src/DasherCore/DasherGameMode.cpp:633
 msgid "Well done!"
 msgstr "做得好！"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:937
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:940
 msgid "Normal Control"
 msgstr "一般控制"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:952
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:956
 msgid "Menu Mode"
 msgstr "選單模式"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:953
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:957
 msgid "Direct Mode"
 msgstr "直接模式"
 
-#. RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3"));
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:955
-msgid "Alternating Direct Mode"
-msgstr "另一種直接模式"
-
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:956
-msgid "Compass Mode"
-msgstr "指南針模式"
-
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:957
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:961
 msgid "Stylus Control"
 msgstr "風格控制"
 
-#: ../Src/DasherCore/EyetrackerFilter.cpp:7
+#: ../Src/DasherCore/EyetrackerFilter.cpp:9
 msgid "Automatic calibration"
 msgstr "自動刻度"
 
-#: ../Src/DasherCore/EyetrackerFilter.cpp:11
+#: ../Src/DasherCore/EyetrackerFilter.cpp:13
 msgid "Eyetracker Mode"
 msgstr "眼睛追蹤模式"
 
 #. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:29
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:33
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:35
 msgid "Long press time"
 msgstr "長按時間"
 
 #. TRANSLATORS: Double-clicks are special in some situations (they cause us to start reversing). This is the time in which the button must be pressed twice to count.
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
 msgid "Double-press time"
 msgstr "兩次按壓時間"
 
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons.
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
 msgid "Enable backoff button"
 msgstr "啟用復原按鈕"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:34
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:37
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:36
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
 msgid "Slow startup"
 msgstr "慢速啟動"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:42
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:37
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:44
 msgid "Startup time"
 msgstr "啟動時間"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:36
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:44
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:38
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:46
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
 msgid "Percentage by which to automatically increase speed"
 msgstr "自動增加速度百分比"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:37
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:47
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:41
 msgid "Time after which to automatically increase speed (secs)"
 msgstr "自動增加速度後的時間（秒）"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:38
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:46
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:40
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:48
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
 msgid "Percentage by which to decrease speed upon reverse"
 msgstr "反轉時減少速度的百分比"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:42
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:44
 msgid "One Button Dynamic Mode"
 msgstr "單一按鈕動態模式"
 
-#: ../Src/DasherCore/OneDimensionalFilter.cpp:5
+#: ../Src/DasherCore/OneButtonFilter.cpp:11
+msgid "Scan time (each direction), in ms"
+msgstr "掃描時間 (每個方向)，以毫秒計"
+
+#: ../Src/DasherCore/OneButtonFilter.cpp:12
+msgid "Factor by which to zoom in"
+msgstr "拉近的比例"
+
+#: ../Src/DasherCore/OneButtonFilter.cpp:13
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:43
+msgid "Lag before user actually pushes button (ms)"
+msgstr "在使用者實際按下按鈕前的延遲 (ms)"
+
+#: ../Src/DasherCore/OneDimensionalFilter.cpp:7
 msgid "One Dimensional Mode"
 msgstr "單向模式"
 
@@ -779,81 +760,62 @@ msgstr "將 socket 相關的除錯資訊顯示到主控台:"
 msgid "Socket Input"
 msgstr "Socket 輸入"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:28
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
 msgid "Button offset"
 msgstr "按鍵補償"
 
 #. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the maximum time between two presses to count as _part_of_ a multi-press gesture
 #. (potentially more than two presses).
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:33
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:35
 msgid "Multiple press interval"
 msgstr "多次按下壓間隔"
 
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:35
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:35
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:37
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:37
 msgid "Enable backoff and start/stop buttons"
 msgstr "啟用復原和開始/停止按鍵"
 
 #. TRANSLATORS: What is normally the up button becomes the down button etc.
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:37
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:39
 msgid "Reverse up and down buttons"
 msgstr "反轉上、下方向鍵"
 
 #. TRANSLATORS: Pushing the up/down button twice quickly has the same effect as pushing the other
 #. button once; in this case, one must push three times (or push-and-hold) to reverse.
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:40
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:42
 msgid "Double-click is opposite up/down - triple to reverse"
-msgstr ""
+msgstr "雙擊則反轉上/下 - 三擊則復原"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
-msgid "Lag before user actually pushes button (ms)"
-msgstr "在使用者實際按下按鈕前的延遲 (ms)"
-
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:50
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:52
 msgid "Two Button Dynamic Mode"
 msgstr "雙按鈕動態模式"
 
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:28
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:30
 msgid "Offset for outer (second) button"
 msgstr "外圍（第二）按鈕的移位"
 
 #. divisor
 #. step
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:29
-msgid "Distance for 1st button UP"
-msgstr ""
-
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:30
-msgid "Distance for 1st button DOWN"
-msgstr ""
-
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:31
+msgid "Distance for 1st button UP"
+msgstr "第一按鈕「上」的距離"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:32
+msgid "Distance for 1st button DOWN"
+msgstr "第一按鈕「下」的距離"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:33
 msgid "Tolerance for inaccurate timing of button pushes (in ms)"
-msgstr ""
+msgstr "按下按鈕時機不正確的容忍度（以 ms 計）"
 
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:36
-msgid "Markers fixed to canvas"
-msgstr "標記固定於畫布"
-
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
 msgid "Slow startup time"
 msgstr "減慢啟動時間"
 
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
-#, c-format
-msgid "%age by which to automatically increase speed"
-msgstr ""
-
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:41
-#, c-format
-msgid "%age by which to decrease speed upon reverse"
-msgstr ""
-
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:46
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:47
 msgid "Two-push Dynamic Mode (New One Button)"
-msgstr ""
+msgstr "雙擊動態模式（新的按鈕）"
 
 #: ../Src/Gtk2/DasherAppSettings.cpp:549
 msgid "Boolean parameters"
@@ -877,21 +839,21 @@ msgstr "整數參數"
 msgid "String parameters"
 msgstr "字串參數"
 
-#: ../Src/Gtk2/Preferences.cpp:437 ../Src/Gtk2/Preferences.cpp:1006
+#: ../Src/Gtk2/Preferences.cpp:437 ../Src/Gtk2/Preferences.cpp:1008
 msgid "Action"
 msgstr "動作"
 
 #. TRANSLATORS: Show a button for the selected action in the Dasher window.
-#: ../Src/Gtk2/Preferences.cpp:1013
+#: ../Src/Gtk2/Preferences.cpp:1015
 msgid "Show Button"
 msgstr "顯示按鈕"
 
-#: ../Src/Gtk2/Preferences.cpp:1018
+#: ../Src/Gtk2/Preferences.cpp:1020
 msgid "Control Mode"
 msgstr "控制模式"
 
 #. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
-#: ../Src/Gtk2/Preferences.cpp:1024
+#: ../Src/Gtk2/Preferences.cpp:1026
 msgid "Auto On Stop"
 msgstr "停止時自動進行"
 
@@ -937,16 +899,16 @@ msgid "Warning: unable to set speech parameters\n"
 msgstr "警告：不能設定朗讀參數\n"
 
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
-#: ../Src/Gtk2/dasher_main.cpp:310
+#: ../Src/Gtk2/dasher_main.cpp:266
 msgid "option setting is missing \"=\"."
 msgstr "選項設定值少了「=」。"
 
 #. Note to translators: This string will be output when --options= specifies an unknown option.
-#: ../Src/Gtk2/dasher_main.cpp:326
+#: ../Src/Gtk2/dasher_main.cpp:282
 msgid "Invalid option string specified"
 msgstr "指定了無效的字串"
 
-#: ../Src/Gtk2/dasher_main.cpp:1083
+#: ../Src/Gtk2/dasher_main.cpp:1008
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -957,7 +919,7 @@ msgstr ""
 "\n"
 "如不儲存則會失去它們。"
 
-#: ../Src/Gtk2/dasher_main.cpp:1090
+#: ../Src/Gtk2/dasher_main.cpp:1015
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -967,31 +929,31 @@ msgstr ""
 "\n"
 "如不儲存則會失去它們。"
 
-#: ../Src/Gtk2/dasher_main.cpp:1096
+#: ../Src/Gtk2/dasher_main.cpp:1021
 msgid "Don't save"
 msgstr "不要儲存"
 
-#: ../Src/Gtk2/dasher_main.cpp:1097 ../Src/Gtk2/dasher_main.cpp:1120
+#: ../Src/Gtk2/dasher_main.cpp:1022 ../Src/Gtk2/dasher_main.cpp:1045
 msgid "Don't quit"
 msgstr "不要離開"
 
-#: ../Src/Gtk2/dasher_main.cpp:1098
+#: ../Src/Gtk2/dasher_main.cpp:1023
 msgid "Save and quit"
 msgstr "儲存及離開"
 
-#: ../Src/Gtk2/dasher_main.cpp:1117
+#: ../Src/Gtk2/dasher_main.cpp:1042
 msgid "Are you sure you wish to quit?"
 msgstr "確定要離開？"
 
-#: ../Src/Gtk2/dasher_main.cpp:1164
+#: ../Src/Gtk2/dasher_main.cpp:1089
 msgid "Unable to open help file"
 msgstr "無法開啟求助文件檔案"
 
-#: ../Src/Gtk2/dasher_main.cpp:1216
+#: ../Src/Gtk2/dasher_main.cpp:1141
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher 是一個以預測方式輸入文字的程式"
 
-#: ../Src/Gtk2/dasher_main.cpp:1221
+#: ../Src/Gtk2/dasher_main.cpp:1146
 msgid "translator-credits"
 msgstr ""
 "如對翻譯有任何意見，請送一封電子郵件給\n"
@@ -1027,24 +989,33 @@ msgstr "單向滑鼠輸入"
 #. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
 #. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
 #. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
-#: ../Src/main.cc:177
+#: ../Src/main.cc:171
 msgid "Application style (traditional, direct, compose or fullscreen)"
 msgstr "應用程式風格 (traditional, direct, compose 或 fullscreen)"
 
 #. Note to translators: This is the help string for "--options"
-#: ../Src/main.cc:179
+#: ../Src/main.cc:173
 msgid "Override stored options"
 msgstr "覆蓋儲存的選項"
 
 #. Note to translators: This is the help string for "--help-options"
-#: ../Src/main.cc:181
+#: ../Src/main.cc:175
 msgid "Describe \"--options\"."
 msgstr "描述「--options」。"
 
 #. Note to translators: This is the "--help" description of dasher.
-#: ../Src/main.cc:188
+#: ../Src/main.cc:182
 msgid "- A text input application honouring accessibility"
 msgstr "- 具無障礙功能的文字輸入程式"
+
+#~ msgid "Markers fixed to canvas"
+#~ msgstr "標記固定於畫布"
+
+#~ msgid "%age by which to automatically increase speed"
+#~ msgstr "%age 是自動增加的速度"
+
+#~ msgid "%age by which to decrease speed upon reverse"
+#~ msgstr "%age 是反轉時減少的速度"
 
 #~ msgid "Multiple press count"
 #~ msgstr "多次按下計數"
