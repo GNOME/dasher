@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.28\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-25 00:05+0100\n"
-"PO-Revision-Date: 2009-08-25 00:10+0000\n"
+"POT-Creation-Date: 2009-09-06 20:29+0100\n"
+"PO-Revision-Date: 2009-09-06 20:30+0000\n"
 "Last-Translator: Duarte Loreto <happyguy_pt@hotmail.com>\n"
 "Language-Team: Portuguese <gnome_pt@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -544,6 +544,44 @@ msgstr "_Opções"
 msgid "_Reset fonts"
 msgstr "_Repor fontes"
 
+#. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
+#: ../Src/DasherCore/AlternatingDirectMode.cpp:28
+#: ../Src/DasherCore/ButtonMode.cpp:28 ../Src/DasherCore/CompassMode.cpp:28
+msgid "Zoom steps"
+msgstr "Níveis de ampliação"
+
+#. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
+#: ../Src/DasherCore/AlternatingDirectMode.cpp:30
+#: ../Src/DasherCore/ButtonMode.cpp:39 ../Src/DasherCore/CompassMode.cpp:32
+msgid "Global keyboard grab"
+msgstr "Captura global de teclado"
+
+#. menu
+#: ../Src/DasherCore/AlternatingDirectMode.cpp:34
+msgid "Alternating Direct Mode"
+msgstr "Modo Directo Alternativo"
+
+#: ../Src/DasherCore/ButtonMode.cpp:29
+msgid "Scan time in menu mode (0 for don't scan)"
+msgstr "Tempo de procura em modo de menu (0 para não procurar)"
+
+#: ../Src/DasherCore/ButtonMode.cpp:30
+msgid "Number of boxes"
+msgstr "Número de caixas"
+
+#: ../Src/DasherCore/ButtonMode.cpp:31
+msgid "Safety margin"
+msgstr "Margem de segurança"
+
+#. TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other.
+#. XXX PRLW: 128 log(2) = 89, where 2 is the ratio of adjacent boxes
+#. * however the code seems to use ratio = (129/127)^-r, instead of
+#. * ratio = exp(r/128) used in the design document
+#.
+#: ../Src/DasherCore/ButtonMode.cpp:37
+msgid "Box non-uniformity"
+msgstr "Não-uniformidade da caixa"
+
 #: ../Src/DasherCore/ClickFilter.cpp:9
 msgid "Maximum Zoom"
 msgstr "Ampliação Máxima"
@@ -551,6 +589,16 @@ msgstr "Ampliação Máxima"
 #: ../Src/DasherCore/ClickFilter.h:12
 msgid "Click Mode"
 msgstr "Modo de Clicar"
+
+#. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
+#: ../Src/DasherCore/CompassMode.cpp:30
+msgid "Right zoom"
+msgstr "Ampliação à direita"
+
+#. bMenu
+#: ../Src/DasherCore/CompassMode.cpp:38
+msgid "Compass Mode"
+msgstr "Modo de Bússula"
 
 #: ../Src/DasherCore/DasherGameMode.cpp:633
 msgid "Well done!"
@@ -611,6 +659,7 @@ msgstr "Tempo de arranque"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:38
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:46
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
 msgid "Percentage by which to automatically increase speed"
 msgstr "Percentagem de incremento automático de velocidade"
 
@@ -622,12 +671,27 @@ msgstr "Tempo após o qual aumentar automaticamente a velocidade (segs)"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:40
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:48
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
 msgid "Percentage by which to decrease speed upon reverse"
 msgstr "Percentagem de redução de velocidade após inverter"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:44
 msgid "One Button Dynamic Mode"
 msgstr "Modo Dinâmico de Botão Único"
+
+#: ../Src/DasherCore/OneButtonFilter.cpp:11
+msgid "Scan time (each direction), in ms"
+msgstr "Tempo de procura (cada direcção), em ms"
+
+#: ../Src/DasherCore/OneButtonFilter.cpp:12
+msgid "Factor by which to zoom in"
+msgstr "Factor pelo qual realizar zoom"
+
+#: ../Src/DasherCore/OneButtonFilter.cpp:13
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:43
+msgid "Lag before user actually pushes button (ms)"
+msgstr "Tempo decorrido antes do utilizador premir o botão (ms)"
 
 #: ../Src/DasherCore/OneDimensionalFilter.cpp:7
 msgid "One Dimensional Mode"
@@ -728,11 +792,6 @@ msgstr "Inverter os botões de acima e abaixo"
 msgid "Double-click is opposite up/down - triple to reverse"
 msgstr "Clique-duplo é o oposto acima/abaixo - triplo para inverter"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:43
-msgid "Lag before user actually pushes button (ms)"
-msgstr "Tempo decorrido antes do utilizador premir o botão (ms)"
-
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:52
 msgid "Two Button Dynamic Mode"
 msgstr "Modo Dinâmico de Dois Botões"
@@ -758,16 +817,6 @@ msgstr "Tolerância para tempos incorrectos na pressão dos botões (em ms)"
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
 msgid "Slow startup time"
 msgstr "Tempo de arranque lento"
-
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
-#, c-format
-msgid "%age by which to automatically increase speed"
-msgstr "%agem de incremento automático de velocidade"
-
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
-#, c-format
-msgid "%age by which to decrease speed upon reverse"
-msgstr "%agem de redução de velocidade após inverter"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:47
 msgid "Two-push Dynamic Mode (New One Button)"
@@ -962,29 +1011,11 @@ msgstr "Descrever \"--options\"."
 msgid "- A text input application honouring accessibility"
 msgstr "- Uma aplicação de introdução de texto que honra a acessibilidade"
 
-#~ msgid "Zoom steps"
-#~ msgstr "Níveis de ampliação"
+#~ msgid "%age by which to automatically increase speed"
+#~ msgstr "%agem de incremento automático de velocidade"
 
-#~ msgid "Right zoom"
-#~ msgstr "Ampliação à direita"
-
-#~ msgid "Number of boxes"
-#~ msgstr "Número de caixas"
-
-#~ msgid "Safety margin"
-#~ msgstr "Margem de segurança"
-
-#~ msgid "Box non-uniformity"
-#~ msgstr "Não-uniformidade da caixa"
-
-#~ msgid "Global keyboard grab"
-#~ msgstr "Captura global de teclado"
-
-#~ msgid "Alternating Direct Mode"
-#~ msgstr "Modo Directo Alternativo"
-
-#~ msgid "Compass Mode"
-#~ msgstr "Modo de Bússula"
+#~ msgid "%age by which to decrease speed upon reverse"
+#~ msgstr "%agem de redução de velocidade após inverter"
 
 #~ msgid "Multiple press count"
 #~ msgstr "Contagem de pressão múltipla"
