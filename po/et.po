@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&component=general\n"
-"POT-Creation-Date: 2009-08-09 10:48+0000\n"
-"PO-Revision-Date: 2009-08-27 11:41+0300\n"
+"POT-Creation-Date: 2009-09-16 14:18+0000\n"
+"PO-Revision-Date: 2009-09-17 08:51+0300\n"
 "Last-Translator: Mattias Põldaru <mahfiaz gmail com>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -382,19 +382,20 @@ msgstr "_Valikud"
 msgid "_Reset fonts"
 msgstr "_Lähtesta kirjatüübid"
 
-msgid "Maximum Zoom"
-msgstr "Suurim suurendus"
-
-msgid "Click Mode"
-msgstr "Klõpsurežiim"
-
 #. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
 msgid "Zoom steps"
 msgstr "Suurendusastmeid"
 
-#. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
-msgid "Right zoom"
-msgstr "Parempoolne suurendus"
+#. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
+msgid "Global keyboard grab"
+msgstr "Klaviatuuri haaratakse globaalselt"
+
+#. menu
+msgid "Alternating Direct Mode"
+msgstr "Asendusega otserežiim"
+
+msgid "Scan time in menu mode (0 for don't scan)"
+msgstr "Skaneerimise aeg menüürežiimis (keelamiseks 0)"
 
 msgid "Number of boxes"
 msgstr "Kastide arv"
@@ -410,9 +411,19 @@ msgstr "Ohutusmärgis"
 msgid "Box non-uniformity"
 msgstr "Kastide suuruse erinevus"
 
-#. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
-msgid "Global keyboard grab"
-msgstr "Klaviatuuri haaratakse globaalselt"
+msgid "Maximum Zoom"
+msgstr "Suurim suurendus"
+
+msgid "Click Mode"
+msgstr "Klõpsurežiim"
+
+#. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
+msgid "Right zoom"
+msgstr "Parempoolne suurendus"
+
+#. bMenu
+msgid "Compass Mode"
+msgstr "Kompassirežiim"
 
 msgid "Well done!"
 msgstr "Hästi tehtud!"
@@ -426,13 +437,6 @@ msgstr "Menüürežiim"
 
 msgid "Direct Mode"
 msgstr "Otserežiim"
-
-#. RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3"));
-msgid "Alternating Direct Mode"
-msgstr "Asendusega otserežiim"
-
-msgid "Compass Mode"
-msgstr "Kompassirežiim"
 
 msgid "Stylus Control"
 msgstr "Krihvliga juhtimine"
@@ -472,6 +476,15 @@ msgstr "Protsent, mille järgi langetatakse automaatselt kiirust"
 
 msgid "One Button Dynamic Mode"
 msgstr "Ühenupuline dünaamiline režiim"
+
+msgid "Scan time (each direction), in ms"
+msgstr "Skaneerimise aeg (igas suunas, ms)"
+
+msgid "Factor by which to zoom in"
+msgstr "Suurenduse tegur"
+
+msgid "Lag before user actually pushes button (ms)"
+msgstr "Viivitus enne tegelikku nupuvajutust (ms)"
 
 msgid "One Dimensional Mode"
 msgstr "Ühemõõtmeline režiim"
@@ -546,9 +559,6 @@ msgstr "Üles/alla nupud on vahetuses"
 msgid "Double-click is opposite up/down - triple to reverse"
 msgstr "Topeltklõps on üles/alla nupu vastand - kolmikklõps pöörab"
 
-msgid "Lag before user actually pushes button (ms)"
-msgstr "Viivitus enne tegelikku nupuvajutust (ms)"
-
 msgid "Two Button Dynamic Mode"
 msgstr "Kahenupuline dünaamiline režiim"
 
@@ -566,19 +576,8 @@ msgstr "Esimese nupu allavajutuse nihe"
 msgid "Tolerance for inaccurate timing of button pushes (in ms)"
 msgstr "Nupuvajutuste lubatud parandatav ajavahemik (millisekundites)"
 
-msgid "Markers fixed to canvas"
-msgstr "Lõuendile määratud markerid"
-
 msgid "Slow startup time"
 msgstr "Aeglase käivitamise aeg"
-
-#, c-format
-msgid "%age by which to automatically increase speed"
-msgstr "%age, mille võrra automaatselt lisatakse kiirust"
-
-#, c-format
-msgid "%age by which to decrease speed upon reverse"
-msgstr "%age, mille võrra vähendatakse kiirust"
 
 msgid "Two-push Dynamic Mode (New One Button)"
 msgstr "Topeltvajutuse dünaamiline režiim (uus ühenupuline)"
