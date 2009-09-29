@@ -65,7 +65,7 @@ enum {
   LP_DYNAMIC_BUTTON_LAG, LP_STATIC1B_TIME, LP_STATIC1B_ZOOM,
   LP_DEMO_SPRING, LP_DEMO_NOISE_MEM, LP_DEMO_NOISE_MAG, LP_MAXZOOM, 
   LP_DYNAMIC_SPEED_INC, LP_DYNAMIC_SPEED_FREQ, LP_DYNAMIC_SPEED_DEC,
-  LP_TAP_TIME, END_OF_LPS
+  LP_TAP_TIME, LP_MARGIN_WIDTH, END_OF_LPS
 };
 
 enum {
@@ -237,6 +237,7 @@ static lp_table longparamtable[] = {
   {LP_DYNAMIC_SPEED_FREQ, "DynamicSpeedFreq", PERS, 10, "Seconds after which dynamic mode auto speed control increases speed"},
   {LP_DYNAMIC_SPEED_DEC, "DynamicSpeedDec", PERS, 8, "%age by which dynamic mode auto speed control decreases speed on reverse"},
   {LP_TAP_TIME, "TapTime", PERS, 200, "Max length of a stylus 'tap' rather than hold (ms)"},
+  {LP_MARGIN_WIDTH, "MarginWidth", PERS, 300, "Width of RHS margin (in Dasher co-ords)"},
 };
 
 static sp_table stringparamtable[] = {

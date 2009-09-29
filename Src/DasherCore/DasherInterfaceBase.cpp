@@ -323,6 +323,9 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
     case BP_DASHER_PAUSED:
       ScheduleRedraw();
       break;
+    case LP_MARGIN_WIDTH:
+        ScheduleRedraw();
+        break;
     default:
       break;
     }

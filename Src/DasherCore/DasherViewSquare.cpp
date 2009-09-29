@@ -101,6 +101,10 @@ void CDasherViewSquare::HandleEvent(Dasher::CEvent *pEvent) {
     case LP_REAL_ORIENTATION:
       m_bVisibleRegionValid = false;
       break;
+    case LP_MARGIN_WIDTH:
+        m_bVisibleRegionValid = false;
+        SetScaleFactor();
+        break;
     default:
       break;
     }
@@ -547,7 +551,7 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
 
   // Things we're likely to need:
 
-  myint iDasherWidth = (myint)GetLongParameter(LP_MAX_Y);
+  //myint iDasherWidth = (myint)GetLongParameter(LP_MAX_Y);
   myint iDasherHeight = (myint)GetLongParameter(LP_MAX_Y);
 
   screenint iScreenWidth = Screen()->GetWidth();
@@ -562,19 +566,19 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
 
   switch(eOrientation) {
   case Dasher::Opts::LeftToRight:
-    iDasherX = iDasherWidth / 2 - ( iInputX - iScreenWidth / 2 ) * m_iScalingFactor / iScaleFactorX;
+    iDasherX = iCenterX - ( iInputX - iScreenWidth / 2 ) * m_iScalingFactor / iScaleFactorX;
     iDasherY = iDasherHeight / 2 + ( iInputY - iScreenHeight / 2 ) * m_iScalingFactor / iScaleFactorY;
     break;
   case Dasher::Opts::RightToLeft:
-    iDasherX = myint(iDasherWidth / 2 + ( iInputX - iScreenWidth / 2 ) * m_iScalingFactor/ iScaleFactorX);
+    iDasherX = myint(iCenterX + ( iInputX - iScreenWidth / 2 ) * m_iScalingFactor/ iScaleFactorX);
     iDasherY = myint(iDasherHeight / 2 + ( iInputY - iScreenHeight / 2 ) * m_iScalingFactor/ iScaleFactorY);
     break;
   case Dasher::Opts::TopToBottom:
-    iDasherX = myint(iDasherWidth / 2 - ( iInputY - iScreenHeight / 2 ) * m_iScalingFactor/ iScaleFactorY);
+    iDasherX = myint(iCenterX - ( iInputY - iScreenHeight / 2 ) * m_iScalingFactor/ iScaleFactorY);
     iDasherY = myint(iDasherHeight / 2 + ( iInputX - iScreenWidth / 2 ) * m_iScalingFactor/ iScaleFactorX);
     break;
   case Dasher::Opts::BottomToTop:
-    iDasherX = myint(iDasherWidth / 2 + ( iInputY - iScreenHeight / 2 ) * m_iScalingFactor/ iScaleFactorY);
+    iDasherX = myint(iCenterX + ( iInputY - iScreenHeight / 2 ) * m_iScalingFactor/ iScaleFactorY);
     iDasherY = myint(iDasherHeight / 2 + ( iInputX - iScreenWidth / 2 ) * m_iScalingFactor/ iScaleFactorX);
     break;
   }
@@ -596,10 +600,11 @@ void CDasherViewSquare::SetScaleFactor( void )
 
   // Try doing this a different way:
 
-  myint iDasherMargin( 300 ); // Make this a parameter
+  myint iDasherMargin( GetLongParameter(LP_MARGIN_WIDTH) ); // Make this a parameter
 
   myint iMinX( 0-iDasherMargin );
-  myint iMaxX( iDasherWidth + iDasherMargin );
+  myint iMaxX( iDasherWidth - 2*iDasherMargin );
+  iCenterX = (iMinX + iMaxX)/2;
   myint iMinY( 0 );
   myint iMaxY( iDasherHeight );
 
@@ -674,7 +679,7 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
 
   // Things we're likely to need:
 
-  myint iDasherWidth = (myint)GetLongParameter(LP_MAX_Y);
+  //myint iDasherWidth = (myint)GetLongParameter(LP_MAX_Y);
   myint iDasherHeight = (myint)GetLongParameter(LP_MAX_Y);
 
   screenint iScreenWidth = Screen()->GetWidth();
@@ -695,13 +700,13 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
   switch( eOrientation ) {
   case Dasher::Opts::LeftToRight:
     iScreenX = screenint(iScreenWidth / 2 - 
-			 CustomIDiv((( iDasherX - iDasherWidth / 2 ) * iScaleFactorX), m_iScalingFactor));
+			 CustomIDiv((( iDasherX - iCenterX ) * iScaleFactorX), m_iScalingFactor));
     iScreenY = screenint(iScreenHeight / 2 +
 			 CustomIDiv(( iDasherY - iDasherHeight / 2 ) * iScaleFactorY, m_iScalingFactor));
     break;
   case Dasher::Opts::RightToLeft:
     iScreenX = screenint(iScreenWidth / 2 + 
-			 CustomIDiv(( iDasherX - iDasherWidth / 2 ) * iScaleFactorX, m_iScalingFactor));
+			 CustomIDiv(( iDasherX - iCenterX ) * iScaleFactorX, m_iScalingFactor));
     iScreenY = screenint(iScreenHeight / 2 + 
 			 CustomIDiv(( iDasherY - iDasherHeight / 2 ) * iScaleFactorY, m_iScalingFactor));
     break;
@@ -709,13 +714,13 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
     iScreenX = screenint(iScreenWidth / 2 + 
 			 CustomIDiv(( iDasherY - iDasherHeight / 2 ) * iScaleFactorX, m_iScalingFactor));
     iScreenY = screenint(iScreenHeight / 2 - 
-			 CustomIDiv(( iDasherX - iDasherWidth / 2 ) * iScaleFactorY, m_iScalingFactor));
+			 CustomIDiv(( iDasherX - iCenterX ) * iScaleFactorY, m_iScalingFactor));
     break;
   case Dasher::Opts::BottomToTop:
     iScreenX = screenint(iScreenWidth / 2 + 
 			 CustomIDiv(( iDasherY - iDasherHeight / 2 ) * iScaleFactorX, m_iScalingFactor));
     iScreenY = screenint(iScreenHeight / 2 + 
-			 CustomIDiv(( iDasherX - iDasherWidth / 2 ) * iScaleFactorY, m_iScalingFactor));
+			 CustomIDiv(( iDasherX - iCenterX ) * iScaleFactorY, m_iScalingFactor));
     break;
   }
 }

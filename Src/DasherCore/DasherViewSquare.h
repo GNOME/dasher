@@ -188,6 +188,7 @@ private:
  
   double m_dXmpa, m_dXmpb, m_dXmpc, m_dXmpd;
   screenint CanvasX, CanvasY, CanvasBorder;
+  screenint iCenterX;
   Cymap m_ymap;
 
   // Cached values for scaling
