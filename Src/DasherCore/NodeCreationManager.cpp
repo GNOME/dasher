@@ -7,6 +7,7 @@
 #include "LanguageModelling/PPMPYLanguageModel.h"
 #include "NodeCreationManager.h"
 #include "ControlManager.h"
+#include "EventHandler.h"
 
 using namespace Dasher;
 
@@ -24,12 +25,19 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
   m_pLanguageModel = m_pAlphabetManagerFactory->GetLanguageModel();
   m_pAlphabet = m_pAlphabetManagerFactory->GetAlphabet();
 
-  // Train the language model
   CTrainer *pTrainer =  m_pAlphabetManagerFactory->GetTrainer();
 
-  pTrainer->Train(GetStringParameter(SP_USER_LOC), GetStringParameter(SP_SYSTEM_LOC));
+  //1. Look for system training text...
+  CLockEvent oEvent("Training on System Text", true, 0);
+  pEventHandler->InsertEvent(&oEvent);
+  pTrainer->LoadFile(GetStringParameter(SP_SYSTEM_LOC) + m_pAlphabet->GetTrainingFile());
+  //Now add in any user-provided individual training text...
+  oEvent.m_strMessage = "Training on User Text"; oEvent.m_bLock=true; oEvent.m_iPercent = 0;
+  pEventHandler->InsertEvent(&oEvent);
+  pTrainer->LoadFile(GetStringParameter(SP_USER_LOC) + m_pAlphabet->GetTrainingFile());
+  oEvent.m_bLock = false;
+  pEventHandler->InsertEvent(&oEvent);
 
-  delete pTrainer;
 #ifdef DEBUG_LM_READWRITE
   {
     //test...
@@ -188,7 +196,7 @@ CNodeCreationManager::ImportTrainingText(const std::string &strPath) {
     pTrainer = m_pAlphabetManagerFactory->GetTrainer();
 
   if(m_pAlphabet && pTrainer)
-	pTrainer->Train(strPath);
+	pTrainer->LoadFile(strPath);
 
   delete pTrainer;
 }

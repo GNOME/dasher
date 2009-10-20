@@ -12,8 +12,6 @@ namespace Dasher {
   class CTrainer : public CTrainingHelper {
   public:
     CTrainer(CLanguageModel *pLanguageModel, CAlphabet *pAlphabet);
-    void Train(const std::string &strUserLoc, const std::string &strSystemLoc);
-	void Train(const std::string &strPath);
 
   protected:
 	virtual void Train(const std::vector<symbol> &vSymbols);
@@ -23,8 +21,9 @@ namespace Dasher {
   class CMandarinTrainer : public CTrainer {
   public:
     CMandarinTrainer(CLanguageModel *pLanguageModel, CAlphabet *pAlphabet, CAlphabet *pCHAlphabet);
-    
-    virtual void Train(const std::string &strUserLoc, const std::string &strSystemLoc);
+
+    //override...
+    virtual void LoadFile(const std::string &strPath);
     
   private:
     CAlphabet * m_pCHAlphabet;

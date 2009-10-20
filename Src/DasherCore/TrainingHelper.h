@@ -39,10 +39,10 @@ namespace Dasher {
     void HandleCData(const XML_Char *szS, 
 		     int iLen);
 
-  protected:
-	void LoadFile(const std::string &strFileName);
+    void LoadFile(const std::string &strFileName);
 
-	const Dasher::CAlphabet *m_pAlphabet;
+  protected:
+    const Dasher::CAlphabet *m_pAlphabet;
 
 	virtual void Train(const std::vector<symbol> &symbols)=0;
 	  
