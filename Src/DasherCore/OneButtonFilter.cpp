@@ -47,7 +47,7 @@ bool COneButtonFilter::DecorateView(CDasherView *pView) {
   return true;
 }
 
-bool COneButtonFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) {
+bool COneButtonFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {
 
   if(bStarted) {
     iLocation = (Time - iStartTime) * 4096 / GetLongParameter(LP_STATIC1B_TIME);

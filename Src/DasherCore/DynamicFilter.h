@@ -32,7 +32,7 @@ class CDynamicFilter : public CInputFilter {
   CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, int iType, const char *szName);
   
   ///when reversing, backs off; when paused, does nothing; when running, delegates to TimerImpl
-  virtual bool Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted); 
+  virtual bool Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol); 
 
   virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog);
   virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherModel *pModel);
@@ -52,7 +52,7 @@ class CDynamicFilter : public CInputFilter {
   virtual void reverse();
   virtual void run();
 
-  virtual bool TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) = 0;
+  virtual bool TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) = 0;
 
   private:
     int m_iState; // 0 = paused, 1 = reversing, >=2 = running (extensible by subclasses)

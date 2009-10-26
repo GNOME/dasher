@@ -112,7 +112,7 @@ void CDasherViewSquare::HandleEvent(Dasher::CEvent *pEvent) {
 }
 
 void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax,
-				    NodeQueue &nodeQueue,
+				    CExpansionPolicy &policy,
 				    std::vector<std::pair<myint,bool> > *pvGamePointer) {
   DASHER_ASSERT(pRoot != 0);
   myint iDasherMinX;
@@ -163,8 +163,7 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
   //		  0, -1, Nodes1, false, true, 1);
 
   // Render the root node (and children)
-  pRoot->m_dCost = std::numeric_limits<double>::infinity();
-  RecursiveRender(pRoot, iRootMin, iRootMax, iDasherMaxX, nodeQueue, pvGamePointer,iDasherMaxX,0,0);
+  RecursiveRender(pRoot, iRootMin, iRootMax, iDasherMaxX, policy, std::numeric_limits<double>::infinity(), pvGamePointer,iDasherMaxX,0,0);
 
   // Labels are drawn in a second parse to get the overlapping right
   m_pDelayDraw->Draw(Screen());
@@ -179,7 +178,7 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
 #define MIN_SIZE 2
 
 bool CDasherViewSquare::CheckRender(CDasherNode *pRender, myint y1, myint y2,
-									int mostleft, NodeQueue &nodeQueue,
+									int mostleft, CExpansionPolicy &policy, double dMaxCost,
 									std::vector<std::pair<myint,bool> > *pvGamePointer,
 									myint parent_width, int parent_color, int iDepth)
 {
@@ -207,12 +206,7 @@ bool CDasherViewSquare::CheckRender(CDasherNode *pRender, myint y1, myint y2,
 	  {
 		  //node should be rendered!
 		  
-		  //hence, is potentially collapsible/expandable - set it's cost
-		  dasherint iDasherYDist = (y1 > 2048) ? y1 - 2048 : (y2 < 2048) ? 2048-y2 : 0; //minimum dist - better in pixels...?
-		  pRender->m_dCost = (y2-y1) / (iDasherYDist / + 50.0 + iDepth);
-		  DASHER_ASSERT(!pRender->Parent() || pRender->m_dCost < pRender->Parent()->m_dCost);
-
-		  RecursiveRender(pRender, y1, y2, mostleft, nodeQueue, pvGamePointer, parent_width, parent_color, iDepth);
+		  RecursiveRender(pRender, y1, y2, mostleft, policy, dMaxCost, pvGamePointer, parent_width, parent_color, iDepth);
 		  return true;
 	  }
 	}
@@ -231,7 +225,7 @@ bool CDasherViewSquare::CheckRender(CDasherNode *pRender, myint y1, myint y2,
 }
 
 void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
-					int mostleft, NodeQueue &nodeQueue,
+					int mostleft, CExpansionPolicy &policy, double dMaxCost,
 					std::vector<std::pair<myint,bool> > *pvGamePointer,
 					myint parent_width,int parent_color, int iDepth)
 {
@@ -290,14 +284,16 @@ void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
 		  DasherDrawRectangle(std::min(y2-y1,iDasherMaxX), std::min(y2,iDasherMaxY),0, std::max(y1,iDasherMinY), pRender->GetDisplayInfo()->iColour, -1, Nodes1, false, true, 1);
 	  }
 	  //also allow it to be expanded, it's big enough.
-	  nodeQueue.pushNodeToExpand(pRender);
+	  policy.pushNode(pRender, y1, y2, true, dMaxCost);
 	  return;
   }
 
-  //Node has children. It can therefore be collapsed...
-  if (!pRender->GetFlag(NF_GAME)
-      && pRender->m_dCost!=std::numeric_limits<double>::infinity()) //don't collapse a node covering the screen!!
-    nodeQueue.pushNodeToCollapse(pRender);
+  //Node has children. It can therefore be collapsed...however,
+  // we don't allow a node covering the crosshair to be collapsed
+  // (at best this'll mean there's nowhere useful to go forwards;
+  // at worst, all kinds of crashes trying to do text output!)
+  if (!pRender->GetFlag(NF_GAME) && !pRender->GetFlag(NF_SEEN))
+    dMaxCost = policy.pushNode(pRender, y1, y2, false, dMaxCost);
 	
   // Render children  
   int norm = (myint)GetLongParameter(LP_NORMALIZATION);
@@ -319,15 +315,15 @@ void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
     myint newy2 = y1 + (Range * (myint)pChild->Hbnd()) / (myint)norm;
     if (newy1 < iDasherMinY && newy2 > iDasherMaxY) {
       //still covers entire screen. Parent should too...
-      DASHER_ASSERT(pRender->m_dCost == std::numeric_limits<double>::infinity());
-      //set cost (in a way that prevents collapse) before recursion
-      pChild->m_dCost = std::numeric_limits<double>::infinity();
+      DASHER_ASSERT(dMaxCost == std::numeric_limits<double>::infinity());
+      
       //don't inc iDepth, meaningless when covers the screen
       RecursiveRender(pChild, newy1, newy2, mostleft, 
-                      nodeQueue, pvGamePointer, 
-                      temp_parentwidth, temp_parentcolor, iDepth);
+						policy, dMaxCost, pvGamePointer, 
+						temp_parentwidth, temp_parentcolor, iDepth);
       //leave pRender->onlyChildRendered set, so remaining children are skipped
-    } else
+    }
+    else
       pRender->onlyChildRendered = NULL;
   }
 	
@@ -341,15 +337,14 @@ void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
 		myint newy1 = y1 + (Range * (myint)pChild->Lbnd()) / (myint)norm;/// norm and lbnd are simple ints
 		myint newy2 = y1 + (Range * (myint)pChild->Hbnd()) / (myint)norm;
     if (newy1 < iDasherMinY && newy2 > iDasherMaxY) {
+      DASHER_ASSERT(dMaxCost == std::numeric_limits<double>::infinity());
       pRender->onlyChildRendered = pChild;
-      //set cost (in a way that prevents collapse), and recurse
-      pChild->m_dCost = std::numeric_limits<double>::infinity();
-      RecursiveRender(pChild, newy1, newy2, mostleft, nodeQueue, pvGamePointer, temp_parentwidth, temp_parentcolor, iDepth);
+      RecursiveRender(pChild, newy1, newy2, mostleft, policy, dMaxCost, pvGamePointer, temp_parentwidth, temp_parentcolor, iDepth);
       //ensure we don't blank over this child in "finishing off" the parent (!)
       lasty=newy2;
       break; //no need to render any more children!
     }
-		if (CheckRender(pChild, newy1, newy2, mostleft, nodeQueue,
+		if (CheckRender(pChild, newy1, newy2, mostleft, policy, dMaxCost,
 						pvGamePointer, temp_parentwidth, temp_parentcolor, iDepth+1))
 		{
 		

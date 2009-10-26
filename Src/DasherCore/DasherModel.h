@@ -36,7 +36,7 @@
 #include "DasherTypes.h"
 #include "FrameRate.h"
 #include "NodeCreationManager.h"
-#include "NodeQueue.h"
+#include "ExpansionPolicy.h"
 
 namespace Dasher {
   class CDasherModel;
@@ -76,7 +76,7 @@ class Dasher::CDasherModel:public CFrameRate, private NoClones
   ///
   /// Update the root location with *one step* towards the specified
   /// co-ordinates - used by timer callbacks (for non-button modes)
-  bool OneStepTowards(myint, myint, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);  
+  void OneStepTowards(myint, myint, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);  
 
   ///
   /// Notify the framerate class that a new frame has occurred
@@ -126,7 +126,7 @@ class Dasher::CDasherModel:public CFrameRate, private NoClones
   /// perform further expansion.
   ///
 
-  bool RenderToView(CDasherView *pView, NodeQueue &nodeQueue);
+  bool RenderToView(CDasherView *pView, CExpansionPolicy &policy);
 
   /// @}
 
@@ -193,13 +193,16 @@ class Dasher::CDasherModel:public CFrameRate, private NoClones
     return 0;
   };
 
+  /// Create the children of a Dasher node
+  void ExpandNode(CDasherNode * pNode); 
+  
   void SetControlOffset(int iOffset);
 
  private:
 
   /// Common portion of OneStepTowards / NextScheduledStep, taking
   /// bounds for the root node in the next frame.
-  bool UpdateBounds(myint iNewMin, myint iNewMax, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted);
+  void UpdateBounds(myint iNewMin, myint iNewMax, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted);
 
   /// Struct representing intermediate stages in the goto queue
   ///
@@ -305,10 +308,6 @@ class Dasher::CDasherModel:public CFrameRate, private NoClones
 
   /// Called from InitialiseAtOffset
   void DeleteTree();
-
-  /// Create the children of a Dasher node
-  void Push_Node(CDasherNode * pNode); 
-
 
   ///
   /// Perform output on a node - recurse up the tree outputting any

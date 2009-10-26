@@ -26,7 +26,7 @@ class CButtonMode : public CDasherButtons
   CButtonMode(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface, bool bMenu, int iID, const char *szName);
 
   virtual void HandleEvent(Dasher::CEvent * pEvent);
-  bool Timer(int Time, CDasherView *pView, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted);
+  bool Timer(int Time, CDasherView *pView, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol);
   bool DecorateView(CDasherView *pView);
 
   //override to get mouse clicks/taps back again

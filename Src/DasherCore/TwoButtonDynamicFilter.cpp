@@ -111,9 +111,9 @@ void CTwoButtonDynamicFilter::KeyUp(int Time, int iId, CDasherView *pDasherView,
 		CInputFilter::KeyUp(Time, iId, pDasherView, pModel, bPos, iX, iY);
 }
 
-
-bool CTwoButtonDynamicFilter::TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) {
-  return m_pDasherModel->OneStepTowards(100,2048, Time, pAdded, pNumDeleted);
+bool CTwoButtonDynamicFilter::TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {
+  m_pDasherModel->OneStepTowards(100,2048, Time, pAdded, pNumDeleted);
+  return true;
 }
 
 void CTwoButtonDynamicFilter::Activate() {

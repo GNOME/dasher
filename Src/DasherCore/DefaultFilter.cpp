@@ -42,7 +42,7 @@ bool CDefaultFilter::DecorateView(CDasherView *pView) {
   return bDidSomething;
 }
 
-bool CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) {
+bool CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {
   bool bDidSomething = false;
   if (!GetBoolParameter(BP_DASHER_PAUSED))
   {
@@ -66,8 +66,8 @@ bool CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
 		return false;
     }
 
-    bDidSomething = m_pDasherModel->OneStepTowards(iDasherX,iDasherY, Time, pAdded, pNumDeleted);
-	DASHER_ASSERT (bDidSomething);
+    m_pDasherModel->OneStepTowards(iDasherX,iDasherY, Time, pAdded, pNumDeleted);
+    bDidSomething = true;
 
     m_pAutoSpeedControl->SpeedControl(iDasherX, iDasherY, m_pDasherModel->Framerate(), m_pDasherView);
   }

@@ -109,17 +109,17 @@ private:
   ///
   /// Render the current state of the model.
   ///
-  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, NodeQueue &nodeQueue, std::vector<std::pair<myint,bool> > *pvGamePointer);
+  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, CExpansionPolicy &policy, std::vector<std::pair<myint,bool> > *pvGamePointer);
   
   ///
   /// Recursively render all nodes in a tree. Responsible for all the Render_node calls
   ///
 
-  void RecursiveRender(CDasherNode * Render, myint y1, myint y2, int mostleft, NodeQueue &nodeQueue, std::vector<std::pair<myint,bool> > *pvGamePointer, myint parent_width,int parent_color, int iDepth);
+  void RecursiveRender(CDasherNode * Render, myint y1, myint y2, int mostleft, CExpansionPolicy &policy, double dMaxCost, std::vector<std::pair<myint,bool> > *pvGamePointer, myint parent_width,int parent_color, int iDepth);
 
   ///Check that a node is large enough, and onscreen, to render;
   ///calls RecursiveRender if so, or collapses the node immediately if not
-  bool CheckRender(CDasherNode * Render, myint y1, myint y2, int mostleft, NodeQueue &nodeQueue, std::vector<std::pair<myint,bool> > *pvGamePointer, myint parent_width,int parent_color, int iDepth);
+  bool CheckRender(CDasherNode * Render, myint y1, myint y2, int mostleft, CExpansionPolicy &policy, double dMaxCost, std::vector<std::pair<myint,bool> > *pvGamePointer, myint parent_width,int parent_color, int iDepth);
 
   /// Render a single node
   /// \param Color The colour to draw it

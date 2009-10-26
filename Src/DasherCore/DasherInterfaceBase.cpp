@@ -98,6 +98,7 @@ CDasherInterfaceBase::CDasherInterfaceBase() {
   m_ColourIO = NULL;
   m_pUserLog = NULL;
   m_pNCManager = NULL;
+  m_defaultPolicy = NULL;
 
   // Various state variables
   m_bRedrawScheduled = false;
@@ -165,6 +166,8 @@ void CDasherInterfaceBase::Realize() {
   CreateInput();
   CreateInputFilter();
   SetupActionButtons();
+  CParameterNotificationEvent oEvent(LP_NODE_BUDGET);
+  InterfaceEventHandler(&oEvent);
 
   // Set up real orientation to match selection
   if(GetLongParameter(LP_ORIENTATION) == Dasher::Opts::AlphabetDefault)
@@ -325,6 +328,9 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
     case LP_MARGIN_WIDTH:
         ScheduleRedraw();
         break;
+    case LP_NODE_BUDGET:
+      delete m_defaultPolicy;
+      m_defaultPolicy = new AmortizedPolicy(GetLongParameter(LP_NODE_BUDGET));  
     default:
       break;
     }
@@ -495,7 +501,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   //  return;
 
   bool bChanged(false);
-
+  CExpansionPolicy *pol=m_defaultPolicy;
   if(m_pDasherView != 0) {
     if(!GetBoolParameter(BP_TRAINING)) {
       if (m_pUserLog != NULL) {
@@ -506,7 +512,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
 	int iNumDeleted = 0;
 
 	if(m_pInputFilter) {
-	  bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pDasherModel, &vAdded, &iNumDeleted);
+	  bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pDasherModel, &vAdded, &iNumDeleted, &pol);
 	}
 
 #ifndef _WIN32_WCE
@@ -519,7 +525,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
       }
       else {
 	if(m_pInputFilter) {
-	  bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pDasherModel, 0, 0);
+	  bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pDasherModel, 0, 0, &pol);
 	}
       }
 
@@ -543,9 +549,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   bForceRedraw |= m_bLastChanged;
   m_bLastChanged = bChanged; //will also be set in Redraw if any nodes were expanded.
 
-  //limit the number of nodes we expand per frame...
-  LimitedNodeQueue nq(max(1l,(500+GetLongParameter(LP_NODE_BUDGET))/1000)); //amortize over multiple frames
-  Redraw(bChanged || m_bRedrawScheduled || bForceRedraw, nq);
+  Redraw(bChanged || m_bRedrawScheduled || bForceRedraw, *pol);
 
   m_bRedrawScheduled = false;
 
@@ -557,7 +561,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   bReentered=false;
 }
 
-void CDasherInterfaceBase::Redraw(bool bRedrawNodes, NodeQueue &nodeQueue) {
+void CDasherInterfaceBase::Redraw(bool bRedrawNodes, CExpansionPolicy &policy) {
   // No point continuing if there's nothing to draw on...
   if(!m_pDasherView)
     return;
@@ -565,7 +569,7 @@ void CDasherInterfaceBase::Redraw(bool bRedrawNodes, NodeQueue &nodeQueue) {
   // Draw the nodes
   if(bRedrawNodes) {
     m_pDasherView->Screen()->SendMarker(0);
-	if (m_pDasherModel) m_bLastChanged |= m_pDasherModel->RenderToView(m_pDasherView,nodeQueue);
+	if (m_pDasherModel) m_bLastChanged |= m_pDasherModel->RenderToView(m_pDasherView,policy);
   }
 
   // Draw the decorations
@@ -642,14 +646,12 @@ void CDasherInterfaceBase::ChangeScreen(CDasherScreen *NewScreen) {
   }
 
   PositionActionButtons();
-  UnlimitedNodeQueue nq; //maintain budget, but allow arbitrary amount of work.
-  Redraw(true, nq); // (we're assuming resolution changes are occasional, i.e.
-	// we don't need to worry about maintaining the frame rate - so we can do
-	// as much work as necessary. We'll only do *any* if the new Screen somehow
-	// allocates pixels to nodes in a different (rather than strictly more/less
-	// generous) fashion - so this is probably more to do with the View changing
-	// (it's behaviour), rather than the Screen. But I guess it allows for future
-	// Views, and/or the View to behave differently on different aspect ratios...
+  BudgettingPolicy pol(GetLongParameter(LP_NODE_BUDGET)); //maintain budget, but allow arbitrary amount of work.
+  Redraw(true, pol); // (we're assuming resolution changes are occasional, i.e.
+	// we don't need to worry about maintaining the frame rate, so we can do
+	// as much work as necessary. However, it'd probably be better still to
+  // get a node queue from the input filter, as that might have a different
+  // policy / budget.
 }
 
 void CDasherInterfaceBase::ChangeView() {

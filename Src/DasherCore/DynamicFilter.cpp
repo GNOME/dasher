@@ -30,7 +30,7 @@ CDynamicFilter::CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsS
   pause();
 }
 
-bool CDynamicFilter::Timer(int iTime, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted)
+bool CDynamicFilter::Timer(int iTime, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol)
 {
   if(m_bKeyDown && !m_bKeyHandled && ((iTime - m_iKeyDownTime) > GetLongParameter(LP_HOLD_TIME))) {
     Event(iTime, m_iHeldId, 1, m_pDasherModel, m_pUserLog);
@@ -38,7 +38,10 @@ bool CDynamicFilter::Timer(int iTime, CDasherView *m_pDasherView, CDasherModel *
     //return true; //ACL although that's what old DynamicFilter did, surely we should progress normally?
   }
   if (isPaused()) return false;
-  if (isReversing()) return m_pDasherModel->OneStepTowards(41943,2048, iTime, pAdded, pNumDeleted);
+  if (isReversing()) {
+    m_pDasherModel->OneStepTowards(41943,2048, iTime, pAdded, pNumDeleted);
+    return true;
+  }
   //moving forwards. Check auto speed control...
   unsigned int uTime = static_cast<unsigned int>(iTime);
   if (GetBoolParameter(BP_AUTO_SPEEDCONTROL) && m_uSpeedControlTime < uTime)
@@ -47,7 +50,7 @@ bool CDynamicFilter::Timer(int iTime, CDasherView *m_pDasherView, CDasherModel *
         SetLongParameter(LP_MAX_BITRATE, GetLongParameter(LP_MAX_BITRATE) * (1.0 + GetLongParameter(LP_DYNAMIC_SPEED_INC)/100.0));
 	  m_uSpeedControlTime = uTime + 1000*GetLongParameter(LP_DYNAMIC_SPEED_FREQ);
   }
-  return TimerImpl(iTime, m_pDasherView, m_pDasherModel, pAdded, pNumDeleted);
+  return TimerImpl(iTime, m_pDasherView, m_pDasherModel, pAdded, pNumDeleted, pol);
 }
 
 void CDynamicFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog) {

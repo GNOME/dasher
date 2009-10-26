@@ -17,7 +17,7 @@ namespace Dasher {
 #include "DasherTypes.h"
 #include "DasherComponent.h"
 #include "View/DelayedDraw.h"
-#include "NodeQueue.h"
+#include "ExpansionPolicy.h"
 
 /// \defgroup View Visualisation of the model
 /// @{
@@ -122,7 +122,7 @@ public:
 
   /// Renders Dasher with mouse-dependent items
   /// \todo Clarify relationship between Render functions and probably only expose one
-  virtual void Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, NodeQueue &nodeQueue, bool bRedrawDisplay, std::vector<std::pair<myint,bool> >* pvGameTargetY);
+  virtual void Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, CExpansionPolicy &policy, bool bRedrawDisplay, std::vector<std::pair<myint,bool> >* pvGameTargetY);
 
   /// @}
 
@@ -193,7 +193,7 @@ private:
   CDasherInput *m_pInput;       // Input device abstraction
 
   /// Renders the Dasher node structure
-  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, NodeQueue &nodeQueue, std::vector<std::pair<myint,bool> > *pvGamePointer) = 0;
+  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, CExpansionPolicy &policy, std::vector<std::pair<myint,bool> > *pvGamePointer) = 0;
 
 
   /// Get the co-ordinates from the input device

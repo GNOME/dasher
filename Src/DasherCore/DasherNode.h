@@ -67,7 +67,6 @@ class Dasher::CDasherNode:private NoClones {
     std::string strDisplayText;
   };
   CDasherNode *onlyChildRendered; //cache that only one child was rendered (as it filled the screen)
-  double m_dCost; //to expand or collapse
 
   /// Container type for storing children. Note that it's worth
   /// optimising this as lookup happens a lot

@@ -437,6 +437,9 @@ protected:
 
  private:
 
+  //The default expansion policy to use - an amortized policy depending on the LP_NODE_BUDGET parameter. 
+  CExpansionPolicy *m_defaultPolicy;
+  
   /// @name Platform dependent utility functions 
   /// These functions provide various platform dependent functions
   /// required by the core. A derived class is created for each
@@ -524,7 +527,7 @@ protected:
   void ChangeAlphabet();
   void ChangeColours();
   void ChangeView();
-  void Redraw(bool bRedrawNodes, NodeQueue &nodeQueue);
+  void Redraw(bool bRedrawNodes, CExpansionPolicy &policy);
   void SetupActionButtons();
   void DestroyActionButtons();
   void PositionActionButtons();

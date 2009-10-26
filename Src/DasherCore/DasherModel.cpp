@@ -311,7 +311,7 @@ void CDasherModel::InitialiseAtOffset(int iOffset, CDasherView *pView) {
   // TODO: What about parents?
 
   if(m_Root->Range() >= 0.1 * GetLongParameter(LP_NORMALIZATION)) {
-    Push_Node(m_Root);
+    ExpandNode(m_Root);
   }
 	
   // Set the root coordinates so that the root node is an appropriate
@@ -436,10 +436,11 @@ bool CDasherModel::NextScheduledStep(unsigned long iTime, Dasher::VECTOR_SYMBOL_
   iNewMax = m_deGotoQueue.front().iN2;
   m_deGotoQueue.pop_front();
 
-  return UpdateBounds(iNewMin, iNewMax, iTime, pAdded, pNumDeleted);
+  UpdateBounds(iNewMin, iNewMax, iTime, pAdded, pNumDeleted);
+  return true;
 }
 
-bool CDasherModel::OneStepTowards(myint miMousex, myint miMousey, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
+void CDasherModel::OneStepTowards(myint miMousex, myint miMousey, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
   //if (GetBoolParameter(BP_DASHER_PAUSED)) return false;
   m_deGotoQueue.clear();
 
@@ -447,10 +448,10 @@ bool CDasherModel::OneStepTowards(myint miMousex, myint miMousey, unsigned long 
   // works out next viewpoint
   Get_new_root_coords(miMousex, miMousey, iNewMin, iNewMax, iTime);
   
-  return UpdateBounds(iNewMin, iNewMax, iTime, pAdded, pNumDeleted);
+  UpdateBounds(iNewMin, iNewMax, iTime, pAdded, pNumDeleted);
 }
 
-bool CDasherModel::UpdateBounds(myint iNewMin, myint iNewMax, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
+void CDasherModel::UpdateBounds(myint iNewMin, myint iNewMax, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
   // Find out the current node under the crosshair
   CDasherNode *old_under_cross=Get_node_under_crosshair();
 
@@ -462,15 +463,12 @@ bool CDasherModel::UpdateBounds(myint iNewMin, myint iNewMax, unsigned long iTim
 
   // Check whether new nodes need to be created
   CDasherNode* new_under_cross = Get_node_under_crosshair();
-  Push_Node(new_under_cross);
+  ExpandNode(new_under_cross);
   
   // TODO: Make this more efficient
   new_under_cross = Get_node_under_crosshair();
 
   HandleOutput(new_under_cross, old_under_cross, pAdded, pNumDeleted);
-
-
-  return true;
 }
 
 void CDasherModel::NewFrame(unsigned long Time) {
@@ -631,7 +629,7 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
   return false;
 }
 
-void CDasherModel::Push_Node(CDasherNode *pNode) {
+void CDasherModel::ExpandNode(CDasherNode *pNode) {
   DASHER_ASSERT(pNode != NULL);
 
   // TODO: Is NF_ALLCHILDREN any more useful/efficient than reading the map size?
@@ -681,7 +679,7 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
 
 }
 
-bool CDasherModel::RenderToView(CDasherView *pView, NodeQueue &nodeQueue) {
+bool CDasherModel::RenderToView(CDasherView *pView, CExpansionPolicy &policy) {
 
   DASHER_ASSERT(pView != NULL);
   DASHER_ASSERT(m_Root != NULL);
@@ -694,7 +692,7 @@ bool CDasherModel::RenderToView(CDasherView *pView, NodeQueue &nodeQueue) {
   // The Render routine will fill iGameTargetY with the Dasher Coordinate of the 
   // youngest node with NF_GAME set. The model is responsible for setting NF_GAME on
   // the appropriate Nodes.
-  pView->Render(m_Root, m_Rootmin + m_iDisplayOffset, m_Rootmax + m_iDisplayOffset, nodeQueue, true, &vGameTargetY);  
+  pView->Render(m_Root, m_Rootmin + m_iDisplayOffset, m_Rootmax + m_iDisplayOffset, policy, true, &vGameTargetY);  
 
   /////////GAME MODE TEMP//////////////
   if(m_bGameMode)
@@ -702,42 +700,6 @@ bool CDasherModel::RenderToView(CDasherView *pView, NodeQueue &nodeQueue) {
       pTeacher->SetTargetY(vGameTargetY);
   //////////////////////////////////////
 
-  //ACL Off-screen nodes (zero collapse cost) will have been collapsed already.
-  //Hence, here we act to maintain the node budget....
-  //(however, note that doing this here will only expand one level per frame,
-  //and won't really take effect until the *next* frame!)
-  int iNodeBudget = GetLongParameter(LP_NODE_BUDGET);
-
-  //first, make sure we are within our budget (probably only in case the budget's changed)
-  while (nodeQueue.hasNodesToCollapse()
-		 && currentNumNodeObjects() > iNodeBudget)
-  {
-    nodeQueue.nodeToCollapse()->Delete_children();
-    nodeQueue.popNodeToCollapse();
-  }
-
-  //ok. Since we're within budget, there's no point in doing anything if there aren't
-  //nodes to expand (as zero-cost collapses have already been performed)
-  while (nodeQueue.hasNodesToExpand())
-  {
-	if (currentNumNodeObjects() + nodeQueue.nodeToExpand()->ExpectedNumChildren() < iNodeBudget)
-	{
-		Push_Node(nodeQueue.nodeToExpand());
-		nodeQueue.popNodeToExpand();
-		bReturnValue = true;
-		//...and loop.
-	}
-	else if (nodeQueue.hasNodesToCollapse()
-		  && nodeQueue.nodeToCollapse()->m_dCost < nodeQueue.nodeToExpand()->m_dCost)
-	{
-	  //make room by performing collapse...
-	  nodeQueue.nodeToCollapse()->Delete_children();
-	  nodeQueue.popNodeToCollapse();
-	  //...and see how much room that makes
-	}
-	else break; //not enough room, nothing to collapse.
-  }
-  
   CDasherNode *pNewNode = Get_node_under_crosshair();
 
   // TODO: Fix up stats
@@ -745,6 +707,10 @@ bool CDasherModel::RenderToView(CDasherView *pView, NodeQueue &nodeQueue) {
   if(pNewNode != pOldNode)
     HandleOutput(pNewNode, pOldNode, NULL, NULL);
 
+  //ACL Off-screen nodes (zero collapse cost) will have been collapsed already.
+  //Hence, this acts to maintain the node budget....or whatever the queue's policy is!
+  if (policy.apply(m_pNodeCreationManager,this)) bReturnValue=true;
+  
   return bReturnValue;
 }
 

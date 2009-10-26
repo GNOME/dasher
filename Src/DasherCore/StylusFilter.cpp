@@ -9,7 +9,7 @@ CStylusFilter::CStylusFilter(Dasher::CEventHandler *pEventHandler, CSettingsStor
   : CDefaultFilter(pEventHandler, pSettingsStore, pInterface, iID, szName) {
 }
 
-bool CStylusFilter::Timer(int iTime, CDasherView *pView, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted)
+bool CStylusFilter::Timer(int iTime, CDasherView *pView, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol)
 {
   if (GetBoolParameter(BP_DASHER_PAUSED))
   {
@@ -19,7 +19,7 @@ bool CStylusFilter::Timer(int iTime, CDasherView *pView, CDasherModel *pModel, D
     //however, given we're paused, this is only the Start Handler,
     //which we're not using anyway.
   }
-  return CDefaultFilter::Timer(iTime, pView, pModel, pAdded, pNumDeleted);
+  return CDefaultFilter::Timer(iTime, pView, pModel, pAdded, pNumDeleted, pol);
 }
 
 void CStylusFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog) {

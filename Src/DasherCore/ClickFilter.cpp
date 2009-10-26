@@ -13,7 +13,7 @@ bool CClickFilter::DecorateView(CDasherView *pView) {
   return false;
 }
 
-bool CClickFilter::Timer(int Time, CDasherView *pDasherView, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) {
+bool CClickFilter::Timer(int Time, CDasherView *pDasherView, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {
   return pModel->NextScheduledStep(Time, pAdded, pNumDeleted);
 }
 
