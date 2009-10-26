@@ -220,6 +220,7 @@
 		28FD15070DC6FC5B0079059D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* Dasher_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dasher_Prefix.pch; sourceTree = "<group>"; };
+		3318BEF510F6346F00D4F877 /* DelayedDraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DelayedDraw.h; sourceTree = "<group>"; };
 		331C73C10F71750D004492FF /* COSXSettingsStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COSXSettingsStore.h; sourceTree = "<group>"; };
 		331C73C20F71750D004492FF /* COSXSettingsStore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = COSXSettingsStore.mm; sourceTree = "<group>"; };
 		331C73F30F717594004492FF /* DasherUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DasherUtil.h; sourceTree = "<group>"; };
@@ -454,7 +455,6 @@
 		3344FE0E0F71717C00506EAA /* UserLogParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLogParam.h; sourceTree = "<group>"; };
 		3344FE0F0F71717C00506EAA /* UserLogTrial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserLogTrial.cpp; sourceTree = "<group>"; };
 		3344FE100F71717C00506EAA /* UserLogTrial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserLogTrial.h; sourceTree = "<group>"; };
-		3344FE120F71717C00506EAA /* DelayedDraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DelayedDraw.h; sourceTree = "<group>"; };
 		3344FE130F71717C00506EAA /* XMLUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XMLUtil.cpp; sourceTree = "<group>"; };
 		3344FE140F71717C00506EAA /* XMLUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLUtil.h; sourceTree = "<group>"; };
 		3344FE740F71718B00506EAA /* I18n.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I18n.h; sourceTree = "<group>"; };
@@ -811,6 +811,7 @@
 				3344FDAC0F71717C00506EAA /* DefaultFilter.cpp */,
 				3344FDAD0F71717C00506EAA /* DefaultFilter.h */,
 				3344FDAE0F71717C00506EAA /* DelayedDraw.cpp */,
+				3318BEF510F6346F00D4F877 /* DelayedDraw.h */,
 				3344FDAF0F71717C00506EAA /* DynamicFilter.cpp */,
 				3344FDB00F71717C00506EAA /* DynamicFilter.h */,
 				3344FDB10F71717C00506EAA /* Event.h */,
@@ -896,7 +897,6 @@
 				3344FE0E0F71717C00506EAA /* UserLogParam.h */,
 				3344FE0F0F71717C00506EAA /* UserLogTrial.cpp */,
 				3344FE100F71717C00506EAA /* UserLogTrial.h */,
-				3344FE110F71717C00506EAA /* View */,
 				3344FE130F71717C00506EAA /* XMLUtil.cpp */,
 				3344FE140F71717C00506EAA /* XMLUtil.h */,
 			);
@@ -939,14 +939,6 @@
 				3344FDDC0F71717C00506EAA /* WordLanguageModel.h */,
 			);
 			path = LanguageModelling;
-			sourceTree = "<group>";
-		};
-		3344FE110F71717C00506EAA /* View */ = {
-			isa = PBXGroup;
-			children = (
-				3344FE120F71717C00506EAA /* DelayedDraw.h */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		3344FE670F71718B00506EAA /* Common */ = {

@@ -5,6 +5,7 @@
 #ifndef __DasherViewSquare_h__
 #define __DasherViewSquare_h__
 #include "DasherView.h"
+#include "DelayedDraw.h"
 #include <deque>
 #include "Alphabet/GroupInfo.h"
 
@@ -105,6 +106,13 @@ public:
 
 
 private:
+  ///
+  /// Draw text specified in Dasher co-ordinates
+  ///
+  
+  void DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint iAnchorX2, myint iAnchorY2, const std::string & sDisplayText, int &mostleft, bool bShove);
+  
+  CDelayedDraw m_DelayDraw;  
 
   ///
   /// Render the current state of the model.

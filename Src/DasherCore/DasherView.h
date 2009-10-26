@@ -16,7 +16,6 @@ namespace Dasher {
 
 #include "DasherTypes.h"
 #include "DasherComponent.h"
-#include "View/DelayedDraw.h"
 #include "ExpansionPolicy.h"
 
 /// \defgroup View Visualisation of the model
@@ -165,12 +164,6 @@ public:
 
   void DasherDrawCentredRectangle(myint iDasherX, myint iDasherY, screenint iSize, const int Color, Opts::ColorSchemes ColorScheme, bool bDrawOutline);
 
-  ///
-  /// Draw text specified in Dasher co-ordinates
-  ///
-
-  void DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint iAnchorX2, myint iAnchorY2, const std::string & sDisplayText, int &mostleft, bool bShove);
-
   void DrawText(const std::string & str, myint x, myint y, int Size);
   /// Request the Screen to copy its buffer to the Display
   /// \todo Shouldn't be public?
@@ -184,8 +177,6 @@ protected:
 /*   inline void UnMapScreen(screenint * DrawX, screenint * DrawY); */
   bool m_bVisibleRegionValid;
   
-  CDelayedDraw *m_pDelayDraw;
-
   int m_iRenderCount;
 
 private:

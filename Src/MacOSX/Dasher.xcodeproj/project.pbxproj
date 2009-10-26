@@ -141,7 +141,6 @@
 		1948BF380C226CFD001DFA32 /* UserLogParam.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE930C226CFD001DFA32 /* UserLogParam.h */; };
 		1948BF390C226CFD001DFA32 /* UserLogTrial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE940C226CFD001DFA32 /* UserLogTrial.cpp */; };
 		1948BF3A0C226CFD001DFA32 /* UserLogTrial.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE950C226CFD001DFA32 /* UserLogTrial.h */; };
-		1948BF3B0C226CFD001DFA32 /* DelayedDraw.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE970C226CFD001DFA32 /* DelayedDraw.h */; };
 		1948BF3E0C226CFD001DFA32 /* XMLUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE9A0C226CFD001DFA32 /* XMLUtil.cpp */; };
 		1948BF3F0C226CFD001DFA32 /* XMLUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE9B0C226CFD001DFA32 /* XMLUtil.h */; };
 		19558AD60C3182730054A193 /* DasherViewCocoa.h in Headers */ = {isa = PBXBuildFile; fileRef = 19558AD50C3182730054A193 /* DasherViewCocoa.h */; };
@@ -346,6 +345,7 @@
 		19F8C7E60C858A2800276B4F /* I18n.h in Headers */ = {isa = PBXBuildFile; fileRef = 19F8C7E50C858A2800276B4F /* I18n.h */; };
 		19F8C7F90C858E9900276B4F /* TrainingHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19F8C7F70C858E9900276B4F /* TrainingHelper.cpp */; };
 		19F8C7FA0C858E9900276B4F /* TrainingHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 19F8C7F80C858E9900276B4F /* TrainingHelper.h */; };
+		3300114910A2E9C900D31B1D /* DelayedDraw.h in Headers */ = {isa = PBXBuildFile; fileRef = 3300114810A2E9C900D31B1D /* DelayedDraw.h */; };
 		3300115210A2EA7700D31B1D /* ExpansionPolicy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3300115010A2EA7700D31B1D /* ExpansionPolicy.cpp */; };
 		3300115310A2EA7700D31B1D /* ExpansionPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 3300115110A2EA7700D31B1D /* ExpansionPolicy.h */; };
 		3306E0220FFD1CE60017324C /* PPMPYLanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3306E0200FFD1CE60017324C /* PPMPYLanguageModel.cpp */; };
@@ -557,7 +557,6 @@
 		1948BE930C226CFD001DFA32 /* UserLogParam.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = UserLogParam.h; sourceTree = "<group>"; };
 		1948BE940C226CFD001DFA32 /* UserLogTrial.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = UserLogTrial.cpp; sourceTree = "<group>"; };
 		1948BE950C226CFD001DFA32 /* UserLogTrial.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = UserLogTrial.h; sourceTree = "<group>"; };
-		1948BE970C226CFD001DFA32 /* DelayedDraw.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DelayedDraw.h; sourceTree = "<group>"; };
 		1948BE9A0C226CFD001DFA32 /* XMLUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = XMLUtil.cpp; sourceTree = "<group>"; };
 		1948BE9B0C226CFD001DFA32 /* XMLUtil.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = XMLUtil.h; sourceTree = "<group>"; };
 		19558AD50C3182730054A193 /* DasherViewCocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DasherViewCocoa.h; sourceTree = "<group>"; };
@@ -765,6 +764,7 @@
 		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		3300114810A2E9C900D31B1D /* DelayedDraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DelayedDraw.h; sourceTree = "<group>"; };
 		3300115010A2EA7700D31B1D /* ExpansionPolicy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExpansionPolicy.cpp; sourceTree = "<group>"; };
 		3300115110A2EA7700D31B1D /* ExpansionPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpansionPolicy.h; sourceTree = "<group>"; };
 		3306E0200FFD1CE60017324C /* PPMPYLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PPMPYLanguageModel.cpp; sourceTree = "<group>"; };
@@ -989,6 +989,7 @@
 				1948BE3D0C226CFD001DFA32 /* DelayedDraw.cpp */,
 				3300115010A2EA7700D31B1D /* ExpansionPolicy.cpp */,
 				3300115110A2EA7700D31B1D /* ExpansionPolicy.h */,
+				3300114810A2E9C900D31B1D /* DelayedDraw.h */,
 				1948BE3E0C226CFD001DFA32 /* DynamicFilter.cpp */,
 				1948BE3F0C226CFD001DFA32 /* DynamicFilter.h */,
 				1948BE400C226CFD001DFA32 /* Event.h */,
@@ -1054,7 +1055,6 @@
 				1948BE930C226CFD001DFA32 /* UserLogParam.h */,
 				1948BE940C226CFD001DFA32 /* UserLogTrial.cpp */,
 				1948BE950C226CFD001DFA32 /* UserLogTrial.h */,
-				1948BE960C226CFD001DFA32 /* View */,
 				1948BE9A0C226CFD001DFA32 /* XMLUtil.cpp */,
 				1948BE9B0C226CFD001DFA32 /* XMLUtil.h */,
 			);
@@ -1106,14 +1106,6 @@
 				1948BE660C226CFD001DFA32 /* WordLanguageModel.h */,
 			);
 			path = LanguageModelling;
-			sourceTree = "<group>";
-		};
-		1948BE960C226CFD001DFA32 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				1948BE970C226CFD001DFA32 /* DelayedDraw.h */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		19BEF2CD0C228F7300275D06 /* alphabets */ = {
@@ -1486,7 +1478,6 @@
 				1948BF360C226CFD001DFA32 /* UserLogBase.h in Headers */,
 				1948BF380C226CFD001DFA32 /* UserLogParam.h in Headers */,
 				1948BF3A0C226CFD001DFA32 /* UserLogTrial.h in Headers */,
-				1948BF3B0C226CFD001DFA32 /* DelayedDraw.h in Headers */,
 				1948BF3F0C226CFD001DFA32 /* XMLUtil.h in Headers */,
 				196874060C2BDC2E00D63879 /* AlphabetLetter.h in Headers */,
 				1968740A0C2BDC2E00D63879 /* GLUtils.h in Headers */,
@@ -1511,6 +1502,7 @@
 				33135354102C6D8E00E28220 /* CompassMode.h in Headers */,
 				33135356102C6D8E00E28220 /* ButtonMode.h in Headers */,
 				3300115310A2EA7700D31B1D /* ExpansionPolicy.h in Headers */,
+				3300114910A2E9C900D31B1D /* DelayedDraw.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

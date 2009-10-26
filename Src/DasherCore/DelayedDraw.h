@@ -9,7 +9,7 @@
 #ifndef __View_DelayedDraw_h_
 #define __View_DelayedDraw_h_
 
-#include "../DasherTypes.h"
+#include "DasherTypes.h"
 
 namespace Dasher {
   class CDasherScreen;

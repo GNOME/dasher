@@ -32,7 +32,6 @@
 #include "DasherTypes.h"
 #include "Event.h"
 #include "EventHandler.h"
-#include "View/DelayedDraw.h"
 
 #include <algorithm>
 #include <iostream>
@@ -67,7 +66,6 @@ CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStor
   // Make sure that the auto calibration is set to zero berfore we start
   //  m_yAutoOffset = 0;
 
-  m_pDelayDraw = new CDelayedDraw();
   ChangeScreen(DasherScreen);
 
   // TODO - Make these parameters
@@ -83,12 +81,7 @@ CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStor
   
 }
 
-CDasherViewSquare::~CDasherViewSquare() {
-  if (m_pDelayDraw != NULL) {
-    delete m_pDelayDraw;
-    m_pDelayDraw = NULL;
-  }
-}
+CDasherViewSquare::~CDasherViewSquare() {}
 
 void CDasherViewSquare::HandleEvent(Dasher::CEvent *pEvent) {
   // Let the parent class do its stuff
@@ -109,6 +102,127 @@ void CDasherViewSquare::HandleEvent(Dasher::CEvent *pEvent) {
       break;
     }
   }
+}
+
+/// Draw text specified in Dasher co-ordinates. The position is
+/// specified as two co-ordinates, intended to the be the corners of
+/// the leading edge of the containing box.
+
+void CDasherViewSquare::DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint iAnchorX2, myint iAnchorY2, const std::string &sDisplayText, int &mostleft, bool bShove) {
+  
+  // Don't draw text which will overlap with text in an ancestor.
+  
+  if(iAnchorX1 > mostleft)
+    iAnchorX1 = mostleft;
+  
+  if(iAnchorX2 > mostleft)
+    iAnchorX2 = mostleft;
+  
+  myint iDasherMinX;
+  myint iDasherMinY;
+  myint iDasherMaxX;
+  myint iDasherMaxY;
+  
+  VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
+  
+  iAnchorY1 = std::min( iDasherMaxY, std::max( iDasherMinY, iAnchorY1 ) );
+  iAnchorY2 = std::min( iDasherMaxY, std::max( iDasherMinY, iAnchorY2 ) );
+  
+  screenint iScreenAnchorX1;
+  screenint iScreenAnchorY1;
+  screenint iScreenAnchorX2;
+  screenint iScreenAnchorY2;
+  
+  // FIXME - Truncate here before converting - otherwise we risk integer overflow in screen coordinates
+  
+  Dasher2Screen(iAnchorX1, iAnchorY1, iScreenAnchorX1, iScreenAnchorY1);
+  Dasher2Screen(iAnchorX2, iAnchorY2, iScreenAnchorX2, iScreenAnchorY2);
+  
+  // Truncate the ends of the anchor line to be on the screen - this
+  // prevents us from loosing characters off the top and bottom of the
+  // screen
+  
+  // TruncateToScreen(iScreenAnchorX1, iScreenAnchorY1);
+  // TruncateToScreen(iScreenAnchorX2, iScreenAnchorY2);
+  
+  // Actual anchor point is the midpoint of the anchor line
+  
+  screenint iScreenAnchorX((iScreenAnchorX1 + iScreenAnchorX2) / 2);
+  screenint iScreenAnchorY((iScreenAnchorY1 + iScreenAnchorY2) / 2);
+  
+  // Compute font size based on position
+  int Size = GetLongParameter( LP_DASHER_FONTSIZE );
+  
+  // FIXME - this could be much more elegant, and probably needs a
+  // rethink anyway - behvaiour here is too dependent on screen size
+  
+  screenint iLeftTimesFontSize = ((myint)GetLongParameter(LP_MAX_Y) - (iAnchorX1 + iAnchorX2)/ 2 )*Size;
+  if(iLeftTimesFontSize < (myint)GetLongParameter(LP_MAX_Y) * 19/ 20)
+    Size *= 20;
+  else if(iLeftTimesFontSize < (myint)GetLongParameter(LP_MAX_Y) * 159 / 160)
+    Size *= 14;
+  else
+    Size *= 11;
+  
+  
+  screenint TextWidth, TextHeight;
+  
+  Screen()->TextSize(sDisplayText, &TextWidth, &TextHeight, Size);
+  
+  // Poistion of text box relative to anchor depends on orientation
+  
+  screenint newleft2 = 0;
+  screenint newtop2 = 0;
+  screenint newright2 = 0;
+  screenint newbottom2 = 0;
+  
+  switch (Dasher::Opts::ScreenOrientations(GetLongParameter(LP_REAL_ORIENTATION))) {
+    case (Dasher::Opts::LeftToRight):
+      newleft2 = iScreenAnchorX;
+      newtop2 = iScreenAnchorY - TextHeight / 2;
+      newright2 = iScreenAnchorX + TextWidth;
+      newbottom2 = iScreenAnchorY + TextHeight / 2;
+      break;
+    case (Dasher::Opts::RightToLeft):
+      newleft2 = iScreenAnchorX - TextWidth;
+      newtop2 = iScreenAnchorY - TextHeight / 2;
+      newright2 = iScreenAnchorX;
+      newbottom2 = iScreenAnchorY + TextHeight / 2;
+      break;
+    case (Dasher::Opts::TopToBottom):
+      newleft2 = iScreenAnchorX - TextWidth / 2;
+      newtop2 = iScreenAnchorY;
+      newright2 = iScreenAnchorX + TextWidth / 2;
+      newbottom2 = iScreenAnchorY + TextHeight;
+      break;
+    case (Dasher::Opts::BottomToTop):
+      newleft2 = iScreenAnchorX - TextWidth / 2;
+      newtop2 = iScreenAnchorY - TextHeight;
+      newright2 = iScreenAnchorX + TextWidth / 2;
+      newbottom2 = iScreenAnchorY;
+      break;
+    default:
+      break;
+  }
+  
+  // Update the value of mostleft to take into account the new text
+  
+  if(bShove) {
+    myint iDasherNewLeft;
+    myint iDasherNewTop;
+    myint iDasherNewRight;
+    myint iDasherNewBottom;
+    
+    Screen2Dasher(newleft2, newtop2, iDasherNewLeft, iDasherNewTop);
+    Screen2Dasher(newright2, newbottom2, iDasherNewRight, iDasherNewBottom);
+    
+    mostleft = std::min(iDasherNewRight, iDasherNewLeft);
+  }
+  
+  // Actually draw the text. We use DelayDrawText as the text should
+  // be overlayed once all of the boxes have been drawn.
+  
+  m_DelayDraw.DelayDrawText(sDisplayText, newleft2, newtop2, Size);
 }
 
 void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax,
@@ -166,7 +280,7 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
   RecursiveRender(pRoot, iRootMin, iRootMax, iDasherMaxX, policy, std::numeric_limits<double>::infinity(), pvGamePointer,iDasherMaxX,0,0);
 
   // Labels are drawn in a second parse to get the overlapping right
-  m_pDelayDraw->Draw(Screen());
+  m_DelayDraw.Draw(Screen());
 
   // Finally decorate the view
   Crosshair((myint)GetLongParameter(LP_OX));

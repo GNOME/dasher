@@ -68,6 +68,7 @@ libdashercore_a_SOURCES = \
 		DefaultFilter.cpp \
 		DefaultFilter.h \
 		DelayedDraw.cpp \
+		DelayedDraw.h \
 		DynamicFilter.h \
 		DynamicFilter.cpp \
 		Event.h \
@@ -138,7 +139,6 @@ libdashercore_a_SOURCES = \
 		UserLogParam.h \
 		UserLogTrial.cpp \
 		UserLogTrial.h \
-		View/DelayedDraw.h \
 		XMLUtil.cpp \
 		XMLUtil.h
 
