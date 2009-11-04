@@ -10,6 +10,7 @@
 #include "PPMLanguageModel.h"
 
 #include <math.h>
+#include <string.h>
 #include <stack>
 #include <sstream>
 #include <iostream>
@@ -368,21 +369,95 @@ bool CPPMLanguageModel::CPPMnode::eq(CPPMLanguageModel::CPPMnode *other, std::ma
   return true;
 }
 
+#define MAX_RUN 4
+
 CPPMLanguageModel::CPPMnode * CPPMLanguageModel::CPPMnode::find_symbol(symbol sym) const
 // see if symbol is a child of node
 {
+  if (m_iNumChildSlots < 0) //negative to mean "full alphabet", use direct indexing
+    return m_ppChildren[sym];
+  if (m_iNumChildSlots == 1) {
+    if (m_pChild->sym == sym)
+      return m_pChild;
+    return 0;
+  }
+  if (m_iNumChildSlots <= MAX_RUN) {
+    for (int i = 0; i < m_iNumChildSlots && m_ppChildren[i]; i++)
+      if (m_ppChildren[i]->sym == sym) return m_ppChildren[i];
+    return 0;
+  }
   //  printf("finding symbol %d at node %d\n",sym,node->id);
-  for (ChildIterator search = children(); search != end(); search++) {
-    if((*search)->sym == sym) {
-      return *search;
+
+  for (int i = sym; ; i++) { //search through elements which have overflowed into subsequent slots
+    CPPMnode *found = this->m_ppChildren[i % m_iNumChildSlots]; //wrap round
+    if (!found) return 0; //null element
+    if(found->sym == sym) {
+      return found;
     }
   }
   return 0;
 }
 
-void CPPMLanguageModel::CPPMnode::AddChild(CPPMnode *pNewChild) {
-  pNewChild->next = this->child;
-  this->child = pNewChild;
+void CPPMLanguageModel::CPPMnode::AddChild(CPPMnode *pNewChild, int numSymbols) {
+  if (m_iNumChildSlots < 0) {
+    m_ppChildren[pNewChild->sym] = pNewChild;
+  }
+  else 
+  {
+    if (m_iNumChildSlots == 0) {
+      m_iNumChildSlots = 1;
+      m_pChild = pNewChild;
+      return;
+    } else if (m_iNumChildSlots == 1) {
+      //no room, have to resize...
+    } else if (m_iNumChildSlots<=MAX_RUN) {
+      for (int i = 0; i < m_iNumChildSlots; i++)
+        if (!m_ppChildren[i]) {
+          m_ppChildren[i] = pNewChild;
+          return;
+        }
+    } else {
+      
+
+      int start = pNewChild->sym;
+      //find length of run (including to-be-inserted element)....
+      while (m_ppChildren[start = (start + m_iNumChildSlots - 1) % m_iNumChildSlots]);
+
+      int idx = pNewChild->sym;
+      while (m_ppChildren[idx %= m_iNumChildSlots]) ++idx;
+      //found NULL
+      int stop = idx;
+      while (m_ppChildren[stop = (stop + 1) % m_iNumChildSlots]);
+      //start and idx point to NULLs (with inserted element somewhere inbetween)
+      
+      int runLen = (m_iNumChildSlots + stop - (start+1)) % m_iNumChildSlots;
+      if (runLen <= MAX_RUN) {
+        //ok, maintain size
+        m_ppChildren[idx] = pNewChild;
+        return;
+      }
+    }
+    //resize!
+    CPPMnode **oldChildren = m_ppChildren;
+    int oldSlots = m_iNumChildSlots;
+    int newNumElems;
+    if (m_iNumChildSlots >= numSymbols/4) {
+      m_iNumChildSlots = -numSymbols; // negative = "use direct indexing"
+      newNumElems = numSymbols;
+    } else {
+      m_iNumChildSlots+=m_iNumChildSlots+1;
+      newNumElems = m_iNumChildSlots;
+    }
+    m_ppChildren = new CPPMnode *[newNumElems]; //null terminator
+    memset (m_ppChildren, 0, sizeof(CPPMnode *)*newNumElems);
+    if (oldSlots == 1)
+      AddChild((CPPMnode *)oldChildren, numSymbols);
+    else {
+      while (oldSlots-- > 0) if (oldChildren[oldSlots]) AddChild(oldChildren[oldSlots], numSymbols);
+      delete oldChildren;
+    }
+    AddChild(pNewChild, numSymbols);
+  }
 }
 
 CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode *pNode, symbol sym, int *update) {
@@ -405,7 +480,7 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode *pNode
 
   pReturn = m_NodeAlloc.Alloc();        // count is initialized to 1
   pReturn->sym = sym;
-  pNode->AddChild(pReturn);
+  pNode->AddChild(pReturn,GetSize());
 
   ++NodesAllocated;
 
@@ -509,7 +584,7 @@ bool CPPMLanguageModel::ReadFromFile(std::string strFilename) {
     std::map<int,CPPMnode *>::iterator it(parentMap.find(sBR.m_iIndex));
     if (it != parentMap.end()) {
       CPPMnode *parent = it->second;
-      parent->AddChild(pCurrent);
+      parent->AddChild(pCurrent,GetSize());
       //erase the record of parent hood, now we've realized it
       parentMap.erase(it);
       //add mapping for the _next_ sibling; since siblings will be read in the order
