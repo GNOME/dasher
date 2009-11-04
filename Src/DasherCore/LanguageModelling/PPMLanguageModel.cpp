@@ -93,29 +93,25 @@ void CPPMLanguageModel::GetProbs(Context context, std::vector<unsigned int> &pro
   while(pTemp != 0) {
     int iTotal = 0;
 
-    CPPMnode *pSymbol = pTemp->child;
-    while(pSymbol) {
-      symbol sym = pSymbol->sym;
+    for (ChildIterator pSymbol = pTemp->children(); pSymbol != pTemp->end(); pSymbol++) {
+      symbol sym = (*pSymbol)->sym;
       if(!(exclusions[sym] && doExclusion))
-        iTotal += pSymbol->count;
-      pSymbol = pSymbol->next;
+        iTotal += (*pSymbol)->count;
     }
 
     if(iTotal) {
       unsigned int size_of_slice = iToSpend;
-      pSymbol = pTemp->child;
-      while(pSymbol) {
-        if(!(exclusions[pSymbol->sym] && doExclusion)) {
-          exclusions[pSymbol->sym] = 1;
+      for (ChildIterator pSymbol = pTemp->children(); pSymbol != pTemp->end(); pSymbol++) {
+        if(!(exclusions[(*pSymbol)->sym] && doExclusion)) {
+          exclusions[(*pSymbol)->sym] = 1;
 
-          unsigned int p = static_cast < myint > (size_of_slice) * (100 * pSymbol->count - beta) / (100 * iTotal + alpha);
+          unsigned int p = static_cast < myint > (size_of_slice) * (100 * (*pSymbol)->count - beta) / (100 * iTotal + alpha);
 
-          probs[pSymbol->sym] += p;
+          probs[(*pSymbol)->sym] += p;
           iToSpend -= p;
         }
         //                              Usprintf(debug,TEXT("sym %u counts %d p %u tospend %u \n"),sym,s->count,p,tospend);      
         //                              DebugOutput(debug);
-        pSymbol = pSymbol->next;
       }
     }
     pTemp = pTemp->vine;
@@ -341,15 +337,17 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::CPPMnode::find_symbol(symbol sy
 // see if symbol is a child of node
 {
   //  printf("finding symbol %d at node %d\n",sym,node->id);
-  CPPMnode *found = child;
-
-  while(found) {
-    if(found->sym == sym) {
-      return found;
+  for (ChildIterator search = children(); search != end(); search++) {
+    if((*search)->sym == sym) {
+      return *search;
     }
-    found = found->next;
   }
   return 0;
+}
+
+void CPPMLanguageModel::CPPMnode::AddChild(CPPMnode *pNewChild) {
+  pNewChild->next = this->child;
+  this->child = pNewChild;
 }
 
 CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode *pNode, symbol sym, int *update) {
@@ -372,8 +370,7 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode *pNode
 
   pReturn = m_NodeAlloc.Alloc();        // count is initialized to 1
   pReturn->sym = sym;
-  pReturn->next = pNode->child;
-  pNode->child = pReturn;
+  pNode->AddChild(pReturn);
 
   ++NodesAllocated;
 
@@ -397,33 +394,37 @@ bool CPPMLanguageModel::WriteToFile(std::string strFilename) {
 
   std::ofstream oOutputFile(strFilename.c_str());
 
-  RecursiveWrite(m_pRoot, &mapIdx, &iNextIdx, &oOutputFile);
+  RecursiveWrite(m_pRoot, NULL, &mapIdx, &iNextIdx, &oOutputFile);
 
   oOutputFile.close();
 
   return false;
 };
 
-bool CPPMLanguageModel::RecursiveWrite(CPPMnode *pNode, std::map<CPPMnode *, int> *pmapIdx, int *pNextIdx, std::ofstream *pOutputFile) {
+bool CPPMLanguageModel::RecursiveWrite(CPPMnode *pNode, CPPMnode *pNextSibling, std::map<CPPMnode *, int> *pmapIdx, int *pNextIdx, std::ofstream *pOutputFile) {
 
   // Dump node here
 
   BinaryRecord sBR;
 
   sBR.m_iIndex = GetIndex(pNode, pmapIdx, pNextIdx); 
-  sBR.m_iChild = GetIndex(pNode->child, pmapIdx, pNextIdx); 
-  sBR.m_iNext = GetIndex(pNode->next, pmapIdx, pNextIdx); 
+  sBR.m_iNext = GetIndex(pNextSibling, pmapIdx, pNextIdx); 
   sBR.m_iVine = GetIndex(pNode->vine, pmapIdx, pNextIdx);
   sBR.m_iCount = pNode->count;
   sBR.m_iSymbol = pNode->sym;
 
+  ChildIterator it =pNode->children();
+  CPPMnode *pCurrentChild = (it == pNode->end()) ? NULL : *it++;
+  sBR.m_iChild = GetIndex(pCurrentChild, pmapIdx, pNextIdx); 
+  
   pOutputFile->write(reinterpret_cast<char*>(&sBR), sizeof(BinaryRecord));
 
-  CPPMnode *pCurrentChild(pNode->child);
-  
-  while(pCurrentChild != NULL) {
-    RecursiveWrite(pCurrentChild, pmapIdx, pNextIdx, pOutputFile);
-    pCurrentChild = pCurrentChild->next;
+  if (pCurrentChild) {
+    for (CPPMnode *pNextChild; it != pNode->end(); pCurrentChild = pNextChild) {
+      pNextChild = *it++;
+      RecursiveWrite(pCurrentChild, pNextChild, pmapIdx, pNextIdx, pOutputFile);
+    }
+    RecursiveWrite(pCurrentChild, NULL, pmapIdx, pNextIdx, pOutputFile);
   }
 
   return true;
@@ -452,7 +453,11 @@ int CPPMLanguageModel::GetIndex(CPPMnode *pAddr, std::map<CPPMnode *, int> *pmap
 bool CPPMLanguageModel::ReadFromFile(std::string strFilename) {
   
   std::ifstream oInputFile(strFilename.c_str());
+  //map from file index, to address of node object with that index
   std::map<int, CPPMnode*> oMap;
+  //map from file index, to address of *parent* for that node
+  // - only stored for the child that will *next* be read.
+  std::map<int, CPPMnode *> parentMap;
   BinaryRecord sBR;
   bool bStarted(false);
 
@@ -461,12 +466,26 @@ bool CPPMLanguageModel::ReadFromFile(std::string strFilename) {
 
     CPPMnode *pCurrent(GetAddress(sBR.m_iIndex, &oMap));
 
-    pCurrent->child = GetAddress(sBR.m_iChild, &oMap);
-    pCurrent->next = GetAddress(sBR.m_iNext, &oMap);
     pCurrent->vine = GetAddress(sBR.m_iVine, &oMap);
     pCurrent->count = sBR.m_iCount;
     pCurrent->sym = sBR.m_iSymbol;
 
+    //if this node has a parent...
+    std::map<int,CPPMnode *>::iterator it(parentMap.find(sBR.m_iIndex));
+    if (it != parentMap.end()) {
+      CPPMnode *parent = it->second;
+      parent->AddChild(pCurrent);
+      //erase the record of parent hood, now we've realized it
+      parentMap.erase(it);
+      //add mapping for the _next_ sibling; since siblings will be read in the order
+      // they were written out, when the next sibling is read it will find the mapping.
+      if (sBR.m_iNext) parentMap.insert(pair<int,CPPMnode *>(sBR.m_iNext,parent));
+    }
+    
+    //if the node has children, record for the benefit of the first child
+    // this node's address...(said child will be the first one read)
+    if (sBR.m_iChild) parentMap.insert(pair<int,CPPMnode *>(sBR.m_iChild, pCurrent));
+    
     if(!bStarted) {
       m_pRoot = pCurrent;
       bStarted = true;

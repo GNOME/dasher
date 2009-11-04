@@ -23,24 +23,41 @@ namespace Dasher {
   ///
   /// \ingroup LM
   /// @{
-
   ///
   /// PPM language model
   ///
-
   class CPPMLanguageModel:public CLanguageModel, private NoClones {
   private:
+    class ChildIterator;
     class CPPMnode {
-	  public:
-      CPPMnode * find_symbol(symbol sym)const;
+    private:
       CPPMnode *child;
       CPPMnode *next;
+      friend class ChildIterator;
+	  public:
+      ChildIterator children() const;
+      ChildIterator end() const;
+      void AddChild(CPPMnode *pNewChild);
+      CPPMnode * find_symbol(symbol sym)const;
       CPPMnode *vine;
       unsigned short int count;
       symbol sym;
       CPPMnode(symbol sym);
       CPPMnode();
 	  };
+    class ChildIterator {
+    public:
+      bool operator==(const ChildIterator &other) const {return this->node == other.node;}
+      bool operator!=(const ChildIterator &other) const {return this->node != other.node;}
+      CPPMnode *operator*() {return node;};
+      ChildIterator &operator++() {node=node->next; return *this;} //prefix
+      ChildIterator operator++(int) {ChildIterator temp(*this); node=node->next; return temp;}
+      //operator CPPMnode *() {return node;} //implicit conversion
+      //operator bool();                     //implicit conversion 2
+      ChildIterator(CPPMnode *_node);
+    private:
+      CPPMnode *node;
+    };
 
     class CPPMContext {
     public:
@@ -55,7 +72,6 @@ namespace Dasher {
       CPPMnode *head;
       int order;
     };
-    
   public:
     CPPMLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CSymbolAlphabet & alph);
 
@@ -74,7 +90,7 @@ namespace Dasher {
 
     virtual bool WriteToFile(std::string strFilename);
     virtual bool ReadFromFile(std::string strFilename);
-    bool RecursiveWrite(CPPMnode *pNode, std::map<CPPMnode *, int> *pmapIdx, int *pNextIdx, std::ofstream *pOutputFile);
+    bool RecursiveWrite(CPPMnode *pNode, CPPMnode *pNextSibling, std::map<CPPMnode *, int> *pmapIdx, int *pNextIdx, std::ofstream *pOutputFile);
     int GetIndex(CPPMnode *pAddr, std::map<CPPMnode *, int> *pmapIdx, int *pNextIdx);
     CPPMnode *GetAddress(int iIndex, std::map<int, CPPMnode*> *pMap);
 
@@ -102,6 +118,16 @@ namespace Dasher {
   };
 
   /// @}
+  inline CPPMLanguageModel::ChildIterator::ChildIterator(CPPMnode *_node) : node(_node) {}
+
+  inline CPPMLanguageModel::ChildIterator CPPMLanguageModel::CPPMnode::children() const {
+    return ChildIterator(this->child);
+  }
+  
+  inline CPPMLanguageModel::ChildIterator CPPMLanguageModel::CPPMnode::end() const {
+    static ChildIterator c(NULL);
+    return c;
+  }
 
   inline Dasher::CPPMLanguageModel::CPPMnode::CPPMnode(symbol _sym):sym(_sym) {
     child = next = vine = 0;
