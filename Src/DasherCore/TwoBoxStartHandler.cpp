@@ -17,11 +17,11 @@ bool CTwoBoxStartHandler::DecorateView(CDasherView *pView) {
 
   switch (iDrawMousePosBox) {
   case 1:
-    pView->Screen()->DrawRectangle(8, iHeight / 2 - iMousePosDist + 50, iWidth-16, iHeight / 2 - iMousePosDist - 50, 0, 119, Opts::Nodes1,true, false, 4);
+    pView->Screen()->DrawRectangle(8, iHeight / 2 - iMousePosDist + 50, iWidth-16, iHeight / 2 - iMousePosDist - 50, -1, 119, Opts::Nodes1, 4);
     return true;
     break;
   case 2:
-    pView->Screen()->DrawRectangle(8, iHeight / 2 + iMousePosDist + 50, iWidth-16, iHeight / 2 + iMousePosDist - 50, 0, 120, Opts::Nodes1,true, false, 4);
+    pView->Screen()->DrawRectangle(8, iHeight / 2 + iMousePosDist + 50, iWidth-16, iHeight / 2 + iMousePosDist - 50, -1, 120, Opts::Nodes1, 4);
     return true;
     break;
   default:

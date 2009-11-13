@@ -19,7 +19,7 @@ void CActionButton::SetPosition(int iX, int iY, int iWidth, int iHeight) {
 
 void CActionButton::Draw(Dasher::CDasherScreen *pScreen, bool bVisible) {
   if(bVisible || m_bAlwaysVisible)
-    pScreen->DrawRectangle(m_iX, m_iY, m_iX + m_iWidth, m_iY + m_iHeight, 1, 2, Dasher::Opts::Nodes1, true, true, 1);
+    pScreen->DrawRectangle(m_iX, m_iY, m_iX + m_iWidth, m_iY + m_iHeight, 1, 2, Dasher::Opts::Nodes1, 1);
 }
 
 bool CActionButton::HandleClickDown(int iTime, int iX, int iY, bool bVisible) {

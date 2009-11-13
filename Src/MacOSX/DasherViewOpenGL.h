@@ -60,11 +60,12 @@ typedef struct {
 - (void)keyDown:(NSEvent *)e;
 - (void)keyUp:(NSEvent *)e;
 - (void)circleCallbackCentrePoint:(NSPoint)aCentrePoint radius:(float)aRadius outlineColorIndex:(int)anOutlineColorIndex fillColourIndex:(int)aFillColourIndex shouldFill:(BOOL)shouldFill lineWidth:(int)aLineWidth;
-- (void)rectangleCallbackX1:(int)x1 y1:(int)y1 x2:(int)x2 y2:(int)y2 fillColorIndex:(int)aFillColorIndex outlineColorIndex:(int)anOutlineColorIndex shouldOutline:(BOOL)shouldOutline shouldFill:(BOOL)shouldFill lineWidth:(int)aLineWidth;
+- (void)rectangleCallbackX1:(int)x1 y1:(int)y1 x2:(int)x2 y2:(int)y2 fillColorIndex:(int)aFillColorIndex outlineColorIndex:(int)anOutlineColorIndex lineWidth:(int)aLineWidth;
 - (AlphabetLetter *)letterForString:(NSString *)aString;
 - (NSSize)textSizeCallbackWithString:(NSString *)aString size:(int)aSize colorIndex:(int)aColorIndex;
 - (void)drawTextCallbackWithString:(NSString *)aString x1:(int)x1 y1:(int)y1 size:(int)aSize colorIndex:(int)aColorIndex;
 - (void)colourSchemeCallbackWithColourTable:(colour_t *)aColourTable;
+- (void)polygonCallbackPoints:(NSArray *)points fillColorIndex:(int)fColorIndex outlineColorIndex:(int)iColorIndex lineWidth:(int)aWidth;
 - (void)polylineCallbackPoints:(NSArray *)points width:(int)aWidth colorIndex:(int)aColorIndex;
 - (id)initWithFrame:(NSRect)frame;
 - (void)userDefaultsDidChange:(NSNotification *)aNote;

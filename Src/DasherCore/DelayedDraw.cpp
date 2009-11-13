@@ -18,7 +18,7 @@ void CDelayedDraw::Draw(CDasherScreen * screen) {
 
   for(int i = 0; i < iSize; i++) {
     CTextString & draw = m_DrawTextString[i];
-    screen->DrawString(draw.m_String, draw.m_x, draw.m_y, draw.m_iSize);
+    screen->DrawString(draw.m_String, draw.m_x, draw.m_y, draw.m_iSize, 4);
   }
   m_DrawTextString.clear();
 

@@ -43,7 +43,7 @@ public:
   /// \param Size The size at which to render the rectangle (units?)
   ///
   
-  void DrawString(const std::string &String, screenint x1, screenint y1, int Size);
+  void DrawString(const std::string &String, screenint x1, screenint y1, int Size, int iColour);
   
   ///
   /// Draw a rectangle
@@ -51,12 +51,11 @@ public:
   /// \param y1 y coordiate of the top left corner
   /// \param x2 x coordiate of the bottom right corner
   /// \param y2 y coordiate of the bottom right corner
-  /// \param Color Colour to draw the rectangle
+  /// \param Color Colour to fill the rectangle
   /// \param ColorScheme Which of the alternating colour schemes to use (be more precise)
-  /// \param bDrawOutline Whether or not to draw outlines for the boxes
   ///
   
-  void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, bool bDrawOutine, bool bFill, int iThickness);
+  void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, int iThickness);
   
   void DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, int iFillColour, int iThickness, bool bFill);
   
@@ -84,10 +83,9 @@ public:
   
   /// 
   /// Like polyline, but fill the shape
-  /// \todo See comments for DrawPolygon
   ///
   
-  void Polygon(point *Points, int Number, int Colour, int iWidth);
+  void Polygon(point *Points, int Number, int fillColour, int outlineColor, int iWidth);
     
   /// 
   /// Blank the diplay

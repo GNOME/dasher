@@ -60,18 +60,19 @@ void dump(char *data, int width, int height)
 		UIGraphicsPushContext(context);
 
 		CGContextClearRect(context, CGRectMake(0.0, 0.0, width, height));
-		const CGFloat blackComps[] = {0.0, 0.0, 0.0, 1.0};
-		CGColorRef black = CGColorCreate(colorSpace, blackComps);
-		CGContextSetFillColorWithColor(context, black);
-		CGContextSetStrokeColorWithColor(context, black);
+    //white text on transparent background means that when we texture
+    //a surface using a colour, the text appears in that colour...
+		const CGFloat whiteComps[] = {1.0, 1.0, 1.0, 1.0};
+		CGColorRef white = CGColorCreate(colorSpace, whiteComps);
+		CGContextSetFillColorWithColor(context, white);
 		[string drawAtPoint:CGPointMake(0.0, 0.0) withFont:[UIFont systemFontOfSize:36]];
-		CGColorRelease(black);
+		CGColorRelease(white);
 		UIGraphicsPopContext();
 
 		glGenTextures(1, &texture);
 		glBindTexture(GL_TEXTURE_2D, texture);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 //		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, CGBitmapContextGetData(context));
 		//set texture coords for the corners of the part of the texture we actually
@@ -96,8 +97,9 @@ void dump(char *data, int width, int height)
 	// bind and draw
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, texture);
-//	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-	glColor4f(r, g, b, 1.0);
+  //combine the texture colour (white, i.e. 100%) with the current foreground colour...
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glColor4f(r, g, b, 1.0); //....i.e. the colour we want the text to appear in...
 	CGSize sz = [self sizeWithSize:iSize];
 	GLshort coords[8];
 	coords[0] = x; coords[1]=y;

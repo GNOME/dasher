@@ -27,9 +27,9 @@ void CDasherScreenBridge::Display() {
   [dasherView displayCallback];
 }
 
-void CDasherScreenBridge::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, bool bDrawOutline, bool bFill, int iThickness) {
+void CDasherScreenBridge::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, int iThickness) {
 
-  [dasherView rectangleCallbackX1:x1 y1:y1 x2:x2 y2:y2 fillColorIndex:Color outlineColorIndex:iOutlineColour shouldOutline:bDrawOutline shouldFill:bFill lineWidth:iThickness];
+  [dasherView rectangleCallbackX1:x1 y1:y1 x2:x2 y2:y2 fillColorIndex:Color outlineColorIndex:iOutlineColour lineWidth:iThickness];
 }
 
 void CDasherScreenBridge::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, int iFillColour, int iThickness, bool bFill) {
@@ -37,8 +37,8 @@ void CDasherScreenBridge::DrawCircle(screenint iCX, screenint iCY, screenint iR,
   [dasherView circleCallbackCentrePoint:CGPointMake(iCX, iCY) radius:iR outlineColorIndex:iColour fillColourIndex:iFillColour shouldFill:bFill lineWidth:iThickness];
 }
 
-void CDasherScreenBridge::Polygon(Dasher::CDasherScreen::point *Points, int Number, int Colour, int iWidth) {
-	[dasherView polygonCallback:Number points:Points width:iWidth colourIndex:Colour];
+void CDasherScreenBridge::Polygon(Dasher::CDasherScreen::point *Points, int Number, int fillColour, int outlineColour, int iWidth) {
+	[dasherView polygonCallback:Number points:Points fillColourIndex:fillColour outlineColourIndex:outlineColour width:iWidth];
   
 }
 
@@ -46,9 +46,8 @@ void CDasherScreenBridge::Polyline(Dasher::CDasherScreen::point *Points, int Num
 	[dasherView polylineCallback:Number points:Points width:iWidth colourIndex:Colour];
 }
 
-void CDasherScreenBridge::DrawString(const std::string &String, screenint x1, screenint y1, int size) {
-	//TODO hardcoded colour index 4 ???
-	[dasherView drawTextCallbackWithString:NSStringFromStdString(String) x1:x1 y1:y1 size:size colorIndex:4];
+void CDasherScreenBridge::DrawString(const std::string &String, screenint x1, screenint y1, int size, int iColour) {
+	[dasherView drawTextCallbackWithString:NSStringFromStdString(String) x1:x1 y1:y1 size:size colorIndex:iColour];
 }
 
 void CDasherScreenBridge::TextSize(const std::string &String, screenint *Width, screenint *Height, int size) {

@@ -79,7 +79,7 @@ bool COneButtonDynamicFilter::DecorateView(CDasherView *pView) {
     pView->Dasher2Screen(-200, 4096, x2, y2);
   }
 
-  pScreen->DrawRectangle(x1, y1, x2, y2, 1, 1, Opts::ColorSchemes(Opts::Objects), true, false, 2);
+  pScreen->DrawRectangle(x1, y1, x2, y2, -1, 1, Opts::ColorSchemes(Opts::Objects), 2);
     
   if(m_iTarget == 1) {
     pView->Dasher2Screen(-100, 3096, x1, y1);
@@ -90,7 +90,7 @@ bool COneButtonDynamicFilter::DecorateView(CDasherView *pView) {
     pView->Dasher2Screen(-200, 1000, x2, y2);
   }
 
-  pScreen->DrawRectangle(x1, y1, x2, y2, 2, 2, Opts::ColorSchemes(Opts::Objects), true, false, 1);
+  pScreen->DrawRectangle(x1, y1, x2, y2, -1, 2, Opts::ColorSchemes(Opts::Objects), 1);
 
   bool bRV(m_bDecorationChanged);
   m_bDecorationChanged = false;

@@ -260,18 +260,18 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
   // Blank the region around the root node:
   
   if(iRootMin > iDasherMinY)
-    DasherDrawRectangle(iDasherMaxX, iDasherMinY, iDasherMinX, iRootMin, 0, 0, Nodes1, false,true, 1);
+    DasherDrawRectangle(iDasherMaxX, iDasherMinY, iDasherMinX, iRootMin, 0, -1, Nodes1, 0);
   
   //if(iScreenTop > 0)
   //  Screen()->DrawRectangle(0, 0, Screen()->GetWidth(), iScreenTop, 0, -1, Nodes1, false, true, 1);
 
   if(iRootMax < iDasherMaxY)
-    DasherDrawRectangle(iDasherMaxX, iRootMax, iDasherMinX, iDasherMaxY, 0, 0, Nodes1, false,true, 1);
+    DasherDrawRectangle(iDasherMaxX, iRootMax, iDasherMinX, iDasherMaxY, 0, -1, Nodes1, 0);
 
   //if(iScreenBottom <= Screen()->GetHeight())
   // Screen()->DrawRectangle(0, iScreenBottom, Screen()->GetWidth(), Screen()->GetHeight(), 0, -1, Nodes1, false, true, 1);
 
-  DasherDrawRectangle(0, iDasherMinY, iDasherMinX, iDasherMaxY, 0, 4, Nodes1, false,true, 1);
+  DasherDrawRectangle(0, iDasherMinY, iDasherMinX, iDasherMaxY, 0, -1, Nodes1, 0);
   //  Screen()->DrawRectangle(iScreenRight, std::max(0, (int)iScreenTop),
   //		  Screen()->GetWidth(), std::min(Screen()->GetHeight(), (int)iScreenBottom), 
   //		  0, -1, Nodes1, false, true, 1);
@@ -377,7 +377,7 @@ void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
   VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
 
   if(GetLongParameter(LP_TRUNCATION) == 0) {        // Regular squares
-    DasherDrawRectangle(std::min(parent_width,iDasherMaxX), std::max(y1,iDasherMinY), std::min(y2-y1,iDasherMaxX), std::min(y2,iDasherMaxY), parent_color, -1, Nodes1, false, true, 1);
+    DasherDrawRectangle(std::min(parent_width,iDasherMaxX), std::max(y1,iDasherMinY), std::min(y2-y1,iDasherMaxX), std::min(y2,iDasherMaxY), parent_color, -1, Nodes1, 0);
   }
 	
   const std::string &sDisplayText(pRender->GetDisplayInfo()->strDisplayText);
@@ -395,7 +395,7 @@ void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
 	  //  int iTruncationType(GetLongParameter(LP_TRUNCATIONTYPE));
 	  
 	  if(iTruncation == 0) {        // Regular squares
-		  DasherDrawRectangle(std::min(y2-y1,iDasherMaxX), std::min(y2,iDasherMaxY),0, std::max(y1,iDasherMinY), pRender->GetDisplayInfo()->iColour, -1, Nodes1, false, true, 1);
+      DasherDrawRectangle(std::min(y2-y1,iDasherMaxX), std::min(y2,iDasherMaxY),0, std::max(y1,iDasherMinY), pRender->GetDisplayInfo()->iColour, -1, Nodes1, 0);
 	  }
 	  //also allow it to be expanded, it's big enough.
 	  policy.pushNode(pRender, y1, y2, true, dMaxCost);
@@ -566,7 +566,7 @@ int CDasherViewSquare::RenderNodeOutlineFast(const int Color, myint y1, myint y2
 
   //  std::cout << std::min(iDasherSize,iDasherMaxX) << " " << std::min(y2,iDasherMaxY) << " 0 " << std::max(y1,iDasherMinY) << std::endl;
 
-  DasherDrawRectangle(0, std::min(y1,iDasherMaxY),std::min(iDasherSize,iDasherMaxX), std::max(y2,iDasherMinY), Color, -1, Nodes1, true,false, 1);
+  DasherDrawRectangle(0, std::min(y1,iDasherMaxY),std::min(iDasherSize,iDasherMaxX), std::max(y2,iDasherMinY), -1, Color, Nodes1, 1);
 
 //   // FIXME - get rid of pointless assignment below
 
@@ -631,7 +631,7 @@ int CDasherViewSquare::RenderNodePartFast(const int Color, myint y1, myint y2, i
   //  int iTruncationType(GetLongParameter(LP_TRUNCATIONTYPE));
 
   if(iTruncation == 0) {        // Regular squares
-    DasherDrawRectangle(std::min(iParentWidth,iDasherMaxX), std::min(y2,iDasherMaxY),0, std::max(y1,iDasherMinY), Color, -1, Nodes1, false, true, 1);
+    DasherDrawRectangle(std::min(iParentWidth,iDasherMaxX), std::min(y2,iDasherMaxY),0, std::max(y1,iDasherMinY), Color, -1, Nodes1, 0);
   }
   else {
    

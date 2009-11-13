@@ -148,7 +148,7 @@
 }
 
 
-- (void)rectangleCallbackX1:(int)x1 y1:(int)y1 x2:(int)x2 y2:(int)y2 fillColorIndex:(int)aFillColorIndex outlineColorIndex:(int)anOutlineColorIndex shouldOutline:(BOOL)shouldOutline shouldFill:(BOOL)shouldFill lineWidth:(int)aLineWidth {
+- (void)rectangleCallbackX1:(int)x1 y1:(int)y1 x2:(int)x2 y2:(int)y2 fillColorIndex:(int)aFillColorIndex outlineColorIndex:(int)anOutlineColorIndex lineWidth:(int)aLineWidth {
   
   // don't know if this is needed with opengl...does it cope with wonky coords?
   //  float x, y, width, height;
@@ -172,17 +172,17 @@
   //  }
   glDisable(GL_TEXTURE_2D);
   glEnableClientState(GL_VERTEX_ARRAY);
-  if (shouldFill) {
+  if (aFillColorIndex!=-1) {
     glColor4f(colourTable[aFillColorIndex].r, colourTable[aFillColorIndex].g, colourTable[aFillColorIndex].b, 1.0);
     GLshort coords[8] = {x1,y1, x2,y1, x1,y2, x2,y2};
     glVertexPointer(2, GL_SHORT, 0, coords);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
   }
   
-  if (shouldOutline) {
+  if (aLineWidth>0) {
     int oci = anOutlineColorIndex == -1 ? 3 : anOutlineColorIndex;
     glColor4f(colourTable[oci].r, colourTable[oci].g, colourTable[oci].b, 1.0);
-    glLineWidth(1.0f);
+    glLineWidth(aLineWidth);
     GLshort coords[] = {x1,y1, x2,y1, x2,y2, x1,y2};
     glVertexPointer(2, GL_SHORT, 0, coords);
     glDrawArrays(GL_LINE_LOOP, 0, 4);
@@ -225,6 +225,33 @@
   colourTable = aColourTable;
 }
 
+- (void)polygonCallbackPoints:(NSArray *)points fillColorIndex:(int)fColorIndex outlineColorIndex:(int)iColorIndex lineWidth:(int)iWidth {
+  int len = [points count];
+	if (len < 2) return;
+  //1. fill...
+	glDisable(GL_TEXTURE_2D);
+  if (fColorIndex != -1) {
+    glColor3f(colourTable[fColorIndex].r, colourTable[fColorIndex].g, colourTable[fColorIndex].b);
+	  glBegin(GL_TRIANGLE_FAN);
+    for (int i = 0; i < len; i++)
+    {
+      NSPoint nsp = [[points objectAtIndex:i] pointValue];
+      glVertex2i(nsp.x,nsp.y);
+    }
+    glEnd();
+  }
+  if (iWidth>0) {
+    glColor3f(colourTable[iColorIndex].r,colourTable[iColorIndex].g,colourTable[iColorIndex].b);
+    glLineWidth(iWidth);
+    glBegin(GL_LINE_LOOP);
+    for (int i = 0; i < len; i++)
+    {
+      NSPoint nsp = [[points objectAtIndex:i] pointValue];
+      glVertex2i(nsp.x,nsp.y);
+    }
+    glEnd();
+  }
+}
 
 - (void)polylineCallbackPoints:(NSArray *)points width:(int)aWidth colorIndex:(int)aColorIndex
 {

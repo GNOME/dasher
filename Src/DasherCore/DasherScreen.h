@@ -56,7 +56,7 @@ public:
   virtual void TextSize(const std::string & String, screenint * Width, screenint * Height, int Size) = 0;
 
   //! Draw UTF8-encoded string String of size Size positioned at x1 and y1
-  virtual void DrawString(const std::string & String, screenint x1, screenint y1, int Size) = 0;
+  virtual void DrawString(const std::string & String, screenint x1, screenint y1, int Size, int iColor) = 0;
 
   // Send a marker to indicate 'phases' of drawing. 
 
@@ -70,14 +70,12 @@ public:
   /// \param y1 top left corner of rectangle (y coordinate)
   /// \param x2 bottom right of rectangle (x coordinate)
   /// \param y2 bottom right of rectangle (y coordinate)
-  /// \param Color the colour to be used (numeric)
-  /// \param iOutlineColour The colour for the node outlines
+  /// \param Color the colour to be used (numeric), or -1 for no fill
+  /// \param iOutlineColour The colour for the node outlines, or -1 for no outline
   /// \param ColorScheme Which colourscheme is to be used
-  /// \param bDrawOutline Whether to draw an outline or not
-  /// \param bFill Whether to fill or not
-  /// \param iThickness Line thickness for outline
+  /// \param iThickness Line thickness for outline; <1 for no outline
 
-  virtual void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, bool bDrawOutline, bool bFill, int iThickness) = 0;
+  virtual void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, int iThickness) = 0;
 
   virtual void DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, int iFillColour, int iThickness, bool bFill) = 0;
 
@@ -103,20 +101,14 @@ public:
 
   virtual void Polyline(point * Points, int Number, int iWidth, int Colour) = 0;
 
-  // Draw a filled polygon - given vertices and color id
-  // This is not (currently) used in standard Dasher. However, it could be very
-  // useful in the future. Please implement unless it will be very difficult,
-  // in which case make this function call Polyline.
-  //! Draw a filled polygon
-  //!
-  //! \param Points array of points defining the edge of the polygon
-  //! \param Number number of points in the array
-  //! \param Color colour of the polygon (numeric)
-  virtual void Polygon(point * Points, int Number, int Color) {
-    Polygon(Points, Number, Color, 1);
-  };
-
-  virtual void Polygon(point * Points, int Number, int Color, int iWidth) = 0;
+  /// Draw a polygon - given vertices and color id
+  ///
+  /// \param Points Vertices of polygon in clockwise order. (No need to repeat the first point at the end)
+  /// \param Number number of points in the array
+  /// \param fillColor colour to fill polygon (numeric); -1 for don't fill
+  /// \param outlineColor colour to draw polygon outline (right the way around, i.e. repeating first point)
+  /// \param lineWidth thickness of outline; 0 or less => don't draw outline.
+  virtual void Polygon(point * Points, int Number, int fillColor, int outlineColor, int lineWidth) = 0;
 
   // Signal the screen when a frame is started and finished
   //! Signal that a frame is being started

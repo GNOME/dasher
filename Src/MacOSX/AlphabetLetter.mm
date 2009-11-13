@@ -11,6 +11,17 @@
 
 @implementation AlphabetLetter
 
+static NSDictionary *fontAttrs;
+
++(void)initialize {
+  //white text on (default) transparent background means that when we texture
+  //a surface using a colour, the text appears in that colour...
+  fontAttrs = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont systemFontOfSize:36.0],NSFontAttributeName,[NSColor whiteColor],NSForegroundColorAttributeName,nil];
+  //dictionaryWith...: does an autorelease - only "alloc" methods do not.
+  // But we want to keep the fontAttrs indefinitely...
+  [fontAttrs retain];
+}
+
 /*void dump(char *data, int width, int height)
 {
 	static char buf[10240]; buf[0] = 0;
@@ -45,13 +56,15 @@
 		[NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:context flipped:YES]];
 
 		CGContextClearRect(context, CGRectMake(0.0, 0.0, width, height));
-		[string drawAtPoint:NSMakePoint(0.0, 0.0) withAttributes:[NSDictionary dictionaryWithObject:[NSFont systemFontOfSize:36.0] forKey:NSFontAttributeName]];
+		[string drawAtPoint:NSMakePoint(0.0, 0.0) withAttributes:fontAttrs];
 		[NSGraphicsContext setCurrentContext:old];
 
 		glGenTextures(1, &texture);
 		glBindTexture(GL_TEXTURE_2D, texture);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    //...but tell the GL _not_ to interpolate between texels, as that results in a _big_
+    // grey border round each letter (?!)
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 //		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, CGBitmapContextGetData(context));
 
@@ -77,8 +90,10 @@
 	// bind and draw
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-	glColor4f(r, g, b, 1.0);
+  //"modulate" means to multiply the texture (i.e. 100%=white text, 0%=transparent bagkground)
+  // by the currently selected GL foreground colour
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	glColor4f(r, g, b, 1.0); //so we select the colour we want the text to appear in
 	NSSize sz = [self sizeWithSize:iSize];
 	GLshort coords[8];
 	coords[0] = x; coords[1]=y;

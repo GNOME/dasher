@@ -144,20 +144,13 @@ public:
   void Polyline(point * Points, int Number, int iWidth, int Colour);
 
   /// 
-  /// Like polyline, but fill the shape
-  /// \todo See comments for DrawPolygon
+  /// Draw a closed polygon (linking last vertex back to first)
+  /// @param fillColour colour to fill; -1 => don't fill
+  /// @param outlineColour colour to draw outline...
+  /// @param iWidth ...and line thickness; -1 => don't draw outline
   ///
 
-  void Polygon(point *Points, int Number, int Colour, int iWidth);
-
-  ///
-  /// \todo Not implemented
-  /// \todo One of these two routines must be redundant - find out which and kill the other
-  ///
-
-  void DrawPolygon(point *Points, int Number, int Color, Opts::ColorSchemes ColorScheme) {
-    // not implemented 
-  };
+  void Polygon(point *Points, int Number, int fillColour, int outlineColour, int iWidth);
 
   /// 
   /// Blank the diplay

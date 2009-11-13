@@ -56,7 +56,7 @@ Q_OBJECT public:
   void Polyline(point * Points, int Number, int Color) const {
     Polyline(Points, Number, Color);
   };
-  void DrawPolygon(point * Points, int Number, int Color, Opts::ColorSchemes ColorScheme) const;
+  void Polygon(point * Points, int Number, int fillColor, int outlineColor, int lineWidth) const;
   void SetColourScheme(const Dasher::CCustomColours * scheme) {
   };
 

@@ -147,16 +147,12 @@ public:
   void DasherPolyarrow(myint * x, myint * y, int n, int iWidth, int iColour, double dArrowSizeFactor = 0.7071);
 
   ///
-  /// Draw a polygon specified in Dasher co-ordinates
-  ///
-
-  void DasherPolygon(myint * x, myint * y, int n, int iColour);
-
-  ///
   /// Draw a rectangle specified in Dasher co-ordinates
+  /// Color of -1 => no fill; any other value => fill in that color
+  /// iOutlineColor of -1 => no outline; any other value => outline in that color, EXCEPT
+  /// Thickness < 1 => no outline.
   ///
-
-  void DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myint iBottom, const int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme,bool bDrawOutline, bool bFill, int iThickness);
+  void DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myint iBottom, const int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, int iThickness);
 
   ///
   /// Draw a centred rectangle specified in Dasher co-ordinates (used for mouse cursor)
@@ -164,7 +160,7 @@ public:
 
   void DasherDrawCentredRectangle(myint iDasherX, myint iDasherY, screenint iSize, const int Color, Opts::ColorSchemes ColorScheme, bool bDrawOutline);
 
-  void DrawText(const std::string & str, myint x, myint y, int Size);
+  void DrawText(const std::string & str, myint x, myint y, int Size, int iColor);
   /// Request the Screen to copy its buffer to the Display
   /// \todo Shouldn't be public?
   void Display();

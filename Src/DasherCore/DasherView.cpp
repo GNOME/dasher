@@ -150,22 +150,9 @@ void CDasherView::DasherPolyarrow(myint *x, myint *y, int n, int iWidth, int iCo
   delete[]ScreenPoints;
 }
 
-// Draw a filled polygon specified in Dasher co-ordinates
-
-void CDasherView::DasherPolygon(myint *x, myint *y, int n, int iColour) {
-
-  CDasherScreen::point * ScreenPoints = new CDasherScreen::point[n];
-
-  for(int i(0); i < n; ++i)
-    Dasher2Screen(x[i], y[i], ScreenPoints[i].x, ScreenPoints[i].y);
-
-  Screen()->Polygon(ScreenPoints, n, iColour);
-  delete[]ScreenPoints;
-}
-
 // Draw a box specified in Dasher co-ordinates
 
-void CDasherView::DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myint iBottom, const int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, bool bDrawOutline, bool bFill, int iThickness) {
+void CDasherView::DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myint iBottom, const int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, int iThickness) {
   screenint iScreenLeft;
   screenint iScreenTop;
   screenint iScreenRight;
@@ -174,7 +161,7 @@ void CDasherView::DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myi
   Dasher2Screen(iLeft, iTop, iScreenLeft, iScreenTop);
   Dasher2Screen(iRight, iBottom, iScreenRight, iScreenBottom);
 
-  Screen()->DrawRectangle(iScreenLeft, iScreenTop, iScreenRight, iScreenBottom, Color, iOutlineColour, ColorScheme, bDrawOutline, bFill, iThickness);
+  Screen()->DrawRectangle(iScreenLeft, iScreenTop, iScreenRight, iScreenBottom, Color, iOutlineColour, ColorScheme, iThickness);
 }
 
 /// Draw a rectangle centred on a given dasher co-ordinate, but with a size specified in screen co-ordinates (used for drawing the mouse blob)
@@ -185,14 +172,14 @@ void CDasherView::DasherDrawCentredRectangle(myint iDasherX, myint iDasherY, scr
 
   Dasher2Screen(iDasherX, iDasherY, iScreenX, iScreenY);
 
-  Screen()->DrawRectangle(iScreenX - iSize, iScreenY - iSize, iScreenX + iSize, iScreenY + iSize, Color, -1, ColorScheme, bDrawOutline, true, 1);
+  Screen()->DrawRectangle(iScreenX - iSize, iScreenY - iSize, iScreenX + iSize, iScreenY + iSize, Color, -1, ColorScheme, bDrawOutline ? 1 : 0);
 }
 
-void CDasherView::DrawText(const std::string & str, myint x, myint y, int Size) {
+void CDasherView::DrawText(const std::string & str, myint x, myint y, int Size, int iColor) {
   screenint X, Y;
   Dasher2Screen(x, y, X, Y);
   
-  Screen()->DrawString(str, X, Y, Size);
+  Screen()->DrawString(str, X, Y, Size, iColor);
 }
 
 

@@ -134,7 +134,7 @@ public:
   /// \param Size The size at which to render the rectangle (units?)
   ///
 
-  void DrawString(const std::string &String, screenint x1, screenint y1, int Size);
+  void DrawString(const std::string &String, screenint x1, screenint y1, int Size, int iColor);
 
   ///
   /// Draw a rectangle
@@ -142,12 +142,13 @@ public:
   /// \param y1 y coordiate of the top left corner
   /// \param x2 x coordiate of the bottom right corner
   /// \param y2 y coordiate of the bottom right corner
-  /// \param Color Colour to draw the rectangle
+  /// \param Color Colour to fill the rectangle (-1 = don't fill)
   /// \param ColorScheme Which of the alternating colour schemes to use (be more precise)
-  /// \param bDrawOutline Whether or not to draw outlines for the boxes
+  /// \param iOutlineColour Colour to draw the outline
+  /// \param iThickness line width of outline (<=0 = don't outline)
   ///
 
-  void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, bool bDrawOutine, bool bFill, int iThickness);
+  void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, int iThickness);
 
   void DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, int iFillColour, int iThickness, bool bFill);
 
@@ -174,20 +175,13 @@ public:
   void Polyline(point * Points, int Number, int iWidth, int Colour);
 
   /// 
-  /// Like polyline, but fill the shape
-  /// \todo See comments for DrawPolygon
+  /// Draw a closed polygon (linking last vertex back to first)
+  /// @param fillColour colour to fill; -1 => don't fill
+  /// @param outlineColour colour to draw outline...
+  /// @param iWidth ...and line thickness; -1 => don't draw outline
   ///
 
-  void Polygon(point *Points, int Number, int Colour, int iWidth);
-
-  ///
-  /// \todo Not implemented
-  /// \todo One of these two routines must be redundant - find out which and kill the other
-  ///
-
-  void DrawPolygon(point *Points, int Number, int Color, Opts::ColorSchemes ColorScheme) {
-    // not implemented 
-  };
+  void Polygon(point *Points, int Number, int fillColour, int outlineColour, int iWidth);
 
   /// 
   /// Blank the diplay

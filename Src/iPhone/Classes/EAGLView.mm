@@ -258,19 +258,19 @@
     [context presentRenderbuffer:GL_RENDERBUFFER_OES];
 };
 
--(void)rectangleCallbackX1:(int)x1 y1:(int)y1 x2:(int)x2 y2:(int)y2 fillColorIndex:(int)aFillColorIndex outlineColorIndex:(int)anOutlineColorIndex shouldOutline:(BOOL)shouldOutline shouldFill:(BOOL)shouldFill lineWidth:(int)aLineWidth {
+-(void)rectangleCallbackX1:(int)x1 y1:(int)y1 x2:(int)x2 y2:(int)y2 fillColorIndex:(int)aFillColorIndex outlineColorIndex:(int)anOutlineColorIndex lineWidth:(int)aLineWidth {
 	glDisable(GL_TEXTURE_2D);
 	glEnableClientState(GL_VERTEX_ARRAY);
-	if (shouldFill) {
+	if (aFillColorIndex != -1) {
 		glColor4f(colourTable[aFillColorIndex].r, colourTable[aFillColorIndex].g, colourTable[aFillColorIndex].b, 1.0);
 		GLshort coords[8] = {x1,y1, x2,y1, x1,y2, x2,y2};
 		glVertexPointer(2, GL_SHORT, 0, coords);
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	}
-	if (shouldOutline) {
+	if (aLineWidth>0) {
 		int oci = anOutlineColorIndex == -1 ? 3 : anOutlineColorIndex;
 		glColor4f(colourTable[oci].r, colourTable[oci].g, colourTable[oci].b, 1.0);
-		glLineWidth(1.0f);
+		glLineWidth(aLineWidth);
 		GLshort coords[] = {x1,y1, x2,y1, x2,y2,  x1,y2};
 		glVertexPointer(2, GL_SHORT, 0, coords);
 		glDrawArrays(GL_LINE_LOOP, 0, 4);
@@ -318,7 +318,28 @@
 	delete coords;
 }
 
-//-(void)polygonCallback:(int)iNum Points:(Dasher::CDasherScreen::point *)points Width:(int)iWidth ColourIndex:(int)iColour;
+-(void)polygonCallback:(int)iNum points:(Dasher::CDasherScreen::point *)points fillColourIndex:(int)iFillColour outlineColourIndex:(int)iOutlineColour width:(int)iWidth {
+  if (iNum < 2) return;
+  GLshort *coords = new GLshort[iNum*2];
+  for (int i = 0; i<iNum; i++)
+  {
+    coords[2*i] = points[i].x;
+    coords[2*i+1] = points[i].y;
+  }
+  glDisable(GL_TEXTURE_2D);
+  if (iFillColour != -1) {
+    glColor4f(colourTable[iFillColour].r, colourTable[iFillColour].g, colourTable[iFillColour].b, 1.0);
+    glVertexPointer(2, GL_SHORT, 0, coords);
+    glDrawArrays(GL_TRIANGLE_FAN, 0, iNum);
+  }
+  if (iWidth>0) {
+    glColor4f(colourTable[iOutlineColour].r, colourTable[iOutlineColour].g, colourTable[iOutlineColour].b, 1.0);
+    glLineWidth(iWidth);
+    glVertexPointer(2, GL_SHORT, 0, coords);
+    glDrawArrays(GL_LINE_LOOP, 0, iNum);
+  }
+  delete coords;
+}
 
 -(void)setColourSchemeWithColourTable:(colour_t *)aColourTable {
 	if (colourTable != NULL) {

@@ -28,9 +28,9 @@ void COSXDasherScreen::Display() {
   [dasherView displayCallback];
 }
 
-void COSXDasherScreen::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, bool bDrawOutline, bool bFill, int iThickness) {
+void COSXDasherScreen::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, int iThickness) {
 
-  [dasherView rectangleCallbackX1:x1 y1:y1 x2:x2 y2:y2 fillColorIndex:Color outlineColorIndex:iOutlineColour shouldOutline:bDrawOutline shouldFill:bFill lineWidth:iThickness];
+  [dasherView rectangleCallbackX1:x1 y1:y1 x2:x2 y2:y2 fillColorIndex:Color outlineColorIndex:iOutlineColour lineWidth:iThickness];
 }
 
 void COSXDasherScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, int iFillColour, int iThickness, bool bFill) {
@@ -38,8 +38,7 @@ void COSXDasherScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, in
   [dasherView circleCallbackCentrePoint:NSMakePoint(iCX, iCY) radius:iR outlineColorIndex:iColour fillColourIndex:iFillColour shouldFill:bFill lineWidth:iThickness];
 }
 
-void COSXDasherScreen::Polygon(Dasher::CDasherScreen::point *Points, int Number, int Colour, int iWidth) {
-  // TODO polygon is not the same as polyline--fix
+void COSXDasherScreen::Polygon(Dasher::CDasherScreen::point *Points, int Number, int fillColour, int outlineColour, int iWidth) {
   NSMutableArray *p = [NSMutableArray arrayWithCapacity:Number];
   int i;
   
@@ -47,8 +46,7 @@ void COSXDasherScreen::Polygon(Dasher::CDasherScreen::point *Points, int Number,
     [p addObject:[NSValue valueWithPoint:NSMakePoint(Points[i].x, Points[i].y)]];
   }
   
-  [dasherView polylineCallbackPoints:p width:iWidth colorIndex:Colour];
-  
+  [dasherView polygonCallbackPoints:p fillColorIndex:fillColour outlineColorIndex:outlineColour lineWidth:iWidth];
 }
 
 void COSXDasherScreen::Polyline(Dasher::CDasherScreen::point *Points, int Number, int iWidth, int Colour) {
@@ -62,9 +60,9 @@ void COSXDasherScreen::Polyline(Dasher::CDasherScreen::point *Points, int Number
   [dasherView polylineCallbackPoints:p width:iWidth colorIndex:Colour];
 }
 
-void COSXDasherScreen::DrawString(const std::string &String, int x1, int y1, int size) {
+void COSXDasherScreen::DrawString(const std::string &String, int x1, int y1, int size, int iColor) {
   // TODO is that hardcoded 4 correct?
-  [dasherView drawTextCallbackWithString:NSStringFromStdString(String) x1:x1 y1:y1 size:size colorIndex:4];
+  [dasherView drawTextCallbackWithString:NSStringFromStdString(String) x1:x1 y1:y1 size:size colorIndex:iColor];
 }
 
 void COSXDasherScreen::TextSize(const std::string &String, int *Width, int *Height, int size) {

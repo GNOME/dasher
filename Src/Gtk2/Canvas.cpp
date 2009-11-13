@@ -185,7 +185,7 @@ void CCanvas::Display() {
   // gtk_main_iteration_do(0);
 }
 
-void CCanvas::DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, bool bDrawOutline, bool bFill, int iThickness) {
+void CCanvas::DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, int iThickness) {
 
   //  std::cout << "Raw Rectangle, (" << x1 << ", " << y1 << ") - (" << x2 << ", " << y2 << ")" << std::endl;
 
@@ -225,18 +225,18 @@ void CCanvas::DrawRectangle(screenint x1, screenint y1, screenint x2, screenint 
 
   //  std::cout << bFill << " " << Color << " " << iLeft << " " << iTop << " " << iWidth << " " << iHeight << std::endl;
 
-  if(bFill) {
+  if(Color!=-1) {
     SET_COLOR(Color);
 #if WITH_CAIRO
-    cairo_set_line_width(cr, iThickness);
+    //cairo_set_line_width(cr, iThickness); //outline done below
     cairo_rectangle(cr, iLeft, iTop, iWidth, iHeight);
     cairo_fill(cr);
 #else
     gdk_draw_rectangle(m_pOffscreenBuffer, graphics_context, TRUE, iLeft, iTop, iWidth + 1, iHeight + 1);
 #endif
   }
-  
-  if(bDrawOutline) {
+
+  if(iThickness>0) {
     if( iOutlineColour == -1 )
       SET_COLOR(3);
     else
@@ -296,10 +296,12 @@ void CCanvas::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour
   END_DRAWING;
 }
 
-void CCanvas::Polygon(Dasher::CDasherScreen::point *Points, int Number, int Colour, int iWidth) {
+void CCanvas::Polygon(Dasher::CDasherScreen::point *Points, int Number, int fillColour, int outlineColour, int iWidth) {
 
-  if(iWidth == 1) // This is to make it work properly on Windows
-    iWidth = 0; 
+  //(ACL) commenting out, we now deal with fill & outline separately. However,
+  // TODO: find a windows box on which this actually applies and test it
+  //if(iWidth == 1) // This is to make it work properly on Windows
+  //  iWidth = 0; 
 
 #if WITH_CAIRO
 #else
@@ -311,14 +313,24 @@ void CCanvas::Polygon(Dasher::CDasherScreen::point *Points, int Number, int Colo
 #endif
 
   BEGIN_DRAWING;
-  SET_COLOR(Colour);
 
 #if WITH_CAIRO
  cairo_move_to(cr, Points[0].x, Points[0].y);
   for (int i=1; i < Number; i++)
     cairo_line_to(cr, Points[i].x, Points[i].y);
   cairo_close_path(cr);
-  cairo_fill(cr);
+  if (fillColour!=-1) {
+    SET_COLOR(fillColour);
+    if (iWidth<=0) {
+      cairo_fill(cr); //fill only, no outline
+    } else {
+      cairo_fill_preserve(cr); //leave path defined for cairo_stroke, below
+    }
+  }
+  if (iWidth>0) {
+    SET_COLOR(outlineColour==-1 ? 3 : outlineColour);
+    cairo_stroke(cr);
+  }
 #else
   GdkPoint *gdk_points;
   gdk_points = (GdkPoint *) g_malloc(Number * sizeof(GdkPoint));
@@ -328,8 +340,16 @@ void CCanvas::Polygon(Dasher::CDasherScreen::point *Points, int Number, int Colo
     gdk_points[i].y = Points[i].y;
   }
 
-  gdk_gc_set_line_attributes(graphics_context, iWidth, GDK_LINE_SOLID, GDK_CAP_ROUND, GDK_JOIN_ROUND );
-  gdk_draw_polygon(m_pOffscreenBuffer, graphics_context, TRUE, gdk_points, Number);
+  if (fillColour != -1) {
+    SET_COLOR(fillColour);
+    gdk_gc_set_line_attributes(graphics_context, 1, GDK_LINE_SOLID, GDK_CAP_ROUND, GDK_JOIN_ROUND );
+    gdk_draw_polygon(m_pOffscreenBuffer, graphics_context, TRUE, gdk_points, Number);
+  }
+  if (iWidth > 0) {
+    SET_COLOR(outlineColour);
+    gdk_gc_set_line_attributes(graphics_context, iWidth, GDK_LINE_SOLID, GDK_CAP_ROUND, GDK_JOIN_ROUND );
+    gdk_draw_polygon(m_pOffscreenBuffer, graphics_context, FALSE, gdk_points, Number);
+  }
   g_free(gdk_points);
 #endif
 
@@ -379,7 +399,7 @@ void CCanvas::Polyline(Dasher::CDasherScreen::point *Points, int Number, int iWi
   END_DRAWING;
 }
 
-void CCanvas::DrawString(const std::string &String, screenint x1, screenint y1, int size) {
+void CCanvas::DrawString(const std::string &String, screenint x1, screenint y1, int size, int iColor) {
   
 #if WITH_CAIRO
 #else
@@ -391,7 +411,7 @@ void CCanvas::DrawString(const std::string &String, screenint x1, screenint y1, 
 #endif
 
   BEGIN_DRAWING;
-  SET_COLOR(4);
+  SET_COLOR(iColor);
 
 #if WITH_CAIRO
   PangoLayout *pLayout(m_pPangoCache->GetLayout(cr, String, size));

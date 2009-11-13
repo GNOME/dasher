@@ -117,7 +117,7 @@
 }
 
 
-- (void)rectangleCallbackX1:(int)x1 y1:(int)y1 x2:(int)x2 y2:(int)y2 fillColorIndex:(int)aFillColorIndex outlineColorIndex:(int)anOutlineColorIndex shouldOutline:(BOOL)shouldOutline shouldFill:(BOOL)shouldFill lineWidth:(int)aLineWidth {
+- (void)rectangleCallbackX1:(int)x1 y1:(int)y1 x2:(int)x2 y2:(int)y2 fillColorIndex:(int)aFillColorIndex outlineColorIndex:(int)anOutlineColorIndex lineWidth:(int)aLineWidth {
 
   float x, y, width, height;
   
@@ -141,12 +141,12 @@
   
   NSRect r = NSMakeRect(x, y, width, height);
   
-  if (shouldFill) {
+  if (aFillColorIndex!=-1) {
     [[self colorWithColorIndex:aFillColorIndex] set];
     [NSBezierPath fillRect:r];
   }
   
-  if (shouldOutline) {
+  if (aLineWidth>0) {
     [[self colorWithColorIndex:anOutlineColorIndex == -1 ? 3 : anOutlineColorIndex] set];
     
     [NSBezierPath setDefaultLineWidth:aLineWidth];

@@ -15,7 +15,7 @@
 	GLuint texture;
 	GLfloat texcoords[8];
 }
-
++ (void)initialize;
 - (id)initWithString:(NSString *)string;
 - (void)drawWithSize:(int)aSize x:(int)x y:(int)y r:(float)r g:(float)g b:(float)b;
 - (NSSize)sizeWithSize:(int)aSize;

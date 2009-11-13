@@ -143,8 +143,9 @@ void QtDasherScreen::Polyline(point *Points, int Number) const {
   painter->setPen(NoPen);
 }
 
-void QtDasherScreen::DrawPolygon(point *Points, int Number, int Color, Opts::ColorSchemes ColorScheme) const {
-  painter->setBrush(getColor(Color, ColorScheme));
+void QtDasherScreen::Polygon(point *Points, int Number, int fillColor, int outlineColour, int iWidth) const {
+  //TODO, not sure what the deal is with color schemes...we don't have one, what should we do?
+  //painter->setBrush(getColor(fillColor, ColorScheme));
   QPointArray qpa(Number);
   Points_to_QPointArray(Points, Number, qpa);
   painter->drawPolygon(qpa);
