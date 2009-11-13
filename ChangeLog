@@ -1,3 +1,13 @@
+2009-08-22  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	This is what commit
+		05c615e8e6eb19c2bf189b44e3688afef5dc3926 Fixup Chinese BuildTree
+	should have done - which itself was what the earlier
+		bf7715060ab5a60945caa37bcb4698d249e4251c Restore
+		CConversionHelper::BuildTree, and move Chinese version
+		to CPinYinConversionHelper
+	should have been!
+
 2009-08-24  Patrick Welche <prlw1@cam.ac.uk>
 
 	* Fixup Chinese BuildTree.

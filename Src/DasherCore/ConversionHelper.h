@@ -122,7 +122,7 @@ namespace Dasher{
     	
     virtual void SetFlag(CDasherNode *pNode, int iFlag, bool bValue);
 
-protected:
+private:
 	
     /// 
     /// Build the conversion tree (lattice) for the given string -
@@ -130,10 +130,8 @@ protected:
     /// children of the root node are never instantiated
     ///
     
-    void BuildTree(CDasherNode *pRoot);
+    virtual void BuildTree(CDasherNode *pRoot);
 	
-private:
-
     ///
     /// Language model (TODO: We don't need to know about this, surely)
     ///
