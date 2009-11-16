@@ -21,7 +21,7 @@ class CPinYinConversionHelper : public CConversionHelper {
 
   CPinYinConversionHelper(CNodeCreationManager *pNCManager, Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, Dasher::CAlphIO *pAlphIO, const std::string strCHAlphabetPath, Dasher::CAlphabet * pAlphabet);
 
-  virtual void BuildTree(CDasherNode *pRoot);
+  virtual void BuildTree(CConvHNode *pRoot);
   
   virtual bool Convert(const std::string &strSource, SCENode ** pRoot);
 
@@ -35,15 +35,24 @@ class CPinYinConversionHelper : public CConversionHelper {
     return m_pLanguageModel;
   }
 
-  //override to blank out learn-as-write for Mandarin Dasher
-  virtual void SetFlag(CDasherNode *pNode, int iFlag, bool bValue);
+protected:
+  class CPYConvNode : public CConvHNode {
+  public:
+    CPYConvNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CPinYinConversionHelper *pMgr);
+    //override to blank out learn-as-write for Mandarin Dasher
+    virtual void SetFlag(int iFlag, bool bValue);
+    
+    ///Bit of a hack here - these two need to be accessed by CMandarinAlphMgr :-(.
+    ///However, by making MandarinAlphMgr a friend of PinYinConvHelper, it can see this nested class...
+    virtual CLanguageModel::Context GetConvContext();
+    virtual void SetConvSymbol(int iSymbol);
+    
+  protected:
+    CPinYinConversionHelper *mgr() {return static_cast<CPinYinConversionHelper *>(m_pMgr);}
+  };
+  CPYConvNode *makeNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo);
 	
  private:
-  ///Bit of a hack here - these two need to be accessed by CMandarinAlphMgr :-(.
-  ///Seems neater to make MandarinAlphMgr a friend, than these public...
-  virtual CLanguageModel::Context GetConvContext(CDasherNode *pNode);
-  virtual void SetConvSymbol(CDasherNode *pNode, int iSymbol);
-
   void TrainChPPM(CSettingsStore *pSettingsStore);
   void ProcessFile(CSettingsStore *pSettingsStore, int index);
 

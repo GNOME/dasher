@@ -23,13 +23,11 @@
 
 #include "../Common/Common.h"
 #include "../Common/NoClones.h"
+#include "LanguageModelling/LanguageModel.h"
 #include "DasherTypes.h"
-#include "NodeManager.h"
-
-// These includes no longer required? - pconlon
-//#include "Alphabet/GroupInfo.h"
-//#include "LanguageModelling/LanguageModel.h"
-
+namespace Dasher {
+  class CDasherNode;
+};
 #include <deque>
 #include <iostream>
 
@@ -120,7 +118,7 @@ class Dasher::CDasherNode:private NoClones {
   /// @param iFlag The flag to set
   /// @param bValue The new value of the flag
   ///
-  void SetFlag(int iFlag, bool bValue);
+  virtual void SetFlag(int iFlag, bool bValue);
 
   /// @brief Get the value of a flag for this node
   ///
@@ -221,20 +219,51 @@ class Dasher::CDasherNode:private NoClones {
   ///
   bool GameSearchChildren(std::string strTargetUtf8Char);
   
-
-  /// \todo Make private, read only access?
-  // leave public, or implement a get method - pconlon
-  CNodeManager *m_pNodeManager;
-
-  /// Pointer for the node manager to do with as it sees fit.
-  /// Remember to make sure that the node manager deletes anything it
-  /// puts here before the node is destroyed.
-  ///
-  /// Please put everything in here which isn't required to simply
-  /// render the node - basically the only exceptions should be the
-  /// node size, colour and display text.
-  /// \todo Make private, read only access?
   void *m_pUserData;
+  /// @name Management routines (once accessed via NodeManager)
+  /// @{
+  virtual int mgrId() = 0;
+  ///
+  /// Provide children for the supplied node
+  ///
+  
+  virtual void PopulateChildren() = 0;
+    
+  ///
+  /// Called whenever a node belonging to this manager first 
+  /// moves under the crosshair
+  ///
+  
+  virtual void Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {};
+  virtual void Undo() {};
+  
+  virtual void Enter() {};
+  virtual void Leave() {};
+  
+  virtual CDasherNode *RebuildParent() {
+    return 0;
+  }
+    
+  virtual void SetControlOffset(int iOffset) {};
+  
+  ///
+  /// See if this node, or *if an NF_SUBNODE* a descendant (recursively),
+  /// represents the specified alphanumeric character; if so, set it's NF_GAME flag and
+  /// return true; otherwise, return false.
+  ///
+  virtual bool GameSearchNode(std::string strTargetUtf8Char) {return false;}
+  
+  /// Clone the context of the specified node, if it's an alphabet node;
+  /// else return an empty context. (Used by ConversionManager)
+  virtual CLanguageModel::Context CloneAlphContext(CLanguageModel *pLanguageModel) {
+    return pLanguageModel->CreateEmptyContext();
+  };
+
+  virtual symbol GetAlphSymbol() {
+    throw "Hack for pre-MandarinDasher ConversionManager::BuildTree method, needs to access CAlphabetManager-private struct";
+  }
+
+  /// @}
   int m_iOffset;
 
   // A hack, to allow this node to be tied to a particular number of symbols;

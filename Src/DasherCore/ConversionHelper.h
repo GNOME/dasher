@@ -114,23 +114,27 @@ namespace Dasher{
     
     virtual void AssignChildSizes(SCENode **pNode, CLanguageModel::Context context, int iNChildren);
 	
-	///
-    /// Provide children for the supplied node
-    ///
-	
-    virtual void PopulateChildren( CDasherNode *pNode );
+	protected:
+    class CConvHNode : public CConvNode {
+    public:
+      CConvHNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CConversionHelper *pMgr);
+      ///
+      /// Provide children for the supplied node
+      ///
+      virtual void PopulateChildren();
     	
-    virtual void SetFlag(CDasherNode *pNode, int iFlag, bool bValue);
-
-private:
-	
+    virtual void SetFlag(int iFlag, bool bValue);
+    protected:
+      CConversionHelper *mgr() {return static_cast<CConversionHelper *>(m_pMgr);}
+    };
+	  virtual CConvHNode *makeNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo);
     /// 
     /// Build the conversion tree (lattice) for the given string -
     /// evaluated late to prevent unnecessary conversions when the
     /// children of the root node are never instantiated
     ///
     
-    virtual void BuildTree(CDasherNode *pRoot);
+    virtual void BuildTree(CConvHNode *pRoot);
 	
     ///
     /// Language model (TODO: We don't need to know about this, surely)

@@ -21,17 +21,16 @@
 #ifndef __conversion_manager_h__
 #define __conversion_manager_h__
 
-#include "AlphabetManager.h"
 #include "DasherTypes.h"
 #include "LanguageModelling/LanguageModel.h" // Urgh - we really shouldn't need to know about language models here
-#include "NodeManager.h"
+#include "DasherNode.h"
 #include "SCENode.h"
 
 // TODO: Conversion manager needs to deal with offsets and contexts - Will: See Phil for an explanation.
 
-namespace Dasher {
-  class CDasherNode; // Forward declaration
+class CNodeCreationManager;
 
+namespace Dasher {
   /// \ingroup Model
   /// @{
 
@@ -57,18 +56,10 @@ namespace Dasher {
   /// aspects of conversion, and CNodeManager for details of the node
   /// management process.
   ///
-  class CConversionManager : public CNodeManager {
+  class CConversionManager {
   public:
     // TODO: We shouldn't need to know about this stuff, but the code is somewhat in knots at the moment
     CConversionManager(CNodeCreationManager *pNCManager, CAlphabet *pAlphabet);
-
-    ///
-    /// Increment reference count
-    ///
-
-    virtual void Ref() {
-      ++m_iRefCount;
-    };
     
     ///
     /// Decrement reference count
@@ -92,32 +83,38 @@ namespace Dasher {
 
     virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, int iOffset);
 
+    protected:
+    class CConvNode : public CDasherNode {
+    public:
+      int mgrId() {return 2;}
+      CConvNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CConversionManager *pMgr);
     ///
     /// Provide children for the supplied node
     ///
 
-    virtual void PopulateChildren( CDasherNode *pNode );
+    virtual void PopulateChildren();
     
-    ///
-    /// Delete any storage alocated for this node
-    ///
-
-    virtual void ClearNode( CDasherNode *pNode );
-
+    ~CConvNode();
+      
     ///
     /// Called whenever a node belonging to this manager first 
     /// moves under the crosshair
     ///
 
-    virtual void Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization);
+    virtual void Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization);
 
     ///
     /// Called when a node is left backwards
     ///
 
-    virtual void Undo( CDasherNode *pNode );
+    virtual void Undo();
 
-  protected:
+    protected:
+      CConversionManager *m_pMgr;
+    };
+    
+    virtual CConvNode *makeNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo);
+    
     //TODO: REVISE
     struct SConversionData {
       symbol iSymbol;
@@ -129,7 +126,6 @@ namespace Dasher {
       //int iGameOffset;
     };
 	  
-  protected:
 	CNodeCreationManager *m_pNCManager;
 	CAlphabet *m_pAlphabet;
 	

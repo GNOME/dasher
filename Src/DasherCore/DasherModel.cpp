@@ -216,7 +216,7 @@ void CDasherModel::RebuildAroundNode(CDasherNode *pNode) {
   ClearRootQueue();
   m_Root->Delete_children();
 
-  m_Root->m_pNodeManager->PopulateChildren(m_Root);
+  m_Root->PopulateChildren();
 
   m_pLastOutput = m_Root;
 }
@@ -230,7 +230,7 @@ void CDasherModel::Reparent_root(int lower, int upper) {
   CDasherNode *pNewRoot;
 
   if(oldroots.size() == 0) {
-    pNewRoot = m_Root->m_pNodeManager->RebuildParent(m_Root);
+    pNewRoot = m_Root->RebuildParent();
   }
   else {
     pNewRoot = oldroots.back();
@@ -517,12 +517,12 @@ void CDasherModel::RecursiveOutput(CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PRO
     RecursiveOutput(pNode->Parent(), pAdded);
 
   if(pNode->Parent())
-    pNode->Parent()->m_pNodeManager->Leave(pNode->Parent());
+    pNode->Parent()->Leave();
 
-  pNode->m_pNodeManager->Enter(pNode);
+  pNode->Enter();
 
   pNode->SetFlag(NF_SEEN, true);
-  pNode->m_pNodeManager->Output(pNode, pAdded, GetLongParameter(LP_NORMALIZATION));
+  pNode->Output(pAdded, GetLongParameter(LP_NORMALIZATION));
 
   // If the node we are outputting is the last one in a game target sentence, then
   // notify the game mode teacher.
@@ -600,8 +600,8 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
     
     //   if(oldnode->Parent() == newnode) {
     //       std::cout << "DCA" << std::endl;
-    //       oldnode->m_pNodeManager->Undo(oldnode);
-    //       oldnode->Parent()->m_pNodeManager->Enter(oldnode->Parent());
+    //       oldnode->Undo();
+    //       oldnode->Parent()->Enter();
     //       if (pNumDeleted != NULL)
     //         (*pNumDeleted)++;
     //       oldnode->SetFlag(NF_SEEN, false);
@@ -609,16 +609,16 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
     //     }
     //     if(DeleteCharacters(newnode, oldnode->Parent(), pNumDeleted) == true) {
     //       std::cout << "DCB" << std::endl;
-    //       oldnode->m_pNodeManager->Undo(oldnode);
-    //       oldnode->Parent()->m_pNodeManager->Enter(oldnode->Parent());
+    //       oldnode->Undo();
+    //       oldnode->Parent()->Enter();
     //       if (pNumDeleted != NULL)
     // 	(*pNumDeleted)++;
     //       oldnode->SetFlag(NF_SEEN, false);
     //       return true;
     //     }
 
-    oldnode->m_pNodeManager->Undo(oldnode);
-    oldnode->Parent()->m_pNodeManager->Enter(oldnode->Parent());
+    oldnode->Undo();
+    oldnode->Parent()->Enter();
 
     // TODO: This is completely the wrong place to trap output
     if(pNumDeleted != NULL)
@@ -646,10 +646,9 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
 
       oldnode->SetFlag(NF_SEEN, false);
       
-      oldnode->m_pNodeManager->Undo(oldnode);
+      oldnode->Undo();
 
-      if(oldnode->Parent())
-	oldnode->Parent()->m_pNodeManager->Enter(oldnode->Parent());
+      if(oldnode->Parent()) oldnode->Parent()->Enter();
 
       if (pNumDeleted != NULL)
 	(*pNumDeleted) += oldnode->m_iNumSymbols;
@@ -681,7 +680,7 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
   pNode->Delete_children(); // trial commented out - pconlon
 
   // Populate children creates two levels at once - the groups and their children.
-  pNode->m_pNodeManager->PopulateChildren(pNode);
+  pNode->PopulateChildren();
 
   pNode->SetFlag(NF_ALLCHILDREN, true);
 
@@ -964,5 +963,5 @@ void CDasherModel::SetControlOffset(int iOffset) {
   // work right now.
   CDasherNode *pNode = Get_node_under_crosshair();
   
-  pNode->m_pNodeManager->SetControlOffset(pNode, iOffset);
+  pNode->SetControlOffset(iOffset);
 }

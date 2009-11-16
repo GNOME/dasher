@@ -1,5 +1,14 @@
 2009-11-16  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
+	* NodeManager::Ref() & ClearNode() put into DasherNode subclass
+	  con/destructors
+	* Other calls pNode->m_pNodeManager->Foo(pNode,...) replaced
+	  by pNode->Foo(...). NodeManager class now serves no purpose,
+	  so removed.
+	* Access to m_pUserData still via casting at present
+
+2009-11-16  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
 	 * Made SConversionData protected in CConversionManager
 	 * Bypassed by making CMandarinAlphMgr a friend of
 	   CPinYinConversionHelper ...and statically casting :-(

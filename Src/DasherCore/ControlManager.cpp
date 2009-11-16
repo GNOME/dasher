@@ -38,7 +38,7 @@ static char THIS_FILE[] = __FILE__;
 int CControlManager::m_iNextID = 0;
 
 CControlManager::CControlManager( CNodeCreationManager *pNCManager )
-  : CNodeManager(1), m_pNCManager(pNCManager), m_pLanguageModel(NULL) {
+  : m_pNCManager(pNCManager), m_pLanguageModel(NULL) {
   string SystemString = m_pNCManager->GetStringParameter(SP_SYSTEM_LOC);
   string UserLocation = m_pNCManager->GetStringParameter(SP_USER_LOC);
   m_iNextID = 0;
@@ -277,13 +277,11 @@ CDasherNode *CControlManager::GetRoot(CDasherNode *pParent, int iLower, int iUpp
   pDisplayInfo->bVisible = true;
   pDisplayInfo->strDisplayText = m_mapControlMap[0]->strLabel;
   
-  pNewNode = new CDasherNode(pParent, iLower, iUpper, pDisplayInfo);
+  pNewNode = new CContNode(pParent, iLower, iUpper, pDisplayInfo, this);
  
   // FIXME - handle context properly
 
   //  pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
-
-  pNewNode->m_pNodeManager = this;
 
   pNewNode->m_pUserData = m_mapControlMap[0];
   pNewNode->m_iOffset = iOffset;
@@ -291,11 +289,16 @@ CDasherNode *CControlManager::GetRoot(CDasherNode *pParent, int iLower, int iUpp
   return pNewNode;
 }
 
-void CControlManager::PopulateChildren( CDasherNode *pNode ) {
+CControlManager::CContNode::CContNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDisplayInfo, CControlManager *pMgr)
+: CDasherNode(pParent, iLbnd, iHbnd, pDisplayInfo), m_pMgr(pMgr) {
+}
+
+
+void CControlManager::CContNode::PopulateChildren() {
   
   CDasherNode *pNewNode;
 
-   SControlItem *pControlNode(static_cast<SControlItem *>(pNode->m_pUserData));
+   SControlItem *pControlNode(static_cast<SControlItem *>(m_pUserData));
 
    int iNChildren( pControlNode->vChildren.size() );
 
@@ -305,13 +308,13 @@ void CControlManager::PopulateChildren( CDasherNode *pNode ) {
 
      // FIXME - could do this better
 
-     int iLbnd( iIdx*(m_pNCManager->GetLongParameter(LP_NORMALIZATION)/iNChildren)); 
-     int iHbnd( (iIdx+1)*(m_pNCManager->GetLongParameter(LP_NORMALIZATION)/iNChildren)); 
+     int iLbnd( iIdx*(m_pMgr->m_pNCManager->GetLongParameter(LP_NORMALIZATION)/iNChildren)); 
+     int iHbnd( (iIdx+1)*(m_pMgr->m_pNCManager->GetLongParameter(LP_NORMALIZATION)/iNChildren)); 
 
      if( *it == NULL ) {
        // Escape back to alphabet
 
-       pNewNode = m_pNCManager->GetAlphRoot(pNode, iLbnd, iHbnd, NULL/*TODO fix this*/, pNode->m_iOffset);
+       pNewNode = m_pMgr->m_pNCManager->GetAlphRoot(this, iLbnd, iHbnd, NULL/*TODO fix this*/, m_iOffset);
        pNewNode->SetFlag(NF_SEEN, false);
      }
      else {
@@ -328,59 +331,56 @@ void CControlManager::PopulateChildren( CDasherNode *pNode ) {
        pDisplayInfo->bVisible = true;
        pDisplayInfo->strDisplayText = (*it)->strLabel;
        
-       pNewNode = new CDasherNode(pNode, iLbnd, iHbnd, pDisplayInfo);
+       pNewNode = new CContNode(this, iLbnd, iHbnd, pDisplayInfo, m_pMgr);
 
-       pNewNode->m_pNodeManager = this;
        pNewNode->m_pUserData = *it;
-       pNewNode->m_iOffset = pNode->m_iOffset;
+
+       pNewNode->m_iOffset = m_iOffset;
      }
-     pNode->Children().push_back(pNewNode);
+     Children().push_back(pNewNode);
      ++iIdx;
    }
 }
 
-void CControlManager::ClearNode( CDasherNode *pNode ) {
-}
+void CControlManager::CContNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization ) {
 
-void CControlManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization ) {
-
-  SControlItem *pControlNode(static_cast<SControlItem *>(pNode->m_pUserData));
+  SControlItem *pControlNode(static_cast<SControlItem *>(m_pUserData));
 
   CControlEvent oEvent(pControlNode->iID);
   // TODO: Need to reimplement this
   //  m_pNCManager->m_bContextSensitive=false;
-  m_pNCManager->InsertEvent(&oEvent);
+  m_pMgr->m_pNCManager->InsertEvent(&oEvent);
 }
 
-void CControlManager::Undo( CDasherNode *pNode ) {
+void CControlManager::CContNode::Undo() {
   // Do we ever need this?
   // One other thing we probably want is notification when we leave a node - that way we can eg speed up again if we slowed down
-  m_pNCManager->SetLongParameter(LP_BOOSTFACTOR, 100);
+  m_pMgr->m_pNCManager->SetLongParameter(LP_BOOSTFACTOR, 100);
   //Re-enable auto speed control!
-  if (bDisabledSpeedControl)
+  if (m_pMgr->bDisabledSpeedControl)
   {
-    bDisabledSpeedControl = false;
-    m_pNCManager->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 1);
+    m_pMgr->bDisabledSpeedControl = false;
+    m_pMgr->m_pNCManager->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 1);
   }
 }
 
-void CControlManager::Enter(CDasherNode *pNode) {
+void CControlManager::CContNode::Enter() {
   // Slow down to half the speed we were at
-  m_pNCManager->SetLongParameter(LP_BOOSTFACTOR, 50);
+  m_pMgr->m_pNCManager->SetLongParameter(LP_BOOSTFACTOR, 50);
   //Disable auto speed control!
-  if ((bDisabledSpeedControl = m_pNCManager->GetBoolParameter(BP_AUTO_SPEEDCONTROL)) == true)
-    m_pNCManager->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 0);
+  m_pMgr->bDisabledSpeedControl = m_pMgr->m_pNCManager->GetBoolParameter(BP_AUTO_SPEEDCONTROL); 
+  m_pMgr->m_pNCManager->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 0);
 }
 
 
-void CControlManager::Leave(CDasherNode *pNode) {
+void CControlManager::CContNode::Leave() {
   // Now speed back up, by doubling the speed we were at in control mode
-  m_pNCManager->SetLongParameter(LP_BOOSTFACTOR, 100);
+  m_pMgr->m_pNCManager->SetLongParameter(LP_BOOSTFACTOR, 100);
   //Re-enable auto speed control!
-  if (bDisabledSpeedControl)
+  if (m_pMgr->bDisabledSpeedControl)
   {
-    bDisabledSpeedControl = false;
-    m_pNCManager->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 1);
+    m_pMgr->bDisabledSpeedControl = false;
+    m_pMgr->m_pNCManager->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 1);
   }
 }
 
@@ -415,6 +415,6 @@ void CControlManager::XmlCDataHandler(void *pUserData, const XML_Char *szData, i
   return;
 }
 
-void CControlManager::SetControlOffset(CDasherNode *pNode, int iOffset) {
-  pNode->m_iOffset = iOffset;
+void CControlManager::CContNode::SetControlOffset(int iOffset) {
+  m_iOffset = iOffset;
 }

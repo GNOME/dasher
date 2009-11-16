@@ -21,7 +21,6 @@
 #ifndef __controlmanager_h__
 #define __controlmanager_h__
 
-#include "NodeManager.h"
 #include "LanguageModelling/LanguageModel.h" // Urgh - we really shouldn't need to know about language models here
 #include "DasherModel.h"
 #include "DasherNode.h"
@@ -53,7 +52,7 @@ namespace Dasher {
   /// Currently can only have one instance due to use 
   /// of static members for callbacks from expat.
   ///
-  class CControlManager : public CNodeManager {
+  class CControlManager {
   public:
 
     enum { CTL_ROOT, CTL_STOP, CTL_PAUSE, CTL_MOVE, CTL_MOVE_FORWARD, 
@@ -71,49 +70,36 @@ namespace Dasher {
     ~CControlManager();
 
     ///
-    /// Does nothing - control manager isn't reference counted.
-    ///
-
-    virtual void Ref() {};
-    
-    ///
-    /// Does nothing - control manager isn't reference counted.
-    ///
-    
-    virtual void Unref() {};
-
-    ///
     /// Get a new root node owned by this manager
     ///
 
     virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, int iOffset);
-
+    void RegisterNode( int iID, std::string strLabel, int iColour );
+    void ConnectNode(int iChild, int iParent, int iAfter);
+    void DisconnectNode(int iChild, int iParent);
+    
+  private:
+    class CContNode : public CDasherNode {
+    public:
+      int mgrId() {return 1;}
+      CContNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDisplayInfo, CControlManager *pMgr);
     ///
     /// Provide children for the supplied node
     ///
 
-    virtual void PopulateChildren( CDasherNode *pNode );
+    virtual void PopulateChildren();
     
-    ///
-    /// Delete any storage alocated for this node
-    ///
+    virtual void Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization );
+    virtual void Undo();
 
-    virtual void ClearNode( CDasherNode *pNode );
+    virtual void Enter();
+    virtual void Leave();
+
+    void SetControlOffset(int iOffset);
+    private:
+      CControlManager *m_pMgr;
+    };
     
-    virtual void Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization );
-    virtual void Undo( CDasherNode *pNode );
-
-    virtual void Enter(CDasherNode *pNode);
-    virtual void Leave(CDasherNode *pNode);
-
-    void RegisterNode( int iID, std::string strLabel, int iColour );
-    void ConnectNode(int iChild, int iParent, int iAfter);
-    void DisconnectNode(int iChild, int iParent);
-
-    void SetControlOffset(CDasherNode *pNode, int iOffset);
-
-  private:
-
     struct SControlItem {
       std::vector<SControlItem *> vChildren;
       std::string strLabel;

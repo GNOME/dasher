@@ -21,9 +21,8 @@
 #ifndef __alphabetmanager_h__
 #define __alphabetmanager_h__
 
-#include "NodeManager.h"
 #include "LanguageModelling/LanguageModel.h"
-
+#include "DasherNode.h"
 #include "Parameters.h"
 
 class CNodeCreationManager;
@@ -41,22 +40,10 @@ namespace Dasher {
   /// to the appropriate alphabet file, with sizes given by the
   /// language model.
   ///
-  class CAlphabetManager : public CNodeManager {
+  class CAlphabetManager {
   public:
 
     CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel, CLanguageModel::Context iLearnContext);
-
-    ///
-    /// Does nothing - alphabet manager isn't reference counted.
-    ///
-
-    virtual void Ref() {};
-    
-    ///
-    /// Does nothing - alphabet manager isn't reference counted.
-    ///
-    
-    virtual void Unref() {};
 
     ///
     /// Get a new root node owned by this manager
@@ -66,32 +53,38 @@ namespace Dasher {
     //   in null SRootData, then pass in szContext==null and iOffset==-1.
     virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, char *szContext, int iOffset);
 
+  protected:
+    class CAlphNode : public CDasherNode {
+    public:
+      int mgrId() {return 0;}
+      CAlphNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CAlphabetManager *pMgr);
     ///
     /// Provide children for the supplied node
     ///
 
-    virtual void PopulateChildren( CDasherNode *pNode );
-    void PopulateChildrenWithSymbol( CDasherNode *pNode, int iExistingSymbol, CDasherNode *pExistingChild );
+    virtual void PopulateChildren();
 
     ///
     /// Delete any storage alocated for this node
     ///
 
-    virtual void ClearNode( CDasherNode *pNode );
+    virtual ~CAlphNode();
 
-    virtual void Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization);
-    virtual void Undo( CDasherNode *pNode );
+    virtual void Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization);
+    virtual void Undo();
 
-    virtual CDasherNode *RebuildParent(CDasherNode *pNode);
+    virtual CDasherNode *RebuildParent();
 
-    virtual void SetFlag(CDasherNode *pNode, int iFlag, bool bValue);
+    virtual void SetFlag(int iFlag, bool bValue);
 
-    virtual bool GameSearchNode(CDasherNode *pNode, std::string strTargetUtf8Char);
+    virtual bool GameSearchNode(std::string strTargetUtf8Char);
     
-    virtual CLanguageModel::Context CloneAlphContext(CDasherNode *pNode, CLanguageModel *pLanguageModel);
-    virtual symbol GetAlphSymbol(CDasherNode *pNode);
+    virtual CLanguageModel::Context CloneAlphContext(CLanguageModel *pLanguageModel);
+    virtual symbol GetAlphSymbol();
+    private:
+      CAlphabetManager *m_pMgr;
+    };
     
-  protected:
     struct SAlphabetData {
       symbol iSymbol;
       int iPhase;
@@ -100,6 +93,14 @@ namespace Dasher {
  
       int iGameOffset;
     };
+
+    ///
+    /// Factory method for CAlphNode construction, so subclasses can override.
+    ///
+    virtual CAlphNode *makeNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo);    
+
+    
+  void PopulateChildrenWithSymbol( CDasherNode *pNode, int iExistingSymbol, CDasherNode *pExistingChild );
 
 	virtual CDasherNode *CreateSymbolNode(CDasherNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd, symbol iExistingSymbol, CDasherNode *pExistingChild);
     virtual CLanguageModel::Context CreateSymbolContext(SAlphabetData *pParentData, symbol iSymbol);

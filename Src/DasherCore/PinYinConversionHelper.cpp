@@ -50,7 +50,7 @@ CPinYinConversionHelper::CPinYinConversionHelper(CNodeCreationManager *pNCManage
   pParser = new CPinyinParser(strCHAlphabetPath);
 }
 
-void CPinYinConversionHelper::BuildTree(CDasherNode *pRoot) {
+void CPinYinConversionHelper::BuildTree(CConvHNode *pRoot) {
   DASHER_ASSERT(pRoot->m_pNodeManager == this);
 
   // Find the pinyin (roman) text (stored in Display text) of the
@@ -254,17 +254,27 @@ void CPinYinConversionHelper::AssignSizes(SCENode **pStart, Dasher::CLanguageMod
     //    std::cout<<"Not equal! sum is "<<sumSize<<std::endl;
 //  }
 
-void CPinYinConversionHelper::SetFlag(CDasherNode *pNode, int iFlag, bool bValue)
+CPinYinConversionHelper::CPYConvNode *CPinYinConversionHelper::makeNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo) {
+  return new CPYConvNode(pParent, iLbnd, iHbnd, pDispInfo, this);
+}
+
+CPinYinConversionHelper::CPYConvNode::CPYConvNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CPinYinConversionHelper *pMgr)
+: CConvHNode(pParent, iLbnd, iHbnd, pDispInfo, pMgr) {
+};
+
+void CPinYinConversionHelper::CPYConvNode::SetFlag(int iFlag, bool bValue)
 {
 	//Blanked out for new Mandarin Dasher, if we want to have the language model learn as one types, need to work on this part
-	if (iFlag == NF_COMMITTED && bValue) return;
-	CConversionHelper::SetFlag(pNode, iFlag, bValue);
+	if (iFlag == NF_COMMITTED && bValue)
+    CConvNode::SetFlag(iFlag, bValue); //skip CConvHNode::SetFlag, which does learn-as-you-type
+  else
+    CConvHNode::SetFlag(iFlag, bValue);
 }
 
-CLanguageModel::Context CPinYinConversionHelper::GetConvContext(CDasherNode *pNode) {
-  return static_cast<SConversionData *>(pNode->m_pUserData)->iContext;
+CLanguageModel::Context CPinYinConversionHelper::CPYConvNode::GetConvContext() {
+  return static_cast<SConversionData *>(m_pUserData)->iContext;
 }
 
-void CPinYinConversionHelper::SetConvSymbol(CDasherNode *pNode, int iSymbol) {
-  static_cast<SConversionData *> (pNode->m_pUserData)->iSymbol = iSymbol;
+void CPinYinConversionHelper::CPYConvNode::SetConvSymbol(int iSymbol) {
+  static_cast<SConversionData *> (m_pUserData)->iSymbol = iSymbol;
 }

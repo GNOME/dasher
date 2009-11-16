@@ -114,7 +114,6 @@
 		1948BF110C226CFD001DFA32 /* ModuleManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE6C0C226CFD001DFA32 /* ModuleManager.h */; };
 		1948BF120C226CFD001DFA32 /* NodeCreationManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE6D0C226CFD001DFA32 /* NodeCreationManager.cpp */; };
 		1948BF130C226CFD001DFA32 /* NodeCreationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE6E0C226CFD001DFA32 /* NodeCreationManager.h */; };
-		1948BF140C226CFD001DFA32 /* NodeManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE6F0C226CFD001DFA32 /* NodeManager.h */; };
 		1948BF160C226CFD001DFA32 /* OneButtonFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE710C226CFD001DFA32 /* OneButtonFilter.cpp */; };
 		1948BF170C226CFD001DFA32 /* OneButtonFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE720C226CFD001DFA32 /* OneButtonFilter.h */; };
 		1948BF180C226CFD001DFA32 /* OneDimensionalFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE730C226CFD001DFA32 /* OneDimensionalFilter.cpp */; };
@@ -534,7 +533,6 @@
 		1948BE6C0C226CFD001DFA32 /* ModuleManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ModuleManager.h; sourceTree = "<group>"; };
 		1948BE6D0C226CFD001DFA32 /* NodeCreationManager.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = NodeCreationManager.cpp; sourceTree = "<group>"; };
 		1948BE6E0C226CFD001DFA32 /* NodeCreationManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NodeCreationManager.h; sourceTree = "<group>"; };
-		1948BE6F0C226CFD001DFA32 /* NodeManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = NodeManager.h; sourceTree = "<group>"; };
 		1948BE710C226CFD001DFA32 /* OneButtonFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = OneButtonFilter.cpp; sourceTree = "<group>"; };
 		1948BE720C226CFD001DFA32 /* OneButtonFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = OneButtonFilter.h; sourceTree = "<group>"; };
 		1948BE730C226CFD001DFA32 /* OneDimensionalFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = OneDimensionalFilter.cpp; sourceTree = "<group>"; };
@@ -1034,7 +1032,6 @@
 				3306E33B0FFFB9880017324C /* MandarinAlphMgr.cpp */,
 				3306E33C0FFFB9880017324C /* MandarinAlphMgr.h */,
 				1948BE6E0C226CFD001DFA32 /* NodeCreationManager.h */,
-				1948BE6F0C226CFD001DFA32 /* NodeManager.h */,
 				1948BE710C226CFD001DFA32 /* OneButtonFilter.cpp */,
 				1948BE720C226CFD001DFA32 /* OneButtonFilter.h */,
 				1921DB370C7ECAA400E6DAA5 /* OneButtonDynamicFilter.cpp */,
@@ -1495,7 +1492,6 @@
 				1948BF0E0C226CFD001DFA32 /* MemoryLeak.h in Headers */,
 				1948BF110C226CFD001DFA32 /* ModuleManager.h in Headers */,
 				1948BF130C226CFD001DFA32 /* NodeCreationManager.h in Headers */,
-				1948BF140C226CFD001DFA32 /* NodeManager.h in Headers */,
 				1948BF170C226CFD001DFA32 /* OneButtonFilter.h in Headers */,
 				1948BF190C226CFD001DFA32 /* OneDimensionalFilter.h in Headers */,
 				1948BF1A0C226CFD001DFA32 /* Parameters.h in Headers */,

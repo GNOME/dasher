@@ -68,9 +68,6 @@ CDasherNode::~CDasherNode() {
   // unreference ref counted stuff etc.
   Delete_children();
 
-  m_pNodeManager->ClearNode( this );
-  m_pNodeManager->Unref();
-
   //  std::cout << "done." << std::endl;
 
   delete m_pDisplayInfo;
@@ -168,11 +165,11 @@ void CDasherNode::Delete_children() {
 
   ChildMap::iterator i;
   for(i = Children().begin(); i != Children().end(); i++) {
-    //    std::cout << "CNM: " << (*i)->m_pNodeManager << " (" << (*i)->m_pNodeManager->GetID() << ") " << (*i) << " " << (*i)->Parent() << std::endl;
+    //    std::cout << "CNM: " << (*i)->MgrID() << (*i) << " " << (*i)->Parent() << std::endl;
     delete (*i);
   }
   Children().clear();
-  //  std::cout << "NM: " << m_pNodeManager << std::endl;
+  //  std::cout << "NM: " << MgrID() << std::endl;
   SetFlag(NF_ALLCHILDREN, false);
 }
 
@@ -187,9 +184,6 @@ void CDasherNode::SetFlag(int iFlag, bool bValue) {
     m_iFlags = m_iFlags | iFlag;
   else
     m_iFlags = m_iFlags & (~iFlag);
-
- m_pNodeManager->SetFlag(this, iFlag, bValue);
-
 }
  
 void CDasherNode::SetParent(CDasherNode *pNewParent) {
@@ -212,7 +206,7 @@ int CDasherNode::MostProbableChild() {
 
 bool CDasherNode::GameSearchChildren(string strTargetUtf8Char) {
   for (ChildMap::iterator i = Children().begin(); i != Children().end(); i++) {
-    if ((*i)->m_pNodeManager->GameSearchNode((*i), strTargetUtf8Char)) return true;
+    if ((*i)->GameSearchNode(strTargetUtf8Char)) return true;
   }
   return false;
 }

@@ -62,7 +62,7 @@ CDasherNode *CConversionHelper::GetRoot(CDasherNode *pParent, int iLower, int iU
   // context of a conversion node (e.g. ^) is the context of the
   // letter (e.g. e) before it (as the ^ entails replacing the e with
   // a single accented character e-with-^)
-  pNodeUserData->iContext = pParent->m_pNodeManager->CloneAlphContext(pParent, m_pLanguageModel);
+  pNodeUserData->iContext = pParent->CloneAlphContext(m_pLanguageModel);
   return pNewNode;
 }
 
@@ -166,10 +166,10 @@ void CConversionHelper::AssignChildSizes(SCENode **pNode, CLanguageModel::Contex
 
 }
 
-void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
+void CConversionHelper::CConvHNode::PopulateChildren() {
   DASHER_ASSERT(m_pNCManager);
 
-  SConversionData * pCurrentDataNode (static_cast<SConversionData *>(pNode->m_pUserData));
+  SConversionData * pCurrentDataNode (static_cast<SConversionData *>(m_pUserData));
   CDasherNode *pNewNode;
 
   // Do the conversion and build the tree (lattice) if it hasn't been
@@ -178,7 +178,7 @@ void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
 
 
   if(pCurrentDataNode->bisRoot) {
-    BuildTree(pNode);
+    mgr()->BuildTree(this);
   }
 
   SCENode *pCurrentSCEChild;
@@ -216,7 +216,7 @@ void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
 
 
 
-    AssignChildSizes(&pCurrentSCEChild, pCurrentDataNode->iContext, pCurrentSCEChild->IsHeadAndCandNum);
+    mgr()->AssignChildSizes(&pCurrentSCEChild, pCurrentDataNode->iContext, pCurrentSCEChild->IsHeadAndCandNum);
 
     int iIdx(0);
     int iCum(0);
@@ -241,7 +241,7 @@ void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
 
 
       CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
-      pDisplayInfo->iColour = AssignColour(parentClr, pCurrentSCEChild, iIdx);
+      pDisplayInfo->iColour = mgr()->AssignColour(parentClr, pCurrentSCEChild, iIdx);
       pDisplayInfo->bShove = true;
       pDisplayInfo->bVisible = true;
 
@@ -249,7 +249,7 @@ void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
 
       pDisplayInfo->strDisplayText = pCurrentSCEChild->pszConversion;
 
-      pNewNode = new CDasherNode(pNode, iLbnd, iHbnd, pDisplayInfo);
+      pNewNode = mgr()->makeNode(this, iLbnd, iHbnd, pDisplayInfo);
 
       // TODO: Reimplement ----
 
@@ -257,14 +257,11 @@ void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
       //      pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
       // -----
 
-      pNewNode->m_pNodeManager = this;
-      Ref();
-
       SConversionData *pNodeUserData = new SConversionData;
       pNodeUserData->bisRoot = false;
       pNodeUserData->pSCENode = pCurrentSCEChild;
       pNodeUserData->pLanguageModel = pCurrentDataNode->pLanguageModel;
-      pNewNode->m_iOffset = pNode->m_iOffset + 1;
+      pNewNode->m_iOffset = m_iOffset + 1;
 
       if(pCurrentDataNode->pLanguageModel) {
 	CLanguageModel::Context iContext;
@@ -279,7 +276,7 @@ void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
 
       pNewNode->m_pUserData = pNodeUserData;
 
-      pNode->Children().push_back(pNewNode);
+      Children().push_back(pNewNode);
 
       pCurrentSCEChild = pCurrentSCEChild->GetNext();
       ++iIdx;
@@ -293,12 +290,12 @@ void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
       // TODO: Placeholder algorithm here
       // TODO: Add an 'end of conversion' node?
       int iLbnd(0);
-      int iHbnd(m_pNCManager->GetLongParameter(LP_NORMALIZATION));
+      int iHbnd(mgr()->m_pNCManager->GetLongParameter(LP_NORMALIZATION));
 
-      pNewNode = m_pNCManager->GetAlphRoot(pNode, iLbnd, iHbnd, NULL, pNode->m_iOffset);
+      pNewNode = mgr()->m_pNCManager->GetAlphRoot(this, iLbnd, iHbnd, NULL, m_iOffset);
       pNewNode->SetFlag(NF_SEEN, false);
 
-      pNode->Children().push_back(pNewNode);
+      Children().push_back(pNewNode);
       //    pNode->SetHasAllChildren(false);
       //}
     /* What do the following code do?
@@ -314,16 +311,13 @@ void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
       pDisplayInfo->bVisible = true;
       pDisplayInfo->strDisplayText = "";
 
-      pNewNode = new CDasherNode(pNode, iLbnd, iHbnd, pDisplayInfo);
+      pNewNode = m_pMgr->makeNode(this, iLbnd, iHbnd, pDisplayInfo);
 
       // TODO: Reimplement ----
 
       // FIXME - handle context properly
       //      pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
       // -----
-
-      pNewNode->m_pNodeManager = this;
-      pNewNode->m_pNodeManager->Ref();
 
       SConversionData *pNodeUserData = new SConversionData;
       pNodeUserData->bType = true;
@@ -341,17 +335,17 @@ void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
   }
 }
 
-void CConversionHelper::BuildTree(CDasherNode *pRoot) {
+void CConversionHelper::BuildTree(CConvHNode *pRoot) {
   // Build the string to convert.
   std::string strCurrentString;
   // Search backwards but stop at any conversion node.
   for (CDasherNode *pNode = pRoot->Parent();
-       pNode && pNode->m_pNodeManager->GetID() != 2;
+       pNode && pNode->mgrId() != 2;
        pNode = pNode->Parent()) {
       
     // TODO: Need to make this the edit text rather than the display text
     strCurrentString =
-              m_pAlphabet->GetText(pNode->m_pNodeManager->GetAlphSymbol(pNode))
+              m_pAlphabet->GetText(pNode->GetAlphSymbol())
               + strCurrentString;
   }
   // Handle/store the result.
@@ -364,13 +358,23 @@ void CConversionHelper::BuildTree(CDasherNode *pRoot) {
   static_cast<SConversionData *>(pRoot->m_pUserData)->pSCENode = pStartTemp;
 }
 
-void CConversionHelper::SetFlag(CDasherNode *pNode, int iFlag, bool bValue) {
+CConversionHelper::CConvHNode::CConvHNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CConversionHelper *pMgr)
+: CConvNode(pParent, iLbnd, iHbnd, pDispInfo, pMgr) {
+}
+
+
+CConversionHelper::CConvHNode *CConversionHelper::makeNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo) {
+  return new CConvHNode(pParent, iLbnd, iHbnd, pDispInfo, this);
+}
+
+void CConversionHelper::CConvHNode::SetFlag(int iFlag, bool bValue) {
+  CDasherNode::SetFlag(iFlag, bValue);
   switch(iFlag) {
   case NF_COMMITTED:
     if(bValue){
-      CLanguageModel * pLan =  static_cast<SConversionData *>(pNode->m_pUserData)->pLanguageModel;
+      CLanguageModel * pLan =  static_cast<SConversionData *>(m_pUserData)->pLanguageModel;
 
-      SCENode * pSCENode = static_cast<SConversionData *>(pNode->m_pUserData)->pSCENode;
+      SCENode * pSCENode = static_cast<SConversionData *>(m_pUserData)->pSCENode;
 
       if(!pSCENode)
 	return;
@@ -379,7 +383,7 @@ void CConversionHelper::SetFlag(CDasherNode *pNode, int iFlag, bool bValue) {
 
 
       if(s!=-1)
-	pLan->LearnSymbol(m_iLearnContext, s);
+	pLan->LearnSymbol(mgr()->m_iLearnContext, s);
     }
     break;
   }

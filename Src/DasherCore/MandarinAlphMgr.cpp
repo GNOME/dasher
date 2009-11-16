@@ -57,10 +57,10 @@ CDasherNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, int iLower, int iUp
 
   //Override context for Mandarin Dasher
   if (pParent){
-    CPinYinConversionHelper *pMgr = static_cast<CPinYinConversionHelper *>(pParent->m_pNodeManager);
+    CPinYinConversionHelper::CPYConvNode *pPYParent = static_cast<CPinYinConversionHelper::CPYConvNode *>(pParent);
     //ACL think this is how this Mandarin thing works here...
     // but would be nice if I could ASSERT that that cast is ok!
-    pNodeUserData->iContext = m_pLanguageModel->CloneContext(pMgr->GetConvContext(pParent));
+    pNodeUserData->iContext = m_pLanguageModel->CloneContext(pPYParent->GetConvContext());
   }
   else
 	pNodeUserData->iContext = m_pLanguageModel->CreateEmptyContext();
@@ -74,7 +74,7 @@ CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CDasherNode *pParent, symbol iSy
     //Modified for Mandarin Dasher
     //The following logic switch allows punctuation nodes in Mandarin to be treated in the same way as English (i.e. display and populate next round) instead of invoking a conversion node
 	  CDasherNode *pNewNode = m_pNCManager->GetConvRoot(pParent, iLbnd, iHbnd, pParent->m_iOffset);
-	  static_cast<CPinYinConversionHelper *>(pNewNode->m_pNodeManager)->SetConvSymbol(pNewNode, iSymbol);
+	  static_cast<CPinYinConversionHelper::CPYConvNode *>(pNewNode)->SetConvSymbol(iSymbol);
 	  return pNewNode;
   }
   return CAlphabetManager::CreateSymbolNode(pParent, iSymbol, iLbnd, iHbnd, iExistingSymbol, pExistingChild);
@@ -86,7 +86,18 @@ CLanguageModel::Context CMandarinAlphMgr::CreateSymbolContext(SAlphabetData *pPa
 	return m_pLanguageModel->CloneContext(pParentData->iContext);
 }
 
-void CMandarinAlphMgr::SetFlag(CDasherNode *pNode, int iFlag, bool bValue) {
+CMandarinAlphMgr::CMandNode::CMandNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CAlphabetManager *pMgr)
+: CAlphNode(pParent, iLbnd, iHbnd, pDispInfo, pMgr) {
+}
+
+CAlphabetManager::CAlphNode *CMandarinAlphMgr::makeNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo) {
+  return new CMandNode(pParent, iLbnd, iHbnd, pDispInfo, this);
+}
+
+void CMandarinAlphMgr::CMandNode::SetFlag(int iFlag, bool bValue) {
   //disable learn-as-you-write for Mandarin Dasher
-  if (iFlag!=NF_COMMITTED) CAlphabetManager::SetFlag(pNode, iFlag, bValue);
+   if (iFlag==NF_COMMITTED)
+     CDasherNode::SetFlag(iFlag, bValue); //bypass CAlphNode setter!
+  else
+      CAlphNode::SetFlag(iFlag, bValue);
 }
