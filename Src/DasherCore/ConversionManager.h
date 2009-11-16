@@ -117,26 +117,7 @@ namespace Dasher {
 
     virtual void Undo( CDasherNode *pNode );
 
-    ///
-    /// Entered backwards
-    ///
-
-    virtual void Enter(CDasherNode *pNode) {};
-
-    /// 
-    /// Left forwards
-    ///
-
-    virtual void Leave(CDasherNode *pNode) {};
-
-    ///
-    /// Rebuild the parent of a given node - used for when backoff occurs beyond the start of the tree
-    ///
-
-    virtual CDasherNode *RebuildParent(CDasherNode *pNode) {
-      return 0;
-    }
-
+  protected:
     //TODO: REVISE
     struct SConversionData {
       symbol iSymbol;

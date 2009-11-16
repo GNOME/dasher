@@ -258,7 +258,7 @@ void CConversionHelper::PopulateChildren( CDasherNode *pNode ) {
       // -----
 
       pNewNode->m_pNodeManager = this;
-      pNewNode->m_pNodeManager->Ref();
+      Ref();
 
       SConversionData *pNodeUserData = new SConversionData;
       pNodeUserData->bisRoot = false;

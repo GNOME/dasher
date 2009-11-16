@@ -71,8 +71,8 @@ namespace Dasher {
     };
     
     /// Increment reference count
-    ///
-    virtual void Ref() = 0;
+    /// ACL 12/8/09 Never called polymorphically, so removing.
+    //virtual void Ref() = 0;
     
     /// Decrement reference count
     ///

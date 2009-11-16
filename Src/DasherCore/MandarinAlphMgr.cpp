@@ -21,6 +21,7 @@
 #include "../Common/Common.h"
 
 #include "MandarinAlphMgr.h"
+#include "PinYinConversionHelper.h"
 #include "ConversionManager.h"
 #include "DasherInterfaceBase.h"
 #include "DasherNode.h"
@@ -56,8 +57,10 @@ CDasherNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, int iLower, int iUp
 
   //Override context for Mandarin Dasher
   if (pParent){
-    CConversionManager::SConversionData *pParentConversionData = static_cast<CConversionManager::SConversionData *>(pParent->m_pUserData);
-    pNodeUserData->iContext = m_pLanguageModel->CloneContext(pParentConversionData->iContext);
+    CPinYinConversionHelper *pMgr = static_cast<CPinYinConversionHelper *>(pParent->m_pNodeManager);
+    //ACL think this is how this Mandarin thing works here...
+    // but would be nice if I could ASSERT that that cast is ok!
+    pNodeUserData->iContext = m_pLanguageModel->CloneContext(pMgr->GetConvContext(pParent));
   }
   else
 	pNodeUserData->iContext = m_pLanguageModel->CreateEmptyContext();
@@ -71,7 +74,7 @@ CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CDasherNode *pParent, symbol iSy
     //Modified for Mandarin Dasher
     //The following logic switch allows punctuation nodes in Mandarin to be treated in the same way as English (i.e. display and populate next round) instead of invoking a conversion node
 	  CDasherNode *pNewNode = m_pNCManager->GetConvRoot(pParent, iLbnd, iHbnd, pParent->m_iOffset);
-	  static_cast<CConversionManager::SConversionData *>(pNewNode->m_pUserData)->iSymbol = iSymbol;
+	  static_cast<CPinYinConversionHelper *>(pNewNode->m_pNodeManager)->SetConvSymbol(pNewNode, iSymbol);
 	  return pNewNode;
   }
   return CAlphabetManager::CreateSymbolNode(pParent, iSymbol, iLbnd, iHbnd, iExistingSymbol, pExistingChild);

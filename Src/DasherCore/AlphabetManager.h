@@ -91,6 +91,7 @@ namespace Dasher {
     virtual CLanguageModel::Context CloneAlphContext(CDasherNode *pNode, CLanguageModel *pLanguageModel);
     virtual symbol GetAlphSymbol(CDasherNode *pNode);
     
+  protected:
     struct SAlphabetData {
       symbol iSymbol;
       int iPhase;
@@ -100,7 +101,6 @@ namespace Dasher {
       int iGameOffset;
     };
 
-  protected:
 	virtual CDasherNode *CreateSymbolNode(CDasherNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd, symbol iExistingSymbol, CDasherNode *pExistingChild);
     virtual CLanguageModel::Context CreateSymbolContext(SAlphabetData *pParentData, symbol iSymbol);
 

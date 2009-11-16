@@ -260,3 +260,11 @@ void CPinYinConversionHelper::SetFlag(CDasherNode *pNode, int iFlag, bool bValue
 	if (iFlag == NF_COMMITTED && bValue) return;
 	CConversionHelper::SetFlag(pNode, iFlag, bValue);
 }
+
+CLanguageModel::Context CPinYinConversionHelper::GetConvContext(CDasherNode *pNode) {
+  return static_cast<SConversionData *>(pNode->m_pUserData)->iContext;
+}
+
+void CPinYinConversionHelper::SetConvSymbol(CDasherNode *pNode, int iSymbol) {
+  static_cast<SConversionData *> (pNode->m_pUserData)->iSymbol = iSymbol;
+}

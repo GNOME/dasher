@@ -75,7 +75,7 @@ CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int i
   // -----
 
   pNewNode->m_pNodeManager = this;
-  pNewNode->m_pNodeManager->Ref();
+  Ref();
 
 
   SConversionData *pNodeUserData = new SConversionData;

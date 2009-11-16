@@ -224,8 +224,8 @@ int CControlManager::ConnectNodes() {
 
 CControlManager::~CControlManager()
 {
-  for(std::map<int,CControlNode*>::iterator i = m_mapControlMap.begin(); i != m_mapControlMap.end(); i++) {
-    CControlNode* pNewNode = i->second;
+  for(std::map<int,SControlItem*>::iterator i = m_mapControlMap.begin(); i != m_mapControlMap.end(); i++) {
+    SControlItem* pNewNode = i->second;
     if (pNewNode != NULL) {
       delete pNewNode;
       pNewNode = NULL;
@@ -234,9 +234,9 @@ CControlManager::~CControlManager()
 }
 
 void CControlManager::RegisterNode( int iID, std::string strLabel, int iColour ) {
-  CControlNode *pNewNode;
+  SControlItem *pNewNode;
   
-  pNewNode = new CControlNode; // FIXME - do constructor sanely
+  pNewNode = new SControlItem; // FIXME - do constructor sanely
   pNewNode->strLabel = strLabel;
   pNewNode->iID = iID;
   pNewNode->iColour = iColour;
@@ -249,7 +249,7 @@ void CControlManager::ConnectNode(int iChild, int iParent, int iAfter) {
   // FIXME - iAfter currently ignored (eventually -1 = start, -2 = end)
 
   if( iChild == -1 ) {// Corresponds to escaping back to alphabet
-    CControlNode* node = m_mapControlMap[iParent];
+    SControlItem* node = m_mapControlMap[iParent];
     if(node)
       node->vChildren.push_back(NULL);
   }
@@ -258,10 +258,10 @@ void CControlManager::ConnectNode(int iChild, int iParent, int iAfter) {
 }
 
 void CControlManager::DisconnectNode(int iChild, int iParent) {
-  CControlNode* pParentNode = m_mapControlMap[iParent];
-  CControlNode* pChildNode = m_mapControlMap[iChild];
+  SControlItem* pParentNode = m_mapControlMap[iParent];
+  SControlItem* pChildNode = m_mapControlMap[iChild];
 
-  for(std::vector<CControlNode *>::iterator itChild(pParentNode->vChildren.begin()); itChild != pParentNode->vChildren.end(); ++itChild)
+  for(std::vector<SControlItem *>::iterator itChild(pParentNode->vChildren.begin()); itChild != pParentNode->vChildren.end(); ++itChild)
     if(*itChild == pChildNode)
       pParentNode->vChildren.erase(itChild);
 }
@@ -295,13 +295,13 @@ void CControlManager::PopulateChildren( CDasherNode *pNode ) {
   
   CDasherNode *pNewNode;
 
-   CControlNode *pControlNode(static_cast<CControlNode *>(pNode->m_pUserData));
+   SControlItem *pControlNode(static_cast<SControlItem *>(pNode->m_pUserData));
 
    int iNChildren( pControlNode->vChildren.size() );
 
    int iIdx(0);
 
-   for(std::vector<CControlNode *>::iterator it(pControlNode->vChildren.begin()); it != pControlNode->vChildren.end(); ++it) {
+   for(std::vector<SControlItem *>::iterator it(pControlNode->vChildren.begin()); it != pControlNode->vChildren.end(); ++it) {
 
      // FIXME - could do this better
 
@@ -344,7 +344,7 @@ void CControlManager::ClearNode( CDasherNode *pNode ) {
 
 void CControlManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization ) {
 
-  CControlNode *pControlNode(static_cast<CControlNode *>(pNode->m_pUserData));
+  SControlItem *pControlNode(static_cast<SControlItem *>(pNode->m_pUserData));
 
   CControlEvent oEvent(pControlNode->iID);
   // TODO: Need to reimplement this

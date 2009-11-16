@@ -16,6 +16,7 @@
 namespace Dasher {
 
 class CPinYinConversionHelper : public CConversionHelper {
+  friend class CMandarinAlphMgr;
  public:
 
   CPinYinConversionHelper(CNodeCreationManager *pNCManager, Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, Dasher::CAlphIO *pAlphIO, const std::string strCHAlphabetPath, Dasher::CAlphabet * pAlphabet);
@@ -38,7 +39,11 @@ class CPinYinConversionHelper : public CConversionHelper {
   virtual void SetFlag(CDasherNode *pNode, int iFlag, bool bValue);
 	
  private:
-     
+  ///Bit of a hack here - these two need to be accessed by CMandarinAlphMgr :-(.
+  ///Seems neater to make MandarinAlphMgr a friend, than these public...
+  virtual CLanguageModel::Context GetConvContext(CDasherNode *pNode);
+  virtual void SetConvSymbol(CDasherNode *pNode, int iSymbol);
+
   void TrainChPPM(CSettingsStore *pSettingsStore);
   void ProcessFile(CSettingsStore *pSettingsStore, int index);
 

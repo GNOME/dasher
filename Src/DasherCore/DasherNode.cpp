@@ -181,16 +181,6 @@ double CDasherNode::GetProb(int iNormalization) {
   return (double) (m_iHbnd - m_iLbnd) / (double) iNormalization;
 }
 
-void CDasherNode::ConvertWithAncestors() {
-  if(GetFlag(NF_CONVERTED))
-    return;
-  
-  SetFlag(NF_CONVERTED, true);
-
-  if(m_pParent)
-    m_pParent->ConvertWithAncestors();
-}
-
 void CDasherNode::SetFlag(int iFlag, bool bValue) {
 
  if(bValue)

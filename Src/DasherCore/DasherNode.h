@@ -85,7 +85,7 @@ class Dasher::CDasherNode:private NoClones {
 
   /// @brief Destructor
   ///
-  ~CDasherNode();
+  virtual ~CDasherNode();
 
   void Trace() const;           // diagnostic
 
@@ -129,16 +129,6 @@ class Dasher::CDasherNode:private NoClones {
   /// @return The current value of the flag
   ///
   inline bool GetFlag(int iFlag) const;
-
-  /// @brief Recursively mark nodes as converted 
-  ///
-  /// Ensure that this node is marked as being converted, together with
-  /// all of its ancestors (assuming that unconverted nodes are
-  /// 'contiguous' at the brances of the tree).
-  ///
-  /// @todo replace with a generic 'recursive set flag'?
-  ///
-  void ConvertWithAncestors();
 
   /// @}
 

@@ -56,14 +56,6 @@ namespace Dasher {
   class CControlManager : public CNodeManager {
   public:
 
-    class CControlNode {
-    public: // Worry about encapsulation later
-      std::vector<CControlNode *> vChildren;
-      std::string strLabel;
-      int iID;
-      int iColour;
-    };
-
     enum { CTL_ROOT, CTL_STOP, CTL_PAUSE, CTL_MOVE, CTL_MOVE_FORWARD, 
 	   CTL_MOVE_FORWARD_CHAR, CTL_MOVE_FORWARD_WORD, CTL_MOVE_FORWARD_LINE,
 	   CTL_MOVE_FORWARD_FILE, CTL_MOVE_BACKWARD, CTL_MOVE_BACKWARD_CHAR, 
@@ -122,6 +114,13 @@ namespace Dasher {
 
   private:
 
+    struct SControlItem {
+      std::vector<SControlItem *> vChildren;
+      std::string strLabel;
+      int iID;
+      int iColour;
+    };
+    
     static void XmlStartHandler(void *pUserData, const XML_Char *szName, const XML_Char **aszAttr);
     static void XmlEndHandler(void *pUserData, const XML_Char *szName);
     static void XmlCDataHandler(void *pUserData, const XML_Char *szData, int iLength);
@@ -133,7 +132,7 @@ namespace Dasher {
     static int m_iNextID;
     CNodeCreationManager *m_pNCManager;
     CLanguageModel *m_pLanguageModel;
-    std::map<int,CControlNode*> m_mapControlMap;
+    std::map<int,SControlItem*> m_mapControlMap;
 
     ///Whether we'd temporarily disabled Automatic Speed Control
     ///(if _and only if_ so, should re-enable it when leaving a node)

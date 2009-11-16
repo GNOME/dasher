@@ -1,4 +1,14 @@
-2009-08-22  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+2009-11-16  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	 * Made SConversionData protected in CConversionManager
+	 * Bypassed by making CMandarinAlphMgr a friend of
+	   CPinYinConversionHelper ...and statically casting :-(
+	 * Made SAlphabetData protected in CAlphabetManager
+	 * Made CControlNode into a private struct, now SControlItem, in
+	   CControlManager
+	 * GC'd various methods
+
+2009-10-21  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	This is what commit
 		05c615e8e6eb19c2bf189b44e3688afef5dc3926 Fixup Chinese BuildTree
