@@ -44,7 +44,7 @@ static SModuleSettings sSettings[] = {
 };
 
 CTwoPushDynamicFilter::CTwoPushDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
-  : CDynamicFilter(pEventHandler, pSettingsStore, pInterface, 14, 1, _("Two-push Dynamic Mode (New One Button)")), m_dNatsSinceFirstPush(-INFINITY) {
+  : CDynamicFilter(pEventHandler, pSettingsStore, pInterface, 14, 1, _("Two-push Dynamic Mode (New One Button)")), m_dNatsSinceFirstPush(-std::numeric_limits<double>::infinity()) {
   
   Dasher::CParameterNotificationEvent oEvent(LP_TWO_PUSH_OUTER);//and all the others too!
   HandleEvent(&oEvent);
@@ -88,7 +88,7 @@ bool CTwoPushDynamicFilter::DecorateView(CDasherView *pView)
   GuideLine(pView, 2048 + GetLongParameter(LP_TWO_PUSH_OUTER), 1);
 
   //moving markers - green if active, else yellow
-  if (m_bDecorationChanged && isRunning() && m_dNatsSinceFirstPush > -INFINITY)
+  if (m_bDecorationChanged && isRunning() && m_dNatsSinceFirstPush > -std::numeric_limits<double>::infinity())
   {
     for (int i = 0; i < 2; i++)
     {
@@ -183,7 +183,7 @@ void CTwoPushDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDas
     reverse();
     return;
   }
-  if (m_dNatsSinceFirstPush == -INFINITY) //no button pushed (recently)
+  if (m_dNatsSinceFirstPush == -std::numeric_limits<double>::infinity()) //no button pushed (recently)
   {
     m_dNatsSinceFirstPush = pModel->GetNats();
     //note, could be negative if overall reversed since last ResetNats (Offset)
@@ -199,7 +199,7 @@ void CTwoPushDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDas
       pModel->Offset(m_aiTarget[m_iActiveMarker]);
       pModel->ResetNats();
       //don't really have to reset there, but seems as good a place as any
-      m_dNatsSinceFirstPush = -INFINITY; //"waiting for first push"
+      m_dNatsSinceFirstPush = -std::numeric_limits<double>::infinity(); //"waiting for first push"
     }
   }
 }
@@ -214,7 +214,7 @@ bool doSet(int &var, const int val)
 bool CTwoPushDynamicFilter::TimerImpl(int iTime, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted)
 {
   DASHER_ASSERT(isRunning());
-  if (m_dNatsSinceFirstPush > -INFINITY) // first button has been pushed
+  if (m_dNatsSinceFirstPush > -std::numeric_limits<double>::infinity()) // first button has been pushed
   {
     double dLogGrowth(m_pDasherModel->GetNats() - m_dNatsSinceFirstPush), dOuter(GetLongParameter(LP_TWO_PUSH_OUTER)),
            dUp(GetLongParameter(LP_TWO_PUSH_UP)), dDown(GetLongParameter(LP_TWO_PUSH_DOWN));
@@ -259,7 +259,7 @@ void CTwoPushDynamicFilter::Deactivate() {
 }
 
 void CTwoPushDynamicFilter::run() {
-  m_dNatsSinceFirstPush = -INFINITY;
+  m_dNatsSinceFirstPush = -std::numeric_limits<double>::infinity();
   SetBoolParameter(BP_SMOOTH_OFFSET, true);
   CDynamicFilter::run();
 }

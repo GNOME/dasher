@@ -4,6 +4,7 @@
 	  CDasherNode subclasses.
 	* Many covariant overrides, etc., in place of unchecked casts -->
 	  *type safety*!!
+	* use std::numeric_limits<double>::infinity() not INFINITY
 
 2009-11-16  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 

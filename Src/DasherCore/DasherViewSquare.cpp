@@ -159,7 +159,7 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
   //		  0, -1, Nodes1, false, true, 1);
 
   // Render the root node (and children)
-  pRoot->m_dCost = INFINITY;
+  pRoot->m_dCost = std::numeric_limits<double>::infinity();
   RecursiveRender(pRoot, iRootMin, iRootMax, iDasherMaxX, nodeQueue, pvGamePointer,iDasherMaxX,0,0);
 
   // Labels are drawn in a second parse to get the overlapping right
@@ -334,9 +334,9 @@ void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
 		
 		  DASHER_ASSERT ((iScreenY2 - iScreenY1 > MIN_SIZE) && //big enough to render?
 			  		     (newy1 <= iDasherMaxY) && (newy2 >= iDasherMinY)); //at least partly onscreen!
-		  DASHER_ASSERT(pRender->m_dCost == INFINITY);
+		  DASHER_ASSERT(pRender->m_dCost == std::numeric_limits<double>::infinity());
 		}
-		pChild->m_dCost = INFINITY;
+		pChild->m_dCost = std::numeric_limits<double>::infinity();
 		//don't inc iDepth, meaningless when covers the screen
 		RecursiveRender(pChild, newy1, newy2, mostleft, 
 						nodeQueue, pvGamePointer, 
