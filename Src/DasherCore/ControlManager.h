@@ -79,6 +79,14 @@ namespace Dasher {
     void DisconnectNode(int iChild, int iParent);
     
   private:
+
+    struct SControlItem {
+      std::vector<SControlItem *> vChildren;
+      std::string strLabel;
+      int iID;
+      int iColour;
+    };
+    
     class CContNode : public CDasherNode {
     public:
       int mgrId() {return 1;}
@@ -96,15 +104,9 @@ namespace Dasher {
     virtual void Leave();
 
     void SetControlOffset(int iOffset);
+      SControlItem *pControlItem;
     private:
       CControlManager *m_pMgr;
-    };
-    
-    struct SControlItem {
-      std::vector<SControlItem *> vChildren;
-      std::string strLabel;
-      int iID;
-      int iColour;
     };
     
     static void XmlStartHandler(void *pUserData, const XML_Char *szName, const XML_Char **aszAttr);

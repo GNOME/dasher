@@ -48,7 +48,7 @@ protected:
     virtual void SetConvSymbol(int iSymbol);
     
   protected:
-    CPinYinConversionHelper *mgr() {return static_cast<CPinYinConversionHelper *>(m_pMgr);}
+    inline CPinYinConversionHelper *mgr() {return static_cast<CPinYinConversionHelper *>(m_pMgr);}
   };
   CPYConvNode *makeNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo);
 	

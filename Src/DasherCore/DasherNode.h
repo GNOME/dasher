@@ -219,7 +219,6 @@ class Dasher::CDasherNode:private NoClones {
   ///
   bool GameSearchChildren(std::string strTargetUtf8Char);
   
-  void *m_pUserData;
   /// @name Management routines (once accessed via NodeManager)
   /// @{
   virtual int mgrId() = 0;

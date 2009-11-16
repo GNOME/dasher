@@ -77,12 +77,6 @@ namespace Dasher {
       }
     };
 
-    ///
-    /// Get a new root node owned by this manager
-    ///
-
-    virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, int iOffset);
-
     protected:
     class CConvNode : public CDasherNode {
     public:
@@ -111,12 +105,9 @@ namespace Dasher {
 
     protected:
       CConversionManager *m_pMgr;
-    };
-    
-    virtual CConvNode *makeNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo);
-    
+    public: //to ConversionManager and subclasses only, of course...
+        
     //TODO: REVISE
-    struct SConversionData {
       symbol iSymbol;
       //     int iPhase;
       CLanguageModel *pLanguageModel;
@@ -125,6 +116,17 @@ namespace Dasher {
       bool bisRoot; // True for root conversion nodes 
       //int iGameOffset;
     };
+
+  public:
+    ///
+    /// Get a new root node owned by this manager
+    ///
+    
+    virtual CConvNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, int iOffset);
+  protected:    
+    
+  virtual CConvNode *makeNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo);
+
 	  
 	CNodeCreationManager *m_pNCManager;
 	CAlphabet *m_pAlphabet;
@@ -141,16 +143,7 @@ namespace Dasher {
 	/// Reference count 
 	///
 	  
-	  
     int m_iRefCount;
-
-    ///
-    /// Unique identifier, used to talk to the conversion helper so
-    /// that it can be shared between multiple conversion nodes
-    /// without state collisions
-    ///
-
-
    
   };
   /// @}

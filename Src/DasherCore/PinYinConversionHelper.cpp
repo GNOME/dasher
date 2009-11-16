@@ -51,19 +51,15 @@ CPinYinConversionHelper::CPinYinConversionHelper(CNodeCreationManager *pNCManage
 }
 
 void CPinYinConversionHelper::BuildTree(CConvHNode *pRoot) {
-  DASHER_ASSERT(pRoot->m_pNodeManager == this);
+  DASHER_ASSERT(pRoot->bisRoot);
 
   // Find the pinyin (roman) text (stored in Display text) of the
   // previous alphabet node.
 
-  SConversionData *pRootData = static_cast<SConversionData *>(pRoot->m_pUserData);
-
-  DASHER_ASSERT(pRootData->bisRoot);
-
   // Get pinyin string (to translate) from 'Display Text' in the
   // alphabet file (refer to alphabet.spyDict.xml).
 
-  std::string strCurrentString(m_pAlphabet->GetDisplayText(pRootData->iSymbol));
+  std::string strCurrentString(m_pAlphabet->GetDisplayText(pRoot->iSymbol));
 
   SCENode *pStartTemp;
   Convert(strCurrentString, &pStartTemp);
@@ -71,7 +67,7 @@ void CPinYinConversionHelper::BuildTree(CConvHNode *pRoot) {
   // Store all conversion trees (SCENode trees) in the pUserData->pSCENode
   // of each Conversion Root.
 
-  pRootData->pSCENode = pStartTemp;
+  pRoot->pSCENode = pStartTemp;
 }
 
 bool CPinYinConversionHelper::Convert(const std::string &strSource, SCENode ** pRoot) {
@@ -272,9 +268,9 @@ void CPinYinConversionHelper::CPYConvNode::SetFlag(int iFlag, bool bValue)
 }
 
 CLanguageModel::Context CPinYinConversionHelper::CPYConvNode::GetConvContext() {
-  return static_cast<SConversionData *>(m_pUserData)->iContext;
+  return iContext;
 }
 
-void CPinYinConversionHelper::CPYConvNode::SetConvSymbol(int iSymbol) {
-  static_cast<SConversionData *> (m_pUserData)->iSymbol = iSymbol;
+void CPinYinConversionHelper::CPYConvNode::SetConvSymbol(int _iSymbol) {
+  iSymbol = _iSymbol;
 }

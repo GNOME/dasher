@@ -41,7 +41,7 @@ namespace Dasher {
     /// Get a new root node owned by this manager
     ///
 
-    virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, char *szContext, int iOffset);
+    virtual CAlphNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, char *szContext, int iOffset);
 
   protected:
     class CMandNode : public CAlphNode {
@@ -50,8 +50,8 @@ namespace Dasher {
       virtual void SetFlag(int iFlag, bool bValue);
     };
     CAlphNode *makeNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo);
-    virtual CDasherNode *CreateSymbolNode(CDasherNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd, symbol iExistingSymbol, CDasherNode *pExistingChild);
-    virtual CLanguageModel::Context CreateSymbolContext(SAlphabetData *pParentData, symbol iSymbol);
+    virtual CDasherNode *CreateSymbolNode(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd, symbol iExistingSymbol, CDasherNode *pExistingChild);
+    virtual CLanguageModel::Context CreateSymbolContext(CAlphNode *pParent, symbol iSymbol);
   };
   /// @}
 

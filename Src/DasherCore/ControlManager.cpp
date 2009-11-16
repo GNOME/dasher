@@ -268,7 +268,6 @@ void CControlManager::DisconnectNode(int iChild, int iParent) {
 
 
 CDasherNode *CControlManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, int iOffset) {
-  CDasherNode *pNewNode;
 
   // TODO: Tie this structure to info contained in control map
   CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
@@ -277,13 +276,13 @@ CDasherNode *CControlManager::GetRoot(CDasherNode *pParent, int iLower, int iUpp
   pDisplayInfo->bVisible = true;
   pDisplayInfo->strDisplayText = m_mapControlMap[0]->strLabel;
   
-  pNewNode = new CContNode(pParent, iLower, iUpper, pDisplayInfo, this);
+  CContNode *pNewNode = new CContNode(pParent, iLower, iUpper, pDisplayInfo, this);
  
   // FIXME - handle context properly
 
   //  pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
 
-  pNewNode->m_pUserData = m_mapControlMap[0];
+  pNewNode->pControlItem = m_mapControlMap[0];
   pNewNode->m_iOffset = iOffset;
 
   return pNewNode;
@@ -298,13 +297,11 @@ void CControlManager::CContNode::PopulateChildren() {
   
   CDasherNode *pNewNode;
 
-   SControlItem *pControlNode(static_cast<SControlItem *>(m_pUserData));
-
-   int iNChildren( pControlNode->vChildren.size() );
+   int iNChildren( pControlItem->vChildren.size() );
 
    int iIdx(0);
 
-   for(std::vector<SControlItem *>::iterator it(pControlNode->vChildren.begin()); it != pControlNode->vChildren.end(); ++it) {
+   for(std::vector<SControlItem *>::iterator it(pControlItem->vChildren.begin()); it != pControlItem->vChildren.end(); ++it) {
 
      // FIXME - could do this better
 
@@ -331,9 +328,10 @@ void CControlManager::CContNode::PopulateChildren() {
        pDisplayInfo->bVisible = true;
        pDisplayInfo->strDisplayText = (*it)->strLabel;
        
-       pNewNode = new CContNode(this, iLbnd, iHbnd, pDisplayInfo, m_pMgr);
+       CContNode *pContNode;
+       pNewNode = pContNode = new CContNode(this, iLbnd, iHbnd, pDisplayInfo, m_pMgr);
 
-       pNewNode->m_pUserData = *it;
+       pContNode->pControlItem = *it;
 
        pNewNode->m_iOffset = m_iOffset;
      }
@@ -344,9 +342,7 @@ void CControlManager::CContNode::PopulateChildren() {
 
 void CControlManager::CContNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization ) {
 
-  SControlItem *pControlNode(static_cast<SControlItem *>(m_pUserData));
-
-  CControlEvent oEvent(pControlNode->iID);
+  CControlEvent oEvent(pControlItem->iID);
   // TODO: Need to reimplement this
   //  m_pNCManager->m_bContextSensitive=false;
   m_pMgr->m_pNCManager->InsertEvent(&oEvent);

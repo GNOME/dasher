@@ -52,18 +52,21 @@ CConversionHelper::CConversionHelper(CNodeCreationManager *pNCManager, CAlphabet
 
 }
 
-CDasherNode *CConversionHelper::GetRoot(CDasherNode *pParent, int iLower, int iUpper, int iOffset) {
-  CDasherNode *pNewNode = CConversionManager::GetRoot(pParent, iLower, iUpper, iOffset);
-
-  SConversionData *pNodeUserData = static_cast<SConversionData *>(pNewNode->m_pUserData);
+CConversionManager::CConvNode *CConversionHelper::GetRoot(CDasherNode *pParent, int iLower, int iUpper, int iOffset) {
+  CConvNode *pConvNode = CConversionManager::GetRoot(pParent, iLower, iUpper, iOffset);
+  //note that pConvNode is actually a CConvHNode, created by this CConversionHelper:
+  // the overridden CConversionManager::GetRoot creates the node the node it returns
+  // by calling makeNode(), which we override to create a CConvHNode, and then just
+  // fills in some of the fields; however, short of duplicating the code of
+  // CConversionManager::GetRoot here, we can't get the type to reflect that...
 	
-  pNodeUserData->pLanguageModel = m_pLanguageModel;
+  pConvNode->pLanguageModel = m_pLanguageModel;
 
   // context of a conversion node (e.g. ^) is the context of the
   // letter (e.g. e) before it (as the ^ entails replacing the e with
   // a single accented character e-with-^)
-  pNodeUserData->iContext = pParent->CloneAlphContext(m_pLanguageModel);
-  return pNewNode;
+  pConvNode->iContext = pParent->CloneAlphContext(m_pLanguageModel);
+  return pConvNode;
 }
 
 // TODO: This function needs to be significantly tidied up
@@ -169,24 +172,21 @@ void CConversionHelper::AssignChildSizes(SCENode **pNode, CLanguageModel::Contex
 void CConversionHelper::CConvHNode::PopulateChildren() {
   DASHER_ASSERT(m_pNCManager);
 
-  SConversionData * pCurrentDataNode (static_cast<SConversionData *>(m_pUserData));
-  CDasherNode *pNewNode;
-
   // Do the conversion and build the tree (lattice) if it hasn't been
   // done already.
   //
 
 
-  if(pCurrentDataNode->bisRoot) {
+  if(bisRoot) {
     mgr()->BuildTree(this);
   }
 
   SCENode *pCurrentSCEChild;
 
-  if(pCurrentDataNode->pSCENode){
+  if(pSCENode){
 
-    //    RecursiveDumpTree(pCurrentDataNode->pSCENode, 1);
-    pCurrentSCEChild = pCurrentDataNode->pSCENode->GetChild();
+    //    RecursiveDumpTree(pSCENode, 1);
+    pCurrentSCEChild = pSCENode->GetChild();
 
   }
   else {
@@ -216,7 +216,7 @@ void CConversionHelper::CConvHNode::PopulateChildren() {
 
 
 
-    mgr()->AssignChildSizes(&pCurrentSCEChild, pCurrentDataNode->iContext, pCurrentSCEChild->IsHeadAndCandNum);
+    mgr()->AssignChildSizes(&pCurrentSCEChild, iContext, pCurrentSCEChild->IsHeadAndCandNum);
 
     int iIdx(0);
     int iCum(0);
@@ -249,7 +249,7 @@ void CConversionHelper::CConvHNode::PopulateChildren() {
 
       pDisplayInfo->strDisplayText = pCurrentSCEChild->pszConversion;
 
-      pNewNode = mgr()->makeNode(this, iLbnd, iHbnd, pDisplayInfo);
+      CConvNode *pNewNode = mgr()->makeNode(this, iLbnd, iHbnd, pDisplayInfo);
 
       // TODO: Reimplement ----
 
@@ -257,24 +257,21 @@ void CConversionHelper::CConvHNode::PopulateChildren() {
       //      pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
       // -----
 
-      SConversionData *pNodeUserData = new SConversionData;
-      pNodeUserData->bisRoot = false;
-      pNodeUserData->pSCENode = pCurrentSCEChild;
-      pNodeUserData->pLanguageModel = pCurrentDataNode->pLanguageModel;
+      pNewNode->bisRoot = false;
+      pNewNode->pSCENode = pCurrentSCEChild;
+      pNewNode->pLanguageModel = pLanguageModel;
       pNewNode->m_iOffset = m_iOffset + 1;
 
-      if(pCurrentDataNode->pLanguageModel) {
+      if(pLanguageModel) {
 	CLanguageModel::Context iContext;
-	iContext = pCurrentDataNode->pLanguageModel->CloneContext(pCurrentDataNode->iContext);
+	iContext = pLanguageModel->CloneContext(this->iContext);
 	
 	if(pCurrentSCEChild ->Symbol !=-1)
-	  pNodeUserData->pLanguageModel->EnterSymbol(iContext, pCurrentSCEChild->Symbol); // TODO: Don't use symbols?
+	  pNewNode->pLanguageModel->EnterSymbol(iContext, pCurrentSCEChild->Symbol); // TODO: Don't use symbols?
 
 
-	pNodeUserData->iContext = iContext;
+	pNewNode->iContext = iContext;
       }
-
-      pNewNode->m_pUserData = pNodeUserData;
 
       Children().push_back(pNewNode);
 
@@ -292,7 +289,7 @@ void CConversionHelper::CConvHNode::PopulateChildren() {
       int iLbnd(0);
       int iHbnd(mgr()->m_pNCManager->GetLongParameter(LP_NORMALIZATION));
 
-      pNewNode = mgr()->m_pNCManager->GetAlphRoot(this, iLbnd, iHbnd, NULL, m_iOffset);
+      CDasherNode *pNewNode = mgr()->m_pNCManager->GetAlphRoot(this, iLbnd, iHbnd, NULL, m_iOffset);
       pNewNode->SetFlag(NF_SEEN, false);
 
       Children().push_back(pNewNode);
@@ -355,7 +352,7 @@ void CConversionHelper::BuildTree(CConvHNode *pRoot) {
   // Store all conversion trees (SCENode trees) in the pUserData->pSCENode
   // of each Conversion Root.
 
-  static_cast<SConversionData *>(pRoot->m_pUserData)->pSCENode = pStartTemp;
+  pRoot->pSCENode = pStartTemp;
 }
 
 CConversionHelper::CConvHNode::CConvHNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CConversionHelper *pMgr)
@@ -372,9 +369,6 @@ void CConversionHelper::CConvHNode::SetFlag(int iFlag, bool bValue) {
   switch(iFlag) {
   case NF_COMMITTED:
     if(bValue){
-      CLanguageModel * pLan =  static_cast<SConversionData *>(m_pUserData)->pLanguageModel;
-
-      SCENode * pSCENode = static_cast<SConversionData *>(m_pUserData)->pSCENode;
 
       if(!pSCENode)
 	return;
@@ -383,7 +377,7 @@ void CConversionHelper::CConvHNode::SetFlag(int iFlag, bool bValue) {
 
 
       if(s!=-1)
-	pLan->LearnSymbol(mgr()->m_iLearnContext, s);
+	pLanguageModel->LearnSymbol(mgr()->m_iLearnContext, s);
     }
     break;
   }

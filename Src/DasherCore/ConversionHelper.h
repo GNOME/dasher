@@ -101,7 +101,7 @@ namespace Dasher{
     /// Get a new root node owned by this manager
     ///
 	
-    virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, int iOffset);
+    virtual CConvNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, int iOffset);
 	
     ///
     /// Calculate sizes for each of the children - default
@@ -125,7 +125,7 @@ namespace Dasher{
     	
     virtual void SetFlag(int iFlag, bool bValue);
     protected:
-      CConversionHelper *mgr() {return static_cast<CConversionHelper *>(m_pMgr);}
+      inline CConversionHelper *mgr() {return static_cast<CConversionHelper *>(m_pMgr);}
     };
 	  virtual CConvHNode *makeNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo);
     /// 

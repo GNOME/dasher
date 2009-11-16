@@ -1,5 +1,13 @@
 2009-11-16  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
+	* Removed m_pUserData structs by merging into corresponding
+	  CDasherNode subclasses.
+	* Many covariant overrides, etc., in place of unchecked casts -->
+	  *type safety*!!
+
+2009-11-16  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	Moved all NodeManager methods into subclasses of DasherNode:
 	* NodeManager::Ref() & ClearNode() put into DasherNode subclass
 	  con/destructors
 	* Other calls pNode->m_pNodeManager->Foo(pNode,...) replaced

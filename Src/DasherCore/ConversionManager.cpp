@@ -59,8 +59,7 @@ CConversionManager::CConvNode *CConversionManager::makeNode(CDasherNode *pParent
   return new CConvNode(pParent, iLbnd, iHbnd, pDispInfo, this);
 }
 
-CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, int iOffset) {
-  CDasherNode *pNewNode;
+CConversionManager::CConvNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, int iOffset) {
 
   // TODO: Parameters here are placeholders - need to figure out what's right
 
@@ -70,7 +69,7 @@ CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int i
   pDisplayInfo->bVisible = true;
   pDisplayInfo->strDisplayText = ""; // TODO: Hard coded value, needs i18n
 
-  pNewNode = makeNode(pParent, iLower, iUpper, pDisplayInfo);
+  CConvNode *pNewNode = makeNode(pParent, iLower, iUpper, pDisplayInfo);
 
   // FIXME - handle context properly
   // TODO: Reimplemnt -----
@@ -78,14 +77,12 @@ CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int i
   // -----
 
 
-  SConversionData *pNodeUserData = new SConversionData;
-  pNewNode->m_pUserData = pNodeUserData;
-  pNodeUserData->bisRoot = true;
+  pNewNode->bisRoot = true;
   pNewNode->m_iOffset = iOffset + 1;
 
-  pNodeUserData->pLanguageModel = NULL;
+  pNewNode->pLanguageModel = NULL;
 
-  pNodeUserData->pSCENode = 0;
+  pNewNode->pSCENode = 0;
 
   return pNewNode;
 }
@@ -98,9 +95,6 @@ CConversionManager::CConvNode::CConvNode(CDasherNode *pParent, int iLbnd, int iH
 void CConversionManager::CConvNode::PopulateChildren() {
   DASHER_ASSERT(m_pMgr->m_pNCManager);
 
-  SConversionData * pCurrentDataNode (static_cast<SConversionData *>(m_pUserData));
-  CDasherNode *pNewNode;
-
   // If no helper class is present then just drop straight back to an
   // alphabet root. This should only happen in error cases, and the
   // user should have been warned here.
@@ -108,21 +102,14 @@ void CConversionManager::CConvNode::PopulateChildren() {
   int iLbnd(0);
   int iHbnd(m_pMgr->m_pNCManager->GetLongParameter(LP_NORMALIZATION));
 
-  pNewNode = m_pMgr->m_pNCManager->GetAlphRoot(this, iLbnd, iHbnd, NULL, m_iOffset + 1);
+  CDasherNode *pNewNode = m_pMgr->m_pNCManager->GetAlphRoot(this, iLbnd, iHbnd, NULL, m_iOffset + 1);
   pNewNode->SetFlag(NF_SEEN, false);
 
   Children().push_back(pNewNode);
-
-  return;
 }
 
 CConversionManager::CConvNode::~CConvNode() {
-  if(m_pUserData){
-    SConversionData *pUserData(static_cast<SConversionData *>(m_pUserData));
-
-    pUserData->pLanguageModel->ReleaseContext(pUserData->iContext);
-    delete (SConversionData *)(m_pUserData);
-  }
+  pLanguageModel->ReleaseContext(iContext);
   m_pMgr->Unref();
 }
 
@@ -152,7 +139,7 @@ void CConversionManager::CConvNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, i
   // TODO: Reimplement this
   //  m_pNCManager->m_bContextSensitive = true;
 
-  SCENode *pCurrentSCENode((static_cast<SConversionData *>(m_pUserData))->pSCENode);
+  SCENode *pCurrentSCENode(pSCENode);
 
   if(pCurrentSCENode){
     Dasher::CEditEvent oEvent(1, pCurrentSCENode->pszConversion, m_iOffset);
@@ -166,7 +153,7 @@ void CConversionManager::CConvNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, i
     }
   }
   else {
-    if(!((static_cast<SConversionData *>(m_pUserData))->bisRoot)) {
+    if(!bisRoot) {
       Dasher::CEditEvent oOPEvent(1, "|", m_iOffset);
       m_pMgr->m_pNCManager->InsertEvent(&oOPEvent);
     }
@@ -180,8 +167,8 @@ void CConversionManager::CConvNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, i
   }
 }
 
-void CConversionManager::CConvNode::Undo() {
-  SCENode *pCurrentSCENode((static_cast<SConversionData *>(m_pUserData))->pSCENode);
+void CConversionManager::CConvNode::Undo() {  
+  SCENode *pCurrentSCENode(pSCENode);
 
   if(pCurrentSCENode) {
     if(pCurrentSCENode->pszConversion && (strlen(pCurrentSCENode->pszConversion) > 0)) {
@@ -190,7 +177,7 @@ void CConversionManager::CConvNode::Undo() {
     }
   }
   else {
-    if(!((static_cast<SConversionData *>(m_pUserData))->bisRoot)) {
+    if(!bisRoot) {
       Dasher::CEditEvent oOPEvent(2, "|", m_iOffset);
       m_pMgr->m_pNCManager->InsertEvent(&oOPEvent);
     }

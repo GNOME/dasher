@@ -50,25 +50,24 @@ CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreati
   : CAlphabetManager(pInterface, pNCManager, pLanguageModel, iLearnContext) {
 }
 
-CDasherNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, int iLower, int iUpper, char *szContext, int iOffset) {
+CAlphabetManager::CAlphNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, int iLower, int iUpper, char *szContext, int iOffset) {
 
-  CDasherNode *pNewNode = CAlphabetManager::GetRoot(pParent, iLower, iUpper, szContext, iOffset);
-  SAlphabetData *pNodeUserData = static_cast<SAlphabetData *>(pNewNode->m_pUserData);
+  CAlphNode *pNewNode = CAlphabetManager::GetRoot(pParent, iLower, iUpper, szContext, iOffset);
 
   //Override context for Mandarin Dasher
   if (pParent){
     CPinYinConversionHelper::CPYConvNode *pPYParent = static_cast<CPinYinConversionHelper::CPYConvNode *>(pParent);
     //ACL think this is how this Mandarin thing works here...
     // but would be nice if I could ASSERT that that cast is ok!
-    pNodeUserData->iContext = m_pLanguageModel->CloneContext(pPYParent->GetConvContext());
+    pNewNode->iContext = m_pLanguageModel->CloneContext(pPYParent->GetConvContext());
   }
   else
-	pNodeUserData->iContext = m_pLanguageModel->CreateEmptyContext();
+	pNewNode->iContext = m_pLanguageModel->CreateEmptyContext();
 
   return pNewNode;
 }
 
-CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CDasherNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd, symbol iExistingSymbol, CDasherNode *pExistingChild) {
+CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd, symbol iExistingSymbol, CDasherNode *pExistingChild) {
 
   if (iSymbol <= 1288) {
     //Modified for Mandarin Dasher
@@ -80,10 +79,10 @@ CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CDasherNode *pParent, symbol iSy
   return CAlphabetManager::CreateSymbolNode(pParent, iSymbol, iLbnd, iHbnd, iExistingSymbol, pExistingChild);
 }
 
-CLanguageModel::Context CMandarinAlphMgr::CreateSymbolContext(SAlphabetData *pParentData, symbol iSymbol)
+CLanguageModel::Context CMandarinAlphMgr::CreateSymbolContext(CAlphNode *pParent, symbol iSymbol)
 {
 	//Context carry-over. This code may worth looking at debug
-	return m_pLanguageModel->CloneContext(pParentData->iContext);
+	return m_pLanguageModel->CloneContext(pParent->iContext);
 }
 
 CMandarinAlphMgr::CMandNode::CMandNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CAlphabetManager *pMgr)
