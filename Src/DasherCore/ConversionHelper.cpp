@@ -170,7 +170,7 @@ void CConversionHelper::AssignChildSizes(SCENode **pNode, CLanguageModel::Contex
 }
 
 void CConversionHelper::CConvHNode::PopulateChildren() {
-  DASHER_ASSERT(m_pNCManager);
+  DASHER_ASSERT(mgr()->m_pNCManager);
 
   // Do the conversion and build the tree (lattice) if it hasn't been
   // done already.
