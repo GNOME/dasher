@@ -1,3 +1,7 @@
+2009-11-17  Patrick Welche <prlw1@cam.ac.uk>
+
+	* configure.ac: --enable-PACKAGE uses enableval + empty value handling
+
 2009-11-16  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* Removed m_pUserData structs by merging into corresponding

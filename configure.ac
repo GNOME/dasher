@@ -39,22 +39,23 @@ AC_CHECK_FUNC(socket,,[AC_CHECK_LIB(socket,socket)])
 AC_LANG_POP(C++)
 
 AC_ARG_ENABLE(debug,
-	AS_HELP_STRING([--enable-debug],[build with additional debugging checks (default is NO)]),
-	 if test $withval = "no"; then
-	   DEBUG=false;
-	 else
-	   DEBUG=true;
-         fi,
-         DEBUG=false)
+	AS_HELP_STRING([--enable-debug],
+		[build with additional debugging checks (default is NO)]),
+	if test "x$enable_debug" = "xno"; then
+	  DEBUG=false
+	else
+	  DEBUG=true
+	fi,
+	DEBUG=false)
 
 AC_ARG_WITH([gnome],
-	 AS_HELP_STRING([--with-gnome],[build GNOME documentation (default is YES)]), 
-	 if test $withval = "no"; then
-	   WITHGNOME=false; 
-	 else
-	   WITHGNOME=true;
-         fi, 
-	 WITHGNOME=true)
+	AS_HELP_STRING([--with-gnome],[build GNOME documentation (default is YES)]),
+	if test "x$with_gnome" = "xno"; then
+	  WITHGNOME=false 
+	else
+	  WITHGNOME=true
+	fi, 
+	WITHGNOME=true)
 
 dnl Just useful for debugging
 AC_ARG_WITH([gvfs],
@@ -62,7 +63,7 @@ AC_ARG_WITH([gvfs],
 		[build with gvfs from gio in glib (default is YES)]),
 	[],
 	with_gvfs="yes")
-if test $with_gvfs != "no"; then
+if test "x$with_gvfs" != "xno"; then
 	PKG_CHECK_MODULES(GIO, gio-2.0,
 		[have_gio=true
 	 	AC_DEFINE(HAVE_GIO, 1, [gio exists so use gvfs])],
@@ -71,7 +72,7 @@ fi
 
 AC_ARG_ENABLE([speech],
 	 AS_HELP_STRING([--enable-speech],[build with speech support (default is NO)]),
-	 if test $enableval = "no"; then
+	 if test "x$enableval" = "xno"; then
 	   WITHSPEECH=false; 
 	 else
 	   WITHSPEECH=true;
@@ -80,7 +81,7 @@ AC_ARG_ENABLE([speech],
 
 AC_ARG_WITH([qte],
 	 AS_HELP_STRING([--with-qte],[build with QTE support (default is NO -- currently untested)]), 
-	 if test $withval = "no"; then
+	 if test "x$withval" = "xno"; then
 	   WITHQTE=false; 
 	 else
 	   WITHQTE=true;
@@ -89,7 +90,7 @@ AC_ARG_WITH([qte],
 
 AC_ARG_WITH([gpe],
 	 AS_HELP_STRING([--with-gpe],[build with GPE support (default is NO -- currently untested)]), 
-	 if test $withval = "no"; then
+	 if test "x$withval" = "xno"; then
 	   WITHGPE=false; 
 	 else
 	   WITHGPE=true;
@@ -98,7 +99,7 @@ AC_ARG_WITH([gpe],
 
 AC_ARG_ENABLE([a11y],
 	 AS_HELP_STRING([--enable-a11y],[build with support for the GNOME accessibility framework (default is YES)]),
-	 if test $enableval = "no"; then
+	 if test "x$enableval" = "xno"; then
 	   WITHA11Y=false; 
 	 else
 	   WITHA11Y=true;
@@ -107,7 +108,7 @@ AC_ARG_ENABLE([a11y],
 
 AC_ARG_ENABLE([japanese],
 	 AS_HELP_STRING([--enable-japanese],[build with support for Japanese Kanji entry (experimental -- default is NO)]),
-	 if test $enableval = "no"; then
+	 if test "x$enableval" = "xno"; then
 	   WITHJAPANESE=false; 
 	 else
 	   AC_CHECK_LIB(canna, RkBgnBun,, AC_MSG_ERROR([Canna library not found (required for Japanese).]))
@@ -117,7 +118,7 @@ AC_ARG_ENABLE([japanese],
 
 AC_ARG_ENABLE([chinese],
 	 AS_HELP_STRING([--enable-chinese],[build with support for Chinese PinYin entry (experimental -- default is NO)]),
-	 if test $enableval = "no"; then
+	 if test "x$enableval" = "xno"; then
 	   WITHCHINESE=false; 
 	 else
 	   WITHCHINESE=true;
@@ -126,7 +127,7 @@ AC_ARG_ENABLE([chinese],
 
 AC_ARG_ENABLE([joystick],
 	 AS_HELP_STRING([--enable-joystick],[Build with Linux joystick support (note that other UNIX based operating systems aren't supported here)]),
-	 if test $enableval = "no"; then
+	 if test "x$enableval" = "xno"; then
 	   WITHJOYSTICK=false; 
 	 else
 	   WITHJOYSTICK=true;
@@ -136,7 +137,7 @@ AC_ARG_ENABLE([joystick],
 
 AC_ARG_ENABLE([tilt],
 	 AS_HELP_STRING([--enable-tilt],[Build with experimental support for tilt sensor input (experimental -- default is NO)]),
-	 if test $enableval = "no"; then
+	 if test "x$enableval" = "xno"; then
 	   WITHTILT=false; 
 	 else
 	   WITHTILT=true;
@@ -146,7 +147,7 @@ AC_ARG_ENABLE([tilt],
 
 AC_ARG_WITH([maemo],
 	AS_HELP_STRING([--with-maemo],[build with Maemo support (default is NO)]),
-	if test $withval = "yes"; then
+	if test "x$withval" = "xyes"; then
 	   WITHMAEMO=true;
 	   WITHGNOME=false;
 	   WITHA11Y=false;
@@ -157,7 +158,7 @@ AC_ARG_WITH([maemo],
 
 AC_ARG_WITH([maemo-fullscreen],
 	AS_HELP_STRING([--with-maemo-fullscreen],[build as standalone Maemo fullscreen app (default is NO)]),
-	if test $withval = "yes"; then
+	if test "x$withval" = "xyes"; then
 	   WITHMAEMOFULLSCREEN=true;
 	   WITHMAEMO=true;
 	   WITHGNOME=false;
@@ -170,7 +171,7 @@ AC_ARG_WITH([maemo-fullscreen],
 
 dnl AC_ARG_WITH([darwin],
 dnl 	AS_HELP_STRING([--with-darwin],[build with Darwin (Mac OS X) support (default is NO)]),
-dnl 	if test $withval = "yes"; then
+dnl 	if test "x$withval" = "xyes"; then
 dnl 	   WITHDARWIN=true;
 dnl 	else
 dnl 	   WITHDARWIN=false;
@@ -179,7 +180,7 @@ dnl 	WITHDARWIN=false)
 
 AC_ARG_WITH([cairo],
 	 AS_HELP_STRING([--with-cairo],[build with cairo support (default is YES)]),
-	 if test $withval = "no"; then
+	 if test "x$withval" = "xno"; then
 	   WITHCAIRO=false; 
 	 else
 	   WITHCAIRO=true;
