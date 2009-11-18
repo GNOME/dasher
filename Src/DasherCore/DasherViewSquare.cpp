@@ -291,7 +291,8 @@ void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
   }
 
   //Node has children. It can therefore be collapsed...
-  if (!pRender->GetFlag(NF_GAME) && !pRender->GetFlag(NF_SUBNODE))
+  if (!pRender->GetFlag(NF_GAME) && !pRender->GetFlag(NF_SUBNODE)
+      && pRender->m_dCost!=std::numeric_limits<double>::infinity()) //don't collapse a node covering the screen!!
     nodeQueue.pushNodeToCollapse(pRender);
 	
   // Render children  
@@ -311,40 +312,21 @@ void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
   
   if (CDasherNode *pChild = pRender->onlyChildRendered)
   {
-	//if child still covers screen, render _just_ it and return
-	myint newy1 = y1 + (Range * (myint)pChild->Lbnd()) / (myint)norm;
-	myint newy2 = y1 + (Range * (myint)pChild->Hbnd()) / (myint)norm;
-	if (newy1 < iDasherMinY && newy2 > iDasherMaxY) //still covers entire screen
-	{
-		bool assertsEnabled = false;
-		DASHER_ASSERT (assertsEnabled = true);
-		if (assertsEnabled)
-		{
-		  DASHER_ASSERT (newy2 - newy1 > QUICK_REJECT);
-
-		  //draw the node. or at least, draw the part of this node to the left of the child....
-		  // (this was the procedure renderFatherFast)
-		  screenint iScreenX1;
-		  screenint iScreenY1;
-		  screenint iScreenX2;
-		  screenint iScreenY2;
-			
-		  Dasher2Screen(0, std::max(newy1, iDasherMinY), iScreenX1, iScreenY1);
-		  Dasher2Screen(0, std::min(newy2, iDasherMaxY), iScreenX2, iScreenY2);
-		
-		  DASHER_ASSERT ((iScreenY2 - iScreenY1 > MIN_SIZE) && //big enough to render?
-			  		     (newy1 <= iDasherMaxY) && (newy2 >= iDasherMinY)); //at least partly onscreen!
-		  DASHER_ASSERT(pRender->m_dCost == std::numeric_limits<double>::infinity());
-		}
-		pChild->m_dCost = std::numeric_limits<double>::infinity();
-		//don't inc iDepth, meaningless when covers the screen
-		RecursiveRender(pChild, newy1, newy2, mostleft, 
-						nodeQueue, pvGamePointer, 
-						temp_parentwidth, temp_parentcolor, iDepth);
-		//leave pRender->onlyChildRendered set, so remaining children are skipped
-	}
-	else
-	  pRender->onlyChildRendered = NULL;
+    //if child still covers screen, render _just_ it and return
+    myint newy1 = y1 + (Range * (myint)pChild->Lbnd()) / (myint)norm;
+    myint newy2 = y1 + (Range * (myint)pChild->Hbnd()) / (myint)norm;
+    if (newy1 < iDasherMinY && newy2 > iDasherMaxY) {
+      //still covers entire screen. Parent should too...
+      DASHER_ASSERT(pRender->m_dCost == std::numeric_limits<double>::infinity());
+      //set cost (in a way that prevents collapse) before recursion
+      pChild->m_dCost = std::numeric_limits<double>::infinity();
+      //don't inc iDepth, meaningless when covers the screen
+      RecursiveRender(pChild, newy1, newy2, mostleft, 
+                      nodeQueue, pvGamePointer, 
+                      temp_parentwidth, temp_parentcolor, iDepth);
+      //leave pRender->onlyChildRendered set, so remaining children are skipped
+    } else
+      pRender->onlyChildRendered = NULL;
   }
 	
   if (!pRender->onlyChildRendered)
@@ -356,10 +338,18 @@ void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
 		
 		myint newy1 = y1 + (Range * (myint)pChild->Lbnd()) / (myint)norm;/// norm and lbnd are simple ints
 		myint newy2 = y1 + (Range * (myint)pChild->Hbnd()) / (myint)norm;
+    if (newy1 < iDasherMinY && newy2 > iDasherMaxY) {
+      pRender->onlyChildRendered = pChild;
+      //set cost (in a way that prevents collapse), and recurse
+      pChild->m_dCost = std::numeric_limits<double>::infinity();
+      RecursiveRender(pChild, newy1, newy2, mostleft, nodeQueue, pvGamePointer, temp_parentwidth, temp_parentcolor, iDepth);
+      //ensure we don't blank over this child in "finishing off" the parent (!)
+      lasty=newy2;
+      break; //no need to render any more children!
+    }
 		if (CheckRender(pChild, newy1, newy2, mostleft, nodeQueue,
 						pvGamePointer, temp_parentwidth, temp_parentcolor, iDepth+1))
 		{
-          if (pChild->GetFlag(NF_SUPER)) pRender->onlyChildRendered = pChild;
 		
           if (lasty<newy1) {
 			//if child has been drawn then the interval between him and the

@@ -1,3 +1,8 @@
+2009-11-18  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Tidy DasherViewSquare + fix (infinite) m_dCosts of nodes
+	  covering Y axis.
+
 2009-11-17  Patrick Welche <prlw1@cam.ac.uk>
 
 	* configure.ac: --enable-PACKAGE uses enableval + empty value handling
