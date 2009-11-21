@@ -56,42 +56,6 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
 
   void GetProbs(Dasher::CLanguageModel::Context context, std::vector <Dasher::symbol >&NewSymbols, std::vector <unsigned int >&Probs, int iNorm) const;
 
-  inline int GetColour(Dasher::symbol s, int iPhase) const {
-    return m_pAlphabet->GetColour(s, iPhase); 
-  };
-
-  ///
-  /// Get the symbol ID representing space
-  ///
-
-  Dasher::symbol GetSpaceSymbol() const {
-    return m_pAlphabet->GetSpaceSymbol();
-  }
-
-  ///
-  /// Get the symbol ID representing the control node 
-  ///
-
-  Dasher::symbol GetControlSymbol() const {
-    return m_pAlphabet->GetControlSymbol();
-  }
-
-  ///
-  /// Get the symbol ID representing the conversion pseudo-character
-  ///
-
-  Dasher::symbol GetStartConversionSymbol() const {
-    return m_pAlphabet->GetStartConversionSymbol();
-  }
-
-  ///
-  /// Convert a given symbol ID to display text
-  ///
-
-  const std::string & GetDisplayText(int iSymbol) const {
-    return m_pAlphabet->GetDisplayText(iSymbol);
-  }
-
   ///
   /// Get a reference to the alphabet
   ///

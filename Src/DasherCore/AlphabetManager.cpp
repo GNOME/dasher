@@ -198,7 +198,7 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CAlphNode *pParent, symbol iSymb
 
     }
     // TODO: Need to fix fact that this is created even when control mode is switched off
-    else if(iSymbol == m_pNCManager->GetControlSymbol()) {
+    else if(iSymbol == m_pNCManager->GetAlphabet()->GetControlSymbol()) {
       //ACL setting offset as one more than parent for consistency with "proper" symbol nodes...
       pNewNode = m_pNCManager->GetCtrlRoot(pParent, iLbnd, iHbnd, pParent->m_iOffset+1); 
 
@@ -211,7 +211,7 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CAlphNode *pParent, symbol iSymb
       DASHER_ASSERT(pNewNode);
 #endif
     }
-    else if(iSymbol == m_pNCManager->GetStartConversionSymbol()) {
+    else if(iSymbol == m_pNCManager->GetAlphabet()->GetStartConversionSymbol()) {
       //  else if(iSymbol == m_pNCManager->GetSpaceSymbol()) {
 
       //ACL setting m_iOffset+1 for consistency with "proper" symbol nodes...
@@ -219,7 +219,7 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CAlphNode *pParent, symbol iSymb
     }
     else {
       int iPhase = (pParent->iPhase + 1) % 2;
-      int iColour = m_pNCManager->GetColour(iSymbol, iPhase);
+      int iColour = m_pNCManager->GetAlphabet()->GetColour(iSymbol, iPhase);
 
       // TODO: Exceptions / error handling in general
 
@@ -395,7 +395,7 @@ CDasherNode *CAlphabetManager::CAlphNode::RebuildParent() {
 
     pDisplayInfo->strDisplayText = m_pMgr->m_pNCManager->GetAlphabet()->GetDisplayText(iNewSymbol);
   }
-  pDisplayInfo->iColour = m_pMgr->m_pNCManager->GetColour(iNewSymbol, iNewPhase);
+  pDisplayInfo->iColour = m_pMgr->m_pNCManager->GetAlphabet()->GetColour(iNewSymbol, iNewPhase);
 
   CAlphNode *pNewNode = m_pMgr->makeNode(NULL, 0, 0, pDisplayInfo);
   
