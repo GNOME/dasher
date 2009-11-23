@@ -101,8 +101,6 @@ CAlphabetManager::CAlphNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int
 
   pNewNode->iContext = iContext;
 
-  pNewNode->pLanguageModel = m_pLanguageModel;
-
   pNewNode->SetFlag(NF_SEEN, true);
 
 
@@ -168,8 +166,7 @@ CAlphabetManager::CAlphNode *CAlphabetManager::CreateGroupNode(CAlphNode *pParen
   pNewNode->iPhase = pParent->iPhase;
   // TODO: Sort out symbol for groups
   pNewNode->iSymbol = 0; //...but the Symbol is just a 0.
-  pNewNode->pLanguageModel = pParent->pLanguageModel;
-  pNewNode->iContext = pParent->pLanguageModel->CloneContext(pParent->iContext);
+  pNewNode->iContext = m_pLanguageModel->CloneContext(pParent->iContext);
 
   return pNewNode;
 }
@@ -246,8 +243,6 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CAlphNode *pParent, symbol iSymb
       pAlphNode->iSymbol = iSymbol;
 
       pAlphNode->iContext = CreateSymbolContext(pParent, iSymbol);
-
-    pAlphNode->pLanguageModel = pParent->pLanguageModel; // TODO: inconsistent with above?
   }
 
   return pNewNode;
@@ -326,7 +321,7 @@ void CAlphabetManager::PopulateChildrenWithSymbol( CAlphNode *pNode, int iExisti
 }
 
 CAlphabetManager::CAlphNode::~CAlphNode() {
-  pLanguageModel->ReleaseContext(iContext);
+  m_pMgr->m_pLanguageModel->ReleaseContext(iContext);
 }
 
 void CAlphabetManager::CAlphNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {
@@ -406,7 +401,6 @@ CDasherNode *CAlphabetManager::CAlphNode::RebuildParent() {
   pNewNode->m_iOffset = iNewOffset;
   pNewNode->iPhase = iNewPhase;
   pNewNode->iSymbol = iNewSymbol;
-  pNewNode->pLanguageModel = m_pMgr->m_pLanguageModel;
   pNewNode->iContext = iContext;
 
 
@@ -424,7 +418,7 @@ void CAlphabetManager::CAlphNode::SetFlag(int iFlag, bool bValue) {
   switch(iFlag) {
   case NF_COMMITTED:
     if(bValue && !GetFlag(NF_GAME) && m_pMgr->m_pInterface->GetBoolParameter(BP_LM_ADAPTIVE))
-      pLanguageModel->LearnSymbol(m_pMgr->m_iLearnContext, iSymbol);
+      m_pMgr->m_pLanguageModel->LearnSymbol(m_pMgr->m_iLearnContext, iSymbol);
     break;
   }
 }

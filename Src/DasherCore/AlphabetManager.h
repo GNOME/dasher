@@ -80,7 +80,6 @@ namespace Dasher {
     
       symbol iSymbol;
       int iPhase;
-      CLanguageModel *pLanguageModel;
       CLanguageModel::Context iContext;
  
       int iGameOffset;

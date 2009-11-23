@@ -65,7 +65,6 @@ CAlphabetManager::CAlphNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, int
     pNewNode->m_iOffset=max(0,iOffset)-1;
     pNewNode->iPhase=0;
     pNewNode->iSymbol=0;
-    pNewNode->pLanguageModel = m_pLanguageModel;
   } else {
     //probably rebuilding parent; call standard GetRoot, which'll extract the most recent symbol
     // (entered by the node (equivalent to that) which we are rebuilding)
