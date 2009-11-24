@@ -76,6 +76,7 @@ public:
 
     int m_iCharacters;
     SGroupInfo *m_pBaseGroup;
+    int iNumChildNodes;
 
     std::vector<character> m_vCharacters;
 

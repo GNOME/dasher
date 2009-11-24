@@ -339,7 +339,9 @@ void CControlManager::CContNode::PopulateChildren() {
      ++iIdx;
    }
 }
-
+int CControlManager::CContNode::ExpectedNumChildren() {
+  return pControlItem->vChildren.size();
+}
 void CControlManager::CContNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization ) {
 
   CControlEvent oEvent(pControlItem->iID);

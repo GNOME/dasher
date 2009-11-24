@@ -171,13 +171,10 @@ bool CPinyinParser::Convert(const std::string &pystr, SCENode **pRoot) {
       return 0;
 
     *pRoot = new SCENode;
-    SCENode *pCurrent = *pRoot;
-
-    pCurrent->pszConversion = "";
-    SCENode *pNewNode = new SCENode;
-    pCurrent->SetChild(pNewNode);
+    (*pRoot)->pszConversion = "";
 
     for(std::set<std::string>::iterator it = pCurrentNode->m_pList->begin(); it != pCurrentNode->m_pList->end(); ++it) {
+      SCENode *pNewNode = new SCENode;
         
       pNewNode->pszConversion = new char[it->size() + 1];
       strcpy(pNewNode->pszConversion, it->c_str());
@@ -187,14 +184,9 @@ bool CPinyinParser::Convert(const std::string &pystr, SCENode **pRoot) {
       // std::vector<int> CHSym;
       // m_pCHAlphabet->GetSymbols(&CHSym, &strChar, 0);
       // pNewNode->Symbol = CHSym[0];
-
-      pCurrent = pNewNode; 
       
-      pNewNode = new SCENode;
-      pCurrent->SetNext(pNewNode);
-      pCurrent->SetChild(NULL);
+      (*pRoot)->AddChild(pNewNode);
     }
-    pCurrent->SetNext(NULL);
 
     //Test code: will make program crash
     //    SCENode * pTemp = *pRoot;

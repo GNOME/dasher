@@ -31,7 +31,7 @@ struct SGroupInfo;
 namespace Dasher {
 
   class CDasherInterfaceBase;
-
+  
   /// \ingroup Model
   /// @{
 
@@ -46,45 +46,69 @@ namespace Dasher {
     CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel);
 
   protected:
+    class CGroupNode;
     class CAlphNode : public CDasherNode {
     public:
       int mgrId() {return 0;}
       CAlphNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CAlphabetManager *pMgr);
-    ///
-    /// Provide children for the supplied node
-    ///
-
-    virtual void PopulateChildren();
-
-    ///
-    /// Delete any storage alocated for this node
-    ///
-
-    virtual ~CAlphNode();
-
-    virtual void Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization);
-    virtual void Undo();
-
-    virtual CDasherNode *RebuildParent();
-
-    virtual void SetFlag(int iFlag, bool bValue);
-
-    virtual bool GameSearchNode(std::string strTargetUtf8Char);
-    
-    virtual CLanguageModel::Context CloneAlphContext(CLanguageModel *pLanguageModel);
-    virtual void GetContext(CDasherInterfaceBase *pInterface, std::vector<symbol> &vContextSymbols, int iOffset, int iLength);
-    virtual symbol GetAlphSymbol();
-    private:
-      CAlphabetManager *m_pMgr;
-    public: //to AlphabetManager and subclasses only, of course...
-    
-      symbol iSymbol;
       int iPhase;
       CLanguageModel::Context iContext;
- 
-      int iGameOffset;
+      ///
+      /// Delete any storage alocated for this node
+      ///      
+      virtual ~CAlphNode();
+      virtual CLanguageModel::Context CloneAlphContext(CLanguageModel *pLanguageModel);
+      CDasherNode *RebuildParent(int iNewOffset, int iNewPhase);
+      ///Have to call this from CAlphabetManager, and from CGroupNode on a _different_ CAlphNode, hence public...
+      virtual std::vector<unsigned int> *GetProbInfo();
+      virtual int ExpectedNumChildren();
+      CAlphabetManager *m_pMgr;
+      virtual CDasherNode *RebuildSymbol(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd)=0;
+      virtual CGroupNode *RebuildGroup(CAlphNode *pParent, SGroupInfo *pInfo, unsigned int iLbnd, unsigned int iHbnd)=0;
+    private:
+      std::vector<unsigned int> *m_pProbInfo;
+    };
+    class CSymbolNode : public CAlphNode {
+    public:
+      CSymbolNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CAlphabetManager *pMgr, symbol iSymbol);
+      
+      ///
+      /// Provide children for the supplied node
+      ///
+
+      virtual void PopulateChildren();
+      virtual CDasherNode *RebuildParent();
+      virtual void Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization);
+      virtual void Undo();
+
+      virtual void SetFlag(int iFlag, bool bValue);
+
+      virtual bool GameSearchNode(std::string strTargetUtf8Char);
+      virtual void GetContext(CDasherInterfaceBase *pInterface, std::vector<symbol> &vContextSymbols, int iOffset, int iLength);
+      virtual symbol GetAlphSymbol();
+      const symbol iSymbol;
+      virtual CDasherNode *RebuildSymbol(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd);
+      virtual CGroupNode *RebuildGroup(CAlphNode *pParent, SGroupInfo *pInfo, unsigned int iLbnd, unsigned int iHbnd);
     };
 
+    class CGroupNode : public CAlphNode {
+    public:
+      CGroupNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CAlphabetManager *pMgr, SGroupInfo *pGroup);
+      
+      ///
+      /// Provide children for the supplied node
+      ///
+      virtual CDasherNode *RebuildParent();
+      virtual void PopulateChildren();
+      virtual int ExpectedNumChildren();
+      virtual bool GameSearchNode(std::string strTargetUtf8Char);
+      virtual CDasherNode *RebuildSymbol(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd);
+      virtual CGroupNode *RebuildGroup(CAlphNode *pParent, SGroupInfo *pInfo, unsigned int iLbnd, unsigned int iHbnd);
+      std::vector<unsigned int> *GetProbInfo();
+    private:
+      SGroupInfo *m_pGroup;
+    };
+    
   public:
     ///
     /// Get a new root node owned by this manager
@@ -97,30 +121,33 @@ namespace Dasher {
     ///
     /// Factory method for CAlphNode construction, so subclasses can override.
     ///
-    virtual CAlphNode *makeNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo);    
-
+    virtual CSymbolNode *makeSymbol(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, symbol iSymbol);
+    virtual CGroupNode *makeGroup(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, SGroupInfo *pGroup);
     
-    void PopulateChildrenWithSymbol( CAlphNode *pNode, int iExistingSymbol, CDasherNode *pExistingChild );
-
-    virtual CDasherNode *CreateSymbolNode(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd, symbol iExistingSymbol, CDasherNode *pExistingChild);
+    virtual CDasherNode *CreateSymbolNode(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd);
     virtual CLanguageModel::Context CreateSymbolContext(CAlphNode *pParent, symbol iSymbol);
+    virtual CGroupNode *CreateGroupNode(CAlphNode *pParent, SGroupInfo *pInfo, unsigned int iLbnd, unsigned int iHbnd);
 
+    ///
+    ///Builds a new node from the context leading up to the specified offset
+    /// bSym - true if the build node should be considered as having entered the last symbol (e.g. when rebuilding parent,
+    /// but not when escaping back to Alphabet)
+    /// iNewOffset - m_iOffset of the new node (i.e. index into context of character the node represents)
+    ///
+    CAlphNode *BuildNodeForOffset(CDasherNode *pParent, int iLower, int iUpper, bool bSym, int iNewOffset, int iNewPhase);
+    
     CLanguageModel *m_pLanguageModel;
     CNodeCreationManager *m_pNCManager;
 
   private:
     
-    void BuildContext(const std::vector<symbol> &vContextSymbols, bool bRoot, CLanguageModel::Context &oContext, symbol &iSymbol);
-
-    void RecursiveIterateGroup(CAlphNode *pParent, SGroupInfo *pInfo, std::vector<symbol> *pSymbols, std::vector<unsigned int> *pCProb, int iMin, int iMax, symbol iExistingSymbol, CDasherNode *pExistingChild);
-
-    CAlphNode *CreateGroupNode(CAlphNode *pParent, SGroupInfo *pInfo, unsigned int iLbnd, unsigned int iHbnd);
+    void IterateChildGroups(CAlphNode *pParent, SGroupInfo *pParentGroup, CAlphNode *buildAround);
 
     CLanguageModel::Context m_iLearnContext;
     CDasherInterfaceBase *m_pInterface;
-
+    
   };
-  /// @}
+/// @}
 
 }
 

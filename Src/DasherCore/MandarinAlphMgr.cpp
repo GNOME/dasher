@@ -61,10 +61,9 @@ CAlphabetManager::CAlphNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, int
     pDispInfo->bVisible = true;
     pDispInfo->strDisplayText = "";
     pDispInfo->iColour = m_pNCManager->GetAlphabet()->GetColour(0, 0);
-    pNewNode = makeNode(pParent, iLower, iUpper, pDispInfo);
+    pNewNode = makeGroup(pParent, iLower, iUpper, pDispInfo, NULL);
     pNewNode->m_iOffset=max(0,iOffset)-1;
     pNewNode->iPhase=0;
-    pNewNode->iSymbol=0;
   } else {
     //probably rebuilding parent; call standard GetRoot, which'll extract the most recent symbol
     // (entered by the node (equivalent to that) which we are rebuilding)
@@ -83,9 +82,9 @@ CAlphabetManager::CAlphNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, int
   return pNewNode;
 }
 
-CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd, symbol iExistingSymbol, CDasherNode *pExistingChild) {
+CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd) {
 
-  if (iSymbol <= 1288 && iSymbol != iExistingSymbol) {
+  if (iSymbol <= 1288) {
     //Will wrote:
     //Modified for Mandarin Dasher
     //The following logic switch allows punctuation nodes in Mandarin to be treated in the same way as English (i.e. display and populate next round) instead of invoking a conversion node
@@ -95,7 +94,7 @@ CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CAlphNode *pParent, symbol iSymb
 	  static_cast<CPinYinConversionHelper::CPYConvNode *>(pNewNode)->SetConvSymbol(iSymbol);
 	  return pNewNode;
   }
-  return CAlphabetManager::CreateSymbolNode(pParent, iSymbol, iLbnd, iHbnd, iExistingSymbol, pExistingChild);
+  return CAlphabetManager::CreateSymbolNode(pParent, iSymbol, iLbnd, iHbnd);
 }
 
 CLanguageModel::Context CMandarinAlphMgr::CreateSymbolContext(CAlphNode *pParent, symbol iSymbol)
@@ -104,12 +103,12 @@ CLanguageModel::Context CMandarinAlphMgr::CreateSymbolContext(CAlphNode *pParent
 	return m_pLanguageModel->CloneContext(pParent->iContext);
 }
 
-CMandarinAlphMgr::CMandNode::CMandNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CAlphabetManager *pMgr)
-: CAlphNode(pParent, iLbnd, iHbnd, pDispInfo, pMgr) {
+CMandarinAlphMgr::CMandNode::CMandNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CAlphabetManager *pMgr, symbol iSymbol)
+: CSymbolNode(pParent, iLbnd, iHbnd, pDispInfo, pMgr, iSymbol) {
 }
 
-CAlphabetManager::CAlphNode *CMandarinAlphMgr::makeNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo) {
-  return new CMandNode(pParent, iLbnd, iHbnd, pDispInfo, this);
+CAlphabetManager::CSymbolNode *CMandarinAlphMgr::makeSymbol(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, symbol iSymbol) {
+  return new CMandNode(pParent, iLbnd, iHbnd, pDispInfo, this, iSymbol);
 }
 
 void CMandarinAlphMgr::CMandNode::SetFlag(int iFlag, bool bValue) {

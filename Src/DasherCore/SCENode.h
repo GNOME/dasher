@@ -24,6 +24,8 @@
 /*Common Node Definition for Chinese Pinyin (possibly also Japanese) 
   Conversion Library and Dasher ConversionManager*/
 
+#include <vector>
+
 /// \ingroup Model
 /// \{
 class SCENode {
@@ -44,17 +46,13 @@ class SCENode {
     }
   };
   
-  SCENode *GetNext() {
-    return m_pNext;
-  };
-
-  void SetNext(SCENode *pNext);
-
-  SCENode *GetChild() {
-    return m_pChild;
-  };
-
-  void SetChild(SCENode *pChild);
+  const std::vector<SCENode *> &GetChildren() const {
+    return m_vChildren;
+  }
+  void AddChild(SCENode *pChild) {
+    m_vChildren.push_back(pChild);
+    pChild->Ref();
+  }
 
   void SetPriority(int iPriority) {
     m_iPriority = iPriority;
@@ -81,8 +79,7 @@ class SCENode {
  private:
   int m_iRefCount;
 
-  SCENode *m_pNext;
-  SCENode *m_pChild;
+  std::vector<SCENode *> m_vChildren;
 
   int m_iPriority;
 };

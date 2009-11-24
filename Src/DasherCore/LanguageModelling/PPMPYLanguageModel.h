@@ -90,7 +90,7 @@ namespace Dasher {
     virtual void GetProbs(Context context, std::vector < unsigned int >&Probs, int norm, int iUniform) const;
     void GetPYProbs(Context context, std::vector < unsigned int >&Probs, int norm, int iUniform);
 
-    void GetPartProbs(Context context, SCENode **pStart, int iNumSymbols, int norm, int iUniform);
+    void GetPartProbs(Context context, const std::vector<SCENode *> &vChildren, int norm, int iUniform);
 
     void dump();
 

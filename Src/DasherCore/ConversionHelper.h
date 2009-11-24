@@ -65,9 +65,8 @@ namespace Dasher{
 	/// @param context Unsure - document this, shouldn't be in general class (include userdata pointer).
 	/// @param normalization Normalisation constant for the child sizes (TODO: check that this is a sensible value, ie the same as Dasher normalisation).
 	/// @param uniform Unsure - document this.
-	/// @param iNChildren The number of children to be expected (more efficient than iterating linked list).
 	///
-	virtual void AssignSizes(SCENode ** pStart, Dasher::CLanguageModel::Context context, long normalization, int uniform, int iNChildren)=0;
+  virtual void AssignSizes(const std::vector<SCENode *> &vChildren, Dasher::CLanguageModel::Context context, long normalization, int uniform)=0;
 		
 	/// Assign colours to the children of a given conversion node.
 	/// This function needs a rethink.
@@ -109,7 +108,7 @@ namespace Dasher{
     /// normalisation constant
     ///
     
-    virtual void AssignChildSizes(SCENode **pNode, CLanguageModel::Context context, int iNChildren);
+    virtual void AssignChildSizes(const std::vector<SCENode *> &vChildren, CLanguageModel::Context context);
 	
 	protected:
     class CConvHNode : public CConvNode {
@@ -119,7 +118,7 @@ namespace Dasher{
       /// Provide children for the supplied node
       ///
       virtual void PopulateChildren();
-    	
+    	virtual int ExpectedNumChildren();
     virtual void SetFlag(int iFlag, bool bValue);
     protected:
       inline CConversionHelper *mgr() {return static_cast<CConversionHelper *>(m_pMgr);}

@@ -308,9 +308,7 @@ void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
   int id=-1;
   //  int lower=-1,upper=-1;
   myint temp_parentwidth=y2-y1;
-  int temp_parentcolor = (pRender->GetDisplayInfo()->bVisible)
-    ? pRender->GetDisplayInfo()->iColour
-    : parent_color;
+  int temp_parentcolor = pRender->GetDisplayInfo()->iColour;
 
   const int Range(y2 - y1);
   
@@ -382,7 +380,7 @@ void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
 		}
   }  
     // Draw the outline
-    if(!(pRender->GetFlag(NF_SUBNODE))) {
+    if(pRender->GetDisplayInfo()->bVisible && !(pRender->GetFlag(NF_SUBNODE))) {
       RenderNodeOutlineFast(pRender->GetDisplayInfo()->iColour, 
 			    y1, y2, mostleft, 
 			    pRender->GetDisplayInfo()->strDisplayText, 

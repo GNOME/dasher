@@ -107,6 +107,9 @@ void CConversionManager::CConvNode::PopulateChildren() {
 
   DASHER_ASSERT(GetChildren().back()==pNewNode);
 }
+int CConversionManager::CConvNode::ExpectedNumChildren() {
+  return 1; //the alphabet root
+}
 
 CConversionManager::CConvNode::~CConvNode() {
   pLanguageModel->ReleaseContext(iContext);
@@ -114,25 +117,14 @@ CConversionManager::CConvNode::~CConvNode() {
 }
 
 void CConversionManager::RecursiveDumpTree(SCENode *pCurrent, unsigned int iDepth) {
-  pCurrent = pCurrent->GetChild();
-
-  if(pCurrent){
-    while(pCurrent){
-        std::cout << " " << pCurrent->pszConversion << " " << pCurrent->IsHeadAndCandNum << " " << pCurrent->CandIndex << " " << pCurrent->IsComplete << " " << pCurrent->AcCharCount << std::endl;
-	pCurrent = pCurrent->GetNext();
-    }
-  }
-  /*
-  while(pCurrent) {
+  const std::vector<SCENode *> &children = pCurrent->GetChildren();
+  for (std::vector<SCENode *>::const_iterator it = children.begin(); it!=children.end(); it++) {
+    SCENode *pCurrent(*it);
     for(unsigned int i(0); i < iDepth; ++i)
       std::cout << "-";
-
     std::cout << " " << pCurrent->pszConversion << " " << pCurrent->IsHeadAndCandNum << " " << pCurrent->CandIndex << " " << pCurrent->IsComplete << " " << pCurrent->AcCharCount << std::endl;
-
-    RecursiveDumpTree(pCurrent->GetChild(), iDepth + 1);
-    pCurrent = pCurrent->GetNext();
+    RecursiveDumpTree(pCurrent, iDepth + 1);
   }
-  */
 }
 
 void CConversionManager::CConvNode::GetContext(CDasherInterfaceBase *pInterface, std::vector<symbol> &vContextSymbols, int iOffset, int iLength) {

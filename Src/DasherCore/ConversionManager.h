@@ -87,6 +87,7 @@ namespace Dasher {
     ///
 
     virtual void PopulateChildren();
+    virtual int ExpectedNumChildren();
     
     ~CConvNode();
 

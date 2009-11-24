@@ -72,100 +72,9 @@ CConversionManager::CConvNode *CConversionHelper::GetRoot(CDasherNode *pParent, 
 // TODO: This function needs to be significantly tidied up
 // TODO: get rid of pSizes
 
-void CConversionHelper::AssignChildSizes(SCENode **pNode, CLanguageModel::Context context, int iNChildren) {
+void CConversionHelper::AssignChildSizes(const std::vector<SCENode *> &nodes, CLanguageModel::Context context) {
 
-    // Calculate sizes for the children. Note that normalisation is
-    // done additiviely rather than multiplicatively, so it's not
-    // quite what was originally planned (but I don't think this is
-    // much of a problem). More serious is the fact that the ordering
-    // is being lost when the tree is created, as nodes begininning
-    // with the same character are merged. This needs to be though
-    // out, but the probabilities should probably be done at the time
-    // of construction of the candidate tree rather than the Dasher
-    // tree (aside - is there any real point having two separate trees
-    // - surely we should just create Dasher nodes right away?).
-    //
-    // The algorithm should also allow for the possibility of the
-    // conversion engine returning probabilities itself, which should
-    // be used in preference to the values infered from the ordering
-    //
-    // Finally, maybe the choices should be presented in lexographic
-    // order, rather than in order returned (really not sure about
-    // this - it needs to be thought through).
-
-
-    //    std::cout << "b" << std::endl;
-
-    //TESTING FOR CALCULATESCORE STAGE 1
-    //int test;
-    //test = CalculateScore(pNode, 1);
-    //std::cout<<"current character"<<pCurrentSCENode->pszConversion<<std::endl;
-    //std::cout<<"the score for the second candidate is"<<test<<std::endl;
-
-
-
-    //ASSIGNING SCORES AND CALCULATING NODE SIZE
-    //Ph: feel free to edit this part to make it more structured
-//     int iSize[pCurrentSCEChild->IsHeadAndCandNum];
-//     int score[pCurrentSCEChild->IsHeadAndCandNum];
-//     int total =0;
-//     int max = 0;
-//     int CandNum = pCurrentSCEChild -> IsHeadAndCandNum;
-
-// CHANGE    int iRemaining(m_pNCManager->GetLongParameter(LP_NORMALIZATION));
-
-    // Thoughts on the general idea here - this is very close to being
-    // a fully fledged language model, so I think we should go with
-    // that idea, but maybe we need something mode flexible. I'd
-    // imagine:
-    //
-    // 1. Probabilities provided directly with translation? Maybe hard
-    // to represent in the lattice itself.
-    //
-    // 2. Full n-gram language model provided - in general assign
-    // probabilities to paths through the lattice
-    //
-    // 3. Ordered results, but no probabilities - using a power law
-    // rule or the like.
-    //
-    // Tempted to assume (1) and (2) can be implemented together, with
-    // a second call to the library at node creation time, and (3) can
-    // be implemented as a fallback if that doesn't work.
-    //
-    // Things to be thought out:
-    // - How to deal with contexts - backtrace at time of call or stored in node?
-    // - Sharing of language model infrastructure?
-
-
-
-    // Lookup scores for each of the children
-
-    // TODO: Reimplement -----
-
-  //     for(int i(0); i < pCurrentSCEChild->IsHeadAndCandNum; ++i){
-  //       score[i] = CalculateScore(pNode, i);
-  //       total += score[i];
-  //       if(i!=0)
-  // 	if (score[i]>score[i-1])
-  // 	  max = score[i];
-  //     }
-
-  // -----
-
-  // Use the scores to calculate the size of the nodes
-
-
-  iNChildren = 0;
-  SCENode *pChild(*pNode);
-
-  while(pChild) {
-    pChild = pChild->GetNext();
-    ++iNChildren;
-  }
-
-  //  std::cout<<"iNChildren: "<<iNChildren<<std::endl;
-  AssignSizes(pNode, context, m_pNCManager->GetLongParameter(LP_NORMALIZATION), m_pNCManager->GetLongParameter(LP_UNIFORM), iNChildren);
-
+  AssignSizes(nodes, context, m_pNCManager->GetLongParameter(LP_NORMALIZATION), m_pNCManager->GetLongParameter(LP_UNIFORM));
 
 }
 
@@ -177,47 +86,16 @@ void CConversionHelper::CConvHNode::PopulateChildren() {
   //
 
 
-  if(bisRoot) {
+  if(bisRoot && !pSCENode) {
     mgr()->BuildTree(this);
   }
 
-  SCENode *pCurrentSCEChild;
 
-  if(pSCENode){
-
+  if(pSCENode && !pSCENode->GetChildren().empty()) {
+    const std::vector<SCENode *> &vChildren = pSCENode->GetChildren();
     //    RecursiveDumpTree(pSCENode, 1);
-    pCurrentSCEChild = pSCENode->GetChild();
-
-  }
-  else {
-    //    if(m_pRoot && !pCurrentDataNode->bType)
-    //  pCurrentSCEChild = m_pRoot[0];
-    //else
-      pCurrentSCEChild = 0;
-  }
-
-  if(pCurrentSCEChild) {
-    //    std::cout<<"Populating character nodes!"<<std::endl;
-    //    std::cout << "Current SCE Child: " << pCurrentSCEChild << std::endl;
-
-    // TODO: Reimplement (in subclass) -----
-
-//     if(m_iHZCount>1)
-//       if(!m_bPhrasesProcessed[pCurrentSCEChild->AcCharCount-1])
-//    	if(pCurrentSCEChild->AcCharCount<m_iHZCount)
-// 	  ProcessPhrase(pCurrentSCEChild->AcCharCount-1);
-
-    // -----
-
-    //int *iSize;
-
-    //    iSize = new int[pCurrentSCEChild->IsHeadAndCandNum];
-
-
-
-
-    mgr()->AssignChildSizes(&pCurrentSCEChild, iContext, pCurrentSCEChild->IsHeadAndCandNum);
-
+    mgr()->AssignChildSizes(vChildren, iContext);
+    
     int iIdx(0);
     int iCum(0);
 
@@ -227,9 +105,10 @@ void CConversionHelper::CConvHNode::PopulateChildren() {
 
     // Finally loop through and create the children
 
-    do {
+    for (std::vector<SCENode *>::const_iterator it = vChildren.begin(); it!=vChildren.end(); it++) {
       //      std::cout << "Current scec: " << pCurrentSCEChild << std::endl;
-
+      SCENode *pCurrentSCEChild(*it);
+      DASHER_ASSERT(pCurrentSCEChild != NULL);
       int iLbnd(iCum);
       int iHbnd(iCum + pCurrentSCEChild->NodeSize);
 		//m_pNCManager->GetLongParameter(LP_NORMALIZATION));//
@@ -263,24 +142,22 @@ void CConversionHelper::CConvHNode::PopulateChildren() {
       pNewNode->m_iOffset = m_iOffset + 1;
 
       if(pLanguageModel) {
-	CLanguageModel::Context iContext;
-	iContext = pLanguageModel->CloneContext(this->iContext);
-	
-	if(pCurrentSCEChild ->Symbol !=-1)
-	  pNewNode->pLanguageModel->EnterSymbol(iContext, pCurrentSCEChild->Symbol); // TODO: Don't use symbols?
-
-
-	pNewNode->iContext = iContext;
+        CLanguageModel::Context iContext;
+        iContext = pLanguageModel->CloneContext(this->iContext);
+        
+        if(pCurrentSCEChild ->Symbol !=-1)
+          pNewNode->pLanguageModel->EnterSymbol(iContext, pCurrentSCEChild->Symbol); // TODO: Don't use symbols?
+        
+        
+        pNewNode->iContext = iContext;
       }
 
       DASHER_ASSERT(GetChildren().back()==pNewNode);
 
-      pCurrentSCEChild = pCurrentSCEChild->GetNext();
       ++iIdx;
-    }while(pCurrentSCEChild);
+    }
 
   }
-
   else {//End of conversion -> default to alphabet
 
       //Phil//
@@ -291,6 +168,11 @@ void CConversionHelper::CConvHNode::PopulateChildren() {
     // superclass method...?)
     CConvNode::PopulateChildren();
   }
+}
+int CConversionHelper::CConvHNode::ExpectedNumChildren() {
+  if(bisRoot && !pSCENode) mgr()->BuildTree(this);  
+  if (pSCENode && !pSCENode->GetChildren().empty()) return pSCENode->GetChildren().size();
+  return CConvNode::ExpectedNumChildren();
 }
 
 void CConversionHelper::BuildTree(CConvHNode *pRoot) {

@@ -54,7 +54,7 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
 
   void DisconnectNode(int iChild, int iParent);
 
-  void GetProbs(Dasher::CLanguageModel::Context context, std::vector <Dasher::symbol >&NewSymbols, std::vector <unsigned int >&Probs, int iNorm) const;
+  void GetProbs(Dasher::CLanguageModel::Context context, std::vector <unsigned int >&Probs, int iNorm) const;
 
   ///
   /// Get a reference to the alphabet

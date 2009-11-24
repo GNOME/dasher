@@ -228,6 +228,11 @@ class Dasher::CDasherNode:private NoClones {
   ///
   
   virtual void PopulateChildren() = 0;
+  
+  /// The number of children which a call to PopulateChildren can be expected to generate.
+  /// (This is not required to be 100% accurate, but any discrepancies will likely cause
+  /// the node budgetting algorithm to behave sub-optimally)
+  virtual int ExpectedNumChildren() = 0;
     
   ///
   /// Called whenever a node belonging to this manager first 

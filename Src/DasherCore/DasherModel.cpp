@@ -719,18 +719,10 @@ bool CDasherModel::RenderToView(CDasherView *pView, NodeQueue &nodeQueue) {
   //(however, note that doing this here will only expand one level per frame,
   //and won't really take effect until the *next* frame!)
   int iNodeBudget = GetLongParameter(LP_NODE_BUDGET);
-  //note: the 'number of symbols' is the number of leaves in the subtree created by
-  //expanding a node, i.e. excluding group nodes; it also counts only 1 for both
-  //the node at the root of any control mode group, *and* the same for any conversion node.
-  //So, expanding a node could create significantly more children than this.
-  //Doubling this is arbitrary, but I'm just hoping it's a reasonably upper bound for the
-  //number of descendants that'll actually be created; if expansion creates more nodes than
-  //this, the logic below will perform one more contraction, and expansion, per frame than
-  //we want - a performance issue, but hopefully not a correctness issue ;-).
-  int iExpansion = m_pNodeCreationManager->GetAlphabet()->GetNumberSymbols()*2;
+
   //first, make sure we are within our budget (probably only in case the budget's changed)
   while (nodeQueue.hasNodesToCollapse()
-		 && currentNumNodeObjects() > iNodeBudget + iExpansion)
+		 && currentNumNodeObjects() > iNodeBudget)
   {
     nodeQueue.nodeToCollapse()->Delete_children();
     nodeQueue.popNodeToCollapse();
@@ -740,7 +732,7 @@ bool CDasherModel::RenderToView(CDasherView *pView, NodeQueue &nodeQueue) {
   //nodes to expand (as zero-cost collapses have already been performed)
   while (nodeQueue.hasNodesToExpand())
   {
-	if (currentNumNodeObjects() < iNodeBudget)
+	if (currentNumNodeObjects() + nodeQueue.nodeToExpand()->ExpectedNumChildren() < iNodeBudget)
 	{
 		Push_Node(nodeQueue.nodeToExpand());
 		nodeQueue.popNodeToExpand();

@@ -12,6 +12,7 @@ struct SGroupInfo {
   int iEnd;
   int iColour;
   bool bVisible;
+  int iNumChildNodes;
 };
 /// \}
 

@@ -135,7 +135,7 @@ namespace Dasher {
     }
 
     SGroupInfo *m_pBaseGroup;
-
+    int iNumChildNodes;
   private:
 
     // Add the characters that can appear in Nodes

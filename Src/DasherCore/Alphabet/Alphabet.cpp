@@ -111,7 +111,7 @@ CAlphabet::CAlphabet(const CAlphIO::AlphInfo &AlphInfo)
   // New group stuff
 
   m_pBaseGroup = AlphInfo.m_pBaseGroup;
-
+  iNumChildNodes = AlphInfo.iNumChildNodes;
 #ifdef DASHER_TRACE
   Trace();
 #endif

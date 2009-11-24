@@ -196,20 +196,13 @@ CDasherNode *CNodeCreationManager::GetConvRoot(Dasher::CDasherNode *pParent, int
  return NULL;
 }
 
-void CNodeCreationManager::GetProbs(CLanguageModel::Context context, std::vector <symbol >&NewSymbols, std::vector <unsigned int >&Probs, int iNorm) const {
+void CNodeCreationManager::GetProbs(CLanguageModel::Context context, std::vector <unsigned int >&Probs, int iNorm) const {
   // Total number of symbols
   int iSymbols = m_pAlphabet->GetNumberSymbols();      // note that this includes the control node and the root node
   
   // Number of text symbols, for which the language model gives the distribution
   // int iTextSymbols = m_pAlphabet->GetNumberTextSymbols();
   
-  NewSymbols.resize(iSymbols);
-//      Groups.resize(iSymbols);
-  for(int i = 0; i < iSymbols; i++) {
-    NewSymbols[i] = i;          // This will be replaced by something that works out valid nodes for this context
-    //      Groups[i]=m_pAlphabet->get_group(i);
-  }
-
   // TODO - sort out size of control node - for the timebeing I'll fix the control node at 5%
   // TODO: New method (see commented code) has been removed as it wasn' working.
 

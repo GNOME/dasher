@@ -95,6 +95,7 @@ namespace Dasher {
     ///
 
     virtual void PopulateChildren();
+      virtual int ExpectedNumChildren();
     
     virtual void Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization );
     virtual void Undo();

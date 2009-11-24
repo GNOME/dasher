@@ -75,16 +75,15 @@ bool CPinYinConversionHelper::Convert(const std::string &strSource, SCENode ** p
   return (pParser && pParser->Convert(strSource, pRoot));
 }
 
-unsigned int CPinYinConversionHelper::GetSumPYProbs(Dasher::CLanguageModel::Context context, SCENode * pPYCandStart, int norm){
+unsigned int CPinYinConversionHelper::GetSumPYProbs(Dasher::CLanguageModel::Context context, std::vector<SCENode *> &pPYCandStart, int norm){
 
   std::vector <unsigned int> Probs;
   unsigned int sumProb=0;
   
   GetLanguageModel()->GetProbs(context, Probs, norm, 0);
 
-  SCENode * pCurrentNode = pPYCandStart;
-
-  while(pCurrentNode){
+  for (std::vector<SCENode *>::iterator it = pPYCandStart.begin(); it != pPYCandStart.end(); it++) {
+    SCENode *pCurrentNode(*it);
     
     std::vector <symbol >Symbols;
     std::string HZ = static_cast<std::string>(pCurrentNode->pszConversion);
@@ -94,7 +93,6 @@ unsigned int CPinYinConversionHelper::GetSumPYProbs(Dasher::CLanguageModel::Cont
 
     if(Symbols.size()!=0)
       sumProb += Probs[Symbols[0]];
-    pCurrentNode = pCurrentNode->GetNext();
 
   }
 
@@ -104,21 +102,16 @@ unsigned int CPinYinConversionHelper::GetSumPYProbs(Dasher::CLanguageModel::Cont
 void CPinYinConversionHelper::GetProbs(Dasher::CLanguageModel::Context context, std::vector < unsigned int >&Probs, int norm){
 }
 
-void CPinYinConversionHelper::AssignSizes(SCENode **pStart, Dasher::CLanguageModel::Context context, long normalization, int uniform, int iNChildren){
+void CPinYinConversionHelper::AssignSizes(const std::vector<SCENode *> &vChildren, Dasher::CLanguageModel::Context context, long normalization, int uniform){
 
   //test print:
   int print = 0;
-
-  SCENode *pNewStart = *pStart;
-
-  SCENode *pNode = pNewStart;
-
 
   //  std::cout<<"Head node "<<pNewStart->pszConversion<<std::endl;
   std::vector <unsigned int> Probs;
 
   int iSymbols = m_pCHAlphabet->GetNumberSymbols(); 
-  int iLeft(iNChildren);
+  int iLeft(vChildren.size());
   int iRemaining(normalization);
 
   int uniform_add;
@@ -137,8 +130,8 @@ void CPinYinConversionHelper::AssignSizes(SCENode **pStart, Dasher::CLanguageMod
   //CLanguageModel::Context iCurrentContext;
 
   //  int iNumSymbols =0;
-  while(pNode){
-
+  for (std::vector<SCENode *>::const_iterator it = vChildren.begin(); it!=vChildren.end(); it++) {
+    SCENode *pNode(*it);
     Symbols.clear();
 
     std::string HZ(pNode->pszConversion);
@@ -150,24 +143,18 @@ void CPinYinConversionHelper::AssignSizes(SCENode **pStart, Dasher::CLanguageMod
     }
     else
       pNode->Symbol = -1;
-
-    pNode = pNode->GetNext();
   }
 
   //  std::cout<<"size of symbolstore "<<SymbolStore.size()<<std::endl;  
  
   //  std::cout<<"norm input: "<<nonuniform_norm/(iSymbols/iNChildren/100)<<std::endl;
 
-  GetLanguageModel()->GetPartProbs(context, pStart, iNChildren, nonuniform_norm, 0);
+  GetLanguageModel()->GetPartProbs(context, vChildren, nonuniform_norm, 0);
 
   //std::cout<<"after get probs "<<std::endl;
 
- pNode = pNewStart;
- while(pNode){
-    sumProb += pNode->NodeSize;
-
-    //    std::cout<<"Nodesize: "<<pNode->NodeSize<<std::endl;
-    pNode = pNode->GetNext();
+  for (std::vector<SCENode *>::const_iterator it = vChildren.begin(); it!=vChildren.end(); it++) {
+    sumProb += (*it)->NodeSize;
  }
 
  //  std::cout<<"Sum Prob "<<sumProb<<std::endl;
@@ -180,8 +167,8 @@ void CPinYinConversionHelper::AssignSizes(SCENode **pStart, Dasher::CLanguageMod
   if(print)
     std::cout<<"sumProb "<<sumProb<<std::endl;
 
-  pNode = pNewStart;
-  while(pNode){
+  for (std::vector<SCENode *>::const_iterator it = vChildren.begin(); it!=vChildren.end(); it++) {
+    SCENode *pNode(*it);
     if((pNode->Symbol!=-1)&&(sumProb!=0)){
       // std::cout<<"Probs size "<<pNode->NodeSize<<std::endl;
       pNode->NodeSize = static_cast<unsigned long long int>(pNode->NodeSize*(normalization/sumProb));//*(100 - m_iPriorityScale * pNode->GetPriority()) 
@@ -207,8 +194,6 @@ void CPinYinConversionHelper::AssignSizes(SCENode **pStart, Dasher::CLanguageMod
     // std::cout<<"Symbol i"<<SymbolStore[iIdx]<<std::endl;
     // std::cout<<"symbols size "<<SymbolStore.size()<<std::endl;
     // std::cout<<"Symbols address "<<&SymbolStore<<std::endl;
-
-    pNode = pNode->GetNext();
   }
 
   if(print)
@@ -219,8 +204,8 @@ void CPinYinConversionHelper::AssignSizes(SCENode **pStart, Dasher::CLanguageMod
 
 
   
-  pNode = pNewStart;
-  while(pNode){
+  for (std::vector<SCENode *>::const_iterator it = vChildren.begin(); it!=vChildren.end(); it++) {
+    SCENode *pNode(*it);
     int iDiff(iRemaining / iLeft);
     
     pNode->NodeSize += iDiff;
@@ -230,7 +215,6 @@ void CPinYinConversionHelper::AssignSizes(SCENode **pStart, Dasher::CLanguageMod
     
     //    std::cout<<"Node size for "<<pNode->pszConversion<<std::endl;
     //std::cout<<"is "<<pNode->NodeSize<<std::endl;
-    pNode = pNode->GetNext();
   }
   
 }

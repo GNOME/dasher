@@ -421,6 +421,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
     Me->InputInfo.EndConvertCharacter.Text = "";
     Me->InputInfo.m_iCharacters = 1; // Start at 1 as 0 is the root node symbol
     Me->InputInfo.m_pBaseGroup = 0;
+    Me->InputInfo.iNumChildNodes = 1; // the "root node" symbol (with text "")
     Me->bFirstGroup = true;
     Me->iGroupIdx = 0;
     while(*atts != 0) {
@@ -552,8 +553,10 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 
   if(strcmp(name, "group") == 0) {
     SGroupInfo *pNewGroup(new SGroupInfo);
+    pNewGroup->iNumChildNodes=0;
     pNewGroup->iColour = (Me->iGroupIdx % 3) + 110; 
     ++Me->iGroupIdx;
+    if (Me->m_vGroups.empty()) Me->InputInfo.iNumChildNodes++; else Me->m_vGroups.back()->iNumChildNodes++;
 
     if(Me->bFirstGroup) {
       pNewGroup->bVisible = false;
@@ -696,6 +699,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
     AlphInfo::character NewCharacter;
 
     ++Me->InputInfo.m_iCharacters;
+    if (Me->m_vGroups.empty()) Me->InputInfo.iNumChildNodes++; else Me->m_vGroups.back()->iNumChildNodes++;
 
     NewCharacter.Colour = -1;
 
@@ -751,6 +755,10 @@ void CAlphIO::XML_EndElement(void *userData, const XML_Char *name) {
 
   if(strcmp(name, "alphabet") == 0) {
     Reverse(Me->InputInfo.m_pBaseGroup);
+    if (Me->InputInfo.SpaceCharacter.Text != "") Me->InputInfo.iNumChildNodes++;
+    if (Me->InputInfo.ParagraphCharacter.Text != "") Me->InputInfo.iNumChildNodes++;
+    if (Me->InputInfo.StartConvertCharacter.Text != "") Me->InputInfo.iNumChildNodes++;
+    if (Me->InputInfo.EndConvertCharacter.Text != "") Me->InputInfo.iNumChildNodes++;
     Me->Alphabets[Me->InputInfo.AlphID] = Me->InputInfo;
     return;
   }
