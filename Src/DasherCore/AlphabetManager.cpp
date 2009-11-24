@@ -61,39 +61,28 @@ CAlphabetManager::CAlphNode *CAlphabetManager::makeNode(CDasherNode *pParent, in
   return new CAlphNode(pParent, iLbnd, iHbnd, pDisplayInfo, this);
 }
 
-CAlphabetManager::CAlphNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, char *szContext, int iOffset) {
+CAlphabetManager::CAlphNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, bool bEnteredLast, int iOffset) {
+  
+  std::vector<symbol> vContextSymbols;
 
-  int iSymbol;
-  int iColour;
-
-  std::string strContext;
-
-  CLanguageModel::Context iContext;
-
-  if(szContext) {
-    int iMaxContextLength = m_pLanguageModel->GetContextLength() + 1;
-
-    // TODO: No need to explicitly pass context
+  if(iOffset>0) {
     // TODO: Utility function for looking up symbolic context
+    // also TODO: make the LM get the context, rather than force it to fix max context length as an int
+    int iStart = max(0, iOffset - (m_pLanguageModel->GetContextLength() + 1));
 
-    int iStart = iOffset - iMaxContextLength;
-    if(iStart < 0)
-      iStart = 0;
-
-    strContext = m_pInterface->GetContext(iStart, iOffset - iStart);
-    BuildContext(strContext, false, iContext, iSymbol);
-
+    pParent->GetContext(m_pInterface, vContextSymbols, iStart, iOffset - iStart);
+    //take one off offset: the children (leaf) nodes (symbols) should have the specified offset;
+    //the containing groups therefore have offset 1 less.
     iOffset = iOffset - 1;
-    iColour = m_pNCManager->GetColour(iSymbol, 0);
+  } else {
+    iOffset = -1;
+    std::string strContext = m_pNCManager->GetAlphabet()->GetDefaultContext();
+    m_pNCManager->GetAlphabet()->GetSymbols(vContextSymbols, strContext);
   }
-  else {
-    // Create a root node
-
-    iColour = 7;
-
-    strContext = m_pNCManager->GetAlphabet()->GetDefaultContext();
-    BuildContext(strContext, true, iContext, iSymbol);
-  }
+  CLanguageModel::Context iContext;
+  int iSymbol;
+  BuildContext(vContextSymbols, !bEnteredLast, iContext, iSymbol);
+  int iColour = m_pNCManager->GetAlphabet()->GetColour(iSymbol, 0);
 
   // FIXME - Make this a CDasherComponent
 
@@ -142,6 +131,15 @@ bool CAlphabetManager::CAlphNode::GameSearchNode(string strTargetUtf8Char) {
 CLanguageModel::Context CAlphabetManager::CAlphNode::CloneAlphContext(CLanguageModel *pLanguageModel) {
   if (iContext) return pLanguageModel->CloneContext(iContext);
   return CDasherNode::CloneAlphContext(pLanguageModel);
+}
+
+void CAlphabetManager::CAlphNode::GetContext(CDasherInterfaceBase *pInterface, vector<symbol> &vContextSymbols, int iOffset, int iLength) {
+  if (!GetFlag(NF_SEEN) && iOffset+iLength-1 == m_iOffset && iSymbol) {
+    if (iLength > 1) Parent()->GetContext(pInterface, vContextSymbols, iOffset, iLength-1);
+    vContextSymbols.push_back(iSymbol);
+  } else {
+    CDasherNode::GetContext(pInterface, vContextSymbols, iOffset, iLength);
+  }
 }
 
 symbol CAlphabetManager::CAlphNode::GetAlphSymbol() {
@@ -201,18 +199,23 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CAlphNode *pParent, symbol iSymb
     }
     // TODO: Need to fix fact that this is created even when control mode is switched off
     else if(iSymbol == m_pNCManager->GetControlSymbol()) {
-      pNewNode = m_pNCManager->GetCtrlRoot(pParent, iLbnd, iHbnd, pParent->m_iOffset); 
+      //ACL setting offset as one more than parent for consistency with "proper" symbol nodes...
+      pNewNode = m_pNCManager->GetCtrlRoot(pParent, iLbnd, iHbnd, pParent->m_iOffset+1); 
 
+#ifdef _WIN32_WCE
+      //no control manager - but (TODO!) we still try to create (0-size!) control node...
+      DASHER_ASSERT(!pNewNode);
       // For now, just hack it so we get a normal root node here
-      if(!pNewNode) {
-	pNewNode = m_pNCManager->GetAlphRoot(pParent, iLbnd, iHbnd, NULL, -1);
-      }
+      pNewNode = m_pNCManager->GetAlphRoot(pParent, iLbnd, iHbnd, false, pParent->m_iOffset+1);
+#else
+      DASHER_ASSERT(pNewNode);
+#endif
     }
     else if(iSymbol == m_pNCManager->GetStartConversionSymbol()) {
       //  else if(iSymbol == m_pNCManager->GetSpaceSymbol()) {
 
-      // TODO: Need to consider the case where there is no compile-time support for this
-      pNewNode = m_pNCManager->GetConvRoot(pParent, iLbnd, iHbnd, pParent->m_iOffset);
+      //ACL setting m_iOffset+1 for consistency with "proper" symbol nodes...
+      pNewNode = m_pNCManager->GetConvRoot(pParent, iLbnd, iHbnd, pParent->m_iOffset+1);
     }
     else {
       int iPhase = (pParent->iPhase + 1) % 2;
@@ -360,7 +363,7 @@ CDasherNode *CAlphabetManager::CAlphNode::RebuildParent() {
 
   symbol iNewSymbol;
 
-  std::string strContext;
+  std::vector<symbol> vContextSymbols;
   CLanguageModel::Context iContext;
 
   if((m_iOffset == -1) || (iSymbol == 0)) {
@@ -375,32 +378,24 @@ CDasherNode *CAlphabetManager::CAlphNode::RebuildParent() {
   
   if(m_iOffset == 0) {
     // TODO: Creating a root node, Shouldn't be a special case
-    iNewPhase = 0;
-    iNewSymbol = 0;
-    strContext = m_pMgr->m_pNCManager->GetAlphabet()->GetDefaultContext();
-    m_pMgr->BuildContext(strContext, true, iContext, iNewSymbol);
+    std::string strContext = m_pMgr->m_pNCManager->GetAlphabet()->GetDefaultContext();
+    m_pMgr->m_pNCManager->GetAlphabet()->GetSymbols(vContextSymbols, strContext);
+    m_pMgr->BuildContext(vContextSymbols, true, iContext, iNewSymbol); //sets iNewSymbol to 0
 
-    pDisplayInfo->iColour = 7; // TODO: Hard coded value
+    iNewPhase = 0;
+
     pDisplayInfo->strDisplayText = "";
   }
   else {
-    int iMaxContextLength = m_pMgr->m_pLanguageModel->GetContextLength() + 1;
-
-    int iStart = m_iOffset - iMaxContextLength;
-    if(iStart < 0)
-      iStart = 0;
-
-    strContext = m_pMgr->m_pInterface->GetContext(iStart, m_iOffset - iStart);
-
-    m_pMgr->BuildContext(strContext, false, iContext, iNewSymbol);
+    int iStart = max(0, m_iOffset - (m_pMgr->m_pLanguageModel->GetContextLength() + 1));
+    GetContext(m_pMgr->m_pInterface, vContextSymbols, iStart, m_iOffset - iStart);
+    m_pMgr->BuildContext(vContextSymbols, false, iContext, iNewSymbol);
 
     iNewPhase = ((iOldPhase + 2 - 1) % 2);
 
-    int iColour(m_pMgr->m_pNCManager->GetColour(iNewSymbol, iNewPhase));
-            
-    pDisplayInfo->iColour = iColour;
     pDisplayInfo->strDisplayText = m_pMgr->m_pNCManager->GetAlphabet()->GetDisplayText(iNewSymbol);
   }
+  pDisplayInfo->iColour = m_pMgr->m_pNCManager->GetColour(iNewSymbol, iNewPhase);
 
   CAlphNode *pNewNode = m_pMgr->makeNode(NULL, 0, 0, pDisplayInfo);
   
@@ -434,17 +429,14 @@ void CAlphabetManager::CAlphNode::SetFlag(int iFlag, bool bValue) {
   }
 }
 
-void CAlphabetManager::BuildContext(std::string &strContext, bool bRoot, CLanguageModel::Context &oContext, symbol &iSymbol) {
+void CAlphabetManager::BuildContext(const std::vector<symbol> &vContextSymbols, bool bRoot, CLanguageModel::Context &oContext, symbol &iSymbol) {
   // Hopefully this will obsolete any need to handle contexts outside
   // of the alphabet manager - check this and remove resulting
   // redundant code
 
-  std::vector<symbol> vContextSymbols;
-  m_pNCManager->GetAlphabet()->GetSymbols(vContextSymbols, strContext);
-
   oContext = m_pLanguageModel->CreateEmptyContext();
 
-  for(std::vector<symbol>::iterator it(vContextSymbols.begin()); it != vContextSymbols.end(); ++it)
+  for(std::vector<symbol>::const_iterator it(vContextSymbols.begin()); it != vContextSymbols.end(); ++it)
     if(*it != 0)
       m_pLanguageModel->EnterSymbol(oContext, *it);
 

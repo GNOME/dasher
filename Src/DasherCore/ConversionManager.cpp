@@ -78,7 +78,7 @@ CConversionManager::CConvNode *CConversionManager::GetRoot(CDasherNode *pParent,
 
 
   pNewNode->bisRoot = true;
-  pNewNode->m_iOffset = iOffset + 1;
+  pNewNode->m_iOffset = iOffset;
 
   pNewNode->pLanguageModel = NULL;
 
@@ -102,7 +102,7 @@ void CConversionManager::CConvNode::PopulateChildren() {
   int iLbnd(0);
   int iHbnd(m_pMgr->m_pNCManager->GetLongParameter(LP_NORMALIZATION));
 
-  CDasherNode *pNewNode = m_pMgr->m_pNCManager->GetAlphRoot(this, iLbnd, iHbnd, NULL, m_iOffset + 1);
+  CDasherNode *pNewNode = m_pMgr->m_pNCManager->GetAlphRoot(this, iLbnd, iHbnd, false, m_iOffset + 1);
   pNewNode->SetFlag(NF_SEEN, false);
 
   DASHER_ASSERT(GetChildren().back()==pNewNode);
@@ -133,6 +133,24 @@ void CConversionManager::RecursiveDumpTree(SCENode *pCurrent, unsigned int iDept
     pCurrent = pCurrent->GetNext();
   }
   */
+}
+
+void CConversionManager::CConvNode::GetContext(CDasherInterfaceBase *pInterface, std::vector<symbol> &vContextSymbols, int iOffset, int iLength) {
+  if (!GetFlag(NF_SEEN) && iOffset+iLength-1 == m_iOffset) {
+    //ACL I'm extrapolating from PinYinConversionHelper (in which root nodes have their
+    // Symbol set by SetConvSymbol, and child nodes are created in PopulateChildren
+    // from SCENode's with Symbols having been set in in AssignSizes); not really sure
+    // whether this is applicable in the general case(! - but although I think it's right
+    // for PinYin, it wouldn't actually be used there, as MandarinDasher overrides contexts
+    // everywhere!)
+    DASHER_ASSERT(bisRoot || pSCENode);
+    if (bisRoot || pSCENode->Symbol!=-1) {
+      if (iLength>1) Parent()->GetContext(pInterface, vContextSymbols, iOffset, iLength-1);
+      vContextSymbols.push_back(bisRoot ? iSymbol : pSCENode->Symbol);
+      return;
+    } //else, non-root with pSCENode->Symbol==-1 => fallthrough back to superclass code
+  }
+  CDasherNode::GetContext(pInterface, vContextSymbols, iOffset, iLength);
 }
 
 void CConversionManager::CConvNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {

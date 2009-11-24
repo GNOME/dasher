@@ -179,8 +179,8 @@ void CNodeCreationManager::DisconnectNode(int iChild, int iParent) {
     m_pControlManager->DisconnectNode(iChild, iParent);
 }
 
-CDasherNode *CNodeCreationManager::GetAlphRoot(Dasher::CDasherNode *pParent, int iLower, int iUpper, char *szContext, int iOffset) { 
- return m_pAlphabetManager->GetRoot(pParent, iLower, iUpper, szContext, iOffset);
+CDasherNode *CNodeCreationManager::GetAlphRoot(Dasher::CDasherNode *pParent, int iLower, int iUpper, bool bEnteredLast, int iOffset) { 
+ return m_pAlphabetManager->GetRoot(pParent, iLower, iUpper, bEnteredLast, iOffset);
 }
 
 CDasherNode *CNodeCreationManager::GetCtrlRoot(Dasher::CDasherNode *pParent, int iLower, int iUpper, int iOffset) { 

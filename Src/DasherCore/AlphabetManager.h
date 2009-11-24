@@ -72,6 +72,7 @@ namespace Dasher {
     virtual bool GameSearchNode(std::string strTargetUtf8Char);
     
     virtual CLanguageModel::Context CloneAlphContext(CLanguageModel *pLanguageModel);
+    virtual void GetContext(CDasherInterfaceBase *pInterface, std::vector<symbol> &vContextSymbols, int iOffset, int iLength);
     virtual symbol GetAlphSymbol();
     private:
       CAlphabetManager *m_pMgr;
@@ -88,10 +89,10 @@ namespace Dasher {
   public:
     ///
     /// Get a new root node owned by this manager
-    ///
-    // Note that iOffset may be -1, to indicate no root data; in which case,
-    // szContext should be null. (szContext may be null in other cases too!)
-    virtual CAlphNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, char *szContext, int iOffset);
+    /// bEnteredLast - true if this "root" node should be considered as entering the preceding symbol
+    /// Offset is the index of the character which _child_ nodes (i.e. between which this root allows selection)
+    /// will enter. (Also used to build context for preceding characters.)
+    virtual CAlphNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, bool bEnteredLast, int iOffset);
 
   protected:
     ///
@@ -110,7 +111,7 @@ namespace Dasher {
 
   private:
     
-    void BuildContext(std::string& strContext, bool bRoot, CLanguageModel::Context &oContext, symbol &iSymbol);
+    void BuildContext(const std::vector<symbol> &vContextSymbols, bool bRoot, CLanguageModel::Context &oContext, symbol &iSymbol);
 
     void RecursiveIterateGroup(CAlphNode *pParent, SGroupInfo *pInfo, std::vector<symbol> *pSymbols, std::vector<unsigned int> *pCProb, int iMin, int iMax, symbol iExistingSymbol, CDasherNode *pExistingChild);
 

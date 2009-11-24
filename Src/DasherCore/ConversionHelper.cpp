@@ -286,49 +286,10 @@ void CConversionHelper::CConvHNode::PopulateChildren() {
       //Phil//
       // TODO: Placeholder algorithm here
       // TODO: Add an 'end of conversion' node?
-      int iLbnd(0);
-      int iHbnd(mgr()->m_pNCManager->GetLongParameter(LP_NORMALIZATION));
-
-      CDasherNode *pNewNode = mgr()->m_pNCManager->GetAlphRoot(this, iLbnd, iHbnd, NULL, m_iOffset);
-      pNewNode->SetFlag(NF_SEEN, false);
-
-      DASHER_ASSERT(GetChildren().back()==pNewNode);
-      //    pNode->SetHasAllChildren(false);
-      //}
-    /* What do the following code do?
-    else {
-
-      std::cout<<"DOES IT EVER COME TO HERE?"<<std::endl;
-      int iLbnd(0);
-      int iHbnd(m_pNCManager->GetLongParameter(LP_NORMALIZATION));
-
-      CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
-      pDisplayInfo->iColour = AssignColour(0, pCurrentSCEChild, 0);
-      pDisplayInfo->bShove = true;
-      pDisplayInfo->bVisible = true;
-      pDisplayInfo->strDisplayText = "";
-
-      pNewNode = m_pMgr->makeNode(this, iLbnd, iHbnd, pDisplayInfo);
-
-      // TODO: Reimplement ----
-
-      // FIXME - handle context properly
-      //      pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
-      // -----
-
-      SConversionData *pNodeUserData = new SConversionData;
-      pNodeUserData->bType = true;
-      pNodeUserData->pSCENode = NULL;
-      pNodeUserData->pLanguageModel = pCurrentDataNode->pLanguageModel;
-      pNewNode->m_iOffset = pNode->m_iOffset + 1;
-
-      pNewNode->m_pUserData = pNodeUserData;
-
-      pNewNode->SetFlag(NF_SEEN, false);
-
-      pNode->Children().push_back(pNewNode);
-    }
-    */
+    //ACL 1/12/09 Note that this adds one to the m_iOffset of the created node
+    // (whereas code that was here did not, but was otherwise identical to
+    // superclass method...?)
+    CConvNode::PopulateChildren();
   }
 }
 

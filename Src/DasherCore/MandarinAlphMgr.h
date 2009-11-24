@@ -41,7 +41,7 @@ namespace Dasher {
     /// Get a new root node owned by this manager
     ///
 
-    virtual CAlphNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, char *szContext, int iOffset);
+    virtual CAlphNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, bool bEnteredLast, int iOffset);
 
   protected:
     class CMandNode : public CAlphNode {

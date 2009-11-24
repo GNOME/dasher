@@ -27,9 +27,11 @@
 #include "DasherTypes.h"
 namespace Dasher {
   class CDasherNode;
+  class CDasherInterfaceBase;
 };
 #include <deque>
 #include <iostream>
+#include <vector>
 
 // Node flag constants
 #define NF_COMMITTED 1
@@ -240,8 +242,14 @@ class Dasher::CDasherNode:private NoClones {
   
   virtual CDasherNode *RebuildParent() {
     return 0;
-  }
-    
+  };
+  
+  ///
+  /// Get as many symbols of context, up to the _end_ of the specified range,
+  /// as possible from this node and its uncommitted ancestors
+  ///
+  virtual void GetContext(CDasherInterfaceBase *pInterface, std::vector<symbol> &vContextSymbols, int iOffset, int iLength);
+  
   virtual void SetControlOffset(int iOffset) {};
   
   ///

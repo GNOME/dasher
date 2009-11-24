@@ -311,7 +311,7 @@ void CControlManager::CContNode::PopulateChildren() {
      if( *it == NULL ) {
        // Escape back to alphabet
 
-       pNewNode = m_pMgr->m_pNCManager->GetAlphRoot(this, iLbnd, iHbnd, NULL/*TODO fix this*/, m_iOffset);
+       pNewNode = m_pMgr->m_pNCManager->GetAlphRoot(this, iLbnd, iHbnd, false, m_iOffset);
        pNewNode->SetFlag(NF_SEEN, false);
      }
      else {

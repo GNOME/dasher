@@ -89,7 +89,10 @@ namespace Dasher {
     virtual void PopulateChildren();
     
     ~CConvNode();
-      
+
+    ///Attempts to fill vContextSymbols with the context that would exist _after_ this node has been entered
+    void GetContext(CDasherInterfaceBase *pInterface, std::vector<symbol> &vContextSymbols, int iOffset, int iLength);
+
     ///
     /// Called whenever a node belonging to this manager first 
     /// moves under the crosshair

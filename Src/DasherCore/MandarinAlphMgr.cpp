@@ -50,29 +50,49 @@ CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreati
   : CAlphabetManager(pInterface, pNCManager, pLanguageModel) {
 }
 
-CAlphabetManager::CAlphNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, int iLower, int iUpper, char *szContext, int iOffset) {
-
-  CAlphNode *pNewNode = CAlphabetManager::GetRoot(pParent, iLower, iUpper, szContext, iOffset);
+CAlphabetManager::CAlphNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, int iLower, int iUpper, bool bEnteredLast, int iOffset) {
+  CAlphNode *pNewNode;
+  if (!bEnteredLast) {
+    //(probably) escaping back to alphabet after conversion. At any rate, we'll duplicate a lot of
+    // superclass node-construction code, to avoid building a context - as we're going to throw that away
+    // (and the context-building code often doesn't work with conversion!)...
+    CDasherNode::SDisplayInfo *pDispInfo = new CDasherNode::SDisplayInfo;
+    pDispInfo->bShove = true;
+    pDispInfo->bVisible = true;
+    pDispInfo->strDisplayText = "";
+    pDispInfo->iColour = m_pNCManager->GetAlphabet()->GetColour(0, 0);
+    pNewNode = makeNode(pParent, iLower, iUpper, pDispInfo);
+    pNewNode->m_iOffset=max(0,iOffset)-1;
+    pNewNode->iPhase=0;
+    pNewNode->iSymbol=0;
+    pNewNode->pLanguageModel = m_pLanguageModel;    
+  } else {
+    //probably rebuilding parent; call standard GetRoot, which'll extract the most recent symbol
+    // (entered by the node (equivalent to that) which we are rebuilding)
+    pNewNode = CAlphabetManager::GetRoot(pParent, iLower, iUpper, bEnteredLast, iOffset);
+  }
 
   //Override context for Mandarin Dasher
-  if (pParent){
+  if (pParent && pParent->mgrId() == 2) {
+    //ACL MandarinAlphMgr should always be used with a PinYinConversionHelper,
+    //so this cast really should be ok :-)....but I still wish for a guarantee!
     CPinYinConversionHelper::CPYConvNode *pPYParent = static_cast<CPinYinConversionHelper::CPYConvNode *>(pParent);
-    //ACL think this is how this Mandarin thing works here...
-    // but would be nice if I could ASSERT that that cast is ok!
     pNewNode->iContext = m_pLanguageModel->CloneContext(pPYParent->GetConvContext());
-  }
-  else
-	pNewNode->iContext = m_pLanguageModel->CreateEmptyContext();
+  } else
+    pNewNode->iContext = m_pLanguageModel->CreateEmptyContext();
 
   return pNewNode;
 }
 
 CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd, symbol iExistingSymbol, CDasherNode *pExistingChild) {
 
-  if (iSymbol <= 1288) {
+  if (iSymbol <= 1288 && iSymbol != iExistingSymbol) {
+    //Will wrote:
     //Modified for Mandarin Dasher
     //The following logic switch allows punctuation nodes in Mandarin to be treated in the same way as English (i.e. display and populate next round) instead of invoking a conversion node
-	  CDasherNode *pNewNode = m_pNCManager->GetConvRoot(pParent, iLbnd, iHbnd, pParent->m_iOffset);
+    //ACL I think by "the following logic switch" he meant that symbols <= 1288 are "normal" nodes, NOT punctuation nodes,
+    // whereas punctuation is handled by the fallthrough case (standard AlphabetManager CreateSymbolNode)
+	  CDasherNode *pNewNode = m_pNCManager->GetConvRoot(pParent, iLbnd, iHbnd, pParent->m_iOffset+1);
 	  static_cast<CPinYinConversionHelper::CPYConvNode *>(pNewNode)->SetConvSymbol(iSymbol);
 	  return pNewNode;
   }

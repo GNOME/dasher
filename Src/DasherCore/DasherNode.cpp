@@ -22,7 +22,7 @@
 
 // #include "AlphabetManager.h" - doesnt seem to be required - pconlon
 
-#include "DasherNode.h"
+#include "DasherInterfaceBase.h"
 
 using namespace Dasher;
 using namespace Opts;
@@ -104,6 +104,16 @@ bool CDasherNode::NodeIsParent(CDasherNode *oldnode) const {
   else
     return false;
 
+}
+
+void CDasherNode::GetContext(CDasherInterfaceBase *pInterface, vector<symbol> &vContextSymbols, int iOffset, int iLength) {
+  if (!GetFlag(NF_SEEN)) {
+    DASHER_ASSERT(m_pParent);
+    if (m_pParent) m_pParent->GetContext(pInterface, vContextSymbols, iOffset,iLength);
+  } else {
+    std::string strContext = pInterface->GetContext(iOffset, iLength);
+    pInterface->GetAlphabet()->GetSymbols(vContextSymbols, strContext);
+  }
 }
 
 CDasherNode *const CDasherNode::Get_node_under(int iNormalization, myint miY1, myint miY2, myint miMousex, myint miMousey) {
