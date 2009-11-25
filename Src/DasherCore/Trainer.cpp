@@ -96,9 +96,8 @@ void CMandarinTrainer::Train(const std::string &strUserLoc, const std::string &s
   unsigned numberofchar = 0;
 
 
-  size_t charsize = 1024;
-    
-  size_t trainBufferSize = 3*charsize*3;
+  const size_t charsize = 1024;
+  const size_t trainBufferSize = 3*charsize*3;
   char szBuffer[trainBufferSize];
     
   std::string strChar;

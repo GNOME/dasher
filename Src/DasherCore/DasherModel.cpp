@@ -398,7 +398,7 @@ void CDasherModel::Get_new_root_coords(dasherint X, dasherint Y, dasherint &r1, 
   // new root{min,max} r1,r2, old root{min,max} R1,R2
   const dasherint R1 = m_Rootmin;
   const dasherint R2 = m_Rootmax;
-  const dasherint Y1 = 0;
+  // const dasherint Y1 = 0;
   dasherint Y2(GetLongParameter(LP_MAX_Y));
   dasherint iOX(GetLongParameter(LP_OX));
   dasherint iOY(GetLongParameter(LP_OY));

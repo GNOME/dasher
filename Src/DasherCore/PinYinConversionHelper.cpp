@@ -135,7 +135,7 @@ void CPinYinConversionHelper::AssignSizes(SCENode **pStart, Dasher::CLanguageMod
   std::vector <symbol> Symbols;
   std::vector <symbol> SymbolStore;
 
-  CLanguageModel::Context iCurrentContext;
+  //CLanguageModel::Context iCurrentContext;
 
   //  int iNumSymbols =0;
   while(pNode){
