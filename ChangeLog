@@ -1,3 +1,8 @@
+2009-12-01  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* MacOSX: Set DEBUG for Development build;
+	  remove (Win32-only) IMEConversionHelper
+
 2009-12-01  Patrick Welche <prlw1@cam.ac.uk>
 
 	Update POTFILES.in

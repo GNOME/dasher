@@ -91,8 +91,6 @@
 		1948BEEB0C226CFD001DFA32 /* FileLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE450C226CFD001DFA32 /* FileLogger.cpp */; };
 		1948BEEC0C226CFD001DFA32 /* FileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE460C226CFD001DFA32 /* FileLogger.h */; };
 		1948BEED0C226CFD001DFA32 /* FrameRate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE470C226CFD001DFA32 /* FrameRate.h */; };
-		1948BEF00C226CFD001DFA32 /* IMEConversionHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE4A0C226CFD001DFA32 /* IMEConversionHelper.cpp */; };
-		1948BEF10C226CFD001DFA32 /* IMEConversionHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE4B0C226CFD001DFA32 /* IMEConversionHelper.h */; };
 		1948BEF20C226CFD001DFA32 /* InputFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE4C0C226CFD001DFA32 /* InputFilter.h */; };
 		1948BEF60C226CFD001DFA32 /* CTWLanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE510C226CFD001DFA32 /* CTWLanguageModel.cpp */; };
 		1948BEF70C226CFD001DFA32 /* CTWLanguageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE520C226CFD001DFA32 /* CTWLanguageModel.h */; };
@@ -354,16 +352,16 @@
 		19F8C7FA0C858E9900276B4F /* TrainingHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 19F8C7F80C858E9900276B4F /* TrainingHelper.h */; };
 		3306E0220FFD1CE60017324C /* PPMPYLanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3306E0200FFD1CE60017324C /* PPMPYLanguageModel.cpp */; };
 		3306E0230FFD1CE60017324C /* PPMPYLanguageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 3306E0210FFD1CE60017324C /* PPMPYLanguageModel.h */; };
+		3306E1F70FFE6CAD0017324C /* Trainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3306E1F50FFE6CAD0017324C /* Trainer.cpp */; };
+		3306E1F80FFE6CAD0017324C /* Trainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3306E1F60FFE6CAD0017324C /* Trainer.h */; };
+		3306E33D0FFFB9880017324C /* MandarinAlphMgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3306E33B0FFFB9880017324C /* MandarinAlphMgr.cpp */; };
+		3306E33E0FFFB9880017324C /* MandarinAlphMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 3306E33C0FFFB9880017324C /* MandarinAlphMgr.h */; };
 		33135351102C6D8E00E28220 /* AlternatingDirectMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33135349102C6D8E00E28220 /* AlternatingDirectMode.cpp */; };
 		33135352102C6D8E00E28220 /* AlternatingDirectMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 3313534A102C6D8E00E28220 /* AlternatingDirectMode.h */; };
 		33135353102C6D8E00E28220 /* CompassMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3313534B102C6D8E00E28220 /* CompassMode.cpp */; };
 		33135354102C6D8E00E28220 /* CompassMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 3313534C102C6D8E00E28220 /* CompassMode.h */; };
 		33135355102C6D8E00E28220 /* ButtonMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3313534D102C6D8E00E28220 /* ButtonMode.cpp */; };
 		33135356102C6D8E00E28220 /* ButtonMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 3313534E102C6D8E00E28220 /* ButtonMode.h */; };
-		3306E1F70FFE6CAD0017324C /* Trainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3306E1F50FFE6CAD0017324C /* Trainer.cpp */; };
-		3306E1F80FFE6CAD0017324C /* Trainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3306E1F60FFE6CAD0017324C /* Trainer.h */; };
-		3306E33D0FFFB9880017324C /* MandarinAlphMgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3306E33B0FFFB9880017324C /* MandarinAlphMgr.cpp */; };
-		3306E33E0FFFB9880017324C /* MandarinAlphMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 3306E33C0FFFB9880017324C /* MandarinAlphMgr.h */; };
 		335901B41009E5A900821255 /* ConversionHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 335901B31009E5A900821255 /* ConversionHelper.cpp */; };
 		335DB0FB100B332C006DB155 /* alphabet.spyDict.xml in Resources */ = {isa = PBXBuildFile; fileRef = 335DB0FA100B332C006DB155 /* alphabet.spyDict.xml */; };
 		335DB101100B3358006DB155 /* training_spyDict.txt in Resources */ = {isa = PBXBuildFile; fileRef = 335DB100100B3358006DB155 /* training_spyDict.txt */; };
@@ -501,8 +499,6 @@
 		1948BE470C226CFD001DFA32 /* FrameRate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = FrameRate.h; sourceTree = "<group>"; };
 		1948BE480C226CFD001DFA32 /* GnomeSettingsStore.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = GnomeSettingsStore.cpp; sourceTree = "<group>"; };
 		1948BE490C226CFD001DFA32 /* GnomeSettingsStore.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GnomeSettingsStore.h; sourceTree = "<group>"; };
-		1948BE4A0C226CFD001DFA32 /* IMEConversionHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = IMEConversionHelper.cpp; sourceTree = "<group>"; };
-		1948BE4B0C226CFD001DFA32 /* IMEConversionHelper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = IMEConversionHelper.h; sourceTree = "<group>"; };
 		1948BE4C0C226CFD001DFA32 /* InputFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = InputFilter.h; sourceTree = "<group>"; };
 		1948BE4F0C226CFD001DFA32 /* BigramLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = BigramLanguageModel.cpp; sourceTree = "<group>"; };
 		1948BE500C226CFD001DFA32 /* BigramLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = BigramLanguageModel.h; sourceTree = "<group>"; };
@@ -780,21 +776,21 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		3306E0200FFD1CE60017324C /* PPMPYLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PPMPYLanguageModel.cpp; sourceTree = "<group>"; };
 		3306E0210FFD1CE60017324C /* PPMPYLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPMPYLanguageModel.h; sourceTree = "<group>"; };
+		3306E1F50FFE6CAD0017324C /* Trainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Trainer.cpp; sourceTree = "<group>"; };
+		3306E1F60FFE6CAD0017324C /* Trainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trainer.h; sourceTree = "<group>"; };
+		3306E33B0FFFB9880017324C /* MandarinAlphMgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MandarinAlphMgr.cpp; sourceTree = "<group>"; };
+		3306E33C0FFFB9880017324C /* MandarinAlphMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MandarinAlphMgr.h; sourceTree = "<group>"; };
 		33135349102C6D8E00E28220 /* AlternatingDirectMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AlternatingDirectMode.cpp; sourceTree = "<group>"; };
 		3313534A102C6D8E00E28220 /* AlternatingDirectMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlternatingDirectMode.h; sourceTree = "<group>"; };
 		3313534B102C6D8E00E28220 /* CompassMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CompassMode.cpp; sourceTree = "<group>"; };
 		3313534C102C6D8E00E28220 /* CompassMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompassMode.h; sourceTree = "<group>"; };
 		3313534D102C6D8E00E28220 /* ButtonMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ButtonMode.cpp; sourceTree = "<group>"; };
 		3313534E102C6D8E00E28220 /* ButtonMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonMode.h; sourceTree = "<group>"; };
-		3306E1F50FFE6CAD0017324C /* Trainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Trainer.cpp; sourceTree = "<group>"; };
-		3306E1F60FFE6CAD0017324C /* Trainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trainer.h; sourceTree = "<group>"; };
-		3306E33B0FFFB9880017324C /* MandarinAlphMgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MandarinAlphMgr.cpp; sourceTree = "<group>"; };
-		3306E33C0FFFB9880017324C /* MandarinAlphMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MandarinAlphMgr.h; sourceTree = "<group>"; };
 		335901B31009E5A900821255 /* ConversionHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConversionHelper.cpp; sourceTree = "<group>"; };
 		335DB0FA100B332C006DB155 /* alphabet.spyDict.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.spyDict.xml; sourceTree = "<group>"; };
 		335DB100100B3358006DB155 /* training_spyDict.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_spyDict.txt; sourceTree = "<group>"; };
 		336C2D12101A31EE00CCD70D /* NodeQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeQueue.h; sourceTree = "<group>"; };
- 		33ABFEC40FC379EA00EA2BA5 /* ButtonMultiPress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ButtonMultiPress.cpp; sourceTree = "<group>"; };
+		33ABFEC40FC379EA00EA2BA5 /* ButtonMultiPress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ButtonMultiPress.cpp; sourceTree = "<group>"; };
 		33ABFEC50FC379EA00EA2BA5 /* ButtonMultiPress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonMultiPress.h; sourceTree = "<group>"; };
 		33E173A70F3E0B6400D19B38 /* Makefile.am */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
 		33E173A80F3E0B6400D19B38 /* training_albanian_SQ.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_albanian_SQ.txt; sourceTree = "<group>"; };
@@ -939,7 +935,7 @@
 				3313534C102C6D8E00E28220 /* CompassMode.h */,
 				3313534D102C6D8E00E28220 /* ButtonMode.cpp */,
 				3313534E102C6D8E00E28220 /* ButtonMode.h */,
- 				336C2D12101A31EE00CCD70D /* NodeQueue.h */,
+				336C2D12101A31EE00CCD70D /* NodeQueue.h */,
 				3306E1F50FFE6CAD0017324C /* Trainer.cpp */,
 				3306E1F60FFE6CAD0017324C /* Trainer.h */,
 				33FC93420FEFA2FB00A9F08D /* FrameRate.cpp */,
@@ -1020,8 +1016,6 @@
 				1921DB6D0C7ECB9900E6DAA5 /* GameScorer.h */,
 				1948BE480C226CFD001DFA32 /* GnomeSettingsStore.cpp */,
 				1948BE490C226CFD001DFA32 /* GnomeSettingsStore.h */,
-				1948BE4A0C226CFD001DFA32 /* IMEConversionHelper.cpp */,
-				1948BE4B0C226CFD001DFA32 /* IMEConversionHelper.h */,
 				1948BE4C0C226CFD001DFA32 /* InputFilter.h */,
 				1948BE4D0C226CFD001DFA32 /* LanguageModelling */,
 				1948BE680C226CFD001DFA32 /* MemoryLeak.cpp */,
@@ -1479,7 +1473,6 @@
 				1948BEEA0C226CFD001DFA32 /* EyetrackerFilter.h in Headers */,
 				1948BEEC0C226CFD001DFA32 /* FileLogger.h in Headers */,
 				1948BEED0C226CFD001DFA32 /* FrameRate.h in Headers */,
-				1948BEF10C226CFD001DFA32 /* IMEConversionHelper.h in Headers */,
 				1948BEF20C226CFD001DFA32 /* InputFilter.h in Headers */,
 				1948BEF70C226CFD001DFA32 /* CTWLanguageModel.h in Headers */,
 				1948BEF90C226CFD001DFA32 /* DictLanguageModel.h in Headers */,
@@ -1531,7 +1524,7 @@
 				3306E0230FFD1CE60017324C /* PPMPYLanguageModel.h in Headers */,
 				3306E1F80FFE6CAD0017324C /* Trainer.h in Headers */,
 				3306E33E0FFFB9880017324C /* MandarinAlphMgr.h in Headers */,
- 				336C2D13101A31EE00CCD70D /* NodeQueue.h in Headers */,
+				336C2D13101A31EE00CCD70D /* NodeQueue.h in Headers */,
 				33135352102C6D8E00E28220 /* AlternatingDirectMode.h in Headers */,
 				33135354102C6D8E00E28220 /* CompassMode.h in Headers */,
 				33135356102C6D8E00E28220 /* ButtonMode.h in Headers */,
@@ -1841,7 +1834,6 @@
 				1948BEE70C226CFD001DFA32 /* EventHandler.cpp in Sources */,
 				1948BEE90C226CFD001DFA32 /* EyetrackerFilter.cpp in Sources */,
 				1948BEEB0C226CFD001DFA32 /* FileLogger.cpp in Sources */,
-				1948BEF00C226CFD001DFA32 /* IMEConversionHelper.cpp in Sources */,
 				1948BEF60C226CFD001DFA32 /* CTWLanguageModel.cpp in Sources */,
 				1948BEF80C226CFD001DFA32 /* DictLanguageModel.cpp in Sources */,
 				1948BEFA0C226CFD001DFA32 /* HashTable.cpp in Sources */,
@@ -2003,7 +1995,7 @@
 		198D19FE08965C4800CE3CC9 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 			};
 			name = Development;
 		};
