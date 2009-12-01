@@ -11,13 +11,13 @@
 @interface DasherEdit : NSObject 
 {
   BOOL dasherIsModifyingText;
+  NSMutableString *allTextEntered;
 }
 
 - init;
 - (void)sendString:(NSString *)aString toTargetApp:(AXUIElementRef)aTargetApp;
 - (void)outputCallback:(NSString *)aString targetApp:(AXUIElementRef)aTargetApp;
 - (void)deleteCallback:(NSString *)s targetApp:(AXUIElementRef)aTargetApp;
-- (NSString *)getNewContextCallback:(int)maxChars;
-
+- (NSString *)textAtOffset:(int)iOffset Length:(int)iLength;
 
 @end

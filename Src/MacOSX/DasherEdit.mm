@@ -20,6 +20,7 @@
 {
   if (self = [super init]) 
     {
+      allTextEntered = [[NSMutableString alloc] initWithCapacity:1024];
     }
   
   return self;
@@ -36,7 +37,7 @@
   dasherIsModifyingText = YES;
   [self sendString:aString toTargetApp:aTargetApp];
   dasherIsModifyingText = NO;
-  
+  [allTextEntered appendString:aString];
   [[Chatter sharedInstance] addToBufferedText:aString];
 }
 
@@ -52,40 +53,12 @@
     [self sendString:@"\b" toTargetApp:aTargetApp];
     }
   dasherIsModifyingText = NO;
-  
+  [allTextEntered deleteCharactersInRange:NSMakeRange([allTextEntered length]-len, len)];
   [[Chatter sharedInstance] removeFromBufferedText:s];
 }
 
-
-- (NSString *)getNewContextCallback:(int)maxChars
-{
-#if 0
-  NSString *result = nil;
-  
-  this needs redoing to handle the new setup of typing into other apps
-  
-  NSString *s = [[self currentTextUI] string];
-  NSRange r = [[self currentTextUI] selectedRange];
-  unsigned int location = 0;
-  unsigned int length = maxChars;
-  
-  if ((int)r.location < maxChars) {
-    location = 0;
-    length = r.location;
-  } else {
-    location = r.location - maxChars;
-    length = maxChars;
-  }
-  
-  r = NSMakeRange(location, length);
-  
-  result = r.length <= 0 ? @"" : [s substringWithRange:r];
-#endif
-  
-  [[Chatter sharedInstance] clearBuffer];
-  
-//  return result;
-  return @"abcde";
+-(NSString *)textAtOffset:(int)iOffset Length:(int)iLength {
+  return [allTextEntered substringWithRange:NSMakeRange(iOffset,iLength)];
 }
 
 

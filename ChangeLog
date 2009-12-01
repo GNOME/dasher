@@ -2,6 +2,9 @@
 
 	* MacOSX: Set DEBUG for Development build;
 	  remove (Win32-only) IMEConversionHelper
+	* MacOSX: Store entire context/history (i.e. reverse through
+	  all you have written)
+
 
 2009-12-01  Patrick Welche <prlw1@cam.ac.uk>
 
