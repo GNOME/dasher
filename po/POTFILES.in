@@ -24,6 +24,7 @@ Src/DasherCore/EyetrackerFilter.cpp
 Src/DasherCore/OneButtonDynamicFilter.cpp
 Src/DasherCore/OneButtonFilter.cpp
 Src/DasherCore/OneDimensionalFilter.cpp
+Src/DasherCore/OneDimensionalFilter.h
 Src/DasherCore/SettingsStore.cpp
 Src/DasherCore/SocketInput.cpp
 Src/DasherCore/SocketInputBase.cpp

@@ -1,12 +1,16 @@
+2009-12-01  Patrick Welche <prlw1@cam.ac.uk>
+
+	Update POTFILES.in
+
 2009-12-01  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
-    iPhone port from Alan Lawrence
+	iPhone port from Alan Lawrence
     
-    Merge branch from iphone2.bundle (master)
+	Merge branch from iphone2.bundle (master)
     
-    Changes also include simplifying state/lock management
-    functions / CPPMnode access, and tidying training text
-    (and more).
+	Changes also include simplifying state/lock management
+	functions / CPPMnode access, and tidying training text
+	(and more).
 
 2009-11-18  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
