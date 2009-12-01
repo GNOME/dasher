@@ -12,6 +12,8 @@
 
 #include <iostream>             //For testing 23 June 2005
 
+using namespace Dasher;
+
 CCannaConversionHelper::CCannaConversionHelper(CNodeCreationManager *pNCManager, CAlphabet *pAlphabet, int Type, int Order)
 : CConversionHelper(pNCManager, pAlphabet) {
 
@@ -65,7 +67,7 @@ CCannaConversionHelper::~CCannaConversionHelper() {
 
 }
 
-bool CCannaConversionHelper::Convert(const std::string &strSource, SCENode ** pRoot, int * childCount, int CMid) {
+bool CCannaConversionHelper::Convert(const std::string &strSource, SCENode ** pRoot) {
 
   if(strSource.size() == 0)
     return false;
