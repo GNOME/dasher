@@ -3,13 +3,16 @@
 
 using namespace Dasher;
 
-COneDimensionalFilter::COneDimensionalFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
-  : CDefaultFilter(pEventHandler, pSettingsStore, pInterface, 4, _("One Dimensional Mode")) {
+/*COneDimensionalFilter::COneDimensionalFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel)
+  : COneDimensionalFilter(pEventHandler, pSettingsStore, pInterface, m_pDasherModel, 4, _("One Dimensional Mode")) {
+}*/
+
+COneDimensionalFilter::COneDimensionalFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
+  : CDefaultFilter(pEventHandler, pSettingsStore, pInterface, iID, szName) {
 }
 
-void COneDimensionalFilter::ApplyTransform(myint &iDasherX, myint &iDasherY) {
 
-  iLastY = iDasherY;
+void COneDimensionalFilter::ApplyTransform(myint &iDasherX, myint &iDasherY) {
 
   double disty,circlesize,yfullrange,yforwardrange,angle,ellipse_eccentricity,ybackrange,yb,x;	
   

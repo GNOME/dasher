@@ -323,6 +323,9 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
     case BP_DASHER_PAUSED:
       ScheduleRedraw();
       break;
+    case LP_MARGIN_WIDTH:
+        ScheduleRedraw();
+        break;
     default:
       break;
     }
@@ -356,21 +359,6 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
 
       m_pDasherModel->TriggerSlowdown();
     }
-  }
-  else if(pEvent->m_iEventType == EV_LOCK) {
-//    CLockEvent *pLockEvent(static_cast<CLockEvent *>(pEvent));
-
-//     // TODO: Sort this out - at the moment these don't occur in pairs, so the old boolean variable is still needed
-//     if(pLockEvent->m_bLock) {
-//       if(m_bGlobalLock)
-// 	AddLock(0);
-//     }
-//     else {
-//       if(!m_bGlobalLock)
-// 	ReleaseLock(0);
-//     }
-
-//    m_bGlobalLock = pLockEvent->m_bLock;
   }
 }
 
@@ -414,16 +402,6 @@ void CDasherInterfaceBase::CreateNCManager() {
   if( lmID == -1 )
     return;
 
- // Train the new language model
-  //    CLockEvent *pEvent;
-
-    //    pEvent = new CLockEvent("Training Dasher", true, 0);
-    //  m_pEventHandler->InsertEvent(pEvent);
-    //  delete pEvent;
-
-    // TODO: Move training into nc manager
-    int iTrainingLock = AddLock("Training Dasher");
-
     int iOffset;
 
     if(m_pDasherModel)
@@ -445,15 +423,6 @@ void CDasherInterfaceBase::CreateNCManager() {
     m_pNCManager = new CNodeCreationManager(this, m_pEventHandler, m_pSettingsStore, m_AlphIO);
 
     m_Alphabet = m_pNCManager->GetAlphabet();
-
-    ReleaseLock(iTrainingLock);
-
-
-//     pEvent = new CLockEvent("Training Dasher", false, 0);
-//     m_pEventHandler->InsertEvent(pEvent);
-//     delete pEvent;
-
-//     ReleaseLock(0);
 
     // TODO: Eventually we'll not have to pass the NC manager to the model...
     CreateModel(iOffset);
@@ -616,11 +585,6 @@ void CDasherInterfaceBase::Redraw(bool bRedrawNodes, NodeQueue &nodeQueue) {
 #ifdef EXPERIMENTAL_FEATURES
   bActionButtonsChanged = DrawActionButtons();
 #endif
-
-  SLockData *pCurrentLock = GetCurrentLock();
-  if(pCurrentLock) {
-    std::cout << "Rendering lock" << std::endl;
-  }
 
   // Only blit the image to the display if something has actually changed
   if(bRedrawNodes || bDecorationsChanged || bActionButtonsChanged)
@@ -1053,7 +1017,7 @@ void CDasherInterfaceBase::HandleClickUp(int iTime, int iX, int iY) {
   }
 #endif
 
-  KeyUp(iTime, 100);
+  KeyUp(iTime, 100, true, iX, iY);
 }
 
 void CDasherInterfaceBase::HandleClickDown(int iTime, int iX, int iY) {
@@ -1071,7 +1035,7 @@ void CDasherInterfaceBase::HandleClickDown(int iTime, int iX, int iY) {
   }
 #endif
 
-  KeyDown(iTime, 100);
+  KeyDown(iTime, 100, true, iX, iY);
 }
 
 
@@ -1103,84 +1067,25 @@ void CDasherInterfaceBase::OnUIRealised() {
 
 void CDasherInterfaceBase::ChangeState(ETransition iTransition) {
   static EState iTransitionTable[ST_NUM][TR_NUM] = {
-    {ST_MODEL, ST_UI, ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN},
-    {ST_FORBIDDEN, ST_NORMAL, ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN},
-    {ST_NORMAL, ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN},
-    {ST_FORBIDDEN, ST_FORBIDDEN, ST_LOCKED, ST_FORBIDDEN, ST_SHUTDOWN},
-    {ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN, ST_NORMAL, ST_FORBIDDEN},
-    {ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN}
+    {ST_MODEL, ST_UI, ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN},//ST_START
+    {ST_FORBIDDEN, ST_NORMAL, ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN},//ST_MODEL
+    {ST_NORMAL, ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN},//ST_UI
+    {ST_FORBIDDEN, ST_FORBIDDEN, ST_LOCKED, ST_FORBIDDEN, ST_SHUTDOWN},//ST_NORMAL
+    {ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN, ST_NORMAL, ST_FORBIDDEN},//ST_LOCKED
+    {ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN}//ST_SHUTDOWN
+  //TR_MODEL_INIT, TR_UI_INIT,   TR_LOCK,      TR_UNLOCK,    TR_SHUTDOWN
   };
 
   EState iNewState(iTransitionTable[m_iCurrentState][iTransition]);
 
   if(iNewState != ST_FORBIDDEN) {
-    LeaveState(m_iCurrentState);
-    EnterState(iNewState);
+    if (iNewState == ST_SHUTDOWN) {
+      ShutdownTimer();  
+      WriteTrainFileFull();      
+    }
 
     m_iCurrentState = iNewState;
   }
-}
-
-void CDasherInterfaceBase::LeaveState(EState iState) {
-
-}
-
-void CDasherInterfaceBase::EnterState(EState iState) {
-  switch(iState) {
-  case ST_SHUTDOWN:
-    ShutdownTimer();
-    WriteTrainFileFull();
-    break;
-  default:
-    // Not handled
-    break;
-  }
-}
-
-int CDasherInterfaceBase::AddLock(const std::string &strDisplay) {
-#ifdef DEBUG
-  std::cout << "Adding lock " << strDisplay << std::endl;
-#endif
-  SLockData sNewLock;
-
-  sNewLock.strDisplay = strDisplay;
-  sNewLock.iPercent = 0;
-
-  if(m_mapCurrentLocks.size() == 0)
-    ChangeState(TR_LOCK);
-
-  m_mapCurrentLocks[m_iNextLockID] = sNewLock;
-  ++m_iNextLockID;
-
-  NoNodeQueue nnq; //don't allow change to expansion state.
-  Redraw(false, nnq);
-
-  return (m_iNextLockID - 1);
-}
-
-void CDasherInterfaceBase::ReleaseLock(int iLockID) {
-#ifdef DEBUG
-  std::cout << "Releasing Lock" << std::endl;
-#endif
-  std::map<int, SLockData>::iterator it = m_mapCurrentLocks.find(iLockID);
-
-  if(it != m_mapCurrentLocks.end()) {
-    m_mapCurrentLocks.erase(it);
-  }
-
-  NoNodeQueue nnq; //don't allow changes to expansion state.
-  Redraw(false, nnq);
-
-  if(m_mapCurrentLocks.size() == 0)
-    ChangeState(TR_UNLOCK);
-}
-
-SLockData *CDasherInterfaceBase::GetCurrentLock() {
-
-  if(m_mapCurrentLocks.size() > 0)
-    return &(m_mapCurrentLocks.begin()->second);
-  else
-    return NULL;
 }
 
 void CDasherInterfaceBase::SetBuffer(int iOffset) {

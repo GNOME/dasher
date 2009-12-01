@@ -47,9 +47,7 @@ namespace Dasher {
     virtual void EnterSymbol(Context context, int Symbol);
     virtual void LearnSymbol(Context context, int Symbol);
 
-    virtual int GetMemory() {
-      return NodesAllocated;
-  } private:
+  private:
 
       class CWordnode {
     public:

@@ -40,7 +40,7 @@ public:
     std::vector < int >Blues;
   };
 
-  CColourIO(std::string SystemLocation, std::string UserLocation, std::vector < std::string > Filenames);
+  CColourIO(std::string SystemLocation, std::string UserLocation, std::vector < std::string > &Filenames);
   void GetColours(std::vector < std::string > *ColourList) const;
   const ColourInfo & GetInfo(const std::string & ColourID);
   void SetInfo(const ColourInfo & NewInfo);

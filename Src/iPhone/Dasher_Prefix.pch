@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'Dasher' target in the 'Dasher' project
+//
+
+#ifdef __OBJC__
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#endif

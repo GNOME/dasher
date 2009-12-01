@@ -68,7 +68,7 @@ CPPMPYLanguageModel::~CPPMPYLanguageModel() {
 // Get the probability distribution at the context
 
 void CPPMPYLanguageModel::GetProbs(Context context, std::vector<unsigned int> &probs, int norm, int iUniform) const {
-  const CPPMContext *ppmcontext = (const CPPMContext *)(context);
+  const CPPMPYContext *ppmcontext = (const CPPMPYContext *)(context);
 
   //  DASHER_ASSERT(m_setContexts.count(ppmcontext) > 0);
 
@@ -103,12 +103,12 @@ void CPPMPYLanguageModel::GetProbs(Context context, std::vector<unsigned int> &p
   int alpha = GetLongParameter( LP_LM_ALPHA );
   int beta = GetLongParameter( LP_LM_BETA );
 
-  CPPMnode *pTemp = ppmcontext->head;
+  CPPMPYnode *pTemp = ppmcontext->head;
 
   while(pTemp != 0) {
     int iTotal = 0;
 
-    CPPMnode *pSymbol;
+    CPPMPYnode *pSymbol;
     for(i =0; i<DIVISION; i++){
       // std::cout<<"I "<<i<<std::endl;
       pSymbol = pTemp->child[i];
@@ -200,7 +200,7 @@ void CPPMPYLanguageModel::GetPartProbs(Context context, SCENode ** pStart, int i
   //  std::cout<<"Norms is "<<norm<<std::endl;
   //  std::cout<<"iUniform is "<<iUniform<<std::endl;
 
-  const CPPMContext *ppmcontext = (const CPPMContext *)(context);
+  const CPPMPYContext *ppmcontext = (const CPPMPYContext *)(context);
 
   //  DASHER_ASSERT(m_setContexts.count(ppmcontext) > 0);
 
@@ -243,9 +243,9 @@ void CPPMPYLanguageModel::GetPartProbs(Context context, SCENode ** pStart, int i
   int alpha = GetLongParameter( LP_LM_ALPHA );
   int beta = GetLongParameter( LP_LM_BETA );
 
-  CPPMnode *pTemp = ppmcontext->head;
-  CPPMnode *pFound;
-  std::vector<CPPMnode *> vNodeStore;
+  CPPMPYnode *pTemp = ppmcontext->head;
+  CPPMPYnode *pFound;
+  std::vector<CPPMPYnode *> vNodeStore;
 
   //new code
   while(pTemp!=0){
@@ -355,12 +355,12 @@ void CPPMPYLanguageModel::GetPartProbs(Context context, SCENode ** pStart, int i
 
 
 void CPPMPYLanguageModel::GetPYProbs(Context context, std::vector<unsigned int> &probs, int norm, int iUniform) {
-  const CPPMContext *ppmcontext = (const CPPMContext *)(context);
+  const CPPMPYContext *ppmcontext = (const CPPMPYContext *)(context);
 
 
   //  std::cout<<"PPMCONTEXT symbol: "<<ppmcontext->head->symbol<<std::endl;
   /*
-   CPPMnode * pNode = m_pRoot->child;
+   CPPMPYnode * pNode = m_pRoot->child;
 
     while(pNode){
     std::cout<<"Next Symbol: "<<pNode->symbol<<"   ";
@@ -399,12 +399,12 @@ void CPPMPYLanguageModel::GetPYProbs(Context context, std::vector<unsigned int> 
   int alpha = GetLongParameter( LP_LM_ALPHA );
   int beta = GetLongParameter( LP_LM_BETA );
 
-  CPPMnode *pTemp = ppmcontext->head;
+  CPPMPYnode *pTemp = ppmcontext->head;
 
   while(pTemp != 0) {
     int iTotal = 0;
 
-    CPPMnode *pSymbol;
+    CPPMPYnode *pSymbol;
     for(i=0; i<DIVISION; i++){
       pSymbol  = pTemp->pychild[i];
       while(pSymbol) {
@@ -479,7 +479,7 @@ void CPPMPYLanguageModel::GetPYProbs(Context context, std::vector<unsigned int> 
 }
 
 
-void CPPMPYLanguageModel::AddSymbol(CPPMPYLanguageModel::CPPMContext &context, int sym)
+void CPPMPYLanguageModel::AddSymbol(CPPMPYLanguageModel::CPPMPYContext &context, int sym)
         // add symbol to the context
         // creates new nodes, updates counts
         // and leaves 'context' at the new context
@@ -491,7 +491,7 @@ void CPPMPYLanguageModel::AddSymbol(CPPMPYLanguageModel::CPPMContext &context, i
 
   DASHER_ASSERT(sym >= 0 && sym < GetSize());
 
-  CPPMnode *vineptr, *temp;
+  CPPMPYnode *vineptr, *temp;
   int updatecnt = 1;
 
   temp = context.head->vine;
@@ -515,7 +515,7 @@ void CPPMPYLanguageModel::AddSymbol(CPPMPYLanguageModel::CPPMContext &context, i
   }
 }
 
-void CPPMPYLanguageModel::AddPYSymbol(CPPMPYLanguageModel::CPPMContext &context, int pysym)
+void CPPMPYLanguageModel::AddPYSymbol(CPPMPYLanguageModel::CPPMPYContext &context, int pysym)
         // add symbol to the context
         // creates new nodes, updates counts
         // and leaves 'context' at the new context
@@ -527,11 +527,11 @@ void CPPMPYLanguageModel::AddPYSymbol(CPPMPYLanguageModel::CPPMContext &context,
 
   DASHER_ASSERT(pysym >= 0 && pysym < m_pyAlphabet.GetSize());
 
-  CPPMnode *vineptr, *temp, *pytail;
+  CPPMPYnode *vineptr, *temp, *pytail;
   int updatecnt = 1;
 
 
-  //update of vine pointers similar to old PPMnodes
+  //update of vine pointers similar to old PPMPYnodes
   temp = context.head->vine;
   pytail = AddPYSymbolToNode(context.head, pysym, &updatecnt);
   vineptr = pytail;
@@ -566,9 +566,9 @@ void CPPMPYLanguageModel::EnterSymbol(Context c, int Symbol) {
 
   DASHER_ASSERT(Symbol >= 0 && Symbol < GetSize());
 
-  CPPMPYLanguageModel::CPPMContext & context = *(CPPMContext *) (c);
+  CPPMPYLanguageModel::CPPMPYContext & context = *(CPPMPYContext *) (c);
 
-  CPPMnode *find;
+  CPPMPYnode *find;
 
   while(context.head) {
 
@@ -610,7 +610,7 @@ void CPPMPYLanguageModel::LearnSymbol(Context c, int Symbol) {
   
 
   DASHER_ASSERT(Symbol >= 0 && Symbol < GetSize());
-  CPPMPYLanguageModel::CPPMContext & context = *(CPPMContext *) (c);
+  CPPMPYLanguageModel::CPPMPYContext & context = *(CPPMPYContext *) (c);
   AddSymbol(context, Symbol);
 }
 
@@ -620,10 +620,10 @@ void CPPMPYLanguageModel::LearnPYSymbol(Context c, int Symbol) {
   
 
   DASHER_ASSERT(Symbol >= 0 && Symbol < m_pyAlphabet.GetSize());
-  CPPMPYLanguageModel::CPPMContext & context = *(CPPMContext *) (c);
+  CPPMPYLanguageModel::CPPMPYContext & context = *(CPPMPYContext *) (c);
  
   //  std::cout<<"py learn context : "<<context.head->symbol<<std::endl;
-  /*   CPPMnode * pNode = m_pRoot->child;
+  /*   CPPMPYnode * pNode = m_pRoot->child;
 
      while(pNode){
     std::cout<<"Next Symbol: "<<pNode->symbol<<"   ";
@@ -655,14 +655,14 @@ void CPPMPYLanguageModel::dumpString(char *str, int pos, int len)
   }
 }
 
-void CPPMPYLanguageModel::dumpTrie(CPPMPYLanguageModel::CPPMnode *t, int d)
+void CPPMPYLanguageModel::dumpTrie(CPPMPYLanguageModel::CPPMPYnode *t, int d)
         // diagnostic display of the PPM trie from node t and deeper
 {
 //TODO
 /*
 	dchar debug[256];
 	int sym;
-	CPPMnode *s;
+	CPPMPYnode *s;
 	Usprintf( debug,TEXT("%5d %7x "), d, t );
 	//TODO: Uncomment this when headers sort out
 	//DebugOutput(debug);
@@ -717,16 +717,16 @@ void CPPMPYLanguageModel::dump()
 }
 
 ////////////////////////////////////////////////////////////////////////
-/// PPMnode definitions 
+/// PPMPYnode definitions 
 ////////////////////////////////////////////////////////////////////////
 
-CPPMPYLanguageModel::CPPMnode * CPPMPYLanguageModel::CPPMnode::find_symbol(int sym) const
+CPPMPYLanguageModel::CPPMPYnode * CPPMPYLanguageModel::CPPMPYnode::find_symbol(int sym) const
 // see if symbol is a child of node
 {
   //  printf("finding symbol %d at node %d\n",sym,node->id);
 
   //Potentially replace with large scale find algorithm, necessary?
-  CPPMnode * found = NULL;
+  CPPMPYnode * found = NULL;
   bool bFound = 0;
 
   for (int i=0; i<DIVISION-1; i++){
@@ -770,11 +770,11 @@ CPPMPYLanguageModel::CPPMnode * CPPMPYLanguageModel::CPPMnode::find_symbol(int s
 }
 
 // New find pysymbol function, to find the py symbol in nodes attached to character node
-CPPMPYLanguageModel::CPPMnode * CPPMPYLanguageModel::CPPMnode::find_pysymbol(int pysym) const
+CPPMPYLanguageModel::CPPMPYnode * CPPMPYLanguageModel::CPPMPYnode::find_pysymbol(int pysym) const
 // see if pysymbol is a child of node
 {
 
-  CPPMnode * found = NULL;
+  CPPMPYnode * found = NULL;
   bool bFound = 0;
 
   for (int i=0; i<DIVISION-1; i++){
@@ -797,9 +797,9 @@ CPPMPYLanguageModel::CPPMnode * CPPMPYLanguageModel::CPPMnode::find_pysymbol(int
   return 0;
 }
 
-CPPMPYLanguageModel::CPPMnode * CPPMPYLanguageModel::AddSymbolToNode(CPPMnode *pNode, int sym, int *update) {
+CPPMPYLanguageModel::CPPMPYnode * CPPMPYLanguageModel::AddSymbolToNode(CPPMPYnode *pNode, int sym, int *update) {
   //  std::cout<<"Addnode sym "<<sym<<std::endl;
-  CPPMnode *pReturn = pNode->find_symbol(sym);
+  CPPMPYnode *pReturn = pNode->find_symbol(sym);
 
   //  std::cout << sym << ",";
 
@@ -842,8 +842,8 @@ CPPMPYLanguageModel::CPPMnode * CPPMPYLanguageModel::AddSymbolToNode(CPPMnode *p
 
 }
 
-CPPMPYLanguageModel::CPPMnode * CPPMPYLanguageModel::AddPYSymbolToNode(CPPMnode *pNode, int pysym, int *update) {
-  CPPMnode *pReturn = pNode->find_pysymbol(pysym);
+CPPMPYLanguageModel::CPPMPYnode * CPPMPYLanguageModel::AddPYSymbolToNode(CPPMPYnode *pNode, int pysym, int *update) {
+  CPPMPYnode *pReturn = pNode->find_pysymbol(pysym);
 
   //      std::cout << sym << ",";
 
@@ -900,7 +900,7 @@ bool CPPMPYLanguageModel::WriteToFile(std::string strFilename) {
 
   std::cout<<"WRITE TO FILE USED?"<<std::endl;
 
-  std::map<CPPMnode *, int> mapIdx;
+  std::map<CPPMPYnode *, int> mapIdx;
   int iNextIdx(1); // Index of 0 means NULL;
 
   std::ofstream oOutputFile(strFilename.c_str());
@@ -913,7 +913,7 @@ bool CPPMPYLanguageModel::WriteToFile(std::string strFilename) {
 };
 
 //Mandarin - PY not enabled for these read-write functions
-bool CPPMPYLanguageModel::RecursiveWrite(CPPMnode *pNode, std::map<CPPMnode *, int> *pmapIdx, int *pNextIdx, std::ofstream *pOutputFile) {
+bool CPPMPYLanguageModel::RecursiveWrite(CPPMPYnode *pNode, std::map<CPPMPYnode *, int> *pmapIdx, int *pNextIdx, std::ofstream *pOutputFile) {
 
   // Dump node here
 
@@ -929,7 +929,7 @@ bool CPPMPYLanguageModel::RecursiveWrite(CPPMnode *pNode, std::map<CPPMnode *, i
 
   pOutputFile->write(reinterpret_cast<char*>(&sBR), sizeof(BinaryRecord));
 
-  CPPMnode *pCurrentChild(pNode->child[0]);
+  CPPMPYnode *pCurrentChild(pNode->child[0]);
   
   while(pCurrentChild != NULL) {
     RecursiveWrite(pCurrentChild, pmapIdx, pNextIdx, pOutputFile);
@@ -939,17 +939,17 @@ bool CPPMPYLanguageModel::RecursiveWrite(CPPMnode *pNode, std::map<CPPMnode *, i
   return true;
 };
 
-int CPPMPYLanguageModel::GetIndex(CPPMnode *pAddr, std::map<CPPMnode *, int> *pmapIdx, int *pNextIdx) {
+int CPPMPYLanguageModel::GetIndex(CPPMPYnode *pAddr, std::map<CPPMPYnode *, int> *pmapIdx, int *pNextIdx) {
   std::cout<<"GetIndex gets called?"<<std::endl;
   int iIndex;
   if(pAddr == NULL)
     iIndex = 0;
   else {
-    std::map<CPPMnode *, int>::iterator it(pmapIdx->find(pAddr));
+    std::map<CPPMPYnode *, int>::iterator it(pmapIdx->find(pAddr));
     
     if(it == pmapIdx->end()) {
       iIndex = *pNextIdx;
-      pmapIdx->insert(std::pair<CPPMnode *, int>(pAddr, iIndex));
+      pmapIdx->insert(std::pair<CPPMPYnode *, int>(pAddr, iIndex));
       ++(*pNextIdx);
     }
     else {
@@ -964,14 +964,14 @@ int CPPMPYLanguageModel::GetIndex(CPPMnode *pAddr, std::map<CPPMnode *, int> *pm
 bool CPPMPYLanguageModel::ReadFromFile(std::string strFilename) {
   
   std::ifstream oInputFile(strFilename.c_str());
-  std::map<int, CPPMnode*> oMap;
+  std::map<int, CPPMPYnode*> oMap;
   BinaryRecord sBR;
   bool bStarted(false);
 
   while(!oInputFile.eof()) {
     oInputFile.read(reinterpret_cast<char *>(&sBR), sizeof(BinaryRecord));
 
-    CPPMnode *pCurrent(GetAddress(sBR.m_iIndex, &oMap));
+    CPPMPYnode *pCurrent(GetAddress(sBR.m_iIndex, &oMap));
     //Note future changes here:
     pCurrent->child[0] = GetAddress(sBR.m_iChild, &oMap);
     pCurrent->next = GetAddress(sBR.m_iNext, &oMap);
@@ -990,15 +990,15 @@ bool CPPMPYLanguageModel::ReadFromFile(std::string strFilename) {
   return false;
 };
 
-CPPMPYLanguageModel::CPPMnode *CPPMPYLanguageModel::GetAddress(int iIndex, std::map<int, CPPMnode*> *pMap) {
+CPPMPYLanguageModel::CPPMPYnode *CPPMPYLanguageModel::GetAddress(int iIndex, std::map<int, CPPMPYnode*> *pMap) {
 
   std::cout<<"Get Address gets called?"<<std::endl;
-  std::map<int, CPPMnode*>::iterator it(pMap->find(iIndex));
+  std::map<int, CPPMPYnode*>::iterator it(pMap->find(iIndex));
 
   if(it == pMap->end()) {
-    CPPMnode *pNewNode;
+    CPPMPYnode *pNewNode;
     pNewNode = m_NodeAlloc.Alloc();
-    pMap->insert(std::pair<int, CPPMnode*>(iIndex, pNewNode));
+    pMap->insert(std::pair<int, CPPMPYnode*>(iIndex, pNewNode));
     return pNewNode;
   }
   else {

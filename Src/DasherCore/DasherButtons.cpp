@@ -37,6 +37,7 @@ void CDasherButtons::Activate() {
   //ick - can't do this at construction time! This should get called before anything
   // which depends on it, tho...
   if (!m_pBoxes) SetupBoxes();
+
   m_iScanTime = std::numeric_limits<int>::min();
 }
 
@@ -53,6 +54,7 @@ void CDasherButtons::KeyDown(int iTime, int iId, CDasherView *pView, CDasherMode
        break;
     case 2:
     case 3:
+    case 100:
       m_bDecorationChanged = true;
       pModel->ScheduleZoom((m_pBoxes[iActiveBox].iBottom - m_pBoxes[iActiveBox].iTop)/2, (m_pBoxes[iActiveBox].iBottom + m_pBoxes[iActiveBox].iTop)/2);
       if(iActiveBox != m_iNumBoxes-1)
@@ -81,8 +83,8 @@ void CDasherButtons::DirectKeyDown(int iTime, int iId, CDasherView *pView, CDash
 
 bool CDasherButtons::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) {
   if (m_bMenu && GetLongParameter(LP_BUTTON_SCAN_TIME) &&
-      Time - m_iScanTime > GetLongParameter(LP_BUTTON_SCAN_TIME)) {
-    m_iScanTime = Time;
+      Time > m_iScanTime) {
+    m_iScanTime = Time + GetLongParameter(LP_BUTTON_SCAN_TIME);
     m_bDecorationChanged = true;
     ++iActiveBox;
     if(iActiveBox == m_iNumBoxes)

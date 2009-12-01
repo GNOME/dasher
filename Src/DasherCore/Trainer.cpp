@@ -26,34 +26,6 @@ CTrainer::CTrainer(CLanguageModel *pLanguageModel, CAlphabet *pAlphabet)
   : CTrainingHelper(pAlphabet), m_pLanguageModel(pLanguageModel) {
 }
 
-void CTrainer::Train(const std::string &strUserLoc,
-				 const std::string &strSystemLoc) {
-
-	std::string strTrainingFile = m_pAlphabet->GetTrainingFile();
-
-	if (strTrainingFile.empty()) {
-#ifdef DEBUG
-		std::cerr << "Trying to load empty training file (location)" << std::endl;
-#endif
-	} else {
-		LoadFile(strUserLoc   + strTrainingFile);
-		LoadFile(strSystemLoc + strTrainingFile);
-	}
-}
-
-
-void 
-CTrainer::Train(const std::string &strPath) {
-	
-	if (strPath.empty()) {
-#ifdef DEBUG
-		std::cerr << "Trying to load empty training file (path)" << std::endl;
-#endif
-	} else {
-		LoadFile(strPath);
-	}
-}
-
 void CTrainer::Train(const std::vector<symbol> &vSymbols) {
   CLanguageModel::Context sContext = m_pLanguageModel->CreateEmptyContext();
 
@@ -72,26 +44,13 @@ CMandarinTrainer::CMandarinTrainer(CLanguageModel *pLanguageModel, CAlphabet *pA
 //The training of Mandarin Dasher may evolve in to possible paths: 1.Include punctuation (more work); 2.User defined training files (not sure how); 3.Learning as one types (more work)
 //As Manager is produced, training happens in AlphabetManagerFactory
 
-void CMandarinTrainer::Train(const std::string &strUserLoc, const std::string &strSystemLoc){
-
+void CMandarinTrainer::LoadFile(const std::string &strPath) {
   //TrainMandarin takes in the Super Pin Yin Alphabet, and uses the Mandarin Character alphabet stored in private AlphabetManagerFactory
-
-  std::string strTrainingFile = m_pAlphabet->GetTrainingFile();
-
-  std::string strUserPath = strUserLoc + strTrainingFile;
-  std::string strSystemPath = strSystemLoc + strTrainingFile;
-
-  FILE * fpUser = fopen (strUserPath.c_str(), "rb");
-  FILE * fpSystem = fopen(strSystemPath.c_str(), "rb");
-  FILE * fpTrain = fpSystem;
+  FILE * fpTrain = fopen(strPath.c_str(), "rb");
   
   if(!fpTrain) {
-
-    fpTrain = fpUser;
-    if(!fpTrain){
-      printf("Mandarin Training File: cannot open file or incorrect directory\n");
+    std::cout << "Mandarin Training File: cannot open file or incorrect directory" << std::endl;
     return;
-    }
   }
   unsigned numberofchar = 0;
 

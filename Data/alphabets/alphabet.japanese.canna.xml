@@ -7,7 +7,6 @@
 <!-- $Id$ -->
 <orientation type="LR"/>
 <encoding type="Western"/>
-<!--<train>training_Japanese_JP.txt</train>-->
 <train>training_canna_JP.txt</train>
 <palette>European/Asian</palette>
 <space d="_" t=" " b="9" />

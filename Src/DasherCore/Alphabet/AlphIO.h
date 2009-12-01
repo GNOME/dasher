@@ -90,7 +90,7 @@ public:
     std::string m_strDefaultContext;
   };
 
-  CAlphIO(std::string SystemLocation, std::string UserLocation, std::vector < std::string > Filenames);
+  CAlphIO(std::string SystemLocation, std::string UserLocation, std::vector < std::string > &Filenames);
   ~CAlphIO();
   void GetAlphabets(std::vector < std::string > *AlphabetList) const;
   std::string GetDefault();

@@ -104,20 +104,6 @@ public:
 
   /// @}
 
-  /// @name Status reporting
-  /// Return information useful for debugging purposes
-  /// @{
-
-  /// Get some measure of the memory usage for diagnostic
-  /// purposes. No need to implement this if you're not comparing
-  /// language models. The exact meaning of the result will
-  /// depend on the implementation (for example, could be the
-  /// number of nodes in a trie, or the physical memory usage).
-
-  virtual int GetMemory() = 0;
-
-  /// @}
-
   /// @name Persistant storage
   /// Binary representation of language model state
   /// @{

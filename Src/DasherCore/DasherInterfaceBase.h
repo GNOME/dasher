@@ -530,38 +530,8 @@ protected:
   void PositionActionButtons();
   bool DrawActionButtons();
 
-  void LeaveState(EState iState);
-  void EnterState(EState iState);
-
   void WriteTrainFileFull();
   void WriteTrainFilePartial();
-
-  
-  /// @name Lock Management
-  /// Functions for locking/unlocking the core. Note that the lock
-  /// flags parameter is currently ignored, but will be used to give
-  /// finer granularity
-  /// @{
-
-  ///
-  /// Add a lock
-  ///
-
-  int AddLock(const std::string &strDisplay);
-
-  ///
-  /// Release an existing lock. Note that these functions have minimal
-  /// error checking at the moment, so be careful.
-  ///
-
-  void ReleaseLock(int iLockID);
-
-  ///
-  /// Return the lock to display, or NULL for no locks present
-  ///
-
-  SLockData *GetCurrentLock(); 
-  /// @}
   
   std::deque<std::string> m_deGameModeStrings;
 

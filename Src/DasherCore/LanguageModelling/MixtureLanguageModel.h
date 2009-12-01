@@ -98,16 +98,6 @@ namespace Dasher {
         Probs[i] = ProbsA[i] + ProbsB[i];
     }};
 
-    // Get some measure of the memory usage for diagnostic
-    // purposes. No need to implement this if you're not comparing
-    // language models. The exact meaning of the result will
-    // depend on the implementation (for example, could be the
-    // number of nodes in a trie, or the physical memory usage).
-
-    virtual int GetMemory() {
-      return 0;
-    };
-
   private:
     CLanguageModel * lma;
     CLanguageModel *lmb;

@@ -42,9 +42,13 @@ enum {
   BP_BUTTONMENU, BP_BUTTONPULSING, BP_BUTTONSTEADY, 
   BP_BUTTONDIRECT, BP_BUTTONFOURDIRECT, BP_BUTTONALTERNATINGDIRECT,
   BP_COMPASSMODE, BP_SOCKET_INPUT_ENABLE, BP_SOCKET_DEBUG, 
-  BP_CIRCLE_START, BP_GLOBAL_KEYBOARD, 
+  BP_CIRCLE_START, BP_GLOBAL_KEYBOARD, BP_NONLINEAR_Y,
   BP_SMOOTH_OFFSET, BP_CONVERSION_MODE, BP_PAUSE_OUTSIDE, BP_BACKOFF_BUTTON,
-  BP_TWOBUTTON_REVERSE, BP_2B_INVERT_DOUBLE, BP_SLOW_START, END_OF_BPS
+  BP_TWOBUTTON_REVERSE, BP_2B_INVERT_DOUBLE, BP_SLOW_START,
+#ifdef TARGET_OS_IPHONE
+  BP_CUSTOM_TILT, BP_DOUBLE_X,
+#endif
+  END_OF_BPS
 };
 
 enum { 
@@ -65,7 +69,7 @@ enum {
   LP_DYNAMIC_BUTTON_LAG, LP_STATIC1B_TIME, LP_STATIC1B_ZOOM,
   LP_DEMO_SPRING, LP_DEMO_NOISE_MEM, LP_DEMO_NOISE_MAG, LP_MAXZOOM, 
   LP_DYNAMIC_SPEED_INC, LP_DYNAMIC_SPEED_FREQ, LP_DYNAMIC_SPEED_DEC,
-  LP_TAP_TIME, END_OF_LPS
+  LP_TAP_TIME, LP_MARGIN_WIDTH, END_OF_LPS
 };
 
 enum {
@@ -73,6 +77,9 @@ enum {
   SP_COLOUR_ID, SP_DEFAULT_COLOUR_ID, SP_DASHER_FONT, SP_SYSTEM_LOC, SP_USER_LOC, SP_GAME_TEXT_FILE,
   SP_TRAIN_FILE, SP_SOCKET_INPUT_X_LABEL, SP_SOCKET_INPUT_Y_LABEL, SP_INPUT_FILTER, SP_INPUT_DEVICE,
   SP_BUTTON_0, SP_BUTTON_1, SP_BUTTON_2, SP_BUTTON_3, SP_BUTTON_4, SP_BUTTON_10, SP_JOYSTICK_DEVICE,
+#ifdef TARGET_OS_IPHONE
+  SP_CUSTOM_TILT, SP_VERTICAL_TILT,
+#endif
   END_OF_SPS
 };
 
@@ -158,13 +165,26 @@ static bp_table boolparamtable[] = {
   {BP_SOCKET_DEBUG, "SocketInputDebug", PERS, false, "Print information about socket input processing to console"},
   {BP_CIRCLE_START, "CircleStart", PERS, false, "Start on circle mode"},
   {BP_GLOBAL_KEYBOARD, "GlobalKeyboard", PERS, false, "Whether to assume global control of the keyboard"},
+#if defined(WITH_MAEMO) || defined(TARGET_OS_IPHONE)
+  {BP_NONLINEAR_Y, "NonlinearY", PERS, false, "Apply nonlinearities to Y axis (i.e. compress top & bottom)"},
+#else
+  {BP_NONLINEAR_Y, "NonlinearY", PERS, true, "Apply nonlinearities to Y axis (i.e. compress top & bottom)"},
+#endif
   {BP_SMOOTH_OFFSET, "DelayView", !PERS, false, "Smooth dynamic-button-mode jumps over several frames"},
   {BP_CONVERSION_MODE, "ConversionMode", !PERS, false, "Whether Dasher is operating in conversion (eg Japanese) mode"},
   {BP_PAUSE_OUTSIDE, "PauseOutside", PERS, false, "Whether to pause when pointer leaves canvas area"},
+#ifdef TARGET_OS_IPHONE
+  {BP_BACKOFF_BUTTON, "BackoffButton", PERS, false, "Whether to enable the extra backoff button in dynamic mode"},
+#else
   {BP_BACKOFF_BUTTON, "BackoffButton", PERS, true, "Whether to enable the extra backoff button in dynamic mode"},
+#endif
   {BP_TWOBUTTON_REVERSE, "TwoButtonReverse", PERS, false, "Reverse the up/down buttons in two button mode"},
   {BP_2B_INVERT_DOUBLE, "TwoButtonInvertDouble", PERS, false, "Double-press acts as opposite button in two-button mode"},
   {BP_SLOW_START, "SlowStart", PERS, false, "Start at low speed and increase"},
+#ifdef TARGET_OS_IPHONE
+  {BP_CUSTOM_TILT, "CustomTilt", PERS, false, "Use custom tilt axes"},
+  {BP_DOUBLE_X, "DoubleXCoords", PERS, false, "Double X-coordinate of touch"},
+#endif
 };
 
 static lp_table longparamtable[] = {
@@ -195,10 +215,18 @@ static lp_table longparamtable[] = {
   {LP_ZOOMSTEPS, "Zoomsteps", PERS, 32, "Integerised ratio of zoom size for click/button mode, denom 64."},
   {LP_B, "ButtonMenuBoxes", PERS, 4, "Number of boxes for button menu mode"},
   {LP_S, "ButtonMenuSafety", PERS, 25, "Safety parameter for button mode, in percent."},
+#ifdef TARGET_OS_IPHONE
+  {LP_BUTTON_SCAN_TIME, "ButtonMenuScanTime", PERS, 600, "Scanning time in menu mode (0 = don't scan), in ms"},
+#else
   {LP_BUTTON_SCAN_TIME, "ButtonMenuScanTime", PERS, 0, "Scanning time in menu mode (0 = don't scan), in ms"},
+#endif
   {LP_R, "ButtonModeNonuniformity", PERS, 0, "Button mode box non-uniformity"},
   {LP_RIGHTZOOM, "ButtonCompassModeRightZoom", PERS, 5120, "Zoomfactor (*1024) for compass mode"},
+#ifdef TARGET_OS_IPHONE
+  {LP_NODE_BUDGET, "NodeBudget", PERS, 1000, "Target (min) number of node objects to maintain"},
+#else
   {LP_NODE_BUDGET, "NodeBudget", PERS, 3000, "Target (min) number of node objects to maintain"},
+#endif
   {LP_BOOSTFACTOR, "BoostFactor", !PERS, 100, "Boost/brake factor (multiplied by 100)"},
   {LP_AUTOSPEED_SENSITIVITY, "AutospeedSensitivity", PERS, 100, "Sensitivity of automatic speed control (percent)"},
   {LP_SOCKET_PORT, "SocketPort", PERS, 20320, "UDP/TCP socket to use for network socket input"},
@@ -232,6 +260,11 @@ static lp_table longparamtable[] = {
   {LP_DYNAMIC_SPEED_FREQ, "DynamicSpeedFreq", PERS, 10, "Seconds after which dynamic mode auto speed control increases speed"},
   {LP_DYNAMIC_SPEED_DEC, "DynamicSpeedDec", PERS, 8, "%age by which dynamic mode auto speed control decreases speed on reverse"},
   {LP_TAP_TIME, "TapTime", PERS, 200, "Max length of a stylus 'tap' rather than hold (ms)"},
+#ifdef TARGET_OS_IPHONE
+  {LP_MARGIN_WIDTH, "MarginWidth", PERS, 500, "Width of RHS margin (in Dasher co-ords)"},
+#else
+  {LP_MARGIN_WIDTH, "MarginWidth", PERS, 300, "Width of RHS margin (in Dasher co-ords)"},
+#endif
 };
 
 static sp_table stringparamtable[] = {
@@ -249,7 +282,7 @@ static sp_table stringparamtable[] = {
   {SP_TRAIN_FILE, "TrainingFile", !PERS, "", "Training text for alphabet"},
   {SP_SOCKET_INPUT_X_LABEL, "SocketInputXLabel", PERS, "x", "Label preceding X values for network input"},
   {SP_SOCKET_INPUT_Y_LABEL, "SocketInputYLabel", PERS, "y", "Label preceding Y values for network input"},
-#ifdef WITH_MAEMO
+#if defined(WITH_MAEMO) || defined(TARGET_OS_IPHONE)
   {SP_INPUT_FILTER, "InputFilter", PERS, "Stylus Control", "Input filter used to provide the current control mode"},
 #else
   {SP_INPUT_FILTER, "InputFilter", PERS, "Normal Control", "Input filter used to provide the current control mode"},
@@ -261,7 +294,11 @@ static sp_table stringparamtable[] = {
   {SP_BUTTON_3, "Button3", PERS, "", "Assignment to button 3"},
   {SP_BUTTON_4, "Button4", PERS, "", "Assignment to button 4"},
   {SP_BUTTON_10, "Button10", PERS, "", "Assignment to button 10"},
-  {SP_JOYSTICK_DEVICE, "JoystickDevice", PERS, "/dev/input/js0", "Joystick device"}
+  {SP_JOYSTICK_DEVICE, "JoystickDevice", PERS, "/dev/input/js0", "Joystick device"},
+#ifdef TARGET_OS_IPHONE
+  {SP_CUSTOM_TILT, "CustomTiltParams", PERS, "(0.0,0.0,0.0) - (0.0,-1.0,0.0) / (-1.0,0.0,0.0)", "Custom tilt axes"},
+  {SP_VERTICAL_TILT, "VerticalTiltParams", PERS, "-0.1 - -0.9 / -0.4 - 0.4", "Limits of vertical tilting"}, 
+#endif
 };
 
 // This is the structure of each table that the settings will access

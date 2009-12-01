@@ -133,7 +133,7 @@
 <s d="." t="."/>
 </group>
 </alphabet>
-<alphabet name="Russian (Russki) - Latin alphabet">
+<!--<alphabet name="Russian (Russki) - Latin alphabet">
 <orientation type="LR"/>
 <control d="Control" t=""/>
 <encoding type="Western"/>
@@ -247,5 +247,5 @@
 <s d="," t=","/>
 <s d="." t="."/>
 </group>
-</alphabet>
+</alphabet>-->
 </alphabets>
