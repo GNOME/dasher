@@ -105,7 +105,7 @@ void CConversionManager::CConvNode::PopulateChildren() {
   CDasherNode *pNewNode = m_pMgr->m_pNCManager->GetAlphRoot(this, iLbnd, iHbnd, NULL, m_iOffset + 1);
   pNewNode->SetFlag(NF_SEEN, false);
 
-  Children().push_back(pNewNode);
+  DASHER_ASSERT(GetChildren().back()==pNewNode);
 }
 
 CConversionManager::CConvNode::~CConvNode() {

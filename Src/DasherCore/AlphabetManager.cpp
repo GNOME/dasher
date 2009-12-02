@@ -152,23 +152,7 @@ void CAlphabetManager::CAlphNode::PopulateChildren() {
   m_pMgr->PopulateChildrenWithSymbol( this, -2, 0 );
 }
 
-CAlphabetManager::CAlphNode *CAlphabetManager::CreateGroupNode(CAlphNode *pParent, SGroupInfo *pInfo, std::vector<unsigned int> *pCProb, unsigned int iStart, unsigned int iEnd, unsigned int iMin, unsigned int iMax) {
-
-#ifdef WIN32
-  unsigned int iLbnd = (((*pCProb)[iStart-1] - (*pCProb)[iMin-1]) *
-	  (unsigned __int64)(m_pNCManager->GetLongParameter(LP_NORMALIZATION))) /
-	  ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]);
-  unsigned int iHbnd = (((*pCProb)[iEnd-1] - (*pCProb)[iMin-1]) *
-	  (unsigned __int64)(m_pNCManager->GetLongParameter(LP_NORMALIZATION))) /
-	  ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]);
-#else
-  unsigned int iLbnd = (((*pCProb)[iStart-1] - (*pCProb)[iMin-1]) *
-	  (unsigned long long int)(m_pNCManager->GetLongParameter(LP_NORMALIZATION))) /
-	  ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]);
-  unsigned int iHbnd = (((*pCProb)[iEnd-1] - (*pCProb)[iMin-1]) *
-	  (unsigned long long int)(m_pNCManager->GetLongParameter(LP_NORMALIZATION))) /
-	  ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]);
-#endif
+CAlphabetManager::CAlphNode *CAlphabetManager::CreateGroupNode(CAlphNode *pParent, SGroupInfo *pInfo, unsigned int iLbnd, unsigned int iHbnd) {
 
   // TODO: More sensible structure in group data to map directly to this
   CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
@@ -190,30 +174,6 @@ CAlphabetManager::CAlphNode *CAlphabetManager::CreateGroupNode(CAlphNode *pParen
   pNewNode->iContext = pParent->pLanguageModel->CloneContext(pParent->iContext);
 
   return pNewNode;
-}
-
-// TODO: use these functions elsewhere in the file
-CDasherNode *CAlphabetManager::CreateSymbolNode(CAlphNode *pParent, symbol iSymbol, std::vector<unsigned int> *pCProb, unsigned int iStart, unsigned int iEnd, unsigned int iMin, unsigned int iMax, symbol iExistingSymbol, CDasherNode *pExistingChild) {
-  // TODO: Node deletion etc.
-  //std::cout << "isymbol: "<<iSymbol << " " << m_pNCManager->GetStartConversionSymbol() << std::endl;
-
-#ifdef WIN32
-  unsigned int iLbnd = (((*pCProb)[iStart-1] - (*pCProb)[iMin-1]) *
-	  (unsigned __int64)(m_pNCManager->GetLongParameter(LP_NORMALIZATION))) /
-	  ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]);
-  unsigned int iHbnd = (((*pCProb)[iEnd-1] - (*pCProb)[iMin-1]) *
-	  (unsigned __int64)(m_pNCManager->GetLongParameter(LP_NORMALIZATION))) /
-	  ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]);
-#else
-  unsigned int iLbnd = (((*pCProb)[iStart-1] - (*pCProb)[iMin-1]) *
-	  (unsigned long long int)(m_pNCManager->GetLongParameter(LP_NORMALIZATION))) /
-	  ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]);
-  unsigned int iHbnd = (((*pCProb)[iEnd-1] - (*pCProb)[iMin-1]) *
-	  (unsigned long long int)(m_pNCManager->GetLongParameter(LP_NORMALIZATION))) /
-	  ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]);
-#endif
-
-  return CreateSymbolNode(pParent, iSymbol, iLbnd, iHbnd, iExistingSymbol, pExistingChild);
 }
 
 CLanguageModel::Context CAlphabetManager::CreateSymbolContext(CAlphNode *pParent, symbol iSymbol)
@@ -294,60 +254,53 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CAlphNode *pParent, symbol iSymb
 void CAlphabetManager::RecursiveIterateGroup(CAlphNode *pParent, SGroupInfo *pInfo, std::vector<symbol> *pSymbols, std::vector<unsigned int> *pCProb, int iMin, int iMax, symbol iExistingSymbol, CDasherNode *pExistingChild) {
   // TODO: Think through alphabet file formats etc. to make this class easier.
   // TODO: Throw a warning if parent node already has children
-
-  CDasherNode **pChildNodes = new CDasherNode *[iMax - iMin];
-
-  for(int i(iMin); i < iMax; ++i) {
-    pChildNodes[i - iMin] = NULL;
-  }
-
-  // Create child nodes and cache them for later
+  
+  // Create child nodes and add them
+  
+  int i(iMin); //lowest index of child which we haven't yet added
+  SGroupInfo *pCurrentNode(pInfo);
   // The SGroupInfo structure has something like linked list behaviour
   // Each SGroupInfo contains a pNext, a pointer to a sibling group info
-  SGroupInfo *pCurrentNode(pInfo);
-  while(pCurrentNode) {
-    CAlphNode *pNewChild = CreateGroupNode(pParent,
-					     pCurrentNode,
-					     pCProb,
-					     pCurrentNode->iStart,
-					     pCurrentNode->iEnd,
-					     iMin, iMax);
+  while (i < iMax) {
+    CDasherNode *pNewChild;
+    bool bSymbol = !pCurrentNode //gone past last subgroup
+                  || i < pCurrentNode->iStart; //not reached next subgroup
+    const int iStart=i, iEnd = (bSymbol) ? i+1 : pCurrentNode->iEnd;
+#ifdef WIN32
+    typedef unsigned __int64 temptype;
+#else
+    typedef unsigned long long int temptype;
+#endif
+    unsigned int iLbnd = (((*pCProb)[iStart-1] - (*pCProb)[iMin-1]) *
+                          (temptype)(m_pNCManager->GetLongParameter(LP_NORMALIZATION))) /
+                         ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]);
+    unsigned int iHbnd = (((*pCProb)[iEnd-1] - (*pCProb)[iMin-1]) *
+                          (temptype)(m_pNCManager->GetLongParameter(LP_NORMALIZATION))) /
+                         ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]);
+    
+    if (bSymbol) {
+      pNewChild = CreateSymbolNode(pParent, (*pSymbols)[i], iLbnd, iHbnd, iExistingSymbol, pExistingChild);
+      i++; //make one symbol at a time - move onto next in next iteration
+    } else { //in/reached subgroup - do entire group in one go:
+      CAlphNode *pNew;
+      pNewChild= pNew= CreateGroupNode(pParent,
+                                       pCurrentNode, iLbnd, iHbnd);
 
-    RecursiveIterateGroup(pNewChild,
-			  pCurrentNode->pChild,
-			  pSymbols,
-			  pCProb,
-			  pCurrentNode->iStart,
-			  pCurrentNode->iEnd,
-			  iExistingSymbol, pExistingChild);
+      RecursiveIterateGroup(pNew,
+          pCurrentNode->pChild,
+          pSymbols,
+          pCProb,
+          pCurrentNode->iStart,
+          pCurrentNode->iEnd,
+          iExistingSymbol, pExistingChild);
 
-    for(int i(pCurrentNode->iStart); i < pCurrentNode->iEnd; ++i) {
-      pChildNodes[i - iMin] = pNewChild;
+      i = pCurrentNode->iEnd; //make one group at a time - so move past entire group...
+      pCurrentNode = pCurrentNode->pNext;
     }
-
-    pCurrentNode = pCurrentNode->pNext; // Move along the group
+    DASHER_ASSERT(pParent->GetChildren().back()==pNewChild);
   }
-
-  CDasherNode *pLastChild = NULL;
-
-  // Now actually populate the children
-  for(int i(iMin); i < iMax; ++i) {
-    if(!pChildNodes[i-iMin]) {
-      CDasherNode *pNewChild = CreateSymbolNode(pParent, (*pSymbols)[i], pCProb, i, i+1, iMin, iMax, iExistingSymbol, pExistingChild);
-      pParent->Children().push_back(pNewChild);
-      pLastChild = pNewChild;
-    }
-    else if (pChildNodes[i-iMin] != pLastChild) {
-      pParent->Children().push_back(pChildNodes[i-iMin]);
-      pLastChild = pChildNodes[i-iMin];
-    }
-  }
-
-  //  std::cout << pParent << std::endl;
 
   pParent->SetFlag(NF_ALLCHILDREN, true);
-
-  delete[] pChildNodes;
 }
 
 void CAlphabetManager::PopulateChildrenWithSymbol( CAlphNode *pNode, int iExistingSymbol, CDasherNode *pExistingChild ) {

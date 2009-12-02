@@ -672,7 +672,7 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
   
 
   if(pNode->GetFlag(NF_ALLCHILDREN)) {
-    DASHER_ASSERT(pNode->Children().size() > 0);
+    DASHER_ASSERT(pNode->GetChildren().size() > 0);
     return;
   }
 
@@ -789,9 +789,9 @@ bool CDasherModel::RecursiveCheckRoot(CDasherNode *pNode, CDasherNode **pNewNode
   DASHER_ASSERT(pNode != NULL);
   DASHER_ASSERT(pNewNode != NULL);
 
-  CDasherNode::ChildMap & children = pNode->Children();
+  const CDasherNode::ChildMap & children = pNode->GetChildren();
   
-  for(CDasherNode::ChildMap::iterator it(children.begin()); it != children.end(); ++it) {
+  for(CDasherNode::ChildMap::const_iterator it(children.begin()); it != children.end(); ++it) {
     if((*it)->GetFlag(NF_SUBNODE)) {
       if(!RecursiveCheckRoot(*it, pNewNode, bFound))
 	return false;

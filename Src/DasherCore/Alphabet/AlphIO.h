@@ -75,7 +75,6 @@ public:
 /*     // --- */
 
     int m_iCharacters;
-    std::vector<SGroupInfo *> m_vGroups;
     SGroupInfo *m_pBaseGroup;
 
     std::vector<character> m_vCharacters;
@@ -98,6 +97,7 @@ public:
   void SetInfo(const AlphInfo & NewInfo);
   void Delete(const std::string & AlphID);
 private:
+  std::vector<SGroupInfo *> m_vGroups;
   AlphInfo BlankInfo;
   std::string SystemLocation;
   std::string UserLocation;

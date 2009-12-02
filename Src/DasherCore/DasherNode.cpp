@@ -48,6 +48,11 @@ CDasherNode::CDasherNode(CDasherNode *pParent, int iLbnd, int iHbnd, SDisplayInf
   DASHER_ASSERT(pDisplayInfo != NULL);
 	
   m_pParent = pParent;  
+  if (pParent) {
+    DASHER_ASSERT(!pParent->GetFlag(NF_ALLCHILDREN));
+    pParent->Children().push_back(this);
+  }
+
   m_iLbnd = iLbnd;
   m_iHbnd = iHbnd;
   m_pDisplayInfo = pDisplayInfo;
@@ -130,7 +135,7 @@ void CDasherNode::OrphanChild(CDasherNode *pChild) {
     }
   }
   
-  pChild->SetParent(NULL);
+  pChild->m_pParent=NULL;
 
   Children().clear();
   SetFlag(NF_ALLCHILDREN, false);
@@ -187,7 +192,10 @@ void CDasherNode::SetFlag(int iFlag, bool bValue) {
 }
  
 void CDasherNode::SetParent(CDasherNode *pNewParent) {
+  DASHER_ASSERT(pNewParent);
+  DASHER_ASSERT(!pNewParent->GetFlag(NF_ALLCHILDREN));
   m_pParent = pNewParent;
+  pNewParent->Children().push_back(this);
 }
 
 int CDasherNode::MostProbableChild() {

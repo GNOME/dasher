@@ -273,7 +273,7 @@ void CConversionHelper::CConvHNode::PopulateChildren() {
 	pNewNode->iContext = iContext;
       }
 
-      Children().push_back(pNewNode);
+      DASHER_ASSERT(GetChildren().back()==pNewNode);
 
       pCurrentSCEChild = pCurrentSCEChild->GetNext();
       ++iIdx;
@@ -292,7 +292,7 @@ void CConversionHelper::CConvHNode::PopulateChildren() {
       CDasherNode *pNewNode = mgr()->m_pNCManager->GetAlphRoot(this, iLbnd, iHbnd, NULL, m_iOffset);
       pNewNode->SetFlag(NF_SEEN, false);
 
-      Children().push_back(pNewNode);
+      DASHER_ASSERT(GetChildren().back()==pNewNode);
       //    pNode->SetHasAllChildren(false);
       //}
     /* What do the following code do?

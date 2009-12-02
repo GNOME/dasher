@@ -335,7 +335,7 @@ void CControlManager::CContNode::PopulateChildren() {
 
        pNewNode->m_iOffset = m_iOffset;
      }
-     Children().push_back(pNewNode);
+     DASHER_ASSERT(GetChildren().back()==pNewNode);
      ++iIdx;
    }
 }

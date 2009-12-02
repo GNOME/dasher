@@ -433,7 +433,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
     }
     Me->InputInfo.m_iConversionID = 0;
     Me->InputInfo.m_strDefaultContext = ". ";
-
+    Me->m_vGroups.clear();
     return;
   }
 
@@ -596,9 +596,9 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 
     pNewGroup->pChild = NULL;
 
-    if(Me->InputInfo.m_vGroups.size() > 0) {
-      pNewGroup->pNext = Me->InputInfo.m_vGroups.back()->pChild;
-      Me->InputInfo.m_vGroups.back()->pChild = pNewGroup;
+    if(Me->m_vGroups.size() > 0) {
+      pNewGroup->pNext = Me->m_vGroups.back()->pChild;
+      Me->m_vGroups.back()->pChild = pNewGroup;
     }
     else {
       pNewGroup->pNext = Me->InputInfo.m_pBaseGroup;
@@ -606,7 +606,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
     }
 
 
-    Me->InputInfo.m_vGroups.push_back(pNewGroup);
+    Me->m_vGroups.push_back(pNewGroup);
 
     return;
   }
@@ -734,10 +734,23 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
   }
 }
 
+void Reverse(SGroupInfo *&pList) {
+  SGroupInfo *pFirst = pList;  
+  SGroupInfo *pPrev = NULL;
+  while (pFirst) {
+    SGroupInfo *pNext = pFirst->pNext;
+    pFirst->pNext = pPrev;
+    pPrev = pFirst;
+    pFirst = pNext;
+  }
+  pList=pPrev;
+}
+
 void CAlphIO::XML_EndElement(void *userData, const XML_Char *name) {
   CAlphIO *Me = (CAlphIO *) userData;
 
   if(strcmp(name, "alphabet") == 0) {
+    Reverse(Me->InputInfo.m_pBaseGroup);
     Me->Alphabets[Me->InputInfo.AlphID] = Me->InputInfo;
     return;
   }
@@ -758,8 +771,10 @@ void CAlphIO::XML_EndElement(void *userData, const XML_Char *name) {
   }
 
   if(!strcmp(name, "group")) {
-    Me->InputInfo.m_vGroups.back()->iEnd = Me->InputInfo.m_iCharacters;
-    Me->InputInfo.m_vGroups.pop_back();
+    Me->m_vGroups.back()->iEnd = Me->InputInfo.m_iCharacters;
+    //child groups were added (to linked list) in reverse order. Put them in (iStart/iEnd) order...
+    Reverse(Me->m_vGroups.back()->pChild);
+    Me->m_vGroups.pop_back();
     return;
   }
 }

@@ -183,7 +183,6 @@ class Dasher::CDasherNode:private NoClones {
   /// @name Routines for manipulating relatives
   /// @{
 
-  inline ChildMap & Children();
   inline const ChildMap & GetChildren() const;
   inline unsigned int ChildCount() const;
   inline CDasherNode *Parent() const;
@@ -269,6 +268,8 @@ class Dasher::CDasherNode:private NoClones {
   int m_iNumSymbols;
   
  private:
+  inline ChildMap &Children();
+
   SDisplayInfo *m_pDisplayInfo;
 
   int m_iLbnd;

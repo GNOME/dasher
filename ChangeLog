@@ -1,3 +1,9 @@
+2009-12-02  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Made Children() read-only; nodes add selves to parent
+	  when created/SetParent'd
+	* Tidy up AlphabetManager and AlphIO
+
 2009-12-01  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* MacOSX: Set DEBUG for Development build;
@@ -5,7 +11,6 @@
 	* MacOSX: Store entire context/history (i.e. reverse through
 	  all you have written)
 	* (Partial) build fixes for Japanese (CannaConversionHelper)
-
 
 2009-12-01  Patrick Welche <prlw1@cam.ac.uk>
 
