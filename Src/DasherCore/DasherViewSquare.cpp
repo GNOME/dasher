@@ -225,7 +225,7 @@ bool CDasherViewSquare::CheckRender(CDasherNode *pRender, myint y1, myint y2,
   //
   // TODO: Should probably render the parent segment here anyway (or
   // in the above)
-  if(!pRender->GetFlag(NF_GAME) && !pRender->GetFlag(NF_SUBNODE))
+  if(!pRender->GetFlag(NF_GAME))
     pRender->Delete_children();
   return false;
 }
@@ -295,7 +295,7 @@ void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
   }
 
   //Node has children. It can therefore be collapsed...
-  if (!pRender->GetFlag(NF_GAME) && !pRender->GetFlag(NF_SUBNODE)
+  if (!pRender->GetFlag(NF_GAME)
       && pRender->m_dCost!=std::numeric_limits<double>::infinity()) //don't collapse a node covering the screen!!
     nodeQueue.pushNodeToCollapse(pRender);
 	
@@ -380,7 +380,7 @@ void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
 		}
   }  
     // Draw the outline
-    if(pRender->GetDisplayInfo()->bVisible && !(pRender->GetFlag(NF_SUBNODE))) {
+    if(pRender->GetDisplayInfo()->bVisible) {
       RenderNodeOutlineFast(pRender->GetDisplayInfo()->iColour, 
 			    y1, y2, mostleft, 
 			    pRender->GetDisplayInfo()->strDisplayText, 

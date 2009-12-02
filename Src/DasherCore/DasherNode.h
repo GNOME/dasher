@@ -39,9 +39,8 @@ namespace Dasher {
 #define NF_CONVERTED 4
 #define NF_GAME 8
 #define NF_ALLCHILDREN 16
-#define NF_SUBNODE 32
-#define NF_SUPER 64
-#define NF_END_GAME 128
+#define NF_SUPER 32
+#define NF_END_GAME 64
 
 /// \ingroup Model
 /// @{
@@ -109,8 +108,6 @@ class Dasher::CDasherNode:private NoClones {
   /// NF_GAME - Node is on the path in game mode
   ///
   /// NF_ALLCHILDREN - Node has all children (TODO: obsolete?)
-  ///
-  /// NF_SUBNODE - Node should be considered an integral subnode of parents (eg groups)
   ///
   /// NF_SUPER - Node covers entire visible area
   ///
@@ -216,7 +213,7 @@ class Dasher::CDasherNode:private NoClones {
   ///
   /// Sees if a *child* / descendant of the specified node (not that node itself)
   /// represents the specified character. If so, set the child & intervening nodes'
-  /// NF_SUBNODE flag, and return true; otherwise, return false.
+  /// NF_GAME flag, and return true; otherwise, return false.
   ///
   bool GameSearchChildren(std::string strTargetUtf8Char);
   
@@ -258,8 +255,7 @@ class Dasher::CDasherNode:private NoClones {
   virtual void SetControlOffset(int iOffset) {};
   
   ///
-  /// See if this node, or *if an NF_SUBNODE* a descendant (recursively),
-  /// represents the specified alphanumeric character; if so, set it's NF_GAME flag and
+  /// See if this node represents the specified alphanumeric character; if so, set it's NF_GAME flag and
   /// return true; otherwise, return false.
   ///
   virtual bool GameSearchNode(std::string strTargetUtf8Char) {return false;}

@@ -225,8 +225,6 @@ CAlphabetManager::CGroupNode *CAlphabetManager::CreateGroupNode(CAlphNode *pPare
 
   CGroupNode *pNewNode = makeGroup(pParent, iLbnd, iHbnd, pDisplayInfo, pInfo);
 
-  //pNewNode->SetFlag(NF_SUBNODE, true);
-
   // When creating a group node...
   pNewNode->m_iOffset = pParent->m_iOffset; // ...the offset is the same as the parent...
   pNewNode->iContext = m_pLanguageModel->CloneContext(pParent->iContext);

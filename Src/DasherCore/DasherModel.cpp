@@ -147,9 +147,6 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
 }
 
 void CDasherModel::Make_root(CDasherNode *pNewRoot) {
-  // TODO: Note that subnodes can be the root transiently during the
-  // re-rooting process.
-
   //  std::cout << "Make root" << std::endl;
 
   DASHER_ASSERT(pNewRoot != NULL);
@@ -162,8 +159,7 @@ void CDasherModel::Make_root(CDasherNode *pNewRoot) {
   oldroots.push_back(m_Root);
 
   // TODO: tidy up conditional
-  while(((oldroots.size() > 10) && (!m_bRequireConversion || (oldroots[0]->GetFlag(NF_CONVERTED)))) || 
-	(oldroots[0]->GetFlag(NF_SUBNODE))) {
+  while((oldroots.size() > 10) && (!m_bRequireConversion || (oldroots[0]->GetFlag(NF_CONVERTED)))) {
     oldroots[0]->OrphanChild(oldroots[1]);
     delete oldroots[0];
     oldroots.pop_front();
@@ -204,9 +200,6 @@ void CDasherModel::RecursiveMakeRoot(CDasherNode *pNewRoot) {
 void CDasherModel::RebuildAroundNode(CDasherNode *pNode) {
   DASHER_ASSERT(pNode != NULL);
 
-  while(pNode->GetFlag(NF_SUBNODE))
-    pNode = pNode->Parent();
-
   RecursiveMakeRoot(pNode);
 
   ClearRootQueue();
@@ -231,18 +224,11 @@ void CDasherModel::Reparent_root(int lower, int upper) {
   else {
     pNewRoot = oldroots.back();
     oldroots.pop_back();
-
-    while((oldroots.size() > 0) && pNewRoot->GetFlag(NF_SUBNODE)) {
-      pNewRoot = oldroots.back();
-      oldroots.pop_back();
-    }
   }
 
   // Return if there's no existing parent and no way of recreating one
   if(pNewRoot == NULL)
     return;
-
-  DASHER_ASSERT(!(pNewRoot->GetFlag(NF_SUBNODE)));
 
   pNewRoot->SetFlag(NF_COMMITTED, false);
 
@@ -260,11 +246,10 @@ void CDasherModel::Reparent_root(int lower, int upper) {
     myint iRootWidth = m_Rootmax - m_Rootmin;
     
     // Fail and undo root creation if the new root is bigger than allowed by normalisation
-    if(!(pNewRoot->GetFlag(NF_SUBNODE)) && 
-       (((myint((GetLongParameter(LP_NORMALIZATION) - upper)) / static_cast<double>(iWidth)) >
+    if(((myint((GetLongParameter(LP_NORMALIZATION) - upper)) / static_cast<double>(iWidth)) >
 	 (m_Rootmax_max - m_Rootmax)/static_cast<double>(iRootWidth)) || 
 	((myint(lower) / static_cast<double>(iWidth)) > 
-	 (m_Rootmin - m_Rootmin_min) / static_cast<double>(iRootWidth)))) {
+	 (m_Rootmin - m_Rootmin_min) / static_cast<double>(iRootWidth))) {
       pNewRoot->OrphanChild(m_Root);
       delete pNewRoot;
       return;
@@ -648,12 +633,8 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
 
 void CDasherModel::Push_Node(CDasherNode *pNode) {
   DASHER_ASSERT(pNode != NULL);
-  // TODO: Fix this and make an assertion again
-  if(pNode->GetFlag(NF_SUBNODE))
-    return;
 
   // TODO: Is NF_ALLCHILDREN any more useful/efficient than reading the map size?
-  
 
   if(pNode->GetFlag(NF_ALLCHILDREN)) {
     DASHER_ASSERT(pNode->GetChildren().size() > 0);
@@ -663,8 +644,15 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
   // TODO: Do we really need to delete all of the children at this point?
   pNode->Delete_children(); // trial commented out - pconlon
 
-  // Populate children creates two levels at once - the groups and their children.
+#ifdef DEBUG
+  unsigned int iExpect = pNode->ExpectedNumChildren();
+#endif
   pNode->PopulateChildren();
+#ifdef DEBUG
+  if (iExpect != pNode->GetChildren().size()) {
+    std::cout << "(Note: expected " << iExpect << " children, actually created " << pNode->GetChildren().size() << ")" << std::endl;
+  }
+#endif
 
   pNode->SetFlag(NF_ALLCHILDREN, true);
 
@@ -760,31 +748,6 @@ bool CDasherModel::RenderToView(CDasherView *pView, NodeQueue &nodeQueue) {
   return bReturnValue;
 }
 
-// Return true to indicate zero or one nodes found, false for more than one
-bool CDasherModel::RecursiveCheckRoot(CDasherNode *pNode, CDasherNode **pNewNode, bool &bFound) {
-  DASHER_ASSERT(pNode != NULL);
-  DASHER_ASSERT(pNewNode != NULL);
-
-  const CDasherNode::ChildMap & children = pNode->GetChildren();
-  
-  for(CDasherNode::ChildMap::const_iterator it(children.begin()); it != children.end(); ++it) {
-    if((*it)->GetFlag(NF_SUBNODE)) {
-      if(!RecursiveCheckRoot(*it, pNewNode, bFound))
-	return false;
-    }
-    else if((*it)->GetFlag(NF_SUPER)) {
-      if(bFound) // TODO: This should be an error (and probably isn't worth checking for)
-	return false;
-      else {
-	*pNewNode = *it;
-	bFound = true;
-      }
-    }
-  }
-
-  return true;
-}
-
 bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
   DASHER_ASSERT(m_Root != NULL);
   // TODO: pView is redundant here
@@ -795,24 +758,25 @@ bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
 
   if(!(m_Root->GetFlag(NF_SUPER))) {
     Reparent_root(root->Lbnd(), root->Hbnd());
-    DASHER_ASSERT(!(m_Root->GetFlag(NF_SUBNODE)));
     return(m_Root != root);
   }
 
-  DASHER_ASSERT(!(m_Root->GetFlag(NF_SUBNODE)));
-
   CDasherNode *pNewRoot = NULL;
 
-  bool bFound = false;
-
-  if(RecursiveCheckRoot(m_Root, &pNewRoot, bFound)) {
-    // TODO: I think this if statement is reduncdent, return value of above is always equal to bFound
-    // not true - pconlon
-    ////GAME MODE TEMP - only change the root if it is on the game path/////////
-    if(bFound && (!m_bGameMode || pNewRoot->GetFlag(NF_GAME))) {
-      m_Root->DeleteNephews(pNewRoot);
-      RecursiveMakeRoot(pNewRoot);
+  for (CDasherNode::ChildMap::const_iterator it = m_Root->GetChildren().begin(); it != m_Root->GetChildren().end(); it++) {
+    if ((*it)->GetFlag(NF_SUPER)) {
+      //at most one child should have NF_SUPER set...
+      DASHER_ASSERT(pNewRoot == NULL);
+      pNewRoot = *it;
+#ifndef DEBUG
+      break;
+#endif
     }
+  }
+  ////GAME MODE TEMP - only change the root if it is on the game path/////////
+  if (pNewRoot && (!m_bGameMode || pNewRoot->GetFlag(NF_GAME))) {
+    m_Root->DeleteNephews(pNewRoot);
+    RecursiveMakeRoot(pNewRoot);
   }
 
   CDasherNode *pNewNode = Get_node_under_crosshair();
@@ -822,7 +786,6 @@ bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
   if(pNewNode != pOldNode)
     HandleOutput(pNewNode, pOldNode, NULL, NULL);
 
-  DASHER_ASSERT(!(m_Root->GetFlag(NF_SUBNODE)));
   return false;
 }
 
