@@ -51,14 +51,13 @@ namespace Dasher {
     public:
       int mgrId() {return 0;}
       CAlphNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CAlphabetManager *pMgr);
-      int iPhase;
       CLanguageModel::Context iContext;
       ///
       /// Delete any storage alocated for this node
       ///      
       virtual ~CAlphNode();
       virtual CLanguageModel::Context CloneAlphContext(CLanguageModel *pLanguageModel);
-      CDasherNode *RebuildParent(int iNewOffset, int iNewPhase);
+      CDasherNode *RebuildParent(int iNewOffset);
       ///Have to call this from CAlphabetManager, and from CGroupNode on a _different_ CAlphNode, hence public...
       virtual std::vector<unsigned int> *GetProbInfo();
       virtual int ExpectedNumChildren();
@@ -134,7 +133,7 @@ namespace Dasher {
     /// but not when escaping back to Alphabet)
     /// iNewOffset - m_iOffset of the new node (i.e. index into context of character the node represents)
     ///
-    CAlphNode *BuildNodeForOffset(CDasherNode *pParent, int iLower, int iUpper, bool bSym, int iNewOffset, int iNewPhase);
+    CAlphNode *BuildNodeForOffset(CDasherNode *pParent, int iLower, int iUpper, bool bSym, int iNewOffset);
     
     CLanguageModel *m_pLanguageModel;
     CNodeCreationManager *m_pNCManager;

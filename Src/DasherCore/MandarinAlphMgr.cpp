@@ -63,7 +63,6 @@ CAlphabetManager::CAlphNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, int
     pDispInfo->iColour = m_pNCManager->GetAlphabet()->GetColour(0, 0);
     pNewNode = makeGroup(pParent, iLower, iUpper, pDispInfo, NULL);
     pNewNode->m_iOffset=max(0,iOffset)-1;
-    pNewNode->iPhase=0;
   } else {
     //probably rebuilding parent; call standard GetRoot, which'll extract the most recent symbol
     // (entered by the node (equivalent to that) which we are rebuilding)

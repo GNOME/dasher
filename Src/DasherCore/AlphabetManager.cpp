@@ -75,7 +75,7 @@ CAlphabetManager::CGroupNode *CAlphabetManager::makeGroup(CDasherNode *pParent, 
 
 CAlphabetManager::CAlphNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, bool bEnteredLast, int iOffset) {
   
-  CAlphNode *pNewNode = BuildNodeForOffset(pParent, iLower, iUpper, bEnteredLast, max(-1,iOffset-1), 0);
+  CAlphNode *pNewNode = BuildNodeForOffset(pParent, iLower, iUpper, bEnteredLast, max(-1,iOffset-1));
 
   pNewNode->SetFlag(NF_SEEN, true);
   
@@ -87,7 +87,7 @@ CAlphabetManager::CAlphNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int
   return pNewNode;
 }
 
-CAlphabetManager::CAlphNode *CAlphabetManager::BuildNodeForOffset(CDasherNode *pParent, int iLower, int iUpper, bool bSym, int iNewOffset, int iNewPhase) {
+CAlphabetManager::CAlphNode *CAlphabetManager::BuildNodeForOffset(CDasherNode *pParent, int iLower, int iUpper, bool bSym, int iNewOffset) {
   
   std::vector<symbol> vContextSymbols;
   // TODO: make the LM get the context, rather than force it to fix max context length as an int
@@ -116,17 +116,16 @@ CAlphabetManager::CAlphNode *CAlphabetManager::BuildNodeForOffset(CDasherNode *p
   if((vContextSymbols.size() == 0) || !bSym) {
     //this node can't be responsible for entering the last symbol if there wasn't one!
     pDisplayInfo->strDisplayText = ""; //equivalent to do m_pNCManager->GetAlphabet()->GetDisplayText(0)
-    pDisplayInfo->iColour = m_pNCManager->GetAlphabet()->GetColour(0, iNewPhase);
+    pDisplayInfo->iColour = m_pNCManager->GetAlphabet()->GetColour(0, iNewOffset%2);
     pNewNode = makeGroup(pParent, iLower, iUpper, pDisplayInfo, NULL);
   } else {
     const symbol iSymbol(vContextSymbols[vContextSymbols.size() - 1]);
     pDisplayInfo->strDisplayText = m_pNCManager->GetAlphabet()->GetDisplayText(iSymbol);
-    pDisplayInfo->iColour = m_pNCManager->GetAlphabet()->GetColour(iSymbol, iNewPhase);
+    pDisplayInfo->iColour = m_pNCManager->GetAlphabet()->GetColour(iSymbol, iNewOffset%2);
     pNewNode = makeSymbol(pParent, iLower, iUpper, pDisplayInfo, iSymbol);
   }
 
   pNewNode->m_iOffset = iNewOffset;
-  pNewNode->iPhase = iNewPhase;
 
   pNewNode->iContext = iContext;
   return pNewNode;
@@ -230,7 +229,6 @@ CAlphabetManager::CGroupNode *CAlphabetManager::CreateGroupNode(CAlphNode *pPare
 
   // When creating a group node...
   pNewNode->m_iOffset = pParent->m_iOffset; // ...the offset is the same as the parent...
-  pNewNode->iPhase = pParent->iPhase;
   pNewNode->iContext = m_pLanguageModel->CloneContext(pParent->iContext);
 
   return pNewNode;
@@ -296,8 +294,8 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CAlphNode *pParent, symbol iSymb
       pNewNode = m_pNCManager->GetConvRoot(pParent, iLbnd, iHbnd, pParent->m_iOffset+1);
     }
     else {
-      int iPhase = (pParent->iPhase + 1) % 2;
-      int iColour = m_pNCManager->GetAlphabet()->GetColour(iSymbol, iPhase);
+      //compute phase directly from offset
+      int iColour = m_pNCManager->GetAlphabet()->GetColour(iSymbol, (pParent->m_iOffset+1)%2);
 
       // TODO: Exceptions / error handling in general
 
@@ -320,7 +318,6 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CAlphNode *pParent, symbol iSymb
       pNewNode->m_iNumSymbols = 1;
 
       pNewNode->m_iOffset = pParent->m_iOffset + 1;
-      pAlphNode->iPhase = iPhase;
 
       pAlphNode->iContext = CreateSymbolContext(pParent, iSymbol);
   }
@@ -418,27 +415,19 @@ CDasherNode *CAlphabetManager::CGroupNode::RebuildParent() {
   // m_pGroup==NULL => "root" node where Alphabet->m_pBaseGroup is the *first*child*...
   if (m_pGroup == NULL) return NULL;
   //offset of group node is same as parent...
-  return CAlphNode::RebuildParent(m_iOffset, iPhase);
+  return CAlphNode::RebuildParent(m_iOffset);
 }
 
 CDasherNode *CAlphabetManager::CSymbolNode::RebuildParent() {
   //parent's offset is one less than this.
-  return CAlphNode::RebuildParent(m_iOffset-1, (iPhase + 1)%2);
+  return CAlphNode::RebuildParent(m_iOffset-1);
 }
 
-CDasherNode *CAlphabetManager::CAlphNode::RebuildParent(int iNewOffset, int iNewPhase) {
+CDasherNode *CAlphabetManager::CAlphNode::RebuildParent(int iNewOffset) {
   //possible that we have a parent, as RebuildParent() rebuilds back to closest AlphNode.
   if (Parent()) return Parent();
   
-  //Hmmm. We require that if the new node's offset is -1 (the very beginning), phase is 0.
-  // If you escaped from control mode back to alphabet with an odd offset, GetRoot (with odd DasherNode offset)
-  // would construct a root with phase 0; if you then wrote far enough forwards first to lose the Control Mode nodes,
-  // and then erased back far enough to delete the entire (pre-Control-Mode) sentence, might that break this? TODO CHECK
-  // (and TODO: possibly remove phase - why not just use iOffset modulo 2? (Or however many, could then decide according
-  // to colour scheme or whatever!)
-  DASHER_ASSERT(iNewOffset !=-1 || iNewPhase == 0);
-  
-  CAlphNode *pNewNode = m_pMgr->BuildNodeForOffset(NULL, 0, 0, iNewOffset!=-1, iNewOffset, iNewPhase);
+  CAlphNode *pNewNode = m_pMgr->BuildNodeForOffset(NULL, 0, 0, iNewOffset!=-1, iNewOffset);
 
   pNewNode->SetFlag(NF_SEEN, true);
 
