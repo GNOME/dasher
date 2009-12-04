@@ -178,8 +178,6 @@ namespace Dasher {
     std::vector < std::string > m_Foreground;   // stores the colour of the character foreground
     // ----
 
-    SGroupInfo *pFirstGroup;
-
     alphabet_map TextMap;
 
     std::string m_strDefaultContext;
