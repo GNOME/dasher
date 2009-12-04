@@ -166,9 +166,9 @@ static bp_table boolparamtable[] = {
   {BP_CIRCLE_START, "CircleStart", PERS, false, "Start on circle mode"},
   {BP_GLOBAL_KEYBOARD, "GlobalKeyboard", PERS, false, "Whether to assume global control of the keyboard"},
 #if defined(WITH_MAEMO) || defined(TARGET_OS_IPHONE)
-  {BP_NONLINEAR_Y, "NonlinearY", PERS, false, "Apply nonlinearities to Y axis (i.e. compress top & bottom)"},
+  {BP_NONLINEAR_Y, "NonlinearY", PERS, false, "Apply nonlinearities to Y axis (i.e. compress top &amp; bottom)"},
 #else
-  {BP_NONLINEAR_Y, "NonlinearY", PERS, true, "Apply nonlinearities to Y axis (i.e. compress top & bottom)"},
+  {BP_NONLINEAR_Y, "NonlinearY", PERS, true, "Apply nonlinearities to Y axis (i.e. compress top &amp; bottom)"},
 #endif
   {BP_SMOOTH_OFFSET, "DelayView", !PERS, false, "Smooth dynamic-button-mode jumps over several frames"},
   {BP_CONVERSION_MODE, "ConversionMode", !PERS, false, "Whether Dasher is operating in conversion (eg Japanese) mode"},

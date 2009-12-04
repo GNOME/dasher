@@ -26,7 +26,7 @@ install-data-local: install-schemas
 # which is then moved installed in the usual way. None of this happens
 # if configure is told not to install schemas.
 
-dasher.schemas:
+dasher.schemas: ../Src/Gtk2/generate-schema
 	echo -n "Generating schema ... "; \
 	../Src/Gtk2/generate-schema > dasher.schemas; \
 	echo "done.";
