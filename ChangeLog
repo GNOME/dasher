@@ -1,3 +1,7 @@
+2009-12-01  Patrick Welche <prlw1@cam.ac.uk>
+
+	* da.po: Work around old gettext bug
+
 2009-12-04  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* Remove CConversionManagerFactory and CAlphabetManagerFactory

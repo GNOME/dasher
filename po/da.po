@@ -1022,7 +1022,6 @@ msgid "- A text input application honouring accessibility"
 msgstr ""
 "- En applikation til tekstskrivning som tager hensyn til tilgængelighed"
 
-#~| msgid "Pause outside of canvas"
 #~ msgid "Markers fixed to canvas"
 #~ msgstr "Markører begrænset til kanvas"
 
