@@ -45,11 +45,11 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CAlphabetManager::CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel, CLanguageModel::Context iLearnContext)
+CAlphabetManager::CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel)
   : m_pLanguageModel(pLanguageModel), m_pNCManager(pNCManager) {
   m_pInterface = pInterface;
 
-  m_iLearnContext = iLearnContext;
+  m_iLearnContext = m_pLanguageModel->CreateEmptyContext();
 
 }
 

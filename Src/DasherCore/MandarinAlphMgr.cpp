@@ -46,8 +46,8 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel, CLanguageModel::Context iLearnContext)
-  : CAlphabetManager(pInterface, pNCManager, pLanguageModel, iLearnContext) {
+CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel)
+  : CAlphabetManager(pInterface, pNCManager, pLanguageModel) {
 }
 
 CAlphabetManager::CAlphNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, int iLower, int iUpper, char *szContext, int iOffset) {

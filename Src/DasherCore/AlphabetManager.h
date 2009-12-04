@@ -43,7 +43,7 @@ namespace Dasher {
   class CAlphabetManager {
   public:
 
-    CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel, CLanguageModel::Context iLearnContext);
+    CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel);
 
   protected:
     class CAlphNode : public CDasherNode {

@@ -19,7 +19,7 @@ class CPinYinConversionHelper : public CConversionHelper {
   friend class CMandarinAlphMgr;
  public:
 
-  CPinYinConversionHelper(CNodeCreationManager *pNCManager, Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, Dasher::CAlphIO *pAlphIO, const std::string strCHAlphabetPath, Dasher::CAlphabet * pAlphabet);
+  CPinYinConversionHelper(CNodeCreationManager *pNCManager, Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, Dasher::CAlphIO *pAlphIO, const std::string strCHAlphabetPath, Dasher::CAlphabet * pAlphabet, CPPMPYLanguageModel *pLanguageModel);
 
   virtual void BuildTree(CConvHNode *pRoot);
   
@@ -30,10 +30,6 @@ class CPinYinConversionHelper : public CConversionHelper {
   virtual void GetProbs(Dasher::CLanguageModel::Context context, std::vector < unsigned int >&Probs, int norm);
 
   virtual unsigned int GetSumPYProbs(Dasher::CLanguageModel::Context context, SCENode * pPYCandStart,int norm);
-
-  virtual Dasher::CLanguageModel *  GetLanguageModel(){
-    return m_pLanguageModel;
-  }
 
 protected:
   class CPYConvNode : public CConvHNode {
@@ -52,11 +48,13 @@ protected:
   };
   CPYConvNode *makeNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo);
 	
+  virtual CPPMPYLanguageModel *GetLanguageModel() {
+    return static_cast<CPPMPYLanguageModel *>(CConversionHelper::GetLanguageModel());
+  }
  private:
   void TrainChPPM(CSettingsStore *pSettingsStore);
   void ProcessFile(CSettingsStore *pSettingsStore, int index);
 
-  CPPMPYLanguageModel *m_pLanguageModel;     // pointer to the language model
   CAlphabet *m_pCHAlphabet;        // pointer to the Chinese Character alphabet
   CAlphabet *m_pPYAlphabet;        // pointer to the Grouped Super Pin Yin alphabet 
   CPinyinParser *pParser;

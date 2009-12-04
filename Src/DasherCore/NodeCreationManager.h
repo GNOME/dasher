@@ -3,11 +3,11 @@
 
 #include "Alphabet/Alphabet.h"
 #include "Alphabet/AlphIO.h"
-#include "AlphabetManagerFactory.h"
-#include "ConversionManagerFactory.h"
+#include "AlphabetManager.h"
+#include "ConversionManager.h"
 #include "DasherComponent.h"
-
 #include "LanguageModelling/LanguageModel.h"
+#include "Trainer.h"
 
 #include <string>
 #include <vector>
@@ -54,20 +54,7 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
 
   void DisconnectNode(int iChild, int iParent);
 
-  ///
-  /// Temporary methods: TODO: remove
-  ///
-
-  Dasher::CLanguageModel *GetLanguageModel() {
-    return m_pLanguageModel;
-  };
-
-  Dasher::CLanguageModel::Context GetLearnContext() {
-    return m_pAlphabetManagerFactory->GetLearnContext();
-  }
-
   void GetProbs(Dasher::CLanguageModel::Context context, std::vector <Dasher::symbol >&NewSymbols, std::vector <unsigned int >&Probs, int iNorm) const;
-  void EnterText(Dasher::CLanguageModel::Context context, std::string TheText) const;
 
   inline int GetColour(Dasher::symbol s, int iPhase) const {
     return m_pAlphabet->GetColour(s, iPhase); 
@@ -118,10 +105,13 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
  private:
   Dasher::CLanguageModel *m_pLanguageModel;     // pointer to the language model
   Dasher::CAlphabet *m_pAlphabet;        // pointer to the alphabet
-
-  Dasher::CAlphabetManagerFactory *m_pAlphabetManagerFactory;
+  Dasher::CTrainer *m_pTrainer;
+  
+  int m_iConversionID;
+  
+  Dasher::CAlphabetManager *m_pAlphabetManager;
   Dasher::CControlManager *m_pControlManager;
-  Dasher::CConversionManagerFactory *m_pConversionManagerFactory;
+  Dasher::CConversionManager *m_pConversionManager;
 };
 /// @}
 

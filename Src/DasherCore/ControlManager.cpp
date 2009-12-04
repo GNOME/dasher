@@ -38,7 +38,7 @@ static char THIS_FILE[] = __FILE__;
 int CControlManager::m_iNextID = 0;
 
 CControlManager::CControlManager( CNodeCreationManager *pNCManager )
-  : m_pNCManager(pNCManager), m_pLanguageModel(NULL) {
+  : m_pNCManager(pNCManager) {
   string SystemString = m_pNCManager->GetStringParameter(SP_SYSTEM_LOC);
   string UserLocation = m_pNCManager->GetStringParameter(SP_USER_LOC);
   m_iNextID = 0;

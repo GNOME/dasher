@@ -21,7 +21,6 @@
 #ifndef __controlmanager_h__
 #define __controlmanager_h__
 
-#include "LanguageModelling/LanguageModel.h" // Urgh - we really shouldn't need to know about language models here
 #include "DasherModel.h"
 #include "DasherNode.h"
 #include "Event.h"
@@ -119,7 +118,6 @@ namespace Dasher {
 
     static int m_iNextID;
     CNodeCreationManager *m_pNCManager;
-    CLanguageModel *m_pLanguageModel;
     std::map<int,SControlItem*> m_mapControlMap;
 
     ///Whether we'd temporarily disabled Automatic Speed Control

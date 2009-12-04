@@ -43,7 +43,7 @@ namespace Dasher{
 ///
   class CConversionHelper : public CConversionManager {
   public:
-	CConversionHelper(CNodeCreationManager *pNCManager, CAlphabet *pAlphabet);
+	CConversionHelper(CNodeCreationManager *pNCManager, CAlphabet *pAlphabet, CLanguageModel *pLanguageModel);
 	
 	/// Convert a given string to a lattice of candidates. Sizes for
 	/// candidates aren't assigned at this point. The input string
@@ -68,10 +68,7 @@ namespace Dasher{
 	/// @param iNChildren The number of children to be expected (more efficient than iterating linked list).
 	///
 	virtual void AssignSizes(SCENode ** pStart, Dasher::CLanguageModel::Context context, long normalization, int uniform, int iNChildren)=0;
-	
-	//TODO: figure out why this function cannot return a CLanguageModel
-	virtual Dasher::CLanguageModel * GetLanguageModel()=0;
-	
+		
 	/// Assign colours to the children of a given conversion node.
 	/// This function needs a rethink.
 	///
@@ -136,10 +133,11 @@ namespace Dasher{
     
     virtual void BuildTree(CConvHNode *pRoot);
 	
-    ///
-    /// Language model (TODO: We don't need to know about this, surely)
-    ///
-	
+    virtual Dasher::CLanguageModel *GetLanguageModel() {
+      return m_pLanguageModel;
+    }
+    
+  private:
     CLanguageModel *m_pLanguageModel;
 	
     CLanguageModel::Context m_iLearnContext;

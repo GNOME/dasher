@@ -3,11 +3,6 @@
 
 #include "Trainer.h"
 #include "DasherInterfaceBase.h"
-#include "LanguageModelling/PPMLanguageModel.h"
-#include "LanguageModelling/WordLanguageModel.h"
-#include "LanguageModelling/DictLanguageModel.h"
-#include "LanguageModelling/MixtureLanguageModel.h"
-#include "LanguageModelling/CTWLanguageModel.h"
 #include "LanguageModelling/PPMPYLanguageModel.h"
 
 using namespace Dasher;

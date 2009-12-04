@@ -1,3 +1,7 @@
+2009-12-04  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Remove CConversionManagerFactory and CAlphabetManagerFactory
+
 2009-12-02  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* Made Children() read-only; nodes add selves to parent

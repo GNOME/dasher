@@ -35,7 +35,7 @@ namespace Dasher {
   class CMandarinAlphMgr : public CAlphabetManager {
   public:
 
-    CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel, CLanguageModel::Context iLearnContext);
+    CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel);
 
     ///
     /// Get a new root node owned by this manager

@@ -21,8 +21,6 @@ libdashercore_a_SOURCES = \
 		ActionButton.h \
 		AlphabetManager.cpp \
 		AlphabetManager.h \
-		AlphabetManagerFactory.cpp \
-		AlphabetManagerFactory.h \
 		AutoSpeedControl.cpp \
 		AutoSpeedControl.h \
 		BasicLog.cpp \
@@ -45,8 +43,6 @@ libdashercore_a_SOURCES = \
 		ConversionHelper.h \
 		ConversionManager.cpp \
 		ConversionManager.h \
-		ConversionManagerFactory.cpp \
-		ConversionManagerFactory.h \
 		DasherButtons.cpp \
 		DasherButtons.h \
 		DasherComponent.cpp \

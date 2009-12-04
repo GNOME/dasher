@@ -24,7 +24,6 @@
 #include "../../Common/Common.h"
 #include "../TrainingHelper.h"
 #include "Alphabet.h"
-#include "../AlphabetManagerFactory.h"
 #include "AlphabetMap.h"
 #include <cstring>
 

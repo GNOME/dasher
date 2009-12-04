@@ -5,7 +5,10 @@
 #include "LanguageModelling/DictLanguageModel.h"
 #include "LanguageModelling/MixtureLanguageModel.h"
 #include "LanguageModelling/PPMPYLanguageModel.h"
+#include "LanguageModelling/CTWLanguageModel.h"
 #include "NodeCreationManager.h"
+#include "MandarinAlphMgr.h"
+#include "PinYinConversionHelper.h"
 #include "ControlManager.h"
 #include "EventHandler.h"
 
@@ -16,25 +19,86 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
 					   CSettingsStore *pSettingsStore,
 					   Dasher::CAlphIO *pAlphIO) : CDasherComponent(pEventHandler, pSettingsStore) {
 
-  m_pAlphabetManagerFactory = new CAlphabetManagerFactory(pInterface,
-							  pEventHandler,
-							  pSettingsStore,
-							  pAlphIO,
-							  this);
+  const Dasher::CAlphIO::AlphInfo &oAlphInfo(pAlphIO->GetInfo(pSettingsStore->GetStringParameter(SP_ALPHABET_ID)));
+  m_pAlphabet = new CAlphabet(oAlphInfo);
   
-  m_pLanguageModel = m_pAlphabetManagerFactory->GetLanguageModel();
-  m_pAlphabet = m_pAlphabetManagerFactory->GetAlphabet();
-
-  CTrainer *pTrainer =  m_pAlphabetManagerFactory->GetTrainer();
+  pSettingsStore->SetStringParameter(SP_TRAIN_FILE, m_pAlphabet->GetTrainingFile());
+  pSettingsStore->SetStringParameter(SP_GAME_TEXT_FILE, m_pAlphabet->GetGameModeFile());
+  
+  pSettingsStore->SetStringParameter(SP_DEFAULT_COLOUR_ID, m_pAlphabet->GetPalette());
+  
+  if(pSettingsStore->GetLongParameter(LP_ORIENTATION) == Dasher::Opts::AlphabetDefault)
+    pSettingsStore->SetLongParameter(LP_REAL_ORIENTATION, m_pAlphabet->GetOrientation());
+  // --
+  
+  CSymbolAlphabet alphabet(m_pAlphabet->GetNumberTextSymbols());
+  alphabet.SetSpaceSymbol(m_pAlphabet->GetSpaceSymbol());      // FIXME - is this right, or do we have to do some kind of translation?
+  alphabet.SetAlphabetPointer(m_pAlphabet);    // Horrible hack, but ignore for now.
+  
+  // Create an appropriate language model;
+  
+  m_iConversionID = oAlphInfo.m_iConversionID;
+  
+  //WZ: Mandarin Dasher Change
+  //If statement checks for the specific Super PinYin alphabet, and sets language model to PPMPY
+  if((m_iConversionID==2)&&(pSettingsStore->GetStringParameter(SP_ALPHABET_ID)=="Chinese Super Pin Yin, grouped by Dictionary")){
+    
+    std::string CHAlphabet = "Chinese / 简体中文 (simplified chinese, in pin yin groups)";
+    Dasher::CAlphIO::AlphInfo oCHAlphInfo = pAlphIO->GetInfo(CHAlphabet);
+    CAlphabet *pCHAlphabet = new CAlphabet(oCHAlphInfo);
+    
+    CSymbolAlphabet chalphabet(pCHAlphabet->GetNumberTextSymbols());
+    chalphabet.SetSpaceSymbol(pCHAlphabet->GetSpaceSymbol());
+    chalphabet.SetAlphabetPointer(pCHAlphabet);
+    //std::cout<<"CHALphabet size "<<chalphabet.GetSize(); [7603]
+    m_pLanguageModel = new CPPMPYLanguageModel(pEventHandler, pSettingsStore, chalphabet, alphabet);
+    m_pTrainer = new CMandarinTrainer(m_pLanguageModel, m_pAlphabet, pCHAlphabet);
+    std::cout<<"Setting PPMPY model"<<std::endl;
+  }
+  else{
+    //End Mandarin Dasher Change
+    
+    // FIXME - return to using enum here
+    switch (pSettingsStore->GetLongParameter(LP_LANGUAGE_MODEL_ID)) {
+      case 0:
+        m_pLanguageModel = new CPPMLanguageModel(pEventHandler, pSettingsStore, alphabet);
+        break;
+      case 2:
+        m_pLanguageModel = new CWordLanguageModel(pEventHandler, pSettingsStore, alphabet);
+        break;
+      case 3:
+        m_pLanguageModel = new CMixtureLanguageModel(pEventHandler, pSettingsStore, alphabet);
+        break;  
+      case 4:
+        m_pLanguageModel = new CCTWLanguageModel(pEventHandler, pSettingsStore, alphabet);
+        break;
+        
+      default:
+        // If there is a bogus value for the language model ID, we'll default
+        // to our trusty old PPM language model.
+        m_pLanguageModel = new CPPMLanguageModel(pEventHandler, pSettingsStore, alphabet);    
+        break;
+    }
+    m_pTrainer = new CTrainer(m_pLanguageModel, m_pAlphabet);
+  }
+    
+  // TODO: Tell the alphabet manager about the alphabet here, so we
+  // don't end up having to duck out to the NCM all the time
+  
+  //(ACL) Modify AlphabetManager for Mandarin Dasher
+  if (m_iConversionID == 2)
+    m_pAlphabetManager = new CMandarinAlphMgr(pInterface, this, m_pLanguageModel);
+  else
+    m_pAlphabetManager = new CAlphabetManager(pInterface, this, m_pLanguageModel);
 
   //1. Look for system training text...
   CLockEvent oEvent("Training on System Text", true, 0);
   pEventHandler->InsertEvent(&oEvent);
-  pTrainer->LoadFile(GetStringParameter(SP_SYSTEM_LOC) + m_pAlphabet->GetTrainingFile());
+  m_pTrainer->LoadFile(GetStringParameter(SP_SYSTEM_LOC) + m_pAlphabet->GetTrainingFile());
   //Now add in any user-provided individual training text...
   oEvent.m_strMessage = "Training on User Text"; oEvent.m_bLock=true; oEvent.m_iPercent = 0;
   pEventHandler->InsertEvent(&oEvent);
-  pTrainer->LoadFile(GetStringParameter(SP_USER_LOC) + m_pAlphabet->GetTrainingFile());
+  m_pTrainer->LoadFile(GetStringParameter(SP_USER_LOC) + m_pAlphabet->GetTrainingFile());
   oEvent.m_bLock = false;
   pEventHandler->InsertEvent(&oEvent);
 
@@ -57,28 +121,41 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
 #else
   m_pControlManager = 0;
 #endif
-  m_pConversionManagerFactory = new CConversionManagerFactory(pEventHandler,
-							      pSettingsStore,
-							      this,
-							      m_pAlphabetManagerFactory->GetConversionID(),
-							      pAlphIO,
-							      m_pAlphabet);
+  
+  switch(m_iConversionID) {
+    default:
+      //TODO: Error reporting here
+      //fall through to
+    case 0: // No conversion required
+      m_pConversionManager = new CConversionManager(this, m_pAlphabet);
+      //ACL no, not quite - ConvMgrFac would always be created, so (ConvMgrFac==NULL) would always fail; but then segfault on ConvMgr->GetRoot() ?
+      break;
+#ifdef JAPANESE
+    case 1: // Japanese
+#ifdef WIN32
+      m_pConversionManager = new CIMEConversionHelper;
+#else
+      m_pConversionManager = new CCannaConversionHelper(this, m_pAlphabet, GetLongParameter(LP_CONVERSION_TYPE), GetLongParameter(LP_CONVERSION_ORDER));
+#endif
+      break;
+#endif
+#ifdef CHINESE
+    case 2: // Chinese
+      m_pConversionManager = new CPinYinConversionHelper(this, m_pEventHandler, m_pSettingsStore, pAlphIO,
+                                         GetStringParameter(SP_SYSTEM_LOC) +"/alphabet.chineseRuby.xml",
+                                         m_pAlphabet, static_cast<CPPMPYLanguageModel *>(m_pLanguageModel));
+      break;
+#endif
+  }
 }
 
 CNodeCreationManager::~CNodeCreationManager() {
-
-  // C++ standard dictates that
-  // delete NULL;
-  // is totally safe, and does nothing. Do we need all these if statements?
-
-  if(m_pAlphabetManagerFactory)
-    delete m_pAlphabetManagerFactory;
+  delete m_pAlphabetManager;
+  delete m_pTrainer;
   
-  if(m_pControlManager)
-    delete m_pControlManager;
+  delete m_pControlManager;
 
-  if(m_pConversionManagerFactory)
-    delete m_pConversionManagerFactory;
+  if (m_pConversionManager) m_pConversionManager->Unref();
 }
 
 void CNodeCreationManager::RegisterNode( int iID, const std::string &strLabel, int iColour ) {
@@ -97,7 +174,7 @@ void CNodeCreationManager::DisconnectNode(int iChild, int iParent) {
 }
 
 CDasherNode *CNodeCreationManager::GetAlphRoot(Dasher::CDasherNode *pParent, int iLower, int iUpper, char *szContext, int iOffset) { 
- return m_pAlphabetManagerFactory->GetRoot(pParent, iLower, iUpper, szContext, iOffset);
+ return m_pAlphabetManager->GetRoot(pParent, iLower, iUpper, szContext, iOffset);
 }
 
 CDasherNode *CNodeCreationManager::GetCtrlRoot(Dasher::CDasherNode *pParent, int iLower, int iUpper, int iOffset) { 
@@ -108,9 +185,8 @@ CDasherNode *CNodeCreationManager::GetCtrlRoot(Dasher::CDasherNode *pParent, int
 }
 
 CDasherNode *CNodeCreationManager::GetConvRoot(Dasher::CDasherNode *pParent, int iLower, int iUpper, int iOffset) { 
- if(m_pConversionManagerFactory)
- return m_pConversionManagerFactory->GetRoot(pParent, iLower, iUpper, iOffset);
- else
+ if(m_pConversionManager)
+   return m_pConversionManager->GetRoot(pParent, iLower, iUpper, iOffset);
  return NULL;
 }
 
@@ -150,7 +226,7 @@ void CNodeCreationManager::GetProbs(CLanguageModel::Context context, std::vector
    //  m_pLanguageModel->GetProbs(context, Probs, iNorm, ((iNorm * uniform) / 1000));
    
    //WZ: Mandarin Dasher Change
-   if(m_pAlphabetManagerFactory->GetConversionID()==2){
+   if(m_iConversionID==2){
      //Mark: static cast ok?
      static_cast<CPPMPYLanguageModel *>(m_pLanguageModel)->GetPYProbs(context, Probs, iNorm, 0);
    }
@@ -181,22 +257,7 @@ void CNodeCreationManager::GetProbs(CLanguageModel::Context context, std::vector
 
 }
 
-void CNodeCreationManager::EnterText(CLanguageModel::Context context, std::string TheText) const {
-  std::vector < symbol > Symbols;
-  m_pAlphabet->GetSymbols(Symbols, TheText);
-  for(unsigned int i = 0; i < Symbols.size(); i++)
-    m_pLanguageModel->EnterSymbol(context, Symbols[i]); // FIXME - conversion to symbol alphabet
-}
-
 void 
 CNodeCreationManager::ImportTrainingText(const std::string &strPath) {
-  CTrainer *pTrainer = NULL;
-
-  if(m_pAlphabetManagerFactory)
-    pTrainer = m_pAlphabetManagerFactory->GetTrainer();
-
-  if(m_pAlphabet && pTrainer)
-	pTrainer->LoadFile(strPath);
-
-  delete pTrainer;
+	m_pTrainer->LoadFile(strPath);
 }

@@ -39,8 +39,8 @@
 
 using namespace Dasher;
 
-CConversionHelper::CConversionHelper(CNodeCreationManager *pNCManager, CAlphabet *pAlphabet) :
-  CConversionManager(pNCManager, pAlphabet), m_pLanguageModel(pNCManager->GetLanguageModel()) {
+CConversionHelper::CConversionHelper(CNodeCreationManager *pNCManager, CAlphabet *pAlphabet, CLanguageModel *pLanguageModel) :
+  CConversionManager(pNCManager, pAlphabet), m_pLanguageModel(pLanguageModel) {
 	  colourStore[0][0]=66;//light blue
 	  colourStore[0][1]=64;//very light green
 	  colourStore[0][2]=62;//light yellow

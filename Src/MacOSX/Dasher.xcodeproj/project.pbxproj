@@ -36,8 +36,6 @@
 		1948BEA60C226CFD001DFA32 /* GroupInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE000C226CFC001DFA32 /* GroupInfo.h */; };
 		1948BEA80C226CFD001DFA32 /* AlphabetManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE020C226CFC001DFA32 /* AlphabetManager.cpp */; };
 		1948BEA90C226CFD001DFA32 /* AlphabetManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE030C226CFC001DFA32 /* AlphabetManager.h */; };
-		1948BEAA0C226CFD001DFA32 /* AlphabetManagerFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE040C226CFC001DFA32 /* AlphabetManagerFactory.cpp */; };
-		1948BEAB0C226CFD001DFA32 /* AlphabetManagerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE050C226CFC001DFA32 /* AlphabetManagerFactory.h */; };
 		1948BEAC0C226CFD001DFA32 /* AutoSpeedControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE060C226CFC001DFA32 /* AutoSpeedControl.cpp */; };
 		1948BEAD0C226CFD001DFA32 /* AutoSpeedControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE070C226CFC001DFA32 /* AutoSpeedControl.h */; };
 		1948BEAE0C226CFD001DFA32 /* BasicLog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE080C226CFC001DFA32 /* BasicLog.cpp */; };
@@ -54,8 +52,6 @@
 		1948BEBC0C226CFD001DFA32 /* ConversionHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE160C226CFC001DFA32 /* ConversionHelper.h */; };
 		1948BEBD0C226CFD001DFA32 /* ConversionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE170C226CFC001DFA32 /* ConversionManager.cpp */; };
 		1948BEBE0C226CFD001DFA32 /* ConversionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE180C226CFC001DFA32 /* ConversionManager.h */; };
-		1948BEBF0C226CFD001DFA32 /* ConversionManagerFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE190C226CFC001DFA32 /* ConversionManagerFactory.cpp */; };
-		1948BEC00C226CFD001DFA32 /* ConversionManagerFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE1A0C226CFC001DFA32 /* ConversionManagerFactory.h */; };
 		1948BEC10C226CFD001DFA32 /* CustomColours.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE1B0C226CFC001DFA32 /* CustomColours.cpp */; };
 		1948BEC20C226CFD001DFA32 /* CustomColours.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE1C0C226CFC001DFA32 /* CustomColours.h */; };
 		1948BEC30C226CFD001DFA32 /* DasherButtons.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE1D0C226CFC001DFA32 /* DasherButtons.cpp */; };
@@ -439,8 +435,6 @@
 		1948BE000C226CFC001DFA32 /* GroupInfo.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GroupInfo.h; sourceTree = "<group>"; };
 		1948BE020C226CFC001DFA32 /* AlphabetManager.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AlphabetManager.cpp; sourceTree = "<group>"; };
 		1948BE030C226CFC001DFA32 /* AlphabetManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AlphabetManager.h; sourceTree = "<group>"; };
-		1948BE040C226CFC001DFA32 /* AlphabetManagerFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AlphabetManagerFactory.cpp; sourceTree = "<group>"; };
-		1948BE050C226CFC001DFA32 /* AlphabetManagerFactory.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AlphabetManagerFactory.h; sourceTree = "<group>"; };
 		1948BE060C226CFC001DFA32 /* AutoSpeedControl.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AutoSpeedControl.cpp; sourceTree = "<group>"; };
 		1948BE070C226CFC001DFA32 /* AutoSpeedControl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AutoSpeedControl.h; sourceTree = "<group>"; };
 		1948BE080C226CFC001DFA32 /* BasicLog.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = BasicLog.cpp; sourceTree = "<group>"; };
@@ -458,8 +452,6 @@
 		1948BE160C226CFC001DFA32 /* ConversionHelper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ConversionHelper.h; sourceTree = "<group>"; };
 		1948BE170C226CFC001DFA32 /* ConversionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ConversionManager.cpp; sourceTree = "<group>"; };
 		1948BE180C226CFC001DFA32 /* ConversionManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ConversionManager.h; sourceTree = "<group>"; };
-		1948BE190C226CFC001DFA32 /* ConversionManagerFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ConversionManagerFactory.cpp; sourceTree = "<group>"; };
-		1948BE1A0C226CFC001DFA32 /* ConversionManagerFactory.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ConversionManagerFactory.h; sourceTree = "<group>"; };
 		1948BE1B0C226CFC001DFA32 /* CustomColours.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CustomColours.cpp; sourceTree = "<group>"; };
 		1948BE1C0C226CFC001DFA32 /* CustomColours.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CustomColours.h; sourceTree = "<group>"; };
 		1948BE1D0C226CFC001DFA32 /* DasherButtons.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DasherButtons.cpp; sourceTree = "<group>"; };
@@ -951,8 +943,6 @@
 				1948BDF80C226CFC001DFA32 /* Alphabet */,
 				1948BE020C226CFC001DFA32 /* AlphabetManager.cpp */,
 				1948BE030C226CFC001DFA32 /* AlphabetManager.h */,
-				1948BE040C226CFC001DFA32 /* AlphabetManagerFactory.cpp */,
-				1948BE050C226CFC001DFA32 /* AlphabetManagerFactory.h */,
 				1948BE060C226CFC001DFA32 /* AutoSpeedControl.cpp */,
 				1948BE070C226CFC001DFA32 /* AutoSpeedControl.h */,
 				1948BE080C226CFC001DFA32 /* BasicLog.cpp */,
@@ -973,8 +963,6 @@
 				1948BE160C226CFC001DFA32 /* ConversionHelper.h */,
 				1948BE170C226CFC001DFA32 /* ConversionManager.cpp */,
 				1948BE180C226CFC001DFA32 /* ConversionManager.h */,
-				1948BE190C226CFC001DFA32 /* ConversionManagerFactory.cpp */,
-				1948BE1A0C226CFC001DFA32 /* ConversionManagerFactory.h */,
 				1948BE1B0C226CFC001DFA32 /* CustomColours.cpp */,
 				1948BE1C0C226CFC001DFA32 /* CustomColours.h */,
 				1948BE1D0C226CFC001DFA32 /* DasherButtons.cpp */,
@@ -1443,7 +1431,6 @@
 				1948BEA50C226CFD001DFA32 /* AlphIO.h in Headers */,
 				1948BEA60C226CFD001DFA32 /* GroupInfo.h in Headers */,
 				1948BEA90C226CFD001DFA32 /* AlphabetManager.h in Headers */,
-				1948BEAB0C226CFD001DFA32 /* AlphabetManagerFactory.h in Headers */,
 				1948BEAD0C226CFD001DFA32 /* AutoSpeedControl.h in Headers */,
 				1948BEAF0C226CFD001DFA32 /* BasicLog.h in Headers */,
 				1948BEB10C226CFD001DFA32 /* CannaConversionHelper.h in Headers */,
@@ -1453,7 +1440,6 @@
 				1948BEB90C226CFD001DFA32 /* ControlManager.h in Headers */,
 				1948BEBC0C226CFD001DFA32 /* ConversionHelper.h in Headers */,
 				1948BEBE0C226CFD001DFA32 /* ConversionManager.h in Headers */,
-				1948BEC00C226CFD001DFA32 /* ConversionManagerFactory.h in Headers */,
 				1948BEC20C226CFD001DFA32 /* CustomColours.h in Headers */,
 				1948BEC40C226CFD001DFA32 /* DasherButtons.h in Headers */,
 				1948BEC60C226CFD001DFA32 /* DasherComponent.h in Headers */,
@@ -1810,7 +1796,6 @@
 				1948BEA20C226CFD001DFA32 /* AlphabetMap.cpp in Sources */,
 				1948BEA40C226CFD001DFA32 /* AlphIO.cpp in Sources */,
 				1948BEA80C226CFD001DFA32 /* AlphabetManager.cpp in Sources */,
-				1948BEAA0C226CFD001DFA32 /* AlphabetManagerFactory.cpp in Sources */,
 				1948BEAC0C226CFD001DFA32 /* AutoSpeedControl.cpp in Sources */,
 				1948BEAE0C226CFD001DFA32 /* BasicLog.cpp in Sources */,
 				1948BEB20C226CFD001DFA32 /* CircleStartHandler.cpp in Sources */,
@@ -1818,7 +1803,6 @@
 				1948BEB60C226CFD001DFA32 /* ColourIO.cpp in Sources */,
 				1948BEB80C226CFD001DFA32 /* ControlManager.cpp in Sources */,
 				1948BEBD0C226CFD001DFA32 /* ConversionManager.cpp in Sources */,
-				1948BEBF0C226CFD001DFA32 /* ConversionManagerFactory.cpp in Sources */,
 				1948BEC10C226CFD001DFA32 /* CustomColours.cpp in Sources */,
 				1948BEC30C226CFD001DFA32 /* DasherButtons.cpp in Sources */,
 				1948BEC50C226CFD001DFA32 /* DasherComponent.cpp in Sources */,

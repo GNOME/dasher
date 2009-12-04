@@ -16,11 +16,10 @@
 
 using namespace Dasher;
 
-CPinYinConversionHelper::CPinYinConversionHelper(CNodeCreationManager *pNCManager, Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, Dasher::CAlphIO *pCAlphIO, const std::string strCHAlphabetPath, CAlphabet * pAlphabet)
-: CConversionHelper(pNCManager,pAlphabet) {
+CPinYinConversionHelper::CPinYinConversionHelper(CNodeCreationManager *pNCManager, Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, Dasher::CAlphIO *pCAlphIO, const std::string strCHAlphabetPath, CAlphabet * pAlphabet, CPPMPYLanguageModel *pLanguageModel)
+: CConversionHelper(pNCManager,pAlphabet,pLanguageModel) {
 
   m_pPYAlphabet = pAlphabet;
-  m_pLanguageModel = static_cast<CPPMPYLanguageModel *>(pNCManager->GetLanguageModel());
   // This section cleans initialises the Chinese character alphabet 
 
   const std::string CHAlphabet = "Chinese / 简体中文 (simplified chinese, in pin yin groups)";
@@ -81,7 +80,7 @@ unsigned int CPinYinConversionHelper::GetSumPYProbs(Dasher::CLanguageModel::Cont
   std::vector <unsigned int> Probs;
   unsigned int sumProb=0;
   
-  m_pLanguageModel->GetProbs(context, Probs, norm, 0);
+  GetLanguageModel()->GetProbs(context, Probs, norm, 0);
 
   SCENode * pCurrentNode = pPYCandStart;
 
@@ -159,7 +158,7 @@ void CPinYinConversionHelper::AssignSizes(SCENode **pStart, Dasher::CLanguageMod
  
   //  std::cout<<"norm input: "<<nonuniform_norm/(iSymbols/iNChildren/100)<<std::endl;
 
-  m_pLanguageModel->GetPartProbs(context, pStart, iNChildren, nonuniform_norm, 0);
+  GetLanguageModel()->GetPartProbs(context, pStart, iNChildren, nonuniform_norm, 0);
 
   //std::cout<<"after get probs "<<std::endl;
 

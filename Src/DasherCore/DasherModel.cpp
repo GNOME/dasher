@@ -29,10 +29,6 @@
 
 #include "Event.h"
 #include "DasherInterfaceBase.h"
-#include "LanguageModelling/PPMLanguageModel.h"
-#include "LanguageModelling/WordLanguageModel.h"
-#include "LanguageModelling/DictLanguageModel.h"
-#include "LanguageModelling/MixtureLanguageModel.h"
 #include "NodeCreationManager.h"
 #include "DasherGameMode.h"
 #include "AlphabetManager.h"
