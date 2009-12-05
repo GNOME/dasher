@@ -6,11 +6,11 @@
 #include <string>
 #include <sstream>
 
-// TODO: Make this a notify?
+// TODO: Make this a notify
 //using namespace Dasher::GameMode;
 
 
-CGameGroup::CGameGroup(CDasherInterfaceBase *pDasherInterface, CEdit* pEdit) {
+CGameGroup::CGameGroup(Dasher::CDasherInterfaceBase *pDasherInterface, CEdit* pEdit) {
   m_pDasherInterface = pDasherInterface;
   m_pEdit = pEdit;
   m_pDemoButton=NULL;
@@ -215,14 +215,14 @@ LRESULT CGameGroup::OnShow(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHa
 LRESULT CGameGroup::OnDemoClick(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
 {  
   int message = (m_pDemoButton->SendMessage(BM_GETCHECK)==BST_CHECKED)?
-    (GameMode::GAME_MESSAGE_DEMO_ON):(GameMode::GAME_MESSAGE_DEMO_OFF);
+	  (Dasher::GameMode::GAME_MESSAGE_DEMO_ON):(Dasher::GameMode::GAME_MESSAGE_DEMO_OFF);
   m_pDasherInterface->GameMessageIn(message, NULL);
   return 0;
 }
 
 LRESULT CGameGroup::OnNextClick(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
 {  
-  m_pDasherInterface->GameMessageIn(GameMode::GAME_MESSAGE_NEXT, NULL);
+	m_pDasherInterface->GameMessageIn(Dasher::GameMode::GAME_MESSAGE_NEXT, NULL);
   return 0;
 }
 

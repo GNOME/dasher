@@ -19,13 +19,16 @@
 using Dasher::GameMode::CDasherGameMode;
 using Dasher::GameMode::UTF8Char;
 
+class Dasher::CEventHandler;
+class CSettingsStore;
+
 std::pair<double,double> GaussianRand();
 
 CDasherGameMode* CDasherGameMode::pTeacher = NULL;
 
-CDasherGameMode* CDasherGameMode::CreateTeacher(CEventHandler *pEventHandler,
+CDasherGameMode* CDasherGameMode::CreateTeacher(Dasher::CEventHandler *pEventHandler,
 						CSettingsStore *pSettingsStore,
-						CDasherInterfaceBase *pDashIface)
+						Dasher::CDasherInterfaceBase *pDashIface)
 {
   delete pTeacher; //Initialised to NULL, so this line is safe.
   pTeacher = new CDasherGameMode(pEventHandler, pSettingsStore, pDashIface);
@@ -38,9 +41,9 @@ void CDasherGameMode::DestroyTeacher()
   pTeacher = NULL;
 }
 
-CDasherGameMode::CDasherGameMode(CEventHandler *pEventHandler,
+CDasherGameMode::CDasherGameMode(Dasher::CEventHandler *pEventHandler,
 				 CSettingsStore *pSettingsStore,
-				 CDasherInterfaceBase *pDashIface)
+				 Dasher::CDasherInterfaceBase *pDashIface)
   :CDasherComponent(pEventHandler, pSettingsStore),
    m_pDasherInterface(pDashIface),
    m_pView(NULL), m_pModel(NULL),
@@ -408,7 +411,7 @@ void CDasherGameMode::NewFrame(unsigned long Time)
 }
 
 
-void CDasherGameMode::SetTargetY(const std::vector<std::pair<myint,bool> >& vTargetY)
+void CDasherGameMode::SetTargetY(const std::vector<std::pair<Dasher::myint,bool> >& vTargetY)
 {
   // Called by the Node Rendering Routine to let us know where the target sentence is
   // vTargetY is a vector of the centerpoints of all drawn targets.
@@ -529,7 +532,7 @@ int CDasherGameMode::LoadTargetStrings(istream& in)
 // In Demo mode, DasherView will use this function to serve up coordinates to the input filter.
 // Make demo mode like as an input device?
 
-void CDasherGameMode::DemoModeGetCoordinates(myint& iDasherX, myint& iDasherY)
+void CDasherGameMode::DemoModeGetCoordinates(Dasher::myint& iDasherX, Dasher::myint& iDasherY)
 {
   static bool bNavError, bFixingNavError=false;
   // First choose an appropriate target...
@@ -595,7 +598,7 @@ void CDasherGameMode::DemoModeGetCoordinates(myint& iDasherX, myint& iDasherY)
 // coordinates to the inputfilters - ie, we can track the mouse from this
 // Mouse coordinates are passed onto the scorer every NewFrame, in case it wants to reward steady
 // hand position, or something similar.
-void CDasherGameMode::SetUserMouseCoordinates(myint iDasherX, myint iDasherY)
+void CDasherGameMode::SetUserMouseCoordinates(Dasher::myint iDasherX, Dasher::myint iDasherY)
 {
   m_iUserX = iDasherX;
   m_iUserY = iDasherY;
@@ -728,7 +731,7 @@ void CDasherGameMode::Oscillator()
 // Drawing Methods for Game/Teacher Mode
 
 // Public function, called by DasherInterfaceBase::Redraw()
-void CDasherGameMode::DrawGameDecorations(CDasherView* pView)
+void CDasherGameMode::DrawGameDecorations(Dasher::CDasherView* pView)
 {
   if(!m_bGameModeOn) return;
 
@@ -748,7 +751,7 @@ void CDasherGameMode::DrawPoints(CDasherView* pView)
 }
 */
 
-void CDasherGameMode::DrawHelperArrow(CDasherView* pView)
+void CDasherGameMode::DrawHelperArrow(Dasher::CDasherView* pView)
 {
  // This plots a helpful pointer to the best direction to take to get to the target.
   // Probably too much floating point maths here, sort later.
@@ -797,7 +800,7 @@ void CDasherGameMode::DrawHelperArrow(CDasherView* pView)
 }
 
 
-void CDasherGameMode::DrawTargetArrow(CDasherView* pView) {
+void CDasherGameMode::DrawTargetArrow(Dasher::CDasherView* pView) {
  // This plots an arrow to show where the target is.
   // Probably too much floating point maths here, sort later.
 

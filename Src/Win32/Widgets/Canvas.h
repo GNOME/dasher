@@ -21,7 +21,7 @@
 #ifndef __Canvas_h__
 #define __Canvas_h__
 
-#define _WIN32_WINNT 0x0501
+// XXX why lie? #define _WIN32_WINNT 0x0501
 
 
 #include <windows.h>

@@ -15,11 +15,11 @@
 
 class CAlphabetBox : public CPrefsPageBase {
 public:
-  CAlphabetBox(HWND Parent, CDasherInterfaceBase *DI, CAppSettings *pAppSettings);
+	CAlphabetBox(HWND Parent, Dasher::CDasherInterfaceBase *DI, CAppSettings *pAppSettings);
 protected:
-  LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
+	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
-  CDasherInterfaceBase * m_pDasherInterface;
+  Dasher::CDasherInterfaceBase * m_pDasherInterface;
   HWND m_hPropertySheet;
 
   HWND CustomBox;

@@ -21,7 +21,7 @@
 
 class CSlidebar {
 public:
-  CSlidebar(HWND ParentWindow, CDasherInterfaceBase * DasherInterface);
+	CSlidebar(HWND ParentWindow, Dasher::CDasherInterfaceBase * DasherInterface);
 
   // Called when the parent window gets resized, makes the rebar position itself correctly
   void Resize();

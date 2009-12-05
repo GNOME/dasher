@@ -21,7 +21,7 @@ class CAppSettings;
 
 class CControlPage:public CPrefsPageBase {
 public:
-  CControlPage(HWND Parent, CDasherInterfaceBase * DI, CAppSettings *pAppSettings);
+  CControlPage(HWND Parent, Dasher::CDasherInterfaceBase * DI, CAppSettings *pAppSettings);
 protected:
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:

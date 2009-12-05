@@ -176,7 +176,7 @@ Global
 		{752501D3-5B04-4F3C-A141-DE426E354D23}.Release (W2K)|Mixed Platforms.Build.0 = Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)
 		{752501D3-5B04-4F3C-A141-DE426E354D23}.Release (W2K)|Mixed Platforms.Deploy.0 = Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)
 		{752501D3-5B04-4F3C-A141-DE426E354D23}.Release (W2K)|Pocket PC 2003 (ARMV4).ActiveCfg = Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)
-		{752501D3-5B04-4F3C-A141-DE426E354D23}.Release (W2K)|Win32.ActiveCfg = Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)
+		{752501D3-5B04-4F3C-A141-DE426E354D23}.Release (W2K)|Win32.ActiveCfg = Release|Win32
 		{752501D3-5B04-4F3C-A141-DE426E354D23}.Release (W2K)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I).ActiveCfg = Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)
 		{752501D3-5B04-4F3C-A141-DE426E354D23}.Release (W2K)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I).Build.0 = Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)
 		{752501D3-5B04-4F3C-A141-DE426E354D23}.Release (W2K)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I).Deploy.0 = Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)

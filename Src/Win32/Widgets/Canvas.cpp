@@ -19,7 +19,7 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 // 1 needed for WM_THEMECHANGED
-#define _WIN32_WINNT 0x0501
+// XXX Why lie? #define _WIN32_WINNT 0x0501
 
 
 #include "..\Common\WinCommon.h"

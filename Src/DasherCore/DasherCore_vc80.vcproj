@@ -1246,6 +1246,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\LanguageModelling\PPMPYLanguageModel.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\LanguageModelling\PPMPYLanguageModel.h"
+				>
+			</File>
+			<File
 				RelativePath="LanguageModelling\WordLanguageModel.cpp"
 				>
 			</File>
@@ -1767,14 +1775,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\AlphabetManagerFactory.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\AlphabetManagerFactory.h"
-			>
-		</File>
-		<File
 			RelativePath="Alphabet\AlphabetMap.cpp"
 			>
 		</File>
@@ -1791,11 +1791,35 @@
 			>
 		</File>
 		<File
+			RelativePath=".\AlternatingDirectMode.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\AlternatingDirectMode.h"
+			>
+		</File>
+		<File
 			RelativePath=".\AutoSpeedControl.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\AutoSpeedControl.h"
+			>
+		</File>
+		<File
+			RelativePath=".\ButtonMode.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\ButtonMode.h"
+			>
+		</File>
+		<File
+			RelativePath=".\ButtonMultiPress.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\ButtonMultiPress.h"
 			>
 		</File>
 		<File
@@ -1815,6 +1839,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CompassMode.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\CompassMode.h"
+			>
+		</File>
+		<File
 			RelativePath=".\ControlManager.cpp"
 			>
 		</File>
@@ -1823,11 +1855,7 @@
 			>
 		</File>
 		<File
-			RelativePath=".\ControlManagerFactory.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ControlManagerFactory.h"
+			RelativePath=".\ConversionHelper.cpp"
 			>
 		</File>
 		<File
@@ -1840,14 +1868,6 @@
 		</File>
 		<File
 			RelativePath=".\ConversionManager.h"
-			>
-		</File>
-		<File
-			RelativePath=".\ConversionManagerFactory.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ConversionManagerFactory.h"
 			>
 		</File>
 		<File
@@ -1935,10 +1955,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\DasherView.inl"
-			>
-		</File>
-		<File
 			RelativePath=".\DasherViewSquare.cpp"
 			>
 		</File>
@@ -1992,6 +2008,10 @@
 		</File>
 		<File
 			RelativePath=".\EyetrackerFilter.h"
+			>
+		</File>
+		<File
+			RelativePath=".\FrameRate.cpp"
 			>
 		</File>
 		<File
@@ -2082,6 +2102,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\MandarinAlphMgr.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\MandarinAlphMgr.h"
+			>
+		</File>
+		<File
 			RelativePath=".\ModuleManager.cpp"
 			>
 		</File>
@@ -2098,11 +2126,23 @@
 			>
 		</File>
 		<File
+			RelativePath=".\NodeQueue.h"
+			>
+		</File>
+		<File
 			RelativePath=".\OneButtonDynamicFilter.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\OneButtonDynamicFilter.h"
+			>
+		</File>
+		<File
+			RelativePath=".\OneButtonFilter.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\OneButtonFilter.h"
 			>
 		</File>
 		<File
@@ -2182,6 +2222,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\Trainer.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\Trainer.h"
+			>
+		</File>
+		<File
 			RelativePath=".\TrainingHelper.cpp"
 			>
 		</File>
@@ -2195,6 +2243,14 @@
 		</File>
 		<File
 			RelativePath=".\TwoButtonDynamicFilter.h"
+			>
+		</File>
+		<File
+			RelativePath=".\TwoPushDynamicFilter.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\TwoPushDynamicFilter.h"
 			>
 		</File>
 		<File

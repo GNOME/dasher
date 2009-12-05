@@ -1,3 +1,7 @@
+2009-12-05  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Fix Visual Studio 2005 build
+
 2009-12-04  Patrick Welche <prlw1@cam.ac.uk>
 
 	* da.po: Work around old gettext bug

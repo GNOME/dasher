@@ -19,7 +19,7 @@
 
 class CLMPage:public CPrefsPageBase {
 public:
-  CLMPage(HWND Parent, CDasherInterfaceBase * DI, CAppSettings *pAppSettings);
+  CLMPage(HWND Parent, Dasher::CDasherInterfaceBase * DI, CAppSettings *pAppSettings);
 protected:
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:

@@ -10,7 +10,7 @@
 #define __TabletPC_InkCollectorEvents_h__
 
 #include <cassert>
-#define interface struct
+// XXX what is this for? #define interface struct
 #include <msinkaut.h>
 
 /////////////////////////////////////////////////////////

@@ -19,7 +19,7 @@
 
 class CViewPage:public CPrefsPageBase {
 public:
-  CViewPage(HWND Parent, CDasherInterfaceBase *DI, CAppSettings *pAppSettings);
+	CViewPage(HWND Parent, Dasher::CDasherInterfaceBase *DI, CAppSettings *pAppSettings);
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
@@ -33,7 +33,7 @@ private:
   void PopulateList();
   void InitCustomBox();
   bool UpdateInfo();
- bool Apply();
+  bool Apply();
 
 };
 

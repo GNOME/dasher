@@ -1035,6 +1035,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\SBTree.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\SBTree.h"
+			>
+		</File>
+		<File
 			RelativePath="Trace.cpp"
 			>
 		</File>

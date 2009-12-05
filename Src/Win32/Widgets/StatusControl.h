@@ -12,7 +12,7 @@ extern CONST UINT DASHER_SHOW_PREFS;
 
 class CStatusControl : public ATL::CWindowImpl<CStatusControl> {
 public:
-  CStatusControl(CDasherInterfaceBase *pDasherInterface);
+	CStatusControl(Dasher::CDasherInterfaceBase *pDasherInterface);
 
   // ATL boilerplate code
   DECLARE_WND_SUPERCLASS(L"STATUSCONTROL", L"STATIC");
@@ -58,7 +58,7 @@ private:
   void UpdateSpeed(int iPos, int iDelta);
 
   // The Dasher interface with which this control communicates
-  CDasherInterfaceBase *m_pDasherInterface;
+  Dasher::CDasherInterfaceBase *m_pDasherInterface;
 
   // Handles to child windows
   HWND m_hEdit;

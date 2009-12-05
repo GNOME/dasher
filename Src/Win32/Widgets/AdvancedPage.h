@@ -19,7 +19,7 @@
 
 class CAdvancedPage:public CPrefsPageBase {
 public:
-  CAdvancedPage(HWND Parent, CDasherInterfaceBase * DI, CAppSettings *pAppSettings);
+  CAdvancedPage(HWND Parent, Dasher::CDasherInterfaceBase * DI, CAppSettings *pAppSettings);
   
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 

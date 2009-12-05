@@ -33,7 +33,7 @@ private:
   // Destroy the toolbar window (used when it's not visible - shouldn't we just hide it?)
   void DestroyToolbar();
 
-  CDasherInterfaceBase *m_pDasher;
+  Dasher::CDasherInterfaceBase *m_pDasher;
   HWND m_hwnd;
   HWND m_hParent;
   HWND m_hRebar;

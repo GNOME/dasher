@@ -4,14 +4,14 @@ int CModuleControlBool::GetHeightRequest() {
   return 10;
 }
 
-void CModuleControlBool::Initialise(CDasherInterfaceBase *pInterface) {
+void CModuleControlBool::Initialise(Dasher::CDasherInterfaceBase *pInterface) {
   if(pInterface->GetBoolParameter(m_iId))
     SendMessage(m_hCheckbox, BM_SETCHECK, BST_CHECKED, 0);
   else
     SendMessage(m_hCheckbox, BM_SETCHECK, BST_UNCHECKED, 0);
 }
 
-void CModuleControlBool::Apply(CDasherInterfaceBase *pInterface) {
+void CModuleControlBool::Apply(Dasher::CDasherInterfaceBase *pInterface) {
   pInterface->SetBoolParameter(m_iId, SendMessage(m_hCheckbox, BM_GETCHECK, 0, 0) == BST_CHECKED);
 }
 

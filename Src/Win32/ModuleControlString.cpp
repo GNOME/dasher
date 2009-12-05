@@ -4,13 +4,13 @@ int CModuleControlString::GetHeightRequest() {
   return 14;
 }
 
-void CModuleControlString::Initialise(CDasherInterfaceBase *pInterface) {
+void CModuleControlString::Initialise(Dasher::CDasherInterfaceBase *pInterface) {
   std::wstring strText;
   WinUTF8::UTF8string_to_wstring(pInterface->GetStringParameter(m_iId), strText);
   SendMessage(m_hEntry, WM_SETTEXT, 0, (LPARAM)strText.c_str());
 }
 
-void CModuleControlString::Apply(CDasherInterfaceBase *pInterface) {
+void CModuleControlString::Apply(Dasher::CDasherInterfaceBase *pInterface) {
   TCHAR tcBuffer[256];
   SendMessage(m_hEntry, WM_GETTEXT, 100, (LPARAM)tcBuffer);
   

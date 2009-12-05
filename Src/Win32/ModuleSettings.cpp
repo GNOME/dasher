@@ -6,7 +6,7 @@
 
 CONST UINT WM_MS_CLOSE = RegisterWindowMessage(_WM_MS_CLOSE);
 
-CModuleSettings::CModuleSettings(const std::string &strModuleName, SModuleSettings *pSettings, int iCount, CDasherInterfaceBase *pInterface) {
+CModuleSettings::CModuleSettings(const std::string &strModuleName, SModuleSettings *pSettings, int iCount, Dasher::CDasherInterfaceBase *pInterface) {
   m_iCount = iCount;
   m_pControls = new CModuleControl*[m_iCount];
   m_pInterface = pInterface;

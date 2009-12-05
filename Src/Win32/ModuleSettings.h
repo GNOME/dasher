@@ -13,7 +13,7 @@ extern CONST UINT WM_MS_CLOSE;
 
 class CModuleSettings : public CWindowImpl<CModuleSettings> {
 public:
-  CModuleSettings(const std::string &strModuleName, SModuleSettings *pSettings, int iCount, CDasherInterfaceBase *pInterface);
+  CModuleSettings(const std::string &strModuleName, SModuleSettings *pSettings, int iCount, Dasher::CDasherInterfaceBase *pInterface);
   ~CModuleSettings();
 
   void Create(HWND hWndParent, ATL::_U_RECT rect);
@@ -44,7 +44,7 @@ private:
   HWND m_hOk;
   HWND m_hCancel;
 
-  CDasherInterfaceBase *m_pInterface;
+  Dasher::CDasherInterfaceBase *m_pInterface;
 };
 
 //#endif

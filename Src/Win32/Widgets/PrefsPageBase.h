@@ -20,7 +20,7 @@
 
 class CPrefsPageBase:public CWinWrap {
 public:
-  CPrefsPageBase(HWND Parent, CDasherInterfaceBase * DI, CAppSettings *pAppSettings);
+	CPrefsPageBase(HWND Parent, Dasher::CDasherInterfaceBase * DI, CAppSettings *pAppSettings);
 
 protected:
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
@@ -33,7 +33,7 @@ protected:
   // what's up in order to prevent page turning.
   virtual bool Validate();
   
-  CDasherInterfaceBase * m_pDasherInterface;
+  Dasher::CDasherInterfaceBase * m_pDasherInterface;
   CAppSettings *m_pAppSettings;
   HWND m_hPropertySheet; // the property sheet of which we are one page
 };
