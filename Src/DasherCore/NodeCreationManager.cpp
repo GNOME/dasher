@@ -91,17 +91,23 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
   else
     m_pAlphabetManager = new CAlphabetManager(pInterface, this, m_pLanguageModel);
 
-  //1. Look for system training text...
-  CLockEvent oEvent("Training on System Text", true, 0);
-  pEventHandler->InsertEvent(&oEvent);
-  m_pTrainer->LoadFile(GetStringParameter(SP_SYSTEM_LOC) + m_pAlphabet->GetTrainingFile());
-  //Now add in any user-provided individual training text...
-  oEvent.m_strMessage = "Training on User Text"; oEvent.m_bLock=true; oEvent.m_iPercent = 0;
-  pEventHandler->InsertEvent(&oEvent);
-  m_pTrainer->LoadFile(GetStringParameter(SP_USER_LOC) + m_pAlphabet->GetTrainingFile());
-  oEvent.m_bLock = false;
-  pEventHandler->InsertEvent(&oEvent);
-
+  if (!m_pAlphabet->GetTrainingFile().empty()) {
+    //1. Look for system training text...
+    CLockEvent oEvent("Training on System Text", true, 0);
+    pEventHandler->InsertEvent(&oEvent);
+    m_pTrainer->LoadFile(GetStringParameter(SP_SYSTEM_LOC) + m_pAlphabet->GetTrainingFile());
+    //Now add in any user-provided individual training text...
+    oEvent.m_strMessage = "Training on User Text"; oEvent.m_bLock=true; oEvent.m_iPercent = 0;
+    pEventHandler->InsertEvent(&oEvent);
+    m_pTrainer->LoadFile(GetStringParameter(SP_USER_LOC) + m_pAlphabet->GetTrainingFile());
+    oEvent.m_bLock = false;
+    pEventHandler->InsertEvent(&oEvent);
+  }
+#ifdef DEBUG
+  else {
+    std::cout << "Alphabet does not specify training file" << std::endl;
+  }
+#endif
 #ifdef DEBUG_LM_READWRITE
   {
     //test...

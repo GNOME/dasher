@@ -1,3 +1,7 @@
+2009-12-05  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Avoid loading nonexistent training text
+
 2009-12-05  Patrick Welche <prlw1@cam.ac.uk>
 
 	* Fix Visual Studio 2005 build
