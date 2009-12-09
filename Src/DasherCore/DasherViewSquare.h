@@ -98,13 +98,6 @@ public:
   /// @}
 
 
-  /// @name High level drawing
-  /// Drawing more complex structures, generally implemented by derived class
-  /// @{
-
-  /// @}
-
-
 private:
   ///
   /// Draw text specified in Dasher co-ordinates
@@ -117,17 +110,17 @@ private:
   ///
   /// Render the current state of the model.
   ///
-  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, CExpansionPolicy &policy, std::vector<std::pair<myint,bool> > *pvGamePointer);
+  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, CExpansionPolicy &policy);
   
   ///
   /// Recursively render all nodes in a tree. Responsible for all the Render_node calls
   ///
 
-  void RecursiveRender(CDasherNode * Render, myint y1, myint y2, int mostleft, CExpansionPolicy &policy, double dMaxCost, std::vector<std::pair<myint,bool> > *pvGamePointer, myint parent_width,int parent_color, int iDepth);
+  void RecursiveRender(CDasherNode * Render, myint y1, myint y2, int mostleft, CExpansionPolicy &policy, double dMaxCost, myint parent_width,int parent_color, int iDepth);
 
   ///Check that a node is large enough, and onscreen, to render;
   ///calls RecursiveRender if so, or collapses the node immediately if not
-  bool CheckRender(CDasherNode * Render, myint y1, myint y2, int mostleft, CExpansionPolicy &policy, double dMaxCost, std::vector<std::pair<myint,bool> > *pvGamePointer, myint parent_width,int parent_color, int iDepth);
+  bool CheckRender(CDasherNode * Render, myint y1, myint y2, int mostleft, CExpansionPolicy &policy, double dMaxCost, myint parent_width,int parent_color, int iDepth);
 
   /// Render a single node
   /// \param Color The colour to draw it
@@ -159,21 +152,20 @@ private:
   };
 #endif
 
-  // Class definitions
-  ///Implements the non-linearity near the extremes of the Y axis
-  class Cymap {
-  public:
-    Cymap(myint iScale);
-    Cymap() {}
-    inline myint map(myint y) const;
-    myint unmap(myint y) const;
-  private:
-    myint m_Y1, m_Y2, m_Y3;
-  };
+  /// @name Nonlinearity
+  /// Implements the non-linear part of the coordinate space mapping
+  
+  /// Maps a dasher Y coordinate to the Y value in a linear version of Dasher space (i.e. still not screen pixels)
+  /// (i.e. screen coordinate = scale(ymap(dasher coord)))
+  inline myint ymap(myint iDasherY) const;
+  
+  /// Inverse of the previous - i.e. dasher coord = iymap(scale(screen coord))
+  myint iymap(myint y) const;
+  ///parameters used by previous
+  const myint m_Y1, m_Y2, m_Y3;
 
-  double xmap(double x) const;
-  double xmax(double x, double y) const;
-  double ixmap(double x) const;
+  myint xmap(myint x) const;
+  myint ixmap(myint x) const;
   inline void Crosshair(myint sx);
   
   inline myint CustomIDiv(myint iNumerator, myint iDenominator);
@@ -189,15 +181,9 @@ private:
 
 
   // Data
-
-  bool bInBox;                  // Whether we're in the mouseposstart box
-  int iBoxStart;                // Time that the current box was drawn
-  int iBoxEntered;              // Time when the user enttered the current box
  
-  double m_dXmpa, m_dXmpb, m_dXmpc, m_dXmpd;
-  screenint CanvasX, CanvasY, CanvasBorder;
+  double m_dXmpa, m_dXmpb, m_dXmpc;
   screenint iCenterX;
-  Cymap m_ymap;
 
   // Cached values for scaling
   myint iLRScaleFactorX;

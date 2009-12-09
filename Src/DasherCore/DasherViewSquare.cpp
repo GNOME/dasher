@@ -60,7 +60,7 @@ static char THIS_FILE[] = __FILE__;
 // FIXME - duplicated 'mode' code throught - needs to be fixed (actually, mode related stuff, Input2Dasher etc should probably be at least partially in some other class)
 
 CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen *DasherScreen)
- : CDasherView(pEventHandler, pSettingsStore, DasherScreen) {
+: CDasherView(pEventHandler, pSettingsStore, DasherScreen),   m_Y1(4), m_Y2(0.95 * GetLongParameter(LP_MAX_Y)), m_Y3(0.05 * GetLongParameter((LP_MAX_Y))) {
 
   // TODO - AutoOffset should be part of the eyetracker input filter
   // Make sure that the auto calibration is set to zero berfore we start
@@ -73,9 +73,6 @@ CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStor
   m_dXmpa = 0.2;                // these are for the x non-linearity
   m_dXmpb = 0.5;
   m_dXmpc = 0.9;
-  m_dXmpd = 0.5;                // slow X movement when accelerating Y
-
-  m_ymap = Cymap((myint)GetLongParameter(LP_MAX_Y));
 
   m_bVisibleRegionValid = false;
   
@@ -226,8 +223,7 @@ void CDasherViewSquare::DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint i
 }
 
 void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax,
-				    CExpansionPolicy &policy,
-				    std::vector<std::pair<myint,bool> > *pvGamePointer) {
+				    CExpansionPolicy &policy) {
   DASHER_ASSERT(pRoot != 0);
   myint iDasherMinX;
   myint iDasherMinY;
@@ -277,7 +273,7 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
   //		  0, -1, Nodes1, false, true, 1);
 
   // Render the root node (and children)
-  RecursiveRender(pRoot, iRootMin, iRootMax, iDasherMaxX, policy, std::numeric_limits<double>::infinity(), pvGamePointer,iDasherMaxX,0,0);
+  RecursiveRender(pRoot, iRootMin, iRootMax, iDasherMaxX, policy, std::numeric_limits<double>::infinity(), iDasherMaxX,0,0);
 
   // Labels are drawn in a second parse to get the overlapping right
   m_DelayDraw.Draw(Screen());
@@ -293,7 +289,6 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
 
 bool CDasherViewSquare::CheckRender(CDasherNode *pRender, myint y1, myint y2,
 									int mostleft, CExpansionPolicy &policy, double dMaxCost,
-									std::vector<std::pair<myint,bool> > *pvGamePointer,
 									myint parent_width, int parent_color, int iDepth)
 {
   if (y2-y1 >= QUICK_REJECT)
@@ -320,7 +315,7 @@ bool CDasherViewSquare::CheckRender(CDasherNode *pRender, myint y1, myint y2,
 	  {
 		  //node should be rendered!
 		  
-		  RecursiveRender(pRender, y1, y2, mostleft, policy, dMaxCost, pvGamePointer, parent_width, parent_color, iDepth);
+		  RecursiveRender(pRender, y1, y2, mostleft, policy, dMaxCost, parent_width, parent_color, iDepth);
 		  return true;
 	  }
 	}
@@ -340,7 +335,6 @@ bool CDasherViewSquare::CheckRender(CDasherNode *pRender, myint y1, myint y2,
 
 void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
 					int mostleft, CExpansionPolicy &policy, double dMaxCost,
-					std::vector<std::pair<myint,bool> > *pvGamePointer,
 					myint parent_width,int parent_color, int iDepth)
 {
   DASHER_ASSERT_VALIDPTR_RW(pRender);
@@ -376,10 +370,8 @@ void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
   myint iDasherMaxY;
   VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
 
-  if(GetLongParameter(LP_TRUNCATION) == 0) {        // Regular squares
-    DasherDrawRectangle(std::min(parent_width,iDasherMaxX), std::max(y1,iDasherMinY), std::min(y2-y1,iDasherMaxX), std::min(y2,iDasherMaxY), parent_color, -1, Nodes1, 0);
-  }
-	
+  DasherDrawRectangle(std::min(parent_width,iDasherMaxX), std::max(y1,iDasherMinY), std::min(y2-y1,iDasherMaxX), std::min(y2,iDasherMaxY), parent_color, -1, Nodes1, 0);
+  
   const std::string &sDisplayText(pRender->GetDisplayInfo()->strDisplayText);
   if( sDisplayText.size() > 0 )
   {  
@@ -391,12 +383,7 @@ void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
 
   // If there are no children then we still need to render the parent
   if(pRender->ChildCount() == 0) {
-	  int iTruncation(GetLongParameter(LP_TRUNCATION));     // Trucation farction times -x100;
-	  //  int iTruncationType(GetLongParameter(LP_TRUNCATIONTYPE));
-	  
-	  if(iTruncation == 0) {        // Regular squares
-      DasherDrawRectangle(std::min(y2-y1,iDasherMaxX), std::min(y2,iDasherMaxY),0, std::max(y1,iDasherMinY), pRender->GetDisplayInfo()->iColour, -1, Nodes1, 0);
-	  }
+    DasherDrawRectangle(std::min(y2-y1,iDasherMaxX), std::min(y2,iDasherMaxY),0, std::max(y1,iDasherMinY), pRender->GetDisplayInfo()->iColour, -1, Nodes1, 0);
 	  //also allow it to be expanded, it's big enough.
 	  policy.pushNode(pRender, y1, y2, true, dMaxCost);
 	  return;
@@ -433,7 +420,7 @@ void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
       
       //don't inc iDepth, meaningless when covers the screen
       RecursiveRender(pChild, newy1, newy2, mostleft, 
-						policy, dMaxCost, pvGamePointer, 
+						policy, dMaxCost,
 						temp_parentwidth, temp_parentcolor, iDepth);
       //leave pRender->onlyChildRendered set, so remaining children are skipped
     }
@@ -453,13 +440,13 @@ void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
     if (newy1 < iDasherMinY && newy2 > iDasherMaxY) {
       DASHER_ASSERT(dMaxCost == std::numeric_limits<double>::infinity());
       pRender->onlyChildRendered = pChild;
-      RecursiveRender(pChild, newy1, newy2, mostleft, policy, dMaxCost, pvGamePointer, temp_parentwidth, temp_parentcolor, iDepth);
+      RecursiveRender(pChild, newy1, newy2, mostleft, policy, dMaxCost, temp_parentwidth, temp_parentcolor, iDepth);
       //ensure we don't blank over this child in "finishing off" the parent (!)
       lasty=newy2;
       break; //no need to render any more children!
     }
 		if (CheckRender(pChild, newy1, newy2, mostleft, policy, dMaxCost,
-						pvGamePointer, temp_parentwidth, temp_parentcolor, iDepth+1))
+						temp_parentwidth, temp_parentcolor, iDepth+1))
 		{
 		
           if (lasty<newy1) {
@@ -497,20 +484,6 @@ void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
     }
     //  }
 }
-
-
-
-
-CDasherViewSquare::Cymap::Cymap(myint iScale) {
-  double dY1 = 0.25;            // Amount of acceleration
-  double dY2 = 0.95;            // Accelerate Y movement below this point
-  double dY3 = 0.05;            // Accelerate Y movement above this point
-
-  m_Y2 = myint(dY2 * iScale);
-  m_Y3 = myint(dY3 * iScale);
-  m_Y1 = myint(1.0 / dY1);
-}
-
 
 bool CDasherViewSquare::IsNodeVisible(myint y1, myint y2) {
   myint iDasherMinX;
@@ -571,7 +544,6 @@ int CDasherViewSquare::RenderNodeOutlineFast(const int Color, myint y1, myint y2
 //   // FIXME - get rid of pointless assignment below
 
 //   int iTruncation(GetLongParameter(LP_TRUNCATION));     // Trucation farction times 100;
-//   //  int iTruncationType(GetLongParameter(LP_TRUNCATIONTYPE));
 
 //   if(iTruncation == 0) {        // Regular squares
 
@@ -623,19 +595,8 @@ int CDasherViewSquare::RenderNodePartFast(const int Color, myint y1, myint y2, i
     return 0;                   // We're entirely off screen, so don't render.
   }
 
-  //  myint iDasherSize(y2 - y1);
-
-  // FIXME - get rid of pointless assignment below
-
-  int iTruncation(GetLongParameter(LP_TRUNCATION));     // Trucation farction times -x100;
-  //  int iTruncationType(GetLongParameter(LP_TRUNCATIONTYPE));
-
-  if(iTruncation == 0) {        // Regular squares
-    DasherDrawRectangle(std::min(iParentWidth,iDasherMaxX), std::min(y2,iDasherMaxY),0, std::max(y1,iDasherMinY), Color, -1, Nodes1, 0);
-  }
-  else {
-   
-  }
+  DasherDrawRectangle(std::min(iParentWidth,iDasherMaxX), std::min(y2,iDasherMaxY),0, std::max(y1,iDasherMinY), Color, -1, Nodes1, 0);
+  
   return 1;
 }
 
@@ -681,8 +642,8 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
   }
 
   if (GetBoolParameter(BP_NONLINEAR_Y)) {
-    iDasherX = myint(ixmap(iDasherX / static_cast < double >(GetLongParameter(LP_MAX_Y))) * (myint)GetLongParameter(LP_MAX_Y));
-    iDasherY = m_ymap.unmap(iDasherY);
+    iDasherX = ixmap(iDasherX);
+    iDasherY = iymap(iDasherY);
   }
   
 }
@@ -770,8 +731,8 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
   // Apply the nonlinearities
 
   if (GetBoolParameter(BP_NONLINEAR_Y)) {
-    iDasherX = myint(xmap(iDasherX / static_cast < double >(GetLongParameter(LP_MAX_Y))) * (myint)GetLongParameter(LP_MAX_Y));
-    iDasherY = m_ymap.map(iDasherY);
+    iDasherX = xmap(iDasherX);
+    iDasherY = ymap(iDasherY);
   }
 
   // Things we're likely to need:
@@ -823,11 +784,11 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
 }
 
 void CDasherViewSquare::Dasher2Polar(myint iDasherX, myint iDasherY, double &r, double &theta) {
-	iDasherX = myint(xmap(iDasherX / static_cast < double >(GetLongParameter(LP_MAX_Y))) * GetLongParameter(LP_MAX_Y));
-    iDasherY = myint(m_ymap.map(iDasherY));
+	iDasherX = xmap(iDasherX);
+    iDasherY = ymap(iDasherY);
 	
-    myint iDasherOX = myint(xmap(GetLongParameter(LP_OX) / static_cast < double >(GetLongParameter(LP_MAX_Y))) * GetLongParameter(LP_MAX_Y));
-    myint iDasherOY = myint(m_ymap.map(GetLongParameter(LP_OY)));
+  myint iDasherOX = xmap(GetLongParameter(LP_OX));
+    myint iDasherOY = ymap(GetLongParameter(LP_OY));
 	
     double x = -(iDasherX - iDasherOX) / double(iDasherOX); //Use normalised coords so min r works 
     double y = -(iDasherY - iDasherOY) / double(iDasherOY); 
@@ -900,11 +861,6 @@ void CDasherViewSquare::VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, m
 void CDasherViewSquare::ChangeScreen(CDasherScreen *NewScreen) {
   CDasherView::ChangeScreen(NewScreen);
   m_bVisibleRegionValid = false;
-  screenint Width = Screen()->GetWidth();
-  screenint Height = Screen()->GetHeight();
-  CanvasX = 9 * Width / 10;
-  CanvasBorder = Width - CanvasX;
-  CanvasY = Height;
   m_iScalingFactor = 100000000;
   SetScaleFactor();
 }

@@ -277,12 +277,6 @@ CDasherNode *CDasherModel::Get_node_under_crosshair() {
   return m_Root->Get_node_under(GetLongParameter(LP_NORMALIZATION), m_Rootmin + m_iDisplayOffset, m_Rootmax + m_iDisplayOffset, GetLongParameter(LP_OX), GetLongParameter(LP_OY));
 }
 
-CDasherNode *CDasherModel::Get_node_under_mouse(myint Mousex, myint Mousey) {
-  DASHER_ASSERT(m_Root != NULL);
-
-  return m_Root->Get_node_under(GetLongParameter(LP_NORMALIZATION), m_Rootmin + m_iDisplayOffset, m_Rootmax + m_iDisplayOffset, Mousex, Mousey);
-}
-
 void CDasherModel::DeleteTree() {
   ClearRootQueue();
   delete m_Root;
@@ -625,17 +619,22 @@ bool CDasherModel::RenderToView(CDasherView *pView, CExpansionPolicy &policy) {
   // DASHER_ASSERT(Get_node_under_crosshair() == m_pLastOutput);
 
   bool bReturnValue = false;
-  std::vector<std::pair<myint,bool> > vGameTargetY;
   
   // The Render routine will fill iGameTargetY with the Dasher Coordinate of the 
   // youngest node with NF_GAME set. The model is responsible for setting NF_GAME on
   // the appropriate Nodes.
-  pView->Render(m_Root, m_Rootmin + m_iDisplayOffset, m_Rootmax + m_iDisplayOffset, policy, true, &vGameTargetY);  
+  pView->Render(m_Root, m_Rootmin + m_iDisplayOffset, m_Rootmax + m_iDisplayOffset, policy, true);  
 
   /////////GAME MODE TEMP//////////////
   if(m_bGameMode)
-    if(GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher())
+    if(GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher()) {
+      //ACL 27/10/09 I note the following vector:
+      std::vector<std::pair<myint,bool> > vGameTargetY;
+      //was declared earlier and passed to pView->Render, above; but pView->Render
+      //would never do _anything_ to it. Hence the below seems a bit redundant too,
+      //but leaving around for now as a reminder that Game Mode generally is a TODO.
       pTeacher->SetTargetY(vGameTargetY);
+    }
   //////////////////////////////////////
 
   // TODO: Fix up stats

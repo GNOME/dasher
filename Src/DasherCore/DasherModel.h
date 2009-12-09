@@ -282,8 +282,6 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   double m_dTotalNats; 
 
 
-  CDasherNode *Get_node_under_mouse(myint smousex, myint smousey);
-
   ///
   /// Go directly to a given coordinate - check semantics
   ///

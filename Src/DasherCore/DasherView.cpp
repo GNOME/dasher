@@ -55,11 +55,11 @@ void CDasherView::ChangeScreen(CDasherScreen *NewScreen) {
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CDasherView::Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, CExpansionPolicy &policy, bool bRedrawDisplay, std::vector<std::pair<myint,bool> >* pvGameTargetY) {
+void CDasherView::Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, CExpansionPolicy &policy, bool bRedrawDisplay) {
 
   m_iRenderCount = 0;
   Screen()->SetLoadBackground(false);
-  RenderNodes(pRoot, iRootMin, iRootMax, policy, pvGameTargetY);
+  RenderNodes(pRoot, iRootMin, iRootMax, policy);
 }
 
 int CDasherView::GetCoordinateCount() {
