@@ -367,9 +367,7 @@
 		33ABFEC70FC379EA00EA2BA5 /* ButtonMultiPress.h in Headers */ = {isa = PBXBuildFile; fileRef = 33ABFEC50FC379EA00EA2BA5 /* ButtonMultiPress.h */; };
 		33E173C70F3E0B6400D19B38 /* Makefile.am in Resources */ = {isa = PBXBuildFile; fileRef = 33E173A70F3E0B6400D19B38 /* Makefile.am */; };
 		33E173C80F3E0B6400D19B38 /* training_albanian_SQ.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173A80F3E0B6400D19B38 /* training_albanian_SQ.txt */; };
-		33E173CA0F3E0B6400D19B38 /* training_basque_EU.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173AA0F3E0B6400D19B38 /* training_basque_EU.txt */; };
 		33E173CB0F3E0B6400D19B38 /* training_bengali_BD.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173AB0F3E0B6400D19B38 /* training_bengali_BD.txt */; };
-		33E173CC0F3E0B6400D19B38 /* training_bengali_bn.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173AC0F3E0B6400D19B38 /* training_bengali_bn.txt */; };
 		33E173CD0F3E0B6400D19B38 /* training_canna_JP.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173AD0F3E0B6400D19B38 /* training_canna_JP.txt */; };
 		33E173CE0F3E0B6400D19B38 /* training_czech_CS.COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 33E173AE0F3E0B6400D19B38 /* training_czech_CS.COPYING */; };
 		33E173CF0F3E0B6400D19B38 /* training_czech_CS.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173AF0F3E0B6400D19B38 /* training_czech_CS.txt */; };
@@ -786,9 +784,7 @@
 		33ABFEC50FC379EA00EA2BA5 /* ButtonMultiPress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonMultiPress.h; sourceTree = "<group>"; };
 		33E173A70F3E0B6400D19B38 /* Makefile.am */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
 		33E173A80F3E0B6400D19B38 /* training_albanian_SQ.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_albanian_SQ.txt; sourceTree = "<group>"; };
-		33E173AA0F3E0B6400D19B38 /* training_basque_EU.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_basque_EU.txt; sourceTree = "<group>"; };
 		33E173AB0F3E0B6400D19B38 /* training_bengali_BD.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_bengali_BD.txt; sourceTree = "<group>"; };
-		33E173AC0F3E0B6400D19B38 /* training_bengali_bn.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_bengali_bn.txt; sourceTree = "<group>"; };
 		33E173AD0F3E0B6400D19B38 /* training_canna_JP.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_canna_JP.txt; sourceTree = "<group>"; };
 		33E173AE0F3E0B6400D19B38 /* training_czech_CS.COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_czech_CS.COPYING; sourceTree = "<group>"; };
 		33E173AF0F3E0B6400D19B38 /* training_czech_CS.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_czech_CS.txt; sourceTree = "<group>"; };
@@ -1367,9 +1363,7 @@
 				335DB100100B3358006DB155 /* training_spyDict.txt */,
 				33E173A70F3E0B6400D19B38 /* Makefile.am */,
 				33E173A80F3E0B6400D19B38 /* training_albanian_SQ.txt */,
-				33E173AA0F3E0B6400D19B38 /* training_basque_EU.txt */,
 				33E173AB0F3E0B6400D19B38 /* training_bengali_BD.txt */,
-				33E173AC0F3E0B6400D19B38 /* training_bengali_bn.txt */,
 				33E173AD0F3E0B6400D19B38 /* training_canna_JP.txt */,
 				33E173AE0F3E0B6400D19B38 /* training_czech_CS.COPYING */,
 				33E173AF0F3E0B6400D19B38 /* training_czech_CS.txt */,
@@ -1723,9 +1717,7 @@
 				19BEF41D0C22922400275D06 /* controllabels.xml in Resources */,
 				33E173C70F3E0B6400D19B38 /* Makefile.am in Resources */,
 				33E173C80F3E0B6400D19B38 /* training_albanian_SQ.txt in Resources */,
-				33E173CA0F3E0B6400D19B38 /* training_basque_EU.txt in Resources */,
 				33E173CB0F3E0B6400D19B38 /* training_bengali_BD.txt in Resources */,
-				33E173CC0F3E0B6400D19B38 /* training_bengali_bn.txt in Resources */,
 				33E173CD0F3E0B6400D19B38 /* training_canna_JP.txt in Resources */,
 				33E173CE0F3E0B6400D19B38 /* training_czech_CS.COPYING in Resources */,
 				33E173CF0F3E0B6400D19B38 /* training_czech_CS.txt in Resources */,
