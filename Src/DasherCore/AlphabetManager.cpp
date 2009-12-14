@@ -427,13 +427,21 @@ CDasherNode *CAlphabetManager::CAlphNode::RebuildParent(int iNewOffset) {
   
   CAlphNode *pNewNode = m_pMgr->BuildNodeForOffset(NULL, 0, 0, iNewOffset!=-1, iNewOffset);
 
-  pNewNode->SetFlag(NF_SEEN, true);
-
   //now fill in the new node - recursively - until it reaches us
   m_pMgr->IterateChildGroups(pNewNode, NULL, this);
 
   //finally return our immediate parent (pNewNode may be an ancestor rather than immediate parent!)
   DASHER_ASSERT(Parent() != NULL);
+
+  //although not required, we believe only NF_SEEN nodes are ever requested to rebuild their parents...
+  DASHER_ASSERT(GetFlag(NF_SEEN));
+  //so set NF_SEEN on all created ancestors (of which pNewNode is the last)
+  CDasherNode *pNode = this;
+  do {
+    pNode = pNode->Parent();
+    pNode->SetFlag(NF_SEEN, true);
+  } while (pNode != pNewNode);
+  
   return Parent();
 }
 
