@@ -309,22 +309,6 @@ class Dasher::CDasherModel:public CFrameRate, private NoClones
   /// Called from InitialiseAtOffset
   void DeleteTree();
 
-  ///
-  /// Perform output on a node - recurse up the tree outputting any
-  /// symbols which have not been output so far. Neeed to check
-  /// behaviour with respect to deletion
-  ///
-
-  void RecursiveOutput(CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded);
-
-
-  ///
-  /// Check semantics here
-  ///
-
-  void OutputCharacters(CDasherNode * node);
-  bool DeleteCharacters(CDasherNode * newnode, CDasherNode * oldnode, int* pNumDeleted = NULL);
-
   /// 
   /// Make a child of the root into a new root
   ///
@@ -354,17 +338,25 @@ class Dasher::CDasherModel:public CFrameRate, private NoClones
 
   ///
   /// Return a pointer to the Dasher node which is currently under the
-  /// crosshair. Apparently this is needed for game mode.
+  /// crosshair. Used for output, and apparently needed for game mode.
   ///
 
   CDasherNode *Get_node_under_crosshair();    
 
   ///
-  /// Handle the output caused by a change in node being over the
-  /// crosshair
+  /// Output a node, which has not been seen (& first, any ancestors that haven't been seen either),
+  /// but which _is_ a descendant of m_pLastOutput.
+  ///
+  
+  void RecursiveOutput(CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded);
+  
+  ///
+  /// Handle the output caused by a change in node over the crosshair. Specifically,
+  /// deletes from m_pLastOutput back to closest ancestor of pNewNode,
+  /// then outputs from that ancestor to the node now under the crosshair (inclusively)
   ///
 
-  void HandleOutput(CDasherNode *pNewNode, CDasherNode *pOldNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted);
+  void HandleOutput(Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted);
 
 
   ///

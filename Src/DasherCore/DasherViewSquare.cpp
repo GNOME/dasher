@@ -306,7 +306,7 @@ void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
   myint temp_parentwidth=y2-y1;
   int temp_parentcolor = pRender->GetDisplayInfo()->iColour;
 
-  const int Range(y2 - y1);
+  const myint Range(y2 - y1);
   
   if (CDasherNode *pChild = pRender->onlyChildRendered)
   {
