@@ -109,7 +109,7 @@ namespace Dasher {
     // is not necessarily reversible by repeated use of GetText. Some text
     // may not be recognised and so discarded. }}}
 
-    void GetSymbols(std::vector<symbol> &Symbols, std::string &Input) const;
+    void GetSymbols(std::vector<symbol> &Symbols, const std::string &Input) const;
     void GetSymbols(std::vector<symbol> &symbols, std::istream &in) const;
 
     void Trace() const;         // diagnostic

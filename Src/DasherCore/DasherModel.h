@@ -186,11 +186,12 @@ class Dasher::CDasherModel:public CFrameRate, private NoClones
   void SetOffset(int iLocation, CDasherView *pView);
 
   ///
-  /// TODO: Implement this
+  /// TODO: Figure out how all these "offset"s work / relate to each other - if they do! In particular,
+  /// what do we need DasherModel's own m_iOffset (which measures in _bytes_, not unicode characters!) for?
   ///
 
   int GetOffset() {
-    return 0;
+    return m_pLastOutput->m_iOffset+1;
   };
 
   /// Create the children of a Dasher node

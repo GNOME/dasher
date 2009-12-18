@@ -26,7 +26,7 @@
 #include "Alphabet.h"
 #include "AlphabetMap.h"
 #include <cstring>
-
+#include <sstream>
 
 using namespace Dasher;
 using namespace std;
@@ -185,38 +185,10 @@ void CAlphabet::GetSymbols(std::vector<symbol> &symbols, std::istream &in) const
   delete [] utfchar;
 }
 
-void CAlphabet::GetSymbols(std::vector<symbol>& Symbols, std::string& Input) const
+void CAlphabet::GetSymbols(std::vector<symbol>& Symbols, const std::string& Input) const
 {
-  string Tmp;
-  symbol CurSymbol = 0;
-  int extras;
-  unsigned int bit;
-
-  for(unsigned int i = 0; i < Input.size(); i++) {
-
-    Tmp = Input[i];
-
-    /* The string we've been given is in UTF-8. The symbols are
-       also in UTF-8, so we need to pass the entire UTF-8 character
-       which may be several bytes long. RFC 2279 describes this
-       encoding */
-
-    if(Input[i] & 0x80) {    // Character is more than 1 byte long
-      extras = 1;
-      for(bit = 0x20; (Input[i] & bit) != 0; bit >>= 1)
-        extras++;
-      if(extras > 5) {
-      }                         // Malformed character
-      while(extras-- > 0) {
-        Tmp += Input[++i];
-      }
-    }
-
-    CurSymbol = TextMap.Get(Tmp);
-
-    if(CurSymbol != 0)
-      Symbols.push_back(CurSymbol);
-  }
+  std::istringstream in(Input);
+  GetSymbols(Symbols, in);
 }
 
 // add single char to the character set

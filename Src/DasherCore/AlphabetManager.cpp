@@ -76,7 +76,15 @@ CAlphabetManager::CGroupNode *CAlphabetManager::makeGroup(CDasherNode *pParent, 
 CAlphabetManager::CAlphNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, bool bEnteredLast, int iOffset) {
   
   CAlphNode *pNewNode = BuildNodeForOffset(pParent, iLower, iUpper, bEnteredLast, max(-1,iOffset-1));
-
+  if (!pNewNode) {
+    DASHER_ASSERT(bEnteredLast);
+    //could not build a node 'responsible' for entering the preceding character,
+    // as said character is not in the current alphabet! However, we'll allow the
+    // user to start entering text afresh
+    return BuildNodeForOffset(pParent, iLower, iUpper, false, iOffset);
+    // (the new node'll be constructed using the current alphabet's default context,
+    // i.e. start of sentence)
+  }
   pNewNode->SetFlag(NF_SEEN, true);
   
   //    if(m_bGameMode) {
@@ -108,13 +116,30 @@ CAlphabetManager::CAlphNode *CAlphabetManager::BuildNodeForOffset(CDasherNode *p
   
   CAlphNode *pNewNode;
   CLanguageModel::Context iContext = m_pLanguageModel->CreateEmptyContext();
-    
-  for(std::vector<symbol>::iterator it(vContextSymbols.begin()); it != vContextSymbols.end(); ++it)
-    if(*it != 0)
-      m_pLanguageModel->EnterSymbol(iContext, *it);
-    
-  if((vContextSymbols.size() == 0) || !bSym) {
-    //this node can't be responsible for entering the last symbol if there wasn't one!
+  
+  std::vector<symbol>::iterator it = vContextSymbols.end();
+  while (it!=vContextSymbols.begin()) {
+    if (*(--it) == 0) {
+      //found an impossible symbol! start after it
+      ++it;
+      break;
+    }
+  }
+  if (it == vContextSymbols.end()) {
+    //previous character was not in the alphabet!
+    if (bSym) return NULL; //can't construct a node "responsible" for entering such a character!
+    //ok. Create a node as if we were starting a new sentence...
+    vContextSymbols.clear();
+    m_pNCManager->GetAlphabet()->GetSymbols(vContextSymbols, m_pNCManager->GetAlphabet()->GetDefaultContext());
+    it = vContextSymbols.begin();
+    //TODO: What it the default context somehow contains symbols not in the alphabet?
+  }
+  //enter the symbols we could make sense of, into the LM context...
+  while (it != vContextSymbols.end()) {
+    m_pLanguageModel->EnterSymbol(iContext, *(it++));
+  }
+  
+  if(!bSym) {
     pDisplayInfo->strDisplayText = ""; //equivalent to do m_pNCManager->GetAlphabet()->GetDisplayText(0)
     pDisplayInfo->iColour = m_pNCManager->GetAlphabet()->GetColour(0, iNewOffset%2);
     pNewNode = makeGroup(pParent, iLower, iUpper, pDisplayInfo, NULL);
@@ -426,7 +451,14 @@ CDasherNode *CAlphabetManager::CAlphNode::RebuildParent(int iNewOffset) {
   if (Parent()) return Parent();
   
   CAlphNode *pNewNode = m_pMgr->BuildNodeForOffset(NULL, 0, 0, iNewOffset!=-1, iNewOffset);
-
+  if (!pNewNode) {
+    //could not rebuild parent node, as the preceding character was not
+    // in the current alphabet. Returning null means the user won't be able
+    // to reverse any further; he'll have to change language (to one
+    // including that symbol) instead.
+    return NULL;
+  }
+  
   //now fill in the new node - recursively - until it reaches us
   m_pMgr->IterateChildGroups(pNewNode, NULL, this);
 
