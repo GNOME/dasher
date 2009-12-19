@@ -18,7 +18,7 @@
 CIPhone1DFilter::CIPhone1DFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID)
 : COneDimensionalFilter(pEventHandler, pSettingsStore, pInterface, iID, ONE_D_FILTER), m_iSlow(0), m_dRad(1.0) {};
 
-bool CIPhone1DFilter::Timer(int iTime, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted)
+bool CIPhone1DFilter::Timer(int iTime, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol)
 {
 	myint iDasherX,iDasherY;
 	m_pDasherView->GetCoordinates(iDasherX, iDasherY);
@@ -45,7 +45,7 @@ bool CIPhone1DFilter::Timer(int iTime, CDasherView *m_pDasherView, CDasherModel 
 			m_dRad = (iTime - m_iSlow) / (double)GetLongParameter(LP_SLOW_START_TIME);
 		}
 	}
-	return CDefaultFilter::Timer(iTime, m_pDasherView, m_pDasherModel, pAdded, pNumDeleted);
+	return CDefaultFilter::Timer(iTime, m_pDasherView, m_pDasherModel, pAdded, pNumDeleted, pol);
 }
 			
 void CIPhone1DFilter::ApplyTransform(myint &iDasherX, myint &iDasherY) {

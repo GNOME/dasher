@@ -14,12 +14,17 @@
 
 using namespace std;
 
+//private method...
+@interface CalibrationController ()
+- (void)loadVerticalLabels;
+@end
+
 //utility functions...
 template <class charT, class traits> basic_istream<charT,traits>& operator>> (basic_istream<charT,traits>& is, Vec3 &dest)
 {
 	char open, comma1, comma2, close;
 	is >> open >> dest.x >> comma1 >> dest.y >> comma2 >> dest.z >> close;
-	DASHER_ASSERT(open == "(" && comma1 == "," && comma2 == "," && close == ")");
+	DASHER_ASSERT(open == '(' && comma1 == ',' && comma2 == ',' && close == ')');
 	return is;
 }
 
