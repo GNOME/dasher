@@ -22,10 +22,14 @@ BudgettingPolicy::BudgettingPolicy(unsigned int iNodeBudget) : m_iNodeBudget(iNo
 double BudgettingPolicy::pushNode(CDasherNode *pNode, int iMin, int iMax, bool bExpand, double dParentCost) {
   double dRes = getCost(pNode, iMin, iMax);
   if (dRes >= dParentCost) {
-    double eps = min(1.0, abs(dParentCost));
-    while (dParentCost - (eps/2.0) < dParentCost) eps/=2.0;
-    dRes = dParentCost - eps;
+    double eps = max(abs(dParentCost),1.0) * std::numeric_limits<double>::epsilon();
+    DASHER_ASSERT((dParentCost-eps) < dParentCost);
+    for (double nRes; (nRes = dParentCost - eps) < dParentCost; eps/=2.0) {
+      //nRes<dParentCost guaranteed true by loop test - remember it!
+      dRes = nRes;
+    }
   }
+  DASHER_ASSERT(dRes < dParentCost);
   vector<pair<double, CDasherNode*> > &target = (bExpand) ? sExpand : sCollapse;
   target.push_back(pair<double, CDasherNode *>(dRes,pNode));
   return dRes;
