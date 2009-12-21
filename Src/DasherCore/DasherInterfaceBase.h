@@ -461,6 +461,12 @@ public:
   /// public so e.g. iPhone can flush the buffer when app is backgrounded.
   void WriteTrainFileFull();
 
+  ///
+  /// Obtain the size in bytes of a file - the way to do this is
+  /// dependent on the OS (TODO: Check this - any posix on Windows?)
+  ///
+  virtual int GetFileSize(const std::string &strFileName) = 0;
+
 protected:
 
   /// @name Startup
@@ -577,13 +583,6 @@ protected:
   ///
 
   virtual void CreateSettingsStore() = 0;
-
-  ///
-  /// Obtain the size in bytes of a file - the way to do this is
-  /// dependent on the OS (TODO: Check this - any posix on Windows?)
-  ///
-
-  virtual int GetFileSize(const std::string &strFileName) = 0;
 
   ///
   /// Start the callback timer

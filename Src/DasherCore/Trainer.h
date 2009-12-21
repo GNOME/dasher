@@ -13,7 +13,12 @@ namespace Dasher {
   public:
     CTrainer(CLanguageModel *pLanguageModel, const CAlphInfo *pInfo, const CAlphabetMap *pAlphabet);
 
-    void LoadFile(const std::string &strFileName);
+    class ProgressIndicator {
+    public:
+      virtual void bytesRead(off_t)=0;
+    };
+    
+    void LoadFile(const std::string &strFileName, ProgressIndicator *pProg=NULL);
   
   protected:
     ///Override AbstractXMLParser methods to extract text in <segment>...</segment> pairs
@@ -22,7 +27,6 @@ namespace Dasher {
     void XmlCData(const XML_Char *szS, int iLen);
 
     virtual void Train(CAlphabetMap::SymbolStream &syms);
-    CLanguageModel *m_pLanguageModel;
     
     ///Try to read a context-switch escape sequence from the symbolstream.
     /// \param sContext context to be reinitialized if a context-switch command is found
@@ -32,6 +36,7 @@ namespace Dasher {
     bool readEscape(CLanguageModel::Context &sContext, CAlphabetMap::SymbolStream &syms);
     
     const CAlphabetMap *m_pAlphabet;
+    CLanguageModel *m_pLanguageModel;
     const CAlphInfo *m_pInfo;
     // symbol number in alphabet of the context-switch character (maybe 0 if not in alphabet!)
     int m_iCtxEsc;
@@ -39,6 +44,10 @@ namespace Dasher {
     //For dealing with XML CData:    
     bool m_bInSegment;
     std::string m_strCurrentText;
+    ///Number of bytes read up to and including end of _previous_ segment in XML.
+    off_t m_iLastBytes;
+    ///Store ProgressIndicator only when parsing XML
+    ProgressIndicator *m_pProg;
   };
 	
   /// Trains a PPMPYLanguageModel (dual alphabet), as for e.g. MandarinDasher.

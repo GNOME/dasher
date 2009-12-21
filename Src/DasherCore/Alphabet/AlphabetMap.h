@@ -100,6 +100,11 @@ public:
     /// the stream position. (Always constructs a string, which next() avoids for 
     /// single-octet chars, so may be slower.)
     std::string peekBack();
+  protected:
+    ///Called periodically to indicate some number of bytes have been read.
+    /// Default implementation does nothing; subclasses may override for e.g. logging.
+    /// \param num number of octets read _since_ the previous call.
+    virtual void bytesRead(off_t num) {};
   private:
     ///Finds beginning of next unicode character, at position 'pos' or later,
     /// filling buffer and skipping invalid characters as necessary.
@@ -109,7 +114,7 @@ public:
     inline int findNext();
     void readMore();
     char buf[1024];
-    int pos, len;
+    off_t pos, len;
     std::istream &in;
   };
   

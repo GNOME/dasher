@@ -66,6 +66,7 @@ public:
   bool SupportsClipboard() {return true;};
   void CopyToClipboard(const std::string &text);
   
+  virtual int GetFileSize(const std::string &strFileName);
 private:
 
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
@@ -77,7 +78,6 @@ private:
   virtual void ShutdownTimer();
   void CreateSettingsStore();
 
-  virtual int GetFileSize(const std::string &strFileName);
   void ScanDirectory(const Tstring &strMask, std::vector<std::string> &vFileList);
   bool                    GetWindowSize(int* pTop, int* pLeft, int* pBottom, int* pRight);
   void                    Log();                        // Does the logging

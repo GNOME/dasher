@@ -76,7 +76,7 @@ int utf8_length::operator[](const unsigned char i) const
 ////////////////////////////////////////////////////////////////////////////
 
 CAlphabetMap::SymbolStream::SymbolStream(std::istream &_in)
-: in(_in), pos(0), len(0) {
+: pos(0), len(0), in(_in) {
   readMore();
 }
 
@@ -95,16 +95,16 @@ void CAlphabetMap::SymbolStream::readMore() {
 
 inline int CAlphabetMap::SymbolStream::findNext() {
   for (;;) {
-    if (pos + m_utf8_count_array.max_length > len && len==1024) {
-      //may need more bytes for next char; and input not yet exhausted.
+    if (pos + m_utf8_count_array.max_length > len) {
+      //may need more bytes for next char
       if (pos) {
         //shift remaining bytes to beginning
         len-=pos; //len of them
-        //memcpy isn't safe for overlapping regions of memory...
-        DASHER_ASSERT(len<pos); //...but they really shouldn't overlap!
-        memcpy(buf, &buf[pos], len);
+        memmove(buf, &buf[pos], len);
+        bytesRead(pos);
         pos=0;
       }
+      //and look for more
       readMore();
     }
     //if still don't have any chars after attempting to read more...EOF!

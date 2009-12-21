@@ -49,6 +49,7 @@ public:
   std::string GetAllContext();
   void ClearAllContext();
   std::string GetContext(unsigned int iOffset, unsigned int iLength);
+  virtual int GetFileSize(const std::string &strFileName);
 private:
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
   virtual void ScanColourFiles(std::vector<std::string> &vFileList);
@@ -56,7 +57,6 @@ private:
   virtual void CreateModules();
   virtual void SetupUI();
   virtual void CreateSettingsStore();
-  virtual int GetFileSize(const std::string &strFileName);
   virtual void StartTimer();
   virtual void ShutdownTimer();
   virtual bool SupportsSpeech();

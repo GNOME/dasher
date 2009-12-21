@@ -78,8 +78,20 @@ bool CTrainer::readEscape(CLanguageModel::Context &sContext, CAlphabetMap::Symbo
   return true;  
 }
 
+class ProgressStream : public CAlphabetMap::SymbolStream {
+public:
+  ProgressStream(std::istream &_in, CTrainer::ProgressIndicator *pProg, off_t iStart=0) : SymbolStream(_in), m_iLastPos(iStart), m_pProg(pProg) {
+  }
+  void bytesRead(off_t num) {
+    if (m_pProg) m_pProg->bytesRead(m_iLastPos += num);
+  }
+  off_t m_iLastPos;
+private:
+  CTrainer::ProgressIndicator *m_pProg;
+};
+
 void 
-Dasher::CTrainer::LoadFile(const std::string &strFileName) {
+Dasher::CTrainer::LoadFile(const std::string &strFileName, ProgressIndicator *pProg) {
   if(strFileName == "")
     return;
   
@@ -97,6 +109,7 @@ Dasher::CTrainer::LoadFile(const std::string &strFileName) {
   if(!strcmp(szTestBuffer, "<?xml")) {
     //Invoke AbstractXMLParser method
     m_bInSegment = false;
+    m_iLastBytes=0;
     ParseFile(strFileName);
   } else {
     std::ifstream in(strFileName.c_str(), std::ios::binary);
@@ -104,7 +117,7 @@ Dasher::CTrainer::LoadFile(const std::string &strFileName) {
       std::cerr << "Unable to open file \"" << strFileName << "\" for reading" << std::endl;
       return;
     }
-    CAlphabetMap::SymbolStream syms(in);
+    ProgressStream syms(in,pProg);
     Train(syms);
   
     in.close();
@@ -121,9 +134,9 @@ void CTrainer::XmlStartHandler(const XML_Char *szName, const XML_Char **pAtts) {
 void CTrainer::XmlEndHandler(const XML_Char *szName) {
   if(!strcmp(szName, "segment")) {
     std::istringstream in(m_strCurrentText);
-    CAlphabetMap::SymbolStream syms(in);
+    ProgressStream syms(in, m_pProg, m_iLastBytes);
     Train(syms);
-    
+    m_iLastBytes = syms.m_iLastPos; //count that segment, ready for next
     m_bInSegment = false;
   }
 }

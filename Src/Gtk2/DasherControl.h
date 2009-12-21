@@ -135,6 +135,7 @@ public:
   virtual void Stop();
 
   virtual void WriteTrainFile(const std::string &filename, const std::string &strNewText);
+  virtual int GetFileSize(const std::string &strFileName);
 
   virtual void ClearAllContext();
   virtual std::string GetAllContext();
@@ -167,7 +168,6 @@ private:
   virtual void CreateModules();
   virtual void SetupUI();
   virtual void CreateSettingsStore();
-  virtual int GetFileSize(const std::string &strFileName);
   virtual void StartTimer();
   virtual void ShutdownTimer();
 

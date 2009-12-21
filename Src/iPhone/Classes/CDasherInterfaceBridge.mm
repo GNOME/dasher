@@ -239,12 +239,13 @@ unsigned int CDasherInterfaceBridge::ctrlDelete(bool bForwards, CControlManager:
 }
 
 int CDasherInterfaceBridge::GetFileSize(const std::string &strFileName) {
-  struct stat sStatInfo;
-  
-  if(!stat(strFileName.c_str(), &sStatInfo))
-    return sStatInfo.st_size;
-  else
-    return 0;
+  int ret=0;
+  if (FILE *file = fopen(strFileName.c_str(), "r")) { //returns non-null for success
+    if (!fseek(file, 0, SEEK_END)) //returns non-null as error code
+      ret = ftell(file);
+    fclose(file);
+  }
+  return ret;
 }
 
 void CDasherInterfaceBridge::WriteTrainFile(const std::string &filename,const std::string &strNewText) {

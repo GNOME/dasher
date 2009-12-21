@@ -8,6 +8,30 @@
 
 using namespace Dasher;
 
+class ProgressNotifier : public CTrainer::ProgressIndicator {
+public:
+  ProgressNotifier(CDasherInterfaceBase *pInterface, CTrainer *pTrainer)
+  : m_pInterface(pInterface), m_pTrainer(pTrainer) { }
+  void bytesRead(off_t n) {
+    int iNewPercent = ((m_iStart + n)*100)/m_iStop;
+    if (iNewPercent != m_iPercent) {
+      m_pInterface->SetLockStatus(m_strDisplay, m_iPercent = iNewPercent);
+    }
+  }
+  void run(const string &strDisplay, string strFile) {
+    m_pInterface->SetLockStatus(m_strDisplay=strDisplay, m_iPercent=0);
+    m_iStart = 0;
+    m_iStop = m_pInterface->GetFileSize(strFile);
+    m_pTrainer->LoadFile(strFile,this);
+  }
+private:
+  CDasherInterfaceBase *m_pInterface;
+  CTrainer *m_pTrainer;
+  off_t m_iStart, m_iStop;
+  int m_iPercent;
+  string m_strDisplay;
+};
+
 CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterface,
                                            Dasher::CEventHandler *pEventHandler, 
                                            CSettingsStore *pSettingsStore,
@@ -56,13 +80,14 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
   m_pTrainer = m_pAlphabetManager->GetTrainer();
     
   if (!pAlphInfo->GetTrainingFile().empty()) {
+    ProgressNotifier pn(pInterface, m_pTrainer);
+
     //1. Look for system training text...
-    pInterface->SetLockStatus("Training on System Text", 0);
-    m_pTrainer->LoadFile(GetStringParameter(SP_SYSTEM_LOC) + pAlphInfo->GetTrainingFile());
-    //Now add in any user-provided individual training text...
-    pInterface->SetLockStatus("Training on User Text", 0);
-    m_pTrainer->LoadFile(GetStringParameter(SP_USER_LOC) + pAlphInfo->GetTrainingFile());
-    pInterface->SetLockStatus("",-1);
+    pn.run("Training on System Text", GetStringParameter(SP_SYSTEM_LOC) + pAlphInfo->GetTrainingFile());
+    //2. Now add in any user-provided individual training text...
+    pn.run("Training on User Text", GetStringParameter(SP_USER_LOC) + pAlphInfo->GetTrainingFile());
+    //3. Finished, so unlock.
+    m_pInterface->SetLockStatus("", -1);
   }
 #ifdef DEBUG
   else {
@@ -145,5 +170,6 @@ void CNodeCreationManager::AddExtras(CDasherNode *pParent) {
 
 void 
 CNodeCreationManager::ImportTrainingText(const std::string &strPath) {
-	m_pTrainer->LoadFile(strPath);
+  ProgressNotifier pn(m_pInterface, m_pTrainer);
+	pn.run("Training on New Text", strPath);
 }

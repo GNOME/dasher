@@ -44,6 +44,7 @@ public:
   
   void SetTiltAxes(Vec3 main, float off, Vec3 slow, float off2);
   virtual void WriteTrainFile(const std::string &filename,const std::string &strNewText);
+  virtual int GetFileSize(const std::string &strFileName);
   bool SupportsClipboard() {return true;}
   void CopyToClipboard(const std::string &strText);
   bool SupportsSpeech();
@@ -61,7 +62,6 @@ private:
   virtual void CreateModules();
   virtual void SetupUI();
   virtual void CreateSettingsStore();
-  virtual int GetFileSize(const std::string &strFileName);
   virtual void StartTimer();
   virtual void ShutdownTimer();
   
