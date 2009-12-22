@@ -44,7 +44,7 @@ namespace Dasher {
   protected:
     const Dasher::CAlphabet *m_pAlphabet;
 
-	virtual void Train(const std::vector<symbol> &symbols)=0;
+    virtual void Train(CAlphabet::SymbolStream &syms)=0;
 	  
   private:  
 	void LoadPlain(const std::string &strFileName);

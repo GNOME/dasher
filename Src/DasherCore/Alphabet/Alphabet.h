@@ -105,12 +105,25 @@ namespace Dasher {
 
     //int get_group(symbol i) const {return m_Group[i];}                
     // return group membership of i'th symbol
+    
+    class SymbolStream {
+    public:
+      SymbolStream(const CAlphabet *pAlph, std::istream &_in);
+      symbol next();
+    private:
+      void readMore();
+      const alphabet_map &map;
+      char buf[1024];
+      int pos, len;
+      std::istream &in;
+    };
+    
     // Fills Symbols with the symbols corresponding to Input. {{{ Note that this
     // is not necessarily reversible by repeated use of GetText. Some text
     // may not be recognised and so discarded. }}}
 
     void GetSymbols(std::vector<symbol> &Symbols, const std::string &Input) const;
-    void GetSymbols(std::vector<symbol> &symbols, std::istream &in) const;
+    //SymbolStream *GetSymbols(std::istream &in) const;
 
     void Trace() const;         // diagnostic
 

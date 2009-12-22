@@ -149,46 +149,69 @@ int CAlphabet::utf8_length::operator[](const int i) const
   return utf8_count_array[i];
 }
 
-void CAlphabet::GetSymbols(std::vector<symbol> &symbols, std::istream &in) const
+CAlphabet::SymbolStream::SymbolStream(const CAlphabet *pAlph, std::istream &_in)
+: map(pAlph->TextMap), in(_in), pos(0), len(0) {
+  readMore();
+}
+
+void CAlphabet::SymbolStream::readMore() {
+  //len is first unfilled byte
+  in.read(&buf[len], 1024-len);
+  if (in.good()) {
+    DASHER_ASSERT(in.gcount() == 1024-len);
+    len = 1024;
+  } else {
+    len+=in.gcount();
+    DASHER_ASSERT(len<1024);
+    //next attempt to read more will fail.
+  }
+}
+
+symbol CAlphabet::SymbolStream::next()
 {
-  char skip, *utfchar = new char[m_utf8_count_array.max_length + 1];
-  symbol sym;
-  int len, ch = in.peek();
-  while (!in.eof())
-    {
-      len = m_utf8_count_array[ch];
-      if (len == 0)
-        {
-#ifdef DEBUG
-          std::cerr << "Read invalid UTF-8 character 0x" << hex << ch
-                    << dec << std::endl;
-#endif
-          in >> skip;
-        }
-      else
-        {
-          if (len == 1)
-            {
-              in.ignore(1);
-              sym = TextMap.GetSingleChar(ch);
-            }
-          else
-            {
-              in.read(utfchar, len);
-              utfchar[len] = '\0';
-              sym = TextMap.Get(string(utfchar));
-            }
-          symbols.push_back(sym);
-        }
-      ch = in.peek();
+  if (pos + m_utf8_count_array.max_length > len && len==1024) {
+    //may need more bytes for next char; and input not yet exhausted.
+
+    if (pos) {
+      //shift remaining bytes to beginning
+      len-=pos; //len of them
+      memcpy(buf, &buf[pos], len);
+      pos=0;
     }
-  delete [] utfchar;
+    readMore();
+  }
+  //if still don't have any chars after attempting to read more...EOF!
+  if (pos==len) return -1;
+  int numChars;
+  for (;;) {
+    numChars = m_utf8_count_array[buf[pos]];
+    if (numChars != 0) break;
+#ifdef DEBUG
+    std::cerr << "Read invalid UTF-8 character 0x" << hex << buf[pos] << dec << std::endl;
+#endif
+  }
+  if (numChars == 1)
+    return map.GetSingleChar(buf[pos++]);
+  if (pos+numChars > len) {
+    //no more bytes in file (would have tried to read earlier), but not enough for char
+#ifdef DEBUG
+    std::cerr << "Incomplete UTF-8 character beginning 0x" << hex << buf[pos] << dec;
+    std::cerr << "(expecting " << numChars << " bytes but only " << (len-pos) << ")" << std::endl;
+#endif
+    pos=len;
+    return -1;
+  }
+  int sym=map.Get(string(&buf[pos], numChars));
+  pos+=numChars;
+  return sym;
 }
 
 void CAlphabet::GetSymbols(std::vector<symbol>& Symbols, const std::string& Input) const
 {
   std::istringstream in(Input);
-  GetSymbols(Symbols, in);
+  SymbolStream syms(this, in);
+  for (symbol sym; (sym=syms.next())!=-1;)
+    Symbols.push_back(sym);
 }
 
 // add single char to the character set

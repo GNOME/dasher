@@ -5,7 +5,6 @@
 #include "TrainingHelper.h"
 
 namespace Dasher {
-  class CAlphabet;
   class CAlphIO;
   class CDasherInterfaceBase;
 	
@@ -14,8 +13,8 @@ namespace Dasher {
     CTrainer(CLanguageModel *pLanguageModel, CAlphabet *pAlphabet);
 
   protected:
-	virtual void Train(const std::vector<symbol> &vSymbols);
-	CLanguageModel *m_pLanguageModel;
+    virtual void Train(CAlphabet::SymbolStream &syms);
+    CLanguageModel *m_pLanguageModel;
   };
 	
   class CMandarinTrainer : public CTrainer {

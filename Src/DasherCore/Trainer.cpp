@@ -21,11 +21,11 @@ CTrainer::CTrainer(CLanguageModel *pLanguageModel, CAlphabet *pAlphabet)
   : CTrainingHelper(pAlphabet), m_pLanguageModel(pLanguageModel) {
 }
 
-void CTrainer::Train(const std::vector<symbol> &vSymbols) {
+void CTrainer::Train(CAlphabet::SymbolStream &syms) {
   CLanguageModel::Context sContext = m_pLanguageModel->CreateEmptyContext();
 
-  for(std::vector<symbol>::const_iterator it(vSymbols.begin()); it != vSymbols.end(); ++it) {
-      m_pLanguageModel->LearnSymbol(sContext, *it);
+  for(symbol sym; (sym=syms.next())!=-1;) {
+      m_pLanguageModel->LearnSymbol(sContext, sym);
   }
   m_pLanguageModel->ReleaseContext(sContext);
 }
