@@ -202,6 +202,7 @@ else
 	BUILDGTK2=false
 fi
 
+AM_GCONF_SOURCE_2
 if test x$BUILDGTK2 = xtrue
 then
 # GtkBuilder's autoconnect feature requires dasher to be linked with
@@ -210,10 +211,9 @@ then
 # (We need this e.g., for <object class="DasherEditor">)
 	GTK2_LIBS="$GTK2_LIBS -export-dynamic"
 
-	PKG_CHECK_MODULES(GCONF, gconf-2.0,[GCONF2HERE=true],[GCONF2HERE=false])
-	if test x$GCONF2HERE = xfalse; then
-		AC_MSG_WARN([GConf was not detected - user preferences will not be stored.])
-	fi
+	PKG_CHECK_MODULES(GCONF, gconf-2.0,
+		[AC_DEFINE([WITH_GCONF], 1, [Use GConf])],
+		[AC_MSG_WARN([GConf was not detected - user preferences will not be stored.])])
 	save_CFLAGS="$CFLAGS"
 	save_LIBS="$LIBS"
 	CFLAGS="$CFLAGS $GTK2_CFLAGS"
@@ -328,11 +328,6 @@ fi
 
 if test x"$BUILDGTK2" = xtrue; then 
 	PKG_CHECK_MODULES(gthread, gthread-2.0)
-fi
-
-if test x"$GCONF2HERE" = xtrue ; then
-        AM_GCONF_SOURCE_2
-        AC_DEFINE([WITH_GCONF], 1, [Use GConf])
 fi
 
 AC_SUBST(gnome_speech_LIBS)

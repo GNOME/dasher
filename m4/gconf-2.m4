@@ -7,7 +7,8 @@ dnl
 
 AC_DEFUN([AM_GCONF_SOURCE_2],
 [
-  if test "x$GCONF_SCHEMA_INSTALL_SOURCE" = "x"; then
+  AC_CHECK_PROG([found_gconftool], [gconftool-2], [yes], [no])
+  if test "x$GCONF_SCHEMA_INSTALL_SOURCE" = "x" -a $found_gconftool = yes; then
     GCONF_SCHEMA_CONFIG_SOURCE=`gconftool-2 --get-default-source`
   else
     GCONF_SCHEMA_CONFIG_SOURCE=$GCONF_SCHEMA_INSTALL_SOURCE
@@ -19,7 +20,9 @@ AC_DEFUN([AM_GCONF_SOURCE_2],
 	      [GCONF_SCHEMA_CONFIG_SOURCE="$withval"],)
 
   AC_SUBST(GCONF_SCHEMA_CONFIG_SOURCE)
-  AC_MSG_RESULT([Using config source $GCONF_SCHEMA_CONFIG_SOURCE for schema installation])
+  if test $found_gconftool = yes; then
+    AC_MSG_RESULT([Using config source $GCONF_SCHEMA_CONFIG_SOURCE for schema installation])
+  fi
 
   if test "x$GCONF_SCHEMA_FILE_DIR" = "x"; then
     GCONF_SCHEMA_FILE_DIR='$(sysconfdir)/gconf/schemas'
@@ -31,7 +34,9 @@ AC_DEFUN([AM_GCONF_SOURCE_2],
 	      [GCONF_SCHEMA_FILE_DIR="$withval"],)
 
   AC_SUBST(GCONF_SCHEMA_FILE_DIR)
-  AC_MSG_RESULT([Using $GCONF_SCHEMA_FILE_DIR as install directory for schema files])
+  if test $found_gconftool = yes; then
+    AC_MSG_RESULT([Using $GCONF_SCHEMA_FILE_DIR as install directory for schema files])
+  fi
 
   AC_ARG_ENABLE(schemas-install,
   	AC_HELP_STRING([--disable-schemas-install],
@@ -40,5 +45,5 @@ AC_DEFUN([AM_GCONF_SOURCE_2],
        yes|no) ;;
        *) AC_MSG_ERROR([bad value ${enableval} for --enable-schemas-install]) ;;
       esac])
-  AM_CONDITIONAL([GCONF_SCHEMAS_INSTALL], [test "$enable_schemas_install" != no])
+  AM_CONDITIONAL([GCONF_SCHEMAS_INSTALL], [test "$enable_schemas_install" != no -a $found_gconftool = yes])
 ])

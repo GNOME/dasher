@@ -1,6 +1,8 @@
 2009-12-20  Patrick Welche <prlw1@cam.ac.uk>
 
 	* Import newer gconf-2.m4
+	* Fix so dasher works with gconf.
+	* Fix Spanish xml mdash.
 
 2009-12-18  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 

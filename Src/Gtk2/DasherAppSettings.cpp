@@ -124,7 +124,6 @@ static void dasher_app_settings_init_gconf(DasherAppSettings *pSelf, int argc, c
   if(!gconf_init(argc, argv, &pGConfError))
     g_error("Failed to initialise gconf: %s", pGConfError->message);
   
-  // FIXME - apparently there's a function gnome_gconf_get_client - maybe we should use this if building with gnome
     pPrivate->pGConfClient = gconf_client_get_default();
 #endif
 }
@@ -343,6 +342,7 @@ void dasher_app_settings_set_long(DasherAppSettings *pSelf, int iParameter, gint
 }
 
 gboolean dasher_app_settings_get_free_long(DasherAppSettings *pSelf, const gchar *szName, gint &iValue) {
+#ifdef WITH_GCONF
   DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
 
   gchar szFullName[256];
@@ -363,9 +363,13 @@ gboolean dasher_app_settings_get_free_long(DasherAppSettings *pSelf, const gchar
   else {
     return false;
   }
+#else
+  return false;
+#endif
 }
 
 void dasher_app_settings_set_free_long(DasherAppSettings *pSelf, const gchar *szName, gint iValue) {   
+#ifdef WITH_GCONF
   DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
 
   gchar szFullName[256];
@@ -375,6 +379,7 @@ void dasher_app_settings_set_free_long(DasherAppSettings *pSelf, const gchar *sz
 
   GError *pGConfError = NULL;
   gconf_client_set_int(pPrivate->pGConfClient, szFullName, iValue, &pGConfError);
+#endif
 }
 
 const gchar *dasher_app_settings_get_string(DasherAppSettings *pSelf, int iParameter) {

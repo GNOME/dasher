@@ -1,7 +1,10 @@
 LIBS = @INTLLIBS@ @LIBS@
 
 noinst_LTLIBRARIES = libdashergtk.la libdashercontrol.la
-noinst_PROGRAMS = generate-schema
+if GCONF_SCHEMAS_INSTALL
+  noinst_PROGRAMS = generate-schema
+  generate_schema_SOURCES = GenerateSchema.cpp
+endif
 
 #bin_PROGRAMS = dasher-config
 
@@ -10,8 +13,6 @@ settings_store = gpesettings_store.cc gpesettings_store.h
 else
 settings_store = 
 endif
-
-generate_schema_SOURCES = GenerateSchema.cpp
 
 #dasher_config_SOURCES = \
 #		DasherAppSettings.cpp \
