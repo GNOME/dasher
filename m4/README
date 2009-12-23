@@ -1,6 +1,6 @@
 pkg.m4:                      pkg-config-0.23
 glib-gettext.m4:             glib of 2009-04-28 (2.20.1)
-gconf-2.m4:                  gconf-2.m4.in from gconf of 2009-04-28 (2.26.0)
+gconf-2.m4:                  gconf-2.m4.in from gconf of 2009-04-28 (git HEAD)
 gnome-doc-utils.m4:          gnome-doc-utils of 2009-04-28 (0.16.1)
 intltool.m4:                 intltool-0.40.6
 nls.m4:                      gettext of 2009-04-28 (0.18)

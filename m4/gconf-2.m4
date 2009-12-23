@@ -34,10 +34,11 @@ AC_DEFUN([AM_GCONF_SOURCE_2],
   AC_MSG_RESULT([Using $GCONF_SCHEMA_FILE_DIR as install directory for schema files])
 
   AC_ARG_ENABLE(schemas-install,
-     [  --disable-schemas-install	Disable the schemas installation],
+  	AC_HELP_STRING([--disable-schemas-install],
+		       [Disable the schemas installation]),
      [case ${enableval} in
        yes|no) ;;
-       *) AC_MSG_ERROR(bad value ${enableval} for --enable-schemas-install) ;;
+       *) AC_MSG_ERROR([bad value ${enableval} for --enable-schemas-install]) ;;
       esac])
   AM_CONDITIONAL([GCONF_SCHEMAS_INSTALL], [test "$enable_schemas_install" != no])
 ])

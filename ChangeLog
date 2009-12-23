@@ -1,3 +1,14 @@
+2009-12-20  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Import newer gconf-2.m4
+
+2009-12-18  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Merge of branch allowing more natural way of switching
+	  alphabets, overflow fix, avoid reads of m_dCost after
+      potential deallocation, and actually make GetOffset do
+      something.
+
 2009-12-05  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* Avoid loading nonexistent training text
