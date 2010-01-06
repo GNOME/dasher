@@ -27,7 +27,6 @@
 //#include "DasherGameMode.h"
 #include "DasherViewSquare.h"
 #include "DasherModel.h"
-#include "DasherScreen.h"
 #include "DasherView.h"
 #include "DasherTypes.h"
 #include "Event.h"
@@ -92,9 +91,10 @@ void CDasherViewSquare::HandleEvent(Dasher::CEvent *pEvent) {
       m_bVisibleRegionValid = false;
       break;
     case LP_MARGIN_WIDTH:
-        m_bVisibleRegionValid = false;
-        SetScaleFactor();
-        break;
+    case BP_NONLINEAR_Y:
+      m_bVisibleRegionValid = false;
+      SetScaleFactor();
+      break;
     default:
       break;
     }
@@ -794,6 +794,66 @@ void CDasherViewSquare::Dasher2Polar(myint iDasherX, myint iDasherY, double &r, 
     double y = -(iDasherY - iDasherOY) / double(iDasherOY); 
     theta = atan2(y, x);
     r = sqrt(x * x + y * y);
+}
+
+void CDasherViewSquare::DasherLine2Screen(myint x1, myint y1, myint x2, myint y2, vector<CDasherScreen::point> &vPoints) {
+  if (x1!=x2 && y1!=y2 && GetBoolParameter(BP_NONLINEAR_Y)) {
+    //only diagonal lines ever get changed...
+    if ((y1 < m_Y3 && y2 > m_Y3) ||(y2 < m_Y3 && y1 > m_Y3)) {
+      //crosses bottom non-linearity border
+      int x_mid = x1+(x2-x1) * (m_Y3-y1)/(y2-y1);
+      DasherLine2Screen(x1, y1, x_mid, m_Y3, vPoints);
+      x1=x_mid; y1=m_Y3;
+    }//else //no, a single line might cross _both_ borders!
+    if ((y1 > m_Y2 && y2 < m_Y2) || (y2 > m_Y2 && y1 < m_Y2)) {
+      //crosses top non-linearity border
+      int x_mid = x1 + (x2-x1) * (m_Y2-y1)/(y2-y1);
+      DasherLine2Screen(x1, y1, x_mid, m_Y2, vPoints);
+      x1=x_mid; y1=m_Y2;
+    }
+    double dMax(static_cast<double>(GetLongParameter(LP_MAX_Y)));
+    if (GetBoolParameter(BP_NONLINEAR_Y) && (x1 / dMax > m_dXmpb || x2 / dMax > m_dXmpb)) {
+      //into logarithmic section
+      CDasherScreen::point pStart, pScreenMid, pEnd;
+      Dasher2Screen(x2, y2, pEnd.x, pEnd.y);
+      for(;;) {
+        Dasher2Screen(x1, y1, pStart.x, pStart.y);
+        //a straight line on the screen between pStart and pEnd passes through pScreenMid:
+        pScreenMid.x = (pStart.x + pEnd.x)/2;
+        pScreenMid.y = (pStart.y + pEnd.y)/2;
+        //whereas a straight line _in_Dasher_space_ passes through pDasherMid:
+        int xMid=(x1+x2)/2, yMid=(y1+y2)/2;
+        CDasherScreen::point pDasherMid;
+        Dasher2Screen(xMid, yMid, pDasherMid.x, pDasherMid.y);
+        
+        //since we know both endpoints are in the same section of the screen wrt. Y nonlinearity,
+        //the midpoint along the DasherY axis of both lines should be the same.
+        const Dasher::Opts::ScreenOrientations orient(Dasher::Opts::ScreenOrientations(GetLongParameter(LP_REAL_ORIENTATION)));
+        if (orient==Dasher::Opts::LeftToRight || orient==Dasher::Opts::RightToLeft) {
+          DASHER_ASSERT(abs(pDasherMid.y - pScreenMid.y)<=1);//allow for rounding error
+          if (abs(pDasherMid.x - pScreenMid.x)<=1) break; //call a straight line accurate enough
+        } else {
+          DASHER_ASSERT(abs(pDasherMid.x - pScreenMid.x)<=1);
+          if (abs(pDasherMid.y - pScreenMid.y)<=1) break;
+        }
+        //line should appear bent. Subdivide!
+        DasherLine2Screen(x1,y1,xMid,yMid,vPoints); //recurse for first half (to Dasher-space midpoint)
+        x1=xMid; y1=yMid; //& loop round for second half
+      }
+      //broke out of loop. a straight line (x1,y1)-(x2,y2) on the screen is an accurate portrayal of a straight line in Dasher-space.
+      vPoints.push_back(pEnd);
+      return;
+    }
+    //ok, not in x nonlinear section; fall through.
+  }
+#ifdef DEBUG
+  CDasherScreen::point pTest;
+  Dasher2Screen(x1, y1, pTest.x, pTest.y);
+  DASHER_ASSERT(vPoints.back().x == pTest.x && vPoints.back().y == pTest.y);
+#endif
+  CDasherScreen::point p;
+  Dasher2Screen(x2, y2, p.x, p.y);
+  vPoints.push_back(p);
 }
 
 void CDasherViewSquare::VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, myint &iDasherMaxX, myint &iDasherMaxY ) {

@@ -159,8 +159,10 @@ void CDefaultFilter::DrawMouseLine(CDasherView *pView) {
   ApplyTransform(x[1], y[1]);
 
   // Actually plot the line
-
-  pView->DasherPolyline(x, y, 2, GetLongParameter(LP_LINE_WIDTH), 1);
+  if (GetBoolParameter(BP_CURVE_MOUSE_LINE))
+    pView->DasherSpaceLine(x[0],y[0],x[1],y[1], GetLongParameter(LP_LINE_WIDTH), 1);
+  else
+    pView->DasherPolyline(x, y, 2, GetLongParameter(LP_LINE_WIDTH), 1);
 
   /*  // Plot a brachistochrone
 

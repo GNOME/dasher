@@ -30,7 +30,7 @@
 // All parameters go into the enums here
 // They are unique across the different types
 enum { 
-  BP_DRAW_MOUSE_LINE, BP_DRAW_MOUSE,
+  BP_DRAW_MOUSE_LINE, BP_DRAW_MOUSE, BP_CURVE_MOUSE_LINE,
   BP_SHOW_SLIDER, BP_START_MOUSE,
   BP_START_SPACE, BP_START_STYLUS, BP_STOP_IDLE, BP_KEY_CONTROL, BP_CONTROL_MODE, 
   BP_COLOUR_MODE, BP_MOUSEPOS_MODE,
@@ -124,6 +124,7 @@ struct sp_table {
 static bp_table boolparamtable[] = {
   {BP_DRAW_MOUSE_LINE, "DrawMouseLine", PERS, true, "Draw Mouse Line"},
   {BP_DRAW_MOUSE, "DrawMouse", PERS, false, "Draw Mouse Position"},
+  {BP_CURVE_MOUSE_LINE, "CurveMouseLine", PERS, false, "Curve mouse line according to screen nonlinearity"},
 #ifdef WITH_MAEMO
   {BP_SHOW_SLIDER, "ShowSpeedSlider", PERS, false, "ShowSpeedSlider"},
 #else

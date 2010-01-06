@@ -6,7 +6,6 @@
 #define __DasherView_h_
 
 namespace Dasher {
-  class CDasherScreen;
   class CDasherModel;
   class CDasherInput; // Why does DasherView care about input? - pconlon
   class CDasherComponent;
@@ -17,6 +16,7 @@ namespace Dasher {
 #include "DasherTypes.h"
 #include "DasherComponent.h"
 #include "ExpansionPolicy.h"
+#include "DasherScreen.h"
 
 /// \defgroup View Visualisation of the model
 /// @{
@@ -136,6 +136,9 @@ public:
   /// Basic drawing primitives specified in Dasher coordinates.
   /// @{
 
+  ///Draw a straight line in Dasher-space - which may be curved on the screen...
+  void DasherSpaceLine(myint x1, myint y1, myint x2, myint y2, int iWidth, int iColour);
+  
   ///
   /// Draw a polyline specified in Dasher co-ordinates
   ///
@@ -168,6 +171,21 @@ public:
   /// @}
 
 protected:
+  /// Clips a line (specified in Dasher co-ordinates) to the visible region
+  /// by intersecting with all boundaries.
+  /// \return true if any part of the line was within the visible region; in this case, (x1,y1)-(x2,y2) delineate exactly that part
+  /// false if the line would be entirely outside the visible region; x1, y1, x2, y2 unaffected.
+  bool ClipLineToVisible(myint &x1, myint &y1, myint &x2, myint &y2); 
+  
+  ///Convert a straight line in Dasher-space, to coordinates for a corresponding polyline on the screen
+  /// (because of nonlinearity, this may require multiple line segments)
+  /// \param x1,y1 Dasher co-ordinates of start of line segment; note that these are guaranteed within VisibleRegion.
+  /// \param x2,y2 Dasher co-ordinates of end of line segment; also guaranteed within VisibleRegion.
+  /// \param vPoints vector to which to add screen points. Note that at the point that DasherLine2Screen is called,
+  /// the screen coordinates of the first point should already have been added to this vector; DasherLine2Screen
+  /// will then add exactly one CDasherScreen::point for each line segment required.
+  virtual void DasherLine2Screen(myint x1, myint y1, myint x2, myint y2, std::vector<CDasherScreen::point> &vPoints)=0;
+  
   // Orientation of Dasher Screen
 /*   inline void MapScreen(screenint * DrawX, screenint * DrawY); */
 /*   inline void UnMapScreen(screenint * DrawX, screenint * DrawY); */

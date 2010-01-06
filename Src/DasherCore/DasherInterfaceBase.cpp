@@ -326,6 +326,7 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       ScheduleRedraw();
       break;
     case LP_MARGIN_WIDTH:
+    case BP_NONLINEAR_Y:
         ScheduleRedraw();
         break;
     case LP_NODE_BUDGET:

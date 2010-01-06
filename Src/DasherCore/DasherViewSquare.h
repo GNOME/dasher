@@ -6,6 +6,7 @@
 #define __DasherViewSquare_h__
 #include "DasherView.h"
 #include "DelayedDraw.h"
+#include "DasherScreen.h"
 #include <deque>
 #include "Alphabet/GroupInfo.h"
 
@@ -97,6 +98,7 @@ public:
 
   /// @}
 
+  void DasherSpaceLine(myint x1, myint x2, myint y1, myint y2, int iColor, int iWidth);
 
 private:
   ///
@@ -170,6 +172,8 @@ private:
   
   inline myint CustomIDiv(myint iNumerator, myint iDenominator);
 
+  void DasherLine2Screen(myint x1, myint y1, myint x2, myint y2, vector<CDasherScreen::point> &vPoints);
+  
   // Called on screen size changes
   void SetScaleFactor();
 
