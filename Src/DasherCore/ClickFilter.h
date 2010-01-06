@@ -17,6 +17,9 @@ class CClickFilter : public CInputFilter {
   virtual bool Timer(int Time, CDasherView *pDasherView, CDasherModel *pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol);
   virtual void KeyDown(int iTime, int iId, CDasherView *pDasherView, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY);
   virtual bool GetSettings(SModuleSettings **pSettings, int *iCount);
+ private:
+  //for mouse lines
+  myint m_iLastX, m_iLastY;
 };
 }
 /// @}
