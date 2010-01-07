@@ -63,7 +63,7 @@
               <object class="GtkButton" id="button17">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="label" translatable="yes">P</property>
+                <property name="label" translatable="yes" comments="Abbreviation for Preferences">P</property>
                 <property name="use_underline">True</property>
                 <property name="relief">GTK_RELIEF_NORMAL</property>
                 <property name="focus_on_click">True</property>

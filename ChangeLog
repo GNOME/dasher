@@ -3,6 +3,8 @@
 	* Remove some more deprecated last_modification properties
 	  in the UI files while solving some of the problems posed
 	  by F Wolff in #565774.
+	* Reorder "comments" in UI files so intltoolize can find them.
+	* Remove some vestiges of NodeManager.h / DasherView.inl
 
 2009-01-07  Philip Withnall <bugzilla@tecnocode.co.uk>
 

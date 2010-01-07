@@ -121,7 +121,7 @@
                                       <object class="GtkRadioButton" id="radiobutton6">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property comments="PPM = Prediction by Partial Match, a statistical language model." name="label" translatable="yes">Standard letter-based PPM</property>
+                                        <property name="label" translatable="yes" comments="PPM = Prediction by Partial Match, a statistical language model.">Standard letter-based PPM</property>
                                         <property name="use_underline">True</property>
                                         <property name="draw_indicator">True</property>
                                         <signal handler="languagemodel" name="clicked"/>
@@ -151,7 +151,7 @@
                                       <object class="GtkRadioButton" id="radiobutton8">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property comments="PPM =  Prediction by Partial Match, a statistical language model." name="label" translatable="yes">Mixture model (PPM/dictionary)</property>
+                                        <property name="label" translatable="yes" comments="PPM = Prediction by Partial Match, a statistical language model.">Mixture model (PPM/dictionary)</property>
                                         <property name="use_underline">True</property>
                                         <property name="draw_indicator">True</property>
                                         <property name="group">radiobutton6</property>
@@ -269,7 +269,7 @@
                                         <property name="xalign">0</property>
                                         <property name="xpad">2</property>
                                         <property name="ypad">2</property>
-                                        <property name="label" translatable="yes">Use this control to adjust the relative sizes of the
+                                        <property name="label" translatable="yes" comments="Line wrapping not necessary, but looks better for English">Use this control to adjust the relative sizes of the
 letter boxes. Note that selecting high values will slow
 your writing speed.</property>
                                         <property name="wrap">True</property>
@@ -332,7 +332,7 @@ your writing speed.</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="border_width">2</property>
-                                        <property comments="The default display orientation for the selected alphabet, ie left to right for English, right to left for Arabic, etc." name="label" translatable="yes">Alphabet Default</property>
+                                        <property name="label" translatable="yes" comments="The default display orientation for the selected alphabet, i.e., left to right for English, right to left for Arabic, etc.">Alphabet Default</property>
                                         <property name="use_underline">True</property>
                                         <property name="draw_indicator">True</property>
                                         <signal handler="orientation" name="clicked"/>
@@ -479,7 +479,7 @@ your writing speed.</property>
                           <object class="GtkLabel" id="label115">
                             <property name="visible">True</property>
                             <property name="xalign">0</property>
-                            <property name="label" translatable="yes">&lt;b&gt;Control Style&lt;/b&gt;</property>
+                            <property name="label" translatable="yes" comments="The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.">&lt;b&gt;Control Style&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
                           </object>
                           <packing>
@@ -817,7 +817,7 @@ your writing speed.</property>
                 <child type="tab">
                   <object class="GtkLabel" id="label114">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">Control</property>
+                    <property name="label" translatable="yes" comments="Abbreviation for Control Style">Control</property>
                   </object>
                   <packing>
                     <property name="position">1</property>

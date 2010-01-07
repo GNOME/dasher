@@ -62,7 +62,6 @@ libdashercore_a_SOURCES = \
 		DasherTypes.h \
 		DasherView.cpp \
 		DasherView.h \
-		DasherView.inl \
 		DasherViewSquare.cpp \
 		DasherViewSquare.h \
 		DasherViewSquare.inl \
@@ -97,7 +96,6 @@ libdashercore_a_SOURCES = \
 		ModuleManager.h \
 		NodeCreationManager.cpp \
 		NodeCreationManager.h \
-		NodeManager.h \
 		ExpansionPolicy.cpp \
 		ExpansionPolicy.h \
 		OneButtonDynamicFilter.cpp \

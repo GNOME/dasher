@@ -252,7 +252,7 @@
                 <child type="tab">
                   <object class="GtkLabel" id="label17">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">Control</property>
+                    <property name="label" translatable="yes" comments="The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.">Control</property>
                   </object>
                   <packing>
                     <property name="position">1</property>
