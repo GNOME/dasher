@@ -368,7 +368,6 @@
       <object class="GtkFontSelection" id="font_selection1">
         <property name="border_width">4</property>
         <property name="visible">True</property>
-        <property name="preview_text" translatable="yes">abcdefghijk ABCDEFGHIJK</property>
       </object>
       <packing>
         <property name="padding">0</property>
@@ -433,7 +432,6 @@
       <object class="GtkFontSelection" id="font_selection_2">
         <property name="border_width">4</property>
         <property name="visible">True</property>
-        <property name="preview_text" translatable="yes">abcdefghijk ABCDEFGHIJK</property>
       </object>
       <packing>
         <property name="padding">0</property>

@@ -17,8 +17,8 @@
     <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
     <property name="focus_on_map">True</property>
     <property name="urgency_hint">False</property>
-    <signal handler="ask_save_before_exit" last_modification_time="Mon, 22 Sep 2003 19:53:44 GMT" name="delete_event"/>
-    <signal handler="on_window_map" last_modification_time="Mon, 22 Sep 2003 19:53:44 GMT" name="realize"/>
+    <signal handler="ask_save_before_exit" name="delete_event"/>
+    <signal handler="on_window_map" name="realize"/>
     <child>
       <object class="GtkHBox" id="hbox1">
         <property name="border_width">32</property>
@@ -35,7 +35,6 @@
               <object class="GtkButton" id="button21">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="label" translatable="yes"/>
                 <property name="use_underline">True</property>
                 <property name="relief">GTK_RELIEF_NORMAL</property>
                 <property name="focus_on_click">True</property>
@@ -50,7 +49,6 @@
               <object class="GtkButton" id="button20">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="label" translatable="yes"/>
                 <property name="use_underline">True</property>
                 <property name="relief">GTK_RELIEF_NORMAL</property>
                 <property name="focus_on_click">True</property>
@@ -69,7 +67,7 @@
                 <property name="use_underline">True</property>
                 <property name="relief">GTK_RELIEF_NORMAL</property>
                 <property name="focus_on_click">True</property>
-                <signal handler="preferences_display" last_modification_time="Tue, 23 Sep 2003 00:29:06 GMT" name="clicked"/>
+                <signal handler="preferences_display" name="clicked"/>
               </object>
               <packing>
                 <property name="padding">0</property>
@@ -91,18 +89,15 @@
             <property name="creation_function">create_dasher_control</property>
             <property name="int1">0</property>
             <property name="int2">0</property>
-            <property name="last_modification_time">Wed, 29 Mar 2006 17:31:58 GMT</property>
-            <signal handler="parameter_notification" last_modification_time="Sun, 05 Mar 2006 19:45:23 GMT" name="dasher_changed"/>
-            <signal handler="handle_start_event" last_modification_time="Sun, 05 Mar 2006 19:45:35 GMT" name="dasher_start"/>
-            <signal handler="handle_stop_event" last_modification_time="Sun, 05 Mar 2006 19:45:43 GMT" name="dasher_stop"/>
-            <signal handler="handle_control_event" last_modification_time="Sun, 05 Mar 2006 19:45:53 GMT" name="dasher_control"/>
-            <signal handler="gtk2_edit_output_callback" last_modification_time="Sun, 05 Mar 2006 19:46:13 GMT" name="dasher_edit_insert"/>
-            <signal handler="gtk2_edit_delete_callback" last_modification_time="Sun, 05 Mar 2006 19:46:32 GMT" name="dasher_edit_delete"/>
-            <signal handler="handle_context_request" last_modification_time="Sun, 05 Mar 2006 19:46:54 GMT" name="dasher_context_request"/>
-            <signal handler="handle_request_settings" last_modification_time="Sun, 05 Mar 2006 19:47:12 GMT" name="dasher_request_settings"/>
-            <signal handler="focus_in_event" last_modification_time="Sun, 05 Mar 2006 19:47:28 GMT" name="focus_in_event"/>
-            <signal handler="on_lock_info" last_modification_time="Wed, 22 Mar 2006 10:38:44 GMT" name="dasher_lock_info"/>
-            <signal handler="on_message" last_modification_time="Wed, 22 Mar 2006 14:24:04 GMT" name="dasher_message"/>
+            <signal handler="handle_stop_event" name="dasher_stop"/>
+            <signal handler="handle_control_event" name="dasher_control"/>
+            <signal handler="gtk2_edit_output_callback" name="dasher_edit_insert"/>
+            <signal handler="gtk2_edit_delete_callback" name="dasher_edit_delete"/>
+            <signal handler="handle_context_request" name="dasher_context_request"/>
+            <signal handler="handle_request_settings" name="dasher_request_settings"/>
+            <signal handler="focus_in_event" name="focus_in_event"/>
+            <signal handler="on_lock_info" name="dasher_lock_info"/>
+            <signal handler="on_message" name="dasher_message"/>
           </object>
           <packing>
             <property name="padding">0</property>
@@ -125,7 +120,6 @@
                   <object class="GtkButton" id="button22">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="label" translatable="yes"/>
                     <property name="use_underline">True</property>
                     <property name="relief">GTK_RELIEF_NORMAL</property>
                     <property name="focus_on_click">True</property>
@@ -140,7 +134,6 @@
                   <object class="GtkButton" id="button23">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="label" translatable="yes"/>
                     <property name="use_underline">True</property>
                     <property name="relief">GTK_RELIEF_NORMAL</property>
                     <property name="focus_on_click">True</property>
@@ -155,8 +148,6 @@
                   <object class="GtkButton" id="button24">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="label" translatable="yes">
-</property>
                     <property name="use_underline">True</property>
                     <property name="relief">GTK_RELIEF_NORMAL</property>
                     <property name="focus_on_click">True</property>
@@ -171,7 +162,6 @@
                   <object class="GtkButton" id="button25">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="label" translatable="yes"/>
                     <property name="use_underline">True</property>
                     <property name="relief">GTK_RELIEF_NORMAL</property>
                     <property name="focus_on_click">True</property>
@@ -279,7 +269,7 @@
     <property name="focus_on_map">True</property>
     <property name="urgency_hint">False</property>
     <property name="show_fileops">True</property>
-    <signal handler="gtk_widget_hide_on_delete" last_modification_time="Tue, 23 Sep 2003 13:19:39 GMT" name="delete_event"/>
+    <signal handler="gtk_widget_hide_on_delete" name="delete_event"/>
     <child internal-child="cancel_button">
       <object class="GtkButton" id="cancel_button1">
         <property name="visible">True</property>
@@ -314,7 +304,7 @@
     <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
     <property name="focus_on_map">True</property>
     <property name="urgency_hint">False</property>
-    <signal handler="dasher_font_cancel_cb" last_modification_time="Thu, 11 May 2006 15:22:16 GMT" name="delete_event"/>
+    <signal handler="dasher_font_cancel_cb" name="delete_event"/>
     <child internal-child="cancel_button">
       <object class="GtkButton" id="dasher_font_cancel">
         <property name="visible">True</property>
@@ -324,7 +314,7 @@
         <property name="use_stock">True</property>
         <property name="relief">GTK_RELIEF_NORMAL</property>
         <property name="focus_on_click">True</property>
-        <signal handler="dasher_font_cancel_cb" last_modification_time="Thu, 11 May 2006 15:21:14 GMT" name="clicked"/>
+        <signal handler="dasher_font_cancel_cb" name="clicked"/>
       </object>
     </child>
     <child internal-child="apply_button">
@@ -336,7 +326,7 @@
         <property name="use_stock">True</property>
         <property name="relief">GTK_RELIEF_NORMAL</property>
         <property name="focus_on_click">True</property>
-        <signal handler="dasher_font_apply_cb" last_modification_time="Thu, 11 May 2006 15:21:38 GMT" name="clicked"/>
+        <signal handler="dasher_font_apply_cb" name="clicked"/>
       </object>
     </child>
     <child internal-child="ok_button">
@@ -348,14 +338,13 @@
         <property name="use_stock">True</property>
         <property name="relief">GTK_RELIEF_NORMAL</property>
         <property name="focus_on_click">True</property>
-        <signal handler="dasher_font_ok_cb" last_modification_time="Thu, 11 May 2006 15:22:03 GMT" name="clicked"/>
+        <signal handler="dasher_font_ok_cb" name="clicked"/>
       </object>
     </child>
     <child internal-child="font_selection">
       <object class="GtkFontSelection" id="font_selection1">
         <property name="border_width">4</property>
         <property name="visible">True</property>
-        <property name="preview_text" translatable="yes">abcdefghijk ABCDEFGHIJK</property>
       </object>
       <packing>
         <property name="padding">0</property>
@@ -379,7 +368,7 @@
     <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
     <property name="focus_on_map">True</property>
     <property name="urgency_hint">False</property>
-    <signal handler="edit_font_cancel_cb" last_modification_time="Thu, 11 May 2006 15:22:37 GMT" name="close"/>
+    <signal handler="edit_font_cancel_cb" name="close"/>
     <child internal-child="cancel_button">
       <object class="GtkButton" id="edit_font_cancel">
         <property name="visible">True</property>
@@ -389,7 +378,7 @@
         <property name="use_stock">True</property>
         <property name="relief">GTK_RELIEF_NORMAL</property>
         <property name="focus_on_click">True</property>
-        <signal handler="edit_font_cancel_cb" last_modification_time="Thu, 11 May 2006 15:20:27 GMT" name="clicked"/>
+        <signal handler="edit_font_cancel_cb" name="clicked"/>
       </object>
     </child>
     <child internal-child="apply_button">
@@ -401,7 +390,7 @@
         <property name="use_stock">True</property>
         <property name="relief">GTK_RELIEF_NORMAL</property>
         <property name="focus_on_click">True</property>
-        <signal handler="edit_font_apply_cb" last_modification_time="Thu, 11 May 2006 15:20:19 GMT" name="clicked"/>
+        <signal handler="edit_font_apply_cb" name="clicked"/>
       </object>
     </child>
     <child internal-child="ok_button">
@@ -413,14 +402,13 @@
         <property name="use_stock">True</property>
         <property name="relief">GTK_RELIEF_NORMAL</property>
         <property name="focus_on_click">True</property>
-        <signal handler="edit_font_ok_cb" last_modification_time="Thu, 11 May 2006 15:19:55 GMT" name="clicked"/>
+        <signal handler="edit_font_ok_cb" name="clicked"/>
       </object>
     </child>
     <child internal-child="font_selection">
       <object class="GtkFontSelection" id="font_selection_2">
         <property name="border_width">4</property>
         <property name="visible">True</property>
-        <property name="preview_text" translatable="yes">abcdefghijk ABCDEFGHIJK</property>
       </object>
       <packing>
         <property name="padding">0</property>
@@ -445,7 +433,7 @@
     <property name="focus_on_map">True</property>
     <property name="urgency_hint">False</property>
     <property name="show_fileops">True</property>
-    <signal handler="gtk_widget_hide_on_delete" last_modification_time="Tue, 23 Sep 2003 13:19:39 GMT" name="delete_event"/>
+    <signal handler="gtk_widget_hide_on_delete" name="delete_event"/>
     <child internal-child="cancel_button">
       <object class="GtkButton" id="button14">
         <property name="visible">True</property>
@@ -481,7 +469,7 @@
     <property name="focus_on_map">True</property>
     <property name="urgency_hint">False</property>
     <property name="show_fileops">True</property>
-    <signal handler="gtk_widget_hide_on_delete" last_modification_time="Tue, 23 Sep 2003 13:19:39 GMT" name="delete_event"/>
+    <signal handler="gtk_widget_hide_on_delete" name="delete_event"/>
     <child internal-child="cancel_button">
       <object class="GtkButton" id="button16">
         <property name="visible">True</property>
@@ -517,7 +505,7 @@
     <property name="focus_on_map">True</property>
     <property name="urgency_hint">False</property>
     <property name="show_fileops">True</property>
-    <signal handler="gtk_widget_hide_on_delete" last_modification_time="Tue, 23 Sep 2003 13:19:39 GMT" name="delete_event"/>
+    <signal handler="gtk_widget_hide_on_delete" name="delete_event"/>
     <child internal-child="cancel_button">
       <object class="GtkButton" id="button18">
         <property name="visible">True</property>
@@ -553,7 +541,7 @@
     <property name="focus_on_map">True</property>
     <property name="urgency_hint">False</property>
     <property name="show_fileops">True</property>
-    <signal handler="gtk_widget_hide_on_delete" last_modification_time="Tue, 23 Sep 2003 13:19:39 GMT" name="delete_event"/>
+    <signal handler="gtk_widget_hide_on_delete" name="delete_event"/>
     <child internal-child="cancel_button">
       <object class="GtkButton" id="button20">
         <property name="visible">True</property>

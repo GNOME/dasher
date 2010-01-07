@@ -1,3 +1,9 @@
+2009-01-07  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Remove some more deprecated last_modification properties
+	  in the UI files while solving some of the problems posed
+	  by F Wolff in #565774.
+
 2009-01-07  Philip Withnall <bugzilla@tecnocode.co.uk>
 
 	* Use proper UTF-8 ellipsis characters and improve wording. (#596679)
