@@ -39,7 +39,7 @@ static SModuleSettings sSettings[] = {
   {BP_TWOBUTTON_REVERSE,T_BOOL, -1, -1, -1, -1, _("Reverse up and down buttons")},
   /* TRANSLATORS: Pushing the up/down button twice quickly has the same effect as pushing the other
   button once; in this case, one must push three times (or push-and-hold) to reverse. */
-  {BP_2B_INVERT_DOUBLE, T_BOOL, -1, -1, -1, -1, _("Double-click is opposite up/down - triple to reverse")},
+  {BP_2B_INVERT_DOUBLE, T_BOOL, -1, -1, -1, -1, _("Double-click is opposite up/down — triple to reverse")},
   {BP_SLOW_START,T_BOOL, -1, -1, -1, -1, _("Slow startup")},
   {LP_SLOW_START_TIME, T_LONG, 0, 10000, 1000, 100, _("Startup time")},
   {LP_DYNAMIC_BUTTON_LAG, T_LONG, 0, 1000, 1, 25, _("Lag before user actually pushes button (ms)")}, 

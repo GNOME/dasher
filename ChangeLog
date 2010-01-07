@@ -1,3 +1,7 @@
+2009-01-07  Philip Withnall <bugzilla@tecnocode.co.uk>
+
+	* Use proper UTF-8 ellipsis characters and improve wording. (#596679)
+
 2009-01-07  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* Remove GetSymbols in favour of SymbolStream which converts 

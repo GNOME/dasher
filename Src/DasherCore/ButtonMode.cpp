@@ -26,7 +26,7 @@ using namespace Dasher;
 static SModuleSettings sSettings[] = {
   /* TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode. */
   {LP_ZOOMSTEPS, T_LONG, 1, 63, 1, 1, _("Zoom steps")},
-  {LP_BUTTON_SCAN_TIME, T_LONG, 0, 2000, 1, 100, _("Scan time in menu mode (0 for don't scan)")},
+  {LP_BUTTON_SCAN_TIME, T_LONG, 0, 2000, 1, 100, _("Scan time in menu mode (0 to not scan)")},
   {LP_B, T_LONG, 2, 10, 1, 1, _("Number of boxes")},
   {LP_S, T_LONG, 0, 256, 1, 1, _("Safety margin")},
   /* TRANSLATORS: The boxes (zoom targets) in button mode can either be the same size, or different sizes - this is the extent to which the sizes are allowed to differ from each other. */

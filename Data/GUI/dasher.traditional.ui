@@ -48,12 +48,12 @@
         <child>
           <object class="GtkAction" id="action_append">
             <property name="name">action_append</property>
-            <property name="label" translatable="yes">A_ppend to file...</property>
+            <property name="label" translatable="yes">A_ppend to file…</property>
           </object>
         </child>
         <child>
           <object class="GtkAction" id="action_import">
-            <property name="label" translatable="yes">_Import Training Text...</property>
+            <property name="label" translatable="yes">_Import Training Text…</property>
             <signal name="activate" handler="dasher_main_cb_import"/>
           </object>
         </child>
@@ -99,7 +99,7 @@
         <child>
           <object class="GtkAction" id="action_preferences">
             <property name="stock_id">gtk-preferences</property>
-            <property name="label" translatable="yes">Pr_eferences...</property>
+            <property name="label" translatable="yes">Pr_eferences…</property>
             <property name="tooltip" translatable="yes">Preferences</property>
             <signal name="activate" handler="dasher_main_cb_preferences"/>
           </object>
@@ -113,7 +113,7 @@
         <child>
           <object class="GtkAction" id="action_help">
             <property name="stock_id">gtk-help</property>
-            <property name="label"   translatable="yes">_Contents...</property>
+            <property name="label"   translatable="yes">_Contents…</property>
             <property name="tooltip" translatable="yes">Help</property>
             <signal name="activate" handler="dasher_main_cb_help"/>
           </object>
@@ -122,7 +122,7 @@
         <child>
           <object class="GtkAction" id="action_about">
             <property name="stock_id">gtk-about</property>
-            <property name="label" translatable="yes">_About...</property>
+            <property name="label" translatable="yes">_About…</property>
             <signal name="activate" handler="dasher_main_cb_about"/>
           </object>
         </child>
@@ -376,7 +376,7 @@
   </object>
   <object class="GtkWindow" id="lock_window">
     <property name="visible">True</property>
-    <property name="title" translatable="yes">Please Wait...</property>
+    <property name="title" translatable="yes">Please Wait…</property>
     <property name="type">GTK_WINDOW_TOPLEVEL</property>
     <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
     <property name="modal">False</property>
