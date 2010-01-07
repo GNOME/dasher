@@ -27,6 +27,7 @@
 #include <ios>
 #include <iostream>
 #include <vector>
+#include <sstream>
 
 //using namespace Dasher;
 
@@ -72,10 +73,8 @@ Dasher::CTrainingHelper::LoadPlain(const std::string &strFileName) {
       return;
     }
 
-  std::vector<Dasher::symbol> vSymbols;
-  vSymbols.clear();
-  m_pAlphabet->GetSymbols(vSymbols, in);
-  Train(vSymbols);
+  CAlphabet::SymbolStream syms(m_pAlphabet, in);
+  Train(syms);
 
   in.close();
 }
@@ -128,9 +127,9 @@ Dasher::CTrainingHelper::HandleStartElement(const XML_Char *szName,
 void 
 Dasher::CTrainingHelper::HandleEndElement(const XML_Char *szName) {
   if(!strcmp(szName, "segment")) {
-    std::vector<Dasher::symbol> vSymbols;
-    m_pAlphabet->GetSymbols(vSymbols, m_strCurrentText);
-    Train(vSymbols);
+    std::istringstream in(m_strCurrentText);
+    CAlphabet::SymbolStream syms(m_pAlphabet,in);
+    Train(syms);
     
     m_bInSegment = false;
   }
