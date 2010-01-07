@@ -9,14 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "CDasherInterfaceBridge.h"
 #import "CDasherScreenBridge.h"
+#import "TextView.h"
 
 @class EAGLView;
 
-@interface DasherAppDelegate : NSObject <UIApplicationDelegate, UIActionSheetDelegate, UITextViewDelegate> {
+@interface DasherAppDelegate : UIViewController <UIApplicationDelegate, UIActionSheetDelegate, UITextViewDelegate> {
     UIWindow *window;
-	UIViewController *controller;
     EAGLView *glView;
-	UITextView *text;
+	TextView *text;
 	NSRange selectedText;
 	CDasherInterfaceBridge* _dasherInterface;
 	UIButton *speedBtn;

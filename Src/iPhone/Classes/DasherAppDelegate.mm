@@ -22,6 +22,7 @@
 - (void)initDasherInterface;
 - (void)finishStartup;
 - (void)doSpeedBtnImage:(NSString *)msg;
+- (CGRect)doLayout;
 @property (retain) UILabel *screenLockLabel;
 @end
 
@@ -29,31 +30,75 @@
 
 @synthesize screenLockLabel;
 
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+  if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
+    return NO;
+  return YES;
+}
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+  [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+  CGRect appFrame = [UIScreen mainScreen].applicationFrame;
+  window.frame=appFrame;
+  self.view.frame = CGRectMake(0.0, 0.0, appFrame.size.width, appFrame.size.height);
+  if (self.interfaceOrientation == UIInterfaceOrientationPortrait)
+    [self.view addSubview:tools];
+  else
+    [tools removeFromSuperview];
+  [self doLayout];
+}
+
+/// Sets sizes of toolbar and textview according to current orientation
+/// Also computes and returns desired size of glView, and sets said _iff_ glView is non-nil
+-(CGRect)doLayout {
+  CGSize mainSize = self.view.bounds.size;
+  CGRect dashRect;
+  switch (self.interfaceOrientation) {
+    case UIInterfaceOrientationPortrait: {
+      dashRect = CGRectMake(0.0, 0.0, mainSize.width, mainSize.height - 100.0);
+      /*CGRect textRect =*/text.frame = CGRectMake(0.0, dashRect.size.height, mainSize.width, 70.0);
+      text.bLandscape = NO;
+      tools.frame = CGRectMake(0.0, mainSize.height - 30.0, mainSize.width, 30.0);
+      break;
+    }
+    case UIInterfaceOrientationLandscapeRight:
+    case UIInterfaceOrientationLandscapeLeft: {
+      CGRect textRect = CGRectMake(0.0, 0.0, 100.0, mainSize.height);//-30.0);
+      text.frame = textRect;
+      text.bLandscape = YES;
+      dashRect = CGRectMake(textRect.size.width, 0.0, mainSize.width-textRect.size.width, mainSize.height);//-30.0);
+      break;
+    }
+    default:
+      NSAssert(false, @"Unexpected interface orientation");
+  }
+  if (glView) glView.frame=dashRect;
+  return dashRect;
+}
+
 -(CDasherInterfaceBridge *)dasherInterface {return _dasherInterface;}
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	CGSize mainSize = [UIScreen mainScreen].applicationFrame.size;
 	window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-	controller = [[UIViewController alloc] init];
-	controller.view = [[[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, mainSize.width, mainSize.height)] autorelease];
+	self.view = [[[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, mainSize.width, mainSize.height)] autorelease];
 
-	[window addSubview:controller.view];
+	[window addSubview:self.view];
 
   //start training in a separate thread.
-  [controller doAsyncLocked:@"Initializing..." target:self selector:@selector(initDasherInterface) param:nil];
+  [self doAsyncLocked:@"Initializing..." target:self selector:@selector(initDasherInterface) param:nil];
 
-	CGRect dashRect = CGRectMake(0.0, 0.0, mainSize.width, mainSize.height - 100.0);
-	CGRect textRect = CGRectMake(0.0, dashRect.size.height, mainSize.width, 70.0);
-	CGRect toolRect = CGRectMake(0.0, mainSize.height - 30.0, mainSize.width, 30.0);
-	glView = [[[EAGLView alloc] initWithFrame:dashRect Delegate:self] autorelease];
+  //create GUI components...
+	text = [[[TextView alloc] init] autorelease];
+	tools = [[UIToolbar alloc] init]; //retain a reference (until dealloc) because of rotation
+	glView = [[[EAGLView alloc] initWithFrame:[self doLayout] Delegate:self] autorelease];
 	
-	text = [[[TextView alloc] initWithFrame:textRect] autorelease];
 	text.text=@"";
 	text.editable = NO;
 	text.delegate = self;
 	selectedText.location = selectedText.length = 0;
-	
-	tools = [[[UIToolbar alloc] initWithFrame:toolRect] autorelease];
+
+  //...and lay them out
 	UIBarButtonItem *settings = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cog.png"] style:UIBarButtonItemStylePlain target:self action:@selector(settings)] autorelease];
 	speedBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 	[speedBtn setImageEdgeInsets:UIEdgeInsetsMake(0.0, 2.0, 0.0, 2.0)];
@@ -72,9 +117,9 @@
 				mail,
 				nil]];
 	
-	[controller.view addSubview:glView];
-	[controller.view addSubview:text];
-	[controller.view addSubview:tools];
+	[self.view addSubview:glView];
+	[self.view addSubview:text];
+	[self.view addSubview:tools];
 	[window makeKeyAndVisible];
   //exit this routine; initDasherInterface (in separate thread) will cause this (main) thread
   // to execute finishStartup, and finally unlock the display, when it's done with training etc.
@@ -147,11 +192,11 @@
                 [[[StringParamController alloc] initWithTitle:@"Colour" image:[UIImage imageNamed:@"palette.png"] settingParam:SP_COLOUR_ID] autorelease],
 						    [[[MiscSettings alloc] init] autorelease],
 						    nil];
-  [controller presentModalViewController:settings animated:YES];
+  [self presentModalViewController:settings animated:YES];
 }
 
 - (void)settingsDone {
-	[controller dismissModalViewControllerAnimated:YES];
+	[self dismissModalViewControllerAnimated:YES];
 	[glView startAnimation];
 }
 
@@ -235,8 +280,8 @@
 }
 
 - (void)dealloc {
-	[controller release];
 	[window release];
+  [tools release];
 	[super dealloc];
 }
 

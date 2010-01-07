@@ -105,11 +105,14 @@
 
 
 - (void)layoutSubviews {
-	doneLayout = YES;
-    [EAGLContext setCurrentContext:context];
+	  [EAGLContext setCurrentContext:context];
     [self destroyFramebuffer];
     [self createFramebuffer];
-    [self drawView];
+  if (doneLayout)
+    dasherApp.dasherInterface->ChangeScreen(new CDasherScreenBridge(self));
+  else //first time, DasherAppDelegate will create screen as part of startup
+    doneLayout = YES;
+  [self drawView];
 }
 
 

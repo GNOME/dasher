@@ -1,3 +1,15 @@
+2009-01-07  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Remove GetSymbols in favour of SymbolStream which converts 
+	  one UTF-8 character at a time avoiding huge vector<symbol>
+	* Robustness improvements to ExpansionPolicy code for 
+	  finding-next-smallest double
+	* iPhone updates:
+	  - ExpansionPolicy, factory removal, DEBUG, private methods
+	  - Adjust interface (removing toolbar) when iPhone is held
+	    in landscape position
+	  - Add 1px border between text and canvas in both portrait & landscape
+
 2009-12-20  Patrick Welche <prlw1@cam.ac.uk>
 
 	* Import newer gconf-2.m4

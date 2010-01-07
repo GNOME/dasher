@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-
 @interface TextView : UITextView {
-
+  BOOL bLandscape;
 }
 
+/// TRUE => draw border along right edge; FALSE => draw border along top edge
+@property (nonatomic) BOOL bLandscape;
 @end
