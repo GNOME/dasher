@@ -57,7 +57,7 @@ enum {
   LP_LM_MIXTURE, LP_MOUSE_POS_BOX, LP_NORMALIZATION, LP_LINE_WIDTH, 
   LP_LM_WORD_ALPHA, LP_USER_LOG_LEVEL_MASK, 
   LP_ZOOMSTEPS, LP_B, LP_S, LP_BUTTON_SCAN_TIME, LP_R, LP_RIGHTZOOM,
-  LP_NODE_BUDGET,
+  LP_NODE_BUDGET, LP_NONLINEAR_X,
   LP_BOOSTFACTOR, LP_AUTOSPEED_SENSITIVITY, LP_SOCKET_PORT, LP_SOCKET_INPUT_X_MIN, LP_SOCKET_INPUT_X_MAX,
   LP_SOCKET_INPUT_Y_MIN, LP_SOCKET_INPUT_Y_MAX, LP_OX, LP_OY, LP_MAX_Y, LP_INPUT_FILTER, 
   LP_CIRCLE_PERCENT, LP_TWO_BUTTON_OFFSET, LP_HOLD_TIME, LP_MULTIPRESS_TIME,
@@ -154,7 +154,7 @@ static bp_table boolparamtable[] = {
   {BP_SOCKET_DEBUG, "SocketInputDebug", PERS, false, "Print information about socket input processing to console"},
   {BP_CIRCLE_START, "CircleStart", PERS, false, "Start on circle mode"},
   {BP_GLOBAL_KEYBOARD, "GlobalKeyboard", PERS, false, "Whether to assume global control of the keyboard"},
-#if defined(WITH_MAEMO) || defined(TARGET_OS_IPHONE)
+#ifdef WITH_MAEMO
   {BP_NONLINEAR_Y, "NonlinearY", PERS, false, "Apply nonlinearities to Y axis (i.e. compress top &amp; bottom)"},
 #else
   {BP_NONLINEAR_Y, "NonlinearY", PERS, true, "Apply nonlinearities to Y axis (i.e. compress top &amp; bottom)"},
@@ -209,10 +209,15 @@ static lp_table longparamtable[] = {
 #endif
   {LP_R, "ButtonModeNonuniformity", PERS, 0, "Button mode box non-uniformity"},
   {LP_RIGHTZOOM, "ButtonCompassModeRightZoom", PERS, 5120, "Zoomfactor (*1024) for compass mode"},
-#ifdef TARGET_OS_IPHONE
+#if defined(WITH_MAEMO) || defined (TARGET_OS_IPHONE)
   {LP_NODE_BUDGET, "NodeBudget", PERS, 1000, "Target (min) number of node objects to maintain"},
 #else
   {LP_NODE_BUDGET, "NodeBudget", PERS, 3000, "Target (min) number of node objects to maintain"},
+#endif
+#ifdef WITH_MAEMO
+  {LP_NONLINEAR_X, "NonLinearX", PERS, 0, "Nonlinear compression of X-axis (0 = none, higher = more extreme)"},
+#else
+  {LP_NONLINEAR_X, "NonLinearX", PERS, 5, "Nonlinear compression of X-axis (0 = none, higher = more extreme)"},
 #endif
   {LP_BOOSTFACTOR, "BoostFactor", !PERS, 100, "Boost/brake factor (multiplied by 100)"},
   {LP_AUTOSPEED_SENSITIVITY, "AutospeedSensitivity", PERS, 100, "Sensitivity of automatic speed control (percent)"},

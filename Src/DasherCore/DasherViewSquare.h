@@ -174,15 +174,8 @@ private:
 
   void DasherLine2Screen(myint x1, myint y1, myint x2, myint y2, vector<CDasherScreen::point> &vPoints);
   
-  // Called on screen size changes
+  // Called on screen size or orientation changes
   void SetScaleFactor();
-
-
-  /// Get the scale factor for conversion between Dasher co-ordinates
-  /// and screen co-ordinates
-
-  void GetScaleFactor( int eOrientation, myint *iScaleFactorX, myint *iScaleFactorY );
-
 
   // Data
  
@@ -190,10 +183,8 @@ private:
   screenint iCenterX;
 
   // Cached values for scaling
-  myint iLRScaleFactorX;
-  myint iLRScaleFactorY;
-  myint iTBScaleFactorX;
-  myint iTBScaleFactorY;
+  myint iScaleFactorX;
+  myint iScaleFactorY;
 
   // The factor that scale factors are multipled by 
   myint m_iScalingFactor;

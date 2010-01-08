@@ -45,6 +45,7 @@ namespace Dasher {
 
   inline myint CDasherViewSquare::ixmap(myint x) const
   {
+    if (GetLongParameter(LP_NONLINEAR_X)==0) return x;
     double dx = x / static_cast<double>(GetLongParameter(LP_MAX_Y));
     if(dx < m_dXmpb * m_dXmpc)
       dx /= m_dXmpc;
@@ -55,6 +56,7 @@ namespace Dasher {
 
   inline myint CDasherViewSquare::xmap(myint x) const
   {
+    if (GetLongParameter(LP_NONLINEAR_X)==0) return x;
     double dx = x / static_cast<double>(GetLongParameter(LP_MAX_Y));
     if(dx < m_dXmpb)
       dx *= m_dXmpc;
@@ -64,6 +66,7 @@ namespace Dasher {
   }
 
   inline myint CDasherViewSquare::ymap(myint y) const {
+    if (!GetBoolParameter(BP_NONLINEAR_Y)) return y;
     if(y > m_Y2)
       return m_Y2 + (y - m_Y2) / m_Y1;
     else if(y < m_Y3)
@@ -73,11 +76,12 @@ namespace Dasher {
   }
 
   inline myint CDasherViewSquare::iymap(myint ydash) const {
-    if(ydash > m_Y2)
-      return (ydash - m_Y2) * m_Y1 + m_Y2;
-    else if(ydash < m_Y3)
-      return (ydash - m_Y3) * m_Y1 + m_Y3;
-    else
-      return ydash;
+    if (GetBoolParameter(BP_NONLINEAR_Y)) {
+      if(ydash > m_Y2)
+        return (ydash - m_Y2) * m_Y1 + m_Y2;
+      else if(ydash < m_Y3)
+        return (ydash - m_Y3) * m_Y1 + m_Y3;
+    }
+    return ydash;
   }
 }

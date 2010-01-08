@@ -67,12 +67,7 @@ CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStor
 
   ChangeScreen(DasherScreen);
 
-  // TODO - Make these parameters
-  // tweak these if you know what you are doing
-  m_dXmpa = 0.2;                // these are for the x non-linearity
-  m_dXmpb = 0.5;
-  m_dXmpc = 0.9;
-
+  //Note, nonlinearity parameters set in SetScaleFactor 
   m_bVisibleRegionValid = false;
   
 }
@@ -88,10 +83,9 @@ void CDasherViewSquare::HandleEvent(Dasher::CEvent *pEvent) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
     switch (pEvt->m_iParameter) {
     case LP_REAL_ORIENTATION:
-      m_bVisibleRegionValid = false;
-      break;
     case LP_MARGIN_WIDTH:
     case BP_NONLINEAR_Y:
+    case LP_NONLINEAR_X:
       m_bVisibleRegionValid = false;
       SetScaleFactor();
       break;
@@ -617,11 +611,6 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
 
   int eOrientation(GetLongParameter(LP_REAL_ORIENTATION));
 
-  myint iScaleFactorX;
-  myint iScaleFactorY;
-  
-  GetScaleFactor(eOrientation, &iScaleFactorX, &iScaleFactorY);
-
   switch(eOrientation) {
   case Dasher::Opts::LeftToRight:
     iDasherX = iCenterX - ( iInputX - iScreenWidth / 2 ) * m_iScalingFactor / iScaleFactorX;
@@ -641,15 +630,22 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
     break;
   }
 
-  if (GetBoolParameter(BP_NONLINEAR_Y)) {
-    iDasherX = ixmap(iDasherX);
-    iDasherY = iymap(iDasherY);
-  }
+  iDasherX = ixmap(iDasherX);
+  iDasherY = iymap(iDasherY);
   
 }
 
 void CDasherViewSquare::SetScaleFactor( void )
 {
+  //Parameters for X non-linearity.
+  // Set some defaults here, in case we change(d) them later...
+  m_dXmpb = 0.5; //threshold: DasherX's less than (m_dXmpb * MAX_Y) are linear...
+  m_dXmpc = 0.9; //...but multiplied by m_dXmpc; DasherX's above that, are logarithmic...
+
+  //set log scaling coefficient (unused if LP_NONLINEAR_X==0)
+  // note previous value of m_dXmpa = 0.2, i.e. a value of LP_NONLINEAR_X =~= 4.8
+  m_dXmpa = exp(GetLongParameter(LP_NONLINEAR_X)/-3.0); 
+  
   myint iDasherWidth = (myint)GetLongParameter(LP_MAX_Y);
   myint iDasherHeight = iDasherWidth;
 
@@ -661,35 +657,42 @@ void CDasherViewSquare::SetScaleFactor( void )
   myint iDasherMargin( GetLongParameter(LP_MARGIN_WIDTH) ); // Make this a parameter
 
   myint iMinX( 0-iDasherMargin );
-  myint iMaxX( iDasherWidth - 2*iDasherMargin );
+  myint iMaxX( iDasherWidth );
   iCenterX = (iMinX + iMaxX)/2;
   myint iMinY( 0 );
   myint iMaxY( iDasherHeight );
 
-  double dLRHScaleFactor;
-  double dLRVScaleFactor;
-  double dTBHScaleFactor;
-  double dTBVScaleFactor;
-
-  dLRHScaleFactor = iScreenWidth / static_cast<double>( iMaxX - iMinX );
-  dLRVScaleFactor = iScreenHeight / static_cast<double>( iMaxY - iMinY );
-  dTBHScaleFactor = iScreenWidth / static_cast<double>( iMaxY - iMinY );
-  dTBVScaleFactor = iScreenHeight / static_cast<double>( iMaxX - iMinX );
-
-  iLRScaleFactorX = myint(std::max(std::min(dLRHScaleFactor, dLRVScaleFactor), dLRHScaleFactor / 4.0) * m_iScalingFactor);
-  iLRScaleFactorY = myint(std::max(std::min(dLRHScaleFactor, dLRVScaleFactor), dLRVScaleFactor / 4.0) * m_iScalingFactor);
-  iTBScaleFactorX = myint(std::max(std::min(dTBHScaleFactor, dTBVScaleFactor), dTBVScaleFactor / 4.0) * m_iScalingFactor);
-  iTBScaleFactorY = myint(std::max(std::min(dTBHScaleFactor, dTBVScaleFactor), dTBHScaleFactor / 4.0) * m_iScalingFactor);
-}
-
-void CDasherViewSquare::GetScaleFactor( int eOrientation, myint *iScaleFactorX, myint *iScaleFactorY ) {
-  if(( eOrientation == Dasher::Opts::LeftToRight ) || ( eOrientation == Dasher::Opts::RightToLeft )) {
-    *iScaleFactorX = iLRScaleFactorX;
-    *iScaleFactorY = iLRScaleFactorY;
+  Dasher::Opts::ScreenOrientations eOrientation(Dasher::Opts::ScreenOrientations(GetLongParameter(LP_REAL_ORIENTATION)));
+  
+  double dScaleFactorX, dScaleFactorY;
+  
+  if (eOrientation == Dasher::Opts::LeftToRight || eOrientation == Dasher::Opts::RightToLeft) {
+    dScaleFactorX = iScreenWidth / static_cast<double>( iMaxX - iMinX );
+    dScaleFactorY = iScreenHeight / static_cast<double>( iMaxY - iMinY );
   } else {
-    *iScaleFactorX = iTBScaleFactorX;
-    *iScaleFactorY = iTBScaleFactorY;
+    dScaleFactorX = iScreenHeight / static_cast<double>( iMaxX - iMinX );
+    dScaleFactorY = iScreenWidth / static_cast<double>( iMaxY - iMinY );
   }
+  
+  if (dScaleFactorX < dScaleFactorY) {
+    //fewer (pixels per dasher coord) in X direction - i.e., X is more compressed.
+    //So, use X scale for Y too...except first, we'll _try_ to reduce the difference
+    // by changing the relative scaling of X and Y (by at most 20%):
+    double dMul = max(0.8, dScaleFactorX / dScaleFactorY);
+    m_dXmpc *= dMul;
+    dScaleFactorX /= dMul;
+
+    iScaleFactorX = myint(dScaleFactorX * m_iScalingFactor);
+    iScaleFactorY = myint(std::max(dScaleFactorX, dScaleFactorY / 4.0) * m_iScalingFactor);
+  } else {
+    //X has more room; use Y scale for both -> will get lots history
+    iScaleFactorX = myint(std::max(dScaleFactorY, dScaleFactorX / 4.0) * m_iScalingFactor);
+    iScaleFactorY = myint(dScaleFactorY * m_iScalingFactor);
+    // however, "compensate" by relaxing the default "relative scaling" of X
+    // (normally only 90% of Y) towards 1...
+    m_dXmpc = std::min(1.0,0.9 * dScaleFactorX / dScaleFactorY);
+  }
+  iCenterX *= m_dXmpc;
 }
 
 
@@ -730,11 +733,9 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
 
   // Apply the nonlinearities
 
-  if (GetBoolParameter(BP_NONLINEAR_Y)) {
-    iDasherX = xmap(iDasherX);
-    iDasherY = ymap(iDasherY);
-  }
-
+  iDasherX = xmap(iDasherX);
+  iDasherY = ymap(iDasherY);
+  
   // Things we're likely to need:
 
   //myint iDasherWidth = (myint)GetLongParameter(LP_MAX_Y);
@@ -744,12 +745,6 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
   screenint iScreenHeight = Screen()->GetHeight();
 
   int eOrientation( GetLongParameter(LP_REAL_ORIENTATION) );
-
-  myint iScaleFactorX;
-  myint iScaleFactorY;
-
-  GetScaleFactor( eOrientation, &iScaleFactorX, &iScaleFactorY);
-
 
   // Note that integer division is rounded *away* from zero here to
   // ensure that this really is the inverse of the map the other way
@@ -797,22 +792,23 @@ void CDasherViewSquare::Dasher2Polar(myint iDasherX, myint iDasherY, double &r, 
 }
 
 void CDasherViewSquare::DasherLine2Screen(myint x1, myint y1, myint x2, myint y2, vector<CDasherScreen::point> &vPoints) {
-  if (x1!=x2 && y1!=y2 && GetBoolParameter(BP_NONLINEAR_Y)) {
-    //only diagonal lines ever get changed...
-    if ((y1 < m_Y3 && y2 > m_Y3) ||(y2 < m_Y3 && y1 > m_Y3)) {
-      //crosses bottom non-linearity border
-      int x_mid = x1+(x2-x1) * (m_Y3-y1)/(y2-y1);
-      DasherLine2Screen(x1, y1, x_mid, m_Y3, vPoints);
-      x1=x_mid; y1=m_Y3;
-    }//else //no, a single line might cross _both_ borders!
-    if ((y1 > m_Y2 && y2 < m_Y2) || (y2 > m_Y2 && y1 < m_Y2)) {
-      //crosses top non-linearity border
-      int x_mid = x1 + (x2-x1) * (m_Y2-y1)/(y2-y1);
-      DasherLine2Screen(x1, y1, x_mid, m_Y2, vPoints);
-      x1=x_mid; y1=m_Y2;
+  if (x1!=x2 && y1!=y2) { //only diagonal lines ever get changed...
+    if (GetBoolParameter(BP_NONLINEAR_Y)) {
+      if ((y1 < m_Y3 && y2 > m_Y3) ||(y2 < m_Y3 && y1 > m_Y3)) {
+        //crosses bottom non-linearity border
+        int x_mid = x1+(x2-x1) * (m_Y3-y1)/(y2-y1);
+        DasherLine2Screen(x1, y1, x_mid, m_Y3, vPoints);
+        x1=x_mid; y1=m_Y3;
+      }//else //no, a single line might cross _both_ borders!
+      if ((y1 > m_Y2 && y2 < m_Y2) || (y2 > m_Y2 && y1 < m_Y2)) {
+        //crosses top non-linearity border
+        int x_mid = x1 + (x2-x1) * (m_Y2-y1)/(y2-y1);
+        DasherLine2Screen(x1, y1, x_mid, m_Y2, vPoints);
+        x1=x_mid; y1=m_Y2;
+      }
     }
     double dMax(static_cast<double>(GetLongParameter(LP_MAX_Y)));
-    if (GetBoolParameter(BP_NONLINEAR_Y) && (x1 / dMax > m_dXmpb || x2 / dMax > m_dXmpb)) {
+    if (GetLongParameter(LP_NONLINEAR_X) && (x1 / dMax > m_dXmpb || x2 / dMax > m_dXmpb)) {
       //into logarithmic section
       CDasherScreen::point pStart, pScreenMid, pEnd;
       Dasher2Screen(x2, y2, pEnd.x, pEnd.y);
