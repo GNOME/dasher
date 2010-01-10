@@ -74,7 +74,6 @@
 		1948BEE00C226CFD001DFA32 /* DasherViewSquare.inl in Resources */ = {isa = PBXBuildFile; fileRef = 1948BE3A0C226CFD001DFA32 /* DasherViewSquare.inl */; };
 		1948BEE10C226CFD001DFA32 /* DefaultFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE3B0C226CFD001DFA32 /* DefaultFilter.cpp */; };
 		1948BEE20C226CFD001DFA32 /* DefaultFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE3C0C226CFD001DFA32 /* DefaultFilter.h */; };
-		1948BEE30C226CFD001DFA32 /* DelayedDraw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE3D0C226CFD001DFA32 /* DelayedDraw.cpp */; };
 		1948BEE40C226CFD001DFA32 /* DynamicFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE3E0C226CFD001DFA32 /* DynamicFilter.cpp */; };
 		1948BEE50C226CFD001DFA32 /* DynamicFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE3F0C226CFD001DFA32 /* DynamicFilter.h */; };
 		1948BEE60C226CFD001DFA32 /* Event.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE400C226CFD001DFA32 /* Event.h */; };
@@ -340,7 +339,6 @@
 		19F8C7E60C858A2800276B4F /* I18n.h in Headers */ = {isa = PBXBuildFile; fileRef = 19F8C7E50C858A2800276B4F /* I18n.h */; };
 		19F8C7F90C858E9900276B4F /* TrainingHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19F8C7F70C858E9900276B4F /* TrainingHelper.cpp */; };
 		19F8C7FA0C858E9900276B4F /* TrainingHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 19F8C7F80C858E9900276B4F /* TrainingHelper.h */; };
-		3300114910A2E9C900D31B1D /* DelayedDraw.h in Headers */ = {isa = PBXBuildFile; fileRef = 3300114810A2E9C900D31B1D /* DelayedDraw.h */; };
 		3300115210A2EA7700D31B1D /* ExpansionPolicy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3300115010A2EA7700D31B1D /* ExpansionPolicy.cpp */; };
 		3300115310A2EA7700D31B1D /* ExpansionPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 3300115110A2EA7700D31B1D /* ExpansionPolicy.h */; };
 		33008360120CB7F900C41FAA /* ConvertingAlphMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 3300835E120CB7F900C41FAA /* ConvertingAlphMgr.h */; };
@@ -475,7 +473,6 @@
 		1948BE3A0C226CFD001DFA32 /* DasherViewSquare.inl */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = DasherViewSquare.inl; sourceTree = "<group>"; };
 		1948BE3B0C226CFD001DFA32 /* DefaultFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DefaultFilter.cpp; sourceTree = "<group>"; };
 		1948BE3C0C226CFD001DFA32 /* DefaultFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DefaultFilter.h; sourceTree = "<group>"; };
-		1948BE3D0C226CFD001DFA32 /* DelayedDraw.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DelayedDraw.cpp; sourceTree = "<group>"; };
 		1948BE3E0C226CFD001DFA32 /* DynamicFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DynamicFilter.cpp; sourceTree = "<group>"; };
 		1948BE3F0C226CFD001DFA32 /* DynamicFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DynamicFilter.h; sourceTree = "<group>"; };
 		1948BE400C226CFD001DFA32 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
@@ -757,7 +754,6 @@
 		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		3300114810A2E9C900D31B1D /* DelayedDraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DelayedDraw.h; sourceTree = "<group>"; };
 		3300115010A2EA7700D31B1D /* ExpansionPolicy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExpansionPolicy.cpp; sourceTree = "<group>"; };
 		3300115110A2EA7700D31B1D /* ExpansionPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpansionPolicy.h; sourceTree = "<group>"; };
 		3300835E120CB7F900C41FAA /* ConvertingAlphMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvertingAlphMgr.h; sourceTree = "<group>"; };
@@ -985,10 +981,8 @@
 				1948BE3A0C226CFD001DFA32 /* DasherViewSquare.inl */,
 				1948BE3B0C226CFD001DFA32 /* DefaultFilter.cpp */,
 				1948BE3C0C226CFD001DFA32 /* DefaultFilter.h */,
-				1948BE3D0C226CFD001DFA32 /* DelayedDraw.cpp */,
 				3300115010A2EA7700D31B1D /* ExpansionPolicy.cpp */,
 				3300115110A2EA7700D31B1D /* ExpansionPolicy.h */,
-				3300114810A2E9C900D31B1D /* DelayedDraw.h */,
 				1948BE3E0C226CFD001DFA32 /* DynamicFilter.cpp */,
 				1948BE3F0C226CFD001DFA32 /* DynamicFilter.h */,
 				1948BE400C226CFD001DFA32 /* Event.h */,
@@ -1497,7 +1491,6 @@
 				33135354102C6D8E00E28220 /* CompassMode.h in Headers */,
 				33135356102C6D8E00E28220 /* ButtonMode.h in Headers */,
 				3300115310A2EA7700D31B1D /* ExpansionPolicy.h in Headers */,
-				3300114910A2E9C900D31B1D /* DelayedDraw.h in Headers */,
 				339055E81195FBD0001BE240 /* Queue.h in Headers */,
 				33008360120CB7F900C41FAA /* ConvertingAlphMgr.h in Headers */,
 				339794D5120F2A9600CEA168 /* AlphInfo.h in Headers */,
@@ -1796,7 +1789,6 @@
 				1948BEDB0C226CFD001DFA32 /* DasherView.cpp in Sources */,
 				1948BEDE0C226CFD001DFA32 /* DasherViewSquare.cpp in Sources */,
 				1948BEE10C226CFD001DFA32 /* DefaultFilter.cpp in Sources */,
-				1948BEE30C226CFD001DFA32 /* DelayedDraw.cpp in Sources */,
 				1948BEE40C226CFD001DFA32 /* DynamicFilter.cpp in Sources */,
 				1948BEE70C226CFD001DFA32 /* EventHandler.cpp in Sources */,
 				1948BEE90C226CFD001DFA32 /* EyetrackerFilter.cpp in Sources */,

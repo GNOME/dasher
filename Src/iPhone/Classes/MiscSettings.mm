@@ -15,6 +15,8 @@ static SModuleSettings _settings[] = { //note iStep and string description are i
   {LP_NODE_BUDGET, T_LONG, 400, 10000, 1, 0, ""}, //hopefully appropriate for an iPhone 3GS?
   {LP_MARGIN_WIDTH, T_LONG, 100, 900, 1, 0, ""},
   {LP_DASHER_FONTSIZE, T_LONG, 1, 3, 1, 1, ""},
+  {LP_SHAPE_TYPE, T_LONG, 1, 5, 1, -1, ""},
+  {LP_OUTLINE_WIDTH, T_LONG, -5, 5, 1, -1, ""},
   {BP_AUTO_SPEEDCONTROL, T_BOOL, -1, -1, -1, -1, ""},
   {LP_NONLINEAR_X, T_LONG, 0, 10, 1, -1, ""},
   {BP_DOUBLE_X, T_BOOL, -1, -1, -1, -1, ""},

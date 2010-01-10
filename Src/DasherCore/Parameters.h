@@ -30,11 +30,11 @@
 // All parameters go into the enums here
 // They are unique across the different types
 enum { 
-  BP_DRAW_MOUSE_LINE, BP_DRAW_MOUSE, BP_CURVE_MOUSE_LINE,
+  BP_MULTISIZE_FONTS, BP_DRAW_MOUSE_LINE, BP_DRAW_MOUSE, BP_CURVE_MOUSE_LINE,
   BP_SHOW_SLIDER, BP_START_MOUSE,
   BP_START_SPACE, BP_STOP_IDLE, BP_CONTROL_MODE, 
   BP_COLOUR_MODE, BP_MOUSEPOS_MODE,
-  BP_OUTLINE_MODE, BP_PALETTE_CHANGE,
+  BP_PALETTE_CHANGE,
   BP_AUTOCALIBRATE, BP_DASHER_PAUSED,
   BP_GAME_MODE, BP_TRAINING, BP_REDRAW, BP_LM_DICTIONARY, 
   BP_LM_LETTER_EXCLUSION, BP_AUTO_SPEEDCONTROL,
@@ -52,14 +52,14 @@ enum {
 
 enum { 
   LP_ORIENTATION = END_OF_BPS, LP_REAL_ORIENTATION, LP_MAX_BITRATE, LP_FRAMERATE,
-  LP_VIEW_ID, LP_LANGUAGE_MODEL_ID, LP_DASHER_FONTSIZE,
+  LP_VIEW_ID, LP_LANGUAGE_MODEL_ID, LP_DASHER_FONTSIZE, LP_SHAPE_TYPE,
   LP_UNIFORM, LP_YSCALE, LP_MOUSEPOSDIST, LP_STOP_IDLETIME,
   LP_LM_MAX_ORDER, LP_LM_EXCLUSION,
   LP_LM_UPDATE_EXCLUSION, LP_LM_ALPHA, LP_LM_BETA,
   LP_LM_MIXTURE, LP_MOUSE_POS_BOX, LP_NORMALIZATION, LP_LINE_WIDTH, 
   LP_LM_WORD_ALPHA, LP_USER_LOG_LEVEL_MASK, 
   LP_ZOOMSTEPS, LP_B, LP_S, LP_BUTTON_SCAN_TIME, LP_R, LP_RIGHTZOOM,
-  LP_NODE_BUDGET, LP_NONLINEAR_X,
+  LP_NODE_BUDGET, LP_OUTLINE_WIDTH, LP_MIN_NODE_SIZE, LP_NONLINEAR_X,
   LP_BOOSTFACTOR, LP_AUTOSPEED_SENSITIVITY, LP_SOCKET_PORT, LP_SOCKET_INPUT_X_MIN, LP_SOCKET_INPUT_X_MAX,
   LP_SOCKET_INPUT_Y_MIN, LP_SOCKET_INPUT_Y_MAX, LP_OX, LP_OY, LP_MAX_Y, LP_INPUT_FILTER, 
   LP_CIRCLE_PERCENT, LP_TWO_BUTTON_OFFSET, LP_HOLD_TIME, LP_MULTIPRESS_TIME,
@@ -124,6 +124,7 @@ struct sp_table {
 // The only important thing here is that these are in the same order
 // as the enum declarations (could add check in class that enforces this instead)
 static bp_table boolparamtable[] = {
+  {BP_MULTISIZE_FONTS, "MultiSizeFonts", PERS, false, "Use multiple font sizes"},
   {BP_DRAW_MOUSE_LINE, "DrawMouseLine", PERS, true, "Draw Mouse Line"},
   {BP_DRAW_MOUSE, "DrawMouse", PERS, false, "Draw Mouse Position"},
   {BP_CURVE_MOUSE_LINE, "CurveMouseLine", PERS, false, "Curve mouse line according to screen nonlinearity"},
@@ -138,7 +139,6 @@ static bp_table boolparamtable[] = {
   {BP_CONTROL_MODE, "ControlMode", PERS, false, "ControlMode"},
   {BP_COLOUR_MODE, "ColourMode", PERS, true, "ColourMode"},
   {BP_MOUSEPOS_MODE, "StartOnMousePosition", PERS, false, "StartOnMousePosition"},
-  {BP_OUTLINE_MODE, "OutlineBoxes", PERS, true, "OutlineBoxes"},
   {BP_PALETTE_CHANGE, "PaletteChange", PERS, true, "PaletteChange"},
   {BP_AUTOCALIBRATE, "Autocalibrate", PERS, true, "Autocalibrate"},
   {BP_DASHER_PAUSED, "DasherPaused", !PERS, true, "Dasher Paused"},
@@ -194,6 +194,7 @@ static lp_table longparamtable[] = {
   {LP_VIEW_ID, "ViewID", PERS, 1, "ViewID"},
   {LP_LANGUAGE_MODEL_ID, "LanguageModelID", PERS, 0, "LanguageModelID"},
   {LP_DASHER_FONTSIZE, "DasherFontSize", PERS, 2, "DasherFontSize"},
+  {LP_SHAPE_TYPE, "RenderStyle", PERS, 0, "Shapes to render in (0/1=disjoint/overlapping rects, 2/3=triangles/truncated, 4=quadrics, 5=circles)"},
   {LP_UNIFORM, "UniformTimes1000", PERS, 50, "UniformTimes1000"},
   {LP_YSCALE, "YScaling", PERS, 0, "YScaling"},
   {LP_MOUSEPOSDIST, "MousePositionBoxDistance", PERS, 50, "MousePositionBoxDistance"},
@@ -224,6 +225,8 @@ static lp_table longparamtable[] = {
 #else
   {LP_NODE_BUDGET, "NodeBudget", PERS, 3000, "Target (min) number of node objects to maintain"},
 #endif
+  {LP_OUTLINE_WIDTH, "OutlineWidth", PERS, 0, "Absolute value is line width to draw boxes (fill iff >=0)" },
+  {LP_MIN_NODE_SIZE, "MinNodeSize", PERS, 50, "Minimum size of node (in dasher coords) to draw" }, 
 #ifdef WITH_MAEMO
   {LP_NONLINEAR_X, "NonLinearX", PERS, 0, "Nonlinear compression of X-axis (0 = none, higher = more extreme)"},
 #else

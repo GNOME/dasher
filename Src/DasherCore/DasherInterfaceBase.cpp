@@ -275,7 +275,7 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
 
     switch (pEvt->m_iParameter) {
 
-    case BP_OUTLINE_MODE:
+    case LP_OUTLINE_WIDTH:
       ScheduleRedraw();
       break;
     case BP_DRAW_MOUSE:

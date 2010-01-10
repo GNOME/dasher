@@ -100,44 +100,53 @@ public:
   /// @}
 
 private:
+  ///draw a possibly-truncated triangle given dasher-space coords & accounting for non-linearity
+  /// @param x = max dasher-x extent
+  /// @param y1, y2 = dasher-y extent along y-axis
+  /// @param midy1,midy2 = extent along line of max x (midy1==midy2 => triangle, midy1<midy2 => truncated tri)
+  void TruncateTri(myint x, myint y1, myint y2, myint midy1, myint midy2, int fillColor, int outlineColor, int lineWidth);
+  void CircleTo(myint cy, myint r, myint y1, myint x1, myint y3, myint x3, CDasherScreen::point dest, vector<CDasherScreen::point> &pts);
+  void Circle(myint Range, myint lowY, myint highY, int fCol, int oCol, int lWidth);
+  void Quadric(myint Range, myint lowY, myint highY, int fillColor, int outlineColour, int lineWidth);
+  ///draw isoceles triangle, with baseline from y1-y2 along y axis (x=0), and other point at (x,(y1+y2)/2)
+  /// (all in Dasher coords).
+  void Triangle(myint x, myint y1, myint y2, int fillColor, int outlineColor, int lineWidth);
+  
+  class CTextString {
+  public: //to CDasherViewSquare...
+    ///Creates a request that string str will be drawn.
+    /// x,y are screen coords of midpoint of leading edge;
+    /// iSize is desired size (already computed from requested position)
+    CTextString(const std::string & str, screenint x, screenint y, int iSize, int iColor)
+    : m_String(str), m_ix(x), m_iy(y), m_iSize(iSize), m_iColor(iColor) {
+    }
+    ~CTextString();
+    std::string m_String;
+    screenint m_ix,m_iy;
+    vector<CTextString *> m_children;
+    int m_iSize;
+    int m_iColor;    
+  };
+  
+  std::vector<CTextString *> m_DelayedTexts;
+
+  void DoDelayedText(CTextString *pText);
   ///
   /// Draw text specified in Dasher co-ordinates
   ///
   
-  void DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint iAnchorX2, myint iAnchorY2, const std::string & sDisplayText, int &mostleft, bool bShove);
+  CTextString *DasherDrawText(myint iMaxX, myint iMidY, const std::string & sDisplayText, CTextString *pParent, int iColor);
   
-  CDelayedDraw m_DelayDraw;  
-
   ///
   /// Render the current state of the model.
   ///
   virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, CExpansionPolicy &policy);
   
   ///
-  /// Recursively render all nodes in a tree. Responsible for all the Render_node calls
+  /// (Recursively) render a node and all contained subnodes. Responsible for rendering exactly the area contained within the node.
   ///
+  void RecursiveRender(CDasherNode * Render, myint y1, myint y2, CTextString *prevText, CExpansionPolicy &policy, double dMaxCost,int parent_color);
 
-  void RecursiveRender(CDasherNode * Render, myint y1, myint y2, int mostleft, CExpansionPolicy &policy, double dMaxCost, myint parent_width,int parent_color, int iDepth);
-
-  ///Check that a node is large enough, and onscreen, to render;
-  ///calls RecursiveRender if so, or collapses the node immediately if not
-  bool CheckRender(CDasherNode * Render, myint y1, myint y2, int mostleft, CExpansionPolicy &policy, double dMaxCost, myint parent_width,int parent_color, int iDepth);
-
-  /// Render a single node
-  /// \param Color The colour to draw it
-  /// \param y1 Upper extent.
-  /// \param y2 Lower extent
-  /// \param mostleft The left most position in which the text (l->r)
-  /// can be displayed in order to avoid overlap. This is updated by
-  /// the function to allow for the new text
-  /// \param sDisplayText Text to display.
-  /// \param bShove Whether the node shoves
-  /// \todo Character and displaytext are redundant. We shouldn't need
-  /// to know about alphabets here, so only use the latterr
-  //  int RenderNode(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove);
-
-  int RenderNodeOutlineFast(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove); 
-  int RenderNodePartFast(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove, myint iParentWidth);
 #ifdef _WIN32
   ///
   /// FIXME - couldn't find windows version of round(double) so here's one!
