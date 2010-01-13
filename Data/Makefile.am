@@ -3,7 +3,12 @@ SUBDIRS =  training alphabets colours controllabels GUI Help
 desktopdir = $(datadir)/applications
 desktop_in_files = dasher.desktop.in
 desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
+if USE_INTLTOOL
 @INTLTOOL_DESKTOP_RULE@
+else
+dasher.desktop:	dasher.desktop.in
+	cp dasher.desktop.in dasher.desktop
+endif
 
 icondir = $(datadir)/icons/hicolor/48x48/apps
 icon_DATA = dasher.png

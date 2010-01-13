@@ -1,4 +1,7 @@
-SUBDIRS = Src Data po Doc
+SUBDIRS = Src Data Doc
+if USE_INTLTOOL
+SUBDIRS += po
+endif
 
 ACLOCAL_AMFLAGS = -I m4
 

@@ -1,3 +1,5 @@
+dnl THIS IS A MODIFIED VERSION OF gconf-2.m4
+
 dnl AM_GCONF_SOURCE_2
 dnl Defines GCONF_SCHEMA_CONFIG_SOURCE which is where you should install schemas
 dnl  (i.e. pass to gconftool-2
@@ -5,7 +7,7 @@ dnl Defines GCONF_SCHEMA_FILE_DIR which is a filesystem directory where
 dnl  you should install foo.schemas files
 dnl
 
-AC_DEFUN([AM_GCONF_SOURCE_2],
+AC_DEFUN([DAM_GCONF_SOURCE_2],
 [
   AC_CHECK_PROG([found_gconftool], [gconftool-2], [yes], [no])
   if test "x$GCONF_SCHEMA_INSTALL_SOURCE" = "x" -a $found_gconftool = yes; then

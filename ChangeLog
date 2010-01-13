@@ -1,3 +1,9 @@
+2009-01-13  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Rename gconf-2.m4 and intltool.m4 to make it obvious that
+	  these aren't the originals.
+	* Make --disable-nls actually do something.
+
 2009-01-13  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* iPhone: disable landscape mode when using tilt sensor to

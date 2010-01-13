@@ -12,7 +12,7 @@ AM_INIT_AUTOMAKE([1.8 gnu check-news dist-bzip2])
 AM_MAINTAINER_MODE
 
 AC_PROG_MAKE_SET
-IT_PROG_INTLTOOL([0.34.90])
+DIT_PROG_INTLTOOL([0.34.90])
 dnl IT_PROG_INTLTOOL([0.40.1])  c.f. bug #323968
 
 AC_DISABLE_STATIC
@@ -202,7 +202,7 @@ else
 	BUILDGTK2=false
 fi
 
-AM_GCONF_SOURCE_2
+DAM_GCONF_SOURCE_2
 if test x$BUILDGTK2 = xtrue
 then
 # GtkBuilder's autoconnect feature requires dasher to be linked with
