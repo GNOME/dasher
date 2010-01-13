@@ -10,6 +10,7 @@
 
 #import "IPhoneInputs.h"
 #import "DasherUtil.h"
+#import "DasherAppDelegate.h"
 
 using namespace std;
 using namespace Dasher;
@@ -78,12 +79,14 @@ void CIPhoneTiltInput::NotifyTilt(float fx, float fy, float fz) {
 }
 
 void CIPhoneTiltInput::Activate() {
+  [[DasherAppDelegate theApp] setLandscapeSupported:NO];
   [UIApplication sharedApplication].idleTimerDisabled = YES;
   UIAccelerometer*  theAccelerometer = [UIAccelerometer sharedAccelerometer];
   theAccelerometer.updateInterval = 0.01; //in secs
   theAccelerometer.delegate = deleg;
 }
 void CIPhoneTiltInput::Deactivate() {
+  [[DasherAppDelegate theApp] setLandscapeSupported:YES];
   [UIApplication sharedApplication].idleTimerDisabled = NO;
   [UIAccelerometer sharedAccelerometer].delegate = nil;
 }

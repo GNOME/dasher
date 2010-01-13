@@ -22,7 +22,7 @@
 - (void)initDasherInterface;
 - (void)finishStartup;
 - (void)doSpeedBtnImage:(NSString *)msg;
-- (CGRect)doLayout;
+- (CGRect)doLayout:(UIInterfaceOrientation)orient;
 @property (retain) UILabel *screenLockLabel;
 @end
 
@@ -33,40 +33,82 @@
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
     return NO;
-  return YES;
+  if (m_bLandscapeSupported || interfaceOrientation == UIInterfaceOrientationPortrait)
+    return YES;
+  return NO;
 }
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
   [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+  [self doLayout:self.interfaceOrientation];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+  if (m_bLandscapeSupported) {
+    UIDeviceOrientation devOrient = [[UIDevice currentDevice] orientation];
+    UIInterfaceOrientation intOrient;
+    CGAffineTransform trans;
+    switch (devOrient) {
+      case UIDeviceOrientationLandscapeLeft:
+        intOrient = UIInterfaceOrientationLandscapeRight;
+        trans = CGAffineTransformMakeRotation(M_PI/2.0);
+        break;
+      case UIDeviceOrientationLandscapeRight:
+        intOrient = UIInterfaceOrientationLandscapeLeft;
+        trans = CGAffineTransformMakeRotation(-M_PI/2.0);
+        break;
+      case UIDeviceOrientationPortrait:
+      case UIDeviceOrientationPortraitUpsideDown:
+      default: //???
+        intOrient = UIInterfaceOrientationPortrait;
+        trans = CGAffineTransformIdentity;
+        break;
+    }
+    if (self.interfaceOrientation != intOrient) {
+      [[UIApplication sharedApplication] setStatusBarOrientation:intOrient];
+      self.view.transform = trans;
+      [self doLayout:intOrient];
+    }
+  }
+}
+
+-(void)setLandscapeSupported:(BOOL)bLandscapeSupported {
+  m_bLandscapeSupported = bLandscapeSupported;
+  //note that if we've just _enabled_ landscape support when the phone
+  // was previously in landscape orientation (but the interface _not_),
+  // there will be no rotation event sent by the OS; however,
+  // we do our best to adjust the interface to suit (i.e., putting it into
+  // landscape mode, now that it newly supports this) in viewWillAppear:, above.
+
+  //The case of _disabling_ landscape support when the phone+interface were already in landscape
+  // orientation, we do _not_ need to handle (for now): the landscape interface does not allow
+  // calling up the settings in order to select a different input method (which might disable it!)
+}
+
+/// Sets sizes of toolbar and textview according to supplied orientation
+/// Also computes and returns desired size of glView, and sets said _iff_ glView is non-nil
+-(CGRect)doLayout:(UIInterfaceOrientation)orient {
   CGRect appFrame = [UIScreen mainScreen].applicationFrame;
   window.frame=appFrame;
   self.view.frame = CGRectMake(0.0, 0.0, appFrame.size.width, appFrame.size.height);
-  if (self.interfaceOrientation == UIInterfaceOrientationPortrait)
-    [self.view addSubview:tools];
-  else
-    [tools removeFromSuperview];
-  [self doLayout];
-}
 
-/// Sets sizes of toolbar and textview according to current orientation
-/// Also computes and returns desired size of glView, and sets said _iff_ glView is non-nil
--(CGRect)doLayout {
   CGSize mainSize = self.view.bounds.size;
   CGRect dashRect;
-  switch (self.interfaceOrientation) {
-    case UIInterfaceOrientationPortrait: {
+  switch (orient) {
+    case UIInterfaceOrientationPortrait:
       dashRect = CGRectMake(0.0, 0.0, mainSize.width, mainSize.height - 100.0);
-      /*CGRect textRect =*/text.frame = CGRectMake(0.0, dashRect.size.height, mainSize.width, 70.0);
+      text.frame = CGRectMake(0.0, dashRect.size.height, mainSize.width, 70.0);
       text.bLandscape = NO;
       tools.frame = CGRectMake(0.0, mainSize.height - 30.0, mainSize.width, 30.0);
+      [self.view addSubview:tools];
       break;
-    }
     case UIInterfaceOrientationLandscapeRight:
     case UIInterfaceOrientationLandscapeLeft: {
       CGRect textRect = CGRectMake(0.0, 0.0, 100.0, mainSize.height);//-30.0);
       text.frame = textRect;
       text.bLandscape = YES;
       dashRect = CGRectMake(textRect.size.width, 0.0, mainSize.width-textRect.size.width, mainSize.height);//-30.0);
+      [tools removeFromSuperview];
       break;
     }
     default:
@@ -79,9 +121,13 @@
 -(CDasherInterfaceBridge *)dasherInterface {return _dasherInterface;}
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-	CGSize mainSize = [UIScreen mainScreen].applicationFrame.size;
-	window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-	self.view = [[[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, mainSize.width, mainSize.height)] autorelease];
+  //by default, we support landscape mode (i.e. unless the input device _disables_ it)
+  // - hence, set now, before the input device is activate()d...
+  m_bLandscapeSupported = YES;
+
+  //sizes set in doLayout, below...
+	window = [[UIWindow alloc] init];
+	self.view = [[[UIView alloc] init] autorelease];
 
 	[window addSubview:self.view];
 
@@ -91,7 +137,7 @@
   //create GUI components...
 	text = [[[TextView alloc] init] autorelease];
 	tools = [[UIToolbar alloc] init]; //retain a reference (until dealloc) because of rotation
-	glView = [[[EAGLView alloc] initWithFrame:[self doLayout] Delegate:self] autorelease];
+	glView = [[[EAGLView alloc] initWithFrame:[self doLayout:UIInterfaceOrientationPortrait] Delegate:self] autorelease];
 	
 	text.text=@"";
 	text.editable = NO;

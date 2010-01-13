@@ -23,7 +23,7 @@ void CPlainDragFilter::KeyDown(int iTime, int iId, CDasherView *pDasherView, CDa
 {
 	if(iId == 100)
   {
-    DASHER_ASSERT(GetLongParameter(BP_DASHER_PAUSED));
+    DASHER_ASSERT(GetBoolParameter(BP_DASHER_PAUSED));
     m_pInterface->Unpause(iTime);
   }
 }

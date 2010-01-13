@@ -22,6 +22,7 @@
 	UIButton *speedBtn;
 	UIToolbar *tools;
   BOOL doneSetup;
+  BOOL m_bLandscapeSupported;
   /// Should really be part of UIViewController (lockable), below...but then, how to find?
   UILabel *screenLockLabel;
 }
@@ -33,6 +34,7 @@
 - (void)notifySpeedChange;
 - (NSString *)textAtOffset:(int)offset Length:(int)length;
 - (void)setLockText:(NSString *)s;
+- (void)setLandscapeSupported:(BOOL)supported;
 + (DasherAppDelegate *)theApp;
 
 //@property (nonatomic, retain) IBOutlet EAGLView *glView;
