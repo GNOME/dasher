@@ -253,7 +253,7 @@ private:
 
   cairo_surface_t *m_pDisplaySurface;
   cairo_surface_t *m_pDecorationSurface;
-  cairo_surface_t *m_pOnscreenSurface;
+  //cairo_surface_t *m_pOnscreenSurface;
 
   cairo_surface_t *m_pOffscreenbuffer;
 
@@ -277,14 +277,14 @@ private:
   /// The onscreen buffer - copied onscreen whenever an expose event occurs.
   ///
 
-  GdkPixmap *m_pOnscreenBuffer;
+  //GdkPixmap *m_pOnscreenBuffer;
 
   ///
   /// Pointer to which of the offscreen buffers is currently active.
   ///
 
   GdkPixmap *m_pOffscreenBuffer;
-  GdkPixmap *m_pDummyBuffer;
+  //GdkPixmap *m_pDummyBuffer;
 
 #endif
 
@@ -304,11 +304,11 @@ private:
 #if WITH_CAIRO
   cairo_t *display_cr;
   cairo_t *decoration_cr;
-  cairo_t *onscreen_cr; // TODO: do we need to do our own double buffering?
+  //cairo_t *onscreen_cr; // TODO: do we need to do our own double buffering?
 
   cairo_t *widget_cr;
 
-  cairo_t *cr;
+  cairo_t *cr; // offscreen
   my_cairo_colour_t *cairo_colours;
 #else
   GdkColor *colours;

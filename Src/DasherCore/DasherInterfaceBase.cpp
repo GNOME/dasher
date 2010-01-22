@@ -493,7 +493,12 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   // Prevent NewFrame from being reentered. This can happen occasionally and
   // cause crashes.
   static bool bReentered=false;
-  if(bReentered) return;
+  if (bReentered) {
+#ifdef DEBUG
+    std::cout << "CDasherInterfaceBase::NewFrame was re-entered" << std::endl;
+#endif
+    return;
+  }
   bReentered=true;
 
   // Fail if Dasher is locked

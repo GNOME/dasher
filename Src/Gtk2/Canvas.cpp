@@ -29,15 +29,15 @@ CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache)
 
   m_pDisplaySurface = cairo_image_surface_create(CAIRO_FORMAT_RGB24, m_iWidth, m_iHeight);
   m_pDecorationSurface = cairo_image_surface_create(CAIRO_FORMAT_RGB24, m_iWidth, m_iHeight);
-  m_pOnscreenSurface = cairo_image_surface_create(CAIRO_FORMAT_RGB24, m_iWidth, m_iHeight);
+  //m_pOnscreenSurface = cairo_image_surface_create(CAIRO_FORMAT_RGB24, m_iWidth, m_iHeight);
 
 #else
 
-  m_pDummyBuffer = gdk_pixmap_new(pCanvas->window, m_iWidth, m_iHeight, -1);
+  //m_pDummyBuffer = gdk_pixmap_new(pCanvas->window, m_iWidth, m_iHeight, -1);
 
   m_pDisplayBuffer = gdk_pixmap_new(pCanvas->window, m_iWidth, m_iHeight, -1);
   m_pDecorationBuffer = gdk_pixmap_new(pCanvas->window, m_iWidth, m_iHeight, -1);
-  m_pOnscreenBuffer = gdk_pixmap_new(pCanvas->window, m_iWidth, m_iHeight, -1);
+  //m_pOnscreenBuffer = gdk_pixmap_new(pCanvas->window, m_iWidth, m_iHeight, -1);
 
   // Set the display buffer to be current
 
@@ -59,10 +59,9 @@ CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache)
   cairo_set_line_cap(cr, CAIRO_LINE_CAP_SQUARE);
   cairo_set_line_width(cr, 1.0);
 
-  onscreen_cr = cairo_create(m_pOnscreenSurface);
+  //onscreen_cr = cairo_create(m_pOnscreenSurface);
 
-  widget_cr = gdk_cairo_create(m_pCanvas->window) ;
-
+  widget_cr = gdk_cairo_create(m_pCanvas->window);
 #endif
 
   m_pPangoInk = new PangoRectangle;
@@ -76,16 +75,16 @@ CCanvas::~CCanvas() {
   cr = NULL;
   cairo_surface_destroy(m_pDisplaySurface);
   cairo_surface_destroy(m_pDecorationSurface);
-  cairo_surface_destroy(m_pOnscreenSurface);  
+  //cairo_surface_destroy(m_pOnscreenSurface);  
   cairo_destroy(display_cr);
   cairo_destroy(decoration_cr);
-  cairo_destroy(onscreen_cr);
+  //cairo_destroy(onscreen_cr);
   cairo_destroy(widget_cr);
 #else
-  g_object_unref(m_pDummyBuffer);
+  //g_object_unref(m_pDummyBuffer);
   g_object_unref(m_pDisplayBuffer);
   g_object_unref(m_pDecorationBuffer);
-  g_object_unref(m_pOnscreenBuffer);
+  //g_object_unref(m_pOnscreenBuffer);
 #endif
 
 #if WITH_CAIRO
@@ -122,16 +121,12 @@ void CCanvas::Display() {
   // FIXME - Some of this stuff is probably not needed
   //  GdkRectangle update_rect;
 
-  GdkGC *graphics_context;
 #if WITH_CAIRO
 #else
+  GdkGC *graphics_context;
   GdkColormap *colormap;
-#endif
 
   graphics_context = m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)];
-
-#if WITH_CAIRO
-#else
   colormap = gdk_colormap_get_system();
 #endif
 
@@ -182,7 +177,7 @@ void CCanvas::Display() {
 
   //   gdk_window_end_paint(m_pCanvas->window);
 
-  // Restore original graphics context (?)
+  // Restore original graphics context (colours)
 
   END_DRAWING;
 
@@ -302,7 +297,7 @@ void CCanvas::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour
 
 void CCanvas::Polygon(Dasher::CDasherScreen::point *Points, int Number, int Colour, int iWidth) {
 
-  if(iWidth == 1) // This is to make it work propely on Windows
+  if(iWidth == 1) // This is to make it work properly on Windows
     iWidth = 0; 
 
 #if WITH_CAIRO
@@ -441,17 +436,13 @@ void CCanvas::SendMarker(int iMarker) {
   case 1: // Switch to decorations buffer
 
 #if WITH_CAIRO
-    BEGIN_DRAWING;
     cairo_set_source_surface(decoration_cr, m_pDisplaySurface, 0, 0);
     cairo_rectangle(decoration_cr, 0, 0, m_iWidth, m_iHeight);
     cairo_fill(decoration_cr);
-    END_DRAWING;
+    cr = decoration_cr;
 #else
     gdk_draw_drawable(m_pDecorationBuffer, m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)], m_pDisplayBuffer, 0, 0, 0, 0, m_iWidth, m_iHeight);
     m_pOffscreenBuffer = m_pDecorationBuffer;
-#endif
-#if WITH_CAIRO
-    cr = decoration_cr;
 #endif
     break;
   }

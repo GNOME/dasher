@@ -69,7 +69,7 @@ void CDasherControl::CreateModules() {
 void CDasherControl::SetupUI() {
   m_pCanvas = gtk_drawing_area_new();
   GTK_WIDGET_SET_FLAGS(m_pCanvas, GTK_CAN_FOCUS);
-  gtk_widget_set_double_buffered(m_pCanvas, false);
+  GTK_WIDGET_UNSET_FLAGS(m_pCanvas, GTK_DOUBLE_BUFFERED);
 
   GtkWidget *pFrame = gtk_frame_new(NULL);
   gtk_frame_set_shadow_type(GTK_FRAME(pFrame), GTK_SHADOW_IN); 
@@ -252,6 +252,9 @@ GArray *CDasherControl::GetAllowedValues(int iParameter) {
 
 void CDasherControl::RealizeCanvas(GtkWidget *pWidget) {
   // TODO: Pointless function - call directly from C callback.
+#ifdef DEBUG
+  std::cout << "RealizeCanvas()" << std::endl;
+#endif
   OnUIRealised();
 }
 
