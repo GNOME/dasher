@@ -2,20 +2,20 @@
 # Estonian translation of Dasher.
 #
 # Copyright (C) 2003, 2005 Free Software Foundation, Inc.
-# Copyright (C) 2007-2009 The GNOME Project
+# Copyright (C) 2007-2010 The GNOME Project
 # This file is distributed under the same license as the dasher package.
 #
-# Priit Laes <amd@tt.ee>, 2003-2005.
-# Ivar Smolin <okul@linux.ee>, 2005-2009.
-# Mattias Põldaru <mahfiaz gmail com>, 2009.
+# Priit Laes <amd tt ee>, 2003-2005.
+# Ivar Smolin <okul linux ee>, 2005-2009.
+# Mattias Põldaru <mahfiaz gmail com>, 2009-2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&component=general\n"
-"POT-Creation-Date: 2009-09-16 14:18+0000\n"
-"PO-Revision-Date: 2009-09-17 08:51+0300\n"
+"POT-Creation-Date: 2010-01-28 21:21+0000\n"
+"PO-Revision-Date: 2010-01-28 23:47+0300\n"
 "Last-Translator: Mattias Põldaru <mahfiaz gmail com>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -33,6 +33,9 @@ msgstr "Teksti sisestamine ilma klaviatuuri abita"
 
 msgid "Predictive text entry"
 msgstr "Ennustav tekstisisestus"
+
+msgid "A_ppend to file"
+msgstr "Lisa _failile"
 
 msgid "Alphabet:"
 msgstr "Tähestik:"
@@ -58,8 +61,8 @@ msgstr "Faili avamine"
 msgid "Paste"
 msgstr "Asetamine"
 
-msgid "Please Wait..."
-msgstr "Palun oota..."
+msgid "Please Wait…"
+msgstr "Palun oota…"
 
 msgid "Pr_eferences"
 msgstr "_Eelistused"
@@ -82,9 +85,6 @@ msgstr "Kiirus:"
 msgid "_About"
 msgstr "_Programmist lähemalt"
 
-msgid "_Append to file"
-msgstr "Lisa _failile"
-
 msgid "_Contents"
 msgstr "_Sisukord"
 
@@ -100,11 +100,8 @@ msgstr "A_bi"
 msgid "_Import Training Text"
 msgstr "_Impordi harjutustekst"
 
-msgid "abcdefghijk ABCDEFGHIJK"
-msgstr "abcdefghijk ABCDEFGHIJK"
-
-msgid "A_ppend to file..."
-msgstr "Lisa _failile..."
+msgid "A_ppend to file…"
+msgstr "Lisa _failile…"
 
 msgid "Demo!"
 msgstr "Demo!"
@@ -124,8 +121,8 @@ msgstr "Tase:"
 msgid "New sentence"
 msgstr "Uus lause"
 
-msgid "Pr_eferences..."
-msgstr "_Eelistused..."
+msgid "Pr_eferences…"
+msgstr "_Eelistused…"
 
 msgid "Preferences"
 msgstr "Eelistused"
@@ -136,14 +133,14 @@ msgstr "Lõpetamine"
 msgid "Score:"
 msgstr "Tulemus:"
 
-msgid "_About..."
-msgstr "_Programmist lähemalt"
+msgid "_About…"
+msgstr "_Programmist lähemalt…"
 
-msgid "_Contents..."
-msgstr "_Sisukord..."
+msgid "_Contents…"
+msgstr "_Sisukord…"
 
-msgid "_Import Training Text..."
-msgstr "_Impordi harjutustekst..."
+msgid "_Import Training Text…"
+msgstr "_Impordi harjutustekst…"
 
 msgid "<b>Actions</b>"
 msgstr "<b>Toimingud</b>"
@@ -166,6 +163,7 @@ msgstr "<b>Rakenduse laad</b>"
 msgid "<b>Colour Scheme</b>"
 msgstr "<b>Värviskeem</b>"
 
+#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 msgid "<b>Control Style</b>"
 msgstr "<b>Juhtimislaad</b>"
 
@@ -190,12 +188,13 @@ msgstr "<b>Pehmendamine</b>"
 msgid "<b>Speed</b>"
 msgstr "<b>Kiirus</b>"
 
-msgid "<b>Starting And Stopping</b>"
+msgid "<b>Starting and Stopping</b>"
 msgstr "<b>Käivitamine ja seiskamine</b>"
 
 msgid "Adapt speed automatically"
 msgstr "Kiiruse automaatne õppimine"
 
+#. The default display orientation for the selected alphabet, i.e., left to right for English, right to left for Arabic, etc.
 msgid "Alphabet Default"
 msgstr "Vaikimisi tähestik"
 
@@ -214,6 +213,8 @@ msgstr "Keskjoondatud ring"
 msgid "Composition"
 msgstr "Kombineeritud"
 
+#. Abbreviation for Control Style
+#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 msgid "Control"
 msgstr "Juhtimine"
 
@@ -262,6 +263,7 @@ msgstr "Suur kirjatüüp"
 msgid "Left to Right"
 msgstr "Vasakult paremale"
 
+#. PPM = Prediction by Partial Match, a statistical language model.
 msgid "Mixture model (PPM/dictionary)"
 msgstr "Segatud mudel (PPM/sõnastik)"
 
@@ -295,6 +297,7 @@ msgstr "Väike kirjatüüp"
 msgid "Stand-alone"
 msgstr "Eraldiseisev"
 
+#. PPM = Prediction by Partial Match, a statistical language model.
 msgid "Standard letter-based PPM"
 msgstr "Standardne sõnapõhine PPM"
 
@@ -316,6 +319,7 @@ msgstr "Ülevalt alla"
 msgid "Two box"
 msgstr "Kaks kasti"
 
+#. Line wrapping not necessary, but looks better for English
 msgid ""
 "Use this control to adjust the relative sizes of the\n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -331,9 +335,7 @@ msgstr "Väga suur kirjatüüp"
 msgid "Word-based model"
 msgstr "Sõnapõhine mudel"
 
-msgid "\n"
-msgstr "\n"
-
+#. Abbreviation for Preferences
 msgid "P"
 msgstr "E"
 
@@ -394,7 +396,7 @@ msgstr "Klaviatuuri haaratakse globaalselt"
 msgid "Alternating Direct Mode"
 msgstr "Asendusega otserežiim"
 
-msgid "Scan time in menu mode (0 for don't scan)"
+msgid "Scan time in menu mode (0 to not scan)"
 msgstr "Skaneerimise aeg menüürežiimis (keelamiseks 0)"
 
 msgid "Number of boxes"
@@ -486,6 +488,7 @@ msgstr "Suurenduse tegur"
 msgid "Lag before user actually pushes button (ms)"
 msgstr "Viivitus enne tegelikku nupuvajutust (ms)"
 
+#. COneDimensionalFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel);
 msgid "One Dimensional Mode"
 msgstr "Ühemõõtmeline režiim"
 
@@ -556,8 +559,8 @@ msgstr "Üles/alla nupud on vahetuses"
 
 #. TRANSLATORS: Pushing the up/down button twice quickly has the same effect as pushing the other
 #. button once; in this case, one must push three times (or push-and-hold) to reverse.
-msgid "Double-click is opposite up/down - triple to reverse"
-msgstr "Topeltklõps on üles/alla nupu vastand - kolmikklõps pöörab"
+msgid "Double-click is opposite up/down — triple to reverse"
+msgstr "Topeltklõps on üles/alla nupu vastand — kolmikklõps pöörab"
 
 msgid "Two Button Dynamic Mode"
 msgstr "Kahenupuline dünaamiline režiim"
@@ -689,8 +692,9 @@ msgstr "Dasher on ennustav tekstisisestusrakendus"
 
 msgid "translator-credits"
 msgstr ""
-"Priit Laes <amd@store20.com>, 2003-2005.\n"
-"Ivar Smolin <okul@linux.ee>, 2005-2009."
+"Priit Laes <amd store20 com>, 2003-2005.\n"
+"Ivar Smolin <okul linux ee>, 2005-2009.\n"
+"Mattias Põldaru <mahfiaz gmail com>, 2009-2010."
 
 msgid "Dasher Module Options"
 msgstr "Dasheri mooduli valikud"
