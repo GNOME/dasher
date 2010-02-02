@@ -29,7 +29,11 @@ bool COneButtonFilter::DecorateView(CDasherView *pView) {
   CDasherScreen *pScreen(pView->Screen());
 
   if (iLocation == 0) {
-    if (!bStarted) return false;
+    if (!bStarted) {
+      if (m_bNoDecorations) return false;
+      m_bNoDecorations = true;
+      return true;
+    }
     //reverse!
     CDasherScreen::point p[4];
     pView->Dasher2Screen(2048, 0, p[0].x, p[0].y);
@@ -44,6 +48,7 @@ bool COneButtonFilter::DecorateView(CDasherView *pView) {
     pView->Dasher2Screen(-1000, iLocation, p[1].x, p[1].y);
     pScreen->Polyline(p, 2, 1, 1);
   }
+  m_bNoDecorations = false;
   return true;
 }
 
@@ -69,11 +74,11 @@ void COneButtonFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherMo
   if (bStarted) {
     if (iLocation == 0) {
       //back up by one zoom step.
-      pModel->ScheduleZoom(GetLongParameter(LP_STATIC1B_ZOOM) * 2048, 2048, 0);
+      pModel->ScheduleZoom(iTime, GetLongParameter(LP_STATIC1B_ZOOM) * 2048, 2048, 0);
     } else {
       iLocation -= (GetLongParameter(LP_DYNAMIC_BUTTON_LAG)*4096) / GetLongParameter(LP_STATIC1B_TIME);
-      if (iLocation < 0) iLocation +=4096;
-      pModel->ScheduleZoom(2048/GetLongParameter(LP_STATIC1B_ZOOM), iLocation, 0);
+      if (iLocation>4096) iLocation =8192-iLocation;
+      pModel->ScheduleZoom(iTime, 2048/GetLongParameter(LP_STATIC1B_ZOOM), iLocation, 0);
     }
     bStarted = false;
   } else {

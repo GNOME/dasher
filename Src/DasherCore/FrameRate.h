@@ -70,7 +70,7 @@ public:
   }
 
 
-  void NewFrame(unsigned long Time);
+  void RecordFrame(unsigned long Time);
   
 private:
   double m_dFr;                 // current frame rate (cache of LP_FRAMERATE/100.0)

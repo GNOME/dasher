@@ -134,7 +134,7 @@ void CDasherGameMode::NotifyGameCooperators(bool bGameOn)
   m_pView->SetGameMode(bGameOn);
   m_pDasherInterface->SetContext(std::string(""));
   m_pDasherInterface->SetBuffer(0);
-  m_pDasherInterface->PauseAt(0,0);
+  m_pDasherInterface->Pause();
 
 }
 
@@ -184,7 +184,7 @@ void CDasherGameMode::DemoModeStart(bool bFullDemo)
 void CDasherGameMode::DemoModeStop()
 {
   // Close down external first...
-  m_pDasherInterface->PauseAt(0,0);
+  m_pDasherInterface->Pause();
   m_pView->SetDemoMode(false);
 
   // ... then internal.
@@ -298,7 +298,7 @@ void CDasherGameMode::GameNext()
   m_pDasherInterface->GameMessageOut(GAME_MESSAGE_CLEAR_BUFFER, NULL);
   m_pDasherInterface->SetContext(std::string(""));
   m_pDasherInterface->SetBuffer(0);
-  m_pDasherInterface->PauseAt(0,0);
+  m_pDasherInterface->Pause();
  
   RunningScoreUpdates();
 }
@@ -336,7 +336,7 @@ void CDasherGameMode::FullDemoNext()
   m_pDasherInterface->GameMessageOut(GAME_MESSAGE_CLEAR_BUFFER, NULL);
   m_pDasherInterface->SetContext(std::string(""));
   m_pDasherInterface->SetBuffer(0);
-  m_pDasherInterface->PauseAt(0,0);
+  m_pDasherInterface->Pause();
 
   // We start in 3 seconds.
   Callback(&CDasherGameMode::DemoGo,3000);
@@ -654,7 +654,7 @@ void CDasherGameMode::PrivateSentenceFinished()
   m_bDrawHelperArrow=false;
   m_bDrawTargetArrow=false;
   m_bSentenceFinished=true;
-  m_pDasherInterface->PauseAt(0,0);
+  m_pDasherInterface->Pause();
   if(!m_pDemo) {
     string msg = m_pLevel->m_strPerformance.str();
     m_pDasherInterface->GameMessageOut(GAME_MESSAGE_HELP_MESSAGE, &msg);

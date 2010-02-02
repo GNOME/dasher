@@ -220,14 +220,13 @@ public:
 
   //  void Start();
 
-  /// Pause Dasher
-  /// \todo Parameters are ignored (?) - remove from definition.
+  /// Pause Dasher. Sets BP_DASHER_PAUSED and broadcasts a StopEvent.
+  /// (But does nothing if BP_DASHER_PAUSED is not set)
+  void Pause(); // are required to make
 
-  void PauseAt(int MouseX, int MouseY); // are required to make
-
-  /// Unpause Dasher
+  /// Unpause Dasher. Clears BP_DASHER_PAUSED, broadcasts a StartEvent.
+  /// (But does nothing if BP_DASHER_PAUSED is currently set).
   /// \param Time Time in ms, used to keep a constant frame rate
-
   void Unpause(unsigned long Time);     // Dasher run at the
 
   /// @}
@@ -341,7 +340,7 @@ public:
 
   void AddGameModeString(const std::string &strText) {
     m_deGameModeStrings.push_back(strText);
-    PauseAt(0,0);
+    Pause();
     //    CreateDasherModel();
     CreateNCManager();
     //    Start();

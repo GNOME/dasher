@@ -33,7 +33,7 @@
 - (void)start;
 - (void)redraw;
 - (void)changeScreen:(COSXDasherScreen *)aScreen;
-- (void)pauseAtX:(int)x y:(int)y;
+- (void)pause;
 - (void)unpause:(unsigned long int)time;
 - (NSDictionary *)parameterDictionary;
 - (NSArray *)permittedValuesForParameter:(int)aParameter;

@@ -35,8 +35,8 @@
   aquaDasherControl->ChangeScreen( aScreen );
 }
 
-- (void)pauseAtX:(int)x y:(int)y {
-  aquaDasherControl->PauseAt(x, y);
+- (void)pause {
+  aquaDasherControl->Pause();
 }
 
 - (void)unpause:(unsigned long int)time {

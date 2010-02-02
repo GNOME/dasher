@@ -33,6 +33,6 @@ void CPlainDragFilter::KeyUp(int iTime, int iId, CDasherView *pDasherView, CDash
 	if(iId == 100)
 	{
     DASHER_ASSERT(!GetBoolParameter(BP_DASHER_PAUSED));
-    m_pInterface->PauseAt(0, 0);
+    m_pInterface->Pause();
   }
 }

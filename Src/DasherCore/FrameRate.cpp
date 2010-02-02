@@ -18,7 +18,7 @@ CFrameRate::CFrameRate(CEventHandler *pEventHandler, CSettingsStore *pSettingsSt
   m_dMaxbitrate = GetLongParameter(LP_MAX_BITRATE) * GetLongParameter(LP_BOOSTFACTOR) / 10000.0;
 }
 
-void CFrameRate::NewFrame(unsigned long Time)
+void CFrameRate::RecordFrame(unsigned long Time)
 {
   m_iFrames++;
 

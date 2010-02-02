@@ -77,5 +77,5 @@ void CIPhonePolarFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasher
 
 void CIPhonePolarFilter::KeyUp(int iTime, int iId, CDasherView *pView, CDasherModel *pModel) {
 	if(iId == 100)
-		m_pInterface->PauseAt(0, 0);
+		m_pInterface->Pause();
 }

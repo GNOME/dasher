@@ -82,7 +82,7 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   /// Notify the framerate class that a new frame has occurred
   /// Called from CDasherInterfaceBase::NewFrame
   ///
-  void NewFrame(unsigned long Time);
+  void RecordFrame(unsigned long Time);
 
   ///
   /// Apply an offset to the 'target' coordinates - implements the jumps in
@@ -139,9 +139,10 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   /// Schedule zoom to a given Dasher coordinate (used in click mode,
   /// button mode etc.)
   ///
+  void ScheduleZoom(long time, dasherint iDasherX, dasherint iDasherY, int iMaxZoom = 0);
 
-  void ScheduleZoom(dasherint iDasherX, dasherint iDasherY, int iMaxZoom = 0);
-
+  void ClearScheduledSteps();
+  
   ///
   /// Update the bounds of the root node for the next step in any
   /// still-in-progress zoom scheduled by ScheduleZoom (does nothing

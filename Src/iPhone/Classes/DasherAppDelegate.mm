@@ -280,7 +280,7 @@
 	
 - (void)settings {
   //avoid awful muddle if we change out of tap-to-start mode whilst running.... 
-  _dasherInterface->PauseAt(0,0);
+  _dasherInterface->Pause();
   [glView stopAnimation];
 	
   UITabBarController *tabs = [[[UITabBarController alloc] init] autorelease];

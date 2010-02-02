@@ -408,7 +408,7 @@ void CDasherModel::Get_new_root_coords(dasherint X, dasherint Y, dasherint &r1, 
 
 bool CDasherModel::NextScheduledStep(unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted)
 {
-  DASHER_ASSERT(GetBoolParameter(BP_DASHER_PAUSED));
+  DASHER_ASSERT (!GetBoolParameter(BP_DASHER_PAUSED) || m_deGotoQueue.size()==0);
   if (m_deGotoQueue.size() == 0) return false;
   myint iNewMin, iNewMax;
   iNewMin = m_deGotoQueue.front().iN1;
@@ -416,12 +416,12 @@ bool CDasherModel::NextScheduledStep(unsigned long iTime, Dasher::VECTOR_SYMBOL_
   m_deGotoQueue.pop_front();
 
   UpdateBounds(iNewMin, iNewMax, iTime, pAdded, pNumDeleted);
+  if (m_deGotoQueue.size() == 0) m_pDasherInterface->Pause();
   return true;
 }
 
 void CDasherModel::OneStepTowards(myint miMousex, myint miMousey, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
-  //if (GetBoolParameter(BP_DASHER_PAUSED)) return false;
-  m_deGotoQueue.clear();
+  DASHER_ASSERT(!GetBoolParameter(BP_DASHER_PAUSED));
 
   myint iNewMin, iNewMax;
   // works out next viewpoint
@@ -447,8 +447,8 @@ void CDasherModel::UpdateBounds(myint iNewMin, myint iNewMax, unsigned long iTim
   HandleOutput(pAdded, pNumDeleted);
 }
 
-void CDasherModel::NewFrame(unsigned long Time) {
-  CFrameRate::NewFrame(Time);
+void CDasherModel::RecordFrame(unsigned long Time) {
+  CFrameRate::RecordFrame(Time);
   ///GAME MODE TEMP///Pass new frame events onto our teacher
   GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher();
   if(m_bGameMode && pTeacher)
@@ -687,7 +687,7 @@ bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
 }
 
 
-void CDasherModel::ScheduleZoom(dasherint X, dasherint Y, int iMaxZoom)
+void CDasherModel::ScheduleZoom(long time, dasherint X, dasherint Y, int iMaxZoom)
 {
   // 1 = min, 2 = max. y1, y2 is the length we select from Y1, Y2. With
   // that ratio we calculate the new root{min,max} r1, r2 from current R1, R2.
@@ -756,6 +756,12 @@ void CDasherModel::ScheduleZoom(dasherint X, dasherint Y, int iMaxZoom)
       sNewItem.iN2 = r2 - (s * (r2 - R2)) / nsteps;
       m_deGotoQueue.push_back(sNewItem);
   }
+  //steps having been scheduled, we're gonna start moving accordingly...
+  m_pDasherInterface->Unpause(time);
+}
+
+void CDasherModel::ClearScheduledSteps() {
+  m_deGotoQueue.clear();
 }
 
 

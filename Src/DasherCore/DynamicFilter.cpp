@@ -105,7 +105,7 @@ void CDynamicFilter::Event(int iTime, int iButton, int iType, CDasherModel *pMod
       pUserLog->KeyDown(iButton, iType, 2);
     
     pause();
-    m_pInterface->PauseAt(0, 0);
+    m_pInterface->Pause();
   } else {
     //running; examine event/button-press type
     switch(iType) {
@@ -115,7 +115,7 @@ void CDynamicFilter::Event(int iTime, int iButton, int iType, CDasherModel *pMod
         if(pUserLog)
           pUserLog->KeyDown(iButton, iType, 2);
         pause();
-        m_pInterface->PauseAt(0, 0);
+        m_pInterface->Pause();
         break;
       }
       else if(iButton == 1) {

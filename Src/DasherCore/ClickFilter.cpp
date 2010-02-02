@@ -65,7 +65,7 @@ void CClickFilter::KeyDown(int iTime, int iId, CDasherView *pDasherView, CDasher
 
       pDasherView->GetCoordinates(iDasherX, iDasherY);
 
-      pModel->ScheduleZoom(iDasherX,iDasherY, GetLongParameter(LP_MAXZOOM));
+      pModel->ScheduleZoom(iTime, iDasherX,iDasherY, GetLongParameter(LP_MAXZOOM));
     }
     break;
   default:

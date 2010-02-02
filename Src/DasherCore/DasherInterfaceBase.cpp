@@ -358,7 +358,7 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
 
     switch(pControlEvent->m_iID) {
     case CControlManager::CTL_STOP:
-      PauseAt(0,0);
+      Pause();
       break;
     case CControlManager::CTL_PAUSE:
   //Halt Dasher - without a stop event, so does not result in speech etc.
@@ -435,7 +435,8 @@ void CDasherInterfaceBase::CreateNCManager() {
     CreateModel(iOffset);
 }
 
-void CDasherInterfaceBase::PauseAt(int MouseX, int MouseY) {
+void CDasherInterfaceBase::Pause() {
+  if (GetBoolParameter(BP_DASHER_PAUSED)) return; //already paused, no need to do anything.
   SetBoolParameter(BP_DASHER_PAUSED, true);
 
   // Request a full redraw at the next time step.
@@ -455,6 +456,7 @@ void CDasherInterfaceBase::GameMessageIn(int message, void* messagedata) {
 }
 
 void CDasherInterfaceBase::Unpause(unsigned long Time) {
+  if (!GetBoolParameter(BP_DASHER_PAUSED)) return; //already running, no need to do anything
   SetBoolParameter(BP_DASHER_PAUSED, false);
 
   if(m_pDasherModel != 0)
@@ -507,7 +509,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   // if(m_iCurrentState != ST_NORMAL)
   //  return;
 
-  bool bChanged(false);
+  bool bChanged(false), bWasPaused(GetBoolParameter(BP_DASHER_PAUSED));
   CExpansionPolicy *pol=m_defaultPolicy;
   if(m_pDasherView != 0) {
     if(!GetBoolParameter(BP_TRAINING)) {
@@ -540,6 +542,10 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
     }
   }
 
+  //check: if we were paused before, and the input filter didn't unpause,
+  // then nothing can have changed:
+  DASHER_ASSERT(!bWasPaused || !GetBoolParameter(BP_DASHER_PAUSED) || !bChanged);
+                
   // Flags at this stage:
   //
   // - bChanged = the display was updated, so needs to be rendered to the display
@@ -563,7 +569,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   // This just passes the time through to the framerate tracker, so we
   // know how often new frames are being drawn.
   if(m_pDasherModel != 0)
-    m_pDasherModel->NewFrame(iTime);
+    m_pDasherModel->RecordFrame(iTime);
 
   bReentered=false;
 }

@@ -16,8 +16,10 @@ class COneButtonFilter : public CInputFilter {
   virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog);
   bool GetSettings(SModuleSettings **pSettings, int *iCount);
  private:
-
+  ///true iff the scan line is moving down/up, or is in the 'reverse' stage
   bool bStarted;
+  ///set by DecorateView: true iff we have drawn an undecorated display, else false.
+  bool m_bNoDecorations;
   int iStartTime;
   int iLocation;
 };
