@@ -306,8 +306,6 @@ private:
   cairo_t *decoration_cr;
   //cairo_t *onscreen_cr; // TODO: do we need to do our own double buffering?
 
-  cairo_t *widget_cr;
-
   cairo_t *cr; // offscreen
   my_cairo_colour_t *cairo_colours;
 #else

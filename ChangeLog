@@ -1,3 +1,7 @@
+2009-02-04  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Fix bug #607775.
+
 2009-01-22  Patrick Welche <prlw1@cam.ac.uk>
 
 	* Comment out unused screens to hopefully make bug #607775 more

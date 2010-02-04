@@ -61,7 +61,6 @@ CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache)
 
   //onscreen_cr = cairo_create(m_pOnscreenSurface);
 
-  widget_cr = gdk_cairo_create(m_pCanvas->window);
 #endif
 
   m_pPangoInk = new PangoRectangle;
@@ -79,7 +78,6 @@ CCanvas::~CCanvas() {
   cairo_destroy(display_cr);
   cairo_destroy(decoration_cr);
   //cairo_destroy(onscreen_cr);
-  cairo_destroy(widget_cr);
 #else
   //g_object_unref(m_pDummyBuffer);
   g_object_unref(m_pDisplayBuffer);
@@ -168,9 +166,12 @@ void CCanvas::Display() {
   //  gdk_window_begin_paint_rect(m_pCanvas->window, &sRect);
 
 #if WITH_CAIRO  
+  cairo_t *widget_cr;
+  widget_cr = gdk_cairo_create(m_pCanvas->window);
   cairo_set_source_surface(widget_cr, m_pDecorationSurface, 0, 0);
   cairo_rectangle(widget_cr, 0, 0, m_iWidth, m_iHeight);
   cairo_fill(widget_cr);
+  cairo_destroy(widget_cr);
 #else
   gdk_draw_drawable(m_pCanvas->window, m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)], m_pDecorationBuffer, 0, 0, 0, 0, m_iWidth, m_iHeight);
 #endif
