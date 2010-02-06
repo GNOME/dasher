@@ -1,3 +1,7 @@
+2009-02-06  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Fix SymbolStream UTF-8 character input function.
+
 2009-02-04  Patrick Welche <prlw1@cam.ac.uk>
 
 	* Fix bug #607775.

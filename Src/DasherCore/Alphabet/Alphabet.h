@@ -177,7 +177,7 @@ namespace Dasher {
       {
         public:
           utf8_length();
-          int operator[](const int) const;
+          int operator[](const unsigned char) const;
           int max_length;
         private:
           int utf8_count_array[0x100];
