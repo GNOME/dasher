@@ -74,28 +74,8 @@ CAlphabetManager::CGroupNode *CAlphabetManager::makeGroup(CDasherNode *pParent, 
 }
 
 CAlphabetManager::CAlphNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, bool bEnteredLast, int iOffset) {
-  
-  CAlphNode *pNewNode = BuildNodeForOffset(pParent, iLower, iUpper, bEnteredLast, max(-1,iOffset-1));
-  if (!pNewNode) {
-    DASHER_ASSERT(bEnteredLast);
-    //could not build a node 'responsible' for entering the preceding character,
-    // as said character is not in the current alphabet! However, we'll allow the
-    // user to start entering text afresh
-    return BuildNodeForOffset(pParent, iLower, iUpper, false, iOffset);
-    // (the new node'll be constructed using the current alphabet's default context,
-    // i.e. start of sentence)
-  }
-  pNewNode->SetFlag(NF_SEEN, true);
-  
-  //    if(m_bGameMode) {
-  //    pNodeUserData->iGameOffset = -1;
-  pNewNode->SetFlag(NF_GAME, true);
-  //  }
-  
-  return pNewNode;
-}
 
-CAlphabetManager::CAlphNode *CAlphabetManager::BuildNodeForOffset(CDasherNode *pParent, int iLower, int iUpper, bool bSym, int iNewOffset) {
+  int iNewOffset(max(-1,iOffset-1));
   
   std::vector<symbol> vContextSymbols;
   // TODO: make the LM get the context, rather than force it to fix max context length as an int
@@ -127,8 +107,9 @@ CAlphabetManager::CAlphNode *CAlphabetManager::BuildNodeForOffset(CDasherNode *p
   }
   if (it == vContextSymbols.end()) {
     //previous character was not in the alphabet!
-    if (bSym) return NULL; //can't construct a node "responsible" for entering such a character!
-    //ok. Create a node as if we were starting a new sentence...
+    //can't construct a node "responsible" for entering it
+    bEnteredLast=false;
+    //instead, Create a node as if we were starting a new sentence...
     vContextSymbols.clear();
     m_pNCManager->GetAlphabet()->GetSymbols(vContextSymbols, m_pNCManager->GetAlphabet()->GetDefaultContext());
     it = vContextSymbols.begin();
@@ -139,7 +120,7 @@ CAlphabetManager::CAlphNode *CAlphabetManager::BuildNodeForOffset(CDasherNode *p
     m_pLanguageModel->EnterSymbol(iContext, *(it++));
   }
   
-  if(!bSym) {
+  if(!bEnteredLast) {
     pDisplayInfo->strDisplayText = ""; //equivalent to do m_pNCManager->GetAlphabet()->GetDisplayText(0)
     pDisplayInfo->iColour = m_pNCManager->GetAlphabet()->GetColour(0, iNewOffset%2);
     pNewNode = makeGroup(pParent, iLower, iUpper, pDisplayInfo, NULL);
@@ -148,6 +129,11 @@ CAlphabetManager::CAlphNode *CAlphabetManager::BuildNodeForOffset(CDasherNode *p
     pDisplayInfo->strDisplayText = m_pNCManager->GetAlphabet()->GetDisplayText(iSymbol);
     pDisplayInfo->iColour = m_pNCManager->GetAlphabet()->GetColour(iSymbol, iNewOffset%2);
     pNewNode = makeSymbol(pParent, iLower, iUpper, pDisplayInfo, iSymbol);
+    //if the new node is not child of an existing node, then it
+    // represents a symbol that's already happened - so we're either
+    // going backwards (rebuildParent) or creating a new root after a language change
+    DASHER_ASSERT (!pParent);
+    pNewNode->SetFlag(NF_SEEN, true);
   }
 
   pNewNode->m_iOffset = iNewOffset;
@@ -450,14 +436,7 @@ CDasherNode *CAlphabetManager::CAlphNode::RebuildParent(int iNewOffset) {
   //possible that we have a parent, as RebuildParent() rebuilds back to closest AlphNode.
   if (Parent()) return Parent();
   
-  CAlphNode *pNewNode = m_pMgr->BuildNodeForOffset(NULL, 0, 0, iNewOffset!=-1, iNewOffset);
-  if (!pNewNode) {
-    //could not rebuild parent node, as the preceding character was not
-    // in the current alphabet. Returning null means the user won't be able
-    // to reverse any further; he'll have to change language (to one
-    // including that symbol) instead.
-    return NULL;
-  }
+  CAlphNode *pNewNode = m_pMgr->GetRoot(NULL, 0, 0, iNewOffset!=-1, iNewOffset+1);
   
   //now fill in the new node - recursively - until it reaches us
   m_pMgr->IterateChildGroups(pNewNode, NULL, this);

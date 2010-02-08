@@ -185,7 +185,6 @@ class Dasher::CDasherNode:private NoClones {
   inline unsigned int ChildCount() const;
   inline CDasherNode *Parent() const;
   void SetParent(CDasherNode *pNewParent); 
-  bool NodeIsParent(CDasherNode * oldnode) const;
   // TODO: Should this be here?
   CDasherNode *const Get_node_under(int, myint y1, myint y2, myint smousex, myint smousey);   // find node under given co-ords
   

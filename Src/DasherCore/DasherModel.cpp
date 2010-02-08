@@ -112,7 +112,7 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
 
     switch (pEvt->m_iParameter) {
     case BP_CONTROL_MODE: // Rebuild the model if control mode is switched on/off
-      RebuildAroundNode(Get_node_under_crosshair());
+      RebuildAroundCrosshair();
       break;
     case BP_SMOOTH_OFFSET:
       if (!GetBoolParameter(BP_SMOOTH_OFFSET))
@@ -150,7 +150,7 @@ void CDasherModel::Make_root(CDasherNode *pNewRoot) {
   //  std::cout << "Make root" << std::endl;
 
   DASHER_ASSERT(pNewRoot != NULL);
-  DASHER_ASSERT(pNewRoot->NodeIsParent(m_Root));
+  DASHER_ASSERT(pNewRoot->Parent() == m_Root);
 
   m_Root->SetFlag(NF_COMMITTED, true);
 
@@ -189,25 +189,24 @@ void CDasherModel::RecursiveMakeRoot(CDasherNode *pNewRoot) {
   // TODO: we really ought to check that pNewRoot is actually a
   // descendent of the root, although that should be guaranteed
 
-  if(!pNewRoot->NodeIsParent(m_Root))
+  if(pNewRoot->Parent() != m_Root)
     RecursiveMakeRoot(pNewRoot->Parent());
 
   Make_root(pNewRoot);
 }
 
-// RebuildAroundNode is only used when BP_CONTROL changes,
-// so not very often.
-void CDasherModel::RebuildAroundNode(CDasherNode *pNode) {
+// only used when BP_CONTROL changes, so not very often.
+void CDasherModel::RebuildAroundCrosshair() {
+  CDasherNode *pNode = Get_node_under_crosshair();
   DASHER_ASSERT(pNode != NULL);
+  DASHER_ASSERT(pNode == m_pLastOutput);
 
   RecursiveMakeRoot(pNode);
-
+  DASHER_ASSERT(m_Root == pNode);
   ClearRootQueue();
   m_Root->Delete_children();
 
   m_Root->PopulateChildren();
-
-  m_pLastOutput = m_Root;
 }
 
 void CDasherModel::Reparent_root(int lower, int upper) {
@@ -304,15 +303,10 @@ void CDasherModel::InitialiseAtOffset(int iOffset, CDasherView *pView) {
   DeleteTree();
 
   m_Root = m_pNodeCreationManager->GetAlphRoot(NULL, 0,GetLongParameter(LP_NORMALIZATION), iOffset!=0, iOffset);
-
-  m_pLastOutput = m_Root;
-
-  // Create children of the root
-  // TODO: What about parents?
-
-  if(m_Root->Range() >= 0.1 * GetLongParameter(LP_NORMALIZATION)) {
-    ExpandNode(m_Root);
-  }
+  m_pLastOutput = (m_Root->GetFlag(NF_SEEN)) ? m_Root : NULL;
+  
+  // Create children of the root...
+  ExpandNode(m_Root);
 	
   // Set the root coordinates so that the root node is an appropriate
   // size and we're not in any of the children
@@ -326,6 +320,7 @@ void CDasherModel::InitialiseAtOffset(int iOffset, CDasherView *pView) {
 
   m_iDisplayOffset = 0;
 
+  //now (re)create parents, while they show on the screen
   if(pView) {
     while(pView->IsNodeVisible(m_Rootmin,m_Rootmax)) {
       CDasherNode *pOldRoot = m_Root;
@@ -462,6 +457,9 @@ void CDasherModel::UpdateBounds(myint iNewMin, myint iNewMax, unsigned long iTim
   // Check whether new nodes need to be created
   ExpandNode(Get_node_under_crosshair());
   
+// This'll get done again when we render the frame, later, but we use NF_SEEN
+// (set here) to ensure the node under the cursor can never be collapsed
+// (even when the node budget is exceeded) when we do the rendering...
   HandleOutput(pAdded, pNumDeleted);
 }
 
@@ -535,8 +533,9 @@ void CDasherModel::HandleOutput(Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDel
   
   //  std::cout << "HandleOutput: " << m_pLastOutput << " => " << pNewNode << std::endl;
   
-  CDasherNode *pLastSeen;
-  for (pLastSeen = pNewNode; !pLastSeen->GetFlag(NF_SEEN); pLastSeen = pLastSeen->Parent());
+  CDasherNode *pLastSeen = pNewNode;
+  while (pLastSeen && !pLastSeen->GetFlag(NF_SEEN))
+    pLastSeen = pLastSeen->Parent();
   
   while (m_pLastOutput != pLastSeen) {
     m_pLastOutput->Undo();
@@ -547,7 +546,7 @@ void CDasherModel::HandleOutput(Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDel
       (*pNumDeleted) += m_pLastOutput->m_iNumSymbols;
     
     m_pLastOutput = m_pLastOutput->Parent();
-    m_pLastOutput->Enter();
+    if (m_pLastOutput) m_pLastOutput->Enter();
   }
   
   if(!pNewNode->GetFlag(NF_SEEN)) {
@@ -610,7 +609,8 @@ bool CDasherModel::RenderToView(CDasherView *pView, CExpansionPolicy &policy) {
   DASHER_ASSERT(pView != NULL);
   DASHER_ASSERT(m_Root != NULL);
 
-  DASHER_ASSERT(Get_node_under_crosshair() == m_pLastOutput);
+  // XXX we HandleOutput in RenderToView
+  // DASHER_ASSERT(Get_node_under_crosshair() == m_pLastOutput);
 
   bool bReturnValue = false;
   std::vector<std::pair<myint,bool> > vGameTargetY;
@@ -643,7 +643,6 @@ bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
 
 #ifdef DEBUG
   CDasherNode *pOldNode = Get_node_under_crosshair();
-  DASHER_ASSERT(pOldNode == m_pLastOutput);
 #endif
 
   CDasherNode *root(m_Root);

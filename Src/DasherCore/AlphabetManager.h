@@ -126,14 +126,6 @@ namespace Dasher {
     virtual CDasherNode *CreateSymbolNode(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd);
     virtual CLanguageModel::Context CreateSymbolContext(CAlphNode *pParent, symbol iSymbol);
     virtual CGroupNode *CreateGroupNode(CAlphNode *pParent, SGroupInfo *pInfo, unsigned int iLbnd, unsigned int iHbnd);
-
-    ///
-    ///Builds a new node from the context leading up to the specified offset
-    /// bSym - true if the build node should be considered as having entered the last symbol (e.g. when rebuilding parent,
-    /// but not when escaping back to Alphabet)
-    /// iNewOffset - m_iOffset of the new node (i.e. index into context of character the node represents)
-    ///
-    CAlphNode *BuildNodeForOffset(CDasherNode *pParent, int iLower, int iUpper, bool bSym, int iNewOffset);
     
     CLanguageModel *m_pLanguageModel;
     CNodeCreationManager *m_pNCManager;

@@ -98,14 +98,6 @@ void CDasherNode::Trace() const {
    */
 }
 
-bool CDasherNode::NodeIsParent(CDasherNode *oldnode) const {
-  if(oldnode == m_pParent)
-    return true;
-  else
-    return false;
-
-}
-
 void CDasherNode::GetContext(CDasherInterfaceBase *pInterface, vector<symbol> &vContextSymbols, int iOffset, int iLength) {
   if (!GetFlag(NF_SEEN)) {
     DASHER_ASSERT(m_pParent);

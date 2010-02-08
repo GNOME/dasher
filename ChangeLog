@@ -1,3 +1,7 @@
+2009-02-08  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Fix rebuilding of parents and language changing.
+
 2009-02-06  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* Fix SymbolStream UTF-8 character input function.

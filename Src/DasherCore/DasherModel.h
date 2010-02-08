@@ -324,12 +324,14 @@ class Dasher::CDasherModel:public CFrameRate, private NoClones
   void RecursiveMakeRoot(CDasherNode *pNewRoot);
 
   ///
-  /// Rebuild the data structure such that a given node is guaranteed
-  /// to be in the same place on the screen. This would usually be the
-  /// node under the crosshair
+  /// Makes the node under the crosshair the root by deleting everything
+  /// outside it, then rebuilds the nodes beneath it. (Thus, the node under
+  /// the crosshair stays in the same place.) Used when control mode is turned
+  /// on or off, or more generally, when the sizes of child nodes may have
+  /// changed.
   ///
 
-  void RebuildAroundNode(CDasherNode *pNode);
+  void RebuildAroundCrosshair();
 
   ///
   /// Rebuild the parent of the current root - used during backing off
