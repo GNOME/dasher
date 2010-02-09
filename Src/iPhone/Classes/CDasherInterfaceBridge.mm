@@ -215,14 +215,18 @@ void CDasherInterfaceBridge::ExternalEventHandler(Dasher::CEvent *pEvent) {
     {
       CLockEvent *evt(static_cast<CLockEvent *>(pEvent));
       NSString *dispMsg = nil;
-      if (evt->m_bLock)
-        dispMsg = evt->m_iPercent ? [NSString stringWithFormat:@"%s (%i%%)",evt->m_strMessage,evt->m_iPercent] : NSStringFromStdString(evt->m_strMessage);
+      if (evt->m_bLock) {
+        dispMsg = NSStringFromStdString(evt->m_strMessage);
+        if (evt->m_iPercent) dispMsg = [NSString stringWithFormat:@"%@ (%i%%)",
+                                                                  dispMsg,evt->m_iPercent];
+      }
       [dasherApp setLockText:dispMsg];
+      break;
     }
     case EV_MESSAGE:
-	{
+	  {
       CMessageEvent *messageEvent(static_cast < CMessageEvent * >(pEvent));
-      NSLog(@"ExternalEventHandler, m_iEventType = EV_MESSAGE, mess: %@, id = %d, type = %d", NSStringFromStdString(messageEvent->m_strMessage), messageEvent->m_iID, messageEvent->m_iType);
+      [dasherApp displayMessage:NSStringFromStdString(messageEvent->m_strMessage) ID:messageEvent->m_iID Type:messageEvent->m_iType];
       break;
 	}
     default:

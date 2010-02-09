@@ -21,6 +21,7 @@
 	CDasherInterfaceBridge* _dasherInterface;
 	UIButton *speedBtn;
 	UIToolbar *tools;
+  UILabel *messageLabel;
   BOOL doneSetup;
   BOOL m_bLandscapeSupported;
   /// Should really be part of UIViewController (lockable), below...but then, how to find?
@@ -34,6 +35,7 @@
 - (void)notifySpeedChange;
 - (NSString *)textAtOffset:(int)offset Length:(int)length;
 - (void)setLockText:(NSString *)s;
+- (void)displayMessage:(NSString *)msg ID:(int)iId Type:(int)type;
 - (void)setLandscapeSupported:(BOOL)supported;
 + (DasherAppDelegate *)theApp;
 

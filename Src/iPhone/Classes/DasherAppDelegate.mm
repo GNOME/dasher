@@ -95,18 +95,22 @@
   CGSize mainSize = self.view.bounds.size;
   CGRect dashRect;
   switch (orient) {
-    case UIInterfaceOrientationPortrait:
+    case UIInterfaceOrientationPortrait: {
       dashRect = CGRectMake(0.0, 0.0, mainSize.width, mainSize.height - 100.0);
-      text.frame = CGRectMake(0.0, dashRect.size.height, mainSize.width, 70.0);
+      CGRect textRect = CGRectMake(0.0, dashRect.size.height, mainSize.width, 70.0);
+      text.frame = textRect;
       text.bLandscape = NO;
+      messageLabel.frame = CGRectMake(0.0, textRect.origin.y + textRect.size.height - 30.0, mainSize.width, 30.0);
       tools.frame = CGRectMake(0.0, mainSize.height - 30.0, mainSize.width, 30.0);
       [self.view addSubview:tools];
       break;
+    }
     case UIInterfaceOrientationLandscapeRight:
     case UIInterfaceOrientationLandscapeLeft: {
       CGRect textRect = CGRectMake(0.0, 0.0, 100.0, mainSize.height);//-30.0);
       text.frame = textRect;
       text.bLandscape = YES;
+      messageLabel.frame = CGRectMake(0.0, textRect.origin.y + textRect.size.height - 100.0, textRect.size.width, 100.0);
       dashRect = CGRectMake(textRect.size.width, 0.0, mainSize.width-textRect.size.width, mainSize.height);//-30.0);
       [tools removeFromSuperview];
       break;
@@ -130,20 +134,27 @@
 	self.view = [[[UIView alloc] init] autorelease];
 
 	[window addSubview:self.view];
-
-  //start training in a separate thread.
-  [self doAsyncLocked:@"Initializing..." target:self selector:@selector(initDasherInterface) param:nil];
-
+  
   //create GUI components...
 	text = [[[TextView alloc] init] autorelease];
-	tools = [[UIToolbar alloc] init]; //retain a reference (until dealloc) because of rotation
+  messageLabel = [[[UILabel alloc] init] autorelease];
+  tools = [[UIToolbar alloc] init]; //retain a reference (until dealloc) because of rotation
 	glView = [[[EAGLView alloc] initWithFrame:[self doLayout:UIInterfaceOrientationPortrait] Delegate:self] autorelease];
-	
+		
+  //start training in a separate thread. (Has to be after first
+  // call to doLayout, or get a black band across top of screen)
+  [self doAsyncLocked:@"Initializing..." target:self selector:@selector(initDasherInterface) param:nil];
+
 	text.text=@"";
 	text.editable = NO;
 	text.delegate = self;
 	selectedText.location = selectedText.length = 0;
 
+  messageLabel.backgroundColor = [UIColor grayColor];
+  messageLabel.textColor = [UIColor whiteColor];
+  messageLabel.adjustsFontSizeToFitWidth = YES;
+  messageLabel.hidden = YES;
+  
   //...and lay them out
 	UIBarButtonItem *settings = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cog.png"] style:UIBarButtonItemStylePlain target:self action:@selector(settings)] autorelease];
 	speedBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -165,13 +176,14 @@
 	
 	[self.view addSubview:glView];
 	[self.view addSubview:text];
+  //relying here that adding messageLabel after text, means messageLabel'll be on top?
+  [self.view addSubview:messageLabel];
 	[self.view addSubview:tools];
 	[window makeKeyAndVisible];
   //exit this routine; initDasherInterface (in separate thread) will cause this (main) thread
   // to execute finishStartup, and finally unlock the display, when it's done with training etc.
 }
 
-//ACLACL
 - (void)initDasherInterface {
   //training takes too long to perform in applicationDidFinishLaunching;
   // so we do it here instead (having let the main thread display a "training" message);
@@ -190,6 +202,30 @@
 	[self notifySpeedChange];
   self.dasherInterface->OnUIRealised(); //that does startAnimation...
   doneSetup = YES;
+}
+
+- (void)displayMessage:(NSString *)msg ID:(int)iId Type:(int)type {
+  //set initial state - overriding any animation in progress...
+  messageLabel.text = msg;
+  messageLabel.alpha = 1.0;
+  messageLabel.hidden = NO;
+  //now setup an animation that'll fade it out...
+  [UIView beginAnimations:@"MessageAnim" context:nil];
+  [UIView setAnimationDuration:2.0];
+  [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+  [UIView setAnimationDelegate:self];
+  [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+  [messageLabel setAlpha:0.0];
+  [UIView commitAnimations]; //that'll abort any previous animation in progress
+  // (and thus proceed with just this one)
+}
+
+- (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
+  if ([finished boolValue]) {
+    messageLabel.hidden = YES;
+  }
+  //else, we've been called because the old animation's been aborted by a newer one.
+  // In which case, leave the new one to proceed without interference...
 }
 
 - (void)doSpeedBtn:(id)sender forEvent:(UIEvent *)e {
