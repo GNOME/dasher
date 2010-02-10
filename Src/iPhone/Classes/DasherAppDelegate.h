@@ -22,6 +22,7 @@
 	UIButton *speedBtn;
 	UIToolbar *tools;
   UILabel *messageLabel;
+  UISlider *speedSlider;
   BOOL doneSetup;
   BOOL m_bLandscapeSupported;
   /// Should really be part of UIViewController (lockable), below...but then, how to find?

@@ -13,7 +13,6 @@
 
 static SModuleSettings _settings[] = { //note iStep and string description are ignored
   {LP_NODE_BUDGET, T_LONG, 400, 10000, 1, 0, ""}, //hopefully appropriate for an iPhone 3GS?
-  {LP_MAX_BITRATE, T_LONG, 10, 1200, 100, 0, ""}, //unfortunately appears as "MaxBitrateTimes100"...
   {LP_MARGIN_WIDTH, T_LONG, 100, 900, 1, 0, ""},
   {BP_AUTO_SPEEDCONTROL, T_BOOL, -1, -1, -1, -1, ""},
   {BP_NONLINEAR_Y, T_BOOL, -1, -1, -1, -1, ""},

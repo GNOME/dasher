@@ -22,8 +22,15 @@
 - (void)initDasherInterface;
 - (void)finishStartup;
 - (void)doSpeedBtnImage:(NSString *)msg;
+- (void)speedSlid:(id)slider;
 - (CGRect)doLayout:(UIInterfaceOrientation)orient;
 @property (retain) UILabel *screenLockLabel;
+@end
+
+//we can't call setHidden:BOOL with performSelector:withObject:, as passing [NSNumber numberWithBool:YES] (as one should)
+// does not pass the supplied YES into setHidden on some/most versions of iPhone OS/SDK...hence, we call hide instead!
+@interface UISlider (Hideable)
+- (void)hide;
 @end
 
 @implementation DasherAppDelegate
@@ -154,13 +161,19 @@
   messageLabel.textColor = [UIColor whiteColor];
   messageLabel.adjustsFontSizeToFitWidth = YES;
   messageLabel.hidden = YES;
+
+  speedSlider = [[[UISlider alloc] init] autorelease];
+  speedSlider.frame = messageLabel.frame;
+  speedSlider.minimumValue=0.1; speedSlider.maximumValue=12.0;
+  speedSlider.hidden = YES;
   
+  [speedSlider addTarget:self action:@selector(fadeSlider) forControlEvents:UIControlEventAllTouchEvents];
+  [speedSlider addTarget:self action:@selector(speedSlid:) forControlEvents:UIControlEventValueChanged];
   //...and lay them out
 	UIBarButtonItem *settings = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cog.png"] style:UIBarButtonItemStylePlain target:self action:@selector(settings)] autorelease];
 	speedBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 	[speedBtn setImageEdgeInsets:UIEdgeInsetsMake(0.0, 2.0, 0.0, 2.0)];
-	[speedBtn addTarget:self action:@selector(doSpeedBtn:forEvent:) forControlEvents:UIControlEventTouchUpInside | UIControlEventTouchUpOutside];
-	//[self doSpeedBtnImage:@"Foo"];
+	[speedBtn addTarget:self action:@selector(fadeSlider) forControlEvents:UIControlEventAllTouchEvents];
 
 	UIBarButtonItem *clear = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(clear)] autorelease];
 	UIBarButtonItem *mail = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"mail.png"] style:UIBarButtonItemStylePlain target:self action:@selector(mail)] autorelease];
@@ -176,7 +189,9 @@
 	
 	[self.view addSubview:glView];
 	[self.view addSubview:text];
-  //relying here that adding messageLabel after text, means messageLabel'll be on top?
+  //relying here on things added later being on top of those added earlier.
+  //Seems to work ok but not sure whether this is guaranteed?!
+  [self.view addSubview:speedSlider];
   [self.view addSubview:messageLabel];
 	[self.view addSubview:tools];
 	[window makeKeyAndVisible];
@@ -228,12 +243,18 @@
   // In which case, leave the new one to proceed without interference...
 }
 
-- (void)doSpeedBtn:(id)sender forEvent:(UIEvent *)e {
-    CGPoint p=[[[e allTouches] anyObject] locationInView:speedBtn];
-	float x = (p.x-[speedBtn bounds].size.width/2.0)/200.0;
-	float a = (x < 0.0f) ? min(-0.1f, x) : max (0.1f, x);
-	self.dasherInterface->SetLongParameter(LP_MAX_BITRATE,
-										   min(1200, max(10, static_cast<int>(self.dasherInterface->GetLongParameter(LP_MAX_BITRATE) + a * 100.0))));
+- (void)fadeSlider {
+  if ([NSThread isMainThread]) {
+    speedSlider.hidden = NO;
+    [NSObject cancelPreviousPerformRequestsWithTarget:speedSlider];
+    [speedSlider performSelector:@selector(hide) withObject:nil afterDelay:2.0];
+  } else [self performSelectorOnMainThread:@selector(fadeSlider) withObject:nil waitUntilDone:NO];
+}
+
+- (void)speedSlid:(id)sender {
+	float v = ((UISlider *)sender).value;
+	_dasherInterface->SetLongParameter(LP_MAX_BITRATE, 100*v);
+	//[self notifySpeedChange];//no need, CDasherInterfaceBridge calls if SetLongParameter did anything
 }
 
 - (void)clear {
@@ -320,8 +341,9 @@
 }
 
 - (void)notifySpeedChange {
-	NSString *caption = [NSString stringWithFormat:@"%.2f",
-						 self.dasherInterface->GetLongParameter(LP_MAX_BITRATE) / 100.0];
+  double speed = self.dasherInterface->GetLongParameter(LP_MAX_BITRATE) / 100.0;
+  speedSlider.value = speed; 
+	NSString *caption = [NSString stringWithFormat:@"%.2f", speed];
 	[self doSpeedBtnImage:caption];
 }
 
@@ -457,9 +479,19 @@
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   [action invoke];
   //passing 'nil' here, where a BOOL is expected, is a horrendous trick - nil = 0x0 is effectively reinterpret_casted... 
+  // however, the 'correct' method of passing [NSNumber numberWithBool:] is erratic, resulting in either inversion, 
+  // always true, or always false, on different versions of the iPhone OS/SDK...
   [DasherAppDelegate theApp].screenLockLabel = nil;
   [self performSelectorOnMainThread:@selector(dismissModalViewControllerAnimated:) withObject:nil waitUntilDone:NO];
   [pool release];
+}
+
+@end
+
+@implementation UISlider (Hideable)
+
+-(void)hide {
+  [self setHidden:YES];
 }
 
 @end
