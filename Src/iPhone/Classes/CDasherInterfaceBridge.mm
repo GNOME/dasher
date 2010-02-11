@@ -82,6 +82,10 @@ void CDasherInterfaceBridge::ChangeScreen(CDasherScreen *pScreen) {
   m_pMouseDevice->SetScreenBounds(pScreen->GetWidth(), pScreen->GetHeight());
 }
 
+string CDasherInterfaceBridge::GetParamName(int iParameter) {
+  return static_cast<COSXSettingsStore *>(m_pSettingsStore)->GetParamName(iParameter);
+}
+
 void CDasherInterfaceBridge::SetupPaths() {
   NSString *systemDir = [NSString stringWithFormat:@"%@/", [[NSBundle mainBundle] bundlePath]];
   NSString *userDir = [NSString stringWithFormat:@"%@/", [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]];

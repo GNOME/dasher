@@ -148,6 +148,7 @@
 		3344FE650F71717C00506EAA /* UserLogTrial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FE0F0F71717C00506EAA /* UserLogTrial.cpp */; };
 		3344FE660F71717C00506EAA /* XMLUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FE130F71717C00506EAA /* XMLUtil.cpp */; };
 		334AC9B8102AE19400CE6871 /* Locked.png in Resources */ = {isa = PBXBuildFile; fileRef = 334AC9B7102AE19400CE6871 /* Locked.png */; };
+		334B1BF111232A8E007A6DFF /* ParametersController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 334B1BF011232A8E007A6DFF /* ParametersController.mm */; };
 		33627FBA0F7A82CF000C8818 /* training_albanian_SQ.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33627F9A0F7A82CE000C8818 /* training_albanian_SQ.txt */; };
 		33627FBD0F7A82CF000C8818 /* training_bengali_BD.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33627F9D0F7A82CE000C8818 /* training_bengali_BD.txt */; };
 		33627FBF0F7A82CF000C8818 /* training_canna_JP.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33627F9F0F7A82CE000C8818 /* training_canna_JP.txt */; };
@@ -459,6 +460,9 @@
 		3344FE140F71717C00506EAA /* XMLUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLUtil.h; sourceTree = "<group>"; };
 		3344FE740F71718B00506EAA /* I18n.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = I18n.h; sourceTree = "<group>"; };
 		334AC9B7102AE19400CE6871 /* Locked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Locked.png; sourceTree = "<group>"; };
+		334B1BEF11232A8E007A6DFF /* ParametersController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParametersController.h; sourceTree = "<group>"; };
+		334B1BF011232A8E007A6DFF /* ParametersController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ParametersController.mm; sourceTree = "<group>"; };
+		334B1C2011233B8B007A6DFF /* ModuleSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleSettings.h; sourceTree = "<group>"; };
 		33627F9A0F7A82CE000C8818 /* training_albanian_SQ.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_albanian_SQ.txt; sourceTree = "<group>"; };
 		33627F9D0F7A82CE000C8818 /* training_bengali_BD.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_bengali_BD.txt; sourceTree = "<group>"; };
 		33627F9F0F7A82CE000C8818 /* training_canna_JP.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_canna_JP.txt; sourceTree = "<group>"; };
@@ -552,6 +556,8 @@
 		080E96DDFE201D6D7F000001 /* IPhone Classes */ = {
 			isa = PBXGroup;
 			children = (
+				334B1BEF11232A8E007A6DFF /* ParametersController.h */,
+				334B1BF011232A8E007A6DFF /* ParametersController.mm */,
 				332F34B7103D91E5008448D7 /* LanguagesController.h */,
 				332F34B8103D91E5008448D7 /* LanguagesController.mm */,
 				3334D4DD1014745F0077948A /* MiscSettings.h */,
@@ -944,6 +950,7 @@
 		3344FE670F71718B00506EAA /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				334B1C2011233B8B007A6DFF /* ModuleSettings.h */,
 				332387350F7838AC00DD75C5 /* Platform.h */,
 				332387300F78388200DD75C5 /* Common.h */,
 				332387310F78388200DD75C5 /* myassert.h */,
@@ -1242,6 +1249,7 @@
 				3334D4DF1014745F0077948A /* MiscSettings.mm in Sources */,
 				332F34B9103D91E5008448D7 /* LanguagesController.mm in Sources */,
 				337ECC1B10DD5E0700D0C6A5 /* ExpansionPolicy.cpp in Sources */,
+				334B1BF111232A8E007A6DFF /* ParametersController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

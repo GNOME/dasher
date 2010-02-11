@@ -21,10 +21,10 @@ class COSXSettingsStore:public CSettingsStore {
 public:
   COSXSettingsStore(Dasher::CEventHandler * pEventHandler);
   ~COSXSettingsStore();
-  
-  NSDictionary *ParameterDictionary();
+  std::string GetParamName(int iParameter);
+  //NSDictionary *ParameterDictionary();
 
-  int GetParameterIndex(const std::string &  Key);
+  //int GetParameterIndex(const std::string &  Key);
 
 private:
 

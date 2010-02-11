@@ -10,10 +10,9 @@
 
 
 @interface InputMethodSelector : UITableViewController {
-	UINavigationController *encNavCon;
 	NSIndexPath *selectedPath;
 }
 
-- (id)initWithNavCon:(UINavigationController *)encNavCon;
+- (id)init;
 
 @end

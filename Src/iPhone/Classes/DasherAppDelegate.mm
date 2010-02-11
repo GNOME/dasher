@@ -232,7 +232,7 @@
   UINavigationController *settings = [[[UINavigationController alloc] initWithRootViewController:tabs] autorelease];
 
     tabs.viewControllers = [NSArray arrayWithObjects:
-							[[[InputMethodSelector alloc] initWithNavCon:settings] autorelease],
+							[[[InputMethodSelector alloc] init] autorelease],
 						    [[[CalibrationController alloc] initWithTabCon:tabs] autorelease],
 						    [[[LanguagesController alloc] init] autorelease],
                 [[[StringParamController alloc] initWithTitle:@"Colour" image:[UIImage imageNamed:@"palette.png"] settingParam:SP_COLOUR_ID] autorelease],

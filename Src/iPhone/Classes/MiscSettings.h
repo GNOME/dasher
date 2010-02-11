@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ParametersController.h"
 
-
-@interface MiscSettings : UIViewController {
-	UILabel *speedLbl, *budgetLbl, *marginLbl;
+@interface MiscSettings : ParametersController {
 }
-
+-(id)init;
 @end

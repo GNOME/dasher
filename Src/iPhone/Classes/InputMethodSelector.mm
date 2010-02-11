@@ -12,6 +12,7 @@
 #import "Common.h"
 #import "DasherAppDelegate.h"
 #import "CalibrationController.h"
+#import "ParametersController.h"
 
 typedef struct __FILTER_DESC__ {
 	NSString *title;
@@ -23,13 +24,13 @@ typedef struct __FILTER_DESC__ {
 SFilterDesc asTouchFilters[] = {
 	{@"Hybrid Mode", @"Tap or Hold", TOUCH_INPUT, "Stylus Control"},
   {@"Boxes", @"Tap box to select", TOUCH_INPUT, "Direct Mode"},
-  {@"Scanning", @"Tap screen when box highlighted", TOUCH_INPUT, "Menu Mode"},
-  {@"One Button Mode", @"Tap screen when cursor near", TOUCH_INPUT, "Static One Button Mode"},
 };
 
 SFilterDesc asDynamicFilters[] = {
-	{@"Dynamic 2B Mode", @"Tap Top or Bottom", TOUCH_INPUT, "Two Button Dynamic Mode"},
-  {@"Dynamic 1B Mode", @"Tap anywhere - twice", TOUCH_INPUT, "Two-push Dynamic Mode (New One Button)"},
+  {@"Scanning", @"Tap screen when box highlighted", TOUCH_INPUT, "Menu Mode"},
+  {@"One Button Mode", @"Tap screen when cursor near", TOUCH_INPUT, "Static One Button Mode"},
+	{@"Dynamic 1B Mode", @"Tap anywhere - twice", TOUCH_INPUT, "Two-push Dynamic Mode (New One Button)"},
+  {@"Dynamic 2B Mode", @"Tap Top or Bottom", TOUCH_INPUT, "Two Button Dynamic Mode"},
 };
 
 SFilterDesc asTiltFilters[] = {
@@ -51,20 +52,25 @@ typedef struct __SECTION_DESC__ {
 	
 SSectionDesc allMeths[] = {
 {@"Touch Control", asTouchFilters, sizeof(asTouchFilters) / sizeof(asTouchFilters[0])},
-{@"Dynamic Button Modes", asDynamicFilters, sizeof(asDynamicFilters) / sizeof(asDynamicFilters[0])},
+{@"Button Modes", asDynamicFilters, sizeof(asDynamicFilters) / sizeof(asDynamicFilters[0])},
 {@"Tilt Control", asTiltFilters, sizeof(asTiltFilters) / sizeof(asTiltFilters[0])},
 {@"Touch/tilt Combo", asMixedFilters, sizeof(asMixedFilters) / sizeof(asMixedFilters[0])},
 };
 
+@interface InputMethodSelector ()
+@property (retain) NSIndexPath *selectedPath;
+@end
+
 @implementation InputMethodSelector
 
-- (id)initWithNavCon:(UINavigationController *)_encNavCon {
-    if (self = [super initWithStyle:UITableViewStyleGrouped]) {
-		encNavCon = _encNavCon;
+@synthesize selectedPath;
+
+- (id)init {
+  if (self = [super initWithStyle:UITableViewStyleGrouped]) {
 		self.tabBarItem.title = @"Control";
 		self.tabBarItem.image = [UIImage imageNamed:@"pen.png"];
-    }
-    return self;
+  }
+  return self;
 }
 
 /*
@@ -143,12 +149,17 @@ SSectionDesc allMeths[] = {
 	// Set up the cell...
 	SFilterDesc *filter = &allMeths[ [indexPath section] ].filters[ [indexPath row] ];
 	if (filter->deviceName == app.dasherInterface->GetStringParameter(SP_INPUT_DEVICE)
-		&& filter->filterName == app.dasherInterface->GetStringParameter(SP_INPUT_FILTER))
-	{
-		cell.accessoryType = UITableViewCellAccessoryCheckmark;
-		selectedPath = indexPath;
+		&& filter->filterName == app.dasherInterface->GetStringParameter(SP_INPUT_FILTER)
+    && (!selectedPath || [indexPath compare:selectedPath])) {
+      self.selectedPath = indexPath;
+      [self performSelectorOnMainThread:@selector(doSelect) withObject:nil waitUntilDone:NO];
 	}
-	else cell.accessoryType = UITableViewCellAccessoryNone;
+	
+  UIButton *btn = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+  cell.accessoryView = btn;
+  btn.tag = (int)filter;
+  [btn addTarget:self action:@selector(settings:) forControlEvents:UIControlEventTouchUpInside];
+  
 	cell.text = filter->title;
 	CGSize titleSize = [filter->title sizeWithFont:cell.font];
 	subText.frame = CGRectMake(titleSize.width + 30.0, 5.0, 245.0 - titleSize.width, 34.0);
@@ -156,6 +167,27 @@ SSectionDesc allMeths[] = {
 	subText.text = filter->subTitle;
 
     return cell;
+}
+
+- (void)moduleSettingsDone {
+  [self dismissModalViewControllerAnimated:YES];
+  [self doSelect];
+}
+
+- (void)doSelect {
+  [self.tableView selectRowAtIndexPath:selectedPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+}
+
+- (void)settings:(id)button {
+  UIButton *btn = (UIButton *)button;
+  SFilterDesc *desc = (SFilterDesc *)btn.tag;
+  CDasherModule *mod = [DasherAppDelegate theApp].dasherInterface->GetModuleByName(desc->filterName);
+  SModuleSettings *settings=NULL; int count=0;
+  if (mod->GetSettings(&settings, &count)) {
+    ParametersController *params = [[[ParametersController alloc] initWithTitle:NSStringFromStdString(desc->filterName) Settings:settings Count:count] autorelease];
+    [params setTarget:self Selector:@selector(moduleSettingsDone)];
+    [self presentModalViewController:[[[UINavigationController alloc] initWithRootViewController:params] autorelease] animated:YES];
+  }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -167,10 +199,8 @@ SSectionDesc allMeths[] = {
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	[tableView deselectRowAtIndexPath:indexPath animated:NO];
-	if (selectedPath)
-		[tableView cellForRowAtIndexPath:selectedPath].accessoryType = UITableViewCellAccessoryNone;
-	[tableView cellForRowAtIndexPath:(selectedPath = indexPath)].accessoryType = UITableViewCellAccessoryCheckmark;
+	//[tableView deselectRowAtIndexPath:indexPath animated:NO];
+	self.selectedPath = indexPath;
 	DasherAppDelegate *app = [DasherAppDelegate theApp];
 	SFilterDesc *filter = &allMeths[ [indexPath section] ].filters[ [indexPath row] ];
 	app.dasherInterface->SetStringParameter(SP_INPUT_DEVICE, filter->deviceName);

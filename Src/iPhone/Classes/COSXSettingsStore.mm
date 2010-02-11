@@ -19,7 +19,17 @@ COSXSettingsStore::COSXSettingsStore(Dasher::CEventHandler *pEventHandler):CSett
 COSXSettingsStore::~COSXSettingsStore() {
 };
 
-NSDictionary *COSXSettingsStore::ParameterDictionary() {
+std::string COSXSettingsStore::GetParamName(int iParameter) {
+  if (iParameter < END_OF_BPS)
+    return s_oParamTables.BoolParamTable[iParameter - FIRST_BP].regName;
+  if (iParameter < END_OF_LPS)
+    return s_oParamTables.LongParamTable[iParameter - FIRST_LP].regName;
+  if (iParameter < END_OF_SPS)
+    return s_oParamTables.StringParamTable[iParameter - FIRST_SP].regName;
+  throw "Illegal Parameter Index";
+}
+
+/*NSDictionary *COSXSettingsStore::ParameterDictionary() {
   static NSMutableDictionary *parameterDictionary = nil;
   
   if (parameterDictionary == nil) {
@@ -64,7 +74,7 @@ int COSXSettingsStore::GetParameterIndex(const std::string & aKey) {
   }
   
   return [[parameterEntry objectForKey:@"key"] intValue];
-}
+}*/
 
 /*
  the default values for all the parameters are stored in the core.  Rather than trying to ferret out those values in order to construct a registration domain, I'm just going to get the object for the key and if it is nil, let the core know I failed to read the default and it will supply the correct default value.
