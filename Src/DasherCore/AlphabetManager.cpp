@@ -403,7 +403,7 @@ void CAlphabetManager::CSymbolNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, i
   if (pAdded != NULL) {
     Dasher::SymbolProb sItem;
     sItem.sym    = iSymbol;
-    sItem.prob   = GetProb(iNormalization);
+    sItem.prob   = Range() / (double)iNormalization;
 
     pAdded->push_back(sItem);
   }

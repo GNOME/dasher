@@ -176,11 +176,6 @@ void CDasherNode::Delete_children() {
   SetFlag(NF_ALLCHILDREN, false);
 }
 
-// Gets the probability of this node, conditioned on the parent
-double CDasherNode::GetProb(int iNormalization) {    
-  return (double) (m_iHbnd - m_iLbnd) / (double) iNormalization;
-}
-
 void CDasherNode::SetFlag(int iFlag, bool bValue) {
 
  if(bValue)

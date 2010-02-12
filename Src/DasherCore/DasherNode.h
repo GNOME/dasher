@@ -160,17 +160,6 @@ class Dasher::CDasherNode:private NoClones {
   ///
   inline void SetRange(unsigned int iLower, unsigned int iUpper);
 
-  /// @brief Get the probability of a node
-  ///
-  /// @param iNormalization Normalisation constant
-  ///
-  /// @return The probability
-  ///
-  /// @todo Possibly a bit simplistic to make a full member
-  /// @todo Inline
-  ///
-  double GetProb(int iNormalization);
-
   /// @brief Get the size of the most probable child
   ///
   /// @return The size

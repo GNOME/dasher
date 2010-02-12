@@ -168,14 +168,14 @@ void CDasherModel::Make_root(CDasherNode *pNewRoot) {
   m_Root = pNewRoot;
 
   // Update the root coordinates, as well as any currently scheduled locations
-  myint range = m_Rootmax - m_Rootmin;
-  m_Rootmax = m_Rootmin + (range * m_Root->Hbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
-  m_Rootmin = m_Rootmin + (range * m_Root->Lbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
+  const myint range = m_Rootmax - m_Rootmin;
+  m_Rootmax = m_Rootmin + (range * m_Root->Hbnd()) / GetLongParameter(LP_NORMALIZATION);
+  m_Rootmin = m_Rootmin + (range * m_Root->Lbnd()) / GetLongParameter(LP_NORMALIZATION);
   
   for(std::deque<SGotoItem>::iterator it(m_deGotoQueue.begin()); it != m_deGotoQueue.end(); ++it) {
-    myint r = it->iN2 - it->iN1;
-    it->iN2 = it->iN1 + (r * m_Root->Hbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
-    it->iN1 = it->iN1 + (r * m_Root->Lbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
+    const myint r = it->iN2 - it->iN1;
+    it->iN2 = it->iN1 + (r * m_Root->Hbnd()) / GetLongParameter(LP_NORMALIZATION);
+    it->iN1 = it->iN1 + (r * m_Root->Lbnd()) / GetLongParameter(LP_NORMALIZATION);
   }
 }
 
@@ -209,7 +209,7 @@ void CDasherModel::RebuildAroundCrosshair() {
   m_Root->PopulateChildren();
 }
 
-void CDasherModel::Reparent_root(int lower, int upper) {
+void CDasherModel::Reparent_root() {
   DASHER_ASSERT(m_Root != NULL);
 
   // Change the root node to the parent of the existing node. We need
@@ -219,52 +219,42 @@ void CDasherModel::Reparent_root(int lower, int upper) {
 
   if(oldroots.size() == 0) {
     pNewRoot = m_Root->RebuildParent();
+    // Return if there's no existing parent and no way of recreating one
+    if(pNewRoot == NULL) return;
   }
   else {
     pNewRoot = oldroots.back();
     oldroots.pop_back();
   }
 
-  // Return if there's no existing parent and no way of recreating one
-  if(pNewRoot == NULL)
-    return;
-
   pNewRoot->SetFlag(NF_COMMITTED, false);
 
-  CDasherNode *pCurrent = m_Root;
+  DASHER_ASSERT(m_Root->Parent() == pNewRoot);
 
-  // Need to iterate through group pseudo-nodes
-  while(pCurrent != pNewRoot) {
-
-    lower = pCurrent->Lbnd();
-    upper = pCurrent->Hbnd();
-
-    pCurrent = pCurrent->Parent();
-        
-    myint iWidth = upper - lower;
-    myint iRootWidth = m_Rootmax - m_Rootmin;
+  const myint lower(m_Root->Lbnd()), upper(m_Root->Hbnd());
+  const myint iRange(upper-lower);
+  myint iRootWidth(m_Rootmax - m_Rootmin);
     
-    // Fail and undo root creation if the new root is bigger than allowed by normalisation
-    if(((myint((GetLongParameter(LP_NORMALIZATION) - upper)) / static_cast<double>(iWidth)) >
-	 (m_Rootmax_max - m_Rootmax)/static_cast<double>(iRootWidth)) || 
-	((myint(lower) / static_cast<double>(iWidth)) > 
-	 (m_Rootmin - m_Rootmin_min) / static_cast<double>(iRootWidth))) {
-      pNewRoot->OrphanChild(m_Root);
-      delete pNewRoot;
-      return;
-    }
+  // Fail if the new root is bigger than allowed by normalisation
+  if(((myint((GetLongParameter(LP_NORMALIZATION) - upper)) / static_cast<double>(iRange)) >
+           (m_Rootmax_max - m_Rootmax)/static_cast<double>(iRootWidth)) || 
+      ((myint(lower) / static_cast<double>(iRange)) > 
+           (m_Rootmin - m_Rootmin_min) / static_cast<double>(iRootWidth))) {
+    //but cache the (currently-unusable) root node - else we'll keep recreating (and deleting) it on every frame... 
+    oldroots.push_back(pNewRoot);
+    return;
+  }
     
-    //Update the root coordinates to reflect the new root
-    m_Root = pNewRoot;
+  //Update the root coordinates to reflect the new root
+  m_Root = pNewRoot;
     
-    m_Rootmax = m_Rootmax + (myint((GetLongParameter(LP_NORMALIZATION) - upper)) * iRootWidth / iWidth);
-    m_Rootmin = m_Rootmin - (myint(lower) * iRootWidth / iWidth);
+  m_Rootmax = m_Rootmax + ((GetLongParameter(LP_NORMALIZATION) - upper) * iRootWidth) / iRange;
+  m_Rootmin = m_Rootmin - (lower * iRootWidth) / iRange;
     
-    for(std::deque<SGotoItem>::iterator it(m_deGotoQueue.begin()); it != m_deGotoQueue.end(); ++it) {
-      iRootWidth = it->iN2 - it->iN1;
-      it->iN2 = it->iN2 + (myint((GetLongParameter(LP_NORMALIZATION) - upper)) * iRootWidth / iWidth);
-      it->iN1 = it->iN1 - (myint(lower) * iRootWidth / iWidth);
-    }
+  for(std::deque<SGotoItem>::iterator it(m_deGotoQueue.begin()); it != m_deGotoQueue.end(); ++it) {
+    iRootWidth = it->iN2 - it->iN1;
+    it->iN2 = it->iN2 + (myint((GetLongParameter(LP_NORMALIZATION) - upper)) * iRootWidth / iRange);
+    it->iN1 = it->iN1 - (myint(lower) * iRootWidth / iRange);
   }
 }
 
@@ -324,7 +314,7 @@ void CDasherModel::InitialiseAtOffset(int iOffset, CDasherView *pView) {
   if(pView) {
     while(pView->IsNodeVisible(m_Rootmin,m_Rootmax)) {
       CDasherNode *pOldRoot = m_Root;
-      Reparent_root(m_Root->Lbnd(), m_Root->Hbnd());
+      Reparent_root();
       if(m_Root == pOldRoot)
 	break;
     }
@@ -507,23 +497,45 @@ void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax, Dasher::VECTOR_SY
   // allowed to let the root max and min cross the midpoint of the
   // screen.
 
-  if(newRootmax < m_Rootmax_max && newRootmin > m_Rootmin_min && (newRootmax - newRootmin) > (myint)GetLongParameter(LP_MAX_Y) / 4) {
+  if(newRootmax < m_Rootmax_max && newRootmin > m_Rootmin_min) {
     // Only update if we're not making things big enough to risk
-    // overflow. In theory we should have reparented the root well
-    // before getting this far.
-    //
-    // Also don't allow the update if it will result in making the
-    // root too small. Again, we should have re-generated a deeper
-    // root in most cases, but the original root is an exception.
-
-    m_Rootmax = newRootmax;
-    m_Rootmin = newRootmin;
-
+    // overflow. (Otherwise, forcibly choose a new root node, below)
+    
+    if ((newRootmax - newRootmin) > (myint)GetLongParameter(LP_MAX_Y) / 4) {
+      // Also don't allow the update if it will result in making the
+      // root too small. We should have re-generated a deeper root
+      // before now already, but the original root is an exception.
+      m_Rootmax = newRootmax;
+      m_Rootmin = newRootmin;
+    } //else, we just stop - this prevents the user from zooming too far back
+      //outside the root node (when we can't generate an older root).
     m_iDisplayOffset = (m_iDisplayOffset * 90) / 100;
-  }
-  else {
-    // TODO - force a new root to be chosen, so that we get better
-    // behaviour than just having Dasher stop at this point.
+  } else {
+    // can't make existing root any bigger because of overflow. So force a new root
+    // to be chosen (so that Dasher doesn't just stop!)...
+    
+    //pick _child_ covering crosshair...
+    const myint iWidth(m_Rootmax-m_Rootmin);
+    for (CDasherNode::ChildMap::const_iterator it = m_Root->GetChildren().begin(), E = m_Root->GetChildren().end(); it!=E; it++) {
+      CDasherNode *pChild(*it);
+      DASHER_ASSERT(m_Rootmin + ((pChild->Lbnd() * iWidth) / GetLongParameter(LP_NORMALIZATION)) <= GetLongParameter(LP_OY));
+      if (m_Rootmin + ((pChild->Hbnd() * iWidth) / GetLongParameter(LP_NORMALIZATION)) > GetLongParameter(LP_OY)) {
+        //proceed only if new root is on the game path. If the user's strayed
+        // that far off the game path, having Dasher stop seems reasonable!
+        if (!m_bGameMode || !pChild->GetFlag(NF_GAME)) {
+          //make pChild the root node...but put (newRootmin,newRootmax) somewhere there'll be converted:
+          SGotoItem temp; temp.iN1 = newRootmin; temp.iN2 = newRootmax;
+          m_deGotoQueue.push_back(temp);
+          m_Root->DeleteNephews(pChild);
+          RecursiveMakeRoot(pChild);
+          temp=m_deGotoQueue.back(); m_deGotoQueue.pop_back();
+          std::cout << "NewGoto Recursing - was (" << newRootmin << "," << newRootmax << "), now (" << temp.iN1 << "," << temp.iN2 << ")" << std::endl;
+          NewGoTo(temp.iN1, temp.iN2, pAdded,pNumDeleted);
+        }
+        return;
+      }
+    }
+    DASHER_ASSERT(false); //did not find a child covering crosshair...?!
   }
 }
 
@@ -648,7 +660,7 @@ bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
   CDasherNode *root(m_Root);
 
   if(!(m_Root->GetFlag(NF_SUPER))) {
-    Reparent_root(root->Lbnd(), root->Hbnd());
+    Reparent_root();
     return(m_Root != root);
   }
 

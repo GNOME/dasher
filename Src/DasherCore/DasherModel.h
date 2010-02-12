@@ -337,7 +337,7 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   /// Rebuild the parent of the current root - used during backing off
   ///
 
-  void Reparent_root(int lower, int upper); 
+  void Reparent_root(); 
 
   ///
   /// Return a pointer to the Dasher node which is currently under the
