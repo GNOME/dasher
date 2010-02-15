@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher 4.10.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-06 07:56+0800\n"
-"PO-Revision-Date: 2009-09-06 06:30+0800\n"
+"POT-Creation-Date: 2010-02-15 11:25+0800\n"
+"PO-Revision-Date: 2010-02-13 08:08+0800\n"
 "Last-Translator: Chao-Hsiung Liao <j_h_liau@yahoo.com.tw>\n"
 "Language-Team: Chinese (Taiwan) <zh-l10n@lists.linux.org.tw>\n"
 "MIME-Version: 1.0\n"
@@ -16,10 +16,10 @@ msgstr ""
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
-#: ../Data/dasher.desktop.in.in.h:1 ../Data/GUI/dasher.compose.ui.h:5
+#: ../Data/dasher.desktop.in.in.h:1 ../Data/GUI/dasher.compose.ui.h:6
 #: ../Data/GUI/dasher.direct.ui.h:2 ../Data/GUI/dasher.fullscreen.ui.h:1
 #: ../Data/GUI/dasher.gameWIP.ui.h:6 ../Data/GUI/dasher.traditional.ui.h:6
-#: ../Data/GUI/dashermaemo.ui.h:3 ../Data/GUI/dashermaemofullscreen.ui.h:2
+#: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dashermaemofullscreen.ui.h:2
 #: ../Src/Gtk2/dasher_main.cpp:953
 msgid "Dasher"
 msgstr "Dasher"
@@ -32,91 +32,91 @@ msgstr "不使用鍵盤輸入文字"
 msgid "Predictive text entry"
 msgstr "預測方式輸入文字"
 
-#: ../Data/GUI/dasher.compose.ui.h:1 ../Data/GUI/dasher.direct.ui.h:1
+#: ../Data/GUI/dasher.compose.ui.h:1
+msgid "A_ppend to file"
+msgstr "加入到檔案(_P)"
+
+#: ../Data/GUI/dasher.compose.ui.h:2 ../Data/GUI/dasher.direct.ui.h:1
 #: ../Data/GUI/dasher.gameWIP.ui.h:2 ../Data/GUI/dasher.traditional.ui.h:2
 msgid "Alphabet:"
 msgstr "字母："
 
-#: ../Data/GUI/dasher.compose.ui.h:2 ../Data/GUI/dasher.gameWIP.ui.h:3
+#: ../Data/GUI/dasher.compose.ui.h:3 ../Data/GUI/dasher.gameWIP.ui.h:3
 #: ../Data/GUI/dasher.traditional.ui.h:3
 msgid "Copy"
 msgstr "複製"
 
-#: ../Data/GUI/dasher.compose.ui.h:3 ../Data/GUI/dasher.gameWIP.ui.h:4
+#: ../Data/GUI/dasher.compose.ui.h:4 ../Data/GUI/dasher.gameWIP.ui.h:4
 #: ../Data/GUI/dasher.traditional.ui.h:4
 #: ../Data/GUI/dashermaemofullscreen.ui.h:1
 msgid "Copy _All"
 msgstr "全部複製(_A)"
 
-#: ../Data/GUI/dasher.compose.ui.h:4 ../Data/GUI/dasher.gameWIP.ui.h:5
+#: ../Data/GUI/dasher.compose.ui.h:5 ../Data/GUI/dasher.gameWIP.ui.h:5
 #: ../Data/GUI/dasher.traditional.ui.h:5
 msgid "Cut"
 msgstr "剪下"
 
-#: ../Data/GUI/dasher.compose.ui.h:6
+#: ../Data/GUI/dasher.compose.ui.h:7
 msgid "Dasher _Tutorial"
 msgstr "Dasher 教學(_T)"
 
-#: ../Data/GUI/dasher.compose.ui.h:7 ../Data/GUI/dasher.gameWIP.ui.h:12
+#: ../Data/GUI/dasher.compose.ui.h:8 ../Data/GUI/dasher.gameWIP.ui.h:12
 #: ../Data/GUI/dasher.traditional.ui.h:8
 msgid "New file"
 msgstr "新增檔案"
 
-#: ../Data/GUI/dasher.compose.ui.h:8 ../Data/GUI/dasher.gameWIP.ui.h:14
+#: ../Data/GUI/dasher.compose.ui.h:9 ../Data/GUI/dasher.gameWIP.ui.h:14
 #: ../Data/GUI/dasher.traditional.ui.h:9
 msgid "Open file"
 msgstr "開啟檔案"
 
-#: ../Data/GUI/dasher.compose.ui.h:9 ../Data/GUI/dasher.gameWIP.ui.h:15
+#: ../Data/GUI/dasher.compose.ui.h:10 ../Data/GUI/dasher.gameWIP.ui.h:15
 #: ../Data/GUI/dasher.traditional.ui.h:10
 msgid "Paste"
 msgstr "貼上"
 
-#: ../Data/GUI/dasher.compose.ui.h:10 ../Data/GUI/dasher.direct.ui.h:3
+#: ../Data/GUI/dasher.compose.ui.h:11 ../Data/GUI/dasher.direct.ui.h:3
 #: ../Data/GUI/dasher.fullscreen.ui.h:2 ../Data/GUI/dasher.gameWIP.ui.h:16
-#: ../Data/GUI/dasher.traditional.ui.h:11 ../Data/GUI/dashermaemo.ui.h:5
-msgid "Please Wait..."
-msgstr "請稍候..."
+#: ../Data/GUI/dasher.traditional.ui.h:11 ../Data/GUI/dashermaemo.ui.h:4
+msgid "Please Wait…"
+msgstr "請稍候…"
 
-#: ../Data/GUI/dasher.compose.ui.h:11
+#: ../Data/GUI/dasher.compose.ui.h:12
 msgid "Pr_eferences"
 msgstr "偏好設定(_E)"
 
-#: ../Data/GUI/dasher.compose.ui.h:12 ../Data/GUI/dasher.gameWIP.ui.h:20
+#: ../Data/GUI/dasher.compose.ui.h:13 ../Data/GUI/dasher.gameWIP.ui.h:20
 #: ../Data/GUI/dasher.traditional.ui.h:15
 msgid "Save file"
 msgstr "儲存檔案"
 
-#: ../Data/GUI/dasher.compose.ui.h:13 ../Data/GUI/dasher.gameWIP.ui.h:21
+#: ../Data/GUI/dasher.compose.ui.h:14 ../Data/GUI/dasher.gameWIP.ui.h:21
 #: ../Data/GUI/dasher.traditional.ui.h:16
 msgid "Save file as"
 msgstr "另存檔案為"
 
-#: ../Data/GUI/dasher.compose.ui.h:14 ../Data/GUI/dasher.fullscreen.ui.h:3
-#: ../Data/GUI/dasher.gameWIP.ui.h:23 ../Data/GUI/dashermaemo.ui.h:6
+#: ../Data/GUI/dasher.compose.ui.h:15 ../Data/GUI/dasher.fullscreen.ui.h:3
+#: ../Data/GUI/dasher.gameWIP.ui.h:23 ../Data/GUI/dashermaemo.ui.h:5
 #: ../Data/GUI/dashermaemofullscreen.ui.h:5
 #: ../Src/Gtk2/dasher_editor_internal.cpp:1320
 #: ../Src/Gtk2/dasher_editor_internal.cpp:1354 ../Src/Gtk2/dasher_main.cpp:968
 msgid "Select File"
 msgstr "選擇檔案"
 
-#: ../Data/GUI/dasher.compose.ui.h:15 ../Data/GUI/dasher.fullscreen.ui.h:4
-#: ../Data/GUI/dashermaemo.ui.h:7 ../Data/GUI/dashermaemofullscreen.ui.h:6
+#: ../Data/GUI/dasher.compose.ui.h:16 ../Data/GUI/dasher.fullscreen.ui.h:4
+#: ../Data/GUI/dashermaemo.ui.h:6 ../Data/GUI/dashermaemofullscreen.ui.h:6
 msgid "Select Font"
 msgstr "選擇字型"
 
-#: ../Data/GUI/dasher.compose.ui.h:16 ../Data/GUI/dasher.direct.ui.h:4
+#: ../Data/GUI/dasher.compose.ui.h:17 ../Data/GUI/dasher.direct.ui.h:4
 #: ../Data/GUI/dasher.gameWIP.ui.h:24 ../Data/GUI/dasher.traditional.ui.h:17
 msgid "Speed:"
 msgstr "速度："
 
-#: ../Data/GUI/dasher.compose.ui.h:17 ../Data/GUI/dashermaemofullscreen.ui.h:8
+#: ../Data/GUI/dasher.compose.ui.h:18 ../Data/GUI/dashermaemofullscreen.ui.h:8
 msgid "_About"
 msgstr "關於(_A)"
-
-#: ../Data/GUI/dasher.compose.ui.h:18
-msgid "_Append to file"
-msgstr "加入到檔案(_A)"
 
 #: ../Data/GUI/dasher.compose.ui.h:19
 msgid "_Contents"
@@ -144,14 +144,9 @@ msgstr "求助(_H)"
 msgid "_Import Training Text"
 msgstr "匯入文字(_I)"
 
-#: ../Data/GUI/dasher.compose.ui.h:24 ../Data/GUI/dasher.fullscreen.ui.h:5
-#: ../Data/GUI/dashermaemo.ui.h:8 ../Data/GUI/dashermaemofullscreen.ui.h:17
-msgid "abcdefghijk ABCDEFGHIJK"
-msgstr "The following is Chinese: ‘中文測試’"
-
 #: ../Data/GUI/dasher.gameWIP.ui.h:1 ../Data/GUI/dasher.traditional.ui.h:1
-msgid "A_ppend to file..."
-msgstr "加入到檔案(_P)..."
+msgid "A_ppend to file…"
+msgstr "加入到檔案(_P)…"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:7
 msgid "Demo!"
@@ -178,8 +173,8 @@ msgid "New sentence"
 msgstr "新增句子"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:17 ../Data/GUI/dasher.traditional.ui.h:12
-msgid "Pr_eferences..."
-msgstr "偏好設定(_E)..."
+msgid "Pr_eferences…"
+msgstr "偏好設定(_E)…"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:18 ../Data/GUI/dasher.traditional.ui.h:13
 msgid "Preferences"
@@ -195,16 +190,16 @@ msgid "Score:"
 msgstr "分數:"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:25 ../Data/GUI/dasher.traditional.ui.h:18
-msgid "_About..."
-msgstr "關於(_A)..."
+msgid "_About…"
+msgstr "關於(_A)…"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:26 ../Data/GUI/dasher.traditional.ui.h:19
-msgid "_Contents..."
-msgstr "內容(_C)..."
+msgid "_Contents…"
+msgstr "內容(_C)…"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:30 ../Data/GUI/dasher.traditional.ui.h:23
-msgid "_Import Training Text..."
-msgstr "匯入文字(_I)..."
+msgid "_Import Training Text…"
+msgstr "匯入訓練文字(_I)…"
 
 #: ../Data/GUI/dasher.preferences.ui.h:1
 msgid "<b>Actions</b>"
@@ -236,224 +231,231 @@ msgstr "<b>應用程式風格</b>"
 msgid "<b>Colour Scheme</b>"
 msgstr "<b>色彩配置</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:8
+#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
+#: ../Data/GUI/dasher.preferences.ui.h:9
 msgid "<b>Control Style</b>"
 msgstr "<b>控制風格</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:9
+#: ../Data/GUI/dasher.preferences.ui.h:10
 msgid "<b>Dasher Font</b>"
 msgstr "<b>Dasher 字型</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:10
+#: ../Data/GUI/dasher.preferences.ui.h:11
 msgid "<b>Direction</b>"
 msgstr "<b>方向</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:11
+#: ../Data/GUI/dasher.preferences.ui.h:12
 msgid "<b>Editor Font</b>"
 msgstr "<b>編輯器字型</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:12
+#: ../Data/GUI/dasher.preferences.ui.h:13
 msgid "<b>Input Device</b>"
 msgstr "<b>輸入裝置</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:13
+#: ../Data/GUI/dasher.preferences.ui.h:14
 #: ../Data/GUI/dashermaemo.preferences.ui.h:5
 msgid "<b>Language Model</b>"
 msgstr "<b>語言模型</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:14
+#: ../Data/GUI/dasher.preferences.ui.h:15
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
 msgid "<b>Smoothing</b>"
 msgstr "<b>平滑化</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:15
+#: ../Data/GUI/dasher.preferences.ui.h:16
 #: ../Data/GUI/dashermaemo.preferences.ui.h:8
 msgid "<b>Speed</b>"
 msgstr "<b>速度</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:16
-msgid "<b>Starting And Stopping</b>"
+#: ../Data/GUI/dasher.preferences.ui.h:17
+msgid "<b>Starting and Stopping</b>"
 msgstr "<b>開始與停止</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:17
+#: ../Data/GUI/dasher.preferences.ui.h:18
 #: ../Data/GUI/dashermaemo.preferences.ui.h:9
 msgid "Adapt speed automatically"
 msgstr "自動調整速度"
 
-#: ../Data/GUI/dasher.preferences.ui.h:18
+#. The default display orientation for the selected alphabet, i.e., left to right for English, right to left for Arabic, etc.
+#: ../Data/GUI/dasher.preferences.ui.h:20
 #: ../Data/GUI/dashermaemo.preferences.ui.h:11
 msgid "Alphabet Default"
 msgstr "預設字母"
 
-#: ../Data/GUI/dasher.preferences.ui.h:19
+#: ../Data/GUI/dasher.preferences.ui.h:21
 msgid "Appearance"
 msgstr "外觀"
 
-#: ../Data/GUI/dasher.preferences.ui.h:20
+#: ../Data/GUI/dasher.preferences.ui.h:22
 msgid "Application"
 msgstr "應用程式"
 
-#: ../Data/GUI/dasher.preferences.ui.h:21
+#: ../Data/GUI/dasher.preferences.ui.h:23
 #: ../Data/GUI/dashermaemo.preferences.ui.h:12
 msgid "Bottom to Top"
 msgstr "下至上"
 
-#: ../Data/GUI/dasher.preferences.ui.h:22
+#: ../Data/GUI/dasher.preferences.ui.h:24
 msgid "Centre circle"
 msgstr "置中圓圈"
 
-#: ../Data/GUI/dasher.preferences.ui.h:23
+#: ../Data/GUI/dasher.preferences.ui.h:25
 msgid "Composition"
 msgstr "寫作"
 
-#: ../Data/GUI/dasher.preferences.ui.h:24
-#: ../Data/GUI/dashermaemo.preferences.ui.h:13
+#. Abbreviation for Control Style
+#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
+#: ../Data/GUI/dasher.preferences.ui.h:27
+#: ../Data/GUI/dashermaemo.preferences.ui.h:14
 msgid "Control"
 msgstr "控制"
 
-#: ../Data/GUI/dasher.preferences.ui.h:25
+#: ../Data/GUI/dasher.preferences.ui.h:28
 msgid "Control mode"
 msgstr "控制模式"
 
-#: ../Data/GUI/dasher.preferences.ui.h:26
-#: ../Data/GUI/dashermaemo.preferences.ui.h:14
+#: ../Data/GUI/dasher.preferences.ui.h:29
+#: ../Data/GUI/dashermaemo.preferences.ui.h:15
 msgid "Custom"
 msgstr "自訂"
 
-#: ../Data/GUI/dasher.preferences.ui.h:27
-#: ../Data/GUI/dashermaemo.preferences.ui.h:15
+#: ../Data/GUI/dasher.preferences.ui.h:30
+#: ../Data/GUI/dashermaemo.preferences.ui.h:16
 msgid "Custom colour scheme:"
 msgstr "自訂色調搭配："
 
-#: ../Data/GUI/dasher.preferences.ui.h:28
-#: ../Data/GUI/dashermaemo.preferences.ui.h:16
+#: ../Data/GUI/dasher.preferences.ui.h:31
+#: ../Data/GUI/dashermaemo.preferences.ui.h:17
 msgid "Dasher Preferences"
 msgstr "Dasher 偏好設定"
 
-#: ../Data/GUI/dasher.preferences.ui.h:29
+#: ../Data/GUI/dasher.preferences.ui.h:32
 msgid "Direct entry"
 msgstr "直接輸入"
 
-#: ../Data/GUI/dasher.preferences.ui.h:30
+#: ../Data/GUI/dasher.preferences.ui.h:33
 msgid "Dock application window"
 msgstr "固定程式視窗"
 
-#: ../Data/GUI/dasher.preferences.ui.h:31
+#: ../Data/GUI/dasher.preferences.ui.h:34
 msgid "Draw box outlines"
 msgstr "顯示方塊外框"
 
-#: ../Data/GUI/dasher.preferences.ui.h:32
+#: ../Data/GUI/dasher.preferences.ui.h:35
 msgid "Draw line between crosshairs and mouse"
 msgstr "在十字準星跟滑鼠游標間顯示一直線"
 
-#: ../Data/GUI/dasher.preferences.ui.h:33
+#: ../Data/GUI/dasher.preferences.ui.h:36
 msgid "Full Screen"
 msgstr "全螢幕"
 
-#: ../Data/GUI/dasher.preferences.ui.h:34
+#: ../Data/GUI/dasher.preferences.ui.h:37
 msgid "Increase line thickness"
 msgstr "增加線的厚度"
 
-#: ../Data/GUI/dasher.preferences.ui.h:35
-#: ../Data/GUI/dashermaemo.preferences.ui.h:18
+#: ../Data/GUI/dasher.preferences.ui.h:38
+#: ../Data/GUI/dashermaemo.preferences.ui.h:19
 msgid "Japanese"
 msgstr "日文"
 
-#: ../Data/GUI/dasher.preferences.ui.h:36
+#: ../Data/GUI/dasher.preferences.ui.h:39
 msgid "Language"
 msgstr "語言"
 
-#: ../Data/GUI/dasher.preferences.ui.h:37
-#: ../Data/GUI/dashermaemo.preferences.ui.h:19
+#: ../Data/GUI/dasher.preferences.ui.h:40
+#: ../Data/GUI/dashermaemo.preferences.ui.h:20
 msgid "Language model adapts as you write."
 msgstr "適應您書寫的語言模式。"
 
-#: ../Data/GUI/dasher.preferences.ui.h:38
+#: ../Data/GUI/dasher.preferences.ui.h:41
 msgid "Large font "
 msgstr "大字型"
 
-#: ../Data/GUI/dasher.preferences.ui.h:39
-#: ../Data/GUI/dashermaemo.preferences.ui.h:20
+#: ../Data/GUI/dasher.preferences.ui.h:42
+#: ../Data/GUI/dashermaemo.preferences.ui.h:21
 msgid "Left to Right"
 msgstr "左至右"
 
-#: ../Data/GUI/dasher.preferences.ui.h:40
-#: ../Data/GUI/dashermaemo.preferences.ui.h:21
+#. PPM = Prediction by Partial Match, a statistical language model.
+#: ../Data/GUI/dasher.preferences.ui.h:44
+#: ../Data/GUI/dashermaemo.preferences.ui.h:22
 msgid "Mixture model (PPM/dictionary)"
 msgstr "混合模式（PPM/字典）"
 
-#: ../Data/GUI/dasher.preferences.ui.h:41
+#: ../Data/GUI/dasher.preferences.ui.h:45
 msgid "Options"
 msgstr "選項"
 
-#: ../Data/GUI/dasher.preferences.ui.h:42
+#: ../Data/GUI/dasher.preferences.ui.h:46
 msgid "Pause outside of canvas"
 msgstr "超出畫布後暫停"
 
-#: ../Data/GUI/dasher.preferences.ui.h:43
-#: ../Data/GUI/dashermaemo.preferences.ui.h:23
+#: ../Data/GUI/dasher.preferences.ui.h:47
+#: ../Data/GUI/dashermaemo.preferences.ui.h:24
 msgid "Right to Left"
 msgstr "右至左"
 
-#: ../Data/GUI/dasher.preferences.ui.h:44
+#: ../Data/GUI/dasher.preferences.ui.h:48
 msgid "Select Dasher Font"
 msgstr "選擇 Dasher 字型"
 
-#: ../Data/GUI/dasher.preferences.ui.h:45
+#: ../Data/GUI/dasher.preferences.ui.h:49
 msgid "Select Editor Font"
 msgstr "選擇編輯器字型"
 
-#: ../Data/GUI/dasher.preferences.ui.h:46
+#: ../Data/GUI/dasher.preferences.ui.h:50
 msgid "Show mouse position"
 msgstr "顯示滑鼠位置"
 
-#: ../Data/GUI/dasher.preferences.ui.h:47
+#: ../Data/GUI/dasher.preferences.ui.h:51
 msgid "Show speed slider"
 msgstr "顯示速度控制桿"
 
-#: ../Data/GUI/dasher.preferences.ui.h:48
+#: ../Data/GUI/dasher.preferences.ui.h:52
 msgid "Show toolbar"
 msgstr "顯示工具列"
 
-#: ../Data/GUI/dasher.preferences.ui.h:49
+#: ../Data/GUI/dasher.preferences.ui.h:53
 msgid "Small font"
 msgstr "小字型"
 
-#: ../Data/GUI/dasher.preferences.ui.h:50
+#: ../Data/GUI/dasher.preferences.ui.h:54
 msgid "Stand-alone"
 msgstr "獨立"
 
-#: ../Data/GUI/dasher.preferences.ui.h:51
-#: ../Data/GUI/dashermaemo.preferences.ui.h:24
+#. PPM = Prediction by Partial Match, a statistical language model.
+#: ../Data/GUI/dasher.preferences.ui.h:56
+#: ../Data/GUI/dashermaemo.preferences.ui.h:25
 msgid "Standard letter-based PPM"
 msgstr "標準字母模式"
 
-#: ../Data/GUI/dasher.preferences.ui.h:52
+#: ../Data/GUI/dasher.preferences.ui.h:57
 msgid "Start on left mouse button"
 msgstr "以滑鼠左鍵開始"
 
-#: ../Data/GUI/dasher.preferences.ui.h:53
+#: ../Data/GUI/dasher.preferences.ui.h:58
 msgid "Start on space bar"
 msgstr "以空白鍵開始"
 
-#: ../Data/GUI/dasher.preferences.ui.h:54
+#: ../Data/GUI/dasher.preferences.ui.h:59
 msgid "Start with mouse position:"
 msgstr "在滑鼠的位置開始："
 
-#: ../Data/GUI/dasher.preferences.ui.h:55
+#: ../Data/GUI/dasher.preferences.ui.h:60
 msgid "Timestamp new files"
 msgstr "以時間標記作為新檔案的名稱"
 
-#: ../Data/GUI/dasher.preferences.ui.h:56
-#: ../Data/GUI/dashermaemo.preferences.ui.h:25
+#: ../Data/GUI/dasher.preferences.ui.h:61
+#: ../Data/GUI/dashermaemo.preferences.ui.h:26
 msgid "Top to Bottom"
 msgstr "上至下"
 
-#: ../Data/GUI/dasher.preferences.ui.h:57
+#: ../Data/GUI/dasher.preferences.ui.h:62
 msgid "Two box"
 msgstr "兩個方塊"
 
-#: ../Data/GUI/dasher.preferences.ui.h:58
+#. Line wrapping not necessary, but looks better for English
+#: ../Data/GUI/dasher.preferences.ui.h:64
 msgid ""
 "Use this control to adjust the relative sizes of the\n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -463,20 +465,17 @@ msgstr ""
 "注意選擇較大數值將會減慢您的書寫\n"
 "速度。"
 
-#: ../Data/GUI/dasher.preferences.ui.h:61
+#: ../Data/GUI/dasher.preferences.ui.h:67
 msgid "Very large font"
 msgstr "特大字型"
 
-#: ../Data/GUI/dasher.preferences.ui.h:62
-#: ../Data/GUI/dashermaemo.preferences.ui.h:27
+#: ../Data/GUI/dasher.preferences.ui.h:68
+#: ../Data/GUI/dashermaemo.preferences.ui.h:28
 msgid "Word-based model"
 msgstr "字詞模式"
 
-#: ../Data/GUI/dashermaemo.ui.h:1
-msgid "\n"
-msgstr "\n"
-
-#: ../Data/GUI/dashermaemo.ui.h:4
+#. Abbreviation for Preferences
+#: ../Data/GUI/dashermaemo.ui.h:3
 msgid "P"
 msgstr "P"
 
@@ -496,15 +495,15 @@ msgstr "<b>定向</b>"
 msgid "Alphabet"
 msgstr "字母"
 
-#: ../Data/GUI/dashermaemo.preferences.ui.h:17
+#: ../Data/GUI/dashermaemo.preferences.ui.h:18
 msgid "Enlarge input window"
 msgstr "放大輸入視窗"
 
-#: ../Data/GUI/dashermaemo.preferences.ui.h:22
+#: ../Data/GUI/dashermaemo.preferences.ui.h:23
 msgid "Prediction"
 msgstr "預測"
 
-#: ../Data/GUI/dashermaemo.preferences.ui.h:26
+#: ../Data/GUI/dashermaemo.preferences.ui.h:27
 msgid "View"
 msgstr "檢視"
 
@@ -558,7 +557,7 @@ msgid "Alternating Direct Mode"
 msgstr "另一種直接模式"
 
 #: ../Src/DasherCore/ButtonMode.cpp:29
-msgid "Scan time in menu mode (0 for don't scan)"
+msgid "Scan time in menu mode (0 to not scan)"
 msgstr "選單模式中的掃描時間 (0 為不掃描)"
 
 #: ../Src/DasherCore/ButtonMode.cpp:30
@@ -596,24 +595,24 @@ msgstr "向右縮放"
 msgid "Compass Mode"
 msgstr "指南針模式"
 
-#: ../Src/DasherCore/DasherGameMode.cpp:633
+#: ../Src/DasherCore/DasherGameMode.cpp:636
 msgid "Well done!"
 msgstr "做得好！"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:940
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:910
 msgid "Normal Control"
 msgstr "一般控制"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:956
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:926
 msgid "Menu Mode"
 msgstr "選單模式"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:957
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:927
 msgid "Direct Mode"
 msgstr "直接模式"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:961
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:931
 msgid "Stylus Control"
 msgstr "風格控制"
 
@@ -689,19 +688,20 @@ msgstr "拉近的比例"
 msgid "Lag before user actually pushes button (ms)"
 msgstr "在使用者實際按下按鈕前的延遲 (ms)"
 
-#: ../Src/DasherCore/OneDimensionalFilter.cpp:7
+#. COneDimensionalFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel);
+#: ../Src/DasherCore/OneDimensionalFilter.h:12
 msgid "One Dimensional Mode"
 msgstr "單向模式"
 
 #: ../Src/DasherCore/SettingsStore.cpp:76
-#: ../Src/Gtk2/DasherAppSettings.cpp:518 ../Src/Gtk2/DasherAppSettings.cpp:552
-#: ../Src/Gtk2/DasherAppSettings.cpp:556
+#: ../Src/Gtk2/DasherAppSettings.cpp:523 ../Src/Gtk2/DasherAppSettings.cpp:557
+#: ../Src/Gtk2/DasherAppSettings.cpp:561
 msgid "true"
 msgstr "true"
 
 #: ../Src/DasherCore/SettingsStore.cpp:78
-#: ../Src/Gtk2/DasherAppSettings.cpp:520 ../Src/Gtk2/DasherAppSettings.cpp:552
-#: ../Src/Gtk2/DasherAppSettings.cpp:556
+#: ../Src/Gtk2/DasherAppSettings.cpp:525 ../Src/Gtk2/DasherAppSettings.cpp:557
+#: ../Src/Gtk2/DasherAppSettings.cpp:561
 msgid "false"
 msgstr "false"
 
@@ -709,7 +709,7 @@ msgstr "false"
 #. with "--options foo=VAL" and foo is a boolean valued parameter, but
 #. "VAL" is not true or false.
 #: ../Src/DasherCore/SettingsStore.cpp:84
-#: ../Src/Gtk2/DasherAppSettings.cpp:523
+#: ../Src/Gtk2/DasherAppSettings.cpp:528
 msgid "boolean value must be specified as 'true' or 'false'."
 msgstr "布林數值必須指定為「true」或「false」。"
 
@@ -784,7 +784,7 @@ msgstr "反轉上、下方向鍵"
 #. TRANSLATORS: Pushing the up/down button twice quickly has the same effect as pushing the other
 #. button once; in this case, one must push three times (or push-and-hold) to reverse.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:42
-msgid "Double-click is opposite up/down - triple to reverse"
+msgid "Double-click is opposite up/down — triple to reverse"
 msgstr "雙擊則反轉上/下 - 三擊則復原"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:52
@@ -817,25 +817,25 @@ msgstr "減慢啟動時間"
 msgid "Two-push Dynamic Mode (New One Button)"
 msgstr "雙擊動態模式（新的按鈕）"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:549
+#: ../Src/Gtk2/DasherAppSettings.cpp:554
 msgid "Boolean parameters"
 msgstr "布林參數"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:549 ../Src/Gtk2/DasherAppSettings.cpp:560
-#: ../Src/Gtk2/DasherAppSettings.cpp:571
+#: ../Src/Gtk2/DasherAppSettings.cpp:554 ../Src/Gtk2/DasherAppSettings.cpp:565
+#: ../Src/Gtk2/DasherAppSettings.cpp:576
 msgid "Default"
 msgstr "預設值"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:549 ../Src/Gtk2/DasherAppSettings.cpp:560
-#: ../Src/Gtk2/DasherAppSettings.cpp:571
+#: ../Src/Gtk2/DasherAppSettings.cpp:554 ../Src/Gtk2/DasherAppSettings.cpp:565
+#: ../Src/Gtk2/DasherAppSettings.cpp:576
 msgid "Description"
 msgstr "描述"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:560
+#: ../Src/Gtk2/DasherAppSettings.cpp:565
 msgid "Integer parameters"
 msgstr "整數參數"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:571
+#: ../Src/Gtk2/DasherAppSettings.cpp:576
 msgid "String parameters"
 msgstr "字串參數"
 
@@ -1007,6 +1007,27 @@ msgstr "描述「--options」。"
 #: ../Src/main.cc:182
 msgid "- A text input application honouring accessibility"
 msgstr "- 具無障礙功能的文字輸入程式"
+
+#~ msgid "abcdefghijk ABCDEFGHIJK"
+#~ msgstr "The following is Chinese: ‘中文測試’"
+
+#~ msgid "A_ppend to file..."
+#~ msgstr "加入到檔案(_P)..."
+
+#~ msgid "Pr_eferences..."
+#~ msgstr "偏好設定(_E)..."
+
+#~ msgid "_About..."
+#~ msgstr "關於(_A)..."
+
+#~ msgid "_Contents..."
+#~ msgstr "內容(_C)..."
+
+#~ msgid "_Import Training Text..."
+#~ msgstr "匯入文字(_I)..."
+
+#~ msgid "\n"
+#~ msgstr "\n"
 
 #~ msgid "Markers fixed to canvas"
 #~ msgstr "標記固定於畫布"
