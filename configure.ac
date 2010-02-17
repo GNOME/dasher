@@ -12,8 +12,14 @@ AM_INIT_AUTOMAKE([1.8 gnu check-news dist-bzip2])
 AM_MAINTAINER_MODE
 
 AC_PROG_MAKE_SET
-IT_PROG_INTLTOOL([0.34.90])
-dnl IT_PROG_INTLTOOL([0.40.1])  c.f. bug #323968
+
+# IT_PROG_INTLTOOL requires AM_NLS but ignores --enable-nls
+AM_NLS
+AM_CONDITIONAL(USE_INTLTOOL, test "x$USE_NLS" = "xyes")
+AS_IF([test "x$USE_NLS" = "xyes"],[
+IT_PROG_INTLTOOL([0.34.90]) dnl IT_PROG_INTLTOOL([0.40.1])  c.f. bug #323968
+])
+
 
 AC_DISABLE_STATIC
 AC_PROG_LIBTOOL
