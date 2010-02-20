@@ -7,28 +7,26 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-26 11:41+0200\n"
-"PO-Revision-Date: 2009-08-26 11:55+0100\n"
-"Last-Translator: Tomasz Dominikowski <dominikowski@gmail.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=dasher&component=general\n"
+"POT-Creation-Date: 2010-01-07 15:58+0000\n"
+"PO-Revision-Date: 2010-02-19 19:05+0100\n"
+"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Polish\n"
 "X-Poedit-Country: Poland\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
-#: ../Data/dasher.desktop.in.in.h:1
-#: ../Data/GUI/dasher.compose.ui.h:5
-#: ../Data/GUI/dasher.direct.ui.h:2
-#: ../Data/GUI/dasher.fullscreen.ui.h:1
-#: ../Data/GUI/dasher.gameWIP.ui.h:6
-#: ../Data/GUI/dasher.traditional.ui.h:6
-#: ../Data/GUI/dashermaemo.ui.h:3
-#: ../Data/GUI/dashermaemofullscreen.ui.h:2
+#: ../Data/dasher.desktop.in.in.h:1 ../Data/GUI/dasher.compose.ui.h:6
+#: ../Data/GUI/dasher.direct.ui.h:2 ../Data/GUI/dasher.fullscreen.ui.h:1
+#: ../Data/GUI/dasher.gameWIP.ui.h:6 ../Data/GUI/dasher.traditional.ui.h:6
+#: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dashermaemofullscreen.ui.h:2
 #: ../Src/Gtk2/dasher_main.cpp:953
 msgid "Dasher"
 msgstr "Dasher"
@@ -42,132 +40,108 @@ msgid "Predictive text entry"
 msgstr "Przewidujące wejście tekstowe"
 
 #: ../Data/GUI/dasher.compose.ui.h:1
-#: ../Data/GUI/dasher.direct.ui.h:1
-#: ../Data/GUI/dasher.gameWIP.ui.h:2
-#: ../Data/GUI/dasher.traditional.ui.h:2
+msgid "A_ppend to file"
+msgstr "_Dodaj do pliku"
+
+#: ../Data/GUI/dasher.compose.ui.h:2 ../Data/GUI/dasher.direct.ui.h:1
+#: ../Data/GUI/dasher.gameWIP.ui.h:2 ../Data/GUI/dasher.traditional.ui.h:2
 msgid "Alphabet:"
 msgstr "Alfabet:"
 
-#: ../Data/GUI/dasher.compose.ui.h:2
-#: ../Data/GUI/dasher.gameWIP.ui.h:3
+#: ../Data/GUI/dasher.compose.ui.h:3 ../Data/GUI/dasher.gameWIP.ui.h:3
 #: ../Data/GUI/dasher.traditional.ui.h:3
 msgid "Copy"
 msgstr "Skopiuj"
 
-#: ../Data/GUI/dasher.compose.ui.h:3
-#: ../Data/GUI/dasher.gameWIP.ui.h:4
+#: ../Data/GUI/dasher.compose.ui.h:4 ../Data/GUI/dasher.gameWIP.ui.h:4
 #: ../Data/GUI/dasher.traditional.ui.h:4
 #: ../Data/GUI/dashermaemofullscreen.ui.h:1
 msgid "Copy _All"
 msgstr "Skopiuj _wszystko"
 
-#: ../Data/GUI/dasher.compose.ui.h:4
-#: ../Data/GUI/dasher.gameWIP.ui.h:5
+#: ../Data/GUI/dasher.compose.ui.h:5 ../Data/GUI/dasher.gameWIP.ui.h:5
 #: ../Data/GUI/dasher.traditional.ui.h:5
 msgid "Cut"
 msgstr "Wytnij"
 
-#: ../Data/GUI/dasher.compose.ui.h:6
+#: ../Data/GUI/dasher.compose.ui.h:7
 msgid "Dasher _Tutorial"
 msgstr "_Samouczek programu Dasher"
 
-#: ../Data/GUI/dasher.compose.ui.h:7
-#: ../Data/GUI/dasher.gameWIP.ui.h:12
+#: ../Data/GUI/dasher.compose.ui.h:8 ../Data/GUI/dasher.gameWIP.ui.h:12
 #: ../Data/GUI/dasher.traditional.ui.h:8
 msgid "New file"
 msgstr "Nowy plik"
 
-#: ../Data/GUI/dasher.compose.ui.h:8
-#: ../Data/GUI/dasher.gameWIP.ui.h:14
+#: ../Data/GUI/dasher.compose.ui.h:9 ../Data/GUI/dasher.gameWIP.ui.h:14
 #: ../Data/GUI/dasher.traditional.ui.h:9
 msgid "Open file"
 msgstr "Otwieranie pliku"
 
-#: ../Data/GUI/dasher.compose.ui.h:9
-#: ../Data/GUI/dasher.gameWIP.ui.h:15
+#: ../Data/GUI/dasher.compose.ui.h:10 ../Data/GUI/dasher.gameWIP.ui.h:15
 #: ../Data/GUI/dasher.traditional.ui.h:10
 msgid "Paste"
 msgstr "Wklej"
 
-#: ../Data/GUI/dasher.compose.ui.h:10
-#: ../Data/GUI/dasher.direct.ui.h:3
-#: ../Data/GUI/dasher.fullscreen.ui.h:2
-#: ../Data/GUI/dasher.gameWIP.ui.h:16
-#: ../Data/GUI/dasher.traditional.ui.h:11
-#: ../Data/GUI/dashermaemo.ui.h:5
-msgid "Please Wait..."
-msgstr "Proszę czekać..."
+#: ../Data/GUI/dasher.compose.ui.h:11 ../Data/GUI/dasher.direct.ui.h:3
+#: ../Data/GUI/dasher.fullscreen.ui.h:2 ../Data/GUI/dasher.gameWIP.ui.h:16
+#: ../Data/GUI/dasher.traditional.ui.h:11 ../Data/GUI/dashermaemo.ui.h:3
+msgid "Please Wait…"
+msgstr "Proszę czekać…"
 
-#: ../Data/GUI/dasher.compose.ui.h:11
+#: ../Data/GUI/dasher.compose.ui.h:12
 msgid "Pr_eferences"
 msgstr "_Preferencje"
 
-#: ../Data/GUI/dasher.compose.ui.h:12
-#: ../Data/GUI/dasher.gameWIP.ui.h:20
+#: ../Data/GUI/dasher.compose.ui.h:13 ../Data/GUI/dasher.gameWIP.ui.h:20
 #: ../Data/GUI/dasher.traditional.ui.h:15
 msgid "Save file"
 msgstr "Zapis pliku"
 
-#: ../Data/GUI/dasher.compose.ui.h:13
-#: ../Data/GUI/dasher.gameWIP.ui.h:21
+#: ../Data/GUI/dasher.compose.ui.h:14 ../Data/GUI/dasher.gameWIP.ui.h:21
 #: ../Data/GUI/dasher.traditional.ui.h:16
 msgid "Save file as"
 msgstr "Zapis pliku jako"
 
-#: ../Data/GUI/dasher.compose.ui.h:14
-#: ../Data/GUI/dasher.fullscreen.ui.h:3
-#: ../Data/GUI/dasher.gameWIP.ui.h:23
-#: ../Data/GUI/dashermaemo.ui.h:6
+#: ../Data/GUI/dasher.compose.ui.h:15 ../Data/GUI/dasher.fullscreen.ui.h:3
+#: ../Data/GUI/dasher.gameWIP.ui.h:23 ../Data/GUI/dashermaemo.ui.h:4
 #: ../Data/GUI/dashermaemofullscreen.ui.h:5
 #: ../Src/Gtk2/dasher_editor_internal.cpp:1320
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1354
-#: ../Src/Gtk2/dasher_main.cpp:968
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1354 ../Src/Gtk2/dasher_main.cpp:968
 msgid "Select File"
 msgstr "Wybór pliku"
 
-#: ../Data/GUI/dasher.compose.ui.h:15
-#: ../Data/GUI/dasher.fullscreen.ui.h:4
-#: ../Data/GUI/dashermaemo.ui.h:7
-#: ../Data/GUI/dashermaemofullscreen.ui.h:6
+#: ../Data/GUI/dasher.compose.ui.h:16 ../Data/GUI/dasher.fullscreen.ui.h:4
+#: ../Data/GUI/dashermaemo.ui.h:5 ../Data/GUI/dashermaemofullscreen.ui.h:6
 msgid "Select Font"
 msgstr "Wybór czcionki"
 
-#: ../Data/GUI/dasher.compose.ui.h:16
-#: ../Data/GUI/dasher.direct.ui.h:4
-#: ../Data/GUI/dasher.gameWIP.ui.h:24
-#: ../Data/GUI/dasher.traditional.ui.h:17
+#: ../Data/GUI/dasher.compose.ui.h:17 ../Data/GUI/dasher.direct.ui.h:4
+#: ../Data/GUI/dasher.gameWIP.ui.h:24 ../Data/GUI/dasher.traditional.ui.h:17
 msgid "Speed:"
-msgstr "Szybkość:"
+msgstr "Prędkość:"
 
-#: ../Data/GUI/dasher.compose.ui.h:17
-#: ../Data/GUI/dashermaemofullscreen.ui.h:8
+#: ../Data/GUI/dasher.compose.ui.h:18 ../Data/GUI/dashermaemofullscreen.ui.h:8
 msgid "_About"
 msgstr "_O programie"
-
-#: ../Data/GUI/dasher.compose.ui.h:18
-msgid "_Append to file"
-msgstr "Dod_aj do pliku"
 
 #: ../Data/GUI/dasher.compose.ui.h:19
 msgid "_Contents"
 msgstr "_Zawartość"
 
-#: ../Data/GUI/dasher.compose.ui.h:20
-#: ../Data/GUI/dasher.gameWIP.ui.h:27
+#: ../Data/GUI/dasher.compose.ui.h:20 ../Data/GUI/dasher.gameWIP.ui.h:27
 #: ../Data/GUI/dasher.traditional.ui.h:20
 #: ../Data/GUI/dashermaemofullscreen.ui.h:11
 msgid "_Edit"
 msgstr "_Edycja"
 
-#: ../Data/GUI/dasher.compose.ui.h:21
-#: ../Data/GUI/dasher.gameWIP.ui.h:28
+#: ../Data/GUI/dasher.compose.ui.h:21 ../Data/GUI/dasher.gameWIP.ui.h:28
 #: ../Data/GUI/dasher.traditional.ui.h:21
 #: ../Data/GUI/dashermaemofullscreen.ui.h:13
 msgid "_File"
 msgstr "_Plik"
 
-#: ../Data/GUI/dasher.compose.ui.h:22
-#: ../Data/GUI/dasher.gameWIP.ui.h:29
+#: ../Data/GUI/dasher.compose.ui.h:22 ../Data/GUI/dasher.gameWIP.ui.h:29
 #: ../Data/GUI/dasher.traditional.ui.h:22
 #: ../Data/GUI/dashermaemofullscreen.ui.h:14
 msgid "_Help"
@@ -177,17 +151,9 @@ msgstr "Pomo_c"
 msgid "_Import Training Text"
 msgstr "Za_importuj tekst treningowy"
 
-#: ../Data/GUI/dasher.compose.ui.h:24
-#: ../Data/GUI/dasher.fullscreen.ui.h:5
-#: ../Data/GUI/dashermaemo.ui.h:8
-#: ../Data/GUI/dashermaemofullscreen.ui.h:17
-msgid "abcdefghijk ABCDEFGHIJK"
-msgstr "aąbcćdeęfghi AĄBCĆDEĘFGHI"
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:1
-#: ../Data/GUI/dasher.traditional.ui.h:1
-msgid "A_ppend to file..."
-msgstr "Dod_aj do pliku..."
+#: ../Data/GUI/dasher.gameWIP.ui.h:1 ../Data/GUI/dasher.traditional.ui.h:1
+msgid "A_ppend to file…"
+msgstr "_Dodaj do pliku…"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:7
 msgid "Demo!"
@@ -197,8 +163,7 @@ msgstr "Demonstracja."
 msgid "Full Demo"
 msgstr "Pełna demonstracja"
 
-#: ../Data/GUI/dasher.gameWIP.ui.h:9
-#: ../Data/GUI/dasher.traditional.ui.h:7
+#: ../Data/GUI/dasher.gameWIP.ui.h:9 ../Data/GUI/dasher.traditional.ui.h:7
 msgid "Help"
 msgstr "Pomoc"
 
@@ -214,18 +179,15 @@ msgstr "Poziom:"
 msgid "New sentence"
 msgstr "Nowe zdanie"
 
-#: ../Data/GUI/dasher.gameWIP.ui.h:17
-#: ../Data/GUI/dasher.traditional.ui.h:12
-msgid "Pr_eferences..."
-msgstr "_Preferencje..."
+#: ../Data/GUI/dasher.gameWIP.ui.h:17 ../Data/GUI/dasher.traditional.ui.h:12
+msgid "Pr_eferences…"
+msgstr "_Preferencje…"
 
-#: ../Data/GUI/dasher.gameWIP.ui.h:18
-#: ../Data/GUI/dasher.traditional.ui.h:13
+#: ../Data/GUI/dasher.gameWIP.ui.h:18 ../Data/GUI/dasher.traditional.ui.h:13
 msgid "Preferences"
 msgstr "Preferencje"
 
-#: ../Data/GUI/dasher.gameWIP.ui.h:19
-#: ../Data/GUI/dasher.traditional.ui.h:14
+#: ../Data/GUI/dasher.gameWIP.ui.h:19 ../Data/GUI/dasher.traditional.ui.h:14
 #: ../Src/Gtk2/dasher_main.cpp:1046
 msgid "Quit"
 msgstr "Zakończ"
@@ -234,24 +196,21 @@ msgstr "Zakończ"
 msgid "Score:"
 msgstr "Wynik:"
 
-#: ../Data/GUI/dasher.gameWIP.ui.h:25
-#: ../Data/GUI/dasher.traditional.ui.h:18
-msgid "_About..."
-msgstr "_O programie..."
+#: ../Data/GUI/dasher.gameWIP.ui.h:25 ../Data/GUI/dasher.traditional.ui.h:18
+msgid "_About…"
+msgstr "_O programie…"
 
-#: ../Data/GUI/dasher.gameWIP.ui.h:26
-#: ../Data/GUI/dasher.traditional.ui.h:19
-msgid "_Contents..."
-msgstr "_Zawartość..."
+#: ../Data/GUI/dasher.gameWIP.ui.h:26 ../Data/GUI/dasher.traditional.ui.h:19
+msgid "_Contents…"
+msgstr "_Zawartość…"
 
-#: ../Data/GUI/dasher.gameWIP.ui.h:30
-#: ../Data/GUI/dasher.traditional.ui.h:23
-msgid "_Import Training Text..."
-msgstr "_Importuj tekst treningowy..."
+#: ../Data/GUI/dasher.gameWIP.ui.h:30 ../Data/GUI/dasher.traditional.ui.h:23
+msgid "_Import Training Text…"
+msgstr "Za_importuj tekst treningowyv"
 
 #: ../Data/GUI/dasher.preferences.ui.h:1
 msgid "<b>Actions</b>"
-msgstr "<b>Działania</b>"
+msgstr "<b>Czynności</b>"
 
 #: ../Data/GUI/dasher.preferences.ui.h:2
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
@@ -312,16 +271,16 @@ msgstr "<b>Wygładzanie</b>"
 #: ../Data/GUI/dasher.preferences.ui.h:15
 #: ../Data/GUI/dashermaemo.preferences.ui.h:8
 msgid "<b>Speed</b>"
-msgstr "<b>Szybkość</b>"
+msgstr "<b>Prędkość</b>"
 
 #: ../Data/GUI/dasher.preferences.ui.h:16
-msgid "<b>Starting And Stopping</b>"
+msgid "<b>Starting and Stopping</b>"
 msgstr "<b>Uruchamianie i zatrzymywanie</b>"
 
 #: ../Data/GUI/dasher.preferences.ui.h:17
 #: ../Data/GUI/dashermaemo.preferences.ui.h:9
 msgid "Adapt speed automatically"
-msgstr "Automatyczne dostosowanie szybkości"
+msgstr "Automatyczne dostosowanie prędkości"
 
 #: ../Data/GUI/dasher.preferences.ui.h:18
 #: ../Data/GUI/dashermaemo.preferences.ui.h:11
@@ -452,7 +411,7 @@ msgstr "Wyświetlanie pozycji myszy"
 
 #: ../Data/GUI/dasher.preferences.ui.h:47
 msgid "Show speed slider"
-msgstr "Wyświetlanie suwaka szybkości"
+msgstr "Wyświetlanie suwaka prędkości"
 
 #: ../Data/GUI/dasher.preferences.ui.h:48
 msgid "Show toolbar"
@@ -503,7 +462,7 @@ msgid ""
 "your writing speed."
 msgstr ""
 "Ustawienie względnych rozmiarów pól liter. Wybranie\n"
-"większych wartości zmniejszy szybkość pisania."
+"większych wartości zmniejszy prędkość pisania."
 
 #: ../Data/GUI/dasher.preferences.ui.h:61
 msgid "Very large font"
@@ -514,11 +473,7 @@ msgstr "Bardzo duża czcionka"
 msgid "Word-based model"
 msgstr "Model bazujący na słowach"
 
-#: ../Data/GUI/dashermaemo.ui.h:1
-msgid "\n"
-msgstr "\n"
-
-#: ../Data/GUI/dashermaemo.ui.h:4
+#: ../Data/GUI/dashermaemo.ui.h:2
 msgid "P"
 msgstr "P"
 
@@ -584,15 +539,13 @@ msgstr "P_rzywrócenie czcionek"
 
 #. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:28
-#: ../Src/DasherCore/ButtonMode.cpp:28
-#: ../Src/DasherCore/CompassMode.cpp:28
+#: ../Src/DasherCore/ButtonMode.cpp:28 ../Src/DasherCore/CompassMode.cpp:28
 msgid "Zoom steps"
 msgstr "Stopnie powiększenia"
 
 #. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:30
-#: ../Src/DasherCore/ButtonMode.cpp:39
-#: ../Src/DasherCore/CompassMode.cpp:32
+#: ../Src/DasherCore/ButtonMode.cpp:39 ../Src/DasherCore/CompassMode.cpp:32
 msgid "Global keyboard grab"
 msgstr "Globalne przejęcie klawiatury"
 
@@ -602,7 +555,7 @@ msgid "Alternating Direct Mode"
 msgstr "Tryb zmienny bezpośredni"
 
 #: ../Src/DasherCore/ButtonMode.cpp:29
-msgid "Scan time in menu mode (0 for don't scan)"
+msgid "Scan time in menu mode (0 to not scan)"
 msgstr "Czas skanowania w trybie menu (0 wyłącza skanowanie)"
 
 #: ../Src/DasherCore/ButtonMode.cpp:30
@@ -640,24 +593,24 @@ msgstr "Tryb powiększenia przy ruchu w prawo w trybie kompasu"
 msgid "Compass Mode"
 msgstr "Tryb kompasu"
 
-#: ../Src/DasherCore/DasherGameMode.cpp:633
+#: ../Src/DasherCore/DasherGameMode.cpp:636
 msgid "Well done!"
 msgstr "Bardzo dobrze!"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:940
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:905
 msgid "Normal Control"
 msgstr "Normalne sterowanie"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:956
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:921
 msgid "Menu Mode"
 msgstr "Tryb menu"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:957
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:922
 msgid "Direct Mode"
 msgstr "Tryb bezpośredni"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:961
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:926
 msgid "Stylus Control"
 msgstr "Sterowanie piórem"
 
@@ -731,23 +684,24 @@ msgstr "Stopień przybliżenia"
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:43
 msgid "Lag before user actually pushes button (ms)"
-msgstr "Opóźnienie przed właściwym przyciśnięciem przycisku przez użytkownika (w milisekundach)"
+msgstr ""
+"Opóźnienie przed właściwym przyciśnięciem przycisku przez użytkownika (w "
+"milisekundach)"
 
-#: ../Src/DasherCore/OneDimensionalFilter.cpp:7
+#. COneDimensionalFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel);
+#: ../Src/DasherCore/OneDimensionalFilter.h:12
 msgid "One Dimensional Mode"
 msgstr "Tryb jednowymiarowy"
 
 #: ../Src/DasherCore/SettingsStore.cpp:76
-#: ../Src/Gtk2/DasherAppSettings.cpp:518
-#: ../Src/Gtk2/DasherAppSettings.cpp:552
-#: ../Src/Gtk2/DasherAppSettings.cpp:556
+#: ../Src/Gtk2/DasherAppSettings.cpp:523 ../Src/Gtk2/DasherAppSettings.cpp:557
+#: ../Src/Gtk2/DasherAppSettings.cpp:561
 msgid "true"
 msgstr "prawda"
 
 #: ../Src/DasherCore/SettingsStore.cpp:78
-#: ../Src/Gtk2/DasherAppSettings.cpp:520
-#: ../Src/Gtk2/DasherAppSettings.cpp:552
-#: ../Src/Gtk2/DasherAppSettings.cpp:556
+#: ../Src/Gtk2/DasherAppSettings.cpp:525 ../Src/Gtk2/DasherAppSettings.cpp:557
+#: ../Src/Gtk2/DasherAppSettings.cpp:561
 msgid "false"
 msgstr "fałsz"
 
@@ -755,7 +709,7 @@ msgstr "fałsz"
 #. with "--options foo=VAL" and foo is a boolean valued parameter, but
 #. "VAL" is not true or false.
 #: ../Src/DasherCore/SettingsStore.cpp:84
-#: ../Src/Gtk2/DasherAppSettings.cpp:523
+#: ../Src/Gtk2/DasherAppSettings.cpp:528
 msgid "boolean value must be specified as 'true' or 'false'."
 msgstr "wartość musi być określona jako \"prawda\" lub \"fałsz\"."
 
@@ -763,12 +717,16 @@ msgstr "wartość musi być określona jako \"prawda\" lub \"fałsz\"."
 #. specify a known option.
 #: ../Src/DasherCore/SettingsStore.cpp:104
 msgid "unknown option, use \"--help-options\" for more information."
-msgstr "nieznana opcja, proszę użyć \"--help-options\", aby uzyskać więcej informacji."
+msgstr ""
+"nieznana opcja, proszę użyć \"--help-options\", aby uzyskać więcej "
+"informacji."
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
 msgid "Dasher socket input: failed to launch reader thread."
-msgstr "Wejście gniazda programu Dasher: uruchomienie wątku czytającego nie powiodło się."
+msgstr ""
+"Wejście gniazda programu Dasher: uruchomienie wątku czytającego się nie "
+"powiodło."
 
 #: ../Src/DasherCore/SocketInputBase.cpp:27
 msgid "Port:"
@@ -830,8 +788,9 @@ msgstr "Zamienia przyciski góra/dół"
 #. TRANSLATORS: Pushing the up/down button twice quickly has the same effect as pushing the other
 #. button once; in this case, one must push three times (or push-and-hold) to reverse.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:42
-msgid "Double-click is opposite up/down - triple to reverse"
-msgstr "Podwójne naciśnięcie jest odwrotnością przycisków góra/dół - potrójne odwraca"
+msgid "Double-click is opposite up/down — triple to reverse"
+msgstr ""
+"Podwójne naciśnięcie jest odwrotnością przycisków góra/dół — potrójne odwraca"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:52
 msgid "Two Button Dynamic Mode"
@@ -853,7 +812,8 @@ msgstr "Odległość dla pierwszego przycisku W DÓŁ"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:33
 msgid "Tolerance for inaccurate timing of button pushes (in ms)"
-msgstr "Tolerancja niedokładnego czasu przyciśnięcia przycisku (w milisekundach)"
+msgstr ""
+"Tolerancja niedokładnego czasu przyciśnięcia przycisku (w milisekundach)"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
 msgid "Slow startup time"
@@ -863,34 +823,31 @@ msgstr "Czas powolnego startu"
 msgid "Two-push Dynamic Mode (New One Button)"
 msgstr "Dynamiczny tryb podwójnego przyciśnięcia (jeden nowy przycisk)"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:549
+#: ../Src/Gtk2/DasherAppSettings.cpp:554
 msgid "Boolean parameters"
 msgstr "Parametry logiczne"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:549
-#: ../Src/Gtk2/DasherAppSettings.cpp:560
-#: ../Src/Gtk2/DasherAppSettings.cpp:571
+#: ../Src/Gtk2/DasherAppSettings.cpp:554 ../Src/Gtk2/DasherAppSettings.cpp:565
+#: ../Src/Gtk2/DasherAppSettings.cpp:576
 msgid "Default"
 msgstr "Domyślny"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:549
-#: ../Src/Gtk2/DasherAppSettings.cpp:560
-#: ../Src/Gtk2/DasherAppSettings.cpp:571
+#: ../Src/Gtk2/DasherAppSettings.cpp:554 ../Src/Gtk2/DasherAppSettings.cpp:565
+#: ../Src/Gtk2/DasherAppSettings.cpp:576
 msgid "Description"
 msgstr "Opis"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:560
+#: ../Src/Gtk2/DasherAppSettings.cpp:565
 msgid "Integer parameters"
 msgstr "Parametry liczb całkowitych"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:571
+#: ../Src/Gtk2/DasherAppSettings.cpp:576
 msgid "String parameters"
 msgstr "Parametry ciągów"
 
-#: ../Src/Gtk2/Preferences.cpp:437
-#: ../Src/Gtk2/Preferences.cpp:1008
+#: ../Src/Gtk2/Preferences.cpp:437 ../Src/Gtk2/Preferences.cpp:1008
 msgid "Action"
-msgstr "Akcja"
+msgstr "Czynność"
 
 #. TRANSLATORS: Show a button for the selected action in the Dasher window.
 #: ../Src/Gtk2/Preferences.cpp:1015
@@ -982,8 +939,7 @@ msgstr ""
 msgid "Don't save"
 msgstr "Nie zapisuj"
 
-#: ../Src/Gtk2/dasher_main.cpp:1022
-#: ../Src/Gtk2/dasher_main.cpp:1045
+#: ../Src/Gtk2/dasher_main.cpp:1022 ../Src/Gtk2/dasher_main.cpp:1045
 msgid "Don't quit"
 msgstr "Nie kończ"
 
@@ -1005,10 +961,7 @@ msgstr "Dasher jest programem do przewidującego wprowadzania tekstu"
 
 #: ../Src/Gtk2/dasher_main.cpp:1146
 msgid "translator-credits"
-msgstr ""
-"Artur Flinta <aflinta@gmail.com>, 2006\n"
-"Aviary.pl <gnomepl@aviary.pl>, 2008, 2009\n"
-"Piotr Drąg <piotrdrag@gmail.com>, 2009"
+msgstr "Aviary.pl <gnomepl@aviary.pl>, 2008, 2009, 2010"
 
 #: ../Src/Gtk2/module_settings_window.cpp:88
 msgid "Dasher Module Options"
@@ -1039,7 +992,9 @@ msgstr "Jednowymiarowe wejście myszy"
 #. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
 #: ../Src/main.cc:171
 msgid "Application style (traditional, direct, compose or fullscreen)"
-msgstr "Styl programu (\"traditional\" - tradycyjny, \"direct\" - bezpośredni, \"compose\" - tworzący lub \"fullscreen\" - pełnoekranowy)"
+msgstr ""
+"Styl programu (\"traditional\" - tradycyjny, \"direct\" - bezpośredni, "
+"\"compose\" - tworzący lub \"fullscreen\" - pełnoekranowy)"
 
 #. Note to translators: This is the help string for "--options"
 #: ../Src/main.cc:173
@@ -1055,11 +1010,3 @@ msgstr "Opisuje \"--options\"."
 #: ../Src/main.cc:182
 msgid "- A text input application honouring accessibility"
 msgstr "- Program do wprowadzania tekstu obsługujący dostępność"
-
-#~ msgid "Markers fixed to canvas"
-#~ msgstr "Znaczniki stałe względem okna"
-#~ msgid "%age by which to automatically increase speed"
-#~ msgstr "%age po jakim automatycznie zwiększać prędkość"
-#~ msgid "%age by which to decrease speed upon reverse"
-#~ msgstr "%age po jakim automatycznie zwiększać prędkość do zamiany"
-
