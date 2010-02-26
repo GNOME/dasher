@@ -455,7 +455,7 @@ void CCanvas::SetColourScheme(const CColourIO::ColourInfo *pColourScheme) {
 #if WITH_CAIRO
   if (cairo_colours)
     delete[] cairo_colours;
-  cairo_colours = new my_cairo_colour_t[iNumColours];
+  cairo_colours = new cairo_pattern_t*[iNumColours];
 #else
   if (colours)
     delete[] colours;
@@ -464,9 +464,11 @@ void CCanvas::SetColourScheme(const CColourIO::ColourInfo *pColourScheme) {
 
   for(int i = 0; i < iNumColours; i++) {
 #if WITH_CAIRO
-    cairo_colours[i].r = pColourScheme->Reds[i] / 255.0;
-    cairo_colours[i].g = pColourScheme->Greens[i] / 255.0;
-    cairo_colours[i].b = pColourScheme->Blues[i] / 255.0;
+    cairo_colours[i] = cairo_pattern_create_rgb (
+      pColourScheme->Reds[i]   / 255.0,
+      pColourScheme->Greens[i] / 255.0,
+      pColourScheme->Blues[i]  / 255.0
+    );
 #else
     colours[i].pixel=0;
     colours[i].red=pColourScheme->Reds[i]*257;

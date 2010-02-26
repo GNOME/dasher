@@ -1,3 +1,7 @@
+2009-02-26  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Replace my_cairo_colour_t with cairo_pattern_t.
+
 2009-02-17  Patrick Welche <prlw1@cam.ac.uk>
 
 	* Move --enable-nls fix into configure.ac, as intltoolize replaces

@@ -17,11 +17,6 @@
 /* Cairo drawing backend */
 #include <gdk/gdkcairo.h>
 
-typedef struct {
-  double r, g, b;
-} my_cairo_colour_t;
-
-
 #define BEGIN_DRAWING_BACKEND				\
   cairo_save(cr)
 
@@ -29,10 +24,7 @@ typedef struct {
   cairo_restore(cr)
 
 #define SET_COLOR_BACKEND(c)				\
-  do {							\
-    my_cairo_colour_t _c = cairo_colours[(c)];		\
-    cairo_set_source_rgb(cr, _c.r, _c.g, _c.b);	\
-  } while (0)
+  cairo_set_source(cr, cairo_colours[(c)])
 
 #else /* WITHOUT_CAIRO */
 
@@ -304,10 +296,9 @@ private:
 #if WITH_CAIRO
   cairo_t *display_cr;
   cairo_t *decoration_cr;
-  //cairo_t *onscreen_cr; // TODO: do we need to do our own double buffering?
 
   cairo_t *cr; // offscreen
-  my_cairo_colour_t *cairo_colours;
+  cairo_pattern_t **cairo_colours;
 #else
   GdkColor *colours;
 #endif  
