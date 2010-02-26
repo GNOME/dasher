@@ -18,6 +18,7 @@ AM_NLS
 AM_CONDITIONAL(USE_INTLTOOL, test "x$USE_NLS" = "xyes")
 AS_IF([test "x$USE_NLS" = "xyes"],[
 IT_PROG_INTLTOOL([0.34.90]) dnl IT_PROG_INTLTOOL([0.40.1])  c.f. bug #323968
+AC_CONFIG_FILES([po/Makefile.in])
 ])
 
 
@@ -424,7 +425,6 @@ AC_CONFIG_FILES([Data/dasher.desktop.in
 		 Src/Installer/Makefile
 		 Src/InstallerTobii/Makefile
 		 Src/InstallerW2K/Makefile
-		 Src/Win32/Makefile
-		 po/Makefile.in])
+		 Src/Win32/Makefile])
 
 AC_OUTPUT
