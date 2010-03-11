@@ -1,11 +1,11 @@
-==========
-Dasher 5.0
-==========
+===========
+Dasher 4.11
+===========
   * New two-push, one button, dynamic mode (which reduces
     the up-and-down motion of one button dynamic mode).
-  * New Chinese dasher version.
-  * Fix blank start window caused by new Gtk library.
   * Fix switching alphabets and then deleting across languages.
+  * Gtk: Fix blank start window caused by new Gtk library.
+  * Gtk: Don't use libglade.
 
 =============
 Dasher 4.10.2

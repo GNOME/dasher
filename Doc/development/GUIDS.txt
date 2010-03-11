@@ -59,3 +59,8 @@ Upgrade Code: 881c50ca-10e6-11de-bf4f-000e7b9b7395
 ================
 Product ID: 6eeb2808-2516-11de-ae8d-000e7b9b7395
 Upgrade Code: 6fd13190-2516-11de-ae8d-000e7b9b7395
+
+4.11 (Standard)
+===============
+Product ID: bd8ecd28-2d32-11df-8d17-000423472618
+Upgrade Code: c52ec8a8-2d32-11df-8d17-000423472618

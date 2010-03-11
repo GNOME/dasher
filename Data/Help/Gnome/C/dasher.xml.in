@@ -159,7 +159,7 @@
         load up an example file, then write away!</para>
 
       <para> It's quite hard to convey in words what Dasher looks like, so please visit <ulink
-          url="http://www.inference.phy.cam.ac.uk/dasher/" type="http">http://www.inference.phy.cam.ac.uk/dasher/</ulink> to see movies.</para>
+          url="@PACKAGE_URL@" type="http">@PACKAGE_URL@</ulink> to see movies.</para>
 
     </sect2>
     <sect2>
@@ -266,7 +266,7 @@
       </figure>
 
       <para> If you find Dasher hard to imagine based on these static pictures, please take a look
-        at the movies on <ulink url="http://www.inference.phy.cam.ac.uk/dasher/" type="http">http://www.inference.phy.cam.ac.uk/dasher/</ulink>.</para>
+        at the movies on <ulink url="@PACKAGE_URL@" type="http">@PACKAGE_URL@</ulink>.</para>
 
 
       <!--% When  you try Dasher for the first time,  please read the tips for novices.-->
@@ -634,7 +634,7 @@
         made with this dialog. Note that some languages (for example, Hiragana, Korean and the
         International Phonetic Alphabet) may require fonts that you do not have installed. For
         information on creating your own alphabet files, see the <ulink
-          url="http://www.inference.phy.cam.ac.uk/dasher/" type="http">Dasher website</ulink>. </para>
+          url="@PACKAGE_URL@" type="http">Dasher website</ulink>. </para>
       <figure id="prefs2">
         <title>&quot;Colour&quot; dialog</title>
         <screenshot>
@@ -979,7 +979,7 @@
         USB mouse on any computer.) Can you waggle one finger or one foot? These head-mice can be
         used to track fingers and feet as well as heads. For a detailed comparison of SmartNav3 with
         Headmouse Extreme, please see <ulink
-          url="http://www.inference.phy.cam.ac.uk/dasher/Headmouse.html" type="http">http://www.inference.phy.cam.ac.uk/dasher/Headmouse.html</ulink>.</para>
+          url="@PACKAGE_URL@Headmouse.html" type="http">@PACKAGE_URL@Headmouse.html</ulink>.</para>
 
       <para>If you are severely paralysed, the best option may be a gaze tracker. Do you have
         control of where your eyes are looking? With a gaze tracker we can write at 25 words per
@@ -1296,8 +1296,8 @@
       <application>Dasher</application> was written by the members of The Dasher Project
         (<email>dasher@inf.phy.cam.ac.uk</email>). To find more information about it, please visit
         <application>Dasher's</application>
-      <ulink url="http://www.inference.phy.cam.ac.uk/dasher/" type="http"> Web page</ulink>. Please
-      send all comments, suggestions, and bug reports to the <ulink url="http://bugzilla.gnome.org/enter_bug.cgi?product=dasher"
+      <ulink url="@PACKAGE_URL@" type="http"> Web page</ulink>. Please
+      send all comments, suggestions, and bug reports to the <ulink url="@PACKAGE_BUGREPORT@"
         type="http">GNOME bug tracking database</ulink>. Instructions for submitting bug reports can
       be found on-line at <ulink url="http://bugs.gnome.org/Reporting.html" type="http">
         http://bugs.gnome.org/Reporting.html</ulink>. If you are using GNOME 1.1 or later, you can

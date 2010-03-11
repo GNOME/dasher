@@ -1,46 +1,53 @@
-2009-02-26  Patrick Welche <prlw1@cam.ac.uk>
+2010-03-11  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Prepare for 4.11
+	* Change dasher URL
+	* Add simple mkversion script to help interim builds.
+	  (bug in intltool-update chokes on this)
+
+2010-02-26  Patrick Welche <prlw1@cam.ac.uk>
 
 	* Replace my_cairo_colour_t with cairo_pattern_t.
 
-2009-02-17  Patrick Welche <prlw1@cam.ac.uk>
+2010-02-17  Patrick Welche <prlw1@cam.ac.uk>
 
 	* Move --enable-nls fix into configure.ac, as intltoolize replaces
 	  fixes in intltool.m4.
 
-2009-02-16  Patrick Welche <prlw1@cam.ac.uk>
+2010-02-16  Patrick Welche <prlw1@cam.ac.uk>
 
 	* Don't rename altered IT_PROG_INTLTOOL macro as gnome-autogen.sh
 	  looks for a line beginning with that string.
 
-2009-02-08  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+2010-02-08  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* Fix rebuilding of parents and language changing.
 
-2009-02-06  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+2010-02-06  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* Fix SymbolStream UTF-8 character input function.
 
-2009-02-04  Patrick Welche <prlw1@cam.ac.uk>
+2010-02-04  Patrick Welche <prlw1@cam.ac.uk>
 
 	* Fix bug #607775.
 
-2009-01-22  Patrick Welche <prlw1@cam.ac.uk>
+2010-01-22  Patrick Welche <prlw1@cam.ac.uk>
 
 	* Comment out unused screens to hopefully make bug #607775 more
 	  obvious.
 
-2009-01-13  Patrick Welche <prlw1@cam.ac.uk>
+2010-01-13  Patrick Welche <prlw1@cam.ac.uk>
 
 	* Rename gconf-2.m4 and intltool.m4 to make it obvious that
 	  these aren't the originals.
 	* Make --disable-nls actually do something.
 
-2009-01-13  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+2010-01-13  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* iPhone: disable landscape mode when using tilt sensor to
 	  control Dasher!
 
-2009-01-07  Patrick Welche <prlw1@cam.ac.uk>
+2010-01-07  Patrick Welche <prlw1@cam.ac.uk>
 
 	* Remove some more deprecated last_modification properties
 	  in the UI files while solving some of the problems posed
@@ -48,11 +55,11 @@
 	* Reorder "comments" in UI files so intltoolize can find them.
 	* Remove some vestiges of NodeManager.h / DasherView.inl
 
-2009-01-07  Philip Withnall <bugzilla@tecnocode.co.uk>
+2010-01-07  Philip Withnall <bugzilla@tecnocode.co.uk>
 
 	* Use proper UTF-8 ellipsis characters and improve wording. (#596679)
 
-2009-01-07  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+2010-01-07  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
 
 	* Remove GetSymbols in favour of SymbolStream which converts 
 	  one UTF-8 character at a time avoiding huge vector<symbol>

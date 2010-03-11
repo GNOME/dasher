@@ -1,8 +1,6 @@
 Dasher Release Instructions
 ---------------------------
 
-Last Updated 6th Apr 2008 by Phil Cowans.
-
 How to make a Dasher release. Note that most of this only makes sense
 if you're the Dasher maintainer, i.e., me!:
 
@@ -11,17 +9,18 @@ if you're the Dasher maintainer, i.e., me!:
 2. Check that alphabet, colour and training files are up-to-date. Use
    the scripts in /Utils/Linux/Packaging to help.
 
-3. Check that verion numbers are up to date. The following places
+3. Create $(top_srcdir)/.tarball-version containing the release version
+   number.
+
+4. Check that verion numbers are up to date. The following places
    contain version numbers:
    
-   a) configure.in
-
-   b) Win32 resources file (Src/Win32/Dasher.rc) - both in the 'about' dialogue box and in
+   a) Win32 resources file (Src/Win32/Dasher.rc) - both in the 'about' dialogue box and in
    the version information structure.
 
-   c) README
+   b) README
 
-   d) WiX installer definition files:
+   c) WiX installer definition files:
      - Src/Installer/Dasher.wxs
 	 - Src/InstallerW2K/Dasher.wxs (Windows 2K compatibility version)
 	 - Src/InstallerTobii/Dasher.wxs (MyTobii customised installer)
@@ -41,9 +40,9 @@ if you're the Dasher maintainer, i.e., me!:
 
 9. Build Windows installer package(s).
 
-10. Commit to SVN, tag SVN with release.
+10. Commit to repository and tag with release.
 
-11. Bump version numbers, commit to SVN again.
+11. Bump version numbers, commit to repository again.
 
 12. Copy everything to download website.
 
@@ -59,4 +58,3 @@ gnome-announce-list@gnome.org
 dasherteam@yahoogroups.com
 gnome-accessibility-list@gnome.org
 dasher-text-entry@yahoogroups.com
-

@@ -1,0 +1,7 @@
+#!/bin/sh
+if test -f ".tarball-version"; then
+	cat .tarball-version | tr -d '\012'
+else
+	git describe --abbrev=4 | sed 's/^DASHER_\(.*\)-\(.*\)-g\(.*\)/\1-\3/;s/_/./g' | tr -d '\012'
+
+fi

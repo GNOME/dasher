@@ -1,27 +1,27 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
 
-  <Product Name='Dasher 4.10.1a' Id='6eeb2808-2516-11de-ae8d-000e7b9b7395'
-   Language='1033' Codepage='1252' Version='4.10.1' Manufacturer='The Dasher Team'
-   UpgradeCode='6fd13190-2516-11de-ae8d-000e7b9b7395'>
+  <Product Name='Dasher 4.11' Id='bd8ecd28-2d32-11df-8d17-000423472618'
+   Language='1033' Codepage='1252' Version='4.11' Manufacturer='The Dasher Project'
+   UpgradeCode='c52ec8a8-2d32-11df-8d17-000423472618'>
 
     <Package Keywords='Installer'
-     Description="Dasher 4.10.1 Installer"
-     Comments='This will install Dasher' Manufacturer='The Dasher Team'
+     Description="Dasher 4.11 Installer"
+     Comments='This will install Dasher' Manufacturer='The Dasher Project'
      InstallerVersion='100' Languages='1033' Compressed='yes' SummaryCodepage='1252' />
     <Media Id='1' Cabinet='Sample.cab' EmbedCab='yes' DiskPrompt="CD-ROM #1" />
-    <Property Id='DiskPrompt' Value="Dasher 4.10.1 Installation [1]" />
+    <Property Id='DiskPrompt' Value="Dasher 4.11 Installation [1]" />
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
       <Directory Id='ProgramFilesFolder' Name='PFiles'>
         <Directory Id='Dasher' Name='Dasher'>
-          <Directory Id='INSTALLDIR' Name='Dasher 4.10'>
+          <Directory Id='INSTALLDIR' Name='Dasher 4.11'>
             <Component Id='MainExecutable' Guid='5a93ba53-2e2d-4f88-8a1f-5bdd8f130394'>
               <File Id='DasherEXE' Name='Dasher.exe' DiskId='1'
                Source='..\Win32\Target\Release\Dasher.exe' Vital='yes'>
-               <Shortcut Id="startmenuDasher44" Directory="ProgramMenuDir" Name="Dasher 4.10" WorkingDirectory='INSTALLDIR'
+               <Shortcut Id="startmenuDasher44" Directory="ProgramMenuDir" Name="Dasher 4.11" WorkingDirectory='INSTALLDIR'
                  Icon="Dasher.exe" IconIndex="0" Advertise="yes"/>
-                <Shortcut Id="desktopDasher44" Directory="DesktopFolder" Name="Dasher 4.10" WorkingDirectory='INSTALLDIR'
+                <Shortcut Id="desktopDasher44" Directory="DesktopFolder" Name="Dasher 4.11" WorkingDirectory='INSTALLDIR'
                  Icon="Dasher.exe" IconIndex="0" Advertise="yes"/>
               </File>              
               <File Id="ExpatDLL" Name="libexpat.dll" DiskId="1" Source="$(env.EXPAT)\bin\libexpat.dll" Vital="yes"/>              

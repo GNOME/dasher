@@ -1139,13 +1139,13 @@ dasher_main_command_about(DasherMain *pSelf) {
   gtk_show_about_dialog(GTK_WINDOW(pPrivate->pMainWindow),
                         "authors", authors,
                         "comments", _("Dasher is a predictive text entry application"), 
-                        "copyright", "Copyright \xC2\xA9 1998-2009 The Dasher Project", 
+                        "copyright", "Copyright \xC2\xA9 1998-2010 The Dasher Project", 
                         "documenters", documenters,
                         "license", "GPL 2+",
                         "logo-icon-name", "dasher",
                         "translator-credits", _("translator-credits"),
-                        "version", VERSION,
-                        "website", "http://www.dasher.org.uk/",
+                        "version", PACKAGE_VERSION,
+                        "website", PACKAGE_URL,
                         "wrap-license", true,
                         NULL);
 }

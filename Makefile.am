@@ -15,11 +15,18 @@ EXTRA_DIST = \
 		INSTALL.WinCE \
 		INSTALL.Windows \
 		MAINTAINERS \
-		gnome-doc-utils.make \
-		m4 \
+		m4/pkg.m4 \
+		m4/glib-gettext.m4 \
+		m4/dgconf-2.m4 \
+		m4/gnome-doc-utils.m4 \
+		m4/intltool.m4 \
+		m4/nls.m4 \
 		intltool-merge.in \
 		intltool-extract.in \
-		intltool-update.in
+		intltool-update.in \
+		gnome-doc-utils.make \
+		.tarball-version \
+		build-aux/mkversion
 
 DISTCLEANFILES = \
 		intltool-merge \

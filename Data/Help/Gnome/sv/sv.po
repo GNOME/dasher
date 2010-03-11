@@ -266,7 +266,7 @@ msgid "Another advantage is that it is easy to train the model on any writing st
 msgstr ""
 
 #: C/dasher.xml:161(para)
-msgid "It's quite hard to convey in words what Dasher looks like, so please visit <ulink url=\"http://www.dasher.org.uk/\" type=\"http\">www.dasher.org.uk</ulink> to see movies."
+msgid "It's quite hard to convey in words what Dasher looks like, so please visit <ulink url=\"http://www.inference.phy.cam.ac.uk/dasher/\" type=\"http\">http://www.inference.phy.cam.ac.uk/dasher/</ulink> to see movies."
 msgstr ""
 
 #: C/dasher.xml:166(title)
@@ -324,7 +324,7 @@ msgid "Writing `objection' in Dasher."
 msgstr ""
 
 #: C/dasher.xml:268(para)
-msgid "If you find Dasher hard to imagine based on these static pictures, please take a look at the movies on <ulink url=\"http://www.dasher.org.uk/\" type=\"http\">www.dasher.org.uk</ulink>."
+msgid "If you find Dasher hard to imagine based on these static pictures, please take a look at the movies on <ulink url=\"http://www.inference.phy.cam.ac.uk/dasher/\" type=\"http\">http://www.inference.phy.cam.ac.uk/dasher/</ulink>."
 msgstr ""
 
 #: C/dasher.xml:276(title)
@@ -922,12 +922,12 @@ msgid "Authors"
 msgstr "Upphovsmän"
 
 #: C/dasher.xml:1297(para)
-msgid "<application>Dasher</application> was written by the members of The Dasher Project (<email>dasher@mrao.cam.ac.uk</email>). To find more information about it, please visit <application>Dasher's</application><ulink url=\"http://www.inference.phy.cam.ac.uk/dasher/\" type=\"http\"> Web page</ulink>. Please send all comments, suggestions, and bug reports to the <ulink url=\"http://bugs.gnome.org\" type=\"http\">GNOME bug tracking database</ulink>. Instructions for submitting bug reports can be found on-line at <ulink url=\"http://bugs.gnome.org/Reporting.html\" type=\"http\"> http://bugs.gnome.org/Reporting.html</ulink>. If you are using GNOME 1.1 or later, you can also use command <command>bug-buddy</command> for submitting bug reports."
+msgid "<application>Dasher</application> was written by the members of The Dasher Project (<email>dasher@inf.phy.cam.ac.uk</email>). To find more information about it, please visit <application>Dasher's</application><ulink url=\"http://www.inference.phy.cam.ac.uk/dasher/\" type=\"http\"> Web page</ulink>. Please send all comments, suggestions, and bug reports to the <ulink url=\"http://bugzilla.gnome.org/enter_bug.cgi?product=dasher\" type=\"http\">GNOME bug tracking database</ulink>. Instructions for submitting bug reports can be found on-line at <ulink url=\"http://bugs.gnome.org/Reporting.html\" type=\"http\"> http://bugs.gnome.org/Reporting.html</ulink>. If you are using GNOME 1.1 or later, you can also use command <command>bug-buddy</command> for submitting bug reports."
 msgstr ""
 
 #: C/dasher.xml:1307(para)
-msgid "This manual was written by The Dasher Project (<email>dasher@mrao.cam.ac.uk</email>). Please send all comments and suggestions regarding the manual to the GNOME Documentation Project at <email>docs@gnome.org</email>. You can also add your comments online by using <ulink type=\"http\" url=\"http://www.gnome.org/gdp/doctable/\">GNOME Documentation Status Table</ulink>."
-msgstr "Den här handboken skrevs av The Dasher Project (<email>dasher@mrao.cam.ac.uk</email>). Skicka alla kommentarer och förslag angående handboken till Dokumentationsprojekt för GNOME på <email>docs@gnome.org</email>. Du kan även lägga till dina kommentarer på nätet på sidan <ulink type=\"http\" url=\"http://www.gnome.org/gdp/doctable/\">GNOME:s dokumentationsstatustabell</ulink>."
+msgid "This manual was written by The Dasher Project (<email>dasher@inf.phy.cam.ac.uk</email>). Please send all comments and suggestions regarding the manual to the GNOME Documentation Project at <email>docs@gnome.org</email>. You can also add your comments online by using <ulink type=\"http\" url=\"http://www.gnome.org/gdp/doctable/\">GNOME Documentation Status Table</ulink>."
+msgstr "Den här handboken skrevs av The Dasher Project (<email>dasher@inf.phy.cam.ac.uk</email>). Skicka alla kommentarer och förslag angående handboken till Dokumentationsprojekt för GNOME på <email>docs@gnome.org</email>. Du kan även lägga till dina kommentarer på nätet på sidan <ulink type=\"http\" url=\"http://www.gnome.org/gdp/doctable/\">GNOME:s dokumentationsstatustabell</ulink>."
 
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2.
 #: C/dasher.xml:0(None)

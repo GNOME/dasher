@@ -1,11 +1,18 @@
 AC_PREREQ(2.59)
-AC_INIT([dasher],[4.10.1],[http://bugzilla.gnome.org/enter_bug.cgi?product=dasher])
-AC_REVISION([$Id: configure.in,v])
+AC_INIT([dasher],
+  m4_esyscmd([build-aux/mkversion]),
+  [http://bugzilla.gnome.org/enter_bug.cgi?product=dasher],
+  [dasher])
+
+# This becomes part of AC_INIT in autoconf 2.64
+PACKAGE_URL="http://www.inference.phy.cam.ac.uk/dasher/"
+AC_DEFINE_UNQUOTED([PACKAGE_URL], ["$PACKAGE_URL"],
+                   [Define to the home page for this package.])
+AC_SUBST([PACKAGE_URL])
+
 AC_CONFIG_SRCDIR([Src/main.cc])
 AC_CONFIG_HEADERS(config.h)
-dnl Can't use build-aux unless we insist on IT_PROG_INTLTOOL([0.40.1])
-dnl c.f. bug #323968, but e.g. Ubuntu 8.04 LTS ships with 0.37.1
-dnl AC_CONFIG_AUX_DIR([build-aux])
+AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 
 AM_INIT_AUTOMAKE([1.8 gnu check-news dist-bzip2])
@@ -17,13 +24,11 @@ AC_PROG_MAKE_SET
 AM_NLS
 AM_CONDITIONAL(USE_INTLTOOL, test "x$USE_NLS" = "xyes")
 AS_IF([test "x$USE_NLS" = "xyes"],[
-IT_PROG_INTLTOOL([0.34.90]) dnl IT_PROG_INTLTOOL([0.40.1])  c.f. bug #323968
-AC_CONFIG_FILES([po/Makefile.in])
-])
+IT_PROG_INTLTOOL([0.40.1])
+],
+[touch po/Makefile.in.in]) dnl as intltoolize insists
 
-
-AC_DISABLE_STATIC
-AC_PROG_LIBTOOL
+LT_INIT([disable-static])
 
 dnl AM_ICONV
 
@@ -61,6 +66,8 @@ AC_ARG_WITH([gnome],
 	  WITHGNOME=false 
 	else
 	  WITHGNOME=true
+	  # Need to work out how to translate replaced variables before uncommenting
+	  # AC_CONFIG_FILES([Data/Help/Gnome/C/dasher.xml])
 	fi, 
 	WITHGNOME=true)
 
@@ -73,7 +80,7 @@ AC_ARG_WITH([gvfs],
 if test "x$with_gvfs" != "xno"; then
 	PKG_CHECK_MODULES(GIO, gio-2.0,
 		[have_gio=true
-	 	AC_DEFINE(HAVE_GIO, 1, [gio exists so use gvfs])],
+		AC_DEFINE(HAVE_GIO, 1, [gio exists so use gvfs])],
 		[have_gio=false])
 fi
 
@@ -191,7 +198,7 @@ AC_ARG_WITH([cairo],
 	   WITHCAIRO=false; 
 	 else
 	   WITHCAIRO=true;
-         fi, 
+	 fi, 
 	 WITHCAIRO=true)
 
 if test x"$WITHGTK2" = xtrue
@@ -425,6 +432,8 @@ AC_CONFIG_FILES([Data/dasher.desktop.in
 		 Src/Installer/Makefile
 		 Src/InstallerTobii/Makefile
 		 Src/InstallerW2K/Makefile
-		 Src/Win32/Makefile])
+		 Src/Win32/Makefile
+		 po/Makefile.in
+])
 
 AC_OUTPUT

@@ -70,8 +70,8 @@ msgid "The Dasher Project"
 msgstr "Dasher proiektua"
 
 #: C/dasher.xml:10(year)
-msgid "2006"
-msgstr "2006"
+msgid "2010"
+msgstr "2010"
 
 #: C/dasher.xml:14(para)
 msgid "Permission is granted to make and distribute verbatim copies of this manual provided the copyright notice and this permission notice are preserved on all copies."
@@ -266,8 +266,8 @@ msgid "Another advantage is that it is easy to train the model on any writing st
 msgstr "Beste abantaila bat: edozein idazketa-estiloren modeloa trebatzea oso erraza da: adibide-fitxategi bat kargatu, eta idatzi!"
 
 #: C/dasher.xml:162(para)
-msgid "It's quite hard to convey in words what Dasher looks like, so please visit <ulink url=\"http://www.dasher.org.uk/\" type=\"http\">www.dasher.org.uk</ulink> to see movies."
-msgstr "Hitzekin zaila denez Dasher nolakoa den azaltzea, bisitatu <ulink url=\"http://www.dasher.org.uk/\" type=\"http\">www.dasher.org.uk</ulink> webgunea, film batzuk ikusteko."
+msgid "It's quite hard to convey in words what Dasher looks like, so please visit <ulink url=\"http://www.inference.phy.cam.ac.uk/dasher/\" type=\"http\">http://www.inference.phy.cam.ac.uk/dasher/</ulink> to see movies."
+msgstr "Hitzekin zaila denez Dasher nolakoa den azaltzea, bisitatu <ulink url=\"http://www.inference.phy.cam.ac.uk/dasher/\" type=\"http\">http://www.inference.phy.cam.ac.uk/dasher/</ulink> webgunea, film batzuk ikusteko."
 
 #: C/dasher.xml:167(title)
 msgid "Dasher explained -- the library analogy"
@@ -322,8 +322,8 @@ msgid "Writing `objection' in Dasher."
 msgstr "'Objection' idazten Dasher-en."
 
 #: C/dasher.xml:269(para)
-msgid "If you find Dasher hard to imagine based on these static pictures, please take a look at the movies on <ulink url=\"http://www.dasher.org.uk/\" type=\"http\">www.dasher.org.uk</ulink>."
-msgstr "Zaila egiten bazaizu Dasher irudikatzea irudi estatiko horiekin, ikus <ulink url=\"http://www.dasher.org.uk/\" type=\"http\">www.dasher.org.uk</ulink> webguneko filmak."
+msgid "If you find Dasher hard to imagine based on these static pictures, please take a look at the movies on <ulink url=\"http://www.inference.phy.cam.ac.uk/dasher/\" type=\"http\">http://www.inference.phy.cam.ac.uk/dasher/</ulink>."
+msgstr "Zaila egiten bazaizu Dasher irudikatzea irudi estatiko horiekin, ikus <ulink url=\"http://www.inference.phy.cam.ac.uk/dasher/\" type=\"http\">http://www.inference.phy.cam.ac.uk/dasher/</ulink> webguneko filmak."
 
 #: C/dasher.xml:277(title)
 msgid "Tips for novices"
@@ -914,12 +914,12 @@ msgid "Authors"
 msgstr "Egileak"
 
 #: C/dasher.xml:1298(para)
-msgid "<application>Dasher</application> was written by the members of The Dasher Project (<email>dasher@mrao.cam.ac.uk</email>). To find more information about it, please visit <application>Dasher's</application><ulink url=\"http://www.inference.phy.cam.ac.uk/dasher/\" type=\"http\"> Web page</ulink>. Please send all comments, suggestions, and bug reports to the <ulink url=\"http://bugs.gnome.org\" type=\"http\">GNOME bug tracking database</ulink>. Instructions for submitting bug reports can be found on-line at <ulink url=\"http://bugs.gnome.org/Reporting.html\" type=\"http\"> http://bugs.gnome.org/Reporting.html</ulink>. If you are using GNOME 1.1 or later, you can also use command <command>bug-buddy</command> for submitting bug reports."
-msgstr "<application>Dasher</application> Dasher proiektuko kideek idatzi dute (<email>dasher@mrao.cam.ac.uk</email>). Horri buruz informazio gehiago nahi izanez gero, ikus <application>Dasher-en</application><ulink url=\"http://www.inference.phy.cam.ac.uk/dasher/\" type=\"http\">web-orria</ulink>. Bidali zure iruzkin, iradokizun eta akatsen berri-emateak <ulink url=\"http://bugs.gnome.org\" type=\"http\">GNOMEren akatsen segimendurako datu-basera</ulink>. Programa-erroreen berri emateko jarraibideak linean aurkituko dituzu <ulink url=\"http://bugs.gnome.org/Reporting.html\" type=\"http\">http://bugs.gnome.org/Reporting.html</ulink> helbidean. GNOMEren 1.1 bertsioa edo berriagoa baduzu, <command>bug-buddy</command> komandoa ere erabil dezakezu akatsen berri emateko."
+msgid "<application>Dasher</application> was written by the members of The Dasher Project (<email>dasher@inf.phy.cam.ac.uk</email>). To find more information about it, please visit <application>Dasher's</application><ulink url=\"http://www.inference.phy.cam.ac.uk/dasher/\" type=\"http\"> Web page</ulink>. Please send all comments, suggestions, and bug reports to the <ulink url=\"http://bugzilla.gnome.org/enter_bug.cgi?product=dasher\" type=\"http\">GNOME bug tracking database</ulink>. Instructions for submitting bug reports can be found on-line at <ulink url=\"http://bugs.gnome.org/Reporting.html\" type=\"http\"> http://bugs.gnome.org/Reporting.html</ulink>. If you are using GNOME 1.1 or later, you can also use command <command>bug-buddy</command> for submitting bug reports."
+msgstr "<application>Dasher</application> Dasher proiektuko kideek idatzi dute (<email>dasher@inf.phy.cam.ac.uk</email>). Horri buruz informazio gehiago nahi izanez gero, ikus <application>Dasher-en</application><ulink url=\"http://www.inference.phy.cam.ac.uk/dasher/\" type=\"http\">web-orria</ulink>. Bidali zure iruzkin, iradokizun eta akatsen berri-emateak <ulink url=\"http://bugzilla.gnome.org/enter_bug.cgi?product=dasher\" type=\"http\">GNOMEren akatsen segimendurako datu-basera</ulink>. Programa-erroreen berri emateko jarraibideak linean aurkituko dituzu <ulink url=\"http://bugs.gnome.org/Reporting.html\" type=\"http\">http://bugs.gnome.org/Reporting.html</ulink> helbidean. GNOMEren 1.1 bertsioa edo berriagoa baduzu, <command>bug-buddy</command> komandoa ere erabil dezakezu akatsen berri emateko."
 
 #: C/dasher.xml:1308(para)
-msgid "This manual was written by The Dasher Project (<email>dasher@mrao.cam.ac.uk</email>). Please send all comments and suggestions regarding the manual to the GNOME Documentation Project at <email>docs@gnome.org</email>. You can also add your comments online by using <ulink type=\"http\" url=\"http://www.gnome.org/gdp/doctable/\">GNOME Documentation Status Table</ulink>."
-msgstr "Eskuliburu hau Dasher Proiektuak idatzi du (<email>dasher@mrao.cam.ac.uk</email>). Bidali eskuliburuari buruzko iruzkin eta iradokizun guztiak GNOME dokumentazio-proiektura <email>docs@gnome.org</email> helbidera. Linean ere bidal daitezke oharrak, <ulink type=\"http\" url=\"http://www.gnome.org/gdp/doctable/\">GNOMEren dokumentazioaren egoeraren taula</ulink>ren bidez."
+msgid "This manual was written by The Dasher Project (<email>dasher@inf.phy.cam.ac.uk</email>). Please send all comments and suggestions regarding the manual to the GNOME Documentation Project at <email>docs@gnome.org</email>. You can also add your comments online by using <ulink type=\"http\" url=\"http://www.gnome.org/gdp/doctable/\">GNOME Documentation Status Table</ulink>."
+msgstr "Eskuliburu hau Dasher Proiektuak idatzi du (<email>dasher@inf.phy.cam.ac.uk</email>). Bidali eskuliburuari buruzko iruzkin eta iradokizun guztiak GNOME dokumentazio-proiektura <email>docs@gnome.org</email> helbidera. Linean ere bidal daitezke oharrak, <ulink type=\"http\" url=\"http://www.gnome.org/gdp/doctable/\">GNOMEren dokumentazioaren egoeraren taula</ulink>ren bidez."
 
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2.
 #: C/dasher.xml:0(None)

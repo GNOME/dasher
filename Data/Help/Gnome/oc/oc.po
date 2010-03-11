@@ -73,8 +73,8 @@ msgid "The Dasher Project"
 msgstr "Lo projècte Dasher"
 
 #: ../C/dasher.xml:10(year)
-msgid "2006"
-msgstr "2006"
+msgid "2010"
+msgstr "2010"
 
 #: ../C/dasher.xml:14(para)
 msgid ""
@@ -338,7 +338,7 @@ msgstr ""
 #: ../C/dasher.xml:162(para)
 msgid ""
 "It's quite hard to convey in words what Dasher looks like, so please visit "
-"<ulink url=\"http://www.dasher.org.uk/\" type=\"http\">www.dasher.org.uk</"
+"<ulink url=\"http://www.inference.phy.cam.ac.uk/dasher/\" type=\"http\">http://www.inference.phy.cam.ac.uk/dasher/</"
 "ulink> to see movies."
 msgstr ""
 
@@ -441,8 +441,8 @@ msgstr ""
 #: ../C/dasher.xml:269(para)
 msgid ""
 "If you find Dasher hard to imagine based on these static pictures, please "
-"take a look at the movies on <ulink url=\"http://www.dasher.org.uk/\" type="
-"\"http\">www.dasher.org.uk</ulink>."
+"take a look at the movies on <ulink url=\"http://www.inference.phy.cam.ac.uk/dasher/\" type="
+"\"http\">http://www.inference.phy.cam.ac.uk/dasher/</ulink>."
 msgstr ""
 
 #: ../C/dasher.xml:277(title)
@@ -1483,11 +1483,11 @@ msgstr "Autors"
 #: ../C/dasher.xml:1298(para)
 msgid ""
 "<application>Dasher</application> was written by the members of The Dasher "
-"Project (<email>dasher@mrao.cam.ac.uk</email>). To find more information "
+"Project (<email>dasher@inf.phy.cam.ac.uk</email>). To find more information "
 "about it, please visit <application>Dasher's</application><ulink url="
 "\"http://www.inference.phy.cam.ac.uk/dasher/\" type=\"http\"> Web page</"
 "ulink>. Please send all comments, suggestions, and bug reports to the <ulink "
-"url=\"http://bugs.gnome.org\" type=\"http\">GNOME bug tracking database</"
+"url=\"http://bugzilla.gnome.org/enter_bug.cgi?product=dasher\" type=\"http\">GNOME bug tracking database</"
 "ulink>. Instructions for submitting bug reports can be found on-line at "
 "<ulink url=\"http://bugs.gnome.org/Reporting.html\" type=\"http\"> http://"
 "bugs.gnome.org/Reporting.html</ulink>. If you are using GNOME 1.1 or later, "
@@ -1497,7 +1497,7 @@ msgstr ""
 
 #: ../C/dasher.xml:1308(para)
 msgid ""
-"This manual was written by The Dasher Project (<email>dasher@mrao.cam.ac.uk</"
+"This manual was written by The Dasher Project (<email>dasher@inf.phy.cam.ac.uk</"
 "email>). Please send all comments and suggestions regarding the manual to "
 "the GNOME Documentation Project at <email>docs@gnome.org</email>. You can "
 "also add your comments online by using <ulink type=\"http\" url=\"http://www."
