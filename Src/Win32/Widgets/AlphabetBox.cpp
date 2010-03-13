@@ -449,7 +449,7 @@ bool CAlphabetBox::Apply() {
 }
 
 LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
-  NMHDR *pNMHDR;
+  //NMHDR *pNMHDR;
      double NewUniform;
 
   // most things we pass on to CPrefsPageBase, but we need to handle slider motion
