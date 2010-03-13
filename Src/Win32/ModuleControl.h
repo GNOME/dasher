@@ -1,7 +1,7 @@
 #ifndef __ModuleControl_h__
 #define __ModuleControl_h__
 
-#include "../Common/WinCommon.h"
+#include "Common/WinCommon.h"
 #include "../DasherCore/DasherInterfaceBase.h"
 
 #include <atlbase.h>

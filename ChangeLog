@@ -6,6 +6,9 @@
 	* Win32: Remove xsltproc from repository.
 	* Win32: Avoid zero smoothing.
 
+	From Tom Lawton:
+	* Win32: ModuleControl.h - correct header location
+
 2010-03-11  Patrick Welche <prlw1@cam.ac.uk>
 
 	* Prepare for 4.11
