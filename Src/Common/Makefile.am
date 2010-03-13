@@ -26,4 +26,4 @@ libdashermisc_a_SOURCES = \
 
 AM_CXXFLAGS = -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" -I../../intl -I$(top_srcdir)/intl $(GTK2_CFLAGS) $(SETTINGS_CFLAGS) $(gnome_speech_CFLAGS) $(gnome_a11y_CFLAGS) $(gnome_CFLAGS)
 
-EXTRA_DIST = Common.vcproj Common_vc70.vcproj Common_vc71.vcproj Common_vc80.vcproj
+EXTRA_DIST = Common.vcproj Common_vc80.vcproj

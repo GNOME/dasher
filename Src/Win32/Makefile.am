@@ -97,10 +97,6 @@ EXTRA_DIST = \
 		DasherMouseInput.h \
 		DasherWindow.cpp \
 		DasherWindow.h \
-		Dasher_vc70.sln \
-		Dasher_vc70.vcproj \
-		Dasher_vc71.sln \
-		Dasher_vc71.vcproj \
 		Dasher_vc80.sln \
 		Dasher_vc80.vcproj \
 		EditWrapper.cpp \

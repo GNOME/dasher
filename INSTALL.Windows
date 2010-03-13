@@ -64,11 +64,6 @@ Visual Studio 8.0 (2005) solution/project files are included in the
 Src/Win32 directory. This should hopefully build without modification on 
 any system.
 
-For earlier versions of Visual Studio, alternative project files are
-provided, although these may be out-of-date. Please consider the 8.0
-files to be authoritative, and port any modifications to that if possible 
-(or at least tell us so we can do it).
-
 Building the installers
 -----------------------
 
