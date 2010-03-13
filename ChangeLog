@@ -1,5 +1,9 @@
 2010-03-13  Patrick Welche <prlw1@cam.ac.uk>
 
+	* Welcome 4.11
+
+2010-03-13  Patrick Welche <prlw1@cam.ac.uk>
+
 	* Win32: Fix windows build.
 	* Win32: Clean up Uxtheme compilation.
 	* Win32: Remove Visual Studio 2002 and 2003 project files.
