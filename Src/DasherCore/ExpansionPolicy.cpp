@@ -21,13 +21,34 @@ BudgettingPolicy::BudgettingPolicy(unsigned int iNodeBudget) : m_iNodeBudget(iNo
 
 double BudgettingPolicy::pushNode(CDasherNode *pNode, int iMin, int iMax, bool bExpand, double dParentCost) {
   double dRes = getCost(pNode, iMin, iMax);
+
   if (dRes >= dParentCost) {
+
+#if defined(BYTE_ORDER) && (BYTE_ORDER == BIG_ENDIAN)
     double eps = max(abs(dParentCost),1.0) * std::numeric_limits<double>::epsilon();
     DASHER_ASSERT((dParentCost-eps) < dParentCost);
     for (double nRes; (nRes = dParentCost - eps) < dParentCost; eps/=2.0) {
-      //nRes<dParentCost guaranteed true by loop test - remember it!
-      dRes = nRes;
+        // nRes<dParentCost guaranteed true by loop test - remember it!
+        dRes = nRes;
     }
+#else
+
+// TL - Dasher spends 10-15% of its time on my system in the 'for' loop
+// above. The code below has the same result, though might be considered
+// hacky and relies on endian-ness.
+
+    dRes = ((dParentCost==0.0)?-0.0:dParentCost);
+    if (dRes > 0.0) {
+        (*(int64*)&dRes)--;
+    } else {
+        (*(int64*)&dRes)++;
+    }
+
+// This is probably more portable, uses fractionally more CPU than the above
+// (but still 50x less than the for loop).
+// nextafter() is called _nextafter() in Visual Studio.
+// dRes=_nextafter(dParentCost,-std::numeric_limits<double>::max());
+#endif
   }
   DASHER_ASSERT(dRes < dParentCost);
   vector<pair<double, CDasherNode*> > &target = (bExpand) ? sExpand : sCollapse;

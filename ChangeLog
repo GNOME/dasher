@@ -9,6 +9,8 @@
 	From Tom Lawton:
 	* Win32: ModuleControl.h - correct header location
 	* Win32: Fix stylus mode by allowing 'KeyUp' to be triggered.
+	* ExpansionPolicy: Find next-lowest representable double below
+	  dParentCost without using an expensive for loop.
 
 2010-03-11  Patrick Welche <prlw1@cam.ac.uk>
 
