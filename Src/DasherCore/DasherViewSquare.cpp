@@ -677,7 +677,7 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
 
 
   // Note that integer division is rounded *away* from zero here to
-  // enesure that this really is the inverse of the map the other way
+  // ensure that this really is the inverse of the map the other way
   // around.
 
   switch( eOrientation ) {

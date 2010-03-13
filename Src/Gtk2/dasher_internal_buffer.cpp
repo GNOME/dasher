@@ -132,7 +132,8 @@ void dasher_internal_buffer_insert(DasherInternalBuffer *pSelf, const gchar *szT
 
   //  std::cout << "i: " << szText << " (" << iOffset << " " << gtk_text_buffer_get_char_count(pPrivate->pBuffer) << ")" << std::endl;
 
-  DASHER_ASSERT(gtk_text_buffer_get_char_count(pPrivate->pBuffer) == iOffset);
+  // This seems overzelous.
+  // DASHER_ASSERT(gtk_text_buffer_get_char_count(pPrivate->pBuffer) == iOffset);
 
   gtk_text_buffer_delete_selection(pPrivate->pBuffer, false, true );
 
@@ -184,7 +185,8 @@ void dasher_internal_buffer_delete(DasherInternalBuffer *pSelf, int iLength, int
   delete end;
 
   //  std::cout << "d: " << iLength << " (" << iOffset << " " << gtk_text_buffer_get_char_count(pPrivate->pBuffer) << ")" << std::endl; 
-  DASHER_ASSERT(gtk_text_buffer_get_char_count(pPrivate->pBuffer) == iOffset);
+  // This seems overzelous.
+  // DASHER_ASSERT(gtk_text_buffer_get_char_count(pPrivate->pBuffer) == iOffset);
 }
 
 gchar *dasher_internal_buffer_get_context(DasherInternalBuffer *pSelf, gint iOffset, gint iLength) {
