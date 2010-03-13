@@ -5,7 +5,7 @@
 	* Win32: Remove Visual Studio 2002 and 2003 project files.
 	* Win32: Remove xsltproc from repository.
 	* Win32: Avoid zero smoothing.
-	* Gtk: Comment out a couple of overzelous assertions.
+	* Gtk: Comment out a couple of overzealous assertions.
 
 	From Tom Lawton:
 	* Win32: ModuleControl.h - correct header location
