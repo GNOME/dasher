@@ -1,0 +1,9 @@
+The following files used to live in this directory:
+
+xsltproc.exe
+iconv.dll
+libexslt.dll
+libxml2.dll
+libxslt.dll
+
+They are available from ftp://ftp.zlatkovic.com/libxml/

@@ -3,6 +3,7 @@
 	* Win32: Fix windows build.
 	* Win32: Clean up Uxtheme compilation.
 	* Win32: Remove Visual Studio 2002 and 2003 project files.
+	* Win32: Remove xsltproc from repository.
 
 2010-03-11  Patrick Welche <prlw1@cam.ac.uk>
 
