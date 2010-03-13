@@ -23,11 +23,15 @@
 
 // XXX why lie? #define _WIN32_WINNT 0x0501
 
+// aiming for _WIN32_WINNT < 0x501 => HAVE_NO_THEME
+#ifdef _WIN32_WCE
+#define HAVE_NO_THEME
+#endif
 
 #include <windows.h>
 #include <winuser.h>
-#ifndef _WIN32_WCE
-#include <Uxtheme.h>
+#ifndef HAVE_NO_THEME
+#include <uxtheme.h>
 #define WM_THEMECHANGED                 0x031A
 #endif
 
@@ -88,7 +92,7 @@ class CCanvas : public ATL::CWindowImpl<CCanvas>, public Dasher::CDasherComponen
     MESSAGE_HANDLER(WM_RBUTTONUP, OnRButtonUp)
     MESSAGE_HANDLER(WM_MOUSEMOVE, OnMouseMove)
     MESSAGE_HANDLER(WM_SIZE, OnSize)
-#ifndef _WIN32_WCE
+#ifndef HAVE_NO_THEME
     MESSAGE_HANDLER(WM_THEMECHANGED , OnThemeChanged)
 #endif
   END_MSG_MAP()
@@ -101,7 +105,7 @@ class CCanvas : public ATL::CWindowImpl<CCanvas>, public Dasher::CDasherComponen
   void DoFrame();
   
   LRESULT OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-#ifndef _WIN32_WCE
+#ifndef HAVE_NO_THEME
   LRESULT OnThemeChanged(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 #endif
   LRESULT OnMouseMove(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
@@ -191,7 +195,7 @@ private:
   CScreen *m_pScreen;
   Dasher::CDasher * m_pDasherInterface;
 
-#ifndef _WIN32_WCE
+#ifndef HAVE_NO_THEME
   HTHEME m_hTheme;
 #endif
 

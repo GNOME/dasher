@@ -47,7 +47,7 @@ CCanvas::CCanvas(CDasher *DI, Dasher::CEventHandler *pEventHandler, CSettingsSto
   m_dwTicksLastEvent = 0;
   m_bButtonDown = false;
   m_pScreen = 0;
-#ifndef _WIN32_WCE
+#ifndef HAVE_NO_THEME
   m_hTheme = NULL;
 #endif
 
@@ -117,9 +117,11 @@ LRESULT CCanvas::OnCreate(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHan
   bHandled = TRUE;
 
   
-#ifndef _WIN32_WCE
+#ifndef HAVE_NO_THEME
   m_hTheme = OpenThemeData(m_hWnd, L"Edit");
+#endif
 
+#ifndef _WIN32_WCE
   // If we're a tablet, initialize the event-generator
   if(IsTabletPC()) {
     HRESULT h = m_CursorInRange.Initialize(m_hWnd);
@@ -159,7 +161,7 @@ LRESULT CCanvas::OnDestroy(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHa
 /////////////////////////////////////////////////////////////////////////////
 
 CCanvas::~CCanvas() {
-#ifndef _WIN32_WCE
+#ifndef HAVE_NO_THEME
   if(m_hTheme)
     CloseThemeData(m_hTheme);
 #endif
@@ -201,7 +203,7 @@ LRESULT CCanvas::OnPaint(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHand
 
   RECT rcContent;
 
-#ifndef _WIN32_WCE
+#ifndef HAVE_NO_THEME
   if(m_hTheme) {
     DTBGOPTS oOpts;
     oOpts.dwSize = sizeof(DTBGOPTS);
@@ -224,7 +226,7 @@ LRESULT CCanvas::OnPaint(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHand
     //rcContent.left = rc.left + 1;
     //rcContent.right = rc.right - 1;
     rcContent = rc;
-#ifndef _WIN32_WCE
+#ifndef HAVE_NO_THEME
   }
 #endif
 
@@ -481,7 +483,7 @@ LRESULT CCanvas::OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandl
 	return 0;
 }
 
-#ifndef _WIN32_WCE
+#ifndef HAVE_NO_THEME
 LRESULT CCanvas::OnThemeChanged(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
   if(m_hTheme)
     CloseThemeData(m_hTheme);

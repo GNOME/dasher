@@ -67,5 +67,5 @@ maemo-install: all
 	cp Data/training/training_english_GB.txt Data/alphabets/alphabet.english.xml Data/colours/colour.xml tmp_build/usr/share/dasher
 	ln -sf /usr/share/applications/hildon/dasher.desktop tmp_build/etc/others-menu/extra_applications/0301_dasher.desktop
 	- find tmp_build -name .git -exec rm -rf \{\} \;
-	dpkg-deb -b tmp_build dasher_4.10.1.0inferencemaemo1_armel.deb 
+	dpkg-deb -b tmp_build dasher_4.11.0.0inferencemaemo1_armel.deb
 	rm -rf tmp_build

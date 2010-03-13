@@ -226,7 +226,7 @@
       </Directory>
 
      <Directory Id="ProgramMenuFolder" Name="Programs">
-       <Directory Id="ProgramMenuDir" Name="Dasher 4.10">
+       <Directory Id="ProgramMenuDir" Name="Dasher 4.11">
          <Component  Id="Random" Guid="D28C2189-5E40-4f93-B42E-0CD76D8B5B37" KeyPath="no">
            <Registry Id='DummyReg' Root='HKCU' Key='Software\Inference Group\Dasher3' Name='Dummy'
               Action='write' Type='string' Value='Dummy Key' KeyPath='yes'/>
@@ -390,7 +390,7 @@
 
 
 
-    <Feature Id='Complete' Title='Dasher 4.10.1' Description='The full Dasher installation.' Display='expand' Level='1' ConfigurableDirectory='INSTALLDIR'>
+    <Feature Id='Complete' Title='Dasher 4.11' Description='The full Dasher installation.' Display='expand' Level='1' ConfigurableDirectory='INSTALLDIR'>
       <Feature Id="Core" Title="Core" Description="Core programs and data files." Level="1">
        
         <ComponentRef Id='MainExecutable' />

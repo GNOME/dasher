@@ -2003,6 +2003,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\ExpansionPolicy.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\ExpansionPolicy.h"
+			>
+		</File>
+		<File
 			RelativePath=".\EyetrackerFilter.cpp"
 			>
 		</File>
