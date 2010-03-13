@@ -341,7 +341,8 @@ LRESULT CCanvas::OnLButtonDblClk(UINT message, WPARAM wParam, LPARAM lParam, BOO
 	return 0;
 }
 
-LRESULT CCanvas::OnLButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
+LRESULT CCanvas::OnLButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
   bHandled = TRUE;
  
 #ifndef _WIN32_WCE
@@ -375,6 +376,11 @@ LRESULT CCanvas::OnLButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL&
 LRESULT CCanvas::OnLButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
 	bHandled = TRUE;
+
+	int xPos = GET_X_LPARAM(lParam);
+	int yPos = GET_Y_LPARAM(lParam);
+
+	m_pDasherInterface->KeyUp(GetTickCount(), 100, true, xPos, yPos);
 
   // TODO: Check whether this needs to be reimplemented
 	//endturbo = GetTickCount();

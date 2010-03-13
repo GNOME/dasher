@@ -8,6 +8,7 @@
 
 	From Tom Lawton:
 	* Win32: ModuleControl.h - correct header location
+	* Win32: Fix stylus mode by allowing 'KeyUp' to be triggered.
 
 2010-03-11  Patrick Welche <prlw1@cam.ac.uk>
 
