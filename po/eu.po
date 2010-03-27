@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-03-02 19:05+0100\n"
-"PO-Revision-Date: 2010-03-22 16:30+0100\n"
+"PO-Revision-Date: 2010-03-27 15:10+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -761,7 +761,7 @@ msgstr "Gehenezko Y:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:34
 msgid "Print socket-related debugging information to console:"
-msgstr "Bistaratu socketarekin zerikusia duen arazketako informazioa konstolan:"
+msgstr "Bistaratu socket-arekin zerikusia duen arazketako informazioa konstolan:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:38
 msgid "Socket Input"
