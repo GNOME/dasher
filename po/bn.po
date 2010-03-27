@@ -6,15 +6,16 @@
 # Samia Niamatullah <mailsamia2001@yahoo.com>, 2005.
 # Maruf Ovee <maruf@ankur.org.bd>, 2009.
 # Loba Yeasmeen <loba@ankur.org.bd>, 2010.
+# Sadia Afroz <sadia@ankur.org.bd>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: bn\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&component=general\n"
-"POT-Creation-Date: 2010-01-07 15:58+0000\n"
-"PO-Revision-Date: 2010-01-21 18:15+0600\n"
-"Last-Translator: Loba Yeasmeen <loba@ankur.org.bd>\n"
+"POT-Creation-Date: 2010-01-21 20:16+0000\n"
+"PO-Revision-Date: 2010-03-18 18:15+0600\n"
+"Last-Translator: Sadia Afroz <sadia@ankur.org.bd>\n"
 "Language-Team: Bengali <ankur-bd-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,18 +29,17 @@ msgstr ""
 #: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dashermaemofullscreen.ui.h:2
 #: ../Src/Gtk2/dasher_main.cpp:953
 msgid "Dasher"
-msgstr "ড্যাশার"
+msgstr "Dasher"
 
 #: ../Data/dasher.desktop.in.in.h:2
 msgid "Enter text without a keyboard"
-msgstr "কিবোর্ড ছাড়াই টেক্সট প্রবেশ করান"
+msgstr "কীবোর্ড ছাড়াই টেক্সট প্রবেশ করান"
 
 #: ../Data/dasher.desktop.in.in.h:3
 msgid "Predictive text entry"
 msgstr "আনুমানিক টেক্সট ভুক্তি"
 
 #: ../Data/GUI/dasher.compose.ui.h:1
-#| msgid "_Append to file"
 msgid "A_ppend to file"
 msgstr "ফাইলের পরিশেষে যোগ করুন (_A)"
 
@@ -51,22 +51,22 @@ msgstr "বর্ণ:"
 #: ../Data/GUI/dasher.compose.ui.h:3 ../Data/GUI/dasher.gameWIP.ui.h:3
 #: ../Data/GUI/dasher.traditional.ui.h:3
 msgid "Copy"
-msgstr "কপি"
+msgstr "অনুলিপি"
 
 #: ../Data/GUI/dasher.compose.ui.h:4 ../Data/GUI/dasher.gameWIP.ui.h:4
 #: ../Data/GUI/dasher.traditional.ui.h:4
 #: ../Data/GUI/dashermaemofullscreen.ui.h:1
 msgid "Copy _All"
-msgstr "সব কিছু কপি করুন (_A)"
+msgstr "সব অনুলিপি করুন (_A)"
 
 #: ../Data/GUI/dasher.compose.ui.h:5 ../Data/GUI/dasher.gameWIP.ui.h:5
 #: ../Data/GUI/dasher.traditional.ui.h:5
 msgid "Cut"
-msgstr "কাটুন"
+msgstr "কাটা"
 
 #: ../Data/GUI/dasher.compose.ui.h:7
 msgid "Dasher _Tutorial"
-msgstr "ড্যাশার টিউটোরিয়াল (_T)"
+msgstr "Dasher টিউটোরিয়াল (_T)"
 
 #: ../Data/GUI/dasher.compose.ui.h:8 ../Data/GUI/dasher.gameWIP.ui.h:12
 #: ../Data/GUI/dasher.traditional.ui.h:8
@@ -85,14 +85,13 @@ msgstr "প্রতিলেপন করুন"
 
 #: ../Data/GUI/dasher.compose.ui.h:11 ../Data/GUI/dasher.direct.ui.h:3
 #: ../Data/GUI/dasher.fullscreen.ui.h:2 ../Data/GUI/dasher.gameWIP.ui.h:16
-#: ../Data/GUI/dasher.traditional.ui.h:11 ../Data/GUI/dashermaemo.ui.h:3
-#| msgid "Please Wait..."
+#: ../Data/GUI/dasher.traditional.ui.h:11 ../Data/GUI/dashermaemo.ui.h:4
 msgid "Please Wait…"
-msgstr "অনুগ্রহ করে অপেক্ষা করুন..."
+msgstr "অনুগ্রহ করে অপেক্ষা করুন…"
 
 #: ../Data/GUI/dasher.compose.ui.h:12
 msgid "Pr_eferences"
-msgstr "পছন্দ (_e)"
+msgstr "পছন্দসমূহ (_e)"
 
 #: ../Data/GUI/dasher.compose.ui.h:13 ../Data/GUI/dasher.gameWIP.ui.h:20
 #: ../Data/GUI/dasher.traditional.ui.h:15
@@ -105,7 +104,7 @@ msgid "Save file as"
 msgstr "নতুন ভাবে ফাইল সংরক্ষণ করুন"
 
 #: ../Data/GUI/dasher.compose.ui.h:15 ../Data/GUI/dasher.fullscreen.ui.h:3
-#: ../Data/GUI/dasher.gameWIP.ui.h:23 ../Data/GUI/dashermaemo.ui.h:4
+#: ../Data/GUI/dasher.gameWIP.ui.h:23 ../Data/GUI/dashermaemo.ui.h:5
 #: ../Data/GUI/dashermaemofullscreen.ui.h:5
 #: ../Src/Gtk2/dasher_editor_internal.cpp:1320
 #: ../Src/Gtk2/dasher_editor_internal.cpp:1354 ../Src/Gtk2/dasher_main.cpp:968
@@ -113,7 +112,7 @@ msgid "Select File"
 msgstr "ফাইল নির্বাচন করুন"
 
 #: ../Data/GUI/dasher.compose.ui.h:16 ../Data/GUI/dasher.fullscreen.ui.h:4
-#: ../Data/GUI/dashermaemo.ui.h:5 ../Data/GUI/dashermaemofullscreen.ui.h:6
+#: ../Data/GUI/dashermaemo.ui.h:6 ../Data/GUI/dashermaemofullscreen.ui.h:6
 msgid "Select Font"
 msgstr "ফন্ট নির্বাচন করুন"
 
@@ -129,7 +128,7 @@ msgstr "পরিচিতি (_A)"
 
 #: ../Data/GUI/dasher.compose.ui.h:19
 msgid "_Contents"
-msgstr "সূচি (_C)"
+msgstr "বিষয়বস্তু (_C)"
 
 #: ../Data/GUI/dasher.compose.ui.h:20 ../Data/GUI/dasher.gameWIP.ui.h:27
 #: ../Data/GUI/dasher.traditional.ui.h:20
@@ -147,16 +146,15 @@ msgstr "ফাইল (_F)"
 #: ../Data/GUI/dasher.traditional.ui.h:22
 #: ../Data/GUI/dashermaemofullscreen.ui.h:14
 msgid "_Help"
-msgstr "সহায়িকা (_H)"
+msgstr "সহায়তা (_H)"
 
 #: ../Data/GUI/dasher.compose.ui.h:23
 msgid "_Import Training Text"
 msgstr "প্রশিক্ষণ টেক্সট ইমপোর্ট করুন (_I)"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:1 ../Data/GUI/dasher.traditional.ui.h:1
-#| msgid "_Append to file"
 msgid "A_ppend to file…"
-msgstr "ফাইলের শেষে যোগ করুন (_p)"
+msgstr "ফাইলের শেষে যোগ করুন… (_p)"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:7
 msgid "Demo!"
@@ -168,11 +166,11 @@ msgstr "সম্পূর্ণ নমুনা"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:9 ../Data/GUI/dasher.traditional.ui.h:7
 msgid "Help"
-msgstr "সহায়িকা"
+msgstr "সহায়তা"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:10
 msgid "Launch Dasher Game & Demo mode!"
-msgstr "ড্যাশার খেলা & নমুনা মোড আরম্ভ করুন"
+msgstr "Dasher খেলা ও নমুনা মোড আরম্ভ করুন!"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:11
 msgid "Level:"
@@ -183,13 +181,12 @@ msgid "New sentence"
 msgstr "নতুন বাক্য"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:17 ../Data/GUI/dasher.traditional.ui.h:12
-#| msgid "Pr_eferences"
 msgid "Pr_eferences…"
-msgstr "পছন্দসমূহ... (_e)"
+msgstr "পছন্দসমূহ… (_e)"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:18 ../Data/GUI/dasher.traditional.ui.h:13
 msgid "Preferences"
-msgstr "পছন্দ"
+msgstr "পছন্দসমূহ"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:19 ../Data/GUI/dasher.traditional.ui.h:14
 #: ../Src/Gtk2/dasher_main.cpp:1046
@@ -201,308 +198,305 @@ msgid "Score:"
 msgstr "স্কোর:"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:25 ../Data/GUI/dasher.traditional.ui.h:18
-#| msgid "_About"
 msgid "_About…"
-msgstr "পরিচিতি... (_A)"
+msgstr "পরিচিতি… (_A)"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:26 ../Data/GUI/dasher.traditional.ui.h:19
-#| msgid "_Contents"
 msgid "_Contents…"
-msgstr "সূচি... (_C)"
+msgstr "বিষয়বস্তু… (_C)"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:30 ../Data/GUI/dasher.traditional.ui.h:23
-#| msgid "_Import Training Text"
 msgid "_Import Training Text…"
-msgstr "প্রশিক্ষণ টেক্সট ইমপোর্ট করুন... (_I)"
+msgstr "প্রশিক্ষণ টেক্সট ইমপোর্ট করুন… (_I)"
 
 #: ../Data/GUI/dasher.preferences.ui.h:1
 msgid "<b>Actions</b>"
-msgstr "<b>কর্ম:</b>"
+msgstr "<b>কাজ</b>"
 
 #: ../Data/GUI/dasher.preferences.ui.h:2
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
 msgid "<b>Adaptation</b>"
-msgstr "<b>অভিযোজন:</b>"
+msgstr "<b>অভিযোজন</b>"
 
 #: ../Data/GUI/dasher.preferences.ui.h:3
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
 msgid "<b>Alphabet Selection</b>"
-msgstr "<b>বর্ণ নির্বাচন:</b>"
+msgstr "<b>বর্ণ নির্বাচন</b>"
 
 #: ../Data/GUI/dasher.preferences.ui.h:4
 msgid "<b>Appearance Options</b>"
-msgstr "<b>প্রদর্শন সংক্রান্ত অপশন:</b>"
+msgstr "<b>অবয়ব অপশন</b>"
 
 #: ../Data/GUI/dasher.preferences.ui.h:5
 msgid "<b>Application Options</b>"
-msgstr "<b>অ্যাপ্লিকেশন সংক্রান্ত অপশন:</b>"
+msgstr "<b>অ্যাপ্লিকেশন অপশন</b>"
 
 #: ../Data/GUI/dasher.preferences.ui.h:6
 msgid "<b>Application Style</b>"
-msgstr "<b>অ্যাপ্লিকেশনের শৈলী:</b>"
+msgstr "<b>অ্যাপ্লিকেশনের শৈলী</b>"
 
 #: ../Data/GUI/dasher.preferences.ui.h:7
 msgid "<b>Colour Scheme</b>"
-msgstr "<b>রঙের স্কীম:</b>"
+msgstr "<b>রঙের স্কীম</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:8
-msgid "<b>Control Style</b>"
-msgstr "<b>নিয়ন্ত্রণ শৈলী:</b>"
-
+#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 #: ../Data/GUI/dasher.preferences.ui.h:9
-msgid "<b>Dasher Font</b>"
-msgstr "<b>ড্যাশারে ব্যবহৃত ফন্ট:</b>"
+msgid "<b>Control Style</b>"
+msgstr "<b>কন্ট্রোল শৈলী</b>"
 
 #: ../Data/GUI/dasher.preferences.ui.h:10
-msgid "<b>Direction</b>"
-msgstr "<b>দিকবিন্যাস:</b>"
+msgid "<b>Dasher Font</b>"
+msgstr "<b>Dasher ফন্ট</b>"
 
 #: ../Data/GUI/dasher.preferences.ui.h:11
+msgid "<b>Direction</b>"
+msgstr "<b>দিকবিন্যাস</b>"
+
+#: ../Data/GUI/dasher.preferences.ui.h:12
 msgid "<b>Editor Font</b>"
-msgstr "<b>সম্পাদকে ব্যবহৃত ফন্ট:</b>"
+msgstr "<b>সম্পাদক দ্বারা ব্যবহৃত ফন্ট</b>"
 
 # FIXME
-#: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "<b>Input Device</b>"
-msgstr "<b>ইনপুট ডিভাইস:</b>"
-
 #: ../Data/GUI/dasher.preferences.ui.h:13
-#: ../Data/GUI/dashermaemo.preferences.ui.h:5
-msgid "<b>Language Model</b>"
-msgstr "<b>ভাষার মডেল:</b>"
+msgid "<b>Input Device</b>"
+msgstr "<b>ইনপুট ডিভাইস</b>"
 
 #: ../Data/GUI/dasher.preferences.ui.h:14
+#: ../Data/GUI/dashermaemo.preferences.ui.h:5
+msgid "<b>Language Model</b>"
+msgstr "<b>ভাষার মডেল</b>"
+
+#: ../Data/GUI/dasher.preferences.ui.h:15
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
 msgid "<b>Smoothing</b>"
-msgstr "<b>মসৃণকরণ:</b>"
+msgstr "<b>মসৃণকরণ</b>"
 
 # FIXME
-#: ../Data/GUI/dasher.preferences.ui.h:15
+#: ../Data/GUI/dasher.preferences.ui.h:16
 #: ../Data/GUI/dashermaemo.preferences.ui.h:8
 msgid "<b>Speed</b>"
 msgstr "<b>গতি</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:16
-#| msgid "<b>Starting And Stopping</b>"
+#: ../Data/GUI/dasher.preferences.ui.h:17
 msgid "<b>Starting and Stopping</b>"
 msgstr "<b>চালু এবং বন্ধ করা হচ্ছে</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:17
+#: ../Data/GUI/dasher.preferences.ui.h:18
 #: ../Data/GUI/dashermaemo.preferences.ui.h:9
 msgid "Adapt speed automatically"
-msgstr "স্বয়ংক্রিয়রূপে গতি পরিবর্তন করা হবে"
+msgstr "স্বয়ংক্রিয়ভাবে গতির সাথে খাপ খাওয়ানো হবে"
 
-#: ../Data/GUI/dasher.preferences.ui.h:18
+#. The default display orientation for the selected alphabet, i.e., left to right for English, right to left for Arabic, etc.
+#: ../Data/GUI/dasher.preferences.ui.h:20
 #: ../Data/GUI/dashermaemo.preferences.ui.h:11
 msgid "Alphabet Default"
-msgstr "বর্ণ ডিফল্ট"
+msgstr "পূর্বনির্ধারিত বর্ণ"
 
-#: ../Data/GUI/dasher.preferences.ui.h:19
+#: ../Data/GUI/dasher.preferences.ui.h:21
 msgid "Appearance"
-msgstr "আবির্ভাব"
+msgstr "অবয়ব"
 
-#: ../Data/GUI/dasher.preferences.ui.h:20
+#: ../Data/GUI/dasher.preferences.ui.h:22
 msgid "Application"
 msgstr "অ্যাপ্লিকেশন"
 
 # #সায়মিন্দু কয়: এটা কি?
-#: ../Data/GUI/dasher.preferences.ui.h:21
+#: ../Data/GUI/dasher.preferences.ui.h:23
 #: ../Data/GUI/dashermaemo.preferences.ui.h:12
 msgid "Bottom to Top"
-msgstr "নীচ থেকে উপর"
+msgstr "নীচ থেকে উপরে"
 
-#: ../Data/GUI/dasher.preferences.ui.h:22
-#| msgid ""
-#| "Centre circle\n"
-#| "Two box"
+#: ../Data/GUI/dasher.preferences.ui.h:24
 msgid "Centre circle"
-msgstr "কেন্দ্রস্থিত বৃত্ত"
+msgstr "কেন্দ্রের বৃত্ত"
 
-#: ../Data/GUI/dasher.preferences.ui.h:23
+#: ../Data/GUI/dasher.preferences.ui.h:25
 msgid "Composition"
 msgstr "গঠন"
 
-#: ../Data/GUI/dasher.preferences.ui.h:24
-#: ../Data/GUI/dashermaemo.preferences.ui.h:13
-msgid "Control"
-msgstr "নিয়ন্ত্রণ"
-
-#: ../Data/GUI/dasher.preferences.ui.h:25
-msgid "Control mode"
-msgstr "নিয়ন্ত্রণ মোড"
-
-#: ../Data/GUI/dasher.preferences.ui.h:26
-#: ../Data/GUI/dashermaemo.preferences.ui.h:14
-msgid "Custom"
-msgstr "পছন্দসই"
-
+#. Abbreviation for Control Style
+#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 #: ../Data/GUI/dasher.preferences.ui.h:27
-#: ../Data/GUI/dashermaemo.preferences.ui.h:15
-msgid "Custom colour scheme:"
-msgstr "পছন্দসই রং এর বিন্যাস:"
+#: ../Data/GUI/dashermaemo.preferences.ui.h:14
+msgid "Control"
+msgstr "কন্ট্রোল"
 
 #: ../Data/GUI/dasher.preferences.ui.h:28
-#: ../Data/GUI/dashermaemo.preferences.ui.h:16
-msgid "Dasher Preferences"
-msgstr "ড্যাশার পছন্দগুলো"
+msgid "Control mode"
+msgstr "কন্ট্রোল মোড"
 
 #: ../Data/GUI/dasher.preferences.ui.h:29
+#: ../Data/GUI/dashermaemo.preferences.ui.h:15
+msgid "Custom"
+msgstr "স্বনির্ধারিত"
+
+#: ../Data/GUI/dasher.preferences.ui.h:30
+#: ../Data/GUI/dashermaemo.preferences.ui.h:16
+msgid "Custom colour scheme:"
+msgstr "স্বনির্ধারিত রঙের বিন্যাস:"
+
+#: ../Data/GUI/dasher.preferences.ui.h:31
+#: ../Data/GUI/dashermaemo.preferences.ui.h:17
+msgid "Dasher Preferences"
+msgstr "Dasher পছন্দসমূহ"
+
+#: ../Data/GUI/dasher.preferences.ui.h:32
 msgid "Direct entry"
 msgstr "সরাসরি ভুক্তি"
 
-#: ../Data/GUI/dasher.preferences.ui.h:30
+#: ../Data/GUI/dasher.preferences.ui.h:33
 msgid "Dock application window"
-msgstr "অ্যাপ্লিকেশন উইন্ডো ডক করা হবে"
+msgstr "ডক অ্যাপ্লিকেশন উইন্ডো"
 
-#: ../Data/GUI/dasher.preferences.ui.h:31
+#: ../Data/GUI/dasher.preferences.ui.h:34
 msgid "Draw box outlines"
 msgstr "বাক্সের রূপরেখা আঁকুন"
 
-#: ../Data/GUI/dasher.preferences.ui.h:32
+#: ../Data/GUI/dasher.preferences.ui.h:35
 msgid "Draw line between crosshairs and mouse"
 msgstr "ক্রসহেয়ার ও মাউসের মধ্যে রেখা আঁকুন"
 
-#: ../Data/GUI/dasher.preferences.ui.h:33
+#: ../Data/GUI/dasher.preferences.ui.h:36
 msgid "Full Screen"
 msgstr "পর্দাজুড়ে প্রদর্শন"
 
-#: ../Data/GUI/dasher.preferences.ui.h:34
+#: ../Data/GUI/dasher.preferences.ui.h:37
 msgid "Increase line thickness"
 msgstr "লাইনের পুরুত্ব বৃদ্ধি করা হবে"
 
-#: ../Data/GUI/dasher.preferences.ui.h:35
-#: ../Data/GUI/dashermaemo.preferences.ui.h:18
+#: ../Data/GUI/dasher.preferences.ui.h:38
+#: ../Data/GUI/dashermaemo.preferences.ui.h:19
 msgid "Japanese"
-msgstr "জাপানি"
+msgstr "জাপানী"
 
-#: ../Data/GUI/dasher.preferences.ui.h:36
+#: ../Data/GUI/dasher.preferences.ui.h:39
 msgid "Language"
 msgstr "ভাষা"
 
-#: ../Data/GUI/dasher.preferences.ui.h:37
-#: ../Data/GUI/dashermaemo.preferences.ui.h:19
+#: ../Data/GUI/dasher.preferences.ui.h:40
+#: ../Data/GUI/dashermaemo.preferences.ui.h:20
 msgid "Language model adapts as you write."
-msgstr "লেখার সময় ভাষার মডেল পরিবর্তন করা হবে।"
+msgstr "লেখার সময় ভাষার মডেলের সাথে খাপ খাওয়ানো হবে।"
 
-#: ../Data/GUI/dasher.preferences.ui.h:38
+#: ../Data/GUI/dasher.preferences.ui.h:41
 msgid "Large font "
 msgstr "বড় ফন্ট"
 
-#: ../Data/GUI/dasher.preferences.ui.h:39
-#: ../Data/GUI/dashermaemo.preferences.ui.h:20
-msgid "Left to Right"
-msgstr "বাম থেকে ডানদিকে"
-
-#: ../Data/GUI/dasher.preferences.ui.h:40
+#: ../Data/GUI/dasher.preferences.ui.h:42
 #: ../Data/GUI/dashermaemo.preferences.ui.h:21
+msgid "Left to Right"
+msgstr "বাম থেকে ডানে"
+
+#. PPM = Prediction by Partial Match, a statistical language model.
+#: ../Data/GUI/dasher.preferences.ui.h:44
+#: ../Data/GUI/dashermaemo.preferences.ui.h:22
 msgid "Mixture model (PPM/dictionary)"
 msgstr "মিশ্রিত মডেল (PPM/অভিধান)"
 
-#: ../Data/GUI/dasher.preferences.ui.h:41
+#: ../Data/GUI/dasher.preferences.ui.h:45
 msgid "Options"
 msgstr "অপশন"
 
-#: ../Data/GUI/dasher.preferences.ui.h:42
+#: ../Data/GUI/dasher.preferences.ui.h:46
 msgid "Pause outside of canvas"
 msgstr "ক্যানভাসের বাইরে স্থগিত করা হবে"
 
-#: ../Data/GUI/dasher.preferences.ui.h:43
-#: ../Data/GUI/dashermaemo.preferences.ui.h:23
+#: ../Data/GUI/dasher.preferences.ui.h:47
+#: ../Data/GUI/dashermaemo.preferences.ui.h:24
 msgid "Right to Left"
-msgstr "ডান থেকে বামদিকে"
+msgstr "ডান থেকে বামে"
 
-#: ../Data/GUI/dasher.preferences.ui.h:44
+#: ../Data/GUI/dasher.preferences.ui.h:48
 msgid "Select Dasher Font"
-msgstr "ড্যাশার ফন্ট নির্বাচন করুন"
+msgstr "Dasher ফন্ট নির্বাচন করুন"
 
-#: ../Data/GUI/dasher.preferences.ui.h:45
+#: ../Data/GUI/dasher.preferences.ui.h:49
 msgid "Select Editor Font"
 msgstr "সম্পাদক ফন্ট নির্বাচন করুন"
 
-#: ../Data/GUI/dasher.preferences.ui.h:46
+#: ../Data/GUI/dasher.preferences.ui.h:50
 msgid "Show mouse position"
-msgstr "মাউসের অবস্থান দেখান"
+msgstr "মাউসের অবস্থান প্রদর্শন"
 
-#: ../Data/GUI/dasher.preferences.ui.h:47
+#: ../Data/GUI/dasher.preferences.ui.h:51
 msgid "Show speed slider"
-msgstr "গতি নির্দেশক স্লাইডার দেখান"
+msgstr "গতি নির্দেশক স্লাইডার প্রদর্শন"
 
-#: ../Data/GUI/dasher.preferences.ui.h:48
+#: ../Data/GUI/dasher.preferences.ui.h:52
 msgid "Show toolbar"
-msgstr "টুলবার দেখান"
+msgstr "টুলবার প্রদর্শন"
 
-#: ../Data/GUI/dasher.preferences.ui.h:49
+#: ../Data/GUI/dasher.preferences.ui.h:53
 msgid "Small font"
 msgstr "ছোট ফন্ট"
 
-#: ../Data/GUI/dasher.preferences.ui.h:50
+#: ../Data/GUI/dasher.preferences.ui.h:54
 msgid "Stand-alone"
 msgstr "স্বতন্ত্র"
 
-#: ../Data/GUI/dasher.preferences.ui.h:51
-#: ../Data/GUI/dashermaemo.preferences.ui.h:24
+#. PPM = Prediction by Partial Match, a statistical language model.
+#: ../Data/GUI/dasher.preferences.ui.h:56
+#: ../Data/GUI/dashermaemo.preferences.ui.h:25
 msgid "Standard letter-based PPM"
 msgstr "আদর্শ অক্ষর-ভিত্তিক PPM"
 
-#: ../Data/GUI/dasher.preferences.ui.h:52
+#: ../Data/GUI/dasher.preferences.ui.h:57
 msgid "Start on left mouse button"
-msgstr "বাম দিকের মাউস বোতাম ক্লিক করা হলে শুরু করুন"
+msgstr "বামদিকের মাউস বোতামে ক্লিক করা হলে শুরু হবে"
 
-#: ../Data/GUI/dasher.preferences.ui.h:53
+#: ../Data/GUI/dasher.preferences.ui.h:58
 msgid "Start on space bar"
-msgstr "স্পেস বার ব্যবহার করা হলে শুরু করুন"
+msgstr "স্পেসবার ব্যবহার করা হলে শুরু হবে"
 
-#: ../Data/GUI/dasher.preferences.ui.h:54
+#: ../Data/GUI/dasher.preferences.ui.h:59
 msgid "Start with mouse position:"
 msgstr "মাউসের অবস্থান দ্বারা আরম্ভ করা হবে:"
 
-#: ../Data/GUI/dasher.preferences.ui.h:55
+#: ../Data/GUI/dasher.preferences.ui.h:60
 msgid "Timestamp new files"
 msgstr "নতুন ফাইল টাইমস্ট্যাম্প করুন"
 
-#: ../Data/GUI/dasher.preferences.ui.h:56
-#: ../Data/GUI/dashermaemo.preferences.ui.h:25
+#: ../Data/GUI/dasher.preferences.ui.h:61
+#: ../Data/GUI/dashermaemo.preferences.ui.h:26
 msgid "Top to Bottom"
 msgstr "উপর থেকে নীচে"
 
-#: ../Data/GUI/dasher.preferences.ui.h:57
+#: ../Data/GUI/dasher.preferences.ui.h:62
 msgid "Two box"
 msgstr "দুটি বাক্স"
 
-#: ../Data/GUI/dasher.preferences.ui.h:58
-#| msgid ""
-#| "Use this control to adjust the relative sizes of the \n"
-#| "letter boxes. Note that selecting high values will slow\n"
-#| "your writing speed."
+#. Line wrapping not necessary, but looks better for English
+#: ../Data/GUI/dasher.preferences.ui.h:64
 msgid ""
 "Use this control to adjust the relative sizes of the\n"
 "letter boxes. Note that selecting high values will slow\n"
 "your writing speed."
 msgstr ""
-"লেটার বক্সের আকার সমন্বয় করতে \nএই কন্ট্রোলটি ব্যবহার করুন। নোট করুন যে, "
-"উচ্চ মান নির্বাচন করা হলে\nআপনার লেখার গতিকে কমে যাবে।"
+"লেটার বাক্সের আকার সমন্বয় করতে\nএই কন্ট্রোলটি ব্যবহার করুন। উল্লেখ্য যে, "
+"উচ্চ মান নির্বাচন করা হলে\nআপনার লেখার গতি কমে যাবে।"
 
-#: ../Data/GUI/dasher.preferences.ui.h:61
+#: ../Data/GUI/dasher.preferences.ui.h:67
 msgid "Very large font"
-msgstr "খুব বড় ফন্ট"
+msgstr "অত্যাধিক বড় ফন্ট"
 
-#: ../Data/GUI/dasher.preferences.ui.h:62
-#: ../Data/GUI/dashermaemo.preferences.ui.h:27
+#: ../Data/GUI/dasher.preferences.ui.h:68
+#: ../Data/GUI/dashermaemo.preferences.ui.h:28
 msgid "Word-based model"
 msgstr "শব্দ-ভিত্তিক মডেল"
 
-#: ../Data/GUI/dashermaemo.ui.h:2
+#. Abbreviation for Preferences
+#: ../Data/GUI/dashermaemo.ui.h:3
 msgid "P"
 msgstr "P"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:3
 msgid "<b>Color Scheme</b>"
-msgstr "<b>রং এর বিন্যাস:</b>"
+msgstr "<b>রঙের বিন্যাস</b>"
 
 # FIXME
 #: ../Data/GUI/dashermaemo.preferences.ui.h:4
 msgid "<b>Display Size</b>"
-msgstr "<b>প্রদর্শনের পরিমাপ:</b>"
+msgstr "<b>প্রদর্শনের আকার</b>"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:6
 msgid "<b>Orientation</b>"
@@ -512,17 +506,17 @@ msgstr "<b>স্থিতিবিন্যাস</b>"
 msgid "Alphabet"
 msgstr "বর্ণ"
 
-#: ../Data/GUI/dashermaemo.preferences.ui.h:17
+#: ../Data/GUI/dashermaemo.preferences.ui.h:18
 msgid "Enlarge input window"
-msgstr "ইনপুট উইন্ডোর বড় করুন"
+msgstr "ইনপুট উইন্ডোর আকার বৃদ্ধি করুন"
 
-#: ../Data/GUI/dashermaemo.preferences.ui.h:22
+#: ../Data/GUI/dashermaemo.preferences.ui.h:23
 msgid "Prediction"
 msgstr "অনুমান"
 
-#: ../Data/GUI/dashermaemo.preferences.ui.h:26
+#: ../Data/GUI/dashermaemo.preferences.ui.h:27
 msgid "View"
-msgstr "দর্শন"
+msgstr "প্রদর্শন"
 
 #: ../Data/GUI/dashermaemofullscreen.ui.h:3
 msgid "Large"
@@ -534,7 +528,7 @@ msgstr "সাধারণ"
 
 #: ../Data/GUI/dashermaemofullscreen.ui.h:7
 msgid "Very Large"
-msgstr "খুব বড়"
+msgstr "অত্যাধিক বড়"
 
 #: ../Data/GUI/dashermaemofullscreen.ui.h:9
 msgid "_Dasher Font"
@@ -542,7 +536,7 @@ msgstr "ড্যাশার ফন্ট (_D)"
 
 #: ../Data/GUI/dashermaemofullscreen.ui.h:10
 msgid "_Dasher Font Size"
-msgstr "ড্যাশার ফন্টের সাইজ (_D)"
+msgstr "ড্যাশার ফন্টের আকার (_D)"
 
 #: ../Data/GUI/dashermaemofullscreen.ui.h:12
 msgid "_Edit Font"
@@ -554,28 +548,28 @@ msgstr "অপশন (_O)"
 
 #: ../Data/GUI/dashermaemofullscreen.ui.h:16
 msgid "_Reset fonts"
-msgstr "পুরোনো ফন্টে ফেরত যান (_R)"
+msgstr "ফন্ট পুনঃনির্ধারণ করুন (_R)"
 
 #. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:28
 #: ../Src/DasherCore/ButtonMode.cpp:28 ../Src/DasherCore/CompassMode.cpp:28
 msgid "Zoom steps"
-msgstr "<b>বড় করে দেখার ধাপ</b>"
+msgstr "বড় করে দেখার মাত্রা"
 
 #. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:30
 #: ../Src/DasherCore/ButtonMode.cpp:39 ../Src/DasherCore/CompassMode.cpp:32
 msgid "Global keyboard grab"
-msgstr "গ্লোবাল কীবোর্ড গ্রেব"
+msgstr "গ্লোবাল কীবোর্ড গ্র্যাব"
 
 #. menu
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:34
 msgid "Alternating Direct Mode"
-msgstr "পারস্পরিক পরিবর্তীত ডিরেক্ট মোড"
+msgstr "পারস্পরিক পরিবর্তিত ডিরেক্ট মোড"
 
 #: ../Src/DasherCore/ButtonMode.cpp:29
 msgid "Scan time in menu mode (0 to not scan)"
-msgstr "মেনু মোডে সময় স্ক্যান করা হয় (স্ক্যান না করার জন্য 0)"
+msgstr "মেনু মোডে স্ক্যান করার সময় (স্ক্যান না করার জন্য 0)"
 
 #: ../Src/DasherCore/ButtonMode.cpp:30
 msgid "Number of boxes"
@@ -592,11 +586,11 @@ msgstr "নিরাপত্তা মার্জিন"
 #.
 #: ../Src/DasherCore/ButtonMode.cpp:37
 msgid "Box non-uniformity"
-msgstr "অভিন্নতা ব্যতিত বাক্স"
+msgstr "অভিন্নতা ব্যতীত বাক্স"
 
 #: ../Src/DasherCore/ClickFilter.cpp:9
 msgid "Maximum Zoom"
-msgstr "সর্বোচ্চ বড় করে দেখা"
+msgstr "সর্বোচ্চ বড় আকারে প্রদর্শন"
 
 #: ../Src/DasherCore/ClickFilter.h:12
 msgid "Click Mode"
@@ -605,7 +599,7 @@ msgstr "মোডে ক্লিক করুন"
 #. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
 #: ../Src/DasherCore/CompassMode.cpp:30
 msgid "Right zoom"
-msgstr "সঠিক আকারে বড় করে দেখা"
+msgstr "সঠিক আকারে বড় করে প্রদর্শন"
 
 #. bMenu
 #: ../Src/DasherCore/CompassMode.cpp:38
@@ -614,11 +608,11 @@ msgstr "কম্পাস মোড"
 
 #: ../Src/DasherCore/DasherGameMode.cpp:636
 msgid "Well done!"
-msgstr "খুব ভালো করেছেন!"
+msgstr "খুব ভালো!"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:905
 msgid "Normal Control"
-msgstr "সাধারণ নিয়ন্ত্রণ"
+msgstr "সাধারণ কন্ট্রোল"
 
 #. TODO: specialist factory for button mode
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:921
@@ -631,7 +625,7 @@ msgstr "সরাসরি মোড"
 
 #: ../Src/DasherCore/DasherInterfaceBase.cpp:926
 msgid "Stylus Control"
-msgstr "স্টাইলাস নিয়ন্ত্রণ"
+msgstr "স্টাইলাস কন্ট্রোল"
 
 #: ../Src/DasherCore/EyetrackerFilter.cpp:9
 msgid "Automatic calibration"
@@ -646,12 +640,12 @@ msgstr "আইট্র্যাকার মোড"
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:35
 msgid "Long press time"
-msgstr "দীর্ঘ সময় ধরে চাপ দিয়ে রাখা"
+msgstr "দীর্ঘ সময় ধরে চাপে রাখা"
 
 #. TRANSLATORS: Double-clicks are special in some situations (they cause us to start reversing). This is the time in which the button must be pressed twice to count.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
 msgid "Double-press time"
-msgstr "দ্বিগুন সময় ধরে চাপ দিয়ে রাখা"
+msgstr "দ্বিগুন সময় ধরে চাপে রাখা"
 
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
@@ -662,7 +656,7 @@ msgstr "পূর্বাবস্থায় ফেরানোর বোতা�
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
 msgid "Slow startup"
-msgstr "আরম্ভ  ধীর করুন"
+msgstr "আরম্ভ  মন্থর করুন"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:37
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:44
@@ -673,7 +667,7 @@ msgstr "আরম্ভের সময়"
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:46
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
 msgid "Percentage by which to automatically increase speed"
-msgstr "স্বয়ংক্রিয়ভাবে গতি শতকরায় কতো বৃদ্ধি করা হবে"
+msgstr "স্বয়ংক্রিয়ভাবে গতি শতকরায় কত বৃদ্ধি করা হবে"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:47
@@ -685,7 +679,7 @@ msgstr "যে সময়ের পরে স্বয়ংক্রিয়ভাব
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:48
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
 msgid "Percentage by which to decrease speed upon reverse"
-msgstr "বিপরীত দিকে গতি শতকরায় কতো কমানো হবে"
+msgstr "বিপরীত দিকে গতি শতকরায় কত কমানো হবে"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:44
 msgid "One Button Dynamic Mode"
@@ -693,11 +687,11 @@ msgstr "একক বোতাম ডাইনামিক মোড"
 
 #: ../Src/DasherCore/OneButtonFilter.cpp:11
 msgid "Scan time (each direction), in ms"
-msgstr "মিলিসে. সময় স্ক্যান করা হবে (প্রতিটি দিকে)"
+msgstr "স্ক্যান করার সময় (প্রতিটি দিকে), মিলিসেকেন্ডে"
 
 #: ../Src/DasherCore/OneButtonFilter.cpp:12
 msgid "Factor by which to zoom in"
-msgstr "বড় করে প্রদর্শনের জন্য ফ্যাক্টর"
+msgstr "বড় আকারে প্রদর্শনের জন্য ফ্যাক্টর"
 
 #: ../Src/DasherCore/OneButtonFilter.cpp:13
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
@@ -708,7 +702,7 @@ msgstr "ব্যবহারকারী বোতাম চাপার আগ
 #. COneDimensionalFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel);
 #: ../Src/DasherCore/OneDimensionalFilter.h:12
 msgid "One Dimensional Mode"
-msgstr "এক মাত্রিক মোড"
+msgstr "একমাত্রিক মোড"
 
 #: ../Src/DasherCore/SettingsStore.cpp:76
 #: ../Src/Gtk2/DasherAppSettings.cpp:523 ../Src/Gtk2/DasherAppSettings.cpp:557
@@ -728,22 +722,24 @@ msgstr "মিথ্যা"
 #: ../Src/DasherCore/SettingsStore.cpp:84
 #: ../Src/Gtk2/DasherAppSettings.cpp:528
 msgid "boolean value must be specified as 'true' or 'false'."
-msgstr "বুলিয়ান মান অবশ্যই 'সত্য' অথবা মিথ্যা দ্বারা সুনির্দিষ্ট ভাবে উল্লেখ করতে হবে"
+msgstr ""
+"বুলিয়ান মান অবশ্যই 'সত্য' অথবা 'মিথ্যা' দ্বারা সুনির্দিষ্ট ভাবে উল্লেখ করতে "
+"হবে।"
 
 #. Note to translators: This is output when command line "--options" doesn't
 #. specify a known option.
 #: ../Src/DasherCore/SettingsStore.cpp:104
 msgid "unknown option, use \"--help-options\" for more information."
-msgstr "অজানা অপশন, আরো তথ্যের জন্য  \"--help-options\" ব্যবহার করুন।"
+msgstr "অজানা অপশন, আরও তথ্যের জন্য  \"--সহায়তা-অপশন\" ব্যবহার করুন।"
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
 msgid "Dasher socket input: failed to launch reader thread."
-msgstr "ড্যাশার সকেট ইনপুট: রিডার থ্রেড আরম্ভ করতে ব্যর্থ"
+msgstr "Dasher সকেট ইনপুট: রিডার থ্রেড আরম্ভ করতে ব্যর্থ।"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:27
 msgid "Port:"
-msgstr "পোর্ট"
+msgstr "পোর্ট:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:28
 msgid "X label:"
@@ -771,7 +767,7 @@ msgstr "Y সর্বোচ্চ:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:34
 msgid "Print socket-related debugging information to console:"
-msgstr "কনসোলে সকেট-সম্পর্কিত ডিবাগিং তথ্য দেখানো হবে:"
+msgstr "কনসোলে সকেট-সম্পর্কিত ডিবাগিং তথ্য মুদ্রণ করা হবে:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:38
 msgid "Socket Input"
@@ -803,12 +799,12 @@ msgstr "উপরের এবং নিচের বোতাম উল্ট�
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:42
 msgid "Double-click is opposite up/down — triple to reverse"
 msgstr ""
-"বিপরিত উপর/নিচ এ যাওয়ার জন্য ডাবল-ক্লিক - উল্টানোর জন্য তিনবার ক্লিক করতে "
-"হবে"
+"বিপরীতভাবে উপর/নিচ এ যাওয়ার জন্য ডাবল-ক্লিক — উল্টানোর জন্য তিনবার ক্লিক "
+"করতে হবে"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:52
 msgid "Two Button Dynamic Mode"
-msgstr "দুই বোতাম ডাইনামিক মোড"
+msgstr "দুই বোতামের ডাইনামিক মোড"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:30
 msgid "Offset for outer (second) button"
@@ -826,15 +822,15 @@ msgstr "১ম বোতাম নিচে নামানোর দুরত�
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:33
 msgid "Tolerance for inaccurate timing of button pushes (in ms)"
-msgstr "বোতাম চাপার ভুল সময়জ্ঞানের জন্য সহিষ্ণুতা (মিলিসে. এ)"
+msgstr "বোতাম চাপার ভুল সময়জ্ঞানের জন্য সহিষ্ণুতা (মিলিসেকেন্ডে)"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
 msgid "Slow startup time"
-msgstr "আরম্ভের সময় ধীর করুন"
+msgstr "আরম্ভের সময় মন্থর করুন"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:47
 msgid "Two-push Dynamic Mode (New One Button)"
-msgstr "দুইবার চাপার ডাইনামিক মোড (নতুন বোতাম)"
+msgstr "দুইবার চাপার ডাইনামিক মোড (নতুন একটি বোতাম)"
 
 #: ../Src/Gtk2/DasherAppSettings.cpp:554
 msgid "Boolean parameters"
@@ -843,12 +839,12 @@ msgstr "বুলিয়ান প্যারামিটার"
 #: ../Src/Gtk2/DasherAppSettings.cpp:554 ../Src/Gtk2/DasherAppSettings.cpp:565
 #: ../Src/Gtk2/DasherAppSettings.cpp:576
 msgid "Default"
-msgstr "ডিফল্ট"
+msgstr "পূর্বনির্ধারিত"
 
 #: ../Src/Gtk2/DasherAppSettings.cpp:554 ../Src/Gtk2/DasherAppSettings.cpp:565
 #: ../Src/Gtk2/DasherAppSettings.cpp:576
 msgid "Description"
-msgstr "বর্ণনা"
+msgstr "বিবরণ"
 
 #: ../Src/Gtk2/DasherAppSettings.cpp:565
 msgid "Integer parameters"
@@ -865,7 +861,7 @@ msgstr "কাজ"
 #. TRANSLATORS: Show a button for the selected action in the Dasher window.
 #: ../Src/Gtk2/Preferences.cpp:1015
 msgid "Show Button"
-msgstr "বোতাম দেখান"
+msgstr "বোতাম প্রদর্শন"
 
 #: ../Src/Gtk2/Preferences.cpp:1020
 msgid "Control Mode"
@@ -902,20 +898,20 @@ msgstr "সর্বশেষ"
 #. TRANSLATORS: Repeat the last phrase sent to the text-to-speech engine.
 #: ../Src/Gtk2/dasher_action_speech.cpp:156
 msgid "Repeat"
-msgstr "পুনরায়"
+msgstr "পুনরাবৃত্ত"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:174
 #, c-format
 msgid "Unable to initialize speech support\n"
-msgstr "বাক সমর্থন চালু করা গেল না\n"
+msgstr "বাক সমর্থন চালু করতে অক্ষম\n"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:197
 msgid "Unable to initialize voices\n"
-msgstr "ভয়েস আরম্ভ করতে ব্যর্থ\n"
+msgstr "ভয়েস আরম্ভ করতে অক্ষম\n"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:209
 msgid "Warning: unable to set speech parameters\n"
-msgstr "সতর্কতা: কোনো বাক প্যারামিটার নির্ধারণ করা যায়নি\n"
+msgstr "সতর্কীকরণ: বাক প্যারামিটার নির্ধারণ করতে অক্ষম\n"
 
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
 #: ../Src/Gtk2/dasher_main.cpp:266
@@ -925,7 +921,7 @@ msgstr "অপশন সেটিং থেকে \"=\" হারিয়ে গ�
 #. Note to translators: This string will be output when --options= specifies an unknown option.
 #: ../Src/Gtk2/dasher_main.cpp:282
 msgid "Invalid option string specified"
-msgstr "অকার্যকর স্ট্রিং সুনির্দিষ্ট ভাবে উল্লেখ করা হয়েছে"
+msgstr "অকার্যকর স্ট্রিং অপশন উল্লেখ করা হয়েছে"
 
 #: ../Src/Gtk2/dasher_main.cpp:1008
 #, c-format
@@ -934,9 +930,8 @@ msgid ""
 "\n"
 "Your changes will be lost if you don't save them."
 msgstr ""
-"আপনি কি আপনার পরিবর্তন %s এ সংরক্ষণ করতে চান?\n"
-"\n"
-"সংরক্ষণ করা না হলে পরিবর্তনগুলো হারিয়ে যেতে পারে।"
+"আপনি কি আপনার পরিবর্তন %s-এ সংরক্ষণ করতে চান?\n\nসংরক্ষণ করা না হলে "
+"পরিবর্তনগুলো হারিয়ে যেতে পারে।"
 
 #: ../Src/Gtk2/dasher_main.cpp:1015
 msgid ""
@@ -966,24 +961,26 @@ msgstr "আপনি কি নিশ্চিত যে আপনি প্র�
 
 #: ../Src/Gtk2/dasher_main.cpp:1089
 msgid "Unable to open help file"
-msgstr "সহায়তা ফাইল খুলতে পারেনি"
+msgstr "সহায়তা ফাইল খুলতে খুলতে অক্ষম"
 
 #: ../Src/Gtk2/dasher_main.cpp:1141
 msgid "Dasher is a predictive text entry application"
-msgstr "ড্যাশার একটি আনুমানিক টেক্সট এন্ট্রি অ্যাপ্লিকেশন"
+msgstr "Dasher একটি আনুমানিক টেক্সট এন্ট্রি অ্যাপ্লিকেশন"
 
 #: ../Src/Gtk2/dasher_main.cpp:1146
 msgid "translator-credits"
 msgstr ""
-"সায়মিন্দু দাশগুপ্ত <unmadindu@bengalinux.org> \n"
-"মাহে আলম খান <makl10n@yahoo.com> \n"
-"খন্দকার মুজাহিদুল ইসলাম সুজন <suzan@bengalinux.org> \n"
-"গোলাম মারুফ অভি <maruf@ankur.org.bd> \n"
-" (অঙ্কুর বাংলা প্রকল্পের তরফ থেকে)"
+"অঙ্কুর প্রকল্পের পক্ষে সায়মিন্দু দাশগুপ্ত <unmadindu@bengalinux.org>\n"
+"মাহে আলম খান <makl10n@yahoo.com>\n"
+"খন্দকার মুজাহিদুল ইসলাম সুজন <suzan@bengalinux.org>\n"
+"সামিয়া নিয়ামতুল্লাহ <mailsamia2001@yahoo.com>\n"
+"গোলাম মারুফ অভি <maruf@ankur.org.bd>\n"
+"লোবা ইয়াসমিন <loba@ankur.org.bd>\n"
+"সাদিয়া আফরোজ <sadia@ankur.org.bd>"
 
 #: ../Src/Gtk2/module_settings_window.cpp:88
 msgid "Dasher Module Options"
-msgstr "ড্যাশার মডিউল অপশন"
+msgstr "Dasher মডিউল অপশন"
 
 #: ../Src/Gtk2/module_settings_window.cpp:94
 #, c-format
@@ -1001,7 +998,7 @@ msgstr "Y পরিসরের পিক্সেলসমূহ"
 #. TRANSLATORS: Only use the vertical mouse coordinate - this is prefered for some disabled users.
 #: ../Src/Gtk2/mouse_input.h:58
 msgid "One Dimensional Mouse Input"
-msgstr "এক মাত্রিক মাউস ইনপুট"
+msgstr "একমাত্রিক মাউস ইনপুট"
 
 #. {"timedata", 'w', 0, G_OPTION_ARG_NONE, &timedata, "Write basic timing information to stdout", NULL},
 #. {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences window only", NULL},
@@ -1010,22 +1007,22 @@ msgstr "এক মাত্রিক মাউস ইনপুট"
 #. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
 #: ../Src/main.cc:171
 msgid "Application style (traditional, direct, compose or fullscreen)"
-msgstr "অ্যাপ্লিকেশন শৈলী (সনাতন, সরাসরি, কম্পোজ অথবা পর্দা জুড়ে)"
+msgstr "অ্যাপ্লিকেশনের শৈলী (সনাতন, সরাসরি, কম্পোজ অথবা পর্দা জুড়ে)"
 
 #. Note to translators: This is the help string for "--options"
 #: ../Src/main.cc:173
 msgid "Override stored options"
-msgstr "সংরক্ষিত অপশন অগ্রাহ্য করা"
+msgstr "সংরক্ষিত অপশন উপেক্ষা করা হবে"
 
 #. Note to translators: This is the help string for "--help-options"
 #: ../Src/main.cc:175
 msgid "Describe \"--options\"."
-msgstr "বর্ণনা \"--options\"।"
+msgstr "বিবরণ \"--অপশন\"।"
 
 #. Note to translators: This is the "--help" description of dasher.
 #: ../Src/main.cc:182
 msgid "- A text input application honouring accessibility"
-msgstr "- প্রবেশযোগ্যতার জন্য একটি পাঠ্য ইনপুট অ্যাপ্লিকেশন"
+msgstr "- স্বাচ্ছন্দ্যকরণের জন্য একটি টেক্সট ইনপুট অ্যাপ্লিকেশন"
 
 #~ msgid "abcdefghijk ABCDEFGHIJK"
 #~ msgstr "abcdefghijk ABCDEFGHIJK"
