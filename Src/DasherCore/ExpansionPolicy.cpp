@@ -21,38 +21,25 @@ BudgettingPolicy::BudgettingPolicy(unsigned int iNodeBudget) : m_iNodeBudget(iNo
 
 double BudgettingPolicy::pushNode(CDasherNode *pNode, int iMin, int iMax, bool bExpand, double dParentCost) {
   double dRes = getCost(pNode, iMin, iMax);
-
-  if (dRes >= dParentCost) {
-
-#if defined(BYTE_ORDER) && (BYTE_ORDER == BIG_ENDIAN)
-    double eps = max(abs(dParentCost),1.0) * std::numeric_limits<double>::epsilon();
-    DASHER_ASSERT((dParentCost-eps) < dParentCost);
-    for (double nRes; (nRes = dParentCost - eps) < dParentCost; eps/=2.0) {
-        // nRes<dParentCost guaranteed true by loop test - remember it!
-        dRes = nRes;
-    }
-#else
-
-// TL - Dasher spends 10-15% of its time on my system in the 'for' loop
-// above. The code below has the same result, though might be considered
-// hacky and relies on endian-ness.
-
-    dRes = ((dParentCost==0.0)?-0.0:dParentCost);
-    if (dRes > 0.0) {
-        (*(int64*)&dRes)--;
-    } else {
-        (*(int64*)&dRes)++;
-    }
-
-// This is probably more portable, uses fractionally more CPU than the above
-// (but still 50x less than the for loop).
-// nextafter() is called _nextafter() in Visual Studio.
-// dRes=_nextafter(dParentCost,-std::numeric_limits<double>::max());
-#endif
+  if (dRes<dParentCost) {
+    //obvious case: node is less important/costly than parent; will be collapsed first
+    // (or expanded but only if parent is not collapsed) 
+    vector<pair<double, CDasherNode*> > &target = (bExpand) ? sExpand : sCollapse;
+    target.push_back(pair<double, CDasherNode *>(dRes,pNode));
+  } else {
+    //node has same or greater cost than parent. Take care of latter case...
+    dRes = dParentCost;
+    
+    //Parent has children, so must have been enqueued to collapse;
+    // thus, avoid enqueuing child node to collapse also: if costs are accurate
+    // (i.e. in terms of the benefit/detriment of what's onscreen), then collapsing
+    // parent will free up more nodes (by recursively collapsing child)
+    if (bExpand) sExpand.push_back(pair<double,CDasherNode *>(dRes, pNode));
+    
+    //Of course, that also removes the possibility of collapsing the parent first,
+    // then trying to collapse the child afterwards (=>freed pointer), if they get
+    // sorted the wrong way round...
   }
-  DASHER_ASSERT(dRes < dParentCost);
-  vector<pair<double, CDasherNode*> > &target = (bExpand) ? sExpand : sCollapse;
-  target.push_back(pair<double, CDasherNode *>(dRes,pNode));
   return dRes;
 }
 
