@@ -111,9 +111,8 @@ namespace Dasher {
     int GetIndex(CPPMnode *pAddr, std::map<CPPMnode *, int> *pmapIdx, int *pNextIdx);
     CPPMnode *GetAddress(int iIndex, std::map<int, CPPMnode*> *pMap);
 
-    CPPMnode *AddSymbolToNode(CPPMnode * pNode, symbol sym, int *update);
-
-    virtual void AddSymbol(CPPMContext & context, symbol sym);
+    CPPMnode *AddSymbolToNode(CPPMnode * pNode, symbol sym);
+    
     void dumpSymbol(symbol sym);
     void dumpString(char *str, int pos, int len);
     void dumpTrie(CPPMnode * t, int d);
