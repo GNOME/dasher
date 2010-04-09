@@ -1,3 +1,7 @@
+2010-04-09  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Fix Sun Studio compiler build - from Brian Cameron in #613000
+
 2010-03-13  Patrick Welche <prlw1@cam.ac.uk>
 
 	* Win32: Fix windows build.

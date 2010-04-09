@@ -56,7 +56,7 @@ namespace Dasher {
 ///             knows the current viewpoint
 ///             knows how to evolve the viewpoint
 ///
-class Dasher::CDasherModel:public CFrameRate, private NoClones
+class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
 {
  public:
 
