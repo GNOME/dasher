@@ -1,3 +1,8 @@
+2010-04-12  Patrick Welche <prlw1@cam.ac.uk>
+
+	* configure.ac: Move -export-dynamic flag so it is only used by
+	  libtool. Report by Brian Cameron and Daniel Macks in #613001.
+
 2010-04-09  Patrick Welche <prlw1@cam.ac.uk>
 
 	* Fix Sun Studio compiler build - from Brian Cameron in #613000

@@ -219,12 +219,6 @@ fi
 DAM_GCONF_SOURCE_2
 if test x$BUILDGTK2 = xtrue
 then
-# GtkBuilder's autoconnect feature requires dasher to be linked with
-# the --export-dynamic flag. pkg-config does not provide it, and libtool
-# knows what to do with -export-dynamic.
-# (We need this e.g., for <object class="DasherEditor">)
-	GTK2_LIBS="$GTK2_LIBS -export-dynamic"
-
 	PKG_CHECK_MODULES(GCONF, gconf-2.0,
 		[AC_DEFINE([WITH_GCONF], 1, [Use GConf])],
 		[AC_MSG_WARN([GConf was not detected - user preferences will not be stored.])])
@@ -242,6 +236,11 @@ then
 	)
 	CFLAGS="$save_CFLAGS"
 	LIBS="$save_LIBS"
+# GtkBuilder's autoconnect feature requires dasher to be linked with
+# the --export-dynamic flag. pkg-config does not provide it, and libtool
+# knows what to do with -export-dynamic.
+# (We need this e.g., for <object class="DasherEditor">)
+	GTK2_LIBS="$GTK2_LIBS -export-dynamic"
 else
 	AC_MSG_ERROR("Unable to find GTK2 or another necessary library.")
 fi
