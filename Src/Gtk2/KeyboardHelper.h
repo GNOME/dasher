@@ -14,7 +14,7 @@ class CKeyboardHelper {
   void UnsetKey(int iCode);
 
   int ConvertKeycode(int iCode);
-  void Grab(bool bGrab);
+  // unused: void Grab(bool bGrab);
 
  private:
   void SetupDefaults();

@@ -167,6 +167,7 @@ int CKeyboardHelper::ConvertKeycode(int iCode) {
     return -1;
 }
 
+/* Not called - commented out because of X11 lib dependence
 void CKeyboardHelper::Grab(bool bGrab) {
   for(std::map<int,int>::iterator it(m_mTable.begin()); it != m_mTable.end(); ++it) {
     GdkKeymapKey *pKeys;
@@ -183,3 +184,4 @@ void CKeyboardHelper::Grab(bool bGrab) {
     }
   }
 }
+*/

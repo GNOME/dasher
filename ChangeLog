@@ -3,6 +3,9 @@
 	* dasher.xml.in: Save Christian Kirbach's typo corrections.
 	* configure.ac: Make PACKAGE_URL work with all versions of autoconf.
 	  (#615564)
+	* Comment out CKeyboardHelper::Grab as not used after
+	  b4cbd3b5 "Fixing up keyboard stuff" "TODO: Sort these methods out"
+	  yet it needs XGrab from libX11. (#615573)
 
 2010-04-12  Patrick Welche <prlw1@cam.ac.uk>
 
