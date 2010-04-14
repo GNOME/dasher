@@ -1,6 +1,8 @@
 2010-04-14  Patrick Welche <prlw1@cam.ac.uk>
 
 	* dasher.xml.in: Save Christian Kirbach's typo corrections.
+	* configure.ac: Make PACKAGE_URL work with all versions of autoconf.
+	  (#615564)
 
 2010-04-12  Patrick Welche <prlw1@cam.ac.uk>
 

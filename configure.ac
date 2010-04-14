@@ -2,13 +2,16 @@ AC_PREREQ(2.59)
 AC_INIT([dasher],
   m4_esyscmd([build-aux/mkversion]),
   [http://bugzilla.gnome.org/enter_bug.cgi?product=dasher],
-  [dasher])
+  [dasher],
+  [http://www.inference.phy.cam.ac.uk/dasher/])
 
 # This becomes part of AC_INIT in autoconf 2.64
-PACKAGE_URL="http://www.inference.phy.cam.ac.uk/dasher/"
-AC_DEFINE_UNQUOTED([PACKAGE_URL], ["$PACKAGE_URL"],
-                   [Define to the home page for this package.])
-AC_SUBST([PACKAGE_URL])
+m4_ifndef([AC_PACKAGE_URL],
+	[m4_define([AC_PACKAGE_URL],[http://www.inference.phy.cam.ac.uk/dasher/])
+	AC_DEFINE_UNQUOTED([PACKAGE_URL],
+                       [AC_PACKAGE_URL],
+                       [Define to the home page for this package.])
+	AC_SUBST([PACKAGE_URL],[AC_PACKAGE_URL])])
 
 AC_CONFIG_SRCDIR([Src/main.cc])
 AC_CONFIG_HEADERS(config.h)
