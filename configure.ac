@@ -7,7 +7,7 @@ AC_INIT([dasher],
 
 # This becomes part of AC_INIT in autoconf 2.64
 m4_ifndef([AC_PACKAGE_URL],
-	[m4_define([AC_PACKAGE_URL],[http://www.inference.phy.cam.ac.uk/dasher/])
+	[m4_define([AC_PACKAGE_URL],["http://www.inference.phy.cam.ac.uk/dasher/"])
 	AC_DEFINE_UNQUOTED([PACKAGE_URL],
                        [AC_PACKAGE_URL],
                        [Define to the home page for this package.])
