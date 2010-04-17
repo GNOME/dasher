@@ -68,8 +68,12 @@ void CDasherControl::CreateModules() {
 
 void CDasherControl::SetupUI() {
   m_pCanvas = gtk_drawing_area_new();
+#if GTK_CHECK_VERSION (2,18,0)
+  gtk_widget_set_can_focus(m_pCanvas, TRUE);
+#else
   GTK_WIDGET_SET_FLAGS(m_pCanvas, GTK_CAN_FOCUS);
-  GTK_WIDGET_UNSET_FLAGS(m_pCanvas, GTK_DOUBLE_BUFFERED);
+#endif
+  gtk_widget_set_double_buffered(m_pCanvas, FALSE);
 
   GtkWidget *pFrame = gtk_frame_new(NULL);
   gtk_frame_set_shadow_type(GTK_FRAME(pFrame), GTK_SHADOW_IN); 
@@ -402,7 +406,11 @@ void CDasherControl::HandleParameterNotification(int iParameter) {
 int CDasherControl::TimerEvent() {
   int x, y;
 
+#if GTK_CHECK_VERSION (2,14,0)
+  gdk_window_get_pointer(gtk_widget_get_window(m_pCanvas), &x, &y, NULL);
+#else
   gdk_window_get_pointer(m_pCanvas->window, &x, &y, NULL);
+#endif
   m_pMouseInput->SetCoordinates(x, y);
 
   gdk_window_get_pointer(gdk_get_default_root_window(), &x, &y, NULL);
@@ -429,7 +437,11 @@ int CDasherControl::TimerEvent() {
       GdkRectangle sWindowRect;
       GdkRectangle sCanvasRect;
 
+#if GTK_CHECK_VERSION (2,14,0)
+      gdk_window_get_frame_extents(gtk_widget_get_window(m_pCanvas), &sWindowRect);
+#else
       gdk_window_get_frame_extents(m_pCanvas->window, &sWindowRect);
+#endif
 
       pUserLog->AddWindowSize(sWindowRect.y, 
                               sWindowRect.x, 

@@ -79,7 +79,11 @@ DasherMaemoHelper *dasher_maemo_helper_new(GtkWindow *pWindow) {
 
 void dasher_maemo_helper_setup_window(DasherMaemoHelper *pSelf) {
   DasherMaemoHelperPrivate *pPrivate = (DasherMaemoHelperPrivate *)(pSelf->private_data);
+#if GTK_CHECK_VERSION (2,14,0)
+  gdk_window_add_filter(GDK_WINDOW(gtk_widget_get_window(GTK_WIDGET(pPrivate->pWindow))), peek_filter, pSelf);
+#else
   gdk_window_add_filter(GDK_WINDOW(GTK_WIDGET(pPrivate->pWindow)->window), peek_filter, pSelf);
+#endif
 }
 
 // TODO: Make better use of the GDK X11 wrapper functions
@@ -102,7 +106,11 @@ GdkFilterReturn dasher_maemo_helper_handle_xevent(DasherMaemoHelper *pSelf, GdkX
       g_FWindow = (Window)xev->xclient.data.l[1];
       g_pFocusWindow = gdk_window_foreign_new(g_FWindow);
       g_pRandomWindow = gdk_window_foreign_new(g_FRandomWindow);
+#if GTK_CHECK_VERSION (2,14,0)
+      gdk_window_set_transient_for(GDK_WINDOW(gtk_widget_get_window(GTK_WIDGET(pPrivate->pWindow))), g_pFocusWindow);
+#else
       gdk_window_set_transient_for(GDK_WINDOW(GTK_WIDGET(pPrivate->pWindow)->window), g_pFocusWindow);
+#endif
     } 
 
     else if((xev->xclient.data.l[3] == 0x11) || (xev->xclient.data.l[3] == 0x12))  {
