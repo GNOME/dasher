@@ -16,21 +16,21 @@
   <maintainer>
     <foaf:Person>
       <foaf:name>Patrick Welche</foaf:name>
-      <foaf:mbox rdf:resource="dasher@inf.phy.cam.ac.uk" />
+      <foaf:mbox rdf:resource="mailto:dasher@inf.phy.cam.ac.uk" />
       <gnome:userid>pwelche</gnome:userid>
     </foaf:Person>
   </maintainer>
   <maintainer>
     <foaf:Person>
       <foaf:name>Peter Conlon</foaf:name>
-      <foaf:mbox rdf:resource="peter conlon cantab net" />
+      <foaf:mbox rdf:resource="mailto:peter.conlon@cantab.net" />
       <gnome:userid>pconlon</gnome:userid>
     </foaf:Person>
   </maintainer>
   <maintainer>
     <foaf:Person>
       <foaf:name>Aaron Larson</foaf:name>
-      <foaf:mbox rdf:resource="alarson@svn.gnome.org" />
+      <foaf:mbox rdf:resource="mailto:alarson@svn.gnome.org" />
       <gnome:userid>alarson</gnome:userid>
     </foaf:Person>
   </maintainer>
