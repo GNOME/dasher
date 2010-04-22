@@ -1,27 +1,25 @@
-# translation of dasher.gnome-2-26.po to catalan
 # Dasher translation to Catalan.
-# Copyright © 2004-2006, 2009 The Free Software Foundation, Inc.
-#
+# Copyright © 2004-2006 The Free Software Foundation, Inc.
 #
 # Softcatalà <gnome@softcatala.net>, 2004.
 # Aleix Badia i Bosch <a.badia@callusdigital.org>, 2004.
 # Xavier Conde Rueda <xaviconde@eresmas.com>, 2004.
-# Gil Forcada <gilforcada@guifi.net>, 2006, 2007, 2008.
-# Carles Ferrando Garcia <carles.ferrando@gmail.com>, 2009.
+# Gil Forcada <gilforcada@guifi.net>, 2006, 2007, 2008, 2009.
+#
 # Veure la resolució d'algunes cadenes confoses a:
 # http://bugzilla.gnome.org/show_bug.cgi?id=463432
+# Carles Ferrando <carles.ferrando@gmail.com>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher.gnome-2-26\n"
+"Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-09 11:45+0200\n"
-"PO-Revision-Date: 2009-08-06 17:47+0200\n"
-"Last-Translator: Carles Ferrando Garcia <carles.ferrando@gmail.com>\n"
-"Language-Team: catalan <tradgnome@softcatala.org>\n"
+"POT-Creation-Date: 2010-04-22 23:48+0200\n"
+"PO-Revision-Date: 2010-03-20 15:24+0100\n"
+"Last-Translator: Carles Ferrando <carles.ferrando@gmail.com>\n"
+"Language-Team: Catalan (Valencià) <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
@@ -101,9 +99,9 @@ msgstr "Alça el fitxer"
 msgid "Save file as"
 msgstr "Anomena i alça"
 
-#: ../Data/GUI/dasher.compose.ui.h:14 ../Data/GUI/dasher.direct.ui.h:4
-#: ../Data/GUI/dasher.fullscreen.ui.h:3 ../Data/GUI/dasher.gameWIP.ui.h:23
-#: ../Data/GUI/dashermaemo.ui.h:6 ../Data/GUI/dashermaemofullscreen.ui.h:5
+#: ../Data/GUI/dasher.compose.ui.h:14 ../Data/GUI/dasher.fullscreen.ui.h:3
+#: ../Data/GUI/dasher.gameWIP.ui.h:23 ../Data/GUI/dashermaemo.ui.h:6
+#: ../Data/GUI/dashermaemofullscreen.ui.h:5
 #: ../Src/Gtk2/dasher_editor_internal.cpp:1320
 #: ../Src/Gtk2/dasher_editor_internal.cpp:1354 ../Src/Gtk2/dasher_main.cpp:968
 msgid "Select File"
@@ -114,7 +112,7 @@ msgstr "Seleccioneu el fitxer"
 msgid "Select Font"
 msgstr "Seleccioneu el tipus de lletra"
 
-#: ../Data/GUI/dasher.compose.ui.h:16 ../Data/GUI/dasher.direct.ui.h:5
+#: ../Data/GUI/dasher.compose.ui.h:16 ../Data/GUI/dasher.direct.ui.h:4
 #: ../Data/GUI/dasher.gameWIP.ui.h:24 ../Data/GUI/dasher.traditional.ui.h:17
 msgid "Speed:"
 msgstr "Velocitat:"
@@ -308,11 +306,8 @@ msgid "Bottom to Top"
 msgstr "De baix a dalt"
 
 #: ../Data/GUI/dasher.preferences.ui.h:22
-#, fuzzy
 msgid "Centre circle"
-msgstr ""
-"Cercle central\n"
-"Dues caixes"
+msgstr "Cercle central"
 
 # FIXME: Redacció? (josep)
 #: ../Data/GUI/dasher.preferences.ui.h:23
@@ -464,18 +459,17 @@ msgstr "De dalt a baix"
 
 #: ../Data/GUI/dasher.preferences.ui.h:57
 msgid "Two box"
-msgstr ""
+msgstr "Dues caixes"
 
 #: ../Data/GUI/dasher.preferences.ui.h:58
-#, fuzzy
 msgid ""
 "Use this control to adjust the relative sizes of the\n"
 "letter boxes. Note that selecting high values will slow\n"
 "your writing speed."
 msgstr ""
-"Utilitzeu este control per a ajustar les mides \n"
-"relatives de les caixes de les lletres. Tingueu en compte que \n"
-"en seleccionar valors alts reduireu la velocitat d'escriptura."
+"Utilitzeu este control per a ajustar les mides\n"
+"relatives de les caixes de les lletres. Tingueu en compte que\n"
+"si seleccioneu valors alts reduireu la velocitat d'escriptura."
 
 #: ../Data/GUI/dasher.preferences.ui.h:61
 msgid "Very large font"
@@ -554,29 +548,32 @@ msgstr "_Opcions"
 msgid "_Reset fonts"
 msgstr "_Reinicia els tipus de lletra"
 
-#: ../Src/DasherCore/ClickFilter.cpp:7
-msgid "Maximum Zoom"
-msgstr "Zoom màxim"
-
-#: ../Src/DasherCore/ClickFilter.h:11
-msgid "Click Mode"
-msgstr "Mode de clic"
-
 #. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
-#: ../Src/DasherCore/DasherButtons.cpp:25
+#: ../Src/DasherCore/AlternatingDirectMode.cpp:28
+#: ../Src/DasherCore/ButtonMode.cpp:28 ../Src/DasherCore/CompassMode.cpp:28
 msgid "Zoom steps"
 msgstr "Passes d'ampliació"
 
-#. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
-#: ../Src/DasherCore/DasherButtons.cpp:27
-msgid "Right zoom"
-msgstr "Ampliació a la dreta"
+#. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
+#: ../Src/DasherCore/AlternatingDirectMode.cpp:30
+#: ../Src/DasherCore/ButtonMode.cpp:39 ../Src/DasherCore/CompassMode.cpp:32
+msgid "Global keyboard grab"
+msgstr "Captura el teclat globalment"
 
-#: ../Src/DasherCore/DasherButtons.cpp:28
+#. menu
+#: ../Src/DasherCore/AlternatingDirectMode.cpp:34
+msgid "Alternating Direct Mode"
+msgstr "Mode directe alternant"
+
+#: ../Src/DasherCore/ButtonMode.cpp:29
+msgid "Scan time in menu mode (0 for don't scan)"
+msgstr "Temps d'anàlisi en el mode menú (0 per a no analitzar)"
+
+#: ../Src/DasherCore/ButtonMode.cpp:30
 msgid "Number of boxes"
 msgstr "Nombre de caixes"
 
-#: ../Src/DasherCore/DasherButtons.cpp:29
+#: ../Src/DasherCore/ButtonMode.cpp:31
 msgid "Safety margin"
 msgstr "Marge de seguretat"
 
@@ -585,103 +582,123 @@ msgstr "Marge de seguretat"
 #. * however the code seems to use ratio = (129/127)^-r, instead of
 #. * ratio = exp(r/128) used in the design document
 #.
-#: ../Src/DasherCore/DasherButtons.cpp:35
+#: ../Src/DasherCore/ButtonMode.cpp:37
 msgid "Box non-uniformity"
 msgstr "Caixa no uniforme"
 
-#. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
-#: ../Src/DasherCore/DasherButtons.cpp:37
-msgid "Global keyboard grab"
-msgstr "Captura el teclat globalment"
+#: ../Src/DasherCore/ClickFilter.cpp:9
+msgid "Maximum Zoom"
+msgstr "Zoom màxim"
+
+#: ../Src/DasherCore/ClickFilter.h:12
+msgid "Click Mode"
+msgstr "Mode de clic"
+
+#. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
+#: ../Src/DasherCore/CompassMode.cpp:30
+msgid "Right zoom"
+msgstr "Ampliació a la dreta"
+
+#. bMenu
+#: ../Src/DasherCore/CompassMode.cpp:38
+msgid "Compass Mode"
+msgstr "Mode de brúixola"
 
 #: ../Src/DasherCore/DasherGameMode.cpp:633
 msgid "Well done!"
 msgstr "Ben fet"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:934
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:940
 msgid "Normal Control"
 msgstr "Control normal"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:949
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:956
 msgid "Menu Mode"
 msgstr "Mode menú"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:950
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:957
 msgid "Direct Mode"
 msgstr "Mode directe"
 
-#. RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3"));
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:952
-msgid "Alternating Direct Mode"
-msgstr "Mode directe alternant"
-
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:953
-msgid "Compass Mode"
-msgstr "<b>Mode de brúixola</b>"
-
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:954
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:961
 msgid "Stylus Control"
 msgstr "Control d'estilogràfica"
 
-#: ../Src/DasherCore/EyetrackerFilter.cpp:7
+#: ../Src/DasherCore/EyetrackerFilter.cpp:9
 msgid "Automatic calibration"
 msgstr "Calibració automàtica"
 
-#: ../Src/DasherCore/EyetrackerFilter.cpp:11
+#: ../Src/DasherCore/EyetrackerFilter.cpp:13
 msgid "Eyetracker Mode"
 msgstr "Mode de seguiment visual"
 
 #. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:29
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:33
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:35
 msgid "Long press time"
 msgstr "Temps de pressió llarg"
 
 #. TRANSLATORS: Double-clicks are special in some situations (they cause us to start reversing). This is the time in which the button must be pressed twice to count.
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
-#, fuzzy
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
 msgid "Double-press time"
-msgstr "Temps de pressió múltiple"
+msgstr "Temps de doble pressió"
 
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons.
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:33
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
 msgid "Enable backoff button"
 msgstr "Habilita el botó d'endarreriment"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:34
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:41
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:37
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:36
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
 msgid "Slow startup"
 msgstr "Iniciació lenta"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:35
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:42
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:37
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:44
 msgid "Startup time"
 msgstr "Temps d'iniciació"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:36
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:44
-msgid "Percentage by which to automatically increase speed"
-msgstr ""
-
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:37
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
-msgid "Time after which to automatically increase speed (secs)"
-msgstr ""
-
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:38
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:46
-msgid "Percentage by which to decrease speed upon reverse"
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
+msgid "Percentage by which to automatically increase speed"
 msgstr ""
+"Percentatge a partir del qual s'incrementarà la velocitat automàticament"
 
-#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:42
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:47
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:41
+msgid "Time after which to automatically increase speed (secs)"
+msgstr "Temps després del qual s'incrementarà la velocitat (segons)"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:40
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:48
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
+msgid "Percentage by which to decrease speed upon reverse"
+msgstr "Percentatge a partir del qual es reduirà la velocitat en anar arrere"
+
+#: ../Src/DasherCore/OneButtonDynamicFilter.cpp:44
 msgid "One Button Dynamic Mode"
 msgstr "Mode dinàmic d'un botó"
 
-#: ../Src/DasherCore/OneDimensionalFilter.cpp:5
+#: ../Src/DasherCore/OneButtonFilter.cpp:11
+msgid "Scan time (each direction), in ms"
+msgstr "Temps d'anàlisi (en cada direcció), en ms"
+
+#: ../Src/DasherCore/OneButtonFilter.cpp:12
+msgid "Factor by which to zoom in"
+msgstr "Factor pel qual ampliar"
+
+#: ../Src/DasherCore/OneButtonFilter.cpp:13
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:43
+msgid "Lag before user actually pushes button (ms)"
+msgstr "Retard abans que l'usuari prema un botó (en ms)"
+
+#: ../Src/DasherCore/OneDimensionalFilter.cpp:7
 msgid "One Dimensional Mode"
 msgstr "Mode d'una sola dimensió"
 
@@ -753,84 +770,65 @@ msgstr ""
 msgid "Socket Input"
 msgstr "Entrada del sòcol"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:28
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
 msgid "Button offset"
 msgstr "Desplaçament del botó"
 
 #. TRANSLATORS: Multiple button presses are special (like a generalisation on double clicks) in some situations. This is the maximum time between two presses to count as _part_of_ a multi-press gesture
 #. (potentially more than two presses).
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:33
-#, fuzzy
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:35
 msgid "Multiple press interval"
-msgstr "Temps de pressió múltiple"
+msgstr "Interval de pressió múltiple"
 
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:35
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:35
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:37
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:37
 msgid "Enable backoff and start/stop buttons"
 msgstr "Habilita els botons d'endarreriment i inici/atura"
 
 #. TRANSLATORS: What is normally the up button becomes the down button etc.
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:37
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:39
 msgid "Reverse up and down buttons"
-msgstr "Commuta els botons d'anar cap amunt i cap avall"
+msgstr "Inverteix els botons d'anar cap amunt i cap avall"
 
 #. TRANSLATORS: Pushing the up/down button twice quickly has the same effect as pushing the other
 #. button once; in this case, one must push three times (or push-and-hold) to reverse.
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:40
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:42
 msgid "Double-click is opposite up/down - triple to reverse"
 msgstr ""
+"El doble clic és el contrari d'amunt/avall - feu tres clics per a invertir-ho"
 
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
-msgid "Lag before user actually pushes button (ms)"
-msgstr ""
-
-#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:50
+#: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:52
 msgid "Two Button Dynamic Mode"
 msgstr "Mode dinàmic de dos botons"
 
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:28
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:30
 msgid "Offset for outer (second) button"
-msgstr ""
+msgstr "Retard del segon botó"
 
 #. divisor
 #. step
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:29
-msgid "Distance for 1st button UP"
-msgstr ""
-
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:30
-msgid "Distance for 1st button DOWN"
-msgstr ""
-
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:31
+msgid "Distance for 1st button UP"
+msgstr "Distància per al primer botó «amunt»"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:32
+msgid "Distance for 1st button DOWN"
+msgstr "Distància per al primer botó «avall»"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:33
 msgid "Tolerance for inaccurate timing of button pushes (in ms)"
 msgstr ""
-
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:36
-#, fuzzy
-msgid "Markers fixed to canvas"
-msgstr "Pausa fora del llenç"
-
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
-#, fuzzy
-msgid "Slow startup time"
-msgstr "Iniciació lenta"
+"Tolerància per a la mesura inacurada del temps de les pressions dels botons "
+"(en ms)"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
-#, c-format
-msgid "%age by which to automatically increase speed"
-msgstr ""
+msgid "Slow startup time"
+msgstr "Temps d'iniciació lenta"
 
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:41
-#, c-format
-msgid "%age by which to decrease speed upon reverse"
-msgstr ""
-
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:46
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:47
 msgid "Two-push Dynamic Mode (New One Button)"
-msgstr ""
+msgstr "Mode dinàmic de dues pressions (nou un sol botó)"
 
 #: ../Src/Gtk2/DasherAppSettings.cpp:549
 msgid "Boolean parameters"
@@ -1003,26 +1001,36 @@ msgstr "Entrada de ratolí d'una sola dimensió"
 #. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
 #. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
 #. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
-#: ../Src/main.cc:169
+#: ../Src/main.cc:171
 msgid "Application style (traditional, direct, compose or fullscreen)"
 msgstr ""
 "Estil de l'aplicació (traditional «tradicional», direct «directe», compose "
 "«composició» o fullscreen «pantalla completa»)"
 
 #. Note to translators: This is the help string for "--options"
-#: ../Src/main.cc:171
+#: ../Src/main.cc:173
 msgid "Override stored options"
 msgstr "Sobreescriu les opcions alçades"
 
 #. Note to translators: This is the help string for "--help-options"
-#: ../Src/main.cc:173
+#: ../Src/main.cc:175
 msgid "Describe \"--options\"."
 msgstr "Descriu «--options»."
 
 #. Note to translators: This is the "--help" description of dasher.
-#: ../Src/main.cc:180
+#: ../Src/main.cc:182
 msgid "- A text input application honouring accessibility"
 msgstr "- Una aplicació d'entrada de text que respecta l'accessibilitat"
+
+#, fuzzy
+#~ msgid "Markers fixed to canvas"
+#~ msgstr "Pausa fora del llenç"
+
+#~ msgid "%age by which to automatically increase speed"
+#~ msgstr "%age per la qual s'incrementarà la velocitat automàticament"
+
+#~ msgid "%age by which to decrease speed upon reverse"
+#~ msgstr "%age per la qual es reduirà la velocitat en anar enrere"
 
 #~ msgid "Multiple press count"
 #~ msgstr "Nombre de pressions múltiples"
@@ -1032,3 +1040,60 @@ msgstr "- Una aplicació d'entrada de text que respecta l'accessibilitat"
 
 #~ msgid "Auto speed threshold"
 #~ msgstr "Llindar del control automàtic de la velocitat"
+
+#~ msgid "Dasher - %s"
+#~ msgstr "Dasher - %s"
+
+#~ msgid "<b>Prediction:</b>"
+#~ msgstr "<b>Predicció:</b>"
+
+#~ msgid "button33"
+#~ msgstr "botó33"
+
+#~ msgid "button34"
+#~ msgstr "botó34"
+
+#~ msgid "button35"
+#~ msgstr "botó35"
+
+#~ msgid "button36"
+#~ msgstr "botó36"
+
+#~ msgid "button37"
+#~ msgstr "botó37"
+
+#~ msgid "button38"
+#~ msgstr "botó38"
+
+#~ msgid "(Message Placeholder - no need to translate)"
+#~ msgstr "(traducció acabada)"
+
+#~ msgid "Training Dasher... please wait"
+#~ msgstr "El Dasher s'està entrenant, espereu"
+
+#~ msgid "<b>Advanced Settings:</b>"
+#~ msgstr "<b>Paràmetres avançats:</b>"
+
+#~ msgid "<b>Button modes:</b>"
+#~ msgstr "<b>Modes de botó:</b>"
+
+#~ msgid "<b>Direct Mode And Menu Mode</b>"
+#~ msgstr "<b>Mode directe i mode de menú</b>"
+
+#~ msgid "<b>Miscellaneous Options:</b>"
+#~ msgstr "<b>Opcions variades:</b>"
+
+#~ msgid "<b>One-Button Static Mode</b>"
+#~ msgstr "<b>Mode estàtic d'un botó</b>"
+
+#~ msgid "<b>X Coordinate</b>"
+#~ msgstr "<b>Coordenada X</b>"
+
+#~ msgid "<b>Y Axis Options:</b>"
+#~ msgstr "<b>Opcions de l'eix Y:</b>"
+
+#~ msgid "<b>Y Coordinate</b>"
+#~ msgstr "<b>Coordenada Y</b>"
+
+#~ msgid "Advanced Settings"
+#~ msgstr "Paràmetres avançats"
