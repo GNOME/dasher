@@ -55,11 +55,11 @@ CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, CAlphab
   */
 }
 
-CConversionManager::CConvNode *CConversionManager::makeNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo) {
+CConversionManager::CConvNode *CConversionManager::makeNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo) {
   return new CConvNode(pParent, iLbnd, iHbnd, pDispInfo, this);
 }
 
-CConversionManager::CConvNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, int iOffset) {
+CConversionManager::CConvNode *CConversionManager::GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset) {
 
   // TODO: Parameters here are placeholders - need to figure out what's right
 
@@ -87,7 +87,7 @@ CConversionManager::CConvNode *CConversionManager::GetRoot(CDasherNode *pParent,
   return pNewNode;
 }
 
-CConversionManager::CConvNode::CConvNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CConversionManager *pMgr)
+CConversionManager::CConvNode::CConvNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CConversionManager *pMgr)
  : CDasherNode(pParent, iLbnd, iHbnd, pDispInfo), m_pMgr(pMgr) {
   pMgr->m_iRefCount++;
 }
@@ -99,8 +99,8 @@ void CConversionManager::CConvNode::PopulateChildren() {
   // alphabet root. This should only happen in error cases, and the
   // user should have been warned here.
   //
-  int iLbnd(0);
-  int iHbnd(m_pMgr->m_pNCManager->GetLongParameter(LP_NORMALIZATION));
+  unsigned int iLbnd(0);
+  unsigned int iHbnd(m_pMgr->m_pNCManager->GetLongParameter(LP_NORMALIZATION));
 
   CDasherNode *pNewNode = m_pMgr->m_pNCManager->GetAlphRoot(this, iLbnd, iHbnd, false, m_iOffset + 1);
 

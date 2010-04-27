@@ -50,7 +50,7 @@ namespace Dasher {
     class CAlphNode : public CDasherNode {
     public:
       int mgrId() {return 0;}
-      CAlphNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CAlphabetManager *pMgr);
+      CAlphNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CAlphabetManager *pMgr);
       CLanguageModel::Context iContext;
       ///
       /// Delete any storage alocated for this node
@@ -69,7 +69,7 @@ namespace Dasher {
     };
     class CSymbolNode : public CAlphNode {
     public:
-      CSymbolNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CAlphabetManager *pMgr, symbol iSymbol);
+      CSymbolNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CAlphabetManager *pMgr, symbol iSymbol);
       
       ///
       /// Provide children for the supplied node
@@ -92,7 +92,7 @@ namespace Dasher {
 
     class CGroupNode : public CAlphNode {
     public:
-      CGroupNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CAlphabetManager *pMgr, SGroupInfo *pGroup);
+      CGroupNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CAlphabetManager *pMgr, SGroupInfo *pGroup);
       
       ///
       /// Provide children for the supplied node
@@ -114,14 +114,14 @@ namespace Dasher {
     /// bEnteredLast - true if this "root" node should be considered as entering the preceding symbol
     /// Offset is the index of the character which _child_ nodes (i.e. between which this root allows selection)
     /// will enter. (Also used to build context for preceding characters.)
-    virtual CAlphNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, bool bEnteredLast, int iOffset);
+    virtual CAlphNode *GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, bool bEnteredLast, int iOffset);
 
   protected:
     ///
     /// Factory method for CAlphNode construction, so subclasses can override.
     ///
-    virtual CSymbolNode *makeSymbol(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, symbol iSymbol);
-    virtual CGroupNode *makeGroup(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, SGroupInfo *pGroup);
+    virtual CSymbolNode *makeSymbol(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, symbol iSymbol);
+    virtual CGroupNode *makeGroup(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, SGroupInfo *pGroup);
     
     virtual CDasherNode *CreateSymbolNode(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd);
     virtual CLanguageModel::Context CreateSymbolContext(CAlphNode *pParent, symbol iSymbol);

@@ -52,7 +52,7 @@ CConversionHelper::CConversionHelper(CNodeCreationManager *pNCManager, CAlphabet
 
 }
 
-CConversionManager::CConvNode *CConversionHelper::GetRoot(CDasherNode *pParent, int iLower, int iUpper, int iOffset) {
+CConversionManager::CConvNode *CConversionHelper::GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset) {
   CConvNode *pConvNode = CConversionManager::GetRoot(pParent, iLower, iUpper, iOffset);
   //note that pConvNode is actually a CConvHNode, created by this CConversionHelper:
   // the overridden CConversionManager::GetRoot creates the node the node it returns
@@ -109,8 +109,8 @@ void CConversionHelper::CConvHNode::PopulateChildren() {
       //      std::cout << "Current scec: " << pCurrentSCEChild << std::endl;
       SCENode *pCurrentSCEChild(*it);
       DASHER_ASSERT(pCurrentSCEChild != NULL);
-      int iLbnd(iCum);
-      int iHbnd(iCum + pCurrentSCEChild->NodeSize);
+      unsigned int iLbnd(iCum);
+      unsigned int iHbnd(iCum + pCurrentSCEChild->NodeSize);
 		//m_pNCManager->GetLongParameter(LP_NORMALIZATION));//
 
       iCum = iHbnd;
@@ -198,12 +198,12 @@ void CConversionHelper::BuildTree(CConvHNode *pRoot) {
   pRoot->pSCENode = pStartTemp;
 }
 
-CConversionHelper::CConvHNode::CConvHNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CConversionHelper *pMgr)
+CConversionHelper::CConvHNode::CConvHNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CConversionHelper *pMgr)
 : CConvNode(pParent, iLbnd, iHbnd, pDispInfo, pMgr) {
 }
 
 
-CConversionHelper::CConvHNode *CConversionHelper::makeNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo) {
+CConversionHelper::CConvHNode *CConversionHelper::makeNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo) {
   return new CConvHNode(pParent, iLbnd, iHbnd, pDispInfo, this);
 }
 

@@ -79,7 +79,7 @@ class Dasher::CDasherNode:private NoClones {
   /// @param iHbnd Upper bound of node within parent
   /// @param pDisplayInfo Struct containing information on how to display the node
   ///
-  CDasherNode(CDasherNode *pParent, int iLbnd, int iHbnd, SDisplayInfo *pDisplayInfo);
+  CDasherNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, SDisplayInfo *pDisplayInfo);
 
   /// @brief Destructor
   ///
@@ -137,13 +137,13 @@ class Dasher::CDasherNode:private NoClones {
   ///
   /// @return The lower bound
   ///
-  inline int Lbnd() const;
+  inline unsigned int Lbnd() const;
 
   /// @brief Get the upper bound of a node
   ///
   /// @return The upper bound
   ///
-  inline int Hbnd() const;
+  inline unsigned int Hbnd() const;
 
   /// @brief Get the range of a node (upper - lower bound)
   ///
@@ -151,14 +151,14 @@ class Dasher::CDasherNode:private NoClones {
   ///
   /// @todo Should this be here (trivial arithmethic of existing methods)
   ///
-  inline int Range() const;
+  inline unsigned int Range() const;
 
   /// @brief Reset the range of a node
   ///
   /// @param iLower New lower bound
   /// @param iUpper New upper bound
   ///
-  inline void SetRange(int iLower, int iUpper);
+  inline void SetRange(unsigned int iLower, unsigned int iUpper);
 
   /// @brief Get the probability of a node
   ///
@@ -279,8 +279,8 @@ class Dasher::CDasherNode:private NoClones {
 
   SDisplayInfo *m_pDisplayInfo;
 
-  int m_iLbnd;
-  int m_iHbnd;   // the cumulative lower and upper bound prob relative to parent
+  unsigned int m_iLbnd;
+  unsigned int m_iHbnd;   // the cumulative lower and upper bound prob relative to parent
 
   int m_iRefCount;              // reference count if ancestor of (or equal to) root node
 
@@ -308,15 +308,15 @@ inline const CDasherNode::SDisplayInfo *CDasherNode::GetDisplayInfo() const {
   return m_pDisplayInfo;
 }
 
-inline int CDasherNode::Lbnd() const {
+inline unsigned int CDasherNode::Lbnd() const {
   return m_iLbnd;
 }
 
-inline int CDasherNode::Hbnd() const {
+inline unsigned int CDasherNode::Hbnd() const {
   return m_iHbnd;
 }
 
-inline int CDasherNode::Range() const {
+inline unsigned int CDasherNode::Range() const {
   return m_iHbnd - m_iLbnd;
 }
 
@@ -340,7 +340,7 @@ inline CDasherNode *CDasherNode::Parent() const {
   return m_pParent;
 }
 
-inline void CDasherNode::SetRange(int iLower, int iUpper) {
+inline void CDasherNode::SetRange(unsigned int iLower, unsigned int iUpper) {
   m_iLbnd = iLower;
   m_iHbnd = iUpper;
 }

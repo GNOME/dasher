@@ -81,7 +81,7 @@ namespace Dasher {
     class CConvNode : public CDasherNode {
     public:
       int mgrId() {return 2;}
-      CConvNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CConversionManager *pMgr);
+      CConvNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CConversionManager *pMgr);
     ///
     /// Provide children for the supplied node
     ///
@@ -126,10 +126,10 @@ namespace Dasher {
     /// Get a new root node owned by this manager
     ///
     
-    virtual CConvNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, int iOffset);
+    virtual CConvNode *GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset);
   protected:    
     
-  virtual CConvNode *makeNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo);
+  virtual CConvNode *makeNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo);
 
 	  
 	CNodeCreationManager *m_pNCManager;

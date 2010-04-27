@@ -97,7 +97,7 @@ namespace Dasher{
     /// Get a new root node owned by this manager
     ///
 	
-    virtual CConvNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, int iOffset);
+    virtual CConvNode *GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset);
 	
     ///
     /// Calculate sizes for each of the children - default
@@ -113,7 +113,7 @@ namespace Dasher{
 	protected:
     class CConvHNode : public CConvNode {
     public:
-      CConvHNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CConversionHelper *pMgr);
+      CConvHNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CConversionHelper *pMgr);
       ///
       /// Provide children for the supplied node
       ///
@@ -123,7 +123,7 @@ namespace Dasher{
     protected:
       inline CConversionHelper *mgr() {return static_cast<CConversionHelper *>(m_pMgr);}
     };
-	  virtual CConvHNode *makeNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo);
+	  virtual CConvHNode *makeNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo);
     /// 
     /// Build the conversion tree (lattice) for the given string -
     /// evaluated late to prevent unnecessary conversions when the

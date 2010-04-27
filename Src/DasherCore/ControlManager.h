@@ -72,7 +72,7 @@ namespace Dasher {
     /// Get a new root node owned by this manager
     ///
 
-    virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, int iOffset);
+    virtual CDasherNode *GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset);
     void RegisterNode( int iID, std::string strLabel, int iColour );
     void ConnectNode(int iChild, int iParent, int iAfter);
     void DisconnectNode(int iChild, int iParent);
@@ -89,7 +89,7 @@ namespace Dasher {
     class CContNode : public CDasherNode {
     public:
       int mgrId() {return 1;}
-      CContNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDisplayInfo, CControlManager *pMgr);
+      CContNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDisplayInfo, CControlManager *pMgr);
     ///
     /// Provide children for the supplied node
     ///

@@ -50,7 +50,7 @@ CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreati
   : CAlphabetManager(pInterface, pNCManager, pLanguageModel) {
 }
 
-CAlphabetManager::CAlphNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, int iLower, int iUpper, bool bEnteredLast, int iOffset) {
+CAlphabetManager::CAlphNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, bool bEnteredLast, int iOffset) {
   CAlphNode *pNewNode;
   if (!bEnteredLast) {
     //(probably) escaping back to alphabet after conversion. At any rate, we'll duplicate a lot of
@@ -102,11 +102,11 @@ CLanguageModel::Context CMandarinAlphMgr::CreateSymbolContext(CAlphNode *pParent
 	return m_pLanguageModel->CloneContext(pParent->iContext);
 }
 
-CMandarinAlphMgr::CMandNode::CMandNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CAlphabetManager *pMgr, symbol iSymbol)
+CMandarinAlphMgr::CMandNode::CMandNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CAlphabetManager *pMgr, symbol iSymbol)
 : CSymbolNode(pParent, iLbnd, iHbnd, pDispInfo, pMgr, iSymbol) {
 }
 
-CAlphabetManager::CSymbolNode *CMandarinAlphMgr::makeSymbol(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, symbol iSymbol) {
+CAlphabetManager::CSymbolNode *CMandarinAlphMgr::makeSymbol(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, symbol iSymbol) {
   return new CMandNode(pParent, iLbnd, iHbnd, pDispInfo, this, iSymbol);
 }
 

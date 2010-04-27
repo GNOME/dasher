@@ -42,7 +42,7 @@ static int iNumNodes = 0;
 int Dasher::currentNumNodeObjects() {return iNumNodes;}
 
 //TODO this used to be inline - should we make it so again?
-CDasherNode::CDasherNode(CDasherNode *pParent, int iLbnd, int iHbnd, SDisplayInfo *pDisplayInfo) {
+CDasherNode::CDasherNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, SDisplayInfo *pDisplayInfo) {
   // TODO: Check that these are disabled for debug builds, and that we're not shipping such a build
   DASHER_ASSERT(iHbnd >= iLbnd);
   DASHER_ASSERT(pDisplayInfo != NULL);

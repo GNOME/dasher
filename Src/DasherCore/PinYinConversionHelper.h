@@ -34,7 +34,7 @@ class CPinYinConversionHelper : public CConversionHelper {
 protected:
   class CPYConvNode : public CConvHNode {
   public:
-    CPYConvNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CPinYinConversionHelper *pMgr);
+    CPYConvNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CPinYinConversionHelper *pMgr);
     //override to blank out learn-as-write for Mandarin Dasher
     virtual void SetFlag(int iFlag, bool bValue);
     
@@ -46,7 +46,7 @@ protected:
   protected:
     inline CPinYinConversionHelper *mgr() {return static_cast<CPinYinConversionHelper *>(m_pMgr);}
   };
-  CPYConvNode *makeNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo);
+  CPYConvNode *makeNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo);
 	
   virtual CPPMPYLanguageModel *GetLanguageModel() {
     return static_cast<CPPMPYLanguageModel *>(CConversionHelper::GetLanguageModel());

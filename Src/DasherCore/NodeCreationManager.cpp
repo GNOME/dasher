@@ -179,18 +179,18 @@ void CNodeCreationManager::DisconnectNode(int iChild, int iParent) {
     m_pControlManager->DisconnectNode(iChild, iParent);
 }
 
-CDasherNode *CNodeCreationManager::GetAlphRoot(Dasher::CDasherNode *pParent, int iLower, int iUpper, bool bEnteredLast, int iOffset) { 
+CDasherNode *CNodeCreationManager::GetAlphRoot(Dasher::CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, bool bEnteredLast, int iOffset) { 
  return m_pAlphabetManager->GetRoot(pParent, iLower, iUpper, bEnteredLast, iOffset);
 }
 
-CDasherNode *CNodeCreationManager::GetCtrlRoot(Dasher::CDasherNode *pParent, int iLower, int iUpper, int iOffset) { 
+CDasherNode *CNodeCreationManager::GetCtrlRoot(Dasher::CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset) { 
  if(m_pControlManager)
  return m_pControlManager->GetRoot(pParent, iLower, iUpper, iOffset);
  else
  return NULL;
 }
 
-CDasherNode *CNodeCreationManager::GetConvRoot(Dasher::CDasherNode *pParent, int iLower, int iUpper, int iOffset) { 
+CDasherNode *CNodeCreationManager::GetConvRoot(Dasher::CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset) { 
  if(m_pConversionManager)
    return m_pConversionManager->GetRoot(pParent, iLower, iUpper, iOffset);
  return NULL;

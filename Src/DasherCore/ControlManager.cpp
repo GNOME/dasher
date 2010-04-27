@@ -267,7 +267,7 @@ void CControlManager::DisconnectNode(int iChild, int iParent) {
 }
 
 
-CDasherNode *CControlManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, int iOffset) {
+CDasherNode *CControlManager::GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset) {
 
   // TODO: Tie this structure to info contained in control map
   CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
@@ -288,7 +288,7 @@ CDasherNode *CControlManager::GetRoot(CDasherNode *pParent, int iLower, int iUpp
   return pNewNode;
 }
 
-CControlManager::CContNode::CContNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDisplayInfo, CControlManager *pMgr)
+CControlManager::CContNode::CContNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDisplayInfo, CControlManager *pMgr)
 : CDasherNode(pParent, iLbnd, iHbnd, pDisplayInfo), m_pMgr(pMgr) {
 }
 
@@ -305,8 +305,8 @@ void CControlManager::CContNode::PopulateChildren() {
 
      // FIXME - could do this better
 
-     int iLbnd( iIdx*(m_pMgr->m_pNCManager->GetLongParameter(LP_NORMALIZATION)/iNChildren)); 
-     int iHbnd( (iIdx+1)*(m_pMgr->m_pNCManager->GetLongParameter(LP_NORMALIZATION)/iNChildren)); 
+     unsigned int iLbnd( iIdx*(m_pMgr->m_pNCManager->GetLongParameter(LP_NORMALIZATION)/iNChildren)); 
+     unsigned int iHbnd( (iIdx+1)*(m_pMgr->m_pNCManager->GetLongParameter(LP_NORMALIZATION)/iNChildren)); 
 
      if( *it == NULL ) {
        // Escape back to alphabet

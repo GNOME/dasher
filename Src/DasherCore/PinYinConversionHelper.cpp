@@ -233,11 +233,11 @@ void CPinYinConversionHelper::AssignSizes(const std::vector<SCENode *> &vChildre
     //    std::cout<<"Not equal! sum is "<<sumSize<<std::endl;
 //  }
 
-CPinYinConversionHelper::CPYConvNode *CPinYinConversionHelper::makeNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo) {
+CPinYinConversionHelper::CPYConvNode *CPinYinConversionHelper::makeNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo) {
   return new CPYConvNode(pParent, iLbnd, iHbnd, pDispInfo, this);
 }
 
-CPinYinConversionHelper::CPYConvNode::CPYConvNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CPinYinConversionHelper *pMgr)
+CPinYinConversionHelper::CPYConvNode::CPYConvNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CPinYinConversionHelper *pMgr)
 : CConvHNode(pParent, iLbnd, iHbnd, pDispInfo, pMgr) {
 };
 

@@ -53,27 +53,27 @@ CAlphabetManager::CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreati
 
 }
 
-CAlphabetManager::CAlphNode::CAlphNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDisplayInfo, CAlphabetManager *pMgr)
+CAlphabetManager::CAlphNode::CAlphNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDisplayInfo, CAlphabetManager *pMgr)
 : CDasherNode(pParent, iLbnd, iHbnd, pDisplayInfo), m_pMgr(pMgr), m_pProbInfo(NULL) {
 };
 
-CAlphabetManager::CSymbolNode::CSymbolNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDisplayInfo, CAlphabetManager *pMgr, symbol _iSymbol)
+CAlphabetManager::CSymbolNode::CSymbolNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDisplayInfo, CAlphabetManager *pMgr, symbol _iSymbol)
 : CAlphNode(pParent, iLbnd, iHbnd, pDisplayInfo, pMgr), iSymbol(_iSymbol) {
 };
 
-CAlphabetManager::CGroupNode::CGroupNode(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDisplayInfo, CAlphabetManager *pMgr, SGroupInfo *pGroup)
+CAlphabetManager::CGroupNode::CGroupNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDisplayInfo, CAlphabetManager *pMgr, SGroupInfo *pGroup)
 : CAlphNode(pParent, iLbnd, iHbnd, pDisplayInfo, pMgr), m_pGroup(pGroup) {
 };
 
-CAlphabetManager::CSymbolNode *CAlphabetManager::makeSymbol(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDisplayInfo, symbol iSymbol) {
+CAlphabetManager::CSymbolNode *CAlphabetManager::makeSymbol(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDisplayInfo, symbol iSymbol) {
   return new CSymbolNode(pParent, iLbnd, iHbnd, pDisplayInfo, this, iSymbol);
 }
 
-CAlphabetManager::CGroupNode *CAlphabetManager::makeGroup(CDasherNode *pParent, int iLbnd, int iHbnd, CDasherNode::SDisplayInfo *pDisplayInfo, SGroupInfo *pGroup) {
+CAlphabetManager::CGroupNode *CAlphabetManager::makeGroup(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDisplayInfo, SGroupInfo *pGroup) {
   return new CGroupNode(pParent, iLbnd, iHbnd, pDisplayInfo, this, pGroup);
 }
 
-CAlphabetManager::CAlphNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, bool bEnteredLast, int iOffset) {
+CAlphabetManager::CAlphNode *CAlphabetManager::GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, bool bEnteredLast, int iOffset) {
 
   int iNewOffset(max(-1,iOffset-1));
   
@@ -366,16 +366,12 @@ void CAlphabetManager::IterateChildGroups(CAlphNode *pParent, SGroupInfo *pParen
     bool bSymbol = !pCurrentNode //gone past last subgroup
                   || i < pCurrentNode->iStart; //not reached next subgroup
     const int iStart=i, iEnd = (bSymbol) ? i+1 : pCurrentNode->iEnd;
-#ifdef WIN32
-    typedef unsigned __int64 temptype;
-#else
-    typedef unsigned long long int temptype;
-#endif
+    //uint64 is platform-dependently #defined in DasherTypes.h as an (unsigned) 64-bit int ("__int64" or "long long int")
     unsigned int iLbnd = (((*pCProb)[iStart-1] - (*pCProb)[iMin-1]) *
-                          (temptype)(m_pNCManager->GetLongParameter(LP_NORMALIZATION))) /
+                          (uint64)(m_pNCManager->GetLongParameter(LP_NORMALIZATION))) /
                          ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]);
     unsigned int iHbnd = (((*pCProb)[iEnd-1] - (*pCProb)[iMin-1]) *
-                          (temptype)(m_pNCManager->GetLongParameter(LP_NORMALIZATION))) /
+                          (uint64)(m_pNCManager->GetLongParameter(LP_NORMALIZATION))) /
                          ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]);
     
     if (bSymbol) {
