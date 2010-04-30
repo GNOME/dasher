@@ -79,7 +79,10 @@ CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CAlphNode *pParent, symbol iSymb
     pInfo->iColour = 9;
     //CTrieNode parallels old PinyinConversionHelper's SetConvSymbol:
     CConvRoot *pNewNode = new CConvRoot(pParent, iLbnd, iHbnd, pInfo, this, m_pParser->GetTrieNode(m_pNCManager->GetAlphabet()->GetDisplayText(iSymbol)));
-    pNewNode->m_iOffset = pParent->m_iOffset+1;
+
+    //keep same offset, as we still haven't entered/selected a definite symbol
+    pNewNode->m_iOffset = pParent->m_iOffset;
+
     //from ConversionHelper:
     //pNewNode->m_pLanguageModel = m_pLanguageModel;
     pNewNode->iContext = m_pLanguageModel->CloneContext(pParent->iContext);
@@ -126,7 +129,6 @@ void CMandarinAlphMgr::CConvRoot::PopulateChildren() {
   // TODO: Fixme
   int parentClr = 0;
   // Finally loop through and create the children
-  
   for (vector<pair<symbol, unsigned int> >::const_iterator it = m_vChInfo.begin(); it!=m_vChInfo.end(); it++) {
     //      std::cout << "Current scec: " << pCurrentSCEChild << std::endl;
     unsigned int iLbnd(iCum);
@@ -138,7 +140,7 @@ void CMandarinAlphMgr::CConvRoot::PopulateChildren() {
     // what's right    
     
     CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
-    pDisplayInfo->iColour = m_pMgr->AssignColour(parentClr, iIdx);
+    pDisplayInfo->iColour = (m_vChInfo.size()==1) ? GetDisplayInfo()->iColour : m_pMgr->AssignColour(parentClr, iIdx);
     pDisplayInfo->bShove = true;
     pDisplayInfo->bVisible = true;
     
@@ -172,17 +174,12 @@ void CMandarinAlphMgr::CConvRoot::PopulateChildren() {
 
 void CMandarinAlphMgr::AssignSizes(std::vector<pair<symbol,unsigned int> > &vChildren, Dasher::CLanguageModel::Context context) {
 
-  const int iNorm(m_pNCManager->GetLongParameter(LP_NORMALIZATION));
-  const int uniform(m_pNCManager->GetLongParameter(LP_UNIFORM));
+  const uint64 iNorm(m_pNCManager->GetLongParameter(LP_NORMALIZATION));
+  const unsigned int uniform((m_pNCManager->GetLongParameter(LP_UNIFORM)*iNorm)/1000);
   
-  int iSymbols = m_pNCManager->GetAlphabet()->GetNumberSymbols(); 
   int iRemaining(iNorm);
   
-  //Kept normalization base from old code   
-  const int uniform_add(((iNorm * uniform) / 1000) / (iSymbols - 2));  // Subtract 2 from no symbols to lose control/root nodes;
-  const int nonuniform_norm(iNorm - (iSymbols - 2) * uniform_add);
-  
-  unsigned long long int sumProb=0;
+  uint64 sumProb=0;
   
   //CLanguageModel::Context iCurrentContext;
   
@@ -190,7 +187,9 @@ void CMandarinAlphMgr::AssignSizes(std::vector<pair<symbol,unsigned int> > &vChi
   
   //  std::cout<<"norm input: "<<nonuniform_norm/(iSymbols/iNChildren/100)<<std::endl;
   
-  static_cast<CPPMPYLanguageModel *>(m_pLanguageModel)->GetPartProbs(context, vChildren, nonuniform_norm, 0);
+  //ACL pass in iNorm and uniform directly - GetPartProbs distributes the last param between
+  // however elements there are in vChildren...
+  static_cast<CPPMPYLanguageModel *>(m_pLanguageModel)->GetPartProbs(context, vChildren, iNorm, uniform);
   
   //std::cout<<"after get probs "<<std::endl;
   
@@ -209,12 +208,17 @@ void CMandarinAlphMgr::AssignSizes(std::vector<pair<symbol,unsigned int> > &vChi
   
   for (std::vector<pair<symbol,unsigned int> >::iterator it = vChildren.begin(); it!=vChildren.end(); it++) {
     DASHER_ASSERT(it->first>-1); //ACL Will's code tested for both these conditions explicitly, and if so 
-    DASHER_ASSERT(sumProb>0);   //then used a probability if 0 (well, max(1,0)=>1). I don't think either
+    DASHER_ASSERT(sumProb>0);   //then used a probability of 0. I don't think either
                                 //should ever happen if the alphabet files are right (there'd have to
                                 //be either no conversions of the syllable+tone, or else the LM'd have
                                 //to assign zero probability to each), so I'm removing these tests for now...
-    iRemaining -= it->second = max(1,int((it->second*iNorm)/sumProb));
-                
+    iRemaining -= it->second = (it->second*iNorm)/sumProb;
+    if (it->second==0) {
+#ifdef DEBUG
+      std::cout << "WARNING: Erasing zero-probability conversion with symbol " << it->first << std::endl;
+#endif
+      vChildren.erase(it--);
+    }
     //  std::cout<<pNode->pszConversion<<std::endl;
     // std::cout<<pNode->Symbol<<std::endl;
     //    std::cout<<"Probs i "<<pNode<<std::endl;
@@ -241,6 +245,8 @@ void CMandarinAlphMgr::AssignSizes(std::vector<pair<symbol,unsigned int> > &vChi
     //    std::cout<<"Node size for "<<pNode->pszConversion<<std::endl;
     //std::cout<<"is "<<pNode->NodeSize<<std::endl;
   }
+  
+  DASHER_ASSERT(iRemaining == 0);
   
 }
 

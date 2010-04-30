@@ -36,11 +36,9 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
   
   // Create an appropriate language model;
   
-  m_iConversionID = oAlphInfo.m_iConversionID;
-  
   //WZ: Mandarin Dasher Change
   //If statement checks for the specific Super PinYin alphabet, and sets language model to PPMPY
-  if((m_iConversionID==2)&&(pSettingsStore->GetStringParameter(SP_ALPHABET_ID)=="Chinese Super Pin Yin, grouped by Dictionary")){
+  if((oAlphInfo.m_iConversionID==2)&&(pSettingsStore->GetStringParameter(SP_ALPHABET_ID)=="Chinese Super Pin Yin, grouped by Dictionary")){
     
     std::string CHAlphabet = "Chinese / 简体中文 (simplified chinese, in pin yin groups)";
     Dasher::CAlphIO::AlphInfo oCHAlphInfo = pAlphIO->GetInfo(CHAlphabet);
@@ -85,7 +83,7 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
   // don't end up having to duck out to the NCM all the time
   
   //(ACL) Modify AlphabetManager for Mandarin Dasher
-  if (m_iConversionID == 2)
+  if (oAlphInfo.m_iConversionID == 2)
     m_pAlphabetManager = new CMandarinAlphMgr(pInterface, this, m_pLanguageModel);
   else
     m_pAlphabetManager = new CAlphabetManager(pInterface, this, m_pLanguageModel);
@@ -127,7 +125,7 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
   m_pControlManager = 0;
 #endif
   
-  switch(m_iConversionID) {
+  switch(oAlphInfo.m_iConversionID) {
     default:
       //TODO: Error reporting here
       //fall through to
@@ -216,14 +214,10 @@ void CNodeCreationManager::GetProbs(CLanguageModel::Context context, std::vector
    
    //  m_pLanguageModel->GetProbs(context, Probs, iNorm, ((iNorm * uniform) / 1000));
    
-   //WZ: Mandarin Dasher Change
-   if(m_iConversionID==2){
-     //Mark: static cast ok?
-     static_cast<CPPMPYLanguageModel *>(m_pLanguageModel)->GetPYProbs(context, Probs, iNorm, 0);
-   }
-   else
-     //End Mandarin Dasher Change
-     m_pLanguageModel->GetProbs(context, Probs, iNorm, 0);
+   //ACL used to test explicitly for MandarinDasher and if so called GetPYProbs instead
+   // (by statically casting to PPMPYLanguageModel). However, have renamed PPMPYLanguageModel::GetPYProbs
+   // to GetProbs as per ordinary language model, so no need to test....
+   m_pLanguageModel->GetProbs(context, Probs, iNorm, 0);
 
    // #if _DEBUG
    //int iTotal = 0;

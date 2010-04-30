@@ -88,7 +88,9 @@ namespace Dasher {
     virtual void LearnPYSymbol(Context context, int Symbol);
 
     virtual void GetProbs(Context context, std::vector < unsigned int >&Probs, int norm, int iUniform) const;
-    void GetPYProbs(Context context, std::vector < unsigned int >&Probs, int norm, int iUniform);
+    
+    //ACL renamed, just call GetProbs instead:
+    //void GetPYProbs(Context context, std::vector < unsigned int >&Probs, int norm, int iUniform);
 
     void GetPartProbs(Context context, std::vector<std::pair<symbol, unsigned int> > &vChildren, int norm, int iUniform);
 

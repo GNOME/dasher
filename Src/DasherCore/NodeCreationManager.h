@@ -71,7 +71,6 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   Dasher::CAlphabet *m_pAlphabet;        // pointer to the alphabet
   Dasher::CTrainer *m_pTrainer;
   
-  int m_iConversionID;
   
   Dasher::CAlphabetManager *m_pAlphabetManager;
   Dasher::CControlManager *m_pControlManager;

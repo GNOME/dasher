@@ -67,7 +67,10 @@ CPPMPYLanguageModel::~CPPMPYLanguageModel() {
 /////////////////////////////////////////////////////////////////////
 // Get the probability distribution at the context
 
-void CPPMPYLanguageModel::GetProbs(Context context, std::vector<unsigned int> &probs, int norm, int iUniform) const {
+//ACL This is Will's original GetProbs() method - AFAICT unused, as the only
+// potential call site tested for MandarinDasher and if so explicitly called
+// the old GetPYProbs instead (!)...so have renamed latter to Get Probs instead...
+/*void CPPMPYLanguageModel::GetProbs(Context context, std::vector<unsigned int> &probs, int norm, int iUniform) const {
   const CPPMPYContext *ppmcontext = (const CPPMPYContext *)(context);
 
   //  DASHER_ASSERT(m_setContexts.count(ppmcontext) > 0);
@@ -185,10 +188,10 @@ void CPPMPYLanguageModel::GetProbs(Context context, std::vector<unsigned int> &p
   }
 
   DASHER_ASSERT(iToSpend == 0);
-}
+}*/
 
 void CPPMPYLanguageModel::GetPartProbs(Context context, std::vector<pair<symbol, unsigned int> > &vChildren, int norm, int iUniform){
-  
+  DASHER_ASSERT(!vChildren.empty());
   
   if(vChildren.size() == 1){
     vChildren[0].second = norm;
@@ -212,16 +215,16 @@ void CPPMPYLanguageModel::GetPartProbs(Context context, std::vector<pair<symbol,
   
   //Reproduce iterative calculations with SCENode trie
 
-  if(vChildren.size()){
-    vChildren[0].second = 0;
-    int i=1;
-    for (std::vector<pair<symbol, unsigned int> >::iterator it = vChildren.begin()+1; it!=vChildren.end(); it++) {
-      it->second = iUniformLeft / (vChildren.size() - i);
+  //ACL following loop distributes the part of the probability mass assigned the uniform distribution.
+  // In Will's code, it assigned 0 to the first entry, then split evenly among the rest...seems wrong?!
+  int i=0;
+  for (std::vector<pair<symbol, unsigned int> >::iterator it = vChildren.begin(); it!=vChildren.end(); it++) {
+    DASHER_ASSERT(it->first > -1 && it->first <= m_iAlphSize);
+    it->second = iUniformLeft / (vChildren.size() - i);
       //  std::cout<<"iUniformLeft: "<<iUniformLeft<<std::endl;
-      iUniformLeft -= it->second;
-      iToSpend -= it->second;
-      i++;
-    }
+    iUniformLeft -= it->second;
+    iToSpend -= it->second;
+    i++;
   }
 
   DASHER_ASSERT(iUniformLeft == 0);
@@ -229,27 +232,19 @@ void CPPMPYLanguageModel::GetPartProbs(Context context, std::vector<pair<symbol,
   int alpha = GetLongParameter( LP_LM_ALPHA );
   int beta = GetLongParameter( LP_LM_BETA );
 
-  CPPMPYnode *pTemp = ppmcontext->head;
-  CPPMPYnode *pFound;
   std::vector<CPPMPYnode *> vNodeStore;
 
   //new code
-  while(pTemp!=0){
+  for (CPPMPYnode *pTemp = ppmcontext->head; pTemp; pTemp=pTemp->vine) {
     int iTotal =0;
     vNodeStore.clear();
-    int i=0;
     for (std::vector<pair<symbol, unsigned int> >::const_iterator it = vChildren.begin(); it!=vChildren.end(); it++) {
 
-      pFound = pTemp->find_symbol(it->first);
-      //Mark: do we need to treat the exception of -1 separately?     
-      if(pFound){
-	  iTotal += pFound->count;
-	  vNodeStore.push_back(pFound);
-      }
-      else
-	vNodeStore.push_back(NULL);
-	
-      i++;
+      if (CPPMPYnode *pFound = pTemp->find_symbol(it->first)) {
+        iTotal += pFound->count;
+        vNodeStore.push_back(pFound);
+      } else
+        vNodeStore.push_back(NULL);
     }
     
 
@@ -261,22 +256,15 @@ void CPPMPYLanguageModel::GetPartProbs(Context context, std::vector<pair<symbol,
       for (vector<pair<symbol, unsigned int> >::iterator it = vChildren.begin(); it!=vChildren.end(); it++) {
         if(vNodeStore[i]) {
           unsigned int p = static_cast < myint > (size_of_slice) * (100 * vNodeStore[i]->count - beta) / (100 * iTotal + alpha);
-          if((it->first>-1)&&(it->first<=m_iAlphSize)){
-            it->second += p;
-            iToSpend -= p;
-          }
+          it->second += p;
+          iToSpend -= p;
         }
         i++;
       }
     }
-    pTemp = pTemp->vine;
   }
   //code
   //std::cout<<"after lan mod second loop"<<std::endl;
-
-  
-  unsigned int size_of_slice = iToSpend;
-  int symbolsleft = vChildren.size()-1;
 
 //      std::ostringstream str;
 //      for (sym=0;sym<modelchars;sym++)
@@ -290,31 +278,29 @@ void CPPMPYLanguageModel::GetPartProbs(Context context, std::vector<pair<symbol,
 //      str2 << std::endl;
 //      DASHER_TRACEOUTPUT("valid %s",str2.str().c_str());
   //std::cout<<"after lan mod third loop"<<std::endl;
-  
-  if(vChildren.size()) {
-    int i=1;
-    for (std::vector<pair<symbol, unsigned int> >::iterator it = vChildren.begin()+1; it!=vChildren.end(); it++) {
-      unsigned int p = size_of_slice / symbolsleft;
-      it->second += p;
-      iToSpend -= p;
-      i++;
-    }
+
+  //allow for rounding error by distributing the leftovers evenly amongst all elements...
+  // (ACL: previous code assigned nothing to element. Why? - I'm guessing due to confusion
+  //  with other LM code where the first element of the probability array was a dummy,
+  // storing 0 probability mass assigned to the 'root symbol' - not the case here!)
+  unsigned int p = iToSpend / vChildren.size();
+  for (std::vector<pair<symbol, unsigned int> >::iterator it = vChildren.begin(); it!=vChildren.end(); it++) {
+    it->second += p;
+    iToSpend -= p;
   }
   // std::cout<<"after lan mod fourth loop"<<std::endl;
   int iLeft = vChildren.size()-1;
 
-  if(vChildren.size()) {
-    //  std::cout<<"iNumsyjbols "<<vChildren.size()<<std::endl;
+  //  std::cout<<"iNumsyjbols "<<vChildren.size()<<std::endl;
 
-    for (std::vector<pair<symbol, unsigned int> >::iterator it = vChildren.begin()+1; it!=vChildren.end(); it++) {
+  for (std::vector<pair<symbol, unsigned int> >::iterator it = vChildren.begin()+1; it!=vChildren.end(); it++) {
 
-      //     std::cout<<"iLeft "<<iLeft<<std::endl;
-      //  std::cout<<"iToSpend "<<iToSpend<<std::endl;
-      unsigned int p = iToSpend / iLeft;
-      it->second += p;
-      --iLeft;
-      iToSpend -= p;
-    }
+    //     std::cout<<"iLeft "<<iLeft<<std::endl;
+    //  std::cout<<"iToSpend "<<iToSpend<<std::endl;
+    unsigned int p = iToSpend / iLeft;
+    it->second += p;
+    --iLeft;
+    iToSpend -= p;
   }
 
   //std::cout<<"after lan mod fifth loop"<<std::endl;
@@ -323,8 +309,10 @@ void CPPMPYLanguageModel::GetPartProbs(Context context, std::vector<pair<symbol,
 
 }
 
-
-void CPPMPYLanguageModel::GetPYProbs(Context context, std::vector<unsigned int> &probs, int norm, int iUniform) {
+//ACL this was Will's original "GetPYProbs" method - explicitly called instead of GetProbs
+// by an explicit cast to PPMPYLanguageModel whenever MandarinDasher was activated. Renaming
+// to GetProbs causes the normal (virtual) call to come straight here without any special-casing...
+void CPPMPYLanguageModel::GetProbs(Context context, std::vector<unsigned int> &probs, int norm, int iUniform) const {
   const CPPMPYContext *ppmcontext = (const CPPMPYContext *)(context);
 
 

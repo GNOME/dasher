@@ -130,7 +130,6 @@
 		3344FE520F71717C00506EAA /* OneButtonDynamicFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDE60F71717C00506EAA /* OneButtonDynamicFilter.cpp */; };
 		3344FE530F71717C00506EAA /* OneButtonFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDE80F71717C00506EAA /* OneButtonFilter.cpp */; };
 		3344FE540F71717C00506EAA /* OneDimensionalFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDEA0F71717C00506EAA /* OneDimensionalFilter.cpp */; };
-		3344FE550F71717C00506EAA /* PinYinConversionHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDED0F71717C00506EAA /* PinYinConversionHelper.cpp */; };
 		3344FE560F71717C00506EAA /* PinyinParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDEF0F71717C00506EAA /* PinyinParser.cpp */; };
 		3344FE570F71717C00506EAA /* SCENode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDF10F71717C00506EAA /* SCENode.cpp */; };
 		3344FE580F71717C00506EAA /* SettingsStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDF30F71717C00506EAA /* SettingsStore.cpp */; };
@@ -422,8 +421,6 @@
 		3344FDEA0F71717C00506EAA /* OneDimensionalFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OneDimensionalFilter.cpp; sourceTree = "<group>"; };
 		3344FDEB0F71717C00506EAA /* OneDimensionalFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneDimensionalFilter.h; sourceTree = "<group>"; };
 		3344FDEC0F71717C00506EAA /* Parameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Parameters.h; sourceTree = "<group>"; };
-		3344FDED0F71717C00506EAA /* PinYinConversionHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PinYinConversionHelper.cpp; sourceTree = "<group>"; };
-		3344FDEE0F71717C00506EAA /* PinYinConversionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinYinConversionHelper.h; sourceTree = "<group>"; };
 		3344FDEF0F71717C00506EAA /* PinyinParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PinyinParser.cpp; sourceTree = "<group>"; };
 		3344FDF00F71717C00506EAA /* PinyinParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinyinParser.h; sourceTree = "<group>"; };
 		3344FDF10F71717C00506EAA /* SCENode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SCENode.cpp; sourceTree = "<group>"; };
@@ -864,8 +861,6 @@
 				332F32AE103C8A1E008448D7 /* MandarinAlphMgr.h */,
 				332F32AF103C8A1E008448D7 /* Trainer.cpp */,
 				332F32B0103C8A1E008448D7 /* Trainer.h */,
-				3344FDED0F71717C00506EAA /* PinYinConversionHelper.cpp */,
-				3344FDEE0F71717C00506EAA /* PinYinConversionHelper.h */,
 				3344FDEF0F71717C00506EAA /* PinyinParser.cpp */,
 				3344FDF00F71717C00506EAA /* PinyinParser.h */,
 				3344FDF10F71717C00506EAA /* SCENode.cpp */,
@@ -1206,7 +1201,6 @@
 				3344FE520F71717C00506EAA /* OneButtonDynamicFilter.cpp in Sources */,
 				3344FE530F71717C00506EAA /* OneButtonFilter.cpp in Sources */,
 				3344FE540F71717C00506EAA /* OneDimensionalFilter.cpp in Sources */,
-				3344FE550F71717C00506EAA /* PinYinConversionHelper.cpp in Sources */,
 				3344FE560F71717C00506EAA /* PinyinParser.cpp in Sources */,
 				3344FE570F71717C00506EAA /* SCENode.cpp in Sources */,
 				3344FE580F71717C00506EAA /* SettingsStore.cpp in Sources */,
