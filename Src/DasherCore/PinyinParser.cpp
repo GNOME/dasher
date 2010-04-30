@@ -144,55 +144,44 @@ std::set<std::string> *CPinyinParser::ParseGroupName(const std::string &strName)
   }
 }
 
-
-bool CPinyinParser::Convert(const std::string &pystr, SCENode **pRoot) {
-  *pRoot = NULL;
-
-
-  //    std::cout<<"full string is "<<pystr<<std::endl;
-  
-  CTrieNode * pCurrentNode = m_pRoot;
-  CTrieNode * pCurrentChild;
-
+CTrieNode *CPinyinParser::GetTrieNode(const std::string &pystr) {
+  CTrieNode *pCurrentNode = m_pRoot;
   for(std::string::const_iterator it = pystr.begin();it!=pystr.end();++it){
-    pCurrentChild = pCurrentNode->LookupChild(*it);
+    pCurrentNode = pCurrentNode->LookupChild(*it);
     
-    if(!pCurrentChild)
-      return 0;
-    else
-      pCurrentNode = pCurrentChild;
+    if(!pCurrentNode)
+      return NULL;
   }
-  pCurrentNode = pCurrentNode->LookupChild('9');
-  if(!pCurrentNode)
-    return 0;
-  else{
+  //the digit '9' seems to be used as a marker for 'end-of-string' in the trie...
+  return pCurrentNode->LookupChild('9');
+}
 
-    if(!pCurrentNode->m_pList)
-      return 0;
+SCENode *CPinyinParser::Convert(CTrieNode *pCurrentNode) {
+  
+  if(!pCurrentNode || !pCurrentNode->m_pList)
+    return NULL;
+  
+  SCENode *pRoot = new SCENode;
+  pRoot->pszConversion = "";
 
-    *pRoot = new SCENode;
-    (*pRoot)->pszConversion = "";
-
-    for(std::set<std::string>::iterator it = pCurrentNode->m_pList->begin(); it != pCurrentNode->m_pList->end(); ++it) {
-      SCENode *pNewNode = new SCENode;
+  for(std::set<std::string>::iterator it = pCurrentNode->m_pList->begin(); it != pCurrentNode->m_pList->end(); ++it) {
+    SCENode *pNewNode = new SCENode;
         
-      pNewNode->pszConversion = new char[it->size() + 1];
-      strcpy(pNewNode->pszConversion, it->c_str());
+    pNewNode->pszConversion = new char[it->size() + 1];
+    strcpy(pNewNode->pszConversion, it->c_str());
 
-      //            std::string strChar(pNewNode->pszConversion);
-      // std::cout<<"Mandarin Char: "<<strChar<<std::endl;
-      // std::vector<int> CHSym;
-      // m_pCHAlphabet->GetSymbols(&CHSym, &strChar, 0);
-      // pNewNode->Symbol = CHSym[0];
+    //            std::string strChar(pNewNode->pszConversion);
+    // std::cout<<"Mandarin Char: "<<strChar<<std::endl;
+    // std::vector<int> CHSym;
+    // m_pCHAlphabet->GetSymbols(&CHSym, &strChar, 0);
+    // pNewNode->Symbol = CHSym[0];
       
-      (*pRoot)->AddChild(pNewNode);
-    }
-
-    //Test code: will make program crash
-    //    SCENode * pTemp = *pRoot;
-    // if(pTemp->GetChild()->GetChild())
-    //  std::cout<<"We have trouble in PYParser."<<std::endl;
-    return 1;    
-    
+    pRoot->AddChild(pNewNode);
   }
+
+  //Test code: will make program crash
+  //    SCENode * pTemp = *pRoot;
+  // if(pTemp->GetChild()->GetChild())
+  //  std::cout<<"We have trouble in PYParser."<<std::endl;
+  return pRoot;
 }

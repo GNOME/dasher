@@ -60,19 +60,11 @@ void CPinYinConversionHelper::BuildTree(CConvHNode *pRoot) {
 
   std::string strCurrentString(m_pAlphabet->GetDisplayText(pRoot->iSymbol));
 
-  SCENode *pStartTemp;
-  Convert(strCurrentString, &pStartTemp);
-
-  // Store all conversion trees (SCENode trees) in the pUserData->pSCENode
-  // of each Conversion Root.
-
-  pRoot->pSCENode = pStartTemp;
+  pRoot->pSCENode = pParser->Convert(pParser->GetTrieNode(strCurrentString));
 }
 
 bool CPinYinConversionHelper::Convert(const std::string &strSource, SCENode ** pRoot) {
-
-  *pRoot = 0;
-  return (pParser && pParser->Convert(strSource, pRoot));
+  throw "Should never be called, we've overridden BuildTree!";
 }
 
 void CPinYinConversionHelper::AssignSizes(const std::vector<SCENode *> &vChildren, Dasher::CLanguageModel::Context context, long normalization, int uniform){
