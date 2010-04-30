@@ -54,34 +54,24 @@ class SCENode {
     pChild->Ref();
   }
 
-  void SetPriority(int iPriority) {
-    m_iPriority = iPriority;
-  };
-
-  int GetPriority() {
-    return m_iPriority;
-  };
-
   char *pszConversion;
 
-  int IsHeadAndCandNum;
-  int CandIndex;
+  //int IsHeadAndCandNum;
+  //int CandIndex;
   int Symbol;
-  unsigned int SumPYProbStore;
+  //unsigned int SumPYProbStore;
   
-  int IsComplete;
-  int AcCharCount;  /*accumulative character count*/
+  //int IsComplete;
+  //int AcCharCount;  /*accumulative character count*/
   
   int NodeSize;
   
-  unsigned int HZFreq;
-  float HZProb;
+  //unsigned int HZFreq;
+  //float HZProb;
  private:
   int m_iRefCount;
 
   std::vector<SCENode *> m_vChildren;
-
-  int m_iPriority;
 };
 /// \}
 

@@ -27,10 +27,6 @@ class CPinYinConversionHelper : public CConversionHelper {
 
   virtual void AssignSizes(const std::vector<SCENode *> &vChildren, Dasher::CLanguageModel::Context context , long normalization, int uniform);
 
-  virtual void GetProbs(Dasher::CLanguageModel::Context context, std::vector < unsigned int >&Probs, int norm);
-
-  virtual unsigned int GetSumPYProbs(Dasher::CLanguageModel::Context context, std::vector <SCENode *> &pPYCandStart,int norm);
-
 protected:
   class CPYConvNode : public CConvHNode {
   public:

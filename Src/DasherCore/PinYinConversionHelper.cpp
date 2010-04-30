@@ -75,33 +75,6 @@ bool CPinYinConversionHelper::Convert(const std::string &strSource, SCENode ** p
   return (pParser && pParser->Convert(strSource, pRoot));
 }
 
-unsigned int CPinYinConversionHelper::GetSumPYProbs(Dasher::CLanguageModel::Context context, std::vector<SCENode *> &pPYCandStart, int norm){
-
-  std::vector <unsigned int> Probs;
-  unsigned int sumProb=0;
-  
-  GetLanguageModel()->GetProbs(context, Probs, norm, 0);
-
-  for (std::vector<SCENode *>::iterator it = pPYCandStart.begin(); it != pPYCandStart.end(); it++) {
-    SCENode *pCurrentNode(*it);
-    
-    std::vector <symbol >Symbols;
-    std::string HZ = static_cast<std::string>(pCurrentNode->pszConversion);
-    // Distribute the remaining space evenly
-    
-    m_pCHAlphabet->GetSymbols(Symbols, HZ);    
-
-    if(Symbols.size()!=0)
-      sumProb += Probs[Symbols[0]];
-
-  }
-
-  return sumProb;
-}
-
-void CPinYinConversionHelper::GetProbs(Dasher::CLanguageModel::Context context, std::vector < unsigned int >&Probs, int norm){
-}
-
 void CPinYinConversionHelper::AssignSizes(const std::vector<SCENode *> &vChildren, Dasher::CLanguageModel::Context context, long normalization, int uniform){
 
   //test print:

@@ -121,7 +121,7 @@ void CConversionManager::RecursiveDumpTree(SCENode *pCurrent, unsigned int iDept
     SCENode *pCurrent(*it);
     for(unsigned int i(0); i < iDepth; ++i)
       std::cout << "-";
-    std::cout << " " << pCurrent->pszConversion << " " << pCurrent->IsHeadAndCandNum << " " << pCurrent->CandIndex << " " << pCurrent->IsComplete << " " << pCurrent->AcCharCount << std::endl;
+    std::cout << " " << pCurrent->pszConversion << std::endl;//" " << pCurrent->IsHeadAndCandNum << " " << pCurrent->CandIndex << " " << pCurrent->IsComplete << " " << pCurrent->AcCharCount << std::endl;
     RecursiveDumpTree(pCurrent, iDepth + 1);
   }
 }
