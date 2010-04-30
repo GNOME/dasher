@@ -162,7 +162,7 @@ void COSXDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
 //      CParameterNotificationEvent *parameterEvent(static_cast < CParameterNotificationEvent * >(pEvent));
 //      NSLog(@"CParameterNotificationEvent, m_iParameter: %d", parameterEvent->m_iParameter);
       break;
-    case EV_EDIT:
+    case EV_EDIT: {
 //      NSLog(@"ExternalEventHandler, m_iEventType = EV_EDIT");
       CEditEvent *editEvent(static_cast < CEditEvent * >(pEvent));
       switch (editEvent->m_iEditType) {
@@ -183,12 +183,14 @@ void COSXDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
         default:
           break;
       }
-        break;
-    case EV_EDIT_CONTEXT:
+      break;
+    }
+    case EV_EDIT_CONTEXT: {
       //NSLog(@"ExternalEventHandler, m_iEventType = EV_EDIT_CONTEXT");
       CEditContextEvent *ecvt((CEditContextEvent *)pEvent);
       SetContext(StdStringFromNSString([dasherEdit textAtOffset:ecvt->m_iOffset Length:ecvt->m_iLength]));
       break;
+    }
     case EV_START:
       NSLog(@"ExternalEventHandler, m_iEventType = EV_START");
       break;
@@ -205,10 +207,11 @@ void COSXDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
     case EV_COMMAND:
       NSLog(@"ExternalEventHandler, m_iEventType = EV_COMMAND");
       break;
-    case EV_MESSAGE:
+    case EV_MESSAGE: {
       CMessageEvent *messageEvent(static_cast < CMessageEvent * >(pEvent));
       NSLog(@"ExternalEventHandler, m_iEventType = EV_MESSAGE, mess: %@, id = %d, type = %d", NSStringFromStdString(messageEvent->m_strMessage), messageEvent->m_iID, messageEvent->m_iType);
       break;
+    }
     default:
       NSLog(@"ExternalEventHandler, UNKNOWN m_iEventType = %d", pEvent->m_iEventType);
       break;
