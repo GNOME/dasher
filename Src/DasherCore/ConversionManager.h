@@ -25,6 +25,7 @@
 #include "LanguageModelling/LanguageModel.h" // Urgh - we really shouldn't need to know about language models here
 #include "DasherNode.h"
 #include "SCENode.h"
+#include "NodeManager.h"
 
 // TODO: Conversion manager needs to deal with offsets and contexts - Will: See Phil for an explanation.
 
@@ -56,7 +57,7 @@ namespace Dasher {
   /// aspects of conversion, and CNodeManager for details of the node
   /// management process.
   ///
-  class CConversionManager {
+  class CConversionManager : public CNodeManager {
   public:
     // TODO: We shouldn't need to know about this stuff, but the code is somewhat in knots at the moment
     CConversionManager(CNodeCreationManager *pNCManager, CAlphabet *pAlphabet);
@@ -80,7 +81,7 @@ namespace Dasher {
     protected:
     class CConvNode : public CDasherNode {
     public:
-      int mgrId() {return 2;}
+      CConversionManager *mgr() {return m_pMgr;}
       CConvNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CConversionManager *pMgr);
     ///
     /// Provide children for the supplied node

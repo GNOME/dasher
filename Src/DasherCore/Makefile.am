@@ -148,8 +148,6 @@ libdashercore_a_DEPENDENCIES = @CHINESE_SOURCES@ @JAPANESE_SOURCES@
 EXTRA_libdashercore_a_SOURCES = \
 		CannaConversionHelper.cpp \
 		CannaConversionHelper.h \
-		PinYinConversionHelper.cpp \
-		PinYinConversionHelper.h \
 		PinyinParser.cpp \
 		PinyinParser.h
 

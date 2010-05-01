@@ -187,11 +187,11 @@ void CPPMPYLanguageModel::GetProbs(Context context, std::vector<unsigned int> &p
   DASHER_ASSERT(iToSpend == 0);
 }
 
-void CPPMPYLanguageModel::GetPartProbs(Context context, const std::vector<SCENode *> &vChildren, int norm, int iUniform){
+void CPPMPYLanguageModel::GetPartProbs(Context context, std::vector<pair<symbol, unsigned int> > &vChildren, int norm, int iUniform){
   
   
   if(vChildren.size() == 1){
-    vChildren[0]->NodeSize = norm;
+    vChildren[0].second = norm;
     return;
   }
   //  std::cout<<"Norms is "<<norm<<std::endl;
@@ -204,36 +204,27 @@ void CPPMPYLanguageModel::GetPartProbs(Context context, const std::vector<SCENod
   //  std::cout<<"size of context set  "<<m_setContexts.size()<<std::endl;
   
   //  probs.resize(iNumSymbols);
-
-  // Leave the vector treatment for now
-  std::vector < bool > exclusions(vChildren.size());
   
   unsigned int iToSpend = norm;
   unsigned int iUniformLeft = iUniform;
 
   // TODO: Sort out zero symbol case
-  exclusions[0] = false;
   
   //Reproduce iterative calculations with SCENode trie
 
   if(vChildren.size()){
-    vChildren[0] -> NodeSize = 0;
+    vChildren[0].second = 0;
     int i=1;
-    for (std::vector<SCENode *>::const_iterator it = vChildren.begin()+1; it!=vChildren.end(); it++) {
-      SCENode *pNode(*it);
-      pNode->NodeSize = iUniformLeft / (vChildren.size() - i);
+    for (std::vector<pair<symbol, unsigned int> >::iterator it = vChildren.begin()+1; it!=vChildren.end(); it++) {
+      it->second = iUniformLeft / (vChildren.size() - i);
       //  std::cout<<"iUniformLeft: "<<iUniformLeft<<std::endl;
-      iUniformLeft -= pNode->NodeSize;
-      iToSpend -= pNode->NodeSize;
-      exclusions[i] = false;
+      iUniformLeft -= it->second;
+      iToSpend -= it->second;
       i++;
     }
   }
 
   DASHER_ASSERT(iUniformLeft == 0);
-
-  //  bool doExclusion = GetLongParameter( LP_LM_ALPHA );
-  bool doExclusion = 0; //FIXME
 
   int alpha = GetLongParameter( LP_LM_ALPHA );
   int beta = GetLongParameter( LP_LM_BETA );
@@ -247,12 +238,11 @@ void CPPMPYLanguageModel::GetPartProbs(Context context, const std::vector<SCENod
     int iTotal =0;
     vNodeStore.clear();
     int i=0;
-    for (std::vector<SCENode *>::const_iterator it = vChildren.begin(); it!=vChildren.end(); it++) {
-      SCENode *pNode(*it);
+    for (std::vector<pair<symbol, unsigned int> >::const_iterator it = vChildren.begin(); it!=vChildren.end(); it++) {
 
-      pFound = pTemp->find_symbol(pNode->Symbol);
+      pFound = pTemp->find_symbol(it->first);
       //Mark: do we need to treat the exception of -1 separately?     
-      if((!(exclusions[i] && doExclusion))&&(pFound)){
+      if(pFound){
 	  iTotal += pFound->count;
 	  vNodeStore.push_back(pFound);
       }
@@ -268,13 +258,11 @@ void CPPMPYLanguageModel::GetPartProbs(Context context, const std::vector<SCENod
       unsigned int size_of_slice = iToSpend;
       
       int i=0;
-      for (vector<SCENode *>::const_iterator it = vChildren.begin(); it!=vChildren.end(); it++) {
-        SCENode *pNode(*it);
-        if((!(exclusions[i] && doExclusion))&&(vNodeStore[i])) {
-          exclusions[i] = 1;
+      for (vector<pair<symbol, unsigned int> >::iterator it = vChildren.begin(); it!=vChildren.end(); it++) {
+        if(vNodeStore[i]) {
           unsigned int p = static_cast < myint > (size_of_slice) * (100 * vNodeStore[i]->count - beta) / (100 * iTotal + alpha);
-          if((pNode->Symbol>-1)&&(pNode->Symbol<=m_iAlphSize)){
-            pNode->NodeSize += p;
+          if((it->first>-1)&&(it->first<=m_iAlphSize)){
+            it->second += p;
             iToSpend -= p;
           }
         }
@@ -288,12 +276,7 @@ void CPPMPYLanguageModel::GetPartProbs(Context context, const std::vector<SCENod
 
   
   unsigned int size_of_slice = iToSpend;
-  int symbolsleft = 0;
-
-  for(unsigned int i = 1; i < vChildren.size(); i++)
-    if(!(exclusions[i] && doExclusion))
-      symbolsleft++;
-
+  int symbolsleft = vChildren.size()-1;
 
 //      std::ostringstream str;
 //      for (sym=0;sym<modelchars;sym++)
@@ -310,12 +293,10 @@ void CPPMPYLanguageModel::GetPartProbs(Context context, const std::vector<SCENod
   
   if(vChildren.size()) {
     int i=1;
-    for (std::vector<SCENode *>::const_iterator it = vChildren.begin()+1; it!=vChildren.end(); it++) {
-      if(!(exclusions[i] && doExclusion)) {
-        unsigned int p = size_of_slice / symbolsleft;
-        (*it)->NodeSize += p;
-        iToSpend -= p;
-      }
+    for (std::vector<pair<symbol, unsigned int> >::iterator it = vChildren.begin()+1; it!=vChildren.end(); it++) {
+      unsigned int p = size_of_slice / symbolsleft;
+      it->second += p;
+      iToSpend -= p;
       i++;
     }
   }
@@ -325,12 +306,12 @@ void CPPMPYLanguageModel::GetPartProbs(Context context, const std::vector<SCENod
   if(vChildren.size()) {
     //  std::cout<<"iNumsyjbols "<<vChildren.size()<<std::endl;
 
-    for (std::vector<SCENode *>::const_iterator it = vChildren.begin()+1; it!=vChildren.end(); it++) {
+    for (std::vector<pair<symbol, unsigned int> >::iterator it = vChildren.begin()+1; it!=vChildren.end(); it++) {
 
       //     std::cout<<"iLeft "<<iLeft<<std::endl;
       //  std::cout<<"iToSpend "<<iToSpend<<std::endl;
       unsigned int p = iToSpend / iLeft;
-      (*it)->NodeSize += p;
+      it->second += p;
       --iLeft;
       iToSpend -= p;
     }

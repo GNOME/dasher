@@ -24,6 +24,7 @@
 #include "DasherModel.h"
 #include "DasherNode.h"
 #include "Event.h"
+#include "NodeManager.h"
 
 #include <vector>
 #include <map>
@@ -51,7 +52,7 @@ namespace Dasher {
   /// Currently can only have one instance due to use 
   /// of static members for callbacks from expat.
   ///
-  class CControlManager {
+  class CControlManager : public CNodeManager {
   public:
 
     enum { CTL_ROOT, CTL_STOP, CTL_PAUSE, CTL_MOVE, CTL_MOVE_FORWARD, 
@@ -88,7 +89,7 @@ namespace Dasher {
     
     class CContNode : public CDasherNode {
     public:
-      int mgrId() {return 1;}
+      CControlManager *mgr() {return m_pMgr;}
       CContNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDisplayInfo, CControlManager *pMgr);
     ///
     /// Provide children for the supplied node

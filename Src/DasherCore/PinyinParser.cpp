@@ -27,6 +27,7 @@
 #include <string>
 #include <vector>
 
+using namespace Dasher;
 CPinyinParser::CPinyinParser(const std::string &strAlphabetPath) {
   m_strLastGroup = "";
   pCurrentList = NULL;
@@ -154,34 +155,4 @@ CTrieNode *CPinyinParser::GetTrieNode(const std::string &pystr) {
   }
   //the digit '9' seems to be used as a marker for 'end-of-string' in the trie...
   return pCurrentNode->LookupChild('9');
-}
-
-SCENode *CPinyinParser::Convert(CTrieNode *pCurrentNode) {
-  
-  if(!pCurrentNode || !pCurrentNode->m_pList)
-    return NULL;
-  
-  SCENode *pRoot = new SCENode;
-  pRoot->pszConversion = "";
-
-  for(std::set<std::string>::iterator it = pCurrentNode->m_pList->begin(); it != pCurrentNode->m_pList->end(); ++it) {
-    SCENode *pNewNode = new SCENode;
-        
-    pNewNode->pszConversion = new char[it->size() + 1];
-    strcpy(pNewNode->pszConversion, it->c_str());
-
-    //            std::string strChar(pNewNode->pszConversion);
-    // std::cout<<"Mandarin Char: "<<strChar<<std::endl;
-    // std::vector<int> CHSym;
-    // m_pCHAlphabet->GetSymbols(&CHSym, &strChar, 0);
-    // pNewNode->Symbol = CHSym[0];
-      
-    pRoot->AddChild(pNewNode);
-  }
-
-  //Test code: will make program crash
-  //    SCENode * pTemp = *pRoot;
-  // if(pTemp->GetChild()->GetChild())
-  //  std::cout<<"We have trouble in PYParser."<<std::endl;
-  return pRoot;
 }

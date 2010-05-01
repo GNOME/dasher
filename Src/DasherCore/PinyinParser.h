@@ -21,13 +21,13 @@
 #ifndef __PinyinParser_h__
 #define __PinyinParser_h__
 
-#include "SCENode.h"
 #include "Alphabet/Alphabet.h"
-
+#include "DasherTypes.h"
 #include <expat.h>
 #include <iostream>
 #include <set>
 #include <string>
+#include <vector>
 
 class CTrieNode {
 public:
@@ -106,16 +106,15 @@ public:
       std::cout<<m_cSymbol<<std::endl;
   }
   
-  CTrieNode * GetChild(){
-    return m_pChild;
+  const std::set<std::string> *list() {
+    return m_pList;
   }
-  
-  std::set<std::string> *m_pList;
   
 private:
   CTrieNode *m_pChild;
   CTrieNode *m_pNext;
-  
+  std::set<std::string> *m_pList;
+
   char m_cSymbol;
 };
 
@@ -124,7 +123,8 @@ private:
 // 2. This leaks memory badly
 // 3. Generally make things sensible!
 // 4. Load the conversion data from a configurable location, store in a sensible binary format
-
+namespace Dasher {
+  
 class CPinyinParser {
  public:
   /// Constructor
@@ -132,8 +132,6 @@ class CPinyinParser {
   ~CPinyinParser();
 
   CTrieNode *GetTrieNode(const std::string &pystr);
-  SCENode *Convert(CTrieNode *pCurrentNode);
-
 
  private:
   static void XML_StartElement(void *userData, const XML_Char * name, const XML_Char ** atts);
@@ -146,5 +144,5 @@ class CPinyinParser {
   std::string m_strLastGroup;
   CTrieNode *m_pRoot;
 };
-
+}
 #endif

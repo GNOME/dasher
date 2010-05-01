@@ -363,7 +363,6 @@
 		335901B41009E5A900821255 /* ConversionHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 335901B31009E5A900821255 /* ConversionHelper.cpp */; };
 		335DB0FB100B332C006DB155 /* alphabet.spyDict.xml in Resources */ = {isa = PBXBuildFile; fileRef = 335DB0FA100B332C006DB155 /* alphabet.spyDict.xml */; };
 		335DB101100B3358006DB155 /* training_spyDict.txt in Resources */ = {isa = PBXBuildFile; fileRef = 335DB100100B3358006DB155 /* training_spyDict.txt */; };
-		335DB122100B3606006DB155 /* PinYinConversionHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE760C226CFD001DFA32 /* PinYinConversionHelper.cpp */; };
 		33ABFEC60FC379EA00EA2BA5 /* ButtonMultiPress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33ABFEC40FC379EA00EA2BA5 /* ButtonMultiPress.cpp */; };
 		33ABFEC70FC379EA00EA2BA5 /* ButtonMultiPress.h in Headers */ = {isa = PBXBuildFile; fileRef = 33ABFEC50FC379EA00EA2BA5 /* ButtonMultiPress.h */; };
 		33E173C70F3E0B6400D19B38 /* Makefile.am in Resources */ = {isa = PBXBuildFile; fileRef = 33E173A70F3E0B6400D19B38 /* Makefile.am */; };
@@ -525,8 +524,6 @@
 		1948BE730C226CFD001DFA32 /* OneDimensionalFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = OneDimensionalFilter.cpp; sourceTree = "<group>"; };
 		1948BE740C226CFD001DFA32 /* OneDimensionalFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = OneDimensionalFilter.h; sourceTree = "<group>"; };
 		1948BE750C226CFD001DFA32 /* Parameters.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Parameters.h; sourceTree = "<group>"; };
-		1948BE760C226CFD001DFA32 /* PinYinConversionHelper.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; path = PinYinConversionHelper.cpp; sourceTree = "<group>"; };
-		1948BE770C226CFD001DFA32 /* PinYinConversionHelper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PinYinConversionHelper.h; sourceTree = "<group>"; };
 		1948BE780C226CFD001DFA32 /* SCENode.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = SCENode.cpp; sourceTree = "<group>"; };
 		1948BE790C226CFD001DFA32 /* SCENode.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SCENode.h; sourceTree = "<group>"; };
 		1948BE7A0C226CFD001DFA32 /* SettingsStore.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = SettingsStore.cpp; sourceTree = "<group>"; };
@@ -1021,8 +1018,6 @@
 				1948BE730C226CFD001DFA32 /* OneDimensionalFilter.cpp */,
 				1948BE740C226CFD001DFA32 /* OneDimensionalFilter.h */,
 				1948BE750C226CFD001DFA32 /* Parameters.h */,
-				1948BE760C226CFD001DFA32 /* PinYinConversionHelper.cpp */,
-				1948BE770C226CFD001DFA32 /* PinYinConversionHelper.h */,
 				1948BE780C226CFD001DFA32 /* SCENode.cpp */,
 				1948BE790C226CFD001DFA32 /* SCENode.h */,
 				1948BE7A0C226CFD001DFA32 /* SettingsStore.cpp */,
@@ -1846,7 +1841,6 @@
 				3306E0220FFD1CE60017324C /* PPMPYLanguageModel.cpp in Sources */,
 				3306E1F70FFE6CAD0017324C /* Trainer.cpp in Sources */,
 				3306E33D0FFFB9880017324C /* MandarinAlphMgr.cpp in Sources */,
-				335DB122100B3606006DB155 /* PinYinConversionHelper.cpp in Sources */,
 				335901B41009E5A900821255 /* ConversionHelper.cpp in Sources */,
 				33135351102C6D8E00E28220 /* AlternatingDirectMode.cpp in Sources */,
 				33135353102C6D8E00E28220 /* CompassMode.cpp in Sources */,

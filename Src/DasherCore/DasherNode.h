@@ -25,6 +25,8 @@
 #include "../Common/NoClones.h"
 #include "LanguageModelling/LanguageModel.h"
 #include "DasherTypes.h"
+#include "NodeManager.h"
+
 namespace Dasher {
   class CDasherNode;
   class CDasherInterfaceBase;
@@ -206,7 +208,10 @@ class Dasher::CDasherNode:private NoClones {
   
   /// @name Management routines (once accessed via NodeManager)
   /// @{
-  virtual int mgrId() = 0;
+  /// Gets the node manager for this object. Meaning defined by subclasses,
+  ///  which should override and refine the return type appropriately;
+  ///  the main use is to provide runtime type info to check casting!
+  virtual CNodeManager *mgr() = 0;
   ///
   /// Provide children for the supplied node
   ///

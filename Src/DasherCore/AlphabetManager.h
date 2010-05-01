@@ -24,6 +24,7 @@
 #include "LanguageModelling/LanguageModel.h"
 #include "DasherNode.h"
 #include "Parameters.h"
+#include "NodeManager.h"
 
 class CNodeCreationManager;
 struct SGroupInfo;
@@ -40,7 +41,7 @@ namespace Dasher {
   /// to the appropriate alphabet file, with sizes given by the
   /// language model.
   ///
-  class CAlphabetManager {
+  class CAlphabetManager : public CNodeManager {
   public:
 
     CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel);
@@ -49,7 +50,7 @@ namespace Dasher {
     class CGroupNode;
     class CAlphNode : public CDasherNode {
     public:
-      int mgrId() {return 0;}
+      virtual CAlphabetManager *mgr() {return m_pMgr;}
       CAlphNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CAlphabetManager *pMgr);
       CLanguageModel::Context iContext;
       ///
@@ -61,11 +62,12 @@ namespace Dasher {
       ///Have to call this from CAlphabetManager, and from CGroupNode on a _different_ CAlphNode, hence public...
       virtual std::vector<unsigned int> *GetProbInfo();
       virtual int ExpectedNumChildren();
-      CAlphabetManager *m_pMgr;
       virtual CDasherNode *RebuildSymbol(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd)=0;
       virtual CGroupNode *RebuildGroup(CAlphNode *pParent, SGroupInfo *pInfo, unsigned int iLbnd, unsigned int iHbnd)=0;
     private:
       std::vector<unsigned int> *m_pProbInfo;
+    protected:
+      CAlphabetManager *m_pMgr;
     };
     class CSymbolNode : public CAlphNode {
     public:
@@ -88,6 +90,8 @@ namespace Dasher {
       const symbol iSymbol;
       virtual CDasherNode *RebuildSymbol(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd);
       virtual CGroupNode *RebuildGroup(CAlphNode *pParent, SGroupInfo *pInfo, unsigned int iLbnd, unsigned int iHbnd);
+    private:
+      virtual const std::string &outputText();
     };
 
     class CGroupNode : public CAlphNode {

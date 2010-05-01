@@ -54,7 +54,7 @@ CAlphabetManager::CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreati
 }
 
 CAlphabetManager::CAlphNode::CAlphNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDisplayInfo, CAlphabetManager *pMgr)
-: CDasherNode(pParent, iLbnd, iHbnd, pDisplayInfo), m_pMgr(pMgr), m_pProbInfo(NULL) {
+: CDasherNode(pParent, iLbnd, iHbnd, pDisplayInfo), m_pProbInfo(NULL), m_pMgr(pMgr) {
 };
 
 CAlphabetManager::CSymbolNode::CSymbolNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDisplayInfo, CAlphabetManager *pMgr, symbol _iSymbol)
@@ -195,7 +195,7 @@ std::vector<unsigned int> *CAlphabetManager::CAlphNode::GetProbInfo() {
 }
 
 std::vector<unsigned int> *CAlphabetManager::CGroupNode::GetProbInfo() {
-  if (m_pGroup && Parent() && Parent()->mgrId() == 0) {
+  if (m_pGroup && Parent() && Parent()->mgr() == mgr()) {
     DASHER_ASSERT(Parent()->m_iOffset == m_iOffset);
     return (static_cast<CAlphNode *>(Parent()))->GetProbInfo();
   }
@@ -393,10 +393,14 @@ CAlphabetManager::CAlphNode::~CAlphNode() {
   m_pMgr->m_pLanguageModel->ReleaseContext(iContext);
 }
 
+const std::string &CAlphabetManager::CSymbolNode::outputText() {
+  return mgr()->m_pNCManager->GetAlphabet()->GetText(iSymbol);
+}
+
 void CAlphabetManager::CSymbolNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {
   //std::cout << this << " " << Parent() << ": Output at offset " << m_iOffset << " *" << m_pMgr->m_pNCManager->GetAlphabet()->GetText(t) << "* " << std::endl;
 
-  Dasher::CEditEvent oEvent(1, m_pMgr->m_pNCManager->GetAlphabet()->GetText(iSymbol), m_iOffset);
+  Dasher::CEditEvent oEvent(1, outputText(), m_iOffset);
   m_pMgr->m_pNCManager->InsertEvent(&oEvent);
 
   // Track this symbol and its probability for logging purposes
@@ -410,7 +414,7 @@ void CAlphabetManager::CSymbolNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, i
 }
 
 void CAlphabetManager::CSymbolNode::Undo() {
-  Dasher::CEditEvent oEvent(2, m_pMgr->m_pNCManager->GetAlphabet()->GetText(iSymbol), m_iOffset);
+  Dasher::CEditEvent oEvent(2, outputText(), m_iOffset);
   m_pMgr->m_pNCManager->InsertEvent(&oEvent);
 }
 

@@ -154,7 +154,7 @@ void CConversionManager::CConvNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, i
     Dasher::CEditEvent oEvent(1, pCurrentSCENode->pszConversion, m_iOffset);
     m_pMgr->m_pNCManager->InsertEvent(&oEvent);
 
-    if((GetChildren())[0]->mgrId() == 2) {
+    if((GetChildren())[0]->mgr() == m_pMgr) {
       if (static_cast<CConvNode *>(GetChildren()[0])->m_pMgr == m_pMgr) {
         Dasher::CEditEvent oEvent(11, "", 0);
         m_pMgr->m_pNCManager->InsertEvent(&oEvent);

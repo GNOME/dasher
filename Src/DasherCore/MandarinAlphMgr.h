@@ -22,6 +22,7 @@
 #define __mandarinalphmgr_h__
 
 #include "AlphabetManager.h"
+#include "PinyinParser.h"
 
 namespace Dasher {
 
@@ -37,21 +38,56 @@ namespace Dasher {
 
     CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel);
 
-    ///
-    /// Get a new root node owned by this manager
-    ///
-
-    virtual CAlphNode *GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, bool bEnteredLast, int iOffset);
-
+    virtual ~CMandarinAlphMgr();
+    
+    /*ACL note: used to override GetRoot,
+     to attempt to clone the context of the previous node
+     in the case that the previous node was a PinyinConversionHelper node
+     (the common case - when a "conversion" was performed and chinese symbols reached,
+     it then 'escaped' back to the alphabet manager root by calling GetAlphRoot...)
+     Since this is no longer necessary (chinese symbol nodes are alph nodes directly,
+     so subsume the previous role of alph 'root's rather than contain them),
+     I don't think we need to override GetRoot anymore...?!?! */
+    
   protected:
+    ///Subclass CSymbolNode to disable learn-as-you-write (for Mandarin Dasher).
+    /// This subclass used directly only for punctuation; chinese symbols use CMandSym, below.
     class CMandNode : public CSymbolNode {
     public:
-      CMandNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CAlphabetManager *pMgr, symbol iSymbol);
+      CMandarinAlphMgr *mgr() {return static_cast<CMandarinAlphMgr *>(CSymbolNode::mgr());}
+      CMandNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CMandarinAlphMgr *pMgr, symbol iSymbol);
       virtual void SetFlag(int iFlag, bool bValue);
+      virtual CDasherNode *RebuildParent() {return 0;}
     };
-    CSymbolNode *makeSymbol(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, symbol iSymbol);
+    class CMandSym : public CMandNode {
+    public:
+      CMandSym(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CMandarinAlphMgr *pMgr, symbol iSymbol);
+    private:
+      virtual const std::string &outputText();
+    };
+    class CConvRoot : public CDasherNode {
+    public:
+      CMandarinAlphMgr *mgr() {return m_pMgr;}
+      CConvRoot(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CMandarinAlphMgr *pMgr, CTrieNode *pTrie);
+      void PopulateChildren();
+      int ExpectedNumChildren();
+      int iContext;
+    private:
+      void BuildConversions();
+        
+      std::vector<std::pair<symbol, unsigned int> > m_vChInfo;
+      CMandarinAlphMgr *m_pMgr;
+      CTrieNode *m_pTrie;
+    };
+    CMandNode *makeSymbol(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, symbol iSymbol);
     virtual CDasherNode *CreateSymbolNode(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd);
     virtual CLanguageModel::Context CreateSymbolContext(CAlphNode *pParent, symbol iSymbol);
+
+    int AssignColour(int parentClr, int childIndex);
+    
+    void AssignSizes(std::vector<std::pair<symbol,unsigned int> > &vChildren, Dasher::CLanguageModel::Context context);
+    CPinyinParser *m_pParser;
+    CAlphabet *m_pCHAlphabet;
   };
   /// @}
 

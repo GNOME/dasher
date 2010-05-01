@@ -8,7 +8,6 @@
 #include "LanguageModelling/CTWLanguageModel.h"
 #include "NodeCreationManager.h"
 #include "MandarinAlphMgr.h"
-#include "PinYinConversionHelper.h"
 #include "ControlManager.h"
 #include "EventHandler.h"
 
@@ -143,13 +142,6 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
 #else
       m_pConversionManager = new CCannaConversionHelper(this, m_pAlphabet, GetLongParameter(LP_CONVERSION_TYPE), GetLongParameter(LP_CONVERSION_ORDER));
 #endif
-      break;
-#endif
-#ifdef CHINESE
-    case 2: // Chinese
-      m_pConversionManager = new CPinYinConversionHelper(this, m_pEventHandler, m_pSettingsStore, pAlphIO,
-                                         GetStringParameter(SP_SYSTEM_LOC) +"/alphabet.chineseRuby.xml",
-                                         m_pAlphabet, static_cast<CPPMPYLanguageModel *>(m_pLanguageModel));
       break;
 #endif
   }

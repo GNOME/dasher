@@ -180,7 +180,7 @@ void CConversionHelper::BuildTree(CConvHNode *pRoot) {
   std::string strCurrentString;
   // Search backwards but stop at any conversion node.
   for (CDasherNode *pNode = pRoot->Parent();
-       pNode && pNode->mgrId() != 2;
+       pNode && pNode->mgr() == this;
        pNode = pNode->Parent()) {
       
     // TODO: Need to make this the edit text rather than the display text
