@@ -205,23 +205,8 @@ std::vector<unsigned int> *CAlphabetManager::CGroupNode::GetProbInfo() {
 
 void CAlphabetManager::CGroupNode::PopulateChildren() {
   m_pMgr->IterateChildGroups(this, m_pGroup, NULL);
-  if (GetChildren().size()==1) {
-    CDasherNode *pChild = GetChildren()[0];
-    //single child, must therefore completely fill this node...
-    DASHER_ASSERT(pChild->Lbnd()==0 && pChild->Hbnd()==65536);
-    //in earlier versions of Dasher with subnodes, that child would have been created
-    // at the same time as this node, so this node would never be seen/rendered (as the
-    // child would cover it). However, lazily (as we do now) creating the child, will
-    // suddenly obscure this (parent) node, changing it's colour. Hence, avoid this by
-    // making the child look like the parent...(note that changing the parent, before the
-    // child is created, to look like the child will do, would more closely mirror the old
-    // behaviour, but we can't really do that!
-    CDasherNode::SDisplayInfo *pInfo = (CDasherNode::SDisplayInfo *)pChild->GetDisplayInfo();
-    //ick, note the cast to get rid of 'const'ness. TODO: do something about SDisplayInfo...!!
-    pInfo->bVisible=false;
-    pInfo->iColour = GetDisplayInfo()->iColour;
-  }
 }
+
 int CAlphabetManager::CGroupNode::ExpectedNumChildren() {
   return (m_pGroup) ? m_pGroup->iNumChildNodes : CAlphNode::ExpectedNumChildren();
 }
@@ -370,16 +355,50 @@ void CAlphabetManager::IterateChildGroups(CAlphNode *pParent, SGroupInfo *pParen
     unsigned int iHbnd = (((*pCProb)[iEnd-1] - (*pCProb)[iMin-1]) *
                           (uint64)(m_pNCManager->GetLongParameter(LP_NORMALIZATION))) /
                          ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]);
-    
-    if (bSymbol) {
-      pNewChild = (buildAround) ? buildAround->RebuildSymbol(pParent, i, iLbnd, iHbnd) : CreateSymbolNode(pParent, i, iLbnd, iHbnd);
-      i++; //make one symbol at a time - move onto next in next iteration
-    } else { //in/reached subgroup - do entire group in one go:
-      pNewChild= (buildAround) ? buildAround->RebuildGroup(pParent, pCurrentNode, iLbnd, iHbnd) : CreateGroupNode(pParent, pCurrentNode, iLbnd, iHbnd);
-      i = pCurrentNode->iEnd; //make one group at a time - so move past entire group...
-      pCurrentNode = pCurrentNode->pNext;
+    //loop for eliding groups with single children (see below).
+    // Variables store necessary properties of any elided groups:
+    std::string groupPrefix=""; int iOverrideColour=-1;
+    SGroupInfo *pInner=pCurrentNode;
+    while (true) {
+      if (bSymbol) {
+        pNewChild = (buildAround) ? buildAround->RebuildSymbol(pParent, i, iLbnd, iHbnd) : CreateSymbolNode(pParent, i, iLbnd, iHbnd);
+        i++; //make one symbol at a time - move onto next symbol in next iteration of (outer) loop
+        break; //exit inner (group elision) loop
+      } else if (pInner->iNumChildNodes>1) { //in/reached nontrivial subgroup - do make node for entire group:
+        pNewChild= (buildAround) ? buildAround->RebuildGroup(pParent, pInner, iLbnd, iHbnd) : CreateGroupNode(pParent, pInner, iLbnd, iHbnd);
+        i = pInner->iEnd; //make one group at a time - so move past entire group...
+        pCurrentNode = pCurrentNode->pNext; //next sibling of _original_ pCurrentNode (above)
+                                     // (maybe not of pCurrentNode now, which might be a subgroup filling the original)
+        break; //exit inner (group elision) loop
+      }
+      //were about to create a group node, which would have only one child
+      // (eventually, if the group node were PopulateChildren'd).
+      // Such a child would entirely fill it's parent (the group), and thus,
+      // creation/destruction of the child would cause the node's colour to flash
+      // between that for parent group and child.
+      // Hence, instead we elide the group node and create the child _here_...
+      
+      //1. however we also have to take account of the appearance of the elided group. Hence:
+      groupPrefix += pInner->strLabel;
+      if (pInner->bVisible) iOverrideColour=pInner->iColour;
+      //2. now go into the group...
+      pInner = pInner->pChild;
+      bSymbol = (pInner==NULL); //which might contain a single subgroup, or a single symbol
+      if (bSymbol) pCurrentNode = pCurrentNode->pNext; //if a symbol, we've still moved past the outer (elided) group
+      DASHER_ASSERT(iEnd == (bSymbol ? i+1 : pInner->iEnd)); //probability calcs still ok
+      //3. loop round inner loop...
     }
+    //created a new node - symbol or (group which will have >1 child).
     DASHER_ASSERT(pParent->GetChildren().back()==pNewChild);
+    //now adjust the node we've actually created, to take account of any elided group(s)...
+    // ick: cast away const-ness...TODO!
+    CDasherNode::SDisplayInfo *pChildInfo = (CDasherNode::SDisplayInfo *)pNewChild->GetDisplayInfo();
+    if (iOverrideColour!=-1 && !pChildInfo->bVisible) {
+      pChildInfo->bVisible = true;
+      pChildInfo->iColour = iOverrideColour;
+    }
+    //if we've reused the existing node, make sure we don't adjust the display text twice...
+    if (pNewChild != buildAround) pChildInfo->strDisplayText = groupPrefix + pChildInfo->strDisplayText;    
   }
 
   pParent->SetFlag(NF_ALLCHILDREN, true);
