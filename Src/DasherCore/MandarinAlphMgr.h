@@ -55,20 +55,23 @@ namespace Dasher {
     class CMandNode : public CSymbolNode {
     public:
       CMandarinAlphMgr *mgr() {return static_cast<CMandarinAlphMgr *>(CSymbolNode::mgr());}
-      CMandNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CMandarinAlphMgr *pMgr, symbol iSymbol);
+      CMandNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CMandarinAlphMgr *pMgr, symbol iSymbol);
       virtual void SetFlag(int iFlag, bool bValue);
       virtual CDasherNode *RebuildParent() {return 0;}
+    protected:
+      /// Constructor for subclasses (CMandSym!) to specify own colour & label
+      CMandNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const std::string &strDisplayText, CMandarinAlphMgr *pMgr, symbol iSymbol);
     };
     class CMandSym : public CMandNode {
     public:
-      CMandSym(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CMandarinAlphMgr *pMgr, symbol iSymbol);
+      CMandSym(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, CMandarinAlphMgr *pMgr, symbol iSymbol);
     private:
       virtual const std::string &outputText();
     };
     class CConvRoot : public CDasherNode {
     public:
       CMandarinAlphMgr *mgr() {return m_pMgr;}
-      CConvRoot(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CMandarinAlphMgr *pMgr, CTrieNode *pTrie);
+      CConvRoot(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CMandarinAlphMgr *pMgr, CTrieNode *pTrie);
       void PopulateChildren();
       int ExpectedNumChildren();
       int iContext;
@@ -79,7 +82,7 @@ namespace Dasher {
       CMandarinAlphMgr *m_pMgr;
       CTrieNode *m_pTrie;
     };
-    CMandNode *makeSymbol(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, symbol iSymbol);
+    CMandNode *makeSymbol(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, symbol iSymbol);
     virtual CDasherNode *CreateSymbolNode(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd);
     virtual CLanguageModel::Context CreateSymbolContext(CAlphNode *pParent, symbol iSymbol);
 

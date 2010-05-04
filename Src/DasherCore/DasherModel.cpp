@@ -595,7 +595,7 @@ void CDasherModel::ExpandNode(CDasherNode *pNode) {
   GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher();
   if(m_bGameMode && pNode->GetFlag(NF_GAME) && pTeacher )
   {
-    std::string strTargetUtf8Char(pTeacher->GetSymbolAtOffset(pNode->m_iOffset + 1));
+    std::string strTargetUtf8Char(pTeacher->GetSymbolAtOffset(pNode->offset() + 1));
       
     // Check if this is the last node in the sentence...
     if(strTargetUtf8Char == "GameEnd")

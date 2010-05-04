@@ -192,7 +192,7 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   ///
 
   int GetOffset() {
-    return m_pLastOutput->m_iOffset+1;
+    return m_pLastOutput->offset()+1;
   };
 
   /// Create the children of a Dasher node

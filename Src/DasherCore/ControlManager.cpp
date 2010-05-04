@@ -269,27 +269,17 @@ void CControlManager::DisconnectNode(int iChild, int iParent) {
 
 CDasherNode *CControlManager::GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset) {
 
-  // TODO: Tie this structure to info contained in control map
-  CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
-  pDisplayInfo->iColour = m_mapControlMap[0]->iColour;
-  pDisplayInfo->bShove = false;
-  pDisplayInfo->bVisible = true;
-  pDisplayInfo->strDisplayText = m_mapControlMap[0]->strLabel;
-  
-  CContNode *pNewNode = new CContNode(pParent, iLower, iUpper, pDisplayInfo, this);
+  CContNode *pNewNode = new CContNode(pParent, iOffset, iLower, iUpper, m_mapControlMap[0], this);
  
   // FIXME - handle context properly
 
   //  pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
 
-  pNewNode->pControlItem = m_mapControlMap[0];
-  pNewNode->m_iOffset = iOffset;
-
   return pNewNode;
 }
 
-CControlManager::CContNode::CContNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDisplayInfo, CControlManager *pMgr)
-: CDasherNode(pParent, iLbnd, iHbnd, pDisplayInfo), m_pMgr(pMgr) {
+CControlManager::CContNode::CContNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const SControlItem *pControlItem, CControlManager *pMgr)
+: CDasherNode(pParent, iOffset, iLbnd, iHbnd, (pControlItem->iColour != -1) ? pControlItem->iColour : (pParent->ChildCount()%99)+11, pControlItem->strLabel), m_pControlItem(pControlItem), m_pMgr(pMgr) {
 }
 
 
@@ -297,16 +287,13 @@ void CControlManager::CContNode::PopulateChildren() {
   
   CDasherNode *pNewNode;
 
-   int iNChildren( pControlItem->vChildren.size() );
+   const unsigned int iNChildren( m_pControlItem->vChildren.size() );
+   const unsigned int iNorm(m_pMgr->m_pNCManager->GetLongParameter(LP_NORMALIZATION));
+   unsigned int iLbnd(0), iIdx(0);
 
-   int iIdx(0);
+   for(std::vector<SControlItem *>::const_iterator it(m_pControlItem->vChildren.begin()); it != m_pControlItem->vChildren.end(); ++it) {
 
-   for(std::vector<SControlItem *>::iterator it(pControlItem->vChildren.begin()); it != pControlItem->vChildren.end(); ++it) {
-
-     // FIXME - could do this better
-
-     unsigned int iLbnd( iIdx*(m_pMgr->m_pNCManager->GetLongParameter(LP_NORMALIZATION)/iNChildren)); 
-     unsigned int iHbnd( (iIdx+1)*(m_pMgr->m_pNCManager->GetLongParameter(LP_NORMALIZATION)/iNChildren)); 
+     const unsigned int iHbnd((++iIdx*iNorm)/iNChildren); 
 
      if( *it == NULL ) {
        // Escape back to alphabet
@@ -315,35 +302,19 @@ void CControlManager::CContNode::PopulateChildren() {
      }
      else {
 
-       int iColour((*it)->iColour);
+       pNewNode = new CContNode(this, m_iOffset, iLbnd, iHbnd, *it, m_pMgr);
 
-       if( iColour == -1 ) {
-	 iColour = (iIdx%99)+11;
-       }
-
-       CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
-       pDisplayInfo->iColour = iColour;
-       pDisplayInfo->bShove = false;
-       pDisplayInfo->bVisible = true;
-       pDisplayInfo->strDisplayText = (*it)->strLabel;
-       
-       CContNode *pContNode;
-       pNewNode = pContNode = new CContNode(this, iLbnd, iHbnd, pDisplayInfo, m_pMgr);
-
-       pContNode->pControlItem = *it;
-
-       pNewNode->m_iOffset = m_iOffset;
      }
+     iLbnd=iHbnd;
      DASHER_ASSERT(GetChildren().back()==pNewNode);
-     ++iIdx;
    }
 }
 int CControlManager::CContNode::ExpectedNumChildren() {
-  return pControlItem->vChildren.size();
+  return m_pControlItem->vChildren.size();
 }
 void CControlManager::CContNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization ) {
 
-  CControlEvent oEvent(pControlItem->iID);
+  CControlEvent oEvent(m_pControlItem->iID);
   // TODO: Need to reimplement this
   //  m_pNCManager->m_bContextSensitive=false;
   m_pMgr->m_pNCManager->InsertEvent(&oEvent);

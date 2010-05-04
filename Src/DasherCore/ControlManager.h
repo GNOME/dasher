@@ -90,7 +90,9 @@ namespace Dasher {
     class CContNode : public CDasherNode {
     public:
       CControlManager *mgr() {return m_pMgr;}
-      CContNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDisplayInfo, CControlManager *pMgr);
+      CContNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const SControlItem *pControlItem, CControlManager *pMgr);
+      
+      bool bShove() {return false;}
     ///
     /// Provide children for the supplied node
     ///
@@ -104,7 +106,7 @@ namespace Dasher {
     virtual void Leave();
 
     void SetControlOffset(int iOffset);
-      SControlItem *pControlItem;
+      const SControlItem *m_pControlItem;
     private:
       CControlManager *m_pMgr;
     };

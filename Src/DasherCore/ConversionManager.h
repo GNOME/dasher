@@ -82,7 +82,7 @@ namespace Dasher {
     class CConvNode : public CDasherNode {
     public:
       CConversionManager *mgr() {return m_pMgr;}
-      CConvNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CConversionManager *pMgr);
+      CConvNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const std::string &strDisplayText, CConversionManager *pMgr);
     ///
     /// Provide children for the supplied node
     ///
@@ -130,7 +130,7 @@ namespace Dasher {
     virtual CConvNode *GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset);
   protected:    
     
-  virtual CConvNode *makeNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo);
+    virtual CConvNode *makeNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const std::string &strDisplayText);
 
 	  
 	CNodeCreationManager *m_pNCManager;

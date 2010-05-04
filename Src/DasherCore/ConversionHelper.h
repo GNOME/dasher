@@ -113,7 +113,7 @@ namespace Dasher{
 	protected:
     class CConvHNode : public CConvNode {
     public:
-      CConvHNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CConversionHelper *pMgr);
+      CConvHNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const std::string &strDisplayText, CConversionHelper *pMgr);
       ///
       /// Provide children for the supplied node
       ///
@@ -123,7 +123,7 @@ namespace Dasher{
     protected:
       inline CConversionHelper *mgr() {return static_cast<CConversionHelper *>(m_pMgr);}
     };
-	  virtual CConvHNode *makeNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo);
+	  virtual CConvHNode *makeNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const std::string &strDisplayText);
     /// 
     /// Build the conversion tree (lattice) for the given string -
     /// evaluated late to prevent unnecessary conversions when the

@@ -42,20 +42,15 @@ static int iNumNodes = 0;
 int Dasher::currentNumNodeObjects() {return iNumNodes;}
 
 //TODO this used to be inline - should we make it so again?
-CDasherNode::CDasherNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, SDisplayInfo *pDisplayInfo) {
-  // TODO: Check that these are disabled for debug builds, and that we're not shipping such a build
+CDasherNode::CDasherNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const string &strDisplayText)
+: m_pParent(pParent), m_iOffset(iOffset), m_iLbnd(iLbnd), m_iHbnd(iHbnd), m_iColour(iColour), m_strDisplayText(strDisplayText) {
   DASHER_ASSERT(iHbnd >= iLbnd);
-  DASHER_ASSERT(pDisplayInfo != NULL);
 	
-  m_pParent = pParent;  
   if (pParent) {
     DASHER_ASSERT(!pParent->GetFlag(NF_ALLCHILDREN));
     pParent->Children().push_back(this);
   }
 
-  m_iLbnd = iLbnd;
-  m_iHbnd = iHbnd;
-  m_pDisplayInfo = pDisplayInfo;
   onlyChildRendered = NULL;
 	
   // Default flags (make a definition somewhere, pass flags to constructor?)
@@ -74,8 +69,12 @@ CDasherNode::~CDasherNode() {
 
   //  std::cout << "done." << std::endl;
 
-  delete m_pDisplayInfo;
   iNumNodes--;
+}
+
+void CDasherNode::PrependElidedGroup(int iGroupColour, string &strGroupLabel) {
+  if (m_iColour==-1) m_iColour = iGroupColour;
+  m_strDisplayText = strGroupLabel + m_strDisplayText;
 }
 
 
@@ -158,11 +157,6 @@ void CDasherNode::DeleteNephews(CDasherNode *pChild) {
 // TODO: Need to allow for subnodes
 // TODO: Incorporate into above routine
 void CDasherNode::Delete_children() {
-//    CAlphabetManager::SAlphabetData *pParentUserData(static_cast<CAlphabetManager::SAlphabetData *>(m_pUserData));
-
-//    if((GetDisplayInfo()->strDisplayText)[0] == 'e')
-//      std::cout << "ed: " << this << " " << pParentUserData->iContext << " " << pParentUserData->iOffset << std::endl;
-
 //  std::cout << "Start: " << this << std::endl;
 
   ChildMap::iterator i;

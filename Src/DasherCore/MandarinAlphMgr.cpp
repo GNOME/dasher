@@ -71,17 +71,10 @@ CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CAlphNode *pParent, symbol iSymb
 	   * return pNewNode;
      */
 
-    //from ConversionManager:
-    CDasherNode::SDisplayInfo *pInfo = new CDasherNode::SDisplayInfo;
-    pInfo->bVisible = true;
-    pInfo->bShove = true;
-    pInfo->strDisplayText = "";
-    pInfo->iColour = 9;
-    //CTrieNode parallels old PinyinConversionHelper's SetConvSymbol:
-    CConvRoot *pNewNode = new CConvRoot(pParent, iLbnd, iHbnd, pInfo, this, m_pParser->GetTrieNode(m_pNCManager->GetAlphabet()->GetDisplayText(iSymbol)));
 
-    //keep same offset, as we still haven't entered/selected a definite symbol
-    pNewNode->m_iOffset = pParent->m_iOffset;
+    //CTrieNode parallels old PinyinConversionHelper's SetConvSymbol; we keep
+    // the same offset as we've still not entered/selected a symbol (leaf)
+    CConvRoot *pNewNode = new CConvRoot(pParent, pParent->offset(), iLbnd, iHbnd, this, m_pParser->GetTrieNode(m_pNCManager->GetAlphabet()->GetDisplayText(iSymbol)));
 
     //from ConversionHelper:
     //pNewNode->m_pLanguageModel = m_pLanguageModel;
@@ -92,9 +85,9 @@ CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CAlphNode *pParent, symbol iSymb
   return CAlphabetManager::CreateSymbolNode(pParent, iSymbol, iLbnd, iHbnd);
 }
 
-CMandarinAlphMgr::CConvRoot::CConvRoot(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, SDisplayInfo *pDisplayInfo, CMandarinAlphMgr *pMgr, CTrieNode *pTrie)
-: CDasherNode(pParent, iLbnd, iHbnd, pDisplayInfo), m_pMgr(pMgr), m_pTrie(pTrie) {
-  
+CMandarinAlphMgr::CConvRoot::CConvRoot(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CMandarinAlphMgr *pMgr, CTrieNode *pTrie)
+: CDasherNode(pParent, iOffset, iLbnd, iHbnd, 9, ""), m_pMgr(pMgr), m_pTrie(pTrie) {
+  //colour + label from ConversionManager.
 }
 
 int CMandarinAlphMgr::CConvRoot::ExpectedNumChildren() {
@@ -139,27 +132,17 @@ void CMandarinAlphMgr::CConvRoot::PopulateChildren() {
     // TODO: Parameters here are placeholders - need to figure out
     // what's right    
     
-    CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
-    pDisplayInfo->iColour = (m_vChInfo.size()==1) ? GetDisplayInfo()->iColour : m_pMgr->AssignColour(parentClr, iIdx);
-    pDisplayInfo->bShove = true;
-    pDisplayInfo->bVisible = true;
+    int iColour(m_vChInfo.size()==1 ? getColour() : m_pMgr->AssignColour(parentClr, iIdx));
     
     //  std::cout << "#" << pCurrentSCEChild->pszConversion << "#" << std::endl;
     
-    //The chinese characters are in the _text_ (not label - that's e.g. "liang4")
-    // of the alphabet (& the pszConversion from PinyinParser was converted to symbol
-    // by CAlphabet::GetSymbols, which does string->symbol by _text_; we're reversing that)
-    pDisplayInfo->strDisplayText = m_pMgr->m_pCHAlphabet->GetText(it->first);
-    
-    CMandNode *pNewNode = new CMandSym(this, iLbnd, iHbnd, pDisplayInfo, m_pMgr, it->first);
+    CMandNode *pNewNode = new CMandSym(this, m_iOffset+1, iLbnd, iHbnd, iColour, m_pMgr, it->first);
     
     // TODO: Reimplement ----
     
     // FIXME - handle context properly
     //      pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
     // -----
-    
-    pNewNode->m_iOffset = m_iOffset + 1;
     
     pNewNode->iContext = m_pMgr->m_pLanguageModel->CloneContext(this->iContext);
       
@@ -283,12 +266,18 @@ CLanguageModel::Context CMandarinAlphMgr::CreateSymbolContext(CAlphNode *pParent
 	return m_pLanguageModel->CloneContext(pParent->iContext);
 }
 
-CMandarinAlphMgr::CMandNode::CMandNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CMandarinAlphMgr *pMgr, symbol iSymbol)
-: CSymbolNode(pParent, iLbnd, iHbnd, pDispInfo, pMgr, iSymbol) {
+CMandarinAlphMgr::CMandNode::CMandNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CMandarinAlphMgr *pMgr, symbol iSymbol)
+: CSymbolNode(pParent, iOffset, iLbnd, iHbnd, pMgr, iSymbol) {
 }
 
-CMandarinAlphMgr::CMandNode *CMandarinAlphMgr::makeSymbol(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, symbol iSymbol) {
-  return new CMandNode(pParent, iLbnd, iHbnd, pDispInfo, this, iSymbol);
+CMandarinAlphMgr::CMandNode::CMandNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const string &strDisplayText, CMandarinAlphMgr *pMgr, symbol iSymbol)
+: CSymbolNode(pParent, iOffset, iLbnd, iHbnd, iColour, strDisplayText, pMgr, iSymbol) {
+}
+
+CMandarinAlphMgr::CMandNode *CMandarinAlphMgr::makeSymbol(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, symbol iSymbol) {
+  // Override standard symbol factory method, called by superclass, to make CMandNodes
+  //  - important only to disable learn-as-you-write...
+  return new CMandNode(pParent, iOffset, iLbnd, iHbnd, this, iSymbol);
 }
 
 void CMandarinAlphMgr::CMandNode::SetFlag(int iFlag, bool bValue) {
@@ -299,8 +288,13 @@ void CMandarinAlphMgr::CMandNode::SetFlag(int iFlag, bool bValue) {
       CAlphNode::SetFlag(iFlag, bValue);
 }
 
-CMandarinAlphMgr::CMandSym::CMandSym(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CMandarinAlphMgr *pMgr, symbol iSymbol)
-: CMandNode(pParent, iLbnd, iHbnd, pDispInfo, pMgr, iSymbol) {
+// For converted chinese symbols, we construct instead CMandSyms...
+CMandarinAlphMgr::CMandSym::CMandSym(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, CMandarinAlphMgr *pMgr, symbol iSymbol)
+: CMandNode(pParent, iOffset, iLbnd, iHbnd, iColour, pMgr->m_pCHAlphabet->GetText(iSymbol), pMgr, iSymbol) {
+  //Note we passed a custom label into superclass constructor:
+  // the chinese characters are in the _text_ (not label - that's e.g. "liang4")
+  // of the alphabet (& the pszConversion from PinyinParser was converted to symbol
+  // by CAlphabet::GetSymbols, which does string->symbol by _text_; we're reversing that)
 }
 
 const std::string &CMandarinAlphMgr::CMandSym::outputText() {

@@ -38,6 +38,7 @@
 //Need to reconcile (a small project)
 
 using namespace Dasher;
+using namespace std;
 
 CConversionHelper::CConversionHelper(CNodeCreationManager *pNCManager, CAlphabet *pAlphabet, CLanguageModel *pLanguageModel) :
   CConversionManager(pNCManager, pAlphabet), m_pLanguageModel(pLanguageModel) {
@@ -118,17 +119,9 @@ void CConversionHelper::CConvHNode::PopulateChildren() {
       // TODO: Parameters here are placeholders - need to figure out
       // what's right
 
-
-      CDasherNode::SDisplayInfo *pDisplayInfo = new CDasherNode::SDisplayInfo;
-      pDisplayInfo->iColour = mgr()->AssignColour(parentClr, pCurrentSCEChild, iIdx);
-      pDisplayInfo->bShove = true;
-      pDisplayInfo->bVisible = true;
-
       //  std::cout << "#" << pCurrentSCEChild->pszConversion << "#" << std::endl;
 
-      pDisplayInfo->strDisplayText = pCurrentSCEChild->pszConversion;
-
-      CConvNode *pNewNode = mgr()->makeNode(this, iLbnd, iHbnd, pDisplayInfo);
+      CConvNode *pNewNode = mgr()->makeNode(this, m_iOffset+1, iLbnd, iHbnd, mgr()->AssignColour(parentClr, pCurrentSCEChild, iIdx), string(pCurrentSCEChild->pszConversion));
 
       // TODO: Reimplement ----
 
@@ -139,7 +132,6 @@ void CConversionHelper::CConvHNode::PopulateChildren() {
       pNewNode->bisRoot = false;
       pNewNode->pSCENode = pCurrentSCEChild;
       pNewNode->pLanguageModel = pLanguageModel;
-      pNewNode->m_iOffset = m_iOffset + 1;
 
       if(pLanguageModel) {
         CLanguageModel::Context iContext;
@@ -198,13 +190,13 @@ void CConversionHelper::BuildTree(CConvHNode *pRoot) {
   pRoot->pSCENode = pStartTemp;
 }
 
-CConversionHelper::CConvHNode::CConvHNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CConversionHelper *pMgr)
-: CConvNode(pParent, iLbnd, iHbnd, pDispInfo, pMgr) {
+CConversionHelper::CConvHNode::CConvHNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const string &strDisplayText, CConversionHelper *pMgr)
+: CConvNode(pParent, iOffset, iLbnd, iHbnd, iColour, strDisplayText, pMgr) {
 }
 
 
-CConversionHelper::CConvHNode *CConversionHelper::makeNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo) {
-  return new CConvHNode(pParent, iLbnd, iHbnd, pDispInfo, this);
+CConversionHelper::CConvHNode *CConversionHelper::makeNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const string &strDisplayText) {
+  return new CConvHNode(pParent, iOffset, iLbnd, iHbnd, iColour, strDisplayText, this);
 }
 
 void CConversionHelper::CConvHNode::SetFlag(int iFlag, bool bValue) {

@@ -51,7 +51,7 @@ namespace Dasher {
     class CAlphNode : public CDasherNode {
     public:
       virtual CAlphabetManager *mgr() {return m_pMgr;}
-      CAlphNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CAlphabetManager *pMgr);
+      CAlphNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const std::string &strDisplayText, CAlphabetManager *pMgr);
       CLanguageModel::Context iContext;
       ///
       /// Delete any storage alocated for this node
@@ -71,8 +71,9 @@ namespace Dasher {
     };
     class CSymbolNode : public CAlphNode {
     public:
-      CSymbolNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CAlphabetManager *pMgr, symbol iSymbol);
-      
+      ///Standard constructor, gets colour+label by looking up symbol in current alphabet (& computing phase from offset)
+      CSymbolNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CAlphabetManager *pMgr, symbol iSymbol);
+
       ///
       /// Provide children for the supplied node
       ///
@@ -92,11 +93,14 @@ namespace Dasher {
       virtual CGroupNode *RebuildGroup(CAlphNode *pParent, SGroupInfo *pInfo, unsigned int iLbnd, unsigned int iHbnd);
     private:
       virtual const std::string &outputText();
+    protected:
+      ///Compatibility constructor, so that subclasses can specify their own colour & label
+      CSymbolNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const std::string &strDisplayText, CAlphabetManager *pMgr, symbol _iSymbol);
     };
 
     class CGroupNode : public CAlphNode {
     public:
-      CGroupNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, CAlphabetManager *pMgr, SGroupInfo *pGroup);
+      CGroupNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CAlphabetManager *pMgr, SGroupInfo *pGroup);
       
       ///
       /// Provide children for the supplied node
@@ -124,8 +128,8 @@ namespace Dasher {
     ///
     /// Factory method for CAlphNode construction, so subclasses can override.
     ///
-    virtual CSymbolNode *makeSymbol(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, symbol iSymbol);
-    virtual CGroupNode *makeGroup(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, CDasherNode::SDisplayInfo *pDispInfo, SGroupInfo *pGroup);
+    virtual CSymbolNode *makeSymbol(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, symbol iSymbol);
+    virtual CGroupNode *makeGroup(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, SGroupInfo *pGroup);
     
     virtual CDasherNode *CreateSymbolNode(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd);
     virtual CLanguageModel::Context CreateSymbolContext(CAlphNode *pParent, symbol iSymbol);

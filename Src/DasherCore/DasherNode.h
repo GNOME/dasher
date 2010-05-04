@@ -62,12 +62,14 @@ class Dasher::CDasherNode:private NoClones {
  public:
 
   /// Display attributes of this node, used for rendering.
-  struct SDisplayInfo {
-    int iColour;
-    bool bShove;
-    bool bVisible;
-    std::string strDisplayText;
-  };
+  /// Colour: -1 for invisible
+  inline int getColour() {return m_iColour;}
+  inline std::string &getDisplayText() {return m_strDisplayText;}
+  ///Whether labels on child nodes should be displaced to the right of this node's label.
+  /// (Default implementation returns true, subclasses should override if appropriate)
+  virtual bool bShove() {return true;}
+  
+  inline int offset() {return m_iOffset;}
   CDasherNode *onlyChildRendered; //cache that only one child was rendered (as it filled the screen)
 
   /// Container type for storing children. Note that it's worth
@@ -81,16 +83,18 @@ class Dasher::CDasherNode:private NoClones {
   /// @param iHbnd Upper bound of node within parent
   /// @param pDisplayInfo Struct containing information on how to display the node
   ///
-  CDasherNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int iHbnd, SDisplayInfo *pDisplayInfo);
+  CDasherNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const std::string &strDisplayText);
 
   /// @brief Destructor
   ///
   virtual ~CDasherNode();
 
+  /// Adjusts the colour & label of this node to look as it would if it 
+  /// were the sole child of another node with the specified colour and label
+  /// (without actually making the other/group node)
+  void PrependElidedGroup(int iGroupColour, std::string &strGroupLabel);
+  
   void Trace() const;           // diagnostic
-
-  /// Return display information for this node
-  inline const SDisplayInfo *GetDisplayInfo() const;
 
   /// @name Routines for manipulating node status
   /// @{
@@ -263,12 +267,9 @@ class Dasher::CDasherNode:private NoClones {
   }
 
   /// @}
-  int m_iOffset;
 
  private:
   inline ChildMap &Children();
-
-  SDisplayInfo *m_pDisplayInfo;
 
   unsigned int m_iLbnd;
   unsigned int m_iHbnd;   // the cumulative lower and upper bound prob relative to parent
@@ -280,6 +281,11 @@ class Dasher::CDasherNode:private NoClones {
 
   // Binary flags representing the state of the node
   int m_iFlags;
+  
+ protected:
+  int m_iColour;
+  int m_iOffset;
+  std::string m_strDisplayText;
 };
 /// @}
 
@@ -294,10 +300,6 @@ namespace Dasher {
 /////////////////////////////////////////////////////////////////////////////
 
 namespace Dasher {
-
-inline const CDasherNode::SDisplayInfo *CDasherNode::GetDisplayInfo() const {
-  return m_pDisplayInfo;
-}
 
 inline unsigned int CDasherNode::Lbnd() const {
   return m_iLbnd;

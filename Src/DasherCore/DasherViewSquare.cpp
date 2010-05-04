@@ -366,17 +366,17 @@ void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
 
   DasherDrawRectangle(std::min(parent_width,iDasherMaxX), std::max(y1,iDasherMinY), std::min(y2-y1,iDasherMaxX), std::min(y2,iDasherMaxY), parent_color, -1, Nodes1, 0);
   
-  const std::string &sDisplayText(pRender->GetDisplayInfo()->strDisplayText);
+  const std::string &sDisplayText(pRender->getDisplayText());
   if( sDisplayText.size() > 0 )
   {  
-    DasherDrawText(y2-y1, y1, y2-y1, y2, sDisplayText, mostleft, pRender->GetDisplayInfo()->bShove);
+    DasherDrawText(y2-y1, y1, y2-y1, y2, sDisplayText, mostleft, pRender->bShove());
   }
 	
   pRender->SetFlag(NF_SUPER, !IsSpaceAroundNode(y1,y2));
 
   // If there are no children then we still need to render the parent
   if(pRender->ChildCount() == 0) {
-    DasherDrawRectangle(std::min(y2-y1,iDasherMaxX), std::min(y2,iDasherMaxY),0, std::max(y1,iDasherMinY), pRender->GetDisplayInfo()->iColour, -1, Nodes1, 0);
+    DasherDrawRectangle(std::min(y2-y1,iDasherMaxX), std::min(y2,iDasherMaxY),0, std::max(y1,iDasherMinY), pRender->getColour(), -1, Nodes1, 0);
 	  //also allow it to be expanded, it's big enough.
 	  policy.pushNode(pRender, y1, y2, true, dMaxCost);
 	  return;
@@ -398,7 +398,7 @@ void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
   int id=-1;
   //  int lower=-1,upper=-1;
   myint temp_parentwidth=y2-y1;
-  int temp_parentcolor = pRender->GetDisplayInfo()->iColour;
+  int temp_parentcolor = pRender->getColour();
 
   const myint Range(y2 - y1);
   
@@ -448,8 +448,8 @@ void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
 			//std::cout << "Fill in: " << lasty << " " << newy1 << std::endl;
 		  
 			RenderNodePartFast(temp_parentcolor, lasty, newy1, mostleft, 
-					 pRender->GetDisplayInfo()->strDisplayText, 
-					 pRender->GetDisplayInfo()->bShove,
+					 pRender->getDisplayText(),
+					 pRender->bShove(),
 					 temp_parentwidth);
           }
 		
@@ -463,17 +463,17 @@ void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
 		// Theres a chance that we haven't yet filled the entire parent, so finish things off if necessary.
 		if(lasty<y2) {
 		  RenderNodePartFast(temp_parentcolor, lasty, y2, mostleft, 
-				 pRender->GetDisplayInfo()->strDisplayText, 
-				 pRender->GetDisplayInfo()->bShove,
+				 pRender->getDisplayText(),
+				 pRender->bShove(),
 				 temp_parentwidth);
 		}
   }  
     // Draw the outline
-    if(pRender->GetDisplayInfo()->bVisible) {
-      RenderNodeOutlineFast(pRender->GetDisplayInfo()->iColour, 
+    if(pRender->getColour() != -1) {//-1 = invisible
+      RenderNodeOutlineFast(pRender->getColour(),
 			    y1, y2, mostleft, 
-			    pRender->GetDisplayInfo()->strDisplayText, 
-			    pRender->GetDisplayInfo()->bShove);
+			    pRender->getDisplayText(), 
+			    pRender->bShove());
     }
     //  }
 }
