@@ -136,7 +136,7 @@ void CMandarinAlphMgr::CConvRoot::PopulateChildren() {
     
     //  std::cout << "#" << pCurrentSCEChild->pszConversion << "#" << std::endl;
     
-    CMandNode *pNewNode = new CMandSym(this, m_iOffset+1, iLbnd, iHbnd, iColour, m_pMgr, it->first);
+    CMandNode *pNewNode = new CMandSym(this, offset()+1, iLbnd, iHbnd, iColour, m_pMgr, it->first);
     
     // TODO: Reimplement ----
     

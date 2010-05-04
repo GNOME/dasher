@@ -160,7 +160,7 @@ CLanguageModel::Context CAlphabetManager::CAlphNode::CloneAlphContext(CLanguageM
 }
 
 void CAlphabetManager::CSymbolNode::GetContext(CDasherInterfaceBase *pInterface, vector<symbol> &vContextSymbols, int iOffset, int iLength) {
-  if (!GetFlag(NF_SEEN) && iOffset+iLength-1 == m_iOffset) {
+  if (!GetFlag(NF_SEEN) && iOffset+iLength-1 == offset()) {
     if (iLength > 1) Parent()->GetContext(pInterface, vContextSymbols, iOffset, iLength-1);
     vContextSymbols.push_back(iSymbol);
   } else {
@@ -391,7 +391,7 @@ const std::string &CAlphabetManager::CSymbolNode::outputText() {
 void CAlphabetManager::CSymbolNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {
   //std::cout << this << " " << Parent() << ": Output at offset " << m_iOffset << " *" << m_pMgr->m_pNCManager->GetAlphabet()->GetText(t) << "* " << std::endl;
 
-  Dasher::CEditEvent oEvent(1, outputText(), m_iOffset);
+  Dasher::CEditEvent oEvent(1, outputText(), offset());
   m_pMgr->m_pNCManager->InsertEvent(&oEvent);
 
   // Track this symbol and its probability for logging purposes
@@ -405,7 +405,7 @@ void CAlphabetManager::CSymbolNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, i
 }
 
 void CAlphabetManager::CSymbolNode::Undo(int *pNumDeleted) {
-  Dasher::CEditEvent oEvent(2, outputText(), m_iOffset);
+  Dasher::CEditEvent oEvent(2, outputText(), offset());
   m_pMgr->m_pNCManager->InsertEvent(&oEvent);
   if (pNumDeleted) (*pNumDeleted)++;
 }
@@ -416,12 +416,12 @@ CDasherNode *CAlphabetManager::CGroupNode::RebuildParent() {
   // m_pGroup==NULL => "root" node where Alphabet->m_pBaseGroup is the *first*child*...
   if (m_pGroup == NULL) return NULL;
   //offset of group node is same as parent...
-  return CAlphNode::RebuildParent(m_iOffset);
+  return CAlphNode::RebuildParent(offset());
 }
 
 CDasherNode *CAlphabetManager::CSymbolNode::RebuildParent() {
   //parent's offset is one less than this.
-  return CAlphNode::RebuildParent(m_iOffset-1);
+  return CAlphNode::RebuildParent(offset()-1);
 }
 
 CDasherNode *CAlphabetManager::CAlphNode::RebuildParent(int iNewOffset) {

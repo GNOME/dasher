@@ -298,11 +298,11 @@ void CControlManager::CContNode::PopulateChildren() {
      if( *it == NULL ) {
        // Escape back to alphabet
 
-       pNewNode = m_pMgr->m_pNCManager->GetAlphRoot(this, iLbnd, iHbnd, false, m_iOffset);
+       pNewNode = m_pMgr->m_pNCManager->GetAlphRoot(this, iLbnd, iHbnd, false, offset());
      }
      else {
 
-       pNewNode = new CContNode(this, m_iOffset, iLbnd, iHbnd, *it, m_pMgr);
+       pNewNode = new CContNode(this, offset(), iLbnd, iHbnd, *it, m_pMgr);
 
      }
      iLbnd=iHbnd;
@@ -369,8 +369,4 @@ void CControlManager::XmlEndHandler(void *pUserData, const XML_Char *szName) {
 
 void CControlManager::XmlCDataHandler(void *pUserData, const XML_Char *szData, int iLength){
   return;
-}
-
-void CControlManager::CContNode::SetControlOffset(int iOffset) {
-  m_iOffset = iOffset;
 }

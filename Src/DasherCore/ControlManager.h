@@ -105,7 +105,6 @@ namespace Dasher {
     virtual void Enter();
     virtual void Leave();
 
-    void SetControlOffset(int iOffset);
       const SControlItem *m_pControlItem;
     private:
       CControlManager *m_pMgr;

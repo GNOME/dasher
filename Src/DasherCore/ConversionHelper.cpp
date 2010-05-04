@@ -121,7 +121,7 @@ void CConversionHelper::CConvHNode::PopulateChildren() {
 
       //  std::cout << "#" << pCurrentSCEChild->pszConversion << "#" << std::endl;
 
-      CConvNode *pNewNode = mgr()->makeNode(this, m_iOffset+1, iLbnd, iHbnd, mgr()->AssignColour(parentClr, pCurrentSCEChild, iIdx), string(pCurrentSCEChild->pszConversion));
+      CConvNode *pNewNode = mgr()->makeNode(this, offset()+1, iLbnd, iHbnd, mgr()->AssignColour(parentClr, pCurrentSCEChild, iIdx), string(pCurrentSCEChild->pszConversion));
 
       // TODO: Reimplement ----
 

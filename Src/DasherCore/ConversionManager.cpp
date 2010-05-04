@@ -97,7 +97,7 @@ void CConversionManager::CConvNode::PopulateChildren() {
   unsigned int iLbnd(0);
   unsigned int iHbnd(m_pMgr->m_pNCManager->GetLongParameter(LP_NORMALIZATION));
 
-  CDasherNode *pNewNode = m_pMgr->m_pNCManager->GetAlphRoot(this, iLbnd, iHbnd, false, m_iOffset + 1);
+  CDasherNode *pNewNode = m_pMgr->m_pNCManager->GetAlphRoot(this, iLbnd, iHbnd, false, offset() + 1);
 
   DASHER_ASSERT(GetChildren().back()==pNewNode);
 }
@@ -122,7 +122,7 @@ void CConversionManager::RecursiveDumpTree(SCENode *pCurrent, unsigned int iDept
 }
 
 void CConversionManager::CConvNode::GetContext(CDasherInterfaceBase *pInterface, std::vector<symbol> &vContextSymbols, int iOffset, int iLength) {
-  if (!GetFlag(NF_SEEN) && iOffset+iLength-1 == m_iOffset) {
+  if (!GetFlag(NF_SEEN) && iOffset+iLength-1 == offset()) {
     //ACL I'm extrapolating from PinYinConversionHelper (in which root nodes have their
     // Symbol set by SetConvSymbol, and child nodes are created in PopulateChildren
     // from SCENode's with Symbols having been set in in AssignSizes); not really sure
@@ -146,7 +146,7 @@ void CConversionManager::CConvNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, i
   SCENode *pCurrentSCENode(pSCENode);
 
   if(pCurrentSCENode){
-    Dasher::CEditEvent oEvent(1, pCurrentSCENode->pszConversion, m_iOffset);
+    Dasher::CEditEvent oEvent(1, pCurrentSCENode->pszConversion, offset());
     m_pMgr->m_pNCManager->InsertEvent(&oEvent);
 
     if((GetChildren())[0]->mgr() == m_pMgr) {
@@ -158,11 +158,11 @@ void CConversionManager::CConvNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, i
   }
   else {
     if(!bisRoot) {
-      Dasher::CEditEvent oOPEvent(1, "|", m_iOffset);
+      Dasher::CEditEvent oOPEvent(1, "|", offset());
       m_pMgr->m_pNCManager->InsertEvent(&oOPEvent);
     }
     else {
-      Dasher::CEditEvent oOPEvent(1, ">", m_iOffset);
+      Dasher::CEditEvent oOPEvent(1, ">", offset());
       m_pMgr->m_pNCManager->InsertEvent(&oOPEvent);
     }
 
@@ -178,17 +178,17 @@ void CConversionManager::CConvNode::Undo(int *pNumDeleted) {
 
   if(pCurrentSCENode) {
     if(pCurrentSCENode->pszConversion && (strlen(pCurrentSCENode->pszConversion) > 0)) {
-      Dasher::CEditEvent oEvent(2, pCurrentSCENode->pszConversion, m_iOffset);
+      Dasher::CEditEvent oEvent(2, pCurrentSCENode->pszConversion, offset());
       m_pMgr->m_pNCManager->InsertEvent(&oEvent);
     }
   }
   else {
     if(!bisRoot) {
-      Dasher::CEditEvent oOPEvent(2, "|", m_iOffset);
+      Dasher::CEditEvent oOPEvent(2, "|", offset());
       m_pMgr->m_pNCManager->InsertEvent(&oOPEvent);
     }
     else {
-      Dasher::CEditEvent oOPEvent(2, ">", m_iOffset);
+      Dasher::CEditEvent oOPEvent(2, ">", offset());
       m_pMgr->m_pNCManager->InsertEvent(&oOPEvent);
     }
   }
