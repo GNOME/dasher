@@ -49,10 +49,8 @@ namespace Dasher {
   /// @{
 
   /// A node manager which deals with control nodes.
-  /// Currently can only have one instance due to use 
-  /// of static members for callbacks from expat.
   ///
-  class CControlManager : public CNodeManager {
+  class CControlBase : public CNodeManager {
   public:
 
     enum { CTL_ROOT, CTL_STOP, CTL_PAUSE, CTL_MOVE, CTL_MOVE_FORWARD, 
@@ -66,66 +64,121 @@ namespace Dasher {
 	   CTL_USER
     };
 
-    CControlManager(CNodeCreationManager *pNCManager);
-    ~CControlManager();
+    class NodeTemplate;
+    
+  protected:
+    ///Sets the root - should be called by subclass constructor to make
+    /// superclass ready for use.
+    ///Note, may only be called once, and with a non-null pRoot, or will throw an error message.
+    void SetRootTemplate(NodeTemplate *pRoot);
+    
+    CNodeCreationManager *m_pNCManager;
+    
+    class CContNode : public CDasherNode {
+    public:
+      CControlBase *mgr() {return m_pMgr;}
+      CContNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, NodeTemplate *pTemplate, CControlBase *pMgr);
+      
+      bool bShove() {return false;}
+      ///
+      /// Provide children for the supplied node
+      ///
+      
+      virtual void PopulateChildren();
+      virtual int ExpectedNumChildren();
+      
+      virtual void Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization );
+      
+      virtual void Enter();
+      virtual void Leave();
+      
+    private:
+      NodeTemplate *m_pTemplate;
+      CControlBase *m_pMgr;
+    };
+    
+  public:    
+    class NodeTemplate {
+    public:
+      NodeTemplate(const std::string &strLabel, int iColour);
+      virtual ~NodeTemplate() {}
+      int colour() {return m_iColour;};
+      const std::string &label() {return m_strLabel;};
+      std::vector<NodeTemplate *> successors;
+      virtual void happen(CContNode *pNode) {}
+    private:
+      std::string m_strLabel;
+      int m_iColour;
+    };
+    
+    class EventBroadcast : public NodeTemplate {
+    public:
+      EventBroadcast(int iEvent, const std::string &strLabel, int iColour);
+      virtual void happen(CContNode *pNode);
+    private:
+      const int m_iEvent;
+    };
+    
+    NodeTemplate *GetRootTemplate();
+    
+    CControlBase(CNodeCreationManager *pNCManager);
 
     ///
     /// Get a new root node owned by this manager
     ///
 
     virtual CDasherNode *GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset);
+
+  private:
+    NodeTemplate *m_pRoot;
+
+    ///Whether we'd temporarily disabled Automatic Speed Control
+    ///(if _and only if_ so, should re-enable it when leaving a node)
+    bool bDisabledSpeedControl;
+    
+  };
+  
+  ///subclass attempts to recreate interface of previous control manager...
+  class COrigNodes : public CControlBase {
+  public:
+    COrigNodes(CNodeCreationManager *pNCManager);
+    ~COrigNodes();
+    
+    //keep these around for now, as this might let Win32/Gtk2 work?
     void RegisterNode( int iID, std::string strLabel, int iColour );
     void ConnectNode(int iChild, int iParent, int iAfter);
     void DisconnectNode(int iChild, int iParent);
     
   private:
-
-    struct SControlItem {
-      std::vector<SControlItem *> vChildren;
-      std::string strLabel;
-      int iID;
-      int iColour;
-    };
+    //For now, make all the loading routines private:
+    // they are called from the constructor in the same fashion as in old ControlManager.
     
-    class CContNode : public CDasherNode {
-    public:
-      CControlManager *mgr() {return m_pMgr;}
-      CContNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const SControlItem *pControlItem, CControlManager *pMgr);
-      
-      bool bShove() {return false;}
-    ///
-    /// Provide children for the supplied node
-    ///
-
-    virtual void PopulateChildren();
-      virtual int ExpectedNumChildren();
+    // The possibility of loading labels/layouts from different files/formats
+    // remains, but is left to alternative subclasses of ControlBase.
     
-    virtual void Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization );
-
-    virtual void Enter();
-    virtual void Leave();
-
-      const SControlItem *m_pControlItem;
-    private:
-      CControlManager *m_pMgr;
-    };
+    ///Attempts to load control labels from specified file.
+    /// Returns true for success, false for failure (e.g. no such file!)
+    bool LoadLabelsFromFile(string strFileName);
     
+    ///Load a default set of labels. Return true for success, or false
+    /// if labels already loaded
+    bool LoadDefaultLabels();
+    
+    void ConnectNodes();
+
     static void XmlStartHandler(void *pUserData, const XML_Char *szName, const XML_Char **aszAttr);
     static void XmlEndHandler(void *pUserData, const XML_Char *szName);
     static void XmlCDataHandler(void *pUserData, const XML_Char *szData, int iLength);
-    
-    int LoadLabelsFromFile(string strFileName, int iFileSize);
-    int LoadDefaultLabels();
-    int ConnectNodes();
 
-    static int m_iNextID;
-    CNodeCreationManager *m_pNCManager;
-    std::map<int,SControlItem*> m_mapControlMap;
-
-    ///Whether we'd temporarily disabled Automatic Speed Control
-    ///(if _and only if_ so, should re-enable it when leaving a node)
-    bool bDisabledSpeedControl;
-
+    int m_iNextID;
+  protected:
+    std::map<int,NodeTemplate *> m_perId;
+  };
+  
+  ///subclass which we actually construct - more of a marker than anything for now.
+  class CControlManager : public COrigNodes {
+  public:
+    CControlManager(CNodeCreationManager *pNCManager);
   };
   /// @}
 }

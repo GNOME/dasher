@@ -35,47 +35,139 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-int CControlManager::m_iNextID = 0;
+CControlBase::CControlBase( CNodeCreationManager *pNCManager)
+  : m_pNCManager(pNCManager), m_pRoot(NULL) {
+}
 
-CControlManager::CControlManager( CNodeCreationManager *pNCManager )
-  : m_pNCManager(pNCManager) {
-  string SystemString = m_pNCManager->GetStringParameter(SP_SYSTEM_LOC);
-  string UserLocation = m_pNCManager->GetStringParameter(SP_USER_LOC);
+CControlBase::NodeTemplate *CControlBase::GetRootTemplate() {
+  return m_pRoot;
+}
+
+void CControlBase::SetRootTemplate(NodeTemplate *pRoot) {
+  if (m_pRoot || !pRoot) throw "SetRoot should only be called once, with a non-null root";
+  m_pRoot = pRoot;
+}
+
+CDasherNode *CControlBase::GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset) {
+  if (!m_pRoot) return m_pNCManager->GetAlphRoot(pParent, iLower, iUpper, false, iOffset);
+
+  CContNode *pNewNode = new CContNode(pParent, iOffset, iLower, iUpper, m_pRoot, this);
+ 
+  // FIXME - handle context properly
+
+  //  pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
+
+  return pNewNode;
+}
+
+CControlBase::NodeTemplate::NodeTemplate(const string &strLabel,int iColour)
+: m_strLabel(strLabel), m_iColour(iColour) {
+}
+
+CControlBase::EventBroadcast::EventBroadcast(int iEvent, const string &strLabel, int iColour)
+: NodeTemplate(strLabel, iColour), m_iEvent(iEvent) {
+  
+}
+
+void CControlBase::EventBroadcast::happen(CContNode *pNode) {
+  CControlEvent oEvent(m_iEvent);
+  // TODO: Need to reimplement this
+  //  m_pNCManager->m_bContextSensitive=false;
+  pNode->mgr()->m_pNCManager->InsertEvent(&oEvent);
+}
+
+CControlBase::CContNode::CContNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, NodeTemplate *pTemplate, CControlBase *pMgr)
+: CDasherNode(pParent, iOffset, iLbnd, iHbnd, (pTemplate->colour() != -1) ? pTemplate->colour() : (pParent->ChildCount()%99)+11, pTemplate->label()), m_pTemplate(pTemplate), m_pMgr(pMgr) {
+}
+
+void CControlBase::CContNode::PopulateChildren() {
+  
+  CDasherNode *pNewNode;
+  
+  const unsigned int iNChildren( m_pTemplate->successors.size() );
+  const unsigned int iNorm(m_pMgr->m_pNCManager->GetLongParameter(LP_NORMALIZATION));
+  unsigned int iLbnd(0), iIdx(0);
+  
+  for (vector<NodeTemplate *>::iterator it = m_pTemplate->successors.begin(); it!=m_pTemplate->successors.end(); it++) {
+    
+    const unsigned int iHbnd((++iIdx*iNorm)/iNChildren); 
+    
+    if( *it == NULL ) {
+      // Escape back to alphabet
+      
+      pNewNode = m_pMgr->m_pNCManager->GetAlphRoot(this, iLbnd, iHbnd, false, offset());
+    }
+    else {
+      
+      pNewNode = new CContNode(this, offset(), iLbnd, iHbnd, *it, m_pMgr);
+    }
+    iLbnd=iHbnd;
+    DASHER_ASSERT(GetChildren().back()==pNewNode);
+  }
+}
+    
+int CControlBase::CContNode::ExpectedNumChildren() {
+  return m_pTemplate->successors.size();
+}
+
+void CControlBase::CContNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization ) {
+  m_pTemplate->happen(this);
+}
+
+void CControlBase::CContNode::Enter() {
+  // Slow down to half the speed we were at
+  m_pMgr->m_pNCManager->SetLongParameter(LP_BOOSTFACTOR, 50);
+  //Disable auto speed control!
+  m_pMgr->bDisabledSpeedControl = m_pMgr->m_pNCManager->GetBoolParameter(BP_AUTO_SPEEDCONTROL); 
+  m_pMgr->m_pNCManager->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 0);
+}
+
+
+void CControlBase::CContNode::Leave() {
+  // Now speed back up, by doubling the speed we were at in control mode
+  m_pMgr->m_pNCManager->SetLongParameter(LP_BOOSTFACTOR, 100);
+  //Re-enable auto speed control!
+  if (m_pMgr->bDisabledSpeedControl)
+  {
+    m_pMgr->bDisabledSpeedControl = false;
+    m_pMgr->m_pNCManager->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 1);
+  }
+}
+
+COrigNodes::COrigNodes(CNodeCreationManager *pNCManager) : CControlBase(pNCManager) {
   m_iNextID = 0;
-
+  
   // TODO: Need to fix this on WinCE build
 #ifndef _WIN32_WCE
-  struct stat sFileInfo;
-  string strFileName = UserLocation + "controllabels.xml";  //  check first location for file
-  if(stat(strFileName.c_str(), &sFileInfo) == -1) {
+  if(!LoadLabelsFromFile(m_pNCManager->GetStringParameter(SP_USER_LOC) + "controllabels.xml")) {
     //  something went wrong
-    strFileName = SystemString + "controllabels.xml"; //  check second location for file
-    if(stat(strFileName.c_str(), &sFileInfo) == -1) {
+    if (!LoadLabelsFromFile(m_pNCManager->GetStringParameter(SP_SYSTEM_LOC)+"controllabels.xml")) {
       // all else fails do something default
       LoadDefaultLabels();
     }
-      else
-	LoadLabelsFromFile(strFileName, sFileInfo.st_size);
   }
-  else
-    LoadLabelsFromFile(strFileName, sFileInfo.st_size);
-  
   ConnectNodes();
+  SetRootTemplate(m_perId[CTL_ROOT]);
 #endif
 }
 
-int CControlManager::LoadLabelsFromFile(string strFileName, int iFileSize) {
-
+bool COrigNodes::LoadLabelsFromFile(string strFileName) {
+  int iFileSize;
+  {
+    struct stat sFileInfo;
+    if (stat(strFileName.c_str(), &sFileInfo)==-1) return false; //fail
+    iFileSize = sFileInfo.st_size;
+  }
   // Implement Unicode names via xml from file:
   char* szFileBuffer = new char[iFileSize];
   ifstream oFile(strFileName.c_str());
   oFile.read(szFileBuffer, iFileSize);
   XML_Parser Parser = XML_ParserCreate(NULL);
-
+  
   // Members passed as callbacks must be static, so don't have a "this" pointer.
   // We give them one through horrible casting so they can effect changes.
   XML_SetUserData(Parser, this);
-
+  
   XML_SetElementHandler(Parser, XmlStartHandler, XmlEndHandler);
   XML_SetCharacterDataHandler(Parser, XmlCDataHandler);
   XML_Parse(Parser, szFileBuffer, iFileSize, false);
@@ -86,9 +178,11 @@ int CControlManager::LoadLabelsFromFile(string strFileName, int iFileSize) {
   return 0;
 }
 
-int CControlManager::LoadDefaultLabels() {
+bool COrigNodes::LoadDefaultLabels() {
+  //hmmm. This is probably not the most flexible policy...
+  if (!m_perId.empty()) return false;
+  
   // TODO: Need to figure out how to handle offset changes here
-
   RegisterNode(CTL_ROOT, "Control", 8);
   RegisterNode(CTL_STOP, "Stop", 242);
   RegisterNode(CTL_PAUSE, "Pause", 241);
@@ -114,235 +208,148 @@ int CControlManager::LoadDefaultLabels() {
   RegisterNode(CTL_DELETE_BACKWARD_WORD, "<<", -1);
   RegisterNode(CTL_DELETE_BACKWARD_LINE, "<<<", -1);
   RegisterNode(CTL_DELETE_BACKWARD_FILE, "<<<<", -1);
-  return 0;
+  return true;
 }
 
-int CControlManager::ConnectNodes() {
+void COrigNodes::ConnectNodes() {
   ConnectNode(-1, CTL_ROOT, -2);
   ConnectNode(CTL_STOP, CTL_ROOT, -2);
   ConnectNode(CTL_PAUSE, CTL_ROOT, -2);
   ConnectNode(CTL_MOVE, CTL_ROOT, -2);
   ConnectNode(CTL_DELETE, CTL_ROOT, -2);
-
+  
   ConnectNode(-1, CTL_STOP, -2);
   ConnectNode(CTL_ROOT, CTL_STOP, -2);
   
   ConnectNode(-1, CTL_PAUSE, -2);
   ConnectNode(CTL_ROOT, CTL_PAUSE, -2);
-
+  
   ConnectNode(CTL_MOVE_FORWARD, CTL_MOVE, -2);
   ConnectNode(CTL_MOVE_BACKWARD, CTL_MOVE, -2);
-
+  
   ConnectNode(CTL_MOVE_FORWARD_CHAR, CTL_MOVE_FORWARD, -2);
   ConnectNode(CTL_MOVE_FORWARD_WORD, CTL_MOVE_FORWARD, -2);
   ConnectNode(CTL_MOVE_FORWARD_LINE, CTL_MOVE_FORWARD, -2);
   ConnectNode(CTL_MOVE_FORWARD_FILE, CTL_MOVE_FORWARD, -2);
-
+  
   ConnectNode(CTL_ROOT, CTL_MOVE_FORWARD_CHAR, -2);
   ConnectNode(CTL_MOVE_FORWARD, CTL_MOVE_FORWARD_CHAR, -2);
   ConnectNode(CTL_MOVE_BACKWARD, CTL_MOVE_FORWARD_CHAR, -2);
-
+  
   ConnectNode(CTL_ROOT, CTL_MOVE_FORWARD_WORD, -2);
   ConnectNode(CTL_MOVE_FORWARD, CTL_MOVE_FORWARD_WORD, -2);
   ConnectNode(CTL_MOVE_BACKWARD, CTL_MOVE_FORWARD_WORD, -2);
-
+  
   ConnectNode(CTL_ROOT, CTL_MOVE_FORWARD_LINE, -2);
   ConnectNode(CTL_MOVE_FORWARD, CTL_MOVE_FORWARD_LINE, -2);
   ConnectNode(CTL_MOVE_BACKWARD, CTL_MOVE_FORWARD_LINE, -2);
-
+  
   ConnectNode(CTL_ROOT, CTL_MOVE_FORWARD_FILE, -2);
   ConnectNode(CTL_MOVE_FORWARD, CTL_MOVE_FORWARD_FILE, -2);
   ConnectNode(CTL_MOVE_BACKWARD, CTL_MOVE_FORWARD_FILE, -2);
-
+  
   ConnectNode(CTL_MOVE_BACKWARD_CHAR, CTL_MOVE_BACKWARD, -2);
   ConnectNode(CTL_MOVE_BACKWARD_WORD, CTL_MOVE_BACKWARD, -2);
   ConnectNode(CTL_MOVE_BACKWARD_LINE, CTL_MOVE_BACKWARD, -2);
   ConnectNode(CTL_MOVE_BACKWARD_FILE, CTL_MOVE_BACKWARD, -2);
-
+  
   ConnectNode(CTL_ROOT, CTL_MOVE_BACKWARD_CHAR, -2);
   ConnectNode(CTL_MOVE_FORWARD, CTL_MOVE_BACKWARD_CHAR, -2);
   ConnectNode(CTL_MOVE_BACKWARD, CTL_MOVE_BACKWARD_CHAR, -2);
-
+  
   ConnectNode(CTL_ROOT, CTL_MOVE_BACKWARD_WORD, -2);
   ConnectNode(CTL_MOVE_FORWARD, CTL_MOVE_BACKWARD_WORD, -2);
   ConnectNode(CTL_MOVE_BACKWARD, CTL_MOVE_BACKWARD_WORD, -2);
-
+  
   ConnectNode(CTL_ROOT, CTL_MOVE_BACKWARD_LINE, -2);
   ConnectNode(CTL_MOVE_FORWARD, CTL_MOVE_BACKWARD_LINE, -2);
   ConnectNode(CTL_MOVE_BACKWARD, CTL_MOVE_BACKWARD_LINE, -2);
-
+  
   ConnectNode(CTL_ROOT, CTL_MOVE_BACKWARD_FILE, -2);
   ConnectNode(CTL_MOVE_FORWARD, CTL_MOVE_BACKWARD_FILE, -2);
   ConnectNode(CTL_MOVE_BACKWARD, CTL_MOVE_BACKWARD_FILE, -2);
-
+  
   ConnectNode(CTL_DELETE_FORWARD, CTL_DELETE, -2);
   ConnectNode(CTL_DELETE_BACKWARD, CTL_DELETE, -2);
-
+  
   ConnectNode(CTL_DELETE_FORWARD_CHAR, CTL_DELETE_FORWARD, -2);
   ConnectNode(CTL_DELETE_FORWARD_WORD, CTL_DELETE_FORWARD, -2);
   ConnectNode(CTL_DELETE_FORWARD_LINE, CTL_DELETE_FORWARD, -2);
   ConnectNode(CTL_DELETE_FORWARD_FILE, CTL_DELETE_FORWARD, -2);
-
+  
   ConnectNode(CTL_ROOT, CTL_DELETE_FORWARD_CHAR, -2);
   ConnectNode(CTL_DELETE_FORWARD, CTL_DELETE_FORWARD_CHAR, -2);
   ConnectNode(CTL_DELETE_BACKWARD, CTL_DELETE_FORWARD_CHAR, -2);
-
+  
   ConnectNode(CTL_ROOT, CTL_DELETE_FORWARD_WORD, -2);
   ConnectNode(CTL_DELETE_FORWARD, CTL_DELETE_FORWARD_WORD, -2);
   ConnectNode(CTL_DELETE_BACKWARD, CTL_DELETE_FORWARD_WORD, -2);
-
+  
   ConnectNode(CTL_ROOT, CTL_DELETE_FORWARD_LINE, -2);
   ConnectNode(CTL_DELETE_FORWARD, CTL_DELETE_FORWARD_LINE, -2);
   ConnectNode(CTL_DELETE_BACKWARD, CTL_DELETE_FORWARD_LINE, -2);
-
+  
   ConnectNode(CTL_ROOT, CTL_DELETE_FORWARD_FILE, -2);
   ConnectNode(CTL_DELETE_FORWARD, CTL_DELETE_FORWARD_FILE, -2);
   ConnectNode(CTL_DELETE_BACKWARD, CTL_DELETE_FORWARD_FILE, -2);
-
+  
   ConnectNode(CTL_DELETE_BACKWARD_CHAR, CTL_DELETE_BACKWARD, -2);
   ConnectNode(CTL_DELETE_BACKWARD_WORD, CTL_DELETE_BACKWARD, -2);
   ConnectNode(CTL_DELETE_BACKWARD_LINE, CTL_DELETE_BACKWARD, -2);
   ConnectNode(CTL_DELETE_BACKWARD_FILE, CTL_DELETE_BACKWARD, -2);
-
+  
   ConnectNode(CTL_ROOT, CTL_DELETE_BACKWARD_CHAR, -2);
   ConnectNode(CTL_DELETE_FORWARD, CTL_DELETE_BACKWARD_CHAR, -2);
   ConnectNode(CTL_DELETE_BACKWARD, CTL_DELETE_BACKWARD_CHAR, -2);
-
+  
   ConnectNode(CTL_ROOT, CTL_DELETE_BACKWARD_WORD, -2);
   ConnectNode(CTL_DELETE_FORWARD, CTL_DELETE_BACKWARD_WORD, -2);
   ConnectNode(CTL_DELETE_BACKWARD, CTL_DELETE_BACKWARD_WORD, -2);
-
+  
   ConnectNode(CTL_ROOT, CTL_DELETE_BACKWARD_LINE, -2);
   ConnectNode(CTL_DELETE_FORWARD, CTL_DELETE_BACKWARD_LINE, -2);
   ConnectNode(CTL_DELETE_BACKWARD, CTL_DELETE_BACKWARD_LINE, -2);
-
+  
   ConnectNode(CTL_ROOT, CTL_DELETE_BACKWARD_FILE, -2);
   ConnectNode(CTL_DELETE_FORWARD, CTL_DELETE_BACKWARD_FILE, -2);
   ConnectNode(CTL_DELETE_BACKWARD, CTL_DELETE_BACKWARD_FILE, -2);
-  return 0;
 }
 
-CControlManager::~CControlManager()
-{
-  for(std::map<int,SControlItem*>::iterator i = m_mapControlMap.begin(); i != m_mapControlMap.end(); i++) {
-    SControlItem* pNewNode = i->second;
-    if (pNewNode != NULL) {
-      delete pNewNode;
-      pNewNode = NULL;
+COrigNodes::~COrigNodes() {
+  for (std::map<int,NodeTemplate *>::iterator it = m_perId.begin(); it!=m_perId.end(); it++)
+    delete it->second;
+}
+
+void COrigNodes::RegisterNode( int iID, std::string strLabel, int iColour ) {
+  DASHER_ASSERT(m_perId.count(iID)==0);
+  m_perId[iID] = new EventBroadcast(iID,strLabel,iColour);
+}
+
+void COrigNodes::ConnectNode(int iChild, int iParent, int iAfter) {
+  //ACL duplicating old functionality here. Node idea had been to do
+  // something with iAfter "(eventually -1 = start, -2 = end)", but
+  // since this wasn't used, and this is all legacy code anyway ;-),
+  // I'm leaving as is...
+  
+  NodeTemplate *pParent(m_perId[iParent]);
+  if (pParent) //Note - old code only checked this if iChild==-1...?!
+    pParent->successors.push_back(iChild==-1 ? NULL : m_perId[iChild]);
+}
+
+void COrigNodes::DisconnectNode(int iChild, int iParent) {
+  NodeTemplate *pChild(m_perId[iChild]), *pParent(m_perId[iParent]);
+  if (pParent && (pChild || iChild == -1)) {
+    for (vector<NodeTemplate *>::iterator it = pParent->successors.begin(); it!=pParent->successors.end(); it++) {
+      if (*it == pChild) {
+        pParent->successors.erase(it);
+      }
     }
   }
 }
 
-void CControlManager::RegisterNode( int iID, std::string strLabel, int iColour ) {
-  SControlItem *pNewNode;
-  
-  pNewNode = new SControlItem; // FIXME - do constructor sanely
-  pNewNode->strLabel = strLabel;
-  pNewNode->iID = iID;
-  pNewNode->iColour = iColour;
 
-  m_mapControlMap[iID] = pNewNode;
-}
-
-void CControlManager::ConnectNode(int iChild, int iParent, int iAfter) {
-
-  // FIXME - iAfter currently ignored (eventually -1 = start, -2 = end)
-
-  if( iChild == -1 ) {// Corresponds to escaping back to alphabet
-    SControlItem* node = m_mapControlMap[iParent];
-    if(node)
-      node->vChildren.push_back(NULL);
-  }
-  else
-    m_mapControlMap[iParent]->vChildren.push_back(m_mapControlMap[iChild]); 
-}
-
-void CControlManager::DisconnectNode(int iChild, int iParent) {
-  SControlItem* pParentNode = m_mapControlMap[iParent];
-  SControlItem* pChildNode = m_mapControlMap[iChild];
-
-  for(std::vector<SControlItem *>::iterator itChild(pParentNode->vChildren.begin()); itChild != pParentNode->vChildren.end(); ++itChild)
-    if(*itChild == pChildNode)
-      pParentNode->vChildren.erase(itChild);
-}
-
-
-CDasherNode *CControlManager::GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset) {
-
-  CContNode *pNewNode = new CContNode(pParent, iOffset, iLower, iUpper, m_mapControlMap[0], this);
- 
-  // FIXME - handle context properly
-
-  //  pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
-
-  return pNewNode;
-}
-
-CControlManager::CContNode::CContNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const SControlItem *pControlItem, CControlManager *pMgr)
-: CDasherNode(pParent, iOffset, iLbnd, iHbnd, (pControlItem->iColour != -1) ? pControlItem->iColour : (pParent->ChildCount()%99)+11, pControlItem->strLabel), m_pControlItem(pControlItem), m_pMgr(pMgr) {
-}
-
-
-void CControlManager::CContNode::PopulateChildren() {
-  
-  CDasherNode *pNewNode;
-
-   const unsigned int iNChildren( m_pControlItem->vChildren.size() );
-   const unsigned int iNorm(m_pMgr->m_pNCManager->GetLongParameter(LP_NORMALIZATION));
-   unsigned int iLbnd(0), iIdx(0);
-
-   for(std::vector<SControlItem *>::const_iterator it(m_pControlItem->vChildren.begin()); it != m_pControlItem->vChildren.end(); ++it) {
-
-     const unsigned int iHbnd((++iIdx*iNorm)/iNChildren); 
-
-     if( *it == NULL ) {
-       // Escape back to alphabet
-
-       pNewNode = m_pMgr->m_pNCManager->GetAlphRoot(this, iLbnd, iHbnd, false, offset());
-     }
-     else {
-
-       pNewNode = new CContNode(this, offset(), iLbnd, iHbnd, *it, m_pMgr);
-
-     }
-     iLbnd=iHbnd;
-     DASHER_ASSERT(GetChildren().back()==pNewNode);
-   }
-}
-int CControlManager::CContNode::ExpectedNumChildren() {
-  return m_pControlItem->vChildren.size();
-}
-void CControlManager::CContNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization ) {
-
-  CControlEvent oEvent(m_pControlItem->iID);
-  // TODO: Need to reimplement this
-  //  m_pNCManager->m_bContextSensitive=false;
-  m_pMgr->m_pNCManager->InsertEvent(&oEvent);
-}
-
-void CControlManager::CContNode::Enter() {
-  // Slow down to half the speed we were at
-  m_pMgr->m_pNCManager->SetLongParameter(LP_BOOSTFACTOR, 50);
-  //Disable auto speed control!
-  m_pMgr->bDisabledSpeedControl = m_pMgr->m_pNCManager->GetBoolParameter(BP_AUTO_SPEEDCONTROL); 
-  m_pMgr->m_pNCManager->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 0);
-}
-
-
-void CControlManager::CContNode::Leave() {
-  // Now speed back up, by doubling the speed we were at in control mode
-  m_pMgr->m_pNCManager->SetLongParameter(LP_BOOSTFACTOR, 100);
-  //Re-enable auto speed control!
-  if (m_pMgr->bDisabledSpeedControl)
-  {
-    m_pMgr->bDisabledSpeedControl = false;
-    m_pMgr->m_pNCManager->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 1);
-  }
-}
-
-
-void CControlManager::XmlStartHandler(void *pUserData, const XML_Char *szName, const XML_Char **aszAttr) {
-  
+void COrigNodes::XmlStartHandler(void *pUserData, const XML_Char *szName, const XML_Char **aszAttr) {
+  COrigNodes *pMgr(static_cast<COrigNodes *>(pUserData));
   int colour=-1;
   string str;
   if(0==strcmp(szName, "label"))
@@ -358,15 +365,15 @@ void CControlManager::XmlStartHandler(void *pUserData, const XML_Char *szName, c
         colour = atoi(aszAttr[i+1]);
       }  
     }
-	((CControlManager*)pUserData)->RegisterNode(CControlManager::m_iNextID++, str, colour);
-    
+    pMgr->RegisterNode(pMgr->m_iNextID++, str, colour);
   }
 }
 
-void CControlManager::XmlEndHandler(void *pUserData, const XML_Char *szName) {
-  return;
+void COrigNodes::XmlEndHandler(void *pUserData, const XML_Char *szName) {
 }
 
-void CControlManager::XmlCDataHandler(void *pUserData, const XML_Char *szData, int iLength){
-  return;
+void COrigNodes::XmlCDataHandler(void *pUserData, const XML_Char *szData, int iLength){
+}
+
+CControlManager::CControlManager(CNodeCreationManager *pNCMgr) : COrigNodes(pNCMgr) {
 }
