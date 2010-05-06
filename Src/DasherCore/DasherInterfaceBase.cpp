@@ -123,8 +123,6 @@ CDasherInterfaceBase::CDasherInterfaceBase() {
                               g_iLogOptions);
 #endif
 
-  m_iNextLockID = 1;
-
 }
 
 void CDasherInterfaceBase::Realize() {

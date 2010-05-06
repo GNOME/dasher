@@ -570,9 +570,6 @@ protected:
   EState m_iCurrentState;
   bool m_bOldVisible;
 
-  std::map<int, SLockData> m_mapCurrentLocks;
-  int m_iNextLockID;
-
   /// @}
 
   bool m_bLastChanged;
