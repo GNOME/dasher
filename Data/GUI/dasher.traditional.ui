@@ -243,7 +243,6 @@
                 <property name="height_request">200</property>
                 <property name="visible">True</property>
                 <signal handler="parameter_notification" name="dasher_changed"/>
-                <signal handler="handle_start_event" name="dasher_start"/>
                 <signal handler="handle_stop_event" name="dasher_stop"/>
                 <signal handler="handle_control_event" name="dasher_control"/>
                 <signal handler="gtk2_edit_output_callback" name="dasher_edit_insert"/>

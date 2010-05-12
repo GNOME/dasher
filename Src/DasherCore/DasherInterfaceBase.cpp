@@ -356,7 +356,7 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
 
     switch(pControlEvent->m_iID) {
     case CControlManager::CTL_STOP:
-      Pause();
+      Stop();
       break;
     case CControlManager::CTL_PAUSE:
   //Halt Dasher - without a stop event, so does not result in speech etc.
@@ -433,15 +433,12 @@ void CDasherInterfaceBase::CreateNCManager() {
     CreateModel(iOffset);
 }
 
-void CDasherInterfaceBase::Pause() {
+void CDasherInterfaceBase::Stop() {
   if (GetBoolParameter(BP_DASHER_PAUSED)) return; //already paused, no need to do anything.
   SetBoolParameter(BP_DASHER_PAUSED, true);
 
   // Request a full redraw at the next time step.
   SetBoolParameter(BP_REDRAW, true);
-
-  Dasher::CStopEvent oEvent;
-  m_pEventHandler->InsertEvent(&oEvent);
 
 #ifndef _WIN32_WCE
   if (m_pUserLog != NULL)
@@ -459,13 +456,6 @@ void CDasherInterfaceBase::Unpause(unsigned long Time) {
 
   if(m_pDasherModel != 0)
     m_pDasherModel->Reset_framerate(Time);
-
-  Dasher::CStartEvent oEvent;
-  m_pEventHandler->InsertEvent(&oEvent);
-
-  // Commenting this out, can't see a good reason to ResetNats,
-  // just because we are not paused anymore - pconlon
-  // ResetNats();
 
 #ifndef _WIN32_WCE
   if (m_pUserLog != NULL)

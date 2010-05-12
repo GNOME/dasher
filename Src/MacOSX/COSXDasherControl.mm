@@ -191,12 +191,6 @@ void COSXDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
       SetContext(StdStringFromNSString([dasherEdit textAtOffset:ecvt->m_iOffset Length:ecvt->m_iLength]));
       break;
     }
-    case EV_START:
-      NSLog(@"ExternalEventHandler, m_iEventType = EV_START");
-      break;
-    case EV_STOP:
-      NSLog(@"ExternalEventHandler, m_iEventType = EV_STOP");
-      break;
     case EV_CONTROL:
       NSLog(@"ExternalEventHandler, m_iEventType = EV_CONTROL");
       break;

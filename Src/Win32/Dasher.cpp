@@ -59,6 +59,13 @@ void CDasher::CreateModules() {
   RegisterModule(new CDasherMouseInput(m_pEventHandler, m_pSettingsStore, m_pCanvas->getwindow()));
 }
 
+void CDasher::Stop() {
+  if (!GetBoolParameter(BP_DASHER_PAUSED)) {
+    CDasherInterfaceBase::Stop();
+    if (m_pEdit) m_pEdit->HandleStop();
+  }
+}
+
 void CDasher::Main() {
   if(m_pCanvas) {
 		m_pCanvas->DoFrame();

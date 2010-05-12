@@ -10,7 +10,7 @@
 #import "PreferencesController.h"
 #import "UnicharGenerator.h"
 #import "Chatter.h"
-
+#import "../Common/Common.h"
 #import <Carbon/Carbon.h>
 
 @implementation DasherEdit
@@ -58,6 +58,7 @@
 }
 
 -(NSString *)textAtOffset:(int)iOffset Length:(int)iLength {
+  DASHER_ASSERT(iOffset+iLength <= [allTextEntered length]);
   return [allTextEntered substringWithRange:NSMakeRange(iOffset,iLength)];
 }
 

@@ -128,6 +128,9 @@ public:
   
   gboolean ExposeEvent();
 
+  ///Override to broadcast signal...
+  virtual void Stop();
+
 private:
   //  virtual void CreateSettingsStore();
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);

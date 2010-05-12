@@ -45,7 +45,7 @@ BoolTranslation sBoolTranslationTable[] = {
   {APP_BP_DOCK, "dockbutton", NULL},
   {BP_START_MOUSE, "leftbutton", NULL},  
   {BP_START_SPACE, "spacebutton", NULL},
-  {BP_PAUSE_OUTSIDE, "winpausebutton", NULL},
+  {BP_STOP_OUTSIDE, "winpausebutton", NULL},
   {BP_AUTO_SPEEDCONTROL, "adaptivebutton", NULL},
   {BP_LM_ADAPTIVE, "cb_adaptive", NULL}
 };

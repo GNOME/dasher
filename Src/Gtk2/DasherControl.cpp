@@ -329,12 +329,6 @@ void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
     CEditContextEvent *pEditContextEvent(static_cast < CEditContextEvent * >(pEvent));
     g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_context_request", pEditContextEvent->m_iOffset, pEditContextEvent->m_iLength);
   }
-  else if(pEvent->m_iEventType == EV_START) {
-    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_start");
-  }
-  else if(pEvent->m_iEventType == EV_STOP) {
-    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_stop");
-  }
   else if(pEvent->m_iEventType == EV_CONTROL) {
     CControlEvent *pControlEvent(static_cast < CControlEvent * >(pEvent));
     g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_control", pControlEvent->m_iID);
@@ -486,6 +480,12 @@ int CDasherControl::LongTimerEvent() {
 gboolean CDasherControl::ExposeEvent() {
   NewFrame(get_time(), true);
   return 0;
+}
+
+void CDasherControl::Stop() {
+  if (GetBoolParameter(BP_DASHER_PAUSED)) return;
+  CDasherInterfaceBase::Stop();
+  g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_stop");
 }
 
 gboolean CDasherControl::ButtonPressEvent(GdkEventButton *event) {

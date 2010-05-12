@@ -40,7 +40,7 @@ enum {
   BP_LM_LETTER_EXCLUSION, BP_AUTO_SPEEDCONTROL,
   BP_LM_ADAPTIVE, BP_SOCKET_INPUT_ENABLE, BP_SOCKET_DEBUG, 
   BP_CIRCLE_START, BP_GLOBAL_KEYBOARD, BP_NONLINEAR_Y,
-  BP_SMOOTH_OFFSET, BP_CONVERSION_MODE, BP_PAUSE_OUTSIDE, BP_BACKOFF_BUTTON,
+  BP_SMOOTH_OFFSET, BP_CONVERSION_MODE, BP_STOP_OUTSIDE, BP_BACKOFF_BUTTON,
   BP_TWOBUTTON_REVERSE, BP_2B_INVERT_DOUBLE, BP_SLOW_START,
 #ifdef TARGET_OS_IPHONE
   BP_CUSTOM_TILT, BP_DOUBLE_X,
@@ -158,7 +158,7 @@ static bp_table boolparamtable[] = {
 #endif
   {BP_SMOOTH_OFFSET, "DelayView", !PERS, false, "Smooth dynamic-button-mode jumps over several frames"},
   {BP_CONVERSION_MODE, "ConversionMode", !PERS, false, "Whether Dasher is operating in conversion (eg Japanese) mode"},
-  {BP_PAUSE_OUTSIDE, "PauseOutside", PERS, false, "Whether to pause when pointer leaves canvas area"},
+  {BP_STOP_OUTSIDE, "PauseOutside", PERS, false, "Whether to stop when pointer leaves canvas area"},
 #ifdef TARGET_OS_IPHONE
   {BP_BACKOFF_BUTTON, "BackoffButton", PERS, false, "Whether to enable the extra backoff button in dynamic mode"},
 #else

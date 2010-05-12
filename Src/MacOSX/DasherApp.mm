@@ -36,7 +36,7 @@
 }
 
 - (void)pause {
-  aquaDasherControl->Pause();
+  aquaDasherControl->Stop();
 }
 
 - (void)unpause:(unsigned long int)time {

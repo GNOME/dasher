@@ -151,7 +151,7 @@ void CCircleStartHandler::Timer(int iTime, CDasherView *m_pDasherView, CDasherMo
   if(iTime - m_iChangeTime > 1000) {
     if(iNewStatus == 4) {
       iNewStatus = 2;
-      m_pInterface->Pause();
+      m_pInterface->Stop();
     } 
     else if(iNewStatus == 5) {
       iNewStatus = 3;

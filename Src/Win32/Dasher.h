@@ -46,7 +46,8 @@ public:
   void GameMessageOut(int message, const void* messagedata);
   
   virtual void WriteTrainFile(const std::string &strNewText);
-
+  ///Override to implement copy/speak-on-stop
+  void Stop();
   void Main(); 
 
 

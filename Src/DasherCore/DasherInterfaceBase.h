@@ -63,12 +63,6 @@ class CNodeCreationManager;
 /// @{
 
 
-struct Dasher::SLockData {
-  std::string strDisplay;
-  int iPercent;
-};
-
-
 /// The central class in the core of Dasher. Ties together the rest of
 /// the platform independent stuff and provides a single interface for
 /// the UI to use.
@@ -215,19 +209,14 @@ public:
   /// Methods used to instruct dynamic motion of Dasher to start or stop
   /// @{ 
 
-  /// Resets the Dasher model. Doesn't actually unpause Dasher.
-  /// \deprecated Use InvalidateContext() instead
-
-  //  void Start();
-
-  /// Pause Dasher. Sets BP_DASHER_PAUSED and broadcasts a StopEvent.
+  /// Stop Dasher - Sets BP_DASHER_PAUSED; subclasses may override to do more
   /// (But does nothing if BP_DASHER_PAUSED is not set)
-  void Pause(); // are required to make
+  virtual void Stop();
 
-  /// Unpause Dasher. Clears BP_DASHER_PAUSED, broadcasts a StartEvent.
+  /// Unpause Dasher. Clears BP_DASHER_PAUSED.
   /// (But does nothing if BP_DASHER_PAUSED is currently set).
   /// \param Time Time in ms, used to keep a constant frame rate
-  void Unpause(unsigned long Time);     // Dasher run at the
+  void Unpause(unsigned long Time);
 
   /// @}
 
@@ -340,7 +329,7 @@ public:
 
   void AddGameModeString(const std::string &strText) {
     m_deGameModeStrings.push_back(strText);
-    Pause();
+    Stop();
     //    CreateDasherModel();
     CreateNCManager();
     //    Start();
