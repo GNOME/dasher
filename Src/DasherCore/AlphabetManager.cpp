@@ -261,25 +261,25 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CAlphNode *pParent, symbol iSymb
 
   // TODO: Need to fix fact that this is created even when control mode is switched off
   if(iSymbol == m_pNCManager->GetAlphabet()->GetControlSymbol()) {
-      //ACL setting offset as one more than parent for consistency with "proper" symbol nodes...
-      pNewNode = m_pNCManager->GetCtrlRoot(pParent, iLbnd, iHbnd, pParent->offset()+1); 
-
+    CControlManager *pMgr = m_pNCManager->GetControlManager();
+    if (pMgr) {
 #ifdef _WIN32_WCE
-      //no control manager - but (TODO!) we still try to create (0-size!) control node...
-      DASHER_ASSERT(!pNewNode);
-      // For now, just hack it so we get a normal root node here
-      pNewNode = m_pNCManager->GetAlphRoot(pParent, iLbnd, iHbnd, false, pParent->m_iOffset+1);
-#else
-      DASHER_ASSERT(pNewNode);
+      DASHER_ASSERT(false);
 #endif
+      //ACL leave offset as is - like its groupnode parent, but unlike its alphnode siblings,
+      //the control node does not enter a symbol....
+      pNewNode = pMgr->GetRoot(pParent, iLbnd, iHbnd, pParent->offset());
+    } else {
+      //Control mode currently turned off...
+      DASHER_ASSERT(iLbnd == iHbnd); //zero size
+      pNewNode = NULL;
     }
-    else if(iSymbol == m_pNCManager->GetAlphabet()->GetStartConversionSymbol()) {
+  } else if(iSymbol == m_pNCManager->GetAlphabet()->GetStartConversionSymbol()) {
       //  else if(iSymbol == m_pNCManager->GetSpaceSymbol()) {
 
       //ACL setting m_iOffset+1 for consistency with "proper" symbol nodes...
       pNewNode = m_pNCManager->GetConvRoot(pParent, iLbnd, iHbnd, pParent->offset()+1);
-    }
-    else {
+  } else {
       // TODO: Exceptions / error handling in general
 
       CAlphNode *pAlphNode;
@@ -370,7 +370,7 @@ void CAlphabetManager::IterateChildGroups(CAlphNode *pParent, SGroupInfo *pParen
       //3. loop round inner loop...
     }
     //created a new node - symbol or (group which will have >1 child).
-    DASHER_ASSERT(pParent->GetChildren().back()==pNewChild);
+    DASHER_ASSERT((i-1 == m_pNCManager->GetAlphabet()->GetControlSymbol() && pNewChild==NULL) || pParent->GetChildren().back()==pNewChild);
     //now adjust the node we've actually created, to take account of any elided group(s)...
     // tho not if we've reused the existing node, assume that's been adjusted already
     if (pNewChild && pNewChild!=buildAround) pNewChild->PrependElidedGroup(iOverrideColour, groupPrefix);

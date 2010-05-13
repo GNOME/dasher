@@ -31,9 +31,6 @@
 #include "FilenameGUI.h"
 #include "../resource.h"
 #include "../../DasherCore/DasherInterfaceBase.h"
-#ifndef _WIN32_WCE
-#include "../ActionSpeech.h"
-#endif
 
 #include "../Common/DasherEncodingToCP.h"
 
@@ -60,20 +57,6 @@ CEdit::CEdit(CAppSettings *pAppSettings) {
 #ifndef _WIN32_WCE
   m_Font = GetCodePageFont(CodePage, 14);
 #endif
-
-  // TODO: Generalise this (and don't duplicate - read directly from
-  // text buffer).
-  speech.resize(0);
-
-#ifndef _WIN32_WCE
-  // TODO: Generalise actions, implement those present in Linux
-  // version.
-  m_pActionSpeech = new CActionSpeech;
-  m_pActionSpeech->Activate();
-#else
-  m_pActionSpeech = 0;
-#endif
-
 }
 
 HWND CEdit::Create(HWND hParent, bool bNewWithDate) {
@@ -93,11 +76,6 @@ CEdit::~CEdit() {
   delete m_FilenameGUI;
   if(FileHandle != INVALID_HANDLE_VALUE)
     CloseHandle(FileHandle);
-
-#ifndef _WIN32_WCE
-  m_pActionSpeech->Deactivate();
-  delete m_pActionSpeech;
-#endif
 }
 
 void CEdit::Move(int x, int y, int Width, int Height) {
@@ -393,17 +371,6 @@ void CEdit::Copy() {
 */
 }
 
-void CEdit::CopyAll() {
-  // One might think this would lead to flickering of selecting and
-  // unselecting. It doesn't seem to. Using the clipboard directly
-  // is fiddly, so this cheat is useful.
-  DWORD start, finish;
-  SendMessage(EM_GETSEL, (LONG) & start, (LONG) & finish);
-  SendMessage(EM_SETSEL, 0, -1);
-  SendMessage(WM_COPY, 0, 0);
-  SendMessage(EM_SETSEL, (LONG) start, (LONG) finish);
-}
-
 void CEdit::Paste() {
   SendMessage(WM_PASTE, 0, 0);
 }
@@ -414,7 +381,6 @@ void CEdit::SelectAll() {
 
 void CEdit::Clear() {
   SendMessage(WM_SETTEXT, 0, (LPARAM) TEXT(""));
-  speech.resize(0);
 }
 
 void CEdit::SetEncoding(Dasher::Opts::FileEncodingFormats Encoding) {
@@ -523,19 +489,6 @@ void CEdit::output(const std::string &sText) {
 #endif
   }
   m_Output += sText;
-
-  UTF8string_to_wstring(sText, newchar);
-  speech += newchar;
-
-  // Slightly hacky word by word preview
-  if(newchar == L" ") {
-    if(m_pAppSettings->GetBoolParameter(APP_BP_SPEECH_WORD) && m_pActionSpeech->GetActive())
-      m_pActionSpeech->Preview(m_strCurrentWord);
-    m_strCurrentWord = L"";
-  } 
-  else {
-    m_strCurrentWord += newchar;
-  }
 }
 
 void CEdit::Move(int iDirection, int iDist) {
@@ -909,53 +862,10 @@ if(m_pAppSettings->GetLongParameter(APP_LP_STYLE) == APP_STYLE_DIRECT) {
 #endif
   }
 
-  // Shorten the speech buffer (?)
-  if(speech.length() >= iLength) {
-    speech.resize(speech.length() - iLength);
-  }
-
-  // Shorten the speech buffer (?)
-  if(m_strCurrentWord.length() >= iLength) {
-    m_strCurrentWord.resize(m_strCurrentWord.length() - iLength);
-  }
-
   // And the output buffer (?)
   if(m_Output.length() >= iLength) {
     m_Output.resize(m_Output.length() - iLength);
   }
-}
-
-void CEdit::speak(int what) {
-  if(!m_pActionSpeech->GetActive())
-    return;
-
-  // TODO: The remainder of this function is somewhat horrible and hacky...
-  
-  // TODO: Horrible hack - don't speak in direct entry mode
-  if(m_pAppSettings->GetLongParameter(APP_LP_STYLE) == APP_STYLE_DIRECT)
-    return;
-
-  std::wstring strSpeech;
-
-  if(what == 1) { // All
-    int speechlength = GetWindowTextLength();
-    LPTSTR allspeech = new TCHAR[speechlength + 1];
-    GetWindowText(allspeech, speechlength + 1);
-    strSpeech = allspeech;
-    lastspeech = allspeech;
-    delete allspeech;
-    speech.resize(0);
-  }
-  else if(what == 2) { // New
-    strSpeech = speech;
-    lastspeech = speech;
-    speech.resize(0);
-  }
-  else if(what == 3) {
-    strSpeech = lastspeech;
-  }
-
-  m_pActionSpeech->Execute(strSpeech);
 }
 
 void CEdit::SetNewWithDate(bool bNewWithDate) {
@@ -1003,10 +913,5 @@ void CEdit::HandleEditEvent(Dasher::CEvent *pEvent) {
 }
 
 void CEdit::HandleStop() {
-  // TODO: These should be more generally implemented as 
-  if(m_pAppSettings->GetBoolParameter(APP_BP_SPEECH_MODE))
-    speak(2);
-
-  if(m_pAppSettings->GetBoolParameter(APP_BP_COPY_ALL_ON_STOP))
-    CopyAll();
+  //speech and copy-to-clipboard are now global/platform-independent...
 }

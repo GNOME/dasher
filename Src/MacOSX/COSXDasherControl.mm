@@ -288,4 +288,25 @@ void COSXDasherControl::SetParameter(NSString *aKey, id aValue) {
   }
 }
 
+bool COSXDasherControl::SupportsSpeech() {
+  return [dasherApp supportsSpeech];
+}
+
+void COSXDasherControl::Speak(const std::string &strText, bool bInterrupt) {
+  [dasherApp speak:NSStringFromStdString(strText) interrupt:bInterrupt];
+}
+
+void COSXDasherControl::CopyToClipboard(const std::string &strText) {
+  [dasherApp copyToClipboard:NSStringFromStdString(strText)];
+}
+
+std::string COSXDasherControl::GetAllContext() {
+  return StdStringFromNSString([dasherEdit allContext]);
+}
+
+void COSXDasherControl::ClearAllContext() {
+  [dasherEdit clearContext];
+  CDasherInterfaceBase::ClearAllContext();
+}
+
 

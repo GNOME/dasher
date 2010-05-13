@@ -25,6 +25,9 @@
 - (void)speedSlid:(id)slider;
 - (CGRect)doLayout:(UIInterfaceOrientation)orient;
 @property (retain) UILabel *screenLockLabel;
+@property (nonatomic,retain) NSString *m_wordBoundary;
+@property (nonatomic,retain) NSString *m_sentenceBoundary;
+@property (nonatomic,retain) NSString *m_lineBoundary;
 @end
 
 //we can't call setHidden:BOOL with performSelector:withObject:, as passing [NSNumber numberWithBool:YES] (as one should)
@@ -36,7 +39,9 @@
 @implementation DasherAppDelegate
 
 @synthesize screenLockLabel;
-
+@synthesize m_wordBoundary;
+@synthesize m_sentenceBoundary;
+@synthesize m_lineBoundary;
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
     return NO;
@@ -156,6 +161,7 @@
 	text.editable = NO;
 	text.delegate = self;
 	selectedText.location = selectedText.length = 0;
+  text.selectedRange=selectedText;
 
   messageLabel.backgroundColor = [UIColor grayColor];
   messageLabel.textColor = [UIColor whiteColor];
@@ -217,6 +223,9 @@
 	[self notifySpeedChange];
   self.dasherInterface->OnUIRealised(); //that does startAnimation...
   doneSetup = YES;
+  //The following will cause the text cursor to be displayed whenever
+  // any change is made to the textbox...
+  [text becomeFirstResponder];
 }
 
 - (void)displayMessage:(NSString *)msg ID:(int)iId Type:(int)type {
@@ -313,18 +322,16 @@
 
 - (void)outputCallback:(NSString *)s {
 	text.text=[text.text stringByReplacingCharactersInRange:selectedText withString:s];
-	selectedText.location++; 
+	selectedText.location+=[s length]; 
 	selectedText.length = 0;
-	text.selectedRange = selectedText; //shows keyboard, seems unavoidable :-(
+	text.selectedRange = selectedText;
 	//This isn't quite right, it jumps up then down again once you have >3 lines...
 	[text scrollRangeToVisible:selectedText];
 }
 
 - (void)deleteCallback:(NSString *)s {
   if (selectedText.length == 0) selectedText.location -= (selectedText.length = 1); //select previous character
-  text.text=[text.text stringByReplacingCharactersInRange:selectedText withString:@""];
-  selectedText.length = 0;
-  text.selectedRange = selectedText;
+  [self outputCallback:@""];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -389,11 +396,74 @@
 	[super dealloc];
 }
 
-- (NSString *)textAtOffset:(int)offset Length:(int)length {
+- (NSString *)textAtOffset:(unsigned int)offset Length:(unsigned int)length {
   NSRange range;
-  range.location = offset;
-  range.length = length;
+  //truncate both endpoints of desired range to lie within text.
+  // (Although requiring offset+length to be within text, has identified many bugs,
+  // the editing functions in control mode are too broken to fix right now! Hence,
+  // copying the Gtk2 behaviour...)
+  range.location = max(0u,min(offset,[text.text length]));
+  range.length = min(length,[text.text length] - range.location);
   return [text.text substringWithRange:range];
+}
+
+- (void)setAlphabet:(CAlphabet *)pAlph {
+  self.m_wordBoundary = pAlph->GetSpaceSymbol() ? NSStringFromStdString(pAlph->GetText(pAlph->GetSpaceSymbol())) : @" ";
+  self.m_lineBoundary = (pAlph->GetParagraphSymbol())
+  ? NSStringFromStdString(pAlph->GetText(pAlph->GetParagraphSymbol())) : nil;
+  self.m_sentenceBoundary = (pAlph->GetDefaultContext().length()>0)
+      ? NSStringFromStdString(pAlph->GetDefaultContext())
+      : @".";
+}
+
+- (int)find:(EEditDistance)amt forwards:(BOOL)bForwards {
+  if (amt==EDIT_FILE) return bForwards ? [text.text length] : 0;
+  int pos = selectedText.location;
+  for(;;) {
+    if (bForwards) {
+      if (++pos > [text.text length]) return pos-1;
+    } else {
+      if (--pos < 0) return 0;
+    }
+    NSString *lookFor;
+    switch (amt) {
+      case EDIT_CHAR:
+        //once only, never loop
+        return pos;
+      case EDIT_WORD:
+        lookFor = m_wordBoundary;
+        break;
+      case EDIT_LINE:
+        if (m_lineBoundary && [text.text compare:m_lineBoundary options:0 range:NSMakeRange(pos, [m_lineBoundary length])] == NSOrderedSame)
+          return pos;
+        lookFor = m_lineBoundary;
+        break;
+    }
+    if ([text.text compare:lookFor options:0 range:NSMakeRange(pos, [lookFor length])] == NSOrderedSame)
+      return pos;
+  }
+}
+
+- (void)move:(EEditDistance)amt forwards:(BOOL)bForwards {
+  selectedText.location = [self find:amt forwards:bForwards];
+  selectedText.length=0;
+  text.selectedRange = selectedText;
+  [text scrollRangeToVisible:selectedText];
+}
+
+- (void)del:(EEditDistance)amt forwards:(BOOL)bForwards {
+  int to = [self find:amt forwards:bForwards];
+  if (bForwards) {
+    selectedText.length = to-selectedText.location;
+  } else {
+    selectedText.length = selectedText.location - to;
+    selectedText.location = to;
+  }
+  [self outputCallback:@""];
+}
+
+- (NSString *)allText {
+  return text.text;
 }
 
 #pragma mark TextViewDelegate methods

@@ -42,9 +42,10 @@ static menuentry menutable[] = {
   {BP_SHOW_SLIDER, IDC_CHECK2},
   {APP_BP_TIME_STAMP, IDC_TIMESTAMP},
   {BP_CONTROL_MODE, IDC_CONTROLMODE},  // Not global setting - specific to editbox/widget
-  {APP_BP_SPEECH_WORD, IDC_CHECK4},
-  {APP_BP_SPEECH_MODE, IDC_CHECK3},
-  {APP_BP_COPY_ALL_ON_STOP, IDC_COPYONSTOP}
+  {BP_SPEAK_WORDS, IDC_CHECK4},
+  {BP_SPEAK_ALL_ON_STOP, IDC_CHECK3},
+  {BP_COPY_ALL_ON_STOP, IDC_COPYONSTOP}
+//ACL TODO BP_CONTROL_MODE_HAS_HALT, BP_CONTROL_MODE_HAS_SPEECH, BP_CONTROL_MODE_HAS_COPY - and perhaps automatically disable the latter two in direct mode, too?
 };
 
 std::string CAdvancedPage::GetControlText(HWND Dialog, int ControlID) 

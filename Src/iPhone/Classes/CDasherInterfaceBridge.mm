@@ -13,7 +13,7 @@
 #import "DasherAppDelegate.h"
 #import "Event.h"
 #import "CalibrationController.h"
-
+#import "ControlManager.h"
 #import "../Common/Common.h"
 
 #import <iostream>
@@ -24,9 +24,9 @@
 
 using namespace std;
 
-
 CDasherInterfaceBridge::CDasherInterfaceBridge(DasherAppDelegate *aDasherApp) : dasherApp(aDasherApp) {
   Realize();
+  [dasherApp setAlphabet:GetAlphabet()];
 }
 
 void CDasherInterfaceBridge::CreateModules() {
@@ -167,7 +167,9 @@ void CDasherInterfaceBridge::ExternalEventHandler(Dasher::CEvent *pEvent) {
 		Dasher::CParameterNotificationEvent *pEvt(static_cast<Dasher::CParameterNotificationEvent *>(pEvent));
 		if (pEvt->m_iParameter == LP_MAX_BITRATE || pEvt->m_iParameter == LP_BOOSTFACTOR)
 			[dasherApp notifySpeedChange];
-	  }
+    else if (pEvt->m_iParameter == SP_ALPHABET_ID)
+      [dasherApp setAlphabet:GetAlphabet()];
+    }
       break;
     case EV_EDIT:
 	  {
@@ -200,7 +202,40 @@ void CDasherInterfaceBridge::ExternalEventHandler(Dasher::CEvent *pEvent) {
       break;
 	}
     case EV_CONTROL:
-      NSLog(@"ExternalEventHandler, m_iEventType = EV_CONTROL");
+      switch (static_cast<CControlEvent *>(pEvent)->m_iID) {
+        case CControlManager::CTL_MOVE_FORWARD_CHAR:
+          [dasherApp move:EDIT_CHAR forwards:YES]; break;
+        case CControlManager::CTL_MOVE_FORWARD_WORD:
+          [dasherApp move:EDIT_WORD forwards:YES]; break;
+        case CControlManager::CTL_MOVE_FORWARD_LINE:
+          [dasherApp move:EDIT_LINE forwards:YES]; break;
+        case CControlManager::CTL_MOVE_FORWARD_FILE:
+          [dasherApp move:EDIT_FILE forwards:YES]; break;
+        case CControlManager::CTL_MOVE_BACKWARD_CHAR:
+          [dasherApp move:EDIT_CHAR forwards:NO]; break;
+        case CControlManager::CTL_MOVE_BACKWARD_WORD:
+          [dasherApp move:EDIT_WORD forwards:NO]; break;
+        case CControlManager::CTL_MOVE_BACKWARD_LINE:
+          [dasherApp move:EDIT_LINE forwards:NO]; break;
+        case CControlManager::CTL_MOVE_BACKWARD_FILE:
+          [dasherApp move:EDIT_FILE forwards:NO]; break;
+        case CControlManager::CTL_DELETE_FORWARD_CHAR:
+          [dasherApp del:EDIT_CHAR forwards:YES]; break;
+        case CControlManager::CTL_DELETE_FORWARD_WORD:
+          [dasherApp del:EDIT_WORD forwards:YES]; break;
+        case CControlManager::CTL_DELETE_FORWARD_LINE:
+          [dasherApp del:EDIT_LINE forwards:YES]; break;
+        case CControlManager::CTL_DELETE_FORWARD_FILE:
+          [dasherApp del:EDIT_FILE forwards:YES]; break;
+        case CControlManager::CTL_DELETE_BACKWARD_CHAR:
+          [dasherApp del:EDIT_CHAR forwards:NO]; break;
+        case CControlManager::CTL_DELETE_BACKWARD_WORD:
+          [dasherApp del:EDIT_WORD forwards:NO]; break;
+        case CControlManager::CTL_DELETE_BACKWARD_LINE:
+          [dasherApp del:EDIT_LINE forwards:NO]; break;
+        case CControlManager::CTL_DELETE_BACKWARD_FILE:
+        [dasherApp del:EDIT_FILE forwards:NO]; break;
+      }
       break;
     case EV_COMMAND:
       NSLog(@"ExternalEventHandler, m_iEventType = EV_COMMAND");
@@ -228,6 +263,15 @@ void CDasherInterfaceBridge::ExternalEventHandler(Dasher::CEvent *pEvent) {
       break;
   }
   
+}
+
+void CDasherInterfaceBridge::CopyToClipboard(const std::string &strText) {
+  CDasherInterfaceBase::CopyToClipboard(strText);
+  [UIPasteboard generalPasteboard].string=NSStringFromStdString(strText);
+}
+
+string CDasherInterfaceBridge::GetAllContext() {
+  return StdStringFromNSString([dasherApp allText]);
 }
 
 int CDasherInterfaceBridge::GetFileSize(const std::string &strFileName) {

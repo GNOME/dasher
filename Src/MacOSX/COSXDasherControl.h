@@ -45,6 +45,8 @@ public:
   void SetParameter(NSString *aKey, id aValue);
   NSDictionary *ParameterDictionary();
   void goddamn(unsigned long iTime, bool bForceRedraw);
+  std::string GetAllContext();
+  void ClearAllContext();
   
 private:
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
@@ -57,7 +59,10 @@ private:
   virtual void WriteTrainFile(const std::string &strNewText);
   virtual void StartTimer();
   virtual void ShutdownTimer();
-  
+  virtual bool SupportsSpeech();
+  virtual void Speak(const std::string &strText, bool bInterrupt);
+  virtual bool SupportsClipboard() {return true;}
+  virtual void CopyToClipboard(const std::string &strText);
   ///
   /// Pass events coming from the core to the appropriate handler.
   ///

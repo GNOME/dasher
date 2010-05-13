@@ -47,6 +47,9 @@ public:
   
   void NotifyTouch(screenint x, screenint y);
   void SetTiltAxes(Vec3 main, float off, Vec3 slow, float off2);
+  bool SupportsClipboard() {return true;}
+  void CopyToClipboard(const std::string &strText);
+  std::string GetAllContext();
 private:
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
   virtual void ScanColourFiles(std::vector<std::string> &vFileList);

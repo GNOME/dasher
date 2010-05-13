@@ -59,6 +59,7 @@ SSectionDesc allMeths[] = {
 
 @interface InputMethodSelector ()
 @property (retain) NSIndexPath *selectedPath;
+- (void)doSelect;
 @end
 
 @implementation InputMethodSelector

@@ -12,6 +12,7 @@ class CDefaultFilter : public CInputFilter {
  public:
   CDefaultFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName);
   ~CDefaultFilter();
+  virtual bool supportsPause() {return true;}
 
   virtual void HandleEvent(Dasher::CEvent * pEvent);
 

@@ -42,6 +42,8 @@ enum {
   BP_CIRCLE_START, BP_GLOBAL_KEYBOARD, BP_NONLINEAR_Y,
   BP_SMOOTH_OFFSET, BP_CONVERSION_MODE, BP_STOP_OUTSIDE, BP_BACKOFF_BUTTON,
   BP_TWOBUTTON_REVERSE, BP_2B_INVERT_DOUBLE, BP_SLOW_START,
+  BP_COPY_ALL_ON_STOP, BP_SPEAK_ALL_ON_STOP, BP_SPEAK_WORDS,
+  BP_CONTROL_MODE_HAS_HALT, BP_CONTROL_MODE_HAS_EDIT, BP_CONTROL_MODE_HAS_COPY, BP_CONTROL_MODE_HAS_SPEECH,
 #ifdef TARGET_OS_IPHONE
   BP_CUSTOM_TILT, BP_DOUBLE_X,
 #endif
@@ -167,6 +169,17 @@ static bp_table boolparamtable[] = {
   {BP_TWOBUTTON_REVERSE, "TwoButtonReverse", PERS, false, "Reverse the up/down buttons in two button mode"},
   {BP_2B_INVERT_DOUBLE, "TwoButtonInvertDouble", PERS, false, "Double-press acts as opposite button in two-button mode"},
   {BP_SLOW_START, "SlowStart", PERS, false, "Start at low speed and increase"},
+  {BP_COPY_ALL_ON_STOP, "CopyOnStop", PERS, false, "Copy all text to clipboard whenever we stop"},
+  {BP_SPEAK_ALL_ON_STOP, "SpeakOnStop", PERS, false, "Speak all text whenever we stop"},
+  {BP_SPEAK_WORDS, "SpeakWords", PERS, false, "Speak words as they are written"},
+  {BP_CONTROL_MODE_HAS_HALT, "ControlHasHalt", PERS, false, "Force Control Mode to provide a stop action (triggering clipboard/speech)"},
+#ifdef TARGET_OS_MAC
+  {BP_CONTROL_MODE_HAS_EDIT, "ControlHasEdit", PERS, false, "Provide editing functions in control mode (forward & backward movement & deletion)"},
+#else
+  {BP_CONTROL_MODE_HAS_EDIT, "ControlHasEdit", PERS, true, "Provide editing functions in control mode (forward & backward movement & deletion)"},
+#endif
+  {BP_CONTROL_MODE_HAS_COPY, "ControlHasCopy", PERS, true, "Provide copy-to-clipboard actions in Control Mode (if platforms supports)"},
+  {BP_CONTROL_MODE_HAS_SPEECH, "ControlHasSpeech", PERS, true, "Provide speech actions in Control Mode (if platform supports)"},
 #ifdef TARGET_OS_IPHONE
   {BP_CUSTOM_TILT, "CustomTilt", PERS, false, "Use custom tilt axes"},
   {BP_DOUBLE_X, "DoubleXCoords", PERS, false, "Double X-coordinate of touch"},

@@ -80,7 +80,8 @@
 {
   if (self = [super init])
     {
-    [self setAquaDasherControl:new COSXDasherControl(self)];
+      [self setAquaDasherControl:new COSXDasherControl(self)];
+      spQ = [[Queue alloc] init];
     }
 
   return self;
@@ -195,5 +196,42 @@
   [self setTimer:nil];
   [super dealloc]; 
 }  
+
+- (bool)supportsSpeech {
+  if (!spSyn) {
+    //hmmm. don't see any way for this to (indicate) fail(ure)...???
+    spSyn = [[NSSpeechSynthesizer alloc] init];
+    [spSyn setDelegate:self];
+  }
+  return YES;
+}
+
+- (void)speak:(NSString *)sText interrupt:(bool)bInt {
+  if (bInt)
+    [spQ clear];
+  else {
+    @synchronized(spQ) {
+      if ([spSyn isSpeaking] || [spQ hasItems]) {
+        [spQ push:sText];
+        return;
+      }
+    }
+  }
+  [spSyn startSpeakingString:sText];
+}
+
+-(void)speechSynthesizer:(NSSpeechSynthesizer *)sender didFinishSpeaking:(BOOL)success {
+  @synchronized(spQ) {
+    if ([spQ hasItems]) {
+      [spSyn startSpeakingString:[spQ pop]];
+    }
+  }
+}
+
+-(void)copyToClipboard:(NSString *)sText {
+  NSPasteboard *pboard = [NSPasteboard generalPasteboard];
+  [pboard declareTypes:[NSArray arrayWithObject:NSStringPboardType] owner:nil];
+  [pboard setString:sText forType:NSStringPboardType];
+}
 
 @end

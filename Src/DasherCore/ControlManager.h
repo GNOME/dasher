@@ -42,6 +42,8 @@
 
 using namespace std;
 
+class CNodeCreationManager;
+
 namespace Dasher {
 
   class CDasherModel;
@@ -110,6 +112,22 @@ namespace Dasher {
     private:
       std::string m_strLabel;
       int m_iColour;
+    };
+    
+    template <typename T> class MethodTemplate : public NodeTemplate {
+    public:
+      ///pointer to a function "void X()", that is a member of a T...
+      typedef void (T::*Method)();
+      MethodTemplate(T *pRecv, const std::string &strLabel, Method f) : NodeTemplate(strLabel,-1),m_pRecv(pRecv),m_f(f) {
+        std::cout << "Creating " << this << " with receiver " << pRecv << std::endl;
+      }
+      virtual void happen(CContNode *pNode) {
+        //invoke pointer-to-member-function m_f on object *m_pRecv!
+        (m_pRecv->*m_f)();
+      }
+    private:
+      T *m_pRecv;
+      Method m_f;
     };
     
     class EventBroadcast : public NodeTemplate {
@@ -188,10 +206,24 @@ namespace Dasher {
     CDasherInterfaceBase *m_pInterface;
   };
   
-  ///subclass which we actually construct - more of a marker than anything for now.
-  class CControlManager : public COrigNodes {
+  ///subclass which we actually construct...
+  class CControlManager : public CDasherComponent, public COrigNodes {
   public:
-    CControlManager(CNodeCreationManager *pNCManager, CDasherInterfaceBase *pInterface);
+    CControlManager(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pInterface);
+    void HandleEvent(CEvent *pEvent);
+    
+    ///Recomputes which of pause, stop, speak and copy the root control node should have amongst its children.
+    /// Automatically called whenever copy-on-stop/speak-on-stop or input filter changes;
+    /// subclasses of CDasherInterfaceBase should also call this if
+    ///  (a) they override Stop() and hasStopTriggers() with additional actions, if these are enabled/disabled
+    ///      and this causes the value returned by hasStopTriggers() to change;
+    ///  (b) the values returned by SupportsSpeech() and/or SupportsClipboard() ever change.
+    void updateActions();
+    ~CControlManager();
+    
+  private:
+    ///group headers, with three children each (all/new/repeat)
+    NodeTemplate *m_pSpeech, *m_pCopy;
   };
   /// @}
 }

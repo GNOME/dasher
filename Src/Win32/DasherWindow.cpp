@@ -137,28 +137,6 @@ HWND CDasherWindow::Create() {
   if (!hSplitter)
 	  return 0;
 
-  // Add extra control nodes
-
-  m_pDasher->RegisterNode( Dasher::CControlManager::CTL_USER, "Speak", -1 );
-  m_pDasher->RegisterNode( Dasher::CControlManager::CTL_USER+1, "All", -1 );
-  m_pDasher->RegisterNode( Dasher::CControlManager::CTL_USER+2, "New", -1 );
-  m_pDasher->RegisterNode( Dasher::CControlManager::CTL_USER+3, "Repeat", -1 );
-
-  m_pDasher->ConnectNode(Dasher::CControlManager::CTL_USER, Dasher::CControlManager::CTL_ROOT, -2);
-
-  m_pDasher->ConnectNode(Dasher::CControlManager::CTL_USER+1, Dasher::CControlManager::CTL_USER, -2);
-  m_pDasher->ConnectNode(Dasher::CControlManager::CTL_USER+2, Dasher::CControlManager::CTL_USER, -2);
-  m_pDasher->ConnectNode(Dasher::CControlManager::CTL_USER+3, Dasher::CControlManager::CTL_USER, -2);
- 
-  m_pDasher->ConnectNode(-1, Dasher::CControlManager::CTL_USER+1, -2);
-  m_pDasher->ConnectNode(Dasher::CControlManager::CTL_ROOT, Dasher::CControlManager::CTL_USER+1, -2);
-  
-  m_pDasher->ConnectNode(-1, Dasher::CControlManager::CTL_USER+2, -2);
-  m_pDasher->ConnectNode(Dasher::CControlManager::CTL_ROOT, Dasher::CControlManager::CTL_USER+2, -2);
-
-  m_pDasher->ConnectNode(-1, Dasher::CControlManager::CTL_USER+3, -2);
-  m_pDasher->ConnectNode(Dasher::CControlManager::CTL_ROOT, Dasher::CControlManager::CTL_USER+3, -2);
-
   m_pGameModeHelper = 0;
 
   return hWnd;

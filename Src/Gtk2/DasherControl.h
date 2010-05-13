@@ -130,6 +130,10 @@ public:
 
   ///Override to broadcast signal...
   virtual void Stop();
+  
+  virtual std::string GetAllContext() {
+    throw "Hack to make Gtk2 compile, should not be called as supportsSpeech()/supportsClipboard()==false";
+  }
 
 private:
   //  virtual void CreateSettingsStore();

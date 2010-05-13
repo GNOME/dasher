@@ -9,7 +9,6 @@
 #import "DasherEdit.h"
 #import "PreferencesController.h"
 #import "UnicharGenerator.h"
-#import "Chatter.h"
 #import "../Common/Common.h"
 #import <Carbon/Carbon.h>
 
@@ -38,7 +37,6 @@
   [self sendString:aString toTargetApp:aTargetApp];
   dasherIsModifyingText = NO;
   [allTextEntered appendString:aString];
-  [[Chatter sharedInstance] addToBufferedText:aString];
 }
 
 - (void)deleteCallback:(NSString *)s targetApp:(AXUIElementRef)aTargetApp
@@ -54,7 +52,6 @@
     }
   dasherIsModifyingText = NO;
   [allTextEntered deleteCharactersInRange:NSMakeRange([allTextEntered length]-len, len)];
-  [[Chatter sharedInstance] removeFromBufferedText:s];
 }
 
 -(NSString *)textAtOffset:(int)iOffset Length:(int)iLength {
@@ -62,5 +59,12 @@
   return [allTextEntered substringWithRange:NSMakeRange(iOffset,iLength)];
 }
 
+-(NSString *)allContext {
+  return allTextEntered;
+}
+
+-(void)clearContext {
+  [allTextEntered setString:@""];
+}
 
 @end

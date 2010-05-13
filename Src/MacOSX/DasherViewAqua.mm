@@ -17,7 +17,6 @@
 
 #import "ZippyCache.h"
 #import "ZippyString.h"
-#import "Chatter.h"
 #import "DasherUtil.h"
 #import "DasherApp.h"
 

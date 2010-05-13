@@ -4,6 +4,7 @@
 #include "../DasherCore/DasherInterfaceBase.h"
 #include "../DasherCore/UserLog.h"
 
+#include <sapi.h>
 #include <string>
 #include <vector>
 
@@ -46,11 +47,16 @@ public:
   void GameMessageOut(int message, const void* messagedata);
   
   virtual void WriteTrainFile(const std::string &strNewText);
-  ///Override to implement copy/speak-on-stop
-  void Stop();
   void Main(); 
 
-
+#ifndef _WIN32_WCE
+  //on WinCE, do not support speech - so use defaults from CDasherInterfaceBase 
+  bool SupportsSpeech();
+  void Speak(const std::string &text, bool bInterrupt);
+#endif
+  bool SupportsClipboard() {return true;};
+  void CopyToClipboard(const std::string &text);
+  
 private:
 
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
@@ -69,7 +75,10 @@ private:
 
   CCanvas *m_pCanvas;
   CDashEditbox *m_pEdit;
- 
   HWND m_hParent;
+#ifndef _WIN32_WCE
+  ISpVoice *pVoice;
+  bool attemptedSpeech;
+#endif
 };
 }

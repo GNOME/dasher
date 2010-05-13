@@ -9,7 +9,9 @@ namespace Dasher {
 class CStylusFilter : public CDefaultFilter {
  public:
   CStylusFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName);
-
+  ///Override DefaultFilter (which supports pause), as we don't
+  /// - motion requires continually holding stylus against screen
+  virtual bool supportsPause() {return false;}
   virtual bool Timer(int Time, CDasherView *pView, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol);
   virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog);
   virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherModel *pModel);

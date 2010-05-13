@@ -15,7 +15,6 @@
 
 #import <sys/time.h>
 
-#import "Chatter.h"
 #import "DasherUtil.h"
 #import "DasherApp.h"
 #import "GLUtils.h"
