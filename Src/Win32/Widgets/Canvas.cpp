@@ -426,7 +426,7 @@ LRESULT CCanvas::OnCursorOutOfRange(UINT message, WPARAM wParam, LPARAM lParam, 
 	if ( m_pDasherInterface->GetBoolParameter(BP_START_MOUSE) ) 
 	{
 		if (!m_pDasherInterface->GetBoolParameter(BP_DASHER_PAUSED))
-			m_pDasherInterface->PauseAt(0, 0);
+			m_pDasherInterface->Pause();
 	}
 
 	return 0;
@@ -531,7 +531,7 @@ void CCanvas::DoFrame()
 			if (dwTicks - m_dwTicksLastEvent > m_pDasherInterface->GetLongParameter(LP_STOP_IDLETIME) )
 			{
 				// idle time exceeded
-				m_pDasherInterface->PauseAt(0, 0);
+				m_pDasherInterface->Pause();
 			}
 		}
 	}

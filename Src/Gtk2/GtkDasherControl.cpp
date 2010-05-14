@@ -314,7 +314,7 @@ gtk_dasher_control_game_messageout(GtkDasherControl *pControl, int message, cons
 void 
 gtk_dasher_control_force_pause(GtkDasherControl *pControl) {
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  pPrivate->pControl->PauseAt(0,0);
+  pPrivate->pControl->Pause();
 }
 
 double 

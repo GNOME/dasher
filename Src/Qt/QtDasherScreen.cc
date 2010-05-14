@@ -157,8 +157,7 @@ void QtDasherScreen::mousePressEvent(QMouseEvent *e) {
 }
 
 void QtDasherScreen::mouseReleaseEvent(QMouseEvent *e) {
-  QPoint p = e->pos();
-  interface->PauseAt(p.x(), p.y());
+  interface->Pause();
   paused = true;
 }
 
