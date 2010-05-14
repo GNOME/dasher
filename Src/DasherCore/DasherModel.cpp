@@ -523,7 +523,7 @@ void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax, Dasher::VECTOR_SY
           m_Root->DeleteNephews(pChild);
           RecursiveMakeRoot(pChild);
           temp=m_deGotoQueue.back(); m_deGotoQueue.pop_back();
-          std::cout << "NewGoto Recursing - was (" << newRootmin << "," << newRootmax << "), now (" << temp.iN1 << "," << temp.iN2 << ")" << std::endl;
+          // std::cout << "NewGoto Recursing - was (" << newRootmin << "," << newRootmax << "), now (" << temp.iN1 << "," << temp.iN2 << ")" << std::endl;
           NewGoTo(temp.iN1, temp.iN2, pAdded,pNumDeleted);
         }
         return;
