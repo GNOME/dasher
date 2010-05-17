@@ -1,0 +1,2004 @@
+2010-04-14  Patrick Welche <prlw1@cam.ac.uk>
+
+	* dasher.xml.in: Save Christian Kirbach's typo corrections.
+	* configure.ac: Make PACKAGE_URL work with all versions of autoconf.
+	  (#615564)
+	* Comment out CKeyboardHelper::Grab as not used after
+	  b4cbd3b5 "Fixing up keyboard stuff" "TODO: Sort these methods out"
+	  yet it needs XGrab from libX11. (#615573)
+
+2010-04-12  Patrick Welche <prlw1@cam.ac.uk>
+
+	* configure.ac: Move -export-dynamic flag so it is only used by
+	  libtool. Report by Brian Cameron and Daniel Macks in #613001.
+
+2010-04-09  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Fix Sun Studio compiler build - from Brian Cameron in #613000
+
+2010-03-13  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Win32: Fix windows build.
+	* Win32: Clean up Uxtheme compilation.
+	* Win32: Remove Visual Studio 2002 and 2003 project files.
+	* Win32: Remove xsltproc from repository.
+	* Win32: Avoid zero smoothing.
+	* Gtk: Comment out a couple of overzealous assertions.
+
+	From Tom Lawton:
+	* Win32: ModuleControl.h - correct header location
+	* Win32: Fix stylus mode by allowing 'KeyUp' to be triggered.
+	* ExpansionPolicy: Find next-lowest representable double below
+	  dParentCost without using an expensive for loop.
+
+2010-03-11  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Prepare for 4.11
+	* Change dasher URL
+	* Add simple mkversion script to help interim builds.
+	  (bug in intltool-update chokes on this)
+
+2010-02-26  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Replace my_cairo_colour_t with cairo_pattern_t.
+
+2010-02-17  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Move --enable-nls fix into configure.ac, as intltoolize replaces
+	  fixes in intltool.m4.
+
+2010-02-16  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Don't rename altered IT_PROG_INTLTOOL macro as gnome-autogen.sh
+	  looks for a line beginning with that string.
+
+2010-02-08  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Fix rebuilding of parents and language changing.
+
+2010-02-06  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Fix SymbolStream UTF-8 character input function.
+
+2010-02-04  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Fix bug #607775.
+
+2010-01-22  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Comment out unused screens to hopefully make bug #607775 more
+	  obvious.
+
+2010-01-13  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Rename gconf-2.m4 and intltool.m4 to make it obvious that
+	  these aren't the originals.
+	* Make --disable-nls actually do something.
+
+2010-01-13  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* iPhone: disable landscape mode when using tilt sensor to
+	  control Dasher!
+
+2010-01-07  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Remove some more deprecated last_modification properties
+	  in the UI files while solving some of the problems posed
+	  by F Wolff in #565774.
+	* Reorder "comments" in UI files so intltoolize can find them.
+	* Remove some vestiges of NodeManager.h / DasherView.inl
+
+2010-01-07  Philip Withnall <bugzilla@tecnocode.co.uk>
+
+	* Use proper UTF-8 ellipsis characters and improve wording. (#596679)
+
+2010-01-07  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Remove GetSymbols in favour of SymbolStream which converts 
+	  one UTF-8 character at a time avoiding huge vector<symbol>
+	* Robustness improvements to ExpansionPolicy code for 
+	  finding-next-smallest double
+	* iPhone updates:
+	  - ExpansionPolicy, factory removal, DEBUG, private methods
+	  - Adjust interface (removing toolbar) when iPhone is held
+	    in landscape position
+	  - Add 1px border between text and canvas in both portrait & landscape
+
+2009-12-20  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Import newer gconf-2.m4
+	* Fix so dasher works with gconf.
+	* Fix Spanish xml mdash.
+
+2009-12-18  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Merge of branch allowing more natural way of switching
+	  alphabets, overflow fix, avoid reads of m_dCost after
+      potential deallocation, and actually make GetOffset do
+      something.
+
+2009-12-05  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Avoid loading nonexistent training text
+
+2009-12-05  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Fix Visual Studio 2005 build
+
+2009-12-04  Patrick Welche <prlw1@cam.ac.uk>
+
+	* da.po: Work around old gettext bug
+	* appease schemas
+
+2009-12-04  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Remove CConversionManagerFactory and CAlphabetManagerFactory
+	* Remove unused pFirstGroup member of CAlphabet
+
+2009-12-02  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Made Children() read-only; nodes add selves to parent
+	  when created/SetParent'd
+	* Tidy up AlphabetManager and AlphIO
+
+2009-12-01  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* MacOSX: Set DEBUG for Development build;
+	  remove (Win32-only) IMEConversionHelper
+	* MacOSX: Store entire context/history (i.e. reverse through
+	  all you have written)
+	* (Partial) build fixes for Japanese (CannaConversionHelper)
+
+2009-12-01  Patrick Welche <prlw1@cam.ac.uk>
+
+	Update POTFILES.in
+
+2009-12-01  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	iPhone port from Alan Lawrence
+    
+	Merge branch from iphone2.bundle (master)
+    
+	Changes also include simplifying state/lock management
+	functions / CPPMnode access, and tidying training text
+	(and more).
+
+2009-11-18  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Tidy DasherViewSquare + fix (infinite) m_dCosts of nodes
+	  covering Y axis.
+
+2009-11-17  Patrick Welche <prlw1@cam.ac.uk>
+
+	* configure.ac: --enable-PACKAGE uses enableval + empty value handling
+	* Build fix (assert in ConversionHelper)
+
+2009-11-16  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Removed m_pUserData structs by merging into corresponding
+	  CDasherNode subclasses.
+	* Many covariant overrides, etc., in place of unchecked casts -->
+	  *type safety*!!
+	* use std::numeric_limits<double>::infinity() not INFINITY
+
+2009-11-16  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	Moved all NodeManager methods into subclasses of DasherNode:
+	* NodeManager::Ref() & ClearNode() put into DasherNode subclass
+	  con/destructors
+	* Other calls pNode->m_pNodeManager->Foo(pNode,...) replaced
+	  by pNode->Foo(...). NodeManager class now serves no purpose,
+	  so removed.
+	* Access to m_pUserData still via casting at present
+
+2009-11-16  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	 * Made SConversionData protected in CConversionManager
+	 * Bypassed by making CMandarinAlphMgr a friend of
+	   CPinYinConversionHelper ...and statically casting :-(
+	 * Made SAlphabetData protected in CAlphabetManager
+	 * Made CControlNode into a private struct, now SControlItem, in
+	   CControlManager
+	 * GC'd various methods
+
+2009-10-21  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	This is what commit
+		05c615e8e6eb19c2bf189b44e3688afef5dc3926 Fixup Chinese BuildTree
+	should have done - which itself was what the earlier
+		bf7715060ab5a60945caa37bcb4698d249e4251c Restore
+		CConversionHelper::BuildTree, and move Chinese version
+		to CPinYinConversionHelper
+	should have been!
+
+2009-08-24  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Fixup Chinese BuildTree.
+
+2009-08-22  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Modularise the NodeManager-subclass-specific void *'s
+	* Add virtual methods to support ConversionManager/ConversionHelper:
+	  - cloning of parent alph node context
+	  - accessing iSymbols of preceding alph nodes
+
+2009-08-22  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Move iOffset field into DasherNode (now m_iOffset).
+	* Remove SControlData structure and use its single member directly.
+	* AlphabetManager.cpp: Move node creation outside of if statement.
+	* Move searching for target in game mode from DasherModel to DasherNode
+	  and AlphabetManager.
+	* Restore CConversionHelper::BuildTree, and move Chinese version to
+	  CPinYinConversionHelper.
+
+2009-08-21  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Move handling of double/long/etc. clicks into subclasses.
+	* Subclasses of DynamicFilter now handle their own states, and
+	  BP_FIXED_MARKERS is now compulsory.
+	* Remove NodeCreationManager::GetRoot(int,...) in favour of
+	  Get{Alph,Conv,Ctrl}Root(...).
+
+2009-08-18  Patrick Welche <prlw1@cam.ac.uk>
+
+	* libwnck really isn't used.
+
+2009-08-16  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Complete GtkBuilder move for direct mode.
+
+2009-08-15  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* OneStepTowards clears goto queue - improves handling of CStylusFilter.
+
+2009-08-14  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Trivial fix so Chinese will compile - ConversionNodes are still
+	  unhappy.
+	* Make button modes receive key presses.
+
+2009-08-11  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Split DasherButtons into one class per style; add option for scanning menu
+	* Add tapping facility to StylusFilter.
+
+2009-08-10  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Remove unused GetRenderCount methods
+	* Cleanup Alphabet{,Map} e.g. g/c KeyIsPrefix.
+	* Alphabet{,Map}: Optimise single byte UTF8 case.
+	* DasherView{,Square}: Remove b1D/bNonLinearity.
+	* MacOSX: Remove ZippyCache as DasherViewOpenGL makes no use of it.
+	* Remove empty DasherView.inl and move input filters into namespace
+	  Dasher.
+	* Change signatures (e.g. GetSymbols) from pointers to references;
+	  g/c IsMore, GetSymbolsFull, LearnText.
+	* Remove a few unused variables / signedness fixes.
+	* Level-of-detail algorithm maintains LP_NODE_BUDGET extant DasherNode
+	  objects.
+	* Reimplement and resurrect "one button mode" as per manual.
+	* Fix for previous..
+
+
+2009-08-08  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Tidy up ConversionManager and use a single instance per Factory.
+	* Make CConversionHelper a subclass of CConversionManager, rather than a
+	  delegate.
+	* Make both one-button dynamic modes operable by mouse if extra backoff
+	  buttons are disabled.
+
+2009-08-07  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* MacOSX build now includes Mandarin Dasher training texts,
+	  PinYinConversionHelper.
+	* Move training code from CAlphabet into CTrainer.
+	* Refactor Mandarin changes to CAlphabetManager into CMandarinAlphMgr
+	  subclass.
+
+2009-08-06  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Use GtkBuilder instead of Glade, removing last vestiges of
+	  GtkFileSelection.
+	* Use GtkActions. Callbacks are in dasher_main.
+	* Reduce / simplify number of creation functions of DasherEditorInternal.
+
+2009-07-09  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Make the alphabet's dtd match the parser more closely.
+	* Clean up training text.
+	* dasher_editor_internal.cpp: GError must be initialised to NULL.
+
+2009-07-07  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Fix printf format strings containing "%age" closing #587736.
+	* dasher.desktop.in.in: #587972 Remove deprecated Encoding key.
+
+2009-07-03  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Update MacOS project files for refactorings and Chinese Dasher.
+	* Fix non-Chinese language models broken by Chinese Dasher.
+
+2009-07-03  Patrick Welche <prlw1@cam.ac.uk>
+
+	* Gtk2/DasherControl.cpp: Return framerate to 40fps by popular
+	demand.
+
+2009-07-02  Patrick Welche <prlw1@cam.ac.uk>
+
+	* White space to keep gcc happy, and typos.
+	* OneStepTowards now returns true.
+	* Replace HAVE_CONFIG_H removed by Chinese dasher.
+	* Apply Dasher namespace cleanup to PinYin.
+
+2009-07-02  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Remove global 'using namespace Dasher' from top-level of header
+	files and move CFrameRate class into namespace Dasher.
+	* Remove NodeManagerFactory class.
+	* Remove CControlManagerFactory class.
+	* Rename BP_DELAY_VIEW to BP_SMOOTH_OFFSET and tidy its handling.
+	* In two-button dynamic mode, add option to invert the sense of a
+	  double-click.
+
+2009-07-02  Patrick Welche <prlw1@cam.ac.uk>
+
+	* CTWLanguageModel.cpp: Fix out of range array assignment reported
+	by by Bin Li in #587586.
+
+2009-07-01  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Fix MacOSX project and add .gitignore for build / user files.
+	* MacOSX: Activate the "Import Training Text" command (on file menu).
+
+2009-06-18  Will Zou <zouyouzhi@gmail.com>
+
+	* Chinese dasher:
+	  - More and more and more optimization in speed (will need even more)
+	  - Fix code integrity when changing alphabets/languages 
+	  - Fix special Pin Yin cases like 'uu'; tested, updating alphabets to be
+	    complete and proper
+	  - Add numbers, Roman letters, full length punctuation
+
+2009-06-17  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Implement new two-push dynamic mode (TwoPushDynamicFilter.{h,cpp}).
+	Also added dynamic button lag to two-button dynamic mode.
+	* Weight the pushes by their respective LP_TWO_PUSH_ parameters.
+
+2009-06-17  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Re-implement dynamic mode speed control:
+	Periodically increase speed as long as in a 'running' state;
+	decrease every time we start to reverse.
+	(Controlled by new settings for time period, increase
+	and decrease, added to both existing dynamic modes:
+	LP_DYNAMIC_SPEED_{FREQ, INC, DEC} respectively).
+	* DynamicFilter: Fixes to dynamic mode states / auto speed control
+
+
+2009-06-17  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Remove CDasherModel parameter to inputfilter constructor.
+	* Make DynamicFilter's states observable and changeable by
+	subclasses, and create a CButtonMultiPress subclass for
+	detection of multiple button-presses.
+
+2009-06-16  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Frame- and bit-rate calculation are centralised in CFrameRate,
+	which is now a superclass to CDasherModel (rather than
+	a contained object). Framerate preserved in LP_FRAMERATE
+	setting; LP_SPEEDDIVISOR removed in favour of preserving
+	LP_BOOSTFACTOR. Control mode's pause method inlined/removed,
+	awaiting further refactoring in future, and changed to use same
+	BP_SLOW_START mechanism as elsewhere (rather than resetting
+	framerate!).
+
+2009-06-11  Andre Klapper  <a9016009@gmx.de>
+
+	* Src/main.cc: Remove commented "#include <gnome.h>" to clean up 
+	grep results.
+
+2009-06-02  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* dasher_main.cpp: enable error message if help not found.
+	* Gtk2/DasherControl.cpp: lower the frame rate so we don't
+	abuse the CPU.
+
+2009-06-01  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* dasher_action_speech.cpp: Hack to activate speech.
+
+2009-05-21  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* configure.ac: Look for expat in the X distribution.
+
+2009-05-19  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* DasherModel.h: Removed unused 'iStyle' member of SGotoItem
+	* Files and changes missed from previous MacOS X patch.
+
+2009-05-18  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* Fix compass mode (no longer shrinks when moving up/down.
+
+2009-05-18  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Rename UpdatePosition to OneStepTowards.
+	* Reorganize checks on BP_DASHER_PAUSED.
+
+2009-05-18  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* ClickFilter.cpp, DasherButtons.cpp, DasherModel.{h,cpp}:
+	Split UpdatePosition into NextScheduledStep and UpdatePosition, with
+	common code in UpdateBounds.
+	* StylusFilter.{h,cpp}: KeyUp/Down were missing parameters, so were
+	not actually overriding corresponding methods in DefaultFilter.
+	* DasherView.{h,cpp}: Remove empty CDasherView::HandleEvent method.
+	* DefaultFilter.cpp: Initialised potentially-unused variable
+	bDidSomething.
+
+2009-05-16  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* Makefile.am, configure.ac: Don't delete gnome-doc-utils.make
+	whose m4 file already sets --disable-scrollkeeper, use
+	cached variable for gdu, NEWS is dealt with by gnu, we
+	don't distribute Expat, there is no configure.ac in Src/Test,
+	and gnome still likes distributing gzipped source archives.
+	It seems that make distcheck requires an internet connection
+	as as gnome-doc-utils' xmllint hunts for scrollkeeper-omf.dtd
+	at scrollkeeper.sf.net. Remove unused {omf,xmldocs}.make
+	from Data/Help/Gnome.
+
+2009-05-15  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Backport to OS X 10.4 universal binary for PPC.
+	* DasherModel.{h,cpp}: Remove unused Recursive_Push_Node method.
+	* AutoSpeedControl.cpp, DasherView.h, DasherViewSquare.{h,cpp}:
+	Refactored computation of polar co-ordinates for auto speed
+	control.
+
+2009-05-14  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* DasherButtons.cpp: Change box non-uniformity range again.
+	* AlphabetBox.cpp: Hack to avoid crash when LP_UNIFORM is zero.
+	* dasher_main.cpp: Avoid adding a string during string freeze.
+
+2009-05-14  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Carry on excision of Factories, renaming Create{,Local}Factories
+	to CreateModules. Class' CreateModules is "Local" and usually calls
+	DasherInterfaceBase::CreateModules to load the defaults if it wants
+	to override it.
+
+2009-05-14  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* configure.ac, main.cc: Dasher no longer depends directly
+	on libgnome nor libgnomeui. Fixes #573964.
+	* Dasher.rc: Game mode isn't ready for prime time.
+
+2009-05-13  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* dasher_main, configure.ac: Remove gnome_help_display_desktop and
+	use gtk_show_uri if it exists (e.g. not in Ubuntu 8.04.2).
+	(#575365 and part of #573964)
+
+2009-05-12  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* configure.ac: We either need gnome a11y libraries such as cspi, or
+	use XTestFakeKeyEvent from Xtst. Also, AC_PATH_EXTRA knows where to
+	look better than we do. (Fixes #581853)
+
+2009-05-06  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* DasherButtons.cpp: Change box non-uniformity range to something more
+	sensible. Reported by David MacKay. (Also some whitespace changes)
+
+2009-05-05  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* dasher_main.cpp: Don't accept a uri from GtkFileChooser as
+	LoadFile will fopen it.
+
+2009-05-02  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* Require glib and gtk 2.6.0 (in maemo and released December 2004),
+	and garbage collect code.
+		
+2009-05-01  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* configure.ac,autogen.sh: Rename configure.in to configure.ac,
+	require autoconf 2.59 (released November 2003),
+	AC_HELP_STRING->AS_HELP_STRING.
+	* m4: delete most files, and add/replace gconf-2.m4,
+	glib-gettext.m4, gnome-doc-utils.m4, intltool.m4,
+	nls.m4, pkg.m4, for versions cf m4/README.
+	* add gnome-doc-utils.make from gnome-doc-utils of 2009-04-28 (0.16.1)
+
+2009-04-30  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* MacOSX: Do compositing via OpenGL framebuffers to separate out
+	rendering of the boxes from other drawing.
+
+2009-04-27  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* configure.in: #579462 Use test instead of [] (which then needs
+	quoting), from Gilles Dartiguelongue <eva@gentoo.org>.
+	* configure.in: Welcome version 4.10.1
+
+2009-04-12  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* ModuleManger.{h,cpp}: #575729 Solaris build fix from Brian Cameron.
+	Current C++ spec says the key in a map<key,value> cannot be const.
+
+2009-04-11  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* dasher_main.cpp and glade files: the speed spin button on the
+	main screen now changes and is in synch with the value in
+	preferences. (First part of #575730)
+
+2009-04-09  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* Prepare for Windows 4.10.1, as previous bug fix prevents
+	crashes.
+
+2009-04-08  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* DasherModel.cpp: Better division by zero fix. Reported by
+	Andrew Gillett and David MacKay.
+
+2009-03-16  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* DasherModel.cpp: Fix division by zero introduced in r3631 (and
+	possible case in r3573).
+	* Welcome version 4.10
+
+2009-03-14  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* dasher_main.cpp: Hide the Help / Contents menu option. #575365
+	* dasher_main.cpp: synch with AUTHORS
+	* fix typos. Correcting automake conditional JOYSTICK is a functional
+	change.
+	* Alphabet.cpp: Only print error if DEBUG.
+	* Prepare for version 4.10
+
+2009-03-12  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* MacOSX:
+	  makes the control mode list box (in the preferences pane) non-editable
+	  fixes keyboard input in the OpenGL implementation.
+	* Actually use LP_MULTIPRESS_TIME.
+
+2009-03-11  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* Parameters.h: Change DynamicFilter defaults to something more
+	sensible. Reported by David MacKay.
+
+2009-03-04  Thomas H.P. Andersen  <phomes@gmail.com>
+
+	* Src/Gtk2/dasher_main.cpp:
+	* Src/Gtk2/CanvasExperimental.cpp: Replace deprecated gtk symbols: 
+	gtk_menu_item_remove_submenu, gtk_menu_append, gtk_spin_button_get_value,
+	gdk_pixbuf_render_to_drawable. Bug #571384
+
+2009-03-04  Alexander Shopov  <ash@contact.bg>
+
+	* Replace alphabet.Bulgarian.xml of 2007-09-01 according to #573739.
+
+2009-03-03  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* Replace GTK_CHECK_* with G_TYPE_* equivalents from Thomas Andersen
+	as part of #571384.
+	* dasher_main.cpp: Actually do something when save & quit is clicked.
+	* Import pkg.m4 from pkg-config-0.23. (Not actually used.)
+	* Update AUTHORS
+	* TrainingHelper.cpp, Alphabet.cpp: Move test for empty training
+	filename to a place where it hasn't had a path prepended to it.
+	* DasherViewSquare.cpp: Only use lldiv if we have it, and avoid
+	code duplication.
+	* TimeSpan.cpp, FileLogger.cpp, BasicLog.cpp, UserLog.cpp: Audit use
+	of ctime for potential 32-bit time_t 64-bit long in struct timeval
+	problems. Reported by Matthias Drochner.
+
+2009-03-02  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* main.cc: #572134 from Tom Parker - remove remaining references
+	to gnome-vfs (cf r3605 2008-12-20)
+	* Fix building outside source tree, making inclusion of config.h
+	consistent. Reported by Theppitak Karoonboonyanan in #569957.
+	* I18n.h, configure.in: fix build with "configure --disable-a11y
+	--disable-speech --without-cairo --without-gnome". Reported by
+	Gilles Dartiguelongue in #566043.
+	* Take over as maintainer from Phil Cowans.
+	* Makefile.ams: #560103 from Daniel Macks: put local -I flags before
+	global ones in AM_CXXFLAGS.
+	* configure.in: #532097 from Brian Cameron: check for libsocket
+	to fix solaris build.
+
+2009-03-02  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* DasherModel.cpp: Fix rounding bug in Get_new_root_coords
+	leading to expansion not being centered on correct point
+
+2009-02-27  Andre Klapper  <a9016009@gmx.de>
+
+	* Add translator comment.
+	Fixes GNOME bug #551137.
+
+2009-02-27  Andre Klapper  <a9016009@gmx.de>
+
+	* Fix the build blocker that was introduced by the last commit.
+	Fixes GNOME bug #572850.
+
+2009-02-19  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* Fix loading of UTF-8 training text which for instance
+	caused crashes when loading Hebrew or Japanese text.
+
+2009-02-17  Alan Lawrence <acl33@inf.phy.cam.ac.uk>
+
+	* Fix MacOS xcode project build, adding training data.
+	* Implemented OpenGL polyline drawing
+
+2008-12-20  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* Convert from gnome-vfs to gvfs from gio in glib based on
+	Arun Chaganty's patch in #559174. Invented --without-gvfs
+	configure switch to help test - remove in the future.
+	* dasher depends on glib.
+
+2008-12-16  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* Avoid double freeing of modules.
+
+2008-10-29  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* Greatly simplify module management. Factories may be
+	reinstated should we wish to dynamically load modules,
+	however we know all input modules at compile time. Remove
+	refcounting which caused double freeing of modules. ModuleID
+	of 0 and 2 are no longer special. Delete ModuleFactory.h and
+	WrapperFactory.{h,cpp}
+	* Also remove those files from the windows build, and build
+	a release by default.
+
+2008-10-14  Chris Smowton  <chris.smowton@cl.cam.ac.uk>
+
+	* java directory: java port of dasher
+
+2008-10-10  Patrick Welche  <prlw1@cam.ac.uk>
+
+	After Brian Cameron in #536926:
+	* dasher_main.cpp: avoid declaring variable length array.
+	* int64.h: INT64_{MIN,MAX} shouldn't be redefined
+
+2008-10-06  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* remove changequote nastiness from configure.in
+
+2008-09-15  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* configure.in: Cleaner way of fixing #324067 (libglade autoconnect)
+	* Expat removal was already decided on 2008-04-26
+
+2008-09-10  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* Repair windows preferences short-cut.
+	* Create version 4.9 .msi file.
+
+2008-09-08  Patrick Welche  <prlw1@cam.ac.uk>
+
+	* Src/DasherCore/DasherModel.cpp: Rewrite ScheduleZoom() so text
+	doesn't leak from the selected box in button mode, a zoom step
+	of one works, and log() and exp() functions are no longer used.
+
+2008-07-14  Behdad Esfahbod  <behdad@gnome.org>
+
+	* Data/training/training_persian_IR.txt: Remove some lines that was
+	straight copy of a short story.
+
+2008-04-28  Aaron Larson  <aaron@larsonsonline.net>
+
+	* Applied patches for free() vs g_free() and misc cleanups
+	  uncovered during review of experimental_win_gtk changes.
+
+2008-04-26  Phil Cowans  <phil@philcowans.com>
+
+	* Removed unneccesary (and out-of-date) Expat source tree from SVN
+	* Removed obsolete Gtk2-Experimental directory from SVN
+
+2008-04-25  Aaron Larson  <aaron@larsonsonline.net>
+
+	* Added patch for #529907 plus resolve some compiler warnings.
+
+2008-04-22  Phil Cowans  <phil@philcowans.com>
+
+	* Added patch for #519360
+
+2008-04-21  Phil Cowans  <phil@philcowans.com>
+
+	* Post-release increment of version number
+	* Correcting my email address!
+
+2008-04-21  Phil Cowans  <pjc51@mrao.cam.ac.uk>
+
+	* Preparing for release
+	* Added VS2005 project for building Windows help file
+
+2008-04-17  Keith Vertanen <kv227@cam.ac.uk>
+
+	* Added include paths to Microsoft Windows SDK v5.0
+
+2008-04-16  Keith Vertanen <kv227@cam.ac.uk>
+
+	* Replaced hard coded include and library paths in projects with
+	versions which use environment variables: TABLETSDK, SPEECHSDK
+	and EXPAT.
+	* Removed Expat project from solution.
+	* Fixed target platform for the debug and release configurations.
+
+2008-03-30  Aaron Larson  <aaron@larsonsonline.net>
+
+	* Minor changes for HIG compliance (#511808).
+
+2008-03-30  Aaron Larson  <aaron@larsonsonline.net>
+
+	* Apply Gentoo dasher-4.6.1-gnome.patch permit compilation without
+	gnome (#525146).
+
+2008-03-30  Aaron Larson  <aaron@larsonsonline.net>
+
+	* Apply Gentoo dasher-4.7.0-as-needed.patch to permit linking with
+	"--as-needed" (#525028).
+
+2008-03-26  Aaron Larson  <aaron@larsonsonline.net>
+
+	* Don't save edit window height on exit when appstyle is direct
+	(#521241).
+
+2008-03-26  Aaron Larson  <aaron@larsonsonline.net>
+
+	* In preference dialog, make Control/Input Device and
+	Application/Actions lists resize with the preferences dialog.
+
+2008-03-25  Aaron Larson  <aaron@larsonsonline.net>
+
+	* Update Linux installation instructions, factor out common text,
+	add list of packages required to build.
+
+2008-03-25  Aaron Larson  <aaron@larsonsonline.net>
+
+	* Resolve HIG compliance issues, also remove duplication of
+	preferences dialogs from glade files (#506900).
+
+2008-03-24  Aaron Larson  <aaron@larsonsonline.net>
+
+	* Localize --help output (#454530).
+
+2008-03-22  Aaron Larson  <aaron@larsonsonline.net>
+
+	* Permit compile on GCC 4.3 (#522121).
+
+2008-03-22  Aaron Larson  <aaron@larsonsonline.net>
+
+	* Prepend "Dasher" to window title (#493812).
+
+2008-03-22  Aaron Larson  <aaron@larsonsonline.net>
+
+	* Remove inappropriate assert from alphabet_map::Get() (#493797).
+
+2008-03-22  Aaron Larson  <aaron@larsonsonline.net>
+
+	* Update manpage.  Add "--help-options" command line argument to
+	list available options.  Generate better diagnostics for malformed
+	"--options", and permit boolean options to be specified as "true"
+	or "false" in addition to 0 and 1. (#496872)
+
+2008-03-22  Aaron Larson  <aaron@larsonsonline.net>
+
+	* Eliminate most compiler redifintion warnings for "_" (#519254).
+
+2008-03-22  Aaron Larson  <aaron@larsonsonline.net>
+
+	* configure.in: Resolved autogen.sh build failure from #398103.
+
+2008-02-17  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Preparing for release
+
+2007-11-12  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Preparing for release
+
+2007-09-01  Alexander Shopov  <ash@contact.bg>
+
+	* Data/alphabets/alphabet.Bulgarian.xml: 
+	Updated label
+	* MAINTAINERS: Reformat to fit pre-commit hook
+
+2007-07-09  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Preparing for release
+
+2007-06-01  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Tweaks to glade file
+	* Fixed integer arithmetic error which was causing OBO errors in the rendering.
+
+2007-04-30  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Merged CTW language model from Martijn
+	* Allow arbitrary parameters to be set from the command line
+	* Fixed #433856
+
+2007-04-02  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Fixed bug in 1D mode
+	* Fixed indicator handling in 1 button mode
+	* Fixed bugs in multiple click handling
+	* (Manually) patched #85674
+	
+2007-03-30  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Merged in Kazue's Japanese mode stuff
+
+2007-03-19  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Updating translatable stuff
+
+2007-03-16  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Fixed up Chinese mode (new code in trunk, but still needs external libce)
+	* Replaced ad-hoc font selectors with GtkFontButtons
+
+2007-03-13  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Fixed up backing off in conversion mode
+
+2007-03-03  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Preparing for release
+
+2007-02-28  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Debugging model code
+	* Adding more sanity checks etc.
+
+2007-02-26  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Made 'more alphabets' select the right page in the preferences dialogue
+	* Fixed crash when rebuilding model after switching control mode on/off
+	* Fixed #412217 (compile error with speech enabled)
+
+2007-02-24  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Updated alphabets
+	* Fixing speak on word boundary code
+	* Fixing --without-gnome build
+	* Bumped version number for release
+
+2007-02-21  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Updating doxygen comments
+	* Removing obsolete code
+
+2007-02-19  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Added missing files
+	* Fixing bugs with focus shift handling
+
+2007-02-14  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Removed some compiler warnings (#407773)
+	* Rewired keyboard handling code.
+
+a2007-02-12  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Fairly widespread refactoring etc. No major functionality
+	changes, but generally much tideier than it was
+	* Fixed bug in keyboard action
+	* Applied temporary fix to editor actions to get speech working again
+	* Preparation for release
+
+2007-02-01  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Partial rewrite of cursor movement / offset handling. Seems to
+	be fairly stable at the moment, so time for a check in
+
+2007-01-19  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Merged Ignas' graphics code
+	* Half way through implementing contex code update
+	* Attempting to fix #398103
+
+2007-01-15  Andre Klapper  <a9016009@gmx.de>
+
+	* Src/Gtk2/dashermaemo.glade: remove one string from translation.
+	Fixes bug #346973.
+
+2007-01-12  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Finished generalised node flags
+
+2007-01-09  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Merged Will's Chinese stuff
+
+2007-01-05  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Added configure switch for joystick support
+	* Removed placeholder labels from translations
+
+2006-12-18  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Removed debug output
+	* Bumping version number for release (4.3.3)
+
+2006-12-11  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Prevented LP_YSCALE from having value 0
+	* Fixed crash due to uninitialised pango cache (#383314)
+
+2006-12-08  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Implemented basic joystick mode
+
+2006-12-04  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Fixed default context bug
+	* Made specification of default contexts possible in alphabet files
+	* Added MSVS 8.0 project files to distribution
+
+2006-12-03  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Finished speech restructuring
+	* Fixed type bugs in schema generation utility (#380489)
+	* Bumped version numbers for release
+	
+2006-12-01  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Restructuring of editor actions, so we can have speech back the
+	way it was.
+
+2006-11-22  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* More sensible fix for locking bug on 'import training text'.
+
+2006-11-12  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* More code tidying
+	* Further work on CDasherInterfaceBase finite state machine
+	* Fixed #374456 (UTF-8 conversion error on Win32)
+	
+2006-11-10  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Tidying up core startup sequence.
+
+2006-11-08  Phil Cowans  <pjc51@cam.ac.uk>
+
+        * Revamped 1D mode - now has a specialised input device module and
+	allows coordinate scaling again.
+	* Fixed gconf installation bug in Makefiles (#372448)
+	* Tidying up code a little
+
+2006-11-07  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Removed unnecessary qualification in CNodeCreationManager (fixes
+	#371877)
+	* Fixed up conditional build for Japanese/Chinese (fixes #371935)
+
+2006-11-06  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Preparing 4.3.1 for release
+
+2006-08-10  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Started 4.3 series
+
+2006-08-03  Arangel Angov <ufo@linux.net.mk>
+
+	* Added sl.po to /po and 'sl' to LINGUAS.
+
+2006-07-24  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Preparation for release
+
+2006-07-09  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Preparation for release
+
+2006-06-08  Phil Cowans  <pjc51@cam.ac.uk>
+
+        * Preparation for release
+	
+2006-06-07  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Internal release
+
+2006-05-31  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Preparation for release
+
+2006-05-27  Behdad Esfahbod  <behdad@gnome.org>
+
+	* configure.in: Bug 343085 – Typos in configure.in
+	causes mishandling of --disable-{speech,a11y,japanese}
+
+2006-05-15  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Preparation for release
+
+2006-04-18  Behdad Esfahbod  <behdad@gnome.org>
+
+	* configure.in, po/LINGUAS: Update to intltool 0.34.90. (bug #337992)
+
+2006-04-04  Behdad Esfahbod  <behdad@gnome.org>
+
+	* po/Makefile.in.in: Remove.  It's generated by intltool at autogen.sh
+	time.
+
+2006-04-04  Behdad Esfahbod  <behdad@gnome.org>
+
+	* configure.in: Disable the macros in m4/ as they are all pretty old
+	and were breaking build.
+
+2006-03-27  Christian Kirbach  <Christian.Kirbach@siemens.com>
+
+	* configure.in, Src/main.cc: Obey vuntz and do the transition from
+	libpopt to GOption
+
+2006-03-26  Behdad Esfahbod  <behdad@gnome.org>
+
+	* Data/Makefile.am: Respect DESTDIR.
+
+2006-03-23  Behdad Esfahbod  <behdad@gnome.org>
+
+	* configure.in: Add PKG_PROG_PKG_CONFIG.
+
+2006-03-22  Tommi Vainikainen  <thv@iki.fi>
+
+	* configure.in (ALL_LINGUAS): Added Dzongkha (dz).
+
+2006-02-22  Behdad Esfahbod  <behdad@gnome.org>
+
+	* Data/dasher.svg, Data/dasher.png: Added a border and
+	semi-transparent background.
+
+2006-02-19  Erdal Ronahi  <erdal.ronahi@gmail.com>
+
+	* configure.in: Added ku (Kurdish) to ALL_LINGUAS
+
+2006-02-18  Behdad Esfahbod  <behdad@gnome.org>
+
+	* Data/Makefile.am: Pass -f to gtk-update-icon-cache, as it's
+	rather crazy.
+
+2006-02-18  Behdad Esfahbod  <behdad@gnome.org>
+	
+	* Data/dasher.svg, Data/dasher.png: New icon, supposedly based on
+	the Tango Icon Theme Guidelines.
+
+	* Data/Makefile.am: Adapt to above.  Call gtk-update-icon-cache.
+
+	* Src/Gtk2/Menu.cc: Pass logo-icon-name to gtk_show_about_dialog.
+
+	* Src/main.cc (main): Call g_set_application_name.
+
+2006-02-17  Behdad Esfahbod  <behdad@gnome.org>
+	* Src/main.cc: Use gtk_window_set_default_icon_name.
+
+2006-01-30  Phil Cowans  <pjc51@cam.ac.uk>
+	* Fixed broken Win32 source tree
+	* Release 3.99.3
+
+2006-01-30  Behdad Esfahbod  <behdad@gnome.org>
+
+	Dasher 3.99.2 released.
+
+2006-01-29  Behdad Esfahbod  <behdad@gnome.org>
+
+	* configure.in: Add "-Wall -Wno-non-virtual-dtor" compiler options.
+	Change --with-speech, --with-a11y, and --with-japanese to --enable-*
+	syntax.
+
+	* Src/Makefile.am: Pass PREFIX, LIBDIR, DATADIR, and SYSCONFDIR to
+	the C preprocessor.
+
+	* Src/main.cc: Remove static PREFIX, LIBDIR, DATADIR, and SYSCONFDIR.
+	Set window icon.
+
+	* Src/Gtk2/Canvas.h, Src/Gtk2/Canvas.cpp: Minor cleanup.  Make it
+	build without cairo.
+
+	* Src/Gtk2/Menu.cc: Remove the old libgnome-based About dialog.
+
+2006-01-29  Phil Cowans <pjc51@cam.ac.uk>
+	* Removed hash_map
+
+2006-01-28  Phil Cowans <pjc51@cam.ac.uk>
+	* Provided input handler for 'default' behaviour (Fixes #312440)
+
+2006-01-28  Behdad Esfahbod  <behdad@gnome.org>
+
+	* Data/Translations/training_persian_IR.txt:
+	* Data/Translations/training_turkish_TR.txt: Added.
+
+2006-01-28  Behdad Esfahbod  <behdad@gnome.org>
+
+	* Data/system.rc/alphabet.persian.xml: Comment out nested groups.
+
+2006-01-28  Phil Cowans <pjc51@cam.ac.uk>
+	* Rebuild model when control mode is turned on/off (fixes #318359)
+
+2006-01-28  Phil Cowans <pjc51@cam.ac.uk>
+
+	* Removed "Client=..." debug message
+
+	* Set default log level to 0 so we don't create dasher_usage.log
+	files. You'll need to use gconf-editor to fix this parameter for
+	existing installations.
+
+2006-01-27  Behdad Esfahbod  <behdad@gnome.org>
+
+	* configure.in (GTK2BUILD_LIBS): Add --export-dynamic linker flag,
+	needed for glade signal auto-connect.  (bug #324067, Matthias Clasen)
+
+2006-01-27  Behdad Esfahbod  <behdad@gnome.org>
+
+	* Data/Translations/training_greek_GR.txt,
+	Data/Translations/training_italian_IT.txt: Convert to UTF-8. (bug
+	#320424)
+
+2006-01-27  Behdad Esfahbod  <behdad@gnome.org>
+
+	* Data/Makefile.am: Move dasher.png to the right directory.
+
+2006-01-27  Behdad Esfahbod  <behdad@gnome.org>
+
+	Fix a few leaks and memory problems:
+
+	* Src/DasherCore/SocketInputBase.cpp: Initialize port to -1.
+
+	* Src/Gtk2/DasherControl.cpp (CDasherControl::~CDasherControl):
+	Free m_pPangoCache.
+
+	* Src/Gtk2/edit.cc (choose_filename): Not leak cwd and tbuffer.
+
+2006-01-27  Behdad Esfahbod  <behdad@gnome.org>
+
+	* Src/Gtk2/Makefile.am: Put Output.h and Output.cpp back!
+
+2006-01-27  Behdad Esfahbod  <behdad@gnome.org>
+
+	* Src/main.cc Src/Common/AppSettingsData.h
+	Src/DasherCore/AlphabetManager.cpp
+	Src/DasherCore/AutoSpeedControl.h
+	Src/DasherCore/DasherModel.cpp Src/DasherCore/DasherNode.h
+	Src/DasherCore/DasherViewSquare.cpp
+	Src/DasherCore/DasherViewSquare.h Src/DasherCore/SocketInput.h
+	Src/DasherCore/UserLog.cpp Src/DasherCore/UserLogParam.h
+	Src/DasherCore/UserLogTrial.cpp Src/Gtk2/Canvas.cpp
+	Src/Gtk2/GtkDasherControl.cpp Src/Gtk2/Menu.cc
+	Src/Gtk2/dasher.cc Src/Gtk2/dasher.h Src/Gtk2/edit.cc: Shut up more
+	warning.
+
+2006-01-27  Behdad Esfahbod  <behdad@gnome.org>
+
+	* */.cvsignore: Added.
+
+	* INSTALL: Removed from CVS.
+
+	* configure.in: Cleanup.  Added GTK2BUILD_CFLAGS and GTK2BUILD_CFLAGS.
+
+	* Src/Makefile.am, Src/Gtk/Makefile.am: Use the above variables.
+
+	* configure.in: Generate config.h
+
+	* Src/Common/Common.h: #include <config.h"
+
+	* *.cc, *.cpp: #include ".../Common.h"
+
+2006-01-27  Christian Kirbach  <Christian.Kirbach@student.uni-siegen.de>
+
+	* Src/DasherCore/AutoSpeedControl.cpp, Src/DasherCore/DasherButtons.cpp,
+	Src/DasherCore/DasherModel.cpp, Src/DasherCore/DasherViewSquare.cpp,
+	Src/DasherCore/DasherViewSquare.h, Src/Gtk2/Preferences.cpp:
+	Fix 19 gcc 4 compiler warnings.
+
+2006-01-27  Behdad Esfahbod  <behdad@gnome.org>
+
+	* configure.in:  Fix around Xtst. (#140950)
+
+2006-01-27  Behdad Esfahbod  <behdad@gnome.org>
+
+	* Src/Common/Types/int.h: Do not redefine LLONG_*. (bug #313116)
+
+2006-01-27  Behdad Esfahbod  <behdad@gnome.org>
+
+	* Src/Gtk2/Makefile.am: Remove Output.h and Output.cpp which are
+	removed from source code.
+
+	* Src/Makefile.am (dasher_LDADD): Include libdashermisc.a (bug #317638) 
+
+2006-01-27  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Porting cairo support from gnome-2-12 to head. I've got most of
+	Canvas.cpp/h working, although it isn't the most beautiful code in
+	the world yet. Have also added the --with-cairo flag to
+	configure.in
+
+2006-01-16  Adam Weinberger  <adamw@gnome.org>
+
+	* Src/Gtk2/dasher.glade, Src/Gtk2/dashergpe.glade,
+	  Src/Gtk2/dahsermaemo.glade, Src/Gtk2/Preferences.cpp:
+	  Spelling fixes and message standardization. Fixes
+	  bug #167320.
+
+2006-01-15  Phil Cowans <pjc51@cam.ac.uk>
+	* Tidied up and bumped version number for release
+	* How did the previous entry happen in the future?
+
+2006-01-23  David Ward <d.j.ward.94@gmail.com>
+	* Src/Win32: TabletPC support for Win32 platform 
+
+2005-12-28  Abel Cheung  <maddog@linuxhall.org>
+	* configure.in: Added "vi" "zh_HK" to ALL_LINGUAS.
+
+2005-12-26  Timur Jamakeev  <timurj@cvs.gnome.org>
+
+	* configure.in: Added "ky" (Kirghiz) to ALL_LINGUAS
+
+2005-12-08  Phil Cowans <pjc51@cam.ac.uk>
+	* Removed old dashergtktextview code
+
+2005-12-06  Theppitak Karoonboonyanan  <thep@linux.thai.net>
+
+	* configure.in: Added 'th' (Thai) to ALL_LINGUAS.
+
+2005-11-25  Behdad Esfahbod  <behdad@gnome.org>
+	* Data/dasher.desktop: Categorize as Utility instead of Application.
+	That's the recommended fd.o classification.
+
+2005-10-21  Matthew Garrett <mjg59@srcf.ucam.org>
+	* Add SetScaleFactor to Changescreen, avoid calculating the
+	scaling factor on every lookup
+	* Stop scrolling on button release on embedded platforms
+	* Remove swathes of floating point maths
+
+2005-10-20  Matthew Garrett <mjg59@srcf.ucam.org>
+	* Move canna check into --with-japanese option
+	* Add --with-maemo option		
+	* Set more sensible default build options with --with-maemo
+	* Add missing include files
+	* Remove wnck hard dependencies
+	* Only use XTest calls if Xtst is present
+	* Remove hard libbonobo dependency from Gtk2-Experimental
+	* Check for popt, and make code conditional on that
+	* Add Maemo support
+	
+2005-09-26  Seb Wills <saw27@mrao.cam.ac.uk>
+	* Implemented correct behaviour of 'Apply' button in Windows
+	preferences dialog. Re-factored the classes for each page of
+	preferences to use a common parent class. New files:
+	Src/Win32/Widgets/PrefsPageBase.{cpp,h}
+
+2005-09-21  Seb Wills <saw27@mrao.cam.ac.uk>
+	* Added Windows support for network socket input. New source 
+	files: DasherCore/SocketInputBase.{cpp,h}, 
+	DasherCore/Win32/SocketInput.{cpp,h}. Windows build
+	now requires ws2_32.lib (winsock2). New preferences page.
+	
+	* Refactored Linux support for network socket input so it shares
+	a base class with the Windows implementation. Removed
+	Gtk2/socket_input.{cc,h}, added DasherCore/SocketInput.{cpp,h}.
+
+2005-09-15  Seb Wills <saw27@mrao.cam.ac.uk>
+	* Added network socket input support (Linux version). New files:
+	Gtk2/socket_input.h and Gtk2/socket_input.cc. New preferences pane.
+	
+2005-09-08  Behdad Esfahbod  <behdad@gnome.org>
+	* Src/DasherCore/DasherViewSquare.inl: Use fabs() instead of abs().
+
+	* Src/DasherCore/Parameters.h: Use const char * instead of char * in
+	structs.
+
+	* Src/DasherCore/UserLocation.cpp: Cast integer printf arguments
+	for %0.4f to double.
+
+2005-08-24  David Ward <d.j.ward.94@gmail.com>
+	* Src/DasherCore/Parameters.h: New Parameters for 'Stylus' and 
+	'Stop on Idle' modes
+	* Win32 UI to implement these
+
+2005-08-20  Roozbeh Pournader  <roozbeh@farsiweb.info>
+	* configure.in: Added "fa" (Persian) to ALL_LINGUAS.
+
+2005-08-14  Phil Cowans  <pjc51@cam.ac.uk>
+	* Src/Gtk2/GenerateSchema.cpp, Src/Gtk2/Makefile.am: Added a
+	simple utility to generate a GConf .schema file from the parameter
+	header files.
+	
+2005-07-21  Behdad Esfahbod  <behdad@behdad.org>
+	* AUTHORS, README: Minor wording changes.
+
+	* ChangeLog: Lots of linebreaking and whitespaces fixes.
+
+	* Makefile.am: Cleanup and added MAINTAINERCLEANFILES.
+
+	* configure.in: Updated to the preferred new syntax.  Fixed misc
+	stuff.  And removed the old hack to patch libtool.  It was from
+	2003 and should be fixed now.  If not, it really should be reported
+	as a libtool bug. Depend on Gtk+ >= 2.6.0.
+
+	* Src/Test/configure.in: Updated to the preffered new syntax.  Passing
+	`foreign' to automake, to not nag about missing NEWS and other files.
+	This was breaking jhbuild builds in tinderbox.
+
+	* Src/Makefile.am, Src/Gtk2/Makefile.am: We set SETTINGS_* in
+	configure now, no need to do here.
+
+	* Src/main.cc: Remove duplicate #include <gconf/gconf.h>.
+
+	* Src/Gtk2/Menu.cc: #include <glib/g18n.h> for the `_' macro.
+
+	* Src/Common/IOstreamDasherEdit.cc: Free allocated memory.
+
+	* Src/Gtk2/DasherControl.cpp: Comment out m_pInterface->SetSettingsUI
+	call that is not defined anymore.
+
+	* Src/Common/IOstreamDasherEdit.cc, Src/DasherCore/DasherModel.cpp, 
+	Src/DasherCore/DasherInterfaceBase.cpp,
+	Src/DasherCore/GnomeSettingsStore.cpp,
+	Src/DasherCore,DasherViewSquare.cpp, Src/Gtk2/Preferences.cpp:
+	Comment out unused variable.
+
+	* Src/DasherCore/DasherViewSquare.cpp, Src/Gtk2/DasherControl.cpp:
+	Explicitly cast between double, int, long, myint, and screenint.
+	Shuts up gcc warning.
+
+	* Src/DasherCore/DasherViewSquare.cpp: Initialize variables that gcc
+	thinks might be used uninitialized.  Shuts up gcc warning.
+
+	* Src/DasherCore/DasherViewSquare.cpp, Src/DasherCore/DasherModel.cpp,
+	Src/Gtk2/GtkDasherControl.cpp: Removed unused variables.
+
+	* Src/Gtk2/accessibility.cc: #ifdef GNOME_SPEECH a variable that is
+	only used in that case.  Shuts up gcc warning.
+
+	* Src/Gtk2/dashergtktextview.h: Changed __GTK_TEXT_VIEW_H__ symbol to
+	__DASHER_GTK_TEXT_VIEW_H__.
+
+	* Src/DasherCore/LanguageModelling/KanjiConversion.h,
+	Src/DasherCore/LanguageModelling/KanjiConversionCanna.h,
+	Src/DasherCore/DasherComponent.h: Make destructor virtual. Shuts up
+	gcc warning.
+
+	* Src/DasherCore/LanguageModelling/MixtureLanguageModel.h: Remove
+	excess namespace qualifier.
+
+	* Src/DasherCore/LanguageModelling/KanjiConversionCanna.cpp,
+	* Src/Gtk2/DasherControl.cpp: Return 0 at the end of function with
+	non-void return type. Shuts up gcc warning.
+
+	* Src/DasherCore/DasherModel.cpp, Src/DasherCore/Alphabet/Alphabet.cpp,
+	Src/DasherCore/LanguageModelling/JapaneseLanguageModel.cpp,
+	Src/DasherCore/LanguageModelling/WordLanguageModel.cpp,
+	Src/Gtk2/Preferences.cpp: Avoid comparison between signed and unsigned
+	integers.  Shuts up gcc warning.
+
+	* Src/DasherCore/LanguageModelling/DictLanguageModel.cpp,
+	Src/DasherCore/LanguageModelling/JapaneseLanguageModel.cpp,
+	Src/DasherCore/LanguageModelling/PPMLanguageModel.cpp,
+	Src/DasherCore/LanguageModelling/WordLanguageModel.cpp,
+	Src/Common/IOstreamDasherEdit.cc, Src/DasherCore/DasherModel.cpp, 
+	Src/DasherCore/DasherInterfaceBase.cpp, Src/DasherCore/DasherNode.h,
+	Src/DasherCore/DasherTypes.h: Reorder member variables in
+	initialization to follow the order in the class definition.  Shuts up
+	gcc warnings about initialization order.
+
+2005-06-12  David Ward <d.j.ward.94@gmail.com>
+
+	* remove non-standard C++ 
+		- gcc extension allows dynamic arrays, suggest this is
+		  switched off
+
+2005-06-11  David Ward <d.j.ward.94@gmail.com>
+
+	* couple of Win32 fixes
+	* new Cint64 operator< required for mixed 32/64bit comparisons
+
+2005-06-10  Ignacio Casal Quinteiro  <nacho.resa@gmail.com>
+
+	* configure.in: Added 'gl' to ALL_LINGUAS.
+
+2005-05-22	David Ward <d.j.ward.94@gmail.com>
+
+	* New Alphabet directory for all the alphabet classes
+		- CCustomAlphabet functionality moved to CAlphabet and
+		  deleted CCustomAlphabet
+		- Nicer CAlphabet interface
+
+2005-05-07	David Ward <d.j.ward.94@gmail.com>
+
+	* MAJOR changes to DasherCore
+		- Linux build temporarily broken - only minor fixes should
+		  be needed
+		- DasherCore relatively stable - hence this checkin 
+		
+	* CDasherScreen interface is now entirely UTF8, rather than part
+	  Symbol, part string
+		- renamed DrawText to DrawString because of Win32 macros
+
+	* Win32 - dropping support for non-unicode build
+		- major clean up
+		- use a precompiled header for all frequently used windows
+		  headers 		
+
+	* CDasherCore 
+		- simplify DasherNode children and clean up Push_Node
+		- children at index 0 are now valid children. So child-loops
+		  now look sensible i=0;i<ChildCount;i++
+	
+	* CAlphabet 
+		- used to be modified on the fly to add/remove the control
+		  symbol. Now the control symbol always exists - DasherCore
+		  decides whether or not to use it
+		- potentially, we can now switch on/off control mode without
+		  restarting Dasher
+
+
+2005-04-25  David Ward <d.j.ward.94@gmail.com>
+
+	* New LanguageModel interface with more abstract interface
+		- removed dependency on Dasher-specific CAlphabet 
+
+	* The rendering of the mouse, mouse line and mouse position box are
+	  now handled by the view, rather than DasherInterface or Platform.
+	  A few changes to CDasherInterface have been made - some functions
+	  have been removed. See code comments.
+		
+	* Clean up DasherView classes - started implementing a push mechanism
+	  that is view-driven rather than model-driven. Ditched the silly
+	  'force' flag on DasherNodes - this was created to stop small nodes
+	  initially flashing in and out of view. This has been solved another
+	  way.
+		
+	* Win32 CDasherScreen now caches TextSize calls. This was previously
+	  taking 25% runtime, now its negligible.
+
+2005-04-15  Iaki Larra�aga  <dooteo@euskalgnu.org>
+
+	* configure.in: Added "eu" (Basque) to ALL_LINGUAS.
+	* Data/Translations/training_basque_EU.txt: Added Basque tranining
+	  file.
+	* Data/system.rc/alphabet.basque.xml: Added Basque language support.
+
+2005-04-14  David Ward <djw30@mrao.cam.ac.uk>
+
+	* Fix mem leak when switching alphabets
+	* DasherScreen interface now takes a const pointer to CustomColours
+
+2005-04-11  David Ward <djw30@mrao.cam.ac.uk>
+
+	* Add Trace mechanism for printf-like debugging (see Common/Trace.h)
+	* Customize for your platform if necessary
+
+2005-04-08  David Ward <djw30@mrao.cam.ac.uk>
+
+	* Replaced CContext class with Context handle
+	* Moved language model files to LanguageModelling directory
+	* Created CBigramLanguageModel
+	* Introduced pooled allocators for faster and more compact allocation
+	  PPM language model now uses them for nodes and contexts
+
+2005-04-04  Christian Rose  <menthos@menthos.com>
+
+	* configure.in: Added "ug" to ALL_LINGUAS.
+
+2005-03-31  Steve Murphy  <murf@e-tools.com>
+
+	* configure.in: Added "rw" to ALL_LINGUAS.
+
+2005-03-08  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Fix crash if libwnck doesn't give us any windows
+	* Fix thinko in the initialisation of endpos in Gtk2/edit.cc
+	* Version 3.2.14
+	* Brown paper bag - wnck API has changed. Fixed.
+	* Version 3.2.15
+
+2005-01-30  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Make autogen.sh do the right thing
+	* Add Bengali support (from sayamindu@gnome.org)
+	* Add a couple of colons to remove gcc warnings (from sobhi@us.ibm.com)
+	* Make sure non-void functions return something (from 
+	  clahey@ximian.com)
+	* Check in /usr/X11R6/lib64 for libXtst (from clahey@ximian.com)
+	* Fix up string length checking - avoid crashes when "Speak on stop"
+	  switched on
+	* Version 3.2.13
+
+2005-01-25  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Fix a couple of crash bugs in the window-focus handling
+	* Make window choice available on non-accessible builds
+
+2005-01-12  Matthew Garrett  <mjg59@srcf.ucam.org>
+	
+	* Make the build system work after autotools make my life miserable
+	  again.
+	* Add support for focusing windows from within Dasher
+	* Bump version to 3.2.12
+
+2004-10-01  Abel Cheung  <maddog@linuxhall.org>
+
+	* configure.in: Added "mk" to ALL_LINGUAS.
+
+2004-09-21  David Ward  <djw30@mrao.cam.ac.uk>
+
+	* New integer-overflow checking classes in _DEBUG mode
+	* Dasher::myint is a 64bit checked int
+	* Dasher::screenint is a new type to represent all screen co-ords 
+		 - its is a 32 bit checked int
+	* Added assert.h - please customise ASSERT for your platform
+
+2004-09-17  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Src/Gtk2/speech.cc: Check that voices->_length isn't 0	
+	* Data/Makefile.am: Add dasher.schemas to EXTRA_DIST
+	
+2004-09-11  Guntupalli Karunakar  <karunakar@freedomink.org>
+
+	* configure.in: Added "hi" (Hindi) to ALL_LINGUAS.
+	
+2004-09-11  Abel Cheung  <maddog@linux.org.hk>
+
+	* configure.in: Added "gu" to ALL_LINGUAS.
+
+2004-09-07  Gurban M. Tewekgeli  <gmtavakkoli@yahoo.com>
+
+	* po/tk.po: Added Turkmen translation.
+	* configure.in: Added "tk"to ALL_LINGUAS
+
+2004-08-20  Jayaradha  <njaya@redhat.com>
+
+	* configure.in: Added "ta" to ALL_LINGUAS
+
+2004-08-19  Chris Ball  <cjb@mrao.cam.ac.uk>
+
+	* Src/Gtk2/dasher.glade: Revert dasher.glade to a last-known-good
+	version, since new versions of glade-2 create code that's not
+	backwards-compatible with older versions of libglade.
+
+2004-08-16  Christian Rose  <menthos@menthos.com>
+
+	* configure.in: Added "bs" to ALL_LINGUAS.
+
+2004-08-16  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* configure.in: Added nb to ALL_LINGUAS.
+
+2004-08-09 Amanpreet Singh Alam <aalam@redht.com>
+
+	* Lang Gujurati is add to configure.in
+
+2004-07-30  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Switch to using gnome-vfs
+	* Add support for non-local files
+	* Clean up compiler warnings
+
+2004-07-29  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* copy all on stop no longer causes the selection to change
+	* revamp the documentation build a little, make help actually work
+	* switch to the gnome-common autogen script
+	* fix a couple of stray linebreaks in glade files
+
+2004-07-12  Pawan Chitrakar  <pawan@nplinux.org>
+
+	* configure.in: Added ne Nepali in ALL_LINGUAS
+
+2004-07-07  Gil Osher  <dolfin@rpg.org.il>
+
+	* configure.in: Added 'he' (Hebrew) to ALL_LINGUAS.
+
+2004-06-28  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Fix the configure script so that it doesn't drop out unnecessarily
+
+2004-06-18  Mohammad DAMT  <mdamt@bisnisweb.com>
+
+	* po/id.po: Added Indonesian translation by
+	Ahmad Riza H Nst <rizahnst@eriagempita.co.id>
+	* configure.in (ALL_LINGUAS): Added "id" for Indonesian
+
+2004-06-09  Stanislav Brabec  <sbrabec@suse.cz>
+
+	* Data/system.rc/alphabet.czech.xml: Added support for Czech
+	language.
+
+	* Data/Translations/Makefile.am,
+	Data/Translations/training_czech_CS.txt,
+	Data/Translations/training_czech_CS.COPYING: Added Czech training
+	text. With permission of the Institute of the Czech National
+	Corpus.
+
+	* po/cs.po: Added copyright of the Institute of the Czech National
+	Corpus to translator_credits.
+
+2004-06-01  Alexander Shopov  <ash@contact.bg>
+
+	* configure.in (ALL_LINGUAS): Added "bg" Bulgarian
+
+2004-05-31  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Fix configure.in so --with-gnome doesn't disable gnome support
+
+2004-04-16  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Fix linking issue - should work with multiple versions of automake
+	* Fix desperately stupid typo that meant colour selection wouldn't
+	  work
+	* Don't complain about filesel_hide on startup
+	* Fix crash on changing alphabets with control mode enabled
+	* Fix libintl stuff - just use the glib support
+
+2004-04-15  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Fix build on Solaris 10
+	* bump version number
+
+2004-03-24  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Use older Gnome Speech if necessary
+
+2004-03-23  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Readded pre-2.4 compatibility code
+
+2004-03-22  Guntupalli Karunakar  <karunakar@freedomink.org>
+
+	* configure.in: Added "pa" (Punjabi) to ALL_LINGUAS.
+
+2004-03-22  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* bump version number
+
+2004-03-21  Mugurel Tudor  <mugurelu@go.ro>
+
+	* configure.in: Added "ro" to ALL_LINGUAS
+
+2004-03-21  Abel Cheung  <maddog@linux.org.hk>
+
+	* configure.in: Added "ru" "tr" "zh_CN" "zh_TW" to ALL_LINGUAS.
+
+2004-03-20  Evandro Fernandes Giovanini  <evandrofg@ig.com.br>
+
+	* configure.in(ALL_LINGUAS): Added "pt_BR"
+	(Brazilian Portuguese).
+
+2004-03-16  Sayamindu Dasgupta <sayamindu@clai.net>
+
+	* configure.in: Added bn (Bengali) to ALL_LINGUAS.
+
+2004-03-15  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Fix the panel finding code - applications don't have 
+	  SPI_STATE_ENABLED
+	* Bump version number to 3.2.7
+
+2004-03-12  Dafydd Harries  <daf@muse.19inch.net>
+
+	* configure.in: Added "cy" (Welsh) to ALL_LINGUAS.
+
+2004-03-11  Maxim Dziumanenko <mvd@mylinux.com.ua>
+
+	* configure.in: Added "uk" (Ukrainian) to ALL_LINGUAS.
+
+2004-03-08  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Make sure that gettext is initialised before the UI is built
+	* Bump version number to 3.2.6 for a brown paper bag release
+
+2004-03-08  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Remove the kludge that strips out some widgets - according to the
+	  ATK folks it's a bug in filechooser, and that's been sorted
+	  anyway now
+	* Fix a couple of minor translation bugs
+
+2004-03-07  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Be somewhat more paranoid about what widgets we examine, since the
+	  new filechooser contains a hidden widget of extreme badness
+	* Fix infinite loops when moving between two control branches, and
+	  fix a crasher bug that was hidden by that	
+	* Use gtkfilechooser
+	* Bumped version number to 3.2.5
+
+2004-03-06  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Check CORBA return sanely, so no crash if we're unable to find
+	  a voice
+
+2004-02-26  Sanlig Badral  <badral@openmn.org>
+
+	* /Data/Translation: Added Mongolian alphabet schema.
+	* /Data/system.rc: Added Mongolian training text.
+
+2004-02-25  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* make distcheck actually works now
+	* clean up nastiness in the accessibility code - we actually
+	  successfully default to using the accessibility interface if
+	  it's available, and shouldn't run into nasty race conditions
+	  and general brokenness
+	* bump version number to 3.2.4
+
+2004-02-25  Alessio Frusciante  <algol@firenze.linux.it>
+
+	* configure.in: Added "it" (Italian) to ALL_LINGUAS.
+
+2004-02-24  Jordi Mallach  <jordi@sindominio.net>
+
+	* configure.in (ALL_LINGUAS): Added "ca" (Catalan).
+
+2004-02-22  Ilkka Tuohela <hile@iki.fi>
+
+	* Added Finnish to ALL_LINGUAS
+
+2004-02-22  M�ətin Əmirov  <metin@karegen.com>
+
+	* configure.in: Added "az" to ALL_LINGUAS.
+
+2004-02-21 Hasbullah Bin Pit <sebol@my-penguin.org>
+	
+	* configure.in: Added Malay 'ms' to ALL_LINGUAS.
+
+2004-02-21  Matthew Garrett  <mjg59@srcf.ucam.og>
+
+	* Sort out strange visuals stuff - should work on kdrive now
+
+2004-02-21  Christian Rose  <menthos@menthos.com>
+
+	* configure.in: Added "en_CA" to ALL_LINGUAS.
+
+2004-02-18  Ales Nyakhaychyk  <nab@mail.by>
+
+	* configure.in: Added be (Belarusian) to ALL_LINGUAS.
+
+2004-02-14  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Don't generate bogus colour numbers if not in advanced colour mode
+
+2004-02-11  Arafat Medini  <lumina@silverpen.de>
+
+	* configure.in: Added Arabic locale "ar" to ALL_LINGUAS.
+
+2004-02-11  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Don't assume that symbols are all one character long when deleting
+	text
+
+2004-02-09  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Don't include popt.h except when needed
+
+2004-02-08  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* updated the documentation system 
+
+2004-02-08  Priit Laes  <plaes@cvs.gnome.org>
+
+	* configure.in: Added et to ALL_LINGUAS.
+
+2004-02-07  Christian Neumair  <chris@gnome-de.org>
+
+	* configure.in: Added de (German) to ALL_LINGUAS.
+
+2004-02-07  Takeshi AIHANA <aihana@gnome.gr.jp>
+
+	* configure.in: Added ja (Japanese) into ALL_LINGUAS.
+
+2004-02-06  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* don't crash if speech can't be set up
+
+2004-02-04  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* fix up entering text into arbitrary text widgets via the
+	accessibility interface
+
+2004-02-01  Robert Sedak  <robert.sedak@sk.htnet.hr>
+
+	* configure.in: Added "hr" (Croatian) to ALL_LINGUAS.
+
+2004-02-01  Marcel Telka  <marcel@telka.sk>
+
+	* configure.in (ALL_LINGUAS): Added sk.
+
+2004-02-01  Christian Neumair  <chris@gnome-de.org>
+
+	* configure.in: Added "de" (German) to ALL_LINGUAS.
+
+2004-01-30  Ole Laursen  <olau@hardworking.dk>
+
+	* configure.in: Added "da" (Danish) to ALL_LINGUAS.
+
+2004-01-28  Artur Flinta <aflinta@cvs.gnome.org>
+
+	* configure.in: Added "pl" to ALL_LINGUAS.
+
+2004-01-26  Žygimantas Beručka  <uid0@tuxfamily.org>
+
+	* configure.in: Added "lt" to ALL_LINGUAS.
+
+2004-01-25  Andras Timar <timar@gnome.hu>
+
+	* configure.in: Added "hu" to ALL_LINGUAS.
+
+2004-01-24  Sanlig Badral  <badral@openmn.org>
+
+	* configure.in: Added "mn" to ALL_LINGUAS.
+
+2004-01-24  Changwoo Ryu  <cwryu@debian.org>
+
+	* configure.in: Added "ko" to ALL_LINGUAS.
+
+2004-01-20 Alastair McKinstry <mckinstry@computer.org>
+
+	* configure.in: Added "ga" to ALL_LINGUAS.
+
+2004-01-18  Francisco Javier F. Serrador  <serrador@cvs.gnome.org>
+
+	* configure.in: Added "es" to ALL_LINGUAS.
+
+2004-01-17  Laurent Dhima  <laurenti@alblinux.net>
+
+	* configure.in: Added "sq" to ALL_LINGUAS.
+
+2004-01-16  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* configure.in: Updated Norwegian translation.
+
+2004-04-15  Matthew Garrett <mjg59@srcf.ucam.org>
+	* Remove weird focusing behaviour that broke stuff
+	* Don't attempt to get accessibility information if we've focused 
+	ourselves
+
+2004-04-14  Matthew Garrett <mjg59@srcf.ucam.org>
+
+	* 3.2.2 - "It's got LASER POWERED FLYING LETTERS that ATTACK
+	THE MOUSE POINTER with TITANIUM TEETH and it RUNS PROGRAMS and 
+	EVERYTHING"
+	* Major refactoring of application control. Only the menus of the 
+	focused application are displayed, along with those of the panel.
+	* Won't crash. Ever. Guaranteed. And if it does, it's spi's fault.
+	* Blah blah move to GNOME CVS
+	* Exciting translation action
+	* Windows code has support for editing alphabets again, like it used
+	to
+	* FreeBSD build fix
+	* Slightly more sensible about which menu nodes to show. Should still
+	be better.
+	* Significantly saner locale handling
+	* Initialise speech properly
+	* CONFORM TO THE SPELLING PREFERENCES OF OUR US OVERLORDS
+
+2004-01-11  Kostas Papadimas <pkst@gnome.org>
+
+	* configure.in: Added "el" (Greek) to ALL_LINGUAS.
+
+2004-01-09  Miloslav Trmac  <mitr@volny.cz>
+
+	* configure.in: Added "cs" (Czech) to ALL_LINGUAS.
+
+2004-01-06  Telsa Gwynne  <hobbit@aloss.ukuu.org.uk>
+
+	* configure.in: Added "en_GB" to ALL_LINGUAS.
+
+2004-01-06  Christian Rose  <menthos@menthos.com>
+
+	* configure.in: Added "sv" to ALL_LINGUAS.
+
+2004-01-05  Duarte Loreto <happyguy_pt@hotmail.com>
+
+	* configure.in: Added Portuguese (pt) to ALL_LINGUAS.
+
+2004-01-05  Danilo Šegan  <dsegan@gmx.net>
+
+	* configure.in: Added "sr" and "sr@Latn" (please switch over to
+	GNU-style ChangeLog's, or fix my entry to suit your needs.)
+
+3.2.1
+
+(Note: This version is primarily targetted at the Gnome release cycle, and
+so contains relatively few new features for Unix and none for Windows)
+
+General:
+A default colour scheme is now included in the core code, so Dasher will
+work even without a colour.xml file
+atoi() calls now all occur during setup rather than at runtime - should result
+in a noticable performance boost
+
+Unix:
+GPE target added - see http://gpe.handhelds.org for more information
+Ensure that Dasher doesn't try to update itself while shutting down
+Work properly in non-UTF8 locales
+Extra command-line options. -o causes Dasher to present itself for text entry
+into other applications rather than for internal editing. -p causes Dasher to
+only open a preferences window (mostly useful for the GPE port). -s causes
+Dasher to output newly entered text to stdout.
+Fixed a stupid bug that slowed down gnome-vfs operations.
+Dasher now accepts a filename on the command line
+
+3.2.0
+
+General:
+Added support for variable colour schemes
+Multiple languages added
+New eyetracker mode
+Speech support
+Application control features
+Control mode allows in-situ editing
+Key entry to other applications
+Extra options for cursor visibility
+Support for multiple alphabet and colour files
+Dasher can be started and stopped based on mouse position
+Optional outlines around boxes
+Y axis values can be scaled for one dimensional mode
+Degree of prediction can be altered
+Various memory leaks fixed
+Pressing F12 recentres the cursor
+Rounding errors fixed in probability calculations
+
+Unix:
+Cross-platform support improved
+Revamped preferences
+Integrates with gnome-accessibility framework
+File i/o properly checked
+
+3.0.2
+
+General:
+Fixed acceleration behaviour around window edges
+Implemented keyboard control (available in Windows and GTK2 interfaces)
+
+Windows:
+Minor stability issues dealt with
+
+Unix:
+GTK2 version now actually usable - do ./configure --with-gtk2 to get it 
+to build. Should have most of the functionality of the other interfaces, 
+and it's significantly more attractive.
+
+3.0.1
+
+General:
+Default alphabet reordered
+API documentation added
+Font size changeable
+Interfaces now use a crosshair within the Dasher canvas
+Flicker reduced
+One dimensional input mode introduced
+Logical position of the mouse pointer can be displayed
+All settings should now be saved between runs
+Various fixes to improve prediction
+
+Windows:
+Windows version can be started and stopped using the space bar rather than the
+mouse
+Fixed Windows file operations
+Import training file should now work
+Fix handling of rapid mouse clicks
+
+Unix:
+GTK version gettextised for ease of translation
+Added experimental GTK2 version
+
+3.0.0
+
+First full release
