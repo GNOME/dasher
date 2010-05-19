@@ -461,7 +461,8 @@ your writing speed.</property>
                 <child type="tab">
                   <object class="GtkLabel" id="label111">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">Language</property>
+                    <property name="label" translatable="yes">_Language</property>
+		    <property name="use_underline">True</property>
                   </object>
                   <packing>
                     <property name="tab_fill">False</property>
@@ -817,7 +818,8 @@ your writing speed.</property>
                 <child type="tab">
                   <object class="GtkLabel" id="label114">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes" comments="Abbreviation for Control Style">Control</property>
+                    <property name="label" translatable="yes" comments="Abbreviation for Control Style">C_ontrol</property>
+		    <property name="use_underline">True</property>
                   </object>
                   <packing>
                     <property name="position">1</property>
@@ -1112,7 +1114,8 @@ your writing speed.</property>
                 <child type="tab">
                   <object class="GtkLabel" id="label117">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">Appearance</property>
+                    <property name="label" translatable="yes">_Appearance</property>
+		    <property name="use_underline">True</property>
                   </object>
                   <packing>
                     <property name="position">2</property>
@@ -1447,7 +1450,8 @@ your writing speed.</property>
                 <child type="tab">
                   <object class="GtkLabel" id="label121">
                     <property name="visible">True</property>
-                    <property name="label" translatable="yes">Application</property>
+                    <property name="label" translatable="yes">A_pplication</property>
+		    <property name="use_underline">True</property>
                   </object>
                   <packing>
                     <property name="position">3</property>
