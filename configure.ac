@@ -133,15 +133,6 @@ AC_ARG_ENABLE([japanese],
          fi, 
 	 WITHJAPANESE=false)
 
-AC_ARG_ENABLE([chinese],
-	 AS_HELP_STRING([--enable-chinese],[build with support for Chinese PinYin entry (experimental -- default is NO)]),
-	 if test "x$enableval" = "xno"; then
-	   WITHCHINESE=false; 
-	 else
-	   WITHCHINESE=true;
-         fi, 
-	 WITHCHINESE=false)
-
 AC_ARG_ENABLE([joystick],
 	 AS_HELP_STRING([--enable-joystick],[Build with Linux joystick support (note that other UNIX based operating systems aren't supported here)]),
 	 if test "x$enableval" = "xno"; then
@@ -301,15 +292,6 @@ fi
 
 AC_SUBST(JAPANESE_SOURCES)
 
-if test x"$WITHCHINESE" = xtrue; then
-	AC_DEFINE([CHINESE], 1, [Chinese support enabled])
-	CHINESE_SOURCES='PinyinParser.$(OBJEXT)'
-else
-	CHINESE_SOURCES=
-fi
-
-AC_SUBST(CHINESE_SOURCES)
-
 if test x"$WITHJOYSTICK" = xtrue; then
 	AC_DEFINE([JOYSTICK], 1, [Linux joystick support enabled])
 fi
@@ -373,7 +355,6 @@ AM_CONDITIONAL(WITH_GPE, test x$WITHGPE = xtrue)
 AM_CONDITIONAL(WITH_MAEMO, test x$WITHMAEMO = xtrue)
 AM_CONDITIONAL(WITH_MAEMOFULLSCREEN, test x$WITHMAEMOFULLSCREEN = xtrue)
 AM_CONDITIONAL(JAPANESE, test x$WITHJAPANESE = xtrue)
-AM_CONDITIONAL(CHINESE, test x$WITHCHINESE = xtrue)
 AM_CONDITIONAL(JOYSTICK, test x$WITHJOYSTICK = xtrue)
 
 AC_SUBST(GTK2_CFLAGS)

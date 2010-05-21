@@ -105,6 +105,8 @@ libdashercore_a_SOURCES = \
 		OneButtonFilter.h \
 		OneDimensionalFilter.cpp \
 		OneDimensionalFilter.h \
+		PinyinParser.cpp \
+		PinyinParser.h \
 		SCENode.cpp \
 		SCENode.h \
 		SimpleTimer.cpp \
@@ -142,14 +144,12 @@ libdashercore_a_SOURCES = \
 		XMLUtil.cpp \
 		XMLUtil.h
 
-libdashercore_a_LIBADD = @CHINESE_SOURCES@ @JAPANESE_SOURCES@
-libdashercore_a_DEPENDENCIES = @CHINESE_SOURCES@ @JAPANESE_SOURCES@
+libdashercore_a_LIBADD = @JAPANESE_SOURCES@
+libdashercore_a_DEPENDENCIES = @JAPANESE_SOURCES@
 
 EXTRA_libdashercore_a_SOURCES = \
 		CannaConversionHelper.cpp \
-		CannaConversionHelper.h \
-		PinyinParser.cpp \
-		PinyinParser.h
+		CannaConversionHelper.h
 
 AM_CXXFLAGS = -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" -I../../intl -I$(top_srcdir)/intl $(GTK2_CFLAGS) $(SETTINGS_CFLAGS) $(gnome_speech_CFLAGS) $(gnome_a11y_CFLAGS) $(gnome_CFLAGS)
 
