@@ -416,7 +416,7 @@ bool CDasherModel::NextScheduledStep(unsigned long iTime, Dasher::VECTOR_SYMBOL_
   m_deGotoQueue.pop_front();
 
   UpdateBounds(iNewMin, iNewMax, iTime, pAdded, pNumDeleted);
-  if (m_deGotoQueue.size() == 0) m_pDasherInterface->Pause();
+  if (m_deGotoQueue.size() == 0) SetBoolParameter(BP_DASHER_PAUSED, true);
   return true;
 }
 
