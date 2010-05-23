@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher gnome-2-28\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-11 01:49+0100\n"
-"PO-Revision-Date: 2010-02-08 00:16+0100\n"
+"POT-Creation-Date: 2010-05-23 19:29+0200\n"
+"PO-Revision-Date: 2010-05-17 15:02+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -282,190 +282,182 @@ msgid "<b>Starting and Stopping</b>"
 msgstr "<b>Spouštění a zastavování</b>"
 
 #: ../Data/GUI/dasher.preferences.ui.h:18
+#, fuzzy
+msgid "A_pplication"
+msgstr "Aplikace"
+
+#: ../Data/GUI/dasher.preferences.ui.h:19
 #: ../Data/GUI/dashermaemo.preferences.ui.h:9
 msgid "Adapt speed automatically"
 msgstr "Automaticky přizpůsobit rychlost"
 
 #. The default display orientation for the selected alphabet, i.e., left to right for English, right to left for Arabic, etc.
-#: ../Data/GUI/dasher.preferences.ui.h:20
+#: ../Data/GUI/dasher.preferences.ui.h:21
 #: ../Data/GUI/dashermaemo.preferences.ui.h:11
 msgid "Alphabet Default"
 msgstr "Výchozí abeceda"
 
-#: ../Data/GUI/dasher.preferences.ui.h:21
-msgid "Appearance"
-msgstr "Vzhled"
-
 #: ../Data/GUI/dasher.preferences.ui.h:22
-msgid "Application"
-msgstr "Aplikace"
-
-#: ../Data/GUI/dasher.preferences.ui.h:23
 #: ../Data/GUI/dashermaemo.preferences.ui.h:12
 msgid "Bottom to Top"
 msgstr "Odspodu nahoru"
 
+#. Abbreviation for Control Style
 #: ../Data/GUI/dasher.preferences.ui.h:24
+#, fuzzy
+msgid "C_ontrol"
+msgstr "Ovládání"
+
+#: ../Data/GUI/dasher.preferences.ui.h:25
 msgid "Centre circle"
 msgstr "Střední kruh"
 
-#: ../Data/GUI/dasher.preferences.ui.h:25
+#: ../Data/GUI/dasher.preferences.ui.h:26
 msgid "Composition"
 msgstr "Skládání"
 
-#. Abbreviation for Control Style
-#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 #: ../Data/GUI/dasher.preferences.ui.h:27
-#: ../Data/GUI/dashermaemo.preferences.ui.h:14
-msgid "Control"
-msgstr "Ovládání"
-
-#: ../Data/GUI/dasher.preferences.ui.h:28
 msgid "Control mode"
 msgstr "Režim ovládání"
 
-#: ../Data/GUI/dasher.preferences.ui.h:29
+#: ../Data/GUI/dasher.preferences.ui.h:28
 #: ../Data/GUI/dashermaemo.preferences.ui.h:15
 msgid "Custom"
 msgstr "Vlastní"
 
-#: ../Data/GUI/dasher.preferences.ui.h:30
+#: ../Data/GUI/dasher.preferences.ui.h:29
 #: ../Data/GUI/dashermaemo.preferences.ui.h:16
 msgid "Custom colour scheme:"
 msgstr "Vlastní schéma barev:"
 
-#: ../Data/GUI/dasher.preferences.ui.h:31
+#: ../Data/GUI/dasher.preferences.ui.h:30
 #: ../Data/GUI/dashermaemo.preferences.ui.h:17
 msgid "Dasher Preferences"
 msgstr "Nastavení Dasheru"
 
-#: ../Data/GUI/dasher.preferences.ui.h:32
+#: ../Data/GUI/dasher.preferences.ui.h:31
 msgid "Direct entry"
 msgstr "Přímá položka"
 
-#: ../Data/GUI/dasher.preferences.ui.h:33
+#: ../Data/GUI/dasher.preferences.ui.h:32
 msgid "Dock application window"
 msgstr "Dokovat okno aplikace"
 
-#: ../Data/GUI/dasher.preferences.ui.h:34
+#: ../Data/GUI/dasher.preferences.ui.h:33
 msgid "Draw box outlines"
 msgstr "Kreslit obrysy obdélníků"
 
-#: ../Data/GUI/dasher.preferences.ui.h:35
+#: ../Data/GUI/dasher.preferences.ui.h:34
 msgid "Draw line between crosshairs and mouse"
 msgstr "Kreslit čáru mezi vlasovými kříži a myší"
 
-#: ../Data/GUI/dasher.preferences.ui.h:36
+#: ../Data/GUI/dasher.preferences.ui.h:35
 msgid "Full Screen"
 msgstr "Plné zobrazení"
 
-#: ../Data/GUI/dasher.preferences.ui.h:37
+#: ../Data/GUI/dasher.preferences.ui.h:36
 msgid "Increase line thickness"
 msgstr "Zvětšit tloušťku čáry"
 
-#: ../Data/GUI/dasher.preferences.ui.h:38
+#: ../Data/GUI/dasher.preferences.ui.h:37
 #: ../Data/GUI/dashermaemo.preferences.ui.h:19
 msgid "Japanese"
 msgstr "Japonská"
 
-#: ../Data/GUI/dasher.preferences.ui.h:39
-msgid "Language"
-msgstr "Jazyk"
-
-#: ../Data/GUI/dasher.preferences.ui.h:40
+#: ../Data/GUI/dasher.preferences.ui.h:38
 #: ../Data/GUI/dashermaemo.preferences.ui.h:20
 msgid "Language model adapts as you write."
 msgstr "Model jazyka se adaptuje, když píšete."
 
-#: ../Data/GUI/dasher.preferences.ui.h:41
+#: ../Data/GUI/dasher.preferences.ui.h:39
 msgid "Large font "
 msgstr "Velké písmo "
 
-#: ../Data/GUI/dasher.preferences.ui.h:42
+#: ../Data/GUI/dasher.preferences.ui.h:40
 #: ../Data/GUI/dashermaemo.preferences.ui.h:21
 msgid "Left to Right"
 msgstr "Zleva doprava"
 
 #. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/GUI/dasher.preferences.ui.h:44
+#: ../Data/GUI/dasher.preferences.ui.h:42
 #: ../Data/GUI/dashermaemo.preferences.ui.h:22
 msgid "Mixture model (PPM/dictionary)"
 msgstr "Sloučený model (PPM/slovník)"
 
-#: ../Data/GUI/dasher.preferences.ui.h:45
+#: ../Data/GUI/dasher.preferences.ui.h:43
 msgid "Options"
 msgstr "Možnosti"
 
-#: ../Data/GUI/dasher.preferences.ui.h:46
+#: ../Data/GUI/dasher.preferences.ui.h:44
 msgid "Pause outside of canvas"
 msgstr "Vložit mimo plátno"
 
-#: ../Data/GUI/dasher.preferences.ui.h:47
+#: ../Data/GUI/dasher.preferences.ui.h:45
 #: ../Data/GUI/dashermaemo.preferences.ui.h:24
 msgid "Right to Left"
 msgstr "Zprava doleva"
 
-#: ../Data/GUI/dasher.preferences.ui.h:48
+#: ../Data/GUI/dasher.preferences.ui.h:46
 msgid "Select Dasher Font"
 msgstr "Zvolte písmo pro Dasher"
 
-#: ../Data/GUI/dasher.preferences.ui.h:49
+#: ../Data/GUI/dasher.preferences.ui.h:47
 msgid "Select Editor Font"
 msgstr "Zvolte písmo editoru"
 
-#: ../Data/GUI/dasher.preferences.ui.h:50
+#: ../Data/GUI/dasher.preferences.ui.h:48
 msgid "Show mouse position"
 msgstr "Zobrazovat umístění myši"
 
-#: ../Data/GUI/dasher.preferences.ui.h:51
+#: ../Data/GUI/dasher.preferences.ui.h:49
 msgid "Show speed slider"
 msgstr "Zobrazovat táhlo rychlosti"
 
-#: ../Data/GUI/dasher.preferences.ui.h:52
+#: ../Data/GUI/dasher.preferences.ui.h:50
 msgid "Show toolbar"
 msgstr "Zobrazovat lištu nástrojů"
 
-#: ../Data/GUI/dasher.preferences.ui.h:53
+#: ../Data/GUI/dasher.preferences.ui.h:51
 msgid "Small font"
 msgstr "Malé písmo"
 
-#: ../Data/GUI/dasher.preferences.ui.h:54
+#: ../Data/GUI/dasher.preferences.ui.h:52
 msgid "Stand-alone"
 msgstr "Samostatné"
 
 #. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/GUI/dasher.preferences.ui.h:56
+#: ../Data/GUI/dasher.preferences.ui.h:54
 #: ../Data/GUI/dashermaemo.preferences.ui.h:25
 msgid "Standard letter-based PPM"
 msgstr "Standardní PPM založené na písmenech"
 
-#: ../Data/GUI/dasher.preferences.ui.h:57
+#: ../Data/GUI/dasher.preferences.ui.h:55
 msgid "Start on left mouse button"
 msgstr "Spustit levým tlačítkem myši"
 
-#: ../Data/GUI/dasher.preferences.ui.h:58
+#: ../Data/GUI/dasher.preferences.ui.h:56
 msgid "Start on space bar"
 msgstr "Spustit mezerou"
 
-#: ../Data/GUI/dasher.preferences.ui.h:59
+#: ../Data/GUI/dasher.preferences.ui.h:57
 msgid "Start with mouse position:"
 msgstr "Spustit umístěním myši:"
 
-#: ../Data/GUI/dasher.preferences.ui.h:60
+#: ../Data/GUI/dasher.preferences.ui.h:58
 msgid "Timestamp new files"
 msgstr "Přidávat k novým souborům časový údaj"
 
-#: ../Data/GUI/dasher.preferences.ui.h:61
+#: ../Data/GUI/dasher.preferences.ui.h:59
 #: ../Data/GUI/dashermaemo.preferences.ui.h:26
 msgid "Top to Bottom"
 msgstr "Shora dolů"
 
-#: ../Data/GUI/dasher.preferences.ui.h:62
+#: ../Data/GUI/dasher.preferences.ui.h:60
 msgid "Two box"
 msgstr "Dva obdélníky"
 
 #. Line wrapping not necessary, but looks better for English
-#: ../Data/GUI/dasher.preferences.ui.h:64
+#: ../Data/GUI/dasher.preferences.ui.h:62
 msgid ""
 "Use this control to adjust the relative sizes of the\n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -475,14 +467,24 @@ msgstr ""
 "obdélníků písmen. Vezměte na vědomí, že zvolení velkých\n"
 "hodnot zpomalí rychlost vašeho psaní."
 
-#: ../Data/GUI/dasher.preferences.ui.h:67
+#: ../Data/GUI/dasher.preferences.ui.h:65
 msgid "Very large font"
 msgstr "Velmi velké písmo"
 
-#: ../Data/GUI/dasher.preferences.ui.h:68
+#: ../Data/GUI/dasher.preferences.ui.h:66
 #: ../Data/GUI/dashermaemo.preferences.ui.h:28
 msgid "Word-based model"
 msgstr "Model založený na slovech"
+
+#: ../Data/GUI/dasher.preferences.ui.h:67
+#, fuzzy
+msgid "_Appearance"
+msgstr "Vzhled"
+
+#: ../Data/GUI/dasher.preferences.ui.h:68
+#, fuzzy
+msgid "_Language"
+msgstr "Jazyk"
 
 #. Abbreviation for Preferences
 #: ../Data/GUI/dashermaemo.ui.h:3
@@ -504,6 +506,11 @@ msgstr "<b>Orientace</b>"
 #: ../Data/GUI/dashermaemo.preferences.ui.h:10
 msgid "Alphabet"
 msgstr "Abeceda"
+
+#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:14
+msgid "Control"
+msgstr "Ovládání"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:18
 msgid "Enlarge input window"
@@ -592,6 +599,16 @@ msgstr "Různá velikost boxů"
 msgid "Maximum Zoom"
 msgstr "Maximální zvětšení"
 
+#: ../Src/DasherCore/ClickFilter.cpp:10
+msgid "Draw guides on screen to show area into which a click will zoom"
+msgstr ""
+"Vykreslit na obrazovce vodící linky označující oblast, ve které se kliknutím "
+"mění velikost"
+
+#: ../Src/DasherCore/ClickFilter.cpp:11
+msgid "Curve lines to follow the non-linearity of the view transform"
+msgstr "Křivky sledující nelinearity zobrazené transformace"
+
 #: ../Src/DasherCore/ClickFilter.h:12
 msgid "Click Mode"
 msgstr "Režim klikání"
@@ -610,20 +627,20 @@ msgstr "Režim kompasu"
 msgid "Well done!"
 msgstr "Výborně!"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:910
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:918
 msgid "Normal Control"
 msgstr "Běžné ovládání"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:926
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:934
 msgid "Menu Mode"
 msgstr "Režim nabídky"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:927
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:935
 msgid "Direct Mode"
 msgstr "Přímý režim"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:931
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:939
 msgid "Stylus Control"
 msgstr "Ovládání pomocí Stylu"
 
@@ -851,21 +868,21 @@ msgstr "Celočíselné parametry"
 msgid "String parameters"
 msgstr "Parametry typu řetězec"
 
-#: ../Src/Gtk2/Preferences.cpp:437 ../Src/Gtk2/Preferences.cpp:1008
+#: ../Src/Gtk2/Preferences.cpp:441 ../Src/Gtk2/Preferences.cpp:1012
 msgid "Action"
 msgstr "Akce"
 
 #. TRANSLATORS: Show a button for the selected action in the Dasher window.
-#: ../Src/Gtk2/Preferences.cpp:1015
+#: ../Src/Gtk2/Preferences.cpp:1019
 msgid "Show Button"
 msgstr "Zobrazit tlačítko"
 
-#: ../Src/Gtk2/Preferences.cpp:1020
+#: ../Src/Gtk2/Preferences.cpp:1024
 msgid "Control Mode"
 msgstr "Režim ovládání"
 
 #. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
-#: ../Src/Gtk2/Preferences.cpp:1026
+#: ../Src/Gtk2/Preferences.cpp:1030
 msgid "Auto On Stop"
 msgstr "Automaticky při zastavení"
 
