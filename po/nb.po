@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher 3.1x.x\n"
-"Report-Msgid-Bugs-To:\n"
-"POT-Creation-Date: 2010-01-19 12:14+0100\n"
-"PO-Revision-Date: 2010-01-19 12:18+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-05-24 14:46+0200\n"
+"PO-Revision-Date: 2010-05-24 14:47+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian Bokmål <i18n-no@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -274,190 +274,180 @@ msgid "<b>Starting and Stopping</b>"
 msgstr "<b>Start og stopp</b>"
 
 #: ../Data/GUI/dasher.preferences.ui.h:18
+msgid "A_pplication"
+msgstr "_Program"
+
+#: ../Data/GUI/dasher.preferences.ui.h:19
 #: ../Data/GUI/dashermaemo.preferences.ui.h:9
 msgid "Adapt speed automatically"
 msgstr "Tilpass hastighet automatisk"
 
 #. The default display orientation for the selected alphabet, i.e., left to right for English, right to left for Arabic, etc.
-#: ../Data/GUI/dasher.preferences.ui.h:20
+#: ../Data/GUI/dasher.preferences.ui.h:21
 #: ../Data/GUI/dashermaemo.preferences.ui.h:11
 msgid "Alphabet Default"
 msgstr "Forvalg for alfabet"
 
-#: ../Data/GUI/dasher.preferences.ui.h:21
-msgid "Appearance"
-msgstr "Utseende"
-
 #: ../Data/GUI/dasher.preferences.ui.h:22
-msgid "Application"
-msgstr "Program"
-
-#: ../Data/GUI/dasher.preferences.ui.h:23
 #: ../Data/GUI/dashermaemo.preferences.ui.h:12
 msgid "Bottom to Top"
 msgstr "Bunn til topp"
 
+#. Abbreviation for Control Style
 #: ../Data/GUI/dasher.preferences.ui.h:24
+msgid "C_ontrol"
+msgstr "K_ontroll"
+
+#: ../Data/GUI/dasher.preferences.ui.h:25
 msgid "Centre circle"
 msgstr "Sentrert sirkel"
 
-#: ../Data/GUI/dasher.preferences.ui.h:25
+#: ../Data/GUI/dasher.preferences.ui.h:26
 msgid "Composition"
 msgstr "Komposisjon"
 
-#. Abbreviation for Control Style
-#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 #: ../Data/GUI/dasher.preferences.ui.h:27
-#: ../Data/GUI/dashermaemo.preferences.ui.h:14
-msgid "Control"
-msgstr "Kontroll"
-
-#: ../Data/GUI/dasher.preferences.ui.h:28
 msgid "Control mode"
 msgstr "Kontrollmodus"
 
-#: ../Data/GUI/dasher.preferences.ui.h:29
+#: ../Data/GUI/dasher.preferences.ui.h:28
 #: ../Data/GUI/dashermaemo.preferences.ui.h:15
 msgid "Custom"
 msgstr "Egendefinert"
 
-#: ../Data/GUI/dasher.preferences.ui.h:30
+#: ../Data/GUI/dasher.preferences.ui.h:29
 #: ../Data/GUI/dashermaemo.preferences.ui.h:16
 msgid "Custom colour scheme:"
 msgstr "Egendefinerte farger:"
 
-#: ../Data/GUI/dasher.preferences.ui.h:31
+#: ../Data/GUI/dasher.preferences.ui.h:30
 #: ../Data/GUI/dashermaemo.preferences.ui.h:17
 msgid "Dasher Preferences"
 msgstr "Brukervalg for Dasher"
 
-#: ../Data/GUI/dasher.preferences.ui.h:32
+#: ../Data/GUI/dasher.preferences.ui.h:31
 msgid "Direct entry"
 msgstr "Direkte inntasting"
 
-#: ../Data/GUI/dasher.preferences.ui.h:33
+#: ../Data/GUI/dasher.preferences.ui.h:32
 msgid "Dock application window"
 msgstr "Programvindu i dokk"
 
-#: ../Data/GUI/dasher.preferences.ui.h:34
+#: ../Data/GUI/dasher.preferences.ui.h:33
 msgid "Draw box outlines"
 msgstr "Tegn omriss for bokser"
 
-#: ../Data/GUI/dasher.preferences.ui.h:35
+#: ../Data/GUI/dasher.preferences.ui.h:34
 msgid "Draw line between crosshairs and mouse"
 msgstr "Tegn en linje mellom kors og mus"
 
-#: ../Data/GUI/dasher.preferences.ui.h:36
+#: ../Data/GUI/dasher.preferences.ui.h:35
 msgid "Full Screen"
 msgstr "Fullskjerm"
 
-#: ../Data/GUI/dasher.preferences.ui.h:37
+#: ../Data/GUI/dasher.preferences.ui.h:36
 msgid "Increase line thickness"
 msgstr "Øk linjetykkelsen"
 
-#: ../Data/GUI/dasher.preferences.ui.h:38
+#: ../Data/GUI/dasher.preferences.ui.h:37
 #: ../Data/GUI/dashermaemo.preferences.ui.h:19
 msgid "Japanese"
 msgstr "Japansk"
 
-#: ../Data/GUI/dasher.preferences.ui.h:39
-msgid "Language"
-msgstr "Språk"
-
-#: ../Data/GUI/dasher.preferences.ui.h:40
+#: ../Data/GUI/dasher.preferences.ui.h:38
 #: ../Data/GUI/dashermaemo.preferences.ui.h:20
 msgid "Language model adapts as you write."
 msgstr "Språkmodellen tilpasses mens du skriver."
 
-#: ../Data/GUI/dasher.preferences.ui.h:41
+#: ../Data/GUI/dasher.preferences.ui.h:39
 msgid "Large font "
 msgstr "Stor skrift"
 
-#: ../Data/GUI/dasher.preferences.ui.h:42
+#: ../Data/GUI/dasher.preferences.ui.h:40
 #: ../Data/GUI/dashermaemo.preferences.ui.h:21
 msgid "Left to Right"
 msgstr "Venstre til høyre"
 
 #. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/GUI/dasher.preferences.ui.h:44
+#: ../Data/GUI/dasher.preferences.ui.h:42
 #: ../Data/GUI/dashermaemo.preferences.ui.h:22
 msgid "Mixture model (PPM/dictionary)"
 msgstr "Blandingsmodell (PPM/ordbok)"
 
-#: ../Data/GUI/dasher.preferences.ui.h:45
+#: ../Data/GUI/dasher.preferences.ui.h:43
 msgid "Options"
 msgstr "Alternativer"
 
-#: ../Data/GUI/dasher.preferences.ui.h:46
+#: ../Data/GUI/dasher.preferences.ui.h:44
 msgid "Pause outside of canvas"
 msgstr "Pause utenfor kanvas"
 
-#: ../Data/GUI/dasher.preferences.ui.h:47
+#: ../Data/GUI/dasher.preferences.ui.h:45
 #: ../Data/GUI/dashermaemo.preferences.ui.h:24
 msgid "Right to Left"
 msgstr "Høyre til venstre"
 
-#: ../Data/GUI/dasher.preferences.ui.h:48
+#: ../Data/GUI/dasher.preferences.ui.h:46
 msgid "Select Dasher Font"
 msgstr "Velg skrift for Dasher"
 
-#: ../Data/GUI/dasher.preferences.ui.h:49
+#: ../Data/GUI/dasher.preferences.ui.h:47
 msgid "Select Editor Font"
 msgstr "Velg skrift for redigering"
 
-#: ../Data/GUI/dasher.preferences.ui.h:50
+#: ../Data/GUI/dasher.preferences.ui.h:48
 msgid "Show mouse position"
 msgstr "Vis musposisjon"
 
-#: ../Data/GUI/dasher.preferences.ui.h:51
+#: ../Data/GUI/dasher.preferences.ui.h:49
 msgid "Show speed slider"
 msgstr "Vis justering av hastighet"
 
-#: ../Data/GUI/dasher.preferences.ui.h:52
+#: ../Data/GUI/dasher.preferences.ui.h:50
 msgid "Show toolbar"
 msgstr "Vis verktøylinje"
 
-#: ../Data/GUI/dasher.preferences.ui.h:53
+#: ../Data/GUI/dasher.preferences.ui.h:51
 msgid "Small font"
 msgstr "Liten skrift"
 
-#: ../Data/GUI/dasher.preferences.ui.h:54
+#: ../Data/GUI/dasher.preferences.ui.h:52
 msgid "Stand-alone"
 msgstr "Frittstående"
 
 #. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/GUI/dasher.preferences.ui.h:56
+#: ../Data/GUI/dasher.preferences.ui.h:54
 #: ../Data/GUI/dashermaemo.preferences.ui.h:25
 msgid "Standard letter-based PPM"
 msgstr "Standard bokstavbasert PPM"
 
-#: ../Data/GUI/dasher.preferences.ui.h:57
+#: ../Data/GUI/dasher.preferences.ui.h:55
 msgid "Start on left mouse button"
 msgstr "Start med venstre musknapp"
 
-#: ../Data/GUI/dasher.preferences.ui.h:58
+#: ../Data/GUI/dasher.preferences.ui.h:56
 msgid "Start on space bar"
 msgstr "Start med mellomrom"
 
-#: ../Data/GUI/dasher.preferences.ui.h:59
+#: ../Data/GUI/dasher.preferences.ui.h:57
 msgid "Start with mouse position:"
 msgstr "Start med musposisjon:"
 
-#: ../Data/GUI/dasher.preferences.ui.h:60
+#: ../Data/GUI/dasher.preferences.ui.h:58
 msgid "Timestamp new files"
 msgstr "Tidsmerking på nye filer"
 
-#: ../Data/GUI/dasher.preferences.ui.h:61
+#: ../Data/GUI/dasher.preferences.ui.h:59
 #: ../Data/GUI/dashermaemo.preferences.ui.h:26
 msgid "Top to Bottom"
 msgstr "Topp til bunn"
 
-#: ../Data/GUI/dasher.preferences.ui.h:62
+#: ../Data/GUI/dasher.preferences.ui.h:60
 msgid "Two box"
 msgstr "To-boks"
 
 #. Line wrapping not necessary, but looks better for English
-#: ../Data/GUI/dasher.preferences.ui.h:64
+#: ../Data/GUI/dasher.preferences.ui.h:62
 msgid ""
 "Use this control to adjust the relative sizes of the\n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -467,14 +457,22 @@ msgstr ""
 "for bokstavboksene. Valg av høye verdier vil bremse\n"
 "ned skrivehastigheten."
 
-#: ../Data/GUI/dasher.preferences.ui.h:67
+#: ../Data/GUI/dasher.preferences.ui.h:65
 msgid "Very large font"
 msgstr "Meget stor skrift"
 
-#: ../Data/GUI/dasher.preferences.ui.h:68
+#: ../Data/GUI/dasher.preferences.ui.h:66
 #: ../Data/GUI/dashermaemo.preferences.ui.h:28
 msgid "Word-based model"
 msgstr "Ordbasert modell"
+
+#: ../Data/GUI/dasher.preferences.ui.h:67
+msgid "_Appearance"
+msgstr "_Utseende"
+
+#: ../Data/GUI/dasher.preferences.ui.h:68
+msgid "_Language"
+msgstr "S_pråk"
 
 #. Abbreviation for Preferences
 #: ../Data/GUI/dashermaemo.ui.h:3
@@ -496,6 +494,11 @@ msgstr "<b>Orientering</b>"
 #: ../Data/GUI/dashermaemo.preferences.ui.h:10
 msgid "Alphabet"
 msgstr "Alfabet"
+
+#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:14
+msgid "Control"
+msgstr "Kontroll"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:18
 msgid "Enlarge input window"
@@ -583,6 +586,14 @@ msgstr "Ulikhet for bokser"
 msgid "Maximum Zoom"
 msgstr "Maksimal zoom"
 
+#: ../Src/DasherCore/ClickFilter.cpp:10
+msgid "Draw guides on screen to show area into which a click will zoom"
+msgstr "Tegn retningsvisere på skjermen for å vise området et klikk vil zoome inn i"
+
+#: ../Src/DasherCore/ClickFilter.cpp:11
+msgid "Curve lines to follow the non-linearity of the view transform"
+msgstr "Gjør linjene kurvet for å følge ikke-lineær visningstransformasjon"
+
 #: ../Src/DasherCore/ClickFilter.h:12
 msgid "Click Mode"
 msgstr "Klikkmodus"
@@ -601,20 +612,20 @@ msgstr "Kompassmodus"
 msgid "Well done!"
 msgstr "Bra gjort!"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:905
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:918
 msgid "Normal Control"
 msgstr "Normal kontroll"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:921
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:934
 msgid "Menu Mode"
 msgstr "Menymodus"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:922
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:935
 msgid "Direct Mode"
 msgstr "Direktemodus"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:926
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:939
 msgid "Stylus Control"
 msgstr "Kontroll av stylus"
 
@@ -841,21 +852,21 @@ msgstr "Heltallsparametere"
 msgid "String parameters"
 msgstr "Strengparametere"
 
-#: ../Src/Gtk2/Preferences.cpp:437 ../Src/Gtk2/Preferences.cpp:1008
+#: ../Src/Gtk2/Preferences.cpp:441 ../Src/Gtk2/Preferences.cpp:1012
 msgid "Action"
 msgstr "Handling"
 
 #. TRANSLATORS: Show a button for the selected action in the Dasher window.
-#: ../Src/Gtk2/Preferences.cpp:1015
+#: ../Src/Gtk2/Preferences.cpp:1019
 msgid "Show Button"
 msgstr "Vis knapp"
 
-#: ../Src/Gtk2/Preferences.cpp:1020
+#: ../Src/Gtk2/Preferences.cpp:1024
 msgid "Control Mode"
 msgstr "Kontrollmodus"
 
 #. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
-#: ../Src/Gtk2/Preferences.cpp:1026
+#: ../Src/Gtk2/Preferences.cpp:1030
 msgid "Auto On Stop"
 msgstr "Automatisk ved stopp"
 
