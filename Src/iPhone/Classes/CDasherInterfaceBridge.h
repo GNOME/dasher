@@ -49,6 +49,8 @@ public:
   void SetTiltAxes(Vec3 main, float off, Vec3 slow, float off2);
   bool SupportsClipboard() {return true;}
   void CopyToClipboard(const std::string &strText);
+  bool SupportsSpeech();
+  void Speak(const std::string &strText, bool bInterrupt);
   std::string GetAllContext();
 private:
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);

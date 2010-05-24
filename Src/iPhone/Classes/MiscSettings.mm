@@ -19,14 +19,17 @@ static SModuleSettings _settings[] = { //note iStep and string description are i
   {LP_NONLINEAR_X, T_LONG, 0, 10, 1, -1, ""},
   {BP_DOUBLE_X, T_BOOL, -1, -1, -1, -1, ""},
 };
+
 static int _count = sizeof(_settings) / sizeof(_settings[0]);
 
 static SModuleSettings _controlSettings[] = {
   {BP_CONTROL_MODE, T_BOOL, -1, -1, -1, -1, ""},
   {BP_CONTROL_MODE_HAS_COPY, T_BOOL, -1, -1, -1, -1, ""},
+  {BP_CONTROL_MODE_HAS_SPEECH, T_BOOL, -1, -1, -1, -1, ""},
   {BP_CONTROL_MODE_HAS_HALT, T_BOOL, -1, -1, -1, -1, ""},
   {BP_CONTROL_MODE_HAS_EDIT, T_BOOL, -1, -1, -1, -1, ""},
   {BP_COPY_ALL_ON_STOP, T_BOOL, -1, -1, -1, -1, ""},
+  {BP_SPEAK_ALL_ON_STOP, T_BOOL, -1, -1, -1, -1, ""},
 };
 
 static int _controlCount = sizeof(_controlSettings) / sizeof(_controlSettings[0]);

@@ -270,6 +270,14 @@ void CDasherInterfaceBridge::CopyToClipboard(const std::string &strText) {
   [UIPasteboard generalPasteboard].string=NSStringFromStdString(strText);
 }
 
+bool CDasherInterfaceBridge::SupportsSpeech() {
+  return [dasherApp supportsSpeech];
+}
+
+void CDasherInterfaceBridge::Speak(const std::string &strText, bool bInterrupt) {
+  [dasherApp speak:NSStringFromStdString(strText) interrupt:bInterrupt];  
+}
+
 string CDasherInterfaceBridge::GetAllContext() {
   return StdStringFromNSString([dasherApp allText]);
 }

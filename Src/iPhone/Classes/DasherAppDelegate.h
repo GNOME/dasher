@@ -19,10 +19,12 @@ typedef enum {
 } EEditDistance;
 
 @class EAGLView;
+@class FliteTTS;
 
 @interface DasherAppDelegate : UIViewController <UIApplicationDelegate, UIActionSheetDelegate, UITextViewDelegate> {
     UIWindow *window;
     EAGLView *glView;
+  FliteTTS *fliteEng;
 	TextView *text;
 	NSRange selectedText;
 	CDasherInterfaceBridge* _dasherInterface;
@@ -45,6 +47,8 @@ typedef enum {
 - (void)deleteCallback:(NSString *)s;
 - (void)move:(EEditDistance)amt forwards:(BOOL)bForwards;
 - (void)del:(EEditDistance)amt forwards:(BOOL)bForwards;
+- (BOOL)supportsSpeech;
+- (void)speak:(NSString *)text interrupt:(BOOL)bInt;
 - (NSString *)allText;
 - (void)notifySpeedChange;
 - (NSString *)textAtOffset:(unsigned int)offset Length:(unsigned int)length;

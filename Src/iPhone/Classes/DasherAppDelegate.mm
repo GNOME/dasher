@@ -15,6 +15,7 @@
 #import "Common.h"
 #import "TextView.h"
 #import "MiscSettings.h"
+#import "FliteTTS.h"
 
 //declare some private methods!
 @interface DasherAppDelegate ()
@@ -334,6 +335,24 @@
   [self outputCallback:@""];
 }
 
+- (BOOL)supportsSpeech {
+  if (!fliteEng) {
+    fliteEng = [[FliteTTS alloc] init];
+    if (!fliteEng) return NO;
+    [fliteEng setVoice:@"cmu_us_rms"];
+    [fliteEng setPitch:100.0 variance:50.0 speed:1.0];
+  }
+  return YES;
+}
+
+- (void)speak:(NSString *)sText interrupt:(BOOL)bInt {
+  if (!fliteEng && ![self supportsSpeech]) return; //fail!
+  //"speakText" automatically interrupts previous, i.e. appropriate for bInt.
+  //TODO - if (!bInt), should only speak after current speech finished.
+  // (However not vital, as we don't offer a setting for BP_SPEAK_WORDS on iPhone)
+  [fliteEng speakText:sText];
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application {
 	[glView stopAnimation];//.animationInterval = 1.0 / 5.0;
 }
@@ -393,6 +412,7 @@
 - (void)dealloc {
 	[window release];
   [tools release];
+  [fliteEng release];
 	[super dealloc];
 }
 
