@@ -10,6 +10,7 @@
 #import "CDasherInterfaceBridge.h"
 #import "CDasherScreenBridge.h"
 #import "TextView.h"
+#import "Actions.h"
 
 typedef enum {
   EDIT_CHAR,
@@ -36,7 +37,7 @@ typedef enum {
   BOOL m_bLandscapeSupported;
   /// Should really be part of UIViewController (lockable), below...but then, how to find?
   UILabel *screenLockLabel;
-  
+  ActionButton *actions;
   NSString *m_wordBoundary, *m_sentenceBoundary, *m_lineBoundary;
 }
 
@@ -49,6 +50,11 @@ typedef enum {
 - (void)del:(EEditDistance)amt forwards:(BOOL)bForwards;
 - (BOOL)supportsSpeech;
 - (void)speak:(NSString *)text interrupt:(BOOL)bInt;
+- (void)copy:(NSString *)text;
+//forcibly inserts text - and then rebuilds the model
+- (void)insertText:(NSString *)text;
+- (void)clearBtn; //prompts for confirmation, then calls:
+- (void)clearText;
 - (NSString *)allText;
 - (void)notifySpeedChange;
 - (NSString *)textAtOffset:(unsigned int)offset Length:(unsigned int)length;

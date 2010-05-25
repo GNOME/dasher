@@ -181,9 +181,10 @@
 	speedBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 	[speedBtn setImageEdgeInsets:UIEdgeInsetsMake(0.0, 2.0, 0.0, 2.0)];
 	[speedBtn addTarget:self action:@selector(fadeSlider) forControlEvents:UIControlEventAllTouchEvents];
-
-	UIBarButtonItem *clear = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(clear)] autorelease];
-	UIBarButtonItem *mail = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"mail.png"] style:UIBarButtonItemStylePlain target:self action:@selector(mail)] autorelease];
+  
+  actions = [[[ActionButton alloc] initForToolbar:tools] autorelease];
+  
+	UIBarButtonItem *clear = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(clearBtn)] autorelease];
 	[tools setItems:[NSArray arrayWithObjects:
 				settings,
 				[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
@@ -191,7 +192,7 @@
 				[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
 				clear,
 				[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
-				mail,
+				actions,
 				nil]];
 	
 	[self.view addSubview:glView];
@@ -267,25 +268,19 @@
 	//[self notifySpeedChange];//no need, CDasherInterfaceBridge calls if SetLongParameter did anything
 }
 
-- (void)clear {
+- (void)clearBtn {
 	UIActionSheet *confirm = [[[UIActionSheet alloc] initWithTitle:@"Start New Document" delegate:self cancelButtonTitle:@"Keep Existing" destructiveButtonTitle:@"Discard Existing" otherButtonTitles:nil] autorelease];
 	[confirm showFromToolbar:tools];
 }
-	
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == actionSheet.destructiveButtonIndex)
-	{
-		text.text=@"";
-		selectedText.location = selectedText.length = 0;
-		self.dasherInterface->SetBuffer(0);
-	}
-	//...and dismiss?
+
+- (void)clearText {
+  text.text=@"";
+  selectedText.location = selectedText.length = 0;
+  _dasherInterface->SetBuffer(0);
 }
 	
-- (void)mail {
-  NSString *mailString = [NSString stringWithFormat:@"mailto:?body=%@", 
-						  [text.text stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]];
-  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mailString]];
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == actionSheet.destructiveButtonIndex) [self clearText];
 }
 	
 - (void)settings {
@@ -300,10 +295,10 @@
 
     tabs.viewControllers = [NSArray arrayWithObjects:
 							[[[InputMethodSelector alloc] init] autorelease],
-						    [[[CalibrationController alloc] initWithTabCon:tabs] autorelease],
 						    [[[LanguagesController alloc] init] autorelease],
                 [[[StringParamController alloc] initWithTitle:@"Colour" image:[UIImage imageNamed:@"palette.png"] settingParam:SP_COLOUR_ID] autorelease],
 						    [[[MiscSettings alloc] init] autorelease],
+                [actions tabConfigurator],
 						    nil];
   [self presentModalViewController:settings animated:YES];
 }
@@ -351,6 +346,15 @@
   //TODO - if (!bInt), should only speak after current speech finished.
   // (However not vital, as we don't offer a setting for BP_SPEAK_WORDS on iPhone)
   [fliteEng speakText:sText];
+}
+
+- (void) copy:(NSString *)sText {
+  [UIPasteboard generalPasteboard].string=sText;
+}
+
+- (void)insertText:(NSString *)sText {
+  [self outputCallback:sText];
+  _dasherInterface->SetOffset(selectedText.location);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

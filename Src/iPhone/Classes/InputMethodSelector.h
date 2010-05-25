@@ -11,6 +11,7 @@
 
 @interface InputMethodSelector : UITableViewController {
 	NSIndexPath *selectedPath;
+  UIView *calibButton;
 }
 
 - (id)init;

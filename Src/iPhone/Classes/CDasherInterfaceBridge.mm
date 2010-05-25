@@ -266,8 +266,7 @@ void CDasherInterfaceBridge::ExternalEventHandler(Dasher::CEvent *pEvent) {
 }
 
 void CDasherInterfaceBridge::CopyToClipboard(const std::string &strText) {
-  CDasherInterfaceBase::CopyToClipboard(strText);
-  [UIPasteboard generalPasteboard].string=NSStringFromStdString(strText);
+  [dasherApp copy:NSStringFromStdString(strText)];
 }
 
 bool CDasherInterfaceBridge::SupportsSpeech() {
