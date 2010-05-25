@@ -1736,6 +1736,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Alan Lawrence (YB2RM5STT4)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Dasher_Prefix.pch;
@@ -1808,7 +1809,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Alan Lawrence";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Alan Lawrence (YB2RM5STT4)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Alan Lawrence (YB2RM5STT4)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					HAVE_EXPAT_CONFIG_H,
@@ -1821,7 +1823,6 @@
 					"${SRCROOT}",
 				);
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EE10C159-C93C-4B3E-B228-99DA565F04A3";
 				SDKROOT = iphoneos2.2.1;
 			};
 			name = Release;
