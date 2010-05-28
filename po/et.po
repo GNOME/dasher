@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&component=general\n"
-"POT-Creation-Date: 2010-01-28 21:21+0000\n"
-"PO-Revision-Date: 2010-01-28 23:47+0300\n"
+"POT-Creation-Date: 2010-05-25 06:32+0000\n"
+"PO-Revision-Date: 2010-05-28 15:27+0300\n"
 "Last-Translator: Mattias Põldaru <mahfiaz gmail com>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -191,6 +191,9 @@ msgstr "<b>Kiirus</b>"
 msgid "<b>Starting and Stopping</b>"
 msgstr "<b>Käivitamine ja seiskamine</b>"
 
+msgid "A_pplication"
+msgstr "_Rakendus"
+
 msgid "Adapt speed automatically"
 msgstr "Kiiruse automaatne õppimine"
 
@@ -198,25 +201,18 @@ msgstr "Kiiruse automaatne õppimine"
 msgid "Alphabet Default"
 msgstr "Vaikimisi tähestik"
 
-msgid "Appearance"
-msgstr "Välimus"
-
-msgid "Application"
-msgstr "Rakendus"
-
 msgid "Bottom to Top"
 msgstr "Alt üles"
+
+#. Abbreviation for Control Style
+msgid "C_ontrol"
+msgstr "_Juhtimine"
 
 msgid "Centre circle"
 msgstr "Keskjoondatud ring"
 
 msgid "Composition"
 msgstr "Kombineeritud"
-
-#. Abbreviation for Control Style
-#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
-msgid "Control"
-msgstr "Juhtimine"
 
 msgid "Control mode"
 msgstr "Juhtimisrežiim"
@@ -250,9 +246,6 @@ msgstr "Joone paksus on suurendatud"
 
 msgid "Japanese"
 msgstr "Jaapani"
-
-msgid "Language"
-msgstr "Keel"
 
 msgid "Language model adapts as you write."
 msgstr "Keelemudel kohandub vastavalt sinu sisestamistele."
@@ -335,6 +328,12 @@ msgstr "Väga suur kirjatüüp"
 msgid "Word-based model"
 msgstr "Sõnapõhine mudel"
 
+msgid "_Appearance"
+msgstr "_Välimus"
+
+msgid "_Language"
+msgstr "_Keel"
+
 #. Abbreviation for Preferences
 msgid "P"
 msgstr "E"
@@ -350,6 +349,10 @@ msgstr "<b>Suund</b>"
 
 msgid "Alphabet"
 msgstr "Tähestik"
+
+#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
+msgid "Control"
+msgstr "Juhtimine"
 
 msgid "Enlarge input window"
 msgstr "Sisestusakna suurendamine"
@@ -415,6 +418,12 @@ msgstr "Kastide suuruse erinevus"
 
 msgid "Maximum Zoom"
 msgstr "Suurim suurendus"
+
+msgid "Draw guides on screen to show area into which a click will zoom"
+msgstr "Kuvatakse abijooned näitama ala, kuhu suurendataks klõpsamisel"
+
+msgid "Curve lines to follow the non-linearity of the view transform"
+msgstr "Kõverjooned, mis järgivad vaate muutumise mittelineaarsust"
 
 msgid "Click Mode"
 msgstr "Klõpsurežiim"
