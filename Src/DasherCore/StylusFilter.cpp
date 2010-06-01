@@ -11,16 +11,12 @@ CStylusFilter::CStylusFilter(Dasher::CEventHandler *pEventHandler, CSettingsStor
 
 bool CStylusFilter::Timer(int iTime, CDasherView *pView, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol)
 {
-  if (pModel->NextScheduledStep(iTime, pAdded, pNumDeleted))
-      return true;
-  return CDefaultFilter::Timer(iTime, pView, pModel, pAdded, pNumDeleted, pol);
-  if (GetBoolParameter(BP_DASHER_PAUSED))
-  {
-    //continue any zoom scheduled by a previous click...
-    return pModel->NextScheduledStep(iTime, pAdded, pNumDeleted);
+  //First, try to continue any zoom scheduled by a previous click...
+  if (pModel->NextScheduledStep(iTime, pAdded, pNumDeleted)) {
     //note that this skips the rest of CDefaultFilter::Timer;
     //however, given we're paused, this is only the Start Handler,
     //which we're not using anyway.
+    return true;
   }
   return CDefaultFilter::Timer(iTime, pView, pModel, pAdded, pNumDeleted, pol);
 }
