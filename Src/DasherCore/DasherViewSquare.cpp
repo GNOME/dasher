@@ -372,8 +372,7 @@ void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
     DasherDrawText(y2-y1, y1, y2-y1, y2, sDisplayText, mostleft, pRender->GetDisplayInfo()->bShove);
   }
 	
-	
-  pRender->SetFlag(NF_SUPER, (y1 < iDasherMinY) && (y2 > iDasherMaxY) && ((y2 - y1) > iDasherMaxX));
+  pRender->SetFlag(NF_SUPER, !IsSpaceAroundNode(y1,y2));
 
   // If there are no children then we still need to render the parent
   if(pRender->ChildCount() == 0) {
@@ -479,7 +478,7 @@ void CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2
     //  }
 }
 
-bool CDasherViewSquare::IsNodeVisible(myint y1, myint y2) {
+bool CDasherViewSquare::IsSpaceAroundNode(myint y1, myint y2) {
   myint iDasherMinX;
   myint iDasherMinY;
   myint iDasherMaxX;
@@ -487,7 +486,7 @@ bool CDasherViewSquare::IsNodeVisible(myint y1, myint y2) {
 
   VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
 
-  return ((y2 - y1) < iDasherMaxX) || ((y1 > iDasherMinY) && (y2 < iDasherMaxY));
+  return ((y2 - y1) < iDasherMaxX) || (y1 > iDasherMinY) || (y2 < iDasherMaxY);
 }
 
 // Draw the outline of a node

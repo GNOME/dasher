@@ -306,8 +306,11 @@ void CDasherModel::InitialiseAtOffset(int iOffset, CDasherView *pView) {
   m_iDisplayOffset = 0;
 
   //now (re)create parents, while they show on the screen
+  // - if we were lazy, we could leave this to NewFrame,
+  // and one node around the root would be recreated per frame,
+  // but we'll do it properly here.
   if(pView) {
-    while(pView->IsNodeVisible(m_Rootmin,m_Rootmax)) {
+    while(pView->IsSpaceAroundNode(m_Rootmin,m_Rootmax)) {
       CDasherNode *pOldRoot = m_Root;
       Reparent_root();
       if(m_Root == pOldRoot)

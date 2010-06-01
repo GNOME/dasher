@@ -86,10 +86,11 @@ public:
   virtual void Dasher2Polar(myint iDasherX, myint iDasherY, double &r, double &theta);	
 	
   /// 
-  /// Return true if a node spanning y1 to y2 is entirely enclosed by
+  /// Return true if there is any space around a node spanning y1 to y2
+  /// and the screen boundary; return false if such a node entirely encloses
   /// the screen boundary
   ///
-  bool IsNodeVisible(myint y1, myint y2);
+  bool IsSpaceAroundNode(myint y1, myint y2);
 
   ///
   /// Get the bounding box of the visible region.

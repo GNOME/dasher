@@ -104,7 +104,7 @@ public:
   ///
   virtual void Dasher2Polar(myint iDasherX, myint iDasherY, double &r, double &theta) = 0;
 
-  virtual bool IsNodeVisible(myint y1, myint y2) { return true; };
+  virtual bool IsSpaceAroundNode(myint y1, myint y2)=0;
 
   virtual void VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, myint &iDasherMaxX, myint &iDasherMaxY ) = 0;
 
