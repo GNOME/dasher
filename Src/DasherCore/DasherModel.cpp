@@ -65,7 +65,7 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler,
   DASHER_ASSERT(m_pNodeCreationManager != NULL);
   DASHER_ASSERT(m_pDasherInterface != NULL);
 
-  m_Root = NULL;
+  m_pLastOutput = m_Root = NULL;
 
   m_Rootmin = 0;
   m_Rootmax = 0;
@@ -91,14 +91,14 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler,
 }
 
 CDasherModel::~CDasherModel() {
+  if (m_pLastOutput) m_pLastOutput->Leave();
+  
   if(oldroots.size() > 0) {
     delete oldroots[0];
     oldroots.clear();
     // At this point we have also deleted the root - so better NULL pointer
     m_Root = NULL;
-  }
-
-  if(m_Root) {
+  } else {
     delete m_Root;
     m_Root = NULL;
   }
@@ -284,6 +284,7 @@ void CDasherModel::DeleteTree() {
 }
 
 void CDasherModel::InitialiseAtOffset(int iOffset, CDasherView *pView) {
+  if (m_pLastOutput) m_pLastOutput->Leave();
   DeleteTree();
 
   m_Root = m_pNodeCreationManager->GetAlphRoot(NULL, 0,GetLongParameter(LP_NORMALIZATION), iOffset!=0, iOffset);
