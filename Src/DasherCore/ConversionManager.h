@@ -106,7 +106,7 @@ namespace Dasher {
     /// Called when a node is left backwards
     ///
 
-    virtual void Undo();
+    virtual void Undo(int *pNumDeleted);
 
     protected:
       CConversionManager *m_pMgr;

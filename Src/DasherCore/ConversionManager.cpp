@@ -176,7 +176,9 @@ void CConversionManager::CConvNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, i
   }
 }
 
-void CConversionManager::CConvNode::Undo() {  
+void CConversionManager::CConvNode::Undo(int *pNumDeleted) {
+  //ACL note: possibly ought to update pNumDeleted here if non-null,
+  // but conversion symbols were not logged by old code so am not starting now!
   SCENode *pCurrentSCENode(pSCENode);
 
   if(pCurrentSCENode) {

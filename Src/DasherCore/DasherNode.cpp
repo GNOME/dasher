@@ -62,7 +62,6 @@ CDasherNode::CDasherNode(CDasherNode *pParent, unsigned int iLbnd, unsigned int 
   m_iFlags = 0;
 	
   m_iRefCount = 0;
-  m_iNumSymbols = 0;
   iNumNodes++;
 }
 

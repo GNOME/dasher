@@ -349,18 +349,6 @@ void CControlManager::CContNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int 
   m_pMgr->m_pNCManager->InsertEvent(&oEvent);
 }
 
-void CControlManager::CContNode::Undo() {
-  // Do we ever need this?
-  // One other thing we probably want is notification when we leave a node - that way we can eg speed up again if we slowed down
-  m_pMgr->m_pNCManager->SetLongParameter(LP_BOOSTFACTOR, 100);
-  //Re-enable auto speed control!
-  if (m_pMgr->bDisabledSpeedControl)
-  {
-    m_pMgr->bDisabledSpeedControl = false;
-    m_pMgr->m_pNCManager->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 1);
-  }
-}
-
 void CControlManager::CContNode::Enter() {
   // Slow down to half the speed we were at
   m_pMgr->m_pNCManager->SetLongParameter(LP_BOOSTFACTOR, 50);

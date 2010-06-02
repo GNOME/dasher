@@ -323,9 +323,6 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CAlphNode *pParent, symbol iSymb
 
       //    pDisplayInfo->strDisplayText = ssLabel.str();
 
-
-      pNewNode->m_iNumSymbols = 1;
-
       pNewNode->m_iOffset = pParent->m_iOffset + 1;
 
       pAlphNode->iContext = CreateSymbolContext(pParent, iSymbol);
@@ -413,9 +410,10 @@ void CAlphabetManager::CSymbolNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, i
   }
 }
 
-void CAlphabetManager::CSymbolNode::Undo() {
+void CAlphabetManager::CSymbolNode::Undo(int *pNumDeleted) {
   Dasher::CEditEvent oEvent(2, outputText(), m_iOffset);
   m_pMgr->m_pNCManager->InsertEvent(&oEvent);
+  if (pNumDeleted) (*pNumDeleted)++;
 }
 
 CDasherNode *CAlphabetManager::CGroupNode::RebuildParent() {

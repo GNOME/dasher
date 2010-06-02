@@ -545,12 +545,9 @@ void CDasherModel::HandleOutput(Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDel
     pLastSeen = pLastSeen->Parent();
   
   while (m_pLastOutput != pLastSeen) {
-    m_pLastOutput->Undo();
+    m_pLastOutput->Undo(pNumDeleted);
     m_pLastOutput->Leave(); //Should we? I think so, but the old code didn't...?
     m_pLastOutput->SetFlag(NF_SEEN, false);
-    // TODO: Is this the right place to trap output?
-    if(pNumDeleted != NULL)
-      (*pNumDeleted) += m_pLastOutput->m_iNumSymbols;
     
     m_pLastOutput = m_pLastOutput->Parent();
     if (m_pLastOutput) m_pLastOutput->Enter();

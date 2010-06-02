@@ -229,7 +229,7 @@ class Dasher::CDasherNode:private NoClones {
   ///
   
   virtual void Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {};
-  virtual void Undo() {};
+  virtual void Undo(int *pNumDeleted) {};
   
   virtual void Enter() {};
   virtual void Leave() {};
@@ -265,9 +265,6 @@ class Dasher::CDasherNode:private NoClones {
   /// @}
   int m_iOffset;
 
-  // A hack, to allow this node to be tied to a particular number of symbols;
-  int m_iNumSymbols;
-  
  private:
   inline ChildMap &Children();
 
