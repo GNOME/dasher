@@ -12,8 +12,6 @@
 @interface ParametersController : UIViewController {
   SModuleSettings *settings;
   int count;
-  id targetOnDone;
-  SEL selector;
 }
 
 -(id)initWithTitle:(NSString *)title Settings:(SModuleSettings *)settings Count:(int)count;

@@ -170,7 +170,7 @@ SSectionDesc allMeths[] = {
 }
 
 - (void)moduleSettingsDone {
-  [self dismissModalViewControllerAnimated:YES];
+  [self.navigationController popViewControllerAnimated:YES];
   [self doSelect];
 }
 
@@ -186,7 +186,7 @@ SSectionDesc allMeths[] = {
   if (mod->GetSettings(&settings, &count)) {
     ParametersController *params = [[[ParametersController alloc] initWithTitle:NSStringFromStdString(desc->filterName) Settings:settings Count:count] autorelease];
     [params setTarget:self Selector:@selector(moduleSettingsDone)];
-    [self presentModalViewController:[[[UINavigationController alloc] initWithRootViewController:params] autorelease] animated:YES];
+    [self.navigationController pushViewController:params animated:YES];
   }
 }
 
