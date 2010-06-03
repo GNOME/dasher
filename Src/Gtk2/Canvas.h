@@ -74,7 +74,8 @@ public:
   /// \param pPangoCache A cache for precomputed Pango layouts
   ///
 
-  CCanvas(GtkWidget * pCanvas, CPangoCache * pPangoCache);
+  CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache,
+          screenint iWidth, screenint iHeight);
   ~CCanvas();
 
   ///
@@ -214,18 +215,6 @@ public:
   void SetCaptureBackground(bool bValue) {
     // Not required in this model
   };
-
-  /// 
-  /// Canvas width
-  ///
-
-  int m_iWidth;
-
-  ///
-  /// Canvas height
-  ///
-
-  int m_iHeight;
 
 private:
 

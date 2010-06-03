@@ -281,11 +281,19 @@ void CDasherControl::ShutdownTimer() {
 }
 
 int CDasherControl::CanvasConfigureEvent() {
+  GtkAllocation a;
+
+#if GTK_CHECK_VERSION (2,18,0)
+  gtk_widget_get_allocation(m_pCanvas, &a);
+#else
+  a.width  = m_pCanvas->width;
+  a.height = m_pCanvas->height;
+#endif
 
   if(m_pScreen != NULL)
     delete m_pScreen;
 
-  m_pScreen = new CCanvas(m_pCanvas, m_pPangoCache);
+  m_pScreen = new CCanvas(m_pCanvas, m_pPangoCache, a.width, a.height);
   ChangeScreen(m_pScreen);
  
   return 0;

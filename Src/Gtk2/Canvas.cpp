@@ -7,8 +7,9 @@
 
 using namespace Dasher;
 
-CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache)
-  : CDasherScreen(pCanvas->allocation.width, pCanvas->allocation.height) {
+CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache,
+                 screenint iWidth, screenint iHeight)
+  : CDasherScreen(iWidth, iHeight) {
 
 #if WITH_CAIRO
   cairo_colours = 0;
@@ -19,9 +20,6 @@ CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache)
   m_pCanvas = pCanvas;
   m_pPangoCache = pPangoCache;
   
-  m_iWidth = m_pCanvas->allocation.width;
-  m_iHeight = m_pCanvas->allocation.height;
-
   // Construct the buffer pixmaps
   // FIXME - only allocate without cairo
 
