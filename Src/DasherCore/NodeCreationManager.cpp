@@ -120,7 +120,7 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
   }
 #endif
 #ifndef _WIN32_WCE
-  m_pControlManager = new CControlManager(this);
+  m_pControlManager = new CControlManager(this,pInterface);
 #else
   m_pControlManager = 0;
 #endif

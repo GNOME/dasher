@@ -134,7 +134,7 @@ void CControlBase::CContNode::Leave() {
   }
 }
 
-COrigNodes::COrigNodes(CNodeCreationManager *pNCManager) : CControlBase(pNCManager) {
+COrigNodes::COrigNodes(CNodeCreationManager *pNCManager, CDasherInterfaceBase *pInterface) : CControlBase(pNCManager), m_pInterface(pInterface) {
   m_iNextID = 0;
   
   // TODO: Need to fix this on WinCE build
@@ -176,6 +176,18 @@ bool COrigNodes::LoadLabelsFromFile(string strFileName) {
   oFile.close();
   delete [] szFileBuffer;
   return 0;
+}
+
+COrigNodes::Pause::Pause(const string &strLabel, int iColour) : NodeTemplate(strLabel,iColour) {
+}
+void COrigNodes::Pause::happen(CContNode *pNode) {
+  static_cast<COrigNodes *>(pNode->mgr())->m_pNCManager->SetBoolParameter(BP_DASHER_PAUSED,true);
+}
+
+COrigNodes::Stop::Stop(const string &strLabel, int iColour) : NodeTemplate(strLabel, iColour) {
+}
+void COrigNodes::Stop::happen(CContNode *pNode) {
+  static_cast<COrigNodes *>(pNode->mgr())->m_pInterface->Stop();
 }
 
 bool COrigNodes::LoadDefaultLabels() {
@@ -322,7 +334,9 @@ COrigNodes::~COrigNodes() {
 
 void COrigNodes::RegisterNode( int iID, std::string strLabel, int iColour ) {
   DASHER_ASSERT(m_perId.count(iID)==0);
-  m_perId[iID] = new EventBroadcast(iID,strLabel,iColour);
+  if (iID == CTL_STOP) m_perId[iID] = new Stop(strLabel,iColour);
+  else if (iID == CTL_PAUSE) m_perId[iID] = new Pause(strLabel, iColour);
+  else m_perId[iID] = new EventBroadcast(iID,strLabel,iColour);
 }
 
 void COrigNodes::ConnectNode(int iChild, int iParent, int iAfter) {
@@ -375,5 +389,5 @@ void COrigNodes::XmlEndHandler(void *pUserData, const XML_Char *szName) {
 void COrigNodes::XmlCDataHandler(void *pUserData, const XML_Char *szData, int iLength){
 }
 
-CControlManager::CControlManager(CNodeCreationManager *pNCMgr) : COrigNodes(pNCMgr) {
+CControlManager::CControlManager(CNodeCreationManager *pNCMgr, CDasherInterfaceBase *pInterface) : COrigNodes(pNCMgr,pInterface) {
 }

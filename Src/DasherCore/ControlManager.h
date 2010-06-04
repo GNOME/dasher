@@ -21,10 +21,11 @@
 #ifndef __controlmanager_h__
 #define __controlmanager_h__
 
-#include "DasherModel.h"
 #include "DasherNode.h"
 #include "Event.h"
 #include "NodeManager.h"
+#include "NodeCreationManager.h"
+#include "DasherInterfaceBase.h"
 
 #include <vector>
 #include <map>
@@ -141,7 +142,7 @@ namespace Dasher {
   ///subclass attempts to recreate interface of previous control manager...
   class COrigNodes : public CControlBase {
   public:
-    COrigNodes(CNodeCreationManager *pNCManager);
+    COrigNodes(CNodeCreationManager *pNCManager, CDasherInterfaceBase *pInterface);
     ~COrigNodes();
     
     //keep these around for now, as this might let Win32/Gtk2 work?
@@ -149,6 +150,17 @@ namespace Dasher {
     void ConnectNode(int iChild, int iParent, int iAfter);
     void DisconnectNode(int iChild, int iParent);
     
+    class Pause : public NodeTemplate {
+    public:
+      Pause(const std::string &strLabel, int iColour);
+      void happen(CContNode *pNode);
+    };
+    class Stop : public NodeTemplate {
+    public:
+      Stop(const std::string &strLabel, int iColour);
+      void happen(CContNode *pNode);
+    };
+
   private:
     //For now, make all the loading routines private:
     // they are called from the constructor in the same fashion as in old ControlManager.
@@ -173,12 +185,13 @@ namespace Dasher {
     int m_iNextID;
   protected:
     std::map<int,NodeTemplate *> m_perId;
+    CDasherInterfaceBase *m_pInterface;
   };
   
   ///subclass which we actually construct - more of a marker than anything for now.
   class CControlManager : public COrigNodes {
   public:
-    CControlManager(CNodeCreationManager *pNCManager);
+    CControlManager(CNodeCreationManager *pNCManager, CDasherInterfaceBase *pInterface);
   };
   /// @}
 }

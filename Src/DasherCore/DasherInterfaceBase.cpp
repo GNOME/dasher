@@ -351,20 +351,6 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
 	 strTrainfileBuffer = strTrainfileBuffer.substr( 0, strTrainfileBuffer.size() - pEditEvent->m_sText.size());
     }
   }
-  else if(pEvent->m_iEventType == EV_CONTROL) {
-    CControlEvent *pControlEvent(static_cast <CControlEvent*>(pEvent));
-
-    switch(pControlEvent->m_iID) {
-    case CControlManager::CTL_STOP:
-      Stop();
-      break;
-    case CControlManager::CTL_PAUSE:
-  //Halt Dasher - without a stop event, so does not result in speech etc.
-      SetBoolParameter(BP_DASHER_PAUSED, true);
-
-      m_pDasherModel->TriggerSlowdown();
-    }
-  }
 }
 
 void CDasherInterfaceBase::WriteTrainFileFull() {
