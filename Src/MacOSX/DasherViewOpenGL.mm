@@ -290,32 +290,15 @@
     [self gl_init];
     [self flushCaches];
     [self setFrameSize:aFrame.size];
-	int w = P2Ceiling(aFrame.size.width), h = P2Ceiling(aFrame.size.height);
-	glGenFramebuffersEXT(2, frameBuffers);
-	glGenTextures(2, textures);
+    //note these give us framebuffer _references_...
+    glGenFramebuffersEXT(2, frameBuffers);
+    glGenTextures(2, textures);
+    //...i.e. they don't identify any storage at this point!
+    fw = fh = -1;
 
-	for (int i=0; i<2; i++)
-    {
-	  glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBuffers[i]);
-      glBindTexture(GL_TEXTURE_2D, textures[i]);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, nil);
-      glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, textures[i], 0);
-      if(glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT) != GL_FRAMEBUFFER_COMPLETE_EXT)
-      {
-        NSLog(@"failed to make complete framebuffer object %x", glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT));
-        return nil;
-      }
-    }
     glClearColor(1.0, 1.0, 1.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
 	  
-    GLfloat tc_x = aFrame.size.width/(double)w, tc_y = aFrame.size.height/(double)h;
-    texcoords[0] = 0.0; texcoords[1] = tc_y;
-    texcoords[2] = tc_x; texcoords[3] = tc_y;
-    texcoords[4] = 0.0; texcoords[5] = 0.0;
-    texcoords[6] = tc_x; texcoords[7] = 0.0;
     _keyboardHelper = new CKeyboardHelper();	  
   }
   return self;
@@ -458,6 +441,31 @@
 - (void) gl_reshape:(int)w :(int)h
 {
   [[self openGLContext] makeCurrentContext];
+  int tw = P2Ceiling(w), th = P2Ceiling(h);
+  if (tw!=fw || th!=fh) {
+    //need to (re)allocate storage for framebuffer...
+    for (int i=0; i<2; i++)
+    {
+      glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, frameBuffers[i]);
+      glBindTexture(GL_TEXTURE_2D, textures[i]);
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+      glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, tw, th, 0, GL_RGBA, GL_UNSIGNED_BYTE, nil);
+      glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, textures[i], 0);
+      if(glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT) != GL_FRAMEBUFFER_COMPLETE_EXT)
+      {
+        NSLog(@"failed to make complete framebuffer object %x", glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT));
+        //...and do what, to report failure? we can't render anything, so Dasher is useless...?
+      }
+    }
+    fw=tw; fh=th;
+  }
+  GLfloat tc_x = w/(double)tw, tc_y = h/(double)th;
+  texcoords[0] = 0.0; texcoords[1] = tc_y;
+  texcoords[2] = tc_x; texcoords[3] = tc_y;
+  texcoords[4] = 0.0; texcoords[5] = 0.0;
+  texcoords[6] = tc_x; texcoords[7] = 0.0;
+  
   glViewport(0, 0, w, h);
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();

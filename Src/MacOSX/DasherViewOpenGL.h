@@ -42,7 +42,10 @@ typedef struct {
   GLuint frameBuffers[2];
   GLuint textures[2];
   GLfloat texcoords[8];
-	
+  
+  ///current (last successful) framebuffer width & height
+	int fw,fh;
+  
   colour_t *colourTable;
   
   NSMutableDictionary *_letterDict;
