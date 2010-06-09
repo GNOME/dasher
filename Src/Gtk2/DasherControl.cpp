@@ -286,8 +286,8 @@ int CDasherControl::CanvasConfigureEvent() {
 #if GTK_CHECK_VERSION (2,18,0)
   gtk_widget_get_allocation(m_pCanvas, &a);
 #else
-  a.width  = m_pCanvas->width;
-  a.height = m_pCanvas->height;
+  a.width  = m_pCanvas->allocation.width;
+  a.height = m_pCanvas->allocation.height;
 #endif
 
   if(m_pScreen != NULL)
