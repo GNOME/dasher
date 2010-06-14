@@ -1415,10 +1415,6 @@ handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer dat
 
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(g_pDasherMain);
   dasher_editor_handle_control(pPrivate->pEditor, iEvent);
-
-  gtk_dasher_control_set_control_offset(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
-                                        dasher_editor_get_offset(pPrivate->pEditor));
-
   g_bSend = true;
   // ---
 }

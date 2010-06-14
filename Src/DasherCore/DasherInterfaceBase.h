@@ -356,8 +356,6 @@ public:
 
   std::string GetContext(int iStart, int iLength);
 
-  void SetControlOffset(int iOffset);
-
   /// Set a key value pair by name - designed to allow operation from
   /// the command line.  Returns 0 on success, an error string on failure. 
   ///

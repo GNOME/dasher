@@ -801,10 +801,3 @@ void CDasherModel::SetOffset(int iLocation, CDasherView *pView) {
   InitialiseAtOffset(iLocation, pView);
 }
 
-void CDasherModel::SetControlOffset(int iOffset) {
-  // This is a hack, making many dubious assumptions which happen to
-  // work right now.
-  CDasherNode *pNode = Get_node_under_crosshair();
-  
-  pNode->SetControlOffset(iOffset);
-}

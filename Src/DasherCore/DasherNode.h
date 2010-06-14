@@ -248,12 +248,6 @@ class Dasher::CDasherNode:private NoClones {
   ///
   virtual void GetContext(CDasherInterfaceBase *pInterface, std::vector<symbol> &vContextSymbols, int iOffset, int iLength);
   
-  /// ACL Not really sure why we should have to have this, but seems it's needed for something
-  /// to do with speech on Linux. I'm preserving it for now (indeed, making it part of CDasherNode,
-  /// rather than CControlManager::CContNode, where it should be - but that would require making
-  /// m_iOffset visible), as hopefully all speech functionality will be redone shortly...
-  void SetControlOffset(int iOffset) {m_iOffset = iOffset;};
-  
   ///
   /// See if this node represents the specified alphanumeric character; if so, set it's NF_GAME flag and
   /// return true; otherwise, return false.

@@ -198,8 +198,6 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   /// Create the children of a Dasher node
   void ExpandNode(CDasherNode * pNode); 
   
-  void SetControlOffset(int iOffset);
-
  private:
 
   /// Common portion of OneStepTowards / NextScheduledStep, taking

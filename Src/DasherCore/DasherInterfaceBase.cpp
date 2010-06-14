@@ -1117,11 +1117,6 @@ void CDasherInterfaceBase::SetOffset(int iOffset) {
     m_pDasherModel->SetOffset(iOffset, m_pDasherView);
 }
 
-void CDasherInterfaceBase::SetControlOffset(int iOffset) {
-  if(m_pDasherModel)
-    m_pDasherModel->SetControlOffset(iOffset);
-}
-
 // Returns 0 on success, an error string on failure.
 const char* CDasherInterfaceBase::ClSet(const std::string &strKey, const std::string &strValue) {
   if(m_pSettingsStore)

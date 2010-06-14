@@ -424,13 +424,16 @@ dasher_editor_internal_handle_control(DasherEditor *pSelf, int iNodeID) {
 
   if(iNodeID == Dasher::CControlManager::CTL_USER + 1)
     dasher_editor_internal_clear(pSelf, false); // Clear node is a special case (it shouldn't be)
-  else {
+  else if (pPrivate->pActionRing) {
     EditorAction *pCurrentAction = pPrivate->pActionRing;
     bool bStarted = false;
     
     while(!bStarted || (pCurrentAction != pPrivate->pActionRing)) {
       bStarted = true;
-      if((iNodeID >= pCurrentAction->iControlID) && (iNodeID <= pCurrentAction->iControlID + pCurrentAction->iNSub)) {
+      //ACL 14/6/10 Adding test that iControlID is a sensible value -
+      // it never is, as it's never set, but it prevents the old code from
+      // being erroneously activated when e.g. the root control node is entered!
+      if(pCurrentAction->iControlID >= Dasher::CControlManager::CTL_USER && (iNodeID >= pCurrentAction->iControlID) && (iNodeID <= pCurrentAction->iControlID + pCurrentAction->iNSub)) {
 	dasher_action_execute(pCurrentAction->pAction, DASHER_EDITOR(pSelf), iNodeID - pCurrentAction->iControlID - 1); 
 	//	dasher_editor_internal_clear(pSelf, true); 
       }
