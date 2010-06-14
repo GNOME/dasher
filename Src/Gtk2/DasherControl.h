@@ -17,6 +17,10 @@
 #include "tilt_input.h"
 #endif
 
+#ifdef GNOME_SPEECH
+#include "Speech.h"
+#endif
+
 #include "mouse_input.h"
 
 #include "GtkDasherControl.h"
@@ -131,9 +135,13 @@ public:
   ///Override to broadcast signal...
   virtual void Stop();
   
-  virtual std::string GetAllContext() {
-    throw "Hack to make Gtk2 compile, should not be called as supportsSpeech()/supportsClipboard()==false";
-  }
+  virtual std::string GetAllContext();
+
+#ifdef GNOME_SPEECH
+  ///override default non-implementation if compiling with speech...
+  virtual bool SupportsSpeech();
+  virtual void Speak(const std::string &strText, bool bInterrupt);
+#endif
 
 private:
   //  virtual void CreateSettingsStore();
@@ -196,6 +204,10 @@ private:
   ///
 
   //  CKeyboardHelper *m_pKeyboardHelper;
+
+#ifdef GNOME_SPEECH
+  CSpeech m_Speech;
+#endif
 };
 
 #endif

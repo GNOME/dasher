@@ -222,24 +222,6 @@ gtk_dasher_control_set_offset(GtkDasherControl *pControl, int iOffset) {
 }
 
 void 
-gtk_dasher_control_register_node(GtkDasherControl *pControl, int iID, const gchar *szLabel, int iColour) {
-  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  pPrivate->pControl->RegisterNode(iID, szLabel, iColour);
-}
-
-void 
-gtk_dasher_control_connect_node(GtkDasherControl *pControl, int iChild, int iParent, int iAfter) {
-  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  pPrivate->pControl->ConnectNode(iChild, iParent, iAfter);
-}
-
-void 
-gtk_dasher_control_disconnect_node(GtkDasherControl *pControl, int iChild, int iParent) {
-  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  pPrivate->pControl->DisconnectNode(iChild, iParent);
-}
-
-void 
 gtk_dasher_control_external_key_down(GtkDasherControl *pControl, int iKeyVal) {
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
   pPrivate->pControl->ExternalKeyDown(iKeyVal);

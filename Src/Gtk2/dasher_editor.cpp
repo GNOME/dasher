@@ -31,9 +31,6 @@
 #else
 #include "dasher_action_script.h"
 #endif
-#ifdef GNOME_SPEECH
-#include "dasher_action_speech.h"
-#endif 
 #include "dasher_editor.h"
 #include "dasher_external_buffer.h"
 #include "dasher_internal_buffer.h"

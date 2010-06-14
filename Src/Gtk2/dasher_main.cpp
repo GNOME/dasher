@@ -126,7 +126,6 @@ static void dasher_main_load_state(DasherMain *pSelf);
 static void dasher_main_save_state(DasherMain *pSelf);
 static void dasher_main_setup_window(DasherMain *pSelf);
 static void dasher_main_populate_controls(DasherMain *pSelf);
-static void dasher_main_connect_control(DasherMain *pSelf);
 static gboolean dasher_main_command(DasherMain *pSelf, const gchar *szCommand);
 static gint dasher_main_lookup_key(DasherMain *pSelf, guint iKeyVal);
 
@@ -345,7 +344,6 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
     /* Set up various bits and pieces */
     dasher_main_set_window_title(pDasherMain);
     dasher_main_populate_controls(pDasherMain);
-    dasher_main_connect_control(pDasherMain);
 
     gtk_key_snooper_install(dasher_main_key_snooper, pDasherMain);
 
@@ -600,11 +598,11 @@ dasher_main_create_preferences(DasherMain *pSelf) {
   pPrivate->pPreferencesDialogue = dasher_preferences_dialogue_new(pPrivate->pPrefXML, pPrivate->pEditor, pPrivate->pAppSettings, pPrivate->pMainWindow);
 }
 
-// DasherEditor *
-// dasher_main_get_editor(DasherMain *pSelf) {
-//   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
-//   return pPrivate->pEditor;
-// }
+const gchar *
+dasher_main_get_all_text(DasherMain *pSelf) {
+   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
+   return dasher_editor_get_all_text(pPrivate->pEditor);
+}
 
 static void 
 dasher_main_handle_parameter_change(DasherMain *pSelf, int iParameter) {
@@ -776,62 +774,6 @@ dasher_main_populate_controls(DasherMain *pSelf) {
   // Set the value of the speed spinner
   gtk_spin_button_set_value(pPrivate->pSpeedBox, 
                             dasher_app_settings_get_long(pPrivate->pAppSettings, LP_MAX_BITRATE) / 100.0);
-}
-
-static void 
-dasher_main_connect_control(DasherMain *pSelf) {
-  /* TODO: This is very much temporary - we need to think of a better
-     way of presenting application commands in a unified way */
-#ifdef GNOME_SPEECH
-  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
-
-  gtk_dasher_control_register_node( GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
-                                    Dasher::CControlManager::CTL_USER,
-                                    "Speak", -1 );
-
-  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
-                                   Dasher::CControlManager::CTL_USER, 
-                                   Dasher::CControlManager::CTL_ROOT, -2);
-
-
-  gtk_dasher_control_register_node( GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
-                                    Dasher::CControlManager::CTL_USER + 1, 
-                                    "All", -1 );
-
-  gtk_dasher_control_register_node( GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
-                                    Dasher::CControlManager::CTL_USER + 2, 
-                                    "Last", -1 );
-
-  gtk_dasher_control_register_node( GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
-                                    Dasher::CControlManager::CTL_USER + 3, 
-                                    "Repeat", -1 );
-
-  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
-                                   Dasher::CControlManager::CTL_USER + 1, 
-                                   Dasher::CControlManager::CTL_USER, -2);
-
-  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
-                                   -1, 
-                                   Dasher::CControlManager::CTL_USER + 1, -2);
-
-  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
-                                   Dasher::CControlManager::CTL_USER + 2, 
-                                   Dasher::CControlManager::CTL_USER, -2);
-
-  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
-                                   -1,
-                                   Dasher::CControlManager::CTL_USER + 2, -2);
-
-  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
-                                   Dasher::CControlManager::CTL_USER + 3, 
-                                   Dasher::CControlManager::CTL_USER, -2);
-
-  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pPrivate->pDasherWidget), 
-                                   -1,
-                                   Dasher::CControlManager::CTL_USER + 3, -2);
-
-#endif
-
 }
 
 static gboolean 
@@ -1392,23 +1334,6 @@ handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer dat
   if(!g_pDasherMain)
     return;
   
-  /* TODO: replace this with something a little more sensible */
-
-  switch(iEvent) {
-  case Dasher::CControlManager::CTL_USER + 1:
-    dasher_main_command(g_pDasherMain, "speakall");
-    return;
-  case Dasher::CControlManager::CTL_USER + 2:
-    dasher_main_command(g_pDasherMain, "speaklast");
-    return;
-  case Dasher::CControlManager::CTL_USER + 3:
-    dasher_main_command(g_pDasherMain, "speakrepeat");
-    return;
-  default:
-    break;
-  }
-
-
   // TODO: This is a horrible hack here to make the release work!  
 
   g_bSend = false;

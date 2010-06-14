@@ -9,7 +9,7 @@
 #include "Timer.h"
 #include "../DasherCore/Event.h"
 #include "../DasherCore/ModuleManager.h"
-
+#include "dasher_main.h"
 #include <fcntl.h>
 
 #include <gtk/gtk.h>
@@ -190,6 +190,22 @@ void CDasherControl::ScanColourFiles(std::vector<std::string> &vFileList) {
 
   g_pattern_spec_free(colourglob);
 }
+
+extern DasherMain *g_pDasherMain;
+std::string CDasherControl::GetAllContext() {
+  const gchar *text = dasher_main_get_all_text(g_pDasherMain);
+  return text;
+}
+
+#ifdef GNOME_SPEECH
+bool CDasherControl::SupportsSpeech() {
+  return m_Speech.Init();
+}
+
+void CDasherControl::Speak(const std::string &strText, bool bInterrupt) {
+  m_Speech.Speak(strText, bInterrupt);
+}
+#endif
 
 CDasherControl::~CDasherControl() {
   if(m_pMouseInput) {
