@@ -15,7 +15,7 @@ class CEyetrackerFilter : public CDefaultFilter {
  private:
   virtual void ApplyAutoCalibration(myint &iDasherX, myint &iDasherY, bool bUpdate);
   virtual void ApplyTransform(myint &iDasherX, myint &iDasherY);
-  double xmax(double x, double y);
+  double xmax(double y);
 
   myint m_iYAutoOffset;
 
