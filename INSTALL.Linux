@@ -40,7 +40,7 @@ Options
 
    --with-speech       Enable GNOME-Speech support (disabled by default).
 
-   --without-a11y      Disable support for GNOME accessibility features
+   --disable-a11y      Disable support for GNOME accessibility features
                        (enabled by default). You should probably specify
                        this as well if you're using --without-gnome.
 
