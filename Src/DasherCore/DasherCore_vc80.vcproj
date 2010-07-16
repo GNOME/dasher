@@ -2166,6 +2166,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\PinyinParser.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\PinyinParser.h"
+			>
+		</File>
+		<File
 			RelativePath=".\SCENode.cpp"
 			>
 		</File>

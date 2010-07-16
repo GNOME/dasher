@@ -101,7 +101,7 @@ void CMandarinAlphMgr::CConvRoot::BuildConversions() {
     DASHER_ASSERT(false);
     return;
   }
-  for(set<string>::iterator it = m_pTrie->list()->begin(); it != m_pTrie->list()->end(); ++it) {
+  for(set<string>::const_iterator it = m_pTrie->list()->begin(); it != m_pTrie->list()->end(); ++it) {
     std::vector<symbol> vSyms;
     m_pMgr->m_pCHAlphabet->GetSymbols(vSyms, *it);
     DASHER_ASSERT(vSyms.size()==1); //does it ever happen? if so, Will's code would effectively push -1

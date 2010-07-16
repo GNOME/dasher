@@ -100,7 +100,7 @@
                 <File Id="alphabet.cherokee.xml" Name="alphabet.cherokee.xml" DiskId="1" Source="..\..\Data\alphabets\alphabet.cherokee.xml" />
                 <File Id="alphabet.chinese.xml" Name="alphabet.chinese.xml" DiskId="1" Source="..\..\Data\alphabets\alphabet.chinese.xml" />
                 <File Id="alphabet.chineseRuby.xml" Name="alphabet.chineseRuby.xml" DiskId="1" Source="..\..\Data\alphabets\alphabet.chineseRuby.xml" />
-                <!-- File Id="alphabet.spyDict.xml" Name="alphabet.spyDict.xml" DiskId="1" Source="..\..\Data\alphabets\alphabet.spyDict.xml" /-->
+                <File Id="alphabet.spyDict.xml" Name="alphabet.spyDict.xml" DiskId="1" Source="..\..\Data\alphabets\alphabet.spyDict.xml" />
                 <File Id="alphabet.corsican.xml" Name="alphabet.corsican.xml" DiskId="1" Source="..\..\Data\alphabets\alphabet.corsican.xml" />
                 <File Id="alphabet.croatian.xml" Name="alphabet.croatian.xml" DiskId="1" Source="..\..\Data\alphabets\alphabet.croatian.xml" />
                 <File Id="alphabet.czech.xml" Name="alphabet.czech.xml" DiskId="1" Source="..\..\Data\alphabets\alphabet.czech.xml" />
@@ -176,7 +176,7 @@
                 <File Id="training_bengali_BD.txt" Name="training_bengali_BD.txt" DiskId="1" Source="..\..\Data\training\training_bengali_BD.txt" />
                 <!--<File Id="training_bengali_bn.txt" Name="training_bengali_bn.txt" DiskId="1" Source="..\..\Data\training\training_bengali_bn.txt" />-->
                 <File Id="training_canna_JP.txt" Name="training_canna_JP.txt" DiskId="1" Source="..\..\Data\training\training_canna_JP.txt" />
-                <!--File Id="training_spyDict.txt" Name="training_spyDict.txt" DiskId="1" Source="..\..\Data\training\training_spyDict.txt" /-->
+                <File Id="training_spyDict.txt" Name="training_spyDict.txt" DiskId="1" Source="..\..\Data\training\training_spyDict.txt" />
                 <File Id="training_czech_CS.txt" Name="training_czech_CS.txt" DiskId="1" Source="..\..\Data\training\training_czech_CS.txt" />
                 <File Id="training_danish_DK.txt" Name="training_danish_DK.txt" DiskId="1" Source="..\..\Data\training\training_danish_DK.txt" />
                 <File Id="training_dutch_NL.txt" Name="training_dutch_NL.txt" DiskId="1" Source="..\..\Data\training\training_dutch_NL.txt" />

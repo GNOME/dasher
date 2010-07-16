@@ -48,10 +48,10 @@ public:
   //! Draw UTF8-encoded string String of size Size positioned at x1 and y1
   
   //void DrawString(const std::string & String, Dasher::screenint x1, Dasher::screenint y1, int Size,int layer=0);
-  void DrawString(const std::string & String, Dasher::screenint x1, Dasher::screenint y1, int Size);
+  void DrawString(const std::string & String, Dasher::screenint x1, Dasher::screenint y1, int Size, int Colour);
 
   //void DrawRectangle(Dasher::screenint x1, Dasher::screenint y1, Dasher::screenint x2, Dasher::screenint y2, int Color, int iOutlineColour, Dasher::Opts::ColorSchemes ColorScheme, bool bDrawOutlines, bool bFill, int iThickness,int layer=0);
-  void DrawRectangle(Dasher::screenint x1, Dasher::screenint y1, Dasher::screenint x2, Dasher::screenint y2, int Color, int iOutlineColour, Dasher::Opts::ColorSchemes ColorScheme, bool bDrawOutlines, bool bFill, int iThickness);
+  void DrawRectangle(Dasher::screenint x1, Dasher::screenint y1, Dasher::screenint x2, Dasher::screenint y2, int Colour, int iOutlineColour, Dasher::Opts::ColorSchemes ColorScheme, int iThickness);
 
   ///WHY is this defined like that?
   //void CScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, int iFillColour, int iThickness, bool bFill,int layer=0);
@@ -79,10 +79,11 @@ public:
   //!
   //! \param Points array of points defining the edge of the polygon
   //! \param Number number of points in the array
-  //! \param Color colour of the polygon (numeric)
-  //virtual void Polygon(point * Points, int Number, int Color);
+  //! \param fillColour colour to fill polygon (numeric); -1 for don't fill
+  //! \param outlineColour colour to draw polygon outline (right the way around, i.e. repeating first point)
+   //virtual void Polygon(point * Points, int Number, int Color);
   //virtual void Polygon(point * Points, int Number, int Color, int iWidth,int layer);
-  virtual void Polygon(point * Points, int Number, int Color, int iWidth);
+  virtual void Polygon(point * Points, int Number, int fillColour, int OutlineColour, int iWidth);
 
   //void DrawPolygon(point * Points, int Number, int Color, Dasher::Opts::ColorSchemes ColorScheme,int layer=0);
   void DrawPolygon(point * Points, int Number, int Color, Dasher::Opts::ColorSchemes ColorScheme);

@@ -145,7 +145,7 @@ void CScreen::DrawMousePosBox(int which, int iMousePosDist,int layer) {
   Display();
 }
 
-void CScreen::DrawString(const std::string &OutputString, Dasher::screenint x1, Dasher::screenint y1, int iSize) {
+void CScreen::DrawString(const std::string &OutputString, Dasher::screenint x1, Dasher::screenint y1, int iSize, int Colour) {
 
   Tstring OutputText;
 
@@ -162,8 +162,8 @@ void CScreen::DrawString(const std::string &OutputString, Dasher::screenint x1, 
   COLORREF iCRefOld;
   COLORREF iCRefNew;
 
-  // TODO: Hardcoded numbers
-  iCRefNew = RGB(m_pColours->Reds[4], m_pColours->Greens[4], m_pColours->Blues[4]);
+  // Colour was hardcoded to 4
+  iCRefNew = RGB(m_pColours->Reds[Colour], m_pColours->Greens[Colour], m_pColours->Blues[Colour]);
   
   iCRefOld = SetTextColor(m_hDCBuffer, iCRefNew);
 
@@ -224,9 +224,11 @@ void CScreen::TextSize_Impl(const std::string &String, screenint *Width, screeni
   CScreen::Polygon( Points, Number, iColour, 1);
 }*/
 
-void CScreen::Polygon(point *Points, int Number, int iColour, int iWidth) {
+void CScreen::Polygon(point *Points, int Number, int fillColour, int outlineColour, int iWidth) {
+  // TODO This function is never called. Should it be needed, drawing an outline
+  // if outlineColour != -1 should be implemented.
   HGDIOBJ hpOld;
-  hpOld = (HPEN) SelectObject(m_hDCBuffer, CScreen::GetPen(iColour, iWidth));
+  hpOld = (HPEN) SelectObject(m_hDCBuffer, CScreen::GetPen(fillColour, iWidth));
   POINT *WinPoints = new POINT[Number];
   point2POINT(Points, WinPoints, Number);
   ::Polygon(m_hDCBuffer, WinPoints, Number);

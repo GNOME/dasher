@@ -8,20 +8,20 @@
 
 /////////////////////////////////////////////////////////////////////////////
 
-inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, int iOutlineColour, Dasher::Opts::ColorSchemes ColorScheme, bool bDrawOutlines, bool bFill, int iThickness) {
+inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Colour, int iOutlineColour, Dasher::Opts::ColorSchemes ColorScheme, int iThickness) {
 //      HBRUSH brush=m_Brushes[ColorScheme][Color%m_Brushes[ColorScheme].size()];
-  HBRUSH brush = CScreen::GetBrush(Color);
+  HBRUSH brush = CScreen::GetBrush(Colour);
   RECT Rect;
   Rect.left = x1;
   Rect.top = y1;
   Rect.right = x2;
   Rect.bottom = y2;
-  if(bFill)
+  if(Colour != -1)
     FillRect(m_hDCBuffer, &Rect, brush);
 
 #ifndef DASHER_WINCE
 
-  if(bDrawOutlines) {
+  if(iOutlineColour != -1) {
 
     point aPoints[5];
 
@@ -31,12 +31,8 @@ inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, scr
     aPoints[3].x=x1; aPoints[3].y=y2;
     aPoints[4].x=x1; aPoints[4].y=y1;
 
-    if(iOutlineColour == -1)
-     //FrameRect(m_hDCBuffer, &Rect, CScreen::GetBrush(3));
-     Polyline(aPoints, 5, iThickness, 3);
-    else
-      //FrameRect(m_hDCBuffer, &Rect, CScreen::GetBrush(iOutlineColour));
-      Polyline(aPoints, 5, iThickness, iOutlineColour);
+	//FrameRect(m_hDCBuffer, &Rect, CScreen::GetBrush(iOutlineColour));
+	Polyline(aPoints, 5, iThickness, iOutlineColour);
   }
 #endif
 

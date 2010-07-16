@@ -140,7 +140,7 @@
 #define IDC_OUTLINE                     1091
 #define IDC_STOPIDLE                    1091
 #define IDC_TIMESTAMP                   1092
-#define IDC_STYLUS                      1092
+//#define IDC_STYLUS                      1092
 #define IDC_COPYALLONSTOP               1093
 #define IDC_DRAWMOUSE                   1094
 #define IDC_SPEECH                      1096
