@@ -1,30 +1,29 @@
 # translation of dasher to Galician
 # This file is distributed under the same license as the Dasher package.
-# Copyright (C) 2009, 2010 Leandro Regueiro.
+# Copyright (C) 2009, 2010 Fran Diéguez.
+#
+# Proxecto Trasno - Adaptación do software libre á lingua galega:  Se desexas
+# colaborar connosco, podes atopar máis información en <http://trasno.net>
 #
 # Ignacio Casal Quinteiro <nacho.resa@gmail.com>, 2005, 2006.
 # Ignacio Casal Quinteiro <icq@cvs.gnome.org>, 2007, 2008.
 # Mancomún - Centro de Referencia e Servizos de Software Libre <g11n@mancomun.org>, 2009.
-# Fran Dieguez <fran.dieguez@glug.es>, 2009.
 # Antón Méixome <meixome@mancomun.org>, 2009.
 # Leandro Regueiro <leandro.regueiro@gmail.com>, 2009, 2010.
-#
-# Proxecto Trasno - Adaptación do software libre á lingua galega:  Se desexas
-# colaborar connosco, podes atopar máis información en <http://trasno.net>
-# Fran Diéguez <frandieguez@ubuntu.com>, 2010.
+# Fran Diéguez <frandieguez@ubuntu.com>, 2009, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher-master-po-gl-29113\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-20 18:42+0200\n"
-"PO-Revision-Date: 2010-05-20 18:44+0200\n"
+"Report-Msgid-Bugs-To: gnome-gl-list@gnome.org\n"
+"POT-Creation-Date: 2010-07-18 17:21+0200\n"
+"PO-Revision-Date: 2010-07-18 17:28+0200\n"
 "Last-Translator: Fran Diéguez <frandieguez@ubuntu.com>\n"
-"Language-Team: Galician <gnome@g11.net>\n"
+"Language-Team: Galician <gnome-gl-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\\\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
@@ -111,8 +110,8 @@ msgstr "Gardar o ficheiro como"
 #: ../Data/GUI/dasher.compose.ui.h:15 ../Data/GUI/dasher.fullscreen.ui.h:3
 #: ../Data/GUI/dasher.gameWIP.ui.h:23 ../Data/GUI/dashermaemo.ui.h:5
 #: ../Data/GUI/dashermaemofullscreen.ui.h:5
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1320
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1354 ../Src/Gtk2/dasher_main.cpp:968
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1323
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1357 ../Src/Gtk2/dasher_main.cpp:968
 msgid "Select File"
 msgstr "Seleccionar o ficheiro"
 
@@ -625,20 +624,20 @@ msgstr "Modo compás"
 msgid "Well done!"
 msgstr "Bo traballo!"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:918
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:916
 msgid "Normal Control"
 msgstr "Control normal"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:934
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:932
 msgid "Menu Mode"
 msgstr "Modo de menú"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:935
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:933
 msgid "Direct Mode"
 msgstr "Modo directo"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:939
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:937
 msgid "Stylus Control"
 msgstr "Control de estilo"
 
@@ -744,8 +743,7 @@ msgstr "o valor booleano debe especificarse como 'true' ou 'false'."
 #. specify a known option.
 #: ../Src/DasherCore/SettingsStore.cpp:104
 msgid "unknown option, use \"--help-options\" for more information."
-msgstr ""
-"opción descoñecida, use \"--help-options\" para obter máis información."
+msgstr "opción descoñecida, use «--help-options» para obter máis información."
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
@@ -931,7 +929,7 @@ msgstr "Aviso: non é posíbel configurar os parámetros de voz\n"
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
 #: ../Src/Gtk2/dasher_main.cpp:266
 msgid "option setting is missing \"=\"."
-msgstr "Fáltalle \"=\" á definición da opción."
+msgstr "Fáltalle o «=» á definición da opción."
 
 #. Note to translators: This string will be output when --options= specifies an unknown option.
 #: ../Src/Gtk2/dasher_main.cpp:282
@@ -986,10 +984,14 @@ msgstr "Dasher é un aplicativo de entrada preditiva de texto"
 #: ../Src/Gtk2/dasher_main.cpp:1146
 msgid "translator-credits"
 msgstr ""
-"Suso Baleato <suso.baleato@xunta.es>, 2009;\n"
-"Antón Méixome <meixome@mancomun.org>, 2009;\n"
-"Fran  Diéguez <fran.dieguez@glug.es>, 2009;\n"
+"Fran Diéguez <frandieguez@ubuntu.com>, 2009, 2010.\n"
 "Leandro Regueiro <leandro.regueiro@gmail.com>, 2009, 2010.\n"
+"Antón Méixome <meixome@mancomun.org>, 2009.\n"
+"Mancomún - Centro de Referencia e Servizos de Software Libre <g11n@mancomun."
+"org>, 2009.\n"
+"Suso Baleato <suso.baleato@xunta.es>, 2009;\n"
+"Ignacio Casal Quinteiro <icq@cvs.gnome.org>, 2007, 2008.\n"
+"Ignacio Casal Quinteiro <nacho.resa@gmail.com>, 2005, 2006.\n"
 "\n"
 "Proxecto Trasno http://trasno.net"
 
@@ -1000,7 +1002,7 @@ msgstr "Opcións do módulo Dasher"
 #: ../Src/Gtk2/module_settings_window.cpp:94
 #, c-format
 msgid "%s Options:"
-msgstr "%s Opcións:"
+msgstr "%s opcións:"
 
 #: ../Src/Gtk2/mouse_input.h:15
 msgid "Mouse Input"
@@ -1022,7 +1024,7 @@ msgstr "Entrada unidimensional de rato"
 #. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
 #: ../Src/main.cc:171
 msgid "Application style (traditional, direct, compose or fullscreen)"
-msgstr "Estilo de aplicativo (traditional, direct, compose ou fullscreen)"
+msgstr "Estilo de aplicativo («traditional», «direct», «compose» ou «fullscreen»)"
 
 #. Note to translators: This is the help string for "--options"
 #: ../Src/main.cc:173
@@ -1032,7 +1034,7 @@ msgstr "Ignorar as opcións almacenadas"
 #. Note to translators: This is the help string for "--help-options"
 #: ../Src/main.cc:175
 msgid "Describe \"--options\"."
-msgstr "Describe \"--options\"."
+msgstr "Describe «--options»."
 
 #. Note to translators: This is the "--help" description of dasher.
 #: ../Src/main.cc:182
