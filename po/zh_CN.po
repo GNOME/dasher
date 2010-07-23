@@ -5,14 +5,16 @@
 # yaoms <yms541@gmail.com>, 2009
 # YunQiang Su <wzssyqa@gmail.com>, 2010
 # Aron Xu <aronxu@gnome.org>, 2010.
+# Tao Wang <dancefire@gmail.com>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher master\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-14 12:14+0800\n"
-"PO-Revision-Date: 2010-07-14 12:18+0800\n"
-"Last-Translator: Aron Xu <happyaron.xu@gmail.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=dasher&component=general\n"
+"POT-Creation-Date: 2010-07-18 19:06+0000\n"
+"PO-Revision-Date: 2010-07-23 15:59+0800\n"
+"Last-Translator: Tao Wang <dancefire@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -337,7 +339,7 @@ msgstr "固定应用程序窗口"
 
 #: ../Data/GUI/dasher.preferences.ui.h:33
 msgid "Draw box outlines"
-msgstr "画四周边框"
+msgstr "绘制边框"
 
 #: ../Data/GUI/dasher.preferences.ui.h:34
 msgid "Draw line between crosshairs and mouse"
@@ -568,7 +570,7 @@ msgstr "菜单模式的扫描时间 (0 表示不扫描)"
 
 #: ../Src/DasherCore/ButtonMode.cpp:30
 msgid "Number of boxes"
-msgstr "盒子数"
+msgstr "框数"
 
 #: ../Src/DasherCore/ButtonMode.cpp:31
 msgid "Safety margin"
@@ -580,9 +582,8 @@ msgstr "安全空白"
 #. * ratio = exp(r/128) used in the design document
 #.
 #: ../Src/DasherCore/ButtonMode.cpp:37
-#, fuzzy
 msgid "Box non-uniformity"
-msgstr "盒子差距"
+msgstr "框体非一致性"
 
 #: ../Src/DasherCore/ClickFilter.cpp:9
 msgid "Maximum Zoom"
@@ -590,11 +591,11 @@ msgstr "放到最大"
 
 #: ../Src/DasherCore/ClickFilter.cpp:10
 msgid "Draw guides on screen to show area into which a click will zoom"
-msgstr ""
+msgstr "在屏幕上绘制参考线，以显示哪个区域在点击后会放大"
 
 #: ../Src/DasherCore/ClickFilter.cpp:11
 msgid "Curve lines to follow the non-linearity of the view transform"
-msgstr ""
+msgstr "要跟随非线性视角转换的曲线"
 
 #: ../Src/DasherCore/ClickFilter.h:12
 msgid "Click Mode"
@@ -683,7 +684,7 @@ msgstr "用来表示自动增长速度的等待时间(秒)"
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:48
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
 msgid "Percentage by which to decrease speed upon reverse"
-msgstr ""
+msgstr "在反方向减速的百分比"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:44
 msgid "One Button Dynamic Mode"
@@ -701,7 +702,7 @@ msgstr "放大的倍数"
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:43
 msgid "Lag before user actually pushes button (ms)"
-msgstr ""
+msgstr "在用户实际按键之前延迟时间(毫秒)"
 
 #. COneDimensionalFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel);
 #: ../Src/DasherCore/OneDimensionalFilter.h:12
@@ -800,7 +801,7 @@ msgstr "翻转向上和向下按钮"
 #. button once; in this case, one must push three times (or push-and-hold) to reverse.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:42
 msgid "Double-click is opposite up/down — triple to reverse"
-msgstr ""
+msgstr "双击相反向上/向下，连击三下反向"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:52
 msgid "Two Button Dynamic Mode"
@@ -808,21 +809,21 @@ msgstr "两按钮动态模式"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:30
 msgid "Offset for outer (second) button"
-msgstr ""
+msgstr "外部(第二个)按钮的位移"
 
 #. divisor
 #. step
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:31
 msgid "Distance for 1st button UP"
-msgstr ""
+msgstr "第一个按钮“上”的距离"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:32
 msgid "Distance for 1st button DOWN"
-msgstr ""
+msgstr "第一个按钮“下”的距离"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:33
 msgid "Tolerance for inaccurate timing of button pushes (in ms)"
-msgstr ""
+msgstr "对按键时间不精确的容忍程度(毫秒)"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
 msgid "Slow startup time"
@@ -830,7 +831,7 @@ msgstr "减慢启动时间"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:47
 msgid "Two-push Dynamic Mode (New One Button)"
-msgstr ""
+msgstr "按两下动态模式(新的一键功能)"
 
 #: ../Src/Gtk2/DasherAppSettings.cpp:554
 msgid "Boolean parameters"
@@ -870,7 +871,7 @@ msgstr "控制模式"
 #. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
 #: ../Src/Gtk2/Preferences.cpp:1030
 msgid "Auto On Stop"
-msgstr ""
+msgstr "自动停止"
 
 #: ../Src/Gtk2/dasher_action_keyboard.cpp:62
 #: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:96
@@ -975,7 +976,8 @@ msgstr ""
 "Yang Zhang <zyangmath@gmail.com>, 2007\n"
 "Yaoms <yms541@gmail.com>, 2009\n"
 "YunQiang Su <wzssyqa@gmail.com>, 2010\n"
-"Aron Xu <aronxu@gnome.org>, 2010"
+"Aron Xu <aronxu@gnome.org>, 2010\n"
+"Tao Wang <dancefire@gmail.com>, 2010"
 
 #: ../Src/Gtk2/module_settings_window.cpp:88
 msgid "Dasher Module Options"
@@ -1021,7 +1023,7 @@ msgstr "描述 “--options”。"
 #. Note to translators: This is the "--help" description of dasher.
 #: ../Src/main.cc:182
 msgid "- A text input application honouring accessibility"
-msgstr ""
+msgstr "- 一个致力于帮助残障人士进行文字输入的应用程序"
 
 #~ msgid "abcdefghijk ABCDEFGHIJK"
 #~ msgstr "abcdefghijk ABCDEFGHIJK"
