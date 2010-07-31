@@ -361,7 +361,7 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       if(GetBoolParameter(BP_LM_ADAPTIVE))
 	 strTrainfileBuffer = strTrainfileBuffer.substr( 0, strTrainfileBuffer.size() - pEditEvent->m_sText.size());
       if (GetBoolParameter(BP_SPEAK_WORDS))
-        m_strCurrentWord = m_strCurrentWord.substr(0, max(0ul, m_strCurrentWord.size()-pEditEvent->m_sText.size()));
+        m_strCurrentWord = m_strCurrentWord.substr(0, max(static_cast<string::size_type>(0), m_strCurrentWord.size()-pEditEvent->m_sText.size()));
     }
   }
 }

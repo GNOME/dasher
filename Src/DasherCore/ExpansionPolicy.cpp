@@ -111,7 +111,7 @@ double BudgettingPolicy::getCost(CDasherNode *pNode, int iDasherMinY, int iDashe
   return getRange(iDasherMinY, iDasherMaxY, 0, 4096);
 }
 
-AmortizedPolicy::AmortizedPolicy(unsigned int iNodeBudget) : BudgettingPolicy(iNodeBudget), m_iMaxExpands(std::max(1u,500+(iNodeBudget/1000))) {}
+AmortizedPolicy::AmortizedPolicy(unsigned int iNodeBudget) : BudgettingPolicy(iNodeBudget), m_iMaxExpands(std::max(1u,(500+iNodeBudget)/1000)) {}
 
 AmortizedPolicy::AmortizedPolicy(unsigned int iNodeBudget, unsigned int iMaxExpands) : BudgettingPolicy(iNodeBudget), m_iMaxExpands(iMaxExpands) {}
 

@@ -119,7 +119,6 @@ namespace Dasher {
       ///pointer to a function "void X()", that is a member of a T...
       typedef void (T::*Method)();
       MethodTemplate(T *pRecv, const std::string &strLabel, Method f) : NodeTemplate(strLabel,-1),m_pRecv(pRecv),m_f(f) {
-        std::cout << "Creating " << this << " with receiver " << pRecv << std::endl;
       }
       virtual void happen(CContNode *pNode) {
         //invoke pointer-to-member-function m_f on object *m_pRecv!
