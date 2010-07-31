@@ -10,7 +10,7 @@
 #import <Cocoa/Cocoa.h>
 #import "../DasherCore/ColourIO.h"
 
-@class COSXDasherScreen;
+class COSXDasherScreen;
 
 @protocol DasherViewCocoa
 // protocol to allow easily changing implementation of the view.

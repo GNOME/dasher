@@ -64,7 +64,7 @@ static PreferencesController *preferencesController = nil;
 
 - (id)init {
   if (self = [super init]) {
-    dasherApp = [[NSApplication sharedApplication] delegate];
+    dasherApp = (DasherApp *)[[NSApplication sharedApplication] delegate];
   }
   
   return self;
