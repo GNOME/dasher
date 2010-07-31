@@ -54,7 +54,7 @@ bool CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
     ApplyAutoCalibration(iDasherX, iDasherY, true);
     ApplyTransform(iDasherX, iDasherY);
 
-    if(GetBoolParameter(BP_PAUSE_OUTSIDE)) {
+    if(GetBoolParameter(BP_STOP_OUTSIDE)) {
       myint iDasherMinX;
       myint iDasherMinY;
       myint iDasherMaxX;
@@ -62,7 +62,7 @@ bool CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
       m_pDasherView->VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
   
       if((iDasherX > iDasherMaxX) || (iDasherX < iDasherMinX) || (iDasherY > iDasherMaxY) || (iDasherY < iDasherMinY)) {
-        m_pInterface->Pause();
+        m_pInterface->Stop();
         return false;
       }
     }
@@ -88,7 +88,7 @@ void CDefaultFilter::KeyDown(int iTime, int iId, CDasherView *pDasherView, CDash
       if(GetBoolParameter(BP_DASHER_PAUSED))
 	m_pInterface->Unpause(iTime);
       else
-	m_pInterface->Pause();
+	m_pInterface->Stop();
     }
     break; 
   case 100: // Start on mouse
@@ -96,7 +96,7 @@ void CDefaultFilter::KeyDown(int iTime, int iId, CDasherView *pDasherView, CDash
       if(GetBoolParameter(BP_DASHER_PAUSED))
 	m_pInterface->Unpause(iTime);
       else
-	m_pInterface->Pause();
+	m_pInterface->Stop();
     }
     break;
   default:

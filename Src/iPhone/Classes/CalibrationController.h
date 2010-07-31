@@ -37,7 +37,7 @@ enum settableParam {
   float minY, maxY, minX, maxX; //if SETTING_VERT, the min/max values seen so far (also displayed immediately in vertMin, vertMax, vertX)
 }
 
--(id)initWithTabCon:(UITabBarController *)tabCon;
+-(id)init;
 +(void)doSetup;
 
 @end

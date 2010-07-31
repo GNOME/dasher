@@ -38,6 +38,8 @@ class CInputFilter : public CDasherModule {
     return false;
   }
   
+  virtual bool supportsPause() {return false;}
+  
  protected:
   CDasherInterfaceBase *m_pInterface;
 

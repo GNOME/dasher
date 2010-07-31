@@ -20,10 +20,6 @@
 #include "dasher_action_script.h"
 #endif
 
-#ifdef GNOME_SPEECH
-#include "dasher_action_speech.h"
-#endif 
-
 #include "dasher_editor_internal.h"
 #include "dasher_external_buffer.h"
 #include "dasher_internal_buffer.h"
@@ -925,40 +921,6 @@ dasher_editor_internal_command(DasherEditor *pSelf, const gchar *szCommand) {
     return TRUE;
   }
  
-  /* TODO: We need a rethink here */
-  const gchar *szForwardCommand = NULL;
-  gint iSubCommand = 0;
-
-  if(!strcmp(szCommand, "speakall")) {
-    szForwardCommand = "Speak";
-    iSubCommand = 0;
-  }
-  else if(!strcmp(szCommand, "speaklast")) {
-    szForwardCommand = "Speak";
-    iSubCommand = 1;
-  }
-  else if(!strcmp(szCommand, "speakrepeat")) {
-    szForwardCommand = "Speak";
-    iSubCommand = 2;
-  }
-
-  if(szForwardCommand) {
-    gboolean bActionIterStarted = false;
-    EditorAction *pActionIter = pPrivate->pActionRing;
-    
-    while((pActionIter != pPrivate->pActionRing) || !bActionIterStarted) {
-      bActionIterStarted = true;
-      
-      if(!strcmp(dasher_action_get_name(pActionIter->pAction), szForwardCommand)) {
-	dasher_action_execute(pActionIter->pAction, DASHER_EDITOR(pSelf), iSubCommand);
-	return TRUE;
-      }
-      
-      pActionIter = pActionIter->pNext;
-    }
-    return TRUE;
-  }
-
   return FALSE;
 }
 
@@ -1051,9 +1013,10 @@ dasher_editor_internal_setup_actions(DasherEditor *pSelf) {
   // TODO: Activate and deactivate methods for actions
   // TODO: Clear shouldn't be a special case (include support for false in clear method)
 
-#ifdef GNOME_SPEECH
-  dasher_editor_internal_add_action(pSelf, DASHER_ACTION(dasher_action_speech_new()));
-#endif
+  //ACL 14/6/09 Removing old speech code: the Control Mode bits of this
+  // are now in DasherCore, & the old DasherAction would no-op if used in
+  // any otherway! (Also the whole actions code stuff seems so unfinished etc.
+  // anyway...that perhaps it's best removed?)
 
   dasher_editor_internal_add_action(pSelf, DASHER_ACTION(dasher_action_keyboard_new(pPrivate->pExternalBuffer)));
 

@@ -54,11 +54,14 @@ SSectionDesc allMeths[] = {
 {@"Touch Control", asTouchFilters, sizeof(asTouchFilters) / sizeof(asTouchFilters[0])},
 {@"Button Modes", asDynamicFilters, sizeof(asDynamicFilters) / sizeof(asDynamicFilters[0])},
 {@"Tilt Control", asTiltFilters, sizeof(asTiltFilters) / sizeof(asTiltFilters[0])},
-{@"Touch/tilt Combo", asMixedFilters, sizeof(asMixedFilters) / sizeof(asMixedFilters[0])},
+{@"Combined Touch & Tilt", asMixedFilters, sizeof(asMixedFilters) / sizeof(asMixedFilters[0])},
 };
+
+int numSections = sizeof(allMeths) / sizeof(allMeths[0]);
 
 @interface InputMethodSelector ()
 @property (retain) NSIndexPath *selectedPath;
+- (void)doSelect;
 @end
 
 @implementation InputMethodSelector
@@ -119,13 +122,13 @@ SSectionDesc allMeths[] = {
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return sizeof(allMeths) / sizeof(allMeths[0]);
+  return numSections + 1; //add 1 for calibrate button
 }
 
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return allMeths[section].numFilters;
+  return (section==numSections) ? 0 : allMeths[section].numFilters;
 }
 
 // Customize the appearance of table view cells.
@@ -190,12 +193,33 @@ SSectionDesc allMeths[] = {
   }
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+  if (section < numSections) return nil; //no special view => default, using title method (below)
+  if (!calibButton) {
+    calibButton = [[UIView alloc] initWithFrame:CGRectZero];
+    calibButton.backgroundColor = [UIColor clearColor];
+    calibButton.opaque = NO;
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [btn setTitle:@"Calibrate Tilting..." forState:UIControlStateNormal];
+    btn.font = [UIFont boldSystemFontOfSize:18.0];
+    btn.frame = CGRectMake(9.0,2.0,302.0,[self tableView:tableView heightForHeaderInSection:section]-4.0);
+    [btn addTarget:self action:@selector(calibrate) forControlEvents:UIControlEventTouchUpInside];
+    [calibButton addSubview:btn];
+  }
+  return calibButton;
+}
+
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return allMeths[section].displayName;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger) section {
 	return 40.0f;
+}
+
+- (void)calibrate {
+  CalibrationController *calCon = [[[CalibrationController alloc] init] autorelease];
+  [self.navigationController pushViewController:calCon animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

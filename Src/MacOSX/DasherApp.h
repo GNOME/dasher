@@ -14,6 +14,7 @@
 //#import "DasherAppInterface.h"
 #import "COSXDasherScreen.h"
 #import "DasherViewCocoa.h"
+#import "Queue.h"
 
 @class AppWatcher;
 @class DasherView;
@@ -27,7 +28,8 @@
   
   IBOutlet AppWatcher *appWatcher;
   NSTimer *_timer;
-  
+  Queue *spQ;
+  NSSpeechSynthesizer *spSyn;
 }
 
 - (void)start;
@@ -56,5 +58,7 @@
 - (void)setTimer:(NSTimer *)newTimer;
 - (void)timerCallback:(NSTimer *)aTimer;
 - (void)dealloc;
-
+- (bool)supportsSpeech;
+- (void)speak:(NSString *)sText interrupt:(bool)bInt;
+- (void)copyToClipboard:(NSString *)sText;
 @end

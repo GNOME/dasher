@@ -15,6 +15,7 @@
 #import "Common.h"
 #import "TextView.h"
 #import "MiscSettings.h"
+#import "FliteTTS.h"
 
 //declare some private methods!
 @interface DasherAppDelegate ()
@@ -25,6 +26,9 @@
 - (void)speedSlid:(id)slider;
 - (CGRect)doLayout:(UIInterfaceOrientation)orient;
 @property (retain) UILabel *screenLockLabel;
+@property (nonatomic,retain) NSString *m_wordBoundary;
+@property (nonatomic,retain) NSString *m_sentenceBoundary;
+@property (nonatomic,retain) NSString *m_lineBoundary;
 @end
 
 //we can't call setHidden:BOOL with performSelector:withObject:, as passing [NSNumber numberWithBool:YES] (as one should)
@@ -36,7 +40,9 @@
 @implementation DasherAppDelegate
 
 @synthesize screenLockLabel;
-
+@synthesize m_wordBoundary;
+@synthesize m_sentenceBoundary;
+@synthesize m_lineBoundary;
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
     return NO;
@@ -156,6 +162,7 @@
 	text.editable = NO;
 	text.delegate = self;
 	selectedText.location = selectedText.length = 0;
+  text.selectedRange=selectedText;
 
   messageLabel.backgroundColor = [UIColor grayColor];
   messageLabel.textColor = [UIColor whiteColor];
@@ -174,9 +181,10 @@
 	speedBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 	[speedBtn setImageEdgeInsets:UIEdgeInsetsMake(0.0, 2.0, 0.0, 2.0)];
 	[speedBtn addTarget:self action:@selector(fadeSlider) forControlEvents:UIControlEventAllTouchEvents];
-
-	UIBarButtonItem *clear = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(clear)] autorelease];
-	UIBarButtonItem *mail = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"mail.png"] style:UIBarButtonItemStylePlain target:self action:@selector(mail)] autorelease];
+  
+  actions = [[[ActionButton alloc] initForToolbar:tools] autorelease];
+  
+	UIBarButtonItem *clear = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(clearBtn)] autorelease];
 	[tools setItems:[NSArray arrayWithObjects:
 				settings,
 				[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
@@ -184,7 +192,7 @@
 				[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
 				clear,
 				[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
-				mail,
+				actions,
 				nil]];
 	
 	[self.view addSubview:glView];
@@ -217,6 +225,9 @@
 	[self notifySpeedChange];
   self.dasherInterface->OnUIRealised(); //that does startAnimation...
   doneSetup = YES;
+  //The following will cause the text cursor to be displayed whenever
+  // any change is made to the textbox...
+  [text becomeFirstResponder];
 }
 
 - (void)displayMessage:(NSString *)msg ID:(int)iId Type:(int)type {
@@ -257,30 +268,24 @@
 	//[self notifySpeedChange];//no need, CDasherInterfaceBridge calls if SetLongParameter did anything
 }
 
-- (void)clear {
+- (void)clearBtn {
 	UIActionSheet *confirm = [[[UIActionSheet alloc] initWithTitle:@"Start New Document" delegate:self cancelButtonTitle:@"Keep Existing" destructiveButtonTitle:@"Discard Existing" otherButtonTitles:nil] autorelease];
 	[confirm showFromToolbar:tools];
 }
-	
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == actionSheet.destructiveButtonIndex)
-	{
-		text.text=@"";
-		selectedText.location = selectedText.length = 0;
-		self.dasherInterface->SetBuffer(0);
-	}
-	//...and dismiss?
+
+- (void)clearText {
+  text.text=@"";
+  selectedText.location = selectedText.length = 0;
+  _dasherInterface->SetBuffer(0);
 }
 	
-- (void)mail {
-  NSString *mailString = [NSString stringWithFormat:@"mailto:?body=%@", 
-						  [text.text stringByAddingPercentEscapesUsingEncoding:NSASCIIStringEncoding]];
-  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:mailString]];
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == actionSheet.destructiveButtonIndex) [self clearText];
 }
 	
 - (void)settings {
   //avoid awful muddle if we change out of tap-to-start mode whilst running.... 
-  _dasherInterface->Pause();
+  _dasherInterface->Stop();
   [glView stopAnimation];
 	
   UITabBarController *tabs = [[[UITabBarController alloc] init] autorelease];
@@ -290,10 +295,10 @@
 
     tabs.viewControllers = [NSArray arrayWithObjects:
 							[[[InputMethodSelector alloc] init] autorelease],
-						    [[[CalibrationController alloc] initWithTabCon:tabs] autorelease],
 						    [[[LanguagesController alloc] init] autorelease],
                 [[[StringParamController alloc] initWithTitle:@"Colour" image:[UIImage imageNamed:@"palette.png"] settingParam:SP_COLOUR_ID] autorelease],
 						    [[[MiscSettings alloc] init] autorelease],
+                [actions tabConfigurator],
 						    nil];
   [self presentModalViewController:settings animated:YES];
 }
@@ -313,18 +318,43 @@
 
 - (void)outputCallback:(NSString *)s {
 	text.text=[text.text stringByReplacingCharactersInRange:selectedText withString:s];
-	selectedText.location++; 
+	selectedText.location+=[s length]; 
 	selectedText.length = 0;
-	text.selectedRange = selectedText; //shows keyboard, seems unavoidable :-(
+	text.selectedRange = selectedText;
 	//This isn't quite right, it jumps up then down again once you have >3 lines...
 	[text scrollRangeToVisible:selectedText];
 }
 
 - (void)deleteCallback:(NSString *)s {
   if (selectedText.length == 0) selectedText.location -= (selectedText.length = 1); //select previous character
-  text.text=[text.text stringByReplacingCharactersInRange:selectedText withString:@""];
-  selectedText.length = 0;
-  text.selectedRange = selectedText;
+  [self outputCallback:@""];
+}
+
+- (BOOL)supportsSpeech {
+  if (!fliteEng) {
+    fliteEng = [[FliteTTS alloc] init];
+    if (!fliteEng) return NO;
+    [fliteEng setVoice:@"cmu_us_rms"];
+    [fliteEng setPitch:100.0 variance:50.0 speed:1.0];
+  }
+  return YES;
+}
+
+- (void)speak:(NSString *)sText interrupt:(BOOL)bInt {
+  if (!fliteEng && ![self supportsSpeech]) return; //fail!
+  //"speakText" automatically interrupts previous, i.e. appropriate for bInt.
+  //TODO - if (!bInt), should only speak after current speech finished.
+  // (However not vital, as we don't offer a setting for BP_SPEAK_WORDS on iPhone)
+  [fliteEng speakText:sText];
+}
+
+- (void) copy:(NSString *)sText {
+  [UIPasteboard generalPasteboard].string=sText;
+}
+
+- (void)insertText:(NSString *)sText {
+  [self outputCallback:sText];
+  _dasherInterface->SetOffset(selectedText.location);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -386,14 +416,78 @@
 - (void)dealloc {
 	[window release];
   [tools release];
+  [fliteEng release];
 	[super dealloc];
 }
 
-- (NSString *)textAtOffset:(int)offset Length:(int)length {
+- (NSString *)textAtOffset:(unsigned int)offset Length:(unsigned int)length {
   NSRange range;
-  range.location = offset;
-  range.length = length;
+  //truncate both endpoints of desired range to lie within text.
+  // (Although requiring offset+length to be within text, has identified many bugs,
+  // the editing functions in control mode are too broken to fix right now! Hence,
+  // copying the Gtk2 behaviour...)
+  range.location = max(0u,min(offset,[text.text length]));
+  range.length = min(length,[text.text length] - range.location);
   return [text.text substringWithRange:range];
+}
+
+- (void)setAlphabet:(CAlphabet *)pAlph {
+  self.m_wordBoundary = pAlph->GetSpaceSymbol() ? NSStringFromStdString(pAlph->GetText(pAlph->GetSpaceSymbol())) : @" ";
+  self.m_lineBoundary = (pAlph->GetParagraphSymbol())
+  ? NSStringFromStdString(pAlph->GetText(pAlph->GetParagraphSymbol())) : nil;
+  self.m_sentenceBoundary = (pAlph->GetDefaultContext().length()>0)
+      ? NSStringFromStdString(pAlph->GetDefaultContext())
+      : @".";
+}
+
+- (int)find:(EEditDistance)amt forwards:(BOOL)bForwards {
+  if (amt==EDIT_FILE) return bForwards ? [text.text length] : 0;
+  int pos = selectedText.location;
+  for(;;) {
+    if (bForwards) {
+      if (++pos > [text.text length]) return pos-1;
+    } else {
+      if (--pos < 0) return 0;
+    }
+    NSString *lookFor;
+    switch (amt) {
+      case EDIT_CHAR:
+        //once only, never loop
+        return pos;
+      case EDIT_WORD:
+        lookFor = m_wordBoundary;
+        break;
+      case EDIT_LINE:
+        if (m_lineBoundary && [text.text compare:m_lineBoundary options:0 range:NSMakeRange(pos, [m_lineBoundary length])] == NSOrderedSame)
+          return pos;
+        lookFor = m_lineBoundary;
+        break;
+    }
+    if ([text.text compare:lookFor options:0 range:NSMakeRange(pos, [lookFor length])] == NSOrderedSame)
+      return pos;
+  }
+}
+
+- (void)move:(EEditDistance)amt forwards:(BOOL)bForwards {
+  selectedText.location = [self find:amt forwards:bForwards];
+  selectedText.length=0;
+  text.selectedRange = selectedText;
+  [text scrollRangeToVisible:selectedText];
+}
+
+- (void)del:(EEditDistance)amt forwards:(BOOL)bForwards {
+  int to = [self find:amt forwards:bForwards];
+  if (bForwards) {
+    selectedText.length = to-selectedText.location;
+  } else {
+    selectedText.length = selectedText.location - to;
+    selectedText.location = to;
+  }
+  [self outputCallback:@""];
+}
+
+- (NSString *)allText {
+  return text.text;
 }
 
 #pragma mark TextViewDelegate methods

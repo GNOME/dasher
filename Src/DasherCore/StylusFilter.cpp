@@ -36,7 +36,7 @@ void CStylusFilter::KeyUp(int iTime, int iId, CDasherView *pView, CDasherModel *
       pView->GetCoordinates(iDasherX, iDasherY);
       pModel->ScheduleZoom(iTime, iDasherX, iDasherY, GetLongParameter(LP_MAXZOOM));
     } else {
-      m_pInterface->Pause();
+      m_pInterface->Stop();
     }
   }
 }

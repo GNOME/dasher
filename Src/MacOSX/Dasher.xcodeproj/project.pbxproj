@@ -160,8 +160,6 @@
 		1974FE6F0714861B00B95DA0 /* ZippyCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1946CABA0481AD440000000A /* ZippyCache.m */; };
 		1974FE700714861B00B95DA0 /* ZippyString.m in Sources */ = {isa = PBXBuildFile; fileRef = 1946CABC0481AD440000000A /* ZippyString.m */; };
 		1974FE780714861B00B95DA0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		19875621071AFB470034ECCB /* Chatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1987561F071AFB470034ECCB /* Chatter.h */; };
-		19875622071AFB470034ECCB /* Chatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 19875620071AFB470034ECCB /* Chatter.m */; };
 		1988ABBD0C9FF97000D97977 /* GameMessages.h in Headers */ = {isa = PBXBuildFile; fileRef = 1988ABB80C9FF97000D97977 /* GameMessages.h */; };
 		1988ABBE0C9FF97000D97977 /* GameStatistics.h in Headers */ = {isa = PBXBuildFile; fileRef = 1988ABB90C9FF97000D97977 /* GameStatistics.h */; };
 		1988ABBF0C9FF97000D97977 /* PinyinParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1988ABBA0C9FF97000D97977 /* PinyinParser.cpp */; };
@@ -363,6 +361,8 @@
 		335901B41009E5A900821255 /* ConversionHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 335901B31009E5A900821255 /* ConversionHelper.cpp */; };
 		335DB0FB100B332C006DB155 /* alphabet.spyDict.xml in Resources */ = {isa = PBXBuildFile; fileRef = 335DB0FA100B332C006DB155 /* alphabet.spyDict.xml */; };
 		335DB101100B3358006DB155 /* training_spyDict.txt in Resources */ = {isa = PBXBuildFile; fileRef = 335DB100100B3358006DB155 /* training_spyDict.txt */; };
+		339055E81195FBD0001BE240 /* Queue.h in Headers */ = {isa = PBXBuildFile; fileRef = 339055E61195FBD0001BE240 /* Queue.h */; };
+		339055E91195FBD0001BE240 /* Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = 339055E71195FBD0001BE240 /* Queue.m */; };
 		33ABFEC60FC379EA00EA2BA5 /* ButtonMultiPress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33ABFEC40FC379EA00EA2BA5 /* ButtonMultiPress.cpp */; };
 		33ABFEC70FC379EA00EA2BA5 /* ButtonMultiPress.h in Headers */ = {isa = PBXBuildFile; fileRef = 33ABFEC50FC379EA00EA2BA5 /* ButtonMultiPress.h */; };
 		33E173C70F3E0B6400D19B38 /* Makefile.am in Resources */ = {isa = PBXBuildFile; fileRef = 33E173A70F3E0B6400D19B38 /* Makefile.am */; };
@@ -567,8 +567,6 @@
 		1974FD9C07145C6500B95DA0 /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
 		1974FE7A0714861B00B95DA0 /* Dasher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dasher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1974FE7C0714861B00B95DA0 /* Info-Dasher.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Dasher.plist"; sourceTree = SOURCE_ROOT; };
-		1987561F071AFB470034ECCB /* Chatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Chatter.h; sourceTree = "<group>"; };
-		19875620071AFB470034ECCB /* Chatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Chatter.m; sourceTree = "<group>"; };
 		1988ABB70C9FF97000D97977 /* GameLevel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = GameLevel.cpp; sourceTree = "<group>"; };
 		1988ABB80C9FF97000D97977 /* GameMessages.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GameMessages.h; sourceTree = "<group>"; };
 		1988ABB90C9FF97000D97977 /* GameStatistics.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GameStatistics.h; sourceTree = "<group>"; };
@@ -779,6 +777,8 @@
 		335901B31009E5A900821255 /* ConversionHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConversionHelper.cpp; sourceTree = "<group>"; };
 		335DB0FA100B332C006DB155 /* alphabet.spyDict.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.spyDict.xml; sourceTree = "<group>"; };
 		335DB100100B3358006DB155 /* training_spyDict.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_spyDict.txt; sourceTree = "<group>"; };
+		339055E61195FBD0001BE240 /* Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Queue.h; sourceTree = "<group>"; };
+		339055E71195FBD0001BE240 /* Queue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Queue.m; sourceTree = "<group>"; };
 		33ABFEC40FC379EA00EA2BA5 /* ButtonMultiPress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ButtonMultiPress.cpp; sourceTree = "<group>"; };
 		33ABFEC50FC379EA00EA2BA5 /* ButtonMultiPress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonMultiPress.h; sourceTree = "<group>"; };
 		33E173A70F3E0B6400D19B38 /* Makefile.am */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
@@ -844,8 +844,6 @@
 				19E1AE4E0B0DB73300F3466C /* COSXDasherScreen.mm */,
 				19B57A74080D4E4900BCE3C6 /* AppWatcher.h */,
 				19B57A72080D4E4000BCE3C6 /* AppWatcher.m */,
-				1987561F071AFB470034ECCB /* Chatter.h */,
-				19875620071AFB470034ECCB /* Chatter.m */,
 				19C49619045029A40000000A /* DasherApp.h */,
 				19EEDB310450E75F0000000A /* DasherApp.mm */,
 				1904CDA5048813400000000A /* DasherEdit.h */,
@@ -879,6 +877,8 @@
 				19F36D8D0B18B60E002F41F1 /* ZippyStringGlyph.m */,
 				19F36D8A0B18B60E002F41F1 /* ZippyStringImage.h */,
 				19F36D8B0B18B60E002F41F1 /* ZippyStringImage.m */,
+				339055E61195FBD0001BE240 /* Queue.h */,
+				339055E71195FBD0001BE240 /* Queue.m */,
 			);
 			name = "Mac OS X Classes";
 			sourceTree = "<group>";
@@ -1397,7 +1397,6 @@
 				198EC7B407153D6E00474B38 /* KeyboardEvent.h in Headers */,
 				198EC7B707153D6E00474B38 /* LowLevelKeyboardHandling.h in Headers */,
 				198EC7B807153D6E00474B38 /* UnicharGenerator.h in Headers */,
-				19875621071AFB470034ECCB /* Chatter.h in Headers */,
 				19B57A75080D4E4900BCE3C6 /* AppWatcher.h in Headers */,
 				190257FD0B0C981300178CCD /* DasherEdit.h in Headers */,
 				190258010B0C981900178CCD /* DasherViewOpenGL.h in Headers */,
@@ -1498,6 +1497,7 @@
 				33135356102C6D8E00E28220 /* ButtonMode.h in Headers */,
 				3300115310A2EA7700D31B1D /* ExpansionPolicy.h in Headers */,
 				3300114910A2E9C900D31B1D /* DelayedDraw.h in Headers */,
+				339055E81195FBD0001BE240 /* Queue.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1761,7 +1761,6 @@
 				198EC7B507153D6E00474B38 /* KeyboardEvent.m in Sources */,
 				198EC7B607153D6E00474B38 /* LowLevelKeyboardHandling.c in Sources */,
 				198EC7B907153D6E00474B38 /* UnicharGenerator.m in Sources */,
-				19875622071AFB470034ECCB /* Chatter.m in Sources */,
 				19B57A73080D4E4000BCE3C6 /* AppWatcher.m in Sources */,
 				190257FC0B0C980800178CCD /* DasherApp.mm in Sources */,
 				190257FE0B0C981400178CCD /* DasherEdit.mm in Sources */,
@@ -1846,6 +1845,7 @@
 				33135353102C6D8E00E28220 /* CompassMode.cpp in Sources */,
 				33135355102C6D8E00E28220 /* ButtonMode.cpp in Sources */,
 				3300115210A2EA7700D31B1D /* ExpansionPolicy.cpp in Sources */,
+				339055E91195FBD0001BE240 /* Queue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1971,6 +1971,7 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
 				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_VERSION = 4.0;
 			};
 			name = Deployment;
 		};

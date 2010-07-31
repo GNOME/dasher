@@ -111,6 +111,8 @@ CDasherInterfaceBase::CDasherInterfaceBase() {
   strCurrentContext = ". ";
   strTrainfileBuffer = "";
 
+  m_strCurrentWord = "";
+
   // Create an event handler.
   m_pEventHandler = new CEventHandler(this);
 
@@ -140,7 +142,6 @@ void CDasherInterfaceBase::Realize() {
   m_ColourIO = new CColourIO(GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), vColourFiles);
 
   ChangeColours();
-  ChangeAlphabet(); // This creates the NodeCreationManager, the Alphabet
 
   // Create the user logging object if we are suppose to.  We wait
   // until now so we have the real value of the parameter and not
@@ -163,6 +164,9 @@ void CDasherInterfaceBase::Realize() {
 
   CreateInput();
   CreateInputFilter();
+  
+  ChangeAlphabet(); // This creates the NodeCreationManager, the Alphabet
+
   SetupActionButtons();
   CParameterNotificationEvent oEvent(LP_NODE_BUDGET);
   InterfaceEventHandler(&oEvent);
@@ -344,25 +348,20 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
 	strCurrentContext = strCurrentContext.substr( strCurrentContext.size() - 20 );
       if(GetBoolParameter(BP_LM_ADAPTIVE))
 	 strTrainfileBuffer += pEditEvent->m_sText;
+      if (GetBoolParameter(BP_SPEAK_WORDS) && SupportsSpeech()) {
+        if (pEditEvent->m_sText == m_Alphabet->GetText(m_Alphabet->GetSpaceSymbol())) {
+          Speak(m_strCurrentWord, false);
+          m_strCurrentWord="";
+        } else
+          m_strCurrentWord+=pEditEvent->m_sText;
+      }
     }
     else if(pEditEvent->m_iEditType == 2) {
       strCurrentContext = strCurrentContext.substr( 0, strCurrentContext.size() - pEditEvent->m_sText.size());
       if(GetBoolParameter(BP_LM_ADAPTIVE))
 	 strTrainfileBuffer = strTrainfileBuffer.substr( 0, strTrainfileBuffer.size() - pEditEvent->m_sText.size());
-    }
-  }
-  else if(pEvent->m_iEventType == EV_CONTROL) {
-    CControlEvent *pControlEvent(static_cast <CControlEvent*>(pEvent));
-
-    switch(pControlEvent->m_iID) {
-    case CControlManager::CTL_STOP:
-      Pause();
-      break;
-    case CControlManager::CTL_PAUSE:
-  //Halt Dasher - without a stop event, so does not result in speech etc.
-      SetBoolParameter(BP_DASHER_PAUSED, true);
-
-      m_pDasherModel->TriggerSlowdown();
+      if (GetBoolParameter(BP_SPEAK_WORDS))
+        m_strCurrentWord = m_strCurrentWord.substr(0, max(0ul, m_strCurrentWord.size()-pEditEvent->m_sText.size()));
     }
   }
 }
@@ -383,11 +382,9 @@ void CDasherInterfaceBase::CreateModel(int iOffset) {
   if(!m_pNCManager)
     return;
 
-  if(m_pDasherModel) {
-    delete m_pDasherModel;
-    m_pDasherModel = 0;
-  }
-
+  delete m_pDasherModel;
+  
+  // TODO: Eventually we'll not have to pass the NC manager to the model...(?)
   m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, m_pNCManager, this, m_pDasherView, iOffset);
 
   // Notify the teacher of the new model
@@ -407,23 +404,14 @@ void CDasherInterfaceBase::CreateNCManager() {
   if( lmID == -1 )
     return;
 
-    int iOffset;
-
-    if(m_pDasherModel)
-      iOffset = m_pDasherModel->GetOffset();
-    else
-      iOffset = 0; // TODO: Is this right?
+  //0 seems the right offset if we don't have a model (=at startup)...
+  int iOffset = m_pDasherModel ? m_pDasherModel->GetOffset() : 0;
 
     // Delete the old model and create a new one
-    if(m_pDasherModel) {
-      delete m_pDasherModel;
-      m_pDasherModel = 0;
-    }
+    // (must delete model first, as its nodes refer to NodeManagers inside the NCManager)
+  delete m_pDasherModel; m_pDasherModel = NULL;
 
-    if(m_pNCManager) {
-      delete m_pNCManager;
-      m_pNCManager = 0;
-    }
+  delete m_pNCManager;
 
     m_pNCManager = new CNodeCreationManager(this, m_pEventHandler, m_pSettingsStore, m_AlphIO);
 
@@ -433,20 +421,58 @@ void CDasherInterfaceBase::CreateNCManager() {
     CreateModel(iOffset);
 }
 
-void CDasherInterfaceBase::Pause() {
+CDasherInterfaceBase::TextAction::TextAction(CDasherInterfaceBase *pIntf) : m_pIntf(pIntf) {
+  m_iStartOffset= (pIntf->m_pDasherModel) ? pIntf->m_pDasherModel->GetOffset() : 0;
+  pIntf->m_vTextActions.insert(this);
+}
+
+CDasherInterfaceBase::TextAction::~TextAction() {
+  m_pIntf->m_vTextActions.erase(this);
+}
+
+void CDasherInterfaceBase::TextAction::executeOnAll() {
+  (*this)(strLast = m_pIntf->GetAllContext());
+  m_iStartOffset = m_pIntf->m_pDasherModel->GetOffset();
+}
+
+void CDasherInterfaceBase::TextAction::executeOnNew() {
+  int iNewOffset(m_pIntf->m_pDasherModel->GetOffset());
+  (*this)(strLast = m_pIntf->GetContext(m_iStartOffset, iNewOffset-m_iStartOffset));
+  m_iStartOffset=iNewOffset;
+}
+
+void CDasherInterfaceBase::TextAction::executeLast() {
+  (*this)(strLast);
+}
+
+void CDasherInterfaceBase::TextAction::NotifyOffset(int iOffset) {
+  m_iStartOffset = min(iOffset, m_iStartOffset);
+}
+
+
+bool CDasherInterfaceBase::hasStopTriggers() {
+  return (GetBoolParameter(BP_COPY_ALL_ON_STOP) && SupportsClipboard())
+  || (GetBoolParameter(BP_SPEAK_ALL_ON_STOP) && SupportsSpeech());
+}
+
+void CDasherInterfaceBase::Stop() {
   if (GetBoolParameter(BP_DASHER_PAUSED)) return; //already paused, no need to do anything.
   SetBoolParameter(BP_DASHER_PAUSED, true);
 
   // Request a full redraw at the next time step.
   SetBoolParameter(BP_REDRAW, true);
 
-  Dasher::CStopEvent oEvent;
-  m_pEventHandler->InsertEvent(&oEvent);
-
 #ifndef _WIN32_WCE
   if (m_pUserLog != NULL)
     m_pUserLog->StopWriting((float) GetNats());
 #endif
+  
+  if (GetBoolParameter(BP_COPY_ALL_ON_STOP) && SupportsClipboard()) {
+    CopyToClipboard(GetAllContext());
+  }
+  if (GetBoolParameter(BP_SPEAK_ALL_ON_STOP) && SupportsSpeech()) {
+    Speak(GetAllContext(), true);
+  }
 }
 
 void CDasherInterfaceBase::GameMessageIn(int message, void* messagedata) {
@@ -459,13 +485,6 @@ void CDasherInterfaceBase::Unpause(unsigned long Time) {
 
   if(m_pDasherModel != 0)
     m_pDasherModel->Reset_framerate(Time);
-
-  Dasher::CStartEvent oEvent;
-  m_pEventHandler->InsertEvent(&oEvent);
-
-  // Commenting this out, can't see a good reason to ResetNats,
-  // just because we are not paused anymore - pconlon
-  // ResetNats();
 
 #ifndef _WIN32_WCE
   if (m_pUserLog != NULL)
@@ -788,6 +807,11 @@ std::string CDasherInterfaceBase::GetContext(int iStart, int iLength) {
   return m_strContext;
 }
 
+void CDasherInterfaceBase::ClearAllContext() {
+  SetBuffer(0);
+  strCurrentContext = "";
+}
+
 void CDasherInterfaceBase::SetContext(std::string strNewContext) {
   m_strContext = strNewContext;
 }
@@ -795,15 +819,18 @@ void CDasherInterfaceBase::SetContext(std::string strNewContext) {
 // Control mode stuff
 
 void CDasherInterfaceBase::RegisterNode( int iID, const std::string &strLabel, int iColour ) {
-  m_pNCManager->RegisterNode(iID, strLabel, iColour);
+  CControlManager *pMgr(m_pNCManager->GetControlManager());
+  if (pMgr) pMgr->RegisterNode(iID, strLabel, iColour);
 }
 
 void CDasherInterfaceBase::ConnectNode(int iChild, int iParent, int iAfter) {
-  m_pNCManager->ConnectNode(iChild, iParent, iAfter);
+  CControlManager *pMgr(m_pNCManager->GetControlManager());
+  pMgr->ConnectNode(iChild, iParent, iAfter);
 }
 
 void CDasherInterfaceBase::DisconnectNode(int iChild, int iParent) {
-  m_pNCManager->DisconnectNode(iChild, iParent);
+  CControlManager *pMgr(m_pNCManager->GetControlManager());
+  pMgr->DisconnectNode(iChild, iParent);
 }
 
 void CDasherInterfaceBase::SetBoolParameter(int iParameter, bool bValue) {
@@ -1115,6 +1142,10 @@ void CDasherInterfaceBase::UnsetBuffer() {
 void CDasherInterfaceBase::SetOffset(int iOffset) {
   if(m_pDasherModel)
     m_pDasherModel->SetOffset(iOffset, m_pDasherView);
+  //ACL TODO FIXME check that CTL_MOVE, etc., eventually come here?
+  for (set<TextAction *,bool(*)(TextAction *,TextAction *)>::iterator it = m_vTextActions.begin(); it!=m_vTextActions.end(); it++) {
+    (*it)->NotifyOffset(iOffset);
+  }
 }
 
 // Returns 0 on success, an error string on failure.

@@ -136,9 +136,6 @@ class CEdit : public ATL::CWindowImpl<CEdit> {
   // remove the previous character
   void deletetext(const std::string & sText);
   
-  // speak text
-  void speak(int what);
-  
   void SetNewWithDate(bool bNewWithDate);
   void HandleEvent(Dasher::CEvent *pEvent);
 
@@ -184,19 +181,11 @@ class CEdit : public ATL::CWindowImpl<CEdit> {
 #ifdef _UNICODE
   INPUT fakekey[2];
 #endif
-    
-  Tstring speech;
-  Tstring lastspeech;
-  Tstring newchar;
   
   void InsertText(Tstring InsertText);  // add symbol to edit control
   
   CAppSettings *m_pAppSettings;
   HWND m_hWnd;
-  
-  CDasherAction *m_pActionSpeech;
-
-  std::wstring m_strCurrentWord;
 };
 
 #endif /* #ifndef __Edit_h__ */

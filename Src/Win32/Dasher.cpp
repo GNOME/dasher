@@ -16,6 +16,9 @@
 
 #include "Common/WinOptions.h"
 
+//ACL not sure what headers we need to include to get clipboard operations, but may need:
+//#include <afxpriv.h>
+
 #ifndef _WIN32_WCE
 #include <sys/stat.h>
 #endif
@@ -293,4 +296,61 @@ void CDasher::Move(int iX, int iY, int iWidth, int iHeight) {
 
 void CDasher::TakeFocus() {
   // TODO: Implement me
+}
+#ifndef _WIN32_WCE
+bool CDasher::SupportsSpeech() {
+  if (!m_bAttemptedSpeech) {
+    //try to create speech synthesizer lazily, saving resources if no speech req'd.
+    HRESULT hr = CoCreateInstance(CLSID_SpVoice, NULL, CLSCTX_ALL, IID_ISpVoice, (void **)&pVoice);
+    
+    if(hr!=S_OK)
+      pVoice=0;
+    else if (pVoice) {
+      //ACL Do we need to check pVoice? copying old code again, previous comment said:
+      // TODO: Why is this needed?
+      pVoice->Speak(L"",SPF_ASYNC,NULL);
+    }
+    m_bAttemptedSpeech = true;
+  }
+  return pVoice;
+}
+
+void CDasher::Speak(const string &strText, bool bInterrupt) {
+  //ACL TODO - take account of bInterrupt
+  if (pVoice)
+    pVoice->Speak(strText.c_str(), SPF_ASYNC, NULL);
+}
+#endif
+bool CDasher::SupportsClipboard {
+  return true;
+}
+
+void CDasher::CopyToClipboard(const string &strText) {
+  CString cText(strText.c_str());
+  if (OpenClipboard())
+  {
+    EmptyClipboard(); //also frees memory containing any previous data
+    
+    //Allocate global memory for string - enough for characters + NULL.
+    HGLOBAL hClipboardData = GlobalAlloc(GMEM_DDESHARE, strData.GetLength()+1);
+    
+    //GlobalLock returns a pointer to the data associated with the handle returned from GlobalAlloc    
+    char * pchData = (char*)GlobalLock(hClipboardData);
+
+    //now fill it...
+    strcpy(pchData, LPCSTR(strData));
+    
+    //Unlock memory, i.e. release our access to it - 
+    // but don't free it (with GlobalFree), as it will "belong"
+    // to the clipboard.
+    GlobalUnlock(hClipboardData);
+    
+    //Now, point the clipboard at that global memory...
+    //ACL may have to use CF_TEXT or CF_OEMTEXT prior to WinNT/2K???
+    SetClipboardData(CF_UNICODETEXT,hClipboardData);
+    
+    //Finally, unlock the clipboard (i.e. a pointer to the data on it!)
+    // so that other applications can see / modify it
+    CloseClipboard();
+  }
 }

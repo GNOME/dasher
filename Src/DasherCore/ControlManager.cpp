@@ -95,7 +95,7 @@ void CControlBase::CContNode::PopulateChildren() {
     if( *it == NULL ) {
       // Escape back to alphabet
       
-      pNewNode = m_pMgr->m_pNCManager->GetAlphRoot(this, iLbnd, iHbnd, false, offset());
+      pNewNode = m_pMgr->m_pNCManager->GetAlphRoot(this, iLbnd, iHbnd, false, offset()+1);
     }
     else {
       
@@ -134,7 +134,7 @@ void CControlBase::CContNode::Leave() {
   }
 }
 
-COrigNodes::COrigNodes(CNodeCreationManager *pNCManager) : CControlBase(pNCManager) {
+COrigNodes::COrigNodes(CNodeCreationManager *pNCManager, CDasherInterfaceBase *pInterface) : CControlBase(pNCManager), m_pInterface(pInterface) {
   m_iNextID = 0;
   
   // TODO: Need to fix this on WinCE build
@@ -176,6 +176,18 @@ bool COrigNodes::LoadLabelsFromFile(string strFileName) {
   oFile.close();
   delete [] szFileBuffer;
   return 0;
+}
+
+COrigNodes::Pause::Pause(const string &strLabel, int iColour) : NodeTemplate(strLabel,iColour) {
+}
+void COrigNodes::Pause::happen(CContNode *pNode) {
+  static_cast<COrigNodes *>(pNode->mgr())->m_pNCManager->SetBoolParameter(BP_DASHER_PAUSED,true);
+}
+
+COrigNodes::Stop::Stop(const string &strLabel, int iColour) : NodeTemplate(strLabel, iColour) {
+}
+void COrigNodes::Stop::happen(CContNode *pNode) {
+  static_cast<COrigNodes *>(pNode->mgr())->m_pInterface->Stop();
 }
 
 bool COrigNodes::LoadDefaultLabels() {
@@ -322,11 +334,13 @@ COrigNodes::~COrigNodes() {
 
 void COrigNodes::RegisterNode( int iID, std::string strLabel, int iColour ) {
   DASHER_ASSERT(m_perId.count(iID)==0);
-  m_perId[iID] = new EventBroadcast(iID,strLabel,iColour);
+  if (iID == CTL_STOP) m_perId[iID] = new Stop(strLabel,iColour);
+  else if (iID == CTL_PAUSE) m_perId[iID] = new Pause(strLabel, iColour);
+  else m_perId[iID] = new EventBroadcast(iID,strLabel,iColour);
 }
 
 void COrigNodes::ConnectNode(int iChild, int iParent, int iAfter) {
-  //ACL duplicating old functionality here. Node idea had been to do
+  //ACL duplicating old functionality here. Idea had been to do
   // something with iAfter "(eventually -1 = start, -2 = end)", but
   // since this wasn't used, and this is all legacy code anyway ;-),
   // I'm leaving as is...
@@ -346,7 +360,6 @@ void COrigNodes::DisconnectNode(int iChild, int iParent) {
     }
   }
 }
-
 
 void COrigNodes::XmlStartHandler(void *pUserData, const XML_Char *szName, const XML_Char **aszAttr) {
   COrigNodes *pMgr(static_cast<COrigNodes *>(pUserData));
@@ -375,5 +388,105 @@ void COrigNodes::XmlEndHandler(void *pUserData, const XML_Char *szName) {
 void COrigNodes::XmlCDataHandler(void *pUserData, const XML_Char *szData, int iLength){
 }
 
-CControlManager::CControlManager(CNodeCreationManager *pNCMgr) : COrigNodes(pNCMgr) {
+CControlManager::CControlManager(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pInterface)
+: CDasherComponent(pEventHandler, pSettingsStore), COrigNodes(pNCManager, pInterface), m_pSpeech(NULL), m_pCopy(NULL) {
+  
+  updateActions();
+}
+
+CControlManager::~CControlManager() {
+  delete m_pSpeech;
+  delete m_pCopy;
+}
+
+class TextActionHeader : public CDasherInterfaceBase::TextAction, public CControlBase::NodeTemplate {
+public:
+  TextActionHeader(CDasherInterfaceBase *pIntf, const string &strHdr, NodeTemplate *pRoot) : TextAction(pIntf), NodeTemplate(strHdr,-1),
+  m_all(this, "All", &CDasherInterfaceBase::TextAction::executeOnAll),
+  m_new(this, "New", &CDasherInterfaceBase::TextAction::executeOnNew),
+  m_again(this, "Repeat", &CDasherInterfaceBase::TextAction::executeLast) {
+    successors.push_back(&m_all); m_all.successors.push_back(NULL); m_all.successors.push_back(pRoot);
+    successors.push_back(&m_new); m_new.successors.push_back(NULL); m_new.successors.push_back(pRoot);
+    successors.push_back(&m_again); m_again.successors.push_back(NULL); m_again.successors.push_back(pRoot);
+  }
+private:
+  CControlBase::MethodTemplate<CDasherInterfaceBase::TextAction> m_all, m_new, m_again;
+};
+
+class SpeechHeader : public TextActionHeader {
+public:
+  SpeechHeader(CDasherInterfaceBase *pIntf, NodeTemplate *pRoot) : TextActionHeader(pIntf, "Speak", pRoot) {
+  }
+  void operator()(const std::string &strText) {
+    m_pIntf->Speak(strText, true);
+  }
+};
+
+class CopyHeader  : public TextActionHeader {
+public:
+  CopyHeader(CDasherInterfaceBase *pIntf, NodeTemplate *pRoot) : TextActionHeader(pIntf, "Copy", pRoot) {
+  }
+  void operator()(const std::string &strText) {
+    m_pIntf->CopyToClipboard(strText);
+  }
+};
+
+void CControlManager::HandleEvent(CEvent *pEvent) {
+  if (pEvent->m_iEventType == EV_PARAM_NOTIFY) {
+    switch (static_cast<CParameterNotificationEvent *>(pEvent)->m_iParameter) {
+      case BP_CONTROL_MODE_HAS_HALT:
+      case BP_CONTROL_MODE_HAS_EDIT:
+      case BP_CONTROL_MODE_HAS_SPEECH:
+      case BP_CONTROL_MODE_HAS_COPY:
+      case BP_COPY_ALL_ON_STOP:
+      case BP_SPEAK_ALL_ON_STOP:
+      case SP_INPUT_FILTER:
+        updateActions();
+    }
+  }
+}
+
+void CControlManager::updateActions() {
+  vector<NodeTemplate *> &vRootSuccessors(GetRootTemplate()->successors);
+  vector<NodeTemplate *> vOldRootSuccessors;
+  vOldRootSuccessors.swap(vRootSuccessors);
+  vector<NodeTemplate *>::iterator it=vOldRootSuccessors.begin();
+  DASHER_ASSERT(*it == NULL); //escape back to alphabet
+  vRootSuccessors.push_back(*it++);
+  
+  //stop does something, and we're told to add a node for it
+  // (either a dynamic filter where the user can't use the normal stop mechanism precisely,
+  //  or a static filter but a 'stop' action is easier than using speak->all / copy->all then pause)
+  if (m_pInterface->hasStopTriggers() && m_pInterface->GetBoolParameter(BP_CONTROL_MODE_HAS_HALT))
+    vRootSuccessors.push_back(m_perId[CTL_STOP]);
+  if (*it == m_perId[CTL_STOP]) it++;
+  
+  //filter is pauseable, and either 'stop' would do something (so pause is different),
+  // or we're told to have a stop node but it would be indistinguishable from pause (=>have pause)
+  CInputFilter *pInput(static_cast<CInputFilter *>(m_pInterface->GetModuleByName(m_pInterface->GetStringParameter(SP_INPUT_FILTER))));
+  if (pInput->supportsPause() && (m_pInterface->hasStopTriggers() || m_pInterface->GetBoolParameter(BP_CONTROL_MODE_HAS_HALT)))
+    vRootSuccessors.push_back(m_perId[CTL_PAUSE]);
+  if (*it == m_perId[CTL_PAUSE]) it++;
+  
+  if (m_pInterface->GetBoolParameter(BP_CONTROL_MODE_HAS_SPEECH) && m_pInterface->SupportsSpeech()) {
+    if (!m_pSpeech) m_pSpeech = new SpeechHeader(m_pInterface, GetRootTemplate());
+    vRootSuccessors.push_back(m_pSpeech);
+  }
+  if (*it == m_pSpeech) it++;
+  
+  if (m_pInterface->GetBoolParameter(BP_CONTROL_MODE_HAS_COPY) && m_pInterface->SupportsClipboard()) {
+    if (!m_pCopy) m_pCopy = new CopyHeader(m_pInterface, GetRootTemplate());
+    vRootSuccessors.push_back(m_pCopy);
+  }
+  if (*it == m_pCopy) it++;
+
+  if (m_pInterface->GetBoolParameter(BP_CONTROL_MODE_HAS_EDIT)) {
+    vRootSuccessors.push_back(m_perId[CTL_MOVE]);
+    vRootSuccessors.push_back(m_perId[CTL_DELETE]);
+  }
+  if (*it == m_perId[CTL_MOVE]) it++;
+  if (*it == m_perId[CTL_DELETE]) it++;
+  
+  //copy anything else (custom) that might have been added...
+  while (it != vOldRootSuccessors.end()) vRootSuccessors.push_back(*it++);
 }

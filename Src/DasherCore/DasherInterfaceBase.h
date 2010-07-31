@@ -41,13 +41,14 @@
 #include "InputFilter.h"
 #include "ModuleManager.h"
 
-#include <map>
+#include <set>
 #include <algorithm>
 
 namespace Dasher {
   class CDasherScreen;
   class CDasherView;
   class CDasherInput;
+  class CInputFilter;
   class CDasherModel;
   class CEventHandler;
   class CEvent;
@@ -61,12 +62,6 @@ class CNodeCreationManager;
 
 /// \defgroup Core Core Dasher classes
 /// @{
-
-
-struct Dasher::SLockData {
-  std::string strDisplay;
-  int iPercent;
-};
 
 
 /// The central class in the core of Dasher. Ties together the rest of
@@ -210,25 +205,57 @@ public:
   void PreSetNotify(int iParameter, const std::string &sValue);
 
 
+  ///Does this subclass support speech (i.e. the speak(string) method?)
+  /// Default is just to return false.
+  virtual bool SupportsSpeech() {return false;}
+  ///Does this subclass support clipboard copying (i.e. the copyToClipboard(string) method?)
+  /// Default is just to return false.
+  virtual bool SupportsClipboard() {return false;}
+  
+  ///Subclasses supporting speech should override to speak the supplied text
+  /// (Default implementation does nothing)
+  virtual void Speak(const std::string &text, bool bInterrupt) {}
+  
+  ///Subclasses supporting clipboard operations should override to copy
+  /// the specified text to the clipboard. (Default implementation does nothing).
+  virtual void CopyToClipboard(const std::string &text) {}
+  
+  class TextAction {
+  public:
+    TextAction(CDasherInterfaceBase *pMgr);
+    void executeOnAll();
+    void executeOnNew();
+    void executeLast();
+    void NotifyOffset(int iOffset);
+    virtual ~TextAction();
+  protected:
+    virtual void operator()(const std::string &strText)=0;
+    CDasherInterfaceBase *m_pIntf;
+  private:
+    int m_iStartOffset;
+    std::string strLast;
+  };
+  
 
   /// @name Starting and stopping
   /// Methods used to instruct dynamic motion of Dasher to start or stop
   /// @{ 
 
-  /// Resets the Dasher model. Doesn't actually unpause Dasher.
-  /// \deprecated Use InvalidateContext() instead
-
-  //  void Start();
-
-  /// Pause Dasher. Sets BP_DASHER_PAUSED and broadcasts a StopEvent.
+  /// Stop Dasher - Sets BP_DASHER_PAUSED and executes any on-stop actions
+  ///  (speech, clipboard - subclasses may override to do more).
   /// (But does nothing if BP_DASHER_PAUSED is not set)
-  void Pause(); // are required to make
+  virtual void Stop();
 
-  /// Unpause Dasher. Clears BP_DASHER_PAUSED, broadcasts a StartEvent.
+  /// Unpause Dasher. Clears BP_DASHER_PAUSED.
   /// (But does nothing if BP_DASHER_PAUSED is currently set).
   /// \param Time Time in ms, used to keep a constant frame rate
-  void Unpause(unsigned long Time);     // Dasher run at the
+  void Unpause(unsigned long Time);
 
+  ///Whether any actions are currently setup to occur when Dasher 'stop's.
+  /// Default is to return TRUE iff we support speech and BP_SPEAK_ON_STOP is set,
+  /// and/or if we support clipboard and BP_COPY_ALL_ON_STOP is set; subclasses may
+  /// override if they have additional on-stop actions.
+  virtual bool hasStopTriggers();
   /// @}
 
 
@@ -340,7 +367,7 @@ public:
 
   void AddGameModeString(const std::string &strText) {
     m_deGameModeStrings.push_back(strText);
-    Pause();
+    Stop();
     //    CreateDasherModel();
     CreateNCManager();
     //    Start();
@@ -355,6 +382,11 @@ public:
   }; 
 
   std::string GetContext(int iStart, int iLength);
+  
+  ///Subclasses should override to clear text edit box, etc., etc., but then
+  /// call this (superclass) implementation as well to rebuild the model...
+  virtual void ClearAllContext();
+  virtual std::string GetAllContext()=0;
 
   /// Set a key value pair by name - designed to allow operation from
   /// the command line.  Returns 0 on success, an error string on failure. 
@@ -362,7 +394,7 @@ public:
   const char* ClSet(const std::string &strKey, const std::string &strValue);
 
   void ImportTrainingText(const std::string &strPath);
-
+  
 protected:
 
   /// @name Startup
@@ -557,6 +589,9 @@ protected:
 
   std::string strTrainfileBuffer;
   std::string strCurrentContext;
+  
+  ///builds up the word currently being entered for speech.
+  std::string m_strCurrentWord;
 
   std::string m_strContext;
 
@@ -571,6 +606,8 @@ protected:
   /// @}
 
   bool m_bLastChanged;
+  
+  std::set<TextAction *> m_vTextActions;
 };
 /// @}
 

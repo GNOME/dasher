@@ -191,12 +191,6 @@ void COSXDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
       SetContext(StdStringFromNSString([dasherEdit textAtOffset:ecvt->m_iOffset Length:ecvt->m_iLength]));
       break;
     }
-    case EV_START:
-      NSLog(@"ExternalEventHandler, m_iEventType = EV_START");
-      break;
-    case EV_STOP:
-      NSLog(@"ExternalEventHandler, m_iEventType = EV_STOP");
-      break;
     case EV_CONTROL:
       NSLog(@"ExternalEventHandler, m_iEventType = EV_CONTROL");
       break;
@@ -292,6 +286,27 @@ void COSXDasherControl::SetParameter(NSString *aKey, id aValue) {
     default:
       break;
   }
+}
+
+bool COSXDasherControl::SupportsSpeech() {
+  return [dasherApp supportsSpeech];
+}
+
+void COSXDasherControl::Speak(const std::string &strText, bool bInterrupt) {
+  [dasherApp speak:NSStringFromStdString(strText) interrupt:bInterrupt];
+}
+
+void COSXDasherControl::CopyToClipboard(const std::string &strText) {
+  [dasherApp copyToClipboard:NSStringFromStdString(strText)];
+}
+
+std::string COSXDasherControl::GetAllContext() {
+  return StdStringFromNSString([dasherEdit allContext]);
+}
+
+void COSXDasherControl::ClearAllContext() {
+  [dasherEdit clearContext];
+  CDasherInterfaceBase::ClearAllContext();
 }
 
 

@@ -105,11 +105,10 @@ void setVerticalTiltAxes(float minY, float maxY, float minX, float maxX, BOOL in
 	}
 }
 
-- (id)initWithTabCon:(UITabBarController *)_tabCon {
+- (id)init {
   if (self = [super initWithStyle:UITableViewStyleGrouped]) {
     self.tabBarItem.title = @"Tilting";
-    tabCon = _tabCon;
-	self.tabBarItem.image = [UIImage imageNamed:@"tilt.png"];
+    self.tabBarItem.image = [UIImage imageNamed:@"tilt.png"];
   }
   return self;
 }
@@ -273,8 +272,6 @@ void setVerticalTiltAxes(float minY, float maxY, float minX, float maxX, BOOL in
 	[act showInView:settingLabel];
   }
 //	[act addSubview:settingLabel];
-  else if ([UITabBarController instancesRespondToSelector:@selector(tabBar)])
-    [act showFromTabBar:[tabCon tabBar]];//iPhone OS 3 only...
   else [act showInView:self.view];
   [UIAccelerometer sharedAccelerometer].delegate = self;
 }

@@ -39,6 +39,8 @@ libdashercontrol_la_SOURCES = \
 		PangoCache.h \
 		Timer.cpp \
 		Timer.h \
+		Speech.cpp \
+		Speech.h \
 		custom_marshal.cpp \
 		custom_marshal.h \
 		game_mode_helper.cpp \
@@ -62,8 +64,6 @@ libdashergtk_la_SOURCES = \
 		dasher_action_keyboard_maemo.h \
 		dasher_action_script.cpp \
 		dasher_action_script.h \
-		dasher_action_speech.cpp \
-		dasher_action_speech.h \
 		dasher_buffer_set.cpp \
 		dasher_buffer_set.h \
 		dasher_editor.cpp \

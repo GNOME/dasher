@@ -11,8 +11,6 @@ namespace Dasher {
   class CParameterNotificationEvent;
   class CEditEvent;
   class CEditContextEvent;
-  class CStartEvent;
-  class CStopEvent;
   class CControlEvent;
   class CLockEvent;
   class CMessageEvent;
@@ -20,7 +18,7 @@ namespace Dasher {
 }
 
 enum {
-  EV_PARAM_NOTIFY = 1, EV_EDIT, EV_EDIT_CONTEXT, EV_START, EV_STOP, EV_CONTROL, EV_LOCK, EV_MESSAGE, EV_COMMAND
+  EV_PARAM_NOTIFY = 1, EV_EDIT, EV_EDIT_CONTEXT, EV_CONTROL, EV_LOCK, EV_MESSAGE, EV_COMMAND
 };
 
 /// \ingroup Core
@@ -67,20 +65,6 @@ public:
 
   int m_iOffset;
   int m_iLength;
-};
-
-class Dasher::CStartEvent:public Dasher::CEvent {
-public:
-  CStartEvent() {
-    m_iEventType = EV_START;
-  };
-};
-
-class Dasher::CStopEvent:public Dasher::CEvent {
-public:
-  CStopEvent() {
-    m_iEventType = EV_STOP;
-  };
 };
 
 class Dasher::CControlEvent:public Dasher::CEvent {

@@ -9,7 +9,7 @@
 #include "Timer.h"
 #include "../DasherCore/Event.h"
 #include "../DasherCore/ModuleManager.h"
-
+#include "dasher_main.h"
 #include <fcntl.h>
 
 #include <gtk/gtk.h>
@@ -191,6 +191,22 @@ void CDasherControl::ScanColourFiles(std::vector<std::string> &vFileList) {
   g_pattern_spec_free(colourglob);
 }
 
+extern DasherMain *g_pDasherMain;
+std::string CDasherControl::GetAllContext() {
+  const gchar *text = dasher_main_get_all_text(g_pDasherMain);
+  return text;
+}
+
+#ifdef GNOME_SPEECH
+bool CDasherControl::SupportsSpeech() {
+  return m_Speech.Init();
+}
+
+void CDasherControl::Speak(const std::string &strText, bool bInterrupt) {
+  m_Speech.Speak(strText, bInterrupt);
+}
+#endif
+
 CDasherControl::~CDasherControl() {
   if(m_pMouseInput) {
     m_pMouseInput = NULL;
@@ -328,12 +344,6 @@ void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
   else if(pEvent->m_iEventType == EV_EDIT_CONTEXT) {
     CEditContextEvent *pEditContextEvent(static_cast < CEditContextEvent * >(pEvent));
     g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_context_request", pEditContextEvent->m_iOffset, pEditContextEvent->m_iLength);
-  }
-  else if(pEvent->m_iEventType == EV_START) {
-    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_start");
-  }
-  else if(pEvent->m_iEventType == EV_STOP) {
-    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_stop");
   }
   else if(pEvent->m_iEventType == EV_CONTROL) {
     CControlEvent *pControlEvent(static_cast < CControlEvent * >(pEvent));
@@ -486,6 +496,12 @@ int CDasherControl::LongTimerEvent() {
 gboolean CDasherControl::ExposeEvent() {
   NewFrame(get_time(), true);
   return 0;
+}
+
+void CDasherControl::Stop() {
+  if (GetBoolParameter(BP_DASHER_PAUSED)) return;
+  CDasherInterfaceBase::Stop();
+  g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_stop");
 }
 
 gboolean CDasherControl::ButtonPressEvent(GdkEventButton *event) {

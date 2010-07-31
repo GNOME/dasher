@@ -31,6 +31,8 @@ class CDynamicFilter : public CInputFilter {
  public:
   CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, int iType, const char *szName);
   
+  virtual bool supportsPause() {return true;}
+  
   ///when reversing, backs off; when paused, does nothing; when running, delegates to TimerImpl
   virtual bool Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol); 
 

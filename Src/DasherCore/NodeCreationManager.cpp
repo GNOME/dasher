@@ -16,7 +16,8 @@ using namespace Dasher;
 CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterface,
 					   Dasher::CEventHandler *pEventHandler, 
 					   CSettingsStore *pSettingsStore,
-					   Dasher::CAlphIO *pAlphIO) : CDasherComponent(pEventHandler, pSettingsStore) {
+					   Dasher::CAlphIO *pAlphIO) : CDasherComponent(pEventHandler, pSettingsStore),
+  m_pInterface(pInterface), m_pControlManager(NULL) {
 
   const Dasher::CAlphIO::AlphInfo &oAlphInfo(pAlphIO->GetInfo(pSettingsStore->GetStringParameter(SP_ALPHABET_ID)));
   m_pAlphabet = new CAlphabet(oAlphInfo);
@@ -119,11 +120,8 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
     delete pLM2;
   }
 #endif
-#ifndef _WIN32_WCE
-  m_pControlManager = new CControlManager(this);
-#else
-  m_pControlManager = 0;
-#endif
+
+  HandleEvent(&CParameterNotificationEvent(BP_CONTROL_MODE));
   
   switch(oAlphInfo.m_iConversionID) {
     default:
@@ -154,30 +152,8 @@ CNodeCreationManager::~CNodeCreationManager() {
   if (m_pConversionManager) m_pConversionManager->Unref();
 }
 
-void CNodeCreationManager::RegisterNode( int iID, const std::string &strLabel, int iColour ) {
-  if(m_pControlManager)
-    m_pControlManager->RegisterNode(iID, strLabel, iColour);
-}
-
-void CNodeCreationManager::ConnectNode(int iChild, int iParent, int iAfter) {
-  if(m_pControlManager)
-    m_pControlManager->ConnectNode(iChild, iParent, iAfter);
-}
-
-void CNodeCreationManager::DisconnectNode(int iChild, int iParent) {
-  if(m_pControlManager)
-    m_pControlManager->DisconnectNode(iChild, iParent);
-}
-
 CDasherNode *CNodeCreationManager::GetAlphRoot(Dasher::CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, bool bEnteredLast, int iOffset) { 
  return m_pAlphabetManager->GetRoot(pParent, iLower, iUpper, bEnteredLast, iOffset);
-}
-
-CDasherNode *CNodeCreationManager::GetCtrlRoot(Dasher::CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset) { 
- if(m_pControlManager)
- return m_pControlManager->GetRoot(pParent, iLower, iUpper, iOffset);
- else
- return NULL;
 }
 
 CDasherNode *CNodeCreationManager::GetConvRoot(Dasher::CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset) { 
@@ -240,6 +216,17 @@ void CNodeCreationManager::GetProbs(CLanguageModel::Context context, std::vector
   DASHER_ASSERT(iTotal == iNorm);
 #endif
 
+}
+
+void CNodeCreationManager::HandleEvent(CEvent *pEvent) {
+  if (pEvent->m_iEventType == EV_PARAM_NOTIFY) {
+    if (static_cast<CParameterNotificationEvent *>(pEvent)->m_iParameter == BP_CONTROL_MODE) {
+      delete m_pControlManager;
+      m_pControlManager = (GetBoolParameter(BP_CONTROL_MODE))
+        ? new CControlManager(m_pEventHandler, m_pSettingsStore, this, m_pInterface)
+        : NULL;
+    } 
+  }
 }
 
 void 

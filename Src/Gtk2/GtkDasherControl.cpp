@@ -38,7 +38,6 @@ typedef struct _GtkDasherControlPrivate GtkDasherControlPrivate;
 
 enum {
   DASHER_CHANGED,
-  DASHER_START,
   DASHER_STOP,
   DASHER_EDIT_INSERT,
   DASHER_EDIT_DELETE,
@@ -71,8 +70,6 @@ gtk_dasher_control_class_init(GtkDasherControlClass *pClass) {
    
   gtk_dasher_control_signals[DASHER_CHANGED] = g_signal_new("dasher_changed", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, dasher_changed), NULL, NULL, g_cclosure_marshal_VOID__INT, G_TYPE_NONE, 1, G_TYPE_INT);
 
-  gtk_dasher_control_signals[DASHER_START] = g_signal_new("dasher_start", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, dasher_start), NULL, NULL, g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-
   gtk_dasher_control_signals[DASHER_STOP] = g_signal_new("dasher_stop", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, dasher_stop), NULL, NULL, g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 
   gtk_dasher_control_signals[DASHER_EDIT_INSERT] = g_signal_new("dasher_edit_insert", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, dasher_edit_insert), NULL, NULL, g_cclosure_user_marshal_VOID__STRING_INT, G_TYPE_NONE, 2, G_TYPE_STRING, G_TYPE_INT);
@@ -100,7 +97,6 @@ gtk_dasher_control_class_init(GtkDasherControlClass *pClass) {
    gtk_dasher_control_signals[DASHER_COMMAND] = g_signal_new("dasher_command", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, dasher_command), NULL, NULL, g_cclosure_marshal_VOID__STRING, G_TYPE_NONE, 1, G_TYPE_STRING);
 
   pClass->dasher_changed = NULL;
-  pClass->dasher_start = NULL;
   pClass->dasher_stop = NULL;
   pClass->dasher_edit_insert = NULL;
   pClass->dasher_edit_delete = NULL;
@@ -226,24 +222,6 @@ gtk_dasher_control_set_offset(GtkDasherControl *pControl, int iOffset) {
 }
 
 void 
-gtk_dasher_control_register_node(GtkDasherControl *pControl, int iID, const gchar *szLabel, int iColour) {
-  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  pPrivate->pControl->RegisterNode(iID, szLabel, iColour);
-}
-
-void 
-gtk_dasher_control_connect_node(GtkDasherControl *pControl, int iChild, int iParent, int iAfter) {
-  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  pPrivate->pControl->ConnectNode(iChild, iParent, iAfter);
-}
-
-void 
-gtk_dasher_control_disconnect_node(GtkDasherControl *pControl, int iChild, int iParent) {
-  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  pPrivate->pControl->DisconnectNode(iChild, iParent);
-}
-
-void 
 gtk_dasher_control_external_key_down(GtkDasherControl *pControl, int iKeyVal) {
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
   pPrivate->pControl->ExternalKeyDown(iKeyVal);
@@ -314,7 +292,7 @@ gtk_dasher_control_game_messageout(GtkDasherControl *pControl, int message, cons
 void 
 gtk_dasher_control_force_pause(GtkDasherControl *pControl) {
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  pPrivate->pControl->Pause();
+  pPrivate->pControl->Stop();
 }
 
 double 
