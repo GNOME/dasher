@@ -67,8 +67,12 @@ protected:
   virtual void ChunkGenerated() {}
   
   /// Called when a node has been populated. Look for Game children.
-  virtual void HandleEvent(CDasherNode *pNode); 
+  virtual void HandleEvent(CDasherNode *pNode);
   
+  void DrawBrachistochrone(Dasher::CDasherView* pView);
+  void DrawHelperArrow(Dasher::CDasherView* pView);
+  myint ComputeBrachCenter();
+    
   /// Called when a node has been output/deleted. Update string (to be/) written.
   virtual void HandleEvent(const CEditEvent *);
   
@@ -133,6 +137,8 @@ private:
   ///Time and nats at which this sentence started
   unsigned long m_ulSentenceStartTime;
   double m_dSentenceStartNats;
+
+  myint m_iTargetY;
   
 /* ---------------------------------------------------------------------
  * Constants

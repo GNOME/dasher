@@ -105,31 +105,36 @@ void CGameModule::DecorateView(unsigned long lTime, CDasherView *pView, CDasherM
   if (m_dSentenceStartNats == numeric_limits<double>::max())
     m_dSentenceStartNats = pModel->GetNats();
 
-  m_vTargetY.push_back((m_y1+m_y2)/2);
+  m_vTargetY.push_back(m_iTargetY = (m_y1+m_y2)/2);
   
   //draw a line along the y axis
   myint x[2], y[2];
   x[0] = x[1] = -100;
   
+  bool bDrawHelper=true;
+  const int lineWidth(GetLongParameter(LP_LINE_WIDTH));
+  
   if (m_y1 > CDasherModel::MAX_Y) {
     //off the top! draw an arrow pointing up...
     y[1] = CDasherModel::MAX_Y;
     y[0] = y[1] - 400;
-    pView->DasherPolyarrow(x, y, 2, 2, m_iCrosshairColor, 0.1);
   } else if (m_y2 < 0) {
     //off the bottom! draw arrow pointing down...
     y[1] = 0;
     y[0] = 400;
-    pView->DasherPolyarrow(x, y, 2, 2, m_iCrosshairColor, 0.1);
   } else {
     //draw line parallel to that region of y-axis
     y[0] = m_y1; y[1] = m_y2;
-    pView->DasherPolyline(x, y, 2, 2, m_iCrosshairColor);
+    pView->DasherPolyline(x, y, 2, lineWidth, m_iCrosshairColor);
     //and a horizontal arrow pointing to the midpoint
     x[0] = -400;
-    y[0] = y[1] = (m_y1+m_y2)/2;
-    pView->DasherPolyarrow(x, y, 2, 2, m_iCrosshairColor, 0.1);
+    y[0] = y[1] = m_iTargetY;
+    bDrawHelper=false;
   }
+  pView->DasherPolyarrow(x, y, 2, 3*lineWidth, m_iCrosshairColor, 0.2);
+  
+  if (bDrawHelper) DrawBrachistochrone(pView);
+  
   //reset location accumulators ready for next frame
   m_y1 = std::numeric_limits<myint>::min();
   m_y2 = std::numeric_limits<myint>::max();
@@ -152,6 +157,78 @@ void CGameModule::DecorateView(unsigned long lTime, CDasherView *pView, CDasherM
   }
 
   DrawText(pView);
+}
+
+void CGameModule::DrawBrachistochrone(CDasherView *pView) {
+  // Plot a brachistochrone - the optimal path from the crosshair to the target
+  // this is a circle, passing through both crosshair and target, centered on the y-axis
+  const myint CenterY = ComputeBrachCenter();
+  pView->DasherSpaceArc(CenterY, abs(CenterY - m_iTargetY), CDasherModel::ORIGIN_X, CDasherModel::ORIGIN_Y, 0, m_iTargetY, m_iCrosshairColor, 2*(int)GetLongParameter(LP_LINE_WIDTH));
+}
+
+void CGameModule::DrawHelperArrow(Dasher::CDasherView* pView)
+{
+  // This plots a helpful pointer to the best direction to take to get to the target.
+  // Probably too much floating point maths here, sort later.
+  // Start of line is the crosshair location
+  const int gameColour = 135; //Neon green. (!)
+  const int noOfPoints = 10; // The curve will be made up of 9 straight segments...
+  const myint m_iCrossX(CDasherModel::ORIGIN_X),m_iCrossY(CDasherModel::ORIGIN_Y);
+  
+  struct {
+    myint iTargetY;
+    myint iCenterY;
+  } m_Target;
+  m_Target.iTargetY = m_iTargetY;
+  m_Target.iCenterY = ComputeBrachCenter();
+  myint iX[noOfPoints];
+  myint iY[noOfPoints];
+  myint iLength;
+  
+  // Arrow starts at the cross hairs
+  iX[0] = m_iCrossX;
+  iY[0] = m_iCrossY;
+  
+  myint a = m_iCrossX/5;
+  myint defaultlength = m_iCrossX - a ; 
+  
+  // ... then decide the length of the arrow...
+  myint r = m_Target.iTargetY-m_Target.iCenterY; // radius of our circle (+ or -)
+  
+  if(m_Target.iTargetY < a && m_Target.iCenterY < m_iCrossY-defaultlength/2)
+  {
+    myint x = (myint) sqrt((double)(r*r-pow((double)(m_Target.iCenterY-a),2)));
+    iLength = (myint) sqrt((double)(pow((double)(x-m_iCrossX),2)+pow((double)(a-m_iCrossY),2)));
+  }
+  else if(m_Target.iTargetY > 2*m_iCrossY-a && m_Target.iCenterY > m_iCrossY+defaultlength/2)
+  {
+    myint x = (myint) sqrt((double)(r*r-pow((double)(m_Target.iCenterY+a-2*m_iCrossY),2)));
+    iLength = (myint) sqrt((double)(pow((double)(x-m_iCrossX),2)+pow((double)(a-m_iCrossY),2)));
+  }
+  else
+    iLength = defaultlength;
+  
+  //...then calculate the points required...
+  double angle = ((double)iLength/(double)r)/(double)noOfPoints;
+  
+  for(int n = 1; n < noOfPoints; ++n)
+  {
+    iX[n] = (myint) (cos(angle)*(iX[n-1]) - sin(angle)*(iY[n-1]-m_Target.iCenterY));
+    iY[n] = (myint) (m_Target.iCenterY + sin(angle)*(iX[n-1]) + cos(angle)*(iY[n-1]-m_Target.iCenterY));
+  }
+  //...then plot it.
+  pView->DasherPolyarrow(iX, iY, noOfPoints, GetLongParameter(LP_LINE_WIDTH)*4, gameColour, 1.414);
+  
+}
+
+myint CGameModule::ComputeBrachCenter() {
+  const myint iCrossX(CDasherModel::ORIGIN_X), iCrossY(CDasherModel::ORIGIN_Y);
+  // This formula computes the Dasher Y Coordinate of the center of the circle on which
+  // the dasher brachistochrone lies : iCenterY
+  
+  // It comes from the pythagorean relation: iCrossX^2 + (iCenterY - iCrossY)^2 = r^2
+  // where r is the radius of the circle, r = abs(iTargetY-iCenterY)
+  return 0.5*(double(iCrossX*iCrossX)/double(iCrossY-m_iTargetY)+iCrossY+m_iTargetY);
 }
 
 bool CGameModule::GenerateChunk() {
