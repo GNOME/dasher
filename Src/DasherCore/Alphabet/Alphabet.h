@@ -37,13 +37,7 @@ namespace Dasher {
 
   class CAlphabet {
   public:
-    CAlphabet();
     CAlphabet(const CAlphIO::AlphInfo & AlphInfo);
-
-    // Return size of alphabet, including control symbols
-    int GetNumberSymbols() const {
-      return m_Characters.size();
-    }                           // return size of alphabet
 
     /// Return number of text symbols 
     /// Text symbols are everything which doesn't generate a new root, 
@@ -54,21 +48,21 @@ namespace Dasher {
       return m_Characters.size() - 1;
     } 
 
-    Opts::ScreenOrientations GetOrientation() {
+    Opts::ScreenOrientations GetOrientation() const {
       return m_Orientation;
     } 
 
-    Opts::AlphabetTypes GetType() {
+    Opts::AlphabetTypes GetType() const {
       return m_DefaultEncoding;
     }
 
     const std::string & GetTrainingFile() const {
       return m_TrainingFile;
     }
-    std::string GetGameModeFile() {
+    const std::string &GetGameModeFile() const {
       return m_GameModeFile;
     }
-    std::string & GetPalette() {
+    const std::string & GetPalette() const {
       return m_DefaultPalette;
     }
 
@@ -90,7 +84,7 @@ namespace Dasher {
 
     int GetColour(symbol i, int iPhase) const;
 
-    int GetTextColour(symbol i);      // return the foreground colour for i'th symbol
+    int GetTextColour(symbol i) const;      // return the foreground colour for i'th symbol
     const std::string & GetForeground(symbol i) const {
       return m_Foreground[i];
     } // return the foreground colour for i'th symbol
@@ -127,39 +121,17 @@ namespace Dasher {
 
     void Trace() const;         // diagnostic
 
-    void SetOrientation(Opts::ScreenOrientations Orientation) {
-      m_Orientation = Orientation;
-    }
-    void SetLanguage(Opts::AlphabetTypes Group) {
-      m_DefaultEncoding = Group;
-    }
-    void SetTrainingFile(std::string TrainingFile) {
-      m_TrainingFile = TrainingFile;
-    }
-    void SetGameModeFile(std::string GameModeFile) {
-      m_GameModeFile = GameModeFile;
-    }
-    void SetPalette(std::string Palette) {
-      m_DefaultPalette = Palette;
-    }
-
     const std::string &GetDefaultContext() const {
       return m_strDefaultContext;
     }
 
-    SGroupInfo *m_pBaseGroup;
-    int iNumChildNodes;
+    const SGroupInfo *m_pBaseGroup;
+    const int iNumChildNodes;
   private:
 
     // Add the characters that can appear in Nodes
-    void AddChar(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);    // add single char to the alphabet
-
-    // Alphabet language parameters
-    void AddParagraphSymbol(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);
-    void AddSpaceSymbol(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);
-    void AddControlSymbol(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);
-    void AddStartConversionSymbol(std::string NewCharacter, std::string Display , int Colour, std::string Foreground);
-    void AddEndConversionSymbol(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);
+    /// add single char to the character set; return it's index as a symbol
+    symbol AddChar(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);    // add single char to the alphabet
 
     Opts::AlphabetTypes m_DefaultEncoding;
     Opts::ScreenOrientations m_Orientation;

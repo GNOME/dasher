@@ -46,8 +46,8 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel)
-  : CAlphabetManager(pInterface, pNCManager, pLanguageModel),
+CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CAlphabet *pAlphabet, CLanguageModel *pLanguageModel)
+  : CAlphabetManager(pInterface, pNCManager, pAlphabet, pLanguageModel),
     m_pParser(new CPinyinParser(pInterface->GetStringParameter(SP_SYSTEM_LOC) +"/alphabet.chineseRuby.xml")),
     m_pCHAlphabet(new CAlphabet(pInterface->GetInfo("Chinese / 简体中文 (simplified chinese, in pin yin groups)"))) {
 }
@@ -74,7 +74,7 @@ CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CAlphNode *pParent, symbol iSymb
 
     //CTrieNode parallels old PinyinConversionHelper's SetConvSymbol; we keep
     // the same offset as we've still not entered/selected a symbol (leaf)
-    CConvRoot *pNewNode = new CConvRoot(pParent, pParent->offset(), iLbnd, iHbnd, this, m_pParser->GetTrieNode(m_pNCManager->GetAlphabet()->GetDisplayText(iSymbol)));
+    CConvRoot *pNewNode = new CConvRoot(pParent, pParent->offset(), iLbnd, iHbnd, this, m_pParser->GetTrieNode(m_pAlphabet->GetDisplayText(iSymbol)));
 
     //from ConversionHelper:
     //pNewNode->m_pLanguageModel = m_pLanguageModel;

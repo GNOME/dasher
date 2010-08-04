@@ -345,6 +345,8 @@
 		3300114910A2E9C900D31B1D /* DelayedDraw.h in Headers */ = {isa = PBXBuildFile; fileRef = 3300114810A2E9C900D31B1D /* DelayedDraw.h */; };
 		3300115210A2EA7700D31B1D /* ExpansionPolicy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3300115010A2EA7700D31B1D /* ExpansionPolicy.cpp */; };
 		3300115310A2EA7700D31B1D /* ExpansionPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 3300115110A2EA7700D31B1D /* ExpansionPolicy.h */; };
+		33008360120CB7F900C41FAA /* ConvertingAlphMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 3300835E120CB7F900C41FAA /* ConvertingAlphMgr.h */; };
+		33008361120CB7F900C41FAA /* ConvertingAlphMgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3300835F120CB7F900C41FAA /* ConvertingAlphMgr.cpp */; };
 		3306E0220FFD1CE60017324C /* PPMPYLanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3306E0200FFD1CE60017324C /* PPMPYLanguageModel.cpp */; };
 		3306E0230FFD1CE60017324C /* PPMPYLanguageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 3306E0210FFD1CE60017324C /* PPMPYLanguageModel.h */; };
 		3306E1F70FFE6CAD0017324C /* Trainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3306E1F50FFE6CAD0017324C /* Trainer.cpp */; };
@@ -760,6 +762,8 @@
 		3300114810A2E9C900D31B1D /* DelayedDraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DelayedDraw.h; sourceTree = "<group>"; };
 		3300115010A2EA7700D31B1D /* ExpansionPolicy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExpansionPolicy.cpp; sourceTree = "<group>"; };
 		3300115110A2EA7700D31B1D /* ExpansionPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpansionPolicy.h; sourceTree = "<group>"; };
+		3300835E120CB7F900C41FAA /* ConvertingAlphMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvertingAlphMgr.h; sourceTree = "<group>"; };
+		3300835F120CB7F900C41FAA /* ConvertingAlphMgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConvertingAlphMgr.cpp; sourceTree = "<group>"; };
 		3306E0200FFD1CE60017324C /* PPMPYLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PPMPYLanguageModel.cpp; sourceTree = "<group>"; };
 		3306E0210FFD1CE60017324C /* PPMPYLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPMPYLanguageModel.h; sourceTree = "<group>"; };
 		3306E1F50FFE6CAD0017324C /* Trainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Trainer.cpp; sourceTree = "<group>"; };
@@ -1050,6 +1054,8 @@
 				1948BE950C226CFD001DFA32 /* UserLogTrial.h */,
 				1948BE9A0C226CFD001DFA32 /* XMLUtil.cpp */,
 				1948BE9B0C226CFD001DFA32 /* XMLUtil.h */,
+				3300835E120CB7F900C41FAA /* ConvertingAlphMgr.h */,
+				3300835F120CB7F900C41FAA /* ConvertingAlphMgr.cpp */,
 			);
 			name = DasherCore;
 			path = ../DasherCore;
@@ -1494,6 +1500,7 @@
 				3300115310A2EA7700D31B1D /* ExpansionPolicy.h in Headers */,
 				3300114910A2E9C900D31B1D /* DelayedDraw.h in Headers */,
 				339055E81195FBD0001BE240 /* Queue.h in Headers */,
+				33008360120CB7F900C41FAA /* ConvertingAlphMgr.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1842,6 +1849,7 @@
 				33135355102C6D8E00E28220 /* ButtonMode.cpp in Sources */,
 				3300115210A2EA7700D31B1D /* ExpansionPolicy.cpp in Sources */,
 				339055E91195FBD0001BE240 /* Queue.m in Sources */,
+				33008361120CB7F900C41FAA /* ConvertingAlphMgr.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

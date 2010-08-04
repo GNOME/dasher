@@ -43,6 +43,8 @@ libdashercore_a_SOURCES = \
 		ConversionHelper.h \
 		ConversionManager.cpp \
 		ConversionManager.h \
+		ConvertingAlphMgr.cpp \
+		ConvertingAlphMgr.h \
 		DasherButtons.cpp \
 		DasherButtons.h \
 		DasherComponent.cpp \

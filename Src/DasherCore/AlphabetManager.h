@@ -44,7 +44,8 @@ namespace Dasher {
   class CAlphabetManager : public CNodeManager {
   public:
 
-    CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel);
+    CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CAlphabet *pAlphabet, CLanguageModel *pLanguageModel);
+    virtual ~CAlphabetManager();
 
   protected:
     class CGroupNode;
@@ -63,7 +64,7 @@ namespace Dasher {
       virtual std::vector<unsigned int> *GetProbInfo();
       virtual int ExpectedNumChildren();
       virtual CDasherNode *RebuildSymbol(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd)=0;
-      virtual CGroupNode *RebuildGroup(CAlphNode *pParent, SGroupInfo *pInfo, unsigned int iLbnd, unsigned int iHbnd)=0;
+      virtual CGroupNode *RebuildGroup(CAlphNode *pParent, const SGroupInfo *pInfo, unsigned int iLbnd, unsigned int iHbnd)=0;
     private:
       std::vector<unsigned int> *m_pProbInfo;
     protected:
@@ -90,7 +91,7 @@ namespace Dasher {
       virtual symbol GetAlphSymbol();
       const symbol iSymbol;
       virtual CDasherNode *RebuildSymbol(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd);
-      virtual CGroupNode *RebuildGroup(CAlphNode *pParent, SGroupInfo *pInfo, unsigned int iLbnd, unsigned int iHbnd);
+      virtual CGroupNode *RebuildGroup(CAlphNode *pParent, const SGroupInfo *pInfo, unsigned int iLbnd, unsigned int iHbnd);
     private:
       virtual const std::string &outputText();
     protected:
@@ -100,7 +101,7 @@ namespace Dasher {
 
     class CGroupNode : public CAlphNode {
     public:
-      CGroupNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CAlphabetManager *pMgr, SGroupInfo *pGroup);
+      CGroupNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CAlphabetManager *pMgr, const SGroupInfo *pGroup);
       
       ///
       /// Provide children for the supplied node
@@ -110,10 +111,10 @@ namespace Dasher {
       virtual int ExpectedNumChildren();
       virtual bool GameSearchNode(std::string strTargetUtf8Char);
       virtual CDasherNode *RebuildSymbol(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd);
-      virtual CGroupNode *RebuildGroup(CAlphNode *pParent, SGroupInfo *pInfo, unsigned int iLbnd, unsigned int iHbnd);
+      virtual CGroupNode *RebuildGroup(CAlphNode *pParent, const SGroupInfo *pInfo, unsigned int iLbnd, unsigned int iHbnd);
       std::vector<unsigned int> *GetProbInfo();
     private:
-      SGroupInfo *m_pGroup;
+      const SGroupInfo *m_pGroup;
     };
     
   public:
@@ -129,18 +130,25 @@ namespace Dasher {
     /// Factory method for CAlphNode construction, so subclasses can override.
     ///
     virtual CSymbolNode *makeSymbol(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, symbol iSymbol);
-    virtual CGroupNode *makeGroup(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, SGroupInfo *pGroup);
+    virtual CGroupNode *makeGroup(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const SGroupInfo *pGroup);
     
     virtual CDasherNode *CreateSymbolNode(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd);
     virtual CLanguageModel::Context CreateSymbolContext(CAlphNode *pParent, symbol iSymbol);
-    virtual CGroupNode *CreateGroupNode(CAlphNode *pParent, SGroupInfo *pInfo, unsigned int iLbnd, unsigned int iHbnd);
-    
+    virtual CGroupNode *CreateGroupNode(CAlphNode *pParent, const SGroupInfo *pInfo, unsigned int iLbnd, unsigned int iHbnd);
+
+    ///Called to add any non-alphabet (non-symbol) children to a top-level node (root or symbol).
+    /// Default is just to add the control node, if appropriate.
+    virtual void AddExtras(CAlphNode *pParent, std::vector<unsigned int> *pCProb);
+
     CLanguageModel *m_pLanguageModel;
     CNodeCreationManager *m_pNCManager;
+    const CAlphabet *m_pAlphabet;
 
   private:
-    
-    void IterateChildGroups(CAlphNode *pParent, SGroupInfo *pParentGroup, CAlphNode *buildAround);
+    ///Wraps m_pLanguageModel->GetProbs to implement nonuniformity & leave space for control node.
+    /// Returns array of non-cumulative probs. Should this be protected and/or virtual???
+    void GetProbs(std::vector<unsigned int> *pProbs, CLanguageModel::Context iContext);
+    void IterateChildGroups(CAlphNode *pParent, const SGroupInfo *pParentGroup, CAlphNode *buildAround);
 
     CLanguageModel::Context m_iLearnContext;
     CDasherInterfaceBase *m_pInterface;

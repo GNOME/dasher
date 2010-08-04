@@ -8,6 +8,7 @@
 #include "LanguageModelling/CTWLanguageModel.h"
 #include "NodeCreationManager.h"
 #include "MandarinAlphMgr.h"
+#include "ConvertingAlphMgr.h"
 #include "ControlManager.h"
 #include "EventHandler.h"
 
@@ -75,12 +76,29 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
     
   // TODO: Tell the alphabet manager about the alphabet here, so we
   // don't end up having to duck out to the NCM all the time
-  
-  //(ACL) Modify AlphabetManager for Mandarin Dasher
-  if (oAlphInfo.m_iConversionID == 2)
-    m_pAlphabetManager = new CMandarinAlphMgr(pInterface, this, m_pLanguageModel);
-  else
-    m_pAlphabetManager = new CAlphabetManager(pInterface, this, m_pLanguageModel);
+
+    switch(oAlphInfo.m_iConversionID) {
+      default:
+        //TODO: Error reporting here
+        //fall through to
+      case 0: // No conversion required
+        m_pAlphabetManager = new CAlphabetManager(pInterface, this, m_pAlphabet, m_pLanguageModel);
+        break;
+#ifdef JAPANESE
+      case 1: // Japanese
+        CConversionManager *pConversionManager =
+#ifdef WIN32
+        new CIMEConversionHelper;
+#else
+        new CCannaConversionHelper(this, m_pAlphabet, GetLongParameter(LP_CONVERSION_TYPE), GetLongParameter(LP_CONVERSION_ORDER));
+#endif
+        //TODO ownership/deletion
+        m_pAlphabetManager = new CConvertingAlphMgr(pInterface, this, pConversionManager, m_pAlphabet, m_pLanguageModel);
+        break;
+#endif
+      case 2:   //(ACL) Modify AlphabetManager for Mandarin Dasher
+        m_pAlphabetManager = new CMandarinAlphMgr(pInterface, this, m_pAlphabet, m_pLanguageModel);
+    }
 
   if (!m_pAlphabet->GetTrainingFile().empty()) {
     //1. Look for system training text...
@@ -115,25 +133,7 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
 #endif
 
   HandleEvent(&CParameterNotificationEvent(BP_CONTROL_MODE));
-  
-  switch(oAlphInfo.m_iConversionID) {
-    default:
-      //TODO: Error reporting here
-      //fall through to
-    case 0: // No conversion required
-      m_pConversionManager = new CConversionManager(this, m_pAlphabet);
-      //ACL no, not quite - ConvMgrFac would always be created, so (ConvMgrFac==NULL) would always fail; but then segfault on ConvMgr->GetRoot() ?
-      break;
-#ifdef JAPANESE
-    case 1: // Japanese
-#ifdef WIN32
-      m_pConversionManager = new CIMEConversionHelper;
-#else
-      m_pConversionManager = new CCannaConversionHelper(this, m_pAlphabet, GetLongParameter(LP_CONVERSION_TYPE), GetLongParameter(LP_CONVERSION_ORDER));
-#endif
-      break;
-#endif
-  }
+
 }
 
 CNodeCreationManager::~CNodeCreationManager() {
@@ -141,80 +141,18 @@ CNodeCreationManager::~CNodeCreationManager() {
   delete m_pTrainer;
   
   delete m_pControlManager;
-
-  if (m_pConversionManager) m_pConversionManager->Unref();
-}
-
-CDasherNode *CNodeCreationManager::GetConvRoot(Dasher::CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset) { 
- if(m_pConversionManager)
-   return m_pConversionManager->GetRoot(pParent, iLower, iUpper, iOffset);
- return NULL;
-}
-
-void CNodeCreationManager::GetProbs(CLanguageModel::Context context, std::vector <unsigned int >&Probs, int iNorm) const {
-  // Total number of symbols
-  int iSymbols = m_pAlphabet->GetNumberSymbols();      // note that this includes the control node and the root node
-  
-  // Number of text symbols, for which the language model gives the distribution
-  // int iTextSymbols = m_pAlphabet->GetNumberTextSymbols();
-  
-  // TODO - sort out size of control node - for the timebeing I'll fix the control node at 5%
-  // TODO: New method (see commented code) has been removed as it wasn' working.
-
-  int uniform_add;
-  int nonuniform_norm;
-  int control_space = 0;
-  int uniform = GetLongParameter(LP_UNIFORM);
-
-   if(!GetBoolParameter(BP_CONTROL_MODE)) {
-     control_space = 0;
-     uniform_add = ((iNorm * uniform) / 1000) / (iSymbols - 2);  // Subtract 2 from no symbols to lose control/root nodes
-     nonuniform_norm = iNorm - (iSymbols - 2) * uniform_add;
-   }
-   else {
-     control_space = int (iNorm * 0.05);
-     uniform_add = (((iNorm - control_space) * uniform / 1000) / (iSymbols - 2));        // Subtract 2 from no symbols to lose control/root nodes
-     nonuniform_norm = iNorm - control_space - (iSymbols - 2) * uniform_add;
-   }
-   
-   //  m_pLanguageModel->GetProbs(context, Probs, iNorm, ((iNorm * uniform) / 1000));
-   
-   //ACL used to test explicitly for MandarinDasher and if so called GetPYProbs instead
-   // (by statically casting to PPMPYLanguageModel). However, have renamed PPMPYLanguageModel::GetPYProbs
-   // to GetProbs as per ordinary language model, so no need to test....
-   m_pLanguageModel->GetProbs(context, Probs, iNorm, 0);
-
-   // #if _DEBUG
-   //int iTotal = 0;
-   //for(int k = 0; k < Probs.size(); ++k)
-     //     iTotal += Probs[k];
-   //   DASHER_ASSERT(iTotal == nonuniform_norm);
-// #endif
-
-//   //  Probs.insert(Probs.begin(), 0);
-
-   for(unsigned int k(1); k < Probs.size(); ++k)
-     Probs[k] += uniform_add;
-
-  Probs.push_back(control_space);
-
-#if _DEBUG
-  int iTotal = 0;
-  for(int k = 0; k < Probs.size(); ++k)
-    iTotal += Probs[k];
-  DASHER_ASSERT(iTotal == iNorm);
-#endif
-
 }
 
 void CNodeCreationManager::HandleEvent(CEvent *pEvent) {
   if (pEvent->m_iEventType == EV_PARAM_NOTIFY) {
-    if (static_cast<CParameterNotificationEvent *>(pEvent)->m_iParameter == BP_CONTROL_MODE) {
-      delete m_pControlManager;
-      m_pControlManager = (GetBoolParameter(BP_CONTROL_MODE))
-        ? new CControlManager(m_pEventHandler, m_pSettingsStore, this, m_pInterface)
-        : NULL;
-    } 
+    switch (static_cast<CParameterNotificationEvent *>(pEvent)->m_iParameter) {
+      case BP_CONTROL_MODE:
+        delete m_pControlManager;
+        m_pControlManager = (GetBoolParameter(BP_CONTROL_MODE))
+          ? new CControlManager(m_pEventHandler, m_pSettingsStore, this, m_pInterface)
+          : NULL;        
+        break;
+    }
   }
 }
 

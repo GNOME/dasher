@@ -37,12 +37,9 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   ///
 
   Dasher::CAlphabetManager *GetAlphabetManager() {return m_pAlphabetManager;}
-  Dasher::CDasherNode *GetConvRoot(Dasher::CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset);
 
   Dasher::CControlManager *GetControlManager() {return m_pControlManager;}
   
-  void GetProbs(Dasher::CLanguageModel::Context context, std::vector <unsigned int >&Probs, int iNorm) const;
-
   ///
   /// Get a reference to the alphabet
   ///
@@ -62,7 +59,14 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   
   Dasher::CAlphabetManager *m_pAlphabetManager;
   Dasher::CControlManager *m_pControlManager;
-  Dasher::CConversionManager *m_pConversionManager;
+  
+  ///Probability to assign to control node (0 if control mode off)
+  unsigned long m_iControlSpace;
+  ///Amount of probability space remaining, i.e. for language model to assign to letters:
+  unsigned long m_iNonUniformNorm;
+  ///Amount of probability space we will add to _each_ letter (on top of fraction of
+  /// m_iNonUniformNorm) to effect smoothing/uniformity:
+  unsigned long m_iUniformAdd;
 };
 /// @}
 

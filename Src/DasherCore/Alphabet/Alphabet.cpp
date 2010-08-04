@@ -43,23 +43,13 @@ static char THIS_FILE[] = __FILE__;
 
 /////////////////////////////////////////////////////////////////////////////
 
-CAlphabet::CAlphabet()
-:m_DefaultEncoding(Opts::Western), m_Orientation(Opts::LeftToRight), m_ControlSymbol(-1) {
-  m_Characters.push_back("");
-  m_Display.push_back("");
-  m_Colours.push_back(-1);
-  m_Foreground.push_back("");
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-CAlphabet::CAlphabet(const CAlphIO::AlphInfo &AlphInfo)
-:m_DefaultEncoding(Opts::Western), m_Orientation(Opts::LeftToRight), m_ControlSymbol(-1) {
+CAlphabet::CAlphabet(const CAlphIO::AlphInfo &AlphInfo) : m_pBaseGroup(AlphInfo.m_pBaseGroup), iNumChildNodes(AlphInfo.iNumChildNodes) {
   m_Characters.push_back("");
   m_Display.push_back("");
   m_Colours.push_back(-1);
   m_Foreground.push_back("");
 
+  m_ControlSymbol = -1;
   m_StartConversionSymbol = -1;
   m_EndConversionSymbol = -1;
 
@@ -67,11 +57,11 @@ CAlphabet::CAlphabet(const CAlphIO::AlphInfo &AlphInfo)
 
   // Set miscellaneous options
 
-  SetOrientation(AlphInfo.Orientation);
-  SetLanguage(AlphInfo.Type);
-  SetTrainingFile(AlphInfo.TrainingFile);
-  SetGameModeFile(AlphInfo.GameModeFile);
-  SetPalette(AlphInfo.PreferredColours);
+  m_Orientation = AlphInfo.Orientation;
+  m_DefaultEncoding = AlphInfo.Type;
+  m_TrainingFile = AlphInfo.TrainingFile;
+  m_GameModeFile = AlphInfo.GameModeFile;
+  m_DefaultPalette = AlphInfo.PreferredColours;
 
   for(std::vector<CAlphIO::AlphInfo::character>::const_iterator it(AlphInfo.m_vCharacters.begin()); it != AlphInfo.m_vCharacters.end(); ++it)
     AddChar(it->Text, it->Display, it->Colour, it->Foreground);
@@ -85,17 +75,17 @@ CAlphabet::CAlphabet(const CAlphIO::AlphInfo &AlphInfo)
   std::string empty = "";
 
   if(AlphInfo.ParagraphCharacter.Text != empty)
-    AddParagraphSymbol(AlphInfo.ParagraphCharacter.Text, AlphInfo.ParagraphCharacter.Display, AlphInfo.ParagraphCharacter.Colour, AlphInfo.ParagraphCharacter.Foreground);
+    m_ParagraphSymbol = AddChar(AlphInfo.ParagraphCharacter.Text, AlphInfo.ParagraphCharacter.Display, AlphInfo.ParagraphCharacter.Colour, AlphInfo.ParagraphCharacter.Foreground);
 
   if(AlphInfo.SpaceCharacter.Text != empty)
-    AddSpaceSymbol(AlphInfo.SpaceCharacter.Text, AlphInfo.SpaceCharacter.Display, AlphInfo.SpaceCharacter.Colour, AlphInfo.SpaceCharacter.Foreground);
+    m_SpaceSymbol = AddChar(AlphInfo.SpaceCharacter.Text, AlphInfo.SpaceCharacter.Display, AlphInfo.SpaceCharacter.Colour, AlphInfo.SpaceCharacter.Foreground);
 
   //-- Added for Kanji Conversion 13 July 2005 by T.Kaburagi START
   if(AlphInfo.StartConvertCharacter.Text != empty)
-    AddStartConversionSymbol(AlphInfo.StartConvertCharacter.Text, AlphInfo.StartConvertCharacter.Display, AlphInfo.StartConvertCharacter.Colour, AlphInfo.StartConvertCharacter.Foreground);
+    m_StartConversionSymbol = AddChar(AlphInfo.StartConvertCharacter.Text, AlphInfo.StartConvertCharacter.Display, AlphInfo.StartConvertCharacter.Colour, AlphInfo.StartConvertCharacter.Foreground);
 
   if(AlphInfo.EndConvertCharacter.Text != empty)
-    AddEndConversionSymbol(AlphInfo.EndConvertCharacter.Text, AlphInfo.EndConvertCharacter.Display, AlphInfo.EndConvertCharacter.Colour, AlphInfo.EndConvertCharacter.Foreground);
+    m_EndConversionSymbol = AddChar(AlphInfo.EndConvertCharacter.Text, AlphInfo.EndConvertCharacter.Display, AlphInfo.EndConvertCharacter.Colour, AlphInfo.EndConvertCharacter.Foreground);
   //-- Added for Kanji Conversion 13 July 2005 by T.Kaburagi END
 
   // DJW - now the control symbol is always a part of the alphabet
@@ -104,14 +94,8 @@ CAlphabet::CAlphabet(const CAlphIO::AlphInfo &AlphInfo)
   // FIXME - We really need to ensure that the control symbol is last in the alphabet with the current logic.
 
   if(AlphInfo.ControlCharacter.Display != std::string("") && GetControlSymbol() == -1)
-    AddControlSymbol(AlphInfo.ControlCharacter.Text, AlphInfo.ControlCharacter.Display, AlphInfo.ControlCharacter.Colour, AlphInfo.ControlCharacter.Foreground);
+    m_ControlSymbol = AddChar(AlphInfo.ControlCharacter.Text, AlphInfo.ControlCharacter.Display, AlphInfo.ControlCharacter.Colour, AlphInfo.ControlCharacter.Foreground);
 
-
-
-  // New group stuff
-
-  m_pBaseGroup = AlphInfo.m_pBaseGroup;
-  iNumChildNodes = AlphInfo.iNumChildNodes;
 #ifdef DASHER_TRACE
   Trace();
 #endif
@@ -217,8 +201,8 @@ void CAlphabet::GetSymbols(std::vector<symbol>& Symbols, const std::string& Inpu
     Symbols.push_back(sym);
 }
 
-// add single char to the character set
-void CAlphabet::AddChar(const std::string NewCharacter, const std::string Display, int Colour, const std::string Foreground) {
+
+symbol CAlphabet::AddChar(const std::string NewCharacter, const std::string Display, int Colour, const std::string Foreground) {
   m_Characters.push_back(NewCharacter);
   m_Display.push_back(Display);
   m_Colours.push_back(Colour);
@@ -226,41 +210,7 @@ void CAlphabet::AddChar(const std::string NewCharacter, const std::string Displa
 
   symbol ThisSymbol = m_Characters.size() - 1;
   TextMap.Add(NewCharacter, ThisSymbol);
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-void CAlphabet::AddParagraphSymbol(const std::string NewCharacter, const std::string Display, int Colour, const std::string Foreground) {
-  AddChar(NewCharacter, Display, Colour, Foreground);
-  m_ParagraphSymbol = GetNumberSymbols() - 1;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-void CAlphabet::AddSpaceSymbol(const std::string NewCharacter, const std::string Display, int Colour, const std::string Foreground) {
-  AddChar(NewCharacter, Display, Colour, Foreground);
-  m_SpaceSymbol = GetNumberSymbols() - 1;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-void CAlphabet::AddControlSymbol(const std::string NewCharacter, const std::string Display, int Colour, const std::string Foreground) {
-  AddChar(NewCharacter, Display, Colour, Foreground);
-  m_ControlSymbol = GetNumberSymbols() - 1;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-void CAlphabet::AddStartConversionSymbol(const std::string NewCharacter, const std::string Display, int Colour, const std::string Foreground) {
-  AddChar(NewCharacter, Display, Colour, Foreground);
-  m_StartConversionSymbol = GetNumberSymbols() - 1;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-void CAlphabet::AddEndConversionSymbol(const std::string NewCharacter, const std::string Display, int Colour, const std::string Foreground) {
-  AddChar(NewCharacter, Display, Colour, Foreground);
-  m_EndConversionSymbol = GetNumberSymbols() - 1;
+  return ThisSymbol;
 }
 
 
@@ -290,7 +240,7 @@ void CAlphabet::Trace() const {
 
 /////////////////////////////////////////////////////////////////////////////
 
-int CAlphabet::GetTextColour(symbol Symbol) {
+int CAlphabet::GetTextColour(symbol Symbol) const {
   std::string TextColour = m_Foreground[Symbol];
   if(TextColour != std::string("")) {
     return atoi(TextColour.c_str());

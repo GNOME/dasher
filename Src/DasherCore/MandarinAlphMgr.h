@@ -36,7 +36,7 @@ namespace Dasher {
   class CMandarinAlphMgr : public CAlphabetManager {
   public:
 
-    CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel);
+    CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CAlphabet *pAlphabet, CLanguageModel *pLanguageModel);
 
     virtual ~CMandarinAlphMgr();
     
