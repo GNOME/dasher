@@ -38,8 +38,8 @@ static char THIS_FILE[] = __FILE__;
 
 /////////////////////////////////////////////////////////////////////
 
-CJapaneseLanguageModel::CJapaneseLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet &SymbolAlphabet)
-:CLanguageModel(pEventHandler, pSettingsStore, SymbolAlphabet), m_iMaxOrder(5), NodesAllocated(0), m_NodeAlloc(8192), m_ContextAlloc(1024) {
+CJapaneseLanguageModel::CJapaneseLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphabet *pAlph)
+:CLanguageModel(pEventHandler, pSettingsStore, pAlph), m_iMaxOrder(5), NodesAllocated(0), m_NodeAlloc(8192), m_ContextAlloc(1024) {
   m_pRoot = m_NodeAlloc.Alloc();
   m_pRoot->symbol = -1;
 

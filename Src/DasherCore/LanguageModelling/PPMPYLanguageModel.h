@@ -75,7 +75,7 @@ namespace Dasher {
     };
 	  
   public:
-    CPPMPYLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CSymbolAlphabet & alph, const CSymbolAlphabet & pyalph);
+    CPPMPYLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CAlphabet *pAlph, const CAlphabet *pPyAlph);
 
     virtual ~ CPPMPYLanguageModel();
 
@@ -131,7 +131,7 @@ namespace Dasher {
 
   private:
 
-    CSymbolAlphabet m_pyAlphabet;
+    const CAlphabet *m_pPyAlphabet;
     int m_iAlphSize;
     int m_iPYAlphSize;
 

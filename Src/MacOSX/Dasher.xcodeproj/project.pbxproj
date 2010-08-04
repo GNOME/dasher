@@ -99,7 +99,6 @@
 		1948BF060C226CFD001DFA32 /* MixtureLanguageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE610C226CFD001DFA32 /* MixtureLanguageModel.h */; };
 		1948BF070C226CFD001DFA32 /* PPMLanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE620C226CFD001DFA32 /* PPMLanguageModel.cpp */; };
 		1948BF080C226CFD001DFA32 /* PPMLanguageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE630C226CFD001DFA32 /* PPMLanguageModel.h */; };
-		1948BF090C226CFD001DFA32 /* SymbolAlphabet.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE640C226CFD001DFA32 /* SymbolAlphabet.h */; };
 		1948BF0A0C226CFD001DFA32 /* WordLanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE650C226CFD001DFA32 /* WordLanguageModel.cpp */; };
 		1948BF0B0C226CFD001DFA32 /* WordLanguageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE660C226CFD001DFA32 /* WordLanguageModel.h */; };
 		1948BF0D0C226CFD001DFA32 /* MemoryLeak.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE680C226CFD001DFA32 /* MemoryLeak.cpp */; };
@@ -510,7 +509,6 @@
 		1948BE610C226CFD001DFA32 /* MixtureLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MixtureLanguageModel.h; sourceTree = "<group>"; };
 		1948BE620C226CFD001DFA32 /* PPMLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PPMLanguageModel.cpp; sourceTree = "<group>"; };
 		1948BE630C226CFD001DFA32 /* PPMLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PPMLanguageModel.h; sourceTree = "<group>"; };
-		1948BE640C226CFD001DFA32 /* SymbolAlphabet.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SymbolAlphabet.h; sourceTree = "<group>"; };
 		1948BE650C226CFD001DFA32 /* WordLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = WordLanguageModel.cpp; sourceTree = "<group>"; };
 		1948BE660C226CFD001DFA32 /* WordLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = WordLanguageModel.h; sourceTree = "<group>"; };
 		1948BE680C226CFD001DFA32 /* MemoryLeak.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MemoryLeak.cpp; sourceTree = "<group>"; };
@@ -1096,7 +1094,6 @@
 				1948BE610C226CFD001DFA32 /* MixtureLanguageModel.h */,
 				1948BE620C226CFD001DFA32 /* PPMLanguageModel.cpp */,
 				1948BE630C226CFD001DFA32 /* PPMLanguageModel.h */,
-				1948BE640C226CFD001DFA32 /* SymbolAlphabet.h */,
 				1948BE650C226CFD001DFA32 /* WordLanguageModel.cpp */,
 				1948BE660C226CFD001DFA32 /* WordLanguageModel.h */,
 			);
@@ -1449,7 +1446,6 @@
 				1948BF040C226CFD001DFA32 /* LanguageModel.h in Headers */,
 				1948BF060C226CFD001DFA32 /* MixtureLanguageModel.h in Headers */,
 				1948BF080C226CFD001DFA32 /* PPMLanguageModel.h in Headers */,
-				1948BF090C226CFD001DFA32 /* SymbolAlphabet.h in Headers */,
 				1948BF0B0C226CFD001DFA32 /* WordLanguageModel.h in Headers */,
 				1948BF0E0C226CFD001DFA32 /* MemoryLeak.h in Headers */,
 				1948BF110C226CFD001DFA32 /* ModuleManager.h in Headers */,

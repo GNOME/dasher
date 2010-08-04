@@ -39,7 +39,7 @@ namespace Dasher {
   // CTW language model 
   class CCTWLanguageModel: public CLanguageModel {
   public:    
-	CCTWLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CSymbolAlphabet & alph);
+	CCTWLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CAlphabet *pAlph);
 	virtual ~ CCTWLanguageModel(); 
 
     Context CreateEmptyContext();			

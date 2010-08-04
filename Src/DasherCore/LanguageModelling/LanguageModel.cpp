@@ -27,8 +27,8 @@ static char THIS_FILE[] = __FILE__;
 
 ///////////////////////////////////////////////////////////////////
 
-CLanguageModel::CLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet &Alphabet)
-  :CDasherComponent(pEventHandler, pSettingsStore), m_Alphabet(Alphabet) {
+CLanguageModel::CLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphabet *pAlph)
+  :CDasherComponent(pEventHandler, pSettingsStore), m_pAlphabet(pAlph) {
 }
 
 void CLanguageModel::HandleEvent(Dasher::CEvent *pEvent) {

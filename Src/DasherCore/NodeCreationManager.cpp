@@ -31,10 +31,6 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
     pSettingsStore->SetLongParameter(LP_REAL_ORIENTATION, m_pAlphabet->GetOrientation());
   // --
   
-  CSymbolAlphabet alphabet(m_pAlphabet->GetNumberTextSymbols());
-  alphabet.SetSpaceSymbol(m_pAlphabet->GetSpaceSymbol());      // FIXME - is this right, or do we have to do some kind of translation?
-  alphabet.SetAlphabetPointer(m_pAlphabet);    // Horrible hack, but ignore for now.
-  
   // Create an appropriate language model;
   
   //WZ: Mandarin Dasher Change
@@ -45,11 +41,8 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
     Dasher::CAlphIO::AlphInfo oCHAlphInfo = pAlphIO->GetInfo(CHAlphabet);
     CAlphabet *pCHAlphabet = new CAlphabet(oCHAlphInfo);
     
-    CSymbolAlphabet chalphabet(pCHAlphabet->GetNumberTextSymbols());
-    chalphabet.SetSpaceSymbol(pCHAlphabet->GetSpaceSymbol());
-    chalphabet.SetAlphabetPointer(pCHAlphabet);
-    //std::cout<<"CHALphabet size "<<chalphabet.GetSize(); [7603]
-    m_pLanguageModel = new CPPMPYLanguageModel(pEventHandler, pSettingsStore, chalphabet, alphabet);
+    //std::cout<<"CHALphabet size "<< pCHAlphabet->GetNumberTextSymbols(); [7603]
+    m_pLanguageModel = new CPPMPYLanguageModel(pEventHandler, pSettingsStore, pCHAlphabet, m_pAlphabet);
     m_pTrainer = new CMandarinTrainer(m_pLanguageModel, m_pAlphabet, pCHAlphabet);
     std::cout<<"Setting PPMPY model"<<std::endl;
   }
@@ -59,22 +52,22 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
     // FIXME - return to using enum here
     switch (pSettingsStore->GetLongParameter(LP_LANGUAGE_MODEL_ID)) {
       case 0:
-        m_pLanguageModel = new CPPMLanguageModel(pEventHandler, pSettingsStore, alphabet);
+        m_pLanguageModel = new CPPMLanguageModel(pEventHandler, pSettingsStore, m_pAlphabet);
         break;
       case 2:
-        m_pLanguageModel = new CWordLanguageModel(pEventHandler, pSettingsStore, alphabet);
+        m_pLanguageModel = new CWordLanguageModel(pEventHandler, pSettingsStore, m_pAlphabet);
         break;
       case 3:
-        m_pLanguageModel = new CMixtureLanguageModel(pEventHandler, pSettingsStore, alphabet);
+        m_pLanguageModel = new CMixtureLanguageModel(pEventHandler, pSettingsStore, m_pAlphabet);
         break;  
       case 4:
-        m_pLanguageModel = new CCTWLanguageModel(pEventHandler, pSettingsStore, alphabet);
+        m_pLanguageModel = new CCTWLanguageModel(pEventHandler, pSettingsStore, m_pAlphabet);
         break;
         
       default:
         // If there is a bogus value for the language model ID, we'll default
         // to our trusty old PPM language model.
-        m_pLanguageModel = new CPPMLanguageModel(pEventHandler, pSettingsStore, alphabet);    
+        m_pLanguageModel = new CPPMLanguageModel(pEventHandler, pSettingsStore, m_pAlphabet);    
         break;
     }
     m_pTrainer = new CTrainer(m_pLanguageModel, m_pAlphabet);
@@ -111,7 +104,7 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
     //test...
     m_pLanguageModel->WriteToFile("test.model");
     CPPMLanguageModel *pLan = (CPPMLanguageModel *)m_pLanguageModel;
-    CPPMLanguageModel *pLM2 = new CPPMLanguageModel(pEventHandler, pSettingsStore, pLan->SymbolAlphabet());
+    CPPMLanguageModel *pLM2 = new CPPMLanguageModel(pEventHandler, pSettingsStore, m_pAlphabet);
     pLM2->ReadFromFile("test.model");
     if (!pLan->eq(pLM2)) {
       std::cout << "Not equal!" << std::endl;

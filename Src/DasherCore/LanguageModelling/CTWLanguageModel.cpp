@@ -40,8 +40,8 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 
-CCTWLanguageModel::CCTWLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet &SymbolAlphabet)
-:CLanguageModel(pEventHandler, pSettingsStore, SymbolAlphabet){
+CCTWLanguageModel::CCTWLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphabet *pAlph)
+:CLanguageModel(pEventHandler, pSettingsStore, pAlph){
 
 	Dasher::CHashTable HashTable;  // create hashtable
 	MaxDepth = 6;   // Maximum depth of the context tree

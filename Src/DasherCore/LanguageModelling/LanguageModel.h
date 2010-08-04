@@ -11,7 +11,7 @@
 
 #include "../DasherTypes.h"
 
-#include "SymbolAlphabet.h"
+#include "../Alphabet/Alphabet.h"
 #include "../DasherComponent.h"
 #include <vector>
 
@@ -36,7 +36,7 @@ public:
 
   /////////////////////////////////////////////////////////////////////////////
 
-  CLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet &Alphabet);
+  CLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphabet *pAlph);
 
   virtual ~CLanguageModel() {};
 
@@ -118,17 +118,6 @@ public:
 
   /// @}
 
-  /// @name Internal member access
-  /// Access to internal member classes. This is dangerous and should
-  /// be considered obsolete.
-  /// @{
-
-  const CSymbolAlphabet &SymbolAlphabet() const {
-    return m_Alphabet;
-  };
-
-  /// @}
-
   ///
   /// Get the maximum useful context length for this language model
 
@@ -157,13 +146,10 @@ public:
   };
 
   int GetSize() const {
-    return m_Alphabet.GetSize();
+    return m_pAlphabet->GetNumberTextSymbols();
   }
 
-
- private:
-
-  const CSymbolAlphabet m_Alphabet;
+  const CAlphabet *m_pAlphabet;
 
 };
 

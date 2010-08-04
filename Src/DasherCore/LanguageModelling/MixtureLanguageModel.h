@@ -13,7 +13,6 @@
 #include "PPMLanguageModel.h"
 #include "DictLanguageModel.h"
 
-#include "SymbolAlphabet.h"
 //#include <iostream>
 #include <vector>
 
@@ -29,14 +28,14 @@ namespace Dasher {
 
     /////////////////////////////////////////////////////////////////////////////
 
-    CMixtureLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CSymbolAlphabet & Alphabet):CLanguageModel(pEventHandler, pSettingsStore, Alphabet) {
+    CMixtureLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CAlphabet *pAlph):CLanguageModel(pEventHandler, pSettingsStore, pAlph) {
 
-      //      std::cout << SymbolAlphabet().GetAlphabetPointer() << std::endl;
+      //      std::cout << m_pAlphabet << std::endl;
 
       NextContext = 0;
 
-      lma = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, Alphabet);
-      lmb = new CDictLanguageModel(m_pEventHandler, m_pSettingsStore, Alphabet);
+      lma = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, m_pAlphabet);
+      lmb = new CDictLanguageModel(m_pEventHandler, m_pSettingsStore, m_pAlphabet);
 
     };
 
