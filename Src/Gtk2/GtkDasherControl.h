@@ -78,7 +78,6 @@ void gtk_dasher_control_set_context(GtkDasherControl *pControl, const gchar *szC
 //void gtk_dasher_control_invalidate_context(GtkDasherControl *pControl, bool bForceStart);
 void gtk_dasher_control_set_buffer(GtkDasherControl *pControl, int iOffset);
 void gtk_dasher_control_set_offset(GtkDasherControl *pControl, int iOffset);
-void gtk_dasher_control_unset_buffer(GtkDasherControl *pControl);
 void gtk_dasher_control_external_key_down(GtkDasherControl *pControl, int iKeyVal);
 void gtk_dasher_control_external_key_up(GtkDasherControl *pControl, int iKeyVal);
 gboolean gtk_dasher_control_get_module_settings(GtkDasherControl * pControl, const gchar *szModule, SModuleSettings **pSettings, gint *iCount);

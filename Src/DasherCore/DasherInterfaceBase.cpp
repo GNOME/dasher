@@ -1135,14 +1135,6 @@ void CDasherInterfaceBase::SetBuffer(int iOffset) {
    CreateModel(iOffset);
 }
 
-void CDasherInterfaceBase::UnsetBuffer() {
-  // TODO: Write training file?
-  if(m_pDasherModel)
-    delete m_pDasherModel;
-
-  m_pDasherModel = 0;
-}
-
 void CDasherInterfaceBase::SetOffset(int iOffset) {
   if(m_pDasherModel)
     m_pDasherModel->SetOffset(iOffset, m_pNCManager->GetAlphabetManager(), m_pDasherView, false);

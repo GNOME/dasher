@@ -288,8 +288,6 @@ public:
 
   void SetBuffer(int iOffset);
 
-  void UnsetBuffer(); 
-
   void SetOffset(int iOffset);
 
   /// @name Status reporting
