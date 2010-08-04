@@ -187,8 +187,8 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   void SetOffset(int iLocation, CDasherView *pView);
 
   ///
-  /// TODO: Figure out how all these "offset"s work / relate to each other - if they do! In particular,
-  /// what do we need DasherModel's own m_iOffset (which measures in _bytes_, not unicode characters!) for?
+  /// The current offset of the cursor/insertion point in the text buffer
+  /// - measured in (unicode) characters, _not_ octets.
   ///
 
   int GetOffset() {
@@ -272,9 +272,6 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   //   - and that seemed even worse, so I've removed it in favour of this here....?
   unsigned long m_iStartTime;
   
-  // Offset into buffer of node currently under crosshair
-  int m_iOffset;
-
   // Debug/performance information...
 
   // Information entered so far in this model

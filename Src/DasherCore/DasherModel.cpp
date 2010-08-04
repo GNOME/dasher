@@ -60,7 +60,6 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler,
   m_pDasherInterface = pDasherInterface;
 
   m_bGameMode = GetBoolParameter(BP_GAME_MODE);
-  m_iOffset = iOffset; // TODO: Set through build routine
 
   DASHER_ASSERT(m_pNodeCreationManager != NULL);
   DASHER_ASSERT(m_pDasherInterface != NULL);
@@ -131,17 +130,6 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
       break;
     default:
       break;
-    }
-  }
-  else if(pEvent->m_iEventType == EV_EDIT) {
-    // Keep track of where we are in the buffer
-    CEditEvent *pEditEvent(static_cast < CEditEvent * >(pEvent));
-
-    if(pEditEvent->m_iEditType == 1) {
-      m_iOffset += pEditEvent->m_sText.size();
-    }
-    else if(pEditEvent->m_iEditType == 2) {
-      m_iOffset -= pEditEvent->m_sText.size();
     }
   }
 }
@@ -787,15 +775,13 @@ void CDasherModel::LimitRoot(int iMaxWidth) {
 }
 
 void CDasherModel::SetOffset(int iLocation, CDasherView *pView) {
-  if(iLocation == m_iOffset)
+  if(iLocation == GetOffset())
     return; // We're already there
   
   //  std::cout << "Initialising at offset: " << iLocation << std::endl;
 
   // TODO: Special cases, ie this can be done without rebuilding the
   // model
-
-  m_iOffset = iLocation;
 
   // Now actually rebuild the model
   InitialiseAtOffset(iLocation, pView);
