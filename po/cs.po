@@ -3,18 +3,20 @@
 # Copyright (C) 2004, 2005 Miloslav Trmac <mitr@volny.cz>.
 # Copyright (C) 2006 Lukas Novotny <lukasnov@cvs.gnome.org>.
 # This file is distributed under the same license as the dasher package.
+#
 # Miloslav Trmac <mitr@volny.cz>, 2004, 2005.
 # Lukas Novotny <lukasnov@cvs.gnome.org>, 2006.
 # Jakub Friedl <jfriedl@suse.cz>, 2006.
 # Lucas Lommer <llommer@svn.gnome.org>, 2008, 2009.
-# Marek Černocký <marek@manet.cz>, 2009.
+# Marek Černocký <marek@manet.cz>, 2009, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher gnome-2-28\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-23 19:29+0200\n"
-"PO-Revision-Date: 2010-05-17 15:02+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=dasher&component=general\n"
+"POT-Creation-Date: 2010-05-23 17:30+0000\n"
+"PO-Revision-Date: 2010-07-17 00:18+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -282,9 +284,8 @@ msgid "<b>Starting and Stopping</b>"
 msgstr "<b>Spouštění a zastavování</b>"
 
 #: ../Data/GUI/dasher.preferences.ui.h:18
-#, fuzzy
 msgid "A_pplication"
-msgstr "Aplikace"
+msgstr "A_plikace"
 
 #: ../Data/GUI/dasher.preferences.ui.h:19
 #: ../Data/GUI/dashermaemo.preferences.ui.h:9
@@ -304,9 +305,8 @@ msgstr "Odspodu nahoru"
 
 #. Abbreviation for Control Style
 #: ../Data/GUI/dasher.preferences.ui.h:24
-#, fuzzy
 msgid "C_ontrol"
-msgstr "Ovládání"
+msgstr "_Ovládání"
 
 #: ../Data/GUI/dasher.preferences.ui.h:25
 msgid "Centre circle"
@@ -477,14 +477,12 @@ msgid "Word-based model"
 msgstr "Model založený na slovech"
 
 #: ../Data/GUI/dasher.preferences.ui.h:67
-#, fuzzy
 msgid "_Appearance"
-msgstr "Vzhled"
+msgstr "Vz_hled"
 
 #: ../Data/GUI/dasher.preferences.ui.h:68
-#, fuzzy
 msgid "_Language"
-msgstr "Jazyk"
+msgstr "_Jazyk"
 
 #. Abbreviation for Preferences
 #: ../Data/GUI/dashermaemo.ui.h:3
@@ -750,7 +748,7 @@ msgstr "neznámá volba, více informací zobrazíte pomocí „--help-options�
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
 msgid "Dasher socket input: failed to launch reader thread."
-msgstr "Vstup socketu Dasheru: nemohu spustit vlákno čtečky."
+msgstr "Vstup soketu Dasheru: selhalo spuštění vlákna čtečky."
 
 #: ../Src/DasherCore/SocketInputBase.cpp:27
 msgid "Port:"
@@ -782,11 +780,11 @@ msgstr "Maximum Y:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:34
 msgid "Print socket-related debugging information to console:"
-msgstr "Vypsat ladicí informace spojené se socketem do konzoly:"
+msgstr "Vypsat ladicí informace týkající se soketu do konzoly:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:38
 msgid "Socket Input"
-msgstr "Vstup socketu"
+msgstr "Vstup soketu"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
 msgid "Button offset"
@@ -917,15 +915,15 @@ msgstr "Opakovat"
 #: ../Src/Gtk2/dasher_action_speech.cpp:174
 #, c-format
 msgid "Unable to initialize speech support\n"
-msgstr "Nemohu inicializovat podporu řeči\n"
+msgstr "Nelze inicializovat podporu řeči\n"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:197
 msgid "Unable to initialize voices\n"
-msgstr "Nemohu inicializovat hlasy\n"
+msgstr "Nelze inicializovat hlasy\n"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:209
 msgid "Warning: unable to set speech parameters\n"
-msgstr "Varování: nemohu nastavit parametry řeči\n"
+msgstr "Varování: nelze nastavit parametry řeči\n"
 
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
 #: ../Src/Gtk2/dasher_main.cpp:266
