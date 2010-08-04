@@ -130,6 +130,10 @@ CDasherInterfaceBase::CDasherInterfaceBase() {
 void CDasherInterfaceBase::Realize() {
   // TODO: What exactly needs to have happened by the time we call Realize()?
   CreateSettingsStore();
+
+  //create the model... (no nodes just yet)
+  m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, this);
+
   SetupUI();
   SetupPaths();
 
@@ -165,7 +169,12 @@ void CDasherInterfaceBase::Realize() {
   CreateInput();
   CreateInputFilter();
   
-  ChangeAlphabet(); // This creates the NodeCreationManager, the Alphabet
+  ChangeAlphabet(); // This creates the NodeCreationManager, the Alphabet,
+  //and the tree of nodes in the model. Now we can
+  // Notify the teacher of the new model...ACL TODO pending merging of new
+  // game mode code; when Ryan's stuff arrives we can delete this:
+  if(GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher())
+    pTeacher->SetDasherModel(m_pDasherModel);
 
   SetupActionButtons();
   CParameterNotificationEvent oEvent(LP_NODE_BUDGET);
@@ -377,49 +386,26 @@ void CDasherInterfaceBase::WriteTrainFilePartial() {
   strTrainfileBuffer = strTrainfileBuffer.substr(100);
 }
 
-void CDasherInterfaceBase::CreateModel(int iOffset) {
-  // Creating a model without a node creation manager is a bad plan
-  if(!m_pNCManager)
-    return;
-
-  delete m_pDasherModel;
-  
-  // TODO: Eventually we'll not have to pass the NC manager to the model...(?)
-  m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, this);
-  m_pDasherModel->SetOffset(iOffset, m_pNCManager->GetAlphabetManager(), m_pDasherView, true);
-
-  // Notify the teacher of the new model
-  if(GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher())
-    pTeacher->SetDasherModel(m_pDasherModel);
-
-}
-
 void CDasherInterfaceBase::CreateNCManager() {
-  // TODO: Try and make this work without necessarilty rebuilding the model
 
-  if(!m_AlphIO)
+  if(!m_AlphIO || GetLongParameter(LP_LANGUAGE_MODEL_ID)==-1)
     return;
 
-  int lmID = GetLongParameter(LP_LANGUAGE_MODEL_ID);
+  //can't delete the old manager yet until we've deleted all its nodes...
+  CNodeCreationManager *pOldMgr = m_pNCManager;
 
-  if( lmID == -1 )
-    return;
+  //now create the new manager...
+  m_pNCManager = new CNodeCreationManager(this, m_pEventHandler, m_pSettingsStore, m_AlphIO);
 
-  //0 seems the right offset if we don't have a model (=at startup)...
-  int iOffset = m_pDasherModel ? m_pDasherModel->GetOffset() : 0;
+  m_Alphabet = m_pNCManager->GetAlphabet();
 
-    // Delete the old model and create a new one
-    // (must delete model first, as its nodes refer to NodeManagers inside the NCManager)
-  delete m_pDasherModel; m_pDasherModel = NULL;
+  //and start a new tree of nodes from it (retaining old offset -
+  // this will be a sensible default of 0 if no nodes previously existed).
+  // This deletes the old tree of nodes... 
+  m_pDasherModel->SetOffset(m_pDasherModel->GetOffset(), m_pNCManager->GetAlphabetManager(), m_pDasherView, true);
 
-  delete m_pNCManager;
-
-    m_pNCManager = new CNodeCreationManager(this, m_pEventHandler, m_pSettingsStore, m_AlphIO);
-
-    m_Alphabet = m_pNCManager->GetAlphabet();
-
-    // TODO: Eventually we'll not have to pass the NC manager to the model...
-    CreateModel(iOffset);
+  //...so now we can delete the old manager
+  delete pOldMgr;
 }
 
 CDasherInterfaceBase::TextAction::TextAction(CDasherInterfaceBase *pIntf) : m_pIntf(pIntf) {
@@ -1131,14 +1117,14 @@ void CDasherInterfaceBase::ChangeState(ETransition iTransition) {
   }
 }
 
-void CDasherInterfaceBase::SetBuffer(int iOffset) {
-   CreateModel(iOffset);
-}
+void CDasherInterfaceBase::SetOffset(int iOffset, bool bForce) {
+  std::cout << "DasherIntf::SetOffset(" << iOffset << "," << bForce << ")" << std::endl;
+  m_pDasherModel->SetOffset(iOffset, m_pNCManager->GetAlphabetManager(), m_pDasherView, bForce);
+  //ACL TODO note that CTL_MOVE, etc., do not come here (that would probably
+  // rebuild the model / violently repaint the screen every time!). But we
+  // still want to notifyOffset all text actions, so the "New" suboption sees
+  // all the editing the user's done...
 
-void CDasherInterfaceBase::SetOffset(int iOffset) {
-  if(m_pDasherModel)
-    m_pDasherModel->SetOffset(iOffset, m_pNCManager->GetAlphabetManager(), m_pDasherView, false);
-  //ACL TODO FIXME check that CTL_MOVE, etc., eventually come here?
   for (set<TextAction *>::iterator it = m_vTextActions.begin(); it!=m_vTextActions.end(); it++) {
     (*it)->NotifyOffset(iOffset);
   }

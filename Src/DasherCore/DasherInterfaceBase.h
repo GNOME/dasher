@@ -279,16 +279,30 @@ public:
   /// \param iOffset Document me
   //  int TrainFile(std::string Filename, int iTotalBytes, int iOffset);
 
-  /// Set the context in which Dasher makes predictions
-  /// \param strNewContext The new context (UTF-8)
+  /// Part of the mechanism by which the DasherCore part gets the surrounding
+  /// (preceding) characters from its context (i.e. the text edit box): an
+  /// EV_EDIT_CONTEXT_REQUEST event specifying the context required (i.e.
+  /// offset and length) is broadcast from the core, and picked up
+  /// by platform-dependent code, which must then call SetContext with the
+  /// requested text. TODO this is a ghastly mechanism: the
+  /// EditContextRequest event goes to every component, and any number (>=0)
+  /// of components (anywhere!) could call SetContext (at any time!), rather
+  /// than just exactly one, _only_ in response to such an event...suggest
+  /// sthg like "virtual std::string getContext(int off, int len)=0;" ???
+  /// \param strNewContext The requested part of the context (UTF-8)
 
   void SetContext(std::string strNewContext);
 
   /// New control mechanisms:
 
-  void SetBuffer(int iOffset);
+  ///Equivalent to SetOffset(iOffset, true)
+  void SetBuffer(int iOffset) {SetOffset(iOffset, true);}
 
-  void SetOffset(int iOffset);
+  /// Tells the model to rebuild itself with the
+  /// cursor at the specified offset (position within textbox/buffer).
+  /// @param bForce true meaning the entire context may have changed,
+  /// false if we've just moved around within it.
+  void SetOffset(int iOffset, bool bForce=false);
 
   /// @name Status reporting
   /// Get information about the runtime status of Dasher which might
