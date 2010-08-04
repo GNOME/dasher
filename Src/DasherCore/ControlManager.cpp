@@ -49,7 +49,7 @@ void CControlBase::SetRootTemplate(NodeTemplate *pRoot) {
 }
 
 CDasherNode *CControlBase::GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset) {
-  if (!m_pRoot) return m_pNCManager->GetAlphRoot(pParent, iLower, iUpper, false, iOffset);
+  if (!m_pRoot) return m_pNCManager->GetAlphabetManager()->GetRoot(pParent, iLower, iUpper, false, iOffset);
 
   CContNode *pNewNode = new CContNode(pParent, iOffset, iLower, iUpper, m_pRoot, this);
  
@@ -95,7 +95,7 @@ void CControlBase::CContNode::PopulateChildren() {
     if( *it == NULL ) {
       // Escape back to alphabet
       
-      pNewNode = m_pMgr->m_pNCManager->GetAlphRoot(this, iLbnd, iHbnd, false, offset()+1);
+      pNewNode = m_pMgr->m_pNCManager->GetAlphabetManager()->GetRoot(this, iLbnd, iHbnd, false, offset()+1);
     }
     else {
       

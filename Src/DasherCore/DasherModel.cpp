@@ -52,16 +52,12 @@ static char THIS_FILE[] = __FILE__;
 
 CDasherModel::CDasherModel(CEventHandler *pEventHandler,
 			   CSettingsStore *pSettingsStore,
-			   CNodeCreationManager *pNCManager,
-			   CDasherInterfaceBase *pDasherInterface,
-			   CDasherView *pView, int iOffset)
+			   CDasherInterfaceBase *pDasherInterface)
   : CFrameRate(pEventHandler, pSettingsStore) {
-  m_pNodeCreationManager = pNCManager;
   m_pDasherInterface = pDasherInterface;
 
   m_bGameMode = GetBoolParameter(BP_GAME_MODE);
 
-  DASHER_ASSERT(m_pNodeCreationManager != NULL);
   DASHER_ASSERT(m_pDasherInterface != NULL);
 
   m_pLastOutput = m_Root = NULL;
@@ -86,7 +82,6 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler,
   m_Rootmin_min = int64_min / iNormalization / 2;
   m_Rootmax_max = int64_max / iNormalization / 2;
 
-  InitialiseAtOffset(iOffset, pView);
 }
 
 CDasherModel::~CDasherModel() {
@@ -265,17 +260,17 @@ CDasherNode *CDasherModel::Get_node_under_crosshair() {
   return m_Root->Get_node_under(GetLongParameter(LP_NORMALIZATION), m_Rootmin + m_iDisplayOffset, m_Rootmax + m_iDisplayOffset, GetLongParameter(LP_OX), GetLongParameter(LP_OY));
 }
 
-void CDasherModel::DeleteTree() {
+void CDasherModel::SetOffset(int iOffset, CAlphabetManager *pMgr, CDasherView *pView, bool bForce) {
+  //if we don't have a root, always "re"build the tree!
+  // (if we have a root, only rebuild to move location or if bForce says to)
+  if (m_Root && iOffset == GetOffset() && !bForce) return;
+
+  if (m_pLastOutput) m_pLastOutput->Leave();
+  
   ClearRootQueue();
   delete m_Root;
-  m_Root = NULL;
-}
-
-void CDasherModel::InitialiseAtOffset(int iOffset, CDasherView *pView) {
-  if (m_pLastOutput) m_pLastOutput->Leave();
-  DeleteTree();
-
-  m_Root = m_pNodeCreationManager->GetAlphRoot(NULL, 0,GetLongParameter(LP_NORMALIZATION), iOffset!=0, iOffset);
+  
+  m_Root = pMgr->GetRoot(NULL, 0,GetLongParameter(LP_NORMALIZATION), iOffset!=0, iOffset);
   m_pLastOutput = (m_Root->GetFlag(NF_SEEN)) ? m_Root : NULL;
   
   // Create children of the root...
@@ -599,7 +594,7 @@ void CDasherModel::ExpandNode(CDasherNode *pNode) {
 
 }
 
-bool CDasherModel::RenderToView(CDasherView *pView, CExpansionPolicy &policy) {
+void CDasherModel::RenderToView(CDasherView *pView, CExpansionPolicy &policy) {
 
   DASHER_ASSERT(pView != NULL);
   DASHER_ASSERT(m_Root != NULL);
@@ -607,8 +602,6 @@ bool CDasherModel::RenderToView(CDasherView *pView, CExpansionPolicy &policy) {
   // XXX we HandleOutput in RenderToView
   // DASHER_ASSERT(Get_node_under_crosshair() == m_pLastOutput);
 
-  bool bReturnValue = false;
-  
   // The Render routine will fill iGameTargetY with the Dasher Coordinate of the 
   // youngest node with NF_GAME set. The model is responsible for setting NF_GAME on
   // the appropriate Nodes.
@@ -629,12 +622,6 @@ bool CDasherModel::RenderToView(CDasherView *pView, CExpansionPolicy &policy) {
   // TODO: Fix up stats
   // TODO: Is this the right way to handle this?
   HandleOutput(NULL, NULL);
-
-  //ACL Off-screen nodes (zero collapse cost) will have been collapsed already.
-  //Hence, this acts to maintain the node budget....or whatever the queue's policy is!
-  if (policy.apply(m_pNodeCreationManager,this)) bReturnValue=true;
-  
-  return bReturnValue;
 }
 
 bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
@@ -772,18 +759,5 @@ void CDasherModel::AbortOffset() {
 void CDasherModel::LimitRoot(int iMaxWidth) {
   m_Rootmin = GetLongParameter(LP_MAX_Y) / 2 - iMaxWidth / 2;
   m_Rootmax = GetLongParameter(LP_MAX_Y) / 2 + iMaxWidth / 2;
-}
-
-void CDasherModel::SetOffset(int iLocation, CDasherView *pView) {
-  if(iLocation == GetOffset())
-    return; // We're already there
-  
-  //  std::cout << "Initialising at offset: " << iLocation << std::endl;
-
-  // TODO: Special cases, ie this can be done without rebuilding the
-  // model
-
-  // Now actually rebuild the model
-  InitialiseAtOffset(iLocation, pView);
 }
 

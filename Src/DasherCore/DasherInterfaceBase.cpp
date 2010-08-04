@@ -385,7 +385,8 @@ void CDasherInterfaceBase::CreateModel(int iOffset) {
   delete m_pDasherModel;
   
   // TODO: Eventually we'll not have to pass the NC manager to the model...(?)
-  m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, m_pNCManager, this, m_pDasherView, iOffset);
+  m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, this);
+  m_pDasherModel->SetOffset(iOffset, m_pNCManager->GetAlphabetManager(), m_pDasherView, true);
 
   // Notify the teacher of the new model
   if(GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher())
@@ -599,7 +600,10 @@ void CDasherInterfaceBase::Redraw(bool bRedrawNodes, CExpansionPolicy &policy) {
   // Draw the nodes
   if(bRedrawNodes) {
     m_pDasherView->Screen()->SendMarker(0);
-	if (m_pDasherModel) m_bLastChanged |= m_pDasherModel->RenderToView(m_pDasherView,policy);
+	if (m_pDasherModel) {
+		m_pDasherModel->RenderToView(m_pDasherView,policy);
+		m_bLastChanged |= policy.apply(m_pNCManager, m_pDasherModel);
+        }
   }
 
   // Draw the decorations
@@ -1141,7 +1145,7 @@ void CDasherInterfaceBase::UnsetBuffer() {
 
 void CDasherInterfaceBase::SetOffset(int iOffset) {
   if(m_pDasherModel)
-    m_pDasherModel->SetOffset(iOffset, m_pDasherView);
+    m_pDasherModel->SetOffset(iOffset, m_pNCManager->GetAlphabetManager(), m_pDasherView, false);
   //ACL TODO FIXME check that CTL_MOVE, etc., eventually come here?
   for (set<TextAction *>::iterator it = m_vTextActions.begin(); it!=m_vTextActions.end(); it++) {
     (*it)->NotifyOffset(iOffset);

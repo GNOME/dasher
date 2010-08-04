@@ -36,7 +36,7 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   /// Get a root node of a particular type
   ///
 
-  Dasher::CDasherNode *GetAlphRoot(Dasher::CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, bool bEnteredLast, int iOffset);
+  Dasher::CAlphabetManager *GetAlphabetManager() {return m_pAlphabetManager;}
   Dasher::CDasherNode *GetConvRoot(Dasher::CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset);
 
   Dasher::CControlManager *GetControlManager() {return m_pControlManager;}

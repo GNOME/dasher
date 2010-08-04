@@ -152,10 +152,6 @@ CNodeCreationManager::~CNodeCreationManager() {
   if (m_pConversionManager) m_pConversionManager->Unref();
 }
 
-CDasherNode *CNodeCreationManager::GetAlphRoot(Dasher::CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, bool bEnteredLast, int iOffset) { 
- return m_pAlphabetManager->GetRoot(pParent, iLower, iUpper, bEnteredLast, iOffset);
-}
-
 CDasherNode *CNodeCreationManager::GetConvRoot(Dasher::CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset) { 
  if(m_pConversionManager)
    return m_pConversionManager->GetRoot(pParent, iLower, iUpper, iOffset);

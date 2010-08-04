@@ -97,7 +97,7 @@ void CConversionManager::CConvNode::PopulateChildren() {
   unsigned int iLbnd(0);
   unsigned int iHbnd(m_pMgr->m_pNCManager->GetLongParameter(LP_NORMALIZATION));
 
-  CDasherNode *pNewNode = m_pMgr->m_pNCManager->GetAlphRoot(this, iLbnd, iHbnd, false, offset() + 1);
+  CDasherNode *pNewNode = m_pMgr->m_pNCManager->GetAlphabetManager()->GetRoot(this, iLbnd, iHbnd, false, offset() + 1);
 
   DASHER_ASSERT(GetChildren().back()==pNewNode);
 }
