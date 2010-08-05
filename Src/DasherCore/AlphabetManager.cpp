@@ -428,11 +428,7 @@ void CAlphabetManager::CSymbolNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, i
 
   // Track this symbol and its probability for logging purposes
   if (pAdded != NULL) {
-    Dasher::SymbolProb sItem;
-    sItem.sym    = iSymbol;
-    sItem.prob   = Range() / (double)iNormalization;
-
-    pAdded->push_back(sItem);
+    pAdded->push_back(Dasher::SymbolProb(iSymbol, outputText(), Range() / (double)iNormalization));
   }
 }
 

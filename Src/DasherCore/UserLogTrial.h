@@ -15,7 +15,6 @@
 #include "TimeSpan.h"
 #include "UserButton.h"
 #include "UserLocation.h"
-#include "Alphabet/Alphabet.h"
 #include "DasherTypes.h"
 #include "UserLogParam.h"
 #include <algorithm>
@@ -56,7 +55,7 @@ struct NavLocation
   CTimeSpan*                              span;           // Track the time between this update and the one that comes next
   eUserLogEventType                       event;          // What triggered the adding or deleting of symbols
   int                                     numDeleted;     // How many symbols deleted (0 if it is an AddSymbols() call)
-  Dasher::VECTOR_SYMBOL_PROB_DISPLAY*     pVectorAdded;   // Info on all added symbols   
+  Dasher::VECTOR_SYMBOL_PROB*             pVectorAdded;   // Info on all added symbols   
   double                                  avgBits;        // Average bits required to write this history (assuming no errors)
 };
 
@@ -96,7 +95,7 @@ public:
   bool                        HasWritingOccured();
   void                        StartWriting();
   void                        StopWriting(double dBits);
-  void                        AddSymbols(Dasher::VECTOR_SYMBOL_PROB* vpNewSymbolProbs, eUserLogEventType iEvent, Dasher::CAlphabet* pCurrentAlphabet);
+  void                        AddSymbols(Dasher::VECTOR_SYMBOL_PROB* vpNewSymbolProbs, eUserLogEventType iEvent);
   void                        DeleteSymbols(int iNumToDelete, eUserLogEventType iEvent);  
   string                      GetXML(const string& strPrefix = "");
   void                        Done();
@@ -126,7 +125,7 @@ protected:
   string                              m_strCurrentTrial;          // Stores information passed to us from the UserTrial app
   WindowSize                          m_sWindowCoordinates;       // Records the window coordinates at the start of navigation
   WindowSize                          m_sCanvasCoordinates;       // The size of our canvas during navigation
-  Dasher::VECTOR_SYMBOL_PROB_DISPLAY  m_vHistory;                 // Tracks all the symbols, probs, display text entererd during this trial
+  Dasher::VECTOR_SYMBOL_PROB          m_vHistory;                 // Tracks all the symbols, probs, display text entererd during this trial
   VECTOR_USER_LOG_PARAM_PTR           m_vpParams;                 // Stores general parameters we want stored in each trial tag in the XML
   VECTOR_NAV_CYCLE_PTR                m_vpNavCycles;
   string                              m_strCurrentTrialFilename;  // Where to look for info on the current subject's trial

@@ -159,7 +159,7 @@ void CDasherInterfaceBase::Realize() {
   if(iUserLogLevel == 10)
     m_pUserLog = new CBasicLog(m_pEventHandler, m_pSettingsStore);
   else if (iUserLogLevel > 0)
-    m_pUserLog = new CUserLog(m_pEventHandler, m_pSettingsStore, iUserLogLevel, m_Alphabet);
+    m_pUserLog = new CUserLog(m_pEventHandler, m_pSettingsStore, iUserLogLevel);
 #else
   m_pUserLog = NULL;
 #endif
@@ -635,13 +635,6 @@ void CDasherInterfaceBase::ChangeAlphabet() {
   SetBoolParameter( BP_TRAINING, true );
 
   CreateNCManager();
-
-#ifndef _WIN32_WCE
-  // Let our user log object know about the new alphabet since
-  // it needs to convert symbols into text for the log file.
-  if (m_pUserLog != NULL)
-    m_pUserLog->SetAlphabetPtr(m_Alphabet);
-#endif
 
   // Apply options from alphabet
 

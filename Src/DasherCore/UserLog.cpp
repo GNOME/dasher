@@ -44,14 +44,12 @@ static UserLogParamMask s_UserLogParamMaskTable [] = {
 
 CUserLog::CUserLog(Dasher::CEventHandler *pEventHandler, 
                    CSettingsStore *pSettingsStore, 
-                   int iLogTypeMask, 
-                   Dasher::CAlphabet* pAlphabet) : CUserLogBase(pEventHandler, pSettingsStore)
+                   int iLogTypeMask) : CUserLogBase(pEventHandler, pSettingsStore)
 {
   //CFunctionLogger f1("CUserLog::CUserLog", g_pLogger);
 
   InitMemberVars();
 
-  m_pAlphabet     = pAlphabet;
   m_iLevelMask    = iLogTypeMask;
 
   InitUsingMask(iLogTypeMask);
@@ -299,13 +297,7 @@ void CUserLog::AddSymbols(Dasher::VECTOR_SYMBOL_PROB* vpNewSymbols, eUserLogEven
       return;
     }
 
-    if (m_pAlphabet == NULL)
-    {
-      g_pLogger->Log("CUserLog::AddSymbols, can't do detailed logging of symbols without an alphabet!", logNORMAL);
-      return;
-    }
-
-    pTrial->AddSymbols(vpNewSymbols, iEvent, m_pAlphabet);
+    pTrial->AddSymbols(vpNewSymbols, iEvent);
   }
 }
 
@@ -629,16 +621,6 @@ void CUserLog::InitIsDone()
   m_bInitIsDone = true;
 }
 
-// Update our pointer to the alphabet we are using, we need th
-// alphabet in order to convert symbols into display strings
-// that we put in the log file.
-void CUserLog::SetAlphabetPtr(Dasher::CAlphabet* pAlphabet)
-{
-  //CFunctionLogger f1("CUserLog::SetAlphabetPtr", g_pLogger);
-
-  m_pAlphabet = pAlphabet;
-}
-
 // Sets our output filename based on the current date and time.
 // Or if a parameter is passed in, use that as the output name.
 void CUserLog::SetOuputFilename(const string& strFilename)
@@ -736,7 +718,6 @@ void CUserLog::InitMemberVars()
   m_bSimple               = false;
   m_bDetailed             = false;
   m_pSimpleLogger         = NULL;    
-  m_pAlphabet             = NULL;
   m_bIsWriting            = false;
   m_bInitIsDone           = false;
   m_bNeedToWriteCanvas    = false;
