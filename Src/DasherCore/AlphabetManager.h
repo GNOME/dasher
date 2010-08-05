@@ -87,7 +87,7 @@ namespace Dasher {
       virtual void SetFlag(int iFlag, bool bValue);
 
       virtual bool GameSearchNode(std::string strTargetUtf8Char);
-      virtual void GetContext(CDasherInterfaceBase *pInterface, std::vector<symbol> &vContextSymbols, int iOffset, int iLength);
+      virtual void GetContext(CDasherInterfaceBase *pInterface, const CAlphabet *pAlphabet, std::vector<symbol> &vContextSymbols, int iOffset, int iLength);
       virtual symbol GetAlphSymbol();
       const symbol iSymbol;
       virtual CDasherNode *RebuildSymbol(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd);

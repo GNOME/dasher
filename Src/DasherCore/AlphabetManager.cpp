@@ -93,7 +93,7 @@ CAlphabetManager::CAlphNode *CAlphabetManager::GetRoot(CDasherNode *pParent, uns
   int iStart = max(0, iNewOffset - m_pLanguageModel->GetContextLength());
   
   if(pParent) {
-    pParent->GetContext(m_pInterface, vContextSymbols, iStart, iNewOffset+1 - iStart);
+    pParent->GetContext(m_pInterface, m_pAlphabet, vContextSymbols, iStart, iNewOffset+1 - iStart);
   } else {
     std::string strContext = (iNewOffset == -1) 
       ? m_pAlphabet->GetDefaultContext()
@@ -163,12 +163,12 @@ CLanguageModel::Context CAlphabetManager::CAlphNode::CloneAlphContext(CLanguageM
   return CDasherNode::CloneAlphContext(pLanguageModel);
 }
 
-void CAlphabetManager::CSymbolNode::GetContext(CDasherInterfaceBase *pInterface, vector<symbol> &vContextSymbols, int iOffset, int iLength) {
+void CAlphabetManager::CSymbolNode::GetContext(CDasherInterfaceBase *pInterface, const CAlphabet *pAlphabet, vector<symbol> &vContextSymbols, int iOffset, int iLength) {
   if (!GetFlag(NF_SEEN) && iOffset+iLength-1 == offset()) {
-    if (iLength > 1) Parent()->GetContext(pInterface, vContextSymbols, iOffset, iLength-1);
+    if (iLength > 1) Parent()->GetContext(pInterface, pAlphabet, vContextSymbols, iOffset, iLength-1);
     vContextSymbols.push_back(iSymbol);
   } else {
-    CDasherNode::GetContext(pInterface, vContextSymbols, iOffset, iLength);
+    CDasherNode::GetContext(pInterface, pAlphabet, vContextSymbols, iOffset, iLength);
   }
 }
 

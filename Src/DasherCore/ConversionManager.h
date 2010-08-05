@@ -93,7 +93,7 @@ namespace Dasher {
     ~CConvNode();
 
     ///Attempts to fill vContextSymbols with the context that would exist _after_ this node has been entered
-    void GetContext(CDasherInterfaceBase *pInterface, std::vector<symbol> &vContextSymbols, int iOffset, int iLength);
+    void GetContext(CDasherInterfaceBase *pInterface, const CAlphabet *pAlphabet, std::vector<symbol> &vContextSymbols, int iOffset, int iLength);
 
     ///
     /// Called whenever a node belonging to this manager first 
