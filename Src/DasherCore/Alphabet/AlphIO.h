@@ -45,6 +45,7 @@ public:
   // This structure completely describes the characters used in alphabet
 
   struct AlphInfo {
+    AlphInfo();
     // Basic information
     std::string AlphID;
     bool Mutable;               // If from user we may play. If from system defaults this is immutable. User should take a copy.
@@ -58,6 +59,7 @@ public:
     Opts::ScreenOrientations Orientation;
 
     struct character {
+      character();
       std::string Display;
       std::string Text;
       int Colour;
@@ -74,17 +76,16 @@ public:
 /*     std::vector < group > Groups; */
 /*     // --- */
 
-    int m_iCharacters;
     SGroupInfo *m_pBaseGroup;
     int iNumChildNodes;
 
     std::vector<character> m_vCharacters;
 
-    character ParagraphCharacter;       // display and edit text of paragraph character. Use ("", "") if no paragraph character.
-    character SpaceCharacter;   // display and edit text of Space character. Typically (" ", "_"). Use ("", "") if no space character.
-    character ControlCharacter; // display and edit text of Control character. Typically ("", "Control"). Use ("", "") if no control character.
-    character StartConvertCharacter;
-    character EndConvertCharacter;
+    int iParagraphCharacter;       // index into m_vCharacters of paragraph char (display and edit text), -1 for none.
+    int iSpaceCharacter;   // index into m_vCharacters of space char (display and edit text), -1 for none.
+    character *ControlCharacter; // display and edit text of Control character. Typically ("", "Control"). Use ("", "") if no control character.
+    character *StartConvertCharacter;
+    character *EndConvertCharacter;
 
     int m_iConversionID;
     std::string m_strDefaultContext;
@@ -98,8 +99,8 @@ public:
   void SetInfo(const AlphInfo & NewInfo);
   void Delete(const std::string & AlphID);
 private:
+  AlphInfo::character *SpaceCharacter, *ParagraphCharacter;
   std::vector<SGroupInfo *> m_vGroups;
-  AlphInfo BlankInfo;
   std::string SystemLocation;
   std::string UserLocation;
   std::map < std::string, AlphInfo > Alphabets; // map short names (file names) to descriptions
@@ -116,7 +117,7 @@ private:
 
   bool LoadMutable;
   void ParseFile(std::string Filename);
-
+  void ReadCharAtts(const XML_Char **atts, AlphInfo::character &ch);
   // Alphabet types:
   std::map < std::string, Opts::AlphabetTypes > StoT;
   std::map < Opts::AlphabetTypes, std::string > TtoS;

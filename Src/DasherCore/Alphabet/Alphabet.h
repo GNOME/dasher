@@ -39,13 +39,9 @@ namespace Dasher {
   public:
     CAlphabet(const CAlphIO::AlphInfo & AlphInfo);
 
-    /// Return number of text symbols 
-    /// Text symbols are everything which doesn't generate a new root, 
-    /// i.e. control mode and conversion mode
+    /// Return number of text symbols - inc space and para, but no control/conversion start/end
     int GetNumberTextSymbols() const {
-
-      // TODO: This really does need to be fixed, as this will sometimes be 2
-      return m_Characters.size() - 1;
+      return m_Characters.size();
     } 
 
     Opts::ScreenOrientations GetOrientation() const {
@@ -68,7 +64,6 @@ namespace Dasher {
 
     symbol GetParagraphSymbol() const;
     symbol GetSpaceSymbol() const;
-    symbol GetControlSymbol() const;
     symbol GetStartConversionSymbol() const;
     symbol GetEndConversionSymbol() const;
 
@@ -137,9 +132,11 @@ namespace Dasher {
     Opts::ScreenOrientations m_Orientation;
     symbol m_ParagraphSymbol;
     symbol m_SpaceSymbol;
-    symbol m_ControlSymbol;
     symbol m_StartConversionSymbol;
     symbol m_EndConversionSymbol;
+    ///text and colour for the control node in this alphabet. TODO: use!
+    std::string m_strControlDisplay;
+    int m_iControlColour;
 
     std::string m_TrainingFile;
     std::string m_GameModeFile;
@@ -176,10 +173,6 @@ namespace Dasher {
 
   inline symbol CAlphabet::GetSpaceSymbol() const {
     return m_SpaceSymbol;
-  }
-
-  inline symbol CAlphabet::GetControlSymbol() const {
-    return m_ControlSymbol;
   }
 
   inline symbol CAlphabet::GetStartConversionSymbol() const {

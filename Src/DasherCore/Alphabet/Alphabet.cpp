@@ -49,7 +49,8 @@ CAlphabet::CAlphabet(const CAlphIO::AlphInfo &AlphInfo) : m_pBaseGroup(AlphInfo.
   m_Colours.push_back(-1);
   m_Foreground.push_back("");
 
-  m_ControlSymbol = -1;
+  m_strControlDisplay = "Control";
+  m_iControlColour=-1;
   m_StartConversionSymbol = -1;
   m_EndConversionSymbol = -1;
 
@@ -66,36 +67,31 @@ CAlphabet::CAlphabet(const CAlphIO::AlphInfo &AlphInfo) : m_pBaseGroup(AlphInfo.
   for(std::vector<CAlphIO::AlphInfo::character>::const_iterator it(AlphInfo.m_vCharacters.begin()); it != AlphInfo.m_vCharacters.end(); ++it)
     AddChar(it->Text, it->Display, it->Colour, it->Foreground);
 
+  //paragraph and space symbols are in with the other characters in AlphInfo.m_vCharacters, but always at the end;
+  // just store their indices (maybe -1)
+  m_ParagraphSymbol = AlphInfo.iParagraphCharacter;
 
+  m_SpaceSymbol = AlphInfo.iSpaceCharacter;
+    
   // TODO: Special characters are a mess - really need to think these through
 
-  // Set Space character if requested
-
-  // This line makes it a bit easier for our WindowsCE compiler
-  std::string empty = "";
-
-  if(AlphInfo.ParagraphCharacter.Text != empty)
-    m_ParagraphSymbol = AddChar(AlphInfo.ParagraphCharacter.Text, AlphInfo.ParagraphCharacter.Display, AlphInfo.ParagraphCharacter.Colour, AlphInfo.ParagraphCharacter.Foreground);
-
-  if(AlphInfo.SpaceCharacter.Text != empty)
-    m_SpaceSymbol = AddChar(AlphInfo.SpaceCharacter.Text, AlphInfo.SpaceCharacter.Display, AlphInfo.SpaceCharacter.Colour, AlphInfo.SpaceCharacter.Foreground);
-
   //-- Added for Kanji Conversion 13 July 2005 by T.Kaburagi START
-  if(AlphInfo.StartConvertCharacter.Text != empty)
-    m_StartConversionSymbol = AddChar(AlphInfo.StartConvertCharacter.Text, AlphInfo.StartConvertCharacter.Display, AlphInfo.StartConvertCharacter.Colour, AlphInfo.StartConvertCharacter.Foreground);
+  if(AlphInfo.StartConvertCharacter)
+    m_StartConversionSymbol = AddChar(AlphInfo.StartConvertCharacter->Text, AlphInfo.StartConvertCharacter->Display, AlphInfo.StartConvertCharacter->Colour, AlphInfo.StartConvertCharacter->Foreground);
 
-  if(AlphInfo.EndConvertCharacter.Text != empty)
-    m_EndConversionSymbol = AddChar(AlphInfo.EndConvertCharacter.Text, AlphInfo.EndConvertCharacter.Display, AlphInfo.EndConvertCharacter.Colour, AlphInfo.EndConvertCharacter.Foreground);
+  if(AlphInfo.EndConvertCharacter)
+    m_EndConversionSymbol = AddChar(AlphInfo.EndConvertCharacter->Text, AlphInfo.EndConvertCharacter->Display, AlphInfo.EndConvertCharacter->Colour, AlphInfo.EndConvertCharacter->Foreground);
   //-- Added for Kanji Conversion 13 July 2005 by T.Kaburagi END
 
-  // DJW - now the control symbol is always a part of the alphabet
-  // DasherModel knows whether or not to use it
+  // ACL: the control symbol is never part of the alphabet (it's not
+  // present in input/training files, nor predicted by the LM), but
+  // is added in by AlphabetManager if appropriate...
 
-  // FIXME - We really need to ensure that the control symbol is last in the alphabet with the current logic.
-
-  if(AlphInfo.ControlCharacter.Display != std::string("") && GetControlSymbol() == -1)
-    m_ControlSymbol = AddChar(AlphInfo.ControlCharacter.Text, AlphInfo.ControlCharacter.Display, AlphInfo.ControlCharacter.Colour, AlphInfo.ControlCharacter.Foreground);
-
+  if (AlphInfo.ControlCharacter) {
+    m_strControlDisplay = AlphInfo.ControlCharacter->Display;
+    m_iControlColour = AlphInfo.ControlCharacter->Colour;
+    //foreground?
+  }
 #ifdef DASHER_TRACE
   Trace();
 #endif
