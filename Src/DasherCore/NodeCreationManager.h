@@ -41,18 +41,16 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   Dasher::CControlManager *GetControlManager() {return m_pControlManager;}
   
   ///
-  /// Get a reference to the alphabet
+  /// Get a reference to the current alphabet
   ///
 
-  Dasher::CAlphabet *GetAlphabet() {
-    return m_pAlphabet;
+  const Dasher::CAlphabet *GetAlphabet() const {
+    return m_pAlphabetManager->GetAlphabet();
   }
 
   void ImportTrainingText(const std::string &strPath);
 
  private:
-  Dasher::CLanguageModel *m_pLanguageModel;     // pointer to the language model
-  Dasher::CAlphabet *m_pAlphabet;        // pointer to the alphabet
   Dasher::CTrainer *m_pTrainer;
   
   Dasher::CDasherInterfaceBase *m_pInterface;

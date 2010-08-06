@@ -88,7 +88,6 @@ static char THIS_FILE[] = __FILE__;
 CDasherInterfaceBase::CDasherInterfaceBase() {
 
   // Ensure that pointers to 'owned' objects are set to NULL.
-  m_Alphabet = NULL;
   m_pDasherModel = NULL;
   m_DasherScreen = NULL;
   m_pDasherView = NULL;
@@ -180,13 +179,6 @@ void CDasherInterfaceBase::Realize() {
   CParameterNotificationEvent oEvent(LP_NODE_BUDGET);
   InterfaceEventHandler(&oEvent);
 
-  // Set up real orientation to match selection
-  if(GetLongParameter(LP_ORIENTATION) == Dasher::Opts::AlphabetDefault)
-    SetLongParameter(LP_REAL_ORIENTATION, m_Alphabet->GetOrientation());
-  else
-    SetLongParameter(LP_REAL_ORIENTATION, GetLongParameter(LP_ORIENTATION));
-
-
   // FIXME - need to rationalise this sort of thing.
   // InvalidateContext(true);
   ScheduleRedraw();
@@ -216,7 +208,6 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
   GameMode::CDasherGameMode::DestroyTeacher();
 
   delete m_pDasherModel;        // The order of some of these deletions matters
-  delete m_Alphabet;
   delete m_pDasherView;
   delete m_ColourIO;
   delete m_AlphIO;
@@ -300,12 +291,7 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
     case BP_DRAW_MOUSE_LINE:
       ScheduleRedraw();
       break;
-    case LP_ORIENTATION:
-      if(GetLongParameter(LP_ORIENTATION) == Dasher::Opts::AlphabetDefault)
-	// TODO: See comment in DasherModel.cpp about prefered values
-	SetLongParameter(LP_REAL_ORIENTATION, m_Alphabet->GetOrientation());
-      else
-	SetLongParameter(LP_REAL_ORIENTATION, GetLongParameter(LP_ORIENTATION));
+    case LP_REAL_ORIENTATION:
       ScheduleRedraw();
       break;
     case SP_ALPHABET_ID:
@@ -362,7 +348,8 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       if(GetBoolParameter(BP_LM_ADAPTIVE))
 	 strTrainfileBuffer += pEditEvent->m_sText;
       if (GetBoolParameter(BP_SPEAK_WORDS) && SupportsSpeech()) {
-        if (pEditEvent->m_sText == m_Alphabet->GetText(m_Alphabet->GetSpaceSymbol())) {
+        const CAlphabet *pAlphabet = m_pNCManager->GetAlphabet();
+        if (pEditEvent->m_sText == pAlphabet->GetText(pAlphabet->GetSpaceSymbol())) {
           Speak(m_strCurrentWord, false);
           m_strCurrentWord="";
         } else
@@ -400,8 +387,6 @@ void CDasherInterfaceBase::CreateNCManager() {
 
   //now create the new manager...
   m_pNCManager = new CNodeCreationManager(this, m_pEventHandler, m_pSettingsStore, m_AlphIO);
-
-  m_Alphabet = m_pNCManager->GetAlphabet();
 
   //and start a new tree of nodes from it (retaining old offset -
   // this will be a sensible default of 0 if no nodes previously existed).

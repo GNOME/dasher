@@ -104,12 +104,6 @@ public:
 
   void DeleteAlphabet(const std::string & AlphID);
 
-  /// Get a pointer to the current alphabet object
-
-  CAlphabet *GetAlphabet() {
-    return m_Alphabet;
-  }
-
   /// Gets a pointer to the object doing user logging
 
   CUserLogBase* GetUserLogPtr();
@@ -586,7 +580,6 @@ protected:
   /// @name Child components
   /// Various objects which are 'owned' by the core. 
   /// @{
-  CAlphabet *m_Alphabet;
   CDasherModel *m_pDasherModel;
   CDasherScreen *m_DasherScreen;
   CDasherView *m_pDasherView;

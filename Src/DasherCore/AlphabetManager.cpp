@@ -50,11 +50,16 @@ CAlphabetManager::CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreati
   m_pInterface = pInterface;
 
   m_iLearnContext = m_pLanguageModel->CreateEmptyContext();
+}
 
+const CAlphabet *CAlphabetManager::GetAlphabet() const {
+  return m_pAlphabet;
 }
 
 CAlphabetManager::~CAlphabetManager() {
   m_pLanguageModel->ReleaseContext(m_iLearnContext);
+  delete m_pAlphabet;
+  delete m_pLanguageModel;
 }
 
 CAlphabetManager::CAlphNode::CAlphNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const string &strDisplayText, CAlphabetManager *pMgr)

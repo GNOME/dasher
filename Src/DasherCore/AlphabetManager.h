@@ -125,6 +125,7 @@ namespace Dasher {
     /// will enter. (Also used to build context for preceding characters.)
     virtual CAlphNode *GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, bool bEnteredLast, int iOffset);
 
+    const CAlphabet *GetAlphabet() const;
   protected:
     ///
     /// Factory method for CAlphNode construction, so subclasses can override.
