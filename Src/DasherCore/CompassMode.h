@@ -9,7 +9,6 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
-#include "Alphabet/Alphabet.h"
 #include <algorithm>
 #include "DasherComponent.h"
 #include "Event.h"

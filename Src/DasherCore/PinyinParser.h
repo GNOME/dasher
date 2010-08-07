@@ -21,7 +21,6 @@
 #ifndef __PinyinParser_h__
 #define __PinyinParser_h__
 
-#include "Alphabet/Alphabet.h"
 #include "DasherTypes.h"
 #include <expat.h>
 #include <iostream>

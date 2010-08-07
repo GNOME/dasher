@@ -31,7 +31,6 @@
 #include "SimpleTimer.h"
 #include "TimeSpan.h"
 #include "UserLogTrial.h"
-#include "Alphabet/Alphabet.h"
 #include <algorithm>
 #include "UserLogParam.h"
 #include "UserLogBase.h"
