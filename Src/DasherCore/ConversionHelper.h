@@ -43,7 +43,7 @@ namespace Dasher{
 ///
   class CConversionHelper : public CConversionManager {
   public:
-	CConversionHelper(CNodeCreationManager *pNCManager, CAlphabet *pAlphabet, CLanguageModel *pLanguageModel);
+	CConversionHelper(CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, CLanguageModel *pLanguageModel);
 	
 	/// Convert a given string to a lattice of candidates. Sizes for
 	/// candidates aren't assigned at this point. The input string

@@ -28,7 +28,7 @@ namespace Dasher {
   /// \{
   class CDictLanguageModel:public CLanguageModel {
   public:
-    CDictLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CAlphabet *pAlph);
+    CDictLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CAlphInfo *pAlph, const CAlphabetMap *pAlphMap);
     virtual ~CDictLanguageModel();
 
     Context CreateEmptyContext();
@@ -80,6 +80,8 @@ namespace Dasher {
       int word_order;
 
     };
+    
+    const CAlphabetMap *m_pAlphMap;
 
     CDictnode *AddSymbolToNode(CDictnode * pNode, symbol sym, int *update);
 

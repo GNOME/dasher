@@ -138,7 +138,7 @@ void CDasherInterfaceBase::Realize() {
 
   std::vector<std::string> vAlphabetFiles;
   ScanAlphabetFiles(vAlphabetFiles);
-  m_AlphIO = new CAlphIO(GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), vAlphabetFiles);
+  m_AlphIO = new CAlphInfo::AlphIO(GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), vAlphabetFiles);
 
   std::vector<std::string> vColourFiles;
   ScanColourFiles(vColourFiles);
@@ -348,7 +348,7 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       if(GetBoolParameter(BP_LM_ADAPTIVE))
 	 strTrainfileBuffer += pEditEvent->m_sText;
       if (GetBoolParameter(BP_SPEAK_WORDS) && SupportsSpeech()) {
-        const CAlphabet *pAlphabet = m_pNCManager->GetAlphabet();
+        const CAlphInfo *pAlphabet = m_pNCManager->GetAlphabet();
         if (pEditEvent->m_sText == pAlphabet->GetText(pAlphabet->GetSpaceSymbol())) {
           Speak(m_strCurrentWord, false);
           m_strCurrentWord="";
@@ -674,11 +674,11 @@ void CDasherInterfaceBase::ChangeView() {
   }
 }
 
-const CAlphIO::AlphInfo & CDasherInterfaceBase::GetInfo(const std::string &AlphID) {
+const CAlphInfo *CDasherInterfaceBase::GetInfo(const std::string &AlphID) {
   return m_AlphIO->GetInfo(AlphID);
 }
 
-void CDasherInterfaceBase::SetInfo(const CAlphIO::AlphInfo &NewInfo) {
+void CDasherInterfaceBase::SetInfo(const CAlphInfo *NewInfo) {
   m_AlphIO->SetInfo(NewInfo);
 }
 

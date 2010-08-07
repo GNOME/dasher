@@ -40,7 +40,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 
-CCTWLanguageModel::CCTWLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphabet *pAlph)
+CCTWLanguageModel::CCTWLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphInfo *pAlph)
 :CLanguageModel(pEventHandler, pSettingsStore, pAlph){
 
 	Dasher::CHashTable HashTable;  // create hashtable

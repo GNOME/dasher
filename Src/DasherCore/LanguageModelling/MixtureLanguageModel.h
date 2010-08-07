@@ -28,14 +28,14 @@ namespace Dasher {
 
     /////////////////////////////////////////////////////////////////////////////
 
-    CMixtureLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CAlphabet *pAlph):CLanguageModel(pEventHandler, pSettingsStore, pAlph) {
+    CMixtureLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CAlphInfo *pAlph, const CAlphabetMap *pAlphMap):CLanguageModel(pEventHandler, pSettingsStore, pAlph) {
 
       //      std::cout << m_pAlphabet << std::endl;
 
       NextContext = 0;
 
       lma = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, m_pAlphabet);
-      lmb = new CDictLanguageModel(m_pEventHandler, m_pSettingsStore, m_pAlphabet);
+      lmb = new CDictLanguageModel(m_pEventHandler, m_pSettingsStore, m_pAlphabet, pAlphMap);
 
     };
 

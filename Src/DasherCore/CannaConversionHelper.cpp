@@ -14,7 +14,7 @@
 
 using namespace Dasher;
 
-CCannaConversionHelper::CCannaConversionHelper(CNodeCreationManager *pNCManager, CAlphabet *pAlphabet, int Type, int Order)
+CCannaConversionHelper::CCannaConversionHelper(CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, int Type, int Order)
 : CConversionHelper(pNCManager, pAlphabet) {
 
   int ret;

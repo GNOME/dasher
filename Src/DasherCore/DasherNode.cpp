@@ -96,7 +96,7 @@ void CDasherNode::Trace() const {
    */
 }
 
-void CDasherNode::GetContext(CDasherInterfaceBase *pInterface, const CAlphabet *pAlphabet, vector<symbol> &vContextSymbols, int iOffset, int iLength) {
+void CDasherNode::GetContext(CDasherInterfaceBase *pInterface, const CAlphabetMap *pAlphabet, vector<symbol> &vContextSymbols, int iOffset, int iLength) {
   if (!GetFlag(NF_SEEN)) {
     DASHER_ASSERT(m_pParent);
     if (m_pParent) m_pParent->GetContext(pInterface, pAlphabet, vContextSymbols, iOffset,iLength);

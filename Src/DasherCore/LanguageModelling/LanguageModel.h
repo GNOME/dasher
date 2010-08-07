@@ -11,7 +11,7 @@
 
 #include "../DasherTypes.h"
 
-#include "../Alphabet/Alphabet.h"
+#include "../Alphabet/AlphIO.h"
 #include "../DasherComponent.h"
 #include <vector>
 
@@ -36,7 +36,7 @@ public:
 
   /////////////////////////////////////////////////////////////////////////////
 
-  CLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphabet *pAlph);
+  CLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphInfo *pAlph);
 
   virtual ~CLanguageModel() {};
 
@@ -145,11 +145,13 @@ public:
     // UTF-8 encoded alphabet name follows (variable length struct)
   };
 
+  ///Return the number of symbols over which we are making predictions, plus one
+  /// (to leave space for an initial 0).
   int GetSize() const {
-    return m_pAlphabet->GetNumberTextSymbols();
+    return m_pAlphabet->GetNumberTextSymbols()+1;
   }
 
-  const CAlphabet *m_pAlphabet;
+  const CAlphInfo *m_pAlphabet;
 
 };
 

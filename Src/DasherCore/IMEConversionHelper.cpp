@@ -7,7 +7,7 @@
 
 #include <iostream>             //For testing 23 June 2005
 
-CIMEConversionHelper::CIMEConversionHelper(Dasher::CNodeCreationManager *pNCManager, Dasher::CAlphabet *pAlphabet)
+CIMEConversionHelper::CIMEConversionHelper(Dasher::CNodeCreationManager *pNCManager, Dasher::const CAlphInfo *pAlphabet)
  : CConversionHelper(pNCManager, pAlphabet) {
   IsInit = 0;
   hIMC = ImmCreateContext();

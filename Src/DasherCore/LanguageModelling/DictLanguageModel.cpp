@@ -8,7 +8,7 @@
 
 #include "../../Common/Common.h"
 #include "DictLanguageModel.h"
-#include "../Alphabet/Alphabet.h"
+#include "../Alphabet/AlphabetMap.h"
 
 #include <climits>
 #include <cmath>
@@ -90,8 +90,8 @@ CDictLanguageModel::CDictnode * CDictLanguageModel::AddSymbolToNode(CDictnode *p
 // CDictLanguageModel defs
 /////////////////////////////////////////////////////////////////////
 
-CDictLanguageModel::CDictLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphabet *pAlph)
-:CLanguageModel(pEventHandler, pSettingsStore, pAlph), NodesAllocated(0), max_order(0), m_NodeAlloc(8192), m_ContextAlloc(1024) {
+CDictLanguageModel::CDictLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphInfo *pAlph, const CAlphabetMap *pAlphMap)
+:CLanguageModel(pEventHandler, pSettingsStore, pAlph), m_pAlphMap(pAlphMap), NodesAllocated(0), max_order(0), m_NodeAlloc(8192), m_ContextAlloc(1024) {
   m_pRoot = m_NodeAlloc.Alloc();
   m_pRoot->sbl = -1;
   m_rootcontext = new CDictContext(m_pRoot, 0);
@@ -114,7 +114,7 @@ CDictLanguageModel::CDictLanguageModel(Dasher::CEventHandler *pEventHandler, CSe
     //      std::cout << m_pAlphabet << std::endl;
 
     std::vector < symbol > Symbols;
-    m_pAlphabet->GetSymbols(Symbols, CurrentWord);
+    m_pAlphMap->GetSymbols(Symbols, CurrentWord);
 
     for(std::vector < symbol >::iterator it(Symbols.begin()); it != Symbols.end(); ++it) {
       MyLearnSymbol(TempContext, *it);

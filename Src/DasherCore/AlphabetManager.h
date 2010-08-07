@@ -44,7 +44,7 @@ namespace Dasher {
   class CAlphabetManager : public CNodeManager {
   public:
 
-    CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CAlphabet *pAlphabet, CLanguageModel *pLanguageModel);
+    CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphabetMap, CLanguageModel *pLanguageModel);
     virtual ~CAlphabetManager();
 
   protected:
@@ -87,7 +87,7 @@ namespace Dasher {
       virtual void SetFlag(int iFlag, bool bValue);
 
       virtual bool GameSearchNode(std::string strTargetUtf8Char);
-      virtual void GetContext(CDasherInterfaceBase *pInterface, const CAlphabet *pAlphabet, std::vector<symbol> &vContextSymbols, int iOffset, int iLength);
+      virtual void GetContext(CDasherInterfaceBase *pInterface, const CAlphabetMap *pAlphabetMap, std::vector<symbol> &vContextSymbols, int iOffset, int iLength);
       virtual symbol GetAlphSymbol();
       const symbol iSymbol;
       virtual CDasherNode *RebuildSymbol(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd);
@@ -125,7 +125,7 @@ namespace Dasher {
     /// will enter. (Also used to build context for preceding characters.)
     virtual CAlphNode *GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, bool bEnteredLast, int iOffset);
 
-    const CAlphabet *GetAlphabet() const;
+    const CAlphInfo *GetAlphabet() const;
   protected:
     ///
     /// Factory method for CAlphNode construction, so subclasses can override.
@@ -143,7 +143,8 @@ namespace Dasher {
 
     CLanguageModel *m_pLanguageModel;
     CNodeCreationManager *m_pNCManager;
-    const CAlphabet *m_pAlphabet;
+    const CAlphInfo *m_pAlphabet;
+    const CAlphabetMap *m_pAlphabetMap;
 
   private:
     ///Wraps m_pLanguageModel->GetProbs to implement nonuniformity & leave space for control node.

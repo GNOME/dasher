@@ -90,7 +90,7 @@ namespace Dasher {
       int order;
     };
   public:
-    CPPMLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CAlphabet *pAlph);
+    CPPMLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CAlphInfo *pAlph);
     bool eq(CPPMLanguageModel *other);
     virtual ~ CPPMLanguageModel();
 

@@ -23,7 +23,7 @@ static char THIS_FILE[] = __FILE__;
 
 /////////////////////////////////////////////////////////////////////////////
 
-CBigramLanguageModel::CBigramLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphabet *pAlph)
+CBigramLanguageModel::CBigramLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphInfo *pAlph)
 :CLanguageModel(pEventHandler, pSettingsStore, pAlph), m_ContextAlloc(1024) {
 
 }

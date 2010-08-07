@@ -45,14 +45,14 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CAlphabetManager::CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CAlphabet *pAlphabet, CLanguageModel *pLanguageModel)
-  : m_pLanguageModel(pLanguageModel), m_pNCManager(pNCManager), m_pAlphabet(pAlphabet) {
+CAlphabetManager::CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphabetMap, CLanguageModel *pLanguageModel)
+  : m_pLanguageModel(pLanguageModel), m_pNCManager(pNCManager), m_pAlphabet(pAlphabet), m_pAlphabetMap(pAlphabetMap) {
   m_pInterface = pInterface;
 
   m_iLearnContext = m_pLanguageModel->CreateEmptyContext();
 }
 
-const CAlphabet *CAlphabetManager::GetAlphabet() const {
+const CAlphInfo *CAlphabetManager::GetAlphabet() const {
   return m_pAlphabet;
 }
 
@@ -77,7 +77,7 @@ CAlphabetManager::CSymbolNode::CSymbolNode(CDasherNode *pParent, int iOffset, un
 CAlphabetManager::CGroupNode::CGroupNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CAlphabetManager *pMgr, const SGroupInfo *pGroup)
 : CAlphNode(pParent, iOffset, iLbnd, iHbnd,
             pGroup ? (pGroup->bVisible ? pGroup->iColour : pParent->getColour())
-                   : pMgr->m_pAlphabet->GetColour(0, iOffset%2),
+            : iOffset%2 == 1 ? 140 : 10, //special case - was AlphInfo::GetColour for symbol _0_
             pGroup ? pGroup->strLabel : "", pMgr), m_pGroup(pGroup) {
 };
 
@@ -98,12 +98,12 @@ CAlphabetManager::CAlphNode *CAlphabetManager::GetRoot(CDasherNode *pParent, uns
   int iStart = max(0, iNewOffset - m_pLanguageModel->GetContextLength());
   
   if(pParent) {
-    pParent->GetContext(m_pInterface, m_pAlphabet, vContextSymbols, iStart, iNewOffset+1 - iStart);
+    pParent->GetContext(m_pInterface, m_pAlphabetMap, vContextSymbols, iStart, iNewOffset+1 - iStart);
   } else {
     std::string strContext = (iNewOffset == -1) 
       ? m_pAlphabet->GetDefaultContext()
       : m_pInterface->GetContext(iStart, iNewOffset+1 - iStart);
-    m_pAlphabet->GetSymbols(vContextSymbols, strContext);
+    m_pAlphabetMap->GetSymbols(vContextSymbols, strContext);
   }
   
   CAlphNode *pNewNode;
@@ -123,7 +123,7 @@ CAlphabetManager::CAlphNode *CAlphabetManager::GetRoot(CDasherNode *pParent, uns
     bEnteredLast=false;
     //instead, Create a node as if we were starting a new sentence...
     vContextSymbols.clear();
-    m_pAlphabet->GetSymbols(vContextSymbols, m_pAlphabet->GetDefaultContext());
+    m_pAlphabetMap->GetSymbols(vContextSymbols, m_pAlphabet->GetDefaultContext());
     it = vContextSymbols.begin();
     //TODO: What it the default context somehow contains symbols not in the alphabet?
   }
@@ -168,12 +168,12 @@ CLanguageModel::Context CAlphabetManager::CAlphNode::CloneAlphContext(CLanguageM
   return CDasherNode::CloneAlphContext(pLanguageModel);
 }
 
-void CAlphabetManager::CSymbolNode::GetContext(CDasherInterfaceBase *pInterface, const CAlphabet *pAlphabet, vector<symbol> &vContextSymbols, int iOffset, int iLength) {
+void CAlphabetManager::CSymbolNode::GetContext(CDasherInterfaceBase *pInterface, const CAlphabetMap *pAlphabetMap, vector<symbol> &vContextSymbols, int iOffset, int iLength) {
   if (!GetFlag(NF_SEEN) && iOffset+iLength-1 == offset()) {
-    if (iLength > 1) Parent()->GetContext(pInterface, pAlphabet, vContextSymbols, iOffset, iLength-1);
+    if (iLength > 1) Parent()->GetContext(pInterface, pAlphabetMap, vContextSymbols, iOffset, iLength-1);
     vContextSymbols.push_back(iSymbol);
   } else {
-    CDasherNode::GetContext(pInterface, pAlphabet, vContextSymbols, iOffset, iLength);
+    CDasherNode::GetContext(pInterface, pAlphabetMap, vContextSymbols, iOffset, iLength);
   }
 }
 
@@ -185,11 +185,12 @@ void CAlphabetManager::CSymbolNode::PopulateChildren() {
   m_pMgr->IterateChildGroups(this, NULL, NULL);
 }
 int CAlphabetManager::CAlphNode::ExpectedNumChildren() {
-  return m_pMgr->m_pAlphabet->iNumChildNodes;
+  int i=m_pMgr->m_pAlphabet->iNumChildNodes;
+  return (m_pMgr->m_pNCManager->GetBoolParameter(BP_CONTROL_MODE)) ? i+1 : i;
 }
 
 void CAlphabetManager::GetProbs(vector<unsigned int> *pProbInfo, CLanguageModel::Context context) {
-  const unsigned int iSymbols = m_pAlphabet->GetNumberTextSymbols() - 1;      // lose the root node
+  const unsigned int iSymbols = m_pAlphabet->GetNumberTextSymbols();
   unsigned long iNorm(m_pNCManager->GetLongParameter(LP_NORMALIZATION));
   
   // TODO - sort out size of control node - for the timebeing I'll fix the control node at 5%
@@ -211,7 +212,7 @@ void CAlphabetManager::GetProbs(vector<unsigned int> *pProbInfo, CLanguageModel:
   // to GetProbs as per ordinary language model, so no need to test....
   m_pLanguageModel->GetProbs(context, *pProbInfo, iNonUniformNorm, 0);
   
-  DASHER_ASSERT(pProbInfo->size() == m_pAlphabet->GetNumberTextSymbols());
+  DASHER_ASSERT(pProbInfo->size() == m_pAlphabet->GetNumberTextSymbols()+1);//initial 0
   
   for(unsigned int k(1); k < pProbInfo->size(); ++k)
     (*pProbInfo)[k] += iUniformAdd;
@@ -334,7 +335,7 @@ void CAlphabetManager::IterateChildGroups(CAlphNode *pParent, const SGroupInfo *
   std::vector<unsigned int> *pCProb(pParent->GetProbInfo());
   DASHER_ASSERT((*pCProb)[0] == 0);
   const int iMin(pParentGroup ? pParentGroup->iStart : 1);
-  const int iMax(pParentGroup ? pParentGroup->iEnd : m_pAlphabet->GetNumberTextSymbols());
+  const int iMax(pParentGroup ? pParentGroup->iEnd : m_pAlphabet->GetNumberTextSymbols()+1);
   unsigned int iRange(pParentGroup ? ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]) : m_pNCManager->GetLongParameter(LP_NORMALIZATION));
   
   // TODO: Think through alphabet file formats etc. to make this class easier.

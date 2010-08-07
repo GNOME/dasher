@@ -20,7 +20,7 @@
 #include <string>
 
 namespace Dasher {
-  class alphabet_map;
+  class CAlphabetMap;
 } 
 
 /// \ingroup Alphabet
@@ -53,7 +53,7 @@ namespace Dasher {
 /// a standard hash_map would be hard.
 /// 
 /// Usage:
-/// alphabet_map MyMap(NumberOfEntriesWeExpect); // Can omit NumberOfEntriesWeExpect
+/// CAlphabetMap MyMap(NumberOfEntriesWeExpect); // Can omit NumberOfEntriesWeExpect
 /// MyMap.add("asdf", 15);
 /// symbol i = MyMap.get("asdf") // i=15
 /// symbol j = MyMap.get("fdsa") // j=0
@@ -61,18 +61,39 @@ namespace Dasher {
 /// You can't remove items once they are added as Dasher has no need for that.
 /// 
 /// IAM 08/2002
-class Dasher::alphabet_map {
+class Dasher::CAlphabetMap {
 
 public:
-  alphabet_map(unsigned int InitialTableSize = 255);
-  ~alphabet_map();
-  void Add(const std::string & Key, symbol Value);
+  ~CAlphabetMap();
 
   // Return the symbol associated with Key or Undefined.
   symbol Get(const std::string & Key) const;
   symbol GetSingleChar(char key) const;
 
+  class SymbolStream {
+  public:
+    SymbolStream(const CAlphabetMap &_map, std::istream &_in);
+    symbol next();
+  private:
+    void readMore();
+    const CAlphabetMap &map;
+    char buf[1024];
+    int pos, len;
+    std::istream &in;
+  };
+  
+  // Fills Symbols with the symbols corresponding to Input. {{{ Note that this
+  // is not necessarily reversible by repeated use of GetText. Some text
+  // may not be recognised and so discarded. }}}
+  
+  void GetSymbols(std::vector<symbol> &Symbols, const std::string &Input) const;
+  //SymbolStream *GetSymbols(std::istream &in) const;
+  
 private:
+  friend class CAlphInfo;
+  CAlphabetMap(unsigned int InitialTableSize = 255);
+  void Add(const std::string & Key, symbol Value);
+
   class Entry {
   public:
     Entry(std::string Key, symbol Symbol, Entry * Next)

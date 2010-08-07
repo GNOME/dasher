@@ -1,7 +1,7 @@
 #ifndef __NodeCreationManager_h__
 #define __NodeCreationManager_h__
 
-#include "Alphabet/Alphabet.h"
+#include "Alphabet/AlphabetMap.h"
 #include "Alphabet/AlphIO.h"
 #include "AlphabetManager.h"
 #include "ConversionManager.h"
@@ -25,9 +25,9 @@ namespace Dasher {
 class CNodeCreationManager : public Dasher::CDasherComponent {
  public:
   CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterface,
-		       Dasher::CEventHandler * pEventHandler,
-		       CSettingsStore * pSettingsStore,
-		       Dasher::CAlphIO *pAlphIO);
+                       Dasher::CEventHandler * pEventHandler,
+                       CSettingsStore * pSettingsStore,
+                       Dasher::CAlphInfo::AlphIO *pAlphIO);
   ~CNodeCreationManager();
   
   //we watch for changes to BP_CONTROL_MODE and create the Control Manager lazily
@@ -44,7 +44,7 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   /// Get a reference to the current alphabet
   ///
 
-  const Dasher::CAlphabet *GetAlphabet() const {
+  const Dasher::CAlphInfo *GetAlphabet() const {
     return m_pAlphabetManager->GetAlphabet();
   }
 

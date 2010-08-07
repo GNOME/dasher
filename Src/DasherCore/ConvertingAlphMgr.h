@@ -16,7 +16,7 @@
 namespace Dasher {
   class CConvertingAlphMgr : public CAlphabetManager {
   public:
-    CConvertingAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CConversionManager *pConvMgr, CAlphabet *pAlphabet, CLanguageModel *pLanguageModel);
+    CConvertingAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CConversionManager *pConvMgr, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphabetMap, CLanguageModel *pLanguageModel);
     virtual ~CConvertingAlphMgr();
   protected:
     void AddExtras(CAlphNode *pParent, std::vector<unsigned int> *pCProb);

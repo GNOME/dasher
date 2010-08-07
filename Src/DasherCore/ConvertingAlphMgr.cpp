@@ -12,8 +12,8 @@
 
 using namespace Dasher;
 
-CConvertingAlphMgr::CConvertingAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CConversionManager *pConvMgr, CAlphabet *pAlphabet, CLanguageModel *pLanguageModel)
- : CAlphabetManager(pInterface, pNCManager, pAlphabet, pLanguageModel), m_pConvMgr(pConvMgr) {
+CConvertingAlphMgr::CConvertingAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CConversionManager *pConvMgr, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphabetMap, CLanguageModel *pLanguageModel)
+ : CAlphabetManager(pInterface, pNCManager, pAlphabet, pAlphabetMap, pLanguageModel), m_pConvMgr(pConvMgr) {
  }
 
 CConvertingAlphMgr::~CConvertingAlphMgr() {
@@ -22,7 +22,7 @@ CConvertingAlphMgr::~CConvertingAlphMgr() {
 
 void CConvertingAlphMgr::AddExtras(CAlphNode *pParent, std::vector<unsigned int> *pCProb) {
     //should have another probability....
-  const unsigned int i(m_pNCManager->GetAlphabet()->GetNumberTextSymbols());
+  const unsigned int i(m_pNCManager->GetAlphabet()->GetNumberTextSymbols()+1);
   DASHER_ASSERT(pCProb->size() == i+1);
   //ACL setting m_iOffset+1 for consistency with "proper" symbol nodes...
   m_pConvMgr->GetRoot(pParent, (*pCProb)[i-1], (*pCProb)[i], pParent->offset()+1);

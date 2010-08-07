@@ -5,27 +5,26 @@
 #include "TrainingHelper.h"
 
 namespace Dasher {
-  class CAlphIO;
   class CDasherInterfaceBase;
 	
   class CTrainer : public CTrainingHelper {
   public:
-    CTrainer(CLanguageModel *pLanguageModel, CAlphabet *pAlphabet);
+    CTrainer(CLanguageModel *pLanguageModel, const CAlphabetMap *pAlphabet);
 
   protected:
-    virtual void Train(CAlphabet::SymbolStream &syms);
+    virtual void Train(CAlphabetMap::SymbolStream &syms);
     CLanguageModel *m_pLanguageModel;
   };
 	
   class CMandarinTrainer : public CTrainer {
   public:
-    CMandarinTrainer(CLanguageModel *pLanguageModel, CAlphabet *pAlphabet, CAlphabet *pCHAlphabet);
+    CMandarinTrainer(CLanguageModel *pLanguageModel, const CAlphabetMap *pAlphabet, const CAlphabetMap *pCHAlphabet);
 
     //override...
     virtual void LoadFile(const std::string &strPath);
     
   private:
-    CAlphabet * m_pCHAlphabet;
+    const CAlphabetMap *m_pCHAlphabet;
   };
 
 }

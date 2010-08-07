@@ -17,11 +17,11 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CTrainer::CTrainer(CLanguageModel *pLanguageModel, CAlphabet *pAlphabet)
+CTrainer::CTrainer(CLanguageModel *pLanguageModel, const CAlphabetMap *pAlphabet)
   : CTrainingHelper(pAlphabet), m_pLanguageModel(pLanguageModel) {
 }
 
-void CTrainer::Train(CAlphabet::SymbolStream &syms) {
+void CTrainer::Train(CAlphabetMap::SymbolStream &syms) {
   CLanguageModel::Context sContext = m_pLanguageModel->CreateEmptyContext();
 
   for(symbol sym; (sym=syms.next())!=-1;) {
@@ -30,7 +30,7 @@ void CTrainer::Train(CAlphabet::SymbolStream &syms) {
   m_pLanguageModel->ReleaseContext(sContext);
 }
 
-CMandarinTrainer::CMandarinTrainer(CLanguageModel *pLanguageModel, CAlphabet *pAlphabet, CAlphabet *pCHAlphabet)
+CMandarinTrainer::CMandarinTrainer(CLanguageModel *pLanguageModel, const CAlphabetMap *pAlphabet, const CAlphabetMap *pCHAlphabet)
 : CTrainer(pLanguageModel, pAlphabet), m_pCHAlphabet(pCHAlphabet) {
 }
 

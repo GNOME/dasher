@@ -33,7 +33,7 @@ static char THIS_FILE[] = __FILE__;
 
 /////////////////////////////////////////////////////////////////////
 
-CPPMPYLanguageModel::CPPMPYLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphabet *pAlph, const CAlphabet *pPyAlphabet)
+CPPMPYLanguageModel::CPPMPYLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphInfo *pAlph, const CAlphInfo *pPyAlphabet)
   :CLanguageModel(pEventHandler, pSettingsStore, pAlph), m_iMaxOrder(2), NodesAllocated(0), m_NodeAlloc(8192), m_ContextAlloc(1024), m_pPyAlphabet(pPyAlphabet){
   m_pRoot = m_NodeAlloc.Alloc();
   m_pRoot->symbol = -1;
@@ -48,8 +48,6 @@ CPPMPYLanguageModel::CPPMPYLanguageModel(Dasher::CEventHandler *pEventHandler, C
 
   m_iAlphSize = GetSize();
   //  std::cout<<"Alphaunit: "<<UNITALPH<<std::endl;
-  m_iPYAlphSize = m_pPyAlphabet->GetNumberTextSymbols();
-  //  std::cout<<"PYunit: "<<UNITPY<<std::endl;
   
   // Cache the result of update exclusion - otherwise we have to look up a lot when training, which is slow
 
@@ -327,7 +325,7 @@ void CPPMPYLanguageModel::GetProbs(Context context, std::vector<unsigned int> &p
   */
   //  DASHER_ASSERT(m_setContexts.count(ppmcontext) > 0);
 
-  int iNumSymbols = m_pPyAlphabet->GetNumberTextSymbols();
+  int iNumSymbols = m_pPyAlphabet->GetNumberTextSymbols()+1;
   
   probs.resize(iNumSymbols);
 

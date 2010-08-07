@@ -27,8 +27,6 @@
 		193731A80C8586F20022CBC7 /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 193731A70C8586F20022CBC7 /* config.h */; };
 		1948BE9D0C226CFD001DFA32 /* ActionButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BDF60C226CFC001DFA32 /* ActionButton.cpp */; };
 		1948BE9E0C226CFD001DFA32 /* ActionButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BDF70C226CFC001DFA32 /* ActionButton.h */; };
-		1948BEA00C226CFD001DFA32 /* Alphabet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BDFA0C226CFC001DFA32 /* Alphabet.cpp */; };
-		1948BEA10C226CFD001DFA32 /* Alphabet.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BDFB0C226CFC001DFA32 /* Alphabet.h */; };
 		1948BEA20C226CFD001DFA32 /* AlphabetMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BDFC0C226CFC001DFA32 /* AlphabetMap.cpp */; };
 		1948BEA30C226CFD001DFA32 /* AlphabetMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BDFD0C226CFC001DFA32 /* AlphabetMap.h */; };
 		1948BEA40C226CFD001DFA32 /* AlphIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BDFE0C226CFC001DFA32 /* AlphIO.cpp */; };
@@ -425,8 +423,6 @@
 		1946CABC0481AD440000000A /* ZippyString.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ZippyString.m; sourceTree = "<group>"; };
 		1948BDF60C226CFC001DFA32 /* ActionButton.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ActionButton.cpp; sourceTree = "<group>"; };
 		1948BDF70C226CFC001DFA32 /* ActionButton.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ActionButton.h; sourceTree = "<group>"; };
-		1948BDFA0C226CFC001DFA32 /* Alphabet.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Alphabet.cpp; sourceTree = "<group>"; };
-		1948BDFB0C226CFC001DFA32 /* Alphabet.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Alphabet.h; sourceTree = "<group>"; };
 		1948BDFC0C226CFC001DFA32 /* AlphabetMap.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AlphabetMap.cpp; sourceTree = "<group>"; };
 		1948BDFD0C226CFC001DFA32 /* AlphabetMap.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AlphabetMap.h; sourceTree = "<group>"; };
 		1948BDFE0C226CFC001DFA32 /* AlphIO.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AlphIO.cpp; sourceTree = "<group>"; };
@@ -1064,8 +1060,6 @@
 		1948BDF80C226CFC001DFA32 /* Alphabet */ = {
 			isa = PBXGroup;
 			children = (
-				1948BDFA0C226CFC001DFA32 /* Alphabet.cpp */,
-				1948BDFB0C226CFC001DFA32 /* Alphabet.h */,
 				1948BDFC0C226CFC001DFA32 /* AlphabetMap.cpp */,
 				1948BDFD0C226CFC001DFA32 /* AlphabetMap.h */,
 				1948BDFE0C226CFC001DFA32 /* AlphIO.cpp */,
@@ -1412,7 +1406,6 @@
 				19F36D8E0B18B60E002F41F1 /* ZippyStringImage.h in Headers */,
 				19F36D900B18B60E002F41F1 /* ZippyStringGlyph.h in Headers */,
 				1948BE9E0C226CFD001DFA32 /* ActionButton.h in Headers */,
-				1948BEA10C226CFD001DFA32 /* Alphabet.h in Headers */,
 				1948BEA30C226CFD001DFA32 /* AlphabetMap.h in Headers */,
 				1948BEA50C226CFD001DFA32 /* AlphIO.h in Headers */,
 				1948BEA60C226CFD001DFA32 /* GroupInfo.h in Headers */,
@@ -1776,7 +1769,6 @@
 				19F36D8F0B18B60E002F41F1 /* ZippyStringImage.m in Sources */,
 				19F36D910B18B60E002F41F1 /* ZippyStringGlyph.m in Sources */,
 				1948BE9D0C226CFD001DFA32 /* ActionButton.cpp in Sources */,
-				1948BEA00C226CFD001DFA32 /* Alphabet.cpp in Sources */,
 				1948BEA20C226CFD001DFA32 /* AlphabetMap.cpp in Sources */,
 				1948BEA40C226CFD001DFA32 /* AlphIO.cpp in Sources */,
 				1948BEA80C226CFD001DFA32 /* AlphabetManager.cpp in Sources */,

@@ -34,7 +34,6 @@
 #include "../Common/NoClones.h"
 #include "../Common/ModuleSettings.h"
 #include "ActionButton.h"
-#include "Alphabet/Alphabet.h"
 #include "Alphabet/AlphIO.h"
 #include "AutoSpeedControl.h"
 #include "ColourIO.h"
@@ -94,11 +93,11 @@ public:
   /// \todo Document this
   ///
 
-  const CAlphIO::AlphInfo & GetInfo(const std::string & AlphID);
+  const CAlphInfo *GetInfo(const std::string & AlphID);
 
   /// \todo Document this
 
-  void SetInfo(const CAlphIO::AlphInfo & NewInfo);
+  void SetInfo(const CAlphInfo *NewInfo);
 
   /// \todo Document this
 
@@ -586,7 +585,7 @@ protected:
   CDasherInput *m_pInput;
   CInputFilter* m_pInputFilter;
   CModuleManager m_oModuleManager;
-  CAlphIO *m_AlphIO;
+  CAlphInfo::AlphIO *m_AlphIO;
   CColourIO *m_ColourIO;
   CNodeCreationManager *m_pNCManager;
   CUserLogBase *m_pUserLog; 

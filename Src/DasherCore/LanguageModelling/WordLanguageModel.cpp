@@ -9,7 +9,7 @@
 #include "../../Common/Common.h"
 #include "WordLanguageModel.h"
 #include "PPMLanguageModel.h"
-#include "../Alphabet/Alphabet.h"
+#include "../Alphabet/AlphabetMap.h"
 
 
 #include <cmath>
@@ -122,8 +122,8 @@ CWordLanguageModel::CWordnode * CWordLanguageModel::AddSymbolToNode(CWordnode *p
 /////////////////////////////////////////////////////////////////////
 
 CWordLanguageModel::CWordLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, 
-				       const CAlphabet *pAlph)
-  :CLanguageModel(pEventHandler, pSettingsStore, pAlph), NodesAllocated(0), 
+				       const CAlphInfo *pAlph, const CAlphabetMap *pAlphMap)
+  :CLanguageModel(pEventHandler, pSettingsStore, pAlph), m_pAlphMap(pAlphMap), NodesAllocated(0), 
    max_order(2), m_NodeAlloc(8192), m_ContextAlloc(1024) {
   
   // Construct a root node for the trie
@@ -166,7 +166,7 @@ CWordLanguageModel::CWordLanguageModel(Dasher::CEventHandler *pEventHandler, CSe
       //      std::cout << m_pAlphabet << std::endl;
 
       std::vector < symbol > Symbols;
-      m_pAlphabet->GetSymbols(Symbols, CurrentWord);
+      m_pAlphMap->GetSymbols(Symbols, CurrentWord);
 
       for(std::vector < symbol >::iterator it(Symbols.begin()); it != Symbols.end(); ++it) {
         pSpellingModel->LearnSymbol(TempContext, *it);

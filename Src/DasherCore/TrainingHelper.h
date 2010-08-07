@@ -21,15 +21,15 @@
 #ifndef __TrainingHelper_h__
 #define __TrainingHelper_h__
 
-#include "Alphabet/Alphabet.h"
-
+#include "Alphabet/AlphabetMap.h"
+#include <expat.h>
 #include <string>
 
 namespace Dasher {
 
   class CTrainingHelper {
   public:
-	CTrainingHelper(const CAlphabet *m_pAlphabet);
+	CTrainingHelper(const CAlphabetMap *pAlphabet);
 	  
     void HandleStartElement(const XML_Char *szName, 
 			    const XML_Char **pAtts);
@@ -42,9 +42,9 @@ namespace Dasher {
     void LoadFile(const std::string &strFileName);
 
   protected:
-    const Dasher::CAlphabet *m_pAlphabet;
+    const Dasher::CAlphabetMap *m_pAlphabet;
 
-    virtual void Train(CAlphabet::SymbolStream &syms)=0;
+    virtual void Train(CAlphabetMap::SymbolStream &syms)=0;
 	  
   private:  
 	void LoadPlain(const std::string &strFileName);

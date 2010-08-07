@@ -35,7 +35,7 @@ static void XML_StartElement(void *pUserData, const XML_Char *szName, const XML_
 static void XML_EndElement(void *pUserData, const XML_Char *szName);
 static void XML_CharacterData(void *pUserData, const XML_Char *szS, int iLen);
 
-Dasher::CTrainingHelper::CTrainingHelper(const Dasher::CAlphabet *pAlphabet) : m_pAlphabet(pAlphabet) {
+Dasher::CTrainingHelper::CTrainingHelper(const Dasher::CAlphabetMap *pAlphabet) : m_pAlphabet(pAlphabet) {
 }
 
 void 
@@ -73,7 +73,7 @@ Dasher::CTrainingHelper::LoadPlain(const std::string &strFileName) {
       return;
     }
 
-  CAlphabet::SymbolStream syms(m_pAlphabet, in);
+  CAlphabetMap::SymbolStream syms(*m_pAlphabet, in);
   Train(syms);
 
   in.close();
@@ -128,7 +128,7 @@ void
 Dasher::CTrainingHelper::HandleEndElement(const XML_Char *szName) {
   if(!strcmp(szName, "segment")) {
     std::istringstream in(m_strCurrentText);
-    CAlphabet::SymbolStream syms(m_pAlphabet,in);
+    CAlphabetMap::SymbolStream syms(*m_pAlphabet,in);
     Train(syms);
     
     m_bInSegment = false;
