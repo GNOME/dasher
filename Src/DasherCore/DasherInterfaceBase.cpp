@@ -138,7 +138,7 @@ void CDasherInterfaceBase::Realize() {
 
   std::vector<std::string> vAlphabetFiles;
   ScanAlphabetFiles(vAlphabetFiles);
-  m_AlphIO = new CAlphInfo::AlphIO(GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), vAlphabetFiles);
+  m_AlphIO = new CAlphIO(GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), vAlphabetFiles);
 
   std::vector<std::string> vColourFiles;
   ScanColourFiles(vColourFiles);

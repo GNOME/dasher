@@ -585,7 +585,7 @@ protected:
   CDasherInput *m_pInput;
   CInputFilter* m_pInputFilter;
   CModuleManager m_oModuleManager;
-  CAlphInfo::AlphIO *m_AlphIO;
+  CAlphIO *m_AlphIO;
   CColourIO *m_ColourIO;
   CNodeCreationManager *m_pNCManager;
   CUserLogBase *m_pUserLog; 

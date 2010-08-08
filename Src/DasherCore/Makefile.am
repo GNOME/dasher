@@ -10,6 +10,8 @@ libdasherprefs_a_SOURCES = \
 libdashercore_a_SOURCES = \
 		Alphabet/AlphIO.cpp \
 		Alphabet/AlphIO.h \
+		Alphabet/AlphInfo.cpp \
+		Alphabet/AlphInfo.h \
 		Alphabet/AlphabetMap.cpp \
 		Alphabet/AlphabetMap.h \
 		Alphabet/GroupInfo.h \

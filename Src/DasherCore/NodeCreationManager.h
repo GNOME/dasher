@@ -27,7 +27,7 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterface,
                        Dasher::CEventHandler * pEventHandler,
                        CSettingsStore * pSettingsStore,
-                       Dasher::CAlphInfo::AlphIO *pAlphIO);
+                       Dasher::CAlphIO *pAlphIO);
   ~CNodeCreationManager();
   
   //we watch for changes to BP_CONTROL_MODE and create the Control Manager lazily

@@ -17,7 +17,7 @@ using namespace Dasher;
 CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterface,
                                            Dasher::CEventHandler *pEventHandler, 
                                            CSettingsStore *pSettingsStore,
-                                           Dasher::CAlphInfo::AlphIO *pAlphIO) : CDasherComponent(pEventHandler, pSettingsStore),
+                                           Dasher::CAlphIO *pAlphIO) : CDasherComponent(pEventHandler, pSettingsStore),
   m_pInterface(pInterface), m_pControlManager(NULL) {
 
   const Dasher::CAlphInfo *pAlphInfo(pAlphIO->GetInfo(pSettingsStore->GetStringParameter(SP_ALPHABET_ID)));
