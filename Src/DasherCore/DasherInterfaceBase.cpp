@@ -1143,7 +1143,7 @@ void CDasherInterfaceBase::SetOffset(int iOffset) {
   if(m_pDasherModel)
     m_pDasherModel->SetOffset(iOffset, m_pDasherView);
   //ACL TODO FIXME check that CTL_MOVE, etc., eventually come here?
-  for (set<TextAction *,bool(*)(TextAction *,TextAction *)>::iterator it = m_vTextActions.begin(); it!=m_vTextActions.end(); it++) {
+  for (set<TextAction *>::iterator it = m_vTextActions.begin(); it!=m_vTextActions.end(); it++) {
     (*it)->NotifyOffset(iOffset);
   }
 }

@@ -33,9 +33,8 @@ struct menuentry {
 // List of menu items that will be displayed in the General Preferences
 static menuentry menutable[] = {
   {BP_START_MOUSE, IDC_LEFT},
-  {BP_START_SPACE, IDC_SPACE},
   {BP_STOP_IDLE, IDC_STOPIDLE},
-  {BP_PAUSE_OUTSIDE, IDC_WINDOWPAUSE},
+  {BP_STOP_OUTSIDE, IDC_WINDOWPAUSE},
   {BP_AUTO_SPEEDCONTROL, IDC_AUTOSPEED},
   {BP_AUTOCALIBRATE, IDC_AUTOCALIBRATE}
 };
