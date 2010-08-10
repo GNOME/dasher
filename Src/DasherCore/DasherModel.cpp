@@ -105,9 +105,6 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
 
     switch (pEvt->m_iParameter) {
-    case BP_CONTROL_MODE: // Rebuild the model if control mode is switched on/off
-      RebuildAroundCrosshair();
-      break;
     case BP_SMOOTH_OFFSET:
       if (!GetBoolParameter(BP_SMOOTH_OFFSET))
         //smoothing has just been turned off. End any transition/jump currently
@@ -134,7 +131,8 @@ void CDasherModel::Make_root(CDasherNode *pNewRoot) {
 
   DASHER_ASSERT(pNewRoot != NULL);
   DASHER_ASSERT(pNewRoot->Parent() == m_Root);
-
+  
+  m_Root->DeleteNephews(pNewRoot);
   m_Root->SetFlag(NF_COMMITTED, true);
 
   // TODO: Is the stack necessary at all? We may as well just keep the
@@ -160,36 +158,6 @@ void CDasherModel::Make_root(CDasherNode *pNewRoot) {
     it->iN2 = it->iN1 + (r * m_Root->Hbnd()) / GetLongParameter(LP_NORMALIZATION);
     it->iN1 = it->iN1 + (r * m_Root->Lbnd()) / GetLongParameter(LP_NORMALIZATION);
   }
-}
-
-void CDasherModel::RecursiveMakeRoot(CDasherNode *pNewRoot) {
-  DASHER_ASSERT(pNewRoot != NULL);
-  DASHER_ASSERT(m_Root != NULL);
-
-  if(pNewRoot == m_Root)
-    return;
-
-  // TODO: we really ought to check that pNewRoot is actually a
-  // descendent of the root, although that should be guaranteed
-
-  if(pNewRoot->Parent() != m_Root)
-    RecursiveMakeRoot(pNewRoot->Parent());
-
-  Make_root(pNewRoot);
-}
-
-// only used when BP_CONTROL changes, so not very often.
-void CDasherModel::RebuildAroundCrosshair() {
-  CDasherNode *pNode = Get_node_under_crosshair();
-  DASHER_ASSERT(pNode != NULL);
-  DASHER_ASSERT(pNode == m_pLastOutput);
-
-  RecursiveMakeRoot(pNode);
-  DASHER_ASSERT(m_Root == pNode);
-  ClearRootQueue();
-  m_Root->Delete_children();
-
-  m_Root->PopulateChildren();
 }
 
 void CDasherModel::Reparent_root() {
@@ -507,8 +475,7 @@ void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax, Dasher::VECTOR_SY
           //make pChild the root node...but put (newRootmin,newRootmax) somewhere there'll be converted:
           SGotoItem temp; temp.iN1 = newRootmin; temp.iN2 = newRootmax;
           m_deGotoQueue.push_back(temp);
-          m_Root->DeleteNephews(pChild);
-          RecursiveMakeRoot(pChild);
+          Make_root(pChild);
           temp=m_deGotoQueue.back(); m_deGotoQueue.pop_back();
           // std::cout << "NewGoto Recursing - was (" << newRootmin << "," << newRootmax << "), now (" << temp.iN1 << "," << temp.iN2 << ")" << std::endl;
           NewGoTo(temp.iN1, temp.iN2, pAdded,pNumDeleted);
@@ -653,8 +620,7 @@ bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
   }
   ////GAME MODE TEMP - only change the root if it is on the game path/////////
   if (pNewRoot && (!m_bGameMode || pNewRoot->GetFlag(NF_GAME))) {
-    m_Root->DeleteNephews(pNewRoot);
-    RecursiveMakeRoot(pNewRoot);
+    Make_root(pNewRoot);
   }
 
   DASHER_ASSERT(Get_node_under_crosshair() == pOldNode);

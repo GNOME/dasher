@@ -305,23 +305,6 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   void Make_root(CDasherNode *pNewRoot); 
 
   ///
-  /// A version of Make_root which is suitable for arbitrary
-  /// descendents of the root, not just immediate children.
-  ///
-
-  void RecursiveMakeRoot(CDasherNode *pNewRoot);
-
-  ///
-  /// Makes the node under the crosshair the root by deleting everything
-  /// outside it, then rebuilds the nodes beneath it. (Thus, the node under
-  /// the crosshair stays in the same place.) Used when control mode is turned
-  /// on or off, or more generally, when the sizes of child nodes may have
-  /// changed.
-  ///
-
-  void RebuildAroundCrosshair();
-
-  ///
   /// Rebuild the parent of the current root - used during backing off
   ///
 

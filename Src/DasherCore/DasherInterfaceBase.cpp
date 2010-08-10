@@ -291,6 +291,10 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       ScheduleRedraw();
       break;
     case BP_CONTROL_MODE:
+        //force rebuilding tree/nodes, to get new probabilities (inc/exc control node).
+        // This may move the canvas around a bit, but at least manages to keep/reuse the
+        // existing AlphabetManager, NCManager, etc. objects...
+        SetOffset(m_pDasherModel->GetOffset(), true);
       ScheduleRedraw();
       break;
     case BP_DRAW_MOUSE_LINE:
@@ -1118,7 +1122,6 @@ void CDasherInterfaceBase::ChangeState(ETransition iTransition) {
 }
 
 void CDasherInterfaceBase::SetOffset(int iOffset, bool bForce) {
-  std::cout << "DasherIntf::SetOffset(" << iOffset << "," << bForce << ")" << std::endl;
   m_pDasherModel->SetOffset(iOffset, m_pNCManager->GetAlphabetManager(), m_pDasherView, bForce);
   //ACL TODO note that CTL_MOVE, etc., do not come here (that would probably
   // rebuild the model / violently repaint the screen every time!). But we
