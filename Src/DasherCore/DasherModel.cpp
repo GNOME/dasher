@@ -599,24 +599,23 @@ bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
   CDasherNode *pOldNode = Get_node_under_crosshair();
 #endif
 
-  CDasherNode *root(m_Root);
-
   if(!(m_Root->GetFlag(NF_SUPER))) {
+    CDasherNode *root(m_Root);    
     Reparent_root();
     return(m_Root != root);
   }
 
   CDasherNode *pNewRoot = NULL;
-
-  for (CDasherNode::ChildMap::const_iterator it = m_Root->GetChildren().begin(); it != m_Root->GetChildren().end(); it++) {
-    if ((*it)->GetFlag(NF_SUPER)) {
-      //at most one child should have NF_SUPER set...
-      DASHER_ASSERT(pNewRoot == NULL);
-      pNewRoot = *it;
-#ifndef DEBUG
-      break;
-#endif
+  if (m_Root->onlyChildRendered) {
+#ifdef DEBUG
+    //if only one child was rendered, no other child covers the screen -
+    // as no other child was onscreen at all!
+    for (CDasherNode::ChildMap::const_iterator it = m_Root->GetChildren().begin(); it != m_Root->GetChildren().end(); it++) {
+      DASHER_ASSERT(*it == m_Root->onlyChildRendered || !(*it)->GetFlag(NF_SUPER));
     }
+#endif
+    if (m_Root->onlyChildRendered->GetFlag(NF_SUPER))
+      pNewRoot = m_Root->onlyChildRendered;
   }
   ////GAME MODE TEMP - only change the root if it is on the game path/////////
   if (pNewRoot && (!m_bGameMode || pNewRoot->GetFlag(NF_GAME))) {
