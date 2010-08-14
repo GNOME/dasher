@@ -167,6 +167,7 @@ void CDasherNode::Delete_children() {
   Children().clear();
   //  std::cout << "NM: " << MgrID() << std::endl;
   SetFlag(NF_ALLCHILDREN, false);
+  onlyChildRendered = NULL;
 }
 
 void CDasherNode::SetFlag(int iFlag, bool bValue) {
