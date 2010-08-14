@@ -174,7 +174,7 @@ protected:
   /// Clips a line (specified in Dasher co-ordinates) to the visible region
   /// by intersecting with all boundaries.
   /// \return true if any part of the line was within the visible region; in this case, (x1,y1)-(x2,y2) delineate exactly that part
-  /// false if the line would be entirely outside the visible region; x1, y1, x2, y2 unaffected.
+  /// false if the line would be entirely outside the visible region; x1, y1, x2, y2 undefined.
   bool ClipLineToVisible(myint &x1, myint &y1, myint &x2, myint &y2); 
   
   ///Convert a straight line in Dasher-space, to coordinates for a corresponding polyline on the screen

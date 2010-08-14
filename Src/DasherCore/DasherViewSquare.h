@@ -99,8 +99,6 @@ public:
 
   /// @}
 
-  void DasherSpaceLine(myint x1, myint x2, myint y1, myint y2, int iColor, int iWidth);
-
 private:
   ///
   /// Draw text specified in Dasher co-ordinates
