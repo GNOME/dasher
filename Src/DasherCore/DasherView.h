@@ -6,7 +6,6 @@
 #define __DasherView_h_
 
 namespace Dasher {
-  class CDasherModel;
   class CDasherInput; // Why does DasherView care about input? - pconlon
   class CDasherComponent;
   class CDasherView;
@@ -23,7 +22,7 @@ namespace Dasher {
 
 /// \brief View base class.
 ///
-/// Dasher views represent the visualisation of a Dasher model on the screen.
+/// Dasher views render the tree of Dasher nodes onto a screen.
 ///
 /// Note that we really should aim to avoid having to try and keep
 /// multiple pointers to the same object (model etc.) up-to-date at
@@ -33,13 +32,6 @@ namespace Dasher {
 /// time we call the render routine, rather than worrying about
 /// notifying this object every time it changes. The same logic can be
 /// applied in several other places.
-///
-/// We should also attempt to try and remove the need for this class
-/// to know about the model. When we call render we should just pass a
-/// pointer to the root node, which we can obtain elsewhere, and make
-/// sure that the data structure contains all the info we need to do
-/// the rendering (eg make sure it contains strings as well as symbol
-/// IDs).
 ///
 /// There are really three roles played by CDasherView: providing high
 /// level drawing functions, providing a mapping between Dasher
@@ -70,8 +62,7 @@ public:
   void SetInput(CDasherInput * _pInput);
   void SetDemoMode(bool);
   void SetGameMode(bool);
-  /// Translates the screen coordinates to Dasher coordinates and calls
-  /// dashermodel.TapOnDisplay
+  /// Translates the screen coordinates to Dasher coordinates
   virtual int GetCoordinates(myint &iDasherX, myint &iDasherY);
 
   
@@ -119,9 +110,18 @@ public:
   /// Drawing more complex structures, generally implemented by derived class
   /// @{
 
-  /// Renders Dasher with mouse-dependent items
-  /// \todo Clarify relationship between Render functions and probably only expose one
-  virtual void Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, CExpansionPolicy &policy, bool bRedrawDisplay);
+  /// Top-level/public render function - renders all nodes.
+  /// TODO the difference between this and RenderNodes (which gets implemented
+  /// by subclasses) seems to be only that (a) this one sets m_iRenderCount to 0;
+  /// since m_iRenderCount is then only incremented by subclasses, should it
+  /// really be a field of CDasherView at all? and (b) it calls Screen()->SetLoadBackground(true)
+  /// first - a method/call which exists only for Gtk2/CanvasExperimental.{h,cpp}...
+  /// note the experimental, I doubt it works, or tbh whether it's worth making it...!
+  /// @param pRoot outermost node to render. should cover screen if possible;
+  /// function will blank out around it (in white) if not
+  /// @param bRedrawDisplay ignored; purpose unclear - also TODO...
+  /// @return the innermost node covering the crosshair
+  CDasherNode *Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, CExpansionPolicy &policy, bool bRedrawDisplay);
 
   /// @}
 
@@ -197,8 +197,9 @@ private:
   CDasherScreen *m_pScreen;    // provides the graphics (text, lines, rectangles):
   CDasherInput *m_pInput;       // Input device abstraction
 
-  /// Renders the Dasher node structure
-  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, CExpansionPolicy &policy) = 0;
+  /// Renders the Dasher node structure, including blanking out around the root node if necessary
+  /// @return the innermost node covering the crosshair
+  virtual CDasherNode *RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, CExpansionPolicy &policy) = 0;
 
 
   /// Get the co-ordinates from the input device

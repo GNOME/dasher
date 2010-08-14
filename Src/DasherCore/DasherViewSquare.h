@@ -140,12 +140,13 @@ private:
   ///
   /// Render the current state of the model.
   ///
-  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, CExpansionPolicy &policy);
+  virtual CDasherNode *RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, CExpansionPolicy &policy);
   
   ///
-  /// (Recursively) render a node and all contained subnodes. Responsible for rendering exactly the area contained within the node.
-  ///
-  void RecursiveRender(CDasherNode * Render, myint y1, myint y2, CTextString *prevText, CExpansionPolicy &policy, double dMaxCost,int parent_color);
+  /// (Recursively) render a node and all contained subnodes. Responsible
+  /// for rendering exactly the area contained within the node.
+  /// @param pOutput The innermost node covering the crosshair (if any)
+  void RecursiveRender(CDasherNode * Render, myint y1, myint y2, CTextString *prevText, CExpansionPolicy &policy, double dMaxCost,int parent_color, CDasherNode *&pOutput);
 
 #ifdef _WIN32
   ///

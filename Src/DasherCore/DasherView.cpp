@@ -22,7 +22,6 @@
 
 #include "DasherGameMode.h"
 #include "DasherInput.h"
-#include "DasherModel.h"
 #include "DasherView.h"
 #include "Event.h"
 #include "EventHandler.h"
@@ -56,11 +55,11 @@ void CDasherView::ChangeScreen(CDasherScreen *NewScreen) {
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CDasherView::Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, CExpansionPolicy &policy, bool bRedrawDisplay) {
+CDasherNode *CDasherView::Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, CExpansionPolicy &policy, bool bRedrawDisplay) {
 
   m_iRenderCount = 0;
   Screen()->SetLoadBackground(false);
-  RenderNodes(pRoot, iRootMin, iRootMax, policy);
+  return RenderNodes(pRoot, iRootMin, iRootMax, policy);
 }
 
 int CDasherView::GetCoordinateCount() {

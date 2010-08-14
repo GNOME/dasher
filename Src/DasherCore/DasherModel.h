@@ -310,27 +310,11 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
 
   void Reparent_root(); 
 
-  ///
-  /// Return a pointer to the Dasher node which is currently under the
-  /// crosshair. Used for output, and apparently needed for game mode.
-  ///
-
-  CDasherNode *Get_node_under_crosshair();    
-
-  ///
-  /// Output a node, which has not been seen (& first, any ancestors that haven't been seen either),
-  /// but which _is_ a descendant of m_pLastOutput.
-  ///
-  
-  void RecursiveOutput(CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded);
-  
-  ///
   /// Handle the output caused by a change in node over the crosshair. Specifically,
   /// deletes from m_pLastOutput back to closest ancestor of pNewNode,
-  /// then outputs from that ancestor to the node now under the crosshair (inclusively)
-  ///
-
-  void HandleOutput(Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted);
+  /// then outputs from that ancestor to that node
+  /// @param pNewNode innermost node now covering the crosshair
+  void OutputTo(CDasherNode *pNewNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted);
 
 
   ///
