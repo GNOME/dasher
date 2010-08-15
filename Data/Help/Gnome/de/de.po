@@ -1,12 +1,13 @@
 # German translation of the dasher manual.
 # Mario Blättermann <mariobl@gnome.org>, 2009.
 # Christian Kirbach <Christian.Kirbach@googlemail.com>, 2009, 2010.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher manual\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-11 16:45+0000\n"
-"PO-Revision-Date: 2010-04-11 21:41+0200\n"
+"POT-Creation-Date: 2010-05-17 14:11+0000\n"
+"PO-Revision-Date: 2010-08-14 11:59+0200\n"
 "Last-Translator: Christian Kirbach <Christian.Kirbach@googlemail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -14,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: German\n"
 "X-Poedit-Country: GERMANY\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. When image changes, this message will be marked fuzzy or untranslated for you.
 #. It doesn't matter what you translate it to: it's not used at all.
@@ -1592,6 +1593,15 @@ msgid ""
 "comfortable. I like high gain because it allows me to steer with very small "
 "head motions."
 msgstr ""
+"Der »Verstärkungsgrad« (auch »Geschwindigkeit« genannt) eines Head-Trackers "
+"ist ebenfalls eine wichtige Einstellung. Manche Verstärkungsgrade können per "
+"Software eingestellt werden. Sie können auch den Verstärkungsgrad durch "
+"Ändern der Geometrie Ihres Trackers anpassen: Wenn Sie den Hilfspunkt z.B: "
+"auf die Vorderkante Ihrer Schirmmütze setzen, so wird der Verstärkungsgrad "
+"in etwa verdoppelt. Eine Sitzposition näher am Tracker kann ebenfalls "
+"verstärkend wirken. Suchen Sie einfach einen Verstärkungsgrad, der für Sie "
+"passt. Ich bevorzuge einen hohen Verstärkungsgrad, weil ich so mit sehr "
+"kleinen Kopfbewegungen steuern kann."
 
 #: C/dasher.xml:1039(title)
 msgid "Recommendations for gaze-tracking"
@@ -1803,7 +1813,6 @@ msgid "1"
 msgstr "1"
 
 #: C/dasher.xml:1125(para)
-#, fuzzy
 msgid ""
 "With just one button, the only timeless way to convey information is by the "
 "<emphasis>duration</emphasis> of your button-presses. Can you make a "
@@ -1811,103 +1820,96 @@ msgid ""
 "<emphasis>menu button-Dasher</emphasis>. Connect up your short press to the "
 "`menu' action, and your long press to the `select' action."
 msgstr ""
-"Der einzige zeitunabhängige Weg mit nur einem Knopf Informationen zu geben "
-"besteht durch die <emphasis>Dauer</emphasis> des Tastendrucks. Können Sie "
-"zwischen kurzen und langem Drücken unterscheiden? Wenn ja, dann können Sie "
-"den <emphasis>Menümodus(?)</emphasis> verwenden. Binden Sie kurzes Drücken "
-"auf die Aktion »Menü« und langes Drücken auf die Aktion »Auswählen«."
+"Der einzige zeitunabhängige Weg, mit nur einem Knopf Informationen zu geben, "
+"besteht durch die <emphasis>Dauer</emphasis> des Knopfdrucks. Können Sie "
+"zwischen kurzem und langem Drücken unterscheiden? Wenn ja, dann können Sie "
+"den <emphasis>Menümodus</emphasis> verwenden. Verknüpfen Sie kurzes Drücken "
+"mit der Aktion »Menü« und langes Drücken mit der Aktion »Auswählen«."
 
 #: C/dasher.xml:1133(term)
 msgid "2"
 msgstr "2"
 
 #: C/dasher.xml:1135(para)
-#, fuzzy
 msgid ""
 "You can use <emphasis>menu button-Dasher</emphasis>. Connect one button to "
 "the `menu' action, and the other to the `select' action. If one button is "
 "easier to press, make that button the `menu' button."
 msgstr ""
-"Sie können den <emphasis>Menümodus(?)</emphasis> verwenden. Binden Sie einen "
-"Knopf auf die Aktion »Menü« und den anderen auf die Aktion »Auswählen«. Wenn "
-"einer der Knöpfe leichter zu drücken ist, dann binden Sie diesen auf die "
-"Aktion »Menü«."
+"Sie können den <emphasis>Menümodus</emphasis> verwenden. Verknüpfen Sie "
+"einen Knopf mit der Aktion »Menü« und den anderen mit der Aktion »Auswählen«. "
+"Wenn einer der Knöpfe leichter zu drücken ist, dann verknüpfen Sie diesen "
+"mit der Aktion »Menü«."
 
 #: C/dasher.xml:1141(term)
 msgid "2.5"
 msgstr "2.5"
 
 #: C/dasher.xml:1143(para)
-#, fuzzy
 msgid ""
 "If you can easily press two buttons, and, for special occasions, you are "
 "able to press a third button, you can use <emphasis>menu button-Dasher</"
 "emphasis> or <emphasis>direct button-Dasher</emphasis>."
 msgstr ""
 "Wenn Sie leicht zwei Knöpfe drücken können und gelegentlich einen dritten "
-"Knopf, dann können Sie den <emphasis>Menümodus(?)</emphasis> oder "
-"<emphasis>Direktknopf-Dasher(?)</emphasis> verwenden."
+"Knopf, dann können Sie den <emphasis>Menümodus</emphasis> oder "
+"<emphasis>Direktmodus</emphasis> verwenden."
 
 #: C/dasher.xml:1148(para)
-#, fuzzy
 msgid ""
 "Set up <emphasis>menu button-Dasher</emphasis> as described above, and use "
 "the third button as your escape key -- to make Dasher go away, for example. "
 "[This feature is not currently provided within Dasher.]"
 msgstr ""
-"Stellen Sie den <emphasis>Menümodus(?)</emphasis> wie oben beschrieben ein, "
-"und verwenden Sie den dritten Knopf als Esc-Taste -- um Dasher zum Beispiel "
-"zu verbergen. [Dieses Merkmal wird derzeit nicht von Dasher unterstützt.]"
+"Stellen Sie den <emphasis>Menümodus</emphasis> wie oben beschrieben ein, und "
+"verwenden Sie den dritten Knopf als Esc-Taste, um Dasher zum Beispiel zu "
+"verbergen. [Dieses Merkmal wird derzeit nicht von Dasher unterstützt.]"
 
 #: C/dasher.xml:1153(para)
-#, fuzzy
 msgid ""
 "In <emphasis>direct button-Dasher</emphasis>, each button produces a "
 "particular navigation action such as `up', `down', or `back'. If you have "
 "2.5 buttons, map the convenient two to `up' and `down', and the inconvenient "
 "button to `back'."
 msgstr ""
-"Im <emphasis>direkten Modus(?)</emphasis> bewirkt jeder Knopf eine "
-"Navigationsaktion wie z.B. »auf«, »ab« oder »zurück«. Wenn sie 2,5 Knöpfe "
-"haben, binden Sie die bequemsten beiden auf »auf« und »ab« und und den "
-"unbequemeren Knopf auf »zurück«."
+"Im <emphasis>direkten Modus</emphasis> bewirkt jeder Knopf eine "
+"Navigationsaktion wie z.B. »auf«, »ab« oder »zurück«. Wenn Sie 2,5 Knöpfe "
+"haben, verknüpfen Sie die bequemsten beiden mit »auf« und »ab« und und den "
+"unbequemeren Knopf mit »zurück«."
 
 #: C/dasher.xml:1162(term)
 msgid "3"
 msgstr "3"
 
 #: C/dasher.xml:1164(para)
-#, fuzzy
 msgid ""
 "You can use <emphasis>direct button-Dasher</emphasis> or <emphasis>menu "
 "button-Dasher</emphasis> as described above."
 msgstr ""
-"Sie können den <emphasis>Direktknopf-Modus(?)</emphasis> oder den "
-"<emphasis>Menümodus(?)</emphasis> wie oben beschrieben verwenden."
+"Sie können den <emphasis>Direktmodus</emphasis> oder den "
+"<emphasis>Menümodus</emphasis> wie oben beschrieben verwenden."
 
 #: C/dasher.xml:1169(term)
 msgid "4, 5, 6, or 7"
 msgstr "4, 5, 6 oder 7"
 
 #: C/dasher.xml:1171(para)
-#, fuzzy
 msgid ""
 "With more than three buttons, you have the option to use <emphasis>direct "
 "button-Dasher</emphasis> with three, four, five, or six `forward' "
 "directions. Please try <emphasis>menu button-Dasher</emphasis> too, even "
 "though it uses only two buttons."
 msgstr ""
-"Mit mehr als drei Knöpfen haben Sie die Möglichkeit <emphasis>Direktknopf-"
-"Dasher(?)</emphasis> mit drei, vier, fünf oder sechs »vorwärts«-Richtungen zu "
-"verwenden. Bitte probieren Sie ebenfalls den <emphasis>Menümodus(?)</"
-"emphasis>, obwohl er nur zwei Knöpfe verwendet."
+"Mit mehr als drei Knöpfen haben Sie die Möglichkeit, den "
+"<emphasis>Direktmodus</emphasis> mit drei, vier, fünf oder sechs »Vorwärts«-"
+"Richtungen zu verwenden. Bitte probieren Sie ebenfalls den "
+"<emphasis>Menümodus</emphasis>, obwohl er nur zwei Knöpfe verwendet."
 
 #: C/dasher.xml:1178(term)
 msgid "8 or more"
 msgstr "8 oder mehr"
 
 #: C/dasher.xml:1180(para)
-#, fuzzy
 msgid ""
 "Try <emphasis>direct button-Dasher</emphasis> and <emphasis>menu button-"
 "Dasher</emphasis>. With this many buttons, you also have the option of using "
@@ -1915,11 +1917,11 @@ msgid ""
 "You may wish to investigate <emphasis>Tapir</emphasis>, a disambiguating on-"
 "screen keyboard from the developers of Dasher."
 msgstr ""
-"Probieren Sie <emphasis>Direktknopf-Dasher(?)</emphasis> und den "
-"<emphasis>Menümodus(?)</emphasis>. Mit so vielen Knöpfen haben Sie auch die "
-"Wahl, ein T9-ähnliches System zu verwenden -- das vorausschauende "
-"Texteingabesystem vieler Mobiltelefone. Sie könnten sich für "
-"<emphasis>Tapir</emphasis> interessieren. Es ist eine unverwechselbare "
+"Probieren Sie den <emphasis>Direktkmodus</emphasis> und den "
+"<emphasis>Menümodus</emphasis>. Mit so vielen Knöpfen haben Sie auch die "
+"Wahl, ein T9-ähnliches System zu verwenden, das vorausschauende "
+"Texteingabesystem vieler Mobiltelefone. Vielleicht sollten Sie einen Blick "
+"auf <emphasis>Tapir</emphasis> werfen. Es ist eine unvergleichliche "
 "Bildschirmtastatur von den Entwicklern von Dasher."
 
 #: C/dasher.xml:1192(title)
@@ -2051,11 +2053,6 @@ msgid "Menu Mode"
 msgstr "Menümodus"
 
 #: C/dasher.xml:1251(para)
-#, fuzzy
-#| msgid ""
-#| "One button is used to select a location, and once a second button is "
-#| "pressed <application>Dasher</application> zooms to that location. The "
-#| "large box occuring last in the cycle is used to zoom out."
 msgid ""
 "One button is used to select a location, and once a second button is pressed "
 "<application>Dasher</application> zooms to that location. The large box "
