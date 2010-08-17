@@ -58,7 +58,8 @@ const CAlphInfo *CAlphabetManager::GetAlphabet() const {
 
 CAlphabetManager::~CAlphabetManager() {
   m_pLanguageModel->ReleaseContext(m_iLearnContext);
-  delete m_pAlphabet;
+  //the alphabet belongs to the AlphIO, and may be reused later;
+  delete m_pAlphabetMap; //the map was created for this mgr.
   delete m_pLanguageModel;
 }
 

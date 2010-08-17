@@ -17,6 +17,7 @@
 #include <limits>
 #include <iostream>
 #include <sstream>
+#include <cstring>
 
 using namespace Dasher;
 using namespace std;

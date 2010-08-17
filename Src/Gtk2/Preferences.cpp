@@ -39,7 +39,6 @@ BoolTranslation sBoolTranslationTable[] = {
   {BP_DRAW_MOUSE, "showmousebutton", NULL},
   {BP_SHOW_SLIDER, "speedsliderbutton", NULL},
   {APP_BP_SHOW_TOOLBAR, "toolbarbutton", NULL},
-  {BP_OUTLINE_MODE, "outlinebutton", NULL},
   {BP_CONTROL_MODE, "control_controlmode", NULL},
   {APP_BP_TIME_STAMP, "timestampbutton", NULL},
   {APP_BP_DOCK, "dockbutton", NULL},

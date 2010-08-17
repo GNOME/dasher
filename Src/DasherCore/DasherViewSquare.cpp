@@ -257,7 +257,7 @@ CDasherViewSquare::CTextString::~CTextString() {
 }
 
 void CDasherViewSquare::TruncateTri(myint x, myint y1, myint y2, myint midy1, myint midy2, int fillColor, int outlineColor, int lineWidth) {
-  DASHER_ASSERT (y1<midy1 && midy1 <= midy2 && midy2 < y2);
+  DASHER_ASSERT (y1<=midy1 && midy1<=midy2 && midy2<=y2);
   myint iVisibleMinX, iVisibleMaxX, iVisibleMinY, iVisibleMaxY;
   VisibleRegion(iVisibleMinX, iVisibleMinY, iVisibleMaxX, iVisibleMaxY);
   
