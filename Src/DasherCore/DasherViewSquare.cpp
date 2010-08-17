@@ -266,7 +266,7 @@ void CDasherViewSquare::TruncateTri(myint x, myint y1, myint y2, myint midy1, my
   //intersect y1's diagonal with screen
   if (!ClipLineToVisible(x1,midy1,tempx1,y1)) {
     //entirely offscreen....i.e. off top/bottom
-    DASHER_ASSERT (midy1 < iVisibleMinY);
+    //DASHER_ASSERT (midy1 < iVisibleMinY);//no, args undefined if returns false!
     midy1 = y1 = iVisibleMinY;
     x1 = min(x1, iVisibleMaxX);
     tempx1=0;
@@ -274,7 +274,6 @@ void CDasherViewSquare::TruncateTri(myint x, myint y1, myint y2, myint midy1, my
   //intersect y2's diagonal with screen
   if (!ClipLineToVisible(tempx2, y2, x2, midy2)) {
     //entirely offscreen again, i.e. off bottom/top
-    DASHER_ASSERT(midy2 > iVisibleMaxY);
     midy2 = y2 = iVisibleMaxY;
     x2 = min(x2, iVisibleMaxX);
     tempx2=0;
