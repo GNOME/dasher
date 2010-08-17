@@ -59,8 +59,9 @@ namespace Dasher {
 class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
 {
  public:
-
-  CDasherModel(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pDashIface, CDasherView *pView, int iOffset);
+  /// Constructs a new CDasherModel. Note, must be followed by a call to
+  /// SetOffset() before the model can be used.
+  CDasherModel(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pDashIface);
   ~CDasherModel();
 
   ///
@@ -121,12 +122,10 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   /// @{
 
   /// 
-  /// Render the model to a given view. Return if any nodes were
-  /// expanded, as if so we may want to render *another* frame to
-  /// perform further expansion.
+  /// Render the model to a given view, and cause output to happen.
+  /// Note, enqueues nodes onto the Expansion Policy, but does not apply it.
   ///
-
-  bool RenderToView(CDasherView *pView, CExpansionPolicy &policy);
+  void RenderToView(CDasherView *pView, CExpansionPolicy &policy);
 
   /// @}
 
@@ -178,13 +177,16 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   bool CheckForNewRoot(CDasherView *pView);
 
   ///
-  /// Notify of a change of cursor position within the attached
-  /// buffer. Resulting action should be appropriate - ie don't
-  /// completely rebuild the model if an existing node covers this
-  /// point
+  /// Rebuild the tree of nodes (may reuse the existing ones if !bForce). 
+  /// @param iLocation offset (cursor position) in attached buffer from which to obtain context
+  /// @param pMgr Manager to use to create nodes
+  /// @param bForce if true, model should be completely rebuilt (even for 
+  /// same offset) - characters at old offsets may have changed, or we have
+  /// a new AlphabetManager. If false, assume buffer and alphabet unchanged,
+  /// so no need to rebuild the model if an existing node covers this point.
   ///
 
-  void SetOffset(int iLocation, CDasherView *pView);
+  void SetOffset(int iLocation, CAlphabetManager *pMgr, CDasherView *pView, bool bForce);
 
   ///
   /// The current offset of the cursor/insertion point in the text buffer
@@ -213,7 +215,6 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   
   // Pointers to various auxilliary objects
   CDasherInterfaceBase *m_pDasherInterface;
-  CNodeCreationManager *m_pNodeCreationManager;
 
   // The root of the Dasher tree
   CDasherNode *m_Root;
@@ -297,13 +298,6 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   ///
   void Get_new_root_coords(myint mousex, myint mousey, myint &iNewMin, myint &iNewMax, unsigned long iTime);
 
-
-  /// Should be public?
-  void InitialiseAtOffset(int iOffset, CDasherView *pView);
-
-  /// Called from InitialiseAtOffset
-  void DeleteTree();
-
   /// 
   /// Make a child of the root into a new root
   ///
@@ -311,49 +305,16 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   void Make_root(CDasherNode *pNewRoot); 
 
   ///
-  /// A version of Make_root which is suitable for arbitrary
-  /// descendents of the root, not just immediate children.
-  ///
-
-  void RecursiveMakeRoot(CDasherNode *pNewRoot);
-
-  ///
-  /// Makes the node under the crosshair the root by deleting everything
-  /// outside it, then rebuilds the nodes beneath it. (Thus, the node under
-  /// the crosshair stays in the same place.) Used when control mode is turned
-  /// on or off, or more generally, when the sizes of child nodes may have
-  /// changed.
-  ///
-
-  void RebuildAroundCrosshair();
-
-  ///
   /// Rebuild the parent of the current root - used during backing off
   ///
 
   void Reparent_root(); 
 
-  ///
-  /// Return a pointer to the Dasher node which is currently under the
-  /// crosshair. Used for output, and apparently needed for game mode.
-  ///
-
-  CDasherNode *Get_node_under_crosshair();    
-
-  ///
-  /// Output a node, which has not been seen (& first, any ancestors that haven't been seen either),
-  /// but which _is_ a descendant of m_pLastOutput.
-  ///
-  
-  void RecursiveOutput(CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded);
-  
-  ///
   /// Handle the output caused by a change in node over the crosshair. Specifically,
   /// deletes from m_pLastOutput back to closest ancestor of pNewNode,
-  /// then outputs from that ancestor to the node now under the crosshair (inclusively)
-  ///
-
-  void HandleOutput(Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted);
+  /// then outputs from that ancestor to that node
+  /// @param pNewNode innermost node now covering the crosshair
+  void OutputTo(CDasherNode *pNewNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted);
 
 
   ///

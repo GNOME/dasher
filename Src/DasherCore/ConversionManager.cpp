@@ -40,7 +40,7 @@
 using namespace Dasher;
 using namespace std;
 
-CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, CAlphabet *pAlphabet) {
+CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet) {
 
   m_pNCManager = pNCManager;
   m_pAlphabet = pAlphabet;
@@ -97,7 +97,7 @@ void CConversionManager::CConvNode::PopulateChildren() {
   unsigned int iLbnd(0);
   unsigned int iHbnd(m_pMgr->m_pNCManager->GetLongParameter(LP_NORMALIZATION));
 
-  CDasherNode *pNewNode = m_pMgr->m_pNCManager->GetAlphRoot(this, iLbnd, iHbnd, false, offset() + 1);
+  CDasherNode *pNewNode = m_pMgr->m_pNCManager->GetAlphabetManager()->GetRoot(this, iLbnd, iHbnd, false, offset() + 1);
 
   DASHER_ASSERT(GetChildren().back()==pNewNode);
 }
@@ -121,7 +121,7 @@ void CConversionManager::RecursiveDumpTree(SCENode *pCurrent, unsigned int iDept
   }
 }
 
-void CConversionManager::CConvNode::GetContext(CDasherInterfaceBase *pInterface, std::vector<symbol> &vContextSymbols, int iOffset, int iLength) {
+void CConversionManager::CConvNode::GetContext(CDasherInterfaceBase *pInterface, const CAlphabetMap *pAlphabetMap, std::vector<symbol> &vContextSymbols, int iOffset, int iLength) {
   if (!GetFlag(NF_SEEN) && iOffset+iLength-1 == offset()) {
     //ACL I'm extrapolating from PinYinConversionHelper (in which root nodes have their
     // Symbol set by SetConvSymbol, and child nodes are created in PopulateChildren
@@ -131,12 +131,12 @@ void CConversionManager::CConvNode::GetContext(CDasherInterfaceBase *pInterface,
     // everywhere!)
     DASHER_ASSERT(bisRoot || pSCENode);
     if (bisRoot || pSCENode->Symbol!=-1) {
-      if (iLength>1) Parent()->GetContext(pInterface, vContextSymbols, iOffset, iLength-1);
+      if (iLength>1) Parent()->GetContext(pInterface, pAlphabetMap, vContextSymbols, iOffset, iLength-1);
       vContextSymbols.push_back(bisRoot ? iSymbol : pSCENode->Symbol);
       return;
     } //else, non-root with pSCENode->Symbol==-1 => fallthrough back to superclass code
   }
-  CDasherNode::GetContext(pInterface, vContextSymbols, iOffset, iLength);
+  CDasherNode::GetContext(pInterface, pAlphabetMap, vContextSymbols, iOffset, iLength);
 }
 
 void CConversionManager::CConvNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {

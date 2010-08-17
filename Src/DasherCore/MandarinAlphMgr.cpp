@@ -46,10 +46,11 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel)
-  : CAlphabetManager(pInterface, pNCManager, pLanguageModel),
+CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphMap, CLanguageModel *pLanguageModel)
+  : CAlphabetManager(pInterface, pNCManager, pAlphabet, pAlphMap, pLanguageModel),
     m_pParser(new CPinyinParser(pInterface->GetStringParameter(SP_SYSTEM_LOC) +"/alphabet.chineseRuby.xml")),
-    m_pCHAlphabet(new CAlphabet(pInterface->GetInfo("Chinese / 简体中文 (simplified chinese, in pin yin groups)"))) {
+    m_pCHAlphabet(pInterface->GetInfo("Chinese / 简体中文 (simplified chinese, in pin yin groups)")),
+    m_pCHAlphabetMap(m_pCHAlphabet->MakeMap()) {
 }
 
 CMandarinAlphMgr::~CMandarinAlphMgr() {
@@ -74,7 +75,7 @@ CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CAlphNode *pParent, symbol iSymb
 
     //CTrieNode parallels old PinyinConversionHelper's SetConvSymbol; we keep
     // the same offset as we've still not entered/selected a symbol (leaf)
-    CConvRoot *pNewNode = new CConvRoot(pParent, pParent->offset(), iLbnd, iHbnd, this, m_pParser->GetTrieNode(m_pNCManager->GetAlphabet()->GetDisplayText(iSymbol)));
+    CConvRoot *pNewNode = new CConvRoot(pParent, pParent->offset(), iLbnd, iHbnd, this, m_pParser->GetTrieNode(m_pAlphabet->GetDisplayText(iSymbol)));
 
     //from ConversionHelper:
     //pNewNode->m_pLanguageModel = m_pLanguageModel;
@@ -103,7 +104,7 @@ void CMandarinAlphMgr::CConvRoot::BuildConversions() {
   }
   for(set<string>::const_iterator it = m_pTrie->list()->begin(); it != m_pTrie->list()->end(); ++it) {
     std::vector<symbol> vSyms;
-    m_pMgr->m_pCHAlphabet->GetSymbols(vSyms, *it);
+    m_pMgr->m_pCHAlphabetMap->GetSymbols(vSyms, *it);
     DASHER_ASSERT(vSyms.size()==1); //does it ever happen? if so, Will's code would effectively push -1
     DASHER_ASSERT(m_pMgr->m_pCHAlphabet->GetText(vSyms[0]) == *it);
     m_vChInfo.push_back(std::pair<symbol, unsigned int>(vSyms[0],0));

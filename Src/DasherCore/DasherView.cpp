@@ -22,7 +22,6 @@
 
 #include "DasherGameMode.h"
 #include "DasherInput.h"
-#include "DasherModel.h"
 #include "DasherView.h"
 #include "Event.h"
 #include "EventHandler.h"
@@ -56,11 +55,11 @@ void CDasherView::ChangeScreen(CDasherScreen *NewScreen) {
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CDasherView::Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, CExpansionPolicy &policy, bool bRedrawDisplay) {
+CDasherNode *CDasherView::Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, CExpansionPolicy &policy, bool bRedrawDisplay) {
 
   m_iRenderCount = 0;
   Screen()->SetLoadBackground(false);
-  RenderNodes(pRoot, iRootMin, iRootMax, policy);
+  return RenderNodes(pRoot, iRootMin, iRootMax, policy);
 }
 
 int CDasherView::GetCoordinateCount() {
@@ -131,8 +130,6 @@ bool CDasherView::ClipLineToVisible(myint &x1, myint &y1, myint &x2, myint &y2) 
     DASHER_ASSERT(x1<iDasherMinX);
     return false;
   }
-  if (y1 < iDasherMinY && y2 < iDasherMinY) return false;
-  if (y1 > iDasherMaxY && y2 > iDasherMaxY) return false;
   if (x1 < iDasherMinX) {
     y1 = y2+((y1-y2)*(iDasherMinX-x2)/(x1 - x2));
     x1 = iDasherMinX;
@@ -141,6 +138,8 @@ bool CDasherView::ClipLineToVisible(myint &x1, myint &y1, myint &x2, myint &y2) 
     y2 = y1 + (y2-y1)*(iDasherMaxX-x1)/(x2-x1);
     x2 = iDasherMaxX;
   }
+  if (y1 < iDasherMinY && y2 < iDasherMinY) return false;
+  if (y1 > iDasherMaxY && y2 > iDasherMaxY) return false;
   for (int i=0; i<2; i++) {
     myint &y(i ? y2 : y1), &oy(i ? y1 : y2);
     myint &x(i ? x2 : x1), &ox(i ? x1 : x2);

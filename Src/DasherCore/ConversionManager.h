@@ -60,7 +60,7 @@ namespace Dasher {
   class CConversionManager : public CNodeManager {
   public:
     // TODO: We shouldn't need to know about this stuff, but the code is somewhat in knots at the moment
-    CConversionManager(CNodeCreationManager *pNCManager, CAlphabet *pAlphabet);
+    CConversionManager(CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet);
     
     ///
     /// Decrement reference count
@@ -93,7 +93,7 @@ namespace Dasher {
     ~CConvNode();
 
     ///Attempts to fill vContextSymbols with the context that would exist _after_ this node has been entered
-    void GetContext(CDasherInterfaceBase *pInterface, std::vector<symbol> &vContextSymbols, int iOffset, int iLength);
+    void GetContext(CDasherInterfaceBase *pInterface, const CAlphabetMap *pAlphabetMap, std::vector<symbol> &vContextSymbols, int iOffset, int iLength);
 
     ///
     /// Called whenever a node belonging to this manager first 
@@ -134,7 +134,7 @@ namespace Dasher {
 
 	  
 	CNodeCreationManager *m_pNCManager;
-	CAlphabet *m_pAlphabet;
+	const CAlphInfo *m_pAlphabet;
 	
   private:
 

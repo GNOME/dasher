@@ -31,7 +31,6 @@
 #include "SimpleTimer.h"
 #include "TimeSpan.h"
 #include "UserLogTrial.h"
-#include "Alphabet/Alphabet.h"
 #include <algorithm>
 #include "UserLogParam.h"
 #include "UserLogBase.h"
@@ -77,7 +76,7 @@ typedef vector<VECTOR_STRING>::iterator     VECTOR_VECTOR_STRING_ITER;
 class CUserLog : public CUserLogBase
 {
 public:
-  CUserLog(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, int iLogTypeMask, Dasher::CAlphabet* pAlphabet = NULL);
+  CUserLog(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, int iLogTypeMask);
 
   ~CUserLog();
 
@@ -98,7 +97,6 @@ public:
   void                        AddMouseLocation(int iX, int iY, float dNats);
   void                        AddMouseLocationNormalized(int iX, int iY, bool bStoreIntegerRep, float dNats);
   void                        OutputFile();
-  void					              SetAlphabetPtr(Dasher::CAlphabet* pAlphabet);
   void                        InitIsDone();
   void                        SetOuputFilename(const string& strFilename = "");
   int                         GetLogLevelMask();
@@ -119,7 +117,6 @@ protected:
   bool                        m_bSimple;                  // Are we outputting the simple running log file?
   bool                        m_bDetailed;                // Are we outputting per session detailed logs?
   CFileLogger*                m_pSimpleLogger;            // Used to log the simple running log file
-  Dasher::CAlphabet*			    m_pAlphabet;		            // Pointer to Dasher alphabet object
   bool                        m_bIsWriting;               // Has StartWriting() been called but not StopWriting()?
   bool                        m_bInitIsDone;              // Set to true once the initialization of default values is done
   WindowSize                  m_sCanvasCoordinates;       // The size of our canvas from the last call to AddCanvasSize()

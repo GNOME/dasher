@@ -8,7 +8,7 @@
 
 #include "../../Common/Common.h"
 #include "DictLanguageModel.h"
-#include "../Alphabet/Alphabet.h"
+#include "../Alphabet/AlphabetMap.h"
 
 #include <climits>
 #include <cmath>
@@ -90,8 +90,8 @@ CDictLanguageModel::CDictnode * CDictLanguageModel::AddSymbolToNode(CDictnode *p
 // CDictLanguageModel defs
 /////////////////////////////////////////////////////////////////////
 
-CDictLanguageModel::CDictLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet &Alphabet)
-:CLanguageModel(pEventHandler, pSettingsStore, Alphabet), NodesAllocated(0), max_order(0), m_NodeAlloc(8192), m_ContextAlloc(1024) {
+CDictLanguageModel::CDictLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphInfo *pAlph, const CAlphabetMap *pAlphMap)
+:CLanguageModel(pEventHandler, pSettingsStore, pAlph), m_pAlphMap(pAlphMap), NodesAllocated(0), max_order(0), m_NodeAlloc(8192), m_ContextAlloc(1024) {
   m_pRoot = m_NodeAlloc.Alloc();
   m_pRoot->sbl = -1;
   m_rootcontext = new CDictContext(m_pRoot, 0);
@@ -111,10 +111,10 @@ CDictLanguageModel::CDictLanguageModel(Dasher::CEventHandler *pEventHandler, CSe
 
     Context TempContext(CreateEmptyContext());
 
-    //      std::cout << SymbolAlphabet().GetAlphabetPointer() << std::endl;
+    //      std::cout << m_pAlphabet << std::endl;
 
     std::vector < symbol > Symbols;
-    SymbolAlphabet().GetAlphabetPointer()->GetSymbols(Symbols, CurrentWord);
+    m_pAlphMap->GetSymbols(Symbols, CurrentWord);
 
     for(std::vector < symbol >::iterator it(Symbols.begin()); it != Symbols.end(); ++it) {
       MyLearnSymbol(TempContext, *it);
@@ -530,7 +530,7 @@ void CDictLanguageModel::AddSymbol(CDictLanguageModel::CDictContext &context, sy
 
   // Collapse the context if we have started a new word
 
-  if(sym == SymbolAlphabet().GetSpaceSymbol()) {
+  if(sym == m_pAlphabet->GetSpaceSymbol()) {
     CollapseContext(context);
   }
 
@@ -562,7 +562,7 @@ void CDictLanguageModel::EnterSymbol(Context c, int Symbol) {
   // collapse the context - the information required to update the
   // word part of the context is stored in the string.
 
-  if(Symbol == SymbolAlphabet().GetSpaceSymbol()) {
+  if(Symbol == m_pAlphabet->GetSpaceSymbol()) {
     CollapseContext(context);
     return;
   }

@@ -36,7 +36,7 @@ namespace Dasher {
   class CMandarinAlphMgr : public CAlphabetManager {
   public:
 
-    CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel);
+    CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphMap, CLanguageModel *pLanguageModel);
 
     virtual ~CMandarinAlphMgr();
     
@@ -90,7 +90,8 @@ namespace Dasher {
     
     void AssignSizes(std::vector<std::pair<symbol,unsigned int> > &vChildren, Dasher::CLanguageModel::Context context);
     CPinyinParser *m_pParser;
-    CAlphabet *m_pCHAlphabet;
+    const CAlphInfo *m_pCHAlphabet;
+    const CAlphabetMap *m_pCHAlphabetMap;
   };
   /// @}
 

@@ -27,8 +27,6 @@
 		193731A80C8586F20022CBC7 /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 193731A70C8586F20022CBC7 /* config.h */; };
 		1948BE9D0C226CFD001DFA32 /* ActionButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BDF60C226CFC001DFA32 /* ActionButton.cpp */; };
 		1948BE9E0C226CFD001DFA32 /* ActionButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BDF70C226CFC001DFA32 /* ActionButton.h */; };
-		1948BEA00C226CFD001DFA32 /* Alphabet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BDFA0C226CFC001DFA32 /* Alphabet.cpp */; };
-		1948BEA10C226CFD001DFA32 /* Alphabet.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BDFB0C226CFC001DFA32 /* Alphabet.h */; };
 		1948BEA20C226CFD001DFA32 /* AlphabetMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BDFC0C226CFC001DFA32 /* AlphabetMap.cpp */; };
 		1948BEA30C226CFD001DFA32 /* AlphabetMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BDFD0C226CFC001DFA32 /* AlphabetMap.h */; };
 		1948BEA40C226CFD001DFA32 /* AlphIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BDFE0C226CFC001DFA32 /* AlphIO.cpp */; };
@@ -76,7 +74,6 @@
 		1948BEE00C226CFD001DFA32 /* DasherViewSquare.inl in Resources */ = {isa = PBXBuildFile; fileRef = 1948BE3A0C226CFD001DFA32 /* DasherViewSquare.inl */; };
 		1948BEE10C226CFD001DFA32 /* DefaultFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE3B0C226CFD001DFA32 /* DefaultFilter.cpp */; };
 		1948BEE20C226CFD001DFA32 /* DefaultFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE3C0C226CFD001DFA32 /* DefaultFilter.h */; };
-		1948BEE30C226CFD001DFA32 /* DelayedDraw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE3D0C226CFD001DFA32 /* DelayedDraw.cpp */; };
 		1948BEE40C226CFD001DFA32 /* DynamicFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE3E0C226CFD001DFA32 /* DynamicFilter.cpp */; };
 		1948BEE50C226CFD001DFA32 /* DynamicFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE3F0C226CFD001DFA32 /* DynamicFilter.h */; };
 		1948BEE60C226CFD001DFA32 /* Event.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE400C226CFD001DFA32 /* Event.h */; };
@@ -99,7 +96,6 @@
 		1948BF060C226CFD001DFA32 /* MixtureLanguageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE610C226CFD001DFA32 /* MixtureLanguageModel.h */; };
 		1948BF070C226CFD001DFA32 /* PPMLanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE620C226CFD001DFA32 /* PPMLanguageModel.cpp */; };
 		1948BF080C226CFD001DFA32 /* PPMLanguageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE630C226CFD001DFA32 /* PPMLanguageModel.h */; };
-		1948BF090C226CFD001DFA32 /* SymbolAlphabet.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE640C226CFD001DFA32 /* SymbolAlphabet.h */; };
 		1948BF0A0C226CFD001DFA32 /* WordLanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE650C226CFD001DFA32 /* WordLanguageModel.cpp */; };
 		1948BF0B0C226CFD001DFA32 /* WordLanguageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE660C226CFD001DFA32 /* WordLanguageModel.h */; };
 		1948BF0D0C226CFD001DFA32 /* MemoryLeak.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE680C226CFD001DFA32 /* MemoryLeak.cpp */; };
@@ -343,9 +339,10 @@
 		19F8C7E60C858A2800276B4F /* I18n.h in Headers */ = {isa = PBXBuildFile; fileRef = 19F8C7E50C858A2800276B4F /* I18n.h */; };
 		19F8C7F90C858E9900276B4F /* TrainingHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19F8C7F70C858E9900276B4F /* TrainingHelper.cpp */; };
 		19F8C7FA0C858E9900276B4F /* TrainingHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 19F8C7F80C858E9900276B4F /* TrainingHelper.h */; };
-		3300114910A2E9C900D31B1D /* DelayedDraw.h in Headers */ = {isa = PBXBuildFile; fileRef = 3300114810A2E9C900D31B1D /* DelayedDraw.h */; };
 		3300115210A2EA7700D31B1D /* ExpansionPolicy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3300115010A2EA7700D31B1D /* ExpansionPolicy.cpp */; };
 		3300115310A2EA7700D31B1D /* ExpansionPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 3300115110A2EA7700D31B1D /* ExpansionPolicy.h */; };
+		33008360120CB7F900C41FAA /* ConvertingAlphMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 3300835E120CB7F900C41FAA /* ConvertingAlphMgr.h */; };
+		33008361120CB7F900C41FAA /* ConvertingAlphMgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3300835F120CB7F900C41FAA /* ConvertingAlphMgr.cpp */; };
 		3306E0220FFD1CE60017324C /* PPMPYLanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3306E0200FFD1CE60017324C /* PPMPYLanguageModel.cpp */; };
 		3306E0230FFD1CE60017324C /* PPMPYLanguageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 3306E0210FFD1CE60017324C /* PPMPYLanguageModel.h */; };
 		3306E1F70FFE6CAD0017324C /* Trainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3306E1F50FFE6CAD0017324C /* Trainer.cpp */; };
@@ -363,6 +360,8 @@
 		335DB101100B3358006DB155 /* training_spyDict.txt in Resources */ = {isa = PBXBuildFile; fileRef = 335DB100100B3358006DB155 /* training_spyDict.txt */; };
 		339055E81195FBD0001BE240 /* Queue.h in Headers */ = {isa = PBXBuildFile; fileRef = 339055E61195FBD0001BE240 /* Queue.h */; };
 		339055E91195FBD0001BE240 /* Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = 339055E71195FBD0001BE240 /* Queue.m */; };
+		339794D4120F2A9600CEA168 /* AlphInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 339794D2120F2A9600CEA168 /* AlphInfo.cpp */; };
+		339794D5120F2A9600CEA168 /* AlphInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 339794D3120F2A9600CEA168 /* AlphInfo.h */; };
 		33ABFEC60FC379EA00EA2BA5 /* ButtonMultiPress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33ABFEC40FC379EA00EA2BA5 /* ButtonMultiPress.cpp */; };
 		33ABFEC70FC379EA00EA2BA5 /* ButtonMultiPress.h in Headers */ = {isa = PBXBuildFile; fileRef = 33ABFEC50FC379EA00EA2BA5 /* ButtonMultiPress.h */; };
 		33E173C70F3E0B6400D19B38 /* Makefile.am in Resources */ = {isa = PBXBuildFile; fileRef = 33E173A70F3E0B6400D19B38 /* Makefile.am */; };
@@ -424,8 +423,6 @@
 		1946CABC0481AD440000000A /* ZippyString.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ZippyString.m; sourceTree = "<group>"; };
 		1948BDF60C226CFC001DFA32 /* ActionButton.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ActionButton.cpp; sourceTree = "<group>"; };
 		1948BDF70C226CFC001DFA32 /* ActionButton.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ActionButton.h; sourceTree = "<group>"; };
-		1948BDFA0C226CFC001DFA32 /* Alphabet.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = Alphabet.cpp; sourceTree = "<group>"; };
-		1948BDFB0C226CFC001DFA32 /* Alphabet.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Alphabet.h; sourceTree = "<group>"; };
 		1948BDFC0C226CFC001DFA32 /* AlphabetMap.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AlphabetMap.cpp; sourceTree = "<group>"; };
 		1948BDFD0C226CFC001DFA32 /* AlphabetMap.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AlphabetMap.h; sourceTree = "<group>"; };
 		1948BDFE0C226CFC001DFA32 /* AlphIO.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AlphIO.cpp; sourceTree = "<group>"; };
@@ -476,7 +473,6 @@
 		1948BE3A0C226CFD001DFA32 /* DasherViewSquare.inl */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; path = DasherViewSquare.inl; sourceTree = "<group>"; };
 		1948BE3B0C226CFD001DFA32 /* DefaultFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DefaultFilter.cpp; sourceTree = "<group>"; };
 		1948BE3C0C226CFD001DFA32 /* DefaultFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DefaultFilter.h; sourceTree = "<group>"; };
-		1948BE3D0C226CFD001DFA32 /* DelayedDraw.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DelayedDraw.cpp; sourceTree = "<group>"; };
 		1948BE3E0C226CFD001DFA32 /* DynamicFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DynamicFilter.cpp; sourceTree = "<group>"; };
 		1948BE3F0C226CFD001DFA32 /* DynamicFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DynamicFilter.h; sourceTree = "<group>"; };
 		1948BE400C226CFD001DFA32 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
@@ -510,7 +506,6 @@
 		1948BE610C226CFD001DFA32 /* MixtureLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MixtureLanguageModel.h; sourceTree = "<group>"; };
 		1948BE620C226CFD001DFA32 /* PPMLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PPMLanguageModel.cpp; sourceTree = "<group>"; };
 		1948BE630C226CFD001DFA32 /* PPMLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PPMLanguageModel.h; sourceTree = "<group>"; };
-		1948BE640C226CFD001DFA32 /* SymbolAlphabet.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SymbolAlphabet.h; sourceTree = "<group>"; };
 		1948BE650C226CFD001DFA32 /* WordLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = WordLanguageModel.cpp; sourceTree = "<group>"; };
 		1948BE660C226CFD001DFA32 /* WordLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = WordLanguageModel.h; sourceTree = "<group>"; };
 		1948BE680C226CFD001DFA32 /* MemoryLeak.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = MemoryLeak.cpp; sourceTree = "<group>"; };
@@ -759,9 +754,10 @@
 		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		3300114810A2E9C900D31B1D /* DelayedDraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DelayedDraw.h; sourceTree = "<group>"; };
 		3300115010A2EA7700D31B1D /* ExpansionPolicy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExpansionPolicy.cpp; sourceTree = "<group>"; };
 		3300115110A2EA7700D31B1D /* ExpansionPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpansionPolicy.h; sourceTree = "<group>"; };
+		3300835E120CB7F900C41FAA /* ConvertingAlphMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvertingAlphMgr.h; sourceTree = "<group>"; };
+		3300835F120CB7F900C41FAA /* ConvertingAlphMgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConvertingAlphMgr.cpp; sourceTree = "<group>"; };
 		3306E0200FFD1CE60017324C /* PPMPYLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PPMPYLanguageModel.cpp; sourceTree = "<group>"; };
 		3306E0210FFD1CE60017324C /* PPMPYLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPMPYLanguageModel.h; sourceTree = "<group>"; };
 		3306E1F50FFE6CAD0017324C /* Trainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Trainer.cpp; sourceTree = "<group>"; };
@@ -779,6 +775,8 @@
 		335DB100100B3358006DB155 /* training_spyDict.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_spyDict.txt; sourceTree = "<group>"; };
 		339055E61195FBD0001BE240 /* Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Queue.h; sourceTree = "<group>"; };
 		339055E71195FBD0001BE240 /* Queue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Queue.m; sourceTree = "<group>"; };
+		339794D2120F2A9600CEA168 /* AlphInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AlphInfo.cpp; sourceTree = "<group>"; };
+		339794D3120F2A9600CEA168 /* AlphInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlphInfo.h; sourceTree = "<group>"; };
 		33ABFEC40FC379EA00EA2BA5 /* ButtonMultiPress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ButtonMultiPress.cpp; sourceTree = "<group>"; };
 		33ABFEC50FC379EA00EA2BA5 /* ButtonMultiPress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonMultiPress.h; sourceTree = "<group>"; };
 		33E173A70F3E0B6400D19B38 /* Makefile.am */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
@@ -983,10 +981,8 @@
 				1948BE3A0C226CFD001DFA32 /* DasherViewSquare.inl */,
 				1948BE3B0C226CFD001DFA32 /* DefaultFilter.cpp */,
 				1948BE3C0C226CFD001DFA32 /* DefaultFilter.h */,
-				1948BE3D0C226CFD001DFA32 /* DelayedDraw.cpp */,
 				3300115010A2EA7700D31B1D /* ExpansionPolicy.cpp */,
 				3300115110A2EA7700D31B1D /* ExpansionPolicy.h */,
-				3300114810A2E9C900D31B1D /* DelayedDraw.h */,
 				1948BE3E0C226CFD001DFA32 /* DynamicFilter.cpp */,
 				1948BE3F0C226CFD001DFA32 /* DynamicFilter.h */,
 				1948BE400C226CFD001DFA32 /* Event.h */,
@@ -1052,6 +1048,8 @@
 				1948BE950C226CFD001DFA32 /* UserLogTrial.h */,
 				1948BE9A0C226CFD001DFA32 /* XMLUtil.cpp */,
 				1948BE9B0C226CFD001DFA32 /* XMLUtil.h */,
+				3300835E120CB7F900C41FAA /* ConvertingAlphMgr.h */,
+				3300835F120CB7F900C41FAA /* ConvertingAlphMgr.cpp */,
 			);
 			name = DasherCore;
 			path = ../DasherCore;
@@ -1060,8 +1058,8 @@
 		1948BDF80C226CFC001DFA32 /* Alphabet */ = {
 			isa = PBXGroup;
 			children = (
-				1948BDFA0C226CFC001DFA32 /* Alphabet.cpp */,
-				1948BDFB0C226CFC001DFA32 /* Alphabet.h */,
+				339794D2120F2A9600CEA168 /* AlphInfo.cpp */,
+				339794D3120F2A9600CEA168 /* AlphInfo.h */,
 				1948BDFC0C226CFC001DFA32 /* AlphabetMap.cpp */,
 				1948BDFD0C226CFC001DFA32 /* AlphabetMap.h */,
 				1948BDFE0C226CFC001DFA32 /* AlphIO.cpp */,
@@ -1096,7 +1094,6 @@
 				1948BE610C226CFD001DFA32 /* MixtureLanguageModel.h */,
 				1948BE620C226CFD001DFA32 /* PPMLanguageModel.cpp */,
 				1948BE630C226CFD001DFA32 /* PPMLanguageModel.h */,
-				1948BE640C226CFD001DFA32 /* SymbolAlphabet.h */,
 				1948BE650C226CFD001DFA32 /* WordLanguageModel.cpp */,
 				1948BE660C226CFD001DFA32 /* WordLanguageModel.h */,
 			);
@@ -1409,7 +1406,6 @@
 				19F36D8E0B18B60E002F41F1 /* ZippyStringImage.h in Headers */,
 				19F36D900B18B60E002F41F1 /* ZippyStringGlyph.h in Headers */,
 				1948BE9E0C226CFD001DFA32 /* ActionButton.h in Headers */,
-				1948BEA10C226CFD001DFA32 /* Alphabet.h in Headers */,
 				1948BEA30C226CFD001DFA32 /* AlphabetMap.h in Headers */,
 				1948BEA50C226CFD001DFA32 /* AlphIO.h in Headers */,
 				1948BEA60C226CFD001DFA32 /* GroupInfo.h in Headers */,
@@ -1449,7 +1445,6 @@
 				1948BF040C226CFD001DFA32 /* LanguageModel.h in Headers */,
 				1948BF060C226CFD001DFA32 /* MixtureLanguageModel.h in Headers */,
 				1948BF080C226CFD001DFA32 /* PPMLanguageModel.h in Headers */,
-				1948BF090C226CFD001DFA32 /* SymbolAlphabet.h in Headers */,
 				1948BF0B0C226CFD001DFA32 /* WordLanguageModel.h in Headers */,
 				1948BF0E0C226CFD001DFA32 /* MemoryLeak.h in Headers */,
 				1948BF110C226CFD001DFA32 /* ModuleManager.h in Headers */,
@@ -1496,8 +1491,9 @@
 				33135354102C6D8E00E28220 /* CompassMode.h in Headers */,
 				33135356102C6D8E00E28220 /* ButtonMode.h in Headers */,
 				3300115310A2EA7700D31B1D /* ExpansionPolicy.h in Headers */,
-				3300114910A2E9C900D31B1D /* DelayedDraw.h in Headers */,
 				339055E81195FBD0001BE240 /* Queue.h in Headers */,
+				33008360120CB7F900C41FAA /* ConvertingAlphMgr.h in Headers */,
+				339794D5120F2A9600CEA168 /* AlphInfo.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1773,7 +1769,6 @@
 				19F36D8F0B18B60E002F41F1 /* ZippyStringImage.m in Sources */,
 				19F36D910B18B60E002F41F1 /* ZippyStringGlyph.m in Sources */,
 				1948BE9D0C226CFD001DFA32 /* ActionButton.cpp in Sources */,
-				1948BEA00C226CFD001DFA32 /* Alphabet.cpp in Sources */,
 				1948BEA20C226CFD001DFA32 /* AlphabetMap.cpp in Sources */,
 				1948BEA40C226CFD001DFA32 /* AlphIO.cpp in Sources */,
 				1948BEA80C226CFD001DFA32 /* AlphabetManager.cpp in Sources */,
@@ -1794,7 +1789,6 @@
 				1948BEDB0C226CFD001DFA32 /* DasherView.cpp in Sources */,
 				1948BEDE0C226CFD001DFA32 /* DasherViewSquare.cpp in Sources */,
 				1948BEE10C226CFD001DFA32 /* DefaultFilter.cpp in Sources */,
-				1948BEE30C226CFD001DFA32 /* DelayedDraw.cpp in Sources */,
 				1948BEE40C226CFD001DFA32 /* DynamicFilter.cpp in Sources */,
 				1948BEE70C226CFD001DFA32 /* EventHandler.cpp in Sources */,
 				1948BEE90C226CFD001DFA32 /* EyetrackerFilter.cpp in Sources */,
@@ -1846,6 +1840,8 @@
 				33135355102C6D8E00E28220 /* ButtonMode.cpp in Sources */,
 				3300115210A2EA7700D31B1D /* ExpansionPolicy.cpp in Sources */,
 				339055E91195FBD0001BE240 /* Queue.m in Sources */,
+				33008361120CB7F900C41FAA /* ConvertingAlphMgr.cpp in Sources */,
+				339794D4120F2A9600CEA168 /* AlphInfo.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

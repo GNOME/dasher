@@ -276,7 +276,7 @@
 - (void)clearText {
   text.text=@"";
   selectedText.location = selectedText.length = 0;
-  _dasherInterface->SetBuffer(0);
+  _dasherInterface->SetOffset(0);
 }
 	
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -354,7 +354,8 @@
 
 - (void)insertText:(NSString *)sText {
   [self outputCallback:sText];
-  _dasherInterface->SetOffset(selectedText.location);
+  // if any text, it came from outside, so buffer/context has changed
+  _dasherInterface->SetOffset(selectedText.location, [sText length]);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

@@ -11,7 +11,7 @@
 /// @{
 class CCannaConversionHelper : public Dasher::CConversionHelper {
  public:
-  CCannaConversionHelper(CNodeCreationManager *pNCManager, Dasher::CAlphabet *pAlphabet, int Type, int Order);
+  CCannaConversionHelper(CNodeCreationManager *pNCManager, Dasher::const CAlphInfo *pAlphabet, int Type, int Order);
   ~CCannaConversionHelper();
 
   virtual bool Convert(const std::string &strSource, SCENode ** pRoot);

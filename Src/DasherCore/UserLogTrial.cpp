@@ -84,7 +84,7 @@ CUserLogTrial::~CUserLogTrial()
             pSpan = NULL;
           }
 
-          Dasher::VECTOR_SYMBOL_PROB_DISPLAY* pVectorAdded = pLocation->pVectorAdded;
+          Dasher::VECTOR_SYMBOL_PROB* pVectorAdded = pLocation->pVectorAdded;
           if (pVectorAdded != NULL)
           {
             delete pVectorAdded;
@@ -252,24 +252,18 @@ void CUserLogTrial::StopWriting(double dBits)
 // The user has entered one or more new symbols.  UserLog object will
 // pass us the pointer to the current alphabet that is being used.
 void CUserLogTrial::AddSymbols(Dasher::VECTOR_SYMBOL_PROB* vpNewSymbolProbs, 
-                               eUserLogEventType iEvent, 
-                               Dasher::CAlphabet* pCurrentAlphabet)
+                               eUserLogEventType iEvent)
 {
   //CFunctionLogger f1("CUserLogTrial::AddSymbols", g_pLogger);
 
-  if (pCurrentAlphabet == NULL)
-  {
-    g_pLogger->Log("CUserLogTrial::AddSymbols, pCurrentAlphabet was NULL!", logNORMAL);
-    return;
-  }
   if (vpNewSymbolProbs == NULL)
   {
     g_pLogger->Log("CUserLogTrial::AddSymbols, vectorNewSymbolProbs was NULL!", logNORMAL);
     return;
   }
 
-  Dasher::VECTOR_SYMBOL_PROB_DISPLAY* pVectorAdded = NULL;
-  pVectorAdded = new Dasher::VECTOR_SYMBOL_PROB_DISPLAY;
+  Dasher::VECTOR_SYMBOL_PROB* pVectorAdded = NULL;
+  pVectorAdded = new Dasher::VECTOR_SYMBOL_PROB;
 
   if (pVectorAdded == NULL)
   {
@@ -277,26 +271,16 @@ void CUserLogTrial::AddSymbols(Dasher::VECTOR_SYMBOL_PROB* vpNewSymbolProbs,
     return;
   }
 
-  for (unsigned int i = 0; i < vpNewSymbolProbs->size(); i++)
-  {
-    Dasher::SymbolProb sNewSymbolProb   = (Dasher::SymbolProb) (*vpNewSymbolProbs)[i];
-
-    Dasher::SymbolProbDisplay sNewSymbolProbDisplay;
-
-    sNewSymbolProbDisplay.sym           = sNewSymbolProb.sym;
-    sNewSymbolProbDisplay.prob          = sNewSymbolProb.prob;
-    sNewSymbolProbDisplay.strDisplay    = pCurrentAlphabet->GetText(sNewSymbolProb.sym);
-
-    pVectorAdded->push_back(sNewSymbolProbDisplay);
-
-    // Add this symbol to our running total of symbols.  
-    // We track the symbols and not the display text
-    // since we may need to delete symbols later and 
-    // a given symbol might take up multiple chars.
-    // We also keep the probability around so we can
-    // calculate the average bits of the history.
-    m_vHistory.push_back(sNewSymbolProbDisplay);        
-  }
+  // Add the symbols to our running total of symbols.
+  
+  // ACL: Old comment said "We track the symbols and not the display text
+  // since we may need to delete symbols later and 
+  // a given symbol might take up multiple chars."
+  //   - yet stored the display text????
+  
+  // We also keep the probability around so we can
+  // calculate the average bits of the history.
+  m_vHistory.insert(m_vHistory.end(), vpNewSymbolProbs->begin(), vpNewSymbolProbs->end());
 
   StopPreviousTimer();
 
@@ -315,7 +299,7 @@ void CUserLogTrial::AddSymbols(Dasher::VECTOR_SYMBOL_PROB* vpNewSymbolProbs,
   pLocation->avgBits       = GetHistoryAvgBits();
   pLocation->event         = iEvent;
   pLocation->numDeleted    = 0;
-  pLocation->pVectorAdded  = pVectorAdded;
+  pLocation->pVectorAdded  = new std::vector<Dasher::SymbolProb>(*vpNewSymbolProbs);
 
   NavCycle* pCycle = GetCurrentNavCycle();
   if (pCycle != NULL)
@@ -559,7 +543,7 @@ string CUserLogTrial::GetHistoryDisplay()
 
   for (unsigned int i = 0; i < m_vHistory.size(); i++)
   {
-    Dasher::SymbolProbDisplay sItem = (Dasher::SymbolProbDisplay) m_vHistory[i];
+    Dasher::SymbolProb sItem = (Dasher::SymbolProb) m_vHistory[i];
     strResult += sItem.strDisplay;
   }
 
@@ -576,7 +560,7 @@ double CUserLogTrial::GetHistoryAvgBits()
   {
     for (unsigned int i = 0; i < m_vHistory.size(); i++)
     {
-      Dasher::SymbolProbDisplay sItem = (Dasher::SymbolProbDisplay) m_vHistory[i];
+      Dasher::SymbolProb sItem = (Dasher::SymbolProb) m_vHistory[i];
 
       dResult += log(sItem.prob);
     }
@@ -646,14 +630,14 @@ string CUserLogTrial::GetLocationXML(NavLocation* pLocation, const string& strPr
     strResult += m_szTempBuffer;
     strResult += "</NumAdded>\n";
 
-    Dasher::VECTOR_SYMBOL_PROB_DISPLAY* pVectorAdded = pLocation->pVectorAdded;
+    Dasher::VECTOR_SYMBOL_PROB* pVectorAdded = pLocation->pVectorAdded;
 
     if (pVectorAdded != NULL)
     {
       // Output the details of each add
       for (unsigned int j = 0; j < pVectorAdded->size(); j++)
       {            
-        Dasher::SymbolProbDisplay sItem = (Dasher::SymbolProbDisplay) (*pVectorAdded)[j];
+        Dasher::SymbolProb sItem = (Dasher::SymbolProb) (*pVectorAdded)[j];
 
         strResult += strPrefix;
         strResult += "\t<Add>\n";
@@ -1261,15 +1245,13 @@ CUserLogTrial::CUserLogTrial(const string& strXML, int iIgnored)
 
         // Handle the multiple <Add> tags that might exist
         vAdded                    = XMLUtil::GetElementStrings("Add", *iter2);                
-        pLocation->pVectorAdded   = new Dasher::VECTOR_SYMBOL_PROB_DISPLAY;
+        pLocation->pVectorAdded   = new Dasher::VECTOR_SYMBOL_PROB;
 
         for (VECTOR_STRING_ITER iter3 = vAdded.begin(); iter3 < vAdded.end(); iter3++)
         {
-          Dasher::SymbolProbDisplay sAdd;
-
-          sAdd.prob           = XMLUtil::GetElementFloat("Prob", *iter3);
-          sAdd.strDisplay     = XMLUtil::GetElementString("Text", *iter3);
-          sAdd.sym            = 0;    // We don't have the original integer symbol index
+          Dasher::SymbolProb sAdd(0, // We don't have the original integer symbol index
+                                  XMLUtil::GetElementString("Text", *iter3),
+                                  XMLUtil::GetElementFloat("Prob", *iter3));
 
           if (pLocation->pVectorAdded != NULL)
             pLocation->pVectorAdded->push_back(sAdd);

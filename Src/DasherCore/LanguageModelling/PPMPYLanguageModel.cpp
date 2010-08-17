@@ -13,7 +13,6 @@
 #include "../../Common/Common.h"
 #include "PPMPYLanguageModel.h"
 #include "LanguageModel.h"
-#include "SymbolAlphabet.h"
 #include <math.h>
 #include <stack>
 #include <sstream>
@@ -34,8 +33,8 @@ static char THIS_FILE[] = __FILE__;
 
 /////////////////////////////////////////////////////////////////////
 
-CPPMPYLanguageModel::CPPMPYLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet &SymbolAlphabet, const CSymbolAlphabet &pySymbolAlphabet)
-  :CLanguageModel(pEventHandler, pSettingsStore, SymbolAlphabet), m_iMaxOrder(2), NodesAllocated(0), m_NodeAlloc(8192), m_ContextAlloc(1024), m_pyAlphabet(pySymbolAlphabet){
+CPPMPYLanguageModel::CPPMPYLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphInfo *pAlph, const CAlphInfo *pPyAlphabet)
+  :CLanguageModel(pEventHandler, pSettingsStore, pAlph), m_iMaxOrder(2), NodesAllocated(0), m_NodeAlloc(8192), m_ContextAlloc(1024), m_pPyAlphabet(pPyAlphabet){
   m_pRoot = m_NodeAlloc.Alloc();
   m_pRoot->symbol = -1;
   //  m_pRoot->child.resize(DIVISION, NULL);
@@ -47,10 +46,8 @@ CPPMPYLanguageModel::CPPMPYLanguageModel(Dasher::CEventHandler *pEventHandler, C
   m_pRootContext->head = m_pRoot;
   m_pRootContext->order = 0;
 
-  m_iAlphSize = SymbolAlphabet.GetSize();
+  m_iAlphSize = GetSize();
   //  std::cout<<"Alphaunit: "<<UNITALPH<<std::endl;
-  m_iPYAlphSize = pySymbolAlphabet.GetSize();
-  //  std::cout<<"PYunit: "<<UNITPY<<std::endl;
   
   // Cache the result of update exclusion - otherwise we have to look up a lot when training, which is slow
 
@@ -328,7 +325,7 @@ void CPPMPYLanguageModel::GetProbs(Context context, std::vector<unsigned int> &p
   */
   //  DASHER_ASSERT(m_setContexts.count(ppmcontext) > 0);
 
-  int iNumSymbols = m_pyAlphabet.GetSize();
+  int iNumSymbols = m_pPyAlphabet->GetNumberTextSymbols()+1;
   
   probs.resize(iNumSymbols);
 
@@ -483,7 +480,7 @@ void CPPMPYLanguageModel::AddPYSymbol(CPPMPYLanguageModel::CPPMPYContext &contex
   if(pysym==0)
     return;
 
-  DASHER_ASSERT(pysym >= 0 && pysym < m_pyAlphabet.GetSize());
+  DASHER_ASSERT(pysym >= 0 && pysym < m_pPyAlphabet->GetNumberTextSymbols());
 
   CPPMPYnode *vineptr, *temp, *pytail;
   int updatecnt = 1;
@@ -577,7 +574,7 @@ void CPPMPYLanguageModel::LearnPYSymbol(Context c, int Symbol) {
     return;
   
 
-  DASHER_ASSERT(Symbol >= 0 && Symbol < m_pyAlphabet.GetSize());
+  DASHER_ASSERT(Symbol >= 0 && Symbol < m_pPyAlphabet->GetNumberTextSymbols());
   CPPMPYLanguageModel::CPPMPYContext & context = *(CPPMPYContext *) (c);
  
   //  std::cout<<"py learn context : "<<context.head->symbol<<std::endl;

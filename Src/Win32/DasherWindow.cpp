@@ -302,18 +302,6 @@ void CDasherWindow::HandleControlEvent(int iID) {
     if(m_pEdit)
       m_pEdit->Delete(EDIT_BACKWARDS, EDIT_FILE);
     break;
-  case Dasher::CControlManager::CTL_USER+1: // Speak all
-    if(m_pEdit)
-      m_pEdit->speak(1);
-    break;
-  case Dasher::CControlManager::CTL_USER+2: // Speak new
-    if(m_pEdit)
-      m_pEdit->speak(2);
-    break;
-  case Dasher::CControlManager::CTL_USER+3: // Repeat speech
-    if(m_pEdit)
-      m_pEdit->speak(3);
-    break;
   }
 }
 

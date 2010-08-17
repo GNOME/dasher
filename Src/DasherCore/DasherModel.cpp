@@ -52,16 +52,12 @@ static char THIS_FILE[] = __FILE__;
 
 CDasherModel::CDasherModel(CEventHandler *pEventHandler,
 			   CSettingsStore *pSettingsStore,
-			   CNodeCreationManager *pNCManager,
-			   CDasherInterfaceBase *pDasherInterface,
-			   CDasherView *pView, int iOffset)
+			   CDasherInterfaceBase *pDasherInterface)
   : CFrameRate(pEventHandler, pSettingsStore) {
-  m_pNodeCreationManager = pNCManager;
   m_pDasherInterface = pDasherInterface;
 
   m_bGameMode = GetBoolParameter(BP_GAME_MODE);
 
-  DASHER_ASSERT(m_pNodeCreationManager != NULL);
   DASHER_ASSERT(m_pDasherInterface != NULL);
 
   m_pLastOutput = m_Root = NULL;
@@ -86,7 +82,6 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler,
   m_Rootmin_min = int64_min / iNormalization / 2;
   m_Rootmax_max = int64_max / iNormalization / 2;
 
-  InitialiseAtOffset(iOffset, pView);
 }
 
 CDasherModel::~CDasherModel() {
@@ -110,9 +105,6 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
 
     switch (pEvt->m_iParameter) {
-    case BP_CONTROL_MODE: // Rebuild the model if control mode is switched on/off
-      RebuildAroundCrosshair();
-      break;
     case BP_SMOOTH_OFFSET:
       if (!GetBoolParameter(BP_SMOOTH_OFFSET))
         //smoothing has just been turned off. End any transition/jump currently
@@ -139,7 +131,8 @@ void CDasherModel::Make_root(CDasherNode *pNewRoot) {
 
   DASHER_ASSERT(pNewRoot != NULL);
   DASHER_ASSERT(pNewRoot->Parent() == m_Root);
-
+  
+  m_Root->DeleteNephews(pNewRoot);
   m_Root->SetFlag(NF_COMMITTED, true);
 
   // TODO: Is the stack necessary at all? We may as well just keep the
@@ -165,36 +158,6 @@ void CDasherModel::Make_root(CDasherNode *pNewRoot) {
     it->iN2 = it->iN1 + (r * m_Root->Hbnd()) / GetLongParameter(LP_NORMALIZATION);
     it->iN1 = it->iN1 + (r * m_Root->Lbnd()) / GetLongParameter(LP_NORMALIZATION);
   }
-}
-
-void CDasherModel::RecursiveMakeRoot(CDasherNode *pNewRoot) {
-  DASHER_ASSERT(pNewRoot != NULL);
-  DASHER_ASSERT(m_Root != NULL);
-
-  if(pNewRoot == m_Root)
-    return;
-
-  // TODO: we really ought to check that pNewRoot is actually a
-  // descendent of the root, although that should be guaranteed
-
-  if(pNewRoot->Parent() != m_Root)
-    RecursiveMakeRoot(pNewRoot->Parent());
-
-  Make_root(pNewRoot);
-}
-
-// only used when BP_CONTROL changes, so not very often.
-void CDasherModel::RebuildAroundCrosshair() {
-  CDasherNode *pNode = Get_node_under_crosshair();
-  DASHER_ASSERT(pNode != NULL);
-  DASHER_ASSERT(pNode == m_pLastOutput);
-
-  RecursiveMakeRoot(pNode);
-  DASHER_ASSERT(m_Root == pNode);
-  ClearRootQueue();
-  m_Root->Delete_children();
-
-  m_Root->PopulateChildren();
 }
 
 void CDasherModel::Reparent_root() {
@@ -259,23 +222,17 @@ void CDasherModel::ClearRootQueue() {
   }
 }
 
-CDasherNode *CDasherModel::Get_node_under_crosshair() {
-  DASHER_ASSERT(m_Root != NULL);
+void CDasherModel::SetOffset(int iOffset, CAlphabetManager *pMgr, CDasherView *pView, bool bForce) {
+  //if we don't have a root, always "re"build the tree!
+  // (if we have a root, only rebuild to move location or if bForce says to)
+  if (m_Root && iOffset == GetOffset() && !bForce) return;
 
-  return m_Root->Get_node_under(GetLongParameter(LP_NORMALIZATION), m_Rootmin + m_iDisplayOffset, m_Rootmax + m_iDisplayOffset, GetLongParameter(LP_OX), GetLongParameter(LP_OY));
-}
-
-void CDasherModel::DeleteTree() {
+  if (m_pLastOutput) m_pLastOutput->Leave();
+  
   ClearRootQueue();
   delete m_Root;
-  m_Root = NULL;
-}
-
-void CDasherModel::InitialiseAtOffset(int iOffset, CDasherView *pView) {
-  if (m_pLastOutput) m_pLastOutput->Leave();
-  DeleteTree();
-
-  m_Root = m_pNodeCreationManager->GetAlphRoot(NULL, 0,GetLongParameter(LP_NORMALIZATION), iOffset!=0, iOffset);
+  
+  m_Root = pMgr->GetRoot(NULL, 0,GetLongParameter(LP_NORMALIZATION), iOffset!=0, iOffset);
   m_pLastOutput = (m_Root->GetFlag(NF_SEEN)) ? m_Root : NULL;
   
   // Create children of the root...
@@ -428,15 +385,6 @@ void CDasherModel::UpdateBounds(myint iNewMin, myint iNewMax, unsigned long iTim
 
   // Now actually zoom to the new location
   NewGoTo(iNewMin, iNewMax, pAdded, pNumDeleted);
-
-
-  // Check whether new nodes need to be created
-  ExpandNode(Get_node_under_crosshair());
-  
-// This'll get done again when we render the frame, later, but we use NF_SEEN
-// (set here) to ensure the node under the cursor can never be collapsed
-// (even when the node budget is exceeded) when we do the rendering...
-  HandleOutput(pAdded, pNumDeleted);
 }
 
 void CDasherModel::RecordFrame(unsigned long Time) {
@@ -445,27 +393,6 @@ void CDasherModel::RecordFrame(unsigned long Time) {
   GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher();
   if(m_bGameMode && pTeacher)
     pTeacher->NewFrame(Time);
-}
-
-void CDasherModel::RecursiveOutput(CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded) {
-  if(pNode->Parent()) {
-    if (!pNode->Parent()->GetFlag(NF_SEEN))
-      RecursiveOutput(pNode->Parent(), pAdded);
-
-    pNode->Parent()->Leave();
-  }
-  
-  pNode->Enter();
-  
-  m_pLastOutput = pNode;
-  pNode->SetFlag(NF_SEEN, true);
-  pNode->Output(pAdded, GetLongParameter(LP_NORMALIZATION));
-
-  // If the node we are outputting is the last one in a game target sentence, then
-  // notify the game mode teacher.
-  if(m_bGameMode)
-    if(pNode->GetFlag(NF_END_GAME))
-      GameMode::CDasherGameMode::GetTeacher()->SentenceFinished();
 }
 
 void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
@@ -512,8 +439,7 @@ void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax, Dasher::VECTOR_SY
           //make pChild the root node...but put (newRootmin,newRootmax) somewhere there'll be converted:
           SGotoItem temp; temp.iN1 = newRootmin; temp.iN2 = newRootmax;
           m_deGotoQueue.push_back(temp);
-          m_Root->DeleteNephews(pChild);
-          RecursiveMakeRoot(pChild);
+          Make_root(pChild);
           temp=m_deGotoQueue.back(); m_deGotoQueue.pop_back();
           // std::cout << "NewGoto Recursing - was (" << newRootmin << "," << newRootmax << "), now (" << temp.iN1 << "," << temp.iN2 << ")" << std::endl;
           NewGoTo(temp.iN1, temp.iN2, pAdded,pNumDeleted);
@@ -525,27 +451,35 @@ void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax, Dasher::VECTOR_SY
   }
 }
 
-void CDasherModel::HandleOutput(Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
-  CDasherNode *pNewNode = Get_node_under_crosshair();
-  DASHER_ASSERT(pNewNode != NULL);
-  
-  //  std::cout << "HandleOutput: " << m_pLastOutput << " => " << pNewNode << std::endl;
-  
-  CDasherNode *pLastSeen = pNewNode;
-  while (pLastSeen && !pLastSeen->GetFlag(NF_SEEN))
-    pLastSeen = pLastSeen->Parent();
-  
-  while (m_pLastOutput != pLastSeen) {
-    m_pLastOutput->Undo(pNumDeleted);
-    m_pLastOutput->Leave(); //Should we? I think so, but the old code didn't...?
-    m_pLastOutput->SetFlag(NF_SEEN, false);
+void CDasherModel::OutputTo(CDasherNode *pNewNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
+  //first, recurse back up to last seen node (must be processed ancestor-first)
+  if (pNewNode && !pNewNode->GetFlag(NF_SEEN)) {
+    OutputTo(pNewNode->Parent(), pAdded, pNumDeleted);
+    if (pNewNode->Parent()) pNewNode->Parent()->Leave();
+    pNewNode->Enter();
     
-    m_pLastOutput = m_pLastOutput->Parent();
-    if (m_pLastOutput) m_pLastOutput->Enter();
-  }
-  
-  if(!pNewNode->GetFlag(NF_SEEN)) {
-    RecursiveOutput(pNewNode, pAdded);
+    m_pLastOutput = pNewNode;
+    pNewNode->SetFlag(NF_SEEN, true);
+    pNewNode->Output(pAdded, GetLongParameter(LP_NORMALIZATION));
+    
+    // If the node we are outputting is the last one in a game target sentence, then
+    // notify the game mode teacher.
+    if(m_bGameMode)
+      if(pNewNode->GetFlag(NF_END_GAME))
+        GameMode::CDasherGameMode::GetTeacher()->SentenceFinished();
+  } else {
+    //either pNewNode is null, or else it's been seen. So delete back to that...
+    while (m_pLastOutput != pNewNode) {
+      // if pNewNode is null, m_pLastOutput is not; else, pNewNode has been seen,
+      // so we should encounter it on the way back out to the root, _before_ null
+      m_pLastOutput->Undo(pNumDeleted);
+      m_pLastOutput->Leave(); //Should we? I think so, but the old code didn't...?
+      m_pLastOutput->SetFlag(NF_SEEN, false);
+      
+      m_pLastOutput = m_pLastOutput->Parent();
+      if (m_pLastOutput) m_pLastOutput->Enter();
+      else DASHER_ASSERT (!pNewNode); //both null
+    }
   }
 }
 
@@ -599,20 +533,15 @@ void CDasherModel::ExpandNode(CDasherNode *pNode) {
 
 }
 
-bool CDasherModel::RenderToView(CDasherView *pView, CExpansionPolicy &policy) {
+void CDasherModel::RenderToView(CDasherView *pView, CExpansionPolicy &policy) {
 
   DASHER_ASSERT(pView != NULL);
   DASHER_ASSERT(m_Root != NULL);
 
-  // XXX we HandleOutput in RenderToView
-  // DASHER_ASSERT(Get_node_under_crosshair() == m_pLastOutput);
-
-  bool bReturnValue = false;
-  
   // The Render routine will fill iGameTargetY with the Dasher Coordinate of the 
   // youngest node with NF_GAME set. The model is responsible for setting NF_GAME on
   // the appropriate Nodes.
-  pView->Render(m_Root, m_Rootmin + m_iDisplayOffset, m_Rootmax + m_iDisplayOffset, policy, true);  
+  CDasherNode *pOutput = pView->Render(m_Root, m_Rootmin + m_iDisplayOffset, m_Rootmax + m_iDisplayOffset, policy, true);  
 
   /////////GAME MODE TEMP//////////////
   if(m_bGameMode)
@@ -628,49 +557,35 @@ bool CDasherModel::RenderToView(CDasherView *pView, CExpansionPolicy &policy) {
 
   // TODO: Fix up stats
   // TODO: Is this the right way to handle this?
-  HandleOutput(NULL, NULL);
-
-  //ACL Off-screen nodes (zero collapse cost) will have been collapsed already.
-  //Hence, this acts to maintain the node budget....or whatever the queue's policy is!
-  if (policy.apply(m_pNodeCreationManager,this)) bReturnValue=true;
-  
-  return bReturnValue;
+  OutputTo(pOutput, NULL, NULL);
 }
 
 bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
   DASHER_ASSERT(m_Root != NULL);
   // TODO: pView is redundant here
 
-#ifdef DEBUG
-  CDasherNode *pOldNode = Get_node_under_crosshair();
-#endif
-
-  CDasherNode *root(m_Root);
-
   if(!(m_Root->GetFlag(NF_SUPER))) {
+    CDasherNode *root(m_Root);    
     Reparent_root();
     return(m_Root != root);
   }
 
   CDasherNode *pNewRoot = NULL;
-
-  for (CDasherNode::ChildMap::const_iterator it = m_Root->GetChildren().begin(); it != m_Root->GetChildren().end(); it++) {
-    if ((*it)->GetFlag(NF_SUPER)) {
-      //at most one child should have NF_SUPER set...
-      DASHER_ASSERT(pNewRoot == NULL);
-      pNewRoot = *it;
-#ifndef DEBUG
-      break;
-#endif
+  if (m_Root->onlyChildRendered) {
+#ifdef DEBUG
+    //if only one child was rendered, no other child covers the screen -
+    // as no other child was onscreen at all!
+    for (CDasherNode::ChildMap::const_iterator it = m_Root->GetChildren().begin(); it != m_Root->GetChildren().end(); it++) {
+      DASHER_ASSERT(*it == m_Root->onlyChildRendered || !(*it)->GetFlag(NF_SUPER));
     }
+#endif
+    if (m_Root->onlyChildRendered->GetFlag(NF_SUPER))
+      pNewRoot = m_Root->onlyChildRendered;
   }
   ////GAME MODE TEMP - only change the root if it is on the game path/////////
   if (pNewRoot && (!m_bGameMode || pNewRoot->GetFlag(NF_GAME))) {
-    m_Root->DeleteNephews(pNewRoot);
-    RecursiveMakeRoot(pNewRoot);
+    Make_root(pNewRoot);
   }
-
-  DASHER_ASSERT(Get_node_under_crosshair() == pOldNode);
 
   return false;
 }
@@ -772,18 +687,5 @@ void CDasherModel::AbortOffset() {
 void CDasherModel::LimitRoot(int iMaxWidth) {
   m_Rootmin = GetLongParameter(LP_MAX_Y) / 2 - iMaxWidth / 2;
   m_Rootmax = GetLongParameter(LP_MAX_Y) / 2 + iMaxWidth / 2;
-}
-
-void CDasherModel::SetOffset(int iLocation, CDasherView *pView) {
-  if(iLocation == GetOffset())
-    return; // We're already there
-  
-  //  std::cout << "Initialising at offset: " << iLocation << std::endl;
-
-  // TODO: Special cases, ie this can be done without rebuilding the
-  // model
-
-  // Now actually rebuild the model
-  InitialiseAtOffset(iLocation, pView);
 }
 

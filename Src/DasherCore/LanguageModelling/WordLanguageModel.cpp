@@ -9,7 +9,7 @@
 #include "../../Common/Common.h"
 #include "WordLanguageModel.h"
 #include "PPMLanguageModel.h"
-#include "../Alphabet/Alphabet.h"
+#include "../Alphabet/AlphabetMap.h"
 
 
 #include <cmath>
@@ -122,8 +122,8 @@ CWordLanguageModel::CWordnode * CWordLanguageModel::AddSymbolToNode(CWordnode *p
 /////////////////////////////////////////////////////////////////////
 
 CWordLanguageModel::CWordLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, 
-				       const CSymbolAlphabet &Alphabet)
-  :CLanguageModel(pEventHandler, pSettingsStore, Alphabet), NodesAllocated(0), 
+				       const CAlphInfo *pAlph, const CAlphabetMap *pAlphMap)
+  :CLanguageModel(pEventHandler, pSettingsStore, pAlph), m_pAlphMap(pAlphMap), NodesAllocated(0), 
    max_order(2), m_NodeAlloc(8192), m_ContextAlloc(1024) {
   
   // Construct a root node for the trie
@@ -134,7 +134,7 @@ CWordLanguageModel::CWordLanguageModel(Dasher::CEventHandler *pEventHandler, CSe
 
   // Create a spelling model
 
-  pSpellingModel = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, Alphabet);
+  pSpellingModel = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, m_pAlphabet);
 
   // Construct a root context
   
@@ -163,10 +163,10 @@ CWordLanguageModel::CWordLanguageModel(Dasher::CEventHandler *pEventHandler, CSe
 
       CPPMLanguageModel::Context TempContext(pSpellingModel->CreateEmptyContext());
 
-      //      std::cout << SymbolAlphabet().GetAlphabetPointer() << std::endl;
+      //      std::cout << m_pAlphabet << std::endl;
 
       std::vector < symbol > Symbols;
-      SymbolAlphabet().GetAlphabetPointer()->GetSymbols(Symbols, CurrentWord);
+      m_pAlphMap->GetSymbols(Symbols, CurrentWord);
 
       for(std::vector < symbol >::iterator it(Symbols.begin()); it != Symbols.end(); ++it) {
         pSpellingModel->LearnSymbol(TempContext, *it);
@@ -386,7 +386,7 @@ void CWordLanguageModel::CollapseContext(CWordLanguageModel::CWordContext &conte
 
       // FIXME - remember to delete member vectors when we're done
 
-      // FIXME broken SymbolAlphabet().GetAlphabetPointer()->GetSymbols( &oSymbols, &(context.current_word), false );
+      // FIXME broken m_pAlphabet->GetSymbols( &oSymbols, &(context.current_word), false );
 
       // We're not storing the actual string - just a list of symbol IDs
 
@@ -626,7 +626,7 @@ void CWordLanguageModel::AddSymbol(CWordLanguageModel::CWordContext &context, sy
   // Collapse the context (with learning) if we've just entered a space
   // FIXME - we need to generalise this for more languages.
 
-  if(sym == SymbolAlphabet().GetSpaceSymbol()) {
+  if(sym == m_pAlphabet->GetSpaceSymbol()) {
     CollapseContext(context, bLearn);
     context.m_dSpellingFactor = 1.0;
   }

@@ -20,12 +20,28 @@
 #include <string>
 
 namespace Dasher {
-  class alphabet_map;
+  class CAlphabetMap;
 } 
 
 /// \ingroup Alphabet
 /// \{
 
+/// Class used for fast conversion from training text (i.e. same format as
+/// text output from Dasher...I think, Mandarin / Super-PinYin is probably
+/// an exception and Japanese probably would be too if it worked!) into
+/// Dasher's internal "symbol" indices. One of these is created for the
+/// alphabet (CAlphInfo) currently in use (CAlphInfo is a friend of this
+/// class, to allow creation/setup of the map).
+///
+/// Ian clearly had reservations about this system, as follows; and I'd add
+/// that support for multi-unicode-character symbols (such as the "asdf"
+/// suggested below) is extremely dubious - both here and elsewhere (e.g.
+/// what if "asd" is also a symbol) - but we really need to clarify whether
+/// such symbols are supposed to be supported or not. Most of the fun here
+/// comes from supporting single unicode characters which are multiple
+/// octets,as we use  std::string (which works in octets) for everything...
+/// Anyway, Ian writes:
+///
 /// If I were just using GCC, which comes with the CGI "STL" implementation, I would
 /// use hash_map (which isn't part of the ANSI/ISO standard C++ STL, but hey it's nice).
 /// Using a plain map is just too slow for training on large files (or it is with certain
@@ -53,7 +69,7 @@ namespace Dasher {
 /// a standard hash_map would be hard.
 /// 
 /// Usage:
-/// alphabet_map MyMap(NumberOfEntriesWeExpect); // Can omit NumberOfEntriesWeExpect
+/// CAlphabetMap MyMap(NumberOfEntriesWeExpect); // Can omit NumberOfEntriesWeExpect
 /// MyMap.add("asdf", 15);
 /// symbol i = MyMap.get("asdf") // i=15
 /// symbol j = MyMap.get("fdsa") // j=0
@@ -61,18 +77,39 @@ namespace Dasher {
 /// You can't remove items once they are added as Dasher has no need for that.
 /// 
 /// IAM 08/2002
-class Dasher::alphabet_map {
+class Dasher::CAlphabetMap {
 
 public:
-  alphabet_map(unsigned int InitialTableSize = 255);
-  ~alphabet_map();
-  void Add(const std::string & Key, symbol Value);
+  ~CAlphabetMap();
 
   // Return the symbol associated with Key or Undefined.
   symbol Get(const std::string & Key) const;
   symbol GetSingleChar(char key) const;
 
+  class SymbolStream {
+  public:
+    SymbolStream(const CAlphabetMap &_map, std::istream &_in);
+    symbol next();
+  private:
+    void readMore();
+    const CAlphabetMap &map;
+    char buf[1024];
+    int pos, len;
+    std::istream &in;
+  };
+  
+  // Fills Symbols with the symbols corresponding to Input. {{{ Note that this
+  // is not necessarily reversible by repeated use of GetText. Some text
+  // may not be recognised and so discarded. }}}
+  
+  void GetSymbols(std::vector<symbol> &Symbols, const std::string &Input) const;
+  //SymbolStream *GetSymbols(std::istream &in) const;
+  
 private:
+  friend class CAlphInfo;
+  CAlphabetMap(unsigned int InitialTableSize = 255);
+  void Add(const std::string & Key, symbol Value);
+
   class Entry {
   public:
     Entry(std::string Key, symbol Symbol, Entry * Next)

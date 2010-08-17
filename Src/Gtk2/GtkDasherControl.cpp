@@ -210,12 +210,6 @@ gtk_dasher_control_set_buffer(GtkDasherControl *pControl, int iOffset) {
 }
 
 void 
-gtk_dasher_control_unset_buffer(GtkDasherControl *pControl) {
-  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  pPrivate->pControl->UnsetBuffer();
-}
-
-void 
 gtk_dasher_control_set_offset(GtkDasherControl *pControl, int iOffset) {
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
   pPrivate->pControl->SetOffset(iOffset);

@@ -24,7 +24,6 @@ class CBasicLog : public CUserLogBase {
   virtual void AddMouseLocation(int iX, int iY, float dNats) {};
   virtual void AddMouseLocationNormalized(int iX, int iY, bool bStoreIntegerRep, float dNats) {};
   virtual void OutputFile() {};
-  virtual void SetAlphabetPtr(Dasher::CAlphabet* pAlphabet = 0) {};
   virtual void InitIsDone() {};
   virtual void SetOuputFilename(const string& strFilename = "") {};
   virtual int GetLogLevelMask() {return 0;};

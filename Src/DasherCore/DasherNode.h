@@ -246,7 +246,7 @@ class Dasher::CDasherNode:private NoClones {
   /// Get as many symbols of context, up to the _end_ of the specified range,
   /// as possible from this node and its uncommitted ancestors
   ///
-  virtual void GetContext(CDasherInterfaceBase *pInterface, std::vector<symbol> &vContextSymbols, int iOffset, int iLength);
+  virtual void GetContext(CDasherInterfaceBase *pInterface, const CAlphabetMap *pAlphabetMap, std::vector<symbol> &vContextSymbols, int iOffset, int iLength);
   
   ///
   /// See if this node represents the specified alphanumeric character; if so, set it's NF_GAME flag and

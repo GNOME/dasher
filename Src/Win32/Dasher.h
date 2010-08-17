@@ -49,6 +49,8 @@ public:
   virtual void WriteTrainFile(const std::string &strNewText);
   void Main(); 
 
+  virtual std::string GetAllContext();
+
 #ifndef _WIN32_WCE
   //on WinCE, do not support speech - so use defaults from CDasherInterfaceBase 
   bool SupportsSpeech();

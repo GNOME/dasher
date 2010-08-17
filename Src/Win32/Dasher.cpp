@@ -354,3 +354,10 @@ void CDasher::CopyToClipboard(const string &strText) {
     CloseClipboard();
   }
 }
+
+std::string CDasher::GetAllContext() {
+	int speechlength = m_pEdit->GetWindowTextLength();
+	LPTSTR allspeech = new TCHAR[speechlength + 1];
+	m_pEdit->GetWindowText(allspeech, speechlength + 1);
+    return allspeech;
+}

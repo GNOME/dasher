@@ -96,13 +96,13 @@ void CDasherNode::Trace() const {
    */
 }
 
-void CDasherNode::GetContext(CDasherInterfaceBase *pInterface, vector<symbol> &vContextSymbols, int iOffset, int iLength) {
+void CDasherNode::GetContext(CDasherInterfaceBase *pInterface, const CAlphabetMap *pAlphabet, vector<symbol> &vContextSymbols, int iOffset, int iLength) {
   if (!GetFlag(NF_SEEN)) {
     DASHER_ASSERT(m_pParent);
-    if (m_pParent) m_pParent->GetContext(pInterface, vContextSymbols, iOffset,iLength);
+    if (m_pParent) m_pParent->GetContext(pInterface, pAlphabet, vContextSymbols, iOffset,iLength);
   } else {
     std::string strContext = pInterface->GetContext(iOffset, iLength);
-    pInterface->GetAlphabet()->GetSymbols(vContextSymbols, strContext);
+    pAlphabet->GetSymbols(vContextSymbols, strContext);
   }
 }
 
@@ -167,6 +167,7 @@ void CDasherNode::Delete_children() {
   Children().clear();
   //  std::cout << "NM: " << MgrID() << std::endl;
   SetFlag(NF_ALLCHILDREN, false);
+  onlyChildRendered = NULL;
 }
 
 void CDasherNode::SetFlag(int iFlag, bool bValue) {

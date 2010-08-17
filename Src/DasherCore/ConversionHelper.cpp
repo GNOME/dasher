@@ -40,7 +40,7 @@
 using namespace Dasher;
 using namespace std;
 
-CConversionHelper::CConversionHelper(CNodeCreationManager *pNCManager, CAlphabet *pAlphabet, CLanguageModel *pLanguageModel) :
+CConversionHelper::CConversionHelper(CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, CLanguageModel *pLanguageModel) :
   CConversionManager(pNCManager, pAlphabet), m_pLanguageModel(pLanguageModel) {
 	  colourStore[0][0]=66;//light blue
 	  colourStore[0][1]=64;//very light green

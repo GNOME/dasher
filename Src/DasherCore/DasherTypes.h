@@ -95,23 +95,15 @@ namespace Dasher {
   // user logging purposes.
   struct SymbolProb
   {
+  public:
+    SymbolProb(symbol _sym, const std::string &sDisp, double _prob)
+      : sym(_sym), strDisplay(sDisp), prob(_prob) {}
     symbol          sym;
-    double          prob;
-  };
-
-  // Keeps track of the display text and prob of a past symbol.
-  // We need to store this as the alphabet could change in the
-  // middle of a trial and we won't be able to convert symbols
-  // to text once it does.
-  struct SymbolProbDisplay
-  {
-    symbol          sym;
-    std::string     strDisplay;
+    std::string     strDisplay; //easiest to generate at source!
     double          prob;
   };
 
   typedef std::vector<SymbolProb>         VECTOR_SYMBOL_PROB;
-  typedef std::vector<SymbolProbDisplay>  VECTOR_SYMBOL_PROB_DISPLAY;
 
 }
 

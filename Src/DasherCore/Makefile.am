@@ -10,8 +10,8 @@ libdasherprefs_a_SOURCES = \
 libdashercore_a_SOURCES = \
 		Alphabet/AlphIO.cpp \
 		Alphabet/AlphIO.h \
-		Alphabet/Alphabet.cpp \
-		Alphabet/Alphabet.h \
+		Alphabet/AlphInfo.cpp \
+		Alphabet/AlphInfo.h \
 		Alphabet/AlphabetMap.cpp \
 		Alphabet/AlphabetMap.h \
 		Alphabet/GroupInfo.h \
@@ -43,6 +43,8 @@ libdashercore_a_SOURCES = \
 		ConversionHelper.h \
 		ConversionManager.cpp \
 		ConversionManager.h \
+		ConvertingAlphMgr.cpp \
+		ConvertingAlphMgr.h \
 		DasherButtons.cpp \
 		DasherButtons.h \
 		DasherComponent.cpp \

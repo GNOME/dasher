@@ -30,8 +30,8 @@ static char THIS_FILE[] = __FILE__;
 
 /////////////////////////////////////////////////////////////////////
 
-CPPMLanguageModel::CPPMLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet &SymbolAlphabet)
-:CLanguageModel(pEventHandler, pSettingsStore, SymbolAlphabet), m_iMaxOrder(4), NodesAllocated(0), m_NodeAlloc(8192), m_ContextAlloc(1024) {
+CPPMLanguageModel::CPPMLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphInfo *pAlph)
+:CLanguageModel(pEventHandler, pSettingsStore, pAlph), m_iMaxOrder(4), NodesAllocated(0), m_NodeAlloc(8192), m_ContextAlloc(1024) {
   m_pRoot = m_NodeAlloc.Alloc();
   m_pRoot->sym = -1;
 

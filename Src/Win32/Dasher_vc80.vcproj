@@ -957,30 +957,6 @@
 			Name="Actions"
 			>
 			<File
-				RelativePath=".\ActionSpeech.cpp"
-				>
-				<FileConfiguration
-					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\ActionSpeech.h"
-				>
-				<FileConfiguration
-					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath=".\DasherAction.h"
 				>
 			</File>
