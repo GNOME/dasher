@@ -94,10 +94,6 @@ public:
 
   void SendMarker(int iMarker);
 
-  // TODO: These need to be implemented properly
-  virtual void SetLoadBackground (bool value) {};
-  virtual void SetCaptureBackground (bool value) {};
-
 private:
   const void point2POINT(const point * In, POINT * Out, int Number);
 

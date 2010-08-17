@@ -152,12 +152,6 @@ public:
   
   void SetColourScheme(const CColourIO::ColourInfo *pColourScheme);
   
-  virtual void SetLoadBackground (bool value) {
-  }
-  
-  virtual void SetCaptureBackground (bool value) {
-  }
-
   id <DasherViewCocoa> dasherView;   // objc counterpart
       
     

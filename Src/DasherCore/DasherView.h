@@ -110,18 +110,11 @@ public:
   /// Drawing more complex structures, generally implemented by derived class
   /// @{
 
-  /// Top-level/public render function - renders all nodes.
-  /// TODO the difference between this and RenderNodes (which gets implemented
-  /// by subclasses) seems to be only that (a) this one sets m_iRenderCount to 0;
-  /// since m_iRenderCount is then only incremented by subclasses, should it
-  /// really be a field of CDasherView at all? and (b) it calls Screen()->SetLoadBackground(true)
-  /// first - a method/call which exists only for Gtk2/CanvasExperimental.{h,cpp}...
-  /// note the experimental, I doubt it works, or tbh whether it's worth making it...!
+  /// Top-level/public render function - render all the nodes.
   /// @param pRoot outermost node to render. should cover screen if possible;
   /// function will blank out around it (in white) if not
-  /// @param bRedrawDisplay ignored; purpose unclear - also TODO...
   /// @return the innermost node covering the crosshair
-  CDasherNode *Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, CExpansionPolicy &policy, bool bRedrawDisplay);
+  virtual CDasherNode *Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, CExpansionPolicy &policy)=0;
 
   /// @}
 
@@ -164,9 +157,6 @@ public:
   void DasherDrawCentredRectangle(myint iDasherX, myint iDasherY, screenint iSize, const int Color, Opts::ColorSchemes ColorScheme, bool bDrawOutline);
 
   void DrawText(const std::string & str, myint x, myint y, int Size, int iColor);
-  /// Request the Screen to copy its buffer to the Display
-  /// \todo Shouldn't be public?
-  void Display();
 
   /// @}
 
@@ -191,16 +181,13 @@ protected:
 /*   inline void UnMapScreen(screenint * DrawX, screenint * DrawY); */
   bool m_bVisibleRegionValid;
   
+  ///Number of nodes actually rendered. Updated only by subclasses; TODO does
+  /// this belong here? (perhaps for subclass-agnostic clients to inspect...)
   int m_iRenderCount;
 
 private:
   CDasherScreen *m_pScreen;    // provides the graphics (text, lines, rectangles):
   CDasherInput *m_pInput;       // Input device abstraction
-
-  /// Renders the Dasher node structure, including blanking out around the root node if necessary
-  /// @return the innermost node covering the crosshair
-  virtual CDasherNode *RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, CExpansionPolicy &policy) = 0;
-
 
   /// Get the co-ordinates from the input device
   int GetInputCoordinates(int iN, myint * pCoordinates); 

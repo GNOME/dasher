@@ -546,11 +546,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   // - m_bRedrawScheduled = Display invalidated internally
   // - bForceRedraw = Display invalidated externally
 
-  // TODO: This is a bit hacky - we really need to sort out the redraw logic
-  if((!bChanged && m_bLastChanged) || m_bRedrawScheduled || bForceRedraw) {
-    m_pDasherView->Screen()->SetCaptureBackground(true);
-    m_pDasherView->Screen()->SetLoadBackground(true);
-  }
+  // TODO: Would be good to sort out / check through the redraw logic properly
 
   bForceRedraw |= m_bLastChanged;
   m_bLastChanged = bChanged; //will also be set in Redraw if any nodes were expanded.
@@ -600,7 +596,7 @@ void CDasherInterfaceBase::Redraw(bool bRedrawNodes, CExpansionPolicy &policy) {
 
   // Only blit the image to the display if something has actually changed
   if(bRedrawNodes || bDecorationsChanged || bActionButtonsChanged)
-    m_pDasherView->Display();
+    m_pDasherView->Screen()->Display();
 }
 
 void CDasherInterfaceBase::ChangeAlphabet() {

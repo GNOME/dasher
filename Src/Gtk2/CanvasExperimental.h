@@ -44,7 +44,7 @@ public:
   /// \param pPangoCache A cache for precomputed Pango layouts
   ///
 
-  CCanvas(GtkWidget * pCanvas, CPangoCache * pPangoCache);
+  CCanvas(GtkWidget * pCanvas, CPangoCache * pPangoCache, int width, int height);
   ~CCanvas();
 
   ///
@@ -104,7 +104,7 @@ public:
   /// \param Size The size at which to render the rectangle (units?)
   ///
 
-  void DrawString(const std::string &String, screenint x1, screenint y1, int Size);
+  void DrawString(const std::string &String, screenint x1, screenint y1, int Size, int Col);
 
   ///
   /// Draw a rectangle
@@ -117,7 +117,7 @@ public:
   /// \param bDrawOutline Whether or not to draw outlines for the boxes
   ///
 
-  void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, bool bDrawOutine, bool bFill, int iThickness);
+  void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, int iThickness);
 
   void DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, int iFillColour, int iThickness, bool bFill);
 
@@ -176,16 +176,6 @@ public:
   /// Returns true on success, false otherwise.
   bool GetCanvasSize(GdkRectangle *pRectangle);
 
-
-  /// 
-  /// Sets the Canvas in to the mode where it loads a background from a buffer. We
-  /// need this when we draw only decorations..
-  void SetLoadBackground(bool value);
-  /// 
-  /// Saves a background in an offscreen buffer. We need this when we draw only decorations.
-  /// 
-  void SetCaptureBackground(bool value);
-
   /// 
   /// Canvas width
   ///
@@ -231,16 +221,12 @@ private:
   
   void Line(int x0,int y0,int x1,int y1,int iWidth, int Colour);
   void SetPixel(GdkColor *c,int x,int y,int iWidth=1);  
-  void PolygonFill(Dasher::CDasherScreen::point *Points, int Number, int Colour);
   bool HorizontalIntersectionPoint(int h,int a,int b,int x0,int y0,int x1,int y1, int *p);
 ///
   /// The GTK drawing area for the canvas
   ///
 
-  bool m_bLoadBackground;
   bool m_bCaptureBackground;
-  void StoreBackground();
-  void LoadBackground();
   
   GtkWidget *m_pCanvas;
   gint *point_id;

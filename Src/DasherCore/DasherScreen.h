@@ -122,9 +122,6 @@ public:
   /// \param pColourScheme A colour scheme that should be used
   virtual void SetColourScheme(const Dasher::CColourIO::ColourInfo *pColourScheme) = 0;
   
-  virtual void SetLoadBackground (bool value)=0;
-  virtual void SetCaptureBackground (bool value)=0;
-  
 protected:
   //! Width and height of the screen
   const screenint m_iWidth, m_iHeight;

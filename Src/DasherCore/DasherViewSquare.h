@@ -97,6 +97,11 @@ public:
   ///
   void VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, myint &iDasherMaxX, myint &iDasherMaxY );
 
+  ///
+  /// Render all nodes, inc. blanking around the root (supplied)
+  ///
+  virtual CDasherNode *Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, CExpansionPolicy &policy);
+
   /// @}
 
 private:
@@ -136,11 +141,6 @@ private:
   ///
   
   CTextString *DasherDrawText(myint iMaxX, myint iMidY, const std::string & sDisplayText, CTextString *pParent, int iColor);
-  
-  ///
-  /// Render the current state of the model.
-  ///
-  virtual CDasherNode *RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, CExpansionPolicy &policy);
   
   ///
   /// (Recursively) render a node and all contained subnodes, in disjoint rects.

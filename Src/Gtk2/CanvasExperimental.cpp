@@ -45,12 +45,11 @@
 #endif
 using namespace Dasher;
 
-CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache)
-  : CDasherScreen(pCanvas->allocation.width, pCanvas->allocation.height) {
+CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache, int width, int height)
+  : CDasherScreen(width, height) {
 
   m_pCanvas = pCanvas;
-  m_bLoadBackground = true;
-  m_bCaptureBackground = true;
+  m_bCaptureBackground = false; //default, we expect nodes first...
 ///IGNAS
 
 #ifdef FRAMERATE_DIAGNOSTICS
@@ -63,8 +62,8 @@ total_frames=0;
 
 	display_depth=3;
 	display_fontdepth=4;
-	display_fontwidth=m_pCanvas->allocation.width;
-	display_fontheight=m_pCanvas->allocation.height;
+	display_fontwidth=width;
+	display_fontheight=height;
 ///IGNAS
 
 
@@ -77,18 +76,18 @@ total_frames=0;
 
   m_pPangoCache = pPangoCache;
   
-  m_iWidth = m_pCanvas->allocation.width;
-  m_iHeight = m_pCanvas->allocation.height;
+  m_iWidth = width;
+  m_iHeight = height;
 
-	display_data= (guchar *) g_malloc(m_pCanvas->allocation.width*m_pCanvas->allocation.height*display_depth * sizeof(guchar));
-	display_backgrounddata= (guchar *) g_malloc(m_pCanvas->allocation.width*m_pCanvas->allocation.height*display_depth * sizeof(guchar));
+	display_data= (guchar *) g_malloc(width*height*display_depth * sizeof(guchar));
+	display_backgrounddata= (guchar *) g_malloc(width*height*display_depth * sizeof(guchar));
 
 display_fontdata= (guchar *) g_malloc(display_fontwidth*display_fontheight*display_fontdepth * sizeof(guchar));
 
 
-	point_id= (gint *) g_malloc(m_pCanvas->allocation.width * sizeof(gint));
-	point_amount= (gint *) g_malloc(m_pCanvas->allocation.width * sizeof(gint));
-	point_data= (gint *) g_malloc(m_pCanvas->allocation.width * sizeof(gint));
+	point_id= (gint *) g_malloc(width * sizeof(gint));
+	point_amount= (gint *) g_malloc(width * sizeof(gint));
+	point_data= (gint *) g_malloc(width * sizeof(gint));
 GdkColor bg;
 GdkColor fg;
 bg.red=0;bg.green=0;bg.blue=0; 
@@ -97,9 +96,9 @@ display_pixbuf =gdk_pixbuf_new_from_data  (display_data,
                                              GDK_COLORSPACE_RGB,
                                              false, //no alpha
                                              8,
-                                             m_pCanvas->allocation.width,
-                                             m_pCanvas->allocation.height,
-                                             m_pCanvas->allocation.width*display_depth,
+                                             width,
+                                             height,
+                                             width*display_depth,
                                              NULL,
                                              NULL);
 
@@ -184,8 +183,8 @@ void CCanvas::Display() {
   gdk_draw_pixbuf(m_pCanvas->window, graphics_context, display_pixbuf, 0, 0, 0, 0, m_iWidth,m_iHeight, GDK_RGB_DITHER_NORMAL, 0, 0);
 }
 
-void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, bool bDrawOutline, bool bFill, int iThickness) {
-bFill&=IGNAS_DRAW_MAIN_RECTANGLES;
+void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, int iThickness) {
+bool bFill= Color!=-1 && IGNAS_DRAW_MAIN_RECTANGLES;
 IGNAS_RECTANGLE_STOP_VOID
 IGNAS_STOP_VOID
 
@@ -246,7 +245,7 @@ IGNAS_STOP_VOID
 	}
   }
   
- if(bDrawOutline) {
+ if(iWidth>0) {
     if( iOutlineColour == -1 )
     {
 
@@ -546,8 +545,9 @@ bool CCanvas::HorizontalIntersectionPoint(int h,int a,int b,int x0,int y0,int x1
 	}
         
 }
-void CCanvas::PolygonFill(Dasher::CDasherScreen::point *Points, int Number, int Colour)
+void CCanvas::Polygon(Dasher::CDasherScreen::point *Points, int Number, int Colour, int lineCol, int iWidth)
 {
+if (Colour!=-1) {
 	GdkColor _c;
 #if WITH_CAIRO
 	_c.red=(int)(cairo_colours[Colour].r*255);		
@@ -619,15 +619,16 @@ void CCanvas::PolygonFill(Dasher::CDasherScreen::point *Points, int Number, int 
 			}
 		}
 	}
-}
-void CCanvas::Polygon(Dasher::CDasherScreen::point *Points, int Number, int Colour, int iWidth) {
+} //end "Colour==-1", old PolygonFill
+//onto outline
 IGNAS_STOP_VOID
-  
+  if (iWidth>0) {  
   for(int i = 1; i < Number; i++) 
   {
-      Line(Points[i].x,Points[i].y,Points[i-1].x,Points[i-1].y, iWidth,Colour);
+      Line(Points[i].x,Points[i].y,Points[i-1].x,Points[i-1].y, iWidth,lineCol);
   }
-  Line(Points[Number-1].x,Points[Number-1].y,Points[0].x,Points[0].y,iWidth,Colour);
+  Line(Points[Number-1].x,Points[Number-1].y,Points[0].x,Points[0].y,iWidth,lineCol);
+}
 }
 void CCanvas::SetPixel(GdkColor *c,int x,int y,int iWidth)
 {
@@ -716,13 +717,13 @@ IGNAS_STOP_VOID
   }
 }
 
-void CCanvas::DrawString(const std::string &String, int x1, int y1, int size) {
+void CCanvas::DrawString(const std::string &String, int x1, int y1, int size, int col) {
 IGNAS_FONT_STOP_VOID
 IGNAS_STOP_VOID
 
 
 #if WITH_CAIRO  //set color black
-    my_cairo_colour_t _c = cairo_colours[4];		
+    my_cairo_colour_t _c = cairo_colours[col==-1 ? 4 : col];		
     cairo_set_source_rgb(display_fontcairo, _c.r, _c.g, _c.b);
 
 #else 
@@ -810,10 +811,19 @@ void CCanvas::TextSize(const std::string &String, int *Width, int *Height, int s
 void CCanvas::SendMarker(int iMarker) {
   switch(iMarker) {
   case 0: // Switch to display buffer
+    m_bCaptureBackground=true;
     break;
   case 1: // Switch to decorations buffer
-    StoreBackground();
-    LoadBackground();	
+    if (m_bCaptureBackground) {
+      //yes, rendered nodes. Store.
+      for (int i=0;i<m_iWidth*m_iHeight*display_depth;i++)
+	display_backgrounddata[i]=display_data[i];	
+      m_bCaptureBackground=false;
+    } else {
+      //nodes not rendered this time. load...
+      for (int i=0;i<m_iWidth*m_iHeight*display_depth;i++)
+	display_data[i]=display_backgrounddata[i];
+    }
 #ifdef FRAMERATE_DIAGNOSTICS
     NewFrame();
 #endif
@@ -846,33 +856,6 @@ void CCanvas::SetColourScheme(const CColourIO::ColourInfo *pColourScheme) {
     colours[i].blue=pColourScheme->Blues[i]*257;
 #endif
   }
-}
-void CCanvas::SetLoadBackground(bool value)
-{
-	m_bLoadBackground=value;
-}
-void CCanvas::SetCaptureBackground(bool value)
-{
-	m_bCaptureBackground=value;
-}
-void CCanvas::StoreBackground()
-{
-  if (m_bCaptureBackground)
-    {
-      for (int i=0;i<m_iWidth*m_iHeight*display_depth;i++)
-	display_backgrounddata[i]=display_data[i];	
-      m_bCaptureBackground=false;
-    }
-}
-
-void CCanvas::LoadBackground()
-{
-	if (m_bLoadBackground)
-	{
-		for (int i=0;i<m_iWidth*m_iHeight*display_depth;i++)
-			display_data[i]=display_backgrounddata[i];	
-	}
-
 }
 
 bool CCanvas::GetCanvasSize(GdkRectangle *pRectangle)

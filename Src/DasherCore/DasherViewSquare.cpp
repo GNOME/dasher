@@ -95,7 +95,7 @@ void CDasherViewSquare::HandleEvent(Dasher::CEvent *pEvent) {
   }
 }
 
-CDasherNode *CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax,
+CDasherNode *CDasherViewSquare::Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax,
 				    CExpansionPolicy &policy) {
   DASHER_ASSERT(pRoot != 0);
   myint iDasherMinX;
@@ -112,6 +112,8 @@ CDasherNode *CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, 
 
   Dasher2Screen(iRootMax-iRootMin, iRootMin, iScreenLeft, iScreenTop);
   Dasher2Screen(0, iRootMax, iScreenRight, iScreenBottom);
+
+  m_iRenderCount = 0;
 
   CDasherNode *pOutput = pRoot->Parent();
 

@@ -55,13 +55,6 @@ void CDasherView::ChangeScreen(CDasherScreen *NewScreen) {
 
 /////////////////////////////////////////////////////////////////////////////
 
-CDasherNode *CDasherView::Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, CExpansionPolicy &policy, bool bRedrawDisplay) {
-
-  m_iRenderCount = 0;
-  Screen()->SetLoadBackground(false);
-  return RenderNodes(pRoot, iRootMin, iRootMax, policy);
-}
-
 int CDasherView::GetCoordinateCount() {
   // TODO: Do we really need support for co-ordinate counts other than 2?
   if(m_pInput)
@@ -97,12 +90,6 @@ void CDasherView::SetInput(CDasherInput * _pInput) {
   iMaxCoordinates[1] = GetLongParameter(LP_MAX_Y);
 
   m_pInput->SetMaxCoordinates(2, iMaxCoordinates);
-}
-
-void CDasherView::Display() {
-  
-  Screen()->SetLoadBackground(true);
-  m_pScreen->Display();
 }
 
 void CDasherView::DasherSpaceLine(myint x1, myint y1, myint x2, myint y2, int iWidth, int iColor) {
