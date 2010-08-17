@@ -165,7 +165,6 @@
 		333F707A11A8AA66002E2BDF /* usenglish.c in Sources */ = {isa = PBXBuildFile; fileRef = 333F701911A8AA66002E2BDF /* usenglish.c */; };
 		3344FD5D0F716F7900506EAA /* CDasherInterfaceBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3344FD5C0F716F7900506EAA /* CDasherInterfaceBridge.mm */; };
 		3344FE150F71717C00506EAA /* ActionButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FD680F71717C00506EAA /* ActionButton.cpp */; };
-		3344FE160F71717C00506EAA /* Alphabet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FD6B0F71717C00506EAA /* Alphabet.cpp */; };
 		3344FE170F71717C00506EAA /* AlphabetMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FD6D0F71717C00506EAA /* AlphabetMap.cpp */; };
 		3344FE180F71717C00506EAA /* AlphIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FD6F0F71717C00506EAA /* AlphIO.cpp */; };
 		3344FE1A0F71717C00506EAA /* AlphabetManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FD730F71717C00506EAA /* AlphabetManager.cpp */; };
@@ -254,6 +253,7 @@
 		33627FD60F7A82CF000C8818 /* training_swedish_SE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33627FB60F7A82CF000C8818 /* training_swedish_SE.txt */; };
 		33627FD70F7A82CF000C8818 /* training_turkish_TR.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33627FB70F7A82CF000C8818 /* training_turkish_TR.txt */; };
 		33627FD80F7A82CF000C8818 /* training_welsh_GB.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33627FB80F7A82CF000C8818 /* training_welsh_GB.txt */; };
+		337472D3121A976B001A858C /* AlphInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 337472D1121A9767001A858C /* AlphInfo.cpp */; };
 		337690140F989C870083FEB2 /* SBTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 337690130F989C870083FEB2 /* SBTree.cpp */; };
 		337691710F9CE8630083FEB2 /* StringParamController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 337691700F9CE8630083FEB2 /* StringParamController.mm */; };
 		337691860F9CEFC70083FEB2 /* InputMethodSelector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 337691850F9CEFC70083FEB2 /* InputMethodSelector.mm */; };
@@ -541,8 +541,6 @@
 		3344FD5C0F716F7900506EAA /* CDasherInterfaceBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CDasherInterfaceBridge.mm; sourceTree = "<group>"; };
 		3344FD680F71717C00506EAA /* ActionButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActionButton.cpp; sourceTree = "<group>"; };
 		3344FD690F71717C00506EAA /* ActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionButton.h; sourceTree = "<group>"; };
-		3344FD6B0F71717C00506EAA /* Alphabet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Alphabet.cpp; sourceTree = "<group>"; };
-		3344FD6C0F71717C00506EAA /* Alphabet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alphabet.h; sourceTree = "<group>"; };
 		3344FD6D0F71717C00506EAA /* AlphabetMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AlphabetMap.cpp; sourceTree = "<group>"; };
 		3344FD6E0F71717C00506EAA /* AlphabetMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlphabetMap.h; sourceTree = "<group>"; };
 		3344FD6F0F71717C00506EAA /* AlphIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AlphIO.cpp; sourceTree = "<group>"; };
@@ -707,6 +705,8 @@
 		33627FB60F7A82CF000C8818 /* training_swedish_SE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_swedish_SE.txt; sourceTree = "<group>"; };
 		33627FB70F7A82CF000C8818 /* training_turkish_TR.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_turkish_TR.txt; sourceTree = "<group>"; };
 		33627FB80F7A82CF000C8818 /* training_welsh_GB.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_welsh_GB.txt; sourceTree = "<group>"; };
+		337472D1121A9767001A858C /* AlphInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AlphInfo.cpp; sourceTree = "<group>"; };
+		337472D2121A976B001A858C /* AlphInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlphInfo.h; sourceTree = "<group>"; };
 		337690120F989C870083FEB2 /* SBTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBTree.h; sourceTree = "<group>"; };
 		337690130F989C870083FEB2 /* SBTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SBTree.cpp; sourceTree = "<group>"; };
 		3376916F0F9CE8630083FEB2 /* StringParamController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringParamController.h; sourceTree = "<group>"; };
@@ -1329,8 +1329,8 @@
 		3344FD6A0F71717C00506EAA /* Alphabet */ = {
 			isa = PBXGroup;
 			children = (
-				3344FD6B0F71717C00506EAA /* Alphabet.cpp */,
-				3344FD6C0F71717C00506EAA /* Alphabet.h */,
+				337472D1121A9767001A858C /* AlphInfo.cpp */,
+				337472D2121A976B001A858C /* AlphInfo.h */,
 				3344FD6D0F71717C00506EAA /* AlphabetMap.cpp */,
 				3344FD6E0F71717C00506EAA /* AlphabetMap.h */,
 				3344FD6F0F71717C00506EAA /* AlphIO.cpp */,
@@ -1587,7 +1587,6 @@
 				332BCAC00F71621400585DBD /* xmltok_ns.c in Sources */,
 				3344FD5D0F716F7900506EAA /* CDasherInterfaceBridge.mm in Sources */,
 				3344FE150F71717C00506EAA /* ActionButton.cpp in Sources */,
-				3344FE160F71717C00506EAA /* Alphabet.cpp in Sources */,
 				3344FE170F71717C00506EAA /* AlphabetMap.cpp in Sources */,
 				3344FE180F71717C00506EAA /* AlphIO.cpp in Sources */,
 				3344FE1A0F71717C00506EAA /* AlphabetManager.cpp in Sources */,
@@ -1746,6 +1745,7 @@
 				333F707911A8AA66002E2BDF /* us_text.c in Sources */,
 				333F707A11A8AA66002E2BDF /* usenglish.c in Sources */,
 				3354AF4811ADBAFD006CF570 /* Actions.mm in Sources */,
+				337472D3121A976B001A858C /* AlphInfo.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1783,7 +1783,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Alan Lawrence";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					HAVE_EXPAT_CONFIG_H,
@@ -1796,8 +1797,9 @@
 					"${SRCROOT}",
 				);
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EE10C159-C93C-4B3E-B228-99DA565F04A3";
-				SDKROOT = iphoneos2.2.1;
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos3.2;
 			};
 			name = Distribution;
 		};
@@ -1805,13 +1807,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Alan Lawrence";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Alan Lawrence";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Dasher_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = Dasher;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "49A07980-874A-4D51-A09B-FE11EF7A02E3";
 			};
 			name = Distribution;
 		};
@@ -1819,7 +1821,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Alan Lawrence";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					HAVE_EXPAT_CONFIG_H,
@@ -1832,10 +1835,13 @@
 					"${SRCROOT}/lib",
 					"${SRCROOT}",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EE10C159-C93C-4B3E-B228-99DA565F04A3";
-				SDKROOT = iphoneos2.2.1;
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos3.2;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1843,8 +1849,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Alan Lawrence (YB2RM5STT4)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Alan Lawrence (YB2RM5STT4)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					HAVE_EXPAT_CONFIG_H,
@@ -1857,7 +1863,9 @@
 					"${SRCROOT}",
 				);
 				PREBINDING = NO;
-				SDKROOT = iphoneos2.2.1;
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos3.2;
 			};
 			name = Release;
 		};

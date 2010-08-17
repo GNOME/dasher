@@ -26,7 +26,7 @@ using namespace std;
 
 CDasherInterfaceBridge::CDasherInterfaceBridge(DasherAppDelegate *aDasherApp) : dasherApp(aDasherApp) {
   Realize();
-  [dasherApp setAlphabet:GetAlphabet()];
+  ExternalEventHandler(&CParameterNotificationEvent(SP_ALPHABET_ID)); //calls dasherApp::SetAlphabet
 }
 
 void CDasherInterfaceBridge::CreateModules() {
@@ -168,7 +168,7 @@ void CDasherInterfaceBridge::ExternalEventHandler(Dasher::CEvent *pEvent) {
 		if (pEvt->m_iParameter == LP_MAX_BITRATE || pEvt->m_iParameter == LP_BOOSTFACTOR)
 			[dasherApp notifySpeedChange];
     else if (pEvt->m_iParameter == SP_ALPHABET_ID)
-      [dasherApp setAlphabet:GetAlphabet()];
+      [dasherApp setAlphabet:GetInfo(GetStringParameter(SP_ALPHABET_ID))];
     }
       break;
     case EV_EDIT:

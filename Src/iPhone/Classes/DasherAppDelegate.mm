@@ -432,7 +432,7 @@
   return [text.text substringWithRange:range];
 }
 
-- (void)setAlphabet:(CAlphabet *)pAlph {
+- (void)setAlphabet:(const CAlphInfo *)pAlph {
   self.m_wordBoundary = pAlph->GetSpaceSymbol() ? NSStringFromStdString(pAlph->GetText(pAlph->GetSpaceSymbol())) : @" ";
   self.m_lineBoundary = (pAlph->GetParagraphSymbol())
   ? NSStringFromStdString(pAlph->GetText(pAlph->GetParagraphSymbol())) : nil;

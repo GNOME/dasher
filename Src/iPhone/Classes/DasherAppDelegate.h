@@ -43,7 +43,7 @@ typedef enum {
 
 - (void)startTimer;
 - (void)shutdownTimer;
-- (void)setAlphabet:(CAlphabet *)pAlph;
+- (void)setAlphabet:(const CAlphInfo *)pAlph;
 - (void)outputCallback:(NSString *)s;
 - (void)deleteCallback:(NSString *)s;
 - (void)move:(EEditDistance)amt forwards:(BOOL)bForwards;
