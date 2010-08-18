@@ -174,9 +174,9 @@ static bp_table boolparamtable[] = {
   {BP_SPEAK_WORDS, "SpeakWords", PERS, false, "Speak words as they are written"},
   {BP_CONTROL_MODE_HAS_HALT, "ControlHasHalt", PERS, false, "Force Control Mode to provide a stop action (triggering clipboard/speech)"},
 #ifdef TARGET_OS_MAC
-  {BP_CONTROL_MODE_HAS_EDIT, "ControlHasEdit", PERS, false, "Provide editing functions in control mode (forward & backward movement & deletion)"},
+  {BP_CONTROL_MODE_HAS_EDIT, "ControlHasEdit", PERS, false, "Provide editing functions in control mode (forward &amp; backward movement &amp; deletion)"},
 #else
-  {BP_CONTROL_MODE_HAS_EDIT, "ControlHasEdit", PERS, true, "Provide editing functions in control mode (forward & backward movement & deletion)"},
+  {BP_CONTROL_MODE_HAS_EDIT, "ControlHasEdit", PERS, true, "Provide editing functions in control mode (forward &amp; backward movement &amp; deletion)"},
 #endif
   {BP_CONTROL_MODE_HAS_COPY, "ControlHasCopy", PERS, true, "Provide copy-to-clipboard actions in Control Mode (if platforms supports)"},
   {BP_CONTROL_MODE_HAS_SPEECH, "ControlHasSpeech", PERS, true, "Provide speech actions in Control Mode (if platform supports)"},
