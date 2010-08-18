@@ -99,6 +99,7 @@ libdashercore_a_SOURCES = \
 		ModuleManager.h \
 		NodeCreationManager.cpp \
 		NodeCreationManager.h \
+		NodeManager.h \
 		ExpansionPolicy.cpp \
 		ExpansionPolicy.h \
 		OneButtonDynamicFilter.cpp \

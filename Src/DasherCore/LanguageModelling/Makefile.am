@@ -14,6 +14,5 @@ libdasherlm_a_SOURCES = \
 		PPMLanguageModel.h \
 		PPMPYLanguageModel.cpp \
 		PPMPYLanguageModel.h \
-		SymbolAlphabet.h \
 		WordLanguageModel.cpp \
 		WordLanguageModel.h

@@ -40,12 +40,15 @@ AC_DEFUN([GNOME_DOC_INIT],
 
 ifelse([$1],,[gdu_cv_version_required=0.3.2],[gdu_cv_version_required=$1])
 
+AC_MSG_CHECKING([gnome-doc-utils >= $gdu_cv_version_required])
 PKG_CHECK_EXISTS([gnome-doc-utils >= $gdu_cv_version_required],
 	[gdu_cv_have_gdu=yes],[gdu_cv_have_gdu=no])
 
 if test "$gdu_cv_have_gdu" = "yes"; then
+	AC_MSG_RESULT([yes])
 	ifelse([$2],,[:],[$2])
 else
+	AC_MSG_RESULT([no])
 	ifelse([$3],,[AC_MSG_ERROR([gnome-doc-utils >= $gdu_cv_version_required not found])],[$3])
 fi
 

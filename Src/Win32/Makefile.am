@@ -72,8 +72,6 @@ EXTRA_DIST = \
 		Widgets/ViewPage.h \
 		Widgets/WindowSelect.cpp \
 		Widgets/WindowSelect.h \
-		ActionSpeech.cpp \
-		ActionSpeech.h \
 		AppSettings.cpp \
 		AppSettings.h \
 		BTSocketInput.cpp \
