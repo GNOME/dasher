@@ -267,6 +267,10 @@ void CDasherModel::SetOffset(int iOffset, CAlphabetManager *pMgr, CDasherView *p
   m_pDasherInterface->ScheduleRedraw();
 }
 
+int CDasherModel::GetOffset() {
+  return m_pLastOutput ? m_pLastOutput->offset()+1 : m_Root ? m_Root->offset()+1 : 0;
+};
+
 void CDasherModel::Get_new_root_coords(dasherint X, dasherint Y, dasherint &r1, dasherint &r2, unsigned long iTime) {
   DASHER_ASSERT(m_Root != NULL);
   if(m_iStartTime == 0)

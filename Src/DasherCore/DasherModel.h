@@ -193,9 +193,7 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   /// - measured in (unicode) characters, _not_ octets.
   ///
 
-  int GetOffset() {
-    return m_pLastOutput ? m_pLastOutput->offset()+1 : 0;
-  };
+  int GetOffset();
 
   /// Create the children of a Dasher node
   void ExpandNode(CDasherNode * pNode); 
