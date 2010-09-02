@@ -160,7 +160,7 @@ void CDasherModel::Make_root(CDasherNode *pNewRoot) {
   }
 }
 
-void CDasherModel::Reparent_root() {
+bool CDasherModel::Reparent_root() {
   DASHER_ASSERT(m_Root != NULL);
 
   // Change the root node to the parent of the existing node. We need
@@ -170,15 +170,13 @@ void CDasherModel::Reparent_root() {
 
   if(oldroots.size() == 0) {
     pNewRoot = m_Root->RebuildParent();
-    // Return if there's no existing parent and no way of recreating one
-    if(pNewRoot == NULL) return;
+    // Fail if there's no existing parent and no way of recreating one
+    if(pNewRoot == NULL) return false;
   }
   else {
     pNewRoot = oldroots.back();
     oldroots.pop_back();
   }
-
-  pNewRoot->SetFlag(NF_COMMITTED, false);
 
   DASHER_ASSERT(m_Root->Parent() == pNewRoot);
 
@@ -193,9 +191,11 @@ void CDasherModel::Reparent_root() {
            (m_Rootmin - m_Rootmin_min) / static_cast<double>(iRootWidth))) {
     //but cache the (currently-unusable) root node - else we'll keep recreating (and deleting) it on every frame... 
     oldroots.push_back(pNewRoot);
-    return;
+    return false;
   }
-    
+  
+  pNewRoot->SetFlag(NF_COMMITTED, false);
+  
   //Update the root coordinates to reflect the new root
   m_Root = pNewRoot;
     
@@ -207,6 +207,7 @@ void CDasherModel::Reparent_root() {
     it->iN2 = it->iN2 + (myint((GetLongParameter(LP_NORMALIZATION) - upper)) * iRootWidth / iRange);
     it->iN1 = it->iN1 - (myint(lower) * iRootWidth / iRange);
   }
+  return true;
 }
 
 void CDasherModel::ClearRootQueue() {
@@ -259,19 +260,6 @@ void CDasherModel::SetOffset(int iOffset, CAlphabetManager *pMgr, CDasherView *p
   m_Rootmax = GetLongParameter(LP_MAX_Y) / 2 + iWidth / 2;
 
   m_iDisplayOffset = 0;
-
-  //now (re)create parents, while they show on the screen
-  // - if we were lazy, we could leave this to NewFrame,
-  // and one node around the root would be recreated per frame,
-  // but we'll do it properly here.
-  if(pView) {
-    while(pView->IsSpaceAroundNode(m_Rootmin,m_Rootmax)) {
-      CDasherNode *pOldRoot = m_Root;
-      Reparent_root();
-      if(m_Root == pOldRoot)
-	break;
-    }
-  }
 
   // TODO: See if this is better positioned elsewhere
   m_pDasherInterface->ScheduleRedraw();
@@ -568,6 +556,10 @@ void CDasherModel::RenderToView(CDasherView *pView, CExpansionPolicy &policy) {
   DASHER_ASSERT(pView != NULL);
   DASHER_ASSERT(m_Root != NULL);
 
+  while(pView->IsSpaceAroundNode(m_Rootmin,m_Rootmax)) {
+    if (!Reparent_root()) break;
+  }
+  
   // The Render routine will fill iGameTargetY with the Dasher Coordinate of the 
   // youngest node with NF_GAME set. The model is responsible for setting NF_GAME on
   // the appropriate Nodes.
@@ -588,38 +580,24 @@ void CDasherModel::RenderToView(CDasherView *pView, CExpansionPolicy &policy) {
   // TODO: Fix up stats
   // TODO: Is this the right way to handle this?
   OutputTo(pOutput, NULL, NULL);
-}
-
-bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
-  DASHER_ASSERT(m_Root != NULL);
-  // TODO: pView is redundant here
-
-  if(!(m_Root->GetFlag(NF_SUPER))) {
-    CDasherNode *root(m_Root);    
-    Reparent_root();
-    return(m_Root != root);
-  }
-
-  CDasherNode *pNewRoot = NULL;
-  if (m_Root->onlyChildRendered) {
+  
+  while (CDasherNode *pNewRoot = m_Root->onlyChildRendered) {
 #ifdef DEBUG
     //if only one child was rendered, no other child covers the screen -
     // as no other child was onscreen at all!
     for (CDasherNode::ChildMap::const_iterator it = m_Root->GetChildren().begin(); it != m_Root->GetChildren().end(); it++) {
-      DASHER_ASSERT(*it == m_Root->onlyChildRendered || !(*it)->GetFlag(NF_SUPER));
+      DASHER_ASSERT(*it == pNewRoot || !(*it)->GetFlag(NF_SUPER));
     }
 #endif
-    if (m_Root->onlyChildRendered->GetFlag(NF_SUPER))
-      pNewRoot = m_Root->onlyChildRendered;
+    if (pNewRoot->GetFlag(NF_SUPER) &&
+        ////GAME MODE TEMP - only change the root if it is on the game path/////////
+        (!m_bGameMode || m_Root->onlyChildRendered->GetFlag(NF_GAME))) {
+      Make_root(pNewRoot);
+    } else
+      break;
   }
-  ////GAME MODE TEMP - only change the root if it is on the game path/////////
-  if (pNewRoot && (!m_bGameMode || pNewRoot->GetFlag(NF_GAME))) {
-    Make_root(pNewRoot);
-  }
-
-  return false;
+  
 }
-
 
 void CDasherModel::ScheduleZoom(long time, dasherint X, dasherint Y, int iMaxZoom)
 {

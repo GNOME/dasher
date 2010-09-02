@@ -169,14 +169,6 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   };
 
   ///
-  /// Check whether a change of root node is needed, and perform the
-  /// update if so
-  /// TODO: Could be done in UpdateBounds?
-  ///
-
-  bool CheckForNewRoot(CDasherView *pView);
-
-  ///
   /// Rebuild the tree of nodes (may reuse the existing ones if !bForce). 
   /// @param iLocation offset (cursor position) in attached buffer from which to obtain context
   /// @param pMgr Manager to use to create nodes
@@ -303,10 +295,10 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   void Make_root(CDasherNode *pNewRoot); 
 
   ///
-  /// Rebuild the parent of the current root - used during backing off
+  /// Make the parent of the current root into the new root (rebuilding if necessary) - used during backing off
+  /// Return true if successful, false if couldn't.
   ///
-
-  void Reparent_root(); 
+  bool Reparent_root(); 
 
   /// Handle the output caused by a change in node over the crosshair. Specifically,
   /// deletes from m_pLastOutput back to closest ancestor of pNewNode,

@@ -530,8 +530,6 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
 	  bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pDasherModel, 0, 0, &pol);
 	}
       }
-
-      m_pDasherModel->CheckForNewRoot(m_pDasherView);
     }
   }
 
