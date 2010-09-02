@@ -123,6 +123,7 @@ namespace Dasher {
     /// bEnteredLast - true if this "root" node should be considered as entering the preceding symbol
     /// Offset is the index of the character which _child_ nodes (i.e. between which this root allows selection)
     /// will enter. (Also used to build context for preceding characters.)
+    /// Note, the new node will _not_ be NF_SEEN
     virtual CAlphNode *GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, bool bEnteredLast, int iOffset);
 
     const CAlphInfo *GetAlphabet() const;

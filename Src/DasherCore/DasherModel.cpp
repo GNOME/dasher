@@ -233,7 +233,17 @@ void CDasherModel::SetOffset(int iOffset, CAlphabetManager *pMgr, CDasherView *p
   delete m_Root;
   
   m_Root = pMgr->GetRoot(NULL, 0,GetLongParameter(LP_NORMALIZATION), iOffset!=0, iOffset);
-  m_pLastOutput = (m_Root->GetFlag(NF_SEEN)) ? m_Root : NULL;
+  if (iOffset) {
+    //there were preceding characters. It's nonetheless possible that they weren't
+    // part of the current alphabet, and so we may have got a simple group node as root,
+    // rather than a character node (responsible for the last said preceding character),
+    // but even so, it seems fair enough to say we've "seen" the root:
+    m_Root->SetFlag(NF_SEEN, true);
+    m_Root->Enter();
+    // (of course, we don't do Output() - the context contains it already!)
+    m_pLastOutput = m_Root;
+  } else
+    m_pLastOutput = NULL;
   
   // Create children of the root...
   ExpandNode(m_Root);

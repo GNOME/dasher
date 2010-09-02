@@ -142,7 +142,6 @@ CAlphabetManager::CAlphNode *CAlphabetManager::GetRoot(CDasherNode *pParent, uns
     // represents a symbol that's already happened - so we're either
     // going backwards (rebuildParent) or creating a new root after a language change
     DASHER_ASSERT (!pParent);
-    pNewNode->SetFlag(NF_SEEN, true);
   }
 
   pNewNode->iContext = iContext;
