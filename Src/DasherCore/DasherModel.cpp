@@ -397,12 +397,66 @@ void CDasherModel::OneStepTowards(myint miMousex, myint miMousey, unsigned long 
   UpdateBounds(iNewMin, iNewMax, iTime, pAdded, pNumDeleted);
 }
 
-void CDasherModel::UpdateBounds(myint iNewMin, myint iNewMax, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
+void CDasherModel::UpdateBounds(myint newRootmin, myint newRootmax, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
   
-  m_dTotalNats += log((iNewMax - iNewMin) / static_cast<double>(m_Rootmax - m_Rootmin));
+  m_dTotalNats += log((newRootmax - newRootmin) / static_cast<double>(m_Rootmax - m_Rootmin));
 
+  m_iDisplayOffset = (m_iDisplayOffset * 90) / 100;
+  
   // Now actually zoom to the new location
-  NewGoTo(iNewMin, iNewMax, pAdded, pNumDeleted);
+  
+  while (newRootmax >= m_Rootmax_max || newRootmin <= m_Rootmin_min) {
+    // can't make existing root any bigger because of overflow. So force a new root
+    // to be chosen (so that Dasher doesn't just stop!)...
+    
+    //pick _child_ covering crosshair...
+    const myint iWidth(m_Rootmax-m_Rootmin);
+    for (CDasherNode::ChildMap::const_iterator it = m_Root->GetChildren().begin(), E = m_Root->GetChildren().end(); ;) {
+      CDasherNode *pChild(*it);
+      DASHER_ASSERT(m_Rootmin + ((pChild->Lbnd() * iWidth) / GetLongParameter(LP_NORMALIZATION)) <= GetLongParameter(LP_OY));
+      if (m_Rootmin + ((pChild->Hbnd() * iWidth) / GetLongParameter(LP_NORMALIZATION)) > GetLongParameter(LP_OY)) {
+        //found child to make root. proceed only if new root is on the game path....
+        if (m_bGameMode && !pChild->GetFlag(NF_GAME)) {
+          //If the user's strayed that far off the game path,
+          // having Dasher stop seems reasonable!
+          return;
+        }
+        
+        //make pChild the root node...
+        //we need to update the target coords (newRootmin,newRootmax)
+        // to reflect the new coordinate system based upon pChild as root.
+        //Make_root automatically updates any such pairs stored in m_deGotoQueue, so:
+        SGotoItem temp; temp.iN1 = newRootmin; temp.iN2 = newRootmax;
+        m_deGotoQueue.push_back(temp);
+        //...when we make pChild the root...
+        Make_root(pChild);
+        //...we can retrieve new, equivalent, coordinates for it
+        newRootmin = m_deGotoQueue.back().iN1; newRootmax = m_deGotoQueue.back().iN2;
+        m_deGotoQueue.pop_back();
+        // (note that the next check below will make sure these coords do cover (0, LP_OY))
+        break;
+      }
+      ++it;
+      DASHER_ASSERT (it != E); //must find a child!
+    }
+  }
+  
+  // Check that we haven't drifted too far. The rule is that we're not
+  // allowed to let the root max and min cross the midpoint of the
+  // screen.
+  newRootmin = min(newRootmin, (myint)GetLongParameter(LP_OY) - 1 - m_iDisplayOffset);
+  newRootmax = max(newRootmax, (myint)GetLongParameter(LP_OY) + 1 - m_iDisplayOffset);  
+  
+  // Only allow the update if it won't make the
+  // root too small. We should have re-generated a deeper root
+  // before now already, but the original root is an exception.
+  // (as is trying to go back beyond the earliest char in the current
+  // alphabet, if there are preceding characters not in that alphabet)
+  if ((newRootmax - newRootmin) > (myint)GetLongParameter(LP_MAX_Y) / 4) {
+    m_Rootmax = newRootmax;
+    m_Rootmin = newRootmin;
+  } //else, we just stop - this prevents the user from zooming too far back
+  //outside the root node (when we can't generate an older root).
 }
 
 void CDasherModel::RecordFrame(unsigned long Time) {
@@ -411,62 +465,6 @@ void CDasherModel::RecordFrame(unsigned long Time) {
   GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher();
   if(m_bGameMode && pTeacher)
     pTeacher->NewFrame(Time);
-}
-
-void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
-
-  // Update the max and min of the root node to make iTargetMin and
-  // iTargetMax the edges of the viewport.
-
-  if(newRootmin + m_iDisplayOffset > (myint)GetLongParameter(LP_MAX_Y) / 2 - 1)
-    newRootmin = (myint)GetLongParameter(LP_MAX_Y) / 2 - 1 - m_iDisplayOffset;
-
-  if(newRootmax + m_iDisplayOffset < (myint)GetLongParameter(LP_MAX_Y) / 2 + 1)
-    newRootmax = (myint)GetLongParameter(LP_MAX_Y) / 2 + 1 - m_iDisplayOffset;
-
-  // Check that we haven't drifted too far. The rule is that we're not
-  // allowed to let the root max and min cross the midpoint of the
-  // screen.
-
-  if(newRootmax < m_Rootmax_max && newRootmin > m_Rootmin_min) {
-    // Only update if we're not making things big enough to risk
-    // overflow. (Otherwise, forcibly choose a new root node, below)
-    
-    if ((newRootmax - newRootmin) > (myint)GetLongParameter(LP_MAX_Y) / 4) {
-      // Also don't allow the update if it will result in making the
-      // root too small. We should have re-generated a deeper root
-      // before now already, but the original root is an exception.
-      m_Rootmax = newRootmax;
-      m_Rootmin = newRootmin;
-    } //else, we just stop - this prevents the user from zooming too far back
-      //outside the root node (when we can't generate an older root).
-    m_iDisplayOffset = (m_iDisplayOffset * 90) / 100;
-  } else {
-    // can't make existing root any bigger because of overflow. So force a new root
-    // to be chosen (so that Dasher doesn't just stop!)...
-    
-    //pick _child_ covering crosshair...
-    const myint iWidth(m_Rootmax-m_Rootmin);
-    for (CDasherNode::ChildMap::const_iterator it = m_Root->GetChildren().begin(), E = m_Root->GetChildren().end(); it!=E; it++) {
-      CDasherNode *pChild(*it);
-      DASHER_ASSERT(m_Rootmin + ((pChild->Lbnd() * iWidth) / GetLongParameter(LP_NORMALIZATION)) <= GetLongParameter(LP_OY));
-      if (m_Rootmin + ((pChild->Hbnd() * iWidth) / GetLongParameter(LP_NORMALIZATION)) > GetLongParameter(LP_OY)) {
-        //proceed only if new root is on the game path. If the user's strayed
-        // that far off the game path, having Dasher stop seems reasonable!
-        if (!m_bGameMode || !pChild->GetFlag(NF_GAME)) {
-          //make pChild the root node...but put (newRootmin,newRootmax) somewhere there'll be converted:
-          SGotoItem temp; temp.iN1 = newRootmin; temp.iN2 = newRootmax;
-          m_deGotoQueue.push_back(temp);
-          Make_root(pChild);
-          temp=m_deGotoQueue.back(); m_deGotoQueue.pop_back();
-          // std::cout << "NewGoto Recursing - was (" << newRootmin << "," << newRootmax << "), now (" << temp.iN1 << "," << temp.iN2 << ")" << std::endl;
-          NewGoTo(temp.iN1, temp.iN2, pAdded,pNumDeleted);
-        }
-        return;
-      }
-    }
-    DASHER_ASSERT(false); //did not find a child covering crosshair...?!
-  }
 }
 
 void CDasherModel::OutputTo(CDasherNode *pNewNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {

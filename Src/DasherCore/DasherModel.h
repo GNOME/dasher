@@ -268,12 +268,6 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   // Information entered so far in this model
   double m_dTotalNats; 
 
-
-  ///
-  /// Go directly to a given coordinate - check semantics
-  ///
-  void NewGoTo(myint n1, myint n2, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted);
-
   ///
   /// CDasherModel::Get_new_root_coords( myint Mousex,myint Mousey )
   /// 
