@@ -145,7 +145,7 @@ void CDasherModel::Make_root(CDasherNode *pNewRoot) {
     delete oldroots[0];
     oldroots.pop_front();
   }
-  
+  DASHER_ASSERT(pNewRoot->GetFlag(NF_SEEN));
   m_Root = pNewRoot;
 
   // Update the root coordinates, as well as any currently scheduled locations
@@ -154,7 +154,9 @@ void CDasherModel::Make_root(CDasherNode *pNewRoot) {
   m_Rootmin = m_Rootmin + (range * m_Root->Lbnd()) / GetLongParameter(LP_NORMALIZATION);
   
   for(std::deque<SGotoItem>::iterator it(m_deGotoQueue.begin()); it != m_deGotoQueue.end(); ++it) {
-    const myint r = it->iN2 - it->iN1;
+    //Some of these co-ordinate pairs can be bigger than m_Rootmin_min - m_Rootmax_max,
+    // hence using unsigned type...
+    const uint64 r = it->iN2 - it->iN1;
     it->iN2 = it->iN1 + (r * m_Root->Hbnd()) / GetLongParameter(LP_NORMALIZATION);
     it->iN1 = it->iN1 + (r * m_Root->Lbnd()) / GetLongParameter(LP_NORMALIZATION);
   }
@@ -172,6 +174,11 @@ bool CDasherModel::Reparent_root() {
     pNewRoot = m_Root->RebuildParent();
     // Fail if there's no existing parent and no way of recreating one
     if(pNewRoot == NULL) return false;
+    //RebuildParent() can create multiple generations of parents at once;
+    // make sure our cache has all such that were created, so we delete them
+    // if we ever delete all our other nodes.
+    for (CDasherNode *pTemp = pNewRoot; (pTemp = pTemp->Parent()); )
+      oldroots.push_front(pTemp);
   }
   else {
     pNewRoot = oldroots.back();
@@ -197,6 +204,7 @@ bool CDasherModel::Reparent_root() {
   pNewRoot->SetFlag(NF_COMMITTED, false);
   
   //Update the root coordinates to reflect the new root
+  DASHER_ASSERT(pNewRoot->GetFlag(NF_SEEN));
   m_Root = pNewRoot;
     
   m_Rootmax = m_Rootmax + ((GetLongParameter(LP_NORMALIZATION) - upper) * iRootWidth) / iRange;
@@ -423,6 +431,11 @@ void CDasherModel::UpdateBounds(myint newRootmin, myint newRootmax, unsigned lon
         }
         
         //make pChild the root node...
+        //first we're gonna have to force it to be output, as a non-output root won't work...
+        if (!pChild->GetFlag(NF_SEEN)) {
+          DASHER_ASSERT(m_pLastOutput == m_Root);
+          OutputTo(pChild, pAdded, pNumDeleted);
+        }
         //we need to update the target coords (newRootmin,newRootmax)
         // to reflect the new coordinate system based upon pChild as root.
         //Make_root automatically updates any such pairs stored in m_deGotoQueue, so:
