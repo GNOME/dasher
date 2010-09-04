@@ -6,21 +6,21 @@
 # Hendrik Richter <hendrikr@gnome.org>, 2006,
 # Thomas Gier <mail@thomasgier.de>, 2007.
 # Andre Klapper <ak-47@gmx.net>, 2008.
-# Christian Kirbach <Christian.Kirbach@googlemail.com>, 2009.
 # Mario Blättermann <mariobl@gnome.org>, 2010.
+# Christian Kirbach <Christian.Kirbach@googlemail.com>, 2009, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=dasher&component=general\n"
-"POT-Creation-Date: 2010-05-19 17:32+0000\n"
-"PO-Revision-Date: 2010-07-18 20:57+0100\n"
-"Last-Translator: Mario Blättermann <mariobl@gnome.org>\n"
-"Language-Team: German <gnome-de@gnome.org>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-09-04 15:57+0200\n"
+"PO-Revision-Date: 2010-09-04 16:01+0200\n"
+"Last-Translator: Christian Kirbach <Christian.Kirbach@googlemail.com>\n"
+"Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
@@ -28,7 +28,7 @@ msgstr ""
 #: ../Data/GUI/dasher.direct.ui.h:2 ../Data/GUI/dasher.fullscreen.ui.h:1
 #: ../Data/GUI/dasher.gameWIP.ui.h:6 ../Data/GUI/dasher.traditional.ui.h:6
 #: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dashermaemofullscreen.ui.h:2
-#: ../Src/Gtk2/dasher_main.cpp:953
+#: ../Src/Gtk2/dasher_main.cpp:895
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -107,8 +107,8 @@ msgstr "Datei speichern unter"
 #: ../Data/GUI/dasher.compose.ui.h:15 ../Data/GUI/dasher.fullscreen.ui.h:3
 #: ../Data/GUI/dasher.gameWIP.ui.h:23 ../Data/GUI/dashermaemo.ui.h:5
 #: ../Data/GUI/dashermaemofullscreen.ui.h:5
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1320
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1354 ../Src/Gtk2/dasher_main.cpp:968
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1286
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1320 ../Src/Gtk2/dasher_main.cpp:910
 msgid "Select File"
 msgstr "Datei auswählen"
 
@@ -189,7 +189,7 @@ msgid "Preferences"
 msgstr "Einstellungen"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:19 ../Data/GUI/dasher.traditional.ui.h:14
-#: ../Src/Gtk2/dasher_main.cpp:1046
+#: ../Src/Gtk2/dasher_main.cpp:988
 msgid "Quit"
 msgstr "Verlassen"
 
@@ -596,10 +596,13 @@ msgstr "Maximale Vergrößerung"
 #: ../Src/DasherCore/ClickFilter.cpp:10
 msgid "Draw guides on screen to show area into which a click will zoom"
 msgstr ""
+"Hinweise auf dem Bildschirm anzeigen, die den Bereich hervorheben, den ein "
+"Klick vergrößert"
 
 #: ../Src/DasherCore/ClickFilter.cpp:11
 msgid "Curve lines to follow the non-linearity of the view transform"
 msgstr ""
+"Linien verformen, um einer nicht-linearen Ansichtstransformation zu genügen"
 
 #: ../Src/DasherCore/ClickFilter.h:12
 msgid "Click Mode"
@@ -615,24 +618,24 @@ msgstr "Vergrößerung mit Rechts"
 msgid "Compass Mode"
 msgstr "Kompass-Modus"
 
-#: ../Src/DasherCore/DasherGameMode.cpp:636
+#: ../Src/DasherCore/DasherGameMode.cpp:637
 msgid "Well done!"
 msgstr "Gut gemacht!"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:918
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:911
 msgid "Normal Control"
 msgstr "Normale Steuerung"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:934
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:927
 msgid "Menu Mode"
 msgstr "Menümodus"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:935
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:928
 msgid "Direct Mode"
 msgstr "Direkter Modus"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:939
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:932
 msgid "Stylus Control"
 msgstr "Stift-Steuerung"
 
@@ -715,20 +718,23 @@ msgstr "Verzögerung (in ms), bevor der Benutzer tatsächlich den Knopf drückt"
 msgid "One Dimensional Mode"
 msgstr "Eindimensionaler Modus"
 
-#: ../Src/DasherCore/SettingsStore.cpp:76 ../Src/Gtk2/DasherAppSettings.cpp:523
-#: ../Src/Gtk2/DasherAppSettings.cpp:557 ../Src/Gtk2/DasherAppSettings.cpp:561
+#: ../Src/DasherCore/SettingsStore.cpp:76
+#: ../Src/Gtk2/DasherAppSettings.cpp:523 ../Src/Gtk2/DasherAppSettings.cpp:557
+#: ../Src/Gtk2/DasherAppSettings.cpp:561
 msgid "true"
 msgstr "wahr"
 
-#: ../Src/DasherCore/SettingsStore.cpp:78 ../Src/Gtk2/DasherAppSettings.cpp:525
-#: ../Src/Gtk2/DasherAppSettings.cpp:557 ../Src/Gtk2/DasherAppSettings.cpp:561
+#: ../Src/DasherCore/SettingsStore.cpp:78
+#: ../Src/Gtk2/DasherAppSettings.cpp:525 ../Src/Gtk2/DasherAppSettings.cpp:557
+#: ../Src/Gtk2/DasherAppSettings.cpp:561
 msgid "false"
 msgstr "falsch"
 
 #. Note to translators: This message will be output for a command line
 #. with "--options foo=VAL" and foo is a boolean valued parameter, but
 #. "VAL" is not true or false.
-#: ../Src/DasherCore/SettingsStore.cpp:84 ../Src/Gtk2/DasherAppSettings.cpp:528
+#: ../Src/DasherCore/SettingsStore.cpp:84
+#: ../Src/Gtk2/DasherAppSettings.cpp:528
 msgid "boolean value must be specified as 'true' or 'false'."
 msgstr "Wahrheitswert muss entweder »wahr« oder »falsch« sein"
 
@@ -737,7 +743,8 @@ msgstr "Wahrheitswert muss entweder »wahr« oder »falsch« sein"
 #: ../Src/DasherCore/SettingsStore.cpp:104
 msgid "unknown option, use \"--help-options\" for more information."
 msgstr ""
-"Unbekannte Option, bitte nutzen Sie »--help-options« für weitere Informationen."
+"Unbekannte Option, bitte nutzen Sie »--help-options« für weitere "
+"Informationen."
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
@@ -861,23 +868,35 @@ msgstr "Ganzzahl-Parameter"
 msgid "String parameters"
 msgstr "Zeichenkette-Parameter"
 
-#: ../Src/Gtk2/Preferences.cpp:441 ../Src/Gtk2/Preferences.cpp:1012
+#: ../Src/Gtk2/Preferences.cpp:440 ../Src/Gtk2/Preferences.cpp:1011
 msgid "Action"
 msgstr "Aktion"
 
 #. TRANSLATORS: Show a button for the selected action in the Dasher window.
-#: ../Src/Gtk2/Preferences.cpp:1019
+#: ../Src/Gtk2/Preferences.cpp:1018
 msgid "Show Button"
 msgstr "Knopf anzeigen"
 
-#: ../Src/Gtk2/Preferences.cpp:1024
+#: ../Src/Gtk2/Preferences.cpp:1023
 msgid "Control Mode"
 msgstr "Steuermodus"
 
 #. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
-#: ../Src/Gtk2/Preferences.cpp:1030
+#: ../Src/Gtk2/Preferences.cpp:1029
 msgid "Auto On Stop"
 msgstr "Automatisch beim Beenden"
+
+#: ../Src/Gtk2/Speech.cpp:27
+msgid "Unable to initialize speech support\n"
+msgstr "Initialisierung der Sprachunterstützung fehlgeschlagen\n"
+
+#: ../Src/Gtk2/Speech.cpp:58
+msgid "Warning: unable to set speech parameters\n"
+msgstr "Warnung: Sprachparameter konnten nicht gesetzt werden\n"
+
+#: ../Src/Gtk2/Speech.cpp:69
+msgid "Unable to initialize voices\n"
+msgstr "Stimmen konnten nicht initialisiert werden\n"
 
 #: ../Src/Gtk2/dasher_action_keyboard.cpp:62
 #: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:96
@@ -888,49 +907,17 @@ msgstr "Text eingeben"
 msgid "Script"
 msgstr "Skript"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:137
-msgid "Speak"
-msgstr "Sprechen"
-
-#. TRANSLATORS: Send all text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:150
-msgid "All"
-msgstr "Alle"
-
-#. TRANSLATORS: Send most recently entered text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:153
-msgid "Last"
-msgstr "Letzter"
-
-#. TRANSLATORS: Repeat the last phrase sent to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:156
-msgid "Repeat"
-msgstr "Wiederholen"
-
-#: ../Src/Gtk2/dasher_action_speech.cpp:174
-#, c-format
-msgid "Unable to initialize speech support\n"
-msgstr "Initialisierung der Sprachunterstützung fehlgeschlagen\n"
-
-#: ../Src/Gtk2/dasher_action_speech.cpp:197
-msgid "Unable to initialize voices\n"
-msgstr "Stimmen konnten nicht initialisiert werden\n"
-
-#: ../Src/Gtk2/dasher_action_speech.cpp:209
-msgid "Warning: unable to set speech parameters\n"
-msgstr "Warnung: Sprachparameter konnten nicht gesetzt werden\n"
-
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
-#: ../Src/Gtk2/dasher_main.cpp:266
+#: ../Src/Gtk2/dasher_main.cpp:265
 msgid "option setting is missing \"=\"."
 msgstr "Der Optionseingabe fehlt ein »=«."
 
 #. Note to translators: This string will be output when --options= specifies an unknown option.
-#: ../Src/Gtk2/dasher_main.cpp:282
+#: ../Src/Gtk2/dasher_main.cpp:281
 msgid "Invalid option string specified"
 msgstr "Ungültige Zeichenkette als Option eingegeben"
 
-#: ../Src/Gtk2/dasher_main.cpp:1008
+#: ../Src/Gtk2/dasher_main.cpp:950
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -941,7 +928,7 @@ msgstr ""
 "\n"
 "Falls Sie die Änderungen nicht speichern, gehen sie unwiderruflich verloren."
 
-#: ../Src/Gtk2/dasher_main.cpp:1015
+#: ../Src/Gtk2/dasher_main.cpp:957
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -951,31 +938,31 @@ msgstr ""
 "\n"
 "Falls Sie die Änderungen nicht speichern, gehen sie unwiderruflich verloren."
 
-#: ../Src/Gtk2/dasher_main.cpp:1021
+#: ../Src/Gtk2/dasher_main.cpp:963
 msgid "Don't save"
 msgstr "Nicht speichern"
 
-#: ../Src/Gtk2/dasher_main.cpp:1022 ../Src/Gtk2/dasher_main.cpp:1045
+#: ../Src/Gtk2/dasher_main.cpp:964 ../Src/Gtk2/dasher_main.cpp:987
 msgid "Don't quit"
 msgstr "Nicht beenden"
 
-#: ../Src/Gtk2/dasher_main.cpp:1023
+#: ../Src/Gtk2/dasher_main.cpp:965
 msgid "Save and quit"
 msgstr "Speichern und beenden"
 
-#: ../Src/Gtk2/dasher_main.cpp:1042
+#: ../Src/Gtk2/dasher_main.cpp:984
 msgid "Are you sure you wish to quit?"
 msgstr "Sind Sie sicher, dass Sie das Programm beenden möchten?"
 
-#: ../Src/Gtk2/dasher_main.cpp:1089
+#: ../Src/Gtk2/dasher_main.cpp:1031
 msgid "Unable to open help file"
 msgstr "Die Hilfedatei kann nicht geöffnet werden"
 
-#: ../Src/Gtk2/dasher_main.cpp:1141
+#: ../Src/Gtk2/dasher_main.cpp:1083
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher ist eine Anwendung zur vorausschauenden Texteingabe"
 
-#: ../Src/Gtk2/dasher_main.cpp:1146
+#: ../Src/Gtk2/dasher_main.cpp:1088
 msgid "translator-credits"
 msgstr ""
 "Christian Neumair <chris@gnome-de.org>\n"
@@ -1028,6 +1015,18 @@ msgstr "Beschreibt »--options«\"."
 #: ../Src/main.cc:182
 msgid "- A text input application honouring accessibility"
 msgstr "- Eine Anwendung zur barrierefreien Texteingabe"
+
+#~ msgid "Speak"
+#~ msgstr "Sprechen"
+
+#~ msgid "All"
+#~ msgstr "Alle"
+
+#~ msgid "Last"
+#~ msgstr "Letzter"
+
+#~ msgid "Repeat"
+#~ msgstr "Wiederholen"
 
 #~ msgid "abcdefghijk ABCDEFGHIJK"
 #~ msgstr "AaBbCcIiPpQqÄäÖöÜüß012369@€,;/|(){}#„“»«"
