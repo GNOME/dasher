@@ -6,6 +6,11 @@
 
 using namespace Dasher;
 
+static SModuleSettings sSettings[] = {
+  {LP_TAP_TIME, T_LONG, 1, 1000, 1, 25, _("Max time for a 'tap' (anything longer is held)")},
+  {LP_ZOOMSTEPS, T_LONG, 1, 63, 1, 1, _("Frames over which to perform zoom")},
+};
+
 CStylusFilter::CStylusFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName)
   : CDefaultFilter(pCreator, pInterface, pFramerate, iID, szName), m_pModel(NULL) {
 }
@@ -44,4 +49,10 @@ void CStylusFilter::ApplyClickTransform(myint &iDasherX, myint &iDasherY, CDashe
 
 CStartHandler *CStylusFilter::MakeStartHandler() {
   return NULL;
+}
+
+bool CStylusFilter::GetSettings(SModuleSettings **pSettings, int *iCount) {
+  *pSettings = sSettings;
+  *iCount = sizeof(sSettings) / sizeof(sSettings[0]);
+  return true;
 }

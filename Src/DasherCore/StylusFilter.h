@@ -26,6 +26,7 @@ class CStylusFilter : public CDefaultFilter, protected CZoomAdjuster {
   virtual void ApplyClickTransform(myint &iDasherX, myint &iDasherY, CDasherView *pView);
   ///Do not make a start handler when in stylus mode
   virtual CStartHandler *MakeStartHandler();
+  virtual bool GetSettings(SModuleSettings **pSettings, int *iCount);
  private:
   unsigned long m_iKeyDownTime;
   CDasherModel *m_pModel;
