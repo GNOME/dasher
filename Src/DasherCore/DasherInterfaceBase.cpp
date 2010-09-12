@@ -45,7 +45,6 @@
 #include "CompassMode.h"
 #include "DefaultFilter.h"
 
-#include "EyetrackerFilter.h"
 #include "OneButtonFilter.h"
 #include "OneButtonDynamicFilter.h"
 #include "OneDimensionalFilter.h"
@@ -909,7 +908,6 @@ void CDasherInterfaceBase::CreateModules() {
     RegisterModule(new CDefaultFilter(m_pEventHandler, m_pSettingsStore, this, 3, _("Normal Control")))
   );
   RegisterModule(new COneDimensionalFilter(m_pEventHandler, m_pSettingsStore, this));
-  RegisterModule(new CEyetrackerFilter(m_pEventHandler, m_pSettingsStore, this));
 #ifndef _WIN32_WCE
   RegisterModule(new CClickFilter(m_pEventHandler, m_pSettingsStore, this));
 #else

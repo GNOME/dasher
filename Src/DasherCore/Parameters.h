@@ -35,7 +35,7 @@ enum {
   BP_START_SPACE, BP_STOP_IDLE, BP_CONTROL_MODE, 
   BP_COLOUR_MODE, BP_MOUSEPOS_MODE,
   BP_PALETTE_CHANGE,
-  BP_AUTOCALIBRATE, BP_DASHER_PAUSED,
+  BP_AUTOCALIBRATE, BP_REMAP_XTREME, BP_DASHER_PAUSED,
   BP_GAME_MODE, BP_TRAINING, BP_REDRAW, BP_LM_DICTIONARY, 
   BP_LM_LETTER_EXCLUSION, BP_AUTO_SPEEDCONTROL,
   BP_LM_ADAPTIVE, BP_SOCKET_INPUT_ENABLE, BP_SOCKET_DEBUG, 
@@ -68,7 +68,7 @@ enum {
   LP_DYNAMIC_BUTTON_LAG, LP_STATIC1B_TIME, LP_STATIC1B_ZOOM,
   LP_DEMO_SPRING, LP_DEMO_NOISE_MEM, LP_DEMO_NOISE_MAG, LP_MAXZOOM, 
   LP_DYNAMIC_SPEED_INC, LP_DYNAMIC_SPEED_FREQ, LP_DYNAMIC_SPEED_DEC,
-  LP_TAP_TIME, LP_MARGIN_WIDTH, END_OF_LPS
+  LP_TAP_TIME, LP_MARGIN_WIDTH, LP_TARGET_OFFSET, END_OF_LPS
 };
 
 enum {
@@ -140,7 +140,8 @@ static bp_table boolparamtable[] = {
   {BP_COLOUR_MODE, "ColourMode", PERS, true, "ColourMode"},
   {BP_MOUSEPOS_MODE, "StartOnMousePosition", PERS, false, "StartOnMousePosition"},
   {BP_PALETTE_CHANGE, "PaletteChange", PERS, true, "PaletteChange"},
-  {BP_AUTOCALIBRATE, "Autocalibrate", PERS, true, "Autocalibrate"},
+  {BP_AUTOCALIBRATE, "Autocalibrate", PERS, true, "Automatically learn TargetOffset e.g. gazetracking"},
+  {BP_REMAP_XTREME, "RemapXtreme", PERS, false, "Pointer at extreme Y translates more and zooms less"},
   {BP_DASHER_PAUSED, "DasherPaused", !PERS, true, "Dasher Paused"},
   {BP_GAME_MODE, "GameMode", !PERS, false, "Dasher Game Mode"},
   {BP_TRAINING, "Training", !PERS, false, "Provides locking during training"},
@@ -270,6 +271,7 @@ static lp_table longparamtable[] = {
 #else
   {LP_MARGIN_WIDTH, "MarginWidth", PERS, 300, "Width of RHS margin (in Dasher co-ords)"},
 #endif
+  {LP_TARGET_OFFSET, "TargetOffset", PERS, 0, "Vertical distance between mouse pointer and target (400=screen height)"},
 };
 
 static sp_table stringparamtable[] = {

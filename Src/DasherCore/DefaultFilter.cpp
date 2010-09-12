@@ -10,12 +10,29 @@
 
 using namespace Dasher;
 
+static SModuleSettings sSettings[] = {
+  {LP_TARGET_OFFSET, T_LONG, -100, 100, 400, 1, _("Vertical distance from mouse/gaze to target (400=screen height)")},
+  {BP_AUTOCALIBRATE, T_BOOL, -1, -1, -1, -1, _("Learn offset (previous) automatically, e.g. gazetrackers")},
+  {BP_REMAP_XTREME, T_BOOL, -1, -1, -1, -1, _("At top and bottom, scroll more and translate less (makes error-correcting easier)")},
+};
+
+bool CDefaultFilter::GetSettings(SModuleSettings **sets, int *iCount) {
+  *sets = sSettings;
+  *iCount = sizeof(sSettings) / sizeof(sSettings[0]);
+  return true;
+}
+
 CDefaultFilter::CDefaultFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
   : CInputFilter(pEventHandler, pSettingsStore, pInterface, iID, 1, szName) {
   m_pStartHandler = 0;
   m_pAutoSpeedControl = new CAutoSpeedControl(m_pEventHandler, m_pSettingsStore);
 
   CreateStartHandler();
+  
+  // Initialize autocalibration (i.e. seen nothing yet)
+  m_iSum = 0;
+  
+  m_iCounter = 0;
 }
 
 CDefaultFilter::~CDefaultFilter() {
@@ -26,13 +43,60 @@ bool CDefaultFilter::DecorateView(CDasherView *pView) {
 
   bool bDidSomething(false);
 
+  if (GetBoolParameter(BP_DASHER_PAUSED)) {
+    //Timer() is not retrieving input coordinates, so we'd better do so here...
+    pView->GetCoordinates(m_iLastX, m_iLastY);
+    ApplyTransform(m_iLastX, m_iLastY);
+  }
+
   if(GetBoolParameter(BP_DRAW_MOUSE)) {
-    DrawMouse(pView);
+    //Draw a small box at the current mouse position
+    pView->DasherDrawCentredRectangle(m_iLastX, m_iLastY, 5, 2, false);
+
     bDidSomething = true;
   }
 
   if(GetBoolParameter(BP_DRAW_MOUSE_LINE)) {
-    DrawMouseLine(pView);
+    // Draw a line from (LP_OX, LP_OY) to the current mouse position
+    myint x[2];
+    myint y[2];
+
+    // Start of line is the crosshair location
+    x[0] = (myint)GetLongParameter(LP_OX);
+    y[0] = (myint)GetLongParameter(LP_OY);
+
+    x[1] = m_iLastX;
+    y[1] = m_iLastY;
+
+    // Actually plot the line
+    if (GetBoolParameter(BP_CURVE_MOUSE_LINE))
+      pView->DasherSpaceLine(x[0],y[0],x[1],y[1], GetLongParameter(LP_LINE_WIDTH), 1);
+    else
+      pView->DasherPolyline(x, y, 2, GetLongParameter(LP_LINE_WIDTH), 1);
+
+  /*  // Plot a brachistochrone
+
+  const int noOfPoints = 18;
+  myint X[noOfPoints];
+  myint Y[noOfPoints];
+  myint CenterXY[2]; 
+  X[0] = x[0];
+  Y[0] = y[0];
+  X[noOfPoints-1] = 0;
+  Y[noOfPoints-1] = y[1];
+  CenterXY[0] = 0; CenterXY[1] = 0.5*((double)(X[0]*X[0])/(double)(Y[0]-Y[noOfPoints-1])+(Y[0]+Y[noOfPoints-1]));
+ 
+  double angle = (((Y[noOfPoints-1]>CenterXY[1])?1.5708:-1.5708) - atan((double)(Y[0]-CenterXY[1])/(double)X[0]))/(double)(noOfPoints-1);
+  for(int i = 1; i < noOfPoints-1; ++i)
+    {
+      X[i] = CenterXY[0] + cos(angle)*(X[i-1]-CenterXY[0]) - sin(angle)*(Y[i-1]-CenterXY[1]);
+      Y[i] = CenterXY[1] + sin(angle)*(X[i-1]-CenterXY[0]) + cos(angle)*(Y[i-1]-CenterXY[1]);
+    }
+
+    pView->DasherPolyline(X, Y, noOfPoints, GetLongParameter(LP_LINE_WIDTH), 2);*/
+  /*  std::cout << "(" << X[0] << "," << Y[0] << ") (" << X[noOfPoints-1] << "," << Y[noOfPoints-1] << ") "
+	    << "(" << CenterXY[0] << "," << CenterXY[1]
+	    << ") angle:" << angle << "," << angle*180.0/3.1415926 << std::endl;*/
     bDidSomething = true;
   }
   
@@ -46,13 +110,8 @@ bool CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
   bool bDidSomething = false;
   if (!GetBoolParameter(BP_DASHER_PAUSED))
   {
-    myint iDasherX;
-    myint iDasherY;
-
-    m_pDasherView->GetCoordinates(iDasherX, iDasherY);
-
-    ApplyAutoCalibration(iDasherX, iDasherY, true);
-    ApplyTransform(iDasherX, iDasherY);
+    m_pDasherView->GetCoordinates(m_iLastX, m_iLastY);
+    ApplyTransform(m_iLastX, m_iLastY);
 
     if(GetBoolParameter(BP_STOP_OUTSIDE)) {
       myint iDasherMinX;
@@ -61,16 +120,16 @@ bool CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
       myint iDasherMaxY;
       m_pDasherView->VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
   
-      if((iDasherX > iDasherMaxX) || (iDasherX < iDasherMinX) || (iDasherY > iDasherMaxY) || (iDasherY < iDasherMinY)) {
+      if((m_iLastX > iDasherMaxX) || (m_iLastX < iDasherMinX) || (m_iLastY > iDasherMaxY) || (m_iLastY < iDasherMinY)) {
         m_pInterface->Stop();
         return false;
       }
     }
 
-    m_pDasherModel->OneStepTowards(iDasherX,iDasherY, Time, pAdded, pNumDeleted);
+    m_pDasherModel->OneStepTowards(m_iLastX,m_iLastY, Time, pAdded, pNumDeleted);
     bDidSomething = true;
 
-    m_pAutoSpeedControl->SpeedControl(iDasherX, iDasherY, m_pDasherView);
+    m_pAutoSpeedControl->SpeedControl(m_iLastX, m_iLastY, m_pDasherView);
   }
 	
   if(m_pStartHandler)
@@ -130,69 +189,63 @@ void CDefaultFilter::CreateStartHandler() {
 
 }
 
-void CDefaultFilter::DrawMouse(CDasherView *pView) {
-  myint iDasherX;
-  myint iDasherY;
-
-  pView->GetCoordinates(iDasherX, iDasherY);
-
-  ApplyAutoCalibration(iDasherX, iDasherY, false);
-  ApplyTransform(iDasherX, iDasherY);
-
-  pView->DasherDrawCentredRectangle(iDasherX, iDasherY, 5, 2, false);
-}
-
-void CDefaultFilter::DrawMouseLine(CDasherView *pView) {
-  myint x[2];
-  myint y[2];
-
-  // Start of line is the crosshair location
-
-  x[0] = (myint)GetLongParameter(LP_OX);
-  y[0] = (myint)GetLongParameter(LP_OY);
-
-  //  myint iDasherX;
-  //myint iDasherY;
-
-  pView->GetCoordinates(x[1], y[1]);
-
-  ApplyAutoCalibration(x[1], y[1], false);
-  ApplyTransform(x[1], y[1]);
-
-  // Actually plot the line
-  if (GetBoolParameter(BP_CURVE_MOUSE_LINE))
-    pView->DasherSpaceLine(x[0],y[0],x[1],y[1], GetLongParameter(LP_LINE_WIDTH), 1);
-  else
-    pView->DasherPolyline(x, y, 2, GetLongParameter(LP_LINE_WIDTH), 1);
-
-  /*  // Plot a brachistochrone
-
-  const int noOfPoints = 18;
-  myint X[noOfPoints];
-  myint Y[noOfPoints];
-  myint CenterXY[2]; 
-  X[0] = x[0];
-  Y[0] = y[0];
-  X[noOfPoints-1] = 0;
-  Y[noOfPoints-1] = y[1];
-  CenterXY[0] = 0; CenterXY[1] = 0.5*((double)(X[0]*X[0])/(double)(Y[0]-Y[noOfPoints-1])+(Y[0]+Y[noOfPoints-1]));
- 
-  double angle = (((Y[noOfPoints-1]>CenterXY[1])?1.5708:-1.5708) - atan((double)(Y[0]-CenterXY[1])/(double)X[0]))/(double)(noOfPoints-1);
-  for(int i = 1; i < noOfPoints-1; ++i)
-    {
-      X[i] = CenterXY[0] + cos(angle)*(X[i-1]-CenterXY[0]) - sin(angle)*(Y[i-1]-CenterXY[1]);
-      Y[i] = CenterXY[1] + sin(angle)*(X[i-1]-CenterXY[0]) + cos(angle)*(Y[i-1]-CenterXY[1]);
-    }
-
-    pView->DasherPolyline(X, Y, noOfPoints, GetLongParameter(LP_LINE_WIDTH), 2);*/
-  /*  std::cout << "(" << X[0] << "," << Y[0] << ") (" << X[noOfPoints-1] << "," << Y[noOfPoints-1] << ") "
-	    << "(" << CenterXY[0] << "," << CenterXY[1]
-	    << ") angle:" << angle << "," << angle*180.0/3.1415926 << std::endl;*/
-
+double xmax(double y) {
+  // DJCM -- define a function xmax(y) thus:
+  // xmax(y) = a*[exp(b*y*y)-1] 
+  // then:  if(x<xmax(y) [if the mouse is to the RIGHT of the line xmax(y)]
+  // set x=xmax(y).  But set xmax=c if(xmax>c).
+  // I would set a=1, b=1, c=16, to start with. 
+  
+  static const int a = 1, b = 1;
+  static const double c = 100;
+  return min(c,a * (exp(b * y * y) - 1));
+  //cout << "xmax = " << xmax << endl;
 }
 
 void CDefaultFilter::ApplyTransform(myint &iDasherX, myint &iDasherY) {
+  ApplyOffset(iDasherX, iDasherY);
+  if (GetBoolParameter(BP_REMAP_XTREME)) {
+    // Y co-ordinate...
+    myint dasherOY=(myint)GetLongParameter(LP_OY); 
+    double double_y = ((iDasherY-dasherOY)/(double)(dasherOY) ); // Fraction above the crosshair
+    static const double repulsionparameter=0.5;
+    iDasherY = myint(dasherOY * (1.0 + double_y + (double_y*double_y*double_y * repulsionparameter )));
+    
+    // X co-ordinate...  
+    iDasherX = max(iDasherX,myint(GetLongParameter(LP_OX) * xmax(double_y)));
+  }
 }
 
-void CDefaultFilter::ApplyAutoCalibration(myint &iDasherX, myint &iDasherY, bool bUpdate) {
+void CDefaultFilter::ApplyOffset(myint &iDasherX, myint &iDasherY) {
+  
+  // TODO: It turns out that this was previously computed in pixels,
+  // altough everythign else made use of Dasher coordinates. Hack in a
+  // factor of 10 to get the offset in Dasher coordinates, but it
+  // would be a good idea at some point to sort this out properly.
+  
+  iDasherY += 10 * GetLongParameter(LP_TARGET_OFFSET);
+
+  if(GetBoolParameter(BP_AUTOCALIBRATE) && !GetBoolParameter(BP_DASHER_PAUSED)) {
+    // Auto-update the offset
+  
+    m_iSum += (myint)GetLongParameter(LP_OY) - iDasherY; // Distance above crosshair
+    ++m_iCounter;
+  
+    //int m_iFilterTimescale=20
+    if(++m_iCounter > 20) {
+      m_iCounter = 0;
+    
+      // 'Conditions A', as specified by DJCM.  Only make the auto-offset
+      // change if we're past the significance boundary.
+      int m_iSigBiasPixels(GetLongParameter(LP_MAX_Y)/2);
+
+      if(abs(m_iSum) > GetLongParameter(LP_MAX_Y)/2)
+        SetLongParameter(LP_TARGET_OFFSET, GetLongParameter(LP_TARGET_OFFSET) + ((m_iSum>0) ? -1 : 1));
+      //TODO, "else return" - check effectiveness with/without?
+      // old code exited now if neither above cases applied,
+      // but had TODO suggesting maybe we should _always_ reset m_iSum
+      // (as we now do here)...
+      m_iSum = 0;
+    }
+  }
 }

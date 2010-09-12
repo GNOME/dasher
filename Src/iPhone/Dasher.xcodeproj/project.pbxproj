@@ -190,7 +190,6 @@
 		3344FE3A0F71717C00506EAA /* DelayedDraw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDAE0F71717C00506EAA /* DelayedDraw.cpp */; };
 		3344FE3B0F71717C00506EAA /* DynamicFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDAF0F71717C00506EAA /* DynamicFilter.cpp */; };
 		3344FE3C0F71717C00506EAA /* EventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDB20F71717C00506EAA /* EventHandler.cpp */; };
-		3344FE3D0F71717C00506EAA /* EyetrackerFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDB40F71717C00506EAA /* EyetrackerFilter.cpp */; };
 		3344FE3E0F71717C00506EAA /* FileLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDB60F71717C00506EAA /* FileLogger.cpp */; };
 		3344FE3F0F71717C00506EAA /* GameLevel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDB90F71717C00506EAA /* GameLevel.cpp */; };
 		3344FE400F71717C00506EAA /* GameScorer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDBC0F71717C00506EAA /* GameScorer.cpp */; };
@@ -595,8 +594,6 @@
 		3344FDB10F71717C00506EAA /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		3344FDB20F71717C00506EAA /* EventHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EventHandler.cpp; sourceTree = "<group>"; };
 		3344FDB30F71717C00506EAA /* EventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventHandler.h; sourceTree = "<group>"; };
-		3344FDB40F71717C00506EAA /* EyetrackerFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EyetrackerFilter.cpp; sourceTree = "<group>"; };
-		3344FDB50F71717C00506EAA /* EyetrackerFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EyetrackerFilter.h; sourceTree = "<group>"; };
 		3344FDB60F71717C00506EAA /* FileLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileLogger.cpp; sourceTree = "<group>"; };
 		3344FDB70F71717C00506EAA /* FileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileLogger.h; sourceTree = "<group>"; };
 		3344FDB80F71717C00506EAA /* FrameRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameRate.h; sourceTree = "<group>"; };
@@ -1241,8 +1238,6 @@
 				3344FDB10F71717C00506EAA /* Event.h */,
 				3344FDB20F71717C00506EAA /* EventHandler.cpp */,
 				3344FDB30F71717C00506EAA /* EventHandler.h */,
-				3344FDB40F71717C00506EAA /* EyetrackerFilter.cpp */,
-				3344FDB50F71717C00506EAA /* EyetrackerFilter.h */,
 				3344FDB60F71717C00506EAA /* FileLogger.cpp */,
 				3344FDB70F71717C00506EAA /* FileLogger.h */,
 				3344FDB80F71717C00506EAA /* FrameRate.h */,
@@ -1611,7 +1606,6 @@
 				3344FE3A0F71717C00506EAA /* DelayedDraw.cpp in Sources */,
 				3344FE3B0F71717C00506EAA /* DynamicFilter.cpp in Sources */,
 				3344FE3C0F71717C00506EAA /* EventHandler.cpp in Sources */,
-				3344FE3D0F71717C00506EAA /* EyetrackerFilter.cpp in Sources */,
 				3344FE3E0F71717C00506EAA /* FileLogger.cpp in Sources */,
 				3344FE3F0F71717C00506EAA /* GameLevel.cpp in Sources */,
 				3344FE400F71717C00506EAA /* GameScorer.cpp in Sources */,

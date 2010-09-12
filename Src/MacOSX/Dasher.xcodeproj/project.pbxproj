@@ -79,8 +79,6 @@
 		1948BEE60C226CFD001DFA32 /* Event.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE400C226CFD001DFA32 /* Event.h */; };
 		1948BEE70C226CFD001DFA32 /* EventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE410C226CFD001DFA32 /* EventHandler.cpp */; };
 		1948BEE80C226CFD001DFA32 /* EventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE420C226CFD001DFA32 /* EventHandler.h */; };
-		1948BEE90C226CFD001DFA32 /* EyetrackerFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE430C226CFD001DFA32 /* EyetrackerFilter.cpp */; };
-		1948BEEA0C226CFD001DFA32 /* EyetrackerFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE440C226CFD001DFA32 /* EyetrackerFilter.h */; };
 		1948BEEB0C226CFD001DFA32 /* FileLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE450C226CFD001DFA32 /* FileLogger.cpp */; };
 		1948BEEC0C226CFD001DFA32 /* FileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE460C226CFD001DFA32 /* FileLogger.h */; };
 		1948BEED0C226CFD001DFA32 /* FrameRate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE470C226CFD001DFA32 /* FrameRate.h */; };
@@ -480,8 +478,6 @@
 		1948BE400C226CFD001DFA32 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		1948BE410C226CFD001DFA32 /* EventHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = EventHandler.cpp; sourceTree = "<group>"; };
 		1948BE420C226CFD001DFA32 /* EventHandler.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = EventHandler.h; sourceTree = "<group>"; };
-		1948BE430C226CFD001DFA32 /* EyetrackerFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = EyetrackerFilter.cpp; sourceTree = "<group>"; };
-		1948BE440C226CFD001DFA32 /* EyetrackerFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = EyetrackerFilter.h; sourceTree = "<group>"; };
 		1948BE450C226CFD001DFA32 /* FileLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = FileLogger.cpp; sourceTree = "<group>"; };
 		1948BE460C226CFD001DFA32 /* FileLogger.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = FileLogger.h; sourceTree = "<group>"; };
 		1948BE470C226CFD001DFA32 /* FrameRate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = FrameRate.h; sourceTree = "<group>"; };
@@ -994,8 +990,6 @@
 				1948BE400C226CFD001DFA32 /* Event.h */,
 				1948BE410C226CFD001DFA32 /* EventHandler.cpp */,
 				1948BE420C226CFD001DFA32 /* EventHandler.h */,
-				1948BE430C226CFD001DFA32 /* EyetrackerFilter.cpp */,
-				1948BE440C226CFD001DFA32 /* EyetrackerFilter.h */,
 				1948BE450C226CFD001DFA32 /* FileLogger.cpp */,
 				1948BE460C226CFD001DFA32 /* FileLogger.h */,
 				1948BE470C226CFD001DFA32 /* FrameRate.h */,
@@ -1441,7 +1435,6 @@
 				1948BEE50C226CFD001DFA32 /* DynamicFilter.h in Headers */,
 				1948BEE60C226CFD001DFA32 /* Event.h in Headers */,
 				1948BEE80C226CFD001DFA32 /* EventHandler.h in Headers */,
-				1948BEEA0C226CFD001DFA32 /* EyetrackerFilter.h in Headers */,
 				1948BEEC0C226CFD001DFA32 /* FileLogger.h in Headers */,
 				1948BEED0C226CFD001DFA32 /* FrameRate.h in Headers */,
 				1948BEF20C226CFD001DFA32 /* InputFilter.h in Headers */,
@@ -1798,7 +1791,6 @@
 				1948BEE10C226CFD001DFA32 /* DefaultFilter.cpp in Sources */,
 				1948BEE40C226CFD001DFA32 /* DynamicFilter.cpp in Sources */,
 				1948BEE70C226CFD001DFA32 /* EventHandler.cpp in Sources */,
-				1948BEE90C226CFD001DFA32 /* EyetrackerFilter.cpp in Sources */,
 				1948BEEB0C226CFD001DFA32 /* FileLogger.cpp in Sources */,
 				1948BEF60C226CFD001DFA32 /* CTWLanguageModel.cpp in Sources */,
 				1948BEF80C226CFD001DFA32 /* DictLanguageModel.cpp in Sources */,

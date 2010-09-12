@@ -76,8 +76,6 @@ libdashercore_a_SOURCES = \
 		Event.h \
 		EventHandler.cpp \
 		EventHandler.h \
-		EyetrackerFilter.cpp \
-		EyetrackerFilter.h \
 		FileLogger.cpp \
 		FileLogger.h \
 		FrameRate.h \
