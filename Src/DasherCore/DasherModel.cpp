@@ -311,7 +311,7 @@ void CDasherModel::Get_new_root_coords(dasherint X, dasherint Y, dasherint &r1, 
 
   dasherint y1(Y - (Y2 * X) / (2 * iOX));
   dasherint y2(Y + (Y2 * X) / (2 * iOY));
-
+  dasherint oy1(y1),oy2(y2); //back these up to use later
   // iSteps is the number of update steps we need to get the point
   // under the cursor over to the cross hair. Calculated in order to
   // keep a constant bit-rate.
@@ -352,8 +352,24 @@ void CDasherModel::Get_new_root_coords(dasherint X, dasherint Y, dasherint &r1, 
     }
 
   // There is a point C on the y-axis such the ratios (y1-C):(Y1-C) and
-  // (y2-C):(Y2-C) are equal. (Obvious when drawn on separate parallel axes.)
-  const dasherint C = (y1 * Y2) / (y1 + Y2 - y2);
+  // (y2-C):(Y2-C) are equal - iow that divides the "target" region y1-y2
+  // into the same proportions as it divides the screen (0-Y2). I.e., this
+  // is the center of expansion - the point on the y-axis which everything
+  // moves away from (or towards, if reversing).
+  
+  //We prefer to compute C from the _original_ (y1,y2) pair, as this is more
+  // accurate (and avoids drifting up/down when heading straight along the
+  // x-axis in dynamic button modes). However...
+  if ((y2-y1) < Y2 ^ (oy2-oy1) < Y2) {
+    //Sometimes (very occasionally), the calculation of a single-step above
+    // can turn a zoom-in into a zoom-out, or vice versa, when the movement
+    // is mostly translation. In which case, must compute C consistently with
+    // the (scaled, single-step) movement we are going to perform, or else we
+    // will end up suddenly going the wrong way along the y-axis (i.e., the
+    // sense of translation will be reversed) !
+    oy1=y1; oy2=y2;
+  }
+  const dasherint C = (oy1 * Y2) / (oy1 + Y2 - oy2);
 
   r1 = ((R1 - C) * Y2) / (y2 - y1) + C;
   r2 = ((R2 - C) * Y2) / (y2 - y1) + C;
