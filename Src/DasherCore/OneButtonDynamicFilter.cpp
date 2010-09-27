@@ -145,4 +145,4 @@ bool COneButtonDynamicFilter::GetSettings(SModuleSettings **pSettings, int *iCou
   *iCount = sizeof(sSettings) / sizeof(SModuleSettings);
 
   return true;
-};
+}

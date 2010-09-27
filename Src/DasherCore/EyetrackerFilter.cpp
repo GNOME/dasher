@@ -27,10 +27,9 @@ bool CEyetrackerFilter::GetSettings(SModuleSettings **pSettings, int *iCount) {
   *iCount = sizeof(sSettings) / sizeof(SModuleSettings);
 
   return true;
-};
+}
 
 void CEyetrackerFilter::ApplyTransform(myint &iDasherX, myint &iDasherY) {
-  
   
   // Y co-ordinate...
   myint dasherOY=(myint)GetLongParameter(LP_OY); 

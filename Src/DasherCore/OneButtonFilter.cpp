@@ -92,4 +92,4 @@ bool COneButtonFilter::GetSettings(SModuleSettings **pSettings, int *iCount) {
   *iCount = sizeof(sSettings) / sizeof(SModuleSettings);
 
   return true;
-};
+}

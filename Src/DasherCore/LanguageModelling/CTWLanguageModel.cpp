@@ -576,5 +576,4 @@ inline CLanguageModel::Context CCTWLanguageModel::CloneContext(Context Copy) {
 
 inline void CCTWLanguageModel::ReleaseContext(Context release) {
 	  delete (CCTWContext *) release;
-};
-
+}

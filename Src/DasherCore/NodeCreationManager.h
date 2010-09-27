@@ -18,7 +18,7 @@ namespace Dasher {
   class CDasherNode;
   class CDasherInterfaceBase;
   class CControlManager;
-};
+}
 //TODO why is CNodeCreationManager _not_ in namespace Dasher?!?!
 /// \ingroup Model
 /// @{

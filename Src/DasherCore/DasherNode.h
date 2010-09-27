@@ -30,7 +30,7 @@
 namespace Dasher {
   class CDasherNode;
   class CDasherInterfaceBase;
-};
+}
 #include <deque>
 #include <iostream>
 #include <vector>

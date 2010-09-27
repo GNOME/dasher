@@ -7,7 +7,7 @@
 
 namespace Dasher {
   class CDasherInterfaceBase;
-};
+}
 
 /// \defgroup ActionButtons Action Buttons
 /// @{

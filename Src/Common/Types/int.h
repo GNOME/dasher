@@ -44,6 +44,6 @@ const int64 int64_min = LLONG_MIN;
 
 template < class T > inline bool AreDifferentSigns(T lhs, T rhs) {
   return ((lhs ^ rhs) < 0);
-};
+}
 
 #endif

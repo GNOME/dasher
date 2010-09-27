@@ -54,6 +54,6 @@ namespace Dasher {
     bool m_bInSegment;
     std::string m_strCurrentText;
   };
-};
+}
 
 #endif

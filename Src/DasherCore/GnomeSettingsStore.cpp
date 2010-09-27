@@ -26,14 +26,13 @@ CGnomeSettingsStore::CGnomeSettingsStore(Dasher::CEventHandler *pEventHandler):C
 #endif
 
   LoadPersistent();
-};
+}
 
 CGnomeSettingsStore::~CGnomeSettingsStore() {
 #ifdef WITH_GCONF
   g_object_unref(the_gconf_client);
 #endif
-
-};
+}
 
 bool CGnomeSettingsStore::LoadSetting(const std::string &Key, bool *Value) {
 #ifdef WITH_GCONF
@@ -56,7 +55,7 @@ bool CGnomeSettingsStore::LoadSetting(const std::string &Key, bool *Value) {
 #else
   return false;
 #endif
-};
+}
 
 bool CGnomeSettingsStore::LoadSetting(const std::string &Key, long *Value) {
 #ifdef WITH_GCONF
@@ -79,7 +78,7 @@ bool CGnomeSettingsStore::LoadSetting(const std::string &Key, long *Value) {
 #else
   return false;
 #endif
-};
+}
 
 bool CGnomeSettingsStore::LoadSetting(const std::string &Key, std::string *Value) {
 #ifdef WITH_GCONF
@@ -102,7 +101,7 @@ bool CGnomeSettingsStore::LoadSetting(const std::string &Key, std::string *Value
 #else
   return false;
 #endif
-};
+}
 
 void CGnomeSettingsStore::SaveSetting(const std::string &Key, bool Value) {
 #ifdef WITH_GCONF
@@ -114,7 +113,7 @@ void CGnomeSettingsStore::SaveSetting(const std::string &Key, bool Value) {
 
   gconf_client_set_bool(the_gconf_client, keypath, Value, &the_error);
 #endif
-};
+}
 
 void CGnomeSettingsStore::SaveSetting(const std::string &Key, long Value) {
 #ifdef WITH_GCONF
@@ -126,7 +125,7 @@ void CGnomeSettingsStore::SaveSetting(const std::string &Key, long Value) {
 
   gconf_client_set_int(the_gconf_client, keypath, Value, &the_error);
 #endif
-};
+}
 
 void CGnomeSettingsStore::SaveSetting(const std::string &Key, const std::string &Value) {
 #ifdef WITH_GCONF
@@ -138,7 +137,7 @@ void CGnomeSettingsStore::SaveSetting(const std::string &Key, const std::string 
 
   gconf_client_set_string(the_gconf_client, keypath, Value.c_str(), &the_error);
 #endif
-};
+}
 
 #ifdef WITH_GCONF
 void CGnomeSettingsStore::NotificationCallback(GConfClient *pClient, guint iCNXN_ID, GConfEntry *pEntry) {

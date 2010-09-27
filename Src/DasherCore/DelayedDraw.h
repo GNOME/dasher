@@ -58,6 +58,6 @@ namespace Dasher {
     std::vector < CTextString > m_DrawTextString;
   };
   /// @}
-};
+}
 
 #endif

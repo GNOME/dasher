@@ -89,4 +89,4 @@ bool CClickFilter::GetSettings(SModuleSettings **pSettings, int *iCount) {
   *iCount = sizeof(sSettings) / sizeof(SModuleSettings);
 
   return true;
-};
+}

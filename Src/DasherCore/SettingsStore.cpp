@@ -33,7 +33,7 @@ Dasher::CParamTables CSettingsStore::s_oParamTables;
 // TODO: Don't propagate changes which don't affect anything.
 
 CSettingsStore::CSettingsStore(Dasher::CEventHandler *pEventHandler):m_pEventHandler(pEventHandler) {
-};
+}
 
 void CSettingsStore::LoadPersistent() {
 
@@ -127,7 +127,7 @@ void CSettingsStore::SetBoolParameter(int iParameter, bool bValue) {
   // Write out to permanent storage
   if(s_oParamTables.BoolParamTable[iParameter - FIRST_BP].persistent)
     SaveSetting(s_oParamTables.BoolParamTable[iParameter - FIRST_BP].regName, bValue);
-};
+}
 
 void CSettingsStore::SetLongParameter(int iParameter, long lValue) {
 
@@ -147,7 +147,7 @@ void CSettingsStore::SetLongParameter(int iParameter, long lValue) {
   // Write out to permanent storage
   if(s_oParamTables.LongParamTable[iParameter - FIRST_LP].persistent)
     SaveSetting(s_oParamTables.LongParamTable[iParameter - FIRST_LP].regName, lValue);
-};
+}
 
 void CSettingsStore::SetStringParameter(int iParameter, const std::string sValue) {
 
@@ -167,7 +167,7 @@ void CSettingsStore::SetStringParameter(int iParameter, const std::string sValue
   // Write out to permanent storage
   if(s_oParamTables.StringParamTable[iParameter - FIRST_SP].persistent)
     SaveSetting(s_oParamTables.StringParamTable[iParameter - FIRST_SP].regName, sValue);
-};
+}
 
 bool CSettingsStore::GetBoolParameter(int iParameter) {
   // Check that the parameter is in fact in the right spot in the table
@@ -175,7 +175,7 @@ bool CSettingsStore::GetBoolParameter(int iParameter) {
 
   // Return the value
   return s_oParamTables.BoolParamTable[iParameter - FIRST_BP].value;
-};
+}
 
 long CSettingsStore::GetLongParameter(int iParameter) {
   // Check that the parameter is in fact in the right spot in the table
@@ -183,7 +183,7 @@ long CSettingsStore::GetLongParameter(int iParameter) {
 
   // Return the value
   return s_oParamTables.LongParamTable[iParameter - FIRST_LP].value;
-};
+}
 
 std::string CSettingsStore::GetStringParameter(int iParameter) {
   // Check that the parameter is in fact in the right spot in the table

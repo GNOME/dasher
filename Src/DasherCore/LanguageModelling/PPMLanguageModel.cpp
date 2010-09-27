@@ -484,7 +484,7 @@ bool CPPMLanguageModel::WriteToFile(std::string strFilename) {
   oOutputFile.close();
 
   return false;
-};
+}
 
 bool CPPMLanguageModel::RecursiveWrite(CPPMnode *pNode, CPPMnode *pNextSibling, std::map<CPPMnode *, int> *pmapIdx, int *pNextIdx, std::ofstream *pOutputFile) {
 
@@ -513,7 +513,7 @@ bool CPPMLanguageModel::RecursiveWrite(CPPMnode *pNode, CPPMnode *pNextSibling, 
   }
 
   return true;
-};
+}
 
 int CPPMLanguageModel::GetIndex(CPPMnode *pAddr, std::map<CPPMnode *, int> *pmapIdx, int *pNextIdx) {
 
@@ -533,7 +533,7 @@ int CPPMLanguageModel::GetIndex(CPPMnode *pAddr, std::map<CPPMnode *, int> *pmap
     }
   }
   return iIndex;
-};
+}
 
 bool CPPMLanguageModel::ReadFromFile(std::string strFilename) {
   
@@ -580,7 +580,7 @@ bool CPPMLanguageModel::ReadFromFile(std::string strFilename) {
   oInputFile.close();
 
   return false;
-};
+}
 
 CPPMLanguageModel::CPPMnode *CPPMLanguageModel::GetAddress(int iIndex, std::map<int, CPPMnode*> *pMap) {
   if (iIndex==0) return NULL;

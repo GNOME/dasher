@@ -803,16 +803,16 @@ void CDasherInterfaceBase::DisconnectNode(int iChild, int iParent) {
 
 void CDasherInterfaceBase::SetBoolParameter(int iParameter, bool bValue) {
   m_pSettingsStore->SetBoolParameter(iParameter, bValue);
-};
+}
 
 void CDasherInterfaceBase::SetLongParameter(int iParameter, long lValue) {
   m_pSettingsStore->SetLongParameter(iParameter, lValue);
-};
+}
 
 void CDasherInterfaceBase::SetStringParameter(int iParameter, const std::string & sValue) {
   PreSetNotify(iParameter, sValue);
   m_pSettingsStore->SetStringParameter(iParameter, sValue);
-};
+}
 
 bool CDasherInterfaceBase::GetBoolParameter(int iParameter) {
   return m_pSettingsStore->GetBoolParameter(iParameter);

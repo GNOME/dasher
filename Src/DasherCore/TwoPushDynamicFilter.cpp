@@ -153,8 +153,7 @@ void CTwoPushDynamicFilter::HandleEvent(Dasher::CEvent * pEvent)
      }
     }
   }
-
-};
+}
 
 void CTwoPushDynamicFilter::KeyDown(int Time, int iId, CDasherView *pDasherView, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {
   if (iId == 100 && !GetBoolParameter(BP_BACKOFF_BUTTON))
@@ -282,7 +281,7 @@ bool CTwoPushDynamicFilter::GetSettings(SModuleSettings **pSettings, int *iCount
   *iCount = sizeof(sSettings) / sizeof(SModuleSettings);
 
   return true;
-};
+}
 
 bool CTwoPushDynamicFilter::GetMinWidth(int &iMinWidth) {
   iMinWidth = 1024;

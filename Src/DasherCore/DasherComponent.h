@@ -6,7 +6,7 @@ namespace Dasher {
   class CEvent;
   class CEventHandler;
   class CDasherComponent;
-};
+}
 
 /// \ingroup Core
 /// @{

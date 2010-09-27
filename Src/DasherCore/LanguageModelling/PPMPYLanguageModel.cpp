@@ -865,7 +865,7 @@ bool CPPMPYLanguageModel::WriteToFile(std::string strFilename) {
   oOutputFile.close();
 
   return false;
-};
+}
 
 //Mandarin - PY not enabled for these read-write functions
 bool CPPMPYLanguageModel::RecursiveWrite(CPPMPYnode *pNode, std::map<CPPMPYnode *, int> *pmapIdx, int *pNextIdx, std::ofstream *pOutputFile) {
@@ -892,7 +892,7 @@ bool CPPMPYLanguageModel::RecursiveWrite(CPPMPYnode *pNode, std::map<CPPMPYnode 
   }
 
   return true;
-};
+}
 
 int CPPMPYLanguageModel::GetIndex(CPPMPYnode *pAddr, std::map<CPPMPYnode *, int> *pmapIdx, int *pNextIdx) {
   std::cout<<"GetIndex gets called?"<<std::endl;
@@ -912,7 +912,7 @@ int CPPMPYLanguageModel::GetIndex(CPPMPYnode *pAddr, std::map<CPPMPYnode *, int>
     }
   }
   return iIndex;
-};
+}
 
 
 //Mandarin - PY not enabled for these read-write functions
@@ -943,7 +943,7 @@ bool CPPMPYLanguageModel::ReadFromFile(std::string strFilename) {
   oInputFile.close();
 
   return false;
-};
+}
 
 CPPMPYLanguageModel::CPPMPYnode *CPPMPYLanguageModel::GetAddress(int iIndex, std::map<int, CPPMPYnode*> *pMap) {
 

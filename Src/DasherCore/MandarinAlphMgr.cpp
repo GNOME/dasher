@@ -258,7 +258,7 @@ int CMandarinAlphMgr::AssignColour(int parentClr, int childIndex) {
     return colourStore[1][childIndex%3];
   else 
     return colourStore[0][childIndex%3]; 
-};
+}
 
 
 CLanguageModel::Context CMandarinAlphMgr::CreateSymbolContext(CAlphNode *pParent, symbol iSymbol)

@@ -120,4 +120,4 @@ bool CAlternatingDirectMode::GetSettings(SModuleSettings **pSettings, int *iCoun
   *iCount = sizeof(sSettings) / sizeof(SModuleSettings);
 
   return true;
-};
+}

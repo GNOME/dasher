@@ -185,7 +185,7 @@ bool CTwoButtonDynamicFilter::GetSettings(SModuleSettings **pSettings, int *iCou
   *iCount = sizeof(sSettings) / sizeof(SModuleSettings);
 
   return true;
-};
+}
 
 bool CTwoButtonDynamicFilter::GetMinWidth(int &iMinWidth) {
   iMinWidth = 1024;
