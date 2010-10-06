@@ -809,7 +809,11 @@ extern "C" void orientation(GtkRadioButton *widget, gpointer user_data) {
 
   // Again, this could be neater.
   if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget)) == TRUE) {
+#if GTK_CHECK_VERSION (2,20,0)
+    if(!strcmp(gtk_buildable_get_name(GTK_BUILDABLE(widget)), "radiobutton1")) {
+#else
     if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton1")) {
+#endif
       dasher_app_settings_set_long(pPrivate->pAppSettings, LP_ORIENTATION, Dasher::Opts::Alphabet);
       
       // FIXME - get rid of global variables here.
@@ -842,7 +846,11 @@ extern "C" void orientation(GtkRadioButton *widget, gpointer user_data) {
 
       pPrivate->bIgnoreSignals = false;
     }
+#if GTK_CHECK_VERSION (2,20,0)
+    else if(!strcmp(gtk_buildable_get_name(GTK_BUILDABLE(widget)), "radiobutton12")) {
+#else
     else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton12")) {
+#endif
       gtk_widget_set_sensitive(GTK_WIDGET(pPrivate->pLRButton), TRUE);
       gtk_widget_set_sensitive(GTK_WIDGET(pPrivate->pRLButton), TRUE);
       gtk_widget_set_sensitive(GTK_WIDGET(pPrivate->pTBButton), TRUE);
@@ -851,16 +859,32 @@ extern "C" void orientation(GtkRadioButton *widget, gpointer user_data) {
       dasher_app_settings_set_long(pPrivate->pAppSettings, LP_ORIENTATION,
           dasher_app_settings_get_long(pPrivate->pAppSettings, LP_REAL_ORIENTATION));
     }
+#if GTK_CHECK_VERSION (2,20,0)
+    else if(!strcmp(gtk_buildable_get_name(GTK_BUILDABLE(widget)), "radiobutton2")) {
+#else
     else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton2")) {
+#endif
       dasher_app_settings_set_long(pPrivate->pAppSettings, LP_ORIENTATION, Dasher::Opts::LeftToRight);
     }
+#if GTK_CHECK_VERSION (2,20,0)
+    else if(!strcmp(gtk_buildable_get_name(GTK_BUILDABLE(widget)), "radiobutton3")) {
+#else
     else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton3")) {
+#endif
       dasher_app_settings_set_long(pPrivate->pAppSettings, LP_ORIENTATION, Dasher::Opts::RightToLeft);
     }
+#if GTK_CHECK_VERSION (2,20,0)
+    else if(!strcmp(gtk_buildable_get_name(GTK_BUILDABLE(widget)), "radiobutton4")) {
+#else
     else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton4")) {
+#endif
       dasher_app_settings_set_long(pPrivate->pAppSettings, LP_ORIENTATION, Dasher::Opts::TopToBottom);
     }
+#if GTK_CHECK_VERSION (2,20,0)
+    else if(!strcmp(gtk_buildable_get_name(GTK_BUILDABLE(widget)), "radiobutton5")) {
+#else
     else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton5")) {
+#endif
       dasher_app_settings_set_long(pPrivate->pAppSettings, LP_ORIENTATION, Dasher::Opts::BottomToTop);
     }
   }
@@ -895,6 +919,19 @@ extern "C" void languagemodel(GtkRadioButton *widget, gpointer user_data) {
   //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
 
+#if GTK_CHECK_VERSION (2,20,0)
+  if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget))==TRUE) {
+    if( !strcmp( gtk_buildable_get_name( GTK_BUILDABLE(widget) ), "radiobutton6" ) ) {
+      dasher_app_settings_set_long(pPrivate->pAppSettings, LP_LANGUAGE_MODEL_ID, 0 );
+    } else if (!strcmp( gtk_buildable_get_name( GTK_BUILDABLE(widget) ), "radiobutton7" )) {
+      dasher_app_settings_set_long(pPrivate->pAppSettings, LP_LANGUAGE_MODEL_ID, 2 );
+    } else if (!strcmp( gtk_buildable_get_name( GTK_BUILDABLE(widget) ), "radiobutton8" )) {
+      dasher_app_settings_set_long(pPrivate->pAppSettings, LP_LANGUAGE_MODEL_ID, 3 );
+    } else if (!strcmp( gtk_buildable_get_name( GTK_BUILDABLE(widget) ), "radiobutton9" )) {
+      dasher_app_settings_set_long(pPrivate->pAppSettings, LP_LANGUAGE_MODEL_ID, 4 );
+    }
+  }
+#else
   if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget))==TRUE) {
     if( !strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "radiobutton6" ) ) {
       dasher_app_settings_set_long(pPrivate->pAppSettings, LP_LANGUAGE_MODEL_ID, 0 );
@@ -906,6 +943,7 @@ extern "C" void languagemodel(GtkRadioButton *widget, gpointer user_data) {
       dasher_app_settings_set_long(pPrivate->pAppSettings, LP_LANGUAGE_MODEL_ID, 4 );
     }
   }
+#endif
 }
 
 extern "C" void uniform_changed(GtkHScale *hscale) {
@@ -932,6 +970,18 @@ extern "C" void on_appstyle_changed(GtkWidget *widget, gpointer user_data) {
   //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
 
+#if GTK_CHECK_VERSION (2,20,0)
+  if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget))) {
+    if(!strcmp(gtk_buildable_get_name(GTK_BUILDABLE(widget)), "appstyle_classic"))
+      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 0);
+    else if(!strcmp(gtk_buildable_get_name(GTK_BUILDABLE(widget)), "appstyle_compose"))
+      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 1);
+    else if(!strcmp(gtk_buildable_get_name(GTK_BUILDABLE(widget)), "appstyle_direct"))
+      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 2);
+    else if(!strcmp(gtk_buildable_get_name(GTK_BUILDABLE(widget)), "appstyle_fullscreen"))
+      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 3);
+  }
+#else
   if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget))) {
     if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "appstyle_classic"))
       dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 0);
@@ -942,6 +992,7 @@ extern "C" void on_appstyle_changed(GtkWidget *widget, gpointer user_data) {
     else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "appstyle_fullscreen"))
       dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_STYLE, 3);
   }
+#endif
 }
 
 extern "C" void on_dasher_font_changed(GtkFontButton *pButton, gpointer pUserData) {
