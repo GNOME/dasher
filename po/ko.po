@@ -11,10 +11,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&component=general\n"
-"POT-Creation-Date: 2010-03-13 14:10+0900\n"
-"PO-Revision-Date: 2010-03-13 14:19+0900\n"
+"POT-Creation-Date: 2010-10-09 03:15+0900\n"
+"PO-Revision-Date: 2010-10-09 03:19+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr@googlegroups.com>\n"
+"Language: Korean\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,7 +27,7 @@ msgstr ""
 #: ../Data/GUI/dasher.direct.ui.h:2 ../Data/GUI/dasher.fullscreen.ui.h:1
 #: ../Data/GUI/dasher.gameWIP.ui.h:6 ../Data/GUI/dasher.traditional.ui.h:6
 #: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dashermaemofullscreen.ui.h:2
-#: ../Src/Gtk2/dasher_main.cpp:953
+#: ../Src/Gtk2/dasher_main.cpp:895
 msgid "Dasher"
 msgstr "대셔"
 
@@ -105,8 +106,8 @@ msgstr "다른 이름으로 저장"
 #: ../Data/GUI/dasher.compose.ui.h:15 ../Data/GUI/dasher.fullscreen.ui.h:3
 #: ../Data/GUI/dasher.gameWIP.ui.h:23 ../Data/GUI/dashermaemo.ui.h:5
 #: ../Data/GUI/dashermaemofullscreen.ui.h:5
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1320
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1354 ../Src/Gtk2/dasher_main.cpp:968
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1286
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1320 ../Src/Gtk2/dasher_main.cpp:910
 msgid "Select File"
 msgstr "파일을 선택하십시오"
 
@@ -187,7 +188,7 @@ msgid "Preferences"
 msgstr "기본 설정"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:19 ../Data/GUI/dasher.traditional.ui.h:14
-#: ../Src/Gtk2/dasher_main.cpp:1046
+#: ../Src/Gtk2/dasher_main.cpp:988
 msgid "Quit"
 msgstr "끝내기"
 
@@ -278,190 +279,180 @@ msgid "<b>Starting and Stopping</b>"
 msgstr "<b>시작 및 중지</b>"
 
 #: ../Data/GUI/dasher.preferences.ui.h:18
+msgid "A_pplication"
+msgstr "프로그램(_P)"
+
+#: ../Data/GUI/dasher.preferences.ui.h:19
 #: ../Data/GUI/dashermaemo.preferences.ui.h:9
 msgid "Adapt speed automatically"
 msgstr "자동으로 속도 조정"
 
 #. The default display orientation for the selected alphabet, i.e., left to right for English, right to left for Arabic, etc.
-#: ../Data/GUI/dasher.preferences.ui.h:20
+#: ../Data/GUI/dasher.preferences.ui.h:21
 #: ../Data/GUI/dashermaemo.preferences.ui.h:11
 msgid "Alphabet Default"
 msgstr "알파벳 기본값"
 
-#: ../Data/GUI/dasher.preferences.ui.h:21
-msgid "Appearance"
-msgstr "모양"
-
 #: ../Data/GUI/dasher.preferences.ui.h:22
-msgid "Application"
-msgstr "프로그램"
-
-#: ../Data/GUI/dasher.preferences.ui.h:23
 #: ../Data/GUI/dashermaemo.preferences.ui.h:12
 msgid "Bottom to Top"
 msgstr "아래에서 위로"
 
+#. Abbreviation for Control Style
 #: ../Data/GUI/dasher.preferences.ui.h:24
+msgid "C_ontrol"
+msgstr "컨트롤(_O)"
+
+#: ../Data/GUI/dasher.preferences.ui.h:25
 msgid "Centre circle"
 msgstr "가운데 동그라미"
 
-#: ../Data/GUI/dasher.preferences.ui.h:25
+#: ../Data/GUI/dasher.preferences.ui.h:26
 msgid "Composition"
 msgstr "조합"
 
-#. Abbreviation for Control Style
-#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 #: ../Data/GUI/dasher.preferences.ui.h:27
-#: ../Data/GUI/dashermaemo.preferences.ui.h:14
-msgid "Control"
-msgstr "컨트롤"
-
-#: ../Data/GUI/dasher.preferences.ui.h:28
 msgid "Control mode"
 msgstr "컨트롤 모드"
 
-#: ../Data/GUI/dasher.preferences.ui.h:29
+#: ../Data/GUI/dasher.preferences.ui.h:28
 #: ../Data/GUI/dashermaemo.preferences.ui.h:15
 msgid "Custom"
 msgstr "사용자"
 
-#: ../Data/GUI/dasher.preferences.ui.h:30
+#: ../Data/GUI/dasher.preferences.ui.h:29
 #: ../Data/GUI/dashermaemo.preferences.ui.h:16
 msgid "Custom colour scheme:"
 msgstr "사용자 설정 색:"
 
-#: ../Data/GUI/dasher.preferences.ui.h:31
+#: ../Data/GUI/dasher.preferences.ui.h:30
 #: ../Data/GUI/dashermaemo.preferences.ui.h:17
 msgid "Dasher Preferences"
 msgstr "대셔 기본 설정"
 
-#: ../Data/GUI/dasher.preferences.ui.h:32
+#: ../Data/GUI/dasher.preferences.ui.h:31
 msgid "Direct entry"
 msgstr "직접 입력창"
 
-#: ../Data/GUI/dasher.preferences.ui.h:33
+#: ../Data/GUI/dasher.preferences.ui.h:32
 msgid "Dock application window"
 msgstr "도크 프로그램 창"
 
-#: ../Data/GUI/dasher.preferences.ui.h:34
+#: ../Data/GUI/dasher.preferences.ui.h:33
 msgid "Draw box outlines"
 msgstr "상자 외곽선 그리기"
 
-#: ../Data/GUI/dasher.preferences.ui.h:35
+#: ../Data/GUI/dasher.preferences.ui.h:34
 msgid "Draw line between crosshairs and mouse"
 msgstr "십자선과 마우스 사이에 선 그리기"
 
-#: ../Data/GUI/dasher.preferences.ui.h:36
+#: ../Data/GUI/dasher.preferences.ui.h:35
 msgid "Full Screen"
 msgstr "전체 화면"
 
-#: ../Data/GUI/dasher.preferences.ui.h:37
+#: ../Data/GUI/dasher.preferences.ui.h:36
 msgid "Increase line thickness"
 msgstr "선 굵기 증가"
 
-#: ../Data/GUI/dasher.preferences.ui.h:38
+#: ../Data/GUI/dasher.preferences.ui.h:37
 #: ../Data/GUI/dashermaemo.preferences.ui.h:19
 msgid "Japanese"
 msgstr "일본어"
 
-#: ../Data/GUI/dasher.preferences.ui.h:39
-msgid "Language"
-msgstr "언어"
-
-#: ../Data/GUI/dasher.preferences.ui.h:40
+#: ../Data/GUI/dasher.preferences.ui.h:38
 #: ../Data/GUI/dashermaemo.preferences.ui.h:20
 msgid "Language model adapts as you write."
 msgstr "언어 모델은 텍스트를 쓸 때마다 거기에 맞춰갑니다."
 
-#: ../Data/GUI/dasher.preferences.ui.h:41
+#: ../Data/GUI/dasher.preferences.ui.h:39
 msgid "Large font "
 msgstr "큰 글꼴 "
 
-#: ../Data/GUI/dasher.preferences.ui.h:42
+#: ../Data/GUI/dasher.preferences.ui.h:40
 #: ../Data/GUI/dashermaemo.preferences.ui.h:21
 msgid "Left to Right"
 msgstr "왼쪽에서 오른쪽으로"
 
 #. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/GUI/dasher.preferences.ui.h:44
+#: ../Data/GUI/dasher.preferences.ui.h:42
 #: ../Data/GUI/dashermaemo.preferences.ui.h:22
 msgid "Mixture model (PPM/dictionary)"
 msgstr "혼합 모델 (PPM/사전)"
 
-#: ../Data/GUI/dasher.preferences.ui.h:45
+#: ../Data/GUI/dasher.preferences.ui.h:43
 msgid "Options"
 msgstr "옵션"
 
-#: ../Data/GUI/dasher.preferences.ui.h:46
+#: ../Data/GUI/dasher.preferences.ui.h:44
 msgid "Pause outside of canvas"
 msgstr "캔버스 밖에서 일시 중지"
 
-#: ../Data/GUI/dasher.preferences.ui.h:47
+#: ../Data/GUI/dasher.preferences.ui.h:45
 #: ../Data/GUI/dashermaemo.preferences.ui.h:24
 msgid "Right to Left"
 msgstr "오른쪽에서 왼쪽으로"
 
-#: ../Data/GUI/dasher.preferences.ui.h:48
+#: ../Data/GUI/dasher.preferences.ui.h:46
 msgid "Select Dasher Font"
 msgstr "대셔 글꼴을 선택하십시오"
 
-#: ../Data/GUI/dasher.preferences.ui.h:49
+#: ../Data/GUI/dasher.preferences.ui.h:47
 msgid "Select Editor Font"
 msgstr "편집기 글꼴을 선택하십시오"
 
-#: ../Data/GUI/dasher.preferences.ui.h:50
+#: ../Data/GUI/dasher.preferences.ui.h:48
 msgid "Show mouse position"
 msgstr "마우스 위치 표시"
 
-#: ../Data/GUI/dasher.preferences.ui.h:51
+#: ../Data/GUI/dasher.preferences.ui.h:49
 msgid "Show speed slider"
 msgstr "속도 슬라이더 표시"
 
-#: ../Data/GUI/dasher.preferences.ui.h:52
+#: ../Data/GUI/dasher.preferences.ui.h:50
 msgid "Show toolbar"
 msgstr "도구 모음 표시"
 
-#: ../Data/GUI/dasher.preferences.ui.h:53
+#: ../Data/GUI/dasher.preferences.ui.h:51
 msgid "Small font"
 msgstr "작은 글꼴"
 
-#: ../Data/GUI/dasher.preferences.ui.h:54
+#: ../Data/GUI/dasher.preferences.ui.h:52
 msgid "Stand-alone"
 msgstr "단일 모드"
 
 #. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/GUI/dasher.preferences.ui.h:56
+#: ../Data/GUI/dasher.preferences.ui.h:54
 #: ../Data/GUI/dashermaemo.preferences.ui.h:25
 msgid "Standard letter-based PPM"
 msgstr "표준 글자 기반 PPM"
 
-#: ../Data/GUI/dasher.preferences.ui.h:57
+#: ../Data/GUI/dasher.preferences.ui.h:55
 msgid "Start on left mouse button"
 msgstr "왼쪽 마우스 단추를 누르면 시작"
 
-#: ../Data/GUI/dasher.preferences.ui.h:58
+#: ../Data/GUI/dasher.preferences.ui.h:56
 msgid "Start on space bar"
 msgstr "스페이스바를 누르면 시작"
 
-#: ../Data/GUI/dasher.preferences.ui.h:59
+#: ../Data/GUI/dasher.preferences.ui.h:57
 msgid "Start with mouse position:"
 msgstr "마우스 위치에 따라 시작:"
 
-#: ../Data/GUI/dasher.preferences.ui.h:60
+#: ../Data/GUI/dasher.preferences.ui.h:58
 msgid "Timestamp new files"
 msgstr "새 파일 타임 스탬프"
 
-#: ../Data/GUI/dasher.preferences.ui.h:61
+#: ../Data/GUI/dasher.preferences.ui.h:59
 #: ../Data/GUI/dashermaemo.preferences.ui.h:26
 msgid "Top to Bottom"
 msgstr "위에서 아래로"
 
-#: ../Data/GUI/dasher.preferences.ui.h:62
+#: ../Data/GUI/dasher.preferences.ui.h:60
 msgid "Two box"
 msgstr "두 개 상자"
 
 #. Line wrapping not necessary, but looks better for English
-#: ../Data/GUI/dasher.preferences.ui.h:64
+#: ../Data/GUI/dasher.preferences.ui.h:62
 msgid ""
 "Use this control to adjust the relative sizes of the\n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -470,14 +461,22 @@ msgstr ""
 "이 컨트롤을 사용해 글자 상자의 상대적인 크기를 조정합니다.\n"
 "높은 값을 선택하면 글자 쓰는 속도가 느려지니 주의하십시오."
 
-#: ../Data/GUI/dasher.preferences.ui.h:67
+#: ../Data/GUI/dasher.preferences.ui.h:65
 msgid "Very large font"
 msgstr "아주 큰 글꼴"
 
-#: ../Data/GUI/dasher.preferences.ui.h:68
+#: ../Data/GUI/dasher.preferences.ui.h:66
 #: ../Data/GUI/dashermaemo.preferences.ui.h:28
 msgid "Word-based model"
 msgstr "단어 단위 모델"
+
+#: ../Data/GUI/dasher.preferences.ui.h:67
+msgid "_Appearance"
+msgstr "모양(_A)"
+
+#: ../Data/GUI/dasher.preferences.ui.h:68
+msgid "_Language"
+msgstr "언어(_L)"
 
 #. Abbreviation for Preferences
 #: ../Data/GUI/dashermaemo.ui.h:3
@@ -499,6 +498,11 @@ msgstr "<b>방향</b>"
 #: ../Data/GUI/dashermaemo.preferences.ui.h:10
 msgid "Alphabet"
 msgstr "알파벳"
+
+#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:14
+msgid "Control"
+msgstr "컨트롤"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:18
 msgid "Enlarge input window"
@@ -586,6 +590,21 @@ msgstr "상자 크기 다르게"
 msgid "Maximum Zoom"
 msgstr "최대 크기"
 
+#. TRANSLATORS: In click mode, when you click with the mouse, you select
+#. a piece of y-axis to be zoomed to, based on the mouse coordinates. The
+#. "guides" are lines from the mouse position to the edges of the piece of
+#. y-axis.
+#: ../Src/DasherCore/ClickFilter.cpp:15
+msgid "Draw guides on screen to show area into which a click will zoom"
+msgstr "화면에 안내선 표시, 마우스 단추를 누르면 확대"
+
+#. TRANSLATORS: As dasher's on-screen coordinate space is not flat,
+#. the straight guide lines should in fact really be curved. This option
+#. draws the guides as correct, though possibly more confusing, curves.
+#: ../Src/DasherCore/ClickFilter.cpp:19
+msgid "Curve lines to follow the non-linearity of the view transform"
+msgstr "보기 창의 비선형 변화에 맞춰 곡선 사용"
+
 #: ../Src/DasherCore/ClickFilter.h:12
 msgid "Click Mode"
 msgstr "누르기 모드"
@@ -600,24 +619,24 @@ msgstr "오른쪽 확대 단계"
 msgid "Compass Mode"
 msgstr "나침반 모드"
 
-#: ../Src/DasherCore/DasherGameMode.cpp:636
+#: ../Src/DasherCore/DasherGameMode.cpp:637
 msgid "Well done!"
 msgstr "잘 했습니다!"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:910
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:909
 msgid "Normal Control"
 msgstr "보통 컨트롤"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:926
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:925
 msgid "Menu Mode"
 msgstr "메뉴 모드"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:927
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:926
 msgid "Direct Mode"
 msgstr "직접 모드"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:931
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:930
 msgid "Stylus Control"
 msgstr "스타일러스 컨트롤"
 
@@ -844,23 +863,35 @@ msgstr "정수 파라미터"
 msgid "String parameters"
 msgstr "문자열 파라미터"
 
-#: ../Src/Gtk2/Preferences.cpp:437 ../Src/Gtk2/Preferences.cpp:1008
+#: ../Src/Gtk2/Preferences.cpp:440 ../Src/Gtk2/Preferences.cpp:1062
 msgid "Action"
 msgstr "동작"
 
 #. TRANSLATORS: Show a button for the selected action in the Dasher window.
-#: ../Src/Gtk2/Preferences.cpp:1015
+#: ../Src/Gtk2/Preferences.cpp:1069
 msgid "Show Button"
 msgstr "단추 표시"
 
-#: ../Src/Gtk2/Preferences.cpp:1020
+#: ../Src/Gtk2/Preferences.cpp:1074
 msgid "Control Mode"
 msgstr "컨트롤 모드"
 
 #. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
-#: ../Src/Gtk2/Preferences.cpp:1026
+#: ../Src/Gtk2/Preferences.cpp:1080
 msgid "Auto On Stop"
 msgstr "멈출때 자동"
+
+#: ../Src/Gtk2/Speech.cpp:27
+msgid "Unable to initialize speech support\n"
+msgstr "음성 기능을 초기화할 수 없습니다\n"
+
+#: ../Src/Gtk2/Speech.cpp:58
+msgid "Warning: unable to set speech parameters\n"
+msgstr "경고: 음성 인자를 설정할 수 없습니다\n"
+
+#: ../Src/Gtk2/Speech.cpp:69
+msgid "Unable to initialize voices\n"
+msgstr "음성을 초기화할 수 없습니다\n"
 
 #: ../Src/Gtk2/dasher_action_keyboard.cpp:62
 #: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:96
@@ -871,49 +902,17 @@ msgstr "텍스트 입력"
 msgid "Script"
 msgstr "스크립트"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:137
-msgid "Speak"
-msgstr "말하기"
-
-#. TRANSLATORS: Send all text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:150
-msgid "All"
-msgstr "모두"
-
-#. TRANSLATORS: Send most recently entered text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:153
-msgid "Last"
-msgstr "마지막"
-
-#. TRANSLATORS: Repeat the last phrase sent to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:156
-msgid "Repeat"
-msgstr "반복"
-
-#: ../Src/Gtk2/dasher_action_speech.cpp:174
-#, c-format
-msgid "Unable to initialize speech support\n"
-msgstr "음성 기능을 초기화할 수 없습니다\n"
-
-#: ../Src/Gtk2/dasher_action_speech.cpp:197
-msgid "Unable to initialize voices\n"
-msgstr "음성을 초기화할 수 없습니다\n"
-
-#: ../Src/Gtk2/dasher_action_speech.cpp:209
-msgid "Warning: unable to set speech parameters\n"
-msgstr "경고: 음성 인자를 설정할 수 없습니다\n"
-
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
-#: ../Src/Gtk2/dasher_main.cpp:266
+#: ../Src/Gtk2/dasher_main.cpp:265
 msgid "option setting is missing \"=\"."
 msgstr "옵션 설정에 \"=\" 문자가 빠졌습니다."
 
 #. Note to translators: This string will be output when --options= specifies an unknown option.
-#: ../Src/Gtk2/dasher_main.cpp:282
+#: ../Src/Gtk2/dasher_main.cpp:281
 msgid "Invalid option string specified"
 msgstr "지정한 옵션 문자열이 잘못되었습니다"
 
-#: ../Src/Gtk2/dasher_main.cpp:1008
+#: ../Src/Gtk2/dasher_main.cpp:950
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -924,7 +923,7 @@ msgstr ""
 "\n"
 "저장하지 않으면 바뀐 사항을 잃게 됩니다."
 
-#: ../Src/Gtk2/dasher_main.cpp:1015
+#: ../Src/Gtk2/dasher_main.cpp:957
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -934,31 +933,31 @@ msgstr ""
 "\n"
 "저장하지 않으면 바뀐 사항을 잃게 됩니다."
 
-#: ../Src/Gtk2/dasher_main.cpp:1021
+#: ../Src/Gtk2/dasher_main.cpp:963
 msgid "Don't save"
 msgstr "저장하지 않기"
 
-#: ../Src/Gtk2/dasher_main.cpp:1022 ../Src/Gtk2/dasher_main.cpp:1045
+#: ../Src/Gtk2/dasher_main.cpp:964 ../Src/Gtk2/dasher_main.cpp:987
 msgid "Don't quit"
 msgstr "끝내지 않기"
 
-#: ../Src/Gtk2/dasher_main.cpp:1023
+#: ../Src/Gtk2/dasher_main.cpp:965
 msgid "Save and quit"
 msgstr "저장하고 끝내기"
 
-#: ../Src/Gtk2/dasher_main.cpp:1042
+#: ../Src/Gtk2/dasher_main.cpp:984
 msgid "Are you sure you wish to quit?"
 msgstr "정말로 끝내시겠습니까?"
 
-#: ../Src/Gtk2/dasher_main.cpp:1089
+#: ../Src/Gtk2/dasher_main.cpp:1031
 msgid "Unable to open help file"
 msgstr "도움말 파일을 열 수 없습니다"
 
-#: ../Src/Gtk2/dasher_main.cpp:1141
+#: ../Src/Gtk2/dasher_main.cpp:1083
 msgid "Dasher is a predictive text entry application"
 msgstr "대셔는 예측을 통한 텍스트 입력 프로그램입니다."
 
-#: ../Src/Gtk2/dasher_main.cpp:1146
+#: ../Src/Gtk2/dasher_main.cpp:1088
 msgid "translator-credits"
 msgstr "류창우 <cwryu@debian.org>"
 
