@@ -459,33 +459,33 @@ void CControlManager::updateActions() {
   //  or a static filter but a 'stop' action is easier than using speak->all / copy->all then pause)
   if (m_pInterface->hasStopTriggers() && m_pInterface->GetBoolParameter(BP_CONTROL_MODE_HAS_HALT))
     vRootSuccessors.push_back(m_perId[CTL_STOP]);
-  if (*it == m_perId[CTL_STOP]) it++;
+  if (it!=vOldRootSuccessors.end() && *it == m_perId[CTL_STOP]) it++;
   
   //filter is pauseable, and either 'stop' would do something (so pause is different),
   // or we're told to have a stop node but it would be indistinguishable from pause (=>have pause)
   CInputFilter *pInput(static_cast<CInputFilter *>(m_pInterface->GetModuleByName(m_pInterface->GetStringParameter(SP_INPUT_FILTER))));
   if (pInput->supportsPause() && (m_pInterface->hasStopTriggers() || m_pInterface->GetBoolParameter(BP_CONTROL_MODE_HAS_HALT)))
     vRootSuccessors.push_back(m_perId[CTL_PAUSE]);
-  if (*it == m_perId[CTL_PAUSE]) it++;
+  if (it!=vOldRootSuccessors.end() && *it == m_perId[CTL_PAUSE]) it++;
   
   if (m_pInterface->GetBoolParameter(BP_CONTROL_MODE_HAS_SPEECH) && m_pInterface->SupportsSpeech()) {
     if (!m_pSpeech) m_pSpeech = new SpeechHeader(m_pInterface, GetRootTemplate());
     vRootSuccessors.push_back(m_pSpeech);
   }
-  if (*it == m_pSpeech) it++;
+  if (it!=vOldRootSuccessors.end() && *it == m_pSpeech) it++;
   
   if (m_pInterface->GetBoolParameter(BP_CONTROL_MODE_HAS_COPY) && m_pInterface->SupportsClipboard()) {
     if (!m_pCopy) m_pCopy = new CopyHeader(m_pInterface, GetRootTemplate());
     vRootSuccessors.push_back(m_pCopy);
   }
-  if (*it == m_pCopy) it++;
+  if (it!=vOldRootSuccessors.end() && *it == m_pCopy) it++;
 
   if (m_pInterface->GetBoolParameter(BP_CONTROL_MODE_HAS_EDIT)) {
     vRootSuccessors.push_back(m_perId[CTL_MOVE]);
     vRootSuccessors.push_back(m_perId[CTL_DELETE]);
   }
-  if (*it == m_perId[CTL_MOVE]) it++;
-  if (*it == m_perId[CTL_DELETE]) it++;
+  if (it!=vOldRootSuccessors.end() && *it == m_perId[CTL_MOVE]) it++;
+  if (it!=vOldRootSuccessors.end() && *it == m_perId[CTL_DELETE]) it++;
   
   //copy anything else (custom) that might have been added...
   while (it != vOldRootSuccessors.end()) vRootSuccessors.push_back(*it++);
