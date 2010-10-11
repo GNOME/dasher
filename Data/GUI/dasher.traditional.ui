@@ -198,7 +198,6 @@
         <child>
           <object class="GtkMenuBar" constructor="uimanager1" id="dasher_menu_bar">
             <property name="visible">True</property>
-            <property name="tooltip-text" translatable="yes">Quit</property>
             <property name="pack_direction">GTK_PACK_DIRECTION_LTR</property>
             <property name="child_pack_direction">GTK_PACK_DIRECTION_LTR</property>
             <signal handler="test_focus_handler" name="focus-in-event"/>
