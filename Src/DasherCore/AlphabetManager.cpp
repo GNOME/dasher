@@ -68,7 +68,7 @@ CAlphabetManager::CAlphNode::CAlphNode(CDasherNode *pParent, int iOffset, unsign
 }
 
 CAlphabetManager::CSymbolNode::CSymbolNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CAlphabetManager *pMgr, symbol _iSymbol)
-: CAlphNode(pParent, iOffset, iLbnd, iHbnd, pMgr->m_pAlphabet->GetColour(_iSymbol, iOffset%2), pMgr->m_pAlphabet->GetDisplayText(_iSymbol), pMgr), iSymbol(_iSymbol) {
+: CAlphNode(pParent, iOffset, iLbnd, iHbnd, pMgr->m_pAlphabet->GetColour(_iSymbol, (iOffset&1)^1), pMgr->m_pAlphabet->GetDisplayText(_iSymbol), pMgr), iSymbol(_iSymbol) {
 }
 
 CAlphabetManager::CSymbolNode::CSymbolNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const string &strDisplayText, CAlphabetManager *pMgr, symbol _iSymbol)
@@ -78,7 +78,7 @@ CAlphabetManager::CSymbolNode::CSymbolNode(CDasherNode *pParent, int iOffset, un
 CAlphabetManager::CGroupNode::CGroupNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CAlphabetManager *pMgr, const SGroupInfo *pGroup)
 : CAlphNode(pParent, iOffset, iLbnd, iHbnd,
             pGroup ? (pGroup->bVisible ? pGroup->iColour : pParent->getColour())
-            : iOffset%2 == 1 ? 140 : 10, //special case - was AlphInfo::GetColour for symbol _0_
+            : (iOffset&1) ? 7 : 137, //special case for root nodes
             pGroup ? pGroup->strLabel : "", pMgr), m_pGroup(pGroup) {
 }
 
