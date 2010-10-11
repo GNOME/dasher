@@ -419,6 +419,15 @@ extern "C" void generic_bool_changed(GtkWidget *widget, gpointer user_data) {
   dasher_preferences_dialogue_refresh_parameter(g_pPreferencesDialogue, widget, user_data);// TODO: fix NULL
 }
 
+extern "C" void outline_button_toggled(GtkWidget *widget, gpointer user_data) {
+	DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue);
+	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget))) {
+		dasher_app_settings_set_long(pPrivate->pAppSettings, LP_OUTLINE_WIDTH, 1);
+	} else {
+		dasher_app_settings_set_long(pPrivate->pAppSettings, LP_OUTLINE_WIDTH, 0);
+	}
+}
+
 // --- Generic string options ---
 
 void dasher_preferences_dialogue_populate_list(DasherPreferencesDialogue *pSelf, GtkTreeView *pView, int iParameter, GtkWidget *pHelper) {

@@ -985,7 +985,7 @@ your writing speed.</property>
                                         <property name="label" translatable="yes">Draw box outlines</property>
                                         <property name="use_underline">True</property>
                                         <property name="draw_indicator">True</property>
-                                        <signal handler="generic_bool_changed" name="clicked"/>
+                                        <signal handler="outline_button_toggled" name="toggled"/>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
