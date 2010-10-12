@@ -8,8 +8,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 
-inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Colour, int iOutlineColour, Dasher::Opts::ColorSchemes ColorScheme, int iThickness) {
-//      HBRUSH brush=m_Brushes[ColorScheme][Color%m_Brushes[ColorScheme].size()];
+inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Colour, int iOutlineColour, int iThickness) {
   HBRUSH brush = CScreen::GetBrush(Colour);
   RECT Rect;
   Rect.left = x1;
@@ -21,7 +20,7 @@ inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, scr
 
 #ifndef DASHER_WINCE
 
-  if(iOutlineColour != -1) {
+  if(iWidth != -1) {
 
     point aPoints[5];
 
@@ -32,7 +31,7 @@ inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, scr
     aPoints[4].x=x1; aPoints[4].y=y1;
 
 	//FrameRect(m_hDCBuffer, &Rect, CScreen::GetBrush(iOutlineColour));
-	Polyline(aPoints, 5, iThickness, iOutlineColour);
+	Polyline(aPoints, 5, iThickness, iOutlineColour==-1 ? 3 : iOutlineColour);
   }
 #endif
 
@@ -74,18 +73,6 @@ inline void CScreen::Polyline(point *Points, int Number, int iWidth, int iColour
 /*inline void CScreen::Polyline(point *Points, int Number, int iWidth) {
   Polyline(Points, Number, iWidth, 0);
 }*/
-
-inline void CScreen::DrawPolygon(point *Points, int Number, int Color, Dasher::Opts::ColorSchemes ColorScheme) {
-  HPEN pen = (HPEN) GetStockObject(NULL_PEN);
-  HPEN hpold = (HPEN) SelectObject(m_hDCBuffer, pen);
-  HBRUSH hbold = (HBRUSH) SelectObject(m_hDCBuffer, CScreen::GetBrush(ColorScheme));
-  POINT *WinPoints = new POINT[Number];
-  point2POINT(Points, WinPoints, Number);
-  ::Polygon(m_hDCBuffer, WinPoints, Number);
-  delete[]WinPoints;
-  SelectObject(m_hDCBuffer, hpold);
-  SelectObject(m_hDCBuffer, hbold);
-}
 
 inline void CScreen::Blank() {
   RECT rect;

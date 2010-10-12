@@ -183,7 +183,7 @@ void CCanvas::Display() {
   gdk_draw_pixbuf(m_pCanvas->window, graphics_context, display_pixbuf, 0, 0, 0, 0, m_iWidth,m_iHeight, GDK_RGB_DITHER_NORMAL, 0, 0);
 }
 
-void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, int iThickness) {
+void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutlineColour, int iThickness) {
 bool bFill= Color!=-1 && IGNAS_DRAW_MAIN_RECTANGLES;
 IGNAS_RECTANGLE_STOP_VOID
 IGNAS_STOP_VOID

@@ -139,22 +139,24 @@ public:
   void DasherPolyline(myint * x, myint * y, int n, int iWidth, int iColour);
 
   /// Draw a polyarrow
-
+  /// \param iColour line colour, as per Polyline (-1 => use "default" 0)
   void DasherPolyarrow(myint * x, myint * y, int n, int iWidth, int iColour, double dArrowSizeFactor = 0.7071);
 
   ///
   /// Draw a rectangle specified in Dasher co-ordinates
-  /// Color of -1 => no fill; any other value => fill in that color
-  /// iOutlineColor of -1 => no outline; any other value => outline in that color, EXCEPT
-  /// Thickness < 1 => no outline.
+  /// \param Color color in which to fill, -1 => no fill
+  /// \param iOutlineColor colour in which to draw outline, -1 => use default
+  /// \param iThickness line width for outline, < 1 => no outline.
   ///
-  void DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myint iBottom, const int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, int iThickness);
+  void DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myint iBottom, const int Color, int iOutlineColour, int iThickness);
 
   ///
   /// Draw a centred rectangle specified in Dasher co-ordinates (used for mouse cursor)
+  /// \param Color fill color for rectangle (-1 => don't fill)
+  /// \param bDrawOutline if true, rectangle will be outlined with width 1 and default line colour (-1 => 3)
   ///
 
-  void DasherDrawCentredRectangle(myint iDasherX, myint iDasherY, screenint iSize, const int Color, Opts::ColorSchemes ColorScheme, bool bDrawOutline);
+  void DasherDrawCentredRectangle(myint iDasherX, myint iDasherY, screenint iSize, const int Color, bool bDrawOutline);
 
   void DrawText(const std::string & str, myint x, myint y, int Size, int iColor);
 

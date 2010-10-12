@@ -85,8 +85,6 @@ public:
   //virtual void Polygon(point * Points, int Number, int Color, int iWidth,int layer);
   virtual void Polygon(point * Points, int Number, int fillColour, int OutlineColour, int iWidth);
 
-  //void DrawPolygon(point * Points, int Number, int Color, Dasher::Opts::ColorSchemes ColorScheme,int layer=0);
-  void DrawPolygon(point * Points, int Number, int Color, Dasher::Opts::ColorSchemes ColorScheme);
   void Blank();
   void Display();
 

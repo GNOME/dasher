@@ -71,11 +71,9 @@ public:
   /// \param x2 bottom right of rectangle (x coordinate)
   /// \param y2 bottom right of rectangle (y coordinate)
   /// \param Colour the colour to be used (numeric), or -1 for no fill
-  /// \param iOutlineColour The colour for the node outlines, or -1 for no outline
-  /// \param ColorScheme Which colourscheme is to be used
+  /// \param iOutlineColour The colour for the node outlines; -1 = use default
   /// \param iThickness Line thickness for outline; <1 for no outline
-
-  virtual void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Colour, int iOutlineColour, Opts::ColorSchemes ColorScheme, int iThickness) = 0;
+  virtual void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Colour, int iOutlineColour, int iThickness) = 0;
 
   virtual void DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, int iFillColour, int iThickness, bool bFill) = 0;
 

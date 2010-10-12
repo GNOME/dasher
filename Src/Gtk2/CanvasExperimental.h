@@ -112,12 +112,11 @@ public:
   /// \param y1 y coordiate of the top left corner
   /// \param x2 x coordiate of the bottom right corner
   /// \param y2 y coordiate of the bottom right corner
-  /// \param Color Colour to draw the rectangle
-  /// \param ColorScheme Which of the alternating colour schemes to use (be more precise)
-  /// \param bDrawOutline Whether or not to draw outlines for the boxes
+  /// \param iColour Colour to fill rectangle, -1 = don't
+  /// \param iOutlineColour Colour to draw outline; -1 = use default
+  /// \param iThickness Line width in which to draw outline; -1 = don't
   ///
-
-  void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, int iThickness);
+  void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, int iOutlineColour, int iThickness);
 
   void DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, int iFillColour, int iThickness, bool bFill);
 

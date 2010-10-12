@@ -139,7 +139,7 @@ void CDefaultFilter::DrawMouse(CDasherView *pView) {
   ApplyAutoCalibration(iDasherX, iDasherY, false);
   ApplyTransform(iDasherX, iDasherY);
 
-  pView->DasherDrawCentredRectangle(iDasherX, iDasherY, 5, 2, Opts::ColorSchemes(Opts::Objects), false);
+  pView->DasherDrawCentredRectangle(iDasherX, iDasherY, 5, 2, false);
 }
 
 void CDefaultFilter::DrawMouseLine(CDasherView *pView) {

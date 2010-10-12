@@ -225,8 +225,6 @@ void CScreen::TextSize_Impl(const std::string &String, screenint *Width, screeni
 }*/
 
 void CScreen::Polygon(point *Points, int Number, int fillColour, int outlineColour, int iWidth) {
-  // TODO This function is never called. Should it be needed, drawing an outline
-  // if outlineColour != -1 should be implemented.
   HGDIOBJ hpOld;
   hpOld = (HPEN) SelectObject(m_hDCBuffer, CScreen::GetPen(fillColour, iWidth));
   POINT *WinPoints = new POINT[Number];
@@ -234,6 +232,9 @@ void CScreen::Polygon(point *Points, int Number, int fillColour, int outlineColo
   ::Polygon(m_hDCBuffer, WinPoints, Number);
   delete[]WinPoints;
   SelectObject(m_hDCBuffer, hpOld);
+  if (iWidth>0) {
+    Polyline(Points, Number, iWidth, outlineColour==-1 ? 3 : outlineColour);
+  }
 }
 
 /////////////////////////////////////////////////////////////////////////////

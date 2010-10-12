@@ -62,7 +62,8 @@ class Dasher::CDasherNode:private NoClones {
  public:
 
   /// Display attributes of this node, used for rendering.
-  /// Colour: -1 for invisible
+  /// Colour; note invisible nodes just have the same colour as their parent.
+  /// (so we know what colour to use when their parents are deleted)
   inline int getColour() {return m_iColour;}
   inline std::string &getDisplayText() {return m_strDisplayText;}
   ///Whether labels on child nodes should be displaced to the right of this node's label.

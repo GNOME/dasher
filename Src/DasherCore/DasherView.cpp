@@ -177,18 +177,14 @@ void CDasherView::DasherPolyarrow(myint *x, myint *y, int n, int iWidth, int iCo
   ScreenPoints[n+2].x = ScreenPoints[n-1].x + iXvec - iYvec;
   ScreenPoints[n+2].y = ScreenPoints[n-1].y + iXvec + iYvec;
 
-  if(iColour != -1) {
-    Screen()->Polyline(ScreenPoints, n+3, iWidth, iColour);
-  }
-  else {
-    Screen()->Polyline(ScreenPoints, n+3, iWidth,0);//no color given
-  }
+  Screen()->Polyline(ScreenPoints, n+3, iWidth, (iColour==-1) ? 0 : iColour);
+  
   delete[]ScreenPoints;
 }
 
 // Draw a box specified in Dasher co-ordinates
 
-void CDasherView::DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myint iBottom, const int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, int iThickness) {
+void CDasherView::DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myint iBottom, const int Color, int iOutlineColour, int iThickness) {
   screenint iScreenLeft;
   screenint iScreenTop;
   screenint iScreenRight;
@@ -197,18 +193,18 @@ void CDasherView::DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myi
   Dasher2Screen(iLeft, iTop, iScreenLeft, iScreenTop);
   Dasher2Screen(iRight, iBottom, iScreenRight, iScreenBottom);
 
-  Screen()->DrawRectangle(iScreenLeft, iScreenTop, iScreenRight, iScreenBottom, Color, iOutlineColour, ColorScheme, iThickness);
+  Screen()->DrawRectangle(iScreenLeft, iScreenTop, iScreenRight, iScreenBottom, Color, iOutlineColour, iThickness);
 }
 
 /// Draw a rectangle centred on a given dasher co-ordinate, but with a size specified in screen co-ordinates (used for drawing the mouse blob)
 
-void CDasherView::DasherDrawCentredRectangle(myint iDasherX, myint iDasherY, screenint iSize, const int Color, Opts::ColorSchemes ColorScheme, bool bDrawOutline) {
+void CDasherView::DasherDrawCentredRectangle(myint iDasherX, myint iDasherY, screenint iSize, const int Color, bool bDrawOutline) {
   screenint iScreenX;
   screenint iScreenY;
 
   Dasher2Screen(iDasherX, iDasherY, iScreenX, iScreenY);
 
-  Screen()->DrawRectangle(iScreenX - iSize, iScreenY - iSize, iScreenX + iSize, iScreenY + iSize, Color, -1, ColorScheme, bDrawOutline ? 1 : 0);
+  Screen()->DrawRectangle(iScreenX - iSize, iScreenY - iSize, iScreenX + iSize, iScreenY + iSize, Color, -1, bDrawOutline ? 1 : 0);
 }
 
 void CDasherView::DrawText(const std::string & str, myint x, myint y, int Size, int iColor) {

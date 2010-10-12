@@ -27,7 +27,7 @@ void CDasherScreenBridge::Display() {
   [dasherView displayCallback];
 }
 
-void CDasherScreenBridge::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, int iThickness) {
+void CDasherScreenBridge::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutlineColour, int iThickness) {
 
   [dasherView rectangleCallbackX1:x1 y1:y1 x2:x2 y2:y2 fillColorIndex:Color outlineColorIndex:iOutlineColour lineWidth:iThickness];
 }

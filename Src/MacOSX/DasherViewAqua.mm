@@ -146,7 +146,7 @@
   }
   
   if (aLineWidth>0) {
-    [[self colorWithColorIndex:anOutlineColorIndex == -1 ? 3 : anOutlineColorIndex] set];
+    [[self colorWithColorIndex:anOutlineColorIndex] set];
     
     [NSBezierPath setDefaultLineWidth:aLineWidth];
     // gtk also sets these: GDK_LINE_SOLID, GDK_CAP_ROUND, GDK_JOIN_ROUND

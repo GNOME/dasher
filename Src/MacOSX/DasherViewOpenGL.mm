@@ -147,7 +147,7 @@
 }
 
 
-- (void)rectangleCallbackX1:(int)x1 y1:(int)y1 x2:(int)x2 y2:(int)y2 fillColorIndex:(int)aFillColorIndex outlineColorIndex:(int)anOutlineColorIndex lineWidth:(int)aLineWidth {
+- (void)rectangleCallbackX1:(int)x1 y1:(int)y1 x2:(int)x2 y2:(int)y2 fillColorIndex:(int)aFillColorIndex outlineColorIndex:(int)oci lineWidth:(int)aLineWidth {
   
   // don't know if this is needed with opengl...does it cope with wonky coords?
   //  float x, y, width, height;
@@ -179,7 +179,6 @@
   }
   
   if (aLineWidth>0) {
-    int oci = anOutlineColorIndex == -1 ? 3 : anOutlineColorIndex;
     glColor4f(colourTable[oci].r, colourTable[oci].g, colourTable[oci].b, 1.0);
     glLineWidth(aLineWidth);
     GLshort coords[] = {x1,y1, x2,y1, x2,y2, x1,y2};

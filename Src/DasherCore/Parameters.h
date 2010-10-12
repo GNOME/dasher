@@ -194,7 +194,7 @@ static lp_table longparamtable[] = {
   {LP_VIEW_ID, "ViewID", PERS, 1, "ViewID"},
   {LP_LANGUAGE_MODEL_ID, "LanguageModelID", PERS, 0, "LanguageModelID"},
   {LP_DASHER_FONTSIZE, "DasherFontSize", PERS, 2, "DasherFontSize"},
-  {LP_SHAPE_TYPE, "RenderStyle", PERS, 0, "Shapes to render in (0/1=disjoint/overlapping rects, 2/3=triangles/truncated, 4=quadrics, 5=circles)"},
+  {LP_SHAPE_TYPE, "RenderStyle", PERS, 1, "Shapes to render in (0/1=disjoint/overlapping rects, 2/3=triangles/truncated, 4=quadrics, 5=circles)"},
   {LP_UNIFORM, "UniformTimes1000", PERS, 50, "UniformTimes1000"},
   {LP_YSCALE, "YScaling", PERS, 0, "YScaling"},
   {LP_MOUSEPOSDIST, "MousePositionBoxDistance", PERS, 50, "MousePositionBoxDistance"},
