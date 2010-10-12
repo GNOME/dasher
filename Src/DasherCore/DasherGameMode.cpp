@@ -438,13 +438,12 @@ void CDasherGameMode::SetTargetY(const std::vector<std::pair<Dasher::myint,bool>
 
 void CDasherGameMode::CalculateDemoParameters()
 {
+  if(GetLongParameter(LP_FRAMERATE) <= 0) return;
   // Recalculates the parameters used in the demo following a change in framerate or speed.
   double spring = GetLongParameter(LP_DEMO_SPRING)/100.0;
   double noisemem = GetLongParameter(LP_DEMO_NOISE_MEM)/100.0;
-  double lambda = 0.7*double(GetLongParameter(LP_MAX_BITRATE))/(100.0*m_pModel->Framerate());
+  double lambda = 0.7*double(GetLongParameter(LP_MAX_BITRATE))/(100.0*GetLongParameter(LP_FRAMERATE));
   
-  if(m_pModel->Framerate() <= 0) return;
-
   m_DemoCfg.dSpring = (1-exp(-spring*lambda));
   m_DemoCfg.dNoiseNew = noisemem*(1-exp(-lambda));
   m_DemoCfg.dNoiseOld = sqrt(1.0-m_DemoCfg.dNoiseNew*m_DemoCfg.dNoiseNew);

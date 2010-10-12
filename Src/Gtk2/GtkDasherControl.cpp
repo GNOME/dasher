@@ -289,12 +289,6 @@ gtk_dasher_control_force_pause(GtkDasherControl *pControl) {
   pPrivate->pControl->Stop();
 }
 
-double 
-gtk_dasher_control_get_framerate(GtkDasherControl *pControl) {
-  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  return pPrivate->pControl->GetFramerate();
-}
-
 void 
 gtk_dasher_control_add_action_button(GtkDasherControl *pControl, const gchar *szCommand) {
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);

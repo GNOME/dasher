@@ -15,14 +15,12 @@
 #include "Parameters.h"
 #include "DasherComponent.h"
 
-const double LN2 = log(2.0);
-
 namespace Dasher {
 /// \ingroup Model
 /// \{
 
-/// keeps track of framerate
-/// computes the Steps parameter
+/// keeps the framerate (LP_FRAMERATE / 100.0) up-to-date,
+/// computes the Steps parameter,
 /// computes RXmax - which controls the maximum rate of zooming in
 class CFrameRate : public CDasherComponent {
 public:
@@ -46,19 +44,10 @@ public:
     return m_iSteps;
   }; 
 
-  ///
-  /// Get the current framerate
-  ///
-  double Framerate() const {
-    return m_dFr;
-  };
-
   double Bitrate() const {
     return m_dMaxbitrate;
   }
 
-  virtual void BitrateChanged(double dMaxbitrate) {m_dMaxbitrate = dMaxbitrate;}
-  virtual void FramerateChanged(double dFr) {m_dFr = dFr;}
   ///
   /// Reset the framerate class
   /// TODO: Need to check semantics here
@@ -69,15 +58,24 @@ public:
     m_iTime = Time;
   }
 
-
   void RecordFrame(unsigned long Time);
   
 private:
-  double m_dFr;                 // current frame rate (cache of LP_FRAMERATE/100.0)
+  double m_dFrDecay;            // current frame rate (cache of LP_FRAMERATE/100.0)
   double m_dMaxbitrate;         // the maximum rate of entering information (cache)
   double m_dRXmax;              // the maximum zoomin per frame
-  int m_iFrames, m_iTime, m_iTime2, m_iSamples;
+  ///number of frames that have been sampled
+  int m_iFrames;
+  ///time at which first sampled frame was rendered
+  int m_iTime;
+  ///number of frames over which we will compute average framerate
+  int m_iSamples;
+
   int m_iSteps;                 // the 'Steps' parameter. See djw thesis.
+
+  ///updates m_dRXMax and m_iSteps
+  /// \param dFrNow current (non-decaying-average) framerate (if available!)
+  void UpdateSteps(double dFrNow);
 };
 /// \}
 }

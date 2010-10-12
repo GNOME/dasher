@@ -22,7 +22,7 @@ class CAutoSpeedControl : public Dasher::CDasherComponent {
   /// \param dFrameRate The current frame rate
   /// \param pView The current Dasher view class
   ///
-  void SpeedControl(myint iDasherX, myint iDasherY, double dFrameRate, CDasherView *pView);
+  void SpeedControl(myint iDasherX, myint iDasherY, CDasherView *pView);
 
   virtual void HandleEvent(Dasher::CEvent *pEvent) {
   };

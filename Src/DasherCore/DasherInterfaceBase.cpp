@@ -1052,13 +1052,6 @@ void CDasherInterfaceBase::ExecuteCommand(const std::string &strName) {
   delete pEvent;
 }
 
-double CDasherInterfaceBase::GetFramerate() {
-  if(m_pDasherModel)
-    return(m_pDasherModel->Framerate());
-  else
-    return 0.0;
-}
-
 void CDasherInterfaceBase::AddActionButton(const std::string &strName) {
   m_vRightButtons.push_back(new CActionButton(this, strName, false));
 }

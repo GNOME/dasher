@@ -325,8 +325,6 @@ public:
 
   void ResetNats();
 
-  double GetFramerate();
-
   /// @}
 
   /// @name Control hierarchy and action buttons

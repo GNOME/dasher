@@ -70,7 +70,7 @@ bool CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
     m_pDasherModel->OneStepTowards(iDasherX,iDasherY, Time, pAdded, pNumDeleted);
     bDidSomething = true;
 
-    m_pAutoSpeedControl->SpeedControl(iDasherX, iDasherY, m_pDasherModel->Framerate(), m_pDasherView);
+    m_pAutoSpeedControl->SpeedControl(iDasherX, iDasherY, m_pDasherView);
   }
 	
   if(m_pStartHandler)

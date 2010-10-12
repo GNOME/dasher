@@ -129,13 +129,11 @@ inline double CAutoSpeedControl::Variance()
 
 inline int CAutoSpeedControl::UpdateSampleSize(double dFrameRate)
 {
-  double dFramerate = dFrameRate;
-  double dSpeedSamples = 0.0;
-  double dBitrate = m_dBitrate; 
-  if(dBitrate < 1.0)// for the purposes of this function
-    dBitrate = 1.0; // we don't care exactly how slow we're going
-                    // *really* low speeds are ~ equivalent?
-  dSpeedSamples = dFramerate * (m_dSampleScale / dBitrate + m_dSampleOffset);
+  // for the purposes of this function
+  // we don't care exactly how slow we're going
+  // *really* low speeds are ~ equivalent?
+  double dBitrate = std::max(1.0,m_dBitrate); 
+  double dSpeedSamples = dFrameRate * (m_dSampleScale / dBitrate + m_dSampleOffset);
  
   m_nSpeedSamples = int(round(dSpeedSamples));
 
@@ -180,7 +178,7 @@ inline void CAutoSpeedControl::UpdateSigmas(double r, double dFrameRate)
 ////////////////////////////////////////////////////////////////
 
 
-void CAutoSpeedControl::SpeedControl(myint iDasherX, myint iDasherY, double dFrameRate, CDasherView *pView) {
+void CAutoSpeedControl::SpeedControl(myint iDasherX, myint iDasherY, CDasherView *pView) {
   if(GetBoolParameter(BP_AUTO_SPEEDCONTROL)) {
     
 //  Coordinate transforms:
@@ -188,7 +186,7 @@ void CAutoSpeedControl::SpeedControl(myint iDasherX, myint iDasherY, double dFra
 	pView->Dasher2Polar(iDasherX, iDasherY, r, theta);
 
     m_dBitrate = GetLongParameter(LP_MAX_BITRATE) / 100.0; //  stored as long(round(true bitrate * 100))
-
+    double dFrameRate = GetLongParameter(LP_FRAMERATE) / 100.0;
     UpdateSigmas(r, dFrameRate);
 
 //  Data collection:
