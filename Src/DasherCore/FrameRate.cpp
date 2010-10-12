@@ -70,6 +70,8 @@ void CFrameRate::HandleEvent(Dasher::CEvent *pEvent) {
     case LP_MAX_BITRATE: // Delibarate fallthrough
     case LP_BOOSTFACTOR:
       BitrateChanged(GetLongParameter(LP_MAX_BITRATE) * GetLongParameter(LP_BOOSTFACTOR) / 10000.0);
+      //Apply the bit rate fully straightaway (no 50:50 interpolation with previous):
+      m_iSteps = (int)(-log(0.2) * m_dFr / LN2 / m_dMaxbitrate);
       break;
     case LP_FRAMERATE:
       FramerateChanged(GetLongParameter(LP_FRAMERATE) / 100.0);
