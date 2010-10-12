@@ -61,13 +61,11 @@ void COSXDasherScreen::Polyline(Dasher::CDasherScreen::point *Points, int Number
 }
 
 void COSXDasherScreen::DrawString(const std::string &String, int x1, int y1, int size, int iColor) {
-  // TODO is that hardcoded 4 correct?
   [dasherView drawTextCallbackWithString:NSStringFromStdString(String) x1:x1 y1:y1 size:size colorIndex:iColor];
 }
 
 void COSXDasherScreen::TextSize(const std::string &String, int *Width, int *Height, int size) {
-  // TODO what colour should it be?
-  NSSize s = [dasherView textSizeCallbackWithString:NSStringFromStdString(String) size:size colorIndex:4];
+  NSSize s = [dasherView textSizeCallbackWithString:NSStringFromStdString(String) size:size];
   
   *Width = (int)s.width;
   *Height = (int)s.height;

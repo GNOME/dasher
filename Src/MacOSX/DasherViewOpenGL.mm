@@ -199,7 +199,7 @@
   return result;
 }
 
-- (NSSize)textSizeCallbackWithString:(NSString *)aString size:(int)aSize colorIndex:(int)aColorIndex
+- (NSSize)textSizeCallbackWithString:(NSString *)aString size:(int)aSize
 {
   return [[self letterForString:aString] sizeWithSize:aSize];
 }

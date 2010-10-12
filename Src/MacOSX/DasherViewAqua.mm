@@ -154,16 +154,14 @@
   }
 }
 
-- (NSSize)textSizeCallbackWithString:(NSString *)aString size:(int)aSize colorIndex:(int)aColorIndex
-{
-
-  return [[[self zippyCache] zippyStringWithString:aString size:aSize attributes:[self textAttributesWithTextSize:aSize color:[self colorWithColorIndex:aColorIndex]]] size];
+- (NSSize)textSizeCallbackWithString:(NSString *)aString size:(int)aSize {
+  return [[[self zippyCache] zippyStringWithString:aString size:aSize attributes:[self textAttributesWithTextSize:aSize color:[self colorWithColorIndex:4]]] size];
 }
 
 - (void)drawTextCallbackWithString:(NSString *)aString x1:(int)x1 y1:(int)y1 size:(int)aSize colorIndex:(int)aColorIndex
 {
 
-  [[[self zippyCache] zippyStringWithString:aString size:aSize attributes:[self textAttributesWithTextSize:aSize color:[self colorWithColorIndex:aColorIndex]]] drawAtPoint:NSMakePoint(x1, y1 /*+ [self textSizeCallbackWithString:aString size:aSize colorIndex:aColorIndex].height / 2.0*/)];
+  [[[self zippyCache] zippyStringWithString:aString size:aSize attributes:[self textAttributesWithTextSize:aSize color:[self colorWithColorIndex:aColorIndex]]] drawAtPoint:NSMakePoint(x1, y1 /*+ [self textSizeCallbackWithString:aString size:aSize].height / 2.0*/)];
 }
 
 
