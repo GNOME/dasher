@@ -369,7 +369,7 @@ void CDasherViewSquare::Circle(myint Range, myint y1, myint y2, int fCol, int oC
     if (x2==iDasherMaxX && x1==iDasherMaxX) {
       //circle entirely covers screen
       DASHER_ASSERT(y1==iDasherMinY);
-      DasherDrawRectangle(iDasherMaxX, iDasherMaxY, 0, iDasherMinY, fCol, oCol, lWidth);
+      DasherDrawRectangle(iDasherMaxX, iDasherMinY, 0, iDasherMaxY, fCol, oCol, lWidth);
       return;
     }
     //will also need final point at top-right (0,y2 in dasher coords)....
@@ -511,7 +511,7 @@ void CDasherViewSquare::DisjointRender(CDasherNode *pRender, myint y1, myint y2,
     //allow empty node to be expanded, it's big enough.
     policy.pushNode(pRender, y1, y2, true, dMaxCost);
     //and render whole node in one go
-    DasherDrawRectangle(std::min(Range,iDasherMaxX), std::min(y2,iDasherMaxY),0, std::max(y1,iDasherMinY), myColor, -1, 0);
+    DasherDrawRectangle(std::min(Range,iDasherMaxX), std::max(y1,iDasherMinY),0, std::min(y2,iDasherMaxY), myColor, -1, 0);
     //fall through to draw outline
   } else {
     //Node has children. It can therefore be collapsed...however,
@@ -574,8 +574,8 @@ void CDasherViewSquare::DisjointRender(CDasherNode *pRender, myint y1, myint y2,
           //fill in to its left
           DasherDrawRectangle(std::min(y2-y1,iDasherMaxX), std::max(newy1,iDasherMinY), std::min(newy2-newy1,iDasherMaxX), std::min(newy2,iDasherMaxY), myColor, -1, 0);
         
-          if (lasty<newy1) //fill in interval above child up to the last drawn child
-            DasherDrawRectangle(std::min(Range,iDasherMaxX), std::min(newy1,iDasherMaxY),0, std::max(lasty,iDasherMinY), myColor, -1, 0);
+          if (std::max(lasty,iDasherMinY)<newy1) //fill in interval above child up to the last drawn child
+            DasherDrawRectangle(std::min(Range,iDasherMaxX), std::max(lasty,iDasherMinY),0, std::min(newy1,iDasherMaxY), myColor, -1, 0);
           lasty = newy2;
           DisjointRender(pChild, newy1, newy2, pPrevText, policy, dMaxCost, myColor, pOutput);
         } else {
@@ -589,16 +589,16 @@ void CDasherViewSquare::DisjointRender(CDasherNode *pRender, myint y1, myint y2,
         }
       }
       //all children rendered.
-      if (lasty<y2) {
+      if (lasty<min(y2,iDasherMaxY)) {
         // Finish off the drawing process, filling in any part of the parent below the last-rendered child
-        DasherDrawRectangle(std::min(Range,iDasherMaxX), std::min(y2, iDasherMaxY), 0, std::max(lasty, iDasherMinY), myColor, -1, 0);
+        DasherDrawRectangle(std::min(Range,iDasherMaxX), std::max(lasty, iDasherMinY), 0, std::min(y2, iDasherMaxY), myColor, -1, 0);
       }
     }
     //end rendering children, fall through to outline
   }
   // Lastly, draw the outline
   if(GetLongParameter(LP_OUTLINE_WIDTH) && (!pRender->Parent() || pRender->getColour()!=pRender->Parent()->getColour())) {
-    DasherDrawRectangle(std::min(Range,iDasherMaxX), std::min(y2,iDasherMaxY),0, std::max(y1,iDasherMinY), -1, -1, abs(GetLongParameter(LP_OUTLINE_WIDTH)));
+    DasherDrawRectangle(std::min(Range,iDasherMaxX), std::max(y1,iDasherMinY),0, std::min(y2,iDasherMaxY), -1, -1, abs(GetLongParameter(LP_OUTLINE_WIDTH)));
   }
 }
 
@@ -637,7 +637,7 @@ void CDasherViewSquare::NewRender(CDasherNode *pRender, myint y1, myint y2,
   if (GetLongParameter(LP_OUTLINE_WIDTH)>=0) {
     switch (GetLongParameter(LP_SHAPE_TYPE)) {
       case 1: //overlapping rects
-        DasherDrawRectangle(std::min(Range,iDasherMaxX), std::min(y2,iDasherMaxY),0, std::max(y1,iDasherMinY), myColor, -1, 0);
+        DasherDrawRectangle(std::min(Range,iDasherMaxX), std::max(y1,iDasherMinY), 0, std::min(y2,iDasherMaxY), myColor, -1, 0);
         break;
       case 2: //simple triangles
         TruncateTri(Range, y1, y2, (y1+y2)/2, (y1+y2)/2, myColor, -1, 0);
@@ -715,7 +715,8 @@ void CDasherViewSquare::NewRender(CDasherNode *pRender, myint y1, myint y2,
       //if child still covers screen, render _just_ it and return
       myint newy1 = y1 + (Range * (myint)pChild->Lbnd()) / (myint)norm;
       myint newy2 = y1 + (Range * (myint)pChild->Hbnd()) / (myint)norm;
-      if (newy2-newy1 < GetLongParameter(LP_MIN_NODE_SIZE) //too small, but stored as only - so all others are smaller still...
+      if ((newy2-newy1 < GetLongParameter(LP_MIN_NODE_SIZE) //too small, but stored as only - so all others are smaller still...
+             && newy1 <= iDasherMaxY && newy2 >= iDasherMinY) //check too-small node is at least partly onscreen
           || (newy1 < iDasherMinY && newy2 > iDasherMaxY)) { //covers entire y-axis!
         NewRender(pChild, newy1, newy2, pPrevText, 
                   policy, dMaxCost, myColor, pOutput);
@@ -779,7 +780,7 @@ void CDasherViewSquare::NewRender(CDasherNode *pRender, myint y1, myint y2,
   if(GetLongParameter(LP_OUTLINE_WIDTH) && (!pRender->Parent() || pRender->getColour()!=pRender->Parent()->getColour())) {
     switch (GetLongParameter(LP_SHAPE_TYPE)) {
       case 1: //overlapping rects
-        DasherDrawRectangle(std::min(Range,iDasherMaxX), std::min(y2,iDasherMaxY),0, std::max(y1,iDasherMinY), -1, -1, abs(GetLongParameter(LP_OUTLINE_WIDTH)));
+        DasherDrawRectangle(std::min(Range,iDasherMaxX), std::max(y1,iDasherMinY), 0, std::min(y2,iDasherMaxY), -1, -1, abs(GetLongParameter(LP_OUTLINE_WIDTH)));
         break;
       case 2: //simple triangles
         TruncateTri(Range, y1, y2, (y1+y2)/2, (y1+y2)/2, -1, -1, abs(GetLongParameter(LP_OUTLINE_WIDTH)));

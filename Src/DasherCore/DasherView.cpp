@@ -184,14 +184,20 @@ void CDasherView::DasherPolyarrow(myint *x, myint *y, int n, int iWidth, int iCo
 
 // Draw a box specified in Dasher co-ordinates
 
-void CDasherView::DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myint iBottom, const int Color, int iOutlineColour, int iThickness) {
+void CDasherView::DasherDrawRectangle(myint iDasherMaxX, myint iDasherMinY, myint iDasherMinX, myint iDasherMaxY, const int Color, int iOutlineColour, int iThickness) {
+  //This assertion is more aggressive than necessary (Dasher has been working
+  // in many cases where it would fail, with only occassional display glitches)
+  // so if it causes trouble, it should be safe to remove...
+  DASHER_ASSERT(iDasherMinX <= iDasherMaxX && iDasherMinY <= iDasherMaxY);
+  //TODO Parameter names correspond to the values passed in,
+  // but the below will only match up with screen coords for LR orientation...
   screenint iScreenLeft;
   screenint iScreenTop;
   screenint iScreenRight;
   screenint iScreenBottom;
 
-  Dasher2Screen(iLeft, iTop, iScreenLeft, iScreenTop);
-  Dasher2Screen(iRight, iBottom, iScreenRight, iScreenBottom);
+  Dasher2Screen(iDasherMaxX, iDasherMinY, iScreenLeft, iScreenTop);
+  Dasher2Screen(iDasherMinX, iDasherMaxY, iScreenRight, iScreenBottom);
 
   Screen()->DrawRectangle(iScreenLeft, iScreenTop, iScreenRight, iScreenBottom, Color, iOutlineColour, iThickness);
 }

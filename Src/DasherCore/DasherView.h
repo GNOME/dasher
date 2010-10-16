@@ -148,7 +148,7 @@ public:
   /// \param iOutlineColor colour in which to draw outline, -1 => use default
   /// \param iThickness line width for outline, < 1 => no outline.
   ///
-  void DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myint iBottom, const int Color, int iOutlineColour, int iThickness);
+  void DasherDrawRectangle(myint iDasherMaxX, myint iDasherMinY, myint iDasherMinX, myint iDasherMaxY, const int Color, int iOutlineColour, int iThickness);
 
   ///
   /// Draw a centred rectangle specified in Dasher co-ordinates (used for mouse cursor)
