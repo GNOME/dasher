@@ -237,7 +237,7 @@ bool CDasherControl::FocusEvent(GtkWidget *pWidget, GdkEventFocus *pEvent) {
     focusEvent->send_event = FALSE;
     focusEvent->in = TRUE;
 
-    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "focus_in_event", GTK_WIDGET(m_pDasherControl), focusEvent, NULL, &returnType);
+    g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "focus_in_event", GTK_WIDGET(m_pDasherControl), focusEvent, NULL, &returnType);
   }
   return true;
 }
@@ -321,33 +321,33 @@ void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
   if(pEvent->m_iEventType == EV_PARAM_NOTIFY) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
     HandleParameterNotification(pEvt->m_iParameter);
-    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_changed", pEvt->m_iParameter);
+    g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_changed", pEvt->m_iParameter);
   }
   else if(pEvent->m_iEventType == EV_EDIT) {
     CEditEvent *pEditEvent(static_cast < CEditEvent * >(pEvent));
     
     if(pEditEvent->m_iEditType == 1) {
       // Insert event
-      g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_edit_insert", pEditEvent->m_sText.c_str(), pEditEvent->m_iOffset);
+      g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_edit_insert", pEditEvent->m_sText.c_str(), pEditEvent->m_iOffset);
     }
     else if(pEditEvent->m_iEditType == 2) {
       // Delete event
-      g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_edit_delete", pEditEvent->m_sText.c_str(), pEditEvent->m_iOffset);
+      g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_edit_delete", pEditEvent->m_sText.c_str(), pEditEvent->m_iOffset);
     }
     else if(pEditEvent->m_iEditType == 10) {
-      g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_edit_convert");
+      g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_edit_convert");
     }
     else if(pEditEvent->m_iEditType == 11) {
-      g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_edit_protect");
+      g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_edit_protect");
     }
   }
   else if(pEvent->m_iEventType == EV_EDIT_CONTEXT) {
     CEditContextEvent *pEditContextEvent(static_cast < CEditContextEvent * >(pEvent));
-    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_context_request", pEditContextEvent->m_iOffset, pEditContextEvent->m_iLength);
+    g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_context_request", pEditContextEvent->m_iOffset, pEditContextEvent->m_iLength);
   }
   else if(pEvent->m_iEventType == EV_CONTROL) {
     CControlEvent *pControlEvent(static_cast < CControlEvent * >(pEvent));
-    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_control", pControlEvent->m_iID);
+    g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_control", pControlEvent->m_iID);
   }
   else if(pEvent->m_iEventType == EV_LOCK) {
     CLockEvent *pLockEvent(static_cast<CLockEvent *>(pEvent));
@@ -356,7 +356,7 @@ void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
     sInfo.bLock = pLockEvent->m_bLock;
     sInfo.iPercent = pLockEvent->m_iPercent;
 
-    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_lock_info", &sInfo);
+    g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_lock_info", &sInfo);
   }
   else if(pEvent->m_iEventType == EV_MESSAGE) {
     CMessageEvent *pMessageEvent(static_cast<CMessageEvent *>(pEvent));
@@ -365,11 +365,11 @@ void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
     sInfo.iID = pMessageEvent->m_iID;
     sInfo.iType = pMessageEvent->m_iType;
 
-    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_message", &sInfo);
+    g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_message", &sInfo);
   }
   else if(pEvent->m_iEventType == EV_COMMAND) {
     CCommandEvent *pCommandEvent(static_cast<CCommandEvent *>(pEvent));
-    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_command", pCommandEvent->m_strCommand.c_str());
+    g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_command", pCommandEvent->m_strCommand.c_str());
   }
 };
 
@@ -501,7 +501,7 @@ gboolean CDasherControl::ExposeEvent() {
 void CDasherControl::Stop() {
   if (GetBoolParameter(BP_DASHER_PAUSED)) return;
   CDasherInterfaceBase::Stop();
-  g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_stop");
+  g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_stop");
 }
 
 gboolean CDasherControl::ButtonPressEvent(GdkEventButton *event) {
@@ -517,7 +517,7 @@ gboolean CDasherControl::ButtonPressEvent(GdkEventButton *event) {
 //   focusEvent->in = TRUE;
 
 //   gtk_widget_grab_focus(GTK_WIDGET(m_pCanvas));
-//   g_signal_emit_by_name(GTK_OBJECT(m_pCanvas), "focus_in_event", GTK_WIDGET(m_pCanvas), focusEvent, NULL, &returnType);
+//   g_signal_emit_by_name(GTK_WIDGET(m_pCanvas), "focus_in_event", GTK_WIDGET(m_pCanvas), focusEvent, NULL, &returnType);
 
   // No - don't take the focus - give it to the text area instead
   

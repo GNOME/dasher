@@ -1283,7 +1283,7 @@ edit_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data) {
 
 //   if(g_bForwardKeyboard) {
 //     gboolean *returnType;
-//     g_signal_emit_by_name(GTK_OBJECT(pPrivate->pDasherWidget), "key_press_event", event, &returnType);
+//     g_signal_emit_by_name(GTK_WIDGET(pPrivate->pDasherWidget), "key_press_event", event, &returnType);
 //     return true;
 //   }
 //   else {
@@ -1300,7 +1300,7 @@ edit_key_release(GtkWidget *widget, GdkEventKey *event, gpointer user_data) {
 
 //   if(g_bForwardKeyboard) {
 //     gboolean *returnType;
-//     g_signal_emit_by_name(GTK_OBJECT(pPrivate->pDasherWidget), "key_release_event", event, &returnType);
+//     g_signal_emit_by_name(GTK_WIDGET(pPrivate->pDasherWidget), "key_release_event", event, &returnType);
 //     return true;
 //   }
 //   else {
