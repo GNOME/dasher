@@ -7,13 +7,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher \n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=dasher&component=general\n"
-"POT-Creation-Date: 2010-10-11 19:04+0000\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&component=general\n"
+"POT-Creation-Date: 2010-10-16 18:15+0000\n"
 "PO-Revision-Date: 2004-09-03 22:44+0900\n"
 "Last-Translator: Sahran <sahran.ug@gmail.com>\n"
-"Language-Team: GNOME Uighur Translation Project <gnome-uighur@yahoogroups."
-"com>\n"
+"Language-Team: GNOME Uighur Translation Project <gnome-uighur@yahoogroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -38,7 +36,7 @@ msgstr "مۆلچەرلەپ تېكىست كىرگۈزۈش"
 
 #: ../Data/GUI/dasher.compose.ui.h:1
 msgid "A_ppend to file"
-msgstr "ھۆججەتكە قوش(_A)"
+msgstr "ھۆججەتكە قوش(_P)"
 
 #: ../Data/GUI/dasher.compose.ui.h:2 ../Data/GUI/dasher.direct.ui.h:1
 #: ../Data/GUI/dasher.gameWIP.ui.h:2 ../Data/GUI/dasher.traditional.ui.h:2
@@ -150,7 +148,7 @@ msgstr "مەشىق تېكىستىنى ئەكىر(_I)"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:1 ../Data/GUI/dasher.traditional.ui.h:1
 msgid "A_ppend to file…"
-msgstr "ھۆججەتكە قوش(_p)"
+msgstr "ھۆججەتكە قوش...(_P)"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:7
 msgid "Demo!"
@@ -277,7 +275,7 @@ msgstr "<b>باشلاش ۋە توختىتىش</b>"
 
 #: ../Data/GUI/dasher.preferences.ui.h:18
 msgid "A_pplication"
-msgstr "پروگرامما"
+msgstr "پروگرامما(_P)"
 
 #: ../Data/GUI/dasher.preferences.ui.h:19
 #: ../Data/GUI/dashermaemo.preferences.ui.h:9
@@ -454,9 +452,7 @@ msgid ""
 "Use this control to adjust the relative sizes of the\n"
 "letter boxes. Note that selecting high values will slow\n"
 "your writing speed."
-msgstr ""
-"بۇ كونترولنى ئىشلىتىپ ھەرپ رامكىسىنىڭ نىسپىي چوڭلۇقى تەڭشىلىدۇ. دىققەت، چوڭ "
-"رازمېر تاللانغاندا خەت يېزىش سۈرئىتىڭىز ئاستىلايدۇ."
+msgstr "بۇ كونترولنى ئىشلىتىپ ھەرپ رامكىسىنىڭ نىسپىي چوڭلۇقى تەڭشىلىدۇ. دىققەت، چوڭ رازمېر تاللانغاندا خەت يېزىش سۈرئىتىڭىز ئاستىلايدۇ."
 
 #: ../Data/GUI/dasher.preferences.ui.h:65
 msgid "Very large font"
@@ -738,8 +734,7 @@ msgstr "بۇلىن قىممىتى 'true' ياكى 'false' قىلىپ بەلگى�
 #. specify a known option.
 #: ../Src/DasherCore/SettingsStore.cpp:104
 msgid "unknown option, use \"--help-options\" for more information."
-msgstr ""
-"نامەلۇم تاللانما، \"--ياردەم-تاللانما\" دىن تېخىمۇ كۆپ ئۇچۇرغا ئېرىشىڭ."
+msgstr "نامەلۇم تاللانما، \"--ياردەم-تاللانما\" دىن تېخىمۇ كۆپ ئۇچۇرغا ئېرىشىڭ."
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
@@ -916,8 +911,7 @@ msgid ""
 "Do you want to save your changes to %s?\n"
 "\n"
 "Your changes will be lost if you don't save them."
-msgstr ""
-"%s نىڭ ئۆزگەرتىشىنى ساقلامسىز؟\n"
+msgstr "%s نىڭ ئۆزگەرتىشىنى ساقلامسىز؟\n"
 "\n"
 "ئەگەر ساقلىمىسىڭىز، ئۆزگەرتىشىڭىز يوقىلىدۇ."
 
@@ -926,8 +920,7 @@ msgid ""
 "Do you want to save your changes?\n"
 "\n"
 "Your changes will be lost if you don't save them."
-msgstr ""
-"ئۆزگەرتىشنى ساقلامسىز؟\n"
+msgstr "ئۆزگەرتىشنى ساقلامسىز؟\n"
 "\n"
 "ئەگەر ساقلىمىسىڭىز، ئۆزگەرتىشىڭىز يوقىلىدۇ."
 
@@ -949,7 +942,7 @@ msgstr "راستىنىلا چېكىنەمسىز؟"
 
 #: ../Src/Gtk2/dasher_main.cpp:1031
 msgid "Unable to open help file"
-msgstr "ياردەم ھۆججىتىنى ئاچقىلى بولمىدى"
+msgstr "ياردەم ھۆججىتىنى ئاچالمىدى"
 
 #: ../Src/Gtk2/dasher_main.cpp:1083
 msgid "Dasher is a predictive text entry application"
@@ -957,7 +950,10 @@ msgstr "Dasher مۆلچەر شەكلىدىكى تېكىست كىرگۈزۈش پ�
 
 #: ../Src/Gtk2/dasher_main.cpp:1088
 msgid "translator-credits"
-msgstr "تەرجىمان تۆھپىكارلار"
+msgstr "Sahran <sahran@live.com>\n"
+"Gheyret T.Kenji <gheyret@yahoo.com>\n"
+"Zeper <zeper@msn.com>\n"
+"Abduxukur Abdurixit <abduxukur.abdurixit@t-systems.ch>"
 
 #: ../Src/Gtk2/module_settings_window.cpp:88
 msgid "Dasher Module Options"
