@@ -16,8 +16,6 @@
 #import "DasherApp.h"
 #import "DasherEdit.h"
 #import "Event.h"
-#import "PreferencesController.h"
-
 #import "../Common/Common.h"
 
 #import <iostream>

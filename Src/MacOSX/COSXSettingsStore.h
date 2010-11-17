@@ -13,8 +13,6 @@
 
 #import <stdio.h>
 
-@class NSString;
-@class PreferencesController;
 @class NSDictionary;
 
 class COSXSettingsStore:public CSettingsStore {
