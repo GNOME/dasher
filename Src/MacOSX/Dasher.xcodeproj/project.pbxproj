@@ -349,6 +349,8 @@
 		3306E1F80FFE6CAD0017324C /* Trainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3306E1F60FFE6CAD0017324C /* Trainer.h */; };
 		3306E33D0FFFB9880017324C /* MandarinAlphMgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3306E33B0FFFB9880017324C /* MandarinAlphMgr.cpp */; };
 		3306E33E0FFFB9880017324C /* MandarinAlphMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 3306E33C0FFFB9880017324C /* MandarinAlphMgr.h */; };
+		330B91621292FE520022831C /* ModuleSettingsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 330B91611292FE510022831C /* ModuleSettingsController.mm */; };
+		330B91641292FE700022831C /* ModuleSettingsController.h in Headers */ = {isa = PBXBuildFile; fileRef = 330B91631292FE700022831C /* ModuleSettingsController.h */; };
 		33135351102C6D8E00E28220 /* AlternatingDirectMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33135349102C6D8E00E28220 /* AlternatingDirectMode.cpp */; };
 		33135352102C6D8E00E28220 /* AlternatingDirectMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 3313534A102C6D8E00E28220 /* AlternatingDirectMode.h */; };
 		33135353102C6D8E00E28220 /* CompassMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3313534B102C6D8E00E28220 /* CompassMode.cpp */; };
@@ -764,6 +766,8 @@
 		3306E1F60FFE6CAD0017324C /* Trainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trainer.h; sourceTree = "<group>"; };
 		3306E33B0FFFB9880017324C /* MandarinAlphMgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MandarinAlphMgr.cpp; sourceTree = "<group>"; };
 		3306E33C0FFFB9880017324C /* MandarinAlphMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MandarinAlphMgr.h; sourceTree = "<group>"; };
+		330B91611292FE510022831C /* ModuleSettingsController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ModuleSettingsController.mm; sourceTree = "<group>"; };
+		330B91631292FE700022831C /* ModuleSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleSettingsController.h; sourceTree = "<group>"; };
 		33135349102C6D8E00E28220 /* AlternatingDirectMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AlternatingDirectMode.cpp; sourceTree = "<group>"; };
 		3313534A102C6D8E00E28220 /* AlternatingDirectMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlternatingDirectMode.h; sourceTree = "<group>"; };
 		3313534B102C6D8E00E28220 /* CompassMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CompassMode.cpp; sourceTree = "<group>"; };
@@ -853,6 +857,8 @@
 				199DCCD70450B94C0000000A /* DasherViewOpenGL.mm */,
 				196874000C2BDC2E00D63879 /* AlphabetLetter.h */,
 				196874010C2BDC2E00D63879 /* AlphabetLetter.mm */,
+				330B91631292FE700022831C /* ModuleSettingsController.h */,
+				330B91611292FE510022831C /* ModuleSettingsController.mm */,
 				196874040C2BDC2E00D63879 /* GLUtils.h */,
 				196874050C2BDC2E00D63879 /* GLUtils.mm */,
 				19D4423C04546C410000000A /* PreferencesController.h */,
@@ -1494,6 +1500,7 @@
 				339055E81195FBD0001BE240 /* Queue.h in Headers */,
 				33008360120CB7F900C41FAA /* ConvertingAlphMgr.h in Headers */,
 				339794D5120F2A9600CEA168 /* AlphInfo.h in Headers */,
+				330B91641292FE700022831C /* ModuleSettingsController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1842,6 +1849,7 @@
 				339055E91195FBD0001BE240 /* Queue.m in Sources */,
 				33008361120CB7F900C41FAA /* ConvertingAlphMgr.cpp in Sources */,
 				339794D4120F2A9600CEA168 /* AlphInfo.cpp in Sources */,
+				330B91621292FE520022831C /* ModuleSettingsController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

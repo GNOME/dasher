@@ -7,6 +7,7 @@
 //
 
 #import "PreferencesController.h"
+#import "ModuleSettingsController.h"
 #import "DasherApp.h"
 #import "DasherUtil.h"
 
@@ -77,6 +78,16 @@ static PreferencesController *preferencesController = nil;
   }
   
   [panel makeKeyAndOrderFront:self];
+}
+
+-(void)inputFilterSettings:(NSString *)selectedObject {
+  SModuleSettings *pSettings; int iCount;
+  COSXDasherControl *intf = [dasherApp aquaDasherControl];
+  CDasherModule *inputFilter(intf->GetModuleByName(StdStringFromNSString(selectedObject)));
+  if (inputFilter && inputFilter->GetSettings(&pSettings, &iCount)) {
+    [[[[ModuleSettingsController alloc] initWithTitle:NSStringFromStdString(inputFilter->GetName()) Interface:intf Settings:pSettings Count:iCount] autorelease] showModal];
+  }
+  
 }
 
 - (NSArray *)permittedValuesForAlphabetID {

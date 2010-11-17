@@ -27,6 +27,7 @@
 + (id)preferencesController;
 - (id)init;
 - (void)makeKeyAndOrderFront:(id)sender;
+-(void)inputFilterSettings:(id)sender;
 //- (void)displayFontPanel;
 //- (IBAction)changeFont:(id)sender;
 //- (void)changeDasherFont:(id)sender;
