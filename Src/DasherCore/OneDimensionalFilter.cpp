@@ -8,9 +8,14 @@ using namespace Dasher;
 }*/
 
 COneDimensionalFilter::COneDimensionalFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
-  : CDefaultFilter(pEventHandler, pSettingsStore, pInterface, iID, szName) {
+  : CDefaultFilter(pEventHandler, pSettingsStore, pInterface, iID, szName), forwardmax(GetLongParameter(LP_MAX_Y)/2.5) {
 }
 
+bool COneDimensionalFilter::Timer(int Time, CDasherView *pView, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {
+  myint iDasherMinX,iDasherMaxY,iDasherMinY;
+  pView->VisibleRegion(iDasherMinX, iDasherMinY, m_iDasherMaxX, iDasherMaxY);
+  return CDefaultFilter::Timer(Time,pView,pModel,pAdded,pNumDeleted,pol);
+}
 
 void COneDimensionalFilter::ApplyTransform(myint &iDasherX, myint &iDasherY) {
 
@@ -19,7 +24,7 @@ void COneDimensionalFilter::ApplyTransform(myint &iDasherX, myint &iDasherY) {
   // The distance between the Y coordinate and the centreline in pixels
   disty=(myint)GetLongParameter(LP_OY)-iDasherY;
   
-  circlesize=    (myint)GetLongParameter(LP_MAX_Y)/2.5;
+  circlesize=    forwardmax*(1.0-max(0.0,min(1.0,(double)iDasherX/m_iDasherMaxX)));
   yforwardrange= (myint)GetLongParameter(LP_MAX_Y)/3.2; // Was 1.6
   yfullrange=    yforwardrange*1.6;
   ybackrange=    yfullrange-yforwardrange;
@@ -67,3 +72,6 @@ void COneDimensionalFilter::ApplyTransform(myint &iDasherX, myint &iDasherY) {
   iDasherX = myint(x);
 }
 
+bool COneDimensionalFilter::GetSettings(SModuleSettings **pSettings, int *iCount) {
+  return false;
+}
