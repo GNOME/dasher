@@ -205,7 +205,10 @@ void CTwoButtonDynamicFilter::HandleEvent(Dasher::CEvent *pEvent)
       {
         double dMaxRate = GetLongParameter(LP_MAX_BITRATE) * GetLongParameter(LP_BOOSTFACTOR) / 10000.0;
         m_dLagMul = exp(dMaxRate * GetLongParameter(LP_DYNAMIC_BUTTON_LAG)/1000.0);
+        //and fallthrough again:
       }
+    case LP_TWO_BUTTON_OFFSET:
+        m_bDecorationChanged = true;
     }
   }
 }
