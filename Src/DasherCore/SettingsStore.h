@@ -65,18 +65,6 @@ public:
 
   const char *ClSet(const std::string &strKey, const std::string &strValue);
 
-  // --- Deprecated functions below
-  // although string functionality might be good for
-  // reading/writing from permanent storage (string based)
-
-  bool GetBoolOption(const std::string & Key);
-  long GetLongOption(const std::string & Key);
-  std::string GetStringOption(const std::string & Key);
-
-  void SetBoolOption(const std::string & Key, bool Value);
-  void SetLongOption(const std::string & Key, long Value);
-  void SetStringOption(const std::string & Key, const std::string & Value);
-
 private:
   // Platform Specific settings file management
 

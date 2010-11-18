@@ -88,6 +88,10 @@ public:
     return m_pEventHandler;
   };
 
+  virtual CSettingsStore *GetSettingsStore() {
+    return m_pSettingsStore;
+  }
+
   ///
   /// \deprecated In situ alphabet editing is no longer supported
   /// \todo Document this
