@@ -28,8 +28,8 @@ using namespace Dasher;
 
 static SModuleSettings sSettings[] = {
   {LP_TWO_PUSH_OUTER, T_LONG, 1024, 2048, 2048, 128, _("Offset for outer (second) button")},
-  {LP_TWO_PUSH_UP, T_LONG, 256, 2048, 2048/*divisor*/, 128/*step*/, _("Distance for 1st button UP")},
-  {LP_TWO_PUSH_DOWN, T_LONG, 256, 2048, 2048, 128, _("Distance for 1st button DOWN")},
+  {LP_TWO_PUSH_UP, T_LONG, 257, 2047, 2048/*divisor*/, 128/*step*/, _("Distance for 1st button UP")},
+  {LP_TWO_PUSH_DOWN, T_LONG, 256, 2046, 2048, 128, _("Distance for 1st button DOWN")},
   {LP_TWO_PUSH_TOLERANCE, T_LONG, 50, 1000, 1, 10, _("Tolerance for inaccurate timing of button pushes (in ms)")},
   /* TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press. */
   {LP_HOLD_TIME, T_LONG, 100, 10000, 1000, 100, _("Long press time")},
@@ -107,14 +107,30 @@ void CTwoPushDynamicFilter::HandleEvent(Dasher::CEvent * pEvent)
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
     switch (pEvt->m_iParameter)
     {
-      case LP_TWO_PUSH_OUTER: //deliberate fallthrough
-      case LP_TWO_PUSH_UP: //deliberate fallthrough
+      case LP_TWO_PUSH_OUTER:
+        if (GetLongParameter(LP_TWO_PUSH_OUTER)<=GetLongParameter(LP_TWO_PUSH_UP)) {
+          //two_push_outer being moved down; force two_push_up down too
+          SetLongParameter(LP_TWO_PUSH_UP, GetLongParameter(LP_TWO_PUSH_OUTER)-1);
+          return; // as HandleEvent on latter will execute same code (below)
+        }
+        //deliberate fallthrough
+      case LP_TWO_PUSH_UP:
+        if (GetLongParameter(LP_TWO_PUSH_UP)>=GetLongParameter(LP_TWO_PUSH_OUTER)) {
+          //two_push_up must have changed, or we'd have caught this in previous check for two_push_outer
+          SetLongParameter(LP_TWO_PUSH_OUTER, GetLongParameter(LP_TWO_PUSH_UP)+1);
+          return;
+        }
+        if (GetLongParameter(LP_TWO_PUSH_UP)<=GetLongParameter(LP_TWO_PUSH_DOWN)) {
+          SetLongParameter(LP_TWO_PUSH_DOWN, GetLongParameter(LP_TWO_PUSH_UP)-1);
+          return;
+        }
+        //deliberate fallthrough
       case LP_TWO_PUSH_DOWN:
+        if (GetLongParameter(LP_TWO_PUSH_DOWN)>=GetLongParameter(LP_TWO_PUSH_UP)) {
+          SetLongParameter(LP_TWO_PUSH_UP, GetLongParameter(LP_TWO_PUSH_DOWN)+1);
+          return;
+        }
       {
-//cout << "Initializing - outer " << GetLongParameter(LP_TWO_PUSH_OUTER) << " up " << GetLongParameter(LP_TWO_PUSH_UP) << " down " << GetLongParameter(LP_TWO_PUSH_DOWN) << "\n";
-	DASHER_ASSERT (GetLongParameter(LP_TWO_PUSH_UP) < GetLongParameter(LP_TWO_PUSH_OUTER));
-	DASHER_ASSERT (GetLongParameter(LP_TWO_PUSH_DOWN) < GetLongParameter(LP_TWO_PUSH_OUTER));
-	DASHER_ASSERT (GetLongParameter(LP_TWO_PUSH_UP) > GetLongParameter(LP_TWO_PUSH_DOWN));
 		//TODO, that means short gap at the top - allow other way around also?
 
 	double dOuter = GetLongParameter(LP_TWO_PUSH_OUTER);
