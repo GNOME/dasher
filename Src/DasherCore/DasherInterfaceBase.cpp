@@ -463,7 +463,7 @@ void CDasherInterfaceBase::CreateInput() {
   m_pInput = (CDasherInput *)GetModuleByName(GetStringParameter(SP_INPUT_DEVICE));
 
   if (m_pInput == NULL)
-    m_pInput = (CDasherInput *)GetDefaultInputDevice();
+    m_pInput = m_oModuleManager.GetDefaultInputDevice();
 
   if(m_pInput) {
     m_pInput->Activate();
@@ -787,7 +787,7 @@ void CDasherInterfaceBase::CreateInputFilter()
 #endif
 
   if (m_pInputFilter == NULL)
-    m_pInputFilter = (CInputFilter *)GetDefaultInputMethod();
+    m_pInputFilter = m_oModuleManager.GetDefaultInputMethod();
 
   m_pInputFilter->Activate();
 }
@@ -804,26 +804,18 @@ CDasherModule *CDasherInterfaceBase::GetModuleByName(const std::string &strName)
     return m_oModuleManager.GetModuleByName(strName);
 }
 
-CDasherModule *CDasherInterfaceBase::GetDefaultInputDevice() {
-    return m_oModuleManager.GetDefaultInputDevice();
-}
-
-CDasherModule *CDasherInterfaceBase::GetDefaultInputMethod() {
-    return m_oModuleManager.GetDefaultInputMethod();
-}
-
-void CDasherInterfaceBase::SetDefaultInputDevice(CDasherModule *pModule) {
+void CDasherInterfaceBase::SetDefaultInputDevice(CDasherInput *pModule) {
     m_oModuleManager.SetDefaultInputDevice(pModule);
 }
 
-void CDasherInterfaceBase::SetDefaultInputMethod(CDasherModule *pModule) {
+void CDasherInterfaceBase::SetDefaultInputMethod(CInputFilter *pModule) {
     m_oModuleManager.SetDefaultInputMethod(pModule);
 }
 
 void CDasherInterfaceBase::CreateModules() {
-  SetDefaultInputMethod(
-    RegisterModule(new CDefaultFilter(m_pEventHandler, m_pSettingsStore, this, 3, _("Normal Control")))
-  );
+  CInputFilter *defFil = new CDefaultFilter(m_pEventHandler, m_pSettingsStore, this, 3, _("Normal Control"));
+  RegisterModule(defFil);
+  SetDefaultInputMethod(defFil);
   RegisterModule(new COneDimensionalFilter(m_pEventHandler, m_pSettingsStore, this));
 #ifndef _WIN32_WCE
   RegisterModule(new CClickFilter(m_pEventHandler, m_pSettingsStore, this));

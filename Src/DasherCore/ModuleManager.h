@@ -28,6 +28,8 @@
 #include <vector>
 
 namespace Dasher {
+  class CDasherInput;
+  class CInputFilter;
 
 enum ModuleType {InputDevice = 0, InputMethod = 1};
 
@@ -39,18 +41,18 @@ class CModuleManager {
   CDasherModule *RegisterModule(CDasherModule *pModule);
   CDasherModule *GetModule(ModuleID_t iID);
   CDasherModule *GetModuleByName(const std::string strName);
-  CDasherModule *GetDefaultInputDevice();
-  CDasherModule *GetDefaultInputMethod();
-  void SetDefaultInputDevice(CDasherModule *);
-  void SetDefaultInputMethod(CDasherModule *);
+  CDasherInput *GetDefaultInputDevice();
+  CInputFilter *GetDefaultInputMethod();
+  void SetDefaultInputDevice(CDasherInput *);
+  void SetDefaultInputMethod(CInputFilter *);
 
   void ListModules(int iType, std::vector<std::string> &vList);
 
  private:
   std::vector<CDasherModule *> m_vModules;
   std::map<std::string, ModuleID_t> m_mapNameToID;
-  CDasherModule *m_pDefaultInputDevice;
-  CDasherModule *m_pDefaultInputMethod;
+  CDasherInput *m_pDefaultInputDevice;
+  CInputFilter *m_pDefaultInputMethod;
 };
 /// \}
 

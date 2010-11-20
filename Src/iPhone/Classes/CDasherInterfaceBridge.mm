@@ -46,7 +46,9 @@ void CDasherInterfaceBridge::CreateModules() {
 				   new CIPhone1DFilter(m_pEventHandler, m_pSettingsStore, this, 16));
 	RegisterModule(m_pPolarFilter = 
 				   new CIPhonePolarFilter(m_pEventHandler, m_pSettingsStore, this, 17));
-	SetDefaultInputMethod(GetModuleByName("Stylus Control"));
+  CDasherModule *stylus = GetModuleByName("Stylus Control");
+  DASHER_ASSERT(stylus && stylus->GetType() == InputMethod);
+	SetDefaultInputMethod(static_cast<CInputFilter *>(stylus));
 	SetDefaultInputDevice(m_pMouseDevice);
 }
 	

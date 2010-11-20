@@ -22,6 +22,8 @@
 #include <stdexcept>
 
 #include "ModuleManager.h"
+#include "DasherInput.h"
+#include "InputFilter.h"
 
 using namespace Dasher;
 
@@ -88,26 +90,20 @@ CModuleManager::~CModuleManager() {
  */
 }
 
-CDasherModule *CModuleManager::GetDefaultInputDevice() {
+CDasherInput *CModuleManager::GetDefaultInputDevice() {
     return m_pDefaultInputDevice;
 }
 
-CDasherModule *CModuleManager::GetDefaultInputMethod() {
+CInputFilter *CModuleManager::GetDefaultInputMethod() {
     return m_pDefaultInputMethod;
 }
 
-void CModuleManager::SetDefaultInputDevice(CDasherModule *p) {
-    if (p->GetType() == InputDevice)
-        m_pDefaultInputDevice = p;
-    else
-        std::cerr << "Tried to register " << p->GetName()
-                  << " as an input device" << std::endl;
+void CModuleManager::SetDefaultInputDevice(CDasherInput *p) {
+  DASHER_ASSERT(p->GetType() == InputDevice);
+  m_pDefaultInputDevice = p;
 }
 
-void CModuleManager::SetDefaultInputMethod(CDasherModule *p) {
-    if (p->GetType() == InputMethod)
-        m_pDefaultInputMethod = p;
-    else
-        std::cerr << "Tried to register " << p->GetName()
-                  << " as an input method" << std::endl;
+void CModuleManager::SetDefaultInputMethod(CInputFilter *p) {
+  DASHER_ASSERT(p->GetType() == InputMethod);
+  m_pDefaultInputMethod = p;
 }
