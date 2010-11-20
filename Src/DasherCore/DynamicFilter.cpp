@@ -23,8 +23,8 @@
 
 using namespace Dasher;
 
-CDynamicFilter::CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, int iType, const char *szName)
-  : CInputFilter(pEventHandler, pSettingsStore, pInterface, iID, iType, szName) {
+CDynamicFilter::CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
+  : CInputFilter(pEventHandler, pSettingsStore, pInterface, iID, szName) {
   m_bDecorationChanged = true;
   m_bKeyDown = false;
   pause();

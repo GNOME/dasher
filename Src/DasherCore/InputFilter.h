@@ -3,7 +3,7 @@
 
 #include "DasherView.h"
 #include "DasherModel.h"
-#include "DasherModule.h"
+#include "ModuleManager.h"
 #include "UserLogBase.h"
 
 namespace Dasher {
@@ -14,8 +14,8 @@ namespace Dasher {
 namespace Dasher {
 class CInputFilter : public CDasherModule {
  public:
-  CInputFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, int iType, const char *szName)
-    : CDasherModule(pEventHandler, pSettingsStore, iID, iType, szName) {
+  CInputFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
+    : CDasherModule(pEventHandler, pSettingsStore, iID, InputMethod, szName) {
     m_pInterface = pInterface;
   };
 

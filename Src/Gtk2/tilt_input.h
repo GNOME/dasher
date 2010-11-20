@@ -48,7 +48,7 @@ using namespace Dasher;
 class CDasherTiltInput : public CDasherInput {
 public:
   CDasherTiltInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface) 
-    : CDasherInput(pEventHandler, pSettingsStore, 19, 0, "Tilt Input") {
+    : CDasherInput(pEventHandler, pSettingsStore, 19, "Tilt Input") {
 
     m_pInterface = pInterface;
     

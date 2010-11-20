@@ -29,7 +29,7 @@ namespace Dasher {
 ///filter with three states: paused, reversing, running. Hold any button down to reverse.
 class CDynamicFilter : public CInputFilter {
  public:
-  CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, int iType, const char *szName);
+  CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName);
   
   virtual bool supportsPause() {return true;}
   

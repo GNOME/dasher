@@ -16,7 +16,7 @@ using namespace Dasher;
 class CDasherJoystickInput : public CDasherInput {
 public:
   CDasherJoystickInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface) 
-    : CDasherInput(pEventHandler, pSettingsStore, 16, 0, "Joystick Input") {
+    : CDasherInput(pEventHandler, pSettingsStore, 16, "Joystick Input") {
 
     m_pInterface = pInterface;
     
@@ -113,7 +113,7 @@ private:
 class CDasherJoystickInputDiscrete : public CDasherInput {
 public:
   CDasherJoystickInputDiscrete(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface) 
-    : CDasherInput(pEventHandler, pSettingsStore, 17, 0, "Joystick Input (Discrete)") {
+    : CDasherInput(pEventHandler, pSettingsStore, 17, "Joystick Input (Discrete)") {
 
     m_pInterface = pInterface;
     iZone = -1;
@@ -241,7 +241,7 @@ private:
 class CDasher1DJoystickInput : public CDasherInput {
 public:
   CDasher1DJoystickInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface) 
-    : CDasherInput(pEventHandler, pSettingsStore, 18, 0, "Joystick Input (1D)") {
+    : CDasherInput(pEventHandler, pSettingsStore, 18, "Joystick Input (1D)") {
 
     m_pInterface = pInterface;
     iZone = -1;

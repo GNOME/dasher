@@ -17,7 +17,7 @@ using namespace Dasher;
 class COSXMouseInput : public CDasherInput {
 public:
   COSXMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
-  : CDasherInput(pEventHandler, pSettingsStore, 0, 0, "Mouse Input") {
+  : CDasherInput(pEventHandler, pSettingsStore, 0, "Mouse Input") {
   };
   
   // Fill pCoordinates with iN coordinate values, return 0 if the
@@ -56,7 +56,7 @@ static SModuleSettings sSettings[] = {
 class COSX1DMouseInput:public CDasherInput {
 public:
   COSX1DMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
-  : CDasherInput(pEventHandler, pSettingsStore, 2, 0, "One Dimensional Mouse Input") {
+  : CDasherInput(pEventHandler, pSettingsStore, 2, "One Dimensional Mouse Input") {
     
     m_iOffset = 0;
   };

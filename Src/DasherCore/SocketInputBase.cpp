@@ -35,7 +35,7 @@ static SModuleSettings sSettings[] = {
 };
 
 Dasher::CSocketInputBase::CSocketInputBase(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
-  : CDasherInput(pEventHandler, pSettingsStore, 1, 0, _("Socket Input")) {
+  : CDasherInput(pEventHandler, pSettingsStore, 1, _("Socket Input")) {
   port = -1;
   debug_socket_input = false;
   readerRunning = false;

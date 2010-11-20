@@ -44,7 +44,7 @@ static SModuleSettings sSettings[] = {
 };
 
 CTwoPushDynamicFilter::CTwoPushDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
-  : CDynamicFilter(pEventHandler, pSettingsStore, pInterface, 14, 1, _("Two-push Dynamic Mode (New One Button)")), m_dNatsSinceFirstPush(-std::numeric_limits<double>::infinity()) {
+  : CDynamicFilter(pEventHandler, pSettingsStore, pInterface, 14, _("Two-push Dynamic Mode (New One Button)")), m_dNatsSinceFirstPush(-std::numeric_limits<double>::infinity()) {
   
   Dasher::CParameterNotificationEvent oEvent(LP_TWO_PUSH_OUTER);//and all the others too!
   HandleEvent(&oEvent);

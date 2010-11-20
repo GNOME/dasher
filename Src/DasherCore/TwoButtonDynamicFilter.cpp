@@ -49,7 +49,7 @@ static SModuleSettings sSettings[] = {
 };
 
 CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
-  : CButtonMultiPress(pEventHandler, pSettingsStore, pInterface, 14, 1, _("Two Button Dynamic Mode"))
+  : CButtonMultiPress(pEventHandler, pSettingsStore, pInterface, 14, _("Two Button Dynamic Mode"))
 {
   //ensure that m_dLagMul is properly initialised
   Dasher::CParameterNotificationEvent oEvent(LP_DYNAMIC_BUTTON_LAG);

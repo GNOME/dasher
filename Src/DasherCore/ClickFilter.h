@@ -9,7 +9,7 @@ namespace Dasher {
 class CClickFilter : public CInputFilter {
  public:
   CClickFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
-    : CInputFilter(pEventHandler, pSettingsStore, pInterface, 7, 1, _("Click Mode")) { };
+    : CInputFilter(pEventHandler, pSettingsStore, pInterface, 7, _("Click Mode")) { };
 
   virtual bool DecorateView(CDasherView *pView);
   virtual bool Timer(int Time, CDasherView *pDasherView, CDasherModel *pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol);

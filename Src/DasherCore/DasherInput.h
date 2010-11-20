@@ -7,6 +7,7 @@
 
 #include "DasherTypes.h"
 #include "DasherModule.h"
+#include "ModuleManager.h"
 
 namespace Dasher {
   class CDasherInput;
@@ -18,8 +19,8 @@ class Dasher::CDasherInput : public CDasherModule {
 
 public:
 
-  CDasherInput(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, ModuleID_t iID, int iType, const char *szName) 
-    : CDasherModule(pEventHandler, pSettingsStore, iID, iType, szName) {};
+  CDasherInput(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, ModuleID_t iID, const char *szName) 
+    : CDasherModule(pEventHandler, pSettingsStore, iID, InputDevice, szName) {};
 
   /// Set the maximum values for each of the coordinates. Minimum
   /// values are assumed to be zero for now

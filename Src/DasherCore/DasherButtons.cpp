@@ -26,7 +26,7 @@ using namespace Dasher;
 // FIXME - should compass mode be made a separate class?
 
 CDasherButtons::CDasherButtons(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, bool bMenu, ModuleID_t iID, const char *szName)
-  : CInputFilter(pEventHandler, pSettingsStore, pInterface, iID, 1, szName), m_bMenu(bMenu), m_bDecorationChanged(true), m_pBoxes(NULL), iActiveBox(0) {}
+  : CInputFilter(pEventHandler, pSettingsStore, pInterface, iID, szName), m_bMenu(bMenu), m_bDecorationChanged(true), m_pBoxes(NULL), iActiveBox(0) {}
 
 CDasherButtons::~CDasherButtons()
 {
