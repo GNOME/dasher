@@ -27,7 +27,7 @@ namespace Dasher {
  public:
   CAlternatingDirectMode(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface);
   
-  bool DecorateView(CDasherView *pView);
+  bool DecorateView(CDasherView *pView, CDasherInput *pInput);
 
   bool GetSettings(SModuleSettings **pSettings, int *iCount);
 

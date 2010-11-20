@@ -12,9 +12,9 @@ class CStylusFilter : public CDefaultFilter {
   ///Override DefaultFilter (which supports pause), as we don't
   /// - motion requires continually holding stylus against screen
   virtual bool supportsPause() {return false;}
-  virtual bool Timer(int Time, CDasherView *pView, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol);
-  virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog);
-  virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherModel *pModel);
+  virtual bool Timer(int Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol);
+  virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
  private:
   int m_iKeyDownTime;
 };

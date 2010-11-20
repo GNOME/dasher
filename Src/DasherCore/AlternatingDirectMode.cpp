@@ -71,7 +71,7 @@ void CAlternatingDirectMode::SetupBoxes()
   m_iLastBox = -1;
 }
 
-bool CAlternatingDirectMode::DecorateView(CDasherView *pView) {
+bool CAlternatingDirectMode::DecorateView(CDasherView *pView, CDasherInput *pInput) {
 
   if(m_iLastBox == 1) {
     NewDrawGoTo(pView, m_pBoxes[2].iDisplayTop, m_pBoxes[2].iDisplayBottom, false);

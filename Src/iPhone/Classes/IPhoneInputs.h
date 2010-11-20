@@ -20,23 +20,18 @@
 #define REVERSE_MIX "Reverse Mix"
 namespace Dasher {
 
-class CIPhoneInput : public CDasherInput {
+class CIPhoneInput : public CScreenCoordInput {
 public:
 	CIPhoneInput(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const char *name)
-	: CDasherInput(pEventHandler, pSettingsStore, 0, 0, name) {};
+	: CScreenCoordInput(pEventHandler, pSettingsStore, 0, 0, name) {};
 	void SetScreenBounds(int maxX, int maxY) {this->maxX=maxX; this->maxY=maxY;}
 		
-	int GetCoordinateCount() {return 2;}
-	
-	// Fill pCoordinates with iN coordinate values, return 0 if the
-	// values were in screen coordinates or 1 if the values were in
-	// Dasher coordinates.
-	virtual int GetCoordinates(int iN, myint * pCoordinates) {
+	virtual bool GetScreenCoords(screenint &iX, screenint &iY, CDasherView *pView) {
+    if (m_iX==-1) return false;
+    iX = m_iX;
+		iY = m_iY;
 		
-		pCoordinates[0] = m_iX;
-		pCoordinates[1] = m_iY;
-		
-		return 0;
+		return true;
 	};
 	
 protected:
@@ -87,12 +82,7 @@ public:
 				CDasherInput *pXinput, CDasherInput *pYinput, const char *name)
 	: CDasherInput(pEventHandler, pSettingsStore, 0, 0, name), m_pXinput(pXinput), m_pYinput(pYinput) {};
 	
-	int GetCoordinateCount() {return 2;}
-	
-	// Fill pCoordinates with iN coordinate values, return 0 if the
-	// values were in screen coordinates or 1 if the values were in
-	// Dasher coordinates.
-	virtual int GetCoordinates(int iN, myint * pCoordinates);
+	virtual bool GetScreenCoords(screenint &iX, screenint &iY, CDasherView *pView);
 	void Activate();
 	void Deactivate();
 private:

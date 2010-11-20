@@ -30,7 +30,7 @@ CDynamicFilter::CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsS
   pause();
 }
 
-bool CDynamicFilter::Timer(int iTime, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol)
+bool CDynamicFilter::Timer(int iTime, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol)
 {
   if(m_bKeyDown && !m_bKeyHandled && ((iTime - m_iKeyDownTime) > GetLongParameter(LP_HOLD_TIME))) {
     Event(iTime, m_iHeldId, 1, m_pDasherModel, m_pUserLog);
@@ -50,10 +50,10 @@ bool CDynamicFilter::Timer(int iTime, CDasherView *m_pDasherView, CDasherModel *
         SetLongParameter(LP_MAX_BITRATE, GetLongParameter(LP_MAX_BITRATE) * (1.0 + GetLongParameter(LP_DYNAMIC_SPEED_INC)/100.0));
 	  m_uSpeedControlTime = uTime + 1000*GetLongParameter(LP_DYNAMIC_SPEED_FREQ);
   }
-  return TimerImpl(iTime, m_pDasherView, m_pDasherModel, pAdded, pNumDeleted, pol);
+  return TimerImpl(iTime, pDasherView, m_pDasherModel, pAdded, pNumDeleted, pol);
 }
 
-void CDynamicFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CDynamicFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
   
   m_pUserLog = pUserLog;
   
@@ -76,7 +76,7 @@ void CDynamicFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherMode
   m_bKeyHandled = false;
 }
 
-void CDynamicFilter::KeyUp(int iTime, int iId, CDasherView *pView, CDasherModel *pModel) {
+void CDynamicFilter::KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
   if (iId == m_iHeldId) m_bKeyDown = false;
 }
 

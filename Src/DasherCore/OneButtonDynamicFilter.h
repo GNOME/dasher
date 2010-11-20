@@ -31,17 +31,17 @@ class COneButtonDynamicFilter : public CButtonMultiPress {
   COneButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface);
   ~COneButtonDynamicFilter();
 
-  virtual bool DecorateView(CDasherView *pView);
+  virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);
 
   virtual bool GetSettings(SModuleSettings **pSettings, int *iCount);
 
   //override to get mouse clicks / taps back again...
-  virtual void KeyDown(int Time, int iId, CDasherView *pDasherView, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY);
-  virtual void KeyUp(int Time, int iId, CDasherView *pDasherView, CDasherModel *pModel, bool bPos, int iX, int iY);
+  virtual void KeyDown(int Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY);
+  virtual void KeyUp(int Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, bool bPos, int iX, int iY);
 
  private:
   unsigned int maxClickCount() {return 2;} //double-click to reverse
-  virtual bool TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol);
+  virtual bool TimerImpl(int Time, CDasherView *pView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol);
   virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog);
   
   int m_iTarget;

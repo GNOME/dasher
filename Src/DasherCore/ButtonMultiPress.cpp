@@ -27,7 +27,7 @@ CButtonMultiPress::CButtonMultiPress(Dasher::CEventHandler * pEventHandler, CSet
   : CDynamicFilter(pEventHandler, pSettingsStore, pInterface, iID, szName) {
 }
 
-void CButtonMultiPress::KeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CButtonMultiPress::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
 
   if (m_bKeyDown) return;
       
@@ -57,7 +57,7 @@ void CButtonMultiPress::KeyDown(int iTime, int iId, CDasherView *pView, CDasherM
   // Record press...
   m_deQueueTimes.push_back(iTime);
   // ... and process normally; if it changes the state, pause()/reverse()'ll clear the queue
-  CDynamicFilter::KeyDown(iTime, iId, pView, pModel, pUserLog);
+  CDynamicFilter::KeyDown(iTime, iId, pView, pInput, pModel, pUserLog);
 }
 
 void CButtonMultiPress::pause()

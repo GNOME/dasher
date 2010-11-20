@@ -72,7 +72,7 @@ void CCompassMode::SetupBoxes()
   m_pBoxes[3].iDisplayBottom = m_pBoxes[3].iBottom;
 }
 
-bool CCompassMode::DecorateView(CDasherView *pView) {
+bool CCompassMode::DecorateView(CDasherView *pView, CDasherInput *pInput) {
   CDasherScreen *pScreen(pView->Screen());
 
   int iPos(2048 - iTargetWidth / 2);

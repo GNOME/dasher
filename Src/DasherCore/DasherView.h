@@ -6,7 +6,6 @@
 #define __DasherView_h_
 
 namespace Dasher {
-  class CDasherInput; // Why does DasherView care about input? - pconlon
   class CDasherComponent;
   class CDasherView;
   class CDasherNode;
@@ -54,24 +53,8 @@ public:
   virtual ~CDasherView() {
   }
 
-  /// @name Pointing device mappings 
-  /// @{
-
-  /// Set the input device class. Note that this class will now assume ownership of the pointer, ie it will delete the object when it's done with it.
-  /// \param _pInput Pointer to the new CDasherInput.
-  void SetInput(CDasherInput * _pInput);
   void SetDemoMode(bool);
   void SetGameMode(bool);
-  /// Translates the screen coordinates to Dasher coordinates
-  virtual int GetCoordinates(myint &iDasherX, myint &iDasherY);
-
-  
-  /// Get the co-ordinate count from the input device
-  
-  int GetCoordinateCount();
-
-
-  /// @}
 
   /// 
   /// @name Coordinate system conversion
@@ -189,10 +172,6 @@ protected:
 
 private:
   CDasherScreen *m_pScreen;    // provides the graphics (text, lines, rectangles):
-  CDasherInput *m_pInput;       // Input device abstraction
-
-  /// Get the co-ordinates from the input device
-  int GetInputCoordinates(int iN, myint * pCoordinates); 
 
   bool m_bDemoMode;
   bool m_bGameMode;

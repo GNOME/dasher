@@ -15,21 +15,21 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 CDasherMouseInput::CDasherMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, HWND _hwnd)
-: CDasherInput(pEventHandler, pSettingsStore, 0, "Mouse Input"), m_hwnd(_hwnd) {
+: CScreenCoordInput(pEventHandler, pSettingsStore, 0, "Mouse Input"), m_hwnd(_hwnd) {
 }
 
 CDasherMouseInput::~CDasherMouseInput(void) {
 }
 
-int CDasherMouseInput::GetCoordinates(int iN, myint *pCoordinates) {
+bool CDasherMouseInput::GetScreenCoords(screenint &iX, screenint &iY, CDasherView *pView) {
 
   POINT mousepos;
   GetCursorPos(&mousepos);
 
   ScreenToClient(m_hwnd, &mousepos);
 
-  pCoordinates[0] = mousepos.x;
-  pCoordinates[1] = mousepos.y;
+  iX = mousepos.x;
+  iY = mousepos.y;
 
-  return 0;
+  return true;
 }

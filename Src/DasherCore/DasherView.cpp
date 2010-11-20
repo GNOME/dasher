@@ -43,7 +43,7 @@ static char THIS_FILE[] = __FILE__;
 /////////////////////////////////////////////////////////////////////////////
 
 CDasherView::CDasherView(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen *DasherScreen)
-  :CDasherComponent(pEventHandler, pSettingsStore), m_pScreen(DasherScreen), m_pInput(0),
+  :CDasherComponent(pEventHandler, pSettingsStore), m_pScreen(DasherScreen),
    m_bDemoMode(false), m_bGameMode(false) {
 }
 
@@ -54,43 +54,6 @@ void CDasherView::ChangeScreen(CDasherScreen *NewScreen) {
 }
 
 /////////////////////////////////////////////////////////////////////////////
-
-int CDasherView::GetCoordinateCount() {
-  // TODO: Do we really need support for co-ordinate counts other than 2?
-  if(m_pInput)
-    return m_pInput->GetCoordinateCount();
-  else
-    return 0;
-}
-
-int CDasherView::GetInputCoordinates(int iN, myint * pCoordinates) {
-  if(m_pInput)
-    return m_pInput->GetCoordinates(iN, pCoordinates);
-  else
-    return 0;
-}
-
-void CDasherView::SetInput(CDasherInput * _pInput) {
-  // TODO: Is it sensible to make this responsible for the input
-  // device - I guess it makes sense for now
-
-  DASHER_ASSERT_VALIDPTR_RW(_pInput);
-
-  // Don't delete the old input class; whoever is calling this method
-  // might want to keep several Input class instances around and
-  // change which one is currently driving dasher without deleting any
-
-  m_pInput = _pInput;
-
-  // Tell the new object about maximum values
-
-  myint iMaxCoordinates[2];
-
-  iMaxCoordinates[0] = GetLongParameter(LP_MAX_Y);
-  iMaxCoordinates[1] = GetLongParameter(LP_MAX_Y);
-
-  m_pInput->SetMaxCoordinates(2, iMaxCoordinates);
-}
 
 void CDasherView::DasherSpaceLine(myint x1, myint y1, myint x2, myint y2, int iWidth, int iColor) {
   if (!ClipLineToVisible(x1, y1, x2, y2)) return;
@@ -218,61 +181,6 @@ void CDasherView::DrawText(const std::string & str, myint x, myint y, int Size, 
   Dasher2Screen(x, y, X, Y);
   
   Screen()->DrawString(str, X, Y, Size, iColor);
-}
-
-
-int CDasherView::GetCoordinates(myint &iDasherX, myint &iDasherY) {
-
-
-  // FIXME - Actually turn autocalibration on and off!
-  // FIXME - AutoCalibrate should use Dasher co-ordinates, not raw mouse co-ordinates?
-  // FIXME - Have I broken this by moving it before the offset is applied?
-  // FIXME - put ymap stuff back in 
-  // FIXME - optimise this
-  
-  int iCoordinateCount(GetCoordinateCount());
-
-  myint *pCoordinates(new myint[iCoordinateCount]);
-
-  int iType(GetInputCoordinates(iCoordinateCount, pCoordinates));
-
-  screenint mousex;
-  screenint mousey;
-
-  if(iCoordinateCount == 1) {
-    mousex = 0;
-    mousey = pCoordinates[0];
-  }
-  else {
-    mousex = pCoordinates[0];
-    mousey = pCoordinates[1];
-  }
-
-  delete[]pCoordinates;
-
-  switch(iType) {
-  case 0:
-    Screen2Dasher(mousex, mousey, iDasherX, iDasherY);
-    break;
-  case 1:
-    iDasherX = mousex;
-    iDasherY = mousey;
-    break;
-  default:
-    // TODO: Error
-    break;
-  }
-
-  ///GAME///
-  if(m_bGameMode)
-    {
-      using GameMode::CDasherGameMode;
-      if(m_bDemoMode)
-        CDasherGameMode::GetTeacher()->DemoModeGetCoordinates(iDasherX, iDasherY);
-      CDasherGameMode::GetTeacher()->SetUserMouseCoordinates(iDasherX, iDasherY);
-    }
-      
-  return iType;
 }
 
 

@@ -9,10 +9,10 @@
 
 using namespace Dasher;
 
-class CDasherMouseInput : public CDasherInput {
+class CDasherMouseInput : public CScreenCoordInput {
 public:
   CDasherMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
-    : CDasherInput(pEventHandler, pSettingsStore, 0, _("Mouse Input")) {
+    : CScreenCoordInput(pEventHandler, pSettingsStore, 0, _("Mouse Input")) {
 
     m_iX = 0;
     m_iY = 0;
@@ -22,18 +22,12 @@ public:
   // values were in screen coordinates or 1 if the values were in
   // Dasher coordinates.
 
-  virtual int GetCoordinates(int iN, myint * pCoordinates) {
+  virtual bool GetScreenCoords(screenint &iX, screenint &iY, CDasherView *pView) {
 
-    pCoordinates[0] = m_iX;
-    pCoordinates[1] = m_iY;
+    iX = m_iX;
+    iY = m_iY;
 
-    return 0;
-  };
-
-  // Get the number of co-ordinates that this device supplies
-
-  virtual int GetCoordinateCount() {
-    return 2;
+    return true;
   };
 
   void SetCoordinates(myint _iX, myint _iY) {
@@ -51,11 +45,11 @@ static SModuleSettings sSettings[] = {
   {LP_YSCALE, T_LONG, 10, 2000, 1, 1, _("Pixels covering Y range")}
 };
 
-class CDasher1DMouseInput:public CDasherInput {
+class CDasher1DMouseInput : public CDasherCoordInput {
 public:
   CDasher1DMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
     /* TRANSLATORS: Only use the vertical mouse coordinate - this is prefered for some disabled users. */
-    : CDasherInput(pEventHandler, pSettingsStore, 2, _("One Dimensional Mouse Input")) {
+    : CDasherCoordInput(pEventHandler, pSettingsStore, 2, _("One Dimensional Mouse Input")) {
 
     m_iOffset = 0;
 
@@ -67,15 +61,10 @@ public:
   // values were in screen coordinates or 1 if the values were in
   // Dasher coordinates.
 
-  virtual int GetCoordinates(int iN, myint * pCoordinates) {
-    pCoordinates[0] = m_iY; 
-    return 1;
-  };
-
-  // Get the number of co-ordinates that this device supplies
-
-  virtual int GetCoordinateCount() {
-    return 1;
+  virtual bool GetDasherCoords(myint &iDasherX, myint &iDasherY, CDasherView *pView) {
+    iDasherX=0;
+    iDasherY = m_iY; 
+    return true;
   };
 
   virtual void SetMaxCoordinates(int iN, myint * iDasherMax) {

@@ -11,9 +11,9 @@ class COneButtonFilter : public CInputFilter {
   COneButtonFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface);
   ~COneButtonFilter();
 
-  virtual bool DecorateView(CDasherView *pView);
-  virtual bool Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol);
-  virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);
+  virtual bool Timer(int Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol);
+  virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
   bool GetSettings(SModuleSettings **pSettings, int *iCount);
  private:
   ///true iff the scan line is moving down/up, or is in the 'reverse' stage

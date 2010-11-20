@@ -14,7 +14,7 @@ public:
   };
 
   virtual bool DecorateView(CDasherView *pView) = 0;
-  virtual void Timer(int iTime, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) = 0;
+  virtual void Timer(int iTime, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel) = 0;
 
 protected:
   CDasherInterfaceBase *m_pInterface;

@@ -22,6 +22,7 @@
 
 #include "CircleStartHandler.h"
 #include "Event.h"
+#include "DasherInput.h"
 
 using namespace Dasher;
 
@@ -65,18 +66,14 @@ bool CCircleStartHandler::DecorateView(CDasherView *pView) {
   return true;
 }
 
-void CCircleStartHandler::Timer(int iTime, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {
-  myint iDasherX;
-  myint iDasherY;
-  m_pDasherView->GetCoordinates(iDasherX, iDasherY);
-
+void CCircleStartHandler::Timer(int iTime, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel) {
   screenint iCX;
   screenint iCY;
-  m_pDasherView->Dasher2Screen(2048, 2048, iCX, iCY);
+  pView->Dasher2Screen(2048, 2048, iCX, iCY);
   
   screenint iCursorX;
   screenint iCursorY;
-  m_pDasherView->Dasher2Screen(iDasherX, iDasherY, iCursorX, iCursorY);
+  pInput->GetScreenCoords(iCursorX, iCursorY, pView);
 
   double dR;
 

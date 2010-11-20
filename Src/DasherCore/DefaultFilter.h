@@ -16,19 +16,19 @@ class CDefaultFilter : public CInputFilter {
 
   virtual void HandleEvent(Dasher::CEvent * pEvent);
 
-  virtual bool DecorateView(CDasherView *pView);
-  virtual bool Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol);
-  virtual void KeyDown(int iTime, int iId, CDasherView *pDasherView, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);
+  virtual bool Timer(int Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol);
+  virtual void KeyDown(int iTime, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
   bool GetSettings(SModuleSettings **, int *);
  protected:
   virtual void CreateStartHandler();
   virtual void ApplyTransform(myint &iDasherX, myint &iDasherY);
   void ApplyOffset(myint &iDasherX, myint &iDasherY);
   
- private:
+protected:
   /// Last-known Dasher-coords of the target
   myint m_iLastX, m_iLastY;
-
+private:
   CAutoSpeedControl *m_pAutoSpeedControl;
   CStartHandler *m_pStartHandler;
   myint m_iSum;

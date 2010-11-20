@@ -95,14 +95,11 @@ CIPhoneMouseInput::CIPhoneMouseInput(CEventHandler * pEventHandler, CSettingsSto
 	: CIPhoneInput(pEventHandler, pSettingsStore, TOUCH_INPUT) {
 };
 
-int CMixedInput::GetCoordinates(int iN, myint * pCoordinates) {
-	DASHER_ASSERT(iN == 2);
-	myint pXCoords[2];
-	m_pYinput->GetCoordinates(2, pCoordinates);
-	m_pXinput->GetCoordinates(2, pXCoords);
-	pCoordinates[0] = pXCoords[0];
-	
-	return 0;
+bool CMixedInput::GetScreenCoords(screenint &iX, screenint &iY,CDasherView *pView) {
+  screenint temp;
+	if (!m_pYinput->GetScreenCoords(temp,iY,pView)) return false;
+  //got y; x coord stored into temp is not needed
+	return m_pXinput->GetScreenCoords(iX, temp,pView);
 };
 
 void CMixedInput::Activate() {

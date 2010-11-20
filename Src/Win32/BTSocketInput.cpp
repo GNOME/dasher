@@ -32,13 +32,13 @@ static const int ymax = -32;
 // TODO: Probably incompatable with the socket server module
 
 CBTSocketInput::CBTSocketInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore)
-: CDasherInput(pEventHandler, pSettingsStore, 100, "BT Tilt Socket"){
+: CDasherCoordInput(pEventHandler, pSettingsStore, 100, "BT Tilt Socket"){
 }
 
 CBTSocketInput::~CBTSocketInput(void) {
 }
 
-int CBTSocketInput::GetCoordinates(int iN, myint *pCoordinates) {
+bool CBTSocketInput::GetDasherCoords(myint &iDasherX, myint &iDasherY, CDasherView *pView) {
     // Send the magic command...
 	const char *szCommand = "<message command=\"orientation\"></message>\r\n";
 	int iRetVal = send(m_oSocket, szCommand, strlen(szCommand), 0);
@@ -60,10 +60,10 @@ int CBTSocketInput::GetCoordinates(int iN, myint *pCoordinates) {
 	int xrange = xmax - xmin;
 	int yrange = ymax - ymin;
 
-	pCoordinates[0] = (atoi(szXStart) - xmin) * 4096 / xrange;
-	pCoordinates[1] = (atoi(szYStart) - ymin) * 4096 / yrange;
+	iDasherX = (atoi(szXStart) - xmin) * 4096 / xrange;
+	iDasherY = (atoi(szYStart) - ymin) * 4096 / yrange;
 
-	return 1;
+	return true;
 }
 
 void CBTSocketInput::Activate() {

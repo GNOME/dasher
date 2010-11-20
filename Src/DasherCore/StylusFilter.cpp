@@ -9,7 +9,7 @@ CStylusFilter::CStylusFilter(Dasher::CEventHandler *pEventHandler, CSettingsStor
   : CDefaultFilter(pEventHandler, pSettingsStore, pInterface, iID, szName) {
 }
 
-bool CStylusFilter::Timer(int iTime, CDasherView *pView, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol)
+bool CStylusFilter::Timer(int iTime, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol)
 {
   //First, try to continue any zoom scheduled by a previous click...
   if (pModel->NextScheduledStep(iTime, pAdded, pNumDeleted)) {
@@ -18,10 +18,10 @@ bool CStylusFilter::Timer(int iTime, CDasherView *pView, CDasherModel *pModel, D
     //which we're not using anyway.
     return true;
   }
-  return CDefaultFilter::Timer(iTime, pView, pModel, pAdded, pNumDeleted, pol);
+  return CDefaultFilter::Timer(iTime, pView, pInput, pModel, pAdded, pNumDeleted, pol);
 }
 
-void CStylusFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CStylusFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
   if(iId == 100) {
     pModel->ClearScheduledSteps();
     m_pInterface->Unpause(iTime);
@@ -29,12 +29,12 @@ void CStylusFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherModel
   }
 }
 
-void CStylusFilter::KeyUp(int iTime, int iId, CDasherView *pView, CDasherModel *pModel) {
+void CStylusFilter::KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
   if(iId == 100) {
     if (iTime - m_iKeyDownTime < GetLongParameter(LP_TAP_TIME)) {
-      myint iDasherX, iDasherY;
-      pView->GetCoordinates(iDasherX, iDasherY);
-      pModel->ScheduleZoom(iTime, iDasherX, iDasherY, GetLongParameter(LP_MAXZOOM));
+      pInput->GetDasherCoords(m_iLastX, m_iLastY, pView);
+      //Do not apply transform. (Could add extra virtual method, ApplyClickTransform?)
+      pModel->ScheduleZoom(iTime, m_iLastX, m_iLastY, GetLongParameter(LP_MAXZOOM));
     } else {
       m_pInterface->Stop();
     }

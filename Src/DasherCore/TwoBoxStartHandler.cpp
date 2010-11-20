@@ -30,24 +30,20 @@ bool CTwoBoxStartHandler::DecorateView(CDasherView *pView) {
   }
 }
 
-void CTwoBoxStartHandler::Timer(int iTime, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) { 
-  myint iDasherX;
-  myint iDasherY;
-  m_pDasherView->GetCoordinates(iDasherX, iDasherY);
-  
+void CTwoBoxStartHandler::Timer(int iTime, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel) { 
   screenint iNewScreenX;
   screenint iNewScreenY;
-  m_pDasherView->Dasher2Screen(iDasherX, iDasherY, iNewScreenX, iNewScreenY);
+  pInput->GetScreenCoords(iNewScreenX, iNewScreenY, pView);
 
   int iBoxMax(-1);
   int iBoxMin(0);
 
   if(GetLongParameter(LP_MOUSE_POS_BOX) == 1) {
-    iBoxMax = m_pDasherView->Screen()->GetHeight() / 2 - (int)GetLongParameter(LP_MOUSEPOSDIST) + 50;
+    iBoxMax = pView->Screen()->GetHeight() / 2 - (int)GetLongParameter(LP_MOUSEPOSDIST) + 50;
     iBoxMin = iBoxMax - 100;
   }
   else if(GetLongParameter(LP_MOUSE_POS_BOX) == 2) {
-    iBoxMin = m_pDasherView->Screen()->GetHeight() / 2 + (int)GetLongParameter(LP_MOUSEPOSDIST) - 50;
+    iBoxMin = pView->Screen()->GetHeight() / 2 + (int)GetLongParameter(LP_MOUSEPOSDIST) - 50;
     iBoxMax = iBoxMin + 100;
   }
 

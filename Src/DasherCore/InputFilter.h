@@ -5,6 +5,7 @@
 #include "DasherModel.h"
 #include "ModuleManager.h"
 #include "UserLogBase.h"
+#include "DasherInput.h"
 
 namespace Dasher {
   class CDasherInterfaceBase;
@@ -19,16 +20,16 @@ class CInputFilter : public CDasherModule {
     m_pInterface = pInterface;
   };
 
-  virtual bool DecorateView(CDasherView *pView) { return false; };
+  virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput) { return false; };
 
-  virtual void KeyDown(int Time, int iId, CDasherView *pDasherView, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {
-    KeyDown(Time, iId, pDasherView, pModel, pUserLog);
+  virtual void KeyDown(int Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {
+    KeyDown(Time, iId, pDasherView, pInput, pModel, pUserLog);
   };
-  virtual void KeyUp(int Time, int iId, CDasherView *pDasherView, CDasherModel *pModel, bool bPos, int iX, int iY) {
-    KeyUp(Time, iId, pDasherView, pModel);
+  virtual void KeyUp(int Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, bool bPos, int iX, int iY) {
+    KeyUp(Time, iId, pDasherView, pInput, pModel);
   };
 
-  virtual bool Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol)=0;// { return false; };
+  virtual bool Timer(int Time, CDasherView *m_pDasherView, CDasherInput *pInput, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol)=0;// { return false; };
 
   virtual void Activate() {};
   virtual void Deactivate() {};
@@ -43,8 +44,8 @@ class CInputFilter : public CDasherModule {
   CDasherInterfaceBase *m_pInterface;
 
  private:
-  virtual void KeyDown(int Time, int iId, CDasherView *pDasherView, CDasherModel *pModel, CUserLogBase *pUserLog) {};
-  virtual void KeyUp(int Time, int iId, CDasherView *pDasherView, CDasherModel *pModel) {};
+  virtual void KeyDown(int Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {};
+  virtual void KeyUp(int Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel) {};
 };
 }
 /// @}

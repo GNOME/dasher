@@ -468,9 +468,6 @@ void CDasherInterfaceBase::CreateInput() {
   if(m_pInput) {
     m_pInput->Activate();
   }
-
-  if(m_pDasherView != 0)
-    m_pDasherView->SetInput(m_pInput);
 }
 
 void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
@@ -501,7 +498,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
 	int iNumDeleted = 0;
 
 	if(m_pInputFilter) {
-	  bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pDasherModel, &vAdded, &iNumDeleted, &pol);
+	  bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pInput, m_pDasherModel, &vAdded, &iNumDeleted, &pol);
 	}
 
 #ifndef _WIN32_WCE
@@ -514,7 +511,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
       }
       else {
 	if(m_pInputFilter) {
-	  bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pDasherModel, 0, 0, &pol);
+	  bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pInput, m_pDasherModel, 0, 0, &pol);
 	}
       }
     }
@@ -571,7 +568,7 @@ void CDasherInterfaceBase::Redraw(bool bRedrawNodes, CExpansionPolicy &policy) {
   bool bDecorationsChanged(false);
 
   if(m_pInputFilter) {
-    bDecorationsChanged = m_pInputFilter->DecorateView(m_pDasherView);
+    bDecorationsChanged = m_pInputFilter->DecorateView(m_pDasherView, m_pInput);
   }
 
   bool bActionButtonsChanged(false);
@@ -645,9 +642,6 @@ void CDasherInterfaceBase::ChangeView() {
     delete m_pDasherView;
 
     m_pDasherView = new CDasherViewSquare(m_pEventHandler, m_pSettingsStore, m_DasherScreen);
-
-    if (m_pInput)
-      m_pDasherView->SetInput(m_pInput);
 
     // Tell the Teacher which view we are using
     if(GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher())
@@ -754,7 +748,7 @@ void CDasherInterfaceBase::KeyDown(int iTime, int iId, bool bPos, int iX, int iY
     return;
 
   if(m_pInputFilter && !GetBoolParameter(BP_TRAINING)) {
-    m_pInputFilter->KeyDown(iTime, iId, m_pDasherView, m_pDasherModel, m_pUserLog, bPos, iX, iY);
+    m_pInputFilter->KeyDown(iTime, iId, m_pDasherView, m_pInput, m_pDasherModel, m_pUserLog, bPos, iX, iY);
   }
 
   if(m_pInput && !GetBoolParameter(BP_TRAINING)) {
@@ -767,7 +761,7 @@ void CDasherInterfaceBase::KeyUp(int iTime, int iId, bool bPos, int iX, int iY) 
     return;
 
   if(m_pInputFilter && !GetBoolParameter(BP_TRAINING)) {
-    m_pInputFilter->KeyUp(iTime, iId, m_pDasherView, m_pDasherModel, bPos, iX, iY);
+    m_pInputFilter->KeyUp(iTime, iId, m_pDasherView, m_pInput, m_pDasherModel, bPos, iX, iY);
   }
 
   if(m_pInput && !GetBoolParameter(BP_TRAINING)) {

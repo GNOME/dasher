@@ -19,11 +19,11 @@ static SModuleSettings sSettings[] = {
   {BP_CURVE_MOUSE_LINE, T_BOOL, -1, -1, -1, -1, _("Curve lines to follow the non-linearity of the view transform")},
 };
 
-bool CClickFilter::DecorateView(CDasherView *pView) {
+bool CClickFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
   bool bChanged(false);
   if (GetBoolParameter(BP_DRAW_MOUSE_LINE)) {
     myint mouseX, mouseY;
-    pView->GetCoordinates(mouseX, mouseY);
+    pInput->GetDasherCoords(mouseX, mouseY, pView);
     //unfortunately we have to copy the limit set by DasherModel::ScheduleZoom here
     // ....call for a refactor? but of some/what sort?
     if (mouseX<2) mouseX=2;
@@ -60,18 +60,18 @@ bool CClickFilter::DecorateView(CDasherView *pView) {
   return bChanged;
 }
 
-bool CClickFilter::Timer(int Time, CDasherView *pDasherView, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {
+bool CClickFilter::Timer(int Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {
   return pModel->NextScheduledStep(Time, pAdded, pNumDeleted);
 }
 
-void CClickFilter::KeyDown(int iTime, int iId, CDasherView *pDasherView, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {
+void CClickFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {
   switch(iId) {
   case 100: // Mouse clicks
-    if(pDasherView) {
+    {
       myint iDasherX;
       myint iDasherY;
 
-      pDasherView->GetCoordinates(iDasherX, iDasherY);
+      pInput->GetDasherCoords(iDasherX, iDasherY, pView);
 
       pModel->ScheduleZoom(iTime, iDasherX,iDasherY, GetLongParameter(LP_MAXZOOM));
     }

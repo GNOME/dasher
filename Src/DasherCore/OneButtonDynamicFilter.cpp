@@ -61,7 +61,7 @@ COneButtonDynamicFilter::~COneButtonDynamicFilter() {
   delete[] m_iTargetY;  
 }
 
-bool COneButtonDynamicFilter::DecorateView(CDasherView *pView) {
+bool COneButtonDynamicFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
 
   CDasherScreen *pScreen(pView->Screen());
 
@@ -97,22 +97,22 @@ bool COneButtonDynamicFilter::DecorateView(CDasherView *pView) {
   return bRV;
 }
 
-void COneButtonDynamicFilter::KeyDown(int Time, int iId, CDasherView *pDasherView, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {
+void COneButtonDynamicFilter::KeyDown(int Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {
   if (iId == 100 && !GetBoolParameter(BP_BACKOFF_BUTTON))
     //mouse click - will be ignored by superclass method.
     //simulate press of button 2...
-    CButtonMultiPress::KeyDown(Time, 2, pDasherView, pModel, pUserLog);
+    CButtonMultiPress::KeyDown(Time, 2, pDasherView, pInput, pModel, pUserLog);
   else
-    CInputFilter::KeyDown(Time, iId, pDasherView, pModel, pUserLog, bPos, iX, iY);
+    CInputFilter::KeyDown(Time, iId, pDasherView, pInput, pModel, pUserLog, bPos, iX, iY);
 }
 
-void COneButtonDynamicFilter::KeyUp(int Time, int iId, CDasherView *pDasherView, CDasherModel *pModel, bool bPos, int iX, int iY) {
+void COneButtonDynamicFilter::KeyUp(int Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, bool bPos, int iX, int iY) {
   if (iId == 100 && !GetBoolParameter(BP_BACKOFF_BUTTON))
     //mouse click - will be ignored by superclass method.
     //simulate press of button 2...
-    CButtonMultiPress::KeyUp(Time, 2, pDasherView, pModel);
+    CButtonMultiPress::KeyUp(Time, 2, pDasherView, pInput, pModel);
   else
-    CInputFilter::KeyUp(Time, iId, pDasherView, pModel, bPos, iX, iY);
+    CInputFilter::KeyUp(Time, iId, pDasherView, pInput, pModel, bPos, iX, iY);
 }
 
 bool COneButtonDynamicFilter::TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {

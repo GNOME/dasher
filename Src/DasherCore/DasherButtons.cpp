@@ -41,7 +41,7 @@ void CDasherButtons::Activate() {
   m_iScanTime = std::numeric_limits<int>::min();
 }
 
-void CDasherButtons::KeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CDasherButtons::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
 
   if(m_bMenu) {
     switch(iId) {
@@ -81,7 +81,7 @@ void CDasherButtons::DirectKeyDown(int iTime, int iId, CDasherView *pView, CDash
   pModel->ScheduleZoom(iTime, (m_pBoxes[iActiveBox].iBottom - m_pBoxes[iActiveBox].iTop)/2, (m_pBoxes[iActiveBox].iBottom + m_pBoxes[iActiveBox].iTop)/2);
 }
 
-bool CDasherButtons::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {
+bool CDasherButtons::Timer(int Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {
   if (m_bMenu && GetLongParameter(LP_BUTTON_SCAN_TIME) &&
       Time > m_iScanTime) {
     m_iScanTime = Time + GetLongParameter(LP_BUTTON_SCAN_TIME);
@@ -94,10 +94,10 @@ bool CDasherButtons::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
   myint iDasherX;
   myint iDasherY;
 
-  m_pDasherView->GetCoordinates(iDasherX, iDasherY);
+  pInput->GetDasherCoords(iDasherX, iDasherY, pView);
   // ----
 
-  return m_pDasherModel->NextScheduledStep(Time, pAdded, pNumDeleted);
+  return pModel->NextScheduledStep(Time, pAdded, pNumDeleted);
 }
 
 void CDasherButtons::NewDrawGoTo(CDasherView *pView, myint iDasherMin, myint iDasherMax, bool bActive) {

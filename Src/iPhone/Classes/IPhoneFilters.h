@@ -17,7 +17,7 @@ class CIPhone1DFilter : public COneDimensionalFilter {
 public:
 	CIPhone1DFilter(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID);
 
-	virtual bool Timer(int iTime, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol);
+	virtual bool Timer(int iTime, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol);
 protected:
 	virtual void ApplyTransform(myint &iDasherX, myint &iDasherY);
 private:
@@ -29,8 +29,8 @@ class CIPhonePolarFilter : public COneDimensionalFilter {
 public:
 	CIPhonePolarFilter(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID);
 	
-	virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog);
-	virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherModel *pModel);
+	virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+	virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
 protected:
 	virtual void ApplyTransform(myint &iDasherX, myint &iDasherY);
 };

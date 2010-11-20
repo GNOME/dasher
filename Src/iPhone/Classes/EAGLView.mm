@@ -89,6 +89,8 @@
 	dasherApp.dasherInterface->NotifyTouch(p.x,p.y);
 	anyDown = NO;
 	dasherApp.dasherInterface->KeyUp(get_time(), 100, true, p.x, p.y);
+  //finished dealing with touch-up event. Finger is now officially off the screen...
+  dasherApp.dasherInterface->NotifyTouch(-1, -1);
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {

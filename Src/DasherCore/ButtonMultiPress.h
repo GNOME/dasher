@@ -33,7 +33,7 @@ class CButtonMultiPress : public CDynamicFilter {
  public:
   CButtonMultiPress(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName);
   
-  virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
 
  protected:
   virtual unsigned int maxClickCount()=0;

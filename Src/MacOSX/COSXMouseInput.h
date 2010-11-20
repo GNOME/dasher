@@ -14,29 +14,16 @@
 
 using namespace Dasher;
 
-class COSXMouseInput : public CDasherInput {
+class COSXMouseInput : public CScreenCoordInput {
 public:
   COSXMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
-  : CDasherInput(pEventHandler, pSettingsStore, 0, "Mouse Input") {
+  : CScreenCoordInput(pEventHandler, pSettingsStore, 0, "Mouse Input") {
   };
-  
-  // Fill pCoordinates with iN coordinate values, return 0 if the
-  // values were in screen coordinates or 1 if the values were in
-  // Dasher coordinates.
-  
-  virtual int GetCoordinates(int iN, myint * pCoordinates) {
-    
-    pCoordinates[0] = m_iX;
-    pCoordinates[1] = m_iY;
-    
-    return 0;
-  };
-  
-  // Get the number of co-ordinates that this device supplies
-  
-  virtual int GetCoordinateCount() {
-    return 2;
-  };
+  virtual bool GetScreenCoords(screenint &iX, screenint &iY, CDasherView *pView) {
+    iX = m_iX;
+    iY = m_iY;
+    return true;
+  }
   
   void SetCoordinates(myint _iX, myint _iY) {
     m_iX = _iX;
@@ -53,31 +40,18 @@ static SModuleSettings sSettings[] = {
   {LP_YSCALE, T_LONG, 10, 2000, 1, 1, "Pixels covering Y range:"}
 };
 
-class COSX1DMouseInput:public CDasherInput {
+class COSX1DMouseInput:public CDasherCoordInput {
 public:
   COSX1DMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
-  : CDasherInput(pEventHandler, pSettingsStore, 2, "One Dimensional Mouse Input") {
+  : CDasherCoordInput(pEventHandler, pSettingsStore, 2, "One Dimensional Mouse Input") {
     
     m_iOffset = 0;
   };
   
-  // Fill pCoordinates with iN coordinate values, return 0 if the
-  // values were in screen coordinates or 1 if the values were in
-  // Dasher coordinates.
-  
-  virtual int GetCoordinates(int iN, myint * pCoordinates) {
-    
-    pCoordinates[0] = m_iY - m_iOffset;// * m_iDasherMaxY / 1024;      // FIXME - hard coded screen resolution!!!!!!!!!!
-    
-    //    std::cout << m_iY << " " << pCoordinates[0] << std::endl;
-    
-    return 1;
-  };
-  
-  // Get the number of co-ordinates that this device supplies
-  
-  virtual int GetCoordinateCount() {
-    return 1;
+  virtual bool GetDasherCoords(myint &iDasherX, myint &iDasherY, CDasherView *pView) {
+    iDasherX = 0;
+    iDasherY = m_iY - m_iOffset;
+    return true;
   };
   
   virtual void SetMaxCoordinates(int iN, myint * iDasherMax) {

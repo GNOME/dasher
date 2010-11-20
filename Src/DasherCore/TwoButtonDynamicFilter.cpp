@@ -56,7 +56,7 @@ CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventH
   HandleEvent(&oEvent);
 }
 
-bool CTwoButtonDynamicFilter::DecorateView(CDasherView *pView) {
+bool CTwoButtonDynamicFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
   CDasherScreen *pScreen(pView->Screen());
 
   CDasherScreen::point p[2];
@@ -93,22 +93,22 @@ bool CTwoButtonDynamicFilter::DecorateView(CDasherView *pView) {
   return bRV;
 }
 
-void CTwoButtonDynamicFilter::KeyDown(int Time, int iId, CDasherView *pDasherView, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {
+void CTwoButtonDynamicFilter::KeyDown(int Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {
 	if (iId == 100 && !GetBoolParameter(BP_BACKOFF_BUTTON))
 		//mouse click - will be ignored by superclass method.
 		//simulate press of button 2/3 according to whether click in top/bottom half
-		CButtonMultiPress::KeyDown(Time, (iY < pDasherView->Screen()->GetHeight()/2) ? 2 : 3, pDasherView, pModel, pUserLog);
+		CButtonMultiPress::KeyDown(Time, (iY < pView->Screen()->GetHeight()/2) ? 2 : 3, pView, pInput, pModel, pUserLog);
 	else
-		CInputFilter::KeyDown(Time, iId, pDasherView, pModel, pUserLog, bPos, iX, iY);
+		CInputFilter::KeyDown(Time, iId, pView, pInput, pModel, pUserLog, bPos, iX, iY);
 }
 
-void CTwoButtonDynamicFilter::KeyUp(int Time, int iId, CDasherView *pDasherView, CDasherModel *pModel, bool bPos, int iX, int iY) {
+void CTwoButtonDynamicFilter::KeyUp(int Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, bool bPos, int iX, int iY) {
 	if (iId == 100 && !GetBoolParameter(BP_BACKOFF_BUTTON))
 		//mouse click - will be ignored by superclass method.
 		//simulate press of button 2/3 according to whether click in top/bottom half
-		CButtonMultiPress::KeyUp(Time, (iY < pDasherView->Screen()->GetHeight()/2) ? 2 : 3, pDasherView, pModel);
+		CButtonMultiPress::KeyUp(Time, (iY < pView->Screen()->GetHeight()/2) ? 2 : 3, pView, pInput,pModel);
 	else
-		CInputFilter::KeyUp(Time, iId, pDasherView, pModel, bPos, iX, iY);
+		CInputFilter::KeyUp(Time, iId, pView, pInput, pModel, bPos, iX, iY);
 }
 
 bool CTwoButtonDynamicFilter::TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {

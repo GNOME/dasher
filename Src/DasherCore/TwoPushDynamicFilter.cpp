@@ -65,7 +65,7 @@ void GuideLine(CDasherView *pView, const myint iDasherY, const int iColour)
   pScreen->Polyline(p, 2, 3, iColour);
 }  
 
-bool CTwoPushDynamicFilter::DecorateView(CDasherView *pView)
+bool CTwoPushDynamicFilter::DecorateView(CDasherView *pView, CDasherInput *pInput)
 {  
   //outer guides (yellow rects)
   for (int i=0; i<2; i++)
@@ -171,22 +171,22 @@ void CTwoPushDynamicFilter::HandleEvent(Dasher::CEvent * pEvent)
   }
 }
 
-void CTwoPushDynamicFilter::KeyDown(int Time, int iId, CDasherView *pDasherView, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {
+void CTwoPushDynamicFilter::KeyDown(int Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {
   if (iId == 100 && !GetBoolParameter(BP_BACKOFF_BUTTON))
     //mouse click - will be ignored by superclass method.
     //simulate press of button 2...
-    CDynamicFilter::KeyDown(Time, 2, pDasherView, pModel, pUserLog);
+    CDynamicFilter::KeyDown(Time, 2, pView, pInput, pModel, pUserLog);
   else
-    CInputFilter::KeyDown(Time, iId, pDasherView, pModel, pUserLog, bPos, iX, iY);
+    CInputFilter::KeyDown(Time, iId, pView, pInput, pModel, pUserLog, bPos, iX, iY);
 }
 
-void CTwoPushDynamicFilter::KeyUp(int Time, int iId, CDasherView *pDasherView, CDasherModel *pModel, bool bPos, int iX, int iY) {
+void CTwoPushDynamicFilter::KeyUp(int Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, bool bPos, int iX, int iY) {
   if (iId == 100 && !GetBoolParameter(BP_BACKOFF_BUTTON))
   //mouse click - will be ignored by superclass method.
   //simulate press of button 2...
-    CDynamicFilter::KeyUp(Time, 2, pDasherView, pModel);
+    CDynamicFilter::KeyUp(Time, 2, pView, pInput, pModel);
   else
-    CInputFilter::KeyUp(Time, iId, pDasherView, pModel, bPos, iX, iY);
+    CInputFilter::KeyUp(Time, iId, pView, pInput, pModel, bPos, iX, iY);
 }
 
 void CTwoPushDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) {

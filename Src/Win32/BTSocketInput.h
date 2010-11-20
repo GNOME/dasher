@@ -10,18 +10,12 @@ namespace Dasher {
   class CBTSocketInput;
 } 
 
-class Dasher::CBTSocketInput : public CDasherInput {
+class Dasher::CBTSocketInput : public CDasherCoordInput {
 public:
   CBTSocketInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore);
   ~CBTSocketInput(void);
 
-  virtual int GetCoordinates(int iN, myint * pCoordinates);
-
-  // Get the number of co-ordinates that this device supplies
-
-  virtual int GetCoordinateCount() {
-    return 2;
-  };
+  virtual bool GetDasherCoords(myint &iDasherX, myint &iDasherY, CDasherView *pView);
 
   virtual void Activate();
   virtual void Deactivate();

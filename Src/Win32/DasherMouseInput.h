@@ -5,18 +5,12 @@ namespace Dasher {
   class CDasherMouseInput;
 } 
 
-class Dasher::CDasherMouseInput : public CDasherInput {
+class Dasher::CDasherMouseInput : public CScreenCoordInput {
 public:
   CDasherMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, HWND _hwnd);
   ~CDasherMouseInput(void);
 
-  virtual int GetCoordinates(int iN, myint * pCoordinates);
-
-  // Get the number of co-ordinates that this device supplies
-
-  virtual int GetCoordinateCount() {
-    return 2;
-  };
+  virtual bool GetScreenCoords(screenint &iX, screenint &iY, CDasherView *pView);
 
 private:
   HWND m_hwnd;

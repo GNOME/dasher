@@ -10,7 +10,7 @@ public:
   CCircleStartHandler(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface);
 
   virtual bool DecorateView(CDasherView *pView);
-  virtual void Timer(int iTime, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel);
+  virtual void Timer(int iTime, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel);
   virtual void HandleEvent(Dasher::CEvent * pEvent);
 
 private:

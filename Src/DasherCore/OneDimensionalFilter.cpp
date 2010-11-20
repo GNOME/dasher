@@ -11,10 +11,10 @@ COneDimensionalFilter::COneDimensionalFilter(Dasher::CEventHandler * pEventHandl
   : CDefaultFilter(pEventHandler, pSettingsStore, pInterface, iID, szName), forwardmax(GetLongParameter(LP_MAX_Y)/2.5) {
 }
 
-bool COneDimensionalFilter::Timer(int Time, CDasherView *pView, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {
+bool COneDimensionalFilter::Timer(int Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {
   myint iDasherMinX,iDasherMaxY,iDasherMinY;
   pView->VisibleRegion(iDasherMinX, iDasherMinY, m_iDasherMaxX, iDasherMaxY);
-  return CDefaultFilter::Timer(Time,pView,pModel,pAdded,pNumDeleted,pol);
+  return CDefaultFilter::Timer(Time,pView,pInput,pModel,pAdded,pNumDeleted,pol);
 }
 
 void COneDimensionalFilter::ApplyTransform(myint &iDasherX, myint &iDasherY) {

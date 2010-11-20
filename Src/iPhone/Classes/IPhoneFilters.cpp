@@ -18,10 +18,10 @@
 CIPhone1DFilter::CIPhone1DFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID)
 : COneDimensionalFilter(pEventHandler, pSettingsStore, pInterface, iID, ONE_D_FILTER), m_iSlow(0), m_dRad(1.0) {};
 
-bool CIPhone1DFilter::Timer(int iTime, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol)
+bool CIPhone1DFilter::Timer(int iTime, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol)
 {
 	myint iDasherX,iDasherY;
-	m_pDasherView->GetCoordinates(iDasherX, iDasherY);
+	pInput->GetDasherCoords(iDasherX, iDasherY, pView);
 	if (iDasherX > 3072/*ICK*/) {
     //tilted to left; slow down to 0.25* speed (suddenly!)
     m_iSlow = -1; m_dRad = 0.25;
@@ -45,7 +45,7 @@ bool CIPhone1DFilter::Timer(int iTime, CDasherView *m_pDasherView, CDasherModel 
 			m_dRad = (iTime - m_iSlow) / (double)GetLongParameter(LP_SLOW_START_TIME);
 		}
 	}
-	return CDefaultFilter::Timer(iTime, m_pDasherView, m_pDasherModel, pAdded, pNumDeleted, pol);
+	return CDefaultFilter::Timer(iTime, pView, pInput, pModel, pAdded, pNumDeleted, pol);
 }
 			
 void CIPhone1DFilter::ApplyTransform(myint &iDasherX, myint &iDasherY) {
@@ -70,12 +70,12 @@ void CIPhonePolarFilter::ApplyTransform(myint &iDasherX, myint &iDasherY) {
 	iDasherY = (iDasherY - oy)*dRad + oy;	
 }
 
-void CIPhonePolarFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CIPhonePolarFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
 	if(iId == 100)
 		m_pInterface->Unpause(iTime);
 }
 
-void CIPhonePolarFilter::KeyUp(int iTime, int iId, CDasherView *pView, CDasherModel *pModel) {
+void CIPhonePolarFilter::KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
 	if(iId == 100)
 		m_pInterface->Stop();
 }

@@ -24,7 +24,7 @@ COneButtonFilter::COneButtonFilter(Dasher::CEventHandler * pEventHandler, CSetti
 COneButtonFilter::~COneButtonFilter() {
 }
 
-bool COneButtonFilter::DecorateView(CDasherView *pView) {
+bool COneButtonFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
 
   CDasherScreen *pScreen(pView->Screen());
 
@@ -52,7 +52,7 @@ bool COneButtonFilter::DecorateView(CDasherView *pView) {
   return true;
 }
 
-bool COneButtonFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {
+bool COneButtonFilter::Timer(int Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {
 
   if(bStarted) {
     iLocation = (Time - iStartTime) * 4096 / GetLongParameter(LP_STATIC1B_TIME);
@@ -70,7 +70,7 @@ bool COneButtonFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel 
   return m_pDasherModel->NextScheduledStep(Time, pAdded, pNumDeleted);
 }
 
-void COneButtonFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void COneButtonFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
   if (bStarted) {
     if (iLocation == 0) {
       //back up by one zoom step.

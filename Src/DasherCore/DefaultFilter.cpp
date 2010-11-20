@@ -39,13 +39,13 @@ CDefaultFilter::~CDefaultFilter() {
   delete m_pAutoSpeedControl;
 }
 
-bool CDefaultFilter::DecorateView(CDasherView *pView) {
+bool CDefaultFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
 
   bool bDidSomething(false);
 
   if (GetBoolParameter(BP_DASHER_PAUSED)) {
     //Timer() is not retrieving input coordinates, so we'd better do so here...
-    pView->GetCoordinates(m_iLastX, m_iLastY);
+    if (!pInput->GetDasherCoords(m_iLastX, m_iLastY, pView)) return false;
     ApplyTransform(m_iLastX, m_iLastY);
   }
 
@@ -106,11 +106,14 @@ bool CDefaultFilter::DecorateView(CDasherView *pView) {
   return bDidSomething;
 }
 
-bool CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {
+bool CDefaultFilter::Timer(int Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {
   bool bDidSomething = false;
   if (!GetBoolParameter(BP_DASHER_PAUSED))
   {
-    m_pDasherView->GetCoordinates(m_iLastX, m_iLastY);
+    if (!(pInput->GetDasherCoords(m_iLastX, m_iLastY, pView))) {
+      m_pInterface->Stop();
+      return false;
+    };
     ApplyTransform(m_iLastX, m_iLastY);
 
     if(GetBoolParameter(BP_STOP_OUTSIDE)) {
@@ -118,7 +121,7 @@ bool CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
       myint iDasherMinY;
       myint iDasherMaxX;
       myint iDasherMaxY;
-      m_pDasherView->VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
+      pView->VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
   
       if((m_iLastX > iDasherMaxX) || (m_iLastX < iDasherMinX) || (m_iLastY > iDasherMaxY) || (m_iLastY < iDasherMinY)) {
         m_pInterface->Stop();
@@ -129,16 +132,16 @@ bool CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
     m_pDasherModel->OneStepTowards(m_iLastX,m_iLastY, Time, pAdded, pNumDeleted);
     bDidSomething = true;
 
-    m_pAutoSpeedControl->SpeedControl(m_iLastX, m_iLastY, m_pDasherView);
+    m_pAutoSpeedControl->SpeedControl(m_iLastX, m_iLastY, pView);
   }
 	
   if(m_pStartHandler)
-    m_pStartHandler->Timer(Time, m_pDasherView, m_pDasherModel);
+    m_pStartHandler->Timer(Time, pView, pInput, m_pDasherModel);
 
   return bDidSomething;
 }
 
-void CDefaultFilter::KeyDown(int iTime, int iId, CDasherView *pDasherView, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CDefaultFilter::KeyDown(int iTime, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
 
   switch(iId) {
   case 0: // Start on space

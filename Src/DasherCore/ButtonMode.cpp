@@ -166,7 +166,7 @@ void CButtonMode::SetupBoxes()
   m_pBoxes[m_iNumBoxes-1].iBottom = int(iDasherY * 1.5);
 }
 
-bool CButtonMode::DecorateView(CDasherView *pView) {
+bool CButtonMode::DecorateView(CDasherView *pView, CDasherInput *pInput) {
   for(int i(0); i < m_iNumBoxes; ++i) {
     if(i != iActiveBox)
       NewDrawGoTo(pView, m_pBoxes[i].iDisplayTop, m_pBoxes[i].iDisplayBottom, false);
@@ -178,35 +178,35 @@ bool CButtonMode::DecorateView(CDasherView *pView) {
   return bRV;
 }
 
-bool CButtonMode::Timer(int Time, CDasherView *pView, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {
+bool CButtonMode::Timer(int Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {
   bool m_bOldHighlight(m_bHighlight);
   m_bHighlight = (Time - m_iLastTime < 200);
   
   if(m_bOldHighlight != m_bHighlight)
     m_bDecorationChanged = true;  
 
-  return CDasherButtons::Timer(Time, pView, pModel, pAdded, pNumDeleted, pol);
+  return CDasherButtons::Timer(Time, pView, pInput, pModel, pAdded, pNumDeleted, pol);
 }
 
-void CButtonMode::KeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY)
+void CButtonMode::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY)
 {
   if (iId == 100 && !m_bMenu) {
     //Mouse!
     myint iDasherX, iDasherY;
-    pView->GetCoordinates(iDasherX, iDasherY);
+    pInput->GetDasherCoords(iDasherX, iDasherY, pView);
     for (int i = 0; i < m_iNumBoxes; i++)
     {
       if (iDasherY < m_pBoxes[i].iDisplayBottom &&
           iDasherY > m_pBoxes[i].iDisplayTop &&
           iDasherX < (m_pBoxes[i].iDisplayBottom - m_pBoxes[i].iDisplayTop)) {
         //user has clicked in box! Simulate press of appropriate (direct-mode) button...
-        CDasherButtons::KeyDown(iTime, (i==m_iNumBoxes-1) ? 1 : i+2, pView, pModel, pUserLog);
+        CDasherButtons::KeyDown(iTime, (i==m_iNumBoxes-1) ? 1 : i+2, pView, pInput, pModel, pUserLog);
         return;
       }
     }
     //not in any box. Fall through, just to be conservative...
   }
-  CInputFilter::KeyDown(iTime, iId, pView, pModel, pUserLog, bPos, iX, iY);
+  CInputFilter::KeyDown(iTime, iId, pView, pInput, pModel, pUserLog, bPos, iX, iY);
 }
 
 void CButtonMode::DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog) {
