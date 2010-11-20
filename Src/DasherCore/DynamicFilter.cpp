@@ -85,27 +85,23 @@ void CDynamicFilter::Event(int iTime, int iButton, int iType, CDasherModel *pMod
   // 0 = ordinary click
   // 1 = long click
   
-  // First sanity check - if Dasher is paused then jump to the
-  // appropriate state
-  if(GetBoolParameter(BP_DASHER_PAUSED) && !isPaused())
-    pause();
-
   // TODO: Check that state diagram implemented here is what we
   // decided upon
 
   // What happens next depends on the state:
   if (isPaused()) {
-  //Any button causes a restart
+    //Any button causes a restart
     if(pUserLog)
       pUserLog->KeyDown(iButton, iType, 1);
-    m_pInterface->Unpause(iTime);
     run();
+    m_pInterface->Unpause(iTime);
   } else if (isReversing()) {
+    //Any button pauses
     if(pUserLog)
       pUserLog->KeyDown(iButton, iType, 2);
     
-    pause();
     m_pInterface->Stop();
+    //change in BP_DASHER_PAUSED calls pause().
   } else {
     //running; examine event/button-press type
     switch(iType) {
@@ -114,7 +110,6 @@ void CDynamicFilter::Event(int iTime, int iButton, int iType, CDasherModel *pMod
         //dedicated pause button
         if(pUserLog)
           pUserLog->KeyDown(iButton, iType, 2);
-        pause();
         m_pInterface->Stop();
         break;
       }
@@ -128,6 +123,18 @@ void CDynamicFilter::Event(int iTime, int iButton, int iType, CDasherModel *pMod
       //else - any non-special button - fall through
     default: //or, Any special kind of event - long, double, triple, ... 
       ActionButton(iTime, iButton, iType, pModel, pUserLog);
+    }
+  }
+}
+
+void CDynamicFilter::HandleEvent(CEvent *pEvent) {
+  if (pEvent->m_iEventType==EV_PARAM_NOTIFY) {
+    if (static_cast<CParameterNotificationEvent *>(pEvent)->m_iParameter==BP_DASHER_PAUSED) {
+      if (GetBoolParameter(BP_DASHER_PAUSED))
+        pause(); //make sure we're in sync
+      else if (m_pInterface->GetActiveInputMethod()==this && isPaused())
+        //if we're active: can't unpause, as we don't know which way to go, run or reverse?
+        SetBoolParameter(BP_DASHER_PAUSED, true);
     }
   }
 }

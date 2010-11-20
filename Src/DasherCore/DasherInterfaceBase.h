@@ -359,6 +359,8 @@ public:
   CDasherModule *RegisterModule(CDasherModule *pModule);
   CDasherModule *GetModule(ModuleID_t iID);
   CDasherModule *GetModuleByName(const std::string &strName);
+  CDasherInput *GetActiveInputDevice() {return m_pInput;}
+  CInputFilter *GetActiveInputMethod() {return m_pInputFilter;}
   void SetDefaultInputDevice(CDasherInput *);
   void SetDefaultInputMethod(CInputFilter *);
 

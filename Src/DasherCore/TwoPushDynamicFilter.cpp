@@ -102,6 +102,7 @@ bool CTwoPushDynamicFilter::DecorateView(CDasherView *pView, CDasherInput *pInpu
 
 void CTwoPushDynamicFilter::HandleEvent(Dasher::CEvent * pEvent)
 {
+  CDynamicFilter::HandleEvent(pEvent);
   if(pEvent->m_iEventType == EV_PARAM_NOTIFY)
   {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));

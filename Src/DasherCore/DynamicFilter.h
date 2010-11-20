@@ -39,6 +39,8 @@ class CDynamicFilter : public CInputFilter {
   virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
   virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
 
+  //respond to changes to BP_DASHER_PAUSED to keep m_iState in sync
+  virtual void HandleEvent(CEvent *pEvent);
  protected:
   virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) = 0;
   virtual void Event(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog);

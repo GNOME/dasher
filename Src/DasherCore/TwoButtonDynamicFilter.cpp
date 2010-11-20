@@ -211,4 +211,5 @@ void CTwoButtonDynamicFilter::HandleEvent(Dasher::CEvent *pEvent)
         m_bDecorationChanged = true;
     }
   }
+  CDynamicFilter::HandleEvent(pEvent);
 }
