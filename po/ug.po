@@ -3,12 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Gheyret T.Kenji <gheyret@yahoo.com>, 2005.
 # Sahran <sahran.ug@gmail.com>, 2010
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher \n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&component=general\n"
-"POT-Creation-Date: 2010-10-16 18:15+0000\n"
+"POT-Creation-Date: 2010-11-13 20:47+0000\n"
 "PO-Revision-Date: 2004-09-03 22:44+0900\n"
 "Last-Translator: Sahran <sahran.ug@gmail.com>\n"
 "Language-Team: GNOME Uighur Translation Project <gnome-uighur@yahoogroups.com>\n"
