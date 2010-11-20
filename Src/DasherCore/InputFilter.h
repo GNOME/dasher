@@ -43,7 +43,6 @@ class CInputFilter : public CDasherModule {
  protected:
   CDasherInterfaceBase *m_pInterface;
 
- private:
   virtual void KeyDown(int Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {};
   virtual void KeyUp(int Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel) {};
 };

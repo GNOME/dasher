@@ -22,7 +22,7 @@ class CDefaultFilter : public CInputFilter {
   bool GetSettings(SModuleSettings **, int *);
  protected:
   virtual void CreateStartHandler();
-  virtual void ApplyTransform(myint &iDasherX, myint &iDasherY);
+  virtual void ApplyTransform(myint &iDasherX, myint &iDasherY, CDasherView *pView);
   void ApplyOffset(myint &iDasherX, myint &iDasherY);
   
 protected:

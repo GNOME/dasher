@@ -46,7 +46,7 @@ bool CDefaultFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
   if (GetBoolParameter(BP_DASHER_PAUSED)) {
     //Timer() is not retrieving input coordinates, so we'd better do so here...
     if (!pInput->GetDasherCoords(m_iLastX, m_iLastY, pView)) return false;
-    ApplyTransform(m_iLastX, m_iLastY);
+    ApplyTransform(m_iLastX, m_iLastY, pView);
   }
 
   if(GetBoolParameter(BP_DRAW_MOUSE)) {
@@ -114,7 +114,7 @@ bool CDefaultFilter::Timer(int Time, CDasherView *pView, CDasherInput *pInput, C
       m_pInterface->Stop();
       return false;
     };
-    ApplyTransform(m_iLastX, m_iLastY);
+    ApplyTransform(m_iLastX, m_iLastY, pView);
 
     if(GetBoolParameter(BP_STOP_OUTSIDE)) {
       myint iDasherMinX;
@@ -205,7 +205,7 @@ double xmax(double y) {
   //cout << "xmax = " << xmax << endl;
 }
 
-void CDefaultFilter::ApplyTransform(myint &iDasherX, myint &iDasherY) {
+void CDefaultFilter::ApplyTransform(myint &iDasherX, myint &iDasherY, CDasherView *pView) {
   ApplyOffset(iDasherX, iDasherY);
   if (GetBoolParameter(BP_REMAP_XTREME)) {
     // Y co-ordinate...
