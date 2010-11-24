@@ -44,6 +44,7 @@
 		331F29CA0F7A9C270044EB9C /* alphabet.xsl in Resources */ = {isa = PBXBuildFile; fileRef = 331F293E0F7A9C270044EB9C /* alphabet.xsl */; };
 		331F29CB0F7A9C270044EB9C /* alphabet.xsl.good in Resources */ = {isa = PBXBuildFile; fileRef = 331F293F0F7A9C270044EB9C /* alphabet.xsl.good */; };
 		3324F491129C119C00EE6A22 /* IPhoneFilters.mm in Sources */ = {isa = PBXBuildFile; fileRef = 332F32CC103C8D6E008448D7 /* IPhoneFilters.mm */; };
+		3324F7BF129D744D00EE6A22 /* ActionConfigurator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3324F7BE129D744D00EE6A22 /* ActionConfigurator.mm */; };
 		332BCAB40F71621400585DBD /* expat.dsp in Resources */ = {isa = PBXBuildFile; fileRef = 332BCA9A0F71621400585DBD /* expat.dsp */; };
 		332BCAB50F71621400585DBD /* expat_static.dsp in Resources */ = {isa = PBXBuildFile; fileRef = 332BCA9D0F71621400585DBD /* expat_static.dsp */; };
 		332BCAB60F71621400585DBD /* expatw.dsp in Resources */ = {isa = PBXBuildFile; fileRef = 332BCA9E0F71621400585DBD /* expatw.dsp */; };
@@ -83,7 +84,6 @@
 		3334D4A3101385060077948A /* tilt.png in Resources */ = {isa = PBXBuildFile; fileRef = 3334D4A2101385060077948A /* tilt.png */; };
 		3334D4BC1014713B0077948A /* globe.png in Resources */ = {isa = PBXBuildFile; fileRef = 3334D4BB1014713B0077948A /* globe.png */; };
 		3334D4D31014740B0077948A /* misc.png in Resources */ = {isa = PBXBuildFile; fileRef = 3334D4D21014740B0077948A /* misc.png */; };
-		3334D4DF1014745F0077948A /* MiscSettings.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3334D4DE1014745F0077948A /* MiscSettings.mm */; };
 		3334D996101627140077948A /* alphabet.bengali.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3334D995101627130077948A /* alphabet.bengali.xml */; };
 		3334D99A101627A00077948A /* alphabet.hungarian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3334D999101627A00077948A /* alphabet.hungarian.xml */; };
 		3334D99C101627DE0077948A /* alphabet.mongolian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3334D99B101627DE0077948A /* alphabet.mongolian.xml */; };
@@ -333,6 +333,8 @@
 		332387300F78388200DD75C5 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		332387310F78388200DD75C5 /* myassert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myassert.h; sourceTree = "<group>"; };
 		332387350F7838AC00DD75C5 /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platform.h; sourceTree = "<group>"; };
+		3324F7BD129D744D00EE6A22 /* ActionConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionConfigurator.h; sourceTree = "<group>"; };
+		3324F7BE129D744D00EE6A22 /* ActionConfigurator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ActionConfigurator.mm; sourceTree = "<group>"; };
 		332BCA980F71621400585DBD /* ascii.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ascii.h; sourceTree = "<group>"; };
 		332BCA990F71621400585DBD /* asciitab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asciitab.h; sourceTree = "<group>"; };
 		332BCA9A0F71621400585DBD /* expat.dsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = expat.dsp; sourceTree = "<group>"; };
@@ -394,8 +396,6 @@
 		3334D4A2101385060077948A /* tilt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tilt.png; sourceTree = "<group>"; };
 		3334D4BB1014713B0077948A /* globe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = globe.png; sourceTree = "<group>"; };
 		3334D4D21014740B0077948A /* misc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = misc.png; sourceTree = "<group>"; };
-		3334D4DD1014745F0077948A /* MiscSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiscSettings.h; sourceTree = "<group>"; };
-		3334D4DE1014745F0077948A /* MiscSettings.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MiscSettings.mm; sourceTree = "<group>"; };
 		3334D995101627130077948A /* alphabet.bengali.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.bengali.xml; sourceTree = "<group>"; };
 		3334D999101627A00077948A /* alphabet.hungarian.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.hungarian.xml; sourceTree = "<group>"; };
 		3334D99B101627DE0077948A /* alphabet.mongolian.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.mongolian.xml; sourceTree = "<group>"; };
@@ -612,7 +612,6 @@
 		3344FDD70F71717C00506EAA /* MixtureLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixtureLanguageModel.h; sourceTree = "<group>"; };
 		3344FDD80F71717C00506EAA /* PPMLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PPMLanguageModel.cpp; sourceTree = "<group>"; };
 		3344FDD90F71717C00506EAA /* PPMLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPMLanguageModel.h; sourceTree = "<group>"; };
-		3344FDDA0F71717C00506EAA /* SymbolAlphabet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SymbolAlphabet.h; sourceTree = "<group>"; };
 		3344FDDB0F71717C00506EAA /* WordLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WordLanguageModel.cpp; sourceTree = "<group>"; };
 		3344FDDC0F71717C00506EAA /* WordLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordLanguageModel.h; sourceTree = "<group>"; };
 		3344FDDE0F71717C00506EAA /* MemoryLeak.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MemoryLeak.cpp; sourceTree = "<group>"; };
@@ -771,8 +770,6 @@
 				334B1BF011232A8E007A6DFF /* ParametersController.mm */,
 				332F34B7103D91E5008448D7 /* LanguagesController.h */,
 				332F34B8103D91E5008448D7 /* LanguagesController.mm */,
-				3334D4DD1014745F0077948A /* MiscSettings.h */,
-				3334D4DE1014745F0077948A /* MiscSettings.mm */,
 				333B5D4D100F5A93002041C8 /* TextView.h */,
 				333B5D4E100F5A93002041C8 /* TextView.mm */,
 				3330BD420FA885FD0035E952 /* IPhoneInputs.h */,
@@ -801,6 +798,8 @@
 				1D3623250D0F684500981E51 /* DasherAppDelegate.mm */,
 				3354AF4611ADBAFD006CF570 /* Actions.h */,
 				3354AF4711ADBAFD006CF570 /* Actions.mm */,
+				3324F7BD129D744D00EE6A22 /* ActionConfigurator.h */,
+				3324F7BE129D744D00EE6A22 /* ActionConfigurator.mm */,
 				33EB48400F72A5680048E7C2 /* DasherScreenCallbacks.h */,
 				339F8A310FF5088000282847 /* CalibrationController.h */,
 				339F8A320FF5088000282847 /* CalibrationController.mm */,
@@ -1336,7 +1335,6 @@
 				3344FDD70F71717C00506EAA /* MixtureLanguageModel.h */,
 				3344FDD80F71717C00506EAA /* PPMLanguageModel.cpp */,
 				3344FDD90F71717C00506EAA /* PPMLanguageModel.h */,
-				3344FDDA0F71717C00506EAA /* SymbolAlphabet.h */,
 				3344FDDB0F71717C00506EAA /* WordLanguageModel.cpp */,
 				3344FDDC0F71717C00506EAA /* WordLanguageModel.h */,
 			);
@@ -1643,7 +1641,6 @@
 				332F32B6103C8A1E008448D7 /* Trainer.cpp in Sources */,
 				339F8A330FF5088000282847 /* CalibrationController.mm in Sources */,
 				333B5D4F100F5A93002041C8 /* TextView.mm in Sources */,
-				3334D4DF1014745F0077948A /* MiscSettings.mm in Sources */,
 				332F34B9103D91E5008448D7 /* LanguagesController.mm in Sources */,
 				337ECC1B10DD5E0700D0C6A5 /* ExpansionPolicy.cpp in Sources */,
 				334B1BF111232A8E007A6DFF /* ParametersController.mm in Sources */,
@@ -1722,6 +1719,7 @@
 				3354AF4811ADBAFD006CF570 /* Actions.mm in Sources */,
 				337472D3121A976B001A858C /* AlphInfo.cpp in Sources */,
 				3324F491129C119C00EE6A22 /* IPhoneFilters.mm in Sources */,
+				3324F7BF129D744D00EE6A22 /* ActionConfigurator.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

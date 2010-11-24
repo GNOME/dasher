@@ -11,11 +11,12 @@
 #import "LanguagesController.h"
 #import "InputMethodSelector.h"
 #import "CalibrationController.h"
+#import "ParametersController.h"
 #import "DasherUtil.h"
 #import "Common.h"
 #import "TextView.h"
-#import "MiscSettings.h"
 #import "FliteTTS.h"
+#import "ActionConfigurator.h"
 
 //declare some private methods!
 @interface DasherAppDelegate ()
@@ -36,6 +37,18 @@
 @interface UISlider (Hideable)
 - (void)hide;
 @end
+
+static SModuleSettings _miscSettings[] = { //note iStep and string description are ignored
+  {LP_NODE_BUDGET, T_LONG, 400, 10000, 1, 0, ""}, //hopefully appropriate for an iPhone 3GS?
+  {LP_MARGIN_WIDTH, T_LONG, 100, 900, 1, 0, ""},
+  {LP_DASHER_FONTSIZE, T_LONG, 1, 3, 1, 1, ""},
+  {LP_SHAPE_TYPE, T_LONG, 0, 5, 1, -1, ""},
+  {LP_OUTLINE_WIDTH, T_LONG, -5, 5, 1, -1, ""},
+  {BP_AUTO_SPEEDCONTROL, T_BOOL, -1, -1, -1, -1, ""},
+  {LP_NONLINEAR_X, T_LONG, 0, 10, 1, -1, ""},
+  {BP_DOUBLE_X, T_BOOL, -1, -1, -1, -1, ""},
+};
+
 
 @implementation DasherAppDelegate
 
@@ -286,21 +299,28 @@
 - (void)settings {
   //avoid awful muddle if we change out of tap-to-start mode whilst running.... 
   _dasherInterface->Stop();
-  [glView stopAnimation];
 	
   UITabBarController *tabs = [[[UITabBarController alloc] init] autorelease];
   tabs.title = @"Settings";
   tabs.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(settingsDone)] autorelease];
   UINavigationController *settings = [[[UINavigationController alloc] initWithRootViewController:tabs] autorelease];
 
+  ParametersController *misc = [[[ParametersController alloc] initWithTitle:@"Misc" Settings:_miscSettings Count:sizeof(_miscSettings)/sizeof(_miscSettings[0])] autorelease];
+  misc.tabBarItem.image = [UIImage imageNamed:@"misc.png"];
+
     tabs.viewControllers = [NSArray arrayWithObjects:
 							[[[InputMethodSelector alloc] init] autorelease],
 						    [[[LanguagesController alloc] init] autorelease],
                 [[[StringParamController alloc] initWithTitle:@"Colour" image:[UIImage imageNamed:@"palette.png"] settingParam:SP_COLOUR_ID] autorelease],
-						    [[[MiscSettings alloc] init] autorelease],
-                [actions tabConfigurator],
+						    misc,
+                [ActionConfigurator instanceForButton:actions],
 						    nil];
   [self presentModalViewController:settings animated:YES];
+}
+
+-(void)presentModalViewController:(UIViewController *)modalViewController animated:(BOOL)animated {
+  [glView stopAnimation];
+  [super presentModalViewController:modalViewController animated:animated];
 }
 
 - (void)settingsDone {

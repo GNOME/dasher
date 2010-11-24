@@ -1,33 +1,17 @@
 //
-//  U.m
+//  Actions.mm
 //  Dasher
 //
 //  Created by Alan Lawrence on 26/05/2010.
 //  Copyright 2010 Cavendish Laboratory. All rights reserved.
 //
+#define __ACTIONS_MM__
 
 #import "Actions.h"
 #import "DasherAppDelegate.h"
+#import "ActionConfigurator.h"
 
-@interface ActionButton ()
-- (void)performAction:(int)which checkClear:(BOOL)bCheck;
-- (void)scan;
-- (UIViewController *)navConfigurator;
-@end;
-
-@interface ActionConfigurator : UITableViewController {
-  ActionButton *button;
-}
--(id)initWithButton:(ActionButton *)_button;
-@end
-
-typedef struct {
-  NSString *dispName;
-  NSString *settingName;
-  NSString *toolbarIconFile;
-} SAction;
-
-static SAction actions[] = {
+SAction actions[] = {
   {@"Email",@"iphone_act_email", @"mail.png"},
   {@"Speak",@"iphone_act_speak", @"bubble.png"},
   {@"Speak and Clear",@"iphone_act_speak_clear", @"bubbletrash.png"},
@@ -36,7 +20,12 @@ static SAction actions[] = {
   {@"Paste from Clipboard", @"iphone_act_paste", @"paste.png"},
 };
 
-static const int numActions = sizeof(actions) / sizeof(actions[0]);
+int numActions = sizeof(actions) / sizeof(actions[0]);
+
+@interface ActionButton ()
+- (void)performAction:(int)which checkClear:(BOOL)bCheck;
+@end;
+
 
 static NSString *actionIconFile = @"spanner.png";
 
@@ -46,25 +35,9 @@ static NSString *actionIconFile = @"spanner.png";
   if (self = [super initWithImage:[UIImage imageNamed:actionIconFile] style:UIBarButtonItemStylePlain target:self action:@selector(clicked)]) {
     toolbar = _toolbar;
     actionsOn = new int[numActions];
-    [self scan];
+    [self refresh];
   }
   return self;
-}
-
--(UIViewController *)tabConfigurator {
-  ActionConfigurator *conf=[[[ActionConfigurator alloc] initWithButton:self] autorelease];
-  //for a tab in the settings tabcontroller...
-  conf.tabBarItem.title=@"Actions";
-  conf.tabBarItem.image=[UIImage imageNamed:@"spanner_lg.png"];
-  return conf;
-}
-
--(UIViewController *)navConfigurator {
-  ActionConfigurator *conf = [[[ActionConfigurator alloc] initWithButton:self] autorelease];
-  //for root of a navigationcontroller...
-  conf.navigationItem.title=@"Configure Actions";
-  conf.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(settingsDone)] autorelease];
-  return conf;
 }
 
 -(void)dealloc {
@@ -72,7 +45,7 @@ static NSString *actionIconFile = @"spanner.png";
   [super dealloc];
 }
 
--(void)scan {
+-(void)refresh {
   numActionsOn=0;
   NSUserDefaults *settings=[NSUserDefaults standardUserDefaults];
   NSString *iconFile=nil;
@@ -93,7 +66,7 @@ static NSString *actionIconFile = @"spanner.png";
 - (void)clicked {
   if (numActionsOn==0) {
     //no actions enabled! display configurator...
-    [[DasherAppDelegate theApp] presentModalViewController:[[[UINavigationController alloc] initWithRootViewController:[self navConfigurator]] autorelease] animated:YES];
+    [[DasherAppDelegate theApp] presentModalViewController:[[[UINavigationController alloc] initWithRootViewController:[ActionConfigurator instanceForButton:self]] autorelease] animated:YES];
   } else if (numActionsOn==1) {
     //a single action is enabled...
     [self performAction:actionsOn[0] checkClear:YES];
@@ -134,10 +107,6 @@ static NSString *actionIconFile = @"spanner.png";
     }
     [choice showFromToolbar:toolbar];
   }
-}
-
--(void)settingsDone {
-  [[DasherAppDelegate theApp] dismissModalViewControllerAnimated:YES];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -184,187 +153,3 @@ static NSString *actionIconFile = @"spanner.png";
 }
 
 @end
-
-@implementation ActionConfigurator
-
-- (id)initWithButton:(ActionButton *)_button {
-  if (self = [super initWithStyle:UITableViewStylePlain]) {
-    button = _button;
-  }
-  return self;
-}
-
-#pragma mark -
-#pragma mark View lifecycle
-
-/*
-- (void)viewDidLoad {
-    [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-*/
-
-/*
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-*/
-/*
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-*/
-/*
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-*/
-/*
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-}
-*/
-/*
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-*/
-
-
-#pragma mark -
-#pragma mark Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-  return numActions;
-}
-
-
-// Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    UISwitch *sw;
-  
-    if (cell == nil) {
-      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-      sw = [[[UISwitch alloc] initWithFrame:CGRectMake(210.0,5.0,100.0,20.0)] autorelease];
-      [sw addTarget:self action:@selector(slid:) forControlEvents:UIControlEventValueChanged];
-      sw.tag=1; 
-      [cell addSubview:sw];
-    } else {
-      DASHER_ASSERT([[cell viewWithTag:1] isKindOfClass:[UISwitch class]]);
-      sw = (UISwitch *)[cell viewWithTag:1];
-    }
-
-    
-    // Configure the cell...
-  SAction *act = &actions[ [indexPath row] ];
-  cell.text = act->dispName;
-  cell.tag = [indexPath row];
-  sw.on = [[NSUserDefaults standardUserDefaults] boolForKey:act->settingName];
-  return cell;
-}
-
-- (void)slid:(id)sender {
-  DASHER_ASSERT([sender isKindOfClass:[UISwitch class]]);
-  UISwitch *sw = (UISwitch *)sender;
-  DASHER_ASSERT([[sw superview] isKindOfClass:[UITableViewCell class]]);
-  SAction *act = &actions[ [sw superview].tag ];
-  [[NSUserDefaults standardUserDefaults] setBool:sw.on forKey:act->settingName];
-  [button scan];
-}
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-
-#pragma mark -
-#pragma mark Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-  [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    // Navigation logic may go here. Create and push another view controller.
-	/*
-	 <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-	 [self.navigationController pushViewController:detailViewController animated:YES];
-	 [detailViewController release];
-	 */
-}
-
-
-#pragma mark -
-#pragma mark Memory management
-
-- (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Relinquish ownership any cached data, images, etc that aren't in use.
-}
-
-- (void)viewDidUnload {
-    // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
-    // For example: self.myOutlet = nil;
-}
-
-
-- (void)dealloc {
-  [super dealloc];
-}
-
-
-@end
-
