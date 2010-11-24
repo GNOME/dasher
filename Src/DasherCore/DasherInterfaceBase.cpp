@@ -105,8 +105,6 @@ CDasherInterfaceBase::CDasherInterfaceBase() {
 
   //  m_bGlobalLock = false;
 
-  // TODO: Are these actually needed?
-  strCurrentContext = ". ";
   strTrainfileBuffer = "";
 
   m_strCurrentWord = "";
@@ -341,9 +339,6 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
     CEditEvent *pEditEvent(static_cast < CEditEvent * >(pEvent));
 
     if(pEditEvent->m_iEditType == 1) {
-      strCurrentContext += pEditEvent->m_sText;
-      if( strCurrentContext.size() > 20 )
-	strCurrentContext = strCurrentContext.substr( strCurrentContext.size() - 20 );
       if(GetBoolParameter(BP_LM_ADAPTIVE))
 	 strTrainfileBuffer += pEditEvent->m_sText;
       if (GetBoolParameter(BP_SPEAK_WORDS) && SupportsSpeech()) {
@@ -356,7 +351,6 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       }
     }
     else if(pEditEvent->m_iEditType == 2) {
-      strCurrentContext = strCurrentContext.substr( 0, strCurrentContext.size() - pEditEvent->m_sText.size());
       if(GetBoolParameter(BP_LM_ADAPTIVE))
 	 strTrainfileBuffer = strTrainfileBuffer.substr( 0, strTrainfileBuffer.size() - pEditEvent->m_sText.size());
       if (GetBoolParameter(BP_SPEAK_WORDS))
@@ -368,12 +362,6 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
 void CDasherInterfaceBase::WriteTrainFileFull() {
   WriteTrainFile(strTrainfileBuffer);
   strTrainfileBuffer = "";
-}
-
-void CDasherInterfaceBase::WriteTrainFilePartial() {
-  // TODO: what if we're midway through a unicode character?
-  WriteTrainFile(strTrainfileBuffer.substr(0,100));
-  strTrainfileBuffer = strTrainfileBuffer.substr(100);
 }
 
 void CDasherInterfaceBase::CreateNCManager() {
@@ -708,59 +696,6 @@ void CDasherInterfaceBase::ResetNats() {
     m_pDasherModel->ResetNats();
 }
 
-
-// TODO: Check that none of this needs to be reimplemented
-
-// void CDasherInterfaceBase::InvalidateContext(bool bForceStart) {
-//   m_pDasherModel->m_strContextBuffer = "";
-
-//   Dasher::CEditContextEvent oEvent(10);
-//   m_pEventHandler->InsertEvent(&oEvent);
-
-//    std::string strNewContext(m_pDasherModel->m_strContextBuffer);
-
-//   // We keep track of an internal context and compare that to what
-//   // we are given - don't restart Dasher if nothing has changed.
-//   // This should really be integrated with DasherModel, which
-//   // probably will be the case when we start to deal with being able
-//   // to back off indefinitely. For now though we'll keep it in a
-//   // separate string.
-
-//    int iContextLength( 6 ); // The 'important' context length - should really get from language model
-
-//    // FIXME - use unicode lengths
-
-//    if(bForceStart || (strNewContext.substr( std::max(static_cast<int>(strNewContext.size()) - iContextLength, 0)) != strCurrentContext.substr( std::max(static_cast<int>(strCurrentContext.size()) - iContextLength, 0)))) {
-
-//      if(m_pDasherModel != NULL) {
-//        // TODO: Reimplement this
-//        //       if(m_pDasherModel->m_bContextSensitive || bForceStart) {
-//        {
-//  	m_pDasherModel->SetContext(strNewContext);
-//  	PauseAt(0,0);
-//        }
-//      }
-
-//      strCurrentContext = strNewContext;
-//      WriteTrainFileFull();
-//    }
-
-//    if(bForceStart) {
-//      int iMinWidth;
-
-//      if(m_pInputFilter && m_pInputFilter->GetMinWidth(iMinWidth)) {
-//        m_pDasherModel->LimitRoot(iMinWidth);
-//      }
-//    }
-
-//    if(m_pDasherView)
-//      while( m_pDasherModel->CheckForNewRoot(m_pDasherView) ) {
-//        // Do nothing
-//      }
-
-//    ScheduleRedraw();
-// }
-
 // TODO: Fix this
 
 std::string CDasherInterfaceBase::GetContext(int iStart, int iLength) {
@@ -774,7 +709,6 @@ std::string CDasherInterfaceBase::GetContext(int iStart, int iLength) {
 
 void CDasherInterfaceBase::ClearAllContext() {
   SetBuffer(0);
-  strCurrentContext = "";
 }
 
 void CDasherInterfaceBase::SetContext(std::string strNewContext) {

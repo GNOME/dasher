@@ -564,7 +564,6 @@ protected:
   bool DrawActionButtons();
 
   void WriteTrainFileFull();
-  void WriteTrainFilePartial();
   
   std::deque<std::string> m_deGameModeStrings;
 
@@ -587,8 +586,8 @@ protected:
   CUserLogBase *m_pUserLog; 
   /// @}
 
+  ///TODO this is in the wrong place. DashIntf should not be managing the training file...
   std::string strTrainfileBuffer;
-  std::string strCurrentContext;
   
   ///builds up the word currently being entered for speech.
   std::string m_strCurrentWord;

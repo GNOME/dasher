@@ -262,6 +262,10 @@ void CDasherModel::SetOffset(int iOffset, CAlphabetManager *pMgr, CDasherView *p
 
   double dFraction( 1 - (1 - m_Root->MostProbableChild() / static_cast<double>(GetLongParameter(LP_NORMALIZATION))) / 2.0 );
 
+  //TODO somewhere round here, old code checked whether the InputFilter implemented
+  // GetMinWidth, if so called LimitRoot w/that width - i.e., make sure iWidth
+  // is no more than that minimum. Should we do something similar here???
+  
   int iWidth( static_cast<int>( (GetLongParameter(LP_MAX_Y) / (2.0*dFraction)) ) );
 
   m_Rootmin = GetLongParameter(LP_MAX_Y) / 2 - iWidth / 2;
