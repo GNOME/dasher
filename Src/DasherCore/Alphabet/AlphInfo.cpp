@@ -89,8 +89,8 @@ CAlphabetMap *CAlphInfo::MakeMap() const {
 }
 
 CAlphInfo::CAlphInfo() {
-  iSpaceCharacter=-1;
-  iParagraphCharacter = -1;
+  iSpaceCharacter=0;
+  iParagraphCharacter = 0;
   ControlCharacter=NULL;
   StartConvertCharacter=NULL;
   EndConvertCharacter=NULL;

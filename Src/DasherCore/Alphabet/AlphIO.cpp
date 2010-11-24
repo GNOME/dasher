@@ -347,18 +347,22 @@ CAlphInfo *CAlphIO::CreateDefault() {
     Default.m_vCharacters[i].Colour = i + 10;
   }
   Default.Orientation = Opts::LeftToRight;
-  Default.iParagraphCharacter = Chars.size();
-  Default.m_vCharacters[Default.iParagraphCharacter].Display = "¶";
+  //note iSpaceCharacter/iParagraphCharacter, as all symbol numbers, are one _more_
+  // than their index into m_vCharacters... (as "unknown symbol" 0 does not appear in vector)
+  Default.m_vCharacters.push_back(CAlphInfo::character());
+  Default.iParagraphCharacter = Default.m_vCharacters.size();
+  Default.m_vCharacters.back().Display = "¶";
 #ifdef WIN32
-  Default.m_vCharacters[Default.iParagraphCharacter].Text = "\r\n";
+  Default.m_vCharacters.back().Text = "\r\n";
 #else
-  Default.m_vCharacters[Default.iParagraphCharacter].Text = "\n";
+  Default.m_vCharacters.back().Text = "\n";
 #endif
-  Default.m_vCharacters[Default.iParagraphCharacter].Colour = 9;
-  Default.iSpaceCharacter = Chars.size()+1;
-  Default.m_vCharacters[Default.iSpaceCharacter].Display = "_";
-  Default.m_vCharacters[Default.iSpaceCharacter].Text = " ";
-  Default.m_vCharacters[Default.iSpaceCharacter].Colour = 9;
+  Default.m_vCharacters.back().Colour = 9;
+  Default.m_vCharacters.push_back(CAlphInfo::character());
+  Default.iSpaceCharacter = Default.m_vCharacters.size();
+  Default.m_vCharacters.back().Display = "_";
+  Default.m_vCharacters.back().Text = " ";
+  Default.m_vCharacters.back().Colour = 9;
   
   Default.ControlCharacter = new CAlphInfo::character();
   Default.ControlCharacter->Display = "Control";
@@ -631,13 +635,13 @@ void CAlphIO::XML_EndElement(void *userData, const XML_Char *name) {
     Reverse(Me->InputInfo->m_pBaseGroup);
     
     if (Me->ParagraphCharacter) {
-      Me->InputInfo->iParagraphCharacter = Me->InputInfo->m_vCharacters.size();
+      Me->InputInfo->iParagraphCharacter = Me->InputInfo->m_vCharacters.size()+1;
       Me->InputInfo->m_vCharacters.push_back(*(Me->ParagraphCharacter));
       Me->InputInfo->iNumChildNodes++;
       delete Me->ParagraphCharacter;
     }
     if (Me->SpaceCharacter) {
-      Me->InputInfo->iSpaceCharacter = Me->InputInfo->m_vCharacters.size();
+      Me->InputInfo->iSpaceCharacter = Me->InputInfo->m_vCharacters.size()+1;
       Me->InputInfo->m_vCharacters.push_back(*(Me->SpaceCharacter));
       Me->InputInfo->iNumChildNodes++;
       delete Me->SpaceCharacter;

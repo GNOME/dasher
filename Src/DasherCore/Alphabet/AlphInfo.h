@@ -140,8 +140,8 @@ private:
     
   std::vector<character> m_vCharacters;
   
-  int iParagraphCharacter;       // index into m_vCharacters of paragraph char (display and edit text), -1 for none.
-  int iSpaceCharacter;   // index into m_vCharacters of space char (display and edit text), -1 for none.
+  symbol iParagraphCharacter;       // symbol number (index into m_vCharacters +1) of paragraph char (for display and default edit-text), 0 for none.
+  symbol iSpaceCharacter;   // symbol number (index into m_vCharacters +1) of space char (display and edit text), 0 for none.
   character *ControlCharacter; // display and edit text of Control character. Typically ("", "Control"). Use ("", "") if no control character.
   character *StartConvertCharacter;
   character *EndConvertCharacter;
