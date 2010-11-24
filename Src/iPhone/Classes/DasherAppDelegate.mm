@@ -367,6 +367,14 @@
   if (doneSetup) [glView startAnimation];//glView.animationInterval = 1.0 / 60.0;
 }
 
+-(void)applicationDidEnterBackground:(UIApplication *)application {
+  self.dasherInterface->WriteTrainFileFull();
+}
+
+-(void)applicationWillTerminate:(UIApplication *)application {
+  self.dasherInterface->StartShutdown();
+}
+
 - (void)newFrameAt:(unsigned long)time ForceRedraw:(BOOL)bForce {
 	self.dasherInterface->NewFrame(time, bForce);
 }

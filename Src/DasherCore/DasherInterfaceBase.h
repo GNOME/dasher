@@ -396,6 +396,10 @@ public:
 
   void ImportTrainingText(const std::string &strPath);
   
+  ///Making this public for e.g. iPhone, which needs to flush
+  /// the trainfile buffer when app is sent into background.
+  void WriteTrainFileFull();
+  
 protected:
 
   /// @name Startup
@@ -562,8 +566,6 @@ protected:
   void DestroyActionButtons();
   void PositionActionButtons();
   bool DrawActionButtons();
-
-  void WriteTrainFileFull();
   
   std::deque<std::string> m_deGameModeStrings;
 
