@@ -28,7 +28,6 @@ class CBasicLog : public CUserLogBase {
   virtual void SetOuputFilename(const string& strFilename = "") {};
   virtual int GetLogLevelMask() {return 0;};
   virtual void KeyDown(int iId, int iType, int iEffect);
-  virtual void HandleEvent(Dasher::CEvent* pEvent) {};
 
  private:
   void StartTrial();

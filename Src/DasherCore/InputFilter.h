@@ -19,7 +19,6 @@ class CInputFilter : public CDasherModule {
     m_pInterface = pInterface;
   };
 
-  virtual void HandleEvent(Dasher::CEvent * pEvent) {};
   virtual bool DecorateView(CDasherView *pView) { return false; };
 
   virtual void KeyDown(int Time, int iId, CDasherView *pDasherView, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {

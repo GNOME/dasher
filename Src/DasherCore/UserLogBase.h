@@ -30,7 +30,6 @@ class CUserLogBase : public Dasher::CDasherComponent {
   virtual void SetOuputFilename(const std::string& strFilename = "") = 0;
   virtual int GetLogLevelMask() = 0;
   virtual void KeyDown(int iId, int iType, int iEffect) = 0;
-  virtual void HandleEvent(Dasher::CEvent* pEvent) = 0;
 };
 /// @}
 

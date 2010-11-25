@@ -24,9 +24,6 @@ class CAutoSpeedControl : public Dasher::CDasherComponent {
   ///
   void SpeedControl(myint iDasherX, myint iDasherY, CDasherView *pView);
 
-  virtual void HandleEvent(Dasher::CEvent *pEvent) {
-  };
-
  private:
 
   ///

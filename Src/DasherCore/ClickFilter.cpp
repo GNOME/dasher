@@ -81,9 +81,6 @@ void CClickFilter::KeyDown(int iTime, int iId, CDasherView *pDasherView, CDasher
   }
 }
 
-void CClickFilter::HandleEvent(Dasher::CEvent * pEvent) {
-}
-
 bool CClickFilter::GetSettings(SModuleSettings **pSettings, int *iCount) {
   *pSettings = sSettings;
   *iCount = sizeof(sSettings) / sizeof(SModuleSettings);
