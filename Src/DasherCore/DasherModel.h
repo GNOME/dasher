@@ -135,10 +135,14 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   /// @{
 
   ///
-  /// Schedule zoom to a given Dasher coordinate (used in click mode,
-  /// button mode etc.)
+  /// Schedule a zoom such that the given range of Dasher coordinates
+  /// will fill the Y-axis. (used in click mode, button mode etc.)
+  /// Note that safety margin, max-zoom, etc., as desired, are the responsibility
+  /// of the caller; this method requires only that y2 > y1.
+  /// \param y1 Minimum Y-coordinate (will be moved to dasher-y of 0)
+  /// \param y2 Maximum Y-coordinate (will be moved to dasher-y of 4096)
   ///
-  void ScheduleZoom(long time, dasherint iDasherX, dasherint iDasherY, int iMaxZoom = 0);
+  void ScheduleZoom(long time, dasherint y1, dasherint y2);
 
   void ClearScheduledSteps();
   

@@ -74,11 +74,13 @@ void COneButtonFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherIn
   if (bStarted) {
     if (iLocation == 0) {
       //back up by one zoom step.
-      pModel->ScheduleZoom(iTime, GetLongParameter(LP_STATIC1B_ZOOM) * 2048, 2048, 0);
+      const myint x(GetLongParameter(LP_STATIC1B_ZOOM)*2048);
+      pModel->ScheduleZoom(iTime, 2048-x, 2048+x);
     } else {
       iLocation -= (GetLongParameter(LP_DYNAMIC_BUTTON_LAG)*4096) / GetLongParameter(LP_STATIC1B_TIME);
       if (iLocation>4096) iLocation =8192-iLocation;
-      pModel->ScheduleZoom(iTime, 2048/GetLongParameter(LP_STATIC1B_ZOOM), iLocation, 0);
+      const myint x(2048/GetLongParameter(LP_STATIC1B_ZOOM));
+      pModel->ScheduleZoom(iTime, 2048-x, 2048+x);
     }
     bStarted = false;
   } else {

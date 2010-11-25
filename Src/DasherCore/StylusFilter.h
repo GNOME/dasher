@@ -15,6 +15,11 @@ class CStylusFilter : public CDefaultFilter {
   virtual bool Timer(int Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol);
   virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
   virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
+  ///Transform coordinates of a click, to get location to zoom into.
+  /// Default is to call CClickFilter::AdjustZoomCoords, which adds
+  /// a safety margin according to LP_S, checks we don't exceed the
+  /// zoom factor given by LP_MAXZOOM, and ensures x>=2.
+  virtual void ApplyClickTransform(myint &iDasherX, myint &iDasherY, CDasherView *pView);
  private:
   int m_iKeyDownTime;
 };

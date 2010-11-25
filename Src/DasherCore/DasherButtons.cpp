@@ -56,7 +56,7 @@ void CDasherButtons::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInpu
     case 3:
     case 100:
       m_bDecorationChanged = true;
-      pModel->ScheduleZoom(iTime, (m_pBoxes[iActiveBox].iBottom - m_pBoxes[iActiveBox].iTop)/2, (m_pBoxes[iActiveBox].iBottom + m_pBoxes[iActiveBox].iTop)/2);
+      pModel->ScheduleZoom(iTime, m_pBoxes[iActiveBox].iTop, m_pBoxes[iActiveBox].iBottom);
       if(iActiveBox != m_iNumBoxes-1)
         iActiveBox = 0;
       break;
@@ -78,7 +78,7 @@ void CDasherButtons::DirectKeyDown(int iTime, int iId, CDasherView *pView, CDash
   else
   iActiveBox = m_iNumBoxes-2;
 
-  pModel->ScheduleZoom(iTime, (m_pBoxes[iActiveBox].iBottom - m_pBoxes[iActiveBox].iTop)/2, (m_pBoxes[iActiveBox].iBottom + m_pBoxes[iActiveBox].iTop)/2);
+  pModel->ScheduleZoom(iTime, m_pBoxes[iActiveBox].iTop,m_pBoxes[iActiveBox].iBottom);
 }
 
 bool CDasherButtons::Timer(int Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {

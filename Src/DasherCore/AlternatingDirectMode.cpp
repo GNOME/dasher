@@ -91,28 +91,26 @@ bool CAlternatingDirectMode::DecorateView(CDasherView *pView, CDasherInput *pInp
 
 
 void CAlternatingDirectMode::DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog) {
-
+  int iTargetBox;
   switch(iId) {
-  case 2:
-    if(m_iLastBox == 1)
-      pModel->ScheduleZoom(iTime, (m_pBoxes[2].iBottom - m_pBoxes[2].iTop)/2, (m_pBoxes[2].iBottom + m_pBoxes[2].iTop)/2);
-    else
-      pModel->ScheduleZoom(iTime, (m_pBoxes[0].iBottom - m_pBoxes[0].iTop)/2, (m_pBoxes[0].iBottom + m_pBoxes[0].iTop)/2);
-    m_iLastBox = 1;
-    break;
-  case 3:
-  case 4:
-    if(m_iLastBox == 2)
-      pModel->ScheduleZoom(iTime, (m_pBoxes[3].iBottom - m_pBoxes[3].iTop)/2, (m_pBoxes[3].iBottom + m_pBoxes[3].iTop)/2);
-    else
-      pModel->ScheduleZoom(iTime, (m_pBoxes[1].iBottom - m_pBoxes[1].iTop)/2, (m_pBoxes[1].iBottom + m_pBoxes[1].iTop)/2);
-    m_iLastBox = 2;
-    break;
-  case 1:
-    pModel->ScheduleZoom(iTime, (m_pBoxes[4].iBottom - m_pBoxes[4].iTop)/2, (m_pBoxes[4].iBottom + m_pBoxes[4].iTop)/2);
-    break;
+    case 2:
+      iTargetBox = (m_iLastBox == 1) ? 2 : 0;
+      m_iLastBox = 1;
+      break;
+    case 3:
+    case 4:
+      iTargetBox = (m_iLastBox==2) ? 3 : 1;
+      m_iLastBox = 2;
+      break;
+    case 1:
+      iTargetBox = 4;
+      break;
+    default:
+      //unknown button...do nothing (?)
+      return;
   }
-
+  //iTargetBox now indicates the box into which to zoom
+  pModel->ScheduleZoom(iTime, m_pBoxes[iTargetBox].iTop,  m_pBoxes[iTargetBox].iBottom);
 }
 
 bool CAlternatingDirectMode::GetSettings(SModuleSettings **pSettings, int *iCount) {

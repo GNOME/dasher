@@ -2,6 +2,7 @@
 #include "StylusFilter.h"
 #include "DasherInterfaceBase.h"
 #include "Event.h"
+#include "ClickFilter.h"
 
 using namespace Dasher;
 
@@ -33,10 +34,14 @@ void CStylusFilter::KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *
   if(iId == 100) {
     if (iTime - m_iKeyDownTime < GetLongParameter(LP_TAP_TIME)) {
       pInput->GetDasherCoords(m_iLastX, m_iLastY, pView);
-      //Do not apply transform. (Could add extra virtual method, ApplyClickTransform?)
-      pModel->ScheduleZoom(iTime, m_iLastX, m_iLastY, GetLongParameter(LP_MAXZOOM));
+      ApplyClickTransform(m_iLastX, m_iLastY, pView);
+      pModel->ScheduleZoom(iTime, m_iLastX, m_iLastY);
     } else {
       m_pInterface->Stop();
     }
   }
+}
+
+void CStylusFilter::ApplyClickTransform(myint &iDasherX, myint &iDasherY, CDasherView *pView) {
+  CClickFilter::AdjustZoomCoords(iDasherX, iDasherY, pView);
 }

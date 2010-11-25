@@ -614,35 +614,14 @@ void CDasherModel::RenderToView(CDasherView *pView, CExpansionPolicy &policy) {
   
 }
 
-void CDasherModel::ScheduleZoom(long time, dasherint X, dasherint Y, int iMaxZoom)
-{
-  // 1 = min, 2 = max. y1, y2 is the length we select from Y1, Y2. With
-  // that ratio we calculate the new root{min,max} r1, r2 from current R1, R2.
-  const int nsteps = GetLongParameter(LP_ZOOMSTEPS);
-  const int safety = GetLongParameter(LP_S); // over safety_denom gives %
-  const int safety_denom = 1024;
-  const int ymax = GetLongParameter(LP_MAX_Y);
-  const int scale = ymax; // (0,1) -> (ymin=0,ymax)
-
-  // (X,Y) is mouse position in dasher coordinates
-  // Prevent clicking too far to the right => y1 <> y2 see below
-  if (X < 2) X = 2;
-
-  // Lines with gradient +/- 1 passing through (X,Y) intersect y-axis at
-  dasherint y1 = Y - X;     // y =  x + (Y - X)
-  dasherint y2 = Y + X;     // y = -x + (Y + X)
+void CDasherModel::ScheduleZoom(long time, dasherint y1, dasherint y2) {
+  DASHER_ASSERT(y2>y1);
 
   // Rename for readability.
   const dasherint Y1 = 0;
-  const dasherint Y2 = ymax;
+  const dasherint Y2 = GetLongParameter(LP_MAX_Y);
   const dasherint R1 = m_Rootmin;
   const dasherint R2 = m_Rootmax;
-
-  // So, want to zoom (y1 - safety/2, y2 + safety/2) -> (Y1, Y2)
-  // Adjust y1, y2 for safety margin
-  dasherint ds = (safety * scale) / (2 * safety_denom);
-  y1 -= ds;
-  y2 += ds;
 
   dasherint C, r1, r2;
 
@@ -667,15 +646,11 @@ void CDasherModel::ScheduleZoom(long time, dasherint X, dasherint Y, int iMaxZoo
       } else { // implies y1 = y2
           std::cerr << "Impossible geometry in CDasherModel::ScheduleZoom\n";
       }
-  // iMaxZoom seems to be in tenths
-      if (iMaxZoom != 0 && 10 * (r2 - r1) > iMaxZoom * (R2 - R1)) {
-          r1 = ((R1 - C) * iMaxZoom) / 10 + C;
-          r2 = ((R2 - C) * iMaxZoom) / 10 + C;
-      }
   }
 
   // sNewItem seems to contain a list of root{min,max} for the frames of the
   // zoom, so split r -> R into n steps, with accurate R
+  const int nsteps = GetLongParameter(LP_ZOOMSTEPS);
   m_deGotoQueue.clear();
   for (int s = nsteps - 1; s >= 0; --s) {
       SGotoItem sNewItem;
