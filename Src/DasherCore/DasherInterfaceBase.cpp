@@ -781,23 +781,6 @@ void CDasherInterfaceBase::SetContext(std::string strNewContext) {
   m_strContext = strNewContext;
 }
 
-// Control mode stuff
-
-void CDasherInterfaceBase::RegisterNode( int iID, const std::string &strLabel, int iColour ) {
-  CControlManager *pMgr(m_pNCManager->GetControlManager());
-  if (pMgr) pMgr->RegisterNode(iID, strLabel, iColour);
-}
-
-void CDasherInterfaceBase::ConnectNode(int iChild, int iParent, int iAfter) {
-  CControlManager *pMgr(m_pNCManager->GetControlManager());
-  pMgr->ConnectNode(iChild, iParent, iAfter);
-}
-
-void CDasherInterfaceBase::DisconnectNode(int iChild, int iParent) {
-  CControlManager *pMgr(m_pNCManager->GetControlManager());
-  pMgr->DisconnectNode(iChild, iParent);
-}
-
 void CDasherInterfaceBase::SetBoolParameter(int iParameter, bool bValue) {
   m_pSettingsStore->SetBoolParameter(iParameter, bValue);
 }

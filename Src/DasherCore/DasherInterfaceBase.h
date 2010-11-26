@@ -331,15 +331,9 @@ public:
 
   /// @}
 
-  /// @name Control hierarchy and action buttons
-  /// Manipulate the hierarchy of commands presented in control mode etc
+  /// @name Action buttons
+  /// TODO, how much of this was ever implemented???
   /// @{
-
-  void RegisterNode( int iID, const std::string &strLabel, int iColour );
-
-  void ConnectNode(int iChild, int iParent, int iAfter);
-
-  void DisconnectNode(int iChild, int iParent);
 
   void ExecuteCommand(const std::string &strName);
 
