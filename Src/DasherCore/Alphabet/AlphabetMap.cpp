@@ -117,8 +117,16 @@ symbol CAlphabetMap::SymbolStream::next()
 #endif
     ++pos;
   }
-  if (numChars == 1)
+  if (numChars == 1) {
+    if (map.m_ParagraphSymbol!=map.Undefined && buf[pos]=='\r') {
+      DASHER_ASSERT(pos+1<len || len<1024); //there are more characters (we should have read utf8...max_length), or else input is exhausted
+      if (pos+1<len && buf[pos+1]=='\n') {
+        pos+=2;
+        return map.m_ParagraphSymbol;
+      }
+    }
     return map.GetSingleChar(buf[pos++]);
+  }
   if (pos+numChars > len) {
     //no more bytes in file (would have tried to read earlier), but not enough for char
 #ifdef DEBUG
@@ -143,7 +151,7 @@ void CAlphabetMap::GetSymbols(std::vector<symbol>& Symbols, const std::string& I
 
 
 CAlphabetMap::CAlphabetMap(unsigned int InitialTableSize)
-:HashTable(InitialTableSize <<1), Undefined(0) {
+:HashTable(InitialTableSize <<1), Undefined(0), m_ParagraphSymbol(Undefined) {
   Entries.reserve(InitialTableSize);
 
   const int numChars = numeric_limits<char>::max() + 1;
@@ -155,8 +163,19 @@ CAlphabetMap::~CAlphabetMap() {
   delete m_pSingleChars;
 }
 
+void CAlphabetMap::AddParagraphSymbol(symbol Value) {
+  DASHER_ASSERT (m_ParagraphSymbol==Undefined);
+  DASHER_ASSERT (m_pSingleChars['\r'] == Undefined);
+  DASHER_ASSERT (m_pSingleChars['\n'] == Undefined);
+  m_pSingleChars['\n'] = m_ParagraphSymbol = Value;
+}
+
 void CAlphabetMap::Add(const std::string &Key, symbol Value) {
+  //Only single unicode-characters should be added...
+  DASHER_ASSERT(m_utf8_count_array[Key[0]]==Key.length());
   if (Key.length() == 1) {
+    DASHER_ASSERT(m_pSingleChars[Key[0]]==Undefined);
+    DASHER_ASSERT(Key[0]!='\r' || m_ParagraphSymbol==Undefined);
     m_pSingleChars[Key[0]] = Value;
     return;
   }
@@ -195,6 +214,9 @@ void CAlphabetMap::Add(const std::string &Key, symbol Value) {
 }
 
 symbol CAlphabetMap::Get(const std::string &Key) const {
+  if (m_ParagraphSymbol!=Undefined && Key=="\r\n")
+    return m_ParagraphSymbol;
+  DASHER_ASSERT(m_utf8_count_array[Key[0]]==Key.length());
   if (Key.length() == 1) {
 	return GetSingleChar(Key[0]);
   }

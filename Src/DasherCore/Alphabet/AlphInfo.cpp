@@ -72,9 +72,10 @@ CAlphInfo::GetColour(symbol i, int iPhase) const {
 
 CAlphabetMap *CAlphInfo::MakeMap() const {
   CAlphabetMap *map = new CAlphabetMap();
+  if (iParagraphCharacter!=0) map->AddParagraphSymbol(iParagraphCharacter);
   int i;
   for(i = 0; i < m_vCharacters.size(); i++) {
-    map->Add(m_vCharacters[i].Text, i+1); //1-indexed
+    if (i+1!=iParagraphCharacter) map->Add(m_vCharacters[i].Text, i+1); //1-indexed
   }
   //ACL I'm really not sure where conversion characters should/shouldn't be included.
   // They seemed to be included in the Alphabet Map, i.e. for reading training text via GetSymbols;

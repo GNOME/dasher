@@ -476,13 +476,11 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
   if(strcmp(name, "paragraph") == 0) {
     if (!Me->ParagraphCharacter) Me->ParagraphCharacter=new CAlphInfo::character();
     Me->ReadCharAtts(atts,*(Me->ParagraphCharacter));
-    if(Me->ParagraphCharacter->Display != "") {
 #ifdef WIN32
         Me->ParagraphCharacter->Text = "\r\n";
 #else
         Me->ParagraphCharacter->Text = "\n";
 #endif
-    }
     return;
   }
   if(strcmp(name, "control") == 0) {

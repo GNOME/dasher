@@ -492,9 +492,9 @@ void CDasherModel::OutputTo(CDasherNode *pNewNode, Dasher::VECTOR_SYMBOL_PROB* p
     pNewNode->Enter();
     
     m_pLastOutput = pNewNode;
-    pNewNode->SetFlag(NF_SEEN, true);
     pNewNode->Output(pAdded, GetLongParameter(LP_NORMALIZATION));
-    
+    pNewNode->SetFlag(NF_SEEN, true); //becomes NF_SEEN after output.
+
     // If the node we are outputting is the last one in a game target sentence, then
     // notify the game mode teacher.
     if(m_bGameMode)

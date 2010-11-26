@@ -170,7 +170,7 @@ CLanguageModel::Context CAlphabetManager::CAlphNode::CloneAlphContext(CLanguageM
 
 void CAlphabetManager::CSymbolNode::GetContext(CDasherInterfaceBase *pInterface, const CAlphabetMap *pAlphabetMap, vector<symbol> &vContextSymbols, int iOffset, int iLength) {
   if (!GetFlag(NF_SEEN) && iOffset+iLength-1 == offset()) {
-    if (iLength > 1) Parent()->GetContext(pInterface, pAlphabetMap, vContextSymbols, iOffset, iLength-1);
+    if (iLength > 1) Parent()->GetContext(pInterface, pAlphabetMap, vContextSymbols, iOffset, iLength-numChars());
     vContextSymbols.push_back(iSymbol);
   } else {
     CDasherNode::GetContext(pInterface, pAlphabetMap, vContextSymbols, iOffset, iLength);
@@ -303,8 +303,12 @@ CLanguageModel::Context CAlphabetManager::CreateSymbolContext(CAlphNode *pParent
 CDasherNode *CAlphabetManager::CreateSymbolNode(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd) {
 
     // TODO: Exceptions / error handling in general
-
-    CAlphNode *pAlphNode = makeSymbol(pParent, pParent->offset()+1, iLbnd, iHbnd, iSymbol);
+    
+    // Uniquely, a paragraph symbol can be two characters
+    // (and we can't call numChars() on the symbol before we've constructed it!)
+    int iNewOffset = pParent->offset()+1;
+    if (m_pAlphabet->GetText(iSymbol)=="\r\n") iNewOffset++;
+    CSymbolNode *pAlphNode = makeSymbol(pParent, iNewOffset, iLbnd, iHbnd, iSymbol);
 
     //     std::stringstream ssLabel;
 
@@ -321,7 +325,7 @@ CDasherNode *CAlphabetManager::CSymbolNode::RebuildSymbol(CAlphNode *pParent, sy
   if(iSymbol == this->iSymbol) {
     SetRange(iLbnd, iHbnd);
     SetParent(pParent);
-    DASHER_ASSERT(offset() == pParent->offset() + 1);
+    DASHER_ASSERT(offset() == pParent->offset() + numChars());
     return this;
   }
   return m_pMgr->CreateSymbolNode(pParent, iSymbol, iLbnd, iHbnd);
@@ -416,14 +420,29 @@ void CAlphabetManager::AddExtras(CAlphNode *pParent, vector<unsigned int> *pCPro
   }
 }
 
-
 CAlphabetManager::CAlphNode::~CAlphNode() {
   delete m_pProbInfo;
   m_pMgr->m_pLanguageModel->ReleaseContext(iContext);
 }
 
 const std::string &CAlphabetManager::CSymbolNode::outputText() {
+  if (iSymbol == m_pMgr->m_pAlphabet->GetParagraphSymbol() && GetFlag(NF_SEEN)) {
+    //Regardless of this particular platform's definition of a newline,
+    // which is what we'd _output_, when reversing back over text
+    // which may have been produced elsewhere, we represent occurrences
+    // of _either_ \n or \r\n by a single paragraph symbol.
+    //If the alphabet has a paragraph symbol, \r is not a symbol on its own
+    // (and \n isn't a symbol other than paragraph). So look for a
+    // \r before the \n.
+    DASHER_ASSERT(m_pMgr->m_pInterface->GetContext(offset(),1)=="\n");
+    static std::string rn("\r\n"),n("\n"); //must store strings somewhere to return by reference!
+    return (m_pMgr->m_pInterface->GetContext(offset()-1,2)=="\r\n") ? rn : n;
+  }
   return mgr()->m_pAlphabet->GetText(iSymbol);
+}
+
+int CAlphabetManager::CSymbolNode::numChars() {
+  return (outputText()=="\r\n") ? 2 : 1;
 }
 
 void CAlphabetManager::CSymbolNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {
@@ -439,6 +458,7 @@ void CAlphabetManager::CSymbolNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, i
 }
 
 void CAlphabetManager::CSymbolNode::Undo(int *pNumDeleted) {
+  DASHER_ASSERT(GetFlag(NF_SEEN));
   Dasher::CEditEvent oEvent(2, outputText(), offset());
   m_pMgr->m_pNCManager->InsertEvent(&oEvent);
   if (pNumDeleted) (*pNumDeleted)++;
@@ -454,8 +474,8 @@ CDasherNode *CAlphabetManager::CGroupNode::RebuildParent() {
 }
 
 CDasherNode *CAlphabetManager::CSymbolNode::RebuildParent() {
-  //parent's offset is one less than this.
-  return CAlphNode::RebuildParent(offset()-1);
+  //parent's offset usually one less than this, but can be two for the paragraph symbol.
+  return CAlphNode::RebuildParent(offset()-numChars());
 }
 
 CDasherNode *CAlphabetManager::CAlphNode::RebuildParent(int iNewOffset) {

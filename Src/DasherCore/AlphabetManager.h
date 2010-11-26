@@ -92,9 +92,13 @@ namespace Dasher {
       const symbol iSymbol;
       virtual CDasherNode *RebuildSymbol(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd);
       virtual CGroupNode *RebuildGroup(CAlphNode *pParent, const SGroupInfo *pInfo, unsigned int iLbnd, unsigned int iHbnd);
-    private:
-      virtual const std::string &outputText();
     protected:
+      virtual const std::string &outputText();
+      /// Number of unicode _characters_ (not octets) for this symbol.
+      /// Uniquely, a paragraph symbol can enter two distinct unicode characters
+      /// (i.e. '\r' and '\n'); every other symbol enters only a single 
+      /// unicode char, even if that might take >1 octet.
+      int numChars();
       ///Compatibility constructor, so that subclasses can specify their own colour & label
       CSymbolNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const std::string &strDisplayText, CAlphabetManager *pMgr, symbol _iSymbol);
     };

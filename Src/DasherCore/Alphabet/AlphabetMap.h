@@ -34,12 +34,11 @@ namespace Dasher {
 /// class, to allow creation/setup of the map).
 ///
 /// Ian clearly had reservations about this system, as follows; and I'd add
-/// that support for multi-unicode-character symbols (such as the "asdf"
-/// suggested below) is extremely dubious - both here and elsewhere (e.g.
-/// what if "asd" is also a symbol) - but we really need to clarify whether
-/// such symbols are supposed to be supported or not. Most of the fun here
-/// comes from supporting single unicode characters which are multiple
-/// octets,as we use  std::string (which works in octets) for everything...
+/// that much of the fun comes from supporting single unicode characters
+/// which are multiple octets,as we use  std::string (which works in octets)
+/// for everything...note that we do *not* support multi-unicode-character
+/// symbols (such as the "asdf" suggested below) except in the case of "\r\n"
+/// for the paragraph symbol.
 /// Anyway, Ian writes:
 ///
 /// If I were just using GCC, which comes with the CGI "STL" implementation, I would
@@ -108,6 +107,7 @@ public:
 private:
   friend class CAlphInfo;
   CAlphabetMap(unsigned int InitialTableSize = 255);
+  void AddParagraphSymbol(symbol Value);
   void Add(const std::string & Key, symbol Value);
 
   class Entry {
@@ -145,6 +145,9 @@ private:
   std::vector < Entry * >HashTable;
   const symbol Undefined;
   symbol *m_pSingleChars;
+  /// both "\r\n" and "\n" are mapped to this (if not Undefined).
+  /// This is the only case where >1 character can map to a symbol.
+  symbol m_ParagraphSymbol;
 };
 /// \}
 
