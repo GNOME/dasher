@@ -66,7 +66,7 @@ IPhonePrefsObserver::~IPhonePrefsObserver() {
 
 CIPhoneTiltFilter::CIPhoneTiltFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, CDasherInput *pTouch)
 : COneDimensionalFilter(pEventHandler, pSettingsStore, pInterface, iID, TILT_FILTER), m_pTouch(pTouch) {
-  ObserveKeys(HOLD_TO_GO, TILT_USE_TOUCH_X, TILT_1D, nil);
+  ObserveKeys(HOLD_TO_GO, TILT_USE_TOUCH_X, TILT_1D, @"CircleStart", nil);
 };
 			
 void CIPhoneTiltFilter::ApplyTransform(myint &iDasherX, myint &iDasherY, CDasherView *pView) {
@@ -118,6 +118,8 @@ void CIPhoneTiltFilter::iPhonePrefsChanged(NSString *key) {
     bUseTouchX = val;
   else if ([key isEqualToString:TILT_1D])
     bTilt1D = val;
+  else if ([key isEqualToString:@"CircleStart"])
+    SetBoolParameter(BP_CIRCLE_START, val);
   //Hmmm, do we need to do anything _now_?
 }
 
