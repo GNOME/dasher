@@ -40,10 +40,9 @@ void COSXDasherControl::CreateModules() {
   CDasherInterfaceBase::CreateModules();
   // Create locally cached copies of the mouse input objects, as we
   // need to pass coordinates to them from the timer callback
-  m_pMouseInput =
-    (COSXMouseInput *)  RegisterModule(new COSXMouseInput(m_pEventHandler, m_pSettingsStore));
-  m_p1DMouseInput =
-    (COSX1DMouseInput *)RegisterModule(new COSX1DMouseInput(m_pEventHandler, m_pSettingsStore));
+  RegisterModule(m_pMouseInput = new COSXMouseInput(m_pEventHandler, m_pSettingsStore));
+  SetDefaultInputDevice(m_pMouseInput);
+  RegisterModule(m_p1DMouseInput = new COSX1DMouseInput(m_pEventHandler, m_pSettingsStore));
 }
   
 COSXDasherControl::~COSXDasherControl() {
