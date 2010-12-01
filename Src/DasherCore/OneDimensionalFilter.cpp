@@ -1,5 +1,6 @@
 #include "../Common/Common.h"
 #include "OneDimensionalFilter.h"
+#include "CircleStartHandler.h"
 
 using namespace Dasher;
 
@@ -71,4 +72,37 @@ void COneDimensionalFilter::ApplyTransform(myint &iDasherX, myint &iDasherY, CDa
 
 bool COneDimensionalFilter::GetSettings(SModuleSettings **pSettings, int *iCount) {
   return false;
+}
+
+CStartHandler *COneDimensionalFilter::MakeStartHandler() {
+  if (GetBoolParameter(BP_CIRCLE_START)) {
+    class C1DCircleStartHandler : public CCircleStartHandler {
+    public:
+      C1DCircleStartHandler(COneDimensionalFilter *f) : CCircleStartHandler(f->m_pEventHandler, f->m_pSettingsStore, f->m_pInterface), filter(f) {
+      }
+      void ComputeScreenLoc(CDasherView *pView) {
+        if (m_iScreenRadius!=-1) return;
+        CCircleStartHandler::ComputeScreenLoc(pView);
+        if (GetBoolParameter(BP_DASHER_PAUSED)) {
+          //put start circle at center of 1D transform, rather than center of screen
+          // (leave m_iScreenRadius, in pixels, as computed by above)
+          const myint rad(GetLongParameter(LP_CIRCLE_PERCENT) * GetLongParameter(LP_OY) / 100); //~~rad/2 in dasher-coords
+          pView->Dasher2Screen(GetLongParameter(LP_OX)-filter->forwardmax+rad, GetLongParameter(LP_OY),m_screenCircleCenter.x, m_screenCircleCenter.y);
+        } 
+      }
+      void HandleEvent(CEvent *pEvent) {
+        if (pEvent->m_iEventType == EV_PARAM_NOTIFY &&
+            ((CParameterNotificationEvent *)pEvent)->m_iParameter==BP_DASHER_PAUSED) {
+          //circle needs to move for pause/unpause; setting radius to -1 causes
+          // next call to DecorateView or Timer to re-call ComputeScreenLoc.
+          m_iScreenRadius=-1;
+        }
+        CCircleStartHandler::HandleEvent(pEvent);
+      }
+    private:
+      const COneDimensionalFilter *filter;
+    };
+    return new C1DCircleStartHandler(this);
+  }
+  return CDefaultFilter::MakeStartHandler();
 }

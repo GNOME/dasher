@@ -112,15 +112,24 @@ void CIPhoneTiltFilter::HandleEvent(CEvent *pEvent) {
 
 void CIPhoneTiltFilter::iPhonePrefsChanged(NSString *key) {
   bool val = [[NSUserDefaults standardUserDefaults] boolForKey:key];
-  if ([key isEqualToString:HOLD_TO_GO])
+  if ([key isEqualToString:HOLD_TO_GO]) {
     bHoldToGo = val;
-  else if ([key isEqualToString:TILT_USE_TOUCH_X])
+    CreateStartHandler();
+  } else if ([key isEqualToString:TILT_USE_TOUCH_X])
     bUseTouchX = val;
-  else if ([key isEqualToString:TILT_1D])
+  else if ([key isEqualToString:TILT_1D]) {
     bTilt1D = val;
-  else if ([key isEqualToString:@"CircleStart"])
+    CreateStartHandler();
+  } else if ([key isEqualToString:@"CircleStart"])
     SetBoolParameter(BP_CIRCLE_START, val);
   //Hmmm, do we need to do anything _now_?
+}
+
+CStartHandler *CIPhoneTiltFilter::MakeStartHandler() {
+  NSUserDefaults *sud = [NSUserDefaults standardUserDefaults];
+  if ([sud boolForKey:HOLD_TO_GO]) return NULL; //no start handler if finger-holding required
+  if ([sud boolForKey:TILT_1D]) return COneDimensionalFilter::MakeStartHandler();
+  return CDefaultFilter::MakeStartHandler();
 }
 
 CIPhoneTouchFilter::CIPhoneTouchFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, UndoubledTouch *pUndoubledTouch, CIPhoneTiltInput *pTilt)

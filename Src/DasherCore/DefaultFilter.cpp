@@ -27,8 +27,6 @@ CDefaultFilter::CDefaultFilter(Dasher::CEventHandler * pEventHandler, CSettingsS
   m_pStartHandler = 0;
   m_pAutoSpeedControl = new CAutoSpeedControl(m_pEventHandler, m_pSettingsStore);
 
-  CreateStartHandler();
-  
   // Initialize autocalibration (i.e. seen nothing yet)
   m_iSum = 0;
   
@@ -37,6 +35,7 @@ CDefaultFilter::CDefaultFilter(Dasher::CEventHandler * pEventHandler, CSettingsS
 
 CDefaultFilter::~CDefaultFilter() {
   delete m_pAutoSpeedControl;
+  delete m_pStartHandler;
 }
 
 bool CDefaultFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
@@ -177,16 +176,26 @@ void CDefaultFilter::HandleEvent(Dasher::CEvent * pEvent) {
 }
 
 void CDefaultFilter::CreateStartHandler() {
-  if(m_pStartHandler) {
-    delete m_pStartHandler;
-    m_pStartHandler = 0;
-  }
+  delete m_pStartHandler;
+  m_pStartHandler = MakeStartHandler();
+}
 
+void CDefaultFilter::Activate() {
+  CreateStartHandler();
+  CInputFilter::Activate();
+}
+
+void CDefaultFilter::Deactivate() {
+  delete m_pStartHandler;
+  m_pStartHandler = 0;
+}
+
+CStartHandler *CDefaultFilter::MakeStartHandler() {
   if(GetBoolParameter(BP_CIRCLE_START))
-    m_pStartHandler = new CCircleStartHandler(m_pEventHandler, m_pSettingsStore, m_pInterface);
-  else if(GetBoolParameter(BP_MOUSEPOS_MODE))
-    m_pStartHandler = new CTwoBoxStartHandler(m_pEventHandler, m_pSettingsStore, m_pInterface);
-
+    return new CCircleStartHandler(m_pEventHandler, m_pSettingsStore, m_pInterface);
+  if(GetBoolParameter(BP_MOUSEPOS_MODE))
+    return new CTwoBoxStartHandler(m_pEventHandler, m_pSettingsStore, m_pInterface);
+  return NULL;
 }
 
 double xmax(double y) {

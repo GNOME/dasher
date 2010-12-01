@@ -13,8 +13,9 @@ class COneDimensionalFilter : public CDefaultFilter {
   ///Override to remove DefaultFilters BP_REMAP_XTREME, BP_AUTOCALIBRATE, LP_OFFSET
   bool GetSettings(SModuleSettings **pSettings, int *iCount);
  protected:
-   virtual void ApplyTransform(myint &iDasherX, myint &iDasherY, CDasherView *pView);
-   const myint forwardmax;
+  virtual void ApplyTransform(myint &iDasherX, myint &iDasherY, CDasherView *pView);
+  const myint forwardmax;
+  virtual CStartHandler *MakeStartHandler();
 };
 }
 /// @}

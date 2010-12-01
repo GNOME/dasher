@@ -19,20 +19,22 @@ class CDefaultFilter : public CInputFilter {
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);
   virtual bool Timer(int Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol);
   virtual void KeyDown(int iTime, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual void Activate();
+  virtual void Deactivate();
   bool GetSettings(SModuleSettings **, int *);
  protected:
-  virtual void CreateStartHandler();
+  void CreateStartHandler();
+  virtual CStartHandler *MakeStartHandler();
   virtual void ApplyTransform(myint &iDasherX, myint &iDasherY, CDasherView *pView);
   void ApplyOffset(myint &iDasherX, myint &iDasherY);
   
-protected:
   /// Last-known Dasher-coords of the target
   myint m_iLastX, m_iLastY;
   bool m_bGotMouseCoords;
 private:
   CAutoSpeedControl *m_pAutoSpeedControl;
-  CStartHandler *m_pStartHandler;
   myint m_iSum;
+  CStartHandler *m_pStartHandler;
   int m_iCounter;
 };
 }

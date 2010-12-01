@@ -50,7 +50,8 @@ protected:
 	virtual void ApplyTransform(myint &iDasherX, myint &iDasherY, CDasherView *pView);
   ///Never apply offset (just eyetracker remapping!) - otherwise would be done when operating in 2d mode
   virtual void ApplyOffset(myint &iDasherX, myint &iDasherY);
-
+  ///Override to choose whether to use 1D start handler or not
+  virtual CStartHandler *MakeStartHandler();
 private:
   CDasherInput *m_pTouch;
   bool bHoldToGo, bUseTouchX, bTilt1D;

@@ -45,3 +45,7 @@ void CStylusFilter::KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *
 void CStylusFilter::ApplyClickTransform(myint &iDasherX, myint &iDasherY, CDasherView *pView) {
   CClickFilter::AdjustZoomCoords(iDasherX, iDasherY, pView);
 }
+
+CStartHandler *CStylusFilter::MakeStartHandler() {
+  return NULL;
+}
