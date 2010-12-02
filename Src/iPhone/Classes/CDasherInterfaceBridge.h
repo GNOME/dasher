@@ -10,7 +10,6 @@
 #import "IPhoneInputs.h"
 #import "IPhoneFilters.h"
 #import "DefaultFilter.h"
-#import "PlainDragFilter.h"
 #import "StylusFilter.h"
 #import "Vec3.h"
 
@@ -23,7 +22,7 @@
 /// Implements the necessary abstract methods by bridging them into Objective C
 /// and sending messages onto the DasherAppDelegate.
 
-class CDasherInterfaceBridge : public CDasherInterfaceBase {
+class CDasherInterfaceBridge : public Dasher::CDasherInterfaceBase {
   
 public:
   
@@ -39,12 +38,10 @@ public:
   CDasherInterfaceBridge(DasherAppDelegate *aDasherApp);
   ~CDasherInterfaceBridge();
   
-  void ChangeScreen(CDasherScreen *NewScreen);
   //redefinitions to make public....
   void OnUIRealised();
   void NewFrame(unsigned long iTime, bool bForceRedraw);
   
-  void NotifyTouch(screenint x, screenint y);
   void SetTiltAxes(Vec3 main, float off, Vec3 slow, float off2);
   bool SupportsClipboard() {return true;}
   void CopyToClipboard(const std::string &strText);
@@ -72,12 +69,10 @@ private:
   
   DasherAppDelegate *dasherApp;   // objc counterpart
   
-  CPlainDragFilter *m_pPlainDragFilter;
-  CIPhone1DFilter *m_pOneDFilter;
-  CIPhonePolarFilter *m_pPolarFilter;
+  CIPhoneTiltFilter *m_pTiltFilter;
+  CIPhoneTouchFilter *m_pTouchFilter;
 	
-  CMixedInput *m_pMixDevice, *m_pReverseMix;
   CIPhoneMouseInput *m_pMouseDevice;
   CIPhoneTiltInput *m_pTiltDevice;
-	
+	UndoubledTouch *m_pUndoubledTouch;
 };

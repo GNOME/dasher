@@ -37,7 +37,11 @@ Note that setting the view non-opaque will only work if the EAGL surface has an 
 	GLuint mouseTex, boxesTex;
 	GLshort rectcoords[8];
 	GLfloat texcoords[8];
+  
+  CGPoint lastTouchCoords;
 }
+
+@property (readonly,assign) CGPoint lastTouchCoords;
 
 - (void)startAnimation;
 - (void)stopAnimation;

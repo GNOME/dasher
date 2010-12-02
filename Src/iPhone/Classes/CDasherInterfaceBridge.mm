@@ -15,7 +15,9 @@
 #import "CalibrationController.h"
 #import "ControlManager.h"
 #import "../Common/Common.h"
-
+#import "ButtonMode.h"
+#import "TwoButtonDynamicFilter.h"
+#import "TwoPushDynamicFilter.h"
 #import <iostream>
 
 #import <fcntl.h>
@@ -31,40 +33,31 @@ CDasherInterfaceBridge::CDasherInterfaceBridge(DasherAppDelegate *aDasherApp) : 
 
 void CDasherInterfaceBridge::CreateModules() {
 	//create the default set...a good idea?!?!
-	CDasherInterfaceBase::CreateModules();
 
+  RegisterModule(m_pUndoubledTouch = new UndoubledTouch(m_pEventHandler, m_pSettingsStore));
 	RegisterModule(m_pMouseDevice = 
 				new CIPhoneMouseInput(m_pEventHandler, m_pSettingsStore));
 	RegisterModule(m_pTiltDevice = 
 				new CIPhoneTiltInput(m_pEventHandler, m_pSettingsStore));
-	RegisterModule(m_pMixDevice =
-				   new CMixedInput(m_pEventHandler, m_pSettingsStore, m_pMouseDevice, m_pTiltDevice, MIXED_INPUT));
-	RegisterModule(m_pReverseMix =
-				   new CMixedInput(m_pEventHandler, m_pSettingsStore, m_pTiltDevice, m_pMouseDevice, REVERSE_MIX));
-	RegisterModule(m_pPlainDragFilter = new CPlainDragFilter(m_pEventHandler, m_pSettingsStore, this, 9, "Hold-down filter"));
-	RegisterModule(m_pOneDFilter =
-				   new CIPhone1DFilter(m_pEventHandler, m_pSettingsStore, this, 16));
-	RegisterModule(m_pPolarFilter = 
-				   new CIPhonePolarFilter(m_pEventHandler, m_pSettingsStore, this, 17));
-  CDasherModule *stylus = GetModuleByName("Stylus Control");
-  DASHER_ASSERT(stylus && stylus->GetType() == InputMethod);
-	SetDefaultInputMethod(static_cast<CInputFilter *>(stylus));
-	SetDefaultInputDevice(m_pMouseDevice);
+  SetDefaultInputDevice(m_pMouseDevice);
+                 
+  RegisterModule(new CButtonMode(m_pEventHandler, m_pSettingsStore, this, true, 9, "Menu Mode"));
+  RegisterModule(new CButtonMode(m_pEventHandler, m_pSettingsStore, this, false, 8, "Direct Mode"));
+  RegisterModule(new CTwoButtonDynamicFilter(m_pEventHandler, m_pSettingsStore, this));
+  RegisterModule(new CTwoPushDynamicFilter(m_pEventHandler, m_pSettingsStore, this));
+  
+	RegisterModule(m_pTiltFilter =
+				   new CIPhoneTiltFilter(m_pEventHandler, m_pSettingsStore, this, 16, m_pMouseDevice));
+	RegisterModule(m_pTouchFilter = 
+				   new CIPhoneTouchFilter(m_pEventHandler, m_pSettingsStore, this, 17, m_pUndoubledTouch, m_pTiltDevice));
+	SetDefaultInputMethod(m_pTouchFilter);
 }
 	
 CDasherInterfaceBridge::~CDasherInterfaceBridge() {
-  if (m_pMouseDevice)
-	delete m_pMouseDevice;
-  if (m_pTiltDevice)
+  delete m_pMouseDevice;
 	delete m_pTiltDevice;
-  if (m_pMixDevice)
-	delete m_pMixDevice;
+  delete m_pUndoubledTouch;
   //(ACL)registered input filters should be automatically free'd by the module mgr?
-}
-
-void CDasherInterfaceBridge::NotifyTouch(screenint x, screenint y)
-{
-	m_pMouseDevice->NotifyTouch(x, y);
 }
 
 void CDasherInterfaceBridge::SetTiltAxes(Vec3 main, float off, Vec3 slow, float off2)
@@ -77,12 +70,6 @@ void CDasherInterfaceBridge::SetupUI() {
 }
 
 void CDasherInterfaceBridge::OnUIRealised() {CDasherInterfaceBase::OnUIRealised();}
-
-void CDasherInterfaceBridge::ChangeScreen(CDasherScreen *pScreen) {
-  CDasherInterfaceBase::ChangeScreen(pScreen);
-  m_pTiltDevice->SetScreenBounds(pScreen->GetWidth(), pScreen->GetHeight());
-  m_pMouseDevice->SetScreenBounds(pScreen->GetWidth(), pScreen->GetHeight());
-}
 
 void CDasherInterfaceBridge::SetupPaths() {
   NSString *systemDir = [NSString stringWithFormat:@"%@/", [[NSBundle mainBundle] bundlePath]];

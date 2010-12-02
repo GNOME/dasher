@@ -20,12 +20,12 @@ using namespace Dasher;
 
 @implementation ParametersController
 
--(id)initWithTitle:(NSString *)title Settings:(SModuleSettings *)_settings Count:(int)_count {
+-(id)initWithTitle:(NSString *)title Settings:(SModuleSettings *)settings Count:(int)count {
   if (self = [super init]) {
     self.title=title;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleDone target:nil action:nil];
-    settings = _settings;
-    count = _count;
+    m_pSettings = settings;
+    m_iCount = count;
   }
   return self;
 }
@@ -37,27 +37,31 @@ using namespace Dasher;
 }
 
 - (void)loadView {
-  CDasherInterfaceBridge *intf = [DasherAppDelegate theApp].dasherInterface;
-  
   UIScrollView *view = [[[UIScrollView alloc] init] autorelease];
   self.view = view;
   view.backgroundColor = [UIColor whiteColor];
-    
-  int y=15;
+  
+  int y=[self layoutOptionsOn:view startingAtY:15];
+  [view setContentSize:CGSizeMake(320.0,y-15)];
+}
+
+-(int)layoutOptionsOn:(UIView *)view startingAtY:(int)y {
+  if (m_iCount==0) return [self makeNoSettingsLabelOnView:view atY:y];
+  return [self layoutModuleSettings:m_pSettings count:m_iCount onView:view startingAtY:y];
+}
+
+-(int)layoutModuleSettings:(SModuleSettings *)settings count:(int)count onView:(UIView *)view startingAtY:(int)y {
+  CDasherInterfaceBridge *intf = [DasherAppDelegate theApp].dasherInterface;
   for (int i=0; i<count; i++) {
     if (settings[i].iType == T_BOOL) {
-      UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(10.0, y, 190.0, 20.0)] autorelease];
-      label.text = NSStringFromStdString(intf->GetSettingsStore()->GetParameterName(settings[i].iParameter));
-      UISwitch *sw = [[[UISwitch alloc] initWithFrame:CGRectMake(210.0, y, 100.0, 20.0)] autorelease];
-      [view addSubview:label];
-      [view addSubview:sw];
-      sw.on = intf->GetBoolParameter(sw.tag = settings[i].iParameter);
+      UISwitch *sw=[self makeSwitch:NSStringFromStdString(intf->GetSettingsStore()->GetParameterName(settings[i].iParameter)) onView:view atY:&y];
+      sw.tag = settings[i].iParameter;
+      sw.on = intf->GetBoolParameter(settings[i].iParameter);
       [sw addTarget:self action:@selector(boolParamChanged:) forControlEvents:UIControlEventValueChanged];
-      y += 50;
     } else if (settings[i].iType == T_LONG) {
       UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(10.0, y, 300.0, 20.0)] autorelease];
       UISlider *slider = [[[UISlider alloc] initWithFrame:CGRectMake(10.0, y+20, 300.0, 20.0)] autorelease];
-      slider.tag = (int)label; label.tag=i;
+      slider.tag = (int)label; label.tag=(int)&settings[i];
       slider.minimumValue = settings[i].iMin; slider.maximumValue = settings[i].iMax;
       slider.value = intf->GetLongParameter(settings[i].iParameter);
       [slider addTarget:self action:@selector(longParamChanged:) forControlEvents:UIControlEventValueChanged];
@@ -66,7 +70,24 @@ using namespace Dasher;
       y += 70;
     }
   }
-  [view setContentSize:CGSizeMake(320.0,y-15)];
+  return y;
+}
+
+-(UISwitch *)makeSwitch:(NSString *)title onView:(UIView *)view atY:(int *)pY {
+  UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(10.0, *pY, 190.0, 20.0)] autorelease];
+  label.text = title;
+  UISwitch *sw = [[[UISwitch alloc] initWithFrame:CGRectMake(210.0, *pY, 100.0, 20.0)] autorelease];
+  [view addSubview:label];
+  [view addSubview:sw];
+  *pY += 50;
+  return sw;
+}
+
+-(int)makeNoSettingsLabelOnView:(UIView *)view atY:(int)y {
+  UILabel *label=[[[UILabel alloc] initWithFrame:CGRectMake(10.0, y, 300.0, 20.0)] autorelease];
+  label.text=@"No Settings";
+  [view addSubview:label];
+  return y+50;
 }
 
 -(void)boolParamChanged:(id)uiswitch {
@@ -78,7 +99,7 @@ using namespace Dasher;
   CDasherInterfaceBridge *intf = [DasherAppDelegate theApp].dasherInterface;
   UISlider *slider = (UISlider *)uislider;
   UILabel *label = (UILabel *)slider.tag;
-  SModuleSettings *setting = &settings[label.tag];
+  SModuleSettings *setting = (SModuleSettings *)label.tag;
   long val = slider.value;
   if (!label.text || val != intf->GetLongParameter(setting->iParameter)) {
     intf->SetLongParameter(setting->iParameter, val);

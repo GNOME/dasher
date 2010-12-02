@@ -43,6 +43,7 @@
 		331F29C80F7A9C270044EB9C /* alphabet.welsh.xml in Resources */ = {isa = PBXBuildFile; fileRef = 331F293C0F7A9C270044EB9C /* alphabet.welsh.xml */; };
 		331F29CA0F7A9C270044EB9C /* alphabet.xsl in Resources */ = {isa = PBXBuildFile; fileRef = 331F293E0F7A9C270044EB9C /* alphabet.xsl */; };
 		331F29CB0F7A9C270044EB9C /* alphabet.xsl.good in Resources */ = {isa = PBXBuildFile; fileRef = 331F293F0F7A9C270044EB9C /* alphabet.xsl.good */; };
+		3324F491129C119C00EE6A22 /* IPhoneFilters.mm in Sources */ = {isa = PBXBuildFile; fileRef = 332F32CC103C8D6E008448D7 /* IPhoneFilters.mm */; };
 		332BCAB40F71621400585DBD /* expat.dsp in Resources */ = {isa = PBXBuildFile; fileRef = 332BCA9A0F71621400585DBD /* expat.dsp */; };
 		332BCAB50F71621400585DBD /* expat_static.dsp in Resources */ = {isa = PBXBuildFile; fileRef = 332BCA9D0F71621400585DBD /* expat_static.dsp */; };
 		332BCAB60F71621400585DBD /* expatw.dsp in Resources */ = {isa = PBXBuildFile; fileRef = 332BCA9E0F71621400585DBD /* expatw.dsp */; };
@@ -60,8 +61,6 @@
 		332F32B4103C8A1E008448D7 /* ConversionHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 332F32AC103C8A1E008448D7 /* ConversionHelper.cpp */; };
 		332F32B5103C8A1E008448D7 /* MandarinAlphMgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 332F32AD103C8A1E008448D7 /* MandarinAlphMgr.cpp */; };
 		332F32B6103C8A1E008448D7 /* Trainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 332F32AF103C8A1E008448D7 /* Trainer.cpp */; };
-		332F32CE103C8D6E008448D7 /* IPhoneFilters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 332F32CC103C8D6E008448D7 /* IPhoneFilters.cpp */; };
-		332F331E103C8EFD008448D7 /* PlainDragFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3376EBFD0FC15A7300C4DC9F /* PlainDragFilter.cpp */; };
 		332F34A3103D8F54008448D7 /* colour.blue.xml in Resources */ = {isa = PBXBuildFile; fileRef = 332F3496103D8F54008448D7 /* colour.blue.xml */; };
 		332F34A4103D8F54008448D7 /* colour.dtd in Resources */ = {isa = PBXBuildFile; fileRef = 332F3497103D8F54008448D7 /* colour.dtd */; };
 		332F34A5103D8F54008448D7 /* colour.euroasian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 332F3498103D8F54008448D7 /* colour.euroasian.xml */; };
@@ -368,7 +367,7 @@
 		332F32AE103C8A1E008448D7 /* MandarinAlphMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MandarinAlphMgr.h; sourceTree = "<group>"; };
 		332F32AF103C8A1E008448D7 /* Trainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Trainer.cpp; sourceTree = "<group>"; };
 		332F32B0103C8A1E008448D7 /* Trainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trainer.h; sourceTree = "<group>"; };
-		332F32CC103C8D6E008448D7 /* IPhoneFilters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IPhoneFilters.cpp; sourceTree = "<group>"; };
+		332F32CC103C8D6E008448D7 /* IPhoneFilters.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = IPhoneFilters.mm; sourceTree = "<group>"; };
 		332F32CD103C8D6E008448D7 /* IPhoneFilters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IPhoneFilters.h; sourceTree = "<group>"; };
 		332F3496103D8F54008448D7 /* colour.blue.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = colour.blue.xml; sourceTree = "<group>"; };
 		332F3497103D8F54008448D7 /* colour.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = colour.dtd; sourceTree = "<group>"; };
@@ -704,8 +703,6 @@
 		337691700F9CE8630083FEB2 /* StringParamController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = StringParamController.mm; sourceTree = "<group>"; };
 		337691840F9CEFC70083FEB2 /* InputMethodSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputMethodSelector.h; sourceTree = "<group>"; };
 		337691850F9CEFC70083FEB2 /* InputMethodSelector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InputMethodSelector.mm; sourceTree = "<group>"; };
-		3376EBFC0FC15A7300C4DC9F /* PlainDragFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlainDragFilter.h; sourceTree = "<group>"; };
-		3376EBFD0FC15A7300C4DC9F /* PlainDragFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PlainDragFilter.cpp; sourceTree = "<group>"; };
 		337ECC1910DD5E0700D0C6A5 /* ExpansionPolicy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExpansionPolicy.cpp; sourceTree = "<group>"; };
 		337ECC1A10DD5E0700D0C6A5 /* ExpansionPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpansionPolicy.h; sourceTree = "<group>"; };
 		339F8A310FF5088000282847 /* CalibrationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalibrationController.h; sourceTree = "<group>"; };
@@ -780,7 +777,7 @@
 				333B5D4E100F5A93002041C8 /* TextView.mm */,
 				3330BD420FA885FD0035E952 /* IPhoneInputs.h */,
 				3330BDC50FA8BE360035E952 /* IPhoneInputs.mm */,
-				332F32CC103C8D6E008448D7 /* IPhoneFilters.cpp */,
+				332F32CC103C8D6E008448D7 /* IPhoneFilters.mm */,
 				332F32CD103C8D6E008448D7 /* IPhoneFilters.h */,
 				3330B80B0FA1FABB0035E952 /* Vec3.cpp */,
 				3330B7D00FA1198E0035E952 /* Vec3.h */,
@@ -805,8 +802,6 @@
 				3354AF4611ADBAFD006CF570 /* Actions.h */,
 				3354AF4711ADBAFD006CF570 /* Actions.mm */,
 				33EB48400F72A5680048E7C2 /* DasherScreenCallbacks.h */,
-				3376EBFC0FC15A7300C4DC9F /* PlainDragFilter.h */,
-				3376EBFD0FC15A7300C4DC9F /* PlainDragFilter.cpp */,
 				339F8A310FF5088000282847 /* CalibrationController.h */,
 				339F8A320FF5088000282847 /* CalibrationController.mm */,
 			);
@@ -1646,8 +1641,6 @@
 				332F32B4103C8A1E008448D7 /* ConversionHelper.cpp in Sources */,
 				332F32B5103C8A1E008448D7 /* MandarinAlphMgr.cpp in Sources */,
 				332F32B6103C8A1E008448D7 /* Trainer.cpp in Sources */,
-				332F32CE103C8D6E008448D7 /* IPhoneFilters.cpp in Sources */,
-				332F331E103C8EFD008448D7 /* PlainDragFilter.cpp in Sources */,
 				339F8A330FF5088000282847 /* CalibrationController.mm in Sources */,
 				333B5D4F100F5A93002041C8 /* TextView.mm in Sources */,
 				3334D4DF1014745F0077948A /* MiscSettings.mm in Sources */,
@@ -1728,6 +1721,7 @@
 				333F707A11A8AA66002E2BDF /* usenglish.c in Sources */,
 				3354AF4811ADBAFD006CF570 /* Actions.mm in Sources */,
 				337472D3121A976B001A858C /* AlphInfo.cpp in Sources */,
+				3324F491129C119C00EE6A22 /* IPhoneFilters.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

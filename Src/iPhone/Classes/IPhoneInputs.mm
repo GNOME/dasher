@@ -35,7 +35,7 @@ using namespace Dasher;
 @end
 
 CIPhoneTiltInput::CIPhoneTiltInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
-	: CIPhoneInput(pEventHandler, pSettingsStore, TILT_INPUT) {
+	: CScreenCoordInput(pEventHandler, pSettingsStore, 8, TILT_INPUT) {
 	deleg = [[Accel alloc] initWithInput:this];	
 	xTilts = NULL;
 };
@@ -80,32 +80,60 @@ void CIPhoneTiltInput::NotifyTilt(float fx, float fy, float fz) {
 
 void CIPhoneTiltInput::Activate() {
   [[DasherAppDelegate theApp] setLandscapeSupported:NO];
-  [UIApplication sharedApplication].idleTimerDisabled = YES;
   UIAccelerometer*  theAccelerometer = [UIAccelerometer sharedAccelerometer];
   theAccelerometer.updateInterval = 0.01; //in secs
   theAccelerometer.delegate = deleg;
 }
 void CIPhoneTiltInput::Deactivate() {
   [[DasherAppDelegate theApp] setLandscapeSupported:YES];
-  [UIApplication sharedApplication].idleTimerDisabled = NO;
   [UIAccelerometer sharedAccelerometer].delegate = nil;
 }
 
-CIPhoneMouseInput::CIPhoneMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
-	: CIPhoneInput(pEventHandler, pSettingsStore, TOUCH_INPUT) {
-};
-
-bool CMixedInput::GetScreenCoords(screenint &iX, screenint &iY,CDasherView *pView) {
-  screenint temp;
-	if (!m_pYinput->GetScreenCoords(temp,iY,pView)) return false;
-  //got y; x coord stored into temp is not needed
-	return m_pXinput->GetScreenCoords(iX, temp,pView);
-};
-
-void CMixedInput::Activate() {
-  m_pYinput->Activate(); m_pXinput->Activate();
+bool CIPhoneTiltInput::GetScreenCoords(screenint &iX, screenint &iY, CDasherView *pView) {
+  CDasherScreen *pScreen(pView->Screen());
+  maxX = pScreen->GetWidth();
+  maxY = pScreen->GetHeight();
+  
+  //could check we're active, but not bothering for now...
+  iX=m_iX; iY=m_iY;
+  return true;
 }
 
-void CMixedInput::Deactivate() {
-  m_pYinput->Deactivate(); m_pXinput->Deactivate();
+UndoubledTouch::UndoubledTouch(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore) : CScreenCoordInput(pEventHandler, pSettingsStore, 7, UNDOUBLED_TOUCH) {
+}
+
+UndoubledTouch::UndoubledTouch(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, ModuleID_t iId, const char *szName) : CScreenCoordInput(pEventHandler, pSettingsStore, iId, szName) {
+}
+
+bool UndoubledTouch::GetScreenCoords(screenint &iX, screenint &iY, CDasherView *pView) {
+  CDasherScreenBridge *sb(static_cast<CDasherScreenBridge *>(pView->Screen()));
+  return sb->GetTouchCoords(iX, iY);
+}
+
+
+CIPhoneMouseInput::CIPhoneMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
+	: UndoubledTouch(pEventHandler, pSettingsStore, 9, TOUCH_INPUT) {
+};
+
+bool CIPhoneMouseInput::GetScreenCoords(screenint &iX, screenint &iY, CDasherView *pView) {
+  if (!UndoubledTouch::GetScreenCoords(iX,iY, pView)) return false;
+  CDasherScreen *scr(pView->Screen());
+  //double x/y
+  if (GetBoolParameter(BP_DOUBLE_X)) {
+    switch (GetLongParameter(LP_REAL_ORIENTATION)) {
+      case Opts::LeftToRight:
+        iX=min(iX*2, scr->GetWidth());
+        break;
+      case Opts::RightToLeft:
+        iX=max(iX*2-scr->GetWidth(), 0);
+        break;
+      case Opts::TopToBottom:
+        iY=min(iY*2, scr->GetHeight());
+        break;
+      case Opts::BottomToTop:
+        iY=max(iY*2 - scr->GetHeight(), 0);
+        break;
+    }
+  }
+  return true;
 }

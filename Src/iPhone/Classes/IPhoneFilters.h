@@ -8,30 +8,68 @@
  */
 
 #include "OneDimensionalFilter.h"
+#include "StylusFilter.h"
+#include "IPhoneInputs.h"
 
 using namespace Dasher;
 
-#define ONE_D_FILTER "IPhone1D Filter"
-#define POLAR_FILTER "Polar Filter"
-class CIPhone1DFilter : public COneDimensionalFilter {
-public:
-	CIPhone1DFilter(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID);
+@class NSUserDefaultsObserver;
 
-	virtual bool Timer(int iTime, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol);
+class IPhonePrefsObserver {
+public:
+  virtual void iPhonePrefsChanged(NSString *key)=0;
 protected:
-	virtual void ApplyTransform(myint &iDasherX, myint &iDasherY);
+  void ObserveKeys(NSString *key,...);
+  ~IPhonePrefsObserver();
 private:
-	int m_iSlow;
-	double m_dRad;
+  NSUserDefaultsObserver *obsvr;
+};
+#ifndef __IPHONE_FILTERS_MM__
+extern NSString *HOLD_TO_GO;
+extern NSString *TILT_1D;
+extern NSString *TILT_USE_TOUCH_X;
+extern NSString *TOUCH_USE_TILT_X;
+#endif
+
+#define TILT_FILTER "IPhone Tilt Filter"
+#define TOUCH_FILTER "IPhone Touch Filter"
+class CIPhoneTiltFilter : public COneDimensionalFilter, private IPhonePrefsObserver {
+public:
+	CIPhoneTiltFilter(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, CDasherInput *pTouch);
+  ///override to enable hold-to-go
+	virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+  ///override to enable hold-to-go
+	virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
+
+  ///respond to BP_DASHER_PAUSED by engaging wakelock (if !hold-to-go)
+  virtual void HandleEvent(CEvent *pEvent);
+  void iPhonePrefsChanged(NSString *key);
+  bool supportsPause();
+protected:
+  ///Override to choose whether to apply 1D transform or not, and to get X coord from touch if appropriate
+	virtual void ApplyTransform(myint &iDasherX, myint &iDasherY, CDasherView *pView);
+  ///Never apply offset (just eyetracker remapping!) - otherwise would be done when operating in 2d mode
+  virtual void ApplyOffset(myint &iDasherX, myint &iDasherY);
+
+private:
+  CDasherInput *m_pTouch;
+  bool bHoldToGo, bUseTouchX, bTilt1D;
 };
 
-class CIPhonePolarFilter : public COneDimensionalFilter {
+class CIPhoneTouchFilter : public CStylusFilter, private IPhonePrefsObserver {
 public:
-	CIPhonePolarFilter(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID);
+	CIPhoneTouchFilter(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, UndoubledTouch *pUndoubledTouch, CIPhoneTiltInput *pTilt);
 	
-	virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
 	virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
-protected:
-	virtual void ApplyTransform(myint &iDasherX, myint &iDasherY);
+  
+  void ApplyTransform(myint &iDasherX, myint &iDasherY, CDasherView *pView);
+  void Activate();
+  void Deactivate();
+  void iPhonePrefsChanged(NSString *key);
+private:
+  UndoubledTouch *m_pUndoubledTouch;
+  CIPhoneTiltInput *m_pTilt;
+  bool bUseTiltX;
 };
+
 /// @}

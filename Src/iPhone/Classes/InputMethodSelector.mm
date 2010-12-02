@@ -13,35 +13,35 @@
 #import "DasherAppDelegate.h"
 #import "CalibrationController.h"
 #import "ParametersController.h"
+#import "IPhoneFilters.h"
 
 typedef struct __FILTER_DESC__ {
 	NSString *title;
 	NSString *subTitle;
 	const char *deviceName;
 	const char *filterName;
+  ///Null-terminated list of NSUserDefaults keys for extra non-Core settings
+  NSString **iPhoneOpts;
 } SFilterDesc;
 
-SFilterDesc asTouchFilters[] = {
-	{@"Hybrid Mode", @"Tap or Hold", TOUCH_INPUT, "Stylus Control"},
-  {@"Boxes", @"Tap box to select", TOUCH_INPUT, "Direct Mode"},
+NSString *touchSettings[] = {TOUCH_USE_TILT_X, NULL};
+NSString *tiltSettings[] = {HOLD_TO_GO, TILT_USE_TOUCH_X, TILT_1D, NULL};
+
+NSString *calibBtn=@"Calibrate...";//pointer equality used to mark cell for special-casing in cellForRowAtIndexPath: below
+
+SFilterDesc asNormalFilters[] = {
+	{@"Touch Control", @"Tap or Hold", TOUCH_INPUT, TOUCH_FILTER, touchSettings},
+  {@"Tilt Control", calibBtn, TILT_INPUT, TILT_FILTER, tiltSettings},
+};
+
+SFilterDesc asBoxFilters[] = {
+  {@"Direct Mode", @"Tap box to select", TOUCH_INPUT, "Direct Mode", NULL},
+  {@"Scanning", @"Tap screen when box highlighted", TOUCH_INPUT, "Menu Mode", NULL},
 };
 
 SFilterDesc asDynamicFilters[] = {
-  {@"Scanning", @"Tap screen when box highlighted", TOUCH_INPUT, "Menu Mode"},
-  {@"One Button Mode", @"Tap screen when cursor near", TOUCH_INPUT, "Static One Button Mode"},
-	{@"Dynamic 1B Mode", @"Tap anywhere - twice", TOUCH_INPUT, "Two-push Dynamic Mode (New One Button)"},
-  {@"Dynamic 2B Mode", @"Tap Top or Bottom", TOUCH_INPUT, "Two Button Dynamic Mode"},
-};
-
-SFilterDesc asTiltFilters[] = {
-	{@"Full 2D",@"hold-to-go", TILT_INPUT, "Hold-down filter"},
-	{@"Single-axis",@"with slowdown & tap-to-start", TILT_INPUT, ONE_D_FILTER},
-};
-
-SFilterDesc asMixedFilters[] = {
-	{@"(X,Y)", @"by (touch,tilt)", MIXED_INPUT, "Hold-down filter"},
-	{@"1D-mode", @"tilt for direction, X-touch for speed", MIXED_INPUT, POLAR_FILTER},
-	{@"(Y,X)", @"by (touch,tilt)", REVERSE_MIX, "Stylus Control"},
+	{@"Dynamic 1B Mode", @"Tap anywhere - twice", TOUCH_INPUT, "Two-push Dynamic Mode (New One Button)", NULL},
+  {@"Dynamic 2B Mode", @"Tap Top or Bottom", TOUCH_INPUT, "Two Button Dynamic Mode", NULL},
 };
 
 typedef struct __SECTION_DESC__ {
@@ -51,22 +51,27 @@ typedef struct __SECTION_DESC__ {
 } SSectionDesc;
 	
 SSectionDesc allMeths[] = {
-{@"Touch Control", asTouchFilters, sizeof(asTouchFilters) / sizeof(asTouchFilters[0])},
-{@"Button Modes", asDynamicFilters, sizeof(asDynamicFilters) / sizeof(asDynamicFilters[0])},
-{@"Tilt Control", asTiltFilters, sizeof(asTiltFilters) / sizeof(asTiltFilters[0])},
-{@"Combined Touch & Tilt", asMixedFilters, sizeof(asMixedFilters) / sizeof(asMixedFilters[0])},
+{@"Normal Steering", asNormalFilters, sizeof(asNormalFilters) / sizeof(asNormalFilters[0])},
+{@"Box Modes", asBoxFilters, sizeof(asBoxFilters) / sizeof(asBoxFilters[0])},
+{@"Dynamic Modes", asDynamicFilters, sizeof(asDynamicFilters) / sizeof(asDynamicFilters[0])},
 };
 
 int numSections = sizeof(allMeths) / sizeof(allMeths[0]);
 
+@interface ExtraParametersController : ParametersController {
+  SModuleSettings *m_pSettings2;
+  int m_iCount2;
+  NSString **iPhonePrefKeys;
+}
+-(id)initForFilter:(SFilterDesc *)filtr;
+@end
+
+
 @interface InputMethodSelector ()
-@property (retain) NSIndexPath *selectedPath;
-- (void)doSelect;
+-(UITableViewCellAccessoryType)accessoryTypeForFilter:(SFilterDesc *)filter;
 @end
 
 @implementation InputMethodSelector
-
-@synthesize selectedPath;
 
 - (id)init {
   if (self = [super initWithStyle:UITableViewStyleGrouped]) {
@@ -122,91 +127,73 @@ int numSections = sizeof(allMeths) / sizeof(allMeths[0]);
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-  return numSections + 1; //add 1 for calibrate button
+  return numSections;
 }
-
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return (section==numSections) ? 0 : allMeths[section].numFilters;
+  return allMeths[section].numFilters;
 }
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	DasherAppDelegate *app = [DasherAppDelegate theApp];
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-	UILabel *subText;
-	if (cell)
-		subText = [cell viewWithTag:1];
-	else {
-        cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
-		subText = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
-		subText.tag = 1;
-		[cell addSubview:subText];
-		//cell.autoresizesSubviews = YES; //ineffective even if done
-		[subText setAdjustsFontSizeToFitWidth:YES];
+
+  SFilterDesc *filter = &allMeths[ [indexPath section] ].filters[ [indexPath row] ];
+  UITableViewCell *cell;
+  
+  if (filter->subTitle==calibBtn) {
+    static NSString *CalibCellId = @"CalibCell";
+    cell = [tableView dequeueReusableCellWithIdentifier:CalibCellId];
+    if (!cell) {
+      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CalibCellId] autorelease];
+      
+      UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+      [btn setTitle:calibBtn forState:UIControlStateNormal];
+      CGSize textSize = [calibBtn sizeWithFont:btn.titleLabel.font];
+      btn.frame = CGRectMake(140.0,9.0,textSize.width+10,textSize.height+6);
+      [btn addTarget:self action:@selector(calibrate) forControlEvents:UIControlEventTouchUpInside];
+      
+      [cell.contentView addSubview:btn];
     }
+  } else {
+    static NSString *CellId = @"Cell";
+    
+    cell = [tableView dequeueReusableCellWithIdentifier:CellId];
+    if (!cell)
+      cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellId] autorelease];
+    cell.detailTextLabel.text = filter->subTitle;
+  }
 	
 	// Set up the cell...
-	SFilterDesc *filter = &allMeths[ [indexPath section] ].filters[ [indexPath row] ];
-	if (filter->deviceName == app.dasherInterface->GetStringParameter(SP_INPUT_DEVICE)
-		&& filter->filterName == app.dasherInterface->GetStringParameter(SP_INPUT_FILTER)
-    && (!selectedPath || [indexPath compare:selectedPath])) {
-      self.selectedPath = indexPath;
-      [self performSelectorOnMainThread:@selector(doSelect) withObject:nil waitUntilDone:NO];
-	}
+  cell.textLabel.text = filter->title;
+	CDasherInterfaceBase *intf = [DasherAppDelegate theApp].dasherInterface;
+  if (filter->deviceName == intf->GetStringParameter(SP_INPUT_DEVICE)
+      && filter->filterName == intf->GetStringParameter(SP_INPUT_FILTER)) {
+    //filter is currently selected...
+    DASHER_ASSERT(selectedPath==nil || [selectedPath isEqual:indexPath]);
+    selectedPath = indexPath;
+    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+  } else {
+    cell.accessoryType = [self accessoryTypeForFilter:filter];
+  }
 	
-  UIButton *btn = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-  cell.accessoryView = btn;
-  btn.tag = (int)filter;
-  [btn addTarget:self action:@selector(settings:) forControlEvents:UIControlEventTouchUpInside];
-  
-	cell.text = filter->title;
-	CGSize titleSize = [filter->title sizeWithFont:cell.font];
-	subText.frame = CGRectMake(titleSize.width + 30.0, 5.0, 245.0 - titleSize.width, 34.0);
+  return cell;
+}
 
-	subText.text = filter->subTitle;
-
-    return cell;
+-(UITableViewCellAccessoryType)accessoryTypeForFilter:(SFilterDesc *)filter {
+  SModuleSettings *sets; int count;
+  CDasherInterfaceBase *intf = [DasherAppDelegate theApp].dasherInterface;
+  if (intf->GetModuleSettings(filter->filterName, &sets, &count))
+    if (count>0) return UITableViewCellAccessoryDisclosureIndicator;
+  if (intf->GetModuleSettings(filter->deviceName, &sets, &count))
+    if (count>0) return UITableViewCellAccessoryDisclosureIndicator;
+  if (filter->iPhoneOpts && *(filter->iPhoneOpts))
+    return UITableViewCellAccessoryDisclosureIndicator;
+  return UITableViewCellAccessoryNone;
 }
 
 - (void)moduleSettingsDone {
   [self.navigationController popViewControllerAnimated:YES];
-  [self doSelect];
-}
-
-- (void)doSelect {
-  [self.tableView selectRowAtIndexPath:selectedPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
-}
-
-- (void)settings:(id)button {
-  UIButton *btn = (UIButton *)button;
-  SFilterDesc *desc = (SFilterDesc *)btn.tag;
-  CDasherModule *mod = [DasherAppDelegate theApp].dasherInterface->GetModuleByName(desc->filterName);
-  SModuleSettings *settings=NULL; int count=0;
-  if (mod->GetSettings(&settings, &count)) {
-    ParametersController *params = [[[ParametersController alloc] initWithTitle:NSStringFromStdString(desc->filterName) Settings:settings Count:count] autorelease];
-    [params setTarget:self Selector:@selector(moduleSettingsDone)];
-    [self.navigationController pushViewController:params animated:YES];
-  }
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-  if (section < numSections) return nil; //no special view => default, using title method (below)
-  if (!calibButton) {
-    calibButton = [[UIView alloc] initWithFrame:CGRectZero];
-    calibButton.backgroundColor = [UIColor clearColor];
-    calibButton.opaque = NO;
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [btn setTitle:@"Calibrate Tilting..." forState:UIControlStateNormal];
-    btn.font = [UIFont boldSystemFontOfSize:18.0];
-    btn.frame = CGRectMake(9.0,2.0,302.0,[self tableView:tableView heightForHeaderInSection:section]-4.0);
-    [btn addTarget:self action:@selector(calibrate) forControlEvents:UIControlEventTouchUpInside];
-    [calibButton addSubview:btn];
-  }
-  return calibButton;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -223,12 +210,22 @@ int numSections = sizeof(allMeths) / sizeof(allMeths[0]);
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	//[tableView deselectRowAtIndexPath:indexPath animated:NO];
-	self.selectedPath = indexPath;
-	DasherAppDelegate *app = [DasherAppDelegate theApp];
+	[tableView deselectRowAtIndexPath:indexPath animated:NO];
+  //self->selectedPath is the PREVIOUSLY-SELECTED filter. Take away the checkmark...
+  [tableView cellForRowAtIndexPath:selectedPath].accessoryType = [self accessoryTypeForFilter: &allMeths[[selectedPath section]].filters[[selectedPath row]]];
+  //now give the NEWLY-SELECTED filter a checkmark
+  [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
+
+  //and record it as selected...
+	self->selectedPath = indexPath;
+	CDasherInterfaceBase *intf = [DasherAppDelegate theApp].dasherInterface;
 	SFilterDesc *filter = &allMeths[ [indexPath section] ].filters[ [indexPath row] ];
-	app.dasherInterface->SetStringParameter(SP_INPUT_DEVICE, filter->deviceName);
-	app.dasherInterface->SetStringParameter(SP_INPUT_FILTER, filter->filterName);
+	intf->SetStringParameter(SP_INPUT_DEVICE, filter->deviceName);
+	intf->SetStringParameter(SP_INPUT_FILTER, filter->filterName);
+  
+  ParametersController *params = [[[ExtraParametersController alloc] initForFilter:filter] autorelease];
+  [params setTarget:self Selector:@selector(moduleSettingsDone)];
+  [self.navigationController pushViewController:params animated:YES];
 }
 
 /*
@@ -275,6 +272,49 @@ int numSections = sizeof(allMeths) / sizeof(allMeths[0]);
     [super dealloc];
 }
 
+@end
 
+
+@implementation ExtraParametersController
+
+-(id)initForFilter:(SFilterDesc *)filter {
+  CDasherInterfaceBase *intf=[DasherAppDelegate theApp].dasherInterface;
+  SModuleSettings *settings; int count;
+  if (!intf->GetModuleSettings(filter->filterName, &settings, &count)) {
+    settings=NULL; count=0;
+  }
+  if (self = [super initWithTitle:NSStringFromStdString(filter->filterName) Settings:settings Count:count]) {
+    if (!intf->GetModuleSettings(filter->deviceName, &m_pSettings2, &m_iCount2)) {
+      m_pSettings2=NULL; m_iCount2=0;
+    }
+    iPhonePrefKeys = filter->iPhoneOpts;
+  }
+  return self;
+}
+
+-(int)layoutOptionsOn:(UIView *)view startingAtY:(int)y {
+  if (m_iCount)
+    y=[super layoutOptionsOn:view startingAtY:y];
+  else if (m_iCount2==0 && !iPhonePrefKeys)
+    return [self makeNoSettingsLabelOnView:view atY:y];
+  y=[self layoutModuleSettings:m_pSettings2 count:m_iCount2 onView:view startingAtY:y];
+  //finally, iPhone-specific keys...
+  NSUserDefaults *ud=[NSUserDefaults standardUserDefaults];
+  if (iPhonePrefKeys) {
+    for (NSString **key=iPhonePrefKeys; *key; key++) {
+      UISwitch *sw=[self makeSwitch:*key onView:view atY:&y];
+      sw.tag=(int)*key;
+      sw.on = [ud boolForKey:*key];
+      [sw addTarget:self action:@selector(boolUserDefChanged:) forControlEvents:UIControlEventValueChanged];
+    }
+  }
+  return y;
+}
+
+-(void)boolUserDefChanged:(id)uiswitch {
+  UISwitch *sw=(UISwitch *)uiswitch;
+  NSString *key = (NSString *)sw.tag;
+  [[NSUserDefaults standardUserDefaults] setBool:sw.on forKey:key];
+}
 @end
 

@@ -24,4 +24,6 @@ typedef struct {
 -(void)setColourSchemeWithColourTable:(colour_t *)colourTable;
 -(int)boundsWidth;
 -(int)boundsHeight;
+
+@property (readonly,assign) CGPoint lastTouchCoords;
 @end

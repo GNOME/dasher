@@ -16,8 +16,6 @@
 // A class extension to declare private methods
 @interface EAGLView ()
 
-@property (nonatomic, retain) EAGLContext *context;
-
 - (BOOL) createFramebuffer;
 - (void) destroyFramebuffer;
 
@@ -26,8 +24,7 @@
 
 @implementation EAGLView
 
-@synthesize context;
-
+@synthesize lastTouchCoords;
 
 // You must implement this method
 + (Class)layerClass {
@@ -69,28 +66,24 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 	NSAssert([touches count] == 1, @"Multitouch?!");
-	CGPoint p = [((UITouch *)[touches anyObject]) locationInView:self];
+	lastTouchCoords = [((UITouch *)[touches anyObject]) locationInView:self];
 	NSAssert(!anyDown,@"Touches began when already in progress - multitouch enabled?!?!\n");
 	anyDown = YES;
-	dasherApp.dasherInterface->NotifyTouch(p.x,p.y);
-	dasherApp.dasherInterface->KeyDown(get_time(), 100, true, p.x, p.y);
+	dasherApp.dasherInterface->KeyDown(get_time(), 100, true, lastTouchCoords.x, lastTouchCoords.y);
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-	CGPoint p = [[touches anyObject] locationInView:self];
-	dasherApp.dasherInterface->NotifyTouch(p.x,p.y);
+	lastTouchCoords = [[touches anyObject] locationInView:self];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	NSAssert([touches count] == 1, @"Multitouch?!");
 	NSAssert(anyDown,@"Touches ended when not in progress - multitouch enabled?!?!\n");
-	UITouch *touch = [touches anyObject];
-	CGPoint p = [touch locationInView:self];
-	dasherApp.dasherInterface->NotifyTouch(p.x,p.y);
-	anyDown = NO;
-	dasherApp.dasherInterface->KeyUp(get_time(), 100, true, p.x, p.y);
+	lastTouchCoords = [(UITouch *)[touches anyObject] locationInView:self];
+	dasherApp.dasherInterface->KeyUp(get_time(), 100, true, lastTouchCoords.x, lastTouchCoords.y);
   //finished dealing with touch-up event. Finger is now officially off the screen...
-  dasherApp.dasherInterface->NotifyTouch(-1, -1);
+  lastTouchCoords.x = lastTouchCoords.y = -1;
+  anyDown = NO;
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {

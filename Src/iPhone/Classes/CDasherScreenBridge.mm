@@ -19,6 +19,13 @@ CDasherScreenBridge::~CDasherScreenBridge() {
   dasherView = nil; // didn't retain it, so don't release it.
 }
 
+bool CDasherScreenBridge::GetTouchCoords(screenint &iX, screenint &iY) {
+  CGPoint p = dasherView.lastTouchCoords;
+  if (p.x==-1) return false;
+  iX=p.x; iY=p.y;
+  return true;
+}
+
 void CDasherScreenBridge::Blank() {
   [dasherView blankCallback];
 }

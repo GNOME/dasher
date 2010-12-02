@@ -23,6 +23,8 @@ public:
   CDasherScreenBridge(id<DasherScreenCallbacks> dv);
   ~CDasherScreenBridge();
   
+  bool GetTouchCoords(screenint &iX, screenint &iY);
+  
   // CDasherScreen methods
     
   ///
