@@ -40,7 +40,6 @@ public:
   ~CDasherInterfaceBridge();
   
   void ChangeScreen(CDasherScreen *NewScreen);
-  std::string GetParamName(int iParameter);
   //redefinitions to make public....
   void OnUIRealised();
   void NewFrame(unsigned long iTime, bool bForceRedraw);

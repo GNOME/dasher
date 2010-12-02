@@ -19,16 +19,6 @@ COSXSettingsStore::COSXSettingsStore(Dasher::CEventHandler *pEventHandler):CSett
 COSXSettingsStore::~COSXSettingsStore() {
 };
 
-std::string COSXSettingsStore::GetParamName(int iParameter) {
-  if (iParameter < END_OF_BPS)
-    return s_oParamTables.BoolParamTable[iParameter - FIRST_BP].regName;
-  if (iParameter < END_OF_LPS)
-    return s_oParamTables.LongParamTable[iParameter - FIRST_LP].regName;
-  if (iParameter < END_OF_SPS)
-    return s_oParamTables.StringParamTable[iParameter - FIRST_SP].regName;
-  throw "Illegal Parameter Index";
-}
-
 /*NSDictionary *COSXSettingsStore::ParameterDictionary() {
   static NSMutableDictionary *parameterDictionary = nil;
   

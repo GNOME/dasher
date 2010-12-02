@@ -47,7 +47,7 @@ using namespace Dasher;
   for (int i=0; i<count; i++) {
     if (settings[i].iType == T_BOOL) {
       UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(10.0, y, 190.0, 20.0)] autorelease];
-      label.text = NSStringFromStdString(intf->GetParamName(settings[i].iParameter));
+      label.text = NSStringFromStdString(intf->GetSettingsStore()->GetParameterName(settings[i].iParameter));
       UISwitch *sw = [[[UISwitch alloc] initWithFrame:CGRectMake(210.0, y, 100.0, 20.0)] autorelease];
       [view addSubview:label];
       [view addSubview:sw];
@@ -88,7 +88,7 @@ using namespace Dasher;
       iDivisor/=10;
     }
     NSString *format =[@"%@: %." stringByAppendingFormat:@"%df",iPlaces];  
-    label.text = [NSString stringWithFormat:format,NSStringFromStdString(intf->GetParamName(setting->iParameter)),(val / (float)setting->iDivisor)];
+    label.text = [NSString stringWithFormat:format,NSStringFromStdString(intf->GetSettingsStore()->GetParameterName(setting->iParameter)),(val / (float)setting->iDivisor)];
   }
 }
 
