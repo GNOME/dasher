@@ -37,11 +37,11 @@ inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, scr
 
 }
 
-inline void CScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, int iFillColour, int iThickness, bool bFill) {
+inline void CScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iFillColour, int iLineColour, int iThickness) {
   HGDIOBJ hpOld;
   hpOld = (HPEN) SelectObject(m_hDCBuffer, GetPen(iColour, iThickness));
 
-  if(bFill) {
+  if(iFillColour!=-1) {
     HBRUSH hBrush = CScreen::GetBrush(iFillColour);
     HBRUSH hBrushOld;
     hBrushOld = (HBRUSH)SelectObject(m_hDCBuffer, hBrush);
@@ -50,9 +50,9 @@ inline void CScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int 
 
     SelectObject(m_hDCBuffer, hBrushOld);
   }
-  // TODO: Fix this on wince
+  // TODO: Fix this (?) - looks to take no account of iThickness...and allegedly doesn't work on winCE either!
 #ifndef _WIN32_WCE
-  else
+  if (iThickness>0)
     Arc(m_hDCBuffer, iCX - iR, iCY - iR, iCX + iR, iCY + iR,
                      iCX, iCY - iR, iCX, iCY - iR );
 #endif

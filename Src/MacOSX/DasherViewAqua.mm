@@ -100,17 +100,20 @@
 {
 }
 
-- (void)circleCallbackCentrePoint:(NSPoint)aCentrePoint radius:(float)aRadius outlineColorIndex:(int)anOutlineColorIndex fillColourIndex:(int)aFillColourIndex shouldFill:(BOOL)shouldFill lineWidth:(int)aLineWidth {
+- (void)circleCallbackCentrePoint:(NSPoint)aCentrePoint radius:(float)aRadius fillColourIndex:(int)aFillColour outlineColorIndex:(int)anOutlineColorIndex lineWidth:(int)aLineWidth {
   
   NSBezierPath *bp = [NSBezierPath bezierPathWithOvalInRect:NSMakeRect(aCentrePoint.x - aRadius, aCentrePoint.y - aRadius, 2.0 * aRadius, 2.0 * aRadius)];
+
+  if (aLineWidth>0) {
   
-  [[self colorWithColorIndex:anOutlineColorIndex == -1 ? 3 : anOutlineColorIndex] set];
+    [[self colorWithColorIndex:anOutlineColorIndex] set];
   
-  [NSBezierPath setDefaultLineWidth:aLineWidth];
-  [bp stroke];
+    [NSBezierPath setDefaultLineWidth:aLineWidth];
+    [bp stroke];
+  }
   
-  if (shouldFill) {
-    [[self colorWithColorIndex:aFillColourIndex] set];
+  if (aFillColour!=-1) {
+    [[self colorWithColorIndex:aFillColour] set];
     [bp fill];
   }
 }

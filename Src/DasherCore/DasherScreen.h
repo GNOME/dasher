@@ -75,7 +75,11 @@ public:
   /// \param iThickness Line thickness for outline; <1 for no outline
   virtual void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Colour, int iOutlineColour, int iThickness) = 0;
 
-  virtual void DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, int iFillColour, int iThickness, bool bFill) = 0;
+  ///Draw a circle, potentially filled and/or outlined
+  /// \param iFillColour colour in which to fill; -1 for no fill
+  /// \param iLineColour colour to draw outline; -1 = use default
+  /// \param iLineWidth line width for outline; <1 for no outline
+  virtual void DrawCircle(screenint iCX, screenint iCY, screenint iR, int iFillColour, int iLineColour, int iLineWidth) = 0;
 
   /// Draw a line of fixed colour (usually black). Intended for static UI elements such as a cross-hair
   /// Draw a line between each of the points in the array

@@ -472,12 +472,12 @@ void CCanvas::CircleFill(int xCenter,int yCenter,int radius,int Colour)
 	    HVThinLine(xCenter+y,yCenter-x,xCenter+y,yCenter+x,Colour);
       }
 }
-void CCanvas::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, int iFillColour, int iThickness, bool bFill) {
+void CCanvas::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iFillColour, int iLineColour, int iThickness) {
 
 
-  if (bFill)
+  if (iFillColour!=-1)
 	CircleFill(iCX,iCY,iR,iFillColour);
-  CircleMidpoint(iCX,iCY,iR,iColour,iThickness);
+  if (iThickness>0) CircleMidpoint(iCX,iCY,iR,iColour,iThickness);
 }
 bool CCanvas::HorizontalIntersectionPoint(int h,int a,int b,int x0,int y0,int x1,int y1, int *p)
 {

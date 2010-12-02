@@ -130,20 +130,55 @@
     [dasherApp aquaDasherControl]->KeyUp(get_time(), keyCode);
 }
 
-- (void)circleCallbackCentrePoint:(NSPoint)aCentrePoint radius:(float)aRadius outlineColorIndex:(int)anOutlineColorIndex fillColourIndex:(int)aFillColourIndex shouldFill:(BOOL)shouldFill lineWidth:(int)aLineWidth {
+- (void)circleCallbackCentrePoint:(NSPoint)aCentrePoint radius:(float)aRadius fillColourIndex:(int)aFillColourIndex outlineColorIndex:(int)anOutlineColorIndex lineWidth:(int)aLineWidth {
   
-//  NSBezierPath *bp = [NSBezierPath bezierPathWithOvalInRect:NSMakeRect(aCentrePoint.x - aRadius, aCentrePoint.y - aRadius, 2.0 * aRadius, 2.0 * aRadius)];
-//  
-//  int oci = anOutlineColorIndex == -1 ? 3 : anOutlineColorIndex;
-//  glColor3f(colourTable[oci].r, colourTable[oci].g, colourTable[oci].b);
-//  
-//  [NSBezierPath setDefaultLineWidth:aLineWidth];
-//  [bp stroke];
-//  
-//  if (shouldFill) {
-//    [[self colorWithColorIndex:aFillColourIndex] set];
-//    [bp fill];
-//  }
+  //it's a bit of a hack, but we cache the last-computed set of points round the
+  // as these are the same for all calls with the same radius - and (the hack!) 
+  // that the radius tends to be the same every time (as the only call to CDashe
+  // is from CircleStartHandler!)...
+  if (circ_rad != aRadius) {
+    delete circ_coords;
+    double costh=1.0f - 1.0f/(2.0f*aRadius);
+    double th = acos(costh);
+    int numPoints = circPoints = ceil(M_PI/th/2.0f); //for a quarter-circle
+    double sinth = sin(th),x(aRadius),y(0.0);
+    circ_coords = new GLshort[numPoints*8]; circ_rad = aRadius;
+    circ_coords[0] = x; circ_coords[1] = y;
+    for (int i=1; i<numPoints; i++) {
+      double nx = x*costh - y*sinth;
+      double ny = x*sinth + y*costh;
+      circ_coords[2*i] = nx;
+      circ_coords[2*i+1] = ny;
+      x=nx; y=ny;
+    }
+    for (int i=0; i<numPoints; i++) {
+      circ_coords[2*(i+numPoints)] = -circ_coords[2*i+1];
+      circ_coords[2*(i+numPoints)+1] = circ_coords[2*i];
+      
+      circ_coords[2*(i+numPoints*2)] = -circ_coords[2*i];
+      circ_coords[2*(i+numPoints*2)+1] = -circ_coords[2*i+1];
+      
+      circ_coords[2*(i+numPoints*3)] = circ_coords[2*i+1];
+      circ_coords[2*(i+numPoints*3)+1] = -circ_coords[2*i];
+    }
+  }
+  
+  glDisable(GL_TEXTURE_2D);
+  glEnableClientState(GL_VERTEX_ARRAY);
+  glTranslatef(aCentrePoint.x, aCentrePoint.y, 0.0);
+  if (aFillColourIndex!=-1) {
+    glColor4f(colourTable[aFillColourIndex].r, colourTable[aFillColourIndex].g, colourTable[aFillColourIndex].b, 1.0f);
+    glVertexPointer(2, GL_SHORT, 0, circ_coords);
+    glDrawArrays(GL_TRIANGLE_FAN, 0, circPoints*4);
+  }
+  if (aLineWidth>0) {
+    int oci = anOutlineColorIndex == -1 ? 3 : anOutlineColorIndex;
+    glColor4f(colourTable[oci].r, colourTable[oci].g, colourTable[oci].b, 1.0f);
+    glLineWidth(aLineWidth);
+    glVertexPointer(2, GL_SHORT, 0, circ_coords);
+    glDrawArrays(GL_LINE_LOOP, 0, circPoints*4);
+  }
+  glTranslatef(-aCentrePoint.x, -aCentrePoint.y, 0.0);
 }
 
 
@@ -298,7 +333,8 @@
     glClearColor(1.0, 1.0, 1.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
 	  
-    _keyboardHelper = new CKeyboardHelper();	  
+    _keyboardHelper = new CKeyboardHelper();
+    circ_rad=-1.0f;
   }
   return self;
 }

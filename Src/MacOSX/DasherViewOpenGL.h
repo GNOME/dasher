@@ -51,6 +51,10 @@ typedef struct {
   NSMutableDictionary *_letterDict;
   CKeyboardHelper *_keyboardHelper;
   
+  ///Caches for circleCallbackWithCentrePoint:... (see therein)
+  float circ_rad;
+  GLshort *circ_coords;
+  int circPoints;  
 }
 
 - (void)sendMarker:(int)iMarker;
@@ -62,7 +66,7 @@ typedef struct {
 - (void)mouseUp:(NSEvent *)e;
 - (void)keyDown:(NSEvent *)e;
 - (void)keyUp:(NSEvent *)e;
-- (void)circleCallbackCentrePoint:(NSPoint)aCentrePoint radius:(float)aRadius outlineColorIndex:(int)anOutlineColorIndex fillColourIndex:(int)aFillColourIndex shouldFill:(BOOL)shouldFill lineWidth:(int)aLineWidth;
+- (void)circleCallbackCentrePoint:(NSPoint)aCentrePoint radius:(float)aRadius fillColourIndex:(int)aFillColourIndex outlineColorIndex:(int)anOutlineColorIndex lineWidth:(int)aLineWidth;
 - (void)rectangleCallbackX1:(int)x1 y1:(int)y1 x2:(int)x2 y2:(int)y2 fillColorIndex:(int)aFillColorIndex outlineColorIndex:(int)anOutlineColorIndex lineWidth:(int)aLineWidth;
 - (AlphabetLetter *)letterForString:(NSString *)aString;
 - (NSSize)textSizeCallbackWithString:(NSString *)aString size:(int)aSize;

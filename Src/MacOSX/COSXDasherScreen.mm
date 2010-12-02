@@ -33,9 +33,9 @@ void COSXDasherScreen::DrawRectangle(int x1, int y1, int x2, int y2, int Color, 
   [dasherView rectangleCallbackX1:x1 y1:y1 x2:x2 y2:y2 fillColorIndex:Color outlineColorIndex:(iOutlineColour==-1 ? 3 : iOutlineColour) lineWidth:iThickness];
 }
 
-void COSXDasherScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, int iFillColour, int iThickness, bool bFill) {
+void COSXDasherScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iFillColour, int iLineColour, int iThickness) {
 
-  [dasherView circleCallbackCentrePoint:NSMakePoint(iCX, iCY) radius:iR outlineColorIndex:iColour fillColourIndex:iFillColour shouldFill:bFill lineWidth:iThickness];
+  [dasherView circleCallbackCentrePoint:NSMakePoint(iCX, iCY) radius:iR fillColourIndex:iFillColour outlineColorIndex:(iLineColour==-1 ? 3 : iLineColour) lineWidth:iThickness];
 }
 
 void COSXDasherScreen::Polygon(Dasher::CDasherScreen::point *Points, int Number, int fillColour, int outlineColour, int iWidth) {

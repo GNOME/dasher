@@ -39,9 +39,9 @@ void CDasherScreenBridge::DrawRectangle(int x1, int y1, int x2, int y2, int Colo
   [dasherView rectangleCallbackX1:x1 y1:y1 x2:x2 y2:y2 fillColorIndex:Color outlineColorIndex:iOutlineColour lineWidth:iThickness];
 }
 
-void CDasherScreenBridge::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, int iFillColour, int iThickness, bool bFill) {
+void CDasherScreenBridge::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iFillColour, int iLineColour, int iLineWidth) {
 
-  [dasherView circleCallbackCentrePoint:CGPointMake(iCX, iCY) radius:iR outlineColorIndex:iColour fillColourIndex:iFillColour shouldFill:bFill lineWidth:iThickness];
+  [dasherView circleCallbackCentrePoint:CGPointMake(iCX, iCY) radius:iR fillColourIndex:iFillColour outlineColorIndex:iLineColour lineWidth:iLineWidth];
 }
 
 void CDasherScreenBridge::Polygon(Dasher::CDasherScreen::point *Points, int Number, int fillColour, int outlineColour, int iWidth) {

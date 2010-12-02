@@ -39,6 +39,12 @@ Note that setting the view non-opaque will only work if the EAGL surface has an 
 	GLfloat texcoords[8];
   
   CGPoint lastTouchCoords;
+  
+  ///Caches for circleCallbackWithCentrePoint:... (see therein)
+  float circ_rad;
+  GLshort *circ_coords;
+  int circPoints;
+  
 }
 
 @property (readonly,assign) CGPoint lastTouchCoords;

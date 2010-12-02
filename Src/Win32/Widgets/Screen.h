@@ -55,7 +55,7 @@ public:
 
   ///WHY is this defined like that?
   //void CScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, int iFillColour, int iThickness, bool bFill,int layer=0);
-  void CScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, int iFillColour, int iThickness, bool bFill);
+  void CScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iFillColour, int iLineColour, int iThickness);
 
   // Draw a line of fixed colour (usually black). Intended for static UI elements such as a cross-hair
   //! Draw a line between each of the points in the array
