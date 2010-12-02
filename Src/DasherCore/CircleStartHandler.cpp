@@ -27,137 +27,75 @@
 using namespace Dasher;
 
 CCircleStartHandler::CCircleStartHandler(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface) 
-  : CStartHandler(pEventHandler, pSettingsStore, pInterface) {
-  m_iStatus = -1;
-  m_iChangeTime = 0;
-  m_iCircleRadius = GetLongParameter(LP_MAX_Y) * GetLongParameter(LP_CIRCLE_PERCENT) / 100;
-  m_iScreenRadius = 0;
+: CStartHandler(pEventHandler, pSettingsStore, pInterface), m_iEnterTime(std::numeric_limits<long>::max()), m_iScreenRadius(-1) {
+}
+
+void CCircleStartHandler::ComputeScreenLoc(CDasherView *pView) {
+  if (m_iScreenRadius!=-1) return;
+  pView->Dasher2Screen(GetLongParameter(LP_OX),GetLongParameter(LP_OY),m_screenCircleCenter.x,m_screenCircleCenter.y);
+  //compute radius against orientation. It'd be simpler to use
+  // Math.min(screen width, screen height) * LP_CIRCLE_PERCENT / 100
+  // - should we?
+  screenint iEdgeX, iEdgeY;
+  pView->Dasher2Screen(GetLongParameter(LP_OX), GetLongParameter(LP_OY) + (GetLongParameter(LP_MAX_Y)*GetLongParameter(LP_CIRCLE_PERCENT))/100, iEdgeX, iEdgeY);
+  
+  int iDirection = GetLongParameter(LP_REAL_ORIENTATION);
+  
+  if((iDirection == 2) || (iDirection == 3)) {
+    m_iScreenRadius = iEdgeX - m_screenCircleCenter.x;
+  }
+  else {
+    m_iScreenRadius = iEdgeY - m_screenCircleCenter.y;
+  }
 }
 
 bool CCircleStartHandler::DecorateView(CDasherView *pView) {
-  screenint iCX;
-  screenint iCY;
+  ComputeScreenLoc(pView);
 
-  pView->Dasher2Screen(2048, 2048, iCX, iCY);
-
-  screenint iCX2;
-  screenint iCY2;
- 
-  pView->Dasher2Screen(2048, 2048 + m_iCircleRadius, iCX2, iCY2);
-
-  int iDirection = GetLongParameter(LP_REAL_ORIENTATION);
-
-  if((iDirection == 2) || (iDirection == 3)) {
-    m_iScreenRadius = iCX2 - iCX;
+  const bool bAboutToChange = m_bInCircle && m_iEnterTime != std::numeric_limits<long>::max();
+  int fillColor, lineColor, lineWidth;
+  if (GetBoolParameter(BP_DASHER_PAUSED)) {
+    lineColor=2; lineWidth=1;
+    fillColor = bAboutToChange ? 241 : 242;
+  } else {
+    lineColor=240; fillColor=-1; //don't fill
+    lineWidth = bAboutToChange ? 3 : 1;
   }
-  else {
-    m_iScreenRadius = iCY2 - iCY;
-  }
-
-  if((m_iStatus == 0) || (m_iStatus == 2))
-    pView->Screen()->DrawCircle(iCX, iCY, m_iScreenRadius, 242, 2, 1);
-  else if((m_iStatus == 1) || (m_iStatus == 3))
-    pView->Screen()->DrawCircle(iCX, iCY, m_iScreenRadius, -1, 240, 1);
-  else if(m_iStatus == 5)
-    pView->Screen()->DrawCircle(iCX, iCY, m_iScreenRadius, 241, 2, 1);
-  else
-    pView->Screen()->DrawCircle(iCX, iCY, m_iScreenRadius, -1, 240, 3);
+  
+  pView->Screen()->DrawCircle(m_screenCircleCenter.x, m_screenCircleCenter.y, m_iScreenRadius, fillColor, lineColor, lineWidth);
 
   return true;
 }
 
-void CCircleStartHandler::Timer(int iTime, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel) {
-  screenint iCX;
-  screenint iCY;
-  pView->Dasher2Screen(2048, 2048, iCX, iCY);
+void CCircleStartHandler::Timer(int iTime, dasherint mouseX, dasherint mouseY,CDasherView *pView) {
+  ComputeScreenLoc(pView);
+  screenint x,y;
+  pView->Dasher2Screen(mouseX, mouseY, x, y);
+  x-=m_screenCircleCenter.x; y-=m_screenCircleCenter.y;
+  const bool inCircleNow = x*x + y*y <= (m_iScreenRadius * m_iScreenRadius);
   
-  screenint iCursorX;
-  screenint iCursorY;
-  pInput->GetScreenCoords(iCursorX, iCursorY, pView);
-
-  double dR;
-
-  dR = sqrt(pow(static_cast<double>(iCX - iCursorX), 2.0) + pow(static_cast<double>(iCY - iCursorY), 2.0));
-
-  int iNewStatus(-1);
-
-  // Status flags:
-  // -1 undefined
-  // 0 = out of circle, stopped
-  // 1 = out of circle, started
-  // 2 = in circle, stopped
-  // 3 = in circle, started
-  // 4 = in circle, stopping
-  // 5 = in circle, starting
-
-  // TODO - need to check that these respond correctly to (eg) external pauses
-
-  if(dR < m_iScreenRadius) {
-    switch(m_iStatus) {
-    case -1:
-      if(m_pInterface->GetBoolParameter(BP_DASHER_PAUSED))
-	iNewStatus = 2;
-      else
-	iNewStatus = 3;
-      break;
-    case 0:
-      iNewStatus = 5;
-      break;
-    case 1:
-      iNewStatus = 4;
-      break;
-    case 2:
-    case 3:
-    case 4:
-    case 5:
-      iNewStatus = m_iStatus;
-      break;
+  if (inCircleNow) {
+    if (m_bInCircle) {
+      //still in circle...check they aren't still in there after prev. activation
+      if (m_iEnterTime != std::numeric_limits<long>::max() && iTime - m_iEnterTime > 1000) {
+        //activate!
+        if (GetBoolParameter(BP_DASHER_PAUSED))
+          m_pInterface->Unpause(iTime);
+        else
+          m_pInterface->Stop();
+        //note our HandleEvent method will then set
+        //   m_iEnterTime = std::numeric_limits<long>::max()
+        // thus preventing us from firing until user leaves circle and enters again
+      }
+    } else {// !m_bInCircle
+      //just entered circle
+      m_bInCircle=true;
+      m_iEnterTime = iTime;
     }
+  } else {
+    //currently outside circle
+    m_bInCircle=false;
   }
-  else {
-    switch(m_iStatus) {
-    case -1:
-      if(m_pInterface->GetBoolParameter(BP_DASHER_PAUSED))
-	iNewStatus = 0;
-      else
-	iNewStatus = 1;
-      break;
-    case 0:
-    case 1:
-      iNewStatus = m_iStatus;
-      break;
-    case 2:
-      iNewStatus = 0;
-      break;
-    case 3:
-      iNewStatus = 1;
-      break;
-    case 4:
-      iNewStatus = 1;
-      break;
-    case 5:
-      iNewStatus = 0;
-      break;
-    }
-  }
-
-  if(iNewStatus != m_iStatus) {
-    m_iChangeTime = iTime;
-  }
-
-  if(iTime - m_iChangeTime > 1000) {
-    if(iNewStatus == 4) {
-      iNewStatus = 2;
-      m_pInterface->Stop();
-    } 
-    else if(iNewStatus == 5) {
-      iNewStatus = 3;
-      m_pInterface->Unpause(iTime);
-    }
-  }
-
-  m_iStatus = iNewStatus;
-
 }
 
 void CCircleStartHandler::HandleEvent(Dasher::CEvent * pEvent) {
@@ -165,8 +103,13 @@ void CCircleStartHandler::HandleEvent(Dasher::CEvent * pEvent) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
    
     switch (pEvt->m_iParameter) {
+    case LP_REAL_ORIENTATION:
+    case LP_CIRCLE_PERCENT:
+      //recompute geometry. TODO, need to trap arbitrary screen geom changes too...?
+      m_iScreenRadius = -1;
+      break;
     case BP_DASHER_PAUSED:
-      m_iStatus = -1;
+      m_iEnterTime = std::numeric_limits<long>::max();
       break;
     }
   }

@@ -4,74 +4,62 @@
 using namespace Dasher;
 
 CTwoBoxStartHandler::CTwoBoxStartHandler(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface)
-  : CStartHandler(pEventHandler, pSettingsStore, pInterface) {
-  m_bInBox = false;
+: CStartHandler(pEventHandler, pSettingsStore, pInterface), m_bFirstBox(true), m_iBoxEntered(std::numeric_limits<long>::max()) {
 }
 
 bool CTwoBoxStartHandler::DecorateView(CDasherView *pView) {
+  if (!GetBoolParameter(BP_DASHER_PAUSED)) return false;
+  
   int iHeight = pView->Screen()->GetHeight();
   int iWidth = pView->Screen()->GetWidth();
 
   int iMousePosDist = GetLongParameter(LP_MOUSEPOSDIST);
-  int iDrawMousePosBox = GetLongParameter(LP_MOUSE_POS_BOX);
 
-  switch (iDrawMousePosBox) {
-  case 1:
-    pView->Screen()->DrawRectangle(8, iHeight / 2 - iMousePosDist + 50, iWidth-16, iHeight / 2 - iMousePosDist - 50, -1, 119, 4);
-    return true;
-    break;
-  case 2:
-    pView->Screen()->DrawRectangle(8, iHeight / 2 + iMousePosDist + 50, iWidth-16, iHeight / 2 + iMousePosDist - 50, -1, 120, 4);
-    return true;
-    break;
-  default:
-    return false;
-    break;
+  int lineWidth = m_iBoxEntered == std::numeric_limits<long>::max() ? 2 : 4; //out/in box
+
+  if (m_bFirstBox) {
+    pView->Screen()->DrawRectangle(8, iHeight / 2 - iMousePosDist + 50, iWidth-16, iHeight / 2 - iMousePosDist - 50, -1, 119, lineWidth);
+  } else {
+    pView->Screen()->DrawRectangle(8, iHeight / 2 + iMousePosDist + 50, iWidth-16, iHeight / 2 + iMousePosDist - 50, -1, 120, lineWidth);
   }
+  return true;
 }
 
-void CTwoBoxStartHandler::Timer(int iTime, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel) { 
-  screenint iNewScreenX;
-  screenint iNewScreenY;
-  pInput->GetScreenCoords(iNewScreenX, iNewScreenY, pView);
-
-  int iBoxMax(-1);
-  int iBoxMin(0);
-
-  if(GetLongParameter(LP_MOUSE_POS_BOX) == 1) {
+void CTwoBoxStartHandler::Timer(int iTime, dasherint iDasherX, dasherint iDasherY, CDasherView *pView) { 
+  if (!GetBoolParameter(BP_DASHER_PAUSED)) return;
+  
+  int iBoxMin, iBoxMax;
+  if(m_bFirstBox) {
     iBoxMax = pView->Screen()->GetHeight() / 2 - (int)GetLongParameter(LP_MOUSEPOSDIST) + 50;
     iBoxMin = iBoxMax - 100;
   }
-  else if(GetLongParameter(LP_MOUSE_POS_BOX) == 2) {
+  else {
     iBoxMin = pView->Screen()->GetHeight() / 2 + (int)GetLongParameter(LP_MOUSEPOSDIST) - 50;
     iBoxMax = iBoxMin + 100;
   }
 
+  screenint iNewScreenX, iNewScreenY;
+  pView->Dasher2Screen(iDasherX, iDasherY, iNewScreenX, iNewScreenY);
+
   if((iNewScreenY >= iBoxMin) && (iNewScreenY <= iBoxMax)) {
-    if(!m_bInBox) {
+    if(m_iBoxEntered == std::numeric_limits<long>::max()) {
       m_iBoxEntered = iTime;
     }
-    else {
-      if(iTime - m_iBoxEntered > 2000) {
+    else if (iTime - m_iBoxEntered > 2000) {
+      m_iBoxStart = iTime;
 
-        m_iBoxStart = iTime;
-
-        if(GetLongParameter(LP_MOUSE_POS_BOX) == 1)
-          SetLongParameter(LP_MOUSE_POS_BOX, 2);
-        else if(GetLongParameter(LP_MOUSE_POS_BOX) == 2) {
-          SetLongParameter(LP_MOUSE_POS_BOX, -1);
-	  m_pInterface->Unpause(iTime);
-        }
-      }
+      if(m_bFirstBox)
+        m_bFirstBox=false;
+      else
+        m_pInterface->Unpause(iTime);
+      m_iBoxEntered = std::numeric_limits<long>::max();
     }
-
-    m_bInBox = true;
-  }
-  else {
-    if((GetLongParameter(LP_MOUSE_POS_BOX) == 2) && (iTime - m_iBoxStart > 2000))
-      SetLongParameter(LP_MOUSE_POS_BOX, 1);
+  } else {
+    //not in box
+    if(!m_bFirstBox && (iTime - m_iBoxStart > 2000))
+      m_bFirstBox=true;
     
-    m_bInBox = false;
+    m_iBoxEntered = std::numeric_limits<long>::max();
   }
 }
 
@@ -79,13 +67,7 @@ void CTwoBoxStartHandler::HandleEvent(Dasher::CEvent * pEvent) {
     if(pEvent->m_iEventType == 1) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
    
-    switch (pEvt->m_iParameter) {
-    case BP_DASHER_PAUSED:
-      if(GetBoolParameter(BP_DASHER_PAUSED))
-	SetLongParameter(LP_MOUSE_POS_BOX, 1);
-      else
-	SetLongParameter(LP_MOUSE_POS_BOX, -1);
-      break;
-    }
+    if (pEvt->m_iParameter==BP_DASHER_PAUSED)
+      m_bFirstBox = true;
   }
 }

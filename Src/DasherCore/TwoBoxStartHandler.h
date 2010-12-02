@@ -11,13 +11,16 @@ public:
   CTwoBoxStartHandler(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface);
 
   virtual bool DecorateView(CDasherView *pView);
-  virtual void Timer(int iTime, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel);
+  virtual void Timer(int iTime, dasherint iX, dasherint iY, CDasherView *pView);
   virtual void HandleEvent(Dasher::CEvent * pEvent);
 
  private:
-  int m_iBoxEntered;
-  int m_iBoxStart;
-  bool m_bInBox;
+  ///Box currently being displayed, _iff_ BP_DASHER_PAUSED is set
+  bool m_bFirstBox;
+  ///Time at which mouse entered whichever box is current, or numeric_limits::max() if it hasn't
+  long m_iBoxEntered;
+  ///Time at which second box was first displayed
+  long m_iBoxStart;
 };
 }
 /// @}

@@ -10,14 +10,19 @@ public:
   CCircleStartHandler(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface);
 
   virtual bool DecorateView(CDasherView *pView);
-  virtual void Timer(int iTime, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel);
+  virtual void Timer(int iTime, dasherint iX, dasherint iY, CDasherView *pView);
   virtual void HandleEvent(Dasher::CEvent * pEvent);
 
-private:
-  int m_iStatus;
-  int m_iChangeTime;
-  int m_iCircleRadius;
+protected:
+  ///Time (as unix timestamp) when user entered circle; max() => already acted upon
+  long m_iEnterTime;
+  ///Whether the user was in the circle in last call to Timer
+  bool m_bInCircle;
+  ///Radius of circle in screen coordinates (-1 = needs recomputing)
   int m_iScreenRadius;
+  ///Center of screen circle (needs recomputing if radius does)
+  CDasherScreen::point m_screenCircleCenter;
+  virtual void ComputeScreenLoc(CDasherView *pView);
 };
 }
 /// @}

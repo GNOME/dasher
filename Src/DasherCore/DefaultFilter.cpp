@@ -40,14 +40,8 @@ CDefaultFilter::~CDefaultFilter() {
 }
 
 bool CDefaultFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
-
+  
   bool bDidSomething(false);
-
-  if (GetBoolParameter(BP_DASHER_PAUSED)) {
-    //Timer() is not retrieving input coordinates, so we'd better do so here...
-    if (!pInput->GetDasherCoords(m_iLastX, m_iLastY, pView)) return false;
-    ApplyTransform(m_iLastX, m_iLastY, pView);
-  }
 
   if(GetBoolParameter(BP_DRAW_MOUSE)) {
     //Draw a small box at the current mouse position
@@ -97,9 +91,12 @@ bool CDefaultFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
   /*  std::cout << "(" << X[0] << "," << Y[0] << ") (" << X[noOfPoints-1] << "," << Y[noOfPoints-1] << ") "
 	    << "(" << CenterXY[0] << "," << CenterXY[1]
 	    << ") angle:" << angle << "," << angle*180.0/3.1415926 << std::endl;*/
+
     bDidSomething = true;
   }
-  
+  //only require another frame if we actually drew a mouse line in a different place to before...
+  bDidSomething = m_bGotMouseCoords & bDidSomething;
+  m_bGotMouseCoords = false;
   if(m_pStartHandler)
     bDidSomething = m_pStartHandler->DecorateView(pView) || bDidSomething;
 
@@ -107,15 +104,15 @@ bool CDefaultFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
 }
 
 bool CDefaultFilter::Timer(int Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {
-  bool bDidSomething = false;
+  if (!(m_bGotMouseCoords = pInput->GetDasherCoords(m_iLastX, m_iLastY, pView))) {
+    m_pInterface->Stop(); //does nothing if already paused
+    return false;
+  };
+  //Got coordinates
+  ApplyTransform(m_iLastX, m_iLastY, pView);
+  bool bDidSomething(false);
   if (!GetBoolParameter(BP_DASHER_PAUSED))
   {
-    if (!(pInput->GetDasherCoords(m_iLastX, m_iLastY, pView))) {
-      m_pInterface->Stop();
-      return false;
-    };
-    ApplyTransform(m_iLastX, m_iLastY, pView);
-
     if(GetBoolParameter(BP_STOP_OUTSIDE)) {
       myint iDasherMinX;
       myint iDasherMinY;
@@ -136,7 +133,7 @@ bool CDefaultFilter::Timer(int Time, CDasherView *pView, CDasherInput *pInput, C
   }
 	
   if(m_pStartHandler)
-    m_pStartHandler->Timer(Time, pView, pInput, m_pDasherModel);
+    m_pStartHandler->Timer(Time, m_iLastX, m_iLastY, pView);
 
   return bDidSomething;
 }

@@ -28,6 +28,7 @@ class CDefaultFilter : public CInputFilter {
 protected:
   /// Last-known Dasher-coords of the target
   myint m_iLastX, m_iLastY;
+  bool m_bGotMouseCoords;
 private:
   CAutoSpeedControl *m_pAutoSpeedControl;
   CStartHandler *m_pStartHandler;
