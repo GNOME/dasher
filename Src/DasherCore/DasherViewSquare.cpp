@@ -169,8 +169,7 @@ CDasherViewSquare::CTextString *CDasherViewSquare::DasherDrawText(myint iDasherM
       iSize = ((min(iDasherMaxX*3,(iMaxY*3)/2) + iMaxY) * iSize) / iMaxY;
     } else {
       //old style fonts; ignore iSize passed-in.
-      iSize = GetLongParameter(LP_DASHER_FONTSIZE);
-      screenint iLeftTimesFontSize = (iMaxY - iDasherMaxX )*iSize;
+      myint iLeftTimesFontSize = (iMaxY - iDasherMaxX )*iSize;
       if(iLeftTimesFontSize < iMaxY * 19/ 20)
         iSize *= 20;
       else if(iLeftTimesFontSize < iMaxY * 159 / 160)
@@ -1000,13 +999,13 @@ void CDasherViewSquare::DasherLine2Screen(myint x1, myint y1, myint x2, myint y2
     if (GetBoolParameter(BP_NONLINEAR_Y)) {
       if ((y1 < m_Y3 && y2 > m_Y3) ||(y2 < m_Y3 && y1 > m_Y3)) {
         //crosses bottom non-linearity border
-        int x_mid = x1+(x2-x1) * (m_Y3-y1)/(y2-y1);
+        myint x_mid = x1+(x2-x1) * (m_Y3-y1)/(y2-y1);
         DasherLine2Screen(x1, y1, x_mid, m_Y3, vPoints);
         x1=x_mid; y1=m_Y3;
       }//else //no, a single line might cross _both_ borders!
       if ((y1 > m_Y2 && y2 < m_Y2) || (y2 > m_Y2 && y1 < m_Y2)) {
         //crosses top non-linearity border
-        int x_mid = x1 + (x2-x1) * (m_Y2-y1)/(y2-y1);
+        myint x_mid = x1 + (x2-x1) * (m_Y2-y1)/(y2-y1);
         DasherLine2Screen(x1, y1, x_mid, m_Y2, vPoints);
         x1=x_mid; y1=m_Y2;
       }
@@ -1022,7 +1021,7 @@ void CDasherViewSquare::DasherLine2Screen(myint x1, myint y1, myint x2, myint y2
         pScreenMid.x = (pStart.x + pEnd.x)/2;
         pScreenMid.y = (pStart.y + pEnd.y)/2;
         //whereas a straight line _in_Dasher_space_ passes through pDasherMid:
-        int xMid=(x1+x2)/2, yMid=(y1+y2)/2;
+        myint xMid=(x1+x2)/2, yMid=(y1+y2)/2;
         CDasherScreen::point pDasherMid;
         Dasher2Screen(xMid, yMid, pDasherMid.x, pDasherMid.y);
         
@@ -1038,6 +1037,7 @@ void CDasherViewSquare::DasherLine2Screen(myint x1, myint y1, myint x2, myint y2
         }
         //line should appear bent. Subdivide!
         DasherLine2Screen(x1,y1,xMid,yMid,vPoints); //recurse for first half (to Dasher-space midpoint)
+        if (x1==xMid || y1 == yMid) break; // as test on entry, only diagonal lines need to be bent...
         x1=xMid; y1=yMid; //& loop round for second half
       }
       //broke out of loop. a straight line (x1,y1)-(x2,y2) on the screen is an accurate portrayal of a straight line in Dasher-space.
