@@ -437,6 +437,10 @@ bool CDasherViewSquare::IsSpaceAroundNode(myint y1, myint y2) {
   const myint maxX(y2-y1);
   if ((maxX < iVisibleMaxX) || (y1 > iVisibleMinY) || (y2 < iVisibleMaxY))
     return true; //space around sq => space around anything smaller!
+  
+  //in theory, even if the crosshair is off-screen (!), anything spanning y1-y2 should cover it...
+  DASHER_ASSERT (CoversCrosshair(y2-y1, y1, y2));
+
   switch (GetLongParameter(LP_SHAPE_TYPE)) {
     case 0: //non-overlapping rects
     case 1: //overlapping rects
@@ -601,6 +605,40 @@ void CDasherViewSquare::DisjointRender(CDasherNode *pRender, myint y1, myint y2,
   }
 }
 
+bool CDasherViewSquare::CoversCrosshair(myint Range, myint y1, myint y2) {
+  if (Range > GetLongParameter(LP_OX) && y1 < GetLongParameter(LP_OY) && y2 > GetLongParameter(LP_OY)) {
+    switch (GetLongParameter(LP_SHAPE_TYPE)) {
+      case 0: //Disjoint rectangles
+      case 1: //Rectangles
+        return true;
+      case 2: {       //Triangles
+        myint iMidY((y1+y2)/2);
+        return (iMidY > GetLongParameter(LP_OY))
+        ? ((GetLongParameter(LP_OY)-y1)*Range) > (iMidY - y1) * GetLongParameter(LP_OX)
+        : ((y2-GetLongParameter(LP_OY))*Range) > (y2 - iMidY) * GetLongParameter(LP_OX);
+      }
+      case 3: {       //Truncated tris
+        myint midy1((y1+y1+y2)/3), midy2((y1+y2+y2)/3);
+        if (midy1 > GetLongParameter(LP_OY)) //(0,y1) - (Range,midy1)
+          return (GetLongParameter(LP_OY)-y1)*Range > (midy1 - y1) * GetLongParameter(LP_OX);
+        if (midy2 > GetLongParameter(LP_OY)) // (Range,midy1) - (Range,midy2)
+          return true;
+        return (y2 - GetLongParameter(LP_OY))*Range > (y2 - midy2) * GetLongParameter(LP_OX);
+        break;
+      }
+      case 4: //quadrics. We'll approximate with circles, as they're easier...
+        // however, note that the circle is bigger, so this'll output things
+        // too soon/aggressively :-(.
+        // (hence, fallthrough to:)
+      case 5: { //circles - actually ellipses, as x diameter is twice y diameter, hence the *4 
+        const myint y_dist(GetLongParameter(LP_OY) - (y1+y2)/2);
+        return GetLongParameter(LP_OX) * GetLongParameter(LP_OX) + y_dist*y_dist*4 < Range*Range;
+      }
+    }
+  }
+  return false;
+}
+
 void CDasherViewSquare::NewRender(CDasherNode *pRender, myint y1, myint y2,
                                   CTextString *pPrevText, CExpansionPolicy &policy, double dMaxCost,
                                   int parent_color, CDasherNode *&pOutput)
@@ -654,40 +692,8 @@ void CDasherViewSquare::NewRender(CDasherNode *pRender, myint y1, myint y2,
   }
   
   //Does node cover crosshair? (quick reject)
-  if (pOutput == pRender->Parent() && Range > GetLongParameter(LP_OX) && y1 < GetLongParameter(LP_OY) && y2 > GetLongParameter(LP_OY)) {
-    bool bCovers;
-    switch (GetLongParameter(LP_SHAPE_TYPE)) {
-      case 1: //Rectangles
-        bCovers = true;
-        break;
-      case 2: {       //Triangles
-        myint iMidY((y1+y2)/2);
-        bCovers = (iMidY > GetLongParameter(LP_OY))
-        ? ((GetLongParameter(LP_OY)-y1)*Range) > (iMidY - y1) * GetLongParameter(LP_OX)
-        : ((y2-GetLongParameter(LP_OY))*Range) > (y2 - iMidY) * GetLongParameter(LP_OX);
-        break;
-      }
-      case 3: {       //Truncated tris
-        myint midy1((y1+y1+y2)/3), midy2((y1+y2+y2)/3);
-        if (midy1 > GetLongParameter(LP_OY)) //(0,y1) - (Range,midy1)
-          bCovers = (GetLongParameter(LP_OY)-y1)*Range > (midy1 - y1) * GetLongParameter(LP_OX);
-        else if (midy2 > GetLongParameter(LP_OY)) // (Range,midy1) - (Range,midy2)
-          bCovers = true;
-        else
-          bCovers = (y2 - GetLongParameter(LP_OY))*Range > (y2 - midy2) * GetLongParameter(LP_OX);
-        break;
-      }
-      case 4: //quadrics. We'll approximate with circles, as they're easier...
-        // however, note that the circle is bigger, so this'll output things
-        // too soon/aggressively :-(.
-        // (hence, fallthrough to:)
-      case 5: { //circles - actually ellipses, as x diameter is twice y diameter, hence the *4 
-        const myint y_dist(GetLongParameter(LP_OY) - (y1+y2)/2);
-        bCovers = GetLongParameter(LP_OX) * GetLongParameter(LP_OX) + y_dist*y_dist*4 < Range*Range;
-      }
-    }
-    if (bCovers) pOutput = pRender;
-  }
+  if (pOutput == pRender->Parent() && CoversCrosshair(Range, y1, y2))
+    pOutput = pRender;
   
   if (pRender->ChildCount() == 0) {
     if (pOutput==pRender) {

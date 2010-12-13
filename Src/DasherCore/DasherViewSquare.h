@@ -187,6 +187,7 @@ private:
   const myint m_Y1, m_Y2, m_Y3;
 
   inline void Crosshair(myint sx);
+  bool CoversCrosshair(myint Range,myint y1,myint y2);
   
   inline myint CustomIDiv(myint iNumerator, myint iDenominator);
 
