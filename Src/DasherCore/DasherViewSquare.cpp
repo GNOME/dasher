@@ -896,6 +896,26 @@ void CDasherViewSquare::SetScaleFactor( void )
     m_dXmpc = std::min(1.0,0.9 * dScaleFactorX / dScaleFactorY);
   }
   iCenterX *= m_dXmpc;
+  
+#ifdef DEBUG
+  //now test Dasher2Screen & Screen2Dasher are inverses...
+  for (screenint x=0; x<iScreenWidth; x++) {
+    dasherint dx, dy;
+    Screen2Dasher(x, 0, dx, dy);
+    screenint fx, fy;
+    Dasher2Screen(dx, dy, fx, fy);
+    if (fx!=x)
+      std::cout << "ERROR ScreenX " << x << " becomes " << dx << " back to " << fx << std::endl;;
+  }
+  for (screenint y=0; y<iScreenHeight; y++) {
+    dasherint dx,dy;
+    Screen2Dasher(0, y, dx, dy);
+    screenint fx,fy;
+    Dasher2Screen(dx, dy, fx, fy);
+    if (fy!=y)
+      std::cout << "ERROR ScreenY " << y << " becomes " << dy << " back to " << fy << std::endl;
+  }
+#endif
 }
 
 

@@ -62,7 +62,7 @@ namespace Dasher {
       dx *= m_dXmpc;
     else
       dx = m_dXmpc * (m_dXmpa * log((dx + m_dXmpa - m_dXmpb) / m_dXmpa) + m_dXmpb);
-    return myint(dx * GetLongParameter(LP_MAX_Y));
+    return myint(ceil(dx * GetLongParameter(LP_MAX_Y)));
   }
 
   inline myint CDasherViewSquare::ymap(myint y) const {
