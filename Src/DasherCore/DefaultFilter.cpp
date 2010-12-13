@@ -14,6 +14,8 @@ static SModuleSettings sSettings[] = {
   {LP_TARGET_OFFSET, T_LONG, -100, 100, 400, 1, _("Vertical distance from mouse/gaze to target (400=screen height)")},
   {BP_AUTOCALIBRATE, T_BOOL, -1, -1, -1, -1, _("Learn offset (previous) automatically, e.g. gazetrackers")},
   {BP_REMAP_XTREME, T_BOOL, -1, -1, -1, -1, _("At top and bottom, scroll more and translate less (makes error-correcting easier)")},
+  {LP_GEOMETRY, T_LONG, 0, 3, 1, 1, _("Screen geometry (mostly for tall thin screens) - 0=old-style, 1=square no-xhair, 2=squish, 3=squish+log")},
+  {LP_SHAPE_TYPE, T_LONG, 0, 5, 1, 1, _("Shape type: 0=disjoint rects, 1=overlapping, 2=triangles, 3=trunc-tris, 4=quadrics, 5=circles")},
 };
 
 bool CDefaultFilter::GetSettings(SModuleSettings **sets, int *iCount) {
@@ -213,6 +215,20 @@ double xmax(double y) {
 
 void CDefaultFilter::ApplyTransform(myint &iDasherX, myint &iDasherY, CDasherView *pView) {
   ApplyOffset(iDasherX, iDasherY);
+  if (GetLongParameter(LP_GEOMETRY)==1) {
+    //crosshair may be offscreen; so do something to allow us to navigate
+    // up/down and reverse
+    myint iDasherMaxX,temp;
+    pView->VisibleRegion(temp, temp, iDasherMaxX, temp);
+    const myint xd(iDasherX - iDasherMaxX),yd(iDasherY-GetLongParameter(LP_OY));
+    const myint dist(xd*xd + yd*yd); //squared distance from closest point onscreen to crosshair
+    if (iDasherMaxX < GetLongParameter(LP_OX)) {
+      //crosshair actually offscreen; rescale so left edge of screen = translate
+      iDasherX = (iDasherX * GetLongParameter(LP_OX))/iDasherMaxX;
+    }
+    //boost reversing if near centerpoint of LHS (even if xhair onscreen)
+    iDasherX += (2*GetLongParameter(LP_OY)*GetLongParameter(LP_OY))/(dist+50); //and close to centerpoint = reverse
+  }
   if (GetBoolParameter(BP_REMAP_XTREME)) {
     // Y co-ordinate...
     myint dasherOY=(myint)GetLongParameter(LP_OY); 

@@ -86,6 +86,7 @@ void CDasherViewSquare::HandleEvent(Dasher::CEvent *pEvent) {
     case LP_MARGIN_WIDTH:
     case BP_NONLINEAR_Y:
     case LP_NONLINEAR_X:
+    case LP_GEOMETRY:
       m_bVisibleRegionValid = false;
       SetScaleFactor();
       break;
@@ -860,32 +861,62 @@ void CDasherViewSquare::SetScaleFactor( void )
   const double dPixelsX(bHoriz ? iScreenWidth : iScreenHeight), dPixelsY(bHoriz ? iScreenHeight : iScreenWidth);
   
   const myint lpMaxY(GetLongParameter(LP_MAX_Y));
-  iMarginWidth = GetLongParameter(LP_MARGIN_WIDTH); //different schemes will alter this later...
   
+  //Defaults/starting values, will be modified later according to scheme in use...
+  iMarginWidth = GetLongParameter(LP_MARGIN_WIDTH);
   double dScaleFactorY(dPixelsY / lpMaxY );
   double dScaleFactorX(dPixelsX / static_cast<double>(lpMaxY + iMarginWidth) );
       
-  if (dScaleFactorX < dScaleFactorY) {
-    //fewer (pixels per dasher coord) in X direction - i.e., X is more compressed.
-    //So, use X scale for Y too...except first, we'll _try_ to reduce the difference
-    // by changing the relative scaling of X and Y (by at most 20%):
-    double dMul = max(0.8, dScaleFactorX / dScaleFactorY);
-    dScaleFactorY = std::max(dScaleFactorX/dMul, dScaleFactorY / 4.0);
-    dScaleFactorX *= 0.9;
-    iMarginWidth = (lpMaxY/20.0 + iMarginWidth*0.95)/0.9;
-  } else {
-    //X has more room; use Y scale for both -> will get lots history
-    // however, "compensate" by relaxing the default "relative scaling" of X
-    // (normally only 90% of Y) towards 1...
-    double dXmpc = std::min(1.0,0.9 * dScaleFactorX / dScaleFactorY);
-    dScaleFactorX = max(dScaleFactorY, dScaleFactorX / 4.0)*dXmpc;
-    iMarginWidth = (iMarginWidth + dPixelsX/dScaleFactorX - lpMaxY)/2;
+  switch (GetLongParameter(LP_GEOMETRY)) {
+    case 0: {
+      //old style
+      if (dScaleFactorX < dScaleFactorY) {
+        //fewer (pixels per dasher coord) in X direction - i.e., X is more compressed.
+        //So, use X scale for Y too...except first, we'll _try_ to reduce the difference
+        // by changing the relative scaling of X and Y (by at most 20%):
+        double dMul = max(0.8, dScaleFactorX / dScaleFactorY);
+        dScaleFactorY = std::max(dScaleFactorX/dMul, dScaleFactorY / 4.0);
+        dScaleFactorX *= 0.9;
+        iMarginWidth = (lpMaxY/20.0 + iMarginWidth*0.95)/0.9;
+      } else {
+        //X has more room; use Y scale for both -> will get lots history
+        // however, "compensate" by relaxing the default "relative scaling" of X
+        // (normally only 90% of Y) towards 1...
+        double dXmpc = std::min(1.0,0.9 * dScaleFactorX / dScaleFactorY);
+        dScaleFactorX = max(dScaleFactorY, dScaleFactorX / 4.0)*dXmpc;
+        iMarginWidth = (iMarginWidth + dPixelsX/dScaleFactorX - lpMaxY)/2;
+      }
+      break;
+    }
+    //all new styles fix the y axis the way we want it (i.e. leave as above),
+    // and just do different things with x...
+    case 1:
+      //square with x-hair possibly offscreen
+      dScaleFactorX = dScaleFactorY;
+      break;
+    case 2:
+    case 3: {
+      //2 or 3 => squish x (so xhair always visible)
+      const double dDesiredXPerPixel( (lpMaxY + iMarginWidth) / dPixelsX), dMinXPerPixel((GetLongParameter(LP_OX)+iMarginWidth)/dPixelsX);
+      const double dAspect(1.0/dScaleFactorY/dDesiredXPerPixel);
+      double dDasherXPerPixel( (dAspect<1.0)
+                              ? (dMinXPerPixel+pow(dAspect,3.0)*(dDesiredXPerPixel-dMinXPerPixel)) //tall+thin
+                              : (1.0/dScaleFactorY)); //square or wide+low
+      iMarginWidth /= 0.9; //this comes from the old scaling by m_dXmpc=0.9. Drop in new scheme?
+      if (GetLongParameter(LP_GEOMETRY)==3) {
+        //make whole screen logarithmic (but keep xhair in same place)
+        myint crosshair(xmap(2048)); //should be 2048...
+        m_iXlogThres=0;
+        dDasherXPerPixel *= xmap(2048)/static_cast<double>(crosshair);
+      }
+      dScaleFactorX = 0.9 / dDasherXPerPixel;
+    }
   }
   iScaleFactorX = myint(dScaleFactorX * m_iScalingFactor);
   iScaleFactorY = myint(dScaleFactorY * m_iScalingFactor);
 
 #ifdef DEBUG
-  //now test Dasher2Screen & Screen2Dasher are inverses...
+  //test...
   for (screenint x=0; x<iScreenWidth; x++) {
     dasherint dx, dy;
     Screen2Dasher(x, 0, dx, dy);
