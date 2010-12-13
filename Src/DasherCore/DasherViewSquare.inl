@@ -45,34 +45,30 @@ namespace Dasher {
 
   inline myint CDasherViewSquare::ixmap(myint x) const
   {
-    if (GetLongParameter(LP_NONLINEAR_X)==0) return x;
-    double dx = x / static_cast<double>(GetLongParameter(LP_MAX_Y));
-    if(dx < m_dXmpb * m_dXmpc)
-      dx /= m_dXmpc;
-    else
-      dx =m_dXmpb - m_dXmpa + m_dXmpa * exp((dx / m_dXmpc - m_dXmpb) / m_dXmpa);
+    double dx = (x - iMarginWidth) / static_cast<double>(GetLongParameter(LP_MAX_Y));
+    dx /= m_dXmpc;
+    if(GetLongParameter(LP_NONLINEAR_X)>0 && dx >= m_dXmpb)
+      dx = m_dXmpb - m_dXmpa + m_dXmpa * exp((dx - m_dXmpb) / m_dXmpa);
     return myint(dx * GetLongParameter(LP_MAX_Y));
   }
 
   inline myint CDasherViewSquare::xmap(myint x) const
   {
-    if (GetLongParameter(LP_NONLINEAR_X)==0) return x;
     double dx = x / static_cast<double>(GetLongParameter(LP_MAX_Y));
-    if(dx < m_dXmpb)
-      dx *= m_dXmpc;
-    else
-      dx = m_dXmpc * (m_dXmpa * log((dx + m_dXmpa - m_dXmpb) / m_dXmpa) + m_dXmpb);
-    return myint(ceil(dx * GetLongParameter(LP_MAX_Y)));
+    if(GetLongParameter(LP_NONLINEAR_X) && dx >= m_dXmpb)
+      dx = (m_dXmpa * log((dx + m_dXmpa - m_dXmpb) / m_dXmpa) + m_dXmpb);
+    dx *= m_dXmpc * GetLongParameter(LP_MAX_Y);
+    return myint(dx>0 ? ceil(dx) : floor(dx)) + iMarginWidth;
   }
 
   inline myint CDasherViewSquare::ymap(myint y) const {
-    if (!GetBoolParameter(BP_NONLINEAR_Y)) return y;
-    if(y > m_Y2)
-      return m_Y2 + (y - m_Y2) / m_Y1;
-    else if(y < m_Y3)
-      return m_Y3 + (y - m_Y3) / m_Y1;
-    else
-      return y;
+    if (GetBoolParameter(BP_NONLINEAR_Y)) {
+      if(y > m_Y2)
+        return m_Y2 + (y - m_Y2) / m_Y1;
+      else if(y < m_Y3)
+        return m_Y3 + (y - m_Y3) / m_Y1;
+    }
+    return y;
   }
 
   inline myint CDasherViewSquare::iymap(myint ydash) const {

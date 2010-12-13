@@ -174,17 +174,18 @@ private:
   /// @name Nonlinearity
   /// Implements the non-linear part of the coordinate space mapping
   
-  /// Maps a dasher Y coordinate to the Y value in a linear version of Dasher space (i.e. still not screen pixels)
-  /// (i.e. screen coordinate = scale(ymap(dasher coord)))
+  /// Maps a dasher coordinate (linear in probability space, -ive x = in margin) to an abstract/resolution-independent
+  /// screen coordinate (linear in screen space, -ive x = offscreen) - i.e. pixel coordinate = scale({x,y}map(dasher coord)))
   inline myint ymap(myint iDasherY) const;
+  inline myint xmap(myint iDasherX) const;
   
   /// Inverse of the previous - i.e. dasher coord = iymap(scale(screen coord))
-  myint iymap(myint y) const;
-  ///parameters used by previous
+  inline myint iymap(myint y) const;
+  inline myint ixmap(myint x) const;
+  
+  ///Parameters for y non-linearity. (TODO Make into preprocessor defines?)
   const myint m_Y1, m_Y2, m_Y3;
 
-  myint xmap(myint x) const;
-  myint ixmap(myint x) const;
   inline void Crosshair(myint sx);
   
   inline myint CustomIDiv(myint iNumerator, myint iDenominator);
@@ -194,19 +195,17 @@ private:
   // Called on screen size or orientation changes
   void SetScaleFactor();
 
-  // Data
- 
+  // Parameters for x non-linearity
   double m_dXmpa, m_dXmpb, m_dXmpc;
-  screenint iCenterX;
+  
+  //width of margin, in abstract screen coords
+  myint iMarginWidth;
 
-  // Cached values for scaling
-  myint iScaleFactorX;
-  myint iScaleFactorY;
-
-  // The factor that scale factors are multipled by 
+  /// There is a ratio of iScaleFactor{X,Y} abstract screen coords to m_iScalingFactor real pixels
+  myint iScaleFactorX, iScaleFactorY;
   myint m_iScalingFactor;
 
-  // Cached extents of visible region
+  /// Cached extents of visible region
   myint m_iDasherMinX;
   myint m_iDasherMaxX;
   myint m_iDasherMinY;
