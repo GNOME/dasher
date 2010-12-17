@@ -196,7 +196,8 @@ private:
   void SetScaleFactor();
 
   // Parameters for x non-linearity
-  double m_dXmpa, m_dXmpb, m_dXmpc;
+  double m_dXlogCoeff;
+  myint m_iXlogThres;
   
   //width of margin, in abstract screen coords
   myint iMarginWidth;

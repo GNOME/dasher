@@ -842,63 +842,42 @@ void CDasherViewSquare::SetScaleFactor( void )
 {
   //Parameters for X non-linearity.
   // Set some defaults here, in case we change(d) them later...
-  m_dXmpb = 0.5; //threshold: DasherX's less than (m_dXmpb * MAX_Y) are linear...
-  m_dXmpc = 0.9; //...but multiplied by m_dXmpc; DasherX's above that, are logarithmic...
-
+  m_iXlogThres=GetLongParameter(LP_MAX_Y)/2; //threshold: DasherX's less than this are linear; those greater are logarithmic
+  
   //set log scaling coefficient (unused if LP_NONLINEAR_X==0)
-  // note previous value of m_dXmpa = 0.2, i.e. a value of LP_NONLINEAR_X =~= 4.8
-  m_dXmpa = exp(GetLongParameter(LP_NONLINEAR_X)/-3.0); 
+  // note previous value = 1/0.2, i.e. a value of LP_NONLINEAR_X =~= 4.8
+  m_dXlogCoeff = exp(GetLongParameter(LP_NONLINEAR_X)/3.0); 
   
-  myint iDasherWidth = (myint)GetLongParameter(LP_MAX_Y);
-  myint iDasherHeight = iDasherWidth;
-
-  screenint iScreenWidth = Screen()->GetWidth();
-  screenint iScreenHeight = Screen()->GetHeight();
-
-  // Try doing this a different way:
-
-  iMarginWidth = GetLongParameter(LP_MARGIN_WIDTH);
-
-  myint iMinX( 0-iMarginWidth );
-  myint iMaxX( iDasherWidth );
-  myint iMinY( 0 );
-  myint iMaxY( iDasherHeight );
-  myint iCenterX((iMinX+iMaxX)/2);
-  Dasher::Opts::ScreenOrientations eOrientation(Dasher::Opts::ScreenOrientations(GetLongParameter(LP_REAL_ORIENTATION)));
+  const Dasher::Opts::ScreenOrientations eOrientation(Dasher::Opts::ScreenOrientations(GetLongParameter(LP_REAL_ORIENTATION)));
+  const bool bHoriz(eOrientation == Dasher::Opts::LeftToRight || eOrientation == Dasher::Opts::RightToLeft);
+  const screenint iScreenWidth(Screen()->GetWidth()), iScreenHeight(Screen()->GetHeight());
+  const double dPixelsX(bHoriz ? iScreenWidth : iScreenHeight), dPixelsY(bHoriz ? iScreenHeight : iScreenWidth);
   
-  double dScaleFactorX, dScaleFactorY;
+  const myint lpMaxY(GetLongParameter(LP_MAX_Y));
+  iMarginWidth = GetLongParameter(LP_MARGIN_WIDTH); //different schemes will alter this later...
   
-  if (eOrientation == Dasher::Opts::LeftToRight || eOrientation == Dasher::Opts::RightToLeft) {
-    dScaleFactorX = iScreenWidth / static_cast<double>( iMaxX - iMinX );
-    dScaleFactorY = iScreenHeight / static_cast<double>( iMaxY - iMinY );
-  } else {
-    dScaleFactorX = iScreenHeight / static_cast<double>( iMaxX - iMinX );
-    dScaleFactorY = iScreenWidth / static_cast<double>( iMaxY - iMinY );
-  }
-  
+  double dScaleFactorY(dPixelsY / lpMaxY );
+  double dScaleFactorX(dPixelsX / static_cast<double>(lpMaxY + iMarginWidth) );
+      
   if (dScaleFactorX < dScaleFactorY) {
     //fewer (pixels per dasher coord) in X direction - i.e., X is more compressed.
     //So, use X scale for Y too...except first, we'll _try_ to reduce the difference
     // by changing the relative scaling of X and Y (by at most 20%):
     double dMul = max(0.8, dScaleFactorX / dScaleFactorY);
-    m_dXmpc *= dMul; // => m_dXmpc = dMul*0.9
-    dScaleFactorX /= dMul;
-
-    iScaleFactorX = myint(dScaleFactorX * m_iScalingFactor);
-    iScaleFactorY = myint(std::max(dScaleFactorX, dScaleFactorY / 4.0) * m_iScalingFactor);
-    iMarginWidth = (iMaxX/20.0 + iMarginWidth*0.95)*dMul;
+    dScaleFactorY = std::max(dScaleFactorX/dMul, dScaleFactorY / 4.0);
+    dScaleFactorX *= 0.9;
+    iMarginWidth = (lpMaxY/20.0 + iMarginWidth*0.95)/0.9;
   } else {
     //X has more room; use Y scale for both -> will get lots history
-    iScaleFactorX = myint(std::max(dScaleFactorY, dScaleFactorX / 4.0) * m_iScalingFactor);
-    iScaleFactorY = myint(dScaleFactorY * m_iScalingFactor);
     // however, "compensate" by relaxing the default "relative scaling" of X
     // (normally only 90% of Y) towards 1...
-    m_dXmpc = std::min(1.0,0.9 * dScaleFactorX / dScaleFactorY);
-    iMarginWidth = (iScreenWidth*m_iScalingFactor/iScaleFactorX - (4096-iMarginWidth)*m_dXmpc)/2;    
+    double dXmpc = std::min(1.0,0.9 * dScaleFactorX / dScaleFactorY);
+    dScaleFactorX = max(dScaleFactorY, dScaleFactorX / 4.0)*dXmpc;
+    iMarginWidth = (iMarginWidth + dPixelsX/dScaleFactorX - lpMaxY)/2;
   }
-  iCenterX *= m_dXmpc;
-  
-  //iMarginWidth = (iMarginWidth + iScreenWidth*m_iScalingFactor/iScaleFactorX)*m_dXmpc/2.0;
+  iScaleFactorX = myint(dScaleFactorX * m_iScalingFactor);
+  iScaleFactorY = myint(dScaleFactorY * m_iScalingFactor);
+
 #ifdef DEBUG
   //now test Dasher2Screen & Screen2Dasher are inverses...
   for (screenint x=0; x<iScreenWidth; x++) {
@@ -1032,8 +1011,7 @@ void CDasherViewSquare::DasherLine2Screen(myint x1, myint y1, myint x2, myint y2
         x1=x_mid; y1=m_Y2;
       }
     }
-    double dMax(static_cast<double>(GetLongParameter(LP_MAX_Y)));
-    if (GetLongParameter(LP_NONLINEAR_X) && (x1 / dMax > m_dXmpb || x2 / dMax > m_dXmpb)) {
+    if (GetLongParameter(LP_NONLINEAR_X) && (x1 > m_iXlogThres || x2 > m_iXlogThres)) {
       //into logarithmic section
       CDasherScreen::point pStart, pScreenMid, pEnd;
       Dasher2Screen(x2, y2, pEnd.x, pEnd.y);
