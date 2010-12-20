@@ -14,10 +14,11 @@ msgstr ""
 "Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&component=general\n"
-"POT-Creation-Date: 2010-05-25 06:32+0000\n"
+"POT-Creation-Date: 2010-12-09 11:47+0000\n"
 "PO-Revision-Date: 2010-05-28 15:27+0300\n"
 "Last-Translator: Mattias Põldaru <mahfiaz gmail com>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
+"Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -419,9 +420,16 @@ msgstr "Kastide suuruse erinevus"
 msgid "Maximum Zoom"
 msgstr "Suurim suurendus"
 
+#. TRANSLATORS: In click mode, when you click with the mouse, you select
+#. a piece of y-axis to be zoomed to, based on the mouse coordinates. The
+#. "guides" are lines from the mouse position to the edges of the piece of
+#. y-axis.
 msgid "Draw guides on screen to show area into which a click will zoom"
 msgstr "Kuvatakse abijooned näitama ala, kuhu suurendataks klõpsamisel"
 
+#. TRANSLATORS: As dasher's on-screen coordinate space is not flat,
+#. the straight guide lines should in fact really be curved. This option
+#. draws the guides as correct, though possibly more confusing, curves.
 msgid "Curve lines to follow the non-linearity of the view transform"
 msgstr "Kõverjooned, mis järgivad vaate muutumise mittelineaarsust"
 
@@ -623,36 +631,20 @@ msgstr "Juhtimisrežiim"
 msgid "Auto On Stop"
 msgstr "Automaattegevus seiskamisel"
 
+msgid "Unable to initialize speech support\n"
+msgstr "Kõnemootorit pole võimalik lähtestada\n"
+
+msgid "Warning: unable to set speech parameters\n"
+msgstr "Hoiatus: kõnemootori parameetreid pole võimalik määrata\n"
+
+msgid "Unable to initialize voices\n"
+msgstr "Hääli pole võimalik lähtestada\n"
+
 msgid "Enter Text"
 msgstr "Tekstisisestus"
 
 msgid "Script"
 msgstr "Skript"
-
-msgid "Speak"
-msgstr "Rääkimine"
-
-#. TRANSLATORS: Send all text to the text-to-speech engine.
-msgid "All"
-msgstr "Kõik"
-
-#. TRANSLATORS: Send most recently entered text to the text-to-speech engine.
-msgid "Last"
-msgstr "Viimane"
-
-#. TRANSLATORS: Repeat the last phrase sent to the text-to-speech engine.
-msgid "Repeat"
-msgstr "Kordus"
-
-#, c-format
-msgid "Unable to initialize speech support\n"
-msgstr "Kõnemootorit pole võimalik lähtestada\n"
-
-msgid "Unable to initialize voices\n"
-msgstr "Hääli pole võimalik lähtestada\n"
-
-msgid "Warning: unable to set speech parameters\n"
-msgstr "Hoiatus: kõnemootori parameetreid pole võimalik määrata\n"
 
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
 msgid "option setting is missing \"=\"."
@@ -741,3 +733,15 @@ msgstr "\"--options\" kirjeldamine."
 #. Note to translators: This is the "--help" description of dasher.
 msgid "- A text input application honouring accessibility"
 msgstr "- Hõlbustuste jaoks mõeldud tekstisisestamise rakendus"
+
+#~ msgid "Speak"
+#~ msgstr "Rääkimine"
+
+#~ msgid "All"
+#~ msgstr "Kõik"
+
+#~ msgid "Last"
+#~ msgstr "Viimane"
+
+#~ msgid "Repeat"
+#~ msgstr "Kordus"
