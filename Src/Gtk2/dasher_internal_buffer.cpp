@@ -372,9 +372,10 @@ void dasher_internal_buffer_clear(DasherInternalBuffer *pSelf) {
 gint dasher_internal_buffer_get_offset(DasherInternalBuffer *pSelf) {
   DasherInternalBufferPrivate *pPrivate = (DasherInternalBufferPrivate *)(pSelf->private_data);
  
-  GtkTextIter oIter;
-  gtk_text_buffer_get_iter_at_mark(pPrivate->pBuffer, &oIter, gtk_text_buffer_get_mark(pPrivate->pBuffer, "insert"));
-  return gtk_text_iter_get_offset(&oIter);
+  GtkTextIter iter1,iter2;
+  gtk_text_buffer_get_iter_at_mark(pPrivate->pBuffer, &iter1, gtk_text_buffer_get_insert(pPrivate->pBuffer));
+  gtk_text_buffer_get_iter_at_mark(pPrivate->pBuffer, &iter2, gtk_text_buffer_get_selection_bound(pPrivate->pBuffer));
+  return std::min(gtk_text_iter_get_offset(&iter1),gtk_text_iter_get_offset(&iter2));
 }
 
 

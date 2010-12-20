@@ -15,6 +15,7 @@
 #endif
 
 #include <X11/keysym.h>
+#include <algorithm>
 
 #include "dasher_buffer_set.h"
 #include "dasher_external_buffer.h"
@@ -311,10 +312,13 @@ dasher_external_buffer_get_offset(DasherExternalBuffer *pSelf) {
 #ifdef GNOME_A11Y
   DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(pSelf->private_data);
 
-  if(pPrivate->pAccessibleText)
-    return AccessibleText_getCaretOffset(pPrivate->pAccessibleText);
-  else
+  if(!pPrivate->pAccessibleText)
     return 0;
+  if (AccessibleText_getNSelections(pPrivate->pAccessibleText)==0)
+    return AccessibleText_getCaretOffset(pPrivate->pAccessibleText);
+  long int start,end;
+  AccessibleText_getSelection(pPrivate->pAccessibleText, 0, &start, &end);
+  return std::min(start,end);
 #else
   return 0;
 #endif
