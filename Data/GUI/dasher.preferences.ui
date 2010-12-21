@@ -1220,6 +1220,133 @@ your writing speed.</property>
                                             <property name="position">3</property>
                                           </packing>
                                         </child>
+                                        <child>
+											<object class="GtkAlignment" id="alignment52">
+												<property name="visible">True</property>
+												<property name="top_padding">4</property>
+												<property name="left_padding">24</property>
+												<child>
+													<object class="GtkVBox" id="vbox51">
+														<property name="visible">True</property>
+														<child>
+															<object class="GtkCheckButton" id="control_has_copy">
+																<property name="visible">True</property>
+																<property name="can_focus">True</property>
+																<property name="border_width">2</property>
+																<property name="label" translatable="yes">Include Clipboard commands</property>
+																<property name="use_underline">True</property>
+																<property name="draw_indicator">True</property>
+																<signal handler="generic_bool_changed" name="clicked"/>
+															</object>
+															<packing>
+																<property name="expand">False</property>
+																<property name="fill">False</property>
+																<property name="position">1</property>
+															</packing>
+														</child>
+														<child>
+															<object class="GtkCheckButton" id="control_has_speech">
+																<property name="visible">True</property>
+																<property name="can_focus">True</property>
+																<property name="border_width">2</property>
+																<property name="label" translatable="yes">Include Speech commands</property>
+																<property name="use_underline">True</property>
+																<property name="draw_indicator">True</property>
+																<signal handler="generic_bool_changed" name="clicked"/>
+															</object>
+															<packing>
+																<property name="expand">False</property>
+																<property name="fill">False</property>
+																<property name="position">2</property>
+															</packing>
+														</child>
+														<child>
+															<object class="GtkCheckButton" id="control_has_halt">
+																<property name="visible">True</property>
+																<property name="can_focus">True</property>
+																<property name="border_width">2</property>
+																<property name="label" translatable="yes">Force to have Halt command</property>
+																<property name="use_underline">True</property>
+																<property name="draw_indicator">True</property>
+																<signal handler="generic_bool_changed" name="clicked"/>
+															</object>
+															<packing>
+																<property name="expand">False</property>
+																<property name="fill">False</property>
+																<property name="position">3</property>
+															</packing>
+														</child>
+														<child>
+															<object class="GtkCheckButton" id="control_has_edit">
+																<property name="visible">True</property>
+																<property name="can_focus">True</property>
+																<property name="border_width">2</property>
+																<property name="label" translatable="yes">Include Editing commands</property>
+																<property name="use_underline">True</property>
+																<property name="draw_indicator">True</property>
+																<signal handler="generic_bool_changed" name="clicked"/>
+															</object>
+															<packing>
+																<property name="expand">False</property>
+																<property name="fill">False</property>
+																<property name="position">4</property>
+															</packing>
+														</child>
+													</object>
+												</child>
+											</object>
+											<packing>
+												<property name="position">4</property>
+											</packing>
+                                        </child>
+										<child>
+											<object class="GtkCheckButton" id="copy_all_on_stop">
+												<property name="visible">True</property>
+												<property name="can_focus">True</property>
+												<property name="border_width">2</property>
+												<property name="label" translatable="yes">Copy All on stop</property>
+												<property name="use_underline">True</property>
+												<property name="draw_indicator">True</property>
+												<signal handler="generic_bool_changed" name="clicked"/>
+											</object>
+											<packing>
+												<property name="expand">False</property>
+												<property name="fill">False</property>
+												<property name="position">5</property>
+											</packing>
+										</child>
+										<child>
+											<object class="GtkCheckButton" id="speak_all_on_stop">
+												<property name="visible">True</property>
+												<property name="can_focus">True</property>
+												<property name="border_width">2</property>
+												<property name="label" translatable="yes">Speak All on stop</property>
+												<property name="use_underline">True</property>
+												<property name="draw_indicator">True</property>
+												<signal handler="generic_bool_changed" name="clicked"/>
+											</object>
+											<packing>
+												<property name="expand">False</property>
+												<property name="fill">False</property>
+												<property name="position">6</property>
+											</packing>
+										</child>
+										<child>
+											<object class="GtkCheckButton" id="speak_words">
+												<property name="visible">True</property>
+												<property name="can_focus">True</property>
+												<property name="border_width">2</property>
+												<property name="label" translatable="yes">Speak words as you write</property>
+												<property name="use_underline">True</property>
+												<property name="draw_indicator">True</property>
+												<signal handler="generic_bool_changed" name="clicked"/>
+											</object>
+											<packing>
+												<property name="expand">False</property>
+												<property name="fill">False</property>
+												<property name="position">7</property>
+											</packing>
+										</child>
                                       </object>
                                     </child>
                                   </object>
