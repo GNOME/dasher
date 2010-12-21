@@ -831,12 +831,12 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
     iDasherY = myint(iDasherHeight / 2 + ( iInputY - iScreenHeight / 2 ) * m_iScalingFactor/ iScaleFactorY);
     break;
   case Dasher::Opts::TopToBottom:
-    iDasherX = myint( ( iScreenHeight - iInputY ) * m_iScalingFactor/ iScaleFactorY);
-    iDasherY = myint(iDasherHeight / 2 + ( iInputX - iScreenWidth / 2 ) * m_iScalingFactor/ iScaleFactorX);
+    iDasherX = myint( ( iScreenHeight - iInputY ) * m_iScalingFactor/ iScaleFactorX);
+    iDasherY = myint(iDasherHeight / 2 + ( iInputX - iScreenWidth / 2 ) * m_iScalingFactor/ iScaleFactorY);
     break;
   case Dasher::Opts::BottomToTop:
-    iDasherX = myint( ( iInputY  ) * m_iScalingFactor/ iScaleFactorY);
-    iDasherY = myint(iDasherHeight / 2 + ( iInputX - iScreenWidth / 2 ) * m_iScalingFactor/ iScaleFactorX);
+    iDasherX = myint( ( iInputY  ) * m_iScalingFactor/ iScaleFactorX);
+    iDasherY = myint(iDasherHeight / 2 + ( iInputX - iScreenWidth / 2 ) * m_iScalingFactor/ iScaleFactorY);
     break;
   }
 
@@ -1006,15 +1006,15 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
     break;
   case Dasher::Opts::TopToBottom:
     iScreenX = screenint(iScreenWidth / 2 + 
-			 CustomIDiv(( iDasherY - iDasherHeight / 2 ) * iScaleFactorX, m_iScalingFactor));
+			 CustomIDiv(( iDasherY - iDasherHeight / 2 ) * iScaleFactorY, m_iScalingFactor));
     iScreenY = screenint(iScreenHeight - 
-			 CustomIDiv(( iDasherX ) * iScaleFactorY, m_iScalingFactor));
+			 CustomIDiv(( iDasherX ) * iScaleFactorX, m_iScalingFactor));
     break;
   case Dasher::Opts::BottomToTop:
     iScreenX = screenint(iScreenWidth / 2 + 
-			 CustomIDiv(( iDasherY - iDasherHeight / 2 ) * iScaleFactorX, m_iScalingFactor));
+			 CustomIDiv(( iDasherY - iDasherHeight / 2 ) * iScaleFactorY, m_iScalingFactor));
     iScreenY = screenint(
-			 CustomIDiv(( iDasherX ) * iScaleFactorY, m_iScalingFactor));
+			 CustomIDiv(( iDasherX ) * iScaleFactorX, m_iScalingFactor));
     break;
   }
 }

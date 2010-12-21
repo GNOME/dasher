@@ -204,6 +204,8 @@ private:
   myint iMarginWidth;
 
   /// There is a ratio of iScaleFactor{X,Y} abstract screen coords to m_iScalingFactor real pixels
+  /// (Note the naming convention: iScaleFactorX/Y refers to X/Y in Dasher-space, which will be
+  /// the other way around to real screen coordinates if using a vertical (T-B/B-T) orientation)
   myint iScaleFactorX, iScaleFactorY;
   myint m_iScalingFactor;
 
