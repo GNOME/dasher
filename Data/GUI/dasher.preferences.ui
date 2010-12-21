@@ -1128,48 +1128,6 @@ your writing speed.</property>
                     <property name="border_width">12</property>
                     <property name="spacing">18</property>
                     <child>
-                      <object class="GtkVBox" id="frame10">
-                        <property name="visible">True</property>
-                        <child>
-                          <object class="GtkLabel" id="label122">
-                            <property name="visible">True</property>
-                            <property name="xalign">0</property>
-                            <property name="label" translatable="yes">&lt;b&gt;Actions&lt;/b&gt;</property>
-                            <property name="use_markup">True</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkAlignment" id="alignment52">
-                            <property name="visible">True</property>
-                            <property name="top_padding">6</property>
-                            <property name="left_padding">12</property>
-                            <child>
-                              <object class="GtkScrolledWindow" id="scrolledwindow10">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-                                <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-                                <property name="shadow_type">GTK_SHADOW_IN</property>
-                                <child>
-                                  <object class="GtkTreeView" id="action_tree_view">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="rules_hint">True</property>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                          </object>
-                          <packing>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                      </object>
-                    </child>
-                    <child>
                       <object class="GtkHBox" id="hbox12">
                         <property name="visible">True</property>
                         <property name="spacing">18</property>

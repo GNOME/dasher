@@ -81,15 +81,6 @@ StringTranslation sStringTranslationTable[] = {
 
 #endif
 
-enum {
-  ACTIONS_ID_COLUMN,
-  ACTIONS_NAME_COLUMN,
-  ACTIONS_SHOW_COLUMN,
-  ACTIONS_CONTROL_COLUMN,
-  ACTIONS_AUTO_COLUMN,
-  ACTIONS_N_COLUMNS
-};
-
 // TODO: Look at coding convention stuff for gobjets
 
 /// Newer, object based stuff
@@ -112,7 +103,6 @@ struct _DasherPreferencesDialoguePrivate {
   GtkRange *pSpeedSlider;
   GtkToggleButton *pMousePosButton;
   GtkComboBox *pMousePosStyle;
-  GtkTreeView *pActionTreeView;
   GtkNotebook *pNotebook;
 
   // Set this to ignore signals (ie loops coming back from setting widgets in response to parameters having changed)
@@ -146,8 +136,6 @@ static void dasher_preferences_dialogue_populate_special_dasher_font(DasherPrefe
 static void dasher_preferences_dialogue_populate_special_edit_font(DasherPreferencesDialogue *pSelf);
 static void dasher_preferences_dialogue_populate_special_fontsize(DasherPreferencesDialogue *pSelf);
 
-static void dasher_preferences_dialogue_populate_actions(DasherPreferencesDialogue *pSelf);
-
 typedef struct _SpecialControl SpecialControl;
 
 struct _SpecialControl {
@@ -173,7 +161,6 @@ SpecialControl sSpecialControlTable[] = {
 };
 
 // Callback functions
-extern "C" void on_action_toggle(GtkCellRendererToggle *pRenderer, gchar *szPath, gpointer pUserData);
 extern "C" void on_list_selection(GtkTreeSelection *pSelection, gpointer pUserData);
 extern "C" void on_widget_realize(GtkWidget *pWidget, gpointer pUserData);
 extern "C" gboolean show_helper_window(GtkWidget *pWidget, gpointer *pUserData);
@@ -246,7 +233,6 @@ DasherPreferencesDialogue *dasher_preferences_dialogue_new(GtkBuilder *pXML, Das
 
   pPrivate->pPreferencesWindow = GTK_WINDOW(gtk_builder_get_object(pXML, "preferences"));
 
-  pPrivate->pActionTreeView = GTK_TREE_VIEW(gtk_builder_get_object(pXML, "action_tree_view"));
   pPrivate->pNotebook = GTK_NOTEBOOK(gtk_builder_get_object(pXML, "notebook1"));
 
   gtk_window_set_transient_for(pPrivate->pPreferencesWindow, pMainWindow);
@@ -267,8 +253,6 @@ DasherPreferencesDialogue *dasher_preferences_dialogue_new(GtkBuilder *pXML, Das
 #ifndef JAPANESE
   gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(pXML, "radiobutton9")));
 #endif
-
-  dasher_preferences_dialogue_populate_actions(pDasherControl);
 
   //  InitialiseFontDialogues(pXML, pAppSettings);
 
@@ -1018,109 +1002,6 @@ extern "C" void on_edit_font_changed(GtkFontButton *pButton, gpointer pUserData)
   dasher_app_settings_set_string(pPrivate->pAppSettings, 
                                  APP_SP_EDIT_FONT, 
                                  gtk_font_button_get_font_name(pButton));
-}
-
-// --- Actions Selection ---
-
-// Note - for now consider the actions configuration to be *really* a
-// special case (more so than the systematic special cases), as it
-// doesn't even make use of the integer IDs for parameters.
-
-void dasher_preferences_dialogue_populate_actions(DasherPreferencesDialogue *pSelf) {
-#ifndef WITH_MAEMO
-  DasherPreferencesDialoguePrivate *pPrivate = (DasherPreferencesDialoguePrivate *)(pSelf->private_data);
-  
-  pPrivate->pListStore = gtk_list_store_new(ACTIONS_N_COLUMNS, G_TYPE_INT, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN);
-
-//  GtkTreeIter oIter;
-
-  // TODO: Reimplement this
-
-//   dasher_editor_actions_start(pPrivate->pEditor);
-
-//   while(dasher_editor_actions_more(pPrivate->pEditor)) {
-//     gtk_list_store_append(pPrivate->pListStore, &oIter);
-
-//     const gchar *szName;
-//     gint iID;
-//     gboolean bShow;
-//     gboolean bControl;
-//     gboolean bAuto;
-
-//     dasher_editor_actions_get_next(pPrivate->pEditor, &szName, &iID, &bShow, &bControl, &bAuto),
-
-//     gtk_list_store_set(pPrivate->pListStore, &oIter, 
-//                        ACTIONS_ID_COLUMN, iID,
-//                        ACTIONS_NAME_COLUMN, szName,
-//                        ACTIONS_SHOW_COLUMN, bShow,
-//                        ACTIONS_CONTROL_COLUMN, bControl,
-//                        ACTIONS_AUTO_COLUMN, bAuto,
-//                        -1);
-//   }
-  
-  GtkCellRenderer *pRenderer;
-  GtkTreeViewColumn *pColumn;
-  
-  // TODO: (small) memory leak here at the moment
-  gint *pColumnIndex = new gint[3];
-  pColumnIndex[0] = ACTIONS_SHOW_COLUMN;
-  pColumnIndex[1] = ACTIONS_CONTROL_COLUMN;
-  pColumnIndex[2] = ACTIONS_AUTO_COLUMN;
-
-  pRenderer = gtk_cell_renderer_text_new();
-  pColumn = gtk_tree_view_column_new_with_attributes(_("Action"), pRenderer, "text", ACTIONS_NAME_COLUMN, NULL);
-  g_object_set(G_OBJECT(pColumn), "expand", true, NULL);
-  gtk_tree_view_append_column(pPrivate->pActionTreeView, pColumn);
-
-  pRenderer = gtk_cell_renderer_toggle_new();
-  g_signal_connect(pRenderer, "toggled", (GCallback)on_action_toggle, pColumnIndex);
-  /* TRANSLATORS: Show a button for the selected action in the Dasher window. */
-  pColumn = gtk_tree_view_column_new_with_attributes(_("Show Button"), pRenderer, "active", ACTIONS_SHOW_COLUMN, NULL);
-  gtk_tree_view_append_column(pPrivate->pActionTreeView, pColumn);
-
-  pRenderer = gtk_cell_renderer_toggle_new();
-  g_signal_connect(pRenderer, "toggled", (GCallback)on_action_toggle, pColumnIndex + 1);
-  pColumn = gtk_tree_view_column_new_with_attributes(_("Control Mode"), pRenderer, "active", ACTIONS_CONTROL_COLUMN, NULL);
-  gtk_tree_view_append_column(pPrivate->pActionTreeView, pColumn);
-
-  pRenderer = gtk_cell_renderer_toggle_new();
-  g_signal_connect(pRenderer, "toggled", (GCallback)on_action_toggle, pColumnIndex + 2);
-  /* TRANSLATORS: Automatically perform the selected action when Dasher is stopped. */
-  pColumn = gtk_tree_view_column_new_with_attributes(_("Auto On Stop"), pRenderer, "active", ACTIONS_AUTO_COLUMN, NULL);
-  gtk_tree_view_append_column(pPrivate->pActionTreeView, pColumn);
-
-  gtk_tree_view_set_model(pPrivate->pActionTreeView, GTK_TREE_MODEL(pPrivate->pListStore));
-#endif
-}
-
-extern "C" void on_action_toggle(GtkCellRendererToggle *pRenderer, gchar *szPath, gpointer pUserData) {
-  //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
-  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
-
-  gint *pColumnIndex = (gint *)pUserData;
-
-  GtkTreeIter oIter;
-  gtk_tree_model_get_iter_from_string(GTK_TREE_MODEL(pPrivate->pListStore), &oIter, szPath);
-  
-  gboolean bSelected;
-  gint iID;
-  gtk_tree_model_get(GTK_TREE_MODEL(pPrivate->pListStore), &oIter, ACTIONS_ID_COLUMN, &iID, *pColumnIndex, &bSelected, -1);
-
-  gtk_list_store_set(pPrivate->pListStore, &oIter, *pColumnIndex, !bSelected, -1);
-  
-  // TODO: reimplement
-
-//   switch(*pColumnIndex) {
-//   case ACTIONS_SHOW_COLUMN:
-//     dasher_editor_internal_action_set_show(g_pEditor, iID, !bSelected);
-//     break;
-//   case ACTIONS_CONTROL_COLUMN:
-//     dasher_editor_internal_action_set_control(g_pEditor, iID, !bSelected);
-//     break;
-//   case ACTIONS_AUTO_COLUMN:
-//     dasher_editor_internal_action_set_auto(g_pEditor, iID, !bSelected);
-//     break;
-//   }
 }
 
 extern "C" void set_dasher_fontsize(GtkWidget *pWidget, gboolean pUserData) {
