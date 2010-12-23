@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher \n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&component=general\n"
-"POT-Creation-Date: 2010-11-13 20:47+0000\n"
+"POT-Creation-Date: 2010-11-20 09:58+0000\n"
 "PO-Revision-Date: 2004-09-03 22:44+0900\n"
 "Last-Translator: Sahran <sahran.ug@gmail.com>\n"
 "Language-Team: GNOME Uighur Translation Project <gnome-uighur@yahoogroups.com>\n"
@@ -495,7 +495,7 @@ msgstr "ئېلىپبە جەدۋىلى"
 #. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 #: ../Data/GUI/dashermaemo.preferences.ui.h:14
 msgid "Control"
-msgstr "كونترول"
+msgstr "تىزگىن"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:18
 msgid "Enlarge input window"
@@ -950,10 +950,8 @@ msgstr "Dasher مۆلچەر شەكلىدىكى تېكىست كىرگۈزۈش پ�
 
 #: ../Src/Gtk2/dasher_main.cpp:1088
 msgid "translator-credits"
-msgstr "Sahran <sahran@live.com>\n"
-"Gheyret T.Kenji <gheyret@yahoo.com>\n"
-"Zeper <zeper@msn.com>\n"
-"Abduxukur Abdurixit <abduxukur.abdurixit@t-systems.ch>"
+msgstr "Gheyret Kenji <gheyret@gmail.com>\n"
+"Sahran<sahran@live.com>"
 
 #: ../Src/Gtk2/module_settings_window.cpp:88
 msgid "Dasher Module Options"
