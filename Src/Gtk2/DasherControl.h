@@ -137,6 +137,9 @@ public:
   
   virtual std::string GetAllContext();
 
+  virtual bool SupportsClipboard();
+  virtual void CopyToClipboard(const std::string &strText);
+
 #ifdef GNOME_SPEECH
   ///override default non-implementation if compiling with speech...
   virtual bool SupportsSpeech();
@@ -204,6 +207,9 @@ private:
   ///
 
   //  CKeyboardHelper *m_pKeyboardHelper;
+
+  //Cache the clipboard object...
+  GtkClipboard *pClipboard;
 
 #ifdef GNOME_SPEECH
   CSpeech m_Speech;

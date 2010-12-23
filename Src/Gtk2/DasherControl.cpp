@@ -38,7 +38,7 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
 
   m_pDasherControl = pDasherControl;
   m_pVBox = GTK_WIDGET(pVBox);
-
+  pClipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
   Realize();
  
   //  m_pKeyboardHelper = new CKeyboardHelper(this);
@@ -195,6 +195,15 @@ extern DasherMain *g_pDasherMain;
 std::string CDasherControl::GetAllContext() {
   const gchar *text = dasher_main_get_all_text(g_pDasherMain);
   return text;
+}
+
+bool CDasherControl::SupportsClipboard() {
+  return true;
+}
+
+void CDasherControl::CopyToClipboard(const std::string &strText) {
+  const gchar *the_text(strText.c_str());
+  gtk_clipboard_set_text(pClipboard, the_text, strlen(the_text));
 }
 
 #ifdef GNOME_SPEECH
