@@ -569,7 +569,7 @@ void CDasherViewSquare::DisjointRender(CDasherNode *pRender, myint y1, myint y2,
           lasty=newy2;
           //all remaining children are offscreen. quickly delete, avoid recomputing ranges...
           while ((++i)!=pRender->GetChildren().end())
-            if (!(*i)->GetFlag(NF_GAME)) (*i)->Delete_children();
+            if (!(*i)->GetFlag(NF_GAME | NF_SEEN)) (*i)->Delete_children();
           break;
         } else if (newy2-newy1 >= GetLongParameter(LP_MIN_NODE_SIZE) //simple test if big enough
             && newy1 <= iDasherMaxY && newy2 >= iDasherMinY) //at least partly on screen
@@ -588,7 +588,7 @@ void CDasherViewSquare::DisjointRender(CDasherNode *pRender, myint y1, myint y2,
           // 
           // In game mode, we get here if the child is too small to draw, but we need the
           // coordinates - if this is the case then we shouldn't delete any children.
-          if(!pChild->GetFlag(NF_GAME))
+          if(!pChild->GetFlag(NF_GAME | NF_SEEN))
             pChild->Delete_children();
         }
       }
@@ -692,7 +692,7 @@ void CDasherViewSquare::NewRender(CDasherNode *pRender, myint y1, myint y2,
     }
   }
   
-  //Does node cover crosshair? (quick reject)
+  //Does node cover crosshair?
   if (pOutput == pRender->Parent() && CoversCrosshair(Range, y1, y2))
     pOutput = pRender;
   
@@ -752,11 +752,11 @@ void CDasherViewSquare::NewRender(CDasherNode *pRender, myint y1, myint y2,
             bestRange = norm+1; //impossible value, used as sentinel to mean some child was rendered
           } else if (pChild->Range() > bestRange) {
             //record the largest child, if none has been rendered
-            if (pBestCh && !pBestCh->GetFlag(NF_GAME)) pBestCh->Delete_children();
+            if (pBestCh && !pBestCh->GetFlag(NF_GAME | NF_SEEN)) pBestCh->Delete_children();
             pBestCh = pChild; bestRange = pChild->Range();
           } else {
             //did not recurse, or store
-            if (!pChild->GetFlag(NF_GAME)) pChild->Delete_children();
+            if (!pChild->GetFlag(NF_GAME | NF_SEEN)) pChild->Delete_children();
           }
           if (newy2>iDasherMaxY) break; //remaining children offscreen
         }
@@ -765,7 +765,7 @@ void CDasherViewSquare::NewRender(CDasherNode *pRender, myint y1, myint y2,
       }
       if (I!=E) {
         //broke out of loop. Possibly more to delete...
-        while (++I!=E) if (!(*I)->GetFlag(NF_GAME)) (*I)->Delete_children();
+        while (++I!=E) if (!(*I)->GetFlag(NF_GAME | NF_SEEN)) (*I)->Delete_children();
       }
       //lastly. We may have recorded a "biggest but still too small" node to render.
       if (pBestCh) {
@@ -775,7 +775,7 @@ void CDasherViewSquare::NewRender(CDasherNode *pRender, myint y1, myint y2,
                     y1 + (Range * (myint)pBestCh->Hbnd())/(myint)norm,
                     pPrevText, policy, dMaxCost, myColor, pOutput);
           pRender->onlyChildRendered = pBestCh;
-        } else if (!pBestCh->GetFlag(NF_GAME))
+        } else if (!pBestCh->GetFlag(NF_GAME | NF_SEEN))
           pBestCh->Delete_children();
       }
       //all children rendered.
