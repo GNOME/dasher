@@ -671,23 +671,36 @@ void CDasherViewSquare::NewRender(CDasherNode *pRender, myint y1, myint y2,
   }	
   
   const myint Range(y2-y1);
-  // Draw (well, fill) node...
-  if (GetLongParameter(LP_OUTLINE_WIDTH)>=0) {
+  // Draw node...we can both fill & outline in one go, since
+  // we're drawing the whole node at once (unlike disjoint-rects),
+  // as any part of the outline which is obscured by a child node,
+  // will have the outline of the child node painted over it,
+  // and all outlines are the same colour.
+  
+  //"invisible" nodes are given same colour as parent, so we neither fill
+  // nor outline them. TODO this isn't quite right, as nodes that are
+  // _supposed_ to be the same colour as their parent, will have no outlines...
+  // (thankfully having 2 "phases" means this doesn't happen in standard
+  // colour schemes)
+  if (myColor!=parent_color) { 
+	//outline width 0 = fill only; >0 = fill + outline; <0 = outline only
+	int fillColour = GetLongParameter(LP_OUTLINE_WIDTH)>=0 ? myColor : -1;
+	int lineWidth = abs(GetLongParameter(LP_OUTLINE_WIDTH));
     switch (GetLongParameter(LP_SHAPE_TYPE)) {
       case 1: //overlapping rects
-        DasherDrawRectangle(std::min(Range,iDasherMaxX), std::max(y1,iDasherMinY), 0, std::min(y2,iDasherMaxY), myColor, -1, 0);
+        DasherDrawRectangle(std::min(Range,iDasherMaxX), std::max(y1,iDasherMinY), 0, std::min(y2,iDasherMaxY), fillColour, -1, lineWidth);
         break;
       case 2: //simple triangles
-        TruncateTri(Range, y1, y2, (y1+y2)/2, (y1+y2)/2, myColor, -1, 0);
+        TruncateTri(Range, y1, y2, (y1+y2)/2, (y1+y2)/2, fillColour, -1, lineWidth);
         break;
       case 3: //truncated triangles
-        TruncateTri(Range, y1, y2, (y1+y1+y2)/3, (y1+y2+y2)/3, myColor, -1, 0);
+        TruncateTri(Range, y1, y2, (y1+y1+y2)/3, (y1+y2+y2)/3, fillColour, -1, lineWidth);
         break;
       case 4:
-        Quadric(Range, y1, y2, myColor, -1, 0);
+        Quadric(Range, y1, y2, fillColour, -1, lineWidth);
         break;
       case 5:
-        Circle(Range, y1, y2, myColor, -1, 0);
+        Circle(Range, y1, y2, fillColour, -1, lineWidth);
         break;
     }
   }
@@ -701,10 +714,11 @@ void CDasherViewSquare::NewRender(CDasherNode *pRender, myint y1, myint y2,
       //covers crosshair! forcibly populate, now!
       pRender->PopulateChildren(); //TODO we are bypassing rest of CDasherModel::ExpandNode...
       pRender->SetFlag(NF_ALLCHILDREN, true);
-    } else //allow empty node to be expanded, it's big enough.
+    } else {
+	  //allow empty node to be expanded, it's big enough.
       policy.pushNode(pRender, y1, y2, true, dMaxCost);
-    
-    //fall through to draw outline
+      return; //no children atm => nothing more to do
+    }
   } else {
     //Node has children. It can therefore be collapsed...however,
     // we don't allow a node covering the crosshair to be collapsed
@@ -712,96 +726,78 @@ void CDasherViewSquare::NewRender(CDasherNode *pRender, myint y1, myint y2,
     // at worst, all kinds of crashes trying to do text output!)
     if (!pRender->GetFlag(NF_GAME) && pRender != pOutput)
       dMaxCost = policy.pushNode(pRender, y1, y2, false, dMaxCost);
-    
-    // Render children  
-    const unsigned int norm(GetLongParameter(LP_NORMALIZATION));
-    
-    if (CDasherNode *pChild = pRender->onlyChildRendered)
-    {
-      //if child still covers screen, render _just_ it and return
-      myint newy1 = y1 + (Range * (myint)pChild->Lbnd()) / (myint)norm;
-      myint newy2 = y1 + (Range * (myint)pChild->Hbnd()) / (myint)norm;
-      if ((newy2-newy1 < GetLongParameter(LP_MIN_NODE_SIZE) //too small, but stored as only - so all others are smaller still...
-             && newy1 <= iDasherMaxY && newy2 >= iDasherMinY) //check too-small node is at least partly onscreen
-          || (newy1 < iDasherMinY && newy2 > iDasherMaxY)) { //covers entire y-axis!
-        NewRender(pChild, newy1, newy2, pPrevText, 
-                  policy, dMaxCost, myColor, pOutput);
-        //leave pRender->onlyChildRendered set, so remaining children are skipped
-      }
-      else
-        pRender->onlyChildRendered = NULL;
+  }
+  //Node has children - either it already did, or else it covers the crosshair,
+  // and we've just made them...so render them.
+  
+  const unsigned int norm(GetLongParameter(LP_NORMALIZATION));
+  //first check if there's only one child we need to render
+  if (CDasherNode *pChild = pRender->onlyChildRendered) {
+    //if child still covers screen, render _just_ it and return
+    myint newy1 = y1 + (Range * (myint)pChild->Lbnd()) / (myint)norm;
+    myint newy2 = y1 + (Range * (myint)pChild->Hbnd()) / (myint)norm;
+    //we also check whether the "only" child to render is too small to render normally.
+    // this is the case IF all the others were smaller, in which case only the "only"
+    // one should be rendered. (Unfortunately, IF but not & ONLY IF...hoping this is
+    // too infrequent to worry.)
+    if ((newy2-newy1 < GetLongParameter(LP_MIN_NODE_SIZE) //too small, but stored as only - so all others are smaller still...
+		 && newy1 <= iDasherMaxY && newy2 >= iDasherMinY) //check too-small node is at least partly onscreen
+	    || (newy1 < iDasherMinY && newy2 > iDasherMaxY)) { //covers entire y-axis!
+         //render just that child; nothing more to do for this node
+	  NewRender(pChild, newy1, newy2, pPrevText, 
+                policy, dMaxCost, myColor, pOutput);
+	  //leave pRender->onlyChildRendered set for next time
+	  return;
     }
+    pRender->onlyChildRendered = NULL;
+  }
     
-    if (!pRender->onlyChildRendered) {
-      //render all children...
-      myint newy1=y1,newy2; unsigned int bestRange(norm/3); CDasherNode *pBestCh(NULL);
-      CDasherNode::ChildMap::const_iterator I = pRender->GetChildren().begin(), E = pRender->GetChildren().end();
-      while (I!=E) {
-        CDasherNode *pChild(*I);
+  //ok, need to render all children...
+  myint newy1=y1,newy2; unsigned int bestRange(norm/3); CDasherNode *pBestCh(NULL);
+  CDasherNode::ChildMap::const_iterator I = pRender->GetChildren().begin(), E = pRender->GetChildren().end();
+  while (I!=E) {
+    CDasherNode *pChild(*I);
         
-        newy2 = y1 + (Range * (myint)pChild->Hbnd()) / (myint)norm;
-        if (newy1<=iDasherMaxY && newy2 >= iDasherMinY) { //onscreen
-          if (newy2-newy1 > GetLongParameter(LP_MIN_NODE_SIZE)) {
-            //definitely big enough to render.
-            NewRender(pChild, newy1, newy2, pPrevText, policy, dMaxCost, myColor, pOutput);
-            if (newy2 > iDasherMaxY) {
-              //remaining children offscreen.
-              if (newy1 < iDasherMinY) pRender->onlyChildRendered = pChild; //...and previous were too!
-              break; //skip remaining children...
-            }
-            bestRange = norm+1; //impossible value, used as sentinel to mean some child was rendered
-          } else if (pChild->Range() > bestRange) {
-            //record the largest child, if none has been rendered
-            if (pBestCh && !pBestCh->GetFlag(NF_GAME | NF_SEEN)) pBestCh->Delete_children();
-            pBestCh = pChild; bestRange = pChild->Range();
-          } else {
-            //did not recurse, or store
-            if (!pChild->GetFlag(NF_GAME | NF_SEEN)) pChild->Delete_children();
-          }
-          if (newy2>iDasherMaxY) break; //remaining children offscreen
+    newy2 = y1 + (Range * (myint)pChild->Hbnd()) / (myint)norm;
+    if (newy1<=iDasherMaxY && newy2 >= iDasherMinY) { //onscreen
+      if (newy2-newy1 > GetLongParameter(LP_MIN_NODE_SIZE)) {
+        //definitely big enough to render.
+        NewRender(pChild, newy1, newy2, pPrevText, policy, dMaxCost, myColor, pOutput);
+        if (newy2 > iDasherMaxY) {
+          //remaining children offscreen.
+          if (newy1 < iDasherMinY) pRender->onlyChildRendered = pChild; //...and previous were too!
+          break; //skip remaining children...
         }
-        I++;
-        newy1=newy2;
+        bestRange = norm+1; //impossible value, used as sentinel to mean some child was rendered
+      } else if (pChild->Range() > bestRange) {
+        //record the largest child, if none has been rendered
+        if (pBestCh && !pBestCh->GetFlag(NF_GAME | NF_SEEN)) pBestCh->Delete_children();
+        pBestCh = pChild; bestRange = pChild->Range();
+      } else {
+        //did not recurse, or store
+        if (!pChild->GetFlag(NF_GAME | NF_SEEN)) pChild->Delete_children();
       }
-      if (I!=E) {
-        //broke out of loop. Possibly more to delete...
-        while (++I!=E) if (!(*I)->GetFlag(NF_GAME | NF_SEEN)) (*I)->Delete_children();
-      }
-      //lastly. We may have recorded a "biggest but still too small" node to render.
-      if (pBestCh) {
-        if (bestRange <= norm) {
-          //yup - no child big enough outright, so render the biggest
-          NewRender(pBestCh, y1+(Range*(myint)pBestCh->Lbnd())/(myint)norm,
-                    y1 + (Range * (myint)pBestCh->Hbnd())/(myint)norm,
-                    pPrevText, policy, dMaxCost, myColor, pOutput);
-          pRender->onlyChildRendered = pBestCh;
-        } else if (!pBestCh->GetFlag(NF_GAME | NF_SEEN))
-          pBestCh->Delete_children();
-      }
-      //all children rendered.
+      if (newy2>iDasherMaxY) break; //remaining children offscreen
     }
-    //end rendering children, fall through to outline
+    I++;
+    newy1=newy2;
   }
-  // Lastly, draw the outline
-  if(GetLongParameter(LP_OUTLINE_WIDTH) && (!pRender->Parent() || pRender->getColour()!=pRender->Parent()->getColour())) {
-    switch (GetLongParameter(LP_SHAPE_TYPE)) {
-      case 1: //overlapping rects
-        DasherDrawRectangle(std::min(Range,iDasherMaxX), std::max(y1,iDasherMinY), 0, std::min(y2,iDasherMaxY), -1, -1, abs(GetLongParameter(LP_OUTLINE_WIDTH)));
-        break;
-      case 2: //simple triangles
-        TruncateTri(Range, y1, y2, (y1+y2)/2, (y1+y2)/2, -1, -1, abs(GetLongParameter(LP_OUTLINE_WIDTH)));
-        break;
-      case 3: //truncated triangles
-        TruncateTri(Range, y1, y2, (y1+y1+y2)/3, (y1+y2+y2)/3, -1, -1, abs(GetLongParameter(LP_OUTLINE_WIDTH)));
-        break;
-      case 4:
-        Quadric(Range, y1, y2, -1, -1, abs(GetLongParameter(LP_OUTLINE_WIDTH)));
-        break;
-      case 5:
-        Circle(Range, y1, y2, -1, -1, abs(GetLongParameter(LP_OUTLINE_WIDTH)));
-        break;        
-    }
+  if (I!=E) {
+    //broke out of loop. Possibly more to delete...
+    while (++I!=E) if (!(*I)->GetFlag(NF_GAME | NF_SEEN)) (*I)->Delete_children();
   }
+  //lastly. We may have recorded a "biggest but still too small" node to render.
+  if (pBestCh) {
+    if (bestRange <= norm) {
+      //yup - no child big enough outright, so render the biggest
+      NewRender(pBestCh, y1+(Range*(myint)pBestCh->Lbnd())/(myint)norm,
+                y1 + (Range * (myint)pBestCh->Hbnd())/(myint)norm,
+                pPrevText, policy, dMaxCost, myColor, pOutput);
+      pRender->onlyChildRendered = pBestCh; //cache for next time - the IF but not ONLY IF, above :-(
+    } else if (!pBestCh->GetFlag(NF_GAME | NF_SEEN))
+      pBestCh->Delete_children();
+  }
+  //all children rendered.
 }
 
 /// Convert screen co-ordinates to dasher co-ordinates. This doesn't
