@@ -644,6 +644,10 @@ void CDasherViewSquare::NewRender(CDasherNode *pRender, myint y1, myint y2,
                                   CTextString *pPrevText, CExpansionPolicy &policy, double dMaxCost,
                                   int parent_color, CDasherNode *&pOutput)
 {
+	//when we have only one child node to render, which'll be the last thing we
+	// do before returning, we make a tail call by jumping here, rather than
+	// pushing another stack frame:
+beginning:
   DASHER_ASSERT_VALIDPTR_RW(pRender);
   
   ++m_iRenderCount;
@@ -743,11 +747,10 @@ void CDasherViewSquare::NewRender(CDasherNode *pRender, myint y1, myint y2,
     if ((newy2-newy1 < GetLongParameter(LP_MIN_NODE_SIZE) //too small, but stored as only - so all others are smaller still...
 		 && newy1 <= iDasherMaxY && newy2 >= iDasherMinY) //check too-small node is at least partly onscreen
 	    || (newy1 < iDasherMinY && newy2 > iDasherMaxY)) { //covers entire y-axis!
-         //render just that child; nothing more to do for this node
-	  NewRender(pChild, newy1, newy2, pPrevText, 
-                policy, dMaxCost, myColor, pOutput);
-	  //leave pRender->onlyChildRendered set for next time
-	  return;
+         //render just that child; nothing more to do for this node => tail call to beginning
+         pRender = pChild; y1=newy1; y2=newy2;
+         parent_color = myColor;
+         goto beginning;
     }
     pRender->onlyChildRendered = NULL;
   }
@@ -790,10 +793,13 @@ void CDasherViewSquare::NewRender(CDasherNode *pRender, myint y1, myint y2,
   if (pBestCh) {
     if (bestRange <= norm) {
       //yup - no child big enough outright, so render the biggest
-      NewRender(pBestCh, y1+(Range*(myint)pBestCh->Lbnd())/(myint)norm,
-                y1 + (Range * (myint)pBestCh->Hbnd())/(myint)norm,
-                pPrevText, policy, dMaxCost, myColor, pOutput);
       pRender->onlyChildRendered = pBestCh; //cache for next time - the IF but not ONLY IF, above :-(
+      //and make tail call to beginning, as nothing more to do for the current node
+      pRender = pBestCh;
+      parent_color = myColor;
+      y2 = y1 + (Range * (myint)pRender->Hbnd())/(myint)norm;
+      y1+=(Range*(myint)pRender->Lbnd())/(myint)norm;
+      goto beginning;
     } else if (!pBestCh->GetFlag(NF_GAME | NF_SEEN))
       pBestCh->Delete_children();
   }
