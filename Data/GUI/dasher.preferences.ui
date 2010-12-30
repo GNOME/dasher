@@ -742,7 +742,7 @@ your writing speed.</property>
                                         <property name="label" translatable="yes">Start with mouse position:</property>
                                         <property name="use_underline">True</property>
                                         <property name="draw_indicator">True</property>
-                                        <signal handler="startonmousepos" name="clicked"/>
+                                        <signal handler="OnMousePosChanged" name="clicked"/>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -756,13 +756,9 @@ your writing speed.</property>
                                         <property name="xalign">1</property>
                                         <property name="left_padding">24</property>
                                         <child>
-                                          <object class="GtkComboBoxEntry" id="MousePosStyle">
+                                          <object class="GtkComboBox" id="MousePosStyle">
                                             <property name="visible">True</property>
-                                            <signal handler="OnMousePosStyleChanged" name="changed"/>
-                                            <child internal-child="entry">
-                                              <object class="GtkEntry" id="comboboxentry-entry1">
-                                              </object>
-                                            </child>
+                                            <signal handler="OnMousePosChanged" name="changed"/>
                                             <property name="model">model1</property>
                                             <child>
                                               <object class="GtkCellRendererText" id="renderer1"/>

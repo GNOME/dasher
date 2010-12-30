@@ -534,14 +534,14 @@ static void dasher_preferences_dialogue_populate_special_mouse_start(DasherPrefe
 
   if(dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_MOUSEPOS_MODE)) {
     gtk_combo_box_set_active(pPrivate->pMousePosStyle, 1);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "mouseposbutton")), true);
+    gtk_toggle_button_set_active(pPrivate->pMousePosButton, true);
   }
   else if(dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_CIRCLE_START)) {
     gtk_combo_box_set_active(pPrivate->pMousePosStyle, 0);
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "mouseposbutton")), true);
+    gtk_toggle_button_set_active(pPrivate->pMousePosButton, true);
   }
   else {
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(gtk_builder_get_object(pPrivate->pXML, "mouseposbutton")), false);
+    gtk_toggle_button_set_active(pPrivate->pMousePosButton, false);
   }
 #endif 
 }
@@ -747,49 +747,28 @@ static void dasher_preferences_dialogue_update_special(DasherPreferencesDialogue
 // --- Callbacks for 'special case' controls ---
 
 // TODO: Give these a systematic naming convention
-// TODO: Think about trying to combine OnMousePosStyleChanged and startonmousepos
 
-extern "C" void OnMousePosStyleChanged(GtkWidget *widget, gpointer user_data) {
+extern "C" void OnMousePosChanged(GtkWidget *widget, gpointer user_data) {
   //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
 
-  // FIXME - duplicate code from extern "C" void startonmousepos
-  if(gtk_toggle_button_get_active(pPrivate->pMousePosButton)) {
-    int iIndex;
-    iIndex = gtk_combo_box_get_active(pPrivate->pMousePosStyle);
-    
-    if(iIndex == 1) {
-      dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_MOUSEPOS_MODE, true);
-      dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_CIRCLE_START, false);
-    }
-    else {
-      dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_MOUSEPOS_MODE, false);
-      dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_CIRCLE_START, true);
-    }
-  }
-}
-
-extern "C" void startonmousepos(GtkWidget *widget, gpointer user_data) {
-  //  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
-  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue); // TODO: Fix NULL
-
-  if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget))) {
-    int iIndex;
-    iIndex = gtk_combo_box_get_active(pPrivate->pMousePosStyle);
-
-    if(iIndex == 1) {
-      dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_MOUSEPOS_MODE, true);
-      dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_CIRCLE_START, false);
-    }
-    else {
-      dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_MOUSEPOS_MODE, false);
-      dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_CIRCLE_START, true);
-    }
-  }
-  else {
-    dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_MOUSEPOS_MODE, false);
-    dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_CIRCLE_START, false);
-  }
+  bool bActive = gtk_toggle_button_get_active(pPrivate->pMousePosButton);
+  
+  gtk_widget_set_sensitive(GTK_WIDGET(pPrivate->pMousePosStyle),bActive);
+  
+  int iIndex;
+  if (bActive) {
+	  iIndex=gtk_combo_box_get_active(pPrivate->pMousePosStyle);
+	  if ((iIndex | 1) != 1) {
+  	    //neither 0 or 1 => neither Circle nor Two-Box is actually selected
+  	    // (i.e. combo box is empty) => forcibly select Circle
+  	  gtk_combo_box_set_active(pPrivate->pMousePosStyle, iIndex=0);
+	}
+  } else iIndex=-1;
+  
+  dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_MOUSEPOS_MODE, iIndex==1);
+  dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_CIRCLE_START, iIndex==0);
+  
 }
 
 extern "C" void PrefsSpeedSliderChanged(GtkHScale *hscale, gpointer user_data) {
