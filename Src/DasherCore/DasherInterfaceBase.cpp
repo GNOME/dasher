@@ -327,6 +327,7 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
     case BP_NONLINEAR_Y:
     case LP_NONLINEAR_X:
     case LP_GEOMETRY:
+    case LP_SHAPE_TYPE: //for platforms which actually have this as a GUI pref!
         ScheduleRedraw();
         break;
     case LP_NODE_BUDGET:
