@@ -123,7 +123,6 @@ static void dasher_preferences_dialogue_class_init(DasherPreferencesDialogueClas
 static void dasher_preferences_dialogue_init(DasherPreferencesDialogue *pMain);
 static void dasher_preferences_dialogue_destroy(GObject *pObject);
 
-static GtkWidget *dasher_preferences_dialogue_get_helper(DasherPreferencesDialogue *pSelf, int iParameter, const gchar *szValue);
 static void dasher_preferences_dialogue_initialise_tables(DasherPreferencesDialogue *pSelf);
 static void dasher_preferences_dialogue_refresh_widget(DasherPreferencesDialogue *pSelf, gint iParameter);
 static void dasher_preferences_dialogue_populate_list(DasherPreferencesDialogue *pSelf, GtkTreeView *pView, int iParameter, GtkWidget *pHelper);
@@ -420,17 +419,18 @@ extern "C" void outline_button_toggled(GtkWidget *widget, gpointer user_data) {
 }
 
 // --- Generic string options ---
-
+//pHelper, if provided, is a button to open a module settings dialog
+// for parameters specific to the item selected in the list (i.e. GtkTreeView), if any.
 void dasher_preferences_dialogue_populate_list(DasherPreferencesDialogue *pSelf, GtkTreeView *pView, int iParameter, GtkWidget *pHelper) {
   DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
   
-  // TODO: Need to kill helpers on list depopulation
-
   const gchar *szCurrentValue(dasher_app_settings_get_string(pPrivate->pAppSettings, iParameter));
 
   GArray *pFilterArray = dasher_app_settings_get_allowed_values(pPrivate->pAppSettings, iParameter);
 
-  GtkListStore *pStore = gtk_list_store_new(6, G_TYPE_INT, G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_POINTER);
+  //for each item in the list: the dasher Parameters.h number (i.e. same for all items); the "helper" button (as above, also the same for all items);
+  // the text to display (and perhaps pass to SetStringParameter).
+  GtkListStore *pStore = gtk_list_store_new(3, G_TYPE_INT, G_TYPE_POINTER, G_TYPE_STRING);
   gtk_tree_view_set_model(pView, GTK_TREE_MODEL(pStore));
 
   GtkCellRenderer *pRenderer;
@@ -441,10 +441,10 @@ void dasher_preferences_dialogue_populate_list(DasherPreferencesDialogue *pSelf,
   gtk_tree_view_append_column(pView, pColumn);
 
   GtkTreeIter oIter;
-  //  GtkTreeIter oSelectedIter;
+  //doing this before we add the items, means the callback will be invoked when we set
+  // the selection (below), which'll enable/disable the pHelper button appropriately
   GtkTreeSelection *pSelection = gtk_tree_view_get_selection(pView);
-
-  GtkWidget **pHelperWindowRef = new GtkWidget *;
+  g_signal_connect(pSelection, "changed", (GCallback)on_list_selection, 0);
 
   for(unsigned int i(0); i < pFilterArray->len; ++i) {
     const gchar *szCurrentFilter = g_array_index(pFilterArray, gchar *, i);
@@ -452,30 +452,19 @@ void dasher_preferences_dialogue_populate_list(DasherPreferencesDialogue *pSelf,
     strcpy(szName, szCurrentFilter);
 
     gtk_list_store_append(pStore, &oIter);
-    GtkWidget *pHelperWindow;
-
-    if(pHelper) {
-      pHelperWindow = dasher_preferences_dialogue_get_helper(pSelf, iParameter, szName);
-      g_signal_connect(G_OBJECT(pHelper), "clicked", G_CALLBACK(show_helper_window), pHelperWindowRef);
-    }
-    else
-      pHelperWindow = NULL;
-
-    // This is potentially horrible - maybe rethink in the future;
-    gtk_list_store_set(pStore, &oIter, 0, iParameter, 1, pHelper, 2, szName, 3, szName, 4, pHelperWindow, 5, pHelperWindowRef, -1);
+    
+    gtk_list_store_set(pStore, &oIter, 0, iParameter, 1, pHelper, 2, szName, -1);
 
     delete[] szName;
 
     if(!strcmp(szCurrentFilter, szCurrentValue)) {
       gtk_tree_selection_select_iter(pSelection, &oIter);
-      if(pHelper) {
-        gtk_widget_set_sensitive(GTK_WIDGET(pHelper), pHelperWindow != NULL);
-        *pHelperWindowRef = pHelperWindow;
-      }
     }
   }
 
-  g_signal_connect(pSelection, "changed", (GCallback)on_list_selection, 0);
+  if(pHelper) {
+    g_signal_connect(G_OBJECT(pHelper), "clicked", G_CALLBACK(show_helper_window), pView);
+  }  
 }
 
 // TODO: In class
@@ -489,31 +478,21 @@ extern "C" void on_list_selection(GtkTreeSelection *pSelection, gpointer pUserDa
   if(gtk_tree_selection_get_selected(pSelection, &pModel, &oIter)) {
     int iParameter;
     gpointer pHelper;
-    gpointer pHelperWindow;
-    gpointer pHelperWindowRef;
     gchar *szValue;
-    gtk_tree_model_get(pModel, &oIter, 0, &iParameter, 1, &pHelper, 2, &szValue, 4, &pHelperWindow, 5, &pHelperWindowRef, -1);
+    gtk_tree_model_get(pModel, &oIter, 0, &iParameter, 1, &pHelper, 2, &szValue, -1);
     
     dasher_app_settings_set_string(pPrivate->pAppSettings, iParameter, szValue);
-    g_free(szValue);
 
     if(pHelper) {
-      gtk_widget_set_sensitive(GTK_WIDGET(pHelper), pHelperWindow != NULL);
-      *((GtkWidget **)pHelperWindowRef) = (GtkWidget *)pHelperWindow;
+      //check if input filter/device has any settings...
+      SModuleSettings *pSettings;
+      int iCount;
+      bool bHasSettings = dasher_app_settings_get_module_settings(pPrivate->pAppSettings, szValue, &pSettings, &iCount);
+      gtk_widget_set_sensitive(GTK_WIDGET(pHelper), bHasSettings);
     }
+
+    g_free(szValue);
   }
-}
-
-GtkWidget *dasher_preferences_dialogue_get_helper(DasherPreferencesDialogue *pSelf, int iParameter, const gchar *szValue) {
-  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(pSelf);
-
-  SModuleSettings *pSettings;
-  int iCount;
-
-  if(!dasher_app_settings_get_module_settings(pPrivate->pAppSettings, szValue, &pSettings, &iCount))
-    return NULL;
-
-  return module_settings_window_new(pPrivate->pAppSettings, szValue, pSettings, iCount);
 }
 
 // --- Special Cases ---
@@ -941,7 +920,30 @@ extern "C" void uniform_changed(GtkHScale *hscale) {
 }
 
 extern "C" gboolean show_helper_window(GtkWidget *pWidget, gpointer *pUserData) {
-  gtk_window_present(GTK_WINDOW(*pUserData));
+  DasherPreferencesDialoguePrivate *pPrivate = DASHER_PREFERENCES_DIALOGUE_PRIVATE(g_pPreferencesDialogue);
+  GtkTreeView *pView = GTK_TREE_VIEW(pUserData);
+  GtkTreeSelection *pSelection = gtk_tree_view_get_selection(pView);
+  
+  GtkTreeIter oIter;
+  GtkTreeModel *pModel;
+  
+  if(!gtk_tree_selection_get_selected(pSelection, &pModel, &oIter))
+    DASHER_ASSERT(false); //button should not be sensitive if nothing selected
+    
+  int iParameter;
+  gchar *szValue;
+  gtk_tree_model_get(pModel, &oIter, 0, &iParameter, 2, &szValue, -1);
+  
+  SModuleSettings *pSettings;
+  int iCount;
+  if (!dasher_app_settings_get_module_settings(pPrivate->pAppSettings, szValue, &pSettings, &iCount))
+    DASHER_ASSERT(false); //button should only be sensitive if item has settings
+  
+  GtkWidget *pWindow = module_settings_window_new(pPrivate->pAppSettings, szValue, pSettings, iCount);
+  g_free(szValue);
+  
+  gtk_window_present(GTK_WINDOW(pWindow));
+  
   return FALSE;
 }
 

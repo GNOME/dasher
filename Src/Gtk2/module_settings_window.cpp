@@ -263,7 +263,10 @@ module_settings_window_handle_string_changed(ModuleSettingsWindow *pSelf, GtkEdi
 
 static gboolean 
 module_settings_window_handle_close(ModuleSettingsWindow *pSelf) {
-  gtk_widget_hide(GTK_WIDGET(&(pSelf->window)));
+  gtk_widget_destroy(GTK_WIDGET(&(pSelf->window)));
+  //TODO what do we need to do to free/unref the ModuleSettingsWindow object?
+  // gtk_object_unref(GTK_OBJECT(pSelf)); prints error/diagnostics that the pointer is not a GtkObject (?!)
+  // trying to "delete pSelf;" aborts immediately...?
   return TRUE;
 }
 
