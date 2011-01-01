@@ -228,7 +228,7 @@ dasher_editor_external_command(DasherEditor *pSelf, const gchar *szCommand) {
 // TODO: We shouldn't need to know about the buffer here - make this a method of the buffer set
 static const gchar *
 dasher_editor_external_get_all_text(DasherEditor *pSelf) { 
-  return NULL;
+  return "";
 }
 
 static const gchar *
