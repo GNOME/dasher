@@ -484,8 +484,6 @@
 		1948BE480C226CFD001DFA32 /* GnomeSettingsStore.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = GnomeSettingsStore.cpp; sourceTree = "<group>"; };
 		1948BE490C226CFD001DFA32 /* GnomeSettingsStore.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GnomeSettingsStore.h; sourceTree = "<group>"; };
 		1948BE4C0C226CFD001DFA32 /* InputFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = InputFilter.h; sourceTree = "<group>"; };
-		1948BE4F0C226CFD001DFA32 /* BigramLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = BigramLanguageModel.cpp; sourceTree = "<group>"; };
-		1948BE500C226CFD001DFA32 /* BigramLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = BigramLanguageModel.h; sourceTree = "<group>"; };
 		1948BE510C226CFD001DFA32 /* CTWLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CTWLanguageModel.cpp; sourceTree = "<group>"; };
 		1948BE520C226CFD001DFA32 /* CTWLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CTWLanguageModel.h; sourceTree = "<group>"; };
 		1948BE530C226CFD001DFA32 /* DictLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DictLanguageModel.cpp; sourceTree = "<group>"; };
@@ -1074,8 +1072,6 @@
 			children = (
 				3306E0200FFD1CE60017324C /* PPMPYLanguageModel.cpp */,
 				3306E0210FFD1CE60017324C /* PPMPYLanguageModel.h */,
-				1948BE4F0C226CFD001DFA32 /* BigramLanguageModel.cpp */,
-				1948BE500C226CFD001DFA32 /* BigramLanguageModel.h */,
 				1948BE510C226CFD001DFA32 /* CTWLanguageModel.cpp */,
 				1948BE520C226CFD001DFA32 /* CTWLanguageModel.h */,
 				1948BE530C226CFD001DFA32 /* DictLanguageModel.cpp */,

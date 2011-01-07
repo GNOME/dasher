@@ -155,8 +155,6 @@ EXTRA_libdashercore_a_SOURCES = \
 AM_CXXFLAGS = -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" -I../../intl -I$(top_srcdir)/intl $(GTK2_CFLAGS) $(SETTINGS_CFLAGS) $(gnome_speech_CFLAGS) $(gnome_a11y_CFLAGS) $(gnome_CFLAGS)
 
 EXTRA_DIST = \
-		LanguageModelling/BigramLanguageModel.cpp \
-		LanguageModelling/BigramLanguageModel.h \
 		LanguageModelling/KanjiConversionIME.cpp \
 		LanguageModelling/KanjiConversionIME.h \
 		DasherCore.vcproj \
