@@ -339,30 +339,33 @@ CAlphInfo *CAlphIO::CreateDefault() {
 //   }
   // ---
   Default.m_pBaseGroup = 0;
-
-  Default.m_vCharacters.resize(Chars.size()+2); //para, space
+  Default.Orientation = Opts::LeftToRight;
+  
+  //The following creates Chars.size()+2 actual character structs in the vector,
+  // all initially blank. The extra 2 are for paragraph and space.
+  Default.m_vCharacters.resize(Chars.size()+2);
+  //fill in structs for characters in Chars...
   for(unsigned int i(0); i < Chars.size(); i++) {
     Default.m_vCharacters[i].Text = Chars[i];
     Default.m_vCharacters[i].Display = Chars[i];
     Default.m_vCharacters[i].Colour = i + 10;
   }
-  Default.Orientation = Opts::LeftToRight;
+
   //note iSpaceCharacter/iParagraphCharacter, as all symbol numbers, are one _more_
   // than their index into m_vCharacters... (as "unknown symbol" 0 does not appear in vector)
-  Default.m_vCharacters.push_back(CAlphInfo::character());
-  Default.iParagraphCharacter = Default.m_vCharacters.size();
-  Default.m_vCharacters.back().Display = "¶";
+  Default.iParagraphCharacter = Chars.size()+1;
+  Default.m_vCharacters[Chars.size()].Display = "¶";
 #ifdef WIN32
-  Default.m_vCharacters.back().Text = "\r\n";
+  Default.m_vCharacters[Chars.size()].Text = "\r\n";
 #else
-  Default.m_vCharacters.back().Text = "\n";
+  Default.m_vCharacters[Chars.size()].Text = "\n";
 #endif
-  Default.m_vCharacters.back().Colour = 9;
-  Default.m_vCharacters.push_back(CAlphInfo::character());
-  Default.iSpaceCharacter = Default.m_vCharacters.size();
-  Default.m_vCharacters.back().Display = "_";
-  Default.m_vCharacters.back().Text = " ";
-  Default.m_vCharacters.back().Colour = 9;
+  Default.m_vCharacters[Chars.size()].Colour = 9;
+  
+  Default.iSpaceCharacter = Chars.size()+2;
+  Default.m_vCharacters[Chars.size()+1].Display = "_";
+  Default.m_vCharacters[Chars.size()+1].Text = " ";
+  Default.m_vCharacters[Chars.size()+1].Colour = 9;
   
   Default.ControlCharacter = new CAlphInfo::character();
   Default.ControlCharacter->Display = "Control";
