@@ -36,7 +36,7 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
   //If statement checks for the specific Super PinYin alphabet, and sets language model to PPMPY
   if((pAlphInfo->m_iConversionID==2)&&(pSettingsStore->GetStringParameter(SP_ALPHABET_ID)=="Chinese Super Pin Yin, grouped by Dictionary")){
     
-    std::string CHAlphabet = "Chinese / 简体中文 (simplified chinese, in pin yin groups)";
+    std::string CHAlphabet = "Chinese 简体中文 (simplified chinese, in pin yin groups, and pinyin)";
     const Dasher::CAlphInfo *pCHAlphInfo(pAlphIO->GetInfo(CHAlphabet));
     const CAlphabetMap *pCHAlphMap = pCHAlphInfo->MakeMap();
     

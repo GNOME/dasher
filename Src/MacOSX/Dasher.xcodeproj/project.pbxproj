@@ -156,8 +156,6 @@
 		1974FE780714861B00B95DA0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		1988ABBD0C9FF97000D97977 /* GameMessages.h in Headers */ = {isa = PBXBuildFile; fileRef = 1988ABB80C9FF97000D97977 /* GameMessages.h */; };
 		1988ABBE0C9FF97000D97977 /* GameStatistics.h in Headers */ = {isa = PBXBuildFile; fileRef = 1988ABB90C9FF97000D97977 /* GameStatistics.h */; };
-		1988ABBF0C9FF97000D97977 /* PinyinParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1988ABBA0C9FF97000D97977 /* PinyinParser.cpp */; };
-		1988ABC00C9FF97000D97977 /* PinyinParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 1988ABBB0C9FF97000D97977 /* PinyinParser.h */; };
 		1988ABCF0C9FFADA00D97977 /* GameLevel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1988ABB70C9FF97000D97977 /* GameLevel.cpp */; };
 		198EC6D5071493BB00474B38 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		198EC7B407153D6E00474B38 /* KeyboardEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 198EC7AE07153D6E00474B38 /* KeyboardEvent.h */; };
@@ -193,7 +191,6 @@
 		19BEF3700C228F7300275D06 /* alphabet.Bulgarian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2E30C228F7300275D06 /* alphabet.Bulgarian.xml */; };
 		19BEF3710C228F7300275D06 /* alphabet.catalan.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2E40C228F7300275D06 /* alphabet.catalan.xml */; };
 		19BEF3720C228F7300275D06 /* alphabet.cherokee.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2E50C228F7300275D06 /* alphabet.cherokee.xml */; };
-		19BEF3730C228F7300275D06 /* alphabet.chinese.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2E60C228F7300275D06 /* alphabet.chinese.xml */; };
 		19BEF3740C228F7300275D06 /* alphabet.chineseRuby.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2E70C228F7300275D06 /* alphabet.chineseRuby.xml */; };
 		19BEF3750C228F7300275D06 /* alphabet.corsican.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2E80C228F7300275D06 /* alphabet.corsican.xml */; };
 		19BEF3760C228F7300275D06 /* alphabet.croatian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2E90C228F7300275D06 /* alphabet.croatian.xml */; };
@@ -561,8 +558,6 @@
 		1988ABB70C9FF97000D97977 /* GameLevel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = GameLevel.cpp; sourceTree = "<group>"; };
 		1988ABB80C9FF97000D97977 /* GameMessages.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GameMessages.h; sourceTree = "<group>"; };
 		1988ABB90C9FF97000D97977 /* GameStatistics.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GameStatistics.h; sourceTree = "<group>"; };
-		1988ABBA0C9FF97000D97977 /* PinyinParser.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PinyinParser.cpp; sourceTree = "<group>"; };
-		1988ABBB0C9FF97000D97977 /* PinyinParser.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PinyinParser.h; sourceTree = "<group>"; };
 		198EC7AE07153D6E00474B38 /* KeyboardEvent.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = KeyboardEvent.h; sourceTree = "<group>"; };
 		198EC7AF07153D6E00474B38 /* KeyboardEvent.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = KeyboardEvent.m; sourceTree = "<group>"; };
 		198EC7B007153D6E00474B38 /* LowLevelKeyboardHandling.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = LowLevelKeyboardHandling.c; sourceTree = "<group>"; };
@@ -598,7 +593,6 @@
 		19BEF2E30C228F7300275D06 /* alphabet.Bulgarian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Bulgarian.xml; sourceTree = "<group>"; };
 		19BEF2E40C228F7300275D06 /* alphabet.catalan.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.catalan.xml; sourceTree = "<group>"; };
 		19BEF2E50C228F7300275D06 /* alphabet.cherokee.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.cherokee.xml; sourceTree = "<group>"; };
-		19BEF2E60C228F7300275D06 /* alphabet.chinese.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.chinese.xml; sourceTree = "<group>"; };
 		19BEF2E70C228F7300275D06 /* alphabet.chineseRuby.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.chineseRuby.xml; sourceTree = "<group>"; };
 		19BEF2E80C228F7300275D06 /* alphabet.corsican.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.corsican.xml; sourceTree = "<group>"; };
 		19BEF2E90C228F7300275D06 /* alphabet.croatian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.croatian.xml; sourceTree = "<group>"; };
@@ -928,8 +922,6 @@
 				1988ABB70C9FF97000D97977 /* GameLevel.cpp */,
 				1988ABB80C9FF97000D97977 /* GameMessages.h */,
 				1988ABB90C9FF97000D97977 /* GameStatistics.h */,
-				1988ABBA0C9FF97000D97977 /* PinyinParser.cpp */,
-				1988ABBB0C9FF97000D97977 /* PinyinParser.h */,
 				1948BDF60C226CFC001DFA32 /* ActionButton.cpp */,
 				1948BDF70C226CFC001DFA32 /* ActionButton.h */,
 				1948BDF80C226CFC001DFA32 /* Alphabet */,
@@ -1123,7 +1115,6 @@
 				19BEF2E30C228F7300275D06 /* alphabet.Bulgarian.xml */,
 				19BEF2E40C228F7300275D06 /* alphabet.catalan.xml */,
 				19BEF2E50C228F7300275D06 /* alphabet.cherokee.xml */,
-				19BEF2E60C228F7300275D06 /* alphabet.chinese.xml */,
 				19BEF2E70C228F7300275D06 /* alphabet.chineseRuby.xml */,
 				19BEF2E80C228F7300275D06 /* alphabet.corsican.xml */,
 				19BEF2E90C228F7300275D06 /* alphabet.croatian.xml */,
@@ -1475,7 +1466,6 @@
 				19F8C7FA0C858E9900276B4F /* TrainingHelper.h in Headers */,
 				1988ABBD0C9FF97000D97977 /* GameMessages.h in Headers */,
 				1988ABBE0C9FF97000D97977 /* GameStatistics.h in Headers */,
-				1988ABC00C9FF97000D97977 /* PinyinParser.h in Headers */,
 				33E91A780F55E60B00B5F513 /* KeyboardHelper.h in Headers */,
 				33ABFEC70FC379EA00EA2BA5 /* ButtonMultiPress.h in Headers */,
 				33FC933A0FEFA2C900A9F08D /* TwoPushDynamicFilter.h in Headers */,
@@ -1567,7 +1557,6 @@
 				19BEF3700C228F7300275D06 /* alphabet.Bulgarian.xml in Resources */,
 				19BEF3710C228F7300275D06 /* alphabet.catalan.xml in Resources */,
 				19BEF3720C228F7300275D06 /* alphabet.cherokee.xml in Resources */,
-				19BEF3730C228F7300275D06 /* alphabet.chinese.xml in Resources */,
 				19BEF3740C228F7300275D06 /* alphabet.chineseRuby.xml in Resources */,
 				19BEF3750C228F7300275D06 /* alphabet.corsican.xml in Resources */,
 				19BEF3760C228F7300275D06 /* alphabet.croatian.xml in Resources */,
@@ -1820,7 +1809,6 @@
 				1921DB400C7ECB4B00E6DAA5 /* DasherGameMode.cpp in Sources */,
 				1921DB6E0C7ECB9900E6DAA5 /* GameScorer.cpp in Sources */,
 				19F8C7F90C858E9900276B4F /* TrainingHelper.cpp in Sources */,
-				1988ABBF0C9FF97000D97977 /* PinyinParser.cpp in Sources */,
 				1988ABCF0C9FFADA00D97977 /* GameLevel.cpp in Sources */,
 				33E91A770F55E60B00B5F513 /* KeyboardHelper.cpp in Sources */,
 				33ABFEC60FC379EA00EA2BA5 /* ButtonMultiPress.cpp in Sources */,

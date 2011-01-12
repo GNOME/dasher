@@ -22,8 +22,7 @@
 #define __mandarinalphmgr_h__
 
 #include "AlphabetManager.h"
-#include "PinyinParser.h"
-
+#include <set>
 namespace Dasher {
 
   class CDasherInterfaceBase;
@@ -37,9 +36,7 @@ namespace Dasher {
   public:
 
     CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphMap, CLanguageModel *pLanguageModel);
-
-    virtual ~CMandarinAlphMgr();
-    
+    ~CMandarinAlphMgr();
     /*ACL note: used to override GetRoot,
      to attempt to clone the context of the previous node
      in the case that the previous node was a PinyinConversionHelper node
@@ -68,19 +65,21 @@ namespace Dasher {
     private:
       virtual const std::string &outputText();
     };
+    ///Offers a choice between a set of chinese symbols, all corresponding to a single PY symbol.
+    /// Relative sizes of the CH symbols is obtained by CPPMPYLanguageModel::GetPartProbs, passing
+    /// the set of possible CH symbols.
     class CConvRoot : public CDasherNode {
     public:
       CMandarinAlphMgr *mgr() {return m_pMgr;}
-      CConvRoot(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CMandarinAlphMgr *pMgr, CTrieNode *pTrie);
+      /// \param pConversions set of chinese-alphabet symbol numbers that the PY can convert to.
+      CConvRoot(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CMandarinAlphMgr *pMgr, const std::set<symbol> *pConversions);
       void PopulateChildren();
       int ExpectedNumChildren();
       int iContext;
-    private:
-      void BuildConversions();
-        
+    private:        
       std::vector<std::pair<symbol, unsigned int> > m_vChInfo;
       CMandarinAlphMgr *m_pMgr;
-      CTrieNode *m_pTrie;
+      const std::set<symbol> *m_pConversions;
     };
     CMandNode *makeSymbol(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, symbol iSymbol);
     virtual CDasherNode *CreateSymbolNode(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd);
@@ -89,9 +88,12 @@ namespace Dasher {
     int AssignColour(int parentClr, int childIndex);
     
     void AssignSizes(std::vector<std::pair<symbol,unsigned int> > &vChildren, Dasher::CLanguageModel::Context context);
-    CPinyinParser *m_pParser;
+
     const CAlphInfo *m_pCHAlphabet;
     const CAlphabetMap *m_pCHAlphabetMap;
+    ///Indexed by SPY (syll+tone) alphabet symbol number,
+    // the set of CHAlphabet symbols it can be converted to.
+    std::set<symbol> *m_pConversionsBySymbol;
   };
   /// @}
 

@@ -46,20 +46,62 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
+//the index of the last syllable+tone symbol in the pinyin alphabet; later symbols are "punctuation"
+// and do not correspond to groups in the chinese alphabet.
+#define LAST_PY 1288
+
 CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphMap, CLanguageModel *pLanguageModel)
   : CAlphabetManager(pInterface, pNCManager, pAlphabet, pAlphMap, pLanguageModel),
-    m_pParser(new CPinyinParser(pInterface->GetStringParameter(SP_SYSTEM_LOC) +"/alphabet.chineseRuby.xml")),
-    m_pCHAlphabet(pInterface->GetInfo("Chinese / 简体中文 (simplified chinese, in pin yin groups)")),
-    m_pCHAlphabetMap(m_pCHAlphabet->MakeMap()) {
+    m_pCHAlphabet(pInterface->GetInfo("Chinese 简体中文 (simplified chinese, in pin yin groups, and pinyin)")),
+    m_pCHAlphabetMap(m_pCHAlphabet->MakeMap()),
+    m_pConversionsBySymbol(new set<symbol>[LAST_PY+1]) {
+  
+  //the CHAlphabet contains a group for each SPY syllable+tone, with symbols being chinese characters.
+  // Build a map from SPY to set of chinese chars (note, the same chinese unicode can occur in multiple places;
+  // hence, we represent as unicode not CHAlph symbol number)...
+  map<string,set<string> > conversions;
+  //Non-recursive traversal of all the groups in the CHAlphabet (we don't care where they are, just to find them)
+  vector<const SGroupInfo *> groups;
+  groups.push_back(m_pCHAlphabet->m_pBaseGroup);
+  while (!groups.empty()) {
+    const SGroupInfo *pGroup(groups.back()); groups.pop_back();
+    if (pGroup->pNext) groups.push_back(pGroup->pNext);
+    if (pGroup->pChild) groups.push_back(pGroup->pChild);
+    //process this group. The SPY syll+tone is stored as the label, using a tone mark over the vowel, e.g. &#257; = a1
+    // such equivalences are recorded in the xml 'name' attribute of the group, but we don't need that.
+    if (pGroup->strLabel.length()) {
+      set<string> &chars(conversions[pGroup->strLabel]);
+      for (int ch=pGroup->iStart; ch<pGroup->iEnd; ch++)
+        chars.insert(m_pCHAlphabet->GetText(ch));
+    }
+  }
+
+  //Now: symbols in the primary (SPY) alphabet are syllable+tone, with the string SPY description
+  // (using unicode tone marks, e.g. &#257;) in the display text, matching up with the CHAlphabet groups. 
+  // (The SPY symbols are arranged in hierarchical groups according to the numbered-tone version, e.g. "a1";
+  // but we don't do anything special with those groups, they are just displayed on screen as any normal alphabet).
+  for (int i=1; i<=LAST_PY; i++) {
+    set<string> &convs(conversions[m_pAlphabet->GetDisplayText(i)]);
+    DASHER_ASSERT(!convs.empty());
+    //convert each of these chinese unicode characters into a CHAlphabet symbol...
+    for (set<string>::const_iterator it=convs.begin(); it!=convs.end(); it++) {
+      std::vector<symbol> vSyms;
+      m_pCHAlphabetMap->GetSymbols(vSyms, *it);
+      DASHER_ASSERT(vSyms.size()==1); //does it ever happen? if so, Will's code would effectively push -1
+      DASHER_ASSERT(m_pCHAlphabet->GetText(vSyms[0]) == *it);
+      m_pConversionsBySymbol[i].insert(vSyms[0]);
+    }
+  }
+  //that leaves m_pConversionsBySymbol as desired.
 }
 
 CMandarinAlphMgr::~CMandarinAlphMgr() {
-  delete m_pParser;
+  delete[] m_pConversionsBySymbol;
 }
 
 CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd) {
 
-  if (iSymbol <= 1288) {
+  if (iSymbol <= LAST_PY) {
     //Will wrote:
     //Modified for Mandarin Dasher
     //The following logic switch allows punctuation nodes in Mandarin to be treated in the same way as English (i.e. display and populate next round) instead of invoking a conversion node
@@ -71,11 +113,13 @@ CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CAlphNode *pParent, symbol iSymb
 	   * static_cast<CPinYinConversionHelper::CPYConvNode *>(pNewNode)->SetConvSymbol(iSymbol);
 	   * return pNewNode;
      */
-
-
-    //CTrieNode parallels old PinyinConversionHelper's SetConvSymbol; we keep
+    
+    //The conversions parallels old PinyinConversionHelper's SetConvSymbol, except
+    // we've already resolved the mapping from what was the symbol's displaytext
+    // (SPY syllable+tone) to the relevant set of chinese symbols.
+    
     // the same offset as we've still not entered/selected a symbol (leaf)
-    CConvRoot *pNewNode = new CConvRoot(pParent, pParent->offset(), iLbnd, iHbnd, this, m_pParser->GetTrieNode(m_pAlphabet->GetDisplayText(iSymbol)));
+    CConvRoot *pNewNode = new CConvRoot(pParent, pParent->offset(), iLbnd, iHbnd, this, &m_pConversionsBySymbol[iSymbol]);
 
     //from ConversionHelper:
     //pNewNode->m_pLanguageModel = m_pLanguageModel;
@@ -86,35 +130,25 @@ CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CAlphNode *pParent, symbol iSymb
   return CAlphabetManager::CreateSymbolNode(pParent, iSymbol, iLbnd, iHbnd);
 }
 
-CMandarinAlphMgr::CConvRoot::CConvRoot(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CMandarinAlphMgr *pMgr, CTrieNode *pTrie)
-: CDasherNode(pParent, iOffset, iLbnd, iHbnd, 9, ""), m_pMgr(pMgr), m_pTrie(pTrie) {
+CMandarinAlphMgr::CConvRoot::CConvRoot(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CMandarinAlphMgr *pMgr, const set<symbol> *pConversions)
+: CDasherNode(pParent, iOffset, iLbnd, iHbnd, 9, ""), m_pMgr(pMgr), m_pConversions(pConversions) {
+  DASHER_ASSERT(pConversions);
   //colour + label from ConversionManager.
 }
 
 int CMandarinAlphMgr::CConvRoot::ExpectedNumChildren() {
-  if (m_vChInfo.empty()) BuildConversions();
-  return m_vChInfo.size();
-}
-
-void CMandarinAlphMgr::CConvRoot::BuildConversions() {
-  if (!m_pTrie || !m_pTrie->list()) {
-    //TODO some kind of fallback??? e.g. start new char?
-    DASHER_ASSERT(false);
-    return;
-  }
-  for(set<string>::const_iterator it = m_pTrie->list()->begin(); it != m_pTrie->list()->end(); ++it) {
-    std::vector<symbol> vSyms;
-    m_pMgr->m_pCHAlphabetMap->GetSymbols(vSyms, *it);
-    DASHER_ASSERT(vSyms.size()==1); //does it ever happen? if so, Will's code would effectively push -1
-    DASHER_ASSERT(m_pMgr->m_pCHAlphabet->GetText(vSyms[0]) == *it);
-    m_vChInfo.push_back(std::pair<symbol, unsigned int>(vSyms[0],0));
-  }
-  //TODO would be nicer to do this only if we need the size info (i.e. PopulateChildren not ExpectedNumChildren) ?
-  m_pMgr->AssignSizes(m_vChInfo, iContext);
+  return m_pConversions->size();
 }
 
 void CMandarinAlphMgr::CConvRoot::PopulateChildren() {
-  if (m_vChInfo.empty()) BuildConversions();
+  if (m_vChInfo.empty()) {
+    for(set<symbol>::const_iterator it = m_pConversions->begin(); it != m_pConversions->end(); ++it) {
+      m_vChInfo.push_back(std::pair<symbol, unsigned int>(*it,0));
+    }
+    //ACL I think it's a good idea to keep those in a consistent order - symbol order will do nicely
+    sort(m_vChInfo.begin(),m_vChInfo.end());
+    m_pMgr->AssignSizes(m_vChInfo, iContext);
+  }
   
   int iIdx(0);
   int iCum(0);

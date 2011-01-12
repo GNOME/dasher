@@ -106,8 +106,6 @@ libdashercore_a_SOURCES = \
 		OneButtonFilter.h \
 		OneDimensionalFilter.cpp \
 		OneDimensionalFilter.h \
-		PinyinParser.cpp \
-		PinyinParser.h \
 		SCENode.cpp \
 		SCENode.h \
 		SimpleTimer.cpp \

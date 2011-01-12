@@ -63,7 +63,6 @@ dist_pkgdata_DATA = alphabet.dtd alphabet.xsl	\
 	alphabet.breton.xml		\
 	alphabet.catalan.xml		\
 	alphabet.cherokee.xml		\
-	alphabet.chinese.xml		\
 	alphabet.chineseRuby.xml	\
 	alphabet.corsican.xml		\
 	alphabet.croatian.xml		\
