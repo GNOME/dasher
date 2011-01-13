@@ -262,9 +262,9 @@ void CDefaultFilter::ApplyOffset(myint &iDasherX, myint &iDasherY) {
     
       // 'Conditions A', as specified by DJCM.  Only make the auto-offset
       // change if we're past the significance boundary.
-      int m_iSigBiasPixels(GetLongParameter(LP_MAX_Y)/2);
+      //int m_iSigBiasPixels(GetLongParameter(LP_MAX_Y)/2);
 
-      if(abs(m_iSum) > GetLongParameter(LP_MAX_Y)/2)
+      if (((m_iSum>0)?m_iSum:-m_iSum) > GetLongParameter(LP_MAX_Y)/2)
         SetLongParameter(LP_TARGET_OFFSET, GetLongParameter(LP_TARGET_OFFSET) + ((m_iSum>0) ? -1 : 1));
       //TODO, "else return" - check effectiveness with/without?
       // old code exited now if neither above cases applied,
