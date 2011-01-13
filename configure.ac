@@ -250,7 +250,7 @@ if test x"$WITHSPEECH" = xtrue; then
 fi
 
 if test x"$WITHA11Y" = xtrue; then
-	PKG_CHECK_MODULES(gnome_a11y, bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0 libgnomeui-2.0 cspi-1.0 atk)
+	PKG_CHECK_MODULES(gnome_a11y, bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0 cspi-1.0 atk)
 	AC_DEFINE([GNOME_A11Y], 1, [gnome_a11y libraries are present])
 fi
 
