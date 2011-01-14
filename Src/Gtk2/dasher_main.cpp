@@ -450,7 +450,7 @@ dasher_main_load_interface(DasherMain *pSelf) {
   pPrivate->pDivider = GTK_PANED(gtk_builder_get_object(pPrivate->pXML, "main_divider"));
   //  pPrivate->pEditPane = gtk_builder_get_object(pPrivate->pXML, "vbox40");
   pPrivate->pMainWindow = GTK_WINDOW(gtk_builder_get_object(pPrivate->pXML, "window"));
-  pPrivate->pToolbar = GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "toolbar"));
+  pPrivate->pToolbar = GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "dasher_tool_bar"));
   //  pPrivate->pMenuBar = gtk_builder_get_object(pPrivate->pXML, "dasher_menu_bar");
   pPrivate->pDasherWidget = GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "DasherControl"));
 
