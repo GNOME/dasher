@@ -20,7 +20,6 @@ Src/DasherCore/DasherButtons.cpp
 Src/DasherCore/DasherGameMode.cpp
 Src/DasherCore/DasherInterfaceBase.cpp
 Src/DasherCore/DynamicFilter.cpp
-Src/DasherCore/EyetrackerFilter.cpp
 Src/DasherCore/OneButtonDynamicFilter.cpp
 Src/DasherCore/OneButtonFilter.cpp
 Src/DasherCore/OneDimensionalFilter.cpp
