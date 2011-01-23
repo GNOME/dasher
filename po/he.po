@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-21 10:41+0300\n"
-"PO-Revision-Date: 2010-06-21 11:14+0200\n"
+"POT-Creation-Date: 2011-01-23 22:50+0200\n"
+"PO-Revision-Date: 2011-01-23 22:53+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <he@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr ""
 #: ../Data/GUI/dasher.direct.ui.h:2 ../Data/GUI/dasher.fullscreen.ui.h:1
 #: ../Data/GUI/dasher.gameWIP.ui.h:6 ../Data/GUI/dasher.traditional.ui.h:6
 #: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dashermaemofullscreen.ui.h:2
-#: ../Src/Gtk2/dasher_main.cpp:953
+#: ../Src/Gtk2/dasher_main.cpp:895
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -102,8 +102,8 @@ msgstr "שמירת קובץ בשם"
 #: ../Data/GUI/dasher.compose.ui.h:15 ../Data/GUI/dasher.fullscreen.ui.h:3
 #: ../Data/GUI/dasher.gameWIP.ui.h:23 ../Data/GUI/dashermaemo.ui.h:5
 #: ../Data/GUI/dashermaemofullscreen.ui.h:5
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1320
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1354 ../Src/Gtk2/dasher_main.cpp:968
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1286
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1320 ../Src/Gtk2/dasher_main.cpp:910
 msgid "Select File"
 msgstr "בחירת קובץ"
 
@@ -145,7 +145,7 @@ msgstr "ע_זרה"
 
 #: ../Data/GUI/dasher.compose.ui.h:23
 msgid "_Import Training Text"
-msgstr "יי_בוא קובץ אימון"
+msgstr "י_בוא קובץ אימון"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:1 ../Data/GUI/dasher.traditional.ui.h:1
 msgid "A_ppend to file…"
@@ -184,7 +184,7 @@ msgid "Preferences"
 msgstr "העדפות"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:19 ../Data/GUI/dasher.traditional.ui.h:14
-#: ../Src/Gtk2/dasher_main.cpp:1046
+#: ../Src/Gtk2/dasher_main.cpp:988
 msgid "Quit"
 msgstr "יציאה"
 
@@ -202,114 +202,114 @@ msgstr "_תכנים…"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:30 ../Data/GUI/dasher.traditional.ui.h:23
 msgid "_Import Training Text…"
-msgstr "_ייבוא טקסט לאימון…"
+msgstr "_יבוא טקסט לאימון…"
 
 #: ../Data/GUI/dasher.preferences.ui.h:1
-msgid "<b>Actions</b>"
-msgstr "<b>פעולות</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:2
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
 msgid "<b>Adaptation</b>"
 msgstr "<b>הסתגלות</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:3
+#: ../Data/GUI/dasher.preferences.ui.h:2
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
 msgid "<b>Alphabet Selection</b>"
 msgstr "<b>בחירת אלף־בית</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:4
+#: ../Data/GUI/dasher.preferences.ui.h:3
 msgid "<b>Appearance Options</b>"
 msgstr "<b>אפשרויות מראה</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:5
+#: ../Data/GUI/dasher.preferences.ui.h:4
 msgid "<b>Application Options</b>"
 msgstr "<b>אפשרויות יישום</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:6
+#: ../Data/GUI/dasher.preferences.ui.h:5
 msgid "<b>Application Style</b>"
 msgstr "<b>סגנון היישום</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:7
+#: ../Data/GUI/dasher.preferences.ui.h:6
 msgid "<b>Colour Scheme</b>"
 msgstr "<b>סכימת צבעים</b>"
 
 #. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
-#: ../Data/GUI/dasher.preferences.ui.h:9
+#: ../Data/GUI/dasher.preferences.ui.h:8
 msgid "<b>Control Style</b>"
 msgstr "<b>סגנון בקרה</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:10
+#: ../Data/GUI/dasher.preferences.ui.h:9
 msgid "<b>Dasher Font</b>"
 msgstr "<b>גופן Dasher</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:11
+#: ../Data/GUI/dasher.preferences.ui.h:10
 msgid "<b>Direction</b>"
 msgstr "<b>כיוון</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:12
+#: ../Data/GUI/dasher.preferences.ui.h:11
 msgid "<b>Editor Font</b>"
 msgstr "<b>גופן העורך</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:13
+#: ../Data/GUI/dasher.preferences.ui.h:12
 msgid "<b>Input Device</b>"
 msgstr "<b>התקן קלט</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:14
+#: ../Data/GUI/dasher.preferences.ui.h:13
 #: ../Data/GUI/dashermaemo.preferences.ui.h:5
 msgid "<b>Language Model</b>"
 msgstr "<b>מודל שפה</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:15
+#: ../Data/GUI/dasher.preferences.ui.h:14
 #: ../Data/GUI/dashermaemo.preferences.ui.h:7
 msgid "<b>Smoothing</b>"
 msgstr "<b>החלקה</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:16
+#: ../Data/GUI/dasher.preferences.ui.h:15
 #: ../Data/GUI/dashermaemo.preferences.ui.h:8
 msgid "<b>Speed</b>"
 msgstr "<b>מהירות</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:17
+#: ../Data/GUI/dasher.preferences.ui.h:16
 msgid "<b>Starting and Stopping</b>"
 msgstr "<b>התחלה ועצירה</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:18
+#: ../Data/GUI/dasher.preferences.ui.h:17
 msgid "A_pplication"
 msgstr "_יישום"
 
-#: ../Data/GUI/dasher.preferences.ui.h:19
+#: ../Data/GUI/dasher.preferences.ui.h:18
 #: ../Data/GUI/dashermaemo.preferences.ui.h:9
 msgid "Adapt speed automatically"
 msgstr "התאמת המהירות אוטומטית"
 
 #. The default display orientation for the selected alphabet, i.e., left to right for English, right to left for Arabic, etc.
-#: ../Data/GUI/dasher.preferences.ui.h:21
+#: ../Data/GUI/dasher.preferences.ui.h:20
 #: ../Data/GUI/dashermaemo.preferences.ui.h:11
 msgid "Alphabet Default"
 msgstr "אלף־בית כברירת מחדל"
 
-#: ../Data/GUI/dasher.preferences.ui.h:22
+#: ../Data/GUI/dasher.preferences.ui.h:21
 #: ../Data/GUI/dashermaemo.preferences.ui.h:12
 msgid "Bottom to Top"
 msgstr "מלמטה למעלה"
 
 #. Abbreviation for Control Style
-#: ../Data/GUI/dasher.preferences.ui.h:24
+#: ../Data/GUI/dasher.preferences.ui.h:23
 msgid "C_ontrol"
 msgstr "ב_קרה"
 
-#: ../Data/GUI/dasher.preferences.ui.h:25
+#: ../Data/GUI/dasher.preferences.ui.h:24
 msgid "Centre circle"
 msgstr "מרכז המעגל"
 
-#: ../Data/GUI/dasher.preferences.ui.h:26
+#: ../Data/GUI/dasher.preferences.ui.h:25
 msgid "Composition"
 msgstr "חיבור"
 
-#: ../Data/GUI/dasher.preferences.ui.h:27
+#: ../Data/GUI/dasher.preferences.ui.h:26
 msgid "Control mode"
 msgstr "מצב בקרה"
+
+#: ../Data/GUI/dasher.preferences.ui.h:27
+msgid "Copy All on stop"
+msgstr "העתקת הכול בעצירה"
 
 #: ../Data/GUI/dasher.preferences.ui.h:28
 #: ../Data/GUI/dashermaemo.preferences.ui.h:15
@@ -336,119 +336,143 @@ msgstr "עיגון חלון היישום"
 
 #: ../Data/GUI/dasher.preferences.ui.h:33
 msgid "Draw box outlines"
-msgstr "צייר קווי תיבה חיצוניים"
+msgstr "ציור קווי תיבה חיצוניים"
 
 #: ../Data/GUI/dasher.preferences.ui.h:34
 msgid "Draw line between crosshairs and mouse"
 msgstr "ציור קו בין ההצטלבות והעכבר"
 
 #: ../Data/GUI/dasher.preferences.ui.h:35
+msgid "Force to have Halt command"
+msgstr "אילוץ לקבלת פקודת השבתה"
+
+#: ../Data/GUI/dasher.preferences.ui.h:36
 msgid "Full Screen"
 msgstr "מסך מלא"
 
-#: ../Data/GUI/dasher.preferences.ui.h:36
+#: ../Data/GUI/dasher.preferences.ui.h:37
+msgid "Include Clipboard commands"
+msgstr "הוספת פקודות לוח גזירים"
+
+#: ../Data/GUI/dasher.preferences.ui.h:38
+msgid "Include Editing commands"
+msgstr "הוספת פקודות עריכה"
+
+#: ../Data/GUI/dasher.preferences.ui.h:39
+msgid "Include Speech commands"
+msgstr "הוספת פקודות הקראה"
+
+#: ../Data/GUI/dasher.preferences.ui.h:40
 msgid "Increase line thickness"
 msgstr "עיבוי הקו"
 
-#: ../Data/GUI/dasher.preferences.ui.h:37
+#: ../Data/GUI/dasher.preferences.ui.h:41
 #: ../Data/GUI/dashermaemo.preferences.ui.h:19
 msgid "Japanese"
 msgstr "יפנית"
 
-#: ../Data/GUI/dasher.preferences.ui.h:38
+#: ../Data/GUI/dasher.preferences.ui.h:42
 #: ../Data/GUI/dashermaemo.preferences.ui.h:20
 msgid "Language model adapts as you write."
 msgstr "מודל השפה מתאים עצמו בעת כתיבתך."
 
-#: ../Data/GUI/dasher.preferences.ui.h:39
+#: ../Data/GUI/dasher.preferences.ui.h:43
 msgid "Large font "
 msgstr "גופן גדול"
 
-#: ../Data/GUI/dasher.preferences.ui.h:40
+#: ../Data/GUI/dasher.preferences.ui.h:44
 #: ../Data/GUI/dashermaemo.preferences.ui.h:21
 msgid "Left to Right"
 msgstr "שמאל לימין"
 
 #. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/GUI/dasher.preferences.ui.h:42
+#: ../Data/GUI/dasher.preferences.ui.h:46
 #: ../Data/GUI/dashermaemo.preferences.ui.h:22
 msgid "Mixture model (PPM/dictionary)"
 msgstr "מצב ערבוב (PPM/מילון)"
 
-#: ../Data/GUI/dasher.preferences.ui.h:43
+#: ../Data/GUI/dasher.preferences.ui.h:47
 msgid "Options"
 msgstr "אפשרויות"
 
-#: ../Data/GUI/dasher.preferences.ui.h:44
+#: ../Data/GUI/dasher.preferences.ui.h:48
 msgid "Pause outside of canvas"
 msgstr "הפסקה כשמחוץ למשטח העריכה"
 
-#: ../Data/GUI/dasher.preferences.ui.h:45
+#: ../Data/GUI/dasher.preferences.ui.h:49
 #: ../Data/GUI/dashermaemo.preferences.ui.h:24
 msgid "Right to Left"
 msgstr "ימין לשמאל"
 
-#: ../Data/GUI/dasher.preferences.ui.h:46
+#: ../Data/GUI/dasher.preferences.ui.h:50
 msgid "Select Dasher Font"
 msgstr "בחירת גופן ל־Dasher"
 
-#: ../Data/GUI/dasher.preferences.ui.h:47
+#: ../Data/GUI/dasher.preferences.ui.h:51
 msgid "Select Editor Font"
 msgstr "בחר גופן עורך"
 
-#: ../Data/GUI/dasher.preferences.ui.h:48
+#: ../Data/GUI/dasher.preferences.ui.h:52
 msgid "Show mouse position"
 msgstr "הצגת מיקום העכבר"
 
-#: ../Data/GUI/dasher.preferences.ui.h:49
+#: ../Data/GUI/dasher.preferences.ui.h:53
 msgid "Show speed slider"
 msgstr "הצגת מחוון מהירות"
 
-#: ../Data/GUI/dasher.preferences.ui.h:50
+#: ../Data/GUI/dasher.preferences.ui.h:54
 msgid "Show toolbar"
 msgstr "הצגת סרגל כלים"
 
-#: ../Data/GUI/dasher.preferences.ui.h:51
+#: ../Data/GUI/dasher.preferences.ui.h:55
 msgid "Small font"
 msgstr "גופן קטן"
 
-#: ../Data/GUI/dasher.preferences.ui.h:52
+#: ../Data/GUI/dasher.preferences.ui.h:56
+msgid "Speak All on stop"
+msgstr "הקראת הכול בעצירה"
+
+#: ../Data/GUI/dasher.preferences.ui.h:57
+msgid "Speak words as you write"
+msgstr "הקראת המילים בזמן הכתיבה"
+
+#: ../Data/GUI/dasher.preferences.ui.h:58
 msgid "Stand-alone"
 msgstr "עצמאי"
 
 #. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/GUI/dasher.preferences.ui.h:54
+#: ../Data/GUI/dasher.preferences.ui.h:60
 #: ../Data/GUI/dashermaemo.preferences.ui.h:25
 msgid "Standard letter-based PPM"
 msgstr "PPM רגיל מבוסס אותיות"
 
-#: ../Data/GUI/dasher.preferences.ui.h:55
+#: ../Data/GUI/dasher.preferences.ui.h:61
 msgid "Start on left mouse button"
 msgstr "התחלה בלחיצה על הלחצן השמאלי בעכבר"
 
-#: ../Data/GUI/dasher.preferences.ui.h:56
+#: ../Data/GUI/dasher.preferences.ui.h:62
 msgid "Start on space bar"
 msgstr "התחלה בלחיצה על מקש הרווח"
 
-#: ../Data/GUI/dasher.preferences.ui.h:57
+#: ../Data/GUI/dasher.preferences.ui.h:63
 msgid "Start with mouse position:"
 msgstr "התחלה עם מיקום עכבר:"
 
-#: ../Data/GUI/dasher.preferences.ui.h:58
+#: ../Data/GUI/dasher.preferences.ui.h:64
 msgid "Timestamp new files"
 msgstr "חותמת זמן בקבצים חדשים"
 
-#: ../Data/GUI/dasher.preferences.ui.h:59
+#: ../Data/GUI/dasher.preferences.ui.h:65
 #: ../Data/GUI/dashermaemo.preferences.ui.h:26
 msgid "Top to Bottom"
 msgstr "מלמעלה למטה"
 
-#: ../Data/GUI/dasher.preferences.ui.h:60
+#: ../Data/GUI/dasher.preferences.ui.h:66
 msgid "Two box"
 msgstr "שתי תיבות"
 
 #. Line wrapping not necessary, but looks better for English
-#: ../Data/GUI/dasher.preferences.ui.h:62
+#: ../Data/GUI/dasher.preferences.ui.h:68
 msgid ""
 "Use this control to adjust the relative sizes of the\n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -458,20 +482,20 @@ msgstr ""
 "את גדלי תיבות הטקסט. יש לשים לב שבחירת ערכים\n"
 "גדולים תאט את מהירות הכתיבה שלך."
 
-#: ../Data/GUI/dasher.preferences.ui.h:65
+#: ../Data/GUI/dasher.preferences.ui.h:71
 msgid "Very large font"
 msgstr "גופן גדול מאוד"
 
-#: ../Data/GUI/dasher.preferences.ui.h:66
+#: ../Data/GUI/dasher.preferences.ui.h:72
 #: ../Data/GUI/dashermaemo.preferences.ui.h:28
 msgid "Word-based model"
 msgstr "מודל מבוסס מילה"
 
-#: ../Data/GUI/dasher.preferences.ui.h:67
+#: ../Data/GUI/dasher.preferences.ui.h:73
 msgid "_Appearance"
 msgstr "_מראה"
 
-#: ../Data/GUI/dasher.preferences.ui.h:68
+#: ../Data/GUI/dasher.preferences.ui.h:74
 msgid "_Language"
 msgstr "_שפה"
 
@@ -587,11 +611,18 @@ msgstr "אי־אחידות של התיבות"
 msgid "Maximum Zoom"
 msgstr "תקריב מרבי"
 
-#: ../Src/DasherCore/ClickFilter.cpp:10
+#. TRANSLATORS: In click mode, when you click with the mouse, you select
+#. a piece of y-axis to be zoomed to, based on the mouse coordinates. The
+#. "guides" are lines from the mouse position to the edges of the piece of
+#. y-axis.
+#: ../Src/DasherCore/ClickFilter.cpp:15
 msgid "Draw guides on screen to show area into which a click will zoom"
 msgstr "ציור קווי הנחיה על המסך כדי להציג אזור שלחיצה עליו תבצע תקריב"
 
-#: ../Src/DasherCore/ClickFilter.cpp:11
+#. TRANSLATORS: As dasher's on-screen coordinate space is not flat,
+#. the straight guide lines should in fact really be curved. This option
+#. draws the guides as correct, though possibly more confusing, curves.
+#: ../Src/DasherCore/ClickFilter.cpp:19
 msgid "Curve lines to follow the non-linearity of the view transform"
 msgstr "קווים מעוקלים למעקב אחרי הצורה הא־לינארית של ההתמרה"
 
@@ -613,30 +644,22 @@ msgstr "מצב מצפן"
 msgid "Well done!"
 msgstr "כל הכבוד!"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:916
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:812
 msgid "Normal Control"
 msgstr "בקרה רגילה"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:932
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:828
 msgid "Menu Mode"
 msgstr "מצב תפריט"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:933
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:829
 msgid "Direct Mode"
 msgstr "מצב ישיר"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:937
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:833
 msgid "Stylus Control"
 msgstr "בקרת סטילוס"
-
-#: ../Src/DasherCore/EyetrackerFilter.cpp:9
-msgid "Automatic calibration"
-msgstr "כיול אוטומטי"
-
-#: ../Src/DasherCore/EyetrackerFilter.cpp:13
-msgid "Eyetracker Mode"
-msgstr "מצב עקיבת עיניים"
 
 #. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
@@ -725,7 +748,7 @@ msgstr "שקר"
 #: ../Src/DasherCore/SettingsStore.cpp:84
 #: ../Src/Gtk2/DasherAppSettings.cpp:528
 msgid "boolean value must be specified as 'true' or 'false'."
-msgstr "יש לציין את הערך הבוליאני כ'אמת' או 'שקר'."
+msgstr "יש לציין את הערך הבוליאני כ'true' (אמת) או 'false' (שקר)."
 
 #. Note to translators: This is output when command line "--options" doesn't
 #. specify a known option.
@@ -853,23 +876,21 @@ msgstr "פרמטרים מסוג מספרים שלמים"
 msgid "String parameters"
 msgstr "פרמטרים מסוג מחרוזת"
 
-#: ../Src/Gtk2/Preferences.cpp:441 ../Src/Gtk2/Preferences.cpp:1012
+#: ../Src/Gtk2/Preferences.cpp:440
 msgid "Action"
 msgstr "פעולה"
 
-#. TRANSLATORS: Show a button for the selected action in the Dasher window.
-#: ../Src/Gtk2/Preferences.cpp:1019
-msgid "Show Button"
-msgstr "הצגת לחצנים"
+#: ../Src/Gtk2/Speech.cpp:27
+msgid "Unable to initialize speech support\n"
+msgstr "לא ניתן לאתחל את תמיכת הדיבור\n"
 
-#: ../Src/Gtk2/Preferences.cpp:1024
-msgid "Control Mode"
-msgstr "מצב בקרה"
+#: ../Src/Gtk2/Speech.cpp:58
+msgid "Warning: unable to set speech parameters\n"
+msgstr "אזהרה: לא ניתן לקבוע פרמטרי דיבור\n"
 
-#. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
-#: ../Src/Gtk2/Preferences.cpp:1030
-msgid "Auto On Stop"
-msgstr "אוטומטית עם עצירה"
+#: ../Src/Gtk2/Speech.cpp:69
+msgid "Unable to initialize voices\n"
+msgstr "לא ניתן לאתחל קולות\n"
 
 #: ../Src/Gtk2/dasher_action_keyboard.cpp:62
 #: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:96
@@ -880,49 +901,17 @@ msgstr "הזנת טקסט"
 msgid "Script"
 msgstr "סקריפט"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:137
-msgid "Speak"
-msgstr "דיבור"
-
-#. TRANSLATORS: Send all text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:150
-msgid "All"
-msgstr "הכול"
-
-#. TRANSLATORS: Send most recently entered text to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:153
-msgid "Last"
-msgstr "אחרון"
-
-#. TRANSLATORS: Repeat the last phrase sent to the text-to-speech engine.
-#: ../Src/Gtk2/dasher_action_speech.cpp:156
-msgid "Repeat"
-msgstr "חזרה"
-
-#: ../Src/Gtk2/dasher_action_speech.cpp:174
-#, c-format
-msgid "Unable to initialize speech support\n"
-msgstr "לא ניתן לאתחל את תמיכת הדיבור\n"
-
-#: ../Src/Gtk2/dasher_action_speech.cpp:197
-msgid "Unable to initialize voices\n"
-msgstr "לא ניתן לאתחל קולות\n"
-
-#: ../Src/Gtk2/dasher_action_speech.cpp:209
-msgid "Warning: unable to set speech parameters\n"
-msgstr "אזהרה: לא ניתן לקבוע פרמטרי דיבור\n"
-
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
-#: ../Src/Gtk2/dasher_main.cpp:266
+#: ../Src/Gtk2/dasher_main.cpp:265
 msgid "option setting is missing \"=\"."
 msgstr "להגדרת האפשרות חסר \"=\""
 
 #. Note to translators: This string will be output when --options= specifies an unknown option.
-#: ../Src/Gtk2/dasher_main.cpp:282
+#: ../Src/Gtk2/dasher_main.cpp:281
 msgid "Invalid option string specified"
 msgstr "צוינה מחרוזת אפשרות שגויה"
 
-#: ../Src/Gtk2/dasher_main.cpp:1008
+#: ../Src/Gtk2/dasher_main.cpp:950
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -933,7 +922,7 @@ msgstr ""
 "\n"
 "השינויים שלך יאבדו אם לא ישמרו."
 
-#: ../Src/Gtk2/dasher_main.cpp:1015
+#: ../Src/Gtk2/dasher_main.cpp:957
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -943,31 +932,31 @@ msgstr ""
 "\n"
 "השינויים שלך יאבדו אם לא ישמרו."
 
-#: ../Src/Gtk2/dasher_main.cpp:1021
+#: ../Src/Gtk2/dasher_main.cpp:963
 msgid "Don't save"
 msgstr "לא לשמור"
 
-#: ../Src/Gtk2/dasher_main.cpp:1022 ../Src/Gtk2/dasher_main.cpp:1045
+#: ../Src/Gtk2/dasher_main.cpp:964 ../Src/Gtk2/dasher_main.cpp:987
 msgid "Don't quit"
 msgstr "לא לצאת"
 
-#: ../Src/Gtk2/dasher_main.cpp:1023
+#: ../Src/Gtk2/dasher_main.cpp:965
 msgid "Save and quit"
 msgstr "שמירה ויציאה"
 
-#: ../Src/Gtk2/dasher_main.cpp:1042
+#: ../Src/Gtk2/dasher_main.cpp:984
 msgid "Are you sure you wish to quit?"
 msgstr "האם ברצונך לצאת?"
 
-#: ../Src/Gtk2/dasher_main.cpp:1089
+#: ../Src/Gtk2/dasher_main.cpp:1031
 msgid "Unable to open help file"
 msgstr "לא ניתן לפתוח את קובץ העזרה"
 
-#: ../Src/Gtk2/dasher_main.cpp:1141
+#: ../Src/Gtk2/dasher_main.cpp:1083
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher הנו יישום להזנת טקסט חזוי"
 
-#: ../Src/Gtk2/dasher_main.cpp:1146
+#: ../Src/Gtk2/dasher_main.cpp:1088
 msgid "translator-credits"
 msgstr "ירון שהרבני <sh.yaron@gmail.com>"
 
@@ -984,12 +973,12 @@ msgstr "אפשרויות %s:"
 msgid "Mouse Input"
 msgstr "קלט עכבר"
 
-#: ../Src/Gtk2/mouse_input.h:51
+#: ../Src/Gtk2/mouse_input.h:45
 msgid "Pixels covering Y range"
 msgstr "פיקסלים המכסים את טווח ה־Y"
 
 #. TRANSLATORS: Only use the vertical mouse coordinate - this is prefered for some disabled users.
-#: ../Src/Gtk2/mouse_input.h:58
+#: ../Src/Gtk2/mouse_input.h:52
 msgid "One Dimensional Mouse Input"
 msgstr "קלט עכבר חד ממדי"
 
@@ -1016,6 +1005,36 @@ msgstr "Describe \"--options\"."
 #: ../Src/main.cc:182
 msgid "- A text input application honouring accessibility"
 msgstr "- A text input application honouring accessibility"
+
+#~ msgid "<b>Actions</b>"
+#~ msgstr "<b>פעולות</b>"
+
+#~ msgid "Automatic calibration"
+#~ msgstr "כיול אוטומטי"
+
+#~ msgid "Eyetracker Mode"
+#~ msgstr "מצב עקיבת עיניים"
+
+#~ msgid "Show Button"
+#~ msgstr "הצגת לחצנים"
+
+#~ msgid "Control Mode"
+#~ msgstr "מצב בקרה"
+
+#~ msgid "Auto On Stop"
+#~ msgstr "אוטומטית עם עצירה"
+
+#~ msgid "Speak"
+#~ msgstr "דיבור"
+
+#~ msgid "All"
+#~ msgstr "הכול"
+
+#~ msgid "Last"
+#~ msgstr "אחרון"
+
+#~ msgid "Repeat"
+#~ msgstr "חזרה"
 
 #~ msgid "abcdefghijk ABCDEFGHIJK"
 #~ msgstr "אבגדהוזחטיכ abcdefghijk ABCDEFGHIJK"
@@ -1176,9 +1195,6 @@ msgstr "- A text input application honouring accessibility"
 #~ msgid "Button:"
 #~ msgstr "מקש"
 
-#~ msgid "Copy all on stop"
-#~ msgstr "העתק הכל בעצירה"
-
 #~ msgid "Cyclical button mode"
 #~ msgstr "מצב כפתור מעגלי"
 
@@ -1231,9 +1247,6 @@ msgstr "- A text input application honouring accessibility"
 #, fuzzy
 #~ msgid "Socket Preferences"
 #~ msgstr "העדפות דאשר"
-
-#~ msgid "Speak on stop"
-#~ msgstr "דבר בעצירה"
 
 #~ msgid "Training"
 #~ msgstr "אימון"
