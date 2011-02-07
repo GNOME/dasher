@@ -36,7 +36,7 @@ static char THIS_FILE[] = __FILE__;
 CPPMPYLanguageModel::CPPMPYLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphInfo *pAlph, const CAlphInfo *pPyAlphabet)
   :CLanguageModel(pEventHandler, pSettingsStore, pAlph), m_iMaxOrder(2), NodesAllocated(0), m_NodeAlloc(8192), m_ContextAlloc(1024), m_pPyAlphabet(pPyAlphabet){
   m_pRoot = m_NodeAlloc.Alloc();
-  m_pRoot->symbol = -1;
+  m_pRoot->sym = -1;
   //  m_pRoot->child.resize(DIVISION, NULL);
   //  m_pRoot->pychild.resize(DIVISION, NULL);
 
@@ -363,8 +363,7 @@ void CPPMPYLanguageModel::GetProbs(Context context, std::vector<unsigned int> &p
     for(i=0; i<DIVISION; i++){
       pSymbol  = pTemp->pychild[i];
       while(pSymbol) {
-	int sym = pSymbol->symbol;
-	if(!(exclusions[sym] && doExclusion))
+	if(!(exclusions[pSymbol->sym] && doExclusion))
 	  iTotal += pSymbol->count;
 	pSymbol = pSymbol->next;
       }
@@ -376,12 +375,12 @@ void CPPMPYLanguageModel::GetProbs(Context context, std::vector<unsigned int> &p
       for(i=0; i<DIVISION; i++){
 	pSymbol = pTemp->pychild[i];
 	while(pSymbol) {
-	  if(!(exclusions[pSymbol->symbol] && doExclusion)) {
-	    exclusions[pSymbol->symbol] = 1;
+	  if(!(exclusions[pSymbol->sym] && doExclusion)) {
+	    exclusions[pSymbol->sym] = 1;
 	    
 	    unsigned int p = static_cast < myint > (size_of_slice) * (100 * pSymbol->count - beta) / (100 * iTotal + alpha);
 	    
-	    probs[pSymbol->symbol] += p;
+	    probs[pSymbol->sym] += p;
 	    iToSpend -= p;
 	  }
 	  //                              Usprintf(debug,TEXT("sym %u counts %d p %u tospend %u \n"),sym,s->count,p,tospend);      
@@ -616,7 +615,7 @@ CPPMPYLanguageModel::CPPMPYnode * CPPMPYLanguageModel::CPPMPYnode::find_symbol(i
 
   //Potentially replace with large scale find algorithm, necessary?
   for (CPPMPYnode * found = child[ min(DIVISION-1, sym/UNITALPH) ]; found; found=found->next) {
-    if(found->symbol == sym) {
+    if(found->sym == sym) {
       return found;
     }
   }
@@ -630,7 +629,7 @@ CPPMPYLanguageModel::CPPMPYnode * CPPMPYLanguageModel::CPPMPYnode::find_pysymbol
 {
 
   for (CPPMPYnode *found=pychild[ min(DIVISION-1, pysym/UNITPY) ]; found; found=found->next) {
-    if(found->symbol == pysym){
+    if(found->sym == pysym){
       return found;
     }
   }
@@ -649,7 +648,7 @@ CPPMPYLanguageModel::CPPMPYnode * CPPMPYLanguageModel::AddSymbolToNode(CPPMPYnod
     if (!bUpdateExclusion) {
       //update vine contexts too. Must exist if higher-order context does!
       for (CPPMPYnode *v = pReturn->vine; v; v=v->vine) {
-        DASHER_ASSERT(v==m_pRoot || v->symbol == sym);
+        DASHER_ASSERT(v==m_pRoot || v->sym == sym);
         v->count++;
       }
     }
@@ -657,7 +656,7 @@ CPPMPYLanguageModel::CPPMPYnode * CPPMPYLanguageModel::AddSymbolToNode(CPPMPYnod
     //symbol does not exist at this level
     pReturn = m_NodeAlloc.Alloc();        // count is initialized to 1 but no symbol or vine ptr
     ++NodesAllocated;
-    pReturn->symbol = sym;
+    pReturn->sym = sym;
     const int childIdx( min(DIVISION-1, sym/UNITALPH) );
     pReturn->next = pNode->child[childIdx];
     pNode->child[childIdx] = pReturn;
@@ -678,7 +677,7 @@ CPPMPYLanguageModel::CPPMPYnode * CPPMPYLanguageModel::AddPYSymbolToNode(CPPMPYn
     if (!bUpdateExclusion) {
       //Update vine contexts too. Guaranteed to exist if higher-order context does!
       for (CPPMPYnode *v=pReturn->vine; v; v=v->vine) {
-        DASHER_ASSERT(v->symbol==pysym);
+        DASHER_ASSERT(v->sym==pysym);
         v->count++;
       }
     }
@@ -687,7 +686,7 @@ CPPMPYLanguageModel::CPPMPYnode * CPPMPYLanguageModel::AddPYSymbolToNode(CPPMPYn
 
     pReturn = m_NodeAlloc.Alloc();        // count is initialized to 1, no symbol or vine ptr
     ++NodesAllocated;
-    pReturn->symbol = pysym;
+    pReturn->sym = pysym;
     const int childIdx = min(DIVISION-1, pysym/UNITPY);
     pReturn->next = pNode->pychild[childIdx];
     pNode->pychild[childIdx] = pReturn;
@@ -735,7 +734,7 @@ bool CPPMPYLanguageModel::RecursiveWrite(CPPMPYnode *pNode, std::map<CPPMPYnode 
   sBR.m_iNext = GetIndex(pNode->next, pmapIdx, pNextIdx); 
   sBR.m_iVine = GetIndex(pNode->vine, pmapIdx, pNextIdx);
   sBR.m_iCount = pNode->count;
-  sBR.m_iSymbol = pNode->symbol;
+  sBR.m_iSymbol = pNode->sym;
 
   pOutputFile->write(reinterpret_cast<char*>(&sBR), sizeof(BinaryRecord));
 
@@ -787,7 +786,7 @@ bool CPPMPYLanguageModel::ReadFromFile(std::string strFilename) {
     pCurrent->next = GetAddress(sBR.m_iNext, &oMap);
     pCurrent->vine = GetAddress(sBR.m_iVine, &oMap);
     pCurrent->count = sBR.m_iCount;
-    pCurrent->symbol = sBR.m_iSymbol;
+    pCurrent->sym = sBR.m_iSymbol;
 
     if(!bStarted) {
       m_pRoot = pCurrent;

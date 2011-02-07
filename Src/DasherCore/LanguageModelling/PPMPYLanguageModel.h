@@ -55,7 +55,7 @@ namespace Dasher {
       //Similarly (as last comment) for Pin Yin 
       CPPMPYnode * pychild[DIVISION];
       unsigned short int count;
-      short int symbol;
+      symbol sym;
       CPPMPYnode(int sym);
       CPPMPYnode();
     };
@@ -136,7 +136,7 @@ namespace Dasher {
 
   /// @}
 
-  inline Dasher::CPPMPYLanguageModel::CPPMPYnode::CPPMPYnode(int sym):symbol(sym) {
+  inline Dasher::CPPMPYLanguageModel::CPPMPYnode::CPPMPYnode(int _sym):sym(_sym) {
     //    child.clear();
     //    pychild.clear();
 
