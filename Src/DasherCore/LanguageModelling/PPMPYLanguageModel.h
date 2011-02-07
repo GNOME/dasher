@@ -28,8 +28,8 @@
 #define PYALPHSIZE 1300
 //Implement a multi-branch tree, instead of a binary tree to gain speed: a trade-off between speed and memory; the choice of branch is implied by ranking of the symbol being searched/added 
 #define DIVISION 5
-#define UNITALPH ALPHSIZE/DIVISION
-#define UNITPY PYALPHSIZE/DIVISION
+#define UNITALPH (ALPHSIZE/DIVISION)
+#define UNITPY (PYALPHSIZE/DIVISION)
 
 
 namespace Dasher {
@@ -85,6 +85,7 @@ namespace Dasher {
 
     virtual void EnterSymbol(Context context, int Symbol);
     virtual void LearnSymbol(Context context, int Symbol);
+    //Learns a pinyin symbol in the current context, but does not move the context on.
     virtual void LearnPYSymbol(Context context, int Symbol);
 
     virtual void GetProbs(Context context, std::vector < unsigned int >&Probs, int norm, int iUniform) const;
@@ -102,11 +103,8 @@ namespace Dasher {
     int GetIndex(CPPMPYnode *pAddr, std::map<CPPMPYnode *, int> *pmapIdx, int *pNextIdx);
     CPPMPYnode *GetAddress(int iIndex, std::map<int, CPPMPYnode*> *pMap);
 
-    CPPMPYnode *AddSymbolToNode(CPPMPYnode * pNode, int sym, int *update);
-    CPPMPYnode *AddPYSymbolToNode(CPPMPYnode * pNode, int pysym, int *update);
-
-    virtual void AddSymbol(CPPMPYContext & context, int sym);
-    void AddPYSymbol(CPPMPYContext & context, int pysym);
+    CPPMPYnode *AddSymbolToNode(CPPMPYnode * pNode, int sym);
+    CPPMPYnode *AddPYSymbolToNode(CPPMPYnode * pNode, int pysym);
 
     void dumpSymbol(int sym);
     void dumpString(char *str, int pos, int len);
