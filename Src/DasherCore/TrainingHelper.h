@@ -39,7 +39,7 @@ namespace Dasher {
     void HandleCData(const XML_Char *szS, 
 		     int iLen);
 
-    void LoadFile(const std::string &strFileName);
+    virtual void LoadFile(const std::string &strFileName);
 
   protected:
     const Dasher::CAlphabetMap *m_pAlphabet;

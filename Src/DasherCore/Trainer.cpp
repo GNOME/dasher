@@ -75,47 +75,34 @@ void CMandarinTrainer::LoadFile(const std::string &strPath) {
     else
       lim = charsize;
     
-    size_t pos =0;//position in 3's counting on 
-    while(pos<lim*3){
+    for (size_t pos=0;;) { //position in 3's counting on 
 
-      while(pyID.compare(strBuffer.substr(3*pos,3))!=0)
-	pos++;
+      while(pos<lim*3)
+        if (pyID.compare(strBuffer.substr(3*pos++,3))==0) break;
+      //leave pos just after the pyID symbol
       
-      pos++;
-      //      strBuffer.copy(ctemp,3,3*pos);
-      
-      strPY.append(strBuffer.substr(3*pos,3));
- 
-      pos++;
+      if (pos+1>=lim*3) break;
+      strPY=strBuffer.substr(3*pos++,3);
  
       //strBuffer.copy(ctemp,3,3*pos);
-      strChar.append(strBuffer.substr(3*pos,3));
-      std::string strtemp = strBuffer.substr(3*(pos),3);
+      strChar=strBuffer.substr(3*pos++,3);
+
       Symchar.clear();
-      m_pCHAlphabet->GetSymbols(Symchar, strtemp);
+      Sympy.clear();
 
-      pos++;
-          
+      m_pCHAlphabet->GetSymbols(Symchar, strChar);
+      m_pAlphabet->GetSymbols(Sympy, strPY);      
+      DASHER_ASSERT(Symchar.size()==1);
+      DASHER_ASSERT(Sympy.size()==1);
+#ifdef DEBUG
+      if (Symchar[0]<=0)
+        std::cout << "Unknown chinese character " << strChar << std::endl;
+#endif
+
+      static_cast<CPPMPYLanguageModel *>(m_pLanguageModel)->LearnPYSymbol(trainContext, Sympy[0]); 
+      m_pLanguageModel->LearnSymbol(trainContext, Symchar[0]);
+      numberofchar++;
     }
-    Symchar.clear();
-    Sympy.clear();
-    m_pCHAlphabet->GetSymbols(Symchar, strChar);
-    m_pAlphabet->GetSymbols(Sympy, strPY);      
-    
-    for(unsigned int i =0; i<Symchar.size(); i++){
-
-      if((Symchar[i]<7603)&&(Symchar[i]>-1)){//Hack here? to prevent lan model from failing
-	
-	static_cast<CPPMPYLanguageModel *>(m_pLanguageModel)->LearnPYSymbol(trainContext, Sympy[i]); 
-	m_pLanguageModel->LearnSymbol(trainContext, Symchar[i]);
-	
-      }
-
-      // if(Sym.size()>0)
-      
-      numberofchar = numberofchar + Symchar.size();     
-    }       
-    
   }
   //std::cout<<"The Length of Training file is  "<<numberofchar<<" bytes/py characters"<<std::endl;  
 }

@@ -181,7 +181,7 @@ void CMandarinAlphMgr::CConvRoot::PopulateChildren() {
     
     pNewNode->iContext = m_pMgr->m_pLanguageModel->CloneContext(this->iContext);
       
-    m_pMgr->m_pLanguageModel->EnterSymbol(iContext, it->first); // TODO: Don't use symbols?      
+    m_pMgr->m_pLanguageModel->EnterSymbol(pNewNode->iContext, it->first); // TODO: Don't use symbols?      
       
     DASHER_ASSERT(GetChildren().back()==pNewNode);
     
