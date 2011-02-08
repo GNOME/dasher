@@ -72,8 +72,7 @@ void CPPMLanguageModel::GetProbs(Context context, std::vector<unsigned int> &pro
   probs[0] = 0;
   exclusions[0] = false;
 
-  int i;
-  for(i = 1; i < iNumSymbols; i++) {
+  for (int i = 1; i < iNumSymbols; i++) {
     probs[i] = iUniformLeft / (iNumSymbols - i);
     iUniformLeft -= probs[i];
     iToSpend -= probs[i];
@@ -88,9 +87,7 @@ void CPPMLanguageModel::GetProbs(Context context, std::vector<unsigned int> &pro
   int alpha = GetLongParameter( LP_LM_ALPHA );
   int beta = GetLongParameter( LP_LM_BETA );
 
-  CPPMnode *pTemp = ppmcontext->head;
-
-  while(pTemp != 0) {
+  for (CPPMnode *pTemp = ppmcontext->head; pTemp; pTemp=pTemp->vine) {
     int iTotal = 0;
 
     for (ChildIterator pSymbol = pTemp->children(); pSymbol != pTemp->end(); pSymbol++) {
@@ -114,13 +111,12 @@ void CPPMLanguageModel::GetProbs(Context context, std::vector<unsigned int> &pro
         //                              DebugOutput(debug);
       }
     }
-    pTemp = pTemp->vine;
   }
 
   unsigned int size_of_slice = iToSpend;
   int symbolsleft = 0;
 
-  for(i = 1; i < iNumSymbols; i++)
+  for(int i = 1; i < iNumSymbols; i++)
     if(!(exclusions[i] && doExclusion))
       symbolsleft++;
 
@@ -136,7 +132,7 @@ void CPPMLanguageModel::GetProbs(Context context, std::vector<unsigned int> &pro
 //      str2 << std::endl;
 //      DASHER_TRACEOUTPUT("valid %s",str2.str().c_str());
 
-  for(i = 1; i < iNumSymbols; i++) {
+  for(int i = 1; i < iNumSymbols; i++) {
     if(!(exclusions[i] && doExclusion)) {
       unsigned int p = size_of_slice / symbolsleft;
       probs[i] += p;
@@ -146,9 +142,9 @@ void CPPMLanguageModel::GetProbs(Context context, std::vector<unsigned int> &pro
 
   int iLeft = iNumSymbols-1;
 
-  for(int j = 1; j < iNumSymbols; ++j) {
+  for(int i = 1; i < iNumSymbols; i++) {
     unsigned int p = iToSpend / iLeft;
-    probs[j] += p;
+    probs[i] += p;
     --iLeft;
     iToSpend -= p;
   }
@@ -167,13 +163,10 @@ void CPPMLanguageModel::EnterSymbol(Context c, int Symbol) {
 
   CPPMLanguageModel::CPPMContext & context = *(CPPMContext *) (c);
 
-  CPPMnode *find;
-
   while(context.head) {
 
     if(context.order < m_iMaxOrder) {   // Only try to extend the context if it's not going to make it too long
-      find = context.head->find_symbol(Symbol);
-      if(find) {
+      if (CPPMnode *find = context.head->find_symbol(Symbol)) {
         context.order++;
         context.head = find;
         //      Usprintf(debug,TEXT("found context %x order %d\n"),head,order);

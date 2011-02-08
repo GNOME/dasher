@@ -121,7 +121,6 @@ namespace Dasher {
     CPPMnode *m_pRoot;
 
     int m_iMaxOrder;
-    double m_dBackOffConstat;
 
     int NodesAllocated;
 

@@ -54,6 +54,9 @@ CPPMPYLanguageModel::CPPMPYLanguageModel(Dasher::CEventHandler *pEventHandler, C
   // FIXME - this should be a boolean parameter
 
   bUpdateExclusion = ( GetLongParameter(LP_LM_UPDATE_EXCLUSION) !=0 );
+    
+  m_iMaxOrder = 2;//GetLongParameter( LP_LM_MAX_ORDER );
+  //std::cout<<"Max Order: "<<m_iMaxOrder<<std::endl;
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -229,19 +232,16 @@ void CPPMPYLanguageModel::GetPartProbs(Context context, std::vector<pair<symbol,
   int alpha = GetLongParameter( LP_LM_ALPHA );
   int beta = GetLongParameter( LP_LM_BETA );
 
-  std::vector<CPPMPYnode *> vNodeStore;
+  int *vCounts=new int[vChildren.size()]; //num occurrences of symbol at same index in vChildren
 
   //new code
   for (CPPMPYnode *pTemp = ppmcontext->head; pTemp; pTemp=pTemp->vine) {
-    int iTotal =0;
-    vNodeStore.clear();
-    for (std::vector<pair<symbol, unsigned int> >::const_iterator it = vChildren.begin(); it!=vChildren.end(); it++) {
-
+    int iTotal=0, i=0;
+    for (std::vector<pair<symbol, unsigned int> >::const_iterator it = vChildren.begin(); it!=vChildren.end(); it++,i++) {
       if (CPPMPYnode *pFound = pTemp->find_symbol(it->first)) {
-        iTotal += pFound->count;
-        vNodeStore.push_back(pFound);
+        iTotal += vCounts[i] = pFound->count; //double assignment
       } else
-        vNodeStore.push_back(NULL);
+        vCounts[i] = 0;
     }
     
 
@@ -250,16 +250,16 @@ void CPPMPYLanguageModel::GetPartProbs(Context context, std::vector<pair<symbol,
       unsigned int size_of_slice = iToSpend;
       
       int i=0;
-      for (vector<pair<symbol, unsigned int> >::iterator it = vChildren.begin(); it!=vChildren.end(); it++) {
-        if(vNodeStore[i]) {
-          unsigned int p = static_cast < myint > (size_of_slice) * (100 * vNodeStore[i]->count - beta) / (100 * iTotal + alpha);
+      for (vector<pair<symbol, unsigned int> >::iterator it = vChildren.begin(); it!=vChildren.end(); it++,i++) {
+        if(vCounts[i]) {
+          unsigned int p = static_cast < myint > (size_of_slice) * (100 * vCounts[i] - beta) / (100 * iTotal + alpha);
           it->second += p;
           iToSpend -= p;
         }
-        i++;
       }
     }
   }
+  delete vCounts;
   //code
   //std::cout<<"after lan mod second loop"<<std::endl;
 
@@ -354,9 +354,7 @@ void CPPMPYLanguageModel::GetProbs(Context context, std::vector<unsigned int> &p
   int alpha = GetLongParameter( LP_LM_ALPHA );
   int beta = GetLongParameter( LP_LM_BETA );
 
-  CPPMPYnode *pTemp = ppmcontext->head;
-
-  while(pTemp != 0) {
+  for (CPPMPYnode *pTemp = ppmcontext->head; pTemp; pTemp = pTemp->vine) {
     int iTotal = 0;
 
     for (map<symbol, unsigned short int>::iterator it=pTemp->pychild.begin(); it!=pTemp->pychild.end(); it++) {
@@ -381,7 +379,6 @@ void CPPMPYLanguageModel::GetProbs(Context context, std::vector<unsigned int> &p
       }
 
     }
-    pTemp = pTemp->vine;
   }
 
   unsigned int size_of_slice = iToSpend;
@@ -434,14 +431,11 @@ void CPPMPYLanguageModel::EnterSymbol(Context c, int Symbol) {
 
   CPPMPYLanguageModel::CPPMPYContext & context = *(CPPMPYContext *) (c);
 
-  CPPMPYnode *find;
-
   while(context.head) {
 
     //std::cout<<"Max Order: "<<m_iMaxOrder<<std::endl;
     if(context.order < m_iMaxOrder) {   // Only try to extend the context if it's not going to make it too long
-      find = context.head->find_symbol(Symbol);
-      if(find) {
+      if (CPPMPYnode *find = context.head->find_symbol(Symbol)) {
 	//	std::cout<<"FOund PPM Node for update!"<<std::endl;
         context.order++;
         context.head = find;
@@ -480,9 +474,7 @@ void CPPMPYLanguageModel::LearnSymbol(Context c, int Symbol) {
   DASHER_ASSERT(n == context.head->find_symbol(Symbol));
   context.head = n;
   context.order++;
-  //m_iMaxOrder = LanguageModelParams()->GetValue(std::string("LMMaxOrder"));
-  m_iMaxOrder = 2;//GetLongParameter( LP_LM_MAX_ORDER );
-  //std::cout<<"Max Order: "<<m_iMaxOrder<<std::endl;
+
   while(context.order > m_iMaxOrder) {
     context.head = context.head->vine;
     context.order--;
