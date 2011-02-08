@@ -39,21 +39,23 @@ namespace Dasher {
   /// @{
 
   ///
-  /// PPM language model (with PinYin)
+  /// PPM language model (with PinYin). Implements a standard PPM model amongst chinese characters,
+  /// but with each ppm-node additionally storing counts of possible Pinyin symbols which might be
+  /// entered in that context. GetProbs returns probabilities for the next Pinyin symbol, which (NB!)
+  /// is _not_ entered into the context; new method GetPartProbs is used to compute probabilities
+  /// for the next chinese symbol (which should be entered into context), by filtering to a set.
   ///
-
   class CPPMPYLanguageModel:public CLanguageModel, private NoClones {
   private:
     class CPPMPYnode {
     public:
       CPPMPYnode * find_symbol(int sym)const;
-      CPPMPYnode * find_pysymbol(int pysym)const;
       //Each PPM node store DIVISION number of addresses for children, so that each node branches out DIVISION times (as compared to binary); this is aimed to give better run-time speed
       CPPMPYnode * child[DIVISION];
       CPPMPYnode *next;
       CPPMPYnode *vine;
-      //Similarly (as last comment) for Pin Yin 
-      CPPMPYnode * pychild[DIVISION];
+      /// map from pinyin-symbol to count: the number of times each pinyin symbol has been seen in this context
+      std::map<symbol,unsigned short int> pychild;
       unsigned short int count;
       symbol sym;
       CPPMPYnode(int sym);
@@ -75,6 +77,10 @@ namespace Dasher {
     };
 	  
   public:
+    ///Construct a new PPMPYLanguageModel.
+    /// \param pAlph alphabet containing the actual symbols we want to write (i.e. Chinese)
+    /// \param pPyAlph alphabet of pinyin phonemes; we will predict probabilities for these
+    /// based (only) on the preceding _Chinese_ symbols.
     CPPMPYLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CAlphInfo *pAlph, const CAlphInfo *pPyAlph);
 
     virtual ~ CPPMPYLanguageModel();
@@ -83,16 +89,25 @@ namespace Dasher {
     void ReleaseContext(Context context);
     Context CloneContext(Context context);
 
+    ///Advance the context by entering a chinese symbol
     virtual void EnterSymbol(Context context, int Symbol);
+    ///Train the LM with the specified Chinese symbol in that context (moves context on)
     virtual void LearnSymbol(Context context, int Symbol);
-    //Learns a pinyin symbol in the current context, but does not move the context on.
+    ///Learns a pinyin symbol in the specified context, but does not move the context on.
     virtual void LearnPYSymbol(Context context, int Symbol);
 
+    ///Predicts probabilities for the next Pinyin symbol (blending as per PPM,
+    /// but using the pychild map rather than child CPPMPYnodes).
+    /// \param Probs vector to fill with predictions for pinyin symbols: will be filled
+    ///  with m_pPyAlphabet->GetNumberTextSymbols() numbers plus an initial 0. 
     virtual void GetProbs(Context context, std::vector < unsigned int >&Probs, int norm, int iUniform) const;
     
-    //ACL renamed, just call GetProbs instead:
-    //void GetPYProbs(Context context, std::vector < unsigned int >&Probs, int norm, int iUniform);
-
+    ///Predicts probabilities for the next Chinese symbol, filtered to only include symbols within a specified set.
+    /// Predictions are made as per PPM, but considering only counts for the specified symbols; this means
+    /// the value of LP_LM_ALPHA is relative to the total counts of _those_ chinese symbols (in the specified
+    /// context), not to the total count of all chinese symbols in that context.
+    /// \param vChildren vector of (chinese symbol, probability) pairs; on entry, the first element of each pair
+    /// indicates a possible chinese symbol; on exit, the second element will have been filled in.
     void GetPartProbs(Context context, std::vector<std::pair<symbol, unsigned int> > &vChildren, int norm, int iUniform);
 
     void dump();
@@ -104,7 +119,6 @@ namespace Dasher {
     CPPMPYnode *GetAddress(int iIndex, std::map<int, CPPMPYnode*> *pMap);
 
     CPPMPYnode *AddSymbolToNode(CPPMPYnode * pNode, int sym);
-    CPPMPYnode *AddPYSymbolToNode(CPPMPYnode * pNode, int pysym);
 
     void dumpSymbol(int sym);
     void dumpString(char *str, int pos, int len);
@@ -146,7 +160,6 @@ namespace Dasher {
     //Added: Mandarin; Setting initial values
     for(int i =0; i <DIVISION; i++){
       child[i] = NULL;
-      pychild[i] = NULL;
     }
   }
 
@@ -161,7 +174,6 @@ namespace Dasher {
     //Added: Mandarin; Setting initial values
     for(int i =0; i <DIVISION; i++){
       child[i] = NULL;
-      pychild[i] = NULL;
     }
 
   }

@@ -359,34 +359,25 @@ void CPPMPYLanguageModel::GetProbs(Context context, std::vector<unsigned int> &p
   while(pTemp != 0) {
     int iTotal = 0;
 
-    CPPMPYnode *pSymbol;
-    for(i=0; i<DIVISION; i++){
-      pSymbol  = pTemp->pychild[i];
-      while(pSymbol) {
-	if(!(exclusions[pSymbol->sym] && doExclusion))
-	  iTotal += pSymbol->count;
-	pSymbol = pSymbol->next;
-      }
+    for (map<symbol, unsigned short int>::iterator it=pTemp->pychild.begin(); it!=pTemp->pychild.end(); it++) {
+      if(!(exclusions[it->first] && doExclusion))
+        iTotal += it->second;
     }
 
     if(iTotal) {
       unsigned int size_of_slice = iToSpend;
       
-      for(i=0; i<DIVISION; i++){
-	pSymbol = pTemp->pychild[i];
-	while(pSymbol) {
-	  if(!(exclusions[pSymbol->sym] && doExclusion)) {
-	    exclusions[pSymbol->sym] = 1;
+      for (map<symbol, unsigned short int>::iterator it = pTemp->pychild.begin(); it!=pTemp->pychild.end(); it++) {
+        if(!(exclusions[it->first] && doExclusion)) {
+          exclusions[it->first] = 1;
 	    
-	    unsigned int p = static_cast < myint > (size_of_slice) * (100 * pSymbol->count - beta) / (100 * iTotal + alpha);
+          unsigned int p = static_cast < myint > (size_of_slice) * (100 * it->second - beta) / (100 * iTotal + alpha);
 	    
-	    probs[pSymbol->sym] += p;
-	    iToSpend -= p;
-	  }
+          probs[it->first] += p;
+          iToSpend -= p;
+        }
 	  //                              Usprintf(debug,TEXT("sym %u counts %d p %u tospend %u \n"),sym,s->count,p,tospend);      
-	  //                              DebugOutput(debug);
-	  pSymbol = pSymbol->next;
-	}
+	  //                              DebugOutput( debug);
       }
 
     }
@@ -517,7 +508,13 @@ void CPPMPYLanguageModel::LearnPYSymbol(Context c, int pysym) {
      std::cout<<" "<<std::endl;
   */
 
-  AddPYSymbolToNode(context.head, pysym);
+  for (CPPMPYnode *pNode = context.head; pNode; pNode=pNode->vine) {
+    if (++pNode->pychild[pysym]>1) {
+      //sym was already present
+      if (bUpdateExclusion) break;
+    }
+  }
+  
   //no context order increase
   //context.order++;
 }
@@ -623,19 +620,6 @@ CPPMPYLanguageModel::CPPMPYnode * CPPMPYLanguageModel::CPPMPYnode::find_symbol(i
   return 0;
 }
 
-// New find pysymbol function, to find the py symbol in nodes attached to character node
-CPPMPYLanguageModel::CPPMPYnode * CPPMPYLanguageModel::CPPMPYnode::find_pysymbol(int pysym) const
-// see if pysymbol is a child of node
-{
-
-  for (CPPMPYnode *found=pychild[ min(DIVISION-1, pysym/UNITPY) ]; found; found=found->next) {
-    if(found->sym == pysym){
-      return found;
-    }
-  }
-  return 0;
-}
-
 CPPMPYLanguageModel::CPPMPYnode * CPPMPYLanguageModel::AddSymbolToNode(CPPMPYnode *pNode, int sym) {
   //  std::cout<<"Addnode sym "<<sym<<std::endl;
   CPPMPYnode *pReturn = pNode->find_symbol(sym);
@@ -666,151 +650,12 @@ CPPMPYLanguageModel::CPPMPYnode * CPPMPYLanguageModel::AddSymbolToNode(CPPMPYnod
   return pReturn;
 }
 
-CPPMPYLanguageModel::CPPMPYnode * CPPMPYLanguageModel::AddPYSymbolToNode(CPPMPYnode *pNode, int pysym) {
-  CPPMPYnode *pReturn = pNode->find_pysymbol(pysym);
-
-  //      std::cout << sym << ",";
-
-  if(pReturn != NULL) {
-    //      std::cout << "Using existing node" << std::endl;
-    pReturn->count++;
-    if (!bUpdateExclusion) {
-      //Update vine contexts too. Guaranteed to exist if higher-order context does!
-      for (CPPMPYnode *v=pReturn->vine; v; v=v->vine) {
-        DASHER_ASSERT(v->sym==pysym);
-        v->count++;
-      }
-    }
-  } else{
-    //       std::cout << "Creating new node" << std::endl;
-
-    pReturn = m_NodeAlloc.Alloc();        // count is initialized to 1, no symbol or vine ptr
-    ++NodesAllocated;
-    pReturn->sym = pysym;
-    const int childIdx = min(DIVISION-1, pysym/UNITPY);
-    pReturn->next = pNode->pychild[childIdx];
-    pNode->pychild[childIdx] = pReturn;
-    //the py tree attached to root should have vine pointers NULL (not m_pRoot!)
-    pReturn->vine = (pNode == m_pRoot) ? NULL : AddPYSymbolToNode(pNode->vine, pysym);
-  }
-  return pReturn;
-}
-
-struct BinaryRecord {
-  int m_iIndex;
-  int m_iChild;
-  int m_iNext;
-  int m_iVine;
-  unsigned short int m_iCount;
-  short int m_iSymbol;
-};
-
+//Mandarin - PY not enabled for these read-write functions
 bool CPPMPYLanguageModel::WriteToFile(std::string strFilename) {
-
-  std::cout<<"WRITE TO FILE USED?"<<std::endl;
-
-  std::map<CPPMPYnode *, int> mapIdx;
-  int iNextIdx(1); // Index of 0 means NULL;
-
-  std::ofstream oOutputFile(strFilename.c_str());
-
-  RecursiveWrite(m_pRoot, &mapIdx, &iNextIdx, &oOutputFile);
-
-  oOutputFile.close();
-
   return false;
 }
-
-//Mandarin - PY not enabled for these read-write functions
-bool CPPMPYLanguageModel::RecursiveWrite(CPPMPYnode *pNode, std::map<CPPMPYnode *, int> *pmapIdx, int *pNextIdx, std::ofstream *pOutputFile) {
-
-  // Dump node here
-
-  BinaryRecord sBR;
-
-  sBR.m_iIndex = GetIndex(pNode, pmapIdx, pNextIdx); 
-  //Note future changes here:
-  sBR.m_iChild = GetIndex(pNode->child[0], pmapIdx, pNextIdx); 
-  sBR.m_iNext = GetIndex(pNode->next, pmapIdx, pNextIdx); 
-  sBR.m_iVine = GetIndex(pNode->vine, pmapIdx, pNextIdx);
-  sBR.m_iCount = pNode->count;
-  sBR.m_iSymbol = pNode->sym;
-
-  pOutputFile->write(reinterpret_cast<char*>(&sBR), sizeof(BinaryRecord));
-
-  CPPMPYnode *pCurrentChild(pNode->child[0]);
-  
-  while(pCurrentChild != NULL) {
-    RecursiveWrite(pCurrentChild, pmapIdx, pNextIdx, pOutputFile);
-    pCurrentChild = pCurrentChild->next;
-  }
-
-  return true;
-}
-
-int CPPMPYLanguageModel::GetIndex(CPPMPYnode *pAddr, std::map<CPPMPYnode *, int> *pmapIdx, int *pNextIdx) {
-  std::cout<<"GetIndex gets called?"<<std::endl;
-  int iIndex;
-  if(pAddr == NULL)
-    iIndex = 0;
-  else {
-    std::map<CPPMPYnode *, int>::iterator it(pmapIdx->find(pAddr));
-    
-    if(it == pmapIdx->end()) {
-      iIndex = *pNextIdx;
-      pmapIdx->insert(std::pair<CPPMPYnode *, int>(pAddr, iIndex));
-      ++(*pNextIdx);
-    }
-    else {
-      iIndex = it->second;
-    }
-  }
-  return iIndex;
-}
-
 
 //Mandarin - PY not enabled for these read-write functions
 bool CPPMPYLanguageModel::ReadFromFile(std::string strFilename) {
-  
-  std::ifstream oInputFile(strFilename.c_str());
-  std::map<int, CPPMPYnode*> oMap;
-  BinaryRecord sBR;
-  bool bStarted(false);
-
-  while(!oInputFile.eof()) {
-    oInputFile.read(reinterpret_cast<char *>(&sBR), sizeof(BinaryRecord));
-
-    CPPMPYnode *pCurrent(GetAddress(sBR.m_iIndex, &oMap));
-    //Note future changes here:
-    pCurrent->child[0] = GetAddress(sBR.m_iChild, &oMap);
-    pCurrent->next = GetAddress(sBR.m_iNext, &oMap);
-    pCurrent->vine = GetAddress(sBR.m_iVine, &oMap);
-    pCurrent->count = sBR.m_iCount;
-    pCurrent->sym = sBR.m_iSymbol;
-
-    if(!bStarted) {
-      m_pRoot = pCurrent;
-      bStarted = true;
-    }
-  }
-
-  oInputFile.close();
-
   return false;
-}
-
-CPPMPYLanguageModel::CPPMPYnode *CPPMPYLanguageModel::GetAddress(int iIndex, std::map<int, CPPMPYnode*> *pMap) {
-
-  std::cout<<"Get Address gets called?"<<std::endl;
-  std::map<int, CPPMPYnode*>::iterator it(pMap->find(iIndex));
-
-  if(it == pMap->end()) {
-    CPPMPYnode *pNewNode;
-    pNewNode = m_NodeAlloc.Alloc();
-    pMap->insert(std::pair<int, CPPMPYnode*>(iIndex, pNewNode));
-    return pNewNode;
-  }
-  else {
-    return it->second;
-  }
 }
