@@ -34,34 +34,9 @@ static char THIS_FILE[] = __FILE__;
 /////////////////////////////////////////////////////////////////////
 
 CPPMPYLanguageModel::CPPMPYLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphInfo *pAlph, const CAlphInfo *pPyAlphabet)
-  :CLanguageModel(pEventHandler, pSettingsStore, pAlph), m_iMaxOrder(2), NodesAllocated(0), m_NodeAlloc(8192), m_ContextAlloc(1024), m_pPyAlphabet(pPyAlphabet){
-  m_pRoot = m_NodeAlloc.Alloc();
-  m_pRoot->sym = -1;
-  //  m_pRoot->child.resize(DIVISION, NULL);
-  //  m_pRoot->pychild.resize(DIVISION, NULL);
-
-
-
-  m_pRootContext = m_ContextAlloc.Alloc();
-  m_pRootContext->head = m_pRoot;
-  m_pRootContext->order = 0;
+  :CAbstractPPM(pEventHandler, pSettingsStore, pAlph, new CPPMPYnode(-1), 2), NodesAllocated(0), m_NodeAlloc(8192), m_pPyAlphabet(pPyAlphabet){
 
   m_iAlphSize = GetSize();
-  //  std::cout<<"Alphaunit: "<<UNITALPH<<std::endl;
-  
-  // Cache the result of update exclusion - otherwise we have to look up a lot when training, which is slow
-
-  // FIXME - this should be a boolean parameter
-
-  bUpdateExclusion = ( GetLongParameter(LP_LM_UPDATE_EXCLUSION) !=0 );
-    
-  m_iMaxOrder = 2;//GetLongParameter( LP_LM_MAX_ORDER );
-  //std::cout<<"Max Order: "<<m_iMaxOrder<<std::endl;
-}
-
-/////////////////////////////////////////////////////////////////////
-
-CPPMPYLanguageModel::~CPPMPYLanguageModel() {
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -200,7 +175,7 @@ void CPPMPYLanguageModel::GetPartProbs(Context context, std::vector<pair<symbol,
   //  std::cout<<"Norms is "<<norm<<std::endl;
   //  std::cout<<"iUniform is "<<iUniform<<std::endl;
 
-  const CPPMPYContext *ppmcontext = (const CPPMPYContext *)(context);
+  const CPPMContext *ppmcontext = (const CPPMContext *)(context);
 
   //  DASHER_ASSERT(m_setContexts.count(ppmcontext) > 0);
 
@@ -235,10 +210,10 @@ void CPPMPYLanguageModel::GetPartProbs(Context context, std::vector<pair<symbol,
   int *vCounts=new int[vChildren.size()]; //num occurrences of symbol at same index in vChildren
 
   //new code
-  for (CPPMPYnode *pTemp = ppmcontext->head; pTemp; pTemp=pTemp->vine) {
+  for (CPPMnode *pTemp = ppmcontext->head; pTemp; pTemp=pTemp->vine) {
     int iTotal=0, i=0;
     for (std::vector<pair<symbol, unsigned int> >::const_iterator it = vChildren.begin(); it!=vChildren.end(); it++,i++) {
-      if (CPPMPYnode *pFound = pTemp->find_symbol(it->first)) {
+      if (CPPMnode *pFound = pTemp->find_symbol(it->first)) {
         iTotal += vCounts[i] = pFound->count; //double assignment
       } else
         vCounts[i] = 0;
@@ -310,8 +285,7 @@ void CPPMPYLanguageModel::GetPartProbs(Context context, std::vector<pair<symbol,
 // by an explicit cast to PPMPYLanguageModel whenever MandarinDasher was activated. Renaming
 // to GetProbs causes the normal (virtual) call to come straight here without any special-casing...
 void CPPMPYLanguageModel::GetProbs(Context context, std::vector<unsigned int> &probs, int norm, int iUniform) const {
-  const CPPMPYContext *ppmcontext = (const CPPMPYContext *)(context);
-
+  const CPPMContext *ppmcontext = (const CPPMContext *)(context);
 
   //  std::cout<<"PPMCONTEXT symbol: "<<ppmcontext->head->symbol<<std::endl;
   /*
@@ -354,10 +328,11 @@ void CPPMPYLanguageModel::GetProbs(Context context, std::vector<unsigned int> &p
   int alpha = GetLongParameter( LP_LM_ALPHA );
   int beta = GetLongParameter( LP_LM_BETA );
 
-  for (CPPMPYnode *pTemp = ppmcontext->head; pTemp; pTemp = pTemp->vine) {
+  for (CPPMnode *pTemp = ppmcontext->head; pTemp; pTemp = pTemp->vine) {
     int iTotal = 0;
+    const map<symbol, unsigned short int> &pychild( static_cast<CPPMPYnode *>(pTemp)->pychild);
 
-    for (map<symbol, unsigned short int>::iterator it=pTemp->pychild.begin(); it!=pTemp->pychild.end(); it++) {
+    for (map<symbol, unsigned short int>::const_iterator it=pychild.begin(); it!=pychild.end(); it++) {
       if(!(exclusions[it->first] && doExclusion))
         iTotal += it->second;
     }
@@ -365,7 +340,7 @@ void CPPMPYLanguageModel::GetProbs(Context context, std::vector<unsigned int> &p
     if(iTotal) {
       unsigned int size_of_slice = iToSpend;
       
-      for (map<symbol, unsigned short int>::iterator it = pTemp->pychild.begin(); it!=pTemp->pychild.end(); it++) {
+      for (map<symbol, unsigned short int>::const_iterator it = pychild.begin(); it!=pychild.end(); it++) {
         if(!(exclusions[it->first] && doExclusion)) {
           exclusions[it->first] = 1;
 	    
@@ -421,65 +396,6 @@ void CPPMPYLanguageModel::GetProbs(Context context, std::vector<unsigned int> &p
 }
 
 /////////////////////////////////////////////////////////////////////
-// Update context with symbol 'Symbol'
-
-void CPPMPYLanguageModel::EnterSymbol(Context c, int Symbol) {
-  if(Symbol<0)
-    return;
-
-  DASHER_ASSERT(Symbol >= 0 && Symbol < GetSize());
-
-  CPPMPYLanguageModel::CPPMPYContext & context = *(CPPMPYContext *) (c);
-
-  while(context.head) {
-
-    //std::cout<<"Max Order: "<<m_iMaxOrder<<std::endl;
-    if(context.order < m_iMaxOrder) {   // Only try to extend the context if it's not going to make it too long
-      if (CPPMPYnode *find = context.head->find_symbol(Symbol)) {
-	//	std::cout<<"FOund PPM Node for update!"<<std::endl;
-        context.order++;
-        context.head = find;
-        //      Usprintf(debug,TEXT("found context %x order %d\n"),head,order);
-        //      DebugOutput(debug);
-
-        //      std::cout << context.order << std::endl;
-        return;
-      }
-    }
-
-    // If we can't extend the current context, follow vine pointer to shorten it and try again
-
-    context.order--;
-    context.head = context.head->vine;
-  }
-
-  if(context.head == 0) {
-    context.head = m_pRoot;
-    context.order = 0;
-  }
-
-  //      std::cout << context.order << std::endl;
-
-}
-
-/////////////////////////////////////////////////////////////////////
-
-void CPPMPYLanguageModel::LearnSymbol(Context c, int Symbol) {
-  if(Symbol==0)
-    return;
-  
-  DASHER_ASSERT(Symbol >= 0 && Symbol < GetSize());
-  CPPMPYLanguageModel::CPPMPYContext & context = *(CPPMPYContext *) (c);
-  CPPMPYnode *n = AddSymbolToNode(context.head, Symbol);
-  DASHER_ASSERT(n == context.head->find_symbol(Symbol));
-  context.head = n;
-  context.order++;
-
-  while(context.order > m_iMaxOrder) {
-    context.head = context.head->vine;
-    context.order--;
-  }
-}
 
 //Do _not_ move on the context...
 void CPPMPYLanguageModel::LearnPYSymbol(Context c, int pysym) {
@@ -488,7 +404,7 @@ void CPPMPYLanguageModel::LearnPYSymbol(Context c, int pysym) {
     return;
 
   DASHER_ASSERT(pysym > 0 && pysym <= m_pPyAlphabet->GetNumberTextSymbols());
-  CPPMPYLanguageModel::CPPMPYContext & context = *(CPPMPYContext *) (c);
+  CPPMPYLanguageModel::CPPMContext & context = *(CPPMContext *) (c);
  
   //  std::cout<<"py learn context : "<<context.head->symbol<<std::endl;
   /*   CPPMPYnode * pNode = m_pRoot->child;
@@ -500,9 +416,9 @@ void CPPMPYLanguageModel::LearnPYSymbol(Context c, int pysym) {
      std::cout<<" "<<std::endl;
   */
 
-  for (CPPMPYnode *pNode = context.head; pNode; pNode=pNode->vine) {
-    if (++pNode->pychild[pysym]>1) {
-      //sym was already present
+  for (CPPMnode *pNode = context.head; pNode; pNode=pNode->vine) {
+    if (static_cast<CPPMPYnode *>(pNode)->pychild[pysym]++) {
+      //count non-zero before increment, i.e. sym already present
       if (bUpdateExclusion) break;
     }
   }
@@ -511,135 +427,11 @@ void CPPMPYLanguageModel::LearnPYSymbol(Context c, int pysym) {
   //context.order++;
 }
 
-void CPPMPYLanguageModel::dumpSymbol(int sym) {
-  if((sym <= 32) || (sym >= 127))
-    printf("<%d>", sym);
-  else
-    printf("%c", sym);
-}
-
-void CPPMPYLanguageModel::dumpString(char *str, int pos, int len)
-        // Dump the string STR starting at position POS
-{
-  char cc;
-  int p;
-  for(p = pos; p < pos + len; p++) {
-    cc = str[p];
-    if((cc <= 31) || (cc >= 127))
-      printf("<%d>", cc);
-    else
-      printf("%c", cc);
-  }
-}
-
-void CPPMPYLanguageModel::dumpTrie(CPPMPYLanguageModel::CPPMPYnode *t, int d)
-        // diagnostic display of the PPM trie from node t and deeper
-{
-//TODO
-/*
-	dchar debug[256];
-	int sym;
-	CPPMPYnode *s;
-	Usprintf( debug,TEXT("%5d %7x "), d, t );
-	//TODO: Uncomment this when headers sort out
-	//DebugOutput(debug);
-	if (t < 0) // pointer to input
-		printf( "                     <" );
-	else {
-		Usprintf(debug,TEXT( " %3d %5d %7x  %7x  %7x    <"), t->symbol,t->count, t->vine, t->child, t->next );
-		//TODO: Uncomment this when headers sort out
-		//DebugOutput(debug);
-	}
-	
-	dumpString( dumpTrieStr, 0, d );
-	Usprintf( debug,TEXT(">\n") );
-	//TODO: Uncomment this when headers sort out
-	//DebugOutput(debug);
-	if (t != 0) {
-		s = t->child;
-		while (s != 0) {
-			sym =s->symbol;
-			
-			dumpTrieStr [d] = sym;
-			dumpTrie( s, d+1 );
-			s = s->next;
-		}
-	}
-*/
-}
-
-void CPPMPYLanguageModel::dump()
-        // diagnostic display of the whole PPM trie
-{
-// TODO:
-/*
-	dchar debug[256];
-	Usprintf(debug,TEXT(  "Dump of Trie : \n" ));
-	//TODO: Uncomment this when headers sort out
-	//DebugOutput(debug);
-	Usprintf(debug,TEXT(   "---------------\n" ));
-	//TODO: Uncomment this when headers sort out
-	//DebugOutput(debug);
-	Usprintf( debug,TEXT(  "depth node     symbol count  vine   child      next   context\n") );
-	//TODO: Uncomment this when headers sort out
-	//DebugOutput(debug);
-	dumpTrie( root, 0 );
-	Usprintf( debug,TEXT(  "---------------\n" ));
-	//TODO: Uncomment this when headers sort out
-	//DebugOutput(debug);
-	Usprintf(debug,TEXT( "\n" ));
-	//TODO: Uncomment this when headers sort out
-	//DebugOutput(debug);
-*/
-}
-
-////////////////////////////////////////////////////////////////////////
-/// PPMPYnode definitions 
-////////////////////////////////////////////////////////////////////////
-
-CPPMPYLanguageModel::CPPMPYnode * CPPMPYLanguageModel::CPPMPYnode::find_symbol(int sym) const
-// see if symbol is a child of node
-{
-  //  printf("finding symbol %d at node %d\n",sym,node->id);
-
-  //Potentially replace with large scale find algorithm, necessary?
-  for (CPPMPYnode * found = child[ min(DIVISION-1, sym/UNITALPH) ]; found; found=found->next) {
-    if(found->sym == sym) {
-      return found;
-    }
-  }
-
-  return 0;
-}
-
-CPPMPYLanguageModel::CPPMPYnode * CPPMPYLanguageModel::AddSymbolToNode(CPPMPYnode *pNode, int sym) {
-  //  std::cout<<"Addnode sym "<<sym<<std::endl;
-  CPPMPYnode *pReturn = pNode->find_symbol(sym);
-
-  //  std::cout << sym << ",";
-
-  if(pReturn != NULL) {
-    //      std::cout << "Using existing node" << std::endl;
-    pReturn->count++;
-    if (!bUpdateExclusion) {
-      //update vine contexts too. Must exist if higher-order context does!
-      for (CPPMPYnode *v = pReturn->vine; v; v=v->vine) {
-        DASHER_ASSERT(v==m_pRoot || v->sym == sym);
-        v->count++;
-      }
-    }
-  } else {
-    //symbol does not exist at this level
-    pReturn = m_NodeAlloc.Alloc();        // count is initialized to 1 but no symbol or vine ptr
-    ++NodesAllocated;
-    pReturn->sym = sym;
-    const int childIdx( min(DIVISION-1, sym/UNITALPH) );
-    pReturn->next = pNode->child[childIdx];
-    pNode->child[childIdx] = pReturn;
-    pReturn->vine = (pNode == m_pRoot) ? m_pRoot : AddSymbolToNode(pNode->vine, sym);
-  }
-
-  return pReturn;
+CPPMPYLanguageModel::CPPMPYnode *CPPMPYLanguageModel::makeNode(int sym) {
+  CPPMPYnode *res = m_NodeAlloc.Alloc();
+  res->sym=sym;
+  ++NodesAllocated;
+  return res;
 }
 
 //Mandarin - PY not enabled for these read-write functions

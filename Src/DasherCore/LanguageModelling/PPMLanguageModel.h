@@ -25,10 +25,16 @@ namespace Dasher {
   /// \ingroup LM
   /// @{
   ///
-  /// PPM language model
+  /// Common superclass for both PPM and PPMY language models. Implements the PPM tree,
+  /// inc. fast hashing of child nodes by symbol number; and entering and learning symbols
+  /// in a context, i.e. navigating and updating the tree, with update exclusion according
+  /// to LP_LM_UPDATE_EXCLUSION
   ///
-  class CPPMLanguageModel:public CLanguageModel, private NoClones {
-  private:
+  /// Subclasses must implement CLanguageModel::GetProbs and a makeNode() method (perhaps
+  /// using a pooled allocator).
+  ///
+  class CAbstractPPM :public CLanguageModel, private NoClones {
+  protected:
     class ChildIterator;
     class CPPMnode {
     private:
@@ -53,8 +59,8 @@ namespace Dasher {
       symbol sym;
       CPPMnode(symbol sym);
       CPPMnode();
-      ~CPPMnode();
-      bool eq(CPPMnode *other, std::map<CPPMnode *,CPPMnode *> &equivs);
+      virtual ~CPPMnode();
+      virtual bool eq(CPPMnode *other, std::map<CPPMnode *,CPPMnode *> &equivs);
 	  };
     class ChildIterator {
     private:
@@ -89,10 +95,26 @@ namespace Dasher {
       CPPMnode *head;
       int order;
     };
+    
+    ///Makes a new node, of whatever kind (subclass of CPPMnode, perhaps with extra info)
+    /// is required by the subclass, for the specified symbol. (Initial count will be 1.)
+    virtual CPPMnode *makeNode(int sym)=0;
+    CAbstractPPM(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CAlphInfo *pAlph, CPPMnode *pRoot, int iMaxOrder);
+    
+    void dumpSymbol(symbol sym);
+    void dumpString(char *str, int pos, int len);
+    void dumpTrie(CPPMnode * t, int d);
+    
+    CPPMContext *m_pRootContext;
+    CPPMnode *m_pRoot;
+    
+    /// Cache parameters that don't make sense to adjust during the life of a language model...
+    const int m_iMaxOrder; 
+    const bool bUpdateExclusion;
+    
   public:
-    CPPMLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CAlphInfo *pAlph);
-    bool eq(CPPMLanguageModel *other);
-    virtual ~ CPPMLanguageModel();
+    virtual bool eq(CAbstractPPM *other);
+    virtual ~CAbstractPPM() {};
 
     Context CreateEmptyContext();
     void ReleaseContext(Context context);
@@ -101,71 +123,73 @@ namespace Dasher {
     virtual void EnterSymbol(Context context, int Symbol);
     virtual void LearnSymbol(Context context, int Symbol);
 
-    virtual void GetProbs(Context context, std::vector < unsigned int >&Probs, int norm, int iUniform) const;
-
     void dump();
+    bool isValidContext(const Context c) const ;
+  private:
+    CPPMnode *AddSymbolToNode(CPPMnode * pNode, symbol sym);
 
+    CPooledAlloc < CPPMContext > m_ContextAlloc;
+    
+    std::set<const CPPMContext *> m_setContexts;
+  };
+
+  ///"Standard" PPM language model: GetProbs uses counts in PPM child nodes,
+  /// universal alpha+beta values read from LP_LM_ALPHA and LP_LM_BETA,
+  /// max order from LP_LM_MAX_ORDER.
+  class CPPMLanguageModel : public CAbstractPPM {
+  public:
+    CPPMLanguageModel(CEventHandler *pEventHandler, CSettingsStore *pSets, const CAlphInfo *pAlph);
+    virtual void GetProbs(Context context, std::vector < unsigned int >&Probs, int norm, int iUniform) const;
+  protected:
+    /// Makes a standard CPPMnode, but using a pooled allocator (m_NodeAlloc) - faster!
+    virtual CPPMnode *makeNode(int sym);
+    
     virtual bool WriteToFile(std::string strFilename);
     virtual bool ReadFromFile(std::string strFilename);
+  private:
+    int NodesAllocated;
+
     bool RecursiveWrite(CPPMnode *pNode, CPPMnode *pNextSibling, std::map<CPPMnode *, int> *pmapIdx, int *pNextIdx, std::ofstream *pOutputFile);
     int GetIndex(CPPMnode *pAddr, std::map<CPPMnode *, int> *pmapIdx, int *pNextIdx);
     CPPMnode *GetAddress(int iIndex, std::map<int, CPPMnode*> *pMap);
 
-    CPPMnode *AddSymbolToNode(CPPMnode * pNode, symbol sym);
-    
-    void dumpSymbol(symbol sym);
-    void dumpString(char *str, int pos, int len);
-    void dumpTrie(CPPMnode * t, int d);
-
-    CPPMContext *m_pRootContext;
-    CPPMnode *m_pRoot;
-
-    int m_iMaxOrder;
-
-    int NodesAllocated;
-
-    bool bUpdateExclusion;
-
     mutable CSimplePooledAlloc < CPPMnode > m_NodeAlloc;
-    CPooledAlloc < CPPMContext > m_ContextAlloc;
-
-    std::set<const CPPMContext *> m_setContexts;
   };
 
   /// @}
-  inline CPPMLanguageModel::ChildIterator CPPMLanguageModel::CPPMnode::children() const {
+  inline CAbstractPPM::ChildIterator CPPMLanguageModel::CPPMnode::children() const {
     //if m_iNumChildSlots = 0 / 1, m_ppChildren is direct pointer, else ptr to array (of pointers)
     CPPMnode *const *ppChild = (m_iNumChildSlots == 0 || m_iNumChildSlots == 1) ? &m_pChild : m_ppChildren;
     return ChildIterator(ppChild + abs(m_iNumChildSlots), ppChild - 1);
   }
   
-  inline const CPPMLanguageModel::ChildIterator CPPMLanguageModel::CPPMnode::end() const {
+  inline const CAbstractPPM::ChildIterator CPPMLanguageModel::CPPMnode::end() const {
     //if m_iNumChildSlots = 0 / 1, m_ppChildren is direct pointer, else ptr to array (of pointers)
     CPPMnode *const *ppChild = (m_iNumChildSlots == 0 || m_iNumChildSlots == 1) ? &m_pChild : m_ppChildren;
     return ChildIterator(ppChild, ppChild - 1);
   }
 
-  inline Dasher::CPPMLanguageModel::CPPMnode::CPPMnode(symbol _sym): sym(_sym) {
+  inline Dasher::CAbstractPPM::CPPMnode::CPPMnode(symbol _sym): sym(_sym) {
     vine = 0;
     m_iNumChildSlots = 0;
     m_ppChildren = NULL;
     count = 1;
   }
 
-  inline CPPMLanguageModel::CPPMnode::CPPMnode() {
+  inline CAbstractPPM::CPPMnode::CPPMnode() {
     vine = 0;
     m_iNumChildSlots = 0;
     m_ppChildren = NULL;
     count = 1;
   }
   
-  inline CPPMLanguageModel::CPPMnode::~CPPMnode() {
+  inline CAbstractPPM::CPPMnode::~CPPMnode() {
     //single child = is direct pointer to node, not array...
     if (m_iNumChildSlots != 1)
-      delete m_ppChildren;
+      delete[] m_ppChildren;
   }
 
-  inline CLanguageModel::Context CPPMLanguageModel::CreateEmptyContext() {
+  inline CLanguageModel::Context CAbstractPPM::CreateEmptyContext() {
     CPPMContext *pCont = m_ContextAlloc.Alloc();
     *pCont = *m_pRootContext;
 
@@ -174,7 +198,7 @@ namespace Dasher {
     return (Context) pCont;
   }
 
-  inline CLanguageModel::Context CPPMLanguageModel::CloneContext(Context Copy) {
+  inline CLanguageModel::Context CAbstractPPM::CloneContext(Context Copy) {
     CPPMContext *pCont = m_ContextAlloc.Alloc();
     CPPMContext *pCopy = (CPPMContext *) Copy;
     *pCont = *pCopy;
@@ -184,7 +208,7 @@ namespace Dasher {
     return (Context) pCont;
   }
 
-  inline void CPPMLanguageModel::ReleaseContext(Context release) {
+  inline void CAbstractPPM::ReleaseContext(Context release) {
 
     m_setContexts.erase(m_setContexts.find((CPPMContext *) release));
 

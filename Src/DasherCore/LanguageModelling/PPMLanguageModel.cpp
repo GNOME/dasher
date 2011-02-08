@@ -30,25 +30,15 @@ static char THIS_FILE[] = __FILE__;
 
 /////////////////////////////////////////////////////////////////////
 
-CPPMLanguageModel::CPPMLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphInfo *pAlph)
-:CLanguageModel(pEventHandler, pSettingsStore, pAlph), m_iMaxOrder(4), NodesAllocated(0), m_NodeAlloc(8192), m_ContextAlloc(1024) {
-  m_pRoot = m_NodeAlloc.Alloc();
-  m_pRoot->sym = -1;
-
+CAbstractPPM::CAbstractPPM(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphInfo *pAlph, CPPMnode *pRoot, int iMaxOrder)
+: CLanguageModel(pEventHandler, pSettingsStore, pAlph), m_pRoot(pRoot), m_iMaxOrder(iMaxOrder), bUpdateExclusion( GetLongParameter(LP_LM_UPDATE_EXCLUSION)!=0 ), m_ContextAlloc(1024) {
   m_pRootContext = m_ContextAlloc.Alloc();
   m_pRootContext->head = m_pRoot;
   m_pRootContext->order = 0;
-
-  // Cache parameters that don't make sense to adjust during the life of a language model...
-  bUpdateExclusion = ( GetLongParameter(LP_LM_UPDATE_EXCLUSION) !=0 );
-  
-  m_iMaxOrder = GetLongParameter( LP_LM_MAX_ORDER );
-  
 }
 
-/////////////////////////////////////////////////////////////////////
-
-CPPMLanguageModel::~CPPMLanguageModel() {
+bool CAbstractPPM::isValidContext(const Context context) const {
+  return m_setContexts.count((const CPPMContext *)context) > 0;
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -57,7 +47,7 @@ CPPMLanguageModel::~CPPMLanguageModel() {
 void CPPMLanguageModel::GetProbs(Context context, std::vector<unsigned int> &probs, int norm, int iUniform) const {
   const CPPMContext *ppmcontext = (const CPPMContext *)(context);
 
-  DASHER_ASSERT(m_setContexts.count(ppmcontext) > 0);
+  DASHER_ASSERT(isValidContext(context));
 
   int iNumSymbols = GetSize();
   
@@ -155,13 +145,13 @@ void CPPMLanguageModel::GetProbs(Context context, std::vector<unsigned int> &pro
 /////////////////////////////////////////////////////////////////////
 // Update context with symbol 'Symbol'
 
-void CPPMLanguageModel::EnterSymbol(Context c, int Symbol) {
+void CAbstractPPM::EnterSymbol(Context c, int Symbol) {
   if(Symbol==0)
     return;
 
   DASHER_ASSERT(Symbol >= 0 && Symbol < GetSize());
 
-  CPPMLanguageModel::CPPMContext & context = *(CPPMContext *) (c);
+  CPPMContext & context = *(CPPMContext *) (c);
 
   while(context.head) {
 
@@ -196,14 +186,14 @@ void CPPMLanguageModel::EnterSymbol(Context c, int Symbol) {
 // add symbol to the context
 // creates new nodes, updates counts
 // and leaves 'context' at the new context
-void CPPMLanguageModel::LearnSymbol(Context c, int Symbol) {
+void CAbstractPPM::LearnSymbol(Context c, int Symbol) {
   
   if(Symbol==0)
     return;
   
 
   DASHER_ASSERT(Symbol >= 0 && Symbol < GetSize());
-  CPPMLanguageModel::CPPMContext & context = *(CPPMContext *) (c);
+  CPPMContext & context = *(CPPMContext *) (c);
   
   CPPMnode* n = AddSymbolToNode(context.head, Symbol);
   DASHER_ASSERT ( n == context.head->find_symbol(Symbol));
@@ -217,14 +207,14 @@ void CPPMLanguageModel::LearnSymbol(Context c, int Symbol) {
   
 }
 
-void CPPMLanguageModel::dumpSymbol(symbol sym) {
+void CAbstractPPM::dumpSymbol(symbol sym) {
   if((sym <= 32) || (sym >= 127))
     printf("<%d>", sym);
   else
     printf("%c", sym);
 }
 
-void CPPMLanguageModel::dumpString(char *str, int pos, int len)
+void CAbstractPPM::dumpString(char *str, int pos, int len)
         // Dump the string STR starting at position POS
 {
   char cc;
@@ -238,7 +228,7 @@ void CPPMLanguageModel::dumpString(char *str, int pos, int len)
   }
 }
 
-void CPPMLanguageModel::dumpTrie(CPPMLanguageModel::CPPMnode *t, int d)
+void CAbstractPPM::dumpTrie(CAbstractPPM::CPPMnode *t, int d)
         // diagnostic display of the PPM trie from node t and deeper
 {
 //TODO
@@ -274,7 +264,7 @@ void CPPMLanguageModel::dumpTrie(CPPMLanguageModel::CPPMnode *t, int d)
 */
 }
 
-void CPPMLanguageModel::dump()
+void CAbstractPPM::dump()
         // diagnostic display of the whole PPM trie
 {
 // TODO:
@@ -299,7 +289,7 @@ void CPPMLanguageModel::dump()
 */
 }
 
-bool CPPMLanguageModel::eq(CPPMLanguageModel *other) {
+bool CAbstractPPM::eq(CAbstractPPM *other) {
   std::map<CPPMnode *,CPPMnode *> equivs;
   if (!m_pRoot->eq(other->m_pRoot,equivs)) return false;
   //have first & second being equivalent, for all entries in map, except vine ptrs not checked.
@@ -320,7 +310,7 @@ bool CPPMLanguageModel::eq(CPPMLanguageModel *other) {
 /// PPMnode definitions 
 ////////////////////////////////////////////////////////////////////////
 
-bool CPPMLanguageModel::CPPMnode::eq(CPPMLanguageModel::CPPMnode *other, std::map<CPPMnode *,CPPMnode *> &equivs) {
+bool CAbstractPPM::CPPMnode::eq(CAbstractPPM::CPPMnode *other, std::map<CPPMnode *,CPPMnode *> &equivs) {
   if (sym != other->sym)
     return false;
   if (count != other->count)
@@ -340,7 +330,7 @@ bool CPPMLanguageModel::CPPMnode::eq(CPPMLanguageModel::CPPMnode *other, std::ma
 
 #define MAX_RUN 4
 
-CPPMLanguageModel::CPPMnode * CPPMLanguageModel::CPPMnode::find_symbol(symbol sym) const
+CAbstractPPM::CPPMnode * CAbstractPPM::CPPMnode::find_symbol(symbol sym) const
 // see if symbol is a child of node
 {
   if (m_iNumChildSlots < 0) //negative to mean "full alphabet", use direct indexing
@@ -367,7 +357,7 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::CPPMnode::find_symbol(symbol sy
   return 0;
 }
 
-void CPPMLanguageModel::CPPMnode::AddChild(CPPMnode *pNewChild, int numSymbols) {
+void CAbstractPPM::CPPMnode::AddChild(CPPMnode *pNewChild, int numSymbols) {
   if (m_iNumChildSlots < 0) {
     m_ppChildren[pNewChild->sym] = pNewChild;
   }
@@ -429,7 +419,7 @@ void CPPMLanguageModel::CPPMnode::AddChild(CPPMnode *pNewChild, int numSymbols) 
   }
 }
 
-CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode *pNode, symbol sym) {
+CAbstractPPM::CPPMnode * CAbstractPPM::AddSymbolToNode(CPPMnode *pNode, symbol sym) {
 
   CPPMnode *pReturn = pNode->find_symbol(sym);
 
@@ -446,14 +436,23 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode *pNode
     }
   } else {
     //symbol does not exist at this level
-    pReturn = m_NodeAlloc.Alloc(); //count initialized to 1 but no symbol or vine pointer
-    ++NodesAllocated;
-    pReturn->sym = sym;
+    pReturn = makeNode(sym); //count initialized to 1 but no vine pointer
     pNode->AddChild(pReturn, GetSize());
     pReturn->vine = (pNode==m_pRoot) ? m_pRoot : AddSymbolToNode(pNode->vine,sym);
   }
   
   return pReturn;
+}
+
+CPPMLanguageModel::CPPMLanguageModel(CEventHandler *pEvt, CSettingsStore *sets, const CAlphInfo *pAlph)
+: CAbstractPPM(pEvt, sets, pAlph, new CPPMnode(-1), sets->GetLongParameter(LP_LM_MAX_ORDER)), NodesAllocated(0), m_NodeAlloc(8192) {
+}
+
+CAbstractPPM::CPPMnode *CPPMLanguageModel::makeNode(int sym) {
+  CPPMnode *res = m_NodeAlloc.Alloc();
+  res->sym = sym;
+  ++NodesAllocated;
+  return res;
 }
 
 struct BinaryRecord {

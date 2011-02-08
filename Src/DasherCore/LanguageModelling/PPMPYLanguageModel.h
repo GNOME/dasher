@@ -16,21 +16,9 @@
 #include "../../Common/NoClones.h"
 #include "../../Common/Allocators/PooledAlloc.h"
 
-#include "LanguageModel.h"
-#include "PPMPYLanguageModel.h"
-#include "../SCENode.h"
+#include "PPMLanguageModel.h"
 
 #include <vector>
-#include <fstream>
-#include <set>
-//Define alphabet sizes
-#define ALPHSIZE 7610
-#define PYALPHSIZE 1300
-//Implement a multi-branch tree, instead of a binary tree to gain speed: a trade-off between speed and memory; the choice of branch is implied by ranking of the symbol being searched/added 
-#define DIVISION 5
-#define UNITALPH (ALPHSIZE/DIVISION)
-#define UNITPY (PYALPHSIZE/DIVISION)
-
 
 namespace Dasher {
 
@@ -45,56 +33,21 @@ namespace Dasher {
   /// is _not_ entered into the context; new method GetPartProbs is used to compute probabilities
   /// for the next chinese symbol (which should be entered into context), by filtering to a set.
   ///
-  class CPPMPYLanguageModel:public CLanguageModel, private NoClones {
-  private:
-    class CPPMPYnode {
-    public:
-      CPPMPYnode * find_symbol(int sym)const;
-      //Each PPM node store DIVISION number of addresses for children, so that each node branches out DIVISION times (as compared to binary); this is aimed to give better run-time speed
-      CPPMPYnode * child[DIVISION];
-      CPPMPYnode *next;
-      CPPMPYnode *vine;
-      /// map from pinyin-symbol to count: the number of times each pinyin symbol has been seen in this context
-      std::map<symbol,unsigned short int> pychild;
-      unsigned short int count;
-      symbol sym;
-      CPPMPYnode(int sym);
-      CPPMPYnode();
-    };
-	  
-    class CPPMPYContext {
-    public:
-      CPPMPYContext(CPPMPYContext const &input) {
-        head = input.head;
-        order = input.order;
-      } CPPMPYContext(CPPMPYnode * _head = 0, int _order = 0):head(_head), order(_order) {
-      };
-      ~CPPMPYContext() {
-      };
-      void dump();
-      CPPMPYnode *head;
-      int order;
-    };
-	  
+  /// That is: from the superclass (CAbstractPPM) perspective, the alphabet is the chinese one;
+  /// hence, contexts store chinese symbols only, and EnterSymbol+LearnSymbol should be called
+  /// with _chinese_ symbol numbers. All PY-alph details are handled in this subclass, with extra
+  /// LearnPYSymbol method for updating the LM's pinyin predictions.
+  class CPPMPYLanguageModel : public CAbstractPPM {
   public:
-    ///Construct a new PPMPYLanguageModel.
-    /// \param pAlph alphabet containing the actual symbols we want to write (i.e. Chinese)
+    ///Construct a new PPMPYLanguageModel. 
+    /// \param pAlph alphabet containing the actual symbols we want to write (i.e. Chinese); this
+    /// is the only alphabet passed to the CAbstractPPM superclass.
     /// \param pPyAlph alphabet of pinyin phonemes; we will predict probabilities for these
     /// based (only) on the preceding _Chinese_ symbols.
     CPPMPYLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CAlphInfo *pAlph, const CAlphInfo *pPyAlph);
 
-    virtual ~ CPPMPYLanguageModel();
-
-    Context CreateEmptyContext();
-    void ReleaseContext(Context context);
-    Context CloneContext(Context context);
-
-    ///Advance the context by entering a chinese symbol
-    virtual void EnterSymbol(Context context, int Symbol);
-    ///Train the LM with the specified Chinese symbol in that context (moves context on)
-    virtual void LearnSymbol(Context context, int Symbol);
     ///Learns a pinyin symbol in the specified context, but does not move the context on.
-    virtual void LearnPYSymbol(Context context, int Symbol);
+    void LearnPYSymbol(Context context, int Symbol);
 
     ///Predicts probabilities for the next Pinyin symbol (blending as per PPM,
     /// but using the pychild map rather than child CPPMPYnodes).
@@ -110,99 +63,28 @@ namespace Dasher {
     /// indicates a possible chinese symbol; on exit, the second element will have been filled in.
     void GetPartProbs(Context context, std::vector<std::pair<symbol, unsigned int> > &vChildren, int norm, int iUniform);
 
-    void dump();
-
     virtual bool WriteToFile(std::string strFilename);
     virtual bool ReadFromFile(std::string strFilename);
-    bool RecursiveWrite(CPPMPYnode *pNode, std::map<CPPMPYnode *, int> *pmapIdx, int *pNextIdx, std::ofstream *pOutputFile);
-    int GetIndex(CPPMPYnode *pAddr, std::map<CPPMPYnode *, int> *pmapIdx, int *pNextIdx);
-    CPPMPYnode *GetAddress(int iIndex, std::map<int, CPPMPYnode*> *pMap);
 
-    CPPMPYnode *AddSymbolToNode(CPPMPYnode * pNode, int sym);
-
-    void dumpSymbol(int sym);
-    void dumpString(char *str, int pos, int len);
-    void dumpTrie(CPPMPYnode * t, int d);
-
-    CPPMPYContext *m_pRootContext;
-    CPPMPYnode *m_pRoot;
-
-    int m_iMaxOrder;
-    double m_dBackOffConstat;
-
-    int NodesAllocated; //inclusive of both Character and PY nodes
-
-    bool bUpdateExclusion;
-
-
+  protected:
+    class CPPMPYnode : public CPPMnode {
+    public:
+      /// map from pinyin-symbol to count: the number of times each pinyin symbol has been seen in this context
+      std::map<symbol,unsigned short int> pychild;
+      inline CPPMPYnode(int sym) : CPPMnode(sym) {}
+      inline CPPMPYnode() : CPPMnode() {}
+    };
+    CPPMPYnode *makeNode(int sym);
     
-    mutable CSimplePooledAlloc < CPPMPYnode > m_NodeAlloc;
-    CPooledAlloc < CPPMPYContext > m_ContextAlloc;
-
-    std::set<const CPPMPYContext *> m_setContexts;
-
   private:
+    int NodesAllocated;
+    mutable CSimplePooledAlloc < CPPMPYnode > m_NodeAlloc;
 
     const CAlphInfo *m_pPyAlphabet;
     int m_iAlphSize;
-
   };
 
-  /// @}
-
-  inline Dasher::CPPMPYLanguageModel::CPPMPYnode::CPPMPYnode(int _sym):sym(_sym) {
-    //    child.clear();
-    //    pychild.clear();
-
-    next = vine = 0;
-    count = 1;
-
-    //Added: Mandarin; Setting initial values
-    for(int i =0; i <DIVISION; i++){
-      child[i] = NULL;
-    }
-  }
-
-  inline CPPMPYLanguageModel::CPPMPYnode::CPPMPYnode() {
-    //   child.clear();
-    //   pychild.clear();    
-
-    next = vine = 0;
-
-    count = 1;
-
-    //Added: Mandarin; Setting initial values
-    for(int i =0; i <DIVISION; i++){
-      child[i] = NULL;
-    }
-
-  }
-
-  inline CLanguageModel::Context CPPMPYLanguageModel::CreateEmptyContext() {
-    CPPMPYContext *pCont = m_ContextAlloc.Alloc();
-    *pCont = *m_pRootContext;
-
-    //    m_setContexts.insert(pCont);
-
-    return (Context) pCont;
-  }
-
-  inline CLanguageModel::Context CPPMPYLanguageModel::CloneContext(Context Copy) {
-    CPPMPYContext *pCont = m_ContextAlloc.Alloc();
-    CPPMPYContext *pCopy = (CPPMPYContext *) Copy;
-    *pCont = *pCopy;
-
-    //    m_setContexts.insert(pCont);
-
-    return (Context) pCont;
-  }
-
-  inline void CPPMPYLanguageModel::ReleaseContext(Context release) {
-
-    //    m_setContexts.erase(m_setContexts.find((CPPMPYContext *) release));
-
-    m_ContextAlloc.Free((CPPMPYContext *) release);
-  }
+  /// @}  
 }                               // end namespace Dasher
 
 #endif // __LanguageModelling__PPMPYLanguageModel_h__
