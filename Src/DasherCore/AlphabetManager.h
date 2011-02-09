@@ -25,6 +25,7 @@
 #include "DasherNode.h"
 #include "Parameters.h"
 #include "NodeManager.h"
+#include "Trainer.h"
 
 class CNodeCreationManager;
 struct SGroupInfo;
@@ -43,8 +44,16 @@ namespace Dasher {
   ///
   class CAlphabetManager : public CNodeManager {
   public:
+    ///Create a new AlphabetManager. Note, not usable until CreateLanguageModel() called.
+    CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphabetMap);
+    ///Creates the LM, and stores in m_pLanguageModel. Must be called after construction,
+    /// before the AlphMgr is used. Default implementation switches on LP_LANGUAGE_MODEL_ID.
+    virtual void CreateLanguageModel(CEventHandler *pEventHandler, CSettingsStore *pSets);
 
-    CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphabetMap, CLanguageModel *pLanguageModel);
+    ///Gets a new trainer to train this LM. Caller is responsible for deallocating the
+    /// trainer later.
+    virtual CTrainer *GetTrainer();
+
     virtual ~CAlphabetManager();
 
   protected:
@@ -131,6 +140,7 @@ namespace Dasher {
     virtual CAlphNode *GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, bool bEnteredLast, int iOffset);
 
     const CAlphInfo *GetAlphabet() const;
+    
   protected:
     ///
     /// Factory method for CAlphNode construction, so subclasses can override.
@@ -147,6 +157,8 @@ namespace Dasher {
     virtual void AddExtras(CAlphNode *pParent, std::vector<unsigned int> *pCProb);
 
     CLanguageModel *m_pLanguageModel;
+    CLanguageModel::Context m_iLearnContext;
+
     CNodeCreationManager *m_pNCManager;
     const CAlphInfo *m_pAlphabet;
     const CAlphabetMap *m_pAlphabetMap;
@@ -157,7 +169,6 @@ namespace Dasher {
     void GetProbs(std::vector<unsigned int> *pProbs, CLanguageModel::Context iContext);
     void IterateChildGroups(CAlphNode *pParent, const SGroupInfo *pParentGroup, CAlphNode *buildAround);
 
-    CLanguageModel::Context m_iLearnContext;
     CDasherInterfaceBase *m_pInterface;
     
   };

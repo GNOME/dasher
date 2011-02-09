@@ -1,11 +1,5 @@
 #include "DasherNode.h"
 #include "DasherInterfaceBase.h"
-#include "LanguageModelling/PPMLanguageModel.h"
-#include "LanguageModelling/WordLanguageModel.h"
-#include "LanguageModelling/DictLanguageModel.h"
-#include "LanguageModelling/MixtureLanguageModel.h"
-#include "LanguageModelling/PPMPYLanguageModel.h"
-#include "LanguageModelling/CTWLanguageModel.h"
 #include "NodeCreationManager.h"
 #include "MandarinAlphMgr.h"
 #include "ConvertingAlphMgr.h"
@@ -30,71 +24,38 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
   
   // --
   
-  // Create an appropriate language model;
-  CLanguageModel *pLanguageModel;
-  //WZ: Mandarin Dasher Change
-  //If statement checks for the specific Super PinYin alphabet, and sets language model to PPMPY
-  if((pAlphInfo->m_iConversionID==2)&&(pSettingsStore->GetStringParameter(SP_ALPHABET_ID)=="Chinese Super Pin Yin, grouped by Dictionary")){
-    
-    std::string CHAlphabet = "Chinese 简体中文 (simplified chinese, in pin yin groups, and pinyin)";
-    const Dasher::CAlphInfo *pCHAlphInfo(pAlphIO->GetInfo(CHAlphabet));
-    const CAlphabetMap *pCHAlphMap = pCHAlphInfo->MakeMap();
-    
-    //std::cout<<"CHALphabet size "<< pCHAlphabet->GetNumberTextSymbols(); [7603]
-    pLanguageModel = new CPPMPYLanguageModel(pEventHandler, pSettingsStore, pCHAlphInfo, pAlphInfo);
-    m_pTrainer = new CMandarinTrainer(pLanguageModel, pAlphMap, pCHAlphMap);
-    std::cout<<"Setting PPMPY model"<<std::endl;
-  }
-  else{
-    //End Mandarin Dasher Change
-    
-    // FIXME - return to using enum here
-    switch (pSettingsStore->GetLongParameter(LP_LANGUAGE_MODEL_ID)) {
-      case 0:
-        pLanguageModel = new CPPMLanguageModel(pEventHandler, pSettingsStore, pAlphInfo);
-        break;
-      case 2:
-        pLanguageModel = new CWordLanguageModel(pEventHandler, pSettingsStore, pAlphInfo, pAlphMap);
-        break;
-      case 3:
-        pLanguageModel = new CMixtureLanguageModel(pEventHandler, pSettingsStore, pAlphInfo, pAlphMap);
-        break;  
-      case 4:
-        pLanguageModel = new CCTWLanguageModel(pEventHandler, pSettingsStore, pAlphInfo);
-        break;
-        
-      default:
-        // If there is a bogus value for the language model ID, we'll default
-        // to our trusty old PPM language model.
-        pLanguageModel = new CPPMLanguageModel(pEventHandler, pSettingsStore, pAlphInfo);    
-        break;
-    }
-    m_pTrainer = new CTrainer(pLanguageModel, pAlphMap);
-  }
-    
-    switch(pAlphInfo->m_iConversionID) {
-      default:
-        //TODO: Error reporting here
-        //fall through to
-      case 0: // No conversion required
-        m_pAlphabetManager = new CAlphabetManager(pInterface, this, pAlphInfo, pAlphMap, pLanguageModel);
-        break;
+  switch (pAlphInfo->m_iConversionID) {
+    default:
+      //TODO: Error reporting here
+      //fall through to
+    case 0: // No conversion required
+      m_pAlphabetManager = new CAlphabetManager(pInterface, this, pAlphInfo, pAlphMap);
+      break;      
 #ifdef JAPANESE
-      case 1: // Japanese
-        CConversionManager *pConversionManager =
+    case 1: {
+      // Japanese
+      CConversionManager *pConversionManager =
 #ifdef WIN32
-        new CIMEConversionHelper;
+      new CIMEConversionHelper;
 #else
-        new CCannaConversionHelper(this, pAlphInfo, GetLongParameter(LP_CONVERSION_TYPE), GetLongParameter(LP_CONVERSION_ORDER));
+      new CCannaConversionHelper(this, pAlphInfo, GetLongParameter(LP_CONVERSION_TYPE), GetLongParameter(LP_CONVERSION_ORDER));
 #endif
-        //TODO ownership/deletion
-        m_pAlphabetManager = new CConvertingAlphMgr(pInterface, this, pConversionManager, pAlphInfo, pLanguageModel);
-        break;
-#endif
-      case 2:   //(ACL) Modify AlphabetManager for Mandarin Dasher
-        m_pAlphabetManager = new CMandarinAlphMgr(pInterface, this, pAlphInfo, pAlphMap, pLanguageModel);
+      //TODO ownership/deletion
+      m_pAlphabetManager = new CConvertingAlphMgr(pInterface, this, pConversionManager, pAlphInfo, pLanguageModel);
+      break;
     }
-
+#endif
+    case 2:
+      //Mandarin Dasher!
+      //(ACL) Modify AlphabetManager for Mandarin Dasher
+      m_pAlphabetManager = new CMandarinAlphMgr(pInterface, this, pAlphInfo, pAlphMap);
+      break;
+  }
+  //all other configuration changes, etc., that might be necessary for a particular conversion mode,
+  // are implemented by AlphabetManager subclasses overriding the following two methods:
+  m_pAlphabetManager->CreateLanguageModel(pEventHandler, pSettingsStore);
+  m_pTrainer = m_pAlphabetManager->GetTrainer();
+    
   if (!pAlphInfo->GetTrainingFile().empty()) {
     //1. Look for system training text...
     CLockEvent oEvent("Training on System Text", true, 0);

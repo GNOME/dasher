@@ -27,7 +27,12 @@
 #include "Event.h"
 #include "EventHandler.h"
 #include "NodeCreationManager.h"
-
+#include "LanguageModelling/PPMLanguageModel.h"
+#include "LanguageModelling/WordLanguageModel.h"
+#include "LanguageModelling/DictLanguageModel.h"
+#include "LanguageModelling/MixtureLanguageModel.h"
+#include "LanguageModelling/PPMPYLanguageModel.h"
+#include "LanguageModelling/CTWLanguageModel.h"
 
 #include <vector>
 #include <sstream>
@@ -45,11 +50,35 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CAlphabetManager::CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphabetMap, CLanguageModel *pLanguageModel)
-  : m_pLanguageModel(pLanguageModel), m_pNCManager(pNCManager), m_pAlphabet(pAlphabet), m_pAlphabetMap(pAlphabetMap) {
-  m_pInterface = pInterface;
+CAlphabetManager::CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphabetMap)
+  : m_pNCManager(pNCManager), m_pAlphabet(pAlphabet), m_pAlphabetMap(pAlphabetMap), m_pInterface(pInterface) {
+}
 
+void CAlphabetManager::CreateLanguageModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore) {
+  // FIXME - return to using enum here
+  switch (m_pInterface->GetLongParameter(LP_LANGUAGE_MODEL_ID)) {
+    default:
+      // If there is a bogus value for the language model ID, we'll default
+      // to our trusty old PPM language model.      
+    case 0:
+      m_pLanguageModel = new CPPMLanguageModel(pEventHandler, pSettingsStore, m_pAlphabet);
+      break;
+    case 2:
+      m_pLanguageModel = new CWordLanguageModel(pEventHandler, pSettingsStore, m_pAlphabet, m_pAlphabetMap);
+      break;
+    case 3:
+      m_pLanguageModel = new CMixtureLanguageModel(pEventHandler, pSettingsStore, m_pAlphabet, m_pAlphabetMap);
+      break;  
+    case 4:
+      m_pLanguageModel = new CCTWLanguageModel(pEventHandler, pSettingsStore, m_pAlphabet);
+      break;
+  }
+  
   m_iLearnContext = m_pLanguageModel->CreateEmptyContext();
+}
+
+CTrainer *CAlphabetManager::GetTrainer() {
+  return new CTrainer(m_pLanguageModel, m_pAlphabetMap);
 }
 
 const CAlphInfo *CAlphabetManager::GetAlphabet() const {

@@ -12,8 +12,8 @@
 
 using namespace Dasher;
 
-CConvertingAlphMgr::CConvertingAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CConversionManager *pConvMgr, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphabetMap, CLanguageModel *pLanguageModel)
- : CAlphabetManager(pInterface, pNCManager, pAlphabet, pAlphabetMap, pLanguageModel), m_pConvMgr(pConvMgr) {
+CConvertingAlphMgr::CConvertingAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CConversionManager *pConvMgr, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphabetMap)
+ : CAlphabetManager(pInterface, pNCManager, pAlphabet, pAlphabetMap), m_pConvMgr(pConvMgr) {
  }
 
 CConvertingAlphMgr::~CConvertingAlphMgr() {

@@ -35,8 +35,14 @@ namespace Dasher {
   class CMandarinAlphMgr : public CAlphabetManager {
   public:
 
-    CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphMap, CLanguageModel *pLanguageModel);
+    CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphMap);
     ~CMandarinAlphMgr();
+    
+    ///WZ: Mandarin Dasher Change. Sets language model to PPMPY.
+    void CreateLanguageModel(CEventHandler *pEventHandler, CSettingsStore *pSets);
+    ///ACL: returns a MandarinTrainer too.
+    CTrainer *GetTrainer();
+    
     /*ACL note: used to override GetRoot,
      to attempt to clone the context of the previous node
      in the case that the previous node was a PinyinConversionHelper node

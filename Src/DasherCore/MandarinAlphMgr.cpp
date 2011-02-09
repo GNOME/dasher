@@ -50,8 +50,8 @@ static char THIS_FILE[] = __FILE__;
 // and do not correspond to groups in the chinese alphabet.
 #define LAST_PY 1288
 
-CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphMap, CLanguageModel *pLanguageModel)
-  : CAlphabetManager(pInterface, pNCManager, pAlphabet, pAlphMap, pLanguageModel),
+CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphMap)
+  : CAlphabetManager(pInterface, pNCManager, pAlphabet, pAlphMap),
     m_pCHAlphabet(pInterface->GetInfo("Chinese 简体中文 (simplified chinese, in pin yin groups, and pinyin)")),
     m_pCHAlphabetMap(m_pCHAlphabet->MakeMap()),
     m_pConversionsBySymbol(new set<symbol>[LAST_PY+1]) {
@@ -97,6 +97,19 @@ CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreati
 
 CMandarinAlphMgr::~CMandarinAlphMgr() {
   delete[] m_pConversionsBySymbol;
+}
+
+void CMandarinAlphMgr::CreateLanguageModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore) {
+  //std::cout<<"CHALphabet size "<< pCHAlphabet->GetNumberTextSymbols(); [7603]
+  std::cout<<"Setting PPMPY model"<<std::endl;
+  m_pLanguageModel = new CPPMPYLanguageModel(pEventHandler, pSettingsStore, m_pCHAlphabet, m_pAlphabet);
+  //our superclass destructor will call ReleaseContext on the iLearnContext when we are destroyed,
+  // so we need to put _something_ in there (even tho we don't use it atm!)...
+  m_iLearnContext = m_pLanguageModel->CreateEmptyContext();
+}
+
+CTrainer *CMandarinAlphMgr::GetTrainer() {
+  return new CMandarinTrainer(m_pLanguageModel, m_pAlphabetMap, m_pCHAlphabetMap);
 }
 
 CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd) {
