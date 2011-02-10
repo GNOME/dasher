@@ -169,26 +169,27 @@ CMandarinAlphMgr::CConvRoot *CMandarinAlphMgr::CreateConvRoot(CAlphNode *pParent
   
   // the same offset as we've still not entered/selected a symbol (leaf);
   // Colour is always 9 so ignore iBkgCol
-  CConvRoot *pConv = new CConvRoot(pParent, pParent->offset(), iLbnd, iHbnd, strGroup, this, &m_pConversionsBySymbol[iPYsym]);
-  
+  CConvRoot *pConv = new CConvRoot(pParent, pParent->offset(), iLbnd, iHbnd, strGroup, this, iPYsym);
+    
   // and use the same context too (pinyin syll+tone is _not_ used as part of the LM context)
   pConv->iContext = m_pLanguageModel->CloneContext(pParent->iContext);
   return pConv;
 }
 
-CMandarinAlphMgr::CConvRoot::CConvRoot(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, CMandarinAlphMgr *pMgr, const set<symbol> *pConversions)
-: CDasherNode(pParent, iOffset, iLbnd, iHbnd, 9, strGroup), m_pMgr(pMgr), m_pConversions(pConversions) {
-  DASHER_ASSERT(pConversions && pConversions->size()>1);
+CMandarinAlphMgr::CConvRoot::CConvRoot(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, CMandarinAlphMgr *pMgr, symbol pySym)
+: CDasherNode(pParent, iOffset, iLbnd, iHbnd, 9, strGroup), m_pMgr(pMgr), m_pySym(pySym) {
+  DASHER_ASSERT(m_pMgr->m_pConversionsBySymbol[pySym].size()>1);
   //colour + label from ConversionManager.
 }
 
 int CMandarinAlphMgr::CConvRoot::ExpectedNumChildren() {
-  return m_pConversions->size();
+  return m_pMgr->m_pConversionsBySymbol[m_pySym].size();
 }
 
 void CMandarinAlphMgr::CConvRoot::PopulateChildren() {
   if (m_vChInfo.empty()) {
-    for(set<symbol>::const_iterator it = m_pConversions->begin(); it != m_pConversions->end(); ++it) {
+    const set<symbol> &convs(m_pMgr->m_pConversionsBySymbol[m_pySym]);
+    for(set<symbol>::const_iterator it = convs.begin(); it != convs.end(); ++it) {
       m_vChInfo.push_back(std::pair<symbol, unsigned int>(*it,0));
     }
     //ACL I think it's a good idea to keep those in a consistent order - symbol order will do nicely
@@ -221,6 +222,13 @@ CMandarinAlphMgr::CMandSym *CMandarinAlphMgr::CreateCHSymbol(CDasherNode *pParen
   pNewNode->iContext = m_pLanguageModel->CloneContext(iContext);
   m_pLanguageModel->EnterSymbol(pNewNode->iContext, iCHsym);
   return pNewNode;
+}
+
+void CMandarinAlphMgr::CConvRoot::SetFlag(int iFlag, bool bValue) {
+  if (iFlag==NF_COMMITTED && bValue && !GetFlag(NF_COMMITTED))
+    if (!GetFlag(NF_GAME) && m_pMgr->m_pNCManager->GetBoolParameter(BP_LM_ADAPTIVE))
+      static_cast<CPPMPYLanguageModel *>(m_pMgr->m_pLanguageModel)->LearnPYSymbol(m_pMgr->m_iLearnContext, m_pySym);
+  CDasherNode::SetFlag(iFlag,bValue);
 }
 
 void CMandarinAlphMgr::AssignSizes(std::vector<pair<symbol,unsigned int> > &vChildren, Dasher::CLanguageModel::Context context) {
@@ -303,14 +311,6 @@ void CMandarinAlphMgr::AssignSizes(std::vector<pair<symbol,unsigned int> > &vChi
 
 CMandarinAlphMgr::CMandSym::CMandSym(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, CMandarinAlphMgr *pMgr, symbol iSymbol)
 : CSymbolNode(pParent, iOffset, iLbnd, iHbnd, pMgr->GetCHColour(iSymbol,iOffset), strGroup+pMgr->m_pCHAlphabet->GetDisplayText(iSymbol), pMgr, iSymbol) {
-}
-
-void CMandarinAlphMgr::CMandSym::SetFlag(int iFlag, bool bValue) {
-  //``disable learn-as-you-write for Mandarin Dasher''
-   if (iFlag==NF_COMMITTED)
-     CDasherNode::SetFlag(iFlag, bValue); //bypass CAlphNode setter!
-  else
-      CAlphNode::SetFlag(iFlag, bValue);
 }
 
 const std::string &CMandarinAlphMgr::CMandSym::outputText() {

@@ -49,17 +49,14 @@ namespace Dasher {
     
   protected:
     ///Subclass of CSymbolNode for (converted) chinese-alphabet symbols:
-    /// these (a) disable learn-as-you-write (not supported in Mandarin Dasher),
-    /// (b) use the chinese (not pinyin, as CSymbolNode would) alphabet for text to display/enter
-    /// (c) determine their colour using GetCHColour rather than GetColour.
+    /// these use the chinese alphabet in place of the pinyin one for text to display/enter,
+    /// and get their colour using GetCHColour rather than GetColour.
     class CMandSym : public CSymbolNode {
     public:
       CMandarinAlphMgr *mgr() {return static_cast<CMandarinAlphMgr *>(CSymbolNode::mgr());}
       ///Symbol constructor: display text from CHAlphabet, colour from GetCHColour
       /// \param strGroup caption of any group(s) containing this symbol for which no nodes created; prepended to display text.
       CMandSym(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, CMandarinAlphMgr *pMgr, symbol iSymbol);
-      ///Disable learn-as-you-write
-      virtual void SetFlag(int iFlag, bool bValue);
       ///Rebuilding not supported
       virtual CDasherNode *RebuildParent() {return 0;}
     private:
@@ -71,15 +68,16 @@ namespace Dasher {
     class CConvRoot : public CDasherNode {
     public:
       CMandarinAlphMgr *mgr() {return m_pMgr;}
-      /// \param pConversions set of chinese-alphabet symbol numbers that the PY can convert to; must have >1 element.
-      CConvRoot(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, CMandarinAlphMgr *pMgr, const std::set<symbol> *pConversions);
+      /// \param pySym symbol in pinyin alphabet; must have >1 possible chinese conversion.
+      CConvRoot(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, CMandarinAlphMgr *pMgr, symbol pySym);
       void PopulateChildren();
       int ExpectedNumChildren();
       CLanguageModel::Context iContext;
+      void SetFlag(int iFlag, bool bValue);
     private:        
       std::vector<std::pair<symbol, unsigned int> > m_vChInfo;
       CMandarinAlphMgr *m_pMgr;
-      const std::set<symbol> *m_pConversions;
+      symbol m_pySym;
     };
     ///Called to create the node for a pinyin leaf symbol;
     /// Overridden to call either CreateConvRoot or CreateCHSymbol, according to #chinese symbols under specified pinyin

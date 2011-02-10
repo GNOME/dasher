@@ -540,11 +540,9 @@ CDasherNode *CAlphabetManager::CAlphNode::RebuildParent(int iNewOffset) {
 // TODO: Shouldn't there be an option whether or not to learn as we write?
 // For want of a better solution, game mode exemption explicit in this function
 void CAlphabetManager::CSymbolNode::SetFlag(int iFlag, bool bValue) {
-  CDasherNode::SetFlag(iFlag, bValue);
-  switch(iFlag) {
-  case NF_COMMITTED:
-    if(bValue && !GetFlag(NF_GAME) && m_pMgr->m_pInterface->GetBoolParameter(BP_LM_ADAPTIVE))
+  if (iFlag==NF_COMMITTED && bValue && !GetFlag(NF_COMMITTED)
+      && !GetFlag(NF_GAME) && m_pMgr->m_pInterface->GetBoolParameter(BP_LM_ADAPTIVE)) {
       m_pMgr->m_pLanguageModel->LearnSymbol(m_pMgr->m_iLearnContext, iSymbol);
-    break;
   }
+  CDasherNode::SetFlag(iFlag, bValue);
 }
