@@ -46,16 +46,11 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-//the index of the last syllable+tone symbol in the pinyin alphabet; later symbols are "punctuation"
-// and do not correspond to groups in the chinese alphabet.
-#define LAST_PY 1286
-
 CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphMap)
   : CAlphabetManager(pInterface, pNCManager, pAlphabet, pAlphMap),
-    m_pCHAlphabet(pInterface->GetInfo("Chinese 简体中文 (simplified chinese, in pin yin groups, and pinyin)")),
+    m_pCHAlphabet(pInterface->GetInfo("Chinese 简体中文 (simplified chinese, in pin yin groups)")),
     m_pCHAlphabetMap(m_pCHAlphabet->MakeMap()),
-    m_pConversionsBySymbol(new set<symbol>[LAST_PY+1]) {
-  
+    m_pConversionsBySymbol(new set<symbol>[GetAlphabet()->GetNumberTextSymbols()+1]) {
   //the CHAlphabet contains a group for each SPY syllable+tone, with symbols being chinese characters.
   // Build a map from SPY to set of chinese chars (note, the same chinese unicode can occur in multiple places;
   // hence, we represent as unicode not CHAlph symbol number)...
@@ -71,23 +66,32 @@ CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreati
     // such equivalences are recorded in the xml 'name' attribute of the group, but we don't need that.
     if (pGroup->strLabel.length()) {
       set<string> &chars(conversions[pGroup->strLabel]);
+      DASHER_ASSERT(chars.empty()); //no previous group with same label
       for (int ch=pGroup->iStart; ch<pGroup->iEnd; ch++)
         chars.insert(m_pCHAlphabet->GetText(ch));
     }
   }
+  //Dasher's alphabet format means that space and paragraph can't be put into groups,
+  // so the above will skip them. Hence, add them using the _symbol_ display text:
+  if (symbol sp = m_pCHAlphabet->GetSpaceSymbol())
+    conversions[m_pCHAlphabet->GetDisplayText(sp)].insert(m_pCHAlphabet->GetText(sp));
+  if (symbol para = m_pCHAlphabet->GetParagraphSymbol())
+    conversions[m_pCHAlphabet->GetDisplayText(para)].insert(m_pCHAlphabet->GetText(para));
 
   //Now: symbols in the primary (SPY) alphabet are syllable+tone, with the string SPY description
   // (using unicode tone marks, e.g. &#257;) in the display text, matching up with the CHAlphabet groups. 
   // (The SPY symbols are arranged in hierarchical groups according to the numbered-tone version, e.g. "a1";
   // but we don't do anything special with those groups, they are just displayed on screen as any normal alphabet).
-  for (int i=1; i<=LAST_PY; i++) {
+  //Punctuation is the same way, i.e. PYAlph symbol w/ displaytext "," maps to the CHAlphabel group w/ label ","
+  std::vector<symbol> vSyms;
+  for (symbol i=1; i<=GetAlphabet()->GetNumberTextSymbols(); i++) {
     set<string> &convs(conversions[m_pAlphabet->GetDisplayText(i)]);
     DASHER_ASSERT(!convs.empty());
     //convert each of these chinese unicode characters into a CHAlphabet symbol...
     for (set<string>::const_iterator it=convs.begin(); it!=convs.end(); it++) {
-      std::vector<symbol> vSyms;
+      vSyms.clear();
       m_pCHAlphabetMap->GetSymbols(vSyms, *it);
-      DASHER_ASSERT(vSyms.size()==1); //does it ever happen? if so, Will's code would effectively push -1
+      DASHER_ASSERT(vSyms.size()==1 && vSyms[0]!=0); //i.e. conversion is exactly one chinese symbol
       DASHER_ASSERT(m_pCHAlphabet->GetText(vSyms[0]) == *it);
       m_pConversionsBySymbol[i].insert(vSyms[0]);
     }
@@ -112,40 +116,69 @@ CTrainer *CMandarinAlphMgr::GetTrainer() {
   return new CMandarinTrainer(m_pLanguageModel, m_pAlphabetMap, m_pCHAlphabetMap);
 }
 
-CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol) {
+CAlphabetManager::CAlphNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, bool bEnteredLast, int iOffset) {
 
-  if (iSymbol <= LAST_PY) {
-    //Will wrote:
-    //Modified for Mandarin Dasher
-    //The following logic switch allows punctuation nodes in Mandarin to be treated in the same way as English (i.e. display and populate next round) instead of invoking a conversion node
-    //ACL I think by "the following logic switch" he meant that symbols <= 1288 are "normal" nodes, NOT punctuation nodes,
-    // whereas punctuation is handled by the fallthrough case (standard AlphabetManager CreateSymbolNode)
+  int iNewOffset(max(-1,iOffset-1));  
+  // Use chinese alphabet, not pinyin...
+  pair<symbol, CLanguageModel::Context> p=GetContextSymbols(pParent, iNewOffset, m_pCHAlphabetMap);
 
-    /*old code:
-     * CDasherNode *pNewNode = m_pNCManager->GetConvRoot(pParent, iLbnd, iHbnd, pParent->m_iOffset+1);
-	   * static_cast<CPinYinConversionHelper::CPYConvNode *>(pNewNode)->SetConvSymbol(iSymbol);
-	   * return pNewNode;
-     */
-    
-    //The conversions parallels old PinyinConversionHelper's SetConvSymbol, except
-    // we've already resolved the mapping from what was the symbol's displaytext
-    // (SPY syllable+tone) to the relevant set of chinese symbols.
-    
-    // the same offset as we've still not entered/selected a symbol (leaf)
-    CConvRoot *pNewNode = new CConvRoot(pParent, pParent->offset(), iLbnd, iHbnd, strGroup, this, &m_pConversionsBySymbol[iSymbol]);
-
-    //from ConversionHelper:
-    //pNewNode->m_pLanguageModel = m_pLanguageModel;
-    pNewNode->iContext = m_pLanguageModel->CloneContext(pParent->iContext);
-
-	  return pNewNode;
+  CAlphNode *pNewNode;
+  if (p.first==0 || !bEnteredLast) {
+    pNewNode = new CGroupNode(pParent, iNewOffset, iLower, iUpper, "", 0, this, NULL);
+  } else {
+    DASHER_ASSERT(p.first>0 && p.first<=m_pCHAlphabet->GetNumberTextSymbols());
+    pNewNode = new CMandSym(pParent, iNewOffset, iLower, iUpper,  "", this, p.first);
   }
-  return CAlphabetManager::CreateSymbolNode(pParent, iLbnd, iHbnd, strGroup, iBkgCol, iSymbol);
+  pNewNode->iContext = p.second;
+  
+  return pNewNode;
+}
+
+int CMandarinAlphMgr::GetCHColour(symbol CHsym, int iOffset) const {
+  int iColour = m_pCHAlphabet->GetColour(CHsym);
+  if (iColour==-1) {
+    //none specified in alphabet
+    static int colourStore[2][3] = {
+      {66,//light blue
+        64,//very light green
+        62},//light yellow
+      {78,//light purple
+        81,//brownish
+        60},//red
+    };    
+    return colourStore[iOffset&1][CHsym % 3];
+  }
+  if ((iOffset&1)==0 && iColour<130) iColour+=130;
+  return iColour;
+}
+
+CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol) {
+  
+  //For every PY symbol (=syllable+tone, or "punctuation"),
+  // m_pConversionsBySymbol identifies the possible chinese-alphabet symbols
+  // that have that syll+tone (for punctuation, this'll be a singleton: the identical
+  // punctuation character in the chinese alphabet). A CConvRoot thus offers a choice between them...
+  
+  if (m_pConversionsBySymbol[iSymbol].size()>1)
+    return CreateConvRoot(pParent, iLbnd, iHbnd, strGroup, iSymbol);
+  
+  return CreateCHSymbol(pParent,pParent->iContext, iLbnd, iHbnd, strGroup, *(m_pConversionsBySymbol[iSymbol].begin()));
+}
+
+CMandarinAlphMgr::CConvRoot *CMandarinAlphMgr::CreateConvRoot(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, symbol iPYsym) {
+  
+  // the same offset as we've still not entered/selected a symbol (leaf);
+  // Colour is always 9 so ignore iBkgCol
+  CConvRoot *pConv = new CConvRoot(pParent, pParent->offset(), iLbnd, iHbnd, strGroup, this, &m_pConversionsBySymbol[iPYsym]);
+  
+  // and use the same context too (pinyin syll+tone is _not_ used as part of the LM context)
+  pConv->iContext = m_pLanguageModel->CloneContext(pParent->iContext);
+  return pConv;
 }
 
 CMandarinAlphMgr::CConvRoot::CConvRoot(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, CMandarinAlphMgr *pMgr, const set<symbol> *pConversions)
 : CDasherNode(pParent, iOffset, iLbnd, iHbnd, 9, strGroup), m_pMgr(pMgr), m_pConversions(pConversions) {
-  DASHER_ASSERT(pConversions);
+  DASHER_ASSERT(pConversions && pConversions->size()>1);
   //colour + label from ConversionManager.
 }
 
@@ -163,44 +196,31 @@ void CMandarinAlphMgr::CConvRoot::PopulateChildren() {
     m_pMgr->AssignSizes(m_vChInfo, iContext);
   }
   
-  int iIdx(0);
   int iCum(0);
   
-  //    int parentClr = pNode->Colour();
-  // TODO: Fixme
-  int parentClr = 0;
   // Finally loop through and create the children
   for (vector<pair<symbol, unsigned int> >::const_iterator it = m_vChInfo.begin(); it!=m_vChInfo.end(); it++) {
     //      std::cout << "Current scec: " << pCurrentSCEChild << std::endl;
-    unsigned int iLbnd(iCum);
-    unsigned int iHbnd(iCum + it->second);
+    const unsigned int iLbnd(iCum), iHbnd(iCum + it->second);
     
     iCum = iHbnd;
+    CMandSym *pNewNode = mgr()->CreateCHSymbol(this, this->iContext, iLbnd, iHbnd, "", it->first);
     
-    // TODO: Parameters here are placeholders - need to figure out
-    // what's right    
-    
-    int iColour(m_vChInfo.size()==1 ? getColour() : m_pMgr->AssignColour(parentClr, iIdx));
-    
-    //  std::cout << "#" << pCurrentSCEChild->pszConversion << "#" << std::endl;
-    
-    CMandNode *pNewNode = new CMandSym(this, offset()+1, iLbnd, iHbnd, iColour, m_pMgr, it->first);
-    
-    // TODO: Reimplement ----
-    
-    // FIXME - handle context properly
-    //      pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
-    // -----
-    
-    pNewNode->iContext = m_pMgr->m_pLanguageModel->CloneContext(this->iContext);
-      
-    m_pMgr->m_pLanguageModel->EnterSymbol(pNewNode->iContext, it->first); // TODO: Don't use symbols?      
-      
     DASHER_ASSERT(GetChildren().back()==pNewNode);
     
-    ++iIdx;
   }
-  
+}
+
+CMandarinAlphMgr::CMandSym *CMandarinAlphMgr::CreateCHSymbol(CDasherNode *pParent, CLanguageModel::Context iContext, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, symbol iCHsym) {
+  // TODO: Parameters here are placeholders - need to figure out
+  // what's right 
+
+  int iNewOffset = pParent->offset()+1;
+  if (m_pCHAlphabet->GetText(iCHsym) == "\r\n") iNewOffset++;
+  CMandSym *pNewNode = new CMandSym(pParent, iNewOffset, iLbnd, iHbnd, strGroup, this, iCHsym);
+  pNewNode->iContext = m_pLanguageModel->CloneContext(iContext);
+  m_pLanguageModel->EnterSymbol(pNewNode->iContext, iCHsym);
+  return pNewNode;
 }
 
 void CMandarinAlphMgr::AssignSizes(std::vector<pair<symbol,unsigned int> > &vChildren, Dasher::CLanguageModel::Context context) {
@@ -281,68 +301,16 @@ void CMandarinAlphMgr::AssignSizes(std::vector<pair<symbol,unsigned int> > &vChi
   
 }
 
-static int colourStore[2][3] = {
-  {66,//light blue
-    64,//very light green
-    62},//light yellow
-  {78,//light purple
-    81,//brownish
-    60},//red
-};
-
-//Pulled from CConversionHelper, where it's described as "needing a rethink"...
-int CMandarinAlphMgr::AssignColour(int parentClr, int childIndex) {
-  int which = -1;
-  
-  for (int i=0; i<2; i++)
-    for(int j=0; j<3; j++)
-      if (parentClr == colourStore[i][j])
-        which = i;
-  
-  if(which == -1)
-    return colourStore[0][childIndex%3];
-  else if(which == 0)
-    return colourStore[1][childIndex%3];
-  else 
-    return colourStore[0][childIndex%3]; 
+CMandarinAlphMgr::CMandSym::CMandSym(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, CMandarinAlphMgr *pMgr, symbol iSymbol)
+: CSymbolNode(pParent, iOffset, iLbnd, iHbnd, pMgr->GetCHColour(iSymbol,iOffset), strGroup+pMgr->m_pCHAlphabet->GetDisplayText(iSymbol), pMgr, iSymbol) {
 }
 
-
-CLanguageModel::Context CMandarinAlphMgr::CreateSymbolContext(CAlphNode *pParent, symbol iSymbol)
-{
-	//Context carry-over. This code may worth looking at debug
-	return m_pLanguageModel->CloneContext(pParent->iContext);
-}
-
-CMandarinAlphMgr::CMandNode::CMandNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const string &strGroup, CMandarinAlphMgr *pMgr, symbol iSymbol)
-: CSymbolNode(pParent, iOffset, iLbnd, iHbnd, strGroup, pMgr, iSymbol) {
-}
-
-CMandarinAlphMgr::CMandNode::CMandNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const string &strDisplayText, CMandarinAlphMgr *pMgr, symbol iSymbol)
-: CSymbolNode(pParent, iOffset, iLbnd, iHbnd, iColour, strDisplayText, pMgr, iSymbol) {
-}
-
-CMandarinAlphMgr::CMandNode *CMandarinAlphMgr::makeSymbol(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol) {
-  // Override standard symbol factory method, called by superclass, to make CMandNodes
-  //  - important only to disable learn-as-you-write...
-  return new CMandNode(pParent, iOffset, iLbnd, iHbnd, strGroup, this, iSymbol);
-}
-
-void CMandarinAlphMgr::CMandNode::SetFlag(int iFlag, bool bValue) {
+void CMandarinAlphMgr::CMandSym::SetFlag(int iFlag, bool bValue) {
   //``disable learn-as-you-write for Mandarin Dasher''
    if (iFlag==NF_COMMITTED)
      CDasherNode::SetFlag(iFlag, bValue); //bypass CAlphNode setter!
   else
       CAlphNode::SetFlag(iFlag, bValue);
-}
-
-// For converted chinese symbols, we construct instead CMandSyms...
-CMandarinAlphMgr::CMandSym::CMandSym(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, CMandarinAlphMgr *pMgr, symbol iSymbol)
-: CMandNode(pParent, iOffset, iLbnd, iHbnd, iColour, pMgr->m_pCHAlphabet->GetText(iSymbol), pMgr, iSymbol) {
-  //Note we passed a custom label into superclass constructor:
-  // the chinese characters are in the _text_ (not label - that's e.g. "liang4")
-  // of the alphabet (& the pszConversion from PinyinParser was converted to symbol
-  // by CAlphabet::GetSymbols, which does string->symbol by _text_; we're reversing that)
 }
 
 const std::string &CMandarinAlphMgr::CMandSym::outputText() {

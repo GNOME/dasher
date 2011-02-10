@@ -145,16 +145,22 @@ namespace Dasher {
     const CAlphInfo *GetAlphabet() const;
     
   protected:
-    /// Factory method for CAlphNode construction, so subclasses can override.
-    virtual CSymbolNode *makeSymbol(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol);
-    virtual CGroupNode *makeGroup(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strEnc, int iBkgCol, const SGroupInfo *pGroup);
-
+    ///Called to get the symbols in the context for (preceding) a new node
+    /// \param pParent node to assume has been output, when obtaining context
+    /// \param iRootOffset offset of the node that will be constructed; i.e. context should include symbols
+    /// up to & including this offset.
+    /// \param pAlphMap use to convert entered text into symbol numbers
+    /// (could be the managers m_pAlphabetMap, but subclasses can pass in something different)
+    /// \return pair: first element is the last symbol in the context, _if_ a usable context
+    /// could be extracted, else 0 (=> couldn't get context, using alphabet default); second
+    /// element is the result of entering the symbols retrieved, into a fresh LM context.
+    std::pair<symbol, CLanguageModel::Context> GetContextSymbols(CDasherNode *pParent, int iRootOffset, const CAlphabetMap *pAlphMap);
+    
     ///Called to create a node for a given symbol (leaf), as a child of a specified parent node
     /// \param strGroup caption of any group containing this node, that will not be created:
     /// thus, should be prepended onto the caption of the node created.
     /// \param iBkgCol colour behind the new node, i.e. that should show through if the node is transparent
     virtual CDasherNode *CreateSymbolNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol);
-    virtual CLanguageModel::Context CreateSymbolContext(CAlphNode *pParent, symbol iSymbol);
     virtual CGroupNode *CreateGroupNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strEnc, int iBkgCol, const SGroupInfo *pInfo);
 
     ///Called to add any non-alphabet (non-symbol) children to a top-level node (root or symbol).

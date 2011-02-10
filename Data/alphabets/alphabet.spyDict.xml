@@ -27,7 +27,8 @@
 <s d="&#224;" t="&#x3801;" b="65" visible="no"/>
 </group>
 <group name="a5" label="5" b="66" visible="yes">
-<s d="&#97;" t="&#x5475;" b="67" visible="no"/>
+<!--ACL using unicode "latin small letter a with ring above" to avoid confusion with roman letter a-->
+<s d="&#x00E5;" t="&#x5475;" b="67" visible="no"/>
 </group>
 <group name="ai" label="i" b="68" visible="yes">
 <group name="ai1" label="1" b="69" visible="yes">
@@ -2275,7 +2276,8 @@
 </group>
 <group name="m" label="m" b="90" visible="yes">
 <group name="m2" label="2" b="57" visible="yes">
-<s d="m" t="&#x5452;" b="58" visible="no"/>
+<!-- ACL using unicode "latin small letter m with acute" to avoid conflict with roman letter m -->
+<s d="&#x1E3F;" t="&#x5452;" b="58" visible="no"/>
 </group>
 <group name="ma" label="a" b="59" visible="yes">
 <group name="ma1" label="1" b="60" visible="yes">

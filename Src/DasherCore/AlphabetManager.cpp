@@ -135,70 +135,60 @@ CAlphabetManager::CGroupNode::CGroupNode(CDasherNode *pParent, int iOffset, unsi
             pGroup ? strEnc+pGroup->strLabel : strEnc, pMgr), m_pGroup(pGroup) {
 }
 
-CAlphabetManager::CSymbolNode *CAlphabetManager::makeSymbol(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol) {
-  return new CSymbolNode(pParent, iOffset, iLbnd, iHbnd, strGroup, this, iSymbol);
-}
-
-CAlphabetManager::CGroupNode *CAlphabetManager::makeGroup(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strEnc, int iBkgCol, const SGroupInfo *pGroup) {
-  return new CGroupNode(pParent, iOffset, iLbnd, iHbnd, strEnc, iBkgCol, this, pGroup);
-}
-
 CAlphabetManager::CAlphNode *CAlphabetManager::GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, bool bEnteredLast, int iOffset) {
 
   int iNewOffset(max(-1,iOffset-1));
-  
-  std::vector<symbol> vContextSymbols;
-  // TODO: make the LM get the context, rather than force it to fix max context length as an int
-  int iStart = max(0, iNewOffset - m_pLanguageModel->GetContextLength());
-  
-  if(pParent) {
-    pParent->GetContext(m_pInterface, m_pAlphabetMap, vContextSymbols, iStart, iNewOffset+1 - iStart);
-  } else {
-    std::string strContext = (iNewOffset == -1) 
-      ? m_pAlphabet->GetDefaultContext()
-      : m_pInterface->GetContext(iStart, iNewOffset+1 - iStart);
-    m_pAlphabetMap->GetSymbols(vContextSymbols, strContext);
-  }
+
+  pair<symbol, CLanguageModel::Context> p = GetContextSymbols(pParent, iNewOffset, m_pAlphabetMap);
   
   CAlphNode *pNewNode;
-  CLanguageModel::Context iContext = m_pLanguageModel->CreateEmptyContext();
-  
-  std::vector<symbol>::iterator it = vContextSymbols.end();
-  while (it!=vContextSymbols.begin()) {
-    if (*(--it) == 0) {
-      //found an impossible symbol! start after it
-      ++it;
-      break;
-    }
-  }
-  if (it == vContextSymbols.end()) {
-    //previous character was not in the alphabet!
-    //can't construct a node "responsible" for entering it
-    bEnteredLast=false;
-    //instead, Create a node as if we were starting a new sentence...
-    vContextSymbols.clear();
-    m_pAlphabetMap->GetSymbols(vContextSymbols, m_pAlphabet->GetDefaultContext());
-    it = vContextSymbols.begin();
-    //TODO: What it the default context somehow contains symbols not in the alphabet?
-  }
-  //enter the symbols we could make sense of, into the LM context...
-  while (it != vContextSymbols.end()) {
-    m_pLanguageModel->EnterSymbol(iContext, *(it++));
-  }
-  
-  if(!bEnteredLast) {
-    pNewNode = makeGroup(pParent, iNewOffset, iLower, iUpper, "", 0, NULL);
+  if(p.first==0 || !bEnteredLast) {
+    //couldn't extract last symbol (so probably using default context), or shouldn't
+    pNewNode = new CGroupNode(pParent, iNewOffset, iLower, iUpper, "", 0, this, NULL); //default background colour
   } else {
-    const symbol iSymbol(vContextSymbols[vContextSymbols.size() - 1]);
-    pNewNode = makeSymbol(pParent, iNewOffset, iLower, iUpper, "", 0, iSymbol);
+    pNewNode = new CSymbolNode(pParent, iNewOffset, iLower, iUpper, "", this, p.first);
     //if the new node is not child of an existing node, then it
     // represents a symbol that's already happened - so we're either
     // going backwards (rebuildParent) or creating a new root after a language change
     DASHER_ASSERT (!pParent);
   }
 
-  pNewNode->iContext = iContext;
+  pNewNode->iContext = p.second;
   return pNewNode;
+}
+
+pair<symbol, CLanguageModel::Context> CAlphabetManager::GetContextSymbols(CDasherNode *pParent, int iRootOffset, const CAlphabetMap *pAlphMap) {
+  vector<symbol> vContextSymbols; bool bHaveFinalSymbol = true;
+  //no context is ever available at offset -1 (=choice between symbols with offset 0)
+  if (iRootOffset!=-1) {
+    // TODO: make the LM get the context, rather than force it to fix max context length as an int
+    int iStart = max(0, iRootOffset - m_pLanguageModel->GetContextLength());
+    if(pParent) {
+      pParent->GetContext(m_pInterface, pAlphMap, vContextSymbols, iStart, iRootOffset+1 - iStart);
+    } else {
+      pAlphMap->GetSymbols(vContextSymbols, m_pInterface->GetContext(iStart, iRootOffset+1 - iStart));
+    }
+  
+    for (std::vector<symbol>::iterator it = vContextSymbols.end(); it!=vContextSymbols.begin();) {
+      if (*(--it) == 0) {
+        //found an impossible symbol! erase from beginning up to it (inclusive)
+        vContextSymbols.erase(vContextSymbols.begin(), ++it);
+        break;
+      }
+    }
+  }
+  if (vContextSymbols.empty()) {
+    bHaveFinalSymbol = false;
+    pAlphMap->GetSymbols(vContextSymbols, m_pAlphabet->GetDefaultContext());
+  }
+  
+  CLanguageModel::Context iContext = m_pLanguageModel->CreateEmptyContext();
+  
+  //enter the symbols we could make sense of, into the LM context...
+  for (vector<symbol>::iterator it=vContextSymbols.begin(); it != vContextSymbols.end(); it++) {
+    m_pLanguageModel->EnterSymbol(iContext, *it);
+  }
+  return pair<symbol,CLanguageModel::Context>(bHaveFinalSymbol ? vContextSymbols[vContextSymbols.size()-1] : 0, iContext);
 }
 
 bool CAlphabetManager::CSymbolNode::GameSearchNode(string strTargetUtf8Char) {
@@ -314,7 +304,8 @@ CAlphabetManager::CGroupNode *CAlphabetManager::CreateGroupNode(CAlphNode *pPare
 
   // When creating a group node...
   // ...the offset is the same as the parent...
-  CGroupNode *pNewNode = makeGroup(pParent, pParent->offset(), iLbnd, iHbnd, strEnc, iBkgCol, pInfo);
+  
+  CGroupNode *pNewNode = new CGroupNode(pParent, pParent->offset(), iLbnd, iHbnd, strEnc, iBkgCol, this, pInfo);
 
   //...as is the context!
   pNewNode->iContext = m_pLanguageModel->CloneContext(pParent->iContext);
@@ -346,13 +337,6 @@ CDasherNode *CAlphabetManager::CSymbolNode::RebuildGroup(CAlphNode *pParent, uns
   return pRet;
 }
 
-CLanguageModel::Context CAlphabetManager::CreateSymbolContext(CAlphNode *pParent, symbol iSymbol)
-{
-  CLanguageModel::Context iContext = m_pLanguageModel->CloneContext(pParent->iContext);
-  m_pLanguageModel->EnterSymbol(iContext, iSymbol); // TODO: Don't use symbols?
-  return iContext;
-}
-
 CDasherNode *CAlphabetManager::CreateSymbolNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol) {
 
     // TODO: Exceptions / error handling in general
@@ -361,15 +345,16 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CAlphNode *pParent, unsigned int
     // (and we can't call numChars() on the symbol before we've constructed it!)
     int iNewOffset = pParent->offset()+1;
     if (m_pAlphabet->GetText(iSymbol)=="\r\n") iNewOffset++;
-    CSymbolNode *pAlphNode = makeSymbol(pParent, iNewOffset, iLbnd, iHbnd, strGroup, iBkgCol, iSymbol);
-
+    CSymbolNode *pAlphNode = new CSymbolNode(pParent, iNewOffset, iLbnd, iHbnd, "", this, iSymbol);
+  
     //     std::stringstream ssLabel;
 
     //     ssLabel << m_pAlphabet->GetDisplayText(iSymbol) << ": " << pNewNode;
 
     //    pDisplayInfo->strDisplayText = ssLabel.str();
 
-    pAlphNode->iContext = CreateSymbolContext(pParent, iSymbol);
+    pAlphNode->iContext = m_pLanguageModel->CloneContext(pParent->iContext);
+    m_pLanguageModel->EnterSymbol(pAlphNode->iContext, iSymbol); // TODO: Don't use symbols?
 
   return pAlphNode;
 }
