@@ -116,8 +116,12 @@ int CAlphabetManager::GetColour(symbol sym, int iOffset) const {
 }
 
 
+CAlphabetManager::CAlphBase::CAlphBase(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const string &strDisplayText, CAlphabetManager *pMgr)
+: CDasherNode(pParent, iOffset, iLbnd, iHbnd, iColour, strDisplayText), m_pMgr(pMgr) {
+}
+
 CAlphabetManager::CAlphNode::CAlphNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const string &strDisplayText, CAlphabetManager *pMgr)
-: CDasherNode(pParent, iOffset, iLbnd, iHbnd, iColour, strDisplayText), m_pProbInfo(NULL), m_pMgr(pMgr) {
+: CAlphBase(pParent, iOffset, iLbnd, iHbnd, iColour, strDisplayText, pMgr), m_pProbInfo(NULL) {
 }
 
 CAlphabetManager::CSymbolNode::CSymbolNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, CAlphabetManager *pMgr, symbol _iSymbol)
@@ -313,6 +317,15 @@ CAlphabetManager::CGroupNode *CAlphabetManager::CreateGroupNode(CAlphNode *pPare
   return pNewNode;
 }
 
+CDasherNode *CAlphabetManager::CAlphBase::RebuildGroup(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strEnc, int iBkgCol, const SGroupInfo *pInfo) {
+  CGroupNode *pRet=m_pMgr->CreateGroupNode(pParent, iLbnd, iHbnd, strEnc, iBkgCol, pInfo);
+  if (isInGroup(pInfo)) {
+    //created group node should contain this one
+    m_pMgr->IterateChildGroups(pRet,pInfo,this);
+  }
+  return pRet;
+}
+
 CDasherNode *CAlphabetManager::CGroupNode::RebuildGroup(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strEnc, int iBkgCol, const SGroupInfo *pInfo) {
   if (pInfo == m_pGroup) {
     SetRange(iLbnd, iHbnd);
@@ -321,20 +334,15 @@ CDasherNode *CAlphabetManager::CGroupNode::RebuildGroup(CAlphNode *pParent, unsi
     DASHER_ASSERT (offset() == pParent->offset());
     return this;
   }
-  CGroupNode *pRet=m_pMgr->CreateGroupNode(pParent, iLbnd, iHbnd, strEnc, iBkgCol, pInfo);
-  if (pInfo->iStart <= m_pGroup->iStart && pInfo->iEnd >= m_pGroup->iEnd) {
-    //created group node should contain this one
-    m_pMgr->IterateChildGroups(pRet,pInfo,this);
-  }
-  return pRet;
+  return CAlphBase::RebuildGroup(pParent, iLbnd, iHbnd, strEnc, iBkgCol, pInfo);
 }
 
-CDasherNode *CAlphabetManager::CSymbolNode::RebuildGroup(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strEnc, int iBkgCol, const SGroupInfo *pInfo) {
-  CGroupNode *pRet=m_pMgr->CreateGroupNode(pParent, iLbnd, iHbnd, strEnc, iBkgCol, pInfo);
-  if (pInfo->iStart <= iSymbol && pInfo->iEnd > iSymbol) {
-    m_pMgr->IterateChildGroups(pRet, pInfo, this);
-  }
-  return pRet;
+bool CAlphabetManager::CGroupNode::isInGroup(const SGroupInfo *pInfo) {
+  return pInfo->iStart <= m_pGroup->iStart && pInfo->iEnd >= m_pGroup->iEnd;
+}
+
+bool CAlphabetManager::CSymbolNode::isInGroup(const SGroupInfo *pInfo) {
+  return (pInfo->iStart <= iSymbol && pInfo->iEnd > iSymbol);
 }
 
 CDasherNode *CAlphabetManager::CreateSymbolNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol) {
@@ -359,6 +367,10 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CAlphNode *pParent, unsigned int
   return pAlphNode;
 }
 
+CDasherNode *CAlphabetManager::CAlphBase::RebuildSymbol(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol) {
+  return m_pMgr->CreateSymbolNode(pParent, iLbnd, iHbnd, strGroup, iBkgCol, iSymbol);
+}
+
 CDasherNode *CAlphabetManager::CSymbolNode::RebuildSymbol(CAlphNode *pParent,  unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol) {
   if(iSymbol == this->iSymbol) {
     SetRange(iLbnd, iHbnd);
@@ -366,14 +378,10 @@ CDasherNode *CAlphabetManager::CSymbolNode::RebuildSymbol(CAlphNode *pParent,  u
     DASHER_ASSERT(offset() == pParent->offset() + numChars());
     return this;
   }
-  return m_pMgr->CreateSymbolNode(pParent, iLbnd, iHbnd, strGroup, iBkgCol, iSymbol);
+  return CAlphBase::RebuildSymbol(pParent, iLbnd, iHbnd, strGroup, iBkgCol, iSymbol);
 }
 
-CDasherNode *CAlphabetManager::CGroupNode::RebuildSymbol(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol) {
-  return m_pMgr->CreateSymbolNode(pParent, iLbnd, iHbnd, strGroup, iBkgCol, iSymbol);
-}
-
-void CAlphabetManager::IterateChildGroups(CAlphNode *pParent, const SGroupInfo *pParentGroup, CAlphNode *buildAround) {
+void CAlphabetManager::IterateChildGroups(CAlphNode *pParent, const SGroupInfo *pParentGroup, CAlphBase *buildAround) {
   std::vector<unsigned int> *pCProb(pParent->GetProbInfo());
   DASHER_ASSERT((*pCProb)[0] == 0);
   const int iMin(pParentGroup ? pParentGroup->iStart : 1);
@@ -500,40 +508,30 @@ void CAlphabetManager::CSymbolNode::Undo(int *pNumDeleted) {
 }
 
 CDasherNode *CAlphabetManager::CGroupNode::RebuildParent() {
-  // CAlphNode's always have a parent, they inserted a symbol; CGroupNode's
-  // with an m_pGroup have a container i.e. the parent group, unless
-  // m_pGroup==NULL => "root" node where Alphabet->m_pBaseGroup is the *first*child*...
-  if (m_pGroup == NULL) return NULL;
-  //offset of group node is same as parent...
-  return CAlphNode::RebuildParent(offset());
-}
-
-CDasherNode *CAlphabetManager::CSymbolNode::RebuildParent() {
-  //parent's offset usually one less than this, but can be two for the paragraph symbol.
-  return CAlphNode::RebuildParent(offset()-numChars());
-}
-
-CDasherNode *CAlphabetManager::CAlphNode::RebuildParent(int iNewOffset) {
-  //possible that we have a parent, as RebuildParent() rebuilds back to closest AlphNode.
+  
   if (Parent()) return Parent();
   
-  CAlphNode *pNewNode = m_pMgr->GetRoot(NULL, 0, 0, iNewOffset!=-1, iNewOffset+1);
-  
-  //now fill in the new node - recursively - until it reaches us
-  m_pMgr->IterateChildGroups(pNewNode, NULL, this);
+  // CGroupNodes with an m_pGroup have a container i.e. the parent group, unless
+  // m_pGroup==NULL => "root" node where Alphabet->m_pBaseGroup is the *first*child*...
+  if (m_pGroup == NULL) return NULL;
+    
+  return CAlphBase::RebuildParent();
+}
 
-  //finally return our immediate parent (pNewNode may be an ancestor rather than immediate parent!)
-  DASHER_ASSERT(Parent() != NULL);
+CDasherNode *CAlphabetManager::CAlphBase::RebuildParent() {
+  if (!Parent()) {
+    //Parent's offset usually one less than this, but can be two for the paragraph symbol.
+    int iNewOffset = offset()-numChars();
 
-  //although not required, we believe only NF_SEEN nodes are ever requested to rebuild their parents...
-  DASHER_ASSERT(GetFlag(NF_SEEN));
-  //so set NF_SEEN on all created ancestors (of which pNewNode is the last)
-  CDasherNode *pNode = this;
-  do {
-    pNode = pNode->Parent();
-    pNode->SetFlag(NF_SEEN, true);
-  } while (pNode != pNewNode);
-  
+    CAlphNode *pNewNode = m_pMgr->GetRoot(NULL, 0, 0, iNewOffset!=-1, iNewOffset+1);
+    
+    //now fill in the new node - recursively - until it reaches us
+    m_pMgr->IterateChildGroups(pNewNode, NULL, this);
+    
+    if (GetFlag(NF_SEEN)) {
+      for (CDasherNode *pNode=this; (pNode=pNode->Parent()); pNode->SetFlag(NF_SEEN, true));
+    }
+  }
   return Parent();
 }
 

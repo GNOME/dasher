@@ -56,27 +56,32 @@ namespace Dasher {
       CMandarinAlphMgr *mgr() {return static_cast<CMandarinAlphMgr *>(CSymbolNode::mgr());}
       ///Symbol constructor: display text from CHAlphabet, colour from GetCHColour
       /// \param strGroup caption of any group(s) containing this symbol for which no nodes created; prepended to display text.
-      CMandSym(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, CMandarinAlphMgr *pMgr, symbol iSymbol);
-      ///Rebuilding not supported
-      virtual CDasherNode *RebuildParent() {return 0;}
+      CMandSym(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, CMandarinAlphMgr *pMgr, symbol iSymbol, symbol pyParent);
+    protected:
+      CDasherNode *RebuildSymbol(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol);
+      bool isInGroup(const SGroupInfo *pGroup);
     private:
       virtual const std::string &outputText();
+      ///The Pinyin symbol used to produce this chinese symbol, if known (0 if not!)
+      symbol m_pyParent;
     };
-    ///Offers a choice between a set of chinese symbols, all corresponding to a single PY symbol.
-    /// Relative sizes of the CH symbols is obtained by CPPMPYLanguageModel::GetPartProbs, passing
-    /// the set of possible CH symbols.
-    class CConvRoot : public CDasherNode {
+      ///Offers a choice between a set of chinese symbols, all corresponding to a single PY symbol.
+      /// Relative sizes of the CH symbols is obtained by CPPMPYLanguageModel::GetPartProbs, passing
+      /// the set of possible CH symbols.
+      class CConvRoot : public CAlphBase {
     public:
-      CMandarinAlphMgr *mgr() {return m_pMgr;}
       /// \param pySym symbol in pinyin alphabet; must have >1 possible chinese conversion.
       CConvRoot(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, CMandarinAlphMgr *pMgr, symbol pySym);
+      CMandarinAlphMgr *mgr() {return static_cast<CMandarinAlphMgr *>(CAlphBase::mgr());}
       void PopulateChildren();
       int ExpectedNumChildren();
       CLanguageModel::Context iContext;
       void SetFlag(int iFlag, bool bValue);
+      CDasherNode *RebuildSymbol(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol);
+    protected:
+      bool isInGroup(const SGroupInfo *pGroup);
     private:        
       std::vector<std::pair<symbol, unsigned int> > m_vChInfo;
-      CMandarinAlphMgr *m_pMgr;
       symbol m_pySym;
     };
     ///Called to create the node for a pinyin leaf symbol;
@@ -97,7 +102,8 @@ namespace Dasher {
     /// \param iContext parent node's context, from which to generate context for this node
     /// \param strGroup caption of any elided groups (prepended to this node's caption)
     /// \param iCHsym symbol number in chinese alphabet
-    CMandSym *CreateCHSymbol(CDasherNode *pParent, CLanguageModel::Context iContext, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, symbol iCHsym);
+    /// \param pyParent pinyin-alphabet symbol which was used to enter this chinese symbol (if known, else 0)
+    CMandSym *CreateCHSymbol(CDasherNode *pParent, CLanguageModel::Context iContext, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, symbol iCHsym, symbol pyParent);
 
     void AssignSizes(std::vector<std::pair<symbol,unsigned int> > &vChildren, Dasher::CLanguageModel::Context context);
 
