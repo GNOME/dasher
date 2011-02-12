@@ -72,12 +72,6 @@ CDasherNode::~CDasherNode() {
   iNumNodes--;
 }
 
-void CDasherNode::PrependElidedGroup(int iGroupColour, string &strGroupLabel) {
-  if (m_iColour==-1) m_iColour = iGroupColour;
-  m_strDisplayText = strGroupLabel + m_strDisplayText;
-}
-
-
 void CDasherNode::Trace() const {
   /* TODO sort out
      dchar out[256];

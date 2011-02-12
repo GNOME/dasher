@@ -72,8 +72,8 @@ namespace Dasher {
       ///Have to call this from CAlphabetManager, and from CGroupNode on a _different_ CAlphNode, hence public...
       virtual std::vector<unsigned int> *GetProbInfo();
       virtual int ExpectedNumChildren();
-      virtual CDasherNode *RebuildSymbol(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd)=0;
-      virtual CGroupNode *RebuildGroup(CAlphNode *pParent, const SGroupInfo *pInfo, unsigned int iLbnd, unsigned int iHbnd)=0;
+      virtual CDasherNode *RebuildSymbol(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol)=0;
+      virtual CDasherNode *RebuildGroup(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strEnc, int iBkgCol, const SGroupInfo *pInfo)=0;
     private:
       std::vector<unsigned int> *m_pProbInfo;
     protected:
@@ -82,7 +82,10 @@ namespace Dasher {
     class CSymbolNode : public CAlphNode {
     public:
       ///Standard constructor, gets colour from GetColour(symbol,offset) and label from current alphabet
-      CSymbolNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CAlphabetManager *pMgr, symbol iSymbol);
+      /// \param strGroup caption of any enclosing group(s) of which this symbol is a singleton child
+      /// - this is prepended onto the symbol caption. Note, we don't need the "background colour" of
+      /// any such group, as GetColour() always returns an opaque color.
+      CSymbolNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, CAlphabetManager *pMgr, symbol iSymbol);
 
       ///
       /// Provide children for the supplied node
@@ -99,8 +102,8 @@ namespace Dasher {
       virtual void GetContext(CDasherInterfaceBase *pInterface, const CAlphabetMap *pAlphabetMap, std::vector<symbol> &vContextSymbols, int iOffset, int iLength);
       virtual symbol GetAlphSymbol();
       const symbol iSymbol;
-      virtual CDasherNode *RebuildSymbol(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd);
-      virtual CGroupNode *RebuildGroup(CAlphNode *pParent, const SGroupInfo *pInfo, unsigned int iLbnd, unsigned int iHbnd);
+      virtual CDasherNode *RebuildSymbol(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol);
+      virtual CDasherNode *RebuildGroup(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strEnc, int iBkgCol, const SGroupInfo *pInfo);
     protected:
       virtual const std::string &outputText();
       /// Number of unicode _characters_ (not octets) for this symbol.
@@ -114,7 +117,7 @@ namespace Dasher {
 
     class CGroupNode : public CAlphNode {
     public:
-      CGroupNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CAlphabetManager *pMgr, const SGroupInfo *pGroup);
+      CGroupNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strEnc, int iBkgCol, CAlphabetManager *pMgr, const SGroupInfo *pGroup);
       
       ///
       /// Provide children for the supplied node
@@ -123,8 +126,8 @@ namespace Dasher {
       virtual void PopulateChildren();
       virtual int ExpectedNumChildren();
       virtual bool GameSearchNode(std::string strTargetUtf8Char);
-      virtual CDasherNode *RebuildSymbol(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd);
-      virtual CGroupNode *RebuildGroup(CAlphNode *pParent, const SGroupInfo *pInfo, unsigned int iLbnd, unsigned int iHbnd);
+      virtual CDasherNode *RebuildSymbol(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol);
+      virtual CDasherNode *RebuildGroup(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strEnc, int iBkgCol, const SGroupInfo *pInfo);
       std::vector<unsigned int> *GetProbInfo();
     private:
       const SGroupInfo *m_pGroup;
@@ -142,15 +145,17 @@ namespace Dasher {
     const CAlphInfo *GetAlphabet() const;
     
   protected:
-    ///
     /// Factory method for CAlphNode construction, so subclasses can override.
-    ///
-    virtual CSymbolNode *makeSymbol(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, symbol iSymbol);
-    virtual CGroupNode *makeGroup(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const SGroupInfo *pGroup);
-    
-    virtual CDasherNode *CreateSymbolNode(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd);
+    virtual CSymbolNode *makeSymbol(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol);
+    virtual CGroupNode *makeGroup(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strEnc, int iBkgCol, const SGroupInfo *pGroup);
+
+    ///Called to create a node for a given symbol (leaf), as a child of a specified parent node
+    /// \param strGroup caption of any group containing this node, that will not be created:
+    /// thus, should be prepended onto the caption of the node created.
+    /// \param iBkgCol colour behind the new node, i.e. that should show through if the node is transparent
+    virtual CDasherNode *CreateSymbolNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol);
     virtual CLanguageModel::Context CreateSymbolContext(CAlphNode *pParent, symbol iSymbol);
-    virtual CGroupNode *CreateGroupNode(CAlphNode *pParent, const SGroupInfo *pInfo, unsigned int iLbnd, unsigned int iHbnd);
+    virtual CGroupNode *CreateGroupNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strEnc, int iBkgCol, const SGroupInfo *pInfo);
 
     ///Called to add any non-alphabet (non-symbol) children to a top-level node (root or symbol).
     /// Default is just to add the control node, if appropriate.
@@ -173,6 +178,15 @@ namespace Dasher {
     ///Wraps m_pLanguageModel->GetProbs to implement nonuniformity & leave space for control node.
     /// Returns array of non-cumulative probs. Should this be protected and/or virtual???
     void GetProbs(std::vector<unsigned int> *pProbs, CLanguageModel::Context iContext);
+    ///Constructs child nodes under the specified parent according to provided group.
+    /// Nodes are created by calling CreateSymbolNode and CreateGroupNode, unless buildAround is non-null.
+    /// \param pParentGroup group describing which symbols and/or subgroups should be constructed
+    /// (these will fill the parent), or NULL meaning the entire alphabet (i.e. toplevel groups
+    /// and symbols not in any group).
+    /// \param buildAround if non-null, its RebuildSymbol and RebuildGroup methods will be called
+    /// instead of the AlphabetManager's CreateSymbolNode/CreateGroupNode methods. This is used when
+    /// rebuilding parents: passing in the pre-existing node here, allows it to intercept those calls
+    /// and graft itself in in place of a new node, when appropriate.
     void IterateChildGroups(CAlphNode *pParent, const SGroupInfo *pParentGroup, CAlphNode *buildAround);
 
     CDasherInterfaceBase *m_pInterface;

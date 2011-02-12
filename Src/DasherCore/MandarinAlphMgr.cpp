@@ -112,7 +112,7 @@ CTrainer *CMandarinAlphMgr::GetTrainer() {
   return new CMandarinTrainer(m_pLanguageModel, m_pAlphabetMap, m_pCHAlphabetMap);
 }
 
-CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd) {
+CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol) {
 
   if (iSymbol <= LAST_PY) {
     //Will wrote:
@@ -132,7 +132,7 @@ CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CAlphNode *pParent, symbol iSymb
     // (SPY syllable+tone) to the relevant set of chinese symbols.
     
     // the same offset as we've still not entered/selected a symbol (leaf)
-    CConvRoot *pNewNode = new CConvRoot(pParent, pParent->offset(), iLbnd, iHbnd, this, &m_pConversionsBySymbol[iSymbol]);
+    CConvRoot *pNewNode = new CConvRoot(pParent, pParent->offset(), iLbnd, iHbnd, strGroup, this, &m_pConversionsBySymbol[iSymbol]);
 
     //from ConversionHelper:
     //pNewNode->m_pLanguageModel = m_pLanguageModel;
@@ -140,11 +140,11 @@ CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CAlphNode *pParent, symbol iSymb
 
 	  return pNewNode;
   }
-  return CAlphabetManager::CreateSymbolNode(pParent, iSymbol, iLbnd, iHbnd);
+  return CAlphabetManager::CreateSymbolNode(pParent, iLbnd, iHbnd, strGroup, iBkgCol, iSymbol);
 }
 
-CMandarinAlphMgr::CConvRoot::CConvRoot(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CMandarinAlphMgr *pMgr, const set<symbol> *pConversions)
-: CDasherNode(pParent, iOffset, iLbnd, iHbnd, 9, ""), m_pMgr(pMgr), m_pConversions(pConversions) {
+CMandarinAlphMgr::CConvRoot::CConvRoot(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, CMandarinAlphMgr *pMgr, const set<symbol> *pConversions)
+: CDasherNode(pParent, iOffset, iLbnd, iHbnd, 9, strGroup), m_pMgr(pMgr), m_pConversions(pConversions) {
   DASHER_ASSERT(pConversions);
   //colour + label from ConversionManager.
 }
@@ -314,18 +314,18 @@ CLanguageModel::Context CMandarinAlphMgr::CreateSymbolContext(CAlphNode *pParent
 	return m_pLanguageModel->CloneContext(pParent->iContext);
 }
 
-CMandarinAlphMgr::CMandNode::CMandNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CMandarinAlphMgr *pMgr, symbol iSymbol)
-: CSymbolNode(pParent, iOffset, iLbnd, iHbnd, pMgr, iSymbol) {
+CMandarinAlphMgr::CMandNode::CMandNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const string &strGroup, CMandarinAlphMgr *pMgr, symbol iSymbol)
+: CSymbolNode(pParent, iOffset, iLbnd, iHbnd, strGroup, pMgr, iSymbol) {
 }
 
 CMandarinAlphMgr::CMandNode::CMandNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const string &strDisplayText, CMandarinAlphMgr *pMgr, symbol iSymbol)
 : CSymbolNode(pParent, iOffset, iLbnd, iHbnd, iColour, strDisplayText, pMgr, iSymbol) {
 }
 
-CMandarinAlphMgr::CMandNode *CMandarinAlphMgr::makeSymbol(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, symbol iSymbol) {
+CMandarinAlphMgr::CMandNode *CMandarinAlphMgr::makeSymbol(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol) {
   // Override standard symbol factory method, called by superclass, to make CMandNodes
   //  - important only to disable learn-as-you-write...
-  return new CMandNode(pParent, iOffset, iLbnd, iHbnd, this, iSymbol);
+  return new CMandNode(pParent, iOffset, iLbnd, iHbnd, strGroup, this, iSymbol);
 }
 
 void CMandarinAlphMgr::CMandNode::SetFlag(int iFlag, bool bValue) {

@@ -65,7 +65,7 @@ class Dasher::CDasherNode:private NoClones {
   /// Colour; note invisible nodes just have the same colour as their parent.
   /// (so we know what colour to use when their parents are deleted)
   inline int getColour() {return m_iColour;}
-  inline std::string &getDisplayText() {return m_strDisplayText;}
+  inline const std::string &getDisplayText() {return m_strDisplayText;}
   ///Whether labels on child nodes should be displaced to the right of this node's label.
   /// (Default implementation returns true, subclasses should override if appropriate)
   virtual bool bShove() {return true;}
@@ -90,11 +90,6 @@ class Dasher::CDasherNode:private NoClones {
   ///
   virtual ~CDasherNode();
 
-  /// Adjusts the colour & label of this node to look as it would if it 
-  /// were the sole child of another node with the specified colour and label
-  /// (without actually making the other/group node)
-  void PrependElidedGroup(int iGroupColour, std::string &strGroupLabel);
-  
   void Trace() const;           // diagnostic
 
   /// @name Routines for manipulating node status
@@ -284,8 +279,8 @@ class Dasher::CDasherNode:private NoClones {
   int m_iOffset;
 
  protected:
-  int m_iColour;
-  std::string m_strDisplayText;
+  const int m_iColour;
+  const std::string m_strDisplayText;
 };
 /// @}
 

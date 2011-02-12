@@ -58,15 +58,17 @@ namespace Dasher {
     class CMandNode : public CSymbolNode {
     public:
       CMandarinAlphMgr *mgr() {return static_cast<CMandarinAlphMgr *>(CSymbolNode::mgr());}
-      CMandNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CMandarinAlphMgr *pMgr, symbol iSymbol);
       virtual void SetFlag(int iFlag, bool bValue);
       virtual CDasherNode *RebuildParent() {return 0;}
+      //Standard constructor, as for CSymbolNode
+      CMandNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, CMandarinAlphMgr *pMgr, symbol iSymbol);
     protected:
-      /// Constructor for subclasses (CMandSym!) to specify own colour & label
+      ///Compatibility constructor with exact colour & label (inc. enclosing group nodes)
       CMandNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const std::string &strDisplayText, CMandarinAlphMgr *pMgr, symbol iSymbol);
     };
     class CMandSym : public CMandNode {
     public:
+      //CMandSym's only ever created as children of ConvRoots, so no enclosing group nodes to worry about.
       CMandSym(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, CMandarinAlphMgr *pMgr, symbol iSymbol);
     private:
       virtual const std::string &outputText();
@@ -78,17 +80,20 @@ namespace Dasher {
     public:
       CMandarinAlphMgr *mgr() {return m_pMgr;}
       /// \param pConversions set of chinese-alphabet symbol numbers that the PY can convert to.
-      CConvRoot(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CMandarinAlphMgr *pMgr, const std::set<symbol> *pConversions);
+      CConvRoot(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, CMandarinAlphMgr *pMgr, const std::set<symbol> *pConversions);
       void PopulateChildren();
       int ExpectedNumChildren();
-      int iContext;
+      CLanguageModel::Context iContext;
     private:        
       std::vector<std::pair<symbol, unsigned int> > m_vChInfo;
       CMandarinAlphMgr *m_pMgr;
       const std::set<symbol> *m_pConversions;
     };
-    CMandNode *makeSymbol(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, symbol iSymbol);
-    virtual CDasherNode *CreateSymbolNode(CAlphNode *pParent, symbol iSymbol, unsigned int iLbnd, unsigned int iHbnd);
+    ///Override to make CMandNodes (for punctuation)
+    CMandNode *makeSymbol(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol);
+    ///Override to make CConvRoots for symbols <=1288, fall back to superclass for others (punctuation)
+    virtual CDasherNode *CreateSymbolNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol);
+    ///Override: punctuation contexts, are the same as their parent (?!)
     virtual CLanguageModel::Context CreateSymbolContext(CAlphNode *pParent, symbol iSymbol);
 
     int AssignColour(int parentClr, int childIndex);
