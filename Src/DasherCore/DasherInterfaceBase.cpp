@@ -946,15 +946,6 @@ void CDasherInterfaceBase::HandleClickDown(int iTime, int iX, int iY) {
   KeyDown(iTime, 100, true, iX, iY);
 }
 
-
-void CDasherInterfaceBase::ExecuteCommand(const std::string &strName) {
-  // TODO: Pointless - just insert event directly
-
-  CCommandEvent *pEvent = new CCommandEvent(strName);
-  m_pEventHandler->InsertEvent(pEvent);
-  delete pEvent;
-}
-
 void CDasherInterfaceBase::AddActionButton(const std::string &strName) {
   m_vRightButtons.push_back(new CActionButton(this, strName, false));
 }

@@ -165,6 +165,9 @@ private:
 
   void ExternalEventHandler(Dasher::CEvent *pEvent);
   
+  /// Override to emit Gtk2 signals (previously in response to CCommandEvent)
+  void ExecuteCommand(const std::string &strName);
+
   void GameMessageOut(int message, const void* messagedata);
 
   ///

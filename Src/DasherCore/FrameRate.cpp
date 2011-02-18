@@ -11,10 +11,9 @@ CFrameRate::CFrameRate(CEventHandler *pEventHandler, CSettingsStore *pSettingsSt
   m_iTime = 0;                  // Hmmm, User must reset framerate before starting.
 
   //try and carry on from where we left off at last run
-  CParameterNotificationEvent evt(LP_FRAMERATE);
-  HandleEvent(&evt);
-  evt.m_iParameter = LP_MAX_BITRATE;
-  HandleEvent(&evt); //calls UpdateSteps(), which sets m_dRXMax and m_iSteps
+  {CParameterNotificationEvent evt(LP_FRAMERATE); HandleEvent(&evt);}
+  {CParameterNotificationEvent evt(LP_MAX_BITRATE); HandleEvent(&evt);}
+  //calls UpdateSteps(), which sets m_dRXMax and m_iSteps
 }
 
 void CFrameRate::RecordFrame(unsigned long Time)

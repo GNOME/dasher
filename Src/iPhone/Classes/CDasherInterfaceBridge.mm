@@ -222,9 +222,6 @@ void CDasherInterfaceBridge::ExternalEventHandler(Dasher::CEvent *pEvent) {
         [dasherApp del:EDIT_FILE forwards:NO]; break;
       }
       break;
-    case EV_COMMAND:
-      NSLog(@"ExternalEventHandler, m_iEventType = EV_COMMAND");
-      break;
     case EV_LOCK:
     {
       CLockEvent *evt(static_cast<CLockEvent *>(pEvent));

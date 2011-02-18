@@ -334,8 +334,10 @@ public:
   /// @name Action buttons
   /// TODO, how much of this was ever implemented???
   /// @{
-
-  void ExecuteCommand(const std::string &strName);
+  /// ACL in answer to previous: not much, not sure whether it's worth keeping anything;
+  /// but for now, I'm preserving this as overridable by subclasses which do want to handle
+  /// commands, so they can make it do something. The default implementation does nothing.
+  virtual void ExecuteCommand(const std::string &strName) {};
 
   void AddActionButton(const std::string &strName);
 

@@ -376,11 +376,11 @@ void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
 
     g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_message", &sInfo);
   }
-  else if(pEvent->m_iEventType == EV_COMMAND) {
-    CCommandEvent *pCommandEvent(static_cast<CCommandEvent *>(pEvent));
-    g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_command", pCommandEvent->m_strCommand.c_str());
-  }
 };
+
+void CDasherControl::ExecuteCommand(const std::string &strCommand) {
+    g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_command", strCommand.c_str());
+}
 
 void CDasherControl::WriteTrainFile(const std::string &strNewText) {
   if(strNewText.length() == 0)
