@@ -99,7 +99,7 @@ void CCircleStartHandler::Timer(int iTime, dasherint mouseX, dasherint mouseY,CD
 }
 
 void CCircleStartHandler::HandleEvent(Dasher::CEvent * pEvent) {
-  if(pEvent->m_iEventType == 1) {
+  if(pEvent->m_iEventType == EV_PARAM_NOTIFY) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
    
     switch (pEvt->m_iParameter) {
@@ -110,6 +110,11 @@ void CCircleStartHandler::HandleEvent(Dasher::CEvent * pEvent) {
       break;
     case BP_DASHER_PAUSED:
       m_iEnterTime = std::numeric_limits<long>::max();
+      //In one-dimensional mode, we have that (un)pausing can _move_ the circle, thus,
+      // clicking (or using any other start mechanism) can cause the circle to appear
+      // around the mouse. If this happens, you should have to leave and re-enter
+      // the circle before the start handler does anything. The following ensures this.
+      m_bInCircle = true;
       break;
     }
   }
