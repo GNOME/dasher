@@ -970,6 +970,15 @@
 <group name="en1" label="1" b="84" visible="yes">
 <s d="&#275;n" t="&#x6069;" b="85" visible="no"/>
 </group>
+<!-- not sure how to add en2/en3, need something for the text attribute
+     (used in training files) 
+  <group name="en2" label="2" b="84" visible="yes">
+  <s d="&#233;n" t="TODO;" b="85" visible="no"/>
+  </group>
+  <group name="en3" label="3" b="84" visible="yes">
+  <s d="&#283;n" t="TODO;" b="85" visible="no"/>
+  </group>
+-->
 <group name="en4" label="4" b="86" visible="yes">
 <s d="&#232;n" t="&#x6441;" b="87" visible="no"/>
 </group>
@@ -2487,10 +2496,6 @@
 </group>
 </group>
 <group name="n" label="n" b="61" visible="yes">
-<s d="n" t="&#x55EF;" b="62" visible="no"/>
-
-
-
 <group name="na" label="a" b="72" visible="yes">
 <group name="na1" label="1" b="73" visible="yes">
 <s d="n&#257;" t="&#x90A3;" b="74" visible="no"/>
@@ -2583,9 +2588,6 @@
 </group>
 </group>
 </group>
-</group>
-<group name="ng" label="g" b="63" visible="yes">
-<s d="ng" t="&#x5514;" b="64" visible="no"/>
 </group>
 <group name="ni" label="i" b="65" visible="yes">
 <group name="ni1" label="1" b="66" visible="yes">

@@ -1895,10 +1895,20 @@
 <s d="&#x8BF6;" t="&#x8BF6;" />
 </group>
 <group name="&#275;n (en1)" label="&#275;n"  f="113"  b="115">
+<s d="&#x55EF;" t="&#x55EF;" />
 <s d="&#x6069;" t="&#x6069;" />
 <s d="&#x84BD;" t="&#x84BD;" />
 </group>
+<!-- groups en2 and en3 have no corresponding entries in the Pinyin alphabet,
+     so won't be found: -->
+<group name="&#233;n (en2)" label="&#233;n" f="113" >
+<s d="&#x55EF;" t="&#x55EF;" />
+</group>
+<group name="&#283;n (en3)" label="&#283;n" f="113" >
+<s d="&#x55EF;" t="&#x55EF;" />
+</group>
 <group name="&#232;n (en4)" label="&#232;n"  f="113"  b="116">
+<s d="&#x55EF;" t="&#x55EF;" />
 <s d="&#x6441;" t="&#x6441;" />
 </group>
 <group name="&#233;r (er2)" label="&#233;r"  f="113"  b="117">
@@ -5321,9 +5331,6 @@
 <s d="&#x6C90;" t="&#x6C90;" />
 <s d="&#x94BC;" t="&#x94BC;" />
 </group>
-<group name="n (n)" label="n"  f="113"  b="115">
-<s d="&#x55EF;" t="&#x55EF;" />
-</group>
 <group name="n&#257; (na1)" label="n&#257;"  f="113"  b="116">
 <s d="&#x90A3;" t="&#x90A3;" />
 <s d="&#x5357;" t="&#x5357;" />
@@ -5438,10 +5445,6 @@
 </group>
 <group name="n&#233;ng (neng2)" label="n&#233;ng"  f="113"  b="118">
 <s d="&#x80FD;" t="&#x80FD;" />
-</group>
-<group name="ng (ng)" label="ng"  f="113"  b="119">
-<s d="&#x5514;" t="&#x5514;" />
-<s d="&#x55EF;" t="&#x55EF;" />
 </group>
 <group name="n&#299; (ni1)" label="n&#299;"  f="113"  b="120">
 <s d="&#x59AE;" t="&#x59AE;" />
@@ -8084,6 +8087,7 @@
 <s d="&#x6B66;" t="&#x6B66;" />
 <s d="&#x4E94;" t="&#x4E94;" />
 <s d="&#x6342;" t="&#x6342;" />
+<s d="&#x5514;" t="&#x5514;" />
 <s d="&#x5348;" t="&#x5348;" />
 <s d="&#x821E;" t="&#x821E;" />
 <s d="&#x4F0D;" t="&#x4F0D;" />

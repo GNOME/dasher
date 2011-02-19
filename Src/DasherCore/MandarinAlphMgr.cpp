@@ -48,7 +48,7 @@ static char THIS_FILE[] = __FILE__;
 
 //the index of the last syllable+tone symbol in the pinyin alphabet; later symbols are "punctuation"
 // and do not correspond to groups in the chinese alphabet.
-#define LAST_PY 1288
+#define LAST_PY 1286
 
 CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphMap)
   : CAlphabetManager(pInterface, pNCManager, pAlphabet, pAlphMap),
