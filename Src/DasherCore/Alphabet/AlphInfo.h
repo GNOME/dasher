@@ -29,7 +29,6 @@
 #include "../DasherTypes.h"
 #include "AlphabetMap.h"
 #include "GroupInfo.h"
-#include "AlphIO.h"
 
 #include <string>
 #include <vector>

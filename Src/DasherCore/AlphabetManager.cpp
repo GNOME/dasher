@@ -61,7 +61,7 @@ void CAlphabetManager::CreateLanguageModel(CEventHandler *pEventHandler, CSettin
       // If there is a bogus value for the language model ID, we'll default
       // to our trusty old PPM language model.      
     case 0:
-      m_pLanguageModel = new CPPMLanguageModel(pEventHandler, pSettingsStore, m_pAlphabet);
+      m_pLanguageModel = new CPPMLanguageModel(pEventHandler, pSettingsStore, m_pAlphabet->GetNumberTextSymbols());
       break;
     case 2:
       m_pLanguageModel = new CWordLanguageModel(pEventHandler, pSettingsStore, m_pAlphabet, m_pAlphabetMap);
@@ -70,7 +70,7 @@ void CAlphabetManager::CreateLanguageModel(CEventHandler *pEventHandler, CSettin
       m_pLanguageModel = new CMixtureLanguageModel(pEventHandler, pSettingsStore, m_pAlphabet, m_pAlphabetMap);
       break;  
     case 4:
-      m_pLanguageModel = new CCTWLanguageModel(pEventHandler, pSettingsStore, m_pAlphabet);
+      m_pLanguageModel = new CCTWLanguageModel(m_pAlphabet->GetNumberTextSymbols());
       break;
   }
   

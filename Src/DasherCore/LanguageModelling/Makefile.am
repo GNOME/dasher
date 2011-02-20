@@ -7,7 +7,6 @@ libdasherlm_a_SOURCES = \
 		DictLanguageModel.h \
 		HashTable.cpp \
 		HashTable.h \
-		LanguageModel.cpp \
 		LanguageModel.h \
 		MixtureLanguageModel.h \
 		PPMLanguageModel.cpp \

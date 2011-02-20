@@ -11,10 +11,9 @@
 
 #include "../../Common/NoClones.h"
 #include "../../Common/Allocators/PooledAlloc.h"
-#include "LanguageModel.h"
 #include "PPMLanguageModel.h"
-#include "../DasherTypes.h"
-
+#include "../Alphabet/AlphInfo.h"
+#include "../Alphabet/AlphabetMap.h"
 #include <vector>
 #include <map>
 #include <string>
@@ -26,7 +25,7 @@
 namespace Dasher {
   /// \ingroup LM
   /// \{
-  class CDictLanguageModel:public CLanguageModel {
+  class CDictLanguageModel:public CLanguageModel, public CDasherComponent {
   public:
     CDictLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CAlphInfo *pAlph, const CAlphabetMap *pAlphMap);
     virtual ~CDictLanguageModel();
@@ -82,6 +81,7 @@ namespace Dasher {
     };
     
     const CAlphabetMap *m_pAlphMap;
+    const int m_iSpaceSymbol;
 
     CDictnode *AddSymbolToNode(CDictnode * pNode, symbol sym, int *update);
 

@@ -123,7 +123,7 @@ CWordLanguageModel::CWordnode * CWordLanguageModel::AddSymbolToNode(CWordnode *p
 
 CWordLanguageModel::CWordLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, 
 				       const CAlphInfo *pAlph, const CAlphabetMap *pAlphMap)
-  :CLanguageModel(pEventHandler, pSettingsStore, pAlph), m_pAlphMap(pAlphMap), NodesAllocated(0), 
+  :CLanguageModel(pAlph->GetNumberTextSymbols()), CDasherComponent(pEventHandler, pSettingsStore), m_pAlphMap(pAlphMap), m_iSpaceSymbol(pAlph->GetSpaceSymbol()), NodesAllocated(0), 
    max_order(2), m_NodeAlloc(8192), m_ContextAlloc(1024) {
   
   // Construct a root node for the trie
@@ -134,7 +134,7 @@ CWordLanguageModel::CWordLanguageModel(Dasher::CEventHandler *pEventHandler, CSe
 
   // Create a spelling model
 
-  pSpellingModel = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, m_pAlphabet);
+  pSpellingModel = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, m_iNumSyms);
 
   // Construct a root context
   
@@ -626,7 +626,7 @@ void CWordLanguageModel::AddSymbol(CWordLanguageModel::CWordContext &context, sy
   // Collapse the context (with learning) if we've just entered a space
   // FIXME - we need to generalise this for more languages.
 
-  if(sym == m_pAlphabet->GetSpaceSymbol()) {
+  if(sym == m_iSpaceSymbol) {
     CollapseContext(context, bLearn);
     context.m_dSpellingFactor = 1.0;
   }

@@ -91,7 +91,7 @@ CDictLanguageModel::CDictnode * CDictLanguageModel::AddSymbolToNode(CDictnode *p
 /////////////////////////////////////////////////////////////////////
 
 CDictLanguageModel::CDictLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphInfo *pAlph, const CAlphabetMap *pAlphMap)
-:CLanguageModel(pEventHandler, pSettingsStore, pAlph), m_pAlphMap(pAlphMap), NodesAllocated(0), max_order(0), m_NodeAlloc(8192), m_ContextAlloc(1024) {
+:CLanguageModel(pAlph->GetNumberTextSymbols()), CDasherComponent(pEventHandler, pSettingsStore), m_pAlphMap(pAlphMap), m_iSpaceSymbol(pAlph->GetSpaceSymbol()), NodesAllocated(0), max_order(0), m_NodeAlloc(8192), m_ContextAlloc(1024) {
   m_pRoot = m_NodeAlloc.Alloc();
   m_pRoot->sbl = -1;
   m_rootcontext = new CDictContext(m_pRoot, 0);
@@ -530,7 +530,7 @@ void CDictLanguageModel::AddSymbol(CDictLanguageModel::CDictContext &context, sy
 
   // Collapse the context if we have started a new word
 
-  if(sym == m_pAlphabet->GetSpaceSymbol()) {
+  if(sym == m_iSpaceSymbol) {
     CollapseContext(context);
   }
 
@@ -562,7 +562,7 @@ void CDictLanguageModel::EnterSymbol(Context c, int Symbol) {
   // collapse the context - the information required to update the
   // word part of the context is stored in the string.
 
-  if(Symbol == m_pAlphabet->GetSpaceSymbol()) {
+  if(Symbol == m_iSpaceSymbol) {
     CollapseContext(context);
     return;
   }

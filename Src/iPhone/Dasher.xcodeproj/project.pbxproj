@@ -195,7 +195,6 @@
 		3344FE440F71717C00506EAA /* CTWLanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDC70F71717C00506EAA /* CTWLanguageModel.cpp */; };
 		3344FE450F71717C00506EAA /* DictLanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDC90F71717C00506EAA /* DictLanguageModel.cpp */; };
 		3344FE460F71717C00506EAA /* HashTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDCB0F71717C00506EAA /* HashTable.cpp */; };
-		3344FE4A0F71717C00506EAA /* LanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDD40F71717C00506EAA /* LanguageModel.cpp */; };
 		3344FE4C0F71717C00506EAA /* PPMLanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDD80F71717C00506EAA /* PPMLanguageModel.cpp */; };
 		3344FE4D0F71717C00506EAA /* WordLanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDDB0F71717C00506EAA /* WordLanguageModel.cpp */; };
 		3344FE4F0F71717C00506EAA /* MemoryLeak.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDDE0F71717C00506EAA /* MemoryLeak.cpp */; };
@@ -606,7 +605,6 @@
 		3344FDCA0F71717C00506EAA /* DictLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictLanguageModel.h; sourceTree = "<group>"; };
 		3344FDCB0F71717C00506EAA /* HashTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HashTable.cpp; sourceTree = "<group>"; };
 		3344FDCC0F71717C00506EAA /* HashTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HashTable.h; sourceTree = "<group>"; };
-		3344FDD40F71717C00506EAA /* LanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LanguageModel.cpp; sourceTree = "<group>"; };
 		3344FDD50F71717C00506EAA /* LanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageModel.h; sourceTree = "<group>"; };
 		3344FDD70F71717C00506EAA /* MixtureLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixtureLanguageModel.h; sourceTree = "<group>"; };
 		3344FDD80F71717C00506EAA /* PPMLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PPMLanguageModel.cpp; sourceTree = "<group>"; };
@@ -1325,7 +1323,6 @@
 				3344FDCA0F71717C00506EAA /* DictLanguageModel.h */,
 				3344FDCB0F71717C00506EAA /* HashTable.cpp */,
 				3344FDCC0F71717C00506EAA /* HashTable.h */,
-				3344FDD40F71717C00506EAA /* LanguageModel.cpp */,
 				3344FDD50F71717C00506EAA /* LanguageModel.h */,
 				3344FDD70F71717C00506EAA /* MixtureLanguageModel.h */,
 				3344FDD80F71717C00506EAA /* PPMLanguageModel.cpp */,
@@ -1590,7 +1587,6 @@
 				3344FE440F71717C00506EAA /* CTWLanguageModel.cpp in Sources */,
 				3344FE450F71717C00506EAA /* DictLanguageModel.cpp in Sources */,
 				3344FE460F71717C00506EAA /* HashTable.cpp in Sources */,
-				3344FE4A0F71717C00506EAA /* LanguageModel.cpp in Sources */,
 				3344FE4C0F71717C00506EAA /* PPMLanguageModel.cpp in Sources */,
 				3344FE4D0F71717C00506EAA /* WordLanguageModel.cpp in Sources */,
 				3344FE4F0F71717C00506EAA /* MemoryLeak.cpp in Sources */,

@@ -33,10 +33,8 @@ static char THIS_FILE[] = __FILE__;
 
 /////////////////////////////////////////////////////////////////////
 
-CPPMPYLanguageModel::CPPMPYLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphInfo *pAlph, const CAlphInfo *pPyAlphabet)
-  :CAbstractPPM(pEventHandler, pSettingsStore, pAlph, new CPPMPYnode(-1), 2), NodesAllocated(0), m_NodeAlloc(8192), m_pPyAlphabet(pPyAlphabet){
-
-  m_iAlphSize = GetSize();
+CPPMPYLanguageModel::CPPMPYLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, int iNumCHsyms, int iNumPYsyms)
+  :CAbstractPPM(pEventHandler, pSettingsStore, iNumCHsyms, new CPPMPYnode(-1), 2), NodesAllocated(0), m_NodeAlloc(8192), m_iNumPYsyms(iNumPYsyms) {
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -194,7 +192,7 @@ void CPPMPYLanguageModel::GetPartProbs(Context context, std::vector<pair<symbol,
   // In Will's code, it assigned 0 to the first entry, then split evenly among the rest...seems wrong?!
   int i=0;
   for (std::vector<pair<symbol, unsigned int> >::iterator it = vChildren.begin(); it!=vChildren.end(); it++) {
-    DASHER_ASSERT(it->first > -1 && it->first <= m_iAlphSize);
+    DASHER_ASSERT(it->first > 0 && it->first < GetSize()); //i.e., is valid CH symbol
     it->second = iUniformLeft / (vChildren.size() - i);
       //  std::cout<<"iUniformLeft: "<<iUniformLeft<<std::endl;
     iUniformLeft -= it->second;
@@ -299,7 +297,7 @@ void CPPMPYLanguageModel::GetProbs(Context context, std::vector<unsigned int> &p
   */
   //  DASHER_ASSERT(m_setContexts.count(ppmcontext) > 0);
 
-  int iNumSymbols = m_pPyAlphabet->GetNumberTextSymbols()+1;
+  int iNumSymbols = m_iNumPYsyms+1;
   
   probs.resize(iNumSymbols);
 
@@ -403,7 +401,7 @@ void CPPMPYLanguageModel::LearnPYSymbol(Context c, int pysym) {
   if(pysym==0)
     return;
 
-  DASHER_ASSERT(pysym > 0 && pysym <= m_pPyAlphabet->GetNumberTextSymbols());
+  DASHER_ASSERT(pysym > 0 && pysym <= m_iNumPYsyms);
   CPPMPYLanguageModel::CPPMContext & context = *(CPPMContext *) (c);
  
   //  std::cout<<"py learn context : "<<context.head->symbol<<std::endl;

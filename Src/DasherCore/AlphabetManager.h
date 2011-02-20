@@ -23,9 +23,11 @@
 
 #include "LanguageModelling/LanguageModel.h"
 #include "DasherNode.h"
-#include "Parameters.h"
 #include "NodeManager.h"
 #include "Trainer.h"
+#include "Alphabet/AlphInfo.h"
+#include "SettingsStore.h"
+#include "EventHandler.h"
 
 class CNodeCreationManager;
 struct SGroupInfo;

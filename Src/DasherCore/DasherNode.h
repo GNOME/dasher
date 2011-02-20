@@ -26,6 +26,7 @@
 #include "LanguageModelling/LanguageModel.h"
 #include "DasherTypes.h"
 #include "NodeManager.h"
+#include "Alphabet/AlphabetMap.h"
 
 namespace Dasher {
   class CDasherNode;

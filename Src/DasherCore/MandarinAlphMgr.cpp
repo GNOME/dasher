@@ -108,7 +108,7 @@ CMandarinAlphMgr::~CMandarinAlphMgr() {
 void CMandarinAlphMgr::CreateLanguageModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore) {
   //std::cout<<"CHALphabet size "<< pCHAlphabet->GetNumberTextSymbols(); [7603]
   std::cout<<"Setting PPMPY model"<<std::endl;
-  m_pLanguageModel = new CPPMPYLanguageModel(pEventHandler, pSettingsStore, m_pCHAlphabet, m_pAlphabet);
+  m_pLanguageModel = new CPPMPYLanguageModel(pEventHandler, pSettingsStore, m_pCHAlphabet->GetNumberTextSymbols(), m_pAlphabet->GetNumberTextSymbols());
   //our superclass destructor will call ReleaseContext on the iLearnContext when we are destroyed,
   // so we need to put _something_ in there (even tho we don't use it atm!)...
   m_iLearnContext = m_pLanguageModel->CreateEmptyContext();

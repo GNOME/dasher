@@ -26,6 +26,7 @@
 #include "DasherNode.h"
 #include "SCENode.h"
 #include "NodeManager.h"
+#include "Alphabet/AlphInfo.h"
 
 // TODO: Conversion manager needs to deal with offsets and contexts - Will: See Phil for an explanation.
 

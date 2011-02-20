@@ -40,11 +40,11 @@ namespace Dasher {
   class CPPMPYLanguageModel : public CAbstractPPM {
   public:
     ///Construct a new PPMPYLanguageModel. 
-    /// \param pAlph alphabet containing the actual symbols we want to write (i.e. Chinese); this
-    /// is the only alphabet passed to the CAbstractPPM superclass.
-    /// \param pPyAlph alphabet of pinyin phonemes; we will predict probabilities for these
+    /// \param iNumCHSyms number of symbols in the alphabet in which we actually want to write (i.e. Chinese),
+    /// i.e. from which contexts are formed; this is passed to the CAbstractPPM superclass.
+    /// \param iNumPYSyms number of pinyin phonemes, i.e. which we generate probabilities for in GetProbs
     /// based (only) on the preceding _Chinese_ symbols.
-    CPPMPYLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CAlphInfo *pAlph, const CAlphInfo *pPyAlph);
+    CPPMPYLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, int iNumCHsyms, int iNumPYsyms);
 
     ///Learns a pinyin symbol in the specified context, but does not move the context on.
     void LearnPYSymbol(Context context, int Symbol);
@@ -52,7 +52,7 @@ namespace Dasher {
     ///Predicts probabilities for the next Pinyin symbol (blending as per PPM,
     /// but using the pychild map rather than child CPPMPYnodes).
     /// \param Probs vector to fill with predictions for pinyin symbols: will be filled
-    ///  with m_pPyAlphabet->GetNumberTextSymbols() numbers plus an initial 0. 
+    ///  with m_iNumPYsyms numbers plus an initial 0. 
     virtual void GetProbs(Context context, std::vector < unsigned int >&Probs, int norm, int iUniform) const;
     
     ///Predicts probabilities for the next Chinese symbol, filtered to only include symbols within a specified set.
@@ -80,8 +80,7 @@ namespace Dasher {
     int NodesAllocated;
     mutable CSimplePooledAlloc < CPPMPYnode > m_NodeAlloc;
 
-    const CAlphInfo *m_pPyAlphabet;
-    int m_iAlphSize;
+    const int m_iNumPYsyms;
   };
 
   /// @}  

@@ -11,8 +11,7 @@
 
 #include "../DasherTypes.h"
 
-#include "../Alphabet/AlphIO.h"
-#include "../DasherComponent.h"
+
 #include <vector>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -30,17 +29,15 @@ namespace Dasher {
 /// Base class for all language model components
 ///
 
-class Dasher::CLanguageModel:public Dasher::CDasherComponent
+class Dasher::CLanguageModel
 {
 public:
 
   /////////////////////////////////////////////////////////////////////////////
 
-  CLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphInfo *pAlph);
+  CLanguageModel(int iNumSyms) : m_iNumSyms(iNumSyms) {};
 
   virtual ~CLanguageModel() {};
-
-  virtual void HandleEvent(Dasher::CEvent * pEvent);
   
   /// 
   /// Index of registered context 
@@ -148,10 +145,10 @@ public:
   ///Return the number of symbols over which we are making predictions, plus one
   /// (to leave space for an initial 0).
   int GetSize() const {
-    return m_pAlphabet->GetNumberTextSymbols()+1;
+    return m_iNumSyms+1;
   }
 
-  const CAlphInfo *m_pAlphabet;
+  const int m_iNumSyms;
 
 };
 

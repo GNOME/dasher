@@ -21,6 +21,7 @@
 
 namespace Dasher {
   class CAlphabetMap;
+  class CAlphInfo;
 } 
 
 /// \ingroup Alphabet

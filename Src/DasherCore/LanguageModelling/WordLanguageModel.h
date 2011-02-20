@@ -13,9 +13,10 @@
 
 #include "../../Common/NoClones.h"
 #include "../../Common/Allocators/PooledAlloc.h"
-#include "LanguageModel.h"
 #include "PPMLanguageModel.h"
-#include "../DasherTypes.h"
+#include "../DasherComponent.h"
+#include "../Alphabet/AlphInfo.h"
+#include "../Alphabet/AlphabetMap.h"
 
 #include <vector>
 #include <map>
@@ -33,7 +34,7 @@ namespace Dasher {
   ///
   /// Language model using words
   ///
-  class CWordLanguageModel:public CLanguageModel {
+  class CWordLanguageModel:public CLanguageModel, public CDasherComponent {
   public:
     CWordLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CAlphInfo *pAlph, const CAlphabetMap *pAlphMap);
       virtual ~ CWordLanguageModel();
@@ -114,6 +115,7 @@ namespace Dasher {
     int lookup_word_const(const std::string & w) const;
 
     const CAlphabetMap *m_pAlphMap;
+    const int m_iSpaceSymbol;
     
     CWordContext *m_rootcontext;
     CWordnode *m_pRoot;

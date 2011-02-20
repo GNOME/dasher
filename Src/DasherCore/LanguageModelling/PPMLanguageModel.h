@@ -13,11 +13,12 @@
 #include "../../Common/Allocators/PooledAlloc.h"
 
 #include "LanguageModel.h"
-
+#include "../DasherComponent.h"
 #include "stdlib.h"
 #include <vector>
 #include <fstream>
 #include <set>
+#include <map>
 
 namespace Dasher {
 
@@ -33,7 +34,7 @@ namespace Dasher {
   /// Subclasses must implement CLanguageModel::GetProbs and a makeNode() method (perhaps
   /// using a pooled allocator).
   ///
-  class CAbstractPPM :public CLanguageModel, private NoClones {
+  class CAbstractPPM :public CLanguageModel, public CDasherComponent, private NoClones {
   protected:
     class ChildIterator;
     class CPPMnode {
@@ -99,7 +100,7 @@ namespace Dasher {
     ///Makes a new node, of whatever kind (subclass of CPPMnode, perhaps with extra info)
     /// is required by the subclass, for the specified symbol. (Initial count will be 1.)
     virtual CPPMnode *makeNode(int sym)=0;
-    CAbstractPPM(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CAlphInfo *pAlph, CPPMnode *pRoot, int iMaxOrder);
+    CAbstractPPM(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, int iNumSyms, CPPMnode *pRoot, int iMaxOrder);
     
     void dumpSymbol(symbol sym);
     void dumpString(char *str, int pos, int len);
@@ -138,7 +139,7 @@ namespace Dasher {
   /// max order from LP_LM_MAX_ORDER.
   class CPPMLanguageModel : public CAbstractPPM {
   public:
-    CPPMLanguageModel(CEventHandler *pEventHandler, CSettingsStore *pSets, const CAlphInfo *pAlph);
+    CPPMLanguageModel(CEventHandler *pEventHandler, CSettingsStore *pSets, int iNumSyms);
     virtual void GetProbs(Context context, std::vector < unsigned int >&Probs, int norm, int iUniform) const;
   protected:
     /// Makes a standard CPPMnode, but using a pooled allocator (m_NodeAlloc) - faster!

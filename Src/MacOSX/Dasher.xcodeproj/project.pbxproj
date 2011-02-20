@@ -89,7 +89,6 @@
 		1948BEF90C226CFD001DFA32 /* DictLanguageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE540C226CFD001DFA32 /* DictLanguageModel.h */; };
 		1948BEFA0C226CFD001DFA32 /* HashTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE550C226CFD001DFA32 /* HashTable.cpp */; };
 		1948BEFB0C226CFD001DFA32 /* HashTable.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE560C226CFD001DFA32 /* HashTable.h */; };
-		1948BF030C226CFD001DFA32 /* LanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE5E0C226CFD001DFA32 /* LanguageModel.cpp */; };
 		1948BF040C226CFD001DFA32 /* LanguageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE5F0C226CFD001DFA32 /* LanguageModel.h */; };
 		1948BF060C226CFD001DFA32 /* MixtureLanguageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE610C226CFD001DFA32 /* MixtureLanguageModel.h */; };
 		1948BF070C226CFD001DFA32 /* PPMLanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE620C226CFD001DFA32 /* PPMLanguageModel.cpp */; };
@@ -494,7 +493,6 @@
 		1948BE5B0C226CFD001DFA32 /* KanjiConversionCanna.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = KanjiConversionCanna.h; sourceTree = "<group>"; };
 		1948BE5C0C226CFD001DFA32 /* KanjiConversionIME.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = KanjiConversionIME.cpp; sourceTree = "<group>"; };
 		1948BE5D0C226CFD001DFA32 /* KanjiConversionIME.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = KanjiConversionIME.h; sourceTree = "<group>"; };
-		1948BE5E0C226CFD001DFA32 /* LanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = LanguageModel.cpp; sourceTree = "<group>"; };
 		1948BE5F0C226CFD001DFA32 /* LanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = LanguageModel.h; sourceTree = "<group>"; };
 		1948BE610C226CFD001DFA32 /* MixtureLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = MixtureLanguageModel.h; sourceTree = "<group>"; };
 		1948BE620C226CFD001DFA32 /* PPMLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = PPMLanguageModel.cpp; sourceTree = "<group>"; };
@@ -1077,7 +1075,6 @@
 				1948BE5B0C226CFD001DFA32 /* KanjiConversionCanna.h */,
 				1948BE5C0C226CFD001DFA32 /* KanjiConversionIME.cpp */,
 				1948BE5D0C226CFD001DFA32 /* KanjiConversionIME.h */,
-				1948BE5E0C226CFD001DFA32 /* LanguageModel.cpp */,
 				1948BE5F0C226CFD001DFA32 /* LanguageModel.h */,
 				1948BE610C226CFD001DFA32 /* MixtureLanguageModel.h */,
 				1948BE620C226CFD001DFA32 /* PPMLanguageModel.cpp */,
@@ -1780,7 +1777,6 @@
 				1948BEF60C226CFD001DFA32 /* CTWLanguageModel.cpp in Sources */,
 				1948BEF80C226CFD001DFA32 /* DictLanguageModel.cpp in Sources */,
 				1948BEFA0C226CFD001DFA32 /* HashTable.cpp in Sources */,
-				1948BF030C226CFD001DFA32 /* LanguageModel.cpp in Sources */,
 				1948BF070C226CFD001DFA32 /* PPMLanguageModel.cpp in Sources */,
 				1948BF0A0C226CFD001DFA32 /* WordLanguageModel.cpp in Sources */,
 				1948BF0D0C226CFD001DFA32 /* MemoryLeak.cpp in Sources */,
