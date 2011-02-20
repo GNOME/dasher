@@ -525,14 +525,18 @@ CDasherNode *CAlphabetManager::CAlphBase::RebuildParent() {
 
     CAlphNode *pNewNode = m_pMgr->GetRoot(NULL, 0, 0, iNewOffset!=-1, iNewOffset+1);
     
-    //now fill in the new node - recursively - until it reaches us
-    m_pMgr->IterateChildGroups(pNewNode, NULL, this);
+    RebuildForwardsFromAncestor(pNewNode);
     
     if (GetFlag(NF_SEEN)) {
       for (CDasherNode *pNode=this; (pNode=pNode->Parent()); pNode->SetFlag(NF_SEEN, true));
     }
   }
   return Parent();
+}
+
+void CAlphabetManager::CAlphBase::RebuildForwardsFromAncestor(CAlphNode *pNewNode) {
+  //now fill in the new node - recursively - until it reaches us
+  m_pMgr->IterateChildGroups(pNewNode, NULL, this);
 }
 
 // TODO: Shouldn't there be an option whether or not to learn as we write?

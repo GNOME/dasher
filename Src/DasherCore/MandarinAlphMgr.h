@@ -48,6 +48,7 @@ namespace Dasher {
     CAlphNode *GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, bool bEnteredLast, int iOffset);    
     
   protected:
+    class CConvRoot;
     ///Subclass of CSymbolNode for (converted) chinese-alphabet symbols:
     /// these use the chinese alphabet in place of the pinyin one for text to display/enter,
     /// and get their colour using GetCHColour rather than GetColour.
@@ -57,8 +58,11 @@ namespace Dasher {
       ///Symbol constructor: display text from CHAlphabet, colour from GetCHColour
       /// \param strGroup caption of any group(s) containing this symbol for which no nodes created; prepended to display text.
       CMandSym(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, CMandarinAlphMgr *pMgr, symbol iSymbol, symbol pyParent);
-    protected:
       CDasherNode *RebuildSymbol(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol);
+      CMandSym *RebuildCHSymbol(CConvRoot *pParent, unsigned int iLbnd, unsigned int iHbnd, symbol iNewSym);
+    protected:
+      ///Override to compute which pinyin symbol to make our parent...
+      void RebuildForwardsFromAncestor(CAlphNode *pNewNode);
       bool isInGroup(const SGroupInfo *pGroup);
     private:
       virtual const std::string &outputText();
@@ -74,15 +78,16 @@ namespace Dasher {
       CConvRoot(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, CMandarinAlphMgr *pMgr, symbol pySym);
       CMandarinAlphMgr *mgr() {return static_cast<CMandarinAlphMgr *>(CAlphBase::mgr());}
       void PopulateChildren();
+      void PopulateChildrenWithExisting(CMandSym *existing);
       int ExpectedNumChildren();
       CLanguageModel::Context iContext;
       void SetFlag(int iFlag, bool bValue);
+      const symbol m_pySym;
       CDasherNode *RebuildSymbol(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol);
     protected:
       bool isInGroup(const SGroupInfo *pGroup);
     private:        
       std::vector<std::pair<symbol, unsigned int> > m_vChInfo;
-      symbol m_pySym;
     };
     ///Called to create the node for a pinyin leaf symbol;
     /// Overridden to call either CreateConvRoot or CreateCHSymbol, according to #chinese symbols under specified pinyin
@@ -105,7 +110,11 @@ namespace Dasher {
     /// \param pyParent pinyin-alphabet symbol which was used to enter this chinese symbol (if known, else 0)
     CMandSym *CreateCHSymbol(CDasherNode *pParent, CLanguageModel::Context iContext, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, symbol iCHsym, symbol pyParent);
 
-    void AssignSizes(std::vector<std::pair<symbol,unsigned int> > &vChildren, Dasher::CLanguageModel::Context context);
+    ///Gets the possible chinese symbols for a pinyin one, along with their probabilities in the specified context.
+    ///Probabilities are computed by CPPMPYLanguageModel::GetPartProbs, then renormalized here. (TODO unnecessary?)
+    /// \param vChildren initially empty vector which procedure fills with pairs: first element chinese symbol number,
+    /// second element probability (/LP_NORMALIZATION).    
+    void GetConversions(std::vector<std::pair<symbol,unsigned int> > &vChildren, symbol pySym, Dasher::CLanguageModel::Context context);
 
     ///Gets colour for a specified chinese symbol and offset.
     /// Wraps CHalphabet getcolour in case anything specified; if not,
@@ -118,6 +127,12 @@ namespace Dasher {
     ///Indexed by SPY (syll+tone) alphabet symbol number,
     // the set of CHAlphabet symbols it can be converted to.
     std::set<symbol> *m_pConversionsBySymbol;
+
+    ///Indexed by chinese-alphabet symbol number (sparsely: where multiple
+    /// chinese-alphabet symbols have the same text, we use only the one
+    /// returned by CAlphabetMap::GetSymbols() for that text)
+    /// the set of pinyin syllable+tones which could yield that symbol.
+    std::map<symbol,std::set<symbol> > m_PinyinByChinese;
   };
   /// @}
 

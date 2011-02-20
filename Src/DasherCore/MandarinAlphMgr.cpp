@@ -94,6 +94,8 @@ CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreati
       DASHER_ASSERT(vSyms.size()==1 && vSyms[0]!=0); //i.e. conversion is exactly one chinese symbol
       DASHER_ASSERT(m_pCHAlphabet->GetText(vSyms[0]) == *it);
       m_pConversionsBySymbol[i].insert(vSyms[0]);
+      //Also the reverse lookup: (valid/used chinese symbol number) -> (pinyin by which it could be produced)
+      m_PinyinByChinese[vSyms[0]].insert(i);
     }
   }
   //that leaves m_pConversionsBySymbol as desired.
@@ -187,14 +189,12 @@ int CMandarinAlphMgr::CConvRoot::ExpectedNumChildren() {
 }
 
 void CMandarinAlphMgr::CConvRoot::PopulateChildren() {
+  PopulateChildrenWithExisting(NULL);
+}
+
+void CMandarinAlphMgr::CConvRoot::PopulateChildrenWithExisting(CMandSym *existing) {
   if (m_vChInfo.empty()) {
-    const set<symbol> &convs(mgr()->m_pConversionsBySymbol[m_pySym]);
-    for(set<symbol>::const_iterator it = convs.begin(); it != convs.end(); ++it) {
-      m_vChInfo.push_back(std::pair<symbol, unsigned int>(*it,0));
-    }
-    //ACL I think it's a good idea to keep those in a consistent order - symbol order will do nicely
-    sort(m_vChInfo.begin(),m_vChInfo.end());
-    mgr()->AssignSizes(m_vChInfo, iContext);
+    mgr()->GetConversions(m_vChInfo,m_pySym, iContext);
   }
   
   int iCum(0);
@@ -205,10 +205,11 @@ void CMandarinAlphMgr::CConvRoot::PopulateChildren() {
     const unsigned int iLbnd(iCum), iHbnd(iCum + it->second);
     
     iCum = iHbnd;
-    CMandSym *pNewNode = mgr()->CreateCHSymbol(this, this->iContext, iLbnd, iHbnd, "", it->first, m_pySym);
+    CMandSym *pNewNode = (existing)
+      ? existing->RebuildCHSymbol(this, iLbnd, iHbnd, it->first)
+      : mgr()->CreateCHSymbol(this, this->iContext, iLbnd, iHbnd, "", it->first, m_pySym);
     
     DASHER_ASSERT(GetChildren().back()==pNewNode);
-    
   }
 }
 
@@ -245,31 +246,29 @@ void CMandarinAlphMgr::CConvRoot::SetFlag(int iFlag, bool bValue) {
   CDasherNode::SetFlag(iFlag,bValue);
 }
 
-void CMandarinAlphMgr::AssignSizes(std::vector<pair<symbol,unsigned int> > &vChildren, Dasher::CLanguageModel::Context context) {
+void CMandarinAlphMgr::GetConversions(std::vector<pair<symbol,unsigned int> > &vChildren, symbol pySym, Dasher::CLanguageModel::Context context) {
+
+  const set<symbol> &convs(m_pConversionsBySymbol[pySym]);
+  for(set<symbol>::const_iterator it = convs.begin(); it != convs.end(); ++it) {
+    vChildren.push_back(std::pair<symbol, unsigned int>(*it,0));
+  }
+  //ACL I think it's a good idea to keep those in a consistent order - symbol order will do nicely
+  sort(vChildren.begin(),vChildren.end());
 
   const uint64 iNorm(m_pNCManager->GetLongParameter(LP_NORMALIZATION));
   const unsigned int uniform((m_pNCManager->GetLongParameter(LP_UNIFORM)*iNorm)/1000);
-  
-  int iRemaining(iNorm);
-  
-  uint64 sumProb=0;
-  
-  //CLanguageModel::Context iCurrentContext;
-  
-  //  std::cout<<"size of symbolstore "<<SymbolStore.size()<<std::endl;  
-  
-  //  std::cout<<"norm input: "<<nonuniform_norm/(iSymbols/iNChildren/100)<<std::endl;
-  
+    
   //ACL pass in iNorm and uniform directly - GetPartProbs distributes the last param between
   // however elements there are in vChildren...
   static_cast<CPPMPYLanguageModel *>(m_pLanguageModel)->GetPartProbs(context, vChildren, iNorm, uniform);
   
   //std::cout<<"after get probs "<<std::endl;
   
+  uint64 sumProb=0;  
   for (std::vector<pair<symbol,unsigned int> >::const_iterator it = vChildren.begin(); it!=vChildren.end(); it++) {
     sumProb += it->second;
   }
-  
+  DASHER_ASSERT(sumProb==iNorm);
   //  std::cout<<"Sum Prob "<<sumProb<<std::endl;
   //  std::cout<<"norm "<<nonuniform_norm<<std::endl;
   
@@ -279,6 +278,7 @@ void CMandarinAlphMgr::AssignSizes(std::vector<pair<symbol,unsigned int> > &vChi
   
  // std::cout<<"sumProb "<<sumProb<<std::endl;
   
+  int iRemaining(iNorm);
   for (std::vector<pair<symbol,unsigned int> >::iterator it = vChildren.begin(); it!=vChildren.end(); it++) {
     DASHER_ASSERT(it->first>-1); //ACL Will's code tested for both these conditions explicitly, and if so 
     DASHER_ASSERT(sumProb>0);   //then used a probability of 0. I don't think either
@@ -299,6 +299,7 @@ void CMandarinAlphMgr::AssignSizes(std::vector<pair<symbol,unsigned int> > &vChi
     // std::cout<<"symbols size "<<SymbolStore.size()<<std::endl;
     // std::cout<<"Symbols address "<<&SymbolStore<<std::endl;
   }
+  DASHER_ASSERT(iRemaining==0);
   
   //std::cout<<"iRemaining "<<iRemaining<<std::endl;
   
@@ -328,8 +329,7 @@ CMandarinAlphMgr::CMandSym::CMandSym(CDasherNode *pParent, int iOffset, unsigned
 }
 
 CDasherNode *CMandarinAlphMgr::CMandSym::RebuildSymbol(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol) {
-  //TODO m_pyParent should have been computed in RebuildParent()
-  DASHER_ASSERT(m_pyParent!=0);
+  DASHER_ASSERT(m_pyParent!=0); //should have been computed in RebuildForwardsFromAncestor()
   if (iSymbol==m_pyParent) {
     //create the PY node that lead to this chinese
     if (mgr()->m_pConversionsBySymbol[m_pyParent].size()==1) {
@@ -340,17 +340,61 @@ CDasherNode *CMandarinAlphMgr::CMandSym::RebuildSymbol(CAlphNode *pParent, unsig
     }
     //ok, will be a PY-to-Chinese conversion choice
     CConvRoot *pConv = mgr()->CreateConvRoot(pParent, iLbnd, iHbnd, strGroup, iSymbol);
-    //TODO equivalent of IterateChildGroups - make CConvRoot generate children, but replacing one with this
+    pConv->PopulateChildrenWithExisting(this);
     return pConv;
   }
   return CAlphBase::RebuildSymbol(pParent, iLbnd, iHbnd, strGroup, iBkgCol, iSymbol);
 }
 
 bool CMandarinAlphMgr::CMandSym::isInGroup(const SGroupInfo *pGroup) {
-  //TODO m_pyParent should have been computed in RebuildParent()
-  DASHER_ASSERT(m_pyParent!=0);
+  DASHER_ASSERT(m_pyParent!=0); //should have been computed in RebuildForwardsFromAncestor()
   //pinyin group contains the pinyin-"symbol"=CConvRoot which we want to be our parent...
   return pGroup->iStart <= m_pyParent && pGroup->iEnd > m_pyParent;
+}
+
+CMandarinAlphMgr::CMandSym *CMandarinAlphMgr::CMandSym::RebuildCHSymbol(CConvRoot *pParent, unsigned int iLbnd, unsigned int iHbnd, symbol iNewSym) {
+  if (iNewSym == this->iSymbol) {
+    //reuse existing node
+    SetParent(pParent);
+    SetRange(iLbnd, iHbnd);
+    return this;
+  }
+  return mgr()->CreateCHSymbol(pParent, pParent->iContext, iLbnd, iHbnd, "", iNewSym, pParent->m_pySym);
+}
+
+void CMandarinAlphMgr::CMandSym::RebuildForwardsFromAncestor(CAlphNode *pNewNode) {
+  if (m_pyParent==0) {
+    set<symbol> &possiblePinyin(mgr()->m_PinyinByChinese[iSymbol]);
+    if (possiblePinyin.size() > 1) {
+      //need to compare pinyin symbols; so compute probability of this (chinese) sym, for each:
+      // i.e. P(pinyin) * P(this chinese | pinyin)
+      const vector<unsigned int> &vPinyinProbs(*(pNewNode->GetProbInfo()));
+      long bestProb=0; //of this chinese, over LP_NORMALIZATION _squared_
+      for (set<symbol>::iterator p_it = possiblePinyin.begin(); p_it!=possiblePinyin.end(); p_it++) {
+        //compute probability of each chinese symbol for that pinyin (=by filtering)
+        // context is the same as the ancestor = previous chinese, as pinyin not part of context
+        vector<pair<symbol, unsigned int> > vChineseProbs;
+        mgr()->GetConversions(vChineseProbs, *p_it, pNewNode->iContext);
+        //now find us in that list
+        long thisProb; //i.e. P(this pinyin) * P(this chinese | this pinyin)
+        for (vector<pair<symbol,unsigned int> >::iterator c_it = vChineseProbs.begin(); ;) {
+          if (c_it->first == iSymbol) {
+            //found P(this chinese sym | pinyin). Compute overall...
+            thisProb = c_it->second * vPinyinProbs[*p_it];
+            break;
+          }
+          c_it++;
+          DASHER_ASSERT(c_it!=vChineseProbs.end()); //gotta find this chinese sym somewhere...
+        }
+        //see if that works out better than for the other possible pinyin...
+        if (thisProb > bestProb) {
+          bestProb = thisProb;
+          m_pyParent = *p_it;
+        }
+      }
+    } else m_pyParent = *(possiblePinyin.begin());
+  }
+  CSymbolNode::RebuildForwardsFromAncestor(pNewNode);
 }
 
 const std::string &CMandarinAlphMgr::CMandSym::outputText() {

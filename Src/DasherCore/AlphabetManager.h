@@ -63,6 +63,8 @@ namespace Dasher {
     class CAlphBase : public CDasherNode {
     public:
       CAlphabetManager *mgr() {return m_pMgr;}
+      ///Rebuilds this node's parent by recreating the previous 'root' node,
+      /// then calling RebuildForwardsFromAncestor
       CDasherNode *RebuildParent();
       ///Called to build a symbol (leaf) node which is a descendant of the symbol or root node preceding this.
       /// Default implementation just calls the manager's CreateSymbolNode method to create a new node,
@@ -81,6 +83,12 @@ namespace Dasher {
       /// \param pParent parent of the symbol node to create; could be the previous root, or an intervening node (e.g. group)      
       virtual CDasherNode *RebuildGroup(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strEnc, int iBkgCol, const SGroupInfo *pInfo);
     protected:
+      ///Called in process of rebuilding parent: fill in the hierarchy _beneath_ the
+      /// the previous root node, by calling IterateChildGroups passing this node as
+      /// last parameter, until the point where this node fits in is found,
+      /// at which point RebuildSymbol/Group should graft it in.
+      /// \param pNewNode newly-created root node beneath which this node should fit
+      virtual void RebuildForwardsFromAncestor(CAlphNode *pNewNode);
       CAlphBase(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const std::string &strDisplayText, CAlphabetManager *pMgr);
       CAlphabetManager *m_pMgr;
       ///Number of unicode characters entered by this node; i.e., the number
@@ -91,7 +99,7 @@ namespace Dasher {
       /// (as a symbol or subgroup), any number of levels beneath it
       virtual bool isInGroup(const SGroupInfo *pGroup)=0;
     };
-    class CGroupNode;
+
     ///Additionally stores LM contexts and probabilities calculated therefrom
     class CAlphNode : public CAlphBase {
     public:
