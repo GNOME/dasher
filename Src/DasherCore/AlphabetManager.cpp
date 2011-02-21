@@ -92,12 +92,36 @@ CAlphabetManager::~CAlphabetManager() {
   delete m_pLanguageModel;
 }
 
+int CAlphabetManager::GetColour(symbol sym, int iOffset) const {
+  int iColour = m_pAlphabet->GetColour(sym);
+  
+  // This is for backwards compatibility with old alphabet files -
+  // ideally make this log a warning (unrelated TODO: automate
+  // validation of alphabet files, plus maintenance of repository
+  // etc.)
+  if(iColour == -1) {
+    if(sym == m_pAlphabet->GetSpaceSymbol()) {
+      iColour = 9;
+    }
+    else {
+      iColour = (sym % 3) + 10;
+    }
+  }
+  
+  // Loop on low colours for nodes (TODO: go back to colour namespaces?)
+  if((iOffset&1) == 0 && iColour < 130)
+    iColour += 130;
+  
+  return iColour;
+}
+
+
 CAlphabetManager::CAlphNode::CAlphNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const string &strDisplayText, CAlphabetManager *pMgr)
 : CDasherNode(pParent, iOffset, iLbnd, iHbnd, iColour, strDisplayText), m_pProbInfo(NULL), m_pMgr(pMgr) {
 }
 
 CAlphabetManager::CSymbolNode::CSymbolNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CAlphabetManager *pMgr, symbol _iSymbol)
-: CAlphNode(pParent, iOffset, iLbnd, iHbnd, pMgr->m_pAlphabet->GetColour(_iSymbol, (iOffset&1)^1), pMgr->m_pAlphabet->GetDisplayText(_iSymbol), pMgr), iSymbol(_iSymbol) {
+: CAlphNode(pParent, iOffset, iLbnd, iHbnd, pMgr->GetColour(_iSymbol, iOffset), pMgr->m_pAlphabet->GetDisplayText(_iSymbol), pMgr), iSymbol(_iSymbol) {
 }
 
 CAlphabetManager::CSymbolNode::CSymbolNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const string &strDisplayText, CAlphabetManager *pMgr, symbol _iSymbol)

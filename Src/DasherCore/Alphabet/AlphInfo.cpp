@@ -46,30 +46,6 @@ int CAlphInfo::GetTextColour(symbol Symbol) const {
   }
 }
 
-int 
-CAlphInfo::GetColour(symbol i, int iPhase) const {
-  int iColour = m_vCharacters[i-1].Colour;
-  
-  // This is for backwards compatibility with old alphabet files -
-  // ideally make this log a warning (unrelated TODO: automate
-  // validation of alphabet files, plus maintenance of repository
-  // etc.)
-  if(iColour == -1) {
-    if(i == iSpaceCharacter) {
-      iColour = 9;
-    }
-    else {
-      iColour = (i % 3) + 10;
-    }
-  }
-  
-  // Loop on low colours for nodes (TODO: go back to colour namespaces?)
-  if(iPhase == 1 && iColour < 130)
-    iColour += 130;
-  
-  return iColour;
-}
-
 CAlphabetMap *CAlphInfo::MakeMap() const {
   CAlphabetMap *map = new CAlphabetMap();
   if (iParagraphCharacter!=0) map->AddParagraphSymbol(iParagraphCharacter);

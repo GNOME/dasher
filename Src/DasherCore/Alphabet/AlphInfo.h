@@ -95,9 +95,10 @@ public:
   /// return text for edit box for i'th symbol
   const std::string & GetText(symbol i) const {return m_vCharacters[i-1].Text;} 
   
-  // return string for i'th symbol
-  
-  int GetColour(symbol i, int iPhase) const;
+  // return colour specified for i'th symbol, or -1 if nothing in the XML  
+  int GetColour(symbol i) const {
+    return m_vCharacters[i-1].Colour;
+  };
   
   /// Text foreground colour for i'th symbol; default 4 if unspecified
   int GetTextColour(symbol i) const;

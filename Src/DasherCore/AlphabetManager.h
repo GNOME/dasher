@@ -81,7 +81,7 @@ namespace Dasher {
     };
     class CSymbolNode : public CAlphNode {
     public:
-      ///Standard constructor, gets colour+label by looking up symbol in current alphabet (& computing phase from offset)
+      ///Standard constructor, gets colour from GetColour(symbol,offset) and label from current alphabet
       CSymbolNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CAlphabetManager *pMgr, symbol iSymbol);
 
       ///
@@ -156,6 +156,12 @@ namespace Dasher {
     /// Default is just to add the control node, if appropriate.
     virtual void AddExtras(CAlphNode *pParent, std::vector<unsigned int> *pCProb);
 
+    ///Called to compute colour for a symbol at a specified offset.
+    /// Wraps CAlphabet::GetColour(sym), but (a) implements a default
+    ///  scheme for symbols not specifying a colour, and (b) implements
+    /// colour-cycling by phase (two cycles, using the LSBit of offset)
+    virtual int GetColour(symbol sym, int iOffset) const;
+    
     CLanguageModel *m_pLanguageModel;
     CLanguageModel::Context m_iLearnContext;
 
