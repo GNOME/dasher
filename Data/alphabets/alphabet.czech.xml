@@ -139,7 +139,7 @@
 <s  b="106" d="&#x00AB;" t="&#x00AB;" note="French left double quotation mark" />
 <s  b="107" d="&#x201E;" t="&#x201E;" note="German left double quotation mark; Albanian right" />
 <s  b="108" d="&#x201C;" t="&#x201C;" note="left double quotation mark" />
-<s b="109" d="&#x0022;" t="&#x0022;" note="deprecated vertical double quotation mark" />
+<!--<s b="109" d="&#x0022;" t="&#x0022;" note="deprecated vertical double quotation mark, replaced by following" />-->
 <s b="107" d="&quot;" t="&quot;"/>
 <s b="108" d="&#x201D;" t="&#x201D;" note="right double quotation mark" />
 <s b="109" d="&#x201A;" t="&#x201A;" note="German left single quotation mark; Albanian right" />
@@ -279,7 +279,7 @@
 <s b="106" d="&#x00AB;" t="&#x00AB;" note="French left double quotation mark" />
 <s b="107" d="&#x201E;" t="&#x201E;" note="German left double quotation mark; Albanian right" />
 <s b="108" d="&#x201C;" t="&#x201C;" note="left double quotation mark" />
-<s b="109" d="&#x0022;" t="&#x0022;" note="deprecated vertical double quotation mark" />
+<!--<s b="109" d="&#x0022;" t="&#x0022;" note="deprecated vertical double quotation mark, replaced by following" />-->
 <s b="107" d="&quot;" t="&quot;"/>
 <s b="108" d="&#x201D;" t="&#x201D;" note="right double quotation mark" />
 <s b="109" d="&#x201A;" t="&#x201A;" note="German left single quotation mark; Albanian right" />

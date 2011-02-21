@@ -21,25 +21,29 @@
 
 namespace Dasher {
   class CAlphabetMap;
-  class CAlphInfo;
 } 
 
 /// \ingroup Alphabet
 /// \{
 
-/// Class used for fast conversion from training text (i.e. same format as
-/// text output from Dasher...I think, Mandarin / Super-PinYin is probably
-/// an exception and Japanese probably would be too if it worked!) into
-/// Dasher's internal "symbol" indices. One of these is created for the
-/// alphabet (CAlphInfo) currently in use (CAlphInfo is a friend of this
-/// class, to allow creation/setup of the map).
+/// Class used for fast conversion from training text (i.e. catenated
+/// non-display text of symbols; Mandarin / Super-PinYin is a bit more
+/// complicated but still uses one!) into Dasher's internal "symbol" indices.
+/// One of these is created for the alphabet (CAlphInfo) currently in use,
+/// tho there are no restrictions on creation of CAlphabetMaps in other places
+/// (Mandarin!) - or modification, if you have a non-const pointer!
 ///
 /// Ian clearly had reservations about this system, as follows; and I'd add
 /// that much of the fun comes from supporting single unicode characters
-/// which are multiple octets,as we use  std::string (which works in octets)
+/// which are multiple octets, as we use  std::string (which works in octets)
 /// for everything...note that we do *not* support multi-unicode-character
 /// symbols (such as the "asdf" suggested below) except in the case of "\r\n"
 /// for the paragraph symbol.
+///
+/// Note that in 2010 we did indeed tailor this to the alphabet more closely,
+/// fast-casing single-octet characters to avoid using a hash etc. - this makes
+/// many common alphabets substantially faster!
+///
 /// Anyway, Ian writes:
 ///
 /// If I were just using GCC, which comes with the CGI "STL" implementation, I would
@@ -62,21 +66,12 @@ namespace Dasher {
 /// Sorry if this seems really unprofressional.
 /// 
 /// Replacing it might be a good idea. On the other hand it could be customised
-/// to the needs of the alphabet, so that it works faster. For example,
-/// currently if I have a string "asdf", it might be that "a" is checked
-/// then "as" is checked then "asd" is checked. I shouldn't need to keep
-/// rehashing the leading characters. I plan to fix that here. Doing so with
-/// a standard hash_map would be hard.
-/// 
-/// Usage:
-/// CAlphabetMap MyMap(NumberOfEntriesWeExpect); // Can omit NumberOfEntriesWeExpect
-/// MyMap.add("asdf", 15);
-/// symbol i = MyMap.get("asdf") // i=15
-/// symbol j = MyMap.get("fdsa") // j=0
-/// 
+/// to the needs of the alphabet, so that it works faster.
+///
 /// You can't remove items once they are added as Dasher has no need for that.
 /// 
 /// IAM 08/2002
+
 class Dasher::CAlphabetMap {
 
 public:
@@ -104,13 +99,16 @@ public:
   
   void GetSymbols(std::vector<symbol> &Symbols, const std::string &Input) const;
   //SymbolStream *GetSymbols(std::istream &in) const;
-  
-private:
-  friend class CAlphInfo;
+
   CAlphabetMap(unsigned int InitialTableSize = 255);
   void AddParagraphSymbol(symbol Value);
+  
+  ///Add a symbol to the map
+  /// \param Key text of the symbol; must not be present already
+  /// \param Value symbol number to which that text should be mapped
   void Add(const std::string & Key, symbol Value);
-
+  
+private:
   class Entry {
   public:
     Entry(std::string Key, symbol Symbol, Entry * Next)

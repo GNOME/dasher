@@ -670,10 +670,19 @@ void CAlphIO::XML_EndElement(void *userData, const XML_Char *name) {
   }
 
   if(!strcmp(name, "group")) {
-    Me->m_vGroups.back()->iEnd = Me->InputInfo->m_vCharacters.size()+1;
-    //child groups were added (to linked list) in reverse order. Put them in (iStart/iEnd) order...
-    Reverse(Me->m_vGroups.back()->pChild);
+    SGroupInfo *finished = Me->m_vGroups.back();
     Me->m_vGroups.pop_back();
+    finished->iEnd = Me->InputInfo->m_vCharacters.size()+1;
+    if (finished->iEnd == finished->iStart) {
+      //empty group. Delete it now, and elide from sibling chain
+      SGroupInfo *&ptr(Me->m_vGroups.size()==0 ? Me->InputInfo->m_pBaseGroup : Me->m_vGroups.back()->pChild);
+      DASHER_ASSERT(ptr == finished);
+      ptr = finished->pNext;
+      delete finished;
+    } else {
+      //child groups were added (to linked list) in reverse order. Put them in (iStart/iEnd) order...
+      Reverse(finished->pChild);
+    }
     return;
   }
 }

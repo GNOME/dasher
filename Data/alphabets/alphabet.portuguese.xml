@@ -130,7 +130,7 @@
 <s d="(" t="("/>
 <s d=")" t=")"/>
 <s d="&#x201C;" t="&#x201C;" note="left double quotation mark" />
-<s d="&#x0022;" t="&#x0022;" note="deprecated vertical double quotation mark" />
+<!--<s d="&#x0022;" t="&#x0022;" note="deprecated vertical double quotation mark, replaced by following" />-->
 <s d="&quot;" t="&quot;"/>
 <s d="&#x201D;" t="&#x201D;" note="right double quotation mark" />
 <s d="&#x2018;" t="&#x2018;" note="left single quotation mark" />

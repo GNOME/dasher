@@ -228,7 +228,7 @@ Any word that can be written using one of the Latin ISO-8859 character sets (ISO
 <s d="&#x00D8;" t="&#x00D8;" note="CAPITAL LETTER O WITH STROKE"/>
 <s d="&#x0152;" t="&#x0152;" note="CAPITAL LIGATURE OE"/>
 <s d="&#x0166;" t="&#x0166;" note="CAPITAL LETTER T WITH STROKE"/>
-<s d="&#x00DE;" t="&#x00DE;" note="CAPITAL LETTER THORN"/>
+<!--ACL: same as small letter <s d="&#x00DE;" t="&#x00DE;" note="CAPITAL LETTER THORN"/>-->
 </group>
 <!-- http://www.fileformat.info/info/unicode/char/ -->
 <group name="Numbers" b="113">

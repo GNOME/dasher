@@ -48,16 +48,21 @@ static char THIS_FILE[] = __FILE__;
 
 CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphMap)
   : CAlphabetManager(pInterface, pNCManager, pAlphabet, pAlphMap),
-    m_pCHAlphabet(pInterface->GetInfo("Chinese 简体中文 (simplified chinese, in pin yin groups)")),
-    m_pCHAlphabetMap(m_pCHAlphabet->MakeMap()),
     m_pConversionsBySymbol(new set<symbol>[GetAlphabet()->GetNumberTextSymbols()+1]) {
-  //the CHAlphabet contains a group for each SPY syllable+tone, with symbols being chinese characters.
-  // Build a map from SPY to set of chinese chars (note, the same chinese unicode can occur in multiple places;
-  // hence, we represent as unicode not CHAlph symbol number)...
-  map<string,set<string> > conversions;
+      
+  //the CHAlphabet contains a group for each SPY syllable+tone, with symbols being chinese characters.      
+  const CAlphInfo *pCHAlphabet = pInterface->GetInfo("Chinese 简体中文 (simplified chinese, in pin yin groups)");
+  //Build a map from SPY group label, to set of chinese chars (represented as start & end of group in pCHAlphabet)
+  map<string,pair<symbol,symbol> > conversions;
+  //Dasher's alphabet format means that space and paragraph can't be put into groups,
+  // so put them into their own group, manually, keyed by _symbol_ display text:
+  if (symbol sp = pCHAlphabet->GetSpaceSymbol())
+    conversions[pCHAlphabet->GetDisplayText(sp)]=pair<symbol,symbol>(sp,sp+1);
+  if (symbol para = pCHAlphabet->GetParagraphSymbol())
+    conversions[pCHAlphabet->GetDisplayText(para)]=pair<symbol,symbol>(para,para+1);
   //Non-recursive traversal of all the groups in the CHAlphabet (we don't care where they are, just to find them)
   vector<const SGroupInfo *> groups;
-  groups.push_back(m_pCHAlphabet->m_pBaseGroup);
+  groups.push_back(pCHAlphabet->m_pBaseGroup);
   while (!groups.empty()) {
     const SGroupInfo *pGroup(groups.back()); groups.pop_back();
     if (pGroup->pNext) groups.push_back(pGroup->pNext);
@@ -65,37 +70,41 @@ CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreati
     //process this group. The SPY syll+tone is stored as the label, using a tone mark over the vowel, e.g. &#257; = a1
     // such equivalences are recorded in the xml 'name' attribute of the group, but we don't need that.
     if (pGroup->strLabel.length()) {
-      set<string> &chars(conversions[pGroup->strLabel]);
-      DASHER_ASSERT(chars.empty()); //no previous group with same label
-      for (int ch=pGroup->iStart; ch<pGroup->iEnd; ch++)
-        chars.insert(m_pCHAlphabet->GetText(ch));
+      DASHER_ASSERT(conversions.find(pGroup->strLabel)==conversions.end()); //no previous group with same label
+      conversions[pGroup->strLabel] = pair<symbol,symbol>(pGroup->iStart, pGroup->iEnd);
     }
   }
-  //Dasher's alphabet format means that space and paragraph can't be put into groups,
-  // so the above will skip them. Hence, add them using the _symbol_ display text:
-  if (symbol sp = m_pCHAlphabet->GetSpaceSymbol())
-    conversions[m_pCHAlphabet->GetDisplayText(sp)].insert(m_pCHAlphabet->GetText(sp));
-  if (symbol para = m_pCHAlphabet->GetParagraphSymbol())
-    conversions[m_pCHAlphabet->GetDisplayText(para)].insert(m_pCHAlphabet->GetText(para));
 
   //Now: symbols in the primary (SPY) alphabet are syllable+tone, with the string SPY description
   // (using unicode tone marks, e.g. &#257;) in the display text, matching up with the CHAlphabet groups. 
   // (The SPY symbols are arranged in hierarchical groups according to the numbered-tone version, e.g. "a1";
   // but we don't do anything special with those groups, they are just displayed on screen as any normal alphabet).
   //Punctuation is the same way, i.e. PYAlph symbol w/ displaytext "," maps to the CHAlphabel group w/ label ","
+
+  //When we find a group in pCHAlphabet is needed, we add its symbols to m_CH{text,displayText,AlphabetMap}
+  // _only_ if the same unicode character is not already present; thus m_CHtext etc. will be a 1-1 mapping
+  // between indices and actual chinese unicode characters.
+  m_CHtext.push_back(""); m_CHdisplayText.push_back(""); m_CHcolours.push_back(0); //as usual, element 0 is the "unknown symbol"
   std::vector<symbol> vSyms;
   for (symbol i=1; i<=GetAlphabet()->GetNumberTextSymbols(); i++) {
-    set<string> &convs(conversions[m_pAlphabet->GetDisplayText(i)]);
-    DASHER_ASSERT(!convs.empty());
-    //convert each of these chinese unicode characters into a CHAlphabet symbol...
-    for (set<string>::const_iterator it=convs.begin(); it!=convs.end(); it++) {
-      vSyms.clear();
-      m_pCHAlphabetMap->GetSymbols(vSyms, *it);
-      DASHER_ASSERT(vSyms.size()==1 && vSyms[0]!=0); //i.e. conversion is exactly one chinese symbol
-      DASHER_ASSERT(m_pCHAlphabet->GetText(vSyms[0]) == *it);
-      m_pConversionsBySymbol[i].insert(vSyms[0]);
-      //Also the reverse lookup: (valid/used chinese symbol number) -> (pinyin by which it could be produced)
-      m_PinyinByChinese[vSyms[0]].insert(i);
+    DASHER_ASSERT(conversions.find(m_pAlphabet->GetDisplayText(i))!=conversions.end());
+    pair<symbol,symbol> convs(conversions[m_pAlphabet->GetDisplayText(i)]);
+    //for each chinese unicode character in the group, hash it to ensure same unicode = same index into m_CH{text,displayText,AlphabetMap}
+    for (symbol CHsym=convs.first; CHsym<convs.second; CHsym++) {
+      const string &text(pCHAlphabet->GetText(CHsym));
+      int target=m_CHAlphabetMap.Get(text);
+      if (!target) {
+        //unicode char not seen already, allocate new symbol number
+        target = m_CHtext.size();
+        m_CHtext.push_back(text);
+        m_CHdisplayText.push_back(pCHAlphabet->GetDisplayText(CHsym));
+        m_CHcolours.push_back(pCHAlphabet->GetColour(CHsym));
+        m_CHAlphabetMap.Add(text,target);
+      }
+      DASHER_ASSERT(m_CHtext[m_CHAlphabetMap.Get(text)] == text);
+      m_pConversionsBySymbol[i].insert(target);
+      //Also the reverse lookup: (rehashed chinese symbol number) -> (pinyin by which it could be produced)
+      m_PinyinByChinese[target].insert(i);
     }
   }
   //that leaves m_pConversionsBySymbol as desired.
@@ -108,27 +117,27 @@ CMandarinAlphMgr::~CMandarinAlphMgr() {
 void CMandarinAlphMgr::CreateLanguageModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore) {
   //std::cout<<"CHALphabet size "<< pCHAlphabet->GetNumberTextSymbols(); [7603]
   std::cout<<"Setting PPMPY model"<<std::endl;
-  m_pLanguageModel = new CPPMPYLanguageModel(pEventHandler, pSettingsStore, m_pCHAlphabet->GetNumberTextSymbols(), m_pAlphabet->GetNumberTextSymbols());
+  m_pLanguageModel = new CPPMPYLanguageModel(pEventHandler, pSettingsStore, m_CHtext.size()-1, m_pAlphabet->GetNumberTextSymbols());
   //our superclass destructor will call ReleaseContext on the iLearnContext when we are destroyed,
   // so we need to put _something_ in there (even tho we don't use it atm!)...
   m_iLearnContext = m_pLanguageModel->CreateEmptyContext();
 }
 
 CTrainer *CMandarinAlphMgr::GetTrainer() {
-  return new CMandarinTrainer(m_pLanguageModel, m_pAlphabetMap, m_pCHAlphabetMap);
+  return new CMandarinTrainer(m_pLanguageModel, m_pAlphabetMap, &m_CHAlphabetMap);
 }
 
 CAlphabetManager::CAlphNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, bool bEnteredLast, int iOffset) {
 
   int iNewOffset(max(-1,iOffset-1));  
   // Use chinese alphabet, not pinyin...
-  pair<symbol, CLanguageModel::Context> p=GetContextSymbols(pParent, iNewOffset, m_pCHAlphabetMap);
+  pair<symbol, CLanguageModel::Context> p=GetContextSymbols(pParent, iNewOffset, &m_CHAlphabetMap);
 
   CAlphNode *pNewNode;
   if (p.first==0 || !bEnteredLast) {
     pNewNode = new CGroupNode(pParent, iNewOffset, iLower, iUpper, "", 0, this, NULL);
   } else {
-    DASHER_ASSERT(p.first>0 && p.first<=m_pCHAlphabet->GetNumberTextSymbols());
+    DASHER_ASSERT(p.first>0 && p.first<m_CHtext.size());
     pNewNode = new CMandSym(pParent, iNewOffset, iLower, iUpper,  "", this, p.first, 0);
   }
   pNewNode->iContext = p.second;
@@ -137,7 +146,7 @@ CAlphabetManager::CAlphNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, uns
 }
 
 int CMandarinAlphMgr::GetCHColour(symbol CHsym, int iOffset) const {
-  int iColour = m_pCHAlphabet->GetColour(CHsym);
+  int iColour = m_CHcolours[CHsym];
   if (iColour==-1) {
     //none specified in alphabet
     static int colourStore[2][3] = {
@@ -218,7 +227,7 @@ CMandarinAlphMgr::CMandSym *CMandarinAlphMgr::CreateCHSymbol(CDasherNode *pParen
   // what's right 
 
   int iNewOffset = pParent->offset()+1;
-  if (m_pCHAlphabet->GetText(iCHsym) == "\r\n") iNewOffset++;
+  if (m_CHtext[iCHsym] == "\r\n") iNewOffset++;
   CMandSym *pNewNode = new CMandSym(pParent, iNewOffset, iLbnd, iHbnd, strGroup, this, iCHsym, iPYparent);
   pNewNode->iContext = m_pLanguageModel->CloneContext(iContext);
   m_pLanguageModel->EnterSymbol(pNewNode->iContext, iCHsym);
@@ -325,7 +334,7 @@ void CMandarinAlphMgr::GetConversions(std::vector<pair<symbol,unsigned int> > &v
 }
 
 CMandarinAlphMgr::CMandSym::CMandSym(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, CMandarinAlphMgr *pMgr, symbol iSymbol, symbol pyParent)
-: CSymbolNode(pParent, iOffset, iLbnd, iHbnd, pMgr->GetCHColour(iSymbol,iOffset), strGroup+pMgr->m_pCHAlphabet->GetDisplayText(iSymbol), pMgr, iSymbol), m_pyParent(pyParent) {
+: CSymbolNode(pParent, iOffset, iLbnd, iHbnd, pMgr->GetCHColour(iSymbol,iOffset), strGroup+pMgr->m_CHdisplayText[iSymbol], pMgr, iSymbol), m_pyParent(pyParent) {
 }
 
 CDasherNode *CMandarinAlphMgr::CMandSym::RebuildSymbol(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol) {
@@ -399,5 +408,5 @@ void CMandarinAlphMgr::CMandSym::RebuildForwardsFromAncestor(CAlphNode *pNewNode
 
 const std::string &CMandarinAlphMgr::CMandSym::outputText() {
   //use chinese, not pinyin, alphabet...
-  return mgr()->m_pCHAlphabet->GetText(iSymbol);
+  return mgr()->m_CHtext[iSymbol];
 }

@@ -146,11 +146,13 @@
 
       <s t="Z" d="Z" />
 
+<!-- ACL removing duplicates. Why are these here?
       <s t="Ź" d="Ź" />
 
       <s t="Ż" d="Ż" />
 
       <s t="Z" d="Z" />
+-->
     </group>
 
     <group name="Liczby"   b="113">

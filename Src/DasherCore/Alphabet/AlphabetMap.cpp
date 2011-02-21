@@ -181,12 +181,10 @@ void CAlphabetMap::Add(const std::string &Key, symbol Value) {
   }
   Entry *&HashEntry = HashTable[Hash(Key)];
 
-  // Loop through Entries with the correct Hash value.
+  //Loop through Entries with the correct Hash value,
+  // to check the key is not already present
   for(Entry * i = HashEntry; i; i = i->Next) {
-    if(i->Key == Key) {
-      // Add symbol and leave
-	  i->Symbol = Value;
-    }
+    DASHER_ASSERT(i->Key != Key);
   }
 
   // When hash table gets 1/2 full...

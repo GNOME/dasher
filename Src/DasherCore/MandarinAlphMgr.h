@@ -122,8 +122,16 @@ namespace Dasher {
     /// implements 2-phase colour cycling by low-bit of offset (as GetColour).
     int GetCHColour(symbol CHsym, int iOffset) const;
     
-    const CAlphInfo *m_pCHAlphabet;
-    const CAlphabetMap *m_pCHAlphabetMap;
+    /// Texts (multiple-octet but single unicode chars) for chinese characters - every element unique
+    /// Element 0 is blank, for the "unknown symbol" (easiest to store it)
+    std::vector<std::string> m_CHtext;
+    /// Display texts, as per previous
+    std::vector<std::string> m_CHdisplayText;
+    //colour, as per previous
+    std::vector<int> m_CHcolours;
+    /// Map from unicode char to index into m_CH{text,displayText}
+    CAlphabetMap m_CHAlphabetMap;
+    
     ///Indexed by SPY (syll+tone) alphabet symbol number,
     // the set of CHAlphabet symbols it can be converted to.
     std::set<symbol> *m_pConversionsBySymbol;
