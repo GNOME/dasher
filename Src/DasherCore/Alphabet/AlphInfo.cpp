@@ -53,15 +53,19 @@ CAlphabetMap *CAlphInfo::MakeMap() const {
   for(i = 0; i < m_vCharacters.size(); i++) {
     if (i+1!=iParagraphCharacter) map->Add(m_vCharacters[i].Text, i+1); //1-indexed
   }
-  //ACL I'm really not sure where conversion characters should/shouldn't be included.
-  // They seemed to be included in the Alphabet Map, i.e. for reading training text via GetSymbols;
-  // but a TODO comment suggested they should _not_ be included in GetNumberSymbols(),
-  // and I couldn't find any code which would have called e.g. GetText on them....
-  // Hence, not including them in m_vCharacters.
-  if (StartConvertCharacter)
-    map->Add(StartConvertCharacter->Text, ++i);
-  if (EndConvertCharacter)
-    map->Add(EndConvertCharacter->Text, ++i);
+  /*ACL I'm really not sure where conversion characters should/shouldn't be included.
+     They seemed to be included in the Alphabet Map, i.e. for reading training text via GetSymbols;
+     but a TODO comment suggested they should _not_ be included in GetNumberSymbols(),
+     and I couldn't find any code which would have called e.g. GetText on them.
+     Moreover, if these characters are put into the AlphabetMap, they'll be fed into the
+     LanguageModel just as any other "symbol", but with an out-of-bounds symbol number!
+     (So maybe the range of allowed symbol numbers is wrong?). Hence, not including them atm.
+     If they were needed, we could do something like the following:
+        if (StartConvertCharacter)
+          map->Add(StartConvertCharacter->Text, ++i);
+        if (EndConvertCharacter)
+          map->Add(EndConvertCharacter->Text, ++i);
+  */
   return map;
 }
 
