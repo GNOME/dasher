@@ -73,7 +73,7 @@ Dasher::CTrainingHelper::LoadPlain(const std::string &strFileName) {
       return;
     }
 
-  CAlphabetMap::SymbolStream syms(*m_pAlphabet, in);
+  CAlphabetMap::SymbolStream syms(in);
   Train(syms);
 
   in.close();
@@ -128,7 +128,7 @@ void
 Dasher::CTrainingHelper::HandleEndElement(const XML_Char *szName) {
   if(!strcmp(szName, "segment")) {
     std::istringstream in(m_strCurrentText);
-    CAlphabetMap::SymbolStream syms(*m_pAlphabet,in);
+    CAlphabetMap::SymbolStream syms(in);
     Train(syms);
     
     m_bInSegment = false;

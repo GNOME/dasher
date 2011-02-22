@@ -108,7 +108,21 @@ public:
   
   SGroupInfo *m_pBaseGroup;
   int iNumChildNodes;
+  ///0 = normal alphabet, contains symbols to output
+  ///1 = Japanese (defunct)
+  ///2 = Mandarin: symbols are merely phonemes, and match up (via displaytext)
+  /// with groups in a second alphabet, identified by strConversionTarget,
+  /// which contains actual output symbols possibly including duplicates;
+  /// all this handled by MandarinAlphMgr (+MandarinTrainer, PPMPYLanguageModel).
   int m_iConversionID;
+  
+  ///The name of the alphabet containing the actual text symbols into which
+  /// this alphabet will be converted. Only used (atm) if m_iConversionID==2.
+  std::string m_strConversionTarget;
+
+  ///Single-unicode character used to indicate an upcoming PY-then-CH pair
+  /// in the training file (see MandarinTrainer). Only used if m_iConversionID==2.
+  std::string m_strConversionTrainingDelimiter;
   
   CAlphabetMap *MakeMap() const;
   
@@ -127,17 +141,12 @@ private:
   Opts::AlphabetTypes Encoding;
   Opts::AlphabetTypes Type;
   Opts::ScreenOrientations Orientation;
-    
-  /*     // Obsolete groups stuff */
-  /*     struct group { */
-  /*       std::string Description; */
-  /*       std::vector < character > Characters; */
-  /*       int Colour; */
-  /*       std::string Label; */
-  /*     }; */
-  /*     std::vector < group > Groups; */
-  /*     // --- */
-    
+  
+  ///If true, alphabet should not be displayed in list of available alphabets;
+  /// it exists only for internal use, e.g. as a target for conversion from
+  /// another alphabet (a la MandarinDasher).
+  bool m_bHidden;
+  
   std::vector<character> m_vCharacters;
   
   symbol iParagraphCharacter;       // symbol number (index into m_vCharacters +1) of paragraph char (for display and default edit-text), 0 for none.

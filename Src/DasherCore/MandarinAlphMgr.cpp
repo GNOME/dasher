@@ -49,9 +49,11 @@ static char THIS_FILE[] = __FILE__;
 CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphMap)
   : CAlphabetManager(pInterface, pNCManager, pAlphabet, pAlphMap),
     m_pConversionsBySymbol(new set<symbol>[GetAlphabet()->GetNumberTextSymbols()+1]) {
+  DASHER_ASSERT(pAlphabet->m_iConversionID==2);
       
   //the CHAlphabet contains a group for each SPY syllable+tone, with symbols being chinese characters.      
-  const CAlphInfo *pCHAlphabet = pInterface->GetInfo("Chinese 简体中文 (simplified chinese, in pin yin groups)");
+  const CAlphInfo *pCHAlphabet = pInterface->GetInfo(pAlphabet->m_strConversionTarget);
+      
   //Build a map from SPY group label, to set of chinese chars (represented as start & end of group in pCHAlphabet)
   map<string,pair<symbol,symbol> > conversions;
   //Dasher's alphabet format means that space and paragraph can't be put into groups,
@@ -124,7 +126,7 @@ void CMandarinAlphMgr::CreateLanguageModel(CEventHandler *pEventHandler, CSettin
 }
 
 CTrainer *CMandarinAlphMgr::GetTrainer() {
-  return new CMandarinTrainer(m_pLanguageModel, m_pAlphabetMap, &m_CHAlphabetMap);
+  return new CMandarinTrainer(static_cast<CPPMPYLanguageModel*>(m_pLanguageModel), m_pAlphabetMap, &m_CHAlphabetMap, m_pAlphabet->m_strConversionTrainingDelimiter);
 }
 
 CAlphabetManager::CAlphNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, bool bEnteredLast, int iOffset) {

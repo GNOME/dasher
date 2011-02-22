@@ -83,11 +83,29 @@ public:
 
   class SymbolStream {
   public:
-    SymbolStream(const CAlphabetMap &_map, std::istream &_in);
-    symbol next();
+    SymbolStream(std::istream &_in);
+    ///Gets the next symbol in the stream, using the specified AlphabetMap
+    /// to convert unicode characters to symbols.
+    /// \return 0 for unknown symbol (not in map); -1 for EOF; else symbol#.
+    symbol next(const CAlphabetMap *map);
+    
+    ///Finds the next complete character in the stream,  but does not advance past it.
+    /// Hence, repeated calls will return the same string.
+    std::string peekAhead();
+    
+    ///Returns the string representation of the previous symbol (i.e. that returned
+    /// by the previous call to next()). Undefined if next() has not been called, or
+    /// if peekAhead() has been called since the last call to next(). Does not change
+    /// the stream position. Useful for debugging.
+    std::string peekBack();
   private:
+    ///Finds beginning of next unicode character, at position 'pos' or later,
+    /// filling buffer and skipping invalid characters as necessary.
+    /// Leaves 'pos' pointing at beginning of said character.
+    /// \return the number of octets representing the next character, or 0 for EOF
+    /// (inc. where the file ends with an incomplete character)
+    inline int findNext();
     void readMore();
-    const CAlphabetMap &map;
     char buf[1024];
     int pos, len;
     std::istream &in;
@@ -142,7 +160,6 @@ private:
      */
   } std::vector < Entry > Entries;
   std::vector < Entry * >HashTable;
-  const symbol Undefined;
   symbol *m_pSingleChars;
   /// both "\r\n" and "\n" are mapped to this (if not Undefined).
   /// This is the only case where >1 character can map to a symbol.

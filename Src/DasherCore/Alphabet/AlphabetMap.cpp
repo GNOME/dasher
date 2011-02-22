@@ -32,6 +32,8 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
+#define UNKNOWN_SYMBOL 0
+
 class utf8_length
 {
 public:
@@ -73,8 +75,8 @@ int utf8_length::operator[](const unsigned char i) const
 
 ////////////////////////////////////////////////////////////////////////////
 
-CAlphabetMap::SymbolStream::SymbolStream(const CAlphabetMap &_map, std::istream &_in)
-: map(_map), in(_in), pos(0), len(0) {
+CAlphabetMap::SymbolStream::SymbolStream(std::istream &_in)
+: in(_in), pos(0), len(0) {
   readMore();
 }
 
@@ -91,52 +93,79 @@ void CAlphabetMap::SymbolStream::readMore() {
   }
 }
 
-symbol CAlphabetMap::SymbolStream::next()
-{
-  int numChars;
-  
+inline int CAlphabetMap::SymbolStream::findNext() {
   for (;;) {
     if (pos + m_utf8_count_array.max_length > len && len==1024) {
       //may need more bytes for next char; and input not yet exhausted.
-      
       if (pos) {
         //shift remaining bytes to beginning
         len-=pos; //len of them
+        //memcpy isn't safe for overlapping regions of memory...
+        DASHER_ASSERT(len<pos); //...but they really shouldn't overlap!
         memcpy(buf, &buf[pos], len);
         pos=0;
       }
       readMore();
     }
     //if still don't have any chars after attempting to read more...EOF!
-    if (pos==len) return -1;
-    numChars = m_utf8_count_array[buf[pos]];
-    if (numChars != 0) break;
+    if (pos==len) return 0; //EOF
+    if (int numChars = m_utf8_count_array[buf[pos]]) {
+      if (pos+numChars > len) {
+        //no more bytes in file (would have tried to read earlier), but not enough for char
+#ifdef DEBUG
+        std::cerr << "Incomplete UTF-8 character beginning 0x" << hex << buf[pos] << dec;
+        std::cerr << "(expecting " << numChars << " bytes but only " << (len-pos) << ")" << std::endl;
+#endif
+        pos=len;
+        return 0;
+      }
+      return numChars;
+    }
 #ifdef DEBUG
     std::cerr << "Read invalid UTF-8 character 0x" << hex << buf[pos]
     << dec << std::endl;
 #endif
-    ++pos;
+    ++pos;    
   }
+}
+
+string CAlphabetMap::SymbolStream::peekAhead() {
+  int numChars=findNext();
+  return string(&buf[pos],numChars);
+}
+
+string CAlphabetMap::SymbolStream::peekBack() {
+  for(int i=pos-1; i>=0; i--) {
+    if (buf[i] & 0x80) {
+      //multibyte character...
+      if (buf[i] & 0x40) {
+        //START of multibyte character
+        int numChars = m_utf8_count_array[buf[i]];
+        DASHER_ASSERT(i+numChars==pos);
+        return string(&buf[i],numChars);
+      }
+      //in middle of multibyte, keep going back...
+    } else return string(&buf[i],1); //high bit not set -> single-byte char
+  }
+  //fail...relatively gracefully ;-)
+  return "";
+}
+
+symbol CAlphabetMap::SymbolStream::next(const CAlphabetMap *map)
+{
+  int numChars=findNext();
+  if (numChars==0) return -1; //EOF
   if (numChars == 1) {
-    if (map.m_ParagraphSymbol!=map.Undefined && buf[pos]=='\r') {
+    if (map->m_ParagraphSymbol!=UNKNOWN_SYMBOL && buf[pos]=='\r') {
       DASHER_ASSERT(pos+1<len || len<1024); //there are more characters (we should have read utf8...max_length), or else input is exhausted
       if (pos+1<len && buf[pos+1]=='\n') {
         pos+=2;
-        return map.m_ParagraphSymbol;
+        return map->m_ParagraphSymbol;
       }
     }
-    return map.GetSingleChar(buf[pos++]);
+    return map->GetSingleChar(buf[pos++]);
   }
-  if (pos+numChars > len) {
-    //no more bytes in file (would have tried to read earlier), but not enough for char
-#ifdef DEBUG
-    std::cerr << "Incomplete UTF-8 character beginning 0x" << hex << buf[pos] << dec;
-    std::cerr << "(expecting " << numChars << " bytes but only " << (len-pos) << ")" << std::endl;
-#endif
-    pos=len;
-    return -1;
-  }
-  int sym=map.Get(string(&buf[pos], numChars));
+  int sym=map->Get(string(&buf[pos], numChars));
   pos+=numChars;
   return sym;
 }
@@ -144,19 +173,19 @@ symbol CAlphabetMap::SymbolStream::next()
 void CAlphabetMap::GetSymbols(std::vector<symbol>& Symbols, const std::string& Input) const
 {
   std::istringstream in(Input);
-  SymbolStream syms(*this, in);
-  for (symbol sym; (sym=syms.next())!=-1;)
+  SymbolStream syms(in);
+  for (symbol sym; (sym=syms.next(this))!=-1;)
     Symbols.push_back(sym);
 }
 
 
 CAlphabetMap::CAlphabetMap(unsigned int InitialTableSize)
-:HashTable(InitialTableSize <<1), Undefined(0), m_ParagraphSymbol(Undefined) {
+:HashTable(InitialTableSize <<1), m_ParagraphSymbol(UNKNOWN_SYMBOL) {
   Entries.reserve(InitialTableSize);
 
   const int numChars = numeric_limits<char>::max() + 1;
   m_pSingleChars = new symbol[numChars];
-  for (int i = 0; i<numChars; i++) m_pSingleChars[i] = Undefined;
+  for (int i = 0; i<numChars; i++) m_pSingleChars[i] = UNKNOWN_SYMBOL;
 }
 
 CAlphabetMap::~CAlphabetMap() {
@@ -164,9 +193,9 @@ CAlphabetMap::~CAlphabetMap() {
 }
 
 void CAlphabetMap::AddParagraphSymbol(symbol Value) {
-  DASHER_ASSERT (m_ParagraphSymbol==Undefined);
-  DASHER_ASSERT (m_pSingleChars['\r'] == Undefined);
-  DASHER_ASSERT (m_pSingleChars['\n'] == Undefined);
+  DASHER_ASSERT (m_ParagraphSymbol==UNKNOWN_SYMBOL);
+  DASHER_ASSERT (m_pSingleChars['\r'] == UNKNOWN_SYMBOL);
+  DASHER_ASSERT (m_pSingleChars['\n'] == UNKNOWN_SYMBOL);
   m_pSingleChars['\n'] = m_ParagraphSymbol = Value;
 }
 
@@ -174,8 +203,8 @@ void CAlphabetMap::Add(const std::string &Key, symbol Value) {
   //Only single unicode-characters should be added...
   DASHER_ASSERT(m_utf8_count_array[Key[0]]==Key.length());
   if (Key.length() == 1) {
-    DASHER_ASSERT(m_pSingleChars[Key[0]]==Undefined);
-    DASHER_ASSERT(Key[0]!='\r' || m_ParagraphSymbol==Undefined);
+    DASHER_ASSERT(m_pSingleChars[Key[0]]==UNKNOWN_SYMBOL);
+    DASHER_ASSERT(Key[0]!='\r' || m_ParagraphSymbol==UNKNOWN_SYMBOL);
     m_pSingleChars[Key[0]] = Value;
     return;
   }
@@ -212,7 +241,7 @@ void CAlphabetMap::Add(const std::string &Key, symbol Value) {
 }
 
 symbol CAlphabetMap::Get(const std::string &Key) const {
-  if (m_ParagraphSymbol!=Undefined && Key=="\r\n")
+  if (m_ParagraphSymbol!=UNKNOWN_SYMBOL && Key=="\r\n")
     return m_ParagraphSymbol;
   DASHER_ASSERT(m_utf8_count_array[Key[0]]==Key.length());
   if (Key.length() == 1) {
@@ -225,7 +254,7 @@ symbol CAlphabetMap::Get(const std::string &Key) const {
     }
   }
 
-  return Undefined;
+  return UNKNOWN_SYMBOL;
 }
 
 symbol CAlphabetMap::GetSingleChar(char key) const {return m_pSingleChars[key];}

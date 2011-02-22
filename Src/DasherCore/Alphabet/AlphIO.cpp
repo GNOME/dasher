@@ -115,8 +115,15 @@ void CAlphIO::GetAlphabets(std::vector <std::string >*AlphabetList) const {
   typedef std::map < std::string, const CAlphInfo* >::const_iterator CI;
   CI End = Alphabets.end();
 
-  for(CI Cur = Alphabets.begin(); Cur != End; Cur++)
+  for(CI Cur = Alphabets.begin(); Cur != End; Cur++) {
+    //skip "hidden" alphabets
+    if (Cur->second->m_bHidden) continue;
+    //for Mandarin-converting alphabets, only display if the conversion target is available too.
+    if (Cur->second->m_iConversionID==2) {
+      if (Alphabets.count(Cur->second->m_strConversionTarget)==0) continue;
+    }
     AlphabetList->push_back(Cur->second->AlphID);
+  }
 }
 
 std::string CAlphIO::GetDefault() {
@@ -430,6 +437,8 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
         atts++;
         Me->InputInfo->AlphID = *atts;
         atts--;
+      } else if (strcmp(*atts, "hidden") == 0) {
+        Me->InputInfo->m_bHidden = (strcmp(*(atts+1), "yes")==0);
       }
       atts += 2;
     }
@@ -558,9 +567,13 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
   if(!strcmp(name, "conversionmode")) {
     while(*atts != 0) {
       if(strcmp(*atts, "id") == 0) {
-        atts++;
-        Me->InputInfo->m_iConversionID = atoi(*atts);
-        atts--;
+        Me->InputInfo->m_iConversionID = atoi(*(atts+1));
+      } else if (strcmp(*atts, "target") == 0) {
+        Me->InputInfo->m_strConversionTarget = *(atts+1);
+      } else if (strcmp(*atts, "delim") == 0) {
+        //TODO, should check this is only a single unicode character;
+        // no training will occur, if not...
+        Me->InputInfo->m_strConversionTrainingDelimiter = *(atts+1);
       }
       atts += 2;
     }

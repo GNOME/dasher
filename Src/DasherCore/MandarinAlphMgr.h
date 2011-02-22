@@ -30,11 +30,42 @@ namespace Dasher {
   /// \ingroup Model
   /// @{
 
-  /// Overides methods of AlphabetManager for changes needed for Mandarin Dasher
-  ///
+  /// Subclass of AlphabetManager, generalizing what's needed for Mandarin Dasher.
+  /// This class, along with PPMPYLanguageModel and MandarinTrainer, implements
+  /// a two-layer / dual-alphabet system for writing symbols in one alphabet (the
+  /// "Chinese" or CH alphabet) by first selecting a symbol in a different, e.g.
+  /// phonetic, alphabet (here, the "Pinyin" or PY alphabet).
+  /// The idea is to relax the usual idea that each sentence in the target (CH) alphabet
+  /// appears in exactly one place on the real line [0,1]; instead, it may appear in arbitrarily
+  /// many different (sub)intervals, but with different PY.
+  /// The possible mappings between PY and CH must be (a) fixed regardless of context, and
+  /// (b) enter precisely one CH symbol for each PY selected; but may be many-many, i.e. the same CH symbol
+  /// may appear under multiple PY symbols. It is defined by two alphabet files, tho only the
+  /// PY alphabet need be a legal alphabet definition - see constructor.
+  /// The language model treats all occurrences of the same CH symbol the same regardless of PY,
+  /// and builds a context of CH symbols only; however, for a given CH context, it predicts
+  /// both the next PY symbol, and the next CH symbol, using distinct counts. (See GetConversions).
+  /// In use, the user first navigates into a PY symbol, but this may not enter any text:
+  /// instead it may offer a choice between multiple CH symbols or "conversions";
+  /// the user navigates into one of these, which is then written, and the process repeats
+  /// (PY-CH-PY-CH...). Some PY symbols offer no choice, i.e. only a single CH symbol, in
+  /// which case the "navigate into CH" step disappears.
+  /// This class is used for alphabets (e.g. PY) with conversionid==2; the conversion target
+  /// attribute of that alphabet identifies the CH alphabet (probably hidden itself).
   class CMandarinAlphMgr : public CAlphabetManager {
   public:
-
+    /// Create a MandarinAlphabetManager!
+    /// \param pAlphabet the Pinyin alphabet. This should have a hierarchy of groups to be
+    /// displayed to the user, and symbols to be predicted by the LM, whose text attributes
+    /// are used to parse the training text. However the symbol display texts are NOT presented
+    /// to the user; instead, for each PY symbol, the CH alphabet (i.e. the PY alphabet's
+    /// "conversion target") must contain exactly one group with the same _displaytext_.
+    /// All (CH) symbols within this (inc. in subgroups, CH hierarchy ignored) are presented to the
+    /// user; however, CH symbols are identified by their _text_, i.e. (unlike normal alphabets)
+    /// the same text may appear in multiple places in the CHAlphabet, and these will be identified
+    /// together (i.e. by hashing on text). Hence, it is not possible to call makeMap() on
+    /// the CHAlphabet (this requires the text attributes to be all different), so we rehash here.
+    /// \param pAlphabetMap mapping from text to symbol# of the PY alphabet; used for training files.
     CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphMap);
     ~CMandarinAlphMgr();
     

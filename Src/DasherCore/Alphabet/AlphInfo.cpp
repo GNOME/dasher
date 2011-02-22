@@ -79,6 +79,7 @@ CAlphInfo::CAlphInfo() {
   iNumChildNodes = 0;
   m_iConversionID = 0;
   m_strDefaultContext = ". ";
+  m_bHidden=false;
 }
 
 void DeleteGroups(SGroupInfo *Info) {

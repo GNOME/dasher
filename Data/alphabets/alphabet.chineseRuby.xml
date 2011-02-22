@@ -2,7 +2,7 @@
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
 <alphabets>
-<alphabet name="Chinese &#31616;&#20307;&#20013;&#25991; (simplified chinese, in pin yin groups)"> <!-- Alphabet created by David MacKay using write.p.  Thanks to Juan K Lin for help -->
+<alphabet name="Chinese &#31616;&#20307;&#20013;&#25991; (simplified chinese, in pin yin groups)" hidden="yes"> <!-- Alphabet created by David MacKay using write.p.  Thanks to Juan K Lin for help -->
 <!--ACL 10Feb2011: Pinyin characters removed (but pinyin groups retained), and "punctuation" inc. roman letters + numerals added, as per rewrite of MandarinDasher to include punctuation in context-->
 <orientation type="LR"/>
 <encoding type="Western"/>

@@ -24,85 +24,40 @@ CTrainer::CTrainer(CLanguageModel *pLanguageModel, const CAlphabetMap *pAlphabet
 void CTrainer::Train(CAlphabetMap::SymbolStream &syms) {
   CLanguageModel::Context sContext = m_pLanguageModel->CreateEmptyContext();
 
-  for(symbol sym; (sym=syms.next())!=-1;) {
+  for(symbol sym; (sym=syms.next(m_pAlphabet))!=-1;) {
       m_pLanguageModel->LearnSymbol(sContext, sym);
   }
   m_pLanguageModel->ReleaseContext(sContext);
 }
 
-CMandarinTrainer::CMandarinTrainer(CLanguageModel *pLanguageModel, const CAlphabetMap *pAlphabet, const CAlphabetMap *pCHAlphabet)
-: CTrainer(pLanguageModel, pAlphabet), m_pCHAlphabet(pCHAlphabet) {
+CMandarinTrainer::CMandarinTrainer(CPPMPYLanguageModel *pLanguageModel, const CAlphabetMap *pAlphabet, const CAlphabetMap *pCHAlphabet, const std::string &strDelim)
+: CTrainer(pLanguageModel, pAlphabet), m_pCHAlphabet(pCHAlphabet), m_strDelim(strDelim) {
 }
 
-//TrainMandarin is used to train Mandarin Dasher: PPMPYLanguageModel
-//Mandarin training is distinct from normal PPM training in that it uses two separate alphabets, and trains with py-character pairs. Despite so, implementation here may seem out of structure, and it could be necessary to revise later, particularly on robustness to deal with non-unicode chars
-//The training of Mandarin Dasher may evolve in to possible paths: 1.Include punctuation (more work); 2.User defined training files (not sure how); 3.Learning as one types (more work)
-//As Manager is produced, training happens in AlphabetManagerFactory
-
-void CMandarinTrainer::LoadFile(const std::string &strPath) {
-  //TrainMandarin takes in the Super Pin Yin Alphabet, and uses the Mandarin Character alphabet stored in private AlphabetManagerFactory
-  FILE * fpTrain = fopen(strPath.c_str(), "rb");
-  
-  if(!fpTrain) {
-    std::cout << "Mandarin Training File: cannot open file or incorrect directory" << std::endl;
-    return;
-  }
+void CMandarinTrainer::Train(CAlphabetMap::SymbolStream &syms) {
   unsigned numberofchar = 0;
-
-
-  const size_t charsize = 1024;
-  const size_t trainBufferSize = 3*charsize*3;
-  char szBuffer[trainBufferSize];
-    
-  std::string strChar;
-  std::string strPY;
   CLanguageModel::Context trainContext = m_pLanguageModel->CreateEmptyContext();
-  std::string pyID = "》";
-  std::vector<symbol> Symchar;
-  std::vector<symbol> Sympy;
-
-  while(!feof(fpTrain)){
+  
+  for (string s; (s=syms.peekAhead()).length();) {
+    syms.next(m_pAlphabet); //skip over character at which we just peeked (we don't need the symbol#)
     
-    strPY.clear();
-    strChar.clear();
- 
-    size_t iNumBytes = fread(szBuffer, 1, trainBufferSize, fpTrain);
-    std::string strBuffer = std::string(szBuffer, iNumBytes);
-
-    size_t lim;
-    if(iNumBytes<9*charsize)
-      lim = iNumBytes/9;
-    else
-      lim = charsize;
-    
-    for (size_t pos=0;;) { //position in 3's counting on 
-
-      while(pos<lim*3)
-        if (pyID.compare(strBuffer.substr(3*pos++,3))==0) break;
-      //leave pos just after the pyID symbol
-      
-      if (pos+1>=lim*3) break;
-      strPY=strBuffer.substr(3*pos++,3);
- 
-      //strBuffer.copy(ctemp,3,3*pos);
-      strChar=strBuffer.substr(3*pos++,3);
-
-      Symchar.clear();
-      Sympy.clear();
-
-      m_pCHAlphabet->GetSymbols(Symchar, strChar);
-      m_pAlphabet->GetSymbols(Sympy, strPY);      
-      DASHER_ASSERT(Symchar.size()==1);
-      DASHER_ASSERT(Sympy.size()==1);
+    if (s == m_strDelim) { //found delimiter, so process next two characters
+      symbol Sympy = syms.next(m_pAlphabet);
+      if (Sympy==-1) break; //EOF
 #ifdef DEBUG
-      if (Symchar[0]<=0)
-        std::cout << "Unknown chinese character " << strChar << std::endl;
+      if (Sympy==0)
+        std::cout << "Unknown pinyin character " << syms.peekBack() << std::endl;
 #endif
-
-      static_cast<CPPMPYLanguageModel *>(m_pLanguageModel)->LearnPYSymbol(trainContext, Sympy[0]); 
-      m_pLanguageModel->LearnSymbol(trainContext, Symchar[0]);
-      numberofchar++;
-    }
+      symbol Symchar = syms.next(m_pCHAlphabet);
+      if (Symchar==-1) break; //EOF...ignore final Pinyin?
+#ifdef DEBUG
+      if (Symchar==0)
+        std::cout << "Unknown chinese character " << syms.peekBack() << std::endl;
+#endif
+      static_cast<CPPMPYLanguageModel *>(m_pLanguageModel)->LearnPYSymbol(trainContext, Sympy);
+      m_pLanguageModel->LearnSymbol(trainContext, Symchar);
+      numberofchar++;    
+    } //else, keep looking for delimiter
   }
-  //std::cout<<"The Length of Training file is  "<<numberofchar<<" bytes/py characters"<<std::endl;  
+  m_pLanguageModel->ReleaseContext(trainContext);
 }
