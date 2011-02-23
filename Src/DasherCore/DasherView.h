@@ -161,11 +161,6 @@ protected:
   /// will then add exactly one CDasherScreen::point for each line segment required.
   virtual void DasherLine2Screen(myint x1, myint y1, myint x2, myint y2, std::vector<CDasherScreen::point> &vPoints)=0;
   
-  // Orientation of Dasher Screen
-/*   inline void MapScreen(screenint * DrawX, screenint * DrawY); */
-/*   inline void UnMapScreen(screenint * DrawX, screenint * DrawY); */
-  bool m_bVisibleRegionValid;
-  
   ///Number of nodes actually rendered. Updated only by subclasses; TODO does
   /// this belong here? (perhaps for subclass-agnostic clients to inspect...)
   int m_iRenderCount;

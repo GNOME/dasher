@@ -105,7 +105,7 @@ void CCircleStartHandler::HandleEvent(Dasher::CEvent * pEvent) {
     switch (pEvt->m_iParameter) {
     case LP_REAL_ORIENTATION:
     case LP_CIRCLE_PERCENT:
-      //recompute geometry. TODO, need to trap arbitrary screen geom changes too...?
+      //recompute geometry.
       m_iScreenRadius = -1;
       break;
     case BP_DASHER_PAUSED:
@@ -117,5 +117,8 @@ void CCircleStartHandler::HandleEvent(Dasher::CEvent * pEvent) {
       m_bInCircle = true;
       break;
     }
+  } else if (pEvent->m_iEventType == EV_SCREEN_GEOM) {
+    //need to recompute geometry (in next DecorateView or Timer)
+    m_iScreenRadius = -1;
   }
 }

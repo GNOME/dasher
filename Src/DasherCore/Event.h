@@ -14,10 +14,11 @@ namespace Dasher {
   class CControlEvent;
   class CLockEvent;
   class CMessageEvent;
+  class CScreenGeomEvent;
 }
 
 enum {
-  EV_PARAM_NOTIFY = 1, EV_EDIT, EV_EDIT_CONTEXT, EV_CONTROL, EV_LOCK, EV_MESSAGE
+  EV_PARAM_NOTIFY = 1, EV_EDIT, EV_EDIT_CONTEXT, EV_CONTROL, EV_LOCK, EV_MESSAGE, EV_SCREEN_GEOM
 };
 
 /// \ingroup Core
@@ -92,6 +93,16 @@ public:
   const std::string m_strMessage;
   const int m_iID;
   const int m_iType;
+};
+
+///Generated whenever the screen geometry changes: e.g. aspect ratio,
+/// size, degree of nonlinearity, orientation, or generally whenever
+/// values returned by Dasher2Screen/Screen2Dasher might have changed
+/// (thus, any code caching such values should recompute/invalidate them)
+class Dasher::CScreenGeomEvent : public Dasher::CEvent {
+public:
+  CScreenGeomEvent() : CEvent(EV_SCREEN_GEOM) {
+  }
 };
 /// @}
 /// @}

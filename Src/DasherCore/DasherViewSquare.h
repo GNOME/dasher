@@ -192,6 +192,8 @@ private:
   inline myint CustomIDiv(myint iNumerator, myint iDenominator);
 
   void DasherLine2Screen(myint x1, myint y1, myint x2, myint y2, vector<CDasherScreen::point> &vPoints);
+
+  bool m_bVisibleRegionValid;
   
   // Called on screen size or orientation changes
   void SetScaleFactor();

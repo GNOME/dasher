@@ -59,17 +59,10 @@ static char THIS_FILE[] = __FILE__;
 // FIXME - duplicated 'mode' code throught - needs to be fixed (actually, mode related stuff, Input2Dasher etc should probably be at least partially in some other class)
 
 CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen *DasherScreen)
-: CDasherView(pEventHandler, pSettingsStore, DasherScreen),   m_Y1(4), m_Y2(0.95 * GetLongParameter(LP_MAX_Y)), m_Y3(0.05 * GetLongParameter((LP_MAX_Y))) {
-
-  // TODO - AutoOffset should be part of the eyetracker input filter
-  // Make sure that the auto calibration is set to zero berfore we start
-  //  m_yAutoOffset = 0;
-
-  ChangeScreen(DasherScreen);
+: CDasherView(pEventHandler, pSettingsStore, DasherScreen),   m_Y1(4), m_Y2(0.95 * GetLongParameter(LP_MAX_Y)), m_Y3(0.05 * GetLongParameter((LP_MAX_Y))), m_bVisibleRegionValid(false) {
 
   //Note, nonlinearity parameters set in SetScaleFactor 
-  m_bVisibleRegionValid = false;
-  
+  ChangeScreen(DasherScreen);
 }
 
 CDasherViewSquare::~CDasherViewSquare() {}
@@ -936,6 +929,9 @@ void CDasherViewSquare::SetScaleFactor( void )
       std::cout << "ERROR ScreenY " << y << " becomes " << dy << " back to " << fy << std::endl;
   }
 #endif
+  
+  CScreenGeomEvent evt;
+  InsertEvent(&evt);
 }
 
 
