@@ -11,7 +11,6 @@
 #import <Foundation/Foundation.h>
 
 #import "DasherApp.h"
-#import "PreferencesController.h"
 
 #import <sys/time.h>
 

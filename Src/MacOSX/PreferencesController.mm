@@ -18,6 +18,18 @@ static PreferencesController *preferencesController = nil;
 }
 @end
 
+//The key which "Start With Mouse Position:" checkbox writes its value to, as specified in InterfaceBuilder
+static const NSString *AnyStartHandlerEnabled = @"values.StartWithMousePosition";
+//The key which the drop-down box (circle/two-box) writes its selected-index to, as specified in InterfaceBuilder
+static const NSString *StartHandlerIndex = @"values.StartHandlerIdx";
+//The names (as written out to persistent settings file) of the bool parameters corresponding to each
+// of the entries in that drop-down box, in the order they appear in the drop-down.
+static const NSString *StartHandlerParamNames[2] = {
+  @"CircleStart", @"StartOnMousePosition"
+};
+#define numStartHandlerParams (sizeof(StartHandlerParamNames)/sizeof(StartHandlerParamNames[0]))
+
+
 @implementation PreferencesController
 
 - (id)defaultsValueForKey:(NSString *)aKey {
@@ -39,10 +51,23 @@ static PreferencesController *preferencesController = nil;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-  NSString *key = [keyPath substringFromIndex:[@"values." length]];
-  NSString *value = [self defaultsValueForKey:key];
   
-  [dasherApp setParameterValue:value forKey:key];
+  if ([keyPath isEqualTo:AnyStartHandlerEnabled] || [keyPath isEqualTo:StartHandlerIndex]) {
+    bool bOn[numStartHandlerParams];
+    for (unsigned int i=0; i<numStartHandlerParams; i++) bOn[i]=NO;
+    NSUserDefaultsController *udc = [NSUserDefaultsController sharedUserDefaultsController];
+    if ([[udc valueForKeyPath:AnyStartHandlerEnabled] boolValue]) {
+      int which = [[udc valueForKeyPath:StartHandlerIndex] intValue];
+      if (which>=0 && which<numStartHandlerParams)
+        bOn[ which ]=YES;
+    }
+    for (unsigned int i=0; i<numStartHandlerParams; i++)
+      [dasherApp setParameterValue:[NSNumber numberWithBool:bOn[i]] forKey:StartHandlerParamNames[i]];
+  } else {
+    NSString *key = [keyPath substringFromIndex:[@"values." length]];
+    NSString *value = [self defaultsValueForKey:key];
+    [dasherApp setParameterValue:value forKey:key];
+  }
 }
 
 - (void)observeDefaults {
@@ -51,8 +76,11 @@ static PreferencesController *preferencesController = nil;
   NSUserDefaultsController *udc = [NSUserDefaultsController sharedUserDefaultsController];
   
   while (key = [e nextObject]) {
-    [udc addObserver:self forKeyPath:[NSString stringWithFormat:@"values.%@", key] options:0 context:NULL];
+    if (![key isEqualToString:@"FrameRate"])
+      [udc addObserver:self forKeyPath:[NSString stringWithFormat:@"values.%@", key] options:0 context:NULL];
   }
+  [udc addObserver:self forKeyPath:AnyStartHandlerEnabled options:0 context:NULL];
+  [udc addObserver:self forKeyPath:StartHandlerIndex options:0 context:NULL];
 }
 
 - (void)awakeFromNib {

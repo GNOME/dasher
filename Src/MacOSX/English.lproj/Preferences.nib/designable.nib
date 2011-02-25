@@ -2,17 +2,17 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">10F569</string>
+		<string key="IBDocument.SystemVersion">10J567</string>
 		<string key="IBDocument.InterfaceBuilderVersion">788</string>
-		<string key="IBDocument.AppKitVersion">1038.29</string>
-		<string key="IBDocument.HIToolboxVersion">461.00</string>
+		<string key="IBDocument.AppKitVersion">1038.35</string>
+		<string key="IBDocument.HIToolboxVersion">462.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			<string key="NS.object.0">788</string>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="14"/>
+			<integer value="654"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2044,6 +2044,14 @@ AAAAAAAAAAAAAHRleHQAAAAAQ29weXJpZ2h0IEFwcGxlIENvbXB1dGVyLCBJbmMuLCAyMDA1AAAAAA</
 				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
 			</object>
 			<object class="NSUserDefaultsController" id="16386636">
+				<object class="NSMutableArray" key="NSDeclaredKeys">
+					<bool key="EncodedWithXMLCoder">YES</bool>
+					<object class="NSMutableString">
+						<characters key="NS.bytes">StartWithMousePosition</characters>
+					</object>
+					<string>StartOnMousePosition</string>
+					<string>StartHandlerIdx</string>
+				</object>
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
 		</object>
@@ -2441,22 +2449,6 @@ AAAAAAAAAAAAAHRleHQAAAAAQ29weXJpZ2h0IEFwcGxlIENvbXB1dGVyLCBJbmMuLCAyMDA1AAAAAA</
 						</object>
 					</object>
 					<int key="connectionID">681</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: values.StartOnMousePosition</string>
-						<reference key="source" ref="514110910"/>
-						<reference key="destination" ref="16386636"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="514110910"/>
-							<reference key="NSDestination" ref="16386636"/>
-							<string key="NSLabel">value: values.StartOnMousePosition</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">values.StartOnMousePosition</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">682</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -3080,6 +3072,38 @@ AAAAAAAAAAAAAHRleHQAAAAAQ29weXJpZ2h0IEFwcGxlIENvbXB1dGVyLCBJbmMuLCAyMDA1AAAAAA</
 						</object>
 					</object>
 					<int key="connectionID">867</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: values.StartWithMousePosition</string>
+						<reference key="source" ref="514110910"/>
+						<reference key="destination" ref="16386636"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="514110910"/>
+							<reference key="NSDestination" ref="16386636"/>
+							<string key="NSLabel">value: values.StartWithMousePosition</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">values.StartWithMousePosition</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">874</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">selectedIndex: values.StartHandlerIdx</string>
+						<reference key="source" ref="797062810"/>
+						<reference key="destination" ref="16386636"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="797062810"/>
+							<reference key="NSDestination" ref="16386636"/>
+							<string key="NSLabel">selectedIndex: values.StartHandlerIdx</string>
+							<string key="NSBinding">selectedIndex</string>
+							<string key="NSKeyPath">values.StartHandlerIdx</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">876</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -4572,7 +4596,7 @@ AAAAAAAAAAAAAHRleHQAAAAAQ29weXJpZ2h0IEFwcGxlIENvbXB1dGVyLCBJbmMuLCAyMDA1AAAAAA</
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">867</int>
+			<int key="maxID">876</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

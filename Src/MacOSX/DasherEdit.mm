@@ -7,7 +7,6 @@
 //
 
 #import "DasherEdit.h"
-#import "PreferencesController.h"
 #import "UnicharGenerator.h"
 #import "../Common/Common.h"
 #import <Carbon/Carbon.h>
