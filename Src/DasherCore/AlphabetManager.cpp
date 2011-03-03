@@ -76,7 +76,7 @@ void CAlphabetManager::CreateLanguageModel(CEventHandler *pEventHandler, CSettin
 }
 
 CTrainer *CAlphabetManager::GetTrainer() {
-  return new CTrainer(m_pLanguageModel, m_pAlphabetMap);
+  return new CTrainer(m_pLanguageModel, m_pAlphabet, m_pAlphabetMap);
 }
 
 const CAlphInfo *CAlphabetManager::GetAlphabet() const {

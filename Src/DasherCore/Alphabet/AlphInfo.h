@@ -106,6 +106,11 @@ public:
     
   const std::string &GetDefaultContext() const {return m_strDefaultContext;}
   
+  ///A single unicode character to use as an escape sequence in training files
+  ///to indicate context-switching commands; 0-length => don't use context-switching commands. 
+  /// Defaults to § if not specified in alphabet.
+  const std::string &GetContextEscapeChar() const {return m_strCtxChar;}
+  
   SGroupInfo *m_pBaseGroup;
   int iNumChildNodes;
   ///0 = normal alphabet, contains symbols to output
@@ -156,6 +161,7 @@ private:
   character *EndConvertCharacter;
   
   std::string m_strDefaultContext;
+  std::string m_strCtxChar;
 };
 
 

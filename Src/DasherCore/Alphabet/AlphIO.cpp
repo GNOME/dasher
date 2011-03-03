@@ -439,6 +439,8 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
         atts--;
       } else if (strcmp(*atts, "hidden") == 0) {
         Me->InputInfo->m_bHidden = (strcmp(*(atts+1), "yes")==0);
+      } else if (strcmp(*atts, "escape") == 0) {
+        Me->InputInfo->m_strCtxChar = *(atts+1);
       }
       atts += 2;
     }

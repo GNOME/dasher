@@ -79,6 +79,7 @@ CAlphInfo::CAlphInfo() {
   iNumChildNodes = 0;
   m_iConversionID = 0;
   m_strDefaultContext = ". ";
+  m_strCtxChar = "§";
   m_bHidden=false;
 }
 

@@ -90,13 +90,15 @@ public:
     symbol next(const CAlphabetMap *map);
     
     ///Finds the next complete character in the stream,  but does not advance past it.
-    /// Hence, repeated calls will return the same string.
+    /// Hence, repeated calls will return the same string. (Always constructs a string,
+    /// which next() avoids for single-octet chars, so may be slower)
     std::string peekAhead();
     
     ///Returns the string representation of the previous symbol (i.e. that returned
     /// by the previous call to next()). Undefined if next() has not been called, or
     /// if peekAhead() has been called since the last call to next(). Does not change
-    /// the stream position. Useful for debugging.
+    /// the stream position. (Always constructs a string, which next() avoids for 
+    /// single-octet chars, so may be slower.)
     std::string peekBack();
   private:
     ///Finds beginning of next unicode character, at position 'pos' or later,
@@ -113,10 +115,8 @@ public:
   
   // Fills Symbols with the symbols corresponding to Input. {{{ Note that this
   // is not necessarily reversible by repeated use of GetText. Some text
-  // may not be recognised and so discarded. }}}
-  
+  // may not be recognised; any such will be turned into symbol number 0.}}}  
   void GetSymbols(std::vector<symbol> &Symbols, const std::string &Input) const;
-  //SymbolStream *GetSymbols(std::istream &in) const;
 
   CAlphabetMap(unsigned int InitialTableSize = 255);
   void AddParagraphSymbol(symbol Value);

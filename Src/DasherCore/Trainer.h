@@ -3,17 +3,29 @@
 
 #include "LanguageModelling/PPMPYLanguageModel.h"
 #include "TrainingHelper.h"
+#include "Alphabet/AlphInfo.h"
 
 namespace Dasher {
   class CDasherInterfaceBase;
 	
   class CTrainer : public CTrainingHelper {
   public:
-    CTrainer(CLanguageModel *pLanguageModel, const CAlphabetMap *pAlphabet);
+    CTrainer(CLanguageModel *pLanguageModel, const CAlphInfo *pInfo, const CAlphabetMap *pAlphabet);
 
   protected:
     virtual void Train(CAlphabetMap::SymbolStream &syms);
     CLanguageModel *m_pLanguageModel;
+    
+    ///Try to read a context-switch escape sequence from the symbolstream.
+    /// \param sContext context to be reinitialized if a context-switch command is found
+    /// \syms symbolstream to read, should be positioned just after the first occurrence of the escape character.
+    /// \return true if a context-switch command was found (=> sContext reinitialized);
+    ///  false, if instead a double-escape-character (=encoding of that actual symbol) was read
+    bool readEscape(CLanguageModel::Context &sContext, CAlphabetMap::SymbolStream &syms);
+    
+    const CAlphInfo *m_pInfo;
+    // symbol number in alphabet of the context-switch character (maybe 0 if not in alphabet!)
+    int m_iCtxEsc;
   };
 	
   /// Trains a PPMPYLanguageModel (dual alphabet), as for e.g. MandarinDasher.
@@ -25,17 +37,19 @@ namespace Dasher {
   class CMandarinTrainer : public CTrainer {
   public:
     /// Construct a new MandarinTrainer
-    /// \param pAlphabet mapping from text to symbol# in PY alphabet
+    /// \param pInfo used for GetContextEscapeChar and GetDefaultContext (only), both as strings
+    /// \param pPYAlphabet mapping from text to symbol# in PY alphabet
     /// \param pCHAlphabet mapping from text to symbol# (rehashed by MandarinAlphMgr) in CHAlphabet
     /// \param strDelim delimiter character (1 unicode, maybe >1 octet; if not, will never be matched)
-    CMandarinTrainer(CPPMPYLanguageModel *pLanguageModel, const CAlphabetMap *pAlphabet, const CAlphabetMap *pCHAlphabet, const std::string &strDelim);
+    CMandarinTrainer(CPPMPYLanguageModel *pLanguageModel, const CAlphInfo *pInfo, const CAlphabetMap *pPYAlphabet, const CAlphabetMap *pCHAlphabet, const std::string &strDelim);
 
   protected:
     //override...
     virtual void Train(CAlphabetMap::SymbolStream &syms);
     
   private:
-    const CAlphabetMap *m_pCHAlphabet;
+    ///The pinyin alphabet (the chinese alphabet is passed into the superclass)
+    const CAlphabetMap *m_pPYAlphabet;
     ///Delimiter, as above. 
     const std::string m_strDelim;
   };

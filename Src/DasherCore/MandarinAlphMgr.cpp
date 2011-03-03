@@ -123,7 +123,10 @@ void CMandarinAlphMgr::CreateLanguageModel(CEventHandler *pEventHandler, CSettin
 }
 
 CTrainer *CMandarinAlphMgr::GetTrainer() {
-  return new CMandarinTrainer(static_cast<CPPMPYLanguageModel*>(m_pLanguageModel), m_pAlphabetMap, &m_CHAlphabetMap, m_pAlphabet->m_strConversionTrainingDelimiter);
+  //We pass in the pinyin alphabet to define the context-switch escape character, and the default context.
+  // Although the default context will be symbolified via the _chinese_ alphabet, this seems reasonable
+  // as it is the Pinyin alphabet which defines the conversion mapping (i.e. m_strConversionTarget!)
+  return new CMandarinTrainer(static_cast<CPPMPYLanguageModel*>(m_pLanguageModel), m_pAlphabet, m_pAlphabetMap, &m_CHAlphabetMap, m_pAlphabet->m_strConversionTrainingDelimiter);
 }
 
 CAlphabetManager::CAlphNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, bool bEnteredLast, int iOffset) {
