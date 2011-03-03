@@ -17,7 +17,6 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
   const Dasher::CAlphInfo *pAlphInfo(pAlphIO->GetInfo(pSettingsStore->GetStringParameter(SP_ALPHABET_ID)));
   const CAlphabetMap *pAlphMap = pAlphInfo->MakeMap();
   
-  pSettingsStore->SetStringParameter(SP_TRAIN_FILE, pAlphInfo->GetTrainingFile());
   pSettingsStore->SetStringParameter(SP_GAME_TEXT_FILE, pAlphInfo->GetGameModeFile());
   
   pSettingsStore->SetStringParameter(SP_DEFAULT_COLOUR_ID, pAlphInfo->GetPalette());

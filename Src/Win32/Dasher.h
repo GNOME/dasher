@@ -46,7 +46,7 @@ public:
   void ExternalEventHandler(Dasher::CEvent *pEvent);
   void GameMessageOut(int message, const void* messagedata);
   
-  virtual void WriteTrainFile(const std::string &strNewText);
+  virtual void WriteTrainFile(const std::string &filename, const std::string &strNewText);
   void Main(); 
 
   virtual std::string GetAllContext();

@@ -382,11 +382,11 @@ void CDasherControl::ExecuteCommand(const std::string &strCommand) {
     g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_command", strCommand.c_str());
 }
 
-void CDasherControl::WriteTrainFile(const std::string &strNewText) {
+void CDasherControl::WriteTrainFile(const std::string &filename, const std::string &strNewText) {
   if(strNewText.length() == 0)
     return;
 
-  std::string strFilename(GetStringParameter(SP_USER_LOC) + GetStringParameter(SP_TRAIN_FILE));
+  std::string strFilename(GetStringParameter(SP_USER_LOC) + filename);
 
   int fd=open(strFilename.c_str(),O_CREAT|O_WRONLY|O_APPEND,S_IRUSR|S_IWUSR);
   write(fd,strNewText.c_str(),strNewText.length());

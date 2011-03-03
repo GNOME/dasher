@@ -45,6 +45,7 @@ public:
   void SetParameter(NSString *aKey, id aValue);
   NSDictionary *ParameterDictionary();
   void goddamn(unsigned long iTime, bool bForceRedraw);
+  virtual void WriteTrainFile(const std::string &filename, const std::string &strNewText);
   std::string GetAllContext();
   void ClearAllContext();
   
@@ -56,7 +57,6 @@ private:
   virtual void SetupUI();
   virtual void CreateSettingsStore();
   virtual int GetFileSize(const std::string &strFileName);
-  virtual void WriteTrainFile(const std::string &strNewText);
   virtual void StartTimer();
   virtual void ShutdownTimer();
   virtual bool SupportsSpeech();

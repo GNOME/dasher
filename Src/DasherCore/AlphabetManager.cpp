@@ -73,8 +73,6 @@ void CAlphabetManager::CreateLanguageModel(CEventHandler *pEventHandler, CSettin
       m_pLanguageModel = new CCTWLanguageModel(m_pAlphabet->GetNumberTextSymbols());
       break;
   }
-  
-  m_iLearnContext = m_pLanguageModel->CreateEmptyContext();
 }
 
 CTrainer *CAlphabetManager::GetTrainer() {
@@ -86,10 +84,14 @@ const CAlphInfo *CAlphabetManager::GetAlphabet() const {
 }
 
 CAlphabetManager::~CAlphabetManager() {
-  m_pLanguageModel->ReleaseContext(m_iLearnContext);
   //the alphabet belongs to the AlphIO, and may be reused later;
   delete m_pAlphabetMap; //the map was created for this mgr.
   delete m_pLanguageModel;
+}
+
+void CAlphabetManager::WriteTrainFileFull(CDasherInterfaceBase *pInterface) {
+  pInterface->WriteTrainFile(m_pAlphabet->GetTrainingFile(), strTrainfileBuffer);
+  strTrainfileBuffer="";
 }
 
 int CAlphabetManager::GetColour(symbol sym, int iOffset) const {
@@ -150,11 +152,10 @@ CAlphabetManager::CAlphNode *CAlphabetManager::GetRoot(CDasherNode *pParent, uns
     //couldn't extract last symbol (so probably using default context), or shouldn't
     pNewNode = new CGroupNode(pParent, iNewOffset, iLower, iUpper, "", 0, this, NULL); //default background colour
   } else {
+    //new node represents a symbol that's already happened - i.e. user has already steered through it;
+    // so either we're rebuilding, or else creating a new root from existing text (in edit box)
+    DASHER_ASSERT(!pParent);
     pNewNode = new CSymbolNode(pParent, iNewOffset, iLower, iUpper, "", this, p.first);
-    //if the new node is not child of an existing node, then it
-    // represents a symbol that's already happened - so we're either
-    // going backwards (rebuildParent) or creating a new root after a language change
-    DASHER_ASSERT (!pParent);
   }
 
   pNewNode->iContext = p.second;
@@ -498,6 +499,8 @@ void CAlphabetManager::CSymbolNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, i
   if (pAdded != NULL) {
     pAdded->push_back(Dasher::SymbolProb(iSymbol, outputText(), Range() / (double)iNormalization));
   }
+  if(m_pMgr->m_pNCManager->GetBoolParameter(BP_LM_ADAPTIVE))
+    m_pMgr->strTrainfileBuffer += oEvent.m_sText;
 }
 
 void CAlphabetManager::CSymbolNode::Undo(int *pNumDeleted) {
@@ -505,6 +508,9 @@ void CAlphabetManager::CSymbolNode::Undo(int *pNumDeleted) {
   Dasher::CEditEvent oEvent(2, outputText(), offset());
   m_pMgr->m_pNCManager->InsertEvent(&oEvent);
   if (pNumDeleted) (*pNumDeleted)++;
+  if(m_pMgr->m_pNCManager->GetBoolParameter(BP_LM_ADAPTIVE))
+    m_pMgr->strTrainfileBuffer = m_pMgr->strTrainfileBuffer.substr( 0, m_pMgr->strTrainfileBuffer.size() - oEvent.m_sText.size());
+  
 }
 
 CDasherNode *CAlphabetManager::CGroupNode::RebuildParent() {
@@ -527,8 +533,8 @@ CDasherNode *CAlphabetManager::CAlphBase::RebuildParent() {
     
     RebuildForwardsFromAncestor(pNewNode);
     
-    if (GetFlag(NF_SEEN)) {
-      for (CDasherNode *pNode=this; (pNode=pNode->Parent()); pNode->SetFlag(NF_SEEN, true));
+    if (int flags=(GetFlag(NF_SEEN) ? NF_SEEN : 0) | (GetFlag(NF_COMMITTED) ? NF_COMMITTED : 0)) {
+      for (CDasherNode *pNode=this; (pNode=pNode->Parent()); pNode->SetFlag(flags, true));
     }
   }
   return Parent();
@@ -542,9 +548,23 @@ void CAlphabetManager::CAlphBase::RebuildForwardsFromAncestor(CAlphNode *pNewNod
 // TODO: Shouldn't there be an option whether or not to learn as we write?
 // For want of a better solution, game mode exemption explicit in this function
 void CAlphabetManager::CSymbolNode::SetFlag(int iFlag, bool bValue) {
-  if (iFlag==NF_COMMITTED && bValue && !GetFlag(NF_COMMITTED)
-      && !GetFlag(NF_GAME) && m_pMgr->m_pInterface->GetBoolParameter(BP_LM_ADAPTIVE)) {
-      m_pMgr->m_pLanguageModel->LearnSymbol(m_pMgr->m_iLearnContext, iSymbol);
+  if ((iFlag & NF_COMMITTED) && bValue && !GetFlag(NF_COMMITTED | NF_GAME)
+      && m_pMgr->m_pInterface->GetBoolParameter(BP_LM_ADAPTIVE)) {
+    //try to commit...if we have parent (else rebuilding (backwards) => don't)
+    if (Parent()) {
+      if (Parent()->mgr() != mgr()) return; //do not set flag
+      CLanguageModel *pLM(m_pMgr->m_pLanguageModel);
+      // (Note: for first symbol after startup: parent is (root) group node, which'll have the alphabet default context) 
+      CLanguageModel::Context ctx = pLM->CloneContext(static_cast<CAlphabetManager::CAlphNode *>(Parent())->iContext);
+      pLM->LearnSymbol(ctx, iSymbol);
+      //could: pLM->ReleaseContext(ctx);
+      //however, seems better to replace this node's context (i.e. which it uses to create its own children)
+      // with the new (learned) context: the former was obtained by EnterSymbol rather than LearnSymbol, so
+      // will be different iff this node was the first time its symbol was entered into its parent context.
+      // (Yes, this node's context is unlikely to be used again, but not impossible...)
+      pLM->ReleaseContext(iContext);
+      iContext = ctx;
+    }
   }
   CDasherNode::SetFlag(iFlag, bValue);
 }

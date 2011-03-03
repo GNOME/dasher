@@ -279,11 +279,11 @@ int CDasherInterfaceBridge::GetFileSize(const std::string &strFileName) {
 //  CDasherInterfaceBase::TrainFile(f, GetFileSize(f), 0);
 }*/
 
-void CDasherInterfaceBridge::WriteTrainFile(const std::string &strNewText) {
+void CDasherInterfaceBridge::WriteTrainFile(const std::string &filename,const std::string &strNewText) {
   if(strNewText.length() == 0)
     return;
   
-  std::string strFilename(GetStringParameter(SP_USER_LOC) + GetStringParameter(SP_TRAIN_FILE));
+  std::string strFilename(GetStringParameter(SP_USER_LOC) + filename);
   
   NSLog(@"Write train file: %s", strFilename.c_str());
   

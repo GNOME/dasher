@@ -201,7 +201,8 @@ bool CDasherModel::Reparent_root() {
     return false;
   }
   
-  pNewRoot->SetFlag(NF_COMMITTED, false);
+  //don't uncommit until they reverse out of the node
+  // (or committing would enter the node into the LM a second time)
   
   //Update the root coordinates to reflect the new root
   DASHER_ASSERT(pNewRoot->GetFlag(NF_SEEN));
@@ -251,6 +252,10 @@ void CDasherModel::SetOffset(int iOffset, CAlphabetManager *pMgr, CDasherView *p
     m_Root->Enter();
     // (of course, we don't do Output() - the context contains it already!)
     m_pLastOutput = m_Root;
+    
+    //We also want to avoid training the LM on nodes representing already-written context
+    m_Root->SetFlag(NF_COMMITTED, true);
+    
   } else
     m_pLastOutput = NULL;
   
@@ -505,6 +510,7 @@ void CDasherModel::OutputTo(CDasherNode *pNewNode, Dasher::VECTOR_SYMBOL_PROB* p
     while (m_pLastOutput != pNewNode) {
       // if pNewNode is null, m_pLastOutput is not; else, pNewNode has been seen,
       // so we should encounter it on the way back out to the root, _before_ null
+      m_pLastOutput->SetFlag(NF_COMMITTED, false);
       m_pLastOutput->Undo(pNumDeleted);
       m_pLastOutput->Leave(); //Should we? I think so, but the old code didn't...?
       m_pLastOutput->SetFlag(NF_SEEN, false);

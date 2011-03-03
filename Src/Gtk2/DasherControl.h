@@ -134,7 +134,9 @@ public:
 
   ///Override to broadcast signal...
   virtual void Stop();
-  
+ 
+  virtual void WriteTrainFile(const std::string &filename, const std::string &strNewText);
+ 
   virtual std::string GetAllContext();
 
   virtual bool SupportsClipboard();
@@ -155,7 +157,6 @@ private:
   virtual void SetupUI();
   virtual void CreateSettingsStore();
   virtual int GetFileSize(const std::string &strFileName);
-  virtual void WriteTrainFile(const std::string &strNewText);
   virtual void StartTimer();
   virtual void ShutdownTimer();
 

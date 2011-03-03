@@ -143,8 +143,8 @@ void Dasher::CDasher::SetEdit(CDashEditbox * pEdit) {
   m_pEdit = pEdit;
 }
 
-void Dasher::CDasher::WriteTrainFile(const std::string &strNewText) {
-  const std::string TrainFile = GetStringParameter(SP_USER_LOC) + GetStringParameter(SP_TRAIN_FILE);
+void Dasher::CDasher::WriteTrainFile(const std::string &filename, const std::string &strNewText) {
+  const std::string TrainFile = GetStringParameter(SP_USER_LOC) + filename;
 
   if(strNewText.size() == 0)
     return;

@@ -105,8 +105,6 @@ CDasherInterfaceBase::CDasherInterfaceBase() {
 
   //  m_bGlobalLock = false;
 
-  strTrainfileBuffer = "";
-
   m_strCurrentWord = "";
 
   // Create an event handler.
@@ -341,8 +339,6 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
     CEditEvent *pEditEvent(static_cast < CEditEvent * >(pEvent));
 
     if(pEditEvent->m_iEditType == 1) {
-      if(GetBoolParameter(BP_LM_ADAPTIVE))
-	 strTrainfileBuffer += pEditEvent->m_sText;
       if (GetBoolParameter(BP_SPEAK_WORDS) && SupportsSpeech()) {
         const CAlphInfo *pAlphabet = m_pNCManager->GetAlphabet();
         if (pEditEvent->m_sText == pAlphabet->GetText(pAlphabet->GetSpaceSymbol())) {
@@ -353,8 +349,6 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       }
     }
     else if(pEditEvent->m_iEditType == 2) {
-      if(GetBoolParameter(BP_LM_ADAPTIVE))
-	 strTrainfileBuffer = strTrainfileBuffer.substr( 0, strTrainfileBuffer.size() - pEditEvent->m_sText.size());
       if (GetBoolParameter(BP_SPEAK_WORDS))
         m_strCurrentWord = m_strCurrentWord.substr(0, max(static_cast<string::size_type>(0), m_strCurrentWord.size()-pEditEvent->m_sText.size()));
     }
@@ -362,8 +356,7 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
 }
 
 void CDasherInterfaceBase::WriteTrainFileFull() {
-  WriteTrainFile(strTrainfileBuffer);
-  strTrainfileBuffer = "";
+  m_pNCManager->GetAlphabetManager()->WriteTrainFileFull(this);
 }
 
 void CDasherInterfaceBase::CreateNCManager() {
@@ -591,10 +584,10 @@ void CDasherInterfaceBase::ChangeAlphabet() {
     return;
   }
 
+  if (m_pNCManager) WriteTrainFileFull(); //can't/don't before creating first NCManager
+
   // Send a lock event
-
-  WriteTrainFileFull();
-
+  
   // Lock Dasher to prevent changes from happening while we're training.
 
   SetBoolParameter( BP_TRAINING, true );

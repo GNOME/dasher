@@ -120,9 +120,6 @@ void CMandarinAlphMgr::CreateLanguageModel(CEventHandler *pEventHandler, CSettin
   //std::cout<<"CHALphabet size "<< pCHAlphabet->GetNumberTextSymbols(); [7603]
   std::cout<<"Setting PPMPY model"<<std::endl;
   m_pLanguageModel = new CPPMPYLanguageModel(pEventHandler, pSettingsStore, m_CHtext.size()-1, m_pAlphabet->GetNumberTextSymbols());
-  //our superclass destructor will call ReleaseContext on the iLearnContext when we are destroyed,
-  // so we need to put _something_ in there (even tho we don't use it atm!)...
-  m_iLearnContext = m_pLanguageModel->CreateEmptyContext();
 }
 
 CTrainer *CMandarinAlphMgr::GetTrainer() {
@@ -252,7 +249,9 @@ bool CMandarinAlphMgr::CConvRoot::isInGroup(const SGroupInfo *pGroup) {
 void CMandarinAlphMgr::CConvRoot::SetFlag(int iFlag, bool bValue) {
   if (iFlag==NF_COMMITTED && bValue && !GetFlag(NF_COMMITTED)
       && !GetFlag(NF_GAME) && mgr()->m_pNCManager->GetBoolParameter(BP_LM_ADAPTIVE)) {
-    static_cast<CPPMPYLanguageModel *>(mgr()->m_pLanguageModel)->LearnPYSymbol(mgr()->m_iLearnContext, m_pySym);
+    //CConvRoot's context is the same as parent's context (no symbol yet!),
+    // i.e. is the context in which the pinyin was predicted.
+    static_cast<CPPMPYLanguageModel *>(mgr()->m_pLanguageModel)->LearnPYSymbol(iContext, m_pySym);
   }
   CDasherNode::SetFlag(iFlag,bValue);
 }

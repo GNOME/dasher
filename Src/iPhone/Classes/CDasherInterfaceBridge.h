@@ -43,6 +43,7 @@ public:
   void NewFrame(unsigned long iTime, bool bForceRedraw);
   
   void SetTiltAxes(Vec3 main, float off, Vec3 slow, float off2);
+  virtual void WriteTrainFile(const std::string &filename,const std::string &strNewText);
   bool SupportsClipboard() {return true;}
   void CopyToClipboard(const std::string &strText);
   bool SupportsSpeech();
@@ -56,7 +57,6 @@ private:
   virtual void SetupUI();
   virtual void CreateSettingsStore();
   virtual int GetFileSize(const std::string &strFileName);
-  virtual void WriteTrainFile(const std::string &strNewText);
   virtual void StartTimer();
   virtual void ShutdownTimer();
   

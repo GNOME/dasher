@@ -255,6 +255,14 @@ public:
   virtual bool hasStopTriggers();
   /// @}
 
+  ///
+  /// Append text to the user training file - used to store state between sessions
+  /// \param filename name of training file, without path (e.g. "training_english_GB.txt")
+  /// \param strNewText text to append
+  ///
+  
+  virtual void WriteTrainFile(const std::string &filename, const std::string &strNewText) {
+  };
 
   // App Interface
   // -----------------------------------------------------
@@ -398,8 +406,9 @@ public:
 
   void ImportTrainingText(const std::string &strPath);
   
-  ///Making this public for e.g. iPhone, which needs to flush
-  /// the trainfile buffer when app is sent into background.
+  /// Flush the/all currently-written text to the user's training file(s).
+  /// Just calls through to WriteTrainFileFull(this) on the AlphabetManager;
+  /// public so e.g. iPhone can flush the buffer when app is backgrounded.
   void WriteTrainFileFull();
   
 protected:
@@ -539,15 +548,6 @@ protected:
 
   virtual void ShutdownTimer() = 0;
 
-  ///
-  /// Append text to the training file - used to store state between
-  /// sessions
-  /// @todo Pass file path to the function rather than having implementations work it out themselves
-  ///
-  
-  virtual void WriteTrainFile(const std::string &strNewText) {
-  };
-
   /// @}
 
 
@@ -589,9 +589,6 @@ protected:
   CNodeCreationManager *m_pNCManager;
   CUserLogBase *m_pUserLog; 
   /// @}
-
-  ///TODO this is in the wrong place. DashIntf should not be managing the training file...
-  std::string strTrainfileBuffer;
   
   ///builds up the word currently being entered for speech.
   std::string m_strCurrentWord;

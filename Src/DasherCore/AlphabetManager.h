@@ -57,7 +57,9 @@ namespace Dasher {
     virtual CTrainer *GetTrainer();
 
     virtual ~CAlphabetManager();
-
+    /// Flush to the user's training file everything written in this AlphMgr
+    /// \param pInterface to use for I/O by calling WriteTrainFile(fname,txt)
+    void WriteTrainFileFull(CDasherInterfaceBase *pInterface);
   protected:
     class CAlphNode;
     /// Abstract superclass for alphabet manager nodes, provides common implementation
@@ -215,7 +217,6 @@ namespace Dasher {
     virtual int GetColour(symbol sym, int iOffset) const;
     
     CLanguageModel *m_pLanguageModel;
-    CLanguageModel::Context m_iLearnContext;
 
     CNodeCreationManager *m_pNCManager;
     const CAlphInfo *m_pAlphabet;
@@ -237,7 +238,9 @@ namespace Dasher {
     void IterateChildGroups(CAlphNode *pParent, const SGroupInfo *pParentGroup, CAlphBase *buildAround);
 
     CDasherInterfaceBase *m_pInterface;
-    
+    ///Text waiting to be written to the user's training file
+    /// (probably! Unless they erase back out of the text first)
+    std::string strTrainfileBuffer;
   };
 /// @}
 
