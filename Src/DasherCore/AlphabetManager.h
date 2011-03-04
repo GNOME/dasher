@@ -142,6 +142,9 @@ namespace Dasher {
       virtual CDasherNode *RebuildSymbol(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol);
     protected:
       virtual const std::string &outputText();
+      ///Text to write to user training file/buffer when this symbol output.
+      /// Default just returns (a new string constructed from) outputText()
+      virtual std::string trainText() {return outputText();}
       /// Number of unicode _characters_ (not octets) for this symbol.
       /// Uniquely, a paragraph symbol can enter two distinct unicode characters
       /// (i.e. '\r' and '\n'); every other symbol enters only a single 

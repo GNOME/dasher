@@ -497,20 +497,22 @@ void CAlphabetManager::CSymbolNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, i
 
   // Track this symbol and its probability for logging purposes
   if (pAdded != NULL) {
-    pAdded->push_back(Dasher::SymbolProb(iSymbol, outputText(), Range() / (double)iNormalization));
+    pAdded->push_back(Dasher::SymbolProb(iSymbol, oEvent.m_sText, Range() / (double)iNormalization));
   }
   if(m_pMgr->m_pNCManager->GetBoolParameter(BP_LM_ADAPTIVE))
-    m_pMgr->strTrainfileBuffer += oEvent.m_sText;
+    m_pMgr->strTrainfileBuffer += trainText();
 }
 
 void CAlphabetManager::CSymbolNode::Undo(int *pNumDeleted) {
   DASHER_ASSERT(GetFlag(NF_SEEN));
   Dasher::CEditEvent oEvent(2, outputText(), offset());
+  //Whilst the node is still NF_SEEN, we don't want to actually delete the text
+  // (e.g. outputText() for paragraph symbols will check the edit buffer!)
+  if(m_pMgr->m_pNCManager->GetBoolParameter(BP_LM_ADAPTIVE))
+    m_pMgr->strTrainfileBuffer = m_pMgr->strTrainfileBuffer.substr( 0, m_pMgr->strTrainfileBuffer.size() - trainText().size());
+  //finally delete, the last thing we do...
   m_pMgr->m_pNCManager->InsertEvent(&oEvent);
   if (pNumDeleted) (*pNumDeleted)++;
-  if(m_pMgr->m_pNCManager->GetBoolParameter(BP_LM_ADAPTIVE))
-    m_pMgr->strTrainfileBuffer = m_pMgr->strTrainfileBuffer.substr( 0, m_pMgr->strTrainfileBuffer.size() - oEvent.m_sText.size());
-  
 }
 
 CDasherNode *CAlphabetManager::CGroupNode::RebuildParent() {

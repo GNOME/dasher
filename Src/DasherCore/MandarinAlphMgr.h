@@ -96,6 +96,9 @@ namespace Dasher {
       void RebuildForwardsFromAncestor(CAlphNode *pNewNode);
       bool isInGroup(const SGroupInfo *pGroup);
     private:
+      ///Override to output a triple (delimiter,PY,CH)
+      virtual std::string trainText();
+      ///Override to use use chinese, not pinyin, alphabet
       virtual const std::string &outputText();
       ///The Pinyin symbol used to produce this chinese symbol, if known (0 if not!)
       symbol m_pyParent;

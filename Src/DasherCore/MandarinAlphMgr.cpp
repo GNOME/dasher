@@ -408,6 +408,24 @@ void CMandarinAlphMgr::CMandSym::RebuildForwardsFromAncestor(CAlphNode *pNewNode
 }
 
 const std::string &CMandarinAlphMgr::CMandSym::outputText() {
-  //use chinese, not pinyin, alphabet...
   return mgr()->m_CHtext[iSymbol];
+}
+
+string CMandarinAlphMgr::CMandSym::trainText() {
+  //NF_COMMITTED should be in process of being set...
+  DASHER_ASSERT(!GetFlag(NF_COMMITTED));
+  //in which case, we should have a parent (if not, we would have to
+  // have been built from string context, i.e. going backwards,
+  // in which case we would be committed already)
+  DASHER_ASSERT(Parent());
+  //so the parent should have set our m_pyParent field...
+  DASHER_ASSERT(m_pyParent);
+  int iPY = m_pyParent;
+  if (iPY==0) {
+    std::set<symbol> &py(mgr()->m_PinyinByChinese[iSymbol]);
+    DASHER_ASSERT(py.size()==1);
+    if (py.size()==1) iPY = *(py.begin());
+    else return ""; //output nothing! TODO could reset context for what follows - but don't think this should ever happen?
+  }
+  return mgr()->m_pAlphabet->m_strConversionTrainingDelimiter + mgr()->m_pAlphabet->GetText(iPY) + outputText();
 }
