@@ -86,6 +86,10 @@ namespace Dasher {
       /// would contain this node (see IsInGroup). Subclasses can override to graft themselves into the hierarchy, if appropriate.
       /// \param pParent parent of the symbol node to create; could be the previous root, or an intervening node (e.g. group)      
       virtual CDasherNode *RebuildGroup(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strEnc, int iBkgCol, const SGroupInfo *pInfo);
+      ///Just keep track of the last node output (for training file purposes)
+      void Undo(int *pNumDeleted);
+      ///Just keep track of the last node output (for training file purposes)
+      void Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization);
     protected:
       ///Called in process of rebuilding parent: fill in the hierarchy _beneath_ the
       /// the previous root node, by calling IterateChildGroups passing this node as
@@ -241,9 +245,22 @@ namespace Dasher {
     void IterateChildGroups(CAlphNode *pParent, const SGroupInfo *pParentGroup, CAlphBase *buildAround);
 
     CDasherInterfaceBase *m_pInterface;
-    ///Text waiting to be written to the user's training file
-    /// (probably! Unless they erase back out of the text first)
+
+    ///Last node (owned by this manager) that was output; if a node
+    /// is Undo()ne, this is set to its parent. This is used to detect
+    /// context switches.
+    CDasherNode *m_pLastOutput;
+    ///Text actually written in the current context; both appended and truncated
+    /// as nodes are Output() and Undo()ne.
     std::string strTrainfileBuffer;
+    ///Context in (i.e. after) which anything in strTrainfileBuffer was written.
+    /// Set when first character put in strTrainfileBuffer (following a context switch),
+    /// as we may not be able to get the preceding characters if we wait too long.
+    std::string strTrainfileContext;
+
+    ///A character, 33<=c<=255, not in the alphabet; used to delimit contexts.
+    ///"" if no such could be found (=> will be found on a per-context basis)
+    std::string m_sDelim;
   };
 /// @}
 

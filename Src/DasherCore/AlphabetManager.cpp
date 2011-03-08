@@ -52,6 +52,16 @@ static char THIS_FILE[] = __FILE__;
 
 CAlphabetManager::CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphabetMap)
   : m_pNCManager(pNCManager), m_pAlphabet(pAlphabet), m_pAlphabetMap(pAlphabetMap), m_pInterface(pInterface) {
+  //Look for a (single-octet) character not in the alphabet...
+  for (char c=33; c<0x80; c++) {
+    string s(&c,1);
+    if (pAlphabetMap->Get(s)==0) {
+      m_sDelim = s;
+      break;
+    }
+  }
+  //else, if all single-octet chars are in alphabet - leave m_sDelim==""
+  // (and we'll find a delimiter for each context)
 }
 
 void CAlphabetManager::CreateLanguageModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore) {
@@ -90,6 +100,22 @@ CAlphabetManager::~CAlphabetManager() {
 }
 
 void CAlphabetManager::WriteTrainFileFull(CDasherInterfaceBase *pInterface) {
+  if (strTrainfileBuffer == "") return;
+  if (strTrainfileContext != "") {
+    //If context begins with the default, skip that - it'll be entered by Trainer 1st anyway
+    string defCtx(m_pAlphabet->GetDefaultContext());
+    if (strTrainfileContext.substr(0,defCtx.length()) == defCtx)
+      strTrainfileContext = strTrainfileContext.substr(defCtx.length());
+    string sDelim(m_sDelim);
+    if (sDelim == "") {
+      //find a character not in the context we want to write out
+      char c=33;
+      while (strTrainfileContext.find(c)!=strTrainfileContext.length()) c++; //will terminate, context is ~~5 chars
+      sDelim = string(&c,1);
+    }
+    strTrainfileBuffer = m_pAlphabet->GetContextEscapeChar() + sDelim + strTrainfileContext + sDelim + strTrainfileBuffer;
+    strTrainfileContext="";
+  }
   pInterface->WriteTrainFile(m_pAlphabet->GetTrainingFile(), strTrainfileBuffer);
   strTrainfileBuffer="";
 }
@@ -122,6 +148,17 @@ CAlphabetManager::CAlphBase::CAlphBase(CDasherNode *pParent, int iOffset, unsign
 : CDasherNode(pParent, iOffset, iLbnd, iHbnd, iColour, strDisplayText), m_pMgr(pMgr) {
 }
 
+void CAlphabetManager::CAlphBase::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {
+  if (m_pMgr->m_pLastOutput && m_pMgr->m_pLastOutput == Parent())
+    m_pMgr->m_pLastOutput=this;
+  //Case where lastOutput != Parent to subclasses, if they want to.
+  //Note if lastOutput==NULL, we leave it - so the first letter written after startup,
+  // will register as a context switch and write out an empty/default context.
+}
+
+void CAlphabetManager::CAlphBase::Undo(int *pNumDeleted) {
+  if (m_pMgr->m_pLastOutput==this) m_pMgr->m_pLastOutput = Parent();
+}
 CAlphabetManager::CAlphNode::CAlphNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const string &strDisplayText, CAlphabetManager *pMgr)
 : CAlphBase(pParent, iOffset, iLbnd, iHbnd, iColour, strDisplayText, pMgr), m_pProbInfo(NULL) {
 }
@@ -490,6 +527,26 @@ int CAlphabetManager::CSymbolNode::numChars() {
 }
 
 void CAlphabetManager::CSymbolNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {
+  if (m_pMgr->m_pNCManager->GetBoolParameter(BP_LM_ADAPTIVE)) {
+    if (m_pMgr->m_pLastOutput != Parent()) {
+      //Context changed. Flush to disk the old context + text written in it...
+      m_pMgr->WriteTrainFileFull(m_pMgr->m_pInterface);
+      
+      ///Now extract the context in which this node was written.
+      /// Since this node is being output now, its parent must already have been,
+      /// so the simplest thing is to read from the edit buffer!
+      int iStart = max(0, offset() - m_pMgr->m_pLanguageModel->GetContextLength());
+      m_pMgr->strTrainfileContext = m_pMgr->m_pInterface->GetContext(iStart, offset()-iStart);
+      if (m_pMgr->strTrainfileContext=="") //Even the empty context (as for a new document)
+        m_pMgr->strTrainfileContext = m_pMgr->m_pAlphabet->GetDefaultContext(); //is a new ctx!
+    }
+    //Now handle outputting of this node
+    m_pMgr->m_pLastOutput = this;
+    string tr(trainText());
+    m_pMgr->strTrainfileBuffer += tr;
+    //an actual occurrence of the escape character, must be doubled (like \\)
+    if (tr == m_pMgr->m_pAlphabet->GetContextEscapeChar()) m_pMgr->strTrainfileBuffer+=tr;
+  }
   //std::cout << this << " " << Parent() << ": Output at offset " << m_iOffset << " *" << m_pMgr->m_pAlphabet->GetText(t) << "* " << std::endl;
 
   Dasher::CEditEvent oEvent(1, outputText(), offset());
@@ -499,18 +556,23 @@ void CAlphabetManager::CSymbolNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, i
   if (pAdded != NULL) {
     pAdded->push_back(Dasher::SymbolProb(iSymbol, oEvent.m_sText, Range() / (double)iNormalization));
   }
-  if(m_pMgr->m_pNCManager->GetBoolParameter(BP_LM_ADAPTIVE))
-    m_pMgr->strTrainfileBuffer += trainText();
 }
 
 void CAlphabetManager::CSymbolNode::Undo(int *pNumDeleted) {
   DASHER_ASSERT(GetFlag(NF_SEEN));
+  if (m_pMgr->m_pNCManager->GetBoolParameter(BP_LM_ADAPTIVE)) {
+    if (m_pMgr->m_pLastOutput == this) {
+      //Erase from training buffer, and move lastOutput backwards,
+      // iff this node was actually written (i.e. not rebuilt _from_ context!)
+      std::string &buf(m_pMgr->strTrainfileBuffer);
+      std::string tr(trainText());
+      if (buf.substr(buf.length()-tr.length(),tr.length())==tr) {
+        buf=buf.substr(0,buf.length()-tr.length());
+        m_pMgr->m_pLastOutput = Parent();
+      }
+    }
+  } else CAlphBase::Undo(pNumDeleted);
   Dasher::CEditEvent oEvent(2, outputText(), offset());
-  //Whilst the node is still NF_SEEN, we don't want to actually delete the text
-  // (e.g. outputText() for paragraph symbols will check the edit buffer!)
-  if(m_pMgr->m_pNCManager->GetBoolParameter(BP_LM_ADAPTIVE))
-    m_pMgr->strTrainfileBuffer = m_pMgr->strTrainfileBuffer.substr( 0, m_pMgr->strTrainfileBuffer.size() - trainText().size());
-  //finally delete, the last thing we do...
   m_pMgr->m_pNCManager->InsertEvent(&oEvent);
   if (pNumDeleted) (*pNumDeleted)++;
 }
