@@ -22,7 +22,7 @@ namespace Dasher {
 using namespace std;
 /// \ingroup Input 
 /// \{
-class CSocketInputBase : public CDasherCoordInput {
+class CSocketInputBase : public CScreenCoordInput {
 
 public:
 
@@ -55,19 +55,19 @@ public:
 
   /// Gets the last coordinates received; if only one coordinate is being read, this is put
   /// into iDasherY (and iDasherX set to 0).
-  bool GetDasherCoords(myint &iDasherX, myint &iDasherY, CDasherView *pView) {
+  bool GetScreenCoords(screenint &iScreenX, screenint &iScreenY, CDasherView *pView) {
     
     //update max values for reader thread...(note any changes here won't be incorporated
     // until values are next received over socket, but never mind)
-    myint iDasherMinX, iDasherMinY;
-    pView->VisibleRegion(iDasherMinX, iDasherMinY, dasherMaxCoordinateValues[0], dasherMaxCoordinateValues[1]);
+    dasherMaxCoordinateValues[0] = pView->Screen()->GetWidth();
+    dasherMaxCoordinateValues[1] = pView->Screen()->GetHeight();
     
     if (coordinateCount==1) {
-      iDasherX = 0;
-      iDasherY = dasherCoordinates[0];
+      iScreenX = 0;
+      iScreenY = dasherCoordinates[0];
     } else if (coordinateCount==2) {
-      iDasherX = dasherCoordinates[0];
-      iDasherY = dasherCoordinates[1];
+      iScreenX = dasherCoordinates[0];
+      iScreenY = dasherCoordinates[1];
     } else {
       //Aiieee, we're receiving >2 coords? Don't know what to do...
       return false;

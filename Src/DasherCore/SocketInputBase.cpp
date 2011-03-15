@@ -35,7 +35,7 @@ static SModuleSettings sSettings[] = {
 };
 
 Dasher::CSocketInputBase::CSocketInputBase(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
-  : CDasherCoordInput(pEventHandler, pSettingsStore, 1, _("Socket Input")) {
+  : CScreenCoordInput(pEventHandler, pSettingsStore, 1, _("Socket Input")) {
   port = -1;
   debug_socket_input = false;
   readerRunning = false;

@@ -733,13 +733,8 @@ beginning:
     //if child still covers screen, render _just_ it and return
     myint newy1 = y1 + (Range * (myint)pChild->Lbnd()) / (myint)norm;
     myint newy2 = y1 + (Range * (myint)pChild->Hbnd()) / (myint)norm;
-    //we also check whether the "only" child to render is too small to render normally.
-    // this is the case IF all the others were smaller, in which case only the "only"
-    // one should be rendered. (Unfortunately, IF but not & ONLY IF...hoping this is
-    // too infrequent to worry.)
-    if ((newy2-newy1 < GetLongParameter(LP_MIN_NODE_SIZE) //too small, but stored as only - so all others are smaller still...
-		 && newy1 <= iDasherMaxY && newy2 >= iDasherMinY) //check too-small node is at least partly onscreen
-	    || (newy1 < iDasherMinY && newy2 > iDasherMaxY)) { //covers entire y-axis!
+    if (
+	    (newy1 < iDasherMinY && newy2 > iDasherMaxY)) { //covers entire y-axis!
          //render just that child; nothing more to do for this node => tail call to beginning
          pRender = pChild; y1=newy1; y2=newy2;
          parent_color = myColor;
@@ -749,7 +744,7 @@ beginning:
   }
     
   //ok, need to render all children...
-  myint newy1=y1,newy2; unsigned int bestRange(norm/3); CDasherNode *pBestCh(NULL);
+  myint newy1=y1,newy2;
   CDasherNode::ChildMap::const_iterator I = pRender->GetChildren().begin(), E = pRender->GetChildren().end();
   while (I!=E) {
     CDasherNode *pChild(*I);
@@ -764,11 +759,6 @@ beginning:
           if (newy1 < iDasherMinY) pRender->onlyChildRendered = pChild; //...and previous were too!
           break; //skip remaining children...
         }
-        bestRange = norm+1; //impossible value, used as sentinel to mean some child was rendered
-      } else if (pChild->Range() > bestRange) {
-        //record the largest child, if none has been rendered
-        if (pBestCh && !pBestCh->GetFlag(NF_GAME | NF_SEEN)) pBestCh->Delete_children();
-        pBestCh = pChild; bestRange = pChild->Range();
       } else {
         //did not recurse, or store
         if (!pChild->GetFlag(NF_GAME | NF_SEEN)) pChild->Delete_children();
@@ -781,20 +771,6 @@ beginning:
   if (I!=E) {
     //broke out of loop. Possibly more to delete...
     while (++I!=E) if (!(*I)->GetFlag(NF_GAME | NF_SEEN)) (*I)->Delete_children();
-  }
-  //lastly. We may have recorded a "biggest but still too small" node to render.
-  if (pBestCh) {
-    if (bestRange <= norm) {
-      //yup - no child big enough outright, so render the biggest
-      pRender->onlyChildRendered = pBestCh; //cache for next time - the IF but not ONLY IF, above :-(
-      //and make tail call to beginning, as nothing more to do for the current node
-      pRender = pBestCh;
-      parent_color = myColor;
-      y2 = y1 + (Range * (myint)pRender->Hbnd())/(myint)norm;
-      y1+=(Range*(myint)pRender->Lbnd())/(myint)norm;
-      goto beginning;
-    } else if (!pBestCh->GetFlag(NF_GAME | NF_SEEN))
-      pBestCh->Delete_children();
   }
   //all children rendered.
 }
