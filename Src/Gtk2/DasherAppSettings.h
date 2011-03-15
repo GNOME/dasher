@@ -6,7 +6,11 @@
 
 #include "../DasherCore/Parameters.h"
 #include "../Common/AppSettingsHeader.h"
-#include "GtkDasherControl.h"
+#include "../Common/ModuleSettings.h"
+
+/*Forward declaration*/
+typedef struct _GtkDasherControl GtkDasherControl;
+struct _GtkDasherControl;
 
 // Define first int value of the first element of each type.
 // Useful for offsetting into specific arrays,

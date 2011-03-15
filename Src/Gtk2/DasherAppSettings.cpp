@@ -23,17 +23,12 @@
 
 // TODO: Rename this file to fit in with naming conventions
 
-// TODO: Bring this into the widget
-static GtkWidget *pDasherWidget = NULL;
-
-
 struct _DasherAppSettingsPrivate {
 #ifdef WITH_GCONF
   // GConf interface
   GConfClient *pGConfClient;
 #endif
-  GtkDasherControl *pWidget;
-  gboolean bWidgetSet;
+  GtkDasherControl *pDasherWidget;
 };
 
 typedef struct _DasherAppSettingsPrivate DasherAppSettingsPrivate;
@@ -86,8 +81,7 @@ static void dasher_app_settings_init(DasherAppSettings *pDasherControl) {
 #ifdef WITH_GCONF
   pPrivate->pGConfClient = NULL;
 #endif
-  pPrivate->pWidget = NULL;
-  pPrivate->bWidgetSet = FALSE;
+  pPrivate->pDasherWidget = NULL;
 }
 
 static void dasher_app_settings_destroy(GObject *pObject) {
@@ -104,15 +98,6 @@ static void dasher_app_settings_destroy(GObject *pObject) {
   
   // FIXME - I think we need to chain up through the finalize methods
   // of the parent classes here...
-}
-
-void dasher_app_settings_set_widget(DasherAppSettings *pSelf, GtkDasherControl *pWidget) {
-  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate*)(pSelf->private_data);
-
-  pDasherWidget = GTK_WIDGET(pWidget);
-
-  pPrivate->pWidget = pWidget;
-  pPrivate->bWidgetSet = TRUE;
 }
 
 static void dasher_app_settings_init_gconf(DasherAppSettings *pSelf, int argc, char **argv) {
@@ -227,8 +212,8 @@ void dasher_app_settings_reset(DasherAppSettings *pSelf, int iParameter) {
   DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate*)(pSelf->private_data);
 
   if(iParameter < END_OF_SPS) {
-    if(pPrivate->bWidgetSet)
-      gtk_dasher_control_reset_parameter(GTK_DASHER_CONTROL(pDasherWidget), iParameter);
+    if(pPrivate->pDasherWidget)
+      gtk_dasher_control_reset_parameter(pPrivate->pDasherWidget, iParameter);
     return;
   }
   else {
@@ -254,8 +239,8 @@ void dasher_app_settings_reset(DasherAppSettings *pSelf, int iParameter) {
 bool dasher_app_settings_get_bool(DasherAppSettings *pSelf, int iParameter) { 
   DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate*)(pSelf->private_data);
   if( iParameter < END_OF_BPS ) {
-    if(pPrivate->bWidgetSet)
-      return gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), iParameter);
+    if(pPrivate->pDasherWidget)
+      return gtk_dasher_control_get_parameter_bool(pPrivate->pDasherWidget, iParameter);
     else
       return false;
   }
@@ -267,8 +252,8 @@ void dasher_app_settings_set_bool(DasherAppSettings *pSelf, int iParameter, bool
   DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
 
   if( iParameter < END_OF_BPS ) {
-    if(pPrivate->bWidgetSet) {
-      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), iParameter, bValue);
+    if(pPrivate->pDasherWidget) {
+      gtk_dasher_control_set_parameter_bool(pPrivate->pDasherWidget, iParameter, bValue);
     }
   }
   else {
@@ -300,8 +285,8 @@ gint dasher_app_settings_get_long(DasherAppSettings *pSelf, int iParameter) {
   DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
  
   if( iParameter < END_OF_LPS) {
-    if(pPrivate->bWidgetSet) 
-      return gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), iParameter);
+    if(pPrivate->pDasherWidget) 
+      return gtk_dasher_control_get_parameter_long(pPrivate->pDasherWidget, iParameter);
     else
       return false;
   }
@@ -313,8 +298,8 @@ void dasher_app_settings_set_long(DasherAppSettings *pSelf, int iParameter, gint
   DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
 
   if( iParameter < END_OF_LPS) {
-    if(pPrivate->bWidgetSet)
-      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), iParameter, iValue);
+    if(pPrivate->pDasherWidget)
+      gtk_dasher_control_set_parameter_long(pPrivate->pDasherWidget, iParameter, iValue);
   }
   else {
     if(dasher_app_settings_get_long(pSelf, iParameter) == iValue)
@@ -386,8 +371,8 @@ const gchar *dasher_app_settings_get_string(DasherAppSettings *pSelf, int iParam
   DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
  
   if( iParameter < END_OF_SPS ) {
-    if(pPrivate->bWidgetSet) 
-      return gtk_dasher_control_get_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), iParameter);
+    if(pPrivate->pDasherWidget) 
+      return gtk_dasher_control_get_parameter_string(pPrivate->pDasherWidget, iParameter);
     else
       return false;
   }
@@ -399,8 +384,8 @@ void dasher_app_settings_set_string(DasherAppSettings *pSelf, int iParameter, co
   DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
 
   if( iParameter < END_OF_SPS ) {
-    if(pPrivate->bWidgetSet)
-      gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), iParameter, szValue);
+    if(pPrivate->pDasherWidget)
+      gtk_dasher_control_set_parameter_string(pPrivate->pDasherWidget, iParameter, szValue);
   }
   else {
     if(!strcmp(dasher_app_settings_get_string(pSelf, iParameter), szValue))
@@ -500,16 +485,20 @@ void dasher_app_settings_launch_advanced(DasherAppSettings *pSelf) {
   }
 }
 
-void dasher_app_settings_set_widget(DasherAppSettings *pSelf, GtkWidget *pWidget) {
-  pDasherWidget = pWidget;
+void dasher_app_settings_set_widget(DasherAppSettings *pSelf, GtkDasherControl *pWidget) {
+  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate*)(pSelf->private_data);
+
+  pPrivate->pDasherWidget = pWidget;
 }
 
 GArray *dasher_app_settings_get_allowed_values(DasherAppSettings *pSelf, int iParameter) {
-  return gtk_dasher_control_get_allowed_values(GTK_DASHER_CONTROL(pDasherWidget), iParameter);
+  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate*)(pSelf->private_data);
+  return gtk_dasher_control_get_allowed_values(pPrivate->pDasherWidget, iParameter);
 }
 
 gboolean dasher_app_settings_get_module_settings(DasherAppSettings *pSelf, const gchar *szValue, SModuleSettings **pSettings, gint *iCount) {
-  return gtk_dasher_control_get_module_settings(GTK_DASHER_CONTROL(pDasherWidget), szValue, pSettings, iCount);
+  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate*)(pSelf->private_data);
+  return gtk_dasher_control_get_module_settings(pPrivate->pDasherWidget, szValue, pSettings, iCount);
 }
 
 // Set the option szKey to szValue.  Return NULL if everything worked, a
@@ -543,8 +532,8 @@ dasher_app_settings_cl_set(DasherAppSettings *pSelf, const gchar *szKey, const g
       return 0;
     }
   }  
-
-  return gtk_dasher_control_cl_set(GTK_DASHER_CONTROL(pDasherWidget), szKey, szValue);
+  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate*)(pSelf->private_data);
+  return gtk_dasher_control_cl_set(pPrivate->pDasherWidget, szKey, szValue);
 }
 
 

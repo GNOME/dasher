@@ -1,9 +1,9 @@
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
+#include "../Common/Common.h"
 #include "dasher_action_keyboard.h"
 #include "dasher_editor.h"
-
 #include <string.h>
 
 struct _DasherActionKeyboardPrivate {

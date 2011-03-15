@@ -36,7 +36,6 @@ struct _SCommandLine {
 
 DasherMain *dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine);
 GType dasher_main_get_type();
-const gchar *dasher_main_get_all_text(DasherMain *pSelf);
 void dasher_main_show(DasherMain *pSelf);
 G_END_DECLS
 

@@ -453,6 +453,8 @@ dasher_main_load_interface(DasherMain *pSelf) {
   pPrivate->pToolbar = GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "dasher_tool_bar"));
   //  pPrivate->pMenuBar = gtk_builder_get_object(pPrivate->pXML, "dasher_menu_bar");
   pPrivate->pDasherWidget = GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "DasherControl"));
+  pPrivate->pEditor = DASHER_EDITOR(gtk_builder_get_object(pPrivate->pXML, "DasherEditor"));
+  gtk_dasher_control_set_editor(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), pPrivate->pEditor);
 
 #ifndef WITH_MAEMO
   pPrivate->pSpeedBox = GTK_SPIN_BUTTON(gtk_builder_get_object(pPrivate->pXML, "spinbutton1"));
@@ -587,7 +589,6 @@ dasher_main_load_interface(DasherMain *pSelf) {
     gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "separatortoolitem2")));
   }
     
-  pPrivate->pEditor = DASHER_EDITOR(gtk_builder_get_object(pPrivate->pXML, "DasherEditor"));
   // TODO: szFullPath
   pPrivate->bWidgetsInitialised = true;
 }
@@ -596,12 +597,6 @@ static void
 dasher_main_create_preferences(DasherMain *pSelf) {
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
   pPrivate->pPreferencesDialogue = dasher_preferences_dialogue_new(pPrivate->pPrefXML, pPrivate->pEditor, pPrivate->pAppSettings, pPrivate->pMainWindow);
-}
-
-const gchar *
-dasher_main_get_all_text(DasherMain *pSelf) {
-   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
-   return dasher_editor_get_all_text(pPrivate->pEditor);
 }
 
 static void 

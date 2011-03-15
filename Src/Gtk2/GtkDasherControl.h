@@ -7,6 +7,10 @@
 #include "Parameters.h"
 #include "ControlManager.h"
 
+/*Forward declaration*/
+typedef struct _DasherEditor DasherEditor;
+struct _DasherEditor;
+
 typedef struct _DasherLockInfo DasherLockInfo;
 
 struct _DasherLockInfo {
@@ -75,6 +79,8 @@ const char *gtk_dasher_control_get_parameter_string(GtkDasherControl * pControl,
 GArray *gtk_dasher_control_get_allowed_values(GtkDasherControl * pControl, int iParameter);
 void gtk_dasher_control_train(GtkDasherControl * pControl, const gchar * szFilename);
 void gtk_dasher_control_set_context(GtkDasherControl *pControl, const gchar *szContext);
+void gtk_dasher_control_set_editor(GtkDasherControl *pControl, DasherEditor *pEditor);
+const gchar* gtk_dasher_control_get_all_text(GtkDasherControl *pControl);
 //void gtk_dasher_control_invalidate_context(GtkDasherControl *pControl, bool bForceStart);
 void gtk_dasher_control_set_buffer(GtkDasherControl *pControl, int iOffset);
 void gtk_dasher_control_set_offset(GtkDasherControl *pControl, int iOffset);

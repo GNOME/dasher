@@ -25,6 +25,7 @@
 #include "dasher_internal_buffer.h"
 #include "dasher_lock_dialogue.h"
 #include "dasher_main.h"
+#include "../DasherCore/ControlManager.h"
 //#include "game_mode_helper.h"
 
 // TODO: Maybe reimplement something along the lines of the following, which used to be in edit.cc

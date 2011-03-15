@@ -5,6 +5,7 @@
 #include <glib/gi18n.h>
 #include <libintl.h>
 #include <cstring>
+#include <math.h>
 
 #include "../Common/Common.h"
 #include "DasherTypes.h"

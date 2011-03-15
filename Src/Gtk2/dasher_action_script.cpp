@@ -1,3 +1,4 @@
+#include "../Common/Common.h"
 #include "dasher_action_script.h"
 #include "dasher_editor.h"
 

@@ -5,13 +5,14 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 
-#include "DasherAppSettings.h"
 #include "dasher_action.h"
 #include "dasher_buffer_set.h"
 
 /* Forward declaration */
 typedef struct _DasherMain DasherMain;
 struct _DasherMain;
+typedef struct _DasherAppSettings DasherAppSettings;
+struct _DasherAppSettings;
 
 G_BEGIN_DECLS
 #define DASHER_TYPE_EDITOR            (dasher_editor_get_type())

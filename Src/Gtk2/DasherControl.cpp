@@ -191,9 +191,8 @@ void CDasherControl::ScanColourFiles(std::vector<std::string> &vFileList) {
   g_pattern_spec_free(colourglob);
 }
 
-extern DasherMain *g_pDasherMain;
 std::string CDasherControl::GetAllContext() {
-  const gchar *text = dasher_main_get_all_text(g_pDasherMain);
+  const gchar *text = gtk_dasher_control_get_all_text(m_pDasherControl);
   return text;
 }
 

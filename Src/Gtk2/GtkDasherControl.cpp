@@ -24,11 +24,12 @@
 #include "GtkDasherControl.h"
 #include "custom_marshal.h"
 #include "game_mode_helper.h"
-
+#include "dasher_editor.h"
 #include <gtk/gtkmarshal.h>
 
 struct _GtkDasherControlPrivate {
   CDasherControl *pControl;
+  DasherEditor *pEditor;
   void* pGameHelper;
 };
 
@@ -122,6 +123,14 @@ gtk_dasher_control_init(GtkDasherControl *pDasherControl) {
 //   g_signal_connect(G_OBJECT(pDasherControl), "key-release-event", G_CALLBACK(gtk_dasher_control_default_key_release_handler), pPrivate->pControl);
 }
 
+void gtk_dasher_control_set_editor(GtkDasherControl *pDasherControl, DasherEditor *pEditor) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pDasherControl);
+  
+  DASHER_ASSERT (pPrivate->pEditor == NULL);
+  DASHER_ASSERT (pEditor != NULL);
+  pPrivate->pEditor = pEditor;
+}
+
 static void 
 gtk_dasher_control_finalize(GObject *pObject) {
   GtkDasherControl *pDasherControl = GTK_DASHER_CONTROL(pObject);
@@ -201,6 +210,12 @@ void
 gtk_dasher_control_set_context(GtkDasherControl *pControl, const gchar *szContext) {
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
   pPrivate->pControl->SetContext(szContext);
+}
+
+const gchar *
+gtk_dasher_control_get_all_text(GtkDasherControl *pControl) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  return dasher_editor_get_all_text(pPrivate->pEditor);
 }
 
 void 

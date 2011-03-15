@@ -9,6 +9,9 @@
 #include <sstream>
 #include <string>
 
+using namespace std;
+#include <stdlib.h>
+
 CKeyboardHelper::CKeyboardHelper(DasherAppSettings *pAppSettings) {
   m_pAppSettings = pAppSettings;
 
