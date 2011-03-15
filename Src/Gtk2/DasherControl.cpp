@@ -196,6 +196,11 @@ std::string CDasherControl::GetAllContext() {
   return text;
 }
 
+std::string CDasherControl::GetContext(unsigned int iStart, unsigned int iLength) {
+  const gchar *text = gtk_dasher_control_get_context(m_pDasherControl, iStart, iLength);
+  return text;
+}
+
 bool CDasherControl::SupportsClipboard() {
   return true;
 }
@@ -348,10 +353,6 @@ void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
     else if(pEditEvent->m_iEditType == 11) {
       g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_edit_protect");
     }
-  }
-  else if(pEvent->m_iEventType == EV_EDIT_CONTEXT) {
-    CEditContextEvent *pEditContextEvent(static_cast < CEditContextEvent * >(pEvent));
-    g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_context_request", pEditContextEvent->m_iOffset, pEditContextEvent->m_iLength);
   }
   else if(pEvent->m_iEventType == EV_CONTROL) {
     CControlEvent *pControlEvent(static_cast < CControlEvent * >(pEvent));

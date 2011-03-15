@@ -220,7 +220,6 @@
                 <signal handler="handle_control_event" last_modification_time="Sun, 05 Mar 2006 19:45:53 GMT" name="dasher_control"/>
                 <signal handler="gtk2_edit_output_callback" last_modification_time="Sun, 05 Mar 2006 19:46:13 GMT" name="dasher_edit_insert"/>
                 <signal handler="gtk2_edit_delete_callback" last_modification_time="Sun, 05 Mar 2006 19:46:32 GMT" name="dasher_edit_delete"/>
-                <signal handler="handle_context_request" last_modification_time="Sun, 05 Mar 2006 19:46:54 GMT" name="dasher_context_request"/>
                 <signal handler="handle_request_settings" last_modification_time="Sun, 05 Mar 2006 19:47:12 GMT" name="dasher_request_settings"/>
                 <signal handler="focus_in_event" last_modification_time="Sun, 05 Mar 2006 19:47:28 GMT" name="focus_in_event"/>
                 <signal handler="on_lock_info" last_modification_time="Wed, 22 Mar 2006 10:38:44 GMT" name="dasher_lock_info"/>

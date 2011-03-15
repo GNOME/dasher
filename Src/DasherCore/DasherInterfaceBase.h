@@ -392,7 +392,8 @@ public:
     m_bRedrawScheduled = true; 
   }; 
 
-  std::string GetContext(int iStart, int iLength);
+  ///Subclasses should return the contents of (the specified subrange of) the edit buffer
+  virtual std::string GetContext(unsigned int iStart, unsigned int iLength)=0;
   
   ///Subclasses should override to clear text edit box, etc., etc., but then
   /// call this (superclass) implementation as well to rebuild the model...
@@ -592,8 +593,6 @@ protected:
   
   ///builds up the word currently being entered for speech.
   std::string m_strCurrentWord;
-
-  std::string m_strContext;
 
   /// @name State variables
   /// Represent the current overall state of the core

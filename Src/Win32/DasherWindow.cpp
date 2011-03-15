@@ -431,12 +431,6 @@ LRESULT CDasherWindow::OnDasherEvent(UINT message, WPARAM wParam, LPARAM lParam,
       }
     }
     break;
-  case EV_EDIT_CONTEXT:
-    {
-      Dasher::CEditContextEvent *pEvt = static_cast< Dasher::CEditContextEvent * >(pEvent);
-      m_pDasher->SetContext(m_pEdit->get_context(pEvt->m_iOffset, pEvt->m_iLength));
-    }
-    break;
   default:
     break;
   }

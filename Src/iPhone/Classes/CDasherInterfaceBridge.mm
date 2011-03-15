@@ -180,12 +180,6 @@ void CDasherInterfaceBridge::ExternalEventHandler(Dasher::CEvent *pEvent) {
       }
 	  }
         break;
-    case EV_EDIT_CONTEXT:
-	{
-      CEditContextEvent *ecvt((CEditContextEvent *)pEvent);
-      SetContext(StdStringFromNSString([dasherApp textAtOffset:ecvt->m_iOffset Length:ecvt->m_iLength]));
-      break;
-	}
     case EV_CONTROL:
       switch (static_cast<CControlEvent *>(pEvent)->m_iID) {
         case CControlManager::CTL_MOVE_FORWARD_CHAR:
@@ -261,6 +255,10 @@ void CDasherInterfaceBridge::Speak(const std::string &strText, bool bInterrupt) 
 
 string CDasherInterfaceBridge::GetAllContext() {
   return StdStringFromNSString([dasherApp allText]);
+}
+
+string CDasherInterfaceBridge::GetContext(unsigned int iOffset, unsigned int iLength) {
+  return StdStringFromNSString([dasherApp textAtOffset:iOffset Length:iLength]);
 }
 
 int CDasherInterfaceBridge::GetFileSize(const std::string &strFileName) {

@@ -53,7 +53,7 @@
   [allTextEntered deleteCharactersInRange:NSMakeRange([allTextEntered length]-len, len)];
 }
 
--(NSString *)textAtOffset:(int)iOffset Length:(int)iLength {
+-(NSString *)textAtOffset:(unsigned int)iOffset Length:(unsigned int)iLength {
   DASHER_ASSERT(iOffset+iLength <= [allTextEntered length]);
   return [allTextEntered substringWithRange:NSMakeRange(iOffset,iLength)];
 }

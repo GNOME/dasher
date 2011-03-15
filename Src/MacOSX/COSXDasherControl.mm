@@ -182,12 +182,6 @@ void COSXDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
       }
       break;
     }
-    case EV_EDIT_CONTEXT: {
-      //NSLog(@"ExternalEventHandler, m_iEventType = EV_EDIT_CONTEXT");
-      CEditContextEvent *ecvt((CEditContextEvent *)pEvent);
-      SetContext(StdStringFromNSString([dasherEdit textAtOffset:ecvt->m_iOffset Length:ecvt->m_iLength]));
-      break;
-    }
     case EV_CONTROL:
       NSLog(@"ExternalEventHandler, m_iEventType = EV_CONTROL");
       break;
@@ -292,6 +286,10 @@ void COSXDasherControl::Speak(const std::string &strText, bool bInterrupt) {
 
 void COSXDasherControl::CopyToClipboard(const std::string &strText) {
   [dasherApp copyToClipboard:NSStringFromStdString(strText)];
+}
+
+std::string COSXDasherControl::GetContext(unsigned int iOffset, unsigned int iLength) {
+  return StdStringFromNSString([dasherEdit textAtOffset:iOffset Length:iLength]);
 }
 
 std::string COSXDasherControl::GetAllContext() {

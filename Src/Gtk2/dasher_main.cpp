@@ -152,7 +152,6 @@ extern "C" gboolean edit_key_release(GtkWidget *widget, GdkEventKey *event, gpoi
 /* ... Temporary test/debug functions */
 extern "C" gboolean test_focus_handler(GtkWidget *pWidget, GtkDirectionType iDirection, gpointer *pUserData);
 
-extern "C" void handle_context_request(GtkDasherControl * pDasherControl, gint iOffset, gint iLength, gpointer data);
 extern "C" void handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer data);
 extern "C" void handle_start_event(GtkDasherControl *pDasherControl, gpointer data);
 extern "C" gint dasher_main_key_snooper(GtkWidget *pWidget, GdkEventKey *pEvent, gpointer pUserData);
@@ -1309,19 +1308,6 @@ edit_key_release(GtkWidget *widget, GdkEventKey *event, gpointer user_data) {
 extern "C" gboolean 
 test_focus_handler(GtkWidget *pWidget, GtkDirectionType iDirection, gpointer *pUserData) {
   return FALSE;
-}
-
-extern "C" void 
-handle_context_request(GtkDasherControl * pDasherControl, gint iOffset, gint iLength, gpointer data) { 
-  if(!g_pDasherMain)
-    return;
-
-  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(g_pDasherMain);
-
-  if(!pPrivate->pEditor || !pPrivate->pDasherWidget)
-    return;
-
-  gtk_dasher_control_set_context(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), dasher_editor_get_context(pPrivate->pEditor, iOffset, iLength));
 }
 
 extern "C" void 

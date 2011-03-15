@@ -45,7 +45,6 @@ enum {
   DASHER_EDIT_CONVERT,
   DASHER_EDIT_PROTECT,
   DASHER_CONTROL,
-  DASHER_CONTEXT_REQUEST,
   DASHER_REQUEST_SETTINGS,
   DASHER_LOCK_INFO,
   DASHER_MESSAGE,
@@ -83,8 +82,6 @@ gtk_dasher_control_class_init(GtkDasherControlClass *pClass) {
 
   gtk_dasher_control_signals[DASHER_CONTROL] = g_signal_new("dasher_control", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, dasher_control), NULL, NULL, g_cclosure_marshal_VOID__INT, G_TYPE_NONE, 1, G_TYPE_INT);
 
-  gtk_dasher_control_signals[DASHER_CHANGED] = g_signal_new("dasher_context_request", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, dasher_context_request), NULL, NULL, g_cclosure_user_marshal_VOID__INT_INT, G_TYPE_NONE, 2, G_TYPE_INT, G_TYPE_INT);
-
 //   gtk_dasher_control_signals[DASHER_CONTROL] = g_signal_new("key_press_event", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, key_press_event), NULL, NULL, gtk_marshal_BOOLEAN__POINTER, G_TYPE_BOOLEAN, 1, GDK_TYPE_EVENT | G_SIGNAL_TYPE_STATIC_SCOPE);
 
 //   gtk_dasher_control_signals[DASHER_CONTROL] = g_signal_new("key_release_event", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, key_release_event), NULL, NULL, gtk_marshal_BOOLEAN__POINTER, G_TYPE_BOOLEAN, 1, GDK_TYPE_EVENT | G_SIGNAL_TYPE_STATIC_SCOPE);
@@ -104,7 +101,6 @@ gtk_dasher_control_class_init(GtkDasherControlClass *pClass) {
   pClass->dasher_edit_convert = NULL;
   pClass->dasher_edit_protect = NULL;
   pClass->dasher_control = NULL;
-  pClass->dasher_context_request = NULL;
   pClass->dasher_request_settings = NULL;  
   pClass->dasher_lock = NULL;
   pClass->dasher_message = NULL;
@@ -206,10 +202,10 @@ gtk_dasher_control_train(GtkDasherControl *pControl, const gchar *szFilename) {
   pPrivate->pControl->ImportTrainingText(szFilename);
 };
 
-void 
-gtk_dasher_control_set_context(GtkDasherControl *pControl, const gchar *szContext) {
+const gchar *
+gtk_dasher_control_get_context(GtkDasherControl *pControl, unsigned int iStart, unsigned int iLength) {
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  pPrivate->pControl->SetContext(szContext);
+  return dasher_editor_get_context(pPrivate->pEditor, iStart, iLength);
 }
 
 const gchar *

@@ -48,7 +48,7 @@ public:
   virtual void WriteTrainFile(const std::string &filename, const std::string &strNewText);
   std::string GetAllContext();
   void ClearAllContext();
-  
+  std::string GetContext(unsigned int iOffset, unsigned int iLength);
 private:
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
   virtual void ScanColourFiles(std::vector<std::string> &vFileList);

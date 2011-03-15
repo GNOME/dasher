@@ -18,7 +18,7 @@
 - (void)sendString:(NSString *)aString toTargetApp:(AXUIElementRef)aTargetApp;
 - (void)outputCallback:(NSString *)aString targetApp:(AXUIElementRef)aTargetApp;
 - (void)deleteCallback:(NSString *)s targetApp:(AXUIElementRef)aTargetApp;
-- (NSString *)textAtOffset:(int)iOffset Length:(int)iLength;
+- (NSString *)textAtOffset:(unsigned int)iOffset Length:(unsigned int)iLength;
 - (NSString *)allContext;
 - (void)clearContext;
 

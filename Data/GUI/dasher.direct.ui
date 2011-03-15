@@ -59,7 +59,6 @@
                 <signal handler="handle_control_event" name="dasher_control"/>
                 <signal handler="gtk2_edit_output_callback" name="dasher_edit_insert"/>
                 <signal handler="gtk2_edit_delete_callback" name="dasher_edit_delete"/>
-                <signal handler="handle_context_request" name="dasher_context_request"/>
                 <signal handler="handle_request_settings" name="dasher_request_settings"/>
                 <signal handler="focus_in_event" name="focus_in_event"/>
                 <signal handler="on_lock_info" name="dasher_lock_info"/>

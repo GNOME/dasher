@@ -361,3 +361,7 @@ std::string CDasher::GetAllContext() {
 	m_pEdit->GetWindowText(allspeech, speechlength + 1);
     return allspeech;
 }
+
+std::string CDasher::GetContext(unsigned int iStart, unsigned int iLength) {
+  return m_pEdit->get_context(iStart, iLength);
+}

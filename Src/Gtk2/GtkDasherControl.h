@@ -56,7 +56,6 @@ struct _GtkDasherControlClass {
   void (*dasher_control) (GtkDasherControl * pDasherControl, gint iEvent, gpointer data);
   gboolean (*key_press_event) (GtkDasherControl *pDasherControl, GdkEventKey *pEvent, gpointer data);
   gboolean (*key_release_event) (GtkDasherControl *pDasherControl, GdkEventKey *pEvent, gpointer data);
-  void (*dasher_context_request) (GtkDasherControl * pDasherControl, gint iOffset, gint iLength, gpointer data);
   void (*dasher_request_settings) (GtkDasherControl * pDasherControl, gpointer data);
   void (*dasher_lock) (GtkDasherControl * pDasherControl, gpointer pLockInfo, gpointer data);
   void (*dasher_message) (GtkDasherControl * pDasherControl, gpointer pLockInfo, gpointer data);
@@ -78,9 +77,9 @@ void gtk_dasher_control_reset_parameter(GtkDasherControl * pControl, int iParame
 const char *gtk_dasher_control_get_parameter_string(GtkDasherControl * pControl, int iParameter);
 GArray *gtk_dasher_control_get_allowed_values(GtkDasherControl * pControl, int iParameter);
 void gtk_dasher_control_train(GtkDasherControl * pControl, const gchar * szFilename);
-void gtk_dasher_control_set_context(GtkDasherControl *pControl, const gchar *szContext);
 void gtk_dasher_control_set_editor(GtkDasherControl *pControl, DasherEditor *pEditor);
 const gchar* gtk_dasher_control_get_all_text(GtkDasherControl *pControl);
+const gchar* gtk_dasher_control_get_context(GtkDasherControl *pControl, unsigned int iOffset, unsigned int iLength);
 //void gtk_dasher_control_invalidate_context(GtkDasherControl *pControl, bool bForceStart);
 void gtk_dasher_control_set_buffer(GtkDasherControl *pControl, int iOffset);
 void gtk_dasher_control_set_offset(GtkDasherControl *pControl, int iOffset);

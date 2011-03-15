@@ -132,7 +132,6 @@ void CDasherGameMode::NotifyGameCooperators(bool bGameOn)
 {
   SetBoolParameter(BP_GAME_MODE, bGameOn);
   m_pView->SetGameMode(bGameOn);
-  m_pDasherInterface->SetContext(std::string(""));
   m_pDasherInterface->SetBuffer(0);
   m_pDasherInterface->Stop();
 
@@ -297,7 +296,6 @@ void CDasherGameMode::GameNext()
 
   // ...then reset the external state, and leave them at the start ready to go.
   m_pDasherInterface->GameMessageOut(GAME_MESSAGE_CLEAR_BUFFER, NULL);
-  m_pDasherInterface->SetContext(std::string(""));
   m_pDasherInterface->SetBuffer(0);
   m_pDasherInterface->Stop();
  
@@ -335,7 +333,6 @@ void CDasherGameMode::FullDemoNext()
 
   // ...then reset the external state, and leave the demo at the start ready to go.
   m_pDasherInterface->GameMessageOut(GAME_MESSAGE_CLEAR_BUFFER, NULL);
-  m_pDasherInterface->SetContext(std::string(""));
   m_pDasherInterface->SetBuffer(0);
   m_pDasherInterface->Stop();
 

@@ -685,23 +685,8 @@ void CDasherInterfaceBase::ResetNats() {
     m_pDasherModel->ResetNats();
 }
 
-// TODO: Fix this
-
-std::string CDasherInterfaceBase::GetContext(int iStart, int iLength) {
-  m_strContext = "";
-
-  CEditContextEvent oEvent(iStart, iLength);
-  m_pEventHandler->InsertEvent(&oEvent);
-
-  return m_strContext;
-}
-
 void CDasherInterfaceBase::ClearAllContext() {
   SetBuffer(0);
-}
-
-void CDasherInterfaceBase::SetContext(std::string strNewContext) {
-  m_strContext = strNewContext;
 }
 
 void CDasherInterfaceBase::SetBoolParameter(int iParameter, bool bValue) {

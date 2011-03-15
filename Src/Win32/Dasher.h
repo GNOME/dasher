@@ -50,6 +50,7 @@ public:
   void Main(); 
 
   virtual std::string GetAllContext();
+  std::string GetContext(unsigned int iStart, unsigned int iLength);
 
 #ifndef _WIN32_WCE
   //on WinCE, do not support speech - so use defaults from CDasherInterfaceBase 

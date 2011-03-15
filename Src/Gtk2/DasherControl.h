@@ -138,6 +138,7 @@ public:
   virtual void WriteTrainFile(const std::string &filename, const std::string &strNewText);
  
   virtual std::string GetAllContext();
+  std::string GetContext(unsigned int iStart, unsigned int iLength);
 
   virtual bool SupportsClipboard();
   virtual void CopyToClipboard(const std::string &strText);
