@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Standard control editing nodes but with labels using only hyphen and left/right angle brackets - in case the unicode arrow/triangle characters are missing from anyone's font. Copy to your user directory and rename as control.xml to replace the standard definition with this one.-->
+<nodes>
+<node name="CTL_MOVE" label="Move" color="-1">
+  <node name="CTL_MOVE_FORWARD" label="-&gt;" color="-1">
+    <node label="&gt;" color="-1">
+      <move forward="yes" dist="char"/>
+      <root/>
+      <ref name="CTL_MOVE_FORWARD"/>
+      <ref name="CTL_MOVE_BACKWARD"/>
+    </node>
+    <node label="&gt;&gt;" color="-1">
+      <move forward="yes" dist="word"/>
+      <root/>
+      <ref name="CTL_MOVE_FORWARD"/>
+      <ref name="CTL_MOVE_BACKWARD"/>
+    </node>
+    <node label="&gt;&gt;&gt;" color="-1">
+      <move forward="yes" dist="line"/>
+      <root/>
+      <ref name="CTL_MOVE_FORWARD"/>
+      <ref name="CTL_MOVE_BACKWARD"/>
+    </node>
+    <node label="&gt;&gt;&gt;&gt;" color="-1">
+      <move forward="yes" dist="file"/>
+      <root/>
+      <ref name="CTL_MOVE_FORWARD"/>
+      <ref name="CTL_MOVE_BACKWARD"/>
+    </node>
+  </node>
+  <node name="CTL_MOVE_BACKWARD" label="&lt;-" color="-1">
+    <node label="&lt;" color="-1">
+      <move forward="no" dist="char"/>
+      <root/>
+      <ref name="CTL_MOVE_FORWARD"/>
+      <ref name="CTL_MOVE_BACKWARD"/>
+    </node>
+    <node label="&lt;&lt;" color="-1">
+      <move forward="no" dist="word"/>
+      <root/>
+      <ref name="CTL_MOVE_FORWARD"/>
+      <ref name="CTL_MOVE_BACKWARD"/>
+    </node>
+    <node label="&lt;&lt;&lt;" color="-1">
+      <move forward="no" dist="line"/>
+      <root/>
+      <ref name="CTL_MOVE_FORWARD"/>
+      <ref name="CTL_MOVE_BACKWARD"/>
+    </node>
+    <node label="&lt;&lt;&lt;&lt;" color="-1">
+      <move forward="no" dist="file"/>
+      <root/>
+      <ref name="CTL_MOVE_FORWARD"/>
+      <ref name="CTL_MOVE_BACKWARD"/>
+    </node>
+  </node>
+</node>
+<node name="CTL_DELETE" label="Delete" color="-1">
+  <node name="CTL_DELETE_FORWARD" label="-&gt;" color="-1">
+    <node label="&gt;" color="-1">
+      <delete forward="yes" dist="char"/>
+      <root/>
+      <ref name="CTL_DELETE_FORWARD"/>
+      <ref name="CTL_DELETE_BACKWARD"/>
+    </node>
+    <node label="&gt;&gt;" color="-1">
+      <delete forward="yes" dist="word"/>
+      <root/>
+      <ref name="CTL_DELETE_FORWARD"/>
+      <ref name="CTL_DELETE_BACKWARD"/>
+    </node>
+    <node label="&gt;&gt;&gt;" color="-1">
+      <delete forward="yes" dist="line"/>
+      <root/>
+      <ref name="CTL_DELETE_FORWARD"/>
+      <ref name="CTL_DELETE_BACKWARD"/>
+    </node>
+    <node label="&gt;&gt;&gt;&gt;" color="-1">
+      <delete forward="yes" dist="file"/>
+      <root/>
+      <ref name="CTL_DELETE_FORWARD"/>
+      <ref name="CTL_DELETE_BACKWARD"/>
+    </node>
+  </node>
+  <node name="CTL_DELETE_BACKWARD" label="&lt;-" color="-1">
+    <node label="&lt;" color="-1">
+      <delete forward="no" dist="char"/>
+      <root/>
+      <ref name="CTL_DELETE_FORWARD"/>
+      <ref name="CTL_DELETE_BACKWARD"/>
+    </node>
+    <node label="&lt;&lt;" color="-1">
+      <delete forward="no" dist="word"/>
+      <root/>
+      <ref name="CTL_DELETE_FORWARD"/>
+      <ref name="CTL_DELETE_BACKWARD"/>
+    </node>
+    <node label="&lt;&lt;&lt;" color="-1">
+      <delete forward="no" dist="line"/>
+      <root/>
+      <ref name="CTL_DELETE_FORWARD"/>
+      <ref name="CTL_DELETE_BACKWARD"/>
+    </node>
+    <node label="&lt;&lt;&lt;&lt;" color="-1">
+      <delete forward="no" dist="file"/>
+      <root/>
+      <ref name="CTL_DELETE_FORWARD"/>
+      <ref name="CTL_DELETE_BACKWARD"/>
+    </node>
+  </node>
+</node>
+</nodes>

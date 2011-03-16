@@ -92,7 +92,6 @@ public:
 
   ///ACL making these public so can be called directly from CDasher,
   /// rather than sending a windows message.
-  void HandleControlEvent(int iID);
   void HandleParameterChange(int iParameter);
   
 private:

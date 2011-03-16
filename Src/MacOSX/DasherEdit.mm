@@ -54,7 +54,13 @@
 }
 
 -(NSString *)textAtOffset:(unsigned int)iOffset Length:(unsigned int)iLength {
-  DASHER_ASSERT(iOffset+iLength <= [allTextEntered length]);
+  //This does not hold if using control mode since it gets the offsets wrong...
+  //DASHER_ASSERT(iOffset+iLength <= [allTextEntered length]);
+  //Instead we shall handle all the out-of-bounds cases ourselves
+  // (substringWithRange is not at all forgiving!)
+  if (iOffset >= [allTextEntered length]) return @"";
+  if (iOffset+iLength > [allTextEntered length])
+    iLength = [allTextEntered length]-iOffset;
   return [allTextEntered substringWithRange:NSMakeRange(iOffset,iLength)];
 }
 

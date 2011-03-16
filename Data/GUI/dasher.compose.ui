@@ -459,7 +459,6 @@
                             <property name="int2">0</property>
                             <signal handler="parameter_notification" name="dasher_changed"/>
                             <signal handler="handle_stop_event" name="dasher_stop"/>
-                            <signal handler="handle_control_event" name="dasher_control"/>
                             <signal handler="gtk2_edit_output_callback" name="dasher_edit_insert"/>
                             <signal handler="gtk2_edit_delete_callback" name="dasher_edit_delete"/>
                             <signal handler="handle_request_settings" name="dasher_request_settings"/>

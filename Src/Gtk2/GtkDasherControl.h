@@ -5,7 +5,7 @@
 
 #include "../Common/ModuleSettings.h"
 #include "Parameters.h"
-#include "ControlManager.h"
+#include "../DasherCore/ControlManager.h"
 
 /*Forward declaration*/
 typedef struct _DasherEditor DasherEditor;
@@ -49,6 +49,7 @@ struct _GtkDasherControlClass {
 
   void (*dasher_changed) (GtkDasherControl * pDasherControl, gint iParameter, gpointer data);
   void (*dasher_stop) (GtkDasherControl * pDasherControl, gpointer data);
+  //These are for ordinary node entry & deletion upon exit
   void (*dasher_edit_insert) (GtkDasherControl * pDasherControl, const gchar * szText, int iOffset, gpointer data);
   void (*dasher_edit_delete) (GtkDasherControl * pDasherControl, const gchar * szText, int iOffset, gpointer data);
   void (*dasher_edit_convert) (GtkDasherControl * pDasherControl, gpointer data);
@@ -83,6 +84,8 @@ const gchar* gtk_dasher_control_get_context(GtkDasherControl *pControl, unsigned
 //void gtk_dasher_control_invalidate_context(GtkDasherControl *pControl, bool bForceStart);
 void gtk_dasher_control_set_buffer(GtkDasherControl *pControl, int iOffset);
 void gtk_dasher_control_set_offset(GtkDasherControl *pControl, int iOffset);
+gint gtk_dasher_control_ctrl_move(GtkDasherControl *pControl, bool bForwards, Dasher::CControlManager::EditDistance dist);
+gint gtk_dasher_control_ctrl_delete(GtkDasherControl *pControl, bool bForwards, Dasher::CControlManager::EditDistance dist);
 void gtk_dasher_control_external_key_down(GtkDasherControl *pControl, int iKeyVal);
 void gtk_dasher_control_external_key_up(GtkDasherControl *pControl, int iKeyVal);
 gboolean gtk_dasher_control_get_module_settings(GtkDasherControl * pControl, const gchar *szModule, SModuleSettings **pSettings, gint *iCount);

@@ -46,7 +46,7 @@
 //   gtk_text_buffer_get_iter_at_mark( the_text_buffer, &oNewStart, gtk_text_buffer_get_mark(the_text_buffer, "new_start"));
 
 //   return gtk_text_buffer_get_text( the_text_buffer, &oNewStart, &oNewEnd, false );
-  
+
 // }
 
 // ---
@@ -104,7 +104,10 @@ struct _DasherEditorInternalPrivate {
   gboolean bConversionMode;
   gint iLastOffset;
   gint iCurrentState; // 0 = unconverted, 1 = converted
-
+  //Paralleling the previous approach in dasher_main, we _don't_ send context_changed
+  // events if we're in the middle of executing a control action (as this would rebuild
+  // the canvas)
+  gboolean bInControlAction;
 };
 
 #define DASHER_EDITOR_INTERNAL_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE((o), DASHER_TYPE_EDITOR_INTERNAL, DasherEditorInternalPrivate))
@@ -149,8 +152,9 @@ static void dasher_editor_internal_set_filename(DasherEditor *pSelf, const gchar
 
 static void dasher_editor_internal_edit_convert(DasherEditor *pSelf);
 static void dasher_editor_internal_edit_protect(DasherEditor *pSelf);
-static void dasher_editor_internal_edit_delete(DasherEditor *pSelf, int iDirection, int iDist);
-static void dasher_editor_internal_edit_move(DasherEditor *pSelf, int iDirection, int iDist);
+using Dasher::CControlManager;
+static gint dasher_editor_internal_ctrl_delete(DasherEditor *pSelf, bool bForwards, CControlManager::EditDistance iDist);
+static gint dasher_editor_internal_ctrl_move(DasherEditor *pSelf, bool bForwards, CControlManager::EditDistance iDist);
 
 static void dasher_editor_internal_new_buffer(DasherEditor *pSelf, const gchar *szFilename);
 
@@ -171,7 +175,6 @@ void dasher_editor_internal_mark_changed(DasherEditorInternal *pSelf, GtkTextIte
 /* Events proagated from main */
 void dasher_editor_internal_handle_stop(DasherEditor *pSelf);
 void dasher_editor_internal_handle_start(DasherEditor *pSelf);
-void dasher_editor_internal_handle_control(DasherEditor *pSelf, int iNodeID);
 
 /* Action related methods - TODO: a lot of this should be moved to dasher_main (eg action on stop etc) - that way we get a better level of abstraction, and can incorporate commands from other modules too. Actions should only be externally visible as a list of string commands*/
 #ifdef XXXPRLWACTIONSAREFIXED
@@ -211,7 +214,7 @@ extern "C" void handle_request_settings(GtkDasherControl * pDasherControl, gpoin
 extern "C" void gtk2_edit_delete_callback(GtkDasherControl *pDasherControl, const gchar *szText, int iOffset, gpointer user_data);
 extern "C" void gtk2_edit_output_callback(GtkDasherControl *pDasherControl, const gchar *szText, int iOffset, gpointer user_data);
 
-static void 
+static void
 dasher_editor_internal_class_init(DasherEditorInternalClass *pClass) {
   g_type_class_add_private(pClass, sizeof(DasherEditorInternalPrivate));
 
@@ -225,14 +228,13 @@ dasher_editor_internal_class_init(DasherEditorInternalClass *pClass) {
   pParentClass->delete_text = dasher_editor_internal_delete;
   pParentClass->get_context = dasher_editor_internal_get_context;
   pParentClass->get_offset = dasher_editor_internal_get_offset;
-  pParentClass->edit_move = dasher_editor_internal_edit_move;
-  pParentClass->edit_delete = dasher_editor_internal_edit_delete;
+  pParentClass->ctrl_move = dasher_editor_internal_ctrl_move;
+  pParentClass->ctrl_delete = dasher_editor_internal_ctrl_delete;
   pParentClass->edit_convert = dasher_editor_internal_edit_convert;
   pParentClass->edit_protect = dasher_editor_internal_edit_protect;
 
   pParentClass->handle_stop = dasher_editor_internal_handle_stop;
   pParentClass->handle_start = dasher_editor_internal_handle_start;
-  pParentClass->handle_control = dasher_editor_internal_handle_control;
 #ifdef XXXPRLWACTIONSAREFIXED
   pParentClass->action_button = dasher_editor_internal_action_button;
   pParentClass->actions_start = dasher_editor_internal_actions_start;
@@ -250,7 +252,7 @@ dasher_editor_internal_class_init(DasherEditorInternalClass *pClass) {
   pParentClass->handle_parameter_change = dasher_editor_internal_handle_parameter_change;
 }
 
-static void 
+static void
 dasher_editor_internal_init(DasherEditorInternal *pSelf) {
   DasherEditorInternalPrivate *pPrivate =
                                    DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
@@ -271,6 +273,7 @@ dasher_editor_internal_init(DasherEditorInternal *pSelf) {
   pPrivate->pNewMark =
        gtk_text_buffer_create_mark(pPrivate->pBuffer, NULL, &oStartIter, TRUE);
   pPrivate->bFileModified = FALSE;
+  pPrivate->bInControlAction = FALSE;
 
   GtkWidget *pScrolledWindow = gtk_scrolled_window_new(NULL, NULL);
 
@@ -290,7 +293,7 @@ dasher_editor_internal_init(DasherEditorInternal *pSelf) {
   gtk_widget_show_all(GTK_WIDGET(&(pSelf->parent.box)));
 }
 
-static void 
+static void
 dasher_editor_internal_finalize(GObject *pObject) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pObject);
 
@@ -299,7 +302,7 @@ dasher_editor_internal_finalize(GObject *pObject) {
 
   if(pCurrentAction) {
     bool bStarted = false;
-    
+  
     while(!bStarted || (pCurrentAction != pPrivate->pActionRing)) {
       bStarted = true;
       dasher_action_deactivate(pCurrentAction->pAction);
@@ -329,9 +332,9 @@ dasher_editor_internal_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSe
   pPrivate->pDasherMain = pDasherMain;
 
   dasher_editor_internal_handle_font(pSelf,
-				     dasher_app_settings_get_string(pPrivate->pAppSettings, 
+				     dasher_app_settings_get_string(pPrivate->pAppSettings,
 								    APP_SP_EDIT_FONT));
-  
+
 #ifdef XXXPRLWACTIONSAREFIXED
   GtkVBox *pActionPane = GTK_VBOX(gtk_builder_get_object(pXML, "vbox39"));
 
@@ -353,11 +356,11 @@ dasher_editor_internal_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSe
     dasher_editor_internal_generate_filename(pSelf);
     dasher_editor_internal_clear(pSelf, false);
   }
-  
+
 //  pPrivate->pGameModeHelper = GAME_MODE_HELPER(game_mode_helper_new(pXML, (void*)pSelf));
 }
 
-static void 
+static void
 dasher_editor_internal_clipboard(DasherEditor *pSelf, clipboard_action act) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
@@ -397,106 +400,40 @@ dasher_editor_internal_clipboard(DasherEditor *pSelf, clipboard_action act) {
   delete end;
 }
 
-void 
+void
 dasher_editor_internal_handle_stop(DasherEditor *pSelf) {
 #ifdef XXXPRLWACTIONSAREFIXED
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
-  
+
   // See if anything is set to auto:
   EditorAction *pCurrentAction = pPrivate->pActionRing;
 
   if(pCurrentAction) {
     bool bStarted = false;
-    
+  
     while(!bStarted || (pCurrentAction != pPrivate->pActionRing)) {
       bStarted = true;
       if(pCurrentAction->bAuto)
-	dasher_action_execute(pCurrentAction->pAction, DASHER_EDITOR(pSelf), -1); 
+	dasher_action_execute(pCurrentAction->pAction, DASHER_EDITOR(pSelf), -1);
       pCurrentAction = pCurrentAction->pNext;
     }
   }
 #endif
 }
 
-void 
+void
 dasher_editor_internal_handle_start(DasherEditor *pSelf) {
-  // The edit box keeps track of where we started 
+  // The edit box keeps track of where we started
 
   // TODO: This should be filtered through the buffer, rather than directly to the edit box
   //  set_mark();
 }
 
-/* TODO: This is obsolete - sort this out when commands are reconsidered */
-void 
-dasher_editor_internal_handle_control(DasherEditor *pSelf, int iNodeID) {
-  DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
-
-  if(iNodeID == Dasher::CControlManager::CTL_USER + 1)
-    dasher_editor_internal_clear(pSelf, false); // Clear node is a special case (it shouldn't be)
 #ifdef XXXPRLWACTIONSAREFIXED
-  else if (pPrivate->pActionRing) {
-    EditorAction *pCurrentAction = pPrivate->pActionRing;
-    bool bStarted = false;
-    
-    while(!bStarted || (pCurrentAction != pPrivate->pActionRing)) {
-      bStarted = true;
-      //ACL 14/6/10 Adding test that iControlID is a sensible value -
-      // it never is, as it's never set, but it prevents the old code from
-      // being erroneously activated when e.g. the root control node is entered!
-      if(pCurrentAction->iControlID >= Dasher::CControlManager::CTL_USER && (iNodeID >= pCurrentAction->iControlID) && (iNodeID <= pCurrentAction->iControlID + pCurrentAction->iNSub)) {
-	dasher_action_execute(pCurrentAction->pAction, DASHER_EDITOR(pSelf), iNodeID - pCurrentAction->iControlID - 1); 
-	//	dasher_editor_internal_clear(pSelf, true); 
-      }
-      pCurrentAction = pCurrentAction->pNext;
-    }
-  }
-#endif
-
-
-  // TODO: Think about changing signals so we don't need to do this translation
-
-  struct SControlMap {
-    int iEvent;
-    int iDir;
-    int iDist;
-    bool bDelete;
-  };
-
-  static struct SControlMap sMap[] = {
-    {Dasher::CControlManager::CTL_MOVE_FORWARD_CHAR, EDIT_FORWARDS, EDIT_CHAR, false},
-    {Dasher::CControlManager::CTL_MOVE_FORWARD_WORD, EDIT_FORWARDS, EDIT_WORD, false},
-    {Dasher::CControlManager::CTL_MOVE_FORWARD_LINE, EDIT_FORWARDS, EDIT_LINE, false},
-    {Dasher::CControlManager::CTL_MOVE_FORWARD_FILE, EDIT_FORWARDS, EDIT_FILE, false},
-    {Dasher::CControlManager::CTL_MOVE_BACKWARD_CHAR, EDIT_BACKWARDS, EDIT_CHAR, false},
-    {Dasher::CControlManager::CTL_MOVE_BACKWARD_WORD, EDIT_BACKWARDS, EDIT_WORD, false},
-    {Dasher::CControlManager::CTL_MOVE_BACKWARD_LINE, EDIT_BACKWARDS, EDIT_LINE, false},
-    {Dasher::CControlManager::CTL_MOVE_BACKWARD_FILE, EDIT_BACKWARDS, EDIT_FILE, false},
-    {Dasher::CControlManager::CTL_DELETE_FORWARD_CHAR, EDIT_FORWARDS, EDIT_CHAR, true},
-    {Dasher::CControlManager::CTL_DELETE_FORWARD_WORD, EDIT_FORWARDS, EDIT_WORD, true},
-    {Dasher::CControlManager::CTL_DELETE_FORWARD_LINE, EDIT_FORWARDS, EDIT_LINE, true},
-    {Dasher::CControlManager::CTL_DELETE_FORWARD_FILE, EDIT_FORWARDS, EDIT_FILE, true},
-    {Dasher::CControlManager::CTL_DELETE_BACKWARD_CHAR, EDIT_BACKWARDS, EDIT_CHAR, true},
-    {Dasher::CControlManager::CTL_DELETE_BACKWARD_WORD, EDIT_BACKWARDS, EDIT_WORD, true},
-    {Dasher::CControlManager::CTL_DELETE_BACKWARD_LINE, EDIT_BACKWARDS, EDIT_LINE, true},
-    {Dasher::CControlManager::CTL_DELETE_BACKWARD_FILE, EDIT_BACKWARDS, EDIT_FILE, true}
-  };    
-
-  for(unsigned int i(0); i < sizeof(sMap)/sizeof(struct SControlMap); ++i) {
-    if(sMap[i].iEvent == iNodeID) {
-      if(sMap[i].bDelete) 
-        dasher_editor_internal_edit_delete(pSelf, sMap[i].iDir, sMap[i].iDist);
-      else
-        dasher_editor_internal_edit_move(pSelf, sMap[i].iDir, sMap[i].iDist);	
-    }
-  }
-}
-
-
-#ifdef XXXPRLWACTIONSAREFIXED
-void 
+void
 dasher_editor_internal_action_button(DasherEditor *pSelf, DasherAction *pAction) {
   if(pAction) {
-    dasher_action_execute(pAction, DASHER_EDITOR(pSelf), -1); 
+    dasher_action_execute(pAction, DASHER_EDITOR(pSelf), -1);
     dasher_editor_internal_clear(pSelf, true);
   }
   else { // Clear button
@@ -505,7 +442,7 @@ dasher_editor_internal_action_button(DasherEditor *pSelf, DasherAction *pAction)
 }
 #endif
 
-static void 
+static void
 dasher_editor_internal_clear(DasherEditor *pSelf, gboolean bStore) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
@@ -529,7 +466,7 @@ dasher_editor_internal_clear(DasherEditor *pSelf, gboolean bStore) {
 
 
 #ifdef XXXPRLWACTIONSAREFIXED
-void 
+void
 dasher_editor_internal_actions_start(DasherEditor *pSelf) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
@@ -537,28 +474,28 @@ dasher_editor_internal_actions_start(DasherEditor *pSelf) {
   pPrivate->pActionIter = pPrivate->pActionRing;
 }
 
-bool 
+bool
 dasher_editor_internal_actions_more(DasherEditor *pSelf) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
  return(!pPrivate->bActionIterStarted || (pPrivate->pActionIter != pPrivate->pActionRing));
 }
 
-void 
+void
 dasher_editor_internal_actions_get_next(DasherEditor *pSelf, const gchar **szName, gint *iID, gboolean *bShow, gboolean *bControl, gboolean *bAuto) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
-  
+
   *szName = dasher_action_get_name(pPrivate->pActionIter->pAction);
   *iID = pPrivate->pActionIter->iID;
-  *bShow = pPrivate->pActionIter->bShow; 
+  *bShow = pPrivate->pActionIter->bShow;
   *bControl = pPrivate->pActionIter->bControl;
   *bAuto = pPrivate->pActionIter->bAuto;
-  
+
   pPrivate->pActionIter = pPrivate->pActionIter->pNext;
   pPrivate->bActionIterStarted = true;
 }
 
-void 
+void
 dasher_editor_internal_action_set_show(DasherEditor *pSelf, int iActionID, bool bValue) {
   EditorAction *pAction;
   pAction = dasher_editor_internal_get_action_by_id(pSelf, iActionID);
@@ -572,7 +509,7 @@ dasher_editor_internal_action_set_show(DasherEditor *pSelf, int iActionID, bool 
   }
 }
 
-void 
+void
 dasher_editor_internal_action_set_control(DasherEditor *pSelf, int iActionID, bool bValue) {
   // TODO: Need to actually change behaviour in resonse to these calls
 
@@ -580,7 +517,7 @@ dasher_editor_internal_action_set_control(DasherEditor *pSelf, int iActionID, bo
 
 //   EditorAction *pAction;
 //   pAction = dasher_editor_internal_get_action_by_id(pSelf, iActionID);
-  
+
 //   if(pAction) {
 //     pAction->bControl = bValue;
 //     dasher_editor_internal_check_activity(pSelf, pAction);
@@ -588,26 +525,26 @@ dasher_editor_internal_action_set_control(DasherEditor *pSelf, int iActionID, bo
 //       gtk_dasher_control_connect_node(GTK_DASHER_CONTROL(pDasherWidget), pAction->iControlID, Dasher::CControlManager::CTL_USER, -2);
 //     else
 //       gtk_dasher_control_disconnect_node(GTK_DASHER_CONTROL(pDasherWidget), pAction->iControlID, Dasher::CControlManager::CTL_USER);
-    
+  
 //     dasher_editor_internal_action_save_state(pSelf, pAction);
 //   }
 }
 
-void 
-dasher_editor_internal_action_set_auto(DasherEditor *pSelf, int iActionID, bool bValue) { 
+void
+dasher_editor_internal_action_set_auto(DasherEditor *pSelf, int iActionID, bool bValue) {
 EditorAction *pAction;
   pAction = dasher_editor_internal_get_action_by_id(pSelf, iActionID);
 
   if(pAction) {
     pAction->bAuto = bValue;
     dasher_editor_internal_check_activity(pSelf, pAction);
-    
+  
     dasher_editor_internal_action_save_state(pSelf, pAction);
   }
 }
 #endif
 
-void 
+void
 dasher_editor_internal_grab_focus(DasherEditor *pSelf) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
@@ -616,11 +553,11 @@ dasher_editor_internal_grab_focus(DasherEditor *pSelf) {
 }
 
 
-static void 
+static void
 dasher_editor_internal_create_buffer(DasherEditor *pSelf) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
-    
-    
+  
+  
   pPrivate->pOutputTag = gtk_text_buffer_create_tag(pPrivate->pBuffer, NULL, NULL);
 
 #if GTK_CHECK_VERSION(2,8,0)
@@ -639,7 +576,7 @@ dasher_editor_internal_create_buffer(DasherEditor *pSelf) {
   g_signal_connect(G_OBJECT(pPrivate->pBuffer), "mark-set", G_CALLBACK(mark_set_handler), pSelf);
 }
 
-void 
+void
 dasher_editor_internal_output(DasherEditor *pSelf, const gchar *szText, int iOffset) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
@@ -650,14 +587,14 @@ dasher_editor_internal_output(DasherEditor *pSelf, const gchar *szText, int iOff
   if(!strcmp(szText, " ")) {
     gboolean bActionIterStarted = false;
     EditorAction *pActionIter = pPrivate->pActionRing;
-    
+  
     while((pActionIter != pPrivate->pActionRing) || !bActionIterStarted) {
       bActionIterStarted = true;
-      
+    
       if(!strcmp(dasher_action_get_name(pActionIter->pAction), "Speak")) {
         dasher_action_preview(pActionIter->pAction, DASHER_EDITOR(pSelf));
       }
-      
+    
       pActionIter = pActionIter->pNext;
     }
   }
@@ -703,10 +640,10 @@ dasher_editor_internal_output(DasherEditor *pSelf, const gchar *szText, int iOff
   pPrivate->bFileModified = TRUE;
 }
 
-void 
+void
 dasher_editor_internal_delete(DasherEditor *pSelf, int iLength, int iOffset) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
-  
+
   GtkTextIter end;
 
   gtk_text_buffer_get_iter_at_mark(pPrivate->pBuffer, &end, gtk_text_buffer_get_insert(pPrivate->pBuffer));
@@ -740,7 +677,7 @@ dasher_editor_internal_get_context(DasherEditor *pSelf, int iOffset, int iLength
   return gtk_text_buffer_get_text( pPrivate->pBuffer, &start, &end, false );
 }
 
-gint 
+gint
 dasher_editor_internal_get_offset(DasherEditor *pSelf) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
   GtkTextIter iter1,iter2;
@@ -755,15 +692,16 @@ void dasher_editor_internal_mark_changed(DasherEditorInternal *pSelf, GtkTextIte
     //ACL: used to emit "offset_changed" signal from buffer, which was picked up
     // by a callback registered by editor_internal, which then emitted a context_changed
     // signal from the editor_internal. So just emit the context_changed directly...
-    g_signal_emit_by_name(G_OBJECT(pSelf), "context_changed", G_OBJECT(pSelf), NULL, NULL);
+    if (!DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf)->bInControlAction) //tho not if it's the result of a control-mode edit/delete
+      g_signal_emit_by_name(G_OBJECT(pSelf), "context_changed", G_OBJECT(pSelf), NULL, NULL);
   }
 }
 
 
-static void 
+static void
 dasher_editor_internal_generate_filename(DasherEditor *pSelf) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
-  
+
   gchar *szNewFilename = NULL;
 
   if( dasher_app_settings_get_bool(pPrivate->pAppSettings,  APP_BP_TIME_STAMP )) {
@@ -788,7 +726,7 @@ dasher_editor_internal_generate_filename(DasherEditor *pSelf) {
   g_free(szNewFilename);
 }
 
-static void 
+static void
 dasher_editor_internal_open(DasherEditor *pSelf, const gchar *szFilename) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
@@ -818,17 +756,17 @@ dasher_editor_internal_open(DasherEditor *pSelf, const gchar *szFilename) {
       // for now, just assert that we can't load these files.
       for(gsize i = 0; i < size; ++i)
 	if(buffer[i] == 0) {
-// 	  GtkWidget *pErrorBox = gtk_message_dialog_new(GTK_WINDOW(window), 
-// 							GTK_DIALOG_MODAL, 
+// 	  GtkWidget *pErrorBox = gtk_message_dialog_new(GTK_WINDOW(window),
+// 							GTK_DIALOG_MODAL,
 // 							GTK_MESSAGE_ERROR,
-// 							GTK_BUTTONS_OK, 
-// 							"Could not open the file \"%s\". Please note that Dasher cannot load files containing binary data, which may be the cause of this error.\n", 
+// 							GTK_BUTTONS_OK,
+// 							"Could not open the file \"%s\". Please note that Dasher cannot load files containing binary data, which may be the cause of this error.\n",
 // 							myfilename);
-	  GtkWidget *pErrorBox = gtk_message_dialog_new(NULL, 
-							GTK_DIALOG_MODAL, 
+	  GtkWidget *pErrorBox = gtk_message_dialog_new(NULL,
+							GTK_DIALOG_MODAL,
 							GTK_MESSAGE_ERROR,
-							GTK_BUTTONS_OK, 
-							"Could not open the file \"%s\". Please note that Dasher cannot load files containing binary data, which may be the cause of this error.\n", 
+							GTK_BUTTONS_OK,
+							"Could not open the file \"%s\". Please note that Dasher cannot load files containing binary data, which may be the cause of this error.\n",
 							szFilename);
 	  gtk_dialog_run(GTK_DIALOG(pErrorBox));
 	  gtk_widget_destroy(pErrorBox);
@@ -856,8 +794,8 @@ dasher_editor_internal_open(DasherEditor *pSelf, const gchar *szFilename) {
   dasher_editor_internal_set_filename(pSelf, szFilename);
 }
 
-static bool 
-dasher_editor_internal_save_as(DasherEditor *pSelf, const gchar *szFilename, bool bAppend) { 
+static bool
+dasher_editor_internal_save_as(DasherEditor *pSelf, const gchar *szFilename, bool bAppend) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
   unsigned long long length;
@@ -896,10 +834,10 @@ dasher_editor_internal_save_as(DasherEditor *pSelf, const gchar *szFilename, boo
 //   switch (fileencoding) {
 //   case Dasher::Opts::UserDefault:
 //   case Dasher::Opts::AlphabetDefault:
-//     //FIXME - need to call GetAlphabetType and do appropriate stuff regarding 
+//     //FIXME - need to call GetAlphabetType and do appropriate stuff regarding
 //     //the character set. Arguably we should always be saving in either UTF-8 or
-//     //the user's locale (which may, of course, be UTF-8) because otherwise 
-//     //we're going to read in rubbish, and we shouldn't be encouraging weird 
+//     //the user's locale (which may, of course, be UTF-8) because otherwise
+//     //we're going to read in rubbish, and we shouldn't be encouraging weird
 //     //codepage madness any further
 
 //     //FIXME - error handling
@@ -948,7 +886,7 @@ dasher_editor_internal_save_as(DasherEditor *pSelf, const gchar *szFilename, boo
   return true;
 }
 
-// void 
+// void
 // dasher_editor_internal_start_tutorial(DasherEditor *pSelf) {
 //    DasherEditorInternalPrivate *pPrivate = (DasherEditorInternalPrivate *)(pSelf->private_data);
 
@@ -956,7 +894,7 @@ dasher_editor_internal_save_as(DasherEditor *pSelf, const gchar *szFilename, boo
 //   //  pPrivate->pGameModeHelper = GAME_MODE_HELPER(game_mode_helper_new(GTK_DASHER_CONTROL(pDasherWidget)));
 // }
 
-gboolean 
+gboolean
 dasher_editor_internal_command(DasherEditor *pSelf, const gchar *szCommand) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
@@ -964,12 +902,12 @@ dasher_editor_internal_command(DasherEditor *pSelf, const gchar *szCommand) {
     dasher_editor_internal_command_new(pSelf);
     return TRUE;
   }
-  
+
   if(!strcmp(szCommand, "action_open")) { //select open file
     dasher_editor_internal_command_open(pSelf);
     return TRUE;
   }
-  
+
   if(!strcmp(szCommand, "action_save")) { //save_file
     dasher_editor_internal_command_save(pSelf, FALSE, FALSE);
     return TRUE;
@@ -995,7 +933,7 @@ dasher_editor_internal_command(DasherEditor *pSelf, const gchar *szCommand) {
     return TRUE;
   }
 
-  if(!strcmp(szCommand, "action_copyall")) { // clipboard_copyall 
+  if(!strcmp(szCommand, "action_copyall")) { // clipboard_copyall
     dasher_editor_internal_clipboard(pSelf, CLIPBOARD_COPYALL);
     return TRUE;
   }
@@ -1004,29 +942,29 @@ dasher_editor_internal_command(DasherEditor *pSelf, const gchar *szCommand) {
     dasher_editor_internal_clipboard(pSelf, CLIPBOARD_PASTE);
     return TRUE;
   }
- 
+
   // TODO: This isn't actually accessible from anywhere
   if(!strcmp(szCommand, "action_selectall")) { // clipboard_paste
     dasher_editor_internal_clipboard(pSelf, CLIPBOARD_SELECTALL);
     return TRUE;
   }
- 
+
   return FALSE;
 }
 
 
-void 
+void
 dasher_editor_internal_handle_font(DasherEditor *pSelf, const gchar *szFont) {
   if(strcmp(szFont, "")) {
     DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
-    
+  
     PangoFontDescription *pFD = pango_font_description_from_string(szFont);
     gtk_widget_modify_font(GTK_WIDGET(pPrivate->pTextView), pFD);
   }
 }
 
 
-gboolean 
+gboolean
 dasher_editor_internal_file_changed(DasherEditor *pSelf) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
   return pPrivate->bFileModified;
@@ -1041,7 +979,7 @@ dasher_editor_internal_get_filename(DasherEditor *pSelf) {
 
 // TODO: We shouldn't need to know about the buffer here - make this a method of the buffer set
 const gchar *
-dasher_editor_internal_get_all_text(DasherEditor *pSelf) { 
+dasher_editor_internal_get_all_text(DasherEditor *pSelf) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
   GtkTextIter oStart;
@@ -1056,7 +994,7 @@ dasher_editor_internal_get_all_text(DasherEditor *pSelf) {
 }
 
 const gchar *
-dasher_editor_internal_get_new_text(DasherEditor *pSelf) { 
+dasher_editor_internal_get_new_text(DasherEditor *pSelf) {
   // TODO: Implement this properly
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
@@ -1075,7 +1013,7 @@ dasher_editor_internal_get_new_text(DasherEditor *pSelf) {
 
 
 /* Private methods */
-static void 
+static void
 dasher_editor_internal_select_all(DasherEditor *pSelf) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
   GtkTextIter *start, *end;
@@ -1097,10 +1035,10 @@ dasher_editor_internal_select_all(DasherEditor *pSelf) {
 }
 
 #ifdef XXXPRLWACTIONSAREFIXED
-static void 
+static void
 dasher_editor_internal_setup_actions(DasherEditor *pSelf) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
-  
+
   // TODO: Activate and deactivate methods for actions
   // TODO: Clear shouldn't be a special case (include support for false in clear method)
 
@@ -1132,10 +1070,10 @@ dasher_editor_internal_setup_actions(DasherEditor *pSelf) {
     while((szFilename = g_dir_read_name(pDirectory))) {
       dasher_editor_internal_add_action(pSelf, DASHER_ACTION(dasher_action_script_new(szUserScriptDir, szFilename)));
     }
-    
+  
     g_dir_close(pDirectory);
   }
-  
+
   delete[] szUserScriptDir;
 
   gchar *szSystemScriptDir = new gchar[strlen(dasher_app_settings_get_string(pPrivate->pAppSettings, SP_SYSTEM_LOC))+9];
@@ -1148,7 +1086,7 @@ dasher_editor_internal_setup_actions(DasherEditor *pSelf) {
     while((szFilename = g_dir_read_name(pDirectory))) {
       dasher_editor_internal_add_action(pSelf, DASHER_ACTION(dasher_action_script_new(szSystemScriptDir, szFilename)));
     }
-    
+  
     g_dir_close(pDirectory);
   }
 
@@ -1177,9 +1115,9 @@ dasher_editor_internal_setup_actions(DasherEditor *pSelf) {
 //     if(pCurrentAction->bControl) {
 //       gtk_dasher_control_register_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER + iControlOffset, dasher_action_get_name(pCurrentAction->pAction), -1 );
 //       gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER + iControlOffset, Dasher::CControlManager::CTL_USER, -2);
-      
+    
 //       int iNSub(dasher_action_get_sub_count(pCurrentAction->pAction));
-      
+    
 //       if(iNSub == 0) {
 // 	gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), -1, Dasher::CControlManager::CTL_USER + iControlOffset, -2);
 //       }
@@ -1190,12 +1128,12 @@ dasher_editor_internal_setup_actions(DasherEditor *pSelf) {
 // 	  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), -1, Dasher::CControlManager::CTL_USER + iControlOffset + i + 1, -2);
 // 	}
 //       }
-      
+    
 //       pCurrentAction->iControlID = Dasher::CControlManager::CTL_USER + iControlOffset;
 //       pCurrentAction->iNSub = iNSub;
 //       iControlOffset += iNSub + 1;
 //     }
-      
+    
 //     pCurrentAction = pCurrentAction->pNext;
 //   }
 
@@ -1206,7 +1144,7 @@ dasher_editor_internal_setup_actions(DasherEditor *pSelf) {
 #endif /* XXXPRLWACTIONSAREFIXED */
 
 #ifdef XXXPRLWACTIONSAREFIXED
-static void 
+static void
 dasher_editor_internal_add_action(DasherEditor *pSelf, DasherAction *pNewAction) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
@@ -1252,7 +1190,7 @@ dasher_editor_internal_add_action(DasherEditor *pSelf, DasherAction *pNewAction)
   }
 
   pPrivate->pActionRing = pNewEditorAction;
-  
+
   // TODO: Reimplement
 //   if(iState & ACTION_STATE_SHOW)
 //     gtk_dasher_control_add_action_button(GTK_DASHER_CONTROL(pDasherWidget), dasher_action_get_name(pNewEditorAction->pAction));
@@ -1266,23 +1204,23 @@ dasher_editor_internal_get_action_by_id(DasherEditor *pSelf, int iID){
 
   EditorAction *pCurrentAction = pPrivate->pActionRing;
   bool bStarted = false;
-  
+
   while(!bStarted || (pCurrentAction != pPrivate->pActionRing)) {
     bStarted = true;
     if(pCurrentAction->iID == iID)
       return pCurrentAction;
     pCurrentAction = pCurrentAction->pNext;
   }
-  
+
   return 0;
 }
 #endif /* XXXPRLWACTIONSAREFIXED */
 
 #ifdef XXXPRLWACTIONSAREFIXED
-static void 
+static void
 dasher_editor_internal_rebuild_action_pane(DasherEditor *pSelf) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
-  
+
   // Delete any existing widgets
   gtk_container_foreach(GTK_CONTAINER(pPrivate->pActionPane), delete_children_callback, 0);
 
@@ -1293,7 +1231,7 @@ dasher_editor_internal_rebuild_action_pane(DasherEditor *pSelf) {
   void **pUserData = new void *[2];
   pUserData[0] = (void *)pSelf;
   pUserData[1] = 0;
-  
+
   g_signal_connect(G_OBJECT(pNewButton), "clicked", G_CALLBACK(action_button_callback), pUserData);
 #ifdef WITH_MAEMO
   // For Maemo we want the packing to expand
@@ -1301,7 +1239,7 @@ dasher_editor_internal_rebuild_action_pane(DasherEditor *pSelf) {
 #else
   gtk_box_pack_start(GTK_BOX(pPrivate->pActionPane), GTK_WIDGET(pNewButton), false, false, 0);
 #endif
- 
+
 
   EditorAction *pCurrentAction = pPrivate->pActionRing;
   bool bStarted = false;
@@ -1311,11 +1249,11 @@ dasher_editor_internal_rebuild_action_pane(DasherEditor *pSelf) {
     if(pCurrentAction->bShow) {
       GtkButton *pNewButton = GTK_BUTTON(gtk_button_new_with_label(dasher_action_get_name(pCurrentAction->pAction)));
       gtk_widget_show(GTK_WIDGET(pNewButton));
-      
+    
       pUserData = new void *[2];
       pUserData[0] = (void *)pSelf;
       pUserData[1] = (void *)(pCurrentAction->pAction);
-      
+    
       g_signal_connect(G_OBJECT(pNewButton), "clicked", G_CALLBACK(action_button_callback), pUserData);
 #ifdef WITH_MAEMO
       // For Maemo we want the packing to expand
@@ -1330,7 +1268,7 @@ dasher_editor_internal_rebuild_action_pane(DasherEditor *pSelf) {
 #endif /* XXXPRLWACTIONSAREFIXED */
 
 // TODO: This shouldn't be a part of the editor
-//static void 
+//static void
 //dasher_editor_internal_display_message(DasherEditor *pSelf, DasherMessageInfo *pMessageInfo) {
 //  GtkMessageDialog *pDialog = GTK_MESSAGE_DIALOG(gtk_message_dialog_new(0, GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, pMessageInfo->szMessage));
 //  gtk_dialog_run(GTK_DIALOG(pDialog));
@@ -1338,7 +1276,7 @@ dasher_editor_internal_rebuild_action_pane(DasherEditor *pSelf) {
 //}
 
 #ifdef XXXPRLWACTIONSAREFIXED
-static void 
+static void
 dasher_editor_internal_check_activity(DasherEditor *pSelf, EditorAction *pAction) {
   gboolean bNeedActive(pAction->bShow || pAction->bControl || pAction->bAuto);
   gboolean bActive(dasher_action_get_active(pAction->pAction));
@@ -1351,7 +1289,7 @@ dasher_editor_internal_check_activity(DasherEditor *pSelf, EditorAction *pAction
 #endif
 
 #ifdef XXXPRLWACTIONSAREFIXED
-static void 
+static void
 dasher_editor_internal_action_save_state(DasherEditor *pSelf, EditorAction *pAction) {
   gchar szRegistryName[256];
   strncpy(szRegistryName, "Action_", 256);
@@ -1365,7 +1303,7 @@ dasher_editor_internal_action_save_state(DasherEditor *pSelf, EditorAction *pAct
 
   if(pAction->bShow)
     iState += ACTION_STATE_SHOW;
-  
+
   if(pAction->bControl)
     iState += ACTION_STATE_CONTROL;
 
@@ -1377,22 +1315,22 @@ dasher_editor_internal_action_save_state(DasherEditor *pSelf, EditorAction *pAct
 }
 #endif
 
-static void 
+static void
 dasher_editor_internal_command_new(DasherEditor *pSelf) {
   dasher_editor_internal_new_buffer(pSelf, NULL);
 }
 
-static void 
-dasher_editor_internal_command_open(DasherEditor *pSelf) { 
+static void
+dasher_editor_internal_command_open(DasherEditor *pSelf) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
   GtkWidget *pTopLevel = gtk_widget_get_toplevel(GTK_WIDGET(pPrivate->pTextView));
-  GtkWidget *filesel = gtk_file_chooser_dialog_new(_("Select File"), 
+  GtkWidget *filesel = gtk_file_chooser_dialog_new(_("Select File"),
 						   GTK_WINDOW(pTopLevel),
 						   GTK_FILE_CHOOSER_ACTION_OPEN,
-						   GTK_STOCK_OPEN, 
-						   GTK_RESPONSE_ACCEPT, 
-						   GTK_STOCK_CANCEL, 
+						   GTK_STOCK_OPEN,
+						   GTK_RESPONSE_ACCEPT,
+						   GTK_STOCK_CANCEL,
 						   GTK_RESPONSE_CANCEL, NULL);
 
 #ifdef HAVE_GIO
@@ -1412,8 +1350,8 @@ dasher_editor_internal_command_open(DasherEditor *pSelf) {
   gtk_widget_destroy(filesel);
 }
 
-static void 
-dasher_editor_internal_command_save(DasherEditor *pSelf, gboolean bPrompt, gboolean bAppend) { 
+static void
+dasher_editor_internal_command_save(DasherEditor *pSelf, gboolean bPrompt, gboolean bAppend) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
   gchar *szFilename = NULL;
@@ -1421,18 +1359,18 @@ dasher_editor_internal_command_save(DasherEditor *pSelf, gboolean bPrompt, gbool
   // Hmm... this makes no sense - surely this always evaluates to true?
   if(bPrompt || !szFilename) {
     GtkWidget *pTopLevel = gtk_widget_get_toplevel(GTK_WIDGET(pPrivate->pTextView));
-    GtkWidget *filesel = gtk_file_chooser_dialog_new(_("Select File"), 
-						     GTK_WINDOW(pTopLevel), 
-						     GTK_FILE_CHOOSER_ACTION_SAVE, 
-						     GTK_STOCK_SAVE, 
-						     GTK_RESPONSE_ACCEPT, 
-						     GTK_STOCK_CANCEL, 
+    GtkWidget *filesel = gtk_file_chooser_dialog_new(_("Select File"),
+						     GTK_WINDOW(pTopLevel),
+						     GTK_FILE_CHOOSER_ACTION_SAVE,
+						     GTK_STOCK_SAVE,
+						     GTK_RESPONSE_ACCEPT,
+						     GTK_STOCK_CANCEL,
 						     GTK_RESPONSE_CANCEL, NULL);
-    
+  
 #ifdef HAVE_GIO
     gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(filesel), FALSE);
 #endif
-    
+  
     if(gtk_dialog_run(GTK_DIALOG(filesel)) == GTK_RESPONSE_ACCEPT) {
 #ifdef HAVE_GIO
       szFilename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(filesel));
@@ -1444,7 +1382,7 @@ dasher_editor_internal_command_save(DasherEditor *pSelf, gboolean bPrompt, gbool
       gtk_widget_destroy(filesel);
       return;
     }
-    
+  
     gtk_widget_destroy(filesel);
   }
   else {
@@ -1456,7 +1394,7 @@ dasher_editor_internal_command_save(DasherEditor *pSelf, gboolean bPrompt, gbool
 }
 
 #ifdef HAVE_GIO
-static void 
+static void
 dasher_editor_internal_gvfs_print_error(DasherEditor *pSelf, GError *error, const char *myfilename) {
   // Turns a GVFS error into English
   GtkWidget *error_dialog;
@@ -1468,7 +1406,7 @@ dasher_editor_internal_gvfs_print_error(DasherEditor *pSelf, GError *error, cons
   return;
 }
 
-static gboolean 
+static gboolean
 dasher_editor_internal_gvfs_open_file(DasherEditor *pSelf, const char *uri, gchar **buffer, gsize *size)
 {
   GFile *file;
@@ -1544,7 +1482,7 @@ static GFileOutputStream *append_or_replace_file(GFile *file, bool append, GErro
   return write_handle;
 }
 
-static gboolean 
+static gboolean
 dasher_editor_internal_gvfs_save_file(DasherEditor *pSelf, const char *uri, gchar *buffer, gsize length, bool append)
 {
   GFile *file;
@@ -1602,7 +1540,7 @@ dasher_editor_internal_gvfs_save_file(DasherEditor *pSelf, const char *uri, gcha
 
 #else /* not HAVE_GIO */
 
-static gboolean 
+static gboolean
 dasher_editor_internal_unix_vfs_open_file(DasherEditor *pSelf, const char *myfilename, gchar **buffer, gsize *size) {
   GtkWidget *error_dialog;
 
@@ -1629,7 +1567,7 @@ dasher_editor_internal_unix_vfs_open_file(DasherEditor *pSelf, const char *myfil
   return TRUE;
 }
 
-static gboolean 
+static gboolean
 dasher_editor_internal_unix_vfs_save_file(DasherEditor *pSelf, const char *myfilename, gchar *buffer, gsize length, bool append) {
   int opened = 1;
   GtkWidget *error_dialog;
@@ -1666,10 +1604,10 @@ dasher_editor_internal_unix_vfs_save_file(DasherEditor *pSelf, const char *myfil
 }
 #endif
 
-static void 
+static void
 dasher_editor_internal_set_filename(DasherEditor *pSelf, const gchar *szFilename) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
-  
+
   if(pPrivate->szFilename)
     g_free((void *)pPrivate->szFilename);
 
@@ -1681,7 +1619,7 @@ dasher_editor_internal_set_filename(DasherEditor *pSelf, const gchar *szFilename
   g_signal_emit_by_name(G_OBJECT(pSelf), "filename_changed", G_OBJECT(pSelf), NULL, NULL);
 }
 
-static void 
+static void
 dasher_editor_internal_edit_convert(DasherEditor *pSelf) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
@@ -1698,7 +1636,7 @@ dasher_editor_internal_edit_convert(DasherEditor *pSelf) {
   pPrivate->iLastOffset = gtk_text_buffer_get_char_count(pPrivate->pBuffer);
 }
 
-static void 
+static void
 dasher_editor_internal_edit_protect(DasherEditor *pSelf) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
@@ -1709,114 +1647,87 @@ dasher_editor_internal_edit_protect(DasherEditor *pSelf) {
   pPrivate->iLastOffset = gtk_text_buffer_get_char_count(pPrivate->pBuffer);
 }
 
-static void
-dasher_editor_internal_edit_delete(DasherEditor *pSelf, int iDirection, int iDist) { 
-  DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
+static void edit_find(bool bForwards, CControlManager::EditDistance iDist, DasherEditorInternalPrivate *pPrivate, GtkTextIter *pPos) {
+  if(bForwards) {
+    switch(iDist) {
+    case CControlManager::EDIT_CHAR:
+      gtk_text_iter_forward_char(pPos);
+      break;
+    case CControlManager::EDIT_WORD:
+      gtk_text_iter_forward_word_end(pPos);
+      break;
+    case CControlManager::EDIT_LINE:
+      if(!gtk_text_view_forward_display_line_end(GTK_TEXT_VIEW(pPrivate->pTextView), pPos))
+      {
+        gtk_text_view_forward_display_line (GTK_TEXT_VIEW(pPrivate->pTextView), pPos);
+        gtk_text_view_forward_display_line_end(GTK_TEXT_VIEW(pPrivate->pTextView), pPos);
+      }
+      break;
+    case CControlManager::EDIT_FILE:
+      gtk_text_iter_forward_to_end(pPos);
+      break;
+    }
+  }
+  else {
+    switch(iDist) {
+    case CControlManager::EDIT_CHAR:
+      gtk_text_iter_backward_char(pPos);
+      break;
+    case CControlManager::EDIT_WORD:
+      gtk_text_iter_backward_word_start(pPos);
+      break;
+    case CControlManager::EDIT_LINE:
   
+      if(!gtk_text_view_backward_display_line_start(GTK_TEXT_VIEW(pPrivate->pTextView), pPos))
+        gtk_text_view_backward_display_line(GTK_TEXT_VIEW(pPrivate->pTextView), pPos);
+      break;
+    case CControlManager::EDIT_FILE:
+      gtk_text_buffer_get_start_iter(pPrivate->pBuffer, pPos);
+      break;
+    }
+  }
+}
+
+static gint
+dasher_editor_internal_ctrl_delete(DasherEditor *pSelf, bool bForwards, CControlManager::EditDistance iDist) {
+  DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
+
   GtkTextIter sPosStart;
   GtkTextIter sPosEnd;
 
   gtk_text_buffer_get_iter_at_mark(pPrivate->pBuffer, &sPosStart, gtk_text_buffer_get_insert(pPrivate->pBuffer));
 
   sPosEnd = sPosStart;
-  
-  if(iDirection == EDIT_FORWARDS) {
-    switch(iDist) {
-    case EDIT_CHAR:
-      gtk_text_iter_forward_char(&sPosStart);
-      break;
-    case EDIT_WORD:
-      gtk_text_iter_forward_word_end(&sPosStart);
-      break;
-    case EDIT_LINE:
-      if(!gtk_text_view_forward_display_line_end(GTK_TEXT_VIEW(pPrivate->pTextView), &sPosStart))
-      {
-        gtk_text_view_forward_display_line (GTK_TEXT_VIEW(pPrivate->pTextView), &sPosStart);
-        gtk_text_view_forward_display_line_end(GTK_TEXT_VIEW(pPrivate->pTextView), &sPosStart);
-      }
-      break;
-    case EDIT_FILE:
-      gtk_text_iter_forward_to_end(&sPosStart);
-      break;
-    }
-  }
-  else { 
-    switch(iDist) {
-    case EDIT_CHAR:
-      gtk_text_iter_backward_char(&sPosStart);
-      break;
-    case EDIT_WORD:
-      gtk_text_iter_backward_word_start(&sPosStart);
-      break;
-    case EDIT_LINE:
-      if(!gtk_text_view_backward_display_line_start(GTK_TEXT_VIEW(pPrivate->pTextView), &sPosStart))
-        gtk_text_view_backward_display_line(GTK_TEXT_VIEW(pPrivate->pTextView), &sPosStart);
-      break;
-    case EDIT_FILE:
-      gtk_text_buffer_get_start_iter(pPrivate->pBuffer, &sPosStart);
-      break;
-    }
-  }
-
+  edit_find(bForwards, iDist, pPrivate, &sPosStart);
+  gint iRet = gtk_text_iter_get_offset(&sPosStart);
+  pPrivate->bInControlAction = true;
   gtk_text_buffer_delete(pPrivate->pBuffer, &sPosStart, &sPosEnd);
+  pPrivate->bInControlAction = false;
   gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(pPrivate->pTextView), gtk_text_buffer_get_insert(pPrivate->pBuffer));
+  return iRet;
 }
 
-static void
-dasher_editor_internal_edit_move(DasherEditor *pSelf, int iDirection, int iDist) {
-  DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);  
+static gint
+dasher_editor_internal_ctrl_move(DasherEditor *pSelf, bool bForwards, CControlManager::EditDistance iDist) {
+  DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf); 
   GtkTextIter sPos;
 
   gtk_text_buffer_get_iter_at_mark(pPrivate->pBuffer, &sPos, gtk_text_buffer_get_insert(pPrivate->pBuffer));
-  
-  if(iDirection == EDIT_FORWARDS) {
-    switch(iDist) {
-    case EDIT_CHAR:
-      gtk_text_iter_forward_char(&sPos);
-      break;
-    case EDIT_WORD:
-      gtk_text_iter_forward_word_end(&sPos);
-      break;
-    case EDIT_LINE:
-      if(!gtk_text_view_forward_display_line_end(GTK_TEXT_VIEW(pPrivate->pTextView), &sPos))
-      {
-        gtk_text_view_forward_display_line (GTK_TEXT_VIEW(pPrivate->pTextView), &sPos);
-        gtk_text_view_forward_display_line_end(GTK_TEXT_VIEW(pPrivate->pTextView), &sPos);
-      }
-      break;
-    case EDIT_FILE:
-      gtk_text_iter_forward_to_end(&sPos);
-      break;
-    }
-  }
-  else { 
-    switch(iDist) {
-    case EDIT_CHAR:
-      gtk_text_iter_backward_char(&sPos);
-      break;
-    case EDIT_WORD:
-      gtk_text_iter_backward_word_start(&sPos);
-      break;
-    case EDIT_LINE:
-    
-      if(!gtk_text_view_backward_display_line_start(GTK_TEXT_VIEW(pPrivate->pTextView), &sPos))
-        gtk_text_view_backward_display_line(GTK_TEXT_VIEW(pPrivate->pTextView), &sPos);
-      break;
-    case EDIT_FILE:
-      gtk_text_buffer_get_start_iter(pPrivate->pBuffer, &sPos);
-      break;
-    }
-  }
 
+  edit_find(bForwards, iDist, pPrivate, &sPos);
+  gint iRet = gtk_text_iter_get_offset(&sPos);
+  pPrivate->bInControlAction = true;
   gtk_text_buffer_place_cursor(pPrivate->pBuffer, &sPos);
+  pPrivate->bInControlAction = false;
   gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(pPrivate->pTextView), gtk_text_buffer_get_insert(pPrivate->pBuffer));
+  return iRet;
 }
 
 
-static void 
+static void
 dasher_editor_internal_new_buffer(DasherEditor *pSelf, const gchar *szFilename) {
   /* TODO: eventually rewrite this without references to external functions */
-  
+
   if(szFilename) {
     dasher_editor_internal_open(pSelf, szFilename);
   }
@@ -1841,18 +1752,18 @@ dasher_editor_internal_handle_parameter_change(DasherEditor *pSelf, gint iParame
 
 /* Callback Functions */
 
-extern "C" void 
+extern "C" void
 delete_children_callback(GtkWidget *pWidget, gpointer pUserData) {
   gtk_widget_destroy(pWidget);
 }
 
-extern "C" void 
+extern "C" void
 main_window_realized(DasherMain *pMain, gpointer pUserData) {
 }
 
 #ifdef XXXPRLWACTIONSAREFIXED
-extern "C" void 
-action_button_callback(GtkWidget *pWidget, gpointer pUserData) { 
+extern "C" void
+action_button_callback(GtkWidget *pWidget, gpointer pUserData) {
   void **pPointers((void **)pUserData);
   dasher_editor_internal_action_button((DasherEditor *)pPointers[0], (DasherAction *)pPointers[1]);
 }

@@ -83,16 +83,14 @@ static void dasher_editor_external_output(DasherEditor *pSelf, const gchar *szTe
 static void dasher_editor_external_delete(DasherEditor *pSelf, int iLength, int iOffset);
 static const gchar *dasher_editor_external_get_context(DasherEditor *pSelf, int iOffset, int iLength);
 static gint dasher_editor_external_get_offset(DasherEditor *pSelf);
-static void dasher_editor_external_handle_control(DasherEditor *pSelf, int iNodeID);
 static void dasher_editor_external_grab_focus(DasherEditor *pSelf);
 static const gchar *dasher_editor_external_get_all_text(DasherEditor *pSelf);
 static const gchar *dasher_editor_external_get_new_text(DasherEditor *pSelf);
 //from dasher_external_buffer:
-static void dasher_editor_external_edit_convert(DasherEditor *pSelf);
-static void dasher_editor_external_edit_protect(DasherEditor *pSelf);
-static void dasher_editor_external_edit_move(DasherEditor *pSelf, int iDirection, int iDist);
-static void dasher_editor_external_edit_delete(DasherEditor *pSelf, int iDirection, int iDist);
-
+//These were no-ops, so removing.
+//static void dasher_editor_external_edit_convert(DasherEditor *pSelf);
+//static void dasher_editor_external_edit_protect(DasherEditor *pSelf);
+//TODO: Implement ctrl_move/ctrl_delete (ATM uses dasher_editor default i.e. returns get_offset)
 #ifdef GNOME_A11Y
 void dasher_editor_external_handle_focus(DasherEditorExternal *pSelf, const AccessibleEvent *pEvent);
 void dasher_editor_external_handle_caret(DasherEditorExternal *pSelf, const AccessibleEvent *pEvent);
@@ -123,14 +121,9 @@ dasher_editor_external_class_init(DasherEditorExternalClass *pClass) {
   pParentClass->delete_text = dasher_editor_external_delete;
   pParentClass->get_context = dasher_editor_external_get_context;
   pParentClass->get_offset = dasher_editor_external_get_offset;
-  pParentClass->handle_control = dasher_editor_external_handle_control;
   pParentClass->grab_focus = dasher_editor_external_grab_focus;
   pParentClass->get_all_text = dasher_editor_external_get_all_text;
   pParentClass->get_new_text = dasher_editor_external_get_new_text;
-  pParentClass->edit_move = dasher_editor_external_edit_move;
-  pParentClass->edit_delete = dasher_editor_external_edit_delete;
-  pParentClass->edit_convert = dasher_editor_external_edit_convert;
-  pParentClass->edit_protect = dasher_editor_external_edit_protect;
 }
 
 static void 
@@ -178,50 +171,6 @@ dasher_editor_external_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSe
 
   dasher_editor_external_create_buffer(pSelf);
 }
-
-/* TODO: This is obsolete - sort this out when commands are reconsidered */
-static void 
-dasher_editor_external_handle_control(DasherEditor *pSelf, int iNodeID) {
-  DasherEditorExternalPrivate *pPrivate = DASHER_EDITOR_EXTERNAL_GET_PRIVATE(pSelf);
-
-  // TODO: Think about changing signals so we don't need to do this translation
-
-  struct SControlMap {
-    int iEvent;
-    int iDir;
-    int iDist;
-    bool bDelete;
-  };
-
-  static struct SControlMap sMap[] = {
-    {Dasher::CControlManager::CTL_MOVE_FORWARD_CHAR, EDIT_FORWARDS, EDIT_CHAR, false},
-    {Dasher::CControlManager::CTL_MOVE_FORWARD_WORD, EDIT_FORWARDS, EDIT_WORD, false},
-    {Dasher::CControlManager::CTL_MOVE_FORWARD_LINE, EDIT_FORWARDS, EDIT_LINE, false},
-    {Dasher::CControlManager::CTL_MOVE_FORWARD_FILE, EDIT_FORWARDS, EDIT_FILE, false},
-    {Dasher::CControlManager::CTL_MOVE_BACKWARD_CHAR, EDIT_BACKWARDS, EDIT_CHAR, false},
-    {Dasher::CControlManager::CTL_MOVE_BACKWARD_WORD, EDIT_BACKWARDS, EDIT_WORD, false},
-    {Dasher::CControlManager::CTL_MOVE_BACKWARD_LINE, EDIT_BACKWARDS, EDIT_LINE, false},
-    {Dasher::CControlManager::CTL_MOVE_BACKWARD_FILE, EDIT_BACKWARDS, EDIT_FILE, false},
-    {Dasher::CControlManager::CTL_DELETE_FORWARD_CHAR, EDIT_FORWARDS, EDIT_CHAR, true},
-    {Dasher::CControlManager::CTL_DELETE_FORWARD_WORD, EDIT_FORWARDS, EDIT_WORD, true},
-    {Dasher::CControlManager::CTL_DELETE_FORWARD_LINE, EDIT_FORWARDS, EDIT_LINE, true},
-    {Dasher::CControlManager::CTL_DELETE_FORWARD_FILE, EDIT_FORWARDS, EDIT_FILE, true},
-    {Dasher::CControlManager::CTL_DELETE_BACKWARD_CHAR, EDIT_BACKWARDS, EDIT_CHAR, true},
-    {Dasher::CControlManager::CTL_DELETE_BACKWARD_WORD, EDIT_BACKWARDS, EDIT_WORD, true},
-    {Dasher::CControlManager::CTL_DELETE_BACKWARD_LINE, EDIT_BACKWARDS, EDIT_LINE, true},
-    {Dasher::CControlManager::CTL_DELETE_BACKWARD_FILE, EDIT_BACKWARDS, EDIT_FILE, true}
-  };    
-
-  for(unsigned int i(0); i < sizeof(sMap)/sizeof(struct SControlMap); ++i) {
-    if(sMap[i].iEvent == iNodeID) {
-      if(sMap[i].bDelete) 
-        dasher_editor_external_edit_delete(pSelf, sMap[i].iDir, sMap[i].iDist);
-      else
-        dasher_editor_external_edit_move(pSelf, sMap[i].iDir, sMap[i].iDist);	
-    }
-  }
-}
-
 
 static void 
 dasher_editor_external_grab_focus(DasherEditor *pSelf) {
@@ -320,22 +269,6 @@ dasher_editor_external_get_all_text(DasherEditor *pSelf) {
 static const gchar *
 dasher_editor_external_get_new_text(DasherEditor *pSelf) { 
   return NULL;
-}
-
-static void 
-dasher_editor_external_edit_convert(DasherEditor *pSelf) {
-}
-
-static void 
-dasher_editor_external_edit_protect(DasherEditor *pSelf) {
-}
-
-void dasher_editor_external_edit_move(DasherEditor *pSelf, int iDirection, int iDist) {
-  // TODO: Implement
-}
-
-void dasher_editor_external_edit_delete(DasherEditor *pSelf, int iDirection, int iDist) {
-  // TODO: Implement
 }
 
 /* Callback Functions */

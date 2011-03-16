@@ -469,8 +469,8 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
       : @".";
 }
 
-- (int)find:(EEditDistance)amt forwards:(BOOL)bForwards {
-  if (amt==EDIT_FILE) return bForwards ? [text.text length] : 0;
+- (int)find:(CControlManager::EditDistance)amt forwards:(BOOL)bForwards {
+  if (amt==CControlManager::EDIT_FILE) return bForwards ? [text.text length] : 0;
   int pos = selectedText.location;
   for(;;) {
     if (bForwards) {
@@ -480,13 +480,13 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
     }
     NSString *lookFor;
     switch (amt) {
-      case EDIT_CHAR:
+      case CControlManager::EDIT_CHAR:
         //once only, never loop
         return pos;
-      case EDIT_WORD:
+      case CControlManager::EDIT_WORD:
         lookFor = m_wordBoundary;
         break;
-      case EDIT_LINE:
+      case CControlManager::EDIT_LINE:
         if (m_lineBoundary && [text.text compare:m_lineBoundary options:0 range:NSMakeRange(pos, [m_lineBoundary length])] == NSOrderedSame)
           return pos;
         lookFor = m_lineBoundary;
@@ -497,14 +497,15 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   }
 }
 
-- (void)move:(EEditDistance)amt forwards:(BOOL)bForwards {
+- (unsigned int)move:(CControlManager::EditDistance)amt forwards:(BOOL)bForwards {
   selectedText.location = [self find:amt forwards:bForwards];
   selectedText.length=0;
   text.selectedRange = selectedText;
   [text scrollRangeToVisible:selectedText];
+  return selectedText.location;
 }
 
-- (void)del:(EEditDistance)amt forwards:(BOOL)bForwards {
+- (unsigned int)del:(CControlManager::EditDistance)amt forwards:(BOOL)bForwards {
   int to = [self find:amt forwards:bForwards];
   if (bForwards) {
     selectedText.length = to-selectedText.location;
@@ -513,6 +514,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
     selectedText.location = to;
   }
   [self outputCallback:@""];
+  return selectedText.location;
 }
 
 - (NSString *)allText {

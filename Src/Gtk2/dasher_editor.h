@@ -8,25 +8,13 @@
 #ifdef XXXPRLWACTIONSAREFIXED
 #include "dasher_action.h"
 #endif
+#include "../DasherCore/ControlManager.h"
 
 /* Forward declaration */
 typedef struct _DasherMain DasherMain;
 struct _DasherMain;
 typedef struct _DasherAppSettings DasherAppSettings;
 struct _DasherAppSettings;
-
-// Basic cursor movement commands
-enum {
-  EDIT_FORWARDS, 
-  EDIT_BACKWARDS
-};
-  
-enum {
-  EDIT_CHAR,
-  EDIT_WORD,
-  EDIT_LINE,
-  EDIT_FILE
-};
 
 G_BEGIN_DECLS
 #define DASHER_TYPE_EDITOR            (dasher_editor_get_type())
@@ -69,7 +57,6 @@ struct _DasherEditorClass {
   void (*handle_parameter_change)(DasherEditor *, gint);
   void (*handle_start)(DasherEditor *);
   void (*handle_stop)(DasherEditor *);
-  void (*handle_control)(DasherEditor *, int);
   void (*grab_focus)(DasherEditor *);
   gboolean (*file_changed)(DasherEditor *);
   const gchar *(*get_filename)(DasherEditor *);
@@ -83,8 +70,8 @@ struct _DasherEditorClass {
   //void (*insert_text)(DasherEditor *pSelf, const gchar *szText, int iOffset);// = output
   //void (*delete_text)(DasherEditor *pSelf, gint iLength, int iOffset);//duplicate
   //gchar *(*get_context)(DasherEditor *pSelf, gint iOffset, gint iLength);//duplicate
-  void (*edit_move)(DasherEditor *pSelf, gint iDirection, gint iDist);
-  void (*edit_delete)(DasherEditor *pSelf, gint iDirection, gint iDist);
+  gint (*ctrl_move)(DasherEditor *pSelf, bool bForwards, Dasher::CControlManager::EditDistance iDist);
+  gint (*ctrl_delete)(DasherEditor *pSelf, bool bForwards, Dasher::CControlManager::EditDistance iDist);
   void (*edit_convert)(DasherEditor *pSelf);
   void (*edit_protect)(DasherEditor *pSelf);
   //gint (*get_offset)(DasherEditor *pSelf);//duplicate
@@ -95,8 +82,8 @@ GType dasher_editor_get_type();
 
 /* Functions for initialisation and takedown */
 void dasher_editor_initialise(DasherEditor *pSelf,
-                              DasherAppSettings *pAppSettings, 
-                              DasherMain *pDasherMain, GtkBuilder *pXML, 
+                              DasherAppSettings *pAppSettings,
+                              DasherMain *pDasherMain, GtkBuilder *pXML,
                               const gchar *szFullPath);
 
 /* Abstract command handler */
@@ -107,8 +94,8 @@ gboolean dasher_editor_command(DasherEditor *pSelf, const gchar *szCommand);
 void dasher_editor_action_button(DasherEditor *pSelf, DasherAction *pAction);
 void dasher_editor_actions_start(DasherEditor *pSelf);
 bool dasher_editor_actions_more(DasherEditor *pSelf);
-void dasher_editor_actions_get_next(DasherEditor *pSelf, const gchar **szName, 
-				    gint *iID, gboolean *bShow, gboolean *bControl, 
+void dasher_editor_actions_get_next(DasherEditor *pSelf, const gchar **szName,
+				    gint *iID, gboolean *bShow, gboolean *bControl,
 				    gboolean *bAuto);
 void dasher_editor_action_set_show(DasherEditor *pSelf, int iActionID, bool bValue);
 void dasher_editor_action_set_control(DasherEditor *pSelf, int iActionID, bool bValue);
@@ -128,8 +115,8 @@ void dasher_editor_end_compose(DasherEditor *pSelf, bool bKeep);
 const gchar *dasher_editor_get_context(DasherEditor *pSelf, int iOffset, int iLength);
 gint dasher_editor_get_offset(DasherEditor *pSelf);
 
-void dasher_editor_edit_move(DasherEditor *pSelf, gint iDirection, gint iDist);
-void dasher_editor_edit_delete(DasherEditor *pSelf, gint iDirection, gint iDist);
+gint dasher_editor_ctrl_move(DasherEditor *pSelf, bool bForwards, Dasher::CControlManager::EditDistance dist);
+gint dasher_editor_ctrl_delete(DasherEditor *pSelf, bool bForwards, Dasher::CControlManager::EditDistance dist);
 void dasher_editor_edit_convert(DasherEditor *pSelf);
 void dasher_editor_edit_protect(DasherEditor *pSelf);
 
@@ -137,7 +124,6 @@ void dasher_editor_edit_protect(DasherEditor *pSelf);
 void dasher_editor_handle_parameter_change(DasherEditor *pSelf, gint iParameter);
 void dasher_editor_handle_stop(DasherEditor *pSelf);
 void dasher_editor_handle_start(DasherEditor *pSelf);
-void dasher_editor_handle_control(DasherEditor *pSelf, int iNodeID);
 
 /* Functions needed to maintain application UI */
 void dasher_editor_grab_focus(DasherEditor *pSelf);

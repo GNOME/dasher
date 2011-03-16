@@ -40,6 +40,9 @@ public:
   void TakeFocus();
 
   void ExternalEventHandler(Dasher::CEvent *pEvent);
+  unsigned int ctrlMove(bool bForwards, CControlManager::EditDistance iDist);
+  unsigned int ctrlDelete(bool bForwards, CControlManager::EditDistance iDist);
+  
   void GameMessageOut(int message, const void* messagedata);
   
   virtual void WriteTrainFile(const std::string &filename, const std::string &strNewText);

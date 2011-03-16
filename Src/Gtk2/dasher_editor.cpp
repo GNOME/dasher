@@ -15,7 +15,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Dasher; if not, write to the Free Software 
+// along with Dasher; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #ifdef HAVE_CONFIG_H
@@ -104,7 +104,7 @@ G_DEFINE_TYPE(DasherEditor, dasher_editor, GTK_TYPE_VBOX);
 
 static void dasher_editor_finalize(GObject *pObject);
 
-static void 
+static void
 dasher_editor_class_init(DasherEditorClass *pClass) {
   g_type_class_add_private(pClass, sizeof(DasherEditorPrivate));
 
@@ -112,22 +112,22 @@ dasher_editor_class_init(DasherEditorClass *pClass) {
   pObjectClass->finalize = dasher_editor_finalize;
 
   /* Setup signals */
-  dasher_editor_signals[FILENAME_CHANGED] = g_signal_new("filename-changed", G_TYPE_FROM_CLASS(pClass), 
-							 static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), 
-							 G_STRUCT_OFFSET(DasherEditorClass, filename_changed), 
-							 NULL, NULL, g_cclosure_marshal_VOID__VOID, 
+  dasher_editor_signals[FILENAME_CHANGED] = g_signal_new("filename-changed", G_TYPE_FROM_CLASS(pClass),
+							 static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION),
+							 G_STRUCT_OFFSET(DasherEditorClass, filename_changed),
+							 NULL, NULL, g_cclosure_marshal_VOID__VOID,
 							 G_TYPE_NONE, 0);
 
-  dasher_editor_signals[BUFFER_CHANGED] = g_signal_new("buffer-changed", G_TYPE_FROM_CLASS(pClass), 
-						       static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), 
-						       G_STRUCT_OFFSET(DasherEditorClass, buffer_changed), 
-						       NULL, NULL, g_cclosure_marshal_VOID__VOID, 
+  dasher_editor_signals[BUFFER_CHANGED] = g_signal_new("buffer-changed", G_TYPE_FROM_CLASS(pClass),
+						       static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION),
+						       G_STRUCT_OFFSET(DasherEditorClass, buffer_changed),
+						       NULL, NULL, g_cclosure_marshal_VOID__VOID,
 						       G_TYPE_NONE, 0);
 
-  dasher_editor_signals[CONTEXT_CHANGED] = g_signal_new("context-changed", G_TYPE_FROM_CLASS(pClass), 
-							static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), 
-							G_STRUCT_OFFSET(DasherEditorClass, context_changed), 
-							NULL, NULL, g_cclosure_marshal_VOID__VOID, 
+  dasher_editor_signals[CONTEXT_CHANGED] = g_signal_new("context-changed", G_TYPE_FROM_CLASS(pClass),
+							static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION),
+							G_STRUCT_OFFSET(DasherEditorClass, context_changed),
+							NULL, NULL, g_cclosure_marshal_VOID__VOID,
 							G_TYPE_NONE, 0);
 
   pClass->initialise = NULL;
@@ -149,14 +149,13 @@ dasher_editor_class_init(DasherEditorClass *pClass) {
   pClass->end_compose = NULL;
   pClass->get_context = NULL;
   pClass->get_offset = NULL;
-  pClass->edit_move = NULL;
-  pClass->edit_delete = NULL;
+  pClass->ctrl_move = NULL;
+  pClass->ctrl_delete = NULL;
   pClass->edit_convert = NULL;
   pClass->edit_protect = NULL;
   pClass->handle_parameter_change = NULL;
   pClass->handle_stop = NULL;
   pClass->handle_start = NULL;
-  pClass->handle_control = NULL;
   pClass->grab_focus = NULL;
   pClass->file_changed = NULL;
   pClass->get_filename = NULL;
@@ -166,7 +165,7 @@ dasher_editor_class_init(DasherEditorClass *pClass) {
   pClass->context_changed = NULL;
 }
 
-static void 
+static void
 dasher_editor_init(DasherEditor *pDasherControl) {
   DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pDasherControl);
 
@@ -181,7 +180,7 @@ dasher_editor_init(DasherEditor *pDasherControl) {
   pPrivate->bFileModified = FALSE;
 }
 
-static void 
+static void
 dasher_editor_finalize(GObject *pObject) {
   g_debug("Finalising DasherEditor");
 
@@ -192,7 +191,7 @@ dasher_editor_finalize(GObject *pObject) {
 
   if(pCurrentAction) {
     bool bStarted = false;
-    
+   
     while(!bStarted || (pCurrentAction != pPrivate->pActionRing)) {
       bStarted = true;
       dasher_action_deactivate(pCurrentAction->pAction);
@@ -212,39 +211,32 @@ dasher_editor_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, D
     DASHER_EDITOR_GET_CLASS(pSelf)->initialise(pSelf, pAppSettings, pDasherMain, pXML, szFullPath);
 }
 
-void 
+void
 dasher_editor_handle_stop(DasherEditor *pSelf) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->handle_stop)
     DASHER_EDITOR_GET_CLASS(pSelf)->handle_stop(pSelf);
 }
 
-void 
+void
 dasher_editor_handle_start(DasherEditor *pSelf) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->handle_start)
     DASHER_EDITOR_GET_CLASS(pSelf)->handle_start(pSelf);
 }
 
-/* TODO: This is obsolete - sort this out when commands are reconsidered */
-void 
-dasher_editor_handle_control(DasherEditor *pSelf, int iNodeID) {
-  if(DASHER_EDITOR_GET_CLASS(pSelf)->handle_control)
-    DASHER_EDITOR_GET_CLASS(pSelf)->handle_control(pSelf, iNodeID);
-}
-
 #ifdef XXXPRLWACTIONSAREFIXED
-void 
+void
 dasher_editor_action_button(DasherEditor *pSelf, DasherAction *pAction) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->action_button)
     DASHER_EDITOR_GET_CLASS(pSelf)->action_button(pSelf, pAction);
 }
 
-void 
+void
 dasher_editor_actions_start(DasherEditor *pSelf) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->actions_start)
     DASHER_EDITOR_GET_CLASS(pSelf)->actions_start(pSelf);
 }
 
-bool 
+bool
 dasher_editor_actions_more(DasherEditor *pSelf) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->actions_more)
     return DASHER_EDITOR_GET_CLASS(pSelf)->actions_more(pSelf);
@@ -252,56 +244,56 @@ dasher_editor_actions_more(DasherEditor *pSelf) {
     return false;
 }
 
-void 
+void
 dasher_editor_actions_get_next(DasherEditor *pSelf, const gchar **szName, gint *iID, gboolean *bShow, gboolean *bControl, gboolean *bAuto) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->actions_get_next)
     DASHER_EDITOR_GET_CLASS(pSelf)->actions_get_next(pSelf, szName, iID, bShow, bControl, bAuto);
 }
 
-void 
+void
 dasher_editor_action_set_show(DasherEditor *pSelf, int iActionID, bool bValue) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->action_set_show)
     DASHER_EDITOR_GET_CLASS(pSelf)->action_set_show(pSelf, iActionID, bValue);
 }
 
-void 
+void
 dasher_editor_action_set_control(DasherEditor *pSelf, int iActionID, bool bValue) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->action_set_control)
     DASHER_EDITOR_GET_CLASS(pSelf)->action_set_control(pSelf, iActionID, bValue);
 }
 
-void 
-dasher_editor_action_set_auto(DasherEditor *pSelf, int iActionID, bool bValue) { 
+void
+dasher_editor_action_set_auto(DasherEditor *pSelf, int iActionID, bool bValue) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->action_set_auto)
     DASHER_EDITOR_GET_CLASS(pSelf)->action_set_auto(pSelf, iActionID, bValue);
 }
 #endif
 
-void 
+void
 dasher_editor_grab_focus(DasherEditor *pSelf) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->grab_focus)
     DASHER_EDITOR_GET_CLASS(pSelf)->grab_focus(pSelf);
 }
 
-void 
+void
 dasher_editor_output(DasherEditor *pSelf, const gchar *szText, int iOffset) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->output)
     DASHER_EDITOR_GET_CLASS(pSelf)->output(pSelf, szText, iOffset);
 }
 
-void 
+void
 dasher_editor_delete(DasherEditor *pSelf, int iLength, int iOffset) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->delete_text)
     DASHER_EDITOR_GET_CLASS(pSelf)->delete_text(pSelf, iLength, iOffset);
 }
 
-void 
+void
 dasher_editor_start_compose(DasherEditor *pSelf) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->start_compose)
     DASHER_EDITOR_GET_CLASS(pSelf)->start_compose(pSelf);
 }
 
-void 
+void
 dasher_editor_end_compose(DasherEditor *pSelf, bool bKeep) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->end_compose)
     DASHER_EDITOR_GET_CLASS(pSelf)->end_compose(pSelf, bKeep);
@@ -316,22 +308,26 @@ dasher_editor_get_context(DasherEditor *pSelf, int iOffset, int iLength) {
     return NULL;
 }
 
-gint 
+gint
 dasher_editor_get_offset(DasherEditor *pSelf) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->get_offset)
     return DASHER_EDITOR_GET_CLASS(pSelf)->get_offset(pSelf);
   else
     return 0;
 }
-
-void dasher_editor_edit_move(DasherEditor *pSelf, gint iDirection, gint iDist) {
- if(DASHER_EDITOR_GET_CLASS(pSelf)->edit_move)
-    DASHER_EDITOR_GET_CLASS(pSelf)->edit_move(pSelf,iDirection,iDist);
+using Dasher::CControlManager;
+gint dasher_editor_ctrl_move(DasherEditor *pSelf, bool bForwards, CControlManager::EditDistance iDist) {
+  if(DASHER_EDITOR_GET_CLASS(pSelf)->ctrl_move)
+    return DASHER_EDITOR_GET_CLASS(pSelf)->ctrl_move(pSelf,bForwards,iDist);
+  else
+    return dasher_editor_get_offset(pSelf);
 }
 
-void dasher_editor_edit_delete(DasherEditor *pSelf, gint iDirection, gint iDist) {
- if(DASHER_EDITOR_GET_CLASS(pSelf)->edit_delete)
-    DASHER_EDITOR_GET_CLASS(pSelf)->edit_delete(pSelf, iDirection, iDist);
+gint dasher_editor_ctrl_delete(DasherEditor *pSelf, bool bForwards, CControlManager::EditDistance iDist) {
+  if(DASHER_EDITOR_GET_CLASS(pSelf)->ctrl_delete)
+    return DASHER_EDITOR_GET_CLASS(pSelf)->ctrl_delete(pSelf, bForwards, iDist);
+  else
+    return dasher_editor_get_offset(pSelf);
 }
 
 void dasher_editor_edit_convert(DasherEditor *pSelf) {
@@ -344,7 +340,7 @@ void dasher_editor_edit_protect(DasherEditor *pSelf) {
     DASHER_EDITOR_GET_CLASS(pSelf)->edit_protect(pSelf);
 }
 
-gboolean 
+gboolean
 dasher_editor_command(DasherEditor *pSelf, const gchar *szCommand) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->command)
     return DASHER_EDITOR_GET_CLASS(pSelf)->command(pSelf, szCommand);
@@ -352,7 +348,7 @@ dasher_editor_command(DasherEditor *pSelf, const gchar *szCommand) {
     return false;
 }
 
-gboolean 
+gboolean
 dasher_editor_file_changed(DasherEditor *pSelf) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->file_changed)
     return DASHER_EDITOR_GET_CLASS(pSelf)->file_changed(pSelf);
@@ -369,7 +365,7 @@ dasher_editor_get_filename(DasherEditor *pSelf) {
 }
 
 const gchar *
-dasher_editor_get_all_text(DasherEditor *pSelf) { 
+dasher_editor_get_all_text(DasherEditor *pSelf) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->get_all_text)
     return DASHER_EDITOR_GET_CLASS(pSelf)->get_all_text(pSelf);
   else
@@ -377,14 +373,14 @@ dasher_editor_get_all_text(DasherEditor *pSelf) {
 }
 
 const gchar *
-dasher_editor_get_new_text(DasherEditor *pSelf) { 
+dasher_editor_get_new_text(DasherEditor *pSelf) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->get_new_text)
     return DASHER_EDITOR_GET_CLASS(pSelf)->get_new_text(pSelf);
   else
     return NULL;
 }
 
-void 
+void
 dasher_editor_handle_parameter_change(DasherEditor *pSelf, gint iParameter) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->handle_parameter_change)
     DASHER_EDITOR_GET_CLASS(pSelf)->handle_parameter_change(pSelf, iParameter);

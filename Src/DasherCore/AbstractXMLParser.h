@@ -31,8 +31,7 @@ protected:
   virtual void XmlStartHandler(const XML_Char *name, const XML_Char **atts)=0;
   ///Subclass should override to handle an end tag
   virtual void XmlEndHandler(const XML_Char *name)=0;
-  ///Subclass may override to handle character data;
-  /// Default implementation asserts false, and ignores.
+  ///Subclass may override to handle character data; the default implementation does nothing.
   ///\param str pointer to string data, note is NOT null-terminated
   ///\param len number of bytes to read from pointer
   virtual void XmlCData(const XML_Char *str, int len);

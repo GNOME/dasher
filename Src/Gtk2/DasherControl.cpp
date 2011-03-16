@@ -362,10 +362,6 @@ void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
       g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_edit_protect");
     }
   }
-  else if(pEvent->m_iEventType == EV_CONTROL) {
-    CControlEvent *pControlEvent(static_cast < CControlEvent * >(pEvent));
-    g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_control", pControlEvent->m_iID);
-  }
   else if(pEvent->m_iEventType == EV_LOCK) {
     CLockEvent *pLockEvent(static_cast<CLockEvent *>(pEvent));
     DasherLockInfo sInfo;
@@ -385,6 +381,14 @@ void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
     g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_message", &sInfo);
   }
 };
+
+unsigned int CDasherControl::ctrlMove(bool bForwards, CControlManager::EditDistance dist) {
+  return gtk_dasher_control_ctrl_move(m_pDasherControl,bForwards,dist);
+}
+
+unsigned int CDasherControl::ctrlDelete(bool bForwards, CControlManager::EditDistance dist) {
+  return gtk_dasher_control_ctrl_delete(m_pDasherControl,bForwards,dist);
+}
 
 void CDasherControl::ExecuteCommand(const std::string &strCommand) {
     g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_command", strCommand.c_str());

@@ -35,7 +35,7 @@ extern CComModule _Module;
 #include "../AppSettings.h"
 #include "../DasherAction.h"
 #include "../../DasherCore/DasherTypes.h"
-
+#include "../../DasherCore/ControlManager.h"
 #include <Oleacc.h>
 
 class CCanvas;
@@ -44,18 +44,6 @@ class CFilenameGUI;
 namespace Dasher {
   class CDasherInterfaceBase;
   class CEvent;
-};
-
-enum {
-  EDIT_FORWARDS,
-  EDIT_BACKWARDS
-};
-
-enum {
-  EDIT_CHAR,
-  EDIT_WORD,
-  EDIT_LINE,
-  EDIT_FILE
 };
 
 class CEdit : public ATL::CWindowImpl<CEdit> {
@@ -96,8 +84,8 @@ class CEdit : public ATL::CWindowImpl<CEdit> {
   // As EN_UPDATE message go to parent, need this. void UserSave(HANDLE FileHandle);
   void UserOpen(HANDLE FileHandle);
   
-  void Move(int iDirection, int iDist);
-  void Delete(int iDirection, int iDist);
+  int Move(bool bForwards, Dasher::CControlManager::EditDistance iDist);
+  int Delete(bool bForwards, Dasher::CControlManager::EditDistance iDist);
   void SetKeyboardTarget(HWND hwnd);
   
   // Overriding file virtual functions

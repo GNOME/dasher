@@ -11,7 +11,7 @@
 
 #ifdef JOYSTICK
 #include "joystick_input.h"
-#endif 
+#endif
 
 #ifdef TILT
 #include "tilt_input.h"
@@ -46,7 +46,7 @@ public:
   /// \param pVBox GTK VBox to populate with the DasherControl
   /// component widgets. This needs to be created externally by the
   /// GObject wrapper and passed to the C++ class rather than being
-  /// created internally.  
+  /// created internally.
   /// \param pDasherControl Pointer to the GObject wrapper. This is
   /// needed so that we can emit signals from the GObject.
   ///
@@ -106,11 +106,11 @@ public:
   ///
 
   void CanvasDestroyEvent();
-  
+
   ///
   /// Key press event on the canvas
   ///
-  
+
   gint KeyReleaseEvent(GdkEventKey * event);
   gint KeyPressEvent(GdkEventKey * event);
 
@@ -129,20 +129,22 @@ public:
 
   void ExternalKeyDown(int iKeyVal);
   void ExternalKeyUp(int iKeyVal);
-  
+
   gboolean ExposeEvent();
 
   ///Override to broadcast signal...
   virtual void Stop();
- 
+
   virtual void WriteTrainFile(const std::string &filename, const std::string &strNewText);
- 
+
   virtual std::string GetAllContext();
   std::string GetContext(unsigned int iStart, unsigned int iLength);
 
   virtual bool SupportsClipboard();
   virtual void CopyToClipboard(const std::string &strText);
 
+  unsigned int ctrlMove(bool bForwards, CControlManager::EditDistance dist);
+  unsigned int ctrlDelete(bool bForwards, CControlManager::EditDistance dist);
 #ifdef WITH_SPEECH
   ///override default non-implementation if compiling with speech...
   virtual bool SupportsSpeech();
@@ -166,7 +168,7 @@ private:
   virtual void StartTimer();
   virtual void ShutdownTimer();
 
-  
+
   /// Override to emit Gtk2 signals (previously in response to CCommandEvent)
   void ExecuteCommand(const std::string &strName);
 

@@ -25,7 +25,6 @@
 #include "Event.h"
 #include "NodeManager.h"
 #include "NodeCreationManager.h"
-#include "DasherInterfaceBase.h"
 
 #include <vector>
 #include <map>
@@ -46,7 +45,7 @@ class CNodeCreationManager;
 
 namespace Dasher {
 
-  class CDasherModel;
+  class CDasherInterfaceBase;
 
   /// \ingroup Model
   /// @{
@@ -56,26 +55,7 @@ namespace Dasher {
   class CControlBase : public CNodeManager {
   public:
 
-    enum { CTL_ROOT, CTL_STOP, CTL_PAUSE, CTL_MOVE, CTL_MOVE_FORWARD,
-	   CTL_MOVE_FORWARD_CHAR, CTL_MOVE_FORWARD_WORD, CTL_MOVE_FORWARD_LINE,
-	   CTL_MOVE_FORWARD_FILE, CTL_MOVE_BACKWARD, CTL_MOVE_BACKWARD_CHAR,
-	   CTL_MOVE_BACKWARD_WORD, CTL_MOVE_BACKWARD_LINE, CTL_MOVE_BACKWARD_FILE,
-	   CTL_DELETE, CTL_DELETE_FORWARD,
-	   CTL_DELETE_FORWARD_CHAR, CTL_DELETE_FORWARD_WORD, CTL_DELETE_FORWARD_LINE,
-	   CTL_DELETE_FORWARD_FILE, CTL_DELETE_BACKWARD, CTL_DELETE_BACKWARD_CHAR,
-	   CTL_DELETE_BACKWARD_WORD, CTL_DELETE_BACKWARD_LINE, CTL_DELETE_BACKWARD_FILE,
-	   CTL_USER
-    };
-
     class NodeTemplate;
-
-  protected:
-    ///Sets the root - should be called by subclass constructor to make
-    /// superclass ready for use.
-    ///Note, may only be called once, and with a non-null pRoot, or will throw an error message.
-    void SetRootTemplate(NodeTemplate *pRoot);
-
-    CNodeCreationManager *m_pNCManager;
 
     class CContNode : public CDasherNode {
     public:
@@ -100,15 +80,17 @@ namespace Dasher {
       CControlBase *m_pMgr;
     };
 
-  public:
-    class NodeTemplate {
+    class Action {
+    public:
+      virtual void happen(CContNode *pNode) {}
+    };
+    class NodeTemplate : public Action {
     public:
       NodeTemplate(const std::string &strLabel, int iColour);
       virtual ~NodeTemplate() {}
       int colour() {return m_iColour;};
       const std::string &label() {return m_strLabel;};
       std::vector<NodeTemplate *> successors;
-      virtual void happen(CContNode *pNode) {}
     private:
       std::string m_strLabel;
       int m_iColour;
@@ -116,9 +98,9 @@ namespace Dasher {
 
     template <typename T> class MethodTemplate : public NodeTemplate {
     public:
-      ///pointer to a function "void X()", that is a member of a T...
+      ///A "Method" is pointer to a function "void X()", that is a member of a T...
       typedef void (T::*Method)();
-      MethodTemplate(T *pRecv, const std::string &strLabel, Method f) : NodeTemplate(strLabel,-1),m_pRecv(pRecv),m_f(f) {
+      MethodTemplate(const std::string &strLabel, int color, T *pRecv, Method f) : NodeTemplate(strLabel,color),m_pRecv(pRecv),m_f(f) {
       }
       virtual void happen(CContNode *pNode) {
         //invoke pointer-to-member-function m_f on object *m_pRecv!
@@ -127,14 +109,6 @@ namespace Dasher {
     private:
       T *m_pRecv;
       Method m_f;
-    };
-
-    class EventBroadcast : public NodeTemplate {
-    public:
-      EventBroadcast(int iEvent, const std::string &strLabel, int iColour);
-      virtual void happen(CContNode *pNode);
-    private:
-      const int m_iEvent;
     };
 
     NodeTemplate *GetRootTemplate();
@@ -147,6 +121,14 @@ namespace Dasher {
 
     virtual CDasherNode *GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset);
 
+  protected:
+    ///Sets the root - should be called by subclass constructor to make
+    /// superclass ready for use.
+    ///Note, may only be called once, and with a non-null pRoot, or will throw an error message.
+    void SetRootTemplate(NodeTemplate *pRoot);
+
+    CNodeCreationManager *m_pNCManager;
+
   private:
     NodeTemplate *m_pRoot;
 
@@ -156,60 +138,55 @@ namespace Dasher {
 
   };
 
-  ///subclass attempts to recreate interface of previous control manager...
-  class COrigNodes : public CControlBase {
+  ///Class reads node tree definitions from an XML file, linking together the NodeTemplates
+  /// according to defined names, nesting of <node/>s, and  <ref/>s. Also handles the
+  /// <alph/> tag, meaning one child of the node is to escape back to the alphabet. Subclasses
+  /// may override parseAction to provide actions for the nodes to perform, also parseOther
+  /// to link with NodeTemplates from other sources.
+  class CControlParser {
+  protected:
+    ///Loads all node definitions from the specified filename, adding them to
+    /// any loaded from previous calls. (However, files processed independently:
+    /// e.g. names defined in one file will not be seen from another)
+    /// \param strFilename name+full-path of xml file to load
+    /// \return true if the file was opened successfully; false if not.
+    bool LoadFile(const std::string &strFilename);
+    /// \return all node definitions that have been loaded by this CControlParser.
+    const vector<CControlBase::NodeTemplate*> &parsedNodes();
+    ///Subclasses may override to parse other nodes (besides "node", "ref" and "alph").
+    ///The default implementation always returns NULL.
+    /// \return A node template, if the name was recognised; NULL if not recognised.
+    virtual CControlBase::NodeTemplate *parseOther(const XML_Char *name, const XML_Char **atts) {
+      return NULL;
+    }
+    ///Subclasses may override to parse actions within nodes.
+    ///The default implementation always returns NULL.
+    /// \return A (new) action pointer, if the name+attributes were successfully parsed; NULL if not recognised.
+    virtual CControlBase::Action *parseAction(const XML_Char *name, const XML_Char **atts) {
+      return NULL;
+    };
+    //TODO cleanup/deletion
+  private:
+    ///all top-level parsed nodes
+    vector<CControlBase::NodeTemplate *> m_vParsed;
+  };
+
+  ///subclass which we actually construct! Parses editing node definitions from a file,
+  /// then adds Pause and/or Stop, Speak, and Copy (to clipboard), all as children
+  /// of the "root" control node.
+  class CControlManager : public CDasherComponent, public CControlBase, public CControlParser {
   public:
-    COrigNodes(CNodeCreationManager *pNCManager, CDasherInterfaceBase *pInterface);
-    ~COrigNodes();
-
-    //keep these around for now, as this might let Win32/Gtk2 work?
-    void RegisterNode( int iID, std::string strLabel, int iColour );
-    void ConnectNode(int iChild, int iParent, int iAfter);
-    void DisconnectNode(int iChild, int iParent);
-
     class Pause : public NodeTemplate {
     public:
       Pause(const std::string &strLabel, int iColour);
       void happen(CContNode *pNode);
     };
-    class Stop : public NodeTemplate {
-    public:
-      Stop(const std::string &strLabel, int iColour);
-      void happen(CContNode *pNode);
-    };
-
-  private:
-    //For now, make all the loading routines private:
-    // they are called from the constructor in the same fashion as in old ControlManager.
-
-    // The possibility of loading labels/layouts from different files/formats
-    // remains, but is left to alternative subclasses of ControlBase.
-
-    ///Attempts to load control labels from specified file.
-    /// Returns true for success, false for failure (e.g. no such file!)
-    bool LoadLabelsFromFile(string strFileName);
-
-    ///Load a default set of labels. Return true for success, or false
-    /// if labels already loaded
-    bool LoadDefaultLabels();
-
-    void ConnectNodes();
-
-    static void XmlStartHandler(void *pUserData, const XML_Char *szName, const XML_Char **aszAttr);
-    static void XmlEndHandler(void *pUserData, const XML_Char *szName);
-    static void XmlCDataHandler(void *pUserData, const XML_Char *szData, int iLength);
-
-    int m_iNextID;
-  protected:
-    std::map<int,NodeTemplate *> m_perId;
-    CDasherInterfaceBase *m_pInterface;
-  };
-
-  ///subclass which we actually construct...
-  class CControlManager : public CDasherComponent, public COrigNodes {
-  public:
     CControlManager(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pInterface);
     void HandleEvent(CEvent *pEvent);
+
+    typedef enum {
+      EDIT_CHAR, EDIT_WORD, EDIT_LINE, EDIT_FILE
+    } EditDistance;
 
     ///Recomputes which of pause, stop, speak and copy the root control node should have amongst its children.
     /// Automatically called whenever copy-on-stop/speak-on-stop or input filter changes;
@@ -220,7 +197,15 @@ namespace Dasher {
     void updateActions();
     ~CControlManager();
 
+  protected:
+    ///Override to allow a <root/> tag to include a fresh control root
+    NodeTemplate *parseOther(const XML_Char *name, const XML_Char **atts);
+    ///Override to recognise <move/> and <delete/> tags as actions.
+    Action *parseAction(const XML_Char *name, const XML_Char **atts);
+
   private:
+    NodeTemplate *m_pPause, *m_pStop;
+    CDasherInterfaceBase *m_pInterface;
     ///group headers, with three children each (all/new/repeat)
     NodeTemplate *m_pSpeech, *m_pCopy;
   };

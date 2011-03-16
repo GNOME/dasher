@@ -491,7 +491,7 @@ void CEdit::output(const std::string &sText) {
   m_Output += sText;
 }
 
-void CEdit::Move(int iDirection, int iDist) {
+int CEdit::Move(bool bForwards, CControlManager::EditDistance iDist) {
 
   // Unfortunately there doesn't seem to be a sane way of obtaining the caret
   // position (as opposed to the bounds of the selection), so we're just going
@@ -501,30 +501,21 @@ void CEdit::Move(int iDirection, int iDist) {
   int iEnd;
   SendMessage(EM_GETSEL, (WPARAM)&iStart, (LPARAM)&iEnd);
 
-//  int iStartLine;
-  int iEndLine;
-//  int iLineOffset;
-//  int iLineLength;
-//  int iLineStart;
-//  int iNumLines;
-  int iNumChars;
-
   HLOCAL hMemHandle;
   std::wstring strBufferText;
 
-  if(iDirection == EDIT_FORWARDS) {
+  if(bForwards) {
     switch(iDist) {
-    case EDIT_CHAR:
+    case CControlManager::EDIT_CHAR:
       //if(iStart != iEnd)
         ++iEnd;
-      iStart = iEnd;
       break;
-    case EDIT_WORD:
+    case CControlManager::EDIT_WORD: {
       // Hmm... words are hard - this is a rough and ready approximation:
 
 #ifndef _WIN32_WCE
       // TODO: Fix this on Windows CE
-      iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
+      int iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
       hMemHandle = (HLOCAL)SendMessage( EM_GETHANDLE, 0, 0);
       strBufferText = std::wstring((WCHAR*)LocalLock(hMemHandle), iNumChars);
       LocalUnlock(hMemHandle);
@@ -534,10 +525,10 @@ void CEdit::Move(int iDirection, int iDist) {
         iEnd = iNumChars + 1;
       else
         iEnd = iEnd + 1;
-      iStart = iEnd;
 #endif
+    }
       break;
-    case EDIT_LINE:
+    case CControlManager::EDIT_LINE: {
 /*      iEndLine = SendMessage( EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
       iLineOffset = iEnd - SendMessage( EM_LINEINDEX, (WPARAM)iEndLine, 0);
       iNumLines = SendMessage( EM_GETLINECOUNT, 0, 0);
@@ -558,30 +549,31 @@ void CEdit::Move(int iDirection, int iDist) {
 */    
       // Make it behave like the 'End' key, unless we're at the end of the current line.
 	  // Then go down a line.
-	  iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
+	  int iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
 	  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine + 1), 0) - 1; // end of this line
 	  if(iStart==iEnd)  // we were already at the end so go down a line
 		  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine + 2), 0) - 1;
-	  iStart = iEnd;
+    }
       break;
-    case EDIT_FILE: 
-      iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
+    case CControlManager::EDIT_FILE: {
+      int iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
       iEnd = iNumChars + 1;
-      iStart = iEnd;
+    }
       break;
     }
   }
   else {
     switch(iDist) {
-    case EDIT_CHAR:
+    case CControlManager::EDIT_CHAR:
+        //ACL this case at least differs from Delete(bool,EditDistance):
+        // there we decrement iEnd whether or not iStart==iEnd.
       if( iStart == iEnd )
-        --iStart;
-      iEnd = iStart;
+        --iEnd;
       break;
-    case EDIT_WORD:
+    case CControlManager::EDIT_WORD: {
 #ifndef _WIN32_WCE
       // TODO: Fix this on Windows CE
-      iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
+      int iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
       hMemHandle = (HLOCAL)SendMessage(EM_GETHANDLE, 0, 0);
       strBufferText = std::wstring((WCHAR*)LocalLock(hMemHandle), iNumChars);
       LocalUnlock(hMemHandle);
@@ -593,10 +585,10 @@ void CEdit::Move(int iDirection, int iDist) {
         else
           iEnd = iEnd + 1;
       }
-      iStart = iEnd;
 #endif
+    }
       break;
-    case EDIT_LINE:
+    case CControlManager::EDIT_LINE: {
 /*
       iStartLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iStart, 0);
       iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
@@ -616,47 +608,41 @@ void CEdit::Move(int iDirection, int iDist) {
       else
         iStart = iLineStart+iLineLength;
 */
-	  iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
+	  int iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
 	  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine), 0); // start of this line
 	  if(iStart==iEnd)  // we were already at the start so go up a line
 		  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine - 1), 0);
-	  iStart = iEnd;
+    }
       break;
-    case EDIT_FILE:
-      iStart = 0;
+    case CControlManager::EDIT_FILE:
       iEnd = 0;
       break;
     }
   }
-
+  iStart = iEnd;
   SendMessage(EM_SETSEL, (WPARAM)iStart, (LPARAM)iEnd);
   SendMessage(EM_SCROLLCARET, 0, 0); //scroll the caret into view!
+  return iStart;
 }
 
-void CEdit::Delete(int iDirection, int iDist) {
+int CEdit::Delete(bool bForwards, CControlManager::EditDistance iDist) {
   int iStart;
   int iEnd;
-  int iEndLine;
-//  int iLineOffset;
-//  int iLineLength;
-//  int iLineStart;
-//  int iNumLines;
-  int iNumChars;
 
   HLOCAL hMemHandle;
   std::wstring strBufferText;
 
   SendMessage(EM_GETSEL, (WPARAM)&iStart, (LPARAM)&iEnd);
 
-  if(iDirection == EDIT_FORWARDS) {
+  if(bForwards) {
     switch(iDist) {
-    case EDIT_CHAR:
+    case CControlManager::EDIT_CHAR:
       ++iEnd;
       break;
-    case EDIT_WORD:
+    case CControlManager::EDIT_WORD: {
 #ifndef _WIN32_WCE
       // TODO: Fix in Windows CE
-      iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
+      int iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
       hMemHandle = (HLOCAL)SendMessage(EM_GETHANDLE, 0, 0);
       strBufferText = std::wstring((WCHAR*)LocalLock(hMemHandle), iNumChars);
       LocalUnlock(hMemHandle);
@@ -665,8 +651,9 @@ void CEdit::Delete(int iDirection, int iDist) {
       if(iEnd == -1)
         iEnd = iNumChars + 1;
 #endif
+    }  
       break;
-    case EDIT_LINE:
+    case CControlManager::EDIT_LINE: {
 /*
       iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
       iLineOffset = iEnd - SendMessage(EM_LINEINDEX, (WPARAM)iEndLine, 0);
@@ -681,25 +668,29 @@ void CEdit::Delete(int iDirection, int iDist) {
           iEnd = iLineStart+iLineLength;
       }
   */
-	  iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
+	  int iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
 	  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine + 1), 0); // end of this line
 	  if(iStart==iEnd)  // we were already at the end so go down a line
 		  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine + 2), 0);
+    }
       break;
-    case EDIT_FILE: 
-      iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
+    case CControlManager::EDIT_FILE: {
+      int iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
       iEnd = iNumChars + 1;
+    }
       break;
     }
   }
   else {
     switch(iDist) {
-    case EDIT_CHAR:
+    case CControlManager::EDIT_CHAR:
+        //ACL this case at least differs from that for Move(bool, EditDistance):
+        // there we only decrement if iStart==iEnd.
       --iEnd;
       break;
-    case EDIT_WORD:
+    case CControlManager::EDIT_WORD: {
 #ifndef _WIN32_WCE
-      iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
+      int iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
       hMemHandle = (HLOCAL)SendMessage(EM_GETHANDLE, 0, 0);
       strBufferText = std::wstring((WCHAR*)LocalLock(hMemHandle), iNumChars);
       LocalUnlock(hMemHandle);
@@ -712,8 +703,9 @@ void CEdit::Delete(int iDirection, int iDist) {
           iEnd = iEnd + 1;
       }
 #endif
+    }
       break;
-    case EDIT_LINE:
+    case CControlManager::EDIT_LINE: {
 /*       iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
       iLineOffset = iEnd - SendMessage(EM_LINEINDEX, (WPARAM)iEndLine, 0);
       iNumLines = SendMessage(EM_GETLINECOUNT, 0, 0);
@@ -727,13 +719,13 @@ void CEdit::Delete(int iDirection, int iDist) {
           iEnd = iLineStart+iLineLength;
       }
 	  */
-	  iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
+	  int iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
 	  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine), 0); // start of this line
 	  if(iStart==iEnd)  // we were already at the start so go up a line
 		  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine - 1), 0);
-
+    }
       break;
-    case EDIT_FILE:
+    case CControlManager::EDIT_FILE:
       iEnd = 0;
       break;
     }
@@ -741,6 +733,7 @@ void CEdit::Delete(int iDirection, int iDist) {
 
   SendMessage(EM_SETSEL, (WPARAM)iStart, (LPARAM)iEnd);
   SendMessage(EM_REPLACESEL, (WPARAM)true, (LPARAM)"");
+  return min(iStart, iEnd);
 }
 
 /////////////////////////////////////////////////////////////////////////////

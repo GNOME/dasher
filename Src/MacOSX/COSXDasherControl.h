@@ -63,6 +63,24 @@ private:
   virtual void Speak(const std::string &strText, bool bInterrupt);
   virtual bool SupportsClipboard() {return true;}
   virtual void CopyToClipboard(const std::string &strText);
+  ///Control-mode editing commands not currently supported on MacOSX,
+  /// so just returns the current offset unchanged.
+  ///Could try to send arrow keys via LowLevelKeyboardHandling,
+  /// but at best we'd lose our context.
+  ///Really this will have to wait for either (a)reinstating an in-Dasher
+  /// text edit box, or (b) implementing the MacOSX input method API.
+  unsigned int ctrlMove(bool bForwards, CControlManager::EditDistance dist);
+
+  ///Control-mode editing commands not currently supported on MacOSX;
+  /// forward deletion returns current offset and does nothing,
+  /// backwards deletion we look for space/paragraph characters
+  /// and send corresponding # of (char-)deletes.
+  ///Could try to send complex keypresses (option-delete=word, line/file...
+  /// = select then delete?) via LowLevelKeyboardHandling, but at best we'd
+  /// lose our context.
+  ///Really this will have to wait for either (a)reinstating an in-Dasher
+  /// text edit box, or (b) implementing the MacOSX input method API.
+  unsigned int ctrlDelete(bool bForwards, CControlManager::EditDistance dist);
   ///
   /// Pass events coming from the core to the appropriate handler.
   ///

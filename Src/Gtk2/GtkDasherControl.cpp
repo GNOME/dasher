@@ -225,6 +225,16 @@ gtk_dasher_control_set_offset(GtkDasherControl *pControl, int iOffset) {
   pPrivate->pControl->SetOffset(iOffset);
 }
 
+gint gtk_dasher_control_ctrl_move(GtkDasherControl *pControl, bool bForwards, CControlManager::EditDistance dist) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  return dasher_editor_ctrl_move(pPrivate->pEditor, bForwards, dist);
+}
+
+gint gtk_dasher_control_ctrl_delete(GtkDasherControl *pControl, bool bForwards, CControlManager::EditDistance dist) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  return dasher_editor_ctrl_delete(pPrivate->pEditor, bForwards, dist);
+}
+
 void 
 gtk_dasher_control_external_key_down(GtkDasherControl *pControl, int iKeyVal) {
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);

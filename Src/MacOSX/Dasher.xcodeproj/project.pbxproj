@@ -317,8 +317,6 @@
 		19BEF4130C2291CE00275D06 /* colour.vowels2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF4060C2291CE00275D06 /* colour.vowels2.xml */; };
 		19BEF4140C2291CE00275D06 /* colour.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF4070C2291CE00275D06 /* colour.xml */; };
 		19BEF4150C2291CE00275D06 /* colour.xsl in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF4080C2291CE00275D06 /* colour.xsl */; };
-		19BEF41C0C22922400275D06 /* controllabels.dtd in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF4190C22922400275D06 /* controllabels.dtd */; };
-		19BEF41D0C22922400275D06 /* controllabels.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF41A0C22922400275D06 /* controllabels.xml */; };
 		19C190AB0C3267D700979F34 /* DasherViewAqua.h in Headers */ = {isa = PBXBuildFile; fileRef = 19C190A90C3267D700979F34 /* DasherViewAqua.h */; };
 		19C190AC0C3267D700979F34 /* DasherViewAqua.mm in Sources */ = {isa = PBXBuildFile; fileRef = 19C190AA0C3267D700979F34 /* DasherViewAqua.mm */; };
 		19C1AE820B130F18005C68D3 /* COSXMouseInput.h in Headers */ = {isa = PBXBuildFile; fileRef = 19C1AE810B130F18005C68D3 /* COSXMouseInput.h */; };
@@ -349,6 +347,9 @@
 		33135354102C6D8E00E28220 /* CompassMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 3313534C102C6D8E00E28220 /* CompassMode.h */; };
 		33135355102C6D8E00E28220 /* ButtonMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3313534D102C6D8E00E28220 /* ButtonMode.cpp */; };
 		33135356102C6D8E00E28220 /* ButtonMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 3313534E102C6D8E00E28220 /* ButtonMode.h */; };
+		334DE238135E3E68007C8D6D /* control.textlabels.xml in Resources */ = {isa = PBXBuildFile; fileRef = 334DE236135E3E68007C8D6D /* control.textlabels.xml */; };
+		334DE239135E3E68007C8D6D /* control.xml in Resources */ = {isa = PBXBuildFile; fileRef = 334DE237135E3E68007C8D6D /* control.xml */; };
+		334DE23B135E3F4B007C8D6D /* control.dtd in Resources */ = {isa = PBXBuildFile; fileRef = 334DE23A135E3F4B007C8D6D /* control.dtd */; };
 		335901B41009E5A900821255 /* ConversionHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 335901B31009E5A900821255 /* ConversionHelper.cpp */; };
 		335DB0FB100B332C006DB155 /* alphabet.spyDict.xml in Resources */ = {isa = PBXBuildFile; fileRef = 335DB0FA100B332C006DB155 /* alphabet.spyDict.xml */; };
 		335DB101100B3358006DB155 /* training_spyDict.txt in Resources */ = {isa = PBXBuildFile; fileRef = 335DB100100B3358006DB155 /* training_spyDict.txt */; };
@@ -718,8 +719,6 @@
 		19BEF4060C2291CE00275D06 /* colour.vowels2.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = colour.vowels2.xml; sourceTree = "<group>"; };
 		19BEF4070C2291CE00275D06 /* colour.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = colour.xml; sourceTree = "<group>"; };
 		19BEF4080C2291CE00275D06 /* colour.xsl */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = colour.xsl; sourceTree = "<group>"; };
-		19BEF4190C22922400275D06 /* controllabels.dtd */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = controllabels.dtd; sourceTree = "<group>"; };
-		19BEF41A0C22922400275D06 /* controllabels.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = controllabels.xml; sourceTree = "<group>"; };
 		19C190A90C3267D700979F34 /* DasherViewAqua.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherViewAqua.h; sourceTree = "<group>"; };
 		19C190AA0C3267D700979F34 /* DasherViewAqua.mm */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.objcpp; path = DasherViewAqua.mm; sourceTree = "<group>"; };
 		19C1AE810B130F18005C68D3 /* COSXMouseInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COSXMouseInput.h; sourceTree = "<group>"; };
@@ -758,6 +757,9 @@
 		3313534C102C6D8E00E28220 /* CompassMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompassMode.h; sourceTree = "<group>"; };
 		3313534D102C6D8E00E28220 /* ButtonMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ButtonMode.cpp; sourceTree = "<group>"; };
 		3313534E102C6D8E00E28220 /* ButtonMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonMode.h; sourceTree = "<group>"; };
+		334DE236135E3E68007C8D6D /* control.textlabels.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = control.textlabels.xml; sourceTree = "<group>"; };
+		334DE237135E3E68007C8D6D /* control.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = control.xml; sourceTree = "<group>"; };
+		334DE23A135E3F4B007C8D6D /* control.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = control.dtd; sourceTree = "<group>"; };
 		335901B31009E5A900821255 /* ConversionHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConversionHelper.cpp; sourceTree = "<group>"; };
 		335DB0FA100B332C006DB155 /* alphabet.spyDict.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.spyDict.xml; sourceTree = "<group>"; };
 		335DB100100B3358006DB155 /* training_spyDict.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_spyDict.txt; sourceTree = "<group>"; };
@@ -1252,16 +1254,6 @@
 			path = ../../Data/colours;
 			sourceTree = SOURCE_ROOT;
 		};
-		19BEF4180C22922400275D06 /* controllabels */ = {
-			isa = PBXGroup;
-			children = (
-				19BEF4190C22922400275D06 /* controllabels.dtd */,
-				19BEF41A0C22922400275D06 /* controllabels.xml */,
-			);
-			name = controllabels;
-			path = ../../Data/controllabels;
-			sourceTree = SOURCE_ROOT;
-		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1285,7 +1277,7 @@
 				19351BF304575C6C0000000A /* mktar.sh */,
 				190697550492B65B0000000A /* ReadmeDeveloper.txt */,
 				190697530492AACE0000000A /* Readme.html */,
-				19BEF4180C22922400275D06 /* controllabels */,
+				334DE235135E3E68007C8D6D /* control */,
 				19BEF3FC0C2291CE00275D06 /* colours */,
 				19BEF2CD0C228F7300275D06 /* alphabets */,
 				33E173A60F3E0B6400D19B38 /* training */,
@@ -1327,6 +1319,17 @@
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
+		};
+		334DE235135E3E68007C8D6D /* control */ = {
+			isa = PBXGroup;
+			children = (
+				334DE23A135E3F4B007C8D6D /* control.dtd */,
+				334DE236135E3E68007C8D6D /* control.textlabels.xml */,
+				334DE237135E3E68007C8D6D /* control.xml */,
+			);
+			name = control;
+			path = ../../Data/control;
+			sourceTree = SOURCE_ROOT;
 		};
 		33E173A60F3E0B6400D19B38 /* training */ = {
 			isa = PBXGroup;
@@ -1681,8 +1684,6 @@
 				19BEF4130C2291CE00275D06 /* colour.vowels2.xml in Resources */,
 				19BEF4140C2291CE00275D06 /* colour.xml in Resources */,
 				19BEF4150C2291CE00275D06 /* colour.xsl in Resources */,
-				19BEF41C0C22922400275D06 /* controllabels.dtd in Resources */,
-				19BEF41D0C22922400275D06 /* controllabels.xml in Resources */,
 				33E173C70F3E0B6400D19B38 /* Makefile.am in Resources */,
 				33E173C80F3E0B6400D19B38 /* training_albanian_SQ.txt in Resources */,
 				33E173CB0F3E0B6400D19B38 /* training_bengali_BD.txt in Resources */,
@@ -1713,6 +1714,9 @@
 				33E173E60F3E0B6400D19B38 /* training_welsh_GB.txt in Resources */,
 				335DB0FB100B332C006DB155 /* alphabet.spyDict.xml in Resources */,
 				335DB101100B3358006DB155 /* training_spyDict.txt in Resources */,
+				334DE238135E3E68007C8D6D /* control.textlabels.xml in Resources */,
+				334DE239135E3E68007C8D6D /* control.xml in Resources */,
+				334DE23B135E3F4B007C8D6D /* control.dtd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

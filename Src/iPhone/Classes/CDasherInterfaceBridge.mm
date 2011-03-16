@@ -180,42 +180,6 @@ void CDasherInterfaceBridge::ExternalEventHandler(Dasher::CEvent *pEvent) {
       }
 	  }
         break;
-    case EV_CONTROL:
-      switch (static_cast<CControlEvent *>(pEvent)->m_iID) {
-        case CControlManager::CTL_MOVE_FORWARD_CHAR:
-          [dasherApp move:EDIT_CHAR forwards:YES]; break;
-        case CControlManager::CTL_MOVE_FORWARD_WORD:
-          [dasherApp move:EDIT_WORD forwards:YES]; break;
-        case CControlManager::CTL_MOVE_FORWARD_LINE:
-          [dasherApp move:EDIT_LINE forwards:YES]; break;
-        case CControlManager::CTL_MOVE_FORWARD_FILE:
-          [dasherApp move:EDIT_FILE forwards:YES]; break;
-        case CControlManager::CTL_MOVE_BACKWARD_CHAR:
-          [dasherApp move:EDIT_CHAR forwards:NO]; break;
-        case CControlManager::CTL_MOVE_BACKWARD_WORD:
-          [dasherApp move:EDIT_WORD forwards:NO]; break;
-        case CControlManager::CTL_MOVE_BACKWARD_LINE:
-          [dasherApp move:EDIT_LINE forwards:NO]; break;
-        case CControlManager::CTL_MOVE_BACKWARD_FILE:
-          [dasherApp move:EDIT_FILE forwards:NO]; break;
-        case CControlManager::CTL_DELETE_FORWARD_CHAR:
-          [dasherApp del:EDIT_CHAR forwards:YES]; break;
-        case CControlManager::CTL_DELETE_FORWARD_WORD:
-          [dasherApp del:EDIT_WORD forwards:YES]; break;
-        case CControlManager::CTL_DELETE_FORWARD_LINE:
-          [dasherApp del:EDIT_LINE forwards:YES]; break;
-        case CControlManager::CTL_DELETE_FORWARD_FILE:
-          [dasherApp del:EDIT_FILE forwards:YES]; break;
-        case CControlManager::CTL_DELETE_BACKWARD_CHAR:
-          [dasherApp del:EDIT_CHAR forwards:NO]; break;
-        case CControlManager::CTL_DELETE_BACKWARD_WORD:
-          [dasherApp del:EDIT_WORD forwards:NO]; break;
-        case CControlManager::CTL_DELETE_BACKWARD_LINE:
-          [dasherApp del:EDIT_LINE forwards:NO]; break;
-        case CControlManager::CTL_DELETE_BACKWARD_FILE:
-        [dasherApp del:EDIT_FILE forwards:NO]; break;
-      }
-      break;
     case EV_LOCK:
     {
       CLockEvent *evt(static_cast<CLockEvent *>(pEvent));
@@ -259,6 +223,14 @@ string CDasherInterfaceBridge::GetAllContext() {
 
 string CDasherInterfaceBridge::GetContext(unsigned int iOffset, unsigned int iLength) {
   return StdStringFromNSString([dasherApp textAtOffset:iOffset Length:iLength]);
+}
+
+unsigned int CDasherInterfaceBridge::ctrlMove(bool bForwards, CControlManager::EditDistance dist) {
+  return [dasherApp move:dist forwards:bForwards];
+}
+
+unsigned int CDasherInterfaceBridge::ctrlDelete(bool bForwards, CControlManager::EditDistance dist) {
+  return [dasherApp del:dist forwards:bForwards];
 }
 
 int CDasherInterfaceBridge::GetFileSize(const std::string &strFileName) {

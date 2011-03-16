@@ -251,6 +251,7 @@
 		337691710F9CE8630083FEB2 /* StringParamController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 337691700F9CE8630083FEB2 /* StringParamController.mm */; };
 		337691860F9CEFC70083FEB2 /* InputMethodSelector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 337691850F9CEFC70083FEB2 /* InputMethodSelector.mm */; };
 		3378A23F1335425300A96C5D /* AbstractXMLParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3378A23D1335425200A96C5D /* AbstractXMLParser.cpp */; };
+		3378A267133543B800A96C5D /* control.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3378A266133543B800A96C5D /* control.xml */; };
 		337ECC1B10DD5E0700D0C6A5 /* ExpansionPolicy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 337ECC1910DD5E0700D0C6A5 /* ExpansionPolicy.cpp */; };
 		339F8A330FF5088000282847 /* CalibrationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 339F8A320FF5088000282847 /* CalibrationController.mm */; };
 		33C71AF20FF7B51700A20992 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 33C71AF10FF7B51700A20992 /* Default.png */; };
@@ -697,6 +698,7 @@
 		337691850F9CEFC70083FEB2 /* InputMethodSelector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InputMethodSelector.mm; sourceTree = "<group>"; };
 		3378A23D1335425200A96C5D /* AbstractXMLParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AbstractXMLParser.cpp; sourceTree = "<group>"; };
 		3378A23E1335425200A96C5D /* AbstractXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractXMLParser.h; sourceTree = "<group>"; };
+		3378A266133543B800A96C5D /* control.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = control.xml; path = ../../Data/control/control.xml; sourceTree = SOURCE_ROOT; };
 		337ECC1910DD5E0700D0C6A5 /* ExpansionPolicy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExpansionPolicy.cpp; sourceTree = "<group>"; };
 		337ECC1A10DD5E0700D0C6A5 /* ExpansionPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpansionPolicy.h; sourceTree = "<group>"; };
 		339F8A310FF5088000282847 /* CalibrationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalibrationController.h; sourceTree = "<group>"; };
@@ -814,6 +816,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				3378A266133543B800A96C5D /* control.xml */,
 				332F3495103D8F54008448D7 /* colours */,
 				331F28B60F7A9C270044EB9C /* alphabets */,
 				33627F980F7A82CE000C8818 /* training */,
@@ -1537,6 +1540,7 @@
 				3302678111B8026900C07880 /* scissors.png in Resources */,
 				3302678C11B8040D00C07880 /* spanner_lg.png in Resources */,
 				3302678D11B8040D00C07880 /* spanner.png in Resources */,
+				3378A267133543B800A96C5D /* control.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

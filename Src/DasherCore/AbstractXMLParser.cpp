@@ -8,7 +8,9 @@
  */
 
 #include "AbstractXMLParser.h"
-
+#ifdef DEBUG
+#include <iostream>
+#endif
 bool AbstractXMLParser::ParseFile(const std::string &strFilename) {
   FILE *Input;
   if((Input = fopen(strFilename.c_str(), "r")) == (FILE *) 0) {
@@ -32,6 +34,9 @@ bool AbstractXMLParser::ParseFile(const std::string &strFilename) {
     Done = len < sizeof(Buffer);
     if(XML_Parse(Parser, Buffer, len, Done) == XML_STATUS_ERROR) {
       //TODO, should we make sure we return false, if this happens?
+#ifdef DEBUG
+      std::cout << "Parse error! on " << std::string(Buffer,len) << std::endl;
+#endif
       break;
     }
   } while (!Done);
@@ -42,7 +47,7 @@ bool AbstractXMLParser::ParseFile(const std::string &strFilename) {
 }
 
 void AbstractXMLParser::XmlCData(const XML_Char *str, int len) {
-  DASHER_ASSERT(false);
+
 }
 
 void AbstractXMLParser::XML_Escape(std::string &Input, bool Attribute) {

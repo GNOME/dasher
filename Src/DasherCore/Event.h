@@ -10,14 +10,13 @@ namespace Dasher {
   class CEvent;
   class CParameterNotificationEvent;
   class CEditEvent;
-  class CControlEvent;
   class CLockEvent;
   class CMessageEvent;
   class CScreenGeomEvent;
 }
 
 enum {
-  EV_PARAM_NOTIFY = 1, EV_EDIT, EV_CONTROL, EV_LOCK, EV_MESSAGE, EV_SCREEN_GEOM
+  EV_PARAM_NOTIFY = 1, EV_EDIT, EV_LOCK, EV_MESSAGE, EV_SCREEN_GEOM
 };
 
 /// \ingroup Core
@@ -49,14 +48,6 @@ public:
   const int m_iEditType;
   const std::string m_sText;
   const int m_iOffset;
-};
-
-class Dasher::CControlEvent:public Dasher::CEvent {
-public:
-  CControlEvent(int iID) : CEvent(EV_CONTROL), m_iID(iID) {
-  };
-  
-  const int m_iID;
 };
 
 class Dasher::CLockEvent : public Dasher::CEvent {

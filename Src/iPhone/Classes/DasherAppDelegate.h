@@ -12,13 +12,6 @@
 #import "TextView.h"
 #import "Actions.h"
 
-typedef enum {
-  EDIT_CHAR,
-  EDIT_WORD,
-  EDIT_LINE,
-  EDIT_FILE
-} EEditDistance;
-
 @class EAGLView;
 @class FliteTTS;
 
@@ -46,8 +39,8 @@ typedef enum {
 - (void)setAlphabet:(const CAlphInfo *)pAlph;
 - (void)outputCallback:(NSString *)s;
 - (void)deleteCallback:(NSString *)s;
-- (void)move:(EEditDistance)amt forwards:(BOOL)bForwards;
-- (void)del:(EEditDistance)amt forwards:(BOOL)bForwards;
+- (unsigned int)move:(CControlManager::EditDistance)amt forwards:(BOOL)bForwards;
+- (unsigned int)del:(CControlManager::EditDistance)amt forwards:(BOOL)bForwards;
 - (BOOL)supportsSpeech;
 - (void)speak:(NSString *)text interrupt:(BOOL)bInt;
 - (void)copy:(NSString *)text;

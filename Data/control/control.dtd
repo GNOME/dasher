@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!ELEMENT nodes (node*)>
+
+<!ELEMENT node ((node|move|delete|ref|root|alph)*)>
+<!--by specifying the name attribute as type ID rather than CDATA, the XML
+    validator checks that all IDs are distinct:-->
+<!ATTLIST node name ID #IMPLIED>
+<!ATTLIST node label CDATA #REQUIRED>
+<!ATTLIST node color CDATA #IMPLIED>
+
+<!ELEMENT move EMPTY>
+<!ATTLIST move forward (yes|no) #REQUIRED>
+<!ATTLIST move dist (char|word|line|file) #REQUIRED>
+
+<!ELEMENT delete EMPTY>
+<!ATTLIST delete forward (yes|no) #REQUIRED>
+<!ATTLIST delete dist (char|word|line|file) #REQUIRED>
+
+<!ELEMENT ref EMPTY>
+<!--by specifying the name attribute as type IDREF rather than CDATA, the XML
+    validator checks that a node with that name (as an ID) exists-->
+<!ATTLIST ref name IDREF #REQUIRED>
+
+<!ELEMENT root EMPTY>
+
+<!ELEMENT alph EMPTY>

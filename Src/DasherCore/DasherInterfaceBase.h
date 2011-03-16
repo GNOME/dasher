@@ -39,7 +39,7 @@
 #include "ColourIO.h"
 #include "InputFilter.h"
 #include "ModuleManager.h"
-
+#include "ControlManager.h"
 #include <set>
 #include <algorithm>
 
@@ -217,6 +217,21 @@ public:
   /// the specified text to the clipboard. (Default implementation does nothing).
   virtual void CopyToClipboard(const std::string &text) {}
 
+  ///Called to execute a control-mode "move" command.
+  ///\param bForwards true to move forwards (right), false for backwards
+  ///\param dist how far to move: character, word, line, file. (Usually defined
+  /// by OS, e.g. for non-european languages)
+  ///\return the offset, into the edit buffer of the cursor *after* the move.
+  virtual unsigned int ctrlMove(bool bForwards, CControlManager::EditDistance dist)=0;
+ 
+  ///Called to execute a control-mode "delete" command.
+  ///\param bForwards true to delete forwards (right), false for backwards
+  ///\param dist how much to delete: character, word, line, file. (Usually defined
+  /// by OS, e.g. for non-european languages)
+  ///\return the offset, into the edit buffer, of the cursor *after* the delete
+  /// (for forwards deletion, this will be the same as the offset *before*)
+  virtual unsigned int ctrlDelete(bool bForwards, CControlManager::EditDistance dist)=0;
+ 
   class TextAction {
   public:
     TextAction(CDasherInterfaceBase *pMgr);

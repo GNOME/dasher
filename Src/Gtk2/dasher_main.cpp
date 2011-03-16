@@ -25,13 +25,9 @@
 #include "DasherAppSettings.h"
 #include "dasher_editor_internal.h"
 #include "dasher_editor_external.h"
-
+#include "math.h"
 /* Static instance of singleton, USE SPARINGLY */
 static DasherMain *g_pDasherMain = NULL; 
-
-// TODO: The following global variable makes control mode editing work
-// - this needs to be sorted out properly.
-static gboolean g_bSend = true;
 
 struct _DasherMainPrivate {
   GtkBuilder *pXML;
@@ -152,7 +148,6 @@ extern "C" gboolean edit_key_release(GtkWidget *widget, GdkEventKey *event, gpoi
 /* ... Temporary test/debug functions */
 extern "C" gboolean test_focus_handler(GtkWidget *pWidget, GtkDirectionType iDirection, gpointer *pUserData);
 
-extern "C" void handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer data);
 extern "C" void handle_start_event(GtkDasherControl *pDasherControl, gpointer data);
 extern "C" gint dasher_main_key_snooper(GtkWidget *pWidget, GdkEventKey *pEvent, gpointer pUserData);
 
@@ -1226,9 +1221,6 @@ dasher_main_cb_context_changed(DasherEditor *pEditor, gpointer pUserData) {
   if(!g_pDasherMain)
     return;
 
-  if(!g_bSend)
-    return;
-
   DasherMain *pDasherMain = DASHER_MAIN(g_pDasherMain);
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pDasherMain);
 
@@ -1304,22 +1296,6 @@ extern "C" gboolean
 test_focus_handler(GtkWidget *pWidget, GtkDirectionType iDirection, gpointer *pUserData) {
   return FALSE;
 }
-
-extern "C" void 
-handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer data) { 
-  if(!g_pDasherMain)
-    return;
-  
-  // TODO: This is a horrible hack here to make the release work!  
-
-  g_bSend = false;
-
-  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(g_pDasherMain);
-  dasher_editor_handle_control(pPrivate->pEditor, iEvent);
-  g_bSend = true;
-  // ---
-}
-
 
 extern "C" void 
 handle_start_event(GtkDasherControl *pDasherControl, gpointer data) { 

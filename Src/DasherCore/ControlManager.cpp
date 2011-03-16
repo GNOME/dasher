@@ -21,6 +21,7 @@
 #include "../Common/Common.h"
 
 #include "ControlManager.h"
+#include "DasherInterfaceBase.h"
 #include <cstring>
 
 using namespace Dasher;
@@ -62,18 +63,6 @@ CDasherNode *CControlBase::GetRoot(CDasherNode *pParent, unsigned int iLower, un
 
 CControlBase::NodeTemplate::NodeTemplate(const string &strLabel,int iColour)
 : m_strLabel(strLabel), m_iColour(iColour) {
-}
-
-CControlBase::EventBroadcast::EventBroadcast(int iEvent, const string &strLabel, int iColour)
-: NodeTemplate(strLabel, iColour), m_iEvent(iEvent) {
-
-}
-
-void CControlBase::EventBroadcast::happen(CContNode *pNode) {
-  CControlEvent oEvent(m_iEvent);
-  // TODO: Need to reimplement this
-  //  m_pNCManager->m_bContextSensitive=false;
-  pNode->mgr()->m_pNCManager->InsertEvent(&oEvent);
 }
 
 CControlBase::CContNode::CContNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, NodeTemplate *pTemplate, CControlBase *pMgr)
@@ -134,264 +123,197 @@ void CControlBase::CContNode::Leave() {
   }
 }
 
-COrigNodes::COrigNodes(CNodeCreationManager *pNCManager, CDasherInterfaceBase *pInterface) : CControlBase(pNCManager), m_pInterface(pInterface) {
-  m_iNextID = 0;
+const vector<CControlBase::NodeTemplate *> &CControlParser::parsedNodes() {
+  return m_vParsed;
+}
 
-  // TODO: Need to fix this on WinCE build
-#ifndef _WIN32_WCE
-  if(!LoadLabelsFromFile(m_pNCManager->GetStringParameter(SP_USER_LOC) + "controllabels.xml")) {
-    //  something went wrong
-    if (!LoadLabelsFromFile(m_pNCManager->GetStringParameter(SP_SYSTEM_LOC)+"controllabels.xml")) {
-      // all else fails do something default
-      LoadDefaultLabels();
+class XMLNodeTemplate : public CControlBase::NodeTemplate {
+public:
+  XMLNodeTemplate(const string &label, int color) : NodeTemplate(label, color) {
+  }
+
+  void happen(CControlBase::CContNode *pNode) {
+    for (vector<Action*>::iterator it=actions.begin(); it!=actions.end(); it++)
+      (*it)->happen(pNode);
+  }
+
+  ~XMLNodeTemplate() {
+    for (vector<Action*>::iterator it=actions.begin(); it!=actions.end(); it++)
+      delete *it;
+  }
+
+  vector<CControlBase::Action*> actions;
+};
+
+bool CControlParser::LoadFile(const string &strFileName) {
+  ///Template used for all node defns read in from XML - just
+  /// execute a list of Actions.
+
+  class ParseHandler : public AbstractXMLParser {
+    typedef CControlBase::NodeTemplate NodeTemplate;
+  protected:
+    void XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
+      vector<NodeTemplate *> &parent(nodeStack.empty() ? m_pMgr->m_vParsed : nodeStack.back()->successors);
+      if (strcmp(name,"node")==0) {
+        string label,nodeName; int color=-1;
+        while (*atts) {
+          if (strcmp(*atts,"name")==0) {
+            nodeName=*(atts+1);
+            DASHER_ASSERT(namedNodes.find(nodeName)==namedNodes.end());
+          } else if (strcmp(*atts,"label")==0) {
+            label = *(atts+1);
+          } else if (strcmp(*atts,"color")==0) {
+            color = atoi(*(atts+1));
+          }
+          atts+=2;
+        }
+        XMLNodeTemplate *n = new XMLNodeTemplate(label,color);
+        parent.push_back(n);
+        nodeStack.push_back(n);
+        if (nodeName!="")
+          namedNodes[nodeName]=n; //all refs resolved at end.
+      } else if (strcmp(name,"ref")==0) {
+        string target;
+        while (*atts) {
+          if (strcmp(*atts,"name")==0)
+            target=*(atts+1);
+          atts+=2;
+        }
+        map<string,NodeTemplate*>::iterator it=namedNodes.find(target);
+        if (it!=namedNodes.end())
+          parent.push_back(it->second);
+        else {
+          parent.push_back(NULL);
+          unresolvedRefs.push_back(pair<NodeTemplate**,string>(&(parent.back()),target));
+        }
+      } else if (strcmp(name,"alph")==0) {
+        parent.push_back(NULL);
+      } else if (NodeTemplate *n = m_pMgr->parseOther(name, atts)) {
+        parent.push_back(n);
+      } else if (CControlBase::Action *a=m_pMgr->parseAction(name, atts)) {
+        DASHER_ASSERT(!nodeStack.empty());
+        nodeStack.back()->actions.push_back(a);
+      }
     }
-  }
-  ConnectNodes();
-  SetRootTemplate(m_perId[CTL_ROOT]);
-#endif
-}
 
-bool COrigNodes::LoadLabelsFromFile(string strFileName) {
-  int iFileSize;
-  {
-    struct stat sFileInfo;
-    if (stat(strFileName.c_str(), &sFileInfo)==-1) return false; //fail
-    iFileSize = sFileInfo.st_size;
-  }
-  // Implement Unicode names via xml from file:
-  char* szFileBuffer = new char[iFileSize];
-  ifstream oFile(strFileName.c_str());
-  oFile.read(szFileBuffer, iFileSize);
-  XML_Parser Parser = XML_ParserCreate(NULL);
+    void XmlEndHandler(const XML_Char *szName) {
+      if (strcmp(szName,"node")==0) {
+        DASHER_ASSERT(!nodeStack.empty());
+        nodeStack.pop_back();
+      }
+    }
 
-  // Members passed as callbacks must be static, so don't have a "this" pointer.
-  // We give them one through horrible casting so they can effect changes.
-  XML_SetUserData(Parser, this);
+  private:
+    ///Following only used in parsing...
+    map<string,NodeTemplate*> namedNodes;
+    vector<pair<NodeTemplate**,string> > unresolvedRefs;
+    vector<XMLNodeTemplate*> nodeStack;
+    CControlParser *m_pMgr;
+  public:
+    ParseHandler(CControlParser *pMgr) : m_pMgr(pMgr) {
+    }
+    void resolveRefs() {
+      //resolve any forward references to nodes declared later
+      for (vector<pair<NodeTemplate**,string> >::iterator it=unresolvedRefs.begin(); it!=unresolvedRefs.end(); it++) {
+        map<string,NodeTemplate*>::iterator target = namedNodes.find(it->second);
+        if (target != namedNodes.end())
+          *(it->first) = target->second;
+      }
+      //somehow, need to clear out any refs that weren't resolved...???
+    }
+  };
 
-  XML_SetElementHandler(Parser, XmlStartHandler, XmlEndHandler);
-  XML_SetCharacterDataHandler(Parser, XmlCDataHandler);
-  XML_Parse(Parser, szFileBuffer, iFileSize, false);
-  //  deallocate resources
-  XML_ParserFree(Parser);
-  oFile.close();
-  delete [] szFileBuffer;
-  return 0;
-}
-
-COrigNodes::Pause::Pause(const string &strLabel, int iColour) : NodeTemplate(strLabel,iColour) {
-}
-void COrigNodes::Pause::happen(CContNode *pNode) {
-  static_cast<COrigNodes *>(pNode->mgr())->m_pNCManager->SetBoolParameter(BP_DASHER_PAUSED,true);
-}
-
-COrigNodes::Stop::Stop(const string &strLabel, int iColour) : NodeTemplate(strLabel, iColour) {
-}
-void COrigNodes::Stop::happen(CContNode *pNode) {
-  static_cast<COrigNodes *>(pNode->mgr())->m_pInterface->Stop();
-}
-
-bool COrigNodes::LoadDefaultLabels() {
-  //hmmm. This is probably not the most flexible policy...
-  if (!m_perId.empty()) return false;
-
-  // TODO: Need to figure out how to handle offset changes here
-  RegisterNode(CTL_ROOT, "Control", 8);
-  RegisterNode(CTL_STOP, "Stop", 242);
-  RegisterNode(CTL_PAUSE, "Pause", 241);
-  RegisterNode(CTL_MOVE, "Move", -1);
-  RegisterNode(CTL_MOVE_FORWARD, "->", -1);
-  RegisterNode(CTL_MOVE_FORWARD_CHAR, ">", -1);
-  RegisterNode(CTL_MOVE_FORWARD_WORD, ">>", -1);
-  RegisterNode(CTL_MOVE_FORWARD_LINE, ">>>", -1);
-  RegisterNode(CTL_MOVE_FORWARD_FILE, ">>>>", -1);
-  RegisterNode(CTL_MOVE_BACKWARD, "<-", -1);
-  RegisterNode(CTL_MOVE_BACKWARD_CHAR, "<", -1);
-  RegisterNode(CTL_MOVE_BACKWARD_WORD, "<<", -1);
-  RegisterNode(CTL_MOVE_BACKWARD_LINE, "<<<", -1);
-  RegisterNode(CTL_MOVE_BACKWARD_FILE, "<<<<", -1);
-  RegisterNode(CTL_DELETE, "Delete", -1);
-  RegisterNode(CTL_DELETE_FORWARD, "->", -1);
-  RegisterNode(CTL_DELETE_FORWARD_CHAR, ">", -1);
-  RegisterNode(CTL_DELETE_FORWARD_WORD, ">>", -1);
-  RegisterNode(CTL_DELETE_FORWARD_LINE, ">>>", -1);
-  RegisterNode(CTL_DELETE_FORWARD_FILE, ">>>>", -1);
-  RegisterNode(CTL_DELETE_BACKWARD, "<-", -1);
-  RegisterNode(CTL_DELETE_BACKWARD_CHAR, "<", -1);
-  RegisterNode(CTL_DELETE_BACKWARD_WORD, "<<", -1);
-  RegisterNode(CTL_DELETE_BACKWARD_LINE, "<<<", -1);
-  RegisterNode(CTL_DELETE_BACKWARD_FILE, "<<<<", -1);
+  ParseHandler p(this);
+  if (!p.ParseFile(strFileName)) return false;
+  p.resolveRefs();
   return true;
 }
 
-void COrigNodes::ConnectNodes() {
-  ConnectNode(-1, CTL_ROOT, -2);
-  ConnectNode(CTL_STOP, CTL_ROOT, -2);
-  ConnectNode(CTL_PAUSE, CTL_ROOT, -2);
-  ConnectNode(CTL_MOVE, CTL_ROOT, -2);
-  ConnectNode(CTL_DELETE, CTL_ROOT, -2);
-
-  ConnectNode(-1, CTL_STOP, -2);
-  ConnectNode(CTL_ROOT, CTL_STOP, -2);
-
-  ConnectNode(-1, CTL_PAUSE, -2);
-  ConnectNode(CTL_ROOT, CTL_PAUSE, -2);
-
-  ConnectNode(CTL_MOVE_FORWARD, CTL_MOVE, -2);
-  ConnectNode(CTL_MOVE_BACKWARD, CTL_MOVE, -2);
-
-  ConnectNode(CTL_MOVE_FORWARD_CHAR, CTL_MOVE_FORWARD, -2);
-  ConnectNode(CTL_MOVE_FORWARD_WORD, CTL_MOVE_FORWARD, -2);
-  ConnectNode(CTL_MOVE_FORWARD_LINE, CTL_MOVE_FORWARD, -2);
-  ConnectNode(CTL_MOVE_FORWARD_FILE, CTL_MOVE_FORWARD, -2);
-
-  ConnectNode(CTL_ROOT, CTL_MOVE_FORWARD_CHAR, -2);
-  ConnectNode(CTL_MOVE_FORWARD, CTL_MOVE_FORWARD_CHAR, -2);
-  ConnectNode(CTL_MOVE_BACKWARD, CTL_MOVE_FORWARD_CHAR, -2);
-
-  ConnectNode(CTL_ROOT, CTL_MOVE_FORWARD_WORD, -2);
-  ConnectNode(CTL_MOVE_FORWARD, CTL_MOVE_FORWARD_WORD, -2);
-  ConnectNode(CTL_MOVE_BACKWARD, CTL_MOVE_FORWARD_WORD, -2);
-
-  ConnectNode(CTL_ROOT, CTL_MOVE_FORWARD_LINE, -2);
-  ConnectNode(CTL_MOVE_FORWARD, CTL_MOVE_FORWARD_LINE, -2);
-  ConnectNode(CTL_MOVE_BACKWARD, CTL_MOVE_FORWARD_LINE, -2);
-
-  ConnectNode(CTL_ROOT, CTL_MOVE_FORWARD_FILE, -2);
-  ConnectNode(CTL_MOVE_FORWARD, CTL_MOVE_FORWARD_FILE, -2);
-  ConnectNode(CTL_MOVE_BACKWARD, CTL_MOVE_FORWARD_FILE, -2);
-
-  ConnectNode(CTL_MOVE_BACKWARD_CHAR, CTL_MOVE_BACKWARD, -2);
-  ConnectNode(CTL_MOVE_BACKWARD_WORD, CTL_MOVE_BACKWARD, -2);
-  ConnectNode(CTL_MOVE_BACKWARD_LINE, CTL_MOVE_BACKWARD, -2);
-  ConnectNode(CTL_MOVE_BACKWARD_FILE, CTL_MOVE_BACKWARD, -2);
-
-  ConnectNode(CTL_ROOT, CTL_MOVE_BACKWARD_CHAR, -2);
-  ConnectNode(CTL_MOVE_FORWARD, CTL_MOVE_BACKWARD_CHAR, -2);
-  ConnectNode(CTL_MOVE_BACKWARD, CTL_MOVE_BACKWARD_CHAR, -2);
-
-  ConnectNode(CTL_ROOT, CTL_MOVE_BACKWARD_WORD, -2);
-  ConnectNode(CTL_MOVE_FORWARD, CTL_MOVE_BACKWARD_WORD, -2);
-  ConnectNode(CTL_MOVE_BACKWARD, CTL_MOVE_BACKWARD_WORD, -2);
-
-  ConnectNode(CTL_ROOT, CTL_MOVE_BACKWARD_LINE, -2);
-  ConnectNode(CTL_MOVE_FORWARD, CTL_MOVE_BACKWARD_LINE, -2);
-  ConnectNode(CTL_MOVE_BACKWARD, CTL_MOVE_BACKWARD_LINE, -2);
-
-  ConnectNode(CTL_ROOT, CTL_MOVE_BACKWARD_FILE, -2);
-  ConnectNode(CTL_MOVE_FORWARD, CTL_MOVE_BACKWARD_FILE, -2);
-  ConnectNode(CTL_MOVE_BACKWARD, CTL_MOVE_BACKWARD_FILE, -2);
-
-  ConnectNode(CTL_DELETE_FORWARD, CTL_DELETE, -2);
-  ConnectNode(CTL_DELETE_BACKWARD, CTL_DELETE, -2);
-
-  ConnectNode(CTL_DELETE_FORWARD_CHAR, CTL_DELETE_FORWARD, -2);
-  ConnectNode(CTL_DELETE_FORWARD_WORD, CTL_DELETE_FORWARD, -2);
-  ConnectNode(CTL_DELETE_FORWARD_LINE, CTL_DELETE_FORWARD, -2);
-  ConnectNode(CTL_DELETE_FORWARD_FILE, CTL_DELETE_FORWARD, -2);
-
-  ConnectNode(CTL_ROOT, CTL_DELETE_FORWARD_CHAR, -2);
-  ConnectNode(CTL_DELETE_FORWARD, CTL_DELETE_FORWARD_CHAR, -2);
-  ConnectNode(CTL_DELETE_BACKWARD, CTL_DELETE_FORWARD_CHAR, -2);
-
-  ConnectNode(CTL_ROOT, CTL_DELETE_FORWARD_WORD, -2);
-  ConnectNode(CTL_DELETE_FORWARD, CTL_DELETE_FORWARD_WORD, -2);
-  ConnectNode(CTL_DELETE_BACKWARD, CTL_DELETE_FORWARD_WORD, -2);
-
-  ConnectNode(CTL_ROOT, CTL_DELETE_FORWARD_LINE, -2);
-  ConnectNode(CTL_DELETE_FORWARD, CTL_DELETE_FORWARD_LINE, -2);
-  ConnectNode(CTL_DELETE_BACKWARD, CTL_DELETE_FORWARD_LINE, -2);
-
-  ConnectNode(CTL_ROOT, CTL_DELETE_FORWARD_FILE, -2);
-  ConnectNode(CTL_DELETE_FORWARD, CTL_DELETE_FORWARD_FILE, -2);
-  ConnectNode(CTL_DELETE_BACKWARD, CTL_DELETE_FORWARD_FILE, -2);
-
-  ConnectNode(CTL_DELETE_BACKWARD_CHAR, CTL_DELETE_BACKWARD, -2);
-  ConnectNode(CTL_DELETE_BACKWARD_WORD, CTL_DELETE_BACKWARD, -2);
-  ConnectNode(CTL_DELETE_BACKWARD_LINE, CTL_DELETE_BACKWARD, -2);
-  ConnectNode(CTL_DELETE_BACKWARD_FILE, CTL_DELETE_BACKWARD, -2);
-
-  ConnectNode(CTL_ROOT, CTL_DELETE_BACKWARD_CHAR, -2);
-  ConnectNode(CTL_DELETE_FORWARD, CTL_DELETE_BACKWARD_CHAR, -2);
-  ConnectNode(CTL_DELETE_BACKWARD, CTL_DELETE_BACKWARD_CHAR, -2);
-
-  ConnectNode(CTL_ROOT, CTL_DELETE_BACKWARD_WORD, -2);
-  ConnectNode(CTL_DELETE_FORWARD, CTL_DELETE_BACKWARD_WORD, -2);
-  ConnectNode(CTL_DELETE_BACKWARD, CTL_DELETE_BACKWARD_WORD, -2);
-
-  ConnectNode(CTL_ROOT, CTL_DELETE_BACKWARD_LINE, -2);
-  ConnectNode(CTL_DELETE_FORWARD, CTL_DELETE_BACKWARD_LINE, -2);
-  ConnectNode(CTL_DELETE_BACKWARD, CTL_DELETE_BACKWARD_LINE, -2);
-
-  ConnectNode(CTL_ROOT, CTL_DELETE_BACKWARD_FILE, -2);
-  ConnectNode(CTL_DELETE_FORWARD, CTL_DELETE_BACKWARD_FILE, -2);
-  ConnectNode(CTL_DELETE_BACKWARD, CTL_DELETE_BACKWARD_FILE, -2);
-}
-
-COrigNodes::~COrigNodes() {
-  for (std::map<int,NodeTemplate *>::iterator it = m_perId.begin(); it!=m_perId.end(); it++)
-    delete it->second;
-}
-
-void COrigNodes::RegisterNode( int iID, std::string strLabel, int iColour ) {
-  DASHER_ASSERT(m_perId.count(iID)==0);
-  if (iID == CTL_STOP) m_perId[iID] = new Stop(strLabel,iColour);
-  else if (iID == CTL_PAUSE) m_perId[iID] = new Pause(strLabel, iColour);
-  else m_perId[iID] = new EventBroadcast(iID,strLabel,iColour);
-}
-
-void COrigNodes::ConnectNode(int iChild, int iParent, int iAfter) {
-  //ACL duplicating old functionality here. Idea had been to do
-  // something with iAfter "(eventually -1 = start, -2 = end)", but
-  // since this wasn't used, and this is all legacy code anyway ;-),
-  // I'm leaving as is...
-
-  NodeTemplate *pParent(m_perId[iParent]);
-  if (pParent) //Note - old code only checked this if iChild==-1...?!
-    pParent->successors.push_back(iChild==-1 ? NULL : m_perId[iChild]);
-}
-
-void COrigNodes::DisconnectNode(int iChild, int iParent) {
-  NodeTemplate *pChild(m_perId[iChild]), *pParent(m_perId[iParent]);
-  if (pParent && (pChild || iChild == -1)) {
-    for (vector<NodeTemplate *>::iterator it = pParent->successors.begin(); it!=pParent->successors.end(); it++) {
-      if (*it == pChild) {
-        pParent->successors.erase(it);
-      }
-    }
-  }
-}
-
-void COrigNodes::XmlStartHandler(void *pUserData, const XML_Char *szName, const XML_Char **aszAttr) {
-  COrigNodes *pMgr(static_cast<COrigNodes *>(pUserData));
-  int colour=-1;
-  string str;
-  if(0==strcmp(szName, "label"))
-  {
-    for(int i = 0; aszAttr[i]; i += 2)
-    {
-      if(0==strcmp(aszAttr[i],"value"))
-      {
-        str = string(aszAttr[i+1]);
-      }
-      if(0==strcmp(aszAttr[i],"color"))
-      {
-        colour = atoi(aszAttr[i+1]);
-      }
-    }
-    pMgr->RegisterNode(pMgr->m_iNextID++, str, colour);
-  }
-}
-
-void COrigNodes::XmlEndHandler(void *pUserData, const XML_Char *szName) {
-}
-
-void COrigNodes::XmlCDataHandler(void *pUserData, const XML_Char *szData, int iLength){
-}
-
 CControlManager::CControlManager(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pInterface)
-: CDasherComponent(pEventHandler, pSettingsStore), COrigNodes(pNCManager, pInterface), m_pSpeech(NULL), m_pCopy(NULL) {
+: CDasherComponent(pEventHandler, pSettingsStore), CControlBase(pNCManager), m_pInterface(pInterface), m_pSpeech(NULL), m_pCopy(NULL) {
+  //TODO, used to be able to change label+colour of root/pause/stop from controllabels.xml
+  // (or, get the root node title "control" from the alphabet!)
+  SetRootTemplate(new NodeTemplate("Control",8)); //default NodeTemplate does nothing
+  GetRootTemplate()->successors.push_back(NULL);
+
+  m_pPause = new Pause("Pause",241);
+  m_pPause->successors.push_back(NULL);
+  m_pPause->successors.push_back(GetRootTemplate());
+  m_pStop = new MethodTemplate<CDasherInterfaceBase>("Stop", 242, pInterface, &CDasherInterfaceBase::Stop);
+  m_pStop->successors.push_back(NULL);
+  m_pStop->successors.push_back(GetRootTemplate());
+
+  //TODO, have a parameter to try first, and if that fails:
+  if(!LoadFile(m_pNCManager->GetStringParameter(SP_USER_LOC) + "control.xml")) {
+    LoadFile(m_pNCManager->GetStringParameter(SP_SYSTEM_LOC)+"control.xml");
+    //if that fails, we'll have no editing functions. Fine -
+    // doesn't seem vital enough to hardcode a fallback as well!
+  }
 
   updateActions();
+}
+
+CControlManager::Pause::Pause(const string &strLabel, int iColour) : NodeTemplate(strLabel,iColour) {
+}
+void CControlManager::Pause::happen(CContNode *pNode) {
+  static_cast<CControlManager *>(pNode->mgr())->m_pNCManager->SetBoolParameter(BP_DASHER_PAUSED,true);
+}
+
+CControlBase::NodeTemplate *CControlManager::parseOther(const XML_Char *name, const XML_Char **atts) {
+  if (strcmp(name,"root")==0) return GetRootTemplate();
+  return CControlParser::parseOther(name, atts);
+}
+
+CControlBase::Action *CControlManager::parseAction(const XML_Char *name, const XML_Char **atts) {
+  if (strcmp(name,"delete")==0 || strcmp(name,"move")==0) {
+    bool bForwards=true; //pick some defaults...
+    EditDistance dist=EDIT_WORD; // (?!)
+    while (*atts) {
+      if (strcmp(*atts,"forward")==0)
+        bForwards=(strcmp(*(atts+1),"yes")==0 || strcmp(*(atts+1),"true")==0 || strcmp(*(atts+1),"on")==0);
+      else if (strcmp(*atts,"dist")==0) {
+        if (strcmp(*(atts+1),"char")==0)
+          dist=EDIT_CHAR;
+        else if (strcmp(*(atts+1),"word")==0)
+          dist=EDIT_WORD;
+        else if (strcmp(*(atts+1),"line")==0)
+          dist=EDIT_LINE;
+        else if (strcmp(*(atts+1),"file")==0)
+          dist=EDIT_FILE;
+      }
+      atts+=2;
+    }
+    class DirDist {
+    protected:
+      const bool m_bForwards;
+      const EditDistance m_dist;
+    public:
+      DirDist(bool bForwards,EditDistance dist) : m_bForwards(bForwards), m_dist(dist) {
+      }
+    };
+
+    if (name[0]=='d') {
+      class Delete : private DirDist, public Action {
+      public:
+        Delete(bool bForwards,EditDistance dist) : DirDist(bForwards,dist) {
+        }
+        void happen(CContNode *pNode) {
+          static_cast<CControlManager*>(pNode->mgr())->m_pInterface->ctrlDelete(m_bForwards,m_dist);
+        }
+      };
+      return new Delete(bForwards,dist);
+    } else {
+      class Move : private DirDist, public Action {
+      public:
+        Move(bool bForwards,EditDistance dist) : DirDist(bForwards, dist) {}
+        void happen(CContNode *pNode) {
+          static_cast<CControlManager*>(pNode->mgr())->m_pInterface->ctrlMove(m_bForwards,m_dist);
+        };
+      };
+      return new Move(bForwards, dist);
+    }
+  }
+  return CControlParser::parseAction(name, atts);
 }
 
 CControlManager::~CControlManager() {
@@ -402,9 +324,9 @@ CControlManager::~CControlManager() {
 class TextActionHeader : public CDasherInterfaceBase::TextAction, public CControlBase::NodeTemplate {
 public:
   TextActionHeader(CDasherInterfaceBase *pIntf, const string &strHdr, NodeTemplate *pRoot) : TextAction(pIntf), NodeTemplate(strHdr,-1),
-  m_all(this, "All", &CDasherInterfaceBase::TextAction::executeOnAll),
-  m_new(this, "New", &CDasherInterfaceBase::TextAction::executeOnNew),
-  m_again(this, "Repeat", &CDasherInterfaceBase::TextAction::executeLast) {
+  m_all("All", -1, this, &CDasherInterfaceBase::TextAction::executeOnAll),
+  m_new("New", -1, this, &CDasherInterfaceBase::TextAction::executeOnNew),
+  m_again("Repeat", -1, this, &CDasherInterfaceBase::TextAction::executeLast) {
     successors.push_back(&m_all); m_all.successors.push_back(NULL); m_all.successors.push_back(pRoot);
     successors.push_back(&m_new); m_new.successors.push_back(NULL); m_new.successors.push_back(pRoot);
     successors.push_back(&m_again); m_again.successors.push_back(NULL); m_again.successors.push_back(pRoot);
@@ -458,15 +380,15 @@ void CControlManager::updateActions() {
   // (either a dynamic filter where the user can't use the normal stop mechanism precisely,
   //  or a static filter but a 'stop' action is easier than using speak->all / copy->all then pause)
   if (m_pInterface->hasStopTriggers() && m_pInterface->GetBoolParameter(BP_CONTROL_MODE_HAS_HALT))
-    vRootSuccessors.push_back(m_perId[CTL_STOP]);
-  if (it!=vOldRootSuccessors.end() && *it == m_perId[CTL_STOP]) it++;
+    vRootSuccessors.push_back(m_pStop);
+  if (it!=vOldRootSuccessors.end() && *it == m_pStop) it++;
 
   //filter is pauseable, and either 'stop' would do something (so pause is different),
   // or we're told to have a stop node but it would be indistinguishable from pause (=>have pause)
   CInputFilter *pInput(static_cast<CInputFilter *>(m_pInterface->GetModuleByName(m_pInterface->GetStringParameter(SP_INPUT_FILTER))));
   if (pInput->supportsPause() && (m_pInterface->hasStopTriggers() || m_pInterface->GetBoolParameter(BP_CONTROL_MODE_HAS_HALT)))
-    vRootSuccessors.push_back(m_perId[CTL_PAUSE]);
-  if (it!=vOldRootSuccessors.end() && *it == m_perId[CTL_PAUSE]) it++;
+    vRootSuccessors.push_back(m_pPause);
+  if (it!=vOldRootSuccessors.end() && *it == m_pPause) it++;
 
   if (m_pInterface->GetBoolParameter(BP_CONTROL_MODE_HAS_SPEECH) && m_pInterface->SupportsSpeech()) {
     if (!m_pSpeech) m_pSpeech = new SpeechHeader(m_pInterface, GetRootTemplate());
@@ -481,11 +403,11 @@ void CControlManager::updateActions() {
   if (it!=vOldRootSuccessors.end() && *it == m_pCopy) it++;
 
   if (m_pInterface->GetBoolParameter(BP_CONTROL_MODE_HAS_EDIT)) {
-    vRootSuccessors.push_back(m_perId[CTL_MOVE]);
-    vRootSuccessors.push_back(m_perId[CTL_DELETE]);
+    for (vector<NodeTemplate *>::const_iterator it2=parsedNodes().begin(); it2!=parsedNodes().end(); it2++)
+      vRootSuccessors.push_back(*it2);
   }
-  if (it!=vOldRootSuccessors.end() && *it == m_perId[CTL_MOVE]) it++;
-  if (it!=vOldRootSuccessors.end() && *it == m_perId[CTL_DELETE]) it++;
+  for (vector<NodeTemplate *>::const_iterator it2=parsedNodes().begin(); it2!=parsedNodes().end(); it2++)
+    if (it!=vOldRootSuccessors.end() && *it == *it2) it++;
 
   //copy anything else (custom) that might have been added...
   while (it != vOldRootSuccessors.end()) vRootSuccessors.push_back(*it++);

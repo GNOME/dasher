@@ -115,9 +115,6 @@ void Dasher::CDasher::ExternalEventHandler(CEvent* pEvent) {
       m_pWindow->HandleParameterChange(iParam);
       m_pEdit->HandleParameterChange(iParam);
       break;
-    case EV_CONTROL:
-      m_pWindow->HandleControlEvent(((CControlEvent *)pEvent)->m_iID);
-      break;
     }
     case EV_EDIT:  {
       CEditEvent *pEvt(static_cast<CEditEvent *> (pEvent));
@@ -138,6 +135,15 @@ void Dasher::CDasher::ExternalEventHandler(CEvent* pEvent) {
       break;
   }
 }
+
+unsigned int Dasher::CDasher::ctrlMove(bool bForwards, CControlManager::EditDistance iDist) {
+  return m_pEdit->Move(bForwards, iDist);
+}
+
+unsigned int Dasher::CDasher::ctrlDelete(bool bForwards, CControlManager::EditDistance iDist) {
+  return m_pEdit->Delete(bForwards, iDist);
+}
+
 
 void Dasher::CDasher::GameMessageOut(int message, const void *messagedata)
 {

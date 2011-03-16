@@ -217,7 +217,6 @@
                 <property name="last_modification_time">Wed, 29 Mar 2006 17:31:58 GMT</property>
                 <signal handler="parameter_notification" last_modification_time="Sun, 05 Mar 2006 19:45:23 GMT" name="dasher_changed"/>
                 <signal handler="handle_stop_event" last_modification_time="Sun, 05 Mar 2006 19:45:43 GMT" name="dasher_stop"/>
-                <signal handler="handle_control_event" last_modification_time="Sun, 05 Mar 2006 19:45:53 GMT" name="dasher_control"/>
                 <signal handler="gtk2_edit_output_callback" last_modification_time="Sun, 05 Mar 2006 19:46:13 GMT" name="dasher_edit_insert"/>
                 <signal handler="gtk2_edit_delete_callback" last_modification_time="Sun, 05 Mar 2006 19:46:32 GMT" name="dasher_edit_delete"/>
                 <signal handler="handle_request_settings" last_modification_time="Sun, 05 Mar 2006 19:47:12 GMT" name="dasher_request_settings"/>

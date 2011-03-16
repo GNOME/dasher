@@ -182,9 +182,6 @@ void COSXDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
       }
       break;
     }
-    case EV_CONTROL:
-      NSLog(@"ExternalEventHandler, m_iEventType = EV_CONTROL");
-      break;
     case EV_LOCK:
 //      CLockEvent *lockEvent(static_cast < CLockEvent * >(pEvent));
 //      NSLog(@"ExternalEventHandler, m_iEventType = EV_LOCK, mess: %@, bLock = %d, pct = %d", NSStringFromStdString(lockEvent->m_strMessage), lockEvent->m_bLock, lockEvent->m_iPercent);
@@ -194,11 +191,41 @@ void COSXDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
       NSLog(@"ExternalEventHandler, m_iEventType = EV_MESSAGE, mess: %@, id = %d, type = %d", NSStringFromStdString(messageEvent->m_strMessage), messageEvent->m_iID, messageEvent->m_iType);
       break;
     }
+    case EV_SCREEN_GEOM:
+      //no need to do anything, so avoid log message
+      break;
     default:
       NSLog(@"ExternalEventHandler, UNKNOWN m_iEventType = %d", pEvent->m_iEventType);
       break;
   }
   
+}
+
+unsigned int COSXDasherControl::ctrlMove(bool bForwards, CControlManager::EditDistance dist) {
+#ifdef DEBUG
+  std::cout << "Call to edit move, doing nothing" << std::endl;
+#endif
+  return [[dasherEdit allContext] length];
+}
+
+unsigned int COSXDasherControl::ctrlDelete(bool bForwards, CControlManager::EditDistance dist) {
+  if (!bForwards) {
+    const unsigned int iCurrentOffset([[dasherEdit allContext] length]);
+    int iStartOffset;
+    if (dist==CControlManager::EDIT_CHAR)
+      iStartOffset=(iCurrentOffset==0) ? 0 : iCurrentOffset-1;
+    else if (dist==CControlManager::EDIT_FILE)
+      iStartOffset=0;
+    else {
+      const CAlphInfo *pAlph(GetInfo(GetStringParameter(SP_ALPHABET_ID)));
+      const string &target(pAlph->GetText(dist==CControlManager::EDIT_WORD ? pAlph->GetSpaceSymbol() : pAlph->GetParagraphSymbol()));
+      NSRange range = [[dasherEdit allContext] rangeOfString:NSStringFromStdString(target) options:NSBackwardsSearch];
+      iStartOffset = (range.length==0) ? 0 : range.location; //0=> not found, so go to beginning
+    }
+    DASHER_ASSERT(iStartOffset<=[[dasherEdit allContext] length]);
+    [dasherEdit deleteCallback:[[dasherEdit allContext] substringFromIndex:iStartOffset] targetApp:[dasherApp targetAppUIElementRef]];
+  }
+  return [[dasherEdit allContext] length];
 }
 
 int COSXDasherControl::GetFileSize(const std::string &strFileName) {

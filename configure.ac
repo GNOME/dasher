@@ -441,7 +441,7 @@ AC_CONFIG_FILES([Data/dasher.desktop.in
 		 Data/training/Makefile
 		 Data/alphabets/Makefile
 		 Data/colours/Makefile
-		 Data/controllabels/Makefile
+		 Data/control/Makefile
 		 Data/GUI/Makefile
 		 Data/Help/Makefile
 		 Data/Help/Gnome/Makefile
