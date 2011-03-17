@@ -4,6 +4,8 @@
 #include "Trainer.h"
 #include "DasherInterfaceBase.h"
 #include "LanguageModelling/PPMPYLanguageModel.h"
+#include <cstring>
+#include <sstream>
 
 using namespace Dasher;
 
@@ -18,7 +20,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 CTrainer::CTrainer(CLanguageModel *pLanguageModel, const CAlphInfo *pInfo, const CAlphabetMap *pAlphabet)
-  : CTrainingHelper(pAlphabet), m_pLanguageModel(pLanguageModel), m_pInfo(pInfo) {
+  : m_pAlphabet(pAlphabet), m_pLanguageModel(pLanguageModel), m_pInfo(pInfo) {
     vector<symbol> syms;
     pAlphabet->GetSymbols(syms,pInfo->GetContextEscapeChar());
     if (syms.size()==1)
@@ -74,6 +76,61 @@ bool CTrainer::readEscape(CLanguageModel::Context &sContext, CAlphabetMap::Symbo
     m_pLanguageModel->EnterSymbol(sContext, sym);
   }
   return true;  
+}
+
+void 
+Dasher::CTrainer::LoadFile(const std::string &strFileName) {
+  if(strFileName == "")
+    return;
+  
+  FILE *pInputFile;
+  if((pInputFile = fopen(strFileName.c_str(), "r")) == (FILE *) 0)
+    return;
+  
+  char szTestBuffer[6];
+  
+  int iNumberRead = fread(szTestBuffer, 1, 5, pInputFile);
+  szTestBuffer[iNumberRead] = '\0';
+  
+  fclose(pInputFile);
+  
+  if(!strcmp(szTestBuffer, "<?xml")) {
+    //Invoke AbstractXMLParser method
+    m_bInSegment = false;
+    ParseFile(strFileName);
+  } else {
+    std::ifstream in(strFileName.c_str(), std::ios::binary);
+    if (in.fail()) {
+      std::cerr << "Unable to open file \"" << strFileName << "\" for reading" << std::endl;
+      return;
+    }
+    CAlphabetMap::SymbolStream syms(in);
+    Train(syms);
+  
+    in.close();
+  }
+}
+
+void CTrainer::XmlStartHandler(const XML_Char *szName, const XML_Char **pAtts) {
+  if(!strcmp(szName, "segment")) {
+    m_strCurrentText = "";
+    m_bInSegment = true;
+  }
+}
+
+void CTrainer::XmlEndHandler(const XML_Char *szName) {
+  if(!strcmp(szName, "segment")) {
+    std::istringstream in(m_strCurrentText);
+    CAlphabetMap::SymbolStream syms(in);
+    Train(syms);
+    
+    m_bInSegment = false;
+  }
+}
+
+void CTrainer::XmlCData(const XML_Char *szS, int iLen) {
+  if(m_bInSegment)
+    m_strCurrentText += std::string(szS, iLen);
 }
 
 CMandarinTrainer::CMandarinTrainer(CPPMPYLanguageModel *pLanguageModel, const CAlphInfo *pInfo, const CAlphabetMap *pPYAlphabet, const CAlphabetMap *pCHAlphabet, const std::string &strDelim)

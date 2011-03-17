@@ -209,7 +209,6 @@
 		3344FE5B0F71717C00506EAA /* SocketInputBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDF90F71717C00506EAA /* SocketInputBase.cpp */; };
 		3344FE5C0F71717C00506EAA /* StylusFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDFC0F71717C00506EAA /* StylusFilter.cpp */; };
 		3344FE5D0F71717C00506EAA /* TimeSpan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDFE0F71717C00506EAA /* TimeSpan.cpp */; };
-		3344FE5E0F71717C00506EAA /* TrainingHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FE000F71717C00506EAA /* TrainingHelper.cpp */; };
 		3344FE5F0F71717C00506EAA /* TwoBoxStartHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FE020F71717C00506EAA /* TwoBoxStartHandler.cpp */; };
 		3344FE600F71717C00506EAA /* TwoButtonDynamicFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FE040F71717C00506EAA /* TwoButtonDynamicFilter.cpp */; };
 		3344FE610F71717C00506EAA /* UserButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FE060F71717C00506EAA /* UserButton.cpp */; };
@@ -251,6 +250,7 @@
 		337690140F989C870083FEB2 /* SBTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 337690130F989C870083FEB2 /* SBTree.cpp */; };
 		337691710F9CE8630083FEB2 /* StringParamController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 337691700F9CE8630083FEB2 /* StringParamController.mm */; };
 		337691860F9CEFC70083FEB2 /* InputMethodSelector.mm in Sources */ = {isa = PBXBuildFile; fileRef = 337691850F9CEFC70083FEB2 /* InputMethodSelector.mm */; };
+		3378A23F1335425300A96C5D /* AbstractXMLParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3378A23D1335425200A96C5D /* AbstractXMLParser.cpp */; };
 		337ECC1B10DD5E0700D0C6A5 /* ExpansionPolicy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 337ECC1910DD5E0700D0C6A5 /* ExpansionPolicy.cpp */; };
 		339F8A330FF5088000282847 /* CalibrationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 339F8A320FF5088000282847 /* CalibrationController.mm */; };
 		33C71AF20FF7B51700A20992 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 33C71AF10FF7B51700A20992 /* Default.png */; };
@@ -637,8 +637,6 @@
 		3344FDFD0F71717C00506EAA /* StylusFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StylusFilter.h; sourceTree = "<group>"; };
 		3344FDFE0F71717C00506EAA /* TimeSpan.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TimeSpan.cpp; sourceTree = "<group>"; };
 		3344FDFF0F71717C00506EAA /* TimeSpan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeSpan.h; sourceTree = "<group>"; };
-		3344FE000F71717C00506EAA /* TrainingHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TrainingHelper.cpp; sourceTree = "<group>"; };
-		3344FE010F71717C00506EAA /* TrainingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainingHelper.h; sourceTree = "<group>"; };
 		3344FE020F71717C00506EAA /* TwoBoxStartHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TwoBoxStartHandler.cpp; sourceTree = "<group>"; };
 		3344FE030F71717C00506EAA /* TwoBoxStartHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoBoxStartHandler.h; sourceTree = "<group>"; };
 		3344FE040F71717C00506EAA /* TwoButtonDynamicFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TwoButtonDynamicFilter.cpp; sourceTree = "<group>"; };
@@ -697,6 +695,8 @@
 		337691700F9CE8630083FEB2 /* StringParamController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = StringParamController.mm; sourceTree = "<group>"; };
 		337691840F9CEFC70083FEB2 /* InputMethodSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputMethodSelector.h; sourceTree = "<group>"; };
 		337691850F9CEFC70083FEB2 /* InputMethodSelector.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = InputMethodSelector.mm; sourceTree = "<group>"; };
+		3378A23D1335425200A96C5D /* AbstractXMLParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AbstractXMLParser.cpp; sourceTree = "<group>"; };
+		3378A23E1335425200A96C5D /* AbstractXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractXMLParser.h; sourceTree = "<group>"; };
 		337ECC1910DD5E0700D0C6A5 /* ExpansionPolicy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExpansionPolicy.cpp; sourceTree = "<group>"; };
 		337ECC1A10DD5E0700D0C6A5 /* ExpansionPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpansionPolicy.h; sourceTree = "<group>"; };
 		339F8A310FF5088000282847 /* CalibrationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalibrationController.h; sourceTree = "<group>"; };
@@ -1168,6 +1168,8 @@
 			children = (
 				337ECC1910DD5E0700D0C6A5 /* ExpansionPolicy.cpp */,
 				337ECC1A10DD5E0700D0C6A5 /* ExpansionPolicy.h */,
+				3378A23D1335425200A96C5D /* AbstractXMLParser.cpp */,
+				3378A23E1335425200A96C5D /* AbstractXMLParser.h */,
 				3344FD680F71717C00506EAA /* ActionButton.cpp */,
 				3344FD690F71717C00506EAA /* ActionButton.h */,
 				3344FD6A0F71717C00506EAA /* Alphabet */,
@@ -1269,8 +1271,6 @@
 				3344FDFD0F71717C00506EAA /* StylusFilter.h */,
 				3344FDFE0F71717C00506EAA /* TimeSpan.cpp */,
 				3344FDFF0F71717C00506EAA /* TimeSpan.h */,
-				3344FE000F71717C00506EAA /* TrainingHelper.cpp */,
-				3344FE010F71717C00506EAA /* TrainingHelper.h */,
 				3344FE020F71717C00506EAA /* TwoBoxStartHandler.cpp */,
 				3344FE030F71717C00506EAA /* TwoBoxStartHandler.h */,
 				3344FE040F71717C00506EAA /* TwoButtonDynamicFilter.cpp */,
@@ -1601,7 +1601,6 @@
 				3344FE5B0F71717C00506EAA /* SocketInputBase.cpp in Sources */,
 				3344FE5C0F71717C00506EAA /* StylusFilter.cpp in Sources */,
 				3344FE5D0F71717C00506EAA /* TimeSpan.cpp in Sources */,
-				3344FE5E0F71717C00506EAA /* TrainingHelper.cpp in Sources */,
 				3344FE5F0F71717C00506EAA /* TwoBoxStartHandler.cpp in Sources */,
 				3344FE600F71717C00506EAA /* TwoButtonDynamicFilter.cpp in Sources */,
 				3344FE610F71717C00506EAA /* UserButton.cpp in Sources */,
@@ -1710,6 +1709,7 @@
 				337472D3121A976B001A858C /* AlphInfo.cpp in Sources */,
 				3324F491129C119C00EE6A22 /* IPhoneFilters.mm in Sources */,
 				3324F7BF129D744D00EE6A22 /* ActionConfigurator.mm in Sources */,
+				3378A23F1335425300A96C5D /* AbstractXMLParser.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

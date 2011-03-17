@@ -43,37 +43,6 @@ CColourIO::CColourIO(std::string SystemLocation, std::string UserLocation, std::
   }
 }
 
-void CColourIO::ParseFile(std::string Filename) {
-  FILE *Input;
-  if((Input = fopen(Filename.c_str(), "r")) == (FILE *) 0) {
-    // could not open file
-    return;
-  }
-
-  XML_Parser Parser = XML_ParserCreate(NULL);
-
-  // Members passed as callbacks must be static, so don't have a "this" pointer.
-  // We give them one through horrible casting so they can effect changes.
-  XML_SetUserData(Parser, this);
-
-  XML_SetElementHandler(Parser, XML_StartElement, XML_EndElement);
-  XML_SetCharacterDataHandler(Parser, XML_CharacterData);
-
-  const unsigned int BufferSize = 1024;
-  char Buffer[BufferSize];
-  int Done;
-  do {
-    size_t len = fread(Buffer, 1, sizeof(Buffer), Input);
-    Done = len < sizeof(Buffer);
-    if(XML_Parse(Parser, Buffer, len, Done) == XML_STATUS_ERROR) {
-      break;
-    }
-  } while(!Done);
-
-  XML_ParserFree(Parser);
-  fclose(Input);
-}
-
 void CColourIO::GetColours(std::vector <std::string >*ColourList) const {
   ColourList->clear();
 
@@ -869,58 +838,20 @@ void CColourIO::CreateDefault() {
 
 }
 
-void CColourIO::XML_Escape(std::string *Text, bool Attribute) {
-  // The XML "W3C Recommendation" is here: http://www.w3.org/TR/REC-xml
-
-  std::string & Input = *Text;       // Makes syntax less fiddly below
-
-  for(unsigned int i = 0; i < Text->size(); i++) {
-    // & and < need escaping in XML. In one rare circumstance >
-    // needs escaping too. I'll always do it, as I'm allowed to.
-    if(Input[i] == '&') {
-      Input.replace(i, 1, "&amp;");
-      continue;
-    }
-    if(Input[i] == '<') {
-      Input.replace(i, 1, "&lt;");
-      continue;
-    }
-    if(Input[i] == '>') {
-      Input.replace(i, 1, "&gt;");
-      continue;
-    }
-    // " and ' might need escaping inside attributes, I'll do them all.
-    if(Attribute == false)
-      continue;
-
-    if(Input[i] == '\'') {
-      Input.replace(i, 1, "&apos;");
-      continue;
-    }
-    if(Input[i] == '"') {
-      Input.replace(i, 1, "&quot;");
-      continue;
-    }
-  }
-}
-
 // Below here handlers for the Expat XML input library
 ////////////////////////////////////////////////////////////////////////////////////
 
-void CColourIO::XML_StartElement(void *userData, const XML_Char *name, const XML_Char **atts) {
-  CColourIO *Me = (CColourIO *) userData;
+void CColourIO::XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
 
-  Me->CData = "";
+  CData = "";
 
   if(strcmp(name, "palette") == 0) {
     ColourInfo NewInfo;
-    Me->InputInfo = NewInfo;
-    Me->InputInfo.Mutable = Me->LoadMutable;
+    InputInfo = NewInfo;
+    InputInfo.Mutable = LoadMutable;
     while(*atts != 0) {
       if(strcmp(*atts, "name") == 0) {
-        atts++;
-        Me->InputInfo.ColourID = *atts;
-        atts--;
+        InputInfo.ColourID = *(atts+1);
       }
       atts += 2;
     }
@@ -929,38 +860,28 @@ void CColourIO::XML_StartElement(void *userData, const XML_Char *name, const XML
   if(strcmp(name, "colour") == 0) {
     while(*atts != 0) {
       if(strcmp(*atts, "r") == 0) {
-        atts++;
-        Me->InputInfo.Reds.push_back(atoi(*atts));
-        atts--;
+        InputInfo.Reds.push_back(atoi(*(atts+1)));
       }
       if(strcmp(*atts, "g") == 0) {
-        atts++;
-        Me->InputInfo.Greens.push_back(atoi(*atts));
-        atts--;
+        InputInfo.Greens.push_back(atoi(*(atts+1)));
       }
       if(strcmp(*atts, "b") == 0) {
-        atts++;
-        Me->InputInfo.Blues.push_back(atoi(*atts));
-        atts--;
+        InputInfo.Blues.push_back(atoi(*(atts+1)));
       }
       atts += 2;
     }
     return;
   }
 }
-void CColourIO::XML_EndElement(void *userData, const XML_Char *name) {
-  CColourIO *Me = (CColourIO *) userData;
-
+void CColourIO::XmlEndHandler(const XML_Char *name) {
+  
   if(strcmp(name, "palette") == 0) {
-    Me->Colours[Me->InputInfo.ColourID] = Me->InputInfo;
+    Colours[InputInfo.ColourID] = InputInfo;
     return;
   }
 }
 
-void CColourIO::XML_CharacterData(void *userData, const XML_Char *s, int len) {
+void CColourIO::XmlCData(const XML_Char *s, int len) {
   // CAREFUL: s points to a string which is NOT null-terminated.
-
-  CColourIO *Me = (CColourIO *) userData;
-
-  Me->CData.append(s, len);
+  CData.append(s, len);
 }

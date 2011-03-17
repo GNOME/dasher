@@ -8,6 +8,8 @@ libdasherprefs_a_SOURCES = \
 		SettingsStore.h 
 
 libdashercore_a_SOURCES = \
+		AbstractXMLParser.cpp \
+		AbstracTXMLParser.h \
 		Alphabet/AlphIO.cpp \
 		Alphabet/AlphIO.h \
 		Alphabet/AlphInfo.cpp \
@@ -119,8 +121,6 @@ libdashercore_a_SOURCES = \
 		TimeSpan.h \
 		Trainer.cpp \
 		Trainer.h \
-		TrainingHelper.cpp \
-		TrainingHelper.h \
 		TwoBoxStartHandler.cpp \
 		TwoBoxStartHandler.h \
 		TwoButtonDynamicFilter.cpp \

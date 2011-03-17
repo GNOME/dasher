@@ -331,8 +331,6 @@
 		19F36D900B18B60E002F41F1 /* ZippyStringGlyph.h in Headers */ = {isa = PBXBuildFile; fileRef = 19F36D8C0B18B60E002F41F1 /* ZippyStringGlyph.h */; };
 		19F36D910B18B60E002F41F1 /* ZippyStringGlyph.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F36D8D0B18B60E002F41F1 /* ZippyStringGlyph.m */; };
 		19F8C7E60C858A2800276B4F /* I18n.h in Headers */ = {isa = PBXBuildFile; fileRef = 19F8C7E50C858A2800276B4F /* I18n.h */; };
-		19F8C7F90C858E9900276B4F /* TrainingHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19F8C7F70C858E9900276B4F /* TrainingHelper.cpp */; };
-		19F8C7FA0C858E9900276B4F /* TrainingHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 19F8C7F80C858E9900276B4F /* TrainingHelper.h */; };
 		3300115210A2EA7700D31B1D /* ExpansionPolicy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3300115010A2EA7700D31B1D /* ExpansionPolicy.cpp */; };
 		3300115310A2EA7700D31B1D /* ExpansionPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 3300115110A2EA7700D31B1D /* ExpansionPolicy.h */; };
 		33008360120CB7F900C41FAA /* ConvertingAlphMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = 3300835E120CB7F900C41FAA /* ConvertingAlphMgr.h */; };
@@ -390,6 +388,8 @@
 		33E173E60F3E0B6400D19B38 /* training_welsh_GB.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173C60F3E0B6400D19B38 /* training_welsh_GB.txt */; };
 		33E91A770F55E60B00B5F513 /* KeyboardHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33E91A750F55E60B00B5F513 /* KeyboardHelper.cpp */; };
 		33E91A780F55E60B00B5F513 /* KeyboardHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 33E91A760F55E60B00B5F513 /* KeyboardHelper.h */; };
+		33F6C9EA133241A000745B06 /* AbstractXMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 33F6C9E8133241A000745B06 /* AbstractXMLParser.h */; };
+		33F6C9EB133241A000745B06 /* AbstractXMLParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33F6C9E9133241A000745B06 /* AbstractXMLParser.cpp */; };
 		33FC93390FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33FC93370FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp */; };
 		33FC933A0FEFA2C900A9F08D /* TwoPushDynamicFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 33FC93380FEFA2C900A9F08D /* TwoPushDynamicFilter.h */; };
 		33FC93430FEFA2FB00A9F08D /* FrameRate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33FC93420FEFA2FB00A9F08D /* FrameRate.cpp */; };
@@ -736,8 +736,6 @@
 		19F36D8C0B18B60E002F41F1 /* ZippyStringGlyph.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ZippyStringGlyph.h; sourceTree = "<group>"; };
 		19F36D8D0B18B60E002F41F1 /* ZippyStringGlyph.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ZippyStringGlyph.m; sourceTree = "<group>"; };
 		19F8C7E50C858A2800276B4F /* I18n.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = I18n.h; path = ../Common/I18n.h; sourceTree = SOURCE_ROOT; };
-		19F8C7F70C858E9900276B4F /* TrainingHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = TrainingHelper.cpp; sourceTree = "<group>"; };
-		19F8C7F80C858E9900276B4F /* TrainingHelper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = TrainingHelper.h; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -799,6 +797,8 @@
 		33E173C60F3E0B6400D19B38 /* training_welsh_GB.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_welsh_GB.txt; sourceTree = "<group>"; };
 		33E91A750F55E60B00B5F513 /* KeyboardHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyboardHelper.cpp; sourceTree = "<group>"; };
 		33E91A760F55E60B00B5F513 /* KeyboardHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardHelper.h; sourceTree = "<group>"; };
+		33F6C9E8133241A000745B06 /* AbstractXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractXMLParser.h; sourceTree = "<group>"; };
+		33F6C9E9133241A000745B06 /* AbstractXMLParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AbstractXMLParser.cpp; sourceTree = "<group>"; };
 		33FC93370FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TwoPushDynamicFilter.cpp; sourceTree = "<group>"; };
 		33FC93380FEFA2C900A9F08D /* TwoPushDynamicFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoPushDynamicFilter.h; sourceTree = "<group>"; };
 		33FC93420FEFA2FB00A9F08D /* FrameRate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameRate.cpp; sourceTree = "<group>"; };
@@ -920,6 +920,8 @@
 				1988ABB70C9FF97000D97977 /* GameLevel.cpp */,
 				1988ABB80C9FF97000D97977 /* GameMessages.h */,
 				1988ABB90C9FF97000D97977 /* GameStatistics.h */,
+				33F6C9E8133241A000745B06 /* AbstractXMLParser.h */,
+				33F6C9E9133241A000745B06 /* AbstractXMLParser.cpp */,
 				1948BDF60C226CFC001DFA32 /* ActionButton.cpp */,
 				1948BDF70C226CFC001DFA32 /* ActionButton.h */,
 				1948BDF80C226CFC001DFA32 /* Alphabet */,
@@ -1017,8 +1019,6 @@
 				1948BE840C226CFD001DFA32 /* StylusFilter.h */,
 				1948BE850C226CFD001DFA32 /* TimeSpan.cpp */,
 				1948BE860C226CFD001DFA32 /* TimeSpan.h */,
-				19F8C7F70C858E9900276B4F /* TrainingHelper.cpp */,
-				19F8C7F80C858E9900276B4F /* TrainingHelper.h */,
 				1948BE870C226CFD001DFA32 /* TwoBoxStartHandler.cpp */,
 				1948BE880C226CFD001DFA32 /* TwoBoxStartHandler.h */,
 				1948BE890C226CFD001DFA32 /* TwoButtonDynamicFilter.cpp */,
@@ -1460,7 +1460,6 @@
 				1921DB6F0C7ECB9900E6DAA5 /* GameScorer.h in Headers */,
 				193731A80C8586F20022CBC7 /* config.h in Headers */,
 				19F8C7E60C858A2800276B4F /* I18n.h in Headers */,
-				19F8C7FA0C858E9900276B4F /* TrainingHelper.h in Headers */,
 				1988ABBD0C9FF97000D97977 /* GameMessages.h in Headers */,
 				1988ABBE0C9FF97000D97977 /* GameStatistics.h in Headers */,
 				33E91A780F55E60B00B5F513 /* KeyboardHelper.h in Headers */,
@@ -1477,6 +1476,7 @@
 				33008360120CB7F900C41FAA /* ConvertingAlphMgr.h in Headers */,
 				339794D5120F2A9600CEA168 /* AlphInfo.h in Headers */,
 				330B91641292FE700022831C /* ModuleSettingsController.h in Headers */,
+				33F6C9EA133241A000745B06 /* AbstractXMLParser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1804,7 +1804,6 @@
 				1921DB390C7ECAA400E6DAA5 /* OneButtonDynamicFilter.cpp in Sources */,
 				1921DB400C7ECB4B00E6DAA5 /* DasherGameMode.cpp in Sources */,
 				1921DB6E0C7ECB9900E6DAA5 /* GameScorer.cpp in Sources */,
-				19F8C7F90C858E9900276B4F /* TrainingHelper.cpp in Sources */,
 				1988ABCF0C9FFADA00D97977 /* GameLevel.cpp in Sources */,
 				33E91A770F55E60B00B5F513 /* KeyboardHelper.cpp in Sources */,
 				33ABFEC60FC379EA00EA2BA5 /* ButtonMultiPress.cpp in Sources */,
@@ -1822,6 +1821,7 @@
 				33008361120CB7F900C41FAA /* ConvertingAlphMgr.cpp in Sources */,
 				339794D4120F2A9600CEA168 /* AlphInfo.cpp in Sources */,
 				330B91621292FE520022831C /* ModuleSettingsController.mm in Sources */,
+				33F6C9EB133241A000745B06 /* AbstractXMLParser.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

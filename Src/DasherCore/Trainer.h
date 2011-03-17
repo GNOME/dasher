@@ -2,17 +2,25 @@
 #define __trainer_h__
 
 #include "LanguageModelling/PPMPYLanguageModel.h"
-#include "TrainingHelper.h"
 #include "Alphabet/AlphInfo.h"
+#include "AbstractXMLParser.h"
 
 namespace Dasher {
   class CDasherInterfaceBase;
 	
-  class CTrainer : public CTrainingHelper {
+  class CTrainer : private AbstractXMLParser {
+            
   public:
     CTrainer(CLanguageModel *pLanguageModel, const CAlphInfo *pInfo, const CAlphabetMap *pAlphabet);
 
+    void LoadFile(const std::string &strFileName);
+  
   protected:
+    ///Override AbstractXMLParser methods to extract text in <segment>...</segment> pairs
+    void XmlStartHandler(const XML_Char *szName, const XML_Char **pAtts);
+    void XmlEndHandler(const XML_Char *szName);
+    void XmlCData(const XML_Char *szS, int iLen);
+
     virtual void Train(CAlphabetMap::SymbolStream &syms);
     CLanguageModel *m_pLanguageModel;
     
@@ -23,9 +31,14 @@ namespace Dasher {
     ///  false, if instead a double-escape-character (=encoding of that actual symbol) was read
     bool readEscape(CLanguageModel::Context &sContext, CAlphabetMap::SymbolStream &syms);
     
+    const CAlphabetMap *m_pAlphabet;
     const CAlphInfo *m_pInfo;
     // symbol number in alphabet of the context-switch character (maybe 0 if not in alphabet!)
     int m_iCtxEsc;
+  private:
+    //For dealing with XML CData:    
+    bool m_bInSegment;
+    std::string m_strCurrentText;
   };
 	
   /// Trains a PPMPYLanguageModel (dual alphabet), as for e.g. MandarinDasher.

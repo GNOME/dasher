@@ -26,15 +26,14 @@
 #include <config.h>
 #endif
 
+#include "../AbstractXMLParser.h"
+
 #include "../DasherTypes.h"
 #include "AlphInfo.h"
 
-#include <expat.h>
-#include <string>
 #include <map>
 #include <vector>
 #include <utility>              // for std::pair
-#include <stdio.h>              // for C style file IO
 
 namespace Dasher {
   class CAlphIO;
@@ -52,7 +51,7 @@ namespace Dasher {
 /// Note the alphabet-management functions (SetInfo, Delete, Save, and
 /// hence the mutability of alphabets loaded) don't seem to be fully
 /// implemented...
-class Dasher::CAlphIO {
+class Dasher::CAlphIO : private AbstractXMLParser {
 public:
 
   CAlphIO(std::string SystemLocation, std::string UserLocation, std::vector < std::string > &Filenames);
@@ -79,14 +78,10 @@ private:
   /////////////////////////
 
   bool LoadMutable;
-  void ParseFile(std::string Filename);
   void ReadCharAtts(const XML_Char **atts, CAlphInfo::character &ch);
   // Alphabet types:
   std::map < std::string, Opts::AlphabetTypes > StoT;
   std::map < Opts::AlphabetTypes, std::string > TtoS;
-
-  // & to &amp;  < to &lt; and > to &gt;  and if (Attribute) ' to &apos; and " to &quot;
-  void XML_Escape(std::string * Text, bool Attribute);
 
   // Data gathered
   std::string CData;            // Text gathered from when an elemnt starts to when it ends
@@ -94,11 +89,9 @@ private:
   bool bFirstGroup;
   int iGroupIdx;
 
-  // Callback functions. These involve the normal dodgy casting to a pointer
-  // to an instance to get a C++ class to work with a plain C library.
-  static void XML_StartElement(void *userData, const XML_Char * name, const XML_Char ** atts);
-  static void XML_EndElement(void *userData, const XML_Char * name);
-  static void XML_CharacterData(void *userData, const XML_Char * s, int len);
+  void XmlStartHandler(const XML_Char * name, const XML_Char ** atts);
+  void XmlEndHandler(const XML_Char * name);
+  void XmlCData(const XML_Char * s, int len);
 };
 /// @}
 

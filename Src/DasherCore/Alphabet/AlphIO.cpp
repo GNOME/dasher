@@ -78,37 +78,6 @@ CAlphIO::CAlphIO(std::string SystemLocation, std::string UserLocation, std::vect
   }
 }
 
-void CAlphIO::ParseFile(std::string Filename) {
-  FILE *Input;
-  if((Input = fopen(Filename.c_str(), "r")) == (FILE *) 0) {
-    // could not open file
-    return;
-  }
-
-  XML_Parser Parser = XML_ParserCreate(NULL);
-
-  // Members passed as callbacks must be static, so don't have a "this" pointer.
-  // We give them one through horrible casting so they can effect changes.
-  XML_SetUserData(Parser, this);
-
-  XML_SetElementHandler(Parser, XML_StartElement, XML_EndElement);
-  XML_SetCharacterDataHandler(Parser, XML_CharacterData);
-
-  const unsigned int BufferSize = 1024;
-  char Buffer[BufferSize];
-  int Done;
-  do {
-    size_t len = fread(Buffer, 1, sizeof(Buffer), Input);
-    Done = len < sizeof(Buffer);
-    if(XML_Parse(Parser, Buffer, len, Done) == XML_STATUS_ERROR) {
-      break;
-    }
-  } while(!Done);
-
-  XML_ParserFree(Parser);
-  fclose(Input);
-}
-
 void CAlphIO::GetAlphabets(std::vector <std::string >*AlphabetList) const {
   AlphabetList->clear();
 
@@ -192,7 +161,7 @@ void CAlphIO::Save(const std::string &AlphID) {
       continue;
 
     fwrite("<alphabet name=\"", sizeof(char), 16, Output);
-    XML_Escape(&Info.AlphID, true);
+    XML_Escape(Info.AlphID, true);
     fwrite(Info.AlphID.c_str(), sizeof(char), Info.AlphID.size(), Output);
     fwrite("\">\n", sizeof(char), 3, Output);
 
@@ -221,17 +190,17 @@ void CAlphIO::Save(const std::string &AlphID) {
     fwrite("\"/>\n", sizeof(char), 4, Output);
 
     fwrite("<palette>", sizeof(char), 9, Output);
-    XML_Escape(&Info.PreferredColours, false);
+    XML_Escape(Info.PreferredColours, false);
     fwrite(Info.PreferredColours.c_str(), sizeof(char), Info.PreferredColours.size(), Output);
     fwrite("</palette>\n", sizeof(char), 11, Output);
 
     fwrite("<train>", sizeof(char), 7, Output);
-    XML_Escape(&Info.TrainingFile, false);
+    XML_Escape(Info.TrainingFile, false);
     fwrite(Info.TrainingFile.c_str(), sizeof(char), Info.TrainingFile.size(), Output);
     fwrite("</train>\n", sizeof(char), 9, Output);
 
     fwrite("<gamemode>", sizeof(char), 10, Output);
-    XML_Escape(&Info.GameModeFile, false);
+    XML_Escape(Info.GameModeFile, false);
     fwrite(Info.GameModeFile.c_str(), sizeof(char), Info.GameModeFile.size(), Output);
     fwrite("</gamemode>\n", sizeof(char), 12, Output);
 
@@ -242,10 +211,10 @@ void CAlphIO::Save(const std::string &AlphID) {
     if (Info.iSpaceCharacter!=0) {
       CAlphInfo::character &spC(Info.m_vCharacters[Info.iSpaceCharacter]);
       fwrite("<space d=\"", sizeof(char), 10, Output);
-      XML_Escape(&spC.Display, true);
+      XML_Escape(spC.Display, true);
       fwrite(spC.Display.c_str(), sizeof(char), spC.Display.size(), Output);
       fwrite("\" t=\"", sizeof(char), 5, Output);
-      XML_Escape(&spC.Text, true);
+      XML_Escape(spC.Text, true);
       fwrite(spC.Text.c_str(), sizeof(char), spC.Text.size(), Output);
       fwrite("\" b=\"", sizeof(char), 5, Output);
       sprintf(Number, "%d", spC.Colour);
@@ -257,10 +226,10 @@ void CAlphIO::Save(const std::string &AlphID) {
     if (Info.iParagraphCharacter!=-1) {
       CAlphInfo::character para(Info.m_vCharacters[Info.iParagraphCharacter]);
       fwrite("<paragraph d=\"", sizeof(char), 14, Output);
-      XML_Escape(&para.Display, true);
+      XML_Escape(para.Display, true);
       fwrite(para.Display.c_str(), sizeof(char), para.Display.size(), Output);
       fwrite("\" t=\"", sizeof(char), 5, Output);
-      XML_Escape(&para.Text, true);
+      XML_Escape(para.Text, true);
       fwrite(para.Text.c_str(), sizeof(char), para.Text.size(), Output);
       fwrite("\" b=\"", sizeof(char), 5, Output);
       sprintf(Number, "%d", para.Colour);
@@ -271,10 +240,10 @@ void CAlphIO::Save(const std::string &AlphID) {
     // Write out the control character
     if (Info.ControlCharacter) {
       fwrite("<control d=\"", sizeof(char), 12, Output);
-      XML_Escape(&Info.ControlCharacter->Display, true);
+      XML_Escape(Info.ControlCharacter->Display, true);
       fwrite(Info.ControlCharacter->Display.c_str(), sizeof(char), Info.ControlCharacter->Display.size(), Output);
       fwrite("\" t=\"", sizeof(char), 5, Output);
-      XML_Escape(&Info.ControlCharacter->Text, true);
+      XML_Escape(Info.ControlCharacter->Text, true);
       fwrite(Info.ControlCharacter->Text.c_str(), sizeof(char), Info.ControlCharacter->Text.size(), Output);
       fwrite("\" b=\"", sizeof(char), 5, Output);
       sprintf(Number, "%d", Info.ControlCharacter->Colour);
@@ -286,7 +255,7 @@ void CAlphIO::Save(const std::string &AlphID) {
 //     gi LG = Info.Groups.end();
 //     for(gi CG = Info.Groups.begin(); CG != LG; CG++) {
 //       fwrite("<group name=\"", sizeof(char), 13, Output);
-//       XML_Escape(&CG->Description, true);
+//       XML_Escape(CG->Description, true);
 //       fwrite(CG->Description.c_str(), sizeof(char), CG->Description.size(), Output);
 //       fwrite("\" b=\"", sizeof(char), 5, Output);
 //       sprintf(Number, "%d", CG->Colour);
@@ -298,10 +267,10 @@ void CAlphIO::Save(const std::string &AlphID) {
 //       ci LC = CG->Characters.end();
 //       for(ci CC = CG->Characters.begin(); CC != LC; CC++) {
 //         fwrite("<s d=\"", sizeof(char), 6, Output);
-//         XML_Escape(&CC->Display, true);
+//         XML_Escape(CC->Display, true);
 //         fwrite(CC->Display.c_str(), sizeof(char), CC->Display.size(), Output);
 //         fwrite("\" t=\"", sizeof(char), 5, Output);
-//         XML_Escape(&CC->Text, true);
+//         XML_Escape(CC->Text, true);
 //         fwrite(CC->Text.c_str(), sizeof(char), CC->Text.size(), Output);
 //         fwrite("\" b=\"", sizeof(char), 5, Output);
 //         sprintf(Number, "%d", CC->Colour);
@@ -382,88 +351,48 @@ CAlphInfo *CAlphIO::CreateDefault() {
   return &Default;
 }
 
-void CAlphIO::XML_Escape(std::string *Text, bool Attribute) {
-  // The XML "W3C Recommendation" is here: http://www.w3.org/TR/REC-xml
-
-  std::string & Input = *Text;       // Makes syntax less fiddly below
-
-  for(unsigned int i = 0; i < Text->size(); i++) {
-    // & and < need escaping in XML. In one rare circumstance >
-    // needs escaping too. I'll always do it, as I'm allowed to.
-    if(Input[i] == '&') {
-      Input.replace(i, 1, "&amp;");
-      continue;
-    }
-    if(Input[i] == '<') {
-      Input.replace(i, 1, "&lt;");
-      continue;
-    }
-    if(Input[i] == '>') {
-      Input.replace(i, 1, "&gt;");
-      continue;
-    }
-    // " and ' might need escaping inside attributes, I'll do them all.
-    if(Attribute == false)
-      continue;
-
-    if(Input[i] == '\'') {
-      Input.replace(i, 1, "&apos;");
-      continue;
-    }
-    if(Input[i] == '"') {
-      Input.replace(i, 1, "&quot;");
-      continue;
-    }
-  }
-}
-
 // Below here handlers for the Expat XML input library
 ////////////////////////////////////////////////////////////////////////////////////
 
-void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_Char **atts) {
-  CAlphIO *Me = (CAlphIO *) userData;
+void CAlphIO::XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
 
-  Me->CData = "";
+  CData = "";
 
   if(strcmp(name, "alphabet") == 0) {
-    Me->InputInfo = new CAlphInfo();
-    Me->InputInfo->Mutable = Me->LoadMutable;
-    Me->ParagraphCharacter = NULL;
-    Me->SpaceCharacter = NULL;
-    Me->bFirstGroup = true;
-    Me->iGroupIdx = 0;
+    InputInfo = new CAlphInfo();
+    InputInfo->Mutable = LoadMutable;
+    ParagraphCharacter = NULL;
+    SpaceCharacter = NULL;
+    bFirstGroup = true;
+    iGroupIdx = 0;
     while(*atts != 0) {
       if(strcmp(*atts, "name") == 0) {
-        atts++;
-        Me->InputInfo->AlphID = *atts;
-        atts--;
+        InputInfo->AlphID = *(atts+1);
       } else if (strcmp(*atts, "hidden") == 0) {
-        Me->InputInfo->m_bHidden = (strcmp(*(atts+1), "yes")==0);
+        InputInfo->m_bHidden = (strcmp(*(atts+1), "yes")==0);
       } else if (strcmp(*atts, "escape") == 0) {
-        Me->InputInfo->m_strCtxChar = *(atts+1);
+        InputInfo->m_strCtxChar = *(atts+1);
       }
       atts += 2;
     }
-    Me->m_vGroups.clear();
+    m_vGroups.clear();
     return;
   }
 
   if(strcmp(name, "orientation") == 0) {
     while(*atts != 0) {
       if(!strcmp(*atts, "type")) {
-        atts++;
-        if(!strcmp(*atts, "RL")) {
-          Me->InputInfo->Orientation = Opts::RightToLeft;
+        if(!strcmp(*(atts+1), "RL")) {
+          InputInfo->Orientation = Opts::RightToLeft;
         }
-        else if(!strcmp(*atts, "TB")) {
-          Me->InputInfo->Orientation = Opts::TopToBottom;
+        else if(!strcmp(*(atts+1), "TB")) {
+          InputInfo->Orientation = Opts::TopToBottom;
         }
-        else if(!strcmp(*atts, "BT")) {
-          Me->InputInfo->Orientation = Opts::BottomToTop;
+        else if(!strcmp(*(atts+1), "BT")) {
+          InputInfo->Orientation = Opts::BottomToTop;
         }
         else
-          Me->InputInfo->Orientation = Opts::LeftToRight;
-        atts--;
+          InputInfo->Orientation = Opts::LeftToRight;
       }
       atts += 2;
     }
@@ -473,9 +402,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
   if(strcmp(name, "encoding") == 0) {
     while(*atts != 0) {
       if(strcmp(*atts, "type") == 0) {
-        atts++;
-        Me->InputInfo->Type = Me->StoT[*atts];
-        atts--;
+        InputInfo->Type = StoT[*(atts+1)];
       }
       atts += 2;
     }
@@ -483,36 +410,36 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
   }
 
   if(strcmp(name, "space") == 0) {
-    if (!Me->SpaceCharacter) Me->SpaceCharacter = new CAlphInfo::character();
-    Me->ReadCharAtts(atts,*(Me->SpaceCharacter));
+    if (!SpaceCharacter) SpaceCharacter = new CAlphInfo::character();
+    ReadCharAtts(atts,*SpaceCharacter);
     return;
   }
   if(strcmp(name, "paragraph") == 0) {
-    if (!Me->ParagraphCharacter) Me->ParagraphCharacter=new CAlphInfo::character();
-    Me->ReadCharAtts(atts,*(Me->ParagraphCharacter));
+    if (!ParagraphCharacter) ParagraphCharacter=new CAlphInfo::character();
+    ReadCharAtts(atts,*ParagraphCharacter);
 #ifdef WIN32
-        Me->ParagraphCharacter->Text = "\r\n";
+        ParagraphCharacter->Text = "\r\n";
 #else
-        Me->ParagraphCharacter->Text = "\n";
+        ParagraphCharacter->Text = "\n";
 #endif
     return;
   }
   if(strcmp(name, "control") == 0) {
-    if (!Me->InputInfo->ControlCharacter) Me->InputInfo->ControlCharacter = new CAlphInfo::character();
-    Me->ReadCharAtts(atts, *(Me->InputInfo->ControlCharacter));
+    if (!InputInfo->ControlCharacter) InputInfo->ControlCharacter = new CAlphInfo::character();
+    ReadCharAtts(atts, *(InputInfo->ControlCharacter));
     return;
   }
 
   if(strcmp(name, "group") == 0) {
     SGroupInfo *pNewGroup(new SGroupInfo);
     pNewGroup->iNumChildNodes=0;
-    pNewGroup->iColour = (Me->iGroupIdx % 3) + 110;
-    ++Me->iGroupIdx;
-    if (Me->m_vGroups.empty()) Me->InputInfo->iNumChildNodes++; else Me->m_vGroups.back()->iNumChildNodes++;
+    pNewGroup->iColour = (iGroupIdx % 3) + 110;
+    ++iGroupIdx;
+    if (m_vGroups.empty()) InputInfo->iNumChildNodes++; else m_vGroups.back()->iNumChildNodes++;
 
-    if(Me->bFirstGroup) {
+    if(bFirstGroup) {
       pNewGroup->bVisible = false;
-      Me->bFirstGroup = false;
+      bFirstGroup = false;
     }
     else {
       pNewGroup->bVisible = true;
@@ -523,7 +450,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 	// TODO: Fix this, or remove if names aren't needed
 
 //         atts++;
-//         Me->InputInfo->Groups.back().Description = *atts;
+//         InputInfo->Groups.back().Description = *atts;
 //         atts--;
       }
       if(strcmp(*atts, "b") == 0) {
@@ -547,21 +474,21 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
       atts += 2;
     }
 
-    pNewGroup->iStart = Me->InputInfo->m_vCharacters.size()+1;
+    pNewGroup->iStart = InputInfo->m_vCharacters.size()+1;
 
     pNewGroup->pChild = NULL;
 
-    if(Me->m_vGroups.size() > 0) {
-      pNewGroup->pNext = Me->m_vGroups.back()->pChild;
-      Me->m_vGroups.back()->pChild = pNewGroup;
+    if(m_vGroups.size() > 0) {
+      pNewGroup->pNext = m_vGroups.back()->pChild;
+      m_vGroups.back()->pChild = pNewGroup;
     }
     else {
-      pNewGroup->pNext = Me->InputInfo->m_pBaseGroup;
-      Me->InputInfo->m_pBaseGroup = pNewGroup;
+      pNewGroup->pNext = InputInfo->m_pBaseGroup;
+      InputInfo->m_pBaseGroup = pNewGroup;
     }
 
 
-    Me->m_vGroups.push_back(pNewGroup);
+    m_vGroups.push_back(pNewGroup);
 
     return;
   }
@@ -569,13 +496,13 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
   if(!strcmp(name, "conversionmode")) {
     while(*atts != 0) {
       if(strcmp(*atts, "id") == 0) {
-        Me->InputInfo->m_iConversionID = atoi(*(atts+1));
+        InputInfo->m_iConversionID = atoi(*(atts+1));
       } else if (strcmp(*atts, "target") == 0) {
-        Me->InputInfo->m_strConversionTarget = *(atts+1);
+        InputInfo->m_strConversionTarget = *(atts+1);
       } else if (strcmp(*atts, "delim") == 0) {
         //TODO, should check this is only a single unicode character;
         // no training will occur, if not...
-        Me->InputInfo->m_strConversionTrainingDelimiter = *(atts+1);
+        InputInfo->m_strConversionTrainingDelimiter = *(atts+1);
       }
       atts += 2;
     }
@@ -585,23 +512,21 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 
   // Special characters for character composition
   if(strcmp(name, "convert") == 0) {
-    if (!Me->InputInfo->StartConvertCharacter) Me->InputInfo->StartConvertCharacter = new CAlphInfo::character();
-    Me->ReadCharAtts(atts, *(Me->InputInfo->StartConvertCharacter));
+    if (!InputInfo->StartConvertCharacter) InputInfo->StartConvertCharacter = new CAlphInfo::character();
+    ReadCharAtts(atts, *(InputInfo->StartConvertCharacter));
     return;
   }
 
   if(strcmp(name, "protect") == 0) {
-    if (!Me->InputInfo->EndConvertCharacter) Me->InputInfo->EndConvertCharacter = new CAlphInfo::character();
-    Me->ReadCharAtts(atts, *(Me->InputInfo->EndConvertCharacter));
+    if (!InputInfo->EndConvertCharacter) InputInfo->EndConvertCharacter = new CAlphInfo::character();
+    ReadCharAtts(atts, *(InputInfo->EndConvertCharacter));
     return;
   }
 
   if(strcmp(name, "context") == 0) {
     while(*atts != 0) {
       if(strcmp(*atts, "default") == 0) {
-        atts++;
-        Me->InputInfo->m_strDefaultContext = *atts;
-        atts--;
+        InputInfo->m_strDefaultContext = *(atts+1);
       }
       atts += 2;
     }
@@ -610,14 +535,14 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 
   if(strcmp(name, "s") == 0) {
 
-    if (Me->m_vGroups.empty()) Me->InputInfo->iNumChildNodes++; else Me->m_vGroups.back()->iNumChildNodes++;
-    Me->InputInfo->m_vCharacters.resize(Me->InputInfo->m_vCharacters.size()+1);
-    CAlphInfo::character &Ch(Me->InputInfo->m_vCharacters.back());
+    if (m_vGroups.empty()) InputInfo->iNumChildNodes++; else m_vGroups.back()->iNumChildNodes++;
+    InputInfo->m_vCharacters.resize(InputInfo->m_vCharacters.size()+1);
+    CAlphInfo::character &Ch(InputInfo->m_vCharacters.back());
 
     // FIXME - need to do a more sensible job of ensuring that
     // defaults are correct (plus more generally fixing behaviour when
     // incomplete/invalid XML is supplied)
-    Me->ReadCharAtts(atts, Ch);
+    ReadCharAtts(atts, Ch);
     return;
   }
 }
@@ -644,53 +569,52 @@ void Reverse(SGroupInfo *&pList) {
   pList=pPrev;
 }
 
-void CAlphIO::XML_EndElement(void *userData, const XML_Char *name) {
-  CAlphIO *Me = (CAlphIO *) userData;
+void CAlphIO::XmlEndHandler(const XML_Char *name) {
 
   if(strcmp(name, "alphabet") == 0) {
-    Reverse(Me->InputInfo->m_pBaseGroup);
+    Reverse(InputInfo->m_pBaseGroup);
 
-    if (Me->ParagraphCharacter) {
-      Me->InputInfo->iParagraphCharacter = Me->InputInfo->m_vCharacters.size()+1;
-      Me->InputInfo->m_vCharacters.push_back(*(Me->ParagraphCharacter));
-      Me->InputInfo->iNumChildNodes++;
-      delete Me->ParagraphCharacter;
+    if (ParagraphCharacter) {
+      InputInfo->iParagraphCharacter = InputInfo->m_vCharacters.size()+1;
+      InputInfo->m_vCharacters.push_back(*ParagraphCharacter);
+      InputInfo->iNumChildNodes++;
+      delete ParagraphCharacter;
     }
-    if (Me->SpaceCharacter) {
-      Me->InputInfo->iSpaceCharacter = Me->InputInfo->m_vCharacters.size()+1;
-      Me->InputInfo->m_vCharacters.push_back(*(Me->SpaceCharacter));
-      Me->InputInfo->iNumChildNodes++;
-      delete Me->SpaceCharacter;
+    if (SpaceCharacter) {
+      InputInfo->iSpaceCharacter = InputInfo->m_vCharacters.size()+1;
+      InputInfo->m_vCharacters.push_back(*SpaceCharacter);
+      InputInfo->iNumChildNodes++;
+      delete SpaceCharacter;
     }
 
-    //if (Me->InputInfo->StartConvertCharacter.Text != "") Me->InputInfo->iNumChildNodes++;
-    //if (Me->InputInfo->EndConvertCharacter.Text != "") Me->InputInfo->iNumChildNodes++;
-    Me->Alphabets[Me->InputInfo->AlphID] = Me->InputInfo;
+    //if (InputInfo->StartConvertCharacter.Text != "") InputInfo->iNumChildNodes++;
+    //if (InputInfo->EndConvertCharacter.Text != "") InputInfo->iNumChildNodes++;
+    Alphabets[InputInfo->AlphID] = InputInfo;
     return;
   }
 
   if(strcmp(name, "train") == 0) {
-    Me->InputInfo->TrainingFile = Me->CData;
+    InputInfo->TrainingFile = CData;
     return;
   }
 
   if(strcmp(name, "gamemode") == 0) {
-    Me->InputInfo->GameModeFile = Me->CData;
+    InputInfo->GameModeFile = CData;
     return;
   }
 
   if(strcmp(name, "palette") == 0) {
-    Me->InputInfo->PreferredColours = Me->CData;
+    InputInfo->PreferredColours = CData;
     return;
   }
 
   if(!strcmp(name, "group")) {
-    SGroupInfo *finished = Me->m_vGroups.back();
-    Me->m_vGroups.pop_back();
-    finished->iEnd = Me->InputInfo->m_vCharacters.size()+1;
+    SGroupInfo *finished = m_vGroups.back();
+    m_vGroups.pop_back();
+    finished->iEnd = InputInfo->m_vCharacters.size()+1;
     if (finished->iEnd == finished->iStart) {
       //empty group. Delete it now, and elide from sibling chain
-      SGroupInfo *&ptr(Me->m_vGroups.size()==0 ? Me->InputInfo->m_pBaseGroup : Me->m_vGroups.back()->pChild);
+      SGroupInfo *&ptr(m_vGroups.size()==0 ? InputInfo->m_pBaseGroup : m_vGroups.back()->pChild);
       DASHER_ASSERT(ptr == finished);
       ptr = finished->pNext;
       delete finished;
@@ -702,12 +626,9 @@ void CAlphIO::XML_EndElement(void *userData, const XML_Char *name) {
   }
 }
 
-void CAlphIO::XML_CharacterData(void *userData, const XML_Char *s, int len) {
+void CAlphIO::XmlCData(const XML_Char *s, int len) {
   // CAREFUL: s points to a string which is NOT null-terminated.
-
-  CAlphIO *Me = (CAlphIO *) userData;
-
-  Me->CData.append(s, len);
+  CData.append(s, len);
 }
 
 CAlphIO::~CAlphIO() {
