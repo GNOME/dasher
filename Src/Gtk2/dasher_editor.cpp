@@ -32,8 +32,6 @@
 #include "dasher_action_script.h"
 #endif
 #include "dasher_editor.h"
-#include "dasher_external_buffer.h"
-#include "dasher_internal_buffer.h"
 #include "dasher_lock_dialogue.h"
 #include "dasher_main.h"
 //#include "game_mode_helper.h"
@@ -140,6 +138,10 @@ dasher_editor_class_init(DasherEditorClass *pClass) {
   pClass->end_compose = NULL;
   pClass->get_context = NULL;
   pClass->get_offset = NULL;
+  pClass->edit_move = NULL;
+  pClass->edit_delete = NULL;
+  pClass->edit_convert = NULL;
+  pClass->edit_protect = NULL;
   pClass->handle_parameter_change = NULL;
   pClass->handle_stop = NULL;
   pClass->handle_start = NULL;
@@ -303,6 +305,26 @@ dasher_editor_get_offset(DasherEditor *pSelf) {
     return DASHER_EDITOR_GET_CLASS(pSelf)->get_offset(pSelf);
   else
     return 0;
+}
+
+void dasher_editor_edit_move(DasherEditor *pSelf, gint iDirection, gint iDist) {
+ if(DASHER_EDITOR_GET_CLASS(pSelf)->edit_move)
+    DASHER_EDITOR_GET_CLASS(pSelf)->edit_move(pSelf,iDirection,iDist);
+}
+
+void dasher_editor_edit_delete(DasherEditor *pSelf, gint iDirection, gint iDist) {
+ if(DASHER_EDITOR_GET_CLASS(pSelf)->edit_delete)
+    DASHER_EDITOR_GET_CLASS(pSelf)->edit_delete(pSelf, iDirection, iDist);
+}
+
+void dasher_editor_edit_convert(DasherEditor *pSelf) {
+ if(DASHER_EDITOR_GET_CLASS(pSelf)->edit_convert)
+    DASHER_EDITOR_GET_CLASS(pSelf)->edit_convert(pSelf);
+}
+
+void dasher_editor_edit_protect(DasherEditor *pSelf) {
+ if(DASHER_EDITOR_GET_CLASS(pSelf)->edit_protect)
+    DASHER_EDITOR_GET_CLASS(pSelf)->edit_protect(pSelf);
 }
 
 gboolean 

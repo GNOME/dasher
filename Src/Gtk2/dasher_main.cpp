@@ -1432,26 +1432,24 @@ gtk2_edit_output_callback(GtkDasherControl *pDasherControl, const gchar *szText,
   }
 }
 
-// TODO: The following aren't exported from the editor - need to fix this
-
 extern "C" void 
 convert_cb(GtkDasherControl *pDasherControl, gpointer pUserData) {
-//   if(g_pDasherMain) {
-//     DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(g_pDasherMain);
+   if(g_pDasherMain) {
+     DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(g_pDasherMain);
 
-//     if(pPrivate->pEditor) {
-//       dasher_editor_convert(pPrivate->pEditor);
-//     }
-//   }
+     if(pPrivate->pEditor) {
+       dasher_editor_edit_convert(pPrivate->pEditor);
+     }
+   }
 }
 
 extern "C" void 
 protect_cb(GtkDasherControl *pDasherControl, gpointer pUserData) {
-//   if(g_pDasherMain) {
-//     DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(g_pDasherMain);
+   if(g_pDasherMain) {
+     DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(g_pDasherMain);
 
-//     if(pPrivate->pEditor) {
-//       dasher_editor_protect(pPrivate->pEditor);
-//     }
-//   }
+     if(pPrivate->pEditor) {
+       dasher_editor_edit_protect(pPrivate->pEditor);
+     }
+   }
 }

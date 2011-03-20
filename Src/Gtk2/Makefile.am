@@ -66,18 +66,12 @@ libdashergtk_la_SOURCES = \
 		dasher_action_keyboard_maemo.h \
 		dasher_action_script.cpp \
 		dasher_action_script.h \
-		dasher_buffer_set.cpp \
-		dasher_buffer_set.h \
 		dasher_editor.cpp \
 		dasher_editor.h \
 		dasher_editor_external.cpp \
 		dasher_editor_external.h \
 		dasher_editor_internal.cpp \
 		dasher_editor_internal.h \
-		dasher_external_buffer.cpp \
-		dasher_external_buffer.h \
-		dasher_internal_buffer.cpp \
-		dasher_internal_buffer.h \
 		dasher_lock_dialogue.cpp \
 		dasher_lock_dialogue.h \
 		dasher_maemo_helper.cpp \

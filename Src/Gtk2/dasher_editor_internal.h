@@ -7,7 +7,6 @@
 
 #include "DasherAppSettings.h"
 #include "dasher_action.h"
-#include "dasher_buffer_set.h"
 #include "dasher_editor.h"
 
 /* Forward declaration */
@@ -49,11 +48,7 @@ struct _DasherEditorInternalClass {
 DasherEditorInternal *dasher_editor_internal_new();
 void dasher_editor_internal_initialise(DasherEditorInternal *pSelf, DasherAppSettings *pAppSettings, DasherMain *pDasherMain, GtkBuilder *pXML, const gchar *szFullPath);
 
-void dasher_editor_internal_cleartext(DasherEditorInternal *pSelf);
 GType dasher_editor_internal_get_type();
-
-/* Replace this with GTK text buffer */
-//IDasherBufferSet *dasher_editor_internal_get_buffer_set(DasherEditorInternal *pSelf);
 
 /* // TODO: Just have one 'handle event' method? */
 /* gboolean dasher_editor_internal_command(DasherEditorInternal *pSelf, const gchar *szCommand); */

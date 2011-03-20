@@ -6,13 +6,25 @@
 #include <gtk/gtk.h>
 
 #include "dasher_action.h"
-#include "dasher_buffer_set.h"
 
 /* Forward declaration */
 typedef struct _DasherMain DasherMain;
 struct _DasherMain;
 typedef struct _DasherAppSettings DasherAppSettings;
 struct _DasherAppSettings;
+
+// Basic cursor movement commands
+enum {
+  EDIT_FORWARDS, 
+  EDIT_BACKWARDS
+};
+  
+enum {
+  EDIT_CHAR,
+  EDIT_WORD,
+  EDIT_LINE,
+  EDIT_FILE
+};
 
 G_BEGIN_DECLS
 #define DASHER_TYPE_EDITOR            (dasher_editor_get_type())
@@ -62,6 +74,16 @@ struct _DasherEditorClass {
   void (*filename_changed)(DasherEditor *);
   void (*buffer_changed)(DasherEditor *);
   void (*context_changed)(DasherEditor *);
+
+  /* These moved from dasher_buffer_set */
+  //void (*insert_text)(DasherEditor *pSelf, const gchar *szText, int iOffset);// = output
+  //void (*delete_text)(DasherEditor *pSelf, gint iLength, int iOffset);//duplicate
+  //gchar *(*get_context)(DasherEditor *pSelf, gint iOffset, gint iLength);//duplicate
+  void (*edit_move)(DasherEditor *pSelf, gint iDirection, gint iDist);
+  void (*edit_delete)(DasherEditor *pSelf, gint iDirection, gint iDist);
+  void (*edit_convert)(DasherEditor *pSelf);
+  void (*edit_protect)(DasherEditor *pSelf);
+  //gint (*get_offset)(DasherEditor *pSelf);//duplicate
 };
 
 /* Boilerplate code */
@@ -99,6 +121,11 @@ void dasher_editor_end_compose(DasherEditor *pSelf, bool bKeep);
 /* Function for reading the active buffer */
 const gchar *dasher_editor_get_context(DasherEditor *pSelf, int iOffset, int iLength);
 gint dasher_editor_get_offset(DasherEditor *pSelf);
+
+void dasher_editor_edit_move(DasherEditor *pSelf, gint iDirection, gint iDist);
+void dasher_editor_edit_delete(DasherEditor *pSelf, gint iDirection, gint iDist);
+void dasher_editor_edit_convert(DasherEditor *pSelf);
+void dasher_editor_edit_protect(DasherEditor *pSelf);
 
 /* Events proagated from main */
 void dasher_editor_handle_parameter_change(DasherEditor *pSelf, gint iParameter);
