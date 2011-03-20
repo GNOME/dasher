@@ -19,6 +19,7 @@
 
 #include "dasher_buffer_set.h"
 #include "dasher_external_buffer.h"
+#include "DasherSpi.h"
 
 // TODO: Figure out if we need this stuff and re-implement
 
@@ -55,7 +56,6 @@ void dasher_external_buffer_insert(DasherExternalBuffer *pSelf, const gchar *szT
 void dasher_external_buffer_delete(DasherExternalBuffer *pSelf, int iLength, int iOffset);
 void dasher_external_buffer_edit_convert(DasherExternalBuffer *pSelf);
 void dasher_external_buffer_edit_protect(DasherExternalBuffer *pSelf);
-void dasher_external_buffer_conversion_mode(DasherExternalBuffer *pSelf, gboolean bMode);
 gchar *dasher_external_buffer_get_context(DasherExternalBuffer *pSelf, gint iOffset, gint iLength);
 void dasher_external_buffer_edit_move(DasherExternalBuffer *pSelf, int iDirection, int iDist);
 void dasher_external_buffer_edit_delete(DasherExternalBuffer *pSelf, int iDirection, int iDist);
@@ -77,7 +77,6 @@ struct _DasherExternalBufferPrivate {
   AccessibleEventListener *pCaretListener;
   AccessibleText *pAccessibleText;
 #endif
-  gboolean bSPIInit;
 };
 
 GType dasher_external_buffer_get_type() {
@@ -132,7 +131,6 @@ static void idasher_buffer_set_interface_init (gpointer g_iface, gpointer iface_
   iface->edit_delete = (void (*)(IDasherBufferSet *pSelf, gint iDirection, gint iDist))dasher_external_buffer_edit_delete;
   iface->edit_convert = (void (*)(IDasherBufferSet *pSelf))dasher_external_buffer_edit_convert;
   iface->edit_protect = (void (*)(IDasherBufferSet *pSelf))dasher_external_buffer_edit_protect;
-  iface->conversion_mode = (void (*)(IDasherBufferSet *pSelf, gboolean bMode))dasher_external_buffer_conversion_mode;
   iface->get_offset = (gint (*)(IDasherBufferSet *pSelf))dasher_external_buffer_get_offset;
 }
 
@@ -155,13 +153,10 @@ DasherExternalBuffer *dasher_external_buffer_new() {
 
   DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(pDasherControl->private_data);
 
-  if(SPI_init() == 2) {
+  if(!initSPI()) {
     g_message("Could not initialise SPI - accessibility options disabled");
-    pPrivate->bSPIInit = false;
   }
   else {
-    pPrivate->bSPIInit = true;
-
     pPrivate->pFocusListener = SPI_createAccessibleEventListener(focus_listener, pDasherControl);
     pPrivate->pCaretListener = SPI_createAccessibleEventListener(caret_listener, pDasherControl);
     
@@ -183,94 +178,13 @@ DasherExternalBuffer *dasher_external_buffer_new() {
 }
 
 void dasher_external_buffer_insert(DasherExternalBuffer *pSelf, const gchar *szText, int iOffset) { 
-  DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(pSelf->private_data);
-
-#ifdef GNOME_A11Y
-  if(!pPrivate->bSPIInit)
-    return;
-
-  char *szNewText;
-  szNewText = new char[strlen(szText) + 1];
-  strcpy(szNewText, szText);
-  
-  SPI_generateKeyboardEvent(0, szNewText, SPI_KEY_STRING);
-  
-  delete[] szNewText;
-#else
-  glong numoutput;
-  int numcodes;
-  Display *dpy = gdk_x11_get_default_xdisplay();
-  int min, max;
-  KeySym *keysym;
-  KeyCode code;  
-  
-  if(szText[0] == '\n') {
-    // If it's a nreline, we want to mimic an enter press rather than a raw newline
-    code = XKeysymToKeycode(dpy, XK_Return);
-    if(code != 0) {
-      XTestFakeKeyEvent(dpy, code, True, CurrentTime);
-      XSync(dpy, true);
-      XTestFakeKeyEvent(dpy, code, False, CurrentTime);
-      XSync(dpy, true);
-    }
-  }
-  else {
-    // gunichar is a 32 bit data type for UTF32 (aka UCS4) encoded unicodeX
-    gunichar *wideoutput = g_utf8_to_ucs4(szText, -1, NULL, &numoutput, NULL);
-
-    for(int i = 0; i < numoutput; i++) {
-
-      // Erm - this makes no sense
-      int modifiedkey = (i + 1) % 10;
-
-      if(wideoutput[i] < 0x01000000) {
-
-	// See http://wiki.x.org/wiki/KeySyms for the logic behind this
-	// tranlation
-	wideoutput[i] = wideoutput[i] | 0x01000000;
-
-	// TODO: Please see
-	// http://tronche.com/gui/x/xlib/input/keyboard-encoding.html
-	// for an explanation as to why you sometimes get problems
-	// with upper/lower case on some X displays I'm tempted to say
-	// that the XTest stuff is just broken, and require some GNOME
-	// a11y support for direct entry...
-	
-	XDisplayKeycodes(dpy, &min, &max);
-	
-	// Returns the keyboard mapping for the current display - numcodes is the 
-	keysym = XGetKeyboardMapping(dpy, min, max - min + 1, &numcodes);
-	
-	// Reprogramme the keyboard map to use the new keysym
-	keysym[(max - min - modifiedkey - 1) * numcodes] = wideoutput[i];
-	XChangeKeyboardMapping(dpy, min, numcodes, keysym, (max - min));
-	XSync(dpy, true);
-	
-	// Delete the old keymap
-	XFree(keysym);
-	// There's no way whatsoever that this could ever possibly
-	// be guaranteed to work (ever), but it does.
-	code = (max - modifiedkey - 1);
-	if(code != 0) {
-	  XTestFakeKeyEvent(dpy, code, True, CurrentTime);
-	  XSync(dpy, true);
-	  XTestFakeKeyEvent(dpy, code, False, CurrentTime);
-	  XSync(dpy, true);
-	}
-      }
-    }
-    XSync(dpy, true);
-    g_free(wideoutput);
-  }
-#endif
+  sendText(szText);
 }
 
 void dasher_external_buffer_delete(DasherExternalBuffer *pSelf, int iLength, int iOffset) {
-  DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(pSelf->private_data);
 
 #ifdef GNOME_A11Y
-  if(!pPrivate->bSPIInit)
-    return;
+  if(!initSPI()) return;
 
   SPI_generateKeyboardEvent(XK_BackSpace, NULL, SPI_KEY_SYM);
 #else
@@ -329,9 +243,6 @@ void dasher_external_buffer_edit_convert(DasherExternalBuffer *pSelf) {
 }
 
 void dasher_external_buffer_edit_protect(DasherExternalBuffer *pSelf) {
-}
-
-void dasher_external_buffer_conversion_mode(DasherExternalBuffer *pSelf, gboolean bMode) {
 }
 
 #ifdef GNOME_A11Y

@@ -56,6 +56,8 @@ libdashergtk_la_SOURCES = \
 		Preferences.cpp \
 		Preferences.h \
 		dasher.h \
+		DasherSpi.h \
+		DasherSpi.cpp \
 		dasher_action.cpp \
 		dasher_action.h \
 		dasher_action_keyboard.cpp \

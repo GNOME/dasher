@@ -21,7 +21,6 @@
 #endif
 
 #include "dasher_editor_internal.h"
-#include "dasher_external_buffer.h"
 #include "dasher_internal_buffer.h"
 #include "dasher_lock_dialogue.h"
 #include "dasher_main.h"
@@ -85,7 +84,6 @@ struct _DasherEditorInternalPrivate {
   gboolean bActionIterStarted;
   gint iNextActionID;
   IDasherBufferSet *pBufferSet;
-  IDasherBufferSet *pExternalBuffer;
   //  GameModeHelper *pGameModeHelper;
   GtkTextMark *pNewMark;
   DasherAppSettings *pAppSettings;
@@ -247,7 +245,6 @@ dasher_editor_internal_init(DasherEditorInternal *pSelf) {
     gtk_text_view_set_wrap_mode(pPrivate->pTextView, GTK_WRAP_WORD);
   pPrivate->pBuffer = gtk_text_view_get_buffer(pPrivate->pTextView);
   pPrivate->pBufferSet = NULL;
-  pPrivate->pExternalBuffer = NULL;
   pPrivate->szFilename = NULL;
   pPrivate->pTextClipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
   pPrivate->pPrimarySelection = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
@@ -589,11 +586,6 @@ dasher_editor_internal_grab_focus(DasherEditor *pSelf) {
 static void 
 dasher_editor_internal_create_buffer(DasherEditor *pSelf) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
-
-  /* Make an external buffer anyway, for keyboard command */
-  /* TODO: Review this */
-  if(!(pPrivate->pExternalBuffer))
-    pPrivate->pExternalBuffer = IDASHER_BUFFER_SET(dasher_external_buffer_new());
     
   if(!(pPrivate->pBufferSet))
     pPrivate->pBufferSet = IDASHER_BUFFER_SET(dasher_internal_buffer_new(pPrivate->pTextView));
@@ -1019,7 +1011,7 @@ dasher_editor_internal_setup_actions(DasherEditor *pSelf) {
   // any otherway! (Also the whole actions code stuff seems so unfinished etc.
   // anyway...that perhaps it's best removed?)
 
-  dasher_editor_internal_add_action(pSelf, DASHER_ACTION(dasher_action_keyboard_new(pPrivate->pExternalBuffer)));
+  dasher_editor_internal_add_action(pSelf, DASHER_ACTION(dasher_action_keyboard_new()));
 
 #ifdef WITH_MAEMO
   dasher_editor_internal_add_action(pSelf, DASHER_ACTION(dasher_action_keyboard_maemo_new()));

@@ -69,9 +69,6 @@ struct _DasherEditorPrivate {
   EditorAction *pActionIter;
   gboolean bActionIterStarted;
   gint iNextActionID;
-  IDasherBufferSet *pBufferSet;
-  IDasherBufferSet *pExternalBuffer;
-  IDasherBufferSet *pInternalBuffer;
   //  GameModeHelper *pGameModeHelper;
   GtkTextMark *pNewMark;
   DasherAppSettings *pAppSettings;
@@ -160,9 +157,6 @@ static void
 dasher_editor_init(DasherEditor *pDasherControl) {
   DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pDasherControl);
 
-  pPrivate->pBufferSet = NULL;
-  pPrivate->pInternalBuffer = NULL;
-  pPrivate->pExternalBuffer = NULL;
   pPrivate->szFilename = NULL;
   pPrivate->pTextClipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
   pPrivate->pPrimarySelection = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
@@ -190,9 +184,6 @@ dasher_editor_finalize(GObject *pObject) {
       pCurrentAction = pCurrentAction->pNext;
     }
   }
-
-  if(pPrivate->pBufferSet)
-    g_object_unref(G_OBJECT(pPrivate->pBufferSet));
 
   if(pPrivate->szFilename)
     g_free(pPrivate->szFilename);

@@ -2,12 +2,14 @@
 #include <config.h>
 #endif
 #include "../Common/Common.h"
+
 #include "dasher_action_keyboard.h"
 #include "dasher_editor.h"
+#include "DasherSpi.h"
 #include <string.h>
 
 struct _DasherActionKeyboardPrivate {
-  IDasherBufferSet *pBufferSet;
+  /* No decls atm...TODO remove private struct? */
 };
 
 typedef struct _DasherActionKeyboardPrivate DasherActionKeyboardPrivate;
@@ -30,29 +32,21 @@ dasher_action_keyboard_class_init(DasherActionKeyboardClass *pClass) {
 
 static void 
 dasher_action_keyboard_init(DasherActionKeyboard *pDasherActionKeyboard) {
-  DasherActionKeyboardPrivate *pPrivate = DASHER_ACTION_KEYBOARD_GET_PRIVATE(pDasherActionKeyboard);
-
-  pPrivate->pBufferSet = NULL;
+  //TODO: Remove?
 }
 
 DasherActionKeyboard *
-dasher_action_keyboard_new(IDasherBufferSet *pBufferSet) {
+dasher_action_keyboard_new() {
   DasherActionKeyboard *pDasherActionKeyboard;
   pDasherActionKeyboard = (DasherActionKeyboard *)(g_object_new(dasher_action_keyboard_get_type(), NULL));
-
-  DasherActionKeyboardPrivate *pPrivate = DASHER_ACTION_KEYBOARD_GET_PRIVATE(pDasherActionKeyboard);
-  pPrivate->pBufferSet = pBufferSet;
 
   return pDasherActionKeyboard;
 }
 
 static gboolean 
 dasher_action_keyboard_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx) {
-  DasherActionKeyboardPrivate *pPrivate = DASHER_ACTION_KEYBOARD_GET_PRIVATE(pSelf);
-   
-  if(pPrivate->pBufferSet)
-    /* TODO: Fix offset here */
-    idasher_buffer_set_insert(pPrivate->pBufferSet, dasher_editor_get_all_text(pEditor), 0);
+  
+  sendText(dasher_editor_get_all_text(pEditor));
 
   return true;
 }

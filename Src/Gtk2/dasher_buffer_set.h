@@ -37,7 +37,6 @@ struct _IDasherBufferSetInterface {
   void (*edit_delete)(IDasherBufferSet *pSelf, gint iDirection, gint iDist);
   void (*edit_convert)(IDasherBufferSet *pSelf);
   void (*edit_protect)(IDasherBufferSet *pSelf);
-  void (*conversion_mode)(IDasherBufferSet *pSelf, gboolean bMode);
   gint (*get_offset)(IDasherBufferSet *pSelf);
 };
 
@@ -50,7 +49,6 @@ void idasher_buffer_set_edit_move(IDasherBufferSet *pSelf, gint iDirection, gint
 void idasher_buffer_set_edit_delete(IDasherBufferSet *pSelf, gint iDirection, gint iDist);
 void idasher_buffer_set_edit_convert(IDasherBufferSet *pSelf);
 void idasher_buffer_set_edit_protect(IDasherBufferSet *pSelf);
-void idasher_buffer_set_conversion_mode(IDasherBufferSet *pSelf, gboolean bMode);
 gint idasher_buffer_set_get_offset(IDasherBufferSet *pSelf);
 
 #endif

@@ -17,7 +17,6 @@ void dasher_internal_buffer_edit_move(DasherInternalBuffer *pSelf, int iDirectio
 void dasher_internal_buffer_edit_delete(DasherInternalBuffer *pSelf, int iDirection, int iDist);
 void dasher_internal_buffer_edit_convert(DasherInternalBuffer *pSelf);
 void dasher_internal_buffer_edit_protect(DasherInternalBuffer *pSelf);
-void dasher_internal_buffer_conversion_mode(DasherInternalBuffer *pSelf, gboolean bMode);
 gint dasher_internal_buffer_get_offset(DasherInternalBuffer *pSelf);
 
 // Related signal handlers
@@ -88,7 +87,6 @@ static void idasher_buffer_set_interface_init (gpointer g_iface, gpointer iface_
   iface->edit_delete = (void (*)(IDasherBufferSet *pSelf, gint iDirection, gint iDist))dasher_internal_buffer_edit_delete;
   iface->edit_convert = (void (*)(IDasherBufferSet *pSelf))dasher_internal_buffer_edit_convert;
   iface->edit_protect = (void (*)(IDasherBufferSet *pSelf))dasher_internal_buffer_edit_protect;
-  iface->conversion_mode = (void (*)(IDasherBufferSet *pSelf, gboolean bMode))dasher_internal_buffer_conversion_mode;
   iface->get_offset = (gint (*)(IDasherBufferSet *pSelf))dasher_internal_buffer_get_offset;
 }
 
@@ -339,7 +337,7 @@ void dasher_internal_buffer_edit_protect(DasherInternalBuffer *pSelf) {
   pPrivate->iLastOffset = gtk_text_buffer_get_char_count(pPrivate->pBuffer);
 }
 
-void dasher_internal_buffer_conversion_mode(DasherInternalBuffer *pSelf, gboolean bMode) {
+/*void dasher_internal_buffer_conversion_mode(DasherInternalBuffer *pSelf, gboolean bMode) {
   DasherInternalBufferPrivate *pPrivate = (DasherInternalBufferPrivate *)(pSelf->private_data);
 
   if(bMode) {
@@ -351,7 +349,7 @@ void dasher_internal_buffer_conversion_mode(DasherInternalBuffer *pSelf, gboolea
     pPrivate->bConversionMode = FALSE;
     pPrivate->iCurrentState = 1;
   }
-}
+}*/
 
 void dasher_internal_buffer_clear(DasherInternalBuffer *pSelf) {
   DasherInternalBufferPrivate *pPrivate = (DasherInternalBufferPrivate *)(pSelf->private_data);
