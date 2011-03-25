@@ -200,10 +200,7 @@ then
 	PKG_CHECK_MODULES(GTK2, gtk+-2.0 >= 2.6.0,[GTK2HERE=true],[GTK2HERE=false]) 
 fi
 
-if test x"$GTK2HERE" = xtrue -a x"$WITHGTK2" = xtrue -a x"$WITHQTE" != xtrue
-then
-	BUILDGTK2=true
-elif test x"$GTK2HERE" = xtrue -a x"$WITHQTE" != xtrue
+if test x"$GTK2HERE" = xtrue -a x"$WITHQTE" != xtrue
 then
 	BUILDGTK2=true
 else 
