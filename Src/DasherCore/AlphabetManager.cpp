@@ -208,7 +208,7 @@ CAlphabetManager::CAlphBase::CAlphBase(CDasherNode *pParent, int iOffset, unsign
 : CDasherNode(pParent, iOffset, iLbnd, iHbnd, iColour, pLabel), m_pMgr(pMgr) {
 }
 
-void CAlphabetManager::CAlphBase::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {
+void CAlphabetManager::CAlphBase::Output() {
   if (m_pMgr->m_pLastOutput && m_pMgr->m_pLastOutput == Parent())
     m_pMgr->m_pLastOutput=this;
   //Case where lastOutput != Parent to subclasses, if they want to.
@@ -216,7 +216,7 @@ void CAlphabetManager::CAlphBase::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int
   // will register as a context switch and write out an empty/default context.
 }
 
-void CAlphabetManager::CAlphBase::Undo(int *pNumDeleted) {
+void CAlphabetManager::CAlphBase::Undo() {
   if (m_pMgr->m_pLastOutput==this) m_pMgr->m_pLastOutput = Parent();
 }
 CAlphabetManager::CAlphNode::CAlphNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, CDasherScreen::Label *pLabel, CAlphabetManager *pMgr)
@@ -545,7 +545,7 @@ int CAlphabetManager::CSymbolNode::numChars() {
   return (outputText()=="\r\n") ? 2 : 1;
 }
 
-void CAlphabetManager::CSymbolNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {
+void CAlphabetManager::CSymbolNode::Output() {
   if (m_pMgr->m_pNCManager->GetBoolParameter(BP_LM_ADAPTIVE)) {
     if (m_pMgr->m_pLastOutput != Parent()) {
       //Context changed. Flush to disk the old context + text written in it...
@@ -577,7 +577,7 @@ SymbolProb CAlphabetManager::CSymbolNode::GetSymbolProb(int iNormalization) cons
   return Dasher::SymbolProb(iSymbol, m_pMgr->m_pAlphabet->GetText(iSymbol), Range() / (double)iNormalization);
 }
 
-void CAlphabetManager::CSymbolNode::Undo(int *pNumDeleted) {
+void CAlphabetManager::CSymbolNode::Undo() {
   DASHER_ASSERT(GetFlag(NF_SEEN));
   if (m_pMgr->m_pNCManager->GetBoolParameter(BP_LM_ADAPTIVE)) {
     if (m_pMgr->m_pLastOutput == this) {
@@ -590,10 +590,9 @@ void CAlphabetManager::CSymbolNode::Undo(int *pNumDeleted) {
         m_pMgr->m_pLastOutput = Parent();
       }
     }
-  } else CAlphBase::Undo(pNumDeleted);
+  } else CAlphBase::Undo();
   Dasher::CEditEvent oEvent(2, outputText(), this);
   m_pMgr->m_pNCManager->InsertEvent(&oEvent);
-  if (pNumDeleted) (*pNumDeleted)++;
 }
 
 CDasherNode *CAlphabetManager::CGroupNode::RebuildParent() {

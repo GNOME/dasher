@@ -29,7 +29,7 @@ class CDasherButtons : public CInputFilter
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput)=0;
   
   void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
-  bool Timer(int Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol);
+  bool Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);
   void Activate();
   
   struct SBoxInfo {

@@ -76,8 +76,8 @@ void CClickFilter::AdjustZoomCoords(myint &iDasherX, myint &iDasherY, CDasherVie
   }
 }
 
-bool CClickFilter::Timer(int Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {
-  return pModel->NextScheduledStep(Time, pAdded, pNumDeleted);
+bool CClickFilter::Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CExpansionPolicy **pol) {
+  return pModel->NextScheduledStep(Time);
 }
 
 void CClickFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {

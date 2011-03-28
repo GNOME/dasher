@@ -52,7 +52,7 @@ bool COneButtonFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
   return true;
 }
 
-bool COneButtonFilter::Timer(int Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {
+bool COneButtonFilter::Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) {
 
   if(bStarted) {
     iLocation = (Time - iStartTime) * 4096 / GetLongParameter(LP_STATIC1B_TIME);
@@ -67,7 +67,7 @@ bool COneButtonFilter::Timer(int Time, CDasherView *pView, CDasherInput *pInput,
     }
   }
 
-  return m_pDasherModel->NextScheduledStep(Time, pAdded, pNumDeleted);
+  return m_pDasherModel->NextScheduledStep(Time);
 }
 
 void COneButtonFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {

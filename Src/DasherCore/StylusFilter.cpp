@@ -10,16 +10,16 @@ CStylusFilter::CStylusFilter(Dasher::CEventHandler *pEventHandler, CSettingsStor
   : CDefaultFilter(pEventHandler, pSettingsStore, pInterface, iID, szName) {
 }
 
-bool CStylusFilter::Timer(int iTime, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol)
+bool CStylusFilter::Timer(unsigned long iTime, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CExpansionPolicy **pol)
 {
   //First, try to continue any zoom scheduled by a previous click...
-  if (pModel->NextScheduledStep(iTime, pAdded, pNumDeleted)) {
+  if (pModel->NextScheduledStep(iTime)) {
     //note that this skips the rest of CDefaultFilter::Timer;
     //however, given we're paused, this is only the Start Handler,
     //which we're not using anyway.
     return true;
   }
-  return CDefaultFilter::Timer(iTime, pView, pInput, pModel, pAdded, pNumDeleted, pol);
+  return CDefaultFilter::Timer(iTime, pView, pInput, pModel, pol);
 }
 
 void CStylusFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {

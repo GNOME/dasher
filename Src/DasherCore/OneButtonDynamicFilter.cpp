@@ -115,8 +115,8 @@ void COneButtonDynamicFilter::KeyUp(int Time, int iId, CDasherView *pDasherView,
     CInputFilter::KeyUp(Time, iId, pDasherView, pInput, pModel, bPos, iX, iY);
 }
 
-bool COneButtonDynamicFilter::TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {
-  m_pDasherModel->OneStepTowards(m_iTargetX[m_iTarget], m_iTargetY[m_iTarget], Time, pAdded, pNumDeleted);
+bool COneButtonDynamicFilter::TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) {
+  m_pDasherModel->OneStepTowards(m_iTargetX[m_iTarget], m_iTargetY[m_iTarget], Time);
   return true;
 }
 

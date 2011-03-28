@@ -104,7 +104,7 @@ bool CDefaultFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
   return bDidSomething;
 }
 
-bool CDefaultFilter::Timer(int Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {
+bool CDefaultFilter::Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) {
   if (!(m_bGotMouseCoords = pInput->GetDasherCoords(m_iLastX, m_iLastY, pView))) {
     m_pInterface->Stop(); //does nothing if already paused
     return false;
@@ -127,7 +127,7 @@ bool CDefaultFilter::Timer(int Time, CDasherView *pView, CDasherInput *pInput, C
       }
     }
 
-    m_pDasherModel->OneStepTowards(m_iLastX,m_iLastY, Time, pAdded, pNumDeleted);
+    m_pDasherModel->OneStepTowards(m_iLastX,m_iLastY, Time);
     bDidSomething = true;
 
     m_pAutoSpeedControl->SpeedControl(m_iLastX, m_iLastY, pView);

@@ -227,7 +227,7 @@ bool doSet(int &var, const int val)
   return true;
 }
 
-bool CTwoPushDynamicFilter::TimerImpl(int iTime, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol)
+bool CTwoPushDynamicFilter::TimerImpl(unsigned long iTime, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol)
 {
   DASHER_ASSERT(isRunning());
   if (m_dNatsSinceFirstPush > -std::numeric_limits<double>::infinity()) // first button has been pushed
@@ -263,7 +263,7 @@ bool CTwoPushDynamicFilter::TimerImpl(int iTime, CDasherView *m_pDasherView, CDa
       m_bDecorationChanged |= doSet(m_iActiveMarker, 1 /*down*/);
     else m_bDecorationChanged |= doSet(m_iActiveMarker, -1 /*in middle (neither/both) or too short*/);
   }
-  m_pDasherModel->OneStepTowards(100, 2048, iTime, pAdded, pNumDeleted);
+  m_pDasherModel->OneStepTowards(100, 2048, iTime);
   return true;
 }
 

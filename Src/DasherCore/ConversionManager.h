@@ -105,13 +105,13 @@ namespace Dasher {
     /// moves under the crosshair
     ///
 
-    virtual void Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization);
+    virtual void Output();
 
     ///
     /// Called when a node is left backwards
     ///
 
-    virtual void Undo(int *pNumDeleted);
+    virtual void Undo();
 
     protected:
       CConversionManager *m_pMgr;

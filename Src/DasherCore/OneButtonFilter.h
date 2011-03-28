@@ -12,7 +12,7 @@ class COneButtonFilter : public CInputFilter {
   ~COneButtonFilter();
 
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);
-  virtual bool Timer(int Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol);
+  virtual bool Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);
   virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
   bool GetSettings(SModuleSettings **pSettings, int *iCount);
  private:

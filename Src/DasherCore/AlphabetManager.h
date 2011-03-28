@@ -104,9 +104,9 @@ namespace Dasher {
       /// \param pParent parent of the symbol node to create; could be the previous root, or an intervening node (e.g. group)
       virtual CDasherNode *RebuildGroup(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, int iBkgCol, const SGroupInfo *pInfo);
       ///Just keep track of the last node output (for training file purposes)
-      void Undo(int *pNumDeleted);
+      void Undo();
       ///Just keep track of the last node output (for training file purposes)
-      void Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization);
+      void Output();
     protected:
       ///Called in process of rebuilding parent: fill in the hierarchy _beneath_ the
       /// the previous root node, by calling IterateChildGroups passing this node as
@@ -148,8 +148,8 @@ namespace Dasher {
 
       ///Create the children of this node, by starting traversal of the alphabet from the top
       virtual void PopulateChildren();
-      virtual void Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization);
-      virtual void Undo(int *pNumDeleted);
+      virtual void Output();
+      virtual void Undo();
       ///Override to provide symbol number, probability, _edit_ text from alphabet
       virtual SymbolProb GetSymbolProb(int iNormalization) const;
 

@@ -154,7 +154,7 @@ void CConversionManager::CConvNode::GetContext(CDasherInterfaceBase *pInterface,
   CDasherNode::GetContext(pInterface, pAlphabetMap, vContextSymbols, iOffset, iLength);
 }
 
-void CConversionManager::CConvNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {
+void CConversionManager::CConvNode::Output() {
   // TODO: Reimplement this
   //  m_pNCManager->m_bContextSensitive = true;
 
@@ -186,9 +186,7 @@ void CConversionManager::CConvNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, i
   }
 }
 
-void CConversionManager::CConvNode::Undo(int *pNumDeleted) {
-  //ACL note: possibly ought to update pNumDeleted here if non-null,
-  // but conversion symbols were not logged by old code so am not starting now!
+void CConversionManager::CConvNode::Undo() {
   SCENode *pCurrentSCENode(pSCENode);
 
   if(pCurrentSCENode) {

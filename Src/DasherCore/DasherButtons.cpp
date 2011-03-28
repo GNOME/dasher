@@ -81,7 +81,7 @@ void CDasherButtons::DirectKeyDown(int iTime, int iId, CDasherView *pView, CDash
   pModel->ScheduleZoom(iTime, m_pBoxes[iActiveBox].iTop,m_pBoxes[iActiveBox].iBottom);
 }
 
-bool CDasherButtons::Timer(int Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {
+bool CDasherButtons::Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CExpansionPolicy **pol) {
   if (m_bMenu && GetLongParameter(LP_BUTTON_SCAN_TIME) &&
       Time > m_iScanTime) {
     m_iScanTime = Time + GetLongParameter(LP_BUTTON_SCAN_TIME);
@@ -97,7 +97,7 @@ bool CDasherButtons::Timer(int Time, CDasherView *pView, CDasherInput *pInput, C
   pInput->GetDasherCoords(iDasherX, iDasherY, pView);
   // ----
 
-  return pModel->NextScheduledStep(Time, pAdded, pNumDeleted);
+  return pModel->NextScheduledStep(Time);
 }
 
 void CDasherButtons::NewDrawGoTo(CDasherView *pView, myint iDasherMin, myint iDasherMax, bool bActive) {

@@ -121,7 +121,7 @@ int CControlBase::CContNode::ExpectedNumChildren() {
   return m_pTemplate->successors.size();
 }
 
-void CControlBase::CContNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization ) {
+void CControlBase::CContNode::Output() {
   m_pTemplate->happen(this);
 }
 

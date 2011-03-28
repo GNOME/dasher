@@ -29,7 +29,7 @@ class CInputFilter : public CDasherModule {
     KeyUp(Time, iId, pDasherView, pInput, pModel);
   };
 
-  virtual bool Timer(int Time, CDasherView *m_pDasherView, CDasherInput *pInput, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol)=0;// { return false; };
+  virtual bool Timer(unsigned long Time, CDasherView *m_pDasherView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol)=0;// { return false; };
 
   virtual void Activate() {};
   virtual void Deactivate() {};

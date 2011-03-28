@@ -530,7 +530,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   
       //1. Move around in the model
       if(m_pInputFilter) {
-        bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pInput, m_pDasherModel, 0, 0, &pol);
+        bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pInput, m_pDasherModel, &pol);
       }
       //2. Render...
       //check: if we were paused before, and the input filter didn't unpause,

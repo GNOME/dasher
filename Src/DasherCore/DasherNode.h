@@ -231,8 +231,8 @@ class Dasher::CDasherNode:private NoClones {
   /// moves under the crosshair
   ///
 
-  virtual void Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {};
-  virtual void Undo(int *pNumDeleted) {};
+  virtual void Output() {};
+  virtual void Undo() {};
 
   ///Called by logging code to get information about node which has just been
   /// output. Subclasses performing output, should override to return appropriate

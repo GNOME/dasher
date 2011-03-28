@@ -390,7 +390,7 @@ void CDasherModel::Get_new_root_coords(dasherint X, dasherint Y, dasherint &r1, 
   r2 = ((R2 - C) * Y2) / (y2 - y1) + C;
 }
 
-bool CDasherModel::NextScheduledStep(unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted)
+bool CDasherModel::NextScheduledStep(unsigned long iTime)
 {
   DASHER_ASSERT (!GetBoolParameter(BP_DASHER_PAUSED) || m_deGotoQueue.size()==0);
   if (m_deGotoQueue.size() == 0) return false;
@@ -399,22 +399,22 @@ bool CDasherModel::NextScheduledStep(unsigned long iTime, Dasher::VECTOR_SYMBOL_
   iNewMax = m_deGotoQueue.front().iN2;
   m_deGotoQueue.pop_front();
 
-  UpdateBounds(iNewMin, iNewMax, iTime, pAdded, pNumDeleted);
+  UpdateBounds(iNewMin, iNewMax, iTime);
   if (m_deGotoQueue.size() == 0) SetBoolParameter(BP_DASHER_PAUSED, true);
   return true;
 }
 
-void CDasherModel::OneStepTowards(myint miMousex, myint miMousey, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
+void CDasherModel::OneStepTowards(myint miMousex, myint miMousey, unsigned long iTime) {
   DASHER_ASSERT(!GetBoolParameter(BP_DASHER_PAUSED));
 
   myint iNewMin, iNewMax;
   // works out next viewpoint
   Get_new_root_coords(miMousex, miMousey, iNewMin, iNewMax, iTime);
 
-  UpdateBounds(iNewMin, iNewMax, iTime, pAdded, pNumDeleted);
+  UpdateBounds(iNewMin, iNewMax, iTime);
 }
 
-void CDasherModel::UpdateBounds(myint newRootmin, myint newRootmax, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
+void CDasherModel::UpdateBounds(myint newRootmin, myint newRootmax, unsigned long iTime) {
 
   m_dTotalNats += log((newRootmax - newRootmin) / static_cast<double>(m_Rootmax - m_Rootmin));
 
@@ -443,7 +443,7 @@ void CDasherModel::UpdateBounds(myint newRootmin, myint newRootmax, unsigned lon
         //first we're gonna have to force it to be output, as a non-output root won't work...
         if (!pChild->GetFlag(NF_SEEN)) {
           DASHER_ASSERT(m_pLastOutput == m_Root);
-          OutputTo(pChild, pAdded, pNumDeleted);
+          OutputTo(pChild);
         }
         //we need to update the target coords (newRootmin,newRootmax)
         // to reflect the new coordinate system based upon pChild as root.
@@ -489,15 +489,15 @@ void CDasherModel::RecordFrame(unsigned long Time) {
     pTeacher->NewFrame(Time);
 }
 
-void CDasherModel::OutputTo(CDasherNode *pNewNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
+void CDasherModel::OutputTo(CDasherNode *pNewNode) {
   //first, recurse back up to last seen node (must be processed ancestor-first)
   if (pNewNode && !pNewNode->GetFlag(NF_SEEN)) {
-    OutputTo(pNewNode->Parent(), pAdded, pNumDeleted);
+    OutputTo(pNewNode->Parent());
     if (pNewNode->Parent()) pNewNode->Parent()->Leave();
     pNewNode->Enter();
 
     m_pLastOutput = pNewNode;
-    pNewNode->Output(pAdded, GetLongParameter(LP_NORMALIZATION));
+    pNewNode->Output();
     pNewNode->SetFlag(NF_SEEN, true); //becomes NF_SEEN after output.
 
     // If the node we are outputting is the last one in a game target sentence, then
@@ -511,7 +511,7 @@ void CDasherModel::OutputTo(CDasherNode *pNewNode, Dasher::VECTOR_SYMBOL_PROB* p
       // if pNewNode is null, m_pLastOutput is not; else, pNewNode has been seen,
       // so we should encounter it on the way back out to the root, _before_ null
       m_pLastOutput->SetFlag(NF_COMMITTED, false);
-      m_pLastOutput->Undo(pNumDeleted);
+      m_pLastOutput->Undo();
       m_pLastOutput->Leave(); //Should we? I think so, but the old code didn't...?
       m_pLastOutput->SetFlag(NF_SEEN, false);
 
@@ -598,9 +598,7 @@ void CDasherModel::RenderToView(CDasherView *pView, CExpansionPolicy &policy) {
     }
   //////////////////////////////////////
 
-  // TODO: Fix up stats
-  // TODO: Is this the right way to handle this?
-  OutputTo(pOutput, NULL, NULL);
+  OutputTo(pOutput);
 
   while (CDasherNode *pNewRoot = m_Root->onlyChildRendered) {
 #ifdef DEBUG

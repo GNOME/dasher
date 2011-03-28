@@ -77,7 +77,7 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   ///
   /// Update the root location with *one step* towards the specified
   /// co-ordinates - used by timer callbacks (for non-button modes)
-  void OneStepTowards(myint, myint, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);
+  void OneStepTowards(myint, myint, unsigned long iTime);
 
   ///
   /// Notify the framerate class that a new frame has occurred
@@ -151,7 +151,7 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   /// still-in-progress zoom scheduled by ScheduleZoom (does nothing
   /// if no steps remaining / no zoom scheduled).
   ///
-  bool NextScheduledStep(unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int *pNumDeleted = NULL);
+  bool NextScheduledStep(unsigned long iTime);
 
   /// @}
 
@@ -198,7 +198,7 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
 
   /// Common portion of OneStepTowards / NextScheduledStep, taking
   /// bounds for the root node in the next frame.
-  void UpdateBounds(myint iNewMin, myint iNewMax, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted);
+  void UpdateBounds(myint iNewMin, myint iNewMax, unsigned long iTime);
 
   /// Struct representing intermediate stages in the goto queue
   ///
@@ -302,7 +302,7 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   /// deletes from m_pLastOutput back to closest ancestor of pNewNode,
   /// then outputs from that ancestor to that node
   /// @param pNewNode innermost node now covering the crosshair
-  void OutputTo(CDasherNode *pNewNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted);
+  void OutputTo(CDasherNode *pNewNode);
 
 
   ///
