@@ -549,26 +549,26 @@ gint CDasherControl::KeyReleaseEvent(GdkEventKey *event) {
   // events mean the there's no guarantee that key up/down events will
   // be received in pairs.
 
-  if((event->keyval == GDK_Shift_L) || (event->keyval == GDK_Shift_R)) {
+//  if((event->keyval == GDK_Shift_L) || (event->keyval == GDK_Shift_R)) {
 //     if(event->state & GDK_CONTROL_MASK)
 //       SetLongParameter(LP_BOOSTFACTOR, 25);
 //     else
 //       SetLongParameter(LP_BOOSTFACTOR, 100);
-  }
-  else if((event->keyval == GDK_Control_L) || (event->keyval == GDK_Control_R)) {
+//  }
+//  else if((event->keyval == GDK_Control_L) || (event->keyval == GDK_Control_R)) {
 //     if(event->state & GDK_SHIFT_MASK)
 //       SetLongParameter(LP_BOOSTFACTOR, 175);
 //     else
 //       SetLongParameter(LP_BOOSTFACTOR, 100);
-  }
-  else {
+//  }
+//  else {
 //     if(m_pKeyboardHelper) {
 //       int iKeyVal(m_pKeyboardHelper->ConvertKeycode(event->keyval));
       
 //       if(iKeyVal != -1)
 // 	KeyUp(get_time(), iKeyVal);
 //     }
-  }
+//  }
 
   return 0;
 }
