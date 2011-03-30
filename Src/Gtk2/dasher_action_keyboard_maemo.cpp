@@ -1,8 +1,7 @@
-// TODO: Make inclusion of this file in build conditional
+// Inclusion of this file in build conditional on WITH_MAEMO
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
-#ifdef WITH_MAEMO
 
 #include "dasher.h"
 #include "dasher_maemo_helper.h"
@@ -95,5 +94,3 @@ static gboolean dasher_action_keyboard_maemo_execute(DasherAction *pSelf, Dasher
 static const gchar *dasher_action_keyboard_maemo_get_name(DasherAction *pSelf) {
   return _("Enter Text");
 }
-
-#endif

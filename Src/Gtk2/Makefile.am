@@ -62,8 +62,6 @@ libdashergtk_la_SOURCES = \
 		dasher_action.h \
 		dasher_action_keyboard.cpp \
 		dasher_action_keyboard.h \
-		dasher_action_keyboard_maemo.cpp \
-		dasher_action_keyboard_maemo.h \
 		dasher_action_script.cpp \
 		dasher_action_script.h \
 		dasher_editor.cpp \
@@ -74,12 +72,18 @@ libdashergtk_la_SOURCES = \
 		dasher_editor_internal.h \
 		dasher_lock_dialogue.cpp \
 		dasher_lock_dialogue.h \
-		dasher_maemo_helper.cpp \
-		dasher_maemo_helper.h \
 		dasher_main.cpp \
 		dasher_main.h \
 		module_settings_window.cpp \
 		module_settings_window.h
+
+if WITH_MAEMO
+libdashergtk_la_SOURCES += \
+		dasher_action_keyboard_maemo.cpp \
+		dasher_action_keyboard_maemo.h \
+		dasher_maemo_helper.cpp \
+		dasher_maemo_helper.h
+endif
 
 libdashergtk_la_LIBADD = @SPEECH_SOURCES@
 libdashergtk_la_DEPENDENCIES = @SPEECH_SOURCES@
