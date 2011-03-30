@@ -432,6 +432,7 @@ void CDasherControl::HandleParameterNotification(int iParameter) {
 
 int CDasherControl::TimerEvent() {
   int x, y;
+  GdkWindow *default_root_window = gdk_get_default_root_window();
 
 #if GTK_CHECK_VERSION (2,14,0)
   gdk_window_get_pointer(gtk_widget_get_window(m_pCanvas), &x, &y, NULL);
@@ -440,12 +441,17 @@ int CDasherControl::TimerEvent() {
 #endif
   m_pMouseInput->SetCoordinates(x, y);
 
-  gdk_window_get_pointer(gdk_get_default_root_window(), &x, &y, NULL);
+  gdk_window_get_pointer(default_root_window, &x, &y, NULL);
 
   int iRootWidth;
   int iRootHeight;
 
-  gdk_drawable_get_size(gdk_get_default_root_window(), &iRootWidth, &iRootHeight);
+#ifdef HAVE_GDK_WINDOW_GET_WIDTH
+  iRootWidth  = gdk_window_get_width (default_root_window);
+  iRootHeight = gdk_window_get_height(default_root_window);
+#else
+  gdk_drawable_get_size(default_root_window, &iRootWidth, &iRootHeight);
+#endif
 
   if(GetLongParameter(LP_YSCALE) < 10)
     SetLongParameter(LP_YSCALE, 10);
