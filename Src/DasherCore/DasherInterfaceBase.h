@@ -201,6 +201,24 @@ public:
 
   void PreSetNotify(int iParameter, const std::string &sValue);
 
+  ///Locks/unlocks Dasher. The default here stores the lock message and percentage
+  /// in m_strLockMessage, such that NewFrame renders this instead of the canvas
+  /// if we are locked. Subclasses may override to implement better (GUI)
+  /// notifications/dialogues, but should call through to this method to ensure
+  /// isLocked() returns the correct value.
+  /// Note that we do not support multiple/concurrent locks; each call to SetLockStatus
+  /// overrides any/all previous ones.
+  /// \param strText text of message to display, excluding %age, _if_ locked;
+  ///  ignored, if unlocked.
+  /// \param iPercent -1 unlocks Dasher; anything else locks it, and indicates
+  ///  %progress.
+  virtual void SetLockStatus(const std::string &strText, int iPercent);
+
+  /// Tells us whether Dasher is locked (i.e. for training).
+  /// TODO This just replaces the old BP_TRAINING; however, I'd think that _if_ we
+  /// do actually need a global function to tell whether Dasher's locked, it probably
+  /// needs to be threadsafe, which neither this nor BP_TRAINING is (I don't think!)...
+  inline bool isLocked() {return !m_strLockMessage.empty();}
 
   ///Does this subclass support speech (i.e. the speak(string) method?)
   /// Default is just to return false.
@@ -625,10 +643,15 @@ protected:
   ///builds up the word currently being entered for speech.
   std::string m_strCurrentWord;
 
+  ///If non-empty, Dasher is locked, and this is the message that should be displayed.
+  std::string m_strLockMessage;
+  /// (Cache) renderable version of previous; created only to render
+  /// (so may still be NULL even if locked)
+  CDasherScreen::Label *m_pLockLabel;
+
   /// @name State variables
   /// Represent the current overall state of the core
   /// @{
-  //  bool m_bGlobalLock; // The big lock
   bool m_bRedrawScheduled;
   EState m_iCurrentState;
   bool m_bOldVisible;

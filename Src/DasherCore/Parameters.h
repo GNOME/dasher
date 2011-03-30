@@ -36,7 +36,7 @@ enum {
   BP_COLOUR_MODE, BP_MOUSEPOS_MODE,
   BP_PALETTE_CHANGE,
   BP_AUTOCALIBRATE, BP_REMAP_XTREME, BP_DASHER_PAUSED,
-  BP_GAME_MODE, BP_TRAINING, BP_REDRAW, BP_LM_DICTIONARY, 
+  BP_GAME_MODE, BP_REDRAW, BP_LM_DICTIONARY, 
   BP_LM_LETTER_EXCLUSION, BP_AUTO_SPEEDCONTROL,
   BP_LM_ADAPTIVE, BP_SOCKET_INPUT_ENABLE, BP_SOCKET_DEBUG, 
   BP_CIRCLE_START, BP_GLOBAL_KEYBOARD, BP_NONLINEAR_Y,
@@ -52,7 +52,7 @@ enum {
 
 enum { 
   LP_ORIENTATION = END_OF_BPS, LP_REAL_ORIENTATION, LP_MAX_BITRATE, LP_FRAMERATE,
-  LP_VIEW_ID, LP_LANGUAGE_MODEL_ID, LP_DASHER_FONTSIZE, LP_SHAPE_TYPE,
+  LP_VIEW_ID, LP_LANGUAGE_MODEL_ID, LP_DASHER_FONTSIZE, LP_MESSAGE_FONTSIZE, LP_SHAPE_TYPE,
   LP_UNIFORM, LP_YSCALE, LP_MOUSEPOSDIST, LP_STOP_IDLETIME,
   LP_LM_MAX_ORDER, LP_LM_EXCLUSION,
   LP_LM_UPDATE_EXCLUSION, LP_LM_ALPHA, LP_LM_BETA,
@@ -143,7 +143,6 @@ static bp_table boolparamtable[] = {
   {BP_REMAP_XTREME, "RemapXtreme", PERS, false, "Pointer at extreme Y translates more and zooms less"},
   {BP_DASHER_PAUSED, "DasherPaused", !PERS, true, "Dasher Paused"},
   {BP_GAME_MODE, "GameMode", !PERS, false, "Dasher Game Mode"},
-  {BP_TRAINING, "Training", !PERS, false, "Provides locking during training"},
   {BP_REDRAW, "Redraw", !PERS, false, "Force a full redraw at the next timer event"},
   {BP_LM_DICTIONARY, "Dictionary", PERS, true, "Whether the word-based language model uses a dictionary"},
   {BP_LM_LETTER_EXCLUSION, "LetterExclusion", PERS, true, "Whether to do letter exclusion in the word-based model"},
@@ -194,6 +193,7 @@ static lp_table longparamtable[] = {
   {LP_VIEW_ID, "ViewID", PERS, 1, "ViewID"},
   {LP_LANGUAGE_MODEL_ID, "LanguageModelID", PERS, 0, "LanguageModelID"},
   {LP_DASHER_FONTSIZE, "DasherFontSize", PERS, 2, "DasherFontSize"},
+  {LP_MESSAGE_FONTSIZE, "MessageFontSize", PERS, 14, "Size of font for messages (in points)"},
   {LP_SHAPE_TYPE, "RenderStyle", PERS, 1, "Shapes to render in (0/1=disjoint/overlapping rects, 2/3=triangles/truncated, 4=quadrics, 5=circles)"},
   {LP_UNIFORM, "UniformTimes1000", PERS, 50, "UniformTimes1000"},
   {LP_YSCALE, "YScaling", PERS, 0, "YScaling"},

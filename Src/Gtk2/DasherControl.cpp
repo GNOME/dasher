@@ -359,15 +359,6 @@ void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
       g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_edit_protect");
     }
   }
-  else if(pEvent->m_iEventType == EV_LOCK) {
-    CLockEvent *pLockEvent(static_cast<CLockEvent *>(pEvent));
-    DasherLockInfo sInfo;
-    sInfo.szMessage = pLockEvent->m_strMessage.c_str();
-    sInfo.bLock = pLockEvent->m_bLock;
-    sInfo.iPercent = pLockEvent->m_iPercent;
-
-    g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_lock_info", &sInfo);
-  }
   else if(pEvent->m_iEventType == EV_MESSAGE) {
     CMessageEvent *pMessageEvent(static_cast<CMessageEvent *>(pEvent));
     DasherMessageInfo sInfo;
@@ -378,6 +369,18 @@ void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
     g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_message", &sInfo);
   }
 };
+
+void CDasherControl::SetLockStatus(const string &strText, int iPercent) {
+    DasherLockInfo sInfo;
+    sInfo.szMessage = strText.c_str();
+    sInfo.bLock = (iPercent!=-1);
+    sInfo.iPercent = iPercent;
+
+    g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_lock_info", &sInfo);
+    //No frames seem to be rendered, so this is probably unnecessary.
+    // But call through to superclass anyway:
+    CDasherInterfaceBase::SetLockStatus(strText,iPercent);
+}
 
 unsigned int CDasherControl::ctrlMove(bool bForwards, CControlManager::EditDistance dist) {
   return gtk_dasher_control_ctrl_move(m_pDasherControl,bForwards,dist);

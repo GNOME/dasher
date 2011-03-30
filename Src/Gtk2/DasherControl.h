@@ -156,6 +156,9 @@ public:
   ///
   virtual void ExternalEventHandler(Dasher::CEvent *pEvent);
 
+  ///Override to emit Gtk2 signal
+  virtual void SetLockStatus(const string &strText, int iPercent);
+
 private:
   //  virtual void CreateSettingsStore();
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
@@ -167,7 +170,6 @@ private:
   virtual int GetFileSize(const std::string &strFileName);
   virtual void StartTimer();
   virtual void ShutdownTimer();
-
 
   /// Override to emit Gtk2 signals (previously in response to CCommandEvent)
   void ExecuteCommand(const std::string &strName);

@@ -182,18 +182,6 @@ void CDasherInterfaceBridge::ExternalEventHandler(Dasher::CEvent *pEvent) {
       }
 	  }
         break;
-    case EV_LOCK:
-    {
-      CLockEvent *evt(static_cast<CLockEvent *>(pEvent));
-      NSString *dispMsg = nil;
-      if (evt->m_bLock) {
-        dispMsg = NSStringFromStdString(evt->m_strMessage);
-        if (evt->m_iPercent) dispMsg = [NSString stringWithFormat:@"%@ (%i%%)",
-                                                                  dispMsg,evt->m_iPercent];
-      }
-      [dasherApp setLockText:dispMsg];
-      break;
-    }
     case EV_MESSAGE:
 	  {
       CMessageEvent *messageEvent(static_cast < CMessageEvent * >(pEvent));
@@ -205,6 +193,17 @@ void CDasherInterfaceBridge::ExternalEventHandler(Dasher::CEvent *pEvent) {
       break;
   }
   
+}
+
+void CDasherInterfaceBridge::SetLockStatus(const string &strText, int iPercent) {
+  NSString *dispMsg = nil;
+  if (iPercent != -1) {
+    dispMsg = NSStringFromStdString(strText);
+    if (iPercent) dispMsg = [NSString stringWithFormat:@"%@ (%i%%)", dispMsg, iPercent];
+  }
+  [dasherApp setLockText:dispMsg];
+  //Call superclass too. Probably unnecessary, as no frames'll be rendered..!
+  CDasherInterfaceBase::SetLockStatus(strText, iPercent);
 }
 
 void CDasherInterfaceBridge::CopyToClipboard(const std::string &strText) {
@@ -247,13 +246,6 @@ int CDasherInterfaceBridge::GetFileSize(const std::string &strFileName) {
   else
     return 0;
 }
-
-/*void CDasherInterfaceBridge::Train(NSString *fileName) {
-  std::string f = StdStringFromNSString(fileName);
-  NSLog(@"Read train file: %s", f.c_str());
-  NSLog(@"method disappeared!! doing nuffink");
-//  CDasherInterfaceBase::TrainFile(f, GetFileSize(f), 0);
-}*/
 
 void CDasherInterfaceBridge::WriteTrainFile(const std::string &filename,const std::string &strNewText) {
   if(strNewText.length() == 0)

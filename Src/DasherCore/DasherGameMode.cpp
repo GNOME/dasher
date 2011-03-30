@@ -313,7 +313,10 @@ void CDasherGameMode::FullDemoNext()
       m_pDasherInterface->GetPermittedValues(SP_ALPHABET_ID, vAlphabets);
       
       do{ 
-	while(GetBoolParameter(BP_TRAINING)) {}
+	//TODO I think SetStringParam(SP_ALPHABET_ID) blocks until done;
+        // if not, a busy-wait is hardly going to help training finish
+        // any faster, and I'm not sure this is threadsafe either!
+        while(m_pDasherInterface->isLocked()) {}
 	int randomAlph = rand() % vAlphabets.size();
 	std::cout << "Setting: " << vAlphabets[randomAlph] << std::endl;
 	SetStringParameter(SP_ALPHABET_ID, vAlphabets[randomAlph]);
@@ -327,7 +330,10 @@ void CDasherGameMode::FullDemoNext()
       NextString(true);
     }
   
-  while(GetBoolParameter(BP_TRAINING)) {}
+  //TODO I think SetStringParam(SP_ALPHABET_ID) blocks until done;
+  // if not, a busy-wait is hardly going to help training finish
+  // any faster, and I'm not sure this is threadsafe either!
+  while(m_pDasherInterface->isLocked()) {}
 
   m_bSentenceFinished = false;
 

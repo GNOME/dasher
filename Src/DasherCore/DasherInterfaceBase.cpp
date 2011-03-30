@@ -56,6 +56,7 @@
 #include <cstdio>
 #include <iostream>
 #include <memory>
+#include <sstream>
 
 // Declare our global file logging object
 #include "../DasherCore/FileLogger.h"
@@ -84,7 +85,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CDasherInterfaceBase::CDasherInterfaceBase() {
+CDasherInterfaceBase::CDasherInterfaceBase() : m_pLockLabel(NULL) {
 
   // Ensure that pointers to 'owned' objects are set to NULL.
   m_pDasherModel = NULL;
@@ -360,6 +361,24 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
   }
 }
 
+void CDasherInterfaceBase::SetLockStatus(const string &strText, int iPercent) {
+  string newMessage; //empty - what we want if iPercent==-1 (unlock)
+  if (iPercent!=-1) {
+    ostringstream os;
+    os << (strText.empty() ? "Training Dasher" : strText);
+    if (iPercent) os << " " << iPercent << "%";
+    newMessage = os.str();
+  }
+  if (newMessage != m_strLockMessage) {
+    ScheduleRedraw();
+    if (m_pLockLabel) {
+      delete m_pLockLabel;
+      m_pLockLabel = NULL;
+    }
+    m_strLockMessage = newMessage;
+  }
+}
+
 void CDasherInterfaceBase::WriteTrainFileFull() {
   m_pNCManager->GetAlphabetManager()->WriteTrainFileFull(this);
 }
@@ -492,58 +511,70 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   bool bChanged(false), bWasPaused(GetBoolParameter(BP_DASHER_PAUSED));
   CExpansionPolicy *pol=m_defaultPolicy;
   if(m_pDasherView != 0) {
-    if(!GetBoolParameter(BP_TRAINING)) {
+    if (isLocked()) {
+      //Hmmm. If we're locked, NewFrame is never actually called - the thread
+      // that would be rendering frames, is the same one doing the training.
+      // So the following is never actually executed atm, but may be a simple
+      // template if/when we ever implement multithreading widely/properly...
+      m_DasherScreen->SendMarker(0); //this replaces the nodes...
+      const screenint iSW = m_DasherScreen->GetWidth(), iSH = m_DasherScreen->GetHeight();
+      m_DasherScreen->DrawRectangle(0,0,iSW,iSH,0,0,0); //fill in colour 0 = white
+      unsigned int iSize(GetLongParameter(LP_MESSAGE_FONTSIZE));
+      if (!m_pLockLabel) m_pLockLabel = m_DasherScreen->MakeLabel(m_strLockMessage, iSize);
+      pair<screenint,screenint> dims = m_DasherScreen->TextSize(m_pLockLabel, iSize);
+      m_DasherScreen->DrawString(m_pLockLabel, (iSW-dims.first)/2, (iSH-dims.second)/2, iSize, 4);
+      m_DasherScreen->SendMarker(1); //decorations - don't draw any
+      m_DasherScreen->Display();
+    } else {
       if (m_pUserLog != NULL) {
-	//ACL note that as of 15/5/09, splitting UpdatePosition into two,
-	//DasherModel no longer guarantees to empty these two if it didn't do anything.
-	//So initialise appropriately...
-	Dasher::VECTOR_SYMBOL_PROB vAdded;
-	int iNumDeleted = 0;
+        //ACL note that as of 15/5/09, splitting UpdatePosition into two,
+        //DasherModel no longer guarantees to empty these two if it didn't do anything.
+        //So initialise appropriately...
+        Dasher::VECTOR_SYMBOL_PROB vAdded;
+        int iNumDeleted = 0;
 
-	if(m_pInputFilter) {
-	  bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pInput, m_pDasherModel, &vAdded, &iNumDeleted, &pol);
-	}
+        if(m_pInputFilter) {
+          bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pInput, m_pDasherModel, &vAdded, &iNumDeleted, &pol);
+        }
 
-#ifndef _WIN32_WCE
-	if (iNumDeleted > 0)
-	  m_pUserLog->DeleteSymbols(iNumDeleted);
-	if (vAdded.size() > 0)
-	  m_pUserLog->AddSymbols(&vAdded);
-#endif
+      #ifndef _WIN32_WCE
+        if (iNumDeleted > 0)
+          m_pUserLog->DeleteSymbols(iNumDeleted);
+        if (vAdded.size() > 0)
+          m_pUserLog->AddSymbols(&vAdded);
+      #endif
 
+      } else {
+        if(m_pInputFilter) {
+          bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pInput, m_pDasherModel, 0, 0, &pol);
+        }
       }
-      else {
-	if(m_pInputFilter) {
-	  bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pInput, m_pDasherModel, 0, 0, &pol);
-	}
-      }
+      //check: if we were paused before, and the input filter didn't unpause,
+      // then nothing can have changed:
+      DASHER_ASSERT(!bWasPaused || !GetBoolParameter(BP_DASHER_PAUSED) || !bChanged);
+     
+      // Flags at this stage:
+      //
+      // - bChanged = the display was updated, so needs to be rendered to the display
+      // - m_bLastChanged = bChanged was true last time around
+      // - m_bRedrawScheduled = Display invalidated internally
+      // - bForceRedraw = Display invalidated externally
+     
+      // TODO: Would be good to sort out / check through the redraw logic properly
+     
+      bForceRedraw |= m_bLastChanged || bChanged || m_bRedrawScheduled;
+      m_bLastChanged = bChanged; //will also be set in Redraw if any nodes were expanded.
+     
+      Redraw(bForceRedraw, *pol);
+     
+      m_bRedrawScheduled = false;
+     
+      // This just passes the time through to the framerate tracker, so we
+      // know how often new frames are being drawn.
+      if(m_pDasherModel != 0)
+        m_pDasherModel->RecordFrame(iTime);
     }
   }
-
-  //check: if we were paused before, and the input filter didn't unpause,
-  // then nothing can have changed:
-  DASHER_ASSERT(!bWasPaused || !GetBoolParameter(BP_DASHER_PAUSED) || !bChanged);
-
-  // Flags at this stage:
-  //
-  // - bChanged = the display was updated, so needs to be rendered to the display
-  // - m_bLastChanged = bChanged was true last time around
-  // - m_bRedrawScheduled = Display invalidated internally
-  // - bForceRedraw = Display invalidated externally
-
-  // TODO: Would be good to sort out / check through the redraw logic properly
-
-  bForceRedraw |= m_bLastChanged;
-  m_bLastChanged = bChanged; //will also be set in Redraw if any nodes were expanded.
-
-  Redraw(bChanged || m_bRedrawScheduled || bForceRedraw, *pol);
-
-  m_bRedrawScheduled = false;
-
-  // This just passes the time through to the framerate tracker, so we
-  // know how often new frames are being drawn.
-  if(m_pDasherModel != 0)
-    m_pDasherModel->RecordFrame(iTime);
 
   bReentered=false;
 }
@@ -598,13 +629,9 @@ void CDasherInterfaceBase::ChangeAlphabet() {
 
   // Lock Dasher to prevent changes from happening while we're training.
 
-  SetBoolParameter( BP_TRAINING, true );
-
   CreateNCManager();
 
   // Apply options from alphabet
-
-  SetBoolParameter( BP_TRAINING, false );
 
   //}
 }
@@ -749,27 +776,27 @@ CUserLogBase* CDasherInterfaceBase::GetUserLogPtr() {
 }
 
 void CDasherInterfaceBase::KeyDown(int iTime, int iId, bool bPos, int iX, int iY) {
-  if(m_iCurrentState != ST_NORMAL)
+  if(m_iCurrentState != ST_NORMAL || isLocked())
     return;
 
-  if(m_pInputFilter && !GetBoolParameter(BP_TRAINING)) {
+  if(m_pInputFilter) {
     m_pInputFilter->KeyDown(iTime, iId, m_pDasherView, m_pInput, m_pDasherModel, m_pUserLog, bPos, iX, iY);
   }
 
-  if(m_pInput && !GetBoolParameter(BP_TRAINING)) {
+  if(m_pInput) {
     m_pInput->KeyDown(iTime, iId);
   }
 }
 
 void CDasherInterfaceBase::KeyUp(int iTime, int iId, bool bPos, int iX, int iY) {
-  if(m_iCurrentState != ST_NORMAL)
+  if(m_iCurrentState != ST_NORMAL || isLocked())
     return;
 
-  if(m_pInputFilter && !GetBoolParameter(BP_TRAINING)) {
+  if(m_pInputFilter) {
     m_pInputFilter->KeyUp(iTime, iId, m_pDasherView, m_pInput, m_pDasherModel, bPos, iX, iY);
   }
 
-  if(m_pInput && !GetBoolParameter(BP_TRAINING)) {
+  if(m_pInput) {
     m_pInput->KeyUp(iTime, iId);
   }
 }

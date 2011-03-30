@@ -53,6 +53,7 @@ public:
   std::string GetContext(unsigned int iStart, unsigned int iLength);
   unsigned int ctrlMove(bool bForwards, CControlManager::EditDistance dist);
   unsigned int ctrlDelete(bool bForwards, CControlManager::EditDistance dist);
+  void SetLockStatus(const string &strText, int iPercent);
 private:
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
   virtual void ScanColourFiles(std::vector<std::string> &vFileList);

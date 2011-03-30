@@ -182,10 +182,6 @@ void COSXDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
       }
       break;
     }
-    case EV_LOCK:
-//      CLockEvent *lockEvent(static_cast < CLockEvent * >(pEvent));
-//      NSLog(@"ExternalEventHandler, m_iEventType = EV_LOCK, mess: %@, bLock = %d, pct = %d", NSStringFromStdString(lockEvent->m_strMessage), lockEvent->m_bLock, lockEvent->m_iPercent);
-      break;
     case EV_MESSAGE: {
       CMessageEvent *messageEvent(static_cast < CMessageEvent * >(pEvent));
       NSLog(@"ExternalEventHandler, m_iEventType = EV_MESSAGE, mess: %@, id = %d, type = %d", NSStringFromStdString(messageEvent->m_strMessage), messageEvent->m_iID, messageEvent->m_iType);

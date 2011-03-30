@@ -10,13 +10,12 @@ namespace Dasher {
   class CEvent;
   class CParameterNotificationEvent;
   class CEditEvent;
-  class CLockEvent;
   class CMessageEvent;
   class CScreenGeomEvent;
 }
 
 enum {
-  EV_PARAM_NOTIFY = 1, EV_EDIT, EV_LOCK, EV_MESSAGE, EV_SCREEN_GEOM
+  EV_PARAM_NOTIFY = 1, EV_EDIT, EV_MESSAGE, EV_SCREEN_GEOM
 };
 
 /// \ingroup Core
@@ -48,21 +47,6 @@ public:
   const int m_iEditType;
   const std::string m_sText;
   const int m_iOffset;
-};
-
-class Dasher::CLockEvent : public Dasher::CEvent {
-public:
-  CLockEvent(const std::string &strMessage, bool bLock, int iPercent) : CEvent(EV_LOCK) {
-    m_strMessage = strMessage;
-    m_bLock = bLock;
-    m_iPercent = iPercent;
-  };
-
-  ///Unlike other events, fields are mutable: CLockEvents may be
-  /// reused at the start, end, and during, the task requiring locking.
-  std::string m_strMessage;
-  bool m_bLock;
-  int m_iPercent;
 };
 
 class Dasher::CMessageEvent : public Dasher::CEvent {

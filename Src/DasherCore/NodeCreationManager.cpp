@@ -57,15 +57,12 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
     
   if (!pAlphInfo->GetTrainingFile().empty()) {
     //1. Look for system training text...
-    CLockEvent oEvent("Training on System Text", true, 0);
-    pEventHandler->InsertEvent(&oEvent);
+    pInterface->SetLockStatus("Training on System Text", 0);
     m_pTrainer->LoadFile(GetStringParameter(SP_SYSTEM_LOC) + pAlphInfo->GetTrainingFile());
     //Now add in any user-provided individual training text...
-    oEvent.m_strMessage = "Training on User Text"; oEvent.m_bLock=true; oEvent.m_iPercent = 0;
-    pEventHandler->InsertEvent(&oEvent);
+    pInterface->SetLockStatus("Training on User Text", 0);
     m_pTrainer->LoadFile(GetStringParameter(SP_USER_LOC) + pAlphInfo->GetTrainingFile());
-    oEvent.m_bLock = false;
-    pEventHandler->InsertEvent(&oEvent);
+    pInterface->SetLockStatus("",-1);
   }
 #ifdef DEBUG
   else {
