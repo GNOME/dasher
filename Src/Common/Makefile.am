@@ -24,6 +24,6 @@ libdashermisc_a_SOURCES = \
 #		IOstreamDasherEdit.cc   I have no idea what this does, but it's broken now
 #		IOstreamDasherEdit.h 
 
-AM_CXXFLAGS = -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" -I../../intl -I$(top_srcdir)/intl $(GTK2_CFLAGS) $(SETTINGS_CFLAGS) $(gnome_speech_CFLAGS) $(gnome_a11y_CFLAGS) $(gnome_CFLAGS)
+AM_CXXFLAGS = -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" -I../../intl -I$(top_srcdir)/intl $(GTK2_CFLAGS) $(SETTINGS_CFLAGS) $(gnome_speech_CFLAGS) $(gnome_a11y_CFLAGS)
 
 EXTRA_DIST = Common.vcproj Common_vc80.vcproj

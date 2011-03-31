@@ -150,7 +150,7 @@ EXTRA_libdashercore_a_SOURCES = \
 		CannaConversionHelper.cpp \
 		CannaConversionHelper.h
 
-AM_CXXFLAGS = -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" -I../../intl -I$(top_srcdir)/intl $(GTK2_CFLAGS) $(SETTINGS_CFLAGS) $(gnome_speech_CFLAGS) $(gnome_a11y_CFLAGS) $(gnome_CFLAGS)
+AM_CXXFLAGS = -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" -I../../intl -I$(top_srcdir)/intl $(GTK_CFLAGS) $(SETTINGS_CFLAGS) $(gnome_speech_CFLAGS) $(gnome_a11y_CFLAGS)
 
 EXTRA_DIST = \
 		LanguageModelling/KanjiConversionIME.cpp \
