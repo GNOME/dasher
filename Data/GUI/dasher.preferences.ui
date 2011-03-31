@@ -283,7 +283,6 @@ your writing speed.</property>
                                       <object class="GtkHScale" id="uniformhscale">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="update_policy">GTK_UPDATE_DISCONTINUOUS</property>
                                         <property name="adjustment">adjustment1</property>
                                         <signal handler="uniform_changed" name="value-changed"/>
                                       </object>
