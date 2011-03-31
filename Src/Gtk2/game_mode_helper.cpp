@@ -54,7 +54,7 @@ GType game_mode_helper_get_type() {
       NULL
     };
 
-    game_mode_helper_type = g_type_register_static(GTK_TYPE_OBJECT, "GameModeHelper", &game_mode_helper_info, static_cast < GTypeFlags > (0));
+    game_mode_helper_type = g_type_register_static(G_TYPE_OBJECT, "GameModeHelper", &game_mode_helper_info, static_cast < GTypeFlags > (0));
   }
 
   return game_mode_helper_type;
