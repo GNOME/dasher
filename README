@@ -18,7 +18,7 @@ General:
  * The Expat XML parser (required)
 
 Linux (see INSTALL.Linux for build time requirements):
- * GTK+ (2.6 or greated) (required)
+ * GTK+ (2.6 or greater) (required)
  * GNOME (optional, but highly recommended)
  * GNOME Speech (optional)
  * Libcanna (optional, for Hiragana to Kanji conversion)
