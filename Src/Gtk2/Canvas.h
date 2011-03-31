@@ -14,9 +14,6 @@
 
 #if WITH_CAIRO
 
-/* Cairo drawing backend */
-#include <gdk/gdkcairo.h>
-
 #define BEGIN_DRAWING_BACKEND				\
   cairo_save(cr)
 
