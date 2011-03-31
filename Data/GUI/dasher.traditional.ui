@@ -430,9 +430,8 @@
             <child>
               <object class="GtkProgressBar" id="lock_progress">
                 <property name="visible">True</property>
-                <property name="orientation">GTK_PROGRESS_LEFT_TO_RIGHT</property>
                 <property name="fraction">0</property>
-                <property name="pulse_step">0.10000000149</property>
+                <property name="pulse_step">0.1</property>
                 <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
               </object>
             </child>
