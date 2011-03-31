@@ -197,7 +197,11 @@ AC_ARG_WITH([cairo],
 
 if test x"$WITHGTK2" = xtrue
 then 
-	PKG_CHECK_MODULES(GTK2, gtk+-2.0 >= 2.6.0,[GTK2HERE=true],[GTK2HERE=false]) 
+	PKG_CHECK_MODULES(GTK2, gtk+-3.0,
+		[GTK2HERE=true],
+		[PKG_CHECK_MODULES(GTK2, gtk+-2.0 >= 2.6.0,
+			[GTK2HERE=true],
+			[GTK2HERE=false])]) 
 fi
 
 if test x"$GTK2HERE" = xtrue -a x"$WITHQTE" != xtrue
