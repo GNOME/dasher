@@ -25,7 +25,6 @@
 #include "custom_marshal.h"
 #include "game_mode_helper.h"
 #include "dasher_editor.h"
-#include <gtk/gtkmarshal.h>
 
 struct _GtkDasherControlPrivate {
   CDasherControl *pControl;
