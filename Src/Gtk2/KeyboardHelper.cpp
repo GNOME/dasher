@@ -3,6 +3,9 @@
 #include <X11/Xlib.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkkeysyms.h>
+#ifdef HAVE_GDK_GDKKEYSYMS_COMPAT_H
+#include <gdk/gdkkeysyms-compat.h>
+#endif
 #include <gdk/gdkx.h>
 #include <cstring>
 #include <iostream>

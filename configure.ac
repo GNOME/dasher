@@ -216,7 +216,9 @@ then
 	save_CFLAGS="$CFLAGS"
 	save_LIBS="$LIBS"
 	CFLAGS="$CFLAGS $GTK2_CFLAGS"
+	CPPFLAGS="$CPPFLAGS $GTK2_CFLAGS"
 	LIBS="$LIBS $GTK2_LIBS"
+	AC_CHECK_HEADERS([gdk/gdkkeysyms-compat.h])
 	AC_CHECK_FUNCS([gtk_builder_new gtk_show_uri gdk_window_get_width], [],
 		[if test "x$ac_cv_func_gtk_builder_new" = "xno"; then
 			AC_MSG_ERROR([A version of GTK+ providing GtkBuilder is necessary.])
