@@ -74,18 +74,8 @@ AC_ARG_WITH([gnome],
 	fi, 
 	WITHGNOME=true)
 
-dnl Just useful for debugging
-AC_ARG_WITH([gvfs],
-	AS_HELP_STRING([--with-gvfs],
-		[build with gvfs from gio in glib (default is YES)]),
-	[],
-	with_gvfs="yes")
-if test "x$with_gvfs" != "xno"; then
-	PKG_CHECK_MODULES(GIO, gio-2.0,
-		[have_gio=true
-		AC_DEFINE(HAVE_GIO, 1, [gio exists so use gvfs])],
-		[have_gio=false])
-fi
+PKG_CHECK_MODULES(GIO, gio-2.0,
+	[AC_DEFINE(HAVE_GIO, 1, [gio exists so use gvfs])])
 
 AC_ARG_ENABLE([speech],
 	 AS_HELP_STRING([--enable-speech],[build with speech support (default is NO)]),
