@@ -14,7 +14,6 @@ dasher_SOURCES = main.cc
 AM_CXXFLAGS = \
 	-I$(srcdir)/Gtk2 \
 	-I$(srcdir)/DasherCore \
-	-I$(top_srcdir)/intl \
 	$(GTK2BUILD_CFLAGS) \
 	-DPREFIX=\"$(PREFIX)\" \
 	-DLIBDIR=\"$(libdir)\" \

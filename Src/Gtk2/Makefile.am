@@ -31,6 +31,8 @@ libdashercontrol_la_SOURCES = \
 		Canvas.h \
 		DasherControl.cpp \
 		DasherControl.h \
+		GnomeSettingsStore.cpp \
+		GnomeSettingsStore.h \
 		GtkDasherControl.cpp \
 		GtkDasherControl.h \
 		KeyboardHelper.cpp \

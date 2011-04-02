@@ -86,8 +86,6 @@ libdashercore_a_SOURCES = \
 		GameScorer.cpp \
 		GameScorer.h \
 		GameStatistics.h \
-		GnomeSettingsStore.cpp \
-		GnomeSettingsStore.h \
 		InputFilter.h \
 		MandarinAlphMgr.cpp \
 		MandarinAlphMgr.h \
@@ -150,7 +148,7 @@ EXTRA_libdashercore_a_SOURCES = \
 		CannaConversionHelper.cpp \
 		CannaConversionHelper.h
 
-AM_CXXFLAGS = -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" -I../../intl -I$(top_srcdir)/intl $(GTK_CFLAGS) $(SETTINGS_CFLAGS) $(gnome_speech_CFLAGS) $(gnome_a11y_CFLAGS)
+AM_CXXFLAGS = -I$(srcdir)
 
 EXTRA_DIST = \
 		LanguageModelling/KanjiConversionIME.cpp \

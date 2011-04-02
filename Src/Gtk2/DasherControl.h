@@ -28,7 +28,7 @@
 
 //#include "../DasherCore/DasherSettingsInterface.h"
 #include "../DasherCore/DasherInterfaceBase.h"
-#include "../DasherCore/GnomeSettingsStore.h"
+#include "GnomeSettingsStore.h"
 #include "../DasherCore/UserLog.h"
 
 ///
