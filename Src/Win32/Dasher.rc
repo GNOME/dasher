@@ -133,7 +133,7 @@ BEGIN
     DEFPUSHBUTTON   "OK",IDOK,185,130,50,14
     ICON            IDI_DASHER,IDC_MYICON,23,18,20,20
     LTEXT           "Dasher 4.11",IDC_STATIC,67,18,168,10,SS_NOPREFIX
-    LTEXT           "Copyright (C) 1998-2010 The Dasher Project",IDC_STATIC,67,30,168,10
+    LTEXT           "Copyright (C) 1998-2011 The Dasher Project",IDC_STATIC,67,30,168,10
     LTEXT           "dasher@inf.phy.cam.ac.uk",IDC_STATIC,67,63,168,10
     LTEXT           "http://www.inference.phy.cam.ac.uk/dasher/",IDC_STATIC,67,53,168,10
     LTEXT           "FAQ: http://www.metafaq.com/faq/dasher/",IDC_STATIC,67,86,168,10
@@ -483,7 +483,7 @@ BEGIN
             VALUE "FileDescription", "Dasher"
             VALUE "FileVersion", "4, 11, 0, 0"
             VALUE "InternalName", "Dasher"
-            VALUE "LegalCopyright", "Copyright © 1998-2010 The Dasher Project"
+            VALUE "LegalCopyright", "Copyright © 1998-2011 The Dasher Project"
             VALUE "OriginalFilename", "dasher.exe"
             VALUE "ProductName", "Dasher"
             VALUE "ProductVersion", "4, 11, 0, 0"
