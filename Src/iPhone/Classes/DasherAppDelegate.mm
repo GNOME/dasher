@@ -29,6 +29,7 @@
 //calls through to [EAGLView makeContextCurrent]
 - (void)selectEAGLContext;
 @property (retain) UILabel *screenLockLabel;
+@property (retain) NSString *lockText;
 @property (nonatomic,retain) NSString *m_wordBoundary;
 @property (nonatomic,retain) NSString *m_sentenceBoundary;
 @property (nonatomic,retain) NSString *m_lineBoundary;
@@ -55,6 +56,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 @implementation DasherAppDelegate
 
 @synthesize screenLockLabel;
+@synthesize lockText;
 @synthesize m_wordBoundary;
 @synthesize m_sentenceBoundary;
 @synthesize m_lineBoundary;
@@ -530,7 +532,24 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   [glView makeContextCurrent];
 }
 
-#pragma mark TextViewDelegate methods
+-(void)updateLockText {
+  NSAssert([NSThread isMainThread],@"Not on main thread?!?!");
+  if (UILabel *lbl=self.screenLockLabel) {
+    if (NSString *s = self.lockText) {
+      [lbl setText:s];
+      lbl.hidden = NO;
+    } else lbl.hidden = YES;   
+    [self performSelector:@selector(updateLockText) withObject:nil afterDelay:0.2];
+  }
+}
+
++ (DasherAppDelegate *)theApp {
+	id<UIApplicationDelegate> app = [UIApplication sharedApplication].delegate;
+	NSAssert ([app isMemberOfClass:[DasherAppDelegate class]], @"AppDelegate is not DasherAppDelegate!");
+	return (DasherAppDelegate *)app;
+}
+
+#pragma mark TextViewDelegate method
 
 -(void)textViewDidChangeSelection:(UITextView *)textView {
   DASHER_ASSERT(textView == text);
@@ -539,24 +558,6 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   _dasherInterface->SetOffset(selectedText.location);
 }
 
-- (void)setLockText:(NSString *)s {
-  if ([NSThread isMainThread]) {
-    UILabel *lbl = self.screenLockLabel;
-    if (!lbl) return;
-    if (s) {
-      [lbl setText:s];
-      lbl.hidden = NO;
-    }
-    else lbl.hidden = YES;
-  }
-  else [self performSelectorOnMainThread:@selector(setLockText:) withObject:s waitUntilDone:YES];
-}
-
-+ (DasherAppDelegate *)theApp {
-	id<UIApplicationDelegate> app = [UIApplication sharedApplication].delegate;
-	NSAssert ([app isMemberOfClass:[DasherAppDelegate class]], @"AppDelegate is not DasherAppDelegate!");
-	return (DasherAppDelegate *)app;
-}
 @end
 
 /*@interface UIViewController (lockable)
@@ -607,6 +608,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
     va_end(argumentList);
   }
   [self performSelectorInBackground:@selector(aSyncMain:) withObject:action];
+  [[DasherAppDelegate theApp] performSelector:@selector(updateLockText) withObject:nil afterDelay:0.2];
 }
 
 - (void)aSyncMain:(NSInvocation *)action {
@@ -616,6 +618,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   [[DasherAppDelegate theApp] selectEAGLContext];
   [action invoke];
   [DasherAppDelegate theApp].screenLockLabel = nil;
+  [NSObject cancelPreviousPerformRequestsWithTarget:[DasherAppDelegate theApp] selector:@selector(updateLockText) object:nil];
   //passing 'nil' here, where a BOOL is expected, is a horrendous trick - nil = 0x0 is effectively reinterpret_casted... 
   // however, the 'correct' method of passing [NSNumber numberWithBool:] is erratic, resulting in either inversion, 
   // always true, or always false, on different versions of the iPhone OS/SDK...
