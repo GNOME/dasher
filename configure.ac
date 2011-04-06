@@ -241,6 +241,8 @@ then
 			[have_gconf=false
 			 AC_MSG_WARN([Neither a glib with GSettings, nor GConf were detected - user preferences will not be stored.])])
 		])
+	AS_IF([test "x$with_gsettings" = "xyes" -a $have_gsettings = false],
+		[AC_MSG_ERROR([GSettings requested but not found])])
 
 	# GtkBuilder's autoconnect feature requires dasher to be
 	# linked with the --export-dynamic flag. pkg-config does not
