@@ -44,7 +44,7 @@ AC_PROG_CXX
 
 AC_PROG_LD_GNU
 
-WITHGTK2=true;
+WITHGTK=true;
 
 PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.6)
 
@@ -188,33 +188,33 @@ AC_ARG_WITH([gsettings],
 AC_ARG_VAR([GLIB_COMPILE_SCHEMAS],
 	[Path to glib-compile-schemas, used for compiling GSettings schema])
 
-if test x"$WITHGTK2" = xtrue
+if test x"$WITHGTK" = xtrue
 then 
-	PKG_CHECK_MODULES(GTK2, gtk+-3.0,
-		[GTK2HERE=true],
-		[PKG_CHECK_MODULES(GTK2, gtk+-2.0 >= 2.6.0,
-			[GTK2HERE=true],
-			[GTK2HERE=false])]) 
+	PKG_CHECK_MODULES(GTK, gtk+-3.0,
+		[GTKHERE=true],
+		[PKG_CHECK_MODULES(GTK, gtk+-2.0 >= 2.6.0,
+			[GTKHERE=true],
+			[GTKHERE=false])]) 
 fi
 
-if test x"$GTK2HERE" = xtrue -a x"$WITHQTE" != xtrue
+if test x"$GTKHERE" = xtrue -a x"$WITHQTE" != xtrue
 then
-	BUILDGTK2=true
+	BUILDGTK=true
 else 
-	BUILDGTK2=false
+	BUILDGTK=false
 fi
 
 DAM_GCONF_SOURCE_2
-if test x$BUILDGTK2 = xtrue
+if test x$BUILDGTK = xtrue
 then
 	PKG_CHECK_MODULES(GIO, gio-2.0,
 		[AC_DEFINE(HAVE_GIO, 1, [gio exists so use gvfs])])
 
 	save_CFLAGS="$CFLAGS"
 	save_LIBS="$LIBS"
-	CFLAGS="$CFLAGS $GTK2_CFLAGS"
-	CPPFLAGS="$CPPFLAGS $GTK2_CFLAGS"
-	LIBS="$LIBS $GTK2_LIBS"
+	CFLAGS="$CFLAGS $GTK_CFLAGS"
+	CPPFLAGS="$CPPFLAGS $GTK_CFLAGS"
+	LIBS="$LIBS $GTK_LIBS"
 	AC_CHECK_HEADERS([gdk/gdkkeysyms-compat.h])
 	AC_CHECK_FUNCS([gtk_builder_new gtk_show_uri gdk_window_get_width gtk_cairo_should_draw_window g_settings_new], [],
 		[if test "x$ac_cv_func_gtk_builder_new" = "xno"; then
@@ -246,9 +246,9 @@ then
 	# linked with the --export-dynamic flag. pkg-config does not
 	# provide it, and libtool knows what to do with -export-dynamic.
 	# (We need this e.g., for <object class="DasherEditor">)
-	GTK2_LIBS="$GTK2_LIBS -export-dynamic"
+	GTK_LIBS="$GTK_LIBS -export-dynamic"
 else
-	AC_MSG_ERROR("Unable to find GTK2 or another necessary library.")
+	AC_MSG_ERROR("Unable to find GTK or another necessary library.")
 fi
 
 if test x"$DEBUG" = xtrue; then
@@ -335,7 +335,7 @@ if test x"$WITHCAIRO" = xtrue; then
 	AC_DEFINE([WITH_CAIRO], 1, [use cairo (needs Gtk+ >= 2.8.0)])
 fi
 
-if test x"$BUILDGTK2" = xtrue; then 
+if test x"$BUILDGTK" = xtrue; then 
 	PKG_CHECK_MODULES(gthread, gthread-2.0)
 fi
 
@@ -357,7 +357,7 @@ AC_SUBST(GETTEXT_PACKAGE)
 
 AM_CONDITIONAL(USE_GCONF, test x$have_gconf = xtrue)
 AM_CONDITIONAL(USE_GSETTINGS, test x$have_gsettings = xtrue)
-AM_CONDITIONAL(DOGTK2, test x$BUILDGTK2 = xtrue)	
+AM_CONDITIONAL(DOGTK, test x$BUILDGTK = xtrue)
 AM_CONDITIONAL(DOQTE, test x$WITHQTE = xtrue)
 AM_CONDITIONAL(GNOME_SPEECH, test x$WITHSPEECH = xtrue)
 AM_CONDITIONAL(GNOME_A11Y, test x$WITHA11Y = xtrue)
@@ -368,20 +368,20 @@ AM_CONDITIONAL(WITH_MAEMOFULLSCREEN, test x$WITHMAEMOFULLSCREEN = xtrue)
 AM_CONDITIONAL(JAPANESE, test x$WITHJAPANESE = xtrue)
 AM_CONDITIONAL(JOYSTICK, test x$WITHJOYSTICK = xtrue)
 
-AC_SUBST(GTK2_CFLAGS)
-AC_SUBST(GTK2_LIBS)
+AC_SUBST(GTK_CFLAGS)
+AC_SUBST(GTK_LIBS)
 
 if test x"$WITHGPE" = xtrue ; then
 	SETTINGS_CFLAGS=" "
 	SETTINGS_LIBS="-lgpewidget -lXsettings-client -lXsettings"
 fi
 
-GTK2BUILD_CFLAGS="$GTK2_CFLAGS $GIO_CFLAGS $SETTINGS_CFLAGS $gthread_CFLAGS $gnome_speech_CFLAGS $gnome_a11y_CFLAGS $hildon_CFLAGS"
+GTKBUILD_CFLAGS="$GTK_CFLAGS $GIO_CFLAGS $SETTINGS_CFLAGS $gthread_CFLAGS $gnome_speech_CFLAGS $gnome_a11y_CFLAGS $hildon_CFLAGS"
 
-GTK2BUILD_LIBS="$X_LIBS $GTK2_LIBS $GIO_LIBS $SETTINGS_LIBS $gthread_LIBS $gnome_speech_LIBS $gnome_a11y_LIBS $hildon_LIBS"
+GTKBUILD_LIBS="$X_LIBS $GTK_LIBS $GIO_LIBS $SETTINGS_LIBS $gthread_LIBS $gnome_speech_LIBS $gnome_a11y_LIBS $hildon_LIBS"
 
-AC_SUBST(GTK2BUILD_CFLAGS)
-AC_SUBST(GTK2BUILD_LIBS)
+AC_SUBST(GTKBUILD_CFLAGS)
+AC_SUBST(GTKBUILD_LIBS)
 
 AC_MSG_CHECKING([for gnome-doc-utils])
 dnl Avoid default action which is to complain if not found

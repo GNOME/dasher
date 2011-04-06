@@ -6,7 +6,7 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
 bin_PROGRAMS = dasher
 
-#if DOGTK2
+#if DOGTK
 
 SUBDIRS = Common DasherCore DasherIM Gtk2 Installer InstallerTobii InstallerW2K Win32
 dasher_SOURCES = main.cc
@@ -14,7 +14,7 @@ dasher_SOURCES = main.cc
 AM_CXXFLAGS = \
 	-I$(srcdir)/Gtk2 \
 	-I$(srcdir)/DasherCore \
-	$(GTK2BUILD_CFLAGS) \
+	$(GTKBUILD_CFLAGS) \
 	-DPREFIX=\"$(PREFIX)\" \
 	-DLIBDIR=\"$(libdir)\" \
 	-DDATADIR=\"$(datadir)\" \
@@ -30,7 +30,7 @@ dasher_LDADD = \
 	DasherCore/libdasherprefs.a \
 	DasherCore/LanguageModelling/libdasherlm.a \
 	Common/libdashermisc.a \
-	$(GTK2BUILD_LIBS) \
+	$(GTKBUILD_LIBS) \
 	-lexpat \
 	$(POPT_LIBS) \
 	$(GPELIB)

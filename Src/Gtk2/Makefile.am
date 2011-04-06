@@ -23,7 +23,7 @@ endif
 #		module_settings_window.h#
 #
 #dasher_config_LDADD = \
-#	$(GTK2BUILD_LIBS)
+#	$(GTKBUILD_LIBS)
 
 libdashercontrol_la_SOURCES = \
 		Canvas.cpp \
@@ -99,6 +99,4 @@ libdashergtk_la_SOURCES = \
 libdashergtk_la_LIBADD = @SPEECH_SOURCES@
 libdashergtk_la_DEPENDENCIES = @SPEECH_SOURCES@
 
-AM_CXXFLAGS = -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" $(GTK2BUILD_CFLAGS) 
-
-AM_CFLAGS = $(GTK2_CFLAGS)
+AM_CXXFLAGS = -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" $(GTKBUILD_CFLAGS) 
