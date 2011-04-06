@@ -13,18 +13,16 @@
 #include <gconf/gconf-enum-types.h>
 #endif
 
-#include "SettingsStore.h"
+#ifdef WITH_GSETTINGS
+#include <gio/gio.h>
+#endif
 
-#include <stdio.h>
+#include "SettingsStore.h"
 
 class CGnomeSettingsStore:public CSettingsStore {
 public:
   CGnomeSettingsStore(Dasher::CEventHandler * pEventHandler);
   ~CGnomeSettingsStore();
-
-#ifdef WITH_GCONF
-  void NotificationCallback(GConfClient * pClient, guint iCNXN_ID, GConfEntry * pEntry);
-#endif
 
 private:
   bool LoadSetting(const std::string & Key, bool * Value);
@@ -38,6 +36,9 @@ private:
 #ifdef WITH_GCONF
   GConfClient *the_gconf_client;
   GConfEngine *gconfengine;
+#endif
+#ifdef WITH_GSETTINGS
+  GSettings *settings;
 #endif
 };
 

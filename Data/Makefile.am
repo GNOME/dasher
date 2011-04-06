@@ -17,6 +17,7 @@ svgicon_DATA = dasher.svg
 
 gtk_update_icon_cache = gtk-update-icon-cache -f -t $(datadir)/icons/hicolor
 
+if USE_GCONF
 if GCONF_SCHEMAS_INSTALL
 schemasdir = $(GCONF_SCHEMA_FILE_DIR)
 schemas_DATA = dasher.schemas
@@ -31,20 +32,43 @@ install-data-local: install-schemas
 # which is then moved installed in the usual way. None of this happens
 # if configure is told not to install schemas.
 
-dasher.schemas: ../Src/Gtk2/generate-schema
-	echo -n "Generating schema ... "; \
-	../Src/Gtk2/generate-schema > dasher.schemas; \
+dasher.schemas: $(top_builddir)/Src/Gtk2/generate-schema
+	echo -n "Generating GConf schema ... "; \
+	$(top_builddir)/Src/Gtk2/generate-schema -c > dasher.schemas; \
 	echo "done.";
 
 install-schemas: dasher.schemas
 	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) \
 	gconftool-2 --makefile-install-rule dasher.schemas
+
+compile-schemas:
+# GCONF_SCHEMAS_INSTALL
+endif
+# !USE_GCONF
 else
-install-data-local:
+if USE_GSETTINGS
+schemasdir = $(datadir)/glib-2.0/schemas
+schemas_DATA = dasher.gschema.xml
+
+check-local: check-schmemas
+
+dasher.gschema.xml: $(top_builddir)/Src/Gtk2/generate-schema
+	echo -n "Generating GSettings schema ... "; \
+	$(top_builddir)/Src/Gtk2/generate-schema -s > dasher.gschema.xml; \
+	echo "done.";
+
+compile-schemas: dasher.gschema.xml
+	$(GLIB_COMPILE_SCHEMAS) --allow-any-name $(schemasdir)
+
+check-schemas: dasher.gschema.xml
+	$(GLIB_COMPILE_SCHEMAS) --allow-any-name --dry-run --schema-file=dasher.gschema.xml
+else
+compile-schemas:
+endif
 endif
 
 
-install-data-hook: update-icon-cache
+install-data-hook: update-icon-cache compile-schemas
 
 uninstall-hook: update-icon-cache
 
@@ -62,5 +86,4 @@ EXTRA_DIST = \
 		$(icon_DATA) \
 		$(svgicon_DATA)
 
-DISTCLEANFILES = dasher.schemas
-
+CLEANFILES = dasher.schemas dasher.gschema.xml

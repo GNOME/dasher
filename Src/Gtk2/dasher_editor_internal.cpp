@@ -10,6 +10,7 @@
 #endif
 #include <gtk/gtk.h>
 
+#if XXXPRLWACTIONSAREFIXED
 #ifdef WITH_MAEMO
 #include "dasher_action_keyboard_maemo.h"
 #else
@@ -18,6 +19,7 @@
 
 #ifndef WITH_MAEMO
 #include "dasher_action_script.h"
+#endif
 #endif
 
 #include "dasher_editor_internal.h"
@@ -49,6 +51,7 @@
 
 // ---
 
+#ifdef XXXPRLWACTIONSAREFIXED
 #define ACTION_STATE_SHOW 1
 #define ACTION_STATE_CONTROL 2
 #define ACTION_STATE_AUTO 4
@@ -66,6 +69,7 @@ struct _EditorAction {
   gboolean bAuto;
   gint iNSub;
 };
+#endif /* XXXPRLWACTIONSAREFIXED */
 
 typedef struct _DasherEditorInternalPrivate DasherEditorInternalPrivate;
 
@@ -73,15 +77,19 @@ struct _DasherEditorInternalPrivate {
   DasherMain *pDasherMain;
   GtkTextView *pTextView;
   GtkTextBuffer *pBuffer;
+#ifdef XXXPRLWACTIONSAREFIXED
   GtkVBox *pActionPane;
+#endif
   GtkClipboard *pTextClipboard;
   GtkClipboard *pPrimarySelection;
   GtkTable *pGameGroup;
   GtkLabel *pGameInfoLabel;
+#ifdef XXXPRLWACTIONSAREFIXED
   EditorAction *pActionRing;
   EditorAction *pActionIter;
   gboolean bActionIterStarted;
   gint iNextActionID;
+#endif
   //  GameModeHelper *pGameModeHelper;
   GtkTextMark *pNewMark;
   DasherAppSettings *pAppSettings;
@@ -113,13 +121,15 @@ void dasher_editor_internal_initialise(DasherEditor *pSelf, DasherAppSettings *p
 
 /* Private methods */
 static void dasher_editor_internal_select_all(DasherEditor *pSelf);
+#if XXXPRLWACTIONSAREFIXED
 static void dasher_editor_internal_setup_actions(DasherEditor *pSelf);
 static void dasher_editor_internal_add_action(DasherEditor *pSelf, DasherAction *pNewAction);
 static EditorAction *dasher_editor_internal_get_action_by_id(DasherEditor *pSelf, int iID);
 static void dasher_editor_internal_rebuild_action_pane(DasherEditor *pSelf);
+static void dasher_editor_internal_action_save_state(DasherEditor *pSelf, EditorAction *pAction);
 //static void dasher_editor_internal_display_message(DasherEditor *pSelf, DasherMessageInfo *pMessageInfo);
 static void dasher_editor_internal_check_activity(DasherEditor *pSelf, EditorAction *pAction);
-static void dasher_editor_internal_action_save_state(DasherEditor *pSelf, EditorAction *pAction);
+#endif
 
 static void dasher_editor_internal_command_new(DasherEditor *pSelf);
 static void dasher_editor_internal_command_open(DasherEditor *pSelf);
@@ -164,6 +174,7 @@ void dasher_editor_internal_handle_start(DasherEditor *pSelf);
 void dasher_editor_internal_handle_control(DasherEditor *pSelf, int iNodeID);
 
 /* Action related methods - TODO: a lot of this should be moved to dasher_main (eg action on stop etc) - that way we get a better level of abstraction, and can incorporate commands from other modules too. Actions should only be externally visible as a list of string commands*/
+#ifdef XXXPRLWACTIONSAREFIXED
 void dasher_editor_internal_action_button(DasherEditor *pSelf, DasherAction *pAction);
 void dasher_editor_internal_actions_start(DasherEditor *pSelf);
 bool dasher_editor_internal_actions_more(DasherEditor *pSelf);
@@ -171,6 +182,7 @@ void dasher_editor_internal_actions_get_next(DasherEditor *pSelf, const gchar **
 void dasher_editor_internal_action_set_show(DasherEditor *pSelf, int iActionID, bool bValue);
 void dasher_editor_internal_action_set_control(DasherEditor *pSelf, int iActionID, bool bValue);
 void dasher_editor_internal_action_set_auto(DasherEditor *pSelf, int iActionID, bool bValue);
+#endif
 
 void dasher_editor_internal_grab_focus(DasherEditor *pSelf);
 
@@ -221,6 +233,7 @@ dasher_editor_internal_class_init(DasherEditorInternalClass *pClass) {
   pParentClass->handle_stop = dasher_editor_internal_handle_stop;
   pParentClass->handle_start = dasher_editor_internal_handle_start;
   pParentClass->handle_control = dasher_editor_internal_handle_control;
+#ifdef XXXPRLWACTIONSAREFIXED
   pParentClass->action_button = dasher_editor_internal_action_button;
   pParentClass->actions_start = dasher_editor_internal_actions_start;
   pParentClass->actions_more = dasher_editor_internal_actions_more;
@@ -228,6 +241,7 @@ dasher_editor_internal_class_init(DasherEditorInternalClass *pClass) {
   pParentClass->action_set_show = dasher_editor_internal_action_set_show;
   pParentClass->action_set_control = dasher_editor_internal_action_set_control;
   pParentClass->action_set_auto = dasher_editor_internal_action_set_auto;
+#endif
   pParentClass->grab_focus = dasher_editor_internal_grab_focus;
   pParentClass->file_changed = dasher_editor_internal_file_changed;
   pParentClass->get_filename = dasher_editor_internal_get_filename;
@@ -247,8 +261,10 @@ dasher_editor_internal_init(DasherEditorInternal *pSelf) {
   pPrivate->szFilename = NULL;
   pPrivate->pTextClipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
   pPrivate->pPrimarySelection = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
+#ifdef XXXPRLWACTIONSAREFIXED
   pPrivate->pActionRing = NULL;
   pPrivate->iNextActionID = 0;
+#endif
   //  pPrivate->pGameModeHelper = NULL;
   GtkTextIter oStartIter;
   gtk_text_buffer_get_start_iter(pPrivate->pBuffer, &oStartIter);
@@ -278,6 +294,7 @@ static void
 dasher_editor_internal_finalize(GObject *pObject) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pObject);
 
+#ifdef XXXPRLWACTIONSAREFIXED
   EditorAction *pCurrentAction = pPrivate->pActionRing;
 
   if(pCurrentAction) {
@@ -290,6 +307,7 @@ dasher_editor_internal_finalize(GObject *pObject) {
       pCurrentAction = pCurrentAction->pNext;
     }
   }
+#endif
 
   if(pPrivate->szFilename)
     g_free(pPrivate->szFilename);
@@ -314,15 +332,19 @@ dasher_editor_internal_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSe
 				     dasher_app_settings_get_string(pPrivate->pAppSettings, 
 								    APP_SP_EDIT_FONT));
   
+#ifdef XXXPRLWACTIONSAREFIXED
   GtkVBox *pActionPane = GTK_VBOX(gtk_builder_get_object(pXML, "vbox39"));
 
 
   pPrivate->pActionPane = pActionPane;
+#endif
 
   // TODO: is this still needed?
   dasher_editor_internal_create_buffer(pSelf);
 
+#ifdef XXXPRLWACTIONSAREFIXED
   dasher_editor_internal_setup_actions(pSelf);
+#endif
 
   // TODO: see note in command_new method
   if(szFullPath)
@@ -377,6 +399,7 @@ dasher_editor_internal_clipboard(DasherEditor *pSelf, clipboard_action act) {
 
 void 
 dasher_editor_internal_handle_stop(DasherEditor *pSelf) {
+#ifdef XXXPRLWACTIONSAREFIXED
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
   
   // See if anything is set to auto:
@@ -392,6 +415,7 @@ dasher_editor_internal_handle_stop(DasherEditor *pSelf) {
       pCurrentAction = pCurrentAction->pNext;
     }
   }
+#endif
 }
 
 void 
@@ -409,6 +433,7 @@ dasher_editor_internal_handle_control(DasherEditor *pSelf, int iNodeID) {
 
   if(iNodeID == Dasher::CControlManager::CTL_USER + 1)
     dasher_editor_internal_clear(pSelf, false); // Clear node is a special case (it shouldn't be)
+#ifdef XXXPRLWACTIONSAREFIXED
   else if (pPrivate->pActionRing) {
     EditorAction *pCurrentAction = pPrivate->pActionRing;
     bool bStarted = false;
@@ -425,6 +450,7 @@ dasher_editor_internal_handle_control(DasherEditor *pSelf, int iNodeID) {
       pCurrentAction = pCurrentAction->pNext;
     }
   }
+#endif
 
 
   // TODO: Think about changing signals so we don't need to do this translation
@@ -466,6 +492,7 @@ dasher_editor_internal_handle_control(DasherEditor *pSelf, int iNodeID) {
 }
 
 
+#ifdef XXXPRLWACTIONSAREFIXED
 void 
 dasher_editor_internal_action_button(DasherEditor *pSelf, DasherAction *pAction) {
   if(pAction) {
@@ -476,6 +503,7 @@ dasher_editor_internal_action_button(DasherEditor *pSelf, DasherAction *pAction)
     dasher_editor_internal_clear(pSelf, false);
   }
 }
+#endif
 
 static void 
 dasher_editor_internal_clear(DasherEditor *pSelf, gboolean bStore) {
@@ -500,6 +528,7 @@ dasher_editor_internal_clear(DasherEditor *pSelf, gboolean bStore) {
 }
 
 
+#ifdef XXXPRLWACTIONSAREFIXED
 void 
 dasher_editor_internal_actions_start(DasherEditor *pSelf) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
@@ -576,6 +605,7 @@ EditorAction *pAction;
     dasher_editor_internal_action_save_state(pSelf, pAction);
   }
 }
+#endif
 
 void 
 dasher_editor_internal_grab_focus(DasherEditor *pSelf) {
@@ -616,6 +646,7 @@ dasher_editor_internal_output(DasherEditor *pSelf, const gchar *szText, int iOff
   // TODO: tidy this up, actionlookup by name, more flexible
   // definition of space
   // Python scripting?
+#ifdef XXXPRLWACTIONSAREFIXED
   if(!strcmp(szText, " ")) {
     gboolean bActionIterStarted = false;
     EditorAction *pActionIter = pPrivate->pActionRing;
@@ -624,12 +655,13 @@ dasher_editor_internal_output(DasherEditor *pSelf, const gchar *szText, int iOff
       bActionIterStarted = true;
       
       if(!strcmp(dasher_action_get_name(pActionIter->pAction), "Speak")) {
-	dasher_action_preview(pActionIter->pAction, DASHER_EDITOR(pSelf));
+        dasher_action_preview(pActionIter->pAction, DASHER_EDITOR(pSelf));
       }
       
       pActionIter = pActionIter->pNext;
     }
   }
+#endif
 
   //  std::cout << "i: " << szText << " (" << iOffset << " " << gtk_text_buffer_get_char_count(pPrivate->pBuffer) << ")" << std::endl;
 
@@ -1064,6 +1096,7 @@ dasher_editor_internal_select_all(DasherEditor *pSelf) {
   delete end;
 }
 
+#ifdef XXXPRLWACTIONSAREFIXED
 static void 
 dasher_editor_internal_setup_actions(DasherEditor *pSelf) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
@@ -1075,6 +1108,8 @@ dasher_editor_internal_setup_actions(DasherEditor *pSelf) {
   // are now in DasherCore, & the old DasherAction would no-op if used in
   // any otherway! (Also the whole actions code stuff seems so unfinished etc.
   // anyway...that perhaps it's best removed?)
+  //PRLW 4/4/11 Its tentacles made it into DasherAppSettings, so hiding with
+  // #ifdef XXXPRLWACTIONSAREFIXED
 
   dasher_editor_internal_add_action(pSelf, DASHER_ACTION(dasher_action_keyboard_new()));
 
@@ -1168,7 +1203,9 @@ dasher_editor_internal_setup_actions(DasherEditor *pSelf) {
   //  dasher_editor_internal_rebuild_action_pane(pSelf);
 #endif
 }
+#endif /* XXXPRLWACTIONSAREFIXED */
 
+#ifdef XXXPRLWACTIONSAREFIXED
 static void 
 dasher_editor_internal_add_action(DasherEditor *pSelf, DasherAction *pNewAction) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
@@ -1220,7 +1257,9 @@ dasher_editor_internal_add_action(DasherEditor *pSelf, DasherAction *pNewAction)
 //   if(iState & ACTION_STATE_SHOW)
 //     gtk_dasher_control_add_action_button(GTK_DASHER_CONTROL(pDasherWidget), dasher_action_get_name(pNewEditorAction->pAction));
 }
+#endif /* XXXPRLWACTIONSAREFIXED */
 
+#ifdef XXXPRLWACTIONSAREFIXED
 static EditorAction *
 dasher_editor_internal_get_action_by_id(DasherEditor *pSelf, int iID){
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
@@ -1237,7 +1276,9 @@ dasher_editor_internal_get_action_by_id(DasherEditor *pSelf, int iID){
   
   return 0;
 }
+#endif /* XXXPRLWACTIONSAREFIXED */
 
+#ifdef XXXPRLWACTIONSAREFIXED
 static void 
 dasher_editor_internal_rebuild_action_pane(DasherEditor *pSelf) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
@@ -1286,6 +1327,7 @@ dasher_editor_internal_rebuild_action_pane(DasherEditor *pSelf) {
     pCurrentAction = pCurrentAction->pNext;
   }
 }
+#endif /* XXXPRLWACTIONSAREFIXED */
 
 // TODO: This shouldn't be a part of the editor
 //static void 
@@ -1295,6 +1337,7 @@ dasher_editor_internal_rebuild_action_pane(DasherEditor *pSelf) {
 //  gtk_widget_destroy(GTK_WIDGET(pDialog));
 //}
 
+#ifdef XXXPRLWACTIONSAREFIXED
 static void 
 dasher_editor_internal_check_activity(DasherEditor *pSelf, EditorAction *pAction) {
   gboolean bNeedActive(pAction->bShow || pAction->bControl || pAction->bAuto);
@@ -1305,7 +1348,9 @@ dasher_editor_internal_check_activity(DasherEditor *pSelf, EditorAction *pAction
   else if(!bNeedActive && bActive)
     dasher_action_deactivate(pAction->pAction);
 }
+#endif
 
+#ifdef XXXPRLWACTIONSAREFIXED
 static void 
 dasher_editor_internal_action_save_state(DasherEditor *pSelf, EditorAction *pAction) {
   gchar szRegistryName[256];
@@ -1330,6 +1375,7 @@ dasher_editor_internal_action_save_state(DasherEditor *pSelf, EditorAction *pAct
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
   dasher_app_settings_set_free_long(pPrivate->pAppSettings, szRegistryName, iState);
 }
+#endif
 
 static void 
 dasher_editor_internal_command_new(DasherEditor *pSelf) {
@@ -1804,11 +1850,13 @@ extern "C" void
 main_window_realized(DasherMain *pMain, gpointer pUserData) {
 }
 
+#ifdef XXXPRLWACTIONSAREFIXED
 extern "C" void 
 action_button_callback(GtkWidget *pWidget, gpointer pUserData) { 
   void **pPointers((void **)pUserData);
   dasher_editor_internal_action_button((DasherEditor *)pPointers[0], (DasherAction *)pPointers[1]);
 }
+#endif
 
 extern "C" void mark_set_handler(GtkWidget *widget, GtkTextIter *pIter, GtkTextMark *pMark, gpointer pUserData) {
   dasher_editor_internal_mark_changed(DASHER_EDITOR_INTERNAL(pUserData), pIter, pMark);

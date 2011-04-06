@@ -74,9 +74,6 @@ AC_ARG_WITH([gnome],
 	fi, 
 	WITHGNOME=true)
 
-PKG_CHECK_MODULES(GIO, gio-2.0,
-	[AC_DEFINE(HAVE_GIO, 1, [gio exists so use gvfs])])
-
 AC_ARG_ENABLE([speech],
 	 AS_HELP_STRING([--enable-speech],[build with speech support (default is NO)]),
 	 if test "x$enableval" = "xno"; then
@@ -185,6 +182,12 @@ AC_ARG_WITH([cairo],
 	 fi, 
 	 WITHCAIRO=true)
 
+AC_ARG_WITH([gsettings],
+	[AS_HELP_STRING([--with-gsettings],
+		[store user preferences using GSettings (default is NO)])])
+AC_ARG_VAR([GLIB_COMPILE_SCHEMAS],
+	[Path to glib-compile-schemas, used for compiling GSettings schema])
+
 if test x"$WITHGTK2" = xtrue
 then 
 	PKG_CHECK_MODULES(GTK2, gtk+-3.0,
@@ -204,16 +207,16 @@ fi
 DAM_GCONF_SOURCE_2
 if test x$BUILDGTK2 = xtrue
 then
-	PKG_CHECK_MODULES(GCONF, gconf-2.0,
-		[AC_DEFINE([WITH_GCONF], 1, [Use GConf])],
-		[AC_MSG_WARN([GConf was not detected - user preferences will not be stored.])])
+	PKG_CHECK_MODULES(GIO, gio-2.0,
+		[AC_DEFINE(HAVE_GIO, 1, [gio exists so use gvfs])])
+
 	save_CFLAGS="$CFLAGS"
 	save_LIBS="$LIBS"
 	CFLAGS="$CFLAGS $GTK2_CFLAGS"
 	CPPFLAGS="$CPPFLAGS $GTK2_CFLAGS"
 	LIBS="$LIBS $GTK2_LIBS"
 	AC_CHECK_HEADERS([gdk/gdkkeysyms-compat.h])
-	AC_CHECK_FUNCS([gtk_builder_new gtk_show_uri gdk_window_get_width gtk_cairo_should_draw_window], [],
+	AC_CHECK_FUNCS([gtk_builder_new gtk_show_uri gdk_window_get_width gtk_cairo_should_draw_window g_settings_new], [],
 		[if test "x$ac_cv_func_gtk_builder_new" = "xno"; then
 			AC_MSG_ERROR([A version of GTK+ providing GtkBuilder is necessary.])
 		fi
@@ -223,10 +226,26 @@ then
 	)
 	CFLAGS="$save_CFLAGS"
 	LIBS="$save_LIBS"
-# GtkBuilder's autoconnect feature requires dasher to be linked with
-# the --export-dynamic flag. pkg-config does not provide it, and libtool
-# knows what to do with -export-dynamic.
-# (We need this e.g., for <object class="DasherEditor">)
+
+	AS_IF([test "x$with_gsettings" = "xyes" -a "x$ac_cv_func_g_settings_new" = "xyes"],
+		[AC_CHECK_TOOLS([GLIB_COMPILE_SCHEMAS], [glib-compile-schemas])
+         have_gsettings=true
+		 have_gconf=false
+		 AC_DEFINE([WITH_GSETTINGS], 1, [Use GSettings])],
+		[have_gsettings=false
+		 PKG_CHECK_MODULES(GCONF, gconf-2.0,
+			[have_gconf=true
+			 AC_DEFINE([WITH_GCONF], 1, [Use GConf])
+			 SETTINGS_CFLAGS=$GCONF_CFLAGS
+			 SETTINGS_LIBS=$GCONF_LIBS],
+			[have_gconf=false
+			 AC_MSG_WARN([Neither a glib with GSettings, nor GConf were detected - user preferences will not be stored.])])
+		])
+
+	# GtkBuilder's autoconnect feature requires dasher to be
+	# linked with the --export-dynamic flag. pkg-config does not
+	# provide it, and libtool knows what to do with -export-dynamic.
+	# (We need this e.g., for <object class="DasherEditor">)
 	GTK2_LIBS="$GTK2_LIBS -export-dynamic"
 else
 	AC_MSG_ERROR("Unable to find GTK2 or another necessary library.")
@@ -336,6 +355,8 @@ AC_SUBST(hildon_CFLAGS)
 
 AC_SUBST(GETTEXT_PACKAGE)
 
+AM_CONDITIONAL(USE_GCONF, test x$have_gconf = xtrue)
+AM_CONDITIONAL(USE_GSETTINGS, test x$have_gsettings = xtrue)
 AM_CONDITIONAL(DOGTK2, test x$BUILDGTK2 = xtrue)	
 AM_CONDITIONAL(DOQTE, test x$WITHQTE = xtrue)
 AM_CONDITIONAL(GNOME_SPEECH, test x$WITHSPEECH = xtrue)
@@ -350,18 +371,10 @@ AM_CONDITIONAL(JOYSTICK, test x$WITHJOYSTICK = xtrue)
 AC_SUBST(GTK2_CFLAGS)
 AC_SUBST(GTK2_LIBS)
 
-AC_SUBST(GCONF_CFLAGS)
-AC_SUBST(GCONF_LIBS)
-
 if test x"$WITHGPE" = xtrue ; then
 	SETTINGS_CFLAGS=" "
 	SETTINGS_LIBS="-lgpewidget -lXsettings-client -lXsettings"
-else
-	SETTINGS_CFLAGS=$GCONF_CFLAGS
-	SETTINGS_LIBS=$GCONF_LIBS
 fi
-AC_SUBST(SETTINGS_CFLAGS)
-AC_SUBST(SETTINGS_LIBS)
 
 GTK2BUILD_CFLAGS="$GTK2_CFLAGS $GIO_CFLAGS $SETTINGS_CFLAGS $gthread_CFLAGS $gnome_speech_CFLAGS $gnome_a11y_CFLAGS $hildon_CFLAGS"
 

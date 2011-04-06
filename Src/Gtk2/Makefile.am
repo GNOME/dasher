@@ -1,10 +1,9 @@
 LIBS = @INTLLIBS@ @LIBS@
 
 noinst_LTLIBRARIES = libdashergtk.la libdashercontrol.la
-if GCONF_SCHEMAS_INSTALL
-  noinst_PROGRAMS = generate-schema
-  generate_schema_SOURCES = GenerateSchema.cpp
-endif
+
+noinst_PROGRAMS = generate-schema
+generate_schema_SOURCES = GenerateSchema.cpp
 
 #bin_PROGRAMS = dasher-config
 
@@ -31,7 +30,6 @@ libdashercontrol_la_SOURCES = \
 		Canvas.h \
 		DasherControl.cpp \
 		DasherControl.h \
-		GnomeSettingsStore.cpp \
 		GnomeSettingsStore.h \
 		GtkDasherControl.cpp \
 		GtkDasherControl.h \
@@ -51,6 +49,16 @@ libdashercontrol_la_SOURCES = \
 		mouse_input.h \
 		$(settings_store)
 
+if USE_GCONF
+libdashercontrol_la_SOURCES += GConfStore.cpp
+else
+if USE_GSETTINGS
+libdashercontrol_la_SOURCES += GSettingsStore.cpp
+else
+libdashercontrol_la_SOURCES += NoStore.cpp
+endif
+endif
+
 libdashergtk_la_SOURCES = \
 		DasherAppSettings.cpp \
 		DasherAppSettings.h \
@@ -60,12 +68,6 @@ libdashergtk_la_SOURCES = \
 		dasher.h \
 		DasherSpi.h \
 		DasherSpi.cpp \
-		dasher_action.cpp \
-		dasher_action.h \
-		dasher_action_keyboard.cpp \
-		dasher_action_keyboard.h \
-		dasher_action_script.cpp \
-		dasher_action_script.h \
 		dasher_editor.cpp \
 		dasher_editor.h \
 		dasher_editor_external.cpp \
@@ -79,17 +81,24 @@ libdashergtk_la_SOURCES = \
 		module_settings_window.cpp \
 		module_settings_window.h
 
-if WITH_MAEMO
-libdashergtk_la_SOURCES += \
-		dasher_action_keyboard_maemo.cpp \
-		dasher_action_keyboard_maemo.h \
-		dasher_maemo_helper.cpp \
-		dasher_maemo_helper.h
-endif
+# ifdef XXXPRLWACTIONSAREFIXED
+#		dasher_action.cpp \
+#		dasher_action.h \
+#		dasher_action_keyboard.cpp \
+#		dasher_action_keyboard.h \
+#		dasher_action_script.cpp \
+#		dasher_action_script.h \
+# if WITH_MAEMO
+# libdashergtk_la_SOURCES += \
+#		dasher_action_keyboard_maemo.cpp \
+#		dasher_action_keyboard_maemo.h \
+#		dasher_maemo_helper.cpp \
+#		dasher_maemo_helper.h
+# endif
 
 libdashergtk_la_LIBADD = @SPEECH_SOURCES@
 libdashergtk_la_DEPENDENCIES = @SPEECH_SOURCES@
 
-AM_CXXFLAGS = -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" -I../../intl -I$(top_srcdir)/intl $(GTK2BUILD_CFLAGS) 
+AM_CXXFLAGS = -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" $(GTK2BUILD_CFLAGS) 
 
 AM_CFLAGS = $(GTK2_CFLAGS)

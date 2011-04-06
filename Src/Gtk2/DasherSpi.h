@@ -1,9 +1,9 @@
+#ifndef __dasher_spi_h__
+#define __dasher_spi_h__
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
-
-#ifndef __dasher_spi_h__
-#define __dasher_spi_h__
 
 #ifdef GNOME_A11Y
 bool initSPI();
