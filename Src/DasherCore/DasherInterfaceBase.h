@@ -31,6 +31,7 @@
 // TODO - there is a list of things to be configurable in my notes
 // Check that everything that is not self-contained within the GUI is covered.
 
+#include "Messages.h"
 #include "../Common/NoClones.h"
 #include "../Common/ModuleSettings.h"
 #include "ActionButton.h"
@@ -65,8 +66,10 @@ class CNodeCreationManager;
 
 /// The central class in the core of Dasher. Ties together the rest of
 /// the platform independent stuff and provides a single interface for
-/// the UI to use.
-class Dasher::CDasherInterfaceBase:private NoClones
+/// the UI to use. Note: CMessageDisplay unimplemented; platforms should
+/// provide their own methods using appropriate GUI components, or subclass
+/// CDashIntfScreenMsgs instead.
+class Dasher::CDasherInterfaceBase : public CMessageDisplay, private NoClones
 {
 public:
   CDasherInterfaceBase();
@@ -224,7 +227,7 @@ public:
   /// by OS, e.g. for non-european languages)
   ///\return the offset, into the edit buffer of the cursor *after* the move.
   virtual unsigned int ctrlMove(bool bForwards, CControlManager::EditDistance dist)=0;
- 
+
   ///Called to execute a control-mode "delete" command.
   ///\param bForwards true to delete forwards (right), false for backwards
   ///\param dist how much to delete: character, word, line, file. (Usually defined
@@ -232,7 +235,7 @@ public:
   ///\return the offset, into the edit buffer, of the cursor *after* the delete
   /// (for forwards deletion, this will be the same as the offset *before*)
   virtual unsigned int ctrlDelete(bool bForwards, CControlManager::EditDistance dist)=0;
- 
+
   class TextAction {
   public:
     TextAction(CDasherInterfaceBase *pMgr);
@@ -299,7 +302,7 @@ public:
   /// and Realize may occur in either order; if ChangeScreen comes after, Resize will create a 
   /// tree with null Labels, which will have to be rebuilt in the call to ChangeScreen.
   /// \param NewScreen Pointer to the new CDasherScreen.
-  void ChangeScreen(CDasherScreen * NewScreen);
+  virtual void ChangeScreen(CDasherScreen * NewScreen);
   
   ///Call when the screen dimensions have been changed, to recalculate scaling factors etc.
   /// \param pScreen the screen whose dimensions have changed. TODO we expect this to be
@@ -469,10 +472,21 @@ protected:
 
   /// Draw a new Dasher frame, regardless of whether we're paused etc.
   /// \param iTime Current time in ms.
-  /// \param bForceRedraw
-  /// \todo See comments in cpp file for some functionality which needs to be re-implemented
+  /// \param bForceRedraw Passing in true is equivalent to calling ScheduleRedraw() first,
+  /// and forces the nodes/canvas to be re-rendered (even if we haven't moved).
   void NewFrame(unsigned long iTime, bool bForceRedraw);
 
+  ///Renders the current state of the nodes (optionally), decorations, etc. (Does not move around the nodes.)
+  /// \param ulTime Time of rendering, for time-dependent decorations (e.g. messages)
+  /// \param bRedrawNodes whether to re-render the nodes (expensive!)
+  /// \param policy if redrawing nodes, use this to expand/collapse nodes, and set m_bLastChanged if any were.
+  bool Redraw(unsigned long ulTime, bool bRedrawNodes, CExpansionPolicy &policy);
+
+  ///Called at the end of each frame, after lock-message / nodes+decorations have been rendered.
+  /// Default does nothing, but subclasses can override if they need to do anything else.
+  /// \return true if anything has been rendered to the Screen such that it needs to be blitted
+  /// (i.e. Display() called) - the default just returns false.
+  virtual bool FinishRender(unsigned long ulTime) {return false;}
 
   enum ETransition {
     TR_MODEL_INIT = 0,
@@ -506,6 +520,7 @@ protected:
   CEventHandler *m_pEventHandler;
   CSettingsStore *m_pSettingsStore;
 
+  CDasherScreen *m_DasherScreen;
  private:
 
   //The default expansion policy to use - an amortized policy depending on the LP_NODE_BUDGET parameter.
@@ -582,7 +597,7 @@ protected:
   void ChangeAlphabet();
   void ChangeColours();
   void ChangeView();
-  void Redraw(bool bRedrawNodes, CExpansionPolicy &policy);
+
   void SetupActionButtons();
   void DestroyActionButtons();
   void PositionActionButtons();
@@ -598,7 +613,6 @@ protected:
   /// Various objects which are 'owned' by the core.
   /// @{
   CDasherModel *m_pDasherModel;
-  CDasherScreen *m_DasherScreen;
   CDasherView *m_pDasherView;
   CDasherInput *m_pInput;
   CInputFilter* m_pInputFilter;
@@ -626,8 +640,6 @@ protected:
   bool m_bOldVisible;
 
   /// @}
-
-  bool m_bLastChanged;
 
   std::set<TextAction *> m_vTextActions;
 };

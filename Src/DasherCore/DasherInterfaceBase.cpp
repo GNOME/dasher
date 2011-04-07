@@ -111,8 +111,6 @@ CDasherInterfaceBase::CDasherInterfaceBase() : m_pLockLabel(NULL) {
   // Create an event handler.
   m_pEventHandler = new CEventHandler(this);
 
-  m_bLastChanged = true;
-
 #ifndef _WIN32_WCE
   // Global logging object we can use from anywhere
   g_pLogger = new CFileLogger("dasher.log",
@@ -444,8 +442,7 @@ void CDasherInterfaceBase::Stop() {
   if (GetBoolParameter(BP_DASHER_PAUSED)) return; //already paused, no need to do anything.
   SetBoolParameter(BP_DASHER_PAUSED, true);
 
-  // Request a full redraw at the next time step.
-  SetBoolParameter(BP_REDRAW, true);
+  ScheduleRedraw();
 
 #ifndef _WIN32_WCE
   if (m_pUserLog != NULL)
@@ -508,10 +505,12 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   // if(m_iCurrentState != ST_NORMAL)
   //  return;
 
-  bool bChanged(false), bWasPaused(GetBoolParameter(BP_DASHER_PAUSED));
-  CExpansionPolicy *pol=m_defaultPolicy;
-  if(m_pDasherView != 0) {
-    if (isLocked()) {
+  if(m_DasherScreen) {
+    //ok, can draw _something_. Try and see what we can :).
+
+    bool bBlit = false; //set to true if we actually render anything different i.e. that needs blitting to display
+
+    if (isLocked() || !m_pDasherView) {
       //Hmmm. If we're locked, NewFrame is never actually called - the thread
       // that would be rendering frames, is the same one doing the training.
       // So the following is never actually executed atm, but may be a simple
@@ -524,8 +523,12 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
       pair<screenint,screenint> dims = m_DasherScreen->TextSize(m_pLockLabel, iSize);
       m_DasherScreen->DrawString(m_pLockLabel, (iSW-dims.first)/2, (iSH-dims.second)/2, iSize, 4);
       m_DasherScreen->SendMarker(1); //decorations - don't draw any
-      m_DasherScreen->Display();
+      bBlit = true;
     } else {
+      bool bChanged(false), bWasPaused(GetBoolParameter(BP_DASHER_PAUSED));
+      CExpansionPolicy *pol=m_defaultPolicy;
+  
+      //1. Move around in the model
       if (m_pUserLog != NULL) {
         //ACL note that as of 15/5/09, splitting UpdatePosition into two,
         //DasherModel no longer guarantees to empty these two if it didn't do anything.
@@ -549,49 +552,49 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
           bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pInput, m_pDasherModel, 0, 0, &pol);
         }
       }
+      //2. Render...
       //check: if we were paused before, and the input filter didn't unpause,
       // then nothing can have changed:
       DASHER_ASSERT(!bWasPaused || !GetBoolParameter(BP_DASHER_PAUSED) || !bChanged);
-     
-      // Flags at this stage:
-      //
-      // - bChanged = the display was updated, so needs to be rendered to the display
-      // - m_bLastChanged = bChanged was true last time around
-      // - m_bRedrawScheduled = Display invalidated internally
-      // - bForceRedraw = Display invalidated externally
-     
-      // TODO: Would be good to sort out / check through the redraw logic properly
-     
-      bForceRedraw |= m_bLastChanged || bChanged || m_bRedrawScheduled;
-      m_bLastChanged = bChanged; //will also be set in Redraw if any nodes were expanded.
-     
-      Redraw(bForceRedraw, *pol);
-     
-      m_bRedrawScheduled = false;
-     
+
+      //If we've been told to render another frame via ScheduleRedraw,
+      // that's the same as passing in true to NewFrame.
+      if (m_bRedrawScheduled) bForceRedraw=true;
+      m_bRedrawScheduled=false;
+
+      //If we moved, definitely need to render the nodes. We also make sure
+      // to render at least one more frame - think that's a bit of policy
+      // just to be on the safe side, and may not be strictly necessary...
+      if (bChanged) bForceRedraw=m_bRedrawScheduled=true;
+
+      //2. Render nodes decorations, messages
+      bBlit = Redraw(iTime, bForceRedraw, *pol);
+
       // This just passes the time through to the framerate tracker, so we
       // know how often new frames are being drawn.
       if(m_pDasherModel != 0)
         m_pDasherModel->RecordFrame(iTime);
     }
+    if (FinishRender(iTime)) bBlit = true;
+    if (bBlit) m_DasherScreen->Display();
   }
 
   bReentered=false;
 }
 
-void CDasherInterfaceBase::Redraw(bool bRedrawNodes, CExpansionPolicy &policy) {
-  // No point continuing if there's nothing to draw on...
-  if(!m_pDasherView)
-    return;
+bool CDasherInterfaceBase::Redraw(unsigned long ulTime, bool bRedrawNodes, CExpansionPolicy &policy) {
+  DASHER_ASSERT(m_pDasherView);
 
   // Draw the nodes
   if(bRedrawNodes) {
     m_pDasherView->Screen()->SendMarker(0);
-	if (m_pDasherModel) {
-		m_pDasherModel->RenderToView(m_pDasherView,policy);
-		m_bLastChanged |= policy.apply(m_pNCManager, m_pDasherModel);
-        }
+    if (m_pDasherModel) {
+      m_pDasherModel->RenderToView(m_pDasherView,policy);
+      if (policy.apply(m_pNCManager, m_pDasherModel)) //if anything was expanded or collapsed
+        ScheduleRedraw(); //render at least one more frame after this
+    }
   }
+  //From here on, we'll use bRedrawNodes just to denote whether we need to blit the display...
 
   // Draw the decorations
   m_pDasherView->Screen()->SendMarker(1);
@@ -599,20 +602,15 @@ void CDasherInterfaceBase::Redraw(bool bRedrawNodes, CExpansionPolicy &policy) {
   if(GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher())
     pTeacher->DrawGameDecorations(m_pDasherView);
 
-  bool bDecorationsChanged(false);
-
   if(m_pInputFilter) {
-    bDecorationsChanged = m_pInputFilter->DecorateView(m_pDasherView, m_pInput);
+    if (m_pInputFilter->DecorateView(m_pDasherView, m_pInput)) bRedrawNodes=true;
   }
 
-  bool bActionButtonsChanged(false);
 #ifdef EXPERIMENTAL_FEATURES
-  bActionButtonsChanged = DrawActionButtons();
+  if (DrawActionButtons()) bRedrawNodes=true;
 #endif
-
-  // Only blit the image to the display if something has actually changed
-  if(bRedrawNodes || bDecorationsChanged || bActionButtonsChanged)
-    m_pDasherView->Screen()->Display();
+  
+  return bRedrawNodes;
 }
 
 void CDasherInterfaceBase::ChangeAlphabet() {
@@ -671,12 +669,8 @@ void CDasherInterfaceBase::ScreenResized(CDasherScreen *pScreen) {
   m_pDasherView->ScreenResized(m_DasherScreen);
 
   PositionActionButtons();
-  BudgettingPolicy pol(GetLongParameter(LP_NODE_BUDGET)); //maintain budget, but allow arbitrary amount of work.
-  Redraw(true, pol); // (we're assuming resolution changes are occasional, i.e.
-	// we don't need to worry about maintaining the frame rate, so we can do
-	// as much work as necessary. However, it'd probably be better still to
-  // get a node queue from the input filter, as that might have a different
-  // policy / budget.
+  //Really, would like to do a Redraw _immediately_, but this will have to do.
+  ScheduleRedraw();
 }
 
 void CDasherInterfaceBase::ChangeView() {

@@ -27,7 +27,7 @@ bool CDefaultFilter::GetSettings(SModuleSettings **sets, int *iCount) {
 CDefaultFilter::CDefaultFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
   : CInputFilter(pEventHandler, pSettingsStore, pInterface, iID, szName) {
   m_pStartHandler = 0;
-  m_pAutoSpeedControl = new CAutoSpeedControl(m_pEventHandler, m_pSettingsStore);
+  m_pAutoSpeedControl = new CAutoSpeedControl(pInterface, m_pEventHandler, m_pSettingsStore);
 
   // Initialize autocalibration (i.e. seen nothing yet)
   m_iSum = 0;

@@ -182,11 +182,6 @@ void COSXDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
       }
       break;
     }
-    case EV_MESSAGE: {
-      CMessageEvent *messageEvent(static_cast < CMessageEvent * >(pEvent));
-      NSLog(@"ExternalEventHandler, m_iEventType = EV_MESSAGE, mess: %@, id = %d, type = %d", NSStringFromStdString(messageEvent->m_strMessage), messageEvent->m_iID, messageEvent->m_iType);
-      break;
-    }
     case EV_SCREEN_GEOM:
       //no need to do anything, so avoid log message
       break;

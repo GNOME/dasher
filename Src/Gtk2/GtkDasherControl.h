@@ -19,14 +19,6 @@ struct _DasherLockInfo {
   unsigned long time;
 };
 
-typedef struct _DasherMessageInfo DasherMessageInfo;
-
-struct _DasherMessageInfo {
-  const gchar *szMessage;
-  gint iID;
-  gint iType;
-};
-
 G_BEGIN_DECLS
 #define GTK_DASHER_TYPE_CONTROL         (gtk_dasher_control_get_type())
 #define GTK_DASHER_CONTROL(obj)         (G_TYPE_CHECK_INSTANCE_CAST((obj), GTK_DASHER_TYPE_CONTROL, GtkDasherControl ))

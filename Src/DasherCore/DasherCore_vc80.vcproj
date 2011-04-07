@@ -1867,6 +1867,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\DashIntfScreenMsgs.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\DashIntfScreenMsgs.h"
+			>
+		</File>
+		<File
 			RelativePath=".\DefaultFilter.cpp"
 			>
 		</File>

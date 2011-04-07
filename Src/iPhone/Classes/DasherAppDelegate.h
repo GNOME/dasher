@@ -51,7 +51,7 @@
 - (void)notifySpeedChange;
 - (NSString *)textAtOffset:(unsigned int)offset Length:(unsigned int)length;
 - (void)setLockText:(NSString *)s;
-- (void)displayMessage:(NSString *)msg ID:(int)iId Type:(int)type;
+- (void)displayMessage:(NSString *)msg;
 - (void)setLandscapeSupported:(BOOL)supported;
 + (DasherAppDelegate *)theApp;
 

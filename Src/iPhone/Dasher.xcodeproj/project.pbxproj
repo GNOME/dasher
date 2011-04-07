@@ -254,6 +254,7 @@
 		3378A267133543B800A96C5D /* control.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3378A266133543B800A96C5D /* control.xml */; };
 		337ECC1B10DD5E0700D0C6A5 /* ExpansionPolicy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 337ECC1910DD5E0700D0C6A5 /* ExpansionPolicy.cpp */; };
 		339F8A330FF5088000282847 /* CalibrationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 339F8A320FF5088000282847 /* CalibrationController.mm */; };
+		33B3430813A8A927009AE0D5 /* DashIntfScreenMsgs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33B3430613A8A927009AE0D5 /* DashIntfScreenMsgs.cpp */; };
 		33C71AF20FF7B51700A20992 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 33C71AF10FF7B51700A20992 /* Default.png */; };
 		33CBB397101F422200510BF9 /* PPMPYLanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33CBB395101F422200510BF9 /* PPMPYLanguageModel.cpp */; };
 		33CBB4CD101F9E5F00510BF9 /* training_czechC_CS.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33CBB4C7101F9E5F00510BF9 /* training_czechC_CS.txt */; };
@@ -702,6 +703,9 @@
 		337ECC1A10DD5E0700D0C6A5 /* ExpansionPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpansionPolicy.h; sourceTree = "<group>"; };
 		339F8A310FF5088000282847 /* CalibrationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalibrationController.h; sourceTree = "<group>"; };
 		339F8A320FF5088000282847 /* CalibrationController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CalibrationController.mm; sourceTree = "<group>"; };
+		33B342F313A8A8B2009AE0D5 /* Messages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Messages.h; sourceTree = "<group>"; };
+		33B3430613A8A927009AE0D5 /* DashIntfScreenMsgs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DashIntfScreenMsgs.cpp; sourceTree = "<group>"; };
+		33B3430713A8A927009AE0D5 /* DashIntfScreenMsgs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashIntfScreenMsgs.h; sourceTree = "<group>"; };
 		33C71AF10FF7B51700A20992 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		33CBB395101F422200510BF9 /* PPMPYLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PPMPYLanguageModel.cpp; sourceTree = "<group>"; };
 		33CBB396101F422200510BF9 /* PPMPYLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPMPYLanguageModel.h; sourceTree = "<group>"; };
@@ -1197,6 +1201,8 @@
 				3344FD9B0F71717C00506EAA /* DasherInput.h */,
 				3344FD9C0F71717C00506EAA /* DasherInterfaceBase.cpp */,
 				3344FD9D0F71717C00506EAA /* DasherInterfaceBase.h */,
+				33B3430613A8A927009AE0D5 /* DashIntfScreenMsgs.cpp */,
+				33B3430713A8A927009AE0D5 /* DashIntfScreenMsgs.h */,
 				3344FD9E0F71717C00506EAA /* DasherModel.cpp */,
 				3344FD9F0F71717C00506EAA /* DasherModel.h */,
 				3344FDA00F71717C00506EAA /* DasherModule.cpp */,
@@ -1230,6 +1236,7 @@
 				3344FDC40F71717C00506EAA /* LanguageModelling */,
 				3344FDDE0F71717C00506EAA /* MemoryLeak.cpp */,
 				3344FDDF0F71717C00506EAA /* MemoryLeak.h */,
+				33B342F313A8A8B2009AE0D5 /* Messages.h */,
 				3344FDE00F71717C00506EAA /* ModuleManager.cpp */,
 				3344FDE10F71717C00506EAA /* ModuleManager.h */,
 				3344FDE20F71717C00506EAA /* NodeCreationManager.cpp */,
@@ -1713,6 +1720,7 @@
 				3324F7BF129D744D00EE6A22 /* ActionConfigurator.mm in Sources */,
 				3378A23F1335425300A96C5D /* AbstractXMLParser.cpp in Sources */,
 				333FDB5A139FB413009D018A /* ConvertingAlphMgr.cpp in Sources */,
+				33B3430813A8A927009AE0D5 /* DashIntfScreenMsgs.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

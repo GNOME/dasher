@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Common/wincommon.h"
-#include "../DasherCore/DasherInterfaceBase.h"
+#include "../DasherCore/DashIntfScreenMsgs.h"
 #include "../DasherCore/UserLog.h"
 
 #ifdef _WIN32_WCE
@@ -29,7 +29,7 @@ class CEdit;
 class CDasherWindow;
 
 namespace Dasher {
-class CDasher : public CDasherInterfaceBase 
+class CDasher : public CDashIntfScreenMsgs
 {
 public:
   CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit);

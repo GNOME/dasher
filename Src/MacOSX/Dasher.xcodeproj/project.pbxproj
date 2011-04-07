@@ -346,6 +346,9 @@
 		339794D5120F2A9600CEA168 /* AlphInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 339794D3120F2A9600CEA168 /* AlphInfo.h */; };
 		33ABFEC60FC379EA00EA2BA5 /* ButtonMultiPress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33ABFEC40FC379EA00EA2BA5 /* ButtonMultiPress.cpp */; };
 		33ABFEC70FC379EA00EA2BA5 /* ButtonMultiPress.h in Headers */ = {isa = PBXBuildFile; fileRef = 33ABFEC50FC379EA00EA2BA5 /* ButtonMultiPress.h */; };
+		33B3431813A8A951009AE0D5 /* DashIntfScreenMsgs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33B3431613A8A951009AE0D5 /* DashIntfScreenMsgs.cpp */; };
+		33B3431913A8A951009AE0D5 /* DashIntfScreenMsgs.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B3431713A8A951009AE0D5 /* DashIntfScreenMsgs.h */; };
+		33B3431B13A8A970009AE0D5 /* Messages.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B3431A13A8A970009AE0D5 /* Messages.h */; };
 		33E173C70F3E0B6400D19B38 /* Makefile.am in Resources */ = {isa = PBXBuildFile; fileRef = 33E173A70F3E0B6400D19B38 /* Makefile.am */; };
 		33E173C80F3E0B6400D19B38 /* training_albanian_SQ.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173A80F3E0B6400D19B38 /* training_albanian_SQ.txt */; };
 		33E173CB0F3E0B6400D19B38 /* training_bengali_BD.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173AB0F3E0B6400D19B38 /* training_bengali_BD.txt */; };
@@ -461,8 +464,6 @@
 		1948BE450C226CFD001DFA32 /* FileLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = FileLogger.cpp; sourceTree = "<group>"; };
 		1948BE460C226CFD001DFA32 /* FileLogger.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = FileLogger.h; sourceTree = "<group>"; };
 		1948BE470C226CFD001DFA32 /* FrameRate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = FrameRate.h; sourceTree = "<group>"; };
-		1948BE480C226CFD001DFA32 /* GnomeSettingsStore.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = GnomeSettingsStore.cpp; sourceTree = "<group>"; };
-		1948BE490C226CFD001DFA32 /* GnomeSettingsStore.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GnomeSettingsStore.h; sourceTree = "<group>"; };
 		1948BE4C0C226CFD001DFA32 /* InputFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = InputFilter.h; sourceTree = "<group>"; };
 		1948BE510C226CFD001DFA32 /* CTWLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CTWLanguageModel.cpp; sourceTree = "<group>"; };
 		1948BE520C226CFD001DFA32 /* CTWLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CTWLanguageModel.h; sourceTree = "<group>"; };
@@ -743,6 +744,9 @@
 		339794D3120F2A9600CEA168 /* AlphInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlphInfo.h; sourceTree = "<group>"; };
 		33ABFEC40FC379EA00EA2BA5 /* ButtonMultiPress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ButtonMultiPress.cpp; sourceTree = "<group>"; };
 		33ABFEC50FC379EA00EA2BA5 /* ButtonMultiPress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonMultiPress.h; sourceTree = "<group>"; };
+		33B3431613A8A951009AE0D5 /* DashIntfScreenMsgs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DashIntfScreenMsgs.cpp; sourceTree = "<group>"; };
+		33B3431713A8A951009AE0D5 /* DashIntfScreenMsgs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashIntfScreenMsgs.h; sourceTree = "<group>"; };
+		33B3431A13A8A970009AE0D5 /* Messages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Messages.h; sourceTree = "<group>"; };
 		33E173A70F3E0B6400D19B38 /* Makefile.am */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
 		33E173A80F3E0B6400D19B38 /* training_albanian_SQ.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_albanian_SQ.txt; sourceTree = "<group>"; };
 		33E173AB0F3E0B6400D19B38 /* training_bengali_BD.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_bengali_BD.txt; sourceTree = "<group>"; };
@@ -919,6 +923,8 @@
 				1948BE2A0C226CFD001DFA32 /* DasherInput.h */,
 				1948BE2B0C226CFD001DFA32 /* DasherInterfaceBase.cpp */,
 				1948BE2C0C226CFD001DFA32 /* DasherInterfaceBase.h */,
+				33B3431613A8A951009AE0D5 /* DashIntfScreenMsgs.cpp */,
+				33B3431713A8A951009AE0D5 /* DashIntfScreenMsgs.h */,
 				1948BE2D0C226CFD001DFA32 /* DasherModel.cpp */,
 				1948BE2E0C226CFD001DFA32 /* DasherModel.h */,
 				1948BE2F0C226CFD001DFA32 /* DasherModule.cpp */,
@@ -946,12 +952,11 @@
 				1948BE470C226CFD001DFA32 /* FrameRate.h */,
 				1921DB6C0C7ECB9900E6DAA5 /* GameScorer.cpp */,
 				1921DB6D0C7ECB9900E6DAA5 /* GameScorer.h */,
-				1948BE480C226CFD001DFA32 /* GnomeSettingsStore.cpp */,
-				1948BE490C226CFD001DFA32 /* GnomeSettingsStore.h */,
 				1948BE4C0C226CFD001DFA32 /* InputFilter.h */,
 				1948BE4D0C226CFD001DFA32 /* LanguageModelling */,
 				1948BE680C226CFD001DFA32 /* MemoryLeak.cpp */,
 				1948BE690C226CFD001DFA32 /* MemoryLeak.h */,
+				33B3431A13A8A970009AE0D5 /* Messages.h */,
 				1948BE6B0C226CFD001DFA32 /* ModuleManager.cpp */,
 				1948BE6C0C226CFD001DFA32 /* ModuleManager.h */,
 				1948BE6D0C226CFD001DFA32 /* NodeCreationManager.cpp */,
@@ -1434,6 +1439,8 @@
 				339794D5120F2A9600CEA168 /* AlphInfo.h in Headers */,
 				330B91641292FE700022831C /* ModuleSettingsController.h in Headers */,
 				33F6C9EA133241A000745B06 /* AbstractXMLParser.h in Headers */,
+				33B3431913A8A951009AE0D5 /* DashIntfScreenMsgs.h in Headers */,
+				33B3431B13A8A970009AE0D5 /* Messages.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1781,6 +1788,7 @@
 				339794D4120F2A9600CEA168 /* AlphInfo.cpp in Sources */,
 				330B91621292FE520022831C /* ModuleSettingsController.mm in Sources */,
 				33F6C9EB133241A000745B06 /* AbstractXMLParser.cpp in Sources */,
+				33B3431813A8A951009AE0D5 /* DashIntfScreenMsgs.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

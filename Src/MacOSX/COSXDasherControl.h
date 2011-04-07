@@ -10,7 +10,7 @@
 #import "../DasherCore/SocketInput.h"
 
 // #import "../DasherCore/DasherSettingsInterface.h"
-#import "../DasherCore/DasherInterfaceBase.h"
+#import "../DasherCore/DashIntfScreenMsgs.h"
 #import "COSXMouseInput.h"
 
 @class DasherApp;
@@ -22,7 +22,7 @@
 /// Class representing the Dasher UI component (ie the canvas and speed slider)
 ///
 
-class COSXDasherControl : public CDasherInterfaceBase {
+class COSXDasherControl : public CDashIntfScreenMsgs {
   
 public:
   

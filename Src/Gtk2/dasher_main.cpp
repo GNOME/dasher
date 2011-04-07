@@ -1352,18 +1352,6 @@ handle_stop_event(GtkDasherControl *pDasherControl, gpointer data) {
 }
 
 extern "C" void 
-on_message(GtkDasherControl *pDasherControl, gpointer pMessageInfo, gpointer pUserData) { 
-  // TODO: I don't believe that this is widely used, but possibly need to reimplement
-
-//   if(g_pDasherMain) {
-//     DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(g_pDasherMain);
-
-//     if(pPrivate->pEditor)
-//        dasher_editor_display_message(pPrivate->pEditor, (DasherMessageInfo *)pMessageInfo);
-//   }
-}
-
-extern "C" void 
 on_command(GtkDasherControl *pDasherControl, gchar *szCommand, gpointer pUserData) {
   if(g_pDasherMain) {
     DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(g_pDasherMain);

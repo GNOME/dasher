@@ -248,7 +248,6 @@
                 <signal handler="handle_request_settings" name="dasher_request_settings"/>
                 <signal handler="focus_in_event" name="focus_in_event"/>
                 <signal handler="on_lock_info" name="dasher_lock_info"/>
-                <signal handler="on_message" name="dasher_message"/>
                 <signal handler="convert_cb" name="dasher_edit_convert"/>
                 <signal handler="protect_cb" name="dasher_edit_protect"/>
                 <signal handler="on_command" name="dasher_command"/>

@@ -359,15 +359,6 @@ void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
       g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_edit_protect");
     }
   }
-  else if(pEvent->m_iEventType == EV_MESSAGE) {
-    CMessageEvent *pMessageEvent(static_cast<CMessageEvent *>(pEvent));
-    DasherMessageInfo sInfo;
-    sInfo.szMessage = pMessageEvent->m_strMessage.c_str();
-    sInfo.iID = pMessageEvent->m_iID;
-    sInfo.iType = pMessageEvent->m_iType;
-
-    g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_message", &sInfo);
-  }
 };
 
 void CDasherControl::SetLockStatus(const string &strText, int iPercent) {
@@ -381,6 +372,16 @@ void CDasherControl::SetLockStatus(const string &strText, int iPercent) {
     CDasherInterfaceBase::SetLockStatus(strText,iPercent);
     g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_lock_info", &sInfo);
 }
+
+//TODO do we want to do something like this?
+// ATM the only message is actually from the auto-speed control,
+// so definitely _doesn't_ want to be modal; could introduce a boolean
+// 'ok to interrupt user?' param to Message()?
+//void CDasherControl::Message(const std::string &strText)
+//  GtkMessageDialog *pDialog = GTK_MESSAGE_DIALOG(gtk_message_dialog_new(0, GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, strText.c_str()));
+//  gtk_dialog_run(GTK_DIALOG(pDialog));
+//  gtk_widget_destroy(GTK_WIDGET(pDialog));
+//}
 
 unsigned int CDasherControl::ctrlMove(bool bForwards, CControlManager::EditDistance dist) {
   return gtk_dasher_control_ctrl_move(m_pDasherControl,bForwards,dist);

@@ -56,6 +56,8 @@ libdashercore_a_SOURCES = \
 		DasherInput.h \
 		DasherInterfaceBase.cpp \
 		DasherInterfaceBase.h \
+		DashIntfScreenMsgs.h \
+		DashIntfScreenMsgs.cpp \
 		DasherModel.cpp \
 		DasherModel.h \
 		DasherModule.cpp \
@@ -91,6 +93,7 @@ libdashercore_a_SOURCES = \
 		MandarinAlphMgr.h \
 		MemoryLeak.cpp \
 		MemoryLeak.h \
+		Messages.h \
 		ModuleManager.cpp \
 		ModuleManager.h \
 		NodeCreationManager.cpp \

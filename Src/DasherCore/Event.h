@@ -10,12 +10,11 @@ namespace Dasher {
   class CEvent;
   class CParameterNotificationEvent;
   class CEditEvent;
-  class CMessageEvent;
   class CScreenGeomEvent;
 }
 
 enum {
-  EV_PARAM_NOTIFY = 1, EV_EDIT, EV_MESSAGE, EV_SCREEN_GEOM
+  EV_PARAM_NOTIFY = 1, EV_EDIT, EV_SCREEN_GEOM
 };
 
 /// \ingroup Core
@@ -47,17 +46,6 @@ public:
   const int m_iEditType;
   const std::string m_sText;
   const int m_iOffset;
-};
-
-class Dasher::CMessageEvent : public Dasher::CEvent {
-public:
-  CMessageEvent(const std::string &strMessage, int iID, int iType)
-  : CEvent(EV_MESSAGE), m_strMessage(strMessage), m_iID(iID), m_iType(iType) {
-  };
-  
-  const std::string m_strMessage;
-  const int m_iID;
-  const int m_iType;
 };
 
 ///Generated whenever the screen geometry changes: e.g. aspect ratio,

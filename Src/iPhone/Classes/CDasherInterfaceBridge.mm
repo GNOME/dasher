@@ -182,17 +182,18 @@ void CDasherInterfaceBridge::ExternalEventHandler(Dasher::CEvent *pEvent) {
       }
 	  }
         break;
-    case EV_MESSAGE:
-	  {
-      CMessageEvent *messageEvent(static_cast < CMessageEvent * >(pEvent));
-      [dasherApp displayMessage:NSStringFromStdString(messageEvent->m_strMessage) ID:messageEvent->m_iID Type:messageEvent->m_iType];
-      break;
-	}
+   case EV_SCREEN_GEOM:
+     //no need to do anything
+     break;
     default:
       NSLog(@"ExternalEventHandler, UNKNOWN m_iEventType = %d", pEvent->m_iEventType);
       break;
   }
   
+}
+
+void CDasherInterfaceBridge::Message(const string &strMessage) {
+  [dasherApp displayMessage:NSStringFromStdString(strMessage)];
 }
 
 void CDasherInterfaceBridge::SetLockStatus(const string &strText, int iPercent) {

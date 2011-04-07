@@ -250,7 +250,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   [text becomeFirstResponder];
 }
 
-- (void)displayMessage:(NSString *)msg ID:(int)iId Type:(int)type {
+- (void)displayMessage:(NSString *)msg {
   //set initial state - overriding any animation in progress...
   messageLabel.text = msg;
   messageLabel.alpha = 1.0;

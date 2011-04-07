@@ -130,7 +130,6 @@ static void dasher_editor_internal_add_action(DasherEditor *pSelf, DasherAction 
 static EditorAction *dasher_editor_internal_get_action_by_id(DasherEditor *pSelf, int iID);
 static void dasher_editor_internal_rebuild_action_pane(DasherEditor *pSelf);
 static void dasher_editor_internal_action_save_state(DasherEditor *pSelf, EditorAction *pAction);
-//static void dasher_editor_internal_display_message(DasherEditor *pSelf, DasherMessageInfo *pMessageInfo);
 static void dasher_editor_internal_check_activity(DasherEditor *pSelf, EditorAction *pAction);
 #endif
 
@@ -208,7 +207,6 @@ extern "C" void main_window_realized(DasherMain *pMain, gpointer pUserData);
 extern "C" void action_button_callback(GtkWidget *pWidget, gpointer pUserData);
 extern "C" void mark_set_handler(GtkWidget *widget, GtkTextIter *pIter, GtkTextMark *pMark, gpointer pUserData);
 extern "C" void handle_stop_event(GtkDasherControl *pDasherControl, gpointer data);
-extern "C" void on_message(GtkDasherControl *pDasherControl, gpointer pMessageInfo, gpointer pUserData);
 extern "C" void on_command(GtkDasherControl *pDasherControl, gchar *szCommand, gpointer pUserData);
 extern "C" void handle_request_settings(GtkDasherControl * pDasherControl, gpointer data);
 extern "C" void gtk2_edit_delete_callback(GtkDasherControl *pDasherControl, const gchar *szText, int iOffset, gpointer user_data);
@@ -303,7 +301,7 @@ dasher_editor_internal_finalize(GObject *pObject) {
 
   if(pCurrentAction) {
     bool bStarted = false;
-  
+
     while(!bStarted || (pCurrentAction != pPrivate->pActionRing)) {
       bStarted = true;
       dasher_action_deactivate(pCurrentAction->pAction);
@@ -411,7 +409,7 @@ dasher_editor_internal_handle_stop(DasherEditor *pSelf) {
 
   if(pCurrentAction) {
     bool bStarted = false;
-  
+
     while(!bStarted || (pCurrentAction != pPrivate->pActionRing)) {
       bStarted = true;
       if(pCurrentAction->bAuto)
@@ -523,7 +521,7 @@ dasher_editor_internal_action_set_control(DasherEditor *pSelf, int iActionID, bo
 //       gtk_dasher_control_connect_node(GTK_DASHER_CONTROL(pDasherWidget), pAction->iControlID, Dasher::CControlManager::CTL_USER, -2);
 //     else
 //       gtk_dasher_control_disconnect_node(GTK_DASHER_CONTROL(pDasherWidget), pAction->iControlID, Dasher::CControlManager::CTL_USER);
-  
+
 //     dasher_editor_internal_action_save_state(pSelf, pAction);
 //   }
 }
@@ -536,7 +534,7 @@ EditorAction *pAction;
   if(pAction) {
     pAction->bAuto = bValue;
     dasher_editor_internal_check_activity(pSelf, pAction);
-  
+
     dasher_editor_internal_action_save_state(pSelf, pAction);
   }
 }
@@ -554,8 +552,8 @@ dasher_editor_internal_grab_focus(DasherEditor *pSelf) {
 static void
 dasher_editor_internal_create_buffer(DasherEditor *pSelf) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
-  
-  
+
+
   pPrivate->pOutputTag = gtk_text_buffer_create_tag(pPrivate->pBuffer, NULL, NULL);
 
 #if GTK_CHECK_VERSION(2,8,0)
@@ -585,14 +583,14 @@ dasher_editor_internal_output(DasherEditor *pSelf, const gchar *szText, int iOff
   if(!strcmp(szText, " ")) {
     gboolean bActionIterStarted = false;
     EditorAction *pActionIter = pPrivate->pActionRing;
-  
+
     while((pActionIter != pPrivate->pActionRing) || !bActionIterStarted) {
       bActionIterStarted = true;
-    
+
       if(!strcmp(dasher_action_get_name(pActionIter->pAction), "Speak")) {
         dasher_action_preview(pActionIter->pAction, DASHER_EDITOR(pSelf));
       }
-    
+
       pActionIter = pActionIter->pNext;
     }
   }
@@ -958,7 +956,7 @@ void
 dasher_editor_internal_handle_font(DasherEditor *pSelf, const gchar *szFont) {
   if(strcmp(szFont, "")) {
     DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
-  
+
     PangoFontDescription *pFD = pango_font_description_from_string(szFont);
     gtk_widget_modify_font(GTK_WIDGET(pPrivate->pTextView), pFD);
   }
@@ -1071,7 +1069,7 @@ dasher_editor_internal_setup_actions(DasherEditor *pSelf) {
     while((szFilename = g_dir_read_name(pDirectory))) {
       dasher_editor_internal_add_action(pSelf, DASHER_ACTION(dasher_action_script_new(szUserScriptDir, szFilename)));
     }
-  
+
     g_dir_close(pDirectory);
   }
 
@@ -1087,7 +1085,7 @@ dasher_editor_internal_setup_actions(DasherEditor *pSelf) {
     while((szFilename = g_dir_read_name(pDirectory))) {
       dasher_editor_internal_add_action(pSelf, DASHER_ACTION(dasher_action_script_new(szSystemScriptDir, szFilename)));
     }
-  
+
     g_dir_close(pDirectory);
   }
 
@@ -1116,9 +1114,9 @@ dasher_editor_internal_setup_actions(DasherEditor *pSelf) {
 //     if(pCurrentAction->bControl) {
 //       gtk_dasher_control_register_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER + iControlOffset, dasher_action_get_name(pCurrentAction->pAction), -1 );
 //       gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER + iControlOffset, Dasher::CControlManager::CTL_USER, -2);
-    
+
 //       int iNSub(dasher_action_get_sub_count(pCurrentAction->pAction));
-    
+
 //       if(iNSub == 0) {
 // 	gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), -1, Dasher::CControlManager::CTL_USER + iControlOffset, -2);
 //       }
@@ -1129,12 +1127,12 @@ dasher_editor_internal_setup_actions(DasherEditor *pSelf) {
 // 	  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), -1, Dasher::CControlManager::CTL_USER + iControlOffset + i + 1, -2);
 // 	}
 //       }
-    
+
 //       pCurrentAction->iControlID = Dasher::CControlManager::CTL_USER + iControlOffset;
 //       pCurrentAction->iNSub = iNSub;
 //       iControlOffset += iNSub + 1;
 //     }
-    
+
 //     pCurrentAction = pCurrentAction->pNext;
 //   }
 
@@ -1250,11 +1248,11 @@ dasher_editor_internal_rebuild_action_pane(DasherEditor *pSelf) {
     if(pCurrentAction->bShow) {
       GtkButton *pNewButton = GTK_BUTTON(gtk_button_new_with_label(dasher_action_get_name(pCurrentAction->pAction)));
       gtk_widget_show(GTK_WIDGET(pNewButton));
-    
+
       pUserData = new void *[2];
       pUserData[0] = (void *)pSelf;
       pUserData[1] = (void *)(pCurrentAction->pAction);
-    
+
       g_signal_connect(G_OBJECT(pNewButton), "clicked", G_CALLBACK(action_button_callback), pUserData);
 #ifdef WITH_MAEMO
       // For Maemo we want the packing to expand
@@ -1267,14 +1265,6 @@ dasher_editor_internal_rebuild_action_pane(DasherEditor *pSelf) {
   }
 }
 #endif /* XXXPRLWACTIONSAREFIXED */
-
-// TODO: This shouldn't be a part of the editor
-//static void
-//dasher_editor_internal_display_message(DasherEditor *pSelf, DasherMessageInfo *pMessageInfo) {
-//  GtkMessageDialog *pDialog = GTK_MESSAGE_DIALOG(gtk_message_dialog_new(0, GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, pMessageInfo->szMessage));
-//  gtk_dialog_run(GTK_DIALOG(pDialog));
-//  gtk_widget_destroy(GTK_WIDGET(pDialog));
-//}
 
 #ifdef XXXPRLWACTIONSAREFIXED
 static void
@@ -1367,11 +1357,11 @@ dasher_editor_internal_command_save(DasherEditor *pSelf, gboolean bPrompt, gbool
 						     GTK_RESPONSE_ACCEPT,
 						     GTK_STOCK_CANCEL,
 						     GTK_RESPONSE_CANCEL, NULL);
-  
+
 #ifdef HAVE_GIO
     gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(filesel), FALSE);
 #endif
-  
+
     if(gtk_dialog_run(GTK_DIALOG(filesel)) == GTK_RESPONSE_ACCEPT) {
 #ifdef HAVE_GIO
       szFilename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(filesel));
@@ -1383,7 +1373,7 @@ dasher_editor_internal_command_save(DasherEditor *pSelf, gboolean bPrompt, gbool
       gtk_widget_destroy(filesel);
       return;
     }
-  
+
     gtk_widget_destroy(filesel);
   }
   else {
@@ -1678,7 +1668,7 @@ static void edit_find(bool bForwards, CControlManager::EditDistance iDist, Dashe
       gtk_text_iter_backward_word_start(pPos);
       break;
     case CControlManager::EDIT_LINE:
-  
+
       if(!gtk_text_view_backward_display_line_start(GTK_TEXT_VIEW(pPrivate->pTextView), pPos))
         gtk_text_view_backward_display_line(GTK_TEXT_VIEW(pPrivate->pTextView), pPos);
       break;
@@ -1710,7 +1700,7 @@ dasher_editor_internal_ctrl_delete(DasherEditor *pSelf, bool bForwards, CControl
 
 static gint
 dasher_editor_internal_ctrl_move(DasherEditor *pSelf, bool bForwards, CControlManager::EditDistance iDist) {
-  DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf); 
+  DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
   GtkTextIter sPos;
 
   gtk_text_buffer_get_iter_at_mark(pPrivate->pBuffer, &sPos, gtk_text_buffer_get_insert(pPrivate->pBuffer));

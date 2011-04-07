@@ -4,7 +4,7 @@
 #include "DasherComponent.h"
 #include "DasherTypes.h"
 #include "DasherView.h"
-
+#include "Messages.h"
 #include <deque>
 
 /// \defgroup AutoSpeed Auto speed control
@@ -12,7 +12,7 @@
 namespace Dasher {
 class CAutoSpeedControl : public Dasher::CDasherComponent {
  public:
-  CAutoSpeedControl(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore);
+  CAutoSpeedControl(CMessageDisplay *pMsgs, Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore);
   
   ///
   /// AUTO-SPEED-CONTROL
@@ -78,6 +78,8 @@ class CAutoSpeedControl : public Dasher::CDasherComponent {
   
   //variables for adaptive radius calculations...
   double m_dSigma1, m_dSigma2, m_dMinRadius;
+  
+  CMessageDisplay *m_pMsgs;
 
 };
 }
