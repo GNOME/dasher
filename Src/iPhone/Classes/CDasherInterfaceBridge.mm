@@ -158,38 +158,35 @@ void CDasherInterfaceBridge::ExternalEventHandler(Dasher::CEvent *pEvent) {
       [dasherApp setAlphabet:GetActiveAlphabet()];
     }
       break;
-    case EV_EDIT:
-	  {
-//      NSLog(@"ExternalEventHandler, m_iEventType = EV_EDIT");
-		  CEditEvent *editEvent((CEditEvent *)pEvent);
-      switch (editEvent->m_iEditType) {
-        case 1:
-          //NSLog(@"ExternalEventHandler edit insert");
-          [dasherApp outputCallback:NSStringFromStdString(editEvent->m_sText)];
-          break;
-        case 2:
-          //NSLog(@"ExternalEventHandler edit delete");
-          [dasherApp deleteCallback:NSStringFromStdString(editEvent->m_sText)];
-          break;
-        case 10:
-          NSLog(@"ExternalEventHandler edit convert");
-          break;
-        case 11:
-          NSLog(@"ExternalEventHandler edit protect");
-          break;
-        default:
-          break;
-      }
-	  }
-        break;
    case EV_SCREEN_GEOM:
      //no need to do anything
      break;
-    default:
-      NSLog(@"ExternalEventHandler, UNKNOWN m_iEventType = %d", pEvent->m_iEventType);
-      break;
-  }
-  
+   default:
+     NSLog(@"ExternalEventHandler, UNKNOWN m_iEventType = %d", pEvent->m_iEventType);
+     break;
+   }
+}
+
+void CDasherInterfaceBridge::editOutput(const string &strText, CDasherNode *pNode) {
+//NSLog(@"ExternalEventHandler edit insert");
+  [dasherApp outputCallback:NSStringFromStdString(strText)];
+  CDasherInterfaceBase::editOutput(strText,pNode);
+}
+
+void CDasherInterfaceBridge::editDelete(const string &strText, CDasherNode *pNode) {
+// NSLog(@"ExternalEventHandler edit delete");
+  [dasherApp deleteCallback:NSStringFromStdString(strText)];
+  CDasherInterfaceBase::editDelete(strText, pNode);
+}
+
+void CDasherInterfaceBridge::editConvert(CDasherNode *pSource) {
+  NSLog(@"ExternalEventHandler edit convert");
+  CDasherInterfaceBase::editConvert(pSource);
+}
+
+void CDasherInterfaceBridge::editProtect(CDasherNode *pSource) {
+  NSLog(@"ExternalEventHandler edit protect");
+  CDasherInterfaceBase::editProtect(pSource);
 }
 
 void CDasherInterfaceBridge::Message(const string &strMessage) {

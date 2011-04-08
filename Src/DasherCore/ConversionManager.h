@@ -33,6 +33,7 @@
 class CNodeCreationManager;
 
 namespace Dasher {
+  class CDasherInterfaceBase;
   /// \ingroup Model
   /// @{
 
@@ -61,7 +62,7 @@ namespace Dasher {
   class CConversionManager : public CNodeManager {
   public:
     // TODO: We shouldn't need to know about this stuff, but the code is somewhat in knots at the moment
-    CConversionManager(CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet);
+    CConversionManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet);
 
     ///Tells us to use the specified screen to create node labels.
     /// (note we cache the screen and create labels lazily)
@@ -137,7 +138,7 @@ namespace Dasher {
 
     virtual CConvNode *makeNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, CDasherScreen::Label *pLabel);
 
-
+  CDasherInterfaceBase *m_pInterface;
 	CNodeCreationManager *m_pNCManager;
 	const CAlphInfo *m_pAlphabet;
 	

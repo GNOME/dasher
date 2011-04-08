@@ -111,31 +111,25 @@ void CDasher::Log() {
 }
 
 void Dasher::CDasher::ExternalEventHandler(CEvent* pEvent) {  
-  switch(pEvent->m_iEventType) {
-    case EV_PARAM_NOTIFY: {
-      int iParam(static_cast<CParameterNotificationEvent *> (pEvent)->m_iParameter);
-      m_pWindow->HandleParameterChange(iParam);
-      m_pEdit->HandleParameterChange(iParam);
-      break;
-    }
-    case EV_EDIT:  {
-      CEditEvent *pEvt(static_cast<CEditEvent *> (pEvent));
-      if(m_pWindow->m_pGameModeHelper) {
-        switch (pEvt->m_iEditType) {
-          case 1:
-            m_pWindow->m_pGameModeHelper->Output(pEvt->m_sText);
-            break;
-          case 2:
-            m_pWindow->m_pGameModeHelper->Delete(pEvt->m_sText.size());
-            break;
-        }
-      }
-      m_pEdit->HandleEditEvent(pEvt);
-      break;
-    }
-    default:
-      break;
+  if (pEvent->m_iEventType==EV_PARAM_NOTIFY) {
+    int iParam(static_cast<CParameterNotificationEvent *> (pEvent)->m_iParameter);
+    m_pWindow->HandleParameterChange(iParam);
+    m_pEdit->HandleParameterChange(iParam);
   }
+}
+
+void Dasher::CDasher::editOutput(const string &strText, CDasherNode *pSource) {
+  if(m_pWindow->m_pGameModeHelper)
+    m_pWindow->m_pGameModeHelper->Output(strText);
+  m_pEdit->output(strText);
+  CDasherInterfaceBase::editOutput(strText, pSource);
+}
+
+void Dasher::CDasher::editDelete(const string &strText, CDasherNode *pSource) {
+  if (m_pWindow->m_pGameModeHelper)
+    m_pWindow->m_pGameModeHelper->Delete(strText.size());
+  m_pEdit->deletetext(strText);
+  CDasherInterfaceBase::editDelete(strText, pSource);
 }
 
 unsigned int Dasher::CDasher::ctrlMove(bool bForwards, CControlManager::EditDistance iDist) {

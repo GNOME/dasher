@@ -27,6 +27,7 @@
 #include "EventHandler.h"
 #include "NodeCreationManager.h"
 #include "DasherModel.h"
+#include "DasherInterfaceBase.h"
 
 #include <iostream>
 #include <cstring>
@@ -40,8 +41,8 @@
 using namespace Dasher;
 using namespace std;
 
-CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet) {
-
+CConversionManager::CConversionManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet) {
+  m_pInterface = pInterface;
   m_pNCManager = pNCManager;
   m_pAlphabet = pAlphabet;
 
@@ -161,28 +162,18 @@ void CConversionManager::CConvNode::Output() {
   SCENode *pCurrentSCENode(pSCENode);
 
   if(pCurrentSCENode){
-    Dasher::CEditEvent oEvent(1, pCurrentSCENode->pszConversion, this);
-    m_pMgr->m_pNCManager->InsertEvent(&oEvent);
+    m_pMgr->m_pInterface->editOutput(pCurrentSCENode->pszConversion, this);
 
     if((GetChildren())[0]->mgr() == m_pMgr) {
       if (static_cast<CConvNode *>(GetChildren()[0])->m_pMgr == m_pMgr) {
-        Dasher::CEditEvent oEvent(11, "", 0);
-        m_pMgr->m_pNCManager->InsertEvent(&oEvent);
+        m_pMgr->m_pInterface->editProtect(this); //TODO used to pass in offset 0, will now get this node's offset...
       }
     }
   }
   else {
-    if(!bisRoot) {
-      Dasher::CEditEvent oOPEvent(1, "|", this);
-      m_pMgr->m_pNCManager->InsertEvent(&oOPEvent);
-    }
-    else {
-      Dasher::CEditEvent oOPEvent(1, ">", this);
-      m_pMgr->m_pNCManager->InsertEvent(&oOPEvent);
-    }
+    m_pMgr->m_pInterface->editOutput(bisRoot ? ">" : "|", this);
 
-    Dasher::CEditEvent oEvent(10, "", this); //TODO this used to pass in offset 0, now we'll get the node's offset...
-    m_pMgr->m_pNCManager->InsertEvent(&oEvent);
+    m_pMgr->m_pInterface->editConvert(this); //TODO used to pass in offset 0, will now get this node's offset...
   }
 }
 
@@ -191,18 +182,10 @@ void CConversionManager::CConvNode::Undo() {
 
   if(pCurrentSCENode) {
     if(pCurrentSCENode->pszConversion && (strlen(pCurrentSCENode->pszConversion) > 0)) {
-      Dasher::CEditEvent oEvent(2, pCurrentSCENode->pszConversion, this);
-      m_pMgr->m_pNCManager->InsertEvent(&oEvent);
+      m_pMgr->m_pInterface->editDelete(pCurrentSCENode->pszConversion, this);
     }
   }
   else {
-    if(!bisRoot) {
-      Dasher::CEditEvent oOPEvent(2, "|", this);
-      m_pMgr->m_pNCManager->InsertEvent(&oOPEvent);
-    }
-    else {
-      Dasher::CEditEvent oOPEvent(2, ">", this);
-      m_pMgr->m_pNCManager->InsertEvent(&oOPEvent);
-    }
+    m_pMgr->m_pInterface->editDelete(bisRoot ? ">" : "|", this);
   }
 }

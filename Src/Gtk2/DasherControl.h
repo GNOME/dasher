@@ -157,6 +157,12 @@ public:
   virtual void ExternalEventHandler(Dasher::CEvent *pEvent);
 
   ///Override to emit Gtk2 signal
+  virtual void editOutput(const std::string &strText, CDasherNode *pNode);
+  virtual void editDelete(const std::string &strText, CDasherNode *pNode);
+  virtual void editConvert(CDasherNode *pNode);
+  virtual void editProtect(CDasherNode *pNode);
+
+  ///Override to emit Gtk2 signal
   virtual void SetLockStatus(const string &strText, int iPercent);
 
 private:
@@ -169,7 +175,7 @@ private:
   virtual void CreateSettingsStore();
   virtual void StartTimer();
   virtual void ShutdownTimer();
-
+  
   /// Override to emit Gtk2 signals (previously in response to CCommandEvent)
   void ExecuteCommand(const std::string &strName);
 

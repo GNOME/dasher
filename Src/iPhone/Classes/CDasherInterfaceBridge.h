@@ -55,6 +55,10 @@ public:
   unsigned int ctrlMove(bool bForwards, CControlManager::EditDistance dist);
   unsigned int ctrlDelete(bool bForwards, CControlManager::EditDistance dist);
   void SetLockStatus(const string &strText, int iPercent);
+  void editOutput(const string &strText, CDasherNode *pNode);
+  void editDelete(const string &strText, CDasherNode *pNode);
+  void editConvert(CDasherNode *pNode);
+  void editProtect(CDasherNode *pNode);
   void Message(const string &strText);
 private:
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);

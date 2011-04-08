@@ -377,6 +377,26 @@ void CDasherInterfaceBase::SetLockStatus(const string &strText, int iPercent) {
   }
 }
 
+void CDasherInterfaceBase::editOutput(const std::string &strText, CDasherNode *pCause) {
+  CEditEvent evt(CEditEvent::EDIT_OUTPUT, strText, pCause);
+  m_pEventHandler->InsertEvent(&evt);
+}
+
+void CDasherInterfaceBase::editDelete(const std::string &strText, CDasherNode *pCause) {
+  CEditEvent evt(CEditEvent::EDIT_DELETE, strText, pCause);
+  m_pEventHandler->InsertEvent(&evt);
+}
+
+void CDasherInterfaceBase::editConvert(CDasherNode *pCause) {
+  CEditEvent evt(CEditEvent::EDIT_CONVERT, "", pCause);
+  m_pEventHandler->InsertEvent(&evt);
+}
+
+void CDasherInterfaceBase::editProtect(CDasherNode *pCause) {
+  CEditEvent evt(CEditEvent::EDIT_PROTECT, "", pCause);
+  m_pEventHandler->InsertEvent(&evt);
+}
+
 void CDasherInterfaceBase::WriteTrainFileFull() {
   m_pNCManager->GetAlphabetManager()->WriteTrainFileFull(this);
 }

@@ -86,6 +86,14 @@ private:
   ///
   
   void ExternalEventHandler(Dasher::CEvent *pEvent);
+
+  ///Override to perform output/deletion via DasherEdit
+  void editOutput(const std::string &strText, CDasherNode *pSource);
+  void editDelete(const std::string &strText, CDasherNode *pSource);
+  ///Just log (and call superclass)
+  void editConvert(CDasherNode *pSource);
+  void editProtect(CDasherNode *pSource);
+
   void GameMessageOut(int message, const void* messagedata);
   
   DasherApp *dasherApp;   // objc counterpart

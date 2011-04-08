@@ -117,17 +117,16 @@ class CEdit : public ATL::CWindowImpl<CEdit> {
   // Get context (new version)
   std::string get_context(int iOffset, int iLength);
 
-  // called when characters fall of the LHS of the screen
+  // called when a new character falls under the crosshair
   void output(const std::string & sText);
     
-  // remove the previous character
+  // remove the previous character: called when we steer/reverse the crosshair out of a node
   void deletetext(const std::string & sText);
   
   void SetNewWithDate(bool bNewWithDate);
 
   //ACL Making these public so can be called directly from CDasher
   void HandleParameterChange(int iParameter);
-  void HandleEditEvent(Dasher::CEditEvent *pEvent);
 
  protected:
   bool m_dirty;

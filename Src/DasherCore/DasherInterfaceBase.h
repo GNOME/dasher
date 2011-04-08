@@ -236,6 +236,11 @@ public:
   /// (for forwards deletion, this will be the same as the offset *before*)
   virtual unsigned int ctrlDelete(bool bForwards, CControlManager::EditDistance dist)=0;
 
+  virtual void editOutput(const std::string &strText, CDasherNode *pCause);
+  virtual void editDelete(const std::string &strText, CDasherNode *pCause);
+  virtual void editConvert(CDasherNode *pCause);
+  virtual void editProtect(CDasherNode *pCause);
+
   class TextAction {
   public:
     TextAction(CDasherInterfaceBase *pMgr);

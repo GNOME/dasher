@@ -568,8 +568,7 @@ void CAlphabetManager::CSymbolNode::Output() {
   }
   //std::cout << this << " " << Parent() << ": Output at offset " << m_iOffset << " *" << m_pMgr->m_pAlphabet->GetText(t) << "* " << std::endl;
 
-  Dasher::CEditEvent oEvent(1, outputText(), this);
-  m_pMgr->m_pNCManager->InsertEvent(&oEvent);
+  m_pMgr->m_pInterface->editOutput(outputText(), this);
 }
 
 SymbolProb CAlphabetManager::CSymbolNode::GetSymbolProb(int iNormalization) const {
@@ -591,8 +590,7 @@ void CAlphabetManager::CSymbolNode::Undo() {
       }
     }
   } else CAlphBase::Undo();
-  Dasher::CEditEvent oEvent(2, outputText(), this);
-  m_pMgr->m_pNCManager->InsertEvent(&oEvent);
+  m_pMgr->m_pInterface->editDelete(outputText(), this);
 }
 
 CDasherNode *CAlphabetManager::CGroupNode::RebuildParent() {

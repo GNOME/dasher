@@ -159,29 +159,6 @@ void COSXDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
 //      CParameterNotificationEvent *parameterEvent(static_cast < CParameterNotificationEvent * >(pEvent));
 //      NSLog(@"CParameterNotificationEvent, m_iParameter: %d", parameterEvent->m_iParameter);
       break;
-    case EV_EDIT: {
-//      NSLog(@"ExternalEventHandler, m_iEventType = EV_EDIT");
-      CEditEvent *editEvent(static_cast < CEditEvent * >(pEvent));
-      switch (editEvent->m_iEditType) {
-        case 1:
-          //NSLog(@"ExternalEventHandler edit insert");
-          [dasherEdit outputCallback:NSStringFromStdString(editEvent->m_sText) targetApp:[dasherApp targetAppUIElementRef]];
-          break;
-        case 2:
-         // NSLog(@"ExternalEventHandler edit delete");
-          [dasherEdit deleteCallback:NSStringFromStdString(editEvent->m_sText) targetApp:[dasherApp targetAppUIElementRef]];
-          break;
-        case 10:
-          NSLog(@"ExternalEventHandler edit convert");
-          break;
-        case 11:
-          NSLog(@"ExternalEventHandler edit protect");
-          break;
-        default:
-          break;
-      }
-      break;
-    }
     case EV_SCREEN_GEOM:
       //no need to do anything, so avoid log message
       break;
@@ -189,7 +166,28 @@ void COSXDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
       NSLog(@"ExternalEventHandler, UNKNOWN m_iEventType = %d", pEvent->m_iEventType);
       break;
   }
-  
+}
+
+void COSXDasherControl::editOutput(const string &strText, CDasherNode *pNode) {
+//NSLog(@"ExternalEventHandler edit insert");
+  [dasherEdit outputCallback:NSStringFromStdString(strText) targetApp:[dasherApp targetAppUIElementRef]];
+  CDasherInterfaceBase::editOutput(strText,pNode);
+}
+
+void COSXDasherControl::editDelete(const string &strText, CDasherNode *pNode) {
+// NSLog(@"ExternalEventHandler edit delete");
+  [dasherEdit deleteCallback:NSStringFromStdString(strText) targetApp:[dasherApp targetAppUIElementRef]];
+  CDasherInterfaceBase::editDelete(strText, pNode);
+}
+
+void COSXDasherControl::editConvert(CDasherNode *pSource) {
+  NSLog(@"ExternalEventHandler edit convert");
+  CDasherInterfaceBase::editConvert(pSource);
+}
+
+void COSXDasherControl::editProtect(CDasherNode *pSource) {
+  NSLog(@"ExternalEventHandler edit protect");
+  CDasherInterfaceBase::editProtect(pSource);
 }
 
 unsigned int COSXDasherControl::ctrlMove(bool bForwards, CControlManager::EditDistance dist) {

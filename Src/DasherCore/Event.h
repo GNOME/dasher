@@ -39,11 +39,12 @@ public:
 };
 
 class Dasher::CEditEvent:public Dasher::CEvent {
-public:
+  friend class CDasherInterfaceBase;
   CEditEvent(int iEditType, const std::string & sText, CDasherNode *pNode)
   : CEvent(EV_EDIT), m_iEditType(iEditType), m_sText(sText), m_pNode(pNode) {
-  };
-
+  };  
+public:
+  static const int EDIT_OUTPUT=1, EDIT_DELETE=2, EDIT_CONVERT=10, EDIT_PROTECT=11;
   const int m_iEditType;
   const std::string m_sText;
   /// Node causing the event - allows calling GetSymbolProb, offset(), etc.

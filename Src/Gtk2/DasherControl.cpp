@@ -341,25 +341,27 @@ void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
     HandleParameterNotification(pEvt->m_iParameter);
     g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_changed", pEvt->m_iParameter);
   }
-  else if(pEvent->m_iEventType == EV_EDIT) {
-    CEditEvent *pEditEvent(static_cast < CEditEvent * >(pEvent));
-    
-    if(pEditEvent->m_iEditType == 1) {
-      // Insert event
-      g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_edit_insert", pEditEvent->m_sText.c_str(), pEditEvent->m_pNode->offset());
-    }
-    else if(pEditEvent->m_iEditType == 2) {
-      // Delete event
-      g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_edit_delete", pEditEvent->m_sText.c_str(), pEditEvent->m_pNode->offset());
-    }
-    else if(pEditEvent->m_iEditType == 10) {
-      g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_edit_convert");
-    }
-    else if(pEditEvent->m_iEditType == 11) {
-      g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_edit_protect");
-    }
-  }
-};
+}
+
+void CDasherControl::editOutput(const std::string &strText, CDasherNode *pNode) {
+  g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_edit_insert", strText.c_str(), pNode->offset());
+  CDasherInterfaceBase::editOutput(strText, pNode);
+}
+
+void CDasherControl::editDelete(const std::string &strText, CDasherNode *pNode) {
+  g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_edit_delete", strText.c_str(), pNode->offset());
+  CDasherInterfaceBase::editDelete(strText, pNode);
+}
+
+void CDasherControl::editConvert(CDasherNode *pNode) {
+  g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_edit_convert");
+  CDasherInterfaceBase::editConvert(pNode);
+}
+
+void CDasherControl::editProtect(CDasherNode *pNode) {
+  g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_edit_protect");
+  CDasherInterfaceBase::editProtect(pNode);
+}
 
 void CDasherControl::SetLockStatus(const string &strText, int iPercent) {
     DasherLockInfo sInfo;

@@ -876,14 +876,3 @@ void CEdit::HandleParameterChange(int iParameter) {
     break;
   }
 }
-
-void CEdit::HandleEditEvent(Dasher::CEditEvent *pEvt) {
-  switch (pEvt->m_iEditType) {
-    case 1:
-      output(pEvt->m_sText);
-      break;
-    case 2:
-      deletetext(pEvt->m_sText);
-      break;
-  }
-}

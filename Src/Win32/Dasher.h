@@ -48,6 +48,8 @@ public:
   void TakeFocus();
 
   void ExternalEventHandler(Dasher::CEvent *pEvent);
+  void editOutput(const std::string &strText, CDasherNode *pSource);
+  void editDelete(const std::string &strText, CDasherNode *pSource);
   unsigned int ctrlMove(bool bForwards, CControlManager::EditDistance iDist);
   unsigned int ctrlDelete(bool bForwards, CControlManager::EditDistance iDist);
   
