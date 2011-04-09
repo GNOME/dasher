@@ -78,7 +78,7 @@ CStartHandler *COneDimensionalFilter::MakeStartHandler() {
   if (GetBoolParameter(BP_CIRCLE_START)) {
     class C1DCircleStartHandler : public CCircleStartHandler {
     public:
-      C1DCircleStartHandler(COneDimensionalFilter *f) : CCircleStartHandler(f->m_pEventHandler, f->m_pSettingsStore, f->m_pInterface), filter(f) {
+      C1DCircleStartHandler(CEventHandler *pEvtH, CSettingsStore *pSets, COneDimensionalFilter *f) : CCircleStartHandler(pEvtH, pSets, f->m_pInterface), filter(f) {
       }
       void ComputeScreenLoc(CDasherView *pView) {
         if (m_iScreenRadius!=-1) return;
@@ -102,7 +102,7 @@ CStartHandler *COneDimensionalFilter::MakeStartHandler() {
     private:
       const COneDimensionalFilter *filter;
     };
-    return new C1DCircleStartHandler(this);
+    return new C1DCircleStartHandler(m_pEventHandler,m_pSettingsStore,this);
   }
   return CDefaultFilter::MakeStartHandler();
 }

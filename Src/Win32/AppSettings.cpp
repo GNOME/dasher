@@ -103,7 +103,7 @@ void CAppSettings::SetBoolParameter(int iParameter, bool bValue) {
     SaveSetting(m_pBoolTable[iParameter - FIRST_APP_BP].regName, bValue);
 
     Dasher::CParameterNotificationEvent oEvent(iParameter);
-    SendMessage(m_hWnd, WM_DASHER_EVENT, 0, (LPARAM)&oEvent);
+    m_pDasher->ExternalEventHandler(&oEvent);
   }
 }
 
@@ -121,7 +121,7 @@ void CAppSettings::SetLongParameter(int iParameter, long iValue) {
     m_pLongTable[iParameter - FIRST_APP_LP].value = iValue;
     SaveSetting(m_pLongTable[iParameter - FIRST_APP_LP].regName, iValue); 
     Dasher::CParameterNotificationEvent oEvent(iParameter);
-    SendMessage(m_hWnd, WM_DASHER_EVENT, 0, (LPARAM)&oEvent);
+    m_pDasher->ExternalEventHandler(&oEvent);
   }
 }
 
@@ -139,7 +139,7 @@ void CAppSettings::SetStringParameter(int iParameter, const std::string &strValu
     m_pStringTable[iParameter - FIRST_APP_SP].value = strValue;
     SaveSetting(m_pStringTable[iParameter - FIRST_APP_SP].regName, strValue);
     Dasher::CParameterNotificationEvent oEvent(iParameter);
-    SendMessage(m_hWnd, WM_DASHER_EVENT, 0, (LPARAM)&oEvent);
+    m_pDasher->ExternalEventHandler(&oEvent);
   }
 }
 

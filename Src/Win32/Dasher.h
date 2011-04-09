@@ -8,9 +8,6 @@
 #include <string>
 #include <vector>
 
-extern CONST UINT WM_DASHER_EVENT;
-#define _WM_DASHER_EVENT (LPCWSTR)"wm_dasher_event"
-
 extern CONST UINT WM_DASHER_FOCUS;
 #define _WM_DASHER_FOCUS (LPCWSTR)"wm_dasher_focus"
 
@@ -20,13 +17,14 @@ extern CONST UINT WM_DASHER_GAME_MESSAGE;
 
 class CCanvas;
 class CSlidebar;
-class CDashEditbox;
+class CEdit;
+class CDasherWindow;
 
 namespace Dasher {
 class CDasher : public CDasherInterfaceBase 
 {
 public:
-  CDasher(HWND Parent);
+  CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit);
   ~CDasher(void);
 
   // The following functions will not be part of the final interface
@@ -40,8 +38,6 @@ public:
   // TODO: Can some of these be obtained by inheriting from something?
   void Move(int iX, int iY, int iWidth, int iHeight);
   void TakeFocus();
-
-  void SetEdit(CDashEditbox * pEdit);
 
   void ExternalEventHandler(Dasher::CEvent *pEvent);
   void GameMessageOut(int message, const void* messagedata);
@@ -77,8 +73,9 @@ private:
   void                    Log();                        // Does the logging
 
   CCanvas *m_pCanvas;
-  CDashEditbox *m_pEdit;
   HWND m_hParent;
+  CDasherWindow *m_pWindow;
+  CEdit *m_pEdit;
 #ifndef _WIN32_WCE
   ISpVoice *pVoice;
   bool attemptedSpeech;

@@ -97,17 +97,18 @@ HWND CDasherWindow::Create() {
 
 
 
-  // Create Widgets
-  m_pDasher = new CDasher(hWnd);
 
   // Create a CAppSettings
   m_pAppSettings->SetHwnd(hWnd);
   m_pAppSettings->SetDasher(m_pDasher);
 
+  // Create Widgets
   m_pEdit = new CEdit(m_pAppSettings);
   m_pEdit->Create(hWnd, m_pAppSettings->GetBoolParameter(APP_BP_TIME_STAMP));
   m_pEdit->SetFont(m_pAppSettings->GetStringParameter(APP_SP_EDIT_FONT), m_pAppSettings->GetLongParameter(APP_LP_EDIT_FONT_SIZE));
  
+  m_pDasher = new CDasher(hWnd, this, m_pEdit);
+
 #ifdef PJC_EXPERIMENTAL
   g_hWnd = m_pEdit->GetHwnd();
 #endif
@@ -405,42 +406,6 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
   return 0;
 }
 
-LRESULT CDasherWindow::OnDasherEvent(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
-  // Apparently putting the typecast directly in the switch doesn't work
-  CEvent *pEvent( (CEvent *)lParam );
-  
-  // TODO: return if handled?
-  switch(pEvent->m_iEventType) {
-  case EV_PARAM_NOTIFY:
-    HandleParameterChange(((CParameterNotificationEvent *)pEvent)->m_iParameter);
-    break;
-  case EV_CONTROL:
-    HandleControlEvent(((CControlEvent *)pEvent)->m_iID);
-    break;
-  case EV_EDIT: 
-    if(m_pGameModeHelper) {
-      Dasher::CEditEvent * pEvt(static_cast< Dasher::CEditEvent * >(pEvent));
-      
-      switch (pEvt->m_iEditType) {
-      case 1:
-	      m_pGameModeHelper->Output(pEvt->m_sText);
-	      break;
-      case 2:
-	      m_pGameModeHelper->Delete(pEvt->m_sText.size());
-	      break;
-      }
-    }
-    break;
-  default:
-    break;
-  }
-  
-  if(m_pEdit) 
-    m_pEdit->HandleEvent(pEvent);
-  
-  return 0;
-}
-
 LRESULT CDasherWindow::OnGameMessage(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
   m_pGameGroup->Message(static_cast<int>(wParam), reinterpret_cast<const void*>(lParam));
   bHandled=true;
@@ -517,9 +482,7 @@ LRESULT CDasherWindow::OnOther(UINT message, WPARAM wParam, LPARAM lParam, BOOL&
 	// A switch statement would be preferable, except the message ids are
   // not constant-expressions since they are provided by the system at
   // runtime.
-  if (message == WM_DASHER_EVENT)
-    return OnDasherEvent( message, wParam, lParam, bHandled);
-  else if (message == WM_DASHER_FOCUS)
+  if (message == WM_DASHER_FOCUS)
     return OnDasherFocus(message, wParam, lParam, bHandled);
   else if (message == WM_DASHER_GAME_MESSAGE)
     return OnGameMessage(message, wParam, lParam, bHandled);

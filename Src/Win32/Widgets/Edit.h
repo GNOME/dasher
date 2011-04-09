@@ -137,17 +137,16 @@ class CEdit : public ATL::CWindowImpl<CEdit> {
   void deletetext(const std::string & sText);
   
   void SetNewWithDate(bool bNewWithDate);
-  void HandleEvent(Dasher::CEvent *pEvent);
+
+  //ACL Making these public so can be called directly from CDasher
+  void HandleParameterChange(int iParameter);
+  void HandleEditEvent(Dasher::CEditEvent *pEvent);
 
  protected:
   bool m_dirty;
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
   
- private:
-  void HandleParameterChange(int iParameter);
-  void HandleEditEvent(Dasher::CEvent *pEvent);
-  void HandleStop();
-  
+ private:  
   Dasher::CDasherInterfaceBase *m_pDasherInterface;
   
   HWND Parent;

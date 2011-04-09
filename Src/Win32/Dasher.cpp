@@ -31,13 +31,12 @@ using namespace WinUTF8;
 // shouldn't collide with anything else in our code.
 #define WM_DASHER_TIMER WM_USER + 128
 
-CONST UINT WM_DASHER_EVENT = RegisterWindowMessage(_WM_DASHER_EVENT);
 CONST UINT WM_DASHER_FOCUS = RegisterWindowMessage(_WM_DASHER_FOCUS);
 CONST UINT WM_DASHER_GAME_MESSAGE = RegisterWindowMessage(_WM_DASHER_GAME_MESSAGE);
 
-CDasher::CDasher(HWND Parent):m_hParent(Parent) {
+CDasher::CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit)
+ : m_hParent(Parent), m_pWindow(pWindow), m_pEdit(pEdit) {
   // This class will be a wrapper for the Dasher 'control' - think ActiveX
-  m_pEdit = 0;
 
 #ifndef _WIN32_WCE
   // Set up COM for the accessibility stuff
@@ -109,8 +108,35 @@ void CDasher::Log() {
 
 }
 
-void Dasher::CDasher::ExternalEventHandler(CEvent* pEvent) {
-  SendMessage(m_hParent, WM_DASHER_EVENT, 0, (LPARAM)pEvent);
+void Dasher::CDasher::ExternalEventHandler(CEvent* pEvent) {  
+  switch(pEvent->m_iEventType) {
+    case EV_PARAM_NOTIFY: {
+      int iParam(static_cast<CParameterNotificationEvent *> (pEvent)->m_iParameter);
+      m_pWindow->HandleParameterChange(iParam);
+      m_pEdit->HandleParameterChange(iParam);
+      break;
+    case EV_CONTROL:
+      m_pWindow->HandleControlEvent(((CControlEvent *)pEvent)->m_iID);
+      break;
+    }
+    case EV_EDIT:  {
+      CEditEvent *pEvt(static_cast<CEditEvent *> (pEvent));
+      if(m_pWindow->m_pGameModeHelper) {
+        switch (pEvt->m_iEditType) {
+          case 1:
+            m_pWindow->m_pGameModeHelper->Output(pEvt->m_sText);
+            break;
+          case 2:
+            m_pWindow->m_pGameModeHelper->Delete(pEvt->m_sText.size());
+            break;
+        }
+      }
+      m_pEdit->HandleEditEvent(pEvt);
+      break;
+    }
+    default:
+      break;
+  }
 }
 
 void Dasher::CDasher::GameMessageOut(int message, const void *messagedata)
@@ -134,13 +160,6 @@ bool Dasher::CDasher::GetWindowSize(int* pTop, int* pLeft, int* pBottom, int* pR
   }
   else
     return false;
-}
-
-void Dasher::CDasher::SetEdit(CDashEditbox * pEdit) {
-  // FIXME - we really need to make sure we have a
-  // more sensible way of passing messages out here.
-
-  m_pEdit = pEdit;
 }
 
 void Dasher::CDasher::WriteTrainFile(const std::string &filename, const std::string &strNewText) {

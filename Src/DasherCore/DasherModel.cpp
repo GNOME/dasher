@@ -375,7 +375,7 @@ void CDasherModel::Get_new_root_coords(dasherint X, dasherint Y, dasherint &r1, 
   //We prefer to compute C from the _original_ (y1,y2) pair, as this is more
   // accurate (and avoids drifting up/down when heading straight along the
   // x-axis in dynamic button modes). However...
-  if ((y2-y1) < Y2 ^ (oy2-oy1) < Y2) {
+  if (((y2-y1) < Y2) ^ ((oy2-oy1) < Y2)) {
     //Sometimes (very occasionally), the calculation of a single-step above
     // can turn a zoom-in into a zoom-out, or vice versa, when the movement
     // is mostly translation. In which case, must compute C consistently with

@@ -53,7 +53,7 @@ void CEventHandler::RegisterListener(CDasherComponent *pListener) {
 
   if((std::find(m_vListeners.begin(), m_vListeners.end(), pListener) == m_vListeners.end()) &&
      (std::find(m_vListenerQueue.begin(), m_vListenerQueue.end(), pListener) == m_vListenerQueue.end())) {
-    if(!m_iInHandler > 0)
+    if(m_iInHandler <= 0)
       m_vListeners.push_back(pListener);
     else
       m_vListenerQueue.push_back(pListener);

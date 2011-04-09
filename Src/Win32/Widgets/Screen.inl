@@ -39,7 +39,7 @@ inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, scr
 
 inline void CScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iFillColour, int iLineColour, int iThickness) {
   HGDIOBJ hpOld;
-  hpOld = (HPEN) SelectObject(m_hDCBuffer, GetPen(iColour, iThickness));
+  hpOld = (HPEN) SelectObject(m_hDCBuffer, GetPen(iLineColour, iThickness));
 
   if(iFillColour!=-1) {
     HBRUSH hBrush = CScreen::GetBrush(iFillColour);

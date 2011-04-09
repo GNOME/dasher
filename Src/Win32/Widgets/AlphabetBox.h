@@ -26,7 +26,7 @@ private:
 
   std::vector < std::string > AlphabetList;
   std::string m_CurrentAlphabet;
-  Dasher::CAlphIO::AlphInfo CurrentInfo;
+  //Dasher::CAlphInfo CurrentInfo;//for editing alphabets
 
   std::vector < std::string > ColourList;
   

@@ -614,7 +614,7 @@ void CAlphIO::XmlEndHandler(const XML_Char *name) {
     finished->iEnd = InputInfo->m_vCharacters.size()+1;
     if (finished->iEnd == finished->iStart) {
       //empty group. Delete it now, and elide from sibling chain
-      SGroupInfo *&ptr(m_vGroups.size()==0 ? InputInfo->m_pBaseGroup : m_vGroups.back()->pChild);
+      SGroupInfo *&ptr=(m_vGroups.empty() ? InputInfo->m_pBaseGroup : m_vGroups.back()->pChild);
       DASHER_ASSERT(ptr == finished);
       ptr = finished->pNext;
       delete finished;

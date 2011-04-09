@@ -1006,14 +1006,6 @@
 			Name="LanguageModelling"
 			>
 			<File
-				RelativePath="LanguageModelling\BigramLanguageModel.cpp"
-				>
-			</File>
-			<File
-				RelativePath="LanguageModelling\BigramLanguageModel.h"
-				>
-			</File>
-			<File
 				RelativePath=".\LanguageModelling\CTWLanguageModel.cpp"
 				>
 			</File>
@@ -1036,106 +1028,6 @@
 			<File
 				RelativePath=".\LanguageModelling\HashTable.h"
 				>
-			</File>
-			<File
-				RelativePath="LanguageModelling\LanguageModel.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Pocket PC 2003 (ARMV4)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Pocket PC 2003 (ARMV4)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Mobile Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Mobile Debug|Pocket PC 2003 (ARMV4)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Mobile Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release (W2K)|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release (W2K)|Pocket PC 2003 (ARMV4)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release (W2K)|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="LanguageModelling\LanguageModel.h"
@@ -1759,14 +1651,6 @@
 			>
 		</File>
 		<File
-			RelativePath="Alphabet\Alphabet.cpp"
-			>
-		</File>
-		<File
-			RelativePath="Alphabet\Alphabet.h"
-			>
-		</File>
-		<File
 			RelativePath=".\AlphabetManager.cpp"
 			>
 		</File>
@@ -1780,6 +1664,14 @@
 		</File>
 		<File
 			RelativePath="Alphabet\AlphabetMap.h"
+			>
+		</File>
+		<File
+			RelativePath=".\Alphabet\AlphInfo.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\Alphabet\AlphInfo.h"
 			>
 		</File>
 		<File
@@ -1975,14 +1867,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\DelayedDraw.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\View\DelayedDraw.h"
-			>
-		</File>
-		<File
 			RelativePath=".\DynamicFilter.cpp"
 			>
 		</File>
@@ -2008,14 +1892,6 @@
 		</File>
 		<File
 			RelativePath=".\ExpansionPolicy.h"
-			>
-		</File>
-		<File
-			RelativePath=".\EyetrackerFilter.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\EyetrackerFilter.h"
 			>
 		</File>
 		<File
@@ -2166,14 +2042,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\PinyinParser.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\PinyinParser.h"
-			>
-		</File>
-		<File
 			RelativePath=".\SCENode.cpp"
 			>
 		</File>
@@ -2243,14 +2111,6 @@
 		</File>
 		<File
 			RelativePath=".\Trainer.h"
-			>
-		</File>
-		<File
-			RelativePath=".\TrainingHelper.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\TrainingHelper.h"
 			>
 		</File>
 		<File

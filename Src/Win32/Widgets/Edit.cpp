@@ -873,21 +873,6 @@ void CEdit::SetNewWithDate(bool bNewWithDate) {
     m_FilenameGUI->SetNewWithDate(bNewWithDate);
 }
 
-void CEdit::HandleEvent(Dasher::CEvent *pEvent) {
-  switch(pEvent->m_iEventType) {
-  case EV_PARAM_NOTIFY:
-    HandleParameterChange(((CParameterNotificationEvent *)pEvent)->m_iParameter);
-    break;
-  case EV_EDIT:
-    HandleEditEvent(pEvent);
-    break;
-  case EV_EDIT_CONTEXT:
-    // TODO: Make this return the context properly. cf Linux 
-    //m_pDasherInterface->SetContext("");
-    break;
-  }
-}
-
 void CEdit::HandleParameterChange(int iParameter) {
   switch(iParameter) {
   case APP_SP_EDIT_FONT:
@@ -899,9 +884,7 @@ void CEdit::HandleParameterChange(int iParameter) {
   }
 }
 
-void CEdit::HandleEditEvent(Dasher::CEvent *pEvent) {
-  Dasher::CEditEvent * pEvt(static_cast< Dasher::CEditEvent * >(pEvent));
-
+void CEdit::HandleEditEvent(Dasher::CEditEvent *pEvt) {
   switch (pEvt->m_iEditType) {
     case 1:
       output(pEvt->m_sText);
@@ -910,8 +893,4 @@ void CEdit::HandleEditEvent(Dasher::CEvent *pEvent) {
       deletetext(pEvt->m_sText);
       break;
   }
-}
-
-void CEdit::HandleStop() {
-  //speech and copy-to-clipboard are now global/platform-independent...
 }

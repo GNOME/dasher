@@ -39,7 +39,6 @@ struct menuentry {
 
 // List of menu items that will be displayed in the General Preferences
 static menuentry menutable[] = {
-  {BP_OUTLINE_MODE, IDC_OUTLINE},
   {BP_DRAW_MOUSE, IDC_DRAWMOUSE},
   {BP_DRAW_MOUSE_LINE, IDC_DRAWMOUSELINE},
 };
@@ -97,8 +96,8 @@ void CViewPage::PopulateList() {
   else
     SendMessage(GetDlgItem(m_hwnd, IDC_THICKLINE), BM_SETCHECK, BST_UNCHECKED, 0);
 
- 
-
+  SendMessage(GetDlgItem(m_hwnd, IDC_OUTLINE), BM_SETCHECK,
+	  m_pAppSettings->GetLongParameter(LP_OUTLINE_WIDTH) ? BST_CHECKED : BST_UNCHECKED, 0); 
   
   if(m_pAppSettings->GetLongParameter(LP_DASHER_FONTSIZE) == Dasher::Opts::Normal) {
     SendMessage(GetDlgItem(m_hwnd, IDC_FONT_SMALL), BM_SETCHECK, BST_CHECKED, 0);
@@ -118,6 +117,9 @@ bool CViewPage::Apply() {
     m_pAppSettings->SetBoolParameter(menutable[ii].paramNum, 
       SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_GETCHECK, 0, 0) == BST_CHECKED );
   }
+
+  m_pAppSettings->SetLongParameter(LP_OUTLINE_WIDTH,
+	  SendMessage(GetDlgItem(m_hwnd, IDC_OUTLINE), BM_GETCHECK, 0, 0) ? 1 : 0);
 
   if(SendMessage(GetDlgItem(m_hwnd, IDC_THICKLINE), BM_GETCHECK, 0, 0))
     m_pAppSettings->SetLongParameter(LP_LINE_WIDTH, 3);

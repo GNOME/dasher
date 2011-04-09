@@ -345,7 +345,7 @@ void CDasherViewSquare::Circle(myint Range, myint y1, myint y2, int fCol, int oC
     Dasher2Screen(0, iDasherMinY, p.x, p.y);
     pts.push_back(p);
     //intersect with bottom edge
-    x1 = min(iDasherMaxX, myint(sqrt(r*r - sq(cy-iDasherMinY))));
+    x1 = min(iDasherMaxX, myint(sqrt(double(r*r - sq(cy-iDasherMinY)))));
     y1 = iDasherMinY;
   } else {
     x1=0;
@@ -356,7 +356,7 @@ void CDasherViewSquare::Circle(myint Range, myint y1, myint y2, int fCol, int oC
   //and along top...
   if (y2 > iDasherMaxY) {
     //intersect...
-    x2 = min(iDasherMaxX, myint(sqrt(r*r - sq(iDasherMaxY-cy))));
+    x2 = min(iDasherMaxX, myint(sqrt(double(r*r - sq(iDasherMaxY-cy)))));
     Dasher2Screen(x2, y2=iDasherMaxY, p.x, p.y);
     //that's target point for end of curved section.
     if (x2==iDasherMaxX && x1==iDasherMaxX) {
@@ -382,7 +382,7 @@ void CDasherViewSquare::Circle(myint Range, myint y1, myint y2, int fCol, int oC
 
 void CDasherViewSquare::CircleTo(myint cy, myint r, myint y1, myint x1, myint y3, myint x3, CDasherScreen::point dest, vector<CDasherScreen::point> &pts) {
   myint y2((y1+y3)/2);
-  myint x2(sqrt(sq(r)-sq(cy-y2))*2);
+  myint x2(sqrt(double(sq(r)-sq(cy-y2)))*2);
   CDasherScreen::point mid; //where midpoint of circle/arc should be
   Dasher2Screen(x2, y2, mid.x, mid.y); //(except "midpoint" measured along y axis)
   int lmx=(pts.back().x + dest.x)/2, lmy = (pts.back().y + dest.y)/2; //midpoint of straight line

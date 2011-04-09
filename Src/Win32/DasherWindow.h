@@ -69,7 +69,6 @@ public:
 	LRESULT OnGetMinMaxInfo(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 #endif
 	LRESULT OnOther(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-	LRESULT OnDasherEvent(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnGameMessage(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnDasherFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
@@ -91,6 +90,11 @@ public:
     LONG idObject, LONG idChild, DWORD dwEventThread, DWORD dwmsEventTime);
 #endif
 
+  ///ACL making these public so can be called directly from CDasher,
+  /// rather than sending a windows message.
+  void HandleControlEvent(int iID);
+  void HandleParameterChange(int iParameter);
+  
 private:
  
 	// Main processing function, called by MessageLoop
@@ -102,14 +106,6 @@ private:
 	Dasher::CDasher *m_pDasher;
 
 	HACCEL hAccelTable;
-
-	/// 
-	/// Handle control events
-	///
-
-	void HandleControlEvent(int iID);
-
-	void HandleParameterChange(int iParameter);
 
 	// Widgets:
 	CToolbar *m_pToolbar;
@@ -133,7 +129,8 @@ private:
 
 	// Misc window handling
 	void Layout();
-
+public:
+  // ACL temporary hack to allow CDasher to send it edit events.
   CGameModeHelper *m_pGameModeHelper;
 
 };
