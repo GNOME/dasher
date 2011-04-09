@@ -39,7 +39,6 @@ libdashercontrol_la_SOURCES = \
 		PangoCache.h \
 		Timer.cpp \
 		Timer.h \
-		Speech.cpp \
 		Speech.h \
 		custom_marshal.cpp \
 		custom_marshal.h \
@@ -58,6 +57,16 @@ else
 libdashercontrol_la_SOURCES += NoStore.cpp
 endif
 endif
+
+if USE_GNOMESPEECH
+libdashercontrol_la_SOURCES += GnomeSpeech.cpp
+endif
+if USE_SPEECHDISPATCHER
+libdashercontrol_la_SOURCES += SpeechDispatcher.cpp
+endif
+libdashercontrol_la_CPPFLAGS = @SPEECH_CPPFLAGS@
+libdashercontrol_la_LDFLAGS = @SPEECH_LDFLAGS@
+libdashercontrol_la_LIBADD = @SPEECH_LIBS@
 
 libdashergtk_la_SOURCES = \
 		DasherAppSettings.cpp \
@@ -95,8 +104,5 @@ libdashergtk_la_SOURCES = \
 #		dasher_maemo_helper.cpp \
 #		dasher_maemo_helper.h
 # endif
-
-libdashergtk_la_LIBADD = @SPEECH_SOURCES@
-libdashergtk_la_DEPENDENCIES = @SPEECH_SOURCES@
 
 AM_CXXFLAGS = -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" $(GTKBUILD_CFLAGS) 

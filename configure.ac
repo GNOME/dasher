@@ -75,13 +75,8 @@ AC_ARG_WITH([gnome],
 	WITHGNOME=true)
 
 AC_ARG_ENABLE([speech],
-	 AS_HELP_STRING([--enable-speech],[build with speech support (default is NO)]),
-	 if test "x$enableval" = "xno"; then
-	   WITHSPEECH=false; 
-	 else
-	   WITHSPEECH=true;
-         fi, 
-	 WITHSPEECH=false)
+	[AS_HELP_STRING([--enable-speech=@<:@speechdispatcher,gnomespeech@:>@],
+		[build with speech support (default is YES)])])
 
 AC_ARG_WITH([qte],
 	 AS_HELP_STRING([--with-qte],[build with QTE support (default is NO -- currently untested)]), 
@@ -257,11 +252,58 @@ if test x"$DEBUG" = xtrue; then
 	AC_DEFINE([DEBUG], 1, [Additional debug checks enabled])
 fi
 
-if test x"$WITHSPEECH" = xtrue; then
-	PKG_CHECK_MODULES(gnome_speech, gnome-speech-1.0 bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0)
-	AC_DEFINE([GNOME_SPEECH], 1, [gnome_speech-1 libraries are present])
-#	SPEECH_SOURCES='speech.$(OBJEXT)'
-fi
+dnl default: enable speech
+dnl if speechdispatcher or default
+dnl   check for speechdispatcher
+dnl if gnomespeech or (default and nothing found)
+dnl   check for gnomespeech
+dnl if nothing found
+dnl   OK if wanted no speech
+dnl   warn if default
+dnl   error if yes
+dnl   error if selected particular
+dnl BTW test: The -a operator has higher precedence than the -o operator.
+speech_module=none
+AS_IF(
+	[test "x$enable_speech" = x],
+	[enable_speech=yes; only_warn_if_speech_not_found=yes])
+AS_IF(
+	[test "x$enable_speech" = xspeechdispatcher -o "x$enable_speech" = xyes],
+	[AC_CHECK_HEADER([speech-dispatcher/libspeechd.h],
+		[AC_CHECK_LIB([speechd], [spd_open],
+			[AC_DEFINE([HAVE_SPEECHD], 1,
+				[speechdispatcher libraries are present])
+			 speech_module="speechdispatcher"
+	 		 SPEECH_CPPFLAGS=
+	 		 SPEECH_LDFLAGS=
+	 		 SPEECH_LIBS=-lspeechd])])])
+AS_IF(
+	[test "x$enable_speech" = xgnomespeech -o "x$enable_speech" = xyes -a $speech_module = none],
+	[PKG_CHECK_MODULES([gnome_speech],
+		[gnome-speech-1.0 bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0])
+	 AC_DEFINE([GNOME_SPEECH], 1, [gnome_speech-1 libraries are present])
+	 SPEECH_CPPFLAGS=$gnome_speech_CFLAGS
+	 SPEECH_LDFLAGS=$gnome_speech_LIBS
+	 SPEECH_LIBS=$gnome_speech_LIBS
+	 speech_module=gnomespeech])
+AS_IF(
+	[test $speech_module = none],
+	[AS_CASE(["x$enable_speech"],
+		[xno],
+			[:],
+		[xyes],
+			[AS_IF([test x$only_warn_if_speech_not_found = xyes],
+				[AC_MSG_WARN([no speech module found])],
+				[AC_MSG_ERROR([speech requested but no speech module found])])],
+		[AC_MSG_ERROR([speech module "$enable_speech" requested but not found])])])
+AC_MSG_CHECKING([which speech module to use])
+AC_MSG_RESULT([$speech_module])
+AS_IF([test $speech_module != none],
+	[AC_DEFINE([WITH_SPEECH], 1, [text-to-speech is present])])
+
+AC_SUBST(SPEECH_CPPFLAGS)
+AC_SUBST(SPEECH_LDFLAGS)
+AC_SUBST(SPEECH_LIBS)
 
 if test x"$WITHA11Y" = xtrue; then
 	PKG_CHECK_MODULES(gnome_a11y, bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0 cspi-1.0 atk)
@@ -341,13 +383,8 @@ if test x"$BUILDGTK" = xtrue; then
 	PKG_CHECK_MODULES(gthread, gthread-2.0)
 fi
 
-AC_SUBST(gnome_speech_LIBS)
-AC_SUBST(gnome_speech_CFLAGS)
-AC_SUBST([SPEECH_SOURCES])
-
 AC_SUBST(gnome_a11y_LIBS)
 AC_SUBST(gnome_a11y_CFLAGS)
-AC_SUBST([A11Y_SOURCES])
 
 AC_SUBST(gthread_LIBS)
 AC_SUBST(gthread_CFLAGS)
@@ -361,7 +398,8 @@ AM_CONDITIONAL(USE_GCONF, test x$have_gconf = xtrue)
 AM_CONDITIONAL(USE_GSETTINGS, test x$have_gsettings = xtrue)
 AM_CONDITIONAL(DOGTK, test x$BUILDGTK = xtrue)
 AM_CONDITIONAL(DOQTE, test x$WITHQTE = xtrue)
-AM_CONDITIONAL(GNOME_SPEECH, test x$WITHSPEECH = xtrue)
+AM_CONDITIONAL(USE_GNOMESPEECH, test $speech_module = gnomespeech)
+AM_CONDITIONAL(USE_SPEECHDISPATCHER, test $speech_module = speechdispatcher)
 AM_CONDITIONAL(GNOME_A11Y, test x$WITHA11Y = xtrue)
 AM_CONDITIONAL(GNOME_HELP, test x$WITHGNOME = xtrue)
 AM_CONDITIONAL(WITH_GPE, test x$WITHGPE = xtrue)
@@ -378,9 +416,9 @@ if test x"$WITHGPE" = xtrue ; then
 	SETTINGS_LIBS="-lgpewidget -lXsettings-client -lXsettings"
 fi
 
-GTKBUILD_CFLAGS="$GTK_CFLAGS $GIO_CFLAGS $SETTINGS_CFLAGS $gthread_CFLAGS $gnome_speech_CFLAGS $gnome_a11y_CFLAGS $hildon_CFLAGS"
+GTKBUILD_CFLAGS="$GTK_CFLAGS $GIO_CFLAGS $SETTINGS_CFLAGS $gthread_CFLAGS $gnome_a11y_CFLAGS $hildon_CFLAGS"
 
-GTKBUILD_LIBS="$X_LIBS $GTK_LIBS $GIO_LIBS $SETTINGS_LIBS $gthread_LIBS $gnome_speech_LIBS $gnome_a11y_LIBS $hildon_LIBS"
+GTKBUILD_LIBS="$X_LIBS $GTK_LIBS $GIO_LIBS $SETTINGS_LIBS $gthread_LIBS $gnome_a11y_LIBS $hildon_LIBS"
 
 AC_SUBST(GTKBUILD_CFLAGS)
 AC_SUBST(GTKBUILD_LIBS)

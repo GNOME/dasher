@@ -17,7 +17,7 @@
 #include "tilt_input.h"
 #endif
 
-#ifdef GNOME_SPEECH
+#ifdef WITH_SPEECH
 #include "Speech.h"
 #endif
 
@@ -143,7 +143,7 @@ public:
   virtual bool SupportsClipboard();
   virtual void CopyToClipboard(const std::string &strText);
 
-#ifdef GNOME_SPEECH
+#ifdef WITH_SPEECH
   ///override default non-implementation if compiling with speech...
   virtual bool SupportsSpeech();
   virtual void Speak(const std::string &strText, bool bInterrupt);
@@ -216,7 +216,7 @@ private:
   //Cache the clipboard object...
   GtkClipboard *pClipboard;
 
-#ifdef GNOME_SPEECH
+#ifdef WITH_SPEECH
   CSpeech m_Speech;
 #endif
 };

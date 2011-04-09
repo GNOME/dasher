@@ -218,7 +218,7 @@ void CDasherControl::CopyToClipboard(const std::string &strText) {
   gtk_clipboard_set_text(pClipboard, the_text, strlen(the_text));
 }
 
-#ifdef GNOME_SPEECH
+#ifdef WITH_SPEECH
 bool CDasherControl::SupportsSpeech() {
   return m_Speech.Init();
 }

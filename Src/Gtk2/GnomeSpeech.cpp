@@ -1,9 +1,10 @@
-// TODO: Make inclusion in build system conditional
+// Inclusion in build system conditional on USE_GNOMESPEECH
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
-#ifdef GNOME_SPEECH
+
 #include "Speech.h"
+#include <glib/gi18n.h>
 
 CSpeech::CSpeech() : m_speaker(NULL) {
   CORBA_exception_init(&m_ev);
@@ -75,5 +76,3 @@ void CSpeech::Speak(const std::string &strText, bool bInterrupt) {
     if (Init())
       GNOME_Speech_Speaker_say(m_speaker, strText.c_str(), &m_ev);
 }
-
-#endif
