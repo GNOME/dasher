@@ -15,7 +15,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Dasher; if not, write to the Free Software 
+// along with Dasher; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #ifndef __DasherNode_h__
@@ -70,7 +70,7 @@ class Dasher::CDasherNode:private NoClones {
   ///Whether labels on child nodes should be displaced to the right of this node's label.
   /// (Default implementation returns true, subclasses should override if appropriate)
   virtual bool bShove() {return true;}
-  
+
   inline int offset() {return m_iOffset;}
   CDasherNode *onlyChildRendered; //cache that only one child was rendered (as it filled the screen)
 
@@ -115,7 +115,7 @@ class Dasher::CDasherNode:private NoClones {
   ///
   /// NF_END_GAME - Node is the last one of the phrase in game mode
   ///
-  /// 
+  ///
   /// @param iFlag The flag to set
   /// @param bValue The new value of the flag
   ///
@@ -176,11 +176,11 @@ class Dasher::CDasherNode:private NoClones {
   inline const ChildMap & GetChildren() const;
   inline unsigned int ChildCount() const;
   inline CDasherNode *Parent() const;
-  void SetParent(CDasherNode *pNewParent); 
+  void SetParent(CDasherNode *pNewParent);
   // TODO: Should this be here?
   CDasherNode *const Get_node_under(int, myint y1, myint y2, myint smousex, myint smousey);   // find node under given co-ords
-  
-  /// @brief Orphan a child of this node 
+
+  /// @brief Orphan a child of this node
   ///
   /// Deletes all other children, and the node itself
   ///
@@ -199,14 +199,14 @@ class Dasher::CDasherNode:private NoClones {
   ///
   void Delete_children();
   /// @}
-  
+
   ///
   /// Sees if a *child* / descendant of the specified node (not that node itself)
   /// represents the specified character. If so, set the child & intervening nodes'
   /// NF_GAME flag, and return true; otherwise, return false.
   ///
   bool GameSearchChildren(std::string strTargetUtf8Char);
-  
+
   /// @name Management routines (once accessed via NodeManager)
   /// @{
   /// Gets the node manager for this object. Meaning defined by subclasses,
@@ -216,41 +216,41 @@ class Dasher::CDasherNode:private NoClones {
   ///
   /// Provide children for the supplied node
   ///
-  
+
   virtual void PopulateChildren() = 0;
-  
+
   /// The number of children which a call to PopulateChildren can be expected to generate.
   /// (This is not required to be 100% accurate, but any discrepancies will likely cause
   /// the node budgetting algorithm to behave sub-optimally)
   virtual int ExpectedNumChildren() = 0;
-    
+
   ///
-  /// Called whenever a node belonging to this manager first 
+  /// Called whenever a node belonging to this manager first
   /// moves under the crosshair
   ///
-  
+
   virtual void Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {};
   virtual void Undo(int *pNumDeleted) {};
-  
+
   virtual void Enter() {};
   virtual void Leave() {};
-  
+
   virtual CDasherNode *RebuildParent() {
     return 0;
   };
-  
+
   ///
   /// Get as many symbols of context, up to the _end_ of the specified range,
   /// as possible from this node and its uncommitted ancestors
   ///
   virtual void GetContext(CDasherInterfaceBase *pInterface, const CAlphabetMap *pAlphabetMap, std::vector<symbol> &vContextSymbols, int iOffset, int iLength);
-  
+
   ///
   /// See if this node represents the specified alphanumeric character; if so, set it's NF_GAME flag and
   /// return true; otherwise, return false.
   ///
   virtual bool GameSearchNode(std::string strTargetUtf8Char) {return false;}
-  
+
   /// Clone the context of the specified node, if it's an alphabet node;
   /// else return an empty context. (Used by ConversionManager)
   virtual CLanguageModel::Context CloneAlphContext(CLanguageModel *pLanguageModel) {

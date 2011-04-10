@@ -38,7 +38,7 @@ CCompassMode::CCompassMode(Dasher::CEventHandler * pEventHandler, CSettingsStore
   : CDasherButtons(pEventHandler, pSettingsStore, pInterface, false /*bMenu*/, 13, _("Compass Mode")) {}
 
 void CCompassMode::SetupBoxes()
-{  
+{
   int iDasherY(GetLongParameter(LP_MAX_Y));
 
   m_pBoxes = new SBoxInfo[m_iNumBoxes = 4];
@@ -62,13 +62,13 @@ void CCompassMode::SetupBoxes()
   m_pBoxes[2].iTop = iTargetWidth;
   m_pBoxes[2].iBottom = iDasherY + iTargetWidth;
 
-  m_pBoxes[0].iDisplayTop = m_pBoxes[0].iTop; 
+  m_pBoxes[0].iDisplayTop = m_pBoxes[0].iTop;
   m_pBoxes[0].iDisplayBottom = m_pBoxes[0].iBottom;
-  m_pBoxes[1].iDisplayTop = m_pBoxes[1].iTop; 
+  m_pBoxes[1].iDisplayTop = m_pBoxes[1].iTop;
   m_pBoxes[1].iDisplayBottom = m_pBoxes[1].iBottom;
-  m_pBoxes[2].iDisplayTop = m_pBoxes[2].iTop; 
+  m_pBoxes[2].iDisplayTop = m_pBoxes[2].iTop;
   m_pBoxes[2].iDisplayBottom = m_pBoxes[2].iBottom;
-  m_pBoxes[3].iDisplayTop = m_pBoxes[3].iTop; 
+  m_pBoxes[3].iDisplayTop = m_pBoxes[3].iTop;
   m_pBoxes[3].iDisplayBottom = m_pBoxes[3].iBottom;
 }
 
@@ -92,7 +92,7 @@ bool CCompassMode::DecorateView(CDasherView *pView, CDasherInput *pInput) {
 
     iDasherX = -1000;
     iDasherY = iPos;
-    
+
     pView->Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
 
     if(bFirst)
@@ -107,7 +107,7 @@ bool CCompassMode::DecorateView(CDasherView *pView, CDasherInput *pInput) {
 
     iDasherX = -1000;
     iDasherY = 4096 - iPos;
-    
+
     pView->Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
 
     if(bFirst)
@@ -123,7 +123,7 @@ bool CCompassMode::DecorateView(CDasherView *pView, CDasherInput *pInput) {
   m_bDecorationChanged = false;
   return bRV;
 }
- 
+
 void CCompassMode::HandleEvent(Dasher::CEvent * pEvent) {
   if(pEvent->m_iEventType == 1) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));

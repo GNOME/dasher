@@ -15,7 +15,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Dasher; if not, write to the Free Software 
+// along with Dasher; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "DasherInterfaceBase.h"
@@ -30,7 +30,7 @@ CButtonMultiPress::CButtonMultiPress(Dasher::CEventHandler * pEventHandler, CSet
 void CButtonMultiPress::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
 
   if (m_bKeyDown) return;
-      
+
   // Check for multiple clicks
   if(iId == m_iQueueId && m_deQueueTimes.size()) {
     if ( (iTime - m_deQueueTimes.back()) > GetLongParameter(LP_MULTIPRESS_TIME) )

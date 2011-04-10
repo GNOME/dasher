@@ -60,7 +60,7 @@ CConversionManager::CConvNode *CConversionHelper::GetRoot(CDasherNode *pParent, 
   // by calling makeNode(), which we override to create a CConvHNode, and then just
   // fills in some of the fields; however, short of duplicating the code of
   // CConversionManager::GetRoot here, we can't get the type to reflect that...
-	
+
   pConvNode->pLanguageModel = m_pLanguageModel;
 
   // context of a conversion node (e.g. ^) is the context of the
@@ -96,7 +96,7 @@ void CConversionHelper::CConvHNode::PopulateChildren() {
     const std::vector<SCENode *> &vChildren = pSCENode->GetChildren();
     //    RecursiveDumpTree(pSCENode, 1);
     mgr()->AssignChildSizes(vChildren, iContext);
-    
+
     int iIdx(0);
     int iCum(0);
 
@@ -136,11 +136,11 @@ void CConversionHelper::CConvHNode::PopulateChildren() {
       if(pLanguageModel) {
         CLanguageModel::Context iContext;
         iContext = pLanguageModel->CloneContext(this->iContext);
-        
+
         if(pCurrentSCEChild ->Symbol !=-1)
           pNewNode->pLanguageModel->EnterSymbol(iContext, pCurrentSCEChild->Symbol); // TODO: Don't use symbols?
-        
-        
+
+
         pNewNode->iContext = iContext;
       }
 
@@ -162,7 +162,7 @@ void CConversionHelper::CConvHNode::PopulateChildren() {
   }
 }
 int CConversionHelper::CConvHNode::ExpectedNumChildren() {
-  if(bisRoot && !pSCENode) mgr()->BuildTree(this);  
+  if(bisRoot && !pSCENode) mgr()->BuildTree(this);
   if (pSCENode && !pSCENode->GetChildren().empty()) return pSCENode->GetChildren().size();
   return CConvNode::ExpectedNumChildren();
 }
@@ -174,7 +174,7 @@ void CConversionHelper::BuildTree(CConvHNode *pRoot) {
   for (CDasherNode *pNode = pRoot->Parent();
        pNode && pNode->mgr() == this;
        pNode = pNode->Parent()) {
-      
+
     // TODO: Need to make this the edit text rather than the display text
     strCurrentString =
               m_pAlphabet->GetText(pNode->GetAlphSymbol())

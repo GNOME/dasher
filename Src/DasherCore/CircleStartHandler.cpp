@@ -15,7 +15,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Dasher; if not, write to the Free Software 
+// along with Dasher; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "../Common/Common.h"
@@ -26,7 +26,7 @@
 
 using namespace Dasher;
 
-CCircleStartHandler::CCircleStartHandler(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface) 
+CCircleStartHandler::CCircleStartHandler(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface)
 : CStartHandler(pEventHandler, pSettingsStore, pInterface), m_iEnterTime(std::numeric_limits<long>::max()), m_iScreenRadius(-1) {
 }
 
@@ -38,9 +38,9 @@ void CCircleStartHandler::ComputeScreenLoc(CDasherView *pView) {
   // - should we?
   screenint iEdgeX, iEdgeY;
   pView->Dasher2Screen(GetLongParameter(LP_OX), GetLongParameter(LP_OY) + (GetLongParameter(LP_MAX_Y)*GetLongParameter(LP_CIRCLE_PERCENT))/100, iEdgeX, iEdgeY);
-  
+
   int iDirection = GetLongParameter(LP_REAL_ORIENTATION);
-  
+
   if((iDirection == 2) || (iDirection == 3)) {
     m_iScreenRadius = iEdgeX - m_screenCircleCenter.x;
   }
@@ -61,7 +61,7 @@ bool CCircleStartHandler::DecorateView(CDasherView *pView) {
     lineColor=240; fillColor=-1; //don't fill
     lineWidth = bAboutToChange ? 3 : 1;
   }
-  
+
   pView->Screen()->DrawCircle(m_screenCircleCenter.x, m_screenCircleCenter.y, m_iScreenRadius, fillColor, lineColor, lineWidth);
 
   return true;
@@ -73,7 +73,7 @@ void CCircleStartHandler::Timer(int iTime, dasherint mouseX, dasherint mouseY,CD
   pView->Dasher2Screen(mouseX, mouseY, x, y);
   x-=m_screenCircleCenter.x; y-=m_screenCircleCenter.y;
   const bool inCircleNow = x*x + y*y <= (m_iScreenRadius * m_iScreenRadius);
-  
+
   if (inCircleNow) {
     if (m_bInCircle) {
       //still in circle...check they aren't still in there after prev. activation
@@ -101,7 +101,7 @@ void CCircleStartHandler::Timer(int iTime, dasherint mouseX, dasherint mouseY,CD
 void CCircleStartHandler::HandleEvent(Dasher::CEvent * pEvent) {
   if(pEvent->m_iEventType == EV_PARAM_NOTIFY) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
-   
+
     switch (pEvt->m_iParameter) {
     case LP_REAL_ORIENTATION:
     case LP_CIRCLE_PERCENT:

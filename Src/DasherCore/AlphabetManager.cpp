@@ -69,7 +69,7 @@ void CAlphabetManager::CreateLanguageModel(CEventHandler *pEventHandler, CSettin
   switch (m_pInterface->GetLongParameter(LP_LANGUAGE_MODEL_ID)) {
     default:
       // If there is a bogus value for the language model ID, we'll default
-      // to our trusty old PPM language model.      
+      // to our trusty old PPM language model.
     case 0:
       m_pLanguageModel = new CPPMLanguageModel(pEventHandler, pSettingsStore, m_pAlphabet->GetNumberTextSymbols());
       break;
@@ -78,7 +78,7 @@ void CAlphabetManager::CreateLanguageModel(CEventHandler *pEventHandler, CSettin
       break;
     case 3:
       m_pLanguageModel = new CMixtureLanguageModel(pEventHandler, pSettingsStore, m_pAlphabet, m_pAlphabetMap);
-      break;  
+      break;
     case 4:
       m_pLanguageModel = new CCTWLanguageModel(m_pAlphabet->GetNumberTextSymbols());
       break;
@@ -122,7 +122,7 @@ void CAlphabetManager::WriteTrainFileFull(CDasherInterfaceBase *pInterface) {
 
 int CAlphabetManager::GetColour(symbol sym, int iOffset) const {
   int iColour = m_pAlphabet->GetColour(sym);
-  
+
   // This is for backwards compatibility with old alphabet files -
   // ideally make this log a warning (unrelated TODO: automate
   // validation of alphabet files, plus maintenance of repository
@@ -135,11 +135,11 @@ int CAlphabetManager::GetColour(symbol sym, int iOffset) const {
       iColour = (sym % 3) + 10;
     }
   }
-  
+
   // Loop on low colours for nodes (TODO: go back to colour namespaces?)
   if((iOffset&1) == 0 && iColour < 130)
     iColour += 130;
-  
+
   return iColour;
 }
 
@@ -183,7 +183,7 @@ CAlphabetManager::CAlphNode *CAlphabetManager::GetRoot(CDasherNode *pParent, uns
   int iNewOffset(max(-1,iOffset-1));
 
   pair<symbol, CLanguageModel::Context> p = GetContextSymbols(pParent, iNewOffset, m_pAlphabetMap);
-  
+
   CAlphNode *pNewNode;
   if(p.first==0 || !bEnteredLast) {
     //couldn't extract last symbol (so probably using default context), or shouldn't
@@ -210,7 +210,7 @@ pair<symbol, CLanguageModel::Context> CAlphabetManager::GetContextSymbols(CDashe
     } else {
       pAlphMap->GetSymbols(vContextSymbols, m_pInterface->GetContext(iStart, iRootOffset+1 - iStart));
     }
-  
+
     for (std::vector<symbol>::iterator it = vContextSymbols.end(); it!=vContextSymbols.begin();) {
       if (*(--it) == 0) {
         //found an impossible symbol! erase from beginning up to it (inclusive)
@@ -223,9 +223,9 @@ pair<symbol, CLanguageModel::Context> CAlphabetManager::GetContextSymbols(CDashe
     bHaveFinalSymbol = false;
     pAlphMap->GetSymbols(vContextSymbols, m_pAlphabet->GetDefaultContext());
   }
-  
+
   CLanguageModel::Context iContext = m_pLanguageModel->CreateEmptyContext();
-  
+
   //enter the symbols we could make sense of, into the LM context...
   for (vector<symbol>::iterator it=vContextSymbols.begin(); it != vContextSymbols.end(); it++) {
     m_pLanguageModel->EnterSymbol(iContext, *it);
@@ -277,31 +277,31 @@ int CAlphabetManager::CAlphNode::ExpectedNumChildren() {
 void CAlphabetManager::GetProbs(vector<unsigned int> *pProbInfo, CLanguageModel::Context context) {
   const unsigned int iSymbols = m_pAlphabet->GetNumberTextSymbols();
   unsigned long iNorm(m_pNCManager->GetLongParameter(LP_NORMALIZATION));
-  
+
   // TODO - sort out size of control node - for the timebeing I'll fix the control node at 5%
   // TODO: New method (see commented code) has been removed as it wasn' working.
-  
+
   const int iControlSpace = m_pNCManager->GetBoolParameter(BP_CONTROL_MODE) ? iNorm / 20 : 0;
-  
+
   iNorm -= iControlSpace;
-  
-  const unsigned long uniform(m_pNCManager->GetLongParameter(LP_UNIFORM)); 
+
+  const unsigned long uniform(m_pNCManager->GetLongParameter(LP_UNIFORM));
   //the case for control mode on, generalizes to handle control mode off also,
   // as then iNorm - control_space == iNorm...
   const unsigned int iUniformAdd = ((iNorm * uniform) / 1000) / iSymbols;
   const unsigned long iNonUniformNorm = iNorm - iSymbols * iUniformAdd;
   //  m_pLanguageModel->GetProbs(context, Probs, iNorm, ((iNorm * uniform) / 1000));
-  
+
   //ACL used to test explicitly for MandarinDasher and if so called GetPYProbs instead
   // (by statically casting to PPMPYLanguageModel). However, have renamed PPMPYLanguageModel::GetPYProbs
   // to GetProbs as per ordinary language model, so no need to test....
   m_pLanguageModel->GetProbs(context, *pProbInfo, iNonUniformNorm, 0);
-  
+
   DASHER_ASSERT(pProbInfo->size() == m_pAlphabet->GetNumberTextSymbols()+1);//initial 0
-  
+
   for(unsigned int k(1); k < pProbInfo->size(); ++k)
     (*pProbInfo)[k] += iUniformAdd;
-  
+
 #ifdef DEBUG
   {
     int iTotal = 0;
@@ -309,7 +309,7 @@ void CAlphabetManager::GetProbs(vector<unsigned int> *pProbInfo, CLanguageModel:
       iTotal += (*pProbInfo)[k];
     DASHER_ASSERT(iTotal == m_pNCManager->GetLongParameter(LP_NORMALIZATION) - iControlSpace);
   }
-#endif  
+#endif
 }
 
 std::vector<unsigned int> *CAlphabetManager::CAlphNode::GetProbInfo() {
@@ -346,7 +346,7 @@ CAlphabetManager::CGroupNode *CAlphabetManager::CreateGroupNode(CAlphNode *pPare
 
   // When creating a group node...
   // ...the offset is the same as the parent...
-  
+
   CGroupNode *pNewNode = new CGroupNode(pParent, pParent->offset(), iLbnd, iHbnd, strEnc, iBkgCol, this, pInfo);
 
   //...as is the context!
@@ -386,13 +386,13 @@ bool CAlphabetManager::CSymbolNode::isInGroup(const SGroupInfo *pInfo) {
 CDasherNode *CAlphabetManager::CreateSymbolNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol) {
 
     // TODO: Exceptions / error handling in general
-    
+
     // Uniquely, a paragraph symbol can be two characters
     // (and we can't call numChars() on the symbol before we've constructed it!)
     int iNewOffset = pParent->offset()+1;
     if (m_pAlphabet->GetText(iSymbol)=="\r\n") iNewOffset++;
     CSymbolNode *pAlphNode = new CSymbolNode(pParent, iNewOffset, iLbnd, iHbnd, "", this, iSymbol);
-  
+
     //     std::stringstream ssLabel;
 
     //     ssLabel << m_pAlphabet->GetDisplayText(iSymbol) << ": " << pNewNode;
@@ -425,12 +425,12 @@ void CAlphabetManager::IterateChildGroups(CAlphNode *pParent, const SGroupInfo *
   const int iMin(pParentGroup ? pParentGroup->iStart : 1);
   const int iMax(pParentGroup ? pParentGroup->iEnd : m_pAlphabet->GetNumberTextSymbols()+1);
   unsigned int iRange(pParentGroup ? ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]) : m_pNCManager->GetLongParameter(LP_NORMALIZATION));
-  
+
   // TODO: Think through alphabet file formats etc. to make this class easier.
   // TODO: Throw a warning if parent node already has children
-  
+
   // Create child nodes and add them
-  
+
   int i(iMin); //lowest index of child which we haven't yet added
   const SGroupInfo *pCurrentNode(pParentGroup ? pParentGroup->pChild : m_pAlphabet->m_pBaseGroup);
   // The SGroupInfo structure has something like linked list behaviour
@@ -469,7 +469,7 @@ void CAlphabetManager::IterateChildGroups(CAlphNode *pParent, const SGroupInfo *
       // creation/destruction of the child would cause the node's colour to flash
       // between that for parent group and child.
       // Hence, instead we elide the group node and create the child _here_...
-      
+
       //1. however we also have to take account of the appearance of the elided group. Hence:
       groupPrefix += pInner->strLabel;
       if (pInner->bVisible) iBackgroundColour=pInner->iColour;
@@ -531,7 +531,7 @@ void CAlphabetManager::CSymbolNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, i
     if (m_pMgr->m_pLastOutput != Parent()) {
       //Context changed. Flush to disk the old context + text written in it...
       m_pMgr->WriteTrainFileFull(m_pMgr->m_pInterface);
-      
+
       ///Now extract the context in which this node was written.
       /// Since this node is being output now, its parent must already have been,
       /// so the simplest thing is to read from the edit buffer!
@@ -578,13 +578,13 @@ void CAlphabetManager::CSymbolNode::Undo(int *pNumDeleted) {
 }
 
 CDasherNode *CAlphabetManager::CGroupNode::RebuildParent() {
-  
+
   if (Parent()) return Parent();
-  
+
   // CGroupNodes with an m_pGroup have a container i.e. the parent group, unless
   // m_pGroup==NULL => "root" node where Alphabet->m_pBaseGroup is the *first*child*...
   if (m_pGroup == NULL) return NULL;
-    
+
   return CAlphBase::RebuildParent();
 }
 
@@ -594,9 +594,9 @@ CDasherNode *CAlphabetManager::CAlphBase::RebuildParent() {
     int iNewOffset = offset()-numChars();
 
     CAlphNode *pNewNode = m_pMgr->GetRoot(NULL, 0, 0, iNewOffset!=-1, iNewOffset+1);
-    
+
     RebuildForwardsFromAncestor(pNewNode);
-    
+
     if (int flags=(GetFlag(NF_SEEN) ? NF_SEEN : 0) | (GetFlag(NF_COMMITTED) ? NF_COMMITTED : 0)) {
       for (CDasherNode *pNode=this; (pNode=pNode->Parent()); pNode->SetFlag(flags, true));
     }
@@ -618,7 +618,7 @@ void CAlphabetManager::CSymbolNode::SetFlag(int iFlag, bool bValue) {
     if (Parent()) {
       if (Parent()->mgr() != mgr()) return; //do not set flag
       CLanguageModel *pLM(m_pMgr->m_pLanguageModel);
-      // (Note: for first symbol after startup: parent is (root) group node, which'll have the alphabet default context) 
+      // (Note: for first symbol after startup: parent is (root) group node, which'll have the alphabet default context)
       CLanguageModel::Context ctx = pLM->CloneContext(static_cast<CAlphabetManager::CAlphNode *>(Parent())->iContext);
       pLM->LearnSymbol(ctx, iSymbol);
       //could: pLM->ReleaseContext(ctx);

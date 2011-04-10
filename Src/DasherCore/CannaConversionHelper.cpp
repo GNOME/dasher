@@ -179,9 +179,9 @@ void CCannaConversionHelper::ProcessCandidate(std::string strCandidate, SCENode 
       
   // TODO: Need phrase-based conversion
   while(iIdx < strCandidate.size()) {
-	
+
     int iLength;
-	
+
     // TODO: Really dodgy UTF-8 parser - find a library routine to do this
     if((static_cast<int>(strCandidate[iIdx]) & 0x80) == 0)
       iLength = 1;

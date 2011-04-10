@@ -15,7 +15,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Dasher; if not, write to the Free Software 
+// along with Dasher; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "AlphIO.h"
@@ -237,7 +237,7 @@ void CAlphIO::Save(const std::string &AlphID) {
 
     //TODO presumably should write out characters & groups at some point?!
     // In which case, must exclude para/space, as these written out here:
-    
+
     // Write out the space character
     if (Info.iSpaceCharacter!=0) {
       CAlphInfo::character &spC(Info.m_vCharacters[Info.iSpaceCharacter]);
@@ -347,7 +347,7 @@ CAlphInfo *CAlphIO::CreateDefault() {
   // ---
   Default.m_pBaseGroup = 0;
   Default.Orientation = Opts::LeftToRight;
-  
+
   //The following creates Chars.size()+2 actual character structs in the vector,
   // all initially blank. The extra 2 are for paragraph and space.
   Default.m_vCharacters.resize(Chars.size()+2);
@@ -368,12 +368,12 @@ CAlphInfo *CAlphIO::CreateDefault() {
   Default.m_vCharacters[Chars.size()].Text = "\n";
 #endif
   Default.m_vCharacters[Chars.size()].Colour = 9;
-  
+
   Default.iSpaceCharacter = Chars.size()+2;
   Default.m_vCharacters[Chars.size()+1].Display = "_";
   Default.m_vCharacters[Chars.size()+1].Text = " ";
   Default.m_vCharacters[Chars.size()+1].Colour = 9;
-  
+
   Default.ControlCharacter = new CAlphInfo::character();
   Default.ControlCharacter->Display = "Control";
   Default.ControlCharacter->Text = "";
@@ -506,7 +506,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
   if(strcmp(name, "group") == 0) {
     SGroupInfo *pNewGroup(new SGroupInfo);
     pNewGroup->iNumChildNodes=0;
-    pNewGroup->iColour = (Me->iGroupIdx % 3) + 110; 
+    pNewGroup->iColour = (Me->iGroupIdx % 3) + 110;
     ++Me->iGroupIdx;
     if (Me->m_vGroups.empty()) Me->InputInfo->iNumChildNodes++; else Me->m_vGroups.back()->iNumChildNodes++;
 
@@ -613,7 +613,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
     if (Me->m_vGroups.empty()) Me->InputInfo->iNumChildNodes++; else Me->m_vGroups.back()->iNumChildNodes++;
     Me->InputInfo->m_vCharacters.resize(Me->InputInfo->m_vCharacters.size()+1);
     CAlphInfo::character &Ch(Me->InputInfo->m_vCharacters.back());
-    
+
     // FIXME - need to do a more sensible job of ensuring that
     // defaults are correct (plus more generally fixing behaviour when
     // incomplete/invalid XML is supplied)
@@ -633,7 +633,7 @@ void CAlphIO::ReadCharAtts(const XML_Char **atts, CAlphInfo::character &ch) {
 }
 
 void Reverse(SGroupInfo *&pList) {
-  SGroupInfo *pFirst = pList;  
+  SGroupInfo *pFirst = pList;
   SGroupInfo *pPrev = NULL;
   while (pFirst) {
     SGroupInfo *pNext = pFirst->pNext;
@@ -649,7 +649,7 @@ void CAlphIO::XML_EndElement(void *userData, const XML_Char *name) {
 
   if(strcmp(name, "alphabet") == 0) {
     Reverse(Me->InputInfo->m_pBaseGroup);
-    
+
     if (Me->ParagraphCharacter) {
       Me->InputInfo->iParagraphCharacter = Me->InputInfo->m_vCharacters.size()+1;
       Me->InputInfo->m_vCharacters.push_back(*(Me->ParagraphCharacter));
@@ -662,7 +662,7 @@ void CAlphIO::XML_EndElement(void *userData, const XML_Char *name) {
       Me->InputInfo->iNumChildNodes++;
       delete Me->SpaceCharacter;
     }
-    
+
     //if (Me->InputInfo->StartConvertCharacter.Text != "") Me->InputInfo->iNumChildNodes++;
     //if (Me->InputInfo->EndConvertCharacter.Text != "") Me->InputInfo->iNumChildNodes++;
     Me->Alphabets[Me->InputInfo->AlphID] = Me->InputInfo;

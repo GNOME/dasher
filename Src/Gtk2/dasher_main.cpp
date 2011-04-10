@@ -1356,7 +1356,7 @@ dasher_main_key_snooper(GtkWidget *pWidget, GdkEventKey *pEvent,
         else
           gtk_dasher_control_external_key_up(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), iButton);
       }
-      
+
       return TRUE;
     }
     else {

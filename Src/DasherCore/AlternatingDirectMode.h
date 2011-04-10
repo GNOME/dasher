@@ -1,5 +1,5 @@
 
-// DasherButtons.h 
+// DasherButtons.h
 // Copyright 2005 by Chris Ball
 
 #ifndef __ALTERNATING_DIRECT_MODE_H__
@@ -26,17 +26,17 @@ namespace Dasher {
 {
  public:
   CAlternatingDirectMode(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface);
-  
+
   bool DecorateView(CDasherView *pView, CDasherInput *pInput);
 
   bool GetSettings(SModuleSettings **pSettings, int *iCount);
 
  protected:
   void SetupBoxes();
-  
+
  private:
   void DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog);
-    
+
   int m_iLastBox;
 };
 }

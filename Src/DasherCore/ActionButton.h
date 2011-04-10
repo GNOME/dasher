@@ -20,12 +20,12 @@ class CActionButton {
   bool HandleClickDown(int iTime, int iX, int iY, bool bVisible);
   bool HandleClickUp(int iTime, int iX, int iY, bool bVisible);
   void Execute(int iTime);
-  
+
  private:
   std::string m_strCommand;
 
   bool m_bAlwaysVisible;
-  
+
   int m_iX;
   int m_iY;
   int m_iWidth;

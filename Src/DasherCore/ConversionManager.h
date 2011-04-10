@@ -15,7 +15,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Dasher; if not, write to the Free Software 
+// along with Dasher; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #ifndef __conversion_manager_h__
@@ -38,7 +38,7 @@ namespace Dasher {
 
   /// This class manages nodes in conversion subtrees, typically used
   /// for languages where complex characters are entered through a
-  /// composition process, for example Japanese and Chinese. 
+  /// composition process, for example Japanese and Chinese.
   ///
   /// A new CConversionManager is created for each subtree, and
   /// therefore represents the conversion of a single phrase. The
@@ -62,11 +62,11 @@ namespace Dasher {
   public:
     // TODO: We shouldn't need to know about this stuff, but the code is somewhat in knots at the moment
     CConversionManager(CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet);
-    
+
     ///
     /// Decrement reference count
     ///
-    
+
     virtual void Unref() {
       --m_iRefCount;
 
@@ -90,14 +90,14 @@ namespace Dasher {
 
     virtual void PopulateChildren();
     virtual int ExpectedNumChildren();
-    
+
     ~CConvNode();
 
     ///Attempts to fill vContextSymbols with the context that would exist _after_ this node has been entered
     void GetContext(CDasherInterfaceBase *pInterface, const CAlphabetMap *pAlphabetMap, std::vector<symbol> &vContextSymbols, int iOffset, int iLength);
 
     ///
-    /// Called whenever a node belonging to this manager first 
+    /// Called whenever a node belonging to this manager first
     /// moves under the crosshair
     ///
 
@@ -112,14 +112,14 @@ namespace Dasher {
     protected:
       CConversionManager *m_pMgr;
     public: //to ConversionManager and subclasses only, of course...
-        
+
     //TODO: REVISE
       symbol iSymbol;
       //     int iPhase;
       CLanguageModel *pLanguageModel;
       CLanguageModel::Context iContext;
       SCENode * pSCENode;
-      bool bisRoot; // True for root conversion nodes 
+      bool bisRoot; // True for root conversion nodes
       //int iGameOffset;
     };
 
@@ -127,30 +127,30 @@ namespace Dasher {
     ///
     /// Get a new root node owned by this manager
     ///
-    
+
     virtual CConvNode *GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset);
-  protected:    
-    
+  protected:
+
     virtual CConvNode *makeNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const std::string &strDisplayText);
 
-	  
+
 	CNodeCreationManager *m_pNCManager;
 	const CAlphInfo *m_pAlphabet;
 	
   private:
 
-    /// 
+    ///
     /// Dump tree to stdout (debug)
     ///
-    
+
     void RecursiveDumpTree(SCENode *pCurrent, unsigned int iDepth);
-	  
+
 	///
-	/// Reference count 
+	/// Reference count
 	///
-	  
+
     int m_iRefCount;
-   
+
   };
   /// @}
 }

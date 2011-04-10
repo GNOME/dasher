@@ -59,18 +59,18 @@ public:
 
   virtual void HandleEvent(Dasher::CEvent * pEvent);
 
-  /// 
+  ///
   /// Supply a new screen to draw to
   ///
 
   void ChangeScreen(CDasherScreen * NewScreen);
 
-  /// 
+  ///
   /// @name Coordinate system conversion
   /// Convert between screen and Dasher coordinates
   /// @{
 
-  /// 
+  ///
   /// Convert a screen co-ordinate to Dasher co-ordinates
   ///
   void Screen2Dasher(screenint iInputX, screenint iInputY, myint & iDasherX, myint & iDasherY);
@@ -83,9 +83,9 @@ public:
   ///
   /// Convert Dasher co-ordinates to polar co-ordinates (r,theta), with 0<r<1, 0<theta<2*pi
   ///
-  virtual void Dasher2Polar(myint iDasherX, myint iDasherY, double &r, double &theta);	
-	
-  /// 
+  virtual void Dasher2Polar(myint iDasherX, myint iDasherY, double &r, double &theta);
+
+  ///
   /// Return true if there is any space around a node spanning y1 to y2
   /// and the screen boundary; return false if such a node entirely encloses
   /// the screen boundary
@@ -116,7 +116,7 @@ private:
   ///draw isoceles triangle, with baseline from y1-y2 along y axis (x=0), and other point at (x,(y1+y2)/2)
   /// (all in Dasher coords).
   void Triangle(myint x, myint y1, myint y2, int fillColor, int outlineColor, int lineWidth);
-  
+
   class CTextString {
   public: //to CDasherViewSquare...
     ///Creates a request that string str will be drawn.
@@ -130,25 +130,25 @@ private:
     screenint m_ix,m_iy;
     vector<CTextString *> m_children;
     int m_iSize;
-    int m_iColor;    
+    int m_iColor;
   };
-  
+
   std::vector<CTextString *> m_DelayedTexts;
 
   void DoDelayedText(CTextString *pText);
   ///
   /// Draw text specified in Dasher co-ordinates
   ///
-  
+
   CTextString *DasherDrawText(myint iMaxX, myint iMidY, const std::string & sDisplayText, CTextString *pParent, int iColor);
-  
+
   ///
   /// (Recursively) render a node and all contained subnodes, in disjoint rects.
   /// (i.e. appropriate for LP_SHAPE_TYPE==0). Each call responsible for rendering
   /// exactly the area contained within the node.
   /// @param pOutput The innermost node covering the crosshair (if any)
   void DisjointRender(CDasherNode * Render, myint y1, myint y2, CTextString *prevText, CExpansionPolicy &policy, double dMaxCost,int parent_color, CDasherNode *&pOutput);
-  
+
   /// (Recursively) render a node and all contained subnodes, in overlapping shapes
   /// (according to LP_SHAPE_TYPE: 1=rects, 2=triangles, 3=truncated triangles,
   /// 4=quadrics, 5=semicircles)
@@ -167,41 +167,41 @@ private:
  	   return floor(d);
     else
  	   return ceil(d);
- 
+
   };
 #endif
 
   /// @name Nonlinearity
   /// Implements the non-linear part of the coordinate space mapping
-  
+
   /// Maps a dasher coordinate (linear in probability space, -ive x = in margin) to an abstract/resolution-independent
   /// screen coordinate (linear in screen space, -ive x = offscreen) - i.e. pixel coordinate = scale({x,y}map(dasher coord)))
   inline myint ymap(myint iDasherY) const;
   inline myint xmap(myint iDasherX) const;
-  
+
   /// Inverse of the previous - i.e. dasher coord = iymap(scale(screen coord))
   inline myint iymap(myint y) const;
   inline myint ixmap(myint x) const;
-  
+
   ///Parameters for y non-linearity. (TODO Make into preprocessor defines?)
   const myint m_Y1, m_Y2, m_Y3;
 
   inline void Crosshair(myint sx);
   bool CoversCrosshair(myint Range,myint y1,myint y2);
-  
+
   inline myint CustomIDiv(myint iNumerator, myint iDenominator);
 
   void DasherLine2Screen(myint x1, myint y1, myint x2, myint y2, vector<CDasherScreen::point> &vPoints);
 
   bool m_bVisibleRegionValid;
-  
+
   // Called on screen size or orientation changes
   void SetScaleFactor();
 
   // Parameters for x non-linearity
   double m_dXlogCoeff;
   myint m_iXlogThres;
-  
+
   //width of margin, in abstract screen coords
   myint iMarginWidth;
 

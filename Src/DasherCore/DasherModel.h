@@ -15,7 +15,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Dasher; if not, write to the Free Software 
+// along with Dasher; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #ifndef __DasherModel_h__
@@ -42,7 +42,7 @@ namespace Dasher {
   class CDasherModel;
   class CDasherInterfaceBase;
   class CDasherView;
-  
+
   struct SLockData;
 }
 
@@ -77,7 +77,7 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   ///
   /// Update the root location with *one step* towards the specified
   /// co-ordinates - used by timer callbacks (for non-button modes)
-  void OneStepTowards(myint, myint, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);  
+  void OneStepTowards(myint, myint, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);
 
   ///
   /// Notify the framerate class that a new frame has occurred
@@ -90,7 +90,7 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   /// two button dynamic mode.
   ///
   void Offset(int iOffset);
- 
+
   ///
   /// Make the 'target' root coordinates match those currently visible, so any
   /// Offset(int) currently in progress (i.e. being smoothed over several
@@ -103,7 +103,7 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   ///
   /// Reset counter of total nats entered
   ///
- 
+
   void ResetNats() {
     m_dTotalNats = 0.0;
   }
@@ -116,12 +116,12 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
     return m_dTotalNats;
   }
 
-  /// 
+  ///
   /// @name Rendering
   /// Methods to do with rendering the model to a view
   /// @{
 
-  /// 
+  ///
   /// Render the model to a given view, and cause output to happen.
   /// Note, enqueues nodes onto the Expansion Policy, but does not apply it.
   ///
@@ -129,7 +129,7 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
 
   /// @}
 
-  /// 
+  ///
   /// @name Scheduled operation
   /// E.g. response to button mode
   /// @{
@@ -145,7 +145,7 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   void ScheduleZoom(long time, dasherint y1, dasherint y2);
 
   void ClearScheduledSteps();
-  
+
   ///
   /// Update the bounds of the root node for the next step in any
   /// still-in-progress zoom scheduled by ScheduleZoom (does nothing
@@ -173,10 +173,10 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   };
 
   ///
-  /// Rebuild the tree of nodes (may reuse the existing ones if !bForce). 
+  /// Rebuild the tree of nodes (may reuse the existing ones if !bForce).
   /// @param iLocation offset (cursor position) in attached buffer from which to obtain context
   /// @param pMgr Manager to use to create nodes
-  /// @param bForce if true, model should be completely rebuilt (even for 
+  /// @param bForce if true, model should be completely rebuilt (even for
   /// same offset) - characters at old offsets may have changed, or we have
   /// a new AlphabetManager. If false, assume buffer and alphabet unchanged,
   /// so no need to rebuild the model if an existing node covers this point.
@@ -192,8 +192,8 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   int GetOffset();
 
   /// Create the children of a Dasher node
-  void ExpandNode(CDasherNode * pNode); 
-  
+  void ExpandNode(CDasherNode * pNode);
+
  private:
 
   /// Common portion of OneStepTowards / NextScheduledStep, taking
@@ -206,7 +206,7 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
     myint iN1;
     myint iN2;
   };
-  
+
   // Pointers to various auxilliary objects
   CDasherInterfaceBase *m_pDasherInterface;
 
@@ -266,18 +266,18 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   //   framerate, used for control mode (ControlManager.cpp), but that's all I could find
   //   - and that seemed even worse, so I've removed it in favour of this here....?
   unsigned long m_iStartTime;
-  
+
   // Debug/performance information...
 
   // Information entered so far in this model
-  double m_dTotalNats; 
+  double m_dTotalNats;
 
   ///
   /// CDasherModel::Get_new_root_coords( myint Mousex,myint Mousey )
-  /// 
+  ///
   /// Calculate the new co-ordinates for the root node after a single
   /// update step. For further information, see Doc/geometry.tex.
-  /// 
+  ///
   /// \param mousex x mouse co-ordinate measured right to left.
   /// \param mousey y mouse co-ordinate measured top to bottom.
   /// \param iNewMin New root min
@@ -286,17 +286,17 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   ///
   void Get_new_root_coords(myint mousex, myint mousey, myint &iNewMin, myint &iNewMax, unsigned long iTime);
 
-  /// 
+  ///
   /// Make a child of the root into a new root
   ///
 
-  void Make_root(CDasherNode *pNewRoot); 
+  void Make_root(CDasherNode *pNewRoot);
 
   ///
   /// Make the parent of the current root into the new root (rebuilding if necessary) - used during backing off
   /// Return true if successful, false if couldn't.
   ///
-  bool Reparent_root(); 
+  bool Reparent_root();
 
   /// Handle the output caused by a change in node over the crosshair. Specifically,
   /// deletes from m_pLastOutput back to closest ancestor of pNewNode,

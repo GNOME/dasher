@@ -15,7 +15,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Dasher; if not, write to the Free Software 
+// along with Dasher; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #ifndef __CONVERSION_HELPER_H__
@@ -44,7 +44,7 @@ namespace Dasher{
   class CConversionHelper : public CConversionManager {
   public:
 	CConversionHelper(CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, CLanguageModel *pLanguageModel);
-	
+
 	/// Convert a given string to a lattice of candidates. Sizes for
 	/// candidates aren't assigned at this point. The input string
 	/// should be UTF-8 encoded.
@@ -56,7 +56,7 @@ namespace Dasher{
 	///
 	/// @return True if conversion succeeded, false otherwise
 	virtual bool Convert(const std::string &strSource, SCENode ** pRoot) = 0;
-	
+
 	/// Assign sizes to the children of a given conversion node. This
 	/// happens when the conversion manager populates the children of
 	/// the Dasher node so as to avoid unnecessary computation.
@@ -67,38 +67,38 @@ namespace Dasher{
 	/// @param uniform Unsure - document this.
 	///
   virtual void AssignSizes(const std::vector<SCENode *> &vChildren, Dasher::CLanguageModel::Context context, long normalization, int uniform)=0;
-		
+
 	/// Assign colours to the children of a given conversion node.
 	/// This function needs a rethink.
 	///
-	/// @param parentClr 
-	/// @param pNode 
-	/// @param childIndex 
+	/// @param parentClr
+	/// @param pNode
+	/// @param childIndex
 	///
-	/// @return 
-	/// 
+	/// @return
+	///
 	virtual int AssignColour(int parentClr, SCENode * pNode, int childIndex) {
 		int which = -1;
-		
+
 		for (int i=0; i<2; i++)
 			for(int j=0; j<3; j++)
 				if (parentClr == colourStore[i][j])
 					which = i;
-		
+
 		if(which == -1)
 			return colourStore[0][childIndex%3];
 		else if(which == 0)
 			return colourStore[1][childIndex%3];
-		else 
-			return colourStore[0][childIndex%3]; 
+		else
+			return colourStore[0][childIndex%3];
 	};
-	
+
     ///
     /// Get a new root node owned by this manager
     ///
-	
+
     virtual CConvNode *GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset);
-	
+
     ///
     /// Calculate sizes for each of the children - default
     /// implementation assigns decending probabilities in a power law
@@ -107,9 +107,9 @@ namespace Dasher{
     /// that sizes should be positive and sum to the appropriate
     /// normalisation constant
     ///
-    
+
     virtual void AssignChildSizes(const std::vector<SCENode *> &vChildren, CLanguageModel::Context context);
-	
+
 	protected:
     class CConvHNode : public CConvNode {
     public:
@@ -124,24 +124,24 @@ namespace Dasher{
       inline CConversionHelper *mgr() {return static_cast<CConversionHelper *>(m_pMgr);}
     };
 	  virtual CConvHNode *makeNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const std::string &strDisplayText);
-    /// 
+    ///
     /// Build the conversion tree (lattice) for the given string -
     /// evaluated late to prevent unnecessary conversions when the
     /// children of the root node are never instantiated
     ///
-    
+
     virtual void BuildTree(CConvHNode *pRoot);
-	
+
     virtual Dasher::CLanguageModel *GetLanguageModel() {
       return m_pLanguageModel;
     }
-    
+
   private:
     CLanguageModel *m_pLanguageModel;
-	
+
     CLanguageModel::Context m_iLearnContext;
-	
-	int colourStore[2][3]; 
+
+	int colourStore[2][3];
   };
 /// @}
 }

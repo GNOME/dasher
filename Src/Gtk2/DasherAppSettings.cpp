@@ -426,7 +426,7 @@ const gchar *dasher_app_settings_get_string(DasherAppSettings *pSelf, int iParam
   DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
  
   if( iParameter < END_OF_SPS ) {
-    if(pPrivate->pDasherWidget) 
+    if(pPrivate->pDasherWidget)
       return gtk_dasher_control_get_parameter_string(pPrivate->pDasherWidget, iParameter);
     else
       return false;

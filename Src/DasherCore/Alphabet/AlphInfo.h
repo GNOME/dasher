@@ -15,7 +15,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Dasher; if not, write to the Free Software 
+// along with Dasher; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #ifndef __ALPHINFO_H__
@@ -37,7 +37,7 @@
 namespace Dasher {
   class CAlphInfo;
   class CAlphIO;
-} 
+}
 
 /// \ingroup Alphabet
 /// @{
@@ -64,53 +64,53 @@ private:
     std::string Text;
     int Colour;
     std::string Foreground;
-  };  
+  };
 public:
   /// Return number of text symbols - inc space and para, but no control/conversion start/end
   /// Note symbol numbers are 1-indexed; 0 is reserved to indicate an "unknown symbol" (-1 = End-Of-Stream),
   /// and for element 0 of the probability array to contain a 0.
   int GetNumberTextSymbols() const {return m_vCharacters.size();}
-  
-  Opts::ScreenOrientations GetOrientation() const {return Orientation;} 
-  
+
+  Opts::ScreenOrientations GetOrientation() const {return Orientation;}
+
   Opts::AlphabetTypes GetType() const {return Type;}
-  
+
   const std::string & GetTrainingFile() const {return TrainingFile;}
-  
+
   const std::string &GetGameModeFile() const {return GameModeFile;}
-  
+
   const std::string & GetPalette() const {return PreferredColours;}
-  
+
   symbol GetParagraphSymbol() const {return iParagraphCharacter;}
-  
+
   symbol GetSpaceSymbol() const {return iSpaceCharacter;}
-  
+
   //symbol GetStartConversionSymbol() const;
   //symbol GetEndConversionSymbol() const;
-  
+
   /// return display string for i'th symbol
   const std::string & GetDisplayText(symbol i) const {return m_vCharacters[i-1].Display;}
-  
+
   /// return text for edit box for i'th symbol
-  const std::string & GetText(symbol i) const {return m_vCharacters[i-1].Text;} 
-  
-  // return colour specified for i'th symbol, or -1 if nothing in the XML  
+  const std::string & GetText(symbol i) const {return m_vCharacters[i-1].Text;}
+
+  // return colour specified for i'th symbol, or -1 if nothing in the XML
   int GetColour(symbol i) const {
     return m_vCharacters[i-1].Colour;
   };
-  
+
   /// Text foreground colour for i'th symbol; default 4 if unspecified
   int GetTextColour(symbol i) const;
   /// Text foreground colour for i'th symbol, as specified in XML
   const std::string & GetForeground(symbol i) const {return m_vCharacters[i-1].Foreground;}
-    
+
   const std::string &GetDefaultContext() const {return m_strDefaultContext;}
-  
+
   ///A single unicode character to use as an escape sequence in training files
-  ///to indicate context-switching commands; 0-length => don't use context-switching commands. 
+  ///to indicate context-switching commands; 0-length => don't use context-switching commands.
   /// Defaults to § if not specified in alphabet.
   const std::string &GetContextEscapeChar() const {return m_strCtxChar;}
-  
+
   SGroupInfo *m_pBaseGroup;
   int iNumChildNodes;
   ///0 = normal alphabet, contains symbols to output
@@ -120,7 +120,7 @@ public:
   /// which contains actual output symbols possibly including duplicates;
   /// all this handled by MandarinAlphMgr (+MandarinTrainer, PPMPYLanguageModel).
   int m_iConversionID;
-  
+
   ///The name of the alphabet containing the actual text symbols into which
   /// this alphabet will be converted. Only used (atm) if m_iConversionID==2.
   std::string m_strConversionTarget;
@@ -128,17 +128,17 @@ public:
   ///Single-unicode character used to indicate an upcoming PY-then-CH pair
   /// in the training file (see MandarinTrainer). Only used if m_iConversionID==2.
   std::string m_strConversionTrainingDelimiter;
-  
+
   CAlphabetMap *MakeMap() const;
-  
+
   ~CAlphInfo();
-  
+
 private:
   CAlphInfo();
   // Basic information
   std::string AlphID;
   bool Mutable;               // If from user we may play. If from system defaults this is immutable. User should take a copy.
-  
+
   // Complete description of the alphabet:
   std::string TrainingFile;
   std::string GameModeFile;
@@ -146,20 +146,20 @@ private:
   Opts::AlphabetTypes Encoding;
   Opts::AlphabetTypes Type;
   Opts::ScreenOrientations Orientation;
-  
+
   ///If true, alphabet should not be displayed in list of available alphabets;
   /// it exists only for internal use, e.g. as a target for conversion from
   /// another alphabet (a la MandarinDasher).
   bool m_bHidden;
-  
+
   std::vector<character> m_vCharacters;
-  
+
   symbol iParagraphCharacter;       // symbol number (index into m_vCharacters +1) of paragraph char (for display and default edit-text), 0 for none.
   symbol iSpaceCharacter;   // symbol number (index into m_vCharacters +1) of space char (display and edit text), 0 for none.
   character *ControlCharacter; // display and edit text of Control character. Typically ("", "Control"). Use ("", "") if no control character.
   character *StartConvertCharacter;
   character *EndConvertCharacter;
-  
+
   std::string m_strDefaultContext;
   std::string m_strCtxChar;
 };

@@ -56,7 +56,7 @@ void CButtonMode::SetupBoxes()
 
   double dRatio;
   double dNorm;
-  
+
   // FIXME - implement this using DJCM's integer method?
   // See ~mackay/dasher/buttons/
   dRatio = pow(129/127.0, -static_cast<double>(GetLongParameter(LP_R)));
@@ -67,11 +67,11 @@ void CButtonMode::SetupBoxes()
     if(dRatio == 1.0)
       dMaxSize = iDasherY / static_cast<double>(iForwardBoxes);
     else
-      dMaxSize = ((dRatio - 1)/(pow(dRatio, iForwardBoxes) - 1)) * iDasherY; 
-    
+      dMaxSize = ((dRatio - 1)/(pow(dRatio, iForwardBoxes) - 1)) * iDasherY;
+
     double dMin(0.0);
     double dMax;
-    
+
     for(int i(0); i < m_iNumBoxes - 1; ++i) { // One button reserved for backoff
       dMax = dMin + dMaxSize * pow(dRatio, i);
 
@@ -88,7 +88,7 @@ void CButtonMode::SetupBoxes()
     }
 
   }
-  else {      
+  else {
     if(iForwardBoxes == 2+1) { // Special case for two forwards buttons
       dNorm = 1+dRatio;
 
@@ -158,10 +158,10 @@ void CButtonMode::SetupBoxes()
     m_pBoxes[i].iTop = m_pBoxes[i].iDisplayTop - GetLongParameter(LP_S);
     m_pBoxes[i].iBottom = m_pBoxes[i].iDisplayBottom + GetLongParameter(LP_S);
   }
-  
+
   m_pBoxes[m_iNumBoxes-1].iDisplayTop = 0;
   m_pBoxes[m_iNumBoxes-1].iDisplayBottom = iDasherY;
-  
+
   m_pBoxes[m_iNumBoxes-1].iTop = int(- iDasherY / 2);
   m_pBoxes[m_iNumBoxes-1].iBottom = int(iDasherY * 1.5);
 }
@@ -181,9 +181,9 @@ bool CButtonMode::DecorateView(CDasherView *pView, CDasherInput *pInput) {
 bool CButtonMode::Timer(int Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol) {
   bool m_bOldHighlight(m_bHighlight);
   m_bHighlight = (Time - m_iLastTime < 200);
-  
+
   if(m_bOldHighlight != m_bHighlight)
-    m_bDecorationChanged = true;  
+    m_bDecorationChanged = true;
 
   return CDasherButtons::Timer(Time, pView, pInput, pModel, pAdded, pNumDeleted, pol);
 }

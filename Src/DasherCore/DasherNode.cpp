@@ -15,7 +15,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Dasher; if not, write to the Free Software 
+// along with Dasher; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "../Common/Common.h"
@@ -45,17 +45,17 @@ int Dasher::currentNumNodeObjects() {return iNumNodes;}
 CDasherNode::CDasherNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const string &strDisplayText)
 : m_pParent(pParent), m_iOffset(iOffset), m_iLbnd(iLbnd), m_iHbnd(iHbnd), m_iColour(iColour), m_strDisplayText(strDisplayText) {
   DASHER_ASSERT(iHbnd >= iLbnd);
-	
+
   if (pParent) {
     DASHER_ASSERT(!pParent->GetFlag(NF_ALLCHILDREN));
     pParent->Children().push_back(this);
   }
 
   onlyChildRendered = NULL;
-	
+
   // Default flags (make a definition somewhere, pass flags to constructor?)
   m_iFlags = 0;
-	
+
   m_iRefCount = 0;
   iNumNodes++;
 }
@@ -83,7 +83,7 @@ void CDasherNode::Trace() const {
      OutputDebugString(out);
 
      if (m_Children) {
-     unsigned int i; 
+     unsigned int i;
      for (i=1;i<m_iChars;i++)
      m_Children[i]->Dump_node();
      }
@@ -128,7 +128,7 @@ void CDasherNode::OrphanChild(CDasherNode *pChild) {
       delete (*i);
     }
   }
-  
+
   pChild->m_pParent=NULL;
 
   Children().clear();
@@ -171,7 +171,7 @@ void CDasherNode::SetFlag(int iFlag, bool bValue) {
   else
     m_iFlags = m_iFlags & (~iFlag);
 }
- 
+
 void CDasherNode::SetParent(CDasherNode *pNewParent) {
   DASHER_ASSERT(pNewParent);
   DASHER_ASSERT(!pNewParent->GetFlag(NF_ALLCHILDREN));
@@ -182,14 +182,14 @@ void CDasherNode::SetParent(CDasherNode *pNewParent) {
 int CDasherNode::MostProbableChild() {
   int iMax(0);
   int iCurrent;
-  
+
   for(ChildMap::iterator it(m_mChildren.begin()); it != m_mChildren.end(); ++it) {
     iCurrent = (*it)->Range();
-    
+
     if(iCurrent > iMax)
       iMax = iCurrent;
   }
-  
+
   return iMax;
 }
 

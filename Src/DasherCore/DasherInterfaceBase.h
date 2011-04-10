@@ -15,14 +15,14 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Dasher; if not, write to the Free Software 
+// along with Dasher; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #ifndef __DasherInterfaceBase_h__
 #define __DasherInterfaceBase_h__
 
 ///
-/// \mainpage 
+/// \mainpage
 ///
 /// This is the Dasher source code documentation. Please try to keep
 /// it up to date!
@@ -51,7 +51,7 @@ namespace Dasher {
   class CDasherModel;
   class CEventHandler;
   class CEvent;
-  
+
   class CDasherInterfaceBase;
 }
 
@@ -167,7 +167,7 @@ public:
   ///
 
   void ResetParameter(int iParmater);
-  
+
   ///
   /// Obtain the permitted values for a string parameter - used to
   /// geneate preferences dialogues etc.
@@ -175,9 +175,9 @@ public:
 
   void GetPermittedValues(int iParameter, std::vector<std::string> &vList);
 
-  /// 
+  ///
   /// Get a list of settings which apply to a particular module
-  /// 
+  ///
 
   bool GetModuleSettings(const std::string &strName, SModuleSettings **pSettings, int *iCount);
 
@@ -208,15 +208,15 @@ public:
   ///Does this subclass support clipboard copying (i.e. the copyToClipboard(string) method?)
   /// Default is just to return false.
   virtual bool SupportsClipboard() {return false;}
-  
+
   ///Subclasses supporting speech should override to speak the supplied text
   /// (Default implementation does nothing)
   virtual void Speak(const std::string &text, bool bInterrupt) {}
-  
+
   ///Subclasses supporting clipboard operations should override to copy
   /// the specified text to the clipboard. (Default implementation does nothing).
   virtual void CopyToClipboard(const std::string &text) {}
-  
+
   class TextAction {
   public:
     TextAction(CDasherInterfaceBase *pMgr);
@@ -232,11 +232,11 @@ public:
     int m_iStartOffset;
     std::string strLast;
   };
-  
+
 
   /// @name Starting and stopping
   /// Methods used to instruct dynamic motion of Dasher to start or stop
-  /// @{ 
+  /// @{
 
   /// Stop Dasher - Sets BP_DASHER_PAUSED and executes any on-stop actions
   ///  (speech, clipboard - subclasses may override to do more).
@@ -260,7 +260,7 @@ public:
   /// \param filename name of training file, without path (e.g. "training_english_GB.txt")
   /// \param strNewText text to append
   ///
-  
+
   virtual void WriteTrainFile(const std::string &filename, const std::string &strNewText) {
   };
 
@@ -318,13 +318,13 @@ public:
   /// \retval The rate in characters per minute.
   /// TODO: Check that this is still used
 
-  double GetCurCPM();  
+  double GetCurCPM();
 
   /// Get current refresh rate.
   /// \retval The rate in frames per second
   /// TODO: Check that this is still used
 
-  double GetCurFPS();   
+  double GetCurFPS();
 
   /// Get the total number of nats (base-e bits) entered.
   /// \retval The current total
@@ -388,30 +388,30 @@ public:
 
   virtual void GameMessageOut(int message, const void* messagedata) {}
 
-  void ScheduleRedraw() { 
-    m_bRedrawScheduled = true; 
-  }; 
+  void ScheduleRedraw() {
+    m_bRedrawScheduled = true;
+  };
 
   ///Subclasses should return the contents of (the specified subrange of) the edit buffer
   virtual std::string GetContext(unsigned int iStart, unsigned int iLength)=0;
-  
+
   ///Subclasses should override to clear text edit box, etc., etc., but then
   /// call this (superclass) implementation as well to rebuild the model...
   virtual void ClearAllContext();
   virtual std::string GetAllContext()=0;
 
   /// Set a key value pair by name - designed to allow operation from
-  /// the command line.  Returns 0 on success, an error string on failure. 
+  /// the command line.  Returns 0 on success, an error string on failure.
   ///
   const char* ClSet(const std::string &strKey, const std::string &strValue);
 
   void ImportTrainingText(const std::string &strPath);
-  
+
   /// Flush the/all currently-written text to the user's training file(s).
   /// Just calls through to WriteTrainFileFull(this) on the AlphabetManager;
   /// public so e.g. iPhone can flush the buffer when app is backgrounded.
   void WriteTrainFileFull();
-  
+
 protected:
 
   /// @name Startup
@@ -431,11 +431,11 @@ protected:
   ///
 
   void OnUIRealised();
-	
+
   ///
   /// Creates a default set of modules. Override in subclasses to create any
   /// extra/different modules specific to the platform (eg input device drivers)
-  ///	
+  ///
   virtual void CreateModules();
 
   /// @}
@@ -444,7 +444,7 @@ protected:
 
   /// Draw a new Dasher frame, regardless of whether we're paused etc.
   /// \param iTime Current time in ms.
-  /// \param bForceRedraw 
+  /// \param bForceRedraw
   /// \todo See comments in cpp file for some functionality which needs to be re-implemented
   void NewFrame(unsigned long iTime, bool bForceRedraw);
 
@@ -483,23 +483,23 @@ protected:
 
  private:
 
-  //The default expansion policy to use - an amortized policy depending on the LP_NODE_BUDGET parameter. 
+  //The default expansion policy to use - an amortized policy depending on the LP_NODE_BUDGET parameter.
   CExpansionPolicy *m_defaultPolicy;
-  
-  /// @name Platform dependent utility functions 
+
+  /// @name Platform dependent utility functions
   /// These functions provide various platform dependent functions
   /// required by the core. A derived class is created for each
   /// supported platform which implements these.
   // @{
-  
-  /// 
+
+  ///
   /// Initialise the SP_SYSTEM_LOC and SP_USER_LOC paths - the exact
   /// method of doing this will be OS dependent
   ///
 
   virtual void SetupPaths() = 0;
 
-  /// 
+  ///
   /// Produce a list of filenames for alphabet files
   ///
 
@@ -508,7 +508,7 @@ protected:
   ///
   /// Produce a list of filenames for colour files
   ///
-  
+
   virtual void ScanColourFiles(std::vector<std::string> &vFileList) = 0;
 
   ///
@@ -541,7 +541,7 @@ protected:
   ///
 
   virtual void StartTimer() = 0;
-  
+
   ///
   /// Shutdown the callback timer (permenantly - this is called once
   /// Dasher is committed to closing).
@@ -555,7 +555,7 @@ protected:
   /// Provide a new CDasherInput input device object.
 
   void CreateInput();
-	
+
   void CreateInputFilter();
 
   void CreateModel(int iOffset);
@@ -569,7 +569,7 @@ protected:
   void DestroyActionButtons();
   void PositionActionButtons();
   bool DrawActionButtons();
-  
+
   std::deque<std::string> m_deGameModeStrings;
 
   std::vector<CActionButton *> m_vLeftButtons;
@@ -577,7 +577,7 @@ protected:
 
 
   /// @name Child components
-  /// Various objects which are 'owned' by the core. 
+  /// Various objects which are 'owned' by the core.
   /// @{
   CDasherModel *m_pDasherModel;
   CDasherScreen *m_DasherScreen;
@@ -588,9 +588,9 @@ protected:
   CAlphIO *m_AlphIO;
   CColourIO *m_ColourIO;
   CNodeCreationManager *m_pNCManager;
-  CUserLogBase *m_pUserLog; 
+  CUserLogBase *m_pUserLog;
   /// @}
-  
+
   ///builds up the word currently being entered for speech.
   std::string m_strCurrentWord;
 
@@ -605,7 +605,7 @@ protected:
   /// @}
 
   bool m_bLastChanged;
-  
+
   std::set<TextAction *> m_vTextActions;
 };
 /// @}

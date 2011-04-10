@@ -63,7 +63,7 @@ void CClickFilter::AdjustZoomCoords(myint &iDasherX, myint &iDasherY, CDasherVie
   //safety param. Used to be just added onto DasherX,
   // but comments suggested should be interpreted as a fraction. Hence...
   myint iNewDasherX = (iDasherX*1024 + ox*safety) / (1024+safety);
-  
+
   //max zoom parameter...
   iNewDasherX = std::max(ox/pView->GetLongParameter(LP_MAXZOOM),iNewDasherX);
   //force x>=2 (what's wrong with x==1?)

@@ -1,5 +1,5 @@
 
-// DasherButtons.h 
+// DasherButtons.h
 // Copyright 2005 by Chris Ball
 
 #ifndef __COMPASS_MODE_H__
@@ -25,15 +25,15 @@ class CCompassMode : public CDasherButtons
   CCompassMode(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface);
 
   virtual void HandleEvent(Dasher::CEvent * pEvent);
-  
+
   bool DecorateView(CDasherView *pView, CDasherInput *pInput);
 
   bool GetSettings(SModuleSettings **pSettings, int *iCount);
 
  protected:
   void SetupBoxes();
-  
- private: 
+
+ private:
   int iTargetWidth;
 };
 }

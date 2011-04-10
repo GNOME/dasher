@@ -15,7 +15,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Dasher; if not, write to the Free Software 
+// along with Dasher; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #ifndef __DynamicFilter_h__
@@ -30,11 +30,11 @@ namespace Dasher {
 class CDynamicFilter : public CInputFilter {
  public:
   CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName);
-  
+
   virtual bool supportsPause() {return true;}
-  
+
   ///when reversing, backs off; when paused, does nothing; when running, delegates to TimerImpl
-  virtual bool Timer(int Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol); 
+  virtual bool Timer(int Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol);
 
   virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
   virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
@@ -62,7 +62,7 @@ class CDynamicFilter : public CInputFilter {
     int m_iHeldId;
     int m_iKeyDownTime;
     unsigned int m_uSpeedControlTime;
-	
+
     CUserLogBase *m_pUserLog;
 };
 }

@@ -15,7 +15,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Dasher; if not, write to the Free Software 
+// along with Dasher; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "../Common/Common.h"
@@ -66,7 +66,7 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler,
   m_Rootmax = 0;
   m_iDisplayOffset = 0;
   m_dTotalNats = 0.0;
- 
+
   // TODO: Need to rationalise the require conversion methods
 #ifdef JAPANESE
   m_bRequireConversion = true;
@@ -86,7 +86,7 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler,
 
 CDasherModel::~CDasherModel() {
   if (m_pLastOutput) m_pLastOutput->Leave();
-  
+
   if(oldroots.size() > 0) {
     delete oldroots[0];
     oldroots.clear();
@@ -131,7 +131,7 @@ void CDasherModel::Make_root(CDasherNode *pNewRoot) {
 
   DASHER_ASSERT(pNewRoot != NULL);
   DASHER_ASSERT(pNewRoot->Parent() == m_Root);
-  
+
   m_Root->DeleteNephews(pNewRoot);
   m_Root->SetFlag(NF_COMMITTED, true);
 
@@ -152,7 +152,7 @@ void CDasherModel::Make_root(CDasherNode *pNewRoot) {
   const myint range = m_Rootmax - m_Rootmin;
   m_Rootmax = m_Rootmin + (range * m_Root->Hbnd()) / GetLongParameter(LP_NORMALIZATION);
   m_Rootmin = m_Rootmin + (range * m_Root->Lbnd()) / GetLongParameter(LP_NORMALIZATION);
-  
+
   for(std::deque<SGotoItem>::iterator it(m_deGotoQueue.begin()); it != m_deGotoQueue.end(); ++it) {
     //Some of these co-ordinate pairs can be bigger than m_Rootmin_min - m_Rootmax_max,
     // hence using unsigned type...
@@ -190,27 +190,27 @@ bool CDasherModel::Reparent_root() {
   const myint lower(m_Root->Lbnd()), upper(m_Root->Hbnd());
   const myint iRange(upper-lower);
   myint iRootWidth(m_Rootmax - m_Rootmin);
-    
+
   // Fail if the new root is bigger than allowed by normalisation
   if(((myint((GetLongParameter(LP_NORMALIZATION) - upper)) / static_cast<double>(iRange)) >
-           (m_Rootmax_max - m_Rootmax)/static_cast<double>(iRootWidth)) || 
-      ((myint(lower) / static_cast<double>(iRange)) > 
+           (m_Rootmax_max - m_Rootmax)/static_cast<double>(iRootWidth)) ||
+      ((myint(lower) / static_cast<double>(iRange)) >
            (m_Rootmin - m_Rootmin_min) / static_cast<double>(iRootWidth))) {
-    //but cache the (currently-unusable) root node - else we'll keep recreating (and deleting) it on every frame... 
+    //but cache the (currently-unusable) root node - else we'll keep recreating (and deleting) it on every frame...
     oldroots.push_back(pNewRoot);
     return false;
   }
-  
+
   //don't uncommit until they reverse out of the node
   // (or committing would enter the node into the LM a second time)
-  
+
   //Update the root coordinates to reflect the new root
   DASHER_ASSERT(pNewRoot->GetFlag(NF_SEEN));
   m_Root = pNewRoot;
-    
+
   m_Rootmax = m_Rootmax + ((GetLongParameter(LP_NORMALIZATION) - upper) * iRootWidth) / iRange;
   m_Rootmin = m_Rootmin - (lower * iRootWidth) / iRange;
-    
+
   for(std::deque<SGotoItem>::iterator it(m_deGotoQueue.begin()); it != m_deGotoQueue.end(); ++it) {
     iRootWidth = it->iN2 - it->iN1;
     it->iN2 = it->iN2 + (myint((GetLongParameter(LP_NORMALIZATION) - upper)) * iRootWidth / iRange);
@@ -238,10 +238,10 @@ void CDasherModel::SetOffset(int iOffset, CAlphabetManager *pMgr, CDasherView *p
   if (m_Root && iOffset == GetOffset() && !bForce) return;
 
   if (m_pLastOutput) m_pLastOutput->Leave();
-  
+
   ClearRootQueue();
   delete m_Root;
-  
+
   m_Root = pMgr->GetRoot(NULL, 0,GetLongParameter(LP_NORMALIZATION), iOffset!=0, iOffset);
   if (iOffset) {
     //there were preceding characters. It's nonetheless possible that they weren't
@@ -252,16 +252,16 @@ void CDasherModel::SetOffset(int iOffset, CAlphabetManager *pMgr, CDasherView *p
     m_Root->Enter();
     // (of course, we don't do Output() - the context contains it already!)
     m_pLastOutput = m_Root;
-    
+
     //We also want to avoid training the LM on nodes representing already-written context
     m_Root->SetFlag(NF_COMMITTED, true);
-    
+
   } else
     m_pLastOutput = NULL;
-  
+
   // Create children of the root...
   ExpandNode(m_Root);
-	
+
   // Set the root coordinates so that the root node is an appropriate
   // size and we're not in any of the children
 
@@ -270,7 +270,7 @@ void CDasherModel::SetOffset(int iOffset, CAlphabetManager *pMgr, CDasherView *p
   //TODO somewhere round here, old code checked whether the InputFilter implemented
   // GetMinWidth, if so called LimitRoot w/that width - i.e., make sure iWidth
   // is no more than that minimum. Should we do something similar here???
-  
+
   int iWidth( static_cast<int>( (GetLongParameter(LP_MAX_Y) / (2.0*dFraction)) ) );
 
   m_Rootmin = GetLongParameter(LP_MAX_Y) / 2 - iWidth / 2;
@@ -298,7 +298,7 @@ void CDasherModel::Get_new_root_coords(dasherint X, dasherint Y, dasherint &r1, 
   if(GetBoolParameter(BP_SLOW_START) &&
      ((iTime - m_iStartTime) < GetLongParameter(LP_SLOW_START_TIME)))
     dFactor = 0.1 * (1 + 9 * ((iTime - m_iStartTime) / static_cast<double>(GetLongParameter(LP_SLOW_START_TIME))));
-  else 
+  else
     dFactor = 1.0;
 
   iSteps = static_cast<int>(iSteps / dFactor);
@@ -321,7 +321,7 @@ void CDasherModel::Get_new_root_coords(dasherint X, dasherint Y, dasherint &r1, 
 
 
   // Calculate what the extremes of the viewport will be when the
-  // point under the cursor is at the cross-hair. This is where 
+  // point under the cursor is at the cross-hair. This is where
   // we want to be in iSteps updates
 
   dasherint y1(Y - (Y2 * X) / (2 * iOX));
@@ -371,7 +371,7 @@ void CDasherModel::Get_new_root_coords(dasherint X, dasherint Y, dasherint &r1, 
   // into the same proportions as it divides the screen (0-Y2). I.e., this
   // is the center of expansion - the point on the y-axis which everything
   // moves away from (or towards, if reversing).
-  
+
   //We prefer to compute C from the _original_ (y1,y2) pair, as this is more
   // accurate (and avoids drifting up/down when heading straight along the
   // x-axis in dynamic button modes). However...
@@ -410,22 +410,22 @@ void CDasherModel::OneStepTowards(myint miMousex, myint miMousey, unsigned long 
   myint iNewMin, iNewMax;
   // works out next viewpoint
   Get_new_root_coords(miMousex, miMousey, iNewMin, iNewMax, iTime);
-  
+
   UpdateBounds(iNewMin, iNewMax, iTime, pAdded, pNumDeleted);
 }
 
 void CDasherModel::UpdateBounds(myint newRootmin, myint newRootmax, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
-  
+
   m_dTotalNats += log((newRootmax - newRootmin) / static_cast<double>(m_Rootmax - m_Rootmin));
 
   m_iDisplayOffset = (m_iDisplayOffset * 90) / 100;
-  
+
   // Now actually zoom to the new location
-  
+
   while (newRootmax >= m_Rootmax_max || newRootmin <= m_Rootmin_min) {
     // can't make existing root any bigger because of overflow. So force a new root
     // to be chosen (so that Dasher doesn't just stop!)...
-    
+
     //pick _child_ covering crosshair...
     const myint iWidth(m_Rootmax-m_Rootmin);
     for (CDasherNode::ChildMap::const_iterator it = m_Root->GetChildren().begin(), E = m_Root->GetChildren().end(); ;) {
@@ -438,7 +438,7 @@ void CDasherModel::UpdateBounds(myint newRootmin, myint newRootmax, unsigned lon
           // having Dasher stop seems reasonable!
           return;
         }
-        
+
         //make pChild the root node...
         //first we're gonna have to force it to be output, as a non-output root won't work...
         if (!pChild->GetFlag(NF_SEEN)) {
@@ -462,13 +462,13 @@ void CDasherModel::UpdateBounds(myint newRootmin, myint newRootmax, unsigned lon
       DASHER_ASSERT (it != E); //must find a child!
     }
   }
-  
+
   // Check that we haven't drifted too far. The rule is that we're not
   // allowed to let the root max and min cross the midpoint of the
   // screen.
   newRootmin = min(newRootmin, (myint)GetLongParameter(LP_OY) - 1 - m_iDisplayOffset);
-  newRootmax = max(newRootmax, (myint)GetLongParameter(LP_OY) + 1 - m_iDisplayOffset);  
-  
+  newRootmax = max(newRootmax, (myint)GetLongParameter(LP_OY) + 1 - m_iDisplayOffset);
+
   // Only allow the update if it won't make the
   // root too small. We should have re-generated a deeper root
   // before now already, but the original root is an exception.
@@ -495,7 +495,7 @@ void CDasherModel::OutputTo(CDasherNode *pNewNode, Dasher::VECTOR_SYMBOL_PROB* p
     OutputTo(pNewNode->Parent(), pAdded, pNumDeleted);
     if (pNewNode->Parent()) pNewNode->Parent()->Leave();
     pNewNode->Enter();
-    
+
     m_pLastOutput = pNewNode;
     pNewNode->Output(pAdded, GetLongParameter(LP_NORMALIZATION));
     pNewNode->SetFlag(NF_SEEN, true); //becomes NF_SEEN after output.
@@ -514,7 +514,7 @@ void CDasherModel::OutputTo(CDasherNode *pNewNode, Dasher::VECTOR_SYMBOL_PROB* p
       m_pLastOutput->Undo(pNumDeleted);
       m_pLastOutput->Leave(); //Should we? I think so, but the old code didn't...?
       m_pLastOutput->SetFlag(NF_SEEN, false);
-      
+
       m_pLastOutput = m_pLastOutput->Parent();
       if (m_pLastOutput) m_pLastOutput->Enter();
       else DASHER_ASSERT (!pNewNode); //both null
@@ -557,18 +557,18 @@ void CDasherModel::ExpandNode(CDasherNode *pNode) {
   if(m_bGameMode && pNode->GetFlag(NF_GAME) && pTeacher )
   {
     std::string strTargetUtf8Char(pTeacher->GetSymbolAtOffset(pNode->offset() + 1));
-      
+
     // Check if this is the last node in the sentence...
     if(strTargetUtf8Char == "GameEnd")
 	    pNode->SetFlag(NF_END_GAME, true);
 	  else if (!pNode->GameSearchChildren(strTargetUtf8Char)) {
       // Target character not found - not in our current alphabet?!?!
       // Let's give up!
-      pNode->SetFlag(NF_END_GAME, true); 
+      pNode->SetFlag(NF_END_GAME, true);
     }
   }
   ////////////////////////////
-  
+
 
 }
 
@@ -580,11 +580,11 @@ void CDasherModel::RenderToView(CDasherView *pView, CExpansionPolicy &policy) {
   while(pView->IsSpaceAroundNode(m_Rootmin,m_Rootmax)) {
     if (!Reparent_root()) break;
   }
-  
-  // The Render routine will fill iGameTargetY with the Dasher Coordinate of the 
+
+  // The Render routine will fill iGameTargetY with the Dasher Coordinate of the
   // youngest node with NF_GAME set. The model is responsible for setting NF_GAME on
   // the appropriate Nodes.
-  CDasherNode *pOutput = pView->Render(m_Root, m_Rootmin + m_iDisplayOffset, m_Rootmax + m_iDisplayOffset, policy);  
+  CDasherNode *pOutput = pView->Render(m_Root, m_Rootmin + m_iDisplayOffset, m_Rootmax + m_iDisplayOffset, policy);
 
   /////////GAME MODE TEMP//////////////
   if(m_bGameMode)
@@ -601,7 +601,7 @@ void CDasherModel::RenderToView(CDasherView *pView, CExpansionPolicy &policy) {
   // TODO: Fix up stats
   // TODO: Is this the right way to handle this?
   OutputTo(pOutput, NULL, NULL);
-  
+
   while (CDasherNode *pNewRoot = m_Root->onlyChildRendered) {
 #ifdef DEBUG
     //if only one child was rendered, no other child covers the screen -
@@ -617,7 +617,7 @@ void CDasherModel::RenderToView(CDasherView *pView, CExpansionPolicy &policy) {
     } else
       break;
   }
-  
+
 }
 
 void CDasherModel::ScheduleZoom(long time, dasherint y1, dasherint y2) {
@@ -679,7 +679,7 @@ void CDasherModel::Offset(int iOffset) {
 
   if (GetBoolParameter(BP_SMOOTH_OFFSET))
     m_iDisplayOffset -= iOffset;
-} 
+}
 
 void CDasherModel::AbortOffset() {
   m_Rootmin += m_iDisplayOffset;

@@ -133,7 +133,7 @@ void CColourIO::Save(const std::string &ColourID) {
 
 void CColourIO::CreateDefault() {
   // TODO: Urgh - replace with a table
-  
+
   ColourInfo & Default = Colours["Default"];
   Default.ColourID = "Default";
   Default.Mutable = false;

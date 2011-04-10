@@ -31,7 +31,7 @@ CDefaultFilter::CDefaultFilter(Dasher::CEventHandler * pEventHandler, CSettingsS
 
   // Initialize autocalibration (i.e. seen nothing yet)
   m_iSum = 0;
-  
+
   m_iCounter = 0;
 }
 
@@ -41,7 +41,7 @@ CDefaultFilter::~CDefaultFilter() {
 }
 
 bool CDefaultFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
-  
+
   bool bDidSomething(false);
 
   if(GetBoolParameter(BP_DRAW_MOUSE)) {
@@ -74,13 +74,13 @@ bool CDefaultFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
   const int noOfPoints = 18;
   myint X[noOfPoints];
   myint Y[noOfPoints];
-  myint CenterXY[2]; 
+  myint CenterXY[2];
   X[0] = x[0];
   Y[0] = y[0];
   X[noOfPoints-1] = 0;
   Y[noOfPoints-1] = y[1];
   CenterXY[0] = 0; CenterXY[1] = 0.5*((double)(X[0]*X[0])/(double)(Y[0]-Y[noOfPoints-1])+(Y[0]+Y[noOfPoints-1]));
- 
+
   double angle = (((Y[noOfPoints-1]>CenterXY[1])?1.5708:-1.5708) - atan((double)(Y[0]-CenterXY[1])/(double)X[0]))/(double)(noOfPoints-1);
   for(int i = 1; i < noOfPoints-1; ++i)
     {
@@ -120,7 +120,7 @@ bool CDefaultFilter::Timer(int Time, CDasherView *pView, CDasherInput *pInput, C
       myint iDasherMaxX;
       myint iDasherMaxY;
       pView->VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
-  
+
       if((m_iLastX > iDasherMaxX) || (m_iLastX < iDasherMinX) || (m_iLastY > iDasherMaxY) || (m_iLastY < iDasherMinY)) {
         m_pInterface->Stop();
         return false;
@@ -132,7 +132,7 @@ bool CDefaultFilter::Timer(int Time, CDasherView *pView, CDasherInput *pInput, C
 
     m_pAutoSpeedControl->SpeedControl(m_iLastX, m_iLastY, pView);
   }
-	
+
   if(m_pStartHandler)
     m_pStartHandler->Timer(Time, m_iLastX, m_iLastY, pView);
 
@@ -150,7 +150,7 @@ void CDefaultFilter::KeyDown(int iTime, int iId, CDasherView *pDasherView, CDash
       else
 	m_pInterface->Stop();
     }
-    break; 
+    break;
   case 100: // Start on mouse
     if(GetBoolParameter(BP_START_MOUSE)) {
       if(GetBoolParameter(BP_DASHER_PAUSED))
@@ -167,7 +167,7 @@ void CDefaultFilter::KeyDown(int iTime, int iId, CDasherView *pDasherView, CDash
 void CDefaultFilter::HandleEvent(Dasher::CEvent * pEvent) {
   if(pEvent->m_iEventType == 1) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
-   
+
     switch (pEvt->m_iParameter) {
     case BP_CIRCLE_START:
     case BP_MOUSEPOS_MODE:
@@ -202,11 +202,11 @@ CStartHandler *CDefaultFilter::MakeStartHandler() {
 
 double xmax(double y) {
   // DJCM -- define a function xmax(y) thus:
-  // xmax(y) = a*[exp(b*y*y)-1] 
+  // xmax(y) = a*[exp(b*y*y)-1]
   // then:  if(x<xmax(y) [if the mouse is to the RIGHT of the line xmax(y)]
   // set x=xmax(y).  But set xmax=c if(xmax>c).
-  // I would set a=1, b=1, c=16, to start with. 
-  
+  // I would set a=1, b=1, c=16, to start with.
+
   static const int a = 1, b = 1;
   static const double c = 100;
   return min(c,a * (exp(b * y * y) - 1));
@@ -231,35 +231,35 @@ void CDefaultFilter::ApplyTransform(myint &iDasherX, myint &iDasherY, CDasherVie
   }
   if (GetBoolParameter(BP_REMAP_XTREME)) {
     // Y co-ordinate...
-    myint dasherOY=(myint)GetLongParameter(LP_OY); 
+    myint dasherOY=(myint)GetLongParameter(LP_OY);
     double double_y = ((iDasherY-dasherOY)/(double)(dasherOY) ); // Fraction above the crosshair
     static const double repulsionparameter=0.5;
     iDasherY = myint(dasherOY * (1.0 + double_y + (double_y*double_y*double_y * repulsionparameter )));
-    
-    // X co-ordinate...  
+
+    // X co-ordinate...
     iDasherX = max(iDasherX,myint(GetLongParameter(LP_OX) * xmax(double_y)));
   }
 }
 
 void CDefaultFilter::ApplyOffset(myint &iDasherX, myint &iDasherY) {
-  
+
   // TODO: It turns out that this was previously computed in pixels,
   // altough everythign else made use of Dasher coordinates. Hack in a
   // factor of 10 to get the offset in Dasher coordinates, but it
   // would be a good idea at some point to sort this out properly.
-  
+
   iDasherY += 10 * GetLongParameter(LP_TARGET_OFFSET);
 
   if(GetBoolParameter(BP_AUTOCALIBRATE) && !GetBoolParameter(BP_DASHER_PAUSED)) {
     // Auto-update the offset
-  
+
     m_iSum += (myint)GetLongParameter(LP_OY) - iDasherY; // Distance above crosshair
     ++m_iCounter;
-  
+
     //int m_iFilterTimescale=20
     if(++m_iCounter > 20) {
       m_iCounter = 0;
-    
+
       // 'Conditions A', as specified by DJCM.  Only make the auto-offset
       // change if we're past the significance boundary.
       //int m_iSigBiasPixels(GetLongParameter(LP_MAX_Y)/2);

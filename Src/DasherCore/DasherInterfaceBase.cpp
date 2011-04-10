@@ -162,7 +162,7 @@ void CDasherInterfaceBase::Realize() {
 
   CreateInput();
   CreateInputFilter();
-  
+
   ChangeAlphabet(); // This creates the NodeCreationManager, the Alphabet,
   //and the tree of nodes in the model. Now we can
   // Notify the teacher of the new model...ACL TODO pending merging of new
@@ -330,7 +330,7 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
         break;
     case LP_NODE_BUDGET:
       delete m_defaultPolicy;
-      m_defaultPolicy = new AmortizedPolicy(GetLongParameter(LP_NODE_BUDGET));  
+      m_defaultPolicy = new AmortizedPolicy(GetLongParameter(LP_NODE_BUDGET));
     default:
       break;
     }
@@ -372,7 +372,7 @@ void CDasherInterfaceBase::CreateNCManager() {
 
   //and start a new tree of nodes from it (retaining old offset -
   // this will be a sensible default of 0 if no nodes previously existed).
-  // This deletes the old tree of nodes... 
+  // This deletes the old tree of nodes...
   m_pDasherModel->SetOffset(m_pDasherModel->GetOffset(), m_pNCManager->GetAlphabetManager(), m_pDasherView, true);
 
   //...so now we can delete the old manager
@@ -424,7 +424,7 @@ void CDasherInterfaceBase::Stop() {
   if (m_pUserLog != NULL)
     m_pUserLog->StopWriting((float) GetNats());
 #endif
-  
+
   if (GetBoolParameter(BP_COPY_ALL_ON_STOP) && SupportsClipboard()) {
     CopyToClipboard(GetAllContext());
   }
@@ -515,7 +515,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   //check: if we were paused before, and the input filter didn't unpause,
   // then nothing can have changed:
   DASHER_ASSERT(!bWasPaused || !GetBoolParameter(BP_DASHER_PAUSED) || !bChanged);
-                
+
   // Flags at this stage:
   //
   // - bChanged = the display was updated, so needs to be rendered to the display
@@ -587,7 +587,7 @@ void CDasherInterfaceBase::ChangeAlphabet() {
   if (m_pNCManager) WriteTrainFileFull(); //can't/don't before creating first NCManager
 
   // Send a lock event
-  
+
   // Lock Dasher to prevent changes from happening while we're training.
 
   SetBoolParameter( BP_TRAINING, true );
@@ -950,8 +950,8 @@ void CDasherInterfaceBase::ChangeState(ETransition iTransition) {
 
   if(iNewState != ST_FORBIDDEN) {
     if (iNewState == ST_SHUTDOWN) {
-      ShutdownTimer();  
-      WriteTrainFileFull();      
+      ShutdownTimer();
+      WriteTrainFileFull();
     }
 
     m_iCurrentState = iNewState;

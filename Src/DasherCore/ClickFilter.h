@@ -15,7 +15,7 @@ class CClickFilter : public CInputFilter {
   virtual bool Timer(int Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted, CExpansionPolicy **pol);
   virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY);
   virtual bool GetSettings(SModuleSettings **pSettings, int *iCount);
-  
+
   static void AdjustZoomCoords(myint &iDasherX, myint &iDasherY, CDasherView *comp);
   
  private:

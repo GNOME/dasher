@@ -15,7 +15,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Dasher; if not, write to the Free Software 
+// along with Dasher; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #ifndef __AlphIO_h__
@@ -54,7 +54,7 @@ namespace Dasher {
 /// implemented...
 class Dasher::CAlphIO {
 public:
-  
+
   CAlphIO(std::string SystemLocation, std::string UserLocation, std::vector < std::string > &Filenames);
   ~CAlphIO();
   void GetAlphabets(std::vector < std::string > *AlphabetList) const;
@@ -69,31 +69,31 @@ private:
   std::string UserLocation;
   std::map < std::string, const CAlphInfo* > Alphabets; // map short names (file names) to descriptions. We own all the values but it's easier this way...
   std::vector < std::string > Filenames;
-  
+
   void Save(const std::string & AlphID);
   CAlphInfo *CreateDefault();         // Give the user an English alphabet rather than nothing if anything goes horribly wrong.
-  
+
   void DeleteAlphabet(CAlphInfo *Alphabet);
-  
+
   // XML handling:
   /////////////////////////
-  
+
   bool LoadMutable;
   void ParseFile(std::string Filename);
   void ReadCharAtts(const XML_Char **atts, CAlphInfo::character &ch);
   // Alphabet types:
   std::map < std::string, Opts::AlphabetTypes > StoT;
   std::map < Opts::AlphabetTypes, std::string > TtoS;
-  
+
   // & to &amp;  < to &lt; and > to &gt;  and if (Attribute) ' to &apos; and " to &quot;
   void XML_Escape(std::string * Text, bool Attribute);
-  
+
   // Data gathered
   std::string CData;            // Text gathered from when an elemnt starts to when it ends
   CAlphInfo *InputInfo;
   bool bFirstGroup;
   int iGroupIdx;
-  
+
   // Callback functions. These involve the normal dodgy casting to a pointer
   // to an instance to get a C++ class to work with a plain C library.
   static void XML_StartElement(void *userData, const XML_Char * name, const XML_Char ** atts);

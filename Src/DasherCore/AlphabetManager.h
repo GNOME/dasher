@@ -15,7 +15,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Dasher; if not, write to the Free Software 
+// along with Dasher; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #ifndef __alphabetmanager_h__
@@ -35,7 +35,7 @@ struct SGroupInfo;
 namespace Dasher {
 
   class CDasherInterfaceBase;
-  
+
   /// \ingroup Model
   /// @{
 
@@ -84,7 +84,7 @@ namespace Dasher {
       /// Default implementation calls the manager's CreateGroupNode method to create a new node,
       /// but then populates that group (i.e. further descends the hierarchy) _if_ that group
       /// would contain this node (see IsInGroup). Subclasses can override to graft themselves into the hierarchy, if appropriate.
-      /// \param pParent parent of the symbol node to create; could be the previous root, or an intervening node (e.g. group)      
+      /// \param pParent parent of the symbol node to create; could be the previous root, or an intervening node (e.g. group)
       virtual CDasherNode *RebuildGroup(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strEnc, int iBkgCol, const SGroupInfo *pInfo);
       ///Just keep track of the last node output (for training file purposes)
       void Undo(int *pNumDeleted);
@@ -115,7 +115,7 @@ namespace Dasher {
       CLanguageModel::Context iContext;
       ///
       /// Delete any storage alocated for this node
-      ///      
+      ///
       virtual ~CAlphNode();
       virtual CLanguageModel::Context CloneAlphContext(CLanguageModel *pLanguageModel);
       ///Have to call this from CAlphabetManager, and from CGroupNode on a _different_ CAlphNode, hence public...
@@ -151,7 +151,7 @@ namespace Dasher {
       virtual std::string trainText() {return outputText();}
       /// Number of unicode _characters_ (not octets) for this symbol.
       /// Uniquely, a paragraph symbol can enter two distinct unicode characters
-      /// (i.e. '\r' and '\n'); every other symbol enters only a single 
+      /// (i.e. '\r' and '\n'); every other symbol enters only a single
       /// unicode char, even if that might take >1 octet.
       int numChars();
       ///Compatibility constructor, so that subclasses can specify their own colour & label
@@ -164,10 +164,10 @@ namespace Dasher {
     class CGroupNode : public CAlphNode {
     public:
       CGroupNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strEnc, int iBkgCol, CAlphabetManager *pMgr, const SGroupInfo *pGroup);
-      
+
       ///Override: if m_pGroup==NULL, i.e. whole/root-of alphabet, cannot rebuild.
       virtual CDasherNode *RebuildParent();
-      
+
       ///Create children of this group node, by traversing the section of the alphabet
       /// indicated by m_pGroup.
       virtual void PopulateChildren();
@@ -182,7 +182,7 @@ namespace Dasher {
     private:
       const SGroupInfo *m_pGroup;
     };
-    
+
   public:
     ///
     /// Get a new root node owned by this manager
@@ -193,7 +193,7 @@ namespace Dasher {
     virtual CAlphNode *GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, bool bEnteredLast, int iOffset);
 
     const CAlphInfo *GetAlphabet() const;
-    
+
   protected:
     ///Called to get the symbols in the context for (preceding) a new node
     /// \param pParent node to assume has been output, when obtaining context
@@ -205,7 +205,7 @@ namespace Dasher {
     /// could be extracted, else 0 (=> couldn't get context, using alphabet default); second
     /// element is the result of entering the symbols retrieved, into a fresh LM context.
     std::pair<symbol, CLanguageModel::Context> GetContextSymbols(CDasherNode *pParent, int iRootOffset, const CAlphabetMap *pAlphMap);
-    
+
     ///Called to create a node for a given symbol (leaf), as a child of a specified parent node
     /// \param strGroup caption of any group containing this node, that will not be created:
     /// thus, should be prepended onto the caption of the node created.
@@ -222,7 +222,7 @@ namespace Dasher {
     ///  scheme for symbols not specifying a colour, and (b) implements
     /// colour-cycling by phase (two cycles, using the LSBit of offset)
     virtual int GetColour(symbol sym, int iOffset) const;
-    
+
     CLanguageModel *m_pLanguageModel;
 
     CNodeCreationManager *m_pNCManager;
