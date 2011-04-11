@@ -48,7 +48,7 @@ static char THIS_FILE[] = __FILE__;
 
 CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphMap)
   : CAlphabetManager(pInterface, pNCManager, pAlphabet, pAlphMap),
-    m_pConversionsBySymbol(new set<symbol>[GetAlphabet()->GetNumberTextSymbols()+1]) {
+    m_pConversionsBySymbol(new vector<symbol>[GetAlphabet()->GetNumberTextSymbols()+1]) {
   DASHER_ASSERT(pAlphabet->m_iConversionID==2);
       
   //the CHAlphabet contains a group for each SPY syllable+tone, with symbols being chinese characters.      
@@ -104,7 +104,7 @@ CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreati
         m_CHAlphabetMap.Add(text,target);
       }
       DASHER_ASSERT(m_CHtext[m_CHAlphabetMap.Get(text)] == text);
-      m_pConversionsBySymbol[i].insert(target);
+      m_pConversionsBySymbol[i].push_back(target);
       //Also the reverse lookup: (rehashed chinese symbol number) -> (pinyin by which it could be produced)
       m_PinyinByChinese[target].insert(i);
     }
@@ -259,82 +259,84 @@ void CMandarinAlphMgr::CConvRoot::SetFlag(int iFlag, bool bValue) {
   CDasherNode::SetFlag(iFlag,bValue);
 }
 
+// For sorting pair<symbol, probability>s into descending order
+// (most probable first, hence sense of >)
+bool CompSecond(const pair<symbol,unsigned int> &a, const pair<symbol,unsigned int> &b) {
+  return a.second>b.second;
+}
+
 void CMandarinAlphMgr::GetConversions(std::vector<pair<symbol,unsigned int> > &vChildren, symbol pySym, Dasher::CLanguageModel::Context context) {
 
-  const set<symbol> &convs(m_pConversionsBySymbol[pySym]);
-  for(set<symbol>::const_iterator it = convs.begin(); it != convs.end(); ++it) {
-    vChildren.push_back(std::pair<symbol, unsigned int>(*it,0));
-  }
-  //ACL I think it's a good idea to keep those in a consistent order - symbol order will do nicely
-  sort(vChildren.begin(),vChildren.end());
+  const vector<symbol> &convs(m_pConversionsBySymbol[pySym]);
 
-  const uint64 iNorm(m_pNCManager->GetLongParameter(LP_NORMALIZATION));
-  const unsigned int uniform((m_pNCManager->GetLongParameter(LP_UNIFORM)*iNorm)/1000);
+  //Symbols which we are including with the probabilities predicted by the LM.
+  // We do this for the most probable symbols first, up to at least BY_PY_PROB_SORT_THRES
+  // (a percentage); after this, the remaining probability mass is distributed
+  // uniformly between the remaining symbols, which are kept in alphabet order (after the
+  // more probable ones).
+  //Two degenerate cases: PROB_SORT_THRES=0 => all (legal) ch symbols predicted uniformly
+  // PROB_SORT_THRES=100 => all symbols put into probability order
+  set<symbol> haveProbs;
+  uint64 iRemaining(m_pNCManager->GetLongParameter(LP_NORMALIZATION));
+  
+  if (long percent=m_pNCManager->GetLongParameter(LP_PY_PROB_SORT_THRES)) {
+    const uint64 iNorm(iRemaining);
+    const unsigned int uniform((m_pNCManager->GetLongParameter(LP_UNIFORM)*iNorm)/1000);
     
-  //ACL pass in iNorm and uniform directly - GetPartProbs distributes the last param between
-  // however elements there are in vChildren...
-  static_cast<CPPMPYLanguageModel *>(m_pLanguageModel)->GetPartProbs(context, vChildren, iNorm, uniform);
-  
-  //std::cout<<"after get probs "<<std::endl;
-  
-  uint64 sumProb=0;  
-  for (std::vector<pair<symbol,unsigned int> >::const_iterator it = vChildren.begin(); it!=vChildren.end(); it++) {
-    sumProb += it->second;
-  }
-  DASHER_ASSERT(sumProb==iNorm);
-  //  std::cout<<"Sum Prob "<<sumProb<<std::endl;
-  //  std::cout<<"norm "<<nonuniform_norm<<std::endl;
-  
-  //Match, sumProbs = nonuniform_norm  
-  //but fix one element 'Da4'
-  // Finally, iterate through the nodes and actually assign the sizes.
-  
- // std::cout<<"sumProb "<<sumProb<<std::endl;
-  
-  int iRemaining(iNorm);
-  for (std::vector<pair<symbol,unsigned int> >::iterator it = vChildren.begin(); it!=vChildren.end(); it++) {
-    DASHER_ASSERT(it->first>-1); //ACL Will's code tested for both these conditions explicitly, and if so 
-    DASHER_ASSERT(sumProb>0);   //then used a probability of 0. I don't think either
-                                //should ever happen if the alphabet files are right (there'd have to
-                                //be either no conversions of the syllable+tone, or else the LM'd have
-                                //to assign zero probability to each), so I'm removing these tests for now...
-    iRemaining -= it->second = (it->second*iNorm)/sumProb;
-    if (it->second==0) {
-#ifdef DEBUG
-      std::cout << "WARNING: Erasing zero-probability conversion with symbol " << it->first << std::endl;
-#endif
-      vChildren.erase(it--);
+    //Set up list of symbols with blank probability entries...
+    for(vector<symbol>::const_iterator it = convs.begin(); it != convs.end(); ++it) {
+      vChildren.push_back(std::pair<symbol, unsigned int>(*it,0));
     }
-    //  std::cout<<pNode->pszConversion<<std::endl;
-    // std::cout<<pNode->Symbol<<std::endl;
-    //    std::cout<<"Probs i "<<pNode<<std::endl;
-    // std::cout<<"Symbol i"<<SymbolStore[iIdx]<<std::endl;
-    // std::cout<<"symbols size "<<SymbolStore.size()<<std::endl;
-    // std::cout<<"Symbols address "<<&SymbolStore<<std::endl;
+    
+    //Then call LM to fill in the probs, passing iNorm and uniform directly -
+    // GetPartProbs distributes the last param between however elements there are in vChildren...
+    static_cast<CPPMPYLanguageModel *>(m_pLanguageModel)->GetPartProbs(context, vChildren, iNorm, uniform);
+  
+    //std::cout<<"after get probs "<<std::endl;
+  
+    uint64 sumProb=0;  
+    for (std::vector<pair<symbol,unsigned int> >::const_iterator it = vChildren.begin(); it!=vChildren.end(); it++) {
+      sumProb += it->second;
+    }
+    DASHER_ASSERT(sumProb==iNorm);
+    
+    //Sort all symbols into probability order (highest first)
+    stable_sort(vChildren.begin(), vChildren.end(), CompSecond);
+    if (percent>=100) return; //and that's what's required.
+    
+    //ok, some symbols as predicted by LM, others not...
+    vector<pair<symbol,unsigned int> > probOrder;
+    swap(vChildren, probOrder);
+    const unsigned int stop(iNorm - (iNorm*percent)/100);//intermediate values are uint64
+    for (vector<pair<symbol, unsigned int> >::iterator it=probOrder.begin(); iRemaining>stop; it++) {
+      //assert: the remaining probability mass, divided by the remaining symbols,
+      // (i.e. the probability mass each symbol would receive if we uniformed the rest)
+      // must be less than the probability predicted by the LM (as we're processing
+      // symbols in decreasing order)
+      DASHER_ASSERT(iRemaining <= it->second*(convs.size()-vChildren.size()));
+      vChildren.push_back(*it);
+      haveProbs.insert(it->first);
+      iRemaining-=it->second;
+    }
   }
-  DASHER_ASSERT(iRemaining==0);
-  
-  //std::cout<<"iRemaining "<<iRemaining<<std::endl;
-  
-  
-  // Last of all, allocate anything left over due to rounding error
-  
-  int iLeft(vChildren.size());
-  
-  for (std::vector<pair<symbol,unsigned int> >::iterator it = vChildren.begin(); it!=vChildren.end(); it++) {
-    int iDiff(iRemaining / iLeft);
+  //Now distribute iRemaining uniformly between all remaining symbols,
+  // keeping them in alphabet order
+  if (iRemaining) {
+    unsigned int iEach(iRemaining / (convs.size() - haveProbs.size()));
+    for (vector<symbol>::const_iterator it=convs.begin(); it!=convs.end(); it++) {
+      if (haveProbs.count(*it)==0)
+        vChildren.push_back(pair<symbol,unsigned int>(*it,iEach));
+    }
     
-    it->second += iDiff;
-    
-    iRemaining -= iDiff;
-    --iLeft;
-    
-    //    std::cout<<"Node size for "<<pNode->pszConversion<<std::endl;
-    //std::cout<<"is "<<pNode->NodeSize<<std::endl;
+    //account for rounding error by topping up
+    DASHER_ASSERT(vChildren.size() == convs.size());
+    iRemaining -= iEach * (convs.size() - haveProbs.size());
+    unsigned int iLeft = vChildren.size();
+    for (vector<pair<symbol, unsigned int> >::iterator it=vChildren.end(); iRemaining && it-- != vChildren.begin();) {
+      const unsigned int p(iRemaining / iLeft);
+      it->second+=p; iRemaining-=p; iLeft--;
+    }
   }
-  
-  DASHER_ASSERT(iRemaining == 0);
-  
 }
 
 CMandarinAlphMgr::CMandSym::CMandSym(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, CMandarinAlphMgr *pMgr, symbol iSymbol, symbol pyParent)

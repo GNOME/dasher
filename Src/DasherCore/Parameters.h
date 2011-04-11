@@ -53,7 +53,7 @@ enum {
 enum { 
   LP_ORIENTATION = END_OF_BPS, LP_REAL_ORIENTATION, LP_MAX_BITRATE, LP_FRAMERATE,
   LP_VIEW_ID, LP_LANGUAGE_MODEL_ID, LP_DASHER_FONTSIZE, LP_SHAPE_TYPE,
-  LP_UNIFORM, LP_YSCALE, LP_MOUSEPOSDIST, LP_STOP_IDLETIME,
+  LP_UNIFORM, LP_YSCALE, LP_MOUSEPOSDIST, LP_STOP_IDLETIME, LP_PY_PROB_SORT_THRES,
   LP_LM_MAX_ORDER, LP_LM_EXCLUSION,
   LP_LM_UPDATE_EXCLUSION, LP_LM_ALPHA, LP_LM_BETA,
   LP_LM_MIXTURE, LP_NORMALIZATION, LP_LINE_WIDTH, LP_GEOMETRY,
@@ -200,6 +200,7 @@ static lp_table longparamtable[] = {
   {LP_YSCALE, "YScaling", PERS, 0, "YScaling"},
   {LP_MOUSEPOSDIST, "MousePositionBoxDistance", PERS, 50, "MousePositionBoxDistance"},
   {LP_STOP_IDLETIME, "StopIdleTime", PERS, 1000, "StopIdleTime" },
+  {LP_PY_PROB_SORT_THRES, "PYProbabilitySortThreshold", PERS, 85, "Sort converted syms in descending probability order up to this %age"},
   {LP_LM_MAX_ORDER, "LMMaxOrder", PERS, 5, "LMMaxOrder"},
   {LP_LM_EXCLUSION, "LMExclusion", PERS, 0, "LMExclusion"},
   {LP_LM_UPDATE_EXCLUSION, "LMUpdateExclusion", PERS, 1, "LMUpdateExclusion"},
