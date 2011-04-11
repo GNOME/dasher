@@ -42,7 +42,6 @@ BoolTranslation sBoolTranslationTable[] = {
   {APP_BP_SHOW_TOOLBAR, "toolbarbutton", NULL},
   {BP_CONTROL_MODE, "control_controlmode", NULL},
   {APP_BP_TIME_STAMP, "timestampbutton", NULL},
-  {APP_BP_DOCK, "dockbutton", NULL},
   {BP_START_MOUSE, "leftbutton", NULL},  
   {BP_START_SPACE, "spacebutton", NULL},
   {BP_STOP_OUTSIDE, "winpausebutton", NULL},

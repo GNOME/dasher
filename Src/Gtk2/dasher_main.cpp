@@ -696,9 +696,6 @@ dasher_main_load_state(DasherMain *pSelf) {
   iWindowY = dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_Y);
 
   gtk_window_move(GTK_WINDOW(pPrivate->pMainWindow), iWindowX, iWindowY);
-
-  
-  //  pPrivate->iPosition = dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_DOCK_POSITION);
 }
 
 static void 
@@ -734,8 +731,6 @@ dasher_main_save_state(DasherMain *pSelf) {
 
    dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_X, iWindowX);
    dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_Y, iWindowY);
-
-   //   dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_DOCK_POSITION, pPrivate->iPosition);
 }
 
 void 

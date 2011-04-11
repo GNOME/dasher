@@ -61,7 +61,6 @@ app_bp_table app_boolparamtable[] = {
   {APP_BP_WINDOW_PAUSE, "PauseOutsideWindow", PERS, false, false, "PauseOutsideWindow"},
   {APP_BP_SPEECH_MODE, "SpeechEnabled", PERS, false, false, "Speak on stop"},
   {APP_BP_KEYBOARD_MODE, "KeyboardMode", PERS, false, false, "KeyboardMode"},
-  {APP_BP_DOCK, "Dock", PERS, false, false, "Dock main window"},
   {APP_BP_SPEECH_WORD, "SpeechWord", PERS, false, false, "Speak on word boundaries"}
 };
 
@@ -75,8 +74,6 @@ app_lp_table app_longparamtable[] = {
   {APP_LP_SCREEN_WIDTH_H, "ScreenWidthH", PERS, 625, 625, "Screen Width for application style compose"},
   {APP_LP_SCREEN_HEIGHT_H, "ScreenHeightH", PERS, 250, 250, "Screen Height for application style compose"},
   {APP_LP_STYLE, "AppStyle", PERS, 0, 0, "Application style"},
-  {APP_LP_DOCK_STYLE, "DockStyle", PERS, 4, 4, "Dock Style, 0-3 = docked, 4 = floating, 5 = fullscreen"},
-  {APP_LP_DOCK_POSITION, "DockPosition", PERS, 100, 100, "Dock Position"},
   {APP_LP_X, "XPosition", PERS, 100, 100, "X location of window"},
   {APP_LP_Y, "YPosition", PERS, 100, 100, "Y location of window"},
 #ifdef WITH_MAEMO

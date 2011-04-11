@@ -304,7 +304,6 @@
 	<Registry Id="RegistryPauseOutsideWindow" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="PauseOutsideWindow" Action="write" Type="integer" Value="0" />
 	<Registry Id="RegistrySpeechEnabled" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="SpeechEnabled" Action="write" Type="integer" Value="0" />
 	<Registry Id="RegistryKeyboardMode" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="KeyboardMode" Action="write" Type="integer" Value="0" />
-	<Registry Id="RegistryDock" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="Dock" Action="write" Type="integer" Value="0" />
 	<Registry Id="RegistryScreenOrientation" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ScreenOrientation" Action="write" Type="integer" Value="-2" />
 	<Registry Id="RegistryMaxBitRateTimes100" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="MaxBitRateTimes100" Action="write" Type="integer" Value="80" />
 	<Registry Id="RegistryViewID" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ViewID" Action="write" Type="integer" Value="1" />
@@ -357,8 +356,6 @@
 	<Registry Id="RegistryScreenWidthH" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ScreenWidthH" Action="write" Type="integer" Value="625" />
 	<Registry Id="RegistryScreenHeightH" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="ScreenHeightH" Action="write" Type="integer" Value="250" />
 	<Registry Id="RegistryAppStyle" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="AppStyle" Action="write" Type="integer" Value="0" />
-	<Registry Id="RegistryDockStyle" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="DockStyle" Action="write" Type="integer" Value="4" />
-	<Registry Id="RegistryDockPosition" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="DockPosition" Action="write" Type="integer" Value="100" />
 	<Registry Id="RegistryAlphabetID" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="AlphabetID" Action="write" Type="string" Value="" />
 	<Registry Id="RegistryAlphabet1" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="Alphabet1" Action="write" Type="string" Value="" />
 	<Registry Id="RegistryAlphabet2" Root="HKCU" Key="Software\Inference Group\Dasher3" Name="Alphabet2" Action="write" Type="string" Value="" />
