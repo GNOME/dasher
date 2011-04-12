@@ -31,7 +31,7 @@
 </group>
 <!--ACL using unicode "latin small letter a with ring above" to avoid conflict
     with roman letter a-->
-<group name="&#97; (a5)" label="&#x00E5;"  f="113"  b="118">
+<group name="&#97; (a5)" label="&#229;"  f="113"  b="118">
 <s d="&#x554A;" t="&#x554A;" />
 <s d="&#x5475;" t="&#x5475;" />
 </group>
@@ -4835,7 +4835,7 @@
 </group>
 <!--ACL using unicode "latin small letter m with acute" to avoid conflict with
     roman letter m-->
-<group name="m (m2)" label="&#x1E3F;"  f="113"  b="121">
+<group name="m (m2)" label="&#7743;"  f="113"  b="121">
 <s d="&#x5452;" t="&#x5452;" />
 </group>
 <group name="m&#257; (ma1)" label="m&#257;"  f="113"  b="122">
