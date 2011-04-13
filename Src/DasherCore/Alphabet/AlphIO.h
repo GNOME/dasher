@@ -91,7 +91,6 @@ private:
   // Data gathered
   std::string CData;            // Text gathered from when an elemnt starts to when it ends
   CAlphInfo *InputInfo;
-  bool bFirstGroup;
   int iGroupIdx;
 
   // Callback functions. These involve the normal dodgy casting to a pointer

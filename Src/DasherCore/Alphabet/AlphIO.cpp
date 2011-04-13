@@ -430,7 +430,6 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
     Me->InputInfo->Mutable = Me->LoadMutable;
     Me->ParagraphCharacter = NULL;
     Me->SpaceCharacter = NULL;
-    Me->bFirstGroup = true;
     Me->iGroupIdx = 0;
     while(*atts != 0) {
       if(strcmp(*atts, "name") == 0) {
@@ -506,17 +505,11 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
   if(strcmp(name, "group") == 0) {
     SGroupInfo *pNewGroup(new SGroupInfo);
     pNewGroup->iNumChildNodes=0;
-    pNewGroup->iColour = (Me->iGroupIdx % 3) + 110;
-    ++Me->iGroupIdx;
+    pNewGroup->iColour = -1; //marker for "none specified"; if so, will compute later
     if (Me->m_vGroups.empty()) Me->InputInfo->iNumChildNodes++; else Me->m_vGroups.back()->iNumChildNodes++;
 
-    if(Me->bFirstGroup) {
-      pNewGroup->bVisible = false;
-      Me->bFirstGroup = false;
-    }
-    else {
-      pNewGroup->bVisible = true;
-    }
+    //by default, the first group in the alphabet is invisible
+    pNewGroup->bVisible = (Me->InputInfo->m_pBaseGroup!=NULL);
 
     while(*atts != 0) {
       if(strcmp(*atts, "name") == 0) {
@@ -527,39 +520,41 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 //         atts--;
       }
       if(strcmp(*atts, "b") == 0) {
+        pNewGroup->iColour = atoi(*(atts+1));
+      } else if(strcmp(*atts, "visible") == 0) {
         atts++;
-	pNewGroup->iColour = atoi(*atts);
+        if(!strcmp(*atts, "yes") || !strcmp(*atts, "on"))
+          pNewGroup->bVisible = true;
+        else if(!strcmp(*atts, "no") || !strcmp(*atts, "off"))
+          pNewGroup->bVisible = false;
         atts--;
-      }
-      if(strcmp(*atts, "visible") == 0) {
-	atts++;
-	if(!strcmp(*atts, "yes") || !strcmp(*atts, "on"))
-	  pNewGroup->bVisible = true;
-	else if(!strcmp(*atts, "no") || !strcmp(*atts, "off"))
-	  pNewGroup->bVisible = false;
-	atts--;
-      }
-      if(strcmp(*atts, "label") == 0) {
-        atts++;
-	pNewGroup->strLabel = *atts;
-        atts--;
+      } else if(strcmp(*atts, "label") == 0) {
+        pNewGroup->strLabel = *(atts+1);
       }
       atts += 2;
     }
 
+    SGroupInfo *&prevSibling(Me->m_vGroups.empty() ? Me->InputInfo->m_pBaseGroup : Me->m_vGroups.back()->pChild);
+    
+    if (pNewGroup->iColour==-1 && pNewGroup->bVisible) {
+      //no colour specified. Try to colour cycle, but make sure we choose
+      // a different colour from both its parent and any previous sibling
+      for (;;) {
+        pNewGroup->iColour=(Me->iGroupIdx++ % 3) + 110;
+        if (!Me->m_vGroups.empty() && Me->m_vGroups.back()->iColour == pNewGroup->iColour)
+          continue; //same colour as parent -> try again
+        if (prevSibling && prevSibling->iColour == pNewGroup->iColour)
+          continue; //same colour as previous sibling -> try again
+        break; //different from parent and previous sibling (if any!), so ok
+      }
+    }
+    
     pNewGroup->iStart = Me->InputInfo->m_vCharacters.size()+1;
 
     pNewGroup->pChild = NULL;
 
-    if(Me->m_vGroups.size() > 0) {
-      pNewGroup->pNext = Me->m_vGroups.back()->pChild;
-      Me->m_vGroups.back()->pChild = pNewGroup;
-    }
-    else {
-      pNewGroup->pNext = Me->InputInfo->m_pBaseGroup;
-      Me->InputInfo->m_pBaseGroup = pNewGroup;
-    }
-
+    pNewGroup->pNext = prevSibling;
+    prevSibling = pNewGroup;
 
     Me->m_vGroups.push_back(pNewGroup);
 

@@ -147,14 +147,14 @@ private:
   /// (i.e. appropriate for LP_SHAPE_TYPE==0). Each call responsible for rendering
   /// exactly the area contained within the node.
   /// @param pOutput The innermost node covering the crosshair (if any)
-  void DisjointRender(CDasherNode * Render, myint y1, myint y2, CTextString *prevText, CExpansionPolicy &policy, double dMaxCost,int parent_color, CDasherNode *&pOutput);
-
+  void DisjointRender(CDasherNode * Render, myint y1, myint y2, CTextString *prevText, CExpansionPolicy &policy, double dMaxCost, CDasherNode *&pOutput);
+  
   /// (Recursively) render a node and all contained subnodes, in overlapping shapes
   /// (according to LP_SHAPE_TYPE: 1=rects, 2=triangles, 3=truncated triangles,
   /// 4=quadrics, 5=semicircles)
   /// Each call responsible for rendering exactly the area contained within the node.
   /// @param pOutput The innermost node covering the crosshair (if any)
-  void NewRender(CDasherNode * Render, myint y1, myint y2, CTextString *prevText, CExpansionPolicy &policy, double dMaxCost,int parent_color, CDasherNode *&pOutput);
+  void NewRender(CDasherNode * Render, myint y1, myint y2, CTextString *prevText, CExpansionPolicy &policy, double dMaxCost, CDasherNode *&pOutput);
 
 #ifdef _WIN32
   ///

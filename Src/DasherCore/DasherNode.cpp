@@ -43,20 +43,14 @@ int Dasher::currentNumNodeObjects() {return iNumNodes;}
 
 //TODO this used to be inline - should we make it so again?
 CDasherNode::CDasherNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const string &strDisplayText)
-: m_pParent(pParent), m_iOffset(iOffset), m_iLbnd(iLbnd), m_iHbnd(iHbnd), m_iColour(iColour), m_strDisplayText(strDisplayText) {
+: m_pParent(pParent), m_iFlags(DEFAULT_FLAGS), onlyChildRendered(NULL), m_iLbnd(iLbnd), m_iHbnd(iHbnd), m_iOffset(iOffset), m_iColour(iColour), m_strDisplayText(strDisplayText) {
   DASHER_ASSERT(iHbnd >= iLbnd);
 
   if (pParent) {
     DASHER_ASSERT(!pParent->GetFlag(NF_ALLCHILDREN));
     pParent->Children().push_back(this);
   }
-
-  onlyChildRendered = NULL;
-
-  // Default flags (make a definition somewhere, pass flags to constructor?)
-  m_iFlags = 0;
-
-  m_iRefCount = 0;
+	
   iNumNodes++;
 }
 

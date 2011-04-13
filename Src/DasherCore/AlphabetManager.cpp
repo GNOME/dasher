@@ -176,6 +176,7 @@ CAlphabetManager::CGroupNode::CGroupNode(CDasherNode *pParent, int iOffset, unsi
             pGroup ? (pGroup->bVisible ? pGroup->iColour : iBkgCol)
             : (iOffset&1) ? 7 : 137, //special case for root nodes
             pGroup ? strEnc+pGroup->strLabel : strEnc, pMgr), m_pGroup(pGroup) {
+  if (m_pGroup && !m_pGroup->bVisible) SetFlag(NF_VISIBLE, false);
 }
 
 CAlphabetManager::CAlphNode *CAlphabetManager::GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, bool bEnteredLast, int iOffset) {

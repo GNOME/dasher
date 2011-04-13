@@ -37,13 +37,39 @@ namespace Dasher {
 #include <vector>
 
 // Node flag constants
+/// NF_COMMITTED: The node is 'above' the root, i.e. all onscreen parts of it
+/// are covered by the root; this is when we train the language model etc
 #define NF_COMMITTED 1
+
+/// NF_SEEN - Node is under the crosshair and has (already) been output
 #define NF_SEEN 2
+
+/// NF_CONVERTED - Node has been converted (eg Japanese mode)
 #define NF_CONVERTED 4
+
+/// NF_GAME - Node is on the path in game mode
 #define NF_GAME 8
+
+/// NF_ALLCHILDREN - Node has all children. TODO Since nodes only
+/// ever have all their children, or none of them, can we not
+/// just check it has children, and get rid of this flag?
 #define NF_ALLCHILDREN 16
+
+/// NF_SUPER - Node covers entire visible area (and so is eligible
+/// to be made the new root)
 #define NF_SUPER 32
+
+/// NF_END_GAME - Node is the last one of the phrase in game mode
 #define NF_END_GAME 64
+
+/// NF_VISIBLE - an invisible node is one which lets its parent's
+/// colour show through, and has no outline drawn round it (it may
+/// still have a label). Note that this flag is set (i.e. the node
+/// is drawn and outlined) by default in the constructor.
+#define NF_VISIBLE 128
+
+///Flags to assign to a newly created node:
+#define DEFAULT_FLAGS NF_VISIBLE
 
 /// \ingroup Model
 /// @{
@@ -80,11 +106,14 @@ class Dasher::CDasherNode:private NoClones {
 
   /// @brief Constructor
   ///
-  /// @param pParent Parent of the new node
+  /// Note the flags of the new node are initialized to DEFAULT_FLAGS.
+  ///
+  /// @param pParent Parent of the new node; automatically adds self to children
+  /// @param iOffset index into text box of character being/last entered
   /// @param iLbnd Lower bound of node within parent
   /// @param iHbnd Upper bound of node within parent
-  /// @param pDisplayInfo Struct containing information on how to display the node
-  ///
+  /// @param iColour colour to render node; for invisible nodes, should be same as parent.
+  /// @param strDisplayText label to render upon node
   CDasherNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const std::string &strDisplayText);
 
   /// @brief Destructor
@@ -98,24 +127,8 @@ class Dasher::CDasherNode:private NoClones {
 
   /// @brief Set a node flag
   ///
-  /// Set various flags corresponding to the state of the node. The following flags are defined:
-  ///
-  /// NF_COMMITTED - Node is 'above' the root, so corresponding symbol
-  /// has been added to text box, language model trained etc
-  ///
-  /// NF_SEEN - Node has already been output
-  ///
-  /// NF_CONVERTED - Node has been converted (eg Japanese mode)
-  ///
-  /// NF_GAME - Node is on the path in game mode
-  ///
-  /// NF_ALLCHILDREN - Node has all children (TODO: obsolete?)
-  ///
-  /// NF_SUPER - Node covers entire visible area
-  ///
-  /// NF_END_GAME - Node is the last one of the phrase in game mode
-  ///
-  ///
+  /// Set various flags corresponding to the state of the node. 
+  /// 
   /// @param iFlag The flag to set
   /// @param bValue The new value of the flag
   ///
@@ -268,8 +281,6 @@ class Dasher::CDasherNode:private NoClones {
 
   unsigned int m_iLbnd;
   unsigned int m_iHbnd;   // the cumulative lower and upper bound prob relative to parent
-
-  int m_iRefCount;              // reference count if ancestor of (or equal to) root node
 
   ChildMap m_mChildren;         // pointer to array of children
   CDasherNode *m_pParent;       // pointer to parent
