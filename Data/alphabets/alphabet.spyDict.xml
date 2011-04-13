@@ -2,7 +2,7 @@
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
 <alphabets>
-<alphabet name="Chinese Super Pin Yin, grouped by Dictionary">
+<alphabet name="Mandarin via Pinyin, tone last">
 <!--The nature of this alphabet is to represent all possible pin yin combinations in a list. This list is then grouped in alphabetical order so that the interface is able to produce nodes automatically. Such grouping enables the user to find the specific super pin yin (pronouciation) by indexing on the graphical interface-->
 <!--Note: the treatment of pin yin symbol uu or v in this alphabet is 'uu', (only occurs in luu, lue, nuu, lue) and grouped with the starting u strictly according to roman alphabetical order (so to type luu, one must go for 'l', then 'u', then another 'u', finally the tone)--> 
 <conversionmode id="2" target="Chinese &#31616;&#20307;&#20013;&#25991; (simplified chinese, in pin yin groups)" delim="&#x300B;"/>

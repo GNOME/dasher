@@ -391,6 +391,8 @@
 		33E91A770F55E60B00B5F513 /* KeyboardHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33E91A750F55E60B00B5F513 /* KeyboardHelper.cpp */; };
 		33E91A780F55E60B00B5F513 /* KeyboardHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 33E91A760F55E60B00B5F513 /* KeyboardHelper.h */; };
 		33F3E72E1354D65A008AE1F2 /* alphabet.spyToneMarks.xml in Resources */ = {isa = PBXBuildFile; fileRef = 33F3E72D1354D65A008AE1F2 /* alphabet.spyToneMarks.xml */; };
+		33F8F5CC1357704D009F4E79 /* alphabet.spyTones2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 33F8F5CB1357704D009F4E79 /* alphabet.spyTones2.xml */; };
+		33F8F67C135780B3009F4E79 /* alphabet.bopoDict.xml in Resources */ = {isa = PBXBuildFile; fileRef = 33F8F67B135780B3009F4E79 /* alphabet.bopoDict.xml */; };
 		33FC93390FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33FC93370FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp */; };
 		33FC933A0FEFA2C900A9F08D /* TwoPushDynamicFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 33FC93380FEFA2C900A9F08D /* TwoPushDynamicFilter.h */; };
 		33FC93430FEFA2FB00A9F08D /* FrameRate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33FC93420FEFA2FB00A9F08D /* FrameRate.cpp */; };
@@ -801,6 +803,8 @@
 		33E91A750F55E60B00B5F513 /* KeyboardHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyboardHelper.cpp; sourceTree = "<group>"; };
 		33E91A760F55E60B00B5F513 /* KeyboardHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardHelper.h; sourceTree = "<group>"; };
 		33F3E72D1354D65A008AE1F2 /* alphabet.spyToneMarks.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.spyToneMarks.xml; sourceTree = "<group>"; };
+		33F8F5CB1357704D009F4E79 /* alphabet.spyTones2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.spyTones2.xml; sourceTree = "<group>"; };
+		33F8F67B135780B3009F4E79 /* alphabet.bopoDict.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.bopoDict.xml; sourceTree = "<group>"; };
 		33FC93370FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TwoPushDynamicFilter.cpp; sourceTree = "<group>"; };
 		33FC93380FEFA2C900A9F08D /* TwoPushDynamicFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoPushDynamicFilter.h; sourceTree = "<group>"; };
 		33FC93420FEFA2FB00A9F08D /* FrameRate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameRate.cpp; sourceTree = "<group>"; };
@@ -1091,7 +1095,9 @@
 			isa = PBXGroup;
 			children = (
 				33F3E72D1354D65A008AE1F2 /* alphabet.spyToneMarks.xml */,
+				33F8F67B135780B3009F4E79 /* alphabet.bopoDict.xml */,
 				335DB0FA100B332C006DB155 /* alphabet.spyDict.xml */,
+				33F8F5CB1357704D009F4E79 /* alphabet.spyTones2.xml */,
 				19BEF2CF0C228F7300275D06 /* alphabet-nest.xsl */,
 				19BEF2D00C228F7300275D06 /* alphabet-nest2.xsl */,
 				19BEF2D10C228F7300275D06 /* alphabet.abc.xml */,
@@ -1717,6 +1723,8 @@
 				335DB0FB100B332C006DB155 /* alphabet.spyDict.xml in Resources */,
 				335DB101100B3358006DB155 /* training_spyDict.txt in Resources */,
 				33F3E72E1354D65A008AE1F2 /* alphabet.spyToneMarks.xml in Resources */,
+				33F8F5CC1357704D009F4E79 /* alphabet.spyTones2.xml in Resources */,
+				33F8F67C135780B3009F4E79 /* alphabet.bopoDict.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

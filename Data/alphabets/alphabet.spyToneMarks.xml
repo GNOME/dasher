@@ -2,9 +2,9 @@
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
 <alphabets>
-<alphabet name="Chinese Super Pin Yin, tone marks above vowels">
+<alphabet name="Mandarin via Pinyin, tone after first vowel">
 <!--The nature of this alphabet is to represent all possible pin yin combinations in a list. This list is then grouped in alphabetical order so that the interface is able to produce nodes automatically. Such grouping enables the user to find the specific super pin yin (pronouciation) by indexing on the graphical interface-->
-<!--Note: the treatment of pin yin symbol uu or v in this alphabet is 'uu', (only occurs in luu, lue, nuu, lue) and grouped with the starting u strictly according to roman alphabetical order (so to type luu, one must go for 'l', then 'u', then another 'u', finally the tone)--> 
+<!--Note: the treatment of pin yin symbol uu or v in this alphabet is as &#252; i.e. u with trema (two dots) above; this normally has a tone mark too i.e.&#470; = u with trema and flat tone. We order all these as a distinct character _after_ normal u (without trema).-->
 <conversionmode id="2" target="Chinese &#31616;&#20307;&#20013;&#25991; (simplified chinese, in pin yin groups)" delim="&#x300B;"/>
 <orientation type="LR"/>
 <encoding type="Western"/>
