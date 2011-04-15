@@ -123,11 +123,21 @@ static const NSString *StartHandlerParamNames[2] = {
 }
 
 - (NSIndexSet *)selectionIndexesForAlphabetID {
-  return [NSIndexSet indexSetWithIndex:[[self permittedValuesForAlphabetID] indexOfObject:[self defaultsValueForKey:@"AlphabetID"]]];
+  //If the stored preference names an alphabet which isn't available, return the empty set of indices
+  NSUInteger idx = [[self permittedValuesForAlphabetID] indexOfObject:[self defaultsValueForKey:@"AlphabetID"]];
+  return (idx==NSNotFound) ? [NSIndexSet indexSet] : [NSIndexSet indexSetWithIndex:idx];
 }
 
 - (void)setSelectionIndexesForAlphabetID:(NSIndexSet *)anIndexSet {
-  [self setDefaultsValue:[[[self permittedValuesForAlphabetID] objectsAtIndexes:anIndexSet] lastObject] forKey:@"AlphabetID"];
+  //Every time we show the preferences dialog, this gets called twice:
+  // First there is an initial call to selectionIndexesForAlphabetID;
+  // then this gets called with an empty indexset;
+  // then this gets called again with an indexset containing a single index, 0
+  // then selectionIndexesForAlphabetID is called again.
+  // WHY?!?!?!
+  // So: ignore the call with an empty set; but what to do about the '0'?
+  if ([anIndexSet count]==1)
+    [self setDefaultsValue:[[[self permittedValuesForAlphabetID] objectsAtIndexes:anIndexSet] lastObject] forKey:@"AlphabetID"];
 }
 
 
@@ -136,11 +146,20 @@ static const NSString *StartHandlerParamNames[2] = {
 }
 
 - (NSIndexSet *)selectionIndexesForColourID {
-  return [NSIndexSet indexSetWithIndex:[[self permittedValuesForColourID] indexOfObject:[self defaultsValueForKey:@"ColourID"]]];
+  //If the stored preference names a colour scheme which isn't available, return the empty set of indices
+  NSUInteger idx = [[self permittedValuesForColourID] indexOfObject:[self defaultsValueForKey:@"ColourID"]];
+  return (idx==NSNotFound) ? [NSIndexSet indexSet] : [NSIndexSet indexSetWithIndex:idx];
 }
 
 - (void)setSelectionIndexesForColourID:(NSIndexSet *)anIndexSet {
-  [self setDefaultsValue:[[[self permittedValuesForColourID] objectsAtIndexes:anIndexSet] lastObject] forKey:@"ColourID"];
+  //Every time we show the preferences dialog, this gets called twice:
+  // First there is an initial call to selectionIndexesForColourID;
+  // then this gets called with an empty indexset;
+  // then this gets called again with an indexset containing a single index, 0
+  // then selectionIndexesForColourID is called again.
+  // WHY?!?!?!
+  // So: ignore the call with an empty set; but what to do about the '0'?  if ([anIndexSet count]==1)
+    [self setDefaultsValue:[[[self permittedValuesForColourID] objectsAtIndexes:anIndexSet] lastObject] forKey:@"ColourID"];
 }
 
 
@@ -149,11 +168,21 @@ static const NSString *StartHandlerParamNames[2] = {
 }
 
 - (NSIndexSet *)selectionIndexesForInputFilter {
-  return [NSIndexSet indexSetWithIndex:[[self permittedValuesForInputFilter] indexOfObject:[self defaultsValueForKey:@"InputFilter"]]];
+  //If the stored preference names an input filter which isn't available, return the empty set of indices
+  NSUInteger idx = [[self permittedValuesForInputFilter] indexOfObject:[self defaultsValueForKey:@"InputFilter"]];
+  return (idx==NSNotFound) ? [NSIndexSet indexSet] : [NSIndexSet indexSetWithIndex:idx];
 }
 
 - (void)setSelectionIndexesForInputFilter:(NSIndexSet *)anIndexSet {
-  [self setDefaultsValue:[[[self permittedValuesForInputFilter] objectsAtIndexes:anIndexSet] lastObject] forKey:@"InputFilter"];
+  //Every time we show the preferences dialog, this gets called twice:
+  // First there is an initial call to selectionIndexesForInputFilter
+  // then this gets called with an empty indexset;
+  // then this gets called again with an indexset containing a single index, 0
+  // then selectionIndexesForInputFilter is called again.
+  // WHY?!?!?!
+  // So: ignore the call with an empty set; but what to do about the '0'?
+  if ([anIndexSet count]==1)
+    [self setDefaultsValue:[[[self permittedValuesForInputFilter] objectsAtIndexes:anIndexSet] lastObject] forKey:@"InputFilter"];
 }
 
 
