@@ -347,6 +347,10 @@
 <group name="cao3" label="&#x02C7;" b="65" visible="yes">
 <s d="c&#462;o" t="&#x8349;" b="66" visible="no"/>
 </group>
+<!--cao4 has been requested as a pronunciation of 64CD
+<group name="cao4" label="&#x02CB;">
+<s d="c&#224;o" t="TODO"/>
+</group>-->
 </group>
 </group>
 <group name="ce" label="e" b="67" visible="yes">

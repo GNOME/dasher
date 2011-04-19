@@ -59,6 +59,7 @@ dist_pkgdata_DATA = alphabet.dtd alphabet.xsl	\
 	alphabet.basque.xml		\
 	alphabet.bengali.xml		\
 	alphabet.bopomofo.xml		\
+	alphabet.bopoDict.xml		\
 	alphabet.bosnian.xml		\
 	alphabet.breton.xml		\
 	alphabet.catalan.xml		\
@@ -124,6 +125,8 @@ dist_pkgdata_DATA = alphabet.dtd alphabet.xsl	\
 	alphabet.somali.xml		\
 	alphabet.spanish.xml		\
 	alphabet.spyDict.xml		\
+	alphabet.spyToneMarks.xml	\
+	alphabet.spyTones2.xml		\
 	alphabet.swahili.xml		\
 	alphabet.swedish.xml		\
 	alphabet.thaana.xml		\

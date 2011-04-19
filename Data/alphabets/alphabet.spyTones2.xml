@@ -337,6 +337,10 @@
    <group name="ca4n" label="n">
      <s d="c&#224;n" t="&#x707F;" b="88" visible="no"/>
    </group>
+   <!--cao4 has been requested as a pronunciation of 64CD:
+   <group name="ca4o" label="o">
+     <s d="c&#224;o" t="TODO"/>
+   </group>-->
   </group>
  </group>
  <group name="ce" label="e">

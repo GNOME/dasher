@@ -679,6 +679,10 @@
 <group name="c&#462;o (cao3)" label="c&#462;o"  f="113"  b="117">
 <s d="&#x8349;" t="&#x8349;" />
 </group>
+<!-- ACL this group unused, as don't have single-unicode-char representation of pinyin sound, but has been requested:-->
+<group name="c&#224;o (cao4)" label="c&#224;o">
+<s d="&#x64CD;" t="&#x64CD;"/>
+</group>
 <group name="c&#232; (ce4)" label="c&#232;"  f="113"  b="118">
 <s d="&#x5395;" t="&#x5395;" />
 <s d="&#x7B56;" t="&#x7B56;" />
