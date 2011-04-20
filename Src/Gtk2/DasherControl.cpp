@@ -373,13 +373,13 @@ void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
 void CDasherControl::SetLockStatus(const string &strText, int iPercent) {
     DasherLockInfo sInfo;
     sInfo.szMessage = strText.c_str();
-    sInfo.bLock = (iPercent!=-1);
     sInfo.iPercent = iPercent;
+    sInfo.time = get_time();
 
-    g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_lock_info", &sInfo);
-    //No frames seem to be rendered, so this is probably unnecessary.
-    // But call through to superclass anyway:
+    //Uniquely, the call to gtk to handle events and update the progress
+    // dialogue, also renders the canvas. So let's have a message there too...
     CDasherInterfaceBase::SetLockStatus(strText,iPercent);
+    g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_lock_info", &sInfo);
 }
 
 unsigned int CDasherControl::ctrlMove(bool bForwards, CControlManager::EditDistance dist) {

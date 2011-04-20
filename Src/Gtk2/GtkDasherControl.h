@@ -15,8 +15,8 @@ typedef struct _DasherLockInfo DasherLockInfo;
 
 struct _DasherLockInfo {
   const gchar *szMessage;
-  gboolean bLock;
-  gint iPercent;
+  gint iPercent; //-1 = unlock, anything else = locked
+  unsigned long time;
 };
 
 typedef struct _DasherMessageInfo DasherMessageInfo;
