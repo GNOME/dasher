@@ -149,6 +149,11 @@ public:
   virtual void Speak(const std::string &strText, bool bInterrupt);
 #endif
 
+  ///
+  /// Pass events coming from the core to the appropriate handler.
+  ///
+  virtual void ExternalEventHandler(Dasher::CEvent *pEvent);
+
 private:
   //  virtual void CreateSettingsStore();
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
@@ -161,11 +166,6 @@ private:
   virtual void StartTimer();
   virtual void ShutdownTimer();
 
-  ///
-  /// Pass events coming from the core to the appropriate handler.
-  ///
-
-  void ExternalEventHandler(Dasher::CEvent *pEvent);
   
   /// Override to emit Gtk2 signals (previously in response to CCommandEvent)
   void ExecuteCommand(const std::string &strName);
