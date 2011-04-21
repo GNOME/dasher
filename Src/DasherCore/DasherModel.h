@@ -164,15 +164,6 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   void LimitRoot(int iMaxWidth);
 
   ///
-  /// Cause Dasher to temporarily slow down (eg as part of automatic
-  /// speed control in n-button dynamic mode).
-  ///
-
-  void TriggerSlowdown() {
-    m_iStartTime = 0;
-  };
-
-  ///
   /// Rebuild the tree of nodes (may reuse the existing ones if !bForce).
   /// @param iLocation offset (cursor position) in attached buffer from which to obtain context
   /// @param pMgr Manager to use to create nodes

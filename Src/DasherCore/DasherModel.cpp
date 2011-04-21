@@ -113,7 +113,7 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
       break;
     case BP_DASHER_PAUSED:
       if(GetBoolParameter(BP_SLOW_START))
-	TriggerSlowdown();
+	m_iStartTime = 0;
       //else, leave m_iStartTime as is - will result in no slow start
       break;
     case BP_GAME_MODE:
@@ -288,18 +288,17 @@ int CDasherModel::GetOffset() {
 
 void CDasherModel::Get_new_root_coords(dasherint X, dasherint Y, dasherint &r1, dasherint &r2, unsigned long iTime) {
   DASHER_ASSERT(m_Root != NULL);
-  if(m_iStartTime == 0)
-    m_iStartTime = iTime;
 
   int iSteps = Steps();
 
-  double dFactor;
+  double dFactor(1.0);
 
-  if(GetBoolParameter(BP_SLOW_START) &&
-     ((iTime - m_iStartTime) < GetLongParameter(LP_SLOW_START_TIME)))
-    dFactor = 0.1 * (1 + 9 * ((iTime - m_iStartTime) / static_cast<double>(GetLongParameter(LP_SLOW_START_TIME))));
-  else
-    dFactor = 1.0;
+  if(GetBoolParameter(BP_SLOW_START)) {
+    if(m_iStartTime == 0)
+      m_iStartTime = iTime;
+    if((iTime - m_iStartTime) < GetLongParameter(LP_SLOW_START_TIME))
+      dFactor = 0.1 * (1 + 9 * ((iTime - m_iStartTime) / static_cast<double>(GetLongParameter(LP_SLOW_START_TIME))));
+  }
 
   iSteps = static_cast<int>(iSteps / dFactor);
 

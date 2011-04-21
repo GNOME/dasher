@@ -413,7 +413,7 @@ void CAbstractPPM::CPPMnode::AddChild(CPPMnode *pNewChild, int numSymbols) {
       AddChild((CPPMnode *)oldChildren, numSymbols);
     else {
       while (oldSlots-- > 0) if (oldChildren[oldSlots]) AddChild(oldChildren[oldSlots], numSymbols);
-      delete oldChildren;
+      delete[] oldChildren;
     }
     AddChild(pNewChild, numSymbols);
   }

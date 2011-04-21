@@ -243,12 +243,12 @@ void CDasherViewSquare::DoDelayedText(CTextString *pText) {
       break;
     }
   }
-  free(pText);
+  delete pText;
 }
 
 CDasherViewSquare::CTextString::~CTextString() {
   for (vector<CTextString *>::iterator it = m_children.begin(); it!=m_children.end(); it++)
-    free(*it);
+    delete *it;
 }
 
 void CDasherViewSquare::TruncateTri(myint x, myint y1, myint y2, myint midy1, myint midy2, int fillColor, int outlineColor, int lineWidth) {
