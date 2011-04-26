@@ -61,7 +61,6 @@ CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache,
 
 #endif
 
-  m_pPangoInk = new PangoRectangle;
   gtk_widget_add_events(m_pCanvas, GDK_ALL_EVENTS_MASK);
 }
 
@@ -86,7 +85,6 @@ CCanvas::~CCanvas() {
 #if WITH_CAIRO
   delete[] cairo_colours;
 #endif
-  delete m_pPangoInk;
 }
 
 void CCanvas::Blank() {
@@ -421,13 +419,16 @@ void CCanvas::DrawString(const std::string &String, screenint x1, screenint y1, 
   PangoLayout *pLayout(m_pPangoCache->GetLayout(GTK_WIDGET(m_pCanvas), String, size));
 #endif
 
-  pango_layout_get_pixel_extents(pLayout, m_pPangoInk, NULL);
+  PangoRectangle sPangoInk;
 
+  pango_layout_get_pixel_extents(pLayout, &sPangoInk, NULL);
+  x1 -= sPangoInk.x;
+  y1 -= sPangoInk.y;
 #if WITH_CAIRO
-  cairo_translate(cr, x1, y1-(int)m_pPangoInk->height/2);
+  cairo_translate(cr, x1, y1);
   pango_cairo_show_layout(cr, pLayout);
 #else
-  gdk_draw_layout(m_pOffscreenBuffer, graphics_context, x1, y1 - m_pPangoInk->height / 2, pLayout);
+  gdk_draw_layout(m_pOffscreenBuffer, graphics_context, x1, y1, pLayout);
 #endif
 
   END_DRAWING;
@@ -440,10 +441,11 @@ void CCanvas::TextSize(const std::string &String, screenint *Width, screenint *H
   PangoLayout *pLayout(m_pPangoCache->GetLayout(GTK_WIDGET(m_pCanvas), String, size));
 #endif
 
-  pango_layout_get_pixel_extents(pLayout, m_pPangoInk, NULL);
+  PangoRectangle sPangoInk;
+  pango_layout_get_pixel_extents(pLayout, &sPangoInk, NULL);
 
-  *Width = m_pPangoInk->width;
-  *Height = m_pPangoInk->height;
+  *Width = sPangoInk.width;
+  *Height = sPangoInk.height;
 }
 
 void CCanvas::SendMarker(int iMarker) {

@@ -257,12 +257,6 @@ private:
 
   CPangoCache *m_pPangoCache;
 
-  ///
-  /// Holder for Pango layout extents.
-  ///
-
-  PangoRectangle *m_pPangoInk;
-
 #if WITH_CAIRO
   cairo_t *display_cr;
   cairo_t *decoration_cr;
