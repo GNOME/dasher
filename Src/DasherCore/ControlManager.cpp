@@ -126,23 +126,14 @@ void CControlBase::CContNode::Output() {
 }
 
 void CControlBase::CContNode::Enter() {
-  // Slow down to half the speed we were at
+  // Slow down to half the speed we were at. This also disables auto-speed-control.
   m_pMgr->m_pNCManager->SetLongParameter(LP_BOOSTFACTOR, 50);
-  //Disable auto speed control!
-  m_pMgr->bDisabledSpeedControl = m_pMgr->m_pNCManager->GetBoolParameter(BP_AUTO_SPEEDCONTROL);
-  m_pMgr->m_pNCManager->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 0);
 }
 
 
 void CControlBase::CContNode::Leave() {
   // Now speed back up, by doubling the speed we were at in control mode
   m_pMgr->m_pNCManager->SetLongParameter(LP_BOOSTFACTOR, 100);
-  //Re-enable auto speed control!
-  if (m_pMgr->bDisabledSpeedControl)
-  {
-    m_pMgr->bDisabledSpeedControl = false;
-    m_pMgr->m_pNCManager->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 1);
-  }
 }
 
 const vector<CControlBase::NodeTemplate *> &CControlParser::parsedNodes() {

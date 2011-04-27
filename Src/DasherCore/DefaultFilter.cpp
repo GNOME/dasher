@@ -130,7 +130,8 @@ bool CDefaultFilter::Timer(unsigned long Time, CDasherView *pView, CDasherInput 
     m_pDasherModel->OneStepTowards(m_iLastX,m_iLastY, Time);
     bDidSomething = true;
 
-    m_pAutoSpeedControl->SpeedControl(m_iLastX, m_iLastY, pView);
+    if (GetLongParameter(LP_BOOSTFACTOR)==100)
+      m_pAutoSpeedControl->SpeedControl(m_iLastX, m_iLastY, pView);
   }
 
   if(m_pStartHandler)

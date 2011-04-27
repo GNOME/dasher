@@ -134,11 +134,6 @@ namespace Dasher {
 
   private:
     NodeTemplate *m_pRoot;
-
-    ///Whether we'd temporarily disabled Automatic Speed Control
-    ///(if _and only if_ so, should re-enable it when leaving a node)
-    bool bDisabledSpeedControl;
-
   };
 
   ///Class reads node tree definitions from an XML file, linking together the NodeTemplates
