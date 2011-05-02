@@ -26,13 +26,6 @@
           </object>
         </child>
         <child>
-          <object class="GtkAction" id="menuopen">
-            <property name="stock_id">gtk-open</property>
-            <property name="name">menuopen</property>
-            <signal handler="select_open_file" name="activate"/>
-          </object>
-        </child>
-        <child>
           <object class="GtkAction" id="menusave">
             <property name="stock_id">gtk-save</property>
             <property name="name">menusave</property>

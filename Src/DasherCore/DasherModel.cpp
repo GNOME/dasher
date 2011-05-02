@@ -20,6 +20,8 @@
 
 #include "../Common/Common.h"
 
+#include <sstream>
+
 #include <iostream>
 #include <cstring>
 #include "../Common/Random.h"
@@ -30,7 +32,6 @@
 #include "Event.h"
 #include "DasherInterfaceBase.h"
 #include "NodeCreationManager.h"
-#include "DasherGameMode.h"
 #include "AlphabetManager.h"
 
 using namespace Dasher;
@@ -53,8 +54,6 @@ static char THIS_FILE[] = __FILE__;
 CDasherModel::CDasherModel(CSettingsUser *pCreateFrom,
 			   CDasherInterfaceBase *pDasherInterface)
   : CFrameRate(pCreateFrom), m_pDasherInterface(pDasherInterface) {
-
-  m_bGameMode = GetBoolParameter(BP_GAME_MODE);
 
   DASHER_ASSERT(m_pDasherInterface != NULL);
 
@@ -109,10 +108,6 @@ void CDasherModel::HandleEvent(int iParameter) {
       m_iStartTime = 0;
     //else, leave m_iStartTime as is - will result in no slow start
     break;
-  case BP_GAME_MODE:
-    m_bGameMode = GetBoolParameter(BP_GAME_MODE);
-    // Maybe reload something here to begin game mode?
-    break;
   default:
     break;
   }
@@ -166,6 +161,10 @@ bool CDasherModel::Reparent_root() {
     pNewRoot = m_Root->RebuildParent();
     // Fail if there's no existing parent and no way of recreating one
     if(pNewRoot == NULL) return false;
+    //better propagate gameness backwards, the original nodes must have been NF_GAME too
+    if (m_Root->GetFlag(NF_GAME))
+      for (CDasherNode *pTemp=pNewRoot; pTemp; pTemp=pTemp->Parent())
+        pTemp->SetFlag(NF_GAME, true);
     //RebuildParent() can create multiple generations of parents at once;
     // make sure our cache has all such that were created, so we delete them
     // if we ever delete all our other nodes.
@@ -250,6 +249,7 @@ void CDasherModel::SetOffset(int iOffset, CAlphabetManager *pMgr, CDasherView *p
 
   } else
     m_pLastOutput = NULL;
+  if (GetBoolParameter(BP_GAME_MODE)) m_Root->SetFlag(NF_GAME, true);
 
   // Create children of the root...
   ExpandNode(m_Root);
@@ -424,7 +424,7 @@ void CDasherModel::UpdateBounds(myint newRootmin, myint newRootmax, unsigned lon
       DASHER_ASSERT(m_Rootmin + ((pChild->Lbnd() * iWidth) / GetLongParameter(LP_NORMALIZATION)) <= GetLongParameter(LP_OY));
       if (m_Rootmin + ((pChild->Hbnd() * iWidth) / GetLongParameter(LP_NORMALIZATION)) > GetLongParameter(LP_OY)) {
         //found child to make root. proceed only if new root is on the game path....
-        if (m_bGameMode && !pChild->GetFlag(NF_GAME)) {
+        if (GetBoolParameter(BP_GAME_MODE) && !pChild->GetFlag(NF_GAME)) {
           //If the user's strayed that far off the game path,
           // having Dasher stop seems reasonable!
           return;
@@ -474,10 +474,6 @@ void CDasherModel::UpdateBounds(myint newRootmin, myint newRootmax, unsigned lon
 
 void CDasherModel::RecordFrame(unsigned long Time) {
   CFrameRate::RecordFrame(Time);
-  ///GAME MODE TEMP///Pass new frame events onto our teacher
-  GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher();
-  if(m_bGameMode && pTeacher)
-    pTeacher->NewFrame(Time);
 }
 
 void CDasherModel::OutputTo(CDasherNode *pNewNode) {
@@ -491,11 +487,6 @@ void CDasherModel::OutputTo(CDasherNode *pNewNode) {
     pNewNode->Output();
     pNewNode->SetFlag(NF_SEEN, true); //becomes NF_SEEN after output.
 
-    // If the node we are outputting is the last one in a game target sentence, then
-    // notify the game mode teacher.
-    if(m_bGameMode)
-      if(pNewNode->GetFlag(NF_END_GAME))
-        GameMode::CDasherGameMode::GetTeacher()->SentenceFinished();
   } else {
     //either pNewNode is null, or else it's been seen. So delete back to that...
     while (m_pLastOutput != pNewNode) {
@@ -538,29 +529,7 @@ void CDasherModel::ExpandNode(CDasherNode *pNode) {
 
   pNode->SetFlag(NF_ALLCHILDREN, true);
 
-  // We get here if all our children (groups) and grandchildren (symbols) are created.
-  // So lets find the correct letters.
-  ///GAME MODE TEMP///////////
-  // If we are in GameMode, then we do a bit of cooperation with the teacher object when we create
-  // new children.
-
-  GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher();
-  if(m_bGameMode && pNode->GetFlag(NF_GAME) && pTeacher )
-  {
-    std::string strTargetUtf8Char(pTeacher->GetSymbolAtOffset(pNode->offset() + 1));
-
-    // Check if this is the last node in the sentence...
-    if(strTargetUtf8Char == "GameEnd")
-	    pNode->SetFlag(NF_END_GAME, true);
-	  else if (!pNode->GameSearchChildren(strTargetUtf8Char)) {
-      // Target character not found - not in our current alphabet?!?!
-      // Let's give up!
-      pNode->SetFlag(NF_END_GAME, true);
-    }
-  }
-  ////////////////////////////
-
-
+  DispatchEvent(pNode);
 }
 
 void CDasherModel::RenderToView(CDasherView *pView, CExpansionPolicy &policy) {
@@ -577,17 +546,6 @@ void CDasherModel::RenderToView(CDasherView *pView, CExpansionPolicy &policy) {
   // the appropriate Nodes.
   CDasherNode *pOutput = pView->Render(m_Root, m_Rootmin + m_iDisplayOffset, m_Rootmax + m_iDisplayOffset, policy);
 
-  /////////GAME MODE TEMP//////////////
-  if(m_bGameMode)
-    if(GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher()) {
-      //ACL 27/10/09 I note the following vector:
-      std::vector<std::pair<myint,bool> > vGameTargetY;
-      //was declared earlier and passed to pView->Render, above; but pView->Render
-      //would never do _anything_ to it. Hence the below seems a bit redundant too,
-      //but leaving around for now as a reminder that Game Mode generally is a TODO.
-      pTeacher->SetTargetY(vGameTargetY);
-    }
-  //////////////////////////////////////
 
   OutputTo(pOutput);
 
@@ -601,7 +559,7 @@ void CDasherModel::RenderToView(CDasherView *pView, CExpansionPolicy &policy) {
 #endif
     if (pNewRoot->GetFlag(NF_SUPER) &&
         ////GAME MODE TEMP - only change the root if it is on the game path/////////
-        (!m_bGameMode || m_Root->onlyChildRendered->GetFlag(NF_GAME))) {
+        (!GetBoolParameter(BP_GAME_MODE) || m_Root->onlyChildRendered->GetFlag(NF_GAME))) {
       Make_root(pNewRoot);
     } else
       break;

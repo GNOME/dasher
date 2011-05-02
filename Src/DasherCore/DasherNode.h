@@ -44,7 +44,6 @@ namespace Dasher {
 #define NF_GAME 8
 #define NF_ALLCHILDREN 16
 #define NF_SUPER 32
-#define NF_END_GAME 64
 
 /// \ingroup Model
 /// @{
@@ -207,7 +206,7 @@ class Dasher::CDasherNode:private NoClones {
   /// represents the specified character. If so, set the child & intervening nodes'
   /// NF_GAME flag, and return true; otherwise, return false.
   ///
-  bool GameSearchChildren(std::string strTargetUtf8Char);
+  bool GameSearchChildren(symbol sym);
 
   /// @name Management routines (once accessed via NodeManager)
   /// @{
@@ -256,10 +255,10 @@ class Dasher::CDasherNode:private NoClones {
   virtual void GetContext(CDasherInterfaceBase *pInterface, const CAlphabetMap *pAlphabetMap, std::vector<symbol> &vContextSymbols, int iOffset, int iLength);
 
   ///
-  /// See if this node represents the specified alphanumeric character; if so, set it's NF_GAME flag and
+  /// See if this node represents the specified symbol; if so, set it's NF_GAME flag and
   /// return true; otherwise, return false.
   ///
-  virtual bool GameSearchNode(std::string strTargetUtf8Char) {return false;}
+  virtual bool GameSearchNode(symbol sym) {return false;}
 
   /// Clone the context of the specified node, if it's an alphabet node;
   /// else return an empty context. (Used by ConversionManager)

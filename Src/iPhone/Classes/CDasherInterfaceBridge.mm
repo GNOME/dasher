@@ -132,10 +132,6 @@ void CDasherInterfaceBridge::StartTimer() {
 void CDasherInterfaceBridge::ShutdownTimer() {
   [dasherApp shutdownTimer];
 }
- 
-void CDasherInterfaceBridge::GameMessageOut(int message, const void* messagedata) {
-  NSLog(@"GameMessageOut");
-}
 
 void CDasherInterfaceBridge::HandleEvent(int iParameter) {
   

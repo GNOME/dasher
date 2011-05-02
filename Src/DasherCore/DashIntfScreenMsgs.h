@@ -27,6 +27,8 @@
 namespace Dasher {
 ///Implements the MessageDisplay part of CDasherInterfaceBase by rendering messages
 /// directly onto the CDasherScreen (using MakeLabel wrapping to LP_MESSAGE_FONTSIZE).
+///Also implements CreateGameModule to return a ScreenGameModule, which provides
+/// text prompts in much the same fashion.
 /// Note we subclass CDashIntfSettings as currently all platforms want to inherit from
 /// the latter; if this changes, we could declare ScreenMsgs & Settings separately and
 /// combine via multiple inheritance?? (from CSettingsUser, not DashIntfBase!)
@@ -55,6 +57,10 @@ public:
   
   ///Override to clear any modal messages currently being displayed before resuming.
   void Unpause(unsigned long lTime);
+  
+  ///Implement to return a ScreenGameModule, i.e. rendering text prompts
+  /// onto the Screen with Labels, much as we do for messages!
+  CGameModule *CreateGameModule(CDasherView *pView, CDasherModel *pModel);
 private:
   /// Asynchronous (non-modal) messages to be displayed to the user, longest-ago
   /// at the front, along with the timestamp of the frame at which each was first

@@ -19,10 +19,6 @@
 extern CONST UINT WM_DASHER_FOCUS;
 #define _WM_DASHER_FOCUS (LPCWSTR)"wm_dasher_focus"
 
-extern CONST UINT WM_DASHER_GAME_MESSAGE;
-#define _WM_DASHER_GAME_MESSAGE (LPCWSTR)"wm_dasher_game_message"
-
-
 class CCanvas;
 class CSlidebar;
 class CEdit;
@@ -52,9 +48,7 @@ public:
   void editDelete(const std::string &strText, CDasherNode *pSource);
   unsigned int ctrlMove(bool bForwards, CControlManager::EditDistance iDist);
   unsigned int ctrlDelete(bool bForwards, CControlManager::EditDistance iDist);
-  
-  void GameMessageOut(int message, const void* messagedata);
-  
+    
   virtual void WriteTrainFile(const std::string &filename, const std::string &strNewText);
   void Main(); 
 

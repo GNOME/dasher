@@ -20,7 +20,6 @@
 
 #include "../Common/Common.h"
 
-#include "DasherGameMode.h"
 #include "DasherInput.h"
 #include "DasherView.h"
 
@@ -39,8 +38,7 @@ static char THIS_FILE[] = __FILE__;
 
 /////////////////////////////////////////////////////////////////////////////
 
-CDasherView::CDasherView(CDasherScreen *DasherScreen) : m_pScreen(DasherScreen),
-   m_bDemoMode(false), m_bGameMode(false) {
+CDasherView::CDasherView(CDasherScreen *DasherScreen) : m_pScreen(DasherScreen) {
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -170,15 +168,4 @@ void CDasherView::DasherDrawCentredRectangle(myint iDasherX, myint iDasherY, scr
   Dasher2Screen(iDasherX, iDasherY, iScreenX, iScreenY);
 
   Screen()->DrawRectangle(iScreenX - iSize, iScreenY - iSize, iScreenX + iSize, iScreenY + iSize, Color, -1, bDrawOutline ? 1 : 0);
-}
-
-
-void CDasherView::SetDemoMode(bool bDemoMode)
-{
-  m_bDemoMode = bDemoMode;
-}
-
-void CDasherView::SetGameMode(bool bGameMode)
-{
-  m_bGameMode = bGameMode;
 }

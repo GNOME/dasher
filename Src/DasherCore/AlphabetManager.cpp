@@ -33,10 +33,12 @@
 #include "LanguageModelling/MixtureLanguageModel.h"
 #include "LanguageModelling/PPMPYLanguageModel.h"
 #include "LanguageModelling/CTWLanguageModel.h"
+#include "FileWordGenerator.h"
 
 #include <vector>
 #include <sstream>
 #include <iostream>
+#include "string.h"
 
 using namespace Dasher;
 
@@ -146,6 +148,29 @@ CAlphabetManager::SGroupInfo *CAlphabetManager::copyGroups(CDasherScreen *pScree
     }
     m_vLabels[i]=pScreen->MakeLabel(strGroupPrefix+m_pAlphabet->GetDisplayText(i));
   }
+  return NULL;
+}
+
+CWordGeneratorBase *CAlphabetManager::GetGameWords() {
+  CFileWordGenerator *pGen = new CFileWordGenerator(m_pAlphabet, m_pAlphabetMap);
+  if (!GetStringParameter(SP_GAME_TEXT_FILE).empty()) {
+    const string &gtf(GetStringParameter(SP_GAME_TEXT_FILE));
+    if (pGen->open(gtf)) return pGen;
+    ///TRANSLATORS: the string "GameTextFile" is the name of a setting in gsettings
+    /// (or equivalent), and should not be translated. The %s is the value of that
+    /// setting (this message displayed only if the user has provided a value)
+    const char *msg=_("Note: GameTextFile setting specifies game sentences file '%s' but this does not exist");
+    char *buf(new char[strlen(msg)+gtf.length()]);
+    sprintf(buf,msg,gtf.c_str());
+    m_pInterface->Message(buf,false);
+    delete buf;
+  }
+  if (!m_pAlphabet->GetGameModeFile().empty()) {
+    if (pGen->open(GetStringParameter(SP_USER_LOC) + m_pAlphabet->GetGameModeFile())) return pGen;
+    if (pGen->open(GetStringParameter(SP_SYSTEM_LOC) + m_pAlphabet->GetGameModeFile())) return pGen;
+  }
+  if (pGen->open(GetStringParameter(SP_SYSTEM_LOC) + m_pAlphabet->GetTrainingFile())) return pGen;
+  delete pGen;
   return NULL;
 }
 
@@ -293,15 +318,17 @@ pair<symbol, CLanguageModel::Context> CAlphabetManager::GetContextSymbols(CDashe
   return pair<symbol,CLanguageModel::Context>(bHaveFinalSymbol ? vContextSymbols[vContextSymbols.size()-1] : 0, iContext);
 }
 
-bool CAlphabetManager::CSymbolNode::GameSearchNode(string strTargetUtf8Char) {
-  if (m_pMgr->m_pAlphabet->GetText(iSymbol) == strTargetUtf8Char) {
+bool CAlphabetManager::CSymbolNode::GameSearchNode(symbol sym) {
+  if (sym == iSymbol) {
     SetFlag(NF_GAME, true);
     return true;
   }
   return false;
 }
-bool CAlphabetManager::CGroupNode::GameSearchNode(string strTargetUtf8Char) {
-  if (GameSearchChildren(strTargetUtf8Char)) {
+bool CAlphabetManager::CGroupNode::GameSearchNode(symbol sym) {
+  if (GetFlag(NF_ALLCHILDREN) ? GameSearchChildren(sym)
+      : m_pGroup ? (sym >= m_pGroup->iStart && sym < m_pGroup->iEnd)
+      : (sym >= 1 && sym < m_pMgr->m_pNCManager->GetAlphabet()->GetNumberTextSymbols()+1)) {
     SetFlag(NF_GAME, true);
     return true;
   }

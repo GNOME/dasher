@@ -27,14 +27,22 @@ public:
   ///for the first (outermost) node, i.e. when no enclosing node has been passed, (+ive) INFINITY should be passed in.
 	virtual double pushNode(CDasherNode *pNode, int iDasherMinY, int iDasherMaxY, bool bExpand, double dMaxCost)=0;
   ///Return TRUE if another frame should be forced.
-  virtual bool apply(CNodeCreationManager *pMgr, CDasherModel *model)=0;
+  virtual bool apply()=0;
+  ///Expand node immediately (do not wait for a call to apply()) - subclasses may use
+  /// to implement their apply() methods, but public so the view can call directly for nodes
+  /// which must be expanded during rendering. (Delegates to CDasherModel.)
+  void ExpandNode(CDasherNode *pNode);
+protected:
+  CExpansionPolicy(CDasherModel *pModel) : m_pModel(pModel) {}
+private:
+  CDasherModel *m_pModel;
 };
 
 class NoExpansions : public CExpansionPolicy
 {
 public:
 	double pushNode(CDasherNode *pNode, int iMin, int iMax, bool bExpand, double dMaxCost) {return dMaxCost;}
-  bool apply(CNodeCreationManager *pMgr, CDasherModel *model) {return false;}
+  bool apply() {return false;}
 };
 
 ///A policy that expands/collapses nodes to maintain a given node budget.
@@ -42,12 +50,12 @@ public:
 class BudgettingPolicy : public CExpansionPolicy
 {
 public:
-  BudgettingPolicy(unsigned int iNodeBudget);
+  BudgettingPolicy(CDasherModel *pModel, unsigned int iNodeBudget);
   ///sets cost according to getCost(pNode,iMin,iMax);
   ///then assures node is cheaper (less important) than its parent;
   ///then adds to relevant queue
   double pushNode(CDasherNode *pNode, int iMin, int iMax, bool bExpand, double dParentCost);
-  bool apply(CNodeCreationManager *pMgr, CDasherModel *pModel);
+  bool apply();
 protected:
   virtual double getCost(CDasherNode *pNode, int iDasherMinY, int iDasherMaxY);
   ///return the intersection of the ranges (y1-y2) and (iMin-iMax)
@@ -61,9 +69,9 @@ protected:
 class AmortizedPolicy : public BudgettingPolicy
 {
 public:
-  AmortizedPolicy(unsigned int iNodeBudget);
-	AmortizedPolicy(unsigned int iNodeBudget, unsigned int iMaxExpands);
-  bool apply(CNodeCreationManager *pMgr, CDasherModel *pModel);
+  AmortizedPolicy(CDasherModel *pModel, unsigned int iNodeBudget);
+	AmortizedPolicy(CDasherModel *pModel, unsigned int iNodeBudget, unsigned int iMaxExpands);
+  bool apply();
   double pushNode(CDasherNode *pNode, int iMin, int iMax, bool bExpand, double dParentCost);
 private:
 	unsigned int m_iMaxExpands;

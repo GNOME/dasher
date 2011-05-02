@@ -28,6 +28,7 @@
 #include "Alphabet/AlphInfo.h"
 #include "SettingsStore.h"
 #include "Observable.h"
+#include "WordGeneratorBase.h"
 
 class CNodeCreationManager;
 struct SGroupInfo;
@@ -56,6 +57,9 @@ namespace Dasher {
     ///Gets a new trainer to train this LM. Caller is responsible for deallocating the
     /// trainer later.
     virtual CTrainer *GetTrainer();
+    
+    /// Gets a (Game) Word Generator to make target sentences for the current alphabet
+    CWordGeneratorBase *GetGameWords();
 
     virtual ~CAlphabetManager();
     /// Flush to the user's training file everything written in this AlphMgr
@@ -155,7 +159,7 @@ namespace Dasher {
 
       virtual void SetFlag(int iFlag, bool bValue);
 
-      virtual bool GameSearchNode(std::string strTargetUtf8Char);
+      virtual bool GameSearchNode(symbol sym);
       virtual void GetContext(CDasherInterfaceBase *pInterface, const CAlphabetMap *pAlphabetMap, std::vector<symbol> &vContextSymbols, int iOffset, int iLength);
       virtual symbol GetAlphSymbol();
       ///Override: if the symbol to create is the same as this node's symbol, return this node instead of creating a new one
@@ -188,7 +192,7 @@ namespace Dasher {
       /// indicated by m_pGroup.
       virtual void PopulateChildren();
       virtual int ExpectedNumChildren();
-      virtual bool GameSearchNode(std::string strTargetUtf8Char);
+      virtual bool GameSearchNode(symbol sym);
       std::vector<unsigned int> *GetProbInfo();
       ///Override: if the group to create is the same as this node's group, return this node instead of creating a new one
       virtual CDasherNode *RebuildGroup(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, int iBkgCol, const SGroupInfo *pInfo);

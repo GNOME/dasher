@@ -241,11 +241,6 @@ void CGameGroup::Message(int message,const void* messagedata)
     WinUTF8::UTF8string_to_wstring(m_strTarget, strText);
     m_pGameTextLabel->SetWindowTextW(strText.c_str());
     break;
-  case GAME_MESSAGE_DISPLAY_TEXT:
-    pStr = reinterpret_cast<const std::string *>(messagedata);
-    WinUTF8::UTF8string_to_wstring(*pStr, strText);
-    m_pGameTextLabel->SetWindowTextW(strText.c_str());
-    break;
   case GAME_MESSAGE_EDIT:
     pStr = reinterpret_cast<const std::string *>(messagedata);
     m_strOutput += (*pStr);
@@ -256,7 +251,9 @@ void CGameGroup::Message(int message,const void* messagedata)
 							    *reinterpret_cast<const int *>(messagedata));
     UpdateTargetLabel();
     break;
+  case GAME_MESSAGE_DISPLAY_TEXT:
   case GAME_MESSAGE_SET_SCORE:
+  case GAME_MESSAGE_SET_LEVEL:
     pStr = reinterpret_cast<const std::string *>(messagedata);
     WinUTF8::UTF8string_to_wstring(*pStr, strText);
     m_pScoreEdit->SetWindowTextW(strText.c_str());
@@ -266,13 +263,6 @@ void CGameGroup::Message(int message,const void* messagedata)
     m_pScoreEdit->SetWindowTextW(strText.c_str());
     */
     break;
-
-  case GAME_MESSAGE_SET_LEVEL:
-    pStr = reinterpret_cast<const std::string *>(messagedata);
-    WinUTF8::UTF8string_to_wstring(*pStr, strText);
-    m_pLevelEdit->SetWindowTextW(strText.c_str());
-    break;
-
   case GAME_MESSAGE_CLEAR_BUFFER:
     m_pEdit->Clear();
     m_strOutput.clear();

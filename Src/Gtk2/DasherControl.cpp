@@ -264,10 +264,6 @@ void CDasherControl::SetFocus() {
   gtk_widget_grab_focus(m_pCanvas);
 }
 
-void CDasherControl::GameMessageOut(int message, const void* messagedata) {
-  gtk_dasher_control_game_messageout(m_pDasherControl, message, messagedata);
-}
-
 GArray *CDasherControl::GetAllowedValues(int iParameter) {
   // Glib version of the STL based core function
 

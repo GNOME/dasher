@@ -24,9 +24,7 @@
 #include "..\Win32\Common\WinCommon.h"
 #endif
 
-//#include "DasherGameMode.h"
 #include "DasherViewSquare.h"
-#include "DasherModel.h"
 #include "DasherView.h"
 #include "DasherTypes.h"
 #include "Event.h"
@@ -489,8 +487,7 @@ void CDasherViewSquare::DisjointRender(CDasherNode *pRender, myint y1, myint y2,
     pOutput=pRender;
     if (pRender->ChildCount()==0) {
       //covers crosshair! forcibly populate, now!
-      pRender->PopulateChildren(); //TODO we are bypassing rest of CDasherModel::ExpandNode...
-      pRender->SetFlag(NF_ALLCHILDREN, true);
+      policy.ExpandNode(pRender);
     }
   }
   if (pRender->ChildCount() == 0) {
@@ -504,7 +501,11 @@ void CDasherViewSquare::DisjointRender(CDasherNode *pRender, myint y1, myint y2,
     // we don't allow a node covering the crosshair to be collapsed
     // (at best this'll mean there's nowhere useful to go forwards;
     // at worst, all kinds of crashes trying to do text output!)
-    if (!pRender->GetFlag(NF_GAME) && pRender != pOutput)
+
+    //No reason why we can't collapse a game mode node that's too small/offscreen
+    // - we've got its coordinates, and can recreate its children and set their
+    // NF_GAME flags appropriately when it becomes renderable again...
+    if (pRender != pOutput)
       dMaxCost = policy.pushNode(pRender, y1, y2, false, dMaxCost);
 
     // Render children
@@ -541,7 +542,14 @@ void CDasherViewSquare::DisjointRender(CDasherNode *pRender, myint y1, myint y2,
 
         myint newy1 = y1 + (Range * (myint)pChild->Lbnd()) / (myint)norm;/// norm and lbnd are simple ints
         myint newy2 = y1 + (Range * (myint)pChild->Hbnd()) / (myint)norm;
-        if (newy1 < iDasherMinY && newy2 > iDasherMaxY) {
+
+        if (pChild->GetFlag(NF_GAME)) {
+          CGameNodeDrawEvent evt(pChild, newy1, newy2);
+          Observable<CGameNodeDrawEvent*>::DispatchEvent(&evt);
+        }
+        //switch to "render just one child" mode if all others are off the screen,
+        //and if this _won't_ cause us to avoid rendering a game node...
+        if (newy1 < iDasherMinY && newy2 > iDasherMaxY && (!pRender->GetFlag(NF_GAME) || pChild->GetFlag(NF_GAME)))  {
           DASHER_ASSERT(dMaxCost == std::numeric_limits<double>::infinity());
           pRender->onlyChildRendered = pChild;
           if (newy2-newy1 < iDasherMaxX)
@@ -551,7 +559,7 @@ void CDasherViewSquare::DisjointRender(CDasherNode *pRender, myint y1, myint y2,
           lasty=newy2;
           //all remaining children are offscreen. quickly delete, avoid recomputing ranges...
           while ((++i)!=pRender->GetChildren().end())
-            if (!(*i)->GetFlag(NF_GAME | NF_SEEN)) (*i)->Delete_children();
+            if (!(*i)->GetFlag(NF_SEEN)) (*i)->Delete_children();
           break;
         } else if (newy2-newy1 >= GetLongParameter(LP_MIN_NODE_SIZE) //simple test if big enough
             && newy1 <= iDasherMaxY && newy2 >= iDasherMinY) //at least partly on screen
@@ -567,10 +575,7 @@ void CDasherViewSquare::DisjointRender(CDasherNode *pRender, myint y1, myint y2,
         } else {
           // We get here if the node is too small to render or is off-screen.
           // So, collapse it immediately.
-          //
-          // In game mode, we get here if the child is too small to draw, but we need the
-          // coordinates - if this is the case then we shouldn't delete any children.
-          if(!pChild->GetFlag(NF_GAME | NF_SEEN))
+          if(!pChild->GetFlag(NF_SEEN))
             pChild->Delete_children();
         }
       }
@@ -697,10 +702,9 @@ beginning:
   if (pRender->ChildCount() == 0) {
     if (pOutput==pRender) {
       //covers crosshair! forcibly populate, now!
-      pRender->PopulateChildren(); //TODO we are bypassing rest of CDasherModel::ExpandNode...
-      pRender->SetFlag(NF_ALLCHILDREN, true);
+      policy.ExpandNode(pRender);
     } else {
-	  //allow empty node to be expanded, it's big enough.
+      //allow empty node to be expanded, it's big enough.
       policy.pushNode(pRender, y1, y2, true, dMaxCost);
       return; //no children atm => nothing more to do
     }
@@ -709,7 +713,11 @@ beginning:
     // we don't allow a node covering the crosshair to be collapsed
     // (at best this'll mean there's nowhere useful to go forwards;
     // at worst, all kinds of crashes trying to do text output!)
-    if (!pRender->GetFlag(NF_GAME) && pRender != pOutput)
+
+    //No reason why we can't collapse a game mode node that's too small/offscreen
+    // - we've got its coordinates, and can recreate its children and set their
+    // NF_GAME flags appropriately when it becomes renderable again...
+    if (pRender != pOutput)
       dMaxCost = policy.pushNode(pRender, y1, y2, false, dMaxCost);
   }
   //Node has children - either it already did, or else it covers the crosshair,
@@ -732,33 +740,36 @@ beginning:
   }
 
   //ok, need to render all children...
+  bool bExpectGameNode(pRender->GetFlag(NF_GAME));
   myint newy1=y1,newy2;
   CDasherNode::ChildMap::const_iterator I = pRender->GetChildren().begin(), E = pRender->GetChildren().end();
   while (I!=E) {
     CDasherNode *pChild(*I);
 
     newy2 = y1 + (Range * (myint)pChild->Hbnd()) / (myint)norm;
+    if (pChild->GetFlag(NF_GAME)) {
+      DASHER_ASSERT(bExpectGameNode);
+      bExpectGameNode=false;
+      CGameNodeDrawEvent evt(pChild, newy1, newy2);
+      Observable<CGameNodeDrawEvent*>::DispatchEvent(&evt);
+    }
     if (newy1<=iDasherMaxY && newy2 >= iDasherMinY) { //onscreen
       if (newy2-newy1 > GetLongParameter(LP_MIN_NODE_SIZE)) {
         //definitely big enough to render.
         NewRender(pChild, newy1, newy2, pPrevText, policy, dMaxCost, myColor, pOutput);
-        if (newy2 > iDasherMaxY) {
-          //remaining children offscreen.
-          if (newy1 < iDasherMinY) pRender->onlyChildRendered = pChild; //...and previous were too!
-          break; //skip remaining children...
-        }
-      } else {
-        //did not recurse, or store
-        if (!pChild->GetFlag(NF_GAME | NF_SEEN)) pChild->Delete_children();
+      } else if (!pChild->GetFlag(NF_SEEN)) pChild->Delete_children();
+      if (newy2>iDasherMaxY && !bExpectGameNode) {
+        //remaining children offscreen and no game-mode child among them
+        if (newy1 < iDasherMinY) pRender->onlyChildRendered = pChild; //previous children also offscreen!
+        break; //skip remaining children
       }
-      if (newy2>iDasherMaxY) break; //remaining children offscreen
     }
     I++;
     newy1=newy2;
   }
   if (I!=E) {
     //broke out of loop. Possibly more to delete...
-    while (++I!=E) if (!(*I)->GetFlag(NF_GAME | NF_SEEN)) (*I)->Delete_children();
+    while (++I!=E) if (!(*I)->GetFlag(NF_SEEN)) (*I)->Delete_children();
   }
   //all children rendered.
 }
@@ -895,7 +906,7 @@ void CDasherViewSquare::SetScaleFactor( void )
 #endif
 
   //notify listeners that coordinates have changed...
-  DispatchEvent(this);
+  Observable<CDasherView*>::DispatchEvent(this);
 }
 
 

@@ -14,6 +14,7 @@ namespace Dasher {
 #include "ExpansionPolicy.h"
 #include "DasherScreen.h"
 #include "Observable.h"
+#include "Event.h"
 
 /// \defgroup View Visualisation of the model
 /// @{
@@ -38,14 +39,16 @@ namespace Dasher {
 /// mode). We should probably consider creating separate classes for
 /// these.
 
-///Also an Observable: events should be generated whenever the screen
+///Also an Observable: CDasherView* events should be generated whenever the screen
 /// geometry changes: e.g. aspect ratio, size, degree of nonlinearity,
 /// orientation, or generally whenever values returned by Dasher2Screen/Screen2Dasher
 /// might have changed (thus, any code caching such values should recompute/invalidate them).
 /// The "event" is just a pointer to the View itself, but can also be used
 /// to send round a pointer to a new view (i.e. replacing this one).
-
-class Dasher::CDasherView : public Observable<CDasherView *> {
+/// CGameNodeDrawEvents are broadcast whenever a node with NF_GAME set is rendered (or has
+/// its y-coordinate range computed); is using an Observable worth it, or should we just
+/// call directly to the game module?
+class Dasher::CDasherView : public Observable<CDasherView *>, public Observable<CGameNodeDrawEvent*> {
 public:
 
   /// Constructor
@@ -55,9 +58,6 @@ public:
 
   virtual ~CDasherView() {
   }
-
-  void SetDemoMode(bool);
-  void SetGameMode(bool);
 
   /// 
   /// @name Coordinate system conversion
@@ -101,7 +101,7 @@ public:
   virtual void ScreenResized(CDasherScreen *pScreen) {}
 
   void TransferObserversTo(CDasherView *pNewView) {
-    DispatchEvent(pNewView);
+    Observable<CDasherView*>::DispatchEvent(pNewView);
   }
   /// @name High level drawing
   /// Drawing more complex structures, generally implemented by derived class
@@ -136,7 +136,20 @@ public:
   void DasherPolyline(myint * x, myint * y, int n, int iWidth, int iColour);
 
   /// Draw a polyarrow
+  /// The parameters x and y allow the client to specify points in Dasher space
+  /// through which the arrow's main line should be drawn. For example, to draw an
+  /// arrow through the Dasher coordinates (1000, 2000) and (3000, 4000), one would pass in:
+  ///
+  /// myint x[2] = {1000, 3000};
+  /// myint y[2] = {2000, 4000};
+  ///
+  /// \param x - an array of x coordinates to draw the arrow through
+  /// \param y - an array of y coordinates to draw the arrow through
+  /// \param iWidth - the width to make the arrow lines - typically of the form
+  ///        GetLongParameter(LP_LINE_WIDTH)*CONSTANT
   /// \param iColour line colour, as per Polyline (-1 => use "default" 0)
+  /// \param dArrowSizeFactor - the factor by which to scale the "hat" on the arrow
+  ///
   void DasherPolyarrow(myint * x, myint * y, int n, int iWidth, int iColour, double dArrowSizeFactor = 0.7071);
 
   ///
@@ -179,9 +192,6 @@ protected:
 
 private:
   CDasherScreen *m_pScreen;    // provides the graphics (text, lines, rectangles):
-
-  bool m_bDemoMode;
-  bool m_bGameMode;
 };
 /// @}
 

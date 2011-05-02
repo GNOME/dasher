@@ -50,8 +50,6 @@ libdashercore_a_SOURCES = \
 		ConvertingAlphMgr.h \
 		DasherButtons.cpp \
 		DasherButtons.h \
-		DasherGameMode.cpp \
-		DasherGameMode.h \
 		DasherInput.h \
 		DasherInterfaceBase.cpp \
 		DasherInterfaceBase.h \
@@ -79,14 +77,13 @@ libdashercore_a_SOURCES = \
 		Event.h \
 		FileLogger.cpp \
 		FileLogger.h \
+		FileWordGenerator.cpp \
+		FileWordGenerator.h \
 		FrameRate.h \
 		FrameRate.cpp \
-		GameLevel.cpp \
-		GameLevel.h \
-		GameMessages.h \
-		GameScorer.cpp \
-		GameScorer.h \
 		GameStatistics.h \
+		GameModule.cpp \
+		GameModule.h \
 		InputFilter.h \
 		MandarinAlphMgr.cpp \
 		MandarinAlphMgr.h \
@@ -109,6 +106,8 @@ libdashercore_a_SOURCES = \
 		OneDimensionalFilter.h \
 		SCENode.cpp \
 		SCENode.h \
+		ScreenGameModule.cpp \
+		ScreenGameModule.h \
 		SimpleTimer.cpp \
 		SimpleTimer.h \
 		SocketInput.cpp \
@@ -140,6 +139,8 @@ libdashercore_a_SOURCES = \
 		UserLogParam.h \
 		UserLogTrial.cpp \
 		UserLogTrial.h \
+		WordGeneratorBase.h \
+		WordGeneratorBase.cpp \
 		XMLUtil.cpp \
 		XMLUtil.h
 

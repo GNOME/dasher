@@ -14,10 +14,14 @@
 using namespace Dasher;
 using namespace std;
 
+void CExpansionPolicy::ExpandNode(CDasherNode *pNode) {
+  m_pModel->ExpandNode(pNode);
+}
+
 bool Less(pair<double,CDasherNode *> x, pair<double, CDasherNode *> y) {return x.first < y.first;}
 bool More(pair<double,CDasherNode *> x, pair<double, CDasherNode *> y) {return x.first > y.first;}
   
-BudgettingPolicy::BudgettingPolicy(unsigned int iNodeBudget) : m_iNodeBudget(iNodeBudget) {}
+BudgettingPolicy::BudgettingPolicy(CDasherModel *pModel, unsigned int iNodeBudget) : CExpansionPolicy(pModel), m_iNodeBudget(iNodeBudget) {}
 
 double BudgettingPolicy::pushNode(CDasherNode *pNode, int iMin, int iMax, bool bExpand, double dParentCost) {
   double dRes = getCost(pNode, iMin, iMax);
@@ -44,7 +48,7 @@ double BudgettingPolicy::pushNode(CDasherNode *pNode, int iMin, int iMax, bool b
 }
 
 ///Expand one level per frame; note this won't really take effect until the *next* frame!
-bool BudgettingPolicy::apply(CNodeCreationManager *pMgr, CDasherModel *pModel) {
+bool BudgettingPolicy::apply() {
   //firstly, sort the nodes...
   sort(sExpand.begin(), sExpand.end(), Less);
   //sExpand now in < order: [0] < [1] < ... < [size()-1] - so last element will have highest (cost=)benefit
@@ -79,7 +83,7 @@ bool BudgettingPolicy::apply(CNodeCreationManager *pMgr, CDasherModel *pModel) {
   {
     if (currentNumNodeObjects()+sExpand.back().second->ExpectedNumChildren() < m_iNodeBudget)
     {
-      pModel->ExpandNode(sExpand.back().second);
+      ExpandNode(sExpand.back().second);
       sExpand.pop_back();
       bReturnValue = true;
       //...and loop.
@@ -111,9 +115,9 @@ double BudgettingPolicy::getCost(CDasherNode *pNode, int iDasherMinY, int iDashe
   return getRange(iDasherMinY, iDasherMaxY, 0, 4096);
 }
 
-AmortizedPolicy::AmortizedPolicy(unsigned int iNodeBudget) : BudgettingPolicy(iNodeBudget), m_iMaxExpands(std::max(1u,(500+iNodeBudget)/1000)) {}
+AmortizedPolicy::AmortizedPolicy(CDasherModel *pModel, unsigned int iNodeBudget) : BudgettingPolicy(pModel,iNodeBudget), m_iMaxExpands(std::max(1u,(500+iNodeBudget)/1000)) {}
 
-AmortizedPolicy::AmortizedPolicy(unsigned int iNodeBudget, unsigned int iMaxExpands) : BudgettingPolicy(iNodeBudget), m_iMaxExpands(iMaxExpands) {}
+AmortizedPolicy::AmortizedPolicy(CDasherModel *pModel, unsigned int iNodeBudget, unsigned int iMaxExpands) : BudgettingPolicy(pModel, iNodeBudget), m_iMaxExpands(iMaxExpands) {}
 
 double AmortizedPolicy::pushNode(CDasherNode *node, int iMin, int iMax, bool bExpand, double dParentCost) {
   double dRes = BudgettingPolicy::pushNode(node,iMin,iMax,bExpand,dParentCost);
@@ -121,9 +125,9 @@ double AmortizedPolicy::pushNode(CDasherNode *node, int iMin, int iMax, bool bEx
   return dRes;
 }
 
-bool AmortizedPolicy::apply(CNodeCreationManager *pMgr, CDasherModel *pModel) {
+bool AmortizedPolicy::apply() {
   trim();
-  return BudgettingPolicy::apply(pMgr,pModel);
+  return BudgettingPolicy::apply();
 }
 
 void AmortizedPolicy::trim() {

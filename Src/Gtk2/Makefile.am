@@ -40,8 +40,6 @@ libdashercontrol_la_SOURCES = \
 		Speech.h \
 		custom_marshal.cpp \
 		custom_marshal.h \
-		game_mode_helper.cpp \
-		game_mode_helper.h \
 		joystick_input.h \
 		mouse_input.h \
 		$(settings_store)

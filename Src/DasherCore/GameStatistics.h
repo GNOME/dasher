@@ -8,6 +8,7 @@
 #include <cmath>
 #include <algorithm>
 #include <functional>
+#include <vector>
 
 template<class T>
 T nthPower(T x, int n)
@@ -35,6 +36,30 @@ template<class T, class Iter_T>
 {
   size_t cnt = last - first;
   return std::accumulate(first, last, T(), SumDiffNthPower<T>(mean, n))/cnt;
+}
+template<typename T>
+std::string ComputeStats(const std::vector<T> &v)
+{
+  if (v.empty()) return "";
+  
+  double m1 = nthMoment(1,v.begin(), v.end(), 0.0);
+  double m2 = nthMoment(2,v.begin(), v.end(), m1);
+  double m3 = nthMoment(3,v.begin(), v.end(), m1);
+  double m4 = nthMoment(4,v.begin(), v.end(), m1);
+  
+  double dev = sqrt(m2); // Standard Deviation
+  double skew = m3/(m2*dev); // Skewness
+  double kurt = m4 / (m2*m2) - 3.0; // Excess Kurtosis
+
+  ostringstream m_Statsbreakdown("");  
+#define SEP " "
+  m_Statsbreakdown << "Samples: " << v.size() << SEP
+    << "Mean: " << m1 << SEP
+    << "StdDev: " << dev << SEP
+    << "Skew: " << skew << SEP
+    << "Kurt: " << kurt << SEP;
+#undef SEP
+  return m_Statsbreakdown.str();
 }
 
 template<class A, class B, class T>

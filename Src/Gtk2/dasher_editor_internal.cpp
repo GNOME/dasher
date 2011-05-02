@@ -3,7 +3,6 @@
 #endif
 
 #include <cstring>
-
 #include <glib/gi18n.h>
 #ifdef HAVE_GIO
 #include <gio/gio.h>
@@ -26,7 +25,6 @@
 #include "dasher_lock_dialogue.h"
 #include "dasher_main.h"
 #include "../DasherCore/ControlManager.h"
-//#include "game_mode_helper.h"
 
 // TODO: Maybe reimplement something along the lines of the following, which used to be in edit.cc
 
@@ -948,6 +946,11 @@ dasher_editor_internal_command(DasherEditor *pSelf, const gchar *szCommand) {
     return TRUE;
   }
 
+  if(!strcmp(szCommand, "action_toggle_game_mode")) { //toggle game mode
+    dasher_main_toggle_game_mode(pPrivate->pDasherMain);
+    return TRUE;
+  }
+ 
   return FALSE;
 }
 

@@ -79,7 +79,6 @@ private:
   ///
   
   void HandleEvent(int iParameter);
-  void GameMessageOut(int message, const void* messagedata);
   
   DasherAppDelegate *dasherApp;   // objc counterpart
   

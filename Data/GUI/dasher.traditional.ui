@@ -126,6 +126,14 @@
             <signal name="activate" handler="dasher_main_cb_about"/>
           </object>
         </child>
+        <child>
+          <object class="GtkAction" id="action_toggle_game_mode">
+            <property name="stock_id">action_toggle_game_mode</property>
+			<property name="tooltip" translatable="yes">_Game Mode</property>
+			<property name = "label" translatable="yes">_Game Mode</property>
+            <signal name="activate" handler="dasher_main_cb_editor"/>
+          </object>
+        </child>
       </object>
     </child>
     <ui>
@@ -136,6 +144,7 @@
           <menuitem action="action_save"/>
           <menuitem action="action_saveas"/>
           <menuitem action="action_append"/>
+          <menuitem action="action_toggle_game_mode"/>
           <separator/>
           <menuitem action="action_import"/>
           <menuitem action="action_quit"/>

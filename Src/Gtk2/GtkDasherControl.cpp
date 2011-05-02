@@ -23,7 +23,6 @@
 #include "DasherControl.h"
 #include "GtkDasherControl.h"
 #include "custom_marshal.h"
-#include "game_mode_helper.h"
 #include "dasher_editor.h"
 
 struct _GtkDasherControlPrivate {
@@ -283,29 +282,9 @@ gtk_dasher_control_get_module_settings(GtkDasherControl * pControl, const gchar 
 }
 
 void 
-gtk_dasher_control_add_game_mode_string(GtkDasherControl *pControl, const gchar *szString) {
-  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  pPrivate->pControl->AddGameModeString(szString);
-}
-
-void 
-gtk_dasher_control_game_messagein(GtkDasherControl *pControl, int message, void* messagedata) {
-  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  pPrivate->pControl->GameMessageIn(message, messagedata);
-}
-
-void 
 gtk_dasher_control_game_helperreg(GtkDasherControl *pControl, void* gameHelper) {
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
   pPrivate->pGameHelper = gameHelper;
-}
-
-void 
-gtk_dasher_control_game_messageout(GtkDasherControl *pControl, int message, const void* messagedata) {
-  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  GameModeHelper* pHelper = GAME_MODE_HELPER(pPrivate->pGameHelper);
-  if(pHelper)
-    game_mode_helper_message(pHelper, message, messagedata);
 }
 
 void 

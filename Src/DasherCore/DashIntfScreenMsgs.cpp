@@ -1,4 +1,5 @@
 #include "DashIntfScreenMsgs.h"
+#include "ScreenGameModule.h"
 
 using namespace Dasher;
 
@@ -92,4 +93,8 @@ void CDashIntfScreenMsgs::Unpause(unsigned long lTime) {
       // do not unpause; next frame will render more messages instead.
   }
   CDasherInterfaceBase::Unpause(lTime);
+}
+
+CGameModule *CDashIntfScreenMsgs::CreateGameModule(CDasherView *pView, CDasherModel *pModel) {
+  return new CScreenGameModule(this, this, pView, pModel);
 }

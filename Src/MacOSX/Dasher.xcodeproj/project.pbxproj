@@ -20,10 +20,6 @@
 		191428E70B0E6CC6004F1C28 /* COSXDasherControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 191428E50B0E6CC6004F1C28 /* COSXDasherControl.mm */; };
 		1921DB390C7ECAA400E6DAA5 /* OneButtonDynamicFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1921DB370C7ECAA400E6DAA5 /* OneButtonDynamicFilter.cpp */; };
 		1921DB3A0C7ECAA400E6DAA5 /* OneButtonDynamicFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1921DB380C7ECAA400E6DAA5 /* OneButtonDynamicFilter.h */; };
-		1921DB3F0C7ECB4A00E6DAA5 /* DasherGameMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE290C226CFD001DFA32 /* DasherGameMode.h */; };
-		1921DB400C7ECB4B00E6DAA5 /* DasherGameMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE280C226CFD001DFA32 /* DasherGameMode.cpp */; };
-		1921DB6E0C7ECB9900E6DAA5 /* GameScorer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1921DB6C0C7ECB9900E6DAA5 /* GameScorer.cpp */; };
-		1921DB6F0C7ECB9900E6DAA5 /* GameScorer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1921DB6D0C7ECB9900E6DAA5 /* GameScorer.h */; };
 		193731A80C8586F20022CBC7 /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 193731A70C8586F20022CBC7 /* config.h */; };
 		1948BE9D0C226CFD001DFA32 /* ActionButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BDF60C226CFC001DFA32 /* ActionButton.cpp */; };
 		1948BE9E0C226CFD001DFA32 /* ActionButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BDF70C226CFC001DFA32 /* ActionButton.h */; };
@@ -145,9 +141,7 @@
 		1974FE5A0714861B00B95DA0 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 1974FD9C07145C6500B95DA0 /* Credits.html */; };
 		1974FE6B0714861B00B95DA0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1974FE780714861B00B95DA0 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		1988ABBD0C9FF97000D97977 /* GameMessages.h in Headers */ = {isa = PBXBuildFile; fileRef = 1988ABB80C9FF97000D97977 /* GameMessages.h */; };
 		1988ABBE0C9FF97000D97977 /* GameStatistics.h in Headers */ = {isa = PBXBuildFile; fileRef = 1988ABB90C9FF97000D97977 /* GameStatistics.h */; };
-		1988ABCF0C9FFADA00D97977 /* GameLevel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1988ABB70C9FF97000D97977 /* GameLevel.cpp */; };
 		198EC6D5071493BB00474B38 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		198EC7B407153D6E00474B38 /* KeyboardEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 198EC7AE07153D6E00474B38 /* KeyboardEvent.h */; };
 		198EC7B507153D6E00474B38 /* KeyboardEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 198EC7AF07153D6E00474B38 /* KeyboardEvent.m */; };
@@ -349,6 +343,11 @@
 		33B3431813A8A951009AE0D5 /* DashIntfScreenMsgs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33B3431613A8A951009AE0D5 /* DashIntfScreenMsgs.cpp */; };
 		33B3431913A8A951009AE0D5 /* DashIntfScreenMsgs.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B3431713A8A951009AE0D5 /* DashIntfScreenMsgs.h */; };
 		33B3431B13A8A970009AE0D5 /* Messages.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B3431A13A8A970009AE0D5 /* Messages.h */; };
+		33C88E1E1201D0A900727492 /* FileWordGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33C88E1A1201D0A900727492 /* FileWordGenerator.cpp */; };
+		33C88E1F1201D0A900727492 /* FileWordGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 33C88E1B1201D0A900727492 /* FileWordGenerator.h */; };
+		33C88E201201D0A900727492 /* GameModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33C88E1C1201D0A900727492 /* GameModule.cpp */; };
+		33C88E211201D0A900727492 /* GameModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 33C88E1D1201D0A900727492 /* GameModule.h */; };
+		33CB6E80125E2C7A002DB8AD /* WordGeneratorBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33CB6E7F125E2C7A002DB8AD /* WordGeneratorBase.cpp */; };
 		33E173C70F3E0B6400D19B38 /* Makefile.am in Resources */ = {isa = PBXBuildFile; fileRef = 33E173A70F3E0B6400D19B38 /* Makefile.am */; };
 		33E173C80F3E0B6400D19B38 /* training_albanian_SQ.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173A80F3E0B6400D19B38 /* training_albanian_SQ.txt */; };
 		33E173CB0F3E0B6400D19B38 /* training_bengali_BD.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173AB0F3E0B6400D19B38 /* training_bengali_BD.txt */; };
@@ -377,10 +376,13 @@
 		33E173E40F3E0B6400D19B38 /* training_swedish_SE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173C40F3E0B6400D19B38 /* training_swedish_SE.txt */; };
 		33E173E50F3E0B6400D19B38 /* training_turkish_TR.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173C50F3E0B6400D19B38 /* training_turkish_TR.txt */; };
 		33E173E60F3E0B6400D19B38 /* training_welsh_GB.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173C60F3E0B6400D19B38 /* training_welsh_GB.txt */; };
+		33E756A41202D6180012A0E9 /* WordGeneratorBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 33E756A31202D6180012A0E9 /* WordGeneratorBase.h */; };
 		33E91A770F55E60B00B5F513 /* KeyboardHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33E91A750F55E60B00B5F513 /* KeyboardHelper.cpp */; };
 		33E91A780F55E60B00B5F513 /* KeyboardHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 33E91A760F55E60B00B5F513 /* KeyboardHelper.h */; };
 		33F6C9EA133241A000745B06 /* AbstractXMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 33F6C9E8133241A000745B06 /* AbstractXMLParser.h */; };
 		33F6C9EB133241A000745B06 /* AbstractXMLParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33F6C9E9133241A000745B06 /* AbstractXMLParser.cpp */; };
+		33FC1D2B13ACE7E7007642CD /* ScreenGameModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33FC1D2913ACE7E7007642CD /* ScreenGameModule.cpp */; };
+		33FC1D2C13ACE7E7007642CD /* ScreenGameModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 33FC1D2A13ACE7E7007642CD /* ScreenGameModule.h */; };
 		33FC1D3113ACE88F007642CD /* Parameters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33FC1D3013ACE88F007642CD /* Parameters.cpp */; };
 		33FC93390FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33FC93370FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp */; };
 		33FC933A0FEFA2C900A9F08D /* TwoPushDynamicFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 33FC93380FEFA2C900A9F08D /* TwoPushDynamicFilter.h */; };
@@ -401,8 +403,6 @@
 		191CE19C04595BBA0000000A /* DasherApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DasherApp.icns; sourceTree = "<group>"; };
 		1921DB370C7ECAA400E6DAA5 /* OneButtonDynamicFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = OneButtonDynamicFilter.cpp; sourceTree = "<group>"; };
 		1921DB380C7ECAA400E6DAA5 /* OneButtonDynamicFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = OneButtonDynamicFilter.h; sourceTree = "<group>"; };
-		1921DB6C0C7ECB9900E6DAA5 /* GameScorer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = GameScorer.cpp; sourceTree = "<group>"; };
-		1921DB6D0C7ECB9900E6DAA5 /* GameScorer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GameScorer.h; sourceTree = "<group>"; };
 		19351BF304575C6C0000000A /* mktar.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = mktar.sh; sourceTree = "<group>"; };
 		193731A70C8586F20022CBC7 /* config.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		1948BDF60C226CFC001DFA32 /* ActionButton.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ActionButton.cpp; sourceTree = "<group>"; };
@@ -435,8 +435,6 @@
 		1948BE1C0C226CFC001DFA32 /* CustomColours.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CustomColours.h; sourceTree = "<group>"; };
 		1948BE1D0C226CFC001DFA32 /* DasherButtons.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DasherButtons.cpp; sourceTree = "<group>"; };
 		1948BE1E0C226CFC001DFA32 /* DasherButtons.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherButtons.h; sourceTree = "<group>"; };
-		1948BE280C226CFD001DFA32 /* DasherGameMode.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DasherGameMode.cpp; sourceTree = "<group>"; };
-		1948BE290C226CFD001DFA32 /* DasherGameMode.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherGameMode.h; sourceTree = "<group>"; };
 		1948BE2A0C226CFD001DFA32 /* DasherInput.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherInput.h; sourceTree = "<group>"; };
 		1948BE2B0C226CFD001DFA32 /* DasherInterfaceBase.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DasherInterfaceBase.cpp; sourceTree = "<group>"; };
 		1948BE2C0C226CFD001DFA32 /* DasherInterfaceBase.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherInterfaceBase.h; sourceTree = "<group>"; };
@@ -535,8 +533,6 @@
 		1974FD9C07145C6500B95DA0 /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
 		1974FE7A0714861B00B95DA0 /* Dasher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dasher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1974FE7C0714861B00B95DA0 /* Info-Dasher.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Dasher.plist"; sourceTree = SOURCE_ROOT; };
-		1988ABB70C9FF97000D97977 /* GameLevel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = GameLevel.cpp; sourceTree = "<group>"; };
-		1988ABB80C9FF97000D97977 /* GameMessages.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GameMessages.h; sourceTree = "<group>"; };
 		1988ABB90C9FF97000D97977 /* GameStatistics.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = GameStatistics.h; sourceTree = "<group>"; };
 		198EC7AE07153D6E00474B38 /* KeyboardEvent.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = KeyboardEvent.h; sourceTree = "<group>"; };
 		198EC7AF07153D6E00474B38 /* KeyboardEvent.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = KeyboardEvent.m; sourceTree = "<group>"; };
@@ -748,6 +744,11 @@
 		33B3431613A8A951009AE0D5 /* DashIntfScreenMsgs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DashIntfScreenMsgs.cpp; sourceTree = "<group>"; };
 		33B3431713A8A951009AE0D5 /* DashIntfScreenMsgs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashIntfScreenMsgs.h; sourceTree = "<group>"; };
 		33B3431A13A8A970009AE0D5 /* Messages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Messages.h; sourceTree = "<group>"; };
+		33C88E1A1201D0A900727492 /* FileWordGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileWordGenerator.cpp; sourceTree = "<group>"; };
+		33C88E1B1201D0A900727492 /* FileWordGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileWordGenerator.h; sourceTree = "<group>"; };
+		33C88E1C1201D0A900727492 /* GameModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameModule.cpp; sourceTree = "<group>"; };
+		33C88E1D1201D0A900727492 /* GameModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameModule.h; sourceTree = "<group>"; };
+		33CB6E7F125E2C7A002DB8AD /* WordGeneratorBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WordGeneratorBase.cpp; sourceTree = "<group>"; };
 		33E173A70F3E0B6400D19B38 /* Makefile.am */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
 		33E173A80F3E0B6400D19B38 /* training_albanian_SQ.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_albanian_SQ.txt; sourceTree = "<group>"; };
 		33E173AB0F3E0B6400D19B38 /* training_bengali_BD.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_bengali_BD.txt; sourceTree = "<group>"; };
@@ -776,10 +777,13 @@
 		33E173C40F3E0B6400D19B38 /* training_swedish_SE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_swedish_SE.txt; sourceTree = "<group>"; };
 		33E173C50F3E0B6400D19B38 /* training_turkish_TR.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_turkish_TR.txt; sourceTree = "<group>"; };
 		33E173C60F3E0B6400D19B38 /* training_welsh_GB.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_welsh_GB.txt; sourceTree = "<group>"; };
+		33E756A31202D6180012A0E9 /* WordGeneratorBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordGeneratorBase.h; sourceTree = "<group>"; };
 		33E91A750F55E60B00B5F513 /* KeyboardHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyboardHelper.cpp; sourceTree = "<group>"; };
 		33E91A760F55E60B00B5F513 /* KeyboardHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardHelper.h; sourceTree = "<group>"; };
 		33F6C9E8133241A000745B06 /* AbstractXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractXMLParser.h; sourceTree = "<group>"; };
 		33F6C9E9133241A000745B06 /* AbstractXMLParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AbstractXMLParser.cpp; sourceTree = "<group>"; };
+		33FC1D2913ACE7E7007642CD /* ScreenGameModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScreenGameModule.cpp; sourceTree = "<group>"; };
+		33FC1D2A13ACE7E7007642CD /* ScreenGameModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenGameModule.h; sourceTree = "<group>"; };
 		33FC1D3013ACE88F007642CD /* Parameters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Parameters.cpp; sourceTree = "<group>"; };
 		33FC93370FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TwoPushDynamicFilter.cpp; sourceTree = "<group>"; };
 		33FC93380FEFA2C900A9F08D /* TwoPushDynamicFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoPushDynamicFilter.h; sourceTree = "<group>"; };
@@ -874,6 +878,12 @@
 			isa = PBXGroup;
 			children = (
 				3344F0681341297F001FACAB /* UserLogBase.cpp */,
+				33CB6E7F125E2C7A002DB8AD /* WordGeneratorBase.cpp */,
+				33E756A31202D6180012A0E9 /* WordGeneratorBase.h */,
+				33C88E1A1201D0A900727492 /* FileWordGenerator.cpp */,
+				33C88E1B1201D0A900727492 /* FileWordGenerator.h */,
+				33C88E1C1201D0A900727492 /* GameModule.cpp */,
+				33C88E1D1201D0A900727492 /* GameModule.h */,
 				33135349102C6D8E00E28220 /* AlternatingDirectMode.cpp */,
 				3313534A102C6D8E00E28220 /* AlternatingDirectMode.h */,
 				3313534B102C6D8E00E28220 /* CompassMode.cpp */,
@@ -885,8 +895,6 @@
 				33FC93420FEFA2FB00A9F08D /* FrameRate.cpp */,
 				33FC93370FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp */,
 				33FC93380FEFA2C900A9F08D /* TwoPushDynamicFilter.h */,
-				1988ABB70C9FF97000D97977 /* GameLevel.cpp */,
-				1988ABB80C9FF97000D97977 /* GameMessages.h */,
 				1988ABB90C9FF97000D97977 /* GameStatistics.h */,
 				33F6C9E8133241A000745B06 /* AbstractXMLParser.h */,
 				33F6C9E9133241A000745B06 /* AbstractXMLParser.cpp */,
@@ -919,8 +927,6 @@
 				1948BE1C0C226CFC001DFA32 /* CustomColours.h */,
 				1948BE1D0C226CFC001DFA32 /* DasherButtons.cpp */,
 				1948BE1E0C226CFC001DFA32 /* DasherButtons.h */,
-				1948BE280C226CFD001DFA32 /* DasherGameMode.cpp */,
-				1948BE290C226CFD001DFA32 /* DasherGameMode.h */,
 				1948BE2A0C226CFD001DFA32 /* DasherInput.h */,
 				1948BE2B0C226CFD001DFA32 /* DasherInterfaceBase.cpp */,
 				1948BE2C0C226CFD001DFA32 /* DasherInterfaceBase.h */,
@@ -952,8 +958,6 @@
 				1948BE450C226CFD001DFA32 /* FileLogger.cpp */,
 				1948BE460C226CFD001DFA32 /* FileLogger.h */,
 				1948BE470C226CFD001DFA32 /* FrameRate.h */,
-				1921DB6C0C7ECB9900E6DAA5 /* GameScorer.cpp */,
-				1921DB6D0C7ECB9900E6DAA5 /* GameScorer.h */,
 				1948BE4C0C226CFD001DFA32 /* InputFilter.h */,
 				1948BE4D0C226CFD001DFA32 /* LanguageModelling */,
 				1948BE680C226CFD001DFA32 /* MemoryLeak.cpp */,
@@ -975,6 +979,8 @@
 				33FC1D3013ACE88F007642CD /* Parameters.cpp */,
 				1948BE780C226CFD001DFA32 /* SCENode.cpp */,
 				1948BE790C226CFD001DFA32 /* SCENode.h */,
+				33FC1D2913ACE7E7007642CD /* ScreenGameModule.cpp */,
+				33FC1D2A13ACE7E7007642CD /* ScreenGameModule.h */,
 				1948BE7A0C226CFD001DFA32 /* SettingsStore.cpp */,
 				1948BE7B0C226CFD001DFA32 /* SettingsStore.h */,
 				1948BE7C0C226CFD001DFA32 /* SimpleTimer.cpp */,
@@ -1420,11 +1426,8 @@
 				196874060C2BDC2E00D63879 /* OpenGLScreen.h in Headers */,
 				1968740A0C2BDC2E00D63879 /* GLUtils.h in Headers */,
 				1921DB3A0C7ECAA400E6DAA5 /* OneButtonDynamicFilter.h in Headers */,
-				1921DB3F0C7ECB4A00E6DAA5 /* DasherGameMode.h in Headers */,
-				1921DB6F0C7ECB9900E6DAA5 /* GameScorer.h in Headers */,
 				193731A80C8586F20022CBC7 /* config.h in Headers */,
 				19F8C7E60C858A2800276B4F /* I18n.h in Headers */,
-				1988ABBD0C9FF97000D97977 /* GameMessages.h in Headers */,
 				1988ABBE0C9FF97000D97977 /* GameStatistics.h in Headers */,
 				33E91A780F55E60B00B5F513 /* KeyboardHelper.h in Headers */,
 				33ABFEC70FC379EA00EA2BA5 /* ButtonMultiPress.h in Headers */,
@@ -1444,6 +1447,10 @@
 				33B3431913A8A951009AE0D5 /* DashIntfScreenMsgs.h in Headers */,
 				33B3431B13A8A970009AE0D5 /* Messages.h in Headers */,
 				3335F60113AB50E9004F9371 /* DashIntfSettings.h in Headers */,
+				33C88E1F1201D0A900727492 /* FileWordGenerator.h in Headers */,
+				33C88E211201D0A900727492 /* GameModule.h in Headers */,
+				33E756A41202D6180012A0E9 /* WordGeneratorBase.h in Headers */,
+				33FC1D2C13ACE7E7007642CD /* ScreenGameModule.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1769,9 +1776,6 @@
 				196874070C2BDC2E00D63879 /* OpenGLScreen.mm in Sources */,
 				1968740B0C2BDC2E00D63879 /* GLUtils.mm in Sources */,
 				1921DB390C7ECAA400E6DAA5 /* OneButtonDynamicFilter.cpp in Sources */,
-				1921DB400C7ECB4B00E6DAA5 /* DasherGameMode.cpp in Sources */,
-				1921DB6E0C7ECB9900E6DAA5 /* GameScorer.cpp in Sources */,
-				1988ABCF0C9FFADA00D97977 /* GameLevel.cpp in Sources */,
 				33E91A770F55E60B00B5F513 /* KeyboardHelper.cpp in Sources */,
 				33ABFEC60FC379EA00EA2BA5 /* ButtonMultiPress.cpp in Sources */,
 				33FC93390FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp in Sources */,
@@ -1793,6 +1797,10 @@
 				3344F0691341297F001FACAB /* UserLogBase.cpp in Sources */,
 				3335F60013AB50E9004F9371 /* DashIntfSettings.cpp in Sources */,
 				33FC1D3113ACE88F007642CD /* Parameters.cpp in Sources */,
+				33C88E1E1201D0A900727492 /* FileWordGenerator.cpp in Sources */,
+				33C88E201201D0A900727492 /* GameModule.cpp in Sources */,
+				33CB6E80125E2C7A002DB8AD /* WordGeneratorBase.cpp in Sources */,
+				33FC1D2B13ACE7E7007642CD /* ScreenGameModule.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1909,6 +1917,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 			};
 			name = Development;
 		};

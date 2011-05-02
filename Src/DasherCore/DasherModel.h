@@ -55,7 +55,13 @@ namespace Dasher {
 ///             knows the current viewpoint
 ///             knows how to evolve the viewpoint
 ///
-class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
+/// It does not care what the nodes in the tree are or mean, tho the model does handle
+/// calling CDasherNode::Output() / Undo() on nodes falling under/leaving the crosshair
+/// (However, determining which nodes are under the crosshair, is done by the CDasherView).
+///
+/// The class is Observable in that it broadcasts a pointer to a CDasherNode when the node's
+/// children are created.
+class Dasher::CDasherModel:public Dasher::CFrameRate, public Observable<CDasherNode*>, private NoClones
 {
  public:
   /// Constructs a new CDasherModel. Note, must be followed by a call to
@@ -237,14 +243,15 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
   // Current maximum bitrate (ie zoom at far rhs).
   double m_dMaxRate;
 
-  // Whether game mode is active
-  // TODO: This isn't very functional at the moment
-  bool m_bGameMode;
-
   // Whether characters entered by alphabet manager are expected to
   // require conversion.
   // TODO: Need to rethink this at some point.
   bool m_bRequireConversion;
+  
+  /**
+   * The string a user must type if game mode is active.
+   */
+  std::string m_strGameTarget;
 
   // Model status...
 

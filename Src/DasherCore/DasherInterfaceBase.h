@@ -41,6 +41,7 @@
 #include "InputFilter.h"
 #include "ModuleManager.h"
 #include "ControlManager.h"
+
 #include <set>
 #include <algorithm>
 
@@ -51,6 +52,7 @@ namespace Dasher {
   class CInputFilter;
   class CDasherModel;
   class CSettingsStore;
+  class CGameModule;
   class CDasherInterfaceBase;
 }
 
@@ -335,18 +337,6 @@ public:
 
   void StartShutdown();
 
-  void AddGameModeString(const std::string &strText) {
-    m_deGameModeStrings.push_back(strText);
-    Stop();
-    //    CreateDasherModel();
-    CreateNCManager();
-    //    Start();
-  };
-
-  void GameMessageIn(int message, void* messagedata);
-
-  virtual void GameMessageOut(int message, const void* messagedata) {}
-
   void ScheduleRedraw() {
     m_bRedrawScheduled = true;
   };
@@ -409,7 +399,11 @@ protected:
 
   /// @}
 
-
+  ///Creates the game module - called on demand, i.e. (only) when game mode is started
+  /// by setting BP_GAME_MODE. Subclasses must implement to return a concrete subclass
+  /// of GameModule, perhaps by using platform-specific widgets (e.g. the edit box?)
+  
+  virtual CGameModule *CreateGameModule(CDasherView *pView, CDasherModel *pModel)=0;
 
   /// Draw a new Dasher frame, regardless of whether we're paused etc.
   /// \param iTime Current time in ms.
@@ -549,8 +543,6 @@ protected:
   void PositionActionButtons();
   bool DrawActionButtons();
 
-  std::deque<std::string> m_deGameModeStrings;
-
   std::vector<CActionButton *> m_vLeftButtons;
   std::vector<CActionButton *> m_vRightButtons;
 
@@ -576,6 +568,10 @@ protected:
   CColourIO *m_ColourIO;
   CNodeCreationManager *m_pNCManager;
   CUserLogBase *m_pUserLog;
+
+  // the game mode module - only
+  // initialized if game mode is enabled
+  CGameModule *m_pGameModule;
   /// @}
 
   ///If non-empty, Dasher is locked, and this is the message that should be displayed.

@@ -36,7 +36,8 @@
 #include "UserLog.h"
 #include "BasicLog.h"
 #endif
-#include "DasherGameMode.h"
+#include "GameModule.h"
+#include "FileWordGenerator.h"
 
 // Input filters
 #include "AlternatingDirectMode.h"
@@ -101,6 +102,8 @@ CDasherInterfaceBase::CDasherInterfaceBase(CSettingsStore *pSettingsStore) : CSe
   m_pNCManager = NULL;
   m_defaultPolicy = NULL;
   m_pWordSpeaker = NULL;
+  m_pGameModule = NULL;
+
   // Various state variables
   m_bRedrawScheduled = false;
 
@@ -163,11 +166,7 @@ void CDasherInterfaceBase::Realize() {
   CreateInputFilter();
 
   ChangeAlphabet(); // This creates the NodeCreationManager, the Alphabet,
-  //and the tree of nodes in the model. Now we can
-  // Notify the teacher of the new model...ACL TODO pending merging of new
-  // game mode code; when Ryan's stuff arrives we can delete this:
-  if(GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher())
-    pTeacher->SetDasherModel(m_pDasherModel);
+  //and the tree of nodes in the model.
 
   SetupActionButtons();
   HandleEvent(LP_NODE_BUDGET);
@@ -185,20 +184,10 @@ void CDasherInterfaceBase::Realize() {
 
   // TODO: Make things work when model is created latet
   ChangeState(TR_MODEL_INIT);
-
-  using GameMode::CDasherGameMode;
-  // Create the teacher singleton object.
-  CDasherGameMode::CreateTeacher(this, this);
-  CDasherGameMode::GetTeacher()->SetDasherView(m_pDasherView);
-  CDasherGameMode::GetTeacher()->SetDasherModel(m_pDasherModel);
 }
 
 CDasherInterfaceBase::~CDasherInterfaceBase() {
   DASHER_ASSERT(m_iCurrentState == ST_SHUTDOWN);
-
-  // It may seem odd that InterfaceBase does not "own" the teacher.
-  // This is because game mode is a different layer, in a sense.
-  GameMode::CDasherGameMode::DestroyTeacher();
 
   delete m_pDasherModel;        // The order of some of these deletions matters
   delete m_pDasherView;
@@ -266,13 +255,6 @@ void CDasherInterfaceBase::HandleEvent(int iParameter) {
   case BP_DRAW_MOUSE:
     ScheduleRedraw();
     break;
-  case BP_CONTROL_MODE:
-      //force rebuilding tree/nodes, to get new probabilities (inc/exc control node).
-      // This may move the canvas around a bit, but at least manages to keep/reuse the
-      // existing AlphabetManager, NCManager, etc. objects...
-      SetOffset(m_pDasherModel->GetOffset(), true);
-    ScheduleRedraw();
-    break;
   case BP_DRAW_MOUSE_LINE:
     ScheduleRedraw();
     break;
@@ -320,10 +302,41 @@ void CDasherInterfaceBase::HandleEvent(int iParameter) {
       break;
   case LP_NODE_BUDGET:
     delete m_defaultPolicy;
-    m_defaultPolicy = new AmortizedPolicy(GetLongParameter(LP_NODE_BUDGET));
+    m_defaultPolicy = new AmortizedPolicy(m_pDasherModel,GetLongParameter(LP_NODE_BUDGET));
+    break;
   case BP_SPEAK_WORDS:
     delete m_pWordSpeaker;
     m_pWordSpeaker = GetBoolParameter(BP_SPEAK_WORDS) ? new WordSpeaker(this) : NULL;
+    break;
+  case BP_GAME_MODE:
+    if(GetBoolParameter(BP_GAME_MODE)) {
+      DASHER_ASSERT(m_pGameModule == NULL);
+      if (CWordGeneratorBase *pWords = m_pNCManager->GetAlphabetManager()->GetGameWords()) {
+        m_pGameModule = CreateGameModule(m_pDasherView,m_pDasherModel);
+        m_pGameModule->SetWordGenerator(m_pNCManager->GetAlphabet(), pWords);
+      } else {
+        ///TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
+        /// refers to a setting name in gsettings or equivalent, and should not be translated.
+        const char *msg=_("Could not find game sentences file for %s - check alphabet definition, or override with GameTextFile setting");
+        char *buf(new char[strlen(msg)+m_pNCManager->GetAlphabet()->GetID().length()]);
+        sprintf(buf,msg,m_pNCManager->GetAlphabet()->GetID().c_str());
+        Message(buf,true);
+        delete buf;
+        SetBoolParameter(BP_GAME_MODE, false);
+      }
+    } else {
+      delete m_pGameModule;
+      m_pGameModule = NULL;
+    }
+    if (!GetBoolParameter(BP_CONTROL_MODE)) break;
+    //fall-through (GAME_MODE disables CONTROL_MODE, so we've effectively changed the latter too)
+  case BP_CONTROL_MODE:
+    //force rebuilding tree/nodes, to get new probabilities (inc/exc control node).
+    // This may move the canvas around a bit, but at least manages to keep/reuse the
+    // existing AlphabetManager, NCManager, etc. objects...
+    SetOffset(m_pDasherModel->GetOffset(), true);
+    ScheduleRedraw();
+    break;      
   default:
     break;
   }
@@ -468,10 +481,6 @@ void CDasherInterfaceBase::Stop() {
   }
 }
 
-void CDasherInterfaceBase::GameMessageIn(int message, void* messagedata) {
-  GameMode::CDasherGameMode::GetTeacher()->Message(message, messagedata);
-}
-
 void CDasherInterfaceBase::Unpause(unsigned long Time) {
   if (!GetBoolParameter(BP_DASHER_PAUSED)) return; //already running, no need to do anything
   
@@ -589,17 +598,18 @@ bool CDasherInterfaceBase::Redraw(unsigned long ulTime, bool bRedrawNodes, CExpa
     m_pDasherView->Screen()->SendMarker(0);
     if (m_pDasherModel) {
       m_pDasherModel->RenderToView(m_pDasherView,policy);
-      if (policy.apply(m_pNCManager, m_pDasherModel)) //if anything was expanded or collapsed
+      if (policy.apply()) //if anything was expanded or collapsed
         ScheduleRedraw(); //render at least one more frame after this
     }
+    if(m_pGameModule) {
+      m_pGameModule->DecorateView(ulTime, m_pDasherView, m_pDasherModel);
+    }          
   }
   //From here on, we'll use bRedrawNodes just to denote whether we need to blit the display...
 
   // Draw the decorations
   m_pDasherView->Screen()->SendMarker(1);
 
-  if(GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher())
-    pTeacher->DrawGameDecorations(m_pDasherView);
 
   if(m_pInputFilter) {
     if (m_pInputFilter->DecorateView(m_pDasherView, m_pInput)) bRedrawNodes=true;
@@ -684,9 +694,6 @@ void CDasherInterfaceBase::ChangeView() {
 
     m_pDasherView = pNewView;
 
-    // Tell the Teacher which view we are using
-    if(GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher())
-      pTeacher->SetDasherView(m_pDasherView);
   }
 }
 

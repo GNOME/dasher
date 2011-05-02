@@ -43,8 +43,6 @@ CNodeCreationManager::CNodeCreationManager(CSettingsUser *pCreateFrom,
 
   const Dasher::CAlphInfo *pAlphInfo(pAlphIO->GetInfo(GetStringParameter(SP_ALPHABET_ID)));
   
-  SetStringParameter(SP_GAME_TEXT_FILE, pAlphInfo->GetGameModeFile());
-  
   SetStringParameter(SP_DEFAULT_COLOUR_ID, pAlphInfo->GetPalette());
   
   // --
@@ -142,11 +140,13 @@ void CNodeCreationManager::ChangeScreen(CDasherScreen *pScreen) {
 
 void CNodeCreationManager::HandleEvent(int iParameter) {
   switch (iParameter) {
-    case BP_CONTROL_MODE: {
+    case BP_CONTROL_MODE:
+    case BP_GAME_MODE: {
       delete m_pControlManager;
       const unsigned long iNorm(GetLongParameter(LP_NORMALIZATION));
       unsigned long iControlSpace;
-      if (GetBoolParameter(BP_CONTROL_MODE)) {
+      //don't allow a control manager during Game Mode 
+      if (GetBoolParameter(BP_CONTROL_MODE) && !GetBoolParameter(BP_GAME_MODE)) {
         m_pControlManager = new CControlManager(this, this, m_pInterface);
         if (m_pScreen) m_pControlManager->MakeLabels(m_pScreen);
         iControlSpace = iNorm / 20;
@@ -168,7 +168,7 @@ void CNodeCreationManager::HandleEvent(int iParameter) {
 void CNodeCreationManager::AddExtras(CDasherNode *pParent) {
   //control mode:
   DASHER_ASSERT(pParent->GetChildren().back()->Hbnd() == m_iAlphNorm);
-  if (GetBoolParameter(BP_CONTROL_MODE)) {
+  if (m_pControlManager) {
 #ifdef _WIN32_WCE
     DASHER_ASSERT(false);
 #endif

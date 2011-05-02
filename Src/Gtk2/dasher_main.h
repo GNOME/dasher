@@ -3,6 +3,9 @@
 
 #include <glib.h>
 #include <glib-object.h>
+#include "Preferences.h"
+#include "KeyboardHelper.h"
+#include "DasherAppSettings.h"
 
 G_BEGIN_DECLS
 #define DASHER_TYPE_MAIN            (dasher_main_get_type())
@@ -11,6 +14,8 @@ G_BEGIN_DECLS
 #define DASHER_IS_MAIN(obj)	    (G_TYPE_CHECK_INSTANCE_TYPE((obj), DASHER_TYPE_MAIN))
 #define DASHER_IS_MAIN_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), DASHER_TYPE_MAIN))
 #define DASHER_MAIN_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), DASHER_TYPE_MAIN, DasherMainClass))
+// TODO: Make sure this is actually used
+#define DASHER_MAIN_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE((o), DASHER_TYPE_MAIN, DasherMainPrivate))
 
 typedef struct _DasherMain DasherMain;
 typedef struct _DasherMainClass DasherMainClass;
@@ -25,7 +30,6 @@ struct _DasherMainClass {
   void (*realized)(DasherMain *pDasherMain);
 };
 
-
 typedef struct _SCommandLine SCommandLine;
 
 struct _SCommandLine {
@@ -37,6 +41,8 @@ struct _SCommandLine {
 DasherMain *dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine);
 GType dasher_main_get_type();
 void dasher_main_show(DasherMain *pSelf);
+
+void dasher_main_toggle_game_mode(DasherMain *pSelf); 
 G_END_DECLS
 
 #endif

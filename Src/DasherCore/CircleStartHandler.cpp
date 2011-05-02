@@ -31,13 +31,13 @@ CCircleStartHandler::CCircleStartHandler(CSettingsUser *pCreator, CDasherInterfa
 }
 
 CCircleStartHandler::~CCircleStartHandler() {
-  if (m_pView) m_pView->Unregister(this);
+  if (m_pView) m_pView->Observable<CDasherView*>::Unregister(this);
 }
 
 void CCircleStartHandler::ComputeScreenLoc(CDasherView *pView) {
   if (pView != m_pView) {
-    if (m_pView) m_pView->Unregister(this);
-    (m_pView=pView)->Register(this);
+    if (m_pView) m_pView->Observable<CDasherView*>::Unregister(this);
+    (m_pView=pView)->Observable<CDasherView*>::Register(this);
   } else if (m_iScreenRadius!=-1) return;
   
   pView->Dasher2Screen(GetLongParameter(LP_OX),GetLongParameter(LP_OY),m_screenCircleCenter.x,m_screenCircleCenter.y);

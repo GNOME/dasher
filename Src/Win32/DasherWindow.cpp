@@ -269,9 +269,9 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
     m_pGameModeHelper = new CGameModeHelper(m_pDasher);
     return 0;
   case ID_GAMEMODE:
-    m_pDasher->GameMessageIn(m_pGameGroup->IsWindowVisible()?
-      (GameMode::GAME_MESSAGE_GAME_OFF) : (GameMode::GAME_MESSAGE_GAME_ON),
-      NULL);
+    m_pDasher->SetBoolParameter(BP_GAME_MODE,!m_pGameGroup->IsWindowVisible());
+      //TODO the following should be done in response to a change to BP_GAME_MODE being
+      // detected (e.g. if changed in DasherCore):
     m_pGameGroup->ShowWindow(m_pGameGroup->IsWindowVisible()?SW_HIDE:SW_SHOW);
     m_pEdit->Clear();
     Layout();
@@ -333,12 +333,6 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
  
   Layout();
   return 0;
-}
-
-LRESULT CDasherWindow::OnGameMessage(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
-  m_pGameGroup->Message(static_cast<int>(wParam), reinterpret_cast<const void*>(lParam));
-  bHandled=true;
-	return 0;
 }
 
 LRESULT CDasherWindow::OnDasherFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
@@ -413,8 +407,6 @@ LRESULT CDasherWindow::OnOther(UINT message, WPARAM wParam, LPARAM lParam, BOOL&
   // runtime.
   if (message == WM_DASHER_FOCUS)
     return OnDasherFocus(message, wParam, lParam, bHandled);
-  else if (message == WM_DASHER_GAME_MESSAGE)
-    return OnGameMessage(message, wParam, lParam, bHandled);
   else if (message == DASHER_SHOW_PREFS) {
 #ifndef _WIN32_WCE
     CPrefs Prefs(m_hWnd, m_pDasher, m_pAppSettings);

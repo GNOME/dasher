@@ -165,7 +165,7 @@ const sp_table stringparamtable[] = {
   {SP_DASHER_FONT, "DasherFont", PERS, "", "DasherFont"},
   {SP_SYSTEM_LOC, "SystemLocation", !PERS, "sys_", "System Directory"},
   {SP_USER_LOC, "UserLocation", !PERS, "usr_", "User Directory"},
-  {SP_GAME_TEXT_FILE, "GameTextFile", !PERS, "", "File with strings to practice writing"},
+  {SP_GAME_TEXT_FILE, "GameTextFile", PERS, "", "User-specified file with strings to practice writing"},
   {SP_SOCKET_INPUT_X_LABEL, "SocketInputXLabel", PERS, "x", "Label preceding X values for network input"},
   {SP_SOCKET_INPUT_Y_LABEL, "SocketInputYLabel", PERS, "y", "Label preceding Y values for network input"},
 #if defined(WITH_MAEMO) || defined(TARGET_OS_IPHONE)

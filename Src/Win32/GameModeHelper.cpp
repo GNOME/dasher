@@ -11,6 +11,8 @@ CGameModeHelper::CGameModeHelper(Dasher::CDasherInterfaceBase *pInterface) {
 }
 
 void CGameModeHelper::Message(int message, const void *messagedata) {
+  //TODO these all need updating for the new game mode code. That is,
+  // they mostly need deleting, but check we're not using any functionality...
   using namespace Dasher::GameMode;
   const std::string* pStr;
   std::string strText ="<span background=\"purple\" foreground=\"white\">";

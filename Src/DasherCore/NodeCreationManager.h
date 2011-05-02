@@ -32,7 +32,7 @@ class CNodeCreationManager : public Dasher::CSettingsUserObserver {
   
   ///Tells us the screen on which all created node labels must be rendered
   void ChangeScreen(Dasher::CDasherScreen *pScreen);
-  
+
   //we watch for changes to BP_CONTROL_MODE and create the Control Manager lazily
   void HandleEvent(int iParameter);
   ///

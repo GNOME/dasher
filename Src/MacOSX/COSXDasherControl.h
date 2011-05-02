@@ -96,8 +96,6 @@ private:
   void editConvert(CDasherNode *pSource);
   void editProtect(CDasherNode *pSource);
 
-  void GameMessageOut(int message, const void* messagedata);
-  
   DasherApp *dasherApp;   // objc counterpart
   DasherEdit *dasherEdit;  // for outputting into other apps
   

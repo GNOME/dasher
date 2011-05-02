@@ -140,10 +140,6 @@ void COSXDasherControl::TimerFired(NSPoint p) {
   [[dasherApp dasherView] redisplay];
 }  
  
-void COSXDasherControl::GameMessageOut(int message, const void* messagedata) {
-  NSLog(@"GameMessageOut");
-}
-
 void COSXDasherControl::editOutput(const string &strText, CDasherNode *pNode) {
 //NSLog(@"ExternalEventHandler edit insert");
   [dasherEdit outputCallback:NSStringFromStdString(strText) targetApp:[dasherApp targetAppUIElementRef]];
