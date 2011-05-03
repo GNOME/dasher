@@ -593,23 +593,9 @@ dasher_main_create_preferences(DasherMain *pSelf) {
 }
 
 /**
- * Start game mode, specify the text to play with, and clear out any text in the dasher editor.
- * Sets BP_GAME_MODE to true, and SP_GAME_TEXT_FILE to the value of pGameTextFilePath.
+ * Start game mode: prompt user for the text to play with, put this in SP_GAME_TEXT_FILE;
+ * clear out any text in the dasher editor; call CDasherControl::EnterGameMode().
  *
- * @param pGameTextFilePath - the absolute path to the text file to play with
- * @param pSelf - a reference to an instance of DasherMain
- */ 
-void init_game_mode(char *pGameTextFilePath, DasherMain *pSelf) {
-
-	DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
-
-	dasher_app_settings_set_string(pPrivate->pAppSettings,
-							SP_GAME_TEXT_FILE,
-							pGameTextFilePath);
-
-	dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_GAME_MODE, true);
-	dasher_editor_delete(pPrivate->pEditor, strlen(dasher_editor_get_all_text(pPrivate->pEditor)));
-}
 
 /**
  * Event handler which displays a standard GTK file dialog. The dialog allows the user
@@ -627,7 +613,7 @@ void show_game_file_dialog(GtkWidget *pButton, GtkWidget *pWidget, gpointer pDat
 	DasherMain *pSelf = objRefs->second;
 	DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
 
-	GtkWidget *pFileDialog = gtk_file_chooser_dialog_new("Choose a Training Text",
+	GtkWidget *pFileDialog = gtk_file_chooser_dialog_new("Choose a Game Text",
 				      GTK_WINDOW(objRefs->first),
 				      GTK_FILE_CHOOSER_ACTION_OPEN,
 				      GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
@@ -636,18 +622,16 @@ void show_game_file_dialog(GtkWidget *pButton, GtkWidget *pWidget, gpointer pDat
 	
 	gtk_window_set_destroy_with_parent(GTK_WINDOW(pFileDialog), true);
 
-	if(gtk_dialog_run(GTK_DIALOG(pFileDialog)) == GTK_RESPONSE_ACCEPT) {
+	if (gtk_dialog_run(GTK_DIALOG(pFileDialog)) == GTK_RESPONSE_ACCEPT) {
 	
 		char *filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(pFileDialog));
 
-		init_game_mode(filename, pSelf);
-
-		gtk_widget_destroy(GTK_WIDGET(objRefs->first));	
+		dasher_app_settings_set_string(pPrivate->pAppSettings,
+							SP_GAME_TEXT_FILE,
+							filename);
+		dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_GAME_MODE, true);
 	}
-}
-
-void quit_game_mode(GtkWidget *pButton, GtkWidget *pWidget, gpointer pData) {
-    DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE((DasherMain*)pData);
+	gtk_widget_destroy(GTK_WIDGET(objRefs->first));
 }
 
 /**
@@ -660,34 +644,37 @@ void quit_game_mode(GtkWidget *pButton, GtkWidget *pWidget, gpointer pData) {
  */ 
 void dasher_main_toggle_game_mode(DasherMain *pSelf) {
 
-	DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
+  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
 
-	if(!dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_GAME_MODE)) {
+  if(!dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_GAME_MODE)) {
 
-		GtkWidget *pDialog = gtk_message_dialog_new(GTK_WINDOW(pPrivate->pMainWindow), GTK_DIALOG_MODAL, 
+    GtkWidget *pDialog = gtk_message_dialog_new(GTK_WINDOW(pPrivate->pMainWindow), GTK_DIALOG_MODAL, 
                                          GTK_MESSAGE_OTHER, GTK_BUTTONS_NONE, 
                                          _("Welcome to Dasher Game Mode! Game Mode is a fun way to practice entering text in Dasher. Please select a training text to play with:"));
 
-		GtkWidget *pDefaultButton = gtk_dialog_add_button(GTK_DIALOG(pDialog), _("Use Default"), GTK_RESPONSE_CLOSE);	
-		GtkWidget *pFileButton = gtk_dialog_add_button(GTK_DIALOG(pDialog), _("Choose File..."), 2);
-		gtk_dialog_add_button(GTK_DIALOG(pDialog), _("Cancel"), GTK_RESPONSE_CLOSE);
+    GtkWidget *pDefaultButton = gtk_dialog_add_button(GTK_DIALOG(pDialog), _("Use Default"), GTK_RESPONSE_ACCEPT);	
+    GtkWidget *pFileButton = gtk_dialog_add_button(GTK_DIALOG(pDialog), _("Choose File..."), 2);
+    gtk_dialog_add_button(GTK_DIALOG(pDialog), _("Cancel"), GTK_RESPONSE_REJECT);
 
-		//make a pair with references to the the DasherMain and parent window instances that
-		//handler will need - kind of disgusting, but looks like only way to pass multiple
-		//parameters in g_signal_connect
-		std::pair<GtkWindow*, DasherMain*> objRefs = std::make_pair(GTK_WINDOW(pDialog), pSelf);
+    //make a pair with references to the the DasherMain and parent window instances that
+    //handler will need - kind of disgusting, but looks like only way to pass multiple
+    //parameters in g_signal_connect
+    std::pair<GtkWindow*, DasherMain*> objRefs = std::make_pair(GTK_WINDOW(pDialog), pSelf);
+    //ACL surprisingly this works: the signal handler (show_game_file_dialog) is called
+    // before gtk_dialog_run returns, and the pair is in this, calling, method's stack frame,
+    // so exists until _this_ method finishes...
 
-		//g_signal_connect(pDefaultButton, "button-press-event", G_CALLBACK)
-		g_signal_connect(pFileButton, "button-press-event", G_CALLBACK(show_game_file_dialog),
+    g_signal_connect(pFileButton, "button-press-event", G_CALLBACK(show_game_file_dialog),
 					(gpointer)&objRefs);
 
-		gtk_dialog_run(GTK_DIALOG(pDialog));
-
-		//have to do this check because we might have destroyed the dialog already in show_game_file_dialog
-		if(GTK_IS_WIDGET(pDialog))
-			gtk_widget_destroy(pDialog);
-	}
-	else {
+    if (gtk_dialog_run(GTK_DIALOG(pDialog))==GTK_RESPONSE_ACCEPT) {
+      dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_GAME_MODE, true);
+//Tick menu?
+    }
+    //have to do this check because we might have destroyed the dialog already in show_game_file_dialog
+    if(GTK_IS_WIDGET(pDialog))
+      gtk_widget_destroy(pDialog);
+  } else {
     GtkWidget *pDialog = gtk_message_dialog_new(GTK_WINDOW(pPrivate->pMainWindow), GTK_DIALOG_MODAL,
                                                 GTK_MESSAGE_OTHER, GTK_BUTTONS_NONE,
                                                 _("Are you sure you wish to turn off game mode? All unsaved changes will be lost."));
@@ -695,21 +682,12 @@ void dasher_main_toggle_game_mode(DasherMain *pSelf) {
     GtkWidget *pNoButton = gtk_dialog_add_button(GTK_DIALOG(pDialog), GTK_STOCK_NO, GTK_RESPONSE_REJECT);
     GtkWidget *pYesButton = gtk_dialog_add_button(GTK_DIALOG(pDialog), GTK_STOCK_YES, GTK_RESPONSE_ACCEPT);
 
-    //g_signal_connect(pYesButton, "button-press-event", G_CALLBACK(quit_game_mode), (gpointer)pSelf);
-
-    switch(gtk_dialog_run(GTK_DIALOG(pDialog))) {
-      case GTK_RESPONSE_REJECT:
-        gtk_widget_destroy(GTK_WIDGET(pDialog));
-        break;
-      case GTK_RESPONSE_ACCEPT:
-		    dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_GAME_MODE, false);
-		    clear_dasher_editor_text(pSelf);
+    if(gtk_dialog_run(GTK_DIALOG(pDialog))==GTK_RESPONSE_ACCEPT) {
+      dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_GAME_MODE, false);
     }
-
-    if(GTK_IS_WIDGET(pDialog)) {
-      gtk_widget_destroy(GTK_WIDGET(pDialog));
-    }
-	}
+    DASHER_ASSERT(GTK_IS_WIDGET(pDialog));
+    gtk_widget_destroy(GTK_WIDGET(pDialog));
+  }
 
 }
 

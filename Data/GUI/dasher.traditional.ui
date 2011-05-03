@@ -127,7 +127,7 @@
           </object>
         </child>
         <child>
-          <object class="GtkAction" id="action_toggle_game_mode">
+          <object class="GtkToggleAction" id="action_toggle_game_mode">
             <property name="stock_id">action_toggle_game_mode</property>
 			<property name="tooltip" translatable="yes">_Game Mode</property>
 			<property name = "label" translatable="yes">_Game Mode</property>
