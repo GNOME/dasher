@@ -14,7 +14,7 @@
 #import "COSXMouseInput.h"
 
 @class DasherApp;
-@class DasherEdit;
+@protocol DasherEdit;
 
 ///
 /// \brief C++ core of the Dasher GTK UI component.
@@ -54,6 +54,7 @@ public:
   void ClearAllContext();
   std::string GetContext(unsigned int iOffset, unsigned int iLength);
   virtual int GetFileSize(const std::string &strFileName);
+  void SetEdit(id<DasherEdit> pEdit);
 private:
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
   virtual void ScanColourFiles(std::vector<std::string> &vFileList);
@@ -66,23 +67,10 @@ private:
   virtual void Speak(const std::string &strText, bool bInterrupt);
   virtual bool SupportsClipboard() {return true;}
   virtual void CopyToClipboard(const std::string &strText);
-  ///Control-mode editing commands not currently supported on MacOSX,
-  /// so just returns the current offset unchanged.
-  ///Could try to send arrow keys via LowLevelKeyboardHandling,
-  /// but at best we'd lose our context.
-  ///Really this will have to wait for either (a)reinstating an in-Dasher
-  /// text edit box, or (b) implementing the MacOSX input method API.
+  ///Control-mode editing commands delegate to DasherEdit.
   unsigned int ctrlMove(bool bForwards, CControlManager::EditDistance dist);
 
-  ///Control-mode editing commands not currently supported on MacOSX;
-  /// forward deletion returns current offset and does nothing,
-  /// backwards deletion we look for space/paragraph characters
-  /// and send corresponding # of (char-)deletes.
-  ///Could try to send complex keypresses (option-delete=word, line/file...
-  /// = select then delete?) via LowLevelKeyboardHandling, but at best we'd
-  /// lose our context.
-  ///Really this will have to wait for either (a)reinstating an in-Dasher
-  /// text edit box, or (b) implementing the MacOSX input method API.
+  ///Control-mode editing commands delegate to DasherEdit.
   unsigned int ctrlDelete(bool bForwards, CControlManager::EditDistance dist);
   // No need to HandleEvent: the PreferencesController is observing changes to the 
   // user defaults controller which is observing the user defaults and will be notified when
@@ -97,7 +85,7 @@ private:
   void editProtect(CDasherNode *pSource);
 
   DasherApp *dasherApp;   // objc counterpart
-  DasherEdit *dasherEdit;  // for outputting into other apps
+  id<DasherEdit> dasherEdit;  // current output - sends to other apps or textfield
   
   COSXMouseInput *m_pMouseInput;
   COSX1DMouseInput *m_p1DMouseInput;

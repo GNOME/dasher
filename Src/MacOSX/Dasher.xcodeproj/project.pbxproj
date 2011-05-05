@@ -343,6 +343,8 @@
 		33B3431813A8A951009AE0D5 /* DashIntfScreenMsgs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33B3431613A8A951009AE0D5 /* DashIntfScreenMsgs.cpp */; };
 		33B3431913A8A951009AE0D5 /* DashIntfScreenMsgs.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B3431713A8A951009AE0D5 /* DashIntfScreenMsgs.h */; };
 		33B3431B13A8A970009AE0D5 /* Messages.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B3431A13A8A970009AE0D5 /* Messages.h */; };
+		33C3BDD213854CC000C768E0 /* DasherTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 33C3BDD013854CC000C768E0 /* DasherTextView.h */; };
+		33C3BDD313854CC000C768E0 /* DasherTextView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 33C3BDD113854CC000C768E0 /* DasherTextView.mm */; };
 		33C88E1E1201D0A900727492 /* FileWordGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33C88E1A1201D0A900727492 /* FileWordGenerator.cpp */; };
 		33C88E1F1201D0A900727492 /* FileWordGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 33C88E1B1201D0A900727492 /* FileWordGenerator.h */; };
 		33C88E201201D0A900727492 /* GameModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33C88E1C1201D0A900727492 /* GameModule.cpp */; };
@@ -744,6 +746,8 @@
 		33B3431613A8A951009AE0D5 /* DashIntfScreenMsgs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DashIntfScreenMsgs.cpp; sourceTree = "<group>"; };
 		33B3431713A8A951009AE0D5 /* DashIntfScreenMsgs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashIntfScreenMsgs.h; sourceTree = "<group>"; };
 		33B3431A13A8A970009AE0D5 /* Messages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Messages.h; sourceTree = "<group>"; };
+		33C3BDD013854CC000C768E0 /* DasherTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DasherTextView.h; sourceTree = "<group>"; };
+		33C3BDD113854CC000C768E0 /* DasherTextView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DasherTextView.mm; sourceTree = "<group>"; };
 		33C88E1A1201D0A900727492 /* FileWordGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileWordGenerator.cpp; sourceTree = "<group>"; };
 		33C88E1B1201D0A900727492 /* FileWordGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileWordGenerator.h; sourceTree = "<group>"; };
 		33C88E1C1201D0A900727492 /* GameModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameModule.cpp; sourceTree = "<group>"; };
@@ -808,6 +812,8 @@
 		080E96DDFE201D6D7F000001 /* Mac OS X Classes */ = {
 			isa = PBXGroup;
 			children = (
+				33C3BDD013854CC000C768E0 /* DasherTextView.h */,
+				33C3BDD113854CC000C768E0 /* DasherTextView.mm */,
 				193731A70C8586F20022CBC7 /* config.h */,
 				19C1AE810B130F18005C68D3 /* COSXMouseInput.h */,
 				191180E90B0FC91A001CB987 /* COSXSettingsStore.h */,
@@ -1451,6 +1457,7 @@
 				33C88E211201D0A900727492 /* GameModule.h in Headers */,
 				33E756A41202D6180012A0E9 /* WordGeneratorBase.h in Headers */,
 				33FC1D2C13ACE7E7007642CD /* ScreenGameModule.h in Headers */,
+				33C3BDD213854CC000C768E0 /* DasherTextView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1801,6 +1808,7 @@
 				33C88E201201D0A900727492 /* GameModule.cpp in Sources */,
 				33CB6E80125E2C7A002DB8AD /* WordGeneratorBase.cpp in Sources */,
 				33FC1D2B13ACE7E7007642CD /* ScreenGameModule.cpp in Sources */,
+				33C3BDD313854CC000C768E0 /* DasherTextView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

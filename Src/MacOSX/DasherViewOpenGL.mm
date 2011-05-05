@@ -139,24 +139,11 @@ protected:
 
 
 - (void)keyDown:(NSEvent *)e {
-  /*TODO, note that this isn't really "key down", rather it's "character entered"
-	or similar - if the key is held down long enough to repeat, we get multiple keyDowns
-   before a keyUp, and we just send them all along to the DasherCore code...*/
-  NSString *chars = [e characters];
-  if ([chars length] > 1)
-    NSLog(@"KeyDown event for %i chars %@ - what to do? Ignoring all but first...\n", [chars length], chars);
-  int keyCode = _keyboardHelper->ConvertKeyCode([chars characterAtIndex:0]);
-  if (keyCode != -1)
-    [dasherApp aquaDasherControl]->KeyDown(get_time(), keyCode);
+  [dasherApp handleKeyDown:e];
 }
 
 - (void)keyUp:(NSEvent *)e {
-  NSString *chars = [e characters];
-  if ([chars length] > 1)
-    NSLog(@"KeyUp event for %i chars %@ - what to do? Ignoring all but first...\n", [chars length], chars);
-  int keyCode = _keyboardHelper->ConvertKeyCode([chars characterAtIndex:0]);
-  if (keyCode != -1)
-    [dasherApp aquaDasherControl]->KeyUp(get_time(), keyCode);
+  [dasherApp handleKeyUp:e];
 }
 
 - (id)initWithFrame:(NSRect)aFrame {
@@ -187,7 +174,6 @@ protected:
     glClearColor(1.0, 1.0, 1.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
 	  
-    _keyboardHelper = new CKeyboardHelper();
   }
   return self;
 }
@@ -231,7 +217,7 @@ protected:
 }
 
 - (BOOL)acceptsFirstResponder {
-  return YES;
+  return NO;
 }
 
 - (void)dealloc {

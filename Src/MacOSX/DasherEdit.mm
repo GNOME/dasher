@@ -10,46 +10,46 @@
 #import "UnicharGenerator.h"
 #import "../Common/Common.h"
 #import <Carbon/Carbon.h>
+#import "AlphInfo.h"
+#import "DasherUtil.h"
+#import "DasherInterfaceBase.h"
 
-@implementation DasherEdit
+using namespace Dasher;
+
+@interface DirectEdit ()
+- (void)sendString:(NSString *)aString;
+@end
+
+@implementation DirectEdit
 
 
-- init
-{
-  if (self = [super init]) 
-    {
-      allTextEntered = [[NSMutableString alloc] initWithCapacity:1024];
-    }
-  
+-(id)initWithIntf:(CDasherInterfaceBase *)_pIntf AppWatcher:(AppWatcher *)_appWatcher {
+  if (self = [super init]) {
+    allTextEntered = [[NSMutableString alloc] initWithCapacity:1024];
+    pIntf = _pIntf;
+    appWatcher = _appWatcher;
+  }
   return self;
 }
 
-- (void)sendString:(NSString *)aString toTargetApp:(AXUIElementRef)aTargetApp {
-  if (aTargetApp != NULL) {
+- (void)sendString:(NSString *)aString {
+  if (AXUIElementRef aTargetApp = [appWatcher targetAppUIElementRef]) {
     [[UnicharGenerator sharedInstance] postKeyboardEventsToUIElementRef:aTargetApp unicharString:aString];
   }
 }
 
-- (void)outputCallback:(NSString *)aString targetApp:(AXUIElementRef)aTargetApp
-{
-  dasherIsModifyingText = YES;
-  [self sendString:aString toTargetApp:aTargetApp];
-  dasherIsModifyingText = NO;
+- (void)outputCallback:(NSString *)aString {
+  [self sendString:aString];
   [allTextEntered appendString:aString];
 }
 
-- (void)deleteCallback:(NSString *)s targetApp:(AXUIElementRef)aTargetApp
-{
+- (void)deleteCallback:(NSString *)s {
   // just send the app a number of backspace characters equal to [s length]
   int len = [s length];
-  int i;
   
-  dasherIsModifyingText = YES;
-  for (i = 0; i < len; i++)
-    {
-    [self sendString:@"\b" toTargetApp:aTargetApp];
-    }
-  dasherIsModifyingText = NO;
+  for (int i = 0; i < len; i++) {
+    [self sendString:@"\b"];
+  }
   [allTextEntered deleteCharactersInRange:NSMakeRange([allTextEntered length]-len, len)];
 }
 
@@ -70,6 +70,37 @@
 
 -(void)clearContext {
   [allTextEntered setString:@""];
+}
+
+-(unsigned int)currentCursorPos {
+  return [allTextEntered length];
+}
+
+-(unsigned int)ctrlMove:(CControlManager::EditDistance)dist forwards:(BOOL)bForwards {
+#ifdef DEBUG
+std::cout << "Call to edit move, doing nothing" << std::endl;
+#endif
+  return [allTextEntered length];
+}
+
+-(unsigned int)ctrlDelete:(CControlManager::EditDistance)dist forwards:(BOOL)bForwards {
+  if (!bForwards) {
+    const unsigned int iCurrentOffset([allTextEntered length]);
+    unsigned int numChars;
+    if (dist==CControlManager::EDIT_CHAR)
+      numChars=1;
+    else if (dist==CControlManager::EDIT_FILE)
+      numChars = iCurrentOffset;
+    else {
+      const CAlphInfo *pAlph(pIntf->GetActiveAlphabet());
+      const string &target(pAlph->GetText(dist==CControlManager::EDIT_WORD ? pAlph->GetSpaceSymbol() : pAlph->GetParagraphSymbol()));
+      NSRange range = [allTextEntered rangeOfString:NSStringFromStdString(target) options:NSBackwardsSearch];
+      numChars = (range.length==0) ? iCurrentOffset : iCurrentOffset-range.location; //0=> not found, so go to beginning
+    }
+    for (unsigned int i=0; i<numChars; i++)
+      [self sendString:@"\b"];
+  }
+  return [allTextEntered length];
 }
 
 @end

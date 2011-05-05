@@ -12,17 +12,12 @@
 @interface AppWatcher : NSObject {
   NSMutableArray *_apps;
   NSDictionary *_targetAppInfo;
-  NSTimer *watchActiveAppTimer;
-  BOOL lockTargetApp;
   IBOutlet NSArrayController *appsController;
 }
 
 - (AXUIElementRef)targetAppUIElementRef;
 - (BOOL)psnOfAppInfo:(NSDictionary *)appInfo1 isEqualToPsnOfAppInfo:(NSDictionary *)appInfo2;
 - (id)init;
-- (void)startTimer;
-- (void)stopTimer;
-- (void)checkActiveApp:(NSTimer *)timer;
 - (void)awakeFromNib;
 - (void)fillApps;
 - (unsigned int)indexOfAppWithApplicationName:(NSString *)aName;
@@ -36,8 +31,6 @@
 - (void)setApps:(NSMutableArray *)newApps;
 - (NSDictionary *)targetAppInfo;
 - (void)setTargetAppInfo:(NSDictionary *)newTargetAppInfo;
-- (BOOL)lockTargetApp;
-- (void)setLockTargetApp:(BOOL)newLockTargetApp;
 - (void)dealloc;
 
 @end

@@ -11,7 +11,6 @@
 #import <AppKit/NSOpenGLView.h>
 #import <AppKit/NSNibDeclarations.h>
 #import "ColourIO.h"
-#import "KeyboardHelper.h"
 
 @class NSString;
 @class DasherApp;
@@ -34,7 +33,6 @@ class COSXDasherScreen;
   ///current (last successful) framebuffer width & height
 	int fw,fh;
   
-  CKeyboardHelper *_keyboardHelper;
 }
 
 - (void)drawRect:(NSRect)rect;

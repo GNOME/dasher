@@ -10,7 +10,6 @@
 #import "PreferencesController.h"
 #import "DasherEdit.h"
 #import "DasherUtil.h"
-#import "AppWatcher.h"
 
 /*
  * Created by Doug Dickinson (dasher AT DressTheMonkey DOT plus DOT com), 18 April 2003
@@ -18,10 +17,43 @@
 
 #import <Cocoa/Cocoa.h>
 
+@interface FilenameTransformer : NSValueTransformer {
+}
+@end
+@implementation FilenameTransformer
++(Class)transformedValueClass {
+  return [NSString class];
+}
++(BOOL)allowsReverseTransformation {
+  return NO;
+}
+-(id)transformedValue:(id)value {
+  return (value) ? value : @"Untitled";
+}
+@end
+static NSString *FilenameToUntitledName = @"NilToUntitled";
+
+@interface DasherApp ()
+@property (retain) NSString *filename;
+-(NSString *)filenameOrUntitled;
+//invokes selector on self with nil parameter, if successfully saved or user chose to discard
+-(void)promptToSave:(SEL)ifDone;
+@end
+
 
 @implementation DasherApp
 
 @synthesize dasherView;
+@synthesize modified;
+@synthesize filename;
+
++(void)initialize {
+  [NSValueTransformer setValueTransformer:[[[FilenameTransformer alloc] init] autorelease] forName:FilenameToUntitledName];
+}
+
+-(NSString *)filenameOrUntitled {
+  return [[NSValueTransformer valueTransformerForName:FilenameToUntitledName] transformedValue:self.filename];
+}
 
 - (void)start {
 //  aquaDasherControl->Start();
@@ -63,7 +95,6 @@
   return result;
 }
 
-
 - (id)getParameterValueForKey:(NSString *)aKey {
   return aquaDasherControl->GetParameter(aKey);
 }
@@ -72,16 +103,13 @@
   aquaDasherControl->SetParameter(aKey, aValue);
 }
 
-- (AXUIElementRef)targetAppUIElementRef {
-  return [appWatcher targetAppUIElementRef];
-}
-
 - (id)init
 {
   if (self = [super init])
     {
       [self setAquaDasherControl:new COSXDasherControl(self)];
       spQ = [[Queue alloc] init];
+      _keyboardHelper = new CKeyboardHelper();
     }
 
   return self;
@@ -89,11 +117,20 @@
 
 - (IBAction)importTrainingText:(id)sender {
   NSOpenPanel *op = [NSOpenPanel openPanel];
+  //[op setDirectory:<#(NSString *)path#>];
+  //[op setAllowedFileTypes:<#(NSArray *)types#>];
+  
+  //following method is deprecated in 10.6, and one should use
+  // beginSheetModalForWindow:CompletionHandler: instead. The new
+  // method (taking a closure/block) doesn't even exist before 10.6,
+  // so I'm sticking with:
+  [op beginSheetForDirectory:nil file:nil modalForWindow:dasherPanelUI modalDelegate:self didEndSelector:@selector(importPanelDidEnd:returnCode:contextInfo:) contextInfo:nil];
+}
 
-  int returnCode = [op runModalForDirectory:nil file:nil types:nil];
-
+- (void)importPanelDidEnd:(NSSavePanel *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+  [sheet orderOut:dasherPanelUI];
   if (returnCode == NSOKButton) {
-    aquaDasherControl->Train([op filename]);
+    aquaDasherControl->Train([[sheet URL] path]);
     NSBeep();
   }
 }
@@ -102,18 +139,26 @@
   [[PreferencesController preferencesController] makeKeyAndOrderFront:sender];
 }
 
+-(void)setDirectMode:(BOOL)bVal {
+  //hidden-ness of textview / appwatcher controls are automatically linked to property changes
+  aquaDasherControl->SetEdit(bVal ? [[[DirectEdit alloc] initWithIntf:aquaDasherControl AppWatcher:appWatcher] autorelease] : textView);
+  self->directMode = bVal;
+}
+
+-(BOOL)directMode {
+  return self->directMode;
+}
+
 - (void)setPanelAlphaValue:(float)anAlphaValue {
   [dasherPanelUI setAlphaValue:anAlphaValue];
 }
 
 - (void)finishRealization {
   aquaDasherControl->Realize2();
+  [self setDirectMode:directMode];
 }
 
 - (void)awakeFromNib {
-  [dasherPanelUI setBecomesKeyOnlyIfNeeded:YES];
-  [dasherPanelUI setFloatingPanel:YES];
-
   // TODO leave out until defaults works properly
 //  [self setPanelAlphaValue:[[NSUserDefaults standardUserDefaults] floatForKey:DASHER_PANEL_OPACITY]];
 
@@ -172,6 +217,19 @@
   aquaDasherControl->TimerFired([dasherView mouseLocation]);
 }
 
+-(BOOL)windowShouldClose:(id)sender {
+  DASHER_ASSERT(sender == dasherPanelUI);
+  if (self.modified) {
+    [self promptToSave:@selector(doCloseWindow:)];
+    return NO;
+  }
+  return YES;
+}
+
+-(void)doCloseWindow:(id)none {
+  [dasherPanelUI performClose:nil];
+}
+
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
   aquaDasherControl->StartShutdown();
   delete aquaDasherControl;
@@ -218,6 +276,122 @@
   NSPasteboard *pboard = [NSPasteboard generalPasteboard];
   [pboard declareTypes:[NSArray arrayWithObject:NSStringPboardType] owner:nil];
   [pboard setString:sText forType:NSStringPboardType];
+}
+
+-(void)handleKeyDown:(NSEvent *)e {
+  NSString *chars = [e characters];
+  if ([chars length] > 1)
+    NSLog(@"KeyDown event for %i chars %@ - what to do? Ignoring all but first...\n", [chars length], chars);
+  int keyCode = _keyboardHelper->ConvertKeyCode([chars characterAtIndex:0]);
+  if (keyCode != -1)
+    aquaDasherControl->KeyDown(get_time(), keyCode);
+}
+
+-(void)handleKeyUp:(NSEvent *)e {
+  NSString *chars = [e characters];
+  if ([chars length] > 1)
+    NSLog(@"KeyUp event for %i chars %@ - what to do? Ignoring all but first...\n", [chars length], chars);
+  int keyCode = _keyboardHelper->ConvertKeyCode([chars characterAtIndex:0]);
+  if (keyCode != -1)
+    aquaDasherControl->KeyUp(get_time(), keyCode);  
+}
+
+- (void)promptToSave:(SEL)continueSel {
+  DASHER_ASSERT(modified);
+  [[NSAlert alertWithMessageText:[NSString stringWithFormat:@"Do you want to save the changes you made to the document \"%@\"", [self filenameOrUntitled]] defaultButton:@"Save" alternateButton:@"Cancel" otherButton:@"Discard" informativeTextWithFormat:@"Your changes will be lost if you don't save them"]
+   beginSheetModalForWindow:dasherPanelUI modalDelegate:self didEndSelector:@selector(promptedToSave:returnCode:contextInfo:) contextInfo:continueSel];
+}
+//contextInfo is a selector (taking a single 'id' param) of what to do once we have saved/discarded
+- (void)promptedToSave:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+  [[alert window] orderOut:dasherPanelUI];
+  switch (returnCode) {
+    case NSAlertDefaultReturn:
+      //Save
+      if (!filename){
+        [[NSSavePanel savePanel] beginSheetForDirectory:nil file:nil modalForWindow:dasherPanelUI modalDelegate:self didEndSelector:@selector(savePanelDidEnd:returnCode:contextInfo:) contextInfo:contextInfo];
+        return;
+      }
+      [self saveDoc:nil];
+      break;
+    case NSAlertAlternateReturn:
+      return; //cancel => abort
+    case NSAlertOtherReturn:
+      //don't save => continue
+      self.modified=NO;
+      break;
+  }
+  DASHER_ASSERT(!modified);
+  [self performSelector:(SEL)contextInfo withObject:nil];
+}
+
+- (IBAction)newDoc:(id)sender {
+  if (self.modified) {
+    [self promptToSave:@selector(newDoc:)];
+    return;
+  }
+  [textView setString:@""];
+  aquaDasherControl->SetOffset(0, true);
+}
+
+- (IBAction)openDoc:(id)sender {
+  if (self.modified) {
+    [self promptToSave:@selector(openDoc:)];
+    return;
+  }
+  NSOpenPanel *op = [NSOpenPanel openPanel];
+  //[op setDirectory:<#(NSString *)path#>];
+  //[op setAllowedFileTypes:<#(NSArray *)types#>];
+  [op beginSheetForDirectory:nil file:nil modalForWindow:dasherPanelUI modalDelegate:self didEndSelector:@selector(openPanelDidEnd:returnCode:contextInfo:) contextInfo:nil];
+}
+
+- (void)openPanelDidEnd:(NSSavePanel *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+  [sheet orderOut:dasherPanelUI];
+  if (returnCode == NSOKButton) {
+    self.filename = [[sheet URL] path];
+    self.modified = NO;
+    [self revertToSaved:nil];
+  }
+}
+
+- (IBAction)saveDoc:(id)sender {
+  if (!filename) {
+    [self saveDocAs:nil];
+    return;
+  }
+  //TODO errors
+  [[textView string] writeToFile:filename atomically:YES encoding:NSUTF8StringEncoding error:nil];
+  self.modified = NO;
+}
+
+- (IBAction)saveDocAs:(id)sender {
+  [[NSSavePanel savePanel] beginSheetForDirectory:nil file:nil modalForWindow:dasherPanelUI modalDelegate:self didEndSelector:@selector(savePanelDidEnd:returnCode:contextInfo:) contextInfo:nil];
+}
+
+- (void)savePanelDidEnd:(NSSavePanel *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+  [sheet orderOut:dasherPanelUI];
+  if (returnCode == NSOKButton) {
+    self.filename = [[sheet URL] path];
+    [self saveDoc:nil];
+    if (contextInfo) [self performSelector:(SEL)contextInfo withObject:nil];
+  }
+}
+
+- (IBAction)revertToSaved:(id)sender {
+  DASHER_ASSERT(filename);
+  if (self.modified) {
+    NSString *msg = [NSString stringWithFormat:@"Do you want to revert to the most recently saved version of the document \"%@\"",[self filenameOrUntitled]];
+    [[NSAlert alertWithMessageText:msg defaultButton:@"Revert" alternateButton:@"Cancel" otherButton:nil informativeTextWithFormat:@"Your current changes will be lost"]
+     beginSheetModalForWindow:dasherPanelUI modalDelegate:self didEndSelector:@selector(promptedToRevert:returnCode:contextInfo:) contextInfo:nil];
+  } else
+    [textView setString:[NSString stringWithContentsOfFile:filename encoding:NSUTF8StringEncoding error:NULL]]; //TODO error
+}
+
+-(void)promptedToRevert:(NSAlert *)panel returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+  if (returnCode==NSAlertDefaultReturn) {
+    //revert
+    self.modified=NO;
+    [self revertToSaved:nil];
+  } //else, cancel - do nothing
 }
 
 @end

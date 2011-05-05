@@ -27,13 +27,8 @@
 using namespace std;
 using namespace Dasher::Settings;
 
-COSXDasherControl::COSXDasherControl(DasherApp *aDasherApp) : CDashIntfScreenMsgs(new COSXSettingsStore()){
-  
-  dasherApp = aDasherApp;
-  
-  dasherEdit = [[DasherEdit alloc] init];
-
-  
+COSXDasherControl::COSXDasherControl(DasherApp *aDasherApp)
+: CDashIntfScreenMsgs(new COSXSettingsStore()), dasherApp(aDasherApp), dasherEdit(nil) {
 }
 
 void COSXDasherControl::CreateModules() {
@@ -140,15 +135,22 @@ void COSXDasherControl::TimerFired(NSPoint p) {
   [[dasherApp dasherView] redisplay];
 }  
  
+void COSXDasherControl::SetEdit(id<DasherEdit> _dasherEdit) {
+  //These both produce warnings, as release/retain are not defined in the DasherEdit protocol...(??)
+  [dasherEdit release];
+  [(dasherEdit = _dasherEdit) retain];
+  SetBuffer([dasherEdit currentCursorPos]);
+}
+
 void COSXDasherControl::editOutput(const string &strText, CDasherNode *pNode) {
 //NSLog(@"ExternalEventHandler edit insert");
-  [dasherEdit outputCallback:NSStringFromStdString(strText) targetApp:[dasherApp targetAppUIElementRef]];
+  [dasherEdit outputCallback:NSStringFromStdString(strText)];
   CDasherInterfaceBase::editOutput(strText,pNode);
 }
 
 void COSXDasherControl::editDelete(const string &strText, CDasherNode *pNode) {
 // NSLog(@"ExternalEventHandler edit delete");
-  [dasherEdit deleteCallback:NSStringFromStdString(strText) targetApp:[dasherApp targetAppUIElementRef]];
+  [dasherEdit deleteCallback:NSStringFromStdString(strText)];
   CDasherInterfaceBase::editDelete(strText, pNode);
 }
 
@@ -163,30 +165,11 @@ void COSXDasherControl::editProtect(CDasherNode *pSource) {
 }
 
 unsigned int COSXDasherControl::ctrlMove(bool bForwards, CControlManager::EditDistance dist) {
-#ifdef DEBUG
-  std::cout << "Call to edit move, doing nothing" << std::endl;
-#endif
-  return [[dasherEdit allContext] length];
+  return [dasherEdit ctrlMove:dist forwards:bForwards];
 }
 
 unsigned int COSXDasherControl::ctrlDelete(bool bForwards, CControlManager::EditDistance dist) {
-  if (!bForwards) {
-    const unsigned int iCurrentOffset([[dasherEdit allContext] length]);
-    int iStartOffset;
-    if (dist==CControlManager::EDIT_CHAR)
-      iStartOffset=(iCurrentOffset==0) ? 0 : iCurrentOffset-1;
-    else if (dist==CControlManager::EDIT_FILE)
-      iStartOffset=0;
-    else {
-      const CAlphInfo *pAlph(GetActiveAlphabet());
-      const string &target(pAlph->GetText(dist==CControlManager::EDIT_WORD ? pAlph->GetSpaceSymbol() : pAlph->GetParagraphSymbol()));
-      NSRange range = [[dasherEdit allContext] rangeOfString:NSStringFromStdString(target) options:NSBackwardsSearch];
-      iStartOffset = (range.length==0) ? 0 : range.location; //0=> not found, so go to beginning
-    }
-    DASHER_ASSERT(iStartOffset<=[[dasherEdit allContext] length]);
-    [dasherEdit deleteCallback:[[dasherEdit allContext] substringFromIndex:iStartOffset] targetApp:[dasherApp targetAppUIElementRef]];
-  }
-  return [[dasherEdit allContext] length];
+  return [dasherEdit ctrlDelete:dist forwards:bForwards];
 }
 
 int COSXDasherControl::GetFileSize(const std::string &strFileName) {

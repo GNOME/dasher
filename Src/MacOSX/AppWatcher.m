@@ -16,7 +16,6 @@
     [self setApps:[NSMutableArray arrayWithCapacity:20]];
     [self registerNotifications];
     [self fillApps];
-    [self startTimer];
   }
   return self;
 }
@@ -32,31 +31,9 @@
   return AXUIElementCreateApplication(pid);
 }
 
-- (void)startTimer {
-  if (watchActiveAppTimer == nil) {
-    watchActiveAppTimer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(checkActiveApp:) userInfo:nil repeats:YES];
-    [watchActiveAppTimer fire];
-  }
-}
-
-- (void)stopTimer {
-  [watchActiveAppTimer invalidate];
-  watchActiveAppTimer = nil;
-}
-
-- (void)checkActiveApp:(NSTimer *)timer {
-  NSDictionary *appInfo = [[NSWorkspace sharedWorkspace] activeApplication];
-  if ([self indexOfAppWithInfo:appInfo] != NSNotFound) {
-    [self setTargetAppInfo:appInfo];
-  } else {
-    [self setTargetAppInfo:nil];
-  }
-}
-
 - (void)awakeFromNib {
   NSSortDescriptor *d = [[[NSSortDescriptor alloc] initWithKey:@"NSApplicationName" ascending:YES selector:@selector(caseInsensitiveCompare:)] autorelease];
   [appsController setSortDescriptors:[NSArray arrayWithObject:d]];
-  [self setLockTargetApp:YES];
   [self setTargetAppInfo:nil];
 }
 
@@ -162,27 +139,10 @@
   }
 }
 
-- (BOOL)lockTargetApp {
-  return lockTargetApp;
-}
-
-- (void)setLockTargetApp:(BOOL)newLockTargetApp {
-  if (lockTargetApp != newLockTargetApp) {
-    lockTargetApp = newLockTargetApp;
-    if (newLockTargetApp) {
-      [self stopTimer];
-    } else {
-      [self startTimer];
-    }
-  }
-}
-
-
 - (void)dealloc {
   [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self];
   [_apps release];
   [_targetAppInfo release];
-  [watchActiveAppTimer invalidate];
   [super dealloc];
 }
 

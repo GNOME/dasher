@@ -13,22 +13,32 @@
 #import "COSXDasherControl.h"
 #import "DasherViewOpenGL.h"
 #import "Queue.h"
+#import "DasherEdit.h"
+#import "KeyboardHelper.h"
 
 @class AppWatcher;
-@class DasherView;
+@class DasherTextView;
 
 @interface DasherApp : NSObject
 {
-  IBOutlet NSPanel *dasherPanelUI;
+  IBOutlet NSWindow *dasherPanelUI;
   
   COSXDasherControl *aquaDasherControl;
   DasherViewOpenGL *dasherView;
   
   IBOutlet AppWatcher *appWatcher;
+  IBOutlet DasherTextView *textView;
   NSTimer *_timer;
   Queue *spQ;
   NSSpeechSynthesizer *spSyn;
+  CKeyboardHelper *_keyboardHelper;
+  BOOL directMode;
+  NSString *filename;
+  BOOL modified;
 }
+@property BOOL directMode;
+@property (readonly,retain) NSString *filename;
+@property BOOL modified;
 
 - (void)start;
 - (void)redraw;
@@ -39,7 +49,6 @@
 - (NSArray *)permittedValuesForParameter:(int)aParameter;
 - (id)getParameterValueForKey:(NSString *)aKey;
 - (void)setParameterValue:(id)aValue forKey:(NSString *)aKey;
-- (AXUIElementRef)targetAppUIElementRef;
 - (id)init;
 - (IBAction)importTrainingText:(id)sender;
 - (IBAction)showPreferences:(id)sender;
@@ -57,6 +66,14 @@
 - (bool)supportsSpeech;
 - (void)speak:(NSString *)sText interrupt:(bool)bInt;
 - (void)copyToClipboard:(NSString *)sText;
+- (void)handleKeyDown:(NSEvent *)e;
+- (void)handleKeyUp:(NSEvent *)e;
+- (IBAction)newDoc:(id)sender;
+- (IBAction)openDoc:(id)sender;
+- (IBAction)saveDoc:(id)sender;
+- (IBAction)saveDocAs:(id)sender;
+- (IBAction)revertToSaved:(id)sender;
 
 @property (assign) DasherViewOpenGL *dasherView;
+
 @end
