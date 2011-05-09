@@ -79,6 +79,7 @@ const char *gtk_dasher_control_get_parameter_string(GtkDasherControl * pControl,
 GArray *gtk_dasher_control_get_allowed_values(GtkDasherControl * pControl, int iParameter);
 void gtk_dasher_control_train(GtkDasherControl * pControl, const gchar * szFilename);
 void gtk_dasher_control_set_editor(GtkDasherControl *pControl, DasherEditor *pEditor);
+void gtk_dasher_control_clear_all_context(GtkDasherControl *pControl);
 const gchar* gtk_dasher_control_get_all_text(GtkDasherControl *pControl);
 const gchar* gtk_dasher_control_get_context(GtkDasherControl *pControl, unsigned int iOffset, unsigned int iLength);
 //void gtk_dasher_control_invalidate_context(GtkDasherControl *pControl, bool bForceStart);

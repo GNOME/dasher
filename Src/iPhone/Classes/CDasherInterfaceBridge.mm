@@ -217,6 +217,10 @@ void CDasherInterfaceBridge::Speak(const std::string &strText, bool bInterrupt) 
   [dasherApp speak:NSStringFromStdString(strText) interrupt:bInterrupt];  
 }
 
+void CDasherInterfaceBridge::ClearAllContext() {
+  [dasherApp clearText];
+}
+
 string CDasherInterfaceBridge::GetAllContext() {
   return StdStringFromNSString([dasherApp allText]);
 }

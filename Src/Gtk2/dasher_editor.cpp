@@ -141,6 +141,7 @@ dasher_editor_class_init(DasherEditorClass *pClass) {
   pClass->action_set_control = NULL;
   pClass->action_set_auto = NULL;
 #endif
+  pClass->clear = NULL;
   pClass->get_all_text = NULL;
   pClass->get_new_text = NULL;
   pClass->output = NULL;
@@ -362,6 +363,11 @@ dasher_editor_get_filename(DasherEditor *pSelf) {
     return DASHER_EDITOR_GET_CLASS(pSelf)->get_filename(pSelf);
   else
     return NULL;
+}
+
+void dasher_editor_clear(DasherEditor *pSelf) {
+  if (DASHER_EDITOR_GET_CLASS(pSelf)->clear)
+    DASHER_EDITOR_GET_CLASS(pSelf)->clear(pSelf);
 }
 
 const gchar *

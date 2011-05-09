@@ -162,7 +162,6 @@ static void dasher_editor_internal_generate_filename(DasherEditor *pSelf);
 static void dasher_editor_internal_open(DasherEditor *pSelf, const gchar *szFilename);
 static bool dasher_editor_internal_save_as(DasherEditor *pSelf, const gchar *szFilename, bool bAppend);
 static void dasher_editor_internal_create_buffer(DasherEditor *pSelf);
-static void dasher_editor_internal_clear(DasherEditor *pSelf, gboolean bStore);
 static void dasher_editor_internal_clipboard(DasherEditor *pSelf, clipboard_action act);
 
 /* To be obsoleted by movement to GTK buffers */
@@ -196,6 +195,7 @@ void dasher_editor_internal_grab_focus(DasherEditor *pSelf);
 gboolean dasher_editor_internal_file_changed(DasherEditor *pSelf);
 const gchar *dasher_editor_internal_get_filename(DasherEditor *pSelf);
 
+static void dasher_editor_internal_clear(DasherEditor *pSelf);
 const gchar *dasher_editor_internal_get_all_text(DasherEditor *pSelf);
 const gchar *dasher_editor_internal_get_new_text(DasherEditor *pSelf);
 
@@ -247,6 +247,7 @@ dasher_editor_internal_class_init(DasherEditorInternalClass *pClass) {
   pParentClass->grab_focus = dasher_editor_internal_grab_focus;
   pParentClass->file_changed = dasher_editor_internal_file_changed;
   pParentClass->get_filename = dasher_editor_internal_get_filename;
+  pParentClass->clear = dasher_editor_internal_clear;
   pParentClass->get_all_text = dasher_editor_internal_get_all_text;
   pParentClass->get_new_text = dasher_editor_internal_get_new_text;
   pParentClass->handle_parameter_change = dasher_editor_internal_handle_parameter_change;
@@ -354,7 +355,7 @@ dasher_editor_internal_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSe
     dasher_editor_internal_open(pSelf, szFullPath);
   else {
     dasher_editor_internal_generate_filename(pSelf);
-    dasher_editor_internal_clear(pSelf, false);
+    dasher_editor_internal_clear(pSelf);
   }
 
 //  pPrivate->pGameModeHelper = GAME_MODE_HELPER(game_mode_helper_new(pXML, (void*)pSelf));
@@ -434,16 +435,13 @@ void
 dasher_editor_internal_action_button(DasherEditor *pSelf, DasherAction *pAction) {
   if(pAction) {
     dasher_action_execute(pAction, DASHER_EDITOR(pSelf), -1);
-    dasher_editor_internal_clear(pSelf, true);
-  }
-  else { // Clear button
-    dasher_editor_internal_clear(pSelf, false);
-  }
+  } //else, Clear button (?!)
+  dasher_editor_internal_clear(pSelf);
 }
 #endif
 
 static void
-dasher_editor_internal_clear(DasherEditor *pSelf, gboolean bStore) {
+dasher_editor_internal_clear(DasherEditor *pSelf) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
   GtkTextIter start, end;
@@ -646,7 +644,10 @@ dasher_editor_internal_delete(DasherEditor *pSelf, int iLength, int iOffset) {
 
   GtkTextIter end;
 
-  gtk_text_buffer_get_iter_at_mark(pPrivate->pBuffer, &end, gtk_text_buffer_get_insert(pPrivate->pBuffer));
+  //Dasher offset 0 = "the first character"; Gtk Text Buffer offset 0
+  // = "the cursor position just before the first character" (and we want
+  // the cursor position just after)
+  gtk_text_buffer_get_iter_at_offset(pPrivate->pBuffer, &end, iOffset+1);
 
   GtkTextIter start = end;
 
@@ -1733,7 +1734,7 @@ dasher_editor_internal_new_buffer(DasherEditor *pSelf, const gchar *szFilename) 
   }
   else {
     dasher_editor_internal_generate_filename(pSelf);
-    dasher_editor_internal_clear(pSelf, false);
+    dasher_editor_internal_clear(pSelf);
   }
 
   //  g_signal_emit_by_name(G_OBJECT(pSelf), "buffer_changed", G_OBJECT(pSelf), NULL, NULL);

@@ -46,6 +46,7 @@ struct _DasherEditorClass {
   void (*action_set_control)(DasherEditor *, int, bool);
   void (*action_set_auto)(DasherEditor *, int, bool);
 #endif
+  void (*clear)(DasherEditor *);
   const gchar *(*get_all_text)(DasherEditor *);
   const gchar *(*get_new_text)(DasherEditor *);
   void (*output)(DasherEditor *, const gchar *, int);
@@ -102,6 +103,7 @@ void dasher_editor_action_set_control(DasherEditor *pSelf, int iActionID, bool b
 void dasher_editor_action_set_auto(DasherEditor *pSelf, int iActionID, bool bValue);
 #endif
 
+void dasher_editor_clear(DasherEditor *pSelf);
 const gchar *dasher_editor_get_all_text(DasherEditor *pSelf);
 const gchar *dasher_editor_get_new_text(DasherEditor *pSelf);
 

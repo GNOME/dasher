@@ -48,6 +48,7 @@ public:
   void CopyToClipboard(const std::string &strText);
   bool SupportsSpeech();
   void Speak(const std::string &strText, bool bInterrupt);
+  void ClearAllContext();
   std::string GetAllContext();
   std::string GetContext(unsigned int iStart, unsigned int iLength);
   unsigned int ctrlMove(bool bForwards, CControlManager::EditDistance dist);

@@ -686,6 +686,8 @@ void CDasherInterfaceBase::ResetNats() {
 }
 
 void CDasherInterfaceBase::ClearAllContext() {
+  ctrlDelete(true, CControlManager::EDIT_FILE);
+  ctrlDelete(false, CControlManager::EDIT_FILE);
   SetBuffer(0);
 }
 

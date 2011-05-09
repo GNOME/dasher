@@ -137,6 +137,7 @@ public:
 
   virtual void WriteTrainFile(const std::string &filename, const std::string &strNewText);
 
+  virtual void ClearAllContext();
   virtual std::string GetAllContext();
   std::string GetContext(unsigned int iStart, unsigned int iLength);
 

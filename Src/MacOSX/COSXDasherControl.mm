@@ -325,7 +325,7 @@ std::string COSXDasherControl::GetAllContext() {
 
 void COSXDasherControl::ClearAllContext() {
   [dasherEdit clearContext];
-  CDasherInterfaceBase::ClearAllContext();
+  SetBuffer(0);
 }
 
 

@@ -410,8 +410,11 @@ public:
   ///Subclasses should return the contents of (the specified subrange of) the edit buffer
   virtual std::string GetContext(unsigned int iStart, unsigned int iLength)=0;
 
-  ///Subclasses should override to clear text edit box, etc., etc., but then
-  /// call this (superclass) implementation as well to rebuild the model...
+  ///Clears all written text from edit buffer and rebuilds the model. The default
+  /// implementation does this using the control mode editDelete mechanism
+  /// (one call forward, one back), followed by a call to SetBuffer(0). Subclasses
+  /// may (optionally) override with more efficient / easier implementations, but
+  /// should make the same call to SetBuffer.
   virtual void ClearAllContext();
   virtual std::string GetAllContext()=0;
 

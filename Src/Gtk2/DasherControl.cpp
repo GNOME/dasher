@@ -199,6 +199,12 @@ void CDasherControl::ScanColourFiles(std::vector<std::string> &vFileList) {
   g_pattern_spec_free(colourglob);
 }
 
+void CDasherControl::ClearAllContext() {
+  gtk_dasher_control_clear_all_context(m_pDasherControl);
+  //SetBuffer(0); //the editor's clear method emits a "buffer_changed" signal,
+                  //which does this for us automatically.
+}
+
 std::string CDasherControl::GetAllContext() {
   const gchar *text = gtk_dasher_control_get_all_text(m_pDasherControl);
   return text;
