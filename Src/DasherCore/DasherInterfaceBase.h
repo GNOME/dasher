@@ -287,10 +287,23 @@ public:
   // std::vector<std::string>& GetLangModels();
   // std::vector<std::string>& GetViews();
 
-  /// Supply a new CDasherScreen object to do the rendering.
+  /// Supply a new CDasherScreen object onto which to render. Note this should
+  /// only be called (a) at startup, and (b) when the new screen is _significantly_
+  /// different from the old, rather than just a window resize: specifically, this means
+  /// the tree of nodes will be rebuilt with new Labels for the new screen; and in the future,
+  /// maybe also if things like colour depth, alpha transparency support, etc., change.
+  /// If the existing rendering setup should just scale to the new screen dimensions,
+  /// call ScreenResized() instead (we expect this to be the case most/all of the time,
+  /// and this method subsumes a call to ScreenResized.) Note, at startup, ChangeScreen
+  /// and Realize may occur in either order; if ChangeScreen comes after, Resize will create a 
+  /// tree with null Labels, which will have to be rebuilt in the call to ChangeScreen.
   /// \param NewScreen Pointer to the new CDasherScreen.
-
-  void ChangeScreen(CDasherScreen * NewScreen); // We may change the widgets Dasher uses
+  void ChangeScreen(CDasherScreen * NewScreen);
+  
+  ///Call when the screen dimensions have been changed, to recalculate scaling factors etc.
+  /// \param pScreen the screen whose dimensions have changed. TODO we expect this to be
+  /// the same one-and-only screen that we are using anyway, so remove parameter?
+  void ScreenResized(CDasherScreen *pScreen);
 
   /// Train Dasher from a file
   /// All traing data must be in UTF-8

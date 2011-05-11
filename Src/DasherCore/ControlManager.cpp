@@ -61,12 +61,34 @@ CDasherNode *CControlBase::GetRoot(CDasherNode *pParent, unsigned int iLower, un
   return pNewNode;
 }
 
+void CControlBase::MakeLabels(CDasherScreen *pScreen) {
+  deque<NodeTemplate *> templateQueue(1,m_pRoot);
+  set<NodeTemplate *> allTemplates(templateQueue.begin(),templateQueue.end());
+  while (!templateQueue.empty()) {
+    NodeTemplate *head = templateQueue.front();
+    templateQueue.pop_front();
+    delete head->m_pLabel;
+    head->m_pLabel = pScreen->MakeLabel(head->m_strLabel);
+    for (vector<NodeTemplate *>::iterator it = head->successors.begin(); it!=head->successors.end(); it++) {
+      if (!(*it)) continue; //an escape back to the alphabet, no label/successors here
+      if (allTemplates.find(*it)==allTemplates.end()) {
+        allTemplates.insert(*it);
+        templateQueue.push_back(*it);
+      }
+    }
+  }
+}
+
 CControlBase::NodeTemplate::NodeTemplate(const string &strLabel,int iColour)
-: m_strLabel(strLabel), m_iColour(iColour) {
+: m_strLabel(strLabel), m_iColour(iColour), m_pLabel(NULL) {
+}
+
+CControlBase::NodeTemplate::~NodeTemplate() {
+  delete m_pLabel;
 }
 
 CControlBase::CContNode::CContNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, NodeTemplate *pTemplate, CControlBase *pMgr)
-: CDasherNode(pParent, iOffset, iLbnd, iHbnd, (pTemplate->colour() != -1) ? pTemplate->colour() : (pParent->ChildCount()%99)+11, pTemplate->label()), m_pTemplate(pTemplate), m_pMgr(pMgr) {
+: CDasherNode(pParent, iOffset, iLbnd, iHbnd, (pTemplate->m_iColour != -1) ? pTemplate->m_iColour : (pParent->ChildCount()%99)+11, pTemplate->m_pLabel), m_pTemplate(pTemplate), m_pMgr(pMgr) {
 }
 
 void CControlBase::CContNode::PopulateChildren() {

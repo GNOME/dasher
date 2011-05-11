@@ -12,7 +12,7 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
                                            Dasher::CEventHandler *pEventHandler, 
                                            CSettingsStore *pSettingsStore,
                                            Dasher::CAlphIO *pAlphIO) : CDasherComponent(pEventHandler, pSettingsStore),
-  m_pInterface(pInterface), m_pControlManager(NULL) {
+  m_pInterface(pInterface), m_pControlManager(NULL), m_pScreen(NULL) {
 
   const Dasher::CAlphInfo *pAlphInfo(pAlphIO->GetInfo(pSettingsStore->GetStringParameter(SP_ALPHABET_ID)));
   const CAlphabetMap *pAlphMap = pAlphInfo->MakeMap();
@@ -98,6 +98,13 @@ CNodeCreationManager::~CNodeCreationManager() {
   delete m_pControlManager;
 }
 
+void CNodeCreationManager::ChangeScreen(CDasherScreen *pScreen) {
+  if (m_pScreen == pScreen) return;
+  m_pScreen = pScreen;
+  m_pAlphabetManager->MakeLabels(pScreen);
+  if (m_pControlManager) m_pControlManager->MakeLabels(pScreen);
+}
+
 void CNodeCreationManager::HandleEvent(CEvent *pEvent) {
   if (pEvent->m_iEventType == EV_PARAM_NOTIFY) {
     switch (static_cast<CParameterNotificationEvent *>(pEvent)->m_iParameter) {
@@ -107,6 +114,7 @@ void CNodeCreationManager::HandleEvent(CEvent *pEvent) {
         unsigned long iControlSpace;
         if (GetBoolParameter(BP_CONTROL_MODE)) {
           m_pControlManager = new CControlManager(m_pEventHandler, m_pSettingsStore, this, m_pInterface);
+          if (m_pScreen) m_pControlManager->MakeLabels(m_pScreen);
           iControlSpace = iNorm / 20;
         } else {
           m_pControlManager = NULL;

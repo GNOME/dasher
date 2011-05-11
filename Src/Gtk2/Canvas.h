@@ -8,7 +8,8 @@
 
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
-#include "PangoCache.h"
+#include <pango/pango.h>
+#include <map>
 
 #include <iostream>
 
@@ -52,8 +53,6 @@
 #define SET_COLOR(c)					\
   SET_COLOR_BACKEND(c)
 
-using namespace Dasher;
-
 /// CCanvas
 ///
 /// Method definitions for CCanvas, implementing the CDasherScreen
@@ -62,17 +61,16 @@ using namespace Dasher;
 /// primitive' should really not be here - higher level drawing
 /// functions belong in CDasherView.
 
-class CCanvas:public Dasher::CDasherScreen {
+class CCanvas:public Dasher::CLabelListScreen {
 
 public:
-
-  /// 
+  typedef Dasher::screenint screenint;
+  /// Creates a new canvas - initially of zero size, so drawing
+  /// operations won't do anything until a call to resize() is made.
   /// \param pCanvas The GTK drawing area used by the canvas
-  /// \param pPangoCache A cache for precomputed Pango layouts
   ///
 
-  CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache,
-          screenint iWidth, screenint iHeight);
+  CCanvas(GtkWidget *pCanvas);
   ~CCanvas();
 
   ///
@@ -91,28 +89,10 @@ public:
   /// \deprecated In Linux - now handled by the pango cache, but need to think how this fits in with Windows
   ///  
 
-  void SetFont(std::string Name) {
-  };
+  void SetFont(const std::string &strName);
 
-  ///
-  /// Set the font size for rendering
-  /// \param fontsize The font size to use
-  /// \deprecated Obsolete
-  ///
-
-  void SetFontSize(Dasher::Opts::FontSize fontsize) {
-
-  };
-
-  ///
-  /// Get the current font size
-  /// \deprecated To be removed before 4.0 release
-  /// \todo We should not be relying on locally cached variables - check to see whether this is still used or not
-  ///
-
-  Dasher::Opts::FontSize GetFontSize() {
-    return Dasher::Opts::FontSize(1);
-  };
+  ///Make a label for use with this screen; caches Pango layout information inside it.
+  CDasherScreen::Label *MakeLabel(const std::string &strText);
 
   ///
   /// Return the physical extent of a given string being rendered at a given size.
@@ -122,7 +102,7 @@ public:
   /// \param Size Size at which the string will be rendered (units?)
   ///
 
-  void TextSize(const std::string &String, screenint *Width, screenint *Height, int Size);
+  std::pair<screenint,screenint> TextSize(CDasherScreen::Label *label, unsigned int Size);
 
   ///
   /// Draw a text string
@@ -132,7 +112,7 @@ public:
   /// \param Size The size at which to render the rectangle (units?)
   ///
 
-  void DrawString(const std::string &String, screenint x1, screenint y1, int Size, int iColor);
+  void DrawString(CDasherScreen::Label *label, screenint x1, screenint y1, unsigned int Size, int iColor);
 
   ///
   /// Draw a rectangle
@@ -196,12 +176,15 @@ public:
   /// \param Colours New colours to use
   ///
 
-  void SetColourScheme(const CColourIO::ColourInfo *pColourScheme);
+  void SetColourScheme(const Dasher::CColourIO::ColourInfo *pColourScheme);
 
   /// 
   /// Gets the location and size of our canvas.
   /// Returns true on success, false otherwise.
   bool GetCanvasSize(GdkRectangle *pRectangle);
+
+  // Redeclare to make public and adjust cairo/gdk surface sizes
+  void resize(screenint w,screenint h);
 
 private:
 
@@ -211,6 +194,8 @@ private:
 
   GtkWidget *m_pCanvas;
 
+  void InitSurfaces();
+  void DestroySurfaces();
 #if WITH_CAIRO
 
   cairo_surface_t *m_pDisplaySurface;
@@ -250,12 +235,18 @@ private:
 
 #endif
 
-  /// 
-  /// The Pango cache - used to store pre-computed pango layouts as
-  /// they are costly to regenerate every time they are needed.
-  ///
+  std::string m_strFontName;
+  std::map<unsigned int,PangoFontDescription *> m_mFonts;
 
-  CPangoCache *m_pPangoCache;
+  class CPangoLabel : public CLabelListScreen::Label {
+  public:
+    CPangoLabel(CCanvas *pCanvas, const std::string &strText)
+    : CLabelListScreen::Label(pCanvas, strText) {
+    }
+    std::map<unsigned int,PangoLayout *> m_mLayouts;
+  };
+
+  PangoLayout *GetLayout(CPangoLabel *label, unsigned int iFontSize);
 
 #if WITH_CAIRO
   cairo_t *display_cr;

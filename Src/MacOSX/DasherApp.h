@@ -11,9 +11,7 @@
 #import <AppKit/AppKit.h>
 
 #import "COSXDasherControl.h"
-//#import "DasherAppInterface.h"
-#import "COSXDasherScreen.h"
-#import "DasherViewCocoa.h"
+#import "DasherViewOpenGL.h"
 #import "Queue.h"
 
 @class AppWatcher;
@@ -24,7 +22,7 @@
   IBOutlet NSPanel *dasherPanelUI;
   
   COSXDasherControl *aquaDasherControl;
-  id <DasherViewCocoa>dasherView;
+  DasherViewOpenGL *dasherView;
   
   IBOutlet AppWatcher *appWatcher;
   NSTimer *_timer;
@@ -34,7 +32,7 @@
 
 - (void)start;
 - (void)redraw;
-- (void)changeScreen:(COSXDasherScreen *)aScreen;
+- (void)changeScreen:(CDasherScreen *)aScreen;
 - (void)pause;
 - (void)unpause:(unsigned long int)time;
 - (NSDictionary *)parameterDictionary;
@@ -50,8 +48,6 @@
 - (void)windowWillClose:(NSNotification *)aNotification;
 - (COSXDasherControl *)aquaDasherControl;
 - (void)setAquaDasherControl:(COSXDasherControl *)value;
-- (id <DasherViewCocoa>)dasherView;
-- (void)setDasherView:(id <DasherViewCocoa>)value;
 - (void)startTimer;
 - (void)shutdownTimer;
 - (NSTimer *)timer;
@@ -61,4 +57,6 @@
 - (bool)supportsSpeech;
 - (void)speak:(NSString *)sText interrupt:(bool)bInt;
 - (void)copyToClipboard:(NSString *)sText;
+
+@property (assign) DasherViewOpenGL *dasherView;
 @end

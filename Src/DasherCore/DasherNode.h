@@ -27,6 +27,7 @@
 #include "DasherTypes.h"
 #include "NodeManager.h"
 #include "Alphabet/AlphabetMap.h"
+#include "DasherScreen.h"
 
 namespace Dasher {
   class CDasherNode;
@@ -66,7 +67,7 @@ class Dasher::CDasherNode:private NoClones {
   /// Colour; note invisible nodes just have the same colour as their parent.
   /// (so we know what colour to use when their parents are deleted)
   inline int getColour() {return m_iColour;}
-  inline const std::string &getDisplayText() {return m_strDisplayText;}
+  inline CDasherScreen::Label *getLabel() {return m_pLabel;}
   ///Whether labels on child nodes should be displaced to the right of this node's label.
   /// (Default implementation returns true, subclasses should override if appropriate)
   virtual bool bShove() {return true;}
@@ -80,12 +81,13 @@ class Dasher::CDasherNode:private NoClones {
 
   /// @brief Constructor
   ///
-  /// @param pParent Parent of the new node
-  /// @param iLbnd Lower bound of node within parent
-  /// @param iHbnd Upper bound of node within parent
-  /// @param pDisplayInfo Struct containing information on how to display the node
-  ///
-  CDasherNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const std::string &strDisplayText);
+  /// \param pParent Parent of the new node; automatically adds to end of parent's child list
+  /// \param iOffset Index into text buffer of character to LHS of cursor _after_ this node is Output().
+  /// \param iLbnd Lower bound of node within parent
+  /// \param iHbnd Upper bound of node within parent
+  /// \param iColour background colour of node (for transparent nodes, same colour as parent)
+  /// \param pLabel label to render onto node, NULL if no label required.
+  CDasherNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, CDasherScreen::Label *pLabel);
 
   /// @brief Destructor
   ///
@@ -281,7 +283,7 @@ class Dasher::CDasherNode:private NoClones {
 
  protected:
   const int m_iColour;
-  const std::string m_strDisplayText;
+  CDasherScreen::Label * m_pLabel;
 };
 /// @}
 

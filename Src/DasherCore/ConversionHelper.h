@@ -26,6 +26,7 @@
 #include <vector>
 #include "SCENode.h"
 #include "LanguageModelling/LanguageModel.h"
+#include "DasherScreen.h"
 
 namespace Dasher{
 	class CDasherNode;  //forward declaration
@@ -42,7 +43,7 @@ namespace Dasher{
   class CConversionHelper : public CConversionManager {
   public:
 	CConversionHelper(CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, CLanguageModel *pLanguageModel);
-
+    
 	/// Convert a given string to a lattice of candidates. Sizes for
 	/// candidates aren't assigned at this point. The input string
 	/// should be UTF-8 encoded.
@@ -111,7 +112,7 @@ namespace Dasher{
 	protected:
     class CConvHNode : public CConvNode {
     public:
-      CConvHNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const std::string &strDisplayText, CConversionHelper *pMgr);
+      CConvHNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, CDasherScreen::Label *pLabel, CConversionHelper *pMgr);
       ///
       /// Provide children for the supplied node
       ///
@@ -121,7 +122,7 @@ namespace Dasher{
     protected:
       inline CConversionHelper *mgr() {return static_cast<CConversionHelper *>(m_pMgr);}
     };
-	  virtual CConvHNode *makeNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const std::string &strDisplayText);
+	  virtual CConvHNode *makeNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, CDasherScreen::Label *pLabel);
     ///
     /// Build the conversion tree (lattice) for the given string -
     /// evaluated late to prevent unnecessary conversions when the
@@ -133,7 +134,7 @@ namespace Dasher{
     virtual Dasher::CLanguageModel *GetLanguageModel() {
       return m_pLanguageModel;
     }
-
+    
   private:
     CLanguageModel *m_pLanguageModel;
 

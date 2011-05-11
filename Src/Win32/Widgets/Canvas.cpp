@@ -471,15 +471,9 @@ LRESULT CCanvas::OnMouseMove(UINT message, WPARAM wParam, LPARAM lParam, BOOL& b
 }
 
 LRESULT CCanvas::OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
-	if(m_pScreen != 0) {
-		delete m_pScreen;
-		m_pScreen = 0;
-	}
-
 	if (LOWORD(lParam)>0 && HIWORD(lParam) >0) {
-		m_pScreen = new CScreen(m_hdc, m_hWnd, LOWORD(lParam), HIWORD(lParam));
-    m_pScreen->SetFont(m_pDasherInterface->GetStringParameter(SP_DASHER_FONT));
-		m_pDasherInterface->ChangeScreen(m_pScreen);
+		m_pScreen->resize(LOWORD(lParam), HIWORD(lParam));
+		m_pDasherInterface->ScreenResized(m_pScreen);
 		InvalidateRect( NULL, FALSE);
 	}
 

@@ -5,7 +5,6 @@
 #include <config.h>
 #endif
 
-#include "PangoCache.h"
 #include "Canvas.h"
 #include "../DasherCore/SocketInput.h"
 
@@ -191,12 +190,6 @@ private:
 
   CDasherMouseInput *m_pMouseInput;
   CDasher1DMouseInput *m_p1DMouseInput;
-
-  ///
-  /// Cache of Pango layouts
-  ///
-
-  CPangoCache *m_pPangoCache;
 
   ///
   /// The CCanvas object

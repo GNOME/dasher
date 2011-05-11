@@ -62,7 +62,7 @@ CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStor
 : CDasherView(pEventHandler, pSettingsStore, DasherScreen),   m_Y1(4), m_Y2(0.95 * GetLongParameter(LP_MAX_Y)), m_Y3(0.05 * GetLongParameter((LP_MAX_Y))), m_bVisibleRegionValid(false) {
 
   //Note, nonlinearity parameters set in SetScaleFactor
-  ChangeScreen(DasherScreen);
+  ScreenResized(DasherScreen);
 }
 
 CDasherViewSquare::~CDasherViewSquare() {}
@@ -148,7 +148,7 @@ CDasherNode *CDasherViewSquare::Render(CDasherNode *pRoot, myint iRootMin, myint
 /// specified as two co-ordinates, intended to the be the corners of
 /// the leading edge of the containing box.
 
-CDasherViewSquare::CTextString *CDasherViewSquare::DasherDrawText(myint iDasherMaxX, myint iDasherMidY, const std::string &sDisplayText, CTextString *pParent, int iColor) {
+CDasherViewSquare::CTextString *CDasherViewSquare::DasherDrawText(myint iDasherMaxX, myint iDasherMidY, CDasherScreen::Label *pLabel, CTextString *pParent, int iColor) {
 
   screenint x,y;
   Dasher2Screen(iDasherMaxX, iDasherMidY, x, y);
@@ -157,7 +157,7 @@ CDasherViewSquare::CTextString *CDasherViewSquare::DasherDrawText(myint iDasherM
   int iSize = GetLongParameter(LP_DASHER_FONTSIZE);
   {
     const myint iMaxY(GetLongParameter(LP_MAX_Y));
-    if (GetBoolParameter(BP_MULTISIZE_FONTS)) {
+    if (Screen()->MultiSizeFonts() && iSize>4) {
       //font size maxes out at ((iMaxY*3)/2)+iMaxY)/iMaxY = 3/2*smallest
       // which is reached when iDasherMaxX == iMaxY/2, i.e. the crosshair
       iSize = ((min(iDasherMaxX*3,(iMaxY*3)/2) + iMaxY) * iSize) / iMaxY;
@@ -173,7 +173,7 @@ CDasherViewSquare::CTextString *CDasherViewSquare::DasherDrawText(myint iDasherM
     }
   }
 
-  CTextString *pRet = new CTextString(sDisplayText, x, y, iSize, iColor);
+  CTextString *pRet = new CTextString(pLabel, x, y, iSize, iColor);
   vector<CTextString *> &dest(pParent ? pParent->m_children : m_DelayedTexts);
   dest.push_back(pRet);
   return pRet;
@@ -187,13 +187,13 @@ void CDasherViewSquare::DoDelayedText(CTextString *pText) {
   // across according to the aiMax array, but this needs Dasher co-ordinates, which were
   // more easily available at CTextString creation time. If it really doesn't look as good,
   // can put in extra calls to Screen2Dasher....
-  screenint x(pText->m_ix), y(pText->m_iy), textWidth, textHeight;
-  Screen()->TextSize(pText->m_String, &textWidth, &textHeight, pText->m_iSize);
+  screenint x(pText->m_ix), y(pText->m_iy);
+  pair<screenint,screenint> textDims=Screen()->TextSize(pText->m_pLabel, pText->m_iSize);
   switch (orient) {
     case Dasher::Opts::LeftToRight: {
-      screenint iRight = x + textWidth;
+      screenint iRight = x + textDims.first;
       if (iRight < Screen()->GetWidth()) {
-        Screen()->DrawString(pText->m_String, x, y-textHeight/2, pText->m_iSize, pText->m_iColor);
+        Screen()->DrawString(pText->m_pLabel, x, y-textDims.second/2, pText->m_iSize, pText->m_iColor);
         for (vector<CTextString *>::iterator it = pText->m_children.begin(); it!=pText->m_children.end(); it++) {
           CTextString *pChild=*it;
           pChild->m_ix = max(pChild->m_ix, iRight);
@@ -204,9 +204,9 @@ void CDasherViewSquare::DoDelayedText(CTextString *pText) {
       break;
     }
     case Dasher::Opts::RightToLeft: {
-      screenint iLeft = x-textWidth;
+      screenint iLeft = x-textDims.first;
       if (iLeft>=0) {
-        Screen()->DrawString(pText->m_String, x - textWidth, y-textHeight/2, pText->m_iSize, pText->m_iColor);
+        Screen()->DrawString(pText->m_pLabel, iLeft, y-textDims.second/2, pText->m_iSize, pText->m_iColor);
         for (vector<CTextString *>::iterator it = pText->m_children.begin(); it!=pText->m_children.end(); it++) {
           CTextString *pChild=*it;
           pChild->m_ix = min(pChild->m_ix, iLeft);
@@ -217,9 +217,9 @@ void CDasherViewSquare::DoDelayedText(CTextString *pText) {
       break;
     }
     case Dasher::Opts::TopToBottom: {
-      screenint iBottom = y + textHeight;
+      screenint iBottom = y + textDims.second;
       if (iBottom < Screen()->GetHeight()) {
-        Screen()->DrawString(pText->m_String, x-textWidth/2, y, pText->m_iSize, pText->m_iColor);
+        Screen()->DrawString(pText->m_pLabel, x-textDims.first/2, y, pText->m_iSize, pText->m_iColor);
         for (vector<CTextString *>::iterator it = pText->m_children.begin(); it!=pText->m_children.end(); it++) {
           CTextString *pChild=*it;
           pChild->m_iy = max(pChild->m_iy, iBottom);
@@ -230,9 +230,9 @@ void CDasherViewSquare::DoDelayedText(CTextString *pText) {
       break;
     }
     case Dasher::Opts::BottomToTop: {
-      screenint iTop = y - textHeight;
+      screenint iTop = y - textDims.second;
       if (y>=0) {
-        Screen()->DrawString(pText->m_String, x-textWidth/2, y-textHeight, pText->m_iSize, pText->m_iColor);
+        Screen()->DrawString(pText->m_pLabel, x-textDims.first/2, iTop, pText->m_iSize, pText->m_iColor);
         for (vector<CTextString *>::iterator it = pText->m_children.begin(); it!=pText->m_children.end(); it++) {
           CTextString *pChild=*it;
           pChild->m_iy = min(pChild->m_iy, iTop);
@@ -483,13 +483,12 @@ void CDasherViewSquare::DisjointRender(CDasherNode *pRender, myint y1, myint y2,
 
   const int myColor = pRender->getColour();
 
-  const std::string &sDisplayText(pRender->getDisplayText());
-  if( sDisplayText.size() > 0 )
+  if( pRender->getLabel() )
   {
     const int textColor = GetLongParameter(LP_OUTLINE_WIDTH)<0 ? myColor : 4;
     myint ny1 = std::min(iDasherMaxY, std::max(iDasherMinY, y1)),
           ny2 = std::min(iDasherMaxY, std::max(iDasherMinY, y2));
-    CTextString *pText = DasherDrawText(y2-y1, (ny1+ny2)/2, sDisplayText, pPrevText, textColor);
+    CTextString *pText = DasherDrawText(y2-y1, (ny1+ny2)/2, pRender->getLabel(), pPrevText, textColor);
     if (pRender->bShove()) pPrevText = pText;
   }
 
@@ -657,13 +656,12 @@ beginning:
 
   const int myColor = pRender->getColour();
 
-  const std::string &sDisplayText(pRender->getDisplayText());
-  if( sDisplayText.size() > 0 )
+  if( pRender->getLabel() )
   {
     const int textColor = GetLongParameter(LP_OUTLINE_WIDTH)<0 ? myColor : 4;
     myint ny1 = std::min(iDasherMaxY, std::max(iDasherMinY, y1)),
     ny2 = std::min(iDasherMaxY, std::max(iDasherMinY, y2));
-    CTextString *pText = DasherDrawText(y2-y1, (ny1+ny2)/2, sDisplayText, pPrevText, textColor);
+    CTextString *pText = DasherDrawText(y2-y1, (ny1+ny2)/2, pRender->getLabel(), pPrevText, textColor);
     if (pRender->bShove()) pPrevText = pText;
   }
 
@@ -1129,8 +1127,7 @@ void CDasherViewSquare::VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, m
 //   Screen()->Polyline(p, 4, iWidth, iColour);
 // }
 
-void CDasherViewSquare::ChangeScreen(CDasherScreen *NewScreen) {
-  CDasherView::ChangeScreen(NewScreen);
+void CDasherViewSquare::ScreenResized(CDasherScreen *NewScreen) {
   m_bVisibleRegionValid = false;
   m_iScalingFactor = 100000000;
   SetScaleFactor();

@@ -30,20 +30,31 @@ static char THIS_FILE[] = __FILE__;
 /////////////////////////////////////////////////////////////////////////////
 
 CScreen::CScreen(HDC hdc, HWND hWnd, Dasher::screenint iWidth, Dasher::screenint iHeight)
-:CDasherScreen(iWidth, iHeight), m_hdc(hdc) {
+:CLabelListScreen(iWidth, iHeight), m_hdc(hdc) {
   // set up the off-screen buffers
   // HDC hdc = GetDC(mainwindow);
 
   m_hWnd = hWnd;
 
+  CreateBuffers();
+
+  CodePage = GetUserCodePage();
+
+//      m_hDCScreen = ::GetDC(m_hwnd);
+//      TCHAR debug[256];
+//      _stprintf(debug, TEXT("GetDC: hwnd %x hdc %x\n"), m_hwnd, m_hDCScreen);
+//      OutputDebugString(debug); 
+}
+
+void CScreen::CreateBuffers() {
   // Create a memory device context compatible with the screen
-  m_hDCBufferBackground = CreateCompatibleDC(hdc);      // one for rectangles
-  m_hbmBitBackground = CreateCompatibleBitmap(hdc, m_iWidth, m_iHeight);
+  m_hDCBufferBackground = CreateCompatibleDC(m_hdc);      // one for rectangles
+  m_hbmBitBackground = CreateCompatibleBitmap(m_hdc, GetWidth(), GetHeight());
   SetBkMode(m_hDCBufferBackground, TRANSPARENT);
   m_prevhbmBitBackground = SelectObject(m_hDCBufferBackground, m_hbmBitBackground);
 
-  m_hDCBufferDecorations = CreateCompatibleDC(hdc);
-  m_hbmBitDecorations = CreateCompatibleBitmap(hdc, m_iWidth, m_iHeight);
+  m_hDCBufferDecorations = CreateCompatibleDC(m_hdc);
+  m_hbmBitDecorations = CreateCompatibleBitmap(m_hdc, GetWidth(), GetHeight());
   SetBkMode(m_hDCBufferDecorations, TRANSPARENT);
   m_prevhbmBitDecorations = SelectObject(m_hDCBufferDecorations, m_hbmBitDecorations);
 
@@ -52,10 +63,13 @@ CScreen::CScreen(HDC hdc, HWND hWnd, Dasher::screenint iWidth, Dasher::screenint
   m_hDCBuffer = m_hDCBufferBackground;
 
 }
-
 /////////////////////////////////////////////////////////////////////////////
 
 CScreen::~CScreen() {
+  DeleteBuffers();
+}
+
+void CScreen::DeleteBuffers() {
   // tidy up
 
   // Select the old bitmaps back into the device contexts (is this really
@@ -89,6 +103,15 @@ void CScreen::SetColourScheme(const CColourIO::ColourInfo *pColours) {
   m_pColours = pColours;
 }
 
+void CScreen::SetFont(const string &strFont) {
+  if(FontName == strFont) return;
+  FontName = strFont;
+  for(stdext::hash_map<int, HFONT>::const_iterator it(m_cFonts.begin()); it != m_cFonts.end(); ++it)
+    DeleteObject(it->second);
+  m_cFonts.clear();
+  for (set<CLabelListScreen::Label*>::iterator it=LabelsBegin(); it!=LabelsEnd(); it++)
+	  static_cast<CScreen::Label*>(*it)->m_sizeCache.clear();
+}
 
 // Handler for redraw markers;
 void CScreen::SendMarker(int iMarker) {
@@ -97,44 +120,27 @@ void CScreen::SendMarker(int iMarker) {
     m_hDCBuffer = m_hDCBufferBackground;
     break;
   case 1:
-    BitBlt(m_hDCBufferDecorations, 0, 0, m_iWidth, m_iHeight, m_hDCBufferBackground, 0, 0, SRCCOPY);
+    BitBlt(m_hDCBufferDecorations, 0, 0, GetWidth(), GetHeight(), m_hDCBufferBackground, 0, 0, SRCCOPY);
     m_hDCBuffer = m_hDCBufferDecorations;
     break;
   }
 }
 
-void CScreen::DrawMousePosBox(int which, int iMousePosDist,int layer) {
-  RECT Rect;
-  HBRUSH brush;
-  switch (which) {
-  case 0:
-    Rect.left = 0;
-    Rect.top = m_iHeight / 2 - iMousePosDist - 50;
-    Rect.right = m_iWidth;
-    Rect.bottom = Rect.top + 100;
-    brush = CreateSolidBrush(RGB(255, 0, 0));
-    break;
-  case 1:
-    Rect.left = 0;
-    Rect.bottom = m_iHeight / 2 + iMousePosDist + 50;
-    Rect.right = m_iWidth;
-    Rect.top = Rect.bottom - 100;
-    brush = CreateSolidBrush(RGB(255, 255, 0));
-    break;
-  default:
-    DASHER_ASSERT(0);
-  }
-  FillRect(m_hDCBuffer, &Rect, brush);
-  DeleteObject(brush);
-  Display();
+void CScreen::resize(screenint width, screenint height) {
+  DeleteBuffers();
+  CLabelListScreen::resize(width,height);
+  CreateBuffers();
 }
 
-void CScreen::DrawString(const std::string &OutputString, Dasher::screenint x1, Dasher::screenint y1, int iSize, int Colour) {
+CScreen::Label::Label(CScreen *pScreen, const string &strText) : CLabelListScreen::Label(pScreen, strText), m_OutputText(WinUTF8::UTF8string_to_wstring(m_strText)) {
+}
 
-  Tstring OutputText;
+CDasherScreen::Label *CScreen::MakeLabel(const string &strText) {
+  return new Label(this,strText);
+}
 
-  WinUTF8::UTF8string_to_wstring(OutputString, OutputText);
-
+void CScreen::DrawString(CDasherScreen::Label *lab, screenint x1, screenint y1, unsigned int iSize, int Colour) {
+  Label *label(static_cast<Label *>(lab));
   RECT Rect;
   Rect.left = x1;
   Rect.top = y1;
@@ -152,54 +158,41 @@ void CScreen::DrawString(const std::string &OutputString, Dasher::screenint x1, 
   iCRefOld = SetTextColor(m_hDCBuffer, iCRefNew);
 
   // The Windows API dumps all its function names in the global namespace, ::
-  ::DrawText(m_hDCBuffer, OutputText.c_str(), OutputText.size(), &Rect, DT_LEFT | DT_TOP | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE);
+  ::DrawText(m_hDCBuffer, label->m_OutputText.c_str(), label->m_OutputText.size(), &Rect, DT_LEFT | DT_TOP | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE);
   
   SetTextColor(m_hDCBuffer, iCRefOld);
   SelectObject(m_hDCBuffer, old);
 }
 
-void CScreen::TextSize(const std::string &String, screenint *Width, screenint *Height, int iSize) {
-  CTextSizeInput in;
-  in.m_String = String;
-  in.m_iSize = iSize;
+pair<screenint,screenint> CScreen::TextSize(CDasherScreen::Label *lab, unsigned int iSize) {
+  Label *label(static_cast<Label *>(lab));
 
 //      stdext::hash_map< CTextSizeInput, CTextSizeOutput, hash_textsize>::const_iterator it;
-  std::map < CTextSizeInput, CTextSizeOutput >::const_iterator it;
-  it = m_mapTextSize.find(in);
+  map<unsigned int,pair<screenint,screenint> >::const_iterator it = label->m_sizeCache.find(iSize);
+  if (it!=label->m_sizeCache.end()) return it->second;
 
-  if(it == m_mapTextSize.end()) {
-    CTextSizeOutput out;
-    TextSize_Impl(String, &out.m_iWidth, &out.m_iHeight, iSize);
-//              m_mapTextSize.insert( stdext::hash_map< CTextSizeInput, CTextSizeOutput, hash_textsize>::value_type( in,out) );
-    m_mapTextSize.insert(std::map < CTextSizeInput, CTextSizeOutput >::value_type(in, out));
-    *Width = out.m_iWidth;
-    *Height = out.m_iHeight;
-    return;
-  }
-
-  const CTextSizeOutput & out = it->second;
-  *Width = out.m_iWidth;
-  *Height = out.m_iHeight;
+  pair<screenint,screenint> res = TextSize_Impl(label, iSize);
+  label->m_sizeCache.insert(map<unsigned int,pair<screenint,screenint> >::value_type(iSize,res));
+  return res;
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CScreen::TextSize_Impl(const std::string &String, screenint *Width, screenint *Height, int iSize) {
+pair<screenint,screenint> CScreen::TextSize_Impl(CScreen::Label *label, unsigned int iSize) {
   // TODO This function could be improved. The height of an "o" is returned as the
   // same as the height of an "O". Perhaps GetGlyphOutline could help.
   // Remember if it gets complicted, the height of each symbol could be pre-calculated
 
-  wstring OutputText;
-  WinUTF8::UTF8string_to_wstring(String, OutputText);
+  //wstring OutputText; //ACL assuming wstring is same as Tstring?
+  //WinUTF8::UTF8string_to_wstring(String, OutputText);
 
   HFONT old = (HFONT) SelectObject(m_hDCBuffer, CScreen::GetFont(iSize));
 
   // Get the dimensions of the text in pixels
   SIZE OutSize;
-  GetTextExtentPoint32(m_hDCBuffer, OutputText.c_str(), OutputText.size(), &OutSize);
+  GetTextExtentPoint32(m_hDCBuffer, label->m_OutputText.c_str(), label->m_OutputText.size(), &OutSize);
   SelectObject(m_hDCBuffer, old);
-  *Width = OutSize.cx;
-  *Height = OutSize.cy;
+  return pair<screenint,screenint>(OutSize.cx,OutSize.cy);
 }
 
 /////////////////////////////////////////////////////////////////////////////

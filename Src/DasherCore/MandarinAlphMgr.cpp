@@ -63,10 +63,10 @@ CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreati
   if (symbol para = pCHAlphabet->GetParagraphSymbol())
     conversions[pCHAlphabet->GetDisplayText(para)]=pair<symbol,symbol>(para,para+1);
   //Non-recursive traversal of all the groups in the CHAlphabet (we don't care where they are, just to find them)
-  vector<const SGroupInfo *> groups;
+  vector<const ::SGroupInfo *> groups;
   groups.push_back(pCHAlphabet->m_pBaseGroup);
   while (!groups.empty()) {
-    const SGroupInfo *pGroup(groups.back()); groups.pop_back();
+    const ::SGroupInfo *pGroup(groups.back()); groups.pop_back();
     if (pGroup->pNext) groups.push_back(pGroup->pNext);
     if (pGroup->pChild) groups.push_back(pGroup->pChild);
     //process this group. The SPY syll+tone is stored as the label, using a tone mark over the vowel, e.g. &#257; = a1
@@ -112,6 +112,16 @@ CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreati
   //that leaves m_pConversionsBySymbol as desired.
 }
 
+void CMandarinAlphMgr::MakeLabels(CDasherScreen *pScreen) {
+  CAlphabetManager::MakeLabels(pScreen);
+  //a bit of a waste, that fills m_vLabels with labels for all the pinyin symbols - which we don't use.
+  for (vector<CDasherScreen::Label *>::iterator it=m_vLabels.begin(); it!=m_vLabels.end(); it++)
+    delete *it;
+  m_vLabels.clear();
+  //instead, keep the screen to create labels lazily...
+  m_pScreen = pScreen;
+}
+
 CMandarinAlphMgr::~CMandarinAlphMgr() {
   delete[] m_pConversionsBySymbol;
 }
@@ -137,10 +147,10 @@ CAlphabetManager::CAlphNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, uns
 
   CAlphNode *pNewNode;
   if (p.first==0 || !bEnteredLast) {
-    pNewNode = new CGroupNode(pParent, iNewOffset, iLower, iUpper, "", 0, this, NULL);
+    pNewNode = new CGroupNode(pParent, iNewOffset, iLower, iUpper, NULL, 0, this, NULL);
   } else {
     DASHER_ASSERT(p.first>0 && p.first<m_CHtext.size());
-    pNewNode = new CMandSym(pParent, iNewOffset, iLower, iUpper,  "", this, p.first, 0);
+    pNewNode = new CMandSym(pParent, iNewOffset, iLower, iUpper, this, p.first, 0);
   }
   pNewNode->iContext = p.second;
   
@@ -165,7 +175,7 @@ int CMandarinAlphMgr::GetCHColour(symbol CHsym, int iOffset) const {
   return iColour;
 }
 
-CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol) {
+CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, symbol iSymbol) {
   
   //For every PY symbol (=syllable+tone, or "punctuation"),
   // m_pConversionsBySymbol identifies the possible chinese-alphabet symbols
@@ -173,24 +183,24 @@ CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CAlphNode *pParent, unsigned int
   // punctuation character in the chinese alphabet). A CConvRoot thus offers a choice between them...
   
   if (m_pConversionsBySymbol[iSymbol].size()>1)
-    return CreateConvRoot(pParent, iLbnd, iHbnd, strGroup, iSymbol);
+    return CreateConvRoot(pParent, iLbnd, iHbnd, iSymbol);
   
-  return CreateCHSymbol(pParent,pParent->iContext, iLbnd, iHbnd, strGroup, *(m_pConversionsBySymbol[iSymbol].begin()), iSymbol);
+  return CreateCHSymbol(pParent,pParent->iContext, iLbnd, iHbnd, *(m_pConversionsBySymbol[iSymbol].begin()), iSymbol);
 }
 
-CMandarinAlphMgr::CConvRoot *CMandarinAlphMgr::CreateConvRoot(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, symbol iPYsym) {
+CMandarinAlphMgr::CConvRoot *CMandarinAlphMgr::CreateConvRoot(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, symbol iPYsym) {
   
   // the same offset as we've still not entered/selected a symbol (leaf);
   // Colour is always 9 so ignore iBkgCol
-  CConvRoot *pConv = new CConvRoot(pParent, pParent->offset(), iLbnd, iHbnd, strGroup, this, iPYsym);
+  CConvRoot *pConv = new CConvRoot(pParent, pParent->offset(), iLbnd, iHbnd, this, iPYsym);
     
   // and use the same context too (pinyin syll+tone is _not_ used as part of the LM context)
   pConv->iContext = m_pLanguageModel->CloneContext(pParent->iContext);
   return pConv;
 }
 
-CMandarinAlphMgr::CConvRoot::CConvRoot(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, CMandarinAlphMgr *pMgr, symbol pySym)
-: CAlphBase(pParent, iOffset, iLbnd, iHbnd, 9, strGroup, pMgr), m_pySym(pySym) {
+CMandarinAlphMgr::CConvRoot::CConvRoot(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CMandarinAlphMgr *pMgr, symbol pySym)
+: CAlphBase(pParent, iOffset, iLbnd, iHbnd, 9, NULL, pMgr), m_pySym(pySym) {
   DASHER_ASSERT(pMgr->m_pConversionsBySymbol[pySym].size()>1);
   //colour + label from ConversionManager.
 }
@@ -218,31 +228,31 @@ void CMandarinAlphMgr::CConvRoot::PopulateChildrenWithExisting(CMandSym *existin
     iCum = iHbnd;
     CMandSym *pNewNode = (existing)
       ? existing->RebuildCHSymbol(this, iLbnd, iHbnd, it->first)
-      : mgr()->CreateCHSymbol(this, this->iContext, iLbnd, iHbnd, "", it->first, m_pySym);
+      : mgr()->CreateCHSymbol(this, this->iContext, iLbnd, iHbnd, it->first, m_pySym);
     
     DASHER_ASSERT(GetChildren().back()==pNewNode);
   }
 }
 
-CMandarinAlphMgr::CMandSym *CMandarinAlphMgr::CreateCHSymbol(CDasherNode *pParent, CLanguageModel::Context iContext, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, symbol iCHsym, symbol iPYparent) {
+CMandarinAlphMgr::CMandSym *CMandarinAlphMgr::CreateCHSymbol(CDasherNode *pParent, CLanguageModel::Context iContext, unsigned int iLbnd, unsigned int iHbnd, symbol iCHsym, symbol iPYparent) {
   // TODO: Parameters here are placeholders - need to figure out
   // what's right 
 
   int iNewOffset = pParent->offset()+1;
   if (m_CHtext[iCHsym] == "\r\n") iNewOffset++;
-  CMandSym *pNewNode = new CMandSym(pParent, iNewOffset, iLbnd, iHbnd, strGroup, this, iCHsym, iPYparent);
+  CMandSym *pNewNode = new CMandSym(pParent, iNewOffset, iLbnd, iHbnd, this, iCHsym, iPYparent);
   pNewNode->iContext = m_pLanguageModel->CloneContext(iContext);
   m_pLanguageModel->EnterSymbol(pNewNode->iContext, iCHsym);
   return pNewNode;
 }
 
-CDasherNode *CMandarinAlphMgr::CConvRoot::RebuildSymbol(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSym) {
+CDasherNode *CMandarinAlphMgr::CConvRoot::RebuildSymbol(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, symbol iSym) {
   if (iSym == m_pySym) {
     SetParent(pParent);
     SetRange(iLbnd,iHbnd);
     return this;
   }
-  return CAlphBase::RebuildSymbol(pParent, iLbnd, iHbnd, strGroup, iBkgCol, iSym);
+  return CAlphBase::RebuildSymbol(pParent, iLbnd, iHbnd, iSym);
 }
 
 bool CMandarinAlphMgr::CConvRoot::isInGroup(const SGroupInfo *pGroup) {
@@ -337,11 +347,21 @@ void CMandarinAlphMgr::GetConversions(std::vector<pair<symbol,unsigned int> > &v
   
 }
 
-CMandarinAlphMgr::CMandSym::CMandSym(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, CMandarinAlphMgr *pMgr, symbol iSymbol, symbol pyParent)
-: CSymbolNode(pParent, iOffset, iLbnd, iHbnd, pMgr->GetCHColour(iSymbol,iOffset), strGroup+pMgr->m_CHdisplayText[iSymbol], pMgr, iSymbol), m_pyParent(pyParent) {
+CDasherScreen::Label *CMandarinAlphMgr::GetLabel(int iCHsym) {
+  //TODO: LRU cache, keep down to some sensible #labels allocated?
+  if (iCHsym>=m_vLabels.size()) {
+    m_vLabels.resize(iCHsym+1);
+  } else if (m_vLabels[iCHsym]) {
+    return m_vLabels[iCHsym];
+  }
+  return m_vLabels[iCHsym] = m_pScreen->MakeLabel(m_CHdisplayText[iCHsym]);
 }
 
-CDasherNode *CMandarinAlphMgr::CMandSym::RebuildSymbol(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol) {
+CMandarinAlphMgr::CMandSym::CMandSym(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CMandarinAlphMgr *pMgr, symbol iSymbol, symbol pyParent)
+: CSymbolNode(pParent, iOffset, iLbnd, iHbnd, pMgr->GetCHColour(iSymbol,iOffset), pMgr->GetLabel(iSymbol), pMgr, iSymbol), m_pyParent(pyParent) {
+}
+
+CDasherNode *CMandarinAlphMgr::CMandSym::RebuildSymbol(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, symbol iSymbol) {
   DASHER_ASSERT(m_pyParent!=0); //should have been computed in RebuildForwardsFromAncestor()
   if (iSymbol==m_pyParent) {
     //create the PY node that lead to this chinese
@@ -352,11 +372,11 @@ CDasherNode *CMandarinAlphMgr::CMandSym::RebuildSymbol(CAlphNode *pParent, unsig
       return this;
     }
     //ok, will be a PY-to-Chinese conversion choice
-    CConvRoot *pConv = mgr()->CreateConvRoot(pParent, iLbnd, iHbnd, strGroup, iSymbol);
+    CConvRoot *pConv = mgr()->CreateConvRoot(pParent, iLbnd, iHbnd, iSymbol);
     pConv->PopulateChildrenWithExisting(this);
     return pConv;
   }
-  return CAlphBase::RebuildSymbol(pParent, iLbnd, iHbnd, strGroup, iBkgCol, iSymbol);
+  return CAlphBase::RebuildSymbol(pParent, iLbnd, iHbnd, iSymbol);
 }
 
 bool CMandarinAlphMgr::CMandSym::isInGroup(const SGroupInfo *pGroup) {
@@ -372,7 +392,7 @@ CMandarinAlphMgr::CMandSym *CMandarinAlphMgr::CMandSym::RebuildCHSymbol(CConvRoo
     SetRange(iLbnd, iHbnd);
     return this;
   }
-  return mgr()->CreateCHSymbol(pParent, pParent->iContext, iLbnd, iHbnd, "", iNewSym, pParent->m_pySym);
+  return mgr()->CreateCHSymbol(pParent, pParent->iContext, iLbnd, iHbnd, iNewSym, pParent->m_pySym);
 }
 
 void CMandarinAlphMgr::CMandSym::RebuildForwardsFromAncestor(CAlphNode *pNewNode) {

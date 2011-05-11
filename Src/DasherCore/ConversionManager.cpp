@@ -56,8 +56,23 @@ CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, const C
   */
 }
 
-CConversionManager::CConvNode *CConversionManager::makeNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const string &strDisplayText) {
-  return new CConvNode(pParent, iOffset, iLbnd, iHbnd, iColour, strDisplayText, this);
+CConversionManager::CConvNode *CConversionManager::makeNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, CDasherScreen::Label *pLabel) {
+  return new CConvNode(pParent, iOffset, iLbnd, iHbnd, iColour, pLabel, this);
+}
+
+void CConversionManager::ChangeScreen(CDasherScreen *pScreen) {
+  if (m_pScreen==pScreen) return;
+  for (map<string, CDasherScreen::Label *>::iterator it=m_vLabels.begin(); it!=m_vLabels.end(); it++)
+    delete it->second;
+  m_vLabels.clear();
+  m_pScreen=pScreen;
+}
+
+CDasherScreen::Label *CConversionManager::GetLabel(const char *pszConversion) {
+  string strConv(pszConversion);
+  if (m_vLabels[strConv])
+    return m_vLabels[strConv];
+  return m_vLabels[strConv] = m_pScreen->MakeLabel(strConv);
 }
 
 CConversionManager::CConvNode *CConversionManager::GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset) {
@@ -65,7 +80,7 @@ CConversionManager::CConvNode *CConversionManager::GetRoot(CDasherNode *pParent,
   // TODO: Parameters here are placeholders - need to figure out what's right
 
   //TODO: hard-coded colour, and hard-coded displaytext... (ACL: read from Alphabet -> startConversionSymbol ?)
-  CConvNode *pNewNode = makeNode(pParent, iOffset, iLower, iUpper, 9, "");
+  CConvNode *pNewNode = makeNode(pParent, iOffset, iLower, iUpper, 9, NULL);
 
   // FIXME - handle context properly
   // TODO: Reimplemnt -----
@@ -82,8 +97,8 @@ CConversionManager::CConvNode *CConversionManager::GetRoot(CDasherNode *pParent,
   return pNewNode;
 }
 
-CConversionManager::CConvNode::CConvNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const string &strDisplayText, CConversionManager *pMgr)
- : CDasherNode(pParent, iOffset, iLbnd, iHbnd, iColour, strDisplayText), m_pMgr(pMgr) {
+CConversionManager::CConvNode::CConvNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, CDasherScreen::Label *pLabel, CConversionManager *pMgr)
+ : CDasherNode(pParent, iOffset, iLbnd, iHbnd, iColour, pLabel), m_pMgr(pMgr) {
   pMgr->m_iRefCount++;
 }
 

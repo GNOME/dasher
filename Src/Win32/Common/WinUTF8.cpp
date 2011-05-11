@@ -85,6 +85,12 @@ void WinUTF8::UTF8string_to_wstring(const std::string &UTF8string, std::wstring 
 
 }
 
+std::wstring WinUTF8::UTF8string_to_wstring(const std::string &utf8string) {
+  std::wstring res;
+  UTF8string_to_wstring(utf8string,res);
+  return res;
+}
+
 /////////////////////////////////////////////////////////////////////////////
 
 void WinUTF8::wstring_to_UTF8string(const wstring &Input, string &Output) {

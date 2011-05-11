@@ -35,8 +35,6 @@ libdashercontrol_la_SOURCES = \
 		GtkDasherControl.h \
 		KeyboardHelper.cpp \
 		KeyboardHelper.h \
-		PangoCache.cpp \
-		PangoCache.h \
 		Timer.cpp \
 		Timer.h \
 		Speech.h \

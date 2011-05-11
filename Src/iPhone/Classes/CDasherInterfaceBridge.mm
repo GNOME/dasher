@@ -27,8 +27,6 @@
 using namespace std;
 
 CDasherInterfaceBridge::CDasherInterfaceBridge(DasherAppDelegate *aDasherApp) : dasherApp(aDasherApp) {
-  Realize();
-  ExternalEventHandler(&CParameterNotificationEvent(SP_ALPHABET_ID)); //calls dasherApp::SetAlphabet
 }
 
 void CDasherInterfaceBridge::CreateModules() {
@@ -69,7 +67,11 @@ void CDasherInterfaceBridge::SetupUI() {
   NSLog(@"CDasherInterfaceBridge::SetupUI");
 }
 
-void CDasherInterfaceBridge::OnUIRealised() {CDasherInterfaceBase::OnUIRealised();}
+void CDasherInterfaceBridge::Realize() {  
+  CDasherInterfaceBase::Realize();
+  ExternalEventHandler(&CParameterNotificationEvent(SP_ALPHABET_ID)); //calls dasherApp::SetAlphabet
+  CDasherInterfaceBase::OnUIRealised();
+}
 
 void CDasherInterfaceBridge::SetupPaths() {
   NSString *systemDir = [NSString stringWithFormat:@"%@/", [[NSBundle mainBundle] bundlePath]];

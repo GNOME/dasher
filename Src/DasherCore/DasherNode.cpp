@@ -42,8 +42,8 @@ static int iNumNodes = 0;
 int Dasher::currentNumNodeObjects() {return iNumNodes;}
 
 //TODO this used to be inline - should we make it so again?
-CDasherNode::CDasherNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const string &strDisplayText)
-: m_pParent(pParent), m_iOffset(iOffset), m_iLbnd(iLbnd), m_iHbnd(iHbnd), m_iColour(iColour), m_strDisplayText(strDisplayText) {
+CDasherNode::CDasherNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, CDasherScreen::Label *pLabel)
+: m_pParent(pParent), m_iLbnd(iLbnd), m_iHbnd(iHbnd), m_iOffset(iOffset), m_iColour(iColour), m_pLabel(pLabel) {
   DASHER_ASSERT(iHbnd >= iLbnd);
 
   if (pParent) {

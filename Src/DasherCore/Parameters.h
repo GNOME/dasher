@@ -30,7 +30,7 @@
 // All parameters go into the enums here
 // They are unique across the different types
 enum { 
-  BP_MULTISIZE_FONTS, BP_DRAW_MOUSE_LINE, BP_DRAW_MOUSE, BP_CURVE_MOUSE_LINE,
+  BP_DRAW_MOUSE_LINE, BP_DRAW_MOUSE, BP_CURVE_MOUSE_LINE,
   BP_SHOW_SLIDER, BP_START_MOUSE,
   BP_START_SPACE, BP_STOP_IDLE, BP_CONTROL_MODE, 
   BP_COLOUR_MODE, BP_MOUSEPOS_MODE,
@@ -124,7 +124,6 @@ struct sp_table {
 // The only important thing here is that these are in the same order
 // as the enum declarations (could add check in class that enforces this instead)
 static bp_table boolparamtable[] = {
-  {BP_MULTISIZE_FONTS, "MultiSizeFonts", PERS, false, "Use multiple font sizes"},
   {BP_DRAW_MOUSE_LINE, "DrawMouseLine", PERS, true, "Draw Mouse Line"},
   {BP_DRAW_MOUSE, "DrawMouse", PERS, false, "Draw Mouse Position"},
   {BP_CURVE_MOUSE_LINE, "CurveMouseLine", PERS, false, "Curve mouse line according to screen nonlinearity"},

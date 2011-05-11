@@ -87,13 +87,13 @@ namespace Dasher {
     class NodeTemplate : public Action {
     public:
       NodeTemplate(const std::string &strLabel, int iColour);
-      virtual ~NodeTemplate() {}
-      int colour() {return m_iColour;};
-      const std::string &label() {return m_strLabel;};
+      virtual ~NodeTemplate();
+      const std::string m_strLabel;
+      const int m_iColour;
       std::vector<NodeTemplate *> successors;
     private:
-      std::string m_strLabel;
-      int m_iColour;
+      friend class CControlBase;
+      CDasherScreen::Label *m_pLabel;
     };
 
     template <typename T> class MethodTemplate : public NodeTemplate {
@@ -115,6 +115,9 @@ namespace Dasher {
 
     CControlBase(CNodeCreationManager *pNCManager);
 
+    ///Make this manager ready to make nodes renderable on the screen by preallocating labels
+    virtual void MakeLabels(CDasherScreen *pScreen);
+    
     ///
     /// Get a new root node owned by this manager
     ///

@@ -7,9 +7,8 @@
 
 using namespace Dasher;
 
-CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache,
-                 screenint iWidth, screenint iHeight)
-  : CDasherScreen(iWidth, iHeight) {
+CCanvas::CCanvas(GtkWidget *pCanvas)
+  : CLabelListScreen(0,0) {
 
 #if WITH_CAIRO
   cairo_colours = 0;
@@ -18,24 +17,31 @@ CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache,
 #endif
   
   m_pCanvas = pCanvas;
-  m_pPangoCache = pPangoCache;
-  
+
+  gtk_widget_add_events(m_pCanvas, GDK_ALL_EVENTS_MASK);
+
+  InitSurfaces(); //will create 0*0 surfaces. Is that a good idea? It seems to
+  // let us create PangoLayouts ok, which is what we need - but if we can
+  // create them without a backing surface at all, that might be better...
+}
+
+void CCanvas::InitSurfaces() {  
   // Construct the buffer pixmaps
   // FIXME - only allocate without cairo
 
 #if WITH_CAIRO
 
-  m_pDisplaySurface = cairo_image_surface_create(CAIRO_FORMAT_RGB24, m_iWidth, m_iHeight);
-  m_pDecorationSurface = cairo_image_surface_create(CAIRO_FORMAT_RGB24, m_iWidth, m_iHeight);
-  //m_pOnscreenSurface = cairo_image_surface_create(CAIRO_FORMAT_RGB24, m_iWidth, m_iHeight);
+  m_pDisplaySurface = cairo_image_surface_create(CAIRO_FORMAT_RGB24, GetWidth(), GetHeight());
+  m_pDecorationSurface = cairo_image_surface_create(CAIRO_FORMAT_RGB24, GetWidth(), GetHeight());
+  //m_pOnscreenSurface = cairo_image_surface_create(CAIRO_FORMAT_RGB24, GetWidth(), GetHeight());
 
 #else
 
-  //m_pDummyBuffer = gdk_pixmap_new(pCanvas->window, m_iWidth, m_iHeight, -1);
+  //m_pDummyBuffer = gdk_pixmap_new(pCanvas->window, GetWidth(), GetHeight(), -1);
 
-  m_pDisplayBuffer = gdk_pixmap_new(pCanvas->window, m_iWidth, m_iHeight, -1);
-  m_pDecorationBuffer = gdk_pixmap_new(pCanvas->window, m_iWidth, m_iHeight, -1);
-  //m_pOnscreenBuffer = gdk_pixmap_new(pCanvas->window, m_iWidth, m_iHeight, -1);
+  m_pDisplayBuffer = gdk_pixmap_new(pCanvas->window, GetWidth(), GetHeight(), -1);
+  m_pDecorationBuffer = gdk_pixmap_new(pCanvas->window, GetWidth(), GetHeight(), -1);
+  //m_pOnscreenBuffer = gdk_pixmap_new(pCanvas->window, GetWidth(), GetHeight(), -1);
 
   // Set the display buffer to be current
 
@@ -60,11 +66,9 @@ CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache,
   //onscreen_cr = cairo_create(m_pOnscreenSurface);
 
 #endif
-
-  gtk_widget_add_events(m_pCanvas, GDK_ALL_EVENTS_MASK);
 }
 
-CCanvas::~CCanvas() {
+void CCanvas::DestroySurfaces() {
   // Free the buffer pixmaps
 
 #if WITH_CAIRO
@@ -81,11 +85,20 @@ CCanvas::~CCanvas() {
   g_object_unref(m_pDecorationBuffer);
   //g_object_unref(m_pOnscreenBuffer);
 #endif
+}
 
+CCanvas::~CCanvas() {
+  DestroySurfaces();
 #if WITH_CAIRO
   delete[] cairo_colours;
 #endif
 }
+
+void CCanvas::resize(screenint w,screenint h) {
+  DestroySurfaces();
+  CDasherScreen::resize(w,h);
+  InitSurfaces();
+} 
 
 void CCanvas::Blank() {
   // FIXME - this is replicated throughout this file - do something
@@ -105,7 +118,7 @@ void CCanvas::Blank() {
 #if WITH_CAIRO
   cairo_paint(cr);
 #else
-  gdk_draw_rectangle(m_pOffscreenBuffer, graphics_context, TRUE, 0, 0, m_iWidth, m_iHeight);
+  gdk_draw_rectangle(m_pOffscreenBuffer, graphics_context, TRUE, 0, 0, GetWidth(), GetHeight());
 #endif
 
   END_DRAWING;
@@ -131,12 +144,12 @@ void CCanvas::Display() {
 
   // TODO: Reimplement (kind of important!)
 
-  //  gdk_draw_drawable(m_pOnscreenBuffer, m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)], m_pOffscreenBuffer, 0, 0, 0, 0, m_iWidth, m_iHeight);
+  //  gdk_draw_drawable(m_pOnscreenBuffer, m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)], m_pOffscreenBuffer, 0, 0, 0, 0, GetWidth(), GetHeight());
   
   //  BEGIN_DRAWING;
 
 //   cairo_set_source_surface(onscreen_cr, m_pDecorationSurface, 0, 0);
-//   cairo_rectangle(onscreen_cr, 0, 0, m_iWidth, m_iHeight);
+//   cairo_rectangle(onscreen_cr, 0, 0, GetWidth(), GetHeight());
 //   cairo_fill(onscreen_cr);
 
 
@@ -145,20 +158,20 @@ void CCanvas::Display() {
 
   // Blank the offscreen buffer (?)
 
-  //  gdk_draw_rectangle(m_pOffscreenBuffer, graphics_context, TRUE, 0, 0, m_iWidth, m_iHeight);
+  //  gdk_draw_rectangle(m_pOffscreenBuffer, graphics_context, TRUE, 0, 0, GetWidth(), GetHeight());
 
   // Invalidate the full canvas to force it to be redrawn on-screen
 
  //  update_rect.x = 0;
 //   update_rect.y = 0;
-//   update_rect.width = m_iWidth;
-//   update_rect.height = m_iHeight;
+//   update_rect.width = GetWidth();
+//   update_rect.height = GetHeight();
 
 //   gdk_window_invalidate_rect(m_pCanvas->window, &update_rect, FALSE);
 
   //  BEGIN_DRAWING;
 
-  //  GdkRectangle sRect = {0, 0, m_iWidth, m_iHeight};
+  //  GdkRectangle sRect = {0, 0, GetWidth(), GetHeight()};
   //  gdk_window_begin_paint_rect(m_pCanvas->window, &sRect);
 
 #if WITH_CAIRO  
@@ -169,11 +182,11 @@ void CCanvas::Display() {
   widget_cr = gdk_cairo_create(m_pCanvas->window);
 #endif
   cairo_set_source_surface(widget_cr, m_pDecorationSurface, 0, 0);
-  cairo_rectangle(widget_cr, 0, 0, m_iWidth, m_iHeight);
+  cairo_rectangle(widget_cr, 0, 0, GetWidth(), GetHeight());
   cairo_fill(widget_cr);
   cairo_destroy(widget_cr);
 #else
-  gdk_draw_drawable(m_pCanvas->window, m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)], m_pDecorationBuffer, 0, 0, 0, 0, m_iWidth, m_iHeight);
+  gdk_draw_drawable(m_pCanvas->window, m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)], m_pDecorationBuffer, 0, 0, 0, 0, GetWidth(), GetHeight());
 #endif
 
   //   gdk_window_end_paint(m_pCanvas->window);
@@ -399,7 +412,56 @@ void CCanvas::Polyline(Dasher::CDasherScreen::point *Points, int Number, int iWi
   END_DRAWING;
 }
 
-void CCanvas::DrawString(const std::string &String, screenint x1, screenint y1, int size, int iColor) {
+CDasherScreen::Label *CCanvas::MakeLabel(const string &strText) {
+  return new CPangoLabel(this, strText);
+}
+
+void CCanvas::SetFont(const std::string &strName) {
+  m_strFontName=strName;
+  for (map<unsigned int,PangoFontDescription *>::iterator it=m_mFonts.begin(); it!=m_mFonts.end(); it++) {
+    pango_font_description_free(it->second);
+    it->second = pango_font_description_from_string(m_strFontName.c_str());
+    pango_font_description_set_size(it->second,it->first);
+  }
+  for (set<CLabelListScreen::Label *>::iterator it=LabelsBegin(); it!=LabelsEnd(); it++) {
+    map<unsigned int,PangoLayout *> &layouts(static_cast<CPangoLabel *>(*it)->m_mLayouts);
+    for (map<unsigned int,PangoLayout *>::iterator it2=layouts.begin(); it2!=layouts.end(); it2++) {
+      DASHER_ASSERT(m_mFonts.find(it2->first) != m_mFonts.end()); //central font repository knows about this size
+      pango_layout_set_font_description(it2->second,m_mFonts[it2->first]);
+    }
+  }
+}
+
+PangoLayout *CCanvas::GetLayout(CPangoLabel *label, unsigned int iFontSize) {
+  {
+    map<unsigned int,PangoLayout *>::iterator it = label->m_mLayouts.find(iFontSize);
+    if (it != label->m_mLayouts.end()) return it->second;
+  }
+#if WITH_CAIRO
+    PangoLayout *pNewPangoLayout(pango_cairo_create_layout(cr));
+#else
+    PangoLayout *pNewPangoLayout(gtk_widget_create_pango_layout(pCanvas, ""));
+#endif
+  label->m_mLayouts.insert(pair<unsigned int,PangoLayout *>(iFontSize, pNewPangoLayout));
+
+  pango_layout_set_text(pNewPangoLayout, label->m_strText.c_str(), -1);
+  
+  PangoFontDescription *pF;
+  {
+    map<unsigned int,PangoFontDescription *>::iterator it = m_mFonts.find(iFontSize);
+    if (it != m_mFonts.end())
+      pF=it->second;
+    else {
+      pF = pango_font_description_from_string(m_strFontName.c_str());
+      pango_font_description_set_size(pF, iFontSize * PANGO_SCALE);
+      m_mFonts[iFontSize] = pF;
+    }
+    pango_layout_set_font_description(pNewPangoLayout, pF);
+  }
+    return pNewPangoLayout;
+}
+
+void CCanvas::DrawString(CDasherScreen::Label *label, screenint x1, screenint y1, unsigned int size, int iColor) {
   
 #if WITH_CAIRO
 #else
@@ -413,11 +475,7 @@ void CCanvas::DrawString(const std::string &String, screenint x1, screenint y1, 
   BEGIN_DRAWING;
   SET_COLOR(iColor);
 
-#if WITH_CAIRO
-  PangoLayout *pLayout(m_pPangoCache->GetLayout(cr, String, size));
-#else
-  PangoLayout *pLayout(m_pPangoCache->GetLayout(GTK_WIDGET(m_pCanvas), String, size));
-#endif
+  PangoLayout *pLayout(GetLayout(static_cast<CPangoLabel*>(label),size));
 
   PangoRectangle sPangoInk;
 
@@ -434,18 +492,13 @@ void CCanvas::DrawString(const std::string &String, screenint x1, screenint y1, 
   END_DRAWING;
 }
 
-void CCanvas::TextSize(const std::string &String, screenint *Width, screenint *Height, int size) {
-#if WITH_CAIRO
-  PangoLayout *pLayout(m_pPangoCache->GetLayout(cr, String, size));
-#else
-  PangoLayout *pLayout(m_pPangoCache->GetLayout(GTK_WIDGET(m_pCanvas), String, size));
-#endif
+pair<screenint,screenint> CCanvas::TextSize(CDasherScreen::Label *label, unsigned int size) {
+  PangoLayout *pLayout(GetLayout(static_cast<CPangoLabel*>(label),size));
 
   PangoRectangle sPangoInk;
   pango_layout_get_pixel_extents(pLayout, &sPangoInk, NULL);
 
-  *Width = sPangoInk.width;
-  *Height = sPangoInk.height;
+  return pair<screenint,screenint>(sPangoInk.width,sPangoInk.height);
 }
 
 void CCanvas::SendMarker(int iMarker) {
@@ -462,11 +515,11 @@ void CCanvas::SendMarker(int iMarker) {
 
 #if WITH_CAIRO
     cairo_set_source_surface(decoration_cr, m_pDisplaySurface, 0, 0);
-    cairo_rectangle(decoration_cr, 0, 0, m_iWidth, m_iHeight);
+    cairo_rectangle(decoration_cr, 0, 0, GetWidth(), GetHeight());
     cairo_fill(decoration_cr);
     cr = decoration_cr;
 #else
-    gdk_draw_drawable(m_pDecorationBuffer, m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)], m_pDisplayBuffer, 0, 0, 0, 0, m_iWidth, m_iHeight);
+    gdk_draw_drawable(m_pDecorationBuffer, m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)], m_pDisplayBuffer, 0, 0, 0, 0, GetWidth(), GetHeight());
     m_pOffscreenBuffer = m_pDecorationBuffer;
 #endif
     break;
@@ -521,8 +574,8 @@ bool CCanvas::GetCanvasSize(GdkRectangle *pRectangle)
 
   pRectangle->x       = iX;
   pRectangle->y       = iY;
-  pRectangle->width   = m_iWidth;
-  pRectangle->height  = m_iHeight;
+  pRectangle->width   = GetWidth();
+  pRectangle->height  = GetHeight();
 
   return true;
 }

@@ -48,10 +48,12 @@ namespace Dasher {
   public:
     ///Create a new AlphabetManager. Note, not usable until CreateLanguageModel() called.
     CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphabetMap);
+    
     ///Creates the LM, and stores in m_pLanguageModel. Must be called after construction,
     /// before the AlphMgr is used. Default implementation switches on LP_LANGUAGE_MODEL_ID.
     virtual void CreateLanguageModel(CEventHandler *pEventHandler, CSettingsStore *pSets);
 
+    virtual void MakeLabels(CDasherScreen *pScreen);
     ///Gets a new trainer to train this LM. Caller is responsible for deallocating the
     /// trainer later.
     virtual CTrainer *GetTrainer();
@@ -61,6 +63,25 @@ namespace Dasher {
     /// \param pInterface to use for I/O by calling WriteTrainFile(fname,txt)
     void WriteTrainFileFull(CDasherInterfaceBase *pInterface);
   protected:
+    ///The SGroupInfo tree from the alphabet, but with single-child groups collapsed,
+    /// and with labels from the Screen.
+    struct SGroupInfo {
+      SGroupInfo(CDasherScreen *pScreen, const std::string &strEnc, int iBkgCol, const ::SGroupInfo *pCopy);
+      ~SGroupInfo();
+      SGroupInfo *pChild;
+      SGroupInfo *pNext;
+      std::string strLabel;
+      int iStart;
+      int iEnd;
+      int iColour;
+      bool bVisible;
+      int iNumChildNodes;
+      CDasherScreen::Label *pLabel;
+    } *m_pFirstGroup;
+    //A label for each symbol, indexed by symbol id (element 0 = null)
+    std::vector<CDasherScreen::Label *> m_vLabels;
+    SGroupInfo *copyGroups(CDasherScreen *pScreen, int iStart, int iEnd, ::SGroupInfo *pFirstChild);
+    
     class CAlphNode;
     /// Abstract superclass for alphabet manager nodes, provides common implementation
     /// code for rebuilding parent nodes = reversing.
@@ -74,18 +95,15 @@ namespace Dasher {
       /// Default implementation just calls the manager's CreateSymbolNode method to create a new node,
       /// but subclasses can override to graft themselves into the appropriate point beneath the previous node.
       /// \param pParent parent of the symbol node to create; could be the previous root, or an intervening node (e.g. group)
-      /// \param strGroup caption of any elided group node. If a new node is created, this should be appended to that node's caption;
-      /// however, if this existing node is grafted in instead, the caption will already have been prepended (as the group structure
-      /// is always the same and just repeats endlessly), so should be ignored.
       /// \param iBkgCol background colour to show through any new transparent node created;
       /// if the existing node is grafted in, again this will already have been taken into account.
-      virtual CDasherNode *RebuildSymbol(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol);
+      virtual CDasherNode *RebuildSymbol(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, symbol iSymbol);
       ///Called to build a group node which is a descendant of the symbol or root node preceding this.
       /// Default implementation calls the manager's CreateGroupNode method to create a new node,
       /// but then populates that group (i.e. further descends the hierarchy) _if_ that group
       /// would contain this node (see IsInGroup). Subclasses can override to graft themselves into the hierarchy, if appropriate.
       /// \param pParent parent of the symbol node to create; could be the previous root, or an intervening node (e.g. group)
-      virtual CDasherNode *RebuildGroup(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strEnc, int iBkgCol, const SGroupInfo *pInfo);
+      virtual CDasherNode *RebuildGroup(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, int iBkgCol, const SGroupInfo *pInfo);
       ///Just keep track of the last node output (for training file purposes)
       void Undo(int *pNumDeleted);
       ///Just keep track of the last node output (for training file purposes)
@@ -97,7 +115,7 @@ namespace Dasher {
       /// at which point RebuildSymbol/Group should graft it in.
       /// \param pNewNode newly-created root node beneath which this node should fit
       virtual void RebuildForwardsFromAncestor(CAlphNode *pNewNode);
-      CAlphBase(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const std::string &strDisplayText, CAlphabetManager *pMgr);
+      CAlphBase(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, CDasherScreen::Label *pLabel, CAlphabetManager *pMgr);
       CAlphabetManager *m_pMgr;
       ///Number of unicode characters entered by this node; i.e., the number
       /// to take off this node's offset, to get the offset of the most-recent
@@ -107,11 +125,10 @@ namespace Dasher {
       /// (as a symbol or subgroup), any number of levels beneath it
       virtual bool isInGroup(const SGroupInfo *pGroup)=0;
     };
-
     ///Additionally stores LM contexts and probabilities calculated therefrom
     class CAlphNode : public CAlphBase {
     public:
-      CAlphNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const std::string &strDisplayText, CAlphabetManager *pMgr);
+      CAlphNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, CDasherScreen::Label *pLabel, CAlphabetManager *pMgr);
       CLanguageModel::Context iContext;
       ///
       /// Delete any storage alocated for this node
@@ -127,10 +144,8 @@ namespace Dasher {
     class CSymbolNode : public CAlphNode {
     public:
       ///Standard constructor, gets colour from GetColour(symbol,offset) and label from current alphabet
-      /// \param strGroup caption of any enclosing group(s) of which this symbol is a singleton child
-      /// - this is prepended onto the symbol caption. Note, we don't need the "background colour" of
-      /// any such group, as GetColour() always returns an opaque color.
-      CSymbolNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, CAlphabetManager *pMgr, symbol iSymbol);
+      /// Note we treat GetColour() as always returning an opaque color.
+      CSymbolNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CDasherScreen::Label *pLabel, CAlphabetManager *pMgr, symbol iSymbol);
 
       ///Create the children of this node, by starting traversal of the alphabet from the top
       virtual void PopulateChildren();
@@ -143,7 +158,7 @@ namespace Dasher {
       virtual void GetContext(CDasherInterfaceBase *pInterface, const CAlphabetMap *pAlphabetMap, std::vector<symbol> &vContextSymbols, int iOffset, int iLength);
       virtual symbol GetAlphSymbol();
       ///Override: if the symbol to create is the same as this node's symbol, return this node instead of creating a new one
-      virtual CDasherNode *RebuildSymbol(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol);
+      virtual CDasherNode *RebuildSymbol(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, symbol iSymbol);
     protected:
       virtual const std::string &outputText();
       ///Text to write to user training file/buffer when this symbol output.
@@ -155,7 +170,7 @@ namespace Dasher {
       /// unicode char, even if that might take >1 octet.
       int numChars();
       ///Compatibility constructor, so that subclasses can specify their own colour & label
-      CSymbolNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const std::string &strDisplayText, CAlphabetManager *pMgr, symbol _iSymbol);
+      CSymbolNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, CDasherScreen::Label *pLabel, CAlphabetManager *pMgr, symbol _iSymbol);
       ///Override: true iff pGroup encloses this symbol (according to its start/end symbol#)
       bool isInGroup(const SGroupInfo *pGroup);
       const symbol iSymbol;
@@ -163,7 +178,7 @@ namespace Dasher {
 
     class CGroupNode : public CAlphNode {
     public:
-      CGroupNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, const std::string &strEnc, int iBkgCol, CAlphabetManager *pMgr, const SGroupInfo *pGroup);
+      CGroupNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CDasherScreen::Label *pLabel, int iBkgCol, CAlphabetManager *pMgr, const SGroupInfo *pGroup);
 
       ///Override: if m_pGroup==NULL, i.e. whole/root-of alphabet, cannot rebuild.
       virtual CDasherNode *RebuildParent();
@@ -175,7 +190,7 @@ namespace Dasher {
       virtual bool GameSearchNode(std::string strTargetUtf8Char);
       std::vector<unsigned int> *GetProbInfo();
       ///Override: if the group to create is the same as this node's group, return this node instead of creating a new one
-      virtual CDasherNode *RebuildGroup(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strEnc, int iBkgCol, const SGroupInfo *pInfo);
+      virtual CDasherNode *RebuildGroup(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, int iBkgCol, const SGroupInfo *pInfo);
     protected:
       ///Override: true if pGroup encloses this one (by start/end symbol#)
       bool isInGroup(const SGroupInfo *pGroup);
@@ -207,11 +222,9 @@ namespace Dasher {
     std::pair<symbol, CLanguageModel::Context> GetContextSymbols(CDasherNode *pParent, int iRootOffset, const CAlphabetMap *pAlphMap);
 
     ///Called to create a node for a given symbol (leaf), as a child of a specified parent node
-    /// \param strGroup caption of any group containing this node, that will not be created:
-    /// thus, should be prepended onto the caption of the node created.
-    /// \param iBkgCol colour behind the new node, i.e. that should show through if the node is transparent
-    virtual CDasherNode *CreateSymbolNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol);
-    virtual CGroupNode *CreateGroupNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strEnc, int iBkgCol, const SGroupInfo *pInfo);
+    /// \param iBkgCol colour behind the new node, i.e. that should show through if the (group) node is transparent
+    virtual CDasherNode *CreateSymbolNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, symbol iSymbol);
+    virtual CGroupNode *CreateGroupNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, int iBkgCol, const SGroupInfo *pInfo);
 
     ///Called to compute colour for a symbol at a specified offset.
     /// Wraps CAlphabet::GetColour(sym), but (a) implements a default

@@ -20,7 +20,7 @@ inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, scr
 
 #ifndef DASHER_WINCE
 
-  if(m_iWidth != -1) {
+  if(GetWidth() != -1) {
 
     point aPoints[5];
 
@@ -77,8 +77,8 @@ inline void CScreen::Polyline(point *Points, int Number, int iWidth, int iColour
 inline void CScreen::Blank() {
   RECT rect;
   rect.top = 0;
-  rect.right = long (m_iWidth);
-  rect.bottom = long (m_iHeight);
+  rect.right = long (GetWidth());
+  rect.bottom = long (GetHeight());
   rect.left = 0;
   FillRect(m_hDCBuffer, &rect, (HBRUSH) GetStockObject(WHITE_BRUSH));
 }
@@ -133,15 +133,6 @@ inline HBRUSH& CScreen::GetBrush(int iColor) {
   }
   
   return m_cBrushes[key];
-}
-
-inline void CScreen::SetFont(const std::string &strFont) {
-  if(FontName != strFont) {
-    FontName = strFont;
-     for(stdext::hash_map<int, HFONT>::const_iterator it(m_cFonts.begin()); it != m_cFonts.end(); ++it)
-  	   DeleteObject(it->second);
-    m_cFonts.clear();
-  }
 }
 
 inline HFONT& CScreen::GetFont(int iSize) {

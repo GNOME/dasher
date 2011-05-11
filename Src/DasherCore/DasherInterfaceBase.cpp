@@ -122,8 +122,13 @@ CDasherInterfaceBase::CDasherInterfaceBase() {
 }
 
 void CDasherInterfaceBase::Realize() {
+
   // TODO: What exactly needs to have happened by the time we call Realize()?
   CreateSettingsStore();
+  
+  //create a view, if we have a screen...
+  //if(GetLongParameter(LP_VIEW_ID) != -1)
+  ChangeView();
 
   //create the model... (no nodes just yet)
   m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, this);
@@ -370,10 +375,13 @@ void CDasherInterfaceBase::CreateNCManager() {
   //now create the new manager...
   m_pNCManager = new CNodeCreationManager(this, m_pEventHandler, m_pSettingsStore, m_AlphIO);
 
-  //and start a new tree of nodes from it (retaining old offset -
-  // this will be a sensible default of 0 if no nodes previously existed).
-  // This deletes the old tree of nodes...
-  m_pDasherModel->SetOffset(m_pDasherModel->GetOffset(), m_pNCManager->GetAlphabetManager(), m_pDasherView, true);
+  if (m_DasherScreen) {
+    m_pNCManager->ChangeScreen(m_DasherScreen);
+    //and start a new tree of nodes from it (retaining old offset -
+    // this will be a sensible default of 0 if no nodes previously existed).
+    // This deletes the old tree of nodes...
+    m_pDasherModel->SetOffset(m_pDasherModel->GetOffset(), m_pNCManager->GetAlphabetManager(), m_pDasherView, true);
+  } //else, if there is no screen, the model should not contain any nodes from the old NCManager. (Assert, somehow?)
 
   //...so now we can delete the old manager
   delete pOldMgr;
@@ -610,15 +618,30 @@ void CDasherInterfaceBase::ChangeColours() {
 }
 
 void CDasherInterfaceBase::ChangeScreen(CDasherScreen *NewScreen) {
-  // What does ChangeScreen do?
+  
   m_DasherScreen = NewScreen;
   ChangeColours();
-
+  
   if(m_pDasherView != 0) {
-    m_pDasherView->ChangeScreen(m_DasherScreen);
-  } else if(GetLongParameter(LP_VIEW_ID) != -1) {
+    m_pDasherView->ChangeScreen(NewScreen);
+    ScreenResized(NewScreen);
+  } else if (m_pEventHandler && m_pSettingsStore) {
+    //no screen, but other essential components (created in Realize) present.
+    // IOW, (assume) we were delaying creating a View, until we had a screen...
     ChangeView();
   }
+  
+  if (m_pNCManager) {
+    m_pNCManager->ChangeScreen(m_DasherScreen);
+    if (m_pDasherModel)
+      m_pDasherModel->SetOffset(m_pDasherModel->GetOffset(), m_pNCManager->GetAlphabetManager(), m_pDasherView, true);
+  }
+}
+
+void CDasherInterfaceBase::ScreenResized(CDasherScreen *pScreen) {
+  DASHER_ASSERT(pScreen == m_DasherScreen);
+  if (!m_pDasherView) return;
+  m_pDasherView->ScreenResized(m_DasherScreen);
 
   PositionActionButtons();
   BudgettingPolicy pol(GetLongParameter(LP_NODE_BUDGET)); //maintain budget, but allow arbitrary amount of work.
@@ -633,14 +656,14 @@ void CDasherInterfaceBase::ChangeView() {
   // TODO: Actually respond to LP_VIEW_ID parameter (although there is only one view at the moment)
 
   // removed condition that m_pDasherModel != 0. Surely the view can exist without the model?-pconlon
-    if(m_DasherScreen != 0 /*&& m_pDasherModel != 0*/) {
+  if(m_DasherScreen != 0 /*&& m_pDasherModel != 0*/) {
     delete m_pDasherView;
 
     m_pDasherView = new CDasherViewSquare(m_pEventHandler, m_pSettingsStore, m_DasherScreen);
 
     // Tell the Teacher which view we are using
     if(GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher())
-	pTeacher->SetDasherView(m_pDasherView);
+      pTeacher->SetDasherView(m_pDasherView);
   }
 }
 

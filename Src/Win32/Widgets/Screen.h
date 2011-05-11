@@ -27,7 +27,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 
-class CScreen:public Dasher::CDasherScreen, private NoClones {
+class CScreen:public Dasher::CLabelListScreen, private NoClones {
 public:
   //Saves a lot of typing; typedefs are equal to their declaration & do not create distinct types.
   typedef Dasher::screenint screenint;
@@ -40,12 +40,13 @@ public:
 
   void DrawMousePosBox(int which, int iMousePosDist,int layer=0);
 
-  void TextSize(const std::string & String, Dasher::screenint * Width, Dasher::screenint * Height, int Size);
+  //! Make label from UTF8-encoded string
+  CDasherScreen::Label *MakeLabel(const std::string &strText);
 
-  //! Draw UTF8-encoded string String of size Size positioned at x1 and y1
-  
-  //void DrawString(const std::string & String, Dasher::screenint x1, Dasher::screenint y1, int Size,int layer=0);
-  void DrawString(const std::string & String, Dasher::screenint x1, Dasher::screenint y1, int Size, int Colour);
+  std::pair<screenint,screenint> TextSize(CDasherScreen::Label *label, unsigned int Size);
+
+  //! Draw label at size Size positioned at x1 and y1
+  void DrawString(CDasherScreen::Label *label, screenint x1, screenint y1, unsigned int Size, int Colour);
 
   void DrawRectangle(Dasher::screenint x1, Dasher::screenint y1, Dasher::screenint x2, Dasher::screenint y2, int Colour, int iOutlineColour, int iThickness);
 
@@ -86,13 +87,14 @@ public:
 
   void SendMarker(int iMarker);
 
+  void resize(screenint w,screenint h);
 private:
   const void point2POINT(const point * In, POINT * Out, int Number);
 
-  void TextSize_Impl(const std::string & String, Dasher::screenint * Width, Dasher::screenint * Height, int Size);
-
   HWND m_hWnd;
 
+  void DeleteBuffers();
+  void CreateBuffers();
   HDC m_hdc;
   HDC m_hDCBuffer;
   HDC m_hDCBufferBackground;
@@ -114,26 +116,14 @@ private:
   stdext::hash_map <int, HFONT> m_cFonts;  // Holds cached font sizes for current font
   std::string FontName; // Shouldn't need to cache, should work on events to reset font cache
 
-  struct CTextSizeInput {
-    std::string m_String;
-    int m_iSize;
-
-    bool operator<(const CTextSizeInput & rhs) const {
-      if(m_iSize < rhs.m_iSize)
-        return true;
-      if(m_iSize > rhs.m_iSize)
-        return false;
-      return m_String < rhs.m_String;
-    } bool operator!=(const CTextSizeInput & rhs)const {
-      return ((m_iSize != rhs.m_iSize) || (m_String != rhs.m_String));
-  }};
-  struct CTextSizeOutput {
-    screenint m_iWidth;
-    screenint m_iHeight;
+  class Label : public CLabelListScreen::Label {
+  public:
+    const Tstring m_OutputText;
+    Label(CScreen *pScreen, const std::string &strText);
+    map<unsigned int,pair<screenint,screenint> > m_sizeCache;
   };
 
-
-  mutable std::map < CTextSizeInput, CTextSizeOutput > m_mapTextSize;
+  std::pair<screenint,screenint> TextSize_Impl(CScreen::Label *label, unsigned int Size);
 };
 
 #include "Screen.inl"

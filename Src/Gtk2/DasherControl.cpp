@@ -37,40 +37,11 @@ static bool g_iTimeoutID = 0;
 
 // CDasherControl class definitions
 CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl) {
-  m_pPangoCache = NULL;
   m_pScreen = NULL;
 
   m_pDasherControl = pDasherControl;
   m_pVBox = GTK_WIDGET(pVBox);
   pClipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
-  Realize();
- 
-  //  m_pKeyboardHelper = new CKeyboardHelper(this);
-  //  m_pKeyboardHelper->Grab(GetBoolParameter(BP_GLOBAL_KEYBOARD));
-}
-
-void CDasherControl::CreateModules() {
-  CDasherInterfaceBase::CreateModules(); //create default set first
-  // Create locally cached copies of the mouse input objects, as we
-  // need to pass coordinates to them from the timer callback
-  m_pMouseInput =
-    (CDasherMouseInput *)  RegisterModule(new CDasherMouseInput(m_pEventHandler, m_pSettingsStore));
-  SetDefaultInputDevice(m_pMouseInput);
-  m_p1DMouseInput =
-    (CDasher1DMouseInput *)RegisterModule(new CDasher1DMouseInput(m_pEventHandler, m_pSettingsStore));
-  RegisterModule(new CSocketInput(m_pEventHandler, m_pSettingsStore));
-
-#ifdef JOYSTICK
-  RegisterModule(new CDasherJoystickInput(m_pEventHandler, m_pSettingsStore, this));
-  RegisterModule(new CDasherJoystickInputDiscrete(m_pEventHandler, m_pSettingsStore, this));
-#endif
-  
-#ifdef TILT
-  RegisterModule(new CDasherTiltInput(m_pEventHandler, m_pSettingsStore, this));
-#endif
-}
-
-void CDasherControl::SetupUI() {
   m_pCanvas = gtk_drawing_area_new();
 #if GTK_CHECK_VERSION (2,18,0)
   gtk_widget_set_can_focus(m_pCanvas, TRUE);
@@ -106,14 +77,42 @@ void CDasherControl::SetupUI() {
   g_signal_connect(m_pCanvas, "expose_event", G_CALLBACK(canvas_expose_event), this);
 #endif
 
-  // Create the Pango cache
+  m_pScreen = new CCanvas(m_pCanvas);
+  ChangeScreen(m_pScreen);
 
+  Realize();
+ 
+  //  m_pKeyboardHelper = new CKeyboardHelper(this);
+  //  m_pKeyboardHelper->Grab(GetBoolParameter(BP_GLOBAL_KEYBOARD));
+}
+
+void CDasherControl::CreateModules() {
+  CDasherInterfaceBase::CreateModules(); //create default set first
+  // Create locally cached copies of the mouse input objects, as we
+  // need to pass coordinates to them from the timer callback
+  m_pMouseInput =
+    (CDasherMouseInput *)  RegisterModule(new CDasherMouseInput(m_pEventHandler, m_pSettingsStore));
+  SetDefaultInputDevice(m_pMouseInput);
+  m_p1DMouseInput =
+    (CDasher1DMouseInput *)RegisterModule(new CDasher1DMouseInput(m_pEventHandler, m_pSettingsStore));
+  RegisterModule(new CSocketInput(m_pEventHandler, m_pSettingsStore));
+
+#ifdef JOYSTICK
+  RegisterModule(new CDasherJoystickInput(m_pEventHandler, m_pSettingsStore, this));
+  RegisterModule(new CDasherJoystickInputDiscrete(m_pEventHandler, m_pSettingsStore, this));
+#endif
+  
+#ifdef TILT
+  RegisterModule(new CDasherTiltInput(m_pEventHandler, m_pSettingsStore, this));
+#endif
+}
+
+void CDasherControl::SetupUI() {
   // TODO: Use system defaults?
   if(GetStringParameter(SP_DASHER_FONT) == "")
     SetStringParameter(SP_DASHER_FONT, "Sans 10");
- 
-  m_pPangoCache = new CPangoCache(GetStringParameter(SP_DASHER_FONT));
-
+  else
+    m_pScreen->SetFont(GetStringParameter(SP_DASHER_FONT));
 }
 
 
@@ -243,11 +242,6 @@ CDasherControl::~CDasherControl() {
     m_p1DMouseInput = NULL;
   }
 
-  if(m_pPangoCache) {
-    delete m_pPangoCache;
-    m_pPangoCache = NULL;
-  }
-
 //   if(m_pKeyboardHelper) {
 //     delete m_pKeyboardHelper;
 //     m_pKeyboardHelper = 0;
@@ -333,11 +327,8 @@ int CDasherControl::CanvasConfigureEvent() {
   a.height = m_pCanvas->allocation.height;
 #endif
 
-  if(m_pScreen != NULL)
-    delete m_pScreen;
-
-  m_pScreen = new CCanvas(m_pCanvas, m_pPangoCache, a.width, a.height);
-  ChangeScreen(m_pScreen);
+  m_pScreen->resize(a.width,a.height);
+  ScreenResized(m_pScreen);
  
   return 0;
 }
@@ -435,10 +426,8 @@ void CDasherControl::ExternalKeyUp(int iKeyVal) {
 void CDasherControl::HandleParameterNotification(int iParameter) {
   switch(iParameter) {
   case SP_DASHER_FONT:
-    if(m_pPangoCache) {
-      m_pPangoCache->ChangeFont(GetStringParameter(SP_DASHER_FONT));
+      m_pScreen->SetFont(GetStringParameter(SP_DASHER_FONT));
       ScheduleRedraw();
-    }
     break;
   case BP_GLOBAL_KEYBOARD:
     // TODO: reimplement

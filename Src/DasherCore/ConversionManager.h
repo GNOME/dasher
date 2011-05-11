@@ -63,6 +63,10 @@ namespace Dasher {
     // TODO: We shouldn't need to know about this stuff, but the code is somewhat in knots at the moment
     CConversionManager(CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet);
 
+    ///Tells us to use the specified screen to create node labels.
+    /// (note we cache the screen and create labels lazily)
+    void ChangeScreen(CDasherScreen *pScreen);
+    
     ///
     /// Decrement reference count
     ///
@@ -83,7 +87,7 @@ namespace Dasher {
     class CConvNode : public CDasherNode {
     public:
       CConversionManager *mgr() {return m_pMgr;}
-      CConvNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const std::string &strDisplayText, CConversionManager *pMgr);
+      CConvNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, CDasherScreen::Label *pLabel, CConversionManager *pMgr);
     ///
     /// Provide children for the supplied node
     ///
@@ -131,13 +135,20 @@ namespace Dasher {
     virtual CConvNode *GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset);
   protected:
 
-    virtual CConvNode *makeNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const std::string &strDisplayText);
+    virtual CConvNode *makeNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, CDasherScreen::Label *pLabel);
 
 
 	CNodeCreationManager *m_pNCManager;
 	const CAlphInfo *m_pAlphabet;
 	
+    ///Utility method for subclasses, lazily makes+caches node labels
+    /// \return a node label displaying the specified string
+    CDasherScreen::Label *GetLabel(const char *pszConversion);
+    
   private:
+
+    std::map<std::string, CDasherScreen::Label *> m_vLabels;
+    CDasherScreen *m_pScreen;
 
     ///
     /// Dump tree to stdout (debug)

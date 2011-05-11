@@ -26,6 +26,8 @@
 - (void)doSpeedBtnImage:(NSString *)msg;
 - (void)speedSlid:(id)slider;
 - (CGRect)doLayout:(UIInterfaceOrientation)orient;
+//calls through to [EAGLView makeContextCurrent]
+- (void)selectEAGLContext;
 @property (retain) UILabel *screenLockLabel;
 @property (nonatomic,retain) NSString *m_wordBoundary;
 @property (nonatomic,retain) NSString *m_sentenceBoundary;
@@ -56,6 +58,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 @synthesize m_wordBoundary;
 @synthesize m_sentenceBoundary;
 @synthesize m_lineBoundary;
+
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
     return NO;
@@ -161,13 +164,18 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 
 	[window addSubview:self.view];
   
+  //make object (this doesn't do anything much, initialization/Realize later
+  // - but we have to set a screen before we Realize)
+  _dasherInterface = new CDasherInterfaceBridge(self);
+  
   //create GUI components...
 	text = [[[TextView alloc] init] autorelease];
   messageLabel = [[[UILabel alloc] init] autorelease];
   tools = [[UIToolbar alloc] init]; //retain a reference (until dealloc) because of rotation
 	glView = [[[EAGLView alloc] initWithFrame:[self doLayout:UIInterfaceOrientationPortrait] Delegate:self] autorelease];
+  //that last, calls ChangeScreen on the interface, so now we can:
 		
-  //start training in a separate thread. (Has to be after first
+  //start Realization i.e. training in a separate thread. (Has to be after first
   // call to doLayout, or get a black band across top of screen)
   [self doAsyncLocked:@"Initializing..." target:self selector:@selector(initDasherInterface) param:nil];
 
@@ -223,7 +231,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 - (void)initDasherInterface {
   //training takes too long to perform in applicationDidFinishLaunching;
   // so we do it here instead (having let the main thread display a "training" message);
-  _dasherInterface = new CDasherInterfaceBridge(self);
+  _dasherInterface->Realize();
   //the rest has to be done on the main thread to avoid problems with OpenGL contexts
   // (which are local to one thread); however, we'll have the background thread wait...
   [self performSelectorOnMainThread:@selector(finishStartup) withObject:nil waitUntilDone:YES];
@@ -232,11 +240,8 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 }
 
 - (void)finishStartup {
-  self.dasherInterface->ChangeScreen(new CDasherScreenBridge(glView));
-  
 	[CalibrationController doSetup]; //restore tilt settings
 	[self notifySpeedChange];
-  self.dasherInterface->OnUIRealised(); //that does startAnimation...
   doneSetup = YES;
   //The following will cause the text cursor to be displayed whenever
   // any change is made to the textbox...
@@ -521,6 +526,10 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   return text.text;
 }
 
+-(void)selectEAGLContext {
+  [glView makeContextCurrent];
+}
+
 #pragma mark TextViewDelegate methods
 
 -(void)textViewDidChangeSelection:(UITextView *)textView {
@@ -602,11 +611,14 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 
 - (void)aSyncMain:(NSInvocation *)action {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+  //This method is being executed on (some, unknown) background thread, i.e. not the main thread.
+  // We don't _know_ it's going to do anything OpenGL-related, but to mirror the main thread:
+  [[DasherAppDelegate theApp] selectEAGLContext];
   [action invoke];
+  [DasherAppDelegate theApp].screenLockLabel = nil;
   //passing 'nil' here, where a BOOL is expected, is a horrendous trick - nil = 0x0 is effectively reinterpret_casted... 
   // however, the 'correct' method of passing [NSNumber numberWithBool:] is erratic, resulting in either inversion, 
   // always true, or always false, on different versions of the iPhone OS/SDK...
-  [DasherAppDelegate theApp].screenLockLabel = nil;
   [self performSelectorOnMainThread:@selector(dismissModalViewControllerAnimated:) withObject:nil waitUntilDone:NO];
   [pool release];
 }

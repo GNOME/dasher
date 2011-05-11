@@ -84,10 +84,18 @@ public:
 
   /// @}
 
-  /// Change the screen - must be called if the Screen is replaced or resized
+  /// Change the screen - must be called if the Screen is replaced (not resized).
+  /// Default implementation just stores pointer. Note that a call to ChangeScreen
+  /// is usually followed by a call to ScreenResized as well, so stuff that only
+  /// depends on screen size/resolution can be done there instead.
   /// \param NewScreen Pointer to the new CDasherScreen.
-
   virtual void ChangeScreen(CDasherScreen * NewScreen);
+  
+  ///Call when the screen dimensions have been changed, to recalculate scaling factors etc.
+  /// The default implementation does nothing.
+  /// \param pScreen the screen whose dimensions have changed. TODO we expect this to be
+  /// the same one-and-only screen that we are using anyway, so remove parameter?
+  virtual void ScreenResized(CDasherScreen *pScreen) {}
 
   /// @name High level drawing
   /// Drawing more complex structures, generally implemented by derived class

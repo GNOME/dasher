@@ -121,7 +121,7 @@ void CConversionHelper::CConvHNode::PopulateChildren() {
 
       //  std::cout << "#" << pCurrentSCEChild->pszConversion << "#" << std::endl;
 
-      CConvNode *pNewNode = mgr()->makeNode(this, offset()+1, iLbnd, iHbnd, mgr()->AssignColour(parentClr, pCurrentSCEChild, iIdx), string(pCurrentSCEChild->pszConversion));
+      CConvNode *pNewNode = mgr()->makeNode(this, offset()+1, iLbnd, iHbnd, mgr()->AssignColour(parentClr, pCurrentSCEChild, iIdx), mgr()->GetLabel(pCurrentSCEChild->pszConversion));
 
       // TODO: Reimplement ----
 
@@ -190,13 +190,13 @@ void CConversionHelper::BuildTree(CConvHNode *pRoot) {
   pRoot->pSCENode = pStartTemp;
 }
 
-CConversionHelper::CConvHNode::CConvHNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const string &strDisplayText, CConversionHelper *pMgr)
-: CConvNode(pParent, iOffset, iLbnd, iHbnd, iColour, strDisplayText, pMgr) {
+CConversionHelper::CConvHNode::CConvHNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, CDasherScreen::Label *pLabel, CConversionHelper *pMgr)
+: CConvNode(pParent, iOffset, iLbnd, iHbnd, iColour, pLabel, pMgr) {
 }
 
 
-CConversionHelper::CConvHNode *CConversionHelper::makeNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, const string &strDisplayText) {
-  return new CConvHNode(pParent, iOffset, iLbnd, iHbnd, iColour, strDisplayText, this);
+CConversionHelper::CConvHNode *CConversionHelper::makeNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, CDasherScreen::Label *pLabel) {
+  return new CConvHNode(pParent, iOffset, iLbnd, iHbnd, iColour, pLabel, this);
 }
 
 void CConversionHelper::CConvHNode::SetFlag(int iFlag, bool bValue) {

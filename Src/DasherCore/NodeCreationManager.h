@@ -18,6 +18,7 @@ namespace Dasher {
   class CDasherNode;
   class CDasherInterfaceBase;
   class CControlManager;
+  class CDasherScreen;
 }
 //TODO why is CNodeCreationManager _not_ in namespace Dasher?!?!
 /// \ingroup Model
@@ -29,6 +30,9 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
                        CSettingsStore * pSettingsStore,
                        Dasher::CAlphIO *pAlphIO);
   ~CNodeCreationManager();
+  
+  ///Tells us the screen on which all created node labels must be rendered
+  void ChangeScreen(Dasher::CDasherScreen *pScreen);
   
   //we watch for changes to BP_CONTROL_MODE and create the Control Manager lazily
   void HandleEvent(Dasher::CEvent *pEvent);
@@ -66,6 +70,9 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   ///Amount of probability space to assign to letters (language model + smoothing),
   /// i.e. remaining after taking away whatever we need for control mode (perhaps 0)
   unsigned long m_iAlphNorm;
+  
+  ///Screen to use to create node labels
+  Dasher::CDasherScreen *m_pScreen;
 };
 /// @}
 

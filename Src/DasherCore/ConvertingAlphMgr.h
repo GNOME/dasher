@@ -23,10 +23,12 @@ namespace Dasher {
   class CConvertingAlphMgr : public CAlphabetManager {
   public:
     CConvertingAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CConversionManager *pConvMgr, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphabetMap);
+    ///Override to also tell the ConversionManager that the screen has changed.
+    void MakeLabels(CDasherScreen *pScreen);
     virtual ~CConvertingAlphMgr();
   protected:
     ///Override to return a conversion root for iSymbol==(one beyond last alphabet symbol)
-    virtual CDasherNode *CreateSymbolNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol);
+    virtual CDasherNode *CreateSymbolNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, symbol iSymbol);
   private:
     CConversionManager *m_pConvMgr;
     

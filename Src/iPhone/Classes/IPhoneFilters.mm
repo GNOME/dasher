@@ -12,7 +12,7 @@
 #include "../Common/Common.h"
 #include "DasherInterfaceBase.h"
 #include "Event.h"
-#include "CDasherScreenBridge.h"
+#include "EAGLView.h"
 #include <iostream>
 
 NSString *HOLD_TO_GO=@"HoldToGo";

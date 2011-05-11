@@ -56,11 +56,8 @@ public:
 
   virtual void HandleEvent(Dasher::CEvent * pEvent);
 
-  ///
-  /// Supply a new screen to draw to
-  ///
-
-  void ChangeScreen(CDasherScreen * NewScreen);
+  /// Resets scale factors etc. that depend on the screen size, to be recomputed when next needed.
+  void ScreenResized(CDasherScreen * NewScreen);
 
   ///
   /// @name Coordinate system conversion
@@ -116,14 +113,14 @@ private:
 
   class CTextString {
   public: //to CDasherViewSquare...
-    ///Creates a request that string str will be drawn.
+    ///Creates a request that label will be drawn.
     /// x,y are screen coords of midpoint of leading edge;
     /// iSize is desired size (already computed from requested position)
-    CTextString(const std::string & str, screenint x, screenint y, int iSize, int iColor)
-    : m_String(str), m_ix(x), m_iy(y), m_iSize(iSize), m_iColor(iColor) {
+    CTextString(CDasherScreen::Label *pLabel, screenint x, screenint y, int iSize, int iColor)
+    : m_pLabel(pLabel), m_ix(x), m_iy(y), m_iSize(iSize), m_iColor(iColor) {
     }
     ~CTextString();
-    std::string m_String;
+    CDasherScreen::Label *m_pLabel;
     screenint m_ix,m_iy;
     vector<CTextString *> m_children;
     int m_iSize;
@@ -137,7 +134,7 @@ private:
   /// Draw text specified in Dasher co-ordinates
   ///
 
-  CTextString *DasherDrawText(myint iMaxX, myint iMidY, const std::string & sDisplayText, CTextString *pParent, int iColor);
+  CTextString *DasherDrawText(myint iMaxX, myint iMidY, CDasherScreen::Label *pLabel, CTextString *pParent, int iColor);
 
   ///
   /// (Recursively) render a node and all contained subnodes, in disjoint rects.

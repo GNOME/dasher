@@ -16,11 +16,17 @@ CConvertingAlphMgr::CConvertingAlphMgr(CDasherInterfaceBase *pInterface, CNodeCr
  : CAlphabetManager(pInterface, pNCManager, pAlphabet, pAlphabetMap), m_pConvMgr(pConvMgr) {
  }
 
+void CConvertingAlphMgr::MakeLabels(CDasherScreen *pScreen) {
+  CAlphabetManager::MakeLabels(pScreen);
+  m_pConvMgr->ChangeScreen(pScreen);
+}
+
+
 CConvertingAlphMgr::~CConvertingAlphMgr() {
   m_pConvMgr->Unref();
 }
 
-CDasherNode *CConvertingAlphMgr::CreateSymbolNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const string &strGroup, int iBkgCol, symbol iSymbol) {
+CDasherNode *CConvertingAlphMgr::CreateSymbolNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, symbol iSymbol) {
   int i=m_pAlphabet->GetNumberTextSymbols()+1;
   if (iSymbol == i) {
     vector<unsigned int> *pCProb(pParent->GetProbInfo());
@@ -28,6 +34,6 @@ CDasherNode *CConvertingAlphMgr::CreateSymbolNode(CAlphNode *pParent, unsigned i
     //ACL setting m_iOffset+1 for consistency with "proper" symbol nodes...
     return m_pConvMgr->GetRoot(pParent, (*pCProb)[i-1], (*pCProb)[i], pParent->offset()+1);
   } else {
-    return CAlphabetManager::CreateSymbolNode(pParent, iLbnd, iHbnd, strGroup, iBkgCol, iSymbol);
+    return CAlphabetManager::CreateSymbolNode(pParent, iLbnd, iHbnd, iSymbol);
   }
 }

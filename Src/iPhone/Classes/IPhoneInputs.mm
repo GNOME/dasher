@@ -11,6 +11,7 @@
 #import "IPhoneInputs.h"
 #import "DasherUtil.h"
 #import "DasherAppDelegate.h"
+#import "EAGLView.h"
 
 using namespace std;
 using namespace Dasher;

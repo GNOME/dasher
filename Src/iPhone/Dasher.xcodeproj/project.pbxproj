@@ -272,8 +272,7 @@
 		33CBB4F3101FA33E00510BF9 /* alphabet.swedish.xml in Resources */ = {isa = PBXBuildFile; fileRef = 33CBB4EB101FA33E00510BF9 /* alphabet.swedish.xml */; };
 		33CBB4F5101FA35900510BF9 /* training_basque_ES.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33CBB4F4101FA35900510BF9 /* training_basque_ES.txt */; };
 		33DA5E2D11B70FA100011CD2 /* paste.png in Resources */ = {isa = PBXBuildFile; fileRef = 33DA5E2C11B70FA100011CD2 /* paste.png */; };
-		33EB483D0F7287DC0048E7C2 /* CDasherScreenBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 33EB483C0F7287DC0048E7C2 /* CDasherScreenBridge.mm */; };
-		33EB49240F73E8B30048E7C2 /* AlphabetLetter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 33EB49230F73E8B30048E7C2 /* AlphabetLetter.mm */; };
+		33EB49240F73E8B30048E7C2 /* OpenGLScreen.mm in Sources */ = {isa = PBXBuildFile; fileRef = 33EB49230F73E8B30048E7C2 /* OpenGLScreen.mm */; };
 		33EC5DF70FF3E30D00275986 /* ButtonMultiPress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33EC5DF20FF3E30D00275986 /* ButtonMultiPress.cpp */; };
 		33EC5DF80FF3E30D00275986 /* FrameRate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33EC5DF40FF3E30D00275986 /* FrameRate.cpp */; };
 		33EC5DF90FF3E30D00275986 /* TwoPushDynamicFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33EC5DF50FF3E30D00275986 /* TwoPushDynamicFilter.cpp */; };
@@ -720,11 +719,8 @@
 		33CBB4EB101FA33E00510BF9 /* alphabet.swedish.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.swedish.xml; sourceTree = "<group>"; };
 		33CBB4F4101FA35900510BF9 /* training_basque_ES.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_basque_ES.txt; sourceTree = "<group>"; };
 		33DA5E2C11B70FA100011CD2 /* paste.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paste.png; sourceTree = "<group>"; };
-		33EB483B0F7287DC0048E7C2 /* CDasherScreenBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDasherScreenBridge.h; sourceTree = "<group>"; };
-		33EB483C0F7287DC0048E7C2 /* CDasherScreenBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CDasherScreenBridge.mm; sourceTree = "<group>"; };
-		33EB48400F72A5680048E7C2 /* DasherScreenCallbacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DasherScreenCallbacks.h; sourceTree = "<group>"; };
-		33EB49220F73E8B30048E7C2 /* AlphabetLetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlphabetLetter.h; sourceTree = "<group>"; };
-		33EB49230F73E8B30048E7C2 /* AlphabetLetter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AlphabetLetter.mm; sourceTree = "<group>"; };
+		33EB49220F73E8B30048E7C2 /* OpenGLScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLScreen.h; sourceTree = "<group>"; };
+		33EB49230F73E8B30048E7C2 /* OpenGLScreen.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenGLScreen.mm; sourceTree = "<group>"; };
 		33EC5DF20FF3E30D00275986 /* ButtonMultiPress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ButtonMultiPress.cpp; sourceTree = "<group>"; };
 		33EC5DF30FF3E30D00275986 /* ButtonMultiPress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonMultiPress.h; sourceTree = "<group>"; };
 		33EC5DF40FF3E30D00275986 /* FrameRate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameRate.cpp; sourceTree = "<group>"; };
@@ -776,10 +772,6 @@
 				337691850F9CEFC70083FEB2 /* InputMethodSelector.mm */,
 				3376916F0F9CE8630083FEB2 /* StringParamController.h */,
 				337691700F9CE8630083FEB2 /* StringParamController.mm */,
-				33EB49220F73E8B30048E7C2 /* AlphabetLetter.h */,
-				33EB49230F73E8B30048E7C2 /* AlphabetLetter.mm */,
-				33EB483B0F7287DC0048E7C2 /* CDasherScreenBridge.h */,
-				33EB483C0F7287DC0048E7C2 /* CDasherScreenBridge.mm */,
 				331C73F30F717594004492FF /* DasherUtil.h */,
 				331C73F40F717594004492FF /* DasherUtil.mm */,
 				331C73C10F71750D004492FF /* COSXSettingsStore.h */,
@@ -794,7 +786,6 @@
 				3354AF4711ADBAFD006CF570 /* Actions.mm */,
 				3324F7BD129D744D00EE6A22 /* ActionConfigurator.h */,
 				3324F7BE129D744D00EE6A22 /* ActionConfigurator.mm */,
-				33EB48400F72A5680048E7C2 /* DasherScreenCallbacks.h */,
 				339F8A310FF5088000282847 /* CalibrationController.h */,
 				339F8A320FF5088000282847 /* CalibrationController.mm */,
 			);
@@ -1334,6 +1325,8 @@
 		3344FE670F71718B00506EAA /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				33EB49220F73E8B30048E7C2 /* OpenGLScreen.h */,
+				33EB49230F73E8B30048E7C2 /* OpenGLScreen.mm */,
 				334B1C2011233B8B007A6DFF /* ModuleSettings.h */,
 				332387350F7838AC00DD75C5 /* Platform.h */,
 				332387300F78388200DD75C5 /* Common.h */,
@@ -1414,7 +1407,14 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Dasher" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1609,8 +1609,7 @@
 				3344FE660F71717C00506EAA /* XMLUtil.cpp in Sources */,
 				331C73C30F71750D004492FF /* COSXSettingsStore.mm in Sources */,
 				331C73F50F717594004492FF /* DasherUtil.mm in Sources */,
-				33EB483D0F7287DC0048E7C2 /* CDasherScreenBridge.mm in Sources */,
-				33EB49240F73E8B30048E7C2 /* AlphabetLetter.mm in Sources */,
+				33EB49240F73E8B30048E7C2 /* OpenGLScreen.mm in Sources */,
 				337690140F989C870083FEB2 /* SBTree.cpp in Sources */,
 				337691710F9CE8630083FEB2 /* StringParamController.mm in Sources */,
 				337691860F9CEFC70083FEB2 /* InputMethodSelector.mm in Sources */,

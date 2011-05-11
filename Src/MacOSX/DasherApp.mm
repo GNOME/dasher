@@ -10,9 +10,7 @@
 #import "PreferencesController.h"
 #import "DasherEdit.h"
 #import "DasherUtil.h"
-#import "DasherViewCocoa.h"
 #import "AppWatcher.h"
-#import "COSXDasherScreen.h"
 
 /*
  * Created by Doug Dickinson (dasher AT DressTheMonkey DOT plus DOT com), 18 April 2003
@@ -23,6 +21,8 @@
 
 @implementation DasherApp
 
+@synthesize dasherView;
+
 - (void)start {
 //  aquaDasherControl->Start();
 }
@@ -31,7 +31,7 @@
   aquaDasherControl->ScheduleRedraw();
 }
 
-- (void)changeScreen:(COSXDasherScreen *)aScreen {
+- (void)changeScreen:(CDasherScreen *)aScreen {
   aquaDasherControl->ChangeScreen( aScreen );
 }
 
@@ -87,44 +87,36 @@
   return self;
 }
 
-- (IBAction)importTrainingText:(id)sender
-{
+- (IBAction)importTrainingText:(id)sender {
   NSOpenPanel *op = [NSOpenPanel openPanel];
 
   int returnCode = [op runModalForDirectory:nil file:nil types:nil];
 
-  if (returnCode == NSOKButton)
-    {
+  if (returnCode == NSOKButton) {
     aquaDasherControl->Train([op filename]);
     NSBeep();
-    }
+  }
 }
 
-- (IBAction)showPreferences:(id)sender
-{
+- (IBAction)showPreferences:(id)sender {
   [[PreferencesController preferencesController] makeKeyAndOrderFront:sender];
 }
 
-- (void)setPanelAlphaValue:(float)anAlphaValue
-{
+- (void)setPanelAlphaValue:(float)anAlphaValue {
   [dasherPanelUI setAlphaValue:anAlphaValue];
 }
 
 - (void)finishRealization {
-  
   aquaDasherControl->Realize2();
-  [dasherView finishRealization];
-  
 }
 
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
   [dasherPanelUI setBecomesKeyOnlyIfNeeded:YES];
   [dasherPanelUI setFloatingPanel:YES];
-  
+
   // TODO leave out until defaults works properly
 //  [self setPanelAlphaValue:[[NSUserDefaults standardUserDefaults] floatForKey:DASHER_PANEL_OPACITY]];
-  
+
   // not sure if this is the right place for this.  if we ever have a local/remote switch (to control typing into self or others, it should probably be turned off/on there)
   // not sure if this is the right call; is there an equivalent in the AXUI API?  I can't find it...
   // default value for seconds is 0.25, which makes the app miss eg mouse presses sometimes
@@ -144,16 +136,8 @@
 }
 
 - (void)setAquaDasherControl:(COSXDasherControl *)value {
-    aquaDasherControl = value;
+  aquaDasherControl = value;
 }
-
-- (id <DasherViewCocoa>)dasherView {
-  return dasherView;
-}
-
-- (void)setDasherView:(id <DasherViewCocoa>)value {
-    dasherView = value;
-  }
 
 - (void)startTimer {
 #define FPS 40.0f

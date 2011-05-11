@@ -23,6 +23,7 @@
 
 namespace WinUTF8 {
   void UTF8string_to_wstring(const std::string & UTF8string, std::wstring & Output);
+  std::wstring UTF8string_to_wstring(const std::string &UTF8string);
   void wstring_to_UTF8string(const std::wstring & Input, std::string & Output);
 }
 #endif                          /* #ifndef __WinUTF8_h__ */

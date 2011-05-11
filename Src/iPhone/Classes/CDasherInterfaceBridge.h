@@ -39,7 +39,7 @@ public:
   ~CDasherInterfaceBridge();
   
   //redefinitions to make public....
-  void OnUIRealised();
+  void Realize();//also calls OnUIRealised
   void NewFrame(unsigned long iTime, bool bForceRedraw);
   
   void SetTiltAxes(Vec3 main, float off, Vec3 slow, float off2);

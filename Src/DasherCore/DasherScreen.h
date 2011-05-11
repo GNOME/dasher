@@ -7,6 +7,7 @@
 
 #include "DasherTypes.h"
 #include "../DasherCore/ColourIO.h"
+#include <set>
 
 // DJW20050505 - renamed DrawText to DrawString - windows defines DrawText as a macro and it's 
 // really hard to work around
@@ -14,11 +15,21 @@
 
 namespace Dasher {
   class CDasherScreen;
+  class CLabelListScreen;
   class CDasherInterfaceBase;
 }
 
 /// \ingroup View
 /// @{
+/// Abstract interface for drawing operations, implemented by platform-specific canvases.
+/// Instances have _mutable_ dimensions; changes should be reported to the
+/// interface's ScreenResized method.
+/// Note the DrawString and TextSize methods: these now take platform-specific
+/// Label objects returned from MakeLabel. Thus, it is up to external clients to
+/// cache and reuse Labels. (This replaces the previous scheme where these methods
+/// took arbitrary std::strings, which were cached in a hashmap internal to each
+/// platform's screen. The new scheme allows clients to control cache preloading
+/// and flushing.)
 class Dasher::CDasherScreen
 {
 public:
@@ -49,14 +60,40 @@ public:
     screenint x;
     screenint y;
   } point;
+  
+  /// (Default implementation returns false)
+  ///\return true if this Screen can efficiently support fonts of many sizes (by continuous scaling);
+  /// false if clients should try to minimise the number of distinct font sizes required.
+  virtual bool MultiSizeFonts() {return false;}
+  
+  ///Abstract class for objects representing strings that can be drawn on the screen.
+  /// Platform-specific instances are created by the MakeLabel(String) method, which
+  /// may then be passed to GetSize() and DrawText().
+  class Label {
+    friend class CDasherScreen;
+  protected:
+    Label(const std::string &strText) : m_strText(strText) {};
+  public:
+    const std::string m_strText;
+    ///Delete the label. This should free up any resources associated with
+    /// drawing the string onto the screen, e.g. layouts or textures.
+    virtual ~Label() {}
+  };
 
-  // DasherView asks for the width and height of the given UTF8 string at a requested height,
-  // then it is able to sensibly specify the upper left corner in DrawString.
-  //! Set Width and Height to those of the string at size Size
-  virtual void TextSize(const std::string & String, screenint * Width, screenint * Height, int Size) = 0;
+  ///Make a label for use with this screen.
+  /// \param strText UTF8-encoded text.
+  virtual Label *MakeLabel(const std::string &strText) {return new Label(strText);}
 
-  //! Draw UTF8-encoded string String of size Size positioned at x1 and y1
-  virtual void DrawString(const std::string & String, screenint x1, screenint y1, int Size, int iColour) = 0;
+  ///Get Width and Height of a Label previously created by MakeLabel. Note behaviour
+  /// undefined if the Label is not one returned from a call to MakeLabel _on_this_Screen_.
+  virtual std::pair<screenint,screenint> TextSize(Label *label, unsigned int iFontSize) = 0;
+
+  /// Draw a label at position (x1,y1)
+  /// \param label a Label previously created by MakeLabel. Note behaviour
+  /// undefined if the Label is not one returned from a call to MakeLabel _on_this_Screen_.
+  /// \param x Coordinate of top left corner (i.e., left hand side)
+  /// \param y Coordinate of top left corner (i.e., top)
+  virtual void DrawString(Label *label, screenint x, screenint y, unsigned int iFontSize, int iColour) = 0;
 
   // Send a marker to indicate 'phases' of drawing. 
 
@@ -112,10 +149,6 @@ public:
   /// \param lineWidth thickness of outline; 0 or less => don't draw outline.
   virtual void Polygon(point * Points, int Number, int fillColour, int outlineColour, int lineWidth) = 0;
 
-  // Signal the screen when a frame is started and finished
-  //! Signal that a frame is being started
-  virtual void Blank() = 0;
-
   //! Signal that a frame is finished - the screen should be updated
   virtual void Display() = 0;
 
@@ -124,12 +157,52 @@ public:
   /// \param pColourScheme A colour scheme that should be used
   virtual void SetColourScheme(const Dasher::CColourIO::ColourInfo *pColourScheme) = 0;
   
-protected:
+private:
   //! Width and height of the screen
-  const screenint m_iWidth, m_iHeight;
+  screenint m_iWidth, m_iHeight;
 
-  //! Pointer to a widget interface for communication with the core
-  //  CDasherInterfaceBase *m_pDasherInterface;
+protected:
+  ///Subclasses should call this if the canvas dimensions have changed.
+  /// It is up to subclasses to make sure they also call
+  /// ScreenResized on the intf.
+  void resize(screenint width, screenint height) {
+    m_iWidth = width; m_iHeight = height;
+  }
+};
+
+/// Subclass that preserves a list of all labels returned from MakeLabel
+/// (and not yet deleted) so that they can be mutated en mass (by further
+/// subclasses) if necessary. Note we have to return a new Labels each time,
+/// and cannot hash/flyweight together similar Labels, because _clients_ are
+/// in control of deletion.
+class Dasher::CLabelListScreen : public Dasher::CDasherScreen {
+protected:
+  CLabelListScreen(screenint width, screenint height) : CDasherScreen(width,height) {
+  }
+  class Label : public CDasherScreen::Label {
+  public: //to instances of CLabelListScreen and subclasses
+    Label(CLabelListScreen *pScreen, const std::string &strText)
+    : CDasherScreen::Label(strText), m_pScreen(pScreen) {
+      m_pScreen->m_sLabels.insert(this);
+    }
+    ~Label() {
+      std::set<Label *>::iterator it = m_pScreen->m_sLabels.find(this);
+      DASHER_ASSERT(it != m_pScreen->m_sLabels.end());
+      m_pScreen->m_sLabels.erase(it);
+    }
+    CLabelListScreen * const m_pScreen;
+  };
+  ///An iterator pointing to the first extant (non-deleted) label created
+  /// from this screen. This allows iteration through modifiable labels,
+  /// but without being able to access or hence modify the set.
+  std::set<Label *>::iterator LabelsBegin() {return m_sLabels.begin();}
+
+  ///An iterator pointing just beyond the last extant (non-deleted) label
+  /// created from this screen. This allows iteration through modifiable labels,
+  /// but without being able to access or hence modify the set.
+  std::set<Label *>::iterator LabelsEnd() {return m_sLabels.end();}
+private:
+  std::set<Label *> m_sLabels;
 };
 /// @}
 
