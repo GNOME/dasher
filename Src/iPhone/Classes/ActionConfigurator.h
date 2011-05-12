@@ -12,6 +12,5 @@
   ActionButton *button;
   UIView *headers[3];
 }
--(id)initWithButton:(ActionButton *)_button;
-+(ActionConfigurator *)instanceForButton:(ActionButton *)button;
+-(id)init;
 @end

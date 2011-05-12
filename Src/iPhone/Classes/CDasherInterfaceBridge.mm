@@ -143,6 +143,8 @@ void CDasherInterfaceBridge::HandleEvent(int iParameter) {
     [dasherApp notifySpeedChange];
   else if (iParameter == SP_ALPHABET_ID)
     [dasherApp setAlphabet:GetActiveAlphabet()];
+  else if (iParameter == BP_GAME_MODE)
+    [dasherApp refreshToolbar];
   CDasherInterfaceBase::HandleEvent(iParameter);
 }
 

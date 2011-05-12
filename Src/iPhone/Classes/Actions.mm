@@ -18,34 +18,25 @@ SAction actions[] = {
   {@"Copy to Clipboard",@"iphone_act_copy", @"copy.png"},
   {@"Cut to Clipboard", @"iphone_act_cut", @"scissors.png"},
   {@"Paste from Clipboard", @"iphone_act_paste", @"paste.png"},
+  {@"Discard",@"iphone_act_discard",@"trash.png"},
 };
 
-int numActions = sizeof(actions) / sizeof(actions[0]);
+const int numActions = sizeof(actions) / sizeof(actions[0]);
 
 @interface ActionButton ()
 - (void)performAction:(int)which checkClear:(BOOL)bCheck;
 @end;
 
+int numActionsOn;
+int actionsOn[numActions];
 
 static NSString *actionIconFile = @"spanner.png";
 
+ActionButton *sysTrash=nil, *general=nil;
+
 @implementation ActionButton
 
--(id)initForToolbar:(UIToolbar *)_toolbar {
-  if (self = [super initWithImage:[UIImage imageNamed:actionIconFile] style:UIBarButtonItemStylePlain target:self action:@selector(clicked)]) {
-    toolbar = _toolbar;
-    actionsOn = new int[numActions];
-    [self refresh];
-  }
-  return self;
-}
-
--(void)dealloc {
-  delete[] actionsOn;
-  [super dealloc];
-}
-
--(void)refresh {
++(ActionButton *)buttonForToolbar:(UIToolbar *)_toolbar {
   numActionsOn=0;
   NSUserDefaults *settings=[NSUserDefaults standardUserDefaults];
   NSString *iconFile=nil;
@@ -59,14 +50,28 @@ static NSString *actionIconFile = @"spanner.png";
   for (int i=numActionsOn; i<numActions; i++) actionsOn[i]=-1;
   
   //multiple items, _or_ none (=>configure), display generic actions/tools icon
+  if (numActionsOn==1 && actionsOn[0]==6) {
+    if (!sysTrash) {
+      sysTrash = [[ActionButton alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:nil action:@selector(clicked)];
+      sysTrash.target = sysTrash;
+    }
+    sysTrash->toolbar = _toolbar;
+    return sysTrash;
+  }
   if (numActionsOn!=1) iconFile = actionIconFile;
-  [self setImage:[UIImage imageNamed:iconFile]];
+  if (!general) {
+    general = [[ActionButton alloc] initWithImage:[UIImage imageNamed:actionIconFile] style:UIBarButtonItemStylePlain target:nil action:@selector(clicked)];
+    general.target = general;
+  } else
+    [general setImage:[UIImage imageNamed:iconFile]];
+  general->toolbar = _toolbar;
+  return general;
 }
 
 - (void)clicked {
   if (numActionsOn==0) {
     //no actions enabled! display configurator...
-    [[DasherAppDelegate theApp] presentModalViewController:[[[UINavigationController alloc] initWithRootViewController:[ActionConfigurator instanceForButton:self]] autorelease] animated:YES];
+    [[DasherAppDelegate theApp] presentModalViewController:[[[UINavigationController alloc] initWithRootViewController:[[[ActionConfigurator alloc] init] autorelease]] autorelease] animated:YES];
   } else if (numActionsOn==1) {
     //a single action is enabled...
     [self performAction:actionsOn[0] checkClear:YES];
@@ -94,6 +99,9 @@ static NSString *actionIconFile = @"spanner.png";
         break;
       case 6:
         choice = [[[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:actions[actionsOn[0]].dispName,actions[actionsOn[1]].dispName,actions[actionsOn[2]].dispName,actions[actionsOn[3]].dispName,actions[actionsOn[4]].dispName,actions[actionsOn[5]].dispName,nil] autorelease];
+        break;
+      case 7:
+        choice = [[[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:actions[actionsOn[0]].dispName,actions[actionsOn[1]].dispName,actions[actionsOn[2]].dispName,actions[actionsOn[3]].dispName,actions[actionsOn[4]].dispName,actions[actionsOn[5]].dispName,actions[actionsOn[6]].dispName,nil] autorelease];
         break;
       default:
         //ok, some other number! But implementing for future-proofing...

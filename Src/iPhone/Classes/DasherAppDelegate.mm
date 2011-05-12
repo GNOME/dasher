@@ -215,23 +215,11 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   [speedSlider addTarget:self action:@selector(fadeSlider) forControlEvents:UIControlEventAllTouchEvents];
   [speedSlider addTarget:self action:@selector(speedSlid:) forControlEvents:UIControlEventValueChanged];
   //...and lay them out
-	UIBarButtonItem *settings = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cog.png"] style:UIBarButtonItemStylePlain target:self action:@selector(settings)] autorelease];
 	speedBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 	[speedBtn setImageEdgeInsets:UIEdgeInsetsMake(0.0, 2.0, 0.0, 2.0)];
 	[speedBtn addTarget:self action:@selector(fadeSlider) forControlEvents:UIControlEventAllTouchEvents];
   
-  actions = [[[ActionButton alloc] initForToolbar:tools] autorelease];
-  
-	UIBarButtonItem *clear = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(clearBtn)] autorelease];
-	[tools setItems:[NSArray arrayWithObjects:
-				settings,
-				[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
-				[[[UIBarButtonItem alloc] initWithCustomView:speedBtn] autorelease],
-				[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
-				clear,
-				[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
-				actions,
-				nil]];
+  [self refreshToolbar];
 	
 	[self.view addSubview:glView];
 	[self.view addSubview:textView];
@@ -243,6 +231,27 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 	[window makeKeyAndVisible];
   //exit this routine; initDasherInterface (in separate thread) will cause this (main) thread
   // to execute finishStartup, and finally unlock the display, when it's done with training etc.
+}
+
+-(void)refreshToolbar {
+  UIBarButtonSystemItem icon = _dasherInterface->GetBoolParameter(BP_GAME_MODE) ? UIBarButtonSystemItemStop : UIBarButtonSystemItemPlay;
+  UIBarButtonItem *game = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:icon target:self action:@selector(toggleGameMode)] autorelease];
+  UIBarButtonItem *action = [ActionButton buttonForToolbar:tools];
+  if (!toolbarItems) {
+    toolbarItems = [[NSMutableArray arrayWithObjects:
+                   [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cog.png"] style:UIBarButtonItemStylePlain target:self action:@selector(settings)] autorelease],
+                   [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
+                   [[[UIBarButtonItem alloc] initWithCustomView:speedBtn] autorelease],
+                   [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
+                   game,
+                   [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
+                   action,
+                   nil] retain];
+  } else {
+    [toolbarItems replaceObjectAtIndex:4 withObject:game];
+    [toolbarItems replaceObjectAtIndex:6 withObject:action];
+  }
+  [tools setItems:toolbarItems];
 }
 
 - (void)initDasherInterface {
@@ -297,13 +306,17 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 - (void)clearText {
   textView.text=@"";
   selectedText.location = selectedText.length = 0;
-  _dasherInterface->SetOffset(0);
+  _dasherInterface->SetBuffer(0);
 }
 	
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == actionSheet.destructiveButtonIndex) [self clearText];
 }
-	
+
+- (void)toggleGameMode {
+  _dasherInterface->SetBoolParameter(BP_GAME_MODE, !_dasherInterface->GetBoolParameter(BP_GAME_MODE));
+}
+
 - (void)settings {
   //avoid awful muddle if we change out of tap-to-start mode whilst running.... 
   _dasherInterface->Stop();
@@ -321,7 +334,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 						    [[[LanguagesController alloc] init] autorelease],
                 [[[StringParamController alloc] initWithTitle:@"Colour" image:[UIImage imageNamed:@"palette.png"] settingParam:SP_COLOUR_ID] autorelease],
 						    misc,
-                [ActionConfigurator instanceForButton:actions],
+                [[[ActionConfigurator alloc] init] autorelease],
 						    nil];
   [self presentModalViewController:settings animated:YES];
 }

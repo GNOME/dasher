@@ -18,19 +18,14 @@ using Dasher::Settings::GetParameterName;
 
 @implementation ActionConfigurator
 
-- (id)initWithButton:(ActionButton *)_button {
+- (id)init {
   if (self = [super initWithStyle:UITableViewStyleGrouped]) {
-    button = _button;
     self.tabBarItem.title=@"Actions";
     self.tabBarItem.image=[UIImage imageNamed:@"spanner_lg.png"];
     self.navigationItem.title=@"Configure Actions";
     self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:[DasherAppDelegate theApp] action:@selector(settingsDone)] autorelease];
   }
   return self;
-}
-
-+(ActionConfigurator *)instanceForButton:(ActionButton *)button {
-  return [[[self alloc] initWithButton:button] autorelease];
 }
 
 #pragma mark -
@@ -182,7 +177,7 @@ using Dasher::Settings::GetParameterName;
   UISwitch *sw = (UISwitch *)sender;
   SAction *act = &actions[ sw.tag -1 ];
   [[NSUserDefaults standardUserDefaults] setBool:sw.on forKey:act->settingName];
-  [button refresh];
+  [[DasherAppDelegate theApp] refreshToolbar];
 }
 
 -(void)paramSlid:(id)sender {

@@ -29,7 +29,7 @@
   BOOL m_bLandscapeSupported;
   /// Should really be part of UIViewController (lockable), below...but then, how to find?
   UILabel *screenLockLabel;
-  ActionButton *actions;
+  NSMutableArray *toolbarItems;
   NSString *m_wordBoundary, *m_sentenceBoundary, *m_lineBoundary;
 }
 
@@ -49,6 +49,7 @@
 - (void)clearText;
 - (NSString *)allText;
 - (void)notifySpeedChange;
+- (void)refreshToolbar;
 - (NSString *)textAtOffset:(unsigned int)offset Length:(unsigned int)length;
 - (void)setLockText:(NSString *)s;
 - (void)displayMessage:(NSString *)msg;

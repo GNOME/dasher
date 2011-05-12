@@ -14,15 +14,13 @@ typedef struct {
   NSString *toolbarIconFile;
 } SAction;
 
-#ifndef __ACTIONS_MM__
+//#ifndef __ACTIONS_MM__
 extern SAction actions[];
-extern int numActions;
-#endif
+extern const int numActions;
+//#endif
 
 @interface ActionButton : UIBarButtonItem <UIActionSheetDelegate> {
   UIToolbar *toolbar;
-  int numActionsOn, *actionsOn;
 }
-- (id)initForToolbar:(UIToolbar *)toolbar;
-- (void)refresh;
++(ActionButton *)buttonForToolbar:(UIToolbar *)toolbar;
 @end
