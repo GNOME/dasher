@@ -567,7 +567,8 @@ void CAlphabetManager::CSymbolNode::Undo(int *pNumDeleted) {
       // iff this node was actually written (i.e. not rebuilt _from_ context!)
       std::string &buf(m_pMgr->strTrainfileBuffer);
       std::string tr(trainText());
-      if (buf.substr(buf.length()-tr.length(),tr.length())==tr) {
+      if (tr.length()<=buf.length()
+          && buf.substr(buf.length()-tr.length(),tr.length())==tr) {
         buf=buf.substr(0,buf.length()-tr.length());
         m_pMgr->m_pLastOutput = Parent();
       }
