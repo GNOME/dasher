@@ -89,7 +89,8 @@ int OTHER_BPS[] = {BP_COPY_ALL_ON_STOP, BP_SPEAK_ALL_ON_STOP, BP_SPEAK_WORDS};
     [header addSubview:label];
     if (section==0) {
       UISwitch *sw = [[[UISwitch alloc] initWithFrame:CGRectMake(210.0,10.0,100.0,20.0)] autorelease];
-      sw.tag=BP_CONTROL_MODE;
+      //Add 1 For consistency with switches constructed for other params
+      sw.tag=BP_CONTROL_MODE+1;
       sw.on=[DasherAppDelegate theApp].dasherInterface->GetBoolParameter(BP_CONTROL_MODE);
       [sw addTarget:self action:@selector(paramSlid:) forControlEvents:UIControlEventValueChanged];
       [header addSubview:sw];
@@ -149,7 +150,9 @@ int OTHER_BPS[] = {BP_COPY_ALL_ON_STOP, BP_SPEAK_ALL_ON_STOP, BP_SPEAK_WORDS};
       SAction *act = &actions[ [indexPath row] ];
       [sw addTarget:self action:@selector(actionSlid:) forControlEvents:UIControlEventValueChanged];
       cell.textLabel.text = act->dispName;
-      sw.tag = cell.tag = [indexPath row];
+      //ensure we don't assign tag 0: 0 is default, so 'viewWithTag:0' could
+      // return any subview.
+      sw.tag = cell.tag = [indexPath row] + 1;
       sw.on = [[NSUserDefaults standardUserDefaults] boolForKey:act->settingName];      
     } else {
       CDasherInterfaceBase *intf=[DasherAppDelegate theApp].dasherInterface;
@@ -164,7 +167,9 @@ int OTHER_BPS[] = {BP_COPY_ALL_ON_STOP, BP_SPEAK_ALL_ON_STOP, BP_SPEAK_WORDS};
       int iParameter = params[[indexPath row]];
       [sw addTarget:self action:@selector(paramSlid:) forControlEvents:UIControlEventValueChanged];
       cell.textLabel.text = NSStringFromStdString(intf->GetSettingsStore()->GetParameterName(iParameter));
-      sw.tag = cell.tag = iParameter;
+      //ensure we don't assign tag 0: 0 is default, so 'viewWithTag:0' could
+      // return any subview.
+      sw.tag = cell.tag = iParameter + 1;
       sw.on = intf->GetBoolParameter(iParameter);
     }
   return cell;
@@ -173,7 +178,7 @@ int OTHER_BPS[] = {BP_COPY_ALL_ON_STOP, BP_SPEAK_ALL_ON_STOP, BP_SPEAK_WORDS};
 - (void)actionSlid:(id)sender {
   DASHER_ASSERT([sender isKindOfClass:[UISwitch class]]);
   UISwitch *sw = (UISwitch *)sender;
-  SAction *act = &actions[ sw.tag ];
+  SAction *act = &actions[ sw.tag -1 ];
   [[NSUserDefaults standardUserDefaults] setBool:sw.on forKey:act->settingName];
   [button refresh];
 }
@@ -181,7 +186,7 @@ int OTHER_BPS[] = {BP_COPY_ALL_ON_STOP, BP_SPEAK_ALL_ON_STOP, BP_SPEAK_WORDS};
 -(void)paramSlid:(id)sender {
   DASHER_ASSERT([sender isKindOfClass:[UISwitch class]]);
   UISwitch *sw = (UISwitch *)sender;
-  int iParameter = sw.tag;
+  int iParameter = sw.tag - 1; //we added 1 on when we assigned the tag. 
   [DasherAppDelegate theApp].dasherInterface->SetBoolParameter(iParameter,sw.on);
   if (iParameter==BP_CONTROL_MODE) {
     //find the table view...
