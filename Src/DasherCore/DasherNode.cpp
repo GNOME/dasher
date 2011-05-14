@@ -50,7 +50,7 @@ CDasherNode::CDasherNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, 
     DASHER_ASSERT(!pParent->GetFlag(NF_ALLCHILDREN));
     pParent->Children().push_back(this);
   }
-	
+
   iNumNodes++;
 }
 

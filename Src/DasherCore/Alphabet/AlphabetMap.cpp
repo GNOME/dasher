@@ -48,7 +48,7 @@ static utf8_length m_utf8_count_array;
 utf8_length::utf8_length()
 {
   int i;
-  
+
   memset(utf8_count_array, 0, sizeof(utf8_count_array));
   for (i = 0x00; i <= 0x7f; ++i) utf8_count_array[i] = 1;
   for (i = 0xc0; i <= 0xdf; ++i) utf8_count_array[i] = 2;
@@ -125,7 +125,7 @@ inline int CAlphabetMap::SymbolStream::findNext() {
     std::cerr << "Read invalid UTF-8 character 0x" << hex << buf[pos]
     << dec << std::endl;
 #endif
-    ++pos;    
+    ++pos;
   }
 }
 

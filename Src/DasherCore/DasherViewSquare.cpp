@@ -534,7 +534,7 @@ void CDasherViewSquare::DisjointRender(CDasherNode *pRender, myint y1, myint y2,
 
         if (newy2-newy1 < iDasherMaxX) //fill in to it's left...
           DasherDrawRectangle(std::min(Range,iDasherMaxX), std::max(y1,iDasherMinY), newy2-newy1, std::min(y2,iDasherMaxY), myColor, -1, 0);
-        DisjointRender(pChild, newy1, newy2, pPrevText, 
+        DisjointRender(pChild, newy1, newy2, pPrevText,
                         policy, dMaxCost, pOutput);
         //leave pRender->onlyChildRendered set, so remaining children are skipped
       }
@@ -679,7 +679,7 @@ beginning:
   // _supposed_ to be the same colour as their parent, will have no outlines...
   // (thankfully having 2 "phases" means this doesn't happen in standard
   // colour schemes)
-  if (pRender->GetFlag(NF_VISIBLE)) { 
+  if (pRender->GetFlag(NF_VISIBLE)) {
 	//outline width 0 = fill only; >0 = fill + outline; <0 = outline only
 	int fillColour = GetLongParameter(LP_OUTLINE_WIDTH)>=0 ? myColor : -1;
 	int lineWidth = abs(GetLongParameter(LP_OUTLINE_WIDTH));

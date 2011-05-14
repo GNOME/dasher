@@ -535,7 +535,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
     }
 
     SGroupInfo *&prevSibling(Me->m_vGroups.empty() ? Me->InputInfo->m_pBaseGroup : Me->m_vGroups.back()->pChild);
-    
+
     if (pNewGroup->iColour==-1 && pNewGroup->bVisible) {
       //no colour specified. Try to colour cycle, but make sure we choose
       // a different colour from both its parent and any previous sibling
@@ -548,7 +548,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
         break; //different from parent and previous sibling (if any!), so ok
       }
     }
-    
+
     pNewGroup->iStart = Me->InputInfo->m_vCharacters.size()+1;
 
     pNewGroup->pChild = NULL;

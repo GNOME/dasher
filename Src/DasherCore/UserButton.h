@@ -28,7 +28,7 @@ class CUserButton {
     else
       return 0;
   }
-    
+
  protected:
   int m_iId;
   int m_iType;

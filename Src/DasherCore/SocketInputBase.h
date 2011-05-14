@@ -20,7 +20,7 @@ namespace Dasher {
   class CSocketInputBase;
 
 using namespace std;
-/// \ingroup Input 
+/// \ingroup Input
 /// \{
 class CSocketInputBase : public CScreenCoordInput {
 
@@ -56,12 +56,12 @@ public:
   /// Gets the last coordinates received; if only one coordinate is being read, this is put
   /// into iDasherY (and iDasherX set to 0).
   bool GetScreenCoords(screenint &iScreenX, screenint &iScreenY, CDasherView *pView) {
-    
+
     //update max values for reader thread...(note any changes here won't be incorporated
     // until values are next received over socket, but never mind)
     dasherMaxCoordinateValues[0] = pView->Screen()->GetWidth();
     dasherMaxCoordinateValues[1] = pView->Screen()->GetHeight();
-    
+
     if (coordinateCount==1) {
       iScreenX = 0;
       iScreenY = dasherCoordinates[0];
@@ -78,7 +78,7 @@ public:
   void Activate() {
     StartListening();
   };
-  
+
   void Deactivate() {
     StopListening();
   };
@@ -123,9 +123,9 @@ protected:
   virtual void ReportErrnoError(std::string prefix); // override as appropriate for each platform
 
   virtual void ReportError(std::string s); // override as appropriate for each platform
-    
+
   virtual void SocketDebugMsg(const char *pszFormat, ...);
-  
+
 };
 }
 /// \}

@@ -15,7 +15,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Dasher; if not, write to the Free Software 
+// along with Dasher; if not, write to the Free Software
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 #include "../Common/Common.h"
@@ -141,7 +141,7 @@ void CDasherView::DasherPolyarrow(myint *x, myint *y, int n, int iWidth, int iCo
   ScreenPoints[n+2].y = ScreenPoints[n-1].y + iXvec + iYvec;
 
   Screen()->Polyline(ScreenPoints, n+3, iWidth, (iColour==-1) ? 0 : iColour);
-  
+
   delete[]ScreenPoints;
 }
 
@@ -179,7 +179,7 @@ void CDasherView::DasherDrawCentredRectangle(myint iDasherX, myint iDasherY, scr
 void CDasherView::DrawText(const std::string & str, myint x, myint y, int Size, int iColor) {
   screenint X, Y;
   Dasher2Screen(x, y, X, Y);
-  
+
   Screen()->DrawString(str, X, Y, Size, iColor);
 }
 
