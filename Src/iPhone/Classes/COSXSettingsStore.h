@@ -22,7 +22,6 @@ public:
   COSXSettingsStore(Dasher::CEventHandler * pEventHandler);
   ~COSXSettingsStore();
   std::string GetParamName(int iParameter);
-  //NSDictionary *ParameterDictionary();
 
   //int GetParameterIndex(const std::string &  Key);
 
