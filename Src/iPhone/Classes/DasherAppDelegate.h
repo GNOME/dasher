@@ -18,7 +18,7 @@
     UIWindow *window;
     EAGLView *glView;
   FliteTTS *fliteEng;
-	TextView *text;
+	TextView *textView;
 	NSRange selectedText;
 	CDasherInterfaceBridge* _dasherInterface;
 	UIButton *speedBtn;

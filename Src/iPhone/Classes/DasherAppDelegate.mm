@@ -144,7 +144,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
     case UIInterfaceOrientationPortrait: {
       dashRect = CGRectMake(0.0, 0.0, mainSize.width, mainSize.height - 100.0);
       textRect = CGRectMake(0.0, dashRect.size.height, mainSize.width, 70.0);
-      text.bLandscape = NO;
+      textView.bLandscape = NO;
       tools.frame = CGRectMake(0.0, mainSize.height - 30.0, mainSize.width, 30.0);
       [self.view addSubview:tools];
       break;
@@ -152,7 +152,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
     case UIInterfaceOrientationLandscapeRight:
     case UIInterfaceOrientationLandscapeLeft: {
       textRect = CGRectMake(0.0, 0.0, 100.0, mainSize.height);//-30.0);
-      text.bLandscape = YES;
+      textView.bLandscape = YES;
       dashRect = CGRectMake(textRect.size.width, 0.0, mainSize.width-textRect.size.width, mainSize.height);//-30.0);
       [tools removeFromSuperview];
       break;
@@ -160,7 +160,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
     default:
       NSAssert(false, @"Unexpected interface orientation");
   }
-  text.frame = textRect;
+  textView.frame = textRect;
   messageLabel.frame = CGRectMake(0.0, textRect.origin.y + textRect.size.height, mainSize.width, 0.0);
   [NSObject cancelPreviousPerformRequestsWithTarget:messageLabel];
   if (glView) glView.frame=dashRect;
@@ -185,7 +185,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   _dasherInterface = new CDasherInterfaceBridge(self);
   
   //create GUI components...
-	text = [[[TextView alloc] init] autorelease];
+	textView = [[[TextView alloc] init] autorelease];
   messageLabel = [[[UITextView alloc] init] autorelease];
   tools = [[UIToolbar alloc] init]; //retain a reference (until dealloc) because of rotation
 	glView = [[[EAGLView alloc] initWithFrame:[self doLayout:UIInterfaceOrientationPortrait] Delegate:self] autorelease];
@@ -195,11 +195,11 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   // call to doLayout, or get a black band across top of screen)
   [self doAsyncLocked:@"Initializing..." target:self selector:@selector(initDasherInterface) param:nil];
 
-	text.text=@"";
-	text.editable = NO;
-	text.delegate = self;
+	textView.text=@"";
+	textView.editable = NO;
+	textView.delegate = self;
 	selectedText.location = selectedText.length = 0;
-  text.selectedRange=selectedText;
+  textView.selectedRange=selectedText;
 
   messageLabel.editable = NO;
   messageLabel.backgroundColor = [UIColor grayColor];
@@ -234,7 +234,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 				nil]];
 	
 	[self.view addSubview:glView];
-	[self.view addSubview:text];
+	[self.view addSubview:textView];
   //relying here on things added later being on top of those added earlier.
   //Seems to work ok but not sure whether this is guaranteed?!
   [self.view addSubview:speedSlider];
@@ -262,7 +262,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   doneSetup = YES;
   //The following will cause the text cursor to be displayed whenever
   // any change is made to the textbox...
-  [text becomeFirstResponder];
+  [textView becomeFirstResponder];
 }
 
 - (void)displayMessage:(NSString *)msg {
@@ -295,7 +295,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 }
 
 - (void)clearText {
-  text.text=@"";
+  textView.text=@"";
   selectedText.location = selectedText.length = 0;
   _dasherInterface->SetOffset(0);
 }
@@ -345,12 +345,12 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 }
 
 - (void)outputCallback:(NSString *)s {
-	text.text=[text.text stringByReplacingCharactersInRange:selectedText withString:s];
+	textView.text=[textView.text stringByReplacingCharactersInRange:selectedText withString:s];
 	selectedText.location+=[s length]; 
 	selectedText.length = 0;
-	text.selectedRange = selectedText;
+	textView.selectedRange = selectedText;
 	//This isn't quite right, it jumps up then down again once you have >3 lines...
-	[text scrollRangeToVisible:selectedText];
+	[textView scrollRangeToVisible:selectedText];
 }
 
 - (void)deleteCallback:(NSString *)s {
@@ -463,9 +463,9 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   // (Although requiring offset+length to be within text, has identified many bugs,
   // the editing functions in control mode are too broken to fix right now! Hence,
   // copying the Gtk2 behaviour...)
-  range.location = max(0u,min(offset,[text.text length]));
-  range.length = min(length,[text.text length] - range.location);
-  return [text.text substringWithRange:range];
+  range.location = max(0u,min(offset,[textView.text length]));
+  range.length = min(length,[textView.text length] - range.location);
+  return [textView.text substringWithRange:range];
 }
 
 - (void)setAlphabet:(const CAlphInfo *)pAlph {
@@ -478,11 +478,11 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 }
 
 - (int)find:(CControlManager::EditDistance)amt forwards:(BOOL)bForwards {
-  if (amt==CControlManager::EDIT_FILE) return bForwards ? [text.text length] : 0;
+  if (amt==CControlManager::EDIT_FILE) return bForwards ? [textView.text length] : 0;
   int pos = selectedText.location;
   for(;;) {
     if (bForwards) {
-      if (++pos > [text.text length]) return pos-1;
+      if (++pos > [textView.text length]) return pos-1;
     } else {
       if (--pos < 0) return 0;
     }
@@ -495,12 +495,12 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
         lookFor = m_wordBoundary;
         break;
       case CControlManager::EDIT_LINE:
-        if (m_lineBoundary && [text.text compare:m_lineBoundary options:0 range:NSMakeRange(pos, [m_lineBoundary length])] == NSOrderedSame)
+        if (m_lineBoundary && [textView.text compare:m_lineBoundary options:0 range:NSMakeRange(pos, [m_lineBoundary length])] == NSOrderedSame)
           return pos;
         lookFor = m_lineBoundary;
         break;
     }
-    if ([text.text compare:lookFor options:0 range:NSMakeRange(pos, [lookFor length])] == NSOrderedSame)
+    if ([textView.text compare:lookFor options:0 range:NSMakeRange(pos, [lookFor length])] == NSOrderedSame)
       return pos;
   }
 }
@@ -508,8 +508,8 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 - (unsigned int)move:(CControlManager::EditDistance)amt forwards:(BOOL)bForwards {
   selectedText.location = [self find:amt forwards:bForwards];
   selectedText.length=0;
-  text.selectedRange = selectedText;
-  [text scrollRangeToVisible:selectedText];
+  textView.selectedRange = selectedText;
+  [textView scrollRangeToVisible:selectedText];
   return selectedText.location;
 }
 
@@ -526,7 +526,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 }
 
 - (NSString *)allText {
-  return text.text;
+  return textView.text;
 }
 
 -(void)selectEAGLContext {
@@ -552,10 +552,10 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 
 #pragma mark TextViewDelegate method
 
--(void)textViewDidChangeSelection:(UITextView *)textView {
-  DASHER_ASSERT(textView == text);
-  selectedText = text.selectedRange;
-  if (selectedText.location == NSIntegerMax) selectedText.location = text.text.length;
+-(void)textViewDidChangeSelection:(UITextView *)sender {
+  DASHER_ASSERT(sender == textView);
+  selectedText = textView.selectedRange;
+  if (selectedText.location == NSIntegerMax) selectedText.location = textView.text.length;
   _dasherInterface->SetOffset(selectedText.location);
 }
 
