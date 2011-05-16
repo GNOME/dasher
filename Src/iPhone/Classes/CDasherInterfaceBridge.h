@@ -65,6 +65,7 @@ public:
   void editProtect(CDasherNode *pNode);
   ///Override for asynchronous messages only...TODO?
   void Message(const string &strText, bool bInterrupt);
+  CGameModule *CreateGameModule(CDasherView *pView,CDasherModel *pModel);
 private:
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
   virtual void ScanColourFiles(std::vector<std::string> &vFileList);

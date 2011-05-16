@@ -19,12 +19,51 @@
 #import "TwoButtonDynamicFilter.h"
 #import "TwoPushDynamicFilter.h"
 #import <iostream>
-
 #import <fcntl.h>
 
 #import <sys/stat.h>
 
 using namespace std;
+
+class IPhoneGameModule : public CGameModule {
+public:
+  IPhoneGameModule(Dasher::CSettingsUser *pCreateFrom, CDasherInterfaceBridge *pIntf, CDasherView *pView, CDasherModel *pModel, UIWebView *pWebView)
+  : CGameModule(pCreateFrom,pIntf,pView,pModel), m_pWebView(pWebView), cachedStr(nil) {
+  };
+  ~IPhoneGameModule() {
+  }
+protected:
+  virtual void HandleEvent(const CEditEvent *pEvt) {
+    CGameModule::HandleEvent(pEvt);
+    if (cachedStr) {
+      [cachedStr release];
+      cachedStr=nil;
+    }
+  }
+  virtual void DrawText(CDasherView *pView) {
+    if (cachedStr) return; //unchanged since last time!
+    const vector<symbol> &target(targetSyms());
+    string html;
+    
+    if (lastCorrectSym()>-1) {
+      html="<span style=\"color:#0f0\">";
+      for (int i=0; i<=lastCorrectSym(); i++)
+        html+=m_pAlph->GetText(target[i]);
+      html+="</span>";
+    }
+    //any wrongly entered text in red with strikethrough
+    html+="<span style=\"color:#f00; text-decoration:line-through;\">"+m_strWrong+"</span><span id=\"here\">";
+    //target still in black...with div id "here" which will be scrolled to the center
+    for (int i=lastCorrectSym()+1; i<target.size(); i++)
+      html+=m_pAlph->GetText(target[i]);
+    html+="</span>";
+    cachedStr = [NSStringFromStdString(html) retain];
+    [m_pWebView loadHTMLString:cachedStr baseURL:[NSURL URLWithString:@"http://localhost/"]];
+  }
+private:
+  NSString *cachedStr;
+  UIWebView *m_pWebView;
+};
 
 CDasherInterfaceBridge::CDasherInterfaceBridge(DasherAppDelegate *aDasherApp) : CDashIntfScreenMsgs(new COSXSettingsStore()), dasherApp(aDasherApp) {
 }
@@ -241,4 +280,8 @@ void CDasherInterfaceBridge::WriteTrainFile(const std::string &filename,const st
   int fd=open(strFilename.c_str(),O_CREAT|O_WRONLY|O_APPEND,S_IRUSR|S_IWUSR);
   write(fd,strNewText.c_str(),strNewText.length());
   close(fd);
+}
+
+CGameModule *CDasherInterfaceBridge::CreateGameModule(CDasherView *pView, CDasherModel *pModel) {
+  return new IPhoneGameModule(this, this, pView, pModel, [dasherApp getWebView]);  
 }

@@ -161,6 +161,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
       NSAssert(false, @"Unexpected interface orientation");
   }
   textView.frame = textRect;
+  webView.frame = textRect;
   messageLabel.frame = CGRectMake(0.0, textRect.origin.y + textRect.size.height, mainSize.width, 0.0);
   [NSObject cancelPreviousPerformRequestsWithTarget:messageLabel];
   if (glView) glView.frame=dashRect;
@@ -186,6 +187,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   
   //create GUI components...
 	textView = [[[TextView alloc] init] autorelease];
+  webView = [[[UIWebView alloc] init] autorelease];
   messageLabel = [[[UITextView alloc] init] autorelease];
   tools = [[UIToolbar alloc] init]; //retain a reference (until dealloc) because of rotation
 	glView = [[[EAGLView alloc] initWithFrame:[self doLayout:UIInterfaceOrientationPortrait] Delegate:self] autorelease];
@@ -201,6 +203,9 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 	selectedText.location = selectedText.length = 0;
   textView.selectedRange=selectedText;
 
+  webView.dataDetectorTypes = UIDataDetectorTypeNone;
+  webView.delegate = self;
+  
   messageLabel.editable = NO;
   messageLabel.backgroundColor = [UIColor grayColor];
   messageLabel.textColor = [UIColor whiteColor];
@@ -222,7 +227,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   [self refreshToolbar];
 	
 	[self.view addSubview:glView];
-	[self.view addSubview:textView];
+	[self.view addSubview:textView]; [self.view addSubview:webView];
   //relying here on things added later being on top of those added earlier.
   //Seems to work ok but not sure whether this is guaranteed?!
   [self.view addSubview:speedSlider];
@@ -251,7 +256,15 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
     [toolbarItems replaceObjectAtIndex:4 withObject:game];
     [toolbarItems replaceObjectAtIndex:6 withObject:action];
   }
+  textView.hidden = _dasherInterface->GetBoolParameter(BP_GAME_MODE);
+  webView.hidden = !_dasherInterface->GetBoolParameter(BP_GAME_MODE);
   [tools setItems:toolbarItems];
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)sender {
+  DASHER_ASSERT(sender==webView);
+  //try for approx twice as much beneath as above
+  [sender stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"window.scrollBy(0,Math.max(0,document.getElementById(\"here\").offsetTop-%d));",static_cast<int>(sender.frame.size.height/3)]];
 }
 
 - (void)initDasherInterface {
@@ -315,6 +328,10 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 
 - (void)toggleGameMode {
   _dasherInterface->SetBoolParameter(BP_GAME_MODE, !_dasherInterface->GetBoolParameter(BP_GAME_MODE));
+}
+
+-(UIWebView *)getWebView {
+  return webView;
 }
 
 - (void)settings {

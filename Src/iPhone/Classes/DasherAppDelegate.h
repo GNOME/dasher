@@ -10,15 +10,17 @@
 #import "CDasherInterfaceBridge.h"
 #import "TextView.h"
 #import "Actions.h"
+#import "GameModule.h"
 
 @class EAGLView;
 @class FliteTTS;
 
-@interface DasherAppDelegate : UIViewController <UIApplicationDelegate, UIActionSheetDelegate, UITextViewDelegate> {
+@interface DasherAppDelegate : UIViewController <UIApplicationDelegate, UIActionSheetDelegate, UITextViewDelegate, UIWebViewDelegate> {
     UIWindow *window;
     EAGLView *glView;
   FliteTTS *fliteEng;
 	TextView *textView;
+  UIWebView *webView;
 	NSRange selectedText;
 	CDasherInterfaceBridge* _dasherInterface;
 	UIButton *speedBtn;
