@@ -280,12 +280,13 @@ AS_IF(
 AS_IF(
 	[test "x$enable_speech" = xgnomespeech -o "x$enable_speech" = xyes -a $speech_module = none],
 	[PKG_CHECK_MODULES([gnome_speech],
-		[gnome-speech-1.0 bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0])
-	 AC_DEFINE([GNOME_SPEECH], 1, [gnome_speech-1 libraries are present])
-	 SPEECH_CPPFLAGS=$gnome_speech_CFLAGS
-	 SPEECH_LDFLAGS=$gnome_speech_LIBS
-	 SPEECH_LIBS=$gnome_speech_LIBS
-	 speech_module=gnomespeech])
+		[gnome-speech-1.0 bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0],
+		[AC_DEFINE([GNOME_SPEECH], 1, [gnome_speech-1 libraries are present])
+		 SPEECH_CPPFLAGS=$gnome_speech_CFLAGS
+		 SPEECH_LDFLAGS=$gnome_speech_LIBS
+		 SPEECH_LIBS=$gnome_speech_LIBS
+		 speech_module=gnomespeech],
+		[:])])
 AS_IF(
 	[test $speech_module = none],
 	[AS_CASE(["x$enable_speech"],
