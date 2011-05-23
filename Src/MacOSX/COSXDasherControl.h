@@ -54,6 +54,7 @@ public:
   void ClearAllContext();
   std::string GetContext(unsigned int iOffset, unsigned int iLength);
   virtual int GetFileSize(const std::string &strFileName);
+  void HandleEvent(int iParameter);
   void SetEdit(id<DasherEdit> pEdit);
 private:
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);

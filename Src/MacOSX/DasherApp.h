@@ -36,6 +36,7 @@
   NSString *filename;
   BOOL modified;
 }
+@property BOOL gameModeOn;
 @property BOOL directMode;
 @property (readonly,retain) NSString *filename;
 @property BOOL modified;

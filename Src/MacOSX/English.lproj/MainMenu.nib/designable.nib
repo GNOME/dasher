@@ -377,6 +377,15 @@
 									<reference key="NSOnImage" ref="482857697"/>
 									<reference key="NSMixedImage" ref="552066134"/>
 								</object>
+								<object class="NSMenuItem" id="116803155">
+									<reference key="NSMenu" ref="449074099"/>
+									<string key="NSTitle">Game Mode</string>
+									<string key="NSKeyEquiv">g</string>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="482857697"/>
+									<reference key="NSMixedImage" ref="552066134"/>
+								</object>
 								<object class="NSMenuItem" id="890774057">
 									<reference key="NSMenu" ref="449074099"/>
 									<string key="NSTitle">Import Training Text...</string>
@@ -1129,6 +1138,15 @@
 						<reference key="NSOnImage" ref="482857697"/>
 						<reference key="NSMixedImage" ref="552066134"/>
 					</object>
+					<object class="NSMenuItem" id="740004343">
+						<reference key="NSMenu" ref="320235117"/>
+						<string key="NSTitle">Game Mode</string>
+						<string key="NSKeyEquiv">g</string>
+						<int key="NSKeyEquivModMask">1048576</int>
+						<int key="NSMnemonicLoc">2147483647</int>
+						<reference key="NSOnImage" ref="482857697"/>
+						<reference key="NSMixedImage" ref="552066134"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSUserDefaultsController" id="516574171">
@@ -1351,6 +1369,37 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: gameModeOn</string>
+						<reference key="source" ref="740004343"/>
+						<reference key="destination" ref="814937114"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="740004343"/>
+							<reference key="NSDestination" ref="814937114"/>
+							<string key="NSLabel">value: gameModeOn</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">gameModeOn</string>
+							<object class="NSDictionary" key="NSOptions">
+								<bool key="EncodedWithXMLCoder">YES</bool>
+								<object class="NSArray" key="dict.sortedKeys">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<string>NSAllowsEditingMultipleValuesSelection</string>
+									<string>NSConditionallySetsEnabled</string>
+									<string>NSValidatesImmediately</string>
+								</object>
+								<object class="NSMutableArray" key="dict.values">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<boolean value="NO"/>
+									<boolean value="NO"/>
+									<boolean value="YES"/>
+								</object>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">554</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
 						<string key="label">hidden: directMode</string>
 						<reference key="source" ref="179303831"/>
 						<reference key="destination" ref="814937114"/>
@@ -1368,6 +1417,37 @@
 						</object>
 					</object>
 					<int key="connectionID">559</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: gameModeOn</string>
+						<reference key="source" ref="116803155"/>
+						<reference key="destination" ref="814937114"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="116803155"/>
+							<reference key="NSDestination" ref="814937114"/>
+							<string key="NSLabel">value: gameModeOn</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">gameModeOn</string>
+							<object class="NSDictionary" key="NSOptions">
+								<bool key="EncodedWithXMLCoder">YES</bool>
+								<object class="NSArray" key="dict.sortedKeys">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<string>NSAllowsEditingMultipleValuesSelection</string>
+									<string>NSConditionallySetsEnabled</string>
+									<string>NSValidatesImmediately</string>
+								</object>
+								<object class="NSMutableArray" key="dict.values">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<boolean value="NO"/>
+									<boolean value="NO"/>
+									<boolean value="YES"/>
+								</object>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">565</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -2001,6 +2081,7 @@
 							<reference ref="967558012"/>
 							<reference ref="701985345"/>
 							<reference ref="661546643"/>
+							<reference ref="116803155"/>
 							<reference ref="890774057"/>
 						</object>
 						<reference key="parent" ref="270706303"/>
@@ -2128,6 +2209,7 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="257147646"/>
+							<reference ref="740004343"/>
 							<reference ref="881221781"/>
 						</object>
 						<reference key="parent" ref="0"/>
@@ -2182,6 +2264,16 @@
 						<int key="objectID">540</int>
 						<reference key="object" ref="516574171"/>
 						<reference key="parent" ref="0"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">546</int>
+						<reference key="object" ref="740004343"/>
+						<reference key="parent" ref="320235117"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">564</int>
+						<reference key="object" ref="116803155"/>
+						<reference key="parent" ref="449074099"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">567</int>
@@ -2747,8 +2839,12 @@
 					<string>527.ImportedFromIB2</string>
 					<string>536.IBPluginDependency</string>
 					<string>536.ImportedFromIB2</string>
+					<string>546.IBPluginDependency</string>
+					<string>546.ImportedFromIB2</string>
 					<string>56.IBPluginDependency</string>
 					<string>56.ImportedFromIB2</string>
+					<string>564.IBPluginDependency</string>
+					<string>564.ImportedFromIB2</string>
 					<string>567.IBPluginDependency</string>
 					<string>567.ImportedFromIB2</string>
 					<string>57.IBEditorWindowLastContentRect</string>
@@ -2904,7 +3000,7 @@
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
-					<string>{{0, 680}, {168, 43}}</string>
+					<string>{{0, 660}, {168, 63}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2915,7 +3011,11 @@
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
-					<string>{{110, 438}, {245, 223}}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<boolean value="YES"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<boolean value="YES"/>
+					<string>{{110, 418}, {245, 243}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<boolean value="YES"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>

@@ -139,8 +139,31 @@ static NSString *FilenameToUntitledName = @"NilToUntitled";
   [[PreferencesController preferencesController] makeKeyAndOrderFront:sender];
 }
 
+-(BOOL)gameModeOn {
+  return aquaDasherControl->GetBoolParameter(BP_GAME_MODE);
+}
+
+-(void)setGameModeOn:(BOOL)bVal {
+  //called from the main event loop when game mode menu item is clicked.
+  //If we try to set BP_GAME_MODE now, and we can't find any game sentences,
+  // we'll clear BP_GAME_MODE before the first call to SetBoolParam returns.
+  //Then, later in the same event handling code for the first menu click,
+  // the game mode menu item will be checked - even tho game mode is not on.
+  //Hence, let the event handler for the menu finish first:
+  [self performSelectorOnMainThread:@selector(doSetGameMode:) withObject:(bVal ? self : nil) waitUntilDone:NO];
+}
+
+-(void)doSetGameMode:(id)obj {
+  //we can now try and startup game mode in the core;
+  // with no automatic checking of the menuitem pending, any changes we make
+  // to the gameModeOn property will be correctly reflected in the menu... 
+  if (obj && directMode) self.directMode=false; //turn off direct mode first _if_necessary_ (properties do not check for no-change)
+  aquaDasherControl->SetBoolParameter(BP_GAME_MODE, obj!=nil);
+}
+
 -(void)setDirectMode:(BOOL)bVal {
   //hidden-ness of textview / appwatcher controls are automatically linked to property changes
+  if (bVal) self.gameModeOn=false; //exit game mode
   aquaDasherControl->SetEdit(bVal ? [[[DirectEdit alloc] initWithIntf:aquaDasherControl AppWatcher:appWatcher] autorelease] : textView);
   self->directMode = bVal;
 }

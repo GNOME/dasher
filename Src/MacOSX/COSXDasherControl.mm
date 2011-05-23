@@ -135,6 +135,12 @@ void COSXDasherControl::TimerFired(NSPoint p) {
   [[dasherApp dasherView] redisplay];
 }  
  
+void COSXDasherControl::HandleEvent(int iParameter) {
+  CDashIntfScreenMsgs::HandleEvent(iParameter);
+  if (iParameter == BP_GAME_MODE)
+    [dasherApp setGameModeOn:(GetBoolParameter(BP_GAME_MODE) ? NSOnState : NSOffState)];
+}
+
 void COSXDasherControl::SetEdit(id<DasherEdit> _dasherEdit) {
   //These both produce warnings, as release/retain are not defined in the DasherEdit protocol...(??)
   [dasherEdit release];
