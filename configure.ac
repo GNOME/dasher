@@ -97,13 +97,8 @@ AC_ARG_WITH([gpe],
 	 WITHGPE=false)
 
 AC_ARG_ENABLE([a11y],
-	 AS_HELP_STRING([--enable-a11y],[build with support for the GNOME accessibility framework (default is YES)]),
-	 if test "x$enableval" = "xno"; then
-	   WITHA11Y=false; 
-	 else
-	   WITHA11Y=true;
-         fi, 
-	 WITHA11Y=true)
+	[AS_HELP_STRING([--enable-a11y],
+		[use cspi rather than Xtst for direct entry mode if found])])
 
 AC_ARG_ENABLE([japanese],
 	 AS_HELP_STRING([--enable-japanese],[build with support for Japanese Kanji entry (experimental -- default is NO)]),
@@ -140,7 +135,7 @@ AC_ARG_WITH([maemo],
 	if test "x$withval" = "xyes"; then
 	   WITHMAEMO=true;
 	   WITHGNOME=false;
-	   WITHA11Y=false;
+	   enable_a11y=no;
 	else
 	   WITHMAEMO=false;
         fi,
@@ -152,7 +147,7 @@ AC_ARG_WITH([maemo-fullscreen],
 	   WITHMAEMOFULLSCREEN=true;
 	   WITHMAEMO=true;
 	   WITHGNOME=false;
-	   WITHA11Y=false;
+	   enable_a11y=no;
 	else
 	   WITHMAEMOFULLSCREEN=false;
         fi,
@@ -306,10 +301,14 @@ AC_SUBST(SPEECH_CPPFLAGS)
 AC_SUBST(SPEECH_LDFLAGS)
 AC_SUBST(SPEECH_LIBS)
 
-if test x"$WITHA11Y" = xtrue; then
-	PKG_CHECK_MODULES(gnome_a11y, bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0 cspi-1.0 atk)
-	AC_DEFINE([GNOME_A11Y], 1, [gnome_a11y libraries are present])
-fi
+AS_IF(	[test x"$enable_a11y" != xno],
+	[PKG_CHECK_MODULES([gnome_a11y],
+		[bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0 cspi-1.0 atk],
+		[AC_DEFINE([GNOME_A11Y], 1, [cspi library is present])
+		 enable_a11y=yes],
+		[AS_IF([test x"$enable_a11y" = xyes],
+			[AC_MSG_ERROR([cspi requested but not found])])
+		 enable_a11y=no])])
 
 AC_PATH_XTRA
 AC_CHECK_LIB(expat, XML_Parse,,[
@@ -323,7 +322,7 @@ AC_CHECK_LIB(expat, XML_Parse,,[
 		             [AC_MSG_ERROR([Expat library not found.])])
 	fi
 ])
-if test x"$WITHQTE" != xtrue -a x"$WITHA11Y" != xtrue; then
+if test x"$WITHQTE" != xtrue -a x"$enable_a11y" != xyes; then
 	if test	x$no_x = xyes ; then
 		AC_MSG_ERROR([X development libraries not found])
 	else
@@ -401,7 +400,7 @@ AM_CONDITIONAL(DOGTK, test x$BUILDGTK = xtrue)
 AM_CONDITIONAL(DOQTE, test x$WITHQTE = xtrue)
 AM_CONDITIONAL(USE_GNOMESPEECH, test $speech_module = gnomespeech)
 AM_CONDITIONAL(USE_SPEECHDISPATCHER, test $speech_module = speechdispatcher)
-AM_CONDITIONAL(GNOME_A11Y, test x$WITHA11Y = xtrue)
+AM_CONDITIONAL(GNOME_A11Y, test $enable_a11y = yes)
 AM_CONDITIONAL(GNOME_HELP, test x$WITHGNOME = xtrue)
 AM_CONDITIONAL(WITH_GPE, test x$WITHGPE = xtrue)
 AM_CONDITIONAL(WITH_MAEMO, test x$WITHMAEMO = xtrue)

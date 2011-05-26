@@ -15,6 +15,7 @@ AM_CXXFLAGS = \
 	-I$(srcdir)/Gtk2 \
 	-I$(srcdir)/DasherCore \
 	$(GTKBUILD_CFLAGS) \
+	$(SPEECH_CPPFLAGS) \
 	-DPREFIX=\"$(PREFIX)\" \
 	-DLIBDIR=\"$(libdir)\" \
 	-DDATADIR=\"$(datadir)\" \
@@ -31,6 +32,7 @@ dasher_LDADD = \
 	DasherCore/LanguageModelling/libdasherlm.a \
 	Common/libdashermisc.a \
 	$(GTKBUILD_LIBS) \
+	$(SPEECH_LIBS) \
 	-lexpat \
 	$(POPT_LIBS) \
 	$(GPELIB)
