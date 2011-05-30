@@ -141,8 +141,6 @@ public:
 
   void DasherDrawCentredRectangle(myint iDasherX, myint iDasherY, screenint iSize, const int Color, bool bDrawOutline);
 
-  void DrawText(const std::string & str, myint x, myint y, int Size, int iColor);
-
   /// @}
 
 protected:

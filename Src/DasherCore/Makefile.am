@@ -71,8 +71,6 @@ libdashercore_a_SOURCES = \
 		DasherViewSquare.inl \
 		DefaultFilter.cpp \
 		DefaultFilter.h \
-		DelayedDraw.cpp \
-		DelayedDraw.h \
 		DynamicFilter.h \
 		DynamicFilter.cpp \
 		Event.h \

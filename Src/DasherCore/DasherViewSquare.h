@@ -5,7 +5,6 @@
 #ifndef __DasherViewSquare_h__
 #define __DasherViewSquare_h__
 #include "DasherView.h"
-#include "DelayedDraw.h"
 #include "DasherScreen.h"
 #include <deque>
 #include "Alphabet/GroupInfo.h"
@@ -18,13 +17,11 @@ namespace Dasher {
   class CDasherViewSquare;
   class CDasherView;
   class CDasherModel;
-  class CDelayedDraw;
   class CDasherNode;
 }
 
 class Dasher::CDasherViewSquare;
 class Dasher::CDasherModel;
-class Dasher::CDelayedDraw;
 class Dasher::CDasherNode;
 
 /// \ingroup View

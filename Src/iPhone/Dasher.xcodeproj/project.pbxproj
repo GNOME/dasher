@@ -186,7 +186,6 @@
 		3344FE370F71717C00506EAA /* DasherViewSquare.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDA90F71717C00506EAA /* DasherViewSquare.cpp */; };
 		3344FE380F71717C00506EAA /* DasherViewSquare.inl in Resources */ = {isa = PBXBuildFile; fileRef = 3344FDAB0F71717C00506EAA /* DasherViewSquare.inl */; };
 		3344FE390F71717C00506EAA /* DefaultFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDAC0F71717C00506EAA /* DefaultFilter.cpp */; };
-		3344FE3A0F71717C00506EAA /* DelayedDraw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDAE0F71717C00506EAA /* DelayedDraw.cpp */; };
 		3344FE3B0F71717C00506EAA /* DynamicFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDAF0F71717C00506EAA /* DynamicFilter.cpp */; };
 		3344FE3C0F71717C00506EAA /* EventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDB20F71717C00506EAA /* EventHandler.cpp */; };
 		3344FE3E0F71717C00506EAA /* FileLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDB60F71717C00506EAA /* FileLogger.cpp */; };
@@ -303,7 +302,6 @@
 		3302678011B8026900C07880 /* scissors.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scissors.png; sourceTree = "<group>"; };
 		3302678A11B8040D00C07880 /* spanner_lg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spanner_lg.png; sourceTree = "<group>"; };
 		3302678B11B8040D00C07880 /* spanner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spanner.png; sourceTree = "<group>"; };
-		3318BEF510F6346F00D4F877 /* DelayedDraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DelayedDraw.h; sourceTree = "<group>"; };
 		331C73C10F71750D004492FF /* COSXSettingsStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COSXSettingsStore.h; sourceTree = "<group>"; };
 		331C73C20F71750D004492FF /* COSXSettingsStore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = COSXSettingsStore.mm; sourceTree = "<group>"; };
 		331C73F30F717594004492FF /* DasherUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DasherUtil.h; sourceTree = "<group>"; };
@@ -584,7 +582,6 @@
 		3344FDAB0F71717C00506EAA /* DasherViewSquare.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DasherViewSquare.inl; sourceTree = "<group>"; };
 		3344FDAC0F71717C00506EAA /* DefaultFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DefaultFilter.cpp; sourceTree = "<group>"; };
 		3344FDAD0F71717C00506EAA /* DefaultFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultFilter.h; sourceTree = "<group>"; };
-		3344FDAE0F71717C00506EAA /* DelayedDraw.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DelayedDraw.cpp; sourceTree = "<group>"; };
 		3344FDAF0F71717C00506EAA /* DynamicFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DynamicFilter.cpp; sourceTree = "<group>"; };
 		3344FDB00F71717C00506EAA /* DynamicFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicFilter.h; sourceTree = "<group>"; };
 		3344FDB10F71717C00506EAA /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
@@ -1219,8 +1216,6 @@
 				3344FDAB0F71717C00506EAA /* DasherViewSquare.inl */,
 				3344FDAC0F71717C00506EAA /* DefaultFilter.cpp */,
 				3344FDAD0F71717C00506EAA /* DefaultFilter.h */,
-				3344FDAE0F71717C00506EAA /* DelayedDraw.cpp */,
-				3318BEF510F6346F00D4F877 /* DelayedDraw.h */,
 				3344FDAF0F71717C00506EAA /* DynamicFilter.cpp */,
 				3344FDB00F71717C00506EAA /* DynamicFilter.h */,
 				3344FDB10F71717C00506EAA /* Event.h */,
@@ -1582,7 +1577,6 @@
 				3344FE350F71717C00506EAA /* DasherView.cpp in Sources */,
 				3344FE370F71717C00506EAA /* DasherViewSquare.cpp in Sources */,
 				3344FE390F71717C00506EAA /* DefaultFilter.cpp in Sources */,
-				3344FE3A0F71717C00506EAA /* DelayedDraw.cpp in Sources */,
 				3344FE3B0F71717C00506EAA /* DynamicFilter.cpp in Sources */,
 				3344FE3C0F71717C00506EAA /* EventHandler.cpp in Sources */,
 				3344FE3E0F71717C00506EAA /* FileLogger.cpp in Sources */,

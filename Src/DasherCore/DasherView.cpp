@@ -176,13 +176,6 @@ void CDasherView::DasherDrawCentredRectangle(myint iDasherX, myint iDasherY, scr
   Screen()->DrawRectangle(iScreenX - iSize, iScreenY - iSize, iScreenX + iSize, iScreenY + iSize, Color, -1, bDrawOutline ? 1 : 0);
 }
 
-void CDasherView::DrawText(const std::string & str, myint x, myint y, int Size, int iColor) {
-  screenint X, Y;
-  Dasher2Screen(x, y, X, Y);
-  
-  Screen()->DrawString(str, X, Y, Size, iColor);
-}
-
 
 void CDasherView::SetDemoMode(bool bDemoMode)
 {
