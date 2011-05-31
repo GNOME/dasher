@@ -276,19 +276,14 @@ int CAlphabetManager::CAlphNode::ExpectedNumChildren() {
 
 void CAlphabetManager::GetProbs(vector<unsigned int> *pProbInfo, CLanguageModel::Context context) {
   const unsigned int iSymbols = m_pAlphabet->GetNumberTextSymbols();
-  unsigned long iNorm(m_pNCManager->GetLongParameter(LP_NORMALIZATION));
-
+  
   // TODO - sort out size of control node - for the timebeing I'll fix the control node at 5%
   // TODO: New method (see commented code) has been removed as it wasn' working.
 
-  const int iControlSpace = m_pNCManager->GetBoolParameter(BP_CONTROL_MODE) ? iNorm / 20 : 0;
-
-  iNorm -= iControlSpace;
-
-  const unsigned long uniform(m_pNCManager->GetLongParameter(LP_UNIFORM));
+  const unsigned long iNorm(m_pNCManager->GetAlphNodeNormalization());
   //the case for control mode on, generalizes to handle control mode off also,
   // as then iNorm - control_space == iNorm...
-  const unsigned int iUniformAdd = ((iNorm * uniform) / 1000) / iSymbols;
+  const unsigned int iUniformAdd = ((iNorm * m_pNCManager->GetLongParameter(LP_UNIFORM)) / 1000) / iSymbols;
   const unsigned long iNonUniformNorm = iNorm - iSymbols * iUniformAdd;
   //  m_pLanguageModel->GetProbs(context, Probs, iNorm, ((iNorm * uniform) / 1000));
 
@@ -297,17 +292,17 @@ void CAlphabetManager::GetProbs(vector<unsigned int> *pProbInfo, CLanguageModel:
   // to GetProbs as per ordinary language model, so no need to test....
   m_pLanguageModel->GetProbs(context, *pProbInfo, iNonUniformNorm, 0);
 
-  DASHER_ASSERT(pProbInfo->size() == m_pAlphabet->GetNumberTextSymbols()+1);//initial 0
+  DASHER_ASSERT(pProbInfo->size() == iSymbols+1);//initial 0
 
   for(unsigned int k(1); k < pProbInfo->size(); ++k)
     (*pProbInfo)[k] += iUniformAdd;
 
 #ifdef DEBUG
   {
-    int iTotal = 0;
-    for(int k = 0; k < pProbInfo->size(); ++k)
+    unsigned long iTotal = 0;
+    for(unsigned int k = 0; k < pProbInfo->size(); ++k)
       iTotal += (*pProbInfo)[k];
-    DASHER_ASSERT(iTotal == m_pNCManager->GetLongParameter(LP_NORMALIZATION) - iControlSpace);
+    DASHER_ASSERT(iTotal == iNorm);
   }
 #endif
 }
@@ -484,21 +479,8 @@ void CAlphabetManager::IterateChildGroups(CAlphNode *pParent, const SGroupInfo *
     DASHER_ASSERT(pParent->GetChildren().back()==pNewChild);
   }
 
-  if (!pParentGroup) AddExtras(pParent,pCProb);
+  if (!pParentGroup) m_pNCManager->AddExtras(pParent);
   pParent->SetFlag(NF_ALLCHILDREN, true);
-}
-
-void CAlphabetManager::AddExtras(CAlphNode *pParent, vector<unsigned int> *pCProb) {
-  //control mode:
-  DASHER_ASSERT((pParent->GetChildren().back()->Hbnd() == m_pNCManager->GetLongParameter(LP_NORMALIZATION)) ^ m_pNCManager->GetBoolParameter(BP_CONTROL_MODE));
-  if (m_pNCManager->GetBoolParameter(BP_CONTROL_MODE)) {
-#ifdef _WIN32_WCE
-    DASHER_ASSERT(false);
-#endif
-    //ACL leave offset as is - like its groupnode parent, but unlike its alphnode siblings,
-    //the control node does not enter a symbol....
-    m_pNCManager->GetControlManager()->GetRoot(pParent, pParent->GetChildren().back()->Hbnd(), m_pNCManager->GetLongParameter(LP_NORMALIZATION), pParent->offset());
-  }
 }
 
 CAlphabetManager::CAlphNode::~CAlphNode() {

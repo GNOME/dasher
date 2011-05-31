@@ -213,10 +213,6 @@ namespace Dasher {
     virtual CDasherNode *CreateSymbolNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strGroup, int iBkgCol, symbol iSymbol);
     virtual CGroupNode *CreateGroupNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const std::string &strEnc, int iBkgCol, const SGroupInfo *pInfo);
 
-    ///Called to add any non-alphabet (non-symbol) children to a top-level node (root or symbol).
-    /// Default is just to add the control node, if appropriate.
-    virtual void AddExtras(CAlphNode *pParent, std::vector<unsigned int> *pCProb);
-
     ///Called to compute colour for a symbol at a specified offset.
     /// Wraps CAlphabet::GetColour(sym), but (a) implements a default
     ///  scheme for symbols not specifying a colour, and (b) implements
@@ -230,7 +226,8 @@ namespace Dasher {
     const CAlphabetMap *m_pAlphabetMap;
 
   private:
-    ///Wraps m_pLanguageModel->GetProbs to implement nonuniformity & leave space for control node.
+    ///Wraps m_pLanguageModel->GetProbs to implement nonuniformity
+    /// (also leaves space for NCManager::AddExtras to add control node)
     /// Returns array of non-cumulative probs. Should this be protected and/or virtual???
     void GetProbs(std::vector<unsigned int> *pProbs, CLanguageModel::Context iContext);
     ///Constructs child nodes under the specified parent according to provided group.

@@ -50,6 +50,11 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
 
   void ImportTrainingText(const std::string &strPath);
 
+  unsigned long GetAlphNodeNormalization() {return m_iAlphNorm;}
+  
+  ///Called to add any non-alphabet (non-symbol) children to a top-level node (root or symbol).
+  /// Default is just to add the control node, if appropriate.
+  void AddExtras(Dasher::CDasherNode *pParent);
  private:
   Dasher::CTrainer *m_pTrainer;
   
@@ -58,13 +63,9 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   Dasher::CAlphabetManager *m_pAlphabetManager;
   Dasher::CControlManager *m_pControlManager;
   
-  ///Probability to assign to control node (0 if control mode off)
-  unsigned long m_iControlSpace;
-  ///Amount of probability space remaining, i.e. for language model to assign to letters:
-  unsigned long m_iNonUniformNorm;
-  ///Amount of probability space we will add to _each_ letter (on top of fraction of
-  /// m_iNonUniformNorm) to effect smoothing/uniformity:
-  unsigned long m_iUniformAdd;
+  ///Amount of probability space to assign to letters (language model + smoothing),
+  /// i.e. remaining after taking away whatever we need for control mode (perhaps 0)
+  unsigned long m_iAlphNorm;
 };
 /// @}
 

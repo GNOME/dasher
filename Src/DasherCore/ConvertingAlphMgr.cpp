@@ -20,11 +20,14 @@ CConvertingAlphMgr::~CConvertingAlphMgr() {
   m_pConvMgr->Unref();
 }
 
-void CConvertingAlphMgr::AddExtras(CAlphNode *pParent, std::vector<unsigned int> *pCProb) {
-    //should have another probability....
-  const unsigned int i(m_pNCManager->GetAlphabet()->GetNumberTextSymbols()+1);
-  DASHER_ASSERT(pCProb->size() == i+1);
-  //ACL setting m_iOffset+1 for consistency with "proper" symbol nodes...
-  m_pConvMgr->GetRoot(pParent, (*pCProb)[i-1], (*pCProb)[i], pParent->offset()+1);
-  CAlphabetManager::AddExtras(pParent, pCProb);
+CDasherNode *CConvertingAlphMgr::CreateSymbolNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, const string &strGroup, int iBkgCol, symbol iSymbol) {
+  int i=m_pAlphabet->GetNumberTextSymbols()+1;
+  if (iSymbol == i) {
+    vector<unsigned int> *pCProb(pParent->GetProbInfo());
+    DASHER_ASSERT(pCProb->size() == m_pAlphabet->GetNumberTextSymbols()+2);//initial 0, final conversion prob
+    //ACL setting m_iOffset+1 for consistency with "proper" symbol nodes...
+    return m_pConvMgr->GetRoot(pParent, (*pCProb)[i-1], (*pCProb)[i], pParent->offset()+1);
+  } else {
+    return CAlphabetManager::CreateSymbolNode(pParent, iLbnd, iHbnd, strGroup, iBkgCol, iSymbol);
+  }
 }

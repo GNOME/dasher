@@ -26,8 +26,6 @@
 #include <vector>
 #include "SCENode.h"
 #include "LanguageModelling/LanguageModel.h"
-#include "LanguageModelling/PPMLanguageModel.h"
-
 
 namespace Dasher{
 	class CDasherNode;  //forward declaration

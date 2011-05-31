@@ -101,18 +101,40 @@ CNodeCreationManager::~CNodeCreationManager() {
 void CNodeCreationManager::HandleEvent(CEvent *pEvent) {
   if (pEvent->m_iEventType == EV_PARAM_NOTIFY) {
     switch (static_cast<CParameterNotificationEvent *>(pEvent)->m_iParameter) {
-      case BP_CONTROL_MODE:
+      case BP_CONTROL_MODE: {
         delete m_pControlManager;
-        m_pControlManager = (GetBoolParameter(BP_CONTROL_MODE))
-          ? new CControlManager(m_pEventHandler, m_pSettingsStore, this, m_pInterface)
-          : NULL;        
+        const unsigned long iNorm(GetLongParameter(LP_NORMALIZATION));
+        unsigned long iControlSpace;
+        if (GetBoolParameter(BP_CONTROL_MODE)) {
+          m_pControlManager = new CControlManager(m_pEventHandler, m_pSettingsStore, this, m_pInterface);
+          iControlSpace = iNorm / 20;
+        } else {
+          m_pControlManager = NULL;
+          iControlSpace = 0;
+        }
+        m_iAlphNorm = iNorm-iControlSpace;
         break;
+      }
       case LP_ORIENTATION: {
         const long iOverride(GetLongParameter(LP_ORIENTATION));
         SetLongParameter(LP_REAL_ORIENTATION,
                          iOverride == Dasher::Opts::AlphabetDefault ? GetAlphabet()->GetOrientation() : iOverride);
       }
     }
+  }
+}
+
+
+void CNodeCreationManager::AddExtras(CDasherNode *pParent) {
+  //control mode:
+  DASHER_ASSERT(pParent->GetChildren().back()->Hbnd() == m_iAlphNorm);
+  if (GetBoolParameter(BP_CONTROL_MODE)) {
+#ifdef _WIN32_WCE
+    DASHER_ASSERT(false);
+#endif
+    //ACL leave offset as is - like its groupnode parent, but unlike its alphnode siblings,
+    //the control node does not enter a symbol....
+    m_pControlManager->GetRoot(pParent, pParent->GetChildren().back()->Hbnd(), GetLongParameter(LP_NORMALIZATION), pParent->offset());
   }
 }
 
