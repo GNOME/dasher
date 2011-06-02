@@ -375,8 +375,8 @@ if test x"$WITHMAEMOFULLSCREEN" = xtrue; then
 fi
 
 if test x"$WITHCAIRO" = xtrue; then
-	PKG_CHECK_MODULES(cairo, gtk+-2.0 >= 2.8.0)
-	AC_DEFINE([WITH_CAIRO], 1, [use cairo (needs Gtk+ >= 2.8.0)])
+	PKG_CHECK_MODULES(cairo, cairo)
+	AC_DEFINE([WITH_CAIRO], 1, [use cairo])
 fi
 
 if test x"$BUILDGTK" = xtrue; then 
