@@ -1,4 +1,4 @@
-#include "../WinHelper.h"
+#include <windows.h>
 
 class Panel {
 public:

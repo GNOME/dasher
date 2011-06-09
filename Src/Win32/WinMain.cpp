@@ -13,7 +13,6 @@
 // #include "vld/vld.h"
 // #endif 
 
-#include "Common/WinHelper.h"
 #include "DasherWindow.h"
 
 #include <commctrl.h>

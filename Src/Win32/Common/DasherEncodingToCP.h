@@ -10,7 +10,6 @@
 #define __DasherEncodingToCP_h__
 
 #include "../../DasherCore/DasherTypes.h"
-#include "WinHelper.h"
 
 UINT EncodingToCP(Dasher::Opts::AlphabetTypes Encoding);
 
