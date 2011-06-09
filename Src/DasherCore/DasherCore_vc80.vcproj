@@ -1643,6 +1643,14 @@
 			</File>
 		</Filter>
 		<File
+			RelativePath=".\AbstractXMLParser.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\AbstractXMLParser.h"
+			>
+		</File>
+		<File
 			RelativePath=".\ActionButton.cpp"
 			>
 		</File>

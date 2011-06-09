@@ -177,8 +177,6 @@ class CCanvas : public ATL::CWindowImpl<CCanvas>, public Dasher::CDasherComponen
 /*   bool Running() { */
 /*     return running; */
 /*   } */
-
-  void SetScreenInterface(Dasher::CDasherInterfaceBase * dasherinterface);
   
   int OnTimer();
 

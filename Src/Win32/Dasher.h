@@ -4,7 +4,15 @@
 #include "../DasherCore/DasherInterfaceBase.h"
 #include "../DasherCore/UserLog.h"
 
+#ifdef _WIN32_WCE
+//on WinCE, do not support speech
+#undef WIN32_SPEECH
+#endif
+
+#ifdef WIN32_SPEECH
 #include <sapi.h>
+#endif
+
 #include <string>
 #include <vector>
 
@@ -51,8 +59,7 @@ public:
   virtual std::string GetAllContext();
   std::string GetContext(unsigned int iStart, unsigned int iLength);
 
-#ifndef _WIN32_WCE
-  //on WinCE, do not support speech - so use defaults from CDasherInterfaceBase 
+#ifdef WIN32_SPEECH
   bool SupportsSpeech();
   void Speak(const std::string &text, bool bInterrupt);
 #endif
@@ -79,7 +86,7 @@ private:
   HWND m_hParent;
   CDasherWindow *m_pWindow;
   CEdit *m_pEdit;
-#ifndef _WIN32_WCE
+#ifdef WIN32_SPEECH
   ISpVoice *pVoice;
   bool attemptedSpeech;
 #endif

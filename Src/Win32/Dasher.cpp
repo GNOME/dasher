@@ -8,6 +8,8 @@
 #include "Common\WinUTF8.h"
 #include "Widgets/Canvas.h"
 #include "DasherMouseInput.h"
+#include "DasherWindow.h"
+#include "Widgets/Edit.h"
 
 #ifndef _WIN32_WCE
 #include "Sockets/SocketInput.h"
@@ -322,7 +324,7 @@ void CDasher::Move(int iX, int iY, int iWidth, int iHeight) {
 void CDasher::TakeFocus() {
   // TODO: Implement me
 }
-#ifndef _WIN32_WCE
+#ifdef WIN32_SPEECH
 bool CDasher::SupportsSpeech() {
   if (!m_bAttemptedSpeech) {
     //try to create speech synthesizer lazily, saving resources if no speech req'd.
@@ -346,24 +348,20 @@ void CDasher::Speak(const string &strText, bool bInterrupt) {
     pVoice->Speak(strText.c_str(), SPF_ASYNC, NULL);
 }
 #endif
-bool CDasher::SupportsClipboard {
-  return true;
-}
 
 void CDasher::CopyToClipboard(const string &strText) {
-  CString cText(strText.c_str());
-  if (OpenClipboard())
+  if (OpenClipboard(m_hParent))
   {
     EmptyClipboard(); //also frees memory containing any previous data
     
     //Allocate global memory for string - enough for characters + NULL.
-    HGLOBAL hClipboardData = GlobalAlloc(GMEM_DDESHARE, strData.GetLength()+1);
+    HGLOBAL hClipboardData = GlobalAlloc(GMEM_DDESHARE, strText.length()+1);
     
     //GlobalLock returns a pointer to the data associated with the handle returned from GlobalAlloc    
     char * pchData = (char*)GlobalLock(hClipboardData);
 
     //now fill it...
-    strcpy(pchData, LPCSTR(strData));
+	strcpy(pchData, strText.c_str());
     
     //Unlock memory, i.e. release our access to it - 
     // but don't free it (with GlobalFree), as it will "belong"
@@ -384,7 +382,9 @@ std::string CDasher::GetAllContext() {
 	int speechlength = m_pEdit->GetWindowTextLength();
 	LPTSTR allspeech = new TCHAR[speechlength + 1];
 	m_pEdit->GetWindowText(allspeech, speechlength + 1);
-    return allspeech;
+	string res;
+	wstring_to_UTF8string(wstring(allspeech),res);
+	return res;
 }
 
 std::string CDasher::GetContext(unsigned int iStart, unsigned int iLength) {

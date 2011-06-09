@@ -20,7 +20,7 @@ inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, scr
 
 #ifndef DASHER_WINCE
 
-  if(iWidth != -1) {
+  if(m_iWidth != -1) {
 
     point aPoints[5];
 

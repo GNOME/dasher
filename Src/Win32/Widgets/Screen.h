@@ -25,18 +25,15 @@
 #include <cmath>
 #endif
 
-// Should this using-directive really be in a header file?
-using namespace Dasher;
-
 /////////////////////////////////////////////////////////////////////////////
 
 class CScreen:public Dasher::CDasherScreen, private NoClones {
 public:
-
-  CScreen(HDC hdc, HWND hWnd, Dasher::screenint width, Dasher::screenint height);
+  //Saves a lot of typing; typedefs are equal to their declaration & do not create distinct types.
+  typedef Dasher::screenint screenint;
+  CScreen(HDC hdc, HWND hWnd, screenint width, screenint height);
   ~CScreen();
 
-  void SetInterface(CDasherInterfaceBase * DasherInterface);
   void SetColourScheme(const Dasher::CColourIO::ColourInfo *pColours);
 
   void SetFont(const std::string &strFont);
@@ -50,11 +47,8 @@ public:
   //void DrawString(const std::string & String, Dasher::screenint x1, Dasher::screenint y1, int Size,int layer=0);
   void DrawString(const std::string & String, Dasher::screenint x1, Dasher::screenint y1, int Size, int Colour);
 
-  //void DrawRectangle(Dasher::screenint x1, Dasher::screenint y1, Dasher::screenint x2, Dasher::screenint y2, int Color, int iOutlineColour, Dasher::Opts::ColorSchemes ColorScheme, bool bDrawOutlines, bool bFill, int iThickness,int layer=0);
-  void DrawRectangle(Dasher::screenint x1, Dasher::screenint y1, Dasher::screenint x2, Dasher::screenint y2, int Colour, int iOutlineColour, Dasher::Opts::ColorSchemes ColorScheme, int iThickness);
+  void DrawRectangle(Dasher::screenint x1, Dasher::screenint y1, Dasher::screenint x2, Dasher::screenint y2, int Colour, int iOutlineColour, int iThickness);
 
-  ///WHY is this defined like that?
-  //void CScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, int iFillColour, int iThickness, bool bFill,int layer=0);
   void CScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iFillColour, int iLineColour, int iThickness);
 
   // Draw a line of fixed colour (usually black). Intended for static UI elements such as a cross-hair
@@ -138,17 +132,6 @@ private:
     screenint m_iHeight;
   };
 
-  struct hash_textsize {
-    enum {
-      bucket_size = 4,          // 0 < bucket_size
-      min_buckets = 8           // min_buckets = 2 ^^ N, 0 < N
-    };
-
-    size_t operator() (const CTextSizeInput & x)const {
-      return hash_string(x.m_String.c_str()) ^ x.m_iSize;
-    } bool operator() (const CTextSizeInput & x, const CTextSizeInput & y)const {
-      return (x != y);
-  }};
 
   mutable std::map < CTextSizeInput, CTextSizeOutput > m_mapTextSize;
 };

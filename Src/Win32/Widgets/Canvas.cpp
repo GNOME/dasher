@@ -108,10 +108,6 @@ HWND CCanvas::Create(HWND hParent) {
   
   return hWnd;
 }
-
-void CCanvas::SetScreenInterface(Dasher::CDasherInterfaceBase *dasherinterface) {
-  m_pScreen->SetInterface(dasherinterface);
-}
   
 LRESULT CCanvas::OnCreate(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
   bHandled = TRUE;
@@ -425,8 +421,9 @@ LRESULT CCanvas::OnCursorOutOfRange(UINT message, WPARAM wParam, LPARAM lParam, 
 	bHandled = TRUE;
 	if ( m_pDasherInterface->GetBoolParameter(BP_START_MOUSE) ) 
 	{
+		//TODO check, does this do something the standard BR_STOP_OUTSIDE in DefaultFilter doesn't?
 		if (!m_pDasherInterface->GetBoolParameter(BP_DASHER_PAUSED))
-			m_pDasherInterface->Pause();
+			m_pDasherInterface->Stop();
 	}
 
 	return 0;
@@ -530,8 +527,8 @@ void CCanvas::DoFrame()
       // TODO: Brink this back into core
 			if (dwTicks - m_dwTicksLastEvent > m_pDasherInterface->GetLongParameter(LP_STOP_IDLETIME) )
 			{
-				// idle time exceeded
-				m_pDasherInterface->Pause();
+				// idle time exceeded, so pause (no stop actions)
+				m_pDasherInterface->SetBoolParameter(BP_DASHER_PAUSED, true);
 			}
 		}
 	}

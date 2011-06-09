@@ -292,8 +292,8 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
       m_pEdit->Copy();
     return 0;
   case ID_EDIT_COPY_ALL:
-    if(m_pEdit)
-      m_pEdit->CopyAll();
+    if(m_pDasher)
+		m_pDasher->CopyToClipboard(m_pDasher->GetAllContext());
     return 0;
   case ID_EDIT_PASTE:
     if(m_pEdit)

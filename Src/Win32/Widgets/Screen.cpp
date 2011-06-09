@@ -51,12 +51,6 @@ CScreen::CScreen(HDC hdc, HWND hWnd, Dasher::screenint iWidth, Dasher::screenint
 
   m_hDCBuffer = m_hDCBufferBackground;
 
-  CodePage = GetUserCodePage();
-
-//      m_hDCScreen = ::GetDC(m_hwnd);
-//      TCHAR debug[256];
-//      _stprintf(debug, TEXT("GetDC: hwnd %x hdc %x\n"), m_hwnd, m_hDCScreen);
-//      OutputDebugString(debug); 
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -89,17 +83,7 @@ CScreen::~CScreen() {
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CScreen::SetInterface(CDasherInterfaceBase *DasherInterface) {
-#ifndef _WIN32_WCE
-  DASHER_ASSERT_VALIDPTR_RW(DasherInterface);
-#endif
-
- // CDasherScreen::SetInterface(DasherInterface);
-
-//  CodePage = EncodingToCP(m_pDasherInterface->GetAlphabetType());
-}
-
-void CScreen::SetColourScheme(const Dasher::CColourIO::ColourInfo *pColours) {
+void CScreen::SetColourScheme(const CColourIO::ColourInfo *pColours) {
   m_cPens.clear();
   m_cBrushes.clear();
   m_pColours = pColours;

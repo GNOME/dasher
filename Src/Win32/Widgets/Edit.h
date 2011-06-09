@@ -105,7 +105,6 @@ class CEdit : public ATL::CWindowImpl<CEdit> {
   
   void Cut();
   void Copy();
-  void CopyAll();
   void Paste();
   void SelectAll();
   void Clear();
