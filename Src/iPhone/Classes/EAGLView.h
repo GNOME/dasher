@@ -28,8 +28,8 @@ public:
   void SendMarker(int iMarker);
   
 protected:
-  void RenderStringOntoCGContext(NSString *str, CGContextRef context);
-  CGSize TextSize(NSString *str, unsigned int iFontSize);
+  void RenderStringOntoCGContext(NSString *str, CGContextRef context, unsigned int iWrapFontSize);
+  CGSize TextSize(NSString *str, unsigned int iFontSize, bool bWrap);
 };
 
 /*

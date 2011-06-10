@@ -92,7 +92,7 @@ public:
   void SetFont(const std::string &strName);
 
   ///Make a label for use with this screen; caches Pango layout information inside it.
-  CDasherScreen::Label *MakeLabel(const std::string &strText);
+  CDasherScreen::Label *MakeLabel(const std::string &strText, unsigned int iWrapSize=0);
 
   ///
   /// Return the physical extent of a given string being rendered at a given size.
@@ -240,8 +240,8 @@ private:
 
   class CPangoLabel : public CLabelListScreen::Label {
   public:
-    CPangoLabel(CCanvas *pCanvas, const std::string &strText)
-    : CLabelListScreen::Label(pCanvas, strText) {
+    CPangoLabel(CCanvas *pCanvas, const std::string &strText, unsigned int iWrapFontSize)
+    : CLabelListScreen::Label(pCanvas, strText, iWrapFontSize) {
     }
     std::map<unsigned int,PangoLayout *> m_mLayouts;
   };

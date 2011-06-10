@@ -196,7 +196,7 @@ void dump(char *data, int width, int height)
 	std::cout << buf;
 }
 
-OpenGLScreen::AlphabetLetter::AlphabetLetter(OpenGLScreen *pScreen, const string &strText) : Label(pScreen,strText), str(NSStringFromStdString(strText)) {
+OpenGLScreen::AlphabetLetter::AlphabetLetter(OpenGLScreen *pScreen, const string &strText, unsigned int iWrapSize) : Label(pScreen,strText,iWrapSize), str(NSStringFromStdString(strText)) {
   [str retain];
 
   glGenTextures(1, &texture);
@@ -208,7 +208,7 @@ void OpenGLScreen::AlphabetLetter::PrepareTexture() {
   int width=1, height=1;
   GLfloat texw,texh;
   {
-    CGSize sz = static_cast<OpenGLScreen *>(m_pScreen)->TextSize(str,36);
+    CGSize sz = static_cast<OpenGLScreen *>(m_pScreen)->TextSize(str,m_iWrapSize ? m_iWrapSize : 36,m_iWrapSize);
     while (width<sz.width) width<<=1;
     while (height<sz.height) height<<=1;
     texw = sz.width/(float)width;
@@ -220,7 +220,7 @@ void OpenGLScreen::AlphabetLetter::PrepareTexture() {
   CGContextRef context = CGBitmapContextCreate(data, width, height, 8, width*4, colorSpace, kCGImageAlphaPremultipliedLast);
   CGContextClearRect(context, CGRectMake(0.0, 0.0, width, height));
 
-  static_cast<OpenGLScreen *>(m_pScreen)->RenderStringOntoCGContext(str,context);
+  static_cast<OpenGLScreen *>(m_pScreen)->RenderStringOntoCGContext(str,context,m_iWrapSize);
 
   glBindTexture(GL_TEXTURE_2D, texture);
   //...but tell the GL _not_ to interpolate between texels, as that results in a _big_
@@ -248,8 +248,8 @@ OpenGLScreen::AlphabetLetter::~AlphabetLetter() {
   glDeleteTextures(1, &texture);
 }
 
-OpenGLScreen::AlphabetLetter *OpenGLScreen::MakeLabel(const std::string &strText) {
-  return new AlphabetLetter(this,strText);
+OpenGLScreen::AlphabetLetter *OpenGLScreen::MakeLabel(const std::string &strText,unsigned int iWrapSize) {
+  return new AlphabetLetter(this,strText,iWrapSize);
 }
 
 void OpenGLScreen::RegenerateLabels() {
@@ -267,7 +267,7 @@ void OpenGLScreen::DrawString(CDasherScreen::Label *label, screenint x, screenin
   // by the currently selected GL foreground colour
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	glColor4f(colourTable[iColour].r, colourTable[iColour].g, colourTable[iColour].b, 1.0); //so we select the colour we want the text to appear in
-	CGSize sz = TextSize(l->str, iFontSize);
+	CGSize sz = TextSize(l->str, iFontSize, l->m_iWrapSize);
 	GLshort coords[8];
 	coords[0] = x; coords[1]=y;
 	coords[2] = x+sz.width; coords[3] = y;
@@ -285,7 +285,7 @@ void OpenGLScreen::DrawString(CDasherScreen::Label *label, screenint x, screenin
 
 pair<screenint,screenint> OpenGLScreen::TextSize(CDasherScreen::Label *label, unsigned int iFontSize) {
   const AlphabetLetter *l(static_cast<AlphabetLetter *> (label));
-  CGSize sz = TextSize(l->str, iFontSize);
+  CGSize sz = TextSize(l->str, iFontSize, l->m_iWrapSize);
   //apply "ceil" to floating-point width/height ?
   return pair<screenint,screenint>(sz.width, sz.height);
 }

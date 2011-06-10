@@ -40,8 +40,10 @@ public:
 
   void DrawMousePosBox(int which, int iMousePosDist,int layer=0);
 
-  //! Make label from UTF8-encoded string
-  CDasherScreen::Label *MakeLabel(const std::string &strText);
+  /// Make label from UTF8-encoded string
+  /// \param iWrapSize 0 => single-line label (for nodes); any other value => wrapped to screen width
+  /// (we wrap the text in whatever fontsize it's DrawString/TextSize'd in, even tho we don't have to)
+  CDasherScreen::Label *MakeLabel(const std::string &strText, unsigned int iWrapSize=0);
 
   std::pair<screenint,screenint> TextSize(CDasherScreen::Label *label, unsigned int Size);
 
@@ -119,7 +121,7 @@ private:
   class Label : public CLabelListScreen::Label {
   public:
     const Tstring m_OutputText;
-    Label(CScreen *pScreen, const std::string &strText);
+    Label(CScreen *pScreen, const std::string &strText,unsigned int iWrapSize);
     map<unsigned int,pair<screenint,screenint> > m_sizeCache;
   };
 

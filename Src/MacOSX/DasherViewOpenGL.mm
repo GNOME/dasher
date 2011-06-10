@@ -62,16 +62,20 @@ public:
   }
   
 protected:
-  void RenderStringOntoCGContext(NSString *string, CGContextRef context) {
+  void RenderStringOntoCGContext(NSString *string, CGContextRef context, unsigned int iWrapSize) {
     NSGraphicsContext *old = [NSGraphicsContext currentContext];
     [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:context flipped:YES]];
-    
-    [string drawAtPoint:NSMakePoint(0.0, 0.0) withAttributes:fontAttrs];
+
+    if (iWrapSize)
+      [string drawWithRect:NSMakeRect(0.0, 0.0, GetWidth(), CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSFont fontWithName:dasherView.cachedFontName size:iWrapSize],NSFontAttributeName,[NSColor whiteColor],NSForegroundColorAttributeName,nil]];
+    else
+      [string drawAtPoint:NSMakePoint(0.0, 0.0) withAttributes:fontAttrs];
     [NSGraphicsContext setCurrentContext:old];  
   }
   
-  CGSize TextSize(NSString *str, unsigned int iFontSize) {
-    return NSSizeToCGSize([str sizeWithAttributes:[NSDictionary dictionaryWithObject:[NSFont fontWithName:dasherView.cachedFontName size:iFontSize] forKey:NSFontAttributeName]]);    
+  CGSize TextSize(NSString *str, unsigned int iFontSize, bool bWrap) {
+    NSDictionary *attrs =[NSDictionary dictionaryWithObject:[NSFont fontWithName:dasherView.cachedFontName size:iFontSize] forKey:NSFontAttributeName];
+    return NSSizeToCGSize(bWrap ? ([str boundingRectWithSize:NSMakeSize(GetWidth(), CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs].size) : ([str sizeWithAttributes:attrs]));
   }
 };
 

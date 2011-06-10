@@ -412,8 +412,8 @@ void CCanvas::Polyline(Dasher::CDasherScreen::point *Points, int Number, int iWi
   END_DRAWING;
 }
 
-CDasherScreen::Label *CCanvas::MakeLabel(const string &strText) {
-  return new CPangoLabel(this, strText);
+CDasherScreen::Label *CCanvas::MakeLabel(const string &strText, unsigned int iWrapFontSize) {
+  return new CPangoLabel(this, strText, iWrapFontSize);
 }
 
 void CCanvas::SetFont(const std::string &strName) {
@@ -443,7 +443,7 @@ PangoLayout *CCanvas::GetLayout(CPangoLabel *label, unsigned int iFontSize) {
     PangoLayout *pNewPangoLayout(gtk_widget_create_pango_layout(pCanvas, ""));
 #endif
   label->m_mLayouts.insert(pair<unsigned int,PangoLayout *>(iFontSize, pNewPangoLayout));
-
+  if (label->m_iWrapSize) pango_layout_set_width(pNewPangoLayout, GetWidth() * PANGO_SCALE);
   pango_layout_set_text(pNewPangoLayout, label->m_strText.c_str(), -1);
   
   PangoFontDescription *pF;

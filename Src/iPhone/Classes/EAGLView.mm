@@ -47,20 +47,26 @@ void CDasherScreenBridge::SendMarker(int iMarker) {
   [view sendMarker:iMarker];
 }
 
-void CDasherScreenBridge::RenderStringOntoCGContext(NSString *str, CGContextRef context) {
+void CDasherScreenBridge::RenderStringOntoCGContext(NSString *str, CGContextRef context, unsigned int iFontWrapSize) {
   UIGraphicsPushContext(context);
   //white text on transparent background means that when we texture
   //a surface using a colour, the text appears in that colour...
   const CGFloat whiteComps[] = {1.0, 1.0, 1.0, 1.0};
   CGColorRef white = CGColorCreate(CGBitmapContextGetColorSpace(context), whiteComps);
   CGContextSetFillColorWithColor(context, white);
-  [str drawAtPoint:CGPointMake(0.0, 0.0) withFont:[UIFont systemFontOfSize:36]];
+  if (iFontWrapSize)
+    [str drawInRect:CGRectMake(0.0, 0.0, GetWidth(), CGFLOAT_MAX) withFont:[UIFont systemFontOfSize:iFontWrapSize]];
+  else
+    [str drawAtPoint:CGPointMake(0.0, 0.0) withFont:[UIFont systemFontOfSize:36]];
   CGColorRelease(white);
   UIGraphicsPopContext();  
 }
   
-CGSize CDasherScreenBridge::TextSize(NSString *str, unsigned int iFontSize) {
-  return [str sizeWithFont:[UIFont systemFontOfSize:iFontSize]];
+CGSize CDasherScreenBridge::TextSize(NSString *str, unsigned int iFontSize, bool bWrap) {
+  UIFont *font = [UIFont systemFontOfSize:iFontSize];
+  return bWrap
+    ? [str sizeWithFont:font constrainedToSize:CGSizeMake(GetWidth(), CGFLOAT_MAX) lineBreakMode:UILineBreakModeWordWrap]
+    : [str sizeWithFont:font];
 }
 
 @implementation EAGLView

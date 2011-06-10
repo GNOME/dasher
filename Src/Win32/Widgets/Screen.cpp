@@ -132,11 +132,11 @@ void CScreen::resize(screenint width, screenint height) {
   CreateBuffers();
 }
 
-CScreen::Label::Label(CScreen *pScreen, const string &strText) : CLabelListScreen::Label(pScreen, strText), m_OutputText(WinUTF8::UTF8string_to_wstring(m_strText)) {
+CScreen::Label::Label(CScreen *pScreen, const string &strText, unsigned int iWrapSize) : CLabelListScreen::Label(pScreen, strText, iWrapSize), m_OutputText(WinUTF8::UTF8string_to_wstring(m_strText)) {
 }
 
-CDasherScreen::Label *CScreen::MakeLabel(const string &strText) {
-  return new Label(this,strText);
+CDasherScreen::Label *CScreen::MakeLabel(const string &strText, unsigned int iWrapSize) {
+  return new Label(this,strText,iWrapSize);
 }
 
 void CScreen::DrawString(CDasherScreen::Label *lab, screenint x1, screenint y1, unsigned int iSize, int Colour) {
@@ -144,8 +144,8 @@ void CScreen::DrawString(CDasherScreen::Label *lab, screenint x1, screenint y1, 
   RECT Rect;
   Rect.left = x1;
   Rect.top = y1;
-  Rect.right = x1 + 50;
-  Rect.bottom = y1 + 50;
+  Rect.right = x1 + (lab->m_iWrapSize ? GetWidth() : 50); //if not wrapping, will extend beyond RHS because of DT_NOCLIP
+  Rect.bottom = y1 + 50; //and beyond bottom in either case
 
   HFONT old = (HFONT) SelectObject(m_hDCBuffer, CScreen::GetFont(iSize));
 
@@ -158,7 +158,7 @@ void CScreen::DrawString(CDasherScreen::Label *lab, screenint x1, screenint y1, 
   iCRefOld = SetTextColor(m_hDCBuffer, iCRefNew);
 
   // The Windows API dumps all its function names in the global namespace, ::
-  ::DrawText(m_hDCBuffer, label->m_OutputText.c_str(), label->m_OutputText.size(), &Rect, DT_LEFT | DT_TOP | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE);
+  ::DrawText(m_hDCBuffer, label->m_OutputText.c_str(), label->m_OutputText.size(), &Rect, (label->m_iWrapSize ? DT_CENTER | DT_WORDBREAK : DT_LEFT | DT_SINGLELINE) | DT_TOP | DT_NOCLIP | DT_NOPREFIX);
   
   SetTextColor(m_hDCBuffer, iCRefOld);
   SelectObject(m_hDCBuffer, old);
@@ -189,6 +189,18 @@ pair<screenint,screenint> CScreen::TextSize_Impl(CScreen::Label *label, unsigned
   HFONT old = (HFONT) SelectObject(m_hDCBuffer, CScreen::GetFont(iSize));
 
   // Get the dimensions of the text in pixels
+  if (label->m_iWrapSize) {
+    RECT Rect;
+    Rect.left = 0;
+    Rect.top = 0;
+    Rect.right = GetWidth(); //will be wrapped to this
+    Rect.bottom = 0; //this'll be overwritten
+    //This is the only way to get size of text w/ wrapping:
+    // -the DT_WORDBREAK flag says to wrap (no way to pass this to GetTextExtentPoint32)
+    // -the DT_CALCRECT flag says to modify Rect with the size, but not to draw the string.
+    ::DrawText(m_hDCBuffer, label->m_OutputText.c_str(), label->m_OutputText.size(), &Rect, DT_LEFT | DT_WORDBREAK | DT_TOP | DT_NOPREFIX | DT_CALCRECT);
+    return pair<screenint,screenint>(Rect.right,Rect.bottom);
+  }
   SIZE OutSize;
   GetTextExtentPoint32(m_hDCBuffer, label->m_OutputText.c_str(), label->m_OutputText.size(), &OutSize);
   SelectObject(m_hDCBuffer, old);

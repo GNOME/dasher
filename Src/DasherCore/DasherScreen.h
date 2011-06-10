@@ -72,9 +72,16 @@ public:
   class Label {
     friend class CDasherScreen;
   protected:
-    Label(const std::string &strText) : m_strText(strText) {};
+    Label(const std::string &strText, unsigned int iWrapSize)
+    : m_strText(strText), m_iWrapSize(iWrapSize) {};
   public:
     const std::string m_strText;
+    ///If 0, Label is to be rendered on a single line.
+    /// Any other value, Label need only be renderable at that size, but should 
+    /// be _wrapped_ to fit the screen width. (It is up to platforms to decide
+    /// whether to support DrawString/TextSize at any other size but this is
+    /// NOT required.)
+    unsigned int m_iWrapSize;
     ///Delete the label. This should free up any resources associated with
     /// drawing the string onto the screen, e.g. layouts or textures.
     virtual ~Label() {}
@@ -82,7 +89,13 @@ public:
 
   ///Make a label for use with this screen.
   /// \param strText UTF8-encoded text.
-  virtual Label *MakeLabel(const std::string &strText) {return new Label(strText);}
+  /// \param iWrapSize 0 => create a Label that will be rendered on a single line,
+  /// potentially at multiple sizes; appropriate for DasherNode labels.
+  /// Any other value => Label SHOULD ONLY BE USED AT THAT SIZE, but should 
+  /// be _wrapped_ onto multiple lines if necessary to fit within the screen width.
+  /// (DrawString/TextSize with any other font size may produce unpredictable results,
+  /// depending on platform.)
+  virtual Label *MakeLabel(const std::string &strText, unsigned int iWrapSize=0) {return new Label(strText,iWrapSize);}
 
   ///Get Width and Height of a Label previously created by MakeLabel. Note behaviour
   /// undefined if the Label is not one returned from a call to MakeLabel _on_this_Screen_.
@@ -181,8 +194,8 @@ protected:
   }
   class Label : public CDasherScreen::Label {
   public: //to instances of CLabelListScreen and subclasses
-    Label(CLabelListScreen *pScreen, const std::string &strText)
-    : CDasherScreen::Label(strText), m_pScreen(pScreen) {
+    Label(CLabelListScreen *pScreen, const std::string &strText, unsigned int iWrapSize)
+    : CDasherScreen::Label(strText, iWrapSize), m_pScreen(pScreen) {
       m_pScreen->m_sLabels.insert(this);
     }
     ~Label() {
