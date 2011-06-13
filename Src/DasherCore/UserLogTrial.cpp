@@ -254,23 +254,6 @@ void CUserLogTrial::StopWriting(double dBits)
 void CUserLogTrial::AddSymbols(Dasher::VECTOR_SYMBOL_PROB* vpNewSymbolProbs, 
                                eUserLogEventType iEvent)
 {
-  //CFunctionLogger f1("CUserLogTrial::AddSymbols", g_pLogger);
-
-  if (vpNewSymbolProbs == NULL)
-  {
-    g_pLogger->Log("CUserLogTrial::AddSymbols, vectorNewSymbolProbs was NULL!", logNORMAL);
-    return;
-  }
-
-  Dasher::VECTOR_SYMBOL_PROB* pVectorAdded = NULL;
-  pVectorAdded = new Dasher::VECTOR_SYMBOL_PROB;
-
-  if (pVectorAdded == NULL)
-  {
-    g_pLogger->Log("CUserLogTrial::AddSymbols, failed to create pVectorAdded!", logNORMAL);
-    return;
-  }
-
   // Add the symbols to our running total of symbols.
   
   // ACL: Old comment said "We track the symbols and not the display text

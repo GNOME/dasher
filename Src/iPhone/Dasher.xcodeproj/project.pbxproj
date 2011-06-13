@@ -283,6 +283,7 @@
 		33F879F70FB1C27A003E737C /* Dasher.png in Resources */ = {isa = PBXBuildFile; fileRef = 33F879F60FB1C27A003E737C /* Dasher.png */; };
 		33F87A240FB1C775003E737C /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33F87A230FB1C775003E737C /* MainWindow.xib */; };
 		33F87A720FB1CB91003E737C /* Dasher_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 33F87A710FB1CB91003E737C /* Dasher_small.png */; };
+		33FDB7F5135F310E00D6C952 /* UserLogBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33FDB7F4135F310E00D6C952 /* UserLogBase.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -738,6 +739,7 @@
 		33F879F60FB1C27A003E737C /* Dasher.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dasher.png; sourceTree = "<group>"; };
 		33F87A230FB1C775003E737C /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		33F87A710FB1CB91003E737C /* Dasher_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dasher_small.png; sourceTree = "<group>"; };
+		33FDB7F4135F310E00D6C952 /* UserLogBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserLogBase.cpp; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1288,6 +1290,7 @@
 				3344FE0A0F71717C00506EAA /* UserLog.cpp */,
 				3344FE0B0F71717C00506EAA /* UserLog.h */,
 				3344FE0C0F71717C00506EAA /* UserLogBase.h */,
+				33FDB7F4135F310E00D6C952 /* UserLogBase.cpp */,
 				3344FE0D0F71717C00506EAA /* UserLogParam.cpp */,
 				3344FE0E0F71717C00506EAA /* UserLogParam.h */,
 				3344FE0F0F71717C00506EAA /* UserLogTrial.cpp */,
@@ -1721,6 +1724,7 @@
 				3378A23F1335425300A96C5D /* AbstractXMLParser.cpp in Sources */,
 				333FDB5A139FB413009D018A /* ConvertingAlphMgr.cpp in Sources */,
 				33B3430813A8A927009AE0D5 /* DashIntfScreenMsgs.cpp in Sources */,
+				33FDB7F5135F310E00D6C952 /* UserLogBase.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -135,6 +135,7 @@ libdashercore_a_SOURCES = \
 		UserLog.cpp \
 		UserLog.h \
 		UserLogBase.h \
+		UserLogBase.cpp \
 		UserLogParam.cpp \
 		UserLogParam.h \
 		UserLogTrial.cpp \

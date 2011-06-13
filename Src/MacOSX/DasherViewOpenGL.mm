@@ -257,7 +257,10 @@ protected:
   screenint w=sz.width,h=sz.height;
   [self gl_reshape:w :h];
   aquaDasherScreen->resize(w, h, tc_x, tc_y);
-  [dasherApp aquaDasherControl]->ScreenResized(aquaDasherScreen);
+  //"reshape" gets called at shutdown, after applicationWillTerminate
+  // has deleted the aquaDasherControl...!
+  if (COSXDasherControl *pIntf = [dasherApp aquaDasherControl])
+    pIntf->ScreenResized(aquaDasherScreen);
     
   [self adjustTrackingRect];  
 }

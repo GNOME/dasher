@@ -11,6 +11,7 @@ namespace Dasher {
   class CParameterNotificationEvent;
   class CEditEvent;
   class CScreenGeomEvent;
+  class CDasherNode; //fwd decl, avoid include...we just store ptr
 }
 
 enum {
@@ -39,13 +40,15 @@ public:
 
 class Dasher::CEditEvent:public Dasher::CEvent {
 public:
-  CEditEvent(int iEditType, const std::string & sText, int iOffset)
-  : CEvent(EV_EDIT), m_iEditType(iEditType), m_sText(sText), m_iOffset(iOffset) {
+  CEditEvent(int iEditType, const std::string & sText, CDasherNode *pNode)
+  : CEvent(EV_EDIT), m_iEditType(iEditType), m_sText(sText), m_pNode(pNode) {
   };
 
   const int m_iEditType;
   const std::string m_sText;
-  const int m_iOffset;
+  /// Node causing the event - allows calling GetSymbolProb, offset(), etc.
+  /// _if necessary_
+  const CDasherNode *m_pNode;
 };
 
 ///Generated whenever the screen geometry changes: e.g. aspect ratio,

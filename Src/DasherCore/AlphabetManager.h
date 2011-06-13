@@ -150,6 +150,8 @@ namespace Dasher {
       virtual void PopulateChildren();
       virtual void Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization);
       virtual void Undo(int *pNumDeleted);
+      ///Override to provide symbol number, probability, _edit_ text from alphabet
+      virtual SymbolProb GetSymbolProb(int iNormalization) const;
 
       virtual void SetFlag(int iFlag, bool bValue);
 

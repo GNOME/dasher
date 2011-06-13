@@ -278,12 +278,7 @@ void CUserLog::AddSymbols(Dasher::VECTOR_SYMBOL_PROB* vpNewSymbols, eUserLogEven
   {
     // Also store a copy in a vector that gets cleared 
     // time StartWriting() is called.
-
-    for (unsigned int i = 0; i < vpNewSymbols->size(); i++)
-    {
-      Dasher::SymbolProb sNewSymbolProb = (Dasher::SymbolProb) (*vpNewSymbols)[i];
-      m_vCycleHistory.push_back(sNewSymbolProb);
-    }
+    m_vCycleHistory.insert(m_vCycleHistory.end(), vpNewSymbols->begin(), vpNewSymbols->end());
   }
 
   if (m_bDetailed)
@@ -702,7 +697,7 @@ void CUserLog::HandleEvent(Dasher::CEvent* pEvent)
     } // end while (s_UserLogParamMaskTable[i].key != -1)
 
   } // end if (pEvent->m_iEventType == 1)
-
+  CUserLogBase::HandleEvent(pEvent);
 }
 
 ////////////////////////////////////////// private methods ////////////////////////////////////////////////

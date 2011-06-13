@@ -334,6 +334,7 @@
 		33135354102C6D8E00E28220 /* CompassMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 3313534C102C6D8E00E28220 /* CompassMode.h */; };
 		33135355102C6D8E00E28220 /* ButtonMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3313534D102C6D8E00E28220 /* ButtonMode.cpp */; };
 		33135356102C6D8E00E28220 /* ButtonMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 3313534E102C6D8E00E28220 /* ButtonMode.h */; };
+		3344F0691341297F001FACAB /* UserLogBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344F0681341297F001FACAB /* UserLogBase.cpp */; };
 		334DE238135E3E68007C8D6D /* control.textlabels.xml in Resources */ = {isa = PBXBuildFile; fileRef = 334DE236135E3E68007C8D6D /* control.textlabels.xml */; };
 		334DE239135E3E68007C8D6D /* control.xml in Resources */ = {isa = PBXBuildFile; fileRef = 334DE237135E3E68007C8D6D /* control.xml */; };
 		334DE23B135E3F4B007C8D6D /* control.dtd in Resources */ = {isa = PBXBuildFile; fileRef = 334DE23A135E3F4B007C8D6D /* control.dtd */; };
@@ -732,6 +733,7 @@
 		3313534C102C6D8E00E28220 /* CompassMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompassMode.h; sourceTree = "<group>"; };
 		3313534D102C6D8E00E28220 /* ButtonMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ButtonMode.cpp; sourceTree = "<group>"; };
 		3313534E102C6D8E00E28220 /* ButtonMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonMode.h; sourceTree = "<group>"; };
+		3344F0681341297F001FACAB /* UserLogBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserLogBase.cpp; sourceTree = "<group>"; };
 		334DE236135E3E68007C8D6D /* control.textlabels.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = control.textlabels.xml; sourceTree = "<group>"; };
 		334DE237135E3E68007C8D6D /* control.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = control.xml; sourceTree = "<group>"; };
 		334DE23A135E3F4B007C8D6D /* control.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = control.dtd; sourceTree = "<group>"; };
@@ -871,6 +873,7 @@
 		1948BDF40C226CFC001DFA32 /* DasherCore */ = {
 			isa = PBXGroup;
 			children = (
+				3344F0681341297F001FACAB /* UserLogBase.cpp */,
 				33135349102C6D8E00E28220 /* AlternatingDirectMode.cpp */,
 				3313534A102C6D8E00E28220 /* AlternatingDirectMode.h */,
 				3313534B102C6D8E00E28220 /* CompassMode.cpp */,
@@ -1789,6 +1792,7 @@
 				330B91621292FE520022831C /* ModuleSettingsController.mm in Sources */,
 				33F6C9EB133241A000745B06 /* AbstractXMLParser.cpp in Sources */,
 				33B3431813A8A951009AE0D5 /* DashIntfScreenMsgs.cpp in Sources */,
+				3344F0691341297F001FACAB /* UserLogBase.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

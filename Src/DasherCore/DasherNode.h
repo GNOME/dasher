@@ -72,7 +72,7 @@ class Dasher::CDasherNode:private NoClones {
   /// (Default implementation returns true, subclasses should override if appropriate)
   virtual bool bShove() {return true;}
 
-  inline int offset() {return m_iOffset;}
+  inline int offset() const {return m_iOffset;}
   CDasherNode *onlyChildRendered; //cache that only one child was rendered (as it filled the screen)
 
   /// Container type for storing children. Note that it's worth
@@ -233,6 +233,14 @@ class Dasher::CDasherNode:private NoClones {
 
   virtual void Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {};
   virtual void Undo(int *pNumDeleted) {};
+
+  ///Called by logging code to get information about node which has just been
+  /// output. Subclasses performing output, should override to return appropriate
+  /// information. (Will only be called if necessary i.e. logging enabled).
+  /// The default returns a very uninformative SymbolProb with just display text.
+  virtual SymbolProb GetSymbolProb(int iNormalization) const {
+    return SymbolProb(0,m_pLabel->m_strText,0.0);
+  }
 
   virtual void Enter() {};
   virtual void Leave() {};

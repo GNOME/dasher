@@ -568,13 +568,13 @@ void CAlphabetManager::CSymbolNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, i
   }
   //std::cout << this << " " << Parent() << ": Output at offset " << m_iOffset << " *" << m_pMgr->m_pAlphabet->GetText(t) << "* " << std::endl;
 
-  Dasher::CEditEvent oEvent(1, outputText(), offset());
+  Dasher::CEditEvent oEvent(1, outputText(), this);
   m_pMgr->m_pNCManager->InsertEvent(&oEvent);
+}
 
-  // Track this symbol and its probability for logging purposes
-  if (pAdded != NULL) {
-    pAdded->push_back(Dasher::SymbolProb(iSymbol, oEvent.m_sText, Range() / (double)iNormalization));
-  }
+SymbolProb CAlphabetManager::CSymbolNode::GetSymbolProb(int iNormalization) const {
+  //TODO probability here not right - Range() is relative to parent, not prev symbol
+  return Dasher::SymbolProb(iSymbol, m_pMgr->m_pAlphabet->GetText(iSymbol), Range() / (double)iNormalization);
 }
 
 void CAlphabetManager::CSymbolNode::Undo(int *pNumDeleted) {
@@ -591,7 +591,7 @@ void CAlphabetManager::CSymbolNode::Undo(int *pNumDeleted) {
       }
     }
   } else CAlphBase::Undo(pNumDeleted);
-  Dasher::CEditEvent oEvent(2, outputText(), offset());
+  Dasher::CEditEvent oEvent(2, outputText(), this);
   m_pMgr->m_pNCManager->InsertEvent(&oEvent);
   if (pNumDeleted) (*pNumDeleted)++;
 }

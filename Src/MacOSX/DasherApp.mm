@@ -174,6 +174,8 @@
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
   aquaDasherControl->StartShutdown();
+  delete aquaDasherControl;
+  aquaDasherControl=NULL;
 }
 
 - (void)dealloc {

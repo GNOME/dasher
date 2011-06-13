@@ -161,7 +161,7 @@ void CConversionManager::CConvNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, i
   SCENode *pCurrentSCENode(pSCENode);
 
   if(pCurrentSCENode){
-    Dasher::CEditEvent oEvent(1, pCurrentSCENode->pszConversion, offset());
+    Dasher::CEditEvent oEvent(1, pCurrentSCENode->pszConversion, this);
     m_pMgr->m_pNCManager->InsertEvent(&oEvent);
 
     if((GetChildren())[0]->mgr() == m_pMgr) {
@@ -173,15 +173,15 @@ void CConversionManager::CConvNode::Output(Dasher::VECTOR_SYMBOL_PROB* pAdded, i
   }
   else {
     if(!bisRoot) {
-      Dasher::CEditEvent oOPEvent(1, "|", offset());
+      Dasher::CEditEvent oOPEvent(1, "|", this);
       m_pMgr->m_pNCManager->InsertEvent(&oOPEvent);
     }
     else {
-      Dasher::CEditEvent oOPEvent(1, ">", offset());
+      Dasher::CEditEvent oOPEvent(1, ">", this);
       m_pMgr->m_pNCManager->InsertEvent(&oOPEvent);
     }
 
-    Dasher::CEditEvent oEvent(10, "", 0);
+    Dasher::CEditEvent oEvent(10, "", this); //TODO this used to pass in offset 0, now we'll get the node's offset...
     m_pMgr->m_pNCManager->InsertEvent(&oEvent);
   }
 }
@@ -193,17 +193,17 @@ void CConversionManager::CConvNode::Undo(int *pNumDeleted) {
 
   if(pCurrentSCENode) {
     if(pCurrentSCENode->pszConversion && (strlen(pCurrentSCENode->pszConversion) > 0)) {
-      Dasher::CEditEvent oEvent(2, pCurrentSCENode->pszConversion, offset());
+      Dasher::CEditEvent oEvent(2, pCurrentSCENode->pszConversion, this);
       m_pMgr->m_pNCManager->InsertEvent(&oEvent);
     }
   }
   else {
     if(!bisRoot) {
-      Dasher::CEditEvent oOPEvent(2, "|", offset());
+      Dasher::CEditEvent oOPEvent(2, "|", this);
       m_pMgr->m_pNCManager->InsertEvent(&oOPEvent);
     }
     else {
-      Dasher::CEditEvent oOPEvent(2, ">", offset());
+      Dasher::CEditEvent oOPEvent(2, ">", this);
       m_pMgr->m_pNCManager->InsertEvent(&oOPEvent);
     }
   }

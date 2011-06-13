@@ -529,28 +529,8 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
       CExpansionPolicy *pol=m_defaultPolicy;
   
       //1. Move around in the model
-      if (m_pUserLog != NULL) {
-        //ACL note that as of 15/5/09, splitting UpdatePosition into two,
-        //DasherModel no longer guarantees to empty these two if it didn't do anything.
-        //So initialise appropriately...
-        Dasher::VECTOR_SYMBOL_PROB vAdded;
-        int iNumDeleted = 0;
-
-        if(m_pInputFilter) {
-          bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pInput, m_pDasherModel, &vAdded, &iNumDeleted, &pol);
-        }
-
-      #ifndef _WIN32_WCE
-        if (iNumDeleted > 0)
-          m_pUserLog->DeleteSymbols(iNumDeleted);
-        if (vAdded.size() > 0)
-          m_pUserLog->AddSymbols(&vAdded);
-      #endif
-
-      } else {
-        if(m_pInputFilter) {
-          bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pInput, m_pDasherModel, 0, 0, &pol);
-        }
+      if(m_pInputFilter) {
+        bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pInput, m_pDasherModel, 0, 0, &pol);
       }
       //2. Render...
       //check: if we were paused before, and the input filter didn't unpause,
@@ -569,6 +549,13 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
 
       //2. Render nodes decorations, messages
       bBlit = Redraw(iTime, bForceRedraw, *pol);
+
+      if (m_pUserLog != NULL) {
+        //(any) UserLogBase will have been watching output events to gather information
+        // about symbols added/deleted; this tells it to apply that information at end-of-frame
+        // (previously DashIntf gathered the info, and then passed it to the logger here).
+        m_pUserLog->FrameEnded();
+      }
 
       // This just passes the time through to the framerate tracker, so we
       // know how often new frames are being drawn.
