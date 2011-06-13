@@ -17,11 +17,9 @@
 #include "../../DasherCore/SettingsStore.h"
 #include "../../Common/NoClones.h"
 
-class Dasher::CEventHandler;
-
-class CWinOptions:public CSettingsStore, private NoClones {
+class CWinOptions:public Dasher::CSettingsStore, private NoClones {
 public:
-  CWinOptions(const std::string & Group, const std::string & Product, Dasher::CEventHandler * pEventHandler);
+  CWinOptions(const std::string & Group, const std::string & Product);
    ~CWinOptions();
 
 #ifndef DASHER_WINCE

@@ -26,28 +26,28 @@
 
 using namespace std;
 
-CDasherInterfaceBridge::CDasherInterfaceBridge(DasherAppDelegate *aDasherApp) : dasherApp(aDasherApp) {
+CDasherInterfaceBridge::CDasherInterfaceBridge(DasherAppDelegate *aDasherApp) : CDashIntfScreenMsgs(new COSXSettingsStore()), dasherApp(aDasherApp) {
 }
 
 void CDasherInterfaceBridge::CreateModules() {
 	//create the default set...a good idea?!?!
 
-  RegisterModule(m_pUndoubledTouch = new UndoubledTouch(m_pEventHandler, m_pSettingsStore));
+  RegisterModule(m_pUndoubledTouch = new UndoubledTouch());
 	RegisterModule(m_pMouseDevice = 
-				new CIPhoneMouseInput(m_pEventHandler, m_pSettingsStore));
+				new CIPhoneMouseInput(this));
 	RegisterModule(m_pTiltDevice = 
-				new CIPhoneTiltInput(m_pEventHandler, m_pSettingsStore));
+				new CIPhoneTiltInput());
   SetDefaultInputDevice(m_pMouseDevice);
                  
-  RegisterModule(new CButtonMode(m_pEventHandler, m_pSettingsStore, this, true, 9, "Menu Mode"));
-  RegisterModule(new CButtonMode(m_pEventHandler, m_pSettingsStore, this, false, 8, "Direct Mode"));
-  RegisterModule(new CTwoButtonDynamicFilter(m_pEventHandler, m_pSettingsStore, this));
-  RegisterModule(new CTwoPushDynamicFilter(m_pEventHandler, m_pSettingsStore, this));
+  RegisterModule(new CButtonMode(this, this, true, 9, "Menu Mode"));
+  RegisterModule(new CButtonMode(this, this, false, 8, "Direct Mode"));
+  RegisterModule(new CTwoButtonDynamicFilter(this, this));
+  RegisterModule(new CTwoPushDynamicFilter(this, this));
   
 	RegisterModule(m_pTiltFilter =
-				   new CIPhoneTiltFilter(m_pEventHandler, m_pSettingsStore, this, 16, m_pMouseDevice));
+				   new CIPhoneTiltFilter(this, this, 16, m_pMouseDevice));
 	RegisterModule(m_pTouchFilter = 
-				   new CIPhoneTouchFilter(m_pEventHandler, m_pSettingsStore, this, 17, m_pUndoubledTouch, m_pTiltDevice));
+				   new CIPhoneTouchFilter(this, this, 17, m_pUndoubledTouch, m_pTiltDevice));
 	SetDefaultInputMethod(m_pTouchFilter);
 }
 	
@@ -69,7 +69,7 @@ void CDasherInterfaceBridge::SetupUI() {
 
 void CDasherInterfaceBridge::Realize() {  
   CDasherInterfaceBase::Realize();
-  ExternalEventHandler(&CParameterNotificationEvent(SP_ALPHABET_ID)); //calls dasherApp::SetAlphabet
+  HandleEvent(SP_ALPHABET_ID); //calls dasherApp::SetAlphabet
   CDasherInterfaceBase::OnUIRealised();
 }
 
@@ -77,12 +77,8 @@ void CDasherInterfaceBridge::SetupPaths() {
   NSString *systemDir = [NSString stringWithFormat:@"%@/", [[NSBundle mainBundle] bundlePath]];
   NSString *userDir = [NSString stringWithFormat:@"%@/", [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]];
 
-  m_pSettingsStore->SetStringParameter(SP_SYSTEM_LOC, StdStringFromNSString(systemDir));
-  m_pSettingsStore->SetStringParameter(SP_USER_LOC, StdStringFromNSString(userDir));
-}
-
-void CDasherInterfaceBridge::CreateSettingsStore() {
-  m_pSettingsStore = new COSXSettingsStore(m_pEventHandler);
+  SetStringParameter(SP_SYSTEM_LOC, StdStringFromNSString(systemDir));
+  SetStringParameter(SP_USER_LOC, StdStringFromNSString(userDir));
 }
 
 void CDasherInterfaceBridge::ScanAlphabetFiles(std::vector<std::string> &vFileList) {
@@ -141,30 +137,17 @@ void CDasherInterfaceBridge::GameMessageOut(int message, const void* messagedata
   NSLog(@"GameMessageOut");
 }
 
-void CDasherInterfaceBridge::ExternalEventHandler(Dasher::CEvent *pEvent) {
+void CDasherInterfaceBridge::HandleEvent(int iParameter) {
   
-  switch (pEvent->m_iEventType) {
-    case EV_PARAM_NOTIFY:
-      // don't need to do anything because the PreferencesController is observing changes to the 
-      // user defaults controller which is observing the user defaults and will be notified when
-      // the parameter is actually written by COSXSettingsStore.
-//      CParameterNotificationEvent *parameterEvent(static_cast < CParameterNotificationEvent * >(pEvent));
-//      NSLog(@"CParameterNotificationEvent, m_iParameter: %d", parameterEvent->m_iParameter);
-	  {
-		Dasher::CParameterNotificationEvent *pEvt(static_cast<Dasher::CParameterNotificationEvent *>(pEvent));
-		if (pEvt->m_iParameter == LP_MAX_BITRATE || pEvt->m_iParameter == LP_BOOSTFACTOR)
-			[dasherApp notifySpeedChange];
-    else if (pEvt->m_iParameter == SP_ALPHABET_ID)
-      [dasherApp setAlphabet:GetActiveAlphabet()];
-    }
-      break;
-   case EV_SCREEN_GEOM:
-     //no need to do anything
-     break;
-   default:
-     NSLog(@"ExternalEventHandler, UNKNOWN m_iEventType = %d", pEvent->m_iEventType);
-     break;
-   }
+  // don't need to do anything because the PreferencesController is observing changes to the 
+  // user defaults controller which is observing the user defaults and will be notified when
+  // the parameter is actually written by COSXSettingsStore.
+  //NSLog(@"CParameterNotificationEvent, m_iParameter: %d", parameterEvent->m_iParameter);
+  if (iParameter == LP_MAX_BITRATE || iParameter == LP_BOOSTFACTOR)
+    [dasherApp notifySpeedChange];
+  else if (iParameter == SP_ALPHABET_ID)
+    [dasherApp setAlphabet:GetActiveAlphabet()];
+  CDasherInterfaceBase::HandleEvent(iParameter);
 }
 
 void CDasherInterfaceBridge::editOutput(const string &strText, CDasherNode *pNode) {

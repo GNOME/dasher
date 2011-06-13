@@ -30,7 +30,7 @@
 #include "DasherView.h"
 #include "DasherTypes.h"
 #include "Event.h"
-#include "EventHandler.h"
+#include "Observable.h"
 
 #include <algorithm>
 #include <iostream>
@@ -58,8 +58,8 @@ static char THIS_FILE[] = __FILE__;
 
 // FIXME - duplicated 'mode' code throught - needs to be fixed (actually, mode related stuff, Input2Dasher etc should probably be at least partially in some other class)
 
-CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen *DasherScreen)
-: CDasherView(pEventHandler, pSettingsStore, DasherScreen),   m_Y1(4), m_Y2(0.95 * GetLongParameter(LP_MAX_Y)), m_Y3(0.05 * GetLongParameter((LP_MAX_Y))), m_bVisibleRegionValid(false) {
+CDasherViewSquare::CDasherViewSquare(CSettingsUser *pCreateFrom, CDasherScreen *DasherScreen)
+: CDasherView(DasherScreen), CSettingsUserObserver(pCreateFrom), m_Y1(4), m_Y2(0.95 * GetLongParameter(LP_MAX_Y)), m_Y3(0.05 * GetLongParameter((LP_MAX_Y))), m_bVisibleRegionValid(false) {
 
   //Note, nonlinearity parameters set in SetScaleFactor
   ScreenResized(DasherScreen);
@@ -67,14 +67,8 @@ CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStor
 
 CDasherViewSquare::~CDasherViewSquare() {}
 
-void CDasherViewSquare::HandleEvent(Dasher::CEvent *pEvent) {
-  // Let the parent class do its stuff
-  CDasherView::HandleEvent(pEvent);
-
-  // And then interpret events for ourself
-  if(pEvent->m_iEventType == 1) {
-    Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
-    switch (pEvt->m_iParameter) {
+void CDasherViewSquare::HandleEvent(int iParameter) {
+  switch (iParameter) {
     case LP_REAL_ORIENTATION:
     case LP_MARGIN_WIDTH:
     case BP_NONLINEAR_Y:
@@ -82,10 +76,6 @@ void CDasherViewSquare::HandleEvent(Dasher::CEvent *pEvent) {
     case LP_GEOMETRY:
       m_bVisibleRegionValid = false;
       SetScaleFactor();
-      break;
-    default:
-      break;
-    }
   }
 }
 
@@ -904,8 +894,8 @@ void CDasherViewSquare::SetScaleFactor( void )
   }
 #endif
 
-  CScreenGeomEvent evt;
-  InsertEvent(&evt);
+  //notify listeners that coordinates have changed...
+  DispatchEvent(this);
 }
 
 

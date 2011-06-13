@@ -24,7 +24,7 @@ static char THIS_FILE[] = __FILE__;
 
 /* TODO: Consider using Template functions to make this neater. */
 
-CWinOptions::CWinOptions(const std::string &Group, const std::string &Product, Dasher::CEventHandler *pEventHandler):CSettingsStore(pEventHandler) {
+CWinOptions::CWinOptions(const std::string &Group, const std::string &Product) {
   // Windows requires strings as Tstring
   Tstring TGroup, TProduct;
   UTF8string_to_wstring(Group, TGroup);

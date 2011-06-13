@@ -23,19 +23,20 @@ namespace Dasher {
 
   /// \ingroup LM
   /// \{
-  class CMixtureLanguageModel:public CLanguageModel, public CDasherComponent {
+  class CMixtureLanguageModel:public CLanguageModel, protected CSettingsUser {
   public:
 
     /////////////////////////////////////////////////////////////////////////////
 
-    CMixtureLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CAlphInfo *pAlph, const CAlphabetMap *pAlphMap):CLanguageModel(pAlph->GetNumberTextSymbols()), CDasherComponent(pEventHandler, pSettingsStore) {
+    CMixtureLanguageModel(CSettingsUser *pCreator, const CAlphInfo *pAlph, const CAlphabetMap *pAlphMap)
+    : CLanguageModel(pAlph->GetNumberTextSymbols()), CSettingsUser(pCreator) {
 
       //      std::cout << m_pAlphabet << std::endl;
 
       NextContext = 0;
 
-      lma = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, m_iNumSyms);
-      lmb = new CDictLanguageModel(m_pEventHandler, m_pSettingsStore, pAlph, pAlphMap);
+      lma = new CPPMLanguageModel(this, m_iNumSyms);
+      lmb = new CDictLanguageModel(this, pAlph, pAlphMap);
 
     };
 

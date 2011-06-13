@@ -8,8 +8,7 @@
 #include "DasherScreen.h"
 #include <deque>
 #include "Alphabet/GroupInfo.h"
-
-
+#include "SettingsStore.h"
 
 using namespace std;
 
@@ -19,10 +18,6 @@ namespace Dasher {
   class CDasherModel;
   class CDasherNode;
 }
-
-class Dasher::CDasherViewSquare;
-class Dasher::CDasherModel;
-class Dasher::CDasherNode;
 
 /// \ingroup View
 /// @{
@@ -34,27 +29,25 @@ class Dasher::CDasherNode;
 ///
 /// Horizontal mapping - linear and log
 /// Vertical mapping - linear with different gradient
-class Dasher::CDasherViewSquare:public Dasher::CDasherView
+class Dasher::CDasherViewSquare : public Dasher::CDasherView, public CSettingsUserObserver
 {
 public:
 
   /// Constructor
   ///
-  /// \param pEventHandler Event handler.
-  /// \param pSettingsStore Settings store.
   /// \param DasherScreen Pointer to creen to which the view will render.
   /// \todo Don't cache screen and model locally - screen can be
   /// passed as parameter to the drawing functions, and data structure
   /// can be extracted from the model and passed too.
 
-  CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen *DasherScreen);
+  CDasherViewSquare(CSettingsUser *pCreateFrom, CDasherScreen *DasherScreen);
   ~CDasherViewSquare();
 
   ///
   /// Event handler
   ///
 
-  virtual void HandleEvent(Dasher::CEvent * pEvent);
+  virtual void HandleEvent(int iParameter);
 
   /// Resets scale factors etc. that depend on the screen size, to be recomputed when next needed.
   void ScreenResized(CDasherScreen * NewScreen);

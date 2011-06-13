@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-CGnomeSettingsStore::CGnomeSettingsStore(Dasher::CEventHandler *pEventHandler):CSettingsStore(pEventHandler) {
+CGnomeSettingsStore::CGnomeSettingsStore() {
   settings = g_settings_new("org.gnome.Dasher");
   LoadPersistent();
 }

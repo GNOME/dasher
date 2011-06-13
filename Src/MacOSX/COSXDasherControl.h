@@ -41,9 +41,13 @@ public:
   void Realize2();
   void TimerFired(NSPoint p);
   void Train(NSString *fileName);
+  
+  ///Wrappers round settings API for use by Objective-C...
   id GetParameter(NSString *aKey);
   void SetParameter(NSString *aKey, id aValue);
+  int GetParameterIndex(const std::string & aKey);
   NSDictionary *ParameterDictionary();
+  
   void goddamn(unsigned long iTime, bool bForceRedraw);
   virtual void WriteTrainFile(const std::string &filename, const std::string &strNewText);
   std::string GetAllContext();
@@ -56,7 +60,6 @@ private:
   virtual void SetupPaths();
   virtual void CreateModules();
   virtual void SetupUI();
-  virtual void CreateSettingsStore();
   virtual void StartTimer();
   virtual void ShutdownTimer();
   virtual bool SupportsSpeech();
@@ -81,11 +84,10 @@ private:
   ///Really this will have to wait for either (a)reinstating an in-Dasher
   /// text edit box, or (b) implementing the MacOSX input method API.
   unsigned int ctrlDelete(bool bForwards, CControlManager::EditDistance dist);
-  ///
-  /// Pass events coming from the core to the appropriate handler.
-  ///
-  
-  void ExternalEventHandler(Dasher::CEvent *pEvent);
+  // No need to HandleEvent: the PreferencesController is observing changes to the 
+  // user defaults controller which is observing the user defaults and will be notified when
+  // the parameter is actually written by COSXSettingsStore.
+  //void HandleEvent(int iParameter);
 
   ///Override to perform output/deletion via DasherEdit
   void editOutput(const std::string &strText, CDasherNode *pSource);

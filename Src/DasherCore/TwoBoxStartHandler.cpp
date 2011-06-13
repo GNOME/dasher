@@ -3,8 +3,8 @@
 
 using namespace Dasher;
 
-CTwoBoxStartHandler::CTwoBoxStartHandler(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface)
-: CStartHandler(pEventHandler, pSettingsStore, pInterface), m_bFirstBox(true), m_iBoxEntered(std::numeric_limits<long>::max()) {
+CTwoBoxStartHandler::CTwoBoxStartHandler(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface)
+: CStartHandler(pInterface), CSettingsUserObserver(pCreator), m_bFirstBox(true), m_iBoxEntered(std::numeric_limits<long>::max()) {
 }
 
 bool CTwoBoxStartHandler::DecorateView(CDasherView *pView) {
@@ -63,11 +63,7 @@ void CTwoBoxStartHandler::Timer(int iTime, dasherint iDasherX, dasherint iDasher
   }
 }
 
-void CTwoBoxStartHandler::HandleEvent(Dasher::CEvent * pEvent) {
-    if(pEvent->m_iEventType == 1) {
-    Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
-   
-    if (pEvt->m_iParameter==BP_DASHER_PAUSED)
-      m_bFirstBox = true;
-  }
+void CTwoBoxStartHandler::HandleEvent(int iParameter) {
+  if (iParameter==BP_DASHER_PAUSED)
+    m_bFirstBox = true;
 }

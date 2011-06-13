@@ -1791,14 +1791,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\DasherComponent.cpp"
-			>
-		</File>
-		<File
-			RelativePath="DasherComponent.h"
-			>
-		</File>
-		<File
 			RelativePath=".\DasherGameMode.cpp"
 			>
 		</File>
@@ -1879,6 +1871,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\DashIntfSettings.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\DashIntfSettings.h"
+			>
+		</File>
+		<File
 			RelativePath=".\DefaultFilter.cpp"
 			>
 		</File>
@@ -1896,10 +1896,6 @@
 		</File>
 		<File
 			RelativePath="Event.h"
-			>
-		</File>
-		<File
-			RelativePath="EventHandler.cpp"
 			>
 		</File>
 		<File
@@ -2055,6 +2051,10 @@
 		</File>
 		<File
 			RelativePath=".\OneDimensionalFilter.h"
+			>
+		</File>
+		<File
+			RelativePath=".\Parameters.cpp"
 			>
 		</File>
 		<File

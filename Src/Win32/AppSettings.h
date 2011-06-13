@@ -1,7 +1,9 @@
 #pragma once
 
-#include <string>
 #include "../Common/AppSettingsHeader.h"
+
+#include <vector>
+#include <string>
 
 #include <windows.h>
 
@@ -31,39 +33,19 @@ public:
   ~CAppSettings(void);
 
   ///
-  /// Get a boolean parameter
-
+  /// The following all just wrap corresponding methods in CDasher,
+  /// augmented for dealing with platform-specific parameters (APP_*),
+  /// allowing the AppSettings to be used as a central point-of-access
+  /// to all the settings data necessary for the GUI.
+  ///
   bool GetBoolParameter(int iParameter);
-
-  ///
-  /// Set a boolean parameter
-
   void SetBoolParameter(int iParameter, bool bValue);
-
-  ///
-  /// Get a long integer parameter
-
   long GetLongParameter(int iParameter);
-
-  ///
-  /// Set a long integer parameter
-
   void SetLongParameter(int iParameter, long iValue);
-
-  ///
-  /// Get a string parameter
-
   std::string GetStringParameter(int iParameter);
-
-  ///
-  /// Set a string parameter
-
   void SetStringParameter(int iParameter, const std::string &strValue);
-
-  ///
-  /// Reset a parameter to its default value
-
   void ResetParamater(int iParameter);
+  void GetPermittedValues(int iParameter, std::vector<std::string> &vList);
 
   #ifndef DASHER_WINCE
   bool LoadSetting(const std::string & Key, LPWINDOWPLACEMENT pwp);

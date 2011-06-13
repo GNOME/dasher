@@ -6,8 +6,8 @@
 
 using namespace Dasher;
 
-CStylusFilter::CStylusFilter(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
-  : CDefaultFilter(pEventHandler, pSettingsStore, pInterface, iID, szName) {
+CStylusFilter::CStylusFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
+  : CDefaultFilter(pCreator, pInterface, iID, szName) {
 }
 
 bool CStylusFilter::Timer(unsigned long iTime, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CExpansionPolicy **pol)
@@ -43,7 +43,7 @@ void CStylusFilter::KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *
 }
 
 void CStylusFilter::ApplyClickTransform(myint &iDasherX, myint &iDasherY, CDasherView *pView) {
-  CClickFilter::AdjustZoomCoords(iDasherX, iDasherY, pView);
+  CZoomAdjuster(this).AdjustZoomCoords(iDasherX, iDasherY, pView);
 }
 
 CStartHandler *CStylusFilter::MakeStartHandler() {

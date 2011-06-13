@@ -87,6 +87,8 @@
 		3334D996101627140077948A /* alphabet.bengali.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3334D995101627130077948A /* alphabet.bengali.xml */; };
 		3334D99A101627A00077948A /* alphabet.hungarian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3334D999101627A00077948A /* alphabet.hungarian.xml */; };
 		3334D99C101627DE0077948A /* alphabet.mongolian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3334D99B101627DE0077948A /* alphabet.mongolian.xml */; };
+		3335F61B13AB5144004F9371 /* DashIntfSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3335F61913AB5144004F9371 /* DashIntfSettings.cpp */; };
+		3335F63813AB7D95004F9371 /* Parameters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3335F63713AB7D95004F9371 /* Parameters.cpp */; };
 		3336B8FB0F74005B0063CBF4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3336B8FA0F74005B0063CBF4 /* CoreGraphics.framework */; };
 		333B5D4F100F5A93002041C8 /* TextView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 333B5D4E100F5A93002041C8 /* TextView.mm */; };
 		333F6F4C11A8A6EF002E2BDF /* FliteTTS.m in Sources */ = {isa = PBXBuildFile; fileRef = 333F6F4B11A8A6EF002E2BDF /* FliteTTS.m */; };
@@ -177,7 +179,6 @@
 		3344FE240F71717C00506EAA /* ConversionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FD880F71717C00506EAA /* ConversionManager.cpp */; };
 		3344FE260F71717C00506EAA /* CustomColours.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FD8C0F71717C00506EAA /* CustomColours.cpp */; };
 		3344FE270F71717C00506EAA /* DasherButtons.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FD8E0F71717C00506EAA /* DasherButtons.cpp */; };
-		3344FE280F71717C00506EAA /* DasherComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FD900F71717C00506EAA /* DasherComponent.cpp */; };
 		3344FE300F71717C00506EAA /* DasherGameMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FD990F71717C00506EAA /* DasherGameMode.cpp */; };
 		3344FE310F71717C00506EAA /* DasherInterfaceBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FD9C0F71717C00506EAA /* DasherInterfaceBase.cpp */; };
 		3344FE320F71717C00506EAA /* DasherModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FD9E0F71717C00506EAA /* DasherModel.cpp */; };
@@ -188,7 +189,6 @@
 		3344FE380F71717C00506EAA /* DasherViewSquare.inl in Resources */ = {isa = PBXBuildFile; fileRef = 3344FDAB0F71717C00506EAA /* DasherViewSquare.inl */; };
 		3344FE390F71717C00506EAA /* DefaultFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDAC0F71717C00506EAA /* DefaultFilter.cpp */; };
 		3344FE3B0F71717C00506EAA /* DynamicFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDAF0F71717C00506EAA /* DynamicFilter.cpp */; };
-		3344FE3C0F71717C00506EAA /* EventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDB20F71717C00506EAA /* EventHandler.cpp */; };
 		3344FE3E0F71717C00506EAA /* FileLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDB60F71717C00506EAA /* FileLogger.cpp */; };
 		3344FE3F0F71717C00506EAA /* GameLevel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDB90F71717C00506EAA /* GameLevel.cpp */; };
 		3344FE400F71717C00506EAA /* GameScorer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FDBC0F71717C00506EAA /* GameScorer.cpp */; };
@@ -398,6 +398,9 @@
 		3334D995101627130077948A /* alphabet.bengali.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.bengali.xml; sourceTree = "<group>"; };
 		3334D999101627A00077948A /* alphabet.hungarian.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.hungarian.xml; sourceTree = "<group>"; };
 		3334D99B101627DE0077948A /* alphabet.mongolian.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.mongolian.xml; sourceTree = "<group>"; };
+		3335F61913AB5144004F9371 /* DashIntfSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DashIntfSettings.cpp; sourceTree = "<group>"; };
+		3335F61A13AB5144004F9371 /* DashIntfSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashIntfSettings.h; sourceTree = "<group>"; };
+		3335F63713AB7D95004F9371 /* Parameters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Parameters.cpp; sourceTree = "<group>"; };
 		3336B8FA0F74005B0063CBF4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		333B5D4D100F5A93002041C8 /* TextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextView.h; sourceTree = "<group>"; };
 		333B5D4E100F5A93002041C8 /* TextView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextView.mm; sourceTree = "<group>"; };
@@ -564,8 +567,6 @@
 		3344FD8D0F71717C00506EAA /* CustomColours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomColours.h; sourceTree = "<group>"; };
 		3344FD8E0F71717C00506EAA /* DasherButtons.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DasherButtons.cpp; sourceTree = "<group>"; };
 		3344FD8F0F71717C00506EAA /* DasherButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DasherButtons.h; sourceTree = "<group>"; };
-		3344FD900F71717C00506EAA /* DasherComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DasherComponent.cpp; sourceTree = "<group>"; };
-		3344FD910F71717C00506EAA /* DasherComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DasherComponent.h; sourceTree = "<group>"; };
 		3344FD990F71717C00506EAA /* DasherGameMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DasherGameMode.cpp; sourceTree = "<group>"; };
 		3344FD9A0F71717C00506EAA /* DasherGameMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DasherGameMode.h; sourceTree = "<group>"; };
 		3344FD9B0F71717C00506EAA /* DasherInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DasherInput.h; sourceTree = "<group>"; };
@@ -589,8 +590,6 @@
 		3344FDAF0F71717C00506EAA /* DynamicFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DynamicFilter.cpp; sourceTree = "<group>"; };
 		3344FDB00F71717C00506EAA /* DynamicFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicFilter.h; sourceTree = "<group>"; };
 		3344FDB10F71717C00506EAA /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
-		3344FDB20F71717C00506EAA /* EventHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EventHandler.cpp; sourceTree = "<group>"; };
-		3344FDB30F71717C00506EAA /* EventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventHandler.h; sourceTree = "<group>"; };
 		3344FDB60F71717C00506EAA /* FileLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileLogger.cpp; sourceTree = "<group>"; };
 		3344FDB70F71717C00506EAA /* FileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileLogger.h; sourceTree = "<group>"; };
 		3344FDB80F71717C00506EAA /* FrameRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameRate.h; sourceTree = "<group>"; };
@@ -689,6 +688,7 @@
 		33627FB60F7A82CF000C8818 /* training_swedish_SE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_swedish_SE.txt; sourceTree = "<group>"; };
 		33627FB70F7A82CF000C8818 /* training_turkish_TR.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_turkish_TR.txt; sourceTree = "<group>"; };
 		33627FB80F7A82CF000C8818 /* training_welsh_GB.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_welsh_GB.txt; sourceTree = "<group>"; };
+		3370525D13ABBF8900821A25 /* Observable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Observable.h; sourceTree = "<group>"; };
 		337472D1121A9767001A858C /* AlphInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AlphInfo.cpp; sourceTree = "<group>"; };
 		337472D2121A976B001A858C /* AlphInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlphInfo.h; sourceTree = "<group>"; };
 		337690120F989C870083FEB2 /* SBTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBTree.h; sourceTree = "<group>"; };
@@ -1196,8 +1196,6 @@
 				3344FD8D0F71717C00506EAA /* CustomColours.h */,
 				3344FD8E0F71717C00506EAA /* DasherButtons.cpp */,
 				3344FD8F0F71717C00506EAA /* DasherButtons.h */,
-				3344FD900F71717C00506EAA /* DasherComponent.cpp */,
-				3344FD910F71717C00506EAA /* DasherComponent.h */,
 				3344FD990F71717C00506EAA /* DasherGameMode.cpp */,
 				3344FD9A0F71717C00506EAA /* DasherGameMode.h */,
 				3344FD9B0F71717C00506EAA /* DasherInput.h */,
@@ -1205,6 +1203,8 @@
 				3344FD9D0F71717C00506EAA /* DasherInterfaceBase.h */,
 				33B3430613A8A927009AE0D5 /* DashIntfScreenMsgs.cpp */,
 				33B3430713A8A927009AE0D5 /* DashIntfScreenMsgs.h */,
+				3335F61913AB5144004F9371 /* DashIntfSettings.cpp */,
+				3335F61A13AB5144004F9371 /* DashIntfSettings.h */,
 				3344FD9E0F71717C00506EAA /* DasherModel.cpp */,
 				3344FD9F0F71717C00506EAA /* DasherModel.h */,
 				3344FDA00F71717C00506EAA /* DasherModule.cpp */,
@@ -1223,8 +1223,6 @@
 				3344FDAF0F71717C00506EAA /* DynamicFilter.cpp */,
 				3344FDB00F71717C00506EAA /* DynamicFilter.h */,
 				3344FDB10F71717C00506EAA /* Event.h */,
-				3344FDB20F71717C00506EAA /* EventHandler.cpp */,
-				3344FDB30F71717C00506EAA /* EventHandler.h */,
 				3344FDB60F71717C00506EAA /* FileLogger.cpp */,
 				3344FDB70F71717C00506EAA /* FileLogger.h */,
 				3344FDB80F71717C00506EAA /* FrameRate.h */,
@@ -1243,6 +1241,7 @@
 				3344FDE10F71717C00506EAA /* ModuleManager.h */,
 				3344FDE20F71717C00506EAA /* NodeCreationManager.cpp */,
 				3344FDE30F71717C00506EAA /* NodeCreationManager.h */,
+				3370525D13ABBF8900821A25 /* Observable.h */,
 				3344FDE60F71717C00506EAA /* OneButtonDynamicFilter.cpp */,
 				3344FDE70F71717C00506EAA /* OneButtonDynamicFilter.h */,
 				3344FDE80F71717C00506EAA /* OneButtonFilter.cpp */,
@@ -1250,6 +1249,7 @@
 				3344FDEA0F71717C00506EAA /* OneDimensionalFilter.cpp */,
 				3344FDEB0F71717C00506EAA /* OneDimensionalFilter.h */,
 				3344FDEC0F71717C00506EAA /* Parameters.h */,
+				3335F63713AB7D95004F9371 /* Parameters.cpp */,
 				332F32A6103C8A1E008448D7 /* AlternatingDirectMode.cpp */,
 				332F32A7103C8A1E008448D7 /* AlternatingDirectMode.h */,
 				332F32A8103C8A1E008448D7 /* ButtonMode.cpp */,
@@ -1583,7 +1583,6 @@
 				3344FE240F71717C00506EAA /* ConversionManager.cpp in Sources */,
 				3344FE260F71717C00506EAA /* CustomColours.cpp in Sources */,
 				3344FE270F71717C00506EAA /* DasherButtons.cpp in Sources */,
-				3344FE280F71717C00506EAA /* DasherComponent.cpp in Sources */,
 				3344FE300F71717C00506EAA /* DasherGameMode.cpp in Sources */,
 				3344FE310F71717C00506EAA /* DasherInterfaceBase.cpp in Sources */,
 				3344FE320F71717C00506EAA /* DasherModel.cpp in Sources */,
@@ -1593,7 +1592,6 @@
 				3344FE370F71717C00506EAA /* DasherViewSquare.cpp in Sources */,
 				3344FE390F71717C00506EAA /* DefaultFilter.cpp in Sources */,
 				3344FE3B0F71717C00506EAA /* DynamicFilter.cpp in Sources */,
-				3344FE3C0F71717C00506EAA /* EventHandler.cpp in Sources */,
 				3344FE3E0F71717C00506EAA /* FileLogger.cpp in Sources */,
 				3344FE3F0F71717C00506EAA /* GameLevel.cpp in Sources */,
 				3344FE400F71717C00506EAA /* GameScorer.cpp in Sources */,
@@ -1725,6 +1723,8 @@
 				333FDB5A139FB413009D018A /* ConvertingAlphMgr.cpp in Sources */,
 				33B3430813A8A927009AE0D5 /* DashIntfScreenMsgs.cpp in Sources */,
 				33FDB7F5135F310E00D6C952 /* UserLogBase.cpp in Sources */,
+				3335F61B13AB5144004F9371 /* DashIntfSettings.cpp in Sources */,
+				3335F63813AB7D95004F9371 /* Parameters.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

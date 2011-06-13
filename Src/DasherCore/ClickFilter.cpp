@@ -24,7 +24,7 @@ bool CClickFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
   if (GetBoolParameter(BP_DRAW_MOUSE_LINE)) {
     myint mouseX, mouseY;
     pInput->GetDasherCoords(mouseX, mouseY, pView);
-    AdjustZoomCoords(mouseX,mouseY,pView);
+    AdjustZoomCoords(mouseX, mouseY, pView);
     if (m_iLastX != mouseX || m_iLastY != mouseY) {
       bChanged = true;
       m_iLastX = mouseX; m_iLastY = mouseY;
@@ -58,19 +58,22 @@ bool CClickFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
   return bChanged;
 }
 
-void CClickFilter::AdjustZoomCoords(myint &iDasherX, myint &iDasherY, CDasherView *pView) {
-  const myint ox(pView->GetLongParameter(LP_OX)), safety(pView->GetLongParameter(LP_S));
+CZoomAdjuster::CZoomAdjuster(CSettingsUser *pCreateFrom) : CSettingsUser(pCreateFrom) {
+}
+
+void CZoomAdjuster::AdjustZoomCoords(myint &iDasherX, myint &iDasherY, CDasherView *pView) {
+  const myint ox(GetLongParameter(LP_OX)), safety(GetLongParameter(LP_S));
   //safety param. Used to be just added onto DasherX,
   // but comments suggested should be interpreted as a fraction. Hence...
   myint iNewDasherX = (iDasherX*1024 + ox*safety) / (1024+safety);
 
   //max zoom parameter...
-  iNewDasherX = std::max(ox/pView->GetLongParameter(LP_MAXZOOM),iNewDasherX);
+  iNewDasherX = std::max(ox/GetLongParameter(LP_MAXZOOM),iNewDasherX);
   //force x>=2 (what's wrong with x==1?)
   if (iNewDasherX<2) iNewDasherX=2;
   if (iNewDasherX != iDasherX) {
     //compute new dasher y to keep centre of expansion in same place...
-    const myint oy(pView->GetLongParameter(LP_OY));
+    const myint oy(GetLongParameter(LP_OY));
     myint iNewDasherY = oy + ((ox-iNewDasherX) * (iDasherY-oy))/(ox-iDasherX);
     iDasherX = iNewDasherX; iDasherY = iNewDasherY;
   }

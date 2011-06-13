@@ -124,7 +124,7 @@ HWND CDasherWindow::Create() {
 
   m_pEdit->SetInterface(m_pDasher);
 
-  m_pSpeedAlphabetBar = new CStatusControl(m_pDasher);
+  m_pSpeedAlphabetBar = new CStatusControl(m_pAppSettings);
   m_pSpeedAlphabetBar->Create(hWnd);
 
   m_pGameGroup = new CGameGroup(m_pDasher, m_pEdit);

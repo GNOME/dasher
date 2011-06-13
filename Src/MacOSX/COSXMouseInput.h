@@ -16,8 +16,8 @@ using namespace Dasher;
 
 class COSXMouseInput : public CScreenCoordInput {
 public:
-  COSXMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
-  : CScreenCoordInput(pEventHandler, pSettingsStore, 0, "Mouse Input") {
+  COSXMouseInput() 
+  : CScreenCoordInput(0, "Mouse Input") {
   };
   virtual bool GetScreenCoords(screenint &iX, screenint &iY, CDasherView *pView) {
     iX = m_iX;
@@ -42,8 +42,8 @@ static SModuleSettings sSettings[] = {
 
 class COSX1DMouseInput:public CDasherCoordInput {
 public:
-  COSX1DMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
-  : CDasherCoordInput(pEventHandler, pSettingsStore, 2, "One Dimensional Mouse Input") {
+  COSX1DMouseInput() 
+  : CDasherCoordInput(2, "One Dimensional Mouse Input") {
     
     m_iOffset = 0;
   };

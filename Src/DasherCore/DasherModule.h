@@ -24,16 +24,15 @@
 #include <vector>
 
 #include "../Common/ModuleSettings.h"
-#include "DasherComponent.h"
 
 class CDasherModule;
 typedef std::vector<CDasherModule*>::size_type ModuleID_t;
 
 /// \ingroup Core
 /// @{
-class CDasherModule : public Dasher::CDasherComponent {
+class CDasherModule {
  public:
-  CDasherModule(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, ModuleID_t iID, int iType, const char *szName);
+  CDasherModule(ModuleID_t iID, int iType, const char *szName);
 
   virtual ModuleID_t GetID();
   virtual void SetID(ModuleID_t);

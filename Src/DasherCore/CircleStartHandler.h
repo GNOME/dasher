@@ -5,13 +5,14 @@
 /// \ingroup Start
 /// @{
 namespace Dasher {
-class CCircleStartHandler : public CStartHandler {
+class CCircleStartHandler : public CStartHandler, public CSettingsUserObserver, public Observer<CDasherView *> {
 public:
-  CCircleStartHandler(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface);
-
+  CCircleStartHandler(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pInterface);
+  ~CCircleStartHandler();
   virtual bool DecorateView(CDasherView *pView);
   virtual void Timer(int iTime, dasherint iX, dasherint iY, CDasherView *pView);
-  virtual void HandleEvent(Dasher::CEvent * pEvent);
+  virtual void HandleEvent(int iParameter);
+  virtual void HandleEvent(CDasherView *pView);
 
 protected:
   ///Time (as unix timestamp) when user entered circle; max() => already acted upon
@@ -22,6 +23,7 @@ protected:
   int m_iScreenRadius;
   ///Center of screen circle (needs recomputing if radius does)
   CDasherScreen::point m_screenCircleCenter;
+  CDasherView *m_pView;
   virtual void ComputeScreenLoc(CDasherView *pView);
 };
 }

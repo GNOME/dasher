@@ -17,9 +17,9 @@
 @class PreferencesController;
 @class NSDictionary;
 
-class COSXSettingsStore:public CSettingsStore {
+class COSXSettingsStore:public Dasher::CSettingsStore {
 public:
-  COSXSettingsStore(Dasher::CEventHandler * pEventHandler);
+  COSXSettingsStore();
   ~COSXSettingsStore();
   std::string GetParamName(int iParameter);
 

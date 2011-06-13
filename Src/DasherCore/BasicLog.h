@@ -7,7 +7,7 @@
 /// @{
 class CBasicLog : public CUserLogBase {
  public:
-  CBasicLog(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore);
+  CBasicLog(Dasher::CSettingsUser *pCreateFrom, Dasher::CDasherInterfaceBase *pIntf);
   ~CBasicLog();
 
   virtual void AddParam(const string& strName, const string& strValue, int iOptionMask = 0) {};

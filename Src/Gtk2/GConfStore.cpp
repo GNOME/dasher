@@ -2,7 +2,7 @@
 
 #define GCONF_KEY_ROOT "/apps/dasher4/"
 
-CGnomeSettingsStore::CGnomeSettingsStore(Dasher::CEventHandler *pEventHandler):CSettingsStore(pEventHandler) {
+CGnomeSettingsStore::CGnomeSettingsStore() {
   the_gconf_client = gconf_client_get_default();
 
   gconf_client_add_dir(the_gconf_client, "/apps/dasher4", GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);

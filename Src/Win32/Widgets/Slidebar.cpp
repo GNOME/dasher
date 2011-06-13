@@ -25,7 +25,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CSlidebar::CSlidebar(HWND ParentWindow, CDasherInterfaceBase *NewDasherInterface) {
+CSlidebar::CSlidebar(HWND ParentWindow, CAppSettings *pAppSettings) {
   m_hRebar = CreateWindowEx(WS_EX_WINDOWEDGE,
                             REBARCLASSNAME,
                             NULL,
@@ -48,7 +48,7 @@ CSlidebar::CSlidebar(HWND ParentWindow, CDasherInterfaceBase *NewDasherInterface
   rbBand.fMask  = RBBIM_STYLE | RBBIM_CHILD | RBBIM_CHILDSIZE;
   rbBand.fStyle = RBBS_CHILDEDGE | RBBS_GRIPPERALWAYS;
 
-  m_pStatusControl = new CStatusControl(NewDasherInterface);
+  m_pStatusControl = new CStatusControl(pAppSettings);
   m_pStatusControl->Create(ParentWindow);
 
   RECT rc;

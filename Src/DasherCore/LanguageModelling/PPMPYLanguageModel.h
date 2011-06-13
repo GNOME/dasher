@@ -44,7 +44,7 @@ namespace Dasher {
     /// i.e. from which contexts are formed; this is passed to the CAbstractPPM superclass.
     /// \param iNumPYSyms number of pinyin phonemes, i.e. which we generate probabilities for in GetProbs
     /// based (only) on the preceding _Chinese_ symbols.
-    CPPMPYLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, int iNumCHsyms, int iNumPYsyms);
+    CPPMPYLanguageModel(CSettingsUser *pCreator, int iNumCHsyms, int iNumPYsyms);
 
     ///Learns a pinyin symbol in the specified context, but does not move the context on.
     void LearnPYSymbol(Context context, int Symbol);

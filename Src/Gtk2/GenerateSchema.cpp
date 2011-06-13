@@ -9,6 +9,8 @@
 #include <iostream>
 #include <iomanip>
 
+using namespace Dasher::Settings;
+
 enum EValType { TYPE_BOOL, TYPE_LONG, TYPE_STRING };
 enum EOutput { GCONF_OUTPUT, GSETTINGS_OUTPUT, TEXT_OUTPUT };
 

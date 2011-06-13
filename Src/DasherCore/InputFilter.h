@@ -15,9 +15,8 @@ namespace Dasher {
 namespace Dasher {
 class CInputFilter : public CDasherModule {
  public:
-  CInputFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
-    : CDasherModule(pEventHandler, pSettingsStore, iID, InputMethod, szName) {
-    m_pInterface = pInterface;
+  CInputFilter(CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
+    : CDasherModule(iID, InputMethod, szName), m_pInterface(pInterface) {
   };
 
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput) { return false; };

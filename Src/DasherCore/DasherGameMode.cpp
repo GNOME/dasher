@@ -19,19 +19,17 @@
 using Dasher::GameMode::CDasherGameMode;
 using Dasher::GameMode::UTF8Char;
 
-class Dasher::CEventHandler;
 class CSettingsStore;
 
 std::pair<double,double> GaussianRand();
 
 CDasherGameMode* CDasherGameMode::pTeacher = NULL;
 
-CDasherGameMode* CDasherGameMode::CreateTeacher(Dasher::CEventHandler *pEventHandler,
-						CSettingsStore *pSettingsStore,
+CDasherGameMode* CDasherGameMode::CreateTeacher(CSettingsUser *pCreateFrom,
 						Dasher::CDasherInterfaceBase *pDashIface)
 {
   delete pTeacher; //Initialised to NULL, so this line is safe.
-  pTeacher = new CDasherGameMode(pEventHandler, pSettingsStore, pDashIface);
+  pTeacher = new CDasherGameMode(pCreateFrom, pDashIface);
   return pTeacher;
 }
 
@@ -41,10 +39,9 @@ void CDasherGameMode::DestroyTeacher()
   pTeacher = NULL;
 }
 
-CDasherGameMode::CDasherGameMode(Dasher::CEventHandler *pEventHandler,
-				 CSettingsStore *pSettingsStore,
+CDasherGameMode::CDasherGameMode(CSettingsUser *pCreateFrom,
 				 Dasher::CDasherInterfaceBase *pDashIface)
-  :CDasherComponent(pEventHandler, pSettingsStore),
+  : CSettingsUserObserver(pCreateFrom),
    m_pDasherInterface(pDashIface),
    m_pView(NULL), m_pModel(NULL),
    m_pScorer(NULL), m_pDemo(NULL),
@@ -128,8 +125,7 @@ void CDasherGameMode::Message(int message, void* messagedata)
       
 }
 
-void CDasherGameMode::NotifyGameCooperators(bool bGameOn)
-{
+void CDasherGameMode::NotifyGameCooperators(bool bGameOn) {
   SetBoolParameter(BP_GAME_MODE, bGameOn);
   m_pView->SetGameMode(bGameOn);
   m_pDasherInterface->SetBuffer(0);
@@ -170,7 +166,7 @@ void CDasherGameMode::DemoModeStart(bool bFullDemo)
 {
   // Start up internal first...
   if(!m_pDemo)
-    m_pDemo = new Demo(m_pSettingsStore, bFullDemo);
+    m_pDemo = new Demo(this, bFullDemo);
 
   m_iDemoX = m_iUserX;
   m_iDemoY = m_iUserY;
@@ -192,81 +188,64 @@ void CDasherGameMode::DemoModeStop()
 }
 
 
-void CDasherGameMode::HandleEvent(Dasher::CEvent * pEvent) 
+void CDasherGameMode::HandleEvent(int iParameter)
 {
   // If we are not active, return
-  if(!m_bGameModeOn && !m_pDemo)
-    {
-      //      if(pEvent->m_iEventType == EV_PARAM_NOTIFY)
-      //	{
-      //	  if(static_cast<CParameterNotificationEvent*>(pEvent)->m_iParameter == BP_GAME_MODE)
-      //	    {
-      //	      m_bGameModeOn = GetBoolParameter(BP_GAME_MODE);
-      //	      NotifyGameCooperators(m_bGameModeOn);
-      //	      GameModeStart();
-      //	    }
-      //	}
-      return;
-    }
-  else
-    {
-      string output;
+  if(!m_bGameModeOn && !m_pDemo) return;
 
-      // Otherwise listen for all events and deal with them appropriately
-      switch(pEvent->m_iEventType)
-	{
-	case EV_PARAM_NOTIFY:
-
-	  switch(static_cast<CParameterNotificationEvent*>(pEvent)->m_iParameter)
-	    {
-	    case BP_GAME_MODE:
-	      //	      m_bGameModeOn = GetBoolParameter(BP_GAME_MODE);
-	      //	      if(!m_bGameModeOn) // i.e, if we have just been turned off
-	      //		GameModeStop();
-	      //	      NotifyGameCooperators(m_bGameModeOn);
-	      break;	  
-	    case SP_GAME_TEXT_FILE:
-              output = "Welcome to Dasher Game Mode!";
-	      m_strGameTextFile = GetStringParameter(SP_GAME_TEXT_FILE);
-	      std::cout << "Change of game file to " << m_strGameTextFile << std::endl;
-     	      InitializeTargets();
-	      m_pDasherInterface->GameMessageOut(GAME_MESSAGE_DISPLAY_TEXT,
-						 reinterpret_cast<const void*>(&output));
-	      m_bSentenceFinished = true;
-	      break;
-	    case LP_MAX_BITRATE: 
-	      CalculateDemoParameters();
-	      break;
-      case BP_DASHER_PAUSED:
-          if (GetBoolParameter(BP_DASHER_PAUSED)) {
-            //just stopped
-            if(m_pScorer)
-              m_pScorer->Stop();
-          } else {
-            if(m_pDemo)
-              CalculateDemoParameters();
-            if(m_pScorer)
-              m_pScorer->Start();            
-          }
-	    }
-	  break;
-	case EV_EDIT:
-	  if(m_bSentenceFinished) break;
-	  CEditEvent *pEditEvent(static_cast < CEditEvent * >(pEvent));
-	  
-	  if(pEditEvent->m_iEditType == 1) {
-	    m_pDasherInterface->GameMessageOut(GAME_MESSAGE_EDIT,
-					       reinterpret_cast<const void*>(&(pEditEvent->m_sText)));
-	  }
-	  else if(pEditEvent->m_iEditType == 2) {
-	    int numDeleted = pEditEvent->m_sText.size();
-	    m_pDasherInterface->GameMessageOut(GAME_MESSAGE_EDIT_DELETE,
-					       reinterpret_cast<const void*>(&numDeleted));
-	  }
-	  break;
-	}
-      return;
+  // Otherwise listen for all events and deal with them appropriately
+  switch(iParameter) {
+  case BP_GAME_MODE:
+    //	      m_bGameModeOn = GetBoolParameter(BP_GAME_MODE);
+    //	      if(!m_bGameModeOn) // i.e, if we have just been turned off
+    //		GameModeStop();
+    //	      NotifyGameCooperators(m_bGameModeOn);
+    break;	  
+  case SP_GAME_TEXT_FILE: {
+    string output = "Welcome to Dasher Game Mode!";
+    m_strGameTextFile = GetStringParameter(SP_GAME_TEXT_FILE);
+    std::cout << "Change of game file to " << m_strGameTextFile << std::endl;
+    InitializeTargets();
+    m_pDasherInterface->GameMessageOut(GAME_MESSAGE_DISPLAY_TEXT,
+           reinterpret_cast<const void*>(&output));
+    m_bSentenceFinished = true;
+    break;
+  }
+  case LP_MAX_BITRATE: 
+    CalculateDemoParameters();
+    break;
+  case BP_DASHER_PAUSED:
+    if (GetBoolParameter(BP_DASHER_PAUSED)) {
+      //just stopped
+      if(m_pScorer)
+        m_pScorer->Stop();
+    } else {
+      if(m_pDemo)
+        CalculateDemoParameters();
+      if(m_pScorer)
+        m_pScorer->Start();            
     }
+  }
+    
+}
+
+void CDasherGameMode::HandleEvent(const Dasher::CEditEvent * pEditEvent) 
+{
+  // If we are not active, return
+  if(!m_bGameModeOn && !m_pDemo) return;
+  
+  // Otherwise listen for all events and deal with them appropriately
+  if(m_bSentenceFinished) return;
+    
+  if(pEditEvent->m_iEditType == 1) {
+    m_pDasherInterface->GameMessageOut(GAME_MESSAGE_EDIT,
+                                      reinterpret_cast<const void*>(&(pEditEvent->m_sText)));
+  }
+  else if(pEditEvent->m_iEditType == 2) {
+    int numDeleted = pEditEvent->m_sText.size();
+    m_pDasherInterface->GameMessageOut(GAME_MESSAGE_EDIT_DELETE,
+                                       reinterpret_cast<const void*>(&numDeleted));
+  }
 }
 
 void CDasherGameMode::GameNext()

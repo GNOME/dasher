@@ -4,6 +4,7 @@ noinst_LIBRARIES = libdashercore.a libdasherprefs.a
 
 libdasherprefs_a_SOURCES = \
 		Parameters.h \
+		Parameters.cpp \
 		SettingsStore.cpp \
 		SettingsStore.h 
 
@@ -49,13 +50,13 @@ libdashercore_a_SOURCES = \
 		ConvertingAlphMgr.h \
 		DasherButtons.cpp \
 		DasherButtons.h \
-		DasherComponent.cpp \
-		DasherComponent.h \
 		DasherGameMode.cpp \
 		DasherGameMode.h \
 		DasherInput.h \
 		DasherInterfaceBase.cpp \
 		DasherInterfaceBase.h \
+		DashIntfSettings.cpp \
+		DashIntfSettings.h \
 		DashIntfScreenMsgs.h \
 		DashIntfScreenMsgs.cpp \
 		DasherModel.cpp \
@@ -76,8 +77,6 @@ libdashercore_a_SOURCES = \
 		DynamicFilter.h \
 		DynamicFilter.cpp \
 		Event.h \
-		EventHandler.cpp \
-		EventHandler.h \
 		FileLogger.cpp \
 		FileLogger.h \
 		FrameRate.h \
@@ -101,6 +100,7 @@ libdashercore_a_SOURCES = \
 		NodeManager.h \
 		ExpansionPolicy.cpp \
 		ExpansionPolicy.h \
+		Observable.h \
 		OneButtonDynamicFilter.cpp \
 		OneButtonDynamicFilter.h \
 		OneButtonFilter.cpp \

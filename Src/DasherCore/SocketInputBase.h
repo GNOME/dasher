@@ -7,9 +7,8 @@
 #ifndef __socketinputbase_h__
 #define __socketinputbase_h__
 
-#include "../DasherCore/DasherInput.h"
-#include "../DasherCore/DasherComponent.h"
-#include "../DasherCore/EventHandler.h"
+#include "DasherInput.h"
+#include "SettingsStore.h"
 #include "Messages.h"
 
 #include <iostream>
@@ -23,15 +22,15 @@ namespace Dasher {
 using namespace std;
 /// \ingroup Input 
 /// \{
-class CSocketInputBase : public CScreenCoordInput {
+class CSocketInputBase : public CScreenCoordInput, public CSettingsUserObserver {
 
 public:
 
-  CSocketInputBase(CMessageDisplay *pMsgs, CEventHandler * pEventHandler, CSettingsStore * pSettingsStore);
+  CSocketInputBase(CSettingsUser *pCreator, CMessageDisplay *pMsgs);
 
   virtual ~CSocketInputBase();
 
-  virtual void HandleEvent(CEvent * pEvent);
+  virtual void HandleEvent(int iParameter);
 
   virtual void SetDebug(bool _debug);
 

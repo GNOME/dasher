@@ -40,8 +40,8 @@ static SModuleSettings sSettings[] = {
   {LP_DYNAMIC_SPEED_DEC, T_LONG, 1, 99, 1, 1, _("Percentage by which to decrease speed upon reverse")}
 };
 
-COneButtonDynamicFilter::COneButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
-  : CButtonMultiPress(pEventHandler, pSettingsStore, pInterface, 6, _("One Button Dynamic Mode")) {
+COneButtonDynamicFilter::COneButtonDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface)
+  : CButtonMultiPress(pCreator, pInterface, 6, _("One Button Dynamic Mode")) {
   m_iTarget = 0;
 
   m_iTargetX = new int[2];

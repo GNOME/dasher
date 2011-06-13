@@ -45,7 +45,7 @@ public:
   //redefinitions to make public....
   void Realize();//also calls OnUIRealised
   void NewFrame(unsigned long iTime, bool bForceRedraw);
-  
+
   void SetTiltAxes(Vec3 main, float off, Vec3 slow, float off2);
   virtual void WriteTrainFile(const std::string &filename,const std::string &strNewText);
   virtual int GetFileSize(const std::string &strFileName);
@@ -71,7 +71,6 @@ private:
   virtual void SetupPaths();
   virtual void CreateModules();
   virtual void SetupUI();
-  virtual void CreateSettingsStore();
   virtual void StartTimer();
   virtual void ShutdownTimer();
   
@@ -79,7 +78,7 @@ private:
   /// Pass events coming from the core to the appropriate handler.
   ///
   
-  void ExternalEventHandler(Dasher::CEvent *pEvent);
+  void HandleEvent(int iParameter);
   void GameMessageOut(int message, const void* messagedata);
   
   DasherAppDelegate *dasherApp;   // objc counterpart

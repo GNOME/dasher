@@ -10,7 +10,6 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
-#include "DasherComponent.h"
 #include "Event.h"
 #include "DasherButtons.h"
 
@@ -22,9 +21,9 @@ namespace Dasher {
 class CButtonMode : public CDasherButtons
 {
  public:
-  CButtonMode(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface, bool bMenu, int iID, const char *szName);
+  CButtonMode(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, bool bMenu, int iID, const char *szName);
 
-  virtual void HandleEvent(Dasher::CEvent * pEvent);
+  virtual void HandleEvent(int iParameter);
   bool Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CExpansionPolicy **pol);
   bool DecorateView(CDasherView *pView, CDasherInput *pInput);
 

@@ -27,6 +27,8 @@
 
 // TODO: Rename this file to fit in with naming conventions
 
+using namespace Dasher::Settings;
+
 struct _DasherAppSettingsPrivate {
 #ifdef WITH_GCONF
   GConfClient *pGConfClient;

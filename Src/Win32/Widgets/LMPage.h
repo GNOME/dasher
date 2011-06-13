@@ -14,12 +14,9 @@
 #include "../resource.h"
 #include "../AppSettings.h"
 
-#include "../../DasherCore/DasherInterfaceBase.h"
-#include "../../DasherCore/ColourIO.h"
-
 class CLMPage:public CPrefsPageBase {
 public:
-  CLMPage(HWND Parent, Dasher::CDasherInterfaceBase * DI, CAppSettings *pAppSettings);
+  CLMPage(HWND Parent, CAppSettings *pAppSettings);
 protected:
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:

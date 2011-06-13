@@ -10,6 +10,7 @@
 #import "DasherUtil.h"
 
 using namespace Dasher;
+using Dasher::Settings::GetParameterName;
 
 //private methods we actually need to call directly
 @interface ModuleSettingsController ()
@@ -18,7 +19,7 @@ using namespace Dasher;
 
 @implementation ModuleSettingsController
 
--(id)initWithTitle:(NSString *)title Interface:(CDasherInterfaceBase *)_intf Settings:(SModuleSettings *)_settings Count:(int)_count {
+-(id)initWithTitle:(NSString *)title Interface:(COSXDasherControl *)_intf Settings:(SModuleSettings *)_settings Count:(int)_count {
   int height=0;
   for (int i=0; i<_count; i++)
     if (_settings[i].iType == T_BOOL) height+=25;
@@ -63,7 +64,7 @@ using namespace Dasher;
         ctrl = slider;
         y += 57;
       }
-      NSString *paramName = NSStringFromStdString(intf->GetSettingsStore()->GetParameterName(settings[i].iParameter));
+      NSString *paramName = NSStringFromStdString(GetParameterName(settings[i].iParameter));
       [udc addObserver:self forKeyPath:[NSString stringWithFormat:@"values.%@", paramName] options:0 context:ctrl];
     }
   } //else, window was autoreleased.
@@ -82,7 +83,7 @@ using namespace Dasher;
   [[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowWillCloseNotification object:[self window]];
   NSUserDefaultsController *udc = [NSUserDefaultsController sharedUserDefaultsController];
   for (int i=0; i<count; i++) {
-    NSString *paramName = NSStringFromStdString(intf->GetSettingsStore()->GetParameterName(settings[i].iParameter));
+    NSString *paramName = NSStringFromStdString(GetParameterName(settings[i].iParameter));
     [udc removeObserver:self forKeyPath:[NSString stringWithFormat:@"values.%@",paramName]];
   }
   [[NSApplication sharedApplication] stopModal];

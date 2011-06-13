@@ -154,7 +154,7 @@ public:
   ///
   /// Pass events coming from the core to the appropriate handler.
   ///
-  virtual void ExternalEventHandler(Dasher::CEvent *pEvent);
+  virtual void HandleEvent(int iParameter);
 
   ///Override to emit Gtk2 signal
   virtual void editOutput(const std::string &strText, CDasherNode *pNode);
@@ -166,13 +166,11 @@ public:
   virtual void SetLockStatus(const string &strText, int iPercent);
 
 private:
-  //  virtual void CreateSettingsStore();
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
   virtual void ScanColourFiles(std::vector<std::string> &vFileList);
   virtual void SetupPaths();
   virtual void CreateModules();
   virtual void SetupUI();
-  virtual void CreateSettingsStore();
   virtual void StartTimer();
   virtual void ShutdownTimer();
   
@@ -180,13 +178,6 @@ private:
   void ExecuteCommand(const std::string &strName);
 
   void GameMessageOut(int message, const void* messagedata);
-
-  ///
-  /// Notification from CDasherInterface that a parameter has changed
-  /// \param iParameter The parameter which has changed
-  ///
-
-  void HandleParameterNotification(int iParameter);
 
   GtkWidget *m_pVBox;
   GtkWidget *m_pCanvas;

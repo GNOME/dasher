@@ -25,8 +25,8 @@ double round(double dVal) {
 
 using namespace Dasher;
 
-CAutoSpeedControl::CAutoSpeedControl(CMessageDisplay *pMsgs, Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore)
-  : CDasherComponent(pEventHandler, pSettingsStore), m_pMsgs(pMsgs) {
+CAutoSpeedControl::CAutoSpeedControl(CSettingsUser *pCreateFrom, CMessageDisplay *pMsgs)
+  : CSettingsUser(pCreateFrom), m_pMsgs(pMsgs) {
   //scale #samples by #samples = m_dSamplesScale / (current bitrate) + m_dSampleOffset
   m_dSampleScale = 1.5;
   m_dSampleOffset = 1.3;

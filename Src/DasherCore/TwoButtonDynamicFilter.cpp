@@ -48,12 +48,11 @@ static SModuleSettings sSettings[] = {
   {LP_DYNAMIC_SPEED_DEC, T_LONG, 1, 99, 1, 1, _("Percentage by which to decrease speed upon reverse")}
 };
 
-CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
-  : CButtonMultiPress(pEventHandler, pSettingsStore, pInterface, 14, _("Two Button Dynamic Mode"))
+CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface)
+  : CButtonMultiPress(pCreator, pInterface, 14, _("Two Button Dynamic Mode"))
 {
   //ensure that m_dLagMul is properly initialised
-  Dasher::CParameterNotificationEvent oEvent(LP_DYNAMIC_BUTTON_LAG);
-  HandleEvent(&oEvent);
+  HandleEvent(LP_DYNAMIC_BUTTON_LAG);
 }
 
 bool CTwoButtonDynamicFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
@@ -192,24 +191,19 @@ bool CTwoButtonDynamicFilter::GetMinWidth(int &iMinWidth) {
   return true;
 }
 
-void CTwoButtonDynamicFilter::HandleEvent(Dasher::CEvent *pEvent)
+void CTwoButtonDynamicFilter::HandleEvent(int iParameter)
 {
-  if (pEvent->m_iEventType == EV_PARAM_NOTIFY)
-  {
-    Dasher::CParameterNotificationEvent *pEvt = static_cast<Dasher::CParameterNotificationEvent *>(pEvent);
-    switch (pEvt->m_iParameter)
+  switch (iParameter) {
+  case LP_MAX_BITRATE:
+  case LP_BOOSTFACTOR: // Deliberate fallthrough
+  case LP_DYNAMIC_BUTTON_LAG:
     {
-    case LP_MAX_BITRATE:
-    case LP_BOOSTFACTOR: // Deliberate fallthrough
-    case LP_DYNAMIC_BUTTON_LAG:
-      {
-        double dMaxRate = GetLongParameter(LP_MAX_BITRATE) * GetLongParameter(LP_BOOSTFACTOR) / 10000.0;
-        m_dLagMul = exp(dMaxRate * GetLongParameter(LP_DYNAMIC_BUTTON_LAG)/1000.0);
-        //and fallthrough again:
-      }
-    case LP_TWO_BUTTON_OFFSET:
-        m_bDecorationChanged = true;
+      double dMaxRate = GetLongParameter(LP_MAX_BITRATE) * GetLongParameter(LP_BOOSTFACTOR) / 10000.0;
+      m_dLagMul = exp(dMaxRate * GetLongParameter(LP_DYNAMIC_BUTTON_LAG)/1000.0);
+      //and fallthrough again:
     }
+  case LP_TWO_BUTTON_OFFSET:
+      m_bDecorationChanged = true;
   }
-  CDynamicFilter::HandleEvent(pEvent);
+  CDynamicFilter::HandleEvent(iParameter);
 }

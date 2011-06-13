@@ -5,9 +5,9 @@
 
 #include "../Common/Common.h"
 
-
 #include "ButtonMode.h"
 #include "DasherScreen.h"
+#include "DasherInterfaceBase.h"
 #include <valarray>
 #include <iostream>
 
@@ -41,8 +41,8 @@ static SModuleSettings sSettings[] = {
 
 // FIX iStyle == 0
 
-CButtonMode::CButtonMode(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, bool bMenu, int iID, const char *szName)
-: CDasherButtons(pEventHandler, pSettingsStore, pInterface, bMenu, iID, szName) {}
+CButtonMode::CButtonMode(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, bool bMenu, int iID, const char *szName)
+: CDasherButtons(pCreator, pInterface, bMenu, iID, szName) {}
 
 void CButtonMode::SetupBoxes()
 {
@@ -214,18 +214,14 @@ void CButtonMode::DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherM
  if (iId!=100) m_iLastTime = iTime;
 }
 
-void CButtonMode::HandleEvent(Dasher::CEvent * pEvent) {
-  if(pEvent->m_iEventType == 1) {
-    Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
-
-    switch (pEvt->m_iParameter) {
-    case LP_B:
-    case LP_R:
-      // Delibarate fallthrough
-      delete[] m_pBoxes;
-      SetupBoxes();
-      break;
-    }
+void CButtonMode::HandleEvent(int iParameter) {
+  switch (iParameter) {
+  case LP_B:
+  case LP_R:
+    // Delibarate fallthrough
+    delete[] m_pBoxes;
+    SetupBoxes();
+    break;
   }
 }
 

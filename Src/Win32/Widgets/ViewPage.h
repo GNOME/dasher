@@ -14,12 +14,12 @@
 #include "../resource.h"
 #include "../AppSettings.h"
 
-#include "../../DasherCore/DasherInterfaceBase.h"
+#include "../Dasher.h"
 #include "../../DasherCore/ColourIO.h"
 
 class CViewPage:public CPrefsPageBase {
 public:
-	CViewPage(HWND Parent, Dasher::CDasherInterfaceBase *DI, CAppSettings *pAppSettings);
+	CViewPage(HWND Parent, CAppSettings *pAppSettings);
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 
 private:

@@ -36,7 +36,8 @@ extern "C" gint canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gp
 static bool g_iTimeoutID = 0;
 
 // CDasherControl class definitions
-CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl) {
+CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
+ : CDashIntfScreenMsgs(new CGnomeSettingsStore()) {
   m_pScreen = NULL;
 
   m_pDasherControl = pDasherControl;
@@ -91,19 +92,19 @@ void CDasherControl::CreateModules() {
   // Create locally cached copies of the mouse input objects, as we
   // need to pass coordinates to them from the timer callback
   m_pMouseInput =
-    (CDasherMouseInput *)  RegisterModule(new CDasherMouseInput(m_pEventHandler, m_pSettingsStore));
+    (CDasherMouseInput *)  RegisterModule(new CDasherMouseInput());
   SetDefaultInputDevice(m_pMouseInput);
   m_p1DMouseInput =
-    (CDasher1DMouseInput *)RegisterModule(new CDasher1DMouseInput(m_pEventHandler, m_pSettingsStore));
-  RegisterModule(new CSocketInput(this, m_pEventHandler, m_pSettingsStore));
+    (CDasher1DMouseInput *)RegisterModule(new CDasher1DMouseInput());
+  RegisterModule(new CSocketInput(this, this));
 
 #ifdef JOYSTICK
-  RegisterModule(new CDasherJoystickInput(m_pEventHandler, m_pSettingsStore, this));
-  RegisterModule(new CDasherJoystickInputDiscrete(m_pEventHandler, m_pSettingsStore, this));
+  RegisterModule(new CDasherJoystickInput(this));
+  RegisterModule(new CDasherJoystickInputDiscrete(this));
 #endif
   
 #ifdef TILT
-  RegisterModule(new CDasherTiltInput(m_pEventHandler, m_pSettingsStore, this));
+  RegisterModule(new CDasherTiltInput(this));
 #endif
 }
 
@@ -133,10 +134,6 @@ void CDasherControl::SetupPaths() {
   SetStringParameter(SP_SYSTEM_LOC, system_data_dir);
   SetStringParameter(SP_USER_LOC, user_data_dir);
   delete[] user_data_dir;
-}
-
-void CDasherControl::CreateSettingsStore() {
-  m_pSettingsStore = new CGnomeSettingsStore(m_pEventHandler);
 }
 
 void CDasherControl::ScanAlphabetFiles(std::vector<std::string> &vFileList) {
@@ -333,14 +330,21 @@ int CDasherControl::CanvasConfigureEvent() {
   return 0;
 }
 
-void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
-  // Convert events coming from the core to Glib signals.
-
-  if(pEvent->m_iEventType == EV_PARAM_NOTIFY) {
-    Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
-    HandleParameterNotification(pEvt->m_iParameter);
-    g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_changed", pEvt->m_iParameter);
+void CDasherControl::HandleEvent(int iParameter) {
+  CDashIntfScreenMsgs::HandleEvent(iParameter);
+  switch(iParameter) {
+  case SP_DASHER_FONT:
+      m_pScreen->SetFont(GetStringParameter(SP_DASHER_FONT));
+      ScheduleRedraw();
+    break;
+  case BP_GLOBAL_KEYBOARD:
+    // TODO: reimplement
+//     if(m_pKeyboardHelper)
+//       m_pKeyboardHelper->Grab(GetBoolParameter(BP_GLOBAL_KEYBOARD));
+    break;
   }
+  // Convert events coming from the core to Glib signals.
+  g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_changed", iParameter);
 }
 
 void CDasherControl::editOutput(const std::string &strText, CDasherNode *pNode) {
@@ -427,20 +431,6 @@ void CDasherControl::ExternalKeyUp(int iKeyVal) {
 //       KeyUp(get_time(), iButtonID);
 //   }
   KeyUp(get_time(), iKeyVal);
-}
-
-void CDasherControl::HandleParameterNotification(int iParameter) {
-  switch(iParameter) {
-  case SP_DASHER_FONT:
-      m_pScreen->SetFont(GetStringParameter(SP_DASHER_FONT));
-      ScheduleRedraw();
-    break;
-  case BP_GLOBAL_KEYBOARD:
-    // TODO: reimplement
-//     if(m_pKeyboardHelper)
-//       m_pKeyboardHelper->Grab(GetBoolParameter(BP_GLOBAL_KEYBOARD));
-    break;
-  }
 }
 
 int CDasherControl::TimerEvent() {

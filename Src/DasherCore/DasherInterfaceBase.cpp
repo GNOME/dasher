@@ -29,7 +29,7 @@
 #include "DasherView.h"
 #include "DasherInput.h"
 #include "DasherModel.h"
-#include "EventHandler.h"
+#include "Observable.h"
 #include "Event.h"
 #include "NodeCreationManager.h"
 #ifndef _WIN32_WCE
@@ -85,8 +85,10 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CDasherInterfaceBase::CDasherInterfaceBase() : m_pLockLabel(NULL) {
-
+CDasherInterfaceBase::CDasherInterfaceBase(CSettingsStore *pSettingsStore) : CSettingsUser(pSettingsStore), m_pSettingsStore(pSettingsStore), m_pLockLabel(NULL) {
+  
+  pSettingsStore->Register(this, true);
+  
   // Ensure that pointers to 'owned' objects are set to NULL.
   m_pDasherModel = NULL;
   m_DasherScreen = NULL;
@@ -98,18 +100,13 @@ CDasherInterfaceBase::CDasherInterfaceBase() : m_pLockLabel(NULL) {
   m_pUserLog = NULL;
   m_pNCManager = NULL;
   m_defaultPolicy = NULL;
-
+  m_pWordSpeaker = NULL;
   // Various state variables
   m_bRedrawScheduled = false;
 
   m_iCurrentState = ST_START;
 
   //  m_bGlobalLock = false;
-
-  m_strCurrentWord = "";
-
-  // Create an event handler.
-  m_pEventHandler = new CEventHandler(this);
 
 #ifndef _WIN32_WCE
   // Global logging object we can use from anywhere
@@ -122,15 +119,12 @@ CDasherInterfaceBase::CDasherInterfaceBase() : m_pLockLabel(NULL) {
 
 void CDasherInterfaceBase::Realize() {
 
-  // TODO: What exactly needs to have happened by the time we call Realize()?
-  CreateSettingsStore();
-  
-  //create a view, if we have a screen...
-  //if(GetLongParameter(LP_VIEW_ID) != -1)
-  ChangeView();
+  //if ChangeScreen has been called, we'll have created a view;
+  // otherwise, we still can't create a view, until we have a screen!
+  DASHER_ASSERT(m_DasherScreen ? m_pDasherView!=NULL : m_pDasherView==NULL);
 
   //create the model... (no nodes just yet)
-  m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, this);
+  m_pDasherModel = new CDasherModel(this, this);
 
   SetupUI();
   SetupPaths();
@@ -145,6 +139,7 @@ void CDasherInterfaceBase::Realize() {
 
   ChangeColours();
 
+  ChangeView();
   // Create the user logging object if we are suppose to.  We wait
   // until now so we have the real value of the parameter and not
   // just the default.
@@ -155,9 +150,9 @@ void CDasherInterfaceBase::Realize() {
   int iUserLogLevel = GetLongParameter(LP_USER_LOG_LEVEL_MASK);
 
   if(iUserLogLevel == 10)
-    m_pUserLog = new CBasicLog(m_pEventHandler, m_pSettingsStore);
+    m_pUserLog = new CBasicLog(this, this);
   else if (iUserLogLevel > 0)
-    m_pUserLog = new CUserLog(m_pEventHandler, m_pSettingsStore, iUserLogLevel);
+    m_pUserLog = new CUserLog(this, this, iUserLogLevel);
 #else
   m_pUserLog = NULL;
 #endif
@@ -175,8 +170,7 @@ void CDasherInterfaceBase::Realize() {
     pTeacher->SetDasherModel(m_pDasherModel);
 
   SetupActionButtons();
-  CParameterNotificationEvent oEvent(LP_NODE_BUDGET);
-  InterfaceEventHandler(&oEvent);
+  HandleEvent(LP_NODE_BUDGET);
 
   // FIXME - need to rationalise this sort of thing.
   // InvalidateContext(true);
@@ -194,7 +188,7 @@ void CDasherInterfaceBase::Realize() {
 
   using GameMode::CDasherGameMode;
   // Create the teacher singleton object.
-  CDasherGameMode::CreateTeacher(m_pEventHandler, m_pSettingsStore, this);
+  CDasherGameMode::CreateTeacher(this, this);
   CDasherGameMode::GetTeacher()->SetDasherView(m_pDasherView);
   CDasherGameMode::GetTeacher()->SetDasherModel(m_pDasherModel);
 }
@@ -234,10 +228,6 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
 
   for (std::vector<CActionButton *>::iterator it=m_vRightButtons.begin(); it != m_vRightButtons.end(); ++it)
     delete *it;
-
-  // Must delete event handler after all CDasherComponent derived classes
-
-  delete m_pEventHandler;
 }
 
 void CDasherInterfaceBase::PreSetNotify(int iParameter, const std::string &sNewValue) {
@@ -267,95 +257,96 @@ void CDasherInterfaceBase::PreSetNotify(int iParameter, const std::string &sNewV
   }
 }
 
-void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
+void CDasherInterfaceBase::HandleEvent(int iParameter) {
+  switch (iParameter) {
 
-  if(pEvent->m_iEventType == EV_PARAM_NOTIFY) {
-    Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
+  case LP_OUTLINE_WIDTH:
+    ScheduleRedraw();
+    break;
+  case BP_DRAW_MOUSE:
+    ScheduleRedraw();
+    break;
+  case BP_CONTROL_MODE:
+      //force rebuilding tree/nodes, to get new probabilities (inc/exc control node).
+      // This may move the canvas around a bit, but at least manages to keep/reuse the
+      // existing AlphabetManager, NCManager, etc. objects...
+      SetOffset(m_pDasherModel->GetOffset(), true);
+    ScheduleRedraw();
+    break;
+  case BP_DRAW_MOUSE_LINE:
+    ScheduleRedraw();
+    break;
+  case LP_REAL_ORIENTATION:
+    ScheduleRedraw();
+    break;
+  case SP_ALPHABET_ID:
+    ChangeAlphabet();
+    ScheduleRedraw();
+    break;
+  case SP_COLOUR_ID:
+    ChangeColours();
+    ScheduleRedraw();
+    break;
+  case SP_DEFAULT_COLOUR_ID: // Delibarate fallthrough
+  case BP_PALETTE_CHANGE:
+    if(GetBoolParameter(BP_PALETTE_CHANGE))
+ SetStringParameter(SP_COLOUR_ID, GetStringParameter(SP_DEFAULT_COLOUR_ID));
+    break;
+  case LP_LANGUAGE_MODEL_ID:
+    CreateNCManager();
+    break;
+  case LP_LINE_WIDTH:
+    ScheduleRedraw();
+    break;
+  case LP_DASHER_FONTSIZE:
+    ScheduleRedraw();
+    break;
+  case SP_INPUT_DEVICE:
+    CreateInput();
+    break;
+  case SP_INPUT_FILTER:
+    CreateInputFilter();
+    ScheduleRedraw();
+    break;
+  case BP_DASHER_PAUSED:
+    ScheduleRedraw();
+    break;
+  case LP_MARGIN_WIDTH:
+  case BP_NONLINEAR_Y:
+  case LP_NONLINEAR_X:
+  case LP_GEOMETRY:
+  case LP_SHAPE_TYPE: //for platforms which actually have this as a GUI pref!
+      ScheduleRedraw();
+      break;
+  case LP_NODE_BUDGET:
+    delete m_defaultPolicy;
+    m_defaultPolicy = new AmortizedPolicy(GetLongParameter(LP_NODE_BUDGET));
+  case BP_SPEAK_WORDS:
+    delete m_pWordSpeaker;
+    m_pWordSpeaker = GetBoolParameter(BP_SPEAK_WORDS) ? new WordSpeaker(this) : NULL;
+  default:
+    break;
+  }
+}
 
-    switch (pEvt->m_iParameter) {
+CDasherInterfaceBase::WordSpeaker::WordSpeaker(CDasherInterfaceBase *pIntf) : TransientObserver<const CEditEvent *>(pIntf) {
+}
 
-    case LP_OUTLINE_WIDTH:
-      ScheduleRedraw();
-      break;
-    case BP_DRAW_MOUSE:
-      ScheduleRedraw();
-      break;
-    case BP_CONTROL_MODE:
-        //force rebuilding tree/nodes, to get new probabilities (inc/exc control node).
-        // This may move the canvas around a bit, but at least manages to keep/reuse the
-        // existing AlphabetManager, NCManager, etc. objects...
-        SetOffset(m_pDasherModel->GetOffset(), true);
-      ScheduleRedraw();
-      break;
-    case BP_DRAW_MOUSE_LINE:
-      ScheduleRedraw();
-      break;
-    case LP_REAL_ORIENTATION:
-      ScheduleRedraw();
-      break;
-    case SP_ALPHABET_ID:
-      ChangeAlphabet();
-      ScheduleRedraw();
-      break;
-    case SP_COLOUR_ID:
-      ChangeColours();
-      ScheduleRedraw();
-      break;
-    case SP_DEFAULT_COLOUR_ID: // Delibarate fallthrough
-    case BP_PALETTE_CHANGE:
-      if(GetBoolParameter(BP_PALETTE_CHANGE))
-	 SetStringParameter(SP_COLOUR_ID, GetStringParameter(SP_DEFAULT_COLOUR_ID));
-      break;
-    case LP_LANGUAGE_MODEL_ID:
-      CreateNCManager();
-      break;
-    case LP_LINE_WIDTH:
-      ScheduleRedraw();
-      break;
-    case LP_DASHER_FONTSIZE:
-      ScheduleRedraw();
-      break;
-    case SP_INPUT_DEVICE:
-      CreateInput();
-      break;
-    case SP_INPUT_FILTER:
-      CreateInputFilter();
-      ScheduleRedraw();
-      break;
-    case BP_DASHER_PAUSED:
-      ScheduleRedraw();
-      break;
-    case LP_MARGIN_WIDTH:
-    case BP_NONLINEAR_Y:
-    case LP_NONLINEAR_X:
-    case LP_GEOMETRY:
-    case LP_SHAPE_TYPE: //for platforms which actually have this as a GUI pref!
-        ScheduleRedraw();
-        break;
-    case LP_NODE_BUDGET:
-      delete m_defaultPolicy;
-      m_defaultPolicy = new AmortizedPolicy(GetLongParameter(LP_NODE_BUDGET));
-    default:
-      break;
+void CDasherInterfaceBase::WordSpeaker::HandleEvent(const CEditEvent *pEditEvent) {
+  CDasherInterfaceBase *pIntf(static_cast<CDasherInterfaceBase *> (m_pEventHandler));
+  if (pIntf->GetBoolParameter(BP_GAME_MODE)) return;
+  if(pEditEvent->m_iEditType == 1) {
+    if (pIntf->SupportsSpeech()) {
+      const CAlphInfo *pAlphabet = pIntf->m_pNCManager->GetAlphabet();
+      if (pEditEvent->m_sText == pAlphabet->GetText(pAlphabet->GetSpaceSymbol())) {
+        pIntf->Speak(m_strCurrentWord, false);
+        m_strCurrentWord="";
+      } else
+        m_strCurrentWord+=pEditEvent->m_sText;
     }
   }
-  else if(pEvent->m_iEventType == EV_EDIT && !GetBoolParameter(BP_GAME_MODE)) {
-    CEditEvent *pEditEvent(static_cast < CEditEvent * >(pEvent));
-
-    if(pEditEvent->m_iEditType == 1) {
-      if (GetBoolParameter(BP_SPEAK_WORDS) && SupportsSpeech()) {
-        const CAlphInfo *pAlphabet = m_pNCManager->GetAlphabet();
-        if (pEditEvent->m_sText == pAlphabet->GetText(pAlphabet->GetSpaceSymbol())) {
-          Speak(m_strCurrentWord, false);
-          m_strCurrentWord="";
-        } else
-          m_strCurrentWord+=pEditEvent->m_sText;
-      }
-    }
-    else if(pEditEvent->m_iEditType == 2) {
-      if (GetBoolParameter(BP_SPEAK_WORDS))
-        m_strCurrentWord = m_strCurrentWord.substr(0, max(static_cast<string::size_type>(0), m_strCurrentWord.size()-pEditEvent->m_sText.size()));
-    }
+  else if(pEditEvent->m_iEditType == 2) {
+    m_strCurrentWord = m_strCurrentWord.substr(0, max(static_cast<string::size_type>(0), m_strCurrentWord.size()-pEditEvent->m_sText.size()));
   }
 }
 
@@ -379,22 +370,22 @@ void CDasherInterfaceBase::SetLockStatus(const string &strText, int iPercent) {
 
 void CDasherInterfaceBase::editOutput(const std::string &strText, CDasherNode *pCause) {
   CEditEvent evt(CEditEvent::EDIT_OUTPUT, strText, pCause);
-  m_pEventHandler->InsertEvent(&evt);
+  DispatchEvent(&evt);
 }
 
 void CDasherInterfaceBase::editDelete(const std::string &strText, CDasherNode *pCause) {
   CEditEvent evt(CEditEvent::EDIT_DELETE, strText, pCause);
-  m_pEventHandler->InsertEvent(&evt);
+  DispatchEvent(&evt);
 }
 
 void CDasherInterfaceBase::editConvert(CDasherNode *pCause) {
   CEditEvent evt(CEditEvent::EDIT_CONVERT, "", pCause);
-  m_pEventHandler->InsertEvent(&evt);
+  DispatchEvent(&evt);
 }
 
 void CDasherInterfaceBase::editProtect(CDasherNode *pCause) {
   CEditEvent evt(CEditEvent::EDIT_PROTECT, "", pCause);
-  m_pEventHandler->InsertEvent(&evt);
+  DispatchEvent(&evt);
 }
 
 void CDasherInterfaceBase::WriteTrainFileFull() {
@@ -410,7 +401,7 @@ void CDasherInterfaceBase::CreateNCManager() {
   CNodeCreationManager *pOldMgr = m_pNCManager;
 
   //now create the new manager...
-  m_pNCManager = new CNodeCreationManager(this, m_pEventHandler, m_pSettingsStore, m_AlphIO);
+  m_pNCManager = new CNodeCreationManager(this, this, m_AlphIO);
 
   if (m_DasherScreen) {
     m_pNCManager->ChangeScreen(m_DasherScreen);
@@ -659,9 +650,8 @@ void CDasherInterfaceBase::ChangeScreen(CDasherScreen *NewScreen) {
   if(m_pDasherView != 0) {
     m_pDasherView->ChangeScreen(NewScreen);
     ScreenResized(NewScreen);
-  } else if (m_pEventHandler && m_pSettingsStore) {
-    //no screen, but other essential components (created in Realize) present.
-    // IOW, (assume) we were delaying creating a View, until we had a screen...
+  } else {
+    //We can create the view as soon as we have a screen...
     ChangeView();
   }
   
@@ -685,11 +675,14 @@ void CDasherInterfaceBase::ScreenResized(CDasherScreen *pScreen) {
 void CDasherInterfaceBase::ChangeView() {
   // TODO: Actually respond to LP_VIEW_ID parameter (although there is only one view at the moment)
 
-  // removed condition that m_pDasherModel != 0. Surely the view can exist without the model?-pconlon
   if(m_DasherScreen != 0 /*&& m_pDasherModel != 0*/) {
+    CDasherView *pNewView = new CDasherViewSquare(this, m_DasherScreen);
+    //the previous sends an event to all listeners registered with it, but there aren't any atm!
+    // so send an event to tell them of the new view object _and_ get them to recompute coords:  
+    if (m_pDasherView) m_pDasherView->TransferObserversTo(pNewView);
     delete m_pDasherView;
 
-    m_pDasherView = new CDasherViewSquare(m_pEventHandler, m_pSettingsStore, m_DasherScreen);
+    m_pDasherView = pNewView;
 
     // Tell the Teacher which view we are using
     if(GameMode::CDasherGameMode* pTeacher = GameMode::CDasherGameMode::GetTeacher())
@@ -734,31 +727,6 @@ void CDasherInterfaceBase::ClearAllContext() {
   ctrlDelete(true, CControlManager::EDIT_FILE);
   ctrlDelete(false, CControlManager::EDIT_FILE);
   SetBuffer(0);
-}
-
-void CDasherInterfaceBase::SetBoolParameter(int iParameter, bool bValue) {
-  m_pSettingsStore->SetBoolParameter(iParameter, bValue);
-}
-
-void CDasherInterfaceBase::SetLongParameter(int iParameter, long lValue) {
-  m_pSettingsStore->SetLongParameter(iParameter, lValue);
-}
-
-void CDasherInterfaceBase::SetStringParameter(int iParameter, const std::string & sValue) {
-  PreSetNotify(iParameter, sValue);
-  m_pSettingsStore->SetStringParameter(iParameter, sValue);
-}
-
-bool CDasherInterfaceBase::GetBoolParameter(int iParameter) {
-  return m_pSettingsStore->GetBoolParameter(iParameter);
-}
-
-long CDasherInterfaceBase::GetLongParameter(int iParameter) {
-  return m_pSettingsStore->GetLongParameter(iParameter);
-}
-
-std::string CDasherInterfaceBase::GetStringParameter(int iParameter) {
-  return m_pSettingsStore->GetStringParameter(iParameter);
 }
 
 void CDasherInterfaceBase::ResetParameter(int iParameter) {
@@ -834,28 +802,28 @@ void CDasherInterfaceBase::SetDefaultInputMethod(CInputFilter *pModule) {
 }
 
 void CDasherInterfaceBase::CreateModules() {
-  CInputFilter *defFil = new CDefaultFilter(m_pEventHandler, m_pSettingsStore, this, 3, _("Normal Control"));
+  CInputFilter *defFil = new CDefaultFilter(this, this, 3, _("Normal Control"));
   RegisterModule(defFil);
   SetDefaultInputMethod(defFil);
-  RegisterModule(new COneDimensionalFilter(m_pEventHandler, m_pSettingsStore, this));
+  RegisterModule(new COneDimensionalFilter(this, this));
 #ifndef _WIN32_WCE
-  RegisterModule(new CClickFilter(m_pEventHandler, m_pSettingsStore, this));
+  RegisterModule(new CClickFilter(this, this));
 #else
   SetDefaultInputMethod(
-    RegisterModule(new CClickFilter(m_pEventHandler, m_pSettingsStore, this));
+    RegisterModule(new CClickFilter(this, this));
   );
 #endif
-  RegisterModule(new COneButtonFilter(m_pEventHandler, m_pSettingsStore, this));
-  RegisterModule(new COneButtonDynamicFilter(m_pEventHandler, m_pSettingsStore, this));
-  RegisterModule(new CTwoButtonDynamicFilter(m_pEventHandler, m_pSettingsStore, this));
-  RegisterModule(new CTwoPushDynamicFilter(m_pEventHandler, m_pSettingsStore, this));
+  RegisterModule(new COneButtonFilter(this, this));
+  RegisterModule(new COneButtonDynamicFilter(this, this));
+  RegisterModule(new CTwoButtonDynamicFilter(this, this));
+  RegisterModule(new CTwoPushDynamicFilter(this, this));
   // TODO: specialist factory for button mode
-  RegisterModule(new CButtonMode(m_pEventHandler, m_pSettingsStore, this, true, 8, _("Menu Mode")));
-  RegisterModule(new CButtonMode(m_pEventHandler, m_pSettingsStore, this, false,10, _("Direct Mode")));
-  //  RegisterModule(new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3"));
-  RegisterModule(new CAlternatingDirectMode(m_pEventHandler, m_pSettingsStore, this));
-  RegisterModule(new CCompassMode(m_pEventHandler, m_pSettingsStore, this));
-  RegisterModule(new CStylusFilter(m_pEventHandler, m_pSettingsStore, this, 15, _("Stylus Control")));
+  RegisterModule(new CButtonMode(this, this, true, 8, _("Menu Mode")));
+  RegisterModule(new CButtonMode(this, this, false,10, _("Direct Mode")));
+  //  RegisterModule(new CDasherButtons(this, this, 4, 0, false,11, "Buttons 3"));
+  RegisterModule(new CAlternatingDirectMode(this, this));
+  RegisterModule(new CCompassMode(this, this));
+  RegisterModule(new CStylusFilter(this, this, 15, _("Stylus Control")));
 }
 
 void CDasherInterfaceBase::GetPermittedValues(int iParameter, std::vector<std::string> &vList) {
@@ -1019,9 +987,7 @@ void CDasherInterfaceBase::SetOffset(int iOffset, bool bForce) {
 
 // Returns 0 on success, an error string on failure.
 const char* CDasherInterfaceBase::ClSet(const std::string &strKey, const std::string &strValue) {
-  if(m_pSettingsStore)
-    return m_pSettingsStore->ClSet(strKey, strValue);
-  return 0;
+  return m_pSettingsStore->ClSet(strKey, strValue);
 }
 
 

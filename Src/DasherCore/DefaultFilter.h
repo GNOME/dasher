@@ -8,13 +8,13 @@
 namespace Dasher {
 /// \ingroup InputFilter
 /// @{
-class CDefaultFilter : public CInputFilter {
+class CDefaultFilter : public CInputFilter, public CSettingsUserObserver {
  public:
-  CDefaultFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName);
+  CDefaultFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName);
   ~CDefaultFilter();
   virtual bool supportsPause() {return true;}
 
-  virtual void HandleEvent(Dasher::CEvent * pEvent);
+  virtual void HandleEvent(int iParameter);
 
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);
   virtual bool Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CExpansionPolicy **pol);

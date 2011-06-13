@@ -10,19 +10,20 @@
 #include "UserLogBase.h"
 #include "Event.h"
 #include "DasherNode.h"
+#include "DasherInterfaceBase.h"
 
 using namespace Dasher;
 
-void CUserLogBase::HandleEvent(CEvent *pEvent) {
-  if (pEvent->m_iEventType == EV_EDIT) {
-    Dasher::CEditEvent *evt(static_cast<Dasher::CEditEvent *>(pEvent));
-    if (evt->m_iEditType == 1) {
-      m_vAdded.push_back(evt->m_pNode->GetSymbolProb(GetLongParameter(LP_NORMALIZATION)));
-      //output
-    } else if (evt->m_iEditType == 2) {
-      //delete
-      m_iNumDeleted++;
-    }
+CUserLogBase::CUserLogBase(CSettingsUser *pCreateFrom, Observable<const CEditEvent *> *pHandler) : CSettingsUser(pCreateFrom), TransientObserver<const CEditEvent *>(pHandler), m_iNumDeleted(0) {
+};
+
+void CUserLogBase::HandleEvent(const CEditEvent *evt) {
+  if (evt->m_iEditType == 1) {
+    m_vAdded.push_back(evt->m_pNode->GetSymbolProb(GetLongParameter(LP_NORMALIZATION)));
+    //output
+  } else if (evt->m_iEditType == 2) {
+    //delete
+    m_iNumDeleted++;
   }
 }
 

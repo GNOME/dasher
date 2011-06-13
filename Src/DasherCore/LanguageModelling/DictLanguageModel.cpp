@@ -90,8 +90,8 @@ CDictLanguageModel::CDictnode * CDictLanguageModel::AddSymbolToNode(CDictnode *p
 // CDictLanguageModel defs
 /////////////////////////////////////////////////////////////////////
 
-CDictLanguageModel::CDictLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphInfo *pAlph, const CAlphabetMap *pAlphMap)
-:CLanguageModel(pAlph->GetNumberTextSymbols()), CDasherComponent(pEventHandler, pSettingsStore), m_pAlphMap(pAlphMap), m_iSpaceSymbol(pAlph->GetSpaceSymbol()), NodesAllocated(0), max_order(0), m_NodeAlloc(8192), m_ContextAlloc(1024) {
+CDictLanguageModel::CDictLanguageModel(CSettingsUser *pCreator, const CAlphInfo *pAlph, const CAlphabetMap *pAlphMap)
+:CLanguageModel(pAlph->GetNumberTextSymbols()), CSettingsUser(pCreator), m_pAlphMap(pAlphMap), m_iSpaceSymbol(pAlph->GetSpaceSymbol()), NodesAllocated(0), max_order(0), m_NodeAlloc(8192), m_ContextAlloc(1024) {
   m_pRoot = m_NodeAlloc.Alloc();
   m_pRoot->sbl = -1;
   m_rootcontext = new CDictContext(m_pRoot, 0);

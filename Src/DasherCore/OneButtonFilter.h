@@ -2,13 +2,13 @@
 #define __ONE_BUTTON_FILTER_H__
 
 #include "InputFilter.h"
-
+#include "SettingsStore.h"
 namespace Dasher {
 /// \ingroup InputFilter
 /// @{
-class COneButtonFilter : public CInputFilter {
+class COneButtonFilter : public CInputFilter, private CSettingsUser {
  public:
-  COneButtonFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface);
+  COneButtonFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface);
   ~COneButtonFilter();
 
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);

@@ -17,8 +17,8 @@ int CModuleControlLong::GetHeightRequest() {
   return 12;
 }
 
-void CModuleControlLong::Initialise(Dasher::CDasherInterfaceBase *pInterface) {
-  int iValue(pInterface->GetLongParameter(m_iId));
+void CModuleControlLong::Initialise(CAppSettings *pAppSets) {
+  int iValue(pAppSets->GetLongParameter(m_iId));
   SendMessage(m_hSlider, TBM_SETPOS, (WPARAM)false, (LPARAM)iValue);
 
   WCHAR tcBuffer[256];
@@ -26,9 +26,9 @@ void CModuleControlLong::Initialise(Dasher::CDasherInterfaceBase *pInterface) {
   SendMessage(m_hEntry, WM_SETTEXT, 0, (LPARAM) tcBuffer);
 }
 
-void CModuleControlLong::Apply(Dasher::CDasherInterfaceBase *pInterface) {
+void CModuleControlLong::Apply(CAppSettings *pAppSets) {
   int iValue = SendMessage(m_hSlider, TBM_GETPOS, 0, 0);
-  pInterface->SetLongParameter(m_iId, iValue);
+  pAppSets->SetLongParameter(m_iId, iValue);
 }
 
 void CModuleControlLong::CreateChild(HWND hParent) {

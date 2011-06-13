@@ -23,8 +23,8 @@
 
 using namespace Dasher;
 
-CButtonMultiPress::CButtonMultiPress(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
-  : CDynamicFilter(pEventHandler, pSettingsStore, pInterface, iID, szName) {
+CButtonMultiPress::CButtonMultiPress(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
+  : CDynamicFilter(pCreator, pInterface, iID, szName) {
 }
 
 void CButtonMultiPress::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {

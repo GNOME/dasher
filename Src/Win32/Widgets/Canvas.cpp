@@ -38,11 +38,7 @@
 
 using namespace Dasher;
 
-CCanvas::CCanvas(CDasher *DI, Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore)
-  : CDasherComponent(pEventHandler, pSettingsStore) {
-
-  m_pDasherInterface = DI;
-  
+CCanvas::CCanvas(CDasher *DI) : m_pDasherInterface(DI) {
  
   m_dwTicksLastEvent = 0;
   m_bButtonDown = false;
@@ -591,14 +587,8 @@ bool CCanvas::GetCanvasSize(int& iTop, int& iLeft, int& iBottom, int& iRight) {
 }
 
 
-void CCanvas::HandleEvent(Dasher::CEvent *pEvent) {
-
-  if(pEvent->m_iEventType == 1) {
-    Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
-    switch (pEvt->m_iParameter) {
-      case SP_DASHER_FONT:
-        m_pScreen->SetFont(m_pDasherInterface->GetStringParameter(SP_DASHER_FONT));
-        break;
+void CCanvas::SetFont(const std::string &strFont) {
+    m_pScreen->SetFont(strFont);
   /*  case BP_SOCKET_INPUT_ENABLE:
       OutputDebugString(TEXT("Processing BP_SOCKET_INPUT_ENABLE change\n"));
       if(GetBoolParameter(BP_SOCKET_INPUT_ENABLE)) {
@@ -613,9 +603,7 @@ void CCanvas::HandleEvent(Dasher::CEvent *pEvent) {
         }
         m_pDasherInterface->SetInput(0);
       }
-      break;*/
-    default:
       break;
     }
-  }
+  }*/
 }

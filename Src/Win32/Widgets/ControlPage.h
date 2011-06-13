@@ -27,6 +27,8 @@ protected:
 private:
   HWND CustomBox;
   
+  Dasher::CDasherInterfaceBase *m_pDasherInterface;
+
   std::vector < std::string > ColourList;
   std::string m_CurrentColours;
   Dasher::CColourIO::ColourInfo CurrentInfo;

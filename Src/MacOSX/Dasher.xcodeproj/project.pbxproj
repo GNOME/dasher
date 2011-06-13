@@ -54,8 +54,6 @@
 		1948BEC20C226CFD001DFA32 /* CustomColours.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE1C0C226CFC001DFA32 /* CustomColours.h */; };
 		1948BEC30C226CFD001DFA32 /* DasherButtons.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE1D0C226CFC001DFA32 /* DasherButtons.cpp */; };
 		1948BEC40C226CFD001DFA32 /* DasherButtons.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE1E0C226CFC001DFA32 /* DasherButtons.h */; };
-		1948BEC50C226CFD001DFA32 /* DasherComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE1F0C226CFC001DFA32 /* DasherComponent.cpp */; };
-		1948BEC60C226CFD001DFA32 /* DasherComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE200C226CFC001DFA32 /* DasherComponent.h */; };
 		1948BED00C226CFD001DFA32 /* DasherInput.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE2A0C226CFD001DFA32 /* DasherInput.h */; };
 		1948BED10C226CFD001DFA32 /* DasherInterfaceBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE2B0C226CFD001DFA32 /* DasherInterfaceBase.cpp */; };
 		1948BED20C226CFD001DFA32 /* DasherInterfaceBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE2C0C226CFD001DFA32 /* DasherInterfaceBase.h */; };
@@ -77,8 +75,7 @@
 		1948BEE40C226CFD001DFA32 /* DynamicFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE3E0C226CFD001DFA32 /* DynamicFilter.cpp */; };
 		1948BEE50C226CFD001DFA32 /* DynamicFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE3F0C226CFD001DFA32 /* DynamicFilter.h */; };
 		1948BEE60C226CFD001DFA32 /* Event.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE400C226CFD001DFA32 /* Event.h */; };
-		1948BEE70C226CFD001DFA32 /* EventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE410C226CFD001DFA32 /* EventHandler.cpp */; };
-		1948BEE80C226CFD001DFA32 /* EventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE420C226CFD001DFA32 /* EventHandler.h */; };
+		1948BEE80C226CFD001DFA32 /* Observable.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE420C226CFD001DFA32 /* Observable.h */; };
 		1948BEEB0C226CFD001DFA32 /* FileLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE450C226CFD001DFA32 /* FileLogger.cpp */; };
 		1948BEEC0C226CFD001DFA32 /* FileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE460C226CFD001DFA32 /* FileLogger.h */; };
 		1948BEED0C226CFD001DFA32 /* FrameRate.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE470C226CFD001DFA32 /* FrameRate.h */; };
@@ -334,6 +331,8 @@
 		33135354102C6D8E00E28220 /* CompassMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 3313534C102C6D8E00E28220 /* CompassMode.h */; };
 		33135355102C6D8E00E28220 /* ButtonMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3313534D102C6D8E00E28220 /* ButtonMode.cpp */; };
 		33135356102C6D8E00E28220 /* ButtonMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 3313534E102C6D8E00E28220 /* ButtonMode.h */; };
+		3335F60013AB50E9004F9371 /* DashIntfSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3335F5FE13AB50E9004F9371 /* DashIntfSettings.cpp */; };
+		3335F60113AB50E9004F9371 /* DashIntfSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 3335F5FF13AB50E9004F9371 /* DashIntfSettings.h */; };
 		3344F0691341297F001FACAB /* UserLogBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344F0681341297F001FACAB /* UserLogBase.cpp */; };
 		334DE238135E3E68007C8D6D /* control.textlabels.xml in Resources */ = {isa = PBXBuildFile; fileRef = 334DE236135E3E68007C8D6D /* control.textlabels.xml */; };
 		334DE239135E3E68007C8D6D /* control.xml in Resources */ = {isa = PBXBuildFile; fileRef = 334DE237135E3E68007C8D6D /* control.xml */; };
@@ -382,6 +381,7 @@
 		33E91A780F55E60B00B5F513 /* KeyboardHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 33E91A760F55E60B00B5F513 /* KeyboardHelper.h */; };
 		33F6C9EA133241A000745B06 /* AbstractXMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 33F6C9E8133241A000745B06 /* AbstractXMLParser.h */; };
 		33F6C9EB133241A000745B06 /* AbstractXMLParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33F6C9E9133241A000745B06 /* AbstractXMLParser.cpp */; };
+		33FC1D3113ACE88F007642CD /* Parameters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33FC1D3013ACE88F007642CD /* Parameters.cpp */; };
 		33FC93390FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33FC93370FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp */; };
 		33FC933A0FEFA2C900A9F08D /* TwoPushDynamicFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 33FC93380FEFA2C900A9F08D /* TwoPushDynamicFilter.h */; };
 		33FC93430FEFA2FB00A9F08D /* FrameRate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33FC93420FEFA2FB00A9F08D /* FrameRate.cpp */; };
@@ -435,8 +435,6 @@
 		1948BE1C0C226CFC001DFA32 /* CustomColours.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CustomColours.h; sourceTree = "<group>"; };
 		1948BE1D0C226CFC001DFA32 /* DasherButtons.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DasherButtons.cpp; sourceTree = "<group>"; };
 		1948BE1E0C226CFC001DFA32 /* DasherButtons.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherButtons.h; sourceTree = "<group>"; };
-		1948BE1F0C226CFC001DFA32 /* DasherComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DasherComponent.cpp; sourceTree = "<group>"; };
-		1948BE200C226CFC001DFA32 /* DasherComponent.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherComponent.h; sourceTree = "<group>"; };
 		1948BE280C226CFD001DFA32 /* DasherGameMode.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DasherGameMode.cpp; sourceTree = "<group>"; };
 		1948BE290C226CFD001DFA32 /* DasherGameMode.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherGameMode.h; sourceTree = "<group>"; };
 		1948BE2A0C226CFD001DFA32 /* DasherInput.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DasherInput.h; sourceTree = "<group>"; };
@@ -460,8 +458,7 @@
 		1948BE3E0C226CFD001DFA32 /* DynamicFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = DynamicFilter.cpp; sourceTree = "<group>"; };
 		1948BE3F0C226CFD001DFA32 /* DynamicFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = DynamicFilter.h; sourceTree = "<group>"; };
 		1948BE400C226CFD001DFA32 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
-		1948BE410C226CFD001DFA32 /* EventHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = EventHandler.cpp; sourceTree = "<group>"; };
-		1948BE420C226CFD001DFA32 /* EventHandler.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = EventHandler.h; sourceTree = "<group>"; };
+		1948BE420C226CFD001DFA32 /* Observable.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Observable.h; sourceTree = "<group>"; };
 		1948BE450C226CFD001DFA32 /* FileLogger.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = FileLogger.cpp; sourceTree = "<group>"; };
 		1948BE460C226CFD001DFA32 /* FileLogger.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = FileLogger.h; sourceTree = "<group>"; };
 		1948BE470C226CFD001DFA32 /* FrameRate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = FrameRate.h; sourceTree = "<group>"; };
@@ -733,6 +730,8 @@
 		3313534C102C6D8E00E28220 /* CompassMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompassMode.h; sourceTree = "<group>"; };
 		3313534D102C6D8E00E28220 /* ButtonMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ButtonMode.cpp; sourceTree = "<group>"; };
 		3313534E102C6D8E00E28220 /* ButtonMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonMode.h; sourceTree = "<group>"; };
+		3335F5FE13AB50E9004F9371 /* DashIntfSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DashIntfSettings.cpp; sourceTree = "<group>"; };
+		3335F5FF13AB50E9004F9371 /* DashIntfSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashIntfSettings.h; sourceTree = "<group>"; };
 		3344F0681341297F001FACAB /* UserLogBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserLogBase.cpp; sourceTree = "<group>"; };
 		334DE236135E3E68007C8D6D /* control.textlabels.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = control.textlabels.xml; sourceTree = "<group>"; };
 		334DE237135E3E68007C8D6D /* control.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = control.xml; sourceTree = "<group>"; };
@@ -781,6 +780,7 @@
 		33E91A760F55E60B00B5F513 /* KeyboardHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardHelper.h; sourceTree = "<group>"; };
 		33F6C9E8133241A000745B06 /* AbstractXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractXMLParser.h; sourceTree = "<group>"; };
 		33F6C9E9133241A000745B06 /* AbstractXMLParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AbstractXMLParser.cpp; sourceTree = "<group>"; };
+		33FC1D3013ACE88F007642CD /* Parameters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Parameters.cpp; sourceTree = "<group>"; };
 		33FC93370FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TwoPushDynamicFilter.cpp; sourceTree = "<group>"; };
 		33FC93380FEFA2C900A9F08D /* TwoPushDynamicFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoPushDynamicFilter.h; sourceTree = "<group>"; };
 		33FC93420FEFA2FB00A9F08D /* FrameRate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameRate.cpp; sourceTree = "<group>"; };
@@ -919,8 +919,6 @@
 				1948BE1C0C226CFC001DFA32 /* CustomColours.h */,
 				1948BE1D0C226CFC001DFA32 /* DasherButtons.cpp */,
 				1948BE1E0C226CFC001DFA32 /* DasherButtons.h */,
-				1948BE1F0C226CFC001DFA32 /* DasherComponent.cpp */,
-				1948BE200C226CFC001DFA32 /* DasherComponent.h */,
 				1948BE280C226CFD001DFA32 /* DasherGameMode.cpp */,
 				1948BE290C226CFD001DFA32 /* DasherGameMode.h */,
 				1948BE2A0C226CFD001DFA32 /* DasherInput.h */,
@@ -928,6 +926,8 @@
 				1948BE2C0C226CFD001DFA32 /* DasherInterfaceBase.h */,
 				33B3431613A8A951009AE0D5 /* DashIntfScreenMsgs.cpp */,
 				33B3431713A8A951009AE0D5 /* DashIntfScreenMsgs.h */,
+				3335F5FE13AB50E9004F9371 /* DashIntfSettings.cpp */,
+				3335F5FF13AB50E9004F9371 /* DashIntfSettings.h */,
 				1948BE2D0C226CFD001DFA32 /* DasherModel.cpp */,
 				1948BE2E0C226CFD001DFA32 /* DasherModel.h */,
 				1948BE2F0C226CFD001DFA32 /* DasherModule.cpp */,
@@ -948,8 +948,7 @@
 				1948BE3E0C226CFD001DFA32 /* DynamicFilter.cpp */,
 				1948BE3F0C226CFD001DFA32 /* DynamicFilter.h */,
 				1948BE400C226CFD001DFA32 /* Event.h */,
-				1948BE410C226CFD001DFA32 /* EventHandler.cpp */,
-				1948BE420C226CFD001DFA32 /* EventHandler.h */,
+				1948BE420C226CFD001DFA32 /* Observable.h */,
 				1948BE450C226CFD001DFA32 /* FileLogger.cpp */,
 				1948BE460C226CFD001DFA32 /* FileLogger.h */,
 				1948BE470C226CFD001DFA32 /* FrameRate.h */,
@@ -973,6 +972,7 @@
 				1948BE730C226CFD001DFA32 /* OneDimensionalFilter.cpp */,
 				1948BE740C226CFD001DFA32 /* OneDimensionalFilter.h */,
 				1948BE750C226CFD001DFA32 /* Parameters.h */,
+				33FC1D3013ACE88F007642CD /* Parameters.cpp */,
 				1948BE780C226CFD001DFA32 /* SCENode.cpp */,
 				1948BE790C226CFD001DFA32 /* SCENode.h */,
 				1948BE7A0C226CFD001DFA32 /* SettingsStore.cpp */,
@@ -1372,7 +1372,6 @@
 				1948BEBE0C226CFD001DFA32 /* ConversionManager.h in Headers */,
 				1948BEC20C226CFD001DFA32 /* CustomColours.h in Headers */,
 				1948BEC40C226CFD001DFA32 /* DasherButtons.h in Headers */,
-				1948BEC60C226CFD001DFA32 /* DasherComponent.h in Headers */,
 				1948BED00C226CFD001DFA32 /* DasherInput.h in Headers */,
 				1948BED20C226CFD001DFA32 /* DasherInterfaceBase.h in Headers */,
 				1948BED40C226CFD001DFA32 /* DasherModel.h in Headers */,
@@ -1385,7 +1384,7 @@
 				1948BEE20C226CFD001DFA32 /* DefaultFilter.h in Headers */,
 				1948BEE50C226CFD001DFA32 /* DynamicFilter.h in Headers */,
 				1948BEE60C226CFD001DFA32 /* Event.h in Headers */,
-				1948BEE80C226CFD001DFA32 /* EventHandler.h in Headers */,
+				1948BEE80C226CFD001DFA32 /* Observable.h in Headers */,
 				1948BEEC0C226CFD001DFA32 /* FileLogger.h in Headers */,
 				1948BEED0C226CFD001DFA32 /* FrameRate.h in Headers */,
 				1948BEF20C226CFD001DFA32 /* InputFilter.h in Headers */,
@@ -1444,6 +1443,7 @@
 				33F6C9EA133241A000745B06 /* AbstractXMLParser.h in Headers */,
 				33B3431913A8A951009AE0D5 /* DashIntfScreenMsgs.h in Headers */,
 				33B3431B13A8A970009AE0D5 /* Messages.h in Headers */,
+				3335F60113AB50E9004F9371 /* DashIntfSettings.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1733,7 +1733,6 @@
 				1948BEBD0C226CFD001DFA32 /* ConversionManager.cpp in Sources */,
 				1948BEC10C226CFD001DFA32 /* CustomColours.cpp in Sources */,
 				1948BEC30C226CFD001DFA32 /* DasherButtons.cpp in Sources */,
-				1948BEC50C226CFD001DFA32 /* DasherComponent.cpp in Sources */,
 				1948BED10C226CFD001DFA32 /* DasherInterfaceBase.cpp in Sources */,
 				1948BED30C226CFD001DFA32 /* DasherModel.cpp in Sources */,
 				1948BED50C226CFD001DFA32 /* DasherModule.cpp in Sources */,
@@ -1742,7 +1741,6 @@
 				1948BEDE0C226CFD001DFA32 /* DasherViewSquare.cpp in Sources */,
 				1948BEE10C226CFD001DFA32 /* DefaultFilter.cpp in Sources */,
 				1948BEE40C226CFD001DFA32 /* DynamicFilter.cpp in Sources */,
-				1948BEE70C226CFD001DFA32 /* EventHandler.cpp in Sources */,
 				1948BEEB0C226CFD001DFA32 /* FileLogger.cpp in Sources */,
 				1948BEF60C226CFD001DFA32 /* CTWLanguageModel.cpp in Sources */,
 				1948BEF80C226CFD001DFA32 /* DictLanguageModel.cpp in Sources */,
@@ -1793,6 +1791,8 @@
 				33F6C9EB133241A000745B06 /* AbstractXMLParser.cpp in Sources */,
 				33B3431813A8A951009AE0D5 /* DashIntfScreenMsgs.cpp in Sources */,
 				3344F0691341297F001FACAB /* UserLogBase.cpp in Sources */,
+				3335F60013AB50E9004F9371 /* DashIntfSettings.cpp in Sources */,
+				33FC1D3113ACE88F007642CD /* Parameters.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

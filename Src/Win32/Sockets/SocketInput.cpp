@@ -52,9 +52,9 @@ static char THIS_FILE[] = __FILE__;
 
 
 
-CSocketInput::CSocketInput(CMessageDisplay *pMsgs, CEventHandler * pEventHandler, CSettingsStore * pSettingsStore)
+CSocketInput::CSocketInput(CSettingsUser *pCreator,CMessageDisplay *pMsgs)
 
-:CSocketInputBase(pMsgs, pEventHandler, pSettingsStore) {
+:CSocketInputBase(pCreator, pMsgs) {
 
 
 

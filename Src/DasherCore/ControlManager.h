@@ -52,7 +52,7 @@ namespace Dasher {
 
   /// A node manager which deals with control nodes.
   ///
-  class CControlBase : public CNodeManager {
+  class CControlBase : public CNodeManager, protected CSettingsUser {
   public:
 
     class NodeTemplate;
@@ -96,6 +96,12 @@ namespace Dasher {
       CDasherScreen::Label *m_pLabel;
     };
 
+    class Pause : public NodeTemplate {
+    public:
+      Pause(const std::string &strLabel, int iColour);
+      void happen(CContNode *pNode);
+    };
+
     template <typename T> class MethodTemplate : public NodeTemplate {
     public:
       ///A "Method" is pointer to a function "void X()", that is a member of a T...
@@ -113,7 +119,7 @@ namespace Dasher {
 
     NodeTemplate *GetRootTemplate();
 
-    CControlBase(CNodeCreationManager *pNCManager);
+    CControlBase(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager);
 
     ///Make this manager ready to make nodes renderable on the screen by preallocating labels
     virtual void MakeLabels(CDasherScreen *pScreen);
@@ -130,6 +136,7 @@ namespace Dasher {
     ///Note, may only be called once, and with a non-null pRoot, or will throw an error message.
     void SetRootTemplate(NodeTemplate *pRoot);
 
+    CDasherInterfaceBase *m_pInterface;
     CNodeCreationManager *m_pNCManager;
 
   private:
@@ -173,15 +180,10 @@ namespace Dasher {
   ///subclass which we actually construct! Parses editing node definitions from a file,
   /// then adds Pause and/or Stop, Speak, and Copy (to clipboard), all as children
   /// of the "root" control node.
-  class CControlManager : public CDasherComponent, public CControlBase, public CControlParser {
+  class CControlManager : public CSettingsObserver, public CControlBase, public CControlParser {
   public:
-    class Pause : public NodeTemplate {
-    public:
-      Pause(const std::string &strLabel, int iColour);
-      void happen(CContNode *pNode);
-    };
-    CControlManager(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pInterface);
-    void HandleEvent(CEvent *pEvent);
+    CControlManager(CSettingsUser *pCreateFrom, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pInterface);
+    void HandleEvent(int iParameter);
 
     typedef enum {
       EDIT_CHAR, EDIT_WORD, EDIT_LINE, EDIT_FILE
@@ -204,7 +206,6 @@ namespace Dasher {
 
   private:
     NodeTemplate *m_pPause, *m_pStop;
-    CDasherInterfaceBase *m_pInterface;
     ///group headers, with three children each (all/new/repeat)
     NodeTemplate *m_pSpeech, *m_pCopy;
   };

@@ -6,13 +6,13 @@
 namespace Dasher {
 /// \ingroup Start
 /// @{
-class CTwoBoxStartHandler : public CStartHandler {
+class CTwoBoxStartHandler : public CStartHandler, public CSettingsUserObserver {
 public:
-  CTwoBoxStartHandler(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface);
+  CTwoBoxStartHandler(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface);
 
   virtual bool DecorateView(CDasherView *pView);
   virtual void Timer(int iTime, dasherint iX, dasherint iY, CDasherView *pView);
-  virtual void HandleEvent(Dasher::CEvent * pEvent);
+  virtual void HandleEvent(int iParameter);
 
  private:
   ///Box currently being displayed, _iff_ BP_DASHER_PAUSED is set

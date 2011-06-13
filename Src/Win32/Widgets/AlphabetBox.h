@@ -15,11 +15,10 @@
 
 class CAlphabetBox : public CPrefsPageBase {
 public:
-	CAlphabetBox(HWND Parent, Dasher::CDasherInterfaceBase *DI, CAppSettings *pAppSettings);
+	CAlphabetBox(HWND Parent, CAppSettings *pAppSettings);
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
-  Dasher::CDasherInterfaceBase * m_pDasherInterface;
   HWND m_hPropertySheet;
 
   HWND CustomBox;
@@ -28,9 +27,9 @@ private:
   std::string m_CurrentAlphabet;
   //Dasher::CAlphInfo CurrentInfo;//for editing alphabets
 
-  std::vector < std::string > ColourList;
+  //std::vector < std::string > ColourList;
   
-  Dasher::CColourIO::ColourInfo CurrentColourInfo;
+  //Dasher::CColourIO::ColourInfo CurrentColourInfo;
 
   // Some status flags:
   bool Editing;

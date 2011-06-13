@@ -2,6 +2,10 @@
 
 using namespace Dasher;
 
+CDashIntfScreenMsgs::CDashIntfScreenMsgs(CSettingsStore *pSettingsStore)
+ : CDashIntfSettings(pSettingsStore) {
+}
+
 void CDashIntfScreenMsgs::Message(const string &strText, bool bInterrupt) {
   //Just store the messages for Redraw...
   CDasherScreen::Label *lab = m_DasherScreen->MakeLabel(strText,GetLongParameter(LP_MESSAGE_FONTSIZE));

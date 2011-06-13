@@ -36,6 +36,7 @@
 #include "UserLogBase.h"
 #include "Event.h"
 #include "XMLUtil.h"
+#include "SettingsStore.h"
 
 using namespace std;
 
@@ -72,11 +73,10 @@ typedef vector<VECTOR_STRING>::iterator     VECTOR_VECTOR_STRING_ITER;
 /// @{
 
 // We need to be notified when parameters we are logging get changed, so we'll
-// subclass CDasherComponent and implement the HandleEvent() method.
-class CUserLog : public CUserLogBase
-{
+// watch for <int> events from the SettingsStore too.
+class CUserLog : public CUserLogBase, public Dasher::CSettingsObserver {
 public:
-  CUserLog(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, int iLogTypeMask);
+  CUserLog(Dasher::CSettingsUser *pCreateFrom, Observable<const Dasher::CEditEvent *> *pHandler, int iLogTypeMask);
 
   ~CUserLog();
 
@@ -101,7 +101,7 @@ public:
   void                        SetOuputFilename(const string& strFilename = "");
   int                         GetLogLevelMask();
   void KeyDown(int iId, int iType, int iEffect);
-  void                        HandleEvent(Dasher::CEvent* pEvent);
+  void                        HandleEvent(int iParameter);
 
   // Methods used by utility that can post-process the log files:
   CUserLog(string strXMLFilename);

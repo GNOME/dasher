@@ -1,5 +1,7 @@
 #include "BasicLog.h"
 
+#include "DasherInterfaceBase.h"
+
 #include <cmath>
 #include <fstream>
 #include <iostream>
@@ -10,7 +12,9 @@
 #include <sys/time.h>
 #endif
 
-CBasicLog::CBasicLog(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore) : CUserLogBase(pEventHandler, pSettingsStore) {
+using namespace Dasher;
+
+CBasicLog::CBasicLog(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pIntf) : CUserLogBase(pCreateFrom, pIntf) {
   m_iSymbolCount = 0;
   m_bStarted = false;
 }

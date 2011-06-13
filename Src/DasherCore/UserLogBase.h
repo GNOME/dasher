@@ -2,18 +2,23 @@
 #define __UserLogBase_h__
 
 #include "DasherTypes.h"
-#include "DasherComponent.h"
 #include "UserLogTrial.h" // Don't want to include this, but needed for event type enum
+#include "Observable.h"
 #include "Event.h"
+#include "SettingsStore.h"
 
 #include <string>
 #include <vector>
+
+namespace Dasher {
+  class CDasherInterfaceBase;
+}
+
 /// \defgroup Logging Logging routines
 /// @{
-class CUserLogBase : public Dasher::CDasherComponent {
+class CUserLogBase : protected Dasher::CSettingsUser, protected TransientObserver<const Dasher::CEditEvent *> {
  public:
-  CUserLogBase(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore)
-  : Dasher::CDasherComponent(pEventHandler, pSettingsStore), m_iNumDeleted(0) {};
+  CUserLogBase(Dasher::CSettingsUser *pCreateFrom, Observable<const Dasher::CEditEvent*> *pHandler);
 
   virtual void AddParam(const std::string& strName, const std::string& strValue, int iOptionMask = 0) = 0;
   virtual void AddParam(const std::string& strName, double dValue, int iOptionMask = 0) = 0;
@@ -32,7 +37,7 @@ class CUserLogBase : public Dasher::CDasherComponent {
   virtual int GetLogLevelMask() = 0;
   virtual void KeyDown(int iId, int iType, int iEffect) = 0;
   ///Watches output events to record symbols added/deleted
-  virtual void HandleEvent(Dasher::CEvent *pEvent);
+  virtual void HandleEvent(const Dasher::CEditEvent *pEvent);
   ///Passes record of symbols added/deleted to AddSymbols/DeleteSymbols
   void FrameEnded();
 protected:

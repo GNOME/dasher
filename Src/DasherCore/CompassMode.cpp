@@ -5,9 +5,9 @@
 
 #include "../Common/Common.h"
 
-
 #include "CompassMode.h"
 #include "DasherScreen.h"
+#include "DasherInterfaceBase.h"
 #include <valarray>
 #include <iostream>
 
@@ -34,8 +34,8 @@ static SModuleSettings sSettings[] = {
 
 // FIX iStyle == 2
 
-CCompassMode::CCompassMode(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
-  : CDasherButtons(pEventHandler, pSettingsStore, pInterface, false /*bMenu*/, 13, _("Compass Mode")) {}
+CCompassMode::CCompassMode(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface)
+  : CDasherButtons(pCreator, pInterface, false /*bMenu*/, 13, _("Compass Mode")) {}
 
 void CCompassMode::SetupBoxes()
 {
@@ -124,13 +124,10 @@ bool CCompassMode::DecorateView(CDasherView *pView, CDasherInput *pInput) {
   return bRV;
 }
 
-void CCompassMode::HandleEvent(Dasher::CEvent * pEvent) {
-  if(pEvent->m_iEventType == 1) {
-    Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
-    if (pEvt->m_iParameter == LP_RIGHTZOOM) {
-      delete[] m_pBoxes;
-      SetupBoxes();
-    }
+void CCompassMode::HandleEvent(int iParameter) {
+  if (iParameter == LP_RIGHTZOOM) {
+    delete[] m_pBoxes;
+    SetupBoxes();
   }
 }
 

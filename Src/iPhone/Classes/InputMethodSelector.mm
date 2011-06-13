@@ -166,7 +166,7 @@ int numSections = sizeof(allMeths) / sizeof(allMeths[0]);
 	
 	// Set up the cell...
   cell.textLabel.text = filter->title;
-	CDasherInterfaceBase *intf = [DasherAppDelegate theApp].dasherInterface;
+	CDasherInterfaceBridge *intf = [DasherAppDelegate theApp].dasherInterface;
   if (filter->deviceName == intf->GetStringParameter(SP_INPUT_DEVICE)
       && filter->filterName == intf->GetStringParameter(SP_INPUT_FILTER)) {
     //filter is currently selected...
@@ -218,7 +218,7 @@ int numSections = sizeof(allMeths) / sizeof(allMeths[0]);
 
   //and record it as selected...
 	self->selectedPath = indexPath;
-	CDasherInterfaceBase *intf = [DasherAppDelegate theApp].dasherInterface;
+	CDasherInterfaceBridge *intf = [DasherAppDelegate theApp].dasherInterface;
 	SFilterDesc *filter = &allMeths[ [indexPath section] ].filters[ [indexPath row] ];
 	intf->SetStringParameter(SP_INPUT_DEVICE, filter->deviceName);
 	intf->SetStringParameter(SP_INPUT_FILTER, filter->filterName);

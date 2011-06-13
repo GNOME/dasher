@@ -10,7 +10,6 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
-#include "DasherComponent.h"
 #include "Event.h"
 #include "DasherButtons.h"
 
@@ -25,7 +24,7 @@ namespace Dasher {
   class CAlternatingDirectMode : public CDasherButtons
 {
  public:
-  CAlternatingDirectMode(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface);
+  CAlternatingDirectMode(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface);
 
   bool DecorateView(CDasherView *pView, CDasherInput *pInput);
 

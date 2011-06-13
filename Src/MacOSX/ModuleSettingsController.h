@@ -10,13 +10,13 @@
 #import "COSXDasherControl.h"
 
 @interface ModuleSettingsController : NSWindowController {
-  CDasherInterfaceBase *intf;
+  COSXDasherControl *intf;
   SModuleSettings *settings;
   int count;
 }
 
 ///Create a parameters controller whose window has the specified title and allows to adjust the provided settings.
--(id)initWithTitle:(NSString *)title Interface:(CDasherInterfaceBase *)intf Settings:(SModuleSettings *)settings Count:(int)count;
+-(id)initWithTitle:(NSString *)title Interface:(COSXDasherControl *)intf Settings:(SModuleSettings *)settings Count:(int)count;
 
 ///Show the window modally. (blocks until window dismissed)
 -(void)showModal;

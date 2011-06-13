@@ -14,6 +14,8 @@
 int CONTROL_MODE_BPS[] = {BP_CONTROL_MODE_HAS_COPY, BP_CONTROL_MODE_HAS_SPEECH, BP_CONTROL_MODE_HAS_HALT, BP_CONTROL_MODE_HAS_EDIT};
 int OTHER_BPS[] = {BP_COPY_ALL_ON_STOP, BP_SPEAK_ALL_ON_STOP, BP_SPEAK_WORDS};
 
+using Dasher::Settings::GetParameterName;
+
 @implementation ActionConfigurator
 
 - (id)initWithButton:(ActionButton *)_button {
@@ -155,7 +157,7 @@ int OTHER_BPS[] = {BP_COPY_ALL_ON_STOP, BP_SPEAK_ALL_ON_STOP, BP_SPEAK_WORDS};
       sw.tag = cell.tag = [indexPath row] + 1;
       sw.on = [[NSUserDefaults standardUserDefaults] boolForKey:act->settingName];      
     } else {
-      CDasherInterfaceBase *intf=[DasherAppDelegate theApp].dasherInterface;
+      CDasherInterfaceBridge *intf=[DasherAppDelegate theApp].dasherInterface;
       int *params;
       if ([indexPath section]==0) {
         params=CONTROL_MODE_BPS;
@@ -166,7 +168,7 @@ int OTHER_BPS[] = {BP_COPY_ALL_ON_STOP, BP_SPEAK_ALL_ON_STOP, BP_SPEAK_WORDS};
       }
       int iParameter = params[[indexPath row]];
       [sw addTarget:self action:@selector(paramSlid:) forControlEvents:UIControlEventValueChanged];
-      cell.textLabel.text = NSStringFromStdString(intf->GetSettingsStore()->GetParameterName(iParameter));
+      cell.textLabel.text = NSStringFromStdString(GetParameterName(iParameter));
       //ensure we don't assign tag 0: 0 is default, so 'viewWithTag:0' could
       // return any subview.
       sw.tag = cell.tag = iParameter + 1;

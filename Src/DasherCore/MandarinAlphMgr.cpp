@@ -25,7 +25,7 @@
 #include "DasherInterfaceBase.h"
 #include "DasherNode.h"
 #include "Event.h"
-#include "EventHandler.h"
+#include "Observable.h"
 #include "NodeCreationManager.h"
 
 
@@ -46,8 +46,8 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphIO *pAlphIO)
-  : CAlphabetManager(pInterface, pNCManager, pAlphabet),
+CMandarinAlphMgr::CMandarinAlphMgr(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphIO *pAlphIO)
+  : CAlphabetManager(pCreator, pInterface, pNCManager, pAlphabet),
     m_pConversionsBySymbol(new set<symbol>[GetAlphabet()->GetNumberTextSymbols()+1]) {
   DASHER_ASSERT(pAlphabet->m_iConversionID==2);
       
@@ -126,10 +126,10 @@ CMandarinAlphMgr::~CMandarinAlphMgr() {
   delete[] m_pConversionsBySymbol;
 }
 
-void CMandarinAlphMgr::CreateLanguageModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore) {
+void CMandarinAlphMgr::CreateLanguageModel() {
   //std::cout<<"CHALphabet size "<< pCHAlphabet->GetNumberTextSymbols(); [7603]
   //std::cout<<"Setting PPMPY model"<<std::endl;
-  m_pLanguageModel = new CPPMPYLanguageModel(pEventHandler, pSettingsStore, m_CHtext.size()-1, m_pAlphabet->GetNumberTextSymbols());
+  m_pLanguageModel = new CPPMPYLanguageModel(this, m_CHtext.size()-1, m_pAlphabet->GetNumberTextSymbols());
 }
 
 CTrainer *CMandarinAlphMgr::GetTrainer() {
@@ -261,7 +261,7 @@ bool CMandarinAlphMgr::CConvRoot::isInGroup(const SGroupInfo *pGroup) {
 
 void CMandarinAlphMgr::CConvRoot::SetFlag(int iFlag, bool bValue) {
   if (iFlag==NF_COMMITTED && bValue && !GetFlag(NF_COMMITTED)
-      && !GetFlag(NF_GAME) && mgr()->m_pNCManager->GetBoolParameter(BP_LM_ADAPTIVE)) {
+      && !GetFlag(NF_GAME) && mgr()->GetBoolParameter(BP_LM_ADAPTIVE)) {
     //CConvRoot's context is the same as parent's context (no symbol yet!),
     // i.e. is the context in which the pinyin was predicted.
     static_cast<CPPMPYLanguageModel *>(mgr()->m_pLanguageModel)->LearnPYSymbol(iContext, m_pySym);
@@ -278,8 +278,8 @@ void CMandarinAlphMgr::GetConversions(std::vector<pair<symbol,unsigned int> > &v
   //ACL I think it's a good idea to keep those in a consistent order - symbol order will do nicely
   sort(vChildren.begin(),vChildren.end());
 
-  const uint64 iNorm(m_pNCManager->GetLongParameter(LP_NORMALIZATION));
-  const unsigned int uniform((m_pNCManager->GetLongParameter(LP_UNIFORM)*iNorm)/1000);
+  const uint64 iNorm(GetLongParameter(LP_NORMALIZATION));
+  const unsigned int uniform((GetLongParameter(LP_UNIFORM)*iNorm)/1000);
     
   //ACL pass in iNorm and uniform directly - GetPartProbs distributes the last param between
   // however elements there are in vChildren...

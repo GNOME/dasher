@@ -25,7 +25,7 @@
 #include "DasherInterfaceBase.h"
 #include "DasherNode.h"
 #include "Event.h"
-#include "EventHandler.h"
+#include "Observable.h"
 #include "NodeCreationManager.h"
 #include "LanguageModelling/PPMLanguageModel.h"
 #include "LanguageModelling/WordLanguageModel.h"
@@ -50,8 +50,8 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CAlphabetManager::CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet)
-  : m_pFirstGroup(NULL), m_pNCManager(pNCManager), m_pAlphabet(pAlphabet), m_pAlphabetMap(pAlphabet->MakeMap()), m_pInterface(pInterface), m_pLastOutput(NULL) {
+CAlphabetManager::CAlphabetManager(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet)
+  : CSettingsUser(pCreateFrom), m_pFirstGroup(NULL), m_pNCManager(pNCManager), m_pAlphabet(pAlphabet), m_pAlphabetMap(pAlphabet->MakeMap()), m_pInterface(pInterface), m_pLastOutput(NULL) {
   //Look for a (single-octet) character not in the alphabet...
   for (char c=33; (c&0x80)==0; c++) {
     string s(&c,1);
@@ -66,20 +66,20 @@ CAlphabetManager::CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreati
   m_vLabels.resize(m_pAlphabet->GetNumberTextSymbols()+1);
 }
 
-void CAlphabetManager::CreateLanguageModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore) {
+void CAlphabetManager::CreateLanguageModel() {
   // FIXME - return to using enum here
-  switch (m_pInterface->GetLongParameter(LP_LANGUAGE_MODEL_ID)) {
+  switch (GetLongParameter(LP_LANGUAGE_MODEL_ID)) {
     default:
       // If there is a bogus value for the language model ID, we'll default
       // to our trusty old PPM language model.
     case 0:
-      m_pLanguageModel = new CPPMLanguageModel(pEventHandler, pSettingsStore, m_pAlphabet->GetNumberTextSymbols());
+      m_pLanguageModel = new CPPMLanguageModel(this, m_pAlphabet->GetNumberTextSymbols());
       break;
     case 2:
-      m_pLanguageModel = new CWordLanguageModel(pEventHandler, pSettingsStore, m_pAlphabet, m_pAlphabetMap);
+      m_pLanguageModel = new CWordLanguageModel(this, m_pAlphabet, m_pAlphabetMap);
       break;
     case 3:
-      m_pLanguageModel = new CMixtureLanguageModel(pEventHandler, pSettingsStore, m_pAlphabet, m_pAlphabetMap);
+      m_pLanguageModel = new CMixtureLanguageModel(this, m_pAlphabet, m_pAlphabetMap);
       break;
     case 4:
       m_pLanguageModel = new CCTWLanguageModel(m_pAlphabet->GetNumberTextSymbols());
@@ -331,7 +331,7 @@ void CAlphabetManager::CSymbolNode::PopulateChildren() {
 }
 int CAlphabetManager::CAlphNode::ExpectedNumChildren() {
   int i=m_pMgr->m_pAlphabet->iNumChildNodes;
-  return (m_pMgr->m_pNCManager->GetBoolParameter(BP_CONTROL_MODE)) ? i+1 : i;
+  return (m_pMgr->GetBoolParameter(BP_CONTROL_MODE)) ? i+1 : i;
 }
 
 void CAlphabetManager::GetProbs(vector<unsigned int> *pProbInfo, CLanguageModel::Context context) {
@@ -343,7 +343,7 @@ void CAlphabetManager::GetProbs(vector<unsigned int> *pProbInfo, CLanguageModel:
   const unsigned long iNorm(m_pNCManager->GetAlphNodeNormalization());
   //the case for control mode on, generalizes to handle control mode off also,
   // as then iNorm - control_space == iNorm...
-  const unsigned int iUniformAdd = ((iNorm * m_pNCManager->GetLongParameter(LP_UNIFORM)) / 1000) / iSymbols;
+  const unsigned int iUniformAdd = ((iNorm * GetLongParameter(LP_UNIFORM)) / 1000) / iSymbols;
   const unsigned long iNonUniformNorm = iNorm - iSymbols * iUniformAdd;
   //  m_pLanguageModel->GetProbs(context, Probs, iNorm, ((iNorm * uniform) / 1000));
 
@@ -479,7 +479,7 @@ void CAlphabetManager::IterateChildGroups(CAlphNode *pParent, const SGroupInfo *
   DASHER_ASSERT((*pCProb)[0] == 0);
   const int iMin(pParentGroup ? pParentGroup->iStart : 1);
   const int iMax(pParentGroup ? pParentGroup->iEnd : m_pAlphabet->GetNumberTextSymbols()+1);
-  unsigned int iRange(pParentGroup ? ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]) : m_pNCManager->GetLongParameter(LP_NORMALIZATION));
+  unsigned int iRange(pParentGroup ? ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]) : GetLongParameter(LP_NORMALIZATION));
 
   // TODO: Think through alphabet file formats etc. to make this class easier.
   // TODO: Throw a warning if parent node already has children
@@ -497,10 +497,10 @@ void CAlphabetManager::IterateChildGroups(CAlphNode *pParent, const SGroupInfo *
     const int iStart=i, iEnd = (bSymbol) ? i+1 : pCurrentNode->iEnd;
     //uint64 is platform-dependently #defined in DasherTypes.h as an (unsigned) 64-bit int ("__int64" or "long long int")
     unsigned int iLbnd = (((*pCProb)[iStart-1] - (*pCProb)[iMin-1]) *
-                          (uint64)(m_pNCManager->GetLongParameter(LP_NORMALIZATION))) /
+                          (uint64)(GetLongParameter(LP_NORMALIZATION))) /
                          iRange;
     unsigned int iHbnd = (((*pCProb)[iEnd-1] - (*pCProb)[iMin-1]) *
-                          (uint64)(m_pNCManager->GetLongParameter(LP_NORMALIZATION))) /
+                          (uint64)(GetLongParameter(LP_NORMALIZATION))) /
                          iRange;
     if (bSymbol) {
       pNewChild = (buildAround) ? buildAround->RebuildSymbol(pParent, iLbnd, iHbnd, i) : CreateSymbolNode(pParent, iLbnd, iHbnd, i);
@@ -546,7 +546,7 @@ int CAlphabetManager::CSymbolNode::numChars() {
 }
 
 void CAlphabetManager::CSymbolNode::Output() {
-  if (m_pMgr->m_pNCManager->GetBoolParameter(BP_LM_ADAPTIVE)) {
+  if (m_pMgr->GetBoolParameter(BP_LM_ADAPTIVE)) {
     if (m_pMgr->m_pLastOutput != Parent()) {
       //Context changed. Flush to disk the old context + text written in it...
       m_pMgr->WriteTrainFileFull(m_pMgr->m_pInterface);
@@ -578,7 +578,7 @@ SymbolProb CAlphabetManager::CSymbolNode::GetSymbolProb(int iNormalization) cons
 
 void CAlphabetManager::CSymbolNode::Undo() {
   DASHER_ASSERT(GetFlag(NF_SEEN));
-  if (m_pMgr->m_pNCManager->GetBoolParameter(BP_LM_ADAPTIVE)) {
+  if (m_pMgr->GetBoolParameter(BP_LM_ADAPTIVE)) {
     if (m_pMgr->m_pLastOutput == this) {
       //Erase from training buffer, and move lastOutput backwards,
       // iff this node was actually written (i.e. not rebuilt _from_ context!)
@@ -629,7 +629,7 @@ void CAlphabetManager::CAlphBase::RebuildForwardsFromAncestor(CAlphNode *pNewNod
 // For want of a better solution, game mode exemption explicit in this function
 void CAlphabetManager::CSymbolNode::SetFlag(int iFlag, bool bValue) {
   if ((iFlag & NF_COMMITTED) && bValue && !GetFlag(NF_COMMITTED | NF_GAME)
-      && m_pMgr->m_pInterface->GetBoolParameter(BP_LM_ADAPTIVE)) {
+      && m_pMgr->GetBoolParameter(BP_LM_ADAPTIVE)) {
     //try to commit...if we have parent (else rebuilding (backwards) => don't)
     if (Parent()) {
       if (Parent()->mgr() != mgr()) return; //do not set flag

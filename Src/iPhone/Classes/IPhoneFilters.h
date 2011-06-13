@@ -35,14 +35,14 @@ extern NSString *TOUCH_USE_TILT_X;
 #define TOUCH_FILTER "IPhone Touch Filter"
 class CIPhoneTiltFilter : public COneDimensionalFilter, private IPhonePrefsObserver {
 public:
-	CIPhoneTiltFilter(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, CDasherInput *pTouch);
+	CIPhoneTiltFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, CDasherInput *pTouch);
   ///override to enable hold-to-go
 	virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
   ///override to enable hold-to-go
 	virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
 
   ///respond to BP_DASHER_PAUSED by engaging wakelock (if !hold-to-go)
-  virtual void HandleEvent(CEvent *pEvent);
+  virtual void HandleEvent(int iParameter);
   void iPhonePrefsChanged(NSString *key);
   bool supportsPause();
 protected:
@@ -59,7 +59,7 @@ private:
 
 class CIPhoneTouchFilter : public CStylusFilter, private IPhonePrefsObserver {
 public:
-	CIPhoneTouchFilter(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, UndoubledTouch *pUndoubledTouch, CIPhoneTiltInput *pTilt);
+	CIPhoneTouchFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, UndoubledTouch *pUndoubledTouch, CIPhoneTiltInput *pTilt);
 	
 	virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
   

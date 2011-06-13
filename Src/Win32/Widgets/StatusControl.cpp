@@ -6,8 +6,7 @@
 // TODO: Make this a notify?
 CONST UINT DASHER_SHOW_PREFS = RegisterWindowMessage(_DASHER_SHOW_PREFS);
 
-CStatusControl::CStatusControl(Dasher::CDasherInterfaceBase *pDasherInterface) {
-  m_pDasherInterface = pDasherInterface;
+CStatusControl::CStatusControl(CAppSettings *pAppSettings) : m_pAppSettings(pAppSettings) {
 }
 
 // TODO: ATL has more sophisticated handlers for conrol and notify messages - consider using them instead
@@ -37,7 +36,7 @@ LRESULT CStatusControl::OnNotify(UINT message, WPARAM wParam, LPARAM lParam, BOO
         SendMessage(m_hEdit, WM_GETTEXT, 32, (long)wszBuffer);
         double dNewSpeed = _tstof(wszBuffer);
 
-        m_pDasherInterface->SetLongParameter(LP_MAX_BITRATE, dNewSpeed * 100);
+        m_pAppSettings->SetLongParameter(LP_MAX_BITRATE, dNewSpeed * 100);
       }
       break;
     default:
@@ -188,22 +187,22 @@ void CStatusControl::PopulateCombo() {
 
   std::wstring strEntry;
   
-  WinUTF8::UTF8string_to_wstring(m_pDasherInterface->GetStringParameter(SP_ALPHABET_ID), strEntry);
+  WinUTF8::UTF8string_to_wstring(m_pAppSettings->GetStringParameter(SP_ALPHABET_ID), strEntry);
   SendMessage(m_hCombo, CB_ADDSTRING, 0, (LPARAM) (LPCTSTR)strEntry.c_str());
 
-  WinUTF8::UTF8string_to_wstring(m_pDasherInterface->GetStringParameter(SP_ALPHABET_1), strEntry);
+  WinUTF8::UTF8string_to_wstring(m_pAppSettings->GetStringParameter(SP_ALPHABET_1), strEntry);
   if(strEntry.size() > 0)
     SendMessage(m_hCombo, CB_ADDSTRING, 0, (LPARAM) (LPCTSTR)strEntry.c_str());
 
-  WinUTF8::UTF8string_to_wstring(m_pDasherInterface->GetStringParameter(SP_ALPHABET_2), strEntry);
+  WinUTF8::UTF8string_to_wstring(m_pAppSettings->GetStringParameter(SP_ALPHABET_2), strEntry);
   if(strEntry.size() > 0)
     SendMessage(m_hCombo, CB_ADDSTRING, 0, (LPARAM) (LPCTSTR)strEntry.c_str());
 
-  WinUTF8::UTF8string_to_wstring(m_pDasherInterface->GetStringParameter(SP_ALPHABET_3), strEntry);
+  WinUTF8::UTF8string_to_wstring(m_pAppSettings->GetStringParameter(SP_ALPHABET_3), strEntry);
   if(strEntry.size() > 0)
     SendMessage(m_hCombo, CB_ADDSTRING, 0, (LPARAM) (LPCTSTR)strEntry.c_str());
 
-  WinUTF8::UTF8string_to_wstring(m_pDasherInterface->GetStringParameter(SP_ALPHABET_4), strEntry);
+  WinUTF8::UTF8string_to_wstring(m_pAppSettings->GetStringParameter(SP_ALPHABET_4), strEntry);
   if(strEntry.size() > 0)
     SendMessage(m_hCombo, CB_ADDSTRING, 0, (LPARAM) (LPCTSTR)strEntry.c_str());
 
@@ -226,14 +225,14 @@ void CStatusControl::SelectAlphabet() {
     std::string strNewValue;
     WinUTF8::wstring_to_UTF8string(szSelection, strNewValue);
 
-    m_pDasherInterface->SetStringParameter(SP_ALPHABET_ID, strNewValue);
+    m_pAppSettings->SetStringParameter(SP_ALPHABET_ID, strNewValue);
   }
 
   delete[] szSelection;
 }
 
 void CStatusControl::PopulateSpeed() {
-  int iValue(m_pDasherInterface->GetLongParameter(LP_MAX_BITRATE));
+  int iValue(m_pAppSettings->GetLongParameter(LP_MAX_BITRATE));
 
   TCHAR *Buffer = new TCHAR[10];
   _stprintf(Buffer, TEXT("%0.2f"), iValue / 100.0);
@@ -257,5 +256,5 @@ void CStatusControl::UpdateSpeed(int iPos, int iDelta) {
   SendMessage(m_hEdit, WM_SETTEXT, 0, (LPARAM) (LPCSTR) Buffer);
   delete[]Buffer;
 
-  m_pDasherInterface->SetLongParameter(LP_MAX_BITRATE, iValue);
+  m_pAppSettings->SetLongParameter(LP_MAX_BITRATE, iValue);
 }

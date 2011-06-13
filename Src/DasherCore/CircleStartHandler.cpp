@@ -26,12 +26,20 @@
 
 using namespace Dasher;
 
-CCircleStartHandler::CCircleStartHandler(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface)
-: CStartHandler(pEventHandler, pSettingsStore, pInterface), m_iEnterTime(std::numeric_limits<long>::max()), m_iScreenRadius(-1) {
+CCircleStartHandler::CCircleStartHandler(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface)
+: CStartHandler(pInterface), CSettingsUserObserver(pCreator), m_iEnterTime(std::numeric_limits<long>::max()), m_iScreenRadius(-1), m_pView(NULL) {
+}
+
+CCircleStartHandler::~CCircleStartHandler() {
+  if (m_pView) m_pView->Unregister(this);
 }
 
 void CCircleStartHandler::ComputeScreenLoc(CDasherView *pView) {
-  if (m_iScreenRadius!=-1) return;
+  if (pView != m_pView) {
+    if (m_pView) m_pView->Unregister(this);
+    (m_pView=pView)->Register(this);
+  } else if (m_iScreenRadius!=-1) return;
+  
   pView->Dasher2Screen(GetLongParameter(LP_OX),GetLongParameter(LP_OY),m_screenCircleCenter.x,m_screenCircleCenter.y);
   //compute radius against orientation. It'd be simpler to use
   // Math.min(screen width, screen height) * LP_CIRCLE_PERCENT / 100
@@ -98,11 +106,8 @@ void CCircleStartHandler::Timer(int iTime, dasherint mouseX, dasherint mouseY,CD
   }
 }
 
-void CCircleStartHandler::HandleEvent(Dasher::CEvent * pEvent) {
-  if(pEvent->m_iEventType == EV_PARAM_NOTIFY) {
-    Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
-
-    switch (pEvt->m_iParameter) {
+void CCircleStartHandler::HandleEvent(int iParameter) {
+  switch (iParameter) {
     case LP_REAL_ORIENTATION:
     case LP_CIRCLE_PERCENT:
       //recompute geometry.
@@ -116,9 +121,11 @@ void CCircleStartHandler::HandleEvent(Dasher::CEvent * pEvent) {
       // the circle before the start handler does anything. The following ensures this.
       m_bInCircle = true;
       break;
-    }
-  } else if (pEvent->m_iEventType == EV_SCREEN_GEOM) {
-    //need to recompute geometry (in next DecorateView or Timer)
-    m_iScreenRadius = -1;
   }
+}
+
+void CCircleStartHandler::HandleEvent(CDasherView *pNewView) {
+  //need to recompute geometry...
+  m_iScreenRadius = -1; //even if it's the same view
+  ComputeScreenLoc(pNewView);
 }

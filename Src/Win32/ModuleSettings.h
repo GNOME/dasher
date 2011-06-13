@@ -1,7 +1,7 @@
 //#ifndef __ModuleSettings_h__
 //#define __ModuleSettings_h__
 
-#include "../DasherCore/DasherInterfaceBase.h"
+#include "AppSettings.h"
 #include "ModuleControl.h"
 
 #include <atlbase.h>
@@ -13,7 +13,7 @@ extern CONST UINT WM_MS_CLOSE;
 
 class CModuleSettings : public CWindowImpl<CModuleSettings> {
 public:
-  CModuleSettings(const std::string &strModuleName, SModuleSettings *pSettings, int iCount, Dasher::CDasherInterfaceBase *pInterface);
+  CModuleSettings(const std::string &strModuleName, SModuleSettings *pSettings, int iCount, CAppSettings *pAppSets);
   ~CModuleSettings();
 
   void Create(HWND hWndParent, ATL::_U_RECT rect);
@@ -44,7 +44,7 @@ private:
   HWND m_hOk;
   HWND m_hCancel;
 
-  Dasher::CDasherInterfaceBase *m_pInterface;
+  CAppSettings *m_pAppSets;
 };
 
 //#endif

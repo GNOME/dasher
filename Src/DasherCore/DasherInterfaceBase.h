@@ -50,13 +50,10 @@ namespace Dasher {
   class CDasherInput;
   class CInputFilter;
   class CDasherModel;
-  class CEventHandler;
-  class CEvent;
-
+  class CSettingsStore;
   class CDasherInterfaceBase;
 }
 
-class CSettingsStore;
 class CUserLogBase;
 class CNodeCreationManager;
 
@@ -69,10 +66,10 @@ class CNodeCreationManager;
 /// the UI to use. Note: CMessageDisplay unimplemented; platforms should
 /// provide their own methods using appropriate GUI components, or subclass
 /// CDashIntfScreenMsgs instead.
-class Dasher::CDasherInterfaceBase : public CMessageDisplay, private NoClones
-{
+class Dasher::CDasherInterfaceBase : public CMessageDisplay, public Observable<const CEditEvent *>, protected Observer<int>, protected CSettingsUser, private NoClones {
 public:
-  CDasherInterfaceBase();
+  ///Create a new interface by providing the only-and-only settings store that will be used throughout.
+  CDasherInterfaceBase(CSettingsStore *pSettingsStore);
   virtual ~CDasherInterfaceBase();
 
   /// @name Access to internal member classes
@@ -80,20 +77,6 @@ public:
   /// should be considered dangerous and use minimised. Eventually to
   /// be replaced by properly encapsulated equivalents.
   /// @{
-
-  ///
-  /// Return a pointer to the current EventHandler (the one
-  /// which the CSettingsStore is using to notify parameter
-  /// changes)
-  ///
-
-  virtual CEventHandler *GetEventHandler() {
-    return m_pEventHandler;
-  };
-
-  virtual CSettingsStore *GetSettingsStore() {
-    return m_pSettingsStore;
-  }
 
   CUserLogBase* GetUserLogPtr();
 
@@ -105,48 +88,6 @@ public:
   ///
 
   //@{
-
-  ///
-  /// Set a boolean parameter.
-  /// \param iParameter The parameter to set.
-  /// \param bValue The new value.
-  ///
-
-  void SetBoolParameter(int iParameter, bool bValue);
-
-  ///
-  /// Set a long integer parameter.
-  /// \param iParameter The parameter to set.
-  /// \param lValue The new value.
-  ///
-
-  void SetLongParameter(int iParameter, long lValue);
-
-  ///
-  /// Set a string parameter.
-  /// \param iParameter The parameter to set.
-  /// \param sValue The new value.
-  ///
-
-  void SetStringParameter(int iParameter, const std::string & sValue);
-
-  /// Get a boolean parameter
-  /// \param iParameter The parameter to get.
-  /// \retval The current value.
-
-  bool GetBoolParameter(int iParameter);
-
-  /// Get a long integer parameter
-  /// \param iParameter The parameter to get.
-  /// \retval The current value.
-
-  long GetLongParameter(int iParameter);
-
-  /// Get a string parameter
-  /// \param iParameter The parameter to get.
-  /// \retval The current value.
-
-  std::string GetStringParameter(int iParameter);
 
   ///
   /// Reset a parameter to the default value
@@ -167,24 +108,18 @@ public:
 
   bool GetModuleSettings(const std::string &strName, SModuleSettings **pSettings, int *iCount);
 
-
   //@}
 
-  /// Forward events to listeners in the SettingsUI and Editbox.
-  /// \param pEvent The event to forward.
-  /// \todo Should be protected.
-
-  virtual void ExternalEventHandler(Dasher::CEvent * pEvent) {};
-
-  /// Interface level event handler. For example, responsible for
+  /// Called when a parameter changes - but *after* components have been notified.
+  /// Subsumes previous Interface level event handler, for example, responsible for
   /// restarting the Dasher model whenever parameter changes make it
-  /// invalid.
-  /// \param pEvent The event.
-  /// \todo Should be protected.
+  /// invalid. Subclasses should override to forward events to SettingsUI, editbox,
+  /// etc., as appropriate, but should _call_through_to_superclass_method_ first.
+  /// \param iParameter The parameter that's just changed.
+  /// \todo Should be protected (??)
 
-  void InterfaceEventHandler(Dasher::CEvent * pEvent);
-
-
+  virtual void HandleEvent(int iParameter);
+  
   void PreSetNotify(int iParameter, const std::string &sValue);
 
   ///Locks/unlocks Dasher. The default here stores the lock message and percentage
@@ -452,11 +387,12 @@ protected:
   /// @{
 
   ///
-  /// Allocate resources, create alphabets etc. This is a separate
-  /// routine to the constructor to give us a chance to set up
-  /// parameters before things are created.
+  /// Finish initializing the DasherInterface; we can't do everything in the constructor,
+  /// because some initialization depends on virtual methods provided by subclasses.
+  /// Both Realize and ChangeScreen must be called after construction before other functions
+  /// will work, but they can be called in either order (as the SettingsStore is passed into
+  /// the c'tor).
   ///
-
   void Realize();
 
   ///
@@ -522,11 +458,24 @@ protected:
 
   /// @}
 
-  CEventHandler *m_pEventHandler;
-  CSettingsStore *m_pSettingsStore;
-
   CDasherScreen *m_DasherScreen;
+
+  /// Asynchronous (non-modal) messages to be displayed to the user, longest-ago
+  /// at the front, along with the timestamp of the frame at which each was first
+  /// displayed to the user - 0 if not yet displayed.
+  std::deque<pair<CDasherScreen::Label*, unsigned long> > m_dqAsyncMessages;
+  
+  /// Modal messages being or waiting to be displayed to the user, longest-ago
+  /// at the front, along with the timestamp when each was first displayed to the
+  /// user (0 if not yet displayed).
+  std::deque<pair<CDasherScreen::Label*, unsigned long> > m_dqModalMessages;
+  
  private:
+  
+  ///We keep a reference to the (currently unique/global) SettingsStore with which
+  /// this interface was created, as ClSet and ResetParameter need to access it.
+  /// (TODO _could_ move these into CSettingsUser, but that seems uglier given so few clients?)
+  CSettingsStore * const m_pSettingsStore;
 
   //The default expansion policy to use - an amortized policy depending on the LP_NODE_BUDGET parameter.
   CExpansionPolicy *m_defaultPolicy;
@@ -565,14 +514,6 @@ protected:
   ///
 
   virtual void SetupUI() = 0;
-
-  ///
-  /// Create settings store object, which will be platform dependent
-  /// TODO: Can this not be done just by selecting which settings
-  /// store implementation to instantiate?
-  ///
-
-  virtual void CreateSettingsStore() = 0;
 
   ///
   /// Start the callback timer
@@ -614,6 +555,15 @@ protected:
   std::vector<CActionButton *> m_vRightButtons;
 
 
+  class WordSpeaker : public TransientObserver<const CEditEvent *> {
+  public:
+    WordSpeaker(CDasherInterfaceBase *pIntf);
+    void HandleEvent(const CEditEvent *);
+  private:
+    ///builds up the word currently being entered
+    std::string m_strCurrentWord;
+  } *m_pWordSpeaker;
+  
   /// @name Child components
   /// Various objects which are 'owned' by the core.
   /// @{
@@ -627,9 +577,6 @@ protected:
   CNodeCreationManager *m_pNCManager;
   CUserLogBase *m_pUserLog;
   /// @}
-
-  ///builds up the word currently being entered for speech.
-  std::string m_strCurrentWord;
 
   ///If non-empty, Dasher is locked, and this is the message that should be displayed.
   std::string m_strLockMessage;

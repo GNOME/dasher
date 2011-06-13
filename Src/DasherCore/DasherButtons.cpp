@@ -5,9 +5,9 @@
 
 #include "../Common/Common.h"
 
-
 #include "DasherButtons.h"
 #include "DasherScreen.h"
+#include "DasherInterfaceBase.h"
 #include <valarray>
 #include <iostream>
 
@@ -23,10 +23,8 @@ static char THIS_FILE[] = __FILE__;
 
 using namespace Dasher;
 
-// FIXME - should compass mode be made a separate class?
-
-CDasherButtons::CDasherButtons(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, bool bMenu, ModuleID_t iID, const char *szName)
-  : CInputFilter(pEventHandler, pSettingsStore, pInterface, iID, szName), m_bMenu(bMenu), m_bDecorationChanged(true), m_pBoxes(NULL), iActiveBox(0) {}
+CDasherButtons::CDasherButtons(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, bool bMenu, ModuleID_t iID, const char *szName)
+  : CSettingsUser(pCreator), CInputFilter(pInterface, iID, szName), m_bMenu(bMenu), m_bDecorationChanged(true), m_pBoxes(NULL), iActiveBox(0) {}
 
 CDasherButtons::~CDasherButtons()
 {

@@ -30,7 +30,7 @@ namespace Dasher {
 /// @{
 class CTwoButtonDynamicFilter : public CButtonMultiPress {
  public:
-  CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface);
+  CTwoButtonDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface);
 
   // Inherited methods
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);
@@ -42,7 +42,7 @@ class CTwoButtonDynamicFilter : public CButtonMultiPress {
 
   virtual bool GetMinWidth(int &iMinWidth);
 
-  virtual void HandleEvent(Dasher::CEvent *pEvent);
+  virtual void HandleEvent(int iParameter);
   
  protected:
   virtual void run();

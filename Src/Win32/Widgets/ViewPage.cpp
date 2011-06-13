@@ -26,10 +26,10 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CViewPage::CViewPage(HWND Parent, Dasher::CDasherInterfaceBase *DI, CAppSettings *pAppSettings)
-:CPrefsPageBase(Parent, DI, pAppSettings) {
+CViewPage::CViewPage(HWND Parent, CAppSettings *pAppSettings)
+:CPrefsPageBase(Parent, pAppSettings) {
 
-  m_CurrentColours = DI->GetStringParameter(SP_COLOUR_ID);
+  m_CurrentColours = pAppSettings->GetStringParameter(SP_COLOUR_ID);
 }
 
 struct menuentry {
@@ -69,7 +69,7 @@ void CViewPage::PopulateList() {
 
 
   HWND ListBox = GetDlgItem(m_hwnd, IDC_COLOURS);
-  m_pDasherInterface->GetPermittedValues(SP_COLOUR_ID, ColourList);
+  m_pAppSettings->GetPermittedValues(SP_COLOUR_ID, ColourList);
 
   // Add each string to list box and index each one
   bool SelectionSet = false;
@@ -128,7 +128,7 @@ bool CViewPage::Apply() {
 
 
   if(m_CurrentColours != std::string("")) {
-        m_pDasherInterface->SetStringParameter(SP_COLOUR_ID, m_CurrentColours);
+        m_pAppSettings->SetStringParameter(SP_COLOUR_ID, m_CurrentColours);
   }
 
   m_pAppSettings->SetBoolParameter(BP_PALETTE_CHANGE, 

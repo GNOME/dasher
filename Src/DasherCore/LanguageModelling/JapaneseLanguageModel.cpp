@@ -38,8 +38,8 @@ static char THIS_FILE[] = __FILE__;
 
 /////////////////////////////////////////////////////////////////////
 
-CJapaneseLanguageModel::CJapaneseLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphInfo *pAlph)
-:CLanguageModel(pEventHandler, pSettingsStore, pAlph), m_iMaxOrder(5), NodesAllocated(0), m_NodeAlloc(8192), m_ContextAlloc(1024) {
+CJapaneseLanguageModel::CJapaneseLanguageModel(CSettingsStore *pSettingsStore, const CAlphInfo *pAlph)
+:CLanguageModel(pAlph->GetNumberTextSymbols()), m_pSettingsStore(pSettingsStore), m_iMaxOrder(5), NodesAllocated(0), m_NodeAlloc(8192), m_ContextAlloc(1024) {
   m_pRoot = m_NodeAlloc.Alloc();
   m_pRoot->symbol = -1;
 
@@ -49,7 +49,7 @@ CJapaneseLanguageModel::CJapaneseLanguageModel(Dasher::CEventHandler *pEventHand
 
   // Cache the result of update exclusion - otherwise we have to look up a lot when training, which is slow
 
-  bUpdateExclusion = ( GetLongParameter(LP_LM_UPDATE_EXCLUSION) !=0 );
+  bUpdateExclusion = ( m_pSettingsStore->GetLongParameter(LP_LM_UPDATE_EXCLUSION) !=0 );
   
 }
 
@@ -80,8 +80,8 @@ void CJapaneseLanguageModel::GetProbs(Context context, std::vector<unsigned int>
 
   bool doExclusion = 0; //FIXME
 
-  int alpha = GetLongParameter( LP_LM_ALPHA );
-  int beta = GetLongParameter( LP_LM_BETA );
+  int alpha = m_pSettingsStore->GetLongParameter( LP_LM_ALPHA );
+  int beta = m_pSettingsStore->GetLongParameter( LP_LM_BETA );
 
 
   unsigned int iToSpend = norm;
@@ -341,7 +341,7 @@ void CJapaneseLanguageModel::AddSymbol(CJapaneseLanguageModel::CJaPPMContext &co
   vineptr->vine = m_pRoot;
 
   //  m_iMaxOrder = LanguageModelParams()->GetValue(std::string("LMMaxOrder"));
-  m_iMaxOrder = GetLongParameter( LP_LM_MAX_ORDER );
+  m_iMaxOrder = m_pSettingsStore->GetLongParameter( LP_LM_MAX_ORDER );
 
   while(context.order > m_iMaxOrder) {
     context.head = context.head->vine;

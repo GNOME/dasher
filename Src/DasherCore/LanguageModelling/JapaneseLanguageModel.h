@@ -21,7 +21,7 @@ namespace Dasher {
   /// \{
   class CJapaneseLanguageModel:public CLanguageModel, private NoClones {
   public:
-    CJapaneseLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CAlphInfo *pAlph);
+    CJapaneseLanguageModel(CSettingsStore * pSettingsStore, const CAlphInfo *pAlph);
 
     virtual ~ CJapaneseLanguageModel();
 
@@ -37,6 +37,7 @@ namespace Dasher {
     void dump();
 
   private:
+    CSettingsStore *m_pSettingsStore;
 
     class CJaPPMnode {
     public:

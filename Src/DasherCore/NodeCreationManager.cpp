@@ -4,7 +4,7 @@
 #include "MandarinAlphMgr.h"
 #include "ConvertingAlphMgr.h"
 #include "ControlManager.h"
-#include "EventHandler.h"
+#include "Observable.h"
 
 #include <string.h>
 
@@ -36,17 +36,16 @@ private:
   string m_strDisplay;
 };
 
-CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterface,
-                                           Dasher::CEventHandler *pEventHandler, 
-                                           CSettingsStore *pSettingsStore,
-                                           const Dasher::CAlphIO *pAlphIO) : CDasherComponent(pEventHandler, pSettingsStore),
+CNodeCreationManager::CNodeCreationManager(CSettingsUser *pCreateFrom,
+                                           Dasher::CDasherInterfaceBase *pInterface,
+                                           const Dasher::CAlphIO *pAlphIO) : CSettingsUserObserver(pCreateFrom),
   m_pInterface(pInterface), m_pControlManager(NULL), m_pScreen(NULL) {
 
-  const Dasher::CAlphInfo *pAlphInfo(pAlphIO->GetInfo(pSettingsStore->GetStringParameter(SP_ALPHABET_ID)));
+  const Dasher::CAlphInfo *pAlphInfo(pAlphIO->GetInfo(GetStringParameter(SP_ALPHABET_ID)));
   
-  pSettingsStore->SetStringParameter(SP_GAME_TEXT_FILE, pAlphInfo->GetGameModeFile());
+  SetStringParameter(SP_GAME_TEXT_FILE, pAlphInfo->GetGameModeFile());
   
-  pSettingsStore->SetStringParameter(SP_DEFAULT_COLOUR_ID, pAlphInfo->GetPalette());
+  SetStringParameter(SP_DEFAULT_COLOUR_ID, pAlphInfo->GetPalette());
   
   // --
   
@@ -55,7 +54,7 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
       //TODO: Error reporting here
       //fall through to
     case 0: // No conversion required
-      m_pAlphabetManager = new CAlphabetManager(pInterface, this, pAlphInfo);
+      m_pAlphabetManager = new CAlphabetManager(this, pInterface, this, pAlphInfo);
       break;      
 #ifdef JAPANESE
     case 1: {
@@ -74,12 +73,12 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
     case 2:
       //Mandarin Dasher!
       //(ACL) Modify AlphabetManager for Mandarin Dasher
-      m_pAlphabetManager = new CMandarinAlphMgr(pInterface, this, pAlphInfo, pAlphIO);
+      m_pAlphabetManager = new CMandarinAlphMgr(this, pInterface, this, pAlphInfo, pAlphIO);
       break;
   }
   //all other configuration changes, etc., that might be necessary for a particular conversion mode,
   // are implemented by AlphabetManager subclasses overriding the following two methods:
-  m_pAlphabetManager->CreateLanguageModel(pEventHandler, pSettingsStore);
+  m_pAlphabetManager->CreateLanguageModel();
   m_pTrainer = m_pAlphabetManager->GetTrainer();
     
   if (!pAlphInfo->GetTrainingFile().empty()) {
@@ -123,8 +122,8 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
   }
 #endif
 
-  HandleEvent(&CParameterNotificationEvent(LP_ORIENTATION));
-  HandleEvent(&CParameterNotificationEvent(BP_CONTROL_MODE));
+  HandleEvent(LP_ORIENTATION);
+  HandleEvent(BP_CONTROL_MODE);
 }
 
 CNodeCreationManager::~CNodeCreationManager() {
@@ -141,33 +140,30 @@ void CNodeCreationManager::ChangeScreen(CDasherScreen *pScreen) {
   if (m_pControlManager) m_pControlManager->MakeLabels(pScreen);
 }
 
-void CNodeCreationManager::HandleEvent(CEvent *pEvent) {
-  if (pEvent->m_iEventType == EV_PARAM_NOTIFY) {
-    switch (static_cast<CParameterNotificationEvent *>(pEvent)->m_iParameter) {
-      case BP_CONTROL_MODE: {
-        delete m_pControlManager;
-        const unsigned long iNorm(GetLongParameter(LP_NORMALIZATION));
-        unsigned long iControlSpace;
-        if (GetBoolParameter(BP_CONTROL_MODE)) {
-          m_pControlManager = new CControlManager(m_pEventHandler, m_pSettingsStore, this, m_pInterface);
-          if (m_pScreen) m_pControlManager->MakeLabels(m_pScreen);
-          iControlSpace = iNorm / 20;
-        } else {
-          m_pControlManager = NULL;
-          iControlSpace = 0;
-        }
-        m_iAlphNorm = iNorm-iControlSpace;
-        break;
+void CNodeCreationManager::HandleEvent(int iParameter) {
+  switch (iParameter) {
+    case BP_CONTROL_MODE: {
+      delete m_pControlManager;
+      const unsigned long iNorm(GetLongParameter(LP_NORMALIZATION));
+      unsigned long iControlSpace;
+      if (GetBoolParameter(BP_CONTROL_MODE)) {
+        m_pControlManager = new CControlManager(this, this, m_pInterface);
+        if (m_pScreen) m_pControlManager->MakeLabels(m_pScreen);
+        iControlSpace = iNorm / 20;
+      } else {
+        m_pControlManager = NULL;
+        iControlSpace = 0;
       }
-      case LP_ORIENTATION: {
-        const long iOverride(GetLongParameter(LP_ORIENTATION));
-        SetLongParameter(LP_REAL_ORIENTATION,
-                         iOverride == Dasher::Opts::AlphabetDefault ? GetAlphabet()->GetOrientation() : iOverride);
-      }
+      m_iAlphNorm = iNorm-iControlSpace;
+      break;
+    }
+    case LP_ORIENTATION: {
+      const long iOverride(GetLongParameter(LP_ORIENTATION));
+      SetLongParameter(LP_REAL_ORIENTATION,
+                       iOverride == Dasher::Opts::AlphabetDefault ? GetAlphabet()->GetOrientation() : iOverride);
     }
   }
 }
-
 
 void CNodeCreationManager::AddExtras(CDasherNode *pParent) {
   //control mode:

@@ -9,7 +9,7 @@
 
 #import "../DasherCore/DasherInput.h"
 #import "../DasherCore/DasherTypes.h"
-
+#import "../DasherCore/SettingsStore.h"
 #import "SBTree.h"
 #import <deque>
 #import "Vec3.h"
@@ -22,7 +22,7 @@ namespace Dasher {
 
 class CIPhoneTiltInput : public CScreenCoordInput {
 public:
-	CIPhoneTiltInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore); 
+	CIPhoneTiltInput(); 
 	~CIPhoneTiltInput();
 	
 	void NotifyTilt(float fx, float fy, float fz);
@@ -51,15 +51,15 @@ private:
 
 class UndoubledTouch : public CScreenCoordInput {
 public:
-  UndoubledTouch(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore);
+  UndoubledTouch();
   bool GetScreenCoords(screenint &iX, screenint &iY, CDasherView *pView);
 protected:
-  UndoubledTouch(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, ModuleID_t iId, const char *szName);
+  UndoubledTouch(ModuleID_t iId, const char *szName);
 };
 
-class CIPhoneMouseInput : public UndoubledTouch {
+class CIPhoneMouseInput : public UndoubledTouch, protected CSettingsUser {
 public:
-	CIPhoneMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore);
+	CIPhoneMouseInput(CSettingsUser *pCreator);
   
   bool GetScreenCoords(screenint &iX, screenint &iY, CDasherView *pView);
 };

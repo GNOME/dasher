@@ -24,10 +24,10 @@ bool CDefaultFilter::GetSettings(SModuleSettings **sets, int *iCount) {
   return true;
 }
 
-CDefaultFilter::CDefaultFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
-  : CInputFilter(pEventHandler, pSettingsStore, pInterface, iID, szName) {
+CDefaultFilter::CDefaultFilter(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
+  : CInputFilter(pInterface, iID, szName), CSettingsUserObserver(pCreateFrom) {
   m_pStartHandler = 0;
-  m_pAutoSpeedControl = new CAutoSpeedControl(pInterface, m_pEventHandler, m_pSettingsStore);
+  m_pAutoSpeedControl = new CAutoSpeedControl(this, pInterface);
 
   // Initialize autocalibration (i.e. seen nothing yet)
   m_iSum = 0;
@@ -165,16 +165,12 @@ void CDefaultFilter::KeyDown(int iTime, int iId, CDasherView *pDasherView, CDash
   }
 }
 
-void CDefaultFilter::HandleEvent(Dasher::CEvent * pEvent) {
-  if(pEvent->m_iEventType == 1) {
-    Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
-
-    switch (pEvt->m_iParameter) {
-    case BP_CIRCLE_START:
-    case BP_MOUSEPOS_MODE:
-      CreateStartHandler();
-      break;
-    }
+void CDefaultFilter::HandleEvent(int iParameter) {
+  switch (iParameter) {
+  case BP_CIRCLE_START:
+  case BP_MOUSEPOS_MODE:
+    CreateStartHandler();
+    break;
   }
 }
 
@@ -195,9 +191,9 @@ void CDefaultFilter::Deactivate() {
 
 CStartHandler *CDefaultFilter::MakeStartHandler() {
   if(GetBoolParameter(BP_CIRCLE_START))
-    return new CCircleStartHandler(m_pEventHandler, m_pSettingsStore, m_pInterface);
+    return new CCircleStartHandler(this, m_pInterface);
   if(GetBoolParameter(BP_MOUSEPOS_MODE))
-    return new CTwoBoxStartHandler(m_pEventHandler, m_pSettingsStore, m_pInterface);
+    return new CTwoBoxStartHandler(this, m_pInterface);
   return NULL;
 }
 

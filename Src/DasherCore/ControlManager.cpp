@@ -36,8 +36,8 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CControlBase::CControlBase( CNodeCreationManager *pNCManager)
-  : m_pNCManager(pNCManager), m_pRoot(NULL) {
+CControlBase::CControlBase(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager)
+  : CSettingsUser(pCreateFrom), m_pInterface(pInterface), m_pNCManager(pNCManager), m_pRoot(NULL) {
 }
 
 CControlBase::NodeTemplate *CControlBase::GetRootTemplate() {
@@ -96,7 +96,7 @@ void CControlBase::CContNode::PopulateChildren() {
   CDasherNode *pNewNode;
 
   const unsigned int iNChildren( m_pTemplate->successors.size() );
-  const unsigned int iNorm(m_pMgr->m_pNCManager->GetLongParameter(LP_NORMALIZATION));
+  const unsigned int iNorm(m_pMgr->GetLongParameter(LP_NORMALIZATION));
   unsigned int iLbnd(0), iIdx(0);
 
   for (vector<NodeTemplate *>::iterator it = m_pTemplate->successors.begin(); it!=m_pTemplate->successors.end(); it++) {
@@ -127,13 +127,13 @@ void CControlBase::CContNode::Output() {
 
 void CControlBase::CContNode::Enter() {
   // Slow down to half the speed we were at. This also disables auto-speed-control.
-  m_pMgr->m_pNCManager->SetLongParameter(LP_BOOSTFACTOR, 50);
+  m_pMgr->SetLongParameter(LP_BOOSTFACTOR, 50);
 }
 
 
 void CControlBase::CContNode::Leave() {
   // Now speed back up, by doubling the speed we were at in control mode
-  m_pMgr->m_pNCManager->SetLongParameter(LP_BOOSTFACTOR, 100);
+  m_pMgr->SetLongParameter(LP_BOOSTFACTOR, 100);
 }
 
 const vector<CControlBase::NodeTemplate *> &CControlParser::parsedNodes() {
@@ -242,8 +242,8 @@ bool CControlParser::LoadFile(CMessageDisplay *pMsgs, const string &strFileName)
   return true;
 }
 
-CControlManager::CControlManager(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pInterface)
-: CDasherComponent(pEventHandler, pSettingsStore), CControlBase(pNCManager), m_pInterface(pInterface), m_pSpeech(NULL), m_pCopy(NULL) {
+CControlManager::CControlManager(CSettingsUser *pCreateFrom, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pInterface)
+: CControlBase(pCreateFrom, pInterface, pNCManager), CSettingsObserver(pCreateFrom), m_pSpeech(NULL), m_pCopy(NULL) {
   //TODO, used to be able to change label+colour of root/pause/stop from controllabels.xml
   // (or, get the root node title "control" from the alphabet!)
   SetRootTemplate(new NodeTemplate("Control",8)); //default NodeTemplate does nothing
@@ -257,8 +257,8 @@ CControlManager::CControlManager(CEventHandler *pEventHandler, CSettingsStore *p
   m_pStop->successors.push_back(GetRootTemplate());
 
   //TODO, have a parameter to try first, and if that fails:
-  if(!LoadFile(m_pInterface, m_pNCManager->GetStringParameter(SP_USER_LOC) + "control.xml")) {
-    LoadFile(m_pInterface, m_pNCManager->GetStringParameter(SP_SYSTEM_LOC)+"control.xml");
+  if(!LoadFile(m_pInterface, GetStringParameter(SP_USER_LOC) + "control.xml")) {
+    LoadFile(m_pInterface, GetStringParameter(SP_SYSTEM_LOC)+"control.xml");
     //if that fails, we'll have no editing functions. Fine -
     // doesn't seem vital enough to hardcode a fallback as well!
   }
@@ -266,10 +266,10 @@ CControlManager::CControlManager(CEventHandler *pEventHandler, CSettingsStore *p
   updateActions();
 }
 
-CControlManager::Pause::Pause(const string &strLabel, int iColour) : NodeTemplate(strLabel,iColour) {
+CControlBase::Pause::Pause(const string &strLabel, int iColour) : NodeTemplate(strLabel,iColour) {
 }
-void CControlManager::Pause::happen(CContNode *pNode) {
-  static_cast<CControlManager *>(pNode->mgr())->m_pNCManager->SetBoolParameter(BP_DASHER_PAUSED,true);
+void CControlBase::Pause::happen(CContNode *pNode) {
+  pNode->mgr()->SetBoolParameter(BP_DASHER_PAUSED,true);
 }
 
 CControlBase::NodeTemplate *CControlManager::parseOther(const XML_Char *name, const XML_Char **atts) {
@@ -366,18 +366,16 @@ public:
   }
 };
 
-void CControlManager::HandleEvent(CEvent *pEvent) {
-  if (pEvent->m_iEventType == EV_PARAM_NOTIFY) {
-    switch (static_cast<CParameterNotificationEvent *>(pEvent)->m_iParameter) {
-      case BP_CONTROL_MODE_HAS_HALT:
-      case BP_CONTROL_MODE_HAS_EDIT:
-      case BP_CONTROL_MODE_HAS_SPEECH:
-      case BP_CONTROL_MODE_HAS_COPY:
-      case BP_COPY_ALL_ON_STOP:
-      case BP_SPEAK_ALL_ON_STOP:
-      case SP_INPUT_FILTER:
-        updateActions();
-    }
+void CControlManager::HandleEvent(int iParameter) {
+  switch (iParameter) {
+    case BP_CONTROL_MODE_HAS_HALT:
+    case BP_CONTROL_MODE_HAS_EDIT:
+    case BP_CONTROL_MODE_HAS_SPEECH:
+    case BP_CONTROL_MODE_HAS_COPY:
+    case BP_COPY_ALL_ON_STOP:
+    case BP_SPEAK_ALL_ON_STOP:
+    case SP_INPUT_FILTER:
+      updateActions();
   }
 }
 
@@ -392,30 +390,30 @@ void CControlManager::updateActions() {
   //stop does something, and we're told to add a node for it
   // (either a dynamic filter where the user can't use the normal stop mechanism precisely,
   //  or a static filter but a 'stop' action is easier than using speak->all / copy->all then pause)
-  if (m_pInterface->hasStopTriggers() && m_pInterface->GetBoolParameter(BP_CONTROL_MODE_HAS_HALT))
+  if (m_pInterface->hasStopTriggers() && GetBoolParameter(BP_CONTROL_MODE_HAS_HALT))
     vRootSuccessors.push_back(m_pStop);
   if (it!=vOldRootSuccessors.end() && *it == m_pStop) it++;
 
   //filter is pauseable, and either 'stop' would do something (so pause is different),
   // or we're told to have a stop node but it would be indistinguishable from pause (=>have pause)
   CInputFilter *pInput(m_pInterface->GetActiveInputMethod());
-  if (pInput->supportsPause() && (m_pInterface->hasStopTriggers() || m_pInterface->GetBoolParameter(BP_CONTROL_MODE_HAS_HALT)))
+  if (pInput->supportsPause() && (m_pInterface->hasStopTriggers() || GetBoolParameter(BP_CONTROL_MODE_HAS_HALT)))
     vRootSuccessors.push_back(m_pPause);
   if (it!=vOldRootSuccessors.end() && *it == m_pPause) it++;
 
-  if (m_pInterface->GetBoolParameter(BP_CONTROL_MODE_HAS_SPEECH) && m_pInterface->SupportsSpeech()) {
+  if (GetBoolParameter(BP_CONTROL_MODE_HAS_SPEECH) && m_pInterface->SupportsSpeech()) {
     if (!m_pSpeech) m_pSpeech = new SpeechHeader(m_pInterface, GetRootTemplate());
     vRootSuccessors.push_back(m_pSpeech);
   }
   if (it!=vOldRootSuccessors.end() && *it == m_pSpeech) it++;
 
-  if (m_pInterface->GetBoolParameter(BP_CONTROL_MODE_HAS_COPY) && m_pInterface->SupportsClipboard()) {
+  if (GetBoolParameter(BP_CONTROL_MODE_HAS_COPY) && m_pInterface->SupportsClipboard()) {
     if (!m_pCopy) m_pCopy = new CopyHeader(m_pInterface, GetRootTemplate());
     vRootSuccessors.push_back(m_pCopy);
   }
   if (it!=vOldRootSuccessors.end() && *it == m_pCopy) it++;
 
-  if (m_pInterface->GetBoolParameter(BP_CONTROL_MODE_HAS_EDIT)) {
+  if (GetBoolParameter(BP_CONTROL_MODE_HAS_EDIT)) {
     for (vector<NodeTemplate *>::const_iterator it2=parsedNodes().begin(); it2!=parsedNodes().end(); it2++)
       vRootSuccessors.push_back(*it2);
   }

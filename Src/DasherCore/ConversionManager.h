@@ -27,6 +27,7 @@
 #include "SCENode.h"
 #include "NodeManager.h"
 #include "Alphabet/AlphInfo.h"
+#include "SettingsStore.h"
 
 // TODO: Conversion manager needs to deal with offsets and contexts - Will: See Phil for an explanation.
 
@@ -59,10 +60,9 @@ namespace Dasher {
   /// aspects of conversion, and CNodeManager for details of the node
   /// management process.
   ///
-  class CConversionManager : public CNodeManager {
+  class CConversionManager : public CNodeManager, protected CSettingsUser {
   public:
-    // TODO: We shouldn't need to know about this stuff, but the code is somewhat in knots at the moment
-    CConversionManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet);
+    CConversionManager(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet);
 
     ///Tells us to use the specified screen to create node labels.
     /// (note we cache the screen and create labels lazily)

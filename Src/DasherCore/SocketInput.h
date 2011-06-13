@@ -8,8 +8,7 @@
 #define __SocketInput_h__
 
 #include "./SocketInputBase.h"
-#include "./DasherComponent.h"
-#include "./EventHandler.h"
+#include "./Observable.h"
 
 #include <iostream>
 #include <pthread.h>
@@ -45,7 +44,7 @@ class CSocketInput:public CSocketInputBase {
 
 public:
 
-  CSocketInput(CMessageDisplay *pMsgs, CEventHandler * pEventHandler, CSettingsStore * pSettingsStore);
+  CSocketInput(CSettingsUser *pCreator, CMessageDisplay *pMsgs);
   ~CSocketInput();
 
 private:

@@ -12,7 +12,7 @@
 #import <iostream>
 #import "DasherUtil.h"
 
-COSXSettingsStore::COSXSettingsStore(Dasher::CEventHandler *pEventHandler):CSettingsStore(pEventHandler) {
+COSXSettingsStore::COSXSettingsStore() {
   LoadPersistent();
 };
 

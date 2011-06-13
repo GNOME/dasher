@@ -22,7 +22,7 @@ using namespace std;
 
 
 CControlPage::CControlPage(HWND Parent, CDasherInterfaceBase *DI, CAppSettings *pAppSettings)
-:CPrefsPageBase(Parent, DI, pAppSettings) {
+:CPrefsPageBase(Parent, pAppSettings), m_pDasherInterface(DI) {
 }
 
 struct menuentry {
@@ -105,7 +105,7 @@ void CControlPage::PopulateList() {
  // {
 //    int i(0);
     std::vector<std::string> vValues;
-    m_pDasherInterface->GetPermittedValues(listtable[i].paramNum, vValues);
+    m_pAppSettings->GetPermittedValues(listtable[i].paramNum, vValues);
 
     for(std::vector<std::string>::iterator it(vValues.begin()); it != vValues.end(); ++it) {
       Tstring Item;
@@ -307,7 +307,7 @@ LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
 
           RECT sRect;
 
-          m_pModuleSettingsDialogue = new CModuleSettings(strNewValue, pSettings, iSettingsCount, m_pDasherInterface);
+          m_pModuleSettingsDialogue = new CModuleSettings(strNewValue, pSettings, iSettingsCount, m_pAppSettings);
           m_pModuleSettingsDialogue->Create(m_hwnd, &sRect);
           m_pModuleSettingsDialogue->ShowWindow(SW_RESTORE);
         
@@ -336,7 +336,7 @@ LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
 
           RECT sRect;
 
-          m_pModuleSettingsDialogue = new CModuleSettings(strNewValue, pSettings, iSettingsCount, m_pDasherInterface);
+          m_pModuleSettingsDialogue = new CModuleSettings(strNewValue, pSettings, iSettingsCount, m_pAppSettings);
           m_pModuleSettingsDialogue->Create(m_hwnd, &sRect);
           m_pModuleSettingsDialogue->ShowWindow(SW_RESTORE);
         

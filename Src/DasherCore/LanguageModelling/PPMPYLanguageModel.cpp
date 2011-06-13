@@ -33,8 +33,8 @@ static char THIS_FILE[] = __FILE__;
 
 /////////////////////////////////////////////////////////////////////
 
-CPPMPYLanguageModel::CPPMPYLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, int iNumCHsyms, int iNumPYsyms)
-  :CAbstractPPM(pEventHandler, pSettingsStore, iNumCHsyms, new CPPMPYnode(-1), 2), NodesAllocated(0), m_NodeAlloc(8192), m_iNumPYsyms(iNumPYsyms) {
+CPPMPYLanguageModel::CPPMPYLanguageModel(CSettingsUser *pCreator, int iNumCHsyms, int iNumPYsyms)
+  :CAbstractPPM(pCreator, iNumCHsyms, new CPPMPYnode(-1), 2), NodesAllocated(0), m_NodeAlloc(8192), m_iNumPYsyms(iNumPYsyms) {
 }
 
 /////////////////////////////////////////////////////////////////////

@@ -2,8 +2,8 @@
 #define __ModuleControl_h__
 
 #include "Common/WinCommon.h"
-#include "../DasherCore/DasherInterfaceBase.h"
-
+#include "AppSettings.h"
+#include "../Common/ModuleSettings.h"
 #include <atlbase.h>
 #include <atlwin.h>
 #include <string>
@@ -34,8 +34,8 @@ public:
 
   // Abstract members to be implemented by descendents
   virtual int GetHeightRequest() = 0;
-  virtual void Initialise(Dasher::CDasherInterfaceBase *pInterface) = 0;
-  virtual void Apply(Dasher::CDasherInterfaceBase *pInterface) = 0;
+  virtual void Initialise(CAppSettings*) = 0;
+  virtual void Apply(CAppSettings*) = 0;
   virtual void CreateChild(HWND hParent) = 0;
   virtual void LayoutChild(RECT &sRect) = 0;
 

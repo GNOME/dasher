@@ -22,8 +22,8 @@ class Dasher::CDasherInput : public CDasherModule {
 
 public:
 
-  CDasherInput(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, ModuleID_t iID, const char *szName) 
-    : CDasherModule(pEventHandler, pSettingsStore, iID, InputDevice, szName) {};
+  CDasherInput(ModuleID_t iID, const char *szName) 
+    : CDasherModule(iID, InputDevice, szName) {};
 
   /// Get the position of the input in Dasher coordinates.
   /// \param iDasherX X-coordinate; if only one coordinate (axis) is available, this should be 0.
@@ -62,8 +62,8 @@ public:
 /// via the views Screen2Dasher. (=>Subclasses must implement GetScreenCoords)
 class Dasher::CScreenCoordInput : public CDasherInput {
 public:
-  CScreenCoordInput(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, ModuleID_t iId, const char *szName)
-  : CDasherInput(pEventHandler, pSettingsStore, iId, szName) {
+  CScreenCoordInput(ModuleID_t iId, const char *szName)
+  : CDasherInput(iId, szName) {
   }
   virtual bool GetDasherCoords(myint &iDasherX, myint &iDasherY, CDasherView *pView)  {
     screenint iX, iY;
@@ -78,8 +78,8 @@ public:
 /// via the views Dasher2Screen. (=>Subclasses must implement GetDasherCoords)
 class Dasher::CDasherCoordInput : public CDasherInput {
 public:
-  CDasherCoordInput(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, ModuleID_t iId, const char *szName)
-  : CDasherInput(pEventHandler, pSettingsStore, iId, szName) {
+  CDasherCoordInput(ModuleID_t iId, const char *szName)
+  : CDasherInput(iId, szName) {
   }
   
   virtual bool GetScreenCoords(screenint &iX, screenint &iY, CDasherView *pView) {

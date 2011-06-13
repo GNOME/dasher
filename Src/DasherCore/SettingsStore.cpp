@@ -10,13 +10,15 @@
 
 #include "SettingsStore.h"
 #include "Event.h"
-#include "EventHandler.h"
+#include "Observable.h"
 
 #include <cstring>
 #include <cstdlib>
 #include <iostream>
 
 using namespace std;
+using namespace Dasher;
+using namespace Dasher::Settings;
 
 // Track memory leaks on Windows to the line that new'd the memory
 #ifdef _WIN32
@@ -28,11 +30,9 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-Dasher::CParamTables CSettingsStore::s_oParamTables;
+static CSettingsStore *s_pSettingsStore = NULL;
 
-// TODO: Don't propagate changes which don't affect anything.
-
-CSettingsStore::CSettingsStore(Dasher::CEventHandler *pEventHandler):m_pEventHandler(pEventHandler) {
+CSettingsStore::CSettingsStore() {
 }
 
 void CSettingsStore::LoadPersistent() {
@@ -41,30 +41,36 @@ void CSettingsStore::LoadPersistent() {
   // we'll save the settings with the default value that comes from Parameters.h
 
   for(int i(0); i < NUM_OF_BPS; ++i) {
-    bool bValue;
-    if(s_oParamTables.BoolParamTable[i].persistent)
-      if(LoadSetting(s_oParamTables.BoolParamTable[i].regName, &bValue))
-        s_oParamTables.BoolParamTable[i].value = bValue;
+    boolParamValues[i] = boolparamtable[i].defaultValue;
+    if(boolparamtable[i].persistent) {
+      bool bValue;
+      if(LoadSetting(boolparamtable[i].regName, &bValue))
+        boolParamValues[i] = bValue;
       else
-        SaveSetting(s_oParamTables.BoolParamTable[i].regName, s_oParamTables.BoolParamTable[i].value);            
+        SaveSetting(boolparamtable[i].regName, boolParamValues[i]);
+    }
   }
 
   for(int j(0); j < NUM_OF_LPS; ++j) {
-    long lValue;
-    if(s_oParamTables.LongParamTable[j].persistent)
-      if(LoadSetting(s_oParamTables.LongParamTable[j].regName, &lValue)) 
-        s_oParamTables.LongParamTable[j].value = lValue;
+    longParamValues[j] = longparamtable[j].defaultValue;
+    if(longparamtable[j].persistent) {
+      long lValue;
+      if(LoadSetting(longparamtable[j].regName, &lValue)) 
+        longParamValues[j] = lValue;
       else
-        SaveSetting(s_oParamTables.LongParamTable[j].regName, s_oParamTables.LongParamTable[j].value);            
+        SaveSetting(longparamtable[j].regName, longParamValues[j]);            
+    }
   }
 
   for(int k(0); k < NUM_OF_SPS; ++k) {
-    std::string strValue;
-    if(s_oParamTables.StringParamTable[k].persistent)
-      if(LoadSetting(s_oParamTables.StringParamTable[k].regName, &strValue))
-        s_oParamTables.StringParamTable[k].value = strValue;
+    stringParamValues[k] = stringparamtable[k].defaultValue;
+    if(stringparamtable[k].persistent) {
+      std::string strValue;
+      if(LoadSetting(stringparamtable[k].regName, &strValue))
+        stringParamValues[k] = strValue;
       else
-        SaveSetting(s_oParamTables.StringParamTable[k].regName, s_oParamTables.StringParamTable[k].value);            
+        SaveSetting(stringparamtable[k].regName, stringParamValues[k]);            
+    }
   }
 }
 
@@ -72,11 +78,11 @@ void CSettingsStore::LoadPersistent() {
 // Return 0 on success, an error string on failure.
 const char * CSettingsStore::ClSet(const std::string &strKey, const std::string &strValue) {
   for(int i(0); i < NUM_OF_BPS; ++i) {
-    if(strKey == s_oParamTables.BoolParamTable[i].regName) {
+    if(strKey == boolparamtable[i].regName) {
       if ((strValue == "0") || (strValue == _("true")))
-	SetBoolParameter(s_oParamTables.BoolParamTable[i].key, false);
+	SetBoolParameter(boolparamtable[i].key, false);
       else if((strValue == "1") || (strValue == _("false")))
-	SetBoolParameter(s_oParamTables.BoolParamTable[i].key, true);
+	SetBoolParameter(boolparamtable[i].key, true);
       else
         // Note to translators: This message will be output for a command line
         // with "--options foo=VAL" and foo is a boolean valued parameter, but
@@ -87,15 +93,15 @@ const char * CSettingsStore::ClSet(const std::string &strKey, const std::string 
   }
 
   for(int i(0); i < NUM_OF_LPS; ++i) {
-    if(strKey == s_oParamTables.LongParamTable[i].regName) {
-      SetLongParameter(s_oParamTables.LongParamTable[i].key, atoi(strValue.c_str()));
+    if(strKey == longparamtable[i].regName) {
+      SetLongParameter(longparamtable[i].key, atoi(strValue.c_str()));
       return 0;
     }
   }
 
   for(int i(0); i < NUM_OF_SPS; ++i) {
-    if(strKey == s_oParamTables.StringParamTable[i].regName) {
-      SetStringParameter(s_oParamTables.StringParamTable[i].key, strValue);
+    if(strKey == stringparamtable[i].regName) {
+      SetStringParameter(stringparamtable[i].key, strValue);
       return 0;
     }
   }
@@ -110,87 +116,82 @@ const char * CSettingsStore::ClSet(const std::string &strKey, const std::string 
 void CSettingsStore::SetBoolParameter(int iParameter, bool bValue) {
 
   // Check that the parameter is in fact in the right spot in the table
-  DASHER_ASSERT(iParameter == s_oParamTables.BoolParamTable[iParameter - FIRST_BP].key);
+  DASHER_ASSERT(iParameter == boolparamtable[iParameter - FIRST_BP].key);
 
   if(bValue == GetBoolParameter(iParameter))
     return;
 
   // Set the value
-  s_oParamTables.BoolParamTable[iParameter - FIRST_BP].value = bValue;
+  boolParamValues[iParameter - FIRST_BP] = bValue;
 
   // Initiate events for changed parameter
-  Dasher::CParameterNotificationEvent* oEvent = new Dasher::CParameterNotificationEvent(iParameter);
-
-  m_pEventHandler->InsertEvent(oEvent);
-  delete oEvent;
+  DispatchEvent(iParameter);
 
   // Write out to permanent storage
-  if(s_oParamTables.BoolParamTable[iParameter - FIRST_BP].persistent)
-    SaveSetting(s_oParamTables.BoolParamTable[iParameter - FIRST_BP].regName, bValue);
+  if(boolparamtable[iParameter - FIRST_BP].persistent)
+    SaveSetting(boolparamtable[iParameter - FIRST_BP].regName, bValue);
 }
 
 void CSettingsStore::SetLongParameter(int iParameter, long lValue) {
 
   // Check that the parameter is in fact in the right spot in the table
-  DASHER_ASSERT(iParameter == s_oParamTables.LongParamTable[iParameter - FIRST_LP].key);
+  DASHER_ASSERT(iParameter == longparamtable[iParameter - FIRST_LP].key);
 
   if(lValue == GetLongParameter(iParameter))
     return;
 
   // Set the value
-  s_oParamTables.LongParamTable[iParameter - FIRST_LP].value = lValue;
+  longParamValues[iParameter - FIRST_LP] = lValue;
 
   // Initiate events for changed parameter
-  Dasher::CParameterNotificationEvent oEvent(iParameter);
-  m_pEventHandler->InsertEvent(&oEvent);
+  DispatchEvent(iParameter);
 
   // Write out to permanent storage
-  if(s_oParamTables.LongParamTable[iParameter - FIRST_LP].persistent)
-    SaveSetting(s_oParamTables.LongParamTable[iParameter - FIRST_LP].regName, lValue);
+  if(longparamtable[iParameter - FIRST_LP].persistent)
+    SaveSetting(longparamtable[iParameter - FIRST_LP].regName, lValue);
 }
 
 void CSettingsStore::SetStringParameter(int iParameter, const std::string sValue) {
 
   // Check that the parameter is in fact in the right spot in the table
-  DASHER_ASSERT(iParameter == s_oParamTables.StringParamTable[iParameter - FIRST_SP].key);
+  DASHER_ASSERT(iParameter == stringparamtable[iParameter - FIRST_SP].key);
 
   if(sValue == GetStringParameter(iParameter))
     return;
 
   // Set the value
-  s_oParamTables.StringParamTable[iParameter - FIRST_SP].value = sValue;
+  stringParamValues[iParameter - FIRST_SP] = sValue;
 
   // Initiate events for changed parameter
-  Dasher::CParameterNotificationEvent oEvent(iParameter);
-  m_pEventHandler->InsertEvent(&oEvent);
+  DispatchEvent(iParameter);
 
   // Write out to permanent storage
-  if(s_oParamTables.StringParamTable[iParameter - FIRST_SP].persistent)
-    SaveSetting(s_oParamTables.StringParamTable[iParameter - FIRST_SP].regName, sValue);
+  if(stringparamtable[iParameter - FIRST_SP].persistent)
+    SaveSetting(stringparamtable[iParameter - FIRST_SP].regName, sValue);
 }
 
-bool CSettingsStore::GetBoolParameter(int iParameter) {
+bool CSettingsStore::GetBoolParameter(int iParameter) const {
   // Check that the parameter is in fact in the right spot in the table
-  DASHER_ASSERT(iParameter == s_oParamTables.BoolParamTable[iParameter - FIRST_BP].key);
+  DASHER_ASSERT(iParameter == boolparamtable[iParameter - FIRST_BP].key);
 
   // Return the value
-  return s_oParamTables.BoolParamTable[iParameter - FIRST_BP].value;
+  return boolParamValues[iParameter - FIRST_BP];
 }
 
-long CSettingsStore::GetLongParameter(int iParameter) {
+long CSettingsStore::GetLongParameter(int iParameter) const {
   // Check that the parameter is in fact in the right spot in the table
-  DASHER_ASSERT(iParameter == s_oParamTables.LongParamTable[iParameter - FIRST_LP].key);
+  DASHER_ASSERT(iParameter == longparamtable[iParameter - FIRST_LP].key);
 
   // Return the value
-  return s_oParamTables.LongParamTable[iParameter - FIRST_LP].value;
+  return longParamValues[iParameter - FIRST_LP];
 }
 
-std::string CSettingsStore::GetStringParameter(int iParameter) {
+const std::string &CSettingsStore::GetStringParameter(int iParameter) const {
   // Check that the parameter is in fact in the right spot in the table
-  DASHER_ASSERT(iParameter == s_oParamTables.StringParamTable[iParameter - FIRST_SP].key);
+  DASHER_ASSERT(iParameter == stringparamtable[iParameter - FIRST_SP].key);
 
   // Return the value
-  return s_oParamTables.StringParamTable[iParameter - FIRST_SP].value;
+  return stringParamValues[iParameter - FIRST_SP];
 }
 
 void CSettingsStore::ResetParameter(int iParameter) {
@@ -209,54 +210,6 @@ void CSettingsStore::ResetParameter(int iParameter) {
     break;
   }
 }
-
-// Used to determine what data type a given parameter ID is.
-ParameterType CSettingsStore::GetParameterType(int iParameter)
-{
-  if ((iParameter >= FIRST_BP) && (iParameter < FIRST_LP))
-    return ParamBool;
-  if ((iParameter >= FIRST_LP) && (iParameter < FIRST_SP))
-    return ParamLong;
-  if ((iParameter >= FIRST_SP) && (iParameter < END_OF_SPS))
-    return ParamString;
-
-  return ParamInvalid;
-}
-
-// Gets the string name for the given parameter
-std::string CSettingsStore::GetParameterName(int iParameter)
-{
-  // Pull the registry name out of the correct table depending on the parameter type
-  switch (GetParameterType(iParameter))
-  {
-  case (ParamBool):
-    {
-      DASHER_ASSERT(iParameter == s_oParamTables.BoolParamTable[iParameter - FIRST_BP].key);
-      return s_oParamTables.BoolParamTable[iParameter - FIRST_BP].regName;
-      break;
-    }
-  case (ParamLong):
-    {
-      DASHER_ASSERT(iParameter == s_oParamTables.LongParamTable[iParameter - FIRST_LP].key);
-      return s_oParamTables.LongParamTable[iParameter - FIRST_LP].regName;
-      break;
-    }
-  case (ParamString):
-    {
-      DASHER_ASSERT(iParameter == s_oParamTables.StringParamTable[iParameter - FIRST_SP].key);
-      return s_oParamTables.StringParamTable[iParameter - FIRST_SP].regName;
-      break;
-    }
-  case ParamInvalid:
-    // TODO: Error handling?
-    break;
-  };
-
-
-  return "";
-}
-
-
 
 /* Private functions -- Settings are not saved between sessions unless these
 functions are over-ridden.
@@ -281,4 +234,43 @@ void CSettingsStore::SaveSetting(const std::string &Key, long Value) {
 }
 
 void CSettingsStore::SaveSetting(const std::string &Key, const std::string &Value) {
+}
+
+/* SettingsUser and SettingsObserver definitions... */
+
+CSettingsUser::CSettingsUser(CSettingsStore *pSettingsStore) {
+  //ATM, we only allow one settings store, total...
+  DASHER_ASSERT(s_pSettingsStore==NULL);
+  //but in future, remove that if we're allowing multiple settings stores to exist
+  // concurrently.
+  s_pSettingsStore = pSettingsStore;
+}
+
+CSettingsUser::CSettingsUser(CSettingsUser *pCreateFrom) {
+  //No need to do anything atm; but in future, copy CSettingsStore pointer
+  // from argument.
+  DASHER_ASSERT(pCreateFrom);
+}
+
+CSettingsUser::~CSettingsUser() {
+}
+
+bool CSettingsUser::GetBoolParameter(int iParameter) const {return s_pSettingsStore->GetBoolParameter(iParameter);}
+long CSettingsUser::GetLongParameter(int iParameter) const {return s_pSettingsStore->GetLongParameter(iParameter);}
+const std::string &CSettingsUser::GetStringParameter(int iParameter) const {return s_pSettingsStore->GetStringParameter(iParameter);}
+void CSettingsUser::SetBoolParameter(int iParameter, bool bValue) {s_pSettingsStore->SetBoolParameter(iParameter, bValue);}
+void CSettingsUser::SetLongParameter(int iParameter, long lValue) {s_pSettingsStore->SetLongParameter(iParameter, lValue);}
+void CSettingsUser::SetStringParameter(int iParameter, const std::string &strValue) {s_pSettingsStore->SetStringParameter(iParameter, strValue);}
+
+CSettingsObserver::CSettingsObserver(CSettingsUser *pCreateFrom) {
+  DASHER_ASSERT(pCreateFrom);
+  s_pSettingsStore->Register(this);
+}
+
+CSettingsObserver::~CSettingsObserver() {
+  s_pSettingsStore->Unregister(this);
+}
+
+CSettingsUserObserver::CSettingsUserObserver(CSettingsUser *pCreateFrom)
+: CSettingsUser(pCreateFrom), CSettingsObserver(pCreateFrom) {
 }

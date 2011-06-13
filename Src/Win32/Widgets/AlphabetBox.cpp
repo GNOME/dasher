@@ -10,6 +10,7 @@
 
 #include "AlphabetBox.h"
 #include "../resource.h"
+#include "../../DasherCore/DasherTypes.h"
 
 using namespace Dasher;
 using namespace std;
@@ -35,8 +36,8 @@ static menuentry menutable[] = {
   {BP_PALETTE_CHANGE, IDC_COLOURSCHEME, true}
 };
 
-CAlphabetBox::CAlphabetBox(HWND Parent, CDasherInterfaceBase *DI, CAppSettings *pAppSettings)
-: CPrefsPageBase(Parent, DI, pAppSettings), m_pDasherInterface(DI), m_CurrentAlphabet(DI->GetStringParameter(SP_ALPHABET_ID)),  Editing(false), Cloning(false), EditChar(false), CustomBox(0), CurrentGroup(0), CurrentChar(0) {
+CAlphabetBox::CAlphabetBox(HWND Parent, CAppSettings *pAppSettings)
+: CPrefsPageBase(Parent, pAppSettings), m_CurrentAlphabet(pAppSettings->GetStringParameter(SP_ALPHABET_ID)),  Editing(false), Cloning(false), EditChar(false), CustomBox(0), CurrentGroup(0), CurrentChar(0) {
   m_hwnd = 0;
   m_hPropertySheet = 0;
 }
@@ -115,9 +116,9 @@ void CAlphabetBox::PopulateList() {
   HWND ListBox = GetDlgItem(m_hwnd, IDC_ALPHABETS);
   SendMessage(ListBox, LB_RESETCONTENT, 0, 0);
 
-  m_CurrentAlphabet = m_pDasherInterface->GetStringParameter(SP_ALPHABET_ID);
+  m_CurrentAlphabet = m_pAppSettings->GetStringParameter(SP_ALPHABET_ID);
 
-  m_pDasherInterface->GetPermittedValues(SP_ALPHABET_ID, AlphabetList);
+  m_pAppSettings->GetPermittedValues(SP_ALPHABET_ID, AlphabetList);
 
   int iDefaultIndex(-1);
   int iFallbackIndex(-1);
@@ -158,7 +159,7 @@ void CAlphabetBox::PopulateList() {
 // all the button checkboxes
   for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++)
   {
-    if(m_pDasherInterface->GetBoolParameter(menutable[ii].paramNum) != menutable[ii].bInvert) 
+    if(m_pAppSettings->GetBoolParameter(menutable[ii].paramNum) != menutable[ii].bInvert) 
 	    SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_SETCHECK, BST_CHECKED, 0);
     else  
 	    SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_SETCHECK, BST_UNCHECKED, 0);
@@ -433,13 +434,12 @@ bool CAlphabetBox::Apply() {
 
 
   if(m_CurrentAlphabet != std::string("")) {
-    if(m_CurrentAlphabet != m_pDasherInterface->GetStringParameter(SP_ALPHABET_ID))
-      m_pDasherInterface->SetStringParameter(SP_ALPHABET_ID, m_CurrentAlphabet); 
+    m_pAppSettings->SetStringParameter(SP_ALPHABET_ID, m_CurrentAlphabet); 
   }
 
   for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++)
   {
-    m_pDasherInterface->SetBoolParameter(menutable[ii].paramNum, 
+    m_pAppSettings->SetBoolParameter(menutable[ii].paramNum, 
       (SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_GETCHECK, 0, 0) == BST_CHECKED) != menutable[ii].bInvert);
   }
 
@@ -733,7 +733,7 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
     //  break;
     //case (IDOK):
     //  if(m_CurrentAlphabet != std::string("")) {
-    //    m_pDasherInterface->SetStringParameter(SP_ALPHABET_ID, m_CurrentAlphabet);
+    //    m_pAppSettings->SetStringParameter(SP_ALPHABET_ID, m_CurrentAlphabet);
     //  }
     //  // deliberate fall through
     //case (IDCANCEL):

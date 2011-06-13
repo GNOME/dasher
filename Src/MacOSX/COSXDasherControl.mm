@@ -25,9 +25,9 @@
 #import <sys/stat.h>
 
 using namespace std;
+using namespace Dasher::Settings;
 
-
-COSXDasherControl::COSXDasherControl(DasherApp *aDasherApp) {
+COSXDasherControl::COSXDasherControl(DasherApp *aDasherApp) : CDashIntfScreenMsgs(new COSXSettingsStore()){
   
   dasherApp = aDasherApp;
   
@@ -40,9 +40,9 @@ void COSXDasherControl::CreateModules() {
   CDasherInterfaceBase::CreateModules();
   // Create locally cached copies of the mouse input objects, as we
   // need to pass coordinates to them from the timer callback
-  RegisterModule(m_pMouseInput = new COSXMouseInput(m_pEventHandler, m_pSettingsStore));
+  RegisterModule(m_pMouseInput = new COSXMouseInput());
   SetDefaultInputDevice(m_pMouseInput);
-  RegisterModule(m_p1DMouseInput = new COSX1DMouseInput(m_pEventHandler, m_pSettingsStore));
+  RegisterModule(m_p1DMouseInput = new COSX1DMouseInput());
 }
   
 COSXDasherControl::~COSXDasherControl() {
@@ -77,14 +77,9 @@ void COSXDasherControl::SetupPaths() {
   }
     
     // system resources are inside the .app, under the Resources directory
-  m_pSettingsStore->SetStringParameter(SP_SYSTEM_LOC, StdStringFromNSString(systemDir));
-  m_pSettingsStore->SetStringParameter(SP_USER_LOC, StdStringFromNSString(userDir));
+  SetStringParameter(SP_SYSTEM_LOC, StdStringFromNSString(systemDir));
+  SetStringParameter(SP_USER_LOC, StdStringFromNSString(userDir));
 }
-
-void COSXDasherControl::CreateSettingsStore() {
-  m_pSettingsStore = new COSXSettingsStore(m_pEventHandler);
-}
-
 
 void COSXDasherControl::ScanAlphabetFiles(std::vector<std::string> &vFileList) {
   
@@ -147,25 +142,6 @@ void COSXDasherControl::TimerFired(NSPoint p) {
  
 void COSXDasherControl::GameMessageOut(int message, const void* messagedata) {
   NSLog(@"GameMessageOut");
-}
-
-void COSXDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
-  
-  switch (pEvent->m_iEventType) {
-    case EV_PARAM_NOTIFY:
-      // don't need to do anything because the PreferencesController is observing changes to the 
-      // user defaults controller which is observing the user defaults and will be notified when
-      // the parameter is actually written by COSXSettingsStore.
-//      CParameterNotificationEvent *parameterEvent(static_cast < CParameterNotificationEvent * >(pEvent));
-//      NSLog(@"CParameterNotificationEvent, m_iParameter: %d", parameterEvent->m_iParameter);
-      break;
-    case EV_SCREEN_GEOM:
-      //no need to do anything, so avoid log message
-      break;
-    default:
-      NSLog(@"ExternalEventHandler, UNKNOWN m_iEventType = %d", pEvent->m_iEventType);
-      break;
-  }
 }
 
 void COSXDasherControl::editOutput(const string &strText, CDasherNode *pNode) {
@@ -245,17 +221,59 @@ void COSXDasherControl::WriteTrainFile(const std::string &filename, const std::s
   close(fd);
 }
 
+
 NSDictionary *COSXDasherControl::ParameterDictionary() {
-  COSXSettingsStore *ss(static_cast < COSXSettingsStore * >(m_pSettingsStore));
-  return ss->ParameterDictionary();
+  static NSMutableDictionary *parameterDictionary = nil;
+  
+  if (parameterDictionary == nil) {
+    parameterDictionary = [[NSMutableDictionary alloc] initWithCapacity:NUM_OF_BPS + NUM_OF_LPS + NUM_OF_SPS];
+    int ii;
+    
+    for(ii = 0; ii < NUM_OF_BPS; ii++) {
+      [parameterDictionary setObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                                      NSStringFromStdString(boolparamtable[ii].regName), @"regName",
+                                      NSStringFromStdString(boolparamtable[ii].humanReadable), @"humanReadable",
+                                      [NSNumber numberWithInt:boolparamtable[ii].key], @"key",
+                                      nil] forKey:NSStringFromStdString(boolparamtable[ii].regName)];
+    }
+    
+    for(ii = 0; ii < NUM_OF_LPS; ii++) {
+      [parameterDictionary setObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                                      NSStringFromStdString(longparamtable[ii].regName), @"regName",
+                                      NSStringFromStdString(longparamtable[ii].humanReadable), @"humanReadable",
+                                      [NSNumber numberWithInt:longparamtable[ii].key], @"key",
+                                      nil] forKey:NSStringFromStdString(longparamtable[ii].regName)];
+    }
+    
+    for(ii = 0; ii < NUM_OF_SPS; ii++) {
+      [parameterDictionary setObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                                      NSStringFromStdString(stringparamtable[ii].regName), @"regName",
+                                      NSStringFromStdString(stringparamtable[ii].humanReadable), @"humanReadable",
+                                      [NSNumber numberWithInt:stringparamtable[ii].key], @"key",
+                                      nil] forKey:NSStringFromStdString(stringparamtable[ii].regName)];
+    }
+  }
+  
+  return parameterDictionary;
+}
+
+
+int COSXDasherControl::GetParameterIndex(const std::string & aKey) {
+  NSString *key = NSStringFromStdString(aKey);
+  NSDictionary *parameterEntry = [ParameterDictionary() objectForKey:key];
+  if (parameterEntry == nil) {
+    NSLog(@"COSXDasherControl::GetParameterIndex - unknown key: %@", key);
+    return NSNotFound;
+  }
+  
+  return [[parameterEntry objectForKey:@"key"] intValue];
 }
 
 id COSXDasherControl::GetParameter(NSString *aKey) {
   
-  COSXSettingsStore *ss(static_cast < COSXSettingsStore * >(m_pSettingsStore));
-  int pIndex = ss->GetParameterIndex(StdStringFromNSString(aKey));
+  int pIndex = GetParameterIndex(StdStringFromNSString(aKey));
 
-  switch (ss->GetParameterType(pIndex)) {
+  switch (GetParameterType(pIndex)) {
     case ParamBool:
       return [NSNumber numberWithBool:GetBoolParameter(pIndex)];
       break;
@@ -274,10 +292,9 @@ id COSXDasherControl::GetParameter(NSString *aKey) {
 
 void COSXDasherControl::SetParameter(NSString *aKey, id aValue) {
   
-  COSXSettingsStore *ss(static_cast < COSXSettingsStore * >(m_pSettingsStore));
-  int pIndex = ss->GetParameterIndex(StdStringFromNSString(aKey));
+  int pIndex = GetParameterIndex(StdStringFromNSString(aKey));
   
-  switch (ss->GetParameterType(pIndex)) {
+  switch (GetParameterType(pIndex)) {
     case ParamBool:
       SetBoolParameter(pIndex, [aValue boolValue]);
       break;

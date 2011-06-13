@@ -16,8 +16,8 @@
 
 using namespace Dasher;
 
-CSocketInput::CSocketInput(CMessageDisplay *pMsgs, CEventHandler *pEventHandler, CSettingsStore *pSettingsStore)
-:CSocketInputBase(pMsgs, pEventHandler, pSettingsStore) {
+CSocketInput::CSocketInput(CSettingsUser *pCreator, CMessageDisplay *pMsgs)
+:CSocketInputBase(pCreator, pMsgs) {
 }
 
 CSocketInput::~CSocketInput() {

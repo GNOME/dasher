@@ -39,7 +39,6 @@
 #include "../TabletPC/CursorInRange.h"
 #endif 
 
-#include "../../DasherCore/DasherComponent.h"
 #include "../../DasherCore/DasherTypes.h"
 #include "../KeyboardHelper.h"
 
@@ -53,7 +52,7 @@ namespace Dasher {
 class CEdit;
 class CScreen;
   
-class CCanvas : public ATL::CWindowImpl<CCanvas>, public Dasher::CDasherComponent {
+class CCanvas : public ATL::CWindowImpl<CCanvas> {
  public:
   static ATL::CWndClassInfo& GetWndClassInfo() { 
 #ifndef _WIN32_WCE
@@ -97,7 +96,7 @@ class CCanvas : public ATL::CWindowImpl<CCanvas>, public Dasher::CDasherComponen
 #endif
   END_MSG_MAP()
 
-  CCanvas(Dasher::CDasher *DI, Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore);
+  CCanvas(Dasher::CDasher *DI);
   ~CCanvas();
 
   HWND Create(HWND hParent);
@@ -182,7 +181,7 @@ class CCanvas : public ATL::CWindowImpl<CCanvas>, public Dasher::CDasherComponen
 
   bool GetCanvasSize(int& pTop, int& pLeft, int& pBottom, int& pRight);
 
-  void HandleEvent(Dasher::CEvent *pEvent);
+  void SetFont(const std::string &strFont);
 
 private:
 

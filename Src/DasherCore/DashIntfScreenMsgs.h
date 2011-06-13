@@ -22,11 +22,19 @@
 #ifndef __DASH_INTF_SCREEN_MSGS_H__
 #define __DASH_INTF_SCREEN_MSGS_H__
 
-#include "DasherInterfaceBase.h"
+#include "DashIntfSettings.h"
 
 namespace Dasher {
-class CDashIntfScreenMsgs : public CDasherInterfaceBase {
+///Implements the MessageDisplay part of CDasherInterfaceBase by rendering messages
+/// directly onto the CDasherScreen (using MakeLabel wrapping to LP_MESSAGE_FONTSIZE).
+/// Note we subclass CDashIntfSettings as currently all platforms want to inherit from
+/// the latter; if this changes, we could declare ScreenMsgs & Settings separately and
+/// combine via multiple inheritance?? (from CSettingsUser, not DashIntfBase!)
+class CDashIntfScreenMsgs : public CDashIntfSettings {
 public:
+
+  CDashIntfScreenMsgs(CSettingsStore *pSettingsStore);
+
   /// Stores messages for Redraw to render onto the Screen on top of the view.
   /// For modal messages (bInterrupt=true), pauses Dasher, and keeps the message
   /// onscreen until the user starts moving again (via normal mechanisms);

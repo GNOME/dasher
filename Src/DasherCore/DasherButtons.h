@@ -10,7 +10,6 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
-#include "DasherComponent.h"
 #include "Event.h"
 #include "InputFilter.h"
 
@@ -19,10 +18,10 @@ using namespace std;
 namespace Dasher {
 /// \ingroup Input
 /// @{
-class CDasherButtons : public CInputFilter
+class CDasherButtons : public CInputFilter, protected CSettingsUser
 {
  public:
-  CDasherButtons(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface, bool bMenu, ModuleID_t iID, const char *szName);
+  CDasherButtons(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, bool bMenu, ModuleID_t iID, const char *szName);
 
   ~CDasherButtons();
 

@@ -27,13 +27,11 @@ namespace Dasher {
 /// @{
 class CTwoPushDynamicFilter : public CDynamicFilter /*long push, but do our own "multi-push" detection*/ {
  public:
-  CTwoPushDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface);
+  CTwoPushDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface);
   
   // Inherited methods
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);
  
-  virtual void Activate();
-  virtual void Deactivate();
   virtual bool GetMinWidth(int &iMinWidth);
   virtual bool GetSettings(SModuleSettings **pSettings, int *iCount);
 
@@ -45,11 +43,9 @@ class CTwoPushDynamicFilter : public CDynamicFilter /*long push, but do our own 
   virtual bool TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);
   virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog);
 
-  virtual void HandleEvent(Dasher::CEvent * pEvent);
+  virtual void HandleEvent(int iParameter);
 
   virtual void run();
-  virtual void pause();
-  virtual void reverse();
 
  private:
   double m_dLogUpMul, m_dLogDownMul, m_dLagBits;

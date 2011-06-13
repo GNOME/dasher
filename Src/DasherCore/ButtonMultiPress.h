@@ -31,7 +31,7 @@ namespace Dasher {
 /// to the number of presses, for subclasses to handle/decide how to respond.)
 class CButtonMultiPress : public CDynamicFilter {
  public:
-  CButtonMultiPress(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName);
+  CButtonMultiPress(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName);
 
   virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
 

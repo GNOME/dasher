@@ -24,9 +24,10 @@
 
 #include "ConversionHelper.h"
 #include "Event.h"
-#include "EventHandler.h"
+#include "Observable.h"
 #include "NodeCreationManager.h"
 #include "DasherNode.h"
+#include "DasherInterfaceBase.h"
 
 #include <iostream>
 #include <cstring>
@@ -40,8 +41,8 @@
 using namespace Dasher;
 using namespace std;
 
-CConversionHelper::CConversionHelper(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, CLanguageModel *pLanguageModel) :
-  CConversionManager(pInterface, pNCManager, pAlphabet), m_pLanguageModel(pLanguageModel) {
+CConversionHelper::CConversionHelper(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, CLanguageModel *pLanguageModel) :
+  CConversionManager(pCreateFrom, pInterface, pNCManager, pAlphabet), m_pLanguageModel(pLanguageModel) {
 	  colourStore[0][0]=66;//light blue
 	  colourStore[0][1]=64;//very light green
 	  colourStore[0][2]=62;//light yellow
@@ -75,7 +76,7 @@ CConversionManager::CConvNode *CConversionHelper::GetRoot(CDasherNode *pParent, 
 
 void CConversionHelper::AssignChildSizes(const std::vector<SCENode *> &nodes, CLanguageModel::Context context) {
 
-  AssignSizes(nodes, context, m_pNCManager->GetLongParameter(LP_NORMALIZATION), m_pNCManager->GetLongParameter(LP_UNIFORM));
+  AssignSizes(nodes, context, GetLongParameter(LP_NORMALIZATION), GetLongParameter(LP_UNIFORM));
 
 }
 
@@ -112,7 +113,7 @@ void CConversionHelper::CConvHNode::PopulateChildren() {
       DASHER_ASSERT(pCurrentSCEChild != NULL);
       unsigned int iLbnd(iCum);
       unsigned int iHbnd(iCum + pCurrentSCEChild->NodeSize);
-		//m_pNCManager->GetLongParameter(LP_NORMALIZATION));//
+		//GetLongParameter(LP_NORMALIZATION));//
 
       iCum = iHbnd;
 

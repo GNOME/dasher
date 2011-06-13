@@ -2,8 +2,8 @@
 
 using namespace Dasher;
 
-CFrameRate::CFrameRate(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore) :
-  CDasherComponent(pEventHandler, pSettingsStore) {
+CFrameRate::CFrameRate(CSettingsUser *pCreator) :
+  CSettingsUserObserver(pCreator) {
 
   //Sampling parameters...
   m_iFrames = 0;
@@ -11,8 +11,8 @@ CFrameRate::CFrameRate(CEventHandler *pEventHandler, CSettingsStore *pSettingsSt
   m_iTime = 0;                  // Hmmm, User must reset framerate before starting.
 
   //try and carry on from where we left off at last run
-  {CParameterNotificationEvent evt(LP_FRAMERATE); HandleEvent(&evt);}
-  {CParameterNotificationEvent evt(LP_MAX_BITRATE); HandleEvent(&evt);}
+  HandleEvent(LP_FRAMERATE);
+  HandleEvent(LP_MAX_BITRATE);
   //calls UpdateSteps(), which sets m_dRXMax and m_iSteps
 }
 
@@ -53,20 +53,16 @@ void CFrameRate::RecordFrame(unsigned long Time)
   }
 }
 
-void CFrameRate::HandleEvent(Dasher::CEvent *pEvent) {
+void CFrameRate::HandleEvent(int iParameter) {
 
-  if(pEvent->m_iEventType == EV_PARAM_NOTIFY) {
-    Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
-
-    switch (pEvt->m_iParameter) {
-    case LP_MAX_BITRATE: // Delibarate fallthrough
-    case LP_BOOSTFACTOR:
-      m_dMaxbitrate=(GetLongParameter(LP_MAX_BITRATE) * GetLongParameter(LP_BOOSTFACTOR)) / 10000.0;
-      UpdateSteps(GetLongParameter(LP_FRAMERATE) / 100.0); //use the decaying average as current
-      break;
-    case LP_FRAMERATE:
-      m_dFrDecay = GetLongParameter(LP_FRAMERATE) / 100.0;
-    }
+  switch (iParameter) {
+  case LP_MAX_BITRATE: // Delibarate fallthrough
+  case LP_BOOSTFACTOR:
+    m_dMaxbitrate=(GetLongParameter(LP_MAX_BITRATE) * GetLongParameter(LP_BOOSTFACTOR)) / 10000.0;
+    UpdateSteps(GetLongParameter(LP_FRAMERATE) / 100.0); //use the decaying average as current
+    break;
+  case LP_FRAMERATE:
+    m_dFrDecay = GetLongParameter(LP_FRAMERATE) / 100.0;
   }
 }
 

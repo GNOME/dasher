@@ -16,12 +16,11 @@
 #define __Slidebar_h__
 
 #include "Canvas.h"
-#include "../../DasherCore/DasherInterfaceBase.h"
 #include "StatusControl.h"
 
 class CSlidebar {
 public:
-	CSlidebar(HWND ParentWindow, Dasher::CDasherInterfaceBase * DasherInterface);
+	CSlidebar(HWND ParentWindow, CAppSettings *pAppSettings);
 
   // Called when the parent window gets resized, makes the rebar position itself correctly
   void Resize();

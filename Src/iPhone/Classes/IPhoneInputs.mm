@@ -35,8 +35,8 @@ using namespace Dasher;
 }
 @end
 
-CIPhoneTiltInput::CIPhoneTiltInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
-	: CScreenCoordInput(pEventHandler, pSettingsStore, 8, TILT_INPUT) {
+CIPhoneTiltInput::CIPhoneTiltInput() 
+	: CScreenCoordInput(8, TILT_INPUT) {
 	deleg = [[Accel alloc] initWithInput:this];	
 	xTilts = NULL;
 };
@@ -100,10 +100,10 @@ bool CIPhoneTiltInput::GetScreenCoords(screenint &iX, screenint &iY, CDasherView
   return true;
 }
 
-UndoubledTouch::UndoubledTouch(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore) : CScreenCoordInput(pEventHandler, pSettingsStore, 7, UNDOUBLED_TOUCH) {
+UndoubledTouch::UndoubledTouch() : CScreenCoordInput(7, UNDOUBLED_TOUCH) {
 }
 
-UndoubledTouch::UndoubledTouch(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, ModuleID_t iId, const char *szName) : CScreenCoordInput(pEventHandler, pSettingsStore, iId, szName) {
+UndoubledTouch::UndoubledTouch(ModuleID_t iId, const char *szName) : CScreenCoordInput(iId, szName) {
 }
 
 bool UndoubledTouch::GetScreenCoords(screenint &iX, screenint &iY, CDasherView *pView) {
@@ -112,8 +112,8 @@ bool UndoubledTouch::GetScreenCoords(screenint &iX, screenint &iY, CDasherView *
 }
 
 
-CIPhoneMouseInput::CIPhoneMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
-	: UndoubledTouch(pEventHandler, pSettingsStore, 9, TOUCH_INPUT) {
+CIPhoneMouseInput::CIPhoneMouseInput(CSettingsUser *pCreator) 
+	: UndoubledTouch(9, TOUCH_INPUT), CSettingsUser(pCreator) {
 };
 
 bool CIPhoneMouseInput::GetScreenCoords(screenint &iX, screenint &iY, CDasherView *pView) {

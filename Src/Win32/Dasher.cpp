@@ -37,7 +37,7 @@ CONST UINT WM_DASHER_FOCUS = RegisterWindowMessage(_WM_DASHER_FOCUS);
 CONST UINT WM_DASHER_GAME_MESSAGE = RegisterWindowMessage(_WM_DASHER_GAME_MESSAGE);
 
 CDasher::CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit)
- : m_hParent(Parent), m_pWindow(pWindow), m_pEdit(pEdit) {
+ : CDashIntfScreenMsgs(new CWinOptions( "Inference Group", "Dasher3")), m_hParent(Parent), m_pWindow(pWindow), m_pEdit(pEdit) {
   // This class will be a wrapper for the Dasher 'control' - think ActiveX
 
 #ifndef _WIN32_WCE
@@ -57,10 +57,10 @@ void CDasher::CreateModules() {
   //create default set first.
   CDasherInterfaceBase::CreateModules();
 #ifndef _WIN32_WCE
-  RegisterModule(new CSocketInput(this, m_pEventHandler, m_pSettingsStore));
-  RegisterModule(new CBTSocketInput(m_pEventHandler, m_pSettingsStore));
+  RegisterModule(new CSocketInput(this,this));
+  RegisterModule(new CBTSocketInput());
 #endif
-  RegisterModule(new CDasherMouseInput(m_pEventHandler, m_pSettingsStore, m_pCanvas->getwindow()));
+  RegisterModule(new CDasherMouseInput(m_pCanvas->getwindow()));
 }
 
 void CDasher::Main() {
@@ -110,12 +110,12 @@ void CDasher::Log() {
 
 }
 
-void Dasher::CDasher::ExternalEventHandler(CEvent* pEvent) {  
-  if (pEvent->m_iEventType==EV_PARAM_NOTIFY) {
-    int iParam(static_cast<CParameterNotificationEvent *> (pEvent)->m_iParameter);
-    m_pWindow->HandleParameterChange(iParam);
-    m_pEdit->HandleParameterChange(iParam);
-  }
+void Dasher::CDasher::HandleEvent(int iParameter) {
+  CDashIntfScreenMsgs::HandleEvent(iParameter);
+  m_pWindow->HandleParameterChange(iParameter);
+  m_pEdit->HandleParameterChange(iParameter);
+  if (iParameter == SP_DASHER_FONT)
+    m_pCanvas->SetFont(GetStringParameter(SP_DASHER_FONT));
 }
 
 void Dasher::CDasher::editOutput(const string &strText, CDasherNode *pSource) {
@@ -279,7 +279,7 @@ void CDasher::SetupPaths() {
 }
 
 void CDasher::SetupUI() {
-  m_pCanvas = new CCanvas(this, m_pEventHandler, m_pSettingsStore);
+  m_pCanvas = new CCanvas(this);
   m_pCanvas->Create(m_hParent); // TODO - check return 
 
   OnUIRealised();
@@ -294,10 +294,6 @@ int CDasher::GetFileSize(const std::string &strFileName) {
   // TODO: Fix this on Win CE
   return 0;
 #endif
-}
-
-void CDasher::CreateSettingsStore(void) {
-  m_pSettingsStore = new CWinOptions( "Inference Group", "Dasher3", m_pEventHandler );
 }
 
 void CDasher::StartTimer() {

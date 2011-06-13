@@ -24,10 +24,10 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings) {
   m_hwnd = 0;
 
   // FIXME - is hParent still needed here?
-  m_pAlphabetBox = new CAlphabetBox(hParent, pDasher, pAppSettings);
+  m_pAlphabetBox = new CAlphabetBox(hParent, pAppSettings);
   m_pControlPage = new CControlPage(hParent, pDasher, pAppSettings);
-  m_pViewPage = new CViewPage(hParent, pDasher, pAppSettings);
-  m_pAdvancedPage = new CAdvancedPage(hParent, pDasher, pAppSettings);
+  m_pViewPage = new CViewPage(hParent, pAppSettings);
+  m_pAdvancedPage = new CAdvancedPage(hParent, pAppSettings);
  // m_pLMPage = new CLMPage(hParent, pDasher, pAppSettings);
 
   // Set up the property sheets which go into the preferences

@@ -23,9 +23,6 @@
 #include "DasherGameMode.h"
 #include "DasherInput.h"
 #include "DasherView.h"
-#include "Event.h"
-#include "EventHandler.h"
-#include "DasherScreen.h"
 
 using namespace Dasher;
 using std::vector;
@@ -42,8 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 /////////////////////////////////////////////////////////////////////////////
 
-CDasherView::CDasherView(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen *DasherScreen)
-  :CDasherComponent(pEventHandler, pSettingsStore), m_pScreen(DasherScreen),
+CDasherView::CDasherView(CDasherScreen *DasherScreen) : m_pScreen(DasherScreen),
    m_bDemoMode(false), m_bGameMode(false) {
 }
 

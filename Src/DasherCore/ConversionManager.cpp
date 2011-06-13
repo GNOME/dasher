@@ -24,7 +24,7 @@
 
 #include "ConversionManager.h"
 #include "Event.h"
-#include "EventHandler.h"
+#include "Observable.h"
 #include "NodeCreationManager.h"
 #include "DasherModel.h"
 #include "DasherInterfaceBase.h"
@@ -41,7 +41,7 @@
 using namespace Dasher;
 using namespace std;
 
-CConversionManager::CConversionManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet) {
+CConversionManager::CConversionManager(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet) : CSettingsUser(pCreateFrom) {
   m_pInterface = pInterface;
   m_pNCManager = pNCManager;
   m_pAlphabet = pAlphabet;
@@ -111,7 +111,7 @@ void CConversionManager::CConvNode::PopulateChildren() {
   // user should have been warned here.
   //
   unsigned int iLbnd(0);
-  unsigned int iHbnd(m_pMgr->m_pNCManager->GetLongParameter(LP_NORMALIZATION));
+  unsigned int iHbnd(m_pMgr->GetLongParameter(LP_NORMALIZATION));
 
   CDasherNode *pNewNode = m_pMgr->m_pNCManager->GetAlphabetManager()->GetRoot(this, iLbnd, iHbnd, false, offset() + 1);
 

@@ -23,8 +23,8 @@
 
 using namespace Dasher;
 
-CDynamicFilter::CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
-  : CInputFilter(pEventHandler, pSettingsStore, pInterface, iID, szName) {
+CDynamicFilter::CDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
+  : CInputFilter(pInterface, iID, szName), CSettingsUserObserver(pCreator) {
   m_bDecorationChanged = true;
   m_bKeyDown = false;
   pause();
@@ -127,25 +127,22 @@ void CDynamicFilter::Event(int iTime, int iButton, int iType, CDasherModel *pMod
   }
 }
 
-void CDynamicFilter::HandleEvent(CEvent *pEvent) {
-  if (pEvent->m_iEventType==EV_PARAM_NOTIFY) {
-    if (static_cast<CParameterNotificationEvent *>(pEvent)->m_iParameter==BP_DASHER_PAUSED) {
-      if (GetBoolParameter(BP_DASHER_PAUSED))
-        pause(); //make sure we're in sync
-      else if (m_pInterface->GetActiveInputMethod()==this && isPaused())
-        //if we're active: can't unpause, as we don't know which way to go, run or reverse?
-        SetBoolParameter(BP_DASHER_PAUSED, true);
-    }
+void CDynamicFilter::HandleEvent(int iParameter) {
+  if (iParameter==BP_DASHER_PAUSED) {
+    if (GetBoolParameter(BP_DASHER_PAUSED))
+      pause(); //make sure we're in sync
+    else if (m_pInterface->GetActiveInputMethod()==this && isPaused())
+      //if we're active: can't unpause, as we don't know which way to go, run or reverse?
+      SetBoolParameter(BP_DASHER_PAUSED, true);
   }
 }
 
 void CDynamicFilter::reverse()
 {
   m_iState = 1;
-  if (GetBoolParameter(BP_AUTO_SPEEDCONTROL))
-  {
-	//treat reversing as a sign of distress --> slow down!
-	SetLongParameter(LP_MAX_BITRATE, GetLongParameter(LP_MAX_BITRATE) *
+  if (GetBoolParameter(BP_AUTO_SPEEDCONTROL)) {
+    //treat reversing as a sign of distress --> slow down!
+    SetLongParameter(LP_MAX_BITRATE, GetLongParameter(LP_MAX_BITRATE) *
 					 (1.0 - GetLongParameter(LP_DYNAMIC_SPEED_DEC)/100.0));
   }
 }

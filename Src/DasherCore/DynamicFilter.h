@@ -27,9 +27,9 @@
 /// @{
 namespace Dasher {
 ///filter with three states: paused, reversing, running. Hold any button down to reverse.
-class CDynamicFilter : public CInputFilter {
+class CDynamicFilter : public CInputFilter, public CSettingsUserObserver {
  public:
-  CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName);
+  CDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName);
 
   virtual bool supportsPause() {return true;}
 
@@ -40,7 +40,7 @@ class CDynamicFilter : public CInputFilter {
   virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
 
   //respond to changes to BP_DASHER_PAUSED to keep m_iState in sync
-  virtual void HandleEvent(CEvent *pEvent);
+  virtual void HandleEvent(int iParameter);
  protected:
   virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) = 0;
   virtual void Event(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog);

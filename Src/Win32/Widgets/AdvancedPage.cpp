@@ -27,8 +27,8 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CAdvancedPage::CAdvancedPage(HWND Parent, CDasherInterfaceBase *DI, CAppSettings *pAppSettings)
-:CPrefsPageBase(Parent, DI, pAppSettings) {
+CAdvancedPage::CAdvancedPage(HWND Parent, CAppSettings *pAppSettings)
+:CPrefsPageBase(Parent, pAppSettings) {
 }
 
 struct menuentry {
@@ -70,7 +70,6 @@ void CAdvancedPage::PopulateList() {
 
 
   // Populate the controls in the dialogue box based on the relevent parameters
-  // in m_pDasherInterface
   for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++)
   {
     if(m_pAppSettings->GetBoolParameter(menutable[ii].paramNum)) {

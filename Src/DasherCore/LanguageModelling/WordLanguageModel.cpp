@@ -121,9 +121,9 @@ CWordLanguageModel::CWordnode * CWordLanguageModel::AddSymbolToNode(CWordnode *p
 // CWordLanguageModel defs
 /////////////////////////////////////////////////////////////////////
 
-CWordLanguageModel::CWordLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, 
+CWordLanguageModel::CWordLanguageModel(CSettingsUser *pCreator, 
 				       const CAlphInfo *pAlph, const CAlphabetMap *pAlphMap)
-  :CLanguageModel(pAlph->GetNumberTextSymbols()), CDasherComponent(pEventHandler, pSettingsStore), m_pAlphMap(pAlphMap), m_iSpaceSymbol(pAlph->GetSpaceSymbol()), NodesAllocated(0), 
+  :CLanguageModel(pAlph->GetNumberTextSymbols()), CSettingsUser(pCreator), m_pAlphMap(pAlphMap), m_iSpaceSymbol(pAlph->GetSpaceSymbol()), NodesAllocated(0), 
    max_order(2), m_NodeAlloc(8192), m_ContextAlloc(1024) {
   
   // Construct a root node for the trie
@@ -134,7 +134,7 @@ CWordLanguageModel::CWordLanguageModel(Dasher::CEventHandler *pEventHandler, CSe
 
   // Create a spelling model
 
-  pSpellingModel = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, m_iNumSyms);
+  pSpellingModel = new CPPMLanguageModel(this, m_iNumSyms);
 
   // Construct a root context
   

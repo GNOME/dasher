@@ -8,8 +8,8 @@ public:
   CModuleControlBool(SModuleSettings *pSetting) : CModuleControl(pSetting) {};
 
   virtual int GetHeightRequest();
-  virtual void Initialise(Dasher::CDasherInterfaceBase *pInterface);
-  virtual void Apply(Dasher::CDasherInterfaceBase *pInterface);
+  virtual void Initialise(CAppSettings *pAppSets);
+  virtual void Apply(CAppSettings *pAppSets);
   virtual void CreateChild(HWND hParent);
   virtual void LayoutChild(RECT &sRect);
 

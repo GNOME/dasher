@@ -15,15 +15,11 @@
 
 @class NSDictionary;
 
-class COSXSettingsStore:public CSettingsStore {
+class COSXSettingsStore:public Dasher::CSettingsStore {
 public:
-  COSXSettingsStore(Dasher::CEventHandler * pEventHandler);
+  COSXSettingsStore();
   ~COSXSettingsStore();
   
-  NSDictionary *ParameterDictionary();
-
-  int GetParameterIndex(const std::string &  Key);
-
 private:
 
   bool LoadSetting(const std::string & Key, bool * Value);

@@ -12,7 +12,7 @@ namespace Dasher {
 
 class Dasher::CBTSocketInput : public CDasherCoordInput {
 public:
-  CBTSocketInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore);
+  CBTSocketInput();
   ~CBTSocketInput(void);
 
   virtual bool GetDasherCoords(myint &iDasherX, myint &iDasherY, CDasherView *pView);

@@ -13,8 +13,8 @@ static SModuleSettings sSettings[] = {
   {LP_DYNAMIC_BUTTON_LAG, T_LONG, 0, 1000, 1, 25, _("Lag before user actually pushes button (ms)")},
 };
 
-COneButtonFilter::COneButtonFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
-  : CInputFilter(pEventHandler, pSettingsStore, pInterface, 9, "Static One Button Mode") {
+COneButtonFilter::COneButtonFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface)
+  : CInputFilter(pInterface, 9, "Static One Button Mode"), CSettingsUser(pCreator) {
 
   bStarted = 0;
   iLocation = 0;

@@ -25,9 +25,9 @@
 namespace Dasher {
   /// \ingroup LM
   /// \{
-  class CDictLanguageModel:public CLanguageModel, public CDasherComponent {
+  class CDictLanguageModel:public CLanguageModel, protected CSettingsUser {
   public:
-    CDictLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CAlphInfo *pAlph, const CAlphabetMap *pAlphMap);
+    CDictLanguageModel(CSettingsUser *pCreator, const CAlphInfo *pAlph, const CAlphabetMap *pAlphMap);
     virtual ~CDictLanguageModel();
 
     Context CreateEmptyContext();

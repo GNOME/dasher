@@ -31,7 +31,6 @@
 #include <vector>
 
 #include "../Common/NoClones.h"
-#include "DasherComponent.h"
 #include "DasherNode.h"
 #include "DasherTypes.h"
 #include "FrameRate.h"
@@ -61,14 +60,14 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, private NoClones
  public:
   /// Constructs a new CDasherModel. Note, must be followed by a call to
   /// SetOffset() before the model can be used.
-  CDasherModel(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pDashIface);
+  CDasherModel(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pDashIface);
   ~CDasherModel();
 
   ///
   /// Event handler
   ///
 
-  void HandleEvent(Dasher::CEvent * pEvent);
+  void HandleEvent(int iParameter);
 
   /// @name Dymanic evolution
   /// Routines detailing the timer dependent evolution of the model

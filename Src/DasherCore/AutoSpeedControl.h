@@ -1,18 +1,19 @@
 #ifndef __AUTO_SPEED_CONTROL_H__
 #define __AUTO_SPEED_CONTROL_H__
 
-#include "DasherComponent.h"
 #include "DasherTypes.h"
 #include "DasherView.h"
 #include "Messages.h"
+#include "SettingsStore.h"
+
 #include <deque>
 
 /// \defgroup AutoSpeed Auto speed control
 /// @{
 namespace Dasher {
-class CAutoSpeedControl : public Dasher::CDasherComponent {
+  class CAutoSpeedControl : private CSettingsUser {
  public:
-  CAutoSpeedControl(CMessageDisplay *pMsgs, Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore);
+  CAutoSpeedControl(CSettingsUser *pCreateFrom, CMessageDisplay *pMsgs);
   
   ///
   /// AUTO-SPEED-CONTROL

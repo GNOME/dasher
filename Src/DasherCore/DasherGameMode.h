@@ -7,15 +7,13 @@
 
 #include "../Common/NoClones.h"
 
-#include "DasherComponent.h"
 #include "DasherTypes.h"
-
+#include "SettingsStore.h"
+#include "Event.h"
 
 namespace Dasher {
   class CDasherModel;
   class CDasherInterfaceBase;
-  class CEventHandler;
-  class CDasherComponent;
   class CDasherView;
   
   namespace GameMode {
@@ -34,17 +32,14 @@ namespace Dasher {
     typedef std::string UTF8Char;
     typedef std::list< std::pair<unsigned long, GameFncPtr > > CallbackList;
     typedef std::list< std::pair<unsigned long, Zero_aryCallback* > > FunctorCallbackList;
-  }
-}
 
 /// \defgroup GameMode Game mode support
 /// @{
-class Dasher::GameMode::CDasherGameMode:public Dasher::CDasherComponent, private NoClones {
+class CDasherGameMode:public CSettingsUserObserver,Observer<const CEditEvent *>, private NoClones {
 
 public:
   
-  static CDasherGameMode* CreateTeacher(CEventHandler* pEventHandler, CSettingsStore* pSettingsStore,
-					CDasherInterfaceBase* pDashIface);
+  static CDasherGameMode* CreateTeacher(CSettingsUser* pFrom, CDasherInterfaceBase* pDashIface);
   static void DestroyTeacher();
 
   inline static CDasherGameMode* GetTeacher() {return pTeacher;}
@@ -60,19 +55,20 @@ public:
   UTF8Char GetSymbolAtOffset(unsigned int iOffset);
   void SentenceFinished();
 
-  void HandleEvent(Dasher::CEvent *);
+  void HandleEvent(int iParameter);
+  void HandleEvent(const CEditEvent *evt);
   void DrawGameDecorations(CDasherView* pView);
 
   void Message(int message, void* messagedata);
   friend class Level;
   
 private:
-  CDasherGameMode(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase * pDashIface);
+  CDasherGameMode(CSettingsUser *pCreateFrom, CDasherInterfaceBase * pDashIface);
   ~CDasherGameMode();
 
-  class Demo : public CDasherComponent {
+  class Demo : private CSettingsUser {
   public:
-    Demo(CSettingsStore * pSettingsStore, bool fullDemo=false):CDasherComponent(NULL, pSettingsStore),
+    Demo(CSettingsUser *pCreateFrom, bool fullDemo=false) : CSettingsUser(pCreateFrom),
       sp_alphabet_id(GetStringParameter(SP_ALPHABET_ID)),
       bp_draw_mouse(GetBoolParameter(BP_DRAW_MOUSE)),
       bp_auto_speedcontrol(GetBoolParameter(BP_AUTO_SPEEDCONTROL)),
@@ -208,6 +204,8 @@ private:
   const myint m_iCrossX, m_iCrossY, m_iMaxY;
   Score m_Score;  
 };
+  }
+}
 /// @}
 
 

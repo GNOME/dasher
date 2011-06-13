@@ -13,7 +13,7 @@
 #include "../Common/Common.h"
 #include "Event.h"
 #include "Parameters.h"
-#include "DasherComponent.h"
+#include "SettingsStore.h"
 
 namespace Dasher {
 /// \ingroup Model
@@ -22,11 +22,11 @@ namespace Dasher {
 /// keeps the framerate (LP_FRAMERATE / 100.0) up-to-date,
 /// computes the Steps parameter,
 /// computes RXmax - which controls the maximum rate of zooming in
-class CFrameRate : public CDasherComponent {
+class CFrameRate : public CSettingsUserObserver  {
 public:
-  CFrameRate(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore);
+  CFrameRate(CSettingsUser *pCreator);
   
-  virtual void HandleEvent(Dasher::CEvent *pEvent);
+  virtual void HandleEvent(int iParameter);
 
   /// Get the minimum size of the target viewport
   ////// TODO: Eventually fix this so that it uses integer maths internally. 

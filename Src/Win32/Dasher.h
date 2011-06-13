@@ -47,7 +47,7 @@ public:
   void Move(int iX, int iY, int iWidth, int iHeight);
   void TakeFocus();
 
-  void ExternalEventHandler(Dasher::CEvent *pEvent);
+  void HandleEvent(int iParameter);
   void editOutput(const std::string &strText, CDasherNode *pSource);
   void editDelete(const std::string &strText, CDasherNode *pSource);
   unsigned int ctrlMove(bool bForwards, CControlManager::EditDistance iDist);
@@ -78,7 +78,6 @@ private:
   virtual void CreateModules();
   virtual void StartTimer();
   virtual void ShutdownTimer();
-  void CreateSettingsStore();
 
   void ScanDirectory(const Tstring &strMask, std::vector<std::string> &vFileList);
   bool                    GetWindowSize(int* pTop, int* pLeft, int* pBottom, int* pRight);

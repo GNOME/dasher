@@ -34,8 +34,8 @@ static SModuleSettings sSettings[] = {
   {BP_SOCKET_DEBUG, T_BOOL, -1, -1, -1, -1, _("Print socket-related debugging information to console:")}
 };
 
-Dasher::CSocketInputBase::CSocketInputBase(CMessageDisplay *pMsgs, CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
-  : CScreenCoordInput(pEventHandler, pSettingsStore, 1, _("Socket Input")), m_pMsgs(pMsgs) {
+Dasher::CSocketInputBase::CSocketInputBase(CSettingsUser *pCreator, CMessageDisplay *pMsgs)
+  : CScreenCoordInput(1, _("Socket Input")), CSettingsUserObserver(pCreator), m_pMsgs(pMsgs) {
   port = -1;
   debug_socket_input = false;
   readerRunning = false;
@@ -65,33 +65,30 @@ Dasher::CSocketInputBase::~CSocketInputBase() {
   // Instead, you should call StopListening in the derived class's destructor.
 }
 
-void Dasher::CSocketInputBase::HandleEvent(Dasher::CEvent *pEvent) {
-  if(pEvent->m_iEventType == 1) {
-    Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
-    switch (pEvt->m_iParameter) {
-    case LP_SOCKET_PORT:
-      SetReaderPort(GetLongParameter(LP_SOCKET_PORT));
-      break;
-    case SP_SOCKET_INPUT_X_LABEL:
-      SetCoordinateLabel(0, GetStringParameter(SP_SOCKET_INPUT_X_LABEL).c_str());
-      break;
-    case SP_SOCKET_INPUT_Y_LABEL:
-      SetCoordinateLabel(1, GetStringParameter(SP_SOCKET_INPUT_Y_LABEL).c_str());
-      break;
-    case LP_SOCKET_INPUT_X_MIN:
-    case LP_SOCKET_INPUT_X_MAX:
-      SetRawRange(0, ((double)GetLongParameter(LP_SOCKET_INPUT_X_MIN)) / 1000.0, ((double)GetLongParameter(LP_SOCKET_INPUT_X_MAX)) / 1000.0);
-      break;
-    case LP_SOCKET_INPUT_Y_MIN:
-    case LP_SOCKET_INPUT_Y_MAX:
-      SetRawRange(1, ((double)GetLongParameter(LP_SOCKET_INPUT_Y_MIN)) / 1000.0, ((double)GetLongParameter(LP_SOCKET_INPUT_Y_MAX)) / 1000.0);
-      break;
-    case BP_SOCKET_DEBUG:
-      SetDebug(GetBoolParameter(BP_SOCKET_DEBUG));
-      break;
-    default:
-      break;
-    }
+void Dasher::CSocketInputBase::HandleEvent(int iParameter) {
+  switch (iParameter) {
+  case LP_SOCKET_PORT:
+    SetReaderPort(GetLongParameter(LP_SOCKET_PORT));
+    break;
+  case SP_SOCKET_INPUT_X_LABEL:
+    SetCoordinateLabel(0, GetStringParameter(SP_SOCKET_INPUT_X_LABEL).c_str());
+    break;
+  case SP_SOCKET_INPUT_Y_LABEL:
+    SetCoordinateLabel(1, GetStringParameter(SP_SOCKET_INPUT_Y_LABEL).c_str());
+    break;
+  case LP_SOCKET_INPUT_X_MIN:
+  case LP_SOCKET_INPUT_X_MAX:
+    SetRawRange(0, ((double)GetLongParameter(LP_SOCKET_INPUT_X_MIN)) / 1000.0, ((double)GetLongParameter(LP_SOCKET_INPUT_X_MAX)) / 1000.0);
+    break;
+  case LP_SOCKET_INPUT_Y_MIN:
+  case LP_SOCKET_INPUT_Y_MAX:
+    SetRawRange(1, ((double)GetLongParameter(LP_SOCKET_INPUT_Y_MIN)) / 1000.0, ((double)GetLongParameter(LP_SOCKET_INPUT_Y_MAX)) / 1000.0);
+    break;
+  case BP_SOCKET_DEBUG:
+    SetDebug(GetBoolParameter(BP_SOCKET_DEBUG));
+    break;
+  default:
+    break;
   }
 }
 

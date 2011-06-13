@@ -19,9 +19,9 @@
 
 #include "SettingsStore.h"
 
-class CGnomeSettingsStore:public CSettingsStore {
+class CGnomeSettingsStore:public Dasher::CSettingsStore {
 public:
-  CGnomeSettingsStore(Dasher::CEventHandler * pEventHandler);
+  CGnomeSettingsStore();
   ~CGnomeSettingsStore();
 
 private:

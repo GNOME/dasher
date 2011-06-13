@@ -14,12 +14,9 @@
 #include "../resource.h"
 #include "../AppSettings.h"
 
-#include "../../DasherCore/DasherInterfaceBase.h"
-#include "../../DasherCore/ColourIO.h"
-
 class CAdvancedPage:public CPrefsPageBase {
 public:
-  CAdvancedPage(HWND Parent, Dasher::CDasherInterfaceBase * DI, CAppSettings *pAppSettings);
+  CAdvancedPage(HWND Parent, CAppSettings *pAppSettings);
   
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 
@@ -29,9 +26,6 @@ private:
 
   std::string GetControlText(HWND Dialog, int ControlID);
 
-  std::vector < std::string > ColourList;
-  std::string m_CurrentColours;
-  Dasher::CColourIO::ColourInfo CurrentInfo;
 
   // Some status flags:
   void PopulateList();

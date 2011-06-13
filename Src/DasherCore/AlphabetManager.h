@@ -27,7 +27,7 @@
 #include "Trainer.h"
 #include "Alphabet/AlphInfo.h"
 #include "SettingsStore.h"
-#include "EventHandler.h"
+#include "Observable.h"
 
 class CNodeCreationManager;
 struct SGroupInfo;
@@ -44,13 +44,13 @@ namespace Dasher {
   /// to the appropriate alphabet file, with sizes given by the
   /// language model.
   ///
-  class CAlphabetManager : public CNodeManager {
+  class CAlphabetManager : public CNodeManager, protected CSettingsUser {
   public:
     ///Create a new AlphabetManager. Note, not usable until CreateLanguageModel() called.
-    CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet);
+    CAlphabetManager(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet);
     ///Creates the LM, and stores in m_pLanguageModel. Must be called after construction,
     /// before the AlphMgr is used. Default implementation switches on LP_LANGUAGE_MODEL_ID.
-    virtual void CreateLanguageModel(CEventHandler *pEventHandler, CSettingsStore *pSets);
+    virtual void CreateLanguageModel();
 
     virtual void MakeLabels(CDasherScreen *pScreen);
     ///Gets a new trainer to train this LM. Caller is responsible for deallocating the
@@ -240,7 +240,7 @@ namespace Dasher {
     CNodeCreationManager *m_pNCManager;
     const CAlphInfo *m_pAlphabet;
     const CAlphabetMap *m_pAlphabetMap;
-
+    
   private:
     ///Wraps m_pLanguageModel->GetProbs to implement nonuniformity
     /// (also leaves space for NCManager::AddExtras to add control node)

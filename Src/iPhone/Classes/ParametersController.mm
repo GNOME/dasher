@@ -11,6 +11,7 @@
 #import "DasherUtil.h"
 
 using namespace Dasher;
+using Dasher::Settings::GetParameterName;
 
 //private methods
 @interface ParametersController ()
@@ -54,7 +55,7 @@ using namespace Dasher;
   CDasherInterfaceBridge *intf = [DasherAppDelegate theApp].dasherInterface;
   for (int i=0; i<count; i++) {
     if (settings[i].iType == T_BOOL) {
-      UISwitch *sw=[self makeSwitch:NSStringFromStdString(intf->GetSettingsStore()->GetParameterName(settings[i].iParameter)) onView:view atY:&y];
+      UISwitch *sw=[self makeSwitch:NSStringFromStdString(GetParameterName(settings[i].iParameter)) onView:view atY:&y];
       sw.tag = settings[i].iParameter;
       sw.on = intf->GetBoolParameter(settings[i].iParameter);
       [sw addTarget:self action:@selector(boolParamChanged:) forControlEvents:UIControlEventValueChanged];
@@ -109,7 +110,7 @@ using namespace Dasher;
       iDivisor/=10;
     }
     NSString *format =[@"%@: %." stringByAppendingFormat:@"%df",iPlaces];  
-    label.text = [NSString stringWithFormat:format,NSStringFromStdString(intf->GetSettingsStore()->GetParameterName(setting->iParameter)),(val / (float)setting->iDivisor)];
+    label.text = [NSString stringWithFormat:format,NSStringFromStdString(GetParameterName(setting->iParameter)),(val / (float)setting->iDivisor)];
   }
 }
 

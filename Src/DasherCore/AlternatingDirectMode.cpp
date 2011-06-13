@@ -5,9 +5,9 @@
 
 #include "../Common/Common.h"
 
-
 #include "AlternatingDirectMode.h"
 #include "DasherScreen.h"
+#include "DasherInterfaceBase.h"
 #include <valarray>
 #include <iostream>
 
@@ -30,8 +30,8 @@ static SModuleSettings sSettings[] = {
   {BP_GLOBAL_KEYBOARD, T_BOOL, -1, -1, -1, -1, _("Global keyboard grab")}
 };
 
-CAlternatingDirectMode::CAlternatingDirectMode(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
-  : CDasherButtons(pEventHandler, pSettingsStore, pInterface, false/*menu*/, 12, _("Alternating Direct Mode")) {}
+CAlternatingDirectMode::CAlternatingDirectMode(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface)
+  : CDasherButtons(pCreator, pInterface, false/*menu*/, 12, _("Alternating Direct Mode")) {}
 
 void CAlternatingDirectMode::SetupBoxes()
 {

@@ -26,8 +26,8 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CPrefsPageBase::CPrefsPageBase(HWND Parent, CDasherInterfaceBase *DI, CAppSettings *pAppSettings)
-:m_pDasherInterface(DI), m_pAppSettings(pAppSettings) {
+CPrefsPageBase::CPrefsPageBase(HWND Parent, CAppSettings *pAppSettings)
+: m_pAppSettings(pAppSettings) {
   m_hwnd = 0;
   m_hPropertySheet = 0;
 }

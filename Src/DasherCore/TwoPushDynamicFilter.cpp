@@ -43,11 +43,10 @@ static SModuleSettings sSettings[] = {
   {LP_DYNAMIC_BUTTON_LAG, T_LONG, 0, 1000, 1, 25, _("Lag before user actually pushes button (ms)")}, 
 };
 
-CTwoPushDynamicFilter::CTwoPushDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
-  : CDynamicFilter(pEventHandler, pSettingsStore, pInterface, 14, _("Two-push Dynamic Mode (New One Button)")), m_dNatsSinceFirstPush(-std::numeric_limits<double>::infinity()) {
+CTwoPushDynamicFilter::CTwoPushDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface)
+  : CDynamicFilter(pCreator, pInterface, 14, _("Two-push Dynamic Mode (New One Button)")), m_dNatsSinceFirstPush(-std::numeric_limits<double>::infinity()) {
   
-  Dasher::CParameterNotificationEvent oEvent(LP_TWO_PUSH_OUTER);//and all the others too!
-  HandleEvent(&oEvent);
+  HandleEvent(LP_TWO_PUSH_OUTER);//and all the others too!
 }
 
 void GuideLine(CDasherView *pView, const myint iDasherY, const int iColour)
@@ -100,75 +99,71 @@ bool CTwoPushDynamicFilter::DecorateView(CDasherView *pView, CDasherInput *pInpu
   return bRV;
 }
 
-void CTwoPushDynamicFilter::HandleEvent(Dasher::CEvent * pEvent)
+void CTwoPushDynamicFilter::HandleEvent(int iParameter)
 {
-  CDynamicFilter::HandleEvent(pEvent);
-  if(pEvent->m_iEventType == EV_PARAM_NOTIFY)
+  CDynamicFilter::HandleEvent(iParameter);
+  switch (iParameter)
   {
-    Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
-    switch (pEvt->m_iParameter)
+    case LP_TWO_PUSH_OUTER:
+      if (GetLongParameter(LP_TWO_PUSH_OUTER)<=GetLongParameter(LP_TWO_PUSH_UP)) {
+        //two_push_outer being moved down; force two_push_up down too
+        SetLongParameter(LP_TWO_PUSH_UP, GetLongParameter(LP_TWO_PUSH_OUTER)-1);
+        return; // as HandleEvent on latter will execute same code (below)
+      }
+      //deliberate fallthrough
+    case LP_TWO_PUSH_UP:
+      if (GetLongParameter(LP_TWO_PUSH_UP)>=GetLongParameter(LP_TWO_PUSH_OUTER)) {
+        //two_push_up must have changed, or we'd have caught this in previous check for two_push_outer
+        SetLongParameter(LP_TWO_PUSH_OUTER, GetLongParameter(LP_TWO_PUSH_UP)+1);
+        return;
+      }
+      if (GetLongParameter(LP_TWO_PUSH_UP)<=GetLongParameter(LP_TWO_PUSH_DOWN)) {
+        SetLongParameter(LP_TWO_PUSH_DOWN, GetLongParameter(LP_TWO_PUSH_UP)-1);
+        return;
+      }
+      //deliberate fallthrough
+    case LP_TWO_PUSH_DOWN:
+      if (GetLongParameter(LP_TWO_PUSH_DOWN)>=GetLongParameter(LP_TWO_PUSH_UP)) {
+        SetLongParameter(LP_TWO_PUSH_UP, GetLongParameter(LP_TWO_PUSH_DOWN)+1);
+        return;
+      }
     {
-      case LP_TWO_PUSH_OUTER:
-        if (GetLongParameter(LP_TWO_PUSH_OUTER)<=GetLongParameter(LP_TWO_PUSH_UP)) {
-          //two_push_outer being moved down; force two_push_up down too
-          SetLongParameter(LP_TWO_PUSH_UP, GetLongParameter(LP_TWO_PUSH_OUTER)-1);
-          return; // as HandleEvent on latter will execute same code (below)
-        }
-        //deliberate fallthrough
-      case LP_TWO_PUSH_UP:
-        if (GetLongParameter(LP_TWO_PUSH_UP)>=GetLongParameter(LP_TWO_PUSH_OUTER)) {
-          //two_push_up must have changed, or we'd have caught this in previous check for two_push_outer
-          SetLongParameter(LP_TWO_PUSH_OUTER, GetLongParameter(LP_TWO_PUSH_UP)+1);
-          return;
-        }
-        if (GetLongParameter(LP_TWO_PUSH_UP)<=GetLongParameter(LP_TWO_PUSH_DOWN)) {
-          SetLongParameter(LP_TWO_PUSH_DOWN, GetLongParameter(LP_TWO_PUSH_UP)-1);
-          return;
-        }
-        //deliberate fallthrough
-      case LP_TWO_PUSH_DOWN:
-        if (GetLongParameter(LP_TWO_PUSH_DOWN)>=GetLongParameter(LP_TWO_PUSH_UP)) {
-          SetLongParameter(LP_TWO_PUSH_UP, GetLongParameter(LP_TWO_PUSH_DOWN)+1);
-          return;
-        }
-      {
-		//TODO, that means short gap at the top - allow other way around also?
+  //TODO, that means short gap at the top - allow other way around also?
 
-	double dOuter = GetLongParameter(LP_TWO_PUSH_OUTER);
-	m_dLogUpMul = log(dOuter / (double)GetLongParameter(LP_TWO_PUSH_UP));
-	m_dLogDownMul = log(dOuter / (double)GetLongParameter(LP_TWO_PUSH_DOWN));
+double dOuter = GetLongParameter(LP_TWO_PUSH_OUTER);
+m_dLogUpMul = log(dOuter / (double)GetLongParameter(LP_TWO_PUSH_UP));
+m_dLogDownMul = log(dOuter / (double)GetLongParameter(LP_TWO_PUSH_DOWN));
 //cout << "bitsUp " << m_dLogUpMul << " bitsDown " << m_dLogDownMul << "\n";
-      } //and fallthrough
-      case LP_TWO_PUSH_TOLERANCE:
-      case LP_MAX_BITRATE:
-      case LP_BOOSTFACTOR: // Deliberate fallthrough
-      {
-	double dMaxRate = GetLongParameter(LP_MAX_BITRATE) * GetLongParameter(LP_BOOSTFACTOR) / 10000.0;
-	double dPressBits = dMaxRate * (double) GetLongParameter(LP_TWO_PUSH_TOLERANCE) / 1000.0;
+    } //and fallthrough
+    case LP_TWO_PUSH_TOLERANCE:
+    case LP_MAX_BITRATE:
+    case LP_BOOSTFACTOR: // Deliberate fallthrough
+    {
+double dMaxRate = GetLongParameter(LP_MAX_BITRATE) * GetLongParameter(LP_BOOSTFACTOR) / 10000.0;
+double dPressBits = dMaxRate * (double) GetLongParameter(LP_TWO_PUSH_TOLERANCE) / 1000.0;
 //cout << "Max Bitrate changed - now " << dMaxRate << " user accuracy " << dPressBits;
-	m_dMinShortTwoPushTime = m_dLogUpMul - dPressBits;
+m_dMinShortTwoPushTime = m_dLogUpMul - dPressBits;
 //cout << "bits; minShort " << m_dMinShortTwoPushTime;
-	m_dMaxShortTwoPushTime = m_dLogUpMul + dPressBits;
-	m_dMinLongTwoPushTime = m_dLogDownMul - dPressBits;
-	if (m_dMaxShortTwoPushTime > m_dMinLongTwoPushTime)
-          m_dMaxShortTwoPushTime = m_dMinLongTwoPushTime = (m_dLogUpMul + m_dLogDownMul)/2.0;
-	m_dMaxLongTwoPushTime = m_dLogDownMul + dPressBits;
+m_dMaxShortTwoPushTime = m_dLogUpMul + dPressBits;
+m_dMinLongTwoPushTime = m_dLogDownMul - dPressBits;
+if (m_dMaxShortTwoPushTime > m_dMinLongTwoPushTime)
+        m_dMaxShortTwoPushTime = m_dMinLongTwoPushTime = (m_dLogUpMul + m_dLogDownMul)/2.0;
+m_dMaxLongTwoPushTime = m_dLogDownMul + dPressBits;
 //TODO, what requirements do we actually need to make to ensure sanity (specifically, that computed m_aiTarget's are in range)?
 //cout << " maxShort " << m_dMaxShortTwoPushTime << " minLong " << m_dMinLongTwoPushTime << " maxLong " << m_dMaxLongTwoPushTime << "\n";
-	m_bDecorationChanged = true;
-     }  //and fallthrough again
-     case LP_DYNAMIC_BUTTON_LAG:
-     {
-       double dMaxRate = GetLongParameter(LP_MAX_BITRATE) * GetLongParameter(LP_BOOSTFACTOR) / 10000.0;
-       m_dLagBits = dMaxRate * GetLongParameter(LP_DYNAMIC_BUTTON_LAG)/1000.0;
-  //cout << " lag (" << m_dLagBits[0] << ", " << m_dLagBits[1] << ", " << m_dLagBits[2] << ", " << m_dLagBits[3] << ")";
-       m_aaiGuideAreas[0][0] = 2048 - GetLongParameter(LP_TWO_PUSH_UP)*exp(m_dMaxShortTwoPushTime);
-       m_aaiGuideAreas[0][1] = 2048 - GetLongParameter(LP_TWO_PUSH_UP)*exp(m_dMinShortTwoPushTime);
-       m_aaiGuideAreas[1][0] = 2048 + GetLongParameter(LP_TWO_PUSH_DOWN)*exp(m_dMinLongTwoPushTime);
-       m_aaiGuideAreas[1][1] = 2048 + GetLongParameter(LP_TWO_PUSH_DOWN)*exp(m_dMaxLongTwoPushTime);
-	     break;
-     }
-    }
+m_bDecorationChanged = true;
+   }  //and fallthrough again
+   case LP_DYNAMIC_BUTTON_LAG:
+   {
+     double dMaxRate = GetLongParameter(LP_MAX_BITRATE) * GetLongParameter(LP_BOOSTFACTOR) / 10000.0;
+     m_dLagBits = dMaxRate * GetLongParameter(LP_DYNAMIC_BUTTON_LAG)/1000.0;
+//cout << " lag (" << m_dLagBits[0] << ", " << m_dLagBits[1] << ", " << m_dLagBits[2] << ", " << m_dLagBits[3] << ")";
+     m_aaiGuideAreas[0][0] = 2048 - GetLongParameter(LP_TWO_PUSH_UP)*exp(m_dMaxShortTwoPushTime);
+     m_aaiGuideAreas[0][1] = 2048 - GetLongParameter(LP_TWO_PUSH_UP)*exp(m_dMinShortTwoPushTime);
+     m_aaiGuideAreas[1][0] = 2048 + GetLongParameter(LP_TWO_PUSH_DOWN)*exp(m_dMinLongTwoPushTime);
+     m_aaiGuideAreas[1][1] = 2048 + GetLongParameter(LP_TWO_PUSH_DOWN)*exp(m_dMaxLongTwoPushTime);
+     break;
+   }
   }
 }
 
@@ -267,30 +262,9 @@ bool CTwoPushDynamicFilter::TimerImpl(unsigned long iTime, CDasherView *m_pDashe
   return true;
 }
 
-void CTwoPushDynamicFilter::Activate() {
-  SetBoolParameter(BP_SMOOTH_OFFSET, true);
-}
-
-void CTwoPushDynamicFilter::Deactivate() {
-  SetBoolParameter(BP_SMOOTH_OFFSET, false);
-}
-
 void CTwoPushDynamicFilter::run() {
   m_dNatsSinceFirstPush = -std::numeric_limits<double>::infinity();
-  SetBoolParameter(BP_SMOOTH_OFFSET, true);
   CDynamicFilter::run();
-}
-
-void CTwoPushDynamicFilter::pause() {
-  SetBoolParameter(BP_SMOOTH_OFFSET, false);
-  CDynamicFilter::pause();
-}
-
-void CTwoPushDynamicFilter::reverse() {
-  //hmmmm. If we ever actually did Offset() while reversing,
-  // we might want BP_SMOOTH_OFFSET on....
-  SetBoolParameter(BP_SMOOTH_OFFSET, false);
-  CDynamicFilter::reverse();
 }
 
 bool CTwoPushDynamicFilter::GetSettings(SModuleSettings **pSettings, int *iCount) {

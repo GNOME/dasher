@@ -102,8 +102,7 @@ void CAppSettings::SetBoolParameter(int iParameter, bool bValue) {
     m_pBoolTable[iParameter - FIRST_APP_BP].value = bValue;
     SaveSetting(m_pBoolTable[iParameter - FIRST_APP_BP].regName, bValue);
 
-    Dasher::CParameterNotificationEvent oEvent(iParameter);
-    m_pDasher->ExternalEventHandler(&oEvent);
+    m_pDasher->HandleEvent(iParameter);
   }
 }
 
@@ -120,8 +119,7 @@ void CAppSettings::SetLongParameter(int iParameter, long iValue) {
   else {
     m_pLongTable[iParameter - FIRST_APP_LP].value = iValue;
     SaveSetting(m_pLongTable[iParameter - FIRST_APP_LP].regName, iValue); 
-    Dasher::CParameterNotificationEvent oEvent(iParameter);
-    m_pDasher->ExternalEventHandler(&oEvent);
+    m_pDasher->HandleEvent(iParameter);
   }
 }
 
@@ -138,8 +136,7 @@ void CAppSettings::SetStringParameter(int iParameter, const std::string &strValu
   else {
     m_pStringTable[iParameter - FIRST_APP_SP].value = strValue;
     SaveSetting(m_pStringTable[iParameter - FIRST_APP_SP].regName, strValue);
-    Dasher::CParameterNotificationEvent oEvent(iParameter);
-    m_pDasher->ExternalEventHandler(&oEvent);
+    m_pDasher->HandleEvent(iParameter);
   }
 }
 
@@ -154,6 +151,11 @@ void CAppSettings::ResetParamater(int iParameter) {
     SetStringParameter(iParameter, app_stringparamtable[iParameter - FIRST_APP_SP].szDefaultValue);
 }
 
+void CAppSettings::GetPermittedValues(int iParameter, vector<string> &vList) {
+  //Don't think there are any app-specific string parameters with permitted values?
+  DASHER_ASSERT(iParameter>=FIRST_SP && iParameter < END_OF_SPS);
+  m_pDasher->GetPermittedValues(iParameter,vList);
+}
 
 // Functions for accessing persistent storage (stolen from WinOptions)
 

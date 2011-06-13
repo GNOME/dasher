@@ -6,10 +6,10 @@
 #include "AlphabetManager.h"
 #include "ConversionManager.h"
 #include "ControlManager.h"
-#include "DasherComponent.h"
 #include "LanguageModelling/LanguageModel.h"
 #include "Trainer.h"
 #include "Event.h"
+#include "SettingsStore.h"
 
 #include <string>
 #include <vector>
@@ -23,11 +23,10 @@ namespace Dasher {
 //TODO why is CNodeCreationManager _not_ in namespace Dasher?!?!
 /// \ingroup Model
 /// @{
-class CNodeCreationManager : public Dasher::CDasherComponent {
+class CNodeCreationManager : public Dasher::CSettingsUserObserver {
  public:
-  CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterface,
-                       Dasher::CEventHandler * pEventHandler,
-                       CSettingsStore * pSettingsStore,
+  CNodeCreationManager(Dasher::CSettingsUser *pCreateFrom,
+                       Dasher::CDasherInterfaceBase *pInterface,
                        const Dasher::CAlphIO *pAlphIO);
   ~CNodeCreationManager();
   
@@ -35,7 +34,7 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   void ChangeScreen(Dasher::CDasherScreen *pScreen);
   
   //we watch for changes to BP_CONTROL_MODE and create the Control Manager lazily
-  void HandleEvent(Dasher::CEvent *pEvent);
+  void HandleEvent(int iParameter);
   ///
   /// Get a root node of a particular type
   ///

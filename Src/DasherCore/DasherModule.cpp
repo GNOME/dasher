@@ -26,8 +26,7 @@
 // 0 = Input method
 // 1 = Input filter
 
-CDasherModule::CDasherModule(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, ModuleID_t iID, int iType, const char *szName) 
-  : CDasherComponent(pEventHandler, pSettingsStore) {
+CDasherModule::CDasherModule(ModuleID_t iID, int iType, const char *szName) {
   m_iID = iID;
   m_iType = iType;
   m_szName = szName;

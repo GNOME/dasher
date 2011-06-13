@@ -30,8 +30,8 @@ static char THIS_FILE[] = __FILE__;
 
 /////////////////////////////////////////////////////////////////////
 
-CAbstractPPM::CAbstractPPM(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, int iNumSyms, CPPMnode *pRoot, int iMaxOrder)
-: CLanguageModel(iNumSyms), CDasherComponent(pEventHandler, pSettingsStore), m_pRoot(pRoot), m_iMaxOrder(iMaxOrder), bUpdateExclusion( GetLongParameter(LP_LM_UPDATE_EXCLUSION)!=0 ), m_ContextAlloc(1024) {
+CAbstractPPM::CAbstractPPM(CSettingsUser *pCreator, int iNumSyms, CPPMnode *pRoot, int iMaxOrder)
+: CSettingsUser(pCreator), CLanguageModel(iNumSyms), m_pRoot(pRoot), m_iMaxOrder(iMaxOrder<0 ? GetLongParameter(LP_LM_MAX_ORDER) : iMaxOrder), bUpdateExclusion( GetLongParameter(LP_LM_UPDATE_EXCLUSION)!=0 ), m_ContextAlloc(1024) {
   m_pRootContext = m_ContextAlloc.Alloc();
   m_pRootContext->head = m_pRoot;
   m_pRootContext->order = 0;
@@ -444,8 +444,8 @@ CAbstractPPM::CPPMnode * CAbstractPPM::AddSymbolToNode(CPPMnode *pNode, symbol s
   return pReturn;
 }
 
-CPPMLanguageModel::CPPMLanguageModel(CEventHandler *pEvt, CSettingsStore *sets, int iNumSyms)
-: CAbstractPPM(pEvt, sets, iNumSyms, new CPPMnode(-1), sets->GetLongParameter(LP_LM_MAX_ORDER)), NodesAllocated(0), m_NodeAlloc(8192) {
+CPPMLanguageModel::CPPMLanguageModel(CSettingsUser *pCreator, int iNumSyms)
+: CAbstractPPM(pCreator, iNumSyms, new CPPMnode(-1)), NodesAllocated(0), m_NodeAlloc(8192) {
 }
 
 CAbstractPPM::CPPMnode *CPPMLanguageModel::makeNode(int sym) {

@@ -6,10 +6,10 @@
 
 CONST UINT WM_MS_CLOSE = RegisterWindowMessage(_WM_MS_CLOSE);
 
-CModuleSettings::CModuleSettings(const std::string &strModuleName, SModuleSettings *pSettings, int iCount, Dasher::CDasherInterfaceBase *pInterface) {
+CModuleSettings::CModuleSettings(const std::string &strModuleName, SModuleSettings *pSettings, int iCount, CAppSettings *pAppSets) {
   m_iCount = iCount;
   m_pControls = new CModuleControl*[m_iCount];
-  m_pInterface = pInterface;
+  m_pAppSets = pAppSets;
   m_strModuleName = strModuleName;
 
   for(int i(0); i < m_iCount; ++i) {
@@ -51,7 +51,7 @@ void CModuleSettings::Create(HWND hWndParent, ATL::_U_RECT rect) {
 
   for(int i(0); i < m_iCount; ++i) {
     m_pControls[i]->Create(m_hWnd);
-    m_pControls[i]->Initialise(m_pInterface);
+    m_pControls[i]->Initialise(m_pAppSets);
     iHeight += m_pControls[i]->GetHeightRequest() + 2;
   }
 
@@ -101,7 +101,7 @@ LRESULT CModuleSettings::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, B
       bHandled = true;
       // Apply and close 
       for(int i(0); i < m_iCount; ++i) {
-        m_pControls[i]->Apply(m_pInterface);
+        m_pControls[i]->Apply(m_pAppSets);
       }
       ShowWindow(SW_HIDE);
       SendMessage(m_hParent, WM_MS_CLOSE, 0, 0);

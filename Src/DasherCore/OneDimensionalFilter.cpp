@@ -4,12 +4,12 @@
 
 using namespace Dasher;
 
-/*COneDimensionalFilter::COneDimensionalFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel)
-  : COneDimensionalFilter(pEventHandler, pSettingsStore, pInterface, m_pDasherModel, 4, _("One Dimensional Mode")) {
+/*COneDimensionalFilter::COneDimensionalFilter(CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel)
+  : COneDimensionalFilter(pSettingsStore, pInterface, m_pDasherModel, 4, _("One Dimensional Mode")) {
 }*/
 
-COneDimensionalFilter::COneDimensionalFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
-  : CDefaultFilter(pEventHandler, pSettingsStore, pInterface, iID, szName), forwardmax(GetLongParameter(LP_MAX_Y)/2.5) {
+COneDimensionalFilter::COneDimensionalFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
+  : CDefaultFilter(pCreator, pInterface, iID, szName), forwardmax(GetLongParameter(LP_MAX_Y)/2.5) {
 }
 
 void COneDimensionalFilter::ApplyTransform(myint &iDasherX, myint &iDasherY, CDasherView *pView) {
@@ -78,7 +78,7 @@ CStartHandler *COneDimensionalFilter::MakeStartHandler() {
   if (GetBoolParameter(BP_CIRCLE_START)) {
     class C1DCircleStartHandler : public CCircleStartHandler {
     public:
-      C1DCircleStartHandler(CEventHandler *pEvtH, CSettingsStore *pSets, COneDimensionalFilter *f) : CCircleStartHandler(pEvtH, pSets, f->m_pInterface), filter(f) {
+      C1DCircleStartHandler(COneDimensionalFilter *f) : CCircleStartHandler(f, f->m_pInterface), filter(f) {
       }
       void ComputeScreenLoc(CDasherView *pView) {
         if (m_iScreenRadius!=-1) return;
@@ -90,19 +90,18 @@ CStartHandler *COneDimensionalFilter::MakeStartHandler() {
           pView->Dasher2Screen(GetLongParameter(LP_OX)-filter->forwardmax+rad, GetLongParameter(LP_OY),m_screenCircleCenter.x, m_screenCircleCenter.y);
         } 
       }
-      void HandleEvent(CEvent *pEvent) {
-        if (pEvent->m_iEventType == EV_PARAM_NOTIFY &&
-            ((CParameterNotificationEvent *)pEvent)->m_iParameter==BP_DASHER_PAUSED) {
+      void HandleEvent(int iParameter) {
+        if (iParameter==BP_DASHER_PAUSED) {
           //circle needs to move for pause/unpause; setting radius to -1 causes
           // next call to DecorateView or Timer to re-call ComputeScreenLoc.
           m_iScreenRadius=-1;
         }
-        CCircleStartHandler::HandleEvent(pEvent);
+        CCircleStartHandler::HandleEvent(iParameter);
       }
     private:
       const COneDimensionalFilter *filter;
     };
-    return new C1DCircleStartHandler(m_pEventHandler,m_pSettingsStore,this);
+    return new C1DCircleStartHandler(this);
   }
   return CDefaultFilter::MakeStartHandler();
 }

@@ -14,7 +14,7 @@
 #include "../../Common/NoClones.h"
 #include "../../Common/Allocators/PooledAlloc.h"
 #include "PPMLanguageModel.h"
-#include "../DasherComponent.h"
+#include "../SettingsStore.h"
 #include "../Alphabet/AlphInfo.h"
 #include "../Alphabet/AlphabetMap.h"
 
@@ -34,9 +34,9 @@ namespace Dasher {
   ///
   /// Language model using words
   ///
-  class CWordLanguageModel:public CLanguageModel, public CDasherComponent {
+  class CWordLanguageModel:public CLanguageModel, protected CSettingsUser {
   public:
-    CWordLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CAlphInfo *pAlph, const CAlphabetMap *pAlphMap);
+    CWordLanguageModel(CSettingsUser *pCreator, const CAlphInfo *pAlph, const CAlphabetMap *pAlphMap);
       virtual ~ CWordLanguageModel();
 
     Context CreateEmptyContext();
@@ -49,7 +49,7 @@ namespace Dasher {
     virtual void LearnSymbol(Context context, int Symbol);
 
   private:
-
+    
       class CWordnode {
     public:
       CWordnode * find_symbol(int sym)const;

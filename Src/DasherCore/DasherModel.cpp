@@ -50,11 +50,9 @@ static char THIS_FILE[] = __FILE__;
 
 // CDasherModel
 
-CDasherModel::CDasherModel(CEventHandler *pEventHandler,
-			   CSettingsStore *pSettingsStore,
+CDasherModel::CDasherModel(CSettingsUser *pCreateFrom,
 			   CDasherInterfaceBase *pDasherInterface)
-  : CFrameRate(pEventHandler, pSettingsStore) {
-  m_pDasherInterface = pDasherInterface;
+  : CFrameRate(pCreateFrom), m_pDasherInterface(pDasherInterface) {
 
   m_bGameMode = GetBoolParameter(BP_GAME_MODE);
 
@@ -73,8 +71,6 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler,
 #else
   m_bRequireConversion = false;
 #endif
-
-  SetBoolParameter(BP_CONVERSION_MODE, m_bRequireConversion);
 
   m_dAddProb = 0.003;
 
@@ -98,31 +94,27 @@ CDasherModel::~CDasherModel() {
   }
 }
 
-void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
-  CFrameRate::HandleEvent(pEvent);
+void CDasherModel::HandleEvent(int iParameter) {
+  CFrameRate::HandleEvent(iParameter);
 
-  if(pEvent->m_iEventType == EV_PARAM_NOTIFY) {
-    Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
-
-    switch (pEvt->m_iParameter) {
-    case BP_SMOOTH_OFFSET:
-      if (!GetBoolParameter(BP_SMOOTH_OFFSET))
-        //smoothing has just been turned off. End any transition/jump currently
-        // in progress at it's current point
-        AbortOffset();
-      break;
-    case BP_DASHER_PAUSED:
-      if(GetBoolParameter(BP_SLOW_START))
-	m_iStartTime = 0;
-      //else, leave m_iStartTime as is - will result in no slow start
-      break;
-    case BP_GAME_MODE:
-      m_bGameMode = GetBoolParameter(BP_GAME_MODE);
-      // Maybe reload something here to begin game mode?
-      break;
-    default:
-      break;
-    }
+  switch (iParameter) {
+  case BP_SMOOTH_OFFSET:
+    if (!GetBoolParameter(BP_SMOOTH_OFFSET))
+      //smoothing has just been turned off. End any transition/jump currently
+      // in progress at it's current point
+      AbortOffset();
+    break;
+  case BP_DASHER_PAUSED:
+    if(GetBoolParameter(BP_SLOW_START))
+      m_iStartTime = 0;
+    //else, leave m_iStartTime as is - will result in no slow start
+    break;
+  case BP_GAME_MODE:
+    m_bGameMode = GetBoolParameter(BP_GAME_MODE);
+    // Maybe reload something here to begin game mode?
+    break;
+  default:
+    break;
   }
 }
 

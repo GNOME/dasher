@@ -7,7 +7,7 @@ namespace Dasher {
 
 class Dasher::CDasherMouseInput : public CScreenCoordInput {
 public:
-  CDasherMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, HWND _hwnd);
+  CDasherMouseInput(HWND _hwnd);
   ~CDasherMouseInput(void);
 
   virtual bool GetScreenCoords(screenint &iX, screenint &iY, CDasherView *pView);

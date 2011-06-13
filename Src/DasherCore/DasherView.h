@@ -6,15 +6,14 @@
 #define __DasherView_h_
 
 namespace Dasher {
-  class CDasherComponent;
   class CDasherView;
   class CDasherNode;
 }
 
 #include "DasherTypes.h"
-#include "DasherComponent.h"
 #include "ExpansionPolicy.h"
 #include "DasherScreen.h"
+#include "Observable.h"
 
 /// \defgroup View Visualisation of the model
 /// @{
@@ -39,16 +38,20 @@ namespace Dasher {
 /// mode). We should probably consider creating separate classes for
 /// these.
 
-class Dasher::CDasherView : public Dasher::CDasherComponent
-{
+///Also an Observable: events should be generated whenever the screen
+/// geometry changes: e.g. aspect ratio, size, degree of nonlinearity,
+/// orientation, or generally whenever values returned by Dasher2Screen/Screen2Dasher
+/// might have changed (thus, any code caching such values should recompute/invalidate them).
+/// The "event" is just a pointer to the View itself, but can also be used
+/// to send round a pointer to a new view (i.e. replacing this one).
+
+class Dasher::CDasherView : public Observable<CDasherView *> {
 public:
 
   /// Constructor
   /// 
-  /// \param pEventHandler Pointer to the event handler
-  /// \param pSettingsStore Pointer to the settings store
   /// \param DasherScreen Pointer to the CDasherScreen object used to do rendering
-  CDasherView(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherScreen * DasherScreen);
+  CDasherView(CDasherScreen * DasherScreen);
 
   virtual ~CDasherView() {
   }
@@ -97,6 +100,9 @@ public:
   /// the same one-and-only screen that we are using anyway, so remove parameter?
   virtual void ScreenResized(CDasherScreen *pScreen) {}
 
+  void TransferObserversTo(CDasherView *pNewView) {
+    DispatchEvent(pNewView);
+  }
   /// @name High level drawing
   /// Drawing more complex structures, generally implemented by derived class
   /// @{

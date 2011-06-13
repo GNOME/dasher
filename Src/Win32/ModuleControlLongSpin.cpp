@@ -4,15 +4,15 @@ int CModuleControlLongSpin::GetHeightRequest() {
   return 12;
 }
 
-void CModuleControlLongSpin::Initialise(Dasher::CDasherInterfaceBase *pInterface) {
-  int iValue(pInterface->GetLongParameter(m_iId));
+void CModuleControlLongSpin::Initialise(CAppSettings *pAppSets) {
+  int iValue(pAppSets->GetLongParameter(m_iId));
   SendMessage(m_hSpin, UDM_SETPOS, 0, (LPARAM) MAKELONG ((short)iValue, 0));
   UpdateEntry(iValue, 0);
 }
 
-void CModuleControlLongSpin::Apply(Dasher::CDasherInterfaceBase *pInterface) {
+void CModuleControlLongSpin::Apply(CAppSettings *pAppSets) {
   int iValue(SendMessage(m_hSpin, UDM_GETPOS, 0, 0));
-  pInterface->SetLongParameter(m_iId, iValue);
+  pAppSets->SetLongParameter(m_iId, iValue);
 }
 
 void CModuleControlLongSpin::CreateChild(HWND hParent) {

@@ -20,6 +20,9 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
+using namespace Dasher;
+using namespace Dasher::Settings;
+
 static UserLogParamMask s_UserLogParamMaskTable [] = {
   {SP_ALPHABET_ID,          userLogParamOutputToSimple},
   {SP_COLOUR_ID,            userLogParamOutputToSimple},
@@ -42,10 +45,9 @@ static UserLogParamMask s_UserLogParamMaskTable [] = {
   {-1, -1}  // Flag value that should always be at the end
 };
 
-CUserLog::CUserLog(Dasher::CEventHandler *pEventHandler, 
-                   CSettingsStore *pSettingsStore, 
-                   int iLogTypeMask) : CUserLogBase(pEventHandler, pSettingsStore)
-{
+CUserLog::CUserLog(CSettingsUser *pCreateFrom,
+                   Observable<const CEditEvent *> *pObsv,
+                   int iLogTypeMask) : CUserLogBase(pCreateFrom, pObsv), CSettingsObserver(pCreateFrom) {
   //CFunctionLogger f1("CUserLog::CUserLog", g_pLogger);
 
   InitMemberVars();
@@ -63,11 +65,10 @@ CUserLog::CUserLog(Dasher::CEventHandler *pEventHandler,
   if (m_pApplicationSpan == NULL)
     g_pLogger->Log("CUserLog::CUserLog, failed to create m_pApplicationSpan!", logNORMAL);
 
-  // From the load test harness, we create object directly without a settings store
-  // and event handler.  In this case, we don't want to try and push the intial
-  // parameters.
-  if ((pEventHandler != NULL) && (pSettingsStore != NULL))
-    AddInitialParam();
+  // TODO: for the load test harness, we apparently need to create the object directly
+  // without a settings store (which will break CSettingsObserver, etc.); and then,
+  // don't call the following:
+  AddInitialParam();
 }
 
 CUserLog::~CUserLog()
@@ -670,34 +671,26 @@ void CUserLog::KeyDown(int iId, int iType, int iEffect) {
 }
   
 // This gets called whenever parameters get changed that we are tracking
-void CUserLog::HandleEvent(Dasher::CEvent* pEvent)
+void CUserLog::HandleEvent(int iParameter)
 {  
-  if(pEvent->m_iEventType == 1) {
-    Dasher::CParameterNotificationEvent* pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
+  int i = 0;
 
-    int i = 0;
-
-    // Go through each of the parameters in our lookup table from UserLogParam.h.
-    // If the key matches the notification event, then we want to push the
-    // parameter change to the logging object.
-    while (s_UserLogParamMaskTable[i].key != -1)
+  // Go through each of the parameters in our lookup table from UserLogParam.h.
+  // If the key matches the notification event, then we want to push the
+  // parameter change to the logging object.
+  while (s_UserLogParamMaskTable[i].key != -1)
+  {
+    if (s_UserLogParamMaskTable[i].key == iParameter)
     {
-      int iParameter = pEvt->m_iParameter;
+      int iOptionMask = s_UserLogParamMaskTable[i].mask;
 
-      if (s_UserLogParamMaskTable[i].key == iParameter)
-      {
-        int iOptionMask = s_UserLogParamMaskTable[i].mask;
+      UpdateParam(iParameter, iOptionMask);
+      return;
+    }
 
-        UpdateParam(iParameter, iOptionMask);
-        return;
-      }
+    i++;
 
-      i++;
-
-    } // end while (s_UserLogParamMaskTable[i].key != -1)
-
-  } // end if (pEvent->m_iEventType == 1)
-  CUserLogBase::HandleEvent(pEvent);
+  } // end while (s_UserLogParamMaskTable[i].key != -1)
 }
 
 ////////////////////////////////////////// private methods ////////////////////////////////////////////////
@@ -1138,9 +1131,10 @@ void CUserLog::UpdateParam(int iParameter, int iOptionMask)
 ///////////////////////////////////////////////////////////////////////////////////////
 // Below here are methods that are just used in the standalone tool that reads in 
 // UserLog XML files and does cool things to them.  
+// TODO these are broken by settings rewrite. Fix???
 
 // Load the object from an XML file
-CUserLog::CUserLog(string strXMLFilename) : CUserLogBase(NULL, NULL)
+CUserLog::CUserLog(string strXMLFilename) : CUserLogBase(NULL, NULL), CSettingsObserver(NULL)
 {
   //CFunctionLogger f1("CUserLog::CUserLog(XML)", g_pLogger);
 

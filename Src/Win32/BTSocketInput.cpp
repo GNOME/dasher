@@ -31,8 +31,8 @@ static const int ymax = -32;
 // TODO: This doesn't do any error handling at all
 // TODO: Probably incompatable with the socket server module
 
-CBTSocketInput::CBTSocketInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore)
-: CDasherCoordInput(pEventHandler, pSettingsStore, 100, "BT Tilt Socket"){
+CBTSocketInput::CBTSocketInput()
+: CDasherCoordInput(100, "BT Tilt Socket"){
 }
 
 CBTSocketInput::~CBTSocketInput(void) {

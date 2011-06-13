@@ -64,8 +64,8 @@ IPhonePrefsObserver::~IPhonePrefsObserver() {
   [obsvr release];
 }
 
-CIPhoneTiltFilter::CIPhoneTiltFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, CDasherInput *pTouch)
-: COneDimensionalFilter(pEventHandler, pSettingsStore, pInterface, iID, TILT_FILTER), m_pTouch(pTouch) {
+CIPhoneTiltFilter::CIPhoneTiltFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, CDasherInput *pTouch)
+: COneDimensionalFilter(pCreator, pInterface, iID, TILT_FILTER), m_pTouch(pTouch) {
   ObserveKeys(HOLD_TO_GO, TILT_USE_TOUCH_X, TILT_1D, @"CircleStart", nil);
 };
 			
@@ -102,12 +102,12 @@ void CIPhoneTiltFilter::ApplyOffset(myint &iDasherX, myint &iDasherY) {
   //Do not apply LP_TARGET_OFFSET, or BP_AUTO_CALIBRATE
 }
 
-void CIPhoneTiltFilter::HandleEvent(CEvent *pEvent) {
-  if (pEvent->m_iEventType == EV_PARAM_NOTIFY
-      && static_cast<CParameterNotificationEvent *>(pEvent)->m_iParameter==BP_DASHER_PAUSED
+void CIPhoneTiltFilter::HandleEvent(int iParameter) {
+  if (iParameter==BP_DASHER_PAUSED
       && m_pInterface->GetActiveInputMethod()==this) {
     [UIApplication sharedApplication].idleTimerDisabled=(!GetBoolParameter(BP_DASHER_PAUSED) && !bHoldToGo);
   }
+  COneDimensionalFilter::HandleEvent(iParameter);
 }
 
 void CIPhoneTiltFilter::iPhonePrefsChanged(NSString *key) {
@@ -132,8 +132,8 @@ CStartHandler *CIPhoneTiltFilter::MakeStartHandler() {
   return CDefaultFilter::MakeStartHandler();
 }
 
-CIPhoneTouchFilter::CIPhoneTouchFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, ModuleID_t iID, UndoubledTouch *pUndoubledTouch, CIPhoneTiltInput *pTilt)
-: CStylusFilter(pEventHandler, pSettingsStore, pInterface, iID, TOUCH_FILTER), m_pUndoubledTouch(pUndoubledTouch), m_pTilt(pTilt) {
+CIPhoneTouchFilter::CIPhoneTouchFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, UndoubledTouch *pUndoubledTouch, CIPhoneTiltInput *pTilt)
+: CStylusFilter(pCreator, pInterface, iID, TOUCH_FILTER), m_pUndoubledTouch(pUndoubledTouch), m_pTilt(pTilt) {
   ObserveKeys(TOUCH_USE_TILT_X,nil);
   
 };
