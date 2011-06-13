@@ -66,7 +66,7 @@ namespace Dasher {
     /// together (i.e. by hashing on text). Hence, it is not possible to call makeMap() on
     /// the CHAlphabet (this requires the text attributes to be all different), so we rehash here.
     /// \param pAlphabetMap mapping from text to symbol# of the PY alphabet; used for training files.
-    CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphMap);
+    CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphIO *pAlphIO);
     ~CMandarinAlphMgr();
     
     ///WZ: Mandarin Dasher Change. Sets language model to PPMPY.

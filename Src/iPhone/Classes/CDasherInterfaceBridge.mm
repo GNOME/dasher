@@ -155,7 +155,7 @@ void CDasherInterfaceBridge::ExternalEventHandler(Dasher::CEvent *pEvent) {
 		if (pEvt->m_iParameter == LP_MAX_BITRATE || pEvt->m_iParameter == LP_BOOSTFACTOR)
 			[dasherApp notifySpeedChange];
     else if (pEvt->m_iParameter == SP_ALPHABET_ID)
-      [dasherApp setAlphabet:GetInfo(GetStringParameter(SP_ALPHABET_ID))];
+      [dasherApp setAlphabet:GetActiveAlphabet()];
     }
       break;
     case EV_EDIT:

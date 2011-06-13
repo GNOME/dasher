@@ -694,10 +694,6 @@ void CDasherInterfaceBase::ChangeView() {
   }
 }
 
-const CAlphInfo *CDasherInterfaceBase::GetInfo(const std::string &AlphID) {
-  return m_AlphIO->GetInfo(AlphID);
-}
-
 double CDasherInterfaceBase::GetCurCPM() {
   //
   return 0;
@@ -706,6 +702,10 @@ double CDasherInterfaceBase::GetCurCPM() {
 double CDasherInterfaceBase::GetCurFPS() {
   //
   return 0;
+}
+
+const CAlphInfo *CDasherInterfaceBase::GetActiveAlphabet() {
+  return m_AlphIO->GetInfo(GetStringParameter(SP_ALPHABET_ID));
 }
 
 // int CDasherInterfaceBase::GetAutoOffset() {

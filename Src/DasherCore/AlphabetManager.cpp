@@ -50,12 +50,12 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CAlphabetManager::CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphabetMap)
-  : m_pFirstGroup(NULL), m_pNCManager(pNCManager), m_pAlphabet(pAlphabet), m_pAlphabetMap(pAlphabetMap), m_pInterface(pInterface) {
+CAlphabetManager::CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet)
+  : m_pFirstGroup(NULL), m_pNCManager(pNCManager), m_pAlphabet(pAlphabet), m_pAlphabetMap(pAlphabet->MakeMap()), m_pInterface(pInterface) {
   //Look for a (single-octet) character not in the alphabet...
   for (char c=33; (c&0x80)==0; c++) {
     string s(&c,1);
-    if (pAlphabetMap->Get(s)==0) {
+    if (m_pAlphabetMap->Get(s)==0) {
       m_sDelim = s;
       break;
     }

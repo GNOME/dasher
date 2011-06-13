@@ -35,11 +35,10 @@ private:
 CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterface,
                                            Dasher::CEventHandler *pEventHandler, 
                                            CSettingsStore *pSettingsStore,
-                                           Dasher::CAlphIO *pAlphIO) : CDasherComponent(pEventHandler, pSettingsStore),
+                                           const Dasher::CAlphIO *pAlphIO) : CDasherComponent(pEventHandler, pSettingsStore),
   m_pInterface(pInterface), m_pControlManager(NULL), m_pScreen(NULL) {
 
   const Dasher::CAlphInfo *pAlphInfo(pAlphIO->GetInfo(pSettingsStore->GetStringParameter(SP_ALPHABET_ID)));
-  const CAlphabetMap *pAlphMap = pAlphInfo->MakeMap();
   
   pSettingsStore->SetStringParameter(SP_GAME_TEXT_FILE, pAlphInfo->GetGameModeFile());
   
@@ -52,7 +51,7 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
       //TODO: Error reporting here
       //fall through to
     case 0: // No conversion required
-      m_pAlphabetManager = new CAlphabetManager(pInterface, this, pAlphInfo, pAlphMap);
+      m_pAlphabetManager = new CAlphabetManager(pInterface, this, pAlphInfo);
       break;      
 #ifdef JAPANESE
     case 1: {
@@ -71,7 +70,7 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
     case 2:
       //Mandarin Dasher!
       //(ACL) Modify AlphabetManager for Mandarin Dasher
-      m_pAlphabetManager = new CMandarinAlphMgr(pInterface, this, pAlphInfo, pAlphMap);
+      m_pAlphabetManager = new CMandarinAlphMgr(pInterface, this, pAlphInfo, pAlphIO);
       break;
   }
   //all other configuration changes, etc., that might be necessary for a particular conversion mode,

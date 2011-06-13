@@ -47,8 +47,7 @@ namespace Dasher {
   class CAlphabetManager : public CNodeManager {
   public:
     ///Create a new AlphabetManager. Note, not usable until CreateLanguageModel() called.
-    CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphabetMap);
-    
+    CAlphabetManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet);
     ///Creates the LM, and stores in m_pLanguageModel. Must be called after construction,
     /// before the AlphMgr is used. Default implementation switches on LP_LANGUAGE_MODEL_ID.
     virtual void CreateLanguageModel(CEventHandler *pEventHandler, CSettingsStore *pSets);

@@ -54,7 +54,7 @@ public:
   ~CAlphIO();
   void GetAlphabets(std::vector < std::string > *AlphabetList) const;
   std::string GetDefault();
-  const CAlphInfo *GetInfo(const std::string & AlphID);
+  const CAlphInfo *GetInfo(const std::string & AlphID) const;
 private:
   CAlphInfo::character *SpaceCharacter, *ParagraphCharacter;
   std::vector<SGroupInfo *> m_vGroups;

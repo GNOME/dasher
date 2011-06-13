@@ -104,15 +104,11 @@ std::string CAlphIO::GetDefault() {
   }
 }
 
-const CAlphInfo *CAlphIO::GetInfo(const std::string &AlphID) {
-  if(Alphabets.count(AlphID)!=0) {
-    // if we have the alphabet they ask for, return it
-    return Alphabets[AlphID];
-  }
-  else {
-    // otherwise, give them default - it's better than nothing
-    return Alphabets["Default"];
-  }
+const CAlphInfo *CAlphIO::GetInfo(const std::string &AlphID) const {
+  map<string, const CAlphInfo*>::const_iterator it = Alphabets.find(AlphID);
+  if (it == Alphabets.end()) //if we don't have the alphabet they ask for,
+    it = Alphabets.find("Default"); //give them default - it's better than nothing
+  return it->second;
 }
 
 CAlphInfo *CAlphIO::CreateDefault() {

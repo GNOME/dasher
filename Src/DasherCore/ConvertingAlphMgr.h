@@ -22,7 +22,7 @@ namespace Dasher {
   //TODO do we also need to override GetProbs? Existing impl will add uniformity onto the conversion root too.
   class CConvertingAlphMgr : public CAlphabetManager {
   public:
-    CConvertingAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CConversionManager *pConvMgr, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphabetMap);
+    CConvertingAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, CConversionManager *pConvMgr, const CAlphInfo *pAlphabet);
     ///Override to also tell the ConversionManager that the screen has changed.
     void MakeLabels(CDasherScreen *pScreen);
     virtual ~CConvertingAlphMgr();

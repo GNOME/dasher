@@ -28,7 +28,7 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
   CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterface,
                        Dasher::CEventHandler * pEventHandler,
                        CSettingsStore * pSettingsStore,
-                       Dasher::CAlphIO *pAlphIO);
+                       const Dasher::CAlphIO *pAlphIO);
   ~CNodeCreationManager();
   
   ///Tells us the screen on which all created node labels must be rendered

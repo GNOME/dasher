@@ -46,13 +46,13 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphabetMap *pAlphMap)
-  : CAlphabetManager(pInterface, pNCManager, pAlphabet, pAlphMap),
+CMandarinAlphMgr::CMandarinAlphMgr(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphIO *pAlphIO)
+  : CAlphabetManager(pInterface, pNCManager, pAlphabet),
     m_pConversionsBySymbol(new set<symbol>[GetAlphabet()->GetNumberTextSymbols()+1]) {
   DASHER_ASSERT(pAlphabet->m_iConversionID==2);
       
   //the CHAlphabet contains a group for each SPY syllable+tone, with symbols being chinese characters.      
-  const CAlphInfo *pCHAlphabet = pInterface->GetInfo(pAlphabet->m_strConversionTarget);
+  const CAlphInfo *pCHAlphabet = pAlphIO->GetInfo(pAlphabet->m_strConversionTarget);
       
   //Build a map from SPY group label, to set of chinese chars (represented as start & end of group in pCHAlphabet)
   map<string,pair<symbol,symbol> > conversions;
