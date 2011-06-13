@@ -39,19 +39,13 @@ public:
     std::vector < int >Blues;
   };
 
-  CColourIO(std::string SystemLocation, std::string UserLocation, std::vector < std::string > &Filenames);
+  CColourIO(const std::string &SystemLocation, const std::string &UserLocation, std::vector < std::string > &Filenames);
   void GetColours(std::vector < std::string > *ColourList) const;
   const ColourInfo & GetInfo(const std::string & ColourID);
-  void SetInfo(const ColourInfo & NewInfo);
-  void Delete(const std::string & ColourID);
 private:
   ColourInfo BlankInfo;
-  std::string SystemLocation;
-  std::string UserLocation;
   std::map < std::string, ColourInfo > Colours; // map short names (file names) to descriptions
-  std::vector < std::string > Filenames;
 
-  void Save(const std::string & ColourID);
   void CreateDefault();         // Give the user a default colour scheme rather than nothing if anything goes horribly wrong.
 
   // XML handling:

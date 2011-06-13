@@ -23,8 +23,8 @@ static char THIS_FILE[] = __FILE__;
 
 // TODO: Share information with AlphIO class?
 
-CColourIO::CColourIO(std::string SystemLocation, std::string UserLocation, std::vector<std::string> &Filenames)
-:BlankInfo(), SystemLocation(SystemLocation), UserLocation(UserLocation), Filenames(Filenames), LoadMutable(false), CData("") {
+CColourIO::CColourIO(const std::string &SystemLocation, const std::string &UserLocation, std::vector<std::string> &Filenames)
+:BlankInfo(), LoadMutable(false), CData("") {
   CreateDefault();
 
   LoadMutable = false;
@@ -66,38 +66,6 @@ const CColourIO::ColourInfo & CColourIO::GetInfo(const std::string &ColourID) {
       return Colours["Default"];
     }
   }
-}
-
-void CColourIO::SetInfo(const ColourInfo &NewInfo) {
-  Colours[NewInfo.ColourID] = NewInfo;
-  Save(NewInfo.ColourID);
-}
-
-void CColourIO::Delete(const std::string &ColourID) {
-  if(Colours.find(ColourID) != Colours.end()) {
-    Colours.erase(ColourID);
-    Save("");
-  }
-}
-
-void CColourIO::Save(const std::string &ColourID) {
-  // Write an XML file containing all the colours that have been defined.
-  // I am not going to indent the XML file as it will just bloat it, and it
-  // is very simple. There are line breaks though as it is very hard to read
-  // without. I'm going to ignore ColourID and save all alphabets as the
-  // overhead doesn't seem to matter and it makes things much easier.
-
-  FILE *Output;
-  std::string Filename = UserLocation + "colours.xml";
-  if((Output = fopen(Filename.c_str(), "w")) == (FILE *) 0) {
-    // could not open file
-  }
-
-  fwrite("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n", sizeof(char), 39, Output);
-  fwrite("<!DOCTYPE alphabets SYSTEM \"colours.dtd\">\n", sizeof(char), 43, Output);
-  fwrite("<?xml-stylesheet type=\"text/xsl\" href=\"colours.xsl\"?>\n", sizeof(char), 55, Output);
-  fwrite("<colours>\n", sizeof(char), 12, Output);
-  fclose(Output);
 }
 
 void CColourIO::CreateDefault() {

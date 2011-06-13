@@ -92,22 +92,7 @@ public:
     return m_pSettingsStore;
   }
 
-  ///
-  /// \deprecated In situ alphabet editing is no longer supported
-  /// \todo Document this
-  ///
-
   const CAlphInfo *GetInfo(const std::string & AlphID);
-
-  /// \todo Document this
-
-  void SetInfo(const CAlphInfo *NewInfo);
-
-  /// \todo Document this
-
-  void DeleteAlphabet(const std::string & AlphID);
-
-  /// Gets a pointer to the object doing user logging
 
   CUserLogBase* GetUserLogPtr();
 

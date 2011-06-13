@@ -698,14 +698,6 @@ const CAlphInfo *CDasherInterfaceBase::GetInfo(const std::string &AlphID) {
   return m_AlphIO->GetInfo(AlphID);
 }
 
-void CDasherInterfaceBase::SetInfo(const CAlphInfo *NewInfo) {
-  m_AlphIO->SetInfo(NewInfo);
-}
-
-void CDasherInterfaceBase::DeleteAlphabet(const std::string &AlphID) {
-  m_AlphIO->Delete(AlphID);
-}
-
 double CDasherInterfaceBase::GetCurCPM() {
   //
   return 0;

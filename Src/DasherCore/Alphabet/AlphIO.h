@@ -47,29 +47,19 @@ namespace Dasher {
 /// object per alphabet at this time, and stores them in a map from AlphID
 /// string until shutdown/destruction. (CAlphIO is a friend of CAlphInfo,
 /// so can create/manipulate instances.)
-///
-/// Note the alphabet-management functions (SetInfo, Delete, Save, and
-/// hence the mutability of alphabets loaded) don't seem to be fully
-/// implemented...
 class Dasher::CAlphIO : private AbstractXMLParser {
 public:
 
-  CAlphIO(std::string SystemLocation, std::string UserLocation, std::vector < std::string > &Filenames);
+  CAlphIO(const std::string &SystemLocation, const std::string &UserLocation, const std::vector < std::string > &Filenames);
   ~CAlphIO();
   void GetAlphabets(std::vector < std::string > *AlphabetList) const;
   std::string GetDefault();
   const CAlphInfo *GetInfo(const std::string & AlphID);
-  void SetInfo(const CAlphInfo *NewInfo);
-  void Delete(const std::string & AlphID);
 private:
   CAlphInfo::character *SpaceCharacter, *ParagraphCharacter;
   std::vector<SGroupInfo *> m_vGroups;
-  std::string SystemLocation;
-  std::string UserLocation;
   std::map < std::string, const CAlphInfo* > Alphabets; // map short names (file names) to descriptions. We own all the values but it's easier this way...
-  std::vector < std::string > Filenames;
 
-  void Save(const std::string & AlphID);
   CAlphInfo *CreateDefault();         // Give the user an English alphabet rather than nothing if anything goes horribly wrong.
 
   void DeleteAlphabet(CAlphInfo *Alphabet);
