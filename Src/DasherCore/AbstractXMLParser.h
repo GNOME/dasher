@@ -15,6 +15,8 @@
 #include <config.h>
 #endif
 
+#include "Messages.h"
+
 #include <string>
 #include <expat.h>
 
@@ -24,8 +26,10 @@
 class AbstractXMLParser {
 public:
   ///Parse (the whole) file - done in chunks to avoid loading the whole thing into memory.
-  /// \return true if the file was opened+parsed; false if not (i.e. filename did not exist)
-  bool ParseFile(const std::string &strFilename);
+  /// \param pInterface if non-null, any errors _besides_ file-not-found, will be passed
+  /// to the Message(,true) method to report to the user.
+  /// \return true if the file was opened+parsed OK; false if there was an error (e.g. FNF)
+  bool ParseFile(CMessageDisplay *pMsgs, const std::string &strFilename);
 protected:
   ///Subclass should override to handle a start tag
   virtual void XmlStartHandler(const XML_Char *name, const XML_Char **atts)=0;

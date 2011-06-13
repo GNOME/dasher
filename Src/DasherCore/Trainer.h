@@ -6,12 +6,10 @@
 #include "AbstractXMLParser.h"
 
 namespace Dasher {
-  class CDasherInterfaceBase;
-	
   class CTrainer : private AbstractXMLParser {
             
   public:
-    CTrainer(CLanguageModel *pLanguageModel, const CAlphInfo *pInfo, const CAlphabetMap *pAlphabet);
+    CTrainer(CMessageDisplay *pMsgs, CLanguageModel *pLanguageModel, const CAlphInfo *pInfo, const CAlphabetMap *pAlphabet);
 
     class ProgressIndicator {
     public:
@@ -34,10 +32,11 @@ namespace Dasher {
     /// \return true if a context-switch command was found (=> sContext reinitialized);
     ///  false, if instead a double-escape-character (=encoding of that actual symbol) was read
     bool readEscape(CLanguageModel::Context &sContext, CAlphabetMap::SymbolStream &syms);
-    
-    const CAlphabetMap *m_pAlphabet;
-    CLanguageModel *m_pLanguageModel;
-    const CAlphInfo *m_pInfo;
+
+    CMessageDisplay * const m_pMsgs;
+    const CAlphabetMap * const m_pAlphabet;
+    CLanguageModel * const m_pLanguageModel;
+    const CAlphInfo * const m_pInfo;
     // symbol number in alphabet of the context-switch character (maybe 0 if not in alphabet!)
     int m_iCtxEsc;
   private:
@@ -63,7 +62,7 @@ namespace Dasher {
     /// \param pPYAlphabet mapping from text to symbol# in PY alphabet
     /// \param pCHAlphabet mapping from text to symbol# (rehashed by MandarinAlphMgr) in CHAlphabet
     /// \param strDelim delimiter character (1 unicode, maybe >1 octet; if not, will never be matched)
-    CMandarinTrainer(CPPMPYLanguageModel *pLanguageModel, const CAlphInfo *pInfo, const CAlphabetMap *pPYAlphabet, const CAlphabetMap *pCHAlphabet, const std::string &strDelim);
+    CMandarinTrainer(CMessageDisplay *pMsgs, CPPMPYLanguageModel *pLanguageModel, const CAlphInfo *pInfo, const CAlphabetMap *pPYAlphabet, const CAlphabetMap *pCHAlphabet, const std::string &strDelim);
 
   protected:
     //override...

@@ -6,7 +6,7 @@
  *
  */
 
-#import "../DasherCore/DasherInterfaceBase.h"
+#import "../DasherCore/DashIntfScreenMsgs.h"
 #import "IPhoneInputs.h"
 #import "IPhoneFilters.h"
 #import "DefaultFilter.h"
@@ -21,8 +21,12 @@
 /// Class representing the Dasher UI component (ie the canvas and speed slider).
 /// Implements the necessary abstract methods by bridging them into Objective C
 /// and sending messages onto the DasherAppDelegate.
-
-class CDasherInterfaceBridge : public Dasher::CDasherInterfaceBase {
+///
+/// We inherit from CDashIntfScreenMsgs but use it for displaying modal messages
+/// only (over the canvas). TODO: we could possibly do better by displaying a modal
+/// View, however we would need some way for users not capable of touching the screen
+/// (who might be using Dasher via tilt control & start-on-circle) to clear the display!
+class CDasherInterfaceBridge : public Dasher::CDashIntfScreenMsgs {
   
 public:
   
@@ -59,7 +63,8 @@ public:
   void editDelete(const string &strText, CDasherNode *pNode);
   void editConvert(CDasherNode *pNode);
   void editProtect(CDasherNode *pNode);
-  void Message(const string &strText);
+  ///Override for asynchronous messages only...TODO?
+  void Message(const string &strText, bool bInterrupt);
 private:
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
   virtual void ScanColourFiles(std::vector<std::string> &vFileList);

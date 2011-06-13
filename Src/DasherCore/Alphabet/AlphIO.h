@@ -50,7 +50,7 @@ namespace Dasher {
 class Dasher::CAlphIO : private AbstractXMLParser {
 public:
 
-  CAlphIO(const std::string &SystemLocation, const std::string &UserLocation, const std::vector < std::string > &Filenames);
+  CAlphIO(CMessageDisplay *pMsgs, const std::string &SystemLocation, const std::string &UserLocation, const std::vector < std::string > &Filenames);
   ~CAlphIO();
   void GetAlphabets(std::vector < std::string > *AlphabetList) const;
   std::string GetDefault();

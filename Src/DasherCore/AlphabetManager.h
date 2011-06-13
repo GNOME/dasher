@@ -232,6 +232,8 @@ namespace Dasher {
     ///  scheme for symbols not specifying a colour, and (b) implements
     /// colour-cycling by phase (two cycles, using the LSBit of offset)
     virtual int GetColour(symbol sym, int iOffset) const;
+    
+    CDasherInterfaceBase * const m_pInterface;
 
     CLanguageModel *m_pLanguageModel;
 
@@ -254,8 +256,6 @@ namespace Dasher {
     /// rebuilding parents: passing in the pre-existing node here, allows it to intercept those calls
     /// and graft itself in in place of a new node, when appropriate.
     void IterateChildGroups(CAlphNode *pParent, const SGroupInfo *pParentGroup, CAlphBase *buildAround);
-
-    CDasherInterfaceBase *m_pInterface;
 
     ///Last node (owned by this manager) that was output; if a node
     /// is Undo()ne, this is set to its parent. This is used to detect

@@ -23,22 +23,22 @@ static char THIS_FILE[] = __FILE__;
 
 // TODO: Share information with AlphIO class?
 
-CColourIO::CColourIO(const std::string &SystemLocation, const std::string &UserLocation, std::vector<std::string> &Filenames)
+CColourIO::CColourIO(CMessageDisplay *pMsgs, const string &SystemLocation, const string &UserLocation, const vector<string> &Filenames)
 :BlankInfo(), LoadMutable(false), CData("") {
   CreateDefault();
 
   LoadMutable = false;
-  ParseFile(SystemLocation + "colour.xml");
+  ParseFile(pMsgs, SystemLocation + "colour.xml");
   if(Filenames.size() > 0) {
     for(unsigned int i = 0; i < Filenames.size(); i++) {
-      ParseFile(SystemLocation + Filenames[i]);
+      ParseFile(pMsgs, SystemLocation + Filenames[i]);
     }
   }
   LoadMutable = true;
-  ParseFile(UserLocation + "colour.xml");
+  ParseFile(pMsgs, UserLocation + "colour.xml");
   if(Filenames.size() > 0) {
     for(unsigned int i = 0; i < Filenames.size(); i++) {
-      ParseFile(UserLocation + Filenames[i]);
+      ParseFile(pMsgs, UserLocation + Filenames[i]);
     }
   }
 }

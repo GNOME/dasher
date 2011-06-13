@@ -158,7 +158,7 @@ public:
   vector<CControlBase::Action*> actions;
 };
 
-bool CControlParser::LoadFile(const string &strFileName) {
+bool CControlParser::LoadFile(CMessageDisplay *pMsgs, const string &strFileName) {
   ///Template used for all node defns read in from XML - just
   /// execute a list of Actions.
 
@@ -237,7 +237,7 @@ bool CControlParser::LoadFile(const string &strFileName) {
   };
 
   ParseHandler p(this);
-  if (!p.ParseFile(strFileName)) return false;
+  if (!p.ParseFile(pMsgs, strFileName)) return false;
   p.resolveRefs();
   return true;
 }
@@ -257,8 +257,8 @@ CControlManager::CControlManager(CEventHandler *pEventHandler, CSettingsStore *p
   m_pStop->successors.push_back(GetRootTemplate());
 
   //TODO, have a parameter to try first, and if that fails:
-  if(!LoadFile(m_pNCManager->GetStringParameter(SP_USER_LOC) + "control.xml")) {
-    LoadFile(m_pNCManager->GetStringParameter(SP_SYSTEM_LOC)+"control.xml");
+  if(!LoadFile(m_pInterface, m_pNCManager->GetStringParameter(SP_USER_LOC) + "control.xml")) {
+    LoadFile(m_pInterface, m_pNCManager->GetStringParameter(SP_SYSTEM_LOC)+"control.xml");
     //if that fails, we'll have no editing functions. Fine -
     // doesn't seem vital enough to hardcode a fallback as well!
   }

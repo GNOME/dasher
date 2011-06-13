@@ -36,7 +36,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CAlphIO::CAlphIO(const std::string &SystemLocation, const std::string &UserLocation, const std::vector<std::string> &Filenames)
+CAlphIO::CAlphIO(CMessageDisplay *pMsgs, const std::string &SystemLocation, const std::string &UserLocation, const std::vector<std::string> &Filenames)
 : LoadMutable(false), CData("") {
   Alphabets["Default"]=CreateDefault();
 
@@ -63,17 +63,17 @@ CAlphIO::CAlphIO(const std::string &SystemLocation, const std::string &UserLocat
   }
 
   LoadMutable = false;
-  ParseFile(SystemLocation + "alphabet.xml");
+  ParseFile(pMsgs, SystemLocation + "alphabet.xml");
   if(Filenames.size() > 0) {
     for(unsigned int i = 0; i < Filenames.size(); i++) {
-      ParseFile(SystemLocation + Filenames[i]);
+      ParseFile(pMsgs, SystemLocation + Filenames[i]);
     }
   }
   LoadMutable = true;
-  ParseFile(UserLocation + "alphabet.xml");
+  ParseFile(pMsgs, UserLocation + "alphabet.xml");
   if(Filenames.size() > 0) {
     for(unsigned int i = 0; i < Filenames.size(); i++) {
-      ParseFile(UserLocation + Filenames[i]);
+      ParseFile(pMsgs, UserLocation + Filenames[i]);
     }
   }
 }

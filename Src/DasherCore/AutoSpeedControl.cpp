@@ -8,8 +8,8 @@
 
 #include <cmath>
 #include <cfloat>
-#include <iostream>
-#include <sstream>
+
+#include <string.h>
 
 #ifndef WITH_DARWIN
 double round(double dVal) {
@@ -24,7 +24,6 @@ double round(double dVal) {
 #endif
 
 using namespace Dasher;
-using std::ostringstream;
 
 CAutoSpeedControl::CAutoSpeedControl(CMessageDisplay *pMsgs, Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore)
   : CDasherComponent(pEventHandler, pSettingsStore), m_pMsgs(pMsgs) {
@@ -210,10 +209,12 @@ void CAutoSpeedControl::SpeedControl(myint iDasherX, myint iDasherY, CDasherView
       UpdateBitrate();
       long lBitrateTimes100 =  long(round(m_dBitrate * 100)); //Dasher settings want long numerical parameters
       if (lBitrateTimes100 != GetLongParameter(LP_MAX_BITRATE)) {
-        ostringstream os;
-        os << "Auto-" << ((lBitrateTimes100 > GetLongParameter(LP_MAX_BITRATE)) ? "increasing" : "decreasing");
-        os << " speed to " << (lBitrateTimes100/100.0);
-        m_pMsgs->Message(os.str());
+        const char *msg((lBitrateTimes100 > GetLongParameter(LP_MAX_BITRATE)) ? 
+                   _("Auto-increasing speed to %0.2f") : _("Auto-decreasing speed to %0.2f"));
+        char *buf(new char[strlen(msg) + 5]);
+        sprintf(buf, msg, (lBitrateTimes100/100.0));
+        m_pMsgs->Message(buf,false);
+        delete buf;
         SetLongParameter(LP_MAX_BITRATE, lBitrateTimes100);
       }
       m_nSpeedCounter = 0;

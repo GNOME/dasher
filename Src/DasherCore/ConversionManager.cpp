@@ -126,14 +126,14 @@ CConversionManager::CConvNode::~CConvNode() {
   m_pMgr->Unref();
 }
 
-void CConversionManager::RecursiveDumpTree(SCENode *pCurrent, unsigned int iDepth) {
+void CConversionManager::RecursiveDumpTree(ostream &out, SCENode *pCurrent, unsigned int iDepth) {
   const std::vector<SCENode *> &children = pCurrent->GetChildren();
   for (std::vector<SCENode *>::const_iterator it = children.begin(); it!=children.end(); it++) {
     SCENode *pCurrent(*it);
     for(unsigned int i(0); i < iDepth; ++i)
-      std::cout << "-";
-    std::cout << " " << pCurrent->pszConversion << std::endl;//" " << pCurrent->IsHeadAndCandNum << " " << pCurrent->CandIndex << " " << pCurrent->IsComplete << " " << pCurrent->AcCharCount << std::endl;
-    RecursiveDumpTree(pCurrent, iDepth + 1);
+      out << "-";
+    out << " " << pCurrent->pszConversion << std::endl;//" " << pCurrent->IsHeadAndCandNum << " " << pCurrent->CandIndex << " " << pCurrent->IsComplete << " " << pCurrent->AcCharCount << std::endl;
+    RecursiveDumpTree(out, pCurrent, iDepth + 1);
   }
 }
 

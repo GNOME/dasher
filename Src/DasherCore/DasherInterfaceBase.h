@@ -270,7 +270,7 @@ public:
   /// Unpause Dasher. Clears BP_DASHER_PAUSED.
   /// (But does nothing if BP_DASHER_PAUSED is currently set).
   /// \param Time Time in ms, used to keep a constant frame rate
-  void Unpause(unsigned long Time);
+  virtual void Unpause(unsigned long Time);
 
   ///Whether any actions are currently setup to occur when Dasher 'stop's.
   /// Default is to return TRUE iff we support speech and BP_SPEAK_ON_STOP is set,

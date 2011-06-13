@@ -8,10 +8,12 @@
  */
 
 #include "AbstractXMLParser.h"
-#ifdef DEBUG
-#include <iostream>
-#endif
-bool AbstractXMLParser::ParseFile(const std::string &strFilename) {
+
+#include <string.h>
+
+using std::string;
+
+bool AbstractXMLParser::ParseFile(CMessageDisplay *pMsgs, const std::string &strFilename) {
   FILE *Input;
   if((Input = fopen(strFilename.c_str(), "r")) == (FILE *) 0) {
     // could not open file
@@ -26,24 +28,30 @@ bool AbstractXMLParser::ParseFile(const std::string &strFilename) {
 
   XML_SetElementHandler(Parser, XML_StartElement, XML_EndElement);
   XML_SetCharacterDataHandler(Parser, XML_CharacterData);
-
+  bool bRes(true);
   char Buffer[1024];
   int Done;
   do {
     size_t len = fread(Buffer, 1, sizeof(Buffer), Input);
     Done = len < sizeof(Buffer);
     if(XML_Parse(Parser, Buffer, len, Done) == XML_STATUS_ERROR) {
-      //TODO, should we make sure we return false, if this happens?
-#ifdef DEBUG
-      std::cout << "Parse error! on " << std::string(Buffer,len) << std::endl;
-#endif
+      bRes=false;
+      if (pMsgs) {
+        const char *msg=_("XML Error %s in file %s somewhere in block: %s");
+        const XML_LChar *xmle=XML_ErrorString(XML_GetErrorCode(Parser)); //think XML_LChar==char, depends on preprocessor variables...
+        char *buf(new char[strlen(msg)+ strlen(xmle) + strFilename.length() + len + 3]);
+        //constructing a string here to get a null terminator. Can we put a null into Buffer instead?
+        sprintf(buf, msg, xmle, strFilename.c_str(), string(Buffer,len).c_str());
+        pMsgs->Message(buf,true);
+        delete buf;
+      }
       break;
     }
   } while (!Done);
 
   XML_ParserFree(Parser);
   fclose(Input);
-  return true;
+  return bRes;
 }
 
 void AbstractXMLParser::XmlCData(const XML_Char *str, int len) {

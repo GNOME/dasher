@@ -15,7 +15,7 @@ class Dasher::CSocketInput:public CSocketInputBase {
 
 public:
 
-  CSocketInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore);
+  CSocketInput(CMessageDisplay *pMsgs, CEventHandler * pEventHandler, CSettingsStore * pSettingsStore);
   ~CSocketInput();
 
   void SetDebug(bool _debug);

@@ -27,8 +27,16 @@
 namespace Dasher {
 class CDashIntfScreenMsgs : public CDasherInterfaceBase {
 public:
-  /// Stores the message for Redraw to render onto the Screen on top of the view
-  virtual void Message(const std::string &strText);
+  /// Stores messages for Redraw to render onto the Screen on top of the view.
+  /// For modal messages (bInterrupt=true), pauses Dasher, and keeps the message
+  /// onscreen until the user starts moving again (via normal mechanisms);
+  /// For non-modal or asynchronous messages (bInterrupt=false), we render
+  /// the message over the canvas for LP_MESSAGE_TIME milliseconds without pausing.
+  /// (This method merely stores the messages into m_dqAsyncMessages or m_dqModalMessages
+  /// as appropriate; display, timeout, etc. is handled in Redraw.)
+  /// \param strText text of message to display.
+  /// \param bInterrupt whether to interrupt any text entry in progress.
+  virtual void Message(const std::string &strText, bool bInterrupt);
   
   /// Override to render (on top of nodes+decorations) any messages, for
   /// LP_MESSAGE_TIME ms, before removing from queue.
@@ -36,13 +44,19 @@ public:
 
   ///Override to re-MakeLabel any messages.
   void ChangeScreen(CDasherScreen *pNewScreen);
-
-private:
-  ///Messages to be displayed to the user, longest-ago at the front,
-  /// along with the timestamp of the frame at which each was first displayed
-  /// to the user, or 0 if not yet displayed.
-  std::deque<pair<CDasherScreen::Label*, unsigned long> > m_dqMessages;
   
+  ///Override to clear any modal messages currently being displayed before resuming.
+  void Unpause(unsigned long lTime);
+private:
+  /// Asynchronous (non-modal) messages to be displayed to the user, longest-ago
+  /// at the front, along with the timestamp of the frame at which each was first
+  /// displayed to the user - 0 if not yet displayed.
+  std::deque<pair<CDasherScreen::Label*, unsigned long> > m_dqAsyncMessages;
+  
+  /// Modal messages being or waiting to be displayed to the user, longest-ago
+  /// at the front, along with the timestamp when each was first displayed to the
+  /// user (0 if not yet displayed).
+  std::deque<pair<CDasherScreen::Label*, unsigned long> > m_dqModalMessages;  
 };
 
 }

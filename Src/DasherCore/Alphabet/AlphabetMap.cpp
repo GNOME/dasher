@@ -75,8 +75,8 @@ int utf8_length::operator[](const unsigned char i) const
 
 ////////////////////////////////////////////////////////////////////////////
 
-CAlphabetMap::SymbolStream::SymbolStream(std::istream &_in)
-: pos(0), len(0), in(_in) {
+CAlphabetMap::SymbolStream::SymbolStream(std::istream &_in, CMessageDisplay *pMsgs)
+: pos(0), len(0), in(_in), m_pMsgs(pMsgs) {
   readMore();
 }
 
@@ -112,19 +112,24 @@ inline int CAlphabetMap::SymbolStream::findNext() {
     if (int numChars = m_utf8_count_array[buf[pos]]) {
       if (pos+numChars > len) {
         //no more bytes in file (would have tried to read earlier), but not enough for char
-#ifdef DEBUG
-        std::cerr << "Incomplete UTF-8 character beginning 0x" << hex << buf[pos] << dec;
-        std::cerr << "(expecting " << numChars << " bytes but only " << (len-pos) << ")" << std::endl;
-#endif
-        pos=len;
+        if (m_pMsgs) {
+          const char *msg(_("File ends with incomplete UTF-8 character beginning 0x%x (expecting %i bytes but only %i)"));
+          char *mbuf(new char[strlen(msg) + 4]);
+          sprintf(mbuf, msg, static_cast<unsigned int>(buf[pos] & 0xff), numChars, len-pos);
+          m_pMsgs->Message(mbuf,true);
+          delete mbuf;
+        }
         return 0;
       }
       return numChars;
     }
-#ifdef DEBUG
-    std::cerr << "Read invalid UTF-8 character 0x" << hex << buf[pos]
-    << dec << std::endl;
-#endif
+    if (m_pMsgs) {
+      const char *msg(_("Read invalid UTF-8 character 0x%x"));
+      char *mbuf(new char[strlen(msg) + 2]);
+      sprintf(mbuf, msg, static_cast<unsigned int>(buf[pos] & 0xff));
+      m_pMsgs->Message(mbuf,true);
+      delete mbuf;
+    }
     ++pos;    
   }
 }

@@ -6,6 +6,8 @@
 #include "ControlManager.h"
 #include "EventHandler.h"
 
+#include <string.h>
+
 using namespace Dasher;
 
 class ProgressNotifier : public CTrainer::ProgressIndicator {
@@ -18,11 +20,13 @@ public:
       m_pInterface->SetLockStatus(m_strDisplay, m_iPercent = iNewPercent);
     }
   }
-  void run(const string &strDisplay, string strFile) {
+  bool run(const string &strDisplay, string strFile) {
     m_pInterface->SetLockStatus(m_strDisplay=strDisplay, m_iPercent=0);
     m_iStart = 0;
     m_iStop = m_pInterface->GetFileSize(strFile);
-    m_pTrainer->LoadFile(strFile,this);
+    if (m_iStop==0) return false;
+    m_pTrainer->LoadFile(strFile,this); //Hmmm. Error-reporting is only via Message()...?
+    return true;
   }
 private:
   CDasherInterfaceBase *m_pInterface;
@@ -80,17 +84,28 @@ CNodeCreationManager::CNodeCreationManager(Dasher::CDasherInterfaceBase *pInterf
     
   if (!pAlphInfo->GetTrainingFile().empty()) {
     ProgressNotifier pn(pInterface, m_pTrainer);
-
     //1. Look for system training text...
-    pn.run("Training on System Text", GetStringParameter(SP_SYSTEM_LOC) + pAlphInfo->GetTrainingFile());
+    bool bFound=pn.run(_("Training on System Text"), GetStringParameter(SP_SYSTEM_LOC) + pAlphInfo->GetTrainingFile());
     //2. Now add in any user-provided individual training text...
-    pn.run("Training on User Text", GetStringParameter(SP_USER_LOC) + pAlphInfo->GetTrainingFile());
+    if (!pn.run(_("Training on User Text"), GetStringParameter(SP_USER_LOC) + pAlphInfo->GetTrainingFile())) {
+      ///TRANSLATORS: These 3 messages will be displayed when the user has just chosen a new alphabet. The %s parameter will be the name of the alphabet.
+      const char *msg = bFound ? _("No user training text found - if you have written in \"%s\" before, this means Dasher may not be learning from previous sessions")
+      : _("No training text (user or system) found for \"%s\". Dasher will still work but entry will be slower. We suggest downloading a training text file from the Dasher website, or constructing your own.");
+      char *buf(new char[strlen(msg)+pAlphInfo->GetID().length()]);
+      sprintf(buf,msg,pAlphInfo->GetID().c_str());
+      pInterface->Message(buf, true);
+      delete buf;
+    }
     //3. Finished, so unlock.
     m_pInterface->SetLockStatus("", -1);
   }
 #ifdef DEBUG
   else {
-    std::cout << "Alphabet does not specify training file" << std::endl;
+    const char *msg = _("\"%s\" does not specify training file. Dasher will work but entry will be slower. Check you have the latest version of the alphabet definition.");
+    char *buf(new char[strlen(msg) + pAlphInfo->GetID().length()]);
+    sprintf(buf, msg, pAlphInfo->GetID().c_str());
+    pInterface->Message(buf, true);
+    delete buf;
   }
 #endif
 #ifdef DEBUG_LM_READWRITE

@@ -6,7 +6,7 @@
 
 #include "SocketInputBase.h"
 
-#include "../DasherCore/Event.h"
+#include "DasherInterfaceBase.h"
 
 #include <string.h>
 #include <errno.h>
@@ -34,8 +34,8 @@ static SModuleSettings sSettings[] = {
   {BP_SOCKET_DEBUG, T_BOOL, -1, -1, -1, -1, _("Print socket-related debugging information to console:")}
 };
 
-Dasher::CSocketInputBase::CSocketInputBase(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
-  : CScreenCoordInput(pEventHandler, pSettingsStore, 1, _("Socket Input")) {
+Dasher::CSocketInputBase::CSocketInputBase(CMessageDisplay *pMsgs, CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
+  : CScreenCoordInput(pEventHandler, pSettingsStore, 1, _("Socket Input")), m_pMsgs(pMsgs) {
   port = -1;
   debug_socket_input = false;
   readerRunning = false;
@@ -107,8 +107,8 @@ bool Dasher::CSocketInputBase::StartListening() {
   SocketDebugMsg("Socket input: binding to socket and starting to listen.");
 
   if((sock = socket(PF_INET, SOCK_DGRAM, 0)) == -1) {
-    ReportErrnoError("Error creating socket"); //FIXME should use _( (gettext), but need something cross-platform.
-    // Could have a member functino, overridden in the platform-specific subclasses, which returns the localised text
+    //TODO This is not a very good error message even in English...???
+    m_pMsgs->Message(_("Error creating socket"),true);
     return false;
   }
 
@@ -116,7 +116,7 @@ bool Dasher::CSocketInputBase::StartListening() {
   name.sin_port = htons(port);
   name.sin_addr.s_addr = htonl(INADDR_ANY);
   if(bind(sock, (struct sockaddr *)&name, sizeof(name)) < 0) {
-    ReportErrnoError("Error binding to socket - already in use?");
+    ReportErrnoError(_("Error binding to socket - already in use?"));
     DASHER_SOCKET_CLOSE_FUNCTION(sock);
     sock = -1;
     return false;
@@ -169,7 +169,11 @@ void CSocketInputBase::SetReaderPort(int _port) {
 void CSocketInputBase::SetCoordinateLabel( int iWhichCoordinate, const char *Label) {
   DASHER_ASSERT(iWhichCoordinate < DASHER_SOCKET_INPUT_MAX_COORDINATE_COUNT);
   if(strlen(Label) > DASHER_SOCKET_INPUT_MAX_COORDINATE_LABEL_LENGTH) {
-    cerr << "Warning truncating socket input label '" << Label << "' to " << DASHER_SOCKET_INPUT_MAX_COORDINATE_LABEL_LENGTH << " characters." << endl;
+    const char *msg=_("Warning truncating socket input label '%s' to %i characters.");
+    char *buf(new char[strlen(msg)+strlen(Label)+DASHER_SOCKET_INPUT_MAX_COORDINATE_LABEL_LENGTH]);
+    sprintf(buf,msg,Label,DASHER_SOCKET_INPUT_MAX_COORDINATE_LABEL_LENGTH);
+    m_pMsgs->Message(buf, true);
+    delete buf;
   }
   strncpy(coordinateNames[iWhichCoordinate], Label, DASHER_SOCKET_INPUT_MAX_COORDINATE_LABEL_LENGTH);
   SocketDebugMsg("Socket input: set coordinate %d label to '%s'.", iWhichCoordinate,  coordinateNames[iWhichCoordinate]);
@@ -191,7 +195,7 @@ void CSocketInputBase::ReadForever() {
   while(sock >= 0) {
     SocketDebugMsg("Reading from socket...");
     if((numbytes = recv(sock, buffer, sizeof(buffer) - 1, 0)) == -1) {
-      ReportError("Socket input: Error reading from socket");
+      m_pMsgs->Message(_("Socket input: Error reading from socket"),false);
       continue;
     }
     buffer[numbytes] = '\0';
@@ -239,10 +243,12 @@ void CSocketInputBase::ParseMessage(char *message) {
           double actualMax = (rawMaxValues[i] > rawMinValues[i]) ? rawMaxValues[i] : rawMinValues[i];
           double actualMin = (rawMaxValues[i] > rawMinValues[i]) ? rawMinValues[i] : rawMaxValues[i];
           if(rawdouble < actualMin) {
+            //TODO: Should these be converted to calls to Message() ? On first occurrence only???
             cerr << "Socket input: clipped " << coordinateNames[i] << " value of " << rawdouble << "to configured minimum of " << actualMin << endl;
             rawdouble = actualMin;
           }
           if(rawdouble > actualMax) {
+            //TODO: Should these be converted to calls to Message() ? On first occurrence only???
             cerr << "Socket input: clipped " << message << " value of " << rawdouble << "to configured maximum of " << actualMax << endl;
             rawdouble = actualMax;
           }
@@ -289,15 +295,14 @@ void CSocketInputBase::SetDebug(bool _debug) {
   }
 }
 
-void CSocketInputBase::ReportError(std::string s) {
-  // override this to pop up a message box etc.
-  cerr << s << endl;
-}
-
-void CSocketInputBase::ReportErrnoError(std::string prefix) {
-  // override this to pop up a message box
-  cerr << "Dasher Socket Input error: ";
-  perror(prefix.c_str());
+void CSocketInputBase::ReportErrnoError(const std::string &prefix) {
+  int err = errno; errno=0;
+  const char *msg = _("Dasher Socket Input error: %s: %s");
+  char *e = strerror(err);
+  char *buf(new char[strlen(msg) + prefix.length() + strlen(e)]);
+  sprintf(buf,msg,prefix.c_str(),e);
+  m_pMsgs->Message(buf,true);
+  delete buf;
 }
 
 void CSocketInputBase::SocketDebugMsg(const char *pszFormat, ...) {

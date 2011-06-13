@@ -146,9 +146,10 @@ namespace Dasher {
     ///Loads all node definitions from the specified filename, adding them to
     /// any loaded from previous calls. (However, files processed independently:
     /// e.g. names defined in one file will not be seen from another)
+    /// \param pMsgs Used to report errors via Message(,true) (i.e. modal)
     /// \param strFilename name+full-path of xml file to load
     /// \return true if the file was opened successfully; false if not.
-    bool LoadFile(const std::string &strFilename);
+    bool LoadFile(CMessageDisplay *pMsgs, const std::string &strFilename);
     /// \return all node definitions that have been loaded by this CControlParser.
     const vector<CControlBase::NodeTemplate*> &parsedNodes();
     ///Subclasses may override to parse other nodes (besides "node", "ref" and "alph").

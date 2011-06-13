@@ -57,7 +57,7 @@ void CDasher::CreateModules() {
   //create default set first.
   CDasherInterfaceBase::CreateModules();
 #ifndef _WIN32_WCE
-  RegisterModule(new CSocketInput(m_pEventHandler, m_pSettingsStore));
+  RegisterModule(new CSocketInput(this, m_pEventHandler, m_pSettingsStore));
   RegisterModule(new CBTSocketInput(m_pEventHandler, m_pSettingsStore));
 #endif
   RegisterModule(new CDasherMouseInput(m_pEventHandler, m_pSettingsStore, m_pCanvas->getwindow()));

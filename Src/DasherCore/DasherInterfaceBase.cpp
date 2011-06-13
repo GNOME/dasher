@@ -137,11 +137,11 @@ void CDasherInterfaceBase::Realize() {
 
   std::vector<std::string> vAlphabetFiles;
   ScanAlphabetFiles(vAlphabetFiles);
-  m_AlphIO = new CAlphIO(GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), vAlphabetFiles);
+  m_AlphIO = new CAlphIO(this, GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), vAlphabetFiles);
 
   std::vector<std::string> vColourFiles;
   ScanColourFiles(vColourFiles);
-  m_ColourIO = new CColourIO(GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), vColourFiles);
+  m_ColourIO = new CColourIO(this, GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), vColourFiles);
 
   ChangeColours();
 
@@ -483,6 +483,7 @@ void CDasherInterfaceBase::GameMessageIn(int message, void* messagedata) {
 
 void CDasherInterfaceBase::Unpause(unsigned long Time) {
   if (!GetBoolParameter(BP_DASHER_PAUSED)) return; //already running, no need to do anything
+  
   SetBoolParameter(BP_DASHER_PAUSED, false);
 
   if(m_pDasherModel != 0)
@@ -618,6 +619,7 @@ bool CDasherInterfaceBase::Redraw(unsigned long ulTime, bool bRedrawNodes, CExpa
 #endif
   
   return bRedrawNodes;
+
 }
 
 void CDasherInterfaceBase::ChangeAlphabet() {

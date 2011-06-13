@@ -72,6 +72,8 @@ namespace Dasher {
 /// 
 /// IAM 08/2002
 
+#include "../Messages.h"
+
 class Dasher::CAlphabetMap {
 
 public:
@@ -83,7 +85,8 @@ public:
 
   class SymbolStream {
   public:
-    SymbolStream(std::istream &_in);
+    ///pMsgs used for reporting errors in utf8 encoding
+    SymbolStream(std::istream &_in, CMessageDisplay *pMsgs=NULL);
     ///Gets the next symbol in the stream, using the specified AlphabetMap
     /// to convert unicode characters to symbols.
     /// \return 0 for unknown symbol (not in map); -1 for EOF; else symbol#.
@@ -116,6 +119,7 @@ public:
     char buf[1024];
     off_t pos, len;
     std::istream &in;
+    CMessageDisplay * const m_pMsgs;
   };
   
   // Fills Symbols with the symbols corresponding to Input. {{{ Note that this

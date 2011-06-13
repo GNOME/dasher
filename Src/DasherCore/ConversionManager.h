@@ -152,10 +152,10 @@ namespace Dasher {
     CDasherScreen *m_pScreen;
 
     ///
-    /// Dump tree to stdout (debug)
+    /// Dump tree to provided stream (debug)
     ///
 
-    void RecursiveDumpTree(SCENode *pCurrent, unsigned int iDepth);
+    void RecursiveDumpTree(std::ostream &out, SCENode *pCurrent, unsigned int iDepth);
 
 	///
 	/// Reference count

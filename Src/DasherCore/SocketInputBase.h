@@ -10,6 +10,7 @@
 #include "../DasherCore/DasherInput.h"
 #include "../DasherCore/DasherComponent.h"
 #include "../DasherCore/EventHandler.h"
+#include "Messages.h"
 
 #include <iostream>
 
@@ -26,7 +27,7 @@ class CSocketInputBase : public CScreenCoordInput {
 
 public:
 
-  CSocketInputBase(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore);
+  CSocketInputBase(CMessageDisplay *pMsgs, CEventHandler * pEventHandler, CSettingsStore * pSettingsStore);
 
   virtual ~CSocketInputBase();
 
@@ -120,12 +121,12 @@ protected:
 
   virtual void ParseMessage(char *message);
 
-  virtual void ReportErrnoError(std::string prefix); // override as appropriate for each platform
-
-  virtual void ReportError(std::string s); // override as appropriate for each platform
+  //Reports an error by appending an error message obtained from strerror(errno) onto the provided prefix
+  void ReportErrnoError(const std::string &prefix);
     
   virtual void SocketDebugMsg(const char *pszFormat, ...);
   
+  CMessageDisplay *const m_pMsgs;
 };
 }
 /// \}

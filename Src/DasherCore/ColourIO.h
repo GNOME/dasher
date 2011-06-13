@@ -39,7 +39,7 @@ public:
     std::vector < int >Blues;
   };
 
-  CColourIO(const std::string &SystemLocation, const std::string &UserLocation, std::vector < std::string > &Filenames);
+  CColourIO(CMessageDisplay *pMsgs, const std::string &SystemLocation, const std::string &UserLocation, const std::vector < std::string > &Filenames);
   void GetColours(std::vector < std::string > *ColourList) const;
   const ColourInfo & GetInfo(const std::string & ColourID);
 private:

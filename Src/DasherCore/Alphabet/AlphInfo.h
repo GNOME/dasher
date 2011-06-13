@@ -66,6 +66,7 @@ private:
     std::string Foreground;
   };
 public:
+  const std::string &GetID() const {return AlphID;}
   /// Return number of text symbols - inc space and para, but no control/conversion start/end
   /// Note symbol numbers are 1-indexed; 0 is reserved to indicate an "unknown symbol" (-1 = End-Of-Stream),
   /// and for element 0 of the probability array to contain a 0.

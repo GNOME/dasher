@@ -95,7 +95,7 @@ void CDasherControl::CreateModules() {
   SetDefaultInputDevice(m_pMouseInput);
   m_p1DMouseInput =
     (CDasher1DMouseInput *)RegisterModule(new CDasher1DMouseInput(m_pEventHandler, m_pSettingsStore));
-  RegisterModule(new CSocketInput(m_pEventHandler, m_pSettingsStore));
+  RegisterModule(new CSocketInput(this, m_pEventHandler, m_pSettingsStore));
 
 #ifdef JOYSTICK
   RegisterModule(new CDasherJoystickInput(m_pEventHandler, m_pSettingsStore, this));

@@ -128,7 +128,7 @@ CMandarinAlphMgr::~CMandarinAlphMgr() {
 
 void CMandarinAlphMgr::CreateLanguageModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore) {
   //std::cout<<"CHALphabet size "<< pCHAlphabet->GetNumberTextSymbols(); [7603]
-  std::cout<<"Setting PPMPY model"<<std::endl;
+  //std::cout<<"Setting PPMPY model"<<std::endl;
   m_pLanguageModel = new CPPMPYLanguageModel(pEventHandler, pSettingsStore, m_CHtext.size()-1, m_pAlphabet->GetNumberTextSymbols());
 }
 
@@ -136,7 +136,7 @@ CTrainer *CMandarinAlphMgr::GetTrainer() {
   //We pass in the pinyin alphabet to define the context-switch escape character, and the default context.
   // Although the default context will be symbolified via the _chinese_ alphabet, this seems reasonable
   // as it is the Pinyin alphabet which defines the conversion mapping (i.e. m_strConversionTarget!)
-  return new CMandarinTrainer(static_cast<CPPMPYLanguageModel*>(m_pLanguageModel), m_pAlphabet, m_pAlphabetMap, &m_CHAlphabetMap, m_pAlphabet->m_strConversionTrainingDelimiter);
+  return new CMandarinTrainer(m_pInterface, static_cast<CPPMPYLanguageModel*>(m_pLanguageModel), m_pAlphabet, m_pAlphabetMap, &m_CHAlphabetMap, m_pAlphabet->m_strConversionTrainingDelimiter);
 }
 
 CAlphabetManager::CAlphNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, bool bEnteredLast, int iOffset) {

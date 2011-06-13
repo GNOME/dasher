@@ -189,8 +189,11 @@ void CDasherInterfaceBridge::editProtect(CDasherNode *pSource) {
   CDasherInterfaceBase::editProtect(pSource);
 }
 
-void CDasherInterfaceBridge::Message(const string &strMessage) {
-  [dasherApp displayMessage:NSStringFromStdString(strMessage)];
+void CDasherInterfaceBridge::Message(const string &strMessage, bool bInterrupt) {
+  if (bInterrupt)
+    CDashIntfScreenMsgs::Message(strMessage,true);
+  else
+    [dasherApp displayMessage:NSStringFromStdString(strMessage)];
 }
 
 void CDasherInterfaceBridge::SetLockStatus(const string &strText, int iPercent) {

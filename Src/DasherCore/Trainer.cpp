@@ -2,12 +2,14 @@
 #include "../Common/Common.h"
 
 #include "Trainer.h"
-#include "DasherInterfaceBase.h"
 #include "LanguageModelling/PPMPYLanguageModel.h"
+#include <vector>
 #include <cstring>
 #include <sstream>
+#include <string>
 
 using namespace Dasher;
+using namespace std;
 
 // Track memory leaks on Windows to the line that new'd the memory
 #ifdef _WIN32
@@ -19,16 +21,19 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CTrainer::CTrainer(CLanguageModel *pLanguageModel, const CAlphInfo *pInfo, const CAlphabetMap *pAlphabet)
-  : m_pAlphabet(pAlphabet), m_pLanguageModel(pLanguageModel), m_pInfo(pInfo) {
+CTrainer::CTrainer(CMessageDisplay *pMsgs, CLanguageModel *pLanguageModel, const CAlphInfo *pInfo, const CAlphabetMap *pAlphabet)
+  : m_pMsgs(pMsgs), m_pAlphabet(pAlphabet), m_pLanguageModel(pLanguageModel), m_pInfo(pInfo) {
     vector<symbol> syms;
     pAlphabet->GetSymbols(syms,pInfo->GetContextEscapeChar());
     if (syms.size()==1)
       m_iCtxEsc = syms[0];
     else {      
-#ifdef DEBUG
-      std::cout << "Warning: escape sequence " << pInfo->GetContextEscapeChar() << " must be a single unicode character; no context-switch commands will be executed." << std::endl;
-#endif
+      //no context switch commands will be executed!
+      const char *msg(_("Warning: faulty alphabet definition, escape sequence %s must be a single unicode character. This may worsen Dasher's text prediction."));
+      char *buf(new char[strlen(msg) + pInfo->GetContextEscapeChar().length() +1]);
+      sprintf(buf,msg,pInfo->GetContextEscapeChar().c_str());
+      pMsgs->Message(string(buf),true);
+      delete buf;
       m_iCtxEsc = -1;
     }
 }
@@ -80,7 +85,7 @@ bool CTrainer::readEscape(CLanguageModel::Context &sContext, CAlphabetMap::Symbo
 
 class ProgressStream : public CAlphabetMap::SymbolStream {
 public:
-  ProgressStream(std::istream &_in, CTrainer::ProgressIndicator *pProg, off_t iStart=0) : SymbolStream(_in), m_iLastPos(iStart), m_pProg(pProg) {
+  ProgressStream(std::istream &_in, CTrainer::ProgressIndicator *pProg, CMessageDisplay *pMsgs, off_t iStart=0) : SymbolStream(_in,pMsgs), m_iLastPos(iStart), m_pProg(pProg) {
   }
   void bytesRead(off_t num) {
     if (m_pProg) m_pProg->bytesRead(m_iLastPos += num);
@@ -110,14 +115,18 @@ Dasher::CTrainer::LoadFile(const std::string &strFileName, ProgressIndicator *pP
     //Invoke AbstractXMLParser method
     m_bInSegment = false;
     m_iLastBytes=0;
-    ParseFile(strFileName);
+    ParseFile(m_pMsgs, strFileName);
   } else {
     std::ifstream in(strFileName.c_str(), std::ios::binary);
     if (in.fail()) {
-      std::cerr << "Unable to open file \"" << strFileName << "\" for reading" << std::endl;
+      const char *msg=_("Unable to open file \"%f\" for reading");
+      char *buf(new char[strlen(msg) + strFileName.length()+1]);
+      sprintf(buf, msg, strFileName.c_str());
+      m_pMsgs->Message(buf, true);
+      delete buf;
       return;
     }
-    ProgressStream syms(in,pProg);
+    ProgressStream syms(in,pProg,m_pMsgs);
     Train(syms);
   
     in.close();
@@ -134,7 +143,7 @@ void CTrainer::XmlStartHandler(const XML_Char *szName, const XML_Char **pAtts) {
 void CTrainer::XmlEndHandler(const XML_Char *szName) {
   if(!strcmp(szName, "segment")) {
     std::istringstream in(m_strCurrentText);
-    ProgressStream syms(in, m_pProg, m_iLastBytes);
+    ProgressStream syms(in, m_pProg, m_pMsgs, m_iLastBytes);
     Train(syms);
     m_iLastBytes = syms.m_iLastPos; //count that segment, ready for next
     m_bInSegment = false;
@@ -146,8 +155,8 @@ void CTrainer::XmlCData(const XML_Char *szS, int iLen) {
     m_strCurrentText += std::string(szS, iLen);
 }
 
-CMandarinTrainer::CMandarinTrainer(CPPMPYLanguageModel *pLanguageModel, const CAlphInfo *pInfo, const CAlphabetMap *pPYAlphabet, const CAlphabetMap *pCHAlphabet, const std::string &strDelim)
-: CTrainer(pLanguageModel, pInfo, pCHAlphabet), m_pPYAlphabet(pPYAlphabet), m_strDelim(strDelim) {
+CMandarinTrainer::CMandarinTrainer(CMessageDisplay *pMsgs, CPPMPYLanguageModel *pLanguageModel, const CAlphInfo *pInfo, const CAlphabetMap *pPYAlphabet, const CAlphabetMap *pCHAlphabet, const std::string &strDelim)
+: CTrainer(pMsgs, pLanguageModel, pInfo, pCHAlphabet), m_pPYAlphabet(pPYAlphabet), m_strDelim(strDelim) {
 }
 
 void CMandarinTrainer::Train(CAlphabetMap::SymbolStream &syms) {
@@ -160,16 +169,24 @@ void CMandarinTrainer::Train(CAlphabetMap::SymbolStream &syms) {
     if (s == m_strDelim) { //found delimiter, so process next two characters
       symbol Sympy = syms.next(m_pPYAlphabet);
       if (Sympy==-1) break; //EOF
-#ifdef DEBUG
-      if (Sympy==0)
-        std::cout << "Unknown pinyin character " << syms.peekBack() << std::endl;
-#endif
+      if (Sympy==0) {
+        const char *msg(_("Training file contains unknown source alphabet character %s"));
+        string prev = syms.peekBack();
+        char *buf(new char[strlen(msg) + prev.length()+1]);
+        sprintf(buf, msg, prev.c_str());
+        m_pMsgs->Message(buf,true);
+        delete buf;
+      }
       symbol Symchar = syms.next(m_pAlphabet);
       if (Symchar==-1) break; //EOF...ignore final Pinyin?
-#ifdef DEBUG
-      if (Symchar==0)
-        std::cout << "Unknown chinese character " << syms.peekBack() << std::endl;
-#endif
+      if (Symchar==0) {
+        const char *msg=_("Training file contains unknown target alphabet character %s");
+        string prev = syms.peekBack();
+        char *buf(new char[strlen(msg) + prev.length()+1]);
+        sprintf(buf,msg,prev.c_str());
+        m_pMsgs->Message(buf,true);
+        delete buf;
+      }
       static_cast<CPPMPYLanguageModel *>(m_pLanguageModel)->LearnPYSymbol(trainContext, Sympy);
       m_pLanguageModel->LearnSymbol(trainContext, Symchar);
       numberofchar++;    
