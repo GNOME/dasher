@@ -23,7 +23,7 @@
 	CDasherInterfaceBridge* _dasherInterface;
 	UIButton *speedBtn;
 	UIToolbar *tools;
-  UILabel *messageLabel;
+  UITextView *messageLabel;
   UISlider *speedSlider;
   BOOL doneSetup;
   BOOL m_bLandscapeSupported;

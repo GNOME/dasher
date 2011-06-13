@@ -18,6 +18,21 @@
 #import "FliteTTS.h"
 #import "ActionConfigurator.h"
 
+@interface UITextView (MessageHider)
+-(void)hideMessage:(NSNumber *)height;
+@end
+
+@implementation UITextView (MessageHider)
+-(void)hideMessage:(NSNumber *)n {
+  CGFloat height = [n floatValue];
+  CGRect b = self.frame;
+  self.frame = CGRectMake(b.origin.x, b.origin.y+height, b.size.width, b.size.height-height);
+  if (b.size.height-height<=0.0) self.hidden=YES;
+  else [self scrollRangeToVisible:NSMakeRange([self.text length], 0)];
+}
+@end
+
+
 //declare some private methods!
 @interface DasherAppDelegate ()
 - (void)settings;
@@ -124,24 +139,20 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   self.view.frame = CGRectMake(0.0, 0.0, appFrame.size.width, appFrame.size.height);
 
   CGSize mainSize = self.view.bounds.size;
-  CGRect dashRect;
+  CGRect dashRect,textRect;
   switch (orient) {
     case UIInterfaceOrientationPortrait: {
       dashRect = CGRectMake(0.0, 0.0, mainSize.width, mainSize.height - 100.0);
-      CGRect textRect = CGRectMake(0.0, dashRect.size.height, mainSize.width, 70.0);
-      text.frame = textRect;
+      textRect = CGRectMake(0.0, dashRect.size.height, mainSize.width, 70.0);
       text.bLandscape = NO;
-      messageLabel.frame = CGRectMake(0.0, textRect.origin.y + textRect.size.height - 30.0, mainSize.width, 30.0);
       tools.frame = CGRectMake(0.0, mainSize.height - 30.0, mainSize.width, 30.0);
       [self.view addSubview:tools];
       break;
     }
     case UIInterfaceOrientationLandscapeRight:
     case UIInterfaceOrientationLandscapeLeft: {
-      CGRect textRect = CGRectMake(0.0, 0.0, 100.0, mainSize.height);//-30.0);
-      text.frame = textRect;
+      textRect = CGRectMake(0.0, 0.0, 100.0, mainSize.height);//-30.0);
       text.bLandscape = YES;
-      messageLabel.frame = CGRectMake(0.0, textRect.origin.y + textRect.size.height - 100.0, textRect.size.width, 100.0);
       dashRect = CGRectMake(textRect.size.width, 0.0, mainSize.width-textRect.size.width, mainSize.height);//-30.0);
       [tools removeFromSuperview];
       break;
@@ -149,6 +160,9 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
     default:
       NSAssert(false, @"Unexpected interface orientation");
   }
+  text.frame = textRect;
+  messageLabel.frame = CGRectMake(0.0, textRect.origin.y + textRect.size.height, mainSize.width, 0.0);
+  [NSObject cancelPreviousPerformRequestsWithTarget:messageLabel];
   if (glView) glView.frame=dashRect;
   return dashRect;
 }
@@ -172,7 +186,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   
   //create GUI components...
 	text = [[[TextView alloc] init] autorelease];
-  messageLabel = [[[UILabel alloc] init] autorelease];
+  messageLabel = [[[UITextView alloc] init] autorelease];
   tools = [[UIToolbar alloc] init]; //retain a reference (until dealloc) because of rotation
 	glView = [[[EAGLView alloc] initWithFrame:[self doLayout:UIInterfaceOrientationPortrait] Delegate:self] autorelease];
   //that last, calls ChangeScreen on the interface, so now we can:
@@ -187,9 +201,10 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 	selectedText.location = selectedText.length = 0;
   text.selectedRange=selectedText;
 
+  messageLabel.editable = NO;
   messageLabel.backgroundColor = [UIColor grayColor];
   messageLabel.textColor = [UIColor whiteColor];
-  messageLabel.adjustsFontSizeToFitWidth = YES;
+  messageLabel.contentInset = UIEdgeInsetsZero;
   messageLabel.hidden = YES;
 
   speedSlider = [[[UISlider alloc] init] autorelease];
@@ -251,27 +266,13 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 }
 
 - (void)displayMessage:(NSString *)msg {
-  //set initial state - overriding any animation in progress...
-  messageLabel.text = msg;
-  messageLabel.alpha = 1.0;
-  messageLabel.hidden = NO;
-  //now setup an animation that'll fade it out...
-  [UIView beginAnimations:@"MessageAnim" context:nil];
-  [UIView setAnimationDuration:2.0];
-  [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-  [UIView setAnimationDelegate:self];
-  [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
-  [messageLabel setAlpha:0.0];
-  [UIView commitAnimations]; //that'll abort any previous animation in progress
-  // (and thus proceed with just this one)
-}
-
-- (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
-  if ([finished boolValue]) {
-    messageLabel.hidden = YES;
-  }
-  //else, we've been called because the old animation's been aborted by a newer one.
-  // In which case, leave the new one to proceed without interference...
+  CGRect b = messageLabel.frame;
+  CGFloat height = [msg sizeWithFont:[messageLabel font] constrainedToSize:CGSizeMake(b.size.width, CGFLOAT_MAX)].height;
+  messageLabel.text = [messageLabel hasText] ? [NSString stringWithFormat:@"%@\n%@",messageLabel.text,msg] : msg;
+  messageLabel.frame = CGRectMake(b.origin.x, b.origin.y -height, b.size.width, b.size.height+height);
+  [messageLabel scrollRangeToVisible:NSMakeRange([messageLabel.text length], 0)];
+  messageLabel.hidden=NO;
+  [messageLabel performSelector:@selector(hideMessage:) withObject:[NSNumber numberWithFloat:height] afterDelay:3.0];
 }
 
 - (void)fadeSlider {
