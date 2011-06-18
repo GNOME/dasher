@@ -10,6 +10,10 @@
 #import "DasherApp.h"
 #import "DasherEdit.h"
 
+///Implements DasherEdit protocol by making necessary changes to itself
+/// (as it _is_ the textbox). However NOTE, bit of a hack, it checks for
+/// game mode and disables most functions while game mode is on, as the
+/// COSXGameModule will be mutating the text storage instead.
 @interface DasherTextView : NSTextView<DasherEdit> {
   IBOutlet DasherApp *dasherApp;
   BOOL suppressCursorEvents;

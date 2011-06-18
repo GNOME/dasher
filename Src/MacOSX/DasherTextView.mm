@@ -39,6 +39,7 @@
 #pragma mark DasherEdit methods
 
 - (void)outputCallback:(NSString *)aString {
+  if (dasherApp.gameModeOn) return;
   //offsets are wrong after any control mode node has been executed; since _any_
   // adding of text (at least by following method) generally causes textViewDidChangeSelection
   // callbacks, we have to suppress these during text adding in all cases...
@@ -50,6 +51,7 @@
 }
 
 - (void)deleteCallback:(NSString *)s {
+  if (dasherApp.gameModeOn) return;
   suppressCursorEvents=YES; //similarly to outputCallback
   int len = [s length];
   NSRange curSelection = [self selectedRange];
@@ -81,6 +83,7 @@
 }
 
 -(unsigned int)currentCursorPos {
+  if (dasherApp.gameModeOn) return 0;
   return [self selectedRange].location;
 }
 
@@ -169,6 +172,7 @@
 }
 
 -(void)textViewDidChangeSelection:(NSNotification *)notification {
+  if (dasherApp.gameModeOn) return;
   //NSLog(@"DidChangeSelection %i+%i",[textView selectedRange].location,[textView selectedRange].length);
   if (!suppressCursorEvents)
     [dasherApp aquaDasherControl]->SetOffset([self selectedRange].location, false);

@@ -417,4 +417,9 @@ static NSString *FilenameToUntitledName = @"NilToUntitled";
   } //else, cancel - do nothing
 }
 
+//"private" method, used by COSXGameModule
+-(NSTextView *)textView {
+  return textView;
+}
+
 @end

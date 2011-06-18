@@ -56,6 +56,7 @@ public:
   virtual int GetFileSize(const std::string &strFileName);
   void HandleEvent(int iParameter);
   void SetEdit(id<DasherEdit> pEdit);
+  CGameModule *CreateGameModule(CDasherView *pView, CDasherModel *pModel);
 private:
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
   virtual void ScanColourFiles(std::vector<std::string> &vFileList);

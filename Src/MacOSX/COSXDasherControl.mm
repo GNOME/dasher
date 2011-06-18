@@ -17,6 +17,7 @@
 #import "DasherEdit.h"
 #import "Event.h"
 #import "../Common/Common.h"
+#import "GameModule.h"
 
 #import <iostream>
 
@@ -26,6 +27,53 @@
 
 using namespace std;
 using namespace Dasher::Settings;
+
+class COSXGameModule : public CGameModule {
+public:
+  COSXGameModule(CSettingsUser *pCreator, CDasherInterfaceBase *pIntf, CDasherView *pView, CDasherModel *pModel, NSTextView *_textView)
+  : CGameModule(pCreator, pIntf, pView, pModel), textView(_textView) {
+    enteredAtts = [[NSDictionary dictionaryWithObject:[NSColor greenColor] forKey:NSForegroundColorAttributeName] retain];
+    wrongAtts = [[NSDictionary dictionaryWithObjectsAndKeys:[NSColor redColor],NSForegroundColorAttributeName,[NSNumber numberWithInt:(NSUnderlineStyleThick | NSUnderlinePatternSolid)],NSStrikethroughStyleAttributeName,nil] retain];
+    targetAtts = [[NSDictionary dictionary] retain]; //empty, black is default
+  }
+  void ChunkGenerated() {
+    string sText;
+    for (vector<symbol>::const_iterator it=targetSyms().begin(); it!=targetSyms().end(); it++)
+      sText += m_pAlph->GetText(*it);
+    [[textView textStorage] setAttributedString:[[[NSAttributedString alloc] initWithString:NSStringFromStdString(sText) attributes:targetAtts] autorelease]];
+    textView.selectedRange=NSMakeRange(0, 0);
+    numWrong=0;
+  }
+  void HandleEvent(const CEditEvent *pEvt) {
+    const int iPrev(lastCorrectSym());
+    CGameModule::HandleEvent(pEvt);
+    NSTextStorage *storage([textView textStorage]);
+    if (iPrev==lastCorrectSym()) {
+      NSRange r = NSMakeRange(iPrev+1, numWrong);
+      NSString *newWrong = NSStringFromStdString(m_strWrong);
+      numWrong = [newWrong length];
+      NSAttributedString *nwa = [[[NSAttributedString alloc] initWithString:newWrong attributes:wrongAtts] autorelease];
+      [storage replaceCharactersInRange:r withAttributedString:nwa];
+      [textView scrollRangeToVisible:NSMakeRange(r.location+r.length,0)];
+    } else {
+      DASHER_ASSERT(m_strWrong=="" && numWrong==0);
+      if (iPrev<lastCorrectSym()) {
+        //added more
+        [storage setAttributes:enteredAtts range:NSMakeRange(iPrev+1,lastCorrectSym()-iPrev)];
+      } else {
+        [storage setAttributes:targetAtts range:NSMakeRange(lastCorrectSym()+1,iPrev-lastCorrectSym())];
+      }
+      [textView scrollRangeToVisible:NSMakeRange(lastCorrectSym()+1, 0)];
+    }
+    [textView setSelectedRange:NSMakeRange(lastCorrectSym()+1+numWrong, 0)];
+  }
+  void DrawText(CDasherView *pView) {
+  }
+private:
+  NSDictionary *enteredAtts, *wrongAtts, *targetAtts;
+  NSInteger numWrong;
+  NSTextView *textView;
+};
 
 COSXDasherControl::COSXDasherControl(DasherApp *aDasherApp)
 : CDashIntfScreenMsgs(new COSXSettingsStore()), dasherApp(aDasherApp), dasherEdit(nil) {
@@ -319,4 +367,6 @@ void COSXDasherControl::ClearAllContext() {
   SetBuffer(0);
 }
 
-
+CGameModule *COSXDasherControl::CreateGameModule(CDasherView *pView, CDasherModel *pModel) {
+  return new COSXGameModule(this, this, pView, pModel, [dasherApp textView]);
+}
