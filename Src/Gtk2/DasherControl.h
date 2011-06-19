@@ -171,8 +171,6 @@ private:
   virtual void SetupPaths();
   virtual void CreateModules();
   virtual void SetupUI();
-  virtual void StartTimer();
-  virtual void ShutdownTimer();
   
   /// Override to emit Gtk2 signals (previously in response to CCommandEvent)
   void ExecuteCommand(const std::string &strName);

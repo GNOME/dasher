@@ -42,8 +42,11 @@ public:
   CDasherInterfaceBridge(DasherAppDelegate *aDasherApp);
   ~CDasherInterfaceBridge();
   
-  //redefinitions to make public....
-  void Realize();//also calls OnUIRealised
+  ///Calls superclass Realize with system time, starts timer, etc.
+  /// - i.e. everything ve need to make ourselves operational (except ChangeScreen)
+  void Realize();
+  
+  //redefine to make public....
   void NewFrame(unsigned long iTime, bool bForceRedraw);
 
   void SetTiltAxes(Vec3 main, float off, Vec3 slow, float off2);
@@ -72,8 +75,6 @@ private:
   virtual void SetupPaths();
   virtual void CreateModules();
   virtual void SetupUI();
-  virtual void StartTimer();
-  virtual void ShutdownTimer();
   
   ///
   /// Pass events coming from the core to the appropriate handler.

@@ -35,8 +35,6 @@
   NSString *m_wordBoundary, *m_sentenceBoundary, *m_lineBoundary;
 }
 
-- (void)startTimer;
-- (void)shutdownTimer;
 - (void)setAlphabet:(const CAlphInfo *)pAlph;
 - (void)outputCallback:(NSString *)s;
 - (void)deleteCallback:(NSString *)s;

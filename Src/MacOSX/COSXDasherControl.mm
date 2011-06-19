@@ -105,8 +105,8 @@ void COSXDasherControl::SetupUI() {
 // TODO: hack to get around things being used before they were created.  is there a better way?
 // TODO: maybe this should go in setupui?
 void COSXDasherControl::Realize2() {
-  CDasherInterfaceBase::Realize();
-  OnUIRealised();
+  CDasherInterfaceBase::Realize(get_time());
+  [dasherApp startTimer];
 }
 
 void COSXDasherControl::SetupPaths() {
@@ -166,14 +166,6 @@ void COSXDasherControl::ScanColourFiles(std::vector<std::string> &vFileList) {
 
 void COSXDasherControl::goddamn(unsigned long iTime, bool bForceRedraw) {
   NewFrame(iTime, bForceRedraw);
-}
-
-void COSXDasherControl::StartTimer() {
-  [dasherApp startTimer];
-}
-
-void COSXDasherControl::ShutdownTimer() {
-  [dasherApp shutdownTimer];
 }
 
 void COSXDasherControl::TimerFired(NSPoint p) {

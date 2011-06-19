@@ -70,8 +70,6 @@ private:
   virtual void SetupPaths();
   virtual void SetupUI();
   virtual void CreateModules();
-  virtual void StartTimer();
-  virtual void ShutdownTimer();
 
   void ScanDirectory(const Tstring &strMask, std::vector<std::string> &vFileList);
   bool                    GetWindowSize(int* pTop, int* pLeft, int* pBottom, int* pRight);

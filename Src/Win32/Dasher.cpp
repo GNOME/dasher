@@ -44,7 +44,8 @@ CDasher::CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit)
   CoInitialize(NULL);
 #endif
 
-  Realize();
+  DWORD dwTicks = GetTickCount();
+  Realize(dwTicks);
 }
 
 CDasher::~CDasher(void) {
@@ -275,7 +276,9 @@ void CDasher::SetupUI() {
   m_pCanvas = new CCanvas(this);
   m_pCanvas->Create(m_hParent); // TODO - check return 
 
-  OnUIRealised();
+  // TODO: See MessageLoop, Main in CDasherWindow - should be brought into this class
+  // Framerate settings: currently 40fps.
+  SetTimer(m_pCanvas->getwindow(), 1, 25, NULL);
 }
 
 int CDasher::GetFileSize(const std::string &strFileName) {
@@ -287,15 +290,6 @@ int CDasher::GetFileSize(const std::string &strFileName) {
   // TODO: Fix this on Win CE
   return 0;
 #endif
-}
-
-void CDasher::StartTimer() {
-  // TODO: See MessageLoop, Main in CDasherWindow - should be brought into this class
-  // Framerate settings: currently 40fps.
-  SetTimer(m_pCanvas->getwindow(), 1, 25, NULL);
-}
-
-void CDasher::ShutdownTimer() {
 }
 
 // TODO: Check that syntax here is sensible

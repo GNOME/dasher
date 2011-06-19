@@ -135,7 +135,13 @@ gtk_dasher_control_finalize(GObject *pObject) {
   /* TODO: Check that this actually gets called correctly */
 
   /* TODO: Should just call constructor - this should just be a lightweight wrapper class */
-  pPrivate->pControl->StartShutdown();
+  //ACL not sure what that's about...?
+  //The following comment taken from the old ShutdownTimer, which we need to do now:
+    // TODO: Figure out how to implement this - at the moment it's done
+    // through a return value from the timer callback, but it would be
+    // nicer to prevent any further calls as soon as the shutdown signal
+    // has been receieved.
+  pPrivate->pControl->WriteTrainFileFull();
 
   delete pPrivate->pControl;
   //  g_free(pDasherControl->private_data);

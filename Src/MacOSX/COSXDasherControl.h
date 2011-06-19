@@ -63,8 +63,6 @@ private:
   virtual void SetupPaths();
   virtual void CreateModules();
   virtual void SetupUI();
-  virtual void StartTimer();
-  virtual void ShutdownTimer();
   virtual bool SupportsSpeech();
   virtual void Speak(const std::string &strText, bool bInterrupt);
   virtual bool SupportsClipboard() {return true;}

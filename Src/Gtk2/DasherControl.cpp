@@ -81,7 +81,7 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
   m_pScreen = new CCanvas(m_pCanvas);
   ChangeScreen(m_pScreen);
 
-  Realize();
+  Realize(get_time());
  
   //  m_pKeyboardHelper = new CKeyboardHelper(this);
   //  m_pKeyboardHelper->Grab(GetBoolParameter(BP_GLOBAL_KEYBOARD));
@@ -289,10 +289,6 @@ void CDasherControl::RealizeCanvas(GtkWidget *pWidget) {
 #ifdef DEBUG
   std::cout << "RealizeCanvas()" << std::endl;
 #endif
-  OnUIRealised();
-}
-
-void CDasherControl::StartTimer() {
   // Start the timer loops as everything is set up.
   // Aim for 40 frames per second, computers are getting faster.
 
@@ -301,13 +297,6 @@ void CDasherControl::StartTimer() {
     // TODO: Reimplement this (or at least reimplement some kind of status reporting)
     //g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE, 5000, long_timer_callback, this, NULL);
   }
-}
-
-void CDasherControl::ShutdownTimer() {
-  // TODO: Figure out how to implement this - at the moment it's done
-  // through a return value from the timer callback, but it would be
-  // nicer to prevent any further calls as soon as the shutdown signal
-  // has been receieved.
 }
 
 int CDasherControl::CanvasConfigureEvent() {

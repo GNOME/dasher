@@ -254,7 +254,8 @@ static NSString *FilenameToUntitledName = @"NilToUntitled";
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
-  aquaDasherControl->StartShutdown();
+  [self shutdownTimer];
+  aquaDasherControl->WriteTrainFileFull();
   delete aquaDasherControl;
   aquaDasherControl=NULL;
 }

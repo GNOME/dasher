@@ -107,8 +107,6 @@ CDasherInterfaceBase::CDasherInterfaceBase(CSettingsStore *pSettingsStore) : CSe
   // Various state variables
   m_bRedrawScheduled = false;
 
-  m_iCurrentState = ST_START;
-
   //  m_bGlobalLock = false;
 
 #ifndef _WIN32_WCE
@@ -120,12 +118,14 @@ CDasherInterfaceBase::CDasherInterfaceBase(CSettingsStore *pSettingsStore) : CSe
 
 }
 
-void CDasherInterfaceBase::Realize() {
+void CDasherInterfaceBase::Realize(unsigned long ulTime) {
 
   //if ChangeScreen has been called, we'll have created a view;
   // otherwise, we still can't create a view, until we have a screen!
   DASHER_ASSERT(m_DasherScreen ? m_pDasherView!=NULL : m_pDasherView==NULL);
 
+  srand(ulTime);
+  
   //create the model... (no nodes just yet)
   m_pDasherModel = new CDasherModel(this, this);
 
@@ -181,14 +181,10 @@ void CDasherInterfaceBase::Realize() {
   if (m_pUserLog != NULL)
     m_pUserLog->InitIsDone();
 #endif
-
-  // TODO: Make things work when model is created latet
-  ChangeState(TR_MODEL_INIT);
 }
 
 CDasherInterfaceBase::~CDasherInterfaceBase() {
-  DASHER_ASSERT(m_iCurrentState == ST_SHUTDOWN);
-
+  //WriteTrainFileFull();???
   delete m_pDasherModel;        // The order of some of these deletions matters
   delete m_pDasherView;
   delete m_ColourIO;
@@ -522,10 +518,6 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   }
   bReentered=true;
 
-  // Fail if Dasher is locked
-  // if(m_iCurrentState != ST_NORMAL)
-  //  return;
-
   if(m_DasherScreen) {
     //ok, can draw _something_. Try and see what we can :).
 
@@ -746,7 +738,7 @@ CUserLogBase* CDasherInterfaceBase::GetUserLogPtr() {
 }
 
 void CDasherInterfaceBase::KeyDown(int iTime, int iId, bool bPos, int iX, int iY) {
-  if(m_iCurrentState != ST_NORMAL || isLocked())
+  if(isLocked())
     return;
 
   if(m_pInputFilter) {
@@ -759,7 +751,7 @@ void CDasherInterfaceBase::KeyDown(int iTime, int iId, bool bPos, int iX, int iY
 }
 
 void CDasherInterfaceBase::KeyUp(int iTime, int iId, bool bPos, int iX, int iY) {
-  if(m_iCurrentState != ST_NORMAL || isLocked())
+  if(isLocked())
     return;
 
   if(m_pInputFilter) {
@@ -853,10 +845,6 @@ void CDasherInterfaceBase::GetPermittedValues(int iParameter, std::vector<std::s
   }
 }
 
-void CDasherInterfaceBase::StartShutdown() {
-  ChangeState(TR_SHUTDOWN);
-}
-
 bool CDasherInterfaceBase::GetModuleSettings(const std::string &strName, SModuleSettings **pSettings, int *iCount) {
   return GetModuleByName(strName)->GetSettings(pSettings, iCount);
 }
@@ -948,36 +936,6 @@ void CDasherInterfaceBase::HandleClickDown(int iTime, int iX, int iY) {
 
 void CDasherInterfaceBase::AddActionButton(const std::string &strName) {
   m_vRightButtons.push_back(new CActionButton(this, strName, false));
-}
-
-
-void CDasherInterfaceBase::OnUIRealised() {
-  StartTimer();
-  ChangeState(TR_UI_INIT);
-}
-
-
-void CDasherInterfaceBase::ChangeState(ETransition iTransition) {
-  static EState iTransitionTable[ST_NUM][TR_NUM] = {
-    {ST_MODEL, ST_UI, ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN},//ST_START
-    {ST_FORBIDDEN, ST_NORMAL, ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN},//ST_MODEL
-    {ST_NORMAL, ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN},//ST_UI
-    {ST_FORBIDDEN, ST_FORBIDDEN, ST_LOCKED, ST_FORBIDDEN, ST_SHUTDOWN},//ST_NORMAL
-    {ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN, ST_NORMAL, ST_FORBIDDEN},//ST_LOCKED
-    {ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN}//ST_SHUTDOWN
-  //TR_MODEL_INIT, TR_UI_INIT,   TR_LOCK,      TR_UNLOCK,    TR_SHUTDOWN
-  };
-
-  EState iNewState(iTransitionTable[m_iCurrentState][iTransition]);
-
-  if(iNewState != ST_FORBIDDEN) {
-    if (iNewState == ST_SHUTDOWN) {
-      ShutdownTimer();
-      WriteTrainFileFull();
-    }
-
-    m_iCurrentState = iNewState;
-  }
 }
 
 void CDasherInterfaceBase::SetOffset(int iOffset, bool bForce) {

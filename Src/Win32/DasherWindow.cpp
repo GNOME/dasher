@@ -177,7 +177,8 @@ int CDasherWindow::MessageLoop() {
 		}
 	}
 
-  m_pDasher->StartShutdown();
+  m_pDasher->WriteTrainFileFull();
+  //ACL also stop the timer...but ShutdownTimer() was a no-op, so assume we don't need to?
 
   return msg.wParam;
 }

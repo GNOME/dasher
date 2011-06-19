@@ -271,6 +271,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   //training takes too long to perform in applicationDidFinishLaunching;
   // so we do it here instead (having let the main thread display a "training" message);
   _dasherInterface->Realize();
+  [glView startAnimation];
   //the rest has to be done on the main thread to avoid problems with OpenGL contexts
   // (which are local to one thread); however, we'll have the background thread wait...
   [self performSelectorOnMainThread:@selector(finishStartup) withObject:nil waitUntilDone:YES];
@@ -366,14 +367,6 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 	[glView startAnimation];
 }
 
-- (void)startTimer {
-	[glView startAnimation];
-}
-
-- (void)shutdownTimer {//Dasher closing...
-	[glView stopAnimation];
-}
-
 - (void)outputCallback:(NSString *)s {
 	textView.text=[textView.text stringByReplacingCharactersInRange:selectedText withString:s];
 	selectedText.location+=[s length]; 
@@ -430,7 +423,8 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 }
 
 -(void)applicationWillTerminate:(UIApplication *)application {
-  self.dasherInterface->StartShutdown();
+  [glView stopAnimation];
+  self.dasherInterface->WriteTrainFileFull();
 }
 
 - (void)newFrameAt:(unsigned long)time ForceRedraw:(BOOL)bForce {

@@ -382,14 +382,10 @@ protected:
   /// Both Realize and ChangeScreen must be called after construction before other functions
   /// will work, but they can be called in either order (as the SettingsStore is passed into
   /// the c'tor).
+  /// \param ulTime timestamp, much as per NewFrame, used for initializing the RNG (i.e. srand).
+  /// (Is that too hacky?)
   ///
-  void Realize();
-
-  ///
-  /// Notify the core that the UI has been realised. At this point drawing etc. is expected to work
-  ///
-
-  void OnUIRealised();
+  void Realize(unsigned long ulTime);
 
   ///
   /// Creates a default set of modules. Override in subclasses to create any
@@ -422,33 +418,6 @@ protected:
   /// \return true if anything has been rendered to the Screen such that it needs to be blitted
   /// (i.e. Display() called) - the default just returns false.
   virtual bool FinishRender(unsigned long ulTime) {return false;}
-
-  enum ETransition {
-    TR_MODEL_INIT = 0,
-    TR_UI_INIT,
-    TR_LOCK,
-    TR_UNLOCK,
-    TR_SHUTDOWN,
-    TR_NUM
-  };
-
-  enum EState {
-    ST_START = 0,
-    ST_MODEL,
-    ST_UI,
-    ST_NORMAL,
-    ST_LOCKED,
-    ST_SHUTDOWN,
-    ST_NUM,
-    ST_FORBIDDEN,
-    ST_DELAY
-  };
-
-  /// @name State machine functions
-  /// ...
-  /// @{
-
-  void ChangeState(ETransition iTransition);
 
   /// @}
 
@@ -508,19 +477,6 @@ protected:
   ///
 
   virtual void SetupUI() = 0;
-
-  ///
-  /// Start the callback timer
-  ///
-
-  virtual void StartTimer() = 0;
-
-  ///
-  /// Shutdown the callback timer (permenantly - this is called once
-  /// Dasher is committed to closing).
-  ///
-
-  virtual void ShutdownTimer() = 0;
 
   /// @}
 
@@ -584,7 +540,6 @@ protected:
   /// Represent the current overall state of the core
   /// @{
   bool m_bRedrawScheduled;
-  EState m_iCurrentState;
   bool m_bOldVisible;
 
   /// @}

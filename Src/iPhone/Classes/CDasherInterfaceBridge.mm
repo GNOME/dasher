@@ -106,10 +106,9 @@ void CDasherInterfaceBridge::SetupUI() {
   NSLog(@"CDasherInterfaceBridge::SetupUI");
 }
 
-void CDasherInterfaceBridge::Realize() {  
-  CDasherInterfaceBase::Realize();
+void CDasherInterfaceBridge::Realize() {
+  CDasherInterfaceBase::Realize(get_time());
   HandleEvent(SP_ALPHABET_ID); //calls dasherApp::SetAlphabet
-  CDasherInterfaceBase::OnUIRealised();
 }
 
 void CDasherInterfaceBridge::SetupPaths() {
@@ -159,17 +158,8 @@ void CDasherInterfaceBridge::ScanColourFiles(std::vector<std::string> &vFileList
   }  
 }
 
-
 void CDasherInterfaceBridge::NewFrame(unsigned long iTime, bool bForceRedraw) {
   CDasherInterfaceBase::NewFrame(iTime, bForceRedraw);
-}
-
-void CDasherInterfaceBridge::StartTimer() {
-  [dasherApp startTimer];
-}
-
-void CDasherInterfaceBridge::ShutdownTimer() {
-  [dasherApp shutdownTimer];
 }
 
 void CDasherInterfaceBridge::HandleEvent(int iParameter) {
