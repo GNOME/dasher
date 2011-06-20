@@ -61,6 +61,8 @@ struct _DasherEditorClass {
   void (*grab_focus)(DasherEditor *);
   gboolean (*file_changed)(DasherEditor *);
   const gchar *(*get_filename)(DasherEditor *);
+  ///Get a buffer to display formatted text for game mode, if we have one
+  GtkTextBuffer *(*game_text_buffer)(DasherEditor *);
 
   /* Signal handlers */
   void (*filename_changed)(DasherEditor *);
@@ -102,6 +104,8 @@ void dasher_editor_action_set_show(DasherEditor *pSelf, int iActionID, bool bVal
 void dasher_editor_action_set_control(DasherEditor *pSelf, int iActionID, bool bValue);
 void dasher_editor_action_set_auto(DasherEditor *pSelf, int iActionID, bool bValue);
 #endif
+
+GtkTextBuffer *dasher_editor_game_text_buffer(DasherEditor *);
 
 void dasher_editor_clear(DasherEditor *pSelf);
 const gchar *dasher_editor_get_all_text(DasherEditor *pSelf);

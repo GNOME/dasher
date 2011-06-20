@@ -10,6 +10,8 @@
 #include "../DasherCore/Event.h"
 #include "../DasherCore/ModuleManager.h"
 #include "dasher_main.h"
+#include "../DasherCore/GameModule.h"
+
 #include <fcntl.h>
 
 #include <gtk/gtk.h>
@@ -333,12 +335,14 @@ void CDasherControl::HandleEvent(int iParameter) {
 }
 
 void CDasherControl::editOutput(const std::string &strText, CDasherNode *pNode) {
-  g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_edit_insert", strText.c_str(), pNode->offset());
+  if (!GetBoolParameter(BP_GAME_MODE)) //GameModule sets editbox directly
+    g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_edit_insert", strText.c_str(), pNode->offset());
   CDasherInterfaceBase::editOutput(strText, pNode);
 }
 
 void CDasherControl::editDelete(const std::string &strText, CDasherNode *pNode) {
-  g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_edit_delete", strText.c_str(), pNode->offset());
+  if (!GetBoolParameter(BP_GAME_MODE)) //GameModule sets editbox directly
+    g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_edit_delete", strText.c_str(), pNode->offset());
   CDasherInterfaceBase::editDelete(strText, pNode);
 }
 
@@ -380,6 +384,90 @@ unsigned int CDasherControl::ctrlMove(bool bForwards, CControlManager::EditDista
 
 unsigned int CDasherControl::ctrlDelete(bool bForwards, CControlManager::EditDistance dist) {
   return gtk_dasher_control_ctrl_delete(m_pDasherControl,bForwards,dist);
+}
+
+class GtkGameModule : public CGameModule {
+public:
+  GtkGameModule(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CDasherView *pView, CDasherModel *pModel, GtkTextBuffer *pBuffer)
+  : CGameModule(pCreator, pInterface, pView, pModel), m_pBuffer(pBuffer) {
+    m_tEntered = gtk_text_buffer_create_tag(m_pBuffer, "entered", "foreground", "#00FF00", NULL);
+    m_tWrong = gtk_text_buffer_create_tag(m_pBuffer, "wrong", "foreground", "#FF0000", "strikethrough", TRUE, NULL);
+    GtkTextIter start,end;
+    gtk_text_buffer_get_start_iter(m_pBuffer, &start);
+    m_mEntered = gtk_text_buffer_create_mark(m_pBuffer, NULL, &start, true);
+    gtk_text_buffer_get_end_iter(m_pBuffer, &end);
+    m_mTarget = gtk_text_buffer_create_mark(m_pBuffer, NULL, &end, false);
+    gtk_text_buffer_delete(m_pBuffer, &start, &end);
+  }
+
+  ~GtkGameModule() {
+    GtkTextTagTable *table = gtk_text_buffer_get_tag_table(m_pBuffer);
+    gtk_text_tag_table_remove(table, m_tEntered);
+    gtk_text_tag_table_remove(table, m_tWrong);
+
+    gtk_text_buffer_delete_mark(m_pBuffer,m_mEntered);
+    gtk_text_buffer_delete_mark(m_pBuffer,m_mTarget);
+  }
+
+  void ChunkGenerated() {
+    string sText;
+    for (vector<symbol>::const_iterator it=targetSyms().begin(); it!=targetSyms().end(); it++)
+      sText += m_pAlph->GetText(*it);
+    gtk_text_buffer_set_text(m_pBuffer, sText.c_str(), -1); //-1 for length = null-terminated
+    GtkTextIter start,end;
+    gtk_text_buffer_get_start_iter(m_pBuffer, &start);
+    gtk_text_buffer_move_mark(m_pBuffer, m_mEntered, &start);
+    gtk_text_buffer_move_mark(m_pBuffer, m_mTarget, &start);
+    gtk_text_buffer_get_end_iter(m_pBuffer, &end);
+    gtk_text_buffer_remove_all_tags(m_pBuffer, &start, &end);
+  }
+  void HandleEvent(const Dasher::CEditEvent *pEvt) {
+    const int iPrev(lastCorrectSym());
+    CGameModule::HandleEvent(pEvt);
+    if (iPrev==lastCorrectSym()) {
+      GtkTextIter start,end; //of "wrong" text
+      gtk_text_buffer_get_iter_at_mark(m_pBuffer, &start, m_mEntered);
+      gtk_text_buffer_get_iter_at_mark(m_pBuffer, &end, m_mTarget);
+      gtk_text_buffer_delete(m_pBuffer, &start, &end); //invalidates end, brings m_mEntered & m_mTarget together
+      gtk_text_buffer_get_iter_at_mark(m_pBuffer, &start, m_mEntered);
+      gtk_text_buffer_get_iter_at_mark(m_pBuffer, &end, m_mTarget);
+      gtk_text_buffer_insert(m_pBuffer, &start, m_strWrong.c_str(), -1); //moves m_mEntered & m_mTarget apart
+      gtk_text_buffer_get_iter_at_mark(m_pBuffer, &start, m_mEntered);
+      gtk_text_buffer_get_iter_at_mark(m_pBuffer, &end, m_mTarget);
+      gtk_text_buffer_get_iter_at_mark(m_pBuffer, &end, m_mTarget);
+      gtk_text_buffer_apply_tag(m_pBuffer, m_tWrong, &start, &end);
+    } else {
+      GtkTextIter it,it2;
+      gtk_text_buffer_get_iter_at_mark(m_pBuffer, &it, m_mEntered);
+      gtk_text_buffer_get_iter_at_mark(m_pBuffer, &it2, m_mTarget);
+      DASHER_ASSERT(gtk_text_iter_get_offset(&it) == gtk_text_iter_get_offset(&it2));
+      if (iPrev < lastCorrectSym()) {
+        //correct text added
+        DASHER_ASSERT(iPrev == lastCorrectSym()-1);
+        gtk_text_iter_forward_chars(&it2, 1);
+        gtk_text_buffer_apply_tag(m_pBuffer, m_tEntered, &it, &it2);
+      } else {
+        //correct text erased!
+        DASHER_ASSERT(iPrev == lastCorrectSym()+1);
+        gtk_text_iter_backward_chars(&it2, 1);
+        gtk_text_buffer_remove_tag(m_pBuffer, m_tEntered, &it2, &it);
+      }
+      gtk_text_buffer_move_mark(m_pBuffer, m_mEntered, &it2);
+      gtk_text_buffer_move_mark(m_pBuffer, m_mTarget, &it2);
+    } 
+  }
+  void DrawText(CDasherView *pView) {}
+private:
+  GtkTextBuffer *m_pBuffer;
+  GtkTextTag *m_tEntered, *m_tWrong;
+  GtkTextMark *m_mEntered; //just after what's been correctly entered
+  GtkTextMark *m_mTarget; //after any "wrong" text, before target; if no wrong chars, ==m_entered.
+};
+
+CGameModule *CDasherControl::CreateGameModule(CDasherView *pView,CDasherModel *pModel) {
+  if (GtkTextBuffer *buf=gtk_dasher_control_game_text_buffer(m_pDasherControl))
+    return new GtkGameModule(this, this, pView, pModel, buf);
+  return CDashIntfScreenMsgs::CreateGameModule(pView,pModel);
 }
 
 void CDasherControl::ExecuteCommand(const std::string &strCommand) {

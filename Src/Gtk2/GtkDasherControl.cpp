@@ -28,7 +28,6 @@
 struct _GtkDasherControlPrivate {
   CDasherControl *pControl;
   DasherEditor *pEditor;
-  void* pGameHelper;
 };
 
 typedef struct _GtkDasherControlPrivate GtkDasherControlPrivate;
@@ -123,6 +122,11 @@ void gtk_dasher_control_set_editor(GtkDasherControl *pDasherControl, DasherEdito
   DASHER_ASSERT (pPrivate->pEditor == NULL);
   DASHER_ASSERT (pEditor != NULL);
   pPrivate->pEditor = pEditor;
+}
+
+GtkTextBuffer *gtk_dasher_control_game_text_buffer(GtkDasherControl *pDasherControl) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pDasherControl);
+  return dasher_editor_game_text_buffer(pPrivate->pEditor);
 }
 
 static void 
@@ -285,12 +289,6 @@ gboolean
 gtk_dasher_control_get_module_settings(GtkDasherControl * pControl, const gchar *szModule, SModuleSettings **pSettings, gint *iCount) {
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
   return pPrivate->pControl->GetModuleSettings(szModule, pSettings, iCount);
-}
-
-void 
-gtk_dasher_control_game_helperreg(GtkDasherControl *pControl, void* gameHelper) {
-  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  pPrivate->pGameHelper = gameHelper;
 }
 
 void 

@@ -212,6 +212,12 @@ dasher_editor_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, D
     DASHER_EDITOR_GET_CLASS(pSelf)->initialise(pSelf, pAppSettings, pDasherMain, pXML, szFullPath);
 }
 
+GtkTextBuffer *dasher_editor_game_text_buffer(DasherEditor *pSelf) {
+  if (DASHER_EDITOR_GET_CLASS(pSelf)->game_text_buffer)
+    return DASHER_EDITOR_GET_CLASS(pSelf)->game_text_buffer(pSelf);
+  return NULL;
+}
+
 void
 dasher_editor_handle_stop(DasherEditor *pSelf) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->handle_stop)

@@ -195,6 +195,7 @@ const gchar *dasher_editor_internal_get_filename(DasherEditor *pSelf);
 static void dasher_editor_internal_clear(DasherEditor *pSelf);
 const gchar *dasher_editor_internal_get_all_text(DasherEditor *pSelf);
 const gchar *dasher_editor_internal_get_new_text(DasherEditor *pSelf);
+static GtkTextBuffer *dasher_editor_internal_game_text_buffer(DasherEditor *pEditor);
 
 static void dasher_editor_internal_handle_parameter_change(DasherEditor *pSelf, gint iParameter);
 
@@ -219,6 +220,7 @@ dasher_editor_internal_class_init(DasherEditorInternalClass *pClass) {
 
   DasherEditorClass *pParentClass = (DasherEditorClass *)pClass;
   pParentClass->initialise = dasher_editor_internal_initialise;
+  pParentClass->game_text_buffer = dasher_editor_internal_game_text_buffer;
   pParentClass->command = dasher_editor_internal_command;
   pParentClass->output = dasher_editor_internal_output;
   pParentClass->delete_text = dasher_editor_internal_delete;
@@ -686,10 +688,12 @@ dasher_editor_internal_get_offset(DasherEditor *pSelf) {
 void dasher_editor_internal_mark_changed(DasherEditorInternal *pSelf, GtkTextIter *pIter, GtkTextMark *pMark) {
   const char *szMarkName(gtk_text_mark_get_name(pMark));
   if(szMarkName && !strcmp(szMarkName,"insert")) {
+    DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
     //ACL: used to emit "offset_changed" signal from buffer, which was picked up
     // by a callback registered by editor_internal, which then emitted a context_changed
     // signal from the editor_internal. So just emit the context_changed directly...
-    if (!DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf)->bInControlAction) //tho not if it's the result of a control-mode edit/delete
+    if (!pPrivate->bInControlAction //tho not if it's the result of a control-mode edit/delete
+        && dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_GAME_MODE)) //and not in game mode
       g_signal_emit_by_name(G_OBJECT(pSelf), "context_changed", G_OBJECT(pSelf), NULL, NULL);
   }
 }
@@ -883,13 +887,10 @@ dasher_editor_internal_save_as(DasherEditor *pSelf, const gchar *szFilename, boo
   return true;
 }
 
-// void
-// dasher_editor_internal_start_tutorial(DasherEditor *pSelf) {
-//    DasherEditorInternalPrivate *pPrivate = (DasherEditorInternalPrivate *)(pSelf->private_data);
-
-//   // TODO: reimplement
-//   //  pPrivate->pGameModeHelper = GAME_MODE_HELPER(game_mode_helper_new(GTK_DASHER_CONTROL(pDasherWidget)));
-// }
+GtkTextBuffer *dasher_editor_internal_game_text_buffer(DasherEditor *pSelf) {
+  DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
+  return pPrivate->pBuffer;
+}
 
 gboolean
 dasher_editor_internal_command(DasherEditor *pSelf, const gchar *szCommand) {
