@@ -119,15 +119,11 @@ void Dasher::CDasher::HandleEvent(int iParameter) {
 }
 
 void Dasher::CDasher::editOutput(const string &strText, CDasherNode *pSource) {
-  if(m_pWindow->m_pGameModeHelper)
-    m_pWindow->m_pGameModeHelper->Output(strText);
   m_pEdit->output(strText);
   CDasherInterfaceBase::editOutput(strText, pSource);
 }
 
 void Dasher::CDasher::editDelete(const string &strText, CDasherNode *pSource) {
-  if (m_pWindow->m_pGameModeHelper)
-    m_pWindow->m_pGameModeHelper->Delete(strText.size());
   m_pEdit->deletetext(strText);
   CDasherInterfaceBase::editDelete(strText, pSource);
 }

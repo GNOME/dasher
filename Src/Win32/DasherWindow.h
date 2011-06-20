@@ -18,7 +18,6 @@
 #include "Widgets/WindowSelect.h"
 #include "DasherMouseInput.h"
 #include "AppSettings.h"
-#include "GameModeHelper.h"
 
 #include "../Common/WinOptions.h"
 
@@ -111,7 +110,6 @@ private:
 	//CCanvas *m_pCanvas;
 	CSplitter *m_pSplitter;
 	CStatusControl *m_pSpeedAlphabetBar;
-  CGameGroup* m_pGameGroup;
 	CMenu WinMenu;
 	//CSplash *Splash;
 
@@ -127,10 +125,6 @@ private:
 
 	// Misc window handling
 	void Layout();
-public:
-  // ACL temporary hack to allow CDasher to send it edit events.
-  CGameModeHelper *m_pGameModeHelper;
-
 };
 
 #endif /* #ifdef __MainWindow_h__ */

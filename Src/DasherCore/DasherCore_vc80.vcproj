@@ -1791,14 +1791,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\DasherGameMode.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\DasherGameMode.h"
-			>
-		</File>
-		<File
 			RelativePath="DasherInput.h"
 			>
 		</File>
@@ -1911,6 +1903,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\FileWordGenerator.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\FileWordGenerator.h"
+			>
+		</File>
+		<File
 			RelativePath=".\FrameRate.cpp"
 			>
 		</File>
@@ -1919,23 +1919,11 @@
 			>
 		</File>
 		<File
-			RelativePath=".\GameLevel.cpp"
+			RelativePath=".\GameModule.cpp"
 			>
 		</File>
 		<File
-			RelativePath=".\GameLevel.h"
-			>
-		</File>
-		<File
-			RelativePath=".\GameMessages.h"
-			>
-		</File>
-		<File
-			RelativePath=".\GameScorer.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\GameScorer.h"
+			RelativePath=".\GameModule.h"
 			>
 		</File>
 		<File
@@ -2070,6 +2058,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\ScreenGameModule.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\ScreenGameModule.h"
+			>
+		</File>
+		<File
 			RelativePath=".\SettingsStore.cpp"
 			>
 		</File>
@@ -2155,6 +2151,14 @@
 		</File>
 		<File
 			RelativePath="..\Win32\Common\WinUTF8.h"
+			>
+		</File>
+		<File
+			RelativePath=".\WordGeneratorBase.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\WordGeneratorBase.h"
 			>
 		</File>
 	</Files>

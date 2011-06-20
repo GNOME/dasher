@@ -30,7 +30,6 @@
 
 #include "Widgets/Slidebar.h"
 #include "Widgets/Toolbar.h"
-#include "Widgets/GameGroup.h"
 #include "WinCommon.h"
 
 #ifndef _WIN32_WCE
@@ -54,7 +53,6 @@ CDasherWindow::CDasherWindow() {
   m_pSpeedAlphabetBar = 0;
   m_pSplitter = 0;
   m_pDasher = 0;
-  m_pGameGroup = 0;
 
   m_hIconSm = (HICON) LoadImage(WinHelper::hInstApp, (LPCTSTR) IDI_DASHER, IMAGE_ICON, GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON), LR_DEFAULTCOLOR);
   
@@ -127,18 +125,11 @@ HWND CDasherWindow::Create() {
   m_pSpeedAlphabetBar = new CStatusControl(m_pAppSettings);
   m_pSpeedAlphabetBar->Create(hWnd);
 
-  m_pGameGroup = new CGameGroup(m_pDasher, m_pEdit);
-  m_pGameGroup->Create(hWnd);
-  m_pGameGroup->ShowWindow(SW_HIDE);
-  m_pGameGroup->SetEditFont(m_pAppSettings->GetStringParameter(APP_SP_EDIT_FONT), m_pAppSettings->GetLongParameter(APP_LP_EDIT_FONT_SIZE));
-
   m_pSplitter = new CSplitter(this,100);
   HWND hSplitter =  m_pSplitter->Create(hWnd);
   
   if (!hSplitter)
 	  return 0;
-
-  m_pGameModeHelper = 0;
 
   return hWnd;
 }
@@ -231,15 +222,21 @@ void CDasherWindow::HandleParameterChange(int iParameter) {
   case LP_MAX_BITRATE:
     // TODO: reimplement
     break;
+  case BP_GAME_MODE: {
+	  int iNewState(m_pDasher->GetBoolParameter(BP_GAME_MODE) ? MF_CHECKED : MF_UNCHECKED);
+	  DWORD iPrevState = CheckMenuItem(m_hMenu, ID_GAMEMODE, MF_BYCOMMAND | iNewState);
+	  DASHER_ASSERT( iPrevState != -1 ); //-1 = item does not exist (i.e. params to previous incorrect!)
+  }
   default:
     break;
   }
 }
 
 LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
-  const int wmId = LOWORD(wParam);
-  const int wmEvent = HIWORD(wParam);
-  
+  const int wmId = LOWORD(wParam); //command id
+  const int wmEvent = HIWORD(wParam); //notification code: 1=from accelerator, 0=from menu
+  //lParam is the HWND (window handle) of control sending message, 0 if not from control
+
   // Tell edit box if it has changed. It should know itself really, but this is easier
   // This shouldn't be here - it should be in the edit box class
   if( m_pEdit && ((HWND) lParam == m_pEdit->GetHwnd()) && (HIWORD(wParam) == EN_CHANGE)) {
@@ -266,17 +263,12 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
     HtmlHelp(m_hWnd, L"Dasher.chm", HH_DISPLAY_INDEX, NULL);
     return 0;
 #endif
-  case ID_HELP_DASHERTUTORIAL:
-    m_pGameModeHelper = new CGameModeHelper(m_pDasher);
+  case ID_GAMEMODE: {
+	  unsigned int checkState(GetMenuState(m_hMenu, ID_GAMEMODE, MF_BYCOMMAND));
+	  DASHER_ASSERT(checkState==-1); //"specified item does not exist" - presumably, params to above aren't right...
+	  m_pDasher->SetBoolParameter(BP_GAME_MODE, (checkState & MF_CHECKED) ? false : true);
     return 0;
-  case ID_GAMEMODE:
-    m_pDasher->SetBoolParameter(BP_GAME_MODE,!m_pGameGroup->IsWindowVisible());
-      //TODO the following should be done in response to a change to BP_GAME_MODE being
-      // detected (e.g. if changed in DasherCore):
-    m_pGameGroup->ShowWindow(m_pGameGroup->IsWindowVisible()?SW_HIDE:SW_SHOW);
-    m_pEdit->Clear();
-    Layout();
-    return 0;
+  }
   case IDM_EXIT:
     DestroyWindow();
     return 0;
@@ -459,16 +451,6 @@ void CDasherWindow::Layout() {
   else
     SpeedAlphabetHeight = 0;
 
-  int GameGroupHeight = 0;
-  int GameGroupWidth = 0;
-  int GameLabelHeight = 0;
-
-  if(m_pGameGroup) {
-    GameGroupHeight = m_pGameGroup->GetHeight();
-    GameGroupWidth = m_pGameGroup->GetWidth();
-    GameLabelHeight = m_pGameGroup->GetLabelHeight();
-  }
-
   int MaxCanvas = Height - SpeedAlphabetHeight*2;
   int CurY = ToolbarHeight;
 
@@ -476,7 +458,7 @@ void CDasherWindow::Layout() {
     int SplitterPos = m_pSplitter->GetPos();
     int SplitterHeight = m_pSplitter->GetHeight();
     //SplitterPos = max(CurY + 2 * SplitterHeight, SplitterPos);
-    SplitterPos = max(CurY + GameGroupHeight, SplitterPos);
+    SplitterPos = max(CurY, SplitterPos);
     SplitterPos = min(SplitterPos, MaxCanvas - 3 * SplitterHeight);
     m_pSplitter->Move(SplitterPos, Width);
 
@@ -491,12 +473,11 @@ void CDasherWindow::Layout() {
       if(bShowEdit) {
         m_pEdit->ShowWindow(SW_SHOW);
         m_pSplitter->ShowWindow(SW_SHOW);
-        m_pGameGroup->MoveWindow(0,CurY,Width,GameGroupHeight);
 
         if(m_pEdit)
         {
           //m_pEdit->Move(2, CurY+2, Width, SplitterPos - CurY-2);
-          m_pEdit->Move(0, CurY+GameLabelHeight, Width-GameGroupWidth, SplitterPos - CurY-GameLabelHeight);
+          m_pEdit->Move(0, CurY, Width, SplitterPos - CurY);
         }
 
         CurY = SplitterPos + SplitterHeight;

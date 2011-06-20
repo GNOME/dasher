@@ -431,7 +431,7 @@ BEGIN
         MENUITEM "&Help Topics",                ID_HELP_CONTENTS
         MENUITEM SEPARATOR
         MENUITEM "&About Dasher",               IDM_ABOUT
-        // MENUITEM "Game Mode",                   ID_GAMEMODE
+        MENUITEM "Game Mode",                   ID_GAMEMODE
     END
 END
 

@@ -16,7 +16,6 @@ using namespace std;
 #include "DasherTypes.h"
 #include "DasherInterfaceBase.h"
 #include "WordGeneratorBase.h"
-#include <tr1/memory>
 
 
 namespace Dasher {
