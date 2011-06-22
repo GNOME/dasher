@@ -128,9 +128,10 @@
 <group name="Diacriticals"  b="9" visible="on">
 <!-- I'd like to replace 443,444 below by 441 and 442, which would be 
      correct Unicode; but it seems that it renders wrong on my laptop;
-     441,442 are the combining, nonspacing marks                       -->
-<s d="&#x25cc;&#12443;" t="&#12441;" b="99" note="diacritical buzz "  />
-<s d="&#x25cc;&#12444;" t="&#12442;" b="97" note="diacritical pop  "  />
+     441,442 are the combining, nonspacing marks
+  -->
+<s d="&#x25cc;&#xFF9E;" t="&#12441;" b="99" note="diacritical buzz FF9E was 12443"  />
+<s d="&#x25cc;&#xFF9F;" t="&#12442;" b="97" note="diacritical pop  FF9F was 12444"  />
 <!-- <s d="&#x25cc;&#12441;" t="&#12441;" b="99" note="diacritical buzz &#x25cc;&#12441; &#12443;"  /> -->
 <!-- <s d="&#x25cc;&#12442;" t="&#12442;" b="97" note="diacritical pop  &#x25cc;&#12442; &#12444;"  /> -->
 <s d="&#12540;" t="&#12540;" note="Japanese long dash (long tone)" b="95" />

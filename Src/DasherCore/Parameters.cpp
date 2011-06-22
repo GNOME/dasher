@@ -79,6 +79,7 @@ const lp_table longparamtable[] = {
   {LP_YSCALE, "YScaling", PERS, 0, "YScaling"},
   {LP_MOUSEPOSDIST, "MousePositionBoxDistance", PERS, 50, "MousePositionBoxDistance"},
   {LP_STOP_IDLETIME, "StopIdleTime", PERS, 1000, "StopIdleTime" },
+  {LP_PY_PROB_SORT_THRES, "PYProbabilitySortThreshold", PERS, 85, "Sort converted syms in descending probability order up to this %age"},
   {LP_MESSAGE_TIME, "MessageTime", PERS, 2500, "Time for which non-modal messages are displayed, in ms"},
   {LP_LM_MAX_ORDER, "LMMaxOrder", PERS, 5, "LMMaxOrder"},
   {LP_LM_EXCLUSION, "LMExclusion", PERS, 0, "LMExclusion"},

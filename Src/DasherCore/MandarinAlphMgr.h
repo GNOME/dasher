@@ -166,8 +166,9 @@ namespace Dasher {
     CAlphabetMap m_CHAlphabetMap;
     
     ///Indexed by SPY (syll+tone) alphabet symbol number,
-    // the set of CHAlphabet symbols it can be converted to.
-    std::set<symbol> *m_pConversionsBySymbol;
+    // the CHAlphabet symbols it can be converted to, in order
+    // of appearance in the CHAlphabet group.
+    std::vector<symbol> *m_pConversionsBySymbol;
 
     ///Indexed by chinese-alphabet symbol number (sparsely: where multiple
     /// chinese-alphabet symbols have the same text, we use only the one

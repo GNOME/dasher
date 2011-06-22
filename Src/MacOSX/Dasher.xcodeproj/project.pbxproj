@@ -381,8 +381,11 @@
 		33E756A41202D6180012A0E9 /* WordGeneratorBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 33E756A31202D6180012A0E9 /* WordGeneratorBase.h */; };
 		33E91A770F55E60B00B5F513 /* KeyboardHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33E91A750F55E60B00B5F513 /* KeyboardHelper.cpp */; };
 		33E91A780F55E60B00B5F513 /* KeyboardHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 33E91A760F55E60B00B5F513 /* KeyboardHelper.h */; };
+		33F3E72E1354D65A008AE1F2 /* alphabet.spyToneMarks.xml in Resources */ = {isa = PBXBuildFile; fileRef = 33F3E72D1354D65A008AE1F2 /* alphabet.spyToneMarks.xml */; };
 		33F6C9EA133241A000745B06 /* AbstractXMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 33F6C9E8133241A000745B06 /* AbstractXMLParser.h */; };
 		33F6C9EB133241A000745B06 /* AbstractXMLParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33F6C9E9133241A000745B06 /* AbstractXMLParser.cpp */; };
+		33F8F5CC1357704D009F4E79 /* alphabet.spyTones2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 33F8F5CB1357704D009F4E79 /* alphabet.spyTones2.xml */; };
+		33F8F67C135780B3009F4E79 /* alphabet.bopoDict.xml in Resources */ = {isa = PBXBuildFile; fileRef = 33F8F67B135780B3009F4E79 /* alphabet.bopoDict.xml */; };
 		33FC1D2B13ACE7E7007642CD /* ScreenGameModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33FC1D2913ACE7E7007642CD /* ScreenGameModule.cpp */; };
 		33FC1D2C13ACE7E7007642CD /* ScreenGameModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 33FC1D2A13ACE7E7007642CD /* ScreenGameModule.h */; };
 		33FC1D3113ACE88F007642CD /* Parameters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33FC1D3013ACE88F007642CD /* Parameters.cpp */; };
@@ -784,8 +787,11 @@
 		33E756A31202D6180012A0E9 /* WordGeneratorBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordGeneratorBase.h; sourceTree = "<group>"; };
 		33E91A750F55E60B00B5F513 /* KeyboardHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyboardHelper.cpp; sourceTree = "<group>"; };
 		33E91A760F55E60B00B5F513 /* KeyboardHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardHelper.h; sourceTree = "<group>"; };
+		33F3E72D1354D65A008AE1F2 /* alphabet.spyToneMarks.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.spyToneMarks.xml; sourceTree = "<group>"; };
 		33F6C9E8133241A000745B06 /* AbstractXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractXMLParser.h; sourceTree = "<group>"; };
 		33F6C9E9133241A000745B06 /* AbstractXMLParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AbstractXMLParser.cpp; sourceTree = "<group>"; };
+		33F8F5CB1357704D009F4E79 /* alphabet.spyTones2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.spyTones2.xml; sourceTree = "<group>"; };
+		33F8F67B135780B3009F4E79 /* alphabet.bopoDict.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.bopoDict.xml; sourceTree = "<group>"; };
 		33FC1D2913ACE7E7007642CD /* ScreenGameModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScreenGameModule.cpp; sourceTree = "<group>"; };
 		33FC1D2A13ACE7E7007642CD /* ScreenGameModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenGameModule.h; sourceTree = "<group>"; };
 		33FC1D3013ACE88F007642CD /* Parameters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Parameters.cpp; sourceTree = "<group>"; };
@@ -1069,7 +1075,10 @@
 		19BEF2CD0C228F7300275D06 /* alphabets */ = {
 			isa = PBXGroup;
 			children = (
+				33F3E72D1354D65A008AE1F2 /* alphabet.spyToneMarks.xml */,
+				33F8F67B135780B3009F4E79 /* alphabet.bopoDict.xml */,
 				335DB0FA100B332C006DB155 /* alphabet.spyDict.xml */,
+				33F8F5CB1357704D009F4E79 /* alphabet.spyTones2.xml */,
 				19BEF2CF0C228F7300275D06 /* alphabet-nest.xsl */,
 				19BEF2D00C228F7300275D06 /* alphabet-nest2.xsl */,
 				19BEF2D10C228F7300275D06 /* alphabet.abc.xml */,
@@ -1702,6 +1711,9 @@
 				334DE238135E3E68007C8D6D /* control.textlabels.xml in Resources */,
 				334DE239135E3E68007C8D6D /* control.xml in Resources */,
 				334DE23B135E3F4B007C8D6D /* control.dtd in Resources */,
+				33F3E72E1354D65A008AE1F2 /* alphabet.spyToneMarks.xml in Resources */,
+				33F8F5CC1357704D009F4E79 /* alphabet.spyTones2.xml in Resources */,
+				33F8F67C135780B3009F4E79 /* alphabet.bopoDict.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

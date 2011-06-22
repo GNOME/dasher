@@ -1,5 +1,4 @@
 dist_pkgdata_DATA = \
-	Makefile.am \
 	dasher.compose.ui \
 	dasher.direct.ui \
 	dasher.fullscreen.ui \

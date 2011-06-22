@@ -261,6 +261,7 @@ CAlphabetManager::CGroupNode::CGroupNode(CDasherNode *pParent, int iOffset, unsi
             pGroup ? (pGroup->bVisible ? pGroup->iColour : iBkgCol)
             : (iOffset&1) ? 7 : 137, //special case for root nodes
             pLabel, pMgr), m_pGroup(pGroup) {
+  if (m_pGroup && !m_pGroup->bVisible) SetFlag(NF_VISIBLE, false);
 }
 
 CAlphabetManager::CAlphNode *CAlphabetManager::GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, bool bEnteredLast, int iOffset) {
@@ -611,7 +612,8 @@ void CAlphabetManager::CSymbolNode::Undo() {
       // iff this node was actually written (i.e. not rebuilt _from_ context!)
       std::string &buf(m_pMgr->strTrainfileBuffer);
       std::string tr(trainText());
-      if (buf.substr(buf.length()-tr.length(),tr.length())==tr) {
+      if (tr.length()<=buf.length()
+          && buf.substr(buf.length()-tr.length(),tr.length())==tr) {
         buf=buf.substr(0,buf.length()-tr.length());
         m_pMgr->m_pLastOutput = Parent();
       }

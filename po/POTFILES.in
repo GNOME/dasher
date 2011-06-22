@@ -19,6 +19,7 @@ Src/DasherCore/CompassMode.cpp
 Src/DasherCore/DasherButtons.cpp
 Src/DasherCore/DasherGameMode.cpp
 Src/DasherCore/DasherInterfaceBase.cpp
+Src/DasherCore/DefaultFilter.cpp
 Src/DasherCore/DynamicFilter.cpp
 Src/DasherCore/OneButtonDynamicFilter.cpp
 Src/DasherCore/OneButtonFilter.cpp
@@ -31,10 +32,7 @@ Src/DasherCore/TwoButtonDynamicFilter.cpp
 Src/DasherCore/TwoPushDynamicFilter.cpp
 Src/Gtk2/DasherAppSettings.cpp
 Src/Gtk2/Preferences.cpp
-Src/Gtk2/Speech.cpp
-Src/Gtk2/dasher_action_keyboard.cpp
-Src/Gtk2/dasher_action_keyboard_maemo.cpp
-Src/Gtk2/dasher_action_script.cpp
+Src/Gtk2/GnomeSpeech.cpp
 Src/Gtk2/dasher_editor_internal.cpp
 Src/Gtk2/dasher_main.cpp
 Src/Gtk2/module_settings_window.cpp

@@ -8,15 +8,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&component=general\n"
-"POT-Creation-Date: 2011-01-20 09:39+0000\n"
-"PO-Revision-Date: 2011-01-21 20:40+0100\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2011-05-14 17:28+0000\n"
+"PO-Revision-Date: 2011-05-18 11:53+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
 "X-Poedit-Language: Slovenian\n"
 "X-Poedit-Country: SLOVENIA\n"
@@ -32,7 +32,7 @@ msgstr ""
 #: ../Data/GUI/dasher.traditional.ui.h:6
 #: ../Data/GUI/dashermaemo.ui.h:1
 #: ../Data/GUI/dashermaemofullscreen.ui.h:2
-#: ../Src/Gtk2/dasher_main.cpp:895
+#: ../Src/Gtk2/dasher_main.cpp:884
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -126,9 +126,9 @@ msgstr "Shrani datoteko kot"
 #: ../Data/GUI/dasher.gameWIP.ui.h:23
 #: ../Data/GUI/dashermaemo.ui.h:5
 #: ../Data/GUI/dashermaemofullscreen.ui.h:5
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1286
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1320
-#: ../Src/Gtk2/dasher_main.cpp:910
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1390
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1424
+#: ../Src/Gtk2/dasher_main.cpp:899
 msgid "Select File"
 msgstr "Izbor datoteke"
 
@@ -222,7 +222,7 @@ msgstr "Možnosti"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:19
 #: ../Data/GUI/dasher.traditional.ui.h:14
-#: ../Src/Gtk2/dasher_main.cpp:988
+#: ../Src/Gtk2/dasher_main.cpp:977
 msgid "Quit"
 msgstr "Končaj"
 
@@ -372,148 +372,144 @@ msgid "Direct entry"
 msgstr "Neposreden vnos"
 
 #: ../Data/GUI/dasher.preferences.ui.h:32
-msgid "Dock application window"
-msgstr "Zasidraj okno programa"
-
-#: ../Data/GUI/dasher.preferences.ui.h:33
 msgid "Draw box outlines"
 msgstr "Nariši oris okna"
 
-#: ../Data/GUI/dasher.preferences.ui.h:34
+#: ../Data/GUI/dasher.preferences.ui.h:33
 msgid "Draw line between crosshairs and mouse"
 msgstr "Nariši črto med prečnimi črtami in miško"
 
-#: ../Data/GUI/dasher.preferences.ui.h:35
+#: ../Data/GUI/dasher.preferences.ui.h:34
 msgid "Force to have Halt command"
 msgstr "Vsili izvajanje ukaza zaustavitve"
 
-#: ../Data/GUI/dasher.preferences.ui.h:36
+#: ../Data/GUI/dasher.preferences.ui.h:35
 msgid "Full Screen"
 msgstr "Celozaslonski način"
 
-#: ../Data/GUI/dasher.preferences.ui.h:37
+#: ../Data/GUI/dasher.preferences.ui.h:36
 msgid "Include Clipboard commands"
 msgstr "Vključi ukaze odložišča"
 
-#: ../Data/GUI/dasher.preferences.ui.h:38
+#: ../Data/GUI/dasher.preferences.ui.h:37
 msgid "Include Editing commands"
 msgstr "Vključi ukaze urejanja"
 
-#: ../Data/GUI/dasher.preferences.ui.h:39
+#: ../Data/GUI/dasher.preferences.ui.h:38
 msgid "Include Speech commands"
 msgstr "Vključi ukaze govora"
 
-#: ../Data/GUI/dasher.preferences.ui.h:40
+#: ../Data/GUI/dasher.preferences.ui.h:39
 msgid "Increase line thickness"
 msgstr "Povečaj debelino črt"
 
-#: ../Data/GUI/dasher.preferences.ui.h:41
+#: ../Data/GUI/dasher.preferences.ui.h:40
 #: ../Data/GUI/dashermaemo.preferences.ui.h:19
 msgid "Japanese"
 msgstr "japonščina"
 
-#: ../Data/GUI/dasher.preferences.ui.h:42
+#: ../Data/GUI/dasher.preferences.ui.h:41
 #: ../Data/GUI/dashermaemo.preferences.ui.h:20
 msgid "Language model adapts as you write."
 msgstr "Med pisanjem se jezikovni način se prilagaja."
 
-#: ../Data/GUI/dasher.preferences.ui.h:43
+#: ../Data/GUI/dasher.preferences.ui.h:42
 msgid "Large font "
 msgstr "Velika pisava"
 
-#: ../Data/GUI/dasher.preferences.ui.h:44
+#: ../Data/GUI/dasher.preferences.ui.h:43
 #: ../Data/GUI/dashermaemo.preferences.ui.h:21
 msgid "Left to Right"
 msgstr "Z leve proti desni"
 
 #. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/GUI/dasher.preferences.ui.h:46
+#: ../Data/GUI/dasher.preferences.ui.h:45
 #: ../Data/GUI/dashermaemo.preferences.ui.h:22
 msgid "Mixture model (PPM/dictionary)"
 msgstr "Mešani način (PPM/slovar)"
 
-#: ../Data/GUI/dasher.preferences.ui.h:47
+#: ../Data/GUI/dasher.preferences.ui.h:46
 msgid "Options"
 msgstr "Možnosti"
 
-#: ../Data/GUI/dasher.preferences.ui.h:48
+#: ../Data/GUI/dasher.preferences.ui.h:47
 msgid "Pause outside of canvas"
 msgstr "Ustavi izven okna"
 
-#: ../Data/GUI/dasher.preferences.ui.h:49
+#: ../Data/GUI/dasher.preferences.ui.h:48
 #: ../Data/GUI/dashermaemo.preferences.ui.h:24
 msgid "Right to Left"
 msgstr "Z desne proti levi"
 
-#: ../Data/GUI/dasher.preferences.ui.h:50
+#: ../Data/GUI/dasher.preferences.ui.h:49
 msgid "Select Dasher Font"
 msgstr "Izbor pisave programa"
 
-#: ../Data/GUI/dasher.preferences.ui.h:51
+#: ../Data/GUI/dasher.preferences.ui.h:50
 msgid "Select Editor Font"
 msgstr "Izbor pisave urejevalnika"
 
-#: ../Data/GUI/dasher.preferences.ui.h:52
+#: ../Data/GUI/dasher.preferences.ui.h:51
 msgid "Show mouse position"
 msgstr "Pokaži položaj miške"
 
-#: ../Data/GUI/dasher.preferences.ui.h:53
+#: ../Data/GUI/dasher.preferences.ui.h:52
 msgid "Show speed slider"
 msgstr "Pokaži drsnik hitrosti"
 
-#: ../Data/GUI/dasher.preferences.ui.h:54
+#: ../Data/GUI/dasher.preferences.ui.h:53
 msgid "Show toolbar"
 msgstr "Pokaži orodno vrstico"
 
-#: ../Data/GUI/dasher.preferences.ui.h:55
+#: ../Data/GUI/dasher.preferences.ui.h:54
 msgid "Small font"
 msgstr "Majhna pisava"
 
-#: ../Data/GUI/dasher.preferences.ui.h:56
+#: ../Data/GUI/dasher.preferences.ui.h:55
 msgid "Speak All on stop"
 msgstr "Izgovori vse ob zaustavitvi"
 
-#: ../Data/GUI/dasher.preferences.ui.h:57
+#: ../Data/GUI/dasher.preferences.ui.h:56
 msgid "Speak words as you write"
 msgstr "Izgovori besede med pisanjem"
 
-#: ../Data/GUI/dasher.preferences.ui.h:58
+#: ../Data/GUI/dasher.preferences.ui.h:57
 msgid "Stand-alone"
 msgstr "Samostojen"
 
 #. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/GUI/dasher.preferences.ui.h:60
+#: ../Data/GUI/dasher.preferences.ui.h:59
 #: ../Data/GUI/dashermaemo.preferences.ui.h:25
 msgid "Standard letter-based PPM"
 msgstr "Standardni, na črkah temelječ način napovedovanja PPM"
 
-#: ../Data/GUI/dasher.preferences.ui.h:61
+#: ../Data/GUI/dasher.preferences.ui.h:60
 msgid "Start on left mouse button"
 msgstr "Začni z levim klikom miške"
 
-#: ../Data/GUI/dasher.preferences.ui.h:62
+#: ../Data/GUI/dasher.preferences.ui.h:61
 msgid "Start on space bar"
 msgstr "Začni ob pritisku na preslednico"
 
-#: ../Data/GUI/dasher.preferences.ui.h:63
+#: ../Data/GUI/dasher.preferences.ui.h:62
 msgid "Start with mouse position:"
 msgstr "Začni, ko bo miška v položaju:"
 
-#: ../Data/GUI/dasher.preferences.ui.h:64
+#: ../Data/GUI/dasher.preferences.ui.h:63
 msgid "Timestamp new files"
 msgstr "Novim datotekam pripni časovni žig"
 
-#: ../Data/GUI/dasher.preferences.ui.h:65
+#: ../Data/GUI/dasher.preferences.ui.h:64
 #: ../Data/GUI/dashermaemo.preferences.ui.h:26
 msgid "Top to Bottom"
 msgstr "Z vrha proti dnu"
 
-#: ../Data/GUI/dasher.preferences.ui.h:66
+#: ../Data/GUI/dasher.preferences.ui.h:65
 msgid "Two box"
 msgstr "Dvojno polje"
 
 #. Line wrapping not necessary, but looks better for English
-#: ../Data/GUI/dasher.preferences.ui.h:68
+#: ../Data/GUI/dasher.preferences.ui.h:67
 msgid ""
 "Use this control to adjust the relative sizes of the\n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -523,20 +519,20 @@ msgstr ""
 "Določene previsoke vrednosti lahko upočasnijo\n"
 "hitrost vašega pisanja."
 
-#: ../Data/GUI/dasher.preferences.ui.h:71
+#: ../Data/GUI/dasher.preferences.ui.h:70
 msgid "Very large font"
 msgstr "Zelo velika pisava"
 
-#: ../Data/GUI/dasher.preferences.ui.h:72
+#: ../Data/GUI/dasher.preferences.ui.h:71
 #: ../Data/GUI/dashermaemo.preferences.ui.h:28
 msgid "Word-based model"
 msgstr "Na besedah temelječ način"
 
-#: ../Data/GUI/dasher.preferences.ui.h:73
+#: ../Data/GUI/dasher.preferences.ui.h:72
 msgid "_Appearance"
 msgstr "_Videz"
 
-#: ../Data/GUI/dasher.preferences.ui.h:74
+#: ../Data/GUI/dasher.preferences.ui.h:73
 msgid "_Language"
 msgstr "_Jezik"
 
@@ -683,26 +679,46 @@ msgstr "Desno približanje"
 msgid "Compass Mode"
 msgstr "Kompas način"
 
-#: ../Src/DasherCore/DasherGameMode.cpp:636
+#: ../Src/DasherCore/DasherGameMode.cpp:633
 msgid "Well done!"
 msgstr "Zelo dobro!"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:812
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:790
 msgid "Normal Control"
 msgstr "Običajni nadzor"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:828
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:806
 msgid "Menu Mode"
 msgstr "Menijski način"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:829
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:807
 msgid "Direct Mode"
 msgstr "Neposreden način"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:833
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:811
 msgid "Stylus Control"
 msgstr "Stylus nadzor"
+
+#: ../Src/DasherCore/DefaultFilter.cpp:14
+msgid "Vertical distance from mouse/gaze to target (400=screen height)"
+msgstr "Navpična razdalja od miške, točke sledilnika pogleda do cilja (400=višina zaslona)"
+
+#: ../Src/DasherCore/DefaultFilter.cpp:15
+msgid "Learn offset (previous) automatically, e.g. gazetrackers"
+msgstr "Samodejno prevzemi zamik (predhodno), npr. sledenje s pogledom"
+
+#: ../Src/DasherCore/DefaultFilter.cpp:16
+msgid "At top and bottom, scroll more and translate less (makes error-correcting easier)"
+msgstr "Pri vrhu in na dnu povečaj drsenje (omogoča lažje odpravljanje napak)"
+
+#: ../Src/DasherCore/DefaultFilter.cpp:17
+msgid "Screen geometry (mostly for tall thin screens) - 0=old-style, 1=square no-xhair, 2=squish, 3=squish+log"
+msgstr "Geometrija zaslona (pretažno za visoke in ozke zaslone) - 0=običajni-slog, 1=kvadratno brez-merka, 2=stisnjeno, 3=stisnjeno z beleženjem"
+
+#: ../Src/DasherCore/DefaultFilter.cpp:18
+msgid "Shape type: 0=disjoint rects, 1=overlapping, 2=triangles, 3=trunc-tris, 4=quadrics, 5=circles"
+msgstr "Oblika: 0=razčlenjeni pravokotniki, 1=prekrivanje, 2=trikotniki, 3=trunc-tris, 4=kvadrati, 5=krogi"
 
 #. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
@@ -774,16 +790,16 @@ msgid "One Dimensional Mode"
 msgstr "eno-dimenzijski način"
 
 #: ../Src/DasherCore/SettingsStore.cpp:76
-#: ../Src/Gtk2/DasherAppSettings.cpp:523
-#: ../Src/Gtk2/DasherAppSettings.cpp:557
-#: ../Src/Gtk2/DasherAppSettings.cpp:561
+#: ../Src/Gtk2/DasherAppSettings.cpp:574
+#: ../Src/Gtk2/DasherAppSettings.cpp:608
+#: ../Src/Gtk2/DasherAppSettings.cpp:612
 msgid "true"
 msgstr "pravilno"
 
 #: ../Src/DasherCore/SettingsStore.cpp:78
-#: ../Src/Gtk2/DasherAppSettings.cpp:525
-#: ../Src/Gtk2/DasherAppSettings.cpp:557
-#: ../Src/Gtk2/DasherAppSettings.cpp:561
+#: ../Src/Gtk2/DasherAppSettings.cpp:576
+#: ../Src/Gtk2/DasherAppSettings.cpp:608
+#: ../Src/Gtk2/DasherAppSettings.cpp:612
 msgid "false"
 msgstr "napačno"
 
@@ -791,7 +807,7 @@ msgstr "napačno"
 #. with "--options foo=VAL" and foo is a boolean valued parameter, but
 #. "VAL" is not true or false.
 #: ../Src/DasherCore/SettingsStore.cpp:84
-#: ../Src/Gtk2/DasherAppSettings.cpp:528
+#: ../Src/Gtk2/DasherAppSettings.cpp:579
 msgid "boolean value must be specified as 'true' or 'false'."
 msgstr "logična vrednost mora biti določena kot 'pravilno' ali 'napačno'. "
 
@@ -899,27 +915,27 @@ msgstr "Pokaži zagonski čas"
 msgid "Two-push Dynamic Mode (New One Button)"
 msgstr "Način dejavnega dvojnega pritiska (nov gumb)"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:554
+#: ../Src/Gtk2/DasherAppSettings.cpp:605
 msgid "Boolean parameters"
 msgstr "Logični Boolean parametri"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:554
-#: ../Src/Gtk2/DasherAppSettings.cpp:565
-#: ../Src/Gtk2/DasherAppSettings.cpp:576
+#: ../Src/Gtk2/DasherAppSettings.cpp:605
+#: ../Src/Gtk2/DasherAppSettings.cpp:616
+#: ../Src/Gtk2/DasherAppSettings.cpp:627
 msgid "Default"
 msgstr "Privzeto"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:554
-#: ../Src/Gtk2/DasherAppSettings.cpp:565
-#: ../Src/Gtk2/DasherAppSettings.cpp:576
+#: ../Src/Gtk2/DasherAppSettings.cpp:605
+#: ../Src/Gtk2/DasherAppSettings.cpp:616
+#: ../Src/Gtk2/DasherAppSettings.cpp:627
 msgid "Description"
 msgstr "Opis"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:565
+#: ../Src/Gtk2/DasherAppSettings.cpp:616
 msgid "Integer parameters"
 msgstr "Celoštevilčni parametri"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:576
+#: ../Src/Gtk2/DasherAppSettings.cpp:627
 msgid "String parameters"
 msgstr "Parametri niti"
 
@@ -927,38 +943,29 @@ msgstr "Parametri niti"
 msgid "Action"
 msgstr "Dejanje"
 
-#: ../Src/Gtk2/Speech.cpp:27
+#: ../Src/Gtk2/GnomeSpeech.cpp:28
 msgid "Unable to initialize speech support\n"
 msgstr "Ni mogoče zagnati podpore za govor\n"
 
-#: ../Src/Gtk2/Speech.cpp:58
+#: ../Src/Gtk2/GnomeSpeech.cpp:59
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Opozorilo: ni mogoče nastaviti govora\n"
 
-#: ../Src/Gtk2/Speech.cpp:69
+#: ../Src/Gtk2/GnomeSpeech.cpp:70
 msgid "Unable to initialize voices\n"
 msgstr "Ni mogoče zagnati glasov\n"
 
-#: ../Src/Gtk2/dasher_action_keyboard.cpp:62
-#: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:96
-msgid "Enter Text"
-msgstr "Vnos besedila"
-
-#: ../Src/Gtk2/dasher_action_script.cpp:91
-msgid "Script"
-msgstr "Skripta"
-
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
-#: ../Src/Gtk2/dasher_main.cpp:265
+#: ../Src/Gtk2/dasher_main.cpp:264
 msgid "option setting is missing \"=\"."
 msgstr "manjka določilo možnosti \"=\"."
 
 #. Note to translators: This string will be output when --options= specifies an unknown option.
-#: ../Src/Gtk2/dasher_main.cpp:281
+#: ../Src/Gtk2/dasher_main.cpp:280
 msgid "Invalid option string specified"
 msgstr "Določena neveljavna možnost niti"
 
-#: ../Src/Gtk2/dasher_main.cpp:950
+#: ../Src/Gtk2/dasher_main.cpp:939
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -969,7 +976,7 @@ msgstr ""
 "\n"
 "Spremembe bodo izgubljene, če jih ne shranite."
 
-#: ../Src/Gtk2/dasher_main.cpp:957
+#: ../Src/Gtk2/dasher_main.cpp:946
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -979,32 +986,32 @@ msgstr ""
 "\n"
 "Spremembe bodo izgubljene, če jih ne shranite."
 
-#: ../Src/Gtk2/dasher_main.cpp:963
+#: ../Src/Gtk2/dasher_main.cpp:952
 msgid "Don't save"
 msgstr "Ne shrani"
 
-#: ../Src/Gtk2/dasher_main.cpp:964
-#: ../Src/Gtk2/dasher_main.cpp:987
+#: ../Src/Gtk2/dasher_main.cpp:953
+#: ../Src/Gtk2/dasher_main.cpp:976
 msgid "Don't quit"
 msgstr "Ne končaj"
 
-#: ../Src/Gtk2/dasher_main.cpp:965
+#: ../Src/Gtk2/dasher_main.cpp:954
 msgid "Save and quit"
 msgstr "Shrani in končaj"
 
-#: ../Src/Gtk2/dasher_main.cpp:984
+#: ../Src/Gtk2/dasher_main.cpp:973
 msgid "Are you sure you wish to quit?"
 msgstr "Ali ste prepričani, da želite končati?"
 
-#: ../Src/Gtk2/dasher_main.cpp:1031
+#: ../Src/Gtk2/dasher_main.cpp:1020
 msgid "Unable to open help file"
 msgstr "Ni mogoče odpreti datoteke pomoči"
 
-#: ../Src/Gtk2/dasher_main.cpp:1083
+#: ../Src/Gtk2/dasher_main.cpp:1072
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher je program za vnosa besedila brez tipkovnice"
 
-#: ../Src/Gtk2/dasher_main.cpp:1088
+#: ../Src/Gtk2/dasher_main.cpp:1077
 msgid "translator-credits"
 msgstr ""
 "Matic Žgur <mr.zgur@gmail.com>\n"
@@ -1056,46 +1063,74 @@ msgstr "Opis \"--možnosti\"."
 msgid "- A text input application honouring accessibility"
 msgstr "- program za vnos besedila z uporabo dostopnih tehnologij"
 
+#~ msgid "Dock application window"
+#~ msgstr "Zasidraj okno programa"
+
+#~ msgid "Enter Text"
+#~ msgstr "Vnos besedila"
+
+#~ msgid "Script"
+#~ msgstr "Skripta"
+
 #~ msgid "<b>Actions</b>"
 #~ msgstr "<b>Dejanja</b>"
+
 #~ msgid "Automatic calibration"
 #~ msgstr "Samodejno umerjanje"
+
 #~ msgid "Eyetracker Mode"
 #~ msgstr "Način sledenja z očmi"
+
 #~ msgid "Show Button"
 #~ msgstr "Pokaži gumb"
+
 #~ msgid "Control Mode"
 #~ msgstr "Nadzorni način"
+
 #~ msgid "Auto On Stop"
 #~ msgstr "Samodejno ob zaustavitvi"
+
 #~ msgid "Speak"
 #~ msgstr "Izgovori"
+
 #~ msgid "All"
 #~ msgstr "Vse"
+
 #~ msgid "Last"
 #~ msgstr "Zadnje"
+
 #~ msgid "Repeat"
 #~ msgstr "Ponavljanje"
+
 #~ msgid "abcdefghijk ABCDEFGHIJK"
 #~ msgstr "AaBbCcČčDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsŠšTtUuVvWwXxYyZzŽž"
+
 #~ msgid "A_ppend to file..."
 #~ msgstr "Pripni d_atoteki ..."
+
 #~ msgid "Pr_eferences..."
 #~ msgstr "_Lastnosti ..."
+
 #~ msgid "_About..."
 #~ msgstr "_O programu ..."
+
 #~ msgid "_Contents..."
 #~ msgstr "_Vsebina ..."
+
 #~ msgid "_Import Training Text..."
 #~ msgstr "_Uvozi besedilo za urjenje ..."
+
 #~ msgid "\n"
 #~ msgstr "\n"
+
 #~ msgid "Multiple press count"
 #~ msgstr "Števec večkratnega klikanja"
+
 #~ msgid "Auto speed control"
 #~ msgstr "Samodejni nadzor hitrosti"
+
 #~ msgid "Auto speed threshold"
 #~ msgstr "Prag samodejne hitrosti"
+
 #~ msgid "Dasher - %s"
 #~ msgstr "Dasher - %s"
-
