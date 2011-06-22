@@ -80,13 +80,13 @@ void CIPhoneTiltInput::NotifyTilt(float fx, float fy, float fz) {
 }
 
 void CIPhoneTiltInput::Activate() {
-  [[DasherAppDelegate theApp] setLandscapeSupported:NO];
+  [DasherAppDelegate theApp].allowsRotation=NO;
   UIAccelerometer*  theAccelerometer = [UIAccelerometer sharedAccelerometer];
   theAccelerometer.updateInterval = 0.01; //in secs
   theAccelerometer.delegate = deleg;
 }
 void CIPhoneTiltInput::Deactivate() {
-  [[DasherAppDelegate theApp] setLandscapeSupported:YES];
+  [DasherAppDelegate theApp].allowsRotation=YES;
   [UIAccelerometer sharedAccelerometer].delegate = nil;
 }
 

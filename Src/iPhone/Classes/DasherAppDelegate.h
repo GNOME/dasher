@@ -28,7 +28,7 @@
   UITextView *messageLabel;
   UISlider *speedSlider;
   BOOL doneSetup;
-  BOOL m_bLandscapeSupported;
+  BOOL m_bAllowsRotation;
   /// Should really be part of UIViewController (lockable), below...but then, how to find?
   UILabel *screenLockLabel;
   NSMutableArray *toolbarItems;
@@ -53,12 +53,10 @@
 - (NSString *)textAtOffset:(unsigned int)offset Length:(unsigned int)length;
 - (void)setLockText:(NSString *)s;
 - (void)displayMessage:(NSString *)msg;
-- (void)setLandscapeSupported:(BOOL)supported;
 + (DasherAppDelegate *)theApp;
 
-//@property (nonatomic, retain) IBOutlet EAGLView *glView;
-//@property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (readonly) CDasherInterfaceBridge *dasherInterface;
+@property BOOL allowsRotation;
 @end
 
 @interface UIViewController (lockable)

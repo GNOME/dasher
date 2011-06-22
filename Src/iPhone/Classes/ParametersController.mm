@@ -43,7 +43,7 @@ using Dasher::Settings::GetParameterName;
   view.backgroundColor = [UIColor whiteColor];
   
   int y=[self layoutOptionsOn:view startingAtY:15];
-  [view setContentSize:CGSizeMake(320.0,y-15)];
+  [view setContentSize:CGSizeMake([UIScreen mainScreen].applicationFrame.size.width,y-15)];
 }
 
 -(int)layoutOptionsOn:(UIView *)view startingAtY:(int)y {
@@ -53,6 +53,7 @@ using Dasher::Settings::GetParameterName;
 
 -(int)layoutModuleSettings:(SModuleSettings *)settings count:(int)count onView:(UIView *)view startingAtY:(int)y {
   CDasherInterfaceBridge *intf = [DasherAppDelegate theApp].dasherInterface;
+  CGSize appSize = [UIScreen mainScreen].applicationFrame.size;
   for (int i=0; i<count; i++) {
     if (settings[i].iType == T_BOOL) {
       UISwitch *sw=[self makeSwitch:NSStringFromStdString(GetParameterName(settings[i].iParameter)) onView:view atY:&y];
@@ -60,8 +61,9 @@ using Dasher::Settings::GetParameterName;
       sw.on = intf->GetBoolParameter(settings[i].iParameter);
       [sw addTarget:self action:@selector(boolParamChanged:) forControlEvents:UIControlEventValueChanged];
     } else if (settings[i].iType == T_LONG) {
-      UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(10.0, y, 300.0, 20.0)] autorelease];
-      UISlider *slider = [[[UISlider alloc] initWithFrame:CGRectMake(10.0, y+20, 300.0, 20.0)] autorelease];
+      UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(10.0, y, appSize.width-20, 20.0)] autorelease];
+      label.textAlignment = UITextAlignmentCenter;
+      UISlider *slider = [[[UISlider alloc] initWithFrame:CGRectMake(10.0, y+20, appSize.width-20, 20.0)] autorelease];
       slider.tag = (int)label; label.tag=(int)&settings[i];
       slider.minimumValue = settings[i].iMin; slider.maximumValue = settings[i].iMax;
       slider.value = intf->GetLongParameter(settings[i].iParameter);
@@ -75,17 +77,25 @@ using Dasher::Settings::GetParameterName;
 }
 
 -(UISwitch *)makeSwitch:(NSString *)title onView:(UIView *)view atY:(int *)pY {
-  UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(10.0, *pY, 190.0, 20.0)] autorelease];
+  CGFloat appWidth = [UIScreen mainScreen].applicationFrame.size.width;
+  const int textWidth(ceil([title sizeWithFont:[UIFont systemFontOfSize:[UIFont labelFontSize]]].width));
+
+  UISwitch *sw = [[[UISwitch alloc] initWithFrame:CGRectMake(10.0, *pY, appWidth/3, 20.0)] autorelease];
+  //UISwitch's ignore the size with which they are constructed and make themselves
+  // a default "sensible" size...
+  CGSize swSize = sw.frame.size;
+  UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(floor((appWidth-textWidth-swSize.width-20)/2), *pY, textWidth, swSize.height)] autorelease];
   label.text = title;
-  UISwitch *sw = [[[UISwitch alloc] initWithFrame:CGRectMake(210.0, *pY, 100.0, 20.0)] autorelease];
+  sw.frame = CGRectMake(label.frame.origin.x + textWidth+20, *pY, swSize.width, swSize.height);
+  
   [view addSubview:label];
   [view addSubview:sw];
-  *pY += 50;
+  *pY += swSize.height+30;
   return sw;
 }
 
 -(int)makeNoSettingsLabelOnView:(UIView *)view atY:(int)y {
-  UILabel *label=[[[UILabel alloc] initWithFrame:CGRectMake(10.0, y, 300.0, 20.0)] autorelease];
+  UILabel *label=[[[UILabel alloc] initWithFrame:CGRectMake(10.0, y, view.bounds.size.width-20, 20.0)] autorelease];
   label.text=@"No Settings";
   [view addSubview:label];
   return y+50;

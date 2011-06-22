@@ -32,6 +32,16 @@
 }
 @end
 
+@interface UINavigationController (MultiOrient)
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation;
+@end
+
+@implementation UINavigationController (MultiOrient)
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+  return toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
+}
+@end
+
 
 //declare some private methods!
 @interface DasherAppDelegate ()
@@ -45,6 +55,7 @@
 - (void)selectEAGLContext;
 @property (retain) UILabel *screenLockLabel;
 @property (retain) NSString *lockText;
+@property (retain) UIWindow *window;
 @property (nonatomic,retain) NSString *m_wordBoundary;
 @property (nonatomic,retain) NSString *m_sentenceBoundary;
 @property (nonatomic,retain) NSString *m_lineBoundary;
@@ -75,13 +86,15 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 @synthesize m_wordBoundary;
 @synthesize m_sentenceBoundary;
 @synthesize m_lineBoundary;
+@synthesize allowsRotation = m_bAllowsRotation;
+@synthesize window;
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
     return NO;
-  if (m_bLandscapeSupported || interfaceOrientation == UIInterfaceOrientationPortrait)
-    return YES;
-  return NO;
+  if (m_bAllowsRotation) return YES;
+  UIInterfaceOrientation current = self.interfaceOrientation;
+  return interfaceOrientation == current;
 }
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -89,72 +102,29 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   [self doLayout:self.interfaceOrientation];
 }
 
--(void)viewWillAppear:(BOOL)animated {
-  if (m_bLandscapeSupported) {
-    UIDeviceOrientation devOrient = [[UIDevice currentDevice] orientation];
-    UIInterfaceOrientation intOrient;
-    CGAffineTransform trans;
-    switch (devOrient) {
-      case UIDeviceOrientationLandscapeLeft:
-        intOrient = UIInterfaceOrientationLandscapeRight;
-        trans = CGAffineTransformMakeRotation(M_PI/2.0);
-        break;
-      case UIDeviceOrientationLandscapeRight:
-        intOrient = UIInterfaceOrientationLandscapeLeft;
-        trans = CGAffineTransformMakeRotation(-M_PI/2.0);
-        break;
-      case UIDeviceOrientationPortrait:
-      case UIDeviceOrientationPortraitUpsideDown:
-      default: //???
-        intOrient = UIInterfaceOrientationPortrait;
-        trans = CGAffineTransformIdentity;
-        break;
-    }
-    if (self.interfaceOrientation != intOrient) {
-      [[UIApplication sharedApplication] setStatusBarOrientation:intOrient];
-      self.view.transform = trans;
-      [self doLayout:intOrient];
-    }
-  }
-}
-
--(void)setLandscapeSupported:(BOOL)bLandscapeSupported {
-  m_bLandscapeSupported = bLandscapeSupported;
-  //note that if we've just _enabled_ landscape support when the phone
-  // was previously in landscape orientation (but the interface _not_),
-  // there will be no rotation event sent by the OS; however,
-  // we do our best to adjust the interface to suit (i.e., putting it into
-  // landscape mode, now that it newly supports this) in viewWillAppear:, above.
-
-  //The case of _disabling_ landscape support when the phone+interface were already in landscape
-  // orientation, we do _not_ need to handle (for now): the landscape interface does not allow
-  // calling up the settings in order to select a different input method (which might disable it!)
-}
-
 /// Sets sizes of toolbar and textview according to supplied orientation
 /// Also computes and returns desired size of glView, and sets said _iff_ glView is non-nil
 -(CGRect)doLayout:(UIInterfaceOrientation)orient {
-  CGRect appFrame = [UIScreen mainScreen].applicationFrame;
-  window.frame=appFrame;
-  self.view.frame = CGRectMake(0.0, 0.0, appFrame.size.width, appFrame.size.height);
+  self.view.frame = [UIScreen mainScreen].applicationFrame;
 
-  CGSize mainSize = self.view.bounds.size;
+  const CGSize mainSize = self.view.bounds.size;
+  //now always display toolbar, even in landscape
+  const int barHeight(mainSize.height/20);
+  const int mainHeight(mainSize.height - barHeight);
+  tools.frame = CGRectMake(0.0, mainHeight, mainSize.width, barHeight);
   CGRect dashRect,textRect;
   switch (orient) {
     case UIInterfaceOrientationPortrait: {
-      dashRect = CGRectMake(0.0, 0.0, mainSize.width, mainSize.height - 100.0);
-      textRect = CGRectMake(0.0, dashRect.size.height, mainSize.width, 70.0);
+      dashRect = CGRectMake(0.0, 0.0, mainSize.width, ((mainHeight*3)/4));
+      textRect = CGRectMake(0.0, dashRect.size.height, mainSize.width, mainHeight-dashRect.size.height);
       textView.bLandscape = NO;
-      tools.frame = CGRectMake(0.0, mainSize.height - 30.0, mainSize.width, 30.0);
-      [self.view addSubview:tools];
       break;
     }
     case UIInterfaceOrientationLandscapeRight:
     case UIInterfaceOrientationLandscapeLeft: {
-      textRect = CGRectMake(0.0, 0.0, 100.0, mainSize.height);//-30.0);
+      textRect = CGRectMake(0.0, 0.0, static_cast<int>((mainSize.width*2)/9), mainHeight);
+      dashRect = CGRectMake(textRect.size.width, 0.0, mainSize.width-textRect.size.width, mainHeight);
       textView.bLandscape = YES;
-      dashRect = CGRectMake(textRect.size.width, 0.0, mainSize.width-textRect.size.width, mainSize.height);//-30.0);
-      [tools removeFromSuperview];
       break;
     }
     default:
@@ -173,13 +143,13 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
   //by default, we support landscape mode (i.e. unless the input device _disables_ it)
   // - hence, set now, before the input device is activate()d...
-  m_bLandscapeSupported = YES;
+  m_bAllowsRotation = YES;
 
   //sizes set in doLayout, below...
-	window = [[UIWindow alloc] init];
+	self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
 	self.view = [[[UIView alloc] init] autorelease];
 
-	[window addSubview:self.view];
+	[self.window addSubview:self.view];
   
   //make object (this doesn't do anything much, initialization/Realize later
   // - but we have to set a screen before we Realize)
@@ -359,6 +329,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 
 -(void)presentModalViewController:(UIViewController *)modalViewController animated:(BOOL)animated {
   [glView stopAnimation];
+  [[[UIApplication sharedApplication] keyWindow] setRootViewController:modalViewController];
   [super presentModalViewController:modalViewController animated:animated];
 }
 
@@ -595,9 +566,10 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   CGSize mainSize = [UIScreen mainScreen].applicationFrame.size;
   UIViewController *lockCon = [[[UIViewController alloc] init] autorelease];
   UIImageView *imgView = [[[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, mainSize.width, mainSize.height)] autorelease];
-  imgView.image = [UIImage imageNamed:@"Locked.png"];
+  imgView.image = [UIImage imageNamed:@"Default"];
+  imgView.contentMode = UIViewContentModeBottomRight;
   lockCon.view = imgView;
-  CGRect mainLabelRect = CGRectMake(40.0, 200.0, mainSize.width-80.0, 80.0);
+  CGRect mainLabelRect = CGRectMake(40.0, (mainSize.height*5)/12, mainSize.width-80.0, mainSize.height/6);
   UILabel *lbl1 = [[[UILabel alloc] initWithFrame:mainLabelRect] autorelease];
   lbl1.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8];
   lbl1.textColor = [UIColor whiteColor];
@@ -605,7 +577,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   lbl1.text = msg;
   lbl1.adjustsFontSizeToFitWidth = YES;
   [imgView addSubview:lbl1];
-  UILabel *lbl2 = [[[UILabel alloc] initWithFrame:CGRectMake(mainLabelRect.origin.x+20.0,mainLabelRect.origin.y+mainLabelRect.size.height+20,mainLabelRect.size.width-40, mainLabelRect.size.height-40)] autorelease];
+  UILabel *lbl2 = [[[UILabel alloc] initWithFrame:CGRectMake(mainLabelRect.origin.x+20.0,(mainSize.height*15)/24,mainLabelRect.size.width-40, mainSize.height/12)] autorelease];
   lbl2.backgroundColor = lbl1.backgroundColor;
   lbl2.textColor = lbl1.textColor;
   lbl2.textAlignment = UITextAlignmentCenter;
