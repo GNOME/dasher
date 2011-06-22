@@ -108,7 +108,10 @@ void CDasherInterfaceBridge::SetupUI() {
 
 void CDasherInterfaceBridge::Realize() {
   CDasherInterfaceBase::Realize(get_time());
-  HandleEvent(SP_ALPHABET_ID); //calls dasherApp::SetAlphabet
+  
+  [dasherApp setAlphabet:GetActiveAlphabet()];
+  //don't call HandleEvent, would call superclass and reconstruct the NCManager!
+  //TODO maybe better to make ChangeAlphabet virtual and override that?  
 }
 
 void CDasherInterfaceBridge::SetupPaths() {

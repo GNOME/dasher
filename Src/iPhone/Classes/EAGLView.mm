@@ -11,7 +11,7 @@
 
 #import "EAGLView.h"
 #import "DasherUtil.h"
-#import "../Common/OpenGLScreen.h"
+#import "DasherAppDelegate.h"
 
 // A class extension to declare private methods
 @interface EAGLView ()
@@ -21,6 +21,8 @@
 -(void)sendMarker:(int)iMarker;
 @property (readonly) bool readyToDisplay;
 @end
+
+using namespace Dasher;
 
 CDasherScreenBridge::CDasherScreenBridge(EAGLView *_view, screenint iWidth, screenint iHeight, GLshort backingWidth, GLshort backingHeight, GLfloat tc_x, GLfloat tc_y, GLuint *textures)
 : OpenGLScreen(iWidth, iHeight, backingWidth, backingHeight, tc_x, tc_y, textures), view(_view) {
@@ -155,6 +157,7 @@ CGSize CDasherScreenBridge::TextSize(NSString *str, unsigned int iFontSize, bool
   [self createFramebuffer];
   CGSize sz = [self bounds].size;
   dasherScreen->resize(sz.width, sz.height, backingWidth, backingHeight, texw, texh);
+  dasherApp.dasherInterface->ScreenResized(dasherScreen);
   doneLayout = YES;
   [self drawView];
 }

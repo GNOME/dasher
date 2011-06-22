@@ -13,17 +13,17 @@
 #import <OpenGLES/ES1/glext.h>
 
 #import "../Common/OpenGLScreen.h"
-#import "DasherAppDelegate.h"
 
+@class DasherAppDelegate;
 @class EAGLView;
 
-class CDasherScreenBridge : public OpenGLScreen {
+class CDasherScreenBridge : public Dasher::OpenGLScreen {
   EAGLView *view;
 public:
-  CDasherScreenBridge(EAGLView *_view, screenint iWidth, screenint iHeight, GLshort backingWidth, GLshort backingHeight, GLfloat tc_x, GLfloat tc_y, GLuint *textures);
+  CDasherScreenBridge(EAGLView *_view, Dasher::screenint iWidth, Dasher::screenint iHeight, GLshort backingWidth, GLshort backingHeight, GLfloat tc_x, GLfloat tc_y, GLuint *textures);
   ///Only for EAGLView to call...
-  void resize(screenint iWidth, screenint iHeight, GLshort backingWidth, GLshort backingHeight, GLfloat tc_x, GLfloat tc_y);
-  bool GetTouchCoords(screenint &iX, screenint &iY);
+  void resize(Dasher::screenint iWidth, Dasher::screenint iHeight, GLshort backingWidth, GLshort backingHeight, GLfloat tc_x, GLfloat tc_y);
+  bool GetTouchCoords(Dasher::screenint &iX, Dasher::screenint &iY);
   void Display();
   void SendMarker(int iMarker);
   
