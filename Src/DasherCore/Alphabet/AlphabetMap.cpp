@@ -140,17 +140,28 @@ string CAlphabetMap::SymbolStream::peekAhead() {
 }
 
 string CAlphabetMap::SymbolStream::peekBack() {
+  bool bSeenHighBit=false;
   for(int i=pos-1; i>=0; i--) {
     if (buf[i] & 0x80) {
       //multibyte character...
+      bSeenHighBit=true;
       if (buf[i] & 0x40) {
         //START of multibyte character
         int numChars = m_utf8_count_array[buf[i]];
+        if (i+numChars>pos) {
+          //last (attempt to read a) symbol was an incomplete UTF8 character (!).
+          // We'll have reported an error already when we saw it the first time, so for now just:
+          return "";
+        }
         DASHER_ASSERT(i+numChars==pos);
         return string(&buf[i],numChars);
       }
       //in middle of multibyte, keep going back...
-    } else return string(&buf[i],1); //high bit not set -> single-byte char
+    } else {
+      //high bit not set -> single-byte char
+      if (bSeenHighBit) return ""; //followed by a "continuation of multibyte char" without a "first byte of multibyte char" before it. (Malformed!)
+      return string(&buf[i],1); 
+    }
   }
   //fail...relatively gracefully ;-)
   return "";
