@@ -97,13 +97,13 @@ bool COneButtonDynamicFilter::DecorateView(CDasherView *pView, CDasherInput *pIn
   return bRV;
 }
 
-void COneButtonDynamicFilter::KeyDown(int Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {
+void COneButtonDynamicFilter::KeyDown(int Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, bool bPos, int iX, int iY) {
   if (iId == 100 && !GetBoolParameter(BP_BACKOFF_BUTTON))
     //mouse click - will be ignored by superclass method.
     //simulate press of button 2...
-    CButtonMultiPress::KeyDown(Time, 2, pDasherView, pInput, pModel, pUserLog);
+    CButtonMultiPress::KeyDown(Time, 2, pDasherView, pInput, pModel);
   else
-    CInputFilter::KeyDown(Time, iId, pDasherView, pInput, pModel, pUserLog, bPos, iX, iY);
+    CInputFilter::KeyDown(Time, iId, pDasherView, pInput, pModel, bPos, iX, iY);
 }
 
 void COneButtonDynamicFilter::KeyUp(int Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, bool bPos, int iX, int iY) {
@@ -120,7 +120,7 @@ bool COneButtonDynamicFilter::TimerImpl(unsigned long Time, CDasherView *m_pDash
   return true;
 }
 
-void COneButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void COneButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel) {
   if (iType != 0) {
     //double/long push
     reverse();
@@ -128,13 +128,13 @@ void COneButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CD
   }
     
   if((iButton == 2) || (iButton == 3) || (iButton == 4)) {
-    if(pUserLog)
+    if(CUserLogBase *pUserLog=m_pInterface->GetUserLogPtr())
       pUserLog->KeyDown(iButton, iType, 5);
     m_iTarget = 1 - m_iTarget;
     m_bDecorationChanged = true;
   }
   else {
-    if(pUserLog)
+    if(CUserLogBase *pUserLog=m_pInterface->GetUserLogPtr())
       pUserLog->KeyDown(iButton, iType, 0);
   }
 }

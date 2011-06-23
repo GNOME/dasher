@@ -22,7 +22,7 @@ bool CStylusFilter::Timer(unsigned long iTime, CDasherView *pView, CDasherInput 
   return CDefaultFilter::Timer(iTime, pView, pInput, pModel, pol);
 }
 
-void CStylusFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CStylusFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
   if(iId == 100) {
     pModel->ClearScheduledSteps();
     m_pInterface->Unpause(iTime);

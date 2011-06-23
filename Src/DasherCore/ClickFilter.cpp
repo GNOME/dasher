@@ -83,7 +83,7 @@ bool CClickFilter::Timer(unsigned long Time, CDasherView *pView, CDasherInput *p
   return pModel->NextScheduledStep(Time);
 }
 
-void CClickFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {
+void CClickFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, bool bPos, int iX, int iY) {
   switch(iId) {
   case 100: // Mouse clicks
     {

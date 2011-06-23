@@ -92,13 +92,13 @@ bool CTwoButtonDynamicFilter::DecorateView(CDasherView *pView, CDasherInput *pIn
   return bRV;
 }
 
-void CTwoButtonDynamicFilter::KeyDown(int Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {
+void CTwoButtonDynamicFilter::KeyDown(int Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, bool bPos, int iX, int iY) {
 	if (iId == 100 && !GetBoolParameter(BP_BACKOFF_BUTTON))
 		//mouse click - will be ignored by superclass method.
 		//simulate press of button 2/3 according to whether click in top/bottom half
-		CButtonMultiPress::KeyDown(Time, (iY < pView->Screen()->GetHeight()/2) ? 2 : 3, pView, pInput, pModel, pUserLog);
+		CButtonMultiPress::KeyDown(Time, (iY < pView->Screen()->GetHeight()/2) ? 2 : 3, pView, pInput, pModel);
 	else
-		CInputFilter::KeyDown(Time, iId, pView, pInput, pModel, pUserLog, bPos, iX, iY);
+		CInputFilter::KeyDown(Time, iId, pView, pInput, pModel, bPos, iX, iY);
 }
 
 void CTwoButtonDynamicFilter::KeyUp(int Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, bool bPos, int iX, int iY) {
@@ -140,7 +140,7 @@ void CTwoButtonDynamicFilter::reverse() {
   CButtonMultiPress::reverse();
 }
 
-void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel) {
   
   double dFactor(GetBoolParameter(BP_TWOBUTTON_REVERSE) ? -1.0 : 1.0);
   int iEffect; //for user log
@@ -166,7 +166,7 @@ void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CD
     //fall through to apply offset
   }
   else {
-    if(pUserLog)
+    if(CUserLogBase *pUserLog=m_pInterface->GetUserLogPtr())
       pUserLog->KeyDown(iButton, iType, 0);
     return;
   }
@@ -175,7 +175,7 @@ void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CD
   pModel->Offset(iOffset);
   pModel->ResetNats();
   
-  if(pUserLog)
+  if(CUserLogBase *pUserLog=m_pInterface->GetUserLogPtr())
     pUserLog->KeyDown(iButton, iType, iEffect);  
 }
 

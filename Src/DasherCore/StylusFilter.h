@@ -14,7 +14,7 @@ class CStylusFilter : public CDefaultFilter {
   /// - motion requires continually holding stylus against screen
   virtual bool supportsPause() {return false;}
   virtual bool Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CExpansionPolicy **pol);
-  virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
   virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
  protected:
   ///Transform coordinates of a click, to get location to zoom into.

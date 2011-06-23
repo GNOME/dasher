@@ -33,7 +33,7 @@ CDynamicFilter::CDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pI
 bool CDynamicFilter::Timer(unsigned long iTime, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol)
 {
   if(m_bKeyDown && !m_bKeyHandled && ((iTime - m_iKeyDownTime) > GetLongParameter(LP_HOLD_TIME))) {
-    Event(iTime, m_iHeldId, 1, m_pDasherModel, m_pUserLog);
+    Event(iTime, m_iHeldId, 1, m_pDasherModel);
     m_bKeyHandled = true;
     //return true; //ACL although that's what old DynamicFilter did, surely we should progress normally?
   }
@@ -53,10 +53,8 @@ bool CDynamicFilter::Timer(unsigned long iTime, CDasherView *pDasherView, CDashe
   return TimerImpl(iTime, pDasherView, m_pDasherModel, pol);
 }
 
-void CDynamicFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
-  
-  m_pUserLog = pUserLog;
-  
+void CDynamicFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
+    
   if(((iId == 0) || (iId == 1) || (iId == 100)) && !GetBoolParameter(BP_BACKOFF_BUTTON))
     return;
 
@@ -64,7 +62,7 @@ void CDynamicFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInpu
     return;
 
   // Pass the basic key down event to the handler
-  Event(iTime, iId, 0, pModel, pUserLog);
+  Event(iTime, iId, 0, pModel);
     
   // Store the key down time so that long presses can be determined
   // TODO: This is going to cause problems if multiple buttons are
@@ -80,7 +78,7 @@ void CDynamicFilter::KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput 
   if (iId == m_iHeldId) m_bKeyDown = false;
 }
 
-void CDynamicFilter::Event(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CDynamicFilter::Event(int iTime, int iButton, int iType, CDasherModel *pModel) {
   // Types known at this point in inheritance hierarchy:
   // 0 = ordinary click
   // 1 = long click
@@ -91,13 +89,13 @@ void CDynamicFilter::Event(int iTime, int iButton, int iType, CDasherModel *pMod
   // What happens next depends on the state:
   if (isPaused()) {
     //Any button causes a restart
-    if(pUserLog)
+    if(CUserLogBase *pUserLog=m_pInterface->GetUserLogPtr())
       pUserLog->KeyDown(iButton, iType, 1);
     run();
     m_pInterface->Unpause(iTime);
   } else if (isReversing()) {
     //Any button pauses
-    if(pUserLog)
+    if(CUserLogBase *pUserLog=m_pInterface->GetUserLogPtr())
       pUserLog->KeyDown(iButton, iType, 2);
     
     m_pInterface->Stop();
@@ -108,21 +106,21 @@ void CDynamicFilter::Event(int iTime, int iButton, int iType, CDasherModel *pMod
     case 0: //single press
       if((iButton == 0) || (iButton == 100)) {
         //dedicated pause button
-        if(pUserLog)
+        if(CUserLogBase *pUserLog=m_pInterface->GetUserLogPtr())
           pUserLog->KeyDown(iButton, iType, 2);
         m_pInterface->Stop();
         break;
       }
       else if(iButton == 1) {
         //dedicated reverse button
-        if(pUserLog)
+        if(CUserLogBase *pUserLog=m_pInterface->GetUserLogPtr())
           pUserLog->KeyDown(iButton, iType, 6);
         reverse();
         break;
       }
       //else - any non-special button - fall through
     default: //or, Any special kind of event - long, double, triple, ... 
-      ActionButton(iTime, iButton, iType, pModel, pUserLog);
+      ActionButton(iTime, iButton, iType, pModel);
     }
   }
 }

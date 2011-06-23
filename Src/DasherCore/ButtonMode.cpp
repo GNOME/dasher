@@ -188,7 +188,7 @@ bool CButtonMode::Timer(unsigned long Time, CDasherView *pView, CDasherInput *pI
   return CDasherButtons::Timer(Time, pView, pInput, pModel, pol);
 }
 
-void CButtonMode::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY)
+void CButtonMode::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, bool bPos, int iX, int iY)
 {
   if (iId == 100 && !m_bMenu) {
     //Mouse!
@@ -200,17 +200,17 @@ void CButtonMode::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *
           iDasherY > m_pBoxes[i].iDisplayTop &&
           iDasherX < (m_pBoxes[i].iDisplayBottom - m_pBoxes[i].iDisplayTop)) {
         //user has clicked in box! Simulate press of appropriate (direct-mode) button...
-        CDasherButtons::KeyDown(iTime, (i==m_iNumBoxes-1) ? 1 : i+2, pView, pInput, pModel, pUserLog);
+        CDasherButtons::KeyDown(iTime, (i==m_iNumBoxes-1) ? 1 : i+2, pView, pInput, pModel);
         return;
       }
     }
     //not in any box. Fall through, just to be conservative...
   }
-  CInputFilter::KeyDown(iTime, iId, pView, pInput, pModel, pUserLog, bPos, iX, iY);
+  CInputFilter::KeyDown(iTime, iId, pView, pInput, pModel, bPos, iX, iY);
 }
 
-void CButtonMode::DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog) {
-  CDasherButtons::DirectKeyDown(iTime, iId, pView, pModel, pUserLog);
+void CButtonMode::DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel) {
+  CDasherButtons::DirectKeyDown(iTime, iId, pView, pModel);
  if (iId!=100) m_iLastTime = iTime;
 }
 

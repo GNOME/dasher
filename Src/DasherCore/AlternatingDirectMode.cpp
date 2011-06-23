@@ -90,7 +90,7 @@ bool CAlternatingDirectMode::DecorateView(CDasherView *pView, CDasherInput *pInp
 }
 
 
-void CAlternatingDirectMode::DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CAlternatingDirectMode::DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel) {
   int iTargetBox;
   switch(iId) {
     case 2:

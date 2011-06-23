@@ -82,10 +82,10 @@ void CIPhoneTiltFilter::ApplyTransform(myint &iDasherX, myint &iDasherY, CDasher
   }
 }
 
-void CIPhoneTiltFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CIPhoneTiltFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
 	if(iId == 100 && bHoldToGo)
 		m_pInterface->Unpause(iTime);
-  else COneDimensionalFilter::KeyDown(iTime, iId, pView, pInput, pModel, pUserLog);
+  else COneDimensionalFilter::KeyDown(iTime, iId, pView, pInput, pModel);
 }
 
 void CIPhoneTiltFilter::KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {

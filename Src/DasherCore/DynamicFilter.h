@@ -36,14 +36,14 @@ class CDynamicFilter : public CInputFilter, public CSettingsUserObserver {
   ///when reversing, backs off; when paused, does nothing; when running, delegates to TimerImpl
   virtual bool Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);
 
-  virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
   virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
 
   //respond to changes to BP_DASHER_PAUSED to keep m_iState in sync
   virtual void HandleEvent(int iParameter);
  protected:
-  virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) = 0;
-  virtual void Event(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel) = 0;
+  virtual void Event(int iTime, int iButton, int iType, CDasherModel *pModel);
 
   bool m_bKeyDown;
   bool m_bKeyHandled;
@@ -62,8 +62,6 @@ class CDynamicFilter : public CInputFilter, public CSettingsUserObserver {
     int m_iHeldId;
     int m_iKeyDownTime;
     unsigned int m_uSpeedControlTime;
-
-    CUserLogBase *m_pUserLog;
 };
 }
 #endif

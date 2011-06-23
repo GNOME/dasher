@@ -167,13 +167,13 @@ m_bDecorationChanged = true;
   }
 }
 
-void CTwoPushDynamicFilter::KeyDown(int Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {
+void CTwoPushDynamicFilter::KeyDown(int Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, bool bPos, int iX, int iY) {
   if (iId == 100 && !GetBoolParameter(BP_BACKOFF_BUTTON))
     //mouse click - will be ignored by superclass method.
     //simulate press of button 2...
-    CDynamicFilter::KeyDown(Time, 2, pView, pInput, pModel, pUserLog);
+    CDynamicFilter::KeyDown(Time, 2, pView, pInput, pModel);
   else
-    CInputFilter::KeyDown(Time, iId, pView, pInput, pModel, pUserLog, bPos, iX, iY);
+    CInputFilter::KeyDown(Time, iId, pView, pInput, pModel, bPos, iX, iY);
 }
 
 void CTwoPushDynamicFilter::KeyUp(int Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, bool bPos, int iX, int iY) {
@@ -185,7 +185,7 @@ void CTwoPushDynamicFilter::KeyUp(int Time, int iId, CDasherView *pView, CDasher
     CInputFilter::KeyUp(Time, iId, pView, pInput, pModel, bPos, iX, iY);
 }
 
-void CTwoPushDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CTwoPushDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel) {
   // Types:
   // 0 = ordinary click
   // 1 = long click

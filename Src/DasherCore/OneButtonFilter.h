@@ -13,7 +13,7 @@ class COneButtonFilter : public CInputFilter, private CSettingsUser {
 
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);
   virtual bool Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);
-  virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
   bool GetSettings(SModuleSettings **pSettings, int *iCount);
  private:
   ///true iff the scan line is moving down/up, or is in the 'reverse' stage
