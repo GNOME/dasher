@@ -766,6 +766,8 @@ void CDasherInterfaceBase::KeyUp(int iTime, int iId, bool bPos, int iX, int iY) 
 
 void CDasherInterfaceBase::CreateInputFilter()
 {
+  SetBoolParameter(BP_DASHER_PAUSED,true); //seems a sensible precaution!
+
   if(m_pInputFilter) {
     m_pInputFilter->Deactivate();
     m_pInputFilter = NULL;

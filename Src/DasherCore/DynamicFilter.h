@@ -51,17 +51,21 @@ class CDynamicFilter : public CInputFilter, public CSettingsUserObserver {
   bool isPaused() {return m_iState == 0;}
   bool isReversing() {return m_iState == 1;}
   bool isRunning() {return m_iState==2;}
-  virtual void pause() {m_iState = 0;}
+  virtual void pause();
   virtual void reverse();
   virtual void run();
 
   virtual bool TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) = 0;
 
+  ///Subclasses should all this (rather than pModel->Offset()) to offset the model
+  /// (it also stores the model, to abort the offset upon pause if necessary)
+  void ApplyOffset(CDasherModel *pModel, int iOffset);
   private:
     int m_iState; // 0 = paused, 1 = reversing, >=2 = running (extensible by subclasses)
     int m_iHeldId;
     int m_iKeyDownTime;
     unsigned int m_uSpeedControlTime;
+    CDasherModel *m_pModel;
 };
 }
 #endif

@@ -207,7 +207,7 @@ void CTwoPushDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDas
       reverse();
     else
     {
-      pModel->Offset(m_aiTarget[m_iActiveMarker]);
+      ApplyOffset(pModel,m_aiTarget[m_iActiveMarker]);
       pModel->ResetNats();
       //don't really have to reset there, but seems as good a place as any
       m_dNatsSinceFirstPush = -std::numeric_limits<double>::infinity(); //"waiting for first push"

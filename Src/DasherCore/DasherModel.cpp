@@ -97,12 +97,6 @@ void CDasherModel::HandleEvent(int iParameter) {
   CFrameRate::HandleEvent(iParameter);
 
   switch (iParameter) {
-  case BP_SMOOTH_OFFSET:
-    if (!GetBoolParameter(BP_SMOOTH_OFFSET))
-      //smoothing has just been turned off. End any transition/jump currently
-      // in progress at it's current point
-      AbortOffset();
-    break;
   case BP_DASHER_PAUSED:
     if(GetBoolParameter(BP_SLOW_START))
       m_iStartTime = 0;
@@ -624,8 +618,7 @@ void CDasherModel::Offset(int iOffset) {
   m_Rootmin += iOffset;
   m_Rootmax += iOffset;
 
-  if (GetBoolParameter(BP_SMOOTH_OFFSET))
-    m_iDisplayOffset -= iOffset;
+  m_iDisplayOffset -= iOffset;
 }
 
 void CDasherModel::AbortOffset() {

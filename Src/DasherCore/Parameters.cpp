@@ -38,7 +38,6 @@ const bp_table boolparamtable[] = {
 #else
   {BP_NONLINEAR_Y, "NonlinearY", PERS, true, "Apply nonlinearities to Y axis (i.e. compress top &amp; bottom)"},
 #endif
-  {BP_SMOOTH_OFFSET, "DelayView", !PERS, false, "Smooth dynamic-button-mode jumps over several frames"},
   {BP_STOP_OUTSIDE, "PauseOutside", PERS, false, "Whether to stop when pointer leaves canvas area"},
 #ifdef TARGET_OS_IPHONE
   {BP_BACKOFF_BUTTON, "BackoffButton", PERS, false, "Whether to enable the extra backoff button in dynamic mode"},

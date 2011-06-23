@@ -115,31 +115,6 @@ bool CTwoButtonDynamicFilter::TimerImpl(unsigned long Time, CDasherView *m_pDash
   return true;
 }
 
-void CTwoButtonDynamicFilter::Activate() {
-  SetBoolParameter(BP_SMOOTH_OFFSET, true);
-}
-
-void CTwoButtonDynamicFilter::Deactivate() {
-  SetBoolParameter(BP_SMOOTH_OFFSET, false);
-}
-
-void CTwoButtonDynamicFilter::run() {
-  SetBoolParameter(BP_SMOOTH_OFFSET, true);
-  CButtonMultiPress::run();
-}
-
-void CTwoButtonDynamicFilter::pause() {
-  SetBoolParameter(BP_SMOOTH_OFFSET, false);
-  CButtonMultiPress::pause();
-}
-
-void CTwoButtonDynamicFilter::reverse() {
-  //hmmmm. If we ever actually did Offset() while reversing,
-  // we might want BP_SMOOTH_OFFSET on....
-  SetBoolParameter(BP_SMOOTH_OFFSET, false);
-  CButtonMultiPress::reverse();
-}
-
 void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel) {
   
   double dFactor(GetBoolParameter(BP_TWOBUTTON_REVERSE) ? -1.0 : 1.0);
@@ -171,8 +146,7 @@ void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CD
     return;
   }
   //fell through to apply offset
-  int iOffset(dFactor * GetLongParameter(LP_TWO_BUTTON_OFFSET) * m_dLagMul);
-  pModel->Offset(iOffset);
+  ApplyOffset(pModel,dFactor * GetLongParameter(LP_TWO_BUTTON_OFFSET) * m_dLagMul);
   pModel->ResetNats();
   
   if(CUserLogBase *pUserLog=m_pInterface->GetUserLogPtr())

@@ -24,7 +24,7 @@
 using namespace Dasher;
 
 CDynamicFilter::CDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
-  : CInputFilter(pInterface, iID, szName), CSettingsUserObserver(pCreator) {
+  : CInputFilter(pInterface, iID, szName), CSettingsUserObserver(pCreator), m_pModel(NULL) {
   m_bDecorationChanged = true;
   m_bKeyDown = false;
   pause();
@@ -135,6 +135,11 @@ void CDynamicFilter::HandleEvent(int iParameter) {
   }
 }
 
+void CDynamicFilter::pause() {
+  m_iState = 0;
+  if (m_pModel) m_pModel->AbortOffset();
+}
+
 void CDynamicFilter::reverse()
 {
   m_iState = 1;
@@ -150,5 +155,9 @@ void CDynamicFilter::run()
   if (m_iState<2) //wasn't running previously
     m_uSpeedControlTime = 0; //will be set in Timer()
   m_iState = 2;
+}
+
+void CDynamicFilter::ApplyOffset(CDasherModel *pModel, int iOffset) {
+  (m_pModel=pModel)->Offset(iOffset);
 }
 
