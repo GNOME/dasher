@@ -265,10 +265,9 @@ void CDasherInterfaceBase::HandleEvent(int iParameter) {
     ChangeColours();
     ScheduleRedraw();
     break;
-  case SP_DEFAULT_COLOUR_ID: // Delibarate fallthrough
   case BP_PALETTE_CHANGE:
     if(GetBoolParameter(BP_PALETTE_CHANGE))
- SetStringParameter(SP_COLOUR_ID, GetStringParameter(SP_DEFAULT_COLOUR_ID));
+ SetStringParameter(SP_COLOUR_ID, m_pNCManager->GetAlphabet()->GetPalette());
     break;
   case LP_LANGUAGE_MODEL_ID:
     CreateNCManager();
@@ -411,6 +410,8 @@ void CDasherInterfaceBase::CreateNCManager() {
 
   //now create the new manager...
   m_pNCManager = new CNodeCreationManager(this, this, m_AlphIO);
+  if (GetBoolParameter(BP_PALETTE_CHANGE))
+    SetStringParameter(SP_COLOUR_ID, m_pNCManager->GetAlphabet()->GetPalette());
 
   if (m_DasherScreen) {
     m_pNCManager->ChangeScreen(m_DasherScreen);

@@ -42,11 +42,7 @@ CNodeCreationManager::CNodeCreationManager(CSettingsUser *pCreateFrom,
   m_pInterface(pInterface), m_pControlManager(NULL), m_pScreen(NULL) {
 
   const Dasher::CAlphInfo *pAlphInfo(pAlphIO->GetInfo(GetStringParameter(SP_ALPHABET_ID)));
-  
-  SetStringParameter(SP_DEFAULT_COLOUR_ID, pAlphInfo->GetPalette());
-  
-  // --
-  
+
   switch (pAlphInfo->m_iConversionID) {
     default:
       //TODO: Error reporting here
