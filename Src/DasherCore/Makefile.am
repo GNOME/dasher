@@ -10,7 +10,7 @@ libdasherprefs_a_SOURCES = \
 
 libdashercore_a_SOURCES = \
 		AbstractXMLParser.cpp \
-		AbstracTXMLParser.h \
+		AbstractXMLParser.h \
 		Alphabet/AlphIO.cpp \
 		Alphabet/AlphIO.h \
 		Alphabet/AlphInfo.cpp \

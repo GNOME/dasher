@@ -160,7 +160,7 @@ string CAlphabetMap::SymbolStream::peekBack() {
     } else {
       //high bit not set -> single-byte char
       if (bSeenHighBit) return ""; //followed by a "continuation of multibyte char" without a "first byte of multibyte char" before it. (Malformed!)
-      return string(&buf[i],1); 
+      return string(&buf[i],1);
     }
   }
   //fail...relatively gracefully ;-)

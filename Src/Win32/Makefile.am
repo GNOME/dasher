@@ -4,7 +4,6 @@ EXTRA_DIST = \
 		Common/StringUtils.h \
 		Common/WinCommon.h \
 		Common/WinHelper.cpp \
-		Common/WinHelper.h \
 		Common/WinLocalisation.cpp \
 		Common/WinLocalisation.h \
 		Common/WinMenus.cpp \
@@ -39,8 +38,6 @@ EXTRA_DIST = \
 		Widgets/Edit.h \
 		Widgets/FilenameGUI.cpp \
 		Widgets/FilenameGUI.h \
-		Widgets/GameGroup.cpp \
-		Widgets/GameGroup.h \
 		Widgets/KeyControl.cpp \
 		Widgets/KeyControl.h \
 		Widgets/LMPage.cpp \
@@ -99,8 +96,6 @@ EXTRA_DIST = \
 		Dasher_vc80.vcproj \
 		EditWrapper.cpp \
 		EditWrapper.h \
-		GameModeHelper.cpp \
-		GameModeHelper.h \
 		KeyboardHelper.cpp \
 		KeyboardHelper.h \
 		ModuleControl.cpp \
