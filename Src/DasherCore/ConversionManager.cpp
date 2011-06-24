@@ -41,7 +41,7 @@
 using namespace Dasher;
 using namespace std;
 
-CConversionManager::CConversionManager(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet) : CSettingsUser(pCreateFrom) {
+CConversionManager::CConversionManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet) {
   m_pInterface = pInterface;
   m_pNCManager = pNCManager;
   m_pAlphabet = pAlphabet;
@@ -110,10 +110,7 @@ void CConversionManager::CConvNode::PopulateChildren() {
   // alphabet root. This should only happen in error cases, and the
   // user should have been warned here.
   //
-  unsigned int iLbnd(0);
-  unsigned int iHbnd(m_pMgr->GetLongParameter(LP_NORMALIZATION));
-
-  CDasherNode *pNewNode = m_pMgr->m_pNCManager->GetAlphabetManager()->GetRoot(this, iLbnd, iHbnd, false, offset() + 1);
+  CDasherNode *pNewNode = m_pMgr->m_pNCManager->GetAlphabetManager()->GetRoot(this, 0, CDasherModel::NORMALIZATION, false, offset() + 1);
 
   DASHER_ASSERT(GetChildren().back()==pNewNode);
 }

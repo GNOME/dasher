@@ -57,7 +57,7 @@ static char THIS_FILE[] = __FILE__;
 // FIXME - duplicated 'mode' code throught - needs to be fixed (actually, mode related stuff, Input2Dasher etc should probably be at least partially in some other class)
 
 CDasherViewSquare::CDasherViewSquare(CSettingsUser *pCreateFrom, CDasherScreen *DasherScreen, Opts::ScreenOrientations orient)
-: CDasherView(DasherScreen,orient), CSettingsUserObserver(pCreateFrom), m_Y1(4), m_Y2(0.95 * GetLongParameter(LP_MAX_Y)), m_Y3(0.05 * GetLongParameter((LP_MAX_Y))), m_bVisibleRegionValid(false) {
+: CDasherView(DasherScreen,orient), CSettingsUserObserver(pCreateFrom), m_Y1(4), m_Y2(0.95 * CDasherModel::MAX_Y), m_Y3(0.05 * CDasherModel::MAX_Y), m_bVisibleRegionValid(false) {
 
   //Note, nonlinearity parameters set in SetScaleFactor
   ScreenResized(DasherScreen);
@@ -134,7 +134,7 @@ CDasherNode *CDasherViewSquare::Render(CDasherNode *pRoot, myint iRootMin, myint
   m_DelayedTexts.clear();
 
   // Finally decorate the view
-  Crosshair((myint)GetLongParameter(LP_OX));
+  Crosshair();
   return pOutput;
 }
 
@@ -150,7 +150,7 @@ CDasherViewSquare::CTextString *CDasherViewSquare::DasherDrawText(myint iDasherM
   //compute font size...
   int iSize = GetLongParameter(LP_DASHER_FONTSIZE);
   {
-    const myint iMaxY(GetLongParameter(LP_MAX_Y));
+    const myint iMaxY(CDasherModel::MAX_Y);
     if (Screen()->MultiSizeFonts() && iSize>4) {
       //font size maxes out at ((iMaxY*3)/2)+iMaxY)/iMaxY = 3/2*smallest
       // which is reached when iDasherMaxX == iMaxY/2, i.e. the crosshair
@@ -487,7 +487,7 @@ void CDasherViewSquare::DisjointRender(CDasherNode *pRender, myint y1, myint y2,
   const myint Range(y2-y1);
 
   //Does node cover crosshair?
-  if (pOutput == pRender->Parent() && Range > GetLongParameter(LP_OX) && y1 < GetLongParameter(LP_OY) && y2 > GetLongParameter(LP_OY)) {
+  if (pOutput == pRender->Parent() && Range > CDasherModel::ORIGIN_X && y1 < CDasherModel::ORIGIN_Y && y2 > CDasherModel::ORIGIN_Y) {
     pOutput=pRender;
     if (pRender->ChildCount()==0) {
       //covers crosshair! forcibly populate, now!
@@ -513,15 +513,14 @@ void CDasherViewSquare::DisjointRender(CDasherNode *pRender, myint y1, myint y2,
       dMaxCost = policy.pushNode(pRender, y1, y2, false, dMaxCost);
 
     // Render children
-    int norm = (myint)GetLongParameter(LP_NORMALIZATION);
 
     int id=-1;
 
     if (CDasherNode *pChild = pRender->onlyChildRendered)
     {
       //if child still covers screen, render _just_ it and return
-      myint newy1 = y1 + (Range * (myint)pChild->Lbnd()) / (myint)norm;
-      myint newy2 = y1 + (Range * (myint)pChild->Hbnd()) / (myint)norm;
+      myint newy1 = y1 + (Range * pChild->Lbnd()) / CDasherModel::NORMALIZATION;
+      myint newy2 = y1 + (Range * pChild->Hbnd()) / CDasherModel::NORMALIZATION;
       if (newy1 < iDasherMinY && newy2 > iDasherMaxY) {
         //still covers entire screen. Parent should too...
         DASHER_ASSERT(dMaxCost == std::numeric_limits<double>::infinity());
@@ -544,8 +543,8 @@ void CDasherViewSquare::DisjointRender(CDasherNode *pRender, myint y1, myint y2,
         id++;
         CDasherNode *pChild = *i;
 
-        myint newy1 = y1 + (Range * (myint)pChild->Lbnd()) / (myint)norm;/// norm and lbnd are simple ints
-        myint newy2 = y1 + (Range * (myint)pChild->Hbnd()) / (myint)norm;
+        myint newy1 = y1 + (Range * pChild->Lbnd()) / CDasherModel::NORMALIZATION;
+        myint newy2 = y1 + (Range * pChild->Hbnd()) / CDasherModel::NORMALIZATION;
 
         if (pChild->GetFlag(NF_GAME)) {
           CGameNodeDrawEvent evt(pChild, newy1, newy2);
@@ -598,24 +597,24 @@ void CDasherViewSquare::DisjointRender(CDasherNode *pRender, myint y1, myint y2,
 }
 
 bool CDasherViewSquare::CoversCrosshair(myint Range, myint y1, myint y2) {
-  if (Range > GetLongParameter(LP_OX) && y1 < GetLongParameter(LP_OY) && y2 > GetLongParameter(LP_OY)) {
+  if (Range > CDasherModel::ORIGIN_X && y1 < CDasherModel::ORIGIN_Y && y2 > CDasherModel::ORIGIN_Y) {
     switch (GetLongParameter(LP_SHAPE_TYPE)) {
       case 0: //Disjoint rectangles
       case 1: //Rectangles
         return true;
       case 2: {       //Triangles
         myint iMidY((y1+y2)/2);
-        return (iMidY > GetLongParameter(LP_OY))
-        ? ((GetLongParameter(LP_OY)-y1)*Range) > (iMidY - y1) * GetLongParameter(LP_OX)
-        : ((y2-GetLongParameter(LP_OY))*Range) > (y2 - iMidY) * GetLongParameter(LP_OX);
+        return (iMidY > CDasherModel::ORIGIN_Y)
+        ? ((CDasherModel::ORIGIN_Y-y1)*Range) > (iMidY - y1) * CDasherModel::ORIGIN_X
+        : ((y2-CDasherModel::ORIGIN_Y)*Range) > (y2 - iMidY) * CDasherModel::ORIGIN_X;
       }
       case 3: {       //Truncated tris
         myint midy1((y1+y1+y2)/3), midy2((y1+y2+y2)/3);
-        if (midy1 > GetLongParameter(LP_OY)) //(0,y1) - (Range,midy1)
-          return (GetLongParameter(LP_OY)-y1)*Range > (midy1 - y1) * GetLongParameter(LP_OX);
-        if (midy2 > GetLongParameter(LP_OY)) // (Range,midy1) - (Range,midy2)
+        if (midy1 > CDasherModel::ORIGIN_Y) //(0,y1) - (Range,midy1)
+          return (CDasherModel::ORIGIN_Y-y1)*Range > (midy1 - y1) * CDasherModel::ORIGIN_X;
+        if (midy2 > CDasherModel::ORIGIN_Y) // (Range,midy1) - (Range,midy2)
           return true;
-        return (y2 - GetLongParameter(LP_OY))*Range > (y2 - midy2) * GetLongParameter(LP_OX);
+        return (y2 - CDasherModel::ORIGIN_Y)*Range > (y2 - midy2) * CDasherModel::ORIGIN_X;
         break;
       }
       case 4: //quadrics. We'll approximate with circles, as they're easier...
@@ -623,8 +622,8 @@ bool CDasherViewSquare::CoversCrosshair(myint Range, myint y1, myint y2) {
         // too soon/aggressively :-(.
         // (hence, fallthrough to:)
       case 5: { //circles - actually ellipses, as x diameter is twice y diameter, hence the *4
-        const myint y_dist(GetLongParameter(LP_OY) - (y1+y2)/2);
-        return GetLongParameter(LP_OX) * GetLongParameter(LP_OX) + y_dist*y_dist*4 < Range*Range;
+        const myint y_dist(CDasherModel::ORIGIN_Y - (y1+y2)/2);
+        return CDasherModel::ORIGIN_X * CDasherModel::ORIGIN_X + y_dist*y_dist*4 < Range*Range;
       }
     }
   }
@@ -727,12 +726,11 @@ beginning:
   //Node has children - either it already did, or else it covers the crosshair,
   // and we've just made them...so render them.
 
-  const unsigned int norm(GetLongParameter(LP_NORMALIZATION));
   //first check if there's only one child we need to render
   if (CDasherNode *pChild = pRender->onlyChildRendered) {
     //if child still covers screen, render _just_ it and return
-    myint newy1 = y1 + (Range * (myint)pChild->Lbnd()) / (myint)norm;
-    myint newy2 = y1 + (Range * (myint)pChild->Hbnd()) / (myint)norm;
+    myint newy1 = y1 + (Range * pChild->Lbnd()) / CDasherModel::NORMALIZATION;
+    myint newy2 = y1 + (Range * pChild->Hbnd()) / CDasherModel::NORMALIZATION;
     if (
 	    (newy1 < iDasherMinY && newy2 > iDasherMaxY)) { //covers entire y-axis!
          //render just that child; nothing more to do for this node => tail call to beginning
@@ -749,7 +747,7 @@ beginning:
   while (I!=E) {
     CDasherNode *pChild(*I);
 
-    newy2 = y1 + (Range * (myint)pChild->Hbnd()) / (myint)norm;
+    newy2 = y1 + (Range * pChild->Hbnd()) / CDasherModel::NORMALIZATION;
     if (pChild->GetFlag(NF_GAME)) {
       DASHER_ASSERT(bExpectGameNode);
       bExpectGameNode=false;
@@ -786,28 +784,25 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
 
   // Things we're likely to need:
 
-  //myint iDasherWidth = (myint)GetLongParameter(LP_MAX_Y);
-  myint iDasherHeight = (myint)GetLongParameter(LP_MAX_Y);
-
   screenint iScreenWidth = Screen()->GetWidth();
   screenint iScreenHeight = Screen()->GetHeight();
 
   switch(GetOrientation()) {
   case Dasher::Opts::LeftToRight:
-    iDasherX = ( iScreenWidth - iInputX ) * m_iScalingFactor / iScaleFactorX;
-    iDasherY = iDasherHeight / 2 + ( iInputY - iScreenHeight / 2 ) * m_iScalingFactor / iScaleFactorY;
+    iDasherX = ( iScreenWidth - iInputX ) * SCALE_FACTOR / iScaleFactorX;
+    iDasherY = CDasherModel::MAX_Y / 2 + ( iInputY - iScreenHeight / 2 ) * SCALE_FACTOR / iScaleFactorY;
     break;
   case Dasher::Opts::RightToLeft:
-    iDasherX = myint( ( iInputX ) * m_iScalingFactor/ iScaleFactorX);
-    iDasherY = myint(iDasherHeight / 2 + ( iInputY - iScreenHeight / 2 ) * m_iScalingFactor/ iScaleFactorY);
+    iDasherX = myint( ( iInputX ) * SCALE_FACTOR / iScaleFactorX);
+    iDasherY = myint(CDasherModel::MAX_Y / 2 + ( iInputY - iScreenHeight / 2 ) * SCALE_FACTOR / iScaleFactorY);
     break;
   case Dasher::Opts::TopToBottom:
-    iDasherX = myint( ( iScreenHeight - iInputY ) * m_iScalingFactor/ iScaleFactorX);
-    iDasherY = myint(iDasherHeight / 2 + ( iInputX - iScreenWidth / 2 ) * m_iScalingFactor/ iScaleFactorY);
+    iDasherX = myint( ( iScreenHeight - iInputY ) * SCALE_FACTOR / iScaleFactorX);
+    iDasherY = myint(CDasherModel::MAX_Y / 2 + ( iInputX - iScreenWidth / 2 ) * SCALE_FACTOR / iScaleFactorY);
     break;
   case Dasher::Opts::BottomToTop:
-    iDasherX = myint( ( iInputY  ) * m_iScalingFactor/ iScaleFactorX);
-    iDasherY = myint(iDasherHeight / 2 + ( iInputX - iScreenWidth / 2 ) * m_iScalingFactor/ iScaleFactorY);
+    iDasherX = myint( ( iInputY  ) * SCALE_FACTOR / iScaleFactorX);
+    iDasherY = myint(CDasherModel::MAX_Y / 2 + ( iInputX - iScreenWidth / 2 ) * SCALE_FACTOR / iScaleFactorY);
     break;
   }
 
@@ -820,7 +815,7 @@ void CDasherViewSquare::SetScaleFactor( void )
 {
   //Parameters for X non-linearity.
   // Set some defaults here, in case we change(d) them later...
-  m_iXlogThres=GetLongParameter(LP_MAX_Y)/2; //threshold: DasherX's less than this are linear; those greater are logarithmic
+  m_iXlogThres=CDasherModel::MAX_Y/2; //threshold: DasherX's less than this are linear; those greater are logarithmic
 
   //set log scaling coefficient (unused if LP_NONLINEAR_X==0)
   // note previous value = 1/0.2, i.e. a value of LP_NONLINEAR_X =~= 4.8
@@ -830,12 +825,10 @@ void CDasherViewSquare::SetScaleFactor( void )
   const screenint iScreenWidth(Screen()->GetWidth()), iScreenHeight(Screen()->GetHeight());
   const double dPixelsX(bHoriz ? iScreenWidth : iScreenHeight), dPixelsY(bHoriz ? iScreenHeight : iScreenWidth);
 
-  const myint lpMaxY(GetLongParameter(LP_MAX_Y));
-
   //Defaults/starting values, will be modified later according to scheme in use...
   iMarginWidth = GetLongParameter(LP_MARGIN_WIDTH);
-  double dScaleFactorY(dPixelsY / lpMaxY );
-  double dScaleFactorX(dPixelsX / static_cast<double>(lpMaxY + iMarginWidth) );
+  double dScaleFactorY(dPixelsY / CDasherModel::MAX_Y );
+  double dScaleFactorX(dPixelsX / static_cast<double>(CDasherModel::MAX_Y + iMarginWidth) );
 
   switch (GetLongParameter(LP_GEOMETRY)) {
     case 0: {
@@ -847,14 +840,14 @@ void CDasherViewSquare::SetScaleFactor( void )
         double dMul = max(0.8, dScaleFactorX / dScaleFactorY);
         dScaleFactorY = std::max(dScaleFactorX/dMul, dScaleFactorY / 4.0);
         dScaleFactorX *= 0.9;
-        iMarginWidth = (lpMaxY/20.0 + iMarginWidth*0.95)/0.9;
+        iMarginWidth = (CDasherModel::MAX_Y/20.0 + iMarginWidth*0.95)/0.9;
       } else {
         //X has more room; use Y scale for both -> will get lots history
         // however, "compensate" by relaxing the default "relative scaling" of X
         // (normally only 90% of Y) towards 1...
         double dXmpc = std::min(1.0,0.9 * dScaleFactorX / dScaleFactorY);
         dScaleFactorX = max(dScaleFactorY, dScaleFactorX / 4.0)*dXmpc;
-        iMarginWidth = (iMarginWidth + dPixelsX/dScaleFactorX - lpMaxY)/2;
+        iMarginWidth = (iMarginWidth + dPixelsX/dScaleFactorX - CDasherModel::MAX_Y)/2;
       }
       break;
     }
@@ -867,7 +860,7 @@ void CDasherViewSquare::SetScaleFactor( void )
     case 2:
     case 3: {
       //2 or 3 => squish x (so xhair always visible)
-      const double dDesiredXPerPixel( (lpMaxY + iMarginWidth) / dPixelsX), dMinXPerPixel((GetLongParameter(LP_OX)+iMarginWidth)/dPixelsX);
+      const double dDesiredXPerPixel( (CDasherModel::MAX_Y + iMarginWidth) / dPixelsX), dMinXPerPixel((CDasherModel::ORIGIN_X+iMarginWidth)/dPixelsX);
       const double dAspect(1.0/dScaleFactorY/dDesiredXPerPixel);
       double dDasherXPerPixel( (dAspect<1.0)
                               ? (dMinXPerPixel+pow(dAspect,3.0)*(dDesiredXPerPixel-dMinXPerPixel)) //tall+thin
@@ -882,8 +875,8 @@ void CDasherViewSquare::SetScaleFactor( void )
       dScaleFactorX = 0.9 / dDasherXPerPixel;
     }
   }
-  iScaleFactorX = myint(dScaleFactorX * m_iScalingFactor);
-  iScaleFactorY = myint(dScaleFactorY * m_iScalingFactor);
+  iScaleFactorX = myint(dScaleFactorX * SCALE_FACTOR);
+  iScaleFactorY = myint(dScaleFactorY * SCALE_FACTOR);
 
 #ifdef DEBUG
   //test...
@@ -910,14 +903,14 @@ void CDasherViewSquare::SetScaleFactor( void )
 }
 
 
-inline myint CDasherViewSquare::CustomIDiv(myint iNumerator, myint iDenominator) {
+inline myint CDasherViewSquare::CustomIDivScaleFactor(myint iNumerator) {
   // Integer division rounding away from zero
 
   long long int num, denom, quot, rem;
   myint res;
 
   num   = iNumerator;
-  denom = iDenominator;
+  denom = SCALE_FACTOR;
 
   DASHER_ASSERT(denom != 0);
 
@@ -952,9 +945,6 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
 
   // Things we're likely to need:
 
-  //myint iDasherWidth = (myint)GetLongParameter(LP_MAX_Y);
-  myint iDasherHeight = (myint)GetLongParameter(LP_MAX_Y);
-
   screenint iScreenWidth = Screen()->GetWidth();
   screenint iScreenHeight = Screen()->GetHeight();
 
@@ -965,27 +955,25 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
   switch( GetOrientation() ) {
   case Dasher::Opts::LeftToRight:
     iScreenX = screenint(iScreenWidth -
-			 CustomIDiv((( iDasherX ) * iScaleFactorX), m_iScalingFactor));
+			 CustomIDivScaleFactor(iDasherX  * iScaleFactorX));
     iScreenY = screenint(iScreenHeight / 2 +
-			 CustomIDiv(( iDasherY - iDasherHeight / 2 ) * iScaleFactorY, m_iScalingFactor));
+			 CustomIDivScaleFactor(( iDasherY - CDasherModel::MAX_Y / 2 ) * iScaleFactorY));
     break;
   case Dasher::Opts::RightToLeft:
-    iScreenX = screenint(
-			 CustomIDiv(( iDasherX ) * iScaleFactorX, m_iScalingFactor));
+    iScreenX = screenint(CustomIDivScaleFactor(iDasherX * iScaleFactorX));
     iScreenY = screenint(iScreenHeight / 2 +
-			 CustomIDiv(( iDasherY - iDasherHeight / 2 ) * iScaleFactorY, m_iScalingFactor));
+			 CustomIDivScaleFactor( (iDasherY - CDasherModel::MAX_Y/2) * iScaleFactorY));
     break;
   case Dasher::Opts::TopToBottom:
     iScreenX = screenint(iScreenWidth / 2 +
-			 CustomIDiv(( iDasherY - iDasherHeight / 2 ) * iScaleFactorY, m_iScalingFactor));
+			 CustomIDivScaleFactor( (iDasherY - CDasherModel::MAX_Y/2) * iScaleFactorY));
     iScreenY = screenint(iScreenHeight -
-			 CustomIDiv(( iDasherX ) * iScaleFactorX, m_iScalingFactor));
+			 CustomIDivScaleFactor( iDasherX * iScaleFactorX ));
     break;
   case Dasher::Opts::BottomToTop:
     iScreenX = screenint(iScreenWidth / 2 +
-			 CustomIDiv(( iDasherY - iDasherHeight / 2 ) * iScaleFactorY, m_iScalingFactor));
-    iScreenY = screenint(
-			 CustomIDiv(( iDasherX ) * iScaleFactorX, m_iScalingFactor));
+			 CustomIDivScaleFactor(( iDasherY - CDasherModel::MAX_Y/2 ) * iScaleFactorY));
+    iScreenY = screenint(CustomIDivScaleFactor( iDasherX  * iScaleFactorX ));
     break;
   }
 }
@@ -994,8 +982,8 @@ void CDasherViewSquare::Dasher2Polar(myint iDasherX, myint iDasherY, double &r, 
 	iDasherX = xmap(iDasherX);
     iDasherY = ymap(iDasherY);
 
-  myint iDasherOX = xmap(GetLongParameter(LP_OX));
-    myint iDasherOY = ymap(GetLongParameter(LP_OY));
+  myint iDasherOX = xmap(CDasherModel::ORIGIN_X);
+    myint iDasherOY = ymap(CDasherModel::ORIGIN_Y);
 
     double x = -(iDasherX - iDasherOX) / double(iDasherOX); //Use normalised coords so min r works
     double y = -(iDasherY - iDasherOY) / double(iDasherOY);
@@ -1125,6 +1113,5 @@ void CDasherViewSquare::VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, m
 
 void CDasherViewSquare::ScreenResized(CDasherScreen *NewScreen) {
   m_bVisibleRegionValid = false;
-  m_iScalingFactor = 100000000;
   SetScaleFactor();
 }

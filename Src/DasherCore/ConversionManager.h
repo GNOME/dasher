@@ -60,9 +60,9 @@ namespace Dasher {
   /// aspects of conversion, and CNodeManager for details of the node
   /// management process.
   ///
-  class CConversionManager : public CNodeManager, protected CSettingsUser {
+  class CConversionManager : public CNodeManager {
   public:
-    CConversionManager(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet);
+    CConversionManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet);
 
     ///Tells us to use the specified screen to create node labels.
     /// (note we cache the screen and create labels lazily)

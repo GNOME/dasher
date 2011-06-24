@@ -41,6 +41,7 @@ class CDynamicFilter : public CInputFilter, public CSettingsUserObserver {
 
   //respond to changes to BP_DASHER_PAUSED to keep m_iState in sync
   virtual void HandleEvent(int iParameter);
+
  protected:
   virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel) = 0;
   virtual void Event(int iTime, int iButton, int iType, CDasherModel *pModel);

@@ -64,6 +64,9 @@ namespace Dasher {
 class Dasher::CDasherModel:public Dasher::CFrameRate, public Observable<CDasherNode*>, private NoClones
 {
  public:
+  static const unsigned int NORMALIZATION = 1<<16;
+  static const myint ORIGIN_X=2048, ORIGIN_Y=2048, MAX_Y=4096;
+
   /// Constructs a new CDasherModel. Note, must be followed by a call to
   /// SetOffset() before the model can be used.
   CDasherModel(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pDashIface);

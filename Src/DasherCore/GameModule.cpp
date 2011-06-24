@@ -106,9 +106,9 @@ void CGameModule::DecorateView(unsigned long lTime, CDasherView *pView, CDasherM
   myint x[2], y[2];
   x[0] = x[1] = -100;
   
-  if (m_y1 > GetLongParameter(LP_MAX_Y)) {
+  if (m_y1 > CDasherModel::MAX_Y) {
     //off the top! draw an arrow pointing up...
-    y[1] = GetLongParameter(LP_MAX_Y);
+    y[1] = CDasherModel::MAX_Y;
     y[0] = y[1] - 400;
     pView->DasherPolyarrow(x, y, 2, 2, m_iCrosshairColor, 0.1);
   } else if (m_y2 < 0) {

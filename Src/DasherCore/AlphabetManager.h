@@ -155,7 +155,7 @@ namespace Dasher {
       virtual void Output();
       virtual void Undo();
       ///Override to provide symbol number, probability, _edit_ text from alphabet
-      virtual SymbolProb GetSymbolProb(int iNormalization) const;
+      virtual SymbolProb GetSymbolProb() const;
 
       virtual void SetFlag(int iFlag, bool bValue);
 

@@ -2,12 +2,13 @@
 #define __BasicLog_h__
 
 #include "UserLogBase.h"
+#include "SettingsStore.h"
 
 /// \ingroup Logging
 /// @{
-class CBasicLog : public CUserLogBase {
+class CBasicLog : protected Dasher::CSettingsUser, public CUserLogBase {
  public:
-  CBasicLog(Dasher::CSettingsUser *pCreateFrom, Dasher::CDasherInterfaceBase *pIntf);
+  CBasicLog(CSettingsUser *pCreateFrom, Dasher::CDasherInterfaceBase *pIntf);
   ~CBasicLog();
 
   virtual void AddParam(const string& strName, const string& strValue, int iOptionMask = 0) {};

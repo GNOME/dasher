@@ -176,10 +176,11 @@ private:
   ///Parameters for y non-linearity. (TODO Make into preprocessor defines?)
   const myint m_Y1, m_Y2, m_Y3;
 
-  inline void Crosshair(myint sx);
+  inline void Crosshair();
   bool CoversCrosshair(myint Range,myint y1,myint y2);
 
-  inline myint CustomIDiv(myint iNumerator, myint iDenominator);
+  //Divides by SCALE_FACTOR, rounding away from 0
+  inline myint CustomIDivScaleFactor(myint iNumerator);
 
   void DasherLine2Screen(myint x1, myint y1, myint x2, myint y2, vector<CDasherScreen::point> &vPoints);
 
@@ -195,11 +196,11 @@ private:
   //width of margin, in abstract screen coords
   myint iMarginWidth;
 
-  /// There is a ratio of iScaleFactor{X,Y} abstract screen coords to m_iScalingFactor real pixels
+  /// There is a ratio of iScaleFactor{X,Y} abstract screen coords to SCALE_FACTOR real pixels
   /// (Note the naming convention: iScaleFactorX/Y refers to X/Y in Dasher-space, which will be
   /// the other way around to real screen coordinates if using a vertical (T-B/B-T) orientation)
   myint iScaleFactorX, iScaleFactorY;
-  myint m_iScalingFactor;
+  static const myint SCALE_FACTOR = 1<<26; //was 100,000,000; change to power of 2 => easier to multiply/divide
 
   /// Cached extents of visible region
   myint m_iDasherMinX;

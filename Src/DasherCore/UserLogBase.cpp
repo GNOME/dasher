@@ -14,12 +14,12 @@
 
 using namespace Dasher;
 
-CUserLogBase::CUserLogBase(CSettingsUser *pCreateFrom, Observable<const CEditEvent *> *pHandler) : CSettingsUser(pCreateFrom), TransientObserver<const CEditEvent *>(pHandler), m_iNumDeleted(0) {
+CUserLogBase::CUserLogBase(Observable<const CEditEvent *> *pHandler) : TransientObserver<const CEditEvent *>(pHandler), m_iNumDeleted(0) {
 };
 
 void CUserLogBase::HandleEvent(const CEditEvent *evt) {
   if (evt->m_iEditType == 1) {
-    m_vAdded.push_back(evt->m_pNode->GetSymbolProb(GetLongParameter(LP_NORMALIZATION)));
+    m_vAdded.push_back(evt->m_pNode->GetSymbolProb());
     //output
   } else if (evt->m_iEditType == 2) {
     //delete

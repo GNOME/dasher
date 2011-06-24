@@ -139,18 +139,17 @@ void CNodeCreationManager::HandleEvent(int iParameter) {
     case BP_CONTROL_MODE:
     case BP_GAME_MODE: {
       delete m_pControlManager;
-      const unsigned long iNorm(GetLongParameter(LP_NORMALIZATION));
       unsigned long iControlSpace;
       //don't allow a control manager during Game Mode 
       if (GetBoolParameter(BP_CONTROL_MODE) && !GetBoolParameter(BP_GAME_MODE)) {
         m_pControlManager = new CControlManager(this, this, m_pInterface);
         if (m_pScreen) m_pControlManager->MakeLabels(m_pScreen);
-        iControlSpace = iNorm / 20;
+        iControlSpace = CDasherModel::NORMALIZATION / 20;
       } else {
         m_pControlManager = NULL;
         iControlSpace = 0;
       }
-      m_iAlphNorm = iNorm-iControlSpace;
+      m_iAlphNorm = CDasherModel::NORMALIZATION-iControlSpace;
       break;
     }
   }
@@ -165,7 +164,7 @@ void CNodeCreationManager::AddExtras(CDasherNode *pParent) {
 #endif
     //ACL leave offset as is - like its groupnode parent, but unlike its alphnode siblings,
     //the control node does not enter a symbol....
-    m_pControlManager->GetRoot(pParent, pParent->GetChildren().back()->Hbnd(), GetLongParameter(LP_NORMALIZATION), pParent->offset());
+    m_pControlManager->GetRoot(pParent, pParent->GetChildren().back()->Hbnd(), CDasherModel::NORMALIZATION, pParent->offset());
   }
 }
 

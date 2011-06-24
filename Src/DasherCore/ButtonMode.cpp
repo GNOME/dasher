@@ -46,7 +46,7 @@ CButtonMode::CButtonMode(CSettingsUser *pCreator, CDasherInterfaceBase *pInterfa
 
 void CButtonMode::SetupBoxes()
 {
-  int iDasherY(GetLongParameter(LP_MAX_Y));
+  int iDasherY(CDasherModel::MAX_Y);
 
   int iForwardBoxes(GetLongParameter(LP_B));
   m_pBoxes = new SBoxInfo[m_iNumBoxes = iForwardBoxes+1];

@@ -52,13 +52,13 @@ bool CDefaultFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
   }
 
   if(GetBoolParameter(BP_DRAW_MOUSE_LINE)) {
-    // Draw a line from (LP_OX, LP_OY) to the current mouse position
+    // Draw a line from the origin to the current mouse position
     myint x[2];
     myint y[2];
 
     // Start of line is the crosshair location
-    x[0] = (myint)GetLongParameter(LP_OX);
-    y[0] = (myint)GetLongParameter(LP_OY);
+    x[0] = CDasherModel::ORIGIN_X;
+    y[0] = CDasherModel::ORIGIN_Y;
 
     x[1] = m_iLastX;
     y[1] = m_iLastY;
@@ -217,24 +217,24 @@ void CDefaultFilter::ApplyTransform(myint &iDasherX, myint &iDasherY, CDasherVie
     // up/down and reverse
     myint iDasherMaxX,temp;
     pView->VisibleRegion(temp, temp, iDasherMaxX, temp);
-    const myint xd(iDasherX - iDasherMaxX),yd(iDasherY-GetLongParameter(LP_OY));
+    const myint xd(iDasherX - iDasherMaxX),yd(iDasherY-CDasherModel::ORIGIN_Y);
     const myint dist(xd*xd + yd*yd); //squared distance from closest point onscreen to crosshair
-    if (iDasherMaxX < GetLongParameter(LP_OX)) {
+    if (iDasherMaxX < CDasherModel::ORIGIN_X) {
       //crosshair actually offscreen; rescale so left edge of screen = translate
-      iDasherX = (iDasherX * GetLongParameter(LP_OX))/iDasherMaxX;
+      iDasherX = (iDasherX * CDasherModel::ORIGIN_X)/iDasherMaxX;
     }
     //boost reversing if near centerpoint of LHS (even if xhair onscreen)
-    iDasherX += (2*GetLongParameter(LP_OY)*GetLongParameter(LP_OY))/(dist+50); //and close to centerpoint = reverse
+    iDasherX += (2*CDasherModel::ORIGIN_Y*CDasherModel::ORIGIN_Y)/(dist+50); //and close to centerpoint = reverse
   }
   if (GetBoolParameter(BP_REMAP_XTREME)) {
     // Y co-ordinate...
-    myint dasherOY=(myint)GetLongParameter(LP_OY);
+    myint dasherOY=CDasherModel::ORIGIN_Y;
     double double_y = ((iDasherY-dasherOY)/(double)(dasherOY) ); // Fraction above the crosshair
     static const double repulsionparameter=0.5;
     iDasherY = myint(dasherOY * (1.0 + double_y + (double_y*double_y*double_y * repulsionparameter )));
 
     // X co-ordinate...
-    iDasherX = max(iDasherX,myint(GetLongParameter(LP_OX) * xmax(double_y)));
+    iDasherX = max(iDasherX,myint(CDasherModel::ORIGIN_X * xmax(double_y)));
   }
 }
 
@@ -250,7 +250,7 @@ void CDefaultFilter::ApplyOffset(myint &iDasherX, myint &iDasherY) {
   if(GetBoolParameter(BP_AUTOCALIBRATE) && !GetBoolParameter(BP_DASHER_PAUSED)) {
     // Auto-update the offset
 
-    m_iSum += (myint)GetLongParameter(LP_OY) - iDasherY; // Distance above crosshair
+    m_iSum += CDasherModel::ORIGIN_Y - iDasherY; // Distance above crosshair
     ++m_iCounter;
 
     //int m_iFilterTimescale=20
@@ -259,9 +259,9 @@ void CDefaultFilter::ApplyOffset(myint &iDasherX, myint &iDasherY) {
 
       // 'Conditions A', as specified by DJCM.  Only make the auto-offset
       // change if we're past the significance boundary.
-      //int m_iSigBiasPixels(GetLongParameter(LP_MAX_Y)/2);
+      //int m_iSigBiasPixels(CDasherModel::MAX_Y/2);
 
-      if (((m_iSum>0)?m_iSum:-m_iSum) > GetLongParameter(LP_MAX_Y)/2)
+      if (((m_iSum>0)?m_iSum:-m_iSum) > CDasherModel::MAX_Y/2)
         SetLongParameter(LP_TARGET_OFFSET, GetLongParameter(LP_TARGET_OFFSET) + ((m_iSum>0) ? -1 : 1));
       //TODO, "else return" - check effectiveness with/without?
       // old code exited now if neither above cases applied,

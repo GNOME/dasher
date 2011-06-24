@@ -146,7 +146,7 @@ namespace Dasher {
     ///Gets the possible chinese symbols for a pinyin one, along with their probabilities in the specified context.
     ///Probabilities are computed by CPPMPYLanguageModel::GetPartProbs, then renormalized here. (TODO unnecessary?)
     /// \param vChildren initially empty vector which procedure fills with pairs: first element chinese symbol number,
-    /// second element probability (/LP_NORMALIZATION).    
+    /// second element probability (/NORMALIZATION).    
     void GetConversions(std::vector<std::pair<symbol,unsigned int> > &vChildren, symbol pySym, Dasher::CLanguageModel::Context context);
 
     ///Gets colour for a specified chinese symbol and offset.
