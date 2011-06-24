@@ -342,11 +342,11 @@ your writing speed.</property>
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkRadioButton" id="radiobutton12">
+                                      <object class="GtkRadioButton" id="radiobutton2">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="border_width">2</property>
-                                        <property name="label" translatable="yes">Custom</property>
+                                        <property name="label" translatable="yes" comments="This means that you always want to write left-to-right regardless of the normal direction for the alphabet you are using">Always Left-to-Right</property>
                                         <property name="use_underline">True</property>
                                         <property name="draw_indicator">True</property>
                                         <property name="group">radiobutton1</property>
@@ -359,83 +359,54 @@ your writing speed.</property>
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkAlignment" id="alignment19">
+                                      <object class="GtkRadioButton" id="radiobutton3">
                                         <property name="visible">True</property>
-                                        <property name="left_padding">16</property>
-                                        <child>
-                                          <object class="GtkVBox" id="vbox27">
-                                            <property name="visible">True</property>
-                                            <child>
-                                              <object class="GtkRadioButton" id="radiobutton2">
-                                                <property name="visible">True</property>
-                                                <property name="can_focus">True</property>
-                                                <property name="border_width">2</property>
-                                                <property name="label" translatable="yes">Left to Right</property>
-                                                <property name="use_underline">True</property>
-                                                <property name="draw_indicator">True</property>
-                                                <signal handler="orientation" name="clicked"/>
-                                              </object>
-                                              <packing>
-                                                <property name="expand">False</property>
-                                                <property name="fill">False</property>
-                                              </packing>
-                                            </child>
-                                            <child>
-                                              <object class="GtkRadioButton" id="radiobutton3">
-                                                <property name="visible">True</property>
-                                                <property name="can_focus">True</property>
-                                                <property name="border_width">2</property>
-                                                <property name="label" translatable="yes">Right to Left</property>
-                                                <property name="use_underline">True</property>
-                                                <property name="draw_indicator">True</property>
-                                                <property name="group">radiobutton2</property>
-                                                <signal handler="orientation" name="clicked"/>
-                                              </object>
-                                              <packing>
-                                                <property name="expand">False</property>
-                                                <property name="fill">False</property>
-                                                <property name="position">1</property>
-                                              </packing>
-                                            </child>
-                                            <child>
-                                              <object class="GtkRadioButton" id="radiobutton4">
-                                                <property name="visible">True</property>
-                                                <property name="can_focus">True</property>
-                                                <property name="border_width">2</property>
-                                                <property name="label" translatable="yes">Top to Bottom</property>
-                                                <property name="use_underline">True</property>
-                                                <property name="draw_indicator">True</property>
-                                                <property name="group">radiobutton2</property>
-                                                <signal handler="orientation" name="clicked"/>
-                                              </object>
-                                              <packing>
-                                                <property name="expand">False</property>
-                                                <property name="fill">False</property>
-                                                <property name="position">2</property>
-                                              </packing>
-                                            </child>
-                                            <child>
-                                              <object class="GtkRadioButton" id="radiobutton5">
-                                                <property name="visible">True</property>
-                                                <property name="can_focus">True</property>
-                                                <property name="border_width">2</property>
-                                                <property name="label" translatable="yes">Bottom to Top</property>
-                                                <property name="use_underline">True</property>
-                                                <property name="draw_indicator">True</property>
-                                                <property name="group">radiobutton2</property>
-                                                <signal handler="orientation" name="clicked"/>
-                                              </object>
-                                              <packing>
-                                                <property name="expand">False</property>
-                                                <property name="fill">False</property>
-                                                <property name="position">3</property>
-                                              </packing>
-                                            </child>
-                                          </object>
-                                        </child>
+                                        <property name="can_focus">True</property>
+                                        <property name="border_width">2</property>
+                                        <property name="label" translatable="yes">Always Right-to-Left</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="draw_indicator">True</property>
+                                        <property name="group">radiobutton1</property>
+                                        <signal handler="orientation" name="clicked"/>
                                       </object>
                                       <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">False</property>
                                         <property name="position">2</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkRadioButton" id="radiobutton4">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="border_width">2</property>
+                                        <property name="label" translatable="yes">Always Top-to-Bottom</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="draw_indicator">True</property>
+                                        <property name="group">radiobutton1</property>
+                                        <signal handler="orientation" name="clicked"/>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">False</property>
+                                        <property name="position">3</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkRadioButton" id="radiobutton5">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="border_width">2</property>
+                                        <property name="label" translatable="yes">Always Bottom-to-Top</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="draw_indicator">True</property>
+                                        <property name="group">radiobutton1</property>
+                                        <signal handler="orientation" name="clicked"/>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">False</property>
+                                        <property name="position">4</property>
                                       </packing>
                                     </child>
                                   </object>

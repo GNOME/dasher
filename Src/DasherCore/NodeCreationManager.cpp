@@ -153,11 +153,6 @@ void CNodeCreationManager::HandleEvent(int iParameter) {
       m_iAlphNorm = iNorm-iControlSpace;
       break;
     }
-    case LP_ORIENTATION: {
-      const long iOverride(GetLongParameter(LP_ORIENTATION));
-      SetLongParameter(LP_REAL_ORIENTATION,
-                       iOverride == Dasher::Opts::AlphabetDefault ? GetAlphabet()->GetOrientation() : iOverride);
-    }
   }
 }
 

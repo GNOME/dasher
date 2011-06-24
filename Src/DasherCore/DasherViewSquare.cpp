@@ -56,8 +56,8 @@ static char THIS_FILE[] = __FILE__;
 
 // FIXME - duplicated 'mode' code throught - needs to be fixed (actually, mode related stuff, Input2Dasher etc should probably be at least partially in some other class)
 
-CDasherViewSquare::CDasherViewSquare(CSettingsUser *pCreateFrom, CDasherScreen *DasherScreen)
-: CDasherView(DasherScreen), CSettingsUserObserver(pCreateFrom), m_Y1(4), m_Y2(0.95 * GetLongParameter(LP_MAX_Y)), m_Y3(0.05 * GetLongParameter((LP_MAX_Y))), m_bVisibleRegionValid(false) {
+CDasherViewSquare::CDasherViewSquare(CSettingsUser *pCreateFrom, CDasherScreen *DasherScreen, Opts::ScreenOrientations orient)
+: CDasherView(DasherScreen,orient), CSettingsUserObserver(pCreateFrom), m_Y1(4), m_Y2(0.95 * GetLongParameter(LP_MAX_Y)), m_Y3(0.05 * GetLongParameter((LP_MAX_Y))), m_bVisibleRegionValid(false) {
 
   //Note, nonlinearity parameters set in SetScaleFactor
   ScreenResized(DasherScreen);
@@ -65,9 +65,15 @@ CDasherViewSquare::CDasherViewSquare(CSettingsUser *pCreateFrom, CDasherScreen *
 
 CDasherViewSquare::~CDasherViewSquare() {}
 
+void CDasherViewSquare::SetOrientation(Opts::ScreenOrientations newOrient) {
+  if (newOrient == GetOrientation()) return;
+  CDasherView::SetOrientation(newOrient);
+  m_bVisibleRegionValid=false;
+  SetScaleFactor();
+}
+
 void CDasherViewSquare::HandleEvent(int iParameter) {
   switch (iParameter) {
-    case LP_REAL_ORIENTATION:
     case LP_MARGIN_WIDTH:
     case BP_NONLINEAR_Y:
     case LP_NONLINEAR_X:
@@ -169,15 +175,13 @@ CDasherViewSquare::CTextString *CDasherViewSquare::DasherDrawText(myint iDasherM
 
 void CDasherViewSquare::DoDelayedText(CTextString *pText) {
 
-  Dasher::Opts::ScreenOrientations orient = Dasher::Opts::ScreenOrientations(GetLongParameter(LP_REAL_ORIENTATION));
-
   //note that it'd be better to compute old-style font sizes here, or even after shunting
   // across according to the aiMax array, but this needs Dasher co-ordinates, which were
   // more easily available at CTextString creation time. If it really doesn't look as good,
   // can put in extra calls to Screen2Dasher....
   screenint x(pText->m_ix), y(pText->m_iy);
   pair<screenint,screenint> textDims=Screen()->TextSize(pText->m_pLabel, pText->m_iSize);
-  switch (orient) {
+  switch (GetOrientation()) {
     case Dasher::Opts::LeftToRight: {
       screenint iRight = x + textDims.first;
       if (iRight < Screen()->GetWidth()) {
@@ -788,9 +792,7 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
   screenint iScreenWidth = Screen()->GetWidth();
   screenint iScreenHeight = Screen()->GetHeight();
 
-  int eOrientation(GetLongParameter(LP_REAL_ORIENTATION));
-
-  switch(eOrientation) {
+  switch(GetOrientation()) {
   case Dasher::Opts::LeftToRight:
     iDasherX = ( iScreenWidth - iInputX ) * m_iScalingFactor / iScaleFactorX;
     iDasherY = iDasherHeight / 2 + ( iInputY - iScreenHeight / 2 ) * m_iScalingFactor / iScaleFactorY;
@@ -824,8 +826,7 @@ void CDasherViewSquare::SetScaleFactor( void )
   // note previous value = 1/0.2, i.e. a value of LP_NONLINEAR_X =~= 4.8
   m_dXlogCoeff = exp(GetLongParameter(LP_NONLINEAR_X)/3.0);
 
-  const Dasher::Opts::ScreenOrientations eOrientation(Dasher::Opts::ScreenOrientations(GetLongParameter(LP_REAL_ORIENTATION)));
-  const bool bHoriz(eOrientation == Dasher::Opts::LeftToRight || eOrientation == Dasher::Opts::RightToLeft);
+  const bool bHoriz(GetOrientation() == Dasher::Opts::LeftToRight || GetOrientation() == Dasher::Opts::RightToLeft);
   const screenint iScreenWidth(Screen()->GetWidth()), iScreenHeight(Screen()->GetHeight());
   const double dPixelsX(bHoriz ? iScreenWidth : iScreenHeight), dPixelsY(bHoriz ? iScreenHeight : iScreenWidth);
 
@@ -957,13 +958,11 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
   screenint iScreenWidth = Screen()->GetWidth();
   screenint iScreenHeight = Screen()->GetHeight();
 
-  int eOrientation( GetLongParameter(LP_REAL_ORIENTATION) );
-
   // Note that integer division is rounded *away* from zero here to
   // ensure that this really is the inverse of the map the other way
   // around.
 
-  switch( eOrientation ) {
+  switch( GetOrientation() ) {
   case Dasher::Opts::LeftToRight:
     iScreenX = screenint(iScreenWidth -
 			 CustomIDiv((( iDasherX ) * iScaleFactorX), m_iScalingFactor));
@@ -1036,8 +1035,7 @@ void CDasherViewSquare::DasherLine2Screen(myint x1, myint y1, myint x2, myint y2
 
         //since we know both endpoints are in the same section of the screen wrt. Y nonlinearity,
         //the midpoint along the DasherY axis of both lines should be the same.
-        const Dasher::Opts::ScreenOrientations orient(Dasher::Opts::ScreenOrientations(GetLongParameter(LP_REAL_ORIENTATION)));
-        if (orient==Dasher::Opts::LeftToRight || orient==Dasher::Opts::RightToLeft) {
+        if (GetOrientation()==Dasher::Opts::LeftToRight || GetOrientation()==Dasher::Opts::RightToLeft) {
           DASHER_ASSERT(abs(pDasherMid.y - pScreenMid.y)<=1);//allow for rounding error
           if (abs(pDasherMid.x - pScreenMid.x)<=1) break; //call a straight line accurate enough
         } else {
@@ -1072,9 +1070,7 @@ void CDasherViewSquare::VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, m
 
   if(!m_bVisibleRegionValid) {
 
-    int eOrientation( GetLongParameter(LP_REAL_ORIENTATION) );
-
-    switch( eOrientation ) {
+    switch( GetOrientation() ) {
     case Dasher::Opts::LeftToRight:
       Screen2Dasher(Screen()->GetWidth(),0,m_iDasherMinX,m_iDasherMinY);
       Screen2Dasher(0,Screen()->GetHeight(),m_iDasherMaxX,m_iDasherMaxY);

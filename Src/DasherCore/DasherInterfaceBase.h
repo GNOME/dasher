@@ -494,6 +494,10 @@ protected:
   void ChangeColours();
   void ChangeView();
 
+  //Compute the screen orientation to use - i.e. combining the user's
+  // preference with the alphabet.
+  Opts::ScreenOrientations ComputeOrientation();
+
   void SetupActionButtons();
   void DestroyActionButtons();
   void PositionActionButtons();

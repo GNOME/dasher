@@ -40,7 +40,7 @@ public:
   /// passed as parameter to the drawing functions, and data structure
   /// can be extracted from the model and passed too.
 
-  CDasherViewSquare(CSettingsUser *pCreateFrom, CDasherScreen *DasherScreen);
+  CDasherViewSquare(CSettingsUser *pCreateFrom, CDasherScreen *DasherScreen, Opts::ScreenOrientations orient);
   ~CDasherViewSquare();
 
   ///
@@ -48,6 +48,9 @@ public:
   ///
 
   virtual void HandleEvent(int iParameter);
+
+  //Override to additionally reset scale factors etc.
+  void SetOrientation(Opts::ScreenOrientations newOrient);
 
   /// Resets scale factors etc. that depend on the screen size, to be recomputed when next needed.
   void ScreenResized(CDasherScreen * NewScreen);
