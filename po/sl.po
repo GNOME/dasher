@@ -9,14 +9,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-05-14 17:28+0000\n"
-"PO-Revision-Date: 2011-05-18 11:53+0100\n"
+"POT-Creation-Date: 2011-06-24 12:26+0000\n"
+"PO-Revision-Date: 2011-06-26 20:21+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
 "X-Poedit-Language: Slovenian\n"
 "X-Poedit-Country: SLOVENIA\n"
@@ -32,7 +32,7 @@ msgstr ""
 #: ../Data/GUI/dasher.traditional.ui.h:6
 #: ../Data/GUI/dashermaemo.ui.h:1
 #: ../Data/GUI/dashermaemofullscreen.ui.h:2
-#: ../Src/Gtk2/dasher_main.cpp:884
+#: ../Src/Gtk2/dasher_main.cpp:977
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -126,9 +126,9 @@ msgstr "Shrani datoteko kot"
 #: ../Data/GUI/dasher.gameWIP.ui.h:23
 #: ../Data/GUI/dashermaemo.ui.h:5
 #: ../Data/GUI/dashermaemofullscreen.ui.h:5
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1390
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1424
-#: ../Src/Gtk2/dasher_main.cpp:899
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1323
+#: ../Src/Gtk2/dasher_editor_internal.cpp:1357
+#: ../Src/Gtk2/dasher_main.cpp:992
 msgid "Select File"
 msgstr "Izbor datoteke"
 
@@ -171,7 +171,7 @@ msgstr "_Datoteka"
 
 #: ../Data/GUI/dasher.compose.ui.h:22
 #: ../Data/GUI/dasher.gameWIP.ui.h:29
-#: ../Data/GUI/dasher.traditional.ui.h:22
+#: ../Data/GUI/dasher.traditional.ui.h:23
 #: ../Data/GUI/dashermaemofullscreen.ui.h:14
 msgid "_Help"
 msgstr "Pomo_č"
@@ -222,7 +222,7 @@ msgstr "Možnosti"
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:19
 #: ../Data/GUI/dasher.traditional.ui.h:14
-#: ../Src/Gtk2/dasher_main.cpp:977
+#: ../Src/Gtk2/dasher_main.cpp:1070
 msgid "Quit"
 msgstr "Končaj"
 
@@ -241,7 +241,7 @@ msgid "_Contents…"
 msgstr "_Vsebina ..."
 
 #: ../Data/GUI/dasher.gameWIP.ui.h:30
-#: ../Data/GUI/dasher.traditional.ui.h:23
+#: ../Data/GUI/dasher.traditional.ui.h:24
 msgid "_Import Training Text…"
 msgstr "_Uvozi besedilo za urjenje ..."
 
@@ -536,6 +536,10 @@ msgstr "_Videz"
 msgid "_Language"
 msgstr "_Jezik"
 
+#: ../Data/GUI/dasher.traditional.ui.h:22
+msgid "_Game Mode"
+msgstr "_Igralni način "
+
 #. Abbreviation for Preferences
 #: ../Data/GUI/dashermaemo.ui.h:3
 msgid "P"
@@ -606,6 +610,19 @@ msgstr "_Možnosti"
 msgid "_Reset fonts"
 msgstr "_Počisti pisavo"
 
+#: ../Src/DasherCore/AbstractXMLParser.cpp:40
+#, c-format
+msgid "XML Error %s in file %s somewhere in block: %s"
+msgstr ""
+
+#. /TRANSLATORS: the string "GameTextFile" is the name of a setting in gsettings
+#. / (or equivalent), and should not be translated. The %s is the value of that
+#. / setting (this message displayed only if the user has provided a value)
+#: ../Src/DasherCore/AlphabetManager.cpp:162
+#, c-format
+msgid "Note: GameTextFile setting specifies game sentences file '%s' but this does not exist"
+msgstr ""
+
 #. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:28
 #: ../Src/DasherCore/ButtonMode.cpp:28
@@ -624,6 +641,16 @@ msgstr "Splošni tipkovni prijem"
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:34
 msgid "Alternating Direct Mode"
 msgstr "Izmenjujoči način"
+
+#: ../Src/DasherCore/AutoSpeedControl.cpp:213
+#, c-format
+msgid "Auto-increasing speed to %0.2f"
+msgstr ""
+
+#: ../Src/DasherCore/AutoSpeedControl.cpp:213
+#, c-format
+msgid "Auto-decreasing speed to %0.2f"
+msgstr ""
 
 #: ../Src/DasherCore/ButtonMode.cpp:29
 msgid "Scan time in menu mode (0 to not scan)"
@@ -665,7 +692,7 @@ msgstr "Izriši vodila območij na zaslonu za približevanje s klikom"
 msgid "Curve lines to follow the non-linearity of the view transform"
 msgstr "Krivulje, ki sledijo nelinearnosti pogleda pretvorbe"
 
-#: ../Src/DasherCore/ClickFilter.h:12
+#: ../Src/DasherCore/ClickFilter.h:23
 msgid "Click Mode"
 msgstr "Način s klikom"
 
@@ -679,24 +706,27 @@ msgstr "Desno približanje"
 msgid "Compass Mode"
 msgstr "Kompas način"
 
-#: ../Src/DasherCore/DasherGameMode.cpp:633
-msgid "Well done!"
-msgstr "Zelo dobro!"
+#. /TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
+#. / refers to a setting name in gsettings or equivalent, and should not be translated.
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:316
+#, c-format
+msgid "Could not find game sentences file for %s - check alphabet definition, or override with GameTextFile setting"
+msgstr ""
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:790
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:804
 msgid "Normal Control"
 msgstr "Običajni nadzor"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:806
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:820
 msgid "Menu Mode"
 msgstr "Menijski način"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:807
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:821
 msgid "Direct Mode"
 msgstr "Neposreden način"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:811
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:825
 msgid "Stylus Control"
 msgstr "Stylus nadzor"
 
@@ -719,6 +749,32 @@ msgstr "Geometrija zaslona (pretažno za visoke in ozke zaslone) - 0=običajni-s
 #: ../Src/DasherCore/DefaultFilter.cpp:18
 msgid "Shape type: 0=disjoint rects, 1=overlapping, 2=triangles, 3=trunc-tris, 4=quadrics, 5=circles"
 msgstr "Oblika: 0=razčlenjeni pravokotniki, 1=prekrivanje, 2=trikotniki, 3=trunc-tris, 4=kvadrati, 5=krogi"
+
+#. 1. Look for system training text...
+#: ../Src/DasherCore/NodeCreationManager.cpp:85
+msgid "Training on System Text"
+msgstr ""
+
+#. 2. Now add in any user-provided individual training text...
+#: ../Src/DasherCore/NodeCreationManager.cpp:87
+msgid "Training on User Text"
+msgstr ""
+
+#. /TRANSLATORS: These 3 messages will be displayed when the user has just chosen a new alphabet. The %s parameter will be the name of the alphabet.
+#: ../Src/DasherCore/NodeCreationManager.cpp:89
+#, c-format
+msgid "No user training text found - if you have written in \"%s\" before, this means Dasher may not be learning from previous sessions"
+msgstr ""
+
+#: ../Src/DasherCore/NodeCreationManager.cpp:90
+#, c-format
+msgid "No training text (user or system) found for \"%s\". Dasher will still work but entry will be slower. We suggest downloading a training text file from the Dasher website, or constructing your own."
+msgstr ""
+
+#: ../Src/DasherCore/NodeCreationManager.cpp:101
+#, c-format
+msgid "\"%s\" does not specify training file. Dasher will work but entry will be slower. Check you have the latest version of the alphabet definition."
+msgstr ""
 
 #. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
@@ -784,36 +840,36 @@ msgstr "Določilo za vrednost približanja"
 msgid "Lag before user actually pushes button (ms)"
 msgstr "Zamik preden uporabnik zares pritisne gumb (ms)"
 
-#. COneDimensionalFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel);
+#. COneDimensionalFilter(CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel);
 #: ../Src/DasherCore/OneDimensionalFilter.h:12
 msgid "One Dimensional Mode"
 msgstr "eno-dimenzijski način"
 
-#: ../Src/DasherCore/SettingsStore.cpp:76
-#: ../Src/Gtk2/DasherAppSettings.cpp:574
-#: ../Src/Gtk2/DasherAppSettings.cpp:608
-#: ../Src/Gtk2/DasherAppSettings.cpp:612
+#: ../Src/DasherCore/SettingsStore.cpp:82
+#: ../Src/Gtk2/DasherAppSettings.cpp:575
+#: ../Src/Gtk2/DasherAppSettings.cpp:609
+#: ../Src/Gtk2/DasherAppSettings.cpp:613
 msgid "true"
 msgstr "pravilno"
 
-#: ../Src/DasherCore/SettingsStore.cpp:78
-#: ../Src/Gtk2/DasherAppSettings.cpp:576
-#: ../Src/Gtk2/DasherAppSettings.cpp:608
-#: ../Src/Gtk2/DasherAppSettings.cpp:612
+#: ../Src/DasherCore/SettingsStore.cpp:84
+#: ../Src/Gtk2/DasherAppSettings.cpp:577
+#: ../Src/Gtk2/DasherAppSettings.cpp:609
+#: ../Src/Gtk2/DasherAppSettings.cpp:613
 msgid "false"
 msgstr "napačno"
 
 #. Note to translators: This message will be output for a command line
 #. with "--options foo=VAL" and foo is a boolean valued parameter, but
 #. "VAL" is not true or false.
-#: ../Src/DasherCore/SettingsStore.cpp:84
-#: ../Src/Gtk2/DasherAppSettings.cpp:579
+#: ../Src/DasherCore/SettingsStore.cpp:90
+#: ../Src/Gtk2/DasherAppSettings.cpp:580
 msgid "boolean value must be specified as 'true' or 'false'."
 msgstr "logična vrednost mora biti določena kot 'pravilno' ali 'napačno'. "
 
 #. Note to translators: This is output when command line "--options" doesn't
 #. specify a known option.
-#: ../Src/DasherCore/SettingsStore.cpp:104
+#: ../Src/DasherCore/SettingsStore.cpp:110
 msgid "unknown option, use \"--help-options\" for more information."
 msgstr "neznana možnost, uporabite \"--help-options\" za več podrobnosti."
 
@@ -857,6 +913,50 @@ msgstr "Izpis razhroščevanja delovanja vtiča v konzoli:"
 #: ../Src/DasherCore/SocketInputBase.cpp:38
 msgid "Socket Input"
 msgstr "Vnos vtiča"
+
+#. TODO This is not a very good error message even in English...???
+#: ../Src/DasherCore/SocketInputBase.cpp:108
+msgid "Error creating socket"
+msgstr "Napaka med ustvarjanjem vtiča"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:116
+msgid "Error binding to socket - already in use?"
+msgstr "Napaka vezave na vtič. Ali je vtič morda v uporabi?"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:169
+#, c-format
+msgid "Warning truncating socket input label '%s' to %i characters."
+msgstr ""
+
+#: ../Src/DasherCore/SocketInputBase.cpp:195
+msgid "Socket input: Error reading from socket"
+msgstr "Napaka vtiča: napaka branja preko vtiča"
+
+#: ../Src/DasherCore/SocketInputBase.cpp:297
+#, c-format
+msgid "Dasher Socket Input error: %s: %s"
+msgstr "Napaka vhoda vtiča dasher: %s: %s"
+
+#. no context switch commands will be executed!
+#: ../Src/DasherCore/Trainer.cpp:32
+#, c-format
+msgid "Warning: faulty alphabet definition, escape sequence %s must be a single unicode character. This may worsen Dasher's text prediction."
+msgstr ""
+
+#: ../Src/DasherCore/Trainer.cpp:122
+#, c-format
+msgid "Unable to open file \"%f\" for reading"
+msgstr "Ni mogoče odpreti datoteke \"%f\" za branje"
+
+#: ../Src/DasherCore/Trainer.cpp:173
+#, c-format
+msgid "Training file contains unknown source alphabet character %s"
+msgstr ""
+
+#: ../Src/DasherCore/Trainer.cpp:183
+#, c-format
+msgid "Training file contains unknown target alphabet character %s"
+msgstr ""
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
 msgid "Button offset"
@@ -915,27 +1015,37 @@ msgstr "Pokaži zagonski čas"
 msgid "Two-push Dynamic Mode (New One Button)"
 msgstr "Način dejavnega dvojnega pritiska (nov gumb)"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:605
+#: ../Src/DasherCore/Alphabet/AlphabetMap.cpp:116
+#, c-format
+msgid "File ends with incomplete UTF-8 character beginning 0x%x (expecting %i bytes but only %i)"
+msgstr "Datoteka se konča z nepopolnim znakom UTF-8 0x%x (pričakovano je %i, zaznanih pa le %i)"
+
+#: ../Src/DasherCore/Alphabet/AlphabetMap.cpp:127
+#, c-format
+msgid "Read invalid UTF-8 character 0x%x"
+msgstr "Prebran je neveljaven znak UTF-8 0x%x"
+
+#: ../Src/Gtk2/DasherAppSettings.cpp:606
 msgid "Boolean parameters"
 msgstr "Logični Boolean parametri"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:605
-#: ../Src/Gtk2/DasherAppSettings.cpp:616
-#: ../Src/Gtk2/DasherAppSettings.cpp:627
+#: ../Src/Gtk2/DasherAppSettings.cpp:606
+#: ../Src/Gtk2/DasherAppSettings.cpp:617
+#: ../Src/Gtk2/DasherAppSettings.cpp:628
 msgid "Default"
 msgstr "Privzeto"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:605
-#: ../Src/Gtk2/DasherAppSettings.cpp:616
-#: ../Src/Gtk2/DasherAppSettings.cpp:627
+#: ../Src/Gtk2/DasherAppSettings.cpp:606
+#: ../Src/Gtk2/DasherAppSettings.cpp:617
+#: ../Src/Gtk2/DasherAppSettings.cpp:628
 msgid "Description"
 msgstr "Opis"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:616
+#: ../Src/Gtk2/DasherAppSettings.cpp:617
 msgid "Integer parameters"
 msgstr "Celoštevilčni parametri"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:627
+#: ../Src/Gtk2/DasherAppSettings.cpp:628
 msgid "String parameters"
 msgstr "Parametri niti"
 
@@ -956,16 +1066,36 @@ msgid "Unable to initialize voices\n"
 msgstr "Ni mogoče zagnati glasov\n"
 
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
-#: ../Src/Gtk2/dasher_main.cpp:264
+#: ../Src/Gtk2/dasher_main.cpp:258
 msgid "option setting is missing \"=\"."
 msgstr "manjka določilo možnosti \"=\"."
 
 #. Note to translators: This string will be output when --options= specifies an unknown option.
-#: ../Src/Gtk2/dasher_main.cpp:280
+#: ../Src/Gtk2/dasher_main.cpp:274
 msgid "Invalid option string specified"
 msgstr "Določena neveljavna možnost niti"
 
-#: ../Src/Gtk2/dasher_main.cpp:939
+#: ../Src/Gtk2/dasher_main.cpp:653
+msgid "Welcome to Dasher Game Mode! Game Mode is a fun way to practice entering text in Dasher. Please select a training text to play with:"
+msgstr ""
+
+#: ../Src/Gtk2/dasher_main.cpp:655
+msgid "Use Default"
+msgstr "Uporabi privzeto"
+
+#: ../Src/Gtk2/dasher_main.cpp:656
+msgid "Choose File..."
+msgstr "Izbor datoteke ..."
+
+#: ../Src/Gtk2/dasher_main.cpp:657
+msgid "Cancel"
+msgstr "Prekliči"
+
+#: ../Src/Gtk2/dasher_main.cpp:680
+msgid "Are you sure you wish to turn off game mode? All unsaved changes will be lost."
+msgstr "Ali ste prepričani, da želite končati igralni način? Vse neshranjene spremembe bodo izgubljene."
+
+#: ../Src/Gtk2/dasher_main.cpp:1032
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -976,7 +1106,7 @@ msgstr ""
 "\n"
 "Spremembe bodo izgubljene, če jih ne shranite."
 
-#: ../Src/Gtk2/dasher_main.cpp:946
+#: ../Src/Gtk2/dasher_main.cpp:1039
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -986,32 +1116,32 @@ msgstr ""
 "\n"
 "Spremembe bodo izgubljene, če jih ne shranite."
 
-#: ../Src/Gtk2/dasher_main.cpp:952
+#: ../Src/Gtk2/dasher_main.cpp:1045
 msgid "Don't save"
 msgstr "Ne shrani"
 
-#: ../Src/Gtk2/dasher_main.cpp:953
-#: ../Src/Gtk2/dasher_main.cpp:976
+#: ../Src/Gtk2/dasher_main.cpp:1046
+#: ../Src/Gtk2/dasher_main.cpp:1069
 msgid "Don't quit"
 msgstr "Ne končaj"
 
-#: ../Src/Gtk2/dasher_main.cpp:954
+#: ../Src/Gtk2/dasher_main.cpp:1047
 msgid "Save and quit"
 msgstr "Shrani in končaj"
 
-#: ../Src/Gtk2/dasher_main.cpp:973
+#: ../Src/Gtk2/dasher_main.cpp:1066
 msgid "Are you sure you wish to quit?"
 msgstr "Ali ste prepričani, da želite končati?"
 
-#: ../Src/Gtk2/dasher_main.cpp:1020
+#: ../Src/Gtk2/dasher_main.cpp:1113
 msgid "Unable to open help file"
 msgstr "Ni mogoče odpreti datoteke pomoči"
 
-#: ../Src/Gtk2/dasher_main.cpp:1072
+#: ../Src/Gtk2/dasher_main.cpp:1165
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher je program za vnosa besedila brez tipkovnice"
 
-#: ../Src/Gtk2/dasher_main.cpp:1077
+#: ../Src/Gtk2/dasher_main.cpp:1170
 msgid "translator-credits"
 msgstr ""
 "Matic Žgur <mr.zgur@gmail.com>\n"
@@ -1026,16 +1156,16 @@ msgstr "Možnosti Dasher enot"
 msgid "%s Options:"
 msgstr "%s Nastavitve:"
 
-#: ../Src/Gtk2/mouse_input.h:15
+#: ../Src/Gtk2/mouse_input.h:14
 msgid "Mouse Input"
 msgstr "Vnos z miško"
 
-#: ../Src/Gtk2/mouse_input.h:45
+#: ../Src/Gtk2/mouse_input.h:44
 msgid "Pixels covering Y range"
 msgstr "Točke, ki pokrivajo Y območje"
 
 #. TRANSLATORS: Only use the vertical mouse coordinate - this is prefered for some disabled users.
-#: ../Src/Gtk2/mouse_input.h:52
+#: ../Src/Gtk2/mouse_input.h:51
 msgid "One Dimensional Mouse Input"
 msgstr "Eno-dimenzijski vnos z miško"
 
@@ -1062,6 +1192,9 @@ msgstr "Opis \"--možnosti\"."
 #: ../Src/main.cc:182
 msgid "- A text input application honouring accessibility"
 msgstr "- program za vnos besedila z uporabo dostopnih tehnologij"
+
+#~ msgid "Well done!"
+#~ msgstr "Zelo dobro!"
 
 #~ msgid "Dock application window"
 #~ msgstr "Zasidraj okno programa"
