@@ -70,8 +70,7 @@
 static SModuleSettings _miscSettings[] = { //note iStep and string description are ignored
   {LP_NODE_BUDGET, T_LONG, 400, 10000, 1, 0, ""}, //hopefully appropriate for an iPhone 3GS?
   {LP_MARGIN_WIDTH, T_LONG, 100, 900, 1, 0, ""},
-  {LP_DASHER_FONTSIZE, T_LONG, 1, 3, 1, 1, ""},
-  {LP_SHAPE_TYPE, T_LONG, 0, 5, 1, -1, ""},
+  {LP_DASHER_FONTSIZE, T_LONG, 5, 40, 1, 1, ""},
   {LP_OUTLINE_WIDTH, T_LONG, -5, 5, 1, -1, ""},
   {BP_AUTO_SPEEDCONTROL, T_BOOL, -1, -1, -1, -1, ""},
   {LP_NONLINEAR_X, T_LONG, 0, 10, 1, -1, ""},
@@ -154,7 +153,10 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   //make object (this doesn't do anything much, initialization/Realize later
   // - but we have to set a screen before we Realize)
   _dasherInterface = new CDasherInterfaceBridge(self);
-  
+  //temporary hack: in earlier releases, font sizes were on scale 1-3.
+  //adjust to new scale...
+  if (_dasherInterface->GetLongParameter(LP_DASHER_FONTSIZE)<5)
+    _dasherInterface->SetLongParameter(LP_DASHER_FONTSIZE, 10*max(_dasherInterface->GetLongParameter(LP_DASHER_FONTSIZE),1l));
   //create GUI components...
 	textView = [[[TextView alloc] init] autorelease];
   webView = [[[UIWebView alloc] init] autorelease];
