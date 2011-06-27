@@ -14,7 +14,7 @@
 
 using namespace Dasher;
 
-CUserLogBase::CUserLogBase(CSettingsUser *pCreateFrom, Observable<const CEditEvent *> *pHandler) : CSettingsUser(pCreateFrom), TransientObserver<const CEditEvent *>(pHandler), m_iNumDeleted(0) {
+CUserLogBase::CUserLogBase(CSettingsUser *pCreateFrom, Observable<const CEditEvent *> *pHandler) : CSettingsUserObserver(pCreateFrom), TransientObserver<const CEditEvent *>(pHandler), m_iNumDeleted(0) {
 };
 
 void CUserLogBase::HandleEvent(const CEditEvent *evt) {
@@ -24,6 +24,17 @@ void CUserLogBase::HandleEvent(const CEditEvent *evt) {
   } else if (evt->m_iEditType == 2) {
     //delete
     m_iNumDeleted++;
+  }
+}
+
+void CUserLogBase::HandleEvent(int iParameter) {
+  if (iParameter==BP_DASHER_PAUSED) {
+    if (!GetBoolParameter(BP_DASHER_PAUSED)) {
+      //Just unpaused
+      StartWriting(); //note this happens for _each_ click/zoom
+      // in Click Mode, Direct Mode, Menu Mode etc.
+      // (but StartWriting generally ignores extra calls after the first)
+    }
   }
 }
 

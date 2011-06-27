@@ -23,8 +23,8 @@
 
 using namespace Dasher;
 
-CButtonMultiPress::CButtonMultiPress(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
-  : CDynamicFilter(pCreator, pInterface, iID, szName) {
+CButtonMultiPress::CButtonMultiPress(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName)
+  : CDynamicButtons(pCreator, pInterface, pFramerate, iID, szName) {
 }
 
 void CButtonMultiPress::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
@@ -57,23 +57,23 @@ void CButtonMultiPress::KeyDown(int iTime, int iId, CDasherView *pView, CDasherI
   // Record press...
   m_deQueueTimes.push_back(iTime);
   // ... and process normally; if it changes the state, pause()/reverse()'ll clear the queue
-  CDynamicFilter::KeyDown(iTime, iId, pView, pInput, pModel, pUserLog);
+  CDynamicButtons::KeyDown(iTime, iId, pView, pInput, pModel, pUserLog);
 }
 
 void CButtonMultiPress::pause()
 {
-  CDynamicFilter::pause();
+  CDynamicButtons::pause();
   m_deQueueTimes.clear();
 }
 
 void CButtonMultiPress::reverse()
 {
-  CDynamicFilter::reverse();
+  CDynamicButtons::reverse();
   m_deQueueTimes.clear();
 }
 
 void CButtonMultiPress::run()
 {
   if (!isRunning()) m_deQueueTimes.clear();
-  CDynamicFilter::run();
+  CDynamicButtons::run();
 }

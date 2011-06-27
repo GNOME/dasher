@@ -86,7 +86,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CDasherInterfaceBase::CDasherInterfaceBase(CSettingsStore *pSettingsStore) : CSettingsUser(pSettingsStore), m_pSettingsStore(pSettingsStore), m_pLockLabel(NULL) {
+CDasherInterfaceBase::CDasherInterfaceBase(CSettingsStore *pSettingsStore) : CSettingsUser(pSettingsStore), m_pSettingsStore(pSettingsStore), m_pFramerate(new CFrameRate(this)), m_pLockLabel(NULL) {
   
   pSettingsStore->Register(this, true);
   
@@ -127,8 +127,8 @@ void CDasherInterfaceBase::Realize(unsigned long ulTime) {
   srand(ulTime);
   
   //create the model... (no nodes just yet)
-  m_pDasherModel = new CDasherModel(this, this);
-
+  m_pDasherModel = new CDasherModel(this);
+  
   SetupUI();
   SetupPaths();
 
@@ -207,6 +207,7 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
   }
 #endif
 
+  delete m_pFramerate;
 
   for (std::vector<CActionButton *>::iterator it=m_vLeftButtons.begin(); it != m_vLeftButtons.end(); ++it)
     delete *it;
@@ -331,7 +332,6 @@ void CDasherInterfaceBase::HandleEvent(int iParameter) {
     // This may move the canvas around a bit, but at least manages to keep/reuse the
     // existing AlphabetManager, NCManager, etc. objects...
     SetOffset(m_pDasherModel->GetOffset(), true);
-    ScheduleRedraw();
     break;      
   default:
     break;
@@ -418,6 +418,7 @@ void CDasherInterfaceBase::CreateNCManager() {
     // this will be a sensible default of 0 if no nodes previously existed).
     // This deletes the old tree of nodes...
     m_pDasherModel->SetOffset(m_pDasherModel->GetOffset(), m_pNCManager->GetAlphabetManager(), m_pDasherView, true);
+    ScheduleRedraw();
   } //else, if there is no screen, the model should not contain any nodes from the old NCManager. (Assert, somehow?)
 
   //...so now we can delete the old manager
@@ -475,20 +476,6 @@ void CDasherInterfaceBase::Stop() {
   if (GetBoolParameter(BP_SPEAK_ALL_ON_STOP) && SupportsSpeech()) {
     Speak(GetAllContext(), true);
   }
-}
-
-void CDasherInterfaceBase::Unpause(unsigned long Time) {
-  if (!GetBoolParameter(BP_DASHER_PAUSED)) return; //already running, no need to do anything
-  
-  SetBoolParameter(BP_DASHER_PAUSED, false);
-
-  if(m_pDasherModel != 0)
-    m_pDasherModel->Reset_framerate(Time);
-
-#ifndef _WIN32_WCE
-  if (m_pUserLog != NULL)
-    m_pUserLog->StartWriting();
-#endif
 }
 
 void CDasherInterfaceBase::CreateInput() {
@@ -569,11 +556,6 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
         // (previously DashIntf gathered the info, and then passed it to the logger here).
         m_pUserLog->FrameEnded();
       }
-
-      // This just passes the time through to the framerate tracker, so we
-      // know how often new frames are being drawn.
-      if(m_pDasherModel != 0)
-        m_pDasherModel->RecordFrame(iTime);
     }
     if (FinishRender(iTime)) bBlit = true;
     if (bBlit) m_DasherScreen->Display();
@@ -661,6 +643,7 @@ void CDasherInterfaceBase::ChangeScreen(CDasherScreen *NewScreen) {
     m_pNCManager->ChangeScreen(m_DasherScreen);
     if (m_pDasherModel)
       m_pDasherModel->SetOffset(m_pDasherModel->GetOffset(), m_pNCManager->GetAlphabetManager(), m_pDasherView, true);
+      //Redraw already scheduled by ChangeView / ScreenResized
   }
 }
 
@@ -685,8 +668,8 @@ void CDasherInterfaceBase::ChangeView() {
     delete m_pDasherView;
 
     m_pDasherView = pNewView;
-
   }
+  ScheduleRedraw();
 }
 
 double CDasherInterfaceBase::GetCurCPM() {
@@ -801,10 +784,10 @@ void CDasherInterfaceBase::SetDefaultInputMethod(CInputFilter *pModule) {
 }
 
 void CDasherInterfaceBase::CreateModules() {
-  CInputFilter *defFil = new CDefaultFilter(this, this, 3, _("Normal Control"));
+  CInputFilter *defFil = new CDefaultFilter(this, this, m_pFramerate, 3, _("Normal Control"));
   RegisterModule(defFil);
   SetDefaultInputMethod(defFil);
-  RegisterModule(new COneDimensionalFilter(this, this));
+  RegisterModule(new COneDimensionalFilter(this, this, m_pFramerate));
 #ifndef _WIN32_WCE
   RegisterModule(new CClickFilter(this, this));
 #else
@@ -813,16 +796,16 @@ void CDasherInterfaceBase::CreateModules() {
   );
 #endif
   RegisterModule(new COneButtonFilter(this, this));
-  RegisterModule(new COneButtonDynamicFilter(this, this));
-  RegisterModule(new CTwoButtonDynamicFilter(this, this));
-  RegisterModule(new CTwoPushDynamicFilter(this, this));
+  RegisterModule(new COneButtonDynamicFilter(this, this, m_pFramerate));
+  RegisterModule(new CTwoButtonDynamicFilter(this, this, m_pFramerate));
+  RegisterModule(new CTwoPushDynamicFilter(this, this, m_pFramerate));
   // TODO: specialist factory for button mode
   RegisterModule(new CButtonMode(this, this, true, 8, _("Menu Mode")));
   RegisterModule(new CButtonMode(this, this, false,10, _("Direct Mode")));
   //  RegisterModule(new CDasherButtons(this, this, 4, 0, false,11, "Buttons 3"));
   RegisterModule(new CAlternatingDirectMode(this, this));
   RegisterModule(new CCompassMode(this, this));
-  RegisterModule(new CStylusFilter(this, this, 15, _("Stylus Control")));
+  RegisterModule(new CStylusFilter(this, this, m_pFramerate));
 }
 
 void CDasherInterfaceBase::GetPermittedValues(int iParameter, std::vector<std::string> &vList) {
@@ -948,6 +931,8 @@ void CDasherInterfaceBase::SetOffset(int iOffset, bool bForce) {
   for (set<TextAction *>::iterator it = m_vTextActions.begin(); it!=m_vTextActions.end(); it++) {
     (*it)->NotifyOffset(iOffset);
   }
+  
+  ScheduleRedraw();
 }
 
 // Returns 0 on success, an error string on failure.

@@ -16,7 +16,7 @@ namespace Dasher {
 
 /// \defgroup Logging Logging routines
 /// @{
-class CUserLogBase : protected Dasher::CSettingsUser, protected TransientObserver<const Dasher::CEditEvent *> {
+class CUserLogBase : protected Dasher::CSettingsUserObserver, protected TransientObserver<const Dasher::CEditEvent *> {
  public:
   CUserLogBase(Dasher::CSettingsUser *pCreateFrom, Observable<const Dasher::CEditEvent*> *pHandler);
 
@@ -36,6 +36,8 @@ class CUserLogBase : protected Dasher::CSettingsUser, protected TransientObserve
   virtual void SetOuputFilename(const std::string& strFilename = "") = 0;
   virtual int GetLogLevelMask() = 0;
   virtual void KeyDown(int iId, int iType, int iEffect) = 0;
+  ///Watch for BP_DASHER_PAUSED being cleared, call StartWriting().
+  virtual void HandleEvent(int iParameter);
   ///Watches output events to record symbols added/deleted
   virtual void HandleEvent(const Dasher::CEditEvent *pEvent);
   ///Passes record of symbols added/deleted to AddSymbols/DeleteSymbols

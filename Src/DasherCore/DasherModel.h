@@ -33,13 +33,12 @@
 #include "../Common/NoClones.h"
 #include "DasherNode.h"
 #include "DasherTypes.h"
-#include "FrameRate.h"
-#include "NodeCreationManager.h"
 #include "ExpansionPolicy.h"
+#include "SettingsStore.h"
+#include "AlphabetManager.h"
 
 namespace Dasher {
   class CDasherModel;
-  class CDasherInterfaceBase;
   class CDasherView;
 
   struct SLockData;
@@ -50,23 +49,27 @@ namespace Dasher {
 
 /// \brief Dasher 'world' data structures and dynamics.
 ///
-/// The DasherModel represents the current state of Dasher
-/// It contains a tree of DasherNodes
-///             knows the current viewpoint
-///             knows how to evolve the viewpoint
+/// The DasherModel implements arithmetic coding for Dasher.
+/// It contains a tree of DasherNodes and the current viewpoint, 
+/// and evolves the tree by expanding leaves (somewhat in response to DasherView) and
+/// (eventually) deleting ancestors/parents. It has two methods for moving around the tree:
+/// OneStepTowards implements steady motion towards a given point, one frame at a time;
+/// ScheduleZoom sets up movement to arrive at a particular point in a number of frames.
+/// Clients are responsible for monitoring framerate (if required) and using such
+/// information to decide how far to tell the DasherModel to move.
 ///
-/// It does not care what the nodes in the tree are or mean, tho the model does handle
+/// DasherModel does not care what the nodes in the tree are or mean, tho it does handle
 /// calling CDasherNode::Output() / Undo() on nodes falling under/leaving the crosshair
 /// (However, determining which nodes are under the crosshair, is done by the CDasherView).
 ///
 /// The class is Observable in that it broadcasts a pointer to a CDasherNode when the node's
 /// children are created.
-class Dasher::CDasherModel:public Dasher::CFrameRate, public Observable<CDasherNode*>, private NoClones
+class Dasher::CDasherModel: private CSettingsUserObserver, public Observable<CDasherNode*>, private NoClones
 {
  public:
   /// Constructs a new CDasherModel. Note, must be followed by a call to
   /// SetOffset() before the model can be used.
-  CDasherModel(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pDashIface);
+  CDasherModel(CSettingsUser *pCreateFrom);
   ~CDasherModel();
 
   ///
@@ -82,13 +85,7 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, public Observable<CDasherN
   ///
   /// Update the root location with *one step* towards the specified
   /// co-ordinates - used by timer callbacks (for non-button modes)
-  void OneStepTowards(myint, myint, unsigned long iTime);
-
-  ///
-  /// Notify the framerate class that a new frame has occurred
-  /// Called from CDasherInterfaceBase::NewFrame
-  ///
-  void RecordFrame(unsigned long Time);
+  void OneStepTowards(myint, myint, int iSteps, dasherint iMinSize);
 
   ///
   /// Apply an offset to the 'target' coordinates - implements the jumps in
@@ -156,7 +153,7 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, public Observable<CDasherN
   /// still-in-progress zoom scheduled by ScheduleZoom (does nothing
   /// if no steps remaining / no zoom scheduled).
   ///
-  bool NextScheduledStep(unsigned long iTime);
+  bool NextScheduledStep();
 
   /// @}
 
@@ -194,7 +191,7 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, public Observable<CDasherN
 
   /// Common portion of OneStepTowards / NextScheduledStep, taking
   /// bounds for the root node in the next frame.
-  void UpdateBounds(myint iNewMin, myint iNewMax, unsigned long iTime);
+  void UpdateBounds(myint iNewMin, myint iNewMax);
 
   /// Struct representing intermediate stages in the goto queue
   ///
@@ -202,9 +199,6 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, public Observable<CDasherN
     myint iN1;
     myint iN2;
   };
-
-  // Pointers to various auxilliary objects
-  CDasherInterfaceBase *m_pDasherInterface;
 
   // The root of the Dasher tree
   CDasherNode *m_Root;
@@ -247,31 +241,10 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, public Observable<CDasherN
   // require conversion.
   // TODO: Need to rethink this at some point.
   bool m_bRequireConversion;
-  
-  /**
-   * The string a user must type if game mode is active.
-   */
-  std::string m_strGameTarget;
-
-  // Model status...
-
-
-  // Time at which the model was started (ie last unpaused, used for gradual speed up)
-  // TODO: Implementation is very hacky at the moment
-  // TODO: Duplicates functionality previously implemented elsewhere...
-  //   ...ACL 22/5/09 does it? There was an even hackier implementation, of resetting the
-  //   framerate, used for control mode (ControlManager.cpp), but that's all I could find
-  //   - and that seemed even worse, so I've removed it in favour of this here....?
-  unsigned long m_iStartTime;
-
-  // Debug/performance information...
 
   // Information entered so far in this model
   double m_dTotalNats;
 
-  ///
-  /// CDasherModel::Get_new_root_coords( myint Mousex,myint Mousey )
-  ///
   /// Calculate the new co-ordinates for the root node after a single
   /// update step. For further information, see Doc/geometry.tex.
   ///
@@ -279,9 +252,10 @@ class Dasher::CDasherModel:public Dasher::CFrameRate, public Observable<CDasherN
   /// \param mousey y mouse co-ordinate measured top to bottom.
   /// \param iNewMin New root min
   /// \param iNewMax New root max
-  /// \param iTime Current timestamp
-  ///
-  void Get_new_root_coords(myint mousex, myint mousey, myint &iNewMin, myint &iNewMax, unsigned long iTime);
+  /// \param iSteps Number of frames which should get us all the way to (mousex,mousey)
+  /// \param iMinSize limit on rate of expansion due to bitrate (as we use a poor
+  /// approximation to the true interpolation!)
+  void Get_new_root_coords(myint mousex, myint mousey, myint &iNewMin, myint &iNewMax, int iSteps, dasherint iMinSize);
 
   ///
   /// Make a child of the root into a new root

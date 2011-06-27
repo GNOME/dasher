@@ -41,11 +41,8 @@
 @property (readonly,retain) NSString *filename;
 @property BOOL modified;
 
-- (void)start;
 - (void)redraw;
 - (void)changeScreen:(CDasherScreen *)aScreen;
-- (void)pause;
-- (void)unpause:(unsigned long int)time;
 - (NSDictionary *)parameterDictionary;
 - (NSArray *)permittedValuesForParameter:(int)aParameter;
 - (id)getParameterValueForKey:(NSString *)aKey;

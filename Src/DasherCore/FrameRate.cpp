@@ -8,7 +8,7 @@ CFrameRate::CFrameRate(CSettingsUser *pCreator) :
   //Sampling parameters...
   m_iFrames = 0;
   m_iSamples = 1;
-  m_iTime = 0;                  // Hmmm, User must reset framerate before starting.
+  m_iTime = 0;
 
   //try and carry on from where we left off at last run
   HandleEvent(LP_FRAMERATE);

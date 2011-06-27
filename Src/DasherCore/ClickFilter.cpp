@@ -80,7 +80,7 @@ void CZoomAdjuster::AdjustZoomCoords(myint &iDasherX, myint &iDasherY, CDasherVi
 }
 
 bool CClickFilter::Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CExpansionPolicy **pol) {
-  return pModel->NextScheduledStep(Time);
+  return pModel->NextScheduledStep();
 }
 
 void CClickFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {

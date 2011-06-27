@@ -350,6 +350,8 @@
 		33C88E201201D0A900727492 /* GameModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33C88E1C1201D0A900727492 /* GameModule.cpp */; };
 		33C88E211201D0A900727492 /* GameModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 33C88E1D1201D0A900727492 /* GameModule.h */; };
 		33CB6E80125E2C7A002DB8AD /* WordGeneratorBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33CB6E7F125E2C7A002DB8AD /* WordGeneratorBase.cpp */; };
+		33DDB9E013B8AF360001C52D /* DynamicButtons.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33DDB9DE13B8AF360001C52D /* DynamicButtons.cpp */; };
+		33DDB9E113B8AF360001C52D /* DynamicButtons.h in Headers */ = {isa = PBXBuildFile; fileRef = 33DDB9DF13B8AF360001C52D /* DynamicButtons.h */; };
 		33E173C70F3E0B6400D19B38 /* Makefile.am in Resources */ = {isa = PBXBuildFile; fileRef = 33E173A70F3E0B6400D19B38 /* Makefile.am */; };
 		33E173C80F3E0B6400D19B38 /* training_albanian_SQ.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173A80F3E0B6400D19B38 /* training_albanian_SQ.txt */; };
 		33E173CB0F3E0B6400D19B38 /* training_bengali_BD.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33E173AB0F3E0B6400D19B38 /* training_bengali_BD.txt */; };
@@ -756,6 +758,8 @@
 		33C88E1C1201D0A900727492 /* GameModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameModule.cpp; sourceTree = "<group>"; };
 		33C88E1D1201D0A900727492 /* GameModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameModule.h; sourceTree = "<group>"; };
 		33CB6E7F125E2C7A002DB8AD /* WordGeneratorBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WordGeneratorBase.cpp; sourceTree = "<group>"; };
+		33DDB9DE13B8AF360001C52D /* DynamicButtons.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DynamicButtons.cpp; sourceTree = "<group>"; };
+		33DDB9DF13B8AF360001C52D /* DynamicButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicButtons.h; sourceTree = "<group>"; };
 		33E173A70F3E0B6400D19B38 /* Makefile.am */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
 		33E173A80F3E0B6400D19B38 /* training_albanian_SQ.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_albanian_SQ.txt; sourceTree = "<group>"; };
 		33E173AB0F3E0B6400D19B38 /* training_bengali_BD.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_bengali_BD.txt; sourceTree = "<group>"; };
@@ -961,6 +965,8 @@
 				1948BE3A0C226CFD001DFA32 /* DasherViewSquare.inl */,
 				1948BE3B0C226CFD001DFA32 /* DefaultFilter.cpp */,
 				1948BE3C0C226CFD001DFA32 /* DefaultFilter.h */,
+				33DDB9DE13B8AF360001C52D /* DynamicButtons.cpp */,
+				33DDB9DF13B8AF360001C52D /* DynamicButtons.h */,
 				3300115010A2EA7700D31B1D /* ExpansionPolicy.cpp */,
 				3300115110A2EA7700D31B1D /* ExpansionPolicy.h */,
 				1948BE3E0C226CFD001DFA32 /* DynamicFilter.cpp */,
@@ -1467,6 +1473,7 @@
 				33E756A41202D6180012A0E9 /* WordGeneratorBase.h in Headers */,
 				33FC1D2C13ACE7E7007642CD /* ScreenGameModule.h in Headers */,
 				33C3BDD213854CC000C768E0 /* DasherTextView.h in Headers */,
+				33DDB9E113B8AF360001C52D /* DynamicButtons.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1821,6 +1828,7 @@
 				33CB6E80125E2C7A002DB8AD /* WordGeneratorBase.cpp in Sources */,
 				33FC1D2B13ACE7E7007642CD /* ScreenGameModule.cpp in Sources */,
 				33C3BDD313854CC000C768E0 /* DasherTextView.mm in Sources */,
+				33DDB9E013B8AF360001C52D /* DynamicButtons.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

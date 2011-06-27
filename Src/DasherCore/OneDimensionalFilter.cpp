@@ -8,8 +8,8 @@ using namespace Dasher;
   : COneDimensionalFilter(pSettingsStore, pInterface, m_pDasherModel, 4, _("One Dimensional Mode")) {
 }*/
 
-COneDimensionalFilter::COneDimensionalFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
-  : CDefaultFilter(pCreator, pInterface, iID, szName), forwardmax(GetLongParameter(LP_MAX_Y)/2.5) {
+COneDimensionalFilter::COneDimensionalFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName)
+  : CDefaultFilter(pCreator, pInterface, pFramerate, iID, szName), forwardmax(GetLongParameter(LP_MAX_Y)/2.5) {
 }
 
 void COneDimensionalFilter::ApplyTransform(myint &iDasherX, myint &iDasherY, CDasherView *pView) {
@@ -78,7 +78,7 @@ CStartHandler *COneDimensionalFilter::MakeStartHandler() {
   if (GetBoolParameter(BP_CIRCLE_START)) {
     class C1DCircleStartHandler : public CCircleStartHandler {
     public:
-      C1DCircleStartHandler(COneDimensionalFilter *f) : CCircleStartHandler(f, f->m_pInterface), filter(f) {
+      C1DCircleStartHandler(COneDimensionalFilter *f) : CCircleStartHandler(f) {
       }
       void ComputeScreenLoc(CDasherView *pView) {
         if (m_iScreenRadius!=-1) return;
@@ -87,7 +87,7 @@ CStartHandler *COneDimensionalFilter::MakeStartHandler() {
           //put start circle at center of 1D transform, rather than center of screen
           // (leave m_iScreenRadius, in pixels, as computed by above)
           const myint rad(GetLongParameter(LP_CIRCLE_PERCENT) * GetLongParameter(LP_OY) / 100); //~~rad/2 in dasher-coords
-          pView->Dasher2Screen(GetLongParameter(LP_OX)-filter->forwardmax+rad, GetLongParameter(LP_OY),m_screenCircleCenter.x, m_screenCircleCenter.y);
+          pView->Dasher2Screen(GetLongParameter(LP_OX)-static_cast<COneDimensionalFilter*>(m_pFilter)->forwardmax+rad, GetLongParameter(LP_OY),m_screenCircleCenter.x, m_screenCircleCenter.y);
         } 
       }
       void HandleEvent(int iParameter) {
@@ -98,8 +98,6 @@ CStartHandler *COneDimensionalFilter::MakeStartHandler() {
         }
         CCircleStartHandler::HandleEvent(iParameter);
       }
-    private:
-      const COneDimensionalFilter *filter;
     };
     return new C1DCircleStartHandler(this);
   }

@@ -55,24 +55,12 @@ static NSString *FilenameToUntitledName = @"NilToUntitled";
   return [[NSValueTransformer valueTransformerForName:FilenameToUntitledName] transformedValue:self.filename];
 }
 
-- (void)start {
-//  aquaDasherControl->Start();
-}
-
 - (void)redraw {
   aquaDasherControl->ScheduleRedraw();
 }
 
 - (void)changeScreen:(CDasherScreen *)aScreen {
   aquaDasherControl->ChangeScreen( aScreen );
-}
-
-- (void)pause {
-  aquaDasherControl->Stop();
-}
-
-- (void)unpause:(unsigned long int)time {
-  aquaDasherControl->Unpause( time );
 }
 
 - (NSDictionary *)parameterDictionary {

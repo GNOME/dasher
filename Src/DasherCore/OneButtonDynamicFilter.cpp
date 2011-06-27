@@ -40,8 +40,8 @@ static SModuleSettings sSettings[] = {
   {LP_DYNAMIC_SPEED_DEC, T_LONG, 1, 99, 1, 1, _("Percentage by which to decrease speed upon reverse")}
 };
 
-COneButtonDynamicFilter::COneButtonDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface)
-  : CButtonMultiPress(pCreator, pInterface, 6, _("One Button Dynamic Mode")) {
+COneButtonDynamicFilter::COneButtonDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate)
+  : CButtonMultiPress(pCreator, pInterface, pFramerate, 6, _("One Button Dynamic Mode")) {
   m_iTarget = 0;
 
   m_iTargetX = new int[2];
@@ -116,7 +116,7 @@ void COneButtonDynamicFilter::KeyUp(int Time, int iId, CDasherView *pDasherView,
 }
 
 bool COneButtonDynamicFilter::TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) {
-  m_pDasherModel->OneStepTowards(m_iTargetX[m_iTarget], m_iTargetY[m_iTarget], Time);
+  OneStepTowards(m_pDasherModel, m_iTargetX[m_iTarget], m_iTargetY[m_iTarget], Time, SlowStartSpeedMul(Time));
   return true;
 }
 

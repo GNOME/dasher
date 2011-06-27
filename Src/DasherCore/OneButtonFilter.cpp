@@ -67,7 +67,7 @@ bool COneButtonFilter::Timer(unsigned long Time, CDasherView *pView, CDasherInpu
     }
   }
 
-  return m_pDasherModel->NextScheduledStep(Time);
+  return m_pDasherModel->NextScheduledStep();
 }
 
 void COneButtonFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {

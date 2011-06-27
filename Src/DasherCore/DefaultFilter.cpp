@@ -24,8 +24,8 @@ bool CDefaultFilter::GetSettings(SModuleSettings **sets, int *iCount) {
   return true;
 }
 
-CDefaultFilter::CDefaultFilter(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
-  : CInputFilter(pInterface, iID, szName), CSettingsUserObserver(pCreateFrom) {
+CDefaultFilter::CDefaultFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName)
+  : CDynamicFilter(pCreator, pInterface, pFramerate, iID, szName), CSettingsObserver(pCreator) {
   m_pStartHandler = 0;
   m_pAutoSpeedControl = new CAutoSpeedControl(this, pInterface);
 
@@ -127,7 +127,7 @@ bool CDefaultFilter::Timer(unsigned long Time, CDasherView *pView, CDasherInput 
       }
     }
 
-    m_pDasherModel->OneStepTowards(m_iLastX,m_iLastY, Time);
+    OneStepTowards(m_pDasherModel, m_iLastX,m_iLastY, Time, SlowStartSpeedMul(Time));
     bDidSomething = true;
 
     if (GetLongParameter(LP_BOOSTFACTOR)==100)
@@ -147,7 +147,7 @@ void CDefaultFilter::KeyDown(int iTime, int iId, CDasherView *pDasherView, CDash
     // FIXME - wrap this in a 'start/stop' method (and use for buttons as well as keys)
     if(GetBoolParameter(BP_START_SPACE)) {
       if(GetBoolParameter(BP_DASHER_PAUSED))
-	m_pInterface->Unpause(iTime);
+        Unpause(iTime);
       else
 	m_pInterface->Stop();
     }
@@ -155,7 +155,7 @@ void CDefaultFilter::KeyDown(int iTime, int iId, CDasherView *pDasherView, CDash
   case 100: // Start on mouse
     if(GetBoolParameter(BP_START_MOUSE)) {
       if(GetBoolParameter(BP_DASHER_PAUSED))
-	m_pInterface->Unpause(iTime);
+        Unpause(iTime);
       else
 	m_pInterface->Stop();
     }
@@ -191,9 +191,9 @@ void CDefaultFilter::Deactivate() {
 
 CStartHandler *CDefaultFilter::MakeStartHandler() {
   if(GetBoolParameter(BP_CIRCLE_START))
-    return new CCircleStartHandler(this, m_pInterface);
+    return new CCircleStartHandler(this);
   if(GetBoolParameter(BP_MOUSEPOS_MODE))
-    return new CTwoBoxStartHandler(this, m_pInterface);
+    return new CTwoBoxStartHandler(this);
   return NULL;
 }
 

@@ -41,7 +41,7 @@
 #include "InputFilter.h"
 #include "ModuleManager.h"
 #include "ControlManager.h"
-
+#include "FrameRate.h"
 #include <set>
 #include <algorithm>
 
@@ -203,11 +203,6 @@ public:
   ///  (speech, clipboard - subclasses may override to do more).
   /// (But does nothing if BP_DASHER_PAUSED is not set)
   virtual void Stop();
-
-  /// Unpause Dasher. Clears BP_DASHER_PAUSED.
-  /// (But does nothing if BP_DASHER_PAUSED is currently set).
-  /// \param Time Time in ms, used to keep a constant frame rate
-  virtual void Unpause(unsigned long Time);
 
   ///Whether any actions are currently setup to occur when Dasher 'stop's.
   /// Default is to return TRUE iff we support speech and BP_SPEAK_ON_STOP is set,
@@ -423,15 +418,8 @@ protected:
 
   CDasherScreen *m_DasherScreen;
 
-  /// Asynchronous (non-modal) messages to be displayed to the user, longest-ago
-  /// at the front, along with the timestamp of the frame at which each was first
-  /// displayed to the user - 0 if not yet displayed.
-  std::deque<pair<CDasherScreen::Label*, unsigned long> > m_dqAsyncMessages;
-  
-  /// Modal messages being or waiting to be displayed to the user, longest-ago
-  /// at the front, along with the timestamp when each was first displayed to the
-  /// user (0 if not yet displayed).
-  std::deque<pair<CDasherScreen::Label*, unsigned long> > m_dqModalMessages;
+  ///Framerate monitor; created in constructor, req'd for DynamicFilter subclasses
+  CFrameRate * const m_pFramerate;
   
  private:
   

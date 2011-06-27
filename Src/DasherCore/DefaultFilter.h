@@ -1,19 +1,19 @@
 #ifndef __DEFAULT_FILTER_H__
 #define __DEFAULT_FILTER_H__
 
-#include "InputFilter.h"
+#include "DynamicFilter.h"
 #include "AutoSpeedControl.h"
 #include "StartHandler.h"
 
 namespace Dasher {
 /// \ingroup InputFilter
 /// @{
-class CDefaultFilter : public CInputFilter, public CSettingsUserObserver {
+class CDefaultFilter : public CDynamicFilter, public CSettingsObserver {
  public:
-  CDefaultFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName);
+  CDefaultFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName);
   ~CDefaultFilter();
-  virtual bool supportsPause() {return true;}
 
+  /// Responds to changes in BP_START_MOUSE / BP_MOUSEPOS_MODE to create StartHandler
   virtual void HandleEvent(int iParameter);
 
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);
@@ -32,6 +32,8 @@ class CDefaultFilter : public CInputFilter, public CSettingsUserObserver {
   myint m_iLastX, m_iLastY;
   bool m_bGotMouseCoords;
 private:
+  friend class CCircleStartHandler;
+  friend class CTwoBoxStartHandler;
   CAutoSpeedControl *m_pAutoSpeedControl;
   myint m_iSum;
   CStartHandler *m_pStartHandler;

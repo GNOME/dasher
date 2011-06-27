@@ -72,8 +72,10 @@ libdashercore_a_SOURCES = \
 		DasherViewSquare.inl \
 		DefaultFilter.cpp \
 		DefaultFilter.h \
-		DynamicFilter.h \
+		DynamicButtons.cpp \
+		DynamicButtons.h \
 		DynamicFilter.cpp \
+		DynamicFilter.h \
 		Event.h \
 		FileLogger.cpp \
 		FileLogger.h \

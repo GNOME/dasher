@@ -95,7 +95,7 @@ bool CDasherButtons::Timer(unsigned long Time, CDasherView *pView, CDasherInput 
   pInput->GetDasherCoords(iDasherX, iDasherY, pView);
   // ----
 
-  return pModel->NextScheduledStep(Time);
+  return pModel->NextScheduledStep();
 }
 
 void CDasherButtons::NewDrawGoTo(CDasherView *pView, myint iDasherMin, myint iDasherMax, bool bActive) {

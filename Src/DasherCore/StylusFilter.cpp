@@ -6,14 +6,14 @@
 
 using namespace Dasher;
 
-CStylusFilter::CStylusFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
-  : CDefaultFilter(pCreator, pInterface, iID, szName) {
+CStylusFilter::CStylusFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName)
+  : CDefaultFilter(pCreator, pInterface, pFramerate, iID, szName) {
 }
 
 bool CStylusFilter::Timer(unsigned long iTime, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CExpansionPolicy **pol)
 {
   //First, try to continue any zoom scheduled by a previous click...
-  if (pModel->NextScheduledStep(iTime)) {
+  if (pModel->NextScheduledStep()) {
     //note that this skips the rest of CDefaultFilter::Timer;
     //however, given we're paused, this is only the Start Handler,
     //which we're not using anyway.
@@ -25,7 +25,7 @@ bool CStylusFilter::Timer(unsigned long iTime, CDasherView *pView, CDasherInput 
 void CStylusFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
   if(iId == 100) {
     pModel->ClearScheduledSteps();
-    m_pInterface->Unpause(iTime);
+    Unpause(iTime);
     m_iKeyDownTime = iTime;
   }
 }

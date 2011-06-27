@@ -22,48 +22,36 @@
 #define __DynamicFilter_h__
 
 #include "InputFilter.h"
+#include "SettingsStore.h"
+#include "FrameRate.h"
 
 /// \ingroup InputFilter
 /// @{
 namespace Dasher {
-///filter with three states: paused, reversing, running. Hold any button down to reverse.
-class CDynamicFilter : public CInputFilter, public CSettingsUserObserver {
+///Abstract superclass for filters which produce continuous movement
+/// i.e. steadily towards a target (perhaps moving). These filters
+/// need to monitor the framerate (using CFrameRate) to maintain a steady
+/// speed of movement. Also implements Slow Start following a call to the
+/// Unpause method.
+class CDynamicFilter : public CInputFilter, public CSettingsUser {
  public:
-  CDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName);
+  CDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName);
 
   virtual bool supportsPause() {return true;}
 
-  ///when reversing, backs off; when paused, does nothing; when running, delegates to TimerImpl
-  virtual bool Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);
-
-  virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
-  virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
-
-  //respond to changes to BP_DASHER_PAUSED to keep m_iState in sync
-  virtual void HandleEvent(int iParameter);
  protected:
-  virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) = 0;
-  virtual void Event(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog);
+  bool OneStepTowards(CDasherModel *pModel, myint y1, myint y2, unsigned long iTime, double dSpeedMul);
+  double SlowStartSpeedMul(unsigned long iTime);
 
-  bool m_bKeyDown;
-  bool m_bKeyHandled;
-  bool m_bDecorationChanged;
-  bool isPaused() {return m_iState == 0;}
-  bool isReversing() {return m_iState == 1;}
-  bool isRunning() {return m_iState==2;}
-  virtual void pause() {m_iState = 0;}
-  virtual void reverse();
-  virtual void run();
-
-  virtual bool TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) = 0;
-
-  private:
-    int m_iState; // 0 = paused, 1 = reversing, >=2 = running (extensible by subclasses)
-    int m_iHeldId;
-    int m_iKeyDownTime;
-    unsigned int m_uSpeedControlTime;
-
-    CUserLogBase *m_pUserLog;
+  /// Starts moving.  Clears BP_DASHER_PAUSED.
+  /// (But does nothing if BP_DASHER_PAUSED is currently set).
+  /// \param Time Time in ms, used to keep a constant frame rate and
+  /// initialize slow start.
+  void Unpause(unsigned long iTime);
+ private:
+  CFrameRate *m_pFramerate;
+  //Time at which Unpause() was called, used for Slow Start.
+  unsigned long m_iStartTime;
 };
 }
 #endif

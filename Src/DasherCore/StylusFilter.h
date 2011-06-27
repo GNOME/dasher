@@ -9,7 +9,7 @@
 namespace Dasher {
 class CStylusFilter : public CDefaultFilter {
  public:
-  CStylusFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName);
+  CStylusFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID=15, const char *szName=_("Stylus Control"));
   ///Override DefaultFilter (which supports pause), as we don't
   /// - motion requires continually holding stylus against screen
   virtual bool supportsPause() {return false;}

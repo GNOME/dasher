@@ -21,13 +21,13 @@
 #ifndef __TWO_PUSH_DYNAMIC_FILTER_H__
 #define __TWO_PUSH_DYNAMIC_FILTER_H__
 
-#include "DynamicFilter.h"
+#include "DynamicButtons.h"
 namespace Dasher {
 /// \ingroup InputFilter
 /// @{
-class CTwoPushDynamicFilter : public CDynamicFilter /*long push, but do our own "multi-push" detection*/ {
+class CTwoPushDynamicFilter : public CDynamicButtons /*long push, but do our own "multi-push" detection*/ {
  public:
-  CTwoPushDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface);
+  CTwoPushDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate);
   
   // Inherited methods
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);
