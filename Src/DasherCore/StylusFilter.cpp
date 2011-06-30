@@ -27,7 +27,8 @@ void CStylusFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CD
     pModel->ClearScheduledSteps();
     Unpause(iTime);
     m_iKeyDownTime = iTime;
-  }
+  } else
+    CDefaultFilter::KeyDown(iTime, iId, pView, pInput, pModel, pUserLog);
 }
 
 void CStylusFilter::KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
@@ -39,7 +40,8 @@ void CStylusFilter::KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDas
     } else {
       m_pInterface->Stop();
     }
-  }
+  } else
+    CDefaultFilter::KeyUp(iTime, iId, pView, pInput, pModel);
 }
 
 void CStylusFilter::ApplyClickTransform(myint &iDasherX, myint &iDasherY, CDasherView *pView) {

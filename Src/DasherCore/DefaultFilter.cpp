@@ -25,7 +25,7 @@ bool CDefaultFilter::GetSettings(SModuleSettings **sets, int *iCount) {
 }
 
 CDefaultFilter::CDefaultFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName)
-  : CDynamicFilter(pCreator, pInterface, pFramerate, iID, szName), CSettingsObserver(pCreator) {
+  : CDynamicFilter(pCreator, pInterface, pFramerate, iID, szName), CSettingsObserver(pCreator), m_bTurbo(false) {
   m_pStartHandler = 0;
   m_pAutoSpeedControl = new CAutoSpeedControl(this, pInterface);
 
@@ -127,7 +127,8 @@ bool CDefaultFilter::Timer(unsigned long Time, CDasherView *pView, CDasherInput 
       }
     }
 
-    const double dSpeedMul(SlowStartSpeedMul(Time));
+    double dSpeedMul(SlowStartSpeedMul(Time));
+    if (m_bTurbo) dSpeedMul*=1.75;
     
     OneStepTowards(m_pDasherModel, m_iLastX,m_iLastY, Time, dSpeedMul);
     bDidSomething = true;
@@ -162,9 +163,19 @@ void CDefaultFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pDasherV
 	m_pInterface->Stop();
     }
     break;
+    case 101: case 102: //Other mouse buttons, if platforms support?
+    case 1: //button 1
+      if (GetBoolParameter(BP_TURBO_MODE)) {
+        m_bTurbo = true;
+      }
   default:
     break;
   }
+}
+
+void CDefaultFilter::KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
+  if (iId==101 || iId==1)
+    m_bTurbo=false;
 }
 
 void CDefaultFilter::HandleEvent(int iParameter) {
@@ -173,6 +184,8 @@ void CDefaultFilter::HandleEvent(int iParameter) {
   case BP_MOUSEPOS_MODE:
     CreateStartHandler();
     break;
+  case BP_TURBO_MODE:
+    m_bTurbo &= GetBoolParameter(BP_TURBO_MODE);
   }
 }
 

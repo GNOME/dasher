@@ -19,6 +19,7 @@ class CDefaultFilter : public CDynamicFilter, public CSettingsObserver {
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);
   virtual bool Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CExpansionPolicy **pol);
   virtual void KeyDown(unsigned long iTime, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual void KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
   virtual void Activate();
   virtual void Deactivate();
   bool GetSettings(SModuleSettings **, int *);
@@ -38,6 +39,7 @@ private:
   myint m_iSum;
   CStartHandler *m_pStartHandler;
   int m_iCounter;
+  bool m_bTurbo;
 };
 }
 /// @}
