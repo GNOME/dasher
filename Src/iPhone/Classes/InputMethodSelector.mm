@@ -31,6 +31,7 @@ NSString *calibBtn=@"Calibrate...";//pointer equality used to mark cell for spec
 
 SFilterDesc asNormalFilters[] = {
 	{@"Touch Control", @"Tap or Hold", TOUCH_INPUT, TOUCH_FILTER, touchSettings},
+  {@"Multitouch",@"Two fingers, further apart = slower", TWO_FINGER_INPUT, TWO_FINGER_FILTER, NULL},
   {@"Tilt Control", calibBtn, TILT_INPUT, TILT_FILTER, tiltSettings},
 };
 

@@ -83,11 +83,9 @@ private:
   void HandleEvent(int iParameter);
   
   DasherAppDelegate *dasherApp;   // objc counterpart
-  
-  CIPhoneTiltFilter *m_pTiltFilter;
-  CIPhoneTouchFilter *m_pTouchFilter;
-	
+  	
   CIPhoneMouseInput *m_pMouseDevice;
   CIPhoneTiltInput *m_pTiltDevice;
 	UndoubledTouch *m_pUndoubledTouch;
+  CIPhoneTwoFingerInput *m_pTwoFingerDevice;
 };

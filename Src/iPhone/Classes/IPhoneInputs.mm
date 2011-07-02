@@ -100,20 +100,22 @@ bool CIPhoneTiltInput::GetScreenCoords(screenint &iX, screenint &iY, CDasherView
   return true;
 }
 
-UndoubledTouch::UndoubledTouch() : CScreenCoordInput(7, UNDOUBLED_TOUCH) {
+UndoubledTouch::UndoubledTouch(EAGLView *pView) : CScreenCoordInput(7, UNDOUBLED_TOUCH), m_pView(pView) {
 }
 
-UndoubledTouch::UndoubledTouch(ModuleID_t iId, const char *szName) : CScreenCoordInput(iId, szName) {
+UndoubledTouch::UndoubledTouch(ModuleID_t iId, const char *szName, EAGLView *pView) : CScreenCoordInput(iId, szName), m_pView(pView) {
 }
 
 bool UndoubledTouch::GetScreenCoords(screenint &iX, screenint &iY, CDasherView *pView) {
-  CDasherScreenBridge *sb(static_cast<CDasherScreenBridge *>(pView->Screen()));
-  return sb->GetTouchCoords(iX, iY);
+  CGPoint p = [m_pView lastTouchCoords];
+  if (p.x==-1) return false;
+  iX = p.x; iY=p.y;
+  return true;
 }
 
 
-CIPhoneMouseInput::CIPhoneMouseInput(CSettingsUser *pCreator) 
-	: UndoubledTouch(9, TOUCH_INPUT), CSettingsUser(pCreator) {
+CIPhoneMouseInput::CIPhoneMouseInput(CSettingsUser *pCreator, EAGLView *pView) 
+	: UndoubledTouch(9, TOUCH_INPUT, pView), CSettingsUser(pCreator) {
 };
 
 bool CIPhoneMouseInput::GetScreenCoords(screenint &iX, screenint &iY, CDasherView *pView) {
@@ -136,5 +138,29 @@ bool CIPhoneMouseInput::GetScreenCoords(screenint &iX, screenint &iY, CDasherVie
         break;
     }
   }
+  return true;
+}
+
+CIPhoneTwoFingerInput::CIPhoneTwoFingerInput(EAGLView *pView) : CDasherCoordInput(10, TWO_FINGER_INPUT), m_pGlView(pView) {
+}
+
+bool CIPhoneTwoFingerInput::GetDasherCoords(myint &iX, myint &iY, CDasherView *pView) {
+  vector<CGPoint> pts;
+  [m_pGlView getAllTouchCoordsInto:&pts];
+  if (pts.size()<2) return false;
+  myint x1,y1,x2,y2;
+  
+  //target Y is midpoint of Y coordinates of first two touches
+  pView->Screen2Dasher(pts[0].x, pts[0].y, x1, y1);
+  pView->Screen2Dasher(pts[1].x, pts[1].y, x2, y2);
+  iY = (y1+y2)/2;
+  //target X is half the distance between them (-> top/bottom of target range = top/bottom of first two touches)
+  iX = abs(y1-y2)/2;
+
+  if (pts.size()>2) {
+    //three or more fingers, go backwards...
+    pView->VisibleRegion(x1, y1, x2, y2); //x2 is now maxX
+    iX = (x2*iX)/2048; //(first two) fingers wider apart, will go backwards faster.
+  } 
   return true;
 }

@@ -33,6 +33,8 @@ extern NSString *TOUCH_USE_TILT_X;
 
 #define TILT_FILTER "IPhone Tilt Filter"
 #define TOUCH_FILTER "IPhone Touch Filter"
+#define TWO_FINGER_FILTER "Two-finger filter"
+
 class CIPhoneTiltFilter : public COneDimensionalFilter, private IPhonePrefsObserver {
 public:
 	CIPhoneTiltFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, CDasherInput *pTouch);
@@ -71,6 +73,14 @@ private:
   UndoubledTouch *m_pUndoubledTouch;
   CIPhoneTiltInput *m_pTilt;
   bool bUseTiltX;
+};
+
+class CIPhoneTwoFingerFilter : public CDefaultFilter {
+public:
+  CIPhoneTwoFingerFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID);
+  virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
+  virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);
 };
 
 /// @}

@@ -31,14 +31,7 @@ CDasherScreenBridge::CDasherScreenBridge(EAGLView *_view, screenint iWidth, scre
 void CDasherScreenBridge::resize(screenint iWidth, screenint iHeight, GLshort backingWidth, GLshort backingHeight, GLfloat tc_x, GLfloat tc_y) {
   OpenGLScreen::resize(iWidth, iHeight, backingWidth, backingHeight, tc_x, tc_y);
 }
-  
-bool CDasherScreenBridge::GetTouchCoords(screenint &iX, screenint &iY) {
-  CGPoint p = view.lastTouchCoords;
-  if (p.x==-1) return false;
-  iX=p.x; iY=p.y;
-  return true;
-}
-  
+
 void CDasherScreenBridge::Display() {
   if (!view.readyToDisplay) return; //can't display anything yet!
   OpenGLScreen::Display();
@@ -71,8 +64,27 @@ CGSize CDasherScreenBridge::TextSize(NSString *str, unsigned int iFontSize, bool
     : [str sizeWithFont:font];
 }
 
+bool operator<(CGPoint p,CGPoint q) {
+  if (p.x<q.x) return true;
+  if (p.x>q.x) return false;
+  //equal x's
+  return (p.y<q.y);
+}
+
+bool operator==(CGPoint p,CGPoint q) {
+  return CGPointEqualToPoint(p, q);
+}
+
 @implementation EAGLView
-@synthesize lastTouchCoords;
+
+-(CGPoint)lastTouchCoords {
+  return fingerPosns.empty() ? CGPointMake(-1,-1) : fingerPosns.begin()->second;
+}
+
+-(void)getAllTouchCoordsInto:(vector<CGPoint> *)into {
+  for (map<int,CGPoint>::iterator it=fingerPosns.begin(); it!=fingerPosns.end(); it++)
+    into->push_back(it->second);
+}
 
 // You must implement this method
 + (Class)layerClass {
@@ -118,25 +130,39 @@ CGSize CDasherScreenBridge::TextSize(NSString *str, unsigned int iFontSize, bool
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-	NSAssert([touches count] == 1, @"Multitouch?!");
-	lastTouchCoords = [((UITouch *)[touches anyObject]) locationInView:self];
-	NSAssert(!anyDown,@"Touches began when already in progress - multitouch enabled?!?!\n");
-	anyDown = YES;
-	dasherApp.dasherInterface->KeyDown(get_time(), 100, true, lastTouchCoords.x, lastTouchCoords.y);
+  const unsigned long time(get_time());
+  for (UITouch *touch in touches) {
+    const int finger(fingerPosns.empty() ? 0 : fingerPosns.rbegin()->first+1);
+    NSAssert(allTouches.find(touch)==allTouches.end(),@"Touch beginning already in progress?");
+    CGPoint p=[touch locationInView:self];
+    allTouches[touch]=finger;
+    fingerPosns[finger]=p;
+    //first finger with button id 100 = left button, then 101 and so on (element already inserted)
+    dasherApp.dasherInterface->KeyDown(time, allTouches.size()+99, true , p.x, p.y);
+  }
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-	lastTouchCoords = [[touches anyObject] locationInView:self];
+  for (UITouch *touch in touches) {
+    const int finger(allTouches[touch]);
+    map<int,CGPoint>::iterator it = fingerPosns.find(finger);
+    NSAssert(it!=fingerPosns.end(),@"Moving finger not found?");
+    it->second=[touch locationInView:self];
+  }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-	NSAssert([touches count] == 1, @"Multitouch?!");
-	NSAssert(anyDown,@"Touches ended when not in progress - multitouch enabled?!?!\n");
-	lastTouchCoords = [(UITouch *)[touches anyObject] locationInView:self];
-	dasherApp.dasherInterface->KeyUp(get_time(), 100, true, lastTouchCoords.x, lastTouchCoords.y);
-  //finished dealing with touch-up event. Finger is now officially off the screen...
-  lastTouchCoords.x = lastTouchCoords.y = -1;
-  anyDown = NO;
+  const unsigned long time(get_time());
+  for (UITouch *touch in touches) {
+    map<UITouch*,int>::iterator it = allTouches.find(touch);
+    NSAssert(it != allTouches.end(), @"Release touch not in progress?");
+    map<int,CGPoint>::iterator it2=fingerPosns.find(it->second);
+    NSAssert(it2 != fingerPosns.end(), @"No coordinates for touch?");
+    CGPoint p=it2->second;
+    fingerPosns.erase(it2);
+    allTouches.erase(it);
+    dasherApp.dasherInterface->KeyUp(time, allTouches.size()+100, true, p.x, p.y);
+  }
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {

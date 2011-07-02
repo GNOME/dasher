@@ -18,10 +18,17 @@
 #import "ButtonMode.h"
 #import "TwoButtonDynamicFilter.h"
 #import "TwoPushDynamicFilter.h"
+#import "EAGLView.h"
 #import <iostream>
 #import <fcntl.h>
 
 #import <sys/stat.h>
+
+//declare some "friend" methods
+@interface DasherAppDelegate ()
+-(EAGLView *)glView;
+-(UIWebView *)getWebView;
+@end;
 
 using namespace std;
 
@@ -69,13 +76,13 @@ CDasherInterfaceBridge::CDasherInterfaceBridge(DasherAppDelegate *aDasherApp) : 
 }
 
 void CDasherInterfaceBridge::CreateModules() {
-	//create the default set...a good idea?!?!
-
-  RegisterModule(m_pUndoubledTouch = new UndoubledTouch());
+	//don't create the default set...just the ones accessible from the GUI.
+  RegisterModule(m_pUndoubledTouch = new UndoubledTouch([dasherApp glView]));
 	RegisterModule(m_pMouseDevice = 
-				new CIPhoneMouseInput(this));
+				new CIPhoneMouseInput(this,[dasherApp glView]));
 	RegisterModule(m_pTiltDevice = 
 				new CIPhoneTiltInput());
+  RegisterModule(m_pTwoFingerDevice=new CIPhoneTwoFingerInput([dasherApp glView]));
   SetDefaultInputDevice(m_pMouseDevice);
                  
   RegisterModule(new CButtonMode(this, this, true, 9, "Menu Mode"));
@@ -83,16 +90,20 @@ void CDasherInterfaceBridge::CreateModules() {
   RegisterModule(new CTwoButtonDynamicFilter(this, this));
   RegisterModule(new CTwoPushDynamicFilter(this, this));
   
-	RegisterModule(m_pTiltFilter =
-				   new CIPhoneTiltFilter(this, this, 16, m_pMouseDevice));
-	RegisterModule(m_pTouchFilter = 
-				   new CIPhoneTouchFilter(this, this, 17, m_pUndoubledTouch, m_pTiltDevice));
-	SetDefaultInputMethod(m_pTouchFilter);
+	RegisterModule(new CIPhoneTiltFilter(this, this, 16, m_pMouseDevice));
+  //Touch filter is stylus filter with optional Tilt X....
+  CIPhoneTouchFilter *pTouchFilter = 
+          new CIPhoneTouchFilter(this, this, 17, m_pUndoubledTouch, m_pTiltDevice);
+	RegisterModule(pTouchFilter);
+	SetDefaultInputMethod(pTouchFilter);
+  
+  RegisterModule(new CIPhoneTwoFingerFilter(this,this,18));
 }
 	
 CDasherInterfaceBridge::~CDasherInterfaceBridge() {
   delete m_pMouseDevice;
 	delete m_pTiltDevice;
+  delete m_pTwoFingerDevice;
   delete m_pUndoubledTouch;
   //(ACL)registered input filters should be automatically free'd by the module mgr?
 }
@@ -112,6 +123,8 @@ void CDasherInterfaceBridge::Realize() {
   [dasherApp setAlphabet:GetActiveAlphabet()];
   //don't call HandleEvent, would call superclass and reconstruct the NCManager!
   //TODO maybe better to make ChangeAlphabet virtual and override that?  
+
+  [[dasherApp glView] startAnimation];
 }
 
 void CDasherInterfaceBridge::SetupPaths() {

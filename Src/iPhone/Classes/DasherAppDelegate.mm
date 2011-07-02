@@ -88,6 +88,11 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 @synthesize allowsRotation = m_bAllowsRotation;
 @synthesize window;
 
+//a private method called only by CDasherInterfaceBridge
+-(EAGLView *)glView {
+  return glView;
+}
+
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
     return NO;
@@ -163,7 +168,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   messageLabel = [[[UITextView alloc] init] autorelease];
   tools = [[UIToolbar alloc] init]; //retain a reference (until dealloc) because of rotation
 	glView = [[[EAGLView alloc] initWithFrame:[self doLayout:UIInterfaceOrientationPortrait] Delegate:self] autorelease];
-  //that last, calls ChangeScreen on the interface, so now we can:
+  glView.multipleTouchEnabled = YES;
 		
   //start Realization i.e. training in a separate thread. (Has to be after first
   // call to doLayout, or get a black band across top of screen)
@@ -243,7 +248,6 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   //training takes too long to perform in applicationDidFinishLaunching;
   // so we do it here instead (having let the main thread display a "training" message);
   _dasherInterface->Realize();
-  [glView startAnimation];
   //the rest has to be done on the main thread to avoid problems with OpenGL contexts
   // (which are local to one thread); however, we'll have the background thread wait...
   [self performSelectorOnMainThread:@selector(finishStartup) withObject:nil waitUntilDone:YES];

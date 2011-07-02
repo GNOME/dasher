@@ -172,3 +172,35 @@ void CIPhoneTouchFilter::ApplyTransform(myint &iDasherX, myint &iDasherY, CDashe
   }
   CStylusFilter::ApplyTransform(iDasherX, iDasherY, pView);
 }
+
+CIPhoneTwoFingerFilter::CIPhoneTwoFingerFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID)
+: CDefaultFilter(pCreator, pInterface, iID, TWO_FINGER_FILTER) {
+}
+
+void CIPhoneTwoFingerFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
+  if (iId==101) m_pInterface->Unpause(iTime);
+  else if (iId!=100) CDefaultFilter::KeyDown(iTime, iId, pView, pInput, pModel, pUserLog);
+}
+
+void CIPhoneTwoFingerFilter::KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
+  if (iId==101) m_pInterface->Stop();
+  else if (iId!=100) CDefaultFilter::KeyUp(iTime, iId, pView, pInput, pModel);
+}
+
+bool CIPhoneTwoFingerFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
+  if (GetBoolParameter(BP_DRAW_MOUSE_LINE)) {
+    myint x[2], y[2];
+    x[0] = m_iLastX; x[1] = 0;
+    y[0] = m_iLastY;
+    for (y[1] = m_iLastY - m_iLastX; ;) {
+      if (GetBoolParameter(BP_CURVE_MOUSE_LINE))
+        pView->DasherSpaceLine(x[0], y[0], x[1], y[1], GetLongParameter(LP_LINE_WIDTH), 1);
+      else
+        pView->DasherPolyline(x, y, 2, GetLongParameter(LP_LINE_WIDTH), 1);
+      if (y[1] == m_iLastY + m_iLastX) break;
+      y[1] = m_iLastY + m_iLastX;
+    }
+    return true;
+  }
+  return false;
+}

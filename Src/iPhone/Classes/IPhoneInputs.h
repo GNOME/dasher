@@ -17,7 +17,9 @@
 #define UNDOUBLED_TOUCH "Undoubled Touch"
 #define TOUCH_INPUT "Mouse Input"
 #define TILT_INPUT "Tilt Input"
+#define TWO_FINGER_INPUT "Two-finger (multitouch) input"
 
+@class EAGLView;
 namespace Dasher {
 
 class CIPhoneTiltInput : public CScreenCoordInput {
@@ -51,17 +53,26 @@ private:
 
 class UndoubledTouch : public CScreenCoordInput {
 public:
-  UndoubledTouch();
+  UndoubledTouch(EAGLView *pView);
   bool GetScreenCoords(screenint &iX, screenint &iY, CDasherView *pView);
 protected:
-  UndoubledTouch(ModuleID_t iId, const char *szName);
+  UndoubledTouch(ModuleID_t iId, const char *szName, EAGLView *pView);
+  EAGLView * const m_pView;
 };
 
 class CIPhoneMouseInput : public UndoubledTouch, protected CSettingsUser {
 public:
-	CIPhoneMouseInput(CSettingsUser *pCreator);
+	CIPhoneMouseInput(CSettingsUser *pCreator, EAGLView *pView);
   
   bool GetScreenCoords(screenint &iX, screenint &iY, CDasherView *pView);
 };
+  
+  class CIPhoneTwoFingerInput : public CDasherCoordInput {
+  public:
+    CIPhoneTwoFingerInput(EAGLView *pView);
+    bool GetDasherCoords(myint &iX, myint &iY, CDasherView *pView);
+  protected:
+    EAGLView * const m_pGlView;
+  };
 }
 

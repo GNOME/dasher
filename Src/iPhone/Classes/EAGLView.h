@@ -23,7 +23,6 @@ public:
   CDasherScreenBridge(EAGLView *_view, Dasher::screenint iWidth, Dasher::screenint iHeight, GLshort backingWidth, GLshort backingHeight, GLfloat tc_x, GLfloat tc_y, GLuint *textures);
   ///Only for EAGLView to call...
   void resize(Dasher::screenint iWidth, Dasher::screenint iHeight, GLshort backingWidth, GLshort backingHeight, GLfloat tc_x, GLfloat tc_y);
-  bool GetTouchCoords(Dasher::screenint &iX, Dasher::screenint &iY);
   void Display();
   void SendMarker(int iMarker);
   
@@ -47,7 +46,7 @@ Note that setting the view non-opaque will only work if the EAGL surface has an 
     /* OpenGL names for the renderbuffer and framebuffers used to render to this view */
     GLuint viewRenderbuffer, viewFramebuffer;
     
-	BOOL animating, doneLayout, anyDown;
+	BOOL animating, doneLayout;
     NSTimeInterval animationInterval;
 	DasherAppDelegate *dasherApp;
 	
@@ -55,11 +54,16 @@ Note that setting the view non-opaque will only work if the EAGL surface has an 
 	GLuint textures[2];
 	GLint backingWidth, backingHeight;
 	GLfloat texw,texh;
-  
-  CGPoint lastTouchCoords;
+    
+  std::map<UITouch*,int> allTouches;
+  std::map<int,CGPoint> fingerPosns;
 }
 
-@property (readonly,assign) CGPoint lastTouchCoords;
+//Co-ordinates of earliest-started touch still touching
+-(CGPoint)lastTouchCoords;
+
+-(void)getAllTouchCoordsInto:(std::vector<CGPoint> *)into;
+
 //OpenGL context (needed to do any OGL operation) is only current per-thread, so must call this
 // if doing anything on any thread other than the main thread.
 -(void)makeContextCurrent;
