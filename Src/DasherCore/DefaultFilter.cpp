@@ -31,8 +31,9 @@ CDefaultFilter::CDefaultFilter(CSettingsUser *pCreateFrom, CDasherInterfaceBase 
 
   // Initialize autocalibration (i.e. seen nothing yet)
   m_iSum = 0;
-
   m_iCounter = 0;
+  if (GetBoolParameter(BP_AUTOCALIBRATE)) //eyetracker calibration has likely changed from previous session
+    SetLongParameter(LP_TARGET_OFFSET, 0); //so start over from scratch
 }
 
 CDefaultFilter::~CDefaultFilter() {
