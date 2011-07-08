@@ -136,7 +136,11 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   }
   textView.frame = textRect;
   webView.frame = textRect;
-  messageLabel.frame = CGRectMake(0.0, textRect.origin.y + textRect.size.height, mainSize.width, 0.0);
+  messageLabel.frame = CGRectMake(0.0, textRect.origin.y + textRect.size.height - messageLabel.frame.size.height, mainSize.width, messageLabel.frame.size.height);
+  //YEUCH but unfortunately I can find no way to (programmatically) get the proper height for a UISlider.
+  // Setting its height to 0 seems to be stored ok, but ends up with the slider being unresponsive -
+  // yet clearly rendered >0 pixels high onscreen...
+  speedSlider.frame = CGRectMake(0.0, textRect.origin.y + textRect.size.height-23.0, mainSize.width, 23.0);
   [NSObject cancelPreviousPerformRequestsWithTarget:messageLabel];
   if (glView) glView.frame=dashRect;
   return dashRect;
@@ -166,6 +170,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
 	textView = [[[TextView alloc] init] autorelease];
   webView = [[[UIWebView alloc] init] autorelease];
   messageLabel = [[[UITextView alloc] init] autorelease];
+  speedSlider = [[[UISlider alloc] init] autorelease];
   tools = [[UIToolbar alloc] init]; //retain a reference (until dealloc) because of rotation
 	glView = [[[EAGLView alloc] initWithFrame:[self doLayout:UIInterfaceOrientationPortrait] Delegate:self] autorelease];
   glView.multipleTouchEnabled = YES;
@@ -189,8 +194,6 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   messageLabel.contentInset = UIEdgeInsetsZero;
   messageLabel.hidden = YES;
 
-  speedSlider = [[[UISlider alloc] init] autorelease];
-  speedSlider.frame = messageLabel.frame;
   speedSlider.minimumValue=0.1; speedSlider.maximumValue=12.0;
   speedSlider.hidden = YES;
   
