@@ -88,9 +88,13 @@ void CDashIntfScreenMsgs::Unpause(unsigned long lTime) {
       //Message has been displayed; delete it
       delete m_dqModalMessages.front().first; //the label
       m_dqModalMessages.pop_front();
-    } else return; //there are more, not-yet displayed, modal messages!
-      //These should be after any that were displayed (which have now been erased), so:
+    } else {
+      //there are more, not-yet displayed, modal messages!
+      //These should be after any that were displayed (which have now been erased), so
       // do not unpause; next frame will render more messages instead.
+      m_pDasherModel->ClearScheduledSteps();
+      return;
+    }
   }
   CDasherInterfaceBase::Unpause(lTime);
 }

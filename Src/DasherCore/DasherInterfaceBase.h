@@ -423,6 +423,7 @@ protected:
 
   CDasherScreen *m_DasherScreen;
 
+  CDasherModel * const m_pDasherModel;
   
  private:
   
@@ -506,7 +507,6 @@ protected:
   /// @name Child components
   /// Various objects which are 'owned' by the core.
   /// @{
-  CDasherModel *m_pDasherModel;
   CDasherView *m_pDasherView;
   CDasherInput *m_pInput;
   CInputFilter* m_pInputFilter;

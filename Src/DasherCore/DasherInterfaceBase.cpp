@@ -86,12 +86,11 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CDasherInterfaceBase::CDasherInterfaceBase(CSettingsStore *pSettingsStore) : CSettingsUser(pSettingsStore), m_pSettingsStore(pSettingsStore), m_pLockLabel(NULL) {
+CDasherInterfaceBase::CDasherInterfaceBase(CSettingsStore *pSettingsStore) : CSettingsUser(pSettingsStore), m_pSettingsStore(pSettingsStore), m_pDasherModel(new CDasherModel(this,this)), m_pLockLabel(NULL) {
   
   pSettingsStore->Register(this, true);
   
   // Ensure that pointers to 'owned' objects are set to NULL.
-  m_pDasherModel = NULL;
   m_DasherScreen = NULL;
   m_pDasherView = NULL;
   m_pInput = NULL;
@@ -126,9 +125,6 @@ void CDasherInterfaceBase::Realize(unsigned long ulTime) {
 
   srand(ulTime);
   
-  //create the model... (no nodes just yet)
-  m_pDasherModel = new CDasherModel(this, this);
-
   SetupUI();
   SetupPaths();
 
