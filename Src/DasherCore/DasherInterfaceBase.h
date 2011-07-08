@@ -423,15 +423,6 @@ protected:
 
   CDasherScreen *m_DasherScreen;
 
-  /// Asynchronous (non-modal) messages to be displayed to the user, longest-ago
-  /// at the front, along with the timestamp of the frame at which each was first
-  /// displayed to the user - 0 if not yet displayed.
-  std::deque<pair<CDasherScreen::Label*, unsigned long> > m_dqAsyncMessages;
-  
-  /// Modal messages being or waiting to be displayed to the user, longest-ago
-  /// at the front, along with the timestamp when each was first displayed to the
-  /// user (0 if not yet displayed).
-  std::deque<pair<CDasherScreen::Label*, unsigned long> > m_dqModalMessages;
   
  private:
   
