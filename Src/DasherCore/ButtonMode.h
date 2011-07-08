@@ -18,7 +18,7 @@ namespace Dasher {
 /// \ingroup Input
 /// @{
 /// Handles the "menu mode" and "direct mode" input filters, according to the bMenu constructor parameter.
-class CButtonMode : public CDasherButtons
+class CButtonMode : public CDasherButtons, protected CSettingsObserver
 {
  public:
   CButtonMode(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, bool bMenu, int iID, const char *szName);

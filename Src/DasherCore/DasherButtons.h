@@ -45,7 +45,7 @@ class CDasherButtons : public CInputFilter, protected CSettingsUser
   bool m_bDecorationChanged;
   SBoxInfo *m_pBoxes;
   int m_iNumBoxes, iActiveBox;
-  int m_iScanTime;
+  unsigned long m_iScanTime;
   
   virtual void DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel);
 };
