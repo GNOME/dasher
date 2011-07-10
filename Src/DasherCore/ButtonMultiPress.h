@@ -33,7 +33,7 @@ class CButtonMultiPress : public CDynamicButtons {
  public:
   CButtonMultiPress(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName);
 
-  virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual void KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
 
  protected:
   virtual unsigned int maxClickCount()=0;
@@ -45,7 +45,7 @@ class CButtonMultiPress : public CDynamicButtons {
   virtual void RevertPresses(int iCount) {};
 
   int m_iQueueId;
-  std::deque<int> m_deQueueTimes;
+  std::deque<unsigned long> m_deQueueTimes;
  };
 }
 

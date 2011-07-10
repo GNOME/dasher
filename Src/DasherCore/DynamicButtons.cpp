@@ -53,7 +53,7 @@ bool CDynamicButtons::Timer(unsigned long iTime, CDasherView *pDasherView, CDash
   return TimerImpl(iTime, pDasherView, m_pDasherModel, pol);
 }
 
-void CDynamicButtons::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CDynamicButtons::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
   
   m_pUserLog = pUserLog;
   
@@ -76,7 +76,7 @@ void CDynamicButtons::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInp
   m_bKeyHandled = false;
 }
 
-void CDynamicButtons::KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
+void CDynamicButtons::KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
   if (iId == m_iHeldId) m_bKeyDown = false;
 }
 

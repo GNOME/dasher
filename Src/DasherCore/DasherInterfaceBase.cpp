@@ -22,7 +22,6 @@
 
 #include "DasherInterfaceBase.h"
 
-//#include "ActionButton.h"
 #include "DasherViewSquare.h"
 #include "ControlManager.h"
 #include "DasherScreen.h"
@@ -168,7 +167,6 @@ void CDasherInterfaceBase::Realize(unsigned long ulTime) {
   ChangeAlphabet(); // This creates the NodeCreationManager, the Alphabet,
   //and the tree of nodes in the model.
 
-  SetupActionButtons();
   HandleEvent(LP_NODE_BUDGET);
 
   // FIXME - need to rationalise this sort of thing.
@@ -209,11 +207,6 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
 
   delete m_pFramerate;
 
-  for (std::vector<CActionButton *>::iterator it=m_vLeftButtons.begin(); it != m_vLeftButtons.end(); ++it)
-    delete *it;
-
-  for (std::vector<CActionButton *>::iterator it=m_vRightButtons.begin(); it != m_vRightButtons.end(); ++it)
-    delete *it;
 }
 
 void CDasherInterfaceBase::PreSetNotify(int iParameter, const std::string &sNewValue) {
@@ -588,10 +581,6 @@ bool CDasherInterfaceBase::Redraw(unsigned long ulTime, bool bRedrawNodes, CExpa
   if(m_pInputFilter) {
     if (m_pInputFilter->DecorateView(m_pDasherView, m_pInput)) bRedrawNodes=true;
   }
-
-#ifdef EXPERIMENTAL_FEATURES
-  if (DrawActionButtons()) bRedrawNodes=true;
-#endif
   
   return bRedrawNodes;
 
@@ -652,7 +641,6 @@ void CDasherInterfaceBase::ScreenResized(CDasherScreen *pScreen) {
   if (!m_pDasherView) return;
   m_pDasherView->ScreenResized(m_DasherScreen);
 
-  PositionActionButtons();
   //Really, would like to do a Redraw _immediately_, but this will have to do.
   ScheduleRedraw();
 }
@@ -720,12 +708,12 @@ CUserLogBase* CDasherInterfaceBase::GetUserLogPtr() {
   return m_pUserLog;
 }
 
-void CDasherInterfaceBase::KeyDown(int iTime, int iId, bool bPos, int iX, int iY) {
+void CDasherInterfaceBase::KeyDown(unsigned long iTime, int iId) {
   if(isLocked())
     return;
 
   if(m_pInputFilter) {
-    m_pInputFilter->KeyDown(iTime, iId, m_pDasherView, m_pInput, m_pDasherModel, m_pUserLog, bPos, iX, iY);
+    m_pInputFilter->KeyDown(iTime, iId, m_pDasherView, m_pInput, m_pDasherModel, m_pUserLog);
   }
 
   if(m_pInput) {
@@ -733,12 +721,12 @@ void CDasherInterfaceBase::KeyDown(int iTime, int iId, bool bPos, int iX, int iY
   }
 }
 
-void CDasherInterfaceBase::KeyUp(int iTime, int iId, bool bPos, int iX, int iY) {
+void CDasherInterfaceBase::KeyUp(int iTime, int iId) {
   if(isLocked())
     return;
 
   if(m_pInputFilter) {
-    m_pInputFilter->KeyUp(iTime, iId, m_pDasherView, m_pInput, m_pDasherModel, bPos, iX, iY);
+    m_pInputFilter->KeyUp(iTime, iId, m_pDasherView, m_pInput, m_pDasherModel);
   }
 
   if(m_pInput) {
@@ -830,95 +818,6 @@ void CDasherInterfaceBase::GetPermittedValues(int iParameter, std::vector<std::s
 
 bool CDasherInterfaceBase::GetModuleSettings(const std::string &strName, SModuleSettings **pSettings, int *iCount) {
   return GetModuleByName(strName)->GetSettings(pSettings, iCount);
-}
-
-void CDasherInterfaceBase::SetupActionButtons() {
-  m_vLeftButtons.push_back(new CActionButton(this, "Exit", true));
-  m_vLeftButtons.push_back(new CActionButton(this, "Preferences", false));
-  m_vLeftButtons.push_back(new CActionButton(this, "Help", false));
-  m_vLeftButtons.push_back(new CActionButton(this, "About", false));
-}
-
-void CDasherInterfaceBase::DestroyActionButtons() {
-  // TODO: implement and call this
-}
-
-void CDasherInterfaceBase::PositionActionButtons() {
-  if(!m_DasherScreen)
-    return;
-
-  int iCurrentOffset(16);
-
-  for(std::vector<CActionButton *>::iterator it(m_vLeftButtons.begin()); it != m_vLeftButtons.end(); ++it) {
-    (*it)->SetPosition(16, iCurrentOffset, 32, 32);
-    iCurrentOffset += 48;
-  }
-
-  iCurrentOffset = 16;
-
-  for(std::vector<CActionButton *>::iterator it(m_vRightButtons.begin()); it != m_vRightButtons.end(); ++it) {
-    (*it)->SetPosition(m_DasherScreen->GetWidth() - 144, iCurrentOffset, 128, 32);
-    iCurrentOffset += 48;
-  }
-}
-
-bool CDasherInterfaceBase::DrawActionButtons() {
-  if(!m_DasherScreen)
-    return false;
-
-  bool bVisible(GetBoolParameter(BP_DASHER_PAUSED));
-
-  bool bRV(bVisible != m_bOldVisible);
-  m_bOldVisible = bVisible;
-
-  for(std::vector<CActionButton *>::iterator it(m_vLeftButtons.begin()); it != m_vLeftButtons.end(); ++it)
-    (*it)->Draw(m_DasherScreen, bVisible);
-
-  for(std::vector<CActionButton *>::iterator it(m_vRightButtons.begin()); it != m_vRightButtons.end(); ++it)
-    (*it)->Draw(m_DasherScreen, bVisible);
-
-  return bRV;
-}
-
-
-void CDasherInterfaceBase::HandleClickUp(int iTime, int iX, int iY) {
-#ifdef EXPERIMENTAL_FEATURES
-  bool bVisible(GetBoolParameter(BP_DASHER_PAUSED));
-
-  for(std::vector<CActionButton *>::iterator it(m_vLeftButtons.begin()); it != m_vLeftButtons.end(); ++it) {
-    if((*it)->HandleClickUp(iTime, iX, iY, bVisible))
-      return;
-  }
-
-  for(std::vector<CActionButton *>::iterator it(m_vRightButtons.begin()); it != m_vRightButtons.end(); ++it) {
-    if((*it)->HandleClickUp(iTime, iX, iY, bVisible))
-      return;
-  }
-#endif
-
-  KeyUp(iTime, 100, true, iX, iY);
-}
-
-void CDasherInterfaceBase::HandleClickDown(int iTime, int iX, int iY) {
-#ifdef EXPERIMENTAL_FEATURES
-  bool bVisible(GetBoolParameter(BP_DASHER_PAUSED));
-
-  for(std::vector<CActionButton *>::iterator it(m_vLeftButtons.begin()); it != m_vLeftButtons.end(); ++it) {
-    if((*it)->HandleClickDown(iTime, iX, iY, bVisible))
-      return;
-  }
-
-  for(std::vector<CActionButton *>::iterator it(m_vRightButtons.begin()); it != m_vRightButtons.end(); ++it) {
-    if((*it)->HandleClickDown(iTime, iX, iY, bVisible))
-      return;
-  }
-#endif
-
-  KeyDown(iTime, 100, true, iX, iY);
-}
-
-void CDasherInterfaceBase::AddActionButton(const std::string &strName) {
-  m_vRightButtons.push_back(new CActionButton(this, strName, false));
 }
 
 void CDasherInterfaceBase::SetOffset(int iOffset, bool bForce) {

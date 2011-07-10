@@ -97,22 +97,20 @@ bool COneButtonDynamicFilter::DecorateView(CDasherView *pView, CDasherInput *pIn
   return bRV;
 }
 
-void COneButtonDynamicFilter::KeyDown(int Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {
+void COneButtonDynamicFilter::KeyDown(unsigned long Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
   if (iId == 100 && !GetBoolParameter(BP_BACKOFF_BUTTON))
     //mouse click - will be ignored by superclass method.
     //simulate press of button 2...
-    CButtonMultiPress::KeyDown(Time, 2, pDasherView, pInput, pModel, pUserLog);
-  else
-    CInputFilter::KeyDown(Time, iId, pDasherView, pInput, pModel, pUserLog, bPos, iX, iY);
+    iId=2;
+  CButtonMultiPress::KeyDown(Time, 2, pDasherView, pInput, pModel, pUserLog);
 }
 
-void COneButtonDynamicFilter::KeyUp(int Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, bool bPos, int iX, int iY) {
+void COneButtonDynamicFilter::KeyUp(unsigned long Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel) {
   if (iId == 100 && !GetBoolParameter(BP_BACKOFF_BUTTON))
     //mouse click - will be ignored by superclass method.
     //simulate press of button 2...
-    CButtonMultiPress::KeyUp(Time, 2, pDasherView, pInput, pModel);
-  else
-    CInputFilter::KeyUp(Time, iId, pDasherView, pInput, pModel, bPos, iX, iY);
+    iId=2;
+  CButtonMultiPress::KeyUp(Time, iId, pDasherView, pInput, pModel);
 }
 
 bool COneButtonDynamicFilter::TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) {

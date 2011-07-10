@@ -82,13 +82,13 @@ void CIPhoneTiltFilter::ApplyTransform(myint &iDasherX, myint &iDasherY, CDasher
   }
 }
 
-void CIPhoneTiltFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CIPhoneTiltFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
 	if(iId == 100 && bHoldToGo)
 		Unpause(iTime);
   else COneDimensionalFilter::KeyDown(iTime, iId, pView, pInput, pModel, pUserLog);
 }
 
-void CIPhoneTiltFilter::KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
+void CIPhoneTiltFilter::KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
 	if(iId == 100 && bHoldToGo)
 		m_pInterface->Stop();
   else COneDimensionalFilter::KeyUp(iTime, iId, pView, pInput, pModel);
@@ -161,7 +161,7 @@ void CIPhoneTouchFilter::Deactivate() {
   if (bUseTiltX) m_pTilt->Deactivate();
 }
 
-void CIPhoneTouchFilter::KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
+void CIPhoneTouchFilter::KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
   CStylusFilter::KeyUp(iTime, iId, pView, m_pUndoubledTouch, pModel);
 }
 

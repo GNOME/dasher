@@ -172,9 +172,6 @@ private:
   virtual void SetupPaths();
   virtual void CreateModules();
   virtual void SetupUI();
-  
-  /// Override to emit Gtk2 signals (previously in response to CCommandEvent)
-  void ExecuteCommand(const std::string &strName);
 
   GtkWidget *m_pVBox;
   GtkWidget *m_pCanvas;

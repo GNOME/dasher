@@ -21,8 +21,6 @@
 		1921DB390C7ECAA400E6DAA5 /* OneButtonDynamicFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1921DB370C7ECAA400E6DAA5 /* OneButtonDynamicFilter.cpp */; };
 		1921DB3A0C7ECAA400E6DAA5 /* OneButtonDynamicFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1921DB380C7ECAA400E6DAA5 /* OneButtonDynamicFilter.h */; };
 		193731A80C8586F20022CBC7 /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 193731A70C8586F20022CBC7 /* config.h */; };
-		1948BE9D0C226CFD001DFA32 /* ActionButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BDF60C226CFC001DFA32 /* ActionButton.cpp */; };
-		1948BE9E0C226CFD001DFA32 /* ActionButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BDF70C226CFC001DFA32 /* ActionButton.h */; };
 		1948BEA20C226CFD001DFA32 /* AlphabetMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BDFC0C226CFC001DFA32 /* AlphabetMap.cpp */; };
 		1948BEA30C226CFD001DFA32 /* AlphabetMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BDFD0C226CFC001DFA32 /* AlphabetMap.h */; };
 		1948BEA40C226CFD001DFA32 /* AlphIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BDFE0C226CFC001DFA32 /* AlphIO.cpp */; };
@@ -412,8 +410,6 @@
 		1921DB380C7ECAA400E6DAA5 /* OneButtonDynamicFilter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = OneButtonDynamicFilter.h; sourceTree = "<group>"; };
 		19351BF304575C6C0000000A /* mktar.sh */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.script.sh; path = mktar.sh; sourceTree = "<group>"; };
 		193731A70C8586F20022CBC7 /* config.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
-		1948BDF60C226CFC001DFA32 /* ActionButton.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ActionButton.cpp; sourceTree = "<group>"; };
-		1948BDF70C226CFC001DFA32 /* ActionButton.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ActionButton.h; sourceTree = "<group>"; };
 		1948BDFC0C226CFC001DFA32 /* AlphabetMap.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AlphabetMap.cpp; sourceTree = "<group>"; };
 		1948BDFD0C226CFC001DFA32 /* AlphabetMap.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = AlphabetMap.h; sourceTree = "<group>"; };
 		1948BDFE0C226CFC001DFA32 /* AlphIO.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = AlphIO.cpp; sourceTree = "<group>"; };
@@ -914,8 +910,6 @@
 				1988ABB90C9FF97000D97977 /* GameStatistics.h */,
 				33F6C9E8133241A000745B06 /* AbstractXMLParser.h */,
 				33F6C9E9133241A000745B06 /* AbstractXMLParser.cpp */,
-				1948BDF60C226CFC001DFA32 /* ActionButton.cpp */,
-				1948BDF70C226CFC001DFA32 /* ActionButton.h */,
 				1948BDF80C226CFC001DFA32 /* Alphabet */,
 				1948BE020C226CFC001DFA32 /* AlphabetManager.cpp */,
 				1948BE030C226CFC001DFA32 /* AlphabetManager.h */,
@@ -1383,7 +1377,6 @@
 				191180EB0B0FC91A001CB987 /* COSXSettingsStore.h in Headers */,
 				19E49DB60B10556200BA5CE8 /* DasherUtil.h in Headers */,
 				19C1AE820B130F18005C68D3 /* COSXMouseInput.h in Headers */,
-				1948BE9E0C226CFD001DFA32 /* ActionButton.h in Headers */,
 				1948BEA30C226CFD001DFA32 /* AlphabetMap.h in Headers */,
 				1948BEA50C226CFD001DFA32 /* AlphIO.h in Headers */,
 				1948BEA60C226CFD001DFA32 /* GroupInfo.h in Headers */,
@@ -1753,7 +1746,6 @@
 				191428E70B0E6CC6004F1C28 /* COSXDasherControl.mm in Sources */,
 				191180EC0B0FC91A001CB987 /* COSXSettingsStore.mm in Sources */,
 				19E49DB50B10556100BA5CE8 /* DasherUtil.mm in Sources */,
-				1948BE9D0C226CFD001DFA32 /* ActionButton.cpp in Sources */,
 				1948BEA20C226CFD001DFA32 /* AlphabetMap.cpp in Sources */,
 				1948BEA40C226CFD001DFA32 /* AlphIO.cpp in Sources */,
 				1948BEA80C226CFD001DFA32 /* AlphabetManager.cpp in Sources */,

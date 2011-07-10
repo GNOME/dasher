@@ -39,7 +39,7 @@ void CDasherButtons::Activate() {
   m_iScanTime = std::numeric_limits<int>::min();
 }
 
-void CDasherButtons::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CDasherButtons::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
 
   if(m_bMenu) {
     switch(iId) {

@@ -120,7 +120,7 @@ CGSize CDasherScreenBridge::TextSize(NSString *str, unsigned int iFontSize, bool
 	lastTouchCoords = [((UITouch *)[touches anyObject]) locationInView:self];
 	NSAssert(!anyDown,@"Touches began when already in progress - multitouch enabled?!?!\n");
 	anyDown = YES;
-	dasherApp.dasherInterface->KeyDown(get_time(), 100, true, lastTouchCoords.x, lastTouchCoords.y);
+	dasherApp.dasherInterface->KeyDown(get_time(), 100);
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -131,7 +131,7 @@ CGSize CDasherScreenBridge::TextSize(NSString *str, unsigned int iFontSize, bool
 	NSAssert([touches count] == 1, @"Multitouch?!");
 	NSAssert(anyDown,@"Touches ended when not in progress - multitouch enabled?!?!\n");
 	lastTouchCoords = [(UITouch *)[touches anyObject] locationInView:self];
-	dasherApp.dasherInterface->KeyUp(get_time(), 100, true, lastTouchCoords.x, lastTouchCoords.y);
+	dasherApp.dasherInterface->KeyUp(get_time(), 100);
   //finished dealing with touch-up event. Finger is now officially off the screen...
   lastTouchCoords.x = lastTouchCoords.y = -1;
   anyDown = NO;

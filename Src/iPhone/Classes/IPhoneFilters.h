@@ -37,9 +37,9 @@ class CIPhoneTiltFilter : public COneDimensionalFilter, private IPhonePrefsObser
 public:
 	CIPhoneTiltFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, CDasherInput *pTouch);
   ///override to enable hold-to-go
-	virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+	virtual void KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
   ///override to enable hold-to-go
-	virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
+	virtual void KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
 
   ///respond to BP_DASHER_PAUSED by engaging wakelock (if !hold-to-go)
   virtual void HandleEvent(int iParameter);
@@ -61,7 +61,7 @@ class CIPhoneTouchFilter : public CStylusFilter, private IPhonePrefsObserver {
 public:
 	CIPhoneTouchFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, UndoubledTouch *pUndoubledTouch, CIPhoneTiltInput *pTilt);
 	
-	virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
+	virtual void KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
   
   void ApplyTransform(myint &iDasherX, myint &iDasherY, CDasherView *pView);
   void Activate();

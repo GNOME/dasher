@@ -142,7 +142,7 @@ bool CDefaultFilter::Timer(unsigned long Time, CDasherView *pView, CDasherInput 
   return bDidSomething;
 }
 
-void CDefaultFilter::KeyDown(int iTime, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CDefaultFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
 
   switch(iId) {
   case 0: // Start on space

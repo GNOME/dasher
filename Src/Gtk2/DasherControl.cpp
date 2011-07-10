@@ -470,10 +470,6 @@ CGameModule *CDasherControl::CreateGameModule(CDasherView *pView,CDasherModel *p
   return CDashIntfScreenMsgs::CreateGameModule(pView,pModel);
 }
 
-void CDasherControl::ExecuteCommand(const std::string &strCommand) {
-    g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_command", strCommand.c_str());
-}
-
 void CDasherControl::WriteTrainFile(const std::string &filename, const std::string &strNewText) {
   if(strNewText.length() == 0)
     return;
@@ -612,10 +608,13 @@ gboolean CDasherControl::ButtonPressEvent(GdkEventButton *event) {
 
   // No - don't take the focus - give it to the text area instead
   
+  //GDK uses button 1=left, 2=middle, 3=right. We want 100, 102, 101
+  int button = event->button;
+  if (button&2) button^=1;
   if(event->type == GDK_BUTTON_PRESS)
-    HandleClickDown(get_time(), (int)event->x, (int)event->y);
+    KeyDown(get_time(), button+99 );
   else if(event->type == GDK_BUTTON_RELEASE)
-    HandleClickUp(get_time(), (int)event->x, (int)event->y);
+    KeyUp(get_time(), button+99);
 
   return false;
 }

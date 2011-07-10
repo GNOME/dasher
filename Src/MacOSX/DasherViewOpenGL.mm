@@ -126,15 +126,11 @@ protected:
 }
 
 - (void)mouseDown:(NSEvent *)e {
-  NSPoint q = [self convertPoint:[e locationInWindow] fromView:nil];
-    
-  [dasherApp aquaDasherControl]->HandleClickDown(get_time(), q.x, q.y);
+  [dasherApp aquaDasherControl]->KeyDown(get_time(), 100+[e buttonNumber]);
 }
 
 - (void)mouseUp:(NSEvent *)e {
-  NSPoint q = [self convertPoint:[e locationInWindow] fromView:nil];
-  
-  [dasherApp aquaDasherControl]->HandleClickUp(get_time(), q.x, q.y);
+  [dasherApp aquaDasherControl]->KeyUp(get_time(), 100+[e buttonNumber]);
 }
 
 

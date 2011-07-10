@@ -20,8 +20,6 @@ libdashercore_a_SOURCES = \
 		Alphabet/GroupInfo.h \
 		AlternatingDirectMode.cpp \
 		AlternatingDirectMode.h \
-		ActionButton.cpp \
-		ActionButton.h \
 		AlphabetManager.cpp \
 		AlphabetManager.h \
 		AutoSpeedControl.cpp \

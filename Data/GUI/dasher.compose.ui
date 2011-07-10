@@ -459,7 +459,6 @@
                             <signal handler="on_lock_info" name="dasher_lock_info"/>
                             <signal handler="convert_cb" name="dasher_edit_convert"/>
                             <signal handler="protect_cb" name="dasher_edit_protect"/>
-                            <signal handler="on_command" name="dasher_command"/>
                           </object>
                           <packing>
                             <property name="shrink">True</property>

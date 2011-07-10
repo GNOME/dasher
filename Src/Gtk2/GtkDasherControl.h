@@ -52,7 +52,6 @@ struct _GtkDasherControlClass {
   void (*dasher_request_settings) (GtkDasherControl * pDasherControl, gpointer data);
   void (*dasher_lock) (GtkDasherControl * pDasherControl, gpointer pLockInfo, gpointer data);
   void (*dasher_message) (GtkDasherControl * pDasherControl, gpointer pLockInfo, gpointer data);
-  void (*dasher_command) (GtkDasherControl * pDasherControl, const gchar * szText, gpointer data);
 };
 
 GtkWidget *gtk_dasher_control_new();
@@ -85,7 +84,6 @@ gboolean gtk_dasher_control_get_module_settings(GtkDasherControl * pControl, con
 GtkTextBuffer *gtk_dasher_control_game_text_buffer(GtkDasherControl *pPrivate);
 
 void gtk_dasher_control_force_pause(GtkDasherControl *pControl);
-void gtk_dasher_control_add_action_button(GtkDasherControl *pControl, const gchar *szCommand);
 void gtk_dasher_user_log_new_trial(GtkDasherControl * pControl);
 void gtk_dasher_control_set_focus(GtkDasherControl * pControl);
 const gchar* gtk_dasher_control_cl_set(GtkDasherControl *pControl, const gchar *szKey, const gchar *szValue);

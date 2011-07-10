@@ -22,7 +22,7 @@ bool CStylusFilter::Timer(unsigned long iTime, CDasherView *pView, CDasherInput 
   return CDefaultFilter::Timer(iTime, pView, pInput, pModel, pol);
 }
 
-void CStylusFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CStylusFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
   if(iId == 100) {
     pModel->ClearScheduledSteps();
     Unpause(iTime);
@@ -30,7 +30,7 @@ void CStylusFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput
   }
 }
 
-void CStylusFilter::KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
+void CStylusFilter::KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
   if(iId == 100) {
     if (iTime - m_iKeyDownTime < GetLongParameter(LP_TAP_TIME)) {
       pInput->GetDasherCoords(m_iLastX, m_iLastY, pView);

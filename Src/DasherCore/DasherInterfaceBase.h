@@ -34,7 +34,6 @@
 #include "Messages.h"
 #include "../Common/NoClones.h"
 #include "../Common/ModuleSettings.h"
-#include "ActionButton.h"
 #include "Alphabet/AlphIO.h"
 #include "AutoSpeedControl.h"
 #include "ColourIO.h"
@@ -294,29 +293,24 @@ public:
 
   /// @}
 
-  /// @name Action buttons
-  /// TODO, how much of this was ever implemented???
-  /// @{
-  /// ACL in answer to previous: not much, not sure whether it's worth keeping anything;
-  /// but for now, I'm preserving this as overridable by subclasses which do want to handle
-  /// commands, so they can make it do something. The default implementation does nothing.
-  virtual void ExecuteCommand(const std::string &strName) {};
-
-  void AddActionButton(const std::string &strName);
-
-  /// @}
-
   /// @name User input
   /// Deals with forwarding user input to the core
   /// @{
+  /// Called from outside to indicate a key or mouse button has just been pushed down
+  /// \param iTime time at which button pressed
+  /// \param iId integer identifying button. TODO we need a better system here.
+  /// At present 1-4 are keys on the keyboard (or external), after mapping from e.g.
+  /// qwerty layout, such that for a user who can press 2 buttons, 1 is the primary, 2
+  /// secondary (maybe harder for them), etc. Direct mode can use an arbitrary number.
+  /// 100 is left mouse button, 101 right, 102 middle (if there is one), and so on.
+  /// (Note we do not specify the location at which mouse presses occur: the current
+  /// pointer location can be obtained from the input device if necessary)
+  void KeyDown(unsigned long iTime, int iId);
 
-  void KeyDown(int iTime, int iId, bool bPos = false, int iX = 0, int iY = 0);
-
-  void KeyUp(int iTime, int iId, bool bPos = false, int iX = 0, int iY = 0);
-
-  void HandleClickUp(int iTime, int iX, int iY);
-
-  void HandleClickDown(int iTime, int iX, int iY);
+  /// Called from outside to indicate a key or mouse button has just been released
+  /// \param iTime time at which button released
+  /// \param iId integer identifying button. See comments for KeyDown.
+  void KeyUp(int iTime, int iId);
 
   /// @}
 
@@ -481,15 +475,6 @@ protected:
   void ChangeAlphabet();
   void ChangeColours();
   void ChangeView();
-
-  void SetupActionButtons();
-  void DestroyActionButtons();
-  void PositionActionButtons();
-  bool DrawActionButtons();
-
-  std::vector<CActionButton *> m_vLeftButtons;
-  std::vector<CActionButton *> m_vRightButtons;
-
 
   class WordSpeaker : public TransientObserver<const CEditEvent *> {
   public:

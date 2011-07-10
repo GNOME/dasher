@@ -52,9 +52,6 @@ void dasher_editor_internal_initialise(DasherEditorInternal *pSelf, DasherAppSet
 
 GType dasher_editor_internal_get_type();
 
-/* // TODO: Just have one 'handle event' method? */
-/* gboolean dasher_editor_internal_command(DasherEditorInternal *pSelf, const gchar *szCommand); */
-
 /* void dasher_editor_internal_handle_font(DasherEditorInternal *pSelf, const gchar *szFont); */
 
 /* /\* To be obsoleted by movement to GTK buffers *\/ */

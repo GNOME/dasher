@@ -92,22 +92,26 @@ bool CTwoButtonDynamicFilter::DecorateView(CDasherView *pView, CDasherInput *pIn
   return bRV;
 }
 
-void CTwoButtonDynamicFilter::KeyDown(int Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {
-	if (iId == 100 && !GetBoolParameter(BP_BACKOFF_BUTTON))
-		//mouse click - will be ignored by superclass method.
+void CTwoButtonDynamicFilter::KeyDown(unsigned long Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
+	if (iId == 100 && !GetBoolParameter(BP_BACKOFF_BUTTON)) {
+    //mouse click - will be ignored by superclass method.
 		//simulate press of button 2/3 according to whether click in top/bottom half
-		CButtonMultiPress::KeyDown(Time, (iY < pView->Screen()->GetHeight()/2) ? 2 : 3, pView, pInput, pModel, pUserLog);
-	else
-		CInputFilter::KeyDown(Time, iId, pView, pInput, pModel, pUserLog, bPos, iX, iY);
+    myint iDasherX, iDasherY;
+    m_pInterface->GetActiveInputDevice()->GetDasherCoords(iDasherX, iDasherY, pView);
+    iId = (iDasherY < GetLongParameter(LP_OY)) ? 2 : 3;
+  }
+  CButtonMultiPress::KeyDown(Time, iId, pView, pInput, pModel, pUserLog);
 }
 
-void CTwoButtonDynamicFilter::KeyUp(int Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, bool bPos, int iX, int iY) {
-	if (iId == 100 && !GetBoolParameter(BP_BACKOFF_BUTTON))
-		//mouse click - will be ignored by superclass method.
+void CTwoButtonDynamicFilter::KeyUp(unsigned long Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
+	if (iId == 100 && !GetBoolParameter(BP_BACKOFF_BUTTON)) {
+    //mouse click - will be ignored by superclass method.
 		//simulate press of button 2/3 according to whether click in top/bottom half
-		CButtonMultiPress::KeyUp(Time, (iY < pView->Screen()->GetHeight()/2) ? 2 : 3, pView, pInput,pModel);
-	else
-		CInputFilter::KeyUp(Time, iId, pView, pInput, pModel, bPos, iX, iY);
+    myint iDasherX, iDasherY;
+    m_pInterface->GetActiveInputDevice()->GetDasherCoords(iDasherX, iDasherY, pView);
+    iId = (iDasherY < GetLongParameter(LP_OY)) ? 2 : 3;
+  }
+  CButtonMultiPress::KeyUp(Time, iId, pView, pInput,pModel);
 }
 
 bool CTwoButtonDynamicFilter::TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) {

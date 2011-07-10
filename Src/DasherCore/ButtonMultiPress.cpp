@@ -27,7 +27,7 @@ CButtonMultiPress::CButtonMultiPress(CSettingsUser *pCreator, CDasherInterfaceBa
   : CDynamicButtons(pCreator, pInterface, pFramerate, iID, szName) {
 }
 
-void CButtonMultiPress::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CButtonMultiPress::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
 
   if (m_bKeyDown) return;
 

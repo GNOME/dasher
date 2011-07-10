@@ -70,7 +70,7 @@ bool COneButtonFilter::Timer(unsigned long Time, CDasherView *pView, CDasherInpu
   return m_pDasherModel->NextScheduledStep();
 }
 
-void COneButtonFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void COneButtonFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
   if (bStarted) {
     if (iLocation == 0) {
       //back up by one zoom step.

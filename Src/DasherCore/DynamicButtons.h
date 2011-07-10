@@ -34,8 +34,8 @@ class CDynamicButtons : public CDynamicFilter, public CSettingsObserver {
   ///when reversing, backs off; when paused, does nothing; when running, delegates to TimerImpl
   virtual bool Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);
 
-  virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
-  virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
+  virtual void KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual void KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
 
   //respond to changes to BP_DASHER_PAUSED to keep m_iState in sync
   virtual void HandleEvent(int iParameter);

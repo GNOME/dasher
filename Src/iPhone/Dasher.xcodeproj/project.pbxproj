@@ -166,7 +166,6 @@
 		333F707A11A8AA66002E2BDF /* usenglish.c in Sources */ = {isa = PBXBuildFile; fileRef = 333F701911A8AA66002E2BDF /* usenglish.c */; };
 		333FDB5A139FB413009D018A /* ConvertingAlphMgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 333FDB58139FB413009D018A /* ConvertingAlphMgr.cpp */; };
 		3344FD5D0F716F7900506EAA /* CDasherInterfaceBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3344FD5C0F716F7900506EAA /* CDasherInterfaceBridge.mm */; };
-		3344FE150F71717C00506EAA /* ActionButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FD680F71717C00506EAA /* ActionButton.cpp */; };
 		3344FE170F71717C00506EAA /* AlphabetMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FD6D0F71717C00506EAA /* AlphabetMap.cpp */; };
 		3344FE180F71717C00506EAA /* AlphIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FD6F0F71717C00506EAA /* AlphIO.cpp */; };
 		3344FE1A0F71717C00506EAA /* AlphabetManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FD730F71717C00506EAA /* AlphabetManager.cpp */; };
@@ -541,8 +540,6 @@
 		333FDB59139FB413009D018A /* ConvertingAlphMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvertingAlphMgr.h; sourceTree = "<group>"; };
 		3344FD5B0F716F7900506EAA /* CDasherInterfaceBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDasherInterfaceBridge.h; sourceTree = "<group>"; };
 		3344FD5C0F716F7900506EAA /* CDasherInterfaceBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CDasherInterfaceBridge.mm; sourceTree = "<group>"; };
-		3344FD680F71717C00506EAA /* ActionButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActionButton.cpp; sourceTree = "<group>"; };
-		3344FD690F71717C00506EAA /* ActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionButton.h; sourceTree = "<group>"; };
 		3344FD6D0F71717C00506EAA /* AlphabetMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AlphabetMap.cpp; sourceTree = "<group>"; };
 		3344FD6E0F71717C00506EAA /* AlphabetMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlphabetMap.h; sourceTree = "<group>"; };
 		3344FD6F0F71717C00506EAA /* AlphIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AlphIO.cpp; sourceTree = "<group>"; };
@@ -1177,8 +1174,6 @@
 				337ECC1A10DD5E0700D0C6A5 /* ExpansionPolicy.h */,
 				3378A23D1335425200A96C5D /* AbstractXMLParser.cpp */,
 				3378A23E1335425200A96C5D /* AbstractXMLParser.h */,
-				3344FD680F71717C00506EAA /* ActionButton.cpp */,
-				3344FD690F71717C00506EAA /* ActionButton.h */,
 				3344FD6A0F71717C00506EAA /* Alphabet */,
 				3344FD730F71717C00506EAA /* AlphabetManager.cpp */,
 				3344FD740F71717C00506EAA /* AlphabetManager.h */,
@@ -1578,7 +1573,6 @@
 				332BCABF0F71621400585DBD /* xmltok_impl.c in Sources */,
 				332BCAC00F71621400585DBD /* xmltok_ns.c in Sources */,
 				3344FD5D0F716F7900506EAA /* CDasherInterfaceBridge.mm in Sources */,
-				3344FE150F71717C00506EAA /* ActionButton.cpp in Sources */,
 				3344FE170F71717C00506EAA /* AlphabetMap.cpp in Sources */,
 				3344FE180F71717C00506EAA /* AlphIO.cpp in Sources */,
 				3344FE1A0F71717C00506EAA /* AlphabetManager.cpp in Sources */,

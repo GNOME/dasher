@@ -27,7 +27,7 @@ class CDasherButtons : public CInputFilter, protected CSettingsUser
 
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput)=0;
   
-  void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+  void KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
   bool Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);
   void Activate();
   
