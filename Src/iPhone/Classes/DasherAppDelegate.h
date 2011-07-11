@@ -35,11 +35,11 @@
   NSString *m_wordBoundary, *m_sentenceBoundary, *m_lineBoundary;
 }
 
-- (void)setAlphabet:(const CAlphInfo *)pAlph;
+- (void)setAlphabet:(const Dasher::CAlphInfo *)pAlph;
 - (void)outputCallback:(NSString *)s;
 - (void)deleteCallback:(NSString *)s;
-- (unsigned int)move:(CControlManager::EditDistance)amt forwards:(BOOL)bForwards;
-- (unsigned int)del:(CControlManager::EditDistance)amt forwards:(BOOL)bForwards;
+- (unsigned int)move:(Dasher::CControlManager::EditDistance)amt forwards:(BOOL)bForwards;
+- (unsigned int)del:(Dasher::CControlManager::EditDistance)amt forwards:(BOOL)bForwards;
 - (BOOL)supportsSpeech;
 - (void)speak:(NSString *)text interrupt:(BOOL)bInt;
 - (void)copy:(NSString *)text;

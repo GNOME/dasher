@@ -77,6 +77,7 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   {BP_DOUBLE_X, T_BOOL, -1, -1, -1, -1, ""},
 };
 
+using namespace Dasher;
 
 @implementation DasherAppDelegate
 

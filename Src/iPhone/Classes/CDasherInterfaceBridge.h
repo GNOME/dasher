@@ -59,16 +59,16 @@ public:
   void ClearAllContext();
   std::string GetAllContext();
   std::string GetContext(unsigned int iStart, unsigned int iLength);
-  unsigned int ctrlMove(bool bForwards, CControlManager::EditDistance dist);
-  unsigned int ctrlDelete(bool bForwards, CControlManager::EditDistance dist);
+  unsigned int ctrlMove(bool bForwards, Dasher::CControlManager::EditDistance dist);
+  unsigned int ctrlDelete(bool bForwards, Dasher::CControlManager::EditDistance dist);
   void SetLockStatus(const string &strText, int iPercent);
-  void editOutput(const string &strText, CDasherNode *pNode);
-  void editDelete(const string &strText, CDasherNode *pNode);
-  void editConvert(CDasherNode *pNode);
-  void editProtect(CDasherNode *pNode);
+  void editOutput(const string &strText, Dasher::CDasherNode *pNode);
+  void editDelete(const string &strText, Dasher::CDasherNode *pNode);
+  void editConvert(Dasher::CDasherNode *pNode);
+  void editProtect(Dasher::CDasherNode *pNode);
   ///Override for asynchronous messages only...TODO?
   void Message(const string &strText, bool bInterrupt);
-  CGameModule *CreateGameModule(CDasherView *pView,CDasherModel *pModel);
+  Dasher::CGameModule *CreateGameModule(Dasher::CDasherView *pView,Dasher::CDasherModel *pModel);
 private:
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
   virtual void ScanColourFiles(std::vector<std::string> &vFileList);
@@ -84,8 +84,8 @@ private:
   
   DasherAppDelegate *dasherApp;   // objc counterpart
   	
-  CIPhoneMouseInput *m_pMouseDevice;
-  CIPhoneTiltInput *m_pTiltDevice;
-	UndoubledTouch *m_pUndoubledTouch;
-  CIPhoneTwoFingerInput *m_pTwoFingerDevice;
+  Dasher::CIPhoneMouseInput *m_pMouseDevice;
+  Dasher::CIPhoneTiltInput *m_pTiltDevice;
+  Dasher::UndoubledTouch *m_pUndoubledTouch;
+  Dasher::CIPhoneTwoFingerInput *m_pTwoFingerDevice;
 };

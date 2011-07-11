@@ -11,8 +11,6 @@
 #include "StylusFilter.h"
 #include "IPhoneInputs.h"
 
-using namespace Dasher;
-
 @class NSUserDefaultsObserver;
 
 class IPhonePrefsObserver {
@@ -34,6 +32,8 @@ extern NSString *TOUCH_USE_TILT_X;
 #define TILT_FILTER "IPhone Tilt Filter"
 #define TOUCH_FILTER "IPhone Touch Filter"
 #define TWO_FINGER_FILTER "Two-finger filter"
+
+namespace Dasher {
 
 class CIPhoneTiltFilter : public COneDimensionalFilter, private IPhonePrefsObserver {
 public:
@@ -83,4 +83,5 @@ public:
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);
 };
 
+}
 /// @}

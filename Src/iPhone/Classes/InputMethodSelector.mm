@@ -183,7 +183,7 @@ int numSections = sizeof(allMeths) / sizeof(allMeths[0]);
 
 -(UITableViewCellAccessoryType)accessoryTypeForFilter:(SFilterDesc *)filter {
   SModuleSettings *sets; int count;
-  CDasherInterfaceBase *intf = [DasherAppDelegate theApp].dasherInterface;
+  Dasher::CDasherInterfaceBase *intf = [DasherAppDelegate theApp].dasherInterface;
   if (intf->GetModuleSettings(filter->filterName, &sets, &count))
     if (count>0) return UITableViewCellAccessoryDisclosureIndicator;
   if (intf->GetModuleSettings(filter->deviceName, &sets, &count))
@@ -279,7 +279,7 @@ int numSections = sizeof(allMeths) / sizeof(allMeths[0]);
 @implementation ExtraParametersController
 
 -(id)initForFilter:(SFilterDesc *)filter {
-  CDasherInterfaceBase *intf=[DasherAppDelegate theApp].dasherInterface;
+  Dasher::CDasherInterfaceBase *intf=[DasherAppDelegate theApp].dasherInterface;
   SModuleSettings *settings; int count;
   if (!intf->GetModuleSettings(filter->filterName, &settings, &count)) {
     settings=NULL; count=0;

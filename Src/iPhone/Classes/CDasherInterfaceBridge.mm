@@ -30,6 +30,7 @@
 -(UIWebView *)getWebView;
 @end;
 
+using namespace Dasher;
 using namespace std;
 
 class IPhoneGameModule : public CGameModule {

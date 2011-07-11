@@ -64,6 +64,8 @@ IPhonePrefsObserver::~IPhonePrefsObserver() {
   [obsvr release];
 }
 
+using namespace Dasher;
+
 CIPhoneTiltFilter::CIPhoneTiltFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, CDasherInput *pTouch)
 : COneDimensionalFilter(pCreator, pInterface, iID, TILT_FILTER), m_pTouch(pTouch) {
   ObserveKeys(HOLD_TO_GO, TILT_USE_TOUCH_X, TILT_1D, @"CircleStart", nil);
