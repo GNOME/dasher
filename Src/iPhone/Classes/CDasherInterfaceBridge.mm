@@ -18,6 +18,7 @@
 #import "ButtonMode.h"
 #import "TwoButtonDynamicFilter.h"
 #import "TwoPushDynamicFilter.h"
+#import "GameModule.h"
 #import <iostream>
 #import <fcntl.h>
 

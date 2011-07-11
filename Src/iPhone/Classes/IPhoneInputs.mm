@@ -121,7 +121,7 @@ bool CIPhoneMouseInput::GetScreenCoords(screenint &iX, screenint &iY, CDasherVie
   CDasherScreen *scr(pView->Screen());
   //double x/y
   if (GetBoolParameter(BP_DOUBLE_X)) {
-    switch (GetLongParameter(LP_REAL_ORIENTATION)) {
+    switch (pView->GetOrientation()) {
       case Opts::LeftToRight:
         iX=min(iX*2, scr->GetWidth());
         break;
