@@ -125,6 +125,11 @@ void setVerticalTiltAxes(float minY, float maxY, float minX, float maxX, BOOL in
   return self;
 }
 
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+  if ([UIAccelerometer sharedAccelerometer].delegate == self)
+    return toInterfaceOrientation == m_fixOrientation;
+  return toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
+}
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -254,37 +259,32 @@ void setVerticalTiltAxes(float minY, float maxY, float minX, float maxX, BOOL in
 - (void)set:(id)sender {
   NSString *title;
   oldDeleg = [UIAccelerometer sharedAccelerometer].delegate;
-  if (sender == setRange)
-  {
+  if (sender == setRange) {
     minX = 1.0; minY = 1.0; maxX = -1.0; maxY = -1.0;
     settingParam = SETTING_VERT;
-	title=@"Set Range";
-	  settingLabel = nil;
-  }
-  else
-  {
-	  if (sender == custX)
-	  {
-		  title=@"Set Minor Axis";
-		  settingParam = SETTING_CUST_X;
-	  }
-	  else
-	  {
-		  title=@"Set Endpoint";
-		  settingParam = (sender == custMin) ? SETTING_CUST_MIN : SETTING_CUST_MAX;
-	  }
-	  settingLabel = [[[UILabel alloc] initWithFrame:[UIScreen mainScreen].bounds] autorelease];
-	  [settingLabel setFont:[UIFont systemFontOfSize:16.0]];
+    title=@"Set Range";
+    settingLabel = nil;
+  } else {
+    if (sender == custX) {
+      title=@"Set Minor Axis";
+      settingParam = SETTING_CUST_X;
+    } else {
+      title=@"Set Endpoint";
+      settingParam = (sender == custMin) ? SETTING_CUST_MIN : SETTING_CUST_MAX;
+    }
+    settingLabel = [[[UILabel alloc] initWithFrame:[UIScreen mainScreen].bounds] autorelease];
+    [settingLabel setFont:[UIFont systemFontOfSize:16.0]];
   }
   UIActionSheet *act = [[[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Set" otherButtonTitles:nil] autorelease];
   if (settingLabel) {
-	UIViewController *viewCon = [[UIViewController alloc] autorelease];
-	viewCon.view = settingLabel;
-	[self presentModalViewController:viewCon animated:NO];
-	[act showInView:settingLabel];
+    UIViewController *viewCon = [[UIViewController alloc] autorelease];
+    viewCon.view = settingLabel;
+    [self presentModalViewController:viewCon animated:NO];
+    [act showInView:settingLabel];
   }
 //	[act addSubview:settingLabel];
   else [act showInView:self.view];
+  m_fixOrientation = self.interfaceOrientation;
   [UIAccelerometer sharedAccelerometer].delegate = self;
 }
 
@@ -337,22 +337,30 @@ void setVerticalTiltAxes(float minY, float maxY, float minX, float maxX, BOOL in
 }
 
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
-	if (settingParam == SETTING_VERT)
-	{
-		float y = acceleration.y;
+  float x,y;
+  switch(m_fixOrientation) {
+    case UIInterfaceOrientationLandscapeLeft:
+      x = acceleration.y; y=-acceleration.x; break;
+    case UIInterfaceOrientationLandscapeRight:
+      x = -acceleration.y; y=acceleration.x; break;
+    default:
+      DASHER_ASSERT(false);
+    case UIInterfaceOrientationPortrait:
+      x=acceleration.x; y=acceleration.y; break;
+  }
+  if (settingParam == SETTING_VERT) {
 		minY = std::min(minY, y);
 		maxY = std::max(maxY, y);
 		vertMin.text = [NSString stringWithFormat:@"%1.3f",minY];
 		vertMax.text = [NSString stringWithFormat:@"%1.3f",maxY];
-		float x = acceleration.x;
 		minX = std::min(minX, x);
 		maxX = std::max(maxX, x);
 		vertX.text = [NSString stringWithFormat:@"%1.3f - %1.3f", minX, maxX];
 	}
 	else
 		settingLabel.text = [NSString stringWithFormat:@"(%1.3f,%1.3f,%1.3f)",
-							 setVec.x=acceleration.x,
-							 setVec.y=acceleration.y,
+							 setVec.x=x,
+							 setVec.y=y,
 							 setVec.z=acceleration.z];
 }
 

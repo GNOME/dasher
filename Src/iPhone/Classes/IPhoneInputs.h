@@ -58,7 +58,7 @@ private:
 	Vec3 main, slow;
 	float offset, slow_off;
 	SBTree *xTilts, *yTilts;
-	std::deque<int> *xHist, *yHist;
+	std::deque<int> xHist, yHist;
 	id<UIAccelerometerDelegate> deleg;
 };
 

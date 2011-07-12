@@ -77,6 +77,8 @@ bool operator==(CGPoint p,CGPoint q) {
 
 @implementation EAGLView
 
+@synthesize animating;
+
 -(CGPoint)lastTouchCoords {
   return fingerPosns.empty() ? CGPointMake(-1,-1) : fingerPosns.begin()->second;
 }
@@ -256,24 +258,22 @@ bool operator==(CGPoint p,CGPoint q) {
     viewRenderbuffer = 0;
 }
 
-- (void)startAnimation {
-  if (animating) return;
-  animating = YES;
-  if (doneLayout)
-    [self performSelector:@selector(drawView) withObject:nil afterDelay:animationInterval];
-  else
-    [self setNeedsDisplay];
-}
-
-- (void)stopAnimation {
-  //stop for now at least - shutdown, settings dialog, etc.
-  // (causes drawView not to enqueue another repaint)
-  animating = NO;
+-(void)setAnimating:(BOOL)bNewValue {
+  if (animating==bNewValue) return;
+  animating = bNewValue;
+  if (animating) {
+    if (doneLayout)
+      [self performSelector:@selector(drawView) withObject:nil afterDelay:animationInterval];
+    else
+      [self setNeedsDisplay];
+  }
+  //setting to false, e.g. for shutdown / settings dialog / etc.,
+  // causes drawView not to enqueue another repaint.
 }
 
 - (void)dealloc {
     
-    [self stopAnimation];
+  self.animating=NO;
 
   glDeleteFramebuffersOES(2, buffers);
   glDeleteTextures(2,textures);

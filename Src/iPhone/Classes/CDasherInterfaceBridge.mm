@@ -125,7 +125,7 @@ void CDasherInterfaceBridge::Realize() {
   //don't call HandleEvent, would call superclass and reconstruct the NCManager!
   //TODO maybe better to make ChangeAlphabet virtual and override that?  
 
-  [[dasherApp glView] startAnimation];
+  [dasherApp glView].animating=YES;
 }
 
 void CDasherInterfaceBridge::SetupPaths() {

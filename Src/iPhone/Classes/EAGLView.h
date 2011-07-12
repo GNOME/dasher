@@ -67,8 +67,7 @@ Note that setting the view non-opaque will only work if the EAGL surface has an 
 //OpenGL context (needed to do any OGL operation) is only current per-thread, so must call this
 // if doing anything on any thread other than the main thread.
 -(void)makeContextCurrent;
-- (void)startAnimation;
-- (void)stopAnimation;
 - (void)drawView;
 - (id)initWithFrame:(CGRect)frame Delegate:(DasherAppDelegate *)_dasherApp;
+@property BOOL animating;
 @end

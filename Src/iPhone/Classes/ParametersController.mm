@@ -31,6 +31,10 @@ using Dasher::Settings::GetParameterName;
   return self;
 }
 
+-(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+  return toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
+}
+
 -(void)setTarget:(id)_target Selector:(SEL)_selector {
   UIBarButtonItem *item = (UIBarButtonItem *)self.navigationItem.leftBarButtonItem;
   item.target = _target;

@@ -62,20 +62,42 @@ IPhonePrefsObserver::~IPhonePrefsObserver() {
 
 @interface Accel : NSObject<UIAccelerometerDelegate> {
   CIPhoneTiltInput *tilt;
+  UIInterfaceOrientation m_orient;
 }
 -(id)initWithInput:(CIPhoneTiltInput *)_tilt;
+-(void)orientationDidChange:(NSNotification *)note;
 @end
 
 @implementation Accel
 -(id)initWithInput:(CIPhoneTiltInput *)_tilt {
   if (self = [super init]) {
     tilt=_tilt;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationDidChange:) name:UIApplicationDidChangeStatusBarOrientationNotification object:[UIApplication sharedApplication]];
+    [self orientationDidChange:nil];
   }
   return self;
 }
--(void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration
-{
-	tilt->NotifyTilt(acceleration.x, acceleration.y, acceleration.z);
+-(void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
+  float x,y;
+  switch(m_orient) {
+    case UIInterfaceOrientationLandscapeLeft:
+      x = acceleration.y; y=-acceleration.x; break;
+    case UIInterfaceOrientationLandscapeRight:
+      x = -acceleration.y; y=acceleration.x; break;
+    default:
+      DASHER_ASSERT(false);
+    case UIInterfaceOrientationPortrait:
+      x=acceleration.x; y=acceleration.y; break;
+  }
+  tilt->NotifyTilt(x, y, acceleration.z);
+}
+
+-(void)dealloc {
+  [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidChangeStatusBarOrientationNotification object:[UIApplication sharedApplication]];
+  [super dealloc];
+}
+-(void)orientationDidChange:(NSNotification *)note {
+  m_orient = [UIApplication sharedApplication].statusBarOrientation;
 }
 @end
 
@@ -97,27 +119,21 @@ void CIPhoneTiltInput::NotifyTilt(float fx, float fy, float fz) {
 	const screenint iX(x * (double)maxX);
 		
 	//apply median filter
-	if (xTilts)
-	{
+	if (xTilts) {
 		xTilts->Add(iX);
 		yTilts->Add(iY);
-		if (xTilts->GetCount() > 20)
-		{
-			xTilts = xTilts->Delete(xHist->front());
-			xHist->pop_front();
-			yTilts = yTilts->Delete(yHist->front());
-			yHist->pop_front();
+		if (xTilts->GetCount() > 20) {
+			xTilts = xTilts->Delete(xHist.front());
+			xHist.pop_front();
+			yTilts = yTilts->Delete(yHist.front());
+			yHist.pop_front();
 		}
-	}
-	else
-	{
+	} else {
 		xTilts = new SBTree(iX);
 		yTilts = new SBTree(iY);
-		xHist = new deque<int>();
-		yHist = new deque<int>();
 	}
-	xHist->push_back(iX);
-	yHist->push_back(iY);
+	xHist.push_back(iX);
+	yHist.push_back(iY);
 	const int median(xTilts->GetCount()/2);
 	m_iX = xTilts->GetOffset(median);
 	m_iY = yTilts->GetOffset(median);
@@ -129,9 +145,13 @@ void CIPhoneTiltInput::Activate() {
   theAccelerometer.updateInterval = 0.01; //in secs
   theAccelerometer.delegate = deleg;
 }
+
 void CIPhoneTiltInput::Deactivate() {
   [DasherAppDelegate theApp].allowsRotation=YES;
   [UIAccelerometer sharedAccelerometer].delegate = nil;
+  delete xTilts; xTilts=NULL;
+  delete yTilts; yTilts=NULL;
+  xHist.clear(); yHist.clear();
 }
 
 bool CIPhoneTiltInput::GetScreenCoords(screenint &iX, screenint &iY, CDasherView *pView) {

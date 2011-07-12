@@ -32,11 +32,14 @@
 }
 @end
 
-@interface UINavigationController (MultiOrient)
+
+//Most of the view controllers we use, are TableViewControllers. This makes them default
+// to rotating to any orientation other than upside-down.
+@interface UITableViewController (MultiOrient)
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation;
 @end
 
-@implementation UINavigationController (MultiOrient)
+@implementation UITableViewController (MultiOrient)
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
   return toInterfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
 }
@@ -96,9 +99,8 @@ using namespace Dasher;
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
     return NO;
-  if (m_bAllowsRotation) return YES;
-  UIInterfaceOrientation current = self.interfaceOrientation;
-  return interfaceOrientation == current;
+  if (m_bAllowsRotation || !glView.animating) return YES;
+  return interfaceOrientation == self.interfaceOrientation;
 }
 
 -(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -337,14 +339,14 @@ using namespace Dasher;
 }
 
 -(void)presentModalViewController:(UIViewController *)modalViewController animated:(BOOL)animated {
-  [glView stopAnimation];
+  glView.animating=NO;
   [[[UIApplication sharedApplication] keyWindow] setRootViewController:modalViewController];
   [super presentModalViewController:modalViewController animated:animated];
 }
 
 - (void)settingsDone {
 	[self dismissModalViewControllerAnimated:YES];
-	[glView startAnimation];
+	glView.animating=YES;
 }
 
 - (void)outputCallback:(NSString *)s {
@@ -390,12 +392,12 @@ using namespace Dasher;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-	[glView stopAnimation];//.animationInterval = 1.0 / 5.0;
+	glView.animating=NO;
 }
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-  if (doneSetup) [glView startAnimation];//glView.animationInterval = 1.0 / 60.0;
+  if (doneSetup) glView.animating=YES;//glView.animationInterval = 1.0 / 60.0;
 }
 
 -(void)applicationDidEnterBackground:(UIApplication *)application {
@@ -403,7 +405,7 @@ using namespace Dasher;
 }
 
 -(void)applicationWillTerminate:(UIApplication *)application {
-  [glView stopAnimation];
+  glView.animating=NO;
   self.dasherInterface->WriteTrainFileFull();
 }
 
