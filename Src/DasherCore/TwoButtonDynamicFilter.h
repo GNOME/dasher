@@ -30,7 +30,7 @@ namespace Dasher {
 /// @{
 class CTwoButtonDynamicFilter : public CButtonMultiPress {
  public:
-  CTwoButtonDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface);
+  CTwoButtonDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate);
 
   // Inherited methods
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);
@@ -50,8 +50,8 @@ class CTwoButtonDynamicFilter : public CButtonMultiPress {
   virtual void reverse();
 
   //override to inspect x,y coords of mouse clicks/taps
-  virtual void KeyDown(int Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY);
-  virtual void KeyUp(int Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, bool bPos, int iX, int iY);
+  virtual void KeyDown(unsigned long Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual void KeyUp(unsigned long Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel);
 	
  private:
   unsigned int maxClickCount() {return GetBoolParameter(BP_2B_INVERT_DOUBLE) ? 3 : 2;}

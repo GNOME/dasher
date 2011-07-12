@@ -2,12 +2,15 @@
 #define __CIRCLE_START_HANDLER_H__
 
 #include "StartHandler.h"
+#include "SettingsStore.h"
+#include "DasherScreen.h"
+
 /// \ingroup Start
 /// @{
 namespace Dasher {
 class CCircleStartHandler : public CStartHandler, public CSettingsUserObserver, public Observer<CDasherView *> {
 public:
-  CCircleStartHandler(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pInterface);
+  CCircleStartHandler(CDefaultFilter *pCreator);
   ~CCircleStartHandler();
   virtual bool DecorateView(CDasherView *pView);
   virtual void Timer(int iTime, dasherint iX, dasherint iY, CDasherView *pView);

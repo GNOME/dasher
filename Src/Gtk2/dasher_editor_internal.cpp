@@ -206,7 +206,6 @@ extern "C" void main_window_realized(DasherMain *pMain, gpointer pUserData);
 extern "C" void action_button_callback(GtkWidget *pWidget, gpointer pUserData);
 extern "C" void mark_set_handler(GtkWidget *widget, GtkTextIter *pIter, GtkTextMark *pMark, gpointer pUserData);
 extern "C" void handle_stop_event(GtkDasherControl *pDasherControl, gpointer data);
-extern "C" void on_command(GtkDasherControl *pDasherControl, gchar *szCommand, gpointer pUserData);
 extern "C" void handle_request_settings(GtkDasherControl * pDasherControl, gpointer data);
 extern "C" void gtk2_edit_delete_callback(GtkDasherControl *pDasherControl, const gchar *szText, int iOffset, gpointer user_data);
 extern "C" void gtk2_edit_output_callback(GtkDasherControl *pDasherControl, const gchar *szText, int iOffset, gpointer user_data);

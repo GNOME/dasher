@@ -88,17 +88,17 @@ void CDasherInterfaceBridge::CreateModules() {
                  
   RegisterModule(new CButtonMode(this, this, true, 9, "Menu Mode"));
   RegisterModule(new CButtonMode(this, this, false, 8, "Direct Mode"));
-  RegisterModule(new CTwoButtonDynamicFilter(this, this));
-  RegisterModule(new CTwoPushDynamicFilter(this, this));
+  RegisterModule(new CTwoButtonDynamicFilter(this, this, m_pFramerate));
+  RegisterModule(new CTwoPushDynamicFilter(this, this, m_pFramerate));
   
-	RegisterModule(new CIPhoneTiltFilter(this, this, 16, m_pMouseDevice));
+	RegisterModule(new CIPhoneTiltFilter(this, this, m_pFramerate, 16, m_pMouseDevice));
   //Touch filter is stylus filter with optional Tilt X....
   CIPhoneTouchFilter *pTouchFilter = 
-          new CIPhoneTouchFilter(this, this, 17, m_pUndoubledTouch, m_pTiltDevice);
+          new CIPhoneTouchFilter(this, this, m_pFramerate, 17, m_pUndoubledTouch, m_pTiltDevice);
 	RegisterModule(pTouchFilter);
 	SetDefaultInputMethod(pTouchFilter);
   
-  RegisterModule(new CIPhoneTwoFingerFilter(this,this,18));
+  RegisterModule(new CIPhoneTwoFingerFilter(this,this, m_pFramerate, 18));
 }
 	
 CDasherInterfaceBridge::~CDasherInterfaceBridge() {

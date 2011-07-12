@@ -30,7 +30,6 @@
 #include "Parameters.h"
 
 #include "Event.h"
-#include "DasherInterfaceBase.h"
 #include "NodeCreationManager.h"
 #include "AlphabetManager.h"
 
@@ -51,12 +50,9 @@ static char THIS_FILE[] = __FILE__;
 
 // CDasherModel
 
-CDasherModel::CDasherModel(CSettingsUser *pCreateFrom,
-			   CDasherInterfaceBase *pDasherInterface)
-  : CFrameRate(pCreateFrom), m_pDasherInterface(pDasherInterface) {
-
-  DASHER_ASSERT(m_pDasherInterface != NULL);
-
+CDasherModel::CDasherModel(CSettingsUser *pCreateFrom)
+: CSettingsUserObserver(pCreateFrom) {
+  
   m_pLastOutput = m_Root = NULL;
 
   m_Rootmin = 0;
@@ -94,19 +90,12 @@ CDasherModel::~CDasherModel() {
 }
 
 void CDasherModel::HandleEvent(int iParameter) {
-  CFrameRate::HandleEvent(iParameter);
-
   switch (iParameter) {
   case BP_SMOOTH_OFFSET:
     if (!GetBoolParameter(BP_SMOOTH_OFFSET))
       //smoothing has just been turned off. End any transition/jump currently
       // in progress at it's current point
       AbortOffset();
-    break;
-  case BP_DASHER_PAUSED:
-    if(GetBoolParameter(BP_SLOW_START))
-      m_iStartTime = 0;
-    //else, leave m_iStartTime as is - will result in no slow start
     break;
   default:
     break;
@@ -269,31 +258,14 @@ void CDasherModel::SetOffset(int iOffset, CAlphabetManager *pMgr, CDasherView *p
   m_Rootmax = GetLongParameter(LP_MAX_Y) / 2 + iWidth / 2;
 
   m_iDisplayOffset = 0;
-
-  // TODO: See if this is better positioned elsewhere
-  m_pDasherInterface->ScheduleRedraw();
 }
 
 int CDasherModel::GetOffset() {
   return m_pLastOutput ? m_pLastOutput->offset()+1 : m_Root ? m_Root->offset()+1 : 0;
 };
 
-void CDasherModel::Get_new_root_coords(dasherint X, dasherint Y, dasherint &r1, dasherint &r2, unsigned long iTime) {
+void CDasherModel::Get_new_root_coords(dasherint X, dasherint Y, dasherint &r1, dasherint &r2, int iSteps, dasherint iMinSize) {
   DASHER_ASSERT(m_Root != NULL);
-
-  int iSteps = Steps();
-
-  double dFactor(1.0);
-
-  if(GetBoolParameter(BP_SLOW_START)) {
-    if(m_iStartTime == 0)
-      m_iStartTime = iTime;
-    if((iTime - m_iStartTime) < GetLongParameter(LP_SLOW_START_TIME))
-      dFactor = 0.1 * (1 + 9 * ((iTime - m_iStartTime) / static_cast<double>(GetLongParameter(LP_SLOW_START_TIME))));
-  }
-
-  iSteps = static_cast<int>(iSteps / dFactor);
-
   // Avoid X == 0, as this corresponds to infinite zoom
   if (X <= 0) X = 1;
 
@@ -302,14 +274,10 @@ void CDasherModel::Get_new_root_coords(dasherint X, dasherint Y, dasherint &r1, 
   if (X > iMaxX) X = iMaxX;
 
   // Mouse coords X, Y
-  // new root{min,max} r1,r2, old root{min,max} R1,R2
-  const dasherint R1 = m_Rootmin;
-  const dasherint R2 = m_Rootmax;
   // const dasherint Y1 = 0;
   dasherint Y2(GetLongParameter(LP_MAX_Y));
   dasherint iOX(GetLongParameter(LP_OX));
   dasherint iOY(GetLongParameter(LP_OY));
-
 
   // Calculate what the extremes of the viewport will be when the
   // point under the cursor is at the cross-hair. This is where
@@ -326,28 +294,32 @@ void CDasherModel::Get_new_root_coords(dasherint X, dasherint Y, dasherint &r1, 
 
   // Calculate the new values of y1 and y2 required to perform a single update
   // step.
-
-  dasherint newy1, newy2, denom;
-
-  denom = Y2 + (iSteps - 1) * (y2 - y1);
-  newy1 = y1 * Y2 / denom;
-  newy2 = ((y2 * iSteps - y1 * (iSteps - 1)) * Y2) / denom;
-
-  y1 = newy1;
-  y2 = newy2;
-
-  // Calculate the minimum size of the viewport corresponding to the
-  // maximum zoom.
-
-  dasherint iMinSize(MinSize(Y2, dFactor));
-
-  if((y2 - y1) < iMinSize) {
-    newy1 = y1 * (Y2 - iMinSize) / (Y2 - (y2 - y1));
-    newy2 = newy1 + iMinSize;
+  {
+    const dasherint denom = Y2 + (iSteps - 1) * (y2 - y1),
+      newy1 = y1 * Y2 / denom,
+      newy2 = ((y2 * iSteps - y1 * (iSteps - 1)) * Y2) / denom;
 
     y1 = newy1;
     y2 = newy2;
   }
+
+  // Calculate the minimum size of the viewport corresponding to the
+  // maximum zoom.
+
+  if((y2 - y1) < iMinSize) {
+    const dasherint newy1 = y1 * (Y2 - iMinSize) / (Y2 - (y2 - y1)),
+      newy2 = newy1 + iMinSize;
+
+    y1 = newy1;
+    y2 = newy2;
+  }
+  
+  //okay, we now have target bounds for the viewport, after allowing for framerate etc.
+  // we now go there in one step...
+  
+  // new root{min,max} r1,r2, old root{min,max} R1,R2
+  const dasherint R1 = m_Rootmin;
+  const dasherint R2 = m_Rootmax;  
 
   // If |(0,Y2)| = |(y1,y2)|, the "zoom factor" is 1, so we just translate.
   if (Y2 == y2 - y1)
@@ -381,7 +353,7 @@ void CDasherModel::Get_new_root_coords(dasherint X, dasherint Y, dasherint &r1, 
   r2 = ((R2 - C) * Y2) / (y2 - y1) + C;
 }
 
-bool CDasherModel::NextScheduledStep(unsigned long iTime)
+bool CDasherModel::NextScheduledStep()
 {
   DASHER_ASSERT (!GetBoolParameter(BP_DASHER_PAUSED) || m_deGotoQueue.size()==0);
   if (m_deGotoQueue.size() == 0) return false;
@@ -390,22 +362,22 @@ bool CDasherModel::NextScheduledStep(unsigned long iTime)
   iNewMax = m_deGotoQueue.front().iN2;
   m_deGotoQueue.pop_front();
 
-  UpdateBounds(iNewMin, iNewMax, iTime);
+  UpdateBounds(iNewMin, iNewMax);
   if (m_deGotoQueue.size() == 0) SetBoolParameter(BP_DASHER_PAUSED, true);
   return true;
 }
 
-void CDasherModel::OneStepTowards(myint miMousex, myint miMousey, unsigned long iTime) {
+void CDasherModel::OneStepTowards(myint miMousex, myint miMousey, int iSteps, dasherint iMinSize) {
   DASHER_ASSERT(!GetBoolParameter(BP_DASHER_PAUSED));
 
   myint iNewMin, iNewMax;
   // works out next viewpoint
-  Get_new_root_coords(miMousex, miMousey, iNewMin, iNewMax, iTime);
-
-  UpdateBounds(iNewMin, iNewMax, iTime);
+  Get_new_root_coords(miMousex, miMousey, iNewMin, iNewMax, iSteps, iMinSize);
+  
+  UpdateBounds(iNewMin, iNewMax);
 }
 
-void CDasherModel::UpdateBounds(myint newRootmin, myint newRootmax, unsigned long iTime) {
+void CDasherModel::UpdateBounds(myint newRootmin, myint newRootmax) {
 
   m_dTotalNats += log((newRootmax - newRootmin) / static_cast<double>(m_Rootmax - m_Rootmin));
 
@@ -470,10 +442,6 @@ void CDasherModel::UpdateBounds(myint newRootmin, myint newRootmax, unsigned lon
     m_Rootmin = newRootmin;
   } //else, we just stop - this prevents the user from zooming too far back
   //outside the root node (when we can't generate an older root).
-}
-
-void CDasherModel::RecordFrame(unsigned long Time) {
-  CFrameRate::RecordFrame(Time);
 }
 
 void CDasherModel::OutputTo(CDasherNode *pNewNode) {
@@ -612,7 +580,7 @@ void CDasherModel::ScheduleZoom(long time, dasherint y1, dasherint y2) {
       m_deGotoQueue.push_back(sNewItem);
   }
   //steps having been scheduled, we're gonna start moving accordingly...
-  m_pDasherInterface->Unpause(time);
+  SetBoolParameter(BP_DASHER_PAUSED, false);
 }
 
 void CDasherModel::ClearScheduledSteps() {

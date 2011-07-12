@@ -27,11 +27,11 @@ namespace Dasher {
 
 class CIPhoneTiltFilter : public COneDimensionalFilter, private IPhonePrefsObserver {
 public:
-	CIPhoneTiltFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, CDasherInput *pTouch);
+	CIPhoneTiltFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, CDasherInput *pTouch);
   ///override to enable hold-to-go
-	virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+	virtual void KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
   ///override to enable hold-to-go
-	virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
+	virtual void KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
 
   ///respond to BP_DASHER_PAUSED by engaging wakelock (if !hold-to-go)
   virtual void HandleEvent(int iParameter);
@@ -51,9 +51,9 @@ private:
 
 class CIPhoneTouchFilter : public CStylusFilter, private IPhonePrefsObserver {
 public:
-	CIPhoneTouchFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, UndoubledTouch *pUndoubledTouch, CIPhoneTiltInput *pTilt);
+	CIPhoneTouchFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, UndoubledTouch *pUndoubledTouch, CIPhoneTiltInput *pTilt);
 	
-	virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
+	virtual void KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
   
   void ApplyTransform(myint &iDasherX, myint &iDasherY, CDasherView *pView);
   void Activate();
@@ -67,9 +67,9 @@ private:
 
 class CIPhoneTwoFingerFilter : public CDefaultFilter {
 public:
-  CIPhoneTwoFingerFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID);
-  virtual void KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
-  virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+  CIPhoneTwoFingerFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID);
+  virtual void KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
+  virtual void KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);
 };
 

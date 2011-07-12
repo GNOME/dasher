@@ -21,13 +21,15 @@
 #include "../Common/Common.h"
 
 #include "CircleStartHandler.h"
+#include "DefaultFilter.h"
+#include "DasherInterfaceBase.h"
 #include "Event.h"
 #include "DasherInput.h"
 
 using namespace Dasher;
 
-CCircleStartHandler::CCircleStartHandler(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface)
-: CStartHandler(pInterface), CSettingsUserObserver(pCreator), m_iEnterTime(std::numeric_limits<long>::max()), m_iScreenRadius(-1), m_pView(NULL) {
+CCircleStartHandler::CCircleStartHandler(CDefaultFilter *pCreator)
+: CStartHandler(pCreator), CSettingsUserObserver(pCreator), m_iEnterTime(std::numeric_limits<long>::max()), m_iScreenRadius(-1), m_pView(NULL) {
 }
 
 CCircleStartHandler::~CCircleStartHandler() {
@@ -88,9 +90,9 @@ void CCircleStartHandler::Timer(int iTime, dasherint mouseX, dasherint mouseY,CD
       if (m_iEnterTime != std::numeric_limits<long>::max() && iTime - m_iEnterTime > 1000) {
         //activate!
         if (GetBoolParameter(BP_DASHER_PAUSED))
-          m_pInterface->Unpause(iTime);
+          m_pFilter->Unpause(iTime);
         else
-          m_pInterface->Stop();
+          m_pFilter->m_pInterface->Stop();
         //note our HandleEvent method will then set
         //   m_iEnterTime = std::numeric_limits<long>::max()
         // thus preventing us from firing until user leaves circle and enters again

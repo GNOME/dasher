@@ -74,7 +74,7 @@ typedef vector<VECTOR_STRING>::iterator     VECTOR_VECTOR_STRING_ITER;
 
 // We need to be notified when parameters we are logging get changed, so we'll
 // watch for <int> events from the SettingsStore too.
-class CUserLog : public CUserLogBase, public Dasher::CSettingsObserver {
+class CUserLog : public CUserLogBase {
 public:
   CUserLog(Dasher::CSettingsUser *pCreateFrom, Observable<const Dasher::CEditEvent *> *pHandler, int iLogTypeMask);
 

@@ -140,7 +140,7 @@ bool operator==(CGPoint p,CGPoint q) {
     allTouches[touch]=finger;
     fingerPosns[finger]=p;
     //first finger with button id 100 = left button, then 101 and so on (element already inserted)
-    dasherApp.dasherInterface->KeyDown(time, allTouches.size()+99, true , p.x, p.y);
+    dasherApp.dasherInterface->KeyDown(time, allTouches.size()+99);
   }
 }
 
@@ -163,7 +163,7 @@ bool operator==(CGPoint p,CGPoint q) {
     CGPoint p=it2->second;
     fingerPosns.erase(it2);
     allTouches.erase(it);
-    dasherApp.dasherInterface->KeyUp(time, allTouches.size()+100, true, p.x, p.y);
+    dasherApp.dasherInterface->KeyUp(time, allTouches.size()+100);
   }
 }
 

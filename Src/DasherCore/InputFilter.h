@@ -21,12 +21,9 @@ class CInputFilter : public CDasherModule {
 
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput) { return false; };
 
-  virtual void KeyDown(int Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {
-    KeyDown(Time, iId, pDasherView, pInput, pModel, pUserLog);
-  };
-  virtual void KeyUp(int Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, bool bPos, int iX, int iY) {
-    KeyUp(Time, iId, pDasherView, pInput, pModel);
-  };
+  virtual void KeyDown(unsigned long Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {}
+  
+  virtual void KeyUp(unsigned long Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel) {}
 
   virtual bool Timer(unsigned long Time, CDasherView *m_pDasherView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol)=0;// { return false; };
 
@@ -41,9 +38,6 @@ class CInputFilter : public CDasherModule {
   
  protected:
   CDasherInterfaceBase *m_pInterface;
-
-  virtual void KeyDown(int Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {};
-  virtual void KeyUp(int Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel) {};
 };
 }
 /// @}

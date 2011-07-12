@@ -2,13 +2,14 @@
 #define __TWO_BOX_START_HANDLER_H__
 
 #include "StartHandler.h"
+#include "SettingsStore.h"
 
 namespace Dasher {
 /// \ingroup Start
 /// @{
 class CTwoBoxStartHandler : public CStartHandler, public CSettingsUserObserver {
 public:
-  CTwoBoxStartHandler(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface);
+  CTwoBoxStartHandler(CDefaultFilter *pCreator);
 
   virtual bool DecorateView(CDasherView *pView);
   virtual void Timer(int iTime, dasherint iX, dasherint iY, CDasherView *pView);

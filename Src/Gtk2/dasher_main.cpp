@@ -104,7 +104,6 @@ extern "C" void dasher_main_cb_quit(GtkAction*, DasherMain*);
 extern "C" void dasher_main_cb_preferences(GtkAction*, DasherMain*);
 extern "C" void dasher_main_cb_help(GtkAction*, DasherMain*);
 extern "C" void dasher_main_cb_about(GtkAction*, DasherMain*);
-extern "C" void dasher_main_cb_editor(GtkAction*, DasherMain*);
 extern "C" void dasher_main_cb_toggle_game_mode(GtkAction*, DasherMain*);
 
 static gboolean dasher_main_speed_changed(DasherMain *pSelf);
@@ -121,7 +120,6 @@ static void dasher_main_load_state(DasherMain *pSelf);
 static void dasher_main_save_state(DasherMain *pSelf);
 static void dasher_main_setup_window(DasherMain *pSelf);
 static void dasher_main_populate_controls(DasherMain *pSelf);
-static gboolean dasher_main_command(DasherMain *pSelf, const gchar *szCommand);
 static gint dasher_main_lookup_key(DasherMain *pSelf, guint iKeyVal);
 
 /* TODO: Various functions which haven't yet been rationalised */
@@ -858,51 +856,6 @@ dasher_main_populate_controls(DasherMain *pSelf) {
                             dasher_app_settings_get_long(pPrivate->pAppSettings, LP_MAX_BITRATE) / 100.0);
 }
 
-static gboolean 
-dasher_main_command(DasherMain *pSelf, const gchar *szCommand) {
-  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
-
-  if(!strcmp(szCommand, "import")) {
-    dasher_main_command_import(pSelf);
-    return TRUE;
-  }
-
-  if(!strcmp(szCommand, "quit")) {
-    dasher_main_command_quit(pSelf);
-    return TRUE;
-  }
-  
-  if(!strcmp(szCommand, "preferences")) {
-    dasher_main_command_preferences(pSelf);
-    return TRUE;
-  }
-
-  if(!strcmp(szCommand, "preferences_alphabet")) {
-    dasher_main_command_preferences_alphabet(pSelf);
-    return TRUE;
-  }
-
-  if(!strcmp(szCommand, "tutorial")) {
-    dasher_main_command_tutorial(pSelf);
-    return TRUE;
-  }
-  
-  if(!strcmp(szCommand, "help")) {
-    dasher_main_command_help(pSelf);
-    return TRUE;
-  }
-
-  if(!strcmp(szCommand, "about")) {
-    dasher_main_command_about(pSelf);
-    return TRUE;
-  }
-
-  if(pPrivate->pEditor)
-    return dasher_editor_command(pPrivate->pEditor, szCommand);
-
-  return FALSE;
-}
-
 /* Private methods */
 
 /* Window state is basically size and position */
@@ -1199,7 +1152,7 @@ dasher_main_alphabet_combo_changed(DasherMain *pSelf) {
     if(!strcmp("More Alphabets...", szSelected)) {
       gtk_combo_box_set_active(GTK_COMBO_BOX(pPrivate->pAlphabetCombo), 0);
       //    dasher_preferences_dialogue_show(pPrivate->pPreferencesDialogue);
-      dasher_main_command(pSelf, "preferences_alphabet");
+      dasher_main_command_preferences_alphabet(pSelf);
     }
     else 
       dasher_app_settings_set_string(pPrivate->pAppSettings, SP_ALPHABET_ID, szSelected);
@@ -1327,7 +1280,7 @@ dasher_main_cb_context_changed(DasherEditor *pEditor, gpointer pUserData) {
 
 extern "C" gboolean 
 dasher_main_cb_window_close(GtkWidget *pWidget, gpointer pUserData) {
-  dasher_main_command(g_pDasherMain, "quit");
+  dasher_main_command_quit(g_pDasherMain);
   
   /* Returning true stops further propagation */
   return TRUE; 
@@ -1446,16 +1399,6 @@ handle_stop_event(GtkDasherControl *pDasherControl, gpointer data) {
 
     if(pPrivate->pEditor)
       dasher_editor_handle_stop(pPrivate->pEditor);
-  }
-}
-
-extern "C" void 
-on_command(GtkDasherControl *pDasherControl, gchar *szCommand, gpointer pUserData) {
-  if(g_pDasherMain) {
-    DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(g_pDasherMain);
-
-    if(pPrivate->pEditor)
-      dasher_editor_command(pPrivate->pEditor, szCommand);
   }
 }
 

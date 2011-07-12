@@ -55,8 +55,9 @@ public:
   ///Override to re-MakeLabel any messages.
   void ChangeScreen(CDasherScreen *pNewScreen);
   
-  ///Override to clear any modal messages currently being displayed before resuming.
-  void Unpause(unsigned long lTime);
+  ///Listen for BP_DASHER_PAUSED being cleared to flush any modal messages that
+  /// have been displayed before resuming.
+  void HandleEvent(int iParameter);
   
   ///Implement to return a ScreenGameModule, i.e. rendering text prompts
   /// onto the Screen with Labels, much as we do for messages!

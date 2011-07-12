@@ -28,7 +28,7 @@
 namespace Dasher {
 class COneButtonDynamicFilter : public CButtonMultiPress {
  public:
-  COneButtonDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface);
+  COneButtonDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate);
   ~COneButtonDynamicFilter();
 
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);
@@ -36,8 +36,8 @@ class COneButtonDynamicFilter : public CButtonMultiPress {
   virtual bool GetSettings(SModuleSettings **pSettings, int *iCount);
 
   //override to get mouse clicks / taps back again...
-  virtual void KeyDown(int Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY);
-  virtual void KeyUp(int Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, bool bPos, int iX, int iY);
+  virtual void KeyDown(unsigned long Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual void KeyUp(unsigned long Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
 
  private:
   unsigned int maxClickCount() {return 2;} //double-click to reverse

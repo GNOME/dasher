@@ -24,8 +24,8 @@ bool CDefaultFilter::GetSettings(SModuleSettings **sets, int *iCount) {
   return true;
 }
 
-CDefaultFilter::CDefaultFilter(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
-  : CInputFilter(pInterface, iID, szName), CSettingsUserObserver(pCreateFrom) {
+CDefaultFilter::CDefaultFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName)
+  : CDynamicFilter(pCreator, pInterface, pFramerate, iID, szName), CSettingsObserver(pCreator), m_bTurbo(false) {
   m_pStartHandler = 0;
   m_pAutoSpeedControl = new CAutoSpeedControl(this, pInterface);
 
@@ -127,10 +127,13 @@ bool CDefaultFilter::Timer(unsigned long Time, CDasherView *pView, CDasherInput 
       }
     }
 
-    m_pDasherModel->OneStepTowards(m_iLastX,m_iLastY, Time);
+    double dSpeedMul(SlowStartSpeedMul(Time));
+    if (m_bTurbo) dSpeedMul*=1.75;
+    
+    OneStepTowards(m_pDasherModel, m_iLastX,m_iLastY, Time, dSpeedMul);
     bDidSomething = true;
 
-    if (GetLongParameter(LP_BOOSTFACTOR)==100)
+    if (GetLongParameter(LP_BOOSTFACTOR)==100 && dSpeedMul==1.0)
       m_pAutoSpeedControl->SpeedControl(m_iLastX, m_iLastY, pView);
   }
 
@@ -140,14 +143,14 @@ bool CDefaultFilter::Timer(unsigned long Time, CDasherView *pView, CDasherInput 
   return bDidSomething;
 }
 
-void CDefaultFilter::KeyDown(int iTime, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CDefaultFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
 
   switch(iId) {
   case 0: // Start on space
     // FIXME - wrap this in a 'start/stop' method (and use for buttons as well as keys)
     if(GetBoolParameter(BP_START_SPACE)) {
       if(GetBoolParameter(BP_DASHER_PAUSED))
-	m_pInterface->Unpause(iTime);
+        Unpause(iTime);
       else
 	m_pInterface->Stop();
     }
@@ -155,14 +158,24 @@ void CDefaultFilter::KeyDown(int iTime, int iId, CDasherView *pDasherView, CDash
   case 100: // Start on mouse
     if(GetBoolParameter(BP_START_MOUSE)) {
       if(GetBoolParameter(BP_DASHER_PAUSED))
-	m_pInterface->Unpause(iTime);
+        Unpause(iTime);
       else
 	m_pInterface->Stop();
     }
     break;
+    case 101: case 102: //Other mouse buttons, if platforms support?
+    case 1: //button 1
+      if (GetBoolParameter(BP_TURBO_MODE)) {
+        m_bTurbo = true;
+      }
   default:
     break;
   }
+}
+
+void CDefaultFilter::KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
+  if (iId==101 || iId==1)
+    m_bTurbo=false;
 }
 
 void CDefaultFilter::HandleEvent(int iParameter) {
@@ -171,6 +184,8 @@ void CDefaultFilter::HandleEvent(int iParameter) {
   case BP_MOUSEPOS_MODE:
     CreateStartHandler();
     break;
+  case BP_TURBO_MODE:
+    m_bTurbo &= GetBoolParameter(BP_TURBO_MODE);
   }
 }
 
@@ -191,9 +206,9 @@ void CDefaultFilter::Deactivate() {
 
 CStartHandler *CDefaultFilter::MakeStartHandler() {
   if(GetBoolParameter(BP_CIRCLE_START))
-    return new CCircleStartHandler(this, m_pInterface);
+    return new CCircleStartHandler(this);
   if(GetBoolParameter(BP_MOUSEPOS_MODE))
-    return new CTwoBoxStartHandler(this, m_pInterface);
+    return new CTwoBoxStartHandler(this);
   return NULL;
 }
 

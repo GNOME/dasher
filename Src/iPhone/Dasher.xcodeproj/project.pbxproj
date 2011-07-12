@@ -167,7 +167,6 @@
 		333F707A11A8AA66002E2BDF /* usenglish.c in Sources */ = {isa = PBXBuildFile; fileRef = 333F701911A8AA66002E2BDF /* usenglish.c */; };
 		333FDB5A139FB413009D018A /* ConvertingAlphMgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 333FDB58139FB413009D018A /* ConvertingAlphMgr.cpp */; };
 		3344FD5D0F716F7900506EAA /* CDasherInterfaceBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3344FD5C0F716F7900506EAA /* CDasherInterfaceBridge.mm */; };
-		3344FE150F71717C00506EAA /* ActionButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FD680F71717C00506EAA /* ActionButton.cpp */; };
 		3344FE170F71717C00506EAA /* AlphabetMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FD6D0F71717C00506EAA /* AlphabetMap.cpp */; };
 		3344FE180F71717C00506EAA /* AlphIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FD6F0F71717C00506EAA /* AlphIO.cpp */; };
 		3344FE1A0F71717C00506EAA /* AlphabetManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FD730F71717C00506EAA /* AlphabetManager.cpp */; };
@@ -254,6 +253,7 @@
 		339E340E13C6206E007A2BCC /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 339E340D13C6206E007A2BCC /* Default.png */; };
 		339F8A330FF5088000282847 /* CalibrationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 339F8A320FF5088000282847 /* CalibrationController.mm */; };
 		33B3430813A8A927009AE0D5 /* DashIntfScreenMsgs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33B3430613A8A927009AE0D5 /* DashIntfScreenMsgs.cpp */; };
+		33B6825013CA4CC300F0A952 /* DynamicButtons.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33B6824E13CA4CC200F0A952 /* DynamicButtons.cpp */; };
 		33CBB397101F422200510BF9 /* PPMPYLanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33CBB395101F422200510BF9 /* PPMPYLanguageModel.cpp */; };
 		33CBB4CD101F9E5F00510BF9 /* training_czechC_CS.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33CBB4C7101F9E5F00510BF9 /* training_czechC_CS.txt */; };
 		33CBB4CE101F9E5F00510BF9 /* training_englishLC_GB.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33CBB4C8101F9E5F00510BF9 /* training_englishLC_GB.txt */; };
@@ -541,8 +541,6 @@
 		333FDB59139FB413009D018A /* ConvertingAlphMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvertingAlphMgr.h; sourceTree = "<group>"; };
 		3344FD5B0F716F7900506EAA /* CDasherInterfaceBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDasherInterfaceBridge.h; sourceTree = "<group>"; };
 		3344FD5C0F716F7900506EAA /* CDasherInterfaceBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CDasherInterfaceBridge.mm; sourceTree = "<group>"; };
-		3344FD680F71717C00506EAA /* ActionButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActionButton.cpp; sourceTree = "<group>"; };
-		3344FD690F71717C00506EAA /* ActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionButton.h; sourceTree = "<group>"; };
 		3344FD6D0F71717C00506EAA /* AlphabetMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AlphabetMap.cpp; sourceTree = "<group>"; };
 		3344FD6E0F71717C00506EAA /* AlphabetMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlphabetMap.h; sourceTree = "<group>"; };
 		3344FD6F0F71717C00506EAA /* AlphIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AlphIO.cpp; sourceTree = "<group>"; };
@@ -704,6 +702,8 @@
 		33B342F313A8A8B2009AE0D5 /* Messages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Messages.h; sourceTree = "<group>"; };
 		33B3430613A8A927009AE0D5 /* DashIntfScreenMsgs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DashIntfScreenMsgs.cpp; sourceTree = "<group>"; };
 		33B3430713A8A927009AE0D5 /* DashIntfScreenMsgs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashIntfScreenMsgs.h; sourceTree = "<group>"; };
+		33B6824E13CA4CC200F0A952 /* DynamicButtons.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DynamicButtons.cpp; sourceTree = "<group>"; };
+		33B6824F13CA4CC200F0A952 /* DynamicButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicButtons.h; sourceTree = "<group>"; };
 		33CBB395101F422200510BF9 /* PPMPYLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PPMPYLanguageModel.cpp; sourceTree = "<group>"; };
 		33CBB396101F422200510BF9 /* PPMPYLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPMPYLanguageModel.h; sourceTree = "<group>"; };
 		33CBB4C7101F9E5F00510BF9 /* training_czechC_CS.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_czechC_CS.txt; sourceTree = "<group>"; };
@@ -1174,8 +1174,6 @@
 				337ECC1A10DD5E0700D0C6A5 /* ExpansionPolicy.h */,
 				3378A23D1335425200A96C5D /* AbstractXMLParser.cpp */,
 				3378A23E1335425200A96C5D /* AbstractXMLParser.h */,
-				3344FD680F71717C00506EAA /* ActionButton.cpp */,
-				3344FD690F71717C00506EAA /* ActionButton.h */,
 				3344FD6A0F71717C00506EAA /* Alphabet */,
 				3344FD730F71717C00506EAA /* AlphabetManager.cpp */,
 				3344FD740F71717C00506EAA /* AlphabetManager.h */,
@@ -1222,6 +1220,8 @@
 				3344FDAB0F71717C00506EAA /* DasherViewSquare.inl */,
 				3344FDAC0F71717C00506EAA /* DefaultFilter.cpp */,
 				3344FDAD0F71717C00506EAA /* DefaultFilter.h */,
+				33B6824E13CA4CC200F0A952 /* DynamicButtons.cpp */,
+				33B6824F13CA4CC200F0A952 /* DynamicButtons.h */,
 				3344FDAF0F71717C00506EAA /* DynamicFilter.cpp */,
 				3344FDB00F71717C00506EAA /* DynamicFilter.h */,
 				3344FDB10F71717C00506EAA /* Event.h */,
@@ -1573,7 +1573,6 @@
 				332BCABF0F71621400585DBD /* xmltok_impl.c in Sources */,
 				332BCAC00F71621400585DBD /* xmltok_ns.c in Sources */,
 				3344FD5D0F716F7900506EAA /* CDasherInterfaceBridge.mm in Sources */,
-				3344FE150F71717C00506EAA /* ActionButton.cpp in Sources */,
 				3344FE170F71717C00506EAA /* AlphabetMap.cpp in Sources */,
 				3344FE180F71717C00506EAA /* AlphIO.cpp in Sources */,
 				3344FE1A0F71717C00506EAA /* AlphabetManager.cpp in Sources */,
@@ -1729,6 +1728,7 @@
 				33DFE411137AA2FC00F86CDE /* GameModule.cpp in Sources */,
 				33DFE416137AA32300F86CDE /* WordGeneratorBase.cpp in Sources */,
 				3360335813ABDF3700417DFE /* ScreenGameModule.cpp in Sources */,
+				33B6825013CA4CC300F0A952 /* DynamicButtons.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

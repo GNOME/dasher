@@ -1,10 +1,11 @@
 #include "TwoBoxStartHandler.h"
-#include "Event.h"
+#include "DefaultFilter.h"
+#include "DasherView.h"
 
 using namespace Dasher;
 
-CTwoBoxStartHandler::CTwoBoxStartHandler(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface)
-: CStartHandler(pInterface), CSettingsUserObserver(pCreator), m_bFirstBox(true), m_iBoxEntered(std::numeric_limits<long>::max()) {
+CTwoBoxStartHandler::CTwoBoxStartHandler(CDefaultFilter *pCreator)
+: CStartHandler(pCreator), CSettingsUserObserver(pCreator), m_bFirstBox(true), m_iBoxEntered(std::numeric_limits<long>::max()) {
 }
 
 bool CTwoBoxStartHandler::DecorateView(CDasherView *pView) {
@@ -51,7 +52,7 @@ void CTwoBoxStartHandler::Timer(int iTime, dasherint iDasherX, dasherint iDasher
       if(m_bFirstBox)
         m_bFirstBox=false;
       else
-        m_pInterface->Unpause(iTime);
+        m_pFilter->Unpause(iTime);
       m_iBoxEntered = std::numeric_limits<long>::max();
     }
   } else {

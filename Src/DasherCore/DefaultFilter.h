@@ -1,24 +1,25 @@
 #ifndef __DEFAULT_FILTER_H__
 #define __DEFAULT_FILTER_H__
 
-#include "InputFilter.h"
+#include "DynamicFilter.h"
 #include "AutoSpeedControl.h"
 #include "StartHandler.h"
 
 namespace Dasher {
 /// \ingroup InputFilter
 /// @{
-class CDefaultFilter : public CInputFilter, public CSettingsUserObserver {
+class CDefaultFilter : public CDynamicFilter, public CSettingsObserver {
  public:
-  CDefaultFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName);
+  CDefaultFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName);
   ~CDefaultFilter();
-  virtual bool supportsPause() {return true;}
 
+  /// Responds to changes in BP_START_MOUSE / BP_MOUSEPOS_MODE to create StartHandler
   virtual void HandleEvent(int iParameter);
 
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);
   virtual bool Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CExpansionPolicy **pol);
-  virtual void KeyDown(int iTime, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual void KeyDown(unsigned long iTime, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual void KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
   virtual void Activate();
   virtual void Deactivate();
   bool GetSettings(SModuleSettings **, int *);
@@ -32,10 +33,13 @@ class CDefaultFilter : public CInputFilter, public CSettingsUserObserver {
   myint m_iLastX, m_iLastY;
   bool m_bGotMouseCoords;
 private:
+  friend class CCircleStartHandler;
+  friend class CTwoBoxStartHandler;
   CAutoSpeedControl *m_pAutoSpeedControl;
   myint m_iSum;
   CStartHandler *m_pStartHandler;
   int m_iCounter;
+  bool m_bTurbo;
 };
 }
 /// @}

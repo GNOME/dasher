@@ -6,14 +6,14 @@
 
 using namespace Dasher;
 
-CStylusFilter::CStylusFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
-  : CDefaultFilter(pCreator, pInterface, iID, szName) {
+CStylusFilter::CStylusFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName)
+  : CDefaultFilter(pCreator, pInterface, pFramerate, iID, szName) {
 }
 
 bool CStylusFilter::Timer(unsigned long iTime, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CExpansionPolicy **pol)
 {
   //First, try to continue any zoom scheduled by a previous click...
-  if (pModel->NextScheduledStep(iTime)) {
+  if (pModel->NextScheduledStep()) {
     //note that this skips the rest of CDefaultFilter::Timer;
     //however, given we're paused, this is only the Start Handler,
     //which we're not using anyway.
@@ -22,15 +22,16 @@ bool CStylusFilter::Timer(unsigned long iTime, CDasherView *pView, CDasherInput 
   return CDefaultFilter::Timer(iTime, pView, pInput, pModel, pol);
 }
 
-void CStylusFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CStylusFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
   if(iId == 100) {
     pModel->ClearScheduledSteps();
-    m_pInterface->Unpause(iTime);
+    Unpause(iTime);
     m_iKeyDownTime = iTime;
-  }
+  } else
+    CDefaultFilter::KeyDown(iTime, iId, pView, pInput, pModel, pUserLog);
 }
 
-void CStylusFilter::KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
+void CStylusFilter::KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
   if(iId == 100) {
     if (iTime - m_iKeyDownTime < GetLongParameter(LP_TAP_TIME)) {
       pInput->GetDasherCoords(m_iLastX, m_iLastY, pView);
@@ -39,7 +40,8 @@ void CStylusFilter::KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *
     } else {
       m_pInterface->Stop();
     }
-  }
+  } else
+    CDefaultFilter::KeyUp(iTime, iId, pView, pInput, pModel);
 }
 
 void CStylusFilter::ApplyClickTransform(myint &iDasherX, myint &iDasherY, CDasherView *pView) {

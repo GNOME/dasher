@@ -21,19 +21,19 @@
 #ifndef __ButtonMultiPress_h__
 #define __ButtonMultiPress_h__
 
-#include "DynamicFilter.h"
+#include "DynamicButtons.h"
 
 namespace Dasher {
 /// \ingroup InputFilter
 /// @{
-///DynamicFilter which detects multiple presses of the same button occurring in a short space of time
+/// DynamicButtons filter which detects multiple presses of the same button occurring in a short space of time
 /// (such multi-presses are then passed onto the standard 'ActionButton' method, with iType equal
 /// to the number of presses, for subclasses to handle/decide how to respond.)
-class CButtonMultiPress : public CDynamicFilter {
+class CButtonMultiPress : public CDynamicButtons {
  public:
-  CButtonMultiPress(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName);
+  CButtonMultiPress(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName);
 
-  virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual void KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
 
  protected:
   virtual unsigned int maxClickCount()=0;
@@ -45,7 +45,7 @@ class CButtonMultiPress : public CDynamicFilter {
   virtual void RevertPresses(int iCount) {};
 
   int m_iQueueId;
-  std::deque<int> m_deQueueTimes;
+  std::deque<unsigned long> m_deQueueTimes;
  };
 }
 

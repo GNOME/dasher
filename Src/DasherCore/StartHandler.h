@@ -1,14 +1,16 @@
 #ifndef __START_HANDLER_H__
 #define __START_HANDLER_H__
 
-#include "DasherInterfaceBase.h"
+#include "DasherTypes.h"
 
 namespace Dasher {
+  class CDefaultFilter;
+  class CDasherView;
 /// \defgroup Start Start handlers
 /// @{
 class CStartHandler {
 public:
-  CStartHandler(CDasherInterfaceBase *pInterface) : m_pInterface(pInterface) {
+  CStartHandler(CDefaultFilter *pFilter) : m_pFilter(pFilter) {
   };
   virtual ~CStartHandler() {
   }
@@ -17,7 +19,7 @@ public:
   virtual void Timer(int iTime, dasherint iX, dasherint iY, CDasherView *pView) = 0;
 
 protected:
-  CDasherInterfaceBase *m_pInterface;
+  CDefaultFilter * const m_pFilter;
 };
 }
 /// @}

@@ -188,7 +188,7 @@ bool CButtonMode::Timer(unsigned long Time, CDasherView *pView, CDasherInput *pI
   return CDasherButtons::Timer(Time, pView, pInput, pModel, pol);
 }
 
-void CButtonMode::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY)
+void CButtonMode::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog)
 {
   if (iId == 100 && !m_bMenu) {
     //Mouse!
@@ -206,7 +206,7 @@ void CButtonMode::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *
     }
     //not in any box. Fall through, just to be conservative...
   }
-  CInputFilter::KeyDown(iTime, iId, pView, pInput, pModel, pUserLog, bPos, iX, iY);
+  CInputFilter::KeyDown(iTime, iId, pView, pInput, pModel, pUserLog);
 }
 
 void CButtonMode::DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog) {

@@ -126,17 +126,41 @@ protected:
 }
 
 - (void)mouseDown:(NSEvent *)e {
-  NSPoint q = [self convertPoint:[e locationInWindow] fromView:nil];
-    
-  [dasherApp aquaDasherControl]->HandleClickDown(get_time(), q.x, q.y);
+  [dasherApp aquaDasherControl]->KeyDown(get_time(), 100+[e buttonNumber]);
 }
 
 - (void)mouseUp:(NSEvent *)e {
-  NSPoint q = [self convertPoint:[e locationInWindow] fromView:nil];
-  
-  [dasherApp aquaDasherControl]->HandleClickUp(get_time(), q.x, q.y);
+  [dasherApp aquaDasherControl]->KeyUp(get_time(), 100+[e buttonNumber]);
 }
 
+///The following gets called on MacOS 10.6 or later, only, for multitouch.
+/// (It won't work on earlier versions, but won't get called, either)
+- (void)touchesBeganWithEvent:(NSEvent *)event {
+  int totalTouches = [[event touchesMatchingPhase:NSUIntegerMax inView:self] count];
+  int newTouches = [[event touchesMatchingPhase:1 inView:self] count];
+  //Call KeyDown with id 101, 102, ... for successive new touches _except_the_first_
+  // (the first finger, id 100, is handled by MouseDown...)
+  for (int i=max(1,totalTouches-newTouches); i<totalTouches; i++)
+    [dasherApp aquaDasherControl]->KeyDown(get_time(), 100+i);
+}
+
+///The following gets called on MacOS 10.6 or later, only, for multitouch.
+/// (It won't work on earlier versions, but won't get called, either)
+-(void)touchesEndedWithEvent:(NSEvent *)event {
+  int totalTouches = [[event touchesMatchingPhase:NSUIntegerMax inView:self] count];
+  //note hardcoding of constant 24 = NSTouchPhaseEnded | NSTouchPhaseCancelled
+  // (allows compilation on pre-10.6 systems)
+  int endingTouches= [[event touchesMatchingPhase:24 inView:self] count];
+  //Call KeyUp with ids 101, 102, ..., highest first, as fingers are lifted from
+  // the touchpad. Not we don't do anything for the last finger to be lifted,
+  // as this is dealt with by MouseUp with id==100.
+  for (int i=totalTouches; i-->max(1,totalTouches-endingTouches);)
+    [dasherApp aquaDasherControl]->KeyUp(get_time(), 100+i);
+}
+
+-(void)touchesCancelledWithEvent:(NSEvent *)event {
+  [self touchesEndedWithEvent:event];
+}
 
 - (void)keyDown:(NSEvent *)e {
   [dasherApp handleKeyDown:e];
@@ -173,7 +197,12 @@ protected:
 
     glClearColor(1.0, 1.0, 1.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
-	  
+
+    //On MacOS 10.6 and on, we'll look out for multitouch...
+    if ([self respondsToSelector:@selector(setAcceptsTouchEvents:)]) {
+      [self setAcceptsTouchEvents:YES];
+      [self setWantsRestingTouches:YES];
+    }
   }
   return self;
 }

@@ -345,10 +345,7 @@ LRESULT CCanvas::OnLButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL&
   // ---
 #endif
   
-  int xPos = GET_X_LPARAM(lParam); 
-  int yPos = GET_Y_LPARAM(lParam); 
-
-  m_pDasherInterface->KeyDown(GetTickCount(), 100, true, xPos, yPos);
+  m_pDasherInterface->KeyDown(GetTickCount(), 100);
   
   // TODO: Reimplement
   //	else if ( m_pDasherInterface->GetBoolParameter(BP_START_STYLUS)  ) 
@@ -369,10 +366,7 @@ LRESULT CCanvas::OnLButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& b
 {
 	bHandled = TRUE;
 
-	int xPos = GET_X_LPARAM(lParam);
-	int yPos = GET_Y_LPARAM(lParam);
-
-	m_pDasherInterface->KeyUp(GetTickCount(), 100, true, xPos, yPos);
+	m_pDasherInterface->KeyUp(GetTickCount(), 100);
 
   // TODO: Check whether this needs to be reimplemented
 	//endturbo = GetTickCount();

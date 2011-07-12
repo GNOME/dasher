@@ -21,13 +21,13 @@
 #ifndef __TWO_PUSH_DYNAMIC_FILTER_H__
 #define __TWO_PUSH_DYNAMIC_FILTER_H__
 
-#include "DynamicFilter.h"
+#include "DynamicButtons.h"
 namespace Dasher {
 /// \ingroup InputFilter
 /// @{
-class CTwoPushDynamicFilter : public CDynamicFilter /*long push, but do our own "multi-push" detection*/ {
+class CTwoPushDynamicFilter : public CDynamicButtons /*long push, but do our own "multi-push" detection*/ {
  public:
-  CTwoPushDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface);
+  CTwoPushDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate);
   
   // Inherited methods
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);
@@ -36,8 +36,8 @@ class CTwoPushDynamicFilter : public CDynamicFilter /*long push, but do our own 
   virtual bool GetSettings(SModuleSettings **pSettings, int *iCount);
 
   //override to get mouse clicks / taps back again...
-  virtual void KeyDown(int Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY);
-  virtual void KeyUp(int Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, bool bPos, int iX, int iY);
+  virtual void KeyDown(unsigned long Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual void KeyUp(unsigned long Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel);
 
  protected:
   virtual bool TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);

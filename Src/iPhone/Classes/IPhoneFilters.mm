@@ -23,8 +23,8 @@ NSString *DOUBLE_TOUCH_X=@"DoubleXCoords";
 
 using namespace Dasher;
 
-CIPhoneTiltFilter::CIPhoneTiltFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, CDasherInput *pTouch)
-: COneDimensionalFilter(pCreator, pInterface, iID, TILT_FILTER), m_pTouch(pTouch) {
+CIPhoneTiltFilter::CIPhoneTiltFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, CDasherInput *pTouch)
+: COneDimensionalFilter(pCreator, pInterface, pFramerate, iID, TILT_FILTER), m_pTouch(pTouch) {
   ObserveKeys(HOLD_TO_GO, TILT_USE_TOUCH_X, TILT_1D, @"CircleStart", nil);
 };
 			
@@ -41,13 +41,13 @@ void CIPhoneTiltFilter::ApplyTransform(myint &iDasherX, myint &iDasherY, CDasher
   }
 }
 
-void CIPhoneTiltFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CIPhoneTiltFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
 	if(iId == 100 && bHoldToGo)
-		m_pInterface->Unpause(iTime);
+		Unpause(iTime);
   else COneDimensionalFilter::KeyDown(iTime, iId, pView, pInput, pModel, pUserLog);
 }
 
-void CIPhoneTiltFilter::KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
+void CIPhoneTiltFilter::KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
 	if(iId == 100 && bHoldToGo)
 		m_pInterface->Stop();
   else COneDimensionalFilter::KeyUp(iTime, iId, pView, pInput, pModel);
@@ -91,8 +91,8 @@ CStartHandler *CIPhoneTiltFilter::MakeStartHandler() {
   return CDefaultFilter::MakeStartHandler();
 }
 
-CIPhoneTouchFilter::CIPhoneTouchFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, UndoubledTouch *pUndoubledTouch, CIPhoneTiltInput *pTilt)
-: CStylusFilter(pCreator, pInterface, iID, TOUCH_FILTER), m_pUndoubledTouch(pUndoubledTouch), m_pTilt(pTilt) {
+CIPhoneTouchFilter::CIPhoneTouchFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, UndoubledTouch *pUndoubledTouch, CIPhoneTiltInput *pTilt)
+: CStylusFilter(pCreator, pInterface, pFramerate, iID, TOUCH_FILTER), m_pUndoubledTouch(pUndoubledTouch), m_pTilt(pTilt) {
   ObserveKeys(TOUCH_USE_TILT_X,nil);
   
 };
@@ -120,7 +120,7 @@ void CIPhoneTouchFilter::Deactivate() {
   if (bUseTiltX) m_pTilt->Deactivate();
 }
 
-void CIPhoneTouchFilter::KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
+void CIPhoneTouchFilter::KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
   CStylusFilter::KeyUp(iTime, iId, pView, m_pUndoubledTouch, pModel);
 }
 
@@ -132,16 +132,16 @@ void CIPhoneTouchFilter::ApplyTransform(myint &iDasherX, myint &iDasherY, CDashe
   CStylusFilter::ApplyTransform(iDasherX, iDasherY, pView);
 }
 
-CIPhoneTwoFingerFilter::CIPhoneTwoFingerFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID)
-: CDefaultFilter(pCreator, pInterface, iID, TWO_FINGER_FILTER) {
+CIPhoneTwoFingerFilter::CIPhoneTwoFingerFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID)
+: CDefaultFilter(pCreator, pInterface, pFramerate, iID, TWO_FINGER_FILTER) {
 }
 
-void CIPhoneTwoFingerFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
-  if (iId==101) m_pInterface->Unpause(iTime);
+void CIPhoneTwoFingerFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
+  if (iId==101) Unpause(iTime);
   else if (iId!=100) CDefaultFilter::KeyDown(iTime, iId, pView, pInput, pModel, pUserLog);
 }
 
-void CIPhoneTwoFingerFilter::KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
+void CIPhoneTwoFingerFilter::KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
   if (iId==101) m_pInterface->Stop();
   else if (iId!=100) CDefaultFilter::KeyUp(iTime, iId, pView, pInput, pModel);
 }

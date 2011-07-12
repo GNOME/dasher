@@ -11,9 +11,8 @@
 
 #include <cmath>
 #include "../Common/Common.h"
-#include "Event.h"
-#include "Parameters.h"
 #include "SettingsStore.h"
+#include "DasherModel.h"
 
 namespace Dasher {
 /// \ingroup Model
@@ -28,17 +27,12 @@ public:
   
   virtual void HandleEvent(int iParameter);
 
-  /// Get the minimum size of the target viewport
-  ////// TODO: Eventually fix this so that it uses integer maths internally. 
-
-  // dFactor is a temporary change to the frame rate, allowing for
-  // slow start and the like
-  myint MinSize(myint t, double dFactor = 1.0) const {
-    if(dFactor == 1.0)
-      return static_cast < myint > (t / m_dRXmax);
-    else
-      return static_cast < myint > (t / pow(m_dRXmax, dFactor));
-  };
+  ///The maximum amount by which one frame may zoom in. Used as a hard
+  /// upper-bound on the approximate one-step calculation done in DasherModel
+  /// to ensure we never exceed the set LP_MAX_BITRATE.
+  double GetMaxZoomFactor() {
+    return m_dRXmax;
+  }
 
   int Steps() const {
     return m_iSteps;
@@ -59,6 +53,9 @@ public:
   }
 
   void RecordFrame(unsigned long Time);
+
+  bool OneStepTowards(CDasherModel *pModel, myint y1, myint y2, unsigned long iTime, double dSpeedMul);
+  double SlowStartSpeedMul(unsigned long iTime);
   
 private:
   double m_dFrDecay;            // current frame rate (cache of LP_FRAMERATE/100.0)

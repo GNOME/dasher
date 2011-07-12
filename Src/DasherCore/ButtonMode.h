@@ -28,7 +28,7 @@ class CButtonMode : public CDasherButtons
   bool DecorateView(CDasherView *pView, CDasherInput *pInput);
 
   //override to get mouse clicks/taps back again
-  virtual void KeyDown(int Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY);
+  virtual void KeyDown(unsigned long Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
   
   bool GetSettings(SModuleSettings **pSettings, int *iCount);
  protected: 

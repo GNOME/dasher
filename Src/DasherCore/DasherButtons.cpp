@@ -39,7 +39,7 @@ void CDasherButtons::Activate() {
   m_iScanTime = std::numeric_limits<int>::min();
 }
 
-void CDasherButtons::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CDasherButtons::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
 
   if(m_bMenu) {
     switch(iId) {
@@ -95,7 +95,7 @@ bool CDasherButtons::Timer(unsigned long Time, CDasherView *pView, CDasherInput 
   pInput->GetDasherCoords(iDasherX, iDasherY, pView);
   // ----
 
-  return pModel->NextScheduledStep(Time);
+  return pModel->NextScheduledStep();
 }
 
 void CDasherButtons::NewDrawGoTo(CDasherView *pView, myint iDasherMin, myint iDasherMax, bool bActive) {

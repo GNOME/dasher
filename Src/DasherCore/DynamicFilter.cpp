@@ -23,134 +23,35 @@
 
 using namespace Dasher;
 
-CDynamicFilter::CDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, ModuleID_t iID, const char *szName)
-  : CInputFilter(pInterface, iID, szName), CSettingsUserObserver(pCreator) {
-  m_bDecorationChanged = true;
-  m_bKeyDown = false;
-  pause();
+CDynamicFilter::CDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName) : CInputFilter(pInterface, iID, szName), CSettingsUser(pCreator), m_pFramerate(pFramerate) {
 }
 
-bool CDynamicFilter::Timer(unsigned long iTime, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol)
-{
-  if(m_bKeyDown && !m_bKeyHandled && ((iTime - m_iKeyDownTime) > GetLongParameter(LP_HOLD_TIME))) {
-    Event(iTime, m_iHeldId, 1, m_pDasherModel, m_pUserLog);
-    m_bKeyHandled = true;
-    //return true; //ACL although that's what old DynamicFilter did, surely we should progress normally?
-  }
-  if (isPaused()) return false;
-  if (isReversing()) {
-    m_pDasherModel->OneStepTowards(41943,2048, iTime);
-    return true;
-  }
-  //moving forwards. Check auto speed control...
-  unsigned int uTime = static_cast<unsigned int>(iTime);
-  if (GetBoolParameter(BP_AUTO_SPEEDCONTROL) && m_uSpeedControlTime < uTime)
-  {
-	  if (m_uSpeedControlTime > 0) //has actually been set?
-        SetLongParameter(LP_MAX_BITRATE, GetLongParameter(LP_MAX_BITRATE) * (1.0 + GetLongParameter(LP_DYNAMIC_SPEED_INC)/100.0));
-	  m_uSpeedControlTime = uTime + 1000*GetLongParameter(LP_DYNAMIC_SPEED_FREQ);
-  }
-  return TimerImpl(iTime, pDasherView, m_pDasherModel, pol);
-}
+bool CDynamicFilter::OneStepTowards(CDasherModel *pModel, myint y1, myint y2, unsigned long iTime, double dSpeedMul) {
+  if (dSpeedMul<=0.0) return false; //going nowhere
+  m_pFramerate->RecordFrame(iTime); //Hmmm, even if we don't do anything else?
 
-void CDynamicFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
+  double dRXMax = m_pFramerate->GetMaxZoomFactor();
+  // Adjust for slow start etc. TODO: can we fix to use integer math (or at least no pow?)
+  if (dSpeedMul!=1.0) dRXMax=pow(dRXMax, dSpeedMul);
   
-  m_pUserLog = pUserLog;
+  pModel->OneStepTowards(y1, y2, static_cast<int>(m_pFramerate->Steps() / dSpeedMul), static_cast<myint>(GetLongParameter(LP_MAX_Y)/dRXMax));
+  return true;
+}
+
+double CDynamicFilter::SlowStartSpeedMul(unsigned long iTime) {
+  if(GetBoolParameter(BP_SLOW_START)) {
+    if ((iTime - m_iStartTime) < GetLongParameter(LP_SLOW_START_TIME))
+      return 0.1 * (1 + 9 * ((iTime - m_iStartTime) / static_cast<double>(GetLongParameter(LP_SLOW_START_TIME))));
+  }
+  //no slow start, or finished.
+  return 1.0;
+}
+
+void CDynamicFilter::Unpause(unsigned long Time) {
+  if (!GetBoolParameter(BP_DASHER_PAUSED)) return; //already running, no need to / can't really do anything
   
-  if(((iId == 0) || (iId == 1) || (iId == 100)) && !GetBoolParameter(BP_BACKOFF_BUTTON))
-    return;
+  SetBoolParameter(BP_DASHER_PAUSED, false);
 
-  if(m_bKeyDown)
-    return;
-
-  // Pass the basic key down event to the handler
-  Event(iTime, iId, 0, pModel, pUserLog);
-    
-  // Store the key down time so that long presses can be determined
-  // TODO: This is going to cause problems if multiple buttons are
-  // held down at once
-  m_iKeyDownTime = iTime;
-
-  m_iHeldId = iId;
-  m_bKeyDown = true;
-  m_bKeyHandled = false;
+  m_pFramerate->Reset_framerate(Time);
+  m_iStartTime = Time;
 }
-
-void CDynamicFilter::KeyUp(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
-  if (iId == m_iHeldId) m_bKeyDown = false;
-}
-
-void CDynamicFilter::Event(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) {
-  // Types known at this point in inheritance hierarchy:
-  // 0 = ordinary click
-  // 1 = long click
-  
-  // TODO: Check that state diagram implemented here is what we
-  // decided upon
-
-  // What happens next depends on the state:
-  if (isPaused()) {
-    //Any button causes a restart
-    if(pUserLog)
-      pUserLog->KeyDown(iButton, iType, 1);
-    run();
-    m_pInterface->Unpause(iTime);
-  } else if (isReversing()) {
-    //Any button pauses
-    if(pUserLog)
-      pUserLog->KeyDown(iButton, iType, 2);
-    
-    m_pInterface->Stop();
-    //change in BP_DASHER_PAUSED calls pause().
-  } else {
-    //running; examine event/button-press type
-    switch(iType) {
-    case 0: //single press
-      if((iButton == 0) || (iButton == 100)) {
-        //dedicated pause button
-        if(pUserLog)
-          pUserLog->KeyDown(iButton, iType, 2);
-        m_pInterface->Stop();
-        break;
-      }
-      else if(iButton == 1) {
-        //dedicated reverse button
-        if(pUserLog)
-          pUserLog->KeyDown(iButton, iType, 6);
-        reverse();
-        break;
-      }
-      //else - any non-special button - fall through
-    default: //or, Any special kind of event - long, double, triple, ... 
-      ActionButton(iTime, iButton, iType, pModel, pUserLog);
-    }
-  }
-}
-
-void CDynamicFilter::HandleEvent(int iParameter) {
-  if (iParameter==BP_DASHER_PAUSED) {
-    if (GetBoolParameter(BP_DASHER_PAUSED))
-      pause(); //make sure we're in sync
-    else if (m_pInterface->GetActiveInputMethod()==this && isPaused())
-      //if we're active: can't unpause, as we don't know which way to go, run or reverse?
-      SetBoolParameter(BP_DASHER_PAUSED, true);
-  }
-}
-
-void CDynamicFilter::reverse()
-{
-  m_iState = 1;
-  if (GetBoolParameter(BP_AUTO_SPEEDCONTROL)) {
-    //treat reversing as a sign of distress --> slow down!
-    SetLongParameter(LP_MAX_BITRATE, GetLongParameter(LP_MAX_BITRATE) *
-					 (1.0 - GetLongParameter(LP_DYNAMIC_SPEED_DEC)/100.0));
-  }
-}
-
-void CDynamicFilter::run()
-{
-  if (m_iState<2) //wasn't running previously
-    m_uSpeedControlTime = 0; //will be set in Timer()
-  m_iState = 2;
-}
-

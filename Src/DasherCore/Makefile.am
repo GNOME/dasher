@@ -20,8 +20,6 @@ libdashercore_a_SOURCES = \
 		Alphabet/GroupInfo.h \
 		AlternatingDirectMode.cpp \
 		AlternatingDirectMode.h \
-		ActionButton.cpp \
-		ActionButton.h \
 		AlphabetManager.cpp \
 		AlphabetManager.h \
 		AutoSpeedControl.cpp \
@@ -72,8 +70,10 @@ libdashercore_a_SOURCES = \
 		DasherViewSquare.inl \
 		DefaultFilter.cpp \
 		DefaultFilter.h \
-		DynamicFilter.h \
+		DynamicButtons.cpp \
+		DynamicButtons.h \
 		DynamicFilter.cpp \
+		DynamicFilter.h \
 		Event.h \
 		FileLogger.cpp \
 		FileLogger.h \

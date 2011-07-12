@@ -43,8 +43,8 @@ static SModuleSettings sSettings[] = {
   {LP_DYNAMIC_BUTTON_LAG, T_LONG, 0, 1000, 1, 25, _("Lag before user actually pushes button (ms)")}, 
 };
 
-CTwoPushDynamicFilter::CTwoPushDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface)
-  : CDynamicFilter(pCreator, pInterface, 14, _("Two-push Dynamic Mode (New One Button)")), m_dNatsSinceFirstPush(-std::numeric_limits<double>::infinity()) {
+CTwoPushDynamicFilter::CTwoPushDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate)
+  : CDynamicButtons(pCreator, pInterface, pFramerate, 14, _("Two-push Dynamic Mode (New One Button)")), m_dNatsSinceFirstPush(-std::numeric_limits<double>::infinity()) {
   
   HandleEvent(LP_TWO_PUSH_OUTER);//and all the others too!
 }
@@ -101,7 +101,7 @@ bool CTwoPushDynamicFilter::DecorateView(CDasherView *pView, CDasherInput *pInpu
 
 void CTwoPushDynamicFilter::HandleEvent(int iParameter)
 {
-  CDynamicFilter::HandleEvent(iParameter);
+  CDynamicButtons::HandleEvent(iParameter);
   switch (iParameter)
   {
     case LP_TWO_PUSH_OUTER:
@@ -167,22 +167,20 @@ m_bDecorationChanged = true;
   }
 }
 
-void CTwoPushDynamicFilter::KeyDown(int Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {
+void CTwoPushDynamicFilter::KeyDown(unsigned long Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
   if (iId == 100 && !GetBoolParameter(BP_BACKOFF_BUTTON))
     //mouse click - will be ignored by superclass method.
     //simulate press of button 2...
-    CDynamicFilter::KeyDown(Time, 2, pView, pInput, pModel, pUserLog);
-  else
-    CInputFilter::KeyDown(Time, iId, pView, pInput, pModel, pUserLog, bPos, iX, iY);
+    iId=2;
+  CDynamicButtons::KeyDown(Time, iId, pView, pInput, pModel, pUserLog);
 }
 
-void CTwoPushDynamicFilter::KeyUp(int Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, bool bPos, int iX, int iY) {
+void CTwoPushDynamicFilter::KeyUp(unsigned long Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
   if (iId == 100 && !GetBoolParameter(BP_BACKOFF_BUTTON))
-  //mouse click - will be ignored by superclass method.
-  //simulate press of button 2...
-    CDynamicFilter::KeyUp(Time, 2, pView, pInput, pModel);
-  else
-    CInputFilter::KeyUp(Time, iId, pView, pInput, pModel, bPos, iX, iY);
+    //mouse click - will be ignored by superclass method.
+    //simulate press of button 2...
+    iId=2;
+  CDynamicButtons::KeyUp(Time, iId, pView, pInput, pModel);
 }
 
 void CTwoPushDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) {
@@ -258,13 +256,13 @@ bool CTwoPushDynamicFilter::TimerImpl(unsigned long iTime, CDasherView *m_pDashe
       m_bDecorationChanged |= doSet(m_iActiveMarker, 1 /*down*/);
     else m_bDecorationChanged |= doSet(m_iActiveMarker, -1 /*in middle (neither/both) or too short*/);
   }
-  m_pDasherModel->OneStepTowards(100, 2048, iTime);
+  OneStepTowards(m_pDasherModel, 100, 2048, iTime, SlowStartSpeedMul(iTime));
   return true;
 }
 
 void CTwoPushDynamicFilter::run() {
   m_dNatsSinceFirstPush = -std::numeric_limits<double>::infinity();
-  CDynamicFilter::run();
+  CDynamicButtons::run();
 }
 
 bool CTwoPushDynamicFilter::GetSettings(SModuleSettings **pSettings, int *iCount) {
