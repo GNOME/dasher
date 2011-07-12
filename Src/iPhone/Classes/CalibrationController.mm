@@ -12,6 +12,10 @@
 #import "DasherUtil.h"
 #include <sstream>
 
+static NSString *CUSTOM_TILT_STRING = @"CustomTiltParams";
+static NSString *VERTICAL_TILT_STRING = @"VerticalTiltParams";
+static NSString *USE_CUSTOM_TILT = @"CustomTilt";
+
 using namespace std;
 
 //private method...
@@ -38,12 +42,16 @@ void saveVerticalState(float minY, float maxY, float minX, float maxX, BOOL inve
 	ostringstream os;
 	if (invert) os << maxY << " - " << minY; else os << minY << " - " << maxY;
 	os << " / " << minX << " - " << maxX;
-	[DasherAppDelegate theApp].dasherInterface->SetStringParameter(SP_VERTICAL_TILT, os.str());
+  [[NSUserDefaults standardUserDefaults] setObject:NSStringFromStdString(os.str()) forKey:VERTICAL_TILT_STRING];
 }
 
 void getVerticalState(float &minY, float &maxY, float &minX, float &maxX, BOOL &invert)
 {
-	istringstream is([DasherAppDelegate theApp].dasherInterface->GetStringParameter(SP_VERTICAL_TILT));
+  NSString *val = ([[NSUserDefaults standardUserDefaults] objectForKey:VERTICAL_TILT_STRING])
+  ? [[NSUserDefaults standardUserDefaults] stringForKey:VERTICAL_TILT_STRING]
+  : @"-0.1 - -0.9 / -0.4 - 0.4";
+
+	istringstream is(StdStringFromNSString(val));
 	string hyphen1, stroke, hyphen2;
 	is >> minY >> hyphen1 >> maxY >> stroke >> minX >> hyphen2 >> maxX;
 	DASHER_ASSERT(hyphen1 == "-" && stroke == "/" && hyphen2 == "-");
@@ -61,12 +69,16 @@ void saveCustomState(const Vec3 &min, const Vec3 &max, const Vec3 &slow)
 {
 	ostringstream os;
 	os << min << " - " << max << " / " << slow;
-	[DasherAppDelegate theApp].dasherInterface->SetStringParameter(SP_CUSTOM_TILT, os.str());
+  [[NSUserDefaults standardUserDefaults] setObject:NSStringFromStdString(os.str()) forKey:CUSTOM_TILT_STRING];
 }
 
 void getCustomState(Vec3 &min, Vec3 &max, Vec3 &slow)
 {
-	istringstream is([DasherAppDelegate theApp].dasherInterface->GetStringParameter(SP_CUSTOM_TILT));
+  NSString *val = ([[NSUserDefaults standardUserDefaults] objectForKey:CUSTOM_TILT_STRING] == nil)
+     ? @"(0.0,0.0,0.0) - (0.0,-1.0,0.0) / (-1.0,0.0,0.0)" //default
+  : [[NSUserDefaults standardUserDefaults] stringForKey:CUSTOM_TILT_STRING];
+    
+	istringstream is(StdStringFromNSString(val));
 	string hyphen, stroke;
 	is >> min >> hyphen >> max >> stroke >> slow;
 	DASHER_ASSERT(hyphen == "-" && stroke == "/");
@@ -91,7 +103,7 @@ void setVerticalTiltAxes(float minY, float maxY, float minX, float maxX, BOOL in
 
 @implementation CalibrationController
 +(void)doSetup {
-	if ([DasherAppDelegate theApp].dasherInterface->GetBoolParameter(BP_CUSTOM_TILT))
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:USE_CUSTOM_TILT])
 	{
 		Vec3 min, max, slow;
 		getCustomState(min, max, slow);
@@ -283,7 +295,7 @@ void setVerticalTiltAxes(float minY, float maxY, float minX, float maxX, BOOL in
 		{
 			saveVerticalState(minY, maxY, minX, maxX, invert.on);
 			//labels up-to-date, were changed by didAccelerate
-			if (![DasherAppDelegate theApp].dasherInterface->GetBoolParameter(BP_CUSTOM_TILT)) setVerticalTiltAxes(minY, maxY, minX, maxX, invert.on);
+			if (![[NSUserDefaults standardUserDefaults] boolForKey:USE_CUSTOM_TILT]) setVerticalTiltAxes(minY, maxY, minX, maxX, invert.on);
 		}
 		else
 		{
@@ -310,13 +322,13 @@ void setVerticalTiltAxes(float minY, float maxY, float minX, float maxX, BOOL in
 					break;
 			}
 			saveCustomState(min, max, x);
-			if ([DasherAppDelegate theApp].dasherInterface->GetBoolParameter(BP_CUSTOM_TILT)) setCustomTiltAxes(min, max, x);
+			if ([[NSUserDefaults standardUserDefaults] boolForKey:USE_CUSTOM_TILT]) setCustomTiltAxes(min, max, x);
 
 		}
 	}
 	else if (settingParam == SETTING_VERT)
 	{
-		//no change - reload captions from stored SP_VERTICAL_TILT
+		//no change - reload captions from stored VERTICAL_TILT_STRING
 		[self loadVerticalLabels];
 	}
 	//else, was setting custom; ignore.
@@ -350,7 +362,7 @@ void setVerticalTiltAxes(float minY, float maxY, float minX, float maxX, BOOL in
   getVerticalState(y1, y2, x1, x2, oldInvert);
   //chances are, that oldInvert = !invert.on...but not relying on that.
   saveVerticalState(y1, y2, x1, x2, invert.on);
-  if (![DasherAppDelegate theApp].dasherInterface->GetBoolParameter(BP_CUSTOM_TILT)) setVerticalTiltAxes(y1, y2, x1, x2, invert.on);
+  if (![[NSUserDefaults standardUserDefaults] boolForKey:USE_CUSTOM_TILT]) setVerticalTiltAxes(y1, y2, x1, x2, invert.on);
 }
 	
 -(void) loadVerticalLabels {
@@ -389,7 +401,7 @@ void setVerticalTiltAxes(float minY, float maxY, float minX, float maxX, BOOL in
 		[header addSubview:sel];
 		sel.frame = CGRectMake(210.0, 7.0, 100.0, 25.0);
 		[sel addTarget:self action:@selector(selectClicked:) forControlEvents:UIControlEventTouchUpInside];
-		NSInteger currentlySelected = [DasherAppDelegate theApp].dasherInterface->GetBoolParameter(BP_CUSTOM_TILT) ? 1 : 0; 
+		NSInteger currentlySelected = [[NSUserDefaults standardUserDefaults] boolForKey:USE_CUSTOM_TILT] ? 1 : 0; 
 		sel.enabled = (section != currentlySelected);
 	}
 	return headers[section];
@@ -403,7 +415,7 @@ void setVerticalTiltAxes(float minY, float maxY, float minX, float maxX, BOOL in
 		{
 			button.enabled = NO;
 			selButtons[1-i].enabled = YES;
-			[DasherAppDelegate theApp].dasherInterface->SetBoolParameter(BP_CUSTOM_TILT, i==1);
+      [[NSUserDefaults standardUserDefaults] setBool:(i==1) forKey:USE_CUSTOM_TILT];
 			[CalibrationController doSetup];
 			break;
 		}

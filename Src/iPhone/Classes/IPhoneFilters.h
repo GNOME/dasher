@@ -11,22 +11,12 @@
 #include "StylusFilter.h"
 #include "IPhoneInputs.h"
 
-@class NSUserDefaultsObserver;
-
-class IPhonePrefsObserver {
-public:
-  virtual void iPhonePrefsChanged(NSString *key)=0;
-protected:
-  void ObserveKeys(NSString *key,...);
-  ~IPhonePrefsObserver();
-private:
-  NSUserDefaultsObserver *obsvr;
-};
 #ifndef __IPHONE_FILTERS_MM__
 extern NSString *HOLD_TO_GO;
 extern NSString *TILT_1D;
 extern NSString *TILT_USE_TOUCH_X;
 extern NSString *TOUCH_USE_TILT_X;
+extern NSString *DOUBLE_TOUCH_X;
 #endif
 
 #define TILT_FILTER "IPhone Tilt Filter"

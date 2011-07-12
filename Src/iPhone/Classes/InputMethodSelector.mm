@@ -24,8 +24,8 @@ typedef struct __FILTER_DESC__ {
   NSString **iPhoneOpts;
 } SFilterDesc;
 
-NSString *touchSettings[] = {TOUCH_USE_TILT_X, NULL};
-NSString *tiltSettings[] = {HOLD_TO_GO, TILT_USE_TOUCH_X, TILT_1D, @"CircleStart", NULL};
+NSString *touchSettings[] = {TOUCH_USE_TILT_X, DOUBLE_TOUCH_X, NULL};
+NSString *tiltSettings[] = {HOLD_TO_GO, TILT_USE_TOUCH_X, DOUBLE_TOUCH_X, TILT_1D, @"CircleStart", NULL};
 
 NSString *calibBtn=@"Calibrate...";//pointer equality used to mark cell for special-casing in cellForRowAtIndexPath: below
 

@@ -20,6 +20,17 @@
 #define TWO_FINGER_INPUT "Two-finger (multitouch) input"
 
 @class EAGLView;
+@class NSUserDefaultsObserver;
+
+class IPhonePrefsObserver {
+public:
+  virtual void iPhonePrefsChanged(NSString *key)=0;
+protected:
+  void ObserveKeys(NSString *key,...);
+  ~IPhonePrefsObserver();
+private:
+  NSUserDefaultsObserver *obsvr;
+};
 namespace Dasher {
 
 class CIPhoneTiltInput : public CScreenCoordInput {
@@ -60,11 +71,14 @@ protected:
   EAGLView * const m_pView;
 };
 
-class CIPhoneMouseInput : public UndoubledTouch, protected CSettingsUser {
+class CIPhoneMouseInput : public UndoubledTouch, protected CSettingsUser, private IPhonePrefsObserver {
 public:
 	CIPhoneMouseInput(CSettingsUser *pCreator, EAGLView *pView);
   
   bool GetScreenCoords(screenint &iX, screenint &iY, CDasherView *pView);
+private:
+  void iPhonePrefsChanged(NSString *str);
+  bool m_bDoubleX;
 };
   
   class CIPhoneTwoFingerInput : public CDasherCoordInput {

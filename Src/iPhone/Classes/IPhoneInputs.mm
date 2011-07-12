@@ -16,6 +16,50 @@
 using namespace std;
 using namespace Dasher;
 
+@interface NSUserDefaultsObserver : NSObject {
+  IPhonePrefsObserver *po;
+}
+-(id)initForPrefsObserver:(IPhonePrefsObserver *)po;
+-(void)stopObserving;
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
+@end
+
+@implementation NSUserDefaultsObserver
+
+-(id)initForPrefsObserver:(IPhonePrefsObserver *)_po {
+  if (self = [super init]) {
+    self->po = _po;
+  }
+  return self;
+}
+
+-(void)stopObserving {po=nil; [self autorelease];}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+  NSAssert(object == [NSUserDefaults standardUserDefaults],@"Only observing user defaults?");
+  if (po) po->iPhonePrefsChanged(keyPath);
+  else [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:keyPath];
+}
+@end
+
+void IPhonePrefsObserver::ObserveKeys(NSString *key,...) {
+  va_list args;
+  va_start(args, key);
+  
+  obsvr = [[NSUserDefaultsObserver alloc] initForPrefsObserver:this];
+  while (key) {
+    [[NSUserDefaults standardUserDefaults] addObserver:obsvr forKeyPath:key options:0 context:nil];
+    iPhonePrefsChanged(key);
+    key=va_arg(args, NSString *);
+  }
+  va_end(args);
+}
+
+IPhonePrefsObserver::~IPhonePrefsObserver() {
+  [obsvr stopObserving];
+  [obsvr release];
+}
+
 @interface Accel : NSObject<UIAccelerometerDelegate> {
   CIPhoneTiltInput *tilt;
 }
@@ -116,13 +160,14 @@ bool UndoubledTouch::GetScreenCoords(screenint &iX, screenint &iY, CDasherView *
 
 CIPhoneMouseInput::CIPhoneMouseInput(CSettingsUser *pCreator, EAGLView *pView) 
 	: UndoubledTouch(9, TOUCH_INPUT, pView), CSettingsUser(pCreator) {
+    ObserveKeys(DOUBLE_TOUCH_X, nil);
 };
 
 bool CIPhoneMouseInput::GetScreenCoords(screenint &iX, screenint &iY, CDasherView *pView) {
   if (!UndoubledTouch::GetScreenCoords(iX,iY, pView)) return false;
   CDasherScreen *scr(pView->Screen());
   //double x/y
-  if (GetBoolParameter(BP_DOUBLE_X)) {
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:DOUBLE_TOUCH_X]) {
     switch (GetLongParameter(LP_REAL_ORIENTATION)) {
       case Opts::LeftToRight:
         iX=min(iX*2, scr->GetWidth());
@@ -139,6 +184,11 @@ bool CIPhoneMouseInput::GetScreenCoords(screenint &iX, screenint &iY, CDasherVie
     }
   }
   return true;
+}
+
+void CIPhoneMouseInput::iPhonePrefsChanged(NSString *str) {
+  if ([str isEqualToString:DOUBLE_TOUCH_X])
+    m_bDoubleX = [[NSUserDefaults standardUserDefaults] boolForKey:DOUBLE_TOUCH_X];
 }
 
 CIPhoneTwoFingerInput::CIPhoneTwoFingerInput(EAGLView *pView) : CDasherCoordInput(10, TWO_FINGER_INPUT), m_pGlView(pView) {

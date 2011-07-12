@@ -19,50 +19,7 @@ NSString *HOLD_TO_GO=@"HoldToGo";
 NSString *TILT_1D=@"Tilt1D";
 NSString * TILT_USE_TOUCH_X=@"UseTouchX";
 NSString * TOUCH_USE_TILT_X=@"UseTiltX";
-
-@interface NSUserDefaultsObserver : NSObject {
-  IPhonePrefsObserver *po;
-}
--(id)initForPrefsObserver:(IPhonePrefsObserver *)po;
--(void)stopObserving;
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
-@end
-
-@implementation NSUserDefaultsObserver
-
--(id)initForPrefsObserver:(IPhonePrefsObserver *)_po {
-  if (self = [super init]) {
-    self->po = _po;
-  }
-  return self;
-}
-
--(void)stopObserving {po=nil; [self autorelease];}
-
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-  NSAssert(object == [NSUserDefaults standardUserDefaults],@"Only observing user defaults?");
-  if (po) po->iPhonePrefsChanged(keyPath);
-  else [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:keyPath];
-}
-@end
-
-void IPhonePrefsObserver::ObserveKeys(NSString *key,...) {
-  va_list args;
-  va_start(args, key);
-  
-  obsvr = [[NSUserDefaultsObserver alloc] initForPrefsObserver:this];
-  while (key) {
-    [[NSUserDefaults standardUserDefaults] addObserver:obsvr forKeyPath:key options:0 context:nil];
-    iPhonePrefsChanged(key);
-    key=va_arg(args, NSString *);
-  }
-  va_end(args);
-}
-
-IPhonePrefsObserver::~IPhonePrefsObserver() {
-  [obsvr stopObserving];
-  [obsvr release];
-}
+NSString *DOUBLE_TOUCH_X=@"DoubleXCoords";
 
 using namespace Dasher;
 

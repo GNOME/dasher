@@ -59,10 +59,6 @@ const bp_table boolparamtable[] = {
 #endif
   {BP_CONTROL_MODE_HAS_COPY, "ControlHasCopy", PERS, true, "Provide copy-to-clipboard actions in Control Mode (if platforms supports)"},
   {BP_CONTROL_MODE_HAS_SPEECH, "ControlHasSpeech", PERS, true, "Provide speech actions in Control Mode (if platform supports)"},
-#ifdef TARGET_OS_IPHONE
-  {BP_CUSTOM_TILT, "CustomTilt", PERS, false, "Use custom tilt axes"},
-  {BP_DOUBLE_X, "DoubleXCoords", PERS, false, "Double X-coordinate of touch"},
-#endif
 };
 
 const lp_table longparamtable[] = {
@@ -182,10 +178,6 @@ const sp_table stringparamtable[] = {
   {SP_BUTTON_4, "Button4", PERS, "", "Assignment to button 4"},
   {SP_BUTTON_10, "Button10", PERS, "", "Assignment to button 10"},
   {SP_JOYSTICK_DEVICE, "JoystickDevice", PERS, "/dev/input/js0", "Joystick device"},
-#ifdef TARGET_OS_IPHONE
-  {SP_CUSTOM_TILT, "CustomTiltParams", PERS, "(0.0,0.0,0.0) - (0.0,-1.0,0.0) / (-1.0,0.0,0.0)", "Custom tilt axes"},
-  {SP_VERTICAL_TILT, "VerticalTiltParams", PERS, "-0.1 - -0.9 / -0.4 - 0.4", "Limits of vertical tilting"}, 
-#endif
 };
 
 ParameterType GetParameterType(int iParameter) {
