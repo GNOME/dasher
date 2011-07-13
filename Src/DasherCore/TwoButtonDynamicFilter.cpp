@@ -49,7 +49,7 @@ static SModuleSettings sSettings[] = {
 };
 
 CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate)
-  : CButtonMultiPress(pCreator, pInterface, pFramerate, 14, _("Two Button Dynamic Mode"))
+  : CButtonMultiPress(pCreator, pInterface, pFramerate, 14, _("Two Button Dynamic Mode")), m_iMouseButton(-1)
 {
   //ensure that m_dLagMul is properly initialised
   HandleEvent(LP_DYNAMIC_BUTTON_LAG);
@@ -98,7 +98,7 @@ void CTwoButtonDynamicFilter::KeyDown(unsigned long Time, int iId, CDasherView *
 		//simulate press of button 2/3 according to whether click in top/bottom half
     myint iDasherX, iDasherY;
     m_pInterface->GetActiveInputDevice()->GetDasherCoords(iDasherX, iDasherY, pView);
-    iId = (iDasherY < CDasherModel::ORIGIN_Y) ? 2 : 3;
+    m_iMouseButton = iId = (iDasherY < CDasherModel::ORIGIN_Y) ? 2 : 3;
   }
   CButtonMultiPress::KeyDown(Time, iId, pView, pInput, pModel);
 }
@@ -106,10 +106,13 @@ void CTwoButtonDynamicFilter::KeyDown(unsigned long Time, int iId, CDasherView *
 void CTwoButtonDynamicFilter::KeyUp(unsigned long Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
 	if (iId == 100 && !GetBoolParameter(BP_BACKOFF_BUTTON)) {
     //mouse click - will be ignored by superclass method.
-		//simulate press of button 2/3 according to whether click in top/bottom half
-    myint iDasherX, iDasherY;
-    m_pInterface->GetActiveInputDevice()->GetDasherCoords(iDasherX, iDasherY, pView);
-    iId = (iDasherY < CDasherModel::ORIGIN_Y) ? 2 : 3;
+    //Although we could check current mouse coordinates,
+    // since we don't generally do anything in response to KeyUp, seems more consistent just to
+    // simulate release of whichever button we depressed in response to mousedown...
+    if (m_iMouseButton!=-1) {//paranoia about e.g. pause/resume inbetween press/release?
+      iId = m_iMouseButton;
+      m_iMouseButton=-1;
+    }
   }
   CButtonMultiPress::KeyUp(Time, iId, pView, pInput,pModel);
 }

@@ -160,10 +160,13 @@ bool operator==(CGPoint p,CGPoint q) {
     NSAssert(it != allTouches.end(), @"Release touch not in progress?");
     map<int,CGPoint>::iterator it2=fingerPosns.find(it->second);
     NSAssert(it2 != fingerPosns.end(), @"No coordinates for touch?");
-    CGPoint p=it2->second;
+    //For consistency with MacOS and Gtk2, and to allow filters
+    // to check the coordinates of the click up, call KeyUp first...
+    it2->second=[touch locationInView:self];
+    dasherApp.dasherInterface->KeyUp(time, allTouches.size()+99);
+    //...and only _then_ forget the coordinates:
     fingerPosns.erase(it2);
     allTouches.erase(it);
-    dasherApp.dasherInterface->KeyUp(time, allTouches.size()+100);
   }
 }
 
