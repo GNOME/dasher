@@ -40,8 +40,20 @@ class CDynamicButtons : public CDynamicFilter, public CSettingsObserver {
   //respond to changes to BP_DASHER_PAUSED to keep m_iState in sync
   virtual void HandleEvent(int iParameter);
  protected:
-  virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel) = 0;
-  virtual void Event(int iTime, int iButton, int iType, CDasherModel *pModel);
+  ///Called when a key event is detected - could be a single press (a la KeyDown/KeyUp),
+  /// but is also called with explicit indication of "long" or other types of press,
+  /// avoiding need for subclasses to try to detect these manually. In the default implementation:
+  /// if paused, any key restarts; if reversing, any key pauses; if running, short presses
+  /// of button 0 or 100 act as a dedicated reverse button, and button 1 pauses; any other
+  /// press type or button is passed onto ActionButton.
+  /// \param iType 0=normal press, 1=long press; see also CButtonMultiPress.
+  virtual void ButtonEvent(int long iTime, int iButton, int iType, CDasherModel *pModel);
+
+  ///Called to handle key events when the Filter is running forwards normally.
+  /// Short presses of buttons 0, 100 and 1 have been handled already, but all
+  /// other buttons/press-types will be passed here.
+  /// \param iType 0=normal press, 1=long press; see also CButtonMultiPress.
+  virtual void ActionButton(unsigned long iTime, int iButton, int iType, CDasherModel *pModel) = 0;
 
   bool m_bKeyDown;
   bool m_bKeyHandled;

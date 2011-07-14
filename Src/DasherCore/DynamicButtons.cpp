@@ -33,7 +33,7 @@ CDynamicButtons::CDynamicButtons(CSettingsUser *pCreator, CDasherInterfaceBase *
 bool CDynamicButtons::Timer(unsigned long iTime, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol)
 {
   if(m_bKeyDown && !m_bKeyHandled && ((iTime - m_iKeyDownTime) > GetLongParameter(LP_HOLD_TIME))) {
-    Event(iTime, m_iHeldId, 1, m_pDasherModel);
+    ButtonEvent(iTime, m_iHeldId, 1, m_pDasherModel);
     m_bKeyHandled = true;
     //return true; //ACL although that's what old DynamicButtons did, surely we should progress normally?
   }
@@ -62,7 +62,7 @@ void CDynamicButtons::KeyDown(unsigned long iTime, int iId, CDasherView *pView, 
     return;
 
   // Pass the basic key down event to the handler
-  Event(iTime, iId, 0, pModel);
+  ButtonEvent(iTime, iId, 0, pModel);
     
   // Store the key down time so that long presses can be determined
   // TODO: This is going to cause problems if multiple buttons are
@@ -78,10 +78,7 @@ void CDynamicButtons::KeyUp(unsigned long iTime, int iId, CDasherView *pView, CD
   if (iId == m_iHeldId) m_bKeyDown = false;
 }
 
-void CDynamicButtons::Event(int iTime, int iButton, int iType, CDasherModel *pModel) {
-  // Types known at this point in inheritance hierarchy:
-  // 0 = ordinary click
-  // 1 = long click
+void CDynamicButtons::ButtonEvent(int iTime, int iButton, int iType, CDasherModel *pModel) {
   
   // TODO: Check that state diagram implemented here is what we
   // decided upon
