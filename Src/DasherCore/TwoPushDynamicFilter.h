@@ -36,12 +36,12 @@ class CTwoPushDynamicFilter : public CDynamicButtons /*long push, but do our own
   virtual bool GetSettings(SModuleSettings **pSettings, int *iCount);
 
   //override to get mouse clicks / taps back again...
-  virtual void KeyDown(unsigned long Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual void KeyDown(unsigned long Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel);
   virtual void KeyUp(unsigned long Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel);
 
  protected:
   virtual bool TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);
-  virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel);
 
   virtual void HandleEvent(int iParameter);
 

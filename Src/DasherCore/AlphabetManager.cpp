@@ -507,7 +507,7 @@ void CAlphabetManager::IterateChildGroups(CAlphNode *pParent, const SGroupInfo *
   DASHER_ASSERT((*pCProb)[0] == 0);
   const int iMin(pParentGroup ? pParentGroup->iStart : 1);
   const int iMax(pParentGroup ? pParentGroup->iEnd : m_pAlphabet->GetNumberTextSymbols()+1);
-  unsigned int iRange(pParentGroup ? ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]) : GetLongParameter(LP_NORMALIZATION));
+  unsigned int iRange(pParentGroup ? ((*pCProb)[iMax-1] - (*pCProb)[iMin-1]) : CDasherModel::NORMALIZATION);
 
   // TODO: Think through alphabet file formats etc. to make this class easier.
   // TODO: Throw a warning if parent node already has children
@@ -525,10 +525,10 @@ void CAlphabetManager::IterateChildGroups(CAlphNode *pParent, const SGroupInfo *
     const int iStart=i, iEnd = (bSymbol) ? i+1 : pCurrentNode->iEnd;
     //uint64 is platform-dependently #defined in DasherTypes.h as an (unsigned) 64-bit int ("__int64" or "long long int")
     unsigned int iLbnd = (((*pCProb)[iStart-1] - (*pCProb)[iMin-1]) *
-                          (uint64)(GetLongParameter(LP_NORMALIZATION))) /
+                          static_cast<uint64>(CDasherModel::NORMALIZATION)) /
                          iRange;
     unsigned int iHbnd = (((*pCProb)[iEnd-1] - (*pCProb)[iMin-1]) *
-                          (uint64)(GetLongParameter(LP_NORMALIZATION))) /
+                          static_cast<uint64>(CDasherModel::NORMALIZATION)) /
                          iRange;
     if (bSymbol) {
       pNewChild = (buildAround) ? buildAround->RebuildSymbol(pParent, iLbnd, iHbnd, i) : CreateSymbolNode(pParent, iLbnd, iHbnd, i);
@@ -599,9 +599,9 @@ void CAlphabetManager::CSymbolNode::Output() {
   m_pMgr->m_pInterface->editOutput(outputText(), this);
 }
 
-SymbolProb CAlphabetManager::CSymbolNode::GetSymbolProb(int iNormalization) const {
+SymbolProb CAlphabetManager::CSymbolNode::GetSymbolProb() const {
   //TODO probability here not right - Range() is relative to parent, not prev symbol
-  return Dasher::SymbolProb(iSymbol, m_pMgr->m_pAlphabet->GetText(iSymbol), Range() / (double)iNormalization);
+  return Dasher::SymbolProb(iSymbol, m_pMgr->m_pAlphabet->GetText(iSymbol), Range() / (double)CDasherModel::NORMALIZATION);
 }
 
 void CAlphabetManager::CSymbolNode::Undo() {

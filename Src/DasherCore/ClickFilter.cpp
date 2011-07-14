@@ -62,19 +62,18 @@ CZoomAdjuster::CZoomAdjuster(CSettingsUser *pCreateFrom) : CSettingsUser(pCreate
 }
 
 void CZoomAdjuster::AdjustZoomCoords(myint &iDasherX, myint &iDasherY, CDasherView *pView) {
-  const myint ox(GetLongParameter(LP_OX)), safety(GetLongParameter(LP_S));
+  const myint safety(GetLongParameter(LP_S));
   //safety param. Used to be just added onto DasherX,
   // but comments suggested should be interpreted as a fraction. Hence...
-  myint iNewDasherX = (iDasherX*1024 + ox*safety) / (1024+safety);
+  myint iNewDasherX = (iDasherX*1024 + CDasherModel::ORIGIN_X*safety) / (1024+safety);
 
   //max zoom parameter...
-  iNewDasherX = std::max(ox/GetLongParameter(LP_MAXZOOM),iNewDasherX);
+  iNewDasherX = std::max(CDasherModel::ORIGIN_X/GetLongParameter(LP_MAXZOOM),iNewDasherX);
   //force x>=2 (what's wrong with x==1?)
   if (iNewDasherX<2) iNewDasherX=2;
   if (iNewDasherX != iDasherX) {
     //compute new dasher y to keep centre of expansion in same place...
-    const myint oy(GetLongParameter(LP_OY));
-    myint iNewDasherY = oy + ((ox-iNewDasherX) * (iDasherY-oy))/(ox-iDasherX);
+    myint iNewDasherY = CDasherModel::ORIGIN_Y + ((CDasherModel::ORIGIN_X-iNewDasherX) * (iDasherY-CDasherModel::ORIGIN_Y))/(CDasherModel::ORIGIN_X-iDasherX);
     iDasherX = iNewDasherX; iDasherY = iNewDasherY;
   }
 }
@@ -83,7 +82,7 @@ bool CClickFilter::Timer(unsigned long Time, CDasherView *pView, CDasherInput *p
   return pModel->NextScheduledStep();
 }
 
-void CClickFilter::KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY) {
+void CClickFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
   switch(iId) {
   case 100: // Mouse clicks
     {

@@ -18,7 +18,7 @@ namespace Dasher {
 /// \ingroup Input
 /// @{
 /// Handles the "menu mode" and "direct mode" input filters, according to the bMenu constructor parameter.
-class CButtonMode : public CDasherButtons
+class CButtonMode : public CDasherButtons, protected CSettingsObserver
 {
  public:
   CButtonMode(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, bool bMenu, int iID, const char *szName);
@@ -28,12 +28,12 @@ class CButtonMode : public CDasherButtons
   bool DecorateView(CDasherView *pView, CDasherInput *pInput);
 
   //override to get mouse clicks/taps back again
-  virtual void KeyDown(unsigned long Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual void KeyDown(unsigned long Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
   
   bool GetSettings(SModuleSettings **pSettings, int *iCount);
  protected: 
   void SetupBoxes();
-  void DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog);
+  void DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel);
  private:
   bool m_bHighlight;
   int m_iLastTime;

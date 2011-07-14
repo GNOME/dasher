@@ -51,7 +51,7 @@ static char THIS_FILE[] = __FILE__;
 // CDasherModel
 
 CDasherModel::CDasherModel(CSettingsUser *pCreateFrom)
-: CSettingsUserObserver(pCreateFrom) {
+: CSettingsUser(pCreateFrom) {
   
   m_pLastOutput = m_Root = NULL;
 
@@ -69,9 +69,8 @@ CDasherModel::CDasherModel(CSettingsUser *pCreateFrom)
 
   m_dAddProb = 0.003;
 
-  int iNormalization = GetLongParameter(LP_NORMALIZATION);
-  m_Rootmin_min = int64_min / iNormalization / 2;
-  m_Rootmax_max = int64_max / iNormalization / 2;
+  m_Rootmin_min = int64_min / NORMALIZATION / 2;
+  m_Rootmax_max = int64_max / NORMALIZATION / 2;
 
 }
 
@@ -86,19 +85,6 @@ CDasherModel::~CDasherModel() {
   } else {
     delete m_Root;
     m_Root = NULL;
-  }
-}
-
-void CDasherModel::HandleEvent(int iParameter) {
-  switch (iParameter) {
-  case BP_SMOOTH_OFFSET:
-    if (!GetBoolParameter(BP_SMOOTH_OFFSET))
-      //smoothing has just been turned off. End any transition/jump currently
-      // in progress at it's current point
-      AbortOffset();
-    break;
-  default:
-    break;
   }
 }
 
@@ -126,15 +112,15 @@ void CDasherModel::Make_root(CDasherNode *pNewRoot) {
 
   // Update the root coordinates, as well as any currently scheduled locations
   const myint range = m_Rootmax - m_Rootmin;
-  m_Rootmax = m_Rootmin + (range * m_Root->Hbnd()) / GetLongParameter(LP_NORMALIZATION);
-  m_Rootmin = m_Rootmin + (range * m_Root->Lbnd()) / GetLongParameter(LP_NORMALIZATION);
+  m_Rootmax = m_Rootmin + (range * m_Root->Hbnd()) / NORMALIZATION;
+  m_Rootmin = m_Rootmin + (range * m_Root->Lbnd()) / NORMALIZATION;
 
   for(std::deque<SGotoItem>::iterator it(m_deGotoQueue.begin()); it != m_deGotoQueue.end(); ++it) {
     //Some of these co-ordinate pairs can be bigger than m_Rootmin_min - m_Rootmax_max,
     // hence using unsigned type...
     const uint64 r = it->iN2 - it->iN1;
-    it->iN2 = it->iN1 + (r * m_Root->Hbnd()) / GetLongParameter(LP_NORMALIZATION);
-    it->iN1 = it->iN1 + (r * m_Root->Lbnd()) / GetLongParameter(LP_NORMALIZATION);
+    it->iN2 = it->iN1 + (r * m_Root->Hbnd()) / NORMALIZATION;
+    it->iN1 = it->iN1 + (r * m_Root->Lbnd()) / NORMALIZATION;
   }
 }
 
@@ -172,7 +158,7 @@ bool CDasherModel::Reparent_root() {
   myint iRootWidth(m_Rootmax - m_Rootmin);
 
   // Fail if the new root is bigger than allowed by normalisation
-  if(((myint((GetLongParameter(LP_NORMALIZATION) - upper)) / static_cast<double>(iRange)) >
+  if(((myint(NORMALIZATION - upper) / static_cast<double>(iRange)) >
            (m_Rootmax_max - m_Rootmax)/static_cast<double>(iRootWidth)) ||
       ((myint(lower) / static_cast<double>(iRange)) >
            (m_Rootmin - m_Rootmin_min) / static_cast<double>(iRootWidth))) {
@@ -188,12 +174,12 @@ bool CDasherModel::Reparent_root() {
   DASHER_ASSERT(pNewRoot->GetFlag(NF_SEEN));
   m_Root = pNewRoot;
 
-  m_Rootmax = m_Rootmax + ((GetLongParameter(LP_NORMALIZATION) - upper) * iRootWidth) / iRange;
+  m_Rootmax = m_Rootmax + ((NORMALIZATION - upper) * iRootWidth) / iRange;
   m_Rootmin = m_Rootmin - (lower * iRootWidth) / iRange;
 
   for(std::deque<SGotoItem>::iterator it(m_deGotoQueue.begin()); it != m_deGotoQueue.end(); ++it) {
     iRootWidth = it->iN2 - it->iN1;
-    it->iN2 = it->iN2 + (myint((GetLongParameter(LP_NORMALIZATION) - upper)) * iRootWidth / iRange);
+    it->iN2 = it->iN2 + (myint(NORMALIZATION - upper) * iRootWidth / iRange);
     it->iN1 = it->iN1 - (myint(lower) * iRootWidth / iRange);
   }
   return true;
@@ -222,7 +208,7 @@ void CDasherModel::SetOffset(int iOffset, CAlphabetManager *pMgr, CDasherView *p
   ClearRootQueue();
   delete m_Root;
 
-  m_Root = pMgr->GetRoot(NULL, 0,GetLongParameter(LP_NORMALIZATION), iOffset!=0, iOffset);
+  m_Root = pMgr->GetRoot(NULL, 0, NORMALIZATION, iOffset!=0, iOffset);
   if (iOffset) {
     //there were preceding characters. It's nonetheless possible that they weren't
     // part of the current alphabet, and so we may have got a simple group node as root,
@@ -246,16 +232,16 @@ void CDasherModel::SetOffset(int iOffset, CAlphabetManager *pMgr, CDasherView *p
   // Set the root coordinates so that the root node is an appropriate
   // size and we're not in any of the children
 
-  double dFraction( 1 - (1 - m_Root->MostProbableChild() / static_cast<double>(GetLongParameter(LP_NORMALIZATION))) / 2.0 );
+  double dFraction( 1 - (1 - m_Root->MostProbableChild() / static_cast<double>(NORMALIZATION)) / 2.0 );
 
   //TODO somewhere round here, old code checked whether the InputFilter implemented
   // GetMinWidth, if so called LimitRoot w/that width - i.e., make sure iWidth
   // is no more than that minimum. Should we do something similar here???
 
-  int iWidth( static_cast<int>( (GetLongParameter(LP_MAX_Y) / (2.0*dFraction)) ) );
+  int iWidth( static_cast<int>( MAX_Y / (2.0*dFraction) ) );
 
-  m_Rootmin = GetLongParameter(LP_MAX_Y) / 2 - iWidth / 2;
-  m_Rootmax = GetLongParameter(LP_MAX_Y) / 2 + iWidth / 2;
+  m_Rootmin = MAX_Y / 2 - iWidth / 2;
+  m_Rootmax = MAX_Y / 2 + iWidth / 2;
 
   m_iDisplayOffset = 0;
 }
@@ -275,16 +261,14 @@ void CDasherModel::Get_new_root_coords(dasherint X, dasherint Y, dasherint &r1, 
 
   // Mouse coords X, Y
   // const dasherint Y1 = 0;
-  dasherint Y2(GetLongParameter(LP_MAX_Y));
-  dasherint iOX(GetLongParameter(LP_OX));
-  dasherint iOY(GetLongParameter(LP_OY));
+  const dasherint Y2(MAX_Y);
 
   // Calculate what the extremes of the viewport will be when the
   // point under the cursor is at the cross-hair. This is where
   // we want to be in iSteps updates
 
-  dasherint y1(Y - (Y2 * X) / (2 * iOX));
-  dasherint y2(Y + (Y2 * X) / (2 * iOY));
+  dasherint y1(Y - (Y2 * X) / (2 * ORIGIN_X));
+  dasherint y2(Y + (Y2 * X) / (2 * ORIGIN_Y));
   dasherint oy1(y1),oy2(y2); //back these up to use later
   // iSteps is the number of update steps we need to get the point
   // under the cursor over to the cross hair. Calculated in order to
@@ -393,8 +377,8 @@ void CDasherModel::UpdateBounds(myint newRootmin, myint newRootmax) {
     const myint iWidth(m_Rootmax-m_Rootmin);
     for (CDasherNode::ChildMap::const_iterator it = m_Root->GetChildren().begin(), E = m_Root->GetChildren().end(); ;) {
       CDasherNode *pChild(*it);
-      DASHER_ASSERT(m_Rootmin + ((pChild->Lbnd() * iWidth) / GetLongParameter(LP_NORMALIZATION)) <= GetLongParameter(LP_OY));
-      if (m_Rootmin + ((pChild->Hbnd() * iWidth) / GetLongParameter(LP_NORMALIZATION)) > GetLongParameter(LP_OY)) {
+      DASHER_ASSERT(m_Rootmin + ((pChild->Lbnd() * iWidth) / NORMALIZATION) <= ORIGIN_Y);
+      if (m_Rootmin + ((pChild->Hbnd() * iWidth) / NORMALIZATION) > ORIGIN_Y) {
         //found child to make root. proceed only if new root is on the game path....
         if (GetBoolParameter(BP_GAME_MODE) && !pChild->GetFlag(NF_GAME)) {
           //If the user's strayed that far off the game path,
@@ -418,7 +402,7 @@ void CDasherModel::UpdateBounds(myint newRootmin, myint newRootmax) {
         //...we can retrieve new, equivalent, coordinates for it
         newRootmin = m_deGotoQueue.back().iN1; newRootmax = m_deGotoQueue.back().iN2;
         m_deGotoQueue.pop_back();
-        // (note that the next check below will make sure these coords do cover (0, LP_OY))
+        // (note that the next check below will make sure these coords do cover (0, ORIGIN_Y))
         break;
       }
       ++it;
@@ -429,15 +413,15 @@ void CDasherModel::UpdateBounds(myint newRootmin, myint newRootmax) {
   // Check that we haven't drifted too far. The rule is that we're not
   // allowed to let the root max and min cross the midpoint of the
   // screen.
-  newRootmin = min(newRootmin, (myint)GetLongParameter(LP_OY) - 1 - m_iDisplayOffset);
-  newRootmax = max(newRootmax, (myint)GetLongParameter(LP_OY) + 1 - m_iDisplayOffset);
+  newRootmin = min(newRootmin, ORIGIN_Y - 1 - m_iDisplayOffset);
+  newRootmax = max(newRootmax, ORIGIN_Y + 1 - m_iDisplayOffset);
 
   // Only allow the update if it won't make the
   // root too small. We should have re-generated a deeper root
   // before now already, but the original root is an exception.
   // (as is trying to go back beyond the earliest char in the current
   // alphabet, if there are preceding characters not in that alphabet)
-  if ((newRootmax - newRootmin) > (myint)GetLongParameter(LP_MAX_Y) / 4) {
+  if ((newRootmax - newRootmin) > MAX_Y / 4) {
     m_Rootmax = newRootmax;
     m_Rootmin = newRootmin;
   } //else, we just stop - this prevents the user from zooming too far back
@@ -540,7 +524,7 @@ void CDasherModel::ScheduleZoom(long time, dasherint y1, dasherint y2) {
 
   // Rename for readability.
   const dasherint Y1 = 0;
-  const dasherint Y2 = GetLongParameter(LP_MAX_Y);
+  const dasherint Y2 = MAX_Y;
   const dasherint R1 = m_Rootmin;
   const dasherint R2 = m_Rootmax;
 
@@ -592,8 +576,7 @@ void CDasherModel::Offset(int iOffset) {
   m_Rootmin += iOffset;
   m_Rootmax += iOffset;
 
-  if (GetBoolParameter(BP_SMOOTH_OFFSET))
-    m_iDisplayOffset -= iOffset;
+  m_iDisplayOffset -= iOffset;
 }
 
 void CDasherModel::AbortOffset() {
@@ -604,7 +587,7 @@ void CDasherModel::AbortOffset() {
 }
 
 void CDasherModel::LimitRoot(int iMaxWidth) {
-  m_Rootmin = GetLongParameter(LP_MAX_Y) / 2 - iMaxWidth / 2;
-  m_Rootmax = GetLongParameter(LP_MAX_Y) / 2 + iMaxWidth / 2;
+  m_Rootmin = ORIGIN_Y - iMaxWidth / 2;
+  m_Rootmax = ORIGIN_Y + iMaxWidth / 2;
 }
 

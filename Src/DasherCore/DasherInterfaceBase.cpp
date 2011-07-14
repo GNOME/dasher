@@ -244,7 +244,8 @@ void CDasherInterfaceBase::HandleEvent(int iParameter) {
   case BP_DRAW_MOUSE_LINE:
     ScheduleRedraw();
     break;
-  case LP_REAL_ORIENTATION:
+  case LP_ORIENTATION:
+    m_pDasherView->SetOrientation(ComputeOrientation());
     ScheduleRedraw();
     break;
   case SP_ALPHABET_ID:
@@ -255,10 +256,9 @@ void CDasherInterfaceBase::HandleEvent(int iParameter) {
     ChangeColours();
     ScheduleRedraw();
     break;
-  case SP_DEFAULT_COLOUR_ID: // Delibarate fallthrough
   case BP_PALETTE_CHANGE:
     if(GetBoolParameter(BP_PALETTE_CHANGE))
- SetStringParameter(SP_COLOUR_ID, GetStringParameter(SP_DEFAULT_COLOUR_ID));
+ SetStringParameter(SP_COLOUR_ID, m_pNCManager->GetAlphabet()->GetPalette());
     break;
   case LP_LANGUAGE_MODEL_ID:
     CreateNCManager();
@@ -400,6 +400,8 @@ void CDasherInterfaceBase::CreateNCManager() {
 
   //now create the new manager...
   m_pNCManager = new CNodeCreationManager(this, this, m_AlphIO);
+  if (GetBoolParameter(BP_PALETTE_CHANGE))
+    SetStringParameter(SP_COLOUR_ID, m_pNCManager->GetAlphabet()->GetPalette());
 
   if (m_DasherScreen) {
     m_pNCManager->ChangeScreen(m_DasherScreen);
@@ -597,10 +599,20 @@ void CDasherInterfaceBase::ChangeAlphabet() {
   // Lock Dasher to prevent changes from happening while we're training.
 
   CreateNCManager();
-
+  if (m_pDasherView) m_pDasherView->SetOrientation(ComputeOrientation());
   // Apply options from alphabet
 
   //}
+}
+
+Opts::ScreenOrientations CDasherInterfaceBase::ComputeOrientation() {
+  Opts::ScreenOrientations pref(Opts::ScreenOrientations(GetLongParameter(LP_ORIENTATION)));
+  if (pref!=Opts::Alphabet) return pref;
+  if (m_pNCManager) return m_pNCManager->GetAlphabet()->GetOrientation();
+  //haven't created the NCManager yet, so not yet reached Realize, but must
+  // have been given Screen (to make View). Use default LR for now, as when
+  // we ChangeAlphabet, we'll update the view.
+  return Opts::LeftToRight;
 }
 
 void CDasherInterfaceBase::ChangeColours() {
@@ -645,7 +657,7 @@ void CDasherInterfaceBase::ChangeView() {
   // TODO: Actually respond to LP_VIEW_ID parameter (although there is only one view at the moment)
 
   if(m_DasherScreen != 0 /*&& m_pDasherModel != 0*/) {
-    CDasherView *pNewView = new CDasherViewSquare(this, m_DasherScreen);
+    CDasherView *pNewView = new CDasherViewSquare(this, m_DasherScreen, ComputeOrientation());
     //the previous sends an event to all listeners registered with it, but there aren't any atm!
     // so send an event to tell them of the new view object _and_ get them to recompute coords:  
     if (m_pDasherView) m_pDasherView->TransferObserversTo(pNewView);
@@ -709,7 +721,7 @@ void CDasherInterfaceBase::KeyDown(unsigned long iTime, int iId) {
     return;
 
   if(m_pInputFilter) {
-    m_pInputFilter->KeyDown(iTime, iId, m_pDasherView, m_pInput, m_pDasherModel, m_pUserLog);
+    m_pInputFilter->KeyDown(iTime, iId, m_pDasherView, m_pInput, m_pDasherModel);
   }
 
   if(m_pInput) {
@@ -732,6 +744,8 @@ void CDasherInterfaceBase::KeyUp(int iTime, int iId) {
 
 void CDasherInterfaceBase::CreateInputFilter()
 {
+  SetBoolParameter(BP_DASHER_PAUSED,true); //seems a sensible precaution!
+
   if(m_pInputFilter) {
     m_pInputFilter->Deactivate();
     m_pInputFilter = NULL;

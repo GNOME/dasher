@@ -18,7 +18,7 @@ namespace Dasher {
 /// @{
 class CUserLogBase : protected Dasher::CSettingsUserObserver, protected TransientObserver<const Dasher::CEditEvent *> {
  public:
-  CUserLogBase(Dasher::CSettingsUser *pCreateFrom, Observable<const Dasher::CEditEvent*> *pHandler);
+  CUserLogBase(CSettingsUser *pCreateFrom, Observable<const Dasher::CEditEvent*> *pHandler);
 
   virtual void AddParam(const std::string& strName, const std::string& strValue, int iOptionMask = 0) = 0;
   virtual void AddParam(const std::string& strName, double dValue, int iOptionMask = 0) = 0;

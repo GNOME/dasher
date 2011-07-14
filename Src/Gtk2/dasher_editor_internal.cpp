@@ -692,7 +692,7 @@ void dasher_editor_internal_mark_changed(DasherEditorInternal *pSelf, GtkTextIte
     // by a callback registered by editor_internal, which then emitted a context_changed
     // signal from the editor_internal. So just emit the context_changed directly...
     if (!pPrivate->bInControlAction //tho not if it's the result of a control-mode edit/delete
-        && dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_GAME_MODE)) //and not in game mode
+        && !dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_GAME_MODE)) //and not in game mode
       g_signal_emit_by_name(G_OBJECT(pSelf), "context_changed", G_OBJECT(pSelf), NULL, NULL);
   }
 }

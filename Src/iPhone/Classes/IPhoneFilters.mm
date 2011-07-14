@@ -41,10 +41,10 @@ void CIPhoneTiltFilter::ApplyTransform(myint &iDasherX, myint &iDasherY, CDasher
   }
 }
 
-void CIPhoneTiltFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CIPhoneTiltFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
 	if(iId == 100 && bHoldToGo)
 		Unpause(iTime);
-  else COneDimensionalFilter::KeyDown(iTime, iId, pView, pInput, pModel, pUserLog);
+  else COneDimensionalFilter::KeyDown(iTime, iId, pView, pInput, pModel);
 }
 
 void CIPhoneTiltFilter::KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
@@ -136,9 +136,9 @@ CIPhoneTwoFingerFilter::CIPhoneTwoFingerFilter(CSettingsUser *pCreator, CDasherI
 : CDefaultFilter(pCreator, pInterface, pFramerate, iID, TWO_FINGER_FILTER) {
 }
 
-void CIPhoneTwoFingerFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CIPhoneTwoFingerFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
   if (iId==101) Unpause(iTime);
-  else if (iId!=100) CDefaultFilter::KeyDown(iTime, iId, pView, pInput, pModel, pUserLog);
+  else if (iId!=100) CDefaultFilter::KeyDown(iTime, iId, pView, pInput, pModel);
 }
 
 void CIPhoneTwoFingerFilter::KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {

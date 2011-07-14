@@ -245,7 +245,7 @@ class Dasher::CDasherNode:private NoClones {
   /// output. Subclasses performing output, should override to return appropriate
   /// information. (Will only be called if necessary i.e. logging enabled).
   /// The default returns a very uninformative SymbolProb with just display text.
-  virtual SymbolProb GetSymbolProb(int iNormalization) const {
+  virtual SymbolProb GetSymbolProb() const {
     return SymbolProb(0,m_pLabel->m_strText,0.0);
   }
 

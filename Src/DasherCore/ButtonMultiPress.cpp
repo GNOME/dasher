@@ -27,7 +27,7 @@ CButtonMultiPress::CButtonMultiPress(CSettingsUser *pCreator, CDasherInterfaceBa
   : CDynamicButtons(pCreator, pInterface, pFramerate, iID, szName) {
 }
 
-void CButtonMultiPress::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CButtonMultiPress::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
 
   if (m_bKeyDown) return;
 
@@ -40,7 +40,7 @@ void CButtonMultiPress::KeyDown(unsigned long iTime, int iId, CDasherView *pView
       //previous presses should not be treated as such....
       RevertPresses(m_deQueueTimes.size());
       //...but should be combined with this one into a new event (type = #presses)
-      Event(iTime, iId, m_deQueueTimes.size()+1, pModel, pUserLog);
+      Event(iTime, iId, m_deQueueTimes.size()+1, pModel);
       if (m_deQueueTimes.size() >= maxClickCount() - 1)
 	m_deQueueTimes.clear(); //final press
       else //may still be more presses to come
@@ -57,7 +57,7 @@ void CButtonMultiPress::KeyDown(unsigned long iTime, int iId, CDasherView *pView
   // Record press...
   m_deQueueTimes.push_back(iTime);
   // ... and process normally; if it changes the state, pause()/reverse()'ll clear the queue
-  CDynamicButtons::KeyDown(iTime, iId, pView, pInput, pModel, pUserLog);
+  CDynamicButtons::KeyDown(iTime, iId, pView, pInput, pModel);
 }
 
 void CButtonMultiPress::pause()

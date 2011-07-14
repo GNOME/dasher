@@ -92,15 +92,15 @@ bool CTwoButtonDynamicFilter::DecorateView(CDasherView *pView, CDasherInput *pIn
   return bRV;
 }
 
-void CTwoButtonDynamicFilter::KeyDown(unsigned long Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CTwoButtonDynamicFilter::KeyDown(unsigned long Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
 	if (iId == 100 && !GetBoolParameter(BP_BACKOFF_BUTTON)) {
     //mouse click - will be ignored by superclass method.
 		//simulate press of button 2/3 according to whether click in top/bottom half
     myint iDasherX, iDasherY;
     m_pInterface->GetActiveInputDevice()->GetDasherCoords(iDasherX, iDasherY, pView);
-    iId = (iDasherY < GetLongParameter(LP_OY)) ? 2 : 3;
+    iId = (iDasherY < CDasherModel::ORIGIN_Y) ? 2 : 3;
   }
-  CButtonMultiPress::KeyDown(Time, iId, pView, pInput, pModel, pUserLog);
+  CButtonMultiPress::KeyDown(Time, iId, pView, pInput, pModel);
 }
 
 void CTwoButtonDynamicFilter::KeyUp(unsigned long Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
@@ -109,7 +109,7 @@ void CTwoButtonDynamicFilter::KeyUp(unsigned long Time, int iId, CDasherView *pV
 		//simulate press of button 2/3 according to whether click in top/bottom half
     myint iDasherX, iDasherY;
     m_pInterface->GetActiveInputDevice()->GetDasherCoords(iDasherX, iDasherY, pView);
-    iId = (iDasherY < GetLongParameter(LP_OY)) ? 2 : 3;
+    iId = (iDasherY < CDasherModel::ORIGIN_Y) ? 2 : 3;
   }
   CButtonMultiPress::KeyUp(Time, iId, pView, pInput,pModel);
 }
@@ -119,32 +119,7 @@ bool CTwoButtonDynamicFilter::TimerImpl(unsigned long Time, CDasherView *m_pDash
   return true;
 }
 
-void CTwoButtonDynamicFilter::Activate() {
-  SetBoolParameter(BP_SMOOTH_OFFSET, true);
-}
-
-void CTwoButtonDynamicFilter::Deactivate() {
-  SetBoolParameter(BP_SMOOTH_OFFSET, false);
-}
-
-void CTwoButtonDynamicFilter::run() {
-  SetBoolParameter(BP_SMOOTH_OFFSET, true);
-  CButtonMultiPress::run();
-}
-
-void CTwoButtonDynamicFilter::pause() {
-  SetBoolParameter(BP_SMOOTH_OFFSET, false);
-  CButtonMultiPress::pause();
-}
-
-void CTwoButtonDynamicFilter::reverse() {
-  //hmmmm. If we ever actually did Offset() while reversing,
-  // we might want BP_SMOOTH_OFFSET on....
-  SetBoolParameter(BP_SMOOTH_OFFSET, false);
-  CButtonMultiPress::reverse();
-}
-
-void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel) {
   
   double dFactor(GetBoolParameter(BP_TWOBUTTON_REVERSE) ? -1.0 : 1.0);
   int iEffect; //for user log
@@ -170,16 +145,15 @@ void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CD
     //fall through to apply offset
   }
   else {
-    if(pUserLog)
+    if(CUserLogBase *pUserLog=m_pInterface->GetUserLogPtr())
       pUserLog->KeyDown(iButton, iType, 0);
     return;
   }
   //fell through to apply offset
-  int iOffset(dFactor * GetLongParameter(LP_TWO_BUTTON_OFFSET) * m_dLagMul);
-  pModel->Offset(iOffset);
+  ApplyOffset(pModel,dFactor * GetLongParameter(LP_TWO_BUTTON_OFFSET) * m_dLagMul);
   pModel->ResetNats();
   
-  if(pUserLog)
+  if(CUserLogBase *pUserLog=m_pInterface->GetUserLogPtr())
     pUserLog->KeyDown(iButton, iType, iEffect);  
 }
 

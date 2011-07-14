@@ -34,14 +34,14 @@ class CDynamicButtons : public CDynamicFilter, public CSettingsObserver {
   ///when reversing, backs off; when paused, does nothing; when running, delegates to TimerImpl
   virtual bool Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);
 
-  virtual void KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual void KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
   virtual void KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
 
   //respond to changes to BP_DASHER_PAUSED to keep m_iState in sync
   virtual void HandleEvent(int iParameter);
  protected:
-  virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) = 0;
-  virtual void Event(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel) = 0;
+  virtual void Event(int iTime, int iButton, int iType, CDasherModel *pModel);
 
   bool m_bKeyDown;
   bool m_bKeyHandled;
@@ -49,19 +49,21 @@ class CDynamicButtons : public CDynamicFilter, public CSettingsObserver {
   bool isPaused() {return m_iState == 0;}
   bool isReversing() {return m_iState == 1;}
   bool isRunning() {return m_iState==2;}
-  virtual void pause() {m_iState = 0;}
+  virtual void pause();
   virtual void reverse();
   virtual void run();
 
   virtual bool TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) = 0;
 
+  ///Subclasses should all this (rather than pModel->Offset()) to offset the model
+  /// (it also stores the model, to abort the offset upon pause if necessary)
+  void ApplyOffset(CDasherModel *pModel, int iOffset);
   private:
     int m_iState; // 0 = paused, 1 = reversing, >=2 = running (extensible by subclasses)
     int m_iHeldId;
     int m_iKeyDownTime;
     unsigned int m_uSpeedControlTime;
-
-    CUserLogBase *m_pUserLog;
+    CDasherModel *m_pModel;
 };
 }
 #endif

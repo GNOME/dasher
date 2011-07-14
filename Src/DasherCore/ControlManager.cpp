@@ -96,12 +96,11 @@ void CControlBase::CContNode::PopulateChildren() {
   CDasherNode *pNewNode;
 
   const unsigned int iNChildren( m_pTemplate->successors.size() );
-  const unsigned int iNorm(m_pMgr->GetLongParameter(LP_NORMALIZATION));
   unsigned int iLbnd(0), iIdx(0);
 
   for (vector<NodeTemplate *>::iterator it = m_pTemplate->successors.begin(); it!=m_pTemplate->successors.end(); it++) {
 
-    const unsigned int iHbnd((++iIdx*iNorm)/iNChildren);
+    const unsigned int iHbnd((++iIdx*CDasherModel::NORMALIZATION)/iNChildren);
 
     if( *it == NULL ) {
       // Escape back to alphabet

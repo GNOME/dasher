@@ -40,7 +40,7 @@ namespace Dasher{
 /// well as assigning weights to each of the predictions. See
 /// CConversionManager for further details of the conversion process.
 ///
-  class CConversionHelper : public CConversionManager {
+  class CConversionHelper : protected CSettingsUser, public CConversionManager {
   public:
 	CConversionHelper(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, CLanguageModel *pLanguageModel);
 

@@ -71,9 +71,9 @@ protected:
   EAGLView * const m_pView;
 };
 
-class CIPhoneMouseInput : public UndoubledTouch, protected CSettingsUser, private IPhonePrefsObserver {
+class CIPhoneMouseInput : public UndoubledTouch, private IPhonePrefsObserver {
 public:
-	CIPhoneMouseInput(CSettingsUser *pCreator, EAGLView *pView);
+	CIPhoneMouseInput(EAGLView *pView);
   
   bool GetScreenCoords(screenint &iX, screenint &iY, CDasherView *pView);
 private:

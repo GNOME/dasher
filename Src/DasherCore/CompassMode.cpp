@@ -39,11 +39,9 @@ CCompassMode::CCompassMode(CSettingsUser *pCreator, CDasherInterfaceBase *pInter
 
 void CCompassMode::SetupBoxes()
 {
-  int iDasherY(GetLongParameter(LP_MAX_Y));
-
   m_pBoxes = new SBoxInfo[m_iNumBoxes = 4];
 
-  iTargetWidth = iDasherY * 1024 / GetLongParameter(LP_RIGHTZOOM);
+  iTargetWidth = CDasherModel::MAX_Y * 1024 / GetLongParameter(LP_RIGHTZOOM);
 
   // FIXME - need to relate these to cross-hair position as stored in the parameters
 
@@ -58,9 +56,9 @@ void CCompassMode::SetupBoxes()
   m_pBoxes[3].iBottom = 4096 - m_pBoxes[3].iTop;
 
   m_pBoxes[0].iTop = -iTargetWidth;
-  m_pBoxes[0].iBottom = iDasherY - iTargetWidth;
+  m_pBoxes[0].iBottom = CDasherModel::MAX_Y - iTargetWidth;
   m_pBoxes[2].iTop = iTargetWidth;
-  m_pBoxes[2].iBottom = iDasherY + iTargetWidth;
+  m_pBoxes[2].iBottom = CDasherModel::MAX_Y + iTargetWidth;
 
   m_pBoxes[0].iDisplayTop = m_pBoxes[0].iTop;
   m_pBoxes[0].iDisplayBottom = m_pBoxes[0].iBottom;
@@ -82,33 +80,18 @@ bool CCompassMode::DecorateView(CDasherView *pView, CDasherInput *pInput) {
   while(iPos >= 0) {
     CDasherScreen::point p[2];
 
-    myint iDasherX;
-    myint iDasherY;
+    pView->Dasher2Screen(-100, iPos, p[0].x, p[0].y);
 
-    iDasherX = -100;
-    iDasherY = iPos;
-
-    pView->Dasher2Screen(iDasherX, iDasherY, p[0].x, p[0].y);
-
-    iDasherX = -1000;
-    iDasherY = iPos;
-
-    pView->Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
+    pView->Dasher2Screen(-1000, iPos, p[1].x, p[1].y);
 
     if(bFirst)
       pScreen->Polyline(p, 2, 1, 1);
     else
       pScreen->Polyline(p, 2, 1, 2);
 
-    iDasherX = -100;
-    iDasherY = 4096 - iPos;
+    pView->Dasher2Screen(-100, 4096-iPos, p[0].x, p[0].y);
 
-    pView->Dasher2Screen(iDasherX, iDasherY, p[0].x, p[0].y);
-
-    iDasherX = -1000;
-    iDasherY = 4096 - iPos;
-
-    pView->Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
+    pView->Dasher2Screen(-1000, 4096-iPos, p[1].x, p[1].y);
 
     if(bFirst)
       pScreen->Polyline(p, 2, 1, 1);

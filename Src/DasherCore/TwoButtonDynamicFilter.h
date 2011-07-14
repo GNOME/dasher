@@ -35,9 +35,6 @@ class CTwoButtonDynamicFilter : public CButtonMultiPress {
   // Inherited methods
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);
  
-  virtual void Activate();
-  virtual void Deactivate();
-
   virtual bool GetSettings(SModuleSettings **pSettings, int *iCount);
 
   virtual bool GetMinWidth(int &iMinWidth);
@@ -45,21 +42,15 @@ class CTwoButtonDynamicFilter : public CButtonMultiPress {
   virtual void HandleEvent(int iParameter);
   
  protected:
-  virtual void run();
-  virtual void pause();
-  virtual void reverse();
-
   //override to inspect x,y coords of mouse clicks/taps
-  virtual void KeyDown(unsigned long Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual void KeyDown(unsigned long Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel);
   virtual void KeyUp(unsigned long Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel);
 	
  private:
   unsigned int maxClickCount() {return GetBoolParameter(BP_2B_INVERT_DOUBLE) ? 3 : 2;}
   virtual bool TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);
-  virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel);
   double m_dLagMul;
-
-  void ApplyOffset(CDasherModel *pModel, long lOffset);
 };
 }
 /// @}

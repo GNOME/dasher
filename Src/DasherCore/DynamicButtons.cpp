@@ -24,7 +24,7 @@
 using namespace Dasher;
 
 CDynamicButtons::CDynamicButtons(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName)
-  : CDynamicFilter(pCreator, pInterface, pFramerate, iID, szName), CSettingsObserver(pCreator) {
+  : CDynamicFilter(pCreator, pInterface, pFramerate, iID, szName), CSettingsObserver(pCreator), m_pModel(NULL) {
   m_bDecorationChanged = true;
   m_bKeyDown = false;
   pause();
@@ -33,7 +33,7 @@ CDynamicButtons::CDynamicButtons(CSettingsUser *pCreator, CDasherInterfaceBase *
 bool CDynamicButtons::Timer(unsigned long iTime, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol)
 {
   if(m_bKeyDown && !m_bKeyHandled && ((iTime - m_iKeyDownTime) > GetLongParameter(LP_HOLD_TIME))) {
-    Event(iTime, m_iHeldId, 1, m_pDasherModel, m_pUserLog);
+    Event(iTime, m_iHeldId, 1, m_pDasherModel);
     m_bKeyHandled = true;
     //return true; //ACL although that's what old DynamicButtons did, surely we should progress normally?
   }
@@ -53,10 +53,8 @@ bool CDynamicButtons::Timer(unsigned long iTime, CDasherView *pDasherView, CDash
   return TimerImpl(iTime, pDasherView, m_pDasherModel, pol);
 }
 
-void CDynamicButtons::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
-  
-  m_pUserLog = pUserLog;
-  
+void CDynamicButtons::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
+
   if(((iId == 0) || (iId == 1) || (iId == 100)) && !GetBoolParameter(BP_BACKOFF_BUTTON))
     return;
 
@@ -64,7 +62,7 @@ void CDynamicButtons::KeyDown(unsigned long iTime, int iId, CDasherView *pView, 
     return;
 
   // Pass the basic key down event to the handler
-  Event(iTime, iId, 0, pModel, pUserLog);
+  Event(iTime, iId, 0, pModel);
     
   // Store the key down time so that long presses can be determined
   // TODO: This is going to cause problems if multiple buttons are
@@ -80,7 +78,7 @@ void CDynamicButtons::KeyUp(unsigned long iTime, int iId, CDasherView *pView, CD
   if (iId == m_iHeldId) m_bKeyDown = false;
 }
 
-void CDynamicButtons::Event(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CDynamicButtons::Event(int iTime, int iButton, int iType, CDasherModel *pModel) {
   // Types known at this point in inheritance hierarchy:
   // 0 = ordinary click
   // 1 = long click
@@ -91,13 +89,13 @@ void CDynamicButtons::Event(int iTime, int iButton, int iType, CDasherModel *pMo
   // What happens next depends on the state:
   if (isPaused()) {
     //Any button causes a restart
-    if(pUserLog)
+    if(CUserLogBase *pUserLog=m_pInterface->GetUserLogPtr())
       pUserLog->KeyDown(iButton, iType, 1);
     run();
     Unpause(iTime);
   } else if (isReversing()) {
     //Any button pauses
-    if(pUserLog)
+    if(CUserLogBase *pUserLog=m_pInterface->GetUserLogPtr())
       pUserLog->KeyDown(iButton, iType, 2);
     
     m_pInterface->Stop();
@@ -108,21 +106,21 @@ void CDynamicButtons::Event(int iTime, int iButton, int iType, CDasherModel *pMo
     case 0: //single press
       if((iButton == 0) || (iButton == 100)) {
         //dedicated pause button
-        if(pUserLog)
+        if(CUserLogBase *pUserLog=m_pInterface->GetUserLogPtr())
           pUserLog->KeyDown(iButton, iType, 2);
         m_pInterface->Stop();
         break;
       }
       else if(iButton == 1) {
         //dedicated reverse button
-        if(pUserLog)
+        if(CUserLogBase *pUserLog=m_pInterface->GetUserLogPtr())
           pUserLog->KeyDown(iButton, iType, 6);
         reverse();
         break;
       }
       //else - any non-special button - fall through
     default: //or, Any special kind of event - long, double, triple, ... 
-      ActionButton(iTime, iButton, iType, pModel, pUserLog);
+      ActionButton(iTime, iButton, iType, pModel);
     }
   }
 }
@@ -135,6 +133,11 @@ void CDynamicButtons::HandleEvent(int iParameter) {
       //if we're active: can't unpause, as we don't know which way to go, run or reverse?
       SetBoolParameter(BP_DASHER_PAUSED, true);
   }
+}
+
+void CDynamicButtons::pause() {
+  m_iState = 0;
+  if (m_pModel) m_pModel->AbortOffset();
 }
 
 void CDynamicButtons::reverse()
@@ -154,3 +157,6 @@ void CDynamicButtons::run()
   m_iState = 2;
 }
 
+void CDynamicButtons::ApplyOffset(CDasherModel *pModel, int iOffset) {
+  (m_pModel=pModel)->Offset(iOffset);
+}

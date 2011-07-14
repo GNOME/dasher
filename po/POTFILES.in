@@ -12,6 +12,7 @@ Data/dasher.desktop.in.in
 [type: gettext/glade]Data/GUI/dashermaemo.preferences.ui
 [type: gettext/glade]Data/GUI/dashermaemofullscreen.ui
 Src/DasherCore/AbstractXMLParser.cpp
+Src/DasherCore/Alphabet/AlphabetMap.cpp
 Src/DasherCore/AlphabetManager.cpp
 Src/DasherCore/AlternatingDirectMode.cpp
 Src/DasherCore/AutoSpeedControl.cpp
@@ -29,17 +30,23 @@ Src/DasherCore/OneButtonFilter.cpp
 Src/DasherCore/OneDimensionalFilter.cpp
 Src/DasherCore/OneDimensionalFilter.h
 Src/DasherCore/SettingsStore.cpp
-Src/DasherCore/SocketInput.cpp
 Src/DasherCore/SocketInputBase.cpp
+Src/DasherCore/SocketInput.cpp
 Src/DasherCore/Trainer.cpp
 Src/DasherCore/TwoButtonDynamicFilter.cpp
 Src/DasherCore/TwoPushDynamicFilter.cpp
-Src/DasherCore/Alphabet/AlphabetMap.cpp
+Src/Gtk2/dasher_action_keyboard.cpp
+Src/Gtk2/dasher_action_keyboard_maemo.cpp
+Src/Gtk2/dasher_action_script.cpp
 Src/Gtk2/DasherAppSettings.cpp
-Src/Gtk2/Preferences.cpp
-Src/Gtk2/GnomeSpeech.cpp
 Src/Gtk2/dasher_editor_internal.cpp
 Src/Gtk2/dasher_main.cpp
+Src/Gtk2/GnomeSpeech.cpp
 Src/Gtk2/module_settings_window.cpp
 Src/Gtk2/mouse_input.h
+Src/Gtk2/Preferences.cpp
 Src/main.cc
+Testing/gtest/fused-src/gtest/gtest.h
+Testing/gtest/include/gtest/internal/gtest-filepath.h
+Testing/gtest/test/gtest_filter_unittest.py
+Testing/gtest/test/gtest_unittest.cc

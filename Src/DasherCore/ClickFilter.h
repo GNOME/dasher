@@ -24,7 +24,7 @@ class CClickFilter : public CInputFilter, private CZoomAdjuster {
 
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);
   virtual bool Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pDasherModel, CExpansionPolicy **pol);
-  virtual void KeyDown(int iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog, bool bPos, int iX, int iY);
+  virtual void KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
   virtual bool GetSettings(SModuleSettings **pSettings, int *iCount);
   
  private:

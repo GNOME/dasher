@@ -42,11 +42,11 @@ static SModuleSettings sSettings[] = {
 // FIX iStyle == 0
 
 CButtonMode::CButtonMode(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, bool bMenu, int iID, const char *szName)
-: CDasherButtons(pCreator, pInterface, bMenu, iID, szName) {}
+: CDasherButtons(pCreator, pInterface, bMenu, iID, szName), CSettingsObserver(pCreator) {}
 
 void CButtonMode::SetupBoxes()
 {
-  int iDasherY(GetLongParameter(LP_MAX_Y));
+  int iDasherY(CDasherModel::MAX_Y);
 
   int iForwardBoxes(GetLongParameter(LP_B));
   m_pBoxes = new SBoxInfo[m_iNumBoxes = iForwardBoxes+1];
@@ -54,12 +54,9 @@ void CButtonMode::SetupBoxes()
   // Calculate the sizes of non-uniform boxes using standard
   // geometric progression results
 
-  double dRatio;
-  double dNorm;
-
   // FIXME - implement this using DJCM's integer method?
   // See ~mackay/dasher/buttons/
-  dRatio = pow(129/127.0, -static_cast<double>(GetLongParameter(LP_R)));
+  const double dRatio = pow(129/127.0, -static_cast<double>(GetLongParameter(LP_R)));
 
   if(m_bMenu) {
 
@@ -89,24 +86,19 @@ void CButtonMode::SetupBoxes()
 
   }
   else {
-    if(iForwardBoxes == 2+1) { // Special case for two forwards buttons
-      dNorm = 1+dRatio;
+    if(iForwardBoxes == 2) { // Special case for two forwards buttons
+      myint iMid = static_cast<int>(iDasherY / (1.0+dRatio));
 
       m_pBoxes[0].iDisplayTop = 0;
-      m_pBoxes[0].iDisplayBottom = int( (1 / dNorm) * iDasherY );
+      m_pBoxes[0].iDisplayBottom = iMid;
 
-      m_pBoxes[1].iDisplayTop = int( (1 / dNorm) * iDasherY );
+      m_pBoxes[1].iDisplayTop = iMid;
       m_pBoxes[1].iDisplayBottom = iDasherY;
     }
     else {
       bool bEven(iForwardBoxes % 2 == 0);
 
-      int iGeometricTerms;
-
-      if(bEven)
-        iGeometricTerms = iForwardBoxes / 2;
-      else
-        iGeometricTerms = (1+iForwardBoxes) / 2;
+      const int iGeometricTerms = (iForwardBoxes+1)/2; //int div, round down
 
       double dMaxSize;
 
@@ -120,28 +112,14 @@ void CButtonMode::SetupBoxes()
           dMaxSize = iDasherY * (dRatio - 1) / (2 * (pow(dRatio, iGeometricTerms) - 1) - (dRatio - 1));
       }
 
-      double dMin;
-      double dMax;
+      double dMin = (bEven) ? iDasherY/2.0 : (iDasherY-dMaxSize)/2.0;
 
-      if(bEven)
-        dMin = iDasherY / 2;
-      else
-        dMin = (iDasherY - dMaxSize)/2;
+      const int iUpBase = iForwardBoxes/2; //int div, round down if !bEven
+      const int iDownBase = bEven ? iUpBase-1 : iUpBase;
 
-      int iUpBase;
-      int iDownBase;
-
-      if(bEven) {
-        iUpBase = iForwardBoxes / 2;
-        iDownBase = iUpBase - 1;
-      }
-      else {
-        iUpBase = (iForwardBoxes - 1)/ 2;
-        iDownBase = iUpBase;
-      }
 
       for(int i(0); i < iGeometricTerms; ++i) { // One button reserved for backoff
-        dMax = dMin + dMaxSize * pow(dRatio, i);
+        const double dMax = dMin + dMaxSize * pow(dRatio, i);
 
         m_pBoxes[iUpBase + i].iDisplayTop = int(dMin);
         m_pBoxes[iUpBase + i].iDisplayBottom = int(dMax);
@@ -188,29 +166,42 @@ bool CButtonMode::Timer(unsigned long Time, CDasherView *pView, CDasherInput *pI
   return CDasherButtons::Timer(Time, pView, pInput, pModel, pol);
 }
 
-void CButtonMode::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog)
-{
-  if (iId == 100 && !m_bMenu) {
+void CButtonMode::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
+  if (iId == 100) {
     //Mouse!
-    myint iDasherX, iDasherY;
-    pInput->GetDasherCoords(iDasherX, iDasherY, pView);
-    for (int i = 0; i < m_iNumBoxes; i++)
-    {
-      if (iDasherY < m_pBoxes[i].iDisplayBottom &&
-          iDasherY > m_pBoxes[i].iDisplayTop &&
-          iDasherX < (m_pBoxes[i].iDisplayBottom - m_pBoxes[i].iDisplayTop)) {
-        //user has clicked in box! Simulate press of appropriate (direct-mode) button...
-        CDasherButtons::KeyDown(iTime, (i==m_iNumBoxes-1) ? 1 : i+2, pView, pInput, pModel, pUserLog);
-        return;
+    if (m_bMenu) {
+      bool bScan;
+      if (GetLongParameter(LP_BUTTON_SCAN_TIME))
+        bScan = false; //auto-scan, any click selects
+      else {
+        //top scans, bottom selects
+        screenint iScreenX, iScreenY;
+        pInput->GetScreenCoords(iScreenX, iScreenY, pView);
+        bScan = iScreenY < pView->Screen()->GetHeight()/2;
       }
+      CDasherButtons::KeyDown(iTime, bScan ? 1 : 2, pView, pInput, pModel);
+      return;
+    } else {
+      myint iDasherX, iDasherY;
+      pInput->GetDasherCoords(iDasherX, iDasherY, pView);
+      //look for a click _in_ a box -> activate box
+      for (int i = 0; i < m_iNumBoxes; i++) {
+        if (iDasherY < m_pBoxes[i].iDisplayBottom &&
+            iDasherY > m_pBoxes[i].iDisplayTop &&
+            iDasherX < (m_pBoxes[i].iDisplayBottom - m_pBoxes[i].iDisplayTop)) {
+          //user has clicked in box! Simulate press of appropriate (direct-mode) button...
+          CDasherButtons::KeyDown(iTime, (i==m_iNumBoxes-1) ? 1 : i+2, pView, pInput, pModel);
+          return;
+        }
+      }
+      //not in any box. Fall through, just to be conservative...
     }
-    //not in any box. Fall through, just to be conservative...
   }
-  CInputFilter::KeyDown(iTime, iId, pView, pInput, pModel, pUserLog);
+  CInputFilter::KeyDown(iTime, iId, pView, pInput, pModel);
 }
 
-void CButtonMode::DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog) {
-  CDasherButtons::DirectKeyDown(iTime, iId, pView, pModel, pUserLog);
+void CButtonMode::DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel) {
+  CDasherButtons::DirectKeyDown(iTime, iId, pView, pModel);
  if (iId!=100) m_iLastTime = iTime;
 }
 
@@ -221,6 +212,7 @@ void CButtonMode::HandleEvent(int iParameter) {
     // Delibarate fallthrough
     delete[] m_pBoxes;
     SetupBoxes();
+    m_pInterface->ScheduleRedraw();
     break;
   }
 }

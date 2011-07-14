@@ -178,8 +178,8 @@ bool UndoubledTouch::GetScreenCoords(screenint &iX, screenint &iY, CDasherView *
 }
 
 
-CIPhoneMouseInput::CIPhoneMouseInput(CSettingsUser *pCreator, EAGLView *pView) 
-	: UndoubledTouch(9, TOUCH_INPUT, pView), CSettingsUser(pCreator) {
+CIPhoneMouseInput::CIPhoneMouseInput(EAGLView *pView) 
+	: UndoubledTouch(9, TOUCH_INPUT, pView) {
     ObserveKeys(DOUBLE_TOUCH_X, nil);
 };
 
@@ -188,7 +188,7 @@ bool CIPhoneMouseInput::GetScreenCoords(screenint &iX, screenint &iY, CDasherVie
   CDasherScreen *scr(pView->Screen());
   //double x/y
   if ([[NSUserDefaults standardUserDefaults] boolForKey:DOUBLE_TOUCH_X]) {
-    switch (GetLongParameter(LP_REAL_ORIENTATION)) {
+    switch (pView->GetOrientation()) {
       case Opts::LeftToRight:
         iX=min(iX*2, scr->GetWidth());
         break;

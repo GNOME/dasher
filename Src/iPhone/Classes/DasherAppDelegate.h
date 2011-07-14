@@ -10,7 +10,6 @@
 #import "CDasherInterfaceBridge.h"
 #import "TextView.h"
 #import "Actions.h"
-#import "GameModule.h"
 
 @class EAGLView;
 @class FliteTTS;

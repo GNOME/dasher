@@ -1008,7 +1008,7 @@ static void dasher_main_command_quit(DasherMain *pSelf) {
       gtk_widget_destroy(GTK_WIDGET(pDialogue));
       break;
     case GTK_RESPONSE_ACCEPT:
-      dasher_editor_command(pPrivate->pEditor, "save");
+      dasher_editor_command(pPrivate->pEditor, "action_save");
       gtk_main_quit();
       break;
     }

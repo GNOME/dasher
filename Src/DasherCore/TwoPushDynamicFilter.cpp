@@ -167,12 +167,12 @@ m_bDecorationChanged = true;
   }
 }
 
-void CTwoPushDynamicFilter::KeyDown(unsigned long Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CTwoPushDynamicFilter::KeyDown(unsigned long Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
   if (iId == 100 && !GetBoolParameter(BP_BACKOFF_BUTTON))
     //mouse click - will be ignored by superclass method.
     //simulate press of button 2...
     iId=2;
-  CDynamicButtons::KeyDown(Time, iId, pView, pInput, pModel, pUserLog);
+  CDynamicButtons::KeyDown(Time, iId, pView, pInput, pModel);
 }
 
 void CTwoPushDynamicFilter::KeyUp(unsigned long Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
@@ -183,7 +183,7 @@ void CTwoPushDynamicFilter::KeyUp(unsigned long Time, int iId, CDasherView *pVie
   CDynamicButtons::KeyUp(Time, iId, pView, pInput, pModel);
 }
 
-void CTwoPushDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CTwoPushDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel) {
   // Types:
   // 0 = ordinary click
   // 1 = long click
@@ -205,7 +205,7 @@ void CTwoPushDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDas
       reverse();
     else
     {
-      pModel->Offset(m_aiTarget[m_iActiveMarker]);
+      ApplyOffset(pModel,m_aiTarget[m_iActiveMarker]);
       pModel->ResetNats();
       //don't really have to reset there, but seems as good a place as any
       m_dNatsSinceFirstPush = -std::numeric_limits<double>::infinity(); //"waiting for first push"

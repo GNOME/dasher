@@ -477,6 +477,10 @@ protected:
   void ChangeColours();
   void ChangeView();
 
+  //Compute the screen orientation to use - i.e. combining the user's
+  // preference with the alphabet.
+  Opts::ScreenOrientations ComputeOrientation();
+
   class WordSpeaker : public TransientObserver<const CEditEvent *> {
   public:
     WordSpeaker(CDasherInterfaceBase *pIntf);

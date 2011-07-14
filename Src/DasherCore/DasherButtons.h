@@ -27,7 +27,7 @@ class CDasherButtons : public CInputFilter, protected CSettingsUser
 
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput)=0;
   
-  void KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog);
+  void KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
   bool Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);
   void Activate();
   
@@ -45,9 +45,9 @@ class CDasherButtons : public CInputFilter, protected CSettingsUser
   bool m_bDecorationChanged;
   SBoxInfo *m_pBoxes;
   int m_iNumBoxes, iActiveBox;
-  int m_iScanTime;
+  unsigned long m_iScanTime;
   
-  virtual void DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog);
+  virtual void DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel);
 };
 }
 /// @}

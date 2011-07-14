@@ -19,6 +19,7 @@
 #import "TwoButtonDynamicFilter.h"
 #import "TwoPushDynamicFilter.h"
 #import "EAGLView.h"
+#import "GameModule.h"
 #import <iostream>
 #import <fcntl.h>
 
@@ -80,7 +81,7 @@ void CDasherInterfaceBridge::CreateModules() {
 	//don't create the default set...just the ones accessible from the GUI.
   RegisterModule(m_pUndoubledTouch = new UndoubledTouch([dasherApp glView]));
 	RegisterModule(m_pMouseDevice = 
-				new CIPhoneMouseInput(this,[dasherApp glView]));
+				new CIPhoneMouseInput([dasherApp glView]));
 	RegisterModule(m_pTiltDevice = 
 				new CIPhoneTiltInput());
   RegisterModule(m_pTwoFingerDevice=new CIPhoneTwoFingerInput([dasherApp glView]));

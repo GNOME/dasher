@@ -34,7 +34,7 @@ namespace Dasher {
   void SetupBoxes();
 
  private:
-  void DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog);
+  void DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel);
 
   int m_iLastBox;
 };

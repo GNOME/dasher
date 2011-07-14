@@ -287,7 +287,7 @@ void CMandarinAlphMgr::GetConversions(std::vector<pair<symbol,unsigned int> > &v
   //Two degenerate cases: PROB_SORT_THRES=0 => all (legal) ch symbols predicted uniformly
   // PROB_SORT_THRES=100 => all symbols put into probability order
   set<symbol> haveProbs;
-  uint64 iRemaining(GetLongParameter(LP_NORMALIZATION));
+  uint64 iRemaining(CDasherModel::NORMALIZATION);
   
   if (long percent=GetLongParameter(LP_PY_PROB_SORT_THRES)) {
     const uint64 iNorm(iRemaining);
@@ -404,7 +404,7 @@ void CMandarinAlphMgr::CMandSym::RebuildForwardsFromAncestor(CAlphNode *pNewNode
       //need to compare pinyin symbols; so compute probability of this (chinese) sym, for each:
       // i.e. P(pinyin) * P(this chinese | pinyin)
       const vector<unsigned int> &vPinyinProbs(*(pNewNode->GetProbInfo()));
-      long bestProb=0; //of this chinese, over LP_NORMALIZATION _squared_
+      long bestProb=0; //of this chinese, over NORMALIZATION _squared_
       for (set<symbol>::iterator p_it = possiblePinyin.begin(); p_it!=possiblePinyin.end(); p_it++) {
         //compute probability of each chinese symbol for that pinyin (=by filtering)
         // context is the same as the ancestor = previous chinese, as pinyin not part of context

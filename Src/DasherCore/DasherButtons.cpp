@@ -36,10 +36,10 @@ void CDasherButtons::Activate() {
   // which depends on it, tho...
   if (!m_pBoxes) SetupBoxes();
 
-  m_iScanTime = std::numeric_limits<int>::min();
+  m_iScanTime = std::numeric_limits<unsigned long>::min();
 }
 
-void CDasherButtons::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CDasherButtons::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
 
   if(m_bMenu) {
     switch(iId) {
@@ -61,12 +61,12 @@ void CDasherButtons::KeyDown(unsigned long iTime, int iId, CDasherView *pView, C
     }
   }
   else {
-    DirectKeyDown(iTime, iId, pView, pModel, pUserLog);
+    DirectKeyDown(iTime, iId, pView, pModel);
   }
 
 }
 
-void CDasherButtons::DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CDasherButtons::DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel) {
   if(iId == 100) // Ignore mouse events
   return;
   if(iId == 1)

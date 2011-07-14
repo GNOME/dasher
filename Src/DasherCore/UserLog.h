@@ -72,8 +72,8 @@ typedef vector<VECTOR_STRING>::iterator     VECTOR_VECTOR_STRING_ITER;
 /// \ingroup Logging
 /// @{
 
-// We need to be notified when parameters we are logging get changed, so we'll
-// watch for <int> events from the SettingsStore too.
+// We need to be notified when parameters we are logging get changed, but UserLogBase
+// is already watching BP_DASHER_PAUSED
 class CUserLog : public CUserLogBase {
 public:
   CUserLog(Dasher::CSettingsUser *pCreateFrom, Observable<const Dasher::CEditEvent *> *pHandler, int iLogTypeMask);

@@ -22,13 +22,13 @@ bool CStylusFilter::Timer(unsigned long iTime, CDasherView *pView, CDasherInput 
   return CDefaultFilter::Timer(iTime, pView, pInput, pModel, pol);
 }
 
-void CStylusFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CStylusFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
   if(iId == 100) {
     pModel->ClearScheduledSteps();
     Unpause(iTime);
     m_iKeyDownTime = iTime;
   } else
-    CDefaultFilter::KeyDown(iTime, iId, pView, pInput, pModel, pUserLog);
+    CDefaultFilter::KeyDown(iTime, iId, pView, pInput, pModel);
 }
 
 void CStylusFilter::KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {

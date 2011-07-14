@@ -39,7 +39,6 @@ const bp_table boolparamtable[] = {
 #else
   {BP_NONLINEAR_Y, "NonlinearY", PERS, true, "Apply nonlinearities to Y axis (i.e. compress top &amp; bottom)"},
 #endif
-  {BP_SMOOTH_OFFSET, "DelayView", !PERS, false, "Smooth dynamic-button-mode jumps over several frames"},
   {BP_STOP_OUTSIDE, "PauseOutside", PERS, false, "Whether to stop when pointer leaves canvas area"},
 #ifdef TARGET_OS_IPHONE
   {BP_BACKOFF_BUTTON, "BackoffButton", PERS, false, "Whether to enable the extra backoff button in dynamic mode"},
@@ -64,7 +63,6 @@ const bp_table boolparamtable[] = {
 
 const lp_table longparamtable[] = {
   {LP_ORIENTATION, "ScreenOrientation", PERS, -2, "Screen Orientation"},
-  {LP_REAL_ORIENTATION, "RealOrientation", !PERS, 0, "Actual screen orientation (allowing for alphabet default)"},
   {LP_MAX_BITRATE, "MaxBitRateTimes100", PERS, 80, "Max Bit Rate Times 100"},
   {LP_FRAMERATE, "FrameRate", PERS, 3200, "Decaying average of last known frame rates, *100"},
   {LP_VIEW_ID, "ViewID", PERS, 1, "ViewID"},
@@ -84,7 +82,6 @@ const lp_table longparamtable[] = {
   {LP_LM_ALPHA, "LMAlpha", PERS, 49, "LMAlpha"},
   {LP_LM_BETA, "LMBeta", PERS, 77, "LMBeta"},
   {LP_LM_MIXTURE, "LMMixture", PERS, 50, "LMMixture"},
-  {LP_NORMALIZATION, "Normalization", !PERS, 1 << 16, "Interval for child nodes"},
   {LP_LINE_WIDTH, "LineWidth", PERS, 1, "Width to draw crosshair and mouse line"},
   {LP_GEOMETRY, "Geometry", PERS, 0, "Screen geometry (mostly for tall thin screens) - 0=old-style, 1=square no-xhair, 2=squish, 3=squish+log"},
   {LP_LM_WORD_ALPHA, "WordAlpha", PERS, 50, "Alpha value for word-based model"},
@@ -118,9 +115,6 @@ const lp_table longparamtable[] = {
   {LP_SOCKET_INPUT_X_MAX, "SocketInputXMaxTimes1000", PERS, 1000, "Top of range of X values expected from network input"},
   {LP_SOCKET_INPUT_Y_MIN, "SocketInputYMinTimes1000", PERS, 0, "Bottom of range of Y values expected from network input"},
   {LP_SOCKET_INPUT_Y_MAX, "SocketInputYMaxTimes1000", PERS, 1000, "Top of range of Y values expected from network input"},
-  {LP_OX, "OX", PERS, 2048, "X coordinate of crosshair"},
-  {LP_OY, "OY", PERS, 2048, "Y coordinate of crosshair"},
-  {LP_MAX_Y, "MaxY", PERS, 4096, "Maximum Y coordinate"},
   {LP_INPUT_FILTER, "InputFilterID", PERS, 3, "Module ID of input filter"},
   {LP_CIRCLE_PERCENT, "CirclePercent", PERS, 10, "Percentage of nominal vertical range to use for radius of start circle"},
   {LP_TWO_BUTTON_OFFSET, "TwoButtonOffset", PERS, 1638, "Offset for two button dynamic mode"},
@@ -159,7 +153,6 @@ const sp_table stringparamtable[] = {
   {SP_ALPHABET_3, "Alphabet3", PERS, "", "Alphabet History 3"},
   {SP_ALPHABET_4, "Alphabet4", PERS, "", "Alphabet History 4"},
   {SP_COLOUR_ID, "ColourID", PERS, "", "ColourID"}, 
-  {SP_DEFAULT_COLOUR_ID, "DefaultColourID", !PERS, "", "Default Colour ID (Used for auto-colour mode)"},
   {SP_DASHER_FONT, "DasherFont", PERS, "", "DasherFont"},
   {SP_SYSTEM_LOC, "SystemLocation", !PERS, "sys_", "System Directory"},
   {SP_USER_LOC, "UserLocation", !PERS, "usr_", "User Directory"},

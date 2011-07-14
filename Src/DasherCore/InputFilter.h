@@ -21,7 +21,7 @@ class CInputFilter : public CDasherModule {
 
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput) { return false; };
 
-  virtual void KeyDown(unsigned long Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CUserLogBase *pUserLog) {}
+  virtual void KeyDown(unsigned long Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel) {}
   
   virtual void KeyUp(unsigned long Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel) {}
 
@@ -37,7 +37,7 @@ class CInputFilter : public CDasherModule {
   virtual bool supportsPause() {return false;}
   
  protected:
-  CDasherInterfaceBase *m_pInterface;
+  CDasherInterfaceBase * const m_pInterface;
 };
 }
 /// @}

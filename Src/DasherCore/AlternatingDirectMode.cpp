@@ -35,8 +35,6 @@ CAlternatingDirectMode::CAlternatingDirectMode(CSettingsUser *pCreator, CDasherI
 
 void CAlternatingDirectMode::SetupBoxes()
 {
-  int iDasherY(GetLongParameter(LP_MAX_Y));
-
   m_pBoxes = new SBoxInfo[m_iNumBoxes = 5];
 
   // Fast boxes
@@ -63,10 +61,10 @@ void CAlternatingDirectMode::SetupBoxes()
   m_pBoxes[3].iDisplayBottom = m_pBoxes[3].iBottom;
 
   m_pBoxes[m_iNumBoxes-1].iDisplayTop = 0;
-  m_pBoxes[m_iNumBoxes-1].iDisplayBottom = iDasherY;
+  m_pBoxes[m_iNumBoxes-1].iDisplayBottom = CDasherModel::MAX_Y;
 
-  m_pBoxes[m_iNumBoxes-1].iTop = int(- iDasherY / 2);
-  m_pBoxes[m_iNumBoxes-1].iBottom = int(iDasherY * 1.5);
+  m_pBoxes[m_iNumBoxes-1].iTop = int(- CDasherModel::MAX_Y / 2);
+  m_pBoxes[m_iNumBoxes-1].iBottom = int(CDasherModel::MAX_Y * 1.5);
 
   m_iLastBox = -1;
 }
@@ -90,7 +88,7 @@ bool CAlternatingDirectMode::DecorateView(CDasherView *pView, CDasherInput *pInp
 }
 
 
-void CAlternatingDirectMode::DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel, CUserLogBase *pUserLog) {
+void CAlternatingDirectMode::DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel) {
   int iTargetBox;
   switch(iId) {
     case 2:

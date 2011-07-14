@@ -12,7 +12,7 @@ namespace Dasher {
 
   /// Draw the crosshair
 
-  inline void CDasherViewSquare::Crosshair(myint sx) {
+  inline void CDasherViewSquare::Crosshair() {
     myint iDasherMinX;
     myint iDasherMinY;
     myint iDasherMaxX;
@@ -24,21 +24,21 @@ namespace Dasher {
 
     // Vertical bar of crosshair
 
-    x[0] = sx;
+    x[0] = CDasherModel::ORIGIN_X;
     y[0] = iDasherMinY;
 
-    x[1] = sx;
+    x[1] = CDasherModel::ORIGIN_X;
     y[1] = iDasherMaxY;
 
     DasherPolyline(x, y, 2, 1, 5);
 
     // Horizontal bar of crosshair
 
-    x[0] = 12 * sx / 14;
-    y[0] = GetLongParameter(LP_MAX_Y) / 2;
+    x[0] = 12 * CDasherModel::ORIGIN_X / 14;
+    y[0] = CDasherModel::ORIGIN_Y;
 
-    x[1] = 17 * sx / 14;
-    y[1] = GetLongParameter(LP_MAX_Y) / 2;
+    x[1] = 17 * CDasherModel::ORIGIN_X / 14;
+    y[1] = CDasherModel::ORIGIN_Y;
 
     DasherPolyline(x, y, 2, 1, 5);
   }
@@ -47,9 +47,9 @@ namespace Dasher {
   {
     x -= iMarginWidth;
     if (GetLongParameter(LP_NONLINEAR_X)>0 && x >= m_iXlogThres) {
-      double dx = (x - m_iXlogThres) / static_cast<double>(GetLongParameter(LP_MAX_Y));
+      double dx = (x - m_iXlogThres) / static_cast<double>(CDasherModel::MAX_Y);
       dx =  (exp(dx * m_dXlogCoeff) - 1) / m_dXlogCoeff;
-      x = myint( dx * GetLongParameter(LP_MAX_Y)) + m_iXlogThres;
+      x = myint( dx * CDasherModel::MAX_Y) + m_iXlogThres;
     }
     return x;
   }
@@ -57,8 +57,8 @@ namespace Dasher {
   inline myint CDasherViewSquare::xmap(myint x) const
   {
     if(GetLongParameter(LP_NONLINEAR_X) && x >= m_iXlogThres) {
-      double dx = log(1+ (x-m_iXlogThres)*m_dXlogCoeff/GetLongParameter(LP_MAX_Y))/m_dXlogCoeff;
-      dx = (dx*GetLongParameter(LP_MAX_Y)) + m_iXlogThres;
+      double dx = log(1+ (x-m_iXlogThres)*m_dXlogCoeff/CDasherModel::MAX_Y)/m_dXlogCoeff;
+      dx = (dx*CDasherModel::MAX_Y) + m_iXlogThres;
       x= myint(dx>0 ? ceil(dx) : floor(dx));
     }
     return x + iMarginWidth;

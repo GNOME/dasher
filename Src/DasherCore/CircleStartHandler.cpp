@@ -41,17 +41,17 @@ void CCircleStartHandler::ComputeScreenLoc(CDasherView *pView) {
     if (m_pView) m_pView->Observable<CDasherView*>::Unregister(this);
     (m_pView=pView)->Observable<CDasherView*>::Register(this);
   } else if (m_iScreenRadius!=-1) return;
-  
-  pView->Dasher2Screen(GetLongParameter(LP_OX),GetLongParameter(LP_OY),m_screenCircleCenter.x,m_screenCircleCenter.y);
+
+  pView->Dasher2Screen(CDasherModel::ORIGIN_X, CDasherModel::ORIGIN_Y, m_screenCircleCenter.x, m_screenCircleCenter.y);
   //compute radius against orientation. It'd be simpler to use
   // Math.min(screen width, screen height) * LP_CIRCLE_PERCENT / 100
   // - should we?
   screenint iEdgeX, iEdgeY;
-  pView->Dasher2Screen(GetLongParameter(LP_OX), GetLongParameter(LP_OY) + (GetLongParameter(LP_MAX_Y)*GetLongParameter(LP_CIRCLE_PERCENT))/100, iEdgeX, iEdgeY);
+  pView->Dasher2Screen(CDasherModel::ORIGIN_X, CDasherModel::ORIGIN_Y + (CDasherModel::MAX_Y*GetLongParameter(LP_CIRCLE_PERCENT))/100, iEdgeX, iEdgeY);
 
-  int iDirection = GetLongParameter(LP_REAL_ORIENTATION);
+  const Opts::ScreenOrientations iDirection(pView->GetOrientation());
 
-  if((iDirection == 2) || (iDirection == 3)) {
+  if((iDirection == Opts::TopToBottom) || (iDirection == Opts::BottomToTop)) {
     m_iScreenRadius = iEdgeX - m_screenCircleCenter.x;
   }
   else {
@@ -110,7 +110,6 @@ void CCircleStartHandler::Timer(int iTime, dasherint mouseX, dasherint mouseY,CD
 
 void CCircleStartHandler::HandleEvent(int iParameter) {
   switch (iParameter) {
-    case LP_REAL_ORIENTATION:
     case LP_CIRCLE_PERCENT:
       //recompute geometry.
       m_iScreenRadius = -1;

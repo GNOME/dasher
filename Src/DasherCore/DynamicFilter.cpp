@@ -34,7 +34,7 @@ bool CDynamicFilter::OneStepTowards(CDasherModel *pModel, myint y1, myint y2, un
   // Adjust for slow start etc. TODO: can we fix to use integer math (or at least no pow?)
   if (dSpeedMul!=1.0) dRXMax=pow(dRXMax, dSpeedMul);
   
-  pModel->OneStepTowards(y1, y2, static_cast<int>(m_pFramerate->Steps() / dSpeedMul), static_cast<myint>(GetLongParameter(LP_MAX_Y)/dRXMax));
+  pModel->OneStepTowards(y1, y2, static_cast<int>(m_pFramerate->Steps() / dSpeedMul), static_cast<myint>(CDasherModel::MAX_Y/dRXMax));
   return true;
 }
 
