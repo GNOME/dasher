@@ -22,7 +22,7 @@ void CFrameRate::RecordFrame(unsigned long Time)
 
   // Update values once enough samples have been collected
   if(m_iFrames == m_iSamples) {
-    int m_iTime2 = Time;
+    unsigned long m_iTime2 = Time;
 
     // If samples are collected in < 50ms, collect more
     if(m_iTime2 - m_iTime < 50)

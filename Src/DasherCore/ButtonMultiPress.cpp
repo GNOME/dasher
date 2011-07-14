@@ -40,7 +40,7 @@ void CButtonMultiPress::KeyDown(unsigned long iTime, int iId, CDasherView *pView
       //previous presses should not be treated as such....
       RevertPresses(m_deQueueTimes.size());
       //...but should be combined with this one into a new event (type = #presses)
-      Event(iTime, iId, m_deQueueTimes.size()+1, pModel);
+      ButtonEvent(iTime, iId, m_deQueueTimes.size()+1, pModel);
       if (m_deQueueTimes.size() >= maxClickCount() - 1)
 	m_deQueueTimes.clear(); //final press
       else //may still be more presses to come

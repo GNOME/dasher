@@ -122,7 +122,7 @@ bool CTwoButtonDynamicFilter::TimerImpl(unsigned long Time, CDasherView *m_pDash
   return true;
 }
 
-void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel) {
+void CTwoButtonDynamicFilter::ActionButton(unsigned long iTime, int iButton, int iType, CDasherModel *pModel) {
   
   double dFactor(GetBoolParameter(BP_TWOBUTTON_REVERSE) ? -1.0 : 1.0);
   int iEffect; //for user log

@@ -33,10 +33,10 @@ class CButtonMode : public CDasherButtons, protected CSettingsObserver
   bool GetSettings(SModuleSettings **pSettings, int *iCount);
  protected: 
   void SetupBoxes();
-  void DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel);
+  void DirectKeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherModel *pModel);
  private:
   bool m_bHighlight;
-  int m_iLastTime;
+  unsigned long m_iLastTime;
 };
 }
 /// @}

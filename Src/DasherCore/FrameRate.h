@@ -64,7 +64,7 @@ private:
   ///number of frames that have been sampled
   int m_iFrames;
   ///time at which first sampled frame was rendered
-  int m_iTime;
+  unsigned long m_iTime;
   ///number of frames over which we will compute average framerate
   int m_iSamples;
 

@@ -183,7 +183,7 @@ void CTwoPushDynamicFilter::KeyUp(unsigned long Time, int iId, CDasherView *pVie
   CDynamicButtons::KeyUp(Time, iId, pView, pInput, pModel);
 }
 
-void CTwoPushDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel) {
+void CTwoPushDynamicFilter::ActionButton(unsigned long iTime, int iButton, int iType, CDasherModel *pModel) {
   // Types:
   // 0 = ordinary click
   // 1 = long click

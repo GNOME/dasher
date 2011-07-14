@@ -26,7 +26,7 @@ bool CTwoBoxStartHandler::DecorateView(CDasherView *pView) {
   return true;
 }
 
-void CTwoBoxStartHandler::Timer(int iTime, dasherint iDasherX, dasherint iDasherY, CDasherView *pView) { 
+void CTwoBoxStartHandler::Timer(unsigned long iTime, dasherint iDasherX, dasherint iDasherY, CDasherView *pView) { 
   if (!GetBoolParameter(BP_DASHER_PAUSED)) return;
   
   int iBoxMin, iBoxMax;

@@ -200,7 +200,7 @@ void CButtonMode::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDas
   CInputFilter::KeyDown(iTime, iId, pView, pInput, pModel);
 }
 
-void CButtonMode::DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel) {
+void CButtonMode::DirectKeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherModel *pModel) {
   CDasherButtons::DirectKeyDown(iTime, iId, pView, pModel);
  if (iId!=100) m_iLastTime = iTime;
 }

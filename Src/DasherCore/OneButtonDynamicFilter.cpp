@@ -44,9 +44,6 @@ COneButtonDynamicFilter::COneButtonDynamicFilter(CSettingsUser *pCreator, CDashe
   : CButtonMultiPress(pCreator, pInterface, pFramerate, 6, _("One Button Dynamic Mode")) {
   m_iTarget = 0;
 
-  m_iTargetX = new int[2];
-  m_iTargetY = new int[2];
-
   m_iTargetX[0] = 100;
   m_iTargetY[0] = 100;
 
@@ -118,7 +115,7 @@ bool COneButtonDynamicFilter::TimerImpl(unsigned long Time, CDasherView *m_pDash
   return true;
 }
 
-void COneButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel) {
+void COneButtonDynamicFilter::ActionButton(unsigned long iTime, int iButton, int iType, CDasherModel *pModel) {
   if (iType != 0) {
     //double/long push
     reverse();

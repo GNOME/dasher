@@ -49,7 +49,7 @@ class CTwoButtonDynamicFilter : public CButtonMultiPress {
  private:
   unsigned int maxClickCount() {return GetBoolParameter(BP_2B_INVERT_DOUBLE) ? 3 : 2;}
   virtual bool TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);
-  virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel);
+  virtual void ActionButton(unsigned long iTime, int iButton, int iType, CDasherModel *pModel);
   double m_dLagMul;
   ///id of physical key, whose pressing we have emulated, in response
   /// to a mouse down event on one or other half of the canvas...

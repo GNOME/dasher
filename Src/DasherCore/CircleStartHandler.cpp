@@ -77,7 +77,7 @@ bool CCircleStartHandler::DecorateView(CDasherView *pView) {
   return true;
 }
 
-void CCircleStartHandler::Timer(int iTime, dasherint mouseX, dasherint mouseY,CDasherView *pView) {
+void CCircleStartHandler::Timer(unsigned long iTime, dasherint mouseX, dasherint mouseY,CDasherView *pView) {
   ComputeScreenLoc(pView);
   screenint x,y;
   pView->Dasher2Screen(mouseX, mouseY, x, y);

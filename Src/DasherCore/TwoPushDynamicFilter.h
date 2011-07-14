@@ -41,7 +41,7 @@ class CTwoPushDynamicFilter : public CDynamicButtons /*long push, but do our own
 
  protected:
   virtual bool TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);
-  virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel);
+  virtual void ActionButton(unsigned long iTime, int iButton, int iType, CDasherModel *pModel);
 
   virtual void HandleEvent(int iParameter);
 

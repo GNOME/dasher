@@ -310,7 +310,7 @@ public:
   /// Called from outside to indicate a key or mouse button has just been released
   /// \param iTime time at which button released
   /// \param iId integer identifying button. See comments for KeyDown.
-  void KeyUp(int iTime, int iId);
+  void KeyUp(unsigned long iTime, int iId);
 
   /// @}
 

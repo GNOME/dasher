@@ -729,7 +729,7 @@ void CDasherInterfaceBase::KeyDown(unsigned long iTime, int iId) {
   }
 }
 
-void CDasherInterfaceBase::KeyUp(int iTime, int iId) {
+void CDasherInterfaceBase::KeyUp(unsigned long iTime, int iId) {
   if(isLocked())
     return;
 

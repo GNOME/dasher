@@ -26,9 +26,11 @@
 namespace Dasher {
 /// \ingroup InputFilter
 /// @{
-/// DynamicButtons filter which detects multiple presses of the same button occurring in a short space of time
-/// (such multi-presses are then passed onto the standard 'ActionButton' method, with iType equal
-/// to the number of presses, for subclasses to handle/decide how to respond.)
+/// DynamicButtons filter which detects multiple presses of the same button
+/// occurring in a short space of time - up to maxClickCount() consecutive presses,
+/// with a gap of up to LP_MULTIPRESS_TIME ms between the start of _each_pair_ of 
+/// presses. Such multi-presses are passed onto the standard ButtonEvent method,
+/// with iType equal to the number of presses, for subclasses to decide how to respond.
 class CButtonMultiPress : public CDynamicButtons {
  public:
   CButtonMultiPress(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName);

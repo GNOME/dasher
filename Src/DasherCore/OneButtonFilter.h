@@ -20,7 +20,7 @@ class COneButtonFilter : public CInputFilter, private CSettingsUser {
   bool bStarted;
   ///set by DecorateView: true iff we have drawn an undecorated display, else false.
   bool m_bNoDecorations;
-  int iStartTime;
+  unsigned long iStartTime;
   int iLocation;
 };
 }

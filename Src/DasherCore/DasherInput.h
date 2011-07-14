@@ -51,11 +51,11 @@ public:
 
   /// Handle key down events
   ///
-  virtual void KeyDown(int iTime, int iId) {};
+  virtual void KeyDown(unsigned long iTime, int iId) {};
 
   ///
   /// Handle key up events
-  virtual void KeyUp(int iTime, int iId) {};
+  virtual void KeyUp(unsigned long iTime, int iId) {};
 };
 ///Abstract superclasses for CDasherInputs which natively provide screen coordinates;
 /// thus, when dasher-coordinates are requested, they will be converted

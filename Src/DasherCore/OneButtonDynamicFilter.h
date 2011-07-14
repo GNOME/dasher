@@ -42,12 +42,12 @@ class COneButtonDynamicFilter : public CButtonMultiPress {
  private:
   unsigned int maxClickCount() {return 2;} //double-click to reverse
   virtual bool TimerImpl(unsigned long Time, CDasherView *pView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);
-  virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel);
+  virtual void ActionButton(unsigned long iTime, int iButton, int iType, CDasherModel *pModel);
   
   int m_iTarget;
 
-  int *m_iTargetX;
-  int *m_iTargetY;
+  int m_iTargetX[2];
+  int m_iTargetY[2];
 };
 }
 /// @}

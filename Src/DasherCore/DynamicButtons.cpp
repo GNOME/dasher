@@ -43,12 +43,11 @@ bool CDynamicButtons::Timer(unsigned long iTime, CDasherView *pDasherView, CDash
     return true;
   }
   //moving forwards. Check auto speed control...
-  unsigned int uTime = static_cast<unsigned int>(iTime);
-  if (GetBoolParameter(BP_AUTO_SPEEDCONTROL) && m_uSpeedControlTime < uTime)
+  if (GetBoolParameter(BP_AUTO_SPEEDCONTROL) && m_uSpeedControlTime < iTime)
   {
 	  if (m_uSpeedControlTime > 0) //has actually been set?
         SetLongParameter(LP_MAX_BITRATE, GetLongParameter(LP_MAX_BITRATE) * (1.0 + GetLongParameter(LP_DYNAMIC_SPEED_INC)/100.0));
-	  m_uSpeedControlTime = uTime + 1000*GetLongParameter(LP_DYNAMIC_SPEED_FREQ);
+	  m_uSpeedControlTime = iTime + 1000*GetLongParameter(LP_DYNAMIC_SPEED_FREQ);
   }
   return TimerImpl(iTime, pDasherView, m_pDasherModel, pol);
 }
@@ -78,7 +77,7 @@ void CDynamicButtons::KeyUp(unsigned long iTime, int iId, CDasherView *pView, CD
   if (iId == m_iHeldId) m_bKeyDown = false;
 }
 
-void CDynamicButtons::ButtonEvent(int iTime, int iButton, int iType, CDasherModel *pModel) {
+void CDynamicButtons::ButtonEvent(unsigned long iTime, int iButton, int iType, CDasherModel *pModel) {
   
   // TODO: Check that state diagram implemented here is what we
   // decided upon

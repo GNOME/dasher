@@ -66,7 +66,7 @@ void CDasherButtons::KeyDown(unsigned long iTime, int iId, CDasherView *pView, C
 
 }
 
-void CDasherButtons::DirectKeyDown(int iTime, int iId, CDasherView *pView, CDasherModel *pModel) {
+void CDasherButtons::DirectKeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherModel *pModel) {
   if(iId == 100) // Ignore mouse events
   return;
   if(iId == 1)

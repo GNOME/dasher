@@ -47,7 +47,7 @@ class CDynamicButtons : public CDynamicFilter, public CSettingsObserver {
   /// of button 0 or 100 act as a dedicated reverse button, and button 1 pauses; any other
   /// press type or button is passed onto ActionButton.
   /// \param iType 0=normal press, 1=long press; see also CButtonMultiPress.
-  virtual void ButtonEvent(int long iTime, int iButton, int iType, CDasherModel *pModel);
+  virtual void ButtonEvent(unsigned long iTime, int iButton, int iType, CDasherModel *pModel);
 
   ///Called to handle key events when the Filter is running forwards normally.
   /// Short presses of buttons 0, 100 and 1 have been handled already, but all
@@ -73,8 +73,8 @@ class CDynamicButtons : public CDynamicFilter, public CSettingsObserver {
   private:
     int m_iState; // 0 = paused, 1 = reversing, >=2 = running (extensible by subclasses)
     int m_iHeldId;
-    int m_iKeyDownTime;
-    unsigned int m_uSpeedControlTime;
+    unsigned long m_iKeyDownTime;
+    unsigned long m_uSpeedControlTime;
     CDasherModel *m_pModel;
 };
 }

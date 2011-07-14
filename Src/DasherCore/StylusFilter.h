@@ -23,7 +23,7 @@ class CStylusFilter : public CDefaultFilter {
   ///Do not make a start handler when in stylus mode
   virtual CStartHandler *MakeStartHandler();
  private:
-  int m_iKeyDownTime;
+  unsigned long m_iKeyDownTime;
 };
 }
 /// @}
