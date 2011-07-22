@@ -170,7 +170,7 @@ AC_ARG_WITH([cairo],
 
 AC_ARG_WITH([gsettings],
 	[AS_HELP_STRING([--with-gsettings],
-		[store user preferences using GSettings (default is NO)])])
+		[store user preferences using GSettings (default is YES)])])
 AC_ARG_VAR([GLIB_COMPILE_SCHEMAS],
 	[Path to glib-compile-schemas, used for compiling GSettings schema])
 
@@ -213,7 +213,7 @@ then
 	CFLAGS="$save_CFLAGS"
 	LIBS="$save_LIBS"
 
-	AS_IF([test "x$with_gsettings" = "xyes" -a "x$ac_cv_func_g_settings_new" = "xyes"],
+	AS_IF([test "x$with_gsettings" != "xno" -a "x$ac_cv_func_g_settings_new" = "xyes"],
 		[AC_CHECK_TOOLS([GLIB_COMPILE_SCHEMAS], [glib-compile-schemas])
          have_gsettings=true
 		 have_gconf=false
