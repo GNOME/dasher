@@ -69,7 +69,7 @@ string XMLUtil::LoadFile(const string& strFilename, unsigned int iSizeHint)
   {
 #ifdef _WIN32
     struct __stat64 buf;
-    int result;		
+    int result;
     result = _stat64(strFilename.c_str(), &buf);
     strResult.reserve((unsigned long) buf.st_size + 256);
 #else
@@ -212,7 +212,7 @@ float XMLUtil::GetElementFloat(const string& strTag, const string& strXML, bool*
       {
         if ((strElement[i] == '.') && (!bFoundDot))
           bFoundDot = true;
-        else 
+        else
           break;
       }
     }
@@ -312,10 +312,10 @@ VECTOR_NAME_VALUE_PAIR XMLUtil::GetNameValuePairs(const string& strXML, bool bSt
   {
     if ((!bInStartTag) && (strXML[i] == '<'))
     {
-      // Starting a new tag         
+      // Starting a new tag
       bInStartTag = true;
     }
-    else if (bInStartTag) 
+    else if (bInStartTag)
     {
       if (strXML[i] == '>')
       {
@@ -350,7 +350,7 @@ VECTOR_NAME_VALUE_PAIR XMLUtil::GetNameValuePairs(const string& strXML, bool bSt
         strValue        = "";
       }
       else
-        strName += strXML[i];           
+        strName += strXML[i];
     }
 
     i++;
@@ -358,6 +358,3 @@ VECTOR_NAME_VALUE_PAIR XMLUtil::GetNameValuePairs(const string& strXML, bool bSt
 
   return vResult;
 }
-
-
-

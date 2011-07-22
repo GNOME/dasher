@@ -96,9 +96,9 @@ void CScreenGameModule::DrawText(CDasherView *pView) {
   screenint targetStart(x); //x coord at which to render target label
   //total area we will render text over, i.e. need to blank out:
   pair<screenint,screenint> rectDims(pScreen->TextSize(m_pLabTarget, uFontSize));
-                                          
+
   rectDims.second=max(rectDims.second,entDims.second);
-  
+
   if (m_pLabWrong) {
     const pair<screenint,screenint> wrongDims(pScreen->TextSize(m_pLabWrong, uFontSize));
     targetStart+=wrongDims.first;
@@ -117,5 +117,5 @@ void CScreenGameModule::DrawText(CDasherView *pView) {
     pScreen->Polyline(p, 2, 2, 1); //mouse-line red
   }
   pScreen->DrawString(m_pLabTarget, targetStart, 0, uFontSize, 4); //text black
-  
+
 }
