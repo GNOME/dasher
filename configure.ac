@@ -229,6 +229,15 @@ then
 		])
 	AS_IF([test "x$with_gsettings" = "xyes" -a $have_gsettings = false],
 		[AC_MSG_ERROR([GSettings requested but not found])])
+	AC_MSG_CHECKING([which settings store to use])
+	AS_IF(
+		[test $have_gsettings = true  -a $have_gconf = false],
+			[AC_MSG_RESULT([GSettings])],
+		[test $have_gsettings = false -a $have_gconf = true],
+			[AC_MSG_RESULT([GConf])],
+		[test $have_gsettings = false -a $have_gconf = false],
+			[AC_MSG_RESULT([none])],
+		[AC_MSG_ERROR([Logic error in configure.ac - please send bug report!])])
 
 	# GtkBuilder's autoconnect feature requires dasher to be
 	# linked with the --export-dynamic flag. pkg-config does not
