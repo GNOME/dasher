@@ -97,6 +97,7 @@ static void dasher_main_command_preferences_alphabet(DasherMain *pSelf);
 static void dasher_main_command_tutorial(DasherMain *pSelf);
 static void dasher_main_command_help(DasherMain *pSelf);
 static void dasher_main_command_about(DasherMain *pSelf);
+static void dasher_main_command_toggle_game_mode(DasherMain*);
 
 /* c.f. WRAP_CPP_CB below */
 extern "C" void dasher_main_cb_import(GtkAction*, DasherMain*);
@@ -378,6 +379,7 @@ WRAP_CPP_CB(quit)
 WRAP_CPP_CB(preferences)
 WRAP_CPP_CB(help)
 WRAP_CPP_CB(about)
+WRAP_CPP_CB(toggle_game_mode)
 
 extern "C" void
 dasher_main_cb_editor(GtkAction *obj, DasherMain *pSelf)
@@ -640,7 +642,7 @@ void show_game_file_dialog(GtkWidget *pButton, GtkWidget *pWidget, gpointer pDat
  *
  * @param pSelf a reference to an instance of DasherMain
  */ 
-void dasher_main_toggle_game_mode(DasherMain *pSelf) {
+void dasher_main_command_toggle_game_mode(DasherMain *pSelf) {
 
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
 

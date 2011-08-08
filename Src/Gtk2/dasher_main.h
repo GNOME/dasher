@@ -41,8 +41,6 @@ struct _SCommandLine {
 DasherMain *dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine);
 GType dasher_main_get_type();
 void dasher_main_show(DasherMain *pSelf);
-
-void dasher_main_toggle_game_mode(DasherMain *pSelf); 
 G_END_DECLS
 
 #endif

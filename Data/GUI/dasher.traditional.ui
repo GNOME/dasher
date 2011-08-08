@@ -128,10 +128,8 @@
         </child>
         <child>
           <object class="GtkToggleAction" id="action_toggle_game_mode">
-            <property name="stock_id">action_toggle_game_mode</property>
-			<property name="tooltip" translatable="yes">_Game Mode</property>
-			<property name = "label" translatable="yes">_Game Mode</property>
-            <signal name="activate" handler="dasher_main_cb_editor"/>
+			<property name="label" translatable="yes">_Game Mode</property>
+            <signal name="activate" handler="dasher_main_cb_toggle_game_mode"/>
           </object>
         </child>
       </object>

@@ -945,11 +945,6 @@ dasher_editor_internal_command(DasherEditor *pSelf, const gchar *szCommand) {
     dasher_editor_internal_clipboard(pSelf, CLIPBOARD_SELECTALL);
     return TRUE;
   }
-
-  if(!strcmp(szCommand, "action_toggle_game_mode")) { //toggle game mode
-    dasher_main_toggle_game_mode(pPrivate->pDasherMain);
-    return TRUE;
-  }
  
   return FALSE;
 }
