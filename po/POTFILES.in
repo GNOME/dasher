@@ -32,6 +32,7 @@ Src/DasherCore/OneDimensionalFilter.h
 Src/DasherCore/SettingsStore.cpp
 Src/DasherCore/SocketInputBase.cpp
 Src/DasherCore/SocketInput.cpp
+Src/DasherCore/StylusFilter.h
 Src/DasherCore/Trainer.cpp
 Src/DasherCore/TwoButtonDynamicFilter.cpp
 Src/DasherCore/TwoPushDynamicFilter.cpp
