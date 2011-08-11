@@ -49,6 +49,8 @@
           <object class="GtkAction" id="action_append">
             <property name="name">action_append</property>
             <property name="label" translatable="yes">A_ppend to file…</property>
+            <!-- XXX Append to file isn't implemented! -->
+            <property name="sensitive">FALSE</property>
           </object>
         </child>
         <child>
