@@ -25,39 +25,10 @@
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
 
-#ifdef XXXPRLWACTIONSAREFIXED
-#ifdef WITH_MAEMO
-#include "dasher_action_keyboard_maemo.h"
-#else
-#include "dasher_action_keyboard.h"
-#include "dasher_action_script.h"
-#endif
-#endif
-
 #include "dasher_editor.h"
 #include "dasher_lock_dialogue.h"
 #include "dasher_main.h"
 //#include "game_mode_helper.h"
-
-#ifdef XXXPRLWACTIONSAREFIXED
-#define ACTION_STATE_SHOW 1
-#define ACTION_STATE_CONTROL 2
-#define ACTION_STATE_AUTO 4
-
-typedef struct _EditorAction EditorAction;
-
-struct _EditorAction {
-  DasherAction *pAction;
-  EditorAction *pNext;
-  EditorAction *pPrevious;
-  gint iControlID;
-  gint iID; // TODO: does this need to be separate from iControlID?
-  gboolean bShow;
-  gboolean bControl;
-  gboolean bAuto;
-  gint iNSub;
-};
-#endif
 
 typedef struct _DasherEditorPrivate DasherEditorPrivate;
 
@@ -65,17 +36,8 @@ struct _DasherEditorPrivate {
   DasherMain *pDasherMain;
   GtkTextView *pTextView;
   GtkTextBuffer *pBuffer;
-#ifdef XXXPRLWACTIONSAREFIXED
-  GtkVBox *pActionPane;
-#endif
   GtkClipboard *pTextClipboard;
   GtkClipboard *pPrimarySelection;
-#ifdef XXXPRLWACTIONSAREFIXED
-  EditorAction *pActionRing;
-  EditorAction *pActionIter;
-  gboolean bActionIterStarted;
-  gint iNextActionID;
-#endif
   //  GameModeHelper *pGameModeHelper;
   GtkTextMark *pNewMark;
   DasherAppSettings *pAppSettings;
@@ -132,15 +94,6 @@ dasher_editor_class_init(DasherEditorClass *pClass) {
 
   pClass->initialise = NULL;
   pClass->command = NULL;
-#ifdef XXXPRLWACTIONSAREFIXED
-  pClass->action_button = NULL;
-  pClass->actions_start = NULL;
-  pClass->actions_more = NULL;
-  pClass->actions_get_next = NULL;
-  pClass->action_set_show = NULL;
-  pClass->action_set_control = NULL;
-  pClass->action_set_auto = NULL;
-#endif
   pClass->clear = NULL;
   pClass->get_all_text = NULL;
   pClass->get_new_text = NULL;
@@ -173,10 +126,6 @@ dasher_editor_init(DasherEditor *pDasherControl) {
   pPrivate->szFilename = NULL;
   pPrivate->pTextClipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
   pPrivate->pPrimarySelection = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
-#ifdef XXXPRLWACTIONSAREFIXED
-  pPrivate->pActionRing = NULL;
-  pPrivate->iNextActionID = 0;
-#endif
   //  pPrivate->pGameModeHelper = NULL;
   pPrivate->bFileModified = FALSE;
 }
@@ -186,21 +135,6 @@ dasher_editor_finalize(GObject *pObject) {
   g_debug("Finalising DasherEditor");
 
   DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pObject);
-
-#ifdef XXXPRLWACTIONSAREFIXED
-  EditorAction *pCurrentAction = pPrivate->pActionRing;
-
-  if(pCurrentAction) {
-    bool bStarted = false;
-   
-    while(!bStarted || (pCurrentAction != pPrivate->pActionRing)) {
-      bStarted = true;
-      dasher_action_deactivate(pCurrentAction->pAction);
-      g_object_unref(G_OBJECT(pCurrentAction->pAction));
-      pCurrentAction = pCurrentAction->pNext;
-    }
-  }
-#endif
 
   if(pPrivate->szFilename)
     g_free(pPrivate->szFilename);
@@ -229,52 +163,6 @@ dasher_editor_handle_start(DasherEditor *pSelf) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->handle_start)
     DASHER_EDITOR_GET_CLASS(pSelf)->handle_start(pSelf);
 }
-
-#ifdef XXXPRLWACTIONSAREFIXED
-void
-dasher_editor_action_button(DasherEditor *pSelf, DasherAction *pAction) {
-  if(DASHER_EDITOR_GET_CLASS(pSelf)->action_button)
-    DASHER_EDITOR_GET_CLASS(pSelf)->action_button(pSelf, pAction);
-}
-
-void
-dasher_editor_actions_start(DasherEditor *pSelf) {
-  if(DASHER_EDITOR_GET_CLASS(pSelf)->actions_start)
-    DASHER_EDITOR_GET_CLASS(pSelf)->actions_start(pSelf);
-}
-
-bool
-dasher_editor_actions_more(DasherEditor *pSelf) {
-  if(DASHER_EDITOR_GET_CLASS(pSelf)->actions_more)
-    return DASHER_EDITOR_GET_CLASS(pSelf)->actions_more(pSelf);
-  else
-    return false;
-}
-
-void
-dasher_editor_actions_get_next(DasherEditor *pSelf, const gchar **szName, gint *iID, gboolean *bShow, gboolean *bControl, gboolean *bAuto) {
-  if(DASHER_EDITOR_GET_CLASS(pSelf)->actions_get_next)
-    DASHER_EDITOR_GET_CLASS(pSelf)->actions_get_next(pSelf, szName, iID, bShow, bControl, bAuto);
-}
-
-void
-dasher_editor_action_set_show(DasherEditor *pSelf, int iActionID, bool bValue) {
-  if(DASHER_EDITOR_GET_CLASS(pSelf)->action_set_show)
-    DASHER_EDITOR_GET_CLASS(pSelf)->action_set_show(pSelf, iActionID, bValue);
-}
-
-void
-dasher_editor_action_set_control(DasherEditor *pSelf, int iActionID, bool bValue) {
-  if(DASHER_EDITOR_GET_CLASS(pSelf)->action_set_control)
-    DASHER_EDITOR_GET_CLASS(pSelf)->action_set_control(pSelf, iActionID, bValue);
-}
-
-void
-dasher_editor_action_set_auto(DasherEditor *pSelf, int iActionID, bool bValue) {
-  if(DASHER_EDITOR_GET_CLASS(pSelf)->action_set_auto)
-    DASHER_EDITOR_GET_CLASS(pSelf)->action_set_auto(pSelf, iActionID, bValue);
-}
-#endif
 
 void
 dasher_editor_grab_focus(DasherEditor *pSelf) {

@@ -86,19 +86,4 @@ libdashergtk_la_SOURCES = \
 		module_settings_window.cpp \
 		module_settings_window.h
 
-# ifdef XXXPRLWACTIONSAREFIXED
-#		dasher_action.cpp \
-#		dasher_action.h \
-#		dasher_action_keyboard.cpp \
-#		dasher_action_keyboard.h \
-#		dasher_action_script.cpp \
-#		dasher_action_script.h \
-# if WITH_MAEMO
-# libdashergtk_la_SOURCES += \
-#		dasher_action_keyboard_maemo.cpp \
-#		dasher_action_keyboard_maemo.h \
-#		dasher_maemo_helper.cpp \
-#		dasher_maemo_helper.h
-# endif
-
 AM_CXXFLAGS = -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" $(GTKBUILD_CFLAGS) 

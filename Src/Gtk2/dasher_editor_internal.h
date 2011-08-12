@@ -6,9 +6,6 @@
 #include <gtk/gtk.h>
 
 #include "DasherAppSettings.h"
-#ifdef XXXPRLWACTIONSAREFIXED
-#include "dasher_action.h"
-#endif
 #include "dasher_editor.h"
 
 /* Forward declaration */

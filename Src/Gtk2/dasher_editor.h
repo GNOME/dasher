@@ -5,9 +5,6 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 
-#ifdef XXXPRLWACTIONSAREFIXED
-#include "dasher_action.h"
-#endif
 #include "../DasherCore/ControlManager.h"
 
 /* Forward declaration */
@@ -37,15 +34,6 @@ struct _DasherEditorClass {
   /* VTable */
   void (*initialise)(DasherEditor *, DasherAppSettings *, DasherMain *, GtkBuilder *, const gchar *);
   gboolean (*command)(DasherEditor *, const gchar *);
-#ifdef XXXPRLWACTIONSAREFIXED
-  void (*action_button)(DasherEditor *, DasherAction *);
-  void (*actions_start)(DasherEditor *);
-  bool (*actions_more)(DasherEditor *);
-  void (*actions_get_next)(DasherEditor *, const gchar **, gint *, gboolean *, gboolean *, gboolean *);
-  void (*action_set_show)(DasherEditor *, int, bool);
-  void (*action_set_control)(DasherEditor *, int, bool);
-  void (*action_set_auto)(DasherEditor *, int, bool);
-#endif
   void (*clear)(DasherEditor *);
   const gchar *(*get_all_text)(DasherEditor *);
   const gchar *(*get_new_text)(DasherEditor *);
@@ -91,19 +79,6 @@ void dasher_editor_initialise(DasherEditor *pSelf,
 
 /* Abstract command handler */
 gboolean dasher_editor_command(DasherEditor *pSelf, const gchar *szCommand);
-
-/* Action related methods */
-#ifdef XXXPRLWACTIONSAREFIXED
-void dasher_editor_action_button(DasherEditor *pSelf, DasherAction *pAction);
-void dasher_editor_actions_start(DasherEditor *pSelf);
-bool dasher_editor_actions_more(DasherEditor *pSelf);
-void dasher_editor_actions_get_next(DasherEditor *pSelf, const gchar **szName,
-				    gint *iID, gboolean *bShow, gboolean *bControl,
-				    gboolean *bAuto);
-void dasher_editor_action_set_show(DasherEditor *pSelf, int iActionID, bool bValue);
-void dasher_editor_action_set_control(DasherEditor *pSelf, int iActionID, bool bValue);
-void dasher_editor_action_set_auto(DasherEditor *pSelf, int iActionID, bool bValue);
-#endif
 
 GtkTextBuffer *dasher_editor_game_text_buffer(DasherEditor *);
 
