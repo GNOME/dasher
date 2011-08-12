@@ -94,7 +94,6 @@ static void dasher_main_command_import(DasherMain *pSelf);
 static void dasher_main_command_quit(DasherMain *pSelf);
 static void dasher_main_command_preferences(DasherMain *pSelf);
 static void dasher_main_command_preferences_alphabet(DasherMain *pSelf);
-static void dasher_main_command_tutorial(DasherMain *pSelf);
 static void dasher_main_command_help(DasherMain *pSelf);
 static void dasher_main_command_about(DasherMain *pSelf);
 static void dasher_main_command_toggle_game_mode(DasherMain*);
@@ -369,9 +368,8 @@ dasher_main_cb_##item(GtkAction *obj, DasherMain *p)\
   dasher_main_command_##item(p);\
 }
 
-/* XXX PRLW: There is mention of "tutorial", but no function, (and
- * preferences_alphabet isn't called externally.)
- * editor passes on the action strings to dasher_editor_command which
+/*
+ * Editor passes on the action strings to dasher_editor_command which
  * land in dasher_editor_internal.
  */
 WRAP_CPP_CB(import)
@@ -1045,11 +1043,6 @@ static void
 dasher_main_command_preferences_alphabet(DasherMain *pSelf) { 
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
   dasher_preferences_dialogue_show(pPrivate->pPreferencesDialogue, 1);
-}
-
-static void 
-dasher_main_command_tutorial(DasherMain *pSelf) {
-  // TODO: Implement this
 }
 
 static void 

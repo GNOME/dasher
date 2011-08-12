@@ -29,9 +29,6 @@ struct _DasherEditorInternalPrivate {
   DasherAppSettings *pAppSettings;
   gchar *szFilename;
   gboolean bFileModified; // TODO: Make this work properly, export to main for quit etc
-  //moved from dasher_internal_buffer:
-  //GtkTextView *pTextView; //duplicate
-  //GtkTextBuffer *pBuffer; //duplicate
   GtkTextTag *pOutputTag;
   GtkTextTag *pHiddenTag;
   GtkTextTag *pVisibleTag;
@@ -101,9 +98,6 @@ void dasher_editor_internal_handle_stop(DasherEditor *pSelf);
 void dasher_editor_internal_handle_start(DasherEditor *pSelf);
 
 void dasher_editor_internal_grab_focus(DasherEditor *pSelf);
-
-/* TODO: Tutorial editor should be a separate class */
-//void dasher_editor_internal_start_tutorial(DasherEditor *pSelf);
 
 /* Todo: possibly tidy up the need to have this public (quit in dasher_main possibly too connected) */
 gboolean dasher_editor_internal_file_changed(DasherEditor *pSelf);

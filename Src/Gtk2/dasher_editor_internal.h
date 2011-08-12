@@ -72,9 +72,6 @@ GType dasher_editor_internal_get_type();
 
 /* void dasher_editor_internal_grab_focus(DasherEditorInternal *pSelf); */
 
-/* /\* TODO: Tutorial editor should be a separate class *\/ */
-/* //void dasher_editor_internal_start_tutorial(DasherEditorInternal *pSelf); */
-
 /* /\* Todo: possibly tidy up the need to have this public (quit in dasher_main possibly too connected) *\/ */
 /* gboolean dasher_editor_internal_file_changed(DasherEditorInternal *pSelf); */
 /* const gchar *dasher_editor_internal_get_filename(DasherEditorInternal *pSelf); */
