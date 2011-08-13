@@ -30,12 +30,9 @@ dasher_LDADD = \
 	DasherCore/libdashercore.a \
 	DasherCore/libdasherprefs.a \
 	DasherCore/LanguageModelling/libdasherlm.a \
-	Common/libdashermisc.a \
 	$(GTKBUILD_LIBS) \
 	$(SPEECH_LIBS) \
-	-lexpat \
-	$(POPT_LIBS) \
-	$(GPELIB)
+	-lexpat
 #endif
 
 #if DOQTE
