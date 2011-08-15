@@ -65,8 +65,6 @@ struct _DasherEditorExternalPrivate {
 
 #define DASHER_EDITOR_EXTERNAL_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE((o), DASHER_TYPE_EDITOR_EXTERNAL, DasherEditorExternalPrivate))
 
-static DasherEditorExternal *g_pEditor;
-
 G_DEFINE_TYPE(DasherEditorExternal, dasher_editor_external, DASHER_TYPE_EDITOR);
 
 
@@ -146,19 +144,8 @@ dasher_editor_external_finalize(GObject *pObject) {
 /* Public methods */
 DasherEditorExternal *
 dasher_editor_external_new() {
-  // TODO: Handle singleton class a little more sensibly
-
-  DasherEditorExternal *pDasherEditor;
-  pDasherEditor =
-        DASHER_EDITOR_EXTERNAL(g_object_new(DASHER_TYPE_EDITOR_EXTERNAL, NULL));
-  g_pEditor = pDasherEditor;
-
-  // TODO: Just add a simple placeholder widget here (eventually need
-  // to figure out how to have a null (ie non-visible) widget.
-
-  g_message("Creating new external editor");
-
-  return pDasherEditor;
+  return
+    DASHER_EDITOR_EXTERNAL(g_object_new(DASHER_TYPE_EDITOR_EXTERNAL, NULL));
 }
 
 static void

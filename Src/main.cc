@@ -72,8 +72,6 @@ Window g_xOldIMWindow;
 
 // const gchar *filename = NULL;   // Filename of file currently being edited
 
-//static DasherEditor *g_pEditor = 0;
-
 
 // Apparently not obsolete, but should be sorted out
 
@@ -99,8 +97,6 @@ Window g_xOldIMWindow;
 /// ---
 
 /// Old stuff from edit.cc
-
-// DasherEditor *g_pEditor = 0;
 
 // GtkWidget *the_text_view;
 // GtkTextBuffer *the_text_buffer;
