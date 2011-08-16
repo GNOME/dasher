@@ -5,7 +5,6 @@
 #include <glib-object.h>
 #include <gtk/gtk.h>
 
-#include "DasherAppSettings.h"
 #include "dasher_editor.h"
 
 /* Forward declaration */
@@ -45,7 +44,6 @@ struct _DasherEditorInternalClass {
 };
 
 DasherEditorInternal *dasher_editor_internal_new();
-void dasher_editor_internal_initialise(DasherEditorInternal *pSelf, DasherAppSettings *pAppSettings, DasherMain *pDasherMain, GtkBuilder *pXML, const gchar *szFullPath);
 
 GType dasher_editor_internal_get_type();
 
