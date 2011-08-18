@@ -311,11 +311,6 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
 
     g_free(szFullPath);
 
-    // TODO: Were these really needed?
-    //    g_signal_connect(pPrivate->pEditor, "filename_changed", G_CALLBACK(dasher_main_cb_filename_changed), pDasherMain);
-    //    g_signal_connect(pPrivate->pEditor, "buffer_changed", G_CALLBACK(dasher_main_cb_buffer_changed), pDasherMain);
-    //    g_signal_connect(pPrivate->pEditor, "context_changed", G_CALLBACK(dasher_main_cb_context_changed), pDasherMain);
-
     /* Create the preferences window */
     dasher_main_create_preferences(pDasherMain);
 
