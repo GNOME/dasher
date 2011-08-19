@@ -24,8 +24,6 @@
 #include "dasher_editor_internal.h"
 #include "dasher_editor_external.h"
 #include "math.h"
-/* Static instance of singleton, USE SPARINGLY */
-static DasherMain *g_pDasherMain = NULL; 
 
 struct _DasherMainPrivate {
   GtkBuilder *pXML;
@@ -203,12 +201,7 @@ dasher_main_finalize(GObject *pObject) {
 /* Public methods */
 DasherMain *
 dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
-  if(g_pDasherMain)
-    return g_pDasherMain;
-  else {
     DasherMain *pDasherMain = (DasherMain *)(g_object_new(dasher_main_get_type(), NULL));
-    g_pDasherMain = pDasherMain;
-
     DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pDasherMain);
 
     /* Create the app settings object */
@@ -334,8 +327,7 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
     gtk_key_snooper_install(dasher_main_key_snooper, pDasherMain);
 
     return pDasherMain;   
-  }
-}
+ }
 
 static GtkBuilder *
 dasher_main_open_gui_xml(DasherMain *pSelf, const char *szGUIFilename) {
@@ -1230,39 +1222,33 @@ grab_focus() {
 /* Callbacks */
 
 extern "C" void 
-speed_changed(GtkWidget *pWidget, gpointer user_data) {
-  if(g_pDasherMain)
-    dasher_main_speed_changed(g_pDasherMain);
+speed_changed(GtkWidget *pWidget, gpointer pUserData) {
+  DasherMain *pDasherMain = DASHER_MAIN(pUserData);
+  dasher_main_speed_changed(pDasherMain);
 }
 
 extern "C" void 
 alphabet_combo_changed(GtkWidget *pWidget, gpointer pUserData) {
-  if(g_pDasherMain)
-    dasher_main_alphabet_combo_changed(g_pDasherMain);
+  DasherMain *pDasherMain = DASHER_MAIN(pUserData);
+  dasher_main_alphabet_combo_changed(pDasherMain);
 }
 
 extern "C" void 
 dasher_main_cb_filename_changed(DasherEditor *pEditor, gpointer pUserData) {
-  if(g_pDasherMain)
-    dasher_main_set_window_title(g_pDasherMain);
+  DasherMain *pDasherMain = DASHER_MAIN(pUserData);
+  dasher_main_set_window_title(pDasherMain);
 }
 
 extern "C" void 
 dasher_main_cb_buffer_changed(DasherEditor *pEditor, gpointer pUserData) {
-  if(!g_pDasherMain)
-    return;
-
-  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(g_pDasherMain);
+  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pUserData);
 
   gtk_dasher_control_set_buffer(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), dasher_editor_get_offset(pPrivate->pEditor));
 }
 
 extern "C" void 
 dasher_main_cb_context_changed(DasherEditor *pEditor, gpointer pUserData) {
-  if(!g_pDasherMain)
-    return;
-
-  DasherMain *pDasherMain = DASHER_MAIN(g_pDasherMain);
+  DasherMain *pDasherMain = DASHER_MAIN(pUserData);
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pDasherMain);
 
   gtk_dasher_control_set_offset(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), dasher_editor_get_offset(pPrivate->pEditor));
@@ -1270,16 +1256,17 @@ dasher_main_cb_context_changed(DasherEditor *pEditor, gpointer pUserData) {
 
 extern "C" gboolean 
 dasher_main_cb_window_close(GtkWidget *pWidget, gpointer pUserData) {
-  dasher_main_command_quit(g_pDasherMain);
+  DasherMain *pDasherMain = DASHER_MAIN(pUserData);
+  dasher_main_command_quit(pDasherMain);
   
   /* Returning true stops further propagation */
   return TRUE; 
 }
 
 extern "C" void 
-parameter_notification(GtkDasherControl *pDasherControl, gint iParameter, gpointer data) { 
-  if(g_pDasherMain)
-    dasher_main_handle_parameter_change(g_pDasherMain, iParameter);
+parameter_notification(GtkDasherControl *pDasherControl, gint iParameter, gpointer pUserData) { 
+  DasherMain *pDasherMain = DASHER_MAIN(pUserData);
+  dasher_main_handle_parameter_change(pDasherMain, iParameter);
 }
 
 // TODO: Not really sure what happens here - need to sort out focus behaviour in general
@@ -1340,10 +1327,7 @@ test_focus_handler(GtkWidget *pWidget, GtkDirectionType iDirection, gpointer *pU
 
 extern "C" void 
 handle_start_event(GtkDasherControl *pDasherControl, gpointer data) { 
-  if(!g_pDasherMain)
-    return;
-
-  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(g_pDasherMain);
+  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(data);
   
   dasher_editor_grab_focus(pPrivate->pEditor);
 }
@@ -1384,12 +1368,10 @@ dasher_main_key_snooper(GtkWidget *pWidget, GdkEventKey *pEvent,
 
 extern "C" void 
 handle_stop_event(GtkDasherControl *pDasherControl, gpointer data) {
-  if(g_pDasherMain) {
-    DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(g_pDasherMain);
+  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(data);
 
-    if(pPrivate->pEditor)
-      dasher_editor_handle_stop(pPrivate->pEditor);
-  }
+  if(pPrivate->pEditor)
+    dasher_editor_handle_stop(pPrivate->pEditor);
 }
 
 // TODO: The following two should probably be made the same
@@ -1401,45 +1383,37 @@ handle_request_settings(GtkDasherControl * pDasherControl, gpointer data) {
 
 extern "C" void 
 gtk2_edit_delete_callback(GtkDasherControl *pDasherControl, const gchar *szText, int iOffset, gpointer user_data) {
-  if(g_pDasherMain) {
-    DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(g_pDasherMain);
+  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(user_data);
 
-    if(pPrivate->pEditor) {
-      gint displaylength = g_utf8_strlen(szText, -1);
-      dasher_editor_delete(pPrivate->pEditor, displaylength, iOffset);
-    }
+  if(pPrivate->pEditor) {
+    gint displaylength = g_utf8_strlen(szText, -1);
+    dasher_editor_delete(pPrivate->pEditor, displaylength, iOffset);
   }
 }
 
 extern "C" void 
 gtk2_edit_output_callback(GtkDasherControl *pDasherControl, const gchar *szText, int iOffset, gpointer user_data) {
-  if(g_pDasherMain) {
-    DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(g_pDasherMain);
+  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(user_data);
 
-    if(pPrivate->pEditor) {
-      dasher_editor_output(pPrivate->pEditor, szText, iOffset);
-    }
+  if(pPrivate->pEditor) {
+    dasher_editor_output(pPrivate->pEditor, szText, iOffset);
   }
 }
 
 extern "C" void 
 convert_cb(GtkDasherControl *pDasherControl, gpointer pUserData) {
-   if(g_pDasherMain) {
-     DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(g_pDasherMain);
+  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pUserData);
 
-     if(pPrivate->pEditor) {
-       dasher_editor_edit_convert(pPrivate->pEditor);
-     }
-   }
+  if(pPrivate->pEditor) {
+    dasher_editor_edit_convert(pPrivate->pEditor);
+  }
 }
 
 extern "C" void 
 protect_cb(GtkDasherControl *pDasherControl, gpointer pUserData) {
-   if(g_pDasherMain) {
-     DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(g_pDasherMain);
+  DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pUserData);
 
-     if(pPrivate->pEditor) {
-       dasher_editor_edit_protect(pPrivate->pEditor);
-     }
-   }
+  if(pPrivate->pEditor) {
+    dasher_editor_edit_protect(pPrivate->pEditor);
+  }
 }
