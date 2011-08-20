@@ -23,6 +23,10 @@
 #include "dasher.h"
 #include "GtkDasherControl.h"
 
+// XXX PRLW parameter_notification() should be squashed with prejudice
+typedef struct _DasherMain DasherMain;
+struct _DasherMain;
+
 // FIXME - should really do something to make this a singleton class
 
 // TODO: Rename this file to fit in with naming conventions
@@ -37,6 +41,9 @@ struct _DasherAppSettingsPrivate {
   GSettings *psettings;
 #endif
   GtkDasherControl *pDasherWidget;
+  // XXX PRLW nasty hack due to egregious
+  // parameter_notification (0 , iParameter, 0) calls
+  DasherMain *pDasherMain;
 };
 
 typedef struct _DasherAppSettingsPrivate DasherAppSettingsPrivate;
@@ -94,6 +101,7 @@ static void dasher_app_settings_init(DasherAppSettings *pDasherControl) {
   pPrivate->psettings = NULL;
 #endif
   pPrivate->pDasherWidget = NULL;
+  pPrivate->pDasherMain = NULL;
 }
 
 static void dasher_app_settings_destroy(GObject *pObject) {
@@ -228,7 +236,7 @@ static void dasher_app_settings_load(DasherAppSettings *pSelf) {
 
 // Public methods
 
-DasherAppSettings *dasher_app_settings_new(int argc, char **argv) {
+DasherAppSettings *dasher_app_settings_new(DasherMain *pDasherMain, int argc, char **argv) {
   DasherAppSettings *pNewAppSettings;
   pNewAppSettings = (DasherAppSettings *)(g_object_new(dasher_app_settings_get_type(), NULL));
   DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate*)(pNewAppSettings->private_data);
@@ -245,6 +253,7 @@ DasherAppSettings *dasher_app_settings_new(int argc, char **argv) {
 #ifdef WITH_GSETTINGS
   pPrivate->psettings = g_settings_new("org.gnome.Dasher");
 #endif
+  pPrivate->pDasherMain = pDasherMain;
   dasher_app_settings_load(pNewAppSettings);
 
   return pNewAppSettings;
@@ -275,7 +284,7 @@ void dasher_app_settings_reset(DasherAppSettings *pSelf, int iParameter) {
     }
   }
   // TODO: Use real signals to achieve this
-  parameter_notification(0, iParameter, 0);
+  parameter_notification(0, iParameter, pPrivate->pDasherMain);
 }
 
 bool dasher_app_settings_get_bool(DasherAppSettings *pSelf, int iParameter) { 
@@ -325,7 +334,7 @@ void dasher_app_settings_set_bool(DasherAppSettings *pSelf, int iParameter, bool
 #endif
 
     // TODO: Use real signals to achieve this
-    parameter_notification(0, iParameter, 0);
+    parameter_notification(0, iParameter, pPrivate->pDasherMain);
   }
 }
 
@@ -375,7 +384,7 @@ void dasher_app_settings_set_long(DasherAppSettings *pSelf, int iParameter, gint
 #endif
     
     // TODO: Use real signals to achieve this
-    parameter_notification(0, iParameter, 0);
+    parameter_notification(0, iParameter, pPrivate->pDasherMain);
   }
 }
 

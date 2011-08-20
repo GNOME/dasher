@@ -26,12 +26,15 @@ struct _DasherEditorInternalPrivate {
   DasherAppSettings *pAppSettings;
   gchar *szFilename;
   gboolean bFileModified; // TODO: Make this work properly, export to main for quit etc
+
+  // for conversion mode:
   GtkTextTag *pOutputTag;
   GtkTextTag *pHiddenTag;
   GtkTextTag *pVisibleTag;
   gboolean bConversionMode;
   gint iLastOffset;
   gint iCurrentState; // 0 = unconverted, 1 = converted
+
   //Paralleling the previous approach in dasher_main, we _don't_ send context_changed
   // events if we're in the middle of executing a control action (as this would rebuild
   // the canvas)
@@ -43,7 +46,6 @@ struct _DasherEditorInternalPrivate {
 G_DEFINE_TYPE(DasherEditorInternal, dasher_editor_internal, DASHER_TYPE_EDITOR);
 
 static void dasher_editor_internal_finalize(GObject *pObject);
-
 
 static void dasher_editor_internal_handle_font(DasherEditor *pSelf, const gchar *szFont);
 

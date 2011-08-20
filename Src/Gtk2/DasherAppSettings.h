@@ -8,9 +8,11 @@
 #include "../Common/AppSettingsHeader.h"
 #include "../Common/ModuleSettings.h"
 
-/*Forward declaration*/
+// Forward declarations
 typedef struct _GtkDasherControl GtkDasherControl;
 struct _GtkDasherControl;
+typedef struct _DasherMain DasherMain;
+struct _DasherMain;
 
 // Define first int value of the first element of each type.
 // Useful for offsetting into specific arrays,
@@ -50,7 +52,7 @@ struct _DasherAppSettingsClass {
   GObjectClass parent_class;
 };
 
-DasherAppSettings *dasher_app_settings_new(int argc, char **argv);
+DasherAppSettings *dasher_app_settings_new(DasherMain *, int argc, char **argv);
 GType dasher_app_settings_get_type();
 
 void dasher_app_settings_reset(DasherAppSettings *pSelf, int iParameter);

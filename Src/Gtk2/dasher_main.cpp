@@ -48,7 +48,6 @@ struct _DasherMainPrivate {
 
   GtkListStore *pAlphabetList;
   GtkAccelGroup *pAccel;
-  gulong iAlphabetComboHandler;
 
   // Widgets used for maemo
 #ifdef WITH_MAEMO
@@ -205,7 +204,7 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
     DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pDasherMain);
 
     /* Create the app settings object */
-    pPrivate->pAppSettings = dasher_app_settings_new(*argc, *argv);
+    pPrivate->pAppSettings = dasher_app_settings_new(pDasherMain, *argc, *argv);
     
     /* Load the user interface from the GUI file */
     if(pCommandLine && pCommandLine->szAppStyle) {
@@ -534,8 +533,6 @@ dasher_main_load_interface(DasherMain *pSelf) {
   //  g_signal_connect(G_OBJECT(pPrivate->pBufferView), "button-release-event", G_CALLBACK(take_real_focus), NULL);
   // g_signal_connect(G_OBJECT(pPrivate->pBufferView), "key-press-event", G_CALLBACK(edit_key_press), NULL);
   //g_signal_connect(G_OBJECT(pPrivate->pBufferView), "key-release-event", G_CALLBACK(edit_key_release), NULL);
-
-  pPrivate->iAlphabetComboHandler = g_signal_connect(G_OBJECT(pPrivate->pAlphabetCombo), "changed", G_CALLBACK(alphabet_combo_changed), NULL);
   
   //  dasher_main_build_context_menu(pSelf);
 
@@ -1151,7 +1148,7 @@ dasher_main_populate_alphabet_combo(DasherMain *pSelf) {
   // Disconnect the event handler temporarily, otherwise this will
   // trigger alphabet changes
 
-  g_signal_handler_block(pPrivate->pAlphabetCombo, pPrivate->iAlphabetComboHandler);
+  g_signal_handlers_block_by_func(pPrivate->pAlphabetCombo, (gpointer)alphabet_combo_changed, pSelf);
 
   gtk_list_store_clear(pPrivate->pAlphabetList);
 
@@ -1194,7 +1191,7 @@ dasher_main_populate_alphabet_combo(DasherMain *pSelf) {
   gtk_list_store_append(pPrivate->pAlphabetList, &sIter);
   gtk_list_store_set(pPrivate->pAlphabetList, &sIter, 0, "More Alphabets...", -1);
 
-  g_signal_handler_unblock(pPrivate->pAlphabetCombo, pPrivate->iAlphabetComboHandler);
+  g_signal_handlers_unblock_by_func(pPrivate->pAlphabetCombo, (gpointer)alphabet_combo_changed, pSelf);
 
 #endif
 }
@@ -1264,7 +1261,7 @@ dasher_main_cb_window_close(GtkWidget *pWidget, gpointer pUserData) {
 }
 
 extern "C" void 
-parameter_notification(GtkDasherControl *pDasherControl, gint iParameter, gpointer pUserData) { 
+parameter_notification(GtkDasherControl *pDasherControl, gint iParameter, gpointer pUserData) {
   DasherMain *pDasherMain = DASHER_MAIN(pUserData);
   dasher_main_handle_parameter_change(pDasherMain, iParameter);
 }
