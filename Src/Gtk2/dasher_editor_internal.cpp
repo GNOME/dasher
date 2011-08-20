@@ -22,9 +22,6 @@ struct _DasherEditorInternalPrivate {
   GtkTextBuffer *pBuffer;
   GtkClipboard *pTextClipboard;
   GtkClipboard *pPrimarySelection;
-  GtkTable *pGameGroup;
-  GtkLabel *pGameInfoLabel;
-  //  GameModeHelper *pGameModeHelper;
   GtkTextMark *pNewMark;
   DasherAppSettings *pAppSettings;
   gchar *szFilename;
@@ -163,7 +160,6 @@ dasher_editor_internal_init(DasherEditorInternal *pSelf) {
   pPrivate->szFilename = NULL;
   pPrivate->pTextClipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
   pPrivate->pPrimarySelection = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
-  //  pPrivate->pGameModeHelper = NULL;
   GtkTextIter oStartIter;
   gtk_text_buffer_get_start_iter(pPrivate->pBuffer, &oStartIter);
   pPrivate->pNewMark =
@@ -226,8 +222,6 @@ dasher_editor_internal_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSe
     dasher_editor_internal_generate_filename(pSelf);
     dasher_editor_internal_clear(pSelf);
   }
-
-//  pPrivate->pGameModeHelper = GAME_MODE_HELPER(game_mode_helper_new(pXML, (void*)pSelf));
 }
 
 static void
@@ -389,9 +383,6 @@ dasher_editor_internal_delete(DasherEditor *pSelf, int iLength, int iOffset) {
   gtk_text_buffer_delete(pPrivate->pBuffer, &start, &end);
   gtk_text_view_scroll_mark_onscreen(pPrivate->pTextView, gtk_text_buffer_get_insert(pPrivate->pBuffer));
   //  g_bIgnoreCursorMove = false;
-
-//   if(pPrivate->pGameModeHelper)
-//     game_mode_helper_delete(pPrivate->pGameModeHelper, iLength);
 
   pPrivate->bFileModified = TRUE;
 }

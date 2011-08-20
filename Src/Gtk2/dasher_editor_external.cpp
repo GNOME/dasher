@@ -21,7 +21,6 @@
 #include "dasher_lock_dialogue.h"
 #include "dasher_main.h"
 #include "../DasherCore/ControlManager.h"
-//#include "game_mode_helper.h"
 #include "DasherSpi.h"
 
 // TODO: Figure out if we need this stuff and re-implement

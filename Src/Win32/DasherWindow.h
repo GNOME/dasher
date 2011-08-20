@@ -22,7 +22,6 @@
 #include "../Common/WinOptions.h"
 
 class CToolbar;
-class CGameGroup;
 namespace Dasher {
   class CDasher;
 };

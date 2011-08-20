@@ -28,7 +28,6 @@
 #include "dasher_editor.h"
 #include "dasher_lock_dialogue.h"
 #include "dasher_main.h"
-//#include "game_mode_helper.h"
 
 typedef struct _DasherEditorPrivate DasherEditorPrivate;
 
@@ -38,7 +37,6 @@ struct _DasherEditorPrivate {
   GtkTextBuffer *pBuffer;
   GtkClipboard *pTextClipboard;
   GtkClipboard *pPrimarySelection;
-  //  GameModeHelper *pGameModeHelper;
   GtkTextMark *pNewMark;
   DasherAppSettings *pAppSettings;
   gchar *szFilename;
@@ -126,7 +124,6 @@ dasher_editor_init(DasherEditor *pDasherControl) {
   pPrivate->szFilename = NULL;
   pPrivate->pTextClipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
   pPrivate->pPrimarySelection = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
-  //  pPrivate->pGameModeHelper = NULL;
   pPrivate->bFileModified = FALSE;
 }
 
