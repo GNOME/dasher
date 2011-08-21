@@ -23,148 +23,17 @@
 #include "../DasherCore/ControlManager.h"
 #include "DasherSpi.h"
 
-// TODO: Figure out if we need this stuff and re-implement
-
-// X_HAVE_UTF8_STRING -> attempt to do keyboard mapping? (This won't work without extended keysyms being defined) - no or otherwise?
-
-// Before...
-
-//   int min, max;
-//   Display *dpy = gdk_x11_get_default_xdisplay();
-
-// #ifdef X_HAVE_UTF8_STRING
-//   XDisplayKeycodes(dpy, &min, &max);
-//   origkeymap = XGetKeyboardMapping(dpy, min, max - min + 1, &numcodes);
-// #endif
-
-// And after...
-
-// #ifdef X_HAVE_UTF8_STRING
-//   // We want to set the keymap back to whatever it was before,
-//   // if that's possible
-//   int min, max;
-//   Display *dpy = gdk_x11_get_default_xdisplay();
-//   XDisplayKeycodes(dpy, &min, &max);
-//   XChangeKeyboardMapping(dpy, min, numcodes, origkeymap, (max - min));
-// #endif
-
-// ---
-
-typedef struct _DasherEditorExternalPrivate DasherEditorExternalPrivate;
-
-struct _DasherEditorExternalPrivate {
-  DasherMain *pDasherMain;
-  DasherAppSettings *pAppSettings;
 #ifdef GNOME_A11Y
-  AccessibleEventListener *pFocusListener;
-  AccessibleEventListener *pCaretListener;
-  AccessibleText *pAccessibleText;
-#endif
-};
-
-#define DASHER_EDITOR_EXTERNAL_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE((o), DASHER_TYPE_EDITOR_EXTERNAL, DasherEditorExternalPrivate))
-
-G_DEFINE_TYPE(DasherEditorExternal, dasher_editor_external, DASHER_TYPE_EDITOR);
-
-
-static void dasher_editor_external_finalize(GObject *pObject);
-
-/* Private Method Declarations */
-
-static gboolean dasher_editor_external_command(DasherEditor *pSelf, const gchar *szCommand);
-static void dasher_editor_external_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, 
-					      DasherMain *pDasherMain, GtkBuilder *pXML, 
-					      const gchar *szFullPath);
-static void dasher_editor_external_create_buffer(DasherEditor *pSelf);
-static void dasher_editor_external_output(DasherEditor *pSelf, const gchar *szText, int iOffset);
-static void dasher_editor_external_delete(DasherEditor *pSelf, int iLength, int iOffset);
-static const gchar *dasher_editor_external_get_context(DasherEditor *pSelf, int iOffset, int iLength);
-static gint dasher_editor_external_get_offset(DasherEditor *pSelf);
-static void dasher_editor_external_grab_focus(DasherEditor *pSelf);
-static const gchar *dasher_editor_external_get_all_text(DasherEditor *pSelf);
-static const gchar *dasher_editor_external_get_new_text(DasherEditor *pSelf);
-//from dasher_external_buffer:
-//These were no-ops, so removing.
-//static void dasher_editor_external_edit_convert(DasherEditor *pSelf);
-//static void dasher_editor_external_edit_protect(DasherEditor *pSelf);
-//TODO: Implement ctrl_move/ctrl_delete (ATM uses dasher_editor default i.e. returns get_offset)
-#ifdef GNOME_A11Y
-void dasher_editor_external_handle_focus(DasherEditorExternal *pSelf, const AccessibleEvent *pEvent);
-void dasher_editor_external_handle_caret(DasherEditorExternal *pSelf, const AccessibleEvent *pEvent);
+void dasher_editor_external_handle_focus(DasherEditorInternal *pSelf, const AccessibleEvent *pEvent);
+void dasher_editor_external_handle_caret(DasherEditorInternal *pSelf, const AccessibleEvent *pEvent);
 
 void focus_listener(const AccessibleEvent *pEvent, void *pUserData);
 void caret_listener(const AccessibleEvent *pEvent, void *pUserData);
 #endif
 
-/* Callback Declarations */
-
-extern "C" void external_context_changed_handler(GObject *pSource, gpointer pUserData);
-
-/* Method Definitions */
-
-static void 
-dasher_editor_external_class_init(DasherEditorExternalClass *pClass) {
-
-  g_type_class_add_private(pClass, sizeof(DasherEditorExternalPrivate));
-
-  GObjectClass *pObjectClass = (GObjectClass *) pClass;
-  pObjectClass->finalize = dasher_editor_external_finalize;
-
-  DasherEditorClass *pParentClass = (DasherEditorClass *)pClass;
-
-  pParentClass->initialise = dasher_editor_external_initialise;
-  pParentClass->command = dasher_editor_external_command;
-  pParentClass->output = dasher_editor_external_output;
-  pParentClass->delete_text = dasher_editor_external_delete;
-  pParentClass->get_context = dasher_editor_external_get_context;
-  pParentClass->get_offset = dasher_editor_external_get_offset;
-  pParentClass->grab_focus = dasher_editor_external_grab_focus;
-  pParentClass->get_all_text = dasher_editor_external_get_all_text;
-  pParentClass->get_new_text = dasher_editor_external_get_new_text;
-}
-
-static void 
-dasher_editor_external_init(DasherEditorExternal *pDasherControl) {
-  DasherEditorExternalPrivate *pPrivate = DASHER_EDITOR_EXTERNAL_GET_PRIVATE(pDasherControl);
-
-  pPrivate->pDasherMain = NULL;
-  pPrivate->pAppSettings = NULL;
-}
-
-static void 
-dasher_editor_external_finalize(GObject *pObject) {
-  DasherEditorExternalPrivate *pPrivate = DASHER_EDITOR_EXTERNAL_GET_PRIVATE(DASHER_EDITOR_EXTERNAL(pObject));
-#ifdef GNOME_A11Y
-  SPI_deregisterGlobalEventListener(pPrivate->pFocusListener, "focus:");
-  SPI_deregisterGlobalEventListener(pPrivate->pCaretListener, "object:text-caret-moved");
-#endif
-}
-
-/* Public methods */
-DasherEditorExternal *
-dasher_editor_external_new() {
-  return
-    DASHER_EDITOR_EXTERNAL(g_object_new(DASHER_TYPE_EDITOR_EXTERNAL, NULL));
-}
-
-static void
-dasher_editor_external_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, DasherMain *pDasherMain, GtkBuilder *pXML, const gchar *szFullPath) {
-
-  DasherEditorExternalPrivate *pPrivate = DASHER_EDITOR_EXTERNAL_GET_PRIVATE(pSelf);
-
-  pPrivate->pAppSettings = pAppSettings;
-  pPrivate->pDasherMain = pDasherMain;
-
-  dasher_editor_external_create_buffer(pSelf);
-}
-
-static void 
-dasher_editor_external_grab_focus(DasherEditor *pSelf) {
-}
-
-static void 
+void
 dasher_editor_external_create_buffer(DasherEditor *pSelf) {
-  DasherEditorExternalPrivate *pPrivate = DASHER_EDITOR_EXTERNAL_GET_PRIVATE(pSelf);
+  DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
 #ifdef GNOME_A11Y
 
@@ -188,12 +57,12 @@ dasher_editor_external_create_buffer(DasherEditor *pSelf) {
 #endif
 }
 
-static void 
+void
 dasher_editor_external_output(DasherEditor *pSelf, const gchar *szText, int iOffset) {
   sendText(szText);
 }
 
-static void 
+void
 dasher_editor_external_delete(DasherEditor *pSelf, int iLength, int iOffset) {
 #ifdef GNOME_A11Y
   if(!initSPI()) return;
@@ -212,10 +81,10 @@ dasher_editor_external_delete(DasherEditor *pSelf, int iLength, int iOffset) {
 #endif
 }
 
-static const gchar *
+const gchar *
 dasher_editor_external_get_context(DasherEditor *pSelf, int iOffset, int iLength) {
 #ifdef GNOME_A11Y
-  DasherEditorExternalPrivate *pPrivate = DASHER_EDITOR_EXTERNAL_GET_PRIVATE(pSelf);
+  DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
   if(pPrivate->pAccessibleText)
     return AccessibleText_getText(pPrivate->pAccessibleText, iOffset, iOffset + iLength);
   else
@@ -225,10 +94,10 @@ dasher_editor_external_get_context(DasherEditor *pSelf, int iOffset, int iLength
 #endif
 }
 
-static gint 
+gint
 dasher_editor_external_get_offset(DasherEditor *pSelf) {
 #ifdef GNOME_A11Y
-  DasherEditorExternalPrivate *pPrivate = DASHER_EDITOR_EXTERNAL_GET_PRIVATE(pSelf);
+  DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
   
   if(!pPrivate->pAccessibleText)
     return 0;
@@ -242,26 +111,9 @@ dasher_editor_external_get_offset(DasherEditor *pSelf) {
 #endif
 }
 
-static gboolean 
-dasher_editor_external_command(DasherEditor *pSelf, const gchar *szCommand) {
-  return FALSE;
-}
-
-static const gchar *
-dasher_editor_external_get_all_text(DasherEditor *pSelf) { 
-  return "";
-}
-
-static const gchar *
-dasher_editor_external_get_new_text(DasherEditor *pSelf) { 
-  return NULL;
-}
-
-/* Callback Functions */
-
 #ifdef GNOME_A11Y
-void dasher_editor_external_handle_focus(DasherEditorExternal *pSelf, const AccessibleEvent *pEvent) {
-  DasherEditorExternalPrivate *pPrivate = DASHER_EDITOR_EXTERNAL_GET_PRIVATE(pSelf);
+void dasher_editor_external_handle_focus(DasherEditorInternal *pSelf, const AccessibleEvent *pEvent) {
+  DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
   //  g_message("Focus");
   
@@ -298,9 +150,9 @@ void dasher_editor_external_handle_focus(DasherEditorExternal *pSelf, const Acce
   Accessible_unref(accessible);
 }
 
-void dasher_editor_external_handle_caret(DasherEditorExternal *pSelf, const AccessibleEvent *pEvent) {
+void dasher_editor_external_handle_caret(DasherEditorInternal *pSelf, const AccessibleEvent *pEvent) {
   //  g_message("Caret");
- DasherEditorExternalPrivate *pPrivate = DASHER_EDITOR_EXTERNAL_GET_PRIVATE(pSelf);
+ DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
  //  g_message("Focus");
   
@@ -358,11 +210,11 @@ void dasher_editor_external_handle_caret(DasherEditorExternal *pSelf, const Acce
 }
 
 void focus_listener(const AccessibleEvent *pEvent, void *pUserData) {
-  dasher_editor_external_handle_focus((DasherEditorExternal *)pUserData, pEvent);
+  dasher_editor_external_handle_focus((DasherEditorInternal *)pUserData, pEvent);
 }
 
 void caret_listener(const AccessibleEvent *pEvent, void *pUserData) {
-  dasher_editor_external_handle_caret((DasherEditorExternal *)pUserData, pEvent);
+  dasher_editor_external_handle_caret((DasherEditorInternal *)pUserData, pEvent);
 }
 
 #endif

@@ -388,22 +388,7 @@ dasher_main_load_interface(DasherMain *pSelf) {
 #endif
   szPrefGUIFilename = PROGDATA "/dashermaemo.preferences.ui";
 #else
-  switch(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE)) {
-  case APP_STYLE_TRAD:
-    szGUIFilename = PROGDATA "/dasher.traditional.ui";
-    break;
-  case APP_STYLE_COMPOSE:
-    szGUIFilename = PROGDATA "/dasher.compose.ui";
-    break;
-  case APP_STYLE_DIRECT:
-    szGUIFilename = PROGDATA "/dasher.direct.ui";
-    break;
-  case APP_STYLE_FULLSCREEN:
-    szGUIFilename = PROGDATA "/dasher.fullscreen.ui";
-    break;
-  default:
-    g_error("Inconsistent application style specified.");
-  }
+  szGUIFilename = PROGDATA "/dasher.traditional.ui";
   szPrefGUIFilename = PROGDATA "/dasher.preferences.ui";
 #endif
 
@@ -562,6 +547,7 @@ dasher_main_load_interface(DasherMain *pSelf) {
     gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "tb_command_copy")));
     gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "tb_command_paste")));
     gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "separatortoolitem2")));
+    gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "DasherEditor")));
   }
     
   // TODO: szFullPath

@@ -10,9 +10,8 @@
 #include <gdk/gdkx.h>
 #include <signal.h>
 #include <Gtk2/DasherAppSettings.h>
-/* Just to make sure the symbols for the editors are visible. */
+/* Just to make sure the symbols for the editor are visible. */
 #include <Gtk2/dasher_editor_internal.h>
-#include <Gtk2/dasher_editor_external.h>
 
 #ifdef WITH_MAEMO
 #include <libosso.h>
@@ -230,7 +229,6 @@ int main(int argc, char *argv[]) {
 
   // This call is just to force the linker to export the following symbols.
   dasher_editor_internal_get_type();
-  dasher_editor_external_get_type();
 
   // 10.
   gtk_main();

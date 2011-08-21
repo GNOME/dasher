@@ -9,7 +9,12 @@
 #endif
 #include <gtk/gtk.h>
 
+#ifdef GNOME_A11Y
+#include <cspi/spi.h>
+#endif
+
 #include "dasher_editor_internal.h"
+#include "dasher_editor_external.h"
 #include "dasher_lock_dialogue.h"
 #include "dasher_main.h"
 #include "../DasherCore/ControlManager.h"
@@ -34,6 +39,13 @@ struct _DasherEditorInternalPrivate {
   gboolean bConversionMode;
   gint iLastOffset;
   gint iCurrentState; // 0 = unconverted, 1 = converted
+
+  // for direct mode:
+#ifdef GNOME_A11Y
+  AccessibleEventListener *pFocusListener;
+  AccessibleEventListener *pCaretListener;
+  AccessibleText *pAccessibleText;
+#endif
 
   //Paralleling the previous approach in dasher_main, we _don't_ send context_changed
   // events if we're in the middle of executing a control action (as this would rebuild
@@ -120,6 +132,11 @@ extern "C" void handle_request_settings(GtkDasherControl * pDasherControl, gpoin
 extern "C" void gtk2_edit_delete_callback(GtkDasherControl *pDasherControl, const gchar *szText, int iOffset, gpointer user_data);
 extern "C" void gtk2_edit_output_callback(GtkDasherControl *pDasherControl, const gchar *szText, int iOffset, gpointer user_data);
 
+static gboolean
+isdirect(DasherAppSettings *pAppSettings) {
+  return (dasher_app_settings_get_long(pAppSettings, APP_LP_STYLE) == APP_STYLE_DIRECT);
+}
+
 static void
 dasher_editor_internal_class_init(DasherEditorInternalClass *pClass) {
   g_type_class_add_private(pClass, sizeof(DasherEditorInternalPrivate));
@@ -128,6 +145,7 @@ dasher_editor_internal_class_init(DasherEditorInternalClass *pClass) {
   pObjectClass->finalize = dasher_editor_internal_finalize;
 
   DasherEditorClass *pParentClass = (DasherEditorClass *)pClass;
+
   pParentClass->initialise = dasher_editor_internal_initialise;
   pParentClass->game_text_buffer = dasher_editor_internal_game_text_buffer;
   pParentClass->command = dasher_editor_internal_command;
@@ -191,6 +209,11 @@ static void
 dasher_editor_internal_finalize(GObject *pObject) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pObject);
 
+#ifdef GNOME_A11Y
+  SPI_deregisterGlobalEventListener(pPrivate->pFocusListener, "focus:");
+  SPI_deregisterGlobalEventListener(pPrivate->pCaretListener, "object:text-caret-moved");
+#endif
+
   if(pPrivate->szFilename)
     g_free(pPrivate->szFilename);
 }
@@ -214,8 +237,11 @@ dasher_editor_internal_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSe
 				     dasher_app_settings_get_string(pPrivate->pAppSettings,
 								    APP_SP_EDIT_FONT));
 
-  // TODO: is this still needed?
-  dasher_editor_internal_create_buffer(pSelf);
+  if (isdirect(pAppSettings))
+    dasher_editor_external_create_buffer(pSelf);
+  else
+    // TODO: is this still needed?
+    dasher_editor_internal_create_buffer(pSelf);
 
   // TODO: see note in command_new method
   if(szFullPath)
@@ -337,6 +363,9 @@ void
 dasher_editor_internal_output(DasherEditor *pSelf, const gchar *szText, int iOffset) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
+  if (isdirect(pPrivate->pAppSettings))
+    return dasher_editor_external_output(pSelf, szText, iOffset);
+
   gtk_text_buffer_delete_selection(pPrivate->pBuffer, false, true );
 
   GtkTextIter sIter;
@@ -371,6 +400,9 @@ void
 dasher_editor_internal_delete(DasherEditor *pSelf, int iLength, int iOffset) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
+  if (isdirect(pPrivate->pAppSettings))
+    return dasher_editor_external_delete(pSelf, iLength, iOffset);
+
   GtkTextIter end;
 
   //Dasher offset 0 = "the first character"; Gtk Text Buffer offset 0
@@ -393,6 +425,9 @@ const gchar *
 dasher_editor_internal_get_context(DasherEditor *pSelf, int iOffset, int iLength) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
+  if (isdirect(pPrivate->pAppSettings))
+    return dasher_editor_external_get_context(pSelf, iOffset, iLength);
+
   //  g_message("Buffer lenght: %d", gtk_text_buffer_get_char_count(pPrivate->pBuffer));
 
   GtkTextIter start;
@@ -407,6 +442,10 @@ dasher_editor_internal_get_context(DasherEditor *pSelf, int iOffset, int iLength
 gint
 dasher_editor_internal_get_offset(DasherEditor *pSelf) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
+
+  if (isdirect(pPrivate->pAppSettings))
+    return dasher_editor_external_get_offset(pSelf);
+
   GtkTextIter iter1,iter2;
   gtk_text_buffer_get_iter_at_mark(pPrivate->pBuffer, &iter1, gtk_text_buffer_get_insert(pPrivate->pBuffer));
   gtk_text_buffer_get_iter_at_mark(pPrivate->pBuffer, &iter2, gtk_text_buffer_get_selection_bound(pPrivate->pBuffer));
@@ -1209,3 +1248,5 @@ main_window_realized(DasherMain *pMain, gpointer pUserData) {
 extern "C" void mark_set_handler(GtkWidget *widget, GtkTextIter *pIter, GtkTextMark *pMark, gpointer pUserData) {
   dasher_editor_internal_mark_changed(DASHER_EDITOR_INTERNAL(pUserData), pIter, pMark);
 }
+
+#include "dasher_editor_external.cpp"
