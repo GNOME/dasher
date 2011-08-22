@@ -97,8 +97,6 @@ dasher_editor_class_init(DasherEditorClass *pClass) {
   pClass->get_new_text = NULL;
   pClass->output = NULL;
   pClass->delete_text = NULL;
-  pClass->start_compose = NULL;
-  pClass->end_compose = NULL;
   pClass->get_context = NULL;
   pClass->get_offset = NULL;
   pClass->ctrl_move = NULL;
@@ -178,19 +176,6 @@ dasher_editor_delete(DasherEditor *pSelf, int iLength, int iOffset) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->delete_text)
     DASHER_EDITOR_GET_CLASS(pSelf)->delete_text(pSelf, iLength, iOffset);
 }
-
-void
-dasher_editor_start_compose(DasherEditor *pSelf) {
-  if(DASHER_EDITOR_GET_CLASS(pSelf)->start_compose)
-    DASHER_EDITOR_GET_CLASS(pSelf)->start_compose(pSelf);
-}
-
-void
-dasher_editor_end_compose(DasherEditor *pSelf, bool bKeep) {
-  if(DASHER_EDITOR_GET_CLASS(pSelf)->end_compose)
-    DASHER_EDITOR_GET_CLASS(pSelf)->end_compose(pSelf, bKeep);
-}
-
 
 const gchar *
 dasher_editor_get_context(DasherEditor *pSelf, int iOffset, int iLength) {

@@ -39,8 +39,6 @@ struct _DasherEditorClass {
   const gchar *(*get_new_text)(DasherEditor *);
   void (*output)(DasherEditor *, const gchar *, int);
   void (*delete_text)(DasherEditor *, int, int);
-  void (*start_compose)(DasherEditor *);
-  void (*end_compose)(DasherEditor *, bool);
   const gchar *(*get_context)(DasherEditor *, int, int);
   gint (*get_offset)(DasherEditor *);
   void (*handle_parameter_change)(DasherEditor *, gint);
