@@ -2,10 +2,6 @@
 # Please keep this file sorted alphabetically.
 # Use "make check" to check for missing files:
 Data/dasher.desktop.in.in
-[type: gettext/glade]Data/GUI/dasher.compose.ui
-[type: gettext/glade]Data/GUI/dasher.direct.ui
-[type: gettext/glade]Data/GUI/dasher.fullscreen.ui
-[type: gettext/glade]Data/GUI/dasher.gameWIP.ui
 [type: gettext/glade]Data/GUI/dasher.preferences.ui
 [type: gettext/glade]Data/GUI/dasher.traditional.ui
 [type: gettext/glade]Data/GUI/dashermaemo.ui
@@ -36,9 +32,6 @@ Src/DasherCore/StylusFilter.h
 Src/DasherCore/Trainer.cpp
 Src/DasherCore/TwoButtonDynamicFilter.cpp
 Src/DasherCore/TwoPushDynamicFilter.cpp
-Src/Gtk2/dasher_action_keyboard.cpp
-Src/Gtk2/dasher_action_keyboard_maemo.cpp
-Src/Gtk2/dasher_action_script.cpp
 Src/Gtk2/DasherAppSettings.cpp
 Src/Gtk2/dasher_editor_internal.cpp
 Src/Gtk2/dasher_main.cpp
