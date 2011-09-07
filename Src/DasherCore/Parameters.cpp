@@ -108,7 +108,6 @@ const lp_table longparamtable[] = {
 #else
   {LP_NONLINEAR_X, "NonLinearX", PERS, 5, "Nonlinear compression of X-axis (0 = none, higher = more extreme)"},
 #endif
-  {LP_BOOSTFACTOR, "BoostFactor", !PERS, 100, "Boost/brake factor (multiplied by 100)"},
   {LP_AUTOSPEED_SENSITIVITY, "AutospeedSensitivity", PERS, 100, "Sensitivity of automatic speed control (percent)"},
   {LP_SOCKET_PORT, "SocketPort", PERS, 20320, "UDP/TCP socket to use for network socket input"},
   {LP_SOCKET_INPUT_X_MIN, "SocketInputXMinTimes1000", PERS, 0, "Bottom of range of X values expected from network input"},

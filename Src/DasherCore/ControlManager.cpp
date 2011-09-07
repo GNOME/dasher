@@ -124,17 +124,6 @@ void CControlBase::CContNode::Output() {
   m_pTemplate->happen(this);
 }
 
-void CControlBase::CContNode::Enter() {
-  // Slow down to half the speed we were at. This also disables auto-speed-control.
-  m_pMgr->SetLongParameter(LP_BOOSTFACTOR, 50);
-}
-
-
-void CControlBase::CContNode::Leave() {
-  // Now speed back up, by doubling the speed we were at in control mode
-  m_pMgr->SetLongParameter(LP_BOOSTFACTOR, 100);
-}
-
 const vector<CControlBase::NodeTemplate *> &CControlParser::parsedNodes() {
   return m_vParsed;
 }

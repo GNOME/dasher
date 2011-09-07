@@ -39,7 +39,7 @@ bool CDynamicButtons::Timer(unsigned long iTime, CDasherView *pDasherView, CDash
   }
   if (isPaused()) return false;
   if (isReversing()) {
-    OneStepTowards(m_pDasherModel, 41943,2048, iTime, SlowStartSpeedMul(iTime));
+    OneStepTowards(m_pDasherModel, 41943,2048, iTime, FrameSpeedMul(m_pDasherModel, iTime));
     return true;
   }
   //moving forwards. Check auto speed control...

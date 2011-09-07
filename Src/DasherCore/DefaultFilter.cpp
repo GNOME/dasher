@@ -129,13 +129,13 @@ bool CDefaultFilter::Timer(unsigned long Time, CDasherView *pView, CDasherInput 
       }
     }
 
-    double dSpeedMul(SlowStartSpeedMul(Time));
+    double dSpeedMul(FrameSpeedMul(m_pDasherModel, Time));
     if (m_bTurbo) dSpeedMul*=1.75;
     
     OneStepTowards(m_pDasherModel, m_iLastX,m_iLastY, Time, dSpeedMul);
     bDidSomething = true;
 
-    if (GetLongParameter(LP_BOOSTFACTOR)==100 && dSpeedMul==1.0)
+    if (dSpeedMul==1.0)
       m_pAutoSpeedControl->SpeedControl(m_iLastX, m_iLastY, pView);
   }
 

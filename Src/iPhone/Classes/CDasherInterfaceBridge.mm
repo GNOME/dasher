@@ -186,7 +186,7 @@ void CDasherInterfaceBridge::HandleEvent(int iParameter) {
   // user defaults controller which is observing the user defaults and will be notified when
   // the parameter is actually written by COSXSettingsStore.
   //NSLog(@"CParameterNotificationEvent, m_iParameter: %d", parameterEvent->m_iParameter);
-  if (iParameter == LP_MAX_BITRATE || iParameter == LP_BOOSTFACTOR)
+  if (iParameter == LP_MAX_BITRATE)
     [dasherApp notifySpeedChange];
   else if (iParameter == SP_ALPHABET_ID)
     [dasherApp setAlphabet:GetActiveAlphabet()];

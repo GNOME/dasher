@@ -135,12 +135,15 @@ m_dLogUpMul = log(dOuter / (double)GetLongParameter(LP_TWO_PUSH_UP));
 m_dLogDownMul = log(dOuter / (double)GetLongParameter(LP_TWO_PUSH_DOWN));
 //cout << "bitsUp " << m_dLogUpMul << " bitsDown " << m_dLogDownMul << "\n";
     } //and fallthrough
-    case LP_TWO_PUSH_TOLERANCE:
+    case LP_TWO_PUSH_TOLERANCE: //deliberate fallthrough
     case LP_MAX_BITRATE:
-    case LP_BOOSTFACTOR: // Deliberate fallthrough
     {
-double dMaxRate = GetLongParameter(LP_MAX_BITRATE) * GetLongParameter(LP_BOOSTFACTOR) / 10000.0;
-double dPressBits = dMaxRate * (double) GetLongParameter(LP_TWO_PUSH_TOLERANCE) / 1000.0;
+      //dPressBits just measures the number of bits which would be output in the
+      // tolerance time, at full (100%) speed; note it does not take account of
+      // the SpeedMul (viscosity) of the node under the cursor (or Slow Start, etc.)
+      // - iow, when we are moving slowly for such a reason, we'll be proportionately
+      // _more_ tolerant of user inaccuracy in button pushing...
+double dPressBits = GetLongParameter(LP_MAX_BITRATE)/100.0 * (double) GetLongParameter(LP_TWO_PUSH_TOLERANCE) / 1000.0;
 //cout << "Max Bitrate changed - now " << dMaxRate << " user accuracy " << dPressBits;
 m_dMinShortTwoPushTime = m_dLogUpMul - dPressBits;
 //cout << "bits; minShort " << m_dMinShortTwoPushTime;
@@ -154,16 +157,17 @@ m_dMaxLongTwoPushTime = m_dLogDownMul + dPressBits;
 m_bDecorationChanged = true;
    }  //and fallthrough again
    case LP_DYNAMIC_BUTTON_LAG:
-   {
-     double dMaxRate = GetLongParameter(LP_MAX_BITRATE) * GetLongParameter(LP_BOOSTFACTOR) / 10000.0;
-     m_dLagBits = dMaxRate * GetLongParameter(LP_DYNAMIC_BUTTON_LAG)/1000.0;
+     m_dLagBits = GetLongParameter(LP_MAX_BITRATE)/100.0 * GetLongParameter(LP_DYNAMIC_BUTTON_LAG)/1000.0;
 //cout << " lag (" << m_dLagBits[0] << ", " << m_dLagBits[1] << ", " << m_dLagBits[2] << ", " << m_dLagBits[3] << ")";
+      //these areas should really be calculated using short/long push-times modified by the
+      // current FrameSpeedMul, which we'd have to do every frame. For now I'm not, so the guide
+      // areas will be wrong when the speed multiplier is other than 1.0. TODO reconsider, esp.
+      // wrt. possibly memoizing exp() in CDynamicFilter?
      m_aaiGuideAreas[0][0] = 2048 - GetLongParameter(LP_TWO_PUSH_UP)*exp(m_dMaxShortTwoPushTime);
      m_aaiGuideAreas[0][1] = 2048 - GetLongParameter(LP_TWO_PUSH_UP)*exp(m_dMinShortTwoPushTime);
      m_aaiGuideAreas[1][0] = 2048 + GetLongParameter(LP_TWO_PUSH_DOWN)*exp(m_dMinLongTwoPushTime);
      m_aaiGuideAreas[1][1] = 2048 + GetLongParameter(LP_TWO_PUSH_DOWN)*exp(m_dMaxLongTwoPushTime);
      break;
-   }
   }
 }
 
@@ -223,6 +227,7 @@ bool doSet(int &var, const int val)
 bool CTwoPushDynamicFilter::TimerImpl(unsigned long iTime, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol)
 {
   DASHER_ASSERT(isRunning());
+  const double dSpeedMul(FrameSpeedMul(m_pDasherModel, iTime));
   if (m_dNatsSinceFirstPush > -std::numeric_limits<double>::infinity()) // first button has been pushed
   {
     double dLogGrowth(m_pDasherModel->GetNats() - m_dNatsSinceFirstPush), dOuter(GetLongParameter(LP_TWO_PUSH_OUTER)),
@@ -236,14 +241,14 @@ bool CTwoPushDynamicFilter::TimerImpl(unsigned long iTime, CDasherView *m_pDashe
     double dUpBits = (m_dLogUpMul * dOuter + dLogGrowth * dUp) / (dOuter + dUp);
     double dDownBits = (m_dLogDownMul * dOuter + dLogGrowth * dDown) / (dOuter + dDown);
     
-    // (note it's actually slightly more complicated even than that, we have to add in m_dLagBits too!)
-
     double dUpDist = exp( dUpBits ) * dUp;
     double dDownDist = exp( dDownBits ) * dDown;
-    m_aiTarget[0] = dUpDist * exp(m_dLagBits);
-    m_aiTarget[1] = -dDownDist * exp(m_dLagBits);
-    m_bDecorationChanged |= doSet(m_aiMarker[0], 2048 - exp(m_dLagBits + dLogGrowth) * dUp);
-    m_bDecorationChanged |= doSet(m_aiMarker[1], 2048 + exp(m_dLagBits + dLogGrowth) * dDown);
+    // (note it's actually slightly more complicated even than that, we have to add in m_dLagBits too!)
+    
+    m_aiTarget[0] = dUpDist * exp(m_dLagBits * dSpeedMul);
+    m_aiTarget[1] = -dDownDist * exp(m_dLagBits * dSpeedMul);
+    m_bDecorationChanged |= doSet(m_aiMarker[0], 2048 - exp(m_dLagBits*dSpeedMul + dLogGrowth) * dUp);
+    m_bDecorationChanged |= doSet(m_aiMarker[1], 2048 + exp(m_dLagBits*dSpeedMul + dLogGrowth) * dDown);
     if (dLogGrowth > m_dMaxLongTwoPushTime)
     {
 //cout << " growth " << dLogGrowth << " - reversing\n";
@@ -256,7 +261,7 @@ bool CTwoPushDynamicFilter::TimerImpl(unsigned long iTime, CDasherView *m_pDashe
       m_bDecorationChanged |= doSet(m_iActiveMarker, 1 /*down*/);
     else m_bDecorationChanged |= doSet(m_iActiveMarker, -1 /*in middle (neither/both) or too short*/);
   }
-  OneStepTowards(m_pDasherModel, 100, 2048, iTime, SlowStartSpeedMul(iTime));
+  OneStepTowards(m_pDasherModel, 100, 2048, iTime, dSpeedMul);
   return true;
 }
 

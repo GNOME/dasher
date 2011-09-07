@@ -109,7 +109,7 @@ void COneButtonDynamicFilter::KeyUp(unsigned long Time, int iId, CDasherView *pD
 }
 
 bool COneButtonDynamicFilter::TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) {
-  OneStepTowards(m_pDasherModel, m_iTargetX[m_iTarget], m_iTargetY[m_iTarget], Time, SlowStartSpeedMul(Time));
+  OneStepTowards(m_pDasherModel, m_iTargetX[m_iTarget], m_iTargetY[m_iTarget], Time, FrameSpeedMul(m_pDasherModel, Time));
   return true;
 }
 

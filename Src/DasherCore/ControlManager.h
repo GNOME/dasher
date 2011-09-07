@@ -63,6 +63,7 @@ namespace Dasher {
       CContNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, NodeTemplate *pTemplate, CControlBase *pMgr);
 
       bool bShove() {return false;}
+      double SpeedMul() {return 0.5;}
       ///
       /// Provide children for the supplied node
       ///
@@ -71,9 +72,6 @@ namespace Dasher {
       virtual int ExpectedNumChildren();
 
       virtual void Output();
-
-      virtual void Enter();
-      virtual void Leave();
 
     private:
       NodeTemplate *m_pTemplate;

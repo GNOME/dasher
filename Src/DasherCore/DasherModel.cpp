@@ -75,8 +75,6 @@ CDasherModel::CDasherModel(CSettingsUser *pCreateFrom)
 }
 
 CDasherModel::~CDasherModel() {
-  if (m_pLastOutput) m_pLastOutput->Leave();
-
   if(oldroots.size() > 0) {
     delete oldroots[0];
     oldroots.clear();
@@ -203,8 +201,6 @@ void CDasherModel::SetOffset(int iOffset, CAlphabetManager *pMgr, CDasherView *p
   // (if we have a root, only rebuild to move location or if bForce says to)
   if (m_Root && iOffset == GetOffset() && !bForce) return;
 
-  if (m_pLastOutput) m_pLastOutput->Leave();
-
   ClearRootQueue();
   delete m_Root;
 
@@ -215,7 +211,6 @@ void CDasherModel::SetOffset(int iOffset, CAlphabetManager *pMgr, CDasherView *p
     // rather than a character node (responsible for the last said preceding character),
     // but even so, it seems fair enough to say we've "seen" the root:
     m_Root->SetFlag(NF_SEEN, true);
-    m_Root->Enter();
     // (of course, we don't do Output() - the context contains it already!)
     m_pLastOutput = m_Root;
 
@@ -249,6 +244,10 @@ void CDasherModel::SetOffset(int iOffset, CAlphabetManager *pMgr, CDasherView *p
 int CDasherModel::GetOffset() {
   return m_pLastOutput ? m_pLastOutput->offset()+1 : m_Root ? m_Root->offset()+1 : 0;
 };
+
+CDasherNode *CDasherModel::Get_node_under_crosshair() {
+  return m_pLastOutput;
+}
 
 void CDasherModel::Get_new_root_coords(dasherint X, dasherint Y, dasherint &r1, dasherint &r2, int iSteps, dasherint iMinSize) {
   DASHER_ASSERT(m_Root != NULL);
@@ -432,8 +431,6 @@ void CDasherModel::OutputTo(CDasherNode *pNewNode) {
   //first, recurse back up to last seen node (must be processed ancestor-first)
   if (pNewNode && !pNewNode->GetFlag(NF_SEEN)) {
     OutputTo(pNewNode->Parent());
-    if (pNewNode->Parent()) pNewNode->Parent()->Leave();
-    pNewNode->Enter();
 
     m_pLastOutput = pNewNode;
     pNewNode->Output();
@@ -446,12 +443,10 @@ void CDasherModel::OutputTo(CDasherNode *pNewNode) {
       // so we should encounter it on the way back out to the root, _before_ null
       m_pLastOutput->SetFlag(NF_COMMITTED, false);
       m_pLastOutput->Undo();
-      m_pLastOutput->Leave(); //Should we? I think so, but the old code didn't...?
       m_pLastOutput->SetFlag(NF_SEEN, false);
 
       m_pLastOutput = m_pLastOutput->Parent();
-      if (m_pLastOutput) m_pLastOutput->Enter();
-      else DASHER_ASSERT (!pNewNode); //both null
+      DASHER_ASSERT(m_pLastOutput || !pNewNode); //if m_pLastOutput null, then pNewNode is too.
     }
   }
 }
