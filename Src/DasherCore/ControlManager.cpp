@@ -403,7 +403,7 @@ void CControlManager::updateActions() {
   //filter is pauseable, and either 'stop' would do something (so pause is different),
   // or we're told to have a stop node but it would be indistinguishable from pause (=>have pause)
   CInputFilter *pInput(m_pInterface->GetActiveInputMethod());
-  if (pInput->supportsPause() && (m_pInterface->hasDone() || GetBoolParameter(BP_CONTROL_MODE_HAS_HALT)))
+  if (pInput && pInput->supportsPause() && (m_pInterface->hasDone() || GetBoolParameter(BP_CONTROL_MODE_HAS_HALT)))
     vRootSuccessors.push_back(m_pPause);
   if (it!=vOldRootSuccessors.end() && *it == m_pPause) it++;
 

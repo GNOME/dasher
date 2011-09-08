@@ -12,7 +12,7 @@ void CDashIntfScreenMsgs::Message(const string &strText, bool bInterrupt) {
   CDasherScreen::Label *lab = m_DasherScreen->MakeLabel(strText,GetLongParameter(LP_MESSAGE_FONTSIZE));
   if (bInterrupt) {
     m_dqModalMessages.push_back(pair<CDasherScreen::Label*,bool>(lab,false));
-    GetActiveInputMethod()->pause();
+    if (CInputFilter *fil=GetActiveInputMethod()) fil->pause();
   }
   else
     m_dqAsyncMessages.push_back(pair<CDasherScreen::Label*,unsigned long>(lab, 0));

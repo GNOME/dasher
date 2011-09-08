@@ -360,6 +360,12 @@ public:
   ///
   virtual int GetFileSize(const std::string &strFileName) = 0;
 
+  ///Gets a pointer to the game module. Will return null if game mode
+  /// is not on.
+  CGameModule *GetGameModule() {
+    return m_pGameModule;
+  }
+
 protected:
 
   /// @name Startup

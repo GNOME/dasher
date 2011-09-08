@@ -44,7 +44,7 @@
 #include "ClickFilter.h"
 #include "CompassMode.h"
 #include "DefaultFilter.h"
-
+#include "DemoFilter.h"
 #include "OneButtonFilter.h"
 #include "OneButtonDynamicFilter.h"
 #include "OneDimensionalFilter.h"
@@ -157,11 +157,16 @@ void CDasherInterfaceBase::Realize(unsigned long ulTime) {
 
   CreateModules();
 
-  CreateInput();
-  CreateInputFilter();
-
   ChangeAlphabet(); // This creates the NodeCreationManager, the Alphabet,
   //and the tree of nodes in the model.
+
+  CreateInput();
+  CreateInputFilter();
+  //we may have created a control manager already; in which case, we need
+  // it to realize there's now an inputfilter (which may provide more actions).
+  // So tell it the setting has changed...
+  if (CControlManager *pCon = m_pNCManager->GetControlManager())
+    pCon->HandleEvent(SP_INPUT_FILTER);
 
   HandleEvent(LP_NODE_BUDGET);
 
@@ -808,6 +813,7 @@ void CDasherInterfaceBase::CreateModules() {
   RegisterModule(new CAlternatingDirectMode(this, this));
   RegisterModule(new CCompassMode(this, this));
   RegisterModule(new CStylusFilter(this, this, m_pFramerate));
+  RegisterModule(new CDemoFilter(this, this, m_pFramerate));
 }
 
 void CDasherInterfaceBase::GetPermittedValues(int iParameter, std::vector<std::string> &vList) {

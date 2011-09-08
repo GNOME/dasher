@@ -16,7 +16,7 @@ using namespace std;
 #include "DasherTypes.h"
 #include "DasherInterfaceBase.h"
 #include "WordGeneratorBase.h"
-
+#include "DemoFilter.h"
 
 namespace Dasher {
 
@@ -34,6 +34,7 @@ namespace Dasher {
  */
 class CGameModule : protected CSettingsUser, protected TransientObserver<const CEditEvent *>, protected TransientObserver<CGameNodeDrawEvent*>, private TransientObserver<CDasherNode*>, private TransientObserver<CDasherView*> {
  public:
+  friend class CDemoFilter;
   /**
    * Constructor
    * @param pEventHandler A pointer to the event handler

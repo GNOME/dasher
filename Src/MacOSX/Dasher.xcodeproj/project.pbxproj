@@ -324,6 +324,8 @@
 		33135356102C6D8E00E28220 /* ButtonMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 3313534E102C6D8E00E28220 /* ButtonMode.h */; };
 		3335F60013AB50E9004F9371 /* DashIntfSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3335F5FE13AB50E9004F9371 /* DashIntfSettings.cpp */; };
 		3335F60113AB50E9004F9371 /* DashIntfSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 3335F5FF13AB50E9004F9371 /* DashIntfSettings.h */; };
+		333B409412088AFA00235721 /* DemoFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 333B409212088AFA00235721 /* DemoFilter.cpp */; };
+		333B409512088AFA00235721 /* DemoFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 333B409312088AFA00235721 /* DemoFilter.h */; };
 		3344F0691341297F001FACAB /* UserLogBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344F0681341297F001FACAB /* UserLogBase.cpp */; };
 		334DE238135E3E68007C8D6D /* control.textlabels.xml in Resources */ = {isa = PBXBuildFile; fileRef = 334DE236135E3E68007C8D6D /* control.textlabels.xml */; };
 		334DE239135E3E68007C8D6D /* control.xml in Resources */ = {isa = PBXBuildFile; fileRef = 334DE237135E3E68007C8D6D /* control.xml */; };
@@ -728,6 +730,8 @@
 		3313534E102C6D8E00E28220 /* ButtonMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonMode.h; sourceTree = "<group>"; };
 		3335F5FE13AB50E9004F9371 /* DashIntfSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DashIntfSettings.cpp; sourceTree = "<group>"; };
 		3335F5FF13AB50E9004F9371 /* DashIntfSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashIntfSettings.h; sourceTree = "<group>"; };
+		333B409212088AFA00235721 /* DemoFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DemoFilter.cpp; sourceTree = "<group>"; };
+		333B409312088AFA00235721 /* DemoFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoFilter.h; sourceTree = "<group>"; };
 		3344F0681341297F001FACAB /* UserLogBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserLogBase.cpp; sourceTree = "<group>"; };
 		334DE236135E3E68007C8D6D /* control.textlabels.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = control.textlabels.xml; sourceTree = "<group>"; };
 		334DE237135E3E68007C8D6D /* control.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = control.xml; sourceTree = "<group>"; };
@@ -955,6 +959,8 @@
 				1948BE3C0C226CFD001DFA32 /* DefaultFilter.h */,
 				33DDB9DE13B8AF360001C52D /* DynamicButtons.cpp */,
 				33DDB9DF13B8AF360001C52D /* DynamicButtons.h */,
+				333B409212088AFA00235721 /* DemoFilter.cpp */,
+				333B409312088AFA00235721 /* DemoFilter.h */,
 				3300115010A2EA7700D31B1D /* ExpansionPolicy.cpp */,
 				3300115110A2EA7700D31B1D /* ExpansionPolicy.h */,
 				1948BE3E0C226CFD001DFA32 /* DynamicFilter.cpp */,
@@ -1460,6 +1466,7 @@
 				33FC1D2C13ACE7E7007642CD /* ScreenGameModule.h in Headers */,
 				33C3BDD213854CC000C768E0 /* DasherTextView.h in Headers */,
 				33DDB9E113B8AF360001C52D /* DynamicButtons.h in Headers */,
+				333B409512088AFA00235721 /* DemoFilter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1816,6 +1823,7 @@
 				33FC1D2B13ACE7E7007642CD /* ScreenGameModule.cpp in Sources */,
 				33C3BDD313854CC000C768E0 /* DasherTextView.mm in Sources */,
 				33DDB9E013B8AF360001C52D /* DynamicButtons.cpp in Sources */,
+				333B409412088AFA00235721 /* DemoFilter.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

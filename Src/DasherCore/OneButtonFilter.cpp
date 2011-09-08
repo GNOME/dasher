@@ -4,6 +4,7 @@
 #include "OneButtonFilter.h"
 #include "Event.h"
 #include "DasherScreen.h"
+#include "DasherModel.h"
 
 using namespace Dasher;
 
