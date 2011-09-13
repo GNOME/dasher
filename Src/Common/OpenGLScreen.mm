@@ -13,6 +13,8 @@
 using namespace Dasher;
 using namespace std;
 
+#define BASE_SIZE 32
+
 OpenGLScreen::OpenGLScreen(screenint iWidth, screenint iHeight, GLshort backingWidth, GLshort backingHeight, GLfloat tc_x, GLfloat tc_y, GLuint *_textures)
 : CLabelListScreen(iWidth,iHeight), colourTable(NULL), circ_rad(-1.0f), circ_coords(NULL), circPoints(0), textures(_textures) {
   resize(iWidth,iHeight,backingWidth,backingHeight,tc_x,tc_y);
@@ -205,22 +207,23 @@ OpenGLScreen::AlphabetLetter::AlphabetLetter(OpenGLScreen *pScreen, const string
 }
 
 void OpenGLScreen::AlphabetLetter::PrepareTexture() {
+  
+  sz = static_cast<OpenGLScreen *>(m_pScreen)->TextSize(str,m_iWrapSize ? m_iWrapSize : BASE_SIZE,m_iWrapSize);
+  
   int width=1, height=1;
   GLfloat texw,texh;
-  {
-    CGSize sz = static_cast<OpenGLScreen *>(m_pScreen)->TextSize(str,m_iWrapSize ? m_iWrapSize : 36,m_iWrapSize);
-    while (width<sz.width) width<<=1;
-    while (height<sz.height) height<<=1;
-    texw = sz.width/(float)width;
-    texh = sz.height/(float)height;
-  }
+  
+  while (width<sz.width) width<<=1;
+  while (height<sz.height) height<<=1;
+  texw = sz.width/(float)width;
+  texh = sz.height/(float)height;
 
   char *data = new char[width*height*4];
   CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
   CGContextRef context = CGBitmapContextCreate(data, width, height, 8, width*4, colorSpace, kCGImageAlphaPremultipliedLast);
   CGContextClearRect(context, CGRectMake(0.0, 0.0, width, height));
 
-  static_cast<OpenGLScreen *>(m_pScreen)->RenderStringOntoCGContext(str,context,m_iWrapSize);
+  static_cast<OpenGLScreen *>(m_pScreen)->RenderStringOntoCGContext(str,context,m_iWrapSize ? m_iWrapSize : BASE_SIZE,m_iWrapSize);
 
   glBindTexture(GL_TEXTURE_2D, texture);
   //...but tell the GL _not_ to interpolate between texels, as that results in a _big_
@@ -267,12 +270,12 @@ void OpenGLScreen::DrawString(CDasherScreen::Label *label, screenint x, screenin
   // by the currently selected GL foreground colour
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	glColor4f(colourTable[iColour].r, colourTable[iColour].g, colourTable[iColour].b, 1.0); //so we select the colour we want the text to appear in
-	CGSize sz = TextSize(l->str, iFontSize, l->m_iWrapSize);
+	pair<screenint,screenint> rect = TextSize(label, iFontSize);
 	GLshort coords[8];
 	coords[0] = x; coords[1]=y;
-	coords[2] = x+sz.width; coords[3] = y;
-	coords[4] = x; coords[5] = y+sz.height;
-	coords[6] = x+sz.width; coords[7]=y+sz.height;
+	coords[2] = x+rect.first; coords[3] = y;
+	coords[4] = x; coords[5] = y+rect.second;
+	coords[6] = x+rect.first; coords[7]=y+rect.second;
   glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glVertexPointer(2, GL_SHORT, 0, coords);
@@ -285,8 +288,8 @@ void OpenGLScreen::DrawString(CDasherScreen::Label *label, screenint x, screenin
 
 pair<screenint,screenint> OpenGLScreen::TextSize(CDasherScreen::Label *label, unsigned int iFontSize) {
   const AlphabetLetter *l(static_cast<AlphabetLetter *> (label));
-  CGSize sz = TextSize(l->str, iFontSize, l->m_iWrapSize);
+  const int baseSize(l->m_iWrapSize ? l->m_iWrapSize : BASE_SIZE);
   //apply "ceil" to floating-point width/height ?
-  return pair<screenint,screenint>(sz.width, sz.height);
+  return pair<screenint,screenint>((l->sz.width*iFontSize)/baseSize, (l->sz.height*iFontSize)/baseSize);
 }
 
