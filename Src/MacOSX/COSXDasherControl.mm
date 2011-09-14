@@ -17,6 +17,7 @@
 #import "DasherEdit.h"
 #import "Event.h"
 #import "../Common/Common.h"
+#import "../Common/Globber.h"
 #import "GameModule.h"
 
 #import <iostream>
@@ -76,7 +77,8 @@ private:
 };
 
 COSXDasherControl::COSXDasherControl(DasherApp *aDasherApp)
-: CDashIntfScreenMsgs(new COSXSettingsStore()), dasherApp(aDasherApp), dasherEdit(nil) {
+: CDashIntfScreenMsgs(new COSXSettingsStore()), dasherApp(aDasherApp), dasherEdit(nil),
+  userDir([[NSString stringWithFormat:@"%@/Library/Application Support/Dasher/", NSHomeDirectory()] retain]) {
 }
 
 void COSXDasherControl::CreateModules() {
@@ -96,6 +98,7 @@ COSXDasherControl::~COSXDasherControl() {
   if(m_p1DMouseInput) {
     m_p1DMouseInput = NULL;
   }
+  [userDir release];
 }
 
 void COSXDasherControl::Realize2() {
@@ -103,60 +106,23 @@ void COSXDasherControl::Realize2() {
   [dasherApp startTimer];
 }
 
-void COSXDasherControl::SetupPaths() {
+void COSXDasherControl::ScanFiles(AbstractParser *parser, const string &strPattern) {
 
-  NSString *systemDir = [NSString stringWithFormat:@"%@/", [[NSBundle mainBundle] resourcePath]];
-  NSString *userDir = [NSString stringWithFormat:@"%@/Library/Application Support/Dasher/", NSHomeDirectory()];
+  string strPath(StdStringFromNSString([[NSBundle mainBundle] resourcePath])+"/"+strPattern);
+  const char *sys[2];
+  sys[0] = strPath.c_str();
+  sys[1] = NULL;
   
-  // if the userDir doesn't exist, create it, ready to receive stuff
-  if (![[NSFileManager defaultManager] fileExistsAtPath:userDir isDirectory:NULL]) {
-    (void)[[NSFileManager defaultManager] createDirectoryAtPath:userDir attributes:nil];
+  const char *user[2]; user[1] = NULL;
+  if ([[NSFileManager defaultManager] fileExistsAtPath:userDir isDirectory:NULL]) {
+    user[0] = (StdStringFromNSString(userDir)+strPattern).c_str();
+  } else {
+    // userDir doesn't exist => create it, ready to receive stuff
+    (void)[[NSFileManager defaultManager] createDirectoryAtPath:userDir withIntermediateDirectories:YES attributes:nil error:nil];
+    user[0] = 0;
   }
-    
-    // system resources are inside the .app, under the Resources directory
-  SetStringParameter(SP_SYSTEM_LOC, StdStringFromNSString(systemDir));
-  SetStringParameter(SP_USER_LOC, StdStringFromNSString(userDir));
+  globScan(parser, user, sys);
 }
-
-void COSXDasherControl::ScanAlphabetFiles(std::vector<std::string> &vFileList) {
-  
-  NSDirectoryEnumerator *dirEnum;
-  NSString *file;
-
-  dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:NSStringFromStdString(GetStringParameter(SP_SYSTEM_LOC))];
-  while (file = [dirEnum nextObject]) {
-    if ([file hasSuffix:@".xml"] && [file hasPrefix:@"alphabet"]) {
-      vFileList.push_back(StdStringFromNSString(file));
-    }
-  }  
-  
-  dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:NSStringFromStdString(GetStringParameter(SP_USER_LOC))];
-  while (file = [dirEnum nextObject]) {
-    if ([file hasSuffix:@".xml"] && [file hasPrefix:@"alphabet"]) {
-      vFileList.push_back(StdStringFromNSString(file));
-    }
-  }  
-}
-
-void COSXDasherControl::ScanColourFiles(std::vector<std::string> &vFileList) {
-  NSDirectoryEnumerator *dirEnum;
-  NSString *file;
-  
-  dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:NSStringFromStdString(GetStringParameter(SP_SYSTEM_LOC))];
-  while (file = [dirEnum nextObject]) {
-    if ([file hasSuffix:@".xml"] && [file hasPrefix:@"colour"]) {
-      vFileList.push_back(StdStringFromNSString(file));
-    }
-  }  
-  
-  dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:NSStringFromStdString(GetStringParameter(SP_USER_LOC))];
-  while (file = [dirEnum nextObject]) {
-    if ([file hasSuffix:@".xml"] && [file hasPrefix:@"colour"]) {
-      vFileList.push_back(StdStringFromNSString(file));
-    }
-  }  
-}
-
 
 void COSXDasherControl::goddamn(unsigned long iTime, bool bForceRedraw) {
   NewFrame(iTime, bForceRedraw);
@@ -231,7 +197,7 @@ void COSXDasherControl::WriteTrainFile(const std::string &filename, const std::s
   if(strNewText.length() == 0)
     return;
   
-  std::string strFilename(GetStringParameter(SP_USER_LOC) + filename);
+  std::string strFilename(StdStringFromNSString(userDir) + filename);
   
   NSLog(@"Write train file: %s", strFilename.c_str());
   

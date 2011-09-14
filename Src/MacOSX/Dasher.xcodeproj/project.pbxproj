@@ -392,6 +392,9 @@
 		33FC93390FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33FC93370FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp */; };
 		33FC933A0FEFA2C900A9F08D /* TwoPushDynamicFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 33FC93380FEFA2C900A9F08D /* TwoPushDynamicFilter.h */; };
 		33FC93430FEFA2FB00A9F08D /* FrameRate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33FC93420FEFA2FB00A9F08D /* FrameRate.cpp */; };
+		E7641875142A48AD0031FC91 /* Globber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7641874142A48AD0031FC91 /* Globber.cpp */; };
+		E7641878142A48C70031FC91 /* Globber.h in Headers */ = {isa = PBXBuildFile; fileRef = E7641877142A48C70031FC91 /* Globber.h */; };
+		E7C68E691430824D00440B5B /* Messages.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7C68E681430824D00440B5B /* Messages.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -798,6 +801,9 @@
 		33FC93370FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TwoPushDynamicFilter.cpp; sourceTree = "<group>"; };
 		33FC93380FEFA2C900A9F08D /* TwoPushDynamicFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoPushDynamicFilter.h; sourceTree = "<group>"; };
 		33FC93420FEFA2FB00A9F08D /* FrameRate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameRate.cpp; sourceTree = "<group>"; };
+		E7641874142A48AD0031FC91 /* Globber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Globber.cpp; path = ../Common/Globber.cpp; sourceTree = "<group>"; };
+		E7641877142A48C70031FC91 /* Globber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Globber.h; path = ../Common/Globber.h; sourceTree = "<group>"; };
+		E7C68E681430824D00440B5B /* Messages.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Messages.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -889,6 +895,7 @@
 		1948BDF40C226CFC001DFA32 /* DasherCore */ = {
 			isa = PBXGroup;
 			children = (
+				E7C68E681430824D00440B5B /* Messages.cpp */,
 				3344F0681341297F001FACAB /* UserLogBase.cpp */,
 				33CB6E7F125E2C7A002DB8AD /* WordGeneratorBase.cpp */,
 				33E756A31202D6180012A0E9 /* WordGeneratorBase.h */,
@@ -1256,6 +1263,8 @@
 				196874000C2BDC2E00D63879 /* OpenGLScreen.h */,
 				196874010C2BDC2E00D63879 /* OpenGLScreen.mm */,
 				19F8C7E50C858A2800276B4F /* I18n.h */,
+				E7641874142A48AD0031FC91 /* Globber.cpp */,
+				E7641877142A48C70031FC91 /* Globber.h */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1467,6 +1476,7 @@
 				33FC1D2C13ACE7E7007642CD /* ScreenGameModule.h in Headers */,
 				33C3BDD213854CC000C768E0 /* DasherTextView.h in Headers */,
 				33DDB9E113B8AF360001C52D /* DynamicButtons.h in Headers */,
+				E7641878142A48C70031FC91 /* Globber.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1824,6 +1834,8 @@
 				33FC1D2B13ACE7E7007642CD /* ScreenGameModule.cpp in Sources */,
 				33C3BDD313854CC000C768E0 /* DasherTextView.mm in Sources */,
 				33DDB9E013B8AF360001C52D /* DynamicButtons.cpp in Sources */,
+				E7641875142A48AD0031FC91 /* Globber.cpp in Sources */,
+				E7C68E691430824D00440B5B /* Messages.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

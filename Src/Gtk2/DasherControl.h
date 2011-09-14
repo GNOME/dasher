@@ -167,9 +167,7 @@ public:
 
   CGameModule *CreateGameModule(CDasherView *pView, CDasherModel *pModel);
 private:
-  virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
-  virtual void ScanColourFiles(std::vector<std::string> &vFileList);
-  virtual void SetupPaths();
+  virtual void ScanFiles(AbstractParser *parser, const std::string &strPattern);
   virtual void CreateModules();
 
   GtkWidget *m_pVBox;
@@ -193,6 +191,9 @@ private:
   ///
 
   GtkDasherControl *m_pDasherControl;
+
+  //full path of user data directory, including trailing /
+  const char *m_user_data_dir;
 
   ///
   /// Keyboard helper class

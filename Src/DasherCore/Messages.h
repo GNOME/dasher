@@ -43,6 +43,10 @@ public:
   /// \param bInterrupt if true, text entry should be interrupted; if false, user should
   /// be able to continue writing uninterrupted.
   virtual void Message(const std::string &strText, bool bInterrupt)=0;
+  
+  ///Utility method for common case of displaying a modal message with a format
+  /// string containing a single %s.
+  void FormatMessageWithString(const char* fmt, const char* str);
 };
 
 /// @}

@@ -6,7 +6,7 @@
 #include "AbstractXMLParser.h"
 
 namespace Dasher {
-  class CTrainer : private AbstractXMLParser {
+  class CTrainer : public AbstractParser {
             
   public:
     CTrainer(CMessageDisplay *pMsgs, CLanguageModel *pLanguageModel, const CAlphInfo *pInfo, const CAlphabetMap *pAlphabet);
@@ -16,13 +16,12 @@ namespace Dasher {
       virtual void bytesRead(off_t)=0;
     };
     
-    void LoadFile(const std::string &strFileName, ProgressIndicator *pProg=NULL);
+    void SetProgressIndicator(ProgressIndicator *pProg) {m_pProg = pProg;}
+
+    ///Parses a text file; bUser ignored.
+    bool Parse(const std::string &strDesc, std::istream &in, bool bUser);
   
   protected:
-    ///Override AbstractXMLParser methods to extract text in <segment>...</segment> pairs
-    void XmlStartHandler(const XML_Char *szName, const XML_Char **pAtts);
-    void XmlEndHandler(const XML_Char *szName);
-    void XmlCData(const XML_Char *szS, int iLen);
 
     virtual void Train(CAlphabetMap::SymbolStream &syms);
     
@@ -33,19 +32,12 @@ namespace Dasher {
     ///  false, if instead a double-escape-character (=encoding of that actual symbol) was read
     bool readEscape(CLanguageModel::Context &sContext, CAlphabetMap::SymbolStream &syms);
 
-    CMessageDisplay * const m_pMsgs;
     const CAlphabetMap * const m_pAlphabet;
     CLanguageModel * const m_pLanguageModel;
     const CAlphInfo * const m_pInfo;
     // symbol number in alphabet of the context-switch character (maybe 0 if not in alphabet!)
     int m_iCtxEsc;
   private:
-    //For dealing with XML CData:    
-    bool m_bInSegment;
-    std::string m_strCurrentText;
-    ///Number of bytes read up to and including end of _previous_ segment in XML.
-    off_t m_iLastBytes;
-    ///Store ProgressIndicator only when parsing XML
     ProgressIndicator *m_pProg;
   };
 	

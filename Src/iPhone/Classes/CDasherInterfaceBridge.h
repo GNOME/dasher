@@ -69,10 +69,8 @@ public:
   ///Override for asynchronous messages only...TODO?
   void Message(const string &strText, bool bInterrupt);
   Dasher::CGameModule *CreateGameModule(Dasher::CDasherView *pView,Dasher::CDasherModel *pModel);
+  void ScanFiles(AbstractParser *parser, const std::string &strPattern);
 private:
-  virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
-  virtual void ScanColourFiles(std::vector<std::string> &vFileList);
-  virtual void SetupPaths();
   virtual void CreateModules();
   
   ///
@@ -81,6 +79,8 @@ private:
   
   void HandleEvent(int iParameter);
   
+  const NSString * const userPath;
+
   DasherAppDelegate *dasherApp;   // objc counterpart
   	
   Dasher::CIPhoneMouseInput *m_pMouseDevice;

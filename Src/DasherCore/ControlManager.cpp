@@ -128,6 +128,8 @@ const vector<CControlBase::NodeTemplate *> &CControlParser::parsedNodes() {
   return m_vParsed;
 }
 
+///Template used for all node defns read in from XML - just
+/// execute a list of Actions.
 class XMLNodeTemplate : public CControlBase::NodeTemplate {
 public:
   XMLNodeTemplate(const string &label, int color) : NodeTemplate(label, color) {
@@ -146,92 +148,87 @@ public:
   vector<CControlBase::Action*> actions;
 };
 
-bool CControlParser::LoadFile(CMessageDisplay *pMsgs, const string &strFileName) {
-  ///Template used for all node defns read in from XML - just
-  /// execute a list of Actions.
+CControlParser::CControlParser(CMessageDisplay *pMsgs) : AbstractXMLParser(pMsgs) {
+}
 
-  class ParseHandler : public AbstractXMLParser {
-    typedef CControlBase::NodeTemplate NodeTemplate;
-  protected:
-    void XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
-      vector<NodeTemplate *> &parent(nodeStack.empty() ? m_pMgr->m_vParsed : nodeStack.back()->successors);
-      if (strcmp(name,"node")==0) {
-        string label,nodeName; int color=-1;
-        while (*atts) {
-          if (strcmp(*atts,"name")==0) {
-            nodeName=*(atts+1);
-            DASHER_ASSERT(namedNodes.find(nodeName)==namedNodes.end());
-          } else if (strcmp(*atts,"label")==0) {
-            label = *(atts+1);
-          } else if (strcmp(*atts,"color")==0) {
-            color = atoi(*(atts+1));
-          }
-          atts+=2;
-        }
-        XMLNodeTemplate *n = new XMLNodeTemplate(label,color);
-        parent.push_back(n);
-        nodeStack.push_back(n);
-        if (nodeName!="")
-          namedNodes[nodeName]=n; //all refs resolved at end.
-      } else if (strcmp(name,"ref")==0) {
-        string target;
-        while (*atts) {
-          if (strcmp(*atts,"name")==0)
-            target=*(atts+1);
-          atts+=2;
-        }
-        map<string,NodeTemplate*>::iterator it=namedNodes.find(target);
-        if (it!=namedNodes.end())
-          parent.push_back(it->second);
-        else {
-          parent.push_back(NULL);
-          unresolvedRefs.push_back(pair<NodeTemplate**,string>(&(parent.back()),target));
-        }
-      } else if (strcmp(name,"alph")==0) {
-        parent.push_back(NULL);
-      } else if (NodeTemplate *n = m_pMgr->parseOther(name, atts)) {
-        parent.push_back(n);
-      } else if (CControlBase::Action *a=m_pMgr->parseAction(name, atts)) {
-        DASHER_ASSERT(!nodeStack.empty());
-        nodeStack.back()->actions.push_back(a);
-      }
-    }
+bool CControlParser::ParseFile(const string &strFileName, bool bUser) {
+  if (m_bUser) {
+    //have user files
+    if (!bUser) return true; //so ignore system!
+  } else {
+    //have system files (or none)
+    if (bUser) m_vParsed.clear(); //replace system with user
+    m_bUser = true;
+  }
 
-    void XmlEndHandler(const XML_Char *szName) {
-      if (strcmp(szName,"node")==0) {
-        DASHER_ASSERT(!nodeStack.empty());
-        nodeStack.pop_back();
-      }
-    }
-
-  private:
-    ///Following only used in parsing...
-    map<string,NodeTemplate*> namedNodes;
-    vector<pair<NodeTemplate**,string> > unresolvedRefs;
-    vector<XMLNodeTemplate*> nodeStack;
-    CControlParser *m_pMgr;
-  public:
-    ParseHandler(CControlParser *pMgr) : m_pMgr(pMgr) {
-    }
-    void resolveRefs() {
-      //resolve any forward references to nodes declared later
-      for (vector<pair<NodeTemplate**,string> >::iterator it=unresolvedRefs.begin(); it!=unresolvedRefs.end(); it++) {
-        map<string,NodeTemplate*>::iterator target = namedNodes.find(it->second);
-        if (target != namedNodes.end())
-          *(it->first) = target->second;
-      }
-      //somehow, need to clear out any refs that weren't resolved...???
-    }
-  };
-
-  ParseHandler p(this);
-  if (!p.ParseFile(pMsgs, strFileName)) return false;
-  p.resolveRefs();
+  namedNodes.clear();
+  unresolvedRefs.clear();
+  nodeStack.clear();
+  
+  if (!AbstractXMLParser::ParseFile(strFileName, bUser)) return false;
+  //resolve any forward references to nodes declared later
+  for (vector<pair<CControlBase::NodeTemplate**,string> >::iterator it=unresolvedRefs.begin(); it!=unresolvedRefs.end(); it++) {
+    map<string,CControlBase::NodeTemplate*>::iterator target = namedNodes.find(it->second);
+    if (target != namedNodes.end())
+      *(it->first) = target->second;
+  }
+  //somehow, need to clear out any refs that weren't resolved...???
   return true;
 }
 
+void CControlParser::XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
+  vector<CControlBase::NodeTemplate *> &parent(nodeStack.empty() ? m_vParsed : nodeStack.back()->successors);
+  if (strcmp(name,"node")==0) {
+    string label,nodeName; int color=-1;
+    while (*atts) {
+      if (strcmp(*atts,"name")==0) {
+        nodeName=*(atts+1);
+        DASHER_ASSERT(namedNodes.find(nodeName)==namedNodes.end());
+      } else if (strcmp(*atts,"label")==0) {
+        label = *(atts+1);
+      } else if (strcmp(*atts,"color")==0) {
+        color = atoi(*(atts+1));
+      }
+      atts+=2;
+    }
+    XMLNodeTemplate *n = new XMLNodeTemplate(label,color);
+    parent.push_back(n);
+    nodeStack.push_back(n);
+    if (nodeName!="")
+      namedNodes[nodeName]=n; //all refs resolved at end.
+  } else if (strcmp(name,"ref")==0) {
+    string target;
+    while (*atts) {
+      if (strcmp(*atts,"name")==0)
+        target=*(atts+1);
+      atts+=2;
+    }
+    map<string,CControlBase::NodeTemplate*>::iterator it=namedNodes.find(target);
+    if (it!=namedNodes.end())
+      parent.push_back(it->second);
+    else {
+      parent.push_back(NULL);
+      unresolvedRefs.push_back(pair<CControlBase::NodeTemplate**,string>(&(parent.back()),target));
+    }
+  } else if (strcmp(name,"alph")==0) {
+    parent.push_back(NULL);
+  } else if (CControlBase::NodeTemplate *n = parseOther(name, atts)) {
+    parent.push_back(n);
+  } else if (CControlBase::Action *a=parseAction(name, atts)) {
+    DASHER_ASSERT(!nodeStack.empty());
+    static_cast<XMLNodeTemplate*>(nodeStack.back())->actions.push_back(a);
+  }
+}
+
+void CControlParser::XmlEndHandler(const XML_Char *szName) {
+  if (strcmp(szName,"node")==0) {
+    DASHER_ASSERT(!nodeStack.empty());
+    nodeStack.pop_back();
+  }
+}
+
 CControlManager::CControlManager(CSettingsUser *pCreateFrom, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pInterface)
-: CControlBase(pCreateFrom, pInterface, pNCManager), CSettingsObserver(pCreateFrom), m_pSpeech(NULL), m_pCopy(NULL) {
+: CControlParser(pInterface), CControlBase(pCreateFrom, pInterface, pNCManager), CSettingsObserver(pCreateFrom), m_pSpeech(NULL), m_pCopy(NULL) {
   //TODO, used to be able to change label+colour of root/pause/stop from controllabels.xml
   // (or, get the root node title "control" from the alphabet!)
   SetRootTemplate(new NodeTemplate("Control",8)); //default NodeTemplate does nothing
@@ -244,12 +241,7 @@ CControlManager::CControlManager(CSettingsUser *pCreateFrom, CNodeCreationManage
   m_pStop->successors.push_back(NULL);
   m_pStop->successors.push_back(GetRootTemplate());
 
-  //TODO, have a parameter to try first, and if that fails:
-  if(!LoadFile(m_pInterface, GetStringParameter(SP_USER_LOC) + "control.xml")) {
-    LoadFile(m_pInterface, GetStringParameter(SP_SYSTEM_LOC)+"control.xml");
-    //if that fails, we'll have no editing functions. Fine -
-    // doesn't seem vital enough to hardcode a fallback as well!
-  }
+  m_pInterface->ScanFiles(this, "control.xml"); //just look for the one
 
   updateActions();
 }

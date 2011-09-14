@@ -146,15 +146,20 @@ namespace Dasher {
   /// <alph/> tag, meaning one child of the node is to escape back to the alphabet. Subclasses
   /// may override parseAction to provide actions for the nodes to perform, also parseOther
   /// to link with NodeTemplates from other sources.
-  class CControlParser {
+  class CControlParser : public AbstractXMLParser {
+  public:
+    CControlParser(CMessageDisplay *pMsgs);
   protected:
-    ///Loads all node definitions from the specified filename, adding them to
-    /// any loaded from previous calls. (However, files processed independently:
+    ///Loads all node definitions from the specified filename. Note that
+    /// system files will not be loaded if user files are (and user files will
+    /// clear out any nodes from system ones). However, multiple system or multiple
+    /// user files, will be concatenated. (However, files are processed separately:
     /// e.g. names defined in one file will not be seen from another)
-    /// \param pMsgs Used to report errors via Message(,true) (i.e. modal)
     /// \param strFilename name+full-path of xml file to load
+    /// \param bUser true if from user-specific location (takes priority over system)
     /// \return true if the file was opened successfully; false if not.
-    bool LoadFile(CMessageDisplay *pMsgs, const std::string &strFilename);
+    bool ParseFile(const std::string &strFilename, bool bUser);
+    
     /// \return all node definitions that have been loaded by this CControlParser.
     const vector<CControlBase::NodeTemplate*> &parsedNodes();
     ///Subclasses may override to parse other nodes (besides "node", "ref" and "alph").
@@ -170,9 +175,18 @@ namespace Dasher {
       return NULL;
     };
     //TODO cleanup/deletion
+    void XmlStartHandler(const XML_Char *name, const XML_Char **atts);
+    void XmlEndHandler(const XML_Char *szName);
   private:
     ///all top-level parsed nodes
     vector<CControlBase::NodeTemplate *> m_vParsed;
+    ///whether parsed nodes were from user file or not
+    bool m_bUser;
+
+    ///Following only used as temporary variables during parsing...
+    map<string,CControlBase::NodeTemplate*> namedNodes;
+    vector<pair<CControlBase::NodeTemplate**,string> > unresolvedRefs;
+    vector<CControlBase::NodeTemplate*> nodeStack;
   };
 
   ///subclass which we actually construct! Parses editing node definitions from a file,

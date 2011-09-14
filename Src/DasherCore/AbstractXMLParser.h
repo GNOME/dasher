@@ -19,18 +19,46 @@
 
 #include <string>
 #include <expat.h>
+#include <iostream>
+
+class AbstractParser {
+public:
+  AbstractParser(CMessageDisplay *pMsgs) : m_pMsgs(pMsgs) { }
+  ///Utility method: constructs an ifstream to read from the specified file,
+  /// then calls Parse(string&,istream&,bool) with the description 'file://strPath'
+  virtual bool ParseFile(const std::string &strPath, bool bUser);
+  
+  /// \param strDesc string to display to user to identify the source of this data,
+  /// if there is an error. (Suggest: use a url, e.g. file://...)
+  /// \param bUser if True, the file is from a user location (editable), false if from a
+  /// system one. (Some subclasses treat the data differently according to which of these
+  /// it is from.)
+  virtual bool Parse(const std::string &strDesc, std::istream &in, bool bUser) = 0;
+  
+protected:
+  ///The MessageDisplay to use to inform the user. Subclasses should use this
+  /// too for any (e.g. semantic) errors they may detect.
+  CMessageDisplay * const m_pMsgs;
+};
 
 ///Basic wrapper over (Expat) XML Parser, handling file IO and wrapping C++
 /// virtual methods over C callbacks. Subclasses must implement methods to
 /// handle actual tags.
-class AbstractXMLParser {
+class AbstractXMLParser : public AbstractParser {
 public:
   ///Parse (the whole) file - done in chunks to avoid loading the whole thing into memory.
-  /// \param pInterface if non-null, any errors _besides_ file-not-found, will be passed
-  /// to the Message(,true) method to report to the user.
-  /// \return true if the file was opened+parsed OK; false if there was an error (e.g. FNF)
-  bool ParseFile(CMessageDisplay *pMsgs, const std::string &strFilename);
+  /// Any errors _besides_ file-not-found, will be passed to m_pMsgs as modal messages.
+  virtual bool Parse(const std::string &strDesc, std::istream &in, bool bUser);
 protected:
+  ///Create an AbstractXMLParser which will use the specified MessageDisplay to
+  /// inform the user of any errors.
+  AbstractXMLParser(CMessageDisplay *pMsgs);
+
+  ///Subclasses may call to get the description of the current file
+  const std::string &GetDesc();
+  ///Subclasses may call to determine if the current file is from a user location
+  bool isUser();
+  
   ///Subclass should override to handle a start tag
   virtual void XmlStartHandler(const XML_Char *name, const XML_Char **atts)=0;
   ///Subclass should override to handle an end tag
@@ -51,6 +79,8 @@ private:
   static void XML_StartElement(void *userData, const XML_Char * name, const XML_Char ** atts);
   static void XML_EndElement(void *userData, const XML_Char * name);
   static void XML_CharacterData(void *userData, const XML_Char * s, int len);
+  bool m_bUser;
+  std::string m_strDesc;
 };
 
 #endif

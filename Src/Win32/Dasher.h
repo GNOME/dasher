@@ -65,9 +65,7 @@ public:
   virtual int GetFileSize(const std::string &strFileName);
 private:
 
-  virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
-  virtual void ScanColourFiles(std::vector<std::string> &vFileList);
-  virtual void SetupPaths();
+  virtual void ScanFiles(AbstractParser *parser, const std::string &strPattern);
   virtual void CreateModules();
 
   void ScanDirectory(const Tstring &strMask, std::vector<std::string> &vFileList);

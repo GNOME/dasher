@@ -123,16 +123,12 @@ void CDasherInterfaceBase::Realize(unsigned long ulTime) {
   DASHER_ASSERT(m_DasherScreen ? m_pDasherView!=NULL : m_pDasherView==NULL);
 
   srand(ulTime);
-  
-  SetupPaths();
+ 
+  m_AlphIO = new CAlphIO(this);
+  ScanFiles(m_AlphIO, "alphabet*.xml");
 
-  std::vector<std::string> vAlphabetFiles;
-  ScanAlphabetFiles(vAlphabetFiles);
-  m_AlphIO = new CAlphIO(this, GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), vAlphabetFiles);
-
-  std::vector<std::string> vColourFiles;
-  ScanColourFiles(vColourFiles);
-  m_ColourIO = new CColourIO(this, GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), vColourFiles);
+  m_ColourIO = new CColourIO(this);
+  ScanFiles(m_ColourIO, "colour*.xml");
 
   ChangeColours();
 

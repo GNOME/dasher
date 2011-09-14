@@ -24,7 +24,9 @@ namespace Dasher {
 
 /// \defgroup Colours Colour scheme information
 /// @{
-class Dasher::CColourIO : private AbstractXMLParser {
+/// Class for reading in colour-scheme definitions, and storing all read schemes
+/// in a list.
+class Dasher::CColourIO : public AbstractXMLParser {
 public:
   // This structure completely describes the characters used in alphabet
   struct ColourInfo {
@@ -38,8 +40,11 @@ public:
     std::vector < int >Greens;
     std::vector < int >Blues;
   };
-
-  CColourIO(CMessageDisplay *pMsgs, const std::string &SystemLocation, const std::string &UserLocation, const std::vector < std::string > &Filenames);
+  
+  ///Construct a new ColourIO. It will have only a 'default' colour scheme;
+  /// further schemes may be loaded in by calling the Parse... methods inherited
+  /// from Abstract[XML]Parser.
+  CColourIO(CMessageDisplay *pMsgs);
   void GetColours(std::vector < std::string > *ColourList) const;
   const ColourInfo & GetInfo(const std::string & ColourID);
 private:
@@ -50,8 +55,6 @@ private:
 
   // XML handling:
   /////////////////////////
-
-  bool LoadMutable;
 
   // Data gathered
   std::string CData;            // Text gathered from when an elemnt starts to when it ends

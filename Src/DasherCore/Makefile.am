@@ -90,6 +90,7 @@ libdashercore_a_SOURCES = \
 		MemoryLeak.cpp \
 		MemoryLeak.h \
 		Messages.h \
+		Messages.cpp \
 		ModuleManager.cpp \
 		ModuleManager.h \
 		NodeCreationManager.cpp \

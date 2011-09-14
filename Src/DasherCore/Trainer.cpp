@@ -8,6 +8,8 @@
 #include <sstream>
 #include <string>
 
+#include <iostream>
+
 using namespace Dasher;
 using namespace std;
 
@@ -22,18 +24,15 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 CTrainer::CTrainer(CMessageDisplay *pMsgs, CLanguageModel *pLanguageModel, const CAlphInfo *pInfo, const CAlphabetMap *pAlphabet)
-  : m_pMsgs(pMsgs), m_pAlphabet(pAlphabet), m_pLanguageModel(pLanguageModel), m_pInfo(pInfo) {
+  : AbstractParser(pMsgs), m_pAlphabet(pAlphabet), m_pLanguageModel(pLanguageModel), m_pInfo(pInfo), m_pProg(NULL) {
     vector<symbol> syms;
     pAlphabet->GetSymbols(syms,pInfo->GetContextEscapeChar());
     if (syms.size()==1)
       m_iCtxEsc = syms[0];
     else {      
       //no context switch commands will be executed!
-      const char *msg(_("Warning: faulty alphabet definition, escape sequence %s must be a single unicode character. This may worsen Dasher's text prediction."));
-      char *buf(new char[strlen(msg) + pInfo->GetContextEscapeChar().length() +1]);
-      sprintf(buf,msg,pInfo->GetContextEscapeChar().c_str());
-      pMsgs->Message(string(buf),true);
-      delete buf;
+      pMsgs->FormatMessageWithString(_("Warning: faulty alphabet definition, escape sequence %s must be a single unicode character. This may worsen Dasher's text prediction."),
+                                     pInfo->GetContextEscapeChar().c_str());
       m_iCtxEsc = -1;
     }
 }
@@ -95,64 +94,17 @@ private:
   CTrainer::ProgressIndicator *m_pProg;
 };
 
-void 
-Dasher::CTrainer::LoadFile(const std::string &strFileName, ProgressIndicator *pProg) {
-  if(strFileName == "")
-    return;
-  
-  FILE *pInputFile;
-  if((pInputFile = fopen(strFileName.c_str(), "r")) == (FILE *) 0)
-    return;
-  
-  char szTestBuffer[6];
-  
-  int iNumberRead = fread(szTestBuffer, 1, 5, pInputFile);
-  szTestBuffer[iNumberRead] = '\0';
-  
-  fclose(pInputFile);
-  
-  if(!strcmp(szTestBuffer, "<?xml")) {
-    //Invoke AbstractXMLParser method
-    m_bInSegment = false;
-    m_iLastBytes=0;
-    ParseFile(m_pMsgs, strFileName);
-  } else {
-    std::ifstream in(strFileName.c_str(), std::ios::binary);
-    if (in.fail()) {
-      const char *msg=_("Unable to open file \"%f\" for reading");
-      char *buf(new char[strlen(msg) + strFileName.length()+1]);
-      sprintf(buf, msg, strFileName.c_str());
-      m_pMsgs->Message(buf, true);
-      delete buf;
-      return;
-    }
-    ProgressStream syms(in,pProg,m_pMsgs);
-    Train(syms);
-  
-    in.close();
+bool 
+Dasher::CTrainer::Parse(const string &strDesc, istream &in, bool bUser) {
+  if (in.fail()) {
+    m_pMsgs->FormatMessageWithString(_("Unable to open file \"%s\" for reading"),strDesc.c_str());
+    return false;
   }
-}
-
-void CTrainer::XmlStartHandler(const XML_Char *szName, const XML_Char **pAtts) {
-  if(!strcmp(szName, "segment")) {
-    m_strCurrentText = "";
-    m_bInSegment = true;
-  }
-}
-
-void CTrainer::XmlEndHandler(const XML_Char *szName) {
-  if(!strcmp(szName, "segment")) {
-    std::istringstream in(m_strCurrentText);
-    ProgressStream syms(in, m_pProg, m_pMsgs, m_iLastBytes);
-    Train(syms);
-    m_iLastBytes = syms.m_iLastPos; //count that segment, ready for next
-    m_bInSegment = false;
-  }
-}
-
-void CTrainer::XmlCData(const XML_Char *szS, int iLen) {
-  if(m_bInSegment)
-    m_strCurrentText += std::string(szS, iLen);
+  
+  ProgressStream syms(in,m_pProg,m_pMsgs);
+  Train(syms);
+  
+  return true;
 }
 
 CMandarinTrainer::CMandarinTrainer(CMessageDisplay *pMsgs, CPPMPYLanguageModel *pLanguageModel, const CAlphInfo *pInfo, const CAlphabetMap *pPYAlphabet, const CAlphabetMap *pCHAlphabet, const std::string &strDelim)
@@ -170,22 +122,12 @@ void CMandarinTrainer::Train(CAlphabetMap::SymbolStream &syms) {
       symbol Sympy = syms.next(m_pPYAlphabet);
       if (Sympy==-1) break; //EOF
       if (Sympy==0) {
-        const char *msg(_("Training file contains unknown source alphabet character %s"));
-        string prev = syms.peekBack();
-        char *buf(new char[strlen(msg) + prev.length()+1]);
-        sprintf(buf, msg, prev.c_str());
-        m_pMsgs->Message(buf,true);
-        delete buf;
+        m_pMsgs->FormatMessageWithString(_("Training file contains unknown source alphabet character %s"), syms.peekBack().c_str());
       }
       symbol Symchar = syms.next(m_pAlphabet);
       if (Symchar==-1) break; //EOF...ignore final Pinyin?
       if (Symchar==0) {
-        const char *msg=_("Training file contains unknown target alphabet character %s");
-        string prev = syms.peekBack();
-        char *buf(new char[strlen(msg) + prev.length()+1]);
-        sprintf(buf,msg,prev.c_str());
-        m_pMsgs->Message(buf,true);
-        delete buf;
+        m_pMsgs->FormatMessageWithString(_("Training file contains unknown target alphabet character %s"), syms.peekBack().c_str());
       }
       static_cast<CPPMPYLanguageModel *>(m_pLanguageModel)->LearnPYSymbol(trainContext, Sympy);
       m_pLanguageModel->LearnSymbol(trainContext, Symchar);

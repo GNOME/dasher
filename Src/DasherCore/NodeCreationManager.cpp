@@ -10,24 +10,33 @@
 
 using namespace Dasher;
 
-class ProgressNotifier : public CTrainer::ProgressIndicator {
+//Wraps the ParseFile of a provided Trainer, to setup progress notification
+// - and then passes self, as a ProgressIndicator, to the Trainer's ParseFile method.
+class ProgressNotifier : public AbstractParser, private CTrainer::ProgressIndicator {
 public:
   ProgressNotifier(CDasherInterfaceBase *pInterface, CTrainer *pTrainer)
-  : m_pInterface(pInterface), m_pTrainer(pTrainer) { }
+  : AbstractParser(pInterface), m_bSystem(false), m_bUser(false), m_pInterface(pInterface), m_pTrainer(pTrainer) { }
   void bytesRead(off_t n) {
     int iNewPercent = ((m_iStart + n)*100)/m_iStop;
     if (iNewPercent != m_iPercent) {
       m_pInterface->SetLockStatus(m_strDisplay, m_iPercent = iNewPercent);
     }
   }
-  bool run(const string &strDisplay, string strFile) {
-    m_pInterface->SetLockStatus(m_strDisplay=strDisplay, m_iPercent=0);
+  bool ParseFile(const string &strFilename, bool bUser) {
     m_iStart = 0;
-    m_iStop = m_pInterface->GetFileSize(strFile);
+    m_iStop = m_pInterface->GetFileSize(strFilename);
     if (m_iStop==0) return false;
-    m_pTrainer->LoadFile(strFile,this); //Hmmm. Error-reporting is only via Message()...?
+    return AbstractParser::ParseFile(strFilename, bUser);
+  }
+  bool Parse(const string &strUrl, istream &in, bool bUser) {
+    m_strDisplay = bUser ? _("Training on User Text") : _("Training on System Text");
+    m_pInterface->SetLockStatus(m_strDisplay, m_iPercent=0);
+    m_pTrainer->SetProgressIndicator(this);
+    if (!m_pTrainer->Parse(strUrl, in, bUser)) return false;
+    if (bUser) m_bUser=true; else m_bSystem=true;
     return true;
   }
+  bool m_bSystem, m_bUser;
 private:
   CDasherInterfaceBase *m_pInterface;
   CTrainer *m_pTrainer;
@@ -77,30 +86,18 @@ CNodeCreationManager::CNodeCreationManager(CSettingsUser *pCreateFrom,
     
   if (!pAlphInfo->GetTrainingFile().empty()) {
     ProgressNotifier pn(pInterface, m_pTrainer);
-    //1. Look for system training text...
-    bool bFound=pn.run(_("Training on System Text"), GetStringParameter(SP_SYSTEM_LOC) + pAlphInfo->GetTrainingFile());
-    //2. Now add in any user-provided individual training text...
-    if (!pn.run(_("Training on User Text"), GetStringParameter(SP_USER_LOC) + pAlphInfo->GetTrainingFile())) {
+    pInterface->ScanFiles(&pn,pAlphInfo->GetTrainingFile());
+    if (!pn.m_bUser) {
       ///TRANSLATORS: These 3 messages will be displayed when the user has just chosen a new alphabet. The %s parameter will be the name of the alphabet.
-      const char *msg = bFound ? _("No user training text found - if you have written in \"%s\" before, this means Dasher may not be learning from previous sessions")
+      const char *msg = pn.m_bSystem ? _("No user training text found - if you have written in \"%s\" before, this means Dasher may not be learning from previous sessions")
       : _("No training text (user or system) found for \"%s\". Dasher will still work but entry will be slower. We suggest downloading a training text file from the Dasher website, or constructing your own.");
-      char *buf(new char[strlen(msg)+pAlphInfo->GetID().length()]);
-      sprintf(buf,msg,pAlphInfo->GetID().c_str());
-      pInterface->Message(buf, true);
-      delete buf;
+      pInterface->FormatMessageWithString(msg, pAlphInfo->GetID().c_str());
     }
     //3. Finished, so unlock.
     m_pInterface->SetLockStatus("", -1);
+  }  else {
+    pInterface->FormatMessageWithString(_("\"%s\" does not specify training file. Dasher will work but entry will be slower. Check you have the latest version of the alphabet definition."), pAlphInfo->GetID().c_str());
   }
-#ifdef DEBUG
-  else {
-    const char *msg = _("\"%s\" does not specify training file. Dasher will work but entry will be slower. Check you have the latest version of the alphabet definition.");
-    char *buf(new char[strlen(msg) + pAlphInfo->GetID().length()]);
-    sprintf(buf, msg, pAlphInfo->GetID().c_str());
-    pInterface->Message(buf, true);
-    delete buf;
-  }
-#endif
 #ifdef DEBUG_LM_READWRITE
   {
     //test...
@@ -171,5 +168,6 @@ void CNodeCreationManager::AddExtras(CDasherNode *pParent) {
 void 
 CNodeCreationManager::ImportTrainingText(const std::string &strPath) {
   ProgressNotifier pn(m_pInterface, m_pTrainer);
-	pn.run("Training on New Text", strPath);
+  ifstream in(strPath.c_str(), ios::binary);
+	pn.ParseFile(strPath, true);
 }

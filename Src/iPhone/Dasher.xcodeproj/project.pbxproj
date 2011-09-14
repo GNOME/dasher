@@ -216,6 +216,8 @@
 		3344FE660F71717C00506EAA /* XMLUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FE130F71717C00506EAA /* XMLUtil.cpp */; };
 		334B1BF111232A8E007A6DFF /* ParametersController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 334B1BF011232A8E007A6DFF /* ParametersController.mm */; };
 		3354AF4811ADBAFD006CF570 /* Actions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3354AF4711ADBAFD006CF570 /* Actions.mm */; };
+		33557FC4142B484E002C600E /* Globber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33557FC2142B484E002C600E /* Globber.cpp */; };
+		33558058142B7206002C600E /* Messages.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33558057142B7206002C600E /* Messages.cpp */; };
 		3360335813ABDF3700417DFE /* ScreenGameModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3360335713ABDF3700417DFE /* ScreenGameModule.cpp */; };
 		33627FBA0F7A82CF000C8818 /* training_albanian_SQ.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33627F9A0F7A82CE000C8818 /* training_albanian_SQ.txt */; };
 		33627FBD0F7A82CF000C8818 /* training_bengali_BD.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33627F9D0F7A82CE000C8818 /* training_bengali_BD.txt */; };
@@ -654,6 +656,9 @@
 		334B1C2011233B8B007A6DFF /* ModuleSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleSettings.h; sourceTree = "<group>"; };
 		3354AF4611ADBAFD006CF570 /* Actions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Actions.h; sourceTree = "<group>"; };
 		3354AF4711ADBAFD006CF570 /* Actions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Actions.mm; sourceTree = "<group>"; };
+		33557FC2142B484E002C600E /* Globber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Globber.cpp; sourceTree = "<group>"; };
+		33557FC3142B484E002C600E /* Globber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Globber.h; sourceTree = "<group>"; };
+		33558057142B7206002C600E /* Messages.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Messages.cpp; sourceTree = "<group>"; };
 		3360335613ABDF3700417DFE /* ScreenGameModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenGameModule.h; sourceTree = "<group>"; };
 		3360335713ABDF3700417DFE /* ScreenGameModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScreenGameModule.cpp; sourceTree = "<group>"; };
 		33627F9A0F7A82CE000C8818 /* training_albanian_SQ.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_albanian_SQ.txt; sourceTree = "<group>"; };
@@ -1238,6 +1243,7 @@
 				3344FDDE0F71717C00506EAA /* MemoryLeak.cpp */,
 				3344FDDF0F71717C00506EAA /* MemoryLeak.h */,
 				33B342F313A8A8B2009AE0D5 /* Messages.h */,
+				33558057142B7206002C600E /* Messages.cpp */,
 				3344FDE00F71717C00506EAA /* ModuleManager.cpp */,
 				3344FDE10F71717C00506EAA /* ModuleManager.h */,
 				3344FDE20F71717C00506EAA /* NodeCreationManager.cpp */,
@@ -1343,6 +1349,8 @@
 		3344FE670F71718B00506EAA /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				33557FC2142B484E002C600E /* Globber.cpp */,
+				33557FC3142B484E002C600E /* Globber.h */,
 				33EB49220F73E8B30048E7C2 /* OpenGLScreen.h */,
 				33EB49230F73E8B30048E7C2 /* OpenGLScreen.mm */,
 				334B1C2011233B8B007A6DFF /* ModuleSettings.h */,
@@ -1729,6 +1737,8 @@
 				33DFE416137AA32300F86CDE /* WordGeneratorBase.cpp in Sources */,
 				3360335813ABDF3700417DFE /* ScreenGameModule.cpp in Sources */,
 				33B6825013CA4CC300F0A952 /* DynamicButtons.cpp in Sources */,
+				33557FC4142B484E002C600E /* Globber.cpp in Sources */,
+				33558058142B7206002C600E /* Messages.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
