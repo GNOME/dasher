@@ -62,7 +62,6 @@ private:
   virtual void ScanColourFiles(std::vector<std::string> &vFileList);
   virtual void SetupPaths();
   virtual void CreateModules();
-  virtual void SetupUI();
   virtual bool SupportsSpeech();
   virtual void Speak(const std::string &strText, bool bInterrupt);
   virtual bool SupportsClipboard() {return true;}

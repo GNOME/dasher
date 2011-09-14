@@ -451,16 +451,6 @@ protected:
 
   virtual void ScanColourFiles(std::vector<std::string> &vFileList) = 0;
 
-  ///
-  /// Set up the platform dependent UI for the widget (not the wider
-  /// app). Note that the constructor of the derived class will
-  /// probably want to return details of what was created - this will
-  /// have to happen separately, but we'll need to be careful with the
-  /// semantics.
-  ///
-
-  virtual void SetupUI() = 0;
-
   /// @}
 
 

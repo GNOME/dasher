@@ -98,12 +98,6 @@ COSXDasherControl::~COSXDasherControl() {
   }
 }
 
-void COSXDasherControl::SetupUI() {
-  NSLog(@"COSXDasherControl::SetupUI");
-}
-
-// TODO: hack to get around things being used before they were created.  is there a better way?
-// TODO: maybe this should go in setupui?
 void COSXDasherControl::Realize2() {
   CDasherInterfaceBase::Realize(get_time());
   [dasherApp startTimer];

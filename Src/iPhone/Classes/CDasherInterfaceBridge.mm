@@ -115,10 +115,6 @@ void CDasherInterfaceBridge::SetTiltAxes(Vec3 main, float off, Vec3 slow, float 
 	m_pTiltDevice->SetAxes(main, off, slow, off2);
 }
 
-void CDasherInterfaceBridge::SetupUI() {
-  NSLog(@"CDasherInterfaceBridge::SetupUI");
-}
-
 void CDasherInterfaceBridge::Realize() {
   CDashIntfScreenMsgs::Realize(get_time());
   

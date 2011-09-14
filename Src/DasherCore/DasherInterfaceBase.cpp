@@ -124,7 +124,6 @@ void CDasherInterfaceBase::Realize(unsigned long ulTime) {
 
   srand(ulTime);
   
-  SetupUI();
   SetupPaths();
 
   std::vector<std::string> vAlphabetFiles;

@@ -74,7 +74,6 @@ private:
   virtual void ScanColourFiles(std::vector<std::string> &vFileList);
   virtual void SetupPaths();
   virtual void CreateModules();
-  virtual void SetupUI();
   
   ///
   /// Pass events coming from the core to the appropriate handler.

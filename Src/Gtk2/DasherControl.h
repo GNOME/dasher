@@ -171,7 +171,6 @@ private:
   virtual void ScanColourFiles(std::vector<std::string> &vFileList);
   virtual void SetupPaths();
   virtual void CreateModules();
-  virtual void SetupUI();
 
   GtkWidget *m_pVBox;
   GtkWidget *m_pCanvas;

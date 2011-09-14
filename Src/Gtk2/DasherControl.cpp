@@ -83,6 +83,12 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
   m_pScreen = new CCanvas(m_pCanvas);
   ChangeScreen(m_pScreen);
 
+  //This was done in old SetupUI, i.e. the first thing in Realize().
+  // TODO: Use system defaults?
+  if(GetStringParameter(SP_DASHER_FONT) == "")
+    SetStringParameter(SP_DASHER_FONT, "Sans 10");
+  else
+    m_pScreen->SetFont(GetStringParameter(SP_DASHER_FONT));
   Realize(get_time());
  
   //  m_pKeyboardHelper = new CKeyboardHelper(this);
@@ -109,15 +115,6 @@ void CDasherControl::CreateModules() {
   RegisterModule(new CDasherTiltInput(this));
 #endif
 }
-
-void CDasherControl::SetupUI() {
-  // TODO: Use system defaults?
-  if(GetStringParameter(SP_DASHER_FONT) == "")
-    SetStringParameter(SP_DASHER_FONT, "Sans 10");
-  else
-    m_pScreen->SetFont(GetStringParameter(SP_DASHER_FONT));
-}
-
 
 void CDasherControl::SetupPaths() {
   char *home_dir;

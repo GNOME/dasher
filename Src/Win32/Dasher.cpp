@@ -45,6 +45,16 @@ CDasher::CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit)
 #endif
 
   DWORD dwTicks = GetTickCount();
+
+  //The following was done in SetupUI, i.e. the first thing in Realize.
+  // So doing here:
+  m_pCanvas = new CCanvas(this);
+  m_pCanvas->Create(m_hParent); // TODO - check return 
+
+  // TODO: See MessageLoop, Main in CDasherWindow - should be brought into this class
+  // Framerate settings: currently 40fps.
+  SetTimer(m_pCanvas->getwindow(), 1, 25, NULL);
+
   Realize(dwTicks);
 }
 
@@ -266,15 +276,6 @@ void CDasher::SetupPaths() {
   wstring_to_UTF8string(AppData, AppData2);     // ASCII-only filenames are safest. Being English doesn't help debug this...
   SetStringParameter(SP_SYSTEM_LOC, AppData2);
   SetStringParameter(SP_USER_LOC, UserData2);
-}
-
-void CDasher::SetupUI() {
-  m_pCanvas = new CCanvas(this);
-  m_pCanvas->Create(m_hParent); // TODO - check return 
-
-  // TODO: See MessageLoop, Main in CDasherWindow - should be brought into this class
-  // Framerate settings: currently 40fps.
-  SetTimer(m_pCanvas->getwindow(), 1, 25, NULL);
 }
 
 int CDasher::GetFileSize(const std::string &strFileName) {
