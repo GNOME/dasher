@@ -120,7 +120,7 @@ void CDasherInterfaceBridge::SetupUI() {
 }
 
 void CDasherInterfaceBridge::Realize() {
-  CDasherInterfaceBase::Realize(get_time());
+  CDashIntfScreenMsgs::Realize(get_time());
   
   [dasherApp setAlphabet:GetActiveAlphabet()];
   //don't call HandleEvent, would call superclass and reconstruct the NCManager!
@@ -177,7 +177,7 @@ void CDasherInterfaceBridge::ScanColourFiles(std::vector<std::string> &vFileList
 }
 
 void CDasherInterfaceBridge::NewFrame(unsigned long iTime, bool bForceRedraw) {
-  CDasherInterfaceBase::NewFrame(iTime, bForceRedraw);
+  CDashIntfScreenMsgs::NewFrame(iTime, bForceRedraw);
 }
 
 void CDasherInterfaceBridge::HandleEvent(int iParameter) {
@@ -192,29 +192,29 @@ void CDasherInterfaceBridge::HandleEvent(int iParameter) {
     [dasherApp setAlphabet:GetActiveAlphabet()];
   else if (iParameter == BP_GAME_MODE)
     [dasherApp refreshToolbar];
-  CDasherInterfaceBase::HandleEvent(iParameter);
+  CDashIntfScreenMsgs::HandleEvent(iParameter);
 }
 
 void CDasherInterfaceBridge::editOutput(const string &strText, CDasherNode *pNode) {
 //NSLog(@"ExternalEventHandler edit insert");
   [dasherApp outputCallback:NSStringFromStdString(strText)];
-  CDasherInterfaceBase::editOutput(strText,pNode);
+  CDashIntfScreenMsgs::editOutput(strText,pNode);
 }
 
 void CDasherInterfaceBridge::editDelete(const string &strText, CDasherNode *pNode) {
 // NSLog(@"ExternalEventHandler edit delete");
   [dasherApp deleteCallback:NSStringFromStdString(strText)];
-  CDasherInterfaceBase::editDelete(strText, pNode);
+  CDashIntfScreenMsgs::editDelete(strText, pNode);
 }
 
 void CDasherInterfaceBridge::editConvert(CDasherNode *pSource) {
   NSLog(@"ExternalEventHandler edit convert");
-  CDasherInterfaceBase::editConvert(pSource);
+  CDashIntfScreenMsgs::editConvert(pSource);
 }
 
 void CDasherInterfaceBridge::editProtect(CDasherNode *pSource) {
   NSLog(@"ExternalEventHandler edit protect");
-  CDasherInterfaceBase::editProtect(pSource);
+  CDashIntfScreenMsgs::editProtect(pSource);
 }
 
 void CDasherInterfaceBridge::Message(const string &strMessage, bool bInterrupt) {
@@ -232,7 +232,7 @@ void CDasherInterfaceBridge::SetLockStatus(const string &strText, int iPercent) 
   }
   [dasherApp setLockText:dispMsg];
   //Call superclass too. Probably unnecessary, as no frames'll be rendered..!
-  CDasherInterfaceBase::SetLockStatus(strText, iPercent);
+  CDashIntfScreenMsgs::SetLockStatus(strText, iPercent);
 }
 
 void CDasherInterfaceBridge::CopyToClipboard(const std::string &strText) {
