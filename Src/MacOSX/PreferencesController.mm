@@ -19,12 +19,12 @@ static PreferencesController *preferencesController = nil;
 @end
 
 //The key which "Start With Mouse Position:" checkbox writes its value to, as specified in InterfaceBuilder
-static const NSString *AnyStartHandlerEnabled = @"values.StartWithMousePosition";
+static NSString * const AnyStartHandlerEnabled = @"values.StartWithMousePosition";
 //The key which the drop-down box (circle/two-box) writes its selected-index to, as specified in InterfaceBuilder
-static const NSString *StartHandlerIndex = @"values.StartHandlerIdx";
+static NSString * const StartHandlerIndex = @"values.StartHandlerIdx";
 //The names (as written out to persistent settings file) of the bool parameters corresponding to each
 // of the entries in that drop-down box, in the order they appear in the drop-down.
-static const NSString *StartHandlerParamNames[2] = {
+static NSString * const StartHandlerParamNames[2] = {
   @"CircleStart", @"StartOnMousePosition"
 };
 #define numStartHandlerParams (sizeof(StartHandlerParamNames)/sizeof(StartHandlerParamNames[0]))

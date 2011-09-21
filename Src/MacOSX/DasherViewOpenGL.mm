@@ -68,7 +68,8 @@ protected:
   }
   
   CGSize TextSize(NSString *str, unsigned int iFontSize, bool bWrap) {
-    NSDictionary *attrs =[NSDictionary dictionaryWithObject:[NSFont fontWithName:dasherView.cachedFontName size:iFontSize] forKey:NSFontAttributeName];
+    NSFont *font=[NSFont fontWithName:dasherView.cachedFontName size:iFontSize];
+    NSDictionary *attrs =[NSDictionary dictionaryWithObject:(font ? font : [NSFont systemFontOfSize:iFontSize]) forKey:NSFontAttributeName];
     return NSSizeToCGSize(bWrap ? ([str boundingRectWithSize:NSMakeSize(GetWidth(), CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs].size) : ([str sizeWithAttributes:attrs]));
   }
 };

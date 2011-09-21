@@ -5,7 +5,7 @@
 //  Created by Alan Lawrence on 20/03/2009.
 //  Copyright 2009 Cavendish Laboratory. All rights reserved.
 //
-#ifdef TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
 #import <OpenGLES/ES1/gl.h>
 #else
 #import <AppKit/AppKit.h>

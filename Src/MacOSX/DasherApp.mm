@@ -8,8 +8,8 @@
 
 #import "DasherApp.h"
 #import "PreferencesController.h"
-#import "DasherEdit.h"
 #import "DasherUtil.h"
+#import "DasherTextView.h"
 
 /*
  * Created by Doug Dickinson (dasher AT DressTheMonkey DOT plus DOT com), 18 April 2003
