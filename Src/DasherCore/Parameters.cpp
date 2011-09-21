@@ -22,7 +22,7 @@ const bp_table boolparamtable[] = {
   {BP_MOUSEPOS_MODE, "StartOnMousePosition", PERS, false, "StartOnMousePosition"},
   {BP_PALETTE_CHANGE, "PaletteChange", PERS, true, "PaletteChange"},
   {BP_TURBO_MODE, "TurboMode", PERS, true, "Boost speed when holding key1 or right mouse button"},
-  {BP_AUTOCALIBRATE, "Autocalibrate", PERS, true, "Automatically learn TargetOffset e.g. gazetracking"},
+  {BP_AUTOCALIBRATE, "Autocalibrate", PERS, false, "Automatically learn TargetOffset e.g. gazetracking"},
   {BP_REMAP_XTREME, "RemapXtreme", PERS, false, "Pointer at extreme Y translates more and zooms less"},
   {BP_DASHER_PAUSED, "DasherPaused", !PERS, true, "Dasher Paused"},
   {BP_GAME_MODE, "GameMode", !PERS, false, "Dasher Game Mode"},
