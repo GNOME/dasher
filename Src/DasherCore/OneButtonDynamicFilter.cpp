@@ -54,8 +54,6 @@ COneButtonDynamicFilter::COneButtonDynamicFilter(CSettingsUser *pCreator, CDashe
 }
 
 COneButtonDynamicFilter::~COneButtonDynamicFilter() {
-  delete[] m_iTargetX;
-  delete[] m_iTargetY;  
 }
 
 bool COneButtonDynamicFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
