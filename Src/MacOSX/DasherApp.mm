@@ -197,9 +197,9 @@ static NSString *FilenameToUntitledName = @"NilToUntitled";
 
 - (void)startTimer {
 #define FPS 40.0f
-  
+  [self shutdownTimer]; //in case there was one before
   NSTimer *timer = [NSTimer timerWithTimeInterval:(1.0f/FPS) target:self selector:@selector(timerCallback:) userInfo:nil repeats:YES];
-  [self setTimer:timer];
+  _timer = [timer retain];
 	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSEventTrackingRunLoopMode];
   
@@ -207,24 +207,16 @@ static NSString *FilenameToUntitledName = @"NilToUntitled";
 }
 
 - (void)shutdownTimer {
-  [self setTimer:nil];
+  [_timer invalidate];
+  [_timer release];
+  _timer = nil;
 }
 
 - (NSTimer *)timer {
   return _timer;
 }
 
-- (void)setTimer:(NSTimer *)newTimer {
-  if (_timer != newTimer) {
-    NSTimer *oldValue = _timer;
-    _timer = [newTimer retain];
-    [oldValue invalidate];
-    [oldValue release];
-  }
-}
-
-- (void)timerCallback:(NSTimer *)aTimer
-{
+- (void)timerCallback:(NSTimer *)aTimer {
   aquaDasherControl->TimerFired([dasherView mouseLocation]);
 }
 
@@ -249,7 +241,7 @@ static NSString *FilenameToUntitledName = @"NilToUntitled";
 }
 
 - (void)dealloc {
-  [self setTimer:nil];
+  [self shutdownTimer];
   [super dealloc]; 
 }  
 

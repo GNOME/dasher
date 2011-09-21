@@ -173,8 +173,9 @@
 
 -(void)textViewDidChangeSelection:(NSNotification *)notification {
   if (dasherApp.gameModeOn) return;
+  if (suppressCursorEvents) return;
   //NSLog(@"DidChangeSelection %i+%i",[textView selectedRange].location,[textView selectedRange].length);
-  if (!suppressCursorEvents)
+  if ([dasherApp timer]) //timer set when Realize() completed
     [dasherApp aquaDasherControl]->SetOffset([self selectedRange].location, false);
 }
 
