@@ -5,11 +5,11 @@
 using namespace Dasher;
 
 CTwoBoxStartHandler::CTwoBoxStartHandler(CDefaultFilter *pCreator)
-: CStartHandler(pCreator), CSettingsUserObserver(pCreator), m_bFirstBox(true), m_iBoxEntered(std::numeric_limits<long>::max()) {
+: CStartHandler(pCreator), CSettingsUser(pCreator), m_bFirstBox(true), m_iBoxEntered(std::numeric_limits<long>::max()) {
 }
 
 bool CTwoBoxStartHandler::DecorateView(CDasherView *pView) {
-  if (!GetBoolParameter(BP_DASHER_PAUSED)) return false;
+  if (!m_pFilter->isPaused()) return false;
   
   int iHeight = pView->Screen()->GetHeight();
   int iWidth = pView->Screen()->GetWidth();
@@ -27,7 +27,7 @@ bool CTwoBoxStartHandler::DecorateView(CDasherView *pView) {
 }
 
 void CTwoBoxStartHandler::Timer(unsigned long iTime, dasherint iDasherX, dasherint iDasherY, CDasherView *pView) { 
-  if (!GetBoolParameter(BP_DASHER_PAUSED)) return;
+  if (!m_pFilter->isPaused()) return;
   
   int iBoxMin, iBoxMax;
   if(m_bFirstBox) {
@@ -52,7 +52,7 @@ void CTwoBoxStartHandler::Timer(unsigned long iTime, dasherint iDasherX, dasheri
       if(m_bFirstBox)
         m_bFirstBox=false;
       else
-        m_pFilter->Unpause(iTime);
+        m_pFilter->run(iTime);
       m_iBoxEntered = std::numeric_limits<long>::max();
     }
   } else {
@@ -64,7 +64,6 @@ void CTwoBoxStartHandler::Timer(unsigned long iTime, dasherint iDasherX, dasheri
   }
 }
 
-void CTwoBoxStartHandler::HandleEvent(int iParameter) {
-  if (iParameter==BP_DASHER_PAUSED)
+void CTwoBoxStartHandler::onPause() {
     m_bFirstBox = true;
 }

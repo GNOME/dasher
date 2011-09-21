@@ -7,38 +7,32 @@
 using namespace Dasher;
 
 CStylusFilter::CStylusFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName)
-  : CDefaultFilter(pCreator, pInterface, pFramerate, iID, szName) {
-}
-
-bool CStylusFilter::Timer(unsigned long iTime, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CExpansionPolicy **pol)
-{
-  //First, try to continue any zoom scheduled by a previous click...
-  if (pModel->NextScheduledStep()) {
-    //note that this skips the rest of CDefaultFilter::Timer;
-    //however, given we're paused, this is only the Start Handler,
-    //which we're not using anyway.
-    return true;
-  }
-  return CDefaultFilter::Timer(iTime, pView, pInput, pModel, pol);
+  : CDefaultFilter(pCreator, pInterface, pFramerate, iID, szName), m_pModel(NULL) {
 }
 
 void CStylusFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
   if(iId == 100) {
-    pModel->ClearScheduledSteps();
-    Unpause(iTime);
+    //pModel->ClearScheduledSteps(); //no need - each one step scheduled by superclass, will do this
+    run(iTime);
     m_iKeyDownTime = iTime;
   } else
     CDefaultFilter::KeyDown(iTime, iId, pView, pInput, pModel);
 }
 
+void CStylusFilter::pause() {
+  CDefaultFilter::pause();
+  if (m_pModel) m_pModel->ClearScheduledSteps();
+}
+
 void CStylusFilter::KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
   if(iId == 100) {
+    pause(); //stops superclass from scheduling any more one-step movements
     if (iTime - m_iKeyDownTime < GetLongParameter(LP_TAP_TIME)) {
       pInput->GetDasherCoords(m_iLastX, m_iLastY, pView);
       ApplyClickTransform(m_iLastX, m_iLastY, pView);
-      pModel->ScheduleZoom(iTime, m_iLastY-m_iLastX, m_iLastY+m_iLastX);
+      (m_pModel=pModel)->ScheduleZoom(m_iLastY-m_iLastX, m_iLastY+m_iLastX);
     } else {
-      m_pInterface->Stop();
+      m_pInterface->Done();
     }
   } else
     CDefaultFilter::KeyUp(iTime, iId, pView, pInput, pModel);

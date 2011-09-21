@@ -24,32 +24,31 @@
 using namespace Dasher;
 
 CDynamicButtons::CDynamicButtons(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName)
-  : CDynamicFilter(pCreator, pInterface, pFramerate, iID, szName), CSettingsObserver(pCreator), m_pModel(NULL) {
+  : CDynamicFilter(pCreator, pInterface, pFramerate, iID, szName), m_pModel(NULL) {
   m_bDecorationChanged = true;
   m_bKeyDown = false;
   pause();
 }
 
-bool CDynamicButtons::Timer(unsigned long iTime, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol)
+void CDynamicButtons::Timer(unsigned long iTime, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol)
 {
   if(m_bKeyDown && !m_bKeyHandled && ((iTime - m_iKeyDownTime) > GetLongParameter(LP_HOLD_TIME))) {
     ButtonEvent(iTime, m_iHeldId, 1, m_pDasherModel);
     m_bKeyHandled = true;
     //return true; //ACL although that's what old DynamicButtons did, surely we should progress normally?
   }
-  if (isPaused()) return false;
+  if (isPaused()) return;
   if (isReversing()) {
     OneStepTowards(m_pDasherModel, 41943,2048, iTime, SlowStartSpeedMul(iTime));
-    return true;
+  } else {
+    //moving forwards. Check auto speed control...
+    if (GetBoolParameter(BP_AUTO_SPEEDCONTROL) && m_uSpeedControlTime < iTime) {
+        if (m_uSpeedControlTime > 0) //has actually been set?
+          SetLongParameter(LP_MAX_BITRATE, GetLongParameter(LP_MAX_BITRATE) * (1.0 + GetLongParameter(LP_DYNAMIC_SPEED_INC)/100.0));
+        m_uSpeedControlTime = iTime + 1000*GetLongParameter(LP_DYNAMIC_SPEED_FREQ);
+    }
+    TimerImpl(iTime, pDasherView, m_pDasherModel, pol);
   }
-  //moving forwards. Check auto speed control...
-  if (GetBoolParameter(BP_AUTO_SPEEDCONTROL) && m_uSpeedControlTime < iTime)
-  {
-	  if (m_uSpeedControlTime > 0) //has actually been set?
-        SetLongParameter(LP_MAX_BITRATE, GetLongParameter(LP_MAX_BITRATE) * (1.0 + GetLongParameter(LP_DYNAMIC_SPEED_INC)/100.0));
-	  m_uSpeedControlTime = iTime + 1000*GetLongParameter(LP_DYNAMIC_SPEED_FREQ);
-  }
-  return TimerImpl(iTime, pDasherView, m_pDasherModel, pol);
 }
 
 void CDynamicButtons::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
@@ -87,15 +86,13 @@ void CDynamicButtons::ButtonEvent(unsigned long iTime, int iButton, int iType, C
     //Any button causes a restart
     if(CUserLogBase *pUserLog=m_pInterface->GetUserLogPtr())
       pUserLog->KeyDown(iButton, iType, 1);
-    run();
-    Unpause(iTime);
+    run(iTime);
   } else if (isReversing()) {
     //Any button pauses
     if(CUserLogBase *pUserLog=m_pInterface->GetUserLogPtr())
       pUserLog->KeyDown(iButton, iType, 2);
-    
-    m_pInterface->Stop();
-    //change in BP_DASHER_PAUSED calls pause().
+    m_pInterface->Done();
+    pause();
   } else {
     //running; examine event/button-press type
     switch(iType) {
@@ -104,14 +101,15 @@ void CDynamicButtons::ButtonEvent(unsigned long iTime, int iButton, int iType, C
         //dedicated pause button
         if(CUserLogBase *pUserLog=m_pInterface->GetUserLogPtr())
           pUserLog->KeyDown(iButton, iType, 2);
-        m_pInterface->Stop();
+        m_pInterface->Done();
+        pause();
         break;
       }
       else if(iButton == 1) {
         //dedicated reverse button
         if(CUserLogBase *pUserLog=m_pInterface->GetUserLogPtr())
           pUserLog->KeyDown(iButton, iType, 6);
-        reverse();
+        reverse(iTime);
         break;
       }
       //else - any non-special button - fall through
@@ -121,24 +119,14 @@ void CDynamicButtons::ButtonEvent(unsigned long iTime, int iButton, int iType, C
   }
 }
 
-void CDynamicButtons::HandleEvent(int iParameter) {
-  if (iParameter==BP_DASHER_PAUSED) {
-    if (GetBoolParameter(BP_DASHER_PAUSED))
-      pause(); //make sure we're in sync
-    else if (m_pInterface->GetActiveInputMethod()==this && isPaused())
-      //if we're active: can't unpause, as we don't know which way to go, run or reverse?
-      SetBoolParameter(BP_DASHER_PAUSED, true);
-  }
-}
-
 void CDynamicButtons::pause() {
-  m_iState = 0;
+  CDynamicFilter::pause();
   if (m_pModel) m_pModel->AbortOffset();
 }
 
-void CDynamicButtons::reverse()
-{
-  m_iState = 1;
+void CDynamicButtons::reverse(unsigned long iTime) {
+  m_bForwards=false;
+  CDynamicFilter::run(iTime);
   if (GetBoolParameter(BP_AUTO_SPEEDCONTROL)) {
     //treat reversing as a sign of distress --> slow down!
     SetLongParameter(LP_MAX_BITRATE, GetLongParameter(LP_MAX_BITRATE) *
@@ -146,11 +134,12 @@ void CDynamicButtons::reverse()
   }
 }
 
-void CDynamicButtons::run()
-{
-  if (m_iState<2) //wasn't running previously
-    m_uSpeedControlTime = 0; //will be set in Timer()
-  m_iState = 2;
+void CDynamicButtons::run(unsigned long iTime) {
+  m_bForwards=true;
+  if (!isPaused()) return;
+  //wasn't running previously
+  CDynamicFilter::run(iTime);
+  m_uSpeedControlTime = 0; //will be set in Timer()
 }
 
 void CDynamicButtons::ApplyOffset(CDasherModel *pModel, int iOffset) {

@@ -276,9 +276,6 @@ void CDasherInterfaceBase::HandleEvent(int iParameter) {
     CreateInputFilter();
     ScheduleRedraw();
     break;
-  case BP_DASHER_PAUSED:
-    ScheduleRedraw();
-    break;
   case LP_MARGIN_WIDTH:
   case BP_NONLINEAR_Y:
   case LP_NONLINEAR_X:
@@ -445,15 +442,12 @@ void CDasherInterfaceBase::TextAction::NotifyOffset(int iOffset) {
 }
 
 
-bool CDasherInterfaceBase::hasStopTriggers() {
+bool CDasherInterfaceBase::hasDone() {
   return (GetBoolParameter(BP_COPY_ALL_ON_STOP) && SupportsClipboard())
   || (GetBoolParameter(BP_SPEAK_ALL_ON_STOP) && SupportsSpeech());
 }
 
-void CDasherInterfaceBase::Stop() {
-  if (GetBoolParameter(BP_DASHER_PAUSED)) return; //already paused, no need to do anything.
-  SetBoolParameter(BP_DASHER_PAUSED, true);
-
+void CDasherInterfaceBase::Done() {
   ScheduleRedraw();
 
 #ifndef _WIN32_WCE
@@ -516,28 +510,32 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
       m_DasherScreen->SendMarker(1); //decorations - don't draw any
       bBlit = true;
     } else {
-      bool bChanged(false), bWasPaused(GetBoolParameter(BP_DASHER_PAUSED));
       CExpansionPolicy *pol=m_defaultPolicy;
   
-      //1. Move around in the model
+      //1. Schedule any per-frame movement in the model...
       if(m_pInputFilter) {
-        bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pInput, m_pDasherModel, &pol);
+        m_pInputFilter->Timer(iTime, m_pDasherView, m_pInput, m_pDasherModel, &pol);
       }
       //2. Render...
-      //check: if we were paused before, and the input filter didn't unpause,
-      // then nothing can have changed:
-      DASHER_ASSERT(!bWasPaused || !GetBoolParameter(BP_DASHER_PAUSED) || !bChanged);
 
       //If we've been told to render another frame via ScheduleRedraw,
       // that's the same as passing in true to NewFrame.
       if (m_bRedrawScheduled) bForceRedraw=true;
       m_bRedrawScheduled=false;
 
-      //If we moved, definitely need to render the nodes. We also make sure
-      // to render at least one more frame - think that's a bit of policy
-      // just to be on the safe side, and may not be strictly necessary...
-      if (bChanged) bForceRedraw=m_bRedrawScheduled=true;
-
+      //Apply any movement that has been scheduled
+      if (m_pDasherModel->NextScheduledStep()) {
+        //yes, we moved...
+        if (!m_bLastMoved) onUnpause(iTime);
+        // ...so definitely need to render the nodes. We also make sure
+        // to render at least one more frame - think that's a bit of policy
+        // just to be on the safe side, and may not be strictly necessary...
+        bForceRedraw=m_bRedrawScheduled=m_bLastMoved=true;
+      } else {
+        //no movement
+        if (m_bLastMoved) bForceRedraw=true;//move into onPause() method if reqd
+        m_bLastMoved=false;
+      }
       //2. Render nodes decorations, messages
       bBlit = Redraw(iTime, bForceRedraw, *pol);
 
@@ -553,6 +551,14 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   }
 
   bReentered=false;
+}
+
+void CDasherInterfaceBase::onUnpause(unsigned long lTime) {
+  //TODO When Game+UserLog modules are combined => reduce to just one call here
+  if (m_pGameModule)
+    m_pGameModule->StartWriting(lTime);
+  if (m_pUserLog)
+      m_pUserLog->StartWriting();
 }
 
 bool CDasherInterfaceBase::Redraw(unsigned long ulTime, bool bRedrawNodes, CExpansionPolicy &policy) {
@@ -742,11 +748,9 @@ void CDasherInterfaceBase::KeyUp(unsigned long iTime, int iId) {
   }
 }
 
-void CDasherInterfaceBase::CreateInputFilter()
-{
-  SetBoolParameter(BP_DASHER_PAUSED,true); //seems a sensible precaution!
-
+void CDasherInterfaceBase::CreateInputFilter() {
   if(m_pInputFilter) {
+    m_pInputFilter->pause();
     m_pInputFilter->Deactivate();
     m_pInputFilter = NULL;
   }

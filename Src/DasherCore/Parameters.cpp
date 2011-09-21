@@ -24,7 +24,6 @@ const bp_table boolparamtable[] = {
   {BP_TURBO_MODE, "TurboMode", PERS, true, "Boost speed when holding key1 or right mouse button"},
   {BP_AUTOCALIBRATE, "Autocalibrate", PERS, false, "Automatically learn TargetOffset e.g. gazetracking"},
   {BP_REMAP_XTREME, "RemapXtreme", PERS, false, "Pointer at extreme Y translates more and zooms less"},
-  {BP_DASHER_PAUSED, "DasherPaused", !PERS, true, "Dasher Paused"},
   {BP_GAME_MODE, "GameMode", !PERS, false, "Dasher Game Mode"},
   {BP_LM_DICTIONARY, "Dictionary", PERS, true, "Whether the word-based language model uses a dictionary"},
   {BP_LM_LETTER_EXCLUSION, "LetterExclusion", PERS, true, "Whether to do letter exclusion in the word-based model"},

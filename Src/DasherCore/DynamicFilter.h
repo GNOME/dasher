@@ -38,20 +38,26 @@ class CDynamicFilter : public CInputFilter, public CSettingsUser {
   CDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName);
 
   virtual bool supportsPause() {return true;}
-
+  
+  void pause() {m_bPaused = true;}
+  
  protected:
   bool OneStepTowards(CDasherModel *pModel, myint y1, myint y2, unsigned long iTime, double dSpeedMul);
   double SlowStartSpeedMul(unsigned long iTime);
 
-  /// Starts moving.  Clears BP_DASHER_PAUSED.
-  /// (But does nothing if BP_DASHER_PAUSED is currently set).
+  ///Starts moving, i.e. just records that we are no longer paused,
+  /// for the next call to Timer. Protected, to prevent external calls 
+  /// so subclasses have control over all calls, as a call to run() may not be
+  /// appropriate without performing other setup first.
   /// \param Time Time in ms, used to keep a constant frame rate and
   /// initialize slow start.
-  void Unpause(unsigned long iTime);
+  virtual void run(unsigned long iTime);
+  bool isPaused() {return m_bPaused;}
  private:
   CFrameRate *m_pFramerate;
   //Time at which Unpause() was called, used for Slow Start.
   unsigned long m_iStartTime;
+  bool m_bPaused;
 };
 }
 #endif

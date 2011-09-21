@@ -43,13 +43,13 @@ void CIPhoneTiltFilter::ApplyTransform(myint &iDasherX, myint &iDasherY, CDasher
 
 void CIPhoneTiltFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
 	if(iId == 100 && bHoldToGo)
-		Unpause(iTime);
+		run(iTime);
   else COneDimensionalFilter::KeyDown(iTime, iId, pView, pInput, pModel);
 }
 
 void CIPhoneTiltFilter::KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
 	if(iId == 100 && bHoldToGo)
-		m_pInterface->Stop();
+		stop();
   else COneDimensionalFilter::KeyUp(iTime, iId, pView, pInput, pModel);
 }
 
@@ -61,12 +61,14 @@ void CIPhoneTiltFilter::ApplyOffset(myint &iDasherX, myint &iDasherY) {
   //Do not apply LP_TARGET_OFFSET, or BP_AUTO_CALIBRATE
 }
 
-void CIPhoneTiltFilter::HandleEvent(int iParameter) {
-  if (iParameter==BP_DASHER_PAUSED
-      && m_pInterface->GetActiveInputMethod()==this) {
-    [UIApplication sharedApplication].idleTimerDisabled=(!GetBoolParameter(BP_DASHER_PAUSED) && !bHoldToGo);
-  }
-  COneDimensionalFilter::HandleEvent(iParameter);
+void CIPhoneTiltFilter::pause() {
+  COneDimensionalFilter::pause();
+  [UIApplication sharedApplication].idleTimerDisabled=NO;
+}
+
+void CIPhoneTiltFilter::run(unsigned long iTime) {
+  COneDimensionalFilter::run(iTime);
+  [UIApplication sharedApplication].idleTimerDisabled = !bHoldToGo;
 }
 
 void CIPhoneTiltFilter::iPhonePrefsChanged(NSString *key) {
@@ -137,12 +139,12 @@ CIPhoneTwoFingerFilter::CIPhoneTwoFingerFilter(CSettingsUser *pCreator, CDasherI
 }
 
 void CIPhoneTwoFingerFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
-  if (iId==101) Unpause(iTime);
+  if (iId==101) run(iTime);
   else if (iId!=100) CDefaultFilter::KeyDown(iTime, iId, pView, pInput, pModel);
 }
 
 void CIPhoneTwoFingerFilter::KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
-  if (iId==101) m_pInterface->Stop();
+  if (iId==101) stop();
   else if (iId!=100) CDefaultFilter::KeyUp(iTime, iId, pView, pInput, pModel);
 }
 

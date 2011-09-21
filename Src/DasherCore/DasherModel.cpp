@@ -250,118 +250,11 @@ int CDasherModel::GetOffset() {
   return m_pLastOutput ? m_pLastOutput->offset()+1 : m_Root ? m_Root->offset()+1 : 0;
 };
 
-void CDasherModel::Get_new_root_coords(dasherint X, dasherint Y, dasherint &r1, dasherint &r2, int iSteps, dasherint iMinSize) {
-  DASHER_ASSERT(m_Root != NULL);
-  // Avoid X == 0, as this corresponds to infinite zoom
-  if (X <= 0) X = 1;
-
-  // If X is too large we risk overflow errors, so limit it
-  dasherint iMaxX = (1 << 29) / iSteps;
-  if (X > iMaxX) X = iMaxX;
-
-  // Mouse coords X, Y
-  // const dasherint Y1 = 0;
-  const dasherint Y2(MAX_Y);
-
-  // Calculate what the extremes of the viewport will be when the
-  // point under the cursor is at the cross-hair. This is where
-  // we want to be in iSteps updates
-
-  dasherint y1(Y - (Y2 * X) / (2 * ORIGIN_X));
-  dasherint y2(Y + (Y2 * X) / (2 * ORIGIN_Y));
-  dasherint oy1(y1),oy2(y2); //back these up to use later
-  // iSteps is the number of update steps we need to get the point
-  // under the cursor over to the cross hair. Calculated in order to
-  // keep a constant bit-rate.
-
-  DASHER_ASSERT(iSteps > 0);
-
-  // Calculate the new values of y1 and y2 required to perform a single update
-  // step.
-  {
-    const dasherint denom = Y2 + (iSteps - 1) * (y2 - y1),
-      newy1 = y1 * Y2 / denom,
-      newy2 = ((y2 * iSteps - y1 * (iSteps - 1)) * Y2) / denom;
-
-    y1 = newy1;
-    y2 = newy2;
-  }
-
-  // Calculate the minimum size of the viewport corresponding to the
-  // maximum zoom.
-
-  if((y2 - y1) < iMinSize) {
-    const dasherint newy1 = y1 * (Y2 - iMinSize) / (Y2 - (y2 - y1)),
-      newy2 = newy1 + iMinSize;
-
-    y1 = newy1;
-    y2 = newy2;
-  }
-  
-  //okay, we now have target bounds for the viewport, after allowing for framerate etc.
-  // we now go there in one step...
-  
-  // new root{min,max} r1,r2, old root{min,max} R1,R2
-  const dasherint R1 = m_Rootmin;
-  const dasherint R2 = m_Rootmax;  
-
-  // If |(0,Y2)| = |(y1,y2)|, the "zoom factor" is 1, so we just translate.
-  if (Y2 == y2 - y1)
-    {
-      r1 = R1 - y1;
-      r2 = R2 - y1;
-      return;
-    }
-
-  // There is a point C on the y-axis such the ratios (y1-C):(Y1-C) and
-  // (y2-C):(Y2-C) are equal - iow that divides the "target" region y1-y2
-  // into the same proportions as it divides the screen (0-Y2). I.e., this
-  // is the center of expansion - the point on the y-axis which everything
-  // moves away from (or towards, if reversing).
-
-  //We prefer to compute C from the _original_ (y1,y2) pair, as this is more
-  // accurate (and avoids drifting up/down when heading straight along the
-  // x-axis in dynamic button modes). However...
-  if (((y2-y1) < Y2) ^ ((oy2-oy1) < Y2)) {
-    //Sometimes (very occasionally), the calculation of a single-step above
-    // can turn a zoom-in into a zoom-out, or vice versa, when the movement
-    // is mostly translation. In which case, must compute C consistently with
-    // the (scaled, single-step) movement we are going to perform, or else we
-    // will end up suddenly going the wrong way along the y-axis (i.e., the
-    // sense of translation will be reversed) !
-    oy1=y1; oy2=y2;
-  }
-  const dasherint C = (oy1 * Y2) / (oy1 + Y2 - oy2);
-
-  r1 = ((R1 - C) * Y2) / (y2 - y1) + C;
-  r2 = ((R2 - C) * Y2) / (y2 - y1) + C;
-}
-
 bool CDasherModel::NextScheduledStep()
 {
-  DASHER_ASSERT (!GetBoolParameter(BP_DASHER_PAUSED) || m_deGotoQueue.size()==0);
   if (m_deGotoQueue.size() == 0) return false;
-  myint iNewMin, iNewMax;
-  iNewMin = m_deGotoQueue.front().iN1;
-  iNewMax = m_deGotoQueue.front().iN2;
+  myint newRootmin(m_deGotoQueue.front().iN1), newRootmax(m_deGotoQueue.front().iN2);
   m_deGotoQueue.pop_front();
-
-  UpdateBounds(iNewMin, iNewMax);
-  if (m_deGotoQueue.size() == 0) SetBoolParameter(BP_DASHER_PAUSED, true);
-  return true;
-}
-
-void CDasherModel::OneStepTowards(myint miMousex, myint miMousey, int iSteps, dasherint iMinSize) {
-  DASHER_ASSERT(!GetBoolParameter(BP_DASHER_PAUSED));
-
-  myint iNewMin, iNewMax;
-  // works out next viewpoint
-  Get_new_root_coords(miMousex, miMousey, iNewMin, iNewMax, iSteps, iMinSize);
-  
-  UpdateBounds(iNewMin, iNewMax);
-}
-
-void CDasherModel::UpdateBounds(myint newRootmin, myint newRootmax) {
 
   m_dTotalNats += log((newRootmax - newRootmin) / static_cast<double>(m_Rootmax - m_Rootmin));
 
@@ -383,7 +276,7 @@ void CDasherModel::UpdateBounds(myint newRootmin, myint newRootmax) {
         if (GetBoolParameter(BP_GAME_MODE) && !pChild->GetFlag(NF_GAME)) {
           //If the user's strayed that far off the game path,
           // having Dasher stop seems reasonable!
-          return;
+          return false;
         }
 
         //make pChild the root node...
@@ -424,8 +317,103 @@ void CDasherModel::UpdateBounds(myint newRootmin, myint newRootmax) {
   if ((newRootmax - newRootmin) > MAX_Y / 4) {
     m_Rootmax = newRootmax;
     m_Rootmin = newRootmin;
+    return true;
   } //else, we just stop - this prevents the user from zooming too far back
-  //outside the root node (when we can't generate an older root).
+    //outside the root node (when we can't generate an older root).  return true;
+  return false;
+}
+
+void CDasherModel::ScheduleOneStep(myint X, myint Y, int iSteps, dasherint iMinSize) {
+  myint r1, r2;
+  // works out next viewpoint
+
+  DASHER_ASSERT(m_Root != NULL);
+  // Avoid X == 0, as this corresponds to infinite zoom
+  if (X <= 0) X = 1;
+  
+  // If X is too large we risk overflow errors, so limit it
+  dasherint iMaxX = (1 << 29) / iSteps;
+  if (X > iMaxX) X = iMaxX;
+  
+  // Mouse coords X, Y
+  // const dasherint Y1 = 0;
+  const dasherint Y2(MAX_Y);
+  
+  // Calculate what the extremes of the viewport will be when the
+  // point under the cursor is at the cross-hair. This is where
+  // we want to be in iSteps updates
+  
+  dasherint y1(Y - (Y2 * X) / (2 * ORIGIN_X));
+  dasherint y2(Y + (Y2 * X) / (2 * ORIGIN_Y));
+  dasherint oy1(y1),oy2(y2); //back these up to use later
+  
+  // iSteps is the number of update steps we need to get the point
+  // under the cursor over to the cross hair. Calculated in order to
+  // keep a constant bit-rate.
+  DASHER_ASSERT(iSteps > 0);
+  
+  // Calculate the new values of y1 and y2 required to perform a single update
+  // step.
+  {
+    const dasherint denom = Y2 + (iSteps - 1) * (y2 - y1),
+    newy1 = y1 * Y2 / denom,
+    newy2 = ((y2 * iSteps - y1 * (iSteps - 1)) * Y2) / denom;
+    
+    y1 = newy1;
+    y2 = newy2;
+  }
+  
+  // Calculate the minimum size of the viewport corresponding to the
+  // maximum zoom.
+  
+  if((y2 - y1) < iMinSize) {
+    const dasherint newy1 = y1 * (Y2 - iMinSize) / (Y2 - (y2 - y1)),
+    newy2 = newy1 + iMinSize;
+    
+    y1 = newy1;
+    y2 = newy2;
+  }
+  
+  //okay, we now have target bounds for the viewport, after allowing for framerate etc.
+  // we now go there in one step...
+  
+  // new root{min,max} r1,r2, old root{min,max} R1,R2
+  const dasherint R1 = m_Rootmin;
+  const dasherint R2 = m_Rootmax;  
+  
+  // If |(0,Y2)| = |(y1,y2)|, the "zoom factor" is 1, so we just translate.
+  if (Y2 == y2 - y1) {
+    r1 = R1 - y1;
+    r2 = R2 - y1;
+  } else {
+    // There is a point C on the y-axis such the ratios (y1-C):(Y1-C) and
+    // (y2-C):(Y2-C) are equal - iow that divides the "target" region y1-y2
+    // into the same proportions as it divides the screen (0-Y2). I.e., this
+    // is the center of expansion - the point on the y-axis which everything
+    // moves away from (or towards, if reversing).
+    
+    //We prefer to compute C from the _original_ (y1,y2) pair, as this is more
+    // accurate (and avoids drifting up/down when heading straight along the
+    // x-axis in dynamic button modes). However...
+    if (((y2-y1) < Y2) ^ ((oy2-oy1) < Y2)) {
+      //Sometimes (very occasionally), the calculation of a single-step above
+      // can turn a zoom-in into a zoom-out, or vice versa, when the movement
+      // is mostly translation. In which case, must compute C consistently with
+      // the (scaled, single-step) movement we are going to perform, or else we
+      // will end up suddenly going the wrong way along the y-axis (i.e., the
+      // sense of translation will be reversed) !
+      oy1=y1; oy2=y2;
+    }
+    const dasherint C = (oy1 * Y2) / (oy1 + Y2 - oy2);
+    
+    r1 = ((R1 - C) * Y2) / (y2 - y1) + C;
+    r2 = ((R2 - C) * Y2) / (y2 - y1) + C;
+  }
+  m_deGotoQueue.clear();
+  SGotoItem item;
+  item.iN1 = r1;
+  item.iN2 = r2;
+  m_deGotoQueue.push_back(item);
 }
 
 void CDasherModel::OutputTo(CDasherNode *pNewNode) {
@@ -519,7 +507,7 @@ void CDasherModel::RenderToView(CDasherView *pView, CExpansionPolicy &policy) {
 
 }
 
-void CDasherModel::ScheduleZoom(long time, dasherint y1, dasherint y2) {
+void CDasherModel::ScheduleZoom(dasherint y1, dasherint y2) {
   DASHER_ASSERT(y2>y1);
 
   // Rename for readability.
@@ -563,8 +551,6 @@ void CDasherModel::ScheduleZoom(long time, dasherint y1, dasherint y2) {
       sNewItem.iN2 = r2 - (s * (r2 - R2)) / nsteps;
       m_deGotoQueue.push_back(sNewItem);
   }
-  //steps having been scheduled, we're gonna start moving accordingly...
-  SetBoolParameter(BP_DASHER_PAUSED, false);
 }
 
 void CDasherModel::ClearScheduledSteps() {

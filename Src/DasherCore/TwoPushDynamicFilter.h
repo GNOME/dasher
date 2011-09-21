@@ -25,7 +25,7 @@
 namespace Dasher {
 /// \ingroup InputFilter
 /// @{
-class CTwoPushDynamicFilter : public CDynamicButtons /*long push, but do our own "multi-push" detection*/ {
+class CTwoPushDynamicFilter : public CDynamicButtons, public CSettingsObserver /*long push, but do our own "multi-push" detection*/ {
  public:
   CTwoPushDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate);
   
@@ -40,12 +40,12 @@ class CTwoPushDynamicFilter : public CDynamicButtons /*long push, but do our own
   virtual void KeyUp(unsigned long Time, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel);
 
  protected:
-  virtual bool TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);
+  virtual void TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);
   virtual void ActionButton(unsigned long iTime, int iButton, int iType, CDasherModel *pModel);
 
   virtual void HandleEvent(int iParameter);
 
-  virtual void run();
+  virtual void run(unsigned long iTime);
 
  private:
   double m_dLogUpMul, m_dLogDownMul, m_dLagBits;

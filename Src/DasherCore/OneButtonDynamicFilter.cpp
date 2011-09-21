@@ -108,15 +108,14 @@ void COneButtonDynamicFilter::KeyUp(unsigned long Time, int iId, CDasherView *pD
   CButtonMultiPress::KeyUp(Time, iId, pDasherView, pInput, pModel);
 }
 
-bool COneButtonDynamicFilter::TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) {
+void COneButtonDynamicFilter::TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) {
   OneStepTowards(m_pDasherModel, m_iTargetX[m_iTarget], m_iTargetY[m_iTarget], Time, SlowStartSpeedMul(Time));
-  return true;
 }
 
 void COneButtonDynamicFilter::ActionButton(unsigned long iTime, int iButton, int iType, CDasherModel *pModel) {
   if (iType != 0) {
     //double/long push
-    reverse();
+    reverse(iTime);
     return;
   }
     

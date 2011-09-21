@@ -23,7 +23,8 @@
 
 using namespace Dasher;
 
-CDynamicFilter::CDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName) : CInputFilter(pInterface, iID, szName), CSettingsUser(pCreator), m_pFramerate(pFramerate) {
+CDynamicFilter::CDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName)
+: CInputFilter(pInterface, iID, szName), CSettingsUser(pCreator), m_bPaused(true), m_pFramerate(pFramerate) {
 }
 
 bool CDynamicFilter::OneStepTowards(CDasherModel *pModel, myint y1, myint y2, unsigned long iTime, double dSpeedMul) {
@@ -34,7 +35,7 @@ bool CDynamicFilter::OneStepTowards(CDasherModel *pModel, myint y1, myint y2, un
   // Adjust for slow start etc. TODO: can we fix to use integer math (or at least no pow?)
   if (dSpeedMul!=1.0) dRXMax=pow(dRXMax, dSpeedMul);
   
-  pModel->OneStepTowards(y1, y2, static_cast<int>(m_pFramerate->Steps() / dSpeedMul), static_cast<myint>(CDasherModel::MAX_Y/dRXMax));
+  pModel->ScheduleOneStep(y1, y2, static_cast<int>(m_pFramerate->Steps() / dSpeedMul), static_cast<myint>(CDasherModel::MAX_Y/dRXMax));
   return true;
 }
 
@@ -47,10 +48,10 @@ double CDynamicFilter::SlowStartSpeedMul(unsigned long iTime) {
   return 1.0;
 }
 
-void CDynamicFilter::Unpause(unsigned long Time) {
-  if (!GetBoolParameter(BP_DASHER_PAUSED)) return; //already running, no need to / can't really do anything
+void CDynamicFilter::run(unsigned long Time) {
+  if (!isPaused()) return; //already running, no need to / can't really do anything
   
-  SetBoolParameter(BP_DASHER_PAUSED, false);
+  m_bPaused = false;
 
   m_pFramerate->Reset_framerate(Time);
   m_iStartTime = Time;

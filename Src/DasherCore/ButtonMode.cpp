@@ -156,14 +156,14 @@ bool CButtonMode::DecorateView(CDasherView *pView, CDasherInput *pInput) {
   return bRV;
 }
 
-bool CButtonMode::Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CExpansionPolicy **pol) {
+void CButtonMode::Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CExpansionPolicy **pol) {
   bool m_bOldHighlight(m_bHighlight);
   m_bHighlight = (Time - m_iLastTime < 200);
 
   if(m_bOldHighlight != m_bHighlight)
     m_bDecorationChanged = true;
 
-  return CDasherButtons::Timer(Time, pView, pInput, pModel, pol);
+  CDasherButtons::Timer(Time, pView, pInput, pModel, pol);
 }
 
 void CButtonMode::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {

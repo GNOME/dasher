@@ -251,7 +251,7 @@ CControlManager::CControlManager(CSettingsUser *pCreateFrom, CNodeCreationManage
   m_pPause = new Pause("Pause",241);
   m_pPause->successors.push_back(NULL);
   m_pPause->successors.push_back(GetRootTemplate());
-  m_pStop = new MethodTemplate<CDasherInterfaceBase>("Stop", 242, pInterface, &CDasherInterfaceBase::Stop);
+  m_pStop = new MethodTemplate<CDasherInterfaceBase>(_("Done"), 242, pInterface, &CDasherInterfaceBase::Done);
   m_pStop->successors.push_back(NULL);
   m_pStop->successors.push_back(GetRootTemplate());
 
@@ -268,7 +268,7 @@ CControlManager::CControlManager(CSettingsUser *pCreateFrom, CNodeCreationManage
 CControlBase::Pause::Pause(const string &strLabel, int iColour) : NodeTemplate(strLabel,iColour) {
 }
 void CControlBase::Pause::happen(CContNode *pNode) {
-  pNode->mgr()->SetBoolParameter(BP_DASHER_PAUSED,true);
+  pNode->mgr()->m_pInterface->GetActiveInputMethod()->pause();
 }
 
 CControlBase::NodeTemplate *CControlManager::parseOther(const XML_Char *name, const XML_Char **atts) {
@@ -389,14 +389,14 @@ void CControlManager::updateActions() {
   //stop does something, and we're told to add a node for it
   // (either a dynamic filter where the user can't use the normal stop mechanism precisely,
   //  or a static filter but a 'stop' action is easier than using speak->all / copy->all then pause)
-  if (m_pInterface->hasStopTriggers() && GetBoolParameter(BP_CONTROL_MODE_HAS_HALT))
+  if (m_pInterface->hasDone() && GetBoolParameter(BP_CONTROL_MODE_HAS_HALT))
     vRootSuccessors.push_back(m_pStop);
   if (it!=vOldRootSuccessors.end() && *it == m_pStop) it++;
 
   //filter is pauseable, and either 'stop' would do something (so pause is different),
   // or we're told to have a stop node but it would be indistinguishable from pause (=>have pause)
   CInputFilter *pInput(m_pInterface->GetActiveInputMethod());
-  if (pInput->supportsPause() && (m_pInterface->hasStopTriggers() || GetBoolParameter(BP_CONTROL_MODE_HAS_HALT)))
+  if (pInput->supportsPause() && (m_pInterface->hasDone() || GetBoolParameter(BP_CONTROL_MODE_HAS_HALT)))
     vRootSuccessors.push_back(m_pPause);
   if (it!=vOldRootSuccessors.end() && *it == m_pPause) it++;
 

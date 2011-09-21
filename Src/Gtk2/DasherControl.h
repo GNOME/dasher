@@ -130,8 +130,8 @@ public:
 
   gboolean ExposeEvent();
 
-  ///Override to broadcast signal...
-  virtual void Stop();
+  ///Override to broadcast dasher_stop signal...
+  virtual void Done();
 
   virtual void WriteTrainFile(const std::string &filename, const std::string &strNewText);
   virtual int GetFileSize(const std::string &strFileName);

@@ -17,14 +17,18 @@ class CDefaultFilter : public CDynamicFilter, public CSettingsObserver {
   virtual void HandleEvent(int iParameter);
 
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);
-  virtual bool Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CExpansionPolicy **pol);
+  virtual void Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CExpansionPolicy **pol);
   virtual void KeyDown(unsigned long iTime, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel);
   virtual void KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
   virtual void Activate();
   virtual void Deactivate();
   bool GetSettings(SModuleSettings **, int *);
+  void pause();
+  //pauses, and calls the interface's Done() method
+  void stop();
  protected:
   void CreateStartHandler();
+  void run(unsigned long iTime);
   virtual CStartHandler *MakeStartHandler();
   virtual void ApplyTransform(myint &iDasherX, myint &iDasherY, CDasherView *pView);
   void ApplyOffset(myint &iDasherX, myint &iDasherY);

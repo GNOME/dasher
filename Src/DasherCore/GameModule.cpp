@@ -93,13 +93,18 @@ void CGameModule::SetWordGenerator(const CAlphInfo *pAlph, CWordGeneratorBase *p
   }
 }
 
+void CGameModule::StartWriting(unsigned long lTime) {
+  if (!m_ulSentenceStartTime) {
+    m_ulSentenceStartTime = lTime;
+    m_dSentenceStartNats = numeric_limits<double>::max();
+  }
+}
+
 void CGameModule::DecorateView(unsigned long lTime, CDasherView *pView, CDasherModel *pModel) {
 
-  if (GetBoolParameter(BP_DASHER_PAUSED) && !m_ulSentenceStartTime) {
-    m_ulSentenceStartTime = lTime;
+  if (m_dSentenceStartNats == numeric_limits<double>::max())
     m_dSentenceStartNats = pModel->GetNats();
-  }
-  
+
   m_vTargetY.push_back((m_y1+m_y2)/2);
   
   //draw a line along the y axis
@@ -133,7 +138,7 @@ void CGameModule::DecorateView(unsigned long lTime, CDasherView *pView, CDasherM
   if(m_iLastSym  == m_vTargetSymbols.size() - 1) {
     m_pInterface->Message(ComputeStats(m_vTargetY),true);
     m_vTargetY.clear(); //could preserve if samples not excessive...but is it meaningful (given restart)?
-    SetBoolParameter(BP_DASHER_PAUSED, true);
+    m_pInterface->GetActiveInputMethod()->pause();
     m_ulTotalTime += (lTime - m_ulSentenceStartTime);
     m_dTotalNats += (pModel->GetNats() - m_dSentenceStartNats);
     m_uiTotalSyms += m_vTargetSymbols.size();

@@ -18,7 +18,7 @@ using namespace std;
 namespace Dasher {
 /// \ingroup Input
 /// @{
-class CDasherButtons : public CInputFilter, protected CSettingsUser
+class CDasherButtons : public CStaticFilter, protected CSettingsUser
 {
  public:
   CDasherButtons(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, bool bMenu, ModuleID_t iID, const char *szName);
@@ -28,7 +28,7 @@ class CDasherButtons : public CInputFilter, protected CSettingsUser
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput)=0;
   
   void KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
-  bool Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);
+  void Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);
   void Activate();
   
   struct SBoxInfo {

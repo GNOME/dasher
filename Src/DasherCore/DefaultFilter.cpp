@@ -106,15 +106,14 @@ bool CDefaultFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
   return bDidSomething;
 }
 
-bool CDefaultFilter::Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) {
+void CDefaultFilter::Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) {
   if (!(m_bGotMouseCoords = pInput->GetDasherCoords(m_iLastX, m_iLastY, pView))) {
-    m_pInterface->Stop(); //does nothing if already paused
-    return false;
+    stop();
+    return;
   };
   //Got coordinates
   ApplyTransform(m_iLastX, m_iLastY, pView);
-  bool bDidSomething(false);
-  if (!GetBoolParameter(BP_DASHER_PAUSED))
+  if (!isPaused())
   {
     if(GetBoolParameter(BP_STOP_OUTSIDE)) {
       myint iDasherMinX;
@@ -124,8 +123,8 @@ bool CDefaultFilter::Timer(unsigned long Time, CDasherView *pView, CDasherInput 
       pView->VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
 
       if((m_iLastX > iDasherMaxX) || (m_iLastX < iDasherMinX) || (m_iLastY > iDasherMaxY) || (m_iLastY < iDasherMinY)) {
-        m_pInterface->Stop();
-        return false;
+        stop();
+        return;
       }
     }
 
@@ -133,7 +132,6 @@ bool CDefaultFilter::Timer(unsigned long Time, CDasherView *pView, CDasherInput 
     if (m_bTurbo) dSpeedMul*=1.75;
     
     OneStepTowards(m_pDasherModel, m_iLastX,m_iLastY, Time, dSpeedMul);
-    bDidSomething = true;
 
     if (GetLongParameter(LP_BOOSTFACTOR)==100 && dSpeedMul==1.0)
       m_pAutoSpeedControl->SpeedControl(m_iLastX, m_iLastY, pView);
@@ -141,43 +139,43 @@ bool CDefaultFilter::Timer(unsigned long Time, CDasherView *pView, CDasherInput 
 
   if(m_pStartHandler)
     m_pStartHandler->Timer(Time, m_iLastX, m_iLastY, pView);
+}
 
-  return bDidSomething;
+void CDefaultFilter::run(unsigned long iTime) {
+  CDynamicFilter::run(iTime);
+  if (m_pStartHandler) m_pStartHandler->onRun(iTime);
+}
+
+void CDefaultFilter::pause() {
+  CDynamicFilter::pause();
+  if (m_pStartHandler) m_pStartHandler->onPause();
 }
 
 void CDefaultFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel) {
 
-  switch(iId) {
-  case 0: // Start on space
-    // FIXME - wrap this in a 'start/stop' method (and use for buttons as well as keys)
-    if(GetBoolParameter(BP_START_SPACE)) {
-      if(GetBoolParameter(BP_DASHER_PAUSED))
-        Unpause(iTime);
-      else
-	m_pInterface->Stop();
-    }
-    break;
-  case 100: // Start on mouse
-    if(GetBoolParameter(BP_START_MOUSE)) {
-      if(GetBoolParameter(BP_DASHER_PAUSED))
-        Unpause(iTime);
-      else
-	m_pInterface->Stop();
-    }
-    break;
-    case 101: case 102: //Other mouse buttons, if platforms support?
-    case 1: //button 1
-      if (GetBoolParameter(BP_TURBO_MODE)) {
-        m_bTurbo = true;
-      }
-  default:
-    break;
+  if ((iId==0 && GetBoolParameter(BP_START_SPACE))
+      || (iId==100 && GetBoolParameter(BP_START_MOUSE))) {
+    if(isPaused())
+      run(iTime);
+    else
+      stop();
+  }
+  else if (iId==101 || iId==102 || iId==1) {
+    //Other mouse buttons, if platforms support; or button 1
+    if (GetBoolParameter(BP_TURBO_MODE))
+      m_bTurbo = true;
   }
 }
 
 void CDefaultFilter::KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
-  if (iId==101 || iId==1)
+  if (iId==101 || iId==102 || iId==1)
     m_bTurbo=false;
+}
+
+void CDefaultFilter::stop() {
+  if (isPaused()) return;
+  pause();
+  m_pInterface->Done();
 }
 
 void CDefaultFilter::HandleEvent(int iParameter) {
@@ -264,7 +262,7 @@ void CDefaultFilter::ApplyOffset(myint &iDasherX, myint &iDasherY) {
 
   iDasherY += 10 * GetLongParameter(LP_TARGET_OFFSET);
 
-  if(GetBoolParameter(BP_AUTOCALIBRATE) && !GetBoolParameter(BP_DASHER_PAUSED)) {
+  if(GetBoolParameter(BP_AUTOCALIBRATE) && !isPaused()) {
     // Auto-update the offset
 
     m_iSum += CDasherModel::ORIGIN_Y - iDasherY; // Distance above crosshair

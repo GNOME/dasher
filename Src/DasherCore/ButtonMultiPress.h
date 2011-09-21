@@ -37,11 +37,11 @@ class CButtonMultiPress : public CDynamicButtons {
 
   virtual void KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
 
+  void pause();
  protected:
   virtual unsigned int maxClickCount()=0;
-  virtual void reverse();
-  virtual void pause();
-  virtual void run();
+  void reverse(unsigned long iTime);
+  void run(unsigned long iTime);
 
  private:
   virtual void RevertPresses(int iCount) {};

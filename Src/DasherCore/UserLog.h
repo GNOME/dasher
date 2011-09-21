@@ -74,7 +74,7 @@ typedef vector<VECTOR_STRING>::iterator     VECTOR_VECTOR_STRING_ITER;
 
 // We need to be notified when parameters we are logging get changed, but UserLogBase
 // is already watching BP_DASHER_PAUSED
-class CUserLog : public CUserLogBase {
+class CUserLog : public CUserLogBase, protected Dasher::CSettingsUserObserver {
 public:
   CUserLog(Dasher::CSettingsUser *pCreateFrom, Observable<const Dasher::CEditEvent *> *pHandler, int iLogTypeMask);
 

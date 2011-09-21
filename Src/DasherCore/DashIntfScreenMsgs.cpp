@@ -12,7 +12,7 @@ void CDashIntfScreenMsgs::Message(const string &strText, bool bInterrupt) {
   CDasherScreen::Label *lab = m_DasherScreen->MakeLabel(strText,GetLongParameter(LP_MESSAGE_FONTSIZE));
   if (bInterrupt) {
     m_dqModalMessages.push_back(pair<CDasherScreen::Label*,bool>(lab,false));
-    SetBoolParameter(BP_DASHER_PAUSED, true);
+    GetActiveInputMethod()->pause();
   }
   else
     m_dqAsyncMessages.push_back(pair<CDasherScreen::Label*,unsigned long>(lab, 0));
@@ -81,25 +81,21 @@ void CDashIntfScreenMsgs::ChangeScreen(CDasherScreen *pNewScreen) {
   }
 }
 
-void CDashIntfScreenMsgs::HandleEvent(int iParameter) {
-  CDashIntfSettings::HandleEvent(iParameter);
-  if (iParameter==BP_DASHER_PAUSED && !GetBoolParameter(BP_DASHER_PAUSED)) {
-    //just unpaused.
-    while (!m_dqModalMessages.empty()) {
-      if (m_dqModalMessages.front().second) {
-        //Message has been displayed; delete it
-        delete m_dqModalMessages.front().first; //the label
-        m_dqModalMessages.pop_front();
-      } else {
-        //there are more, not-yet displayed, modal messages!
-        //These should be after any that were displayed (which have now been erased), so:
-        // do not unpause; next frame will render more messages instead.
-        m_pDasherModel->ClearScheduledSteps();
-        SetBoolParameter(BP_DASHER_PAUSED,true);
-        return;
-      }
+void CDashIntfScreenMsgs::onUnpause(unsigned long lTime) {
+  while (!m_dqModalMessages.empty()) {
+    if (m_dqModalMessages.front().second) {
+      //Message has been displayed; delete it
+      delete m_dqModalMessages.front().first; //the label
+      m_dqModalMessages.pop_front();
+    } else {
+      //there are more, not-yet displayed, modal messages!
+      //These should be after any that were displayed (which have now been erased),
+      // so do not unpause; next frame will render more messages instead.
+      GetActiveInputMethod()->pause();
+      return;
     }
   }
+  CDasherInterfaceBase::onUnpause(lTime);
 }
 
 CGameModule *CDashIntfScreenMsgs::CreateGameModule(CDasherView *pView, CDasherModel *pModel) {

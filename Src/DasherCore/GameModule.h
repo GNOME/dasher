@@ -47,6 +47,8 @@ class CGameModule : protected CSettingsUser, protected TransientObserver<const C
 
   ~CGameModule();
 
+  void StartWriting(unsigned long lTime);
+  
   /**
    * Draws Game Mode specific visuals to the screen.
    * \param pView The Dasher View to be modified

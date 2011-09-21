@@ -108,7 +108,7 @@ void CAlternatingDirectMode::DirectKeyDown(unsigned long iTime, int iId, CDasher
       return;
   }
   //iTargetBox now indicates the box into which to zoom
-  pModel->ScheduleZoom(iTime, m_pBoxes[iTargetBox].iTop,  m_pBoxes[iTargetBox].iBottom);
+  ScheduleZoom(pModel, m_pBoxes[iTargetBox].iTop,  m_pBoxes[iTargetBox].iBottom);
 }
 
 bool CAlternatingDirectMode::GetSettings(SModuleSettings **pSettings, int *iCount) {

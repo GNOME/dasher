@@ -80,24 +80,25 @@ CStartHandler *COneDimensionalFilter::MakeStartHandler() {
     public:
       C1DCircleStartHandler(COneDimensionalFilter *f) : CCircleStartHandler(f) {
       }
-      void ComputeScreenLoc(CDasherView *pView) {
-        if (m_iScreenRadius!=-1) return;
-        CCircleStartHandler::ComputeScreenLoc(pView);
-        if (GetBoolParameter(BP_DASHER_PAUSED)) {
-          //put start circle at center of 1D transform, rather than center of screen
-          // (leave m_iScreenRadius, in pixels, as computed by above)
+      CDasherScreen::point CircleCenter(CDasherView *pView) {
+        if (m_iScreenRadius==-1) {//if we need to recompute
+          CCircleStartHandler::CircleCenter(pView); //that does the radius
           const myint rad(GetLongParameter(LP_CIRCLE_PERCENT) * CDasherModel::ORIGIN_Y / 100); //~~rad/2 in dasher-coords
-          pView->Dasher2Screen(CDasherModel::ORIGIN_X-static_cast<COneDimensionalFilter*>(m_pFilter)->forwardmax+rad, CDasherModel::ORIGIN_Y,m_screenCircleCenter.x, m_screenCircleCenter.y);
-        } 
-      }
-      void HandleEvent(int iParameter) {
-        if (iParameter==BP_DASHER_PAUSED) {
-          //circle needs to move for pause/unpause; setting radius to -1 causes
-          // next call to DecorateView or Timer to re-call ComputeScreenLoc.
-          m_iScreenRadius=-1;
+          m_pView->Dasher2Screen(CDasherModel::ORIGIN_X-static_cast<COneDimensionalFilter*>(m_pFilter)->forwardmax+rad, CDasherModel::ORIGIN_Y,m_fwdCenter.x, m_fwdCenter.y);
         }
-        CCircleStartHandler::HandleEvent(iParameter);
+        if (!static_cast<COneDimensionalFilter*>(m_pFilter)->isPaused()) return CCircleStartHandler::CircleCenter(pView);
+        //paused. put start circle at center of 1D transform, rather than center of screen
+        // but keep the same m_iScreenRadius, in pixels - so recompute if necessary:
+        return m_fwdCenter;
       }
+      void onPause() {
+        //circle needs to move for pause/unpause; setting radius to -1 causes
+        // next call to DecorateView or Timer to re-call ComputeScreenLoc.
+        m_iScreenRadius=-1;
+        CCircleStartHandler::onPause();
+      }
+    private:
+      CDasherScreen::point m_fwdCenter;
     };
     return new C1DCircleStartHandler(this);
   }

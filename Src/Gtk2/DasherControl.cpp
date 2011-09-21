@@ -585,9 +585,8 @@ gboolean CDasherControl::ExposeEvent() {
   return 0;
 }
 
-void CDasherControl::Stop() {
-  if (GetBoolParameter(BP_DASHER_PAUSED)) return;
-  CDasherInterfaceBase::Stop();
+void CDasherControl::Done() {
+  CDasherInterfaceBase::Done();
   g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_stop");
 }
 

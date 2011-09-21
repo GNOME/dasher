@@ -49,7 +49,7 @@ static SModuleSettings sSettings[] = {
 };
 
 CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate)
-  : CButtonMultiPress(pCreator, pInterface, pFramerate, 14, _("Two Button Dynamic Mode")), m_iMouseButton(-1)
+  : CButtonMultiPress(pCreator, pInterface, pFramerate, 14, _("Two Button Dynamic Mode")), CSettingsObserver(pCreator), m_iMouseButton(-1)
 {
   //ensure that m_dLagMul is properly initialised
   HandleEvent(LP_DYNAMIC_BUTTON_LAG);
@@ -117,9 +117,8 @@ void CTwoButtonDynamicFilter::KeyUp(unsigned long Time, int iId, CDasherView *pV
   CButtonMultiPress::KeyUp(Time, iId, pView, pInput,pModel);
 }
 
-bool CTwoButtonDynamicFilter::TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) {
+void CTwoButtonDynamicFilter::TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) {
   OneStepTowards(m_pDasherModel, 100,2048, Time, SlowStartSpeedMul(Time));
-  return true;
 }
 
 void CTwoButtonDynamicFilter::ActionButton(unsigned long iTime, int iButton, int iType, CDasherModel *pModel) {
@@ -134,7 +133,7 @@ void CTwoButtonDynamicFilter::ActionButton(unsigned long iTime, int iButton, int
     dFactor *= - (1.0 + exp(pModel->GetNats())); //prev jump is further now
   }
   else if (iType != 0) {
-    reverse();
+    reverse(iTime);
     return;
   }
   
@@ -186,5 +185,4 @@ void CTwoButtonDynamicFilter::HandleEvent(int iParameter)
   case LP_TWO_BUTTON_OFFSET:
       m_bDecorationChanged = true;
   }
-  CButtonMultiPress::HandleEvent(iParameter);
 }

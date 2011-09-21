@@ -14,7 +14,8 @@
 
 using namespace Dasher;
 
-CBasicLog::CBasicLog(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pIntf) : CUserLogBase(pCreateFrom,pIntf) {
+CBasicLog::CBasicLog(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pIntf)
+: CUserLogBase(pIntf), CSettingsUser(pCreateFrom) {
   m_iSymbolCount = 0;
   m_bStarted = false;
 }

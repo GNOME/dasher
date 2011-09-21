@@ -290,7 +290,7 @@ gtk_dasher_control_get_module_settings(GtkDasherControl * pControl, const gchar 
 void 
 gtk_dasher_control_force_pause(GtkDasherControl *pControl) {
   GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
-  pPrivate->pControl->Stop();
+  pPrivate->pControl->GetActiveInputMethod()->pause();
 }
 
 const char *

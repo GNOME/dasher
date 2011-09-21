@@ -24,7 +24,7 @@ static char THIS_FILE[] = __FILE__;
 using namespace Dasher;
 
 CDasherButtons::CDasherButtons(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, bool bMenu, ModuleID_t iID, const char *szName)
-  : CSettingsUser(pCreator), CInputFilter(pInterface, iID, szName), m_bMenu(bMenu), m_bDecorationChanged(true), m_pBoxes(NULL), iActiveBox(0) {}
+  : CStaticFilter(pInterface, iID, szName), CSettingsUser(pCreator), m_bMenu(bMenu), m_bDecorationChanged(true), m_pBoxes(NULL), iActiveBox(0) {}
 
 CDasherButtons::~CDasherButtons()
 {
@@ -54,7 +54,7 @@ void CDasherButtons::KeyDown(unsigned long iTime, int iId, CDasherView *pView, C
     case 3:
     case 100:
       m_bDecorationChanged = true;
-      pModel->ScheduleZoom(iTime, m_pBoxes[iActiveBox].iTop, m_pBoxes[iActiveBox].iBottom);
+      ScheduleZoom(pModel, m_pBoxes[iActiveBox].iTop, m_pBoxes[iActiveBox].iBottom);
       if(iActiveBox != m_iNumBoxes-1)
         iActiveBox = 0;
       break;
@@ -76,10 +76,10 @@ void CDasherButtons::DirectKeyDown(unsigned long iTime, int iId, CDasherView *pV
   else
   iActiveBox = m_iNumBoxes-2;
 
-  pModel->ScheduleZoom(iTime, m_pBoxes[iActiveBox].iTop,m_pBoxes[iActiveBox].iBottom);
+  ScheduleZoom(pModel, m_pBoxes[iActiveBox].iTop,m_pBoxes[iActiveBox].iBottom);
 }
 
-bool CDasherButtons::Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CExpansionPolicy **pol) {
+void CDasherButtons::Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CExpansionPolicy **pol) {
   if (m_bMenu && GetLongParameter(LP_BUTTON_SCAN_TIME) &&
       Time > m_iScanTime) {
     m_iScanTime = Time + GetLongParameter(LP_BUTTON_SCAN_TIME);
@@ -94,8 +94,6 @@ bool CDasherButtons::Timer(unsigned long Time, CDasherView *pView, CDasherInput 
 
   pInput->GetDasherCoords(iDasherX, iDasherY, pView);
   // ----
-
-  return pModel->NextScheduledStep();
 }
 
 void CDasherButtons::NewDrawGoTo(CDasherView *pView, myint iDasherMin, myint iDasherMax, bool bActive) {

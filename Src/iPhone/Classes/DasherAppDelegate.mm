@@ -318,7 +318,7 @@ using namespace Dasher;
 
 - (void)settings {
   //avoid awful muddle if we change out of tap-to-start mode whilst running.... 
-  _dasherInterface->Stop();
+  _dasherInterface->GetActiveInputMethod()->pause();
 	
   UITabBarController *tabs = [[[UITabBarController alloc] init] autorelease];
   tabs.title = @"Settings";

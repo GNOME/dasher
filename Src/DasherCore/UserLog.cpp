@@ -46,8 +46,8 @@ static UserLogParamMask s_UserLogParamMaskTable [] = {
 };
 
 CUserLog::CUserLog(CSettingsUser *pCreateFrom,
-                   Observable<const CEditEvent *> *pObsv,
-                   int iLogTypeMask) : CUserLogBase(pCreateFrom, pObsv) {
+                   Observable<const CEditEvent *> *pObsv, int iLogTypeMask)
+: CUserLogBase(pObsv), CSettingsUserObserver(pCreateFrom) {
   //CFunctionLogger f1("CUserLog::CUserLog", g_pLogger);
 
   InitMemberVars();
@@ -1134,7 +1134,8 @@ void CUserLog::UpdateParam(int iParameter, int iOptionMask)
 // TODO these are broken by settings rewrite. Fix???
 
 // Load the object from an XML file
-CUserLog::CUserLog(string strXMLFilename) : CUserLogBase(NULL, NULL) {
+CUserLog::CUserLog(string strXMLFilename)
+: CUserLogBase(NULL), CSettingsUserObserver(NULL) {
   //CFunctionLogger f1("CUserLog::CUserLog(XML)", g_pLogger);
 
   InitMemberVars();

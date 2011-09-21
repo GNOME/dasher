@@ -44,7 +44,7 @@ static SModuleSettings sSettings[] = {
 };
 
 CTwoPushDynamicFilter::CTwoPushDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate)
-  : CDynamicButtons(pCreator, pInterface, pFramerate, 14, _("Two-push Dynamic Mode (New One Button)")), m_dNatsSinceFirstPush(-std::numeric_limits<double>::infinity()) {
+  : CDynamicButtons(pCreator, pInterface, pFramerate, 14, _("Two-push Dynamic Mode (New One Button)")), CSettingsObserver(pCreator), m_dNatsSinceFirstPush(-std::numeric_limits<double>::infinity()) {
   
   HandleEvent(LP_TWO_PUSH_OUTER);//and all the others too!
 }
@@ -99,9 +99,7 @@ bool CTwoPushDynamicFilter::DecorateView(CDasherView *pView, CDasherInput *pInpu
   return bRV;
 }
 
-void CTwoPushDynamicFilter::HandleEvent(int iParameter)
-{
-  CDynamicButtons::HandleEvent(iParameter);
+void CTwoPushDynamicFilter::HandleEvent(int iParameter) {
   switch (iParameter)
   {
     case LP_TWO_PUSH_OUTER:
@@ -189,7 +187,7 @@ void CTwoPushDynamicFilter::ActionButton(unsigned long iTime, int iButton, int i
   // 1 = long click
   
   if (iType != 0) {
-    reverse();
+    reverse(iTime);
     return;
   }
   if (m_dNatsSinceFirstPush == -std::numeric_limits<double>::infinity()) //no button pushed (recently)
@@ -202,7 +200,7 @@ void CTwoPushDynamicFilter::ActionButton(unsigned long iTime, int iButton, int i
   {
 //cout << "Second push - event type " << iType << " logGrowth " << pModel->GetNats() << "\n";
     if (m_iActiveMarker == -1)
-      reverse();
+      reverse(iTime);
     else
     {
       ApplyOffset(pModel,m_aiTarget[m_iActiveMarker]);
@@ -220,8 +218,7 @@ bool doSet(int &var, const int val)
   return true;
 }
 
-bool CTwoPushDynamicFilter::TimerImpl(unsigned long iTime, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol)
-{
+void CTwoPushDynamicFilter::TimerImpl(unsigned long iTime, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) {
   DASHER_ASSERT(isRunning());
   if (m_dNatsSinceFirstPush > -std::numeric_limits<double>::infinity()) // first button has been pushed
   {
@@ -248,7 +245,7 @@ bool CTwoPushDynamicFilter::TimerImpl(unsigned long iTime, CDasherView *m_pDashe
     {
 //cout << " growth " << dLogGrowth << " - reversing\n";
       //button pushed, but then waited too long.
-      reverse();
+      reverse(iTime);
     }
     else if (dLogGrowth >= m_dMinShortTwoPushTime && dLogGrowth <= m_dMaxShortTwoPushTime)
       m_bDecorationChanged |= doSet(m_iActiveMarker, 0 /*up*/);
@@ -257,12 +254,11 @@ bool CTwoPushDynamicFilter::TimerImpl(unsigned long iTime, CDasherView *m_pDashe
     else m_bDecorationChanged |= doSet(m_iActiveMarker, -1 /*in middle (neither/both) or too short*/);
   }
   OneStepTowards(m_pDasherModel, 100, 2048, iTime, SlowStartSpeedMul(iTime));
-  return true;
 }
 
-void CTwoPushDynamicFilter::run() {
+void CTwoPushDynamicFilter::run(unsigned long iTime) {
   m_dNatsSinceFirstPush = -std::numeric_limits<double>::infinity();
-  CDynamicButtons::run();
+  CDynamicButtons::run(iTime);
 }
 
 bool CTwoPushDynamicFilter::GetSettings(SModuleSettings **pSettings, int *iCount) {

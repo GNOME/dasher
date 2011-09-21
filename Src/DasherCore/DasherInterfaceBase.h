@@ -198,16 +198,17 @@ public:
   /// Methods used to instruct dynamic motion of Dasher to start or stop
   /// @{
 
-  /// Stop Dasher - Sets BP_DASHER_PAUSED and executes any on-stop actions
-  ///  (speech, clipboard - subclasses may override to do more).
-  /// (But does nothing if BP_DASHER_PAUSED is not set)
-  virtual void Stop();
+  /// Call when the user has finished writing a piece of text, to execute
+  /// any "on-stop" actions: the default implements speak on stop (if
+  /// BP_SPEAK_ON_STOP is set) and copy-on-stop (if BP_COPY_ALL_ON_STOP) is set;
+  /// subclasses may override to do more.
+  virtual void Done();
 
-  ///Whether any actions are currently setup to occur when Dasher 'stop's.
-  /// Default is to return TRUE iff we support speech and BP_SPEAK_ON_STOP is set,
-  /// and/or if we support clipboard and BP_COPY_ALL_ON_STOP is set; subclasses may
-  /// override if they have additional on-stop actions.
-  virtual bool hasStopTriggers();
+  ///Whether the Done() method does anything (and so should be presented
+  /// to the user) - default deals with speak/copy-on-stop, and subclasses
+  /// which override Done() to add additional on-stop actions must/should
+  /// override this to match.
+  virtual bool hasDone();
   /// @}
 
   ///
@@ -410,6 +411,12 @@ protected:
 
   /// @}
 
+  ///Called (from NewFrame) if this frame moved and the previous didn't
+  /// (moved = was scheduled in the model, even if no actual change to
+  /// co-ordinates - the latter might occur if e.g. running default filter
+  /// but with the mouse precisely over the crosshair)
+  virtual void onUnpause(unsigned long lTime);
+  
   CDasherScreen *m_DasherScreen;
 
   CDasherModel * const m_pDasherModel;
@@ -513,11 +520,12 @@ protected:
   /// (so may still be NULL even if locked)
   CDasherScreen::Label *m_pLockLabel;
 
-  /// @name State variables
-  /// Represent the current overall state of the core
-  /// @{
+  ///Whether a full redraw (inc of nodes) has been requested externally,
+  /// via ScheduleRedraw, for the next frame
   bool m_bRedrawScheduled;
-  bool m_bOldVisible;
+  
+  ///Whether we moved anywhere in the last call to NewFrame.
+  bool m_bLastMoved;
 
   /// @}
 

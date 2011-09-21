@@ -66,14 +66,12 @@ void CButtonMultiPress::pause()
   m_deQueueTimes.clear();
 }
 
-void CButtonMultiPress::reverse()
-{
-  CDynamicButtons::reverse();
+void CButtonMultiPress::reverse(unsigned long iTime) {
+  CDynamicButtons::reverse(iTime);
   m_deQueueTimes.clear();
 }
 
-void CButtonMultiPress::run()
-{
+void CButtonMultiPress::run(unsigned long iTime) {
   if (!isRunning()) m_deQueueTimes.clear();
-  CDynamicButtons::run();
+  CDynamicButtons::run(iTime);
 }

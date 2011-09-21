@@ -78,10 +78,6 @@ void CZoomAdjuster::AdjustZoomCoords(myint &iDasherX, myint &iDasherY, CDasherVi
   }
 }
 
-bool CClickFilter::Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CExpansionPolicy **pol) {
-  return pModel->NextScheduledStep();
-}
-
 void CClickFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
   switch(iId) {
   case 100: // Mouse clicks
@@ -91,7 +87,7 @@ void CClickFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDa
 
       pInput->GetDasherCoords(iDasherX, iDasherY, pView);
       AdjustZoomCoords(iDasherX, iDasherY, pView);
-      pModel->ScheduleZoom(iTime, iDasherY-iDasherX, iDasherY+iDasherX);
+      ScheduleZoom(pModel,iDasherY-iDasherX, iDasherY+iDasherX);
     }
     break;
   default:

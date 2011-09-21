@@ -27,18 +27,16 @@
 /// @{
 namespace Dasher {
 ///filter with three states: paused, reversing, running. Hold any button down to reverse.
-class CDynamicButtons : public CDynamicFilter, public CSettingsObserver {
+class CDynamicButtons : public CDynamicFilter {
  public:
   CDynamicButtons(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName);
 
   ///when reversing, backs off; when paused, does nothing; when running, delegates to TimerImpl
-  virtual bool Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);
+  virtual void Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);
 
   virtual void KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
   virtual void KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
 
-  //respond to changes to BP_DASHER_PAUSED to keep m_iState in sync
-  virtual void HandleEvent(int iParameter);
  protected:
   ///Called when a key event is detected - could be a single press (a la KeyDown/KeyUp),
   /// but is also called with explicit indication of "long" or other types of press,
@@ -58,20 +56,19 @@ class CDynamicButtons : public CDynamicFilter, public CSettingsObserver {
   bool m_bKeyDown;
   bool m_bKeyHandled;
   bool m_bDecorationChanged;
-  bool isPaused() {return m_iState == 0;}
-  bool isReversing() {return m_iState == 1;}
-  bool isRunning() {return m_iState==2;}
+  bool isReversing() {return !isPaused() && !m_bForwards;}
+  bool isRunning() {return !isPaused() && m_bForwards;}
   virtual void pause();
-  virtual void reverse();
-  virtual void run();
+  virtual void reverse(unsigned long iTime);
+  virtual void run(unsigned long iTime);
 
-  virtual bool TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) = 0;
+  virtual void TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) = 0;
 
   ///Subclasses should all this (rather than pModel->Offset()) to offset the model
   /// (it also stores the model, to abort the offset upon pause if necessary)
   void ApplyOffset(CDasherModel *pModel, int iOffset);
   private:
-    int m_iState; // 0 = paused, 1 = reversing, >=2 = running (extensible by subclasses)
+    bool m_bForwards;
     int m_iHeldId;
     unsigned long m_iKeyDownTime;
     unsigned long m_uSpeedControlTime;
