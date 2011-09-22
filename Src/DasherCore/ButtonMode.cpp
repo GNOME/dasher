@@ -197,7 +197,7 @@ void CButtonMode::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDas
       //not in any box. Fall through, just to be conservative...
     }
   }
-  CInputFilter::KeyDown(iTime, iId, pView, pInput, pModel);
+  CDasherButtons::KeyDown(iTime, iId, pView, pInput, pModel);
 }
 
 void CButtonMode::DirectKeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherModel *pModel) {
