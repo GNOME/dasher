@@ -60,41 +60,35 @@ namespace Dasher {
   /// aspects of conversion, and CNodeManager for details of the node
   /// management process.
   ///
-  class CConversionManager : public CNodeManager {
+  class CConversionManager : protected CSettingsUser, public CNodeManager {
+    friend class CConvertingAlphMgr;
+  protected:  class CConvNode; //fwd decl
   public:
-    CConversionManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet);
+    CConversionManager(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, CLanguageModel *pLanguageModel);
+
+    ///
+    /// Get a new root node owned by this manager
+    ///
+    
+    virtual CConvNode *GetRoot(int iOffset, CLanguageModel::Context newCtx);
 
     ///Tells us to use the specified screen to create node labels.
     /// (note we cache the screen and create labels lazily)
     void ChangeScreen(CDasherScreen *pScreen);
     
-    ///
-    /// Decrement reference count
-    ///
-
-    virtual void Unref() {
-      --m_iRefCount;
-
-
-      //      std::cout << "Unref, new count = " << m_iRefCount << std::endl;
-
-      if(m_iRefCount == 0) {
-	//	std::cout << "Deleting " << this << std::endl;
-	delete this;
-      }
-    };
-
-    protected:
+  protected:
+    
     class CConvNode : public CDasherNode {
     public:
       CConversionManager *mgr() {return m_pMgr;}
-      CConvNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, CDasherScreen::Label *pLabel, CConversionManager *pMgr);
+      CConvNode(int iOffset, int iColour, CDasherScreen::Label *pLabel, CConversionManager *pMgr);
     ///
     /// Provide children for the supplied node
     ///
 
     virtual void PopulateChildren();
     virtual int ExpectedNumChildren();
+      virtual void SetFlag(int iFlag, bool bValue);
 
     ~CConvNode();
 
@@ -121,24 +115,15 @@ namespace Dasher {
     //TODO: REVISE
       symbol iSymbol;
       //     int iPhase;
-      CLanguageModel *pLanguageModel;
       CLanguageModel::Context iContext;
       SCENode * pSCENode;
       bool bisRoot; // True for root conversion nodes
       //int iGameOffset;
     };
 
-  public:
-    ///
-    /// Get a new root node owned by this manager
-    ///
+    virtual CConvNode *makeNode(int iOffset, int iColour, CDasherScreen::Label *pLabel);
 
-    virtual CConvNode *GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset);
-  protected:
-
-    virtual CConvNode *makeNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, CDasherScreen::Label *pLabel);
-
-  CDasherInterfaceBase *m_pInterface;
+    CDasherInterfaceBase *m_pInterface;
 	CNodeCreationManager *m_pNCManager;
 	const CAlphInfo *m_pAlphabet;
 	
@@ -146,6 +131,73 @@ namespace Dasher {
     /// \return a node label displaying the specified string
     CDasherScreen::Label *GetLabel(const char *pszConversion);
     
+    /// Convert a given string to a lattice of candidates. Sizes for
+	/// candidates aren't assigned at this point. The input string
+	/// should be UTF-8 encoded.
+	///
+	/// @param strSource UTF-8 encoded input string.
+	/// @param pRoot Used to return the root of the conversion lattice.
+	/// @param childCount Unsure - document this.
+	/// @param CMid A unique identifier for the conversion helper 'context'.
+	///
+	/// @return True if conversion succeeded, false otherwise
+	virtual bool Convert(const std::string &strSource, SCENode ** pRoot) = 0;
+    
+	/// Assign sizes to the children of a given conversion node. This
+	/// happens when the conversion manager populates the children of
+	/// the Dasher node so as to avoid unnecessary computation.
+	///
+	/// @param pStart The parent of the nodes to be sized.
+	/// @param context Unsure - document this, shouldn't be in general class (include userdata pointer).
+	/// @param normalization Normalisation constant for the child sizes (TODO: check that this is a sensible value, ie the same as Dasher normalisation).
+	/// @param uniform Unsure - document this.
+	///
+    virtual void AssignSizes(const std::vector<SCENode *> &vChildren, Dasher::CLanguageModel::Context context, long normalization, int uniform)=0;
+    
+	/// Assign colours to the children of a given conversion node.
+	/// This function needs a rethink.
+	///
+	/// @param parentClr
+	/// @param pNode
+	/// @param childIndex
+	///
+	/// @return
+	///
+	virtual int AssignColour(int parentClr, SCENode * pNode, int childIndex) {
+      int which = -1;
+      
+      for (int i=0; i<2; i++)
+        for(int j=0; j<3; j++)
+          if (parentClr == colourStore[i][j])
+            which = i;
+      
+      if(which == -1)
+        return colourStore[0][childIndex%3];
+      else if(which == 0)
+        return colourStore[1][childIndex%3];
+      else
+        return colourStore[0][childIndex%3];
+	};
+    
+    ///
+    /// Calculate sizes for each of the children - default
+    /// implementation assigns decending probabilities in a power law
+    /// fashion (so assumes ordering), but specific subclasses are
+    /// free to implement their own behaviour. The only restriction is
+    /// that sizes should be positive and sum to the appropriate
+    /// normalisation constant
+    ///
+    
+    virtual void AssignChildSizes(const std::vector<SCENode *> &vChildren, CLanguageModel::Context context);
+    
+    ///
+    /// Build the conversion tree (lattice) for the given string -
+    /// evaluated late to prevent unnecessary conversions when the
+    /// children of the root node are never instantiated
+    ///
+    
+    virtual void BuildTree(CConvNode *pRoot);
+
   private:
 
     std::map<std::string, CDasherScreen::Label *> m_vLabels;
@@ -157,11 +209,11 @@ namespace Dasher {
 
     void RecursiveDumpTree(std::ostream &out, SCENode *pCurrent, unsigned int iDepth);
 
-	///
-	/// Reference count
-	///
-
-    int m_iRefCount;
+    CLanguageModel *m_pLanguageModel;
+    
+    CLanguageModel::Context m_iLearnContext;
+    
+	int colourStore[2][3];
 
   };
   /// @}

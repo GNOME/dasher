@@ -88,9 +88,9 @@ namespace Dasher {
     public:
       CMandarinAlphMgr *mgr() {return static_cast<CMandarinAlphMgr *>(CSymbolNode::mgr());}
       ///Symbol constructor: display text from CHAlphabet, colour from GetCHColour
-      CMandSym(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CMandarinAlphMgr *pMgr, symbol iSymbol, symbol pyParent);
-      CDasherNode *RebuildSymbol(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, symbol iSymbol);
-      CMandSym *RebuildCHSymbol(CConvRoot *pParent, unsigned int iLbnd, unsigned int iHbnd, symbol iNewSym);
+      CMandSym(int iOffset, CMandarinAlphMgr *pMgr, symbol iSymbol, symbol pyParent);
+      CDasherNode *RebuildSymbol(CAlphNode *pParent, symbol iSymbol);
+      CMandSym *RebuildCHSymbol(CConvRoot *pParent, symbol iNewSym);
     protected:
       ///Override to compute which pinyin symbol to make our parent...
       void RebuildForwardsFromAncestor(CAlphNode *pNewNode);
@@ -109,7 +109,7 @@ namespace Dasher {
       class CConvRoot : public CAlphBase {
     public:
       /// \param pySym symbol in pinyin alphabet; must have >1 possible chinese conversion.
-      CConvRoot(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, CMandarinAlphMgr *pMgr, symbol pySym);
+      CConvRoot(int iOffset, CMandarinAlphMgr *pMgr, symbol pySym);
       CMandarinAlphMgr *mgr() {return static_cast<CMandarinAlphMgr *>(CAlphBase::mgr());}
       void PopulateChildren();
       void PopulateChildrenWithExisting(CMandSym *existing);
@@ -117,7 +117,7 @@ namespace Dasher {
       CLanguageModel::Context iContext;
       void SetFlag(int iFlag, bool bValue);
       const symbol m_pySym;
-      CDasherNode *RebuildSymbol(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, symbol iSymbol);
+      CDasherNode *RebuildSymbol(CAlphNode *pParent, symbol iSymbol);
     protected:
       bool isInGroup(const SGroupInfo *pGroup);
     private:        
@@ -126,13 +126,13 @@ namespace Dasher {
     ///Called to create the node for a pinyin leaf symbol;
     /// Overridden to call either CreateConvRoot or CreateCHSymbol, according to #chinese symbols under specified pinyin
     /// \param iSymbol Symbol number in pinyin alphabet
-    virtual CDasherNode *CreateSymbolNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, symbol iSymbol);
+    virtual CDasherNode *CreateSymbolNode(CAlphNode *pParent, symbol iSymbol);
 
     ///Creates a CConvRoot, for a Pinyin symbol with multiple possible chinese symbols.
     /// Colour is always 9 (opaque), so no need for background colour.
     /// \param pParent parent node, context will be taken from here
     /// \param iPYsym Symbol (leaf) in pinyin alphabet
-    CConvRoot *CreateConvRoot(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, symbol iPYsym);
+    CConvRoot *CreateConvRoot(CAlphNode *pParent, symbol iPYsym);
       
     ///Creates a node for (i.e. that will actually enter) a chinese symbol
     /// \param pParent parent node: could be a CGroupNode (directly), if some pinyin symbol in that group had only
@@ -141,7 +141,7 @@ namespace Dasher {
     /// \param iContext parent node's context, from which to generate context for this node
     /// \param iCHsym symbol number in chinese alphabet
     /// \param pyParent pinyin-alphabet symbol which was used to enter this chinese symbol (if known, else 0)
-    CMandSym *CreateCHSymbol(CDasherNode *pParent, CLanguageModel::Context iContext, unsigned int iLbnd, unsigned int iHbnd, symbol iCHsym, symbol pyParent);
+    CMandSym *CreateCHSymbol(CDasherNode *pParent, CLanguageModel::Context iContext, symbol iCHsym, symbol pyParent);
 
     ///Gets the possible chinese symbols for a pinyin one, along with their probabilities in the specified context.
     ///Probabilities are computed by CPPMPYLanguageModel::GetPartProbs, then renormalized here. (TODO unnecessary?)

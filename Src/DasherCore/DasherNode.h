@@ -104,13 +104,15 @@ class Dasher::CDasherNode:private NoClones {
 
   /// @brief Constructor
   ///
-  /// Note the flags of the new node are initialized to DEFAULT_FLAGS.
+  /// Note the flags of the new node are initialized to DEFAULT_FLAGS,
+  /// and the node has no parent, and range 0-CDasherModel::NORMALIZATION:
+  /// caller will likely want to change these via a call to Reparent().
   ///
   /// \param pParent Parent of the new node; automatically adds to end of parent's child list
   /// \param iOffset Index into text buffer of character to LHS of cursor _after_ this node is Output().
   /// \param iColour background colour of node (for transparent nodes, same colour as parent)
   /// \param pLabel label to render onto node, NULL if no label required.
-  CDasherNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, CDasherScreen::Label *pLabel);
+  CDasherNode(int iOffset, int iColour, CDasherScreen::Label *pLabel);
 
   /// @brief Destructor
   ///
@@ -165,13 +167,6 @@ class Dasher::CDasherNode:private NoClones {
   ///
   inline unsigned int Range() const;
 
-  /// @brief Reset the range of a node
-  ///
-  /// @param iLower New lower bound
-  /// @param iUpper New upper bound
-  ///
-  inline void SetRange(unsigned int iLower, unsigned int iUpper);
-
   /// @brief Get the size of the most probable child
   ///
   /// @return The size
@@ -185,10 +180,13 @@ class Dasher::CDasherNode:private NoClones {
   inline const ChildMap & GetChildren() const;
   inline unsigned int ChildCount() const;
   inline CDasherNode *Parent() const;
-  void SetParent(CDasherNode *pNewParent);
-  // TODO: Should this be here?
-  CDasherNode *const Get_node_under(int, myint y1, myint y2, myint smousex, myint smousey);   // find node under given co-ords
-
+  
+  /// Makes the node be the child of a new parent, and set its range amongst
+  /// that parent's children. This node will be positioned AFTER any/all
+  /// existing children of the new parent; so TODO - iLower redundant?
+  /// Before the call is made, the (child) node must have no parent.
+  void Reparent(CDasherNode *pNewParent, unsigned int iLower, unsigned int iUpper);
+  
   /// @brief Orphan a child of this node
   ///
   /// Deletes all other children, and the node itself
@@ -268,12 +266,6 @@ class Dasher::CDasherNode:private NoClones {
   ///
   virtual bool GameSearchNode(symbol sym) {return false;}
 
-  /// Clone the context of the specified node, if it's an alphabet node;
-  /// else return an empty context. (Used by ConversionManager)
-  virtual CLanguageModel::Context CloneAlphContext(CLanguageModel *pLanguageModel) {
-    return pLanguageModel->CreateEmptyContext();
-  };
-
   virtual symbol GetAlphSymbol() {
     throw "Hack for pre-MandarinDasher ConversionManager::BuildTree method, needs to access CAlphabetManager-private struct";
   }
@@ -344,9 +336,5 @@ inline CDasherNode *CDasherNode::Parent() const {
   return m_pParent;
 }
 
-inline void CDasherNode::SetRange(unsigned int iLower, unsigned int iUpper) {
-  m_iLbnd = iLower;
-  m_iHbnd = iUpper;
-}
 }
 #endif /* #ifndef __DasherNode_h__ */

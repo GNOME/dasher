@@ -40,8 +40,6 @@ libdashercore_a_SOURCES = \
 		CompassMode.h \
 		ControlManager.cpp \
 		ControlManager.h \
-		ConversionHelper.cpp \
-		ConversionHelper.h \
 		ConversionManager.cpp \
 		ConversionManager.h \
 		ConvertingAlphMgr.cpp \

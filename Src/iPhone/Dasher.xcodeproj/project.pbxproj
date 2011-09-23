@@ -60,7 +60,6 @@
 		332F32B1103C8A1E008448D7 /* AlternatingDirectMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 332F32A6103C8A1E008448D7 /* AlternatingDirectMode.cpp */; };
 		332F32B2103C8A1E008448D7 /* ButtonMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 332F32A8103C8A1E008448D7 /* ButtonMode.cpp */; };
 		332F32B3103C8A1E008448D7 /* CompassMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 332F32AA103C8A1E008448D7 /* CompassMode.cpp */; };
-		332F32B4103C8A1E008448D7 /* ConversionHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 332F32AC103C8A1E008448D7 /* ConversionHelper.cpp */; };
 		332F32B5103C8A1E008448D7 /* MandarinAlphMgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 332F32AD103C8A1E008448D7 /* MandarinAlphMgr.cpp */; };
 		332F32B6103C8A1E008448D7 /* Trainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 332F32AF103C8A1E008448D7 /* Trainer.cpp */; };
 		332F34A3103D8F54008448D7 /* colour.blue.xml in Resources */ = {isa = PBXBuildFile; fileRef = 332F3496103D8F54008448D7 /* colour.blue.xml */; };
@@ -365,7 +364,6 @@
 		332F32A9103C8A1E008448D7 /* ButtonMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonMode.h; sourceTree = "<group>"; };
 		332F32AA103C8A1E008448D7 /* CompassMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CompassMode.cpp; sourceTree = "<group>"; };
 		332F32AB103C8A1E008448D7 /* CompassMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompassMode.h; sourceTree = "<group>"; };
-		332F32AC103C8A1E008448D7 /* ConversionHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConversionHelper.cpp; sourceTree = "<group>"; };
 		332F32AD103C8A1E008448D7 /* MandarinAlphMgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MandarinAlphMgr.cpp; sourceTree = "<group>"; };
 		332F32AE103C8A1E008448D7 /* MandarinAlphMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MandarinAlphMgr.h; sourceTree = "<group>"; };
 		332F32AF103C8A1E008448D7 /* Trainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Trainer.cpp; sourceTree = "<group>"; };
@@ -560,7 +558,6 @@
 		3344FD820F71717C00506EAA /* ColourIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColourIO.h; sourceTree = "<group>"; };
 		3344FD830F71717C00506EAA /* ControlManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ControlManager.cpp; sourceTree = "<group>"; };
 		3344FD840F71717C00506EAA /* ControlManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlManager.h; sourceTree = "<group>"; };
-		3344FD870F71717C00506EAA /* ConversionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversionHelper.h; sourceTree = "<group>"; };
 		3344FD880F71717C00506EAA /* ConversionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConversionManager.cpp; sourceTree = "<group>"; };
 		3344FD890F71717C00506EAA /* ConversionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversionManager.h; sourceTree = "<group>"; };
 		3344FD8C0F71717C00506EAA /* CustomColours.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CustomColours.cpp; sourceTree = "<group>"; };
@@ -1189,7 +1186,6 @@
 				3344FD820F71717C00506EAA /* ColourIO.h */,
 				3344FD830F71717C00506EAA /* ControlManager.cpp */,
 				3344FD840F71717C00506EAA /* ControlManager.h */,
-				3344FD870F71717C00506EAA /* ConversionHelper.h */,
 				3344FD880F71717C00506EAA /* ConversionManager.cpp */,
 				3344FD890F71717C00506EAA /* ConversionManager.h */,
 				333FDB58139FB413009D018A /* ConvertingAlphMgr.cpp */,
@@ -1257,7 +1253,6 @@
 				332F32A9103C8A1E008448D7 /* ButtonMode.h */,
 				332F32AA103C8A1E008448D7 /* CompassMode.cpp */,
 				332F32AB103C8A1E008448D7 /* CompassMode.h */,
-				332F32AC103C8A1E008448D7 /* ConversionHelper.cpp */,
 				332F32AD103C8A1E008448D7 /* MandarinAlphMgr.cpp */,
 				332F32AE103C8A1E008448D7 /* MandarinAlphMgr.h */,
 				332F32AF103C8A1E008448D7 /* Trainer.cpp */,
@@ -1634,7 +1629,6 @@
 				332F32B1103C8A1E008448D7 /* AlternatingDirectMode.cpp in Sources */,
 				332F32B2103C8A1E008448D7 /* ButtonMode.cpp in Sources */,
 				332F32B3103C8A1E008448D7 /* CompassMode.cpp in Sources */,
-				332F32B4103C8A1E008448D7 /* ConversionHelper.cpp in Sources */,
 				332F32B5103C8A1E008448D7 /* MandarinAlphMgr.cpp in Sources */,
 				332F32B6103C8A1E008448D7 /* Trainer.cpp in Sources */,
 				339F8A330FF5088000282847 /* CalibrationController.mm in Sources */,

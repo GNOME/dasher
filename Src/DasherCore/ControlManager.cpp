@@ -49,10 +49,16 @@ void CControlBase::SetRootTemplate(NodeTemplate *pRoot) {
   m_pRoot = pRoot;
 }
 
-CDasherNode *CControlBase::GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset) {
-  if (!m_pRoot) return m_pNCManager->GetAlphabetManager()->GetRoot(pParent, iLower, iUpper, false, iOffset);
+int CControlBase::getColour(NodeTemplate *pTemplate, CDasherNode *pParent) {
+  if (pTemplate->m_iColour!=-1) return  pTemplate->m_iColour;
+  if (pParent) return (pParent->ChildCount()%99)+11;
+  return 11;
+}
 
-  CContNode *pNewNode = new CContNode(pParent, iOffset, iLower, iUpper, m_pRoot, this);
+CDasherNode *CControlBase::GetRoot(CDasherNode *pContext, int iOffset) {
+  if (!m_pRoot) return m_pNCManager->GetAlphabetManager()->GetRoot(pContext, false, iOffset);
+
+  CContNode *pNewNode = new CContNode(iOffset, getColour(m_pRoot, pContext), m_pRoot, this);
 
   // FIXME - handle context properly
 
@@ -87,8 +93,8 @@ CControlBase::NodeTemplate::~NodeTemplate() {
   delete m_pLabel;
 }
 
-CControlBase::CContNode::CContNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, NodeTemplate *pTemplate, CControlBase *pMgr)
-: CDasherNode(pParent, iOffset, iLbnd, iHbnd, (pTemplate->m_iColour != -1) ? pTemplate->m_iColour : (pParent->ChildCount()%99)+11, pTemplate->m_pLabel), m_pTemplate(pTemplate), m_pMgr(pMgr) {
+CControlBase::CContNode::CContNode(int iOffset, int iColour, NodeTemplate *pTemplate, CControlBase *pMgr)
+: CDasherNode(iOffset, iColour, pTemplate->m_pLabel), m_pTemplate(pTemplate), m_pMgr(pMgr) {
 }
 
 void CControlBase::CContNode::PopulateChildren() {
@@ -105,12 +111,13 @@ void CControlBase::CContNode::PopulateChildren() {
     if( *it == NULL ) {
       // Escape back to alphabet
 
-      pNewNode = m_pMgr->m_pNCManager->GetAlphabetManager()->GetRoot(this, iLbnd, iHbnd, false, offset()+1);
+      pNewNode = m_pMgr->m_pNCManager->GetAlphabetManager()->GetRoot(this, false, offset()+1);
     }
     else {
 
-      pNewNode = new CContNode(this, offset(), iLbnd, iHbnd, *it, m_pMgr);
+      pNewNode = new CContNode(offset(), m_pMgr->getColour(*it, this), *it, m_pMgr);
     }
+    pNewNode->Reparent(this, iLbnd, iHbnd);
     iLbnd=iHbnd;
     DASHER_ASSERT(GetChildren().back()==pNewNode);
   }

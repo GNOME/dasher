@@ -21,19 +21,28 @@ void CConvertingAlphMgr::MakeLabels(CDasherScreen *pScreen) {
   m_pConvMgr->ChangeScreen(pScreen);
 }
 
-
 CConvertingAlphMgr::~CConvertingAlphMgr() {
-  m_pConvMgr->Unref();
 }
 
-CDasherNode *CConvertingAlphMgr::CreateSymbolNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, symbol iSymbol) {
+CDasherNode *CConvertingAlphMgr::CreateSymbolNode(CAlphNode *pParent, symbol iSymbol) {
   int i=m_pAlphabet->GetNumberTextSymbols()+1;
   if (iSymbol == i) {
     vector<unsigned int> *pCProb(pParent->GetProbInfo());
     DASHER_ASSERT(pCProb->size() == m_pAlphabet->GetNumberTextSymbols()+2);//initial 0, final conversion prob
+
+    //this used to be the "CloneAlphContext" method. Why it uses the
+    // ConversionManager's LM to clone a context from an Alphabet Node,
+    // I don't know - not sure how LanguageModelling WRT conversion
+    // is supposed to work...
+    CLanguageModel::Context iContext = (pParent->iContext)
+      ? m_pConvMgr->m_pLanguageModel->CloneContext(pParent->iContext)
+      : m_pConvMgr->m_pLanguageModel->CreateEmptyContext(); 
+
     //ACL setting m_iOffset+1 for consistency with "proper" symbol nodes...
-    return m_pConvMgr->GetRoot(pParent, (*pCProb)[i-1], (*pCProb)[i], pParent->offset()+1);
+    return m_pConvMgr->GetRoot(pParent->offset()+1, iContext);
+    //Note: previous code used (*pCProb)[i-1] and (*pCProb)[i] instead of
+    // iLbnd and iHbnd passed in; presumably these must have been the same?
   } else {
-    return CAlphabetManager::CreateSymbolNode(pParent, iLbnd, iHbnd, iSymbol);
+    return CAlphabetManager::CreateSymbolNode(pParent, iSymbol);
   }
 }

@@ -204,26 +204,11 @@ void CDasherModel::SetOffset(int iOffset, CAlphabetManager *pMgr, CDasherView *p
   if (m_Root && iOffset == GetOffset() && !bForce) return;
 
   if (m_pLastOutput) m_pLastOutput->Leave();
-
+  AbortOffset();
   ClearRootQueue();
   delete m_Root;
 
-  m_Root = pMgr->GetRoot(NULL, 0, NORMALIZATION, iOffset!=0, iOffset);
-  if (iOffset) {
-    //there were preceding characters. It's nonetheless possible that they weren't
-    // part of the current alphabet, and so we may have got a simple group node as root,
-    // rather than a character node (responsible for the last said preceding character),
-    // but even so, it seems fair enough to say we've "seen" the root:
-    m_Root->SetFlag(NF_SEEN, true);
-    m_Root->Enter();
-    // (of course, we don't do Output() - the context contains it already!)
-    m_pLastOutput = m_Root;
-
-    //We also want to avoid training the LM on nodes representing already-written context
-    m_Root->SetFlag(NF_COMMITTED, true);
-
-  } else
-    m_pLastOutput = NULL;
+  m_Root = pMgr->GetRoot(NULL, iOffset!=0, iOffset);
   if (GetBoolParameter(BP_GAME_MODE)) m_Root->SetFlag(NF_GAME, true);
 
   // Create children of the root...
@@ -231,6 +216,9 @@ void CDasherModel::SetOffset(int iOffset, CAlphabetManager *pMgr, CDasherView *p
 
   // Set the root coordinates so that the root node is an appropriate
   // size and we're not in any of the children
+  m_Root->Enter(); //(but we are in the node itself)
+  m_Root->SetFlag(NF_SEEN, true);
+  m_pLastOutput = m_Root;
 
   double dFraction( 1 - (1 - m_Root->MostProbableChild() / static_cast<double>(NORMALIZATION)) / 2.0 );
 
@@ -242,8 +230,6 @@ void CDasherModel::SetOffset(int iOffset, CAlphabetManager *pMgr, CDasherView *p
 
   m_Rootmin = MAX_Y / 2 - iWidth / 2;
   m_Rootmax = MAX_Y / 2 + iWidth / 2;
-
-  m_iDisplayOffset = 0;
 }
 
 int CDasherModel::GetOffset() {

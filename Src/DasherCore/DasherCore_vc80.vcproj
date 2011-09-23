@@ -1759,14 +1759,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\ConversionHelper.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\ConversionHelper.h"
-			>
-		</File>
-		<File
 			RelativePath=".\ConversionManager.cpp"
 			>
 		</File>

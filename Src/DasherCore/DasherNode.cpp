@@ -42,15 +42,8 @@ static int iNumNodes = 0;
 int Dasher::currentNumNodeObjects() {return iNumNodes;}
 
 //TODO this used to be inline - should we make it so again?
-CDasherNode::CDasherNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, CDasherScreen::Label *pLabel)
-: m_pParent(pParent), m_iFlags(DEFAULT_FLAGS), onlyChildRendered(NULL), m_iLbnd(iLbnd), m_iHbnd(iHbnd), m_iOffset(iOffset), m_iColour(iColour), m_pLabel(pLabel) {
-  DASHER_ASSERT(iHbnd >= iLbnd);
-
-  if (pParent) {
-    DASHER_ASSERT(!pParent->GetFlag(NF_ALLCHILDREN));
-    pParent->Children().push_back(this);
-  }
-
+CDasherNode::CDasherNode(int iOffset, int iColour, CDasherScreen::Label *pLabel)
+: m_pParent(NULL), m_iFlags(DEFAULT_FLAGS), onlyChildRendered(NULL), m_iLbnd(0), m_iHbnd(CDasherModel::NORMALIZATION), m_iOffset(iOffset), m_iColour(iColour), m_pLabel(pLabel) {
   iNumNodes++;
 }
 
@@ -92,21 +85,6 @@ void CDasherNode::GetContext(CDasherInterfaceBase *pInterface, const CAlphabetMa
     std::string strContext = pInterface->GetContext(iOffset, iLength);
     pAlphabet->GetSymbols(vContextSymbols, strContext);
   }
-}
-
-CDasherNode *const CDasherNode::Get_node_under(int iNormalization, myint miY1, myint miY2, myint miMousex, myint miMousey) {
-  myint miRange = miY2 - miY1;
-
-  ChildMap::const_iterator i;
-  for(i = GetChildren().begin(); i != GetChildren().end(); i++) {
-    CDasherNode *pChild = *i;
-
-    myint miNewy1 = miY1 + (miRange * pChild->m_iLbnd) / iNormalization;
-    myint miNewy2 = miY1 + (miRange * pChild->m_iHbnd) / iNormalization;
-    if(miMousey < miNewy2 && miMousey > miNewy1 && miMousex < miNewy2 - miNewy1)
-      return pChild->Get_node_under(iNormalization, miNewy1, miNewy2, miMousex, miMousey);
-  }
-  return this;
 }
 
 // kill ourselves and all other children except for the specified
@@ -166,11 +144,15 @@ void CDasherNode::SetFlag(int iFlag, bool bValue) {
     m_iFlags = m_iFlags & (~iFlag);
 }
 
-void CDasherNode::SetParent(CDasherNode *pNewParent) {
+void CDasherNode::Reparent(CDasherNode *pNewParent, unsigned int iLbnd, unsigned int iHbnd) {
+  DASHER_ASSERT(!m_pParent);
   DASHER_ASSERT(pNewParent);
   DASHER_ASSERT(!pNewParent->GetFlag(NF_ALLCHILDREN));
+  DASHER_ASSERT(iLbnd == (pNewParent->GetChildren().empty() ? 0 : pNewParent->GetChildren().back()->m_iHbnd));
   m_pParent = pNewParent;
   pNewParent->Children().push_back(this);
+  m_iLbnd = iLbnd;
+  m_iHbnd = iHbnd;
 }
 
 int CDasherNode::MostProbableChild() {

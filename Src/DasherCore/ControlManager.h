@@ -60,7 +60,7 @@ namespace Dasher {
     class CContNode : public CDasherNode {
     public:
       CControlBase *mgr() {return m_pMgr;}
-      CContNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, NodeTemplate *pTemplate, CControlBase *pMgr);
+      CContNode(int iOffset, int iColour, NodeTemplate *pTemplate, CControlBase *pMgr);
 
       bool bShove() {return false;}
       ///
@@ -128,7 +128,7 @@ namespace Dasher {
     /// Get a new root node owned by this manager
     ///
 
-    virtual CDasherNode *GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset);
+    virtual CDasherNode *GetRoot(CDasherNode *pContext, int iOffset);
 
   protected:
     ///Sets the root - should be called by subclass constructor to make
@@ -138,6 +138,8 @@ namespace Dasher {
 
     CDasherInterfaceBase *m_pInterface;
     CNodeCreationManager *m_pNCManager;
+    
+    int getColour(NodeTemplate *pTemplate, CDasherNode *pParent);
 
   private:
     NodeTemplate *m_pRoot;

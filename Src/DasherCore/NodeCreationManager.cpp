@@ -164,7 +164,8 @@ void CNodeCreationManager::AddExtras(CDasherNode *pParent) {
 #endif
     //ACL leave offset as is - like its groupnode parent, but unlike its alphnode siblings,
     //the control node does not enter a symbol....
-    m_pControlManager->GetRoot(pParent, pParent->GetChildren().back()->Hbnd(), CDasherModel::NORMALIZATION, pParent->offset());
+    CDasherNode *ctl = m_pControlManager->GetRoot(pParent, pParent->offset());
+    ctl->Reparent(pParent, pParent->GetChildren().back()->Hbnd(), CDasherModel::NORMALIZATION);
   }
 }
 

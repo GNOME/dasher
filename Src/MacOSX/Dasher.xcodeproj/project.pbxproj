@@ -41,7 +41,6 @@
 		1948BEB70C226CFD001DFA32 /* ColourIO.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE110C226CFC001DFA32 /* ColourIO.h */; };
 		1948BEB80C226CFD001DFA32 /* ControlManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE120C226CFC001DFA32 /* ControlManager.cpp */; };
 		1948BEB90C226CFD001DFA32 /* ControlManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE130C226CFC001DFA32 /* ControlManager.h */; };
-		1948BEBC0C226CFD001DFA32 /* ConversionHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE160C226CFC001DFA32 /* ConversionHelper.h */; };
 		1948BEBD0C226CFD001DFA32 /* ConversionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE170C226CFC001DFA32 /* ConversionManager.cpp */; };
 		1948BEBE0C226CFD001DFA32 /* ConversionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE180C226CFC001DFA32 /* ConversionManager.h */; };
 		1948BEC10C226CFD001DFA32 /* CustomColours.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE1B0C226CFC001DFA32 /* CustomColours.cpp */; };
@@ -329,7 +328,6 @@
 		334DE238135E3E68007C8D6D /* control.textlabels.xml in Resources */ = {isa = PBXBuildFile; fileRef = 334DE236135E3E68007C8D6D /* control.textlabels.xml */; };
 		334DE239135E3E68007C8D6D /* control.xml in Resources */ = {isa = PBXBuildFile; fileRef = 334DE237135E3E68007C8D6D /* control.xml */; };
 		334DE23B135E3F4B007C8D6D /* control.dtd in Resources */ = {isa = PBXBuildFile; fileRef = 334DE23A135E3F4B007C8D6D /* control.dtd */; };
-		335901B41009E5A900821255 /* ConversionHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 335901B31009E5A900821255 /* ConversionHelper.cpp */; };
 		335DB0FB100B332C006DB155 /* alphabet.spyDict.xml in Resources */ = {isa = PBXBuildFile; fileRef = 335DB0FA100B332C006DB155 /* alphabet.spyDict.xml */; };
 		335DB101100B3358006DB155 /* training_spyDict.txt in Resources */ = {isa = PBXBuildFile; fileRef = 335DB100100B3358006DB155 /* training_spyDict.txt */; };
 		339055E81195FBD0001BE240 /* Queue.h in Headers */ = {isa = PBXBuildFile; fileRef = 339055E61195FBD0001BE240 /* Queue.h */; };
@@ -431,7 +429,6 @@
 		1948BE110C226CFC001DFA32 /* ColourIO.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ColourIO.h; sourceTree = "<group>"; };
 		1948BE120C226CFC001DFA32 /* ControlManager.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ControlManager.cpp; sourceTree = "<group>"; };
 		1948BE130C226CFC001DFA32 /* ControlManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ControlManager.h; sourceTree = "<group>"; };
-		1948BE160C226CFC001DFA32 /* ConversionHelper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ConversionHelper.h; sourceTree = "<group>"; };
 		1948BE170C226CFC001DFA32 /* ConversionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ConversionManager.cpp; sourceTree = "<group>"; };
 		1948BE180C226CFC001DFA32 /* ConversionManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ConversionManager.h; sourceTree = "<group>"; };
 		1948BE1B0C226CFC001DFA32 /* CustomColours.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CustomColours.cpp; sourceTree = "<group>"; };
@@ -735,7 +732,6 @@
 		334DE236135E3E68007C8D6D /* control.textlabels.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = control.textlabels.xml; sourceTree = "<group>"; };
 		334DE237135E3E68007C8D6D /* control.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = control.xml; sourceTree = "<group>"; };
 		334DE23A135E3F4B007C8D6D /* control.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = control.dtd; sourceTree = "<group>"; };
-		335901B31009E5A900821255 /* ConversionHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConversionHelper.cpp; sourceTree = "<group>"; };
 		335DB0FA100B332C006DB155 /* alphabet.spyDict.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.spyDict.xml; sourceTree = "<group>"; };
 		335DB100100B3358006DB155 /* training_spyDict.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_spyDict.txt; sourceTree = "<group>"; };
 		339055E61195FBD0001BE240 /* Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Queue.h; sourceTree = "<group>"; };
@@ -929,8 +925,6 @@
 				1948BE110C226CFC001DFA32 /* ColourIO.h */,
 				1948BE120C226CFC001DFA32 /* ControlManager.cpp */,
 				1948BE130C226CFC001DFA32 /* ControlManager.h */,
-				335901B31009E5A900821255 /* ConversionHelper.cpp */,
-				1948BE160C226CFC001DFA32 /* ConversionHelper.h */,
 				1948BE170C226CFC001DFA32 /* ConversionManager.cpp */,
 				1948BE180C226CFC001DFA32 /* ConversionManager.h */,
 				1948BE1B0C226CFC001DFA32 /* CustomColours.cpp */,
@@ -1388,7 +1382,6 @@
 				1948BEB50C226CFD001DFA32 /* ClickFilter.h in Headers */,
 				1948BEB70C226CFD001DFA32 /* ColourIO.h in Headers */,
 				1948BEB90C226CFD001DFA32 /* ControlManager.h in Headers */,
-				1948BEBC0C226CFD001DFA32 /* ConversionHelper.h in Headers */,
 				1948BEBE0C226CFD001DFA32 /* ConversionManager.h in Headers */,
 				1948BEC20C226CFD001DFA32 /* CustomColours.h in Headers */,
 				1948BEC40C226CFD001DFA32 /* DasherButtons.h in Headers */,
@@ -1804,7 +1797,6 @@
 				3306E0220FFD1CE60017324C /* PPMPYLanguageModel.cpp in Sources */,
 				3306E1F70FFE6CAD0017324C /* Trainer.cpp in Sources */,
 				3306E33D0FFFB9880017324C /* MandarinAlphMgr.cpp in Sources */,
-				335901B41009E5A900821255 /* ConversionHelper.cpp in Sources */,
 				33135351102C6D8E00E28220 /* AlternatingDirectMode.cpp in Sources */,
 				33135353102C6D8E00E28220 /* CompassMode.cpp in Sources */,
 				33135355102C6D8E00E28220 /* ButtonMode.cpp in Sources */,
