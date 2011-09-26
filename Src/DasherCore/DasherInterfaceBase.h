@@ -258,8 +258,13 @@ public:
   ///Equivalent to SetOffset(iOffset, true)
   void SetBuffer(int iOffset) {SetOffset(iOffset, true);}
 
-  /// Tells the model to rebuild itself with the
-  /// cursor at the specified offset (position within textbox/buffer).
+  /// Rebuilds the model at the specified location, potentially reusing nodes if !bForce
+  /// @param iOffset Cursor position in attached buffer from which to obtain context
+  /// @param bForce if true, model should be completely rebuilt (even for
+  /// same offset) - characters at old offsets may have changed, or we have
+  /// a new AlphabetManager. If false, assume buffer and alphabet unchanged,
+  /// so no need to rebuild the model if an existing node covers this point.
+
   /// @param bForce true meaning the entire context may have changed,
   /// false if we've just moved around within it.
   void SetOffset(int iOffset, bool bForce=false);

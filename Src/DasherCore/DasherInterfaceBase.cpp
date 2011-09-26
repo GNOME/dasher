@@ -410,8 +410,7 @@ void CDasherInterfaceBase::CreateNCManager() {
     //and start a new tree of nodes from it (retaining old offset -
     // this will be a sensible default of 0 if no nodes previously existed).
     // This deletes the old tree of nodes...
-    m_pDasherModel->SetOffset(m_pDasherModel->GetOffset(), m_pNCManager->GetAlphabetManager(), m_pDasherView, true);
-    ScheduleRedraw();
+    SetOffset(m_pDasherModel->GetOffset(), true);
   } //else, if there is no screen, the model should not contain any nodes from the old NCManager. (Assert, somehow?)
 
   //...so now we can delete the old manager
@@ -650,8 +649,7 @@ void CDasherInterfaceBase::ChangeScreen(CDasherScreen *NewScreen) {
   if (m_pNCManager) {
     m_pNCManager->ChangeScreen(m_DasherScreen);
     if (m_pDasherModel)
-      m_pDasherModel->SetOffset(m_pDasherModel->GetOffset(), m_pNCManager->GetAlphabetManager(), m_pDasherView, true);
-      //Redraw already scheduled by ChangeView / ScreenResized
+      SetOffset(m_pDasherModel->GetOffset(), true);
   }
 }
 
@@ -841,7 +839,12 @@ bool CDasherInterfaceBase::GetModuleSettings(const std::string &strName, SModule
 }
 
 void CDasherInterfaceBase::SetOffset(int iOffset, bool bForce) {
-  m_pDasherModel->SetOffset(iOffset, m_pNCManager->GetAlphabetManager(), m_pDasherView, bForce);
+  if (iOffset == m_pDasherModel->GetOffset() && !bForce) return;
+
+  CDasherNode *pNode = m_pNCManager->GetAlphabetManager()->GetRoot(NULL, iOffset!=0, iOffset);
+  if (GetBoolParameter(BP_GAME_MODE)) pNode->SetFlag(NF_GAME, true);
+  m_pDasherModel->SetNode(pNode);
+  
   //ACL TODO note that CTL_MOVE, etc., do not come here (that would probably
   // rebuild the model / violently repaint the screen every time!). But we
   // still want to notifyOffset all text actions, so the "New" suboption sees

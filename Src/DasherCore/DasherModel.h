@@ -71,7 +71,7 @@ class Dasher::CDasherModel: private CSettingsUser, public Observable<CDasherNode
   static const myint ORIGIN_X=2048, ORIGIN_Y=2048, MAX_Y=4096;
 
   /// Constructs a new CDasherModel. Note, must be followed by a call to
-  /// SetOffset() before the model can be used.
+  /// SetNode() before the model can be used.
   CDasherModel(CSettingsUser *pCreateFrom);
   ~CDasherModel();
 
@@ -177,16 +177,10 @@ class Dasher::CDasherModel: private CSettingsUser, public Observable<CDasherNode
   void LimitRoot(int iMaxWidth);
 
   ///
-  /// Rebuild the tree of nodes (may reuse the existing ones if !bForce).
-  /// @param iLocation offset (cursor position) in attached buffer from which to obtain context
-  /// @param pMgr Manager to use to create nodes
-  /// @param bForce if true, model should be completely rebuilt (even for
-  /// same offset) - characters at old offsets may have changed, or we have
-  /// a new AlphabetManager. If false, assume buffer and alphabet unchanged,
-  /// so no need to rebuild the model if an existing node covers this point.
+  /// Rebuild the tree of nodes from a given root
   ///
 
-  void SetOffset(int iLocation, CAlphabetManager *pMgr, CDasherView *pView, bool bForce);
+  void SetNode(CDasherNode *pNewRoot);
 
   ///
   /// The current offset of the cursor/insertion point in the text buffer

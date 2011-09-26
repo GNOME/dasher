@@ -198,18 +198,14 @@ void CDasherModel::ClearRootQueue() {
   }
 }
 
-void CDasherModel::SetOffset(int iOffset, CAlphabetManager *pMgr, CDasherView *pView, bool bForce) {
-  //if we don't have a root, always "re"build the tree!
-  // (if we have a root, only rebuild to move location or if bForce says to)
-  if (m_Root && iOffset == GetOffset() && !bForce) return;
+void CDasherModel::SetNode(CDasherNode *pNewRoot) {
 
   if (m_pLastOutput) m_pLastOutput->Leave();
   AbortOffset();
   ClearRootQueue();
   delete m_Root;
 
-  m_Root = pMgr->GetRoot(NULL, iOffset!=0, iOffset);
-  if (GetBoolParameter(BP_GAME_MODE)) m_Root->SetFlag(NF_GAME, true);
+  m_Root = pNewRoot;
 
   // Create children of the root...
   ExpandNode(m_Root);
@@ -259,7 +255,7 @@ bool CDasherModel::NextScheduledStep()
       DASHER_ASSERT(m_Rootmin + ((pChild->Lbnd() * iWidth) / NORMALIZATION) <= ORIGIN_Y);
       if (m_Rootmin + ((pChild->Hbnd() * iWidth) / NORMALIZATION) > ORIGIN_Y) {
         //found child to make root. proceed only if new root is on the game path....
-        if (GetBoolParameter(BP_GAME_MODE) && !pChild->GetFlag(NF_GAME)) {
+        if (m_Root->GetFlag(NF_GAME) && !pChild->GetFlag(NF_GAME)) {
           //If the user's strayed that far off the game path,
           // having Dasher stop seems reasonable!
           return false;
@@ -484,8 +480,8 @@ void CDasherModel::RenderToView(CDasherView *pView, CExpansionPolicy &policy) {
     }
 #endif
     if (pNewRoot->GetFlag(NF_SUPER) &&
-        ////GAME MODE TEMP - only change the root if it is on the game path/////////
-        (!GetBoolParameter(BP_GAME_MODE) || m_Root->onlyChildRendered->GetFlag(NF_GAME))) {
+        // Stay on the game path, if there is one (!)
+        (!m_Root->GetFlag(NF_GAME) || pNewRoot->GetFlag(NF_GAME))) {
       Make_root(pNewRoot);
     } else
       break;
