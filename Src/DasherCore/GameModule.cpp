@@ -4,14 +4,28 @@
 
 using namespace Dasher;
 
+static SModuleSettings gameSets[] = {
+  {SP_GAME_TEXT_FILE, T_STRING, -1, -1, -1, -1, _("Filename of sentences to enter")},
+  {LP_GAME_HELP_DIST, T_LONG, 0, 4096, 2048, 128, _("Distance of sentence from center to decide user needs help")},
+  {LP_GAME_HELP_TIME, T_LONG, 0, 10000, 1000, 100, _("Time for which user must need help before help drawn")},
+  {BP_GAME_HELP_DRAW_PATH, T_BOOL, -1, -1, -1, -1, _("When we give help, show the shortest path to the target sentence?")},
+};
+
 CGameModule::CGameModule(CSettingsUser *pCreateFrom, Dasher::CDasherInterfaceBase *pInterface, CDasherView *pView, CDasherModel *pModel) 
 : CSettingsUser(pCreateFrom), TransientObserver<const Dasher::CEditEvent *>(pInterface), TransientObserver<CGameNodeDrawEvent*>(pView),
 TransientObserver<CDasherNode*>(pModel), TransientObserver<CDasherView*>(pView),
 m_pInterface(pInterface), m_iLastSym(-1),
 m_y1(std::numeric_limits<myint>::min()), m_y2(std::numeric_limits<myint>::max()),
+m_iTargetY(CDasherModel::ORIGIN_Y), m_uHelpStart(std::numeric_limits<unsigned long>::max()),
 m_ulTotalTime(0), m_dTotalNats(0.0), m_uiTotalSyms(0),
 m_iCrosshairColor(135), m_iFontSize(36)
 {}
+
+bool CGameModule::GetSettings(SModuleSettings **sets, int *count) {
+  *sets = gameSets;
+  *count = sizeof(gameSets) / sizeof(gameSets[0]);
+  return true;
+}
 
 CGameModule::~CGameModule()  {
   DASHER_ASSERT(!GetBoolParameter(BP_GAME_MODE));
@@ -104,36 +118,50 @@ void CGameModule::DecorateView(unsigned long lTime, CDasherView *pView, CDasherM
 
   if (m_dSentenceStartNats == numeric_limits<double>::max())
     m_dSentenceStartNats = pModel->GetNats();
+  
+  const myint iNewTarget((m_y1+m_y2)/2);
+  m_vTargetY.push_back(iNewTarget);
+  bool bDrawHelper=false;
+  
+  if (abs(iNewTarget - CDasherModel::ORIGIN_Y) >
+      max(myint(GetLongParameter(LP_GAME_HELP_DIST)),abs(m_iTargetY-CDasherModel::ORIGIN_Y))) {
+    //needs help - offscreen and not decreasing
+    if (m_uHelpStart==std::numeric_limits<unsigned long>::max())
+      m_uHelpStart = lTime;
+    else
+      bDrawHelper = (lTime-m_uHelpStart >= GetLongParameter(LP_GAME_HELP_TIME));
+  } else m_uHelpStart = std::numeric_limits<unsigned long>::max();
+  
+  m_iTargetY = iNewTarget;
+  if (bDrawHelper) {
+    //draw a line along the y axis
+    myint x[2], y[2];
+    x[0] = x[1] = -100;
+  
+    const int lineWidth(GetLongParameter(LP_LINE_WIDTH));
+    myint minX,minY,maxX,maxY;
+    pView->VisibleRegion( minX, minY, maxX, maxY);
 
-  m_vTargetY.push_back(m_iTargetY = (m_y1+m_y2)/2);
-  
-  //draw a line along the y axis
-  myint x[2], y[2];
-  x[0] = x[1] = -100;
-  
-  bool bDrawHelper=true;
-  const int lineWidth(GetLongParameter(LP_LINE_WIDTH));
-  
-  if (m_y1 > CDasherModel::MAX_Y) {
-    //off the top! draw an arrow pointing up...
-    y[1] = CDasherModel::MAX_Y;
-    y[0] = y[1] - 400;
-  } else if (m_y2 < 0) {
-    //off the bottom! draw arrow pointing down...
-    y[1] = 0;
-    y[0] = 400;
-  } else {
-    //draw line parallel to that region of y-axis
-    y[0] = m_y1; y[1] = m_y2;
-    pView->DasherPolyline(x, y, 2, lineWidth, m_iCrosshairColor);
-    //and a horizontal arrow pointing to the midpoint
-    x[0] = -400;
-    y[0] = y[1] = m_iTargetY;
-    bDrawHelper=false;
+    if (m_y1 > maxY) {
+      //off the top! make arrow point straight up...
+      y[1] = CDasherModel::MAX_Y;
+      y[0] = y[1] - 400;
+    } else if (m_y2 < minY) {
+      //off the bottom! make arrow point straight down...
+      y[1] = 0;
+      y[0] = 400;
+    } else {
+      //draw line parallel to that region of y-axis
+      y[0] = m_y1; y[1] = m_y2;
+      pView->DasherPolyline(x, y, 2, lineWidth, m_iCrosshairColor);
+      //and make arrow horizontal, pointing to the midpoint
+      x[0] = -400;
+      y[0] = y[1] = m_iTargetY;
+    }
+    pView->DasherPolyarrow(x, y, 2, 3*lineWidth, m_iCrosshairColor, 0.2);
+    
+    if (GetBoolParameter(BP_GAME_HELP_DRAW_PATH)) DrawBrachistochrone(pView);
   }
-  pView->DasherPolyarrow(x, y, 2, 3*lineWidth, m_iCrosshairColor, 0.2);
-  
-  if (bDrawHelper) DrawBrachistochrone(pView);
   
   //reset location accumulators ready for next frame
   m_y1 = std::numeric_limits<myint>::min();

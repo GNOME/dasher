@@ -58,6 +58,7 @@ const bp_table boolparamtable[] = {
 #endif
   {BP_CONTROL_MODE_HAS_COPY, "ControlHasCopy", PERS, true, "Provide copy-to-clipboard actions in Control Mode (if platforms supports)"},
   {BP_CONTROL_MODE_HAS_SPEECH, "ControlHasSpeech", PERS, true, "Provide speech actions in Control Mode (if platform supports)"},
+  {BP_GAME_HELP_DRAW_PATH, "GameDrawPath", PERS, true, "When we give help, show the shortest path to the target sentence"},
 };
 
 const lp_table longparamtable[] = {
@@ -143,6 +144,8 @@ const lp_table longparamtable[] = {
   {LP_MARGIN_WIDTH, "MarginWidth", PERS, 300, "Width of RHS margin (in Dasher co-ords)"},
 #endif
   {LP_TARGET_OFFSET, "TargetOffset", PERS, 0, "Vertical distance between mouse pointer and target (400=screen height)"},
+  {LP_GAME_HELP_DIST, "GameHelpDistance", PERS, 1920, "Distance of sentence from center to decide user needs help"},
+  {LP_GAME_HELP_TIME, "GameHelpTime", PERS, 0, "Time for which user must need help before help drawn"},
 };
 
 const sp_table stringparamtable[] = {

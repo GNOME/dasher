@@ -10,7 +10,7 @@ using namespace std;
 
 #include "DasherScreen.h"
 #include "DasherModel.h"
-#include "DasherModule.h"
+#include "../Common/ModuleSettings.h"
 #include "DasherNode.h"
 #include "DasherView.h"
 #include "DasherTypes.h"
@@ -61,6 +61,12 @@ class CGameModule : protected CSettingsUser, protected TransientObserver<const C
    * @param pWordGenerator the word generator to be used
    */ 
   void SetWordGenerator(const CAlphInfo *pAlph, CWordGeneratorBase *pWordGenerator);
+  
+  /// The "GameModule" isn't actually a DasherModule, and/so this will be never called,
+  /// but for uniformity with existing module settings API, I'm using this to record
+  /// what preferences there are that affect Game Mode - really, these should be
+  /// displayed to the user each time (s)he enters Game Mode.
+  bool GetSettings(SModuleSettings **sets, int *count);
 
 protected:
   ///Called after each successful call to GenerateChunk. Subclasses may override
@@ -129,6 +135,11 @@ private:
 
   ///Best-known Location of target sentence in each frame
   vector<myint> m_vTargetY;
+  ///Last element of above, i.e. current location of target sentence
+  myint m_iTargetY;
+  ///Time at which we first needed help, or numeric_limits<unsigned long>::max()
+  /// if we don't.
+  unsigned long m_uHelpStart;
   
   ///Statistics over all _previous_ sentences: total time, total nats, total syms
   unsigned long m_ulTotalTime;
@@ -139,8 +150,6 @@ private:
   unsigned long m_ulSentenceStartTime;
   double m_dSentenceStartNats;
 
-  myint m_iTargetY;
-  
 /* ---------------------------------------------------------------------
  * Constants
  * ---------------------------------------------------------------------
