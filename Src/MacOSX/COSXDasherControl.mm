@@ -175,10 +175,14 @@ void COSXDasherControl::TimerFired(NSPoint p) {
   [[dasherApp dasherView] redisplay];
 }  
  
-void COSXDasherControl::HandleEvent(int iParameter) {
-  CDashIntfScreenMsgs::HandleEvent(iParameter);
-  if (iParameter == BP_GAME_MODE)
-    [dasherApp setGameModeOn:(GetBoolParameter(BP_GAME_MODE) ? NSOnState : NSOffState)];
+void COSXDasherControl::EnterGameMode(CGameModule *pGameModule) {
+  CDashIntfScreenMsgs::EnterGameMode(pGameModule);
+  [dasherApp setGameModeOn:(GetGameModule()!=NULL)];
+}
+
+void COSXDasherControl::LeaveGameMode() {
+  CDashIntfScreenMsgs::LeaveGameMode();
+  [dasherApp setGameModeOn:(GetGameModule()!=NULL)];
 }
 
 void COSXDasherControl::SetEdit(id<DasherEdit> _dasherEdit) {
@@ -359,6 +363,6 @@ void COSXDasherControl::ClearAllContext() {
   SetBuffer(0);
 }
 
-CGameModule *COSXDasherControl::CreateGameModule(CDasherView *pView, CDasherModel *pModel) {
-  return new COSXGameModule(this, this, pView, pModel, [dasherApp textView]);
+CGameModule *COSXDasherControl::CreateGameModule() {
+  return new COSXGameModule(this, this, GetView(), m_pDasherModel, [dasherApp textView]);
 }

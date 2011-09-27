@@ -296,28 +296,6 @@ void CDasherInterfaceBase::HandleEvent(int iParameter) {
     delete m_pWordSpeaker;
     m_pWordSpeaker = GetBoolParameter(BP_SPEAK_WORDS) ? new WordSpeaker(this) : NULL;
     break;
-  case BP_GAME_MODE:
-    if(GetBoolParameter(BP_GAME_MODE)) {
-      DASHER_ASSERT(m_pGameModule == NULL);
-      if (CWordGeneratorBase *pWords = m_pNCManager->GetAlphabetManager()->GetGameWords()) {
-        m_pGameModule = CreateGameModule(m_pDasherView,m_pDasherModel);
-        m_pGameModule->SetWordGenerator(m_pNCManager->GetAlphabet(), pWords);
-      } else {
-        ///TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
-        /// refers to a setting name in gsettings or equivalent, and should not be translated.
-        const char *msg=_("Could not find game sentences file for %s - check alphabet definition, or override with GameTextFile setting");
-        char *buf(new char[strlen(msg)+m_pNCManager->GetAlphabet()->GetID().length()]);
-        sprintf(buf,msg,m_pNCManager->GetAlphabet()->GetID().c_str());
-        Message(buf,true);
-        delete buf;
-        SetBoolParameter(BP_GAME_MODE, false);
-      }
-    } else {
-      delete m_pGameModule;
-      m_pGameModule = NULL;
-    }
-    if (!GetBoolParameter(BP_CONTROL_MODE)) break;
-    //fall-through (GAME_MODE disables CONTROL_MODE, so we've effectively changed the latter too)
   case BP_CONTROL_MODE:
     //force rebuilding tree/nodes, to get new probabilities (inc/exc control node).
     // This may move the canvas around a bit, but at least manages to keep/reuse the
@@ -329,12 +307,40 @@ void CDasherInterfaceBase::HandleEvent(int iParameter) {
   }
 }
 
+void CDasherInterfaceBase::EnterGameMode(CGameModule *pGameModule) {
+  DASHER_ASSERT(m_pGameModule == NULL);
+  if (CWordGeneratorBase *pWords = m_pNCManager->GetAlphabetManager()->GetGameWords()) {
+    if (!pGameModule) pGameModule=CreateGameModule();
+    m_pGameModule=pGameModule;
+    m_pGameModule->SetWordGenerator(m_pNCManager->GetAlphabet(), pWords);
+    m_pNCManager->updateControl();
+  } else {
+    ///TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
+    /// refers to a setting name in gsettings or equivalent, and should not be translated.
+    const char *msg=_("Could not find game sentences file for %s - check alphabet definition, or override with GameTextFile setting");
+    char *buf(new char[strlen(msg)+m_pNCManager->GetAlphabet()->GetID().length()]);
+    sprintf(buf,msg,m_pNCManager->GetAlphabet()->GetID().c_str());
+    Message(buf,true);
+    delete buf;
+    delete pGameModule; //does nothing if null.
+  }
+}
+
+void CDasherInterfaceBase::LeaveGameMode() {
+  DASHER_ASSERT(m_pGameModule);
+  CGameModule *pMod = m_pGameModule;
+  m_pGameModule=NULL; //point at which we officially exit game mode
+  delete pMod;
+  m_pNCManager->updateControl();
+  SetBuffer(0);
+}
+
 CDasherInterfaceBase::WordSpeaker::WordSpeaker(CDasherInterfaceBase *pIntf) : TransientObserver<const CEditEvent *>(pIntf) {
 }
 
 void CDasherInterfaceBase::WordSpeaker::HandleEvent(const CEditEvent *pEditEvent) {
   CDasherInterfaceBase *pIntf(static_cast<CDasherInterfaceBase *> (m_pEventHandler));
-  if (pIntf->GetBoolParameter(BP_GAME_MODE)) return;
+  if (pIntf->GetGameModule()) return;
   if(pEditEvent->m_iEditType == 1) {
     if (pIntf->SupportsSpeech()) {
       const CAlphInfo *pAlphabet = pIntf->m_pNCManager->GetAlphabet();
@@ -842,7 +848,7 @@ void CDasherInterfaceBase::SetOffset(int iOffset, bool bForce) {
   if (iOffset == m_pDasherModel->GetOffset() && !bForce) return;
 
   CDasherNode *pNode = m_pNCManager->GetAlphabetManager()->GetRoot(NULL, iOffset!=0, iOffset);
-  if (GetBoolParameter(BP_GAME_MODE)) pNode->SetFlag(NF_GAME, true);
+  if (GetGameModule()) pNode->SetFlag(NF_GAME, true);
   m_pDasherModel->SetNode(pNode);
   
   //ACL TODO note that CTL_MOVE, etc., do not come here (that would probably

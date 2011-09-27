@@ -190,9 +190,17 @@ void CDasherInterfaceBridge::HandleEvent(int iParameter) {
     [dasherApp notifySpeedChange];
   else if (iParameter == SP_ALPHABET_ID)
     [dasherApp setAlphabet:GetActiveAlphabet()];
-  else if (iParameter == BP_GAME_MODE)
-    [dasherApp refreshToolbar];
   CDashIntfScreenMsgs::HandleEvent(iParameter);
+}
+
+void CDasherInterfaceBridge::EnterGameMode(CGameModule *pGameModule) {
+  CDashIntfScreenMsgs::EnterGameMode(pGameModule);
+  [dasherApp refreshToolbar];
+}
+
+void CDasherInterfaceBridge::LeaveGameMode() {
+  CDashIntfScreenMsgs::LeaveGameMode();
+  [dasherApp refreshToolbar];
 }
 
 void CDasherInterfaceBridge::editOutput(const string &strText, CDasherNode *pNode) {
@@ -290,6 +298,6 @@ void CDasherInterfaceBridge::WriteTrainFile(const std::string &filename,const st
   close(fd);
 }
 
-CGameModule *CDasherInterfaceBridge::CreateGameModule(CDasherView *pView, CDasherModel *pModel) {
-  return new IPhoneGameModule(this, this, pView, pModel, [dasherApp getWebView]);  
+CGameModule *CDasherInterfaceBridge::CreateGameModule() {
+  return new IPhoneGameModule(this, this, GetView(), m_pDasherModel, [dasherApp getWebView]);  
 }

@@ -60,7 +60,7 @@ public:
   
   ///Implement to return a ScreenGameModule, i.e. rendering text prompts
   /// onto the Screen with Labels, much as we do for messages!
-  CGameModule *CreateGameModule(CDasherView *pView, CDasherModel *pModel);
+  CGameModule *CreateGameModule();
 private:
   /// Asynchronous (non-modal) messages to be displayed to the user, longest-ago
   /// at the front, along with the timestamp of the frame at which each was first

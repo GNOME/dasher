@@ -125,6 +125,19 @@ GtkTextBuffer *gtk_dasher_control_game_text_buffer(GtkDasherControl *pDasherCont
   return dasher_editor_game_text_buffer(pPrivate->pEditor);
 }
 
+void gtk_dasher_control_set_game_mode(GtkDasherControl *pControl, bool bOn) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  if (bOn)
+    pPrivate->pControl->EnterGameMode(NULL);
+  else
+    pPrivate->pControl->LeaveGameMode();
+}
+
+bool gtk_dasher_control_get_game_mode(GtkDasherControl *pControl) {
+  GtkDasherControlPrivate *pPrivate = GTK_DASHER_CONTROL_GET_PRIVATE(pControl);
+  return pPrivate->pControl->GetGameModule() ? true : false;
+}
+
 static void 
 gtk_dasher_control_finalize(GObject *pObject) {
   GtkDasherControl *pDasherControl = GTK_DASHER_CONTROL(pObject);

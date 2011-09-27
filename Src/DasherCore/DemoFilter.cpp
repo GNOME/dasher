@@ -46,12 +46,12 @@ bool CDemoFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
 }
 
 void CDemoFilter::Activate() {
-  SetBoolParameter(BP_GAME_MODE, true);
+  m_pInterface->EnterGameMode(NULL);
   HandleEvent(LP_FRAMERATE); //just to make sure!
 }
 
 void CDemoFilter::Deactivate() {
-  SetBoolParameter(BP_GAME_MODE, false);
+  m_pInterface->LeaveGameMode();
 }
 
 std::pair<double,double> GaussianRand() // Is there a random number class already?

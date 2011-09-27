@@ -128,7 +128,7 @@ static NSString *FilenameToUntitledName = @"NilToUntitled";
 }
 
 -(BOOL)gameModeOn {
-  return aquaDasherControl->GetBoolParameter(BP_GAME_MODE);
+  return aquaDasherControl->GetGameModule()!=NULL;
 }
 
 -(void)setGameModeOn:(BOOL)bVal {
@@ -145,8 +145,12 @@ static NSString *FilenameToUntitledName = @"NilToUntitled";
   //we can now try and startup game mode in the core;
   // with no automatic checking of the menuitem pending, any changes we make
   // to the gameModeOn property will be correctly reflected in the menu... 
-  if (obj && directMode) self.directMode=false; //turn off direct mode first _if_necessary_ (properties do not check for no-change)
-  aquaDasherControl->SetBoolParameter(BP_GAME_MODE, obj!=nil);
+  if (obj) {
+    if (directMode) self.directMode=false; //turn off direct mode first _if_necessary_ (properties do not check for no-change)
+    if (!aquaDasherControl->GetGameModule())
+      aquaDasherControl->EnterGameMode(NULL);
+  } else if (aquaDasherControl->GetGameModule())
+    aquaDasherControl->LeaveGameMode();
 }
 
 -(void)setDirectMode:(BOOL)bVal {

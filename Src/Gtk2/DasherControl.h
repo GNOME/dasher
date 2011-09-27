@@ -165,7 +165,7 @@ public:
   ///Override to emit Gtk2 signal
   virtual void SetLockStatus(const string &strText, int iPercent);
 
-  CGameModule *CreateGameModule(CDasherView *pView, CDasherModel *pModel);
+  CGameModule *CreateGameModule();
 private:
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
   virtual void ScanColourFiles(std::vector<std::string> &vFileList);

@@ -221,7 +221,7 @@ using namespace Dasher;
 }
 
 -(void)refreshToolbar {
-  UIBarButtonSystemItem icon = _dasherInterface->GetBoolParameter(BP_GAME_MODE) ? UIBarButtonSystemItemStop : UIBarButtonSystemItemPlay;
+  UIBarButtonSystemItem icon = _dasherInterface->GetGameModule() ? UIBarButtonSystemItemStop : UIBarButtonSystemItemPlay;
   UIBarButtonItem *game = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:icon target:self action:@selector(toggleGameMode)] autorelease];
   UIBarButtonItem *action = [ActionButton buttonForToolbar:tools];
   if (!toolbarItems) {
@@ -238,8 +238,7 @@ using namespace Dasher;
     [toolbarItems replaceObjectAtIndex:4 withObject:game];
     [toolbarItems replaceObjectAtIndex:6 withObject:action];
   }
-  textView.hidden = _dasherInterface->GetBoolParameter(BP_GAME_MODE);
-  webView.hidden = !_dasherInterface->GetBoolParameter(BP_GAME_MODE);
+  webView.hidden = !(textView.hidden = _dasherInterface->GetGameModule() ? YES : NO);
   [tools setItems:toolbarItems];
 }
 
@@ -309,7 +308,10 @@ using namespace Dasher;
 }
 
 - (void)toggleGameMode {
-  _dasherInterface->SetBoolParameter(BP_GAME_MODE, !_dasherInterface->GetBoolParameter(BP_GAME_MODE));
+  if (_dasherInterface->GetGameModule())
+    _dasherInterface->LeaveGameMode();
+  else
+    _dasherInterface->EnterGameMode(NULL);
 }
 
 -(UIWebView *)getWebView {

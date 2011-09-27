@@ -335,13 +335,13 @@ void CDasherControl::HandleEvent(int iParameter) {
 }
 
 void CDasherControl::editOutput(const std::string &strText, CDasherNode *pNode) {
-  if (!GetBoolParameter(BP_GAME_MODE)) //GameModule sets editbox directly
+  if (!GetGameModule()) //GameModule sets editbox directly
     g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_edit_insert", strText.c_str(), pNode->offset());
   CDasherInterfaceBase::editOutput(strText, pNode);
 }
 
 void CDasherControl::editDelete(const std::string &strText, CDasherNode *pNode) {
-  if (!GetBoolParameter(BP_GAME_MODE)) //GameModule sets editbox directly
+  if (!GetGameModule()) //GameModule sets editbox directly
     g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_edit_delete", strText.c_str(), pNode->offset());
   CDasherInterfaceBase::editDelete(strText, pNode);
 }
@@ -464,10 +464,10 @@ private:
   GtkTextMark *m_mTarget; //after any "wrong" text, before target; if no wrong chars, ==m_entered.
 };
 
-CGameModule *CDasherControl::CreateGameModule(CDasherView *pView,CDasherModel *pModel) {
+CGameModule *CDasherControl::CreateGameModule() {
   if (GtkTextBuffer *buf=gtk_dasher_control_game_text_buffer(m_pDasherControl))
-    return new GtkGameModule(this, this, pView, pModel, buf);
-  return CDashIntfScreenMsgs::CreateGameModule(pView,pModel);
+    return new GtkGameModule(this, this, GetView(), m_pDasherModel, buf);
+  return CDashIntfScreenMsgs::CreateGameModule();
 }
 
 void CDasherControl::WriteTrainFile(const std::string &filename, const std::string &strNewText) {

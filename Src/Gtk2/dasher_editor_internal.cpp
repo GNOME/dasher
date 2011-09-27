@@ -17,12 +17,13 @@
 #include "dasher_editor_external.h"
 #include "dasher_lock_dialogue.h"
 #include "dasher_main.h"
+#include "GtkDasherControl.h"
 #include "../DasherCore/ControlManager.h"
 
 typedef struct _DasherEditorInternalPrivate DasherEditorInternalPrivate;
 
 struct _DasherEditorInternalPrivate {
-  DasherMain *pDasherMain;
+  GtkDasherControl *pDasherCtrl;
   GtkTextView *pTextView;
   GtkTextBuffer *pBuffer;
   GtkClipboard *pTextClipboard;
@@ -62,7 +63,7 @@ static void dasher_editor_internal_finalize(GObject *pObject);
 static void dasher_editor_internal_handle_font(DasherEditor *pSelf, const gchar *szFont);
 
 gboolean dasher_editor_internal_command(DasherEditor *pSelf, const gchar *szCommand);
-void dasher_editor_internal_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, DasherMain *pDasherMain, GtkBuilder *pXML, const gchar *szFullPath);
+void dasher_editor_internal_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, GtkDasherControl *pDasherCtrl, GtkBuilder *pXML, const gchar *szFullPath);
 
 /* Private methods */
 static void dasher_editor_internal_select_all(DasherEditor *pSelf);
@@ -227,11 +228,11 @@ dasher_editor_internal_new(void)
 }
 
 void
-dasher_editor_internal_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, DasherMain *pDasherMain, GtkBuilder *pXML, const gchar *szFullPath) {
+dasher_editor_internal_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, GtkDasherControl *pDasherCtrl, GtkBuilder *pXML, const gchar *szFullPath) {
   DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
 
   pPrivate->pAppSettings = pAppSettings;
-  pPrivate->pDasherMain = pDasherMain;
+  pPrivate->pDasherCtrl = pDasherCtrl;
 
   dasher_editor_internal_handle_font(pSelf,
 				     dasher_app_settings_get_string(pPrivate->pAppSettings,
@@ -460,7 +461,7 @@ void dasher_editor_internal_mark_changed(DasherEditorInternal *pSelf, GtkTextIte
     // by a callback registered by editor_internal, which then emitted a context_changed
     // signal from the editor_internal. So just emit the context_changed directly...
     if (!pPrivate->bInControlAction //tho not if it's the result of a control-mode edit/delete
-        && !dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_GAME_MODE)) //and not in game mode
+        && !gtk_dasher_control_get_game_mode(pPrivate->pDasherCtrl)) //and not in game mode
       g_signal_emit_by_name(G_OBJECT(pSelf), "context_changed", G_OBJECT(pSelf), NULL, NULL);
   }
 }

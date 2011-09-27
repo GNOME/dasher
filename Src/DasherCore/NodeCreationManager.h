@@ -32,8 +32,12 @@ class CNodeCreationManager : public Dasher::CSettingsUserObserver {
   
   ///Tells us the screen on which all created node labels must be rendered
   void ChangeScreen(Dasher::CDasherScreen *pScreen);
+  
+  ///Create/destroy Control Manager, as appropriate (according to
+  /// BP_CONTROL_MODE and game mode status)
+  void updateControl();
 
-  //we watch for changes to BP_CONTROL_MODE and create the Control Manager lazily
+  //Watch for changes to BP_CONTROL_MODE and call updateControl() as necessary
   void HandleEvent(int iParameter);
   ///
   /// Get a root node of a particular type

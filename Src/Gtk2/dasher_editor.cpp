@@ -27,12 +27,10 @@
 
 #include "dasher_editor.h"
 #include "dasher_lock_dialogue.h"
-#include "dasher_main.h"
 
 typedef struct _DasherEditorPrivate DasherEditorPrivate;
 
 struct _DasherEditorPrivate {
-  DasherMain *pDasherMain;
   GtkTextView *pTextView;
   GtkTextBuffer *pBuffer;
   GtkClipboard *pTextClipboard;
@@ -136,9 +134,9 @@ dasher_editor_finalize(GObject *pObject) {
 }
 
 void
-dasher_editor_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, DasherMain *pDasherMain, GtkBuilder *pXML, const gchar *szFullPath) {
+dasher_editor_initialise(DasherEditor *pSelf, DasherAppSettings *pAppSettings, GtkDasherControl *pDasherCtrl, GtkBuilder *pXML, const gchar *szFullPath) {
   if(DASHER_EDITOR_GET_CLASS(pSelf)->initialise)
-    DASHER_EDITOR_GET_CLASS(pSelf)->initialise(pSelf, pAppSettings, pDasherMain, pXML, szFullPath);
+    DASHER_EDITOR_GET_CLASS(pSelf)->initialise(pSelf, pAppSettings, pDasherCtrl, pXML, szFullPath);
 }
 
 GtkTextBuffer *dasher_editor_game_text_buffer(DasherEditor *pSelf) {

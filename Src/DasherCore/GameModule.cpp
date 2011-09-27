@@ -28,7 +28,6 @@ bool CGameModule::GetSettings(SModuleSettings **sets, int *count) {
 }
 
 CGameModule::~CGameModule()  {
-  DASHER_ASSERT(!GetBoolParameter(BP_GAME_MODE));
   if (m_ulTotalTime) {
     //TODO make this a running commentary?
     ostringstream summary;
@@ -103,7 +102,7 @@ void CGameModule::SetWordGenerator(const CAlphInfo *pAlph, CWordGeneratorBase *p
 	if (!GenerateChunk()) {
     m_pInterface->Message("Game mode sentences file empty!",true);
     //this'll delete the 'this' pointer, so we'd better not do anything else afterwards!...
-    SetBoolParameter(BP_GAME_MODE, false);
+    m_pInterface->LeaveGameMode();
   }
 }
 
@@ -178,7 +177,7 @@ void CGameModule::DecorateView(unsigned long lTime, CDasherView *pView, CDasherM
     if (!GenerateChunk()) {
       m_pInterface->Message("Game mode sentence file finished!",true);
       //note this deletes the 'this' pointer...
-      SetBoolParameter(BP_GAME_MODE, false);
+      m_pInterface->LeaveGameMode();
       //so better get out of here, fast!
       return;
     }

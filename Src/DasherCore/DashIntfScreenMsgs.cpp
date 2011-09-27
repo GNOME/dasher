@@ -9,7 +9,7 @@ CDashIntfScreenMsgs::CDashIntfScreenMsgs(CSettingsStore *pSettingsStore)
 
 void CDashIntfScreenMsgs::Message(const string &strText, bool bInterrupt) {
   //Just store the messages for Redraw...
-  CDasherScreen::Label *lab = m_DasherScreen->MakeLabel(strText,GetLongParameter(LP_MESSAGE_FONTSIZE));
+  CDasherScreen::Label *lab = GetView()->Screen()->MakeLabel(strText,GetLongParameter(LP_MESSAGE_FONTSIZE));
   if (bInterrupt) {
     m_dqModalMessages.push_back(pair<CDasherScreen::Label*,bool>(lab,false));
     if (CInputFilter *fil=GetActiveInputMethod()) fil->pause();
@@ -27,9 +27,10 @@ bool CDashIntfScreenMsgs::FinishRender(unsigned long ulTime) {
     m_dqAsyncMessages.pop_front(); // => stop displaying it
     bMsgsChanged=true;
   }
+  CDasherScreen * const pScreen(GetView()->Screen());
   if (!m_dqAsyncMessages.empty() || !m_dqModalMessages.empty()) {
-    screenint iY = m_DasherScreen->GetHeight();
-    const screenint iMinY((iY*3)/4), iSW(m_DasherScreen->GetWidth());
+    screenint iY = pScreen->GetHeight();
+    const screenint iMinY((iY*3)/4), iSW(pScreen->GetWidth());
     //still messages to display...first find out longest-ago N that will fit
     for (deque<pair<CDasherScreen::Label*, unsigned long> >::iterator it = m_dqAsyncMessages.begin(); it!=m_dqAsyncMessages.end() && iY>iMinY; it++) {
       if (it->second==0) {
@@ -38,7 +39,7 @@ bool CDashIntfScreenMsgs::FinishRender(unsigned long ulTime) {
         it->second = ulTime; //display message for first time
         bMsgsChanged=true;
       } 
-      iY-=m_DasherScreen->TextSize(it->first, GetLongParameter(LP_MESSAGE_FONTSIZE)).second;
+      iY-=pScreen->TextSize(it->first, GetLongParameter(LP_MESSAGE_FONTSIZE)).second;
     }
     if (!m_dqModalMessages.empty()) {
       bool bDisp(m_dqModalMessages.front().second != 0); //displaying anything atm?
@@ -50,7 +51,7 @@ bool CDashIntfScreenMsgs::FinishRender(unsigned long ulTime) {
           it->second = ulTime;
           bMsgsChanged = true;
         }
-        iY-=m_DasherScreen->TextSize(it->first, GetLongParameter(LP_MESSAGE_FONTSIZE)).second;
+        iY-=pScreen->TextSize(it->first, GetLongParameter(LP_MESSAGE_FONTSIZE)).second;
       }
     }
     //Now render messages proceeding downwards - non-modal first, then oldest first
@@ -59,11 +60,11 @@ bool CDashIntfScreenMsgs::FinishRender(unsigned long ulTime) {
       if (it==m_dqAsyncMessages.end()) {it=m_dqModalMessages.begin(); bModal=true;}
       if (it==m_dqModalMessages.end()) break;
       if (it->second==0) continue;
-      pair<screenint,screenint> textDims = m_DasherScreen->TextSize(it->first, GetLongParameter(LP_MESSAGE_FONTSIZE));
+      pair<screenint,screenint> textDims = pScreen->TextSize(it->first, GetLongParameter(LP_MESSAGE_FONTSIZE));
       //black (5) rectangle:
-      m_DasherScreen->DrawRectangle((iSW - textDims.first)/2, iY, (iSW+textDims.first)/2, iY+textDims.second, 5, -1, -1);
+      pScreen->DrawRectangle((iSW - textDims.first)/2, iY, (iSW+textDims.first)/2, iY+textDims.second, 5, -1, -1);
       //white (0) text for non-modal, yellow (111) for modal
-      m_DasherScreen->DrawString(it->first, (iSW-textDims.first)/2, iY, GetLongParameter(LP_MESSAGE_FONTSIZE), bModal ? 111 : 0);
+      pScreen->DrawString(it->first, (iSW-textDims.first)/2, iY, GetLongParameter(LP_MESSAGE_FONTSIZE), bModal ? 111 : 0);
       iY+=textDims.second;
     }
   }
@@ -98,6 +99,6 @@ void CDashIntfScreenMsgs::onUnpause(unsigned long lTime) {
   CDasherInterfaceBase::onUnpause(lTime);
 }
 
-CGameModule *CDashIntfScreenMsgs::CreateGameModule(CDasherView *pView, CDasherModel *pModel) {
-  return new CScreenGameModule(this, this, pView, pModel);
+CGameModule *CDashIntfScreenMsgs::CreateGameModule() {
+  return new CScreenGameModule(this, this, GetView(), m_pDasherModel);
 }

@@ -117,7 +117,7 @@ CNodeCreationManager::CNodeCreationManager(CSettingsUser *pCreateFrom,
 #endif
 
   HandleEvent(LP_ORIENTATION);
-  HandleEvent(BP_CONTROL_MODE);
+  updateControl();
 }
 
 CNodeCreationManager::~CNodeCreationManager() {
@@ -135,24 +135,22 @@ void CNodeCreationManager::ChangeScreen(CDasherScreen *pScreen) {
 }
 
 void CNodeCreationManager::HandleEvent(int iParameter) {
-  switch (iParameter) {
-    case BP_CONTROL_MODE:
-    case BP_GAME_MODE: {
-      delete m_pControlManager;
-      unsigned long iControlSpace;
-      //don't allow a control manager during Game Mode 
-      if (GetBoolParameter(BP_CONTROL_MODE) && !GetBoolParameter(BP_GAME_MODE)) {
-        m_pControlManager = new CControlManager(this, this, m_pInterface);
-        if (m_pScreen) m_pControlManager->MakeLabels(m_pScreen);
-        iControlSpace = CDasherModel::NORMALIZATION / 20;
-      } else {
-        m_pControlManager = NULL;
-        iControlSpace = 0;
-      }
-      m_iAlphNorm = CDasherModel::NORMALIZATION-iControlSpace;
-      break;
-    }
+  if (iParameter==BP_CONTROL_MODE) updateControl();
+}
+
+void CNodeCreationManager::updateControl() {
+  delete m_pControlManager;
+  unsigned long iControlSpace;
+  //don't allow a control manager during Game Mode 
+  if (GetBoolParameter(BP_CONTROL_MODE) && !m_pInterface->GetGameModule()) {
+    m_pControlManager = new CControlManager(this, this, m_pInterface);
+    if (m_pScreen) m_pControlManager->MakeLabels(m_pScreen);
+    iControlSpace = CDasherModel::NORMALIZATION / 20;
+  } else {
+    m_pControlManager = NULL;
+    iControlSpace = 0;
   }
+  m_iAlphNorm = CDasherModel::NORMALIZATION-iControlSpace;
 }
 
 void CNodeCreationManager::AddExtras(CDasherNode *pParent) {

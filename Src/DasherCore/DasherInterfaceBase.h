@@ -365,12 +365,34 @@ public:
   ///
   virtual int GetFileSize(const std::string &strFileName) = 0;
 
-  ///Gets a pointer to the game module. Will return null if game mode
-  /// is not on.
+  ///Gets a pointer to the game module. This is the correct way to determine
+  /// whether game mode is currently on or off.
+  /// \return pointer to current game module, if game mode on; or null, if off.
   CGameModule *GetGameModule() {
     return m_pGameModule;
   }
 
+  ///Call to enter game mode. The correct procedure for UI activation of game
+  /// mode, is to first create a game module (the method CreateGameModule is
+  /// provided for this purpose), and then prompt the user to change any
+  /// ModuleSettings for that GameModule (hence needing to create it first in
+  /// order to determine what settings it has); if the user clicks ok,
+  /// then the created module can be passed to this method. (If the user instead
+  /// clicks cancel, then the module should be deleted.)
+  /// Note method is virtual, so subclasses can override e.g. to detect entering
+  /// game mode (they should call this method, then check GetGameModule()).
+  /// \param pGameModule concrete instance of GameModule to use. This can be null,
+  /// in which case we will use the module returned by CreateGameModule (e.g.
+  /// this is done for demo filter). However
+  /// \param pGameModule newly-constructed GameModule to use, or NULL to use one
+  /// returned from CreateGameModule; in either case, will be deleted when we
+  /// leave game mode.
+  virtual void EnterGameMode(CGameModule *pGameModule);
+  
+  ///Exits game mode, including deleting the game module that was in use.
+  /// virtual so subclasses can override to detect leaving game mode.
+  void LeaveGameMode();
+  
 protected:
 
   /// @name Startup
@@ -396,11 +418,11 @@ protected:
 
   /// @}
 
-  ///Creates the game module - called on demand, i.e. (only) when game mode is started
-  /// by setting BP_GAME_MODE. Subclasses must implement to return a concrete subclass
-  /// of GameModule, perhaps by using platform-specific widgets (e.g. the edit box?)
-  
-  virtual CGameModule *CreateGameModule(CDasherView *pView, CDasherModel *pModel)=0;
+  ///Creates the game module. Subclasses must implement to return a concrete
+  /// subclass of CGameModule, perhaps by using platform-specific widgets (e.g.
+  /// the edit box?). Note the view and model can be obtained by calling GetView()
+  /// and reading m_pDasherModel, respectively
+  virtual CGameModule *CreateGameModule() = 0;
 
   /// Draw a new Dasher frame, regardless of whether we're paused etc.
   /// \param iTime Current time in ms.
@@ -428,8 +450,8 @@ protected:
   /// but with the mouse precisely over the crosshair)
   virtual void onUnpause(unsigned long lTime);
   
-  CDasherScreen *m_DasherScreen;
-
+  CDasherView *GetView() {return m_pDasherView;}
+  
   CDasherModel * const m_pDasherModel;
   ///Framerate monitor; created in constructor, req'd for DynamicFilter subclasses
   CFrameRate * const m_pFramerate;
@@ -511,6 +533,7 @@ protected:
   /// @name Child components
   /// Various objects which are 'owned' by the core.
   /// @{
+  CDasherScreen *m_DasherScreen;
   CDasherView *m_pDasherView;
   CDasherInput *m_pInput;
   CInputFilter* m_pInputFilter;
