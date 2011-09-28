@@ -102,7 +102,6 @@ namespace Dasher {
     struct bp_table {
       int key;
       const char *regName;
-      bool persistent;
       bool defaultValue;
       const char *humanReadable;
     };
@@ -114,7 +113,6 @@ namespace Dasher {
     struct lp_table {
       int key;
       const char *regName;
-      bool persistent;
       long defaultValue;
       const char *humanReadable;
     };
@@ -126,7 +124,6 @@ namespace Dasher {
     struct sp_table {
       int key;
       const char *regName;
-      bool persistent;
       const char *defaultValue;
       const char *humanReadable;
     };

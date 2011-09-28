@@ -174,22 +174,15 @@ int main(int argc, char **argv) {
   }
 
   for(int i(0); i < NUM_OF_BPS; ++i) {
-    if(boolparamtable[i].persistent) {
-      std::string strDefault;
+    std::string strDefault(boolparamtable[i].defaultValue ? "TRUE" : "FALSE");
       
-      if(boolparamtable[i].defaultValue)
-	strDefault = "TRUE";
-      else
-	strDefault = "FALSE";
-      
-      CSchema oSchema( boolparamtable[i].regName,
+    CSchema oSchema( boolparamtable[i].regName,
 		       TYPE_BOOL,
 		       strDefault,
 		       "",
 		       boolparamtable[i].humanReadable );
       
-      oSchema.Dump(output);
-    }
+    oSchema.Dump(output);
   }  
 
   for(int i(0); i < END_OF_APP_BPS - END_OF_SPS; ++i) {
@@ -213,21 +206,18 @@ int main(int argc, char **argv) {
   } 
 
   for(int i(0); i < NUM_OF_LPS; ++i) {
-    if(longparamtable[i].persistent) {
-
-      std::stringstream ssDefault;
+    std::stringstream ssDefault;
       
-      ssDefault << longparamtable[i].defaultValue;
+    ssDefault << longparamtable[i].defaultValue;
 
       
-      CSchema oSchema( longparamtable[i].regName,
+    CSchema oSchema( longparamtable[i].regName,
 		       TYPE_LONG,
 		       ssDefault.str(),
 		       "",
 		       longparamtable[i].humanReadable );
       
-      oSchema.Dump(output);
-    }
+    oSchema.Dump(output);
   }  
  
   for(int i(0); i < END_OF_APP_LPS - END_OF_APP_BPS; ++i) {
@@ -249,15 +239,13 @@ int main(int argc, char **argv) {
   }  
 
   for(int i(0); i < NUM_OF_SPS; ++i) {
-    if(stringparamtable[i].persistent) {
-      CSchema oSchema( stringparamtable[i].regName,
+    CSchema oSchema( stringparamtable[i].regName,
 		       TYPE_STRING,
 		       stringparamtable[i].defaultValue,
 		       "",
 		       stringparamtable[i].humanReadable );
       
-      oSchema.Dump(output);
-    }
+    oSchema.Dump(output);
   } 
   
   for(int i(0); i < END_OF_APP_SPS - END_OF_APP_LPS; ++i) {
