@@ -30,16 +30,10 @@ CDynamicButtons::CDynamicButtons(CSettingsUser *pCreator, CDasherInterfaceBase *
   pause();
 }
 
-void CDynamicButtons::Timer(unsigned long iTime, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol)
-{
-  if(m_bKeyDown && !m_bKeyHandled && ((iTime - m_iKeyDownTime) > GetLongParameter(LP_HOLD_TIME))) {
-    ButtonEvent(iTime, m_iHeldId, 1, m_pDasherModel);
-    m_bKeyHandled = true;
-    //return true; //ACL although that's what old DynamicButtons did, surely we should progress normally?
-  }
+void CDynamicButtons::Timer(unsigned long iTime, CDasherView *pDasherView, CDasherInput *pInput, CDasherModel *pModel, CExpansionPolicy **pol) {
   if (isPaused()) return;
   if (isReversing()) {
-    OneStepTowards(m_pDasherModel, 41943,2048, iTime, FrameSpeedMul(m_pDasherModel, iTime));
+    OneStepTowards(pModel, 41943,2048, iTime, FrameSpeedMul(pModel, iTime));
   } else {
     //moving forwards. Check auto speed control...
     if (GetBoolParameter(BP_AUTO_SPEEDCONTROL) && m_uSpeedControlTime < iTime) {
@@ -47,7 +41,7 @@ void CDynamicButtons::Timer(unsigned long iTime, CDasherView *pDasherView, CDash
           SetLongParameter(LP_MAX_BITRATE, GetLongParameter(LP_MAX_BITRATE) * (1.0 + GetLongParameter(LP_DYNAMIC_SPEED_INC)/100.0));
         m_uSpeedControlTime = iTime + 1000*GetLongParameter(LP_DYNAMIC_SPEED_FREQ);
     }
-    TimerImpl(iTime, pDasherView, m_pDasherModel, pol);
+    TimerImpl(iTime, pDasherView, pModel, pol);
   }
 }
 
@@ -61,15 +55,9 @@ void CDynamicButtons::KeyDown(unsigned long iTime, int iId, CDasherView *pView, 
 
   // Pass the basic key down event to the handler
   ButtonEvent(iTime, iId, 0, pModel);
-    
-  // Store the key down time so that long presses can be determined
-  // TODO: This is going to cause problems if multiple buttons are
-  // held down at once
-  m_iKeyDownTime = iTime;
 
   m_iHeldId = iId;
   m_bKeyDown = true;
-  m_bKeyHandled = false;
 }
 
 void CDynamicButtons::KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
@@ -126,7 +114,7 @@ void CDynamicButtons::pause() {
 
 void CDynamicButtons::reverse(unsigned long iTime) {
   m_bForwards=false;
-  CDynamicFilter::run(iTime);
+  if (isPaused()) CDynamicFilter::run(iTime);
   if (GetBoolParameter(BP_AUTO_SPEEDCONTROL)) {
     //treat reversing as a sign of distress --> slow down!
     SetLongParameter(LP_MAX_BITRATE, GetLongParameter(LP_MAX_BITRATE) *
@@ -136,9 +124,7 @@ void CDynamicButtons::reverse(unsigned long iTime) {
 
 void CDynamicButtons::run(unsigned long iTime) {
   m_bForwards=true;
-  if (!isPaused()) return;
-  //wasn't running previously
-  CDynamicFilter::run(iTime);
+  if (isPaused()) CDynamicFilter::run(iTime); //wasn't running previously
   m_uSpeedControlTime = 0; //will be set in Timer()
 }
 

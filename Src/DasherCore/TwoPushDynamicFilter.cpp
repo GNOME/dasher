@@ -28,11 +28,10 @@ using namespace Dasher;
 
 static SModuleSettings sSettings[] = {
   {LP_TWO_PUSH_OUTER, T_LONG, 1024, 2048, 2048, 128, _("Offset for outer (second) button")},
-  {LP_TWO_PUSH_UP, T_LONG, 257, 2047, 2048/*divisor*/, 128/*step*/, _("Distance for 1st button UP")},
-  {LP_TWO_PUSH_DOWN, T_LONG, 256, 2046, 2048, 128, _("Distance for 1st button DOWN")},
+  {LP_TWO_PUSH_LONG, T_LONG, 128, 1024, 2048/*divisor*/, 128/*step*/, _("Distance between down markers (long gap)")},
+  {LP_TWO_PUSH_SHORT, T_LONG, 10, 90, 100, 1, _("Distance between up markers, as %age of long gap")},
   {LP_TWO_PUSH_TOLERANCE, T_LONG, 50, 1000, 1, 10, _("Tolerance for inaccurate timing of button pushes (in ms)")},
-  /* TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press. */
-  {LP_HOLD_TIME, T_LONG, 100, 10000, 1000, 100, _("Long press time")},
+  {BP_TWO_PUSH_RELEASE_TIME, T_BOOL, -1, -1, -1, -1, _("Use push and release times of single press rather than push times of two presses")},
   /* TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.*/
   {BP_BACKOFF_BUTTON,T_BOOL, -1, -1, -1, -1, _("Enable backoff and start/stop buttons")},
   {BP_SLOW_START,T_BOOL, -1, -1, -1, -1, _("Slow startup")},
@@ -62,35 +61,41 @@ void GuideLine(CDasherView *pView, const myint iDasherY, const int iColour)
   pView->Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
 
   pScreen->Polyline(p, 2, 3, iColour);
-}  
+}
 
-bool CTwoPushDynamicFilter::DecorateView(CDasherView *pView, CDasherInput *pInput)
-{  
-  //outer guides (yellow rects)
-  for (int i=0; i<2; i++)
-  {
-    screenint x1, y1, x2, y2;
-    CDasherScreen *pScreen(pView->Screen());
-  
-    pView->Dasher2Screen(-100, m_aaiGuideAreas[i][0], x1, y1);
-    pView->Dasher2Screen(-1000, m_aaiGuideAreas[i][1], x2, y2);
-  
-    pScreen->DrawRectangle(x1, y1, x2, y2, 62/*pale yellow*/, -1, 0);
+long CTwoPushDynamicFilter::downDist() {
+  return GetLongParameter(LP_TWO_PUSH_OUTER) - GetLongParameter(LP_TWO_PUSH_LONG);
+}
+
+long CTwoPushDynamicFilter::upDist() {
+  return GetLongParameter(LP_TWO_PUSH_OUTER) - (GetLongParameter(LP_TWO_PUSH_LONG) * GetLongParameter(LP_TWO_PUSH_SHORT))/100;
+}
+
+bool CTwoPushDynamicFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
+  if (isRunning()) {
+    //outer guides (yellow rects)
+    for (int i=0; i<2; i++) {
+      screenint x1, y1, x2, y2;
+      CDasherScreen *pScreen(pView->Screen());
+    
+      pView->Dasher2Screen(-100, m_aaiGuideAreas[i][0], x1, y1);
+      pView->Dasher2Screen(-1000, m_aaiGuideAreas[i][1], x2, y2);
+    
+      pScreen->DrawRectangle(x1, y1, x2, y2, 62/*pale yellow*/, -1, 0);
+    }
   }
 
-  //inner guides (red lines)
-  GuideLine(pView, 2048 - GetLongParameter(LP_TWO_PUSH_UP), 1);
-  GuideLine(pView, 2048 + GetLongParameter(LP_TWO_PUSH_DOWN), 1);
+  //inner guides (red lines).
+  GuideLine(pView, 2048 - upDist(), 1);
+  GuideLine(pView, 2048 + downDist(), 1);
 
   //outer guides (at center of rects) - red lines
   GuideLine(pView, 2048 - GetLongParameter(LP_TWO_PUSH_OUTER), 1);
   GuideLine(pView, 2048 + GetLongParameter(LP_TWO_PUSH_OUTER), 1);
 
   //moving markers - green if active, else yellow
-  if (m_bDecorationChanged && isRunning() && m_dNatsSinceFirstPush > -std::numeric_limits<double>::infinity())
-  {
-    for (int i = 0; i < 2; i++)
-    {
+  if (m_bDecorationChanged && isRunning() && m_dNatsSinceFirstPush > -std::numeric_limits<double>::infinity()) {
+    for (int i = 0; i < 2; i++) {
       GuideLine(pView, m_aiMarker[i], (i == m_iActiveMarker) ? 240 : 61/*orange*/);
     }
   }
@@ -100,73 +105,50 @@ bool CTwoPushDynamicFilter::DecorateView(CDasherView *pView, CDasherInput *pInpu
 }
 
 void CTwoPushDynamicFilter::HandleEvent(int iParameter) {
-  switch (iParameter)
-  {
-    case LP_TWO_PUSH_OUTER:
-      if (GetLongParameter(LP_TWO_PUSH_OUTER)<=GetLongParameter(LP_TWO_PUSH_UP)) {
-        //two_push_outer being moved down; force two_push_up down too
-        SetLongParameter(LP_TWO_PUSH_UP, GetLongParameter(LP_TWO_PUSH_OUTER)-1);
-        return; // as HandleEvent on latter will execute same code (below)
-      }
-      //deliberate fallthrough
-    case LP_TWO_PUSH_UP:
-      if (GetLongParameter(LP_TWO_PUSH_UP)>=GetLongParameter(LP_TWO_PUSH_OUTER)) {
-        //two_push_up must have changed, or we'd have caught this in previous check for two_push_outer
-        SetLongParameter(LP_TWO_PUSH_OUTER, GetLongParameter(LP_TWO_PUSH_UP)+1);
-        return;
-      }
-      if (GetLongParameter(LP_TWO_PUSH_UP)<=GetLongParameter(LP_TWO_PUSH_DOWN)) {
-        SetLongParameter(LP_TWO_PUSH_DOWN, GetLongParameter(LP_TWO_PUSH_UP)-1);
-        return;
-      }
-      //deliberate fallthrough
-    case LP_TWO_PUSH_DOWN:
-      if (GetLongParameter(LP_TWO_PUSH_DOWN)>=GetLongParameter(LP_TWO_PUSH_UP)) {
-        SetLongParameter(LP_TWO_PUSH_UP, GetLongParameter(LP_TWO_PUSH_DOWN)+1);
-        return;
-      }
-    {
-  //TODO, that means short gap at the top - allow other way around also?
-
-double dOuter = GetLongParameter(LP_TWO_PUSH_OUTER);
-m_dLogUpMul = log(dOuter / (double)GetLongParameter(LP_TWO_PUSH_UP));
-m_dLogDownMul = log(dOuter / (double)GetLongParameter(LP_TWO_PUSH_DOWN));
-//cout << "bitsUp " << m_dLogUpMul << " bitsDown " << m_dLogDownMul << "\n";
-    } //and fallthrough
-    case LP_TWO_PUSH_TOLERANCE: //deliberate fallthrough
-    case LP_MAX_BITRATE:
-    {
-      //dPressBits just measures the number of bits which would be output in the
-      // tolerance time, at full (100%) speed; note it does not take account of
-      // the SpeedMul (viscosity) of the node under the cursor (or Slow Start, etc.)
-      // - iow, when we are moving slowly for such a reason, we'll be proportionately
-      // _more_ tolerant of user inaccuracy in button pushing...
-double dPressBits = GetLongParameter(LP_MAX_BITRATE)/100.0 * (double) GetLongParameter(LP_TWO_PUSH_TOLERANCE) / 1000.0;
-//cout << "Max Bitrate changed - now " << dMaxRate << " user accuracy " << dPressBits;
-m_dMinShortTwoPushTime = m_dLogUpMul - dPressBits;
-//cout << "bits; minShort " << m_dMinShortTwoPushTime;
-m_dMaxShortTwoPushTime = m_dLogUpMul + dPressBits;
-m_dMinLongTwoPushTime = m_dLogDownMul - dPressBits;
-if (m_dMaxShortTwoPushTime > m_dMinLongTwoPushTime)
-        m_dMaxShortTwoPushTime = m_dMinLongTwoPushTime = (m_dLogUpMul + m_dLogDownMul)/2.0;
-m_dMaxLongTwoPushTime = m_dLogDownMul + dPressBits;
-//TODO, what requirements do we actually need to make to ensure sanity (specifically, that computed m_aiTarget's are in range)?
-//cout << " maxShort " << m_dMaxShortTwoPushTime << " minLong " << m_dMinLongTwoPushTime << " maxLong " << m_dMaxLongTwoPushTime << "\n";
-m_bDecorationChanged = true;
-   }  //and fallthrough again
-   case LP_DYNAMIC_BUTTON_LAG:
-     m_dLagBits = GetLongParameter(LP_MAX_BITRATE)/100.0 * GetLongParameter(LP_DYNAMIC_BUTTON_LAG)/1000.0;
-//cout << " lag (" << m_dLagBits[0] << ", " << m_dLagBits[1] << ", " << m_dLagBits[2] << ", " << m_dLagBits[3] << ")";
-      //these areas should really be calculated using short/long push-times modified by the
-      // current FrameSpeedMul, which we'd have to do every frame. For now I'm not, so the guide
-      // areas will be wrong when the speed multiplier is other than 1.0. TODO reconsider, esp.
-      // wrt. possibly memoizing exp() in CDynamicFilter?
-     m_aaiGuideAreas[0][0] = 2048 - GetLongParameter(LP_TWO_PUSH_UP)*exp(m_dMaxShortTwoPushTime);
-     m_aaiGuideAreas[0][1] = 2048 - GetLongParameter(LP_TWO_PUSH_UP)*exp(m_dMinShortTwoPushTime);
-     m_aaiGuideAreas[1][0] = 2048 + GetLongParameter(LP_TWO_PUSH_DOWN)*exp(m_dMinLongTwoPushTime);
-     m_aaiGuideAreas[1][1] = 2048 + GetLongParameter(LP_TWO_PUSH_DOWN)*exp(m_dMaxLongTwoPushTime);
-     break;
+  switch (iParameter) {
+  case LP_TWO_PUSH_OUTER: //fallthrough
+  case LP_TWO_PUSH_LONG: //fallthrough
+  case LP_TWO_PUSH_SHORT: {
+    //TODO, short gap always at the top - allow other way around also?
+    double dOuter = GetLongParameter(LP_TWO_PUSH_OUTER);
+    m_dLogUpMul = log(dOuter / upDist());
+    m_dLogDownMul = log(dOuter / downDist());
+//cout << "bitsUp " << m_dLogUpMul << " bitsDown " << m_dLogDownMul << std::endl;
+  } //and fallthrough
+  case LP_TWO_PUSH_TOLERANCE: //fallthrough
+  case LP_DYNAMIC_BUTTON_LAG:
+    //recompute rest in Timer
+    m_dLastBitRate=-numeric_limits<double>::infinity();
   }
+}
+
+void CTwoPushDynamicFilter::updateBitrate(double dBitrate) {
+  if (dBitrate==m_dLastBitRate) return;
+  m_dLastBitRate = dBitrate;
+
+  double dPressBits = dBitrate * (double) GetLongParameter(LP_TWO_PUSH_TOLERANCE) / 1000.0;
+//cout << "Max Bitrate changed - now " << dBitrate << " user accuracy " << dPressBits;
+  m_dMinShortTwoPushTime = m_dLogUpMul - dPressBits;
+  m_dMaxShortTwoPushTime = m_dLogUpMul + dPressBits;
+  m_dMinLongTwoPushTime = m_dLogDownMul - dPressBits;
+  if (m_dMaxShortTwoPushTime > m_dMinLongTwoPushTime)
+    m_dMaxShortTwoPushTime = m_dMinLongTwoPushTime = (m_dLogUpMul + m_dLogDownMul)/2.0;
+  m_dMaxLongTwoPushTime = m_dLogDownMul + dPressBits;
+  //TODO, what requirements do we actually need to make to ensure sanity (specifically, that computed m_aiTarget's are in range)?
+//cout << "bits; minShort " << m_dMinShortTwoPushTime << " maxShort " << m_dMaxShortTwoPushTime << " minLong " << m_dMinLongTwoPushTime << " maxLong " << m_dMaxLongTwoPushTime << std::endl;
+  m_bDecorationChanged = true;
+
+  m_dLagBits = dBitrate * GetLongParameter(LP_DYNAMIC_BUTTON_LAG)/1000.0;
+
+  const long down(downDist()), up(upDist());
+  
+  //the boundaries of the guide areas (around the outer markers) are
+  // then computed from the number of bits _since_ the inner marker:
+  m_aaiGuideAreas[0][0] = 2048 - up*exp(m_dMaxShortTwoPushTime);
+  m_aaiGuideAreas[0][1] = 2048 - up*exp(m_dMinShortTwoPushTime);
+  m_aaiGuideAreas[1][0] = 2048 + down*exp(m_dMinLongTwoPushTime);
+  m_aaiGuideAreas[1][1] = 2048 + down*exp(m_dMaxLongTwoPushTime);
+//cout << "Short " << m_aaiGuideAreas[0][0] << " to " << m_aaiGuideAreas[0][1] << ", Long " << m_aaiGuideAreas[1][0] << " to " << m_aaiGuideAreas[1][1];
 }
 
 void CTwoPushDynamicFilter::KeyDown(unsigned long Time, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
@@ -182,6 +164,11 @@ void CTwoPushDynamicFilter::KeyUp(unsigned long Time, int iId, CDasherView *pVie
     //mouse click - will be ignored by superclass method.
     //simulate press of button 2...
     iId=2;
+  if (GetBoolParameter(BP_TWO_PUSH_RELEASE_TIME)
+      && isRunning() && iId==m_iHeldId
+      && m_dNatsSinceFirstPush!=-numeric_limits<double>::infinity())
+    ActionButton(Time, iId, 0, pModel);
+  //just records that the key has been released
   CDynamicButtons::KeyUp(Time, iId, pView, pInput, pModel);
 }
 
@@ -194,19 +181,16 @@ void CTwoPushDynamicFilter::ActionButton(unsigned long iTime, int iButton, int i
     reverse(iTime);
     return;
   }
-  if (m_dNatsSinceFirstPush == -std::numeric_limits<double>::infinity()) //no button pushed (recently)
-  {
+  if (m_dNatsSinceFirstPush == -std::numeric_limits<double>::infinity()) {
+    //no button pushed (recently)
     m_dNatsSinceFirstPush = pModel->GetNats();
     //note, could be negative if overall reversed since last ResetNats (Offset)
 //cout << "First push - got " << m_dNatsSinceFirstPush << std::endl;
-  }
-  else
-  {
-//cout << "Second push - event type " << iType << " logGrowth " << pModel->GetNats() << "\n";
+  } else {
+//cout << "Second push - event type " << iType << " logGrowth " << pModel->GetNats() << std::endl;
     if (m_iActiveMarker == -1)
       reverse(iTime);
-    else
-    {
+    else {
       ApplyOffset(pModel,m_aiTarget[m_iActiveMarker]);
       pModel->ResetNats();
       //don't really have to reset there, but seems as good a place as any
@@ -215,8 +199,7 @@ void CTwoPushDynamicFilter::ActionButton(unsigned long iTime, int iButton, int i
   }
 }
 
-bool doSet(int &var, const int val)
-{
+bool doSet(int &var, const int val) {
   if (var == val) return false;
   var = val;
   return true;
@@ -225,10 +208,11 @@ bool doSet(int &var, const int val)
 void CTwoPushDynamicFilter::TimerImpl(unsigned long iTime, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) {
   DASHER_ASSERT(isRunning());
   const double dSpeedMul(FrameSpeedMul(m_pDasherModel, iTime));
-  if (m_dNatsSinceFirstPush > -std::numeric_limits<double>::infinity()) // first button has been pushed
-  {
+  updateBitrate(GetLongParameter(LP_MAX_BITRATE)*dSpeedMul/100.0);
+  if (m_dNatsSinceFirstPush > -std::numeric_limits<double>::infinity()) {
+    // first button has been pushed
     double dLogGrowth(m_pDasherModel->GetNats() - m_dNatsSinceFirstPush), dOuter(GetLongParameter(LP_TWO_PUSH_OUTER)),
-           dUp(GetLongParameter(LP_TWO_PUSH_UP)), dDown(GetLongParameter(LP_TWO_PUSH_DOWN));
+           dUp(upDist()), dDown(downDist());
     
     //to move to point currently at outer marker: set m_aiTarget to dOuter==exp( log(dOuter/dUp) ) * dUp
               // (note that m_dLogUpMul has already been set to log(dOuter/dUp)...)
@@ -242,17 +226,15 @@ void CTwoPushDynamicFilter::TimerImpl(unsigned long iTime, CDasherView *m_pDashe
     double dDownDist = exp( dDownBits ) * dDown;
     // (note it's actually slightly more complicated even than that, we have to add in m_dLagBits too!)
     
-    m_aiTarget[0] = dUpDist * exp(m_dLagBits * dSpeedMul);
-    m_aiTarget[1] = -dDownDist * exp(m_dLagBits * dSpeedMul);
-    m_bDecorationChanged |= doSet(m_aiMarker[0], 2048 - exp(m_dLagBits*dSpeedMul + dLogGrowth) * dUp);
-    m_bDecorationChanged |= doSet(m_aiMarker[1], 2048 + exp(m_dLagBits*dSpeedMul + dLogGrowth) * dDown);
-    if (dLogGrowth > m_dMaxLongTwoPushTime)
-    {
-//cout << " growth " << dLogGrowth << " - reversing\n";
+    m_aiTarget[0] = dUpDist * exp(m_dLagBits);
+    m_aiTarget[1] = -dDownDist * exp(m_dLagBits);
+    m_bDecorationChanged |= doSet(m_aiMarker[0], 2048 - exp(m_dLagBits + dLogGrowth) * dUp);
+    m_bDecorationChanged |= doSet(m_aiMarker[1], 2048 + exp(m_dLagBits + dLogGrowth) * dDown);
+    if (dLogGrowth > m_dMaxLongTwoPushTime) {
+//cout << " growth " << dLogGrowth << " - reversing" << std::endl;
       //button pushed, but then waited too long.
       reverse(iTime);
-    }
-    else if (dLogGrowth >= m_dMinShortTwoPushTime && dLogGrowth <= m_dMaxShortTwoPushTime)
+    } else if (dLogGrowth >= m_dMinShortTwoPushTime && dLogGrowth <= m_dMaxShortTwoPushTime)
       m_bDecorationChanged |= doSet(m_iActiveMarker, 0 /*up*/);
     else if (dLogGrowth >= m_dMinLongTwoPushTime)
       m_bDecorationChanged |= doSet(m_iActiveMarker, 1 /*down*/);

@@ -26,7 +26,9 @@
 /// \ingroup InputFilter
 /// @{
 namespace Dasher {
-///filter with three states: paused, reversing, running. Hold any button down to reverse.
+///filter with three states: paused, reversing, running. Button 1 is dedicated reverse
+/// button (subclasses may also call reverse());  when reversing, any key pauses,
+/// then any key restarts.
 class CDynamicButtons : public CDynamicFilter {
  public:
   CDynamicButtons(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName);
@@ -53,8 +55,17 @@ class CDynamicButtons : public CDynamicFilter {
   /// \param iType 0=normal press, 1=long press; see also CButtonMultiPress.
   virtual void ActionButton(unsigned long iTime, int iButton, int iType, CDasherModel *pModel) = 0;
 
+  ///Whether a key (any that we might respond to) is held down.
+  /// If so, m_iHeldId identifies the key in question. We need this
+  /// not just for detecting long-presses etc. (in subclasses), and
+  /// ignoring presses of other keys while the first is down, but also
+  /// simply to filter out key-repeat events (=multiple keydown without a keyup)
   bool m_bKeyDown;
-  bool m_bKeyHandled;
+
+  ///if m_bKeyDown is true, identifies the key that was first pressed
+  /// that is currently still held down.
+  int m_iHeldId;
+
   bool m_bDecorationChanged;
   bool isReversing() {return !isPaused() && !m_bForwards;}
   bool isRunning() {return !isPaused() && m_bForwards;}
@@ -67,12 +78,11 @@ class CDynamicButtons : public CDynamicFilter {
   ///Subclasses should all this (rather than pModel->Offset()) to offset the model
   /// (it also stores the model, to abort the offset upon pause if necessary)
   void ApplyOffset(CDasherModel *pModel, int iOffset);
-  private:
-    bool m_bForwards;
-    int m_iHeldId;
-    unsigned long m_iKeyDownTime;
-    unsigned long m_uSpeedControlTime;
-    CDasherModel *m_pModel;
+
+private:
+  bool m_bForwards;
+  unsigned long m_uSpeedControlTime;
+  CDasherModel *m_pModel;
 };
 }
 #endif
