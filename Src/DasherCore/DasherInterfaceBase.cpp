@@ -809,7 +809,7 @@ void CDasherInterfaceBase::CreateModules() {
   RegisterModule(new CAlternatingDirectMode(this, this));
   RegisterModule(new CCompassMode(this, this));
   RegisterModule(new CStylusFilter(this, this, m_pFramerate));
-  RegisterModule(new CDemoFilter(this, this, m_pFramerate));
+  //WIP Temporary as too many segfaults! //RegisterModule(new CDemoFilter(this, this, m_pFramerate));
 }
 
 void CDasherInterfaceBase::GetPermittedValues(int iParameter, std::vector<std::string> &vList) {
