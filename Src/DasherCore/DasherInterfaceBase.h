@@ -359,12 +359,27 @@ public:
   /// public so e.g. iPhone can flush the buffer when app is backgrounded.
   void WriteTrainFileFull();
 
+  /// @name Platform dependent utility functions
+  /// These functions provide various platform dependent functions
+  /// required by the core. A derived class is created for each
+  /// supported platform which implements these.
+  // @{
+
   ///
   /// Obtain the size in bytes of a file - the way to do this is
   /// dependent on the OS (TODO: Check this - any posix on Windows?)
   ///
   virtual int GetFileSize(const std::string &strFileName) = 0;
-
+  
+  ///Look for files, matching a filename pattern, in whatever system and/or user
+  /// locations as may exist - e.g. on disk, in app package, on web, whatever.
+  /// TODO, can we add a default implementation that looks on the Dasher website?
+  /// \param pattern string matching just filename (not path), potentially
+  /// including '*'s (as per glob)
+  virtual void ScanFiles(AbstractParser *parser, const std::string &strPattern) = 0;
+  
+  // @}
+  
   ///Gets a pointer to the game module. This is the correct way to determine
   /// whether game mode is currently on or off.
   /// \return pointer to current game module, if game mode on; or null, if off.
@@ -465,44 +480,6 @@ protected:
 
   //The default expansion policy to use - an amortized policy depending on the LP_NODE_BUDGET parameter.
   CExpansionPolicy *m_defaultPolicy;
-
-  /// @name Platform dependent utility functions
-  /// These functions provide various platform dependent functions
-  /// required by the core. A derived class is created for each
-  /// supported platform which implements these.
-  // @{
-
-  ///
-  /// Initialise the SP_SYSTEM_LOC and SP_USER_LOC paths - the exact
-  /// method of doing this will be OS dependent
-  ///
-
-  virtual void SetupPaths() = 0;
-
-  ///
-  /// Produce a list of filenames for alphabet files
-  ///
-
-  virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList) = 0;
-
-  ///
-  /// Produce a list of filenames for colour files
-  ///
-
-  virtual void ScanColourFiles(std::vector<std::string> &vFileList) = 0;
-
-  ///
-  /// Set up the platform dependent UI for the widget (not the wider
-  /// app). Note that the constructor of the derived class will
-  /// probably want to return details of what was created - this will
-  /// have to happen separately, but we'll need to be careful with the
-  /// semantics.
-  ///
-
-  virtual void SetupUI() = 0;
-
-  /// @}
-
 
   /// Provide a new CDasherInput input device object.
 

@@ -11,7 +11,6 @@ CFrameRate::CFrameRate(CSettingsUser *pCreator) :
   m_iTime = 0;
 
   //try and carry on from where we left off at last run
-  HandleEvent(LP_FRAMERATE);
   HandleEvent(LP_MAX_BITRATE);
   //calls UpdateSteps(), which sets m_dRXMax and m_iSteps
 }
@@ -40,6 +39,7 @@ void CFrameRate::RecordFrame(unsigned long Time)
     double dFrNow;
     if(m_iTime2 - m_iTime > 0) {
       dFrNow = m_iFrames * 1000.0 / (m_iTime2 - m_iTime);
+      //LP_FRAMERATE records a decaying average, smoothed 50:50 with previous value
       SetLongParameter(LP_FRAMERATE, long(GetLongParameter(LP_FRAMERATE) + (dFrNow*100))/2);
       m_iTime = m_iTime2;
       m_iFrames = 0;
@@ -48,7 +48,7 @@ void CFrameRate::RecordFrame(unsigned long Time)
 
     UpdateSteps(dFrNow);
 
-    DASHER_TRACEOUTPUT("Fr %f Steps %d Samples %d Time2 %d rxmax %f\n", dFrNow, m_iSteps, m_iSamples, m_iTime2, m_dRXmax);
+    DASHER_TRACEOUTPUT("Fr %f Steps %d Samples %d Time2 %d maxbits %f\n", dFrNow, m_iSteps, m_iSamples, m_iTime2, m_dFrameBits);
 
   }
 }
@@ -56,13 +56,9 @@ void CFrameRate::RecordFrame(unsigned long Time)
 void CFrameRate::HandleEvent(int iParameter) {
 
   switch (iParameter) {
-  case LP_MAX_BITRATE: // Delibarate fallthrough
-  case LP_BOOSTFACTOR:
-    m_dMaxbitrate=(GetLongParameter(LP_MAX_BITRATE) * GetLongParameter(LP_BOOSTFACTOR)) / 10000.0;
+  case LP_MAX_BITRATE:
     UpdateSteps(GetLongParameter(LP_FRAMERATE) / 100.0); //use the decaying average as current
     break;
-  case LP_FRAMERATE:
-    m_dFrDecay = GetLongParameter(LP_FRAMERATE) / 100.0;
   }
 }
 
@@ -70,16 +66,13 @@ const double LN2 = log(2.0);
 const double STEPS_COEFF = -log(0.2) / LN2;
 
 void CFrameRate::UpdateSteps(double dFrNow) {
+  const double dMaxbitrate = GetLongParameter(LP_MAX_BITRATE) / 100.0;
     // Update auxiliary variables - even if we didn't recalc the framerate
     //   (means we reach sensible values more quickly after first loading)
-    m_dRXmax = exp(m_dMaxbitrate * LN2 / dFrNow);
+    m_dFrameBits = dMaxbitrate * LN2 / dFrNow;
     
-    // Note that m_iSteps is smoothed here - 50:50 interpolation with
-    // previous value
-    m_iSteps = std::max(1,(int)(STEPS_COEFF * m_dFrDecay / m_dMaxbitrate));
-
-    // If the framerate slows to < 4 then we end up with steps < 1 ! 
-    if(m_iSteps == 0)
-      m_iSteps = 1;
+    //Calculate m_iSteps from the decaying-average framerate, and ensure
+    // it is at least 1 (else, if framerate slows to <4, we get 0 steps!)
+    m_iSteps = std::max(1,(int)(STEPS_COEFF * (GetLongParameter(LP_FRAMERATE)/100.0) / dMaxbitrate));
 
 }

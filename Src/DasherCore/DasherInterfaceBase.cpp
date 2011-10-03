@@ -123,17 +123,12 @@ void CDasherInterfaceBase::Realize(unsigned long ulTime) {
   DASHER_ASSERT(m_DasherScreen ? m_pDasherView!=NULL : m_pDasherView==NULL);
 
   srand(ulTime);
-  
-  SetupUI();
-  SetupPaths();
+ 
+  m_AlphIO = new CAlphIO(this);
+  ScanFiles(m_AlphIO, "alphabet*.xml");
 
-  std::vector<std::string> vAlphabetFiles;
-  ScanAlphabetFiles(vAlphabetFiles);
-  m_AlphIO = new CAlphIO(this, GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), vAlphabetFiles);
-
-  std::vector<std::string> vColourFiles;
-  ScanColourFiles(vColourFiles);
-  m_ColourIO = new CColourIO(this, GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), vColourFiles);
+  m_ColourIO = new CColourIO(this);
+  ScanFiles(m_ColourIO, "colour*.xml");
 
   ChangeColours();
 
@@ -317,11 +312,8 @@ void CDasherInterfaceBase::EnterGameMode(CGameModule *pGameModule) {
   } else {
     ///TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
     /// refers to a setting name in gsettings or equivalent, and should not be translated.
-    const char *msg=_("Could not find game sentences file for %s - check alphabet definition, or override with GameTextFile setting");
-    char *buf(new char[strlen(msg)+m_pNCManager->GetAlphabet()->GetID().length()]);
-    sprintf(buf,msg,m_pNCManager->GetAlphabet()->GetID().c_str());
-    Message(buf,true);
-    delete buf;
+    FormatMessageWithString(_("Could not find game sentences file for %s - check alphabet definition, or override with GameTextFile setting"),
+                            m_pNCManager->GetAlphabet()->GetID().c_str());
     delete pGameModule; //does nothing if null.
   }
 }

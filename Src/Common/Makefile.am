@@ -3,6 +3,8 @@ libdashermisc_a_SOURCES = \
                 AppSettingsData.h \
                 AppSettingsHeader.h \
 		Common.h \
+		Globber.h \
+		Globber.cpp \
 		Hash.h \
 		I18n.h \
 		MSVC_Unannoy.h \

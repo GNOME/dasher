@@ -59,11 +59,8 @@ public:
   void SetEdit(id<DasherEdit> pEdit);
   CGameModule *CreateGameModule();
 private:
-  virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
-  virtual void ScanColourFiles(std::vector<std::string> &vFileList);
-  virtual void SetupPaths();
+  virtual void ScanFiles(AbstractParser *parser, const std::string &strPattern);
   virtual void CreateModules();
-  virtual void SetupUI();
   virtual bool SupportsSpeech();
   virtual void Speak(const std::string &strText, bool bInterrupt);
   virtual bool SupportsClipboard() {return true;}
@@ -84,12 +81,12 @@ private:
   ///Just log (and call superclass)
   void editConvert(CDasherNode *pSource);
   void editProtect(CDasherNode *pSource);
-
+  
   DasherApp *dasherApp;   // objc counterpart
   id<DasherEdit> dasherEdit;  // current output - sends to other apps or textfield
   
   COSXMouseInput *m_pMouseInput;
   COSX1DMouseInput *m_p1DMouseInput;
 
-  
+  NSString * const userDir;
 };

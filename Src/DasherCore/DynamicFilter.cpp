@@ -24,28 +24,47 @@
 using namespace Dasher;
 
 CDynamicFilter::CDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName)
-: CInputFilter(pInterface, iID, szName), CSettingsUser(pCreator), m_bPaused(true), m_pFramerate(pFramerate) {
+: CInputFilter(pInterface, iID, szName), CSettingsUser(pCreator),
+  m_bPaused(true), m_pFramerate(pFramerate), m_dLastBits(-1) {
 }
 
 bool CDynamicFilter::OneStepTowards(CDasherModel *pModel, myint y1, myint y2, unsigned long iTime, double dSpeedMul) {
   if (dSpeedMul<=0.0) return false; //going nowhere
   m_pFramerate->RecordFrame(iTime); //Hmmm, even if we don't do anything else?
 
-  double dRXMax = m_pFramerate->GetMaxZoomFactor();
-  // Adjust for slow start etc. TODO: can we fix to use integer math (or at least no pow?)
-  if (dSpeedMul!=1.0) dRXMax=pow(dRXMax, dSpeedMul);
+  //The maximum number of bits we should allow to be entered in this frame:
+  // (after adjusting for slow start, turbo mode, control node slowdown, etc.)
+  double dBits = m_pFramerate->GetMaxBitsPerFrame()*dSpeedMul;
+
+  //Compute max expansion, i.e. the minimum size we should allow the range 0..MAX_Y
+  // to be shrunk down to, for this frame. We cache the most-recent result to
+  // avoid an exp() (and a division): in the majority of cases this doesn't change
+  // between frames, but only does so when the maxbitrate changes, or dspeedmul
+  // changes (e.g. continuously during slow start, or when entering/leaving turbo
+  // mode or a control node).
+  if (dBits != m_dLastBits) m_iLastMinSize = static_cast<myint>(CDasherModel::MAX_Y / exp(m_dLastBits = dBits));
+  //However, note measurements on iPhone suggest even one exp() per frame is not
+  // a significant overhead; so the caching may be unnecessary, but it's easy.
   
-  pModel->ScheduleOneStep(y1, y2, static_cast<int>(m_pFramerate->Steps() / dSpeedMul), static_cast<myint>(CDasherModel::MAX_Y/dRXMax));
+  //If we wanted to take things further we could generalize this cache to cover
+  // exp()s done in the dynamic button modes too, and thus to allow them to adjust
+  // lag, guide markers, etc., according to the dSpeedMul in use. (And/or
+  // to do slow-start more efficiently by interpolating cache values.)
+  pModel->ScheduleOneStep(y1, y2,
+                          static_cast<int>(m_pFramerate->Steps() / dSpeedMul),
+                          m_iLastMinSize);
   return true;
 }
 
-double CDynamicFilter::SlowStartSpeedMul(unsigned long iTime) {
+double CDynamicFilter::FrameSpeedMul(CDasherModel *pModel, unsigned long iTime) {
+  CDasherNode *n = pModel->Get_node_under_crosshair();
+  double d = n ? n->SpeedMul() : 1.0;
   if(GetBoolParameter(BP_SLOW_START)) {
     if ((iTime - m_iStartTime) < GetLongParameter(LP_SLOW_START_TIME))
-      return 0.1 * (1 + 9 * ((iTime - m_iStartTime) / static_cast<double>(GetLongParameter(LP_SLOW_START_TIME))));
+      d *= 0.1 * (1 + 9 * ((iTime - m_iStartTime) / static_cast<double>(GetLongParameter(LP_SLOW_START_TIME))));
   }
-  //no slow start, or finished.
-  return 1.0;
+  //else, no slow start, or finished.
+  return d;
 }
 
 void CDynamicFilter::run(unsigned long Time) {

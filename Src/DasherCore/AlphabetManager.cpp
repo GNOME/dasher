@@ -152,24 +152,25 @@ CAlphabetManager::SGroupInfo *CAlphabetManager::copyGroups(CDasherScreen *pScree
 }
 
 CWordGeneratorBase *CAlphabetManager::GetGameWords() {
-  CFileWordGenerator *pGen = new CFileWordGenerator(m_pAlphabet, m_pAlphabetMap);
+  CFileWordGenerator *pGen = new CFileWordGenerator(m_pInterface, m_pAlphabet, m_pAlphabetMap);
+  pGen->setAcceptUser(true);
   if (!GetStringParameter(SP_GAME_TEXT_FILE).empty()) {
     const string &gtf(GetStringParameter(SP_GAME_TEXT_FILE));
-    if (pGen->open(gtf)) return pGen;
+    if (pGen->ParseFile(gtf,true)) return pGen;
     ///TRANSLATORS: the string "GameTextFile" is the name of a setting in gsettings
     /// (or equivalent), and should not be translated. The %s is the value of that
     /// setting (this message displayed only if the user has provided a value)
-    const char *msg=_("Note: GameTextFile setting specifies game sentences file '%s' but this does not exist");
-    char *buf(new char[strlen(msg)+gtf.length()]);
-    sprintf(buf,msg,gtf.c_str());
-    m_pInterface->Message(buf,false);
-    delete buf;
+    m_pInterface->FormatMessageWithString(_("Note: GameTextFile setting specifies game sentences file '%s' but this does not exist"),gtf.c_str());
   }
   if (!m_pAlphabet->GetGameModeFile().empty()) {
-    if (pGen->open(GetStringParameter(SP_USER_LOC) + m_pAlphabet->GetGameModeFile())) return pGen;
-    if (pGen->open(GetStringParameter(SP_SYSTEM_LOC) + m_pAlphabet->GetGameModeFile())) return pGen;
+    //TODO, try user dir first / give one or other priority?
+    // This will concatenate all - which doesn't seem too bad...?
+    m_pInterface->ScanFiles(pGen, m_pAlphabet->GetGameModeFile());
+    if (pGen->HasLines()) return pGen;
   }
-  if (pGen->open(GetStringParameter(SP_SYSTEM_LOC) + m_pAlphabet->GetTrainingFile())) return pGen;
+  pGen->setAcceptUser(false);
+  m_pInterface->ScanFiles(pGen, m_pAlphabet->GetTrainingFile());
+  if (pGen->HasLines()) return pGen;
   delete pGen;
   return NULL;
 }

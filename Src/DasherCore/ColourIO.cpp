@@ -23,24 +23,8 @@ static char THIS_FILE[] = __FILE__;
 
 // TODO: Share information with AlphIO class?
 
-CColourIO::CColourIO(CMessageDisplay *pMsgs, const string &SystemLocation, const string &UserLocation, const vector<string> &Filenames)
-:BlankInfo(), LoadMutable(false), CData("") {
+CColourIO::CColourIO(CMessageDisplay *pMsgs) : AbstractXMLParser(pMsgs), BlankInfo() {
   CreateDefault();
-
-  LoadMutable = false;
-  ParseFile(pMsgs, SystemLocation + "colour.xml");
-  if(Filenames.size() > 0) {
-    for(unsigned int i = 0; i < Filenames.size(); i++) {
-      ParseFile(pMsgs, SystemLocation + Filenames[i]);
-    }
-  }
-  LoadMutable = true;
-  ParseFile(pMsgs, UserLocation + "colour.xml");
-  if(Filenames.size() > 0) {
-    for(unsigned int i = 0; i < Filenames.size(); i++) {
-      ParseFile(pMsgs, UserLocation + Filenames[i]);
-    }
-  }
 }
 
 void CColourIO::GetColours(std::vector <std::string >*ColourList) const {
@@ -816,7 +800,7 @@ void CColourIO::XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
   if(strcmp(name, "palette") == 0) {
     ColourInfo NewInfo;
     InputInfo = NewInfo;
-    InputInfo.Mutable = LoadMutable;
+    InputInfo.Mutable = isUser();
     while(*atts != 0) {
       if(strcmp(*atts, "name") == 0) {
         InputInfo.ColourID = *(atts+1);

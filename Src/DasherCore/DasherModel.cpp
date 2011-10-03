@@ -75,8 +75,6 @@ CDasherModel::CDasherModel(CSettingsUser *pCreateFrom)
 }
 
 CDasherModel::~CDasherModel() {
-  if (m_pLastOutput) m_pLastOutput->Leave();
-
   if(oldroots.size() > 0) {
     delete oldroots[0];
     oldroots.clear();
@@ -200,7 +198,6 @@ void CDasherModel::ClearRootQueue() {
 
 void CDasherModel::SetNode(CDasherNode *pNewRoot) {
 
-  if (m_pLastOutput) m_pLastOutput->Leave();
   AbortOffset();
   ClearRootQueue();
   delete m_Root;
@@ -212,8 +209,7 @@ void CDasherModel::SetNode(CDasherNode *pNewRoot) {
 
   // Set the root coordinates so that the root node is an appropriate
   // size and we're not in any of the children
-  m_Root->Enter(); //(but we are in the node itself)
-  m_Root->SetFlag(NF_SEEN, true);
+  m_Root->SetFlag(NF_SEEN, true); //(but we are in the node itself)
   m_pLastOutput = m_Root;
 
   double dFraction( 1 - (1 - m_Root->MostProbableChild() / static_cast<double>(NORMALIZATION)) / 2.0 );
@@ -231,6 +227,10 @@ void CDasherModel::SetNode(CDasherNode *pNewRoot) {
 int CDasherModel::GetOffset() {
   return m_pLastOutput ? m_pLastOutput->offset()+1 : m_Root ? m_Root->offset()+1 : 0;
 };
+
+CDasherNode *CDasherModel::Get_node_under_crosshair() {
+  return m_pLastOutput;
+}
 
 bool CDasherModel::NextScheduledStep()
 {
@@ -402,8 +402,6 @@ void CDasherModel::OutputTo(CDasherNode *pNewNode) {
   //first, recurse back up to last seen node (must be processed ancestor-first)
   if (pNewNode && !pNewNode->GetFlag(NF_SEEN)) {
     OutputTo(pNewNode->Parent());
-    if (pNewNode->Parent()) pNewNode->Parent()->Leave();
-    pNewNode->Enter();
 
     m_pLastOutput = pNewNode;
     pNewNode->Output();
@@ -416,12 +414,10 @@ void CDasherModel::OutputTo(CDasherNode *pNewNode) {
       // so we should encounter it on the way back out to the root, _before_ null
       m_pLastOutput->SetFlag(NF_COMMITTED, false);
       m_pLastOutput->Undo();
-      m_pLastOutput->Leave(); //Should we? I think so, but the old code didn't...?
       m_pLastOutput->SetFlag(NF_SEEN, false);
 
       m_pLastOutput = m_pLastOutput->Parent();
-      if (m_pLastOutput) m_pLastOutput->Enter();
-      else DASHER_ASSERT (!pNewNode); //both null
+      DASHER_ASSERT(m_pLastOutput || !pNewNode); //if m_pLastOutput null, then pNewNode is too.
     }
   }
 }

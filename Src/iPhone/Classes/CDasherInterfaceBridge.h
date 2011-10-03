@@ -73,17 +73,17 @@ public:
   void HandleEvent(int iParameter);
   void EnterGameMode(Dasher::CGameModule *pGameModule);
   void LeaveGameMode();
+
+  void ScanFiles(AbstractParser *parser, const std::string &strPattern);
 private:
-  virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
-  virtual void ScanColourFiles(std::vector<std::string> &vFileList);
-  virtual void SetupPaths();
   virtual void CreateModules();
-  virtual void SetupUI();
   
   ///
   /// Pass events coming from the core to the appropriate handler.
   ///
   
+  const NSString * const userPath;
+
   DasherAppDelegate *dasherApp;   // objc counterpart
   	
   Dasher::CIPhoneMouseInput *m_pMouseDevice;

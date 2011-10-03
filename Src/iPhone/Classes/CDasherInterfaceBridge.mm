@@ -20,6 +20,7 @@
 #import "TwoPushDynamicFilter.h"
 #import "EAGLView.h"
 #import "GameModule.h"
+#import "../Common/Globber.h"
 #import <iostream>
 #import <fcntl.h>
 
@@ -74,7 +75,9 @@ private:
   UIWebView *m_pWebView;
 };
 
-CDasherInterfaceBridge::CDasherInterfaceBridge(DasherAppDelegate *aDasherApp) : CDashIntfScreenMsgs(new COSXSettingsStore()), dasherApp(aDasherApp) {
+CDasherInterfaceBridge::CDasherInterfaceBridge(DasherAppDelegate *aDasherApp) : CDashIntfScreenMsgs(new COSXSettingsStore()),
+dasherApp(aDasherApp),
+userPath([[NSString stringWithFormat:@"%@/", [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]] retain]) {
 }
 
 void CDasherInterfaceBridge::CreateModules() {
@@ -108,15 +111,12 @@ CDasherInterfaceBridge::~CDasherInterfaceBridge() {
   delete m_pTwoFingerDevice;
   delete m_pUndoubledTouch;
   //(ACL)registered input filters should be automatically free'd by the module mgr?
+  [userPath release];
 }
 
 void CDasherInterfaceBridge::SetTiltAxes(Vec3 main, float off, Vec3 slow, float off2)
 {
 	m_pTiltDevice->SetAxes(main, off, slow, off2);
-}
-
-void CDasherInterfaceBridge::SetupUI() {
-  NSLog(@"CDasherInterfaceBridge::SetupUI");
 }
 
 void CDasherInterfaceBridge::Realize() {
@@ -129,52 +129,35 @@ void CDasherInterfaceBridge::Realize() {
   [dasherApp glView].animating=YES;
 }
 
-void CDasherInterfaceBridge::SetupPaths() {
-  NSString *systemDir = [NSString stringWithFormat:@"%@/", [[NSBundle mainBundle] bundlePath]];
-  NSString *userDir = [NSString stringWithFormat:@"%@/", [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]];
+void CDasherInterfaceBridge::ScanFiles(AbstractParser *parser, const std::string &strPattern) {
 
-  SetStringParameter(SP_SYSTEM_LOC, StdStringFromNSString(systemDir));
-  SetStringParameter(SP_USER_LOC, StdStringFromNSString(userDir));
+  string strPath(StdStringFromNSString([[NSBundle mainBundle] bundlePath])+"/"+strPattern);
+  const char *sys[2];
+  sys[0] = strPath.c_str();
+  sys[1] = NULL;
+  
+  const char *user[2]; user[1] = NULL;
+  if ([[NSFileManager defaultManager] fileExistsAtPath:userPath isDirectory:NULL]) {
+    user[0] = (StdStringFromNSString(userPath)+strPattern).c_str();
+  } else {
+    // userDir doesn't exist => create it, ready to receive stuff
+    (void)[[NSFileManager defaultManager] createDirectoryAtPath:userPath withIntermediateDirectories:YES attributes:nil error:nil];
+    user[0] = 0;
+  }
+  globScan(parser, user, sys);
+
 }
 
-void CDasherInterfaceBridge::ScanAlphabetFiles(std::vector<std::string> &vFileList) {
+/*void CDasherInterfaceBridge::ScanForFiles(AbstractFileParser *parser, const std::string &strName) {
+  NSFileManager *mgr = [NSFileManager defaultManager];
+  NSArray *names = [[mgr enumeratorAtPath:systemPath] allObjects];
+  if ([names containsObject:NSStringFromStdString(strName)])
+      parser->ParseFile(StdStringFromNSString(systemPath)+strName,false);
   
-  NSDirectoryEnumerator *dirEnum;
-  NSString *file;
-
-  dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:NSStringFromStdString(GetStringParameter(SP_SYSTEM_LOC))];
-  while (file = [dirEnum nextObject]) {
-    if ([file hasSuffix:@".xml"] && [file hasPrefix:@"alphabet"]) {
-      vFileList.push_back(StdStringFromNSString(file));
-    }
-  }  
-  
-  dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:NSStringFromStdString(GetStringParameter(SP_USER_LOC))];
-  while (file = [dirEnum nextObject]) {
-    if ([file hasSuffix:@".xml"] && [file hasPrefix:@"alphabet"]) {
-      vFileList.push_back(StdStringFromNSString(file));
-    }
-  }  
-}
-
-void CDasherInterfaceBridge::ScanColourFiles(std::vector<std::string> &vFileList) {
-  NSDirectoryEnumerator *dirEnum;
-  NSString *file;
-  
-  dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:NSStringFromStdString(GetStringParameter(SP_SYSTEM_LOC))];
-  while (file = [dirEnum nextObject]) {
-    if ([file hasSuffix:@".xml"] && [file hasPrefix:@"colour"]) {
-      vFileList.push_back(StdStringFromNSString(file));
-    }
-  }  
-  
-  dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:NSStringFromStdString(GetStringParameter(SP_USER_LOC))];
-  while (file = [dirEnum nextObject]) {
-    if ([file hasSuffix:@".xml"] && [file hasPrefix:@"colour"]) {
-      vFileList.push_back(StdStringFromNSString(file));
-    }
-  }  
-}
+  names = [[mgr enumeratorAtPath:userPath] allObjects];
+  if ([names containsObject:NSStringFromStdString(strName)])
+    parser->ParseFile(StdStringFromNSString(userPath)+strName,true);
+}*/
 
 void CDasherInterfaceBridge::NewFrame(unsigned long iTime, bool bForceRedraw) {
   CDashIntfScreenMsgs::NewFrame(iTime, bForceRedraw);
@@ -186,7 +169,7 @@ void CDasherInterfaceBridge::HandleEvent(int iParameter) {
   // user defaults controller which is observing the user defaults and will be notified when
   // the parameter is actually written by COSXSettingsStore.
   //NSLog(@"CParameterNotificationEvent, m_iParameter: %d", parameterEvent->m_iParameter);
-  if (iParameter == LP_MAX_BITRATE || iParameter == LP_BOOSTFACTOR)
+  if (iParameter == LP_MAX_BITRATE)
     [dasherApp notifySpeedChange];
   else if (iParameter == SP_ALPHABET_ID)
     [dasherApp setAlphabet:GetActiveAlphabet()];
@@ -289,7 +272,7 @@ void CDasherInterfaceBridge::WriteTrainFile(const std::string &filename,const st
   if(strNewText.length() == 0)
     return;
   
-  std::string strFilename(GetStringParameter(SP_USER_LOC) + filename);
+  std::string strFilename(StdStringFromNSString(userPath) + filename);
   
   NSLog(@"Write train file: %s", strFilename.c_str());
   

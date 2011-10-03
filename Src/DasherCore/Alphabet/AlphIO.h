@@ -47,10 +47,14 @@ namespace Dasher {
 /// object per alphabet at this time, and stores them in a map from AlphID
 /// string until shutdown/destruction. (CAlphIO is a friend of CAlphInfo,
 /// so can create/manipulate instances.)
-class Dasher::CAlphIO : private AbstractXMLParser {
+class Dasher::CAlphIO : public AbstractXMLParser {
 public:
 
-  CAlphIO(CMessageDisplay *pMsgs, const std::string &SystemLocation, const std::string &UserLocation, const std::vector < std::string > &Filenames);
+  ///Create a new AlphIO. Initially, it will have only a 'default' alphabet
+  /// definition (English); further alphabets may be loaded in by calling the
+  /// Parse... methods inherited from Abstract[XML]Parser
+  CAlphIO(CMessageDisplay *pMsgs);
+  
   ~CAlphIO();
   void GetAlphabets(std::vector < std::string > *AlphabetList) const;
   std::string GetDefault();
@@ -67,7 +71,6 @@ private:
   // XML handling:
   /////////////////////////
 
-  bool LoadMutable;
   void ReadCharAtts(const XML_Char **atts, CAlphInfo::character &ch);
   // Alphabet types:
   std::map < std::string, Opts::AlphabetTypes > StoT;

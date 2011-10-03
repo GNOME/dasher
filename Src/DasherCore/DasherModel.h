@@ -168,6 +168,11 @@ class Dasher::CDasherModel: private CSettingsUser, public Observable<CDasherNode
 
   /// @}
 
+  /// Returns the node that was under the crosshair in the
+  /// last frame that was rendered. (I.e., this is the last
+  /// node output.)
+  CDasherNode *Get_node_under_crosshair();
+  
   ///
   /// This is pretty horrible - a rethink of the start/reset mechanism
   /// is definitely in order. Used to prevent the root node from being

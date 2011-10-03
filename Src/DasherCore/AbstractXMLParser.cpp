@@ -9,17 +9,35 @@
 
 #include "AbstractXMLParser.h"
 
-#include <string.h>
+#include <fstream>
+#include <stdio.h>
+#include <cstring>
 
-using std::string;
+using namespace std;
 
-bool AbstractXMLParser::ParseFile(CMessageDisplay *pMsgs, const std::string &strFilename) {
-  FILE *Input;
-  if((Input = fopen(strFilename.c_str(), "r")) == (FILE *) 0) {
-    // could not open file
-    return false;
-  }
+bool AbstractParser::ParseFile(const string &strPath, bool bUser) {
+  std::ifstream in(strPath.c_str(), ios::binary);
+  bool res=Parse("file://"+strPath, in, bUser);
+  in.close();
+  return res;
+}
 
+AbstractXMLParser::AbstractXMLParser(CMessageDisplay *pMsgs) : AbstractParser(pMsgs) {
+}
+
+bool AbstractXMLParser::isUser() {
+  return m_bUser;
+}
+
+bool AbstractXMLParser::Parse(const std::string &strDesc, istream &in, bool bUser) {
+  if (!in.good()) return false;
+  
+  //we'll be re-entrant (i.e. allow nested calls), as it's not difficult here...
+  const bool bOldUser = m_bUser;
+  const string strOldDesc = m_strDesc;
+  m_bUser = bUser;
+  m_strDesc = strDesc;
+  
   XML_Parser Parser = XML_ParserCreate(NULL);
 
   // Members passed as callbacks must be static, so don't have a "this" pointer.
@@ -32,17 +50,22 @@ bool AbstractXMLParser::ParseFile(CMessageDisplay *pMsgs, const std::string &str
   char Buffer[1024];
   int Done;
   do {
-    size_t len = fread(Buffer, 1, sizeof(Buffer), Input);
+    in.read(Buffer, sizeof(Buffer));
+    size_t len = in.gcount();
     Done = len < sizeof(Buffer);
     if(XML_Parse(Parser, Buffer, len, Done) == XML_STATUS_ERROR) {
       bRes=false;
-      if (pMsgs) {
-        const char *msg=_("XML Error %s in file %s somewhere in block: %s");
+      if (m_pMsgs) {
         const XML_LChar *xmle=XML_ErrorString(XML_GetErrorCode(Parser)); //think XML_LChar==char, depends on preprocessor variables...
-        char *buf(new char[strlen(msg)+ strlen(xmle) + strFilename.length() + len + 3]);
-        //constructing a string here to get a null terminator. Can we put a null into Buffer instead?
-        sprintf(buf, msg, xmle, strFilename.c_str(), string(Buffer,len).c_str());
-        pMsgs->Message(buf,true);
+        
+        ///TRANSLATORS: the first string is the error message from the XML Parser;
+        /// the second is the URL of the file we're trying to read; the third
+        /// is a section excerpt from the file, containing the error.
+        const char *msg=_("XML Error %s in %s somewhere in block: %s");
+        //we can't use FormatMessage as we have too many substitutions...
+        char *buf(new char[strlen(msg) + strlen(xmle) + m_strDesc.length() + len]);
+        sprintf(buf, xmle, m_strDesc.c_str(), string(Buffer,len).c_str());
+        m_pMsgs->Message(buf, true);
         delete buf;
       }
       break;
@@ -50,7 +73,7 @@ bool AbstractXMLParser::ParseFile(CMessageDisplay *pMsgs, const std::string &str
   } while (!Done);
 
   XML_ParserFree(Parser);
-  fclose(Input);
+  m_bUser = bOldUser; m_strDesc = strOldDesc;
   return bRes;
 }
 

@@ -42,8 +42,20 @@ class CDynamicFilter : public CInputFilter, public CSettingsUser {
   void pause() {m_bPaused = true;}
   
  protected:
+  ///wraps Model's one-step method to compute the number of steps and minsize
+  /// (from framerate) that the Model requires, from just the frame time and a
+  /// multiplier to speed.
+  /// \param dSpeedMul multiply normal speed of movement by this; 1.0 = normal speed,
+  /// 0.0 = go nowhere. This allows for slow start, turbo mode, control nodes being
+  /// more "viscous", etc. Values <=0.0 will result in no movement
+  /// \return true if dSpeedMul>0.0, false if <=0.0.
   bool OneStepTowards(CDasherModel *pModel, myint y1, myint y2, unsigned long iTime, double dSpeedMul);
-  double SlowStartSpeedMul(unsigned long iTime);
+  
+  ///Calculates a multiplier by which to adjust our speed (for a given frame).
+  /// Defalut implementation implements slow-start (i.e. a multiplier increasing
+  /// from zero to one over the slow-start-time) as well as by checking the speedMul
+  /// of the node under the cursor.
+  virtual double FrameSpeedMul(CDasherModel *pModel, unsigned long iTime);
 
   ///Starts moving, i.e. just records that we are no longer paused,
   /// for the next call to Timer. Protected, to prevent external calls 
@@ -51,13 +63,18 @@ class CDynamicFilter : public CInputFilter, public CSettingsUser {
   /// appropriate without performing other setup first.
   /// \param Time Time in ms, used to keep a constant frame rate and
   /// initialize slow start.
+
   virtual void run(unsigned long iTime);
   bool isPaused() {return m_bPaused;}
+  
+  CFrameRate * const m_pFramerate;
  private:
-  CFrameRate *m_pFramerate;
   //Time at which Unpause() was called, used for Slow Start.
   unsigned long m_iStartTime;
   bool m_bPaused;
+  //Number of bits (we allowed) to be entered in previous frame - to cache exp()
+  double m_dLastBits;
+  double m_iLastMinSize;
 };
 }
 #endif

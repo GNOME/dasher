@@ -107,7 +107,6 @@ const lp_table longparamtable[] = {
 #else
   {LP_NONLINEAR_X, "NonLinearX", PERS, 5, "Nonlinear compression of X-axis (0 = none, higher = more extreme)"},
 #endif
-  {LP_BOOSTFACTOR, "BoostFactor", !PERS, 100, "Boost/brake factor (multiplied by 100)"},
   {LP_AUTOSPEED_SENSITIVITY, "AutospeedSensitivity", PERS, 100, "Sensitivity of automatic speed control (percent)"},
   {LP_SOCKET_PORT, "SocketPort", PERS, 20320, "UDP/TCP socket to use for network socket input"},
   {LP_SOCKET_INPUT_X_MIN, "SocketInputXMinTimes1000", PERS, 0, "Bottom of range of X values expected from network input"},
@@ -155,8 +154,6 @@ const sp_table stringparamtable[] = {
   {SP_ALPHABET_4, "Alphabet4", PERS, "", "Alphabet History 4"},
   {SP_COLOUR_ID, "ColourID", PERS, "", "ColourID"}, 
   {SP_DASHER_FONT, "DasherFont", PERS, "", "DasherFont"},
-  {SP_SYSTEM_LOC, "SystemLocation", !PERS, "sys_", "System Directory"},
-  {SP_USER_LOC, "UserLocation", !PERS, "usr_", "User Directory"},
   {SP_GAME_TEXT_FILE, "GameTextFile", PERS, "", "User-specified file with strings to practice writing"},
   {SP_SOCKET_INPUT_X_LABEL, "SocketInputXLabel", PERS, "x", "Label preceding X values for network input"},
   {SP_SOCKET_INPUT_Y_LABEL, "SocketInputYLabel", PERS, "y", "Label preceding Y values for network input"},
