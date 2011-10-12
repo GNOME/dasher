@@ -62,6 +62,10 @@ CZoomAdjuster::CZoomAdjuster(CSettingsUser *pCreateFrom) : CSettingsUser(pCreate
 }
 
 void CZoomAdjuster::AdjustZoomCoords(myint &iDasherX, myint &iDasherY, CDasherView *pView) {
+  //these equations don't work well for iDasherX just slightly over ORIGIN_X;
+  // this is probably due to rounding error, but the "safety margin" doesn't
+  // really seem helpful when zooming out (or translating) anyway...
+  if (iDasherX >= CDasherModel::ORIGIN_X) return;
   const myint safety(GetLongParameter(LP_S));
   //safety param. Used to be just added onto DasherX,
   // but comments suggested should be interpreted as a fraction. Hence...
