@@ -113,12 +113,12 @@ void CDasherModel::Make_root(CDasherNode *pNewRoot) {
   m_Rootmax = m_Rootmin + (range * m_Root->Hbnd()) / NORMALIZATION;
   m_Rootmin = m_Rootmin + (range * m_Root->Lbnd()) / NORMALIZATION;
 
-  for(std::deque<SGotoItem>::iterator it(m_deGotoQueue.begin()); it != m_deGotoQueue.end(); ++it) {
+  for(std::deque<pair<myint,myint> >::iterator it(m_deGotoQueue.begin()); it != m_deGotoQueue.end(); ++it) {
     //Some of these co-ordinate pairs can be bigger than m_Rootmin_min - m_Rootmax_max,
     // hence using unsigned type...
-    const uint64 r = it->iN2 - it->iN1;
-    it->iN2 = it->iN1 + (r * m_Root->Hbnd()) / NORMALIZATION;
-    it->iN1 = it->iN1 + (r * m_Root->Lbnd()) / NORMALIZATION;
+    const uint64 r = it->second - it->first;
+    it->second = it->first + (r * m_Root->Hbnd()) / NORMALIZATION;
+    it->first += (r * m_Root->Lbnd()) / NORMALIZATION;
   }
 }
 
@@ -175,10 +175,10 @@ bool CDasherModel::Reparent_root() {
   m_Rootmax = m_Rootmax + ((NORMALIZATION - upper) * iRootWidth) / iRange;
   m_Rootmin = m_Rootmin - (lower * iRootWidth) / iRange;
 
-  for(std::deque<SGotoItem>::iterator it(m_deGotoQueue.begin()); it != m_deGotoQueue.end(); ++it) {
-    iRootWidth = it->iN2 - it->iN1;
-    it->iN2 = it->iN2 + (myint(NORMALIZATION - upper) * iRootWidth / iRange);
-    it->iN1 = it->iN1 - (myint(lower) * iRootWidth / iRange);
+  for(std::deque<pair<myint,myint> >::iterator it(m_deGotoQueue.begin()); it != m_deGotoQueue.end(); ++it) {
+    iRootWidth = it->second - it->first;
+    it->second += (myint(NORMALIZATION - upper) * iRootWidth / iRange);
+    it->first -= (myint(lower) * iRootWidth / iRange);
   }
   return true;
 }
@@ -235,7 +235,7 @@ CDasherNode *CDasherModel::Get_node_under_crosshair() {
 bool CDasherModel::NextScheduledStep()
 {
   if (m_deGotoQueue.size() == 0) return false;
-  myint newRootmin(m_deGotoQueue.front().iN1), newRootmax(m_deGotoQueue.front().iN2);
+  myint newRootmin(m_deGotoQueue.front().first), newRootmax(m_deGotoQueue.front().second);
   m_deGotoQueue.pop_front();
 
   m_dTotalNats += log((newRootmax - newRootmin) / static_cast<double>(m_Rootmax - m_Rootmin));
@@ -270,12 +270,11 @@ bool CDasherModel::NextScheduledStep()
         //we need to update the target coords (newRootmin,newRootmax)
         // to reflect the new coordinate system based upon pChild as root.
         //Make_root automatically updates any such pairs stored in m_deGotoQueue, so:
-        SGotoItem temp; temp.iN1 = newRootmin; temp.iN2 = newRootmax;
-        m_deGotoQueue.push_back(temp);
+        m_deGotoQueue.push_back(pair<myint,myint>(newRootmin,newRootmax));
         //...when we make pChild the root...
         Make_root(pChild);
         //...we can retrieve new, equivalent, coordinates for it
-        newRootmin = m_deGotoQueue.back().iN1; newRootmax = m_deGotoQueue.back().iN2;
+        newRootmin = m_deGotoQueue.back().first; newRootmax = m_deGotoQueue.back().second;
         m_deGotoQueue.pop_back();
         // (note that the next check below will make sure these coords do cover (0, ORIGIN_Y))
         break;
@@ -392,10 +391,7 @@ void CDasherModel::ScheduleOneStep(myint X, myint Y, int iSteps, dasherint iMinS
     r2 = ((R2 - C) * Y2) / (y2 - y1) + C;
   }
   m_deGotoQueue.clear();
-  SGotoItem item;
-  item.iN1 = r1;
-  item.iN2 = r2;
-  m_deGotoQueue.push_back(item);
+  m_deGotoQueue.push_back(pair<myint,myint>(r1,r2));
 }
 
 void CDasherModel::OutputTo(CDasherNode *pNewNode) {
@@ -524,10 +520,9 @@ void CDasherModel::ScheduleZoom(dasherint y1, dasherint y2) {
   const int nsteps = GetLongParameter(LP_ZOOMSTEPS);
   m_deGotoQueue.clear();
   for (int s = nsteps - 1; s >= 0; --s) {
-      SGotoItem sNewItem;
-      sNewItem.iN1 = r1 - (s * (r1 - R1)) / nsteps;
-      sNewItem.iN2 = r2 - (s * (r2 - R2)) / nsteps;
-      m_deGotoQueue.push_back(sNewItem);
+    m_deGotoQueue.push_back(pair<myint,myint>(
+        r1 - (s * (r1 - R1)) / nsteps,
+        r2 - (s * (r2 - R2)) / nsteps));
   }
 }
 

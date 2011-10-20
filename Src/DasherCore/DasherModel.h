@@ -40,8 +40,6 @@
 namespace Dasher {
   class CDasherModel;
   class CDasherView;
-
-  struct SLockData;
 }
 
 /// \defgroup Model The Dasher model
@@ -199,13 +197,6 @@ class Dasher::CDasherModel: private CSettingsUser, public Observable<CDasherNode
 
  private:
 
-  /// Struct representing intermediate stages in the goto queue
-  ///
-  struct SGotoItem {
-    myint iN1;
-    myint iN2;
-  };
-
   // The root of the Dasher tree
   CDasherNode *m_Root;
 
@@ -232,8 +223,9 @@ class Dasher::CDasherModel: private CSettingsUser, public Observable<CDasherNode
 
   CDasherNode *m_pLastOutput;
 
-  // Queue of goto locations (eg for button mode)
-  std::deque<SGotoItem> m_deGotoQueue;
+  // Queue of steps scheduled, represented as pairs
+  // of min/max coordinates for root node
+  std::deque<std::pair<myint,myint> > m_deGotoQueue;
 
   /// TODO: Not sure what this actually does
   double m_dAddProb;
