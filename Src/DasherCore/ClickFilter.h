@@ -7,20 +7,20 @@
 /// @{
 namespace Dasher {
   ///Utility class for transforming co-ordinates of a mouse click to zoom target
-  class CZoomAdjuster : protected CSettingsUser {
+  class CZoomAdjuster {
   public:
-    //Everything public so we can use composition as well as inheritance
-    CZoomAdjuster(CSettingsUser *pCreator);
     /// Adjust co-ordinates of mouse click into coordinates for zoom target.
-    /// Adds a safety margin according to LP_S, checks we don't exceed the
-    /// zoom factor given by LP_MAXZOOM, and ensures x>=2.
-    void AdjustZoomCoords(myint &iDasherX, myint &iDasherY, CDasherView *comp);
+    /// \param safety Fraction (/1024) by which not to zoom in (e.g. 25 = 
+    /// zoom in ~~2.5% less than suggested)
+    /// \param maxZoom maximum factor by which to zoom in; note that
+    /// regardless of this parameter, we never zoom in to x<2.
+    void AdjustZoomX(myint &iDasherX, CDasherView *comp, myint safety, myint maxZoom);
   };
   
-class CClickFilter : public CStaticFilter, private CZoomAdjuster {
+class CClickFilter : public CStaticFilter, protected CSettingsUser, private CZoomAdjuster {
  public:
   CClickFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface)
-    : CStaticFilter(pInterface, 7, _("Click Mode")), CZoomAdjuster(pCreator) { };
+    : CStaticFilter(pInterface, 7, _("Click Mode")), CSettingsUser(pCreator) { };
 
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);
   virtual void KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);

@@ -7,7 +7,7 @@
 /// \ingroup InputFilter
 /// @{
 namespace Dasher {
-class CStylusFilter : public CDefaultFilter {
+class CStylusFilter : public CDefaultFilter, protected CZoomAdjuster {
  public:
   CStylusFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID=15, const char *szName=_("Stylus Control"));
   ///Override DefaultFilter (which supports pause), as we don't

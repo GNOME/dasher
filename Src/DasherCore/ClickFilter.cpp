@@ -24,7 +24,7 @@ bool CClickFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
   if (GetBoolParameter(BP_DRAW_MOUSE_LINE)) {
     myint mouseX, mouseY;
     pInput->GetDasherCoords(mouseX, mouseY, pView);
-    AdjustZoomCoords(mouseX, mouseY, pView);
+    AdjustZoomX(mouseX, pView, GetLongParameter(LP_S), GetLongParameter(LP_MAXZOOM));
     if (m_iLastX != mouseX || m_iLastY != mouseY) {
       bChanged = true;
       m_iLastX = mouseX; m_iLastY = mouseY;
@@ -58,28 +58,18 @@ bool CClickFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
   return bChanged;
 }
 
-CZoomAdjuster::CZoomAdjuster(CSettingsUser *pCreateFrom) : CSettingsUser(pCreateFrom) {
-}
-
-void CZoomAdjuster::AdjustZoomCoords(myint &iDasherX, myint &iDasherY, CDasherView *pView) {
+void CZoomAdjuster::AdjustZoomX(myint &iDasherX, CDasherView *pView, myint safety, myint maxZoom) {
   //these equations don't work well for iDasherX just slightly over ORIGIN_X;
   // this is probably due to rounding error, but the "safety margin" doesn't
   // really seem helpful when zooming out (or translating) anyway...
   if (iDasherX >= CDasherModel::ORIGIN_X) return;
-  const myint safety(GetLongParameter(LP_S));
+
   //safety param. Used to be just added onto DasherX,
   // but comments suggested should be interpreted as a fraction. Hence...
   myint iNewDasherX = (iDasherX*1024 + CDasherModel::ORIGIN_X*safety) / (1024+safety);
 
-  //max zoom parameter...
-  iNewDasherX = std::max(CDasherModel::ORIGIN_X/GetLongParameter(LP_MAXZOOM),iNewDasherX);
-  //force x>=2 (what's wrong with x==1?)
-  if (iNewDasherX<2) iNewDasherX=2;
-  if (iNewDasherX != iDasherX) {
-    //compute new dasher y to keep centre of expansion in same place...
-    myint iNewDasherY = CDasherModel::ORIGIN_Y + ((CDasherModel::ORIGIN_X-iNewDasherX) * (iDasherY-CDasherModel::ORIGIN_Y))/(CDasherModel::ORIGIN_X-iDasherX);
-    iDasherX = iNewDasherX; iDasherY = iNewDasherY;
-  }
+  //max zoom parameter...also force x>=2 (what's wrong with x==1?)
+  iDasherX = std::max(std::max(myint(2),CDasherModel::ORIGIN_X/maxZoom),iNewDasherX);  
 }
 
 void CClickFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
@@ -90,8 +80,8 @@ void CClickFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDa
       myint iDasherY;
 
       pInput->GetDasherCoords(iDasherX, iDasherY, pView);
-      AdjustZoomCoords(iDasherX, iDasherY, pView);
-      ScheduleZoom(pModel,iDasherY-iDasherX, iDasherY+iDasherX);
+      AdjustZoomX(iDasherX, pView, GetLongParameter(LP_S), GetLongParameter(LP_MAXZOOM));
+      ScheduleZoom(pModel, iDasherY-iDasherX, iDasherY+iDasherX);
     }
     break;
   default:

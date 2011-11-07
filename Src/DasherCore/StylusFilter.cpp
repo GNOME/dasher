@@ -39,7 +39,7 @@ void CStylusFilter::KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDas
 }
 
 void CStylusFilter::ApplyClickTransform(myint &iDasherX, myint &iDasherY, CDasherView *pView) {
-  CZoomAdjuster(this).AdjustZoomCoords(iDasherX, iDasherY, pView);
+  AdjustZoomX(iDasherX, pView, GetLongParameter(LP_S), GetLongParameter(LP_MAXZOOM));
 }
 
 CStartHandler *CStylusFilter::MakeStartHandler() {
