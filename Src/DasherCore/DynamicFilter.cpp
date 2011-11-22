@@ -32,27 +32,17 @@ bool CDynamicFilter::OneStepTowards(CDasherModel *pModel, myint X, myint Y, unsi
   if (dSpeedMul<=0.0) return false; //going nowhere
   m_pFramerate->RecordFrame(iTime); //Hmmm, even if we don't do anything else?
 
-  //The maximum number of bits we should allow to be entered in this frame:
-  // (after adjusting for slow start, turbo mode, control node slowdown, etc.)
-  double dBits = m_pFramerate->GetMaxBitsPerFrame()*dSpeedMul;
-
-  //Compute max expansion, i.e. the minimum size we should allow the range 0..MAX_Y
-  // to be shrunk down to, for this frame. We cache the most-recent result to
-  // avoid an exp() (and a division): in the majority of cases this doesn't change
-  // between frames, but only does so when the maxbitrate changes, or dspeedmul
-  // changes (e.g. continuously during slow start, or when entering/leaving turbo
-  // mode or a control node).
-  if (dBits != m_dLastBits) m_iLastMinSize = static_cast<myint>(CDasherModel::MAX_Y / exp(m_dLastBits = dBits));
-  //However, note measurements on iPhone suggest even one exp() per frame is not
-  // a significant overhead; so the caching may be unnecessary, but it's easy.
+  // iSteps is the number of update steps we need to get the point
+  // under the cursor over to the cross hair. Calculated in order to
+  // keep a constant bit-rate.
+  const int iSteps(static_cast<int>(m_pFramerate->Steps() / dSpeedMul));
+  DASHER_ASSERT(iSteps > 0);
   
-  //If we wanted to take things further we could generalize this cache to cover
-  // exp()s done in the dynamic button modes too, and thus to allow them to adjust
-  // lag, guide markers, etc., according to the dSpeedMul in use. (And/or
-  // to do slow-start more efficiently by interpolating cache values.)
-  pModel->ScheduleOneStep(X, Y,
-                          static_cast<int>(m_pFramerate->Steps() / dSpeedMul),
-                          m_iLastMinSize);
+  // If X is too large we risk overflow errors, so limit it
+  // Not rescaling Y in this case: at that X, all Y's are nearly equivalent!
+  X = max(myint(1),min(X, myint(1<<29)/iSteps));
+  
+  pModel->ScheduleOneStep(Y-X, Y+X, iSteps, GetLongParameter(LP_X_LIMIT_SPEED), GetBoolParameter(BP_EXACT_DYNAMICS));
   return true;
 }
 

@@ -24,16 +24,10 @@ namespace Dasher {
 class CFrameRate : public CSettingsUserObserver  {
 public:
   CFrameRate(CSettingsUser *pCreator);
-  
-  virtual void HandleEvent(int iParameter);
 
-  ///The maximum amount by which one frame may zoom in. Used as a hard
-  /// upper-bound on the speed of movement (however far to RHS the cursor is),
-  /// calculated from the most-recent (instantaneous) framerate rather than
-  /// the decaying average used for the Steps() parameter.
-  double GetMaxBitsPerFrame() {
-    return m_dFrameBits;
-  }
+  //Responds to a change to LP_FRAMERATE or LP_MAX_BITRATE
+  // by recomputing the Steps() parameter.
+  virtual void HandleEvent(int iParameter);
 
   ///The number of frames, in which we will attempt to bring
   /// the target location (under the cursor, or in dynamic button
@@ -53,11 +47,8 @@ public:
   }
 
   void RecordFrame(unsigned long Time);
-
-  bool OneStepTowards(CDasherModel *pModel, myint y1, myint y2, unsigned long iTime, double dSpeedMul);
   
 private:
-  double m_dFrameBits;              // the maximum zoomin per frame
   ///number of frames that have been sampled
   int m_iFrames;
   ///time at which first sampled frame was rendered
@@ -66,10 +57,8 @@ private:
   int m_iSamples;
 
   int m_iSteps;
-
-  ///updates m_dRXMax and m_iSteps
-  /// \param dFrNow current (non-decaying-average) framerate (if available!)
-  void UpdateSteps(double dFrNow);
+  
+  double m_dBitsAtLimX;
 };
 /// \}
 }

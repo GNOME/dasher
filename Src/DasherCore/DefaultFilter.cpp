@@ -16,7 +16,9 @@ static SModuleSettings sSettings[] = {
   {BP_REMAP_XTREME, T_BOOL, -1, -1, -1, -1, _("At top and bottom, scroll more and translate less (makes error-correcting easier)")},
   {LP_GEOMETRY, T_LONG, 0, 3, 1, 1, _("Screen geometry (mostly for tall thin screens) - 0=old-style, 1=square no-xhair, 2=squish, 3=squish+log")},
   {LP_SHAPE_TYPE, T_LONG, 0, 5, 1, 1, _("Shape type: 0=disjoint rects, 1=overlapping, 2=triangles, 3=trunc-tris, 4=quadrics, 5=circles")},
+  {LP_X_LIMIT_SPEED, T_LONG, 1, 800, 1536, 1, _("Distance from right-hand-side Y-axis, at which maximum speed is reached. (2048=xhair)")},
   {BP_TURBO_MODE, T_BOOL, -1, -1, -1, -1, _("Hold right mouse button / key 1 to go 3/4 faster")},
+  {BP_EXACT_DYNAMICS, T_BOOL, -1, -1, -1, -1, _("Use exact computation of per-frame movement (slower)")},
 };
 
 bool CDefaultFilter::GetSettings(SModuleSettings **sets, int *iCount) {
@@ -62,7 +64,9 @@ bool CDefaultFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
     x[0] = CDasherModel::ORIGIN_X;
     y[0] = CDasherModel::ORIGIN_Y;
 
-    x[1] = m_iLastX;
+    //If the user's finger/mouse is in the margin, draw the line to the closest
+    // point we'll actually head to.
+    x[1] = max(myint(1),m_iLastX);
     y[1] = m_iLastY;
 
     // Actually plot the line

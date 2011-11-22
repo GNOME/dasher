@@ -70,24 +70,10 @@ class Dasher::CDasherModel: public Observable<CDasherNode*>, private NoClones
   CDasherModel();
   ~CDasherModel();
 
-  /// @name Dymanic evolution
-  /// Routines detailing the timer dependent evolution of the model
+  /// @name Offset routines
+  /// For "bouncing" the display up and down (dynamic button modes)
   /// @{
 
-  ///
-  /// Schedules *one step*  of movement towards the specified
-  /// co-ordinates - used by timer callbacks for non-button modes.
-  /// Interpolates movement according to iSteps and iMinSize, and calculates
-  /// new co-ordinates for the root node (after *one step*) into m_deGotoQueue
-  /// just as ScheduleZoom. For further information, see Doc/geometry.tex.
-  ///
-  /// \param mousex dasherx co-ordinate towards which to move (e.g. mouse pos)
-  /// \param mousey dashery co-ordinate towards which to move (e.g. mouse pos)
-  /// \param iSteps number of frames which should get us all the way to (mousex,mousey)
-  /// \param iMinSize limit on rate of expansion due to bitrate (as moving
-  /// all the way to the mouse at mousex==1 would be an absurd rate of data entry,
-  /// becoming infinite at mousex==0).
-  void ScheduleOneStep(myint mousex, myint mousey, int iSteps, dasherint iMinSize);
 
   ///
   /// Apply an offset to the 'target' coordinates - implements the jumps in
@@ -134,8 +120,8 @@ class Dasher::CDasherModel: public Observable<CDasherNode*>, private NoClones
   /// @}
 
   ///
-  /// @name Scheduled operation
-  /// E.g. response to button mode
+  /// @name Dynamics
+  /// For controlling movement of the model
   /// @{
 
   ///
@@ -147,6 +133,19 @@ class Dasher::CDasherModel: public Observable<CDasherNode*>, private NoClones
   /// \param y1,y2 - target range of y axis, i.e. to move to 0,MAXY
   /// \param nSteps number of steps to schedule to take us all the way there
   void ScheduleZoom(dasherint y1, dasherint y2, int nSteps);
+  
+  /// Schedule one frame of movement, with the property that
+  /// <nsteps> calls with the same parameter, should bring
+  /// the given range of Dasher Y-space to fill the axis.
+  /// (Roughly - we use approximations! - but more accurate
+  /// than the first step of a zoom).
+  /// \param y1,y2 - target range of y axis, i.e. to move to 0,MAXY
+  /// \param nSteps number of steps that would take us all the way there
+  /// \param limX X coord at which max speed achieved (any X coord lower than
+  /// this, will be slowed down to that speed).
+  /// \param bExact whether to do "exact" calculations (slower, using floating-point
+  /// pow), or approximate with integers (will move at not-ideal rate in some directions)
+  void ScheduleOneStep(dasherint y1, dasherint y2, int nSteps, int limX, bool bExact);
 
   ///Cancel any steps previously scheduled (most likely by ScheduleZoom)
   void ClearScheduledSteps();

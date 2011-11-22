@@ -22,6 +22,7 @@ const bp_table boolparamtable[] = {
   {BP_MOUSEPOS_MODE, "StartOnMousePosition", false, "StartOnMousePosition"},
   {BP_PALETTE_CHANGE, "PaletteChange", true, "PaletteChange"},
   {BP_TURBO_MODE, "TurboMode", true, "Boost speed when holding key1 or right mouse button"},
+  {BP_EXACT_DYNAMICS, "ExactDynamics", false, "Use exact computation of per-frame movement (slower)"},
   {BP_AUTOCALIBRATE, "Autocalibrate", false, "Automatically learn TargetOffset e.g. gazetracking"},
   {BP_REMAP_XTREME, "RemapXtreme", false, "Pointer at extreme Y translates more and zooms less"},
   {BP_LM_DICTIONARY, "Dictionary", true, "Whether the word-based language model uses a dictionary"},
@@ -143,6 +144,7 @@ const lp_table longparamtable[] = {
   {LP_MARGIN_WIDTH, "MarginWidth", 300, "Width of RHS margin (in Dasher co-ords)"},
 #endif
   {LP_TARGET_OFFSET, "TargetOffset", 0, "Vertical distance between mouse pointer and target (400=screen height)"},
+  {LP_X_LIMIT_SPEED, "XLimitSpeed", 800, "X Co-ordinate at which maximum speed is reached (<2048=xhair)"},
   {LP_GAME_HELP_DIST, "GameHelpDistance", 1920, "Distance of sentence from center to decide user needs help"},
   {LP_GAME_HELP_TIME, "GameHelpTime", 0, "Time for which user must need help before help drawn"},
 };

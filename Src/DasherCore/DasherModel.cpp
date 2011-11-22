@@ -46,9 +46,10 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-// FIXME - need to get node deletion working properly and implement reference counting
 
-// CDasherModel
+//If preprocessor variable DEBUG_DYNAMICS is defined, will display the difference
+// between computed (approximate) one-step motion, and ideal/exact motion (using pow()).
+//#define DEBUG_DYNAMICS
 
 CDasherModel::CDasherModel() {
   
@@ -303,94 +304,147 @@ bool CDasherModel::NextScheduledStep()
   return false;
 }
 
-void CDasherModel::ScheduleOneStep(myint X, myint Y, int iSteps, dasherint iMinSize) {
-  myint r1, r2;
-  // works out next viewpoint
+///A very approximate square root. Finds the square root of (just) the
+/// most significant bit, then two iterations of Newton.
+inline dasherint mysqrt(dasherint in) {
+  //1. Find greatest i satisfying 1<<(i<<1) < in; let rt = 1<<i be first approx
+  // but find by binary chop: at first double each time..
+  dasherint i=1;
+  while (dasherint(1)<<4*i < in) i*=2;
+  //then try successively smaller bits.
+  for (dasherint test=i; test/=2;)
+    if (dasherint(1)<<2*(i+test) < in) i+=test;
+  //so, first approx:
+  dasherint rt = 1<<i;
+  rt = (rt+in/rt)/2;//better
+  return (rt+in/rt)/2;//better still
+  
+  //Some empirical results (from DEBUG_DYNAMICS, at about 40fps with XLimit=400)
+  // with one iteration, error in rate of data entry is ~~10% near xhair, falls
+  // as we get further away, then abruptly jumps up to 30% near the x limit
+  // (and beyond it, but also before reaching it).
+  //With two iterations, error is 0-1% near xhair, gradually rising to 10%
+  // near/at the x limit.
+  //However, reversing is less good - it can go twice as fast at extreme x...
+}
 
-  DASHER_ASSERT(m_Root != NULL);
-  // Avoid X == 0, as this corresponds to infinite zoom
-  if (X <= 0) X = 1;
+void CDasherModel::ScheduleOneStep(dasherint y1, dasherint y2, int nSteps, int limX, bool bExact) {
   
-  // If X is too large we risk overflow errors, so limit it
-  dasherint iMaxX = (1 << 29) / iSteps;
-  if (X > iMaxX) X = iMaxX;
-  
-  // Mouse coords X, Y
-  // const dasherint Y1 = 0;
-  const dasherint Y2(MAX_Y);
-  
-  // Calculate what the extremes of the viewport will be when the
-  // point under the cursor is at the cross-hair. This is where
-  // we want to be in iSteps updates
-  
-  dasherint y1(Y - (Y2 * X) / (2 * ORIGIN_X));
-  dasherint y2(Y + (Y2 * X) / (2 * ORIGIN_Y));
-  dasherint oy1(y1),oy2(y2); //back these up to use later
-  
-  // iSteps is the number of update steps we need to get the point
-  // under the cursor over to the cross hair. Calculated in order to
-  // keep a constant bit-rate.
-  DASHER_ASSERT(iSteps > 0);
-  
-  // Calculate the new values of y1 and y2 required to perform a single update
-  // step.
-  {
-    const dasherint denom = Y2 + (iSteps - 1) * (y2 - y1),
-    newy1 = y1 * Y2 / denom,
-    newy2 = ((y2 * iSteps - y1 * (iSteps - 1)) * Y2) / denom;
-    
-    y1 = newy1;
-    y2 = newy2;
-  }
-  
-  // Calculate the minimum size of the viewport corresponding to the
-  // maximum zoom.
-  
-  if((y2 - y1) < iMinSize) {
-    const dasherint newy1 = y1 * (Y2 - iMinSize) / (Y2 - (y2 - y1)),
-    newy2 = newy1 + iMinSize;
-    
-    y1 = newy1;
-    y2 = newy2;
-  }
-  
-  //okay, we now have target bounds for the viewport, after allowing for framerate etc.
-  // we now go there in one step...
-  
-  // new root{min,max} r1,r2, old root{min,max} R1,R2
-  const dasherint R1 = m_Rootmin;
-  const dasherint R2 = m_Rootmax;  
-  
-  // If |(0,Y2)| = |(y1,y2)|, the "zoom factor" is 1, so we just translate.
-  if (Y2 == y2 - y1) {
-    r1 = R1 - y1;
-    r2 = R2 - y1;
-  } else {
-    // There is a point C on the y-axis such the ratios (y1-C):(Y1-C) and
-    // (y2-C):(Y2-C) are equal - iow that divides the "target" region y1-y2
-    // into the same proportions as it divides the screen (0-Y2). I.e., this
-    // is the center of expansion - the point on the y-axis which everything
-    // moves away from (or towards, if reversing).
-    
-    //We prefer to compute C from the _original_ (y1,y2) pair, as this is more
-    // accurate (and avoids drifting up/down when heading straight along the
-    // x-axis in dynamic button modes). However...
-    if (((y2-y1) < Y2) ^ ((oy2-oy1) < Y2)) {
-      //Sometimes (very occasionally), the calculation of a single-step above
-      // can turn a zoom-in into a zoom-out, or vice versa, when the movement
-      // is mostly translation. In which case, must compute C consistently with
-      // the (scaled, single-step) movement we are going to perform, or else we
-      // will end up suddenly going the wrong way along the y-axis (i.e., the
-      // sense of translation will be reversed) !
-      oy1=y1; oy2=y2;
-    }
-    const dasherint C = (oy1 * Y2) / (oy1 + Y2 - oy2);
-    
-    r1 = ((R1 - C) * Y2) / (y2 - y1) + C;
-    r2 = ((R2 - C) * Y2) / (y2 - y1) + C;
-  }
   m_deGotoQueue.clear();
-  m_deGotoQueue.push_back(pair<myint,myint>(r1,r2));
+  
+  // Rename for readability.
+  const dasherint R1 = m_Rootmin;
+  const dasherint R2 = m_Rootmax;
+  
+  // Calculate the bounds of the root node when the target range y1-y2
+  // fills the viewport.
+  // This is where we want to be in iSteps updates
+  dasherint targetRange=y2-y1;
+
+  const dasherint r1 = MAX_Y*(R1-y1)/targetRange;
+  const dasherint r2 = MAX_Y*(R2-y1)/targetRange;
+  
+  dasherint m1=(r1-R1),m2=(r2-R2);
+  
+  //Any interpolation (R1,R2) + alpha*(m1,m2) moves along the correct path.
+  // Just have to decide how far, i.e. what alpha.
+  
+  //Possible schemes (using rw=r2-r1, Rw=R2-R1)
+  // (Note: if y2-y1 == MAX_Y, alpha=1/nSteps is correct, and in some schemes must be a special case)
+  // alpha = (pow(rw/Rw,1/nSteps)-1)*rW / (rw-Rw) : correct/ideal, but uses pow
+  // alpha = 1/nSteps : moves forwards too fast, reverses too slow (correct for translation)
+  // alpha = MAX_Y / (MAX_Y + (nSteps-1)*(y2-y1)) : (same eqn as old Dasher) more so! reversing ~~ 1/3 ideal speed, and maxes out at moderate dasherX.
+  // alpha = (y2-y1) / (MAX_Y*(nSteps-1) + y2-y1) : too slow forwards, reverses too quick
+  //We are using:
+  // alpha = sqrt(y2-y1) / (sqrt(MAX_Y)*(nSteps-1) + sqrt(y2-y1))
+  //      with approx sqrt on y2-y1
+  //this is pretty good going forwards, but reverses faster than the ideal, on the order of 2*
+  
+  if (targetRange < 2*limX) {
+#ifdef DEBUG_DYNAMICS
+    {
+      const dasherint Rw=R2-R1, rw=r2-r1;
+      dasherint apsq = mysqrt(y2-y1);
+      dasherint denom = 64*(nSteps-1) + apsq;
+      dasherint nw = (rw*apsq + Rw*64*(nSteps-1))/denom;
+      double bits = (log(nw) - log(Rw))/log(2);
+      std::cout << "Too fast at X " << (y2-y1)/2 << ": would enter " << bits << "b = " << (bits*nSteps) << " in " << nSteps << "steps; will now enter ";
+    }
+#endif
+    //atm we have Rw=R2-R1, rw=r2-r1 = Rw*MAX_Y/targetRange, (m1,m2) to take us there
+    
+    //if targetRange were = 2*limX, we'd have rw' = Rw*MAX_Y/2*limX < rw
+    //the movement necessary to take us to rw', rather than rw, is thus:
+    // (m1',m2') = (m1,m2) * (rw' - Rw) / (rw-Rw) => scale m1,m2 by (rw'-Rw)/(rw-Rw)
+    // = (Rw*MAX_Y/(2*limX) - Rw)/(Rw*MAX_Y/targetRange-Rw)
+    // = (MAX_Y/(2*limX)-1) / (MAX_Y/targetRange-1)
+    // = (MAX_Y-(2*limX))/(2*limX) / ((MAX_Y-targetRange)/targetRange)
+    // = (MAX_Y-(2*limX)) / (2*limX) * targetRange / (MAX_Y-targetRange)
+    {
+      const dasherint n=targetRange*(MAX_Y-2*limX), d=(MAX_Y-targetRange)*2*limX;
+      bool bOver=max(abs(m1),abs(m2))>std::numeric_limits<dasherint>::max()/n;
+      if (bOver) {
+        //std::cout << "Overflow in max-speed-limit " << m1 << "," << m2 << " =wd> " << ((m1*n)/d) << "," << ((m2*n)/d);
+        //so do it a harder way, but which uses smaller intermediates:
+        // (Yes, this is valid even if !bOver. Could use it all the time?)
+        m1 = (m1/d)*n + ((m1 % d) * n) / d;
+        m2 = (m2/d)*n + ((m2 % d) * n) / d;
+        //std::cout << " => " << m1 << "," << m2 << std::endl;
+      } else {
+        m1 = (m1*n)/d;
+        m2 = (m2*n)/d;
+      } 
+    }
+    //then make the stepping function, which follows, behave as if we were at limX:
+    targetRange=2*limX;
+  }
+  
+#ifndef DEBUG_DYNAMICS
+  if (bExact) {
+    //#else, for DEBUG_DYNAMICS, we compute the exact movement either way, to compare.
+#endif
+    double frac;
+    if (targetRange == MAX_Y) {
+      frac=1.0/nSteps;
+    } else {
+      double tr(targetRange);
+      //expansion factor (of root node) for one step, post-speed-limit
+      double eFac = pow(MAX_Y/tr,1.0/nSteps);
+      //fraction of way along linear interpolation Rw->rw that yields that width:
+      // = (Rw*eFac - Rw) / (rw-Rw)
+      // = Rw * (eFac-1.0) / (Rw*MAX_Y/tr-Rw)
+      // = (eFac - 1.0) / (MAX_Y/tr - 1.0)
+      frac = (eFac-1.0) /  (MAX_Y/tr - 1.0);
+    }
+#ifdef DEBUG_DYNAMICS
+    const dasherint m1t=m1*frac, m2t=m2*frac; //keep original m1,m2 to compare
+#else
+    m1*=frac; m2*=frac;
+  } else //conditional - only do one of exact/approx
+#endif
+  { //begin block A (regardless of #ifdef)
+    
+    //approximate dynamics: interpolate
+    // apsq parts rw to 64*(nSteps-1) parts Rw
+    // (no need to compute target width)
+    dasherint apsq = mysqrt(targetRange);
+    dasherint denom = 64*(nSteps-1) + apsq;
+    
+    // so new width nw = (64*(nSteps-1)*Rw + apsq*rw)/denom
+    // = Rw*(64*(nSteps-1) + apsq*MAX_Y/targetRange)/denom
+    m1 = (m1*apsq)/denom, m2=(m2*apsq)/denom;
+#ifdef DEBUG_DYNAMICS
+    std::cout << "Move " << m1 << "," << m2 << " should be " << m1t << "," << m2t;
+    double dActualBits = (log((R2+m2)-(R1+m1))-log(R2-R1))/log(2);
+    double dDesiredBits = (log((R2+m2t)-(R1+m1t))-log(R2-R1))/log(2);
+    std::cout << " enters " << dActualBits << "b = " << (dActualBits*nSteps) << " in " << nSteps << "steps, should be "
+    << dDesiredBits << "=>" << (dDesiredBits*nSteps) << ", error " << int(abs(dDesiredBits-dActualBits)*100/dDesiredBits) << "%" << std::endl;
+    if (bExact)
+      m1=m1t, m2=m2t; //overwrite approx values (we needed them somewhere!)
+#endif
+  } //end block A (regardless of #ifdef)
+  
+  m_deGotoQueue.push_back(pair<myint,myint>(R1+m1, R2+m2));
 }
 
 void CDasherModel::OutputTo(CDasherNode *pNewNode) {
@@ -481,48 +535,43 @@ void CDasherModel::RenderToView(CDasherView *pView, CExpansionPolicy &policy) {
 }
 
 void CDasherModel::ScheduleZoom(dasherint y1, dasherint y2, int nsteps) {
-  DASHER_ASSERT(y2>y1);
-
+  
+  m_deGotoQueue.clear();
+  
   // Rename for readability.
-  const dasherint Y1 = 0;
-  const dasherint Y2 = MAX_Y;
   const dasherint R1 = m_Rootmin;
   const dasherint R2 = m_Rootmax;
 
-  dasherint C, r1, r2;
+  const dasherint r1 = MAX_Y*(m_Rootmin-y1)/(y2-y1);
+  const dasherint r2 = MAX_Y*(m_Rootmax-y1)/(y2-y1);
 
-  // If |(y1,y2)| = |(Y1,Y2)|, the "zoom factor" is 1, so we just translate.
-  // y2 - y1 == Y2 - Y1 => y1 - Y1 == y2 - Y2
-  C = y1 - Y1;
-  if (C == y2 - Y2) {
-      r1 = R1 + C;
-      r2 = R2 + C;
-  } else {
-  // There is a point C on the y-axis such the ratios (y1-C):(Y1-C) and
-  // (y2-C):(Y2-C) are equal. (Obvious when drawn on separate parallel axes.)
-      C = (y1 * Y2 - y2 * Y1) / (y1 + Y2 - y2 - Y1);
-
-  // So another point r's zoomed y coordinate R, has the same ratio (r-C):(R-C)
-      if (y1 != C) {
-          r1 = ((R1 - C) * (Y1 - C)) / (y1 - C) + C;
-          r2 = ((R2 - C) * (Y1 - C)) / (y1 - C) + C;
-      } else if (y2 != C) {
-          r1 = ((R1 - C) * (Y2 - C)) / (y2 - C) + C;
-          r2 = ((R2 - C) * (Y2 - C)) / (y2 - C) + C;
-      } else { // implies y1 = y2
-          std::cerr << "Impossible geometry in CDasherModel::ScheduleZoom\n";
-      }
+  //We're going to interpolate in steps whose size starts at nsteps
+  // and decreases by one each time - so cumulatively: 
+  // <nsteps> <2*nsteps-1> <3*nsteps-3> <4*nsteps-6>
+  // (until the next value is the same as the previous)
+  //These will sum to / reach (triangular number formula):
+  const int max((nsteps*(nsteps+1))/2);
+  //heights:
+  const myint oh(R2-R1), nh(r2-r1);
+  //log(the amount by which we wish to multiply the height):
+  const double logHeightMul(nh==oh ? 0 : log(nh/static_cast<double>(oh)));
+  for (int s = nsteps; nsteps>1; s+=(--nsteps)) {
+    double dFrac; //(linear) fraction of way from oh to nh...
+    if (nh==oh)
+      dFrac = s/static_cast<double>(max);
+    else {
+      //interpolate expansion logarithmically to get new height:
+      const double h(oh*exp((logHeightMul*s)/max));
+      //then treat that as a fraction of the way between oh to nh linearly
+      dFrac = (h-oh)/(nh-oh);
+    }
+    //and use that fraction to interpolate from R to r
+    m_deGotoQueue.push_back(pair<myint,myint>(R1+dFrac*(r1-R1), R2+dFrac*(r2-R2)));
   }
-
-  // sNewItem seems to contain a list of root{min,max} for the frames of the
-  // zoom, so split r -> R into n steps, with accurate R
-  m_deGotoQueue.clear();
-  for (int s = nsteps - 1; s >= 0; --s) {
-    m_deGotoQueue.push_back(pair<myint,myint>(
-        r1 - (s * (r1 - R1)) / nsteps,
-        r2 - (s * (r2 - R2)) / nsteps));
-  }
+  //final point, done accurately/simply:
+  m_deGotoQueue.push_back(pair<myint,myint>(r1,r2));
 }
+
 
 void CDasherModel::ClearScheduledSteps() {
   m_deGotoQueue.clear();
