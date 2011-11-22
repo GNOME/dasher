@@ -50,11 +50,8 @@ namespace Dasher {
 /// The DasherModel implements arithmetic coding for Dasher.
 /// It contains a tree of DasherNodes and the current viewpoint, 
 /// and evolves the tree by expanding leaves (somewhat in response to DasherView) and
-/// (eventually) deleting ancestors/parents. It has two methods for moving around the tree:
-/// OneStepTowards implements steady motion towards a given point, one frame at a time;
-/// ScheduleZoom sets up movement to arrive at a particular point in a number of frames.
-/// Clients are responsible for monitoring framerate (if required) and using such
-/// information to decide how far to tell the DasherModel to move.
+/// (eventually) deleting ancestors/parents.
+
 ///
 /// DasherModel does not care what the nodes in the tree are or mean, tho it does handle
 /// calling CDasherNode::Output() / Undo() on nodes falling under/leaving the crosshair
@@ -62,7 +59,7 @@ namespace Dasher {
 ///
 /// The class is Observable in that it broadcasts a pointer to a CDasherNode when the node's
 /// children are created.
-class Dasher::CDasherModel: private CSettingsUser, public Observable<CDasherNode*>, private NoClones
+class Dasher::CDasherModel: public Observable<CDasherNode*>, private NoClones
 {
  public:
   static const unsigned int NORMALIZATION = 1<<16;
@@ -70,7 +67,7 @@ class Dasher::CDasherModel: private CSettingsUser, public Observable<CDasherNode
 
   /// Constructs a new CDasherModel. Note, must be followed by a call to
   /// SetNode() before the model can be used.
-  CDasherModel(CSettingsUser *pCreateFrom);
+  CDasherModel();
   ~CDasherModel();
 
   /// @name Dymanic evolution
@@ -142,15 +139,14 @@ class Dasher::CDasherModel: private CSettingsUser, public Observable<CDasherNode
   /// @{
 
   ///
-  /// Schedule a zoom such that the given range of Dasher coordinates
-  /// will fill the Y-axis. (used in click mode, button mode etc.)
-  /// Note that this will take LP_ZOOM_STEPS frames to complete; safety margin,
-  /// max-zoom, etc., as desired, are the responsibility of the caller
-  /// (this method requires only that y2 > y1).
-  /// \param y1 Minimum Y-coordinate (will be moved to dasher-y of 0)
-  /// \param y2 Maximum Y-coordinate (will be moved to dasher-y of 4096)
-  ///
-  void ScheduleZoom(dasherint y1, dasherint y2);
+  /// Schedule a zoom over many frames, such that after the last frame,
+  /// the given  range of Dasher coordinates (in the current view)
+  /// will fill the Y-axis. (Used by click mode, button mode etc.)
+  /// Note any safety margin, max-zoom, etc., are the responsibility
+  /// of the caller; this method requires only that y2 > y1.
+  /// \param y1,y2 - target range of y axis, i.e. to move to 0,MAXY
+  /// \param nSteps number of steps to schedule to take us all the way there
+  void ScheduleZoom(dasherint y1, dasherint y2, int nSteps);
 
   ///Cancel any steps previously scheduled (most likely by ScheduleZoom)
   void ClearScheduledSteps();

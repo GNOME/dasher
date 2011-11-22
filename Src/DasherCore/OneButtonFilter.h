@@ -6,7 +6,7 @@
 namespace Dasher {
 /// \ingroup InputFilter
 /// @{
-class COneButtonFilter : public CStaticFilter, private CSettingsUser {
+class COneButtonFilter : public CStaticFilter {
  public:
   COneButtonFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface);
 

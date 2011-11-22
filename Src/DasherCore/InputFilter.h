@@ -69,16 +69,17 @@ class CInputFilter : public CDasherModule {
   
   ///Simple class, basis for filters using ScheduleZoom rather than
   /// ScheduleOneStep, providing a ScheduleZoom method wrapping the
-  /// DasherModel, such that pause() cancels any such zoom in progress.
-  class CStaticFilter : public CInputFilter {
+  /// DasherModel one, using LP_ZOOMSTEPS steps and such that pause()
+  /// cancels any such zoom in progress.
+  class CStaticFilter : public CInputFilter, protected CSettingsUser {
   public:
-    CStaticFilter(CDasherInterfaceBase *pIntf, ModuleID_t iId, const char *szName)
-    : CInputFilter(pIntf, iId, szName), m_pModel(NULL) {
+    CStaticFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pIntf, ModuleID_t iId, const char *szName)
+    : CInputFilter(pIntf, iId, szName), CSettingsUser(pCreator), m_pModel(NULL) {
     }
     void pause() {if (m_pModel) m_pModel->ClearScheduledSteps();}
   protected:
-    void ScheduleZoom(CDasherModel *pModel, myint x, myint y) {
-      (m_pModel = pModel)->ScheduleZoom(x,y);
+    void ScheduleZoom(CDasherModel *pModel, myint y1, myint y2) {
+      (m_pModel = pModel)->ScheduleZoom(y1,y2,GetLongParameter(LP_ZOOMSTEPS));
     }
   private:
     CDasherModel *m_pModel;

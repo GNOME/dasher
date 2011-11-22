@@ -30,7 +30,7 @@ void CStylusFilter::KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDas
     if (iTime - m_iKeyDownTime < GetLongParameter(LP_TAP_TIME)) {
       pInput->GetDasherCoords(m_iLastX, m_iLastY, pView);
       ApplyClickTransform(m_iLastX, m_iLastY, pView);
-      (m_pModel=pModel)->ScheduleZoom(m_iLastY-m_iLastX, m_iLastY+m_iLastX);
+      (m_pModel=pModel)->ScheduleZoom(m_iLastY-m_iLastX, m_iLastY+m_iLastX, GetLongParameter(LP_ZOOMSTEPS));
     } else {
       m_pInterface->Done();
     }

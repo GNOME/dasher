@@ -15,7 +15,7 @@ static SModuleSettings sSettings[] = {
 };
 
 COneButtonFilter::COneButtonFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface)
-  : CStaticFilter(pInterface, 9, "Static One Button Mode"), CSettingsUser(pCreator) {
+  : CStaticFilter(pCreator, pInterface, 9, "Static One Button Mode") {
 
   bStarted = 0;
   iLocation = 0;

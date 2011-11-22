@@ -49,7 +49,7 @@ class CDynamicFilter : public CInputFilter, public CSettingsUser {
   /// 0.0 = go nowhere. This allows for slow start, turbo mode, control nodes being
   /// more "viscous", etc. Values <=0.0 will result in no movement
   /// \return true if dSpeedMul>0.0, false if <=0.0.
-  bool OneStepTowards(CDasherModel *pModel, myint y1, myint y2, unsigned long iTime, double dSpeedMul);
+  bool OneStepTowards(CDasherModel *pModel, myint X, myint Y, unsigned long iTime, double dSpeedMul);
   
   ///Calculates a multiplier by which to adjust our speed (for a given frame).
   /// Defalut implementation implements slow-start (i.e. a multiplier increasing

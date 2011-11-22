@@ -18,7 +18,7 @@ using namespace std;
 namespace Dasher {
 /// \ingroup Input
 /// @{
-class CDasherButtons : public CStaticFilter, protected CSettingsUser
+class CDasherButtons : public CStaticFilter
 {
  public:
   CDasherButtons(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, bool bMenu, ModuleID_t iID, const char *szName);

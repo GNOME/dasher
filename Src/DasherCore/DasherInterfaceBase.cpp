@@ -85,7 +85,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CDasherInterfaceBase::CDasherInterfaceBase(CSettingsStore *pSettingsStore) : CSettingsUser(pSettingsStore), m_pSettingsStore(pSettingsStore), m_pDasherModel(new CDasherModel(this)), m_pFramerate(new CFrameRate(this)), m_pLockLabel(NULL) {
+CDasherInterfaceBase::CDasherInterfaceBase(CSettingsStore *pSettingsStore) : CSettingsUser(pSettingsStore), m_pSettingsStore(pSettingsStore), m_pDasherModel(new CDasherModel()), m_pFramerate(new CFrameRate(this)), m_pLockLabel(NULL) {
   
   pSettingsStore->Register(this, true);
   

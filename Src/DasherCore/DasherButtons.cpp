@@ -24,7 +24,7 @@ static char THIS_FILE[] = __FILE__;
 using namespace Dasher;
 
 CDasherButtons::CDasherButtons(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, bool bMenu, ModuleID_t iID, const char *szName)
-  : CStaticFilter(pInterface, iID, szName), CSettingsUser(pCreator), m_bMenu(bMenu), m_bDecorationChanged(true), m_pBoxes(NULL), iActiveBox(0) {}
+  : CStaticFilter(pCreator, pInterface, iID, szName), m_bMenu(bMenu), m_bDecorationChanged(true), m_pBoxes(NULL), iActiveBox(0) {}
 
 CDasherButtons::~CDasherButtons()
 {

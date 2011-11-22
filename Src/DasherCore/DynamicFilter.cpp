@@ -28,7 +28,7 @@ CDynamicFilter::CDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pI
   m_bPaused(true), m_pFramerate(pFramerate), m_dLastBits(-1) {
 }
 
-bool CDynamicFilter::OneStepTowards(CDasherModel *pModel, myint y1, myint y2, unsigned long iTime, double dSpeedMul) {
+bool CDynamicFilter::OneStepTowards(CDasherModel *pModel, myint X, myint Y, unsigned long iTime, double dSpeedMul) {
   if (dSpeedMul<=0.0) return false; //going nowhere
   m_pFramerate->RecordFrame(iTime); //Hmmm, even if we don't do anything else?
 
@@ -50,7 +50,7 @@ bool CDynamicFilter::OneStepTowards(CDasherModel *pModel, myint y1, myint y2, un
   // exp()s done in the dynamic button modes too, and thus to allow them to adjust
   // lag, guide markers, etc., according to the dSpeedMul in use. (And/or
   // to do slow-start more efficiently by interpolating cache values.)
-  pModel->ScheduleOneStep(y1, y2,
+  pModel->ScheduleOneStep(X, Y,
                           static_cast<int>(m_pFramerate->Steps() / dSpeedMul),
                           m_iLastMinSize);
   return true;

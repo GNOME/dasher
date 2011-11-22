@@ -50,8 +50,7 @@ static char THIS_FILE[] = __FILE__;
 
 // CDasherModel
 
-CDasherModel::CDasherModel(CSettingsUser *pCreateFrom)
-: CSettingsUser(pCreateFrom) {
+CDasherModel::CDasherModel() {
   
   m_pLastOutput = m_Root = NULL;
 
@@ -481,7 +480,7 @@ void CDasherModel::RenderToView(CDasherView *pView, CExpansionPolicy &policy) {
 
 }
 
-void CDasherModel::ScheduleZoom(dasherint y1, dasherint y2) {
+void CDasherModel::ScheduleZoom(dasherint y1, dasherint y2, int nsteps) {
   DASHER_ASSERT(y2>y1);
 
   // Rename for readability.
@@ -517,7 +516,6 @@ void CDasherModel::ScheduleZoom(dasherint y1, dasherint y2) {
 
   // sNewItem seems to contain a list of root{min,max} for the frames of the
   // zoom, so split r -> R into n steps, with accurate R
-  const int nsteps = GetLongParameter(LP_ZOOMSTEPS);
   m_deGotoQueue.clear();
   for (int s = nsteps - 1; s >= 0; --s) {
     m_deGotoQueue.push_back(pair<myint,myint>(
