@@ -8,8 +8,8 @@
 
 #import "DasherApp.h"
 #import "PreferencesController.h"
-#import "DasherEdit.h"
 #import "DasherUtil.h"
+#import "DasherTextView.h"
 
 /*
  * Created by Doug Dickinson (dasher AT DressTheMonkey DOT plus DOT com), 18 April 2003
@@ -128,7 +128,7 @@ static NSString *FilenameToUntitledName = @"NilToUntitled";
 }
 
 -(BOOL)gameModeOn {
-  return aquaDasherControl->GetBoolParameter(BP_GAME_MODE);
+  return aquaDasherControl->GetGameModule()!=NULL;
 }
 
 -(void)setGameModeOn:(BOOL)bVal {
@@ -145,8 +145,12 @@ static NSString *FilenameToUntitledName = @"NilToUntitled";
   //we can now try and startup game mode in the core;
   // with no automatic checking of the menuitem pending, any changes we make
   // to the gameModeOn property will be correctly reflected in the menu... 
-  if (obj && directMode) self.directMode=false; //turn off direct mode first _if_necessary_ (properties do not check for no-change)
-  aquaDasherControl->SetBoolParameter(BP_GAME_MODE, obj!=nil);
+  if (obj) {
+    if (directMode) self.directMode=false; //turn off direct mode first _if_necessary_ (properties do not check for no-change)
+    if (!aquaDasherControl->GetGameModule())
+      aquaDasherControl->EnterGameMode(NULL);
+  } else if (aquaDasherControl->GetGameModule())
+    aquaDasherControl->LeaveGameMode();
 }
 
 -(void)setDirectMode:(BOOL)bVal {
@@ -197,9 +201,9 @@ static NSString *FilenameToUntitledName = @"NilToUntitled";
 
 - (void)startTimer {
 #define FPS 40.0f
-  
+  [self shutdownTimer]; //in case there was one before
   NSTimer *timer = [NSTimer timerWithTimeInterval:(1.0f/FPS) target:self selector:@selector(timerCallback:) userInfo:nil repeats:YES];
-  [self setTimer:timer];
+  _timer = [timer retain];
 	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 	[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSEventTrackingRunLoopMode];
   
@@ -207,24 +211,16 @@ static NSString *FilenameToUntitledName = @"NilToUntitled";
 }
 
 - (void)shutdownTimer {
-  [self setTimer:nil];
+  [_timer invalidate];
+  [_timer release];
+  _timer = nil;
 }
 
 - (NSTimer *)timer {
   return _timer;
 }
 
-- (void)setTimer:(NSTimer *)newTimer {
-  if (_timer != newTimer) {
-    NSTimer *oldValue = _timer;
-    _timer = [newTimer retain];
-    [oldValue invalidate];
-    [oldValue release];
-  }
-}
-
-- (void)timerCallback:(NSTimer *)aTimer
-{
+- (void)timerCallback:(NSTimer *)aTimer {
   aquaDasherControl->TimerFired([dasherView mouseLocation]);
 }
 
@@ -249,7 +245,7 @@ static NSString *FilenameToUntitledName = @"NilToUntitled";
 }
 
 - (void)dealloc {
-  [self setTimer:nil];
+  [self shutdownTimer];
   [super dealloc]; 
 }  
 

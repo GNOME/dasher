@@ -67,7 +67,7 @@ public:
     m_iY = _iY;
   };
   
-  void KeyDown(int iTime, int iId) {
+  void KeyDown(unsigned long iTime, int iId) {
     if(iId == 10) {
       m_iOffset = m_iY - 2048;
     }

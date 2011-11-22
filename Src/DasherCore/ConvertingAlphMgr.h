@@ -28,7 +28,7 @@ namespace Dasher {
     virtual ~CConvertingAlphMgr();
   protected:
     ///Override to return a conversion root for iSymbol==(one beyond last alphabet symbol)
-    virtual CDasherNode *CreateSymbolNode(CAlphNode *pParent, unsigned int iLbnd, unsigned int iHbnd, symbol iSymbol);
+    virtual CDasherNode *CreateSymbolNode(CAlphNode *pParent, symbol iSymbol);
   private:
     CConversionManager *m_pConvMgr;
     

@@ -49,9 +49,9 @@ static SModuleSettings sSettings[] = {
 };
 
 CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate)
-  : CButtonMultiPress(pCreator, pInterface, pFramerate, 14, _("Two Button Dynamic Mode")), m_iMouseButton(-1)
+  : CButtonMultiPress(pCreator, pInterface, pFramerate, 14, _("Two Button Dynamic Mode")), CSettingsObserver(pCreator), m_iMouseButton(-1)
 {
-  //ensure that m_dLagMul is properly initialised
+  //ensure that m_dLagBits is properly initialised
   HandleEvent(LP_DYNAMIC_BUTTON_LAG);
 }
 
@@ -117,9 +117,8 @@ void CTwoButtonDynamicFilter::KeyUp(unsigned long Time, int iId, CDasherView *pV
   CButtonMultiPress::KeyUp(Time, iId, pView, pInput,pModel);
 }
 
-bool CTwoButtonDynamicFilter::TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) {
-  OneStepTowards(m_pDasherModel, 100,2048, Time, SlowStartSpeedMul(Time));
-  return true;
+void CTwoButtonDynamicFilter::TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) {
+  OneStepTowards(m_pDasherModel, 100,2048, Time, FrameSpeedMul(m_pDasherModel, Time));
 }
 
 void CTwoButtonDynamicFilter::ActionButton(unsigned long iTime, int iButton, int iType, CDasherModel *pModel) {
@@ -134,7 +133,7 @@ void CTwoButtonDynamicFilter::ActionButton(unsigned long iTime, int iButton, int
     dFactor *= - (1.0 + exp(pModel->GetNats())); //prev jump is further now
   }
   else if (iType != 0) {
-    reverse();
+    reverse(iTime);
     return;
   }
   
@@ -153,7 +152,7 @@ void CTwoButtonDynamicFilter::ActionButton(unsigned long iTime, int iButton, int
     return;
   }
   //fell through to apply offset
-  ApplyOffset(pModel,dFactor * GetLongParameter(LP_TWO_BUTTON_OFFSET) * m_dLagMul);
+  ApplyOffset(pModel,dFactor * GetLongParameter(LP_TWO_BUTTON_OFFSET) * exp(m_dLagBits * FrameSpeedMul(pModel, iTime)));
   pModel->ResetNats();
   
   if(CUserLogBase *pUserLog=m_pInterface->GetUserLogPtr())
@@ -175,16 +174,11 @@ bool CTwoButtonDynamicFilter::GetMinWidth(int &iMinWidth) {
 void CTwoButtonDynamicFilter::HandleEvent(int iParameter)
 {
   switch (iParameter) {
-  case LP_MAX_BITRATE:
-  case LP_BOOSTFACTOR: // Deliberate fallthrough
+  case LP_MAX_BITRATE:// Deliberate fallthrough
   case LP_DYNAMIC_BUTTON_LAG:
-    {
-      double dMaxRate = GetLongParameter(LP_MAX_BITRATE) * GetLongParameter(LP_BOOSTFACTOR) / 10000.0;
-      m_dLagMul = exp(dMaxRate * GetLongParameter(LP_DYNAMIC_BUTTON_LAG)/1000.0);
+      m_dLagBits = GetLongParameter(LP_MAX_BITRATE)/100.0 * GetLongParameter(LP_DYNAMIC_BUTTON_LAG)/1000.0;
       //and fallthrough again:
-    }
   case LP_TWO_BUTTON_OFFSET:
       m_bDecorationChanged = true;
   }
-  CButtonMultiPress::HandleEvent(iParameter);
 }

@@ -6,9 +6,9 @@
 
 /// \ingroup Logging
 /// @{
-class CBasicLog : public CUserLogBase {
+class CBasicLog : public CUserLogBase, public Dasher::CSettingsUser {
  public:
-  CBasicLog(CSettingsUser *pCreateFrom, Dasher::CDasherInterfaceBase *pIntf);
+  CBasicLog(Dasher::CSettingsUser *pCreateFrom, Dasher::CDasherInterfaceBase *pIntf);
   ~CBasicLog();
 
   virtual void AddParam(const string& strName, const string& strValue, int iOptionMask = 0) {};

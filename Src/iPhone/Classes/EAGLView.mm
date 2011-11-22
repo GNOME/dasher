@@ -42,17 +42,18 @@ void CDasherScreenBridge::SendMarker(int iMarker) {
   [view sendMarker:iMarker];
 }
 
-void CDasherScreenBridge::RenderStringOntoCGContext(NSString *str, CGContextRef context, unsigned int iFontWrapSize) {
+void CDasherScreenBridge::RenderStringOntoCGContext(NSString *str, CGContextRef context, unsigned int iFontSize, bool bWrap) {
   UIGraphicsPushContext(context);
   //white text on transparent background means that when we texture
   //a surface using a colour, the text appears in that colour...
   const CGFloat whiteComps[] = {1.0, 1.0, 1.0, 1.0};
   CGColorRef white = CGColorCreate(CGBitmapContextGetColorSpace(context), whiteComps);
   CGContextSetFillColorWithColor(context, white);
-  if (iFontWrapSize)
-    [str drawInRect:CGRectMake(0.0, 0.0, GetWidth(), CGFLOAT_MAX) withFont:[UIFont systemFontOfSize:iFontWrapSize]];
+  UIFont *font = [UIFont systemFontOfSize:iFontSize];
+  if (bWrap)
+    [str drawInRect:CGRectMake(0.0, 0.0, GetWidth(), CGFLOAT_MAX) withFont:font];
   else
-    [str drawAtPoint:CGPointMake(0.0, 0.0) withFont:[UIFont systemFontOfSize:36]];
+    [str drawAtPoint:CGPointMake(0.0, 0.0) withFont:font];
   CGColorRelease(white);
   UIGraphicsPopContext();  
 }

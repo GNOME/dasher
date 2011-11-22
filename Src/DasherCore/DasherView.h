@@ -132,6 +132,8 @@ public:
   ///Draw a straight line in Dasher-space - which may be curved on the screen...
   void DasherSpaceLine(myint x1, myint y1, myint x2, myint y2, int iWidth, int iColour);
   
+  virtual void DasherSpaceArc(myint cy, myint r, myint x1, myint y1, myint x2, myint y2, int iColour, int iLineWidth)=0;
+
   ///
   /// Draw a polyline specified in Dasher co-ordinates
   ///

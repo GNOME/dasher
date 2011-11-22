@@ -62,6 +62,10 @@ CZoomAdjuster::CZoomAdjuster(CSettingsUser *pCreateFrom) : CSettingsUser(pCreate
 }
 
 void CZoomAdjuster::AdjustZoomCoords(myint &iDasherX, myint &iDasherY, CDasherView *pView) {
+  //these equations don't work well for iDasherX just slightly over ORIGIN_X;
+  // this is probably due to rounding error, but the "safety margin" doesn't
+  // really seem helpful when zooming out (or translating) anyway...
+  if (iDasherX >= CDasherModel::ORIGIN_X) return;
   const myint safety(GetLongParameter(LP_S));
   //safety param. Used to be just added onto DasherX,
   // but comments suggested should be interpreted as a fraction. Hence...
@@ -78,10 +82,6 @@ void CZoomAdjuster::AdjustZoomCoords(myint &iDasherX, myint &iDasherY, CDasherVi
   }
 }
 
-bool CClickFilter::Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CExpansionPolicy **pol) {
-  return pModel->NextScheduledStep();
-}
-
 void CClickFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
   switch(iId) {
   case 100: // Mouse clicks
@@ -91,7 +91,7 @@ void CClickFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDa
 
       pInput->GetDasherCoords(iDasherX, iDasherY, pView);
       AdjustZoomCoords(iDasherX, iDasherY, pView);
-      pModel->ScheduleZoom(iTime, iDasherY-iDasherX, iDasherY+iDasherX);
+      ScheduleZoom(pModel,iDasherY-iDasherX, iDasherY+iDasherX);
     }
     break;
   default:

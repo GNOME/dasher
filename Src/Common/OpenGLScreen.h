@@ -5,7 +5,7 @@
 //  Created by Alan Lawrence on 20/03/2009.
 //  Copyright 2009 Cavendish Laboratory. All rights reserved.
 //
-#ifdef TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
 #import <OpenGLES/ES1/gl.h>
 #else
 #import <AppKit/AppKit.h>
@@ -23,6 +23,7 @@ namespace Dasher {
       NSString *str;
       GLuint texture;
       GLfloat texcoords[8];
+      CGSize sz; //at base font size, or wrapped size if appropriate
       AlphabetLetter(OpenGLScreen *pScreen, const std::string &strText, unsigned int iWrapSize);
       ~AlphabetLetter();
       void PrepareTexture();
@@ -48,10 +49,10 @@ namespace Dasher {
     void resize(screenint iWidth, screenint iHeight, GLshort backingWidth, GLshort backingHeight, GLfloat tc_x, GLfloat tc_y);
     void RegenerateLabels();
     ///Render a string onto a CoreGraphics context, using the context's current colour etc.
-    /// \param iFontSize if 0, render on a single line, in 36pt font; any other value,
-    /// render in that size, but constrained to the screen width, wrapping across multiple
-    /// lines if necessary
-    virtual void RenderStringOntoCGContext(NSString *string, CGContextRef context, unsigned int iFontSize)=0;
+    /// \param iFontSize font size to use
+    /// \param bWrap if true, constrain to screen width and wrap across multiple lines (if necessary);
+    /// if false, render on a single line.
+    virtual void RenderStringOntoCGContext(NSString *string, CGContextRef context, unsigned int iFontSize, bool bWrap)=0;
     /// Get the pixel dimensions of a string when rendered in a specified font size
     /// \param bWrap if true, string should be wrapped to the screen width, possibly
     /// over multiple lines (=> returned height will reflect this); if false,

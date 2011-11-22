@@ -71,7 +71,7 @@ class Dasher::CDasherModel: private CSettingsUser, public Observable<CDasherNode
   static const myint ORIGIN_X=2048, ORIGIN_Y=2048, MAX_Y=4096;
 
   /// Constructs a new CDasherModel. Note, must be followed by a call to
-  /// SetOffset() before the model can be used.
+  /// SetNode() before the model can be used.
   CDasherModel(CSettingsUser *pCreateFrom);
   ~CDasherModel();
 
@@ -80,9 +80,19 @@ class Dasher::CDasherModel: private CSettingsUser, public Observable<CDasherNode
   /// @{
 
   ///
-  /// Update the root location with *one step* towards the specified
-  /// co-ordinates - used by timer callbacks (for non-button modes)
-  void OneStepTowards(myint, myint, int iSteps, dasherint iMinSize);
+  /// Schedules *one step*  of movement towards the specified
+  /// co-ordinates - used by timer callbacks for non-button modes.
+  /// Interpolates movement according to iSteps and iMinSize, and calculates
+  /// new co-ordinates for the root node (after *one step*) into m_deGotoQueue
+  /// just as ScheduleZoom. For further information, see Doc/geometry.tex.
+  ///
+  /// \param mousex dasherx co-ordinate towards which to move (e.g. mouse pos)
+  /// \param mousey dashery co-ordinate towards which to move (e.g. mouse pos)
+  /// \param iSteps number of frames which should get us all the way to (mousex,mousey)
+  /// \param iMinSize limit on rate of expansion due to bitrate (as moving
+  /// all the way to the mouse at mousex==1 would be an absurd rate of data entry,
+  /// becoming infinite at mousex==0).
+  void ScheduleOneStep(myint mousex, myint mousey, int iSteps, dasherint iMinSize);
 
   ///
   /// Apply an offset to the 'target' coordinates - implements the jumps in
@@ -136,24 +146,33 @@ class Dasher::CDasherModel: private CSettingsUser, public Observable<CDasherNode
   ///
   /// Schedule a zoom such that the given range of Dasher coordinates
   /// will fill the Y-axis. (used in click mode, button mode etc.)
-  /// Note that safety margin, max-zoom, etc., as desired, are the responsibility
-  /// of the caller; this method requires only that y2 > y1.
+  /// Note that this will take LP_ZOOM_STEPS frames to complete; safety margin,
+  /// max-zoom, etc., as desired, are the responsibility of the caller
+  /// (this method requires only that y2 > y1).
   /// \param y1 Minimum Y-coordinate (will be moved to dasher-y of 0)
   /// \param y2 Maximum Y-coordinate (will be moved to dasher-y of 4096)
   ///
-  void ScheduleZoom(long time, dasherint y1, dasherint y2);
+  void ScheduleZoom(dasherint y1, dasherint y2);
 
+  ///Cancel any steps previously scheduled (most likely by ScheduleZoom)
   void ClearScheduledSteps();
 
   ///
-  /// Update the bounds of the root node for the next step in any
-  /// still-in-progress zoom scheduled by ScheduleZoom (does nothing
-  /// if no steps remaining / no zoom scheduled).
+  /// Called by DasherInterfaceBase to update the bounds of the root node for
+  /// the next step that has been scheduled (whether a multi-step zoom or a
+  /// single step from ScheduleOneStep).
+  /// \return True if this moves the model (by applying a previously-scheduled
+  /// step); false if there were no scheduled steps (=> the model hasn't moved).
   ///
   bool NextScheduledStep();
 
   /// @}
 
+  /// Returns the node that was under the crosshair in the
+  /// last frame that was rendered. (I.e., this is the last
+  /// node output.)
+  CDasherNode *Get_node_under_crosshair();
+  
   ///
   /// This is pretty horrible - a rethink of the start/reset mechanism
   /// is definitely in order. Used to prevent the root node from being
@@ -163,16 +182,10 @@ class Dasher::CDasherModel: private CSettingsUser, public Observable<CDasherNode
   void LimitRoot(int iMaxWidth);
 
   ///
-  /// Rebuild the tree of nodes (may reuse the existing ones if !bForce).
-  /// @param iLocation offset (cursor position) in attached buffer from which to obtain context
-  /// @param pMgr Manager to use to create nodes
-  /// @param bForce if true, model should be completely rebuilt (even for
-  /// same offset) - characters at old offsets may have changed, or we have
-  /// a new AlphabetManager. If false, assume buffer and alphabet unchanged,
-  /// so no need to rebuild the model if an existing node covers this point.
+  /// Rebuild the tree of nodes from a given root
   ///
 
-  void SetOffset(int iLocation, CAlphabetManager *pMgr, CDasherView *pView, bool bForce);
+  void SetNode(CDasherNode *pNewRoot);
 
   ///
   /// The current offset of the cursor/insertion point in the text buffer
@@ -185,10 +198,6 @@ class Dasher::CDasherModel: private CSettingsUser, public Observable<CDasherNode
   void ExpandNode(CDasherNode * pNode);
 
  private:
-
-  /// Common portion of OneStepTowards / NextScheduledStep, taking
-  /// bounds for the root node in the next frame.
-  void UpdateBounds(myint iNewMin, myint iNewMax);
 
   /// Struct representing intermediate stages in the goto queue
   ///
@@ -241,18 +250,6 @@ class Dasher::CDasherModel: private CSettingsUser, public Observable<CDasherNode
 
   // Information entered so far in this model
   double m_dTotalNats;
-
-  /// Calculate the new co-ordinates for the root node after a single
-  /// update step. For further information, see Doc/geometry.tex.
-  ///
-  /// \param mousex x mouse co-ordinate measured right to left.
-  /// \param mousey y mouse co-ordinate measured top to bottom.
-  /// \param iNewMin New root min
-  /// \param iNewMax New root max
-  /// \param iSteps Number of frames which should get us all the way to (mousex,mousey)
-  /// \param iMinSize limit on rate of expansion due to bitrate (as we use a poor
-  /// approximation to the true interpolation!)
-  void Get_new_root_coords(myint mousex, myint mousey, myint &iNewMin, myint &iNewMax, int iSteps, dasherint iMinSize);
 
   ///
   /// Make a child of the root into a new root

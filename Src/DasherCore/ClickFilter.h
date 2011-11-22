@@ -17,13 +17,12 @@ namespace Dasher {
     void AdjustZoomCoords(myint &iDasherX, myint &iDasherY, CDasherView *comp);
   };
   
-class CClickFilter : public CInputFilter, private CZoomAdjuster {
+class CClickFilter : public CStaticFilter, private CZoomAdjuster {
  public:
   CClickFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface)
-    : CInputFilter(pInterface, 7, _("Click Mode")), CZoomAdjuster(pCreator) { };
+    : CStaticFilter(pInterface, 7, _("Click Mode")), CZoomAdjuster(pCreator) { };
 
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);
-  virtual bool Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pDasherModel, CExpansionPolicy **pol);
   virtual void KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
   virtual bool GetSettings(SModuleSettings **pSettings, int *iCount);
   

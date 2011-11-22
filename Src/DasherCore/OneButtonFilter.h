@@ -6,13 +6,12 @@
 namespace Dasher {
 /// \ingroup InputFilter
 /// @{
-class COneButtonFilter : public CInputFilter, private CSettingsUser {
+class COneButtonFilter : public CStaticFilter, private CSettingsUser {
  public:
   COneButtonFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface);
-  ~COneButtonFilter();
 
   virtual bool DecorateView(CDasherView *pView, CDasherInput *pInput);
-  virtual bool Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);
+  virtual void Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);
   virtual void KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
   bool GetSettings(SModuleSettings **pSettings, int *iCount);
  private:

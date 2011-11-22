@@ -16,7 +16,8 @@ public:
   virtual void Timer(unsigned long iTime, dasherint iX, dasherint iY, CDasherView *pView);
   virtual void HandleEvent(int iParameter);
   virtual void HandleEvent(CDasherView *pView);
-
+  void onPause();
+  void onRun(unsigned long iTime);
 protected:
   ///Time (as unix timestamp) when user entered circle; max() => already acted upon
   long m_iEnterTime;
@@ -24,10 +25,11 @@ protected:
   bool m_bInCircle;
   ///Radius of circle in screen coordinates (-1 = needs recomputing)
   int m_iScreenRadius;
-  ///Center of screen circle (needs recomputing if radius does)
-  CDasherScreen::point m_screenCircleCenter;
   CDasherView *m_pView;
-  virtual void ComputeScreenLoc(CDasherView *pView);
+  virtual CDasherScreen::point CircleCenter(CDasherView *pView);
+private:
+  ///Cached center of screen circle (needs recomputing if radius does)
+  CDasherScreen::point m_screenCircleCenter;
 };
 }
 /// @}

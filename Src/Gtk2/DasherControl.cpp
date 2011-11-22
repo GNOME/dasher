@@ -11,6 +11,7 @@
 #include "../DasherCore/ModuleManager.h"
 #include "dasher_main.h"
 #include "../DasherCore/GameModule.h"
+#include "../Common/Globber.cpp"
 
 #include <fcntl.h>
 
@@ -80,9 +81,20 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
   g_signal_connect(m_pCanvas, "expose_event", G_CALLBACK(canvas_expose_event), this);
 #endif
 
+  char *home_dir = getenv("HOME");
+  char *user_data_dir = new char[strlen(home_dir) + 10];
+  sprintf(user_data_dir, "%s/.dasher/", home_dir);
+  m_user_data_dir = user_data_dir;
+
   m_pScreen = new CCanvas(m_pCanvas);
   ChangeScreen(m_pScreen);
 
+  //This was done in old SetupUI, i.e. the first thing in Realize().
+  // TODO: Use system defaults?
+  if(GetStringParameter(SP_DASHER_FONT) == "")
+    SetStringParameter(SP_DASHER_FONT, "Sans 10");
+  else
+    m_pScreen->SetFont(GetStringParameter(SP_DASHER_FONT));
   Realize(get_time());
  
   //  m_pKeyboardHelper = new CKeyboardHelper(this);
@@ -110,91 +122,23 @@ void CDasherControl::CreateModules() {
 #endif
 }
 
-void CDasherControl::SetupUI() {
-  // TODO: Use system defaults?
-  if(GetStringParameter(SP_DASHER_FONT) == "")
-    SetStringParameter(SP_DASHER_FONT, "Sans 10");
-  else
-    m_pScreen->SetFont(GetStringParameter(SP_DASHER_FONT));
-}
+void CDasherControl::ScanFiles(AbstractParser *parser, const std::string &strPattern) {
 
-
-void CDasherControl::SetupPaths() {
-  char *home_dir;
-  char *user_data_dir;
-  const char *system_data_dir;
-
-  home_dir = getenv("HOME");
-  user_data_dir = new char[strlen(home_dir) + 10];
-  sprintf(user_data_dir, "%s/.dasher/", home_dir);
-
-  mkdir(user_data_dir, S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
-
+  //System files.
   // PROGDATA is provided by the makefile
-  system_data_dir = PROGDATA "/";
+  string path(PROGDATA "/");
+  path += strPattern;
 
-  SetStringParameter(SP_SYSTEM_LOC, system_data_dir);
-  SetStringParameter(SP_USER_LOC, user_data_dir);
-  delete[] user_data_dir;
-}
-
-void CDasherControl::ScanAlphabetFiles(std::vector<std::string> &vFileList) {
-  GDir *directory;
-  G_CONST_RETURN gchar *filename;
-  GPatternSpec *alphabetglob;
-  alphabetglob = g_pattern_spec_new("alphabet*xml");
-
-  directory = g_dir_open(GetStringParameter(SP_SYSTEM_LOC).c_str(), 0, NULL);
-
-  if(directory) {
-    while((filename = g_dir_read_name(directory))) {
-      if(g_pattern_match_string(alphabetglob, filename)) 
-	vFileList.push_back(filename);
-    }
-    g_dir_close(directory);
-  }
-
-  directory = g_dir_open(GetStringParameter(SP_USER_LOC).c_str(), 0, NULL);
-
-  if(directory) {
-    while((filename = g_dir_read_name(directory))) {
-      if(g_pattern_match_string(alphabetglob, filename))
-	vFileList.push_back(filename);
-    }
-    g_dir_close(directory);
-  }
-
-  g_pattern_spec_free(alphabetglob);
-}
-
-void CDasherControl::ScanColourFiles(std::vector<std::string> &vFileList) {
-  GDir *directory;
-  G_CONST_RETURN gchar *filename;
-
-  GPatternSpec *colourglob;
-  colourglob = g_pattern_spec_new("colour*xml");
-
-  directory = g_dir_open(GetStringParameter(SP_SYSTEM_LOC).c_str(), 0, NULL);
-
-  if(directory) {
-    while((filename = g_dir_read_name(directory))) {
-      if(g_pattern_match_string(colourglob, filename))
-	vFileList.push_back(filename);
-    }
-    g_dir_close(directory);
-  }
-
-  directory = g_dir_open(GetStringParameter(SP_USER_LOC).c_str(), 0, NULL);
-
-  if(directory) {
-    while((filename = g_dir_read_name(directory))) {
-      if(g_pattern_match_string(colourglob, filename))
-	vFileList.push_back(filename);
-    }
-    g_dir_close(directory);
-  }
-
-  g_pattern_spec_free(colourglob);
+  //User files.  
+  mkdir(m_user_data_dir, S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
+  string user_path(m_user_data_dir);
+  user_path += strPattern;
+  
+  const char *user[2], *sys[2];
+  user[0] = user_path.c_str(); sys[0] = path.c_str();
+  user[1] = sys[1] = NULL; //terminators
+  
+  globScan(parser, user, sys);
 }
 
 void CDasherControl::ClearAllContext() {
@@ -240,6 +184,8 @@ CDasherControl::~CDasherControl() {
   if(m_p1DMouseInput) {
     m_p1DMouseInput = NULL;
   }
+
+  delete[] m_user_data_dir;
 
 //   if(m_pKeyboardHelper) {
 //     delete m_pKeyboardHelper;
@@ -335,13 +281,13 @@ void CDasherControl::HandleEvent(int iParameter) {
 }
 
 void CDasherControl::editOutput(const std::string &strText, CDasherNode *pNode) {
-  if (!GetBoolParameter(BP_GAME_MODE)) //GameModule sets editbox directly
+  if (!GetGameModule()) //GameModule sets editbox directly
     g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_edit_insert", strText.c_str(), pNode->offset());
   CDasherInterfaceBase::editOutput(strText, pNode);
 }
 
 void CDasherControl::editDelete(const std::string &strText, CDasherNode *pNode) {
-  if (!GetBoolParameter(BP_GAME_MODE)) //GameModule sets editbox directly
+  if (!GetGameModule()) //GameModule sets editbox directly
     g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_edit_delete", strText.c_str(), pNode->offset());
   CDasherInterfaceBase::editDelete(strText, pNode);
 }
@@ -464,17 +410,18 @@ private:
   GtkTextMark *m_mTarget; //after any "wrong" text, before target; if no wrong chars, ==m_entered.
 };
 
-CGameModule *CDasherControl::CreateGameModule(CDasherView *pView,CDasherModel *pModel) {
+CGameModule *CDasherControl::CreateGameModule() {
   if (GtkTextBuffer *buf=gtk_dasher_control_game_text_buffer(m_pDasherControl))
-    return new GtkGameModule(this, this, pView, pModel, buf);
-  return CDashIntfScreenMsgs::CreateGameModule(pView,pModel);
+    return new GtkGameModule(this, this, GetView(), m_pDasherModel, buf);
+  return CDashIntfScreenMsgs::CreateGameModule();
 }
 
 void CDasherControl::WriteTrainFile(const std::string &filename, const std::string &strNewText) {
   if(strNewText.length() == 0)
     return;
 
-  std::string strFilename(GetStringParameter(SP_USER_LOC) + filename);
+  std::string strFilename(m_user_data_dir);
+  strFilename+=filename;
 
   int fd=open(strFilename.c_str(),O_CREAT|O_WRONLY|O_APPEND,S_IRUSR|S_IWUSR);
   write(fd,strNewText.c_str(),strNewText.length());
@@ -585,9 +532,8 @@ gboolean CDasherControl::ExposeEvent() {
   return 0;
 }
 
-void CDasherControl::Stop() {
-  if (GetBoolParameter(BP_DASHER_PAUSED)) return;
-  CDasherInterfaceBase::Stop();
+void CDasherControl::Done() {
+  CDasherInterfaceBase::Done();
   g_signal_emit_by_name(GTK_WIDGET(m_pDasherControl), "dasher_stop");
 }
 

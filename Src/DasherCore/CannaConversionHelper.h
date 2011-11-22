@@ -3,13 +3,13 @@
 
 #define BUFSIZE 10240
 
-#include "ConversionHelper.h"
+#include "ConversionManager.h"
 #include <iconv.h>
 
 #include <iostream> 
 /// \ingroup Model
 /// @{
-class CCannaConversionHelper : public Dasher::CConversionHelper {
+class CCannaConversionHelper : public Dasher::CConversionManager {
  public:
   CCannaConversionHelper(CNodeCreationManager *pNCManager, Dasher::const CAlphInfo *pAlphabet, int Type, int Order);
   ~CCannaConversionHelper();

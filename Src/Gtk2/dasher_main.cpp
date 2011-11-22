@@ -273,7 +273,7 @@ dasher_main_new(int *argc, char ***argv, SCommandLine *pCommandLine) {
     /* --- */
 
 
-    dasher_editor_initialise(pPrivate->pEditor, pPrivate->pAppSettings, pDasherMain, pPrivate->pXML, NULL);
+    dasher_editor_initialise(pPrivate->pEditor, pPrivate->pAppSettings, GTK_DASHER_CONTROL(pPrivate->pDasherWidget), pPrivate->pXML, NULL);
 
 
     dasher_main_setup_window(pDasherMain);
@@ -597,7 +597,7 @@ void show_game_file_dialog(GtkWidget *pButton, GtkWidget *pWidget, gpointer pDat
 		dasher_app_settings_set_string(pPrivate->pAppSettings,
 							SP_GAME_TEXT_FILE,
 							filename);
-		dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_GAME_MODE, true);
+		gtk_dasher_control_set_game_mode(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), true);
 	}
 	gtk_widget_destroy(GTK_WIDGET(objRefs->first));
 }
@@ -605,8 +605,7 @@ void show_game_file_dialog(GtkWidget *pButton, GtkWidget *pWidget, gpointer pDat
 /**
  * Toggle game mode on and off. Toggling on causes a dialog box to be displayed
  * welcoming the user to game mode and prompting them to specify a file to play with.
- * Toggling off just sets BP_GAME_MODE to false, which then causes the dasher core
- * to respond appropriately.
+ * Toggling off just calls LeaveGameMode().
  *
  * @param pSelf a reference to an instance of DasherMain
  */ 
@@ -614,7 +613,7 @@ void dasher_main_command_toggle_game_mode(DasherMain *pSelf) {
 
   DasherMainPrivate *pPrivate = DASHER_MAIN_GET_PRIVATE(pSelf);
 
-  if(!dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_GAME_MODE)) {
+  if(!gtk_dasher_control_get_game_mode(GTK_DASHER_CONTROL(pPrivate->pDasherWidget))) {
 
     GtkWidget *pDialog = gtk_message_dialog_new(GTK_WINDOW(pPrivate->pMainWindow), GTK_DIALOG_MODAL, 
                                          GTK_MESSAGE_OTHER, GTK_BUTTONS_NONE, 
@@ -636,8 +635,8 @@ void dasher_main_command_toggle_game_mode(DasherMain *pSelf) {
 					(gpointer)&objRefs);
 
     if (gtk_dialog_run(GTK_DIALOG(pDialog))==GTK_RESPONSE_ACCEPT) {
-      dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_GAME_MODE, true);
-//Tick menu?
+      gtk_dasher_control_set_game_mode(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), true);
+      //Tick menu?
     }
     //have to do this check because we might have destroyed the dialog already in show_game_file_dialog
     if(GTK_IS_WIDGET(pDialog))
@@ -651,7 +650,7 @@ void dasher_main_command_toggle_game_mode(DasherMain *pSelf) {
     GtkWidget *pYesButton = gtk_dialog_add_button(GTK_DIALOG(pDialog), GTK_STOCK_YES, GTK_RESPONSE_ACCEPT);
 
     if(gtk_dialog_run(GTK_DIALOG(pDialog))==GTK_RESPONSE_ACCEPT) {
-      dasher_app_settings_set_bool(pPrivate->pAppSettings, BP_GAME_MODE, false);
+      gtk_dasher_control_set_game_mode(GTK_DASHER_CONTROL(pPrivate->pDasherWidget), false);
     }
     DASHER_ASSERT(GTK_IS_WIDGET(pDialog));
     gtk_widget_destroy(GTK_WIDGET(pDialog));

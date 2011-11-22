@@ -4,6 +4,7 @@
 #include "OneButtonFilter.h"
 #include "Event.h"
 #include "DasherScreen.h"
+#include "DasherModel.h"
 
 using namespace Dasher;
 
@@ -14,14 +15,11 @@ static SModuleSettings sSettings[] = {
 };
 
 COneButtonFilter::COneButtonFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface)
-  : CInputFilter(pInterface, 9, "Static One Button Mode"), CSettingsUser(pCreator) {
+  : CStaticFilter(pInterface, 9, "Static One Button Mode"), CSettingsUser(pCreator) {
 
   bStarted = 0;
   iLocation = 0;
 
-}
-
-COneButtonFilter::~COneButtonFilter() {
 }
 
 bool COneButtonFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
@@ -52,7 +50,7 @@ bool COneButtonFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
   return true;
 }
 
-bool COneButtonFilter::Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) {
+void COneButtonFilter::Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) {
 
   if(bStarted) {
     iLocation = (Time - iStartTime) * 4096 / GetLongParameter(LP_STATIC1B_TIME);
@@ -66,21 +64,19 @@ bool COneButtonFilter::Timer(unsigned long Time, CDasherView *pView, CDasherInpu
       iLocation = 8192-iLocation;
     }
   }
-
-  return m_pDasherModel->NextScheduledStep();
 }
 
 void COneButtonFilter::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
   if (bStarted) {
-    if (iLocation == 0) {
+    iLocation = max(iTime - iStartTime - GetLongParameter(LP_DYNAMIC_BUTTON_LAG),0ul) * 4096 / GetLongParameter(LP_STATIC1B_TIME);
+    if (iLocation>8192) {
       //back up by one zoom step.
       const myint x(GetLongParameter(LP_STATIC1B_ZOOM)*2048);
-      pModel->ScheduleZoom(iTime, 2048-x, 2048+x);
+      ScheduleZoom(pModel, 2048-x, 2048+x);
     } else {
-      iLocation -= (GetLongParameter(LP_DYNAMIC_BUTTON_LAG)*4096) / GetLongParameter(LP_STATIC1B_TIME);
-      if (iLocation>4096) iLocation =8192-iLocation;
+      if (iLocation>4096) iLocation =8192-iLocation; //on way back up
       const myint x(2048/GetLongParameter(LP_STATIC1B_ZOOM));
-      pModel->ScheduleZoom(iTime, 2048-x, 2048+x);
+      ScheduleZoom(pModel, iLocation-x, iLocation+x);
     }
     bStarted = false;
   } else {

@@ -17,7 +17,8 @@ public:
   
   virtual bool DecorateView(CDasherView *pView) = 0;
   virtual void Timer(unsigned long iTime, dasherint iX, dasherint iY, CDasherView *pView) = 0;
-
+  virtual void onRun(unsigned long iTime) {}
+  virtual void onPause() {}
 protected:
   CDefaultFilter * const m_pFilter;
 };

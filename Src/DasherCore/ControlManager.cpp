@@ -49,10 +49,16 @@ void CControlBase::SetRootTemplate(NodeTemplate *pRoot) {
   m_pRoot = pRoot;
 }
 
-CDasherNode *CControlBase::GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset) {
-  if (!m_pRoot) return m_pNCManager->GetAlphabetManager()->GetRoot(pParent, iLower, iUpper, false, iOffset);
+int CControlBase::getColour(NodeTemplate *pTemplate, CDasherNode *pParent) {
+  if (pTemplate->m_iColour!=-1) return  pTemplate->m_iColour;
+  if (pParent) return (pParent->ChildCount()%99)+11;
+  return 11;
+}
 
-  CContNode *pNewNode = new CContNode(pParent, iOffset, iLower, iUpper, m_pRoot, this);
+CDasherNode *CControlBase::GetRoot(CDasherNode *pContext, int iOffset) {
+  if (!m_pRoot) return m_pNCManager->GetAlphabetManager()->GetRoot(pContext, false, iOffset);
+
+  CContNode *pNewNode = new CContNode(iOffset, getColour(m_pRoot, pContext), m_pRoot, this);
 
   // FIXME - handle context properly
 
@@ -87,8 +93,8 @@ CControlBase::NodeTemplate::~NodeTemplate() {
   delete m_pLabel;
 }
 
-CControlBase::CContNode::CContNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, NodeTemplate *pTemplate, CControlBase *pMgr)
-: CDasherNode(pParent, iOffset, iLbnd, iHbnd, (pTemplate->m_iColour != -1) ? pTemplate->m_iColour : (pParent->ChildCount()%99)+11, pTemplate->m_pLabel), m_pTemplate(pTemplate), m_pMgr(pMgr) {
+CControlBase::CContNode::CContNode(int iOffset, int iColour, NodeTemplate *pTemplate, CControlBase *pMgr)
+: CDasherNode(iOffset, iColour, pTemplate->m_pLabel), m_pTemplate(pTemplate), m_pMgr(pMgr) {
 }
 
 void CControlBase::CContNode::PopulateChildren() {
@@ -105,12 +111,13 @@ void CControlBase::CContNode::PopulateChildren() {
     if( *it == NULL ) {
       // Escape back to alphabet
 
-      pNewNode = m_pMgr->m_pNCManager->GetAlphabetManager()->GetRoot(this, iLbnd, iHbnd, false, offset()+1);
+      pNewNode = m_pMgr->m_pNCManager->GetAlphabetManager()->GetRoot(this, false, offset()+1);
     }
     else {
 
-      pNewNode = new CContNode(this, offset(), iLbnd, iHbnd, *it, m_pMgr);
+      pNewNode = new CContNode(offset(), m_pMgr->getColour(*it, this), *it, m_pMgr);
     }
+    pNewNode->Reparent(this, iLbnd, iHbnd);
     iLbnd=iHbnd;
     DASHER_ASSERT(GetChildren().back()==pNewNode);
   }
@@ -124,21 +131,12 @@ void CControlBase::CContNode::Output() {
   m_pTemplate->happen(this);
 }
 
-void CControlBase::CContNode::Enter() {
-  // Slow down to half the speed we were at. This also disables auto-speed-control.
-  m_pMgr->SetLongParameter(LP_BOOSTFACTOR, 50);
-}
-
-
-void CControlBase::CContNode::Leave() {
-  // Now speed back up, by doubling the speed we were at in control mode
-  m_pMgr->SetLongParameter(LP_BOOSTFACTOR, 100);
-}
-
 const vector<CControlBase::NodeTemplate *> &CControlParser::parsedNodes() {
   return m_vParsed;
 }
 
+///Template used for all node defns read in from XML - just
+/// execute a list of Actions.
 class XMLNodeTemplate : public CControlBase::NodeTemplate {
 public:
   XMLNodeTemplate(const string &label, int color) : NodeTemplate(label, color) {
@@ -157,92 +155,87 @@ public:
   vector<CControlBase::Action*> actions;
 };
 
-bool CControlParser::LoadFile(CMessageDisplay *pMsgs, const string &strFileName) {
-  ///Template used for all node defns read in from XML - just
-  /// execute a list of Actions.
+CControlParser::CControlParser(CMessageDisplay *pMsgs) : AbstractXMLParser(pMsgs) {
+}
 
-  class ParseHandler : public AbstractXMLParser {
-    typedef CControlBase::NodeTemplate NodeTemplate;
-  protected:
-    void XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
-      vector<NodeTemplate *> &parent(nodeStack.empty() ? m_pMgr->m_vParsed : nodeStack.back()->successors);
-      if (strcmp(name,"node")==0) {
-        string label,nodeName; int color=-1;
-        while (*atts) {
-          if (strcmp(*atts,"name")==0) {
-            nodeName=*(atts+1);
-            DASHER_ASSERT(namedNodes.find(nodeName)==namedNodes.end());
-          } else if (strcmp(*atts,"label")==0) {
-            label = *(atts+1);
-          } else if (strcmp(*atts,"color")==0) {
-            color = atoi(*(atts+1));
-          }
-          atts+=2;
-        }
-        XMLNodeTemplate *n = new XMLNodeTemplate(label,color);
-        parent.push_back(n);
-        nodeStack.push_back(n);
-        if (nodeName!="")
-          namedNodes[nodeName]=n; //all refs resolved at end.
-      } else if (strcmp(name,"ref")==0) {
-        string target;
-        while (*atts) {
-          if (strcmp(*atts,"name")==0)
-            target=*(atts+1);
-          atts+=2;
-        }
-        map<string,NodeTemplate*>::iterator it=namedNodes.find(target);
-        if (it!=namedNodes.end())
-          parent.push_back(it->second);
-        else {
-          parent.push_back(NULL);
-          unresolvedRefs.push_back(pair<NodeTemplate**,string>(&(parent.back()),target));
-        }
-      } else if (strcmp(name,"alph")==0) {
-        parent.push_back(NULL);
-      } else if (NodeTemplate *n = m_pMgr->parseOther(name, atts)) {
-        parent.push_back(n);
-      } else if (CControlBase::Action *a=m_pMgr->parseAction(name, atts)) {
-        DASHER_ASSERT(!nodeStack.empty());
-        nodeStack.back()->actions.push_back(a);
-      }
-    }
+bool CControlParser::ParseFile(const string &strFileName, bool bUser) {
+  if (m_bUser) {
+    //have user files
+    if (!bUser) return true; //so ignore system!
+  } else {
+    //have system files (or none)
+    if (bUser) m_vParsed.clear(); //replace system with user
+    m_bUser = true;
+  }
 
-    void XmlEndHandler(const XML_Char *szName) {
-      if (strcmp(szName,"node")==0) {
-        DASHER_ASSERT(!nodeStack.empty());
-        nodeStack.pop_back();
-      }
-    }
-
-  private:
-    ///Following only used in parsing...
-    map<string,NodeTemplate*> namedNodes;
-    vector<pair<NodeTemplate**,string> > unresolvedRefs;
-    vector<XMLNodeTemplate*> nodeStack;
-    CControlParser *m_pMgr;
-  public:
-    ParseHandler(CControlParser *pMgr) : m_pMgr(pMgr) {
-    }
-    void resolveRefs() {
-      //resolve any forward references to nodes declared later
-      for (vector<pair<NodeTemplate**,string> >::iterator it=unresolvedRefs.begin(); it!=unresolvedRefs.end(); it++) {
-        map<string,NodeTemplate*>::iterator target = namedNodes.find(it->second);
-        if (target != namedNodes.end())
-          *(it->first) = target->second;
-      }
-      //somehow, need to clear out any refs that weren't resolved...???
-    }
-  };
-
-  ParseHandler p(this);
-  if (!p.ParseFile(pMsgs, strFileName)) return false;
-  p.resolveRefs();
+  namedNodes.clear();
+  unresolvedRefs.clear();
+  nodeStack.clear();
+  
+  if (!AbstractXMLParser::ParseFile(strFileName, bUser)) return false;
+  //resolve any forward references to nodes declared later
+  for (vector<pair<CControlBase::NodeTemplate**,string> >::iterator it=unresolvedRefs.begin(); it!=unresolvedRefs.end(); it++) {
+    map<string,CControlBase::NodeTemplate*>::iterator target = namedNodes.find(it->second);
+    if (target != namedNodes.end())
+      *(it->first) = target->second;
+  }
+  //somehow, need to clear out any refs that weren't resolved...???
   return true;
 }
 
+void CControlParser::XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
+  vector<CControlBase::NodeTemplate *> &parent(nodeStack.empty() ? m_vParsed : nodeStack.back()->successors);
+  if (strcmp(name,"node")==0) {
+    string label,nodeName; int color=-1;
+    while (*atts) {
+      if (strcmp(*atts,"name")==0) {
+        nodeName=*(atts+1);
+        DASHER_ASSERT(namedNodes.find(nodeName)==namedNodes.end());
+      } else if (strcmp(*atts,"label")==0) {
+        label = *(atts+1);
+      } else if (strcmp(*atts,"color")==0) {
+        color = atoi(*(atts+1));
+      }
+      atts+=2;
+    }
+    XMLNodeTemplate *n = new XMLNodeTemplate(label,color);
+    parent.push_back(n);
+    nodeStack.push_back(n);
+    if (nodeName!="")
+      namedNodes[nodeName]=n; //all refs resolved at end.
+  } else if (strcmp(name,"ref")==0) {
+    string target;
+    while (*atts) {
+      if (strcmp(*atts,"name")==0)
+        target=*(atts+1);
+      atts+=2;
+    }
+    map<string,CControlBase::NodeTemplate*>::iterator it=namedNodes.find(target);
+    if (it!=namedNodes.end())
+      parent.push_back(it->second);
+    else {
+      parent.push_back(NULL);
+      unresolvedRefs.push_back(pair<CControlBase::NodeTemplate**,string>(&(parent.back()),target));
+    }
+  } else if (strcmp(name,"alph")==0) {
+    parent.push_back(NULL);
+  } else if (CControlBase::NodeTemplate *n = parseOther(name, atts)) {
+    parent.push_back(n);
+  } else if (CControlBase::Action *a=parseAction(name, atts)) {
+    DASHER_ASSERT(!nodeStack.empty());
+    static_cast<XMLNodeTemplate*>(nodeStack.back())->actions.push_back(a);
+  }
+}
+
+void CControlParser::XmlEndHandler(const XML_Char *szName) {
+  if (strcmp(szName,"node")==0) {
+    DASHER_ASSERT(!nodeStack.empty());
+    nodeStack.pop_back();
+  }
+}
+
 CControlManager::CControlManager(CSettingsUser *pCreateFrom, CNodeCreationManager *pNCManager, CDasherInterfaceBase *pInterface)
-: CControlBase(pCreateFrom, pInterface, pNCManager), CSettingsObserver(pCreateFrom), m_pSpeech(NULL), m_pCopy(NULL) {
+: CControlParser(pInterface), CControlBase(pCreateFrom, pInterface, pNCManager), CSettingsObserver(pCreateFrom), m_pSpeech(NULL), m_pCopy(NULL) {
   //TODO, used to be able to change label+colour of root/pause/stop from controllabels.xml
   // (or, get the root node title "control" from the alphabet!)
   SetRootTemplate(new NodeTemplate("Control",8)); //default NodeTemplate does nothing
@@ -251,16 +244,11 @@ CControlManager::CControlManager(CSettingsUser *pCreateFrom, CNodeCreationManage
   m_pPause = new Pause("Pause",241);
   m_pPause->successors.push_back(NULL);
   m_pPause->successors.push_back(GetRootTemplate());
-  m_pStop = new MethodTemplate<CDasherInterfaceBase>("Stop", 242, pInterface, &CDasherInterfaceBase::Stop);
+  m_pStop = new MethodTemplate<CDasherInterfaceBase>(_("Done"), 242, pInterface, &CDasherInterfaceBase::Done);
   m_pStop->successors.push_back(NULL);
   m_pStop->successors.push_back(GetRootTemplate());
 
-  //TODO, have a parameter to try first, and if that fails:
-  if(!LoadFile(m_pInterface, GetStringParameter(SP_USER_LOC) + "control.xml")) {
-    LoadFile(m_pInterface, GetStringParameter(SP_SYSTEM_LOC)+"control.xml");
-    //if that fails, we'll have no editing functions. Fine -
-    // doesn't seem vital enough to hardcode a fallback as well!
-  }
+  m_pInterface->ScanFiles(this, "control.xml"); //just look for the one
 
   updateActions();
 }
@@ -268,7 +256,7 @@ CControlManager::CControlManager(CSettingsUser *pCreateFrom, CNodeCreationManage
 CControlBase::Pause::Pause(const string &strLabel, int iColour) : NodeTemplate(strLabel,iColour) {
 }
 void CControlBase::Pause::happen(CContNode *pNode) {
-  pNode->mgr()->SetBoolParameter(BP_DASHER_PAUSED,true);
+  pNode->mgr()->m_pInterface->GetActiveInputMethod()->pause();
 }
 
 CControlBase::NodeTemplate *CControlManager::parseOther(const XML_Char *name, const XML_Char **atts) {
@@ -389,14 +377,14 @@ void CControlManager::updateActions() {
   //stop does something, and we're told to add a node for it
   // (either a dynamic filter where the user can't use the normal stop mechanism precisely,
   //  or a static filter but a 'stop' action is easier than using speak->all / copy->all then pause)
-  if (m_pInterface->hasStopTriggers() && GetBoolParameter(BP_CONTROL_MODE_HAS_HALT))
+  if (m_pInterface->hasDone() && GetBoolParameter(BP_CONTROL_MODE_HAS_HALT))
     vRootSuccessors.push_back(m_pStop);
   if (it!=vOldRootSuccessors.end() && *it == m_pStop) it++;
 
   //filter is pauseable, and either 'stop' would do something (so pause is different),
   // or we're told to have a stop node but it would be indistinguishable from pause (=>have pause)
   CInputFilter *pInput(m_pInterface->GetActiveInputMethod());
-  if (pInput->supportsPause() && (m_pInterface->hasStopTriggers() || GetBoolParameter(BP_CONTROL_MODE_HAS_HALT)))
+  if (pInput && pInput->supportsPause() && (m_pInterface->hasDone() || GetBoolParameter(BP_CONTROL_MODE_HAS_HALT)))
     vRootSuccessors.push_back(m_pPause);
   if (it!=vOldRootSuccessors.end() && *it == m_pPause) it++;
 

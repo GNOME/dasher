@@ -60,7 +60,6 @@
 		332F32B1103C8A1E008448D7 /* AlternatingDirectMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 332F32A6103C8A1E008448D7 /* AlternatingDirectMode.cpp */; };
 		332F32B2103C8A1E008448D7 /* ButtonMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 332F32A8103C8A1E008448D7 /* ButtonMode.cpp */; };
 		332F32B3103C8A1E008448D7 /* CompassMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 332F32AA103C8A1E008448D7 /* CompassMode.cpp */; };
-		332F32B4103C8A1E008448D7 /* ConversionHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 332F32AC103C8A1E008448D7 /* ConversionHelper.cpp */; };
 		332F32B5103C8A1E008448D7 /* MandarinAlphMgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 332F32AD103C8A1E008448D7 /* MandarinAlphMgr.cpp */; };
 		332F32B6103C8A1E008448D7 /* Trainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 332F32AF103C8A1E008448D7 /* Trainer.cpp */; };
 		332F34A3103D8F54008448D7 /* colour.blue.xml in Resources */ = {isa = PBXBuildFile; fileRef = 332F3496103D8F54008448D7 /* colour.blue.xml */; };
@@ -216,6 +215,8 @@
 		3344FE660F71717C00506EAA /* XMLUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344FE130F71717C00506EAA /* XMLUtil.cpp */; };
 		334B1BF111232A8E007A6DFF /* ParametersController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 334B1BF011232A8E007A6DFF /* ParametersController.mm */; };
 		3354AF4811ADBAFD006CF570 /* Actions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3354AF4711ADBAFD006CF570 /* Actions.mm */; };
+		33557FC4142B484E002C600E /* Globber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33557FC2142B484E002C600E /* Globber.cpp */; };
+		33558058142B7206002C600E /* Messages.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33558057142B7206002C600E /* Messages.cpp */; };
 		3360335813ABDF3700417DFE /* ScreenGameModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3360335713ABDF3700417DFE /* ScreenGameModule.cpp */; };
 		33627FBA0F7A82CF000C8818 /* training_albanian_SQ.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33627F9A0F7A82CE000C8818 /* training_albanian_SQ.txt */; };
 		33627FBD0F7A82CF000C8818 /* training_bengali_BD.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33627F9D0F7A82CE000C8818 /* training_bengali_BD.txt */; };
@@ -250,6 +251,7 @@
 		3378A23F1335425300A96C5D /* AbstractXMLParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3378A23D1335425200A96C5D /* AbstractXMLParser.cpp */; };
 		3378A267133543B800A96C5D /* control.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3378A266133543B800A96C5D /* control.xml */; };
 		337ECC1B10DD5E0700D0C6A5 /* ExpansionPolicy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 337ECC1910DD5E0700D0C6A5 /* ExpansionPolicy.cpp */; };
+		338B38FF1432071C0023A224 /* DemoFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 338B38FD1432071C0023A224 /* DemoFilter.cpp */; };
 		339E340E13C6206E007A2BCC /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 339E340D13C6206E007A2BCC /* Default.png */; };
 		339F8A330FF5088000282847 /* CalibrationController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 339F8A320FF5088000282847 /* CalibrationController.mm */; };
 		33B3430813A8A927009AE0D5 /* DashIntfScreenMsgs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33B3430613A8A927009AE0D5 /* DashIntfScreenMsgs.cpp */; };
@@ -365,7 +367,6 @@
 		332F32A9103C8A1E008448D7 /* ButtonMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonMode.h; sourceTree = "<group>"; };
 		332F32AA103C8A1E008448D7 /* CompassMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CompassMode.cpp; sourceTree = "<group>"; };
 		332F32AB103C8A1E008448D7 /* CompassMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompassMode.h; sourceTree = "<group>"; };
-		332F32AC103C8A1E008448D7 /* ConversionHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConversionHelper.cpp; sourceTree = "<group>"; };
 		332F32AD103C8A1E008448D7 /* MandarinAlphMgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MandarinAlphMgr.cpp; sourceTree = "<group>"; };
 		332F32AE103C8A1E008448D7 /* MandarinAlphMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MandarinAlphMgr.h; sourceTree = "<group>"; };
 		332F32AF103C8A1E008448D7 /* Trainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Trainer.cpp; sourceTree = "<group>"; };
@@ -560,7 +561,6 @@
 		3344FD820F71717C00506EAA /* ColourIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColourIO.h; sourceTree = "<group>"; };
 		3344FD830F71717C00506EAA /* ControlManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ControlManager.cpp; sourceTree = "<group>"; };
 		3344FD840F71717C00506EAA /* ControlManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlManager.h; sourceTree = "<group>"; };
-		3344FD870F71717C00506EAA /* ConversionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversionHelper.h; sourceTree = "<group>"; };
 		3344FD880F71717C00506EAA /* ConversionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConversionManager.cpp; sourceTree = "<group>"; };
 		3344FD890F71717C00506EAA /* ConversionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversionManager.h; sourceTree = "<group>"; };
 		3344FD8C0F71717C00506EAA /* CustomColours.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CustomColours.cpp; sourceTree = "<group>"; };
@@ -654,6 +654,9 @@
 		334B1C2011233B8B007A6DFF /* ModuleSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleSettings.h; sourceTree = "<group>"; };
 		3354AF4611ADBAFD006CF570 /* Actions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Actions.h; sourceTree = "<group>"; };
 		3354AF4711ADBAFD006CF570 /* Actions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Actions.mm; sourceTree = "<group>"; };
+		33557FC2142B484E002C600E /* Globber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Globber.cpp; sourceTree = "<group>"; };
+		33557FC3142B484E002C600E /* Globber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Globber.h; sourceTree = "<group>"; };
+		33558057142B7206002C600E /* Messages.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Messages.cpp; sourceTree = "<group>"; };
 		3360335613ABDF3700417DFE /* ScreenGameModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenGameModule.h; sourceTree = "<group>"; };
 		3360335713ABDF3700417DFE /* ScreenGameModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScreenGameModule.cpp; sourceTree = "<group>"; };
 		33627F9A0F7A82CE000C8818 /* training_albanian_SQ.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_albanian_SQ.txt; sourceTree = "<group>"; };
@@ -696,6 +699,8 @@
 		3378A266133543B800A96C5D /* control.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = control.xml; path = ../../Data/control/control.xml; sourceTree = SOURCE_ROOT; };
 		337ECC1910DD5E0700D0C6A5 /* ExpansionPolicy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExpansionPolicy.cpp; sourceTree = "<group>"; };
 		337ECC1A10DD5E0700D0C6A5 /* ExpansionPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpansionPolicy.h; sourceTree = "<group>"; };
+		338B38FD1432071C0023A224 /* DemoFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DemoFilter.cpp; sourceTree = "<group>"; };
+		338B38FE1432071C0023A224 /* DemoFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoFilter.h; sourceTree = "<group>"; };
 		339E340D13C6206E007A2BCC /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		339F8A310FF5088000282847 /* CalibrationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalibrationController.h; sourceTree = "<group>"; };
 		339F8A320FF5088000282847 /* CalibrationController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CalibrationController.mm; sourceTree = "<group>"; };
@@ -1189,7 +1194,6 @@
 				3344FD820F71717C00506EAA /* ColourIO.h */,
 				3344FD830F71717C00506EAA /* ControlManager.cpp */,
 				3344FD840F71717C00506EAA /* ControlManager.h */,
-				3344FD870F71717C00506EAA /* ConversionHelper.h */,
 				3344FD880F71717C00506EAA /* ConversionManager.cpp */,
 				3344FD890F71717C00506EAA /* ConversionManager.h */,
 				333FDB58139FB413009D018A /* ConvertingAlphMgr.cpp */,
@@ -1220,6 +1224,8 @@
 				3344FDAB0F71717C00506EAA /* DasherViewSquare.inl */,
 				3344FDAC0F71717C00506EAA /* DefaultFilter.cpp */,
 				3344FDAD0F71717C00506EAA /* DefaultFilter.h */,
+				338B38FD1432071C0023A224 /* DemoFilter.cpp */,
+				338B38FE1432071C0023A224 /* DemoFilter.h */,
 				33B6824E13CA4CC200F0A952 /* DynamicButtons.cpp */,
 				33B6824F13CA4CC200F0A952 /* DynamicButtons.h */,
 				3344FDAF0F71717C00506EAA /* DynamicFilter.cpp */,
@@ -1238,6 +1244,7 @@
 				3344FDDE0F71717C00506EAA /* MemoryLeak.cpp */,
 				3344FDDF0F71717C00506EAA /* MemoryLeak.h */,
 				33B342F313A8A8B2009AE0D5 /* Messages.h */,
+				33558057142B7206002C600E /* Messages.cpp */,
 				3344FDE00F71717C00506EAA /* ModuleManager.cpp */,
 				3344FDE10F71717C00506EAA /* ModuleManager.h */,
 				3344FDE20F71717C00506EAA /* NodeCreationManager.cpp */,
@@ -1257,7 +1264,6 @@
 				332F32A9103C8A1E008448D7 /* ButtonMode.h */,
 				332F32AA103C8A1E008448D7 /* CompassMode.cpp */,
 				332F32AB103C8A1E008448D7 /* CompassMode.h */,
-				332F32AC103C8A1E008448D7 /* ConversionHelper.cpp */,
 				332F32AD103C8A1E008448D7 /* MandarinAlphMgr.cpp */,
 				332F32AE103C8A1E008448D7 /* MandarinAlphMgr.h */,
 				332F32AF103C8A1E008448D7 /* Trainer.cpp */,
@@ -1343,6 +1349,8 @@
 		3344FE670F71718B00506EAA /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				33557FC2142B484E002C600E /* Globber.cpp */,
+				33557FC3142B484E002C600E /* Globber.h */,
 				33EB49220F73E8B30048E7C2 /* OpenGLScreen.h */,
 				33EB49230F73E8B30048E7C2 /* OpenGLScreen.mm */,
 				334B1C2011233B8B007A6DFF /* ModuleSettings.h */,
@@ -1634,7 +1642,6 @@
 				332F32B1103C8A1E008448D7 /* AlternatingDirectMode.cpp in Sources */,
 				332F32B2103C8A1E008448D7 /* ButtonMode.cpp in Sources */,
 				332F32B3103C8A1E008448D7 /* CompassMode.cpp in Sources */,
-				332F32B4103C8A1E008448D7 /* ConversionHelper.cpp in Sources */,
 				332F32B5103C8A1E008448D7 /* MandarinAlphMgr.cpp in Sources */,
 				332F32B6103C8A1E008448D7 /* Trainer.cpp in Sources */,
 				339F8A330FF5088000282847 /* CalibrationController.mm in Sources */,
@@ -1729,6 +1736,9 @@
 				33DFE416137AA32300F86CDE /* WordGeneratorBase.cpp in Sources */,
 				3360335813ABDF3700417DFE /* ScreenGameModule.cpp in Sources */,
 				33B6825013CA4CC300F0A952 /* DynamicButtons.cpp in Sources */,
+				338B38FF1432071C0023A224 /* DemoFilter.cpp in Sources */,
+				33557FC4142B484E002C600E /* Globber.cpp in Sources */,
+				33558058142B7206002C600E /* Messages.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

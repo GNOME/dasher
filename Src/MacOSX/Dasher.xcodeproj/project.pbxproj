@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 42;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -41,7 +41,6 @@
 		1948BEB70C226CFD001DFA32 /* ColourIO.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE110C226CFC001DFA32 /* ColourIO.h */; };
 		1948BEB80C226CFD001DFA32 /* ControlManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE120C226CFC001DFA32 /* ControlManager.cpp */; };
 		1948BEB90C226CFD001DFA32 /* ControlManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE130C226CFC001DFA32 /* ControlManager.h */; };
-		1948BEBC0C226CFD001DFA32 /* ConversionHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE160C226CFC001DFA32 /* ConversionHelper.h */; };
 		1948BEBD0C226CFD001DFA32 /* ConversionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE170C226CFC001DFA32 /* ConversionManager.cpp */; };
 		1948BEBE0C226CFD001DFA32 /* ConversionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 1948BE180C226CFC001DFA32 /* ConversionManager.h */; };
 		1948BEC10C226CFD001DFA32 /* CustomColours.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1948BE1B0C226CFC001DFA32 /* CustomColours.cpp */; };
@@ -325,11 +324,12 @@
 		33135356102C6D8E00E28220 /* ButtonMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 3313534E102C6D8E00E28220 /* ButtonMode.h */; };
 		3335F60013AB50E9004F9371 /* DashIntfSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3335F5FE13AB50E9004F9371 /* DashIntfSettings.cpp */; };
 		3335F60113AB50E9004F9371 /* DashIntfSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 3335F5FF13AB50E9004F9371 /* DashIntfSettings.h */; };
+		333B409412088AFA00235721 /* DemoFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 333B409212088AFA00235721 /* DemoFilter.cpp */; };
+		333B409512088AFA00235721 /* DemoFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 333B409312088AFA00235721 /* DemoFilter.h */; };
 		3344F0691341297F001FACAB /* UserLogBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3344F0681341297F001FACAB /* UserLogBase.cpp */; };
 		334DE238135E3E68007C8D6D /* control.textlabels.xml in Resources */ = {isa = PBXBuildFile; fileRef = 334DE236135E3E68007C8D6D /* control.textlabels.xml */; };
 		334DE239135E3E68007C8D6D /* control.xml in Resources */ = {isa = PBXBuildFile; fileRef = 334DE237135E3E68007C8D6D /* control.xml */; };
 		334DE23B135E3F4B007C8D6D /* control.dtd in Resources */ = {isa = PBXBuildFile; fileRef = 334DE23A135E3F4B007C8D6D /* control.dtd */; };
-		335901B41009E5A900821255 /* ConversionHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 335901B31009E5A900821255 /* ConversionHelper.cpp */; };
 		335DB0FB100B332C006DB155 /* alphabet.spyDict.xml in Resources */ = {isa = PBXBuildFile; fileRef = 335DB0FA100B332C006DB155 /* alphabet.spyDict.xml */; };
 		335DB101100B3358006DB155 /* training_spyDict.txt in Resources */ = {isa = PBXBuildFile; fileRef = 335DB100100B3358006DB155 /* training_spyDict.txt */; };
 		339055E81195FBD0001BE240 /* Queue.h in Headers */ = {isa = PBXBuildFile; fileRef = 339055E61195FBD0001BE240 /* Queue.h */; };
@@ -392,6 +392,9 @@
 		33FC93390FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33FC93370FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp */; };
 		33FC933A0FEFA2C900A9F08D /* TwoPushDynamicFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 33FC93380FEFA2C900A9F08D /* TwoPushDynamicFilter.h */; };
 		33FC93430FEFA2FB00A9F08D /* FrameRate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33FC93420FEFA2FB00A9F08D /* FrameRate.cpp */; };
+		E7641875142A48AD0031FC91 /* Globber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7641874142A48AD0031FC91 /* Globber.cpp */; };
+		E7641878142A48C70031FC91 /* Globber.h in Headers */ = {isa = PBXBuildFile; fileRef = E7641877142A48C70031FC91 /* Globber.h */; };
+		E7C68E691430824D00440B5B /* Messages.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7C68E681430824D00440B5B /* Messages.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -431,7 +434,6 @@
 		1948BE110C226CFC001DFA32 /* ColourIO.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ColourIO.h; sourceTree = "<group>"; };
 		1948BE120C226CFC001DFA32 /* ControlManager.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ControlManager.cpp; sourceTree = "<group>"; };
 		1948BE130C226CFC001DFA32 /* ControlManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ControlManager.h; sourceTree = "<group>"; };
-		1948BE160C226CFC001DFA32 /* ConversionHelper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ConversionHelper.h; sourceTree = "<group>"; };
 		1948BE170C226CFC001DFA32 /* ConversionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = ConversionManager.cpp; sourceTree = "<group>"; };
 		1948BE180C226CFC001DFA32 /* ConversionManager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ConversionManager.h; sourceTree = "<group>"; };
 		1948BE1B0C226CFC001DFA32 /* CustomColours.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = CustomColours.cpp; sourceTree = "<group>"; };
@@ -731,11 +733,12 @@
 		3313534E102C6D8E00E28220 /* ButtonMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonMode.h; sourceTree = "<group>"; };
 		3335F5FE13AB50E9004F9371 /* DashIntfSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DashIntfSettings.cpp; sourceTree = "<group>"; };
 		3335F5FF13AB50E9004F9371 /* DashIntfSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashIntfSettings.h; sourceTree = "<group>"; };
+		333B409212088AFA00235721 /* DemoFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DemoFilter.cpp; sourceTree = "<group>"; };
+		333B409312088AFA00235721 /* DemoFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoFilter.h; sourceTree = "<group>"; };
 		3344F0681341297F001FACAB /* UserLogBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UserLogBase.cpp; sourceTree = "<group>"; };
 		334DE236135E3E68007C8D6D /* control.textlabels.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = control.textlabels.xml; sourceTree = "<group>"; };
 		334DE237135E3E68007C8D6D /* control.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = control.xml; sourceTree = "<group>"; };
 		334DE23A135E3F4B007C8D6D /* control.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = control.dtd; sourceTree = "<group>"; };
-		335901B31009E5A900821255 /* ConversionHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConversionHelper.cpp; sourceTree = "<group>"; };
 		335DB0FA100B332C006DB155 /* alphabet.spyDict.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.spyDict.xml; sourceTree = "<group>"; };
 		335DB100100B3358006DB155 /* training_spyDict.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_spyDict.txt; sourceTree = "<group>"; };
 		339055E61195FBD0001BE240 /* Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Queue.h; sourceTree = "<group>"; };
@@ -798,6 +801,9 @@
 		33FC93370FEFA2C900A9F08D /* TwoPushDynamicFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TwoPushDynamicFilter.cpp; sourceTree = "<group>"; };
 		33FC93380FEFA2C900A9F08D /* TwoPushDynamicFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwoPushDynamicFilter.h; sourceTree = "<group>"; };
 		33FC93420FEFA2FB00A9F08D /* FrameRate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameRate.cpp; sourceTree = "<group>"; };
+		E7641874142A48AD0031FC91 /* Globber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Globber.cpp; path = ../Common/Globber.cpp; sourceTree = "<group>"; };
+		E7641877142A48C70031FC91 /* Globber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Globber.h; path = ../Common/Globber.h; sourceTree = "<group>"; };
+		E7C68E681430824D00440B5B /* Messages.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Messages.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -889,6 +895,7 @@
 		1948BDF40C226CFC001DFA32 /* DasherCore */ = {
 			isa = PBXGroup;
 			children = (
+				E7C68E681430824D00440B5B /* Messages.cpp */,
 				3344F0681341297F001FACAB /* UserLogBase.cpp */,
 				33CB6E7F125E2C7A002DB8AD /* WordGeneratorBase.cpp */,
 				33E756A31202D6180012A0E9 /* WordGeneratorBase.h */,
@@ -929,8 +936,6 @@
 				1948BE110C226CFC001DFA32 /* ColourIO.h */,
 				1948BE120C226CFC001DFA32 /* ControlManager.cpp */,
 				1948BE130C226CFC001DFA32 /* ControlManager.h */,
-				335901B31009E5A900821255 /* ConversionHelper.cpp */,
-				1948BE160C226CFC001DFA32 /* ConversionHelper.h */,
 				1948BE170C226CFC001DFA32 /* ConversionManager.cpp */,
 				1948BE180C226CFC001DFA32 /* ConversionManager.h */,
 				1948BE1B0C226CFC001DFA32 /* CustomColours.cpp */,
@@ -961,6 +966,8 @@
 				1948BE3C0C226CFD001DFA32 /* DefaultFilter.h */,
 				33DDB9DE13B8AF360001C52D /* DynamicButtons.cpp */,
 				33DDB9DF13B8AF360001C52D /* DynamicButtons.h */,
+				333B409212088AFA00235721 /* DemoFilter.cpp */,
+				333B409312088AFA00235721 /* DemoFilter.h */,
 				3300115010A2EA7700D31B1D /* ExpansionPolicy.cpp */,
 				3300115110A2EA7700D31B1D /* ExpansionPolicy.h */,
 				1948BE3E0C226CFD001DFA32 /* DynamicFilter.cpp */,
@@ -1256,6 +1263,8 @@
 				196874000C2BDC2E00D63879 /* OpenGLScreen.h */,
 				196874010C2BDC2E00D63879 /* OpenGLScreen.mm */,
 				19F8C7E50C858A2800276B4F /* I18n.h */,
+				E7641874142A48AD0031FC91 /* Globber.cpp */,
+				E7641877142A48C70031FC91 /* Globber.h */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -1388,7 +1397,6 @@
 				1948BEB50C226CFD001DFA32 /* ClickFilter.h in Headers */,
 				1948BEB70C226CFD001DFA32 /* ColourIO.h in Headers */,
 				1948BEB90C226CFD001DFA32 /* ControlManager.h in Headers */,
-				1948BEBC0C226CFD001DFA32 /* ConversionHelper.h in Headers */,
 				1948BEBE0C226CFD001DFA32 /* ConversionManager.h in Headers */,
 				1948BEC20C226CFD001DFA32 /* CustomColours.h in Headers */,
 				1948BEC40C226CFD001DFA32 /* DasherButtons.h in Headers */,
@@ -1467,6 +1475,8 @@
 				33FC1D2C13ACE7E7007642CD /* ScreenGameModule.h in Headers */,
 				33C3BDD213854CC000C768E0 /* DasherTextView.h in Headers */,
 				33DDB9E113B8AF360001C52D /* DynamicButtons.h in Headers */,
+				333B409512088AFA00235721 /* DemoFilter.h in Headers */,
+				E7641878142A48C70031FC91 /* Globber.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1498,8 +1508,11 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0410;
+			};
 			buildConfigurationList = 198D19FD08965C4800CE3CC9 /* Build configuration list for PBXProject "Dasher" */;
-			compatibilityVersion = "Xcode 2.4";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -1801,7 +1814,6 @@
 				3306E0220FFD1CE60017324C /* PPMPYLanguageModel.cpp in Sources */,
 				3306E1F70FFE6CAD0017324C /* Trainer.cpp in Sources */,
 				3306E33D0FFFB9880017324C /* MandarinAlphMgr.cpp in Sources */,
-				335901B41009E5A900821255 /* ConversionHelper.cpp in Sources */,
 				33135351102C6D8E00E28220 /* AlternatingDirectMode.cpp in Sources */,
 				33135353102C6D8E00E28220 /* CompassMode.cpp in Sources */,
 				33135355102C6D8E00E28220 /* ButtonMode.cpp in Sources */,
@@ -1821,6 +1833,9 @@
 				33FC1D2B13ACE7E7007642CD /* ScreenGameModule.cpp in Sources */,
 				33C3BDD313854CC000C768E0 /* DasherTextView.mm in Sources */,
 				33DDB9E013B8AF360001C52D /* DynamicButtons.cpp in Sources */,
+				333B409412088AFA00235721 /* DemoFilter.cpp in Sources */,
+				E7641875142A48AD0031FC91 /* Globber.cpp in Sources */,
+				E7C68E691430824D00440B5B /* Messages.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1859,7 +1874,6 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_TUNING = G4;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1888,9 +1902,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_MODEL_TUNING = G4;
 				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Info-Dasher.plist";
 				OTHER_CFLAGS = (
 					"-D",
@@ -1944,8 +1958,7 @@
 		198D19FF08965C4800CE3CC9 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				GCC_VERSION = 4.0;
 			};

@@ -4,10 +4,10 @@
 #include <windows.h>
 #include <imm.h>
 
-#include "ConversionHelper.h"
+#include "ConversionManager.h"
 /// \ingroup Model
 /// \{
-class CIMEConversionHelper : public CConversionHelper {
+class CIMEConversionHelper : public CConversionManager {
  public:
   CIMEConversionHelper(CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet);
   ~CIMEConversionHelper();

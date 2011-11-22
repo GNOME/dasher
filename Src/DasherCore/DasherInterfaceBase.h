@@ -198,16 +198,17 @@ public:
   /// Methods used to instruct dynamic motion of Dasher to start or stop
   /// @{
 
-  /// Stop Dasher - Sets BP_DASHER_PAUSED and executes any on-stop actions
-  ///  (speech, clipboard - subclasses may override to do more).
-  /// (But does nothing if BP_DASHER_PAUSED is not set)
-  virtual void Stop();
+  /// Call when the user has finished writing a piece of text, to execute
+  /// any "on-stop" actions: the default implements speak on stop (if
+  /// BP_SPEAK_ON_STOP is set) and copy-on-stop (if BP_COPY_ALL_ON_STOP) is set;
+  /// subclasses may override to do more.
+  virtual void Done();
 
-  ///Whether any actions are currently setup to occur when Dasher 'stop's.
-  /// Default is to return TRUE iff we support speech and BP_SPEAK_ON_STOP is set,
-  /// and/or if we support clipboard and BP_COPY_ALL_ON_STOP is set; subclasses may
-  /// override if they have additional on-stop actions.
-  virtual bool hasStopTriggers();
+  ///Whether the Done() method does anything (and so should be presented
+  /// to the user) - default deals with speak/copy-on-stop, and subclasses
+  /// which override Done() to add additional on-stop actions must/should
+  /// override this to match.
+  virtual bool hasDone();
   /// @}
 
   ///
@@ -257,8 +258,13 @@ public:
   ///Equivalent to SetOffset(iOffset, true)
   void SetBuffer(int iOffset) {SetOffset(iOffset, true);}
 
-  /// Tells the model to rebuild itself with the
-  /// cursor at the specified offset (position within textbox/buffer).
+  /// Rebuilds the model at the specified location, potentially reusing nodes if !bForce
+  /// @param iOffset Cursor position in attached buffer from which to obtain context
+  /// @param bForce if true, model should be completely rebuilt (even for
+  /// same offset) - characters at old offsets may have changed, or we have
+  /// a new AlphabetManager. If false, assume buffer and alphabet unchanged,
+  /// so no need to rebuild the model if an existing node covers this point.
+
   /// @param bForce true meaning the entire context may have changed,
   /// false if we've just moved around within it.
   void SetOffset(int iOffset, bool bForce=false);
@@ -353,12 +359,55 @@ public:
   /// public so e.g. iPhone can flush the buffer when app is backgrounded.
   void WriteTrainFileFull();
 
+  /// @name Platform dependent utility functions
+  /// These functions provide various platform dependent functions
+  /// required by the core. A derived class is created for each
+  /// supported platform which implements these.
+  // @{
+
   ///
   /// Obtain the size in bytes of a file - the way to do this is
   /// dependent on the OS (TODO: Check this - any posix on Windows?)
   ///
   virtual int GetFileSize(const std::string &strFileName) = 0;
+  
+  ///Look for files, matching a filename pattern, in whatever system and/or user
+  /// locations as may exist - e.g. on disk, in app package, on web, whatever.
+  /// TODO, can we add a default implementation that looks on the Dasher website?
+  /// \param pattern string matching just filename (not path), potentially
+  /// including '*'s (as per glob)
+  virtual void ScanFiles(AbstractParser *parser, const std::string &strPattern) = 0;
+  
+  // @}
+  
+  ///Gets a pointer to the game module. This is the correct way to determine
+  /// whether game mode is currently on or off.
+  /// \return pointer to current game module, if game mode on; or null, if off.
+  CGameModule *GetGameModule() {
+    return m_pGameModule;
+  }
 
+  ///Call to enter game mode. The correct procedure for UI activation of game
+  /// mode, is to first create a game module (the method CreateGameModule is
+  /// provided for this purpose), and then prompt the user to change any
+  /// ModuleSettings for that GameModule (hence needing to create it first in
+  /// order to determine what settings it has); if the user clicks ok,
+  /// then the created module can be passed to this method. (If the user instead
+  /// clicks cancel, then the module should be deleted.)
+  /// Note method is virtual, so subclasses can override e.g. to detect entering
+  /// game mode (they should call this method, then check GetGameModule()).
+  /// \param pGameModule concrete instance of GameModule to use. This can be null,
+  /// in which case we will use the module returned by CreateGameModule (e.g.
+  /// this is done for demo filter). However
+  /// \param pGameModule newly-constructed GameModule to use, or NULL to use one
+  /// returned from CreateGameModule; in either case, will be deleted when we
+  /// leave game mode.
+  virtual void EnterGameMode(CGameModule *pGameModule);
+  
+  ///Exits game mode, including deleting the game module that was in use.
+  /// virtual so subclasses can override to detect leaving game mode.
+  void LeaveGameMode();
+  
 protected:
 
   /// @name Startup
@@ -384,11 +433,11 @@ protected:
 
   /// @}
 
-  ///Creates the game module - called on demand, i.e. (only) when game mode is started
-  /// by setting BP_GAME_MODE. Subclasses must implement to return a concrete subclass
-  /// of GameModule, perhaps by using platform-specific widgets (e.g. the edit box?)
-  
-  virtual CGameModule *CreateGameModule(CDasherView *pView, CDasherModel *pModel)=0;
+  ///Creates the game module. Subclasses must implement to return a concrete
+  /// subclass of CGameModule, perhaps by using platform-specific widgets (e.g.
+  /// the edit box?). Note the view and model can be obtained by calling GetView()
+  /// and reading m_pDasherModel, respectively
+  virtual CGameModule *CreateGameModule() = 0;
 
   /// Draw a new Dasher frame, regardless of whether we're paused etc.
   /// \param iTime Current time in ms.
@@ -410,8 +459,14 @@ protected:
 
   /// @}
 
-  CDasherScreen *m_DasherScreen;
-
+  ///Called (from NewFrame) if this frame moved and the previous didn't
+  /// (moved = was scheduled in the model, even if no actual change to
+  /// co-ordinates - the latter might occur if e.g. running default filter
+  /// but with the mouse precisely over the crosshair)
+  virtual void onUnpause(unsigned long lTime);
+  
+  CDasherView *GetView() {return m_pDasherView;}
+  
   CDasherModel * const m_pDasherModel;
   ///Framerate monitor; created in constructor, req'd for DynamicFilter subclasses
   CFrameRate * const m_pFramerate;
@@ -425,44 +480,6 @@ protected:
 
   //The default expansion policy to use - an amortized policy depending on the LP_NODE_BUDGET parameter.
   CExpansionPolicy *m_defaultPolicy;
-
-  /// @name Platform dependent utility functions
-  /// These functions provide various platform dependent functions
-  /// required by the core. A derived class is created for each
-  /// supported platform which implements these.
-  // @{
-
-  ///
-  /// Initialise the SP_SYSTEM_LOC and SP_USER_LOC paths - the exact
-  /// method of doing this will be OS dependent
-  ///
-
-  virtual void SetupPaths() = 0;
-
-  ///
-  /// Produce a list of filenames for alphabet files
-  ///
-
-  virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList) = 0;
-
-  ///
-  /// Produce a list of filenames for colour files
-  ///
-
-  virtual void ScanColourFiles(std::vector<std::string> &vFileList) = 0;
-
-  ///
-  /// Set up the platform dependent UI for the widget (not the wider
-  /// app). Note that the constructor of the derived class will
-  /// probably want to return details of what was created - this will
-  /// have to happen separately, but we'll need to be careful with the
-  /// semantics.
-  ///
-
-  virtual void SetupUI() = 0;
-
-  /// @}
-
 
   /// Provide a new CDasherInput input device object.
 
@@ -493,6 +510,7 @@ protected:
   /// @name Child components
   /// Various objects which are 'owned' by the core.
   /// @{
+  CDasherScreen *m_DasherScreen;
   CDasherView *m_pDasherView;
   CDasherInput *m_pInput;
   CInputFilter* m_pInputFilter;
@@ -513,11 +531,12 @@ protected:
   /// (so may still be NULL even if locked)
   CDasherScreen::Label *m_pLockLabel;
 
-  /// @name State variables
-  /// Represent the current overall state of the core
-  /// @{
+  ///Whether a full redraw (inc of nodes) has been requested externally,
+  /// via ScheduleRedraw, for the next frame
   bool m_bRedrawScheduled;
-  bool m_bOldVisible;
+  
+  ///Whether we moved anywhere in the last call to NewFrame.
+  bool m_bLastMoved;
 
   /// @}
 

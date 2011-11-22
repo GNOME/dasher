@@ -54,8 +54,6 @@ COneButtonDynamicFilter::COneButtonDynamicFilter(CSettingsUser *pCreator, CDashe
 }
 
 COneButtonDynamicFilter::~COneButtonDynamicFilter() {
-  delete[] m_iTargetX;
-  delete[] m_iTargetY;  
 }
 
 bool COneButtonDynamicFilter::DecorateView(CDasherView *pView, CDasherInput *pInput) {
@@ -110,15 +108,14 @@ void COneButtonDynamicFilter::KeyUp(unsigned long Time, int iId, CDasherView *pD
   CButtonMultiPress::KeyUp(Time, iId, pDasherView, pInput, pModel);
 }
 
-bool COneButtonDynamicFilter::TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) {
-  OneStepTowards(m_pDasherModel, m_iTargetX[m_iTarget], m_iTargetY[m_iTarget], Time, SlowStartSpeedMul(Time));
-  return true;
+void COneButtonDynamicFilter::TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol) {
+  OneStepTowards(m_pDasherModel, m_iTargetX[m_iTarget], m_iTargetY[m_iTarget], Time, FrameSpeedMul(m_pDasherModel, Time));
 }
 
 void COneButtonDynamicFilter::ActionButton(unsigned long iTime, int iButton, int iType, CDasherModel *pModel) {
   if (iType != 0) {
     //double/long push
-    reverse();
+    reverse(iTime);
     return;
   }
     

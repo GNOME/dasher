@@ -36,8 +36,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CAlphIO::CAlphIO(CMessageDisplay *pMsgs, const std::string &SystemLocation, const std::string &UserLocation, const std::vector<std::string> &Filenames)
-: LoadMutable(false), CData("") {
+CAlphIO::CAlphIO(CMessageDisplay *pMsgs) : AbstractXMLParser(pMsgs) {
   Alphabets["Default"]=CreateDefault();
 
   typedef pair < Opts::AlphabetTypes, std::string > AT;
@@ -62,20 +61,6 @@ CAlphIO::CAlphIO(CMessageDisplay *pMsgs, const std::string &SystemLocation, cons
     TtoS[Types[i].first] = Types[i].second;
   }
 
-  LoadMutable = false;
-  ParseFile(pMsgs, SystemLocation + "alphabet.xml");
-  if(Filenames.size() > 0) {
-    for(unsigned int i = 0; i < Filenames.size(); i++) {
-      ParseFile(pMsgs, SystemLocation + Filenames[i]);
-    }
-  }
-  LoadMutable = true;
-  ParseFile(pMsgs, UserLocation + "alphabet.xml");
-  if(Filenames.size() > 0) {
-    for(unsigned int i = 0; i < Filenames.size(); i++) {
-      ParseFile(pMsgs, UserLocation + Filenames[i]);
-    }
-  }
 }
 
 void CAlphIO::GetAlphabets(std::vector <std::string >*AlphabetList) const {
@@ -182,7 +167,7 @@ void CAlphIO::XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
 
   if(strcmp(name, "alphabet") == 0) {
     InputInfo = new CAlphInfo();
-    InputInfo->Mutable = LoadMutable;
+    InputInfo->Mutable = isUser();
     ParagraphCharacter = NULL;
     SpaceCharacter = NULL;
     iGroupIdx = 0;

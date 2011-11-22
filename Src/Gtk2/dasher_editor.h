@@ -8,10 +8,10 @@
 #include "../DasherCore/ControlManager.h"
 
 /* Forward declaration */
-typedef struct _DasherMain DasherMain;
-struct _DasherMain;
 typedef struct _DasherAppSettings DasherAppSettings;
 struct _DasherAppSettings;
+typedef struct _GtkDasherControl GtkDasherControl;
+struct _GtkDasherControl;
 
 G_BEGIN_DECLS
 #define DASHER_TYPE_EDITOR            (dasher_editor_get_type())
@@ -32,7 +32,7 @@ struct _DasherEditorClass {
   GtkVBoxClass parent_class;
 
   /* VTable */
-  void (*initialise)(DasherEditor *, DasherAppSettings *, DasherMain *, GtkBuilder *, const gchar *);
+  void (*initialise)(DasherEditor *, DasherAppSettings *, GtkDasherControl *, GtkBuilder *, const gchar *);
   gboolean (*command)(DasherEditor *, const gchar *);
   void (*clear)(DasherEditor *);
   const gchar *(*get_all_text)(DasherEditor *);
@@ -72,7 +72,7 @@ GType dasher_editor_get_type();
 /* Functions for initialisation and takedown */
 void dasher_editor_initialise(DasherEditor *pSelf,
                               DasherAppSettings *pAppSettings,
-                              DasherMain *pDasherMain, GtkBuilder *pXML,
+                              GtkDasherControl *pDasherCtrl, GtkBuilder *pXML,
                               const gchar *szFullPath);
 
 /* Abstract command handler */

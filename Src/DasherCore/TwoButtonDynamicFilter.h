@@ -28,7 +28,7 @@
 namespace Dasher {
 /// \ingroup InputFilter
 /// @{
-class CTwoButtonDynamicFilter : public CButtonMultiPress {
+class CTwoButtonDynamicFilter : public CButtonMultiPress, public CSettingsObserver {
  public:
   CTwoButtonDynamicFilter(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate);
 
@@ -48,9 +48,9 @@ class CTwoButtonDynamicFilter : public CButtonMultiPress {
 	
  private:
   unsigned int maxClickCount() {return GetBoolParameter(BP_2B_INVERT_DOUBLE) ? 3 : 2;}
-  virtual bool TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);
+  virtual void TimerImpl(unsigned long Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, CExpansionPolicy **pol);
   virtual void ActionButton(unsigned long iTime, int iButton, int iType, CDasherModel *pModel);
-  double m_dLagMul;
+  double m_dLagBits;
   ///id of physical key, whose pressing we have emulated, in response
   /// to a mouse down event on one or other half of the canvas...
   int m_iMouseButton;

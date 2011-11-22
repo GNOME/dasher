@@ -41,36 +41,29 @@ void CSettingsStore::LoadPersistent() {
   // we'll save the settings with the default value that comes from Parameters.h
 
   for(int i(0); i < NUM_OF_BPS; ++i) {
-    boolParamValues[i] = boolparamtable[i].defaultValue;
-    if(boolparamtable[i].persistent) {
-      bool bValue;
-      if(LoadSetting(boolparamtable[i].regName, &bValue))
-        boolParamValues[i] = bValue;
-      else
-        SaveSetting(boolparamtable[i].regName, boolParamValues[i]);
-    }
+    bool bValue;
+    if(LoadSetting(boolparamtable[i].regName, &bValue))
+      boolParamValues[i] = bValue;
+    else
+      SaveSetting(boolparamtable[i].regName,
+                  boolParamValues[i] = boolparamtable[i].defaultValue);
   }
 
   for(int j(0); j < NUM_OF_LPS; ++j) {
-    longParamValues[j] = longparamtable[j].defaultValue;
-    if(longparamtable[j].persistent) {
-      long lValue;
-      if(LoadSetting(longparamtable[j].regName, &lValue)) 
-        longParamValues[j] = lValue;
-      else
-        SaveSetting(longparamtable[j].regName, longParamValues[j]);            
-    }
+    long lValue;
+    if(LoadSetting(longparamtable[j].regName, &lValue))
+      longParamValues[j] = lValue;
+    else
+      SaveSetting(longparamtable[j].regName,
+                  longParamValues[j] = longparamtable[j].defaultValue);
   }
 
   for(int k(0); k < NUM_OF_SPS; ++k) {
-    stringParamValues[k] = stringparamtable[k].defaultValue;
-    if(stringparamtable[k].persistent) {
-      std::string strValue;
-      if(LoadSetting(stringparamtable[k].regName, &strValue))
-        stringParamValues[k] = strValue;
-      else
-        SaveSetting(stringparamtable[k].regName, stringParamValues[k]);            
-    }
+    std::string strValue;
+    if(LoadSetting(stringparamtable[k].regName, &strValue))
+      stringParamValues[k] = strValue;
+    else
+      SaveSetting(stringparamtable[k].regName,     stringParamValues[k] = stringparamtable[k].defaultValue);
   }
 }
 
@@ -128,8 +121,7 @@ void CSettingsStore::SetBoolParameter(int iParameter, bool bValue) {
   DispatchEvent(iParameter);
 
   // Write out to permanent storage
-  if(boolparamtable[iParameter - FIRST_BP].persistent)
-    SaveSetting(boolparamtable[iParameter - FIRST_BP].regName, bValue);
+  SaveSetting(boolparamtable[iParameter - FIRST_BP].regName, bValue);
 }
 
 void CSettingsStore::SetLongParameter(int iParameter, long lValue) {
@@ -147,8 +139,7 @@ void CSettingsStore::SetLongParameter(int iParameter, long lValue) {
   DispatchEvent(iParameter);
 
   // Write out to permanent storage
-  if(longparamtable[iParameter - FIRST_LP].persistent)
-    SaveSetting(longparamtable[iParameter - FIRST_LP].regName, lValue);
+  SaveSetting(longparamtable[iParameter - FIRST_LP].regName, lValue);
 }
 
 void CSettingsStore::SetStringParameter(int iParameter, const std::string sValue) {
@@ -166,8 +157,7 @@ void CSettingsStore::SetStringParameter(int iParameter, const std::string sValue
   DispatchEvent(iParameter);
 
   // Write out to permanent storage
-  if(stringparamtable[iParameter - FIRST_SP].persistent)
-    SaveSetting(stringparamtable[iParameter - FIRST_SP].regName, sValue);
+  SaveSetting(stringparamtable[iParameter - FIRST_SP].regName, sValue);
 }
 
 bool CSettingsStore::GetBoolParameter(int iParameter) const {

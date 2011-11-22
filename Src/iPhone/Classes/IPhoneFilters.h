@@ -33,11 +33,11 @@ public:
   ///override to enable hold-to-go
 	virtual void KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
 
-  ///respond to BP_DASHER_PAUSED by engaging wakelock (if !hold-to-go)
-  virtual void HandleEvent(int iParameter);
+  virtual void pause(); ///Override to re-enable idle timer
   void iPhonePrefsChanged(NSString *key);
   bool supportsPause();
 protected:
+  virtual void run(unsigned long iTime); ///Override to disable idle timer
   ///Override to choose whether to apply 1D transform or not, and to get X coord from touch if appropriate
 	virtual void ApplyTransform(myint &iDasherX, myint &iDasherY, CDasherView *pView);
   ///Never apply offset (just eyetracker remapping!) - otherwise would be done when operating in 2d mode

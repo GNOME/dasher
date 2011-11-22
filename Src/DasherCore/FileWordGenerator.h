@@ -26,12 +26,16 @@ namespace Dasher {
  * the behavior is undefined as you may cause the file to be read in all
  * at once. 
  */
-class CFileWordGenerator : public CWordGeneratorBase {
+class CFileWordGenerator : public CWordGeneratorBase, public AbstractParser {
 public:
-  CFileWordGenerator(const CAlphInfo *pAlph, const CAlphabetMap *pAlphMap);
+  CFileWordGenerator(CMessageDisplay *pMsgs, const CAlphInfo *pAlph, const CAlphabetMap *pAlphMap);
 
+  ///Attempt to read from an arbitrary stream. Returns false, as we
+  /// only support reading game mode sentences from files.
+  bool Parse(const std::string &strDesc, std::istream &in, bool bUser);
+  
   ///Attempt to open the specified file. Return true for success, false for failure
-  bool open(const std::string &sPath);
+  bool ParseFile(const std::string &strFileName, bool bUser);
     
   virtual ~CFileWordGenerator() {
     m_sFileHandle.close();
@@ -42,22 +46,11 @@ public:
    * @throw  Throws an exception if the file cannot be read.
    */
  virtual std::string GetLine();
-
-
-  /**
-   * File path getter
-   * @return The path to the file this generator reads from.
-   */
-  std::string GetPath();
-
-  /**
-   * File name getter. Returns the file name and extension, without
-   * any slashes.
-   * @return The actual name of the file being read from
-   */
-  std::string GetFilename();
   
+  void setAcceptUser(bool bAcceptUser) {m_bAcceptUser = bAcceptUser;}
 
+  bool HasLines() {return !m_vLineIndices.empty();}
+  
 private:
 
 /* ---------------------------------------------------------------------
@@ -76,6 +69,8 @@ private:
   ifstream m_sFileHandle;
   
   std::vector<streampos> m_vLineIndices;
+  
+  bool m_bAcceptUser;
 };
 }
 

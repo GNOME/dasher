@@ -40,8 +40,6 @@ libdashercore_a_SOURCES = \
 		CompassMode.h \
 		ControlManager.cpp \
 		ControlManager.h \
-		ConversionHelper.cpp \
-		ConversionHelper.h \
 		ConversionManager.cpp \
 		ConversionManager.h \
 		ConvertingAlphMgr.cpp \
@@ -70,6 +68,8 @@ libdashercore_a_SOURCES = \
 		DasherViewSquare.inl \
 		DefaultFilter.cpp \
 		DefaultFilter.h \
+		DemoFilter.cpp \
+		DemoFilter.h \
 		DynamicButtons.cpp \
 		DynamicButtons.h \
 		DynamicFilter.cpp \
@@ -90,6 +90,7 @@ libdashercore_a_SOURCES = \
 		MemoryLeak.cpp \
 		MemoryLeak.h \
 		Messages.h \
+		Messages.cpp \
 		ModuleManager.cpp \
 		ModuleManager.h \
 		NodeCreationManager.cpp \

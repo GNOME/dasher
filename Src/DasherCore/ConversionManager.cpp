@@ -41,12 +41,8 @@
 using namespace Dasher;
 using namespace std;
 
-CConversionManager::CConversionManager(CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet) {
-  m_pInterface = pInterface;
-  m_pNCManager = pNCManager;
-  m_pAlphabet = pAlphabet;
-
-  m_iRefCount = 1;
+CConversionManager::CConversionManager(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, CLanguageModel *pLanguageModel)
+: CSettingsUser(pCreateFrom), m_pInterface(pInterface), m_pNCManager(pNCManager), m_pAlphabet(pAlphabet), m_pLanguageModel(pLanguageModel) {
 
   //Testing for alphabet details, delete if needed:
   /*
@@ -55,10 +51,19 @@ CConversionManager::CConversionManager(CDasherInterfaceBase *pInterface, CNodeCr
   for(int i =0; i<alphSize; i++)
     std::cout<<"symbol: "<<i<<"    display text:"<<pNCManager->GetAlphabet()->GetDisplayText(i)<<std::endl;
   */
+  colourStore[0][0]=66;//light blue
+  colourStore[0][1]=64;//very light green
+  colourStore[0][2]=62;//light yellow
+  colourStore[1][0]=78;//light purple
+  colourStore[1][1]=81;//brownish
+  colourStore[1][2]=60;//red
+  
+  m_iLearnContext = m_pLanguageModel->CreateEmptyContext();
+
 }
 
-CConversionManager::CConvNode *CConversionManager::makeNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, CDasherScreen::Label *pLabel) {
-  return new CConvNode(pParent, iOffset, iLbnd, iHbnd, iColour, pLabel, this);
+CConversionManager::CConvNode *CConversionManager::makeNode(int iOffset, int iColour, CDasherScreen::Label *pLabel) {
+  return new CConvNode(iOffset, iColour, pLabel, this);
 }
 
 void CConversionManager::ChangeScreen(CDasherScreen *pScreen) {
@@ -76,51 +81,28 @@ CDasherScreen::Label *CConversionManager::GetLabel(const char *pszConversion) {
   return m_vLabels[strConv] = m_pScreen->MakeLabel(strConv);
 }
 
-CConversionManager::CConvNode *CConversionManager::GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, int iOffset) {
+CConversionManager::CConvNode *CConversionManager::GetRoot(int iOffset, CLanguageModel::Context newCtx) {
 
   // TODO: Parameters here are placeholders - need to figure out what's right
 
   //TODO: hard-coded colour, and hard-coded displaytext... (ACL: read from Alphabet -> startConversionSymbol ?)
-  CConvNode *pNewNode = makeNode(pParent, iOffset, iLower, iUpper, 9, NULL);
+  CConvNode *pNewNode = makeNode(iOffset, 9, NULL);
 
-  // FIXME - handle context properly
-  // TODO: Reimplemnt -----
-  //  pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
-  // -----
-
+  pNewNode->iContext = newCtx;
 
   pNewNode->bisRoot = true;
-
-  pNewNode->pLanguageModel = NULL;
 
   pNewNode->pSCENode = 0;
 
   return pNewNode;
 }
 
-CConversionManager::CConvNode::CConvNode(CDasherNode *pParent, int iOffset, unsigned int iLbnd, unsigned int iHbnd, int iColour, CDasherScreen::Label *pLabel, CConversionManager *pMgr)
- : CDasherNode(pParent, iOffset, iLbnd, iHbnd, iColour, pLabel), m_pMgr(pMgr) {
-  pMgr->m_iRefCount++;
-}
-
-void CConversionManager::CConvNode::PopulateChildren() {
-  DASHER_ASSERT(m_pMgr->m_pNCManager);
-
-  // If no helper class is present then just drop straight back to an
-  // alphabet root. This should only happen in error cases, and the
-  // user should have been warned here.
-  //
-  CDasherNode *pNewNode = m_pMgr->m_pNCManager->GetAlphabetManager()->GetRoot(this, 0, CDasherModel::NORMALIZATION, false, offset() + 1);
-
-  DASHER_ASSERT(GetChildren().back()==pNewNode);
-}
-int CConversionManager::CConvNode::ExpectedNumChildren() {
-  return 1; //the alphabet root
+CConversionManager::CConvNode::CConvNode(int iOffset, int iColour, CDasherScreen::Label *pLabel, CConversionManager *pMgr)
+ : CDasherNode(iOffset, iColour, pLabel), m_pMgr(pMgr) {
 }
 
 CConversionManager::CConvNode::~CConvNode() {
-  pLanguageModel->ReleaseContext(iContext);
-  m_pMgr->Unref();
+  m_pMgr->m_pLanguageModel->ReleaseContext(iContext);
 }
 
 void CConversionManager::RecursiveDumpTree(ostream &out, SCENode *pCurrent, unsigned int iDepth) {
@@ -184,5 +166,138 @@ void CConversionManager::CConvNode::Undo() {
   }
   else {
     m_pMgr->m_pInterface->editDelete(bisRoot ? ">" : "|", this);
+  }
+}
+
+// TODO: This function needs to be significantly tidied up
+// TODO: get rid of pSizes
+
+void CConversionManager::AssignChildSizes(const std::vector<SCENode *> &nodes, CLanguageModel::Context context) {
+  
+  AssignSizes(nodes, context, CDasherModel::NORMALIZATION, GetLongParameter(LP_UNIFORM));
+  
+}
+
+void CConversionManager::CConvNode::PopulateChildren() {
+  DASHER_ASSERT(mgr()->m_pNCManager);
+  
+  // Do the conversion and build the tree (lattice) if it hasn't been
+  // done already.
+  //
+  
+  
+  if(bisRoot && !pSCENode) {
+    mgr()->BuildTree(this);
+  }
+  
+  
+  if(pSCENode && !pSCENode->GetChildren().empty()) {
+    const std::vector<SCENode *> &vChildren = pSCENode->GetChildren();
+    //    RecursiveDumpTree(pSCENode, 1);
+    mgr()->AssignChildSizes(vChildren, iContext);
+    
+    int iIdx(0);
+    int iCum(0);
+    
+    //    int parentClr = pNode->Colour();
+    // TODO: Fixme
+    int parentClr = 0;
+    
+    // Finally loop through and create the children
+    
+    for (std::vector<SCENode *>::const_iterator it = vChildren.begin(); it!=vChildren.end(); it++) {
+      //      std::cout << "Current scec: " << pCurrentSCEChild << std::endl;
+      SCENode *pCurrentSCEChild(*it);
+      DASHER_ASSERT(pCurrentSCEChild != NULL);
+      unsigned int iLbnd(iCum);
+      unsigned int iHbnd(iCum + pCurrentSCEChild->NodeSize);
+      //CDasherModel::NORMALIZATION);//
+      
+      iCum = iHbnd;
+      
+      // TODO: Parameters here are placeholders - need to figure out
+      // what's right
+      
+      //  std::cout << "#" << pCurrentSCEChild->pszConversion << "#" << std::endl;
+      
+      CConvNode *pNewNode = mgr()->makeNode(offset()+1, mgr()->AssignColour(parentClr, pCurrentSCEChild, iIdx), mgr()->GetLabel(pCurrentSCEChild->pszConversion));
+
+      // TODO: Reimplement ----
+
+      // FIXME - handle context properly
+      //      pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
+      // -----
+
+      pNewNode->bisRoot = false;
+      pNewNode->pSCENode = pCurrentSCEChild;
+
+      pNewNode->iContext = mgr()->m_pLanguageModel->CloneContext(this->iContext);
+
+      if(pCurrentSCEChild ->Symbol !=-1)
+        mgr()->m_pLanguageModel->EnterSymbol(pNewNode->iContext, pCurrentSCEChild->Symbol); // TODO: Don't use symbols?
+
+      pNewNode->Reparent(this, iLbnd, iHbnd);
+
+      ++iIdx;
+    }
+    
+  }
+  else {//End of conversion -> default to alphabet
+    
+    //Phil//
+    // TODO: Placeholder algorithm here
+    // TODO: Add an 'end of conversion' node?
+    //ACL 1/12/09 Note that this adds one to the m_iOffset of the created node
+    // (whereas code that was once here did not, but was otherwise identical...)
+    CDasherNode *pNewNode = m_pMgr->m_pNCManager->GetAlphabetManager()->GetRoot(this, false, offset() + 1);
+    pNewNode->Reparent(this, 0, CDasherModel::NORMALIZATION);
+  }
+}
+
+int CConversionManager::CConvNode::ExpectedNumChildren() {
+  if(bisRoot && !pSCENode) mgr()->BuildTree(this);
+  if (pSCENode && !pSCENode->GetChildren().empty()) return pSCENode->GetChildren().size();
+  return 1;//Alphabet root
+}
+
+void CConversionManager::BuildTree(CConvNode *pRoot) {
+  // Build the string to convert.
+  std::string strCurrentString;
+  // Search backwards but stop at any conversion node.
+  for (CDasherNode *pNode = pRoot->Parent();
+       pNode && pNode->mgr() == this;
+       pNode = pNode->Parent()) {
+    
+    // TODO: Need to make this the edit text rather than the display text
+    strCurrentString =
+    m_pAlphabet->GetText(pNode->GetAlphSymbol())
+    + strCurrentString;
+  }
+  // Handle/store the result.
+  SCENode *pStartTemp;
+  Convert(strCurrentString, &pStartTemp);
+  
+  // Store all conversion trees (SCENode trees) in the pUserData->pSCENode
+  // of each Conversion Root.
+  
+  pRoot->pSCENode = pStartTemp;
+}
+
+void CConversionManager::CConvNode::SetFlag(int iFlag, bool bValue) {
+  CDasherNode::SetFlag(iFlag, bValue);
+  switch(iFlag) {
+    case NF_COMMITTED:
+      if(bValue){
+        
+        if(!pSCENode)
+          return;
+        
+        symbol s =pSCENode ->Symbol;
+        
+        
+        if(s!=-1)
+          mgr()->m_pLanguageModel->LearnSymbol(mgr()->m_iLearnContext, s);
+      }
+      break;
   }
 }

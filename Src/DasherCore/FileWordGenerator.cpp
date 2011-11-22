@@ -2,11 +2,18 @@
 
 using namespace Dasher;
 
-CFileWordGenerator::CFileWordGenerator(const CAlphInfo *pAlph, const CAlphabetMap *pAlphMap)
-  : CWordGeneratorBase(pAlph,pAlphMap) {
+CFileWordGenerator::CFileWordGenerator(CMessageDisplay *pMsgs, const CAlphInfo *pAlph, const CAlphabetMap *pAlphMap)
+  : CWordGeneratorBase(pAlph,pAlphMap), AbstractParser(pMsgs) {
 }
 
-bool CFileWordGenerator::open(const std::string &sPath) {
+bool CFileWordGenerator::Parse(const std::string &strDesc, istream &in, bool bUser) {
+  //non-file streams not supported (yet)
+  DASHER_ASSERT(false);
+  return false;
+}
+
+bool CFileWordGenerator::ParseFile(const std::string &sPath, bool bUser) {
+  if (bUser && !m_bAcceptUser) return false;
   m_sFileHandle.close();
   m_vLineIndices.clear();
   m_sPath=sPath;

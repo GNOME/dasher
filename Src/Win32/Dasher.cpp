@@ -45,6 +45,16 @@ CDasher::CDasher(HWND Parent, CDasherWindow *pWindow, CEdit *pEdit)
 #endif
 
   DWORD dwTicks = GetTickCount();
+
+  //The following was done in SetupUI, i.e. the first thing in Realize.
+  // So doing here:
+  m_pCanvas = new CCanvas(this);
+  m_pCanvas->Create(m_hParent); // TODO - check return 
+
+  // TODO: See MessageLoop, Main in CDasherWindow - should be brought into this class
+  // Framerate settings: currently 40fps.
+  SetTimer(m_pCanvas->getwindow(), 1, 25, NULL);
+
   Realize(dwTicks);
 }
 
@@ -204,77 +214,38 @@ void CDasher::ScanDirectory(const Tstring &strMask, std::vector<std::string> &vF
   }
 }
 
-void CDasher::ScanColourFiles(std::vector<std::string> &vFileList) {
-  Tstring Colours;
-
-  // TODO: Is it okay to have duplicate names in the array?
-  std::string strAppData2(GetStringParameter(SP_SYSTEM_LOC));
-  Tstring strAppData;
-
-  WinUTF8::UTF8string_to_wstring(strAppData2, strAppData);
-  
-  Colours = strAppData;
-  Colours += TEXT("colour*.xml");
-  ScanDirectory(Colours, vFileList); 
-
-  std::string strUserData2(GetStringParameter(SP_USER_LOC));
-  Tstring strUserData;
-
-  WinUTF8::UTF8string_to_wstring(strUserData2, strUserData);
-
-  Colours = strUserData;
-  Colours += TEXT("colour*.xml");
-  ScanDirectory(Colours, vFileList); 
-}
-
-void CDasher::ScanAlphabetFiles(std::vector<std::string> &vFileList) {
-  Tstring Alphabets;
-
-  // TODO: Is it okay to have duplicate names in the array?
-  std::string strAppData2(GetStringParameter(SP_SYSTEM_LOC));
-  Tstring strAppData;
-
-  WinUTF8::UTF8string_to_wstring(strAppData2, strAppData);
-  
-  Alphabets = strAppData;
-  Alphabets += TEXT("alphabet*.xml");
-  ScanDirectory(Alphabets, vFileList); 
-
-  std::string strUserData2(GetStringParameter(SP_USER_LOC));
-  Tstring strUserData;
-
-  WinUTF8::UTF8string_to_wstring(strUserData2, strUserData);
-
-  Alphabets = strUserData;
-  Alphabets += TEXT("alphabet*.xml");
-  ScanDirectory(Alphabets, vFileList); 
-}
-
-void CDasher::SetupPaths() {
+void CDasher::ScanFiles(AbstractParser *parser, const std::string &strPattern) {
   using namespace WinHelper;
   using namespace WinUTF8;
-
-  Tstring UserData, AppData;
-  std::string UserData2, AppData2;
-  GetUserDirectory(&UserData);
+  
+  Tstring pattern;
+  UTF8string_to_wstring(strPattern, pattern);
+  
+  std::vector<std::string> vFileList;
+  
+  Tstring AppData;
   GetAppDirectory(&AppData);
-  UserData += TEXT("dasher.rc\\");
   AppData += TEXT("system.rc\\");
-  CreateDirectory(UserData.c_str(), NULL);      // Try and create folders. Doesn't seem
   CreateDirectory(AppData.c_str(), NULL);       // to do any harm if they already exist.
-  wstring_to_UTF8string(UserData, UserData2);   // TODO: I don't know if special characters will work.
-  wstring_to_UTF8string(AppData, AppData2);     // ASCII-only filenames are safest. Being English doesn't help debug this...
-  SetStringParameter(SP_SYSTEM_LOC, AppData2);
-  SetStringParameter(SP_USER_LOC, UserData2);
-}
+  string sysDir;
+  wstring_to_UTF8string(AppData,sysDir);
+  AppData += pattern;
+  ScanDirectory(AppData, vFileList);
+  for (vector<std::string>::iterator it=vFileList.begin(); it!=vFileList.end(); it++)
+    parser->ParseFile(sysDir + (*it),false);
 
-void CDasher::SetupUI() {
-  m_pCanvas = new CCanvas(this);
-  m_pCanvas->Create(m_hParent); // TODO - check return 
-
-  // TODO: See MessageLoop, Main in CDasherWindow - should be brought into this class
-  // Framerate settings: currently 40fps.
-  SetTimer(m_pCanvas->getwindow(), 1, 25, NULL);
+  vFileList.clear();
+  
+  Tstring UserData;
+  GetUserDirectory(&UserData);
+  UserData += TEXT("dasher.rc\\");
+  CreateDirectory(UserData.c_str(), NULL);      // Try and create folders. Doesn't seem
+  string userDir;
+  wstring_to_UTF8string(UserData,userDir);
+  UserData +=pattern;
+  ScanDirectory(UserData, vFileList); 
+  for (vector<std::string>::iterator it=vFileList.begin(); it!=vFileList.end(); it++)
+    parser->ParseFile(userDir + (*it),true);
 }
 
 int CDasher::GetFileSize(const std::string &strFileName) {

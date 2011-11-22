@@ -44,7 +44,7 @@
 #include "ClickFilter.h"
 #include "CompassMode.h"
 #include "DefaultFilter.h"
-
+#include "DemoFilter.h"
 #include "OneButtonFilter.h"
 #include "OneButtonDynamicFilter.h"
 #include "OneDimensionalFilter.h"
@@ -123,17 +123,12 @@ void CDasherInterfaceBase::Realize(unsigned long ulTime) {
   DASHER_ASSERT(m_DasherScreen ? m_pDasherView!=NULL : m_pDasherView==NULL);
 
   srand(ulTime);
-  
-  SetupUI();
-  SetupPaths();
+ 
+  m_AlphIO = new CAlphIO(this);
+  ScanFiles(m_AlphIO, "alphabet*.xml");
 
-  std::vector<std::string> vAlphabetFiles;
-  ScanAlphabetFiles(vAlphabetFiles);
-  m_AlphIO = new CAlphIO(this, GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), vAlphabetFiles);
-
-  std::vector<std::string> vColourFiles;
-  ScanColourFiles(vColourFiles);
-  m_ColourIO = new CColourIO(this, GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), vColourFiles);
+  m_ColourIO = new CColourIO(this);
+  ScanFiles(m_ColourIO, "colour*.xml");
 
   ChangeColours();
 
@@ -157,11 +152,16 @@ void CDasherInterfaceBase::Realize(unsigned long ulTime) {
 
   CreateModules();
 
-  CreateInput();
-  CreateInputFilter();
-
   ChangeAlphabet(); // This creates the NodeCreationManager, the Alphabet,
   //and the tree of nodes in the model.
+
+  CreateInput();
+  CreateInputFilter();
+  //we may have created a control manager already; in which case, we need
+  // it to realize there's now an inputfilter (which may provide more actions).
+  // So tell it the setting has changed...
+  if (CControlManager *pCon = m_pNCManager->GetControlManager())
+    pCon->HandleEvent(SP_INPUT_FILTER);
 
   HandleEvent(LP_NODE_BUDGET);
 
@@ -276,9 +276,6 @@ void CDasherInterfaceBase::HandleEvent(int iParameter) {
     CreateInputFilter();
     ScheduleRedraw();
     break;
-  case BP_DASHER_PAUSED:
-    ScheduleRedraw();
-    break;
   case LP_MARGIN_WIDTH:
   case BP_NONLINEAR_Y:
   case LP_NONLINEAR_X:
@@ -294,28 +291,6 @@ void CDasherInterfaceBase::HandleEvent(int iParameter) {
     delete m_pWordSpeaker;
     m_pWordSpeaker = GetBoolParameter(BP_SPEAK_WORDS) ? new WordSpeaker(this) : NULL;
     break;
-  case BP_GAME_MODE:
-    if(GetBoolParameter(BP_GAME_MODE)) {
-      DASHER_ASSERT(m_pGameModule == NULL);
-      if (CWordGeneratorBase *pWords = m_pNCManager->GetAlphabetManager()->GetGameWords()) {
-        m_pGameModule = CreateGameModule(m_pDasherView,m_pDasherModel);
-        m_pGameModule->SetWordGenerator(m_pNCManager->GetAlphabet(), pWords);
-      } else {
-        ///TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
-        /// refers to a setting name in gsettings or equivalent, and should not be translated.
-        const char *msg=_("Could not find game sentences file for %s - check alphabet definition, or override with GameTextFile setting");
-        char *buf(new char[strlen(msg)+m_pNCManager->GetAlphabet()->GetID().length()]);
-        sprintf(buf,msg,m_pNCManager->GetAlphabet()->GetID().c_str());
-        Message(buf,true);
-        delete buf;
-        SetBoolParameter(BP_GAME_MODE, false);
-      }
-    } else {
-      delete m_pGameModule;
-      m_pGameModule = NULL;
-    }
-    if (!GetBoolParameter(BP_CONTROL_MODE)) break;
-    //fall-through (GAME_MODE disables CONTROL_MODE, so we've effectively changed the latter too)
   case BP_CONTROL_MODE:
     //force rebuilding tree/nodes, to get new probabilities (inc/exc control node).
     // This may move the canvas around a bit, but at least manages to keep/reuse the
@@ -327,12 +302,37 @@ void CDasherInterfaceBase::HandleEvent(int iParameter) {
   }
 }
 
+void CDasherInterfaceBase::EnterGameMode(CGameModule *pGameModule) {
+  DASHER_ASSERT(m_pGameModule == NULL);
+  if (CWordGeneratorBase *pWords = m_pNCManager->GetAlphabetManager()->GetGameWords()) {
+    if (!pGameModule) pGameModule=CreateGameModule();
+    m_pGameModule=pGameModule;
+    m_pGameModule->SetWordGenerator(m_pNCManager->GetAlphabet(), pWords);
+    m_pNCManager->updateControl();
+  } else {
+    ///TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
+    /// refers to a setting name in gsettings or equivalent, and should not be translated.
+    FormatMessageWithString(_("Could not find game sentences file for %s - check alphabet definition, or override with GameTextFile setting"),
+                            m_pNCManager->GetAlphabet()->GetID().c_str());
+    delete pGameModule; //does nothing if null.
+  }
+}
+
+void CDasherInterfaceBase::LeaveGameMode() {
+  DASHER_ASSERT(m_pGameModule);
+  CGameModule *pMod = m_pGameModule;
+  m_pGameModule=NULL; //point at which we officially exit game mode
+  delete pMod;
+  m_pNCManager->updateControl();
+  SetBuffer(0);
+}
+
 CDasherInterfaceBase::WordSpeaker::WordSpeaker(CDasherInterfaceBase *pIntf) : TransientObserver<const CEditEvent *>(pIntf) {
 }
 
 void CDasherInterfaceBase::WordSpeaker::HandleEvent(const CEditEvent *pEditEvent) {
   CDasherInterfaceBase *pIntf(static_cast<CDasherInterfaceBase *> (m_pEventHandler));
-  if (pIntf->GetBoolParameter(BP_GAME_MODE)) return;
+  if (pIntf->GetGameModule()) return;
   if(pEditEvent->m_iEditType == 1) {
     if (pIntf->SupportsSpeech()) {
       const CAlphInfo *pAlphabet = pIntf->m_pNCManager->GetAlphabet();
@@ -408,8 +408,7 @@ void CDasherInterfaceBase::CreateNCManager() {
     //and start a new tree of nodes from it (retaining old offset -
     // this will be a sensible default of 0 if no nodes previously existed).
     // This deletes the old tree of nodes...
-    m_pDasherModel->SetOffset(m_pDasherModel->GetOffset(), m_pNCManager->GetAlphabetManager(), m_pDasherView, true);
-    ScheduleRedraw();
+    SetOffset(m_pDasherModel->GetOffset(), true);
   } //else, if there is no screen, the model should not contain any nodes from the old NCManager. (Assert, somehow?)
 
   //...so now we can delete the old manager
@@ -445,15 +444,12 @@ void CDasherInterfaceBase::TextAction::NotifyOffset(int iOffset) {
 }
 
 
-bool CDasherInterfaceBase::hasStopTriggers() {
+bool CDasherInterfaceBase::hasDone() {
   return (GetBoolParameter(BP_COPY_ALL_ON_STOP) && SupportsClipboard())
   || (GetBoolParameter(BP_SPEAK_ALL_ON_STOP) && SupportsSpeech());
 }
 
-void CDasherInterfaceBase::Stop() {
-  if (GetBoolParameter(BP_DASHER_PAUSED)) return; //already paused, no need to do anything.
-  SetBoolParameter(BP_DASHER_PAUSED, true);
-
+void CDasherInterfaceBase::Done() {
   ScheduleRedraw();
 
 #ifndef _WIN32_WCE
@@ -516,28 +512,32 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
       m_DasherScreen->SendMarker(1); //decorations - don't draw any
       bBlit = true;
     } else {
-      bool bChanged(false), bWasPaused(GetBoolParameter(BP_DASHER_PAUSED));
       CExpansionPolicy *pol=m_defaultPolicy;
   
-      //1. Move around in the model
+      //1. Schedule any per-frame movement in the model...
       if(m_pInputFilter) {
-        bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pInput, m_pDasherModel, &pol);
+        m_pInputFilter->Timer(iTime, m_pDasherView, m_pInput, m_pDasherModel, &pol);
       }
       //2. Render...
-      //check: if we were paused before, and the input filter didn't unpause,
-      // then nothing can have changed:
-      DASHER_ASSERT(!bWasPaused || !GetBoolParameter(BP_DASHER_PAUSED) || !bChanged);
 
       //If we've been told to render another frame via ScheduleRedraw,
       // that's the same as passing in true to NewFrame.
       if (m_bRedrawScheduled) bForceRedraw=true;
       m_bRedrawScheduled=false;
 
-      //If we moved, definitely need to render the nodes. We also make sure
-      // to render at least one more frame - think that's a bit of policy
-      // just to be on the safe side, and may not be strictly necessary...
-      if (bChanged) bForceRedraw=m_bRedrawScheduled=true;
-
+      //Apply any movement that has been scheduled
+      if (m_pDasherModel->NextScheduledStep()) {
+        //yes, we moved...
+        if (!m_bLastMoved) onUnpause(iTime);
+        // ...so definitely need to render the nodes. We also make sure
+        // to render at least one more frame - think that's a bit of policy
+        // just to be on the safe side, and may not be strictly necessary...
+        bForceRedraw=m_bRedrawScheduled=m_bLastMoved=true;
+      } else {
+        //no movement
+        if (m_bLastMoved) bForceRedraw=true;//move into onPause() method if reqd
+        m_bLastMoved=false;
+      }
       //2. Render nodes decorations, messages
       bBlit = Redraw(iTime, bForceRedraw, *pol);
 
@@ -553,6 +553,14 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   }
 
   bReentered=false;
+}
+
+void CDasherInterfaceBase::onUnpause(unsigned long lTime) {
+  //TODO When Game+UserLog modules are combined => reduce to just one call here
+  if (m_pGameModule)
+    m_pGameModule->StartWriting(lTime);
+  if (m_pUserLog)
+      m_pUserLog->StartWriting();
 }
 
 bool CDasherInterfaceBase::Redraw(unsigned long ulTime, bool bRedrawNodes, CExpansionPolicy &policy) {
@@ -639,8 +647,7 @@ void CDasherInterfaceBase::ChangeScreen(CDasherScreen *NewScreen) {
   if (m_pNCManager) {
     m_pNCManager->ChangeScreen(m_DasherScreen);
     if (m_pDasherModel)
-      m_pDasherModel->SetOffset(m_pDasherModel->GetOffset(), m_pNCManager->GetAlphabetManager(), m_pDasherView, true);
-      //Redraw already scheduled by ChangeView / ScreenResized
+      SetOffset(m_pDasherModel->GetOffset(), true);
   }
 }
 
@@ -742,11 +749,9 @@ void CDasherInterfaceBase::KeyUp(unsigned long iTime, int iId) {
   }
 }
 
-void CDasherInterfaceBase::CreateInputFilter()
-{
-  SetBoolParameter(BP_DASHER_PAUSED,true); //seems a sensible precaution!
-
+void CDasherInterfaceBase::CreateInputFilter() {
   if(m_pInputFilter) {
+    m_pInputFilter->pause();
     m_pInputFilter->Deactivate();
     m_pInputFilter = NULL;
   }
@@ -804,6 +809,7 @@ void CDasherInterfaceBase::CreateModules() {
   RegisterModule(new CAlternatingDirectMode(this, this));
   RegisterModule(new CCompassMode(this, this));
   RegisterModule(new CStylusFilter(this, this, m_pFramerate));
+  //WIP Temporary as too many segfaults! //RegisterModule(new CDemoFilter(this, this, m_pFramerate));
 }
 
 void CDasherInterfaceBase::GetPermittedValues(int iParameter, std::vector<std::string> &vList) {
@@ -831,7 +837,12 @@ bool CDasherInterfaceBase::GetModuleSettings(const std::string &strName, SModule
 }
 
 void CDasherInterfaceBase::SetOffset(int iOffset, bool bForce) {
-  m_pDasherModel->SetOffset(iOffset, m_pNCManager->GetAlphabetManager(), m_pDasherView, bForce);
+  if (iOffset == m_pDasherModel->GetOffset() && !bForce) return;
+
+  CDasherNode *pNode = m_pNCManager->GetAlphabetManager()->GetRoot(NULL, iOffset!=0, iOffset);
+  if (GetGameModule()) pNode->SetFlag(NF_GAME, true);
+  m_pDasherModel->SetNode(pNode);
+  
   //ACL TODO note that CTL_MOVE, etc., do not come here (that would probably
   // rebuild the model / violently repaint the screen every time!). But we
   // still want to notifyOffset all text actions, so the "New" suboption sees

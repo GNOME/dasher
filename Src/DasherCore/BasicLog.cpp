@@ -14,7 +14,8 @@
 
 using namespace Dasher;
 
-CBasicLog::CBasicLog(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pIntf) : CUserLogBase(pCreateFrom,pIntf) {
+CBasicLog::CBasicLog(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pIntf)
+: CUserLogBase(pIntf), CSettingsUser(pCreateFrom) {
   m_iSymbolCount = 0;
   m_bStarted = false;
 }
@@ -62,8 +63,7 @@ void CBasicLog::EndTrial() {
   if(!m_bStarted)
     return;
 
-  std::string strFileName(GetStringParameter(SP_USER_LOC));
-  strFileName.append("dasher_basic.log");
+  std::string strFileName(CFileLogger::GetFullFilenamePath("dasher_basic.log"));
 
   std::ofstream oFile;
   oFile.open(strFileName.c_str(), ios::out | ios::app);

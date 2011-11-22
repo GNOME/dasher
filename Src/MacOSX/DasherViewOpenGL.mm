@@ -26,17 +26,12 @@
 
 class COSXDasherScreen : public OpenGLScreen {
   DasherViewOpenGL *dasherView;
-  NSDictionary *fontAttrs;
 public:
   COSXDasherScreen(DasherViewOpenGL *_dasherView,screenint iWidth, screenint iHeight, GLfloat tc_x, GLfloat tc_y, GLuint *textures)
-  : OpenGLScreen(iWidth, iHeight, iWidth, iHeight,tc_x,tc_y,textures), dasherView(_dasherView), fontAttrs(nil) {
+  : OpenGLScreen(iWidth, iHeight, iWidth, iHeight,tc_x,tc_y,textures), dasherView(_dasherView) {
     RegenerateLabels(); //no actual labels, so just initialize fontAttrs
   }
-  
-  ~COSXDasherScreen() {
-    [fontAttrs release];
-  }
-  
+    
   void SendMarker(int iMarker) {
     [dasherView sendMarker:iMarker];    
   }
@@ -50,31 +45,31 @@ public:
     OpenGLScreen::resize(w,h, w,h, tc_x,tc_y);
   }
   
+  ///Override just to make callable from DasherViewOpenGL
   void RegenerateLabels() {
-    [fontAttrs release];
-    //white text on (default) transparent background means that when we texture
-    //a surface using a colour, the text appears in that colour...
-    fontAttrs = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont fontWithName:dasherView.cachedFontName size:36.0],NSFontAttributeName,[NSColor whiteColor],NSForegroundColorAttributeName,nil];
-    //dictionaryWith...: does an autorelease - only "alloc" methods do not.
-    // But we want to keep the fontAttrs indefinitely...
-    [fontAttrs retain];
     OpenGLScreen::RegenerateLabels();
   }
   
 protected:
-  void RenderStringOntoCGContext(NSString *string, CGContextRef context, unsigned int iWrapSize) {
+  void RenderStringOntoCGContext(NSString *string, CGContextRef context, unsigned int iFontSize, bool bWrap) {
     NSGraphicsContext *old = [NSGraphicsContext currentContext];
     [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithGraphicsPort:context flipped:YES]];
 
-    if (iWrapSize)
-      [string drawWithRect:NSMakeRect(0.0, 0.0, GetWidth(), CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSFont fontWithName:dasherView.cachedFontName size:iWrapSize],NSFontAttributeName,[NSColor whiteColor],NSForegroundColorAttributeName,nil]];
+    //white text on (default) transparent background means that when we texture
+    //a surface using a colour, the text appears in that colour...
+    NSDictionary *attrs = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont fontWithName:dasherView.cachedFontName size:iFontSize], NSFontAttributeName, [NSColor whiteColor], NSForegroundColorAttributeName, nil];
+    //dictionaryWith...: does an autorelease - only "alloc" methods do not.
+    
+    if (bWrap)
+      [string drawWithRect:NSMakeRect(0.0, 0.0, GetWidth(), CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs];
     else
-      [string drawAtPoint:NSMakePoint(0.0, 0.0) withAttributes:fontAttrs];
+      [string drawAtPoint:NSMakePoint(0.0, 0.0) withAttributes:attrs];
     [NSGraphicsContext setCurrentContext:old];  
   }
   
   CGSize TextSize(NSString *str, unsigned int iFontSize, bool bWrap) {
-    NSDictionary *attrs =[NSDictionary dictionaryWithObject:[NSFont fontWithName:dasherView.cachedFontName size:iFontSize] forKey:NSFontAttributeName];
+    NSFont *font=[NSFont fontWithName:dasherView.cachedFontName size:iFontSize];
+    NSDictionary *attrs =[NSDictionary dictionaryWithObject:(font ? font : [NSFont systemFontOfSize:iFontSize]) forKey:NSFontAttributeName];
     return NSSizeToCGSize(bWrap ? ([str boundingRectWithSize:NSMakeSize(GetWidth(), CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs].size) : ([str sizeWithAttributes:attrs]));
   }
 };

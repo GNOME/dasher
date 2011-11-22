@@ -13,7 +13,11 @@ class CStylusFilter : public CDefaultFilter {
   ///Override DefaultFilter (which supports pause), as we don't
   /// - motion requires continually holding stylus against screen
   virtual bool supportsPause() {return false;}
-  virtual bool Timer(unsigned long Time, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CExpansionPolicy **pol);
+
+  //no Timer method required: DefaultFilter does fine when we're moving,
+  // and will ignore any zoom scheduled by a click.
+  
+  void pause();
   virtual void KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
   virtual void KeyUp(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
  protected:
@@ -24,6 +28,7 @@ class CStylusFilter : public CDefaultFilter {
   virtual CStartHandler *MakeStartHandler();
  private:
   unsigned long m_iKeyDownTime;
+  CDasherModel *m_pModel;
 };
 }
 /// @}

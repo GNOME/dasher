@@ -27,6 +27,14 @@ CButtonMultiPress::CButtonMultiPress(CSettingsUser *pCreator, CDasherInterfaceBa
   : CDynamicButtons(pCreator, pInterface, pFramerate, iID, szName) {
 }
 
+void CButtonMultiPress::Timer(unsigned long iTime, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CExpansionPolicy **pol) {
+  if(m_bKeyDown && !m_bKeyHandled && ((iTime - m_iKeyDownTime) > GetLongParameter(LP_HOLD_TIME))) {
+    ButtonEvent(iTime, m_iHeldId, 1, pModel);
+    m_bKeyHandled = true;
+  }
+  CDynamicButtons::Timer(iTime,pView,pInput,pModel,pol);
+}
+
 void CButtonMultiPress::KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel) {
 
   if (m_bKeyDown) return;
@@ -47,9 +55,7 @@ void CButtonMultiPress::KeyDown(unsigned long iTime, int iId, CDasherView *pView
 	m_deQueueTimes.push_back(iTime);
       return; //we've called Event ourselves, so finished.
     }
-  }
-  else
-  {
+  } else {
     m_deQueueTimes.clear(); //clear record of previous, different, button
     m_iQueueId = iId;
   }
@@ -58,22 +64,27 @@ void CButtonMultiPress::KeyDown(unsigned long iTime, int iId, CDasherView *pView
   m_deQueueTimes.push_back(iTime);
   // ... and process normally; if it changes the state, pause()/reverse()'ll clear the queue
   CDynamicButtons::KeyDown(iTime, iId, pView, pInput, pModel);
+  
+  // Store the key down time so that long presses can be determined
+  // TODO: This is going to cause problems if multiple buttons are
+  // held down at once
+  m_iKeyDownTime = iTime;
+  
+  m_bKeyHandled = false;
 }
 
-void CButtonMultiPress::pause()
-{
+
+void CButtonMultiPress::pause() {
   CDynamicButtons::pause();
   m_deQueueTimes.clear();
 }
 
-void CButtonMultiPress::reverse()
-{
-  CDynamicButtons::reverse();
+void CButtonMultiPress::reverse(unsigned long iTime) {
+  CDynamicButtons::reverse(iTime);
   m_deQueueTimes.clear();
 }
 
-void CButtonMultiPress::run()
-{
+void CButtonMultiPress::run(unsigned long iTime) {
   if (!isRunning()) m_deQueueTimes.clear();
-  CDynamicButtons::run();
+  CDynamicButtons::run(iTime);
 }

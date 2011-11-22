@@ -130,8 +130,8 @@ public:
 
   gboolean ExposeEvent();
 
-  ///Override to broadcast signal...
-  virtual void Stop();
+  ///Override to broadcast dasher_stop signal...
+  virtual void Done();
 
   virtual void WriteTrainFile(const std::string &filename, const std::string &strNewText);
   virtual int GetFileSize(const std::string &strFileName);
@@ -165,13 +165,10 @@ public:
   ///Override to emit Gtk2 signal
   virtual void SetLockStatus(const string &strText, int iPercent);
 
-  CGameModule *CreateGameModule(CDasherView *pView, CDasherModel *pModel);
+  CGameModule *CreateGameModule();
 private:
-  virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
-  virtual void ScanColourFiles(std::vector<std::string> &vFileList);
-  virtual void SetupPaths();
+  virtual void ScanFiles(AbstractParser *parser, const std::string &strPattern);
   virtual void CreateModules();
-  virtual void SetupUI();
 
   GtkWidget *m_pVBox;
   GtkWidget *m_pCanvas;
@@ -194,6 +191,9 @@ private:
   ///
 
   GtkDasherControl *m_pDasherControl;
+
+  //full path of user data directory, including trailing /
+  const char *m_user_data_dir;
 
   ///
   /// Keyboard helper class

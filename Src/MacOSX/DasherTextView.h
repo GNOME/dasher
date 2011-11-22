@@ -14,7 +14,11 @@
 /// (as it _is_ the textbox). However NOTE, bit of a hack, it checks for
 /// game mode and disables most functions while game mode is on, as the
 /// COSXGameModule will be mutating the text storage instead.
+#ifdef MAC_OS_X_VERSION_10_6
+@interface DasherTextView : NSTextView<DasherEdit,NSTextViewDelegate> {
+#else
 @interface DasherTextView : NSTextView<DasherEdit> {
+#endif  
   IBOutlet DasherApp *dasherApp;
   BOOL suppressCursorEvents;
 }

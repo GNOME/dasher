@@ -16,13 +16,16 @@ namespace Dasher {
 
 /// \defgroup Logging Logging routines
 /// @{
-class CUserLogBase : protected Dasher::CSettingsUserObserver, protected TransientObserver<const Dasher::CEditEvent *> {
+class CUserLogBase : protected TransientObserver<const Dasher::CEditEvent *> {
  public:
-  CUserLogBase(CSettingsUser *pCreateFrom, Observable<const Dasher::CEditEvent*> *pHandler);
+  CUserLogBase(Observable<const Dasher::CEditEvent*> *pHandler);
 
   virtual void AddParam(const std::string& strName, const std::string& strValue, int iOptionMask = 0) = 0;
   virtual void AddParam(const std::string& strName, double dValue, int iOptionMask = 0) = 0;
   virtual void AddParam(const std::string& strName, int iValue, int iOptionMask = 0) = 0;
+  //Called when the user starts moving. Note this happens for _each_ click/zoom
+  // in Click Mode, Direct Mode, Menu Mode etc. (so should ignore extra calls
+  // after the first.)
   virtual void StartWriting() = 0;
   virtual void StopWriting(float dNats) = 0;
   virtual void StopWriting() = 0;
@@ -36,8 +39,6 @@ class CUserLogBase : protected Dasher::CSettingsUserObserver, protected Transien
   virtual void SetOuputFilename(const std::string& strFilename = "") = 0;
   virtual int GetLogLevelMask() = 0;
   virtual void KeyDown(int iId, int iType, int iEffect) = 0;
-  ///Watch for BP_DASHER_PAUSED being cleared, call StartWriting().
-  virtual void HandleEvent(int iParameter);
   ///Watches output events to record symbols added/deleted
   virtual void HandleEvent(const Dasher::CEditEvent *pEvent);
   ///Passes record of symbols added/deleted to AddSymbols/DeleteSymbols

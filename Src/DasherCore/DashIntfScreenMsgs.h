@@ -55,13 +55,12 @@ public:
   ///Override to re-MakeLabel any messages.
   void ChangeScreen(CDasherScreen *pNewScreen);
   
-  ///Listen for BP_DASHER_PAUSED being cleared to flush any modal messages that
-  /// have been displayed before resuming.
-  void HandleEvent(int iParameter);
+  ///Flush any modal messages that have been displayed before resuming.
+  void onUnpause(unsigned long lTime);
   
   ///Implement to return a ScreenGameModule, i.e. rendering text prompts
   /// onto the Screen with Labels, much as we do for messages!
-  CGameModule *CreateGameModule(CDasherView *pView, CDasherModel *pModel);
+  CGameModule *CreateGameModule();
 private:
   /// Asynchronous (non-modal) messages to be displayed to the user, longest-ago
   /// at the front, along with the timestamp of the frame at which each was first

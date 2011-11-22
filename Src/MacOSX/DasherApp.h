@@ -58,7 +58,6 @@
 - (void)startTimer;
 - (void)shutdownTimer;
 - (NSTimer *)timer;
-- (void)setTimer:(NSTimer *)newTimer;
 - (void)timerCallback:(NSTimer *)aTimer;
 - (void)dealloc;
 - (bool)supportsSpeech;

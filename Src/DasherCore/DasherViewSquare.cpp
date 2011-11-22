@@ -361,7 +361,7 @@ void CDasherViewSquare::Circle(myint Range, myint y1, myint y2, int fCol, int oC
   } else {
     Dasher2Screen(x2=0,y2,p.x,p.y);
   }
-  CircleTo(cy,r,y1,x1,y2,x2,p,pts);
+  CircleTo(cy,r,y1,x1,y2,x2,p,pts, 2.0);
   if (iDasherMaxY == y2) {
     Dasher2Screen(0, iDasherMaxX, p.x, p.y);
     pts.push_back(p);
@@ -372,21 +372,41 @@ void CDasherViewSquare::Circle(myint Range, myint y1, myint y2, int fCol, int oC
   delete[] p_array;
 }
 
-void CDasherViewSquare::CircleTo(myint cy, myint r, myint y1, myint x1, myint y3, myint x3, CDasherScreen::point dest, vector<CDasherScreen::point> &pts) {
+void CDasherViewSquare::CircleTo(myint cy, myint r, myint y1, myint x1, myint y3, myint x3, CDasherScreen::point dest, vector<CDasherScreen::point> &pts, double dXMul) {
   myint y2((y1+y3)/2);
-  myint x2(sqrt(double(sq(r)-sq(cy-y2)))*2);
+  myint x2(sqrt(double(sq(r)-sq(cy-y2)))*dXMul);
   CDasherScreen::point mid; //where midpoint of circle/arc should be
   Dasher2Screen(x2, y2, mid.x, mid.y); //(except "midpoint" measured along y axis)
   int lmx=(pts.back().x + dest.x)/2, lmy = (pts.back().y + dest.y)/2; //midpoint of straight line
-  if (dest.y-pts.back().y<2 || abs(mid.x-lmx) + abs(mid.y-lmy)<2) {
+  if (abs(dest.y-pts.back().y)<2 || abs(mid.x-lmx) + abs(mid.y-lmy)<2) {
     //okay, use straight line
     pts.push_back(dest);
   } else {
-    CircleTo(cy, r, y1, x1, y2, x2, mid, pts);
-    CircleTo(cy, r, y2, x2, y3, x3, dest, pts);
+    CircleTo(cy, r, y1, x1, y2, x2, mid, pts, dXMul);
+    CircleTo(cy, r, y2, x2, y3, x3, dest, pts, dXMul);
   }
 }
 #undef sq
+
+void CDasherViewSquare::DasherSpaceArc(myint cy, myint r, myint x1, myint y1, myint x2, myint y2, int iColour, int iLineWidth) {
+  CDasherScreen::point p;
+  //start point
+  Dasher2Screen(x1, y1, p.x, p.y);
+  vector<CDasherScreen::point> pts;
+  pts.push_back(p);
+  //if circle goes behind crosshair, force division into at least two sections, with point of max-x as boundary
+  if (r>CDasherModel::ORIGIN_X) {
+    Dasher2Screen(r, cy, p.x, p.y);
+    CircleTo(cy, r, y1, x1, cy, r, p, pts, 1.0);
+    x1=r; y1=cy;
+  }
+  Dasher2Screen(x2, y2, p.x, p.y);
+  CircleTo(cy, r, y1, x1, y2, x2, p, pts, 1.0);
+  CDasherScreen::point *p_array = new CDasherScreen::point[pts.size()];
+  for (unsigned int i=0; i<pts.size(); i++) p_array[i] = pts[i];
+  Screen()->Polyline(p_array, pts.size(), iLineWidth, iColour);
+}
+
 void CDasherViewSquare::Quadric(myint Range, myint lowY, myint highY, int fillColor, int outlineColour, int lineWidth) {
   static const double RR2=1.0/sqrt(2.0);
   const int midY=(lowY+highY)/2;

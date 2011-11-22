@@ -26,28 +26,34 @@
 namespace Dasher {
 /// \ingroup InputFilter
 /// @{
-/// DynamicButtons filter which detects multiple presses of the same button
-/// occurring in a short space of time - up to maxClickCount() consecutive presses,
+/// DynamicButtons filter which detects long and multiple presses - the latter of the
+/// same button, up to maxClickCount() consecutive presses,
 /// with a gap of up to LP_MULTIPRESS_TIME ms between the start of _each_pair_ of 
-/// presses. Such multi-presses are passed onto the standard ButtonEvent method,
-/// with iType equal to the number of presses, for subclasses to decide how to respond.
+/// presses. Long- and multi-presses are passed onto the standard ButtonEvent method,
+/// with iType 1 or to the number of presses, respectively, for subclasses to decide how to respond.
 class CButtonMultiPress : public CDynamicButtons {
  public:
   CButtonMultiPress(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CFrameRate *pFramerate, ModuleID_t iID, const char *szName);
 
-  virtual void KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
+  void Timer(unsigned long iTime, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel, CExpansionPolicy **pol);
+  void KeyDown(unsigned long iTime, int iId, CDasherView *pView, CDasherInput *pInput, CDasherModel *pModel);
 
+  void pause();
  protected:
   virtual unsigned int maxClickCount()=0;
-  virtual void reverse();
-  virtual void pause();
-  virtual void run();
+  void reverse(unsigned long iTime);
+  void run(unsigned long iTime);
 
  private:
   virtual void RevertPresses(int iCount) {};
 
   int m_iQueueId;
   std::deque<unsigned long> m_deQueueTimes;
+
+  ///Whether a long-press has been handled (in Timer) - as the key
+  /// may still be down (and the press becoming ever-longer)!
+  bool m_bKeyHandled;
+  unsigned long m_iKeyDownTime;
  };
 }
 

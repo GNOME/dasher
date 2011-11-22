@@ -10,13 +10,13 @@ using namespace std;
 
 #include "DasherScreen.h"
 #include "DasherModel.h"
-#include "DasherModule.h"
+#include "../Common/ModuleSettings.h"
 #include "DasherNode.h"
 #include "DasherView.h"
 #include "DasherTypes.h"
 #include "DasherInterfaceBase.h"
 #include "WordGeneratorBase.h"
-
+#include "DemoFilter.h"
 
 namespace Dasher {
 
@@ -34,6 +34,7 @@ namespace Dasher {
  */
 class CGameModule : protected CSettingsUser, protected TransientObserver<const CEditEvent *>, protected TransientObserver<CGameNodeDrawEvent*>, private TransientObserver<CDasherNode*>, private TransientObserver<CDasherView*> {
  public:
+  friend class CDemoFilter;
   /**
    * Constructor
    * @param pEventHandler A pointer to the event handler
@@ -47,6 +48,8 @@ class CGameModule : protected CSettingsUser, protected TransientObserver<const C
 
   ~CGameModule();
 
+  void StartWriting(unsigned long lTime);
+  
   /**
    * Draws Game Mode specific visuals to the screen.
    * \param pView The Dasher View to be modified
@@ -58,6 +61,12 @@ class CGameModule : protected CSettingsUser, protected TransientObserver<const C
    * @param pWordGenerator the word generator to be used
    */ 
   void SetWordGenerator(const CAlphInfo *pAlph, CWordGeneratorBase *pWordGenerator);
+  
+  /// The "GameModule" isn't actually a DasherModule, and/so this will be never called,
+  /// but for uniformity with existing module settings API, I'm using this to record
+  /// what preferences there are that affect Game Mode - really, these should be
+  /// displayed to the user each time (s)he enters Game Mode.
+  bool GetSettings(SModuleSettings **sets, int *count);
 
 protected:
   ///Called after each successful call to GenerateChunk. Subclasses may override
@@ -65,8 +74,12 @@ protected:
   virtual void ChunkGenerated() {}
   
   /// Called when a node has been populated. Look for Game children.
-  virtual void HandleEvent(CDasherNode *pNode); 
+  virtual void HandleEvent(CDasherNode *pNode);
   
+  void DrawBrachistochrone(Dasher::CDasherView* pView);
+  void DrawHelperArrow(Dasher::CDasherView* pView);
+  myint ComputeBrachCenter();
+    
   /// Called when a node has been output/deleted. Update string (to be/) written.
   virtual void HandleEvent(const CEditEvent *);
   
@@ -122,6 +135,11 @@ private:
 
   ///Best-known Location of target sentence in each frame
   vector<myint> m_vTargetY;
+  ///Last element of above, i.e. current location of target sentence
+  myint m_iTargetY;
+  ///Time at which we first needed help, or numeric_limits<unsigned long>::max()
+  /// if we don't.
+  unsigned long m_uHelpStart;
   
   ///Statistics over all _previous_ sentences: total time, total nats, total syms
   unsigned long m_ulTotalTime;
@@ -131,7 +149,7 @@ private:
   ///Time and nats at which this sentence started
   unsigned long m_ulSentenceStartTime;
   double m_dSentenceStartNats;
-  
+
 /* ---------------------------------------------------------------------
  * Constants
  * ---------------------------------------------------------------------
