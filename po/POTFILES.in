@@ -2,11 +2,11 @@
 # Please keep this file sorted alphabetically.
 # Use "make check" to check for missing files:
 Data/dasher.desktop.in.in
+[type: gettext/glade]Data/GUI/dashermaemofullscreen.ui
+[type: gettext/glade]Data/GUI/dashermaemo.preferences.ui
+[type: gettext/glade]Data/GUI/dashermaemo.ui
 [type: gettext/glade]Data/GUI/dasher.preferences.ui
 [type: gettext/glade]Data/GUI/dasher.traditional.ui
-[type: gettext/glade]Data/GUI/dashermaemo.ui
-[type: gettext/glade]Data/GUI/dashermaemo.preferences.ui
-[type: gettext/glade]Data/GUI/dashermaemofullscreen.ui
 Src/DasherCore/AbstractXMLParser.cpp
 Src/DasherCore/Alphabet/AlphabetMap.cpp
 Src/DasherCore/AlphabetManager.cpp
@@ -16,15 +16,19 @@ Src/DasherCore/ButtonMode.cpp
 Src/DasherCore/ClickFilter.cpp
 Src/DasherCore/ClickFilter.h
 Src/DasherCore/CompassMode.cpp
+Src/DasherCore/ControlManager.cpp
 Src/DasherCore/DasherButtons.cpp
 Src/DasherCore/DasherInterfaceBase.cpp
 Src/DasherCore/DefaultFilter.cpp
+Src/DasherCore/DemoFilter.cpp
 Src/DasherCore/DynamicFilter.cpp
+Src/DasherCore/GameModule.cpp
 Src/DasherCore/NodeCreationManager.cpp
 Src/DasherCore/OneButtonDynamicFilter.cpp
 Src/DasherCore/OneButtonFilter.cpp
 Src/DasherCore/OneDimensionalFilter.cpp
 Src/DasherCore/OneDimensionalFilter.h
+Src/DasherCore/Parameters.cpp
 Src/DasherCore/SettingsStore.cpp
 Src/DasherCore/SocketInputBase.cpp
 Src/DasherCore/SocketInput.cpp
