@@ -85,8 +85,8 @@ void CGameModule::HandleEvent(const CEditEvent *evt) {
 void CGameModule::HandleEvent(CGameNodeDrawEvent *gmd) {
   //game nodes form a single chain, i.e. are strictly nested.
   // we want the coordinates of the smallest (innermost) one about which we are told
-  m_y1 = max(m_y1, gmd->m_y1);
-  m_y2 = min(m_y2, gmd->m_y2);
+  if (gmd->m_y1 > m_y1) m_y1 = gmd->m_y1;
+  if (gmd->m_y2 < m_y1) m_y2 = gmd->m_y2;
 }
 
 void CGameModule::HandleEvent(CDasherView *pView) {
@@ -112,6 +112,8 @@ void CGameModule::StartWriting(unsigned long lTime) {
     m_dSentenceStartNats = numeric_limits<double>::max();
   }
 }
+
+static myint abs(myint x) { return (x>0)?x:-x; }
 
 void CGameModule::DecorateView(unsigned long lTime, CDasherView *pView, CDasherModel *pModel) {
 
