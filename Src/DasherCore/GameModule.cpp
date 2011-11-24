@@ -113,7 +113,9 @@ void CGameModule::StartWriting(unsigned long lTime) {
   }
 }
 
+#if !defined(TARGET_OS_MAC) && !defined(TARGET_OS_IPHONE)
 static myint abs(myint x) { return (x>0)?x:-x; }
+#endif
 
 void CGameModule::DecorateView(unsigned long lTime, CDasherView *pView, CDasherModel *pModel) {
 
@@ -124,7 +126,7 @@ void CGameModule::DecorateView(unsigned long lTime, CDasherView *pView, CDasherM
   m_vTargetY.push_back(iNewTarget);
   bool bDrawHelper=false;
   
-  if (abs(iNewTarget - CDasherModel::ORIGIN_Y) >
+  if (abs(iNewTarget - CDasherModel::ORIGIN_Y) >=
       max(myint(GetLongParameter(LP_GAME_HELP_DIST)),abs(m_iTargetY-CDasherModel::ORIGIN_Y))) {
     //needs help - offscreen and not decreasing
     if (m_uHelpStart==std::numeric_limits<unsigned long>::max())

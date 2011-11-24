@@ -128,7 +128,7 @@ void CNodeCreationManager::ChangeScreen(CDasherScreen *pScreen) {
   if (m_pScreen == pScreen) return;
   m_pScreen = pScreen;
   m_pAlphabetManager->MakeLabels(pScreen);
-  if (m_pControlManager) m_pControlManager->MakeLabels(pScreen);
+  if (m_pControlManager) m_pControlManager->ChangeScreen(pScreen);
 }
 
 void CNodeCreationManager::HandleEvent(int iParameter) {
@@ -141,7 +141,7 @@ void CNodeCreationManager::updateControl() {
   //don't allow a control manager during Game Mode 
   if (GetBoolParameter(BP_CONTROL_MODE) && !m_pInterface->GetGameModule()) {
     m_pControlManager = new CControlManager(this, this, m_pInterface);
-    if (m_pScreen) m_pControlManager->MakeLabels(m_pScreen);
+    if (m_pScreen) m_pControlManager->ChangeScreen(m_pScreen);
     iControlSpace = CDasherModel::NORMALIZATION / 20;
   } else {
     m_pControlManager = NULL;

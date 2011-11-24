@@ -37,7 +37,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 CControlBase::CControlBase(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager)
-  : CSettingsUser(pCreateFrom), m_pInterface(pInterface), m_pNCManager(pNCManager), m_pRoot(NULL) {
+  : CSettingsUser(pCreateFrom), m_pInterface(pInterface), m_pNCManager(pNCManager), m_pScreen(NULL), m_pRoot(NULL) {
 }
 
 CControlBase::NodeTemplate *CControlBase::GetRootTemplate() {
@@ -67,7 +67,9 @@ CDasherNode *CControlBase::GetRoot(CDasherNode *pContext, int iOffset) {
   return pNewNode;
 }
 
-void CControlBase::MakeLabels(CDasherScreen *pScreen) {
+void CControlBase::ChangeScreen(CDasherScreen *pScreen) {
+  if (m_pScreen==pScreen) return;
+  m_pScreen=pScreen;
   deque<NodeTemplate *> templateQueue(1,m_pRoot);
   set<NodeTemplate *> allTemplates(templateQueue.begin(),templateQueue.end());
   while (!templateQueue.empty()) {
@@ -155,7 +157,7 @@ public:
   vector<CControlBase::Action*> actions;
 };
 
-CControlParser::CControlParser(CMessageDisplay *pMsgs) : AbstractXMLParser(pMsgs) {
+CControlParser::CControlParser(CMessageDisplay *pMsgs) : AbstractXMLParser(pMsgs), m_bUser(false) {
 }
 
 bool CControlParser::ParseFile(const string &strFileName, bool bUser) {
@@ -409,4 +411,10 @@ void CControlManager::updateActions() {
 
   //copy anything else (custom) that might have been added...
   while (it != vOldRootSuccessors.end()) vRootSuccessors.push_back(*it++);
+  
+  if (CDasherScreen *pScreen = m_pScreen) {
+    //hack to make ChangeScreen do something
+    m_pScreen = NULL; //i.e. make it think the screen has changed
+    ChangeScreen(pScreen);
+  }
 }

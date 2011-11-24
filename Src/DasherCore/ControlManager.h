@@ -120,7 +120,7 @@ namespace Dasher {
     CControlBase(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager);
 
     ///Make this manager ready to make nodes renderable on the screen by preallocating labels
-    virtual void MakeLabels(CDasherScreen *pScreen);
+    virtual void ChangeScreen(CDasherScreen *pScreen);
     
     ///
     /// Get a new root node owned by this manager
@@ -138,7 +138,8 @@ namespace Dasher {
     CNodeCreationManager *m_pNCManager;
     
     int getColour(NodeTemplate *pTemplate, CDasherNode *pParent);
-
+    CDasherScreen *m_pScreen;
+    
   private:
     NodeTemplate *m_pRoot;
   };
