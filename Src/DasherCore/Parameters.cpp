@@ -124,7 +124,7 @@ const lp_table longparamtable[] = {
   {LP_CONVERSION_TYPE, "ConversionType", 0, "Conversion type"},
   {LP_TWO_PUSH_OUTER, "TwoPushOuter", 1792, "Offset for one button dynamic mode outer marker"},
   {LP_TWO_PUSH_LONG, "TwoPushLong", 512, _("Distance between down markers (long gap)")},
-  {LP_TWO_PUSH_SHORT, "TwoPushShort", 80, _("Distance between up markers, as %age of long gap")},
+  {LP_TWO_PUSH_SHORT, "TwoPushShort", 80, _("Distance between up markers, as percentage of long gap")},
   {LP_TWO_PUSH_TOLERANCE, "TwoPushTolerance", 100, "Tolerance of two-push-mode pushes, in ms"},
   {LP_DYNAMIC_BUTTON_LAG, "DynamicButtonLag", 50, "Lag of pushes in dynamic button mode (ms)"},
   {LP_STATIC1B_TIME, "Static1BTime", 2000, "Time for static-1B mode to scan from top to bottom (ms)"},
