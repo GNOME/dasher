@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: dasher gnome-master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-11-22 18:52+0000\n"
-"PO-Revision-Date: 2011-11-25 09:27+0100\n"
+"POT-Creation-Date: 2011-11-25 12:13+0000\n"
+"PO-Revision-Date: 2011-11-25 13:26+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -530,7 +530,6 @@ msgstr "_Importovat učící text…"
 #. / is a section excerpt from the file, containing the error.
 #: ../Src/DasherCore/AbstractXMLParser.cpp:64
 #, c-format
-#| msgid "XML Error %s in file %s somewhere in block: %s"
 msgid "XML Error %s in %s somewhere in block: %s"
 msgstr "Chyba XML %s v souboru %s někde v bloku: %s"
 
@@ -644,7 +643,7 @@ msgstr "Zvětšení zprava"
 msgid "Compass Mode"
 msgstr "Režim kompasu"
 
-#: ../Src/DasherCore/ControlManager.cpp:247
+#: ../Src/DasherCore/ControlManager.cpp:249
 msgid "Done"
 msgstr "Hotovo"
 
@@ -705,8 +704,8 @@ msgstr ""
 "trojúhelníky, 4=čtyřúhelníky, 5=kruhy"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:19
-msgid "Hold right mouse button / key 1 to go 75% faster"
-msgstr "Přidržením pravého tlačítka myši / klávesy 1 zrychlíte o 75%"
+msgid "Hold right mouse button / key 1 to go 3/4 faster"
+msgstr "Přidržením pravého tlačítka myši / klávesy 1 zrychlíte o ¾"
 
 #: ../Src/DasherCore/DemoFilter.cpp:15
 msgid "Demo Mode (no input)"
@@ -856,8 +855,9 @@ msgstr "Vzdálenost mezi dolními značkami (dlouhý odstup)"
 
 #: ../Src/DasherCore/Parameters.cpp:127
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:32
+#, no-c-format
 msgid "Distance between up markers, as %age of long gap"
-msgstr "Vzdálenost mezi horními značkami, jako procenta z dlouhého odstupu"
+msgstr "Vzdálenost mezi horními značkami, procentuálně z dlouhého odstupu"
 
 #: ../Src/DasherCore/SettingsStore.cpp:75
 #: ../Src/Gtk2/DasherAppSettings.cpp:540 ../Src/Gtk2/DasherAppSettings.cpp:574
@@ -965,7 +965,6 @@ msgstr ""
 
 #: ../Src/DasherCore/Trainer.cpp:100
 #, c-format
-#| msgid "Unable to open file \"%f\" for reading"
 msgid "Unable to open file \"%s\" for reading"
 msgstr "Nelze otevřít soubor „%s“ pro čtení"
 
