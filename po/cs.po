@@ -15,21 +15,21 @@ msgstr ""
 "Project-Id-Version: dasher gnome-master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-08-23 14:32+0000\n"
-"PO-Revision-Date: 2011-11-09 14:45+0100\n"
+"POT-Creation-Date: 2011-11-22 18:52+0000\n"
+"PO-Revision-Date: 2011-11-25 09:27+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
-"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
-#: ../Data/dasher.desktop.in.in.h:1 ../Data/GUI/dasher.traditional.ui.h:6
-#: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dashermaemofullscreen.ui.h:2
-#: ../Src/Gtk2/dasher_main.cpp:900
+#: ../Data/dasher.desktop.in.in.h:1 ../Data/GUI/dashermaemofullscreen.ui.h:2
+#: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dasher.traditional.ui.h:6
+#: ../Src/Gtk2/dasher_main.cpp:899
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -41,15 +41,206 @@ msgstr "Vložit text bez klávesnice"
 msgid "Predictive text entry"
 msgstr "Prediktivní vstup textu"
 
-#: ../Data/GUI/dasher.preferences.ui.h:1
+#: ../Data/GUI/dashermaemofullscreen.ui.h:1
+#: ../Data/GUI/dasher.traditional.ui.h:4
+msgid "Copy _All"
+msgstr "Kopírovat _vše"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:3
+msgid "Large"
+msgstr "Velké"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:4
+msgid "Normal"
+msgstr "Normální"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:5 ../Data/GUI/dashermaemo.ui.h:5
+#: ../Src/Gtk2/dasher_editor_internal.cpp:813
+#: ../Src/Gtk2/dasher_editor_internal.cpp:847 ../Src/Gtk2/dasher_main.cpp:914
+msgid "Select File"
+msgstr "Zvolte soubor"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:6 ../Data/GUI/dashermaemo.ui.h:6
+msgid "Select Font"
+msgstr "Zvolte písmo"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:7
+msgid "Very Large"
+msgstr "Velmi velké"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:8
+msgid "_About"
+msgstr "O _aplikaci"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:9
+msgid "_Dasher Font"
+msgstr "_Písmo Dasheru"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:10
+msgid "_Dasher Font Size"
+msgstr "_Velikost písma Dasheru"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:11
+#: ../Data/GUI/dasher.traditional.ui.h:20
+msgid "_Edit"
+msgstr "_Upravit"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:12
+msgid "_Edit Font"
+msgstr "_Upravit písmo"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:13
+#: ../Data/GUI/dasher.traditional.ui.h:21
+msgid "_File"
+msgstr "_Soubor"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:14
+#: ../Data/GUI/dasher.traditional.ui.h:23
+msgid "_Help"
+msgstr "_Nápověda"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:15
+msgid "_Options"
+msgstr "_Možnosti"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:16
+msgid "_Reset fonts"
+msgstr "_Vrátit písma na výchozí"
+
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
+#: ../Data/GUI/dasher.preferences.ui.h:1
 msgid "<b>Adaptation</b>"
 msgstr "<b>Adaptace</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:2
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
+#: ../Data/GUI/dasher.preferences.ui.h:2
 msgid "<b>Alphabet Selection</b>"
 msgstr "<b>Výběr abecedy</b>"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:3
+msgid "<b>Color Scheme</b>"
+msgstr "<b>Schéma barev</b>"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:4
+msgid "<b>Display Size</b>"
+msgstr "<b>Velikost obrazovky</b>"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:5
+#: ../Data/GUI/dasher.preferences.ui.h:13
+msgid "<b>Language Model</b>"
+msgstr "<b>Model jazyka</b>"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:6
+msgid "<b>Orientation</b>"
+msgstr "<b>Orientace</b>"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:7
+#: ../Data/GUI/dasher.preferences.ui.h:14
+msgid "<b>Smoothing</b>"
+msgstr "<b>Vyhlazování</b>"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:8
+#: ../Data/GUI/dasher.preferences.ui.h:15
+msgid "<b>Speed</b>"
+msgstr "<b>Rychlost</b>"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:9
+#: ../Data/GUI/dasher.preferences.ui.h:18
+msgid "Adapt speed automatically"
+msgstr "Automaticky přizpůsobit rychlost"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:10
+msgid "Alphabet"
+msgstr "Abeceda"
+
+#. The default display orientation for the selected alphabet, i.e., left to right for English, right to left for Arabic, etc.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:11
+#: ../Data/GUI/dasher.preferences.ui.h:20
+msgid "Alphabet Default"
+msgstr "Výchozí abeceda"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:12
+msgid "Bottom to Top"
+msgstr "Odspodu nahoru"
+
+#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:14
+msgid "Control"
+msgstr "Ovládání"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:15
+msgid "Custom"
+msgstr "Vlastní"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:16
+#: ../Data/GUI/dasher.preferences.ui.h:32
+msgid "Custom colour scheme:"
+msgstr "Vlastní schéma barev:"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:17
+#: ../Data/GUI/dasher.preferences.ui.h:33
+msgid "Dasher Preferences"
+msgstr "Nastavení Dasheru"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:18
+msgid "Enlarge input window"
+msgstr "Zvětšit vstupní okno"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:19
+#: ../Data/GUI/dasher.preferences.ui.h:43
+msgid "Japanese"
+msgstr "Japonská"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:20
+#: ../Data/GUI/dasher.preferences.ui.h:44
+msgid "Language model adapts as you write."
+msgstr "Model jazyka se adaptuje, když píšete."
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:21
+msgid "Left to Right"
+msgstr "Zleva doprava"
+
+#. PPM = Prediction by Partial Match, a statistical language model.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:22
+#: ../Data/GUI/dasher.preferences.ui.h:47
+msgid "Mixture model (PPM/dictionary)"
+msgstr "Sloučený model (PPM/slovník)"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:23
+msgid "Prediction"
+msgstr "Předpovídání"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:24
+msgid "Right to Left"
+msgstr "Zprava doleva"
+
+#. PPM = Prediction by Partial Match, a statistical language model.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:25
+#: ../Data/GUI/dasher.preferences.ui.h:60
+msgid "Standard letter-based PPM"
+msgstr "Standardní PPM založené na písmenech"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:26
+msgid "Top to Bottom"
+msgstr "Shora dolů"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:27
+msgid "View"
+msgstr "Zobrazit"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:28
+#: ../Data/GUI/dasher.preferences.ui.h:71
+msgid "Word-based model"
+msgstr "Model založený na slovech"
+
+#. Abbreviation for Preferences
+#: ../Data/GUI/dashermaemo.ui.h:3
+msgid "P"
+msgstr "P"
+
+#: ../Data/GUI/dashermaemo.ui.h:4 ../Data/GUI/dasher.traditional.ui.h:11
+msgid "Please Wait…"
+msgstr "Čekejte prosím…"
 
 #: ../Data/GUI/dasher.preferences.ui.h:3
 msgid "<b>Appearance Options</b>"
@@ -88,21 +279,6 @@ msgstr "<b>Písmo editoru</b>"
 msgid "<b>Input Device</b>"
 msgstr "<b>Vstupní zařízení</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:13
-#: ../Data/GUI/dashermaemo.preferences.ui.h:5
-msgid "<b>Language Model</b>"
-msgstr "<b>Model jazyka</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:14
-#: ../Data/GUI/dashermaemo.preferences.ui.h:7
-msgid "<b>Smoothing</b>"
-msgstr "<b>Vyhlazování</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:15
-#: ../Data/GUI/dashermaemo.preferences.ui.h:8
-msgid "<b>Speed</b>"
-msgstr "<b>Rychlost</b>"
-
 #: ../Data/GUI/dasher.preferences.ui.h:16
 msgid "<b>Starting and Stopping</b>"
 msgstr "<b>Spouštění a zastavování</b>"
@@ -110,17 +286,6 @@ msgstr "<b>Spouštění a zastavování</b>"
 #: ../Data/GUI/dasher.preferences.ui.h:17
 msgid "A_pplication"
 msgstr "A_plikace"
-
-#: ../Data/GUI/dasher.preferences.ui.h:18
-#: ../Data/GUI/dashermaemo.preferences.ui.h:9
-msgid "Adapt speed automatically"
-msgstr "Automaticky přizpůsobit rychlost"
-
-#. The default display orientation for the selected alphabet, i.e., left to right for English, right to left for Arabic, etc.
-#: ../Data/GUI/dasher.preferences.ui.h:20
-#: ../Data/GUI/dashermaemo.preferences.ui.h:11
-msgid "Alphabet Default"
-msgstr "Výchozí abeceda"
 
 #: ../Data/GUI/dasher.preferences.ui.h:21
 msgid "Always Bottom-to-Top"
@@ -160,16 +325,6 @@ msgstr "Režim ovládání"
 msgid "Copy All on stop"
 msgstr "Kopírovat vše při zastavení"
 
-#: ../Data/GUI/dasher.preferences.ui.h:32
-#: ../Data/GUI/dashermaemo.preferences.ui.h:16
-msgid "Custom colour scheme:"
-msgstr "Vlastní schéma barev:"
-
-#: ../Data/GUI/dasher.preferences.ui.h:33
-#: ../Data/GUI/dashermaemo.preferences.ui.h:17
-msgid "Dasher Preferences"
-msgstr "Nastavení Dasheru"
-
 #: ../Data/GUI/dasher.preferences.ui.h:34
 msgid "Direct entry"
 msgstr "Přímá položka"
@@ -206,25 +361,9 @@ msgstr "Včetně příkazů pro čtení"
 msgid "Increase line thickness"
 msgstr "Zvětšit tloušťku čáry"
 
-#: ../Data/GUI/dasher.preferences.ui.h:43
-#: ../Data/GUI/dashermaemo.preferences.ui.h:19
-msgid "Japanese"
-msgstr "Japonská"
-
-#: ../Data/GUI/dasher.preferences.ui.h:44
-#: ../Data/GUI/dashermaemo.preferences.ui.h:20
-msgid "Language model adapts as you write."
-msgstr "Model jazyka se adaptuje, když píšete."
-
 #: ../Data/GUI/dasher.preferences.ui.h:45
 msgid "Large font "
 msgstr "Velké písmo "
-
-#. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/GUI/dasher.preferences.ui.h:47
-#: ../Data/GUI/dashermaemo.preferences.ui.h:22
-msgid "Mixture model (PPM/dictionary)"
-msgstr "Sloučený model (PPM/slovník)"
 
 #: ../Data/GUI/dasher.preferences.ui.h:48
 msgid "Options"
@@ -270,12 +409,6 @@ msgstr "Číst slova při psaní"
 msgid "Stand-alone"
 msgstr "Samostatné"
 
-#. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/GUI/dasher.preferences.ui.h:60
-#: ../Data/GUI/dashermaemo.preferences.ui.h:25
-msgid "Standard letter-based PPM"
-msgstr "Standardní PPM založené na písmenech"
-
 #: ../Data/GUI/dasher.preferences.ui.h:61
 msgid "Start on left mouse button"
 msgstr "Spustit levým tlačítkem myši"
@@ -311,11 +444,6 @@ msgstr ""
 msgid "Very large font"
 msgstr "Velmi velké písmo"
 
-#: ../Data/GUI/dasher.preferences.ui.h:71
-#: ../Data/GUI/dashermaemo.preferences.ui.h:28
-msgid "Word-based model"
-msgstr "Model založený na slovech"
-
 #: ../Data/GUI/dasher.preferences.ui.h:72
 msgid "_Appearance"
 msgstr "Vz_hled"
@@ -335,11 +463,6 @@ msgstr "Abeceda:"
 #: ../Data/GUI/dasher.traditional.ui.h:3
 msgid "Copy"
 msgstr "Kopírovat"
-
-#: ../Data/GUI/dasher.traditional.ui.h:4
-#: ../Data/GUI/dashermaemofullscreen.ui.h:1
-msgid "Copy _All"
-msgstr "Kopírovat _vše"
 
 #: ../Data/GUI/dasher.traditional.ui.h:5
 msgid "Cut"
@@ -361,10 +484,6 @@ msgstr "Otevřít soubor"
 msgid "Paste"
 msgstr "Vložit"
 
-#: ../Data/GUI/dasher.traditional.ui.h:11 ../Data/GUI/dashermaemo.ui.h:4
-msgid "Please Wait…"
-msgstr "Čekejte prosím…"
-
 #: ../Data/GUI/dasher.traditional.ui.h:12
 msgid "Pr_eferences…"
 msgstr "_Předvolby…"
@@ -373,7 +492,7 @@ msgstr "_Předvolby…"
 msgid "Preferences"
 msgstr "Nastavení"
 
-#: ../Data/GUI/dasher.traditional.ui.h:14 ../Src/Gtk2/dasher_main.cpp:993
+#: ../Data/GUI/dasher.traditional.ui.h:14 ../Src/Gtk2/dasher_main.cpp:992
 msgid "Quit"
 msgstr "Ukončit"
 
@@ -397,136 +516,22 @@ msgstr "O _aplikaci…"
 msgid "_Contents…"
 msgstr "_Obsah…"
 
-#: ../Data/GUI/dasher.traditional.ui.h:20
-#: ../Data/GUI/dashermaemofullscreen.ui.h:11
-msgid "_Edit"
-msgstr "_Upravit"
-
-#: ../Data/GUI/dasher.traditional.ui.h:21
-#: ../Data/GUI/dashermaemofullscreen.ui.h:13
-msgid "_File"
-msgstr "_Soubor"
-
 #: ../Data/GUI/dasher.traditional.ui.h:22
 msgid "_Game Mode"
 msgstr "_Herní režim"
-
-#: ../Data/GUI/dasher.traditional.ui.h:23
-#: ../Data/GUI/dashermaemofullscreen.ui.h:14
-msgid "_Help"
-msgstr "_Nápověda"
 
 #: ../Data/GUI/dasher.traditional.ui.h:24
 msgid "_Import Training Text…"
 msgstr "_Importovat učící text…"
 
-#. Abbreviation for Preferences
-#: ../Data/GUI/dashermaemo.ui.h:3
-msgid "P"
-msgstr "P"
-
-#: ../Data/GUI/dashermaemo.ui.h:5 ../Data/GUI/dashermaemofullscreen.ui.h:5
-#: ../Src/Gtk2/dasher_editor_internal.cpp:812
-#: ../Src/Gtk2/dasher_editor_internal.cpp:846 ../Src/Gtk2/dasher_main.cpp:915
-msgid "Select File"
-msgstr "Zvolte soubor"
-
-#: ../Data/GUI/dashermaemo.ui.h:6 ../Data/GUI/dashermaemofullscreen.ui.h:6
-msgid "Select Font"
-msgstr "Zvolte písmo"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>Schéma barev</b>"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>Velikost obrazovky</b>"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>Orientace</b>"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:10
-msgid "Alphabet"
-msgstr "Abeceda"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:12
-msgid "Bottom to Top"
-msgstr "Odspodu nahoru"
-
-#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
-#: ../Data/GUI/dashermaemo.preferences.ui.h:14
-msgid "Control"
-msgstr "Ovládání"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:15
-msgid "Custom"
-msgstr "Vlastní"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:18
-msgid "Enlarge input window"
-msgstr "Zvětšit vstupní okno"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:21
-msgid "Left to Right"
-msgstr "Zleva doprava"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:23
-msgid "Prediction"
-msgstr "Předpovídání"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:24
-msgid "Right to Left"
-msgstr "Zprava doleva"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:26
-msgid "Top to Bottom"
-msgstr "Shora dolů"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:27
-msgid "View"
-msgstr "Zobrazit"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:3
-msgid "Large"
-msgstr "Velké"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:4
-msgid "Normal"
-msgstr "Normální"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:7
-msgid "Very Large"
-msgstr "Velmi velké"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:8
-msgid "_About"
-msgstr "O _aplikaci"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:9
-msgid "_Dasher Font"
-msgstr "_Písmo Dasheru"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:10
-msgid "_Dasher Font Size"
-msgstr "_Velikost písma Dasheru"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:12
-msgid "_Edit Font"
-msgstr "_Upravit písmo"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:15
-msgid "_Options"
-msgstr "_Možnosti"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:16
-msgid "_Reset fonts"
-msgstr "_Vrátit písma na výchozí"
-
-#: ../Src/DasherCore/AbstractXMLParser.cpp:40
+#. think XML_LChar==char, depends on preprocessor variables...
+#. /TRANSLATORS: the first string is the error message from the XML Parser;
+#. / the second is the URL of the file we're trying to read; the third
+#. / is a section excerpt from the file, containing the error.
+#: ../Src/DasherCore/AbstractXMLParser.cpp:64
 #, c-format
-msgid "XML Error %s in file %s somewhere in block: %s"
+#| msgid "XML Error %s in file %s somewhere in block: %s"
+msgid "XML Error %s in %s somewhere in block: %s"
 msgstr "Chyba XML %s v souboru %s někde v bloku: %s"
 
 #: ../Src/DasherCore/Alphabet/AlphabetMap.cpp:116
@@ -546,7 +551,7 @@ msgstr "Načten neplatný znak UTF-8 0x%x"
 #. /TRANSLATORS: the string "GameTextFile" is the name of a setting in gsettings
 #. / (or equivalent), and should not be translated. The %s is the value of that
 #. / setting (this message displayed only if the user has provided a value)
-#: ../Src/DasherCore/AlphabetManager.cpp:162
+#: ../Src/DasherCore/AlphabetManager.cpp:163
 #, c-format
 msgid ""
 "Note: GameTextFile setting specifies game sentences file '%s' but this does "
@@ -639,9 +644,13 @@ msgstr "Zvětšení zprava"
 msgid "Compass Mode"
 msgstr "Režim kompasu"
 
+#: ../Src/DasherCore/ControlManager.cpp:247
+msgid "Done"
+msgstr "Hotovo"
+
 #. /TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
 #. / refers to a setting name in gsettings or equivalent, and should not be translated.
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:306
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:315
 #, c-format
 msgid ""
 "Could not find game sentences file for %s - check alphabet definition, or "
@@ -650,16 +659,16 @@ msgstr ""
 "Nelze najít soubor s herními větami pro %s – zkontrolujte definici abecedy "
 "nebo změňte nastavení GameTextFile"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:785
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:790
 msgid "Normal Control"
 msgstr "Běžné ovládání"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:801
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:806
 msgid "Menu Mode"
 msgstr "Režim nabídky"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:802
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:807
 msgid "Direct Mode"
 msgstr "Přímý režim"
 
@@ -695,18 +704,43 @@ msgstr ""
 "Typ tvaru: 0=oddělené obdélníky, 1=překrývání, 2=trojúhelníky, 3=ořezané "
 "trojúhelníky, 4=čtyřúhelníky, 5=kruhy"
 
-#. 1. Look for system training text...
-#: ../Src/DasherCore/NodeCreationManager.cpp:81
-msgid "Training on System Text"
-msgstr "Trénování na systémovém textu"
+#: ../Src/DasherCore/DefaultFilter.cpp:19
+msgid "Hold right mouse button / key 1 to go 75% faster"
+msgstr "Přidržením pravého tlačítka myši / klávesy 1 zrychlíte o 75%"
 
-#. 2. Now add in any user-provided individual training text...
-#: ../Src/DasherCore/NodeCreationManager.cpp:83
+#: ../Src/DasherCore/DemoFilter.cpp:15
+msgid "Demo Mode (no input)"
+msgstr "Ukázkový režim(bez vstupu)"
+
+#: ../Src/DasherCore/GameModule.cpp:8
+msgid "Filename of sentences to enter"
+msgstr "Název soubor s větami, které se zadávají"
+
+#: ../Src/DasherCore/GameModule.cpp:9
+msgid "Distance of sentence from center to decide user needs help"
+msgstr ""
+"Vzdálenost věty od středu rozhodující o tom, zda uživatel potřebuje nápovědu"
+
+#: ../Src/DasherCore/GameModule.cpp:10
+msgid "Time for which user must need help before help drawn"
+msgstr ""
+"Doba, po kterou musí uživatel potřebovat nápovědu, než se mu nápověda "
+"vykreslí"
+
+#: ../Src/DasherCore/GameModule.cpp:11
+msgid "When we give help, show the shortest path to the target sentence?"
+msgstr "Když dostaneme nápovědu, má se zobrazit nejkratší cesta k cílové větě?"
+
+#: ../Src/DasherCore/NodeCreationManager.cpp:32
 msgid "Training on User Text"
 msgstr "Trénování na uživatelském textu"
 
+#: ../Src/DasherCore/NodeCreationManager.cpp:32
+msgid "Training on System Text"
+msgstr "Trénování na systémovém textu"
+
 #. /TRANSLATORS: These 3 messages will be displayed when the user has just chosen a new alphabet. The %s parameter will be the name of the alphabet.
-#: ../Src/DasherCore/NodeCreationManager.cpp:85
+#: ../Src/DasherCore/NodeCreationManager.cpp:92
 #, c-format
 msgid ""
 "No user training text found - if you have written in \"%s\" before, this "
@@ -715,7 +749,7 @@ msgstr ""
 "Nebyl nalezen žádný uživatelský trénovací text – pokud jste jej napsali "
 "dříve v „%s“, znamená to, že Dasher nelze učit podle předchozích sezení"
 
-#: ../Src/DasherCore/NodeCreationManager.cpp:86
+#: ../Src/DasherCore/NodeCreationManager.cpp:93
 #, c-format
 msgid ""
 "No training text (user or system) found for \"%s\". Dasher will still work "
@@ -727,7 +761,7 @@ msgstr ""
 "stáhnout soubor s trénovacím textem z webových stránek Dasher nebo si "
 "sestavit svůj vlastní."
 
-#: ../Src/DasherCore/NodeCreationManager.cpp:97
+#: ../Src/DasherCore/NodeCreationManager.cpp:99
 #, c-format
 msgid ""
 "\"%s\" does not specify training file. Dasher will work but entry will be "
@@ -739,7 +773,6 @@ msgstr ""
 #. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:35
 msgid "Long press time"
 msgstr "Čas dlouhého stisku"
 
@@ -755,7 +788,7 @@ msgstr "Povolit tlačítko Backoff"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:36
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:37
 msgid "Slow startup"
 msgstr "Pomalý start"
 
@@ -766,19 +799,19 @@ msgstr "Čas startu"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:38
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:46
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
 msgid "Percentage by which to automatically increase speed"
 msgstr "Procento automatického navyšování rychlosti"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:47
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:41
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
 msgid "Time after which to automatically increase speed (secs)"
 msgstr "Doba v sekundách, po které automaticky navyšovat rychlost"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:40
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:48
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:41
 msgid "Percentage by which to decrease speed upon reverse"
 msgstr "O kolik procent se snižuje rychlost při přehození"
 
@@ -786,17 +819,17 @@ msgstr "O kolik procent se snižuje rychlost při přehození"
 msgid "One Button Dynamic Mode"
 msgstr "Dynamický režim jednoho tlačítka"
 
-#: ../Src/DasherCore/OneButtonFilter.cpp:11
+#: ../Src/DasherCore/OneButtonFilter.cpp:12
 msgid "Scan time (each direction), in ms"
 msgstr "Čas procházení v milisekundách (každý směr)"
 
-#: ../Src/DasherCore/OneButtonFilter.cpp:12
+#: ../Src/DasherCore/OneButtonFilter.cpp:13
 msgid "Factor by which to zoom in"
 msgstr "Krok, po kterém se přibližuje"
 
-#: ../Src/DasherCore/OneButtonFilter.cpp:13
+#: ../Src/DasherCore/OneButtonFilter.cpp:14
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:43
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
 msgid "Lag before user actually pushes button (ms)"
 msgstr "Prodleva v milisekundách před stisknutím tlačítka uživatelem"
 
@@ -805,13 +838,34 @@ msgstr "Prodleva v milisekundách před stisknutím tlačítka uživatelem"
 msgid "One Dimensional Mode"
 msgstr "Režim jednoho rozměru"
 
-#: ../Src/DasherCore/SettingsStore.cpp:82
+#: ../Src/DasherCore/Parameters.cpp:61
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:34
+msgid ""
+"Use push and release times of single press rather than push times of two "
+"presses"
+msgstr ""
+"Použijte raději několik stisknutí a uvolnění jako jednoduchá zmáčknutí než "
+"několik stisknutí jako dvojité zmáčknutí"
+
+#. divisor
+#. step
+#: ../Src/DasherCore/Parameters.cpp:126
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:31
+msgid "Distance between down markers (long gap)"
+msgstr "Vzdálenost mezi dolními značkami (dlouhý odstup)"
+
+#: ../Src/DasherCore/Parameters.cpp:127
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:32
+msgid "Distance between up markers, as %age of long gap"
+msgstr "Vzdálenost mezi horními značkami, jako procenta z dlouhého odstupu"
+
+#: ../Src/DasherCore/SettingsStore.cpp:75
 #: ../Src/Gtk2/DasherAppSettings.cpp:540 ../Src/Gtk2/DasherAppSettings.cpp:574
 #: ../Src/Gtk2/DasherAppSettings.cpp:578
 msgid "true"
 msgstr "true"
 
-#: ../Src/DasherCore/SettingsStore.cpp:84
+#: ../Src/DasherCore/SettingsStore.cpp:77
 #: ../Src/Gtk2/DasherAppSettings.cpp:542 ../Src/Gtk2/DasherAppSettings.cpp:574
 #: ../Src/Gtk2/DasherAppSettings.cpp:578
 msgid "false"
@@ -820,14 +874,14 @@ msgstr "false"
 #. Note to translators: This message will be output for a command line
 #. with "--options foo=VAL" and foo is a boolean valued parameter, but
 #. "VAL" is not true or false.
-#: ../Src/DasherCore/SettingsStore.cpp:90
+#: ../Src/DasherCore/SettingsStore.cpp:83
 #: ../Src/Gtk2/DasherAppSettings.cpp:545
 msgid "boolean value must be specified as 'true' or 'false'."
 msgstr "Pravdivostní hodnota musí být zapsána jako „true“ nebo „false“."
 
 #. Note to translators: This is output when command line "--options" doesn't
 #. specify a known option.
-#: ../Src/DasherCore/SettingsStore.cpp:110
+#: ../Src/DasherCore/SettingsStore.cpp:103
 msgid "unknown option, use \"--help-options\" for more information."
 msgstr "neznámá volba, více informací zobrazíte pomocí „--help-options“."
 
@@ -900,7 +954,7 @@ msgid "Stylus Control"
 msgstr "Ovládání pomocí pera"
 
 #. no context switch commands will be executed!
-#: ../Src/DasherCore/Trainer.cpp:32
+#: ../Src/DasherCore/Trainer.cpp:34
 #, c-format
 msgid ""
 "Warning: faulty alphabet definition, escape sequence %s must be a single "
@@ -909,17 +963,18 @@ msgstr ""
 "Varování: chybná definice abecedy, sekvencí escape %s musí být jediný znak "
 "unikódu. Toto může v aplikaci Dasher zhoršit předvídání textu."
 
-#: ../Src/DasherCore/Trainer.cpp:122
+#: ../Src/DasherCore/Trainer.cpp:100
 #, c-format
-msgid "Unable to open file \"%f\" for reading"
-msgstr "Nelze otevřít soubor „%f“ pro čtení"
+#| msgid "Unable to open file \"%f\" for reading"
+msgid "Unable to open file \"%s\" for reading"
+msgstr "Nelze otevřít soubor „%s“ pro čtení"
 
-#: ../Src/DasherCore/Trainer.cpp:173
+#: ../Src/DasherCore/Trainer.cpp:125
 #, c-format
 msgid "Training file contains unknown source alphabet character %s"
 msgstr "Trénovací soubor obsahuje neznámý znak %s ve zdrojové abecedě"
 
-#: ../Src/DasherCore/Trainer.cpp:183
+#: ../Src/DasherCore/Trainer.cpp:130
 #, c-format
 msgid "Training file contains unknown target alphabet character %s"
 msgstr "Trénovací soubor obsahuje neznámý znak %s v cílové abecedě"
@@ -936,7 +991,7 @@ msgstr "Interval pro vícenásobný stisk"
 
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:37
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:37
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:36
 msgid "Enable backoff and start/stop buttons"
 msgstr "Povolit tlačítko Backoff a tlačítka Start/Stop"
 
@@ -960,25 +1015,15 @@ msgstr "Dynamický režim dvou tlačítek"
 msgid "Offset for outer (second) button"
 msgstr "Posun v sekundách pro vnější tlačítko"
 
-#. divisor
-#. step
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:31
-msgid "Distance for 1st button UP"
-msgstr "Vzdálenost pro první tlačítko NAHORU"
-
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:32
-msgid "Distance for 1st button DOWN"
-msgstr "Vzdálenost pro první tlačítko DOLŮ"
-
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:33
 msgid "Tolerance for inaccurate timing of button pushes (in ms)"
 msgstr "Tolerance nepřesností pravidelných stisků tlačítka (v milisekundách)"
 
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
 msgid "Slow startup time"
 msgstr "Zobrazit čas startu"
 
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:47
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:46
 msgid "Two-push Dynamic Mode (New One Button)"
 msgstr "Dynamický režim dvojitého mačkání (jedno nové tlačítko)"
 
@@ -1014,7 +1059,7 @@ msgstr "chybí nastavení voleb za „=“."
 msgid "Invalid option string specified"
 msgstr "Chybně zapsaný řetězec parametru"
 
-#: ../Src/Gtk2/dasher_main.cpp:621
+#: ../Src/Gtk2/dasher_main.cpp:620
 msgid ""
 "Welcome to Dasher Game Mode! Game Mode is a fun way to practice entering "
 "text in Dasher. Please select a training text to play with:"
@@ -1023,19 +1068,19 @@ msgstr ""
 "se naučit v aplikaci Dasher zadávat text. Vyberte prosím trénovací text, se "
 "kterým chcete hrát:"
 
-#: ../Src/Gtk2/dasher_main.cpp:623
+#: ../Src/Gtk2/dasher_main.cpp:622
 msgid "Use Default"
 msgstr "Použít výchozí"
 
-#: ../Src/Gtk2/dasher_main.cpp:624
+#: ../Src/Gtk2/dasher_main.cpp:623
 msgid "Choose File..."
 msgstr "Zvolit soubor…"
 
-#: ../Src/Gtk2/dasher_main.cpp:625
+#: ../Src/Gtk2/dasher_main.cpp:624
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: ../Src/Gtk2/dasher_main.cpp:648
+#: ../Src/Gtk2/dasher_main.cpp:647
 msgid ""
 "Are you sure you wish to turn off game mode? All unsaved changes will be "
 "lost."
@@ -1043,7 +1088,7 @@ msgstr ""
 "Opravdu si přejete vypnout herní režim? Všechny neuložené změny budou "
 "ztraceny."
 
-#: ../Src/Gtk2/dasher_main.cpp:955
+#: ../Src/Gtk2/dasher_main.cpp:954
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -1054,7 +1099,7 @@ msgstr ""
 "\n"
 "Pokud vaše změny neuložíte, budou ztraceny."
 
-#: ../Src/Gtk2/dasher_main.cpp:962
+#: ../Src/Gtk2/dasher_main.cpp:961
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -1064,31 +1109,31 @@ msgstr ""
 "\n"
 "Pokud vaše změny neuložíte, budou ztraceny."
 
-#: ../Src/Gtk2/dasher_main.cpp:968
+#: ../Src/Gtk2/dasher_main.cpp:967
 msgid "Don't save"
 msgstr "Neukládat"
 
-#: ../Src/Gtk2/dasher_main.cpp:969 ../Src/Gtk2/dasher_main.cpp:992
+#: ../Src/Gtk2/dasher_main.cpp:968 ../Src/Gtk2/dasher_main.cpp:991
 msgid "Don't quit"
 msgstr "Neukončovat"
 
-#: ../Src/Gtk2/dasher_main.cpp:970
+#: ../Src/Gtk2/dasher_main.cpp:969
 msgid "Save and quit"
 msgstr "Uložit a ukončit"
 
-#: ../Src/Gtk2/dasher_main.cpp:989
+#: ../Src/Gtk2/dasher_main.cpp:988
 msgid "Are you sure you wish to quit?"
 msgstr "Jste si jisti, že chcete program ukončit?"
 
-#: ../Src/Gtk2/dasher_main.cpp:1031
+#: ../Src/Gtk2/dasher_main.cpp:1030
 msgid "Unable to open help file"
 msgstr "Nelze otevřít soubor s nápovědou"
 
-#: ../Src/Gtk2/dasher_main.cpp:1083
+#: ../Src/Gtk2/dasher_main.cpp:1082
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher je aplikace pro prediktivní vstup textu"
 
-#: ../Src/Gtk2/dasher_main.cpp:1088
+#: ../Src/Gtk2/dasher_main.cpp:1087
 msgid "translator-credits"
 msgstr ""
 "Miloslav Trmač <mitr@volny.cz>\n"
