@@ -86,7 +86,7 @@ void CGameModule::HandleEvent(CGameNodeDrawEvent *gmd) {
   //game nodes form a single chain, i.e. are strictly nested.
   // we want the coordinates of the smallest (innermost) one about which we are told
   if (gmd->m_y1 > m_y1) m_y1 = gmd->m_y1;
-  if (gmd->m_y2 < m_y1) m_y2 = gmd->m_y2;
+  if (gmd->m_y2 < m_y2) m_y2 = gmd->m_y2;
 }
 
 void CGameModule::HandleEvent(CDasherView *pView) {
