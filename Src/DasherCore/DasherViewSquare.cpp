@@ -394,8 +394,8 @@ void CDasherViewSquare::DasherSpaceArc(myint cy, myint r, myint x1, myint y1, my
   Dasher2Screen(x1, y1, p.x, p.y);
   vector<CDasherScreen::point> pts;
   pts.push_back(p);
-  //if circle goes behind crosshair, force division into at least two sections, with point of max-x as boundary
-  if (r>CDasherModel::ORIGIN_X) {
+  //if circle goes behind crosshair and we want the point of max-x, force division into two sections with that point as boundary
+  if (r>CDasherModel::ORIGIN_X && ((y1 < cy) ^ (y2 < cy))) {
     Dasher2Screen(r, cy, p.x, p.y);
     CircleTo(cy, r, y1, x1, cy, r, p, pts, 1.0);
     x1=r; y1=cy;
