@@ -16,7 +16,7 @@ static SModuleSettings sSettings[] = {
   {BP_REMAP_XTREME, T_BOOL, -1, -1, -1, -1, _("At top and bottom, scroll more and translate less (makes error-correcting easier)")},
   {LP_GEOMETRY, T_LONG, 0, 3, 1, 1, _("Screen geometry (mostly for tall thin screens) - 0=old-style, 1=square no-xhair, 2=squish, 3=squish+log")},
   {LP_SHAPE_TYPE, T_LONG, 0, 5, 1, 1, _("Shape type: 0=disjoint rects, 1=overlapping, 2=triangles, 3=trunc-tris, 4=quadrics, 5=circles")},
-  {BP_TURBO_MODE, T_BOOL, -1, -1, -1, -1, _("Hold right mouse button / key 1 to go 75% faster")},
+  {BP_TURBO_MODE, T_BOOL, -1, -1, -1, -1, _("Hold right mouse button / key 1 to go 3/4 faster")},
 };
 
 bool CDefaultFilter::GetSettings(SModuleSettings **sets, int *iCount) {
