@@ -120,19 +120,26 @@ void CGameModule::DecorateView(unsigned long lTime, CDasherView *pView, CDasherM
   
   const myint iNewTarget((m_y1+m_y2)/2);
   m_vTargetY.push_back(iNewTarget);
-  bool bDrawHelper=false;
-
-  // gcc 4.5.3 abs(myint) returns __gnu_cxx::__enable_if<true, double>::__type
-  // rather than myint, so max doesn't receive 2 of the same type.
-  myint gcc45_workaround = abs(m_iTargetY-CDasherModel::ORIGIN_Y);
-  if (abs(iNewTarget - CDasherModel::ORIGIN_Y) >=
-      max(myint(GetLongParameter(LP_GAME_HELP_DIST)),gcc45_workaround)) {
-    //needs help - offscreen and not decreasing
-    if (m_uHelpStart==std::numeric_limits<unsigned long>::max())
-      m_uHelpStart = lTime;
-    else
-      bDrawHelper = (lTime-m_uHelpStart >= GetLongParameter(LP_GAME_HELP_TIME));
-  } else m_uHelpStart = std::numeric_limits<unsigned long>::max();
+  bool bDrawHelper;
+  
+  if (abs(iNewTarget - CDasherModel::ORIGIN_Y) >= GetLongParameter(LP_GAME_HELP_DIST)) {
+    //offscreen
+    if (abs(iNewTarget - CDasherModel::ORIGIN_Y) >= abs(m_iTargetY - CDasherModel::ORIGIN_Y)) {
+      //not decreasing
+      if (m_uHelpStart == std::numeric_limits<unsigned long>::max())
+        m_uHelpStart = lTime + GetLongParameter(LP_GAME_HELP_TIME);
+    } else {
+      //they're heading in the right direction
+      if (m_uHelpStart >= lTime) //never displayed help, so assume they don't need it
+        m_uHelpStart = std::numeric_limits<unsigned long>::max();
+      //else, we were displaying help; keep so doing.
+    }
+    bDrawHelper = m_uHelpStart <= lTime;
+  } else {
+    //onscreen
+    m_uHelpStart = std::numeric_limits<unsigned long>::max();
+    bDrawHelper=false;
+  }
   
   m_iTargetY = iNewTarget;
   if (bDrawHelper) {
