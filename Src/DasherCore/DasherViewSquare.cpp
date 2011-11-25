@@ -761,7 +761,6 @@ beginning:
   }
 
   //ok, need to render all children...
-  bool bExpectGameNode(pRender->GetFlag(NF_GAME));
   myint newy1=y1,newy2;
   CDasherNode::ChildMap::const_iterator I = pRender->GetChildren().begin(), E = pRender->GetChildren().end();
   while (I!=E) {
@@ -769,8 +768,6 @@ beginning:
 
     newy2 = y1 + (Range * pChild->Hbnd()) / CDasherModel::NORMALIZATION;
     if (pChild->GetFlag(NF_GAME)) {
-      DASHER_ASSERT(bExpectGameNode);
-      bExpectGameNode=false;
       CGameNodeDrawEvent evt(pChild, newy1, newy2);
       Observable<CGameNodeDrawEvent*>::DispatchEvent(&evt);
     }
@@ -779,8 +776,9 @@ beginning:
         //definitely big enough to render.
         NewRender(pChild, newy1, newy2, pPrevText, policy, dMaxCost, pOutput);
       } else if (!pChild->GetFlag(NF_SEEN)) pChild->Delete_children();
-      if (newy2>iDasherMaxY && !bExpectGameNode) {
-        //remaining children offscreen and no game-mode child among them
+      if (newy2>iDasherMaxY && !pRender->GetFlag(NF_GAME)) {
+        //remaining children offscreen and no game-mode child we might skip
+        // (among the remainder, or any previous off the top of the screen)
         if (newy1 < iDasherMinY) pRender->onlyChildRendered = pChild; //previous children also offscreen!
         break; //skip remaining children
       }
