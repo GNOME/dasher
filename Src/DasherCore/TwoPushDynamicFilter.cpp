@@ -29,7 +29,7 @@ using namespace Dasher;
 static SModuleSettings sSettings[] = {
   {LP_TWO_PUSH_OUTER, T_LONG, 1024, 2048, 2048, 128, _("Offset for outer (second) button")},
   {LP_TWO_PUSH_LONG, T_LONG, 128, 1024, 2048/*divisor*/, 128/*step*/, _("Distance between down markers (long gap)")},
-  {LP_TWO_PUSH_SHORT, T_LONG, 10, 90, 100, 1, _("Distance between up markers, as %age of long gap")},
+  {LP_TWO_PUSH_SHORT, T_LONG, 10, 90, 100, 1, _("Distance between up markers, as percentage of long gap")},
   {LP_TWO_PUSH_TOLERANCE, T_LONG, 50, 1000, 1, 10, _("Tolerance for inaccurate timing of button pushes (in ms)")},
   {BP_TWO_PUSH_RELEASE_TIME, T_BOOL, -1, -1, -1, -1, _("Use push and release times of single press rather than push times of two presses")},
   /* TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.*/

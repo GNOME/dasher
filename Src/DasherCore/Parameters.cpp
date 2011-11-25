@@ -58,7 +58,7 @@ const bp_table boolparamtable[] = {
   {BP_CONTROL_MODE_HAS_COPY, "ControlHasCopy", true, "Provide copy-to-clipboard actions in Control Mode (if platforms supports)"},
   {BP_CONTROL_MODE_HAS_SPEECH, "ControlHasSpeech", true, "Provide speech actions in Control Mode (if platform supports)"},
   {BP_GAME_HELP_DRAW_PATH, "GameDrawPath", true, "When we give help, show the shortest path to the target sentence"},
-  {BP_TWO_PUSH_RELEASE_TIME, "TwoPushReleaseTime", false, _("Use push and release times of single press rather than push times of two presses")},
+  {BP_TWO_PUSH_RELEASE_TIME, "TwoPushReleaseTime", false, "Use push and release times of single press rather than push times of two presses"},
 };
 
 const lp_table longparamtable[] = {
@@ -123,8 +123,8 @@ const lp_table longparamtable[] = {
   {LP_CONVERSION_ORDER, "ConversionOrder", 0, "Conversion ordering"},
   {LP_CONVERSION_TYPE, "ConversionType", 0, "Conversion type"},
   {LP_TWO_PUSH_OUTER, "TwoPushOuter", 1792, "Offset for one button dynamic mode outer marker"},
-  {LP_TWO_PUSH_LONG, "TwoPushLong", 512, _("Distance between down markers (long gap)")},
-  {LP_TWO_PUSH_SHORT, "TwoPushShort", 80, _("Distance between up markers, as percentage of long gap")},
+  {LP_TWO_PUSH_LONG, "TwoPushLong", 512, "Distance between down markers (long gap)"},
+  {LP_TWO_PUSH_SHORT, "TwoPushShort", 80, "Distance between up markers, as percentage of long gap"},
   {LP_TWO_PUSH_TOLERANCE, "TwoPushTolerance", 100, "Tolerance of two-push-mode pushes, in ms"},
   {LP_DYNAMIC_BUTTON_LAG, "DynamicButtonLag", 50, "Lag of pushes in dynamic button mode (ms)"},
   {LP_STATIC1B_TIME, "Static1BTime", 2000, "Time for static-1B mode to scan from top to bottom (ms)"},
