@@ -15,8 +15,8 @@ msgstr ""
 "Project-Id-Version: dasher gnome-master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-11-25 12:13+0000\n"
-"PO-Revision-Date: 2011-11-25 13:26+0100\n"
+"POT-Creation-Date: 2011-11-25 19:52+0000\n"
+"PO-Revision-Date: 2011-11-25 21:35+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -837,28 +837,6 @@ msgstr "Prodleva v milisekundách před stisknutím tlačítka uživatelem"
 msgid "One Dimensional Mode"
 msgstr "Režim jednoho rozměru"
 
-#: ../Src/DasherCore/Parameters.cpp:61
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:34
-msgid ""
-"Use push and release times of single press rather than push times of two "
-"presses"
-msgstr ""
-"Použijte raději několik stisknutí a uvolnění jako jednoduchá zmáčknutí než "
-"několik stisknutí jako dvojité zmáčknutí"
-
-#. divisor
-#. step
-#: ../Src/DasherCore/Parameters.cpp:126
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:31
-msgid "Distance between down markers (long gap)"
-msgstr "Vzdálenost mezi dolními značkami (dlouhý odstup)"
-
-#: ../Src/DasherCore/Parameters.cpp:127
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:32
-#, no-c-format
-msgid "Distance between up markers, as %age of long gap"
-msgstr "Vzdálenost mezi horními značkami, procentuálně z dlouhého odstupu"
-
 #: ../Src/DasherCore/SettingsStore.cpp:75
 #: ../Src/Gtk2/DasherAppSettings.cpp:540 ../Src/Gtk2/DasherAppSettings.cpp:574
 #: ../Src/Gtk2/DasherAppSettings.cpp:578
@@ -1014,9 +992,27 @@ msgstr "Dynamický režim dvou tlačítek"
 msgid "Offset for outer (second) button"
 msgstr "Posun v sekundách pro vnější tlačítko"
 
+#. divisor
+#. step
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:31
+msgid "Distance between down markers (long gap)"
+msgstr "Vzdálenost mezi dolními značkami (dlouhý odstup)"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:32
+msgid "Distance between up markers, as percentage of long gap"
+msgstr "Vzdálenost mezi horními značkami, procentuálně z dlouhého odstupu"
+
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:33
 msgid "Tolerance for inaccurate timing of button pushes (in ms)"
 msgstr "Tolerance nepřesností pravidelných stisků tlačítka (v milisekundách)"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:34
+msgid ""
+"Use push and release times of single press rather than push times of two "
+"presses"
+msgstr ""
+"Použijte raději několik stisknutí a uvolnění jako jednoduchá zmáčknutí než "
+"několik stisknutí jako dvojité zmáčknutí"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
 msgid "Slow startup time"
