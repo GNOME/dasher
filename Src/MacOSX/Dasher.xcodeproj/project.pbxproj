@@ -1877,6 +1877,10 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_TUNING = G4;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					DEBUG,
+					TARGET_OS_MAC,
+				);
 				INFOPLIST_FILE = "Info-Dasher.plist";
 				LIBRARY_SEARCH_PATHS = /Volumes/Home/UsersAnnex/dougie/Projects/Dasher/Dasher_17/Src/Common/Expat;
 				OTHER_CFLAGS = (
@@ -1904,6 +1908,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_MODEL_TUNING = G4;
 				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = TARGET_OS_MAC;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "Info-Dasher.plist";
 				OTHER_CFLAGS = (
@@ -1929,6 +1934,7 @@
 			buildSettings = {
 				GCC_MODEL_TUNING = G4;
 				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = TARGET_OS_MAC;
 				INFOPLIST_FILE = "Info-Dasher.plist";
 				OTHER_CFLAGS = (
 					"-D",
