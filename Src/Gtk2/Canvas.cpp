@@ -37,11 +37,11 @@ void CCanvas::InitSurfaces() {
 
 #else
 
-  //m_pDummyBuffer = gdk_pixmap_new(pCanvas->window, GetWidth(), GetHeight(), -1);
+  //m_pDummyBuffer = gdk_pixmap_new(m_pCanvas->window, GetWidth(), GetHeight(), -1);
 
-  m_pDisplayBuffer = gdk_pixmap_new(pCanvas->window, GetWidth(), GetHeight(), -1);
-  m_pDecorationBuffer = gdk_pixmap_new(pCanvas->window, GetWidth(), GetHeight(), -1);
-  //m_pOnscreenBuffer = gdk_pixmap_new(pCanvas->window, GetWidth(), GetHeight(), -1);
+  m_pDisplayBuffer = gdk_pixmap_new(m_pCanvas->window, GetWidth(), GetHeight(), -1);
+  m_pDecorationBuffer = gdk_pixmap_new(m_pCanvas->window, GetWidth(), GetHeight(), -1);
+  //m_pOnscreenBuffer = gdk_pixmap_new(m_pCanvas->window, GetWidth(), GetHeight(), -1);
 
   // Set the display buffer to be current
 
@@ -440,7 +440,7 @@ PangoLayout *CCanvas::GetLayout(CPangoLabel *label, unsigned int iFontSize) {
 #if WITH_CAIRO
     PangoLayout *pNewPangoLayout(pango_cairo_create_layout(cr));
 #else
-    PangoLayout *pNewPangoLayout(gtk_widget_create_pango_layout(pCanvas, ""));
+    PangoLayout *pNewPangoLayout(gtk_widget_create_pango_layout(m_pCanvas, ""));
 #endif
   label->m_mLayouts.insert(pair<unsigned int,PangoLayout *>(iFontSize, pNewPangoLayout));
   if (label->m_iWrapSize) pango_layout_set_width(pNewPangoLayout, GetWidth() * PANGO_SCALE);
