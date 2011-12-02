@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-11-25 13:03+0000\n"
-"PO-Revision-Date: 2011-11-25 17:21+0100\n"
+"POT-Creation-Date: 2011-11-30 15:14+0000\n"
+"PO-Revision-Date: 2011-12-02 16:32+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: \n"
@@ -684,7 +684,7 @@ msgstr "Oblika: 0=razčlenjeni pravokotniki, 1=prekrivanje, 2=trikotniki, 3=trun
 
 #: ../Src/DasherCore/DefaultFilter.cpp:19
 msgid "Hold right mouse button / key 1 to go 3/4 faster"
-msgstr ""
+msgstr "S pritisnjeno tipko miške / 1 se hitrost gibanja poveča za 3/4"
 
 #: ../Src/DasherCore/DemoFilter.cpp:15
 msgid "Demo Mode (no input)"
@@ -696,15 +696,15 @@ msgstr "Ime datoteke stavkov za vnos"
 
 #: ../Src/DasherCore/GameModule.cpp:9
 msgid "Distance of sentence from center to decide user needs help"
-msgstr ""
+msgstr "Razdalja stavka od središča pri zaznavanju potrebe uporabnika po pomoči"
 
 #: ../Src/DasherCore/GameModule.cpp:10
 msgid "Time for which user must need help before help drawn"
-msgstr ""
+msgstr "Čas, ko uporabnik potrebuje pomoč, preden se ta pokaže"
 
 #: ../Src/DasherCore/GameModule.cpp:11
 msgid "When we give help, show the shortest path to the target sentence?"
-msgstr ""
+msgstr "ALi naj se pri pomoči, pokaži najkrajša pot do ciljnega stavka?"
 
 #: ../Src/DasherCore/NodeCreationManager.cpp:32
 msgid "Training on User Text"
@@ -797,22 +797,6 @@ msgstr "Zamik preden uporabnik zares pritisne gumb (ms)"
 #: ../Src/DasherCore/OneDimensionalFilter.h:12
 msgid "One Dimensional Mode"
 msgstr "eno-dimenzijski način"
-
-#: ../Src/DasherCore/Parameters.cpp:61
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:34
-msgid "Use push and release times of single press rather than push times of two presses"
-msgstr ""
-
-#. divisor
-#. step
-#: ../Src/DasherCore/Parameters.cpp:126
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:31
-msgid "Distance between down markers (long gap)"
-msgstr ""
-
-#: ../Src/DasherCore/Parameters.cpp:127
-msgid "Distance between up markers, as percentage of long gap"
-msgstr ""
 
 #: ../Src/DasherCore/SettingsStore.cpp:75
 #: ../Src/Gtk2/DasherAppSettings.cpp:540
@@ -966,14 +950,23 @@ msgstr "Dinamična uporaba dveh gumbov"
 msgid "Offset for outer (second) button"
 msgstr "Odmik za zunanji (drugi) gumb"
 
+#. divisor
+#. step
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:31
+msgid "Distance between down markers (long gap)"
+msgstr "Razdalja med spodnjimi oznakami (dolg razmik)"
+
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:32
-#, c-format
-msgid "Distance between up markers, as %age of long gap"
-msgstr ""
+msgid "Distance between up markers, as percentage of long gap"
+msgstr "Razdalja med zgornjimi oznakami kot odstotek dolgega razmika"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:33
 msgid "Tolerance for inaccurate timing of button pushes (in ms)"
 msgstr "Območje nenatančnega merjenja časa za pritisk gumbov (v ms)"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:34
+msgid "Use push and release times of single press rather than push times of two presses"
+msgstr "Uporabi čas pritiska in sprostitve gumba pri enem pritisku, namesto časa pritiska dveh pritiskov"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
 msgid "Slow startup time"
