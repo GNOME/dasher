@@ -81,9 +81,11 @@ namespace Dasher {
       int iNumChildNodes;
       CDasherScreen::Label *pLabel;
     } *m_pFirstGroup;
+    
     //A label for each symbol, indexed by symbol id (element 0 = null)
     std::vector<CDasherScreen::Label *> m_vLabels;
-    SGroupInfo *copyGroups(CDasherScreen *pScreen, int iStart, int iEnd, ::SGroupInfo *pFirstChild);
+    
+    virtual const std::string &GetLabelText(symbol i) const;
     
     class CAlphNode;
     /// Abstract superclass for alphabet manager nodes, provides common implementation
@@ -251,6 +253,9 @@ namespace Dasher {
     /// (also leaves space for NCManager::AddExtras to add control node)
     /// Returns array of non-cumulative probs. Should this be protected and/or virtual???
     void GetProbs(std::vector<unsigned int> *pProbs, CLanguageModel::Context iContext);
+    
+    SGroupInfo *copyGroups(CDasherScreen *pScreen, int iStart, int iEnd, ::SGroupInfo *pFirstChild);
+    
     ///Constructs child nodes under the specified parent according to provided group.
     /// Nodes are created by calling CreateSymbolNode and CreateGroupNode, unless buildAround is non-null.
     /// \param pParentGroup group describing which symbols and/or subgroups should be constructed

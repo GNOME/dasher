@@ -113,13 +113,16 @@ CMandarinAlphMgr::CMandarinAlphMgr(CSettingsUser *pCreator, CDasherInterfaceBase
 }
 
 void CMandarinAlphMgr::MakeLabels(CDasherScreen *pScreen) {
+  //this makes any labels req'd for conversion roots
+  // (i.e. captions of groups, containing said root, that are elided)
   CAlphabetManager::MakeLabels(pScreen);
-  //a bit of a waste, that fills m_vLabels with labels for all the pinyin symbols - which we don't use.
-  for (vector<CDasherScreen::Label *>::iterator it=m_vLabels.begin(); it!=m_vLabels.end(); it++)
-    delete *it;
-  m_vLabels.clear();
-  //instead, keep the screen to create labels lazily...
+  //also keep the screen to create labels lazily...
   m_pScreen = pScreen;
+}
+
+const string &CMandarinAlphMgr::GetLabelText(symbol i) const {
+  static string n="";
+  return n;
 }
 
 CMandarinAlphMgr::~CMandarinAlphMgr() {
@@ -181,10 +184,14 @@ CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CAlphNode *pParent, symbol iSymb
   
   //For every PY symbol (=syllable+tone, or "punctuation"),
   // m_pConversionsBySymbol identifies the possible chinese-alphabet symbols
-  // that have that syll+tone (for punctuation, this'll be a singleton: the identical
-  // punctuation character in the chinese alphabet). A CConvRoot thus offers a choice between them...
+  // that have that syll+tone; a CConvRoot thus offers the choice between them.
+  //However, for e.g. punctuation, there may be only one such CH symbol, in which
+  // case we can create the symbol directly, bypassing the CConvRoot; EXCEPT,
+  // in cases where the CConvRoot provides a place to put some part of the group
+  // label (specific to that symbol, so kinda redundant, but we want to keep it
+  // for consistency of display).
   
-  if (m_pConversionsBySymbol[iSymbol].size()>1)
+  if (m_pConversionsBySymbol[iSymbol].size()>1 || m_vLabels[iSymbol])
     return CreateConvRoot(pParent, iSymbol);
   
   return CreateCHSymbol(pParent,pParent->iContext, *(m_pConversionsBySymbol[iSymbol].begin()), iSymbol);
@@ -202,8 +209,11 @@ CMandarinAlphMgr::CConvRoot *CMandarinAlphMgr::CreateConvRoot(CAlphNode *pParent
 }
 
 CMandarinAlphMgr::CConvRoot::CConvRoot(int iOffset, CMandarinAlphMgr *pMgr, symbol pySym)
-: CAlphBase(iOffset, 9, NULL, pMgr), m_pySym(pySym) {
-  DASHER_ASSERT(pMgr->m_pConversionsBySymbol[pySym].size()>1);
+: CAlphBase(iOffset, 9, pMgr->m_vLabels[pySym], pMgr), m_pySym(pySym) {
+  //We do sometimes create CConvRoots with only one child, where we
+  // need them to display a label...
+  DASHER_ASSERT(pMgr->m_pConversionsBySymbol[pySym].size()>1
+                || pMgr->m_vLabels[pySym]);
   //colour + label from ConversionManager.
 }
 
@@ -348,12 +358,12 @@ void CMandarinAlphMgr::GetConversions(std::vector<pair<symbol,unsigned int> > &v
 
 CDasherScreen::Label *CMandarinAlphMgr::GetLabel(int iCHsym) {
   //TODO: LRU cache, keep down to some sensible #labels allocated?
-  if (iCHsym>=m_vLabels.size()) {
-    m_vLabels.resize(iCHsym+1);
-  } else if (m_vLabels[iCHsym]) {
-    return m_vLabels[iCHsym];
+  if (iCHsym>=m_vCHLabels.size()) {
+    m_vCHLabels.resize(iCHsym+1);
+  } else if (m_vCHLabels[iCHsym]) {
+    return m_vCHLabels[iCHsym];
   }
-  return m_vLabels[iCHsym] = m_pScreen->MakeLabel(m_CHdisplayText[iCHsym]);
+  return m_vCHLabels[iCHsym] = m_pScreen->MakeLabel(m_CHdisplayText[iCHsym]);
 }
 
 CMandarinAlphMgr::CMandSym::CMandSym(int iOffset, CMandarinAlphMgr *pMgr, symbol iSymbol, symbol pyParent)

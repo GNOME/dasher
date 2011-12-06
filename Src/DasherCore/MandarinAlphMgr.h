@@ -80,13 +80,17 @@ namespace Dasher {
     
   protected:
     void MakeLabels(CDasherScreen *pScreen);
+    //Remove label on the "symbols" i.e. PY sounds; we use the label
+    // internally to identify a CH group, but for display purposes the symbol is
+    // identified entirely by the PY groups around it.
+    const std::string &GetLabelText(symbol i) const;
     class CConvRoot;
     ///Subclass of CSymbolNode for (converted) chinese-alphabet symbols:
     /// these use the chinese alphabet in place of the pinyin one for text to display/enter,
     /// and get their colour using GetCHColour rather than GetColour.
     class CMandSym : public CSymbolNode {
     public:
-      CMandarinAlphMgr *mgr() {return static_cast<CMandarinAlphMgr *>(CSymbolNode::mgr());}
+      CMandarinAlphMgr *mgr() const {return static_cast<CMandarinAlphMgr *>(CSymbolNode::mgr());}
       ///Symbol constructor: display text from CHAlphabet, colour from GetCHColour
       CMandSym(int iOffset, CMandarinAlphMgr *pMgr, symbol iSymbol, symbol pyParent);
       CDasherNode *RebuildSymbol(CAlphNode *pParent, symbol iSymbol);
@@ -164,6 +168,7 @@ namespace Dasher {
     std::vector<int> m_CHcolours;
     /// Map from unicode char to index into m_CH{text,displayText}
     CAlphabetMap m_CHAlphabetMap;
+    std::vector<CDasherScreen::Label *> m_vCHLabels;
     
     ///Indexed by SPY (syll+tone) alphabet symbol number,
     // the CHAlphabet symbols it can be converted to, in order

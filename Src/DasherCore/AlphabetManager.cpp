@@ -64,8 +64,10 @@ CAlphabetManager::CAlphabetManager(CSettingsUser *pCreateFrom, CDasherInterfaceB
   }
   //else, if all single-octet chars are in alphabet - leave m_sDelim==""
   // (and we'll find a delimiter for each context)
+}
 
-  m_vLabels.resize(m_pAlphabet->GetNumberTextSymbols()+1);
+const string &CAlphabetManager::GetLabelText(symbol i) const {
+  return m_pAlphabet->GetDisplayText(i);
 }
 
 void CAlphabetManager::CreateLanguageModel() {
@@ -98,6 +100,7 @@ void CAlphabetManager::MakeLabels(CDasherScreen *pScreen) {
   for (vector<CDasherScreen::Label *>::iterator it=m_vLabels.begin(); it!=m_vLabels.end(); it++) {
     delete (*it); *it = NULL;
   }
+  m_vLabels.resize(m_pAlphabet->GetNumberTextSymbols()+1);
   m_pFirstGroup = copyGroups(pScreen, 1, m_pAlphabet->GetNumberTextSymbols()+1,m_pAlphabet->m_pBaseGroup);
 }
 
@@ -146,7 +149,8 @@ CAlphabetManager::SGroupInfo *CAlphabetManager::copyGroups(CDasherScreen *pScree
       }
       pFirstChild = pFirstChild->pNext; //making a symbol, so we've still moved past the outer (elided) group
     }
-    m_vLabels[i]=pScreen->MakeLabel(strGroupPrefix+m_pAlphabet->GetDisplayText(i));
+    string symLabel = strGroupPrefix + GetLabelText(i);
+    m_vLabels[i]=(symLabel.empty() ? NULL : pScreen->MakeLabel(symLabel));
   }
   return NULL;
 }
@@ -473,7 +477,7 @@ CDasherNode *CAlphabetManager::CreateSymbolNode(CAlphNode *pParent, symbol iSymb
     CSymbolNode *pAlphNode = new CSymbolNode(iNewOffset, m_vLabels[iSymbol], this, iSymbol);
     //     std::stringstream ssLabel;
 
-    //     ssLabel << m_pAlphabet->GetDisplayText(iSymbol) << ": " << pNewNode;
+    //     ssLabel << GetLabelText(iSymbol) << ": " << pNewNode;
 
     //    pDisplayInfo->strDisplayText = ssLabel.str();
 
