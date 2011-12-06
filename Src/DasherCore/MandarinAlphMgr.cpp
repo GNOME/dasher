@@ -139,7 +139,7 @@ CTrainer *CMandarinAlphMgr::GetTrainer() {
   return new CMandarinTrainer(m_pInterface, static_cast<CPPMPYLanguageModel*>(m_pLanguageModel), m_pAlphabet, m_pAlphabetMap, &m_CHAlphabetMap, m_pAlphabet->m_strConversionTrainingDelimiter);
 }
 
-CAlphabetManager::CAlphNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, bool bEnteredLast, int iOffset) {
+CAlphabetManager::CAlphNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, bool bEnteredLast, int iOffset) {
 
   int iNewOffset(max(-1,iOffset-1));  
   // Use chinese alphabet, not pinyin...
@@ -151,8 +151,9 @@ CAlphabetManager::CAlphNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, uns
   } else {
     DASHER_ASSERT(p.first>0 && p.first<m_CHtext.size());
     pNewNode = new CMandSym(iNewOffset, this, p.first, 0);
+    pNewNode->SetFlag(NF_SEEN, true);
+    pNewNode->CDasherNode::SetFlag(NF_COMMITTED, true); //do NOT commit!
   }
-  pNewNode->Reparent(pParent, iLower, iUpper);
   pNewNode->iContext = p.second;
   
   return pNewNode;

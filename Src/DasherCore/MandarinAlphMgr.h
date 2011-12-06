@@ -76,7 +76,7 @@ namespace Dasher {
     
     //Override to use chinese, not pinyin, alphabet to turn extracted text into symbol numbers; and to create
     // chinese symbol nodes, not pinyin ones.
-    CAlphNode *GetRoot(CDasherNode *pParent, unsigned int iLower, unsigned int iUpper, bool bEnteredLast, int iOffset);    
+    CAlphNode *GetRoot(CDasherNode *pParent, bool bEnteredLast, int iOffset);    
     
   protected:
     void MakeLabels(CDasherScreen *pScreen);
