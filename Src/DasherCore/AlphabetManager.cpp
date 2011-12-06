@@ -546,7 +546,7 @@ CAlphabetManager::CAlphNode::~CAlphNode() {
   m_pMgr->m_pLanguageModel->ReleaseContext(iContext);
 }
 
-const std::string &CAlphabetManager::CSymbolNode::outputText() {
+const std::string &CAlphabetManager::CSymbolNode::outputText() const {
   if (iSymbol == m_pMgr->m_pAlphabet->GetParagraphSymbol() && GetFlag(NF_SEEN)) {
     //Regardless of this particular platform's definition of a newline,
     // which is what we'd _output_, when reversing back over text
@@ -594,7 +594,7 @@ void CAlphabetManager::CSymbolNode::Output() {
 
 SymbolProb CAlphabetManager::CSymbolNode::GetSymbolProb() const {
   //TODO probability here not right - Range() is relative to parent, not prev symbol
-  return Dasher::SymbolProb(iSymbol, m_pMgr->m_pAlphabet->GetText(iSymbol), Range() / (double)CDasherModel::NORMALIZATION);
+  return Dasher::SymbolProb(iSymbol, outputText(), Range() / (double)CDasherModel::NORMALIZATION);
 }
 
 void CAlphabetManager::CSymbolNode::Undo() {

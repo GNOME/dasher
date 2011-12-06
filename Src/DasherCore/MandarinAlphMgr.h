@@ -99,7 +99,7 @@ namespace Dasher {
       ///Override to output a triple (delimiter,PY,CH)
       virtual std::string trainText();
       ///Override to use use chinese, not pinyin, alphabet
-      virtual const std::string &outputText();
+      virtual const std::string &outputText() const;
       ///The Pinyin symbol used to produce this chinese symbol, if known (0 if not!)
       symbol m_pyParent;
     };
@@ -110,7 +110,7 @@ namespace Dasher {
     public:
       /// \param pySym symbol in pinyin alphabet; must have >1 possible chinese conversion.
       CConvRoot(int iOffset, CMandarinAlphMgr *pMgr, symbol pySym);
-      CMandarinAlphMgr *mgr() {return static_cast<CMandarinAlphMgr *>(CAlphBase::mgr());}
+      CMandarinAlphMgr *mgr() const {return static_cast<CMandarinAlphMgr *>(CAlphBase::mgr());}
       void PopulateChildren();
       void PopulateChildrenWithExisting(CMandSym *existing);
       int ExpectedNumChildren();

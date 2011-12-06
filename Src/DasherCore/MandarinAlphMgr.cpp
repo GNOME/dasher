@@ -422,7 +422,7 @@ void CMandarinAlphMgr::CMandSym::RebuildForwardsFromAncestor(CAlphNode *pNewNode
   CSymbolNode::RebuildForwardsFromAncestor(pNewNode);
 }
 
-const std::string &CMandarinAlphMgr::CMandSym::outputText() {
+const std::string &CMandarinAlphMgr::CMandSym::outputText() const {
   return mgr()->m_CHtext[iSymbol];
 }
 
