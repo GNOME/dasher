@@ -66,23 +66,11 @@ namespace Dasher {
     /// \param pInterface to use for I/O by calling WriteTrainFile(fname,txt)
     void WriteTrainFileFull(CDasherInterfaceBase *pInterface);
   protected:
-    ///The SGroupInfo tree from the alphabet, but with single-child groups collapsed,
-    /// and with labels from the Screen.
-    struct SGroupInfo {
-      SGroupInfo(CDasherScreen *pScreen, const std::string &strEnc, int iBkgCol, const ::SGroupInfo *pCopy);
-      ~SGroupInfo();
-      SGroupInfo *pChild;
-      SGroupInfo *pNext;
-      std::string strLabel;
-      int iStart;
-      int iEnd;
-      int iColour;
-      bool bVisible;
-      int iNumChildNodes;
-      CDasherScreen::Label *pLabel;
-    } *m_pFirstGroup;
-    
-    //A label for each symbol, indexed by symbol id (element 0 = null)
+    ///Post-processed version of alphabet group tree, eliding all groups with only a single child.
+    SGroupInfo *m_pFirstGroup;
+    ///A label for each group in the elided tree
+    std::map<const SGroupInfo *,CDasherScreen::Label *> m_mGroupLabels;
+    ///A label for each symbol, indexed by symbol id (element 0 = null)
     std::vector<CDasherScreen::Label *> m_vLabels;
     
     virtual const std::string &GetLabelText(symbol i) const;
@@ -254,7 +242,7 @@ namespace Dasher {
     /// Returns array of non-cumulative probs. Should this be protected and/or virtual???
     void GetProbs(std::vector<unsigned int> *pProbs, CLanguageModel::Context iContext);
     
-    SGroupInfo *copyGroups(CDasherScreen *pScreen, int iStart, int iEnd, ::SGroupInfo *pFirstChild);
+    SGroupInfo *copyGroups(CDasherScreen *pScreen, int iStart, int iEnd, const SGroupInfo *pFirstChild);
     
     ///Constructs child nodes under the specified parent according to provided group.
     /// Nodes are created by calling CreateSymbolNode and CreateGroupNode, unless buildAround is non-null.

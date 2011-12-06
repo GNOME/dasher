@@ -101,31 +101,29 @@ void CAlphabetManager::MakeLabels(CDasherScreen *pScreen) {
     delete (*it); *it = NULL;
   }
   m_vLabels.resize(m_pAlphabet->GetNumberTextSymbols()+1);
+  for (map<const SGroupInfo *,CDasherScreen::Label *>::iterator it=m_mGroupLabels.begin(); it!=m_mGroupLabels.end(); it++)
+    delete it->second;
+  m_mGroupLabels.clear();
   m_pFirstGroup = copyGroups(pScreen, 1, m_pAlphabet->GetNumberTextSymbols()+1,m_pAlphabet->m_pBaseGroup);
 }
 
-CAlphabetManager::SGroupInfo::SGroupInfo(CDasherScreen *pScreen, const std::string &strEnc, int iBkgCol, const ::SGroupInfo *pCopy)
-: pChild(NULL), pNext(NULL), strLabel(strEnc + pCopy->strLabel), iStart(pCopy->iStart), iEnd(pCopy->iEnd),
-  iColour(pCopy->bVisible ? pCopy->iColour : iBkgCol), bVisible(pCopy->bVisible || (iBkgCol!=-1)),
-  iNumChildNodes(pCopy->iNumChildNodes), pLabel(strLabel.empty() ? NULL : pScreen->MakeLabel(strLabel)) {
-}
-
-CAlphabetManager::SGroupInfo::~SGroupInfo() {
-  delete pChild;
-  delete pNext;
-  delete pLabel;
-}
-
-CAlphabetManager::SGroupInfo *CAlphabetManager::copyGroups(CDasherScreen *pScreen, int iStart, int iEnd, ::SGroupInfo *pFirstChild) {  
+SGroupInfo *CAlphabetManager::copyGroups(CDasherScreen *pScreen, int iStart, int iEnd, const SGroupInfo *pFirstChild) {  
   for (int i = iStart; i< iEnd; i++) {
     string strGroupPrefix;
     if (pFirstChild && i>=pFirstChild->iStart) {
       //reached group. elide any group with only a single child (see below).
       // Variables store necessary properties of any elided groups:
       int iBkgCol(-1);
-      for (const ::SGroupInfo *pInner=pFirstChild;;) {
+      for (const SGroupInfo *pInner=pFirstChild;;) {
         if (pInner->iNumChildNodes>1) { //in/reached nontrivial subgroup - do make node for entire group:
-          SGroupInfo *pRes = new SGroupInfo(pScreen, strGroupPrefix, iBkgCol, pInner);
+          SGroupInfo *pRes = new SGroupInfo(*pInner);
+          //apply properties of enclosing group(s)...
+          pRes->strLabel = strGroupPrefix + pRes->strLabel;
+          if (!pInner->bVisible) pRes->iColour = iBkgCol;
+          if (iBkgCol!=-1) pRes->bVisible=true;
+          if (pRes->strLabel.length())
+            m_mGroupLabels[pRes] = pScreen->MakeLabel(pRes->strLabel);
+          //and recurse on children
           pRes->pChild = copyGroups(pScreen, pInner->iStart, pInner->iEnd, pInner->pChild);
           pRes->pNext = copyGroups(pScreen, pInner->iEnd, iEnd, pFirstChild->pNext);
           return pRes;
@@ -432,7 +430,7 @@ CAlphabetManager::CGroupNode *CAlphabetManager::CreateGroupNode(CAlphNode *pPare
   // When creating a group node...
   // ...the offset is the same as the parent...
 
-  CGroupNode *pNewNode = new CGroupNode(pParent->offset(), pInfo->pLabel, iBkgCol, this, pInfo);
+  CGroupNode *pNewNode = new CGroupNode(pParent->offset(), m_mGroupLabels[pInfo], iBkgCol, this, pInfo);
 
   //...as is the context!
   pNewNode->iContext = m_pLanguageModel->CloneContext(pParent->iContext);

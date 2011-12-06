@@ -63,10 +63,10 @@ CMandarinAlphMgr::CMandarinAlphMgr(CSettingsUser *pCreator, CDasherInterfaceBase
   if (symbol para = pCHAlphabet->GetParagraphSymbol())
     conversions[pCHAlphabet->GetDisplayText(para)]=pair<symbol,symbol>(para,para+1);
   //Non-recursive traversal of all the groups in the CHAlphabet (we don't care where they are, just to find them)
-  vector<const ::SGroupInfo *> groups;
+  vector<const SGroupInfo *> groups;
   groups.push_back(pCHAlphabet->m_pBaseGroup);
   while (!groups.empty()) {
-    const ::SGroupInfo *pGroup(groups.back()); groups.pop_back();
+    const SGroupInfo *pGroup(groups.back()); groups.pop_back();
     if (pGroup->pNext) groups.push_back(pGroup->pNext);
     if (pGroup->pChild) groups.push_back(pGroup->pChild);
     //process this group. The SPY syll+tone is stored as the label, using a tone mark over the vowel, e.g. &#257; = a1
