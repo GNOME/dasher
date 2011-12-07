@@ -48,7 +48,7 @@ static char THIS_FILE[] = __FILE__;
 
 CMandarinAlphMgr::CMandarinAlphMgr(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphIO *pAlphIO)
   : CAlphabetManager(pCreator, pInterface, pNCManager, pAlphabet),
-    m_pConversionsBySymbol(new vector<symbol>[GetAlphabet()->GetNumberTextSymbols()+1]) {
+    m_pConversionsBySymbol(new vector<symbol>[GetAlphabet()->iEnd]) {
   DASHER_ASSERT(pAlphabet->m_iConversionID==2);
       
   //the CHAlphabet contains a group for each SPY syllable+tone, with symbols being chinese characters.      
@@ -64,7 +64,7 @@ CMandarinAlphMgr::CMandarinAlphMgr(CSettingsUser *pCreator, CDasherInterfaceBase
     conversions[pCHAlphabet->GetDisplayText(para)]=pair<symbol,symbol>(para,para+1);
   //Non-recursive traversal of all the groups in the CHAlphabet (we don't care where they are, just to find them)
   vector<const SGroupInfo *> groups;
-  groups.push_back(pCHAlphabet->m_pBaseGroup);
+  groups.push_back(pCHAlphabet->pChild);
   while (!groups.empty()) {
     const SGroupInfo *pGroup(groups.back()); groups.pop_back();
     if (pGroup->pNext) groups.push_back(pGroup->pNext);
@@ -88,7 +88,7 @@ CMandarinAlphMgr::CMandarinAlphMgr(CSettingsUser *pCreator, CDasherInterfaceBase
   // between indices and actual chinese unicode characters.
   m_CHtext.push_back(""); m_CHdisplayText.push_back(""); m_CHcolours.push_back(0); //as usual, element 0 is the "unknown symbol"
   std::vector<symbol> vSyms;
-  for (symbol i=1; i<=GetAlphabet()->GetNumberTextSymbols(); i++) {
+  for (symbol i=1; i<GetAlphabet()->iEnd; i++) {
     DASHER_ASSERT(conversions.find(m_pAlphabet->GetDisplayText(i))!=conversions.end());
     pair<symbol,symbol> convs(conversions[m_pAlphabet->GetDisplayText(i)]);
     //for each chinese unicode character in the group, hash it to ensure same unicode = same index into m_CH{text,displayText,AlphabetMap}
@@ -132,7 +132,7 @@ CMandarinAlphMgr::~CMandarinAlphMgr() {
 void CMandarinAlphMgr::CreateLanguageModel() {
   //std::cout<<"CHALphabet size "<< pCHAlphabet->GetNumberTextSymbols(); [7603]
   //std::cout<<"Setting PPMPY model"<<std::endl;
-  m_pLanguageModel = new CPPMPYLanguageModel(this, m_CHtext.size()-1, m_pAlphabet->GetNumberTextSymbols());
+  m_pLanguageModel = new CPPMPYLanguageModel(this, m_CHtext.size()-1, m_pAlphabet->iEnd-1);
 }
 
 CTrainer *CMandarinAlphMgr::GetTrainer() {
@@ -150,7 +150,7 @@ CAlphabetManager::CAlphNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, boo
 
   CAlphNode *pNewNode;
   if (p.first==0 || !bEnteredLast) {
-    pNewNode = new CGroupNode(iNewOffset, NULL, 0, this, NULL);
+    pNewNode = new CGroupNode(iNewOffset, NULL, 0, this, m_pBaseGroup);
   } else {
     DASHER_ASSERT(p.first>0 && p.first<m_CHtext.size());
     pNewNode = new CMandSym(iNewOffset, this, p.first, 0);

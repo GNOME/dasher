@@ -75,25 +75,19 @@ CAlphInfo::CAlphInfo() {
   ControlCharacter=NULL;
   StartConvertCharacter=NULL;
   EndConvertCharacter=NULL;
-  m_pBaseGroup = 0;
+  //Members of SGroupInfo:
+  pChild=pNext=NULL; iStart=iEnd=1; bVisible=true;
   iNumChildNodes = 0;
+  
   m_iConversionID = 0;
   m_strDefaultContext = ". ";
   m_strCtxChar = "§";
   m_bHidden=false;
 }
 
-void DeleteGroups(SGroupInfo *Info) {
-  for(SGroupInfo *next; Info; Info=next) {
-    next = Info->pNext;
-    DeleteGroups(Info->pChild);
-    delete Info;
-    Info = next;
-  }
-}
-
 CAlphInfo::~CAlphInfo() {
-  DeleteGroups(m_pBaseGroup);
+  pChild->RecursiveDelete();
+  pNext->RecursiveDelete();
 }
 
 CAlphInfo::character::character() {

@@ -121,7 +121,7 @@ CAlphInfo *CAlphIO::CreateDefault() {
 //     Default.Groups[0].Characters[i].Colour = i + 10;
 //   }
   // ---
-  Default.m_pBaseGroup = 0;
+  Default.pChild = 0;
   Default.Orientation = Opts::LeftToRight;
 
   //The following creates Chars.size()+2 actual character structs in the vector,
@@ -155,6 +155,10 @@ CAlphInfo *CAlphIO::CreateDefault() {
   Default.ControlCharacter->Text = "";
   Default.ControlCharacter->Colour = 8;
 
+  Default.iStart=1; Default.iEnd=Default.m_vCharacters.size()+1;
+  Default.iNumChildNodes = Default.m_vCharacters.size();
+  Default.pNext=Default.pChild=NULL;
+  
   return &Default;
 }
 
@@ -243,7 +247,7 @@ void CAlphIO::XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
     if (m_vGroups.empty()) InputInfo->iNumChildNodes++; else m_vGroups.back()->iNumChildNodes++;
 
     //by default, the first group in the alphabet is invisible
-    pNewGroup->bVisible = (InputInfo->m_pBaseGroup!=NULL);
+    pNewGroup->bVisible = (InputInfo->pChild!=NULL);
 
     while(*atts != 0) {
       if(strcmp(*atts, "name") == 0) {
@@ -268,7 +272,7 @@ void CAlphIO::XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
       atts += 2;
     }
 
-    SGroupInfo *&prevSibling(m_vGroups.empty() ? InputInfo->m_pBaseGroup : m_vGroups.back()->pChild);
+    SGroupInfo *&prevSibling((m_vGroups.empty() ? InputInfo : m_vGroups.back())->pChild);
 
     if (pNewGroup->iColour==-1 && pNewGroup->bVisible) {
       //no colour specified. Try to colour cycle, but make sure we choose
@@ -374,7 +378,7 @@ void Reverse(SGroupInfo *&pList) {
 void CAlphIO::XmlEndHandler(const XML_Char *name) {
 
   if(strcmp(name, "alphabet") == 0) {
-    Reverse(InputInfo->m_pBaseGroup);
+    Reverse(InputInfo->pChild);
 
     if (ParagraphCharacter) {
       InputInfo->iParagraphCharacter = InputInfo->m_vCharacters.size()+1;
@@ -388,6 +392,8 @@ void CAlphIO::XmlEndHandler(const XML_Char *name) {
       InputInfo->iNumChildNodes++;
       delete SpaceCharacter;
     }
+
+    InputInfo->iEnd = InputInfo->m_vCharacters.size()+1;
 
     //if (InputInfo->StartConvertCharacter.Text != "") InputInfo->iNumChildNodes++;
     //if (InputInfo->EndConvertCharacter.Text != "") InputInfo->iNumChildNodes++;
@@ -416,7 +422,7 @@ void CAlphIO::XmlEndHandler(const XML_Char *name) {
     finished->iEnd = InputInfo->m_vCharacters.size()+1;
     if (finished->iEnd == finished->iStart) {
       //empty group. Delete it now, and elide from sibling chain
-      SGroupInfo *&ptr=(m_vGroups.empty() ? InputInfo->m_pBaseGroup : m_vGroups.back()->pChild);
+      SGroupInfo *&ptr=(m_vGroups.empty() ? InputInfo : m_vGroups.back())->pChild;
       DASHER_ASSERT(ptr == finished);
       ptr = finished->pNext;
       delete finished;

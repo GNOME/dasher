@@ -45,12 +45,23 @@ namespace Dasher {
   /// to the appropriate alphabet file, with sizes given by the
   /// language model.
   ///
+  /// Note Dec11, refactoring to allow subclasses to change how character
+  /// data is obtained from the alphabet. All information on valid symbol indices
+  /// and the tree of groups, is obtained from m_pBaseGroup, which is created
+  /// by a call to copyGroups. Besides this, the only routines accessing _symbol_
+  /// data from the alphabet are: CreateLanguageModel; GetTrainer;
+  /// GetColour (called from CSymbolNode constructor); CreateSymbolNode and
+  /// CSymbolNode::outputText(). [many other routines access e.g. default context, training file, and so on]
+
   class CAlphabetManager : public CNodeManager, protected CSettingsUser {
   public:
     ///Create a new AlphabetManager. Note, not usable until CreateLanguageModel() called.
     CAlphabetManager(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet);
+    
     ///Creates the LM, and stores in m_pLanguageModel. Must be called after construction,
     /// before the AlphMgr is used. Default implementation switches on LP_LANGUAGE_MODEL_ID.
+    /// Note subclasses changing the interpretation of the AlphInfo, should override
+    /// this to take account of its new meaning.
     virtual void CreateLanguageModel();
 
     virtual void MakeLabels(CDasherScreen *pScreen);
@@ -66,8 +77,20 @@ namespace Dasher {
     /// \param pInterface to use for I/O by calling WriteTrainFile(fname,txt)
     void WriteTrainFileFull(CDasherInterfaceBase *pInterface);
   protected:
-    ///Post-processed version of alphabet group tree, eliding all groups with only a single child.
-    SGroupInfo *m_pFirstGroup;
+    ///Base of all group+character information presented to the user;
+    /// created by calling copyGroups on the alphabet.
+    SGroupInfo *m_pBaseGroup;
+    ///Called to create the base group the AlphMgr will use from the alphabet.
+    /// The default implementation elides all single-element groups, and fills in
+    /// m_mGroupLabels and m_vLabels using the supplied screen; subclasses may
+    /// override to do more, but should call the superclass method to set up the
+    /// labels too.
+    /// (Note: each invocation creates labels for all symbols in pBase, *and*
+    /// all symbols in any later siblings of pBase (by recursive call on pNext).
+    /// Of those, symbols in any child groups may be made by recursive call on
+    /// pChild, but only if pBase has >1 child node (symbol/group).)
+    virtual SGroupInfo *copyGroups(const SGroupInfo *pBase, CDasherScreen *pScreen);
+    
     ///A label for each group in the elided tree
     std::map<const SGroupInfo *,CDasherScreen::Label *> m_mGroupLabels;
     ///A label for each symbol, indexed by symbol id (element 0 = null)
@@ -241,8 +264,6 @@ namespace Dasher {
     /// (also leaves space for NCManager::AddExtras to add control node)
     /// Returns array of non-cumulative probs. Should this be protected and/or virtual???
     void GetProbs(std::vector<unsigned int> *pProbs, CLanguageModel::Context iContext);
-    
-    SGroupInfo *copyGroups(CDasherScreen *pScreen, int iStart, int iEnd, const SGroupInfo *pFirstChild);
     
     ///Constructs child nodes under the specified parent according to provided group.
     /// Nodes are created by calling CreateSymbolNode and CreateGroupNode, unless buildAround is non-null.
