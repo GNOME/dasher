@@ -243,7 +243,6 @@
 		19BEF3B70C228F7300275D06 /* alphabet.pashto.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF32A0C228F7300275D06 /* alphabet.pashto.xml */; };
 		19BEF3B80C228F7300275D06 /* alphabet.perl.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF32B0C228F7300275D06 /* alphabet.perl.xml */; };
 		19BEF3B90C228F7300275D06 /* alphabet.persian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF32C0C228F7300275D06 /* alphabet.persian.xml */; };
-		19BEF3BA0C228F7300275D06 /* alphabet.pinyin.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF32D0C228F7300275D06 /* alphabet.pinyin.xml */; };
 		19BEF3BB0C228F7300275D06 /* alphabet.pinyin2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF32E0C228F7300275D06 /* alphabet.pinyin2.xml */; };
 		19BEF3BC0C228F7300275D06 /* alphabet.polish.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF32F0C228F7300275D06 /* alphabet.polish.xml */; };
 		19BEF3BD0C228F7300275D06 /* alphabet.portuguese.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF3300C228F7300275D06 /* alphabet.portuguese.xml */; };
@@ -644,7 +643,6 @@
 		19BEF32A0C228F7300275D06 /* alphabet.pashto.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.pashto.xml; sourceTree = "<group>"; };
 		19BEF32B0C228F7300275D06 /* alphabet.perl.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.perl.xml; sourceTree = "<group>"; };
 		19BEF32C0C228F7300275D06 /* alphabet.persian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.persian.xml; sourceTree = "<group>"; };
-		19BEF32D0C228F7300275D06 /* alphabet.pinyin.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.pinyin.xml; sourceTree = "<group>"; };
 		19BEF32E0C228F7300275D06 /* alphabet.pinyin2.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.pinyin2.xml; sourceTree = "<group>"; };
 		19BEF32F0C228F7300275D06 /* alphabet.polish.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.polish.xml; sourceTree = "<group>"; };
 		19BEF3300C228F7300275D06 /* alphabet.portuguese.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.portuguese.xml; sourceTree = "<group>"; };
@@ -1179,7 +1177,6 @@
 				19BEF32A0C228F7300275D06 /* alphabet.pashto.xml */,
 				19BEF32B0C228F7300275D06 /* alphabet.perl.xml */,
 				19BEF32C0C228F7300275D06 /* alphabet.persian.xml */,
-				19BEF32D0C228F7300275D06 /* alphabet.pinyin.xml */,
 				19BEF32E0C228F7300275D06 /* alphabet.pinyin2.xml */,
 				19BEF32F0C228F7300275D06 /* alphabet.polish.xml */,
 				19BEF3300C228F7300275D06 /* alphabet.portuguese.xml */,
@@ -1634,7 +1631,6 @@
 				19BEF3B70C228F7300275D06 /* alphabet.pashto.xml in Resources */,
 				19BEF3B80C228F7300275D06 /* alphabet.perl.xml in Resources */,
 				19BEF3B90C228F7300275D06 /* alphabet.persian.xml in Resources */,
-				19BEF3BA0C228F7300275D06 /* alphabet.pinyin.xml in Resources */,
 				19BEF3BB0C228F7300275D06 /* alphabet.pinyin2.xml in Resources */,
 				19BEF3BC0C228F7300275D06 /* alphabet.polish.xml in Resources */,
 				19BEF3BD0C228F7300275D06 /* alphabet.portuguese.xml in Resources */,

@@ -113,7 +113,6 @@ dist_pkgdata_DATA = alphabet.dtd alphabet.xsl	\
 	alphabet.pashto.xml		\
 	alphabet.perl.xml		\
 	alphabet.persian.xml		\
-	alphabet.pinyin.xml		\
 	alphabet.pinyin2.xml		\
 	alphabet.polish.xml		\
 	alphabet.portuguese.xml		\
