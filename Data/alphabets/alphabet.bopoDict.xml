@@ -4861,7 +4861,7 @@
 <s d="&#xFF08;" t="&#xFF08;" b="20" visible="yes" note="Left bracket"/>
 <s d="&#xFF09;" t="&#xFF09;" b="17" visible="yes" note="Right bracket" />
 <s d="&#x2026;" t="&#x2026;" b="20" visible="yes" note="Elipses" />
-<!--<s d="&#x2026;&#x2026;" t="&#x2026;&#x2026;" b="20" visible="yes" note="Double elipses, commented out by ACL as symbols must be single characters. Anything wrong with just writing two ellipses?" />-->
+<!--<s d="&#x2026;&#x2026;" t="&#x2026;&#x2026;" b="20" visible="yes" note="Double elipses, commented out as symbols must be single characters. Anything wrong with just writing two ellipses?" />-->
 <s d="&#x2014;" t="&#x2014;" b="17" visible="yes" note="Long dash" />
 <s d="&#x300A;" t="&#x300A;" b="20" visible="yes" note="Double title (reference) brackets (left)" />
 <s d="&#x300B;" t="&#x300B;" b="17" visible="yes" note="Double title (reference) brackets (right)" />

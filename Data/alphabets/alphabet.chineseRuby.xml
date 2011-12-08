@@ -3,7 +3,7 @@
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
 <alphabets>
 <alphabet name="Chinese &#31616;&#20307;&#20013;&#25991; (simplified chinese, in pin yin groups)" hidden="yes"> <!-- Alphabet created by David MacKay using write.p.  Thanks to Juan K Lin for help -->
-<!--ACL 10Feb2011: Pinyin characters removed (but pinyin groups retained), and "punctuation" inc. roman letters + numerals added, as per rewrite of MandarinDasher to include punctuation in context-->
+<!--10Feb2011: Pinyin characters removed (but pinyin groups retained), and "punctuation" inc. roman letters + numerals added, as per rewrite of MandarinDasher to include punctuation in context-->
 <orientation type="LR"/>
 <encoding type="Western"/>
 <control d="Control" t=""/>
@@ -29,7 +29,7 @@
 <group name="&#224; (a4)" label="&#224;"  f="113"  b="117">
 <s d="&#x554A;" t="&#x554A;" />
 </group>
-<!--ACL using unicode "latin small letter a with ring above" to avoid conflict
+<!--Note use of unicode "latin small letter a with ring above" to avoid conflict
     with roman letter a-->
 <group name="&#97; (a5)" label="&#229;"  f="113"  b="118">
 <s d="&#x554A;" t="&#x554A;" />
@@ -295,6 +295,7 @@
 <s d="&#x5317;" t="&#x5317;" />
 </group>
 <group name="b&#232;i (bei4)" label="b&#232;i"  f="113"  b="121">
+<s d="&#x81C2;" t="&#x81C2;" /><!--ACL adding as present in training text-->
 <s d="&#x8F88;" t="&#x8F88;" />
 <s d="&#x80CC;" t="&#x80CC;" />
 <s d="&#x8D1D;" t="&#x8D1D;" />
@@ -539,6 +540,7 @@
 <s d="&#x997D;" t="&#x997D;" />
 </group>
 <group name="b&#243; (bo2)" label="b&#243;"  f="113"  b="117">
+<s d="&#x535C;" t="&#x535C;" /><!--ACL adding as present in training text-->
 <s d="&#x67CF;" t="&#x67CF;" />
 <s d="&#x8584;" t="&#x8584;" />
 <s d="&#x535A;" t="&#x535A;" />
@@ -951,6 +953,7 @@
 <s d="&#x9B51;" t="&#x9B51;" />
 </group>
 <group name="ch&#237; (chi2)" label="ch&#237;"  f="113"  b="122">
+<s d="&#x832C;" t="&#x832C;" /><!--ACL adding as present in training text-->
 <s d="&#x6301;" t="&#x6301;" />
 <s d="&#x5319;" t="&#x5319;" />
 <s d="&#x6C60;" t="&#x6C60;" />
@@ -1445,6 +1448,7 @@
 <s d="&#x951D;" t="&#x951D;" />
 </group>
 <group name="d&#101; (de5)" label="d&#101;"  f="113"  b="119">
+<s d="&#x5927;" t="&#x5927;" /><!--ACL adding as present in training text-->
 <s d="&#x5F97;" t="&#x5F97;" />
 <s d="&#x7684;" t="&#x7684;" />
 <s d="&#x5E95;" t="&#x5E95;" />
@@ -1657,6 +1661,7 @@
 <s d="&#x7850;" t="&#x7850;" />
 </group>
 <group name="d&#333;u (dou1)" label="d&#333;u"  f="113"  b="122">
+<s d="&#x8981;" t="&#x8981;" /><!--ACL adding as present in training text-->
 <s d="&#x515C;" t="&#x515C;" />
 <s d="&#x90FD;" t="&#x90FD;" />
 <s d="&#x8538;" t="&#x8538;" />
@@ -1889,6 +1894,7 @@
 <s d="&#x57A1;" t="&#x57A1;" />
 </group>
 <group name="f&#462; (fa3)" label="f&#462;"  f="113"  b="122">
+<s d="&#x53D1;" t="&#x53D1;" /><!--ACL adding as present in training text-->
 <s d="&#x6CD5;" t="&#x6CD5;" />
 <s d="&#x781D;" t="&#x781D;" />
 </group>
@@ -2295,6 +2301,7 @@
 <s d="&#x88BC;" t="&#x88BC;" />
 </group>
 <group name="g&#233; (ge2)" label="g&#233;"  f="113"  b="123">
+<s d="&#x5408;" t="&#x5408;" /><!--ACL adding as present in training text-->
 <s d="&#x6401;" t="&#x6401;" />
 <s d="&#x9769;" t="&#x9769;" />
 <s d="&#x845B;" t="&#x845B;" />
@@ -2321,6 +2328,7 @@
 <s d="&#x8238;" t="&#x8238;" />
 </group>
 <group name="g&#232; (ge4)" label="g&#232;"  f="113"  b="114">
+<s d="&#x91CF;" t="&#x91CF;" /><!--ACL adding as present in training text-->
 <s d="&#x94EC;" t="&#x94EC;" />
 <s d="&#x4E2A;" t="&#x4E2A;" />
 <s d="&#x5404;" t="&#x5404;" />
@@ -2618,6 +2626,7 @@
 <s d="&#x873E;" t="&#x873E;" />
 </group>
 <group name="g&#249;o (guo4)" label="g&#249;o"  f="113"  b="119">
+<s d="&#x7684;" t="&#x7684;" /><!--ACL adding as present in training text-->
 <s d="&#x8FC7;" t="&#x8FC7;" />
 </group>
 <group name="h&#257; (ha1)" label="h&#257;"  f="113"  b="120">
@@ -2680,6 +2689,7 @@
 <s d="&#x961A;" t="&#x961A;" />
 </group>
 <group name="h&#224;n (han4)" label="h&#224;n"  f="113"  b="120">
+<s d="&#x988C;" t="&#x988C;" /><!--ACL adding as present in training text-->
 <s d="&#x7FF0;" t="&#x7FF0;" />
 <s d="&#x64BC;" t="&#x64BC;" />
 <s d="&#x634D;" t="&#x634D;" />
@@ -3351,6 +3361,7 @@
 <s d="&#x8DBC;" t="&#x8DBC;" />
 </group>
 <group name="j&#236;an (jian4)" label="j&#236;an"  f="113"  b="120">
+<s d="&#x5316;" t="&#x5316;" /><!--ACL adding as present in training text-->
 <s d="&#x95F4;" t="&#x95F4;" />
 <s d="&#x8350;" t="&#x8350;" />
 <s d="&#x69DB;" t="&#x69DB;" />
@@ -4020,6 +4031,7 @@
 <s d="&#x84AF;" t="&#x84AF;" />
 </group>
 <group name="k&#249;ai (kuai4)" label="k&#249;ai"  f="113"  b="114">
+<s d="&#x6867;" t="&#x6867;" /><!--ACL adding as present in training text-->
 <s d="&#x4F1A;" t="&#x4F1A;" />
 <s d="&#x5757;" t="&#x5757;" />
 <s d="&#x7B77;" t="&#x7B77;" />
@@ -4209,6 +4221,7 @@
 <s d="&#x8782;" t="&#x8782;" />
 </group>
 <group name="l&#462;ng (lang3)" label="l&#462;ng"  f="113"  b="119">
+<s d="&#x9606;" t="&#x9606;" /><!--ACL adding as present in training text-->
 <s d="&#x6717;" t="&#x6717;" />
 </group>
 <group name="l&#224;ng (lang4)" label="l&#224;ng"  f="113"  b="120">
@@ -4837,7 +4850,7 @@
 <s d="&#x8DDE;" t="&#x8DDE;" />
 <s d="&#x96D2;" t="&#x96D2;" />
 </group>
-<!--ACL using unicode "latin small letter m with acute" to avoid conflict with
+<!--Note use of unicode "latin small letter m with acute" to avoid conflict with
     roman letter m-->
 <group name="m (m2)" label="&#7743;"  f="113"  b="121">
 <s d="&#x5452;" t="&#x5452;" />
@@ -5288,6 +5301,7 @@
 <s d="&#x954E;" t="&#x954E;" />
 </group>
 <group name="n&#462; (na3)" label="n&#462;"  f="113"  b="118">
+<s d="&#x90A3;" t="&#x90A3;" /><!--ACL adding as present in training text-->
 <s d="&#x54EA;" t="&#x54EA;" />
 </group>
 <group name="n&#224; (na4)" label="n&#224;"  f="113"  b="119">
@@ -5961,6 +5975,7 @@
 <s d="&#x5657;" t="&#x5657;" />
 </group>
 <group name="p&#250; (pu2)" label="p&#250;"  f="113"  b="117">
+<s d="&#x6734;" t="&#x6734;" /><!--ACL adding as present in training text-->
 <s d="&#x812F;" t="&#x812F;" />
 <s d="&#x4EC6;" t="&#x4EC6;" />
 <s d="&#x8386;" t="&#x8386;" />
@@ -6056,6 +6071,7 @@
 <s d="&#x7DAE;" t="&#x7DAE;" />
 </group>
 <group name="q&#236; (qi4)" label="q&#236;"  f="113"  b="123">
+<s d="&#x7F09;" t="&#x7F09;" /><!--ACL adding as present in training text-->
 <s d="&#x59BB;" t="&#x59BB;" />
 <s d="&#x5951;" t="&#x5951;" />
 <s d="&#x780C;" t="&#x780C;" />
@@ -6090,6 +6106,7 @@
 <s d="&#x9AC2;" t="&#x9AC2;" />
 </group>
 <group name="q&#299;an (qian1)" label="q&#299;an"  f="113"  b="117">
+<s d="&#x5D4C;" t="&#x5D4C;" /><!--ACL adding as present in training text-->
 <s d="&#x7275;" t="&#x7275;" />
 <s d="&#x6266;" t="&#x6266;" />
 <s d="&#x948E;" t="&#x948E;" />
@@ -6685,6 +6702,7 @@
 <s d="&#x7619;" t="&#x7619;" />
 </group>
 <group name="s&#232; (se4)" label="s&#232;"  f="113"  b="115">
+<s d="&#x8FC7;" t="&#x8FC7;" /><!--ACL adding as present in training text-->
 <s d="&#x585E;" t="&#x585E;" />
 <s d="&#x745F;" t="&#x745F;" />
 <s d="&#x8272;" t="&#x8272;" />
@@ -6740,6 +6758,7 @@
 <s d="&#x6652;" t="&#x6652;" />
 </group>
 <group name="sh&#257;n (shan1)" label="sh&#257;n"  f="113"  b="114">
+<s d="&#x63BA;" t="&#x63BA;" /><!--ACL adding as present in training text-->
 <s d="&#x73CA;" t="&#x73CA;" />
 <s d="&#x82EB;" t="&#x82EB;" />
 <s d="&#x6749;" t="&#x6749;" />
@@ -6855,6 +6874,8 @@
 <s d="&#x820D;" t="&#x820D;" />
 </group>
 <group name="sh&#232; (she4)" label="sh&#232;"  f="113"  b="117">
+<s d="&#x7684;" t="&#x7684;" /><!--ACL adding as present in training text-->
+<s d="&#x4E2D;" t="&#x4E2D;" /><!--ACL adding as present in training text-->
 <s d="&#x820D;" t="&#x820D;" />
 <s d="&#x8D66;" t="&#x8D66;" />
 <s d="&#x6444;" t="&#x6444;" />
@@ -6950,6 +6971,7 @@
 <s d="&#x9CBA;" t="&#x9CBA;" />
 </group>
 <group name="sh&#237; (shi2)" label="sh&#237;"  f="113"  b="117">
+<s d="&#x89E3;" t="&#x89E3;" /><!--ACL adding as present in training text-->
 <s d="&#x5341;" t="&#x5341;" />
 <s d="&#x77F3;" t="&#x77F3;" />
 <s d="&#x62FE;" t="&#x62FE;" />
@@ -7163,6 +7185,7 @@
 <s d="&#x94C4;" t="&#x94C4;" />
 </group>
 <group name="s&#299; (si1)" label="s&#299;"  f="113"  b="113">
+<s d="&#x601D;" t="&#x601D;" /><!--ACL adding as present in training text-->
 <s d="&#x65AF;" t="&#x65AF;" />
 <s d="&#x6495;" t="&#x6495;" />
 <s d="&#x5636;" t="&#x5636;" />
@@ -7477,6 +7500,7 @@
 <s d="&#x9955;" t="&#x9955;" />
 </group>
 <group name="t&#225;o (tao2)" label="t&#225;o"  f="113"  b="117">
+<s d="&#x7118;" t="&#x7118;" /><!--ACL adding as present in training text-->
 <s d="&#x8404;" t="&#x8404;" />
 <s d="&#x6843;" t="&#x6843;" />
 <s d="&#x9003;" t="&#x9003;" />
@@ -7629,6 +7653,7 @@
 <s d="&#x6883;" t="&#x6883;" />
 </group>
 <group name="t&#333;ng (tong1)" label="t&#333;ng"  f="113"  b="119">
+<s d="&#x9769;" t="&#x9769;" /><!--ACL adding as present in training text-->
 <s d="&#x901A;" t="&#x901A;" />
 <s d="&#x55F5;" t="&#x55F5;" />
 </group>
@@ -8164,6 +8189,7 @@
 <s d="&#x5477;" t="&#x5477;" />
 </group>
 <group name="x&#237;a (xia2)" label="x&#237;a"  f="113"  b="120">
+<s d="&#x631F;" t="&#x631F;" /><!--ACL adding as present in training text-->
 <s d="&#x5323;" t="&#x5323;" />
 <s d="&#x971E;" t="&#x971E;" />
 <s d="&#x8F96;" t="&#x8F96;" />
@@ -8799,6 +8825,7 @@
 <s d="&#x7A88;" t="&#x7A88;" />
 </group>
 <group name="y&#224;o (yao4)" label="y&#224;o"  f="113"  b="116">
+<s d="&#x90FD;" t="&#x90FD;" /><!--ACL adding as present in training text-->
 <s d="&#x759F;" t="&#x759F;" />
 <s d="&#x836F;" t="&#x836F;" />
 <s d="&#x8981;" t="&#x8981;" />
@@ -8901,6 +8928,7 @@
 <s d="&#x914F;" t="&#x914F;" />
 </group>
 <group name="y&#236; (yi4)" label="y&#236;"  f="113"  b="113">
+<s d="&#x7684;" t="&#x7684;" /><!--ACL adding as present in training text-->
 <s d="&#x827E;" t="&#x827E;" />
 <s d="&#x8863;" t="&#x8863;" />
 <s d="&#x827A;" t="&#x827A;" />
@@ -9154,6 +9182,7 @@
 <s d="&#x7600;" t="&#x7600;" />
 </group>
 <group name="y&#250; (yu2)" label="y&#250;"  f="113"  b="122">
+<s d="&#x5729;" t="&#x5729;" /><!--ACL adding as present in training text-->
 <s d="&#x4E8E;" t="&#x4E8E;" />
 <s d="&#x76C2;" t="&#x76C2;" />
 <s d="&#x6986;" t="&#x6986;" />
@@ -9606,6 +9635,7 @@
 <s d="&#x5D82;" t="&#x5D82;" />
 </group>
 <group name="zh&#257;o (zhao1)" label="zh&#257;o"  f="113"  b="120">
+<s d="&#x53EC;" t="&#x53EC;" /><!--ACL adding as present in training text-->
 <s d="&#x671D;" t="&#x671D;" />
 <s d="&#x5632;" t="&#x5632;" />
 <s d="&#x62DB;" t="&#x62DB;" />
@@ -9615,6 +9645,7 @@
 <s d="&#x948A;" t="&#x948A;" />
 </group>
 <group name="zh&#225;o (zhao2)" label="zh&#225;o"  f="113"  b="121">
+<s d="&#x8457;" t="&#x8457;" /><!--ACL adding as present in training text-->
 <s d="&#x7740;" t="&#x7740;" />
 </group>
 <group name="zh&#462;o (zhao3)" label="zh&#462;o"  f="113"  b="122">
@@ -10026,6 +10057,7 @@
 <s d="&#x712F;" t="&#x712F;" />
 </group>
 <group name="zh&#250;o (zhuo2)" label="zh&#250;o"  f="113"  b="123">
+<s d="&#x712F;" t="&#x712F;" /><!--ACL adding as present in training text-->
 <s d="&#x7F34;" t="&#x7F34;" />
 <s d="&#x8457;" t="&#x8457;" />
 <s d="&#x5353;" t="&#x5353;" />
@@ -10202,7 +10234,7 @@
 <s d="&#x9162;" t="&#x9162;" />
 </group>
 
-<!-- ACL idea of all further groups, is to match up with individual punctuation/roman characters from
+<!-- Idea of all further groups, is to match up with individual punctuation/roman characters from
   the Pinyin alphabet, again by equality of display text. This should mean that when the user writes a
   pinyin punctuation symbol, the equivalent/identical chinese character/symbol will be written instead,
   and entered into the (chinese-character) language model context just as for other _chinese_ symbols. -->  
