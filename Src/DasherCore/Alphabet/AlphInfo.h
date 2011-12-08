@@ -64,14 +64,6 @@ namespace Dasher {
 /// - this is for consistency with SGroupInfo, preserving that iEnd is one more
 /// than the highest valid index.
 class Dasher::CAlphInfo : public SGroupInfo {
-private:
-  friend class CAlphIO;
-  struct character {
-    character();
-    std::string Display;
-    std::string Text;
-    int Colour;
-  };
 public:
   
   const std::string &GetID() const {return AlphID;}
@@ -119,19 +111,16 @@ public:
   /// all this handled by MandarinAlphMgr (+MandarinTrainer, PPMPYLanguageModel).
   int m_iConversionID;
 
-  ///The name of the alphabet containing the actual text symbols into which
-  /// this alphabet will be converted. Only used (atm) if m_iConversionID==2.
-  std::string m_strConversionTarget;
-
-  ///Single-unicode character used to indicate an upcoming PY-then-CH pair
-  /// in the training file (see MandarinTrainer). Only used if m_iConversionID==2.
-  std::string m_strConversionTrainingDelimiter;
-
-  CAlphabetMap *MakeMap() const;
+  ///Single-unicode characters used in the training file to delimit the name of a group
+  /// containing the next symbol, in order to disambiguate which group (=route, pronunciation)
+  /// was used to produce the symbol in this case (see MandarinTrainer).
+  /// Only used if m_iConversionID==2. Default to "<" and ">"
+  std::string m_strConversionTrainStart,m_strConversionTrainStop;
 
   ~CAlphInfo();
 
 private:
+  friend class CAlphIO;
   CAlphInfo();
   // Basic information
   std::string AlphID;
@@ -145,11 +134,16 @@ private:
   Opts::AlphabetTypes Type;
   Opts::ScreenOrientations Orientation;
 
-  ///If true, alphabet should not be displayed in list of available alphabets;
-  /// it exists only for internal use, e.g. as a target for conversion from
-  /// another alphabet (a la MandarinDasher).
-  bool m_bHidden;
+  std::string m_strDefaultContext;
+  std::string m_strCtxChar;
 
+protected:
+  struct character {
+    character();
+    std::string Display;
+    std::string Text;
+    int Colour;
+  };
   std::vector<character> m_vCharacters;
 
   symbol iParagraphCharacter;       // symbol number (index into m_vCharacters +1) of paragraph char (for display and default edit-text), 0 for none.
@@ -158,8 +152,7 @@ private:
   character *StartConvertCharacter;
   character *EndConvertCharacter;
 
-  std::string m_strDefaultContext;
-  std::string m_strCtxChar;
+  void copyCharacterFrom(const CAlphInfo *other, int idx);
 };
 
 

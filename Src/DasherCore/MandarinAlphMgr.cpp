@@ -46,124 +46,208 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CMandarinAlphMgr::CMandarinAlphMgr(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet, const CAlphIO *pAlphIO)
-  : CAlphabetManager(pCreator, pInterface, pNCManager, pAlphabet),
-    m_pConversionsBySymbol(new vector<symbol>[GetAlphabet()->iEnd]) {
+CMandarinAlphMgr::CMandarinAlphMgr(CSettingsUser *pCreator, CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet)
+  : CAlphabetManager(pCreator, pInterface, pNCManager, pAlphabet) {
+  
   DASHER_ASSERT(pAlphabet->m_iConversionID==2);
-      
-  //the CHAlphabet contains a group for each SPY syllable+tone, with symbols being chinese characters.      
-  const CAlphInfo *pCHAlphabet = pAlphIO->GetInfo(pAlphabet->m_strConversionTarget);
-      
-  //Build a map from SPY group label, to set of chinese chars (represented as start & end of group in pCHAlphabet)
-  map<string,pair<symbol,symbol> > conversions;
-  //Dasher's alphabet format means that space and paragraph can't be put into groups,
-  // so put them into their own group, manually, keyed by _symbol_ display text:
-  if (symbol sp = pCHAlphabet->GetSpaceSymbol())
-    conversions[pCHAlphabet->GetDisplayText(sp)]=pair<symbol,symbol>(sp,sp+1);
-  if (symbol para = pCHAlphabet->GetParagraphSymbol())
-    conversions[pCHAlphabet->GetDisplayText(para)]=pair<symbol,symbol>(para,para+1);
-  //Non-recursive traversal of all the groups in the CHAlphabet (we don't care where they are, just to find them)
-  vector<const SGroupInfo *> groups;
-  groups.push_back(pCHAlphabet->pChild);
-  while (!groups.empty()) {
-    const SGroupInfo *pGroup(groups.back()); groups.pop_back();
-    if (pGroup->pNext) groups.push_back(pGroup->pNext);
-    if (pGroup->pChild) groups.push_back(pGroup->pChild);
-    //process this group. The SPY syll+tone is stored as the label, using a tone mark over the vowel, e.g. &#257; = a1
-    // such equivalences are recorded in the xml 'name' attribute of the group, but we don't need that.
-    if (pGroup->strLabel.length()) {
-      DASHER_ASSERT(conversions.find(pGroup->strLabel)==conversions.end()); //no previous group with same label
-      conversions[pGroup->strLabel] = pair<symbol,symbol>(pGroup->iStart, pGroup->iEnd);
-    }
+}
+
+void CMandarinAlphMgr::InitMap() {
+  m_vCHtext.resize(1);
+  m_vCHdisplayText.resize(1);
+  m_vCHcolours.resize(1);
+  m_vGroupsByConversion.resize(1);
+  m_vConversionsByGroup.resize(1);
+  m_vGroupNames.resize(1);
+  
+  //Scan original group tree, identifying PY groups and rehashing characters
+  m_pPYgroups = makePYgroup(m_pAlphabet);
+
+  //add in space and paragraph to end of main PY group...
+  symbol copy[2];
+  copy[0] = m_pAlphabet->GetSpaceSymbol();
+  copy[1] = m_pAlphabet->GetParagraphSymbol();
+  
+  for (int i=0; i<sizeof(copy)/sizeof(copy[0]); i++) {
+    if (!copy[i]) continue;
+    
+    //add a PY mapping to a single CH-character (already rehashed), i.e. the space/para
+    int hashed = m_map.Get(m_pAlphabet->GetText(copy[i]));
+    DASHER_ASSERT(hashed);
+    m_vGroupsByConversion[hashed].insert(m_vConversionsByGroup.size()); //identifies the new PY sound
+    m_vConversionsByGroup.push_back(vector<symbol>(1,hashed));
+    m_pPYgroups->iEnd++; m_pPYgroups->iNumChildNodes++;
   }
+}
 
-  //Now: symbols in the primary (SPY) alphabet are syllable+tone, with the string SPY description
-  // (using unicode tone marks, e.g. &#257;) in the display text, matching up with the CHAlphabet groups. 
-  // (The SPY symbols are arranged in hierarchical groups according to the numbered-tone version, e.g. "a1";
-  // but we don't do anything special with those groups, they are just displayed on screen as any normal alphabet).
-  //Punctuation is the same way, i.e. PYAlph symbol w/ displaytext "," maps to the CHAlphabel group w/ label ","
-
-  //When we find a group in pCHAlphabet is needed, we add its symbols to m_CH{text,displayText,AlphabetMap}
-  // _only_ if the same unicode character is not already present; thus m_CHtext etc. will be a 1-1 mapping
-  // between indices and actual chinese unicode characters.
-  m_CHtext.push_back(""); m_CHdisplayText.push_back(""); m_CHcolours.push_back(0); //as usual, element 0 is the "unknown symbol"
-  std::vector<symbol> vSyms;
-  for (symbol i=1; i<GetAlphabet()->iEnd; i++) {
-    DASHER_ASSERT(conversions.find(m_pAlphabet->GetDisplayText(i))!=conversions.end());
-    pair<symbol,symbol> convs(conversions[m_pAlphabet->GetDisplayText(i)]);
-    //for each chinese unicode character in the group, hash it to ensure same unicode = same index into m_CH{text,displayText,AlphabetMap}
-    for (symbol CHsym=convs.first; CHsym<convs.second; CHsym++) {
-      const string &text(pCHAlphabet->GetText(CHsym));
-      int target=m_CHAlphabetMap.Get(text);
-      if (!target) {
+SGroupInfo *CMandarinAlphMgr::makePYgroup(const SGroupInfo *in) {
+  if (!in) return NULL;
+  SGroupInfo *ret = new SGroupInfo(*in);
+  ret->iStart = m_vConversionsByGroup.size();//i.e. #py sounds found so far
+  
+  //process any symbols that are direct children of the group (not descendants)
+  ret->iNumChildNodes=0; //we'll have to do a recount
+  const SGroupInfo *oldCh = in->pChild;
+  for (int i=in->iStart; i<in->iEnd; ) {
+    if (!oldCh || i<oldCh->iStart) {
+      //found symbol...first, rehash:
+      const string &text(m_pAlphabet->GetText(i));
+      int hashed=m_map.Get(text);
+      if (!hashed) {
         //unicode char not seen already, allocate new symbol number
-        target = m_CHtext.size();
-        m_CHtext.push_back(text);
-        m_CHdisplayText.push_back(pCHAlphabet->GetDisplayText(CHsym));
-        m_CHcolours.push_back(pCHAlphabet->GetColour(CHsym));
-        m_CHAlphabetMap.Add(text,target);
+        hashed = m_vCHtext.size();
+        m_vCHtext.push_back(text);
+        m_vCHdisplayText.push_back(m_pAlphabet->GetDisplayText(i));
+        m_vCHcolours.push_back(m_pAlphabet->GetColour(i));
+        if (i==m_pAlphabet->GetParagraphSymbol())
+          m_map.AddParagraphSymbol(m_iCHpara=hashed);
+        else
+          m_map.Add(text,hashed);
+        m_vGroupsByConversion.push_back(set<symbol>());
       }
-      DASHER_ASSERT(m_CHtext[m_CHAlphabetMap.Get(text)] == text);
-      m_pConversionsBySymbol[i].push_back(target);
-      //Also the reverse lookup: (rehashed chinese symbol number) -> (pinyin by which it could be produced)
-      m_PinyinByChinese[target].insert(i);
+      //now, put in PY-group...
+      if (i!=m_pAlphabet->GetSpaceSymbol() && i!=m_pAlphabet->GetParagraphSymbol()) {
+        if (m_vConversionsByGroup.size() == ret->iStart) {
+          //First symbol that is directly child of group. Allocate index...
+          ret->iNumChildNodes++;
+          m_vGroupNames.push_back(in->strName);
+          m_vConversionsByGroup.push_back(vector<symbol>());
+        }
+        DASHER_ASSERT(m_vGroupNames.size() > ret->iStart);
+        DASHER_ASSERT(m_vConversionsByGroup.size() > ret->iStart);
+        m_vConversionsByGroup.back().push_back(hashed);
+        m_vGroupsByConversion[hashed].insert(ret->iStart);
+      } //space and para we will put in their own/different groups, later...
+      i++;
+    } else {
+      //subgroup; skip over
+      i=oldCh->iEnd; oldCh=oldCh->pNext;
+      ret->iNumChildNodes++;
     }
   }
-  //that leaves m_pConversionsBySymbol as desired.
+  //direct children done. process indirect children, i.e. subgroups
+  ret->pChild=makePYgroup(ret->pChild);
+  ret->iEnd = m_vConversionsByGroup.size(); //record all indices allocated to this group and descendants
+  ret->pNext = makePYgroup(ret->pNext);
+  return ret;
 }
 
 void CMandarinAlphMgr::MakeLabels(CDasherScreen *pScreen) {
-  //this makes any labels req'd for conversion roots
+  //keep the screen to create labels lazily...
+  m_pScreen = pScreen;
+  
+  //this copies the entire group tree to the new indices
+  // and makes any labels req'd for conversion roots
   // (i.e. captions of groups, containing said root, that are elided)
   CAlphabetManager::MakeLabels(pScreen);
-  //also keep the screen to create labels lazily...
-  m_pScreen = pScreen;
 }
 
+SGroupInfo *CMandarinAlphMgr::copyGroups(const SGroupInfo *in, CDasherScreen *pScreen) {
+  return CAlphabetManager::copyGroups(in==m_pAlphabet ? m_pPYgroups : in, pScreen);
+}
 const string &CMandarinAlphMgr::GetLabelText(symbol i) const {
   static string n="";
   return n;
 }
 
 CMandarinAlphMgr::~CMandarinAlphMgr() {
-  delete[] m_pConversionsBySymbol;
+  for (vector<CDasherScreen::Label *>::iterator it=m_vCHLabels.begin(); it!=m_vCHLabels.end(); it++)
+    delete *it;
+  m_pPYgroups->RecursiveDelete();
 }
 
 void CMandarinAlphMgr::CreateLanguageModel() {
   //std::cout<<"CHALphabet size "<< pCHAlphabet->GetNumberTextSymbols(); [7603]
   //std::cout<<"Setting PPMPY model"<<std::endl;
-  m_pLanguageModel = new CPPMPYLanguageModel(this, m_CHtext.size()-1, m_pAlphabet->iEnd-1);
+  m_pLanguageModel = new CPPMPYLanguageModel(this, m_vGroupsByConversion.size()-1, m_vConversionsByGroup.size()-1);
 }
+
+CMandarinAlphMgr::CMandarinTrainer::CMandarinTrainer(CMessageDisplay *pMsgs, CMandarinAlphMgr *pMgr)
+: CTrainer(pMsgs, pMgr->m_pLanguageModel, pMgr->m_pAlphabet, &pMgr->m_map), m_pMgr(pMgr) {
+  //We pass in the alphabet to define the context-switch escape character, and the default context.
+
+  m_iStartSym=0;  
+  vector<symbol> trainStartSyms;
+  m_pAlphabet->GetSymbols(trainStartSyms, m_pInfo->m_strConversionTrainStart);
+  if (trainStartSyms.size()==1)
+    m_iStartSym = trainStartSyms[0];
+  else
+    m_pMsgs->FormatMessageWithString(_("Warning: faulty alphabet definition: training-start delimiter %s must be a single unicode character. May be unable to process training file."),
+                                     m_pInfo->m_strConversionTrainStart.c_str());
+}
+
+symbol CMandarinAlphMgr::CMandarinTrainer::getPYsym(bool bHavePy, const string &strPy, symbol symCh) {
+  const set<symbol> &posPY(m_pMgr->m_vGroupsByConversion[symCh]);
+  if (posPY.size()==1) {
+    //only one possibility; so we'll use it, but maybe flag.
+    symbol pySym = *(posPY.begin());
+    if (bHavePy && m_pMgr->m_vGroupNames[pySym] != strPy)
+      m_pMsgs->FormatMessageWith2Strings(_("Warning: training file contains character '%s' as member of group '%s', but no group of that name contains the character; ignoring group specifier"),
+                                         m_pInfo->GetDisplayText(symCh).c_str(),
+                                         strPy.c_str());
+    return pySym;
+  }
+  set<symbol> withName; static const string n("");
+  //if no py specified, silently accept a group with no name if there is just one
+  for (set<symbol>::iterator it = posPY.begin(); it!=posPY.end(); it++)
+    if (m_pMgr->m_vGroupNames[*it] == (bHavePy ? strPy : n))
+      withName.insert(*it);  
+  if (withName.size()==1) return *(withName.begin());
+  if (!bHavePy)
+    m_pMsgs->FormatMessageWithString(_("Warning: training file contains character '%s', which can be written in multiple ways, without specifying which. Dasher will not be able to learn how you want to write this character."),
+                                     m_pInfo->GetDisplayText(symCh).c_str());
+  else if (withName.size()==0)
+    m_pMsgs->FormatMessageWith2Strings(_("Warning: training file contains character '%s' as member of group '%s', but no group of that name contains the character. Dasher will not be able to learn how you want to write this character."),
+                                       m_pInfo->GetDisplayText(symCh).c_str(),
+                                       strPy.c_str());
+  else
+    m_pMsgs->FormatMessageWith2Strings(_("Warning: training file contains character '%s' as member of group '%s', but alphabet contains several such groups. Dasher will not be able to learn how you want to write this character."),
+                                       m_pInfo->GetDisplayText(symCh).c_str(),
+                                       strPy.c_str());
+  return 0;
+}
+
+void CMandarinAlphMgr::CMandarinTrainer::Train(CAlphabetMap::SymbolStream &syms) {
+  CLanguageModel::Context trainContext = m_pLanguageModel->CreateEmptyContext();
+
+  string strPy; bool bHavePy(false);
+  for (symbol sym; (sym=syms.next(m_pAlphabet))!=-1;) {
+    if (sym == m_iStartSym) {
+      if (sym!=0 || syms.peekBack()==m_pInfo->m_strConversionTrainStart) {
+        if (bHavePy)
+          m_pMsgs->FormatMessageWithString(_("Warning: in training file, annotation '<%s>' is followed by another annotation and will be ignored"),
+                                           strPy.c_str());
+        strPy.clear(); bHavePy=true;
+        for (string s; (s=syms.peekAhead()).length(); strPy+=s) {
+          syms.next(m_pAlphabet);
+          if (s==m_pInfo->m_strConversionTrainStop) break;
+        }
+        continue; //read next, hopefully a CH (!)
+      } //else, unknown symbol, but does not match pinyin delimiter; fallthrough
+    }
+    if (readEscape(trainContext, sym, syms)) continue; //TODO warn if py lost?
+    //OK, sym is a (CH) symbol to learn.
+    if (sym) {
+      if (symbol pySym = getPYsym(bHavePy, strPy, sym))
+          static_cast<CPPMPYLanguageModel*>(m_pLanguageModel)->LearnPYSymbol(trainContext, pySym);
+      m_pLanguageModel->LearnSymbol(trainContext, sym);
+    } //else, silently drop - as CTrainer - TODO could learn PY anyway???
+    bHavePy=false; strPy.clear();
+  }
+  m_pLanguageModel->ReleaseContext(trainContext);
+}
+
 
 CTrainer *CMandarinAlphMgr::GetTrainer() {
-  //We pass in the pinyin alphabet to define the context-switch escape character, and the default context.
-  // Although the default context will be symbolified via the _chinese_ alphabet, this seems reasonable
-  // as it is the Pinyin alphabet which defines the conversion mapping (i.e. m_strConversionTarget!)
-  return new CMandarinTrainer(m_pInterface, static_cast<CPPMPYLanguageModel*>(m_pLanguageModel), m_pAlphabet, m_pAlphabetMap, &m_CHAlphabetMap, m_pAlphabet->m_strConversionTrainingDelimiter);
+  return new CMandarinTrainer(m_pInterface, this);
 }
 
-CAlphabetManager::CAlphNode *CMandarinAlphMgr::GetRoot(CDasherNode *pParent, bool bEnteredLast, int iOffset) {
-
-  int iNewOffset(max(-1,iOffset-1));  
-  // Use chinese alphabet, not pinyin...
-  pair<symbol, CLanguageModel::Context> p=GetContextSymbols(pParent, iNewOffset, &m_CHAlphabetMap);
-
-  CAlphNode *pNewNode;
-  if (p.first==0 || !bEnteredLast) {
-    pNewNode = new CGroupNode(iNewOffset, NULL, 0, this, m_pBaseGroup);
-  } else {
-    DASHER_ASSERT(p.first>0 && p.first<m_CHtext.size());
-    pNewNode = new CMandSym(iNewOffset, this, p.first, 0);
-    pNewNode->SetFlag(NF_SEEN, true);
-    pNewNode->CDasherNode::SetFlag(NF_COMMITTED, true); //do NOT commit!
-  }
-  pNewNode->iContext = p.second;
-  
-  return pNewNode;
+CAlphabetManager::CAlphNode *CMandarinAlphMgr::CreateSymbolRoot(int iOffset, symbol chSym) {
+  return new CMandSym(iOffset, this, chSym, 0);
 }
 
-int CMandarinAlphMgr::GetCHColour(symbol CHsym, int iOffset) const {
-  int iColour = m_CHcolours[CHsym];
+int CMandarinAlphMgr::GetColour(symbol CHsym, int iOffset) const {
+  int iColour = m_vCHcolours[CHsym]; //colours were rehashed with CH symbol text
   if (iColour==-1) {
     //none specified in alphabet
     static int colourStore[2][3] = {
@@ -182,19 +266,20 @@ int CMandarinAlphMgr::GetCHColour(symbol CHsym, int iOffset) const {
 
 CDasherNode *CMandarinAlphMgr::CreateSymbolNode(CAlphNode *pParent, symbol iSymbol) {
   
-  //For every PY symbol (=syllable+tone, or "punctuation"),
-  // m_pConversionsBySymbol identifies the possible chinese-alphabet symbols
+  //For every PY index (group; = syllable+tone or "punctuation"),
+  // m_pConversionsByGroup identifies the possible chinese-alphabet symbols
   // that have that syll+tone; a CConvRoot thus offers the choice between them.
   //However, for e.g. punctuation, there may be only one such CH symbol, in which
   // case we can create the symbol directly, bypassing the CConvRoot; EXCEPT,
   // in cases where the CConvRoot provides a place to put some part of the group
   // label (specific to that symbol, so kinda redundant, but we want to keep it
   // for consistency of display).
+  vector<symbol> &convs(m_vConversionsByGroup[iSymbol]);
   
-  if (m_pConversionsBySymbol[iSymbol].size()>1 || m_vLabels[iSymbol])
+  if (convs.size()>1 || m_vLabels[iSymbol])
     return CreateConvRoot(pParent, iSymbol);
-  
-  return CreateCHSymbol(pParent,pParent->iContext, *(m_pConversionsBySymbol[iSymbol].begin()), iSymbol);
+  //elide CConvRoot...
+  return CreateCHSymbol(pParent,pParent->iContext, *(convs.begin()), iSymbol);
 }
 
 CMandarinAlphMgr::CConvRoot *CMandarinAlphMgr::CreateConvRoot(CAlphNode *pParent, symbol iPYsym) {
@@ -212,13 +297,13 @@ CMandarinAlphMgr::CConvRoot::CConvRoot(int iOffset, CMandarinAlphMgr *pMgr, symb
 : CAlphBase(iOffset, 9, pMgr->m_vLabels[pySym], pMgr), m_pySym(pySym) {
   //We do sometimes create CConvRoots with only one child, where we
   // need them to display a label...
-  DASHER_ASSERT(pMgr->m_pConversionsBySymbol[pySym].size()>1
+  DASHER_ASSERT(pMgr->m_vConversionsByGroup[pySym].size()>1
                 || pMgr->m_vLabels[pySym]);
   //colour + label from ConversionManager.
 }
 
 int CMandarinAlphMgr::CConvRoot::ExpectedNumChildren() {
-  return mgr()->m_pConversionsBySymbol[m_pySym].size();
+  return mgr()->m_vConversionsByGroup[m_pySym].size();
 }
 
 void CMandarinAlphMgr::CConvRoot::PopulateChildren() {
@@ -246,11 +331,8 @@ void CMandarinAlphMgr::CConvRoot::PopulateChildrenWithExisting(CMandSym *existin
 }
 
 CMandarinAlphMgr::CMandSym *CMandarinAlphMgr::CreateCHSymbol(CDasherNode *pParent, CLanguageModel::Context iContext, symbol iCHsym, symbol iPYparent) {
-  // TODO: Parameters here are placeholders - need to figure out
-  // what's right 
-
   int iNewOffset = pParent->offset()+1;
-  if (m_CHtext[iCHsym] == "\r\n") iNewOffset++;
+  if (m_vCHtext[iCHsym] == "\r\n") iNewOffset++;
   CMandSym *pNewNode = new CMandSym(iNewOffset, this, iCHsym, iPYparent);
   pNewNode->iContext = m_pLanguageModel->CloneContext(iContext);
   m_pLanguageModel->EnterSymbol(pNewNode->iContext, iCHsym);
@@ -284,7 +366,7 @@ bool CompSecond(const pair<symbol,unsigned int> &a, const pair<symbol,unsigned i
 
 void CMandarinAlphMgr::GetConversions(std::vector<pair<symbol,unsigned int> > &vChildren, symbol pySym, Dasher::CLanguageModel::Context context) {
 
-  const vector<symbol> &convs(m_pConversionsBySymbol[pySym]);
+  const vector<symbol> &convs(m_vConversionsByGroup[pySym]);
 
   //Symbols which we are including with the probabilities predicted by the LM.
   // We do this for the most probable symbols first, up to at least BY_PY_PROB_SORT_THRES
@@ -356,26 +438,26 @@ void CMandarinAlphMgr::GetConversions(std::vector<pair<symbol,unsigned int> > &v
   }
 }
 
-CDasherScreen::Label *CMandarinAlphMgr::GetLabel(int iCHsym) {
+CDasherScreen::Label *CMandarinAlphMgr::GetCHLabel(int iCHsym) {
   //TODO: LRU cache, keep down to some sensible #labels allocated?
   if (iCHsym>=m_vCHLabels.size()) {
     m_vCHLabels.resize(iCHsym+1);
   } else if (m_vCHLabels[iCHsym]) {
     return m_vCHLabels[iCHsym];
   }
-  return m_vCHLabels[iCHsym] = m_pScreen->MakeLabel(m_CHdisplayText[iCHsym]);
+  return m_vCHLabels[iCHsym] = m_pScreen->MakeLabel(m_vCHdisplayText[iCHsym]);
 }
 
 CMandarinAlphMgr::CMandSym::CMandSym(int iOffset, CMandarinAlphMgr *pMgr, symbol iSymbol, symbol pyParent)
-: CSymbolNode(iOffset, pMgr->GetCHColour(iSymbol,iOffset), pMgr->GetLabel(iSymbol), pMgr, iSymbol), m_pyParent(pyParent) {
+: CSymbolNode(iOffset, pMgr->GetCHLabel(iSymbol), pMgr, iSymbol), m_pyParent(pyParent) {
 }
 
 CDasherNode *CMandarinAlphMgr::CMandSym::RebuildSymbol(CAlphNode *pParent, symbol iSymbol) {
   DASHER_ASSERT(m_pyParent!=0); //should have been computed in RebuildForwardsFromAncestor()
   if (iSymbol==m_pyParent) {
     //create the PY node that lead to this chinese
-    if (mgr()->m_pConversionsBySymbol[m_pyParent].size()==1) {
-      DASHER_ASSERT( *(mgr()->m_pConversionsBySymbol[m_pyParent].begin()) == this->iSymbol);
+    if (mgr()->m_vConversionsByGroup[m_pyParent].size()==1) {
+      DASHER_ASSERT( *(mgr()->m_vConversionsByGroup[m_pyParent].begin()) == this->iSymbol);
       return this;
     }
     //ok, will be a PY-to-Chinese conversion choice
@@ -399,7 +481,7 @@ CMandarinAlphMgr::CMandSym *CMandarinAlphMgr::CMandSym::RebuildCHSymbol(CConvRoo
 
 void CMandarinAlphMgr::CMandSym::RebuildForwardsFromAncestor(CAlphNode *pNewNode) {
   if (m_pyParent==0) {
-    set<symbol> &possiblePinyin(mgr()->m_PinyinByChinese[iSymbol]);
+    set<symbol> &possiblePinyin(mgr()->m_vGroupsByConversion[iSymbol]);
     if (possiblePinyin.size() > 1) {
       //need to compare pinyin symbols; so compute probability of this (chinese) sym, for each:
       // i.e. P(pinyin) * P(this chinese | pinyin)
@@ -432,8 +514,17 @@ void CMandarinAlphMgr::CMandSym::RebuildForwardsFromAncestor(CAlphNode *pNewNode
   CSymbolNode::RebuildForwardsFromAncestor(pNewNode);
 }
 
-const std::string &CMandarinAlphMgr::CMandSym::outputText() const {
-  return mgr()->m_CHtext[iSymbol];
+const string &CMandarinAlphMgr::CMandSym::outputText() const {
+  //Note this largely duplicates CAlphabetManager::CSymbolNode:outputText:
+  if (iSymbol==mgr()->m_iCHpara && GetFlag(NF_SEEN)) {
+    //Regardless of the platform's definition of a newline,
+    // which is what we'd _output_, when reversing backwards, we represent
+    // occurrences of _either_ \n or \r\n by a single paragraph symbol.
+    DASHER_ASSERT(mgr()->m_pInterface->GetContext(offset(),1)=="\n");
+    static std::string rn("\r\n"),n("\n"); //must store strings somewhere to return by reference!
+    return (mgr()->m_pInterface->GetContext(offset()-1,2)=="\r\n") ? rn : n;
+  }
+  return mgr()->m_vCHtext[iSymbol];
 }
 
 string CMandarinAlphMgr::CMandSym::trainText() {
@@ -445,12 +536,17 @@ string CMandarinAlphMgr::CMandSym::trainText() {
   DASHER_ASSERT(Parent());
   //so the parent should have set our m_pyParent field...
   DASHER_ASSERT(m_pyParent);
-  int iPY = m_pyParent;
-  if (iPY==0) {
-    std::set<symbol> &py(mgr()->m_PinyinByChinese[iSymbol]);
-    DASHER_ASSERT(py.size()==1);
-    if (py.size()==1) iPY = *(py.begin());
-    else return ""; //output nothing! TODO could reset context for what follows - but don't think this should ever happen?
+  //if there is only one possible PY that might have lead to this CH sym, no need
+  // to record that in the training text
+  set<symbol> &py(mgr()->m_vGroupsByConversion[iSymbol]);
+  if (py.size()==1) {
+    string s = outputText();
+    if (s==mgr()->m_pAlphabet->m_strConversionTrainStart)
+      return s+s;
+    return s;
   }
-  return mgr()->m_pAlphabet->m_strConversionTrainingDelimiter + mgr()->m_pAlphabet->GetText(iPY) + outputText();
+  //otherwise, ambiguous, record name
+  if (!m_pyParent) return ""; //output nothing! TODO could reset context for what follows - but this really shouldn't ever happen?
+  
+  return mgr()->m_pAlphabet->m_strConversionTrainStart + mgr()->m_vGroupNames[m_pyParent] + mgr()->m_pAlphabet->m_strConversionTrainStop + outputText();
 }

@@ -173,7 +173,6 @@
 		19BEF3700C228F7300275D06 /* alphabet.Bulgarian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2E30C228F7300275D06 /* alphabet.Bulgarian.xml */; };
 		19BEF3710C228F7300275D06 /* alphabet.catalan.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2E40C228F7300275D06 /* alphabet.catalan.xml */; };
 		19BEF3720C228F7300275D06 /* alphabet.cherokee.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2E50C228F7300275D06 /* alphabet.cherokee.xml */; };
-		19BEF3740C228F7300275D06 /* alphabet.chineseRuby.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2E70C228F7300275D06 /* alphabet.chineseRuby.xml */; };
 		19BEF3750C228F7300275D06 /* alphabet.corsican.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2E80C228F7300275D06 /* alphabet.corsican.xml */; };
 		19BEF3760C228F7300275D06 /* alphabet.croatian.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2E90C228F7300275D06 /* alphabet.croatian.xml */; };
 		19BEF3770C228F7300275D06 /* alphabet.czech.xml in Resources */ = {isa = PBXBuildFile; fileRef = 19BEF2EA0C228F7300275D06 /* alphabet.czech.xml */; };
@@ -329,7 +328,6 @@
 		334DE238135E3E68007C8D6D /* control.textlabels.xml in Resources */ = {isa = PBXBuildFile; fileRef = 334DE236135E3E68007C8D6D /* control.textlabels.xml */; };
 		334DE239135E3E68007C8D6D /* control.xml in Resources */ = {isa = PBXBuildFile; fileRef = 334DE237135E3E68007C8D6D /* control.xml */; };
 		334DE23B135E3F4B007C8D6D /* control.dtd in Resources */ = {isa = PBXBuildFile; fileRef = 334DE23A135E3F4B007C8D6D /* control.dtd */; };
-		335DB0FB100B332C006DB155 /* alphabet.spyDict.xml in Resources */ = {isa = PBXBuildFile; fileRef = 335DB0FA100B332C006DB155 /* alphabet.spyDict.xml */; };
 		335DB101100B3358006DB155 /* training_spyDict.txt in Resources */ = {isa = PBXBuildFile; fileRef = 335DB100100B3358006DB155 /* training_spyDict.txt */; };
 		339055E81195FBD0001BE240 /* Queue.h in Headers */ = {isa = PBXBuildFile; fileRef = 339055E61195FBD0001BE240 /* Queue.h */; };
 		339055E91195FBD0001BE240 /* Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = 339055E71195FBD0001BE240 /* Queue.m */; };
@@ -380,10 +378,8 @@
 		33E756A41202D6180012A0E9 /* WordGeneratorBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 33E756A31202D6180012A0E9 /* WordGeneratorBase.h */; };
 		33E91A770F55E60B00B5F513 /* KeyboardHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33E91A750F55E60B00B5F513 /* KeyboardHelper.cpp */; };
 		33E91A780F55E60B00B5F513 /* KeyboardHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 33E91A760F55E60B00B5F513 /* KeyboardHelper.h */; };
-		33F3E72E1354D65A008AE1F2 /* alphabet.spyToneMarks.xml in Resources */ = {isa = PBXBuildFile; fileRef = 33F3E72D1354D65A008AE1F2 /* alphabet.spyToneMarks.xml */; };
 		33F6C9EA133241A000745B06 /* AbstractXMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 33F6C9E8133241A000745B06 /* AbstractXMLParser.h */; };
 		33F6C9EB133241A000745B06 /* AbstractXMLParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33F6C9E9133241A000745B06 /* AbstractXMLParser.cpp */; };
-		33F8F5CC1357704D009F4E79 /* alphabet.spyTones2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 33F8F5CB1357704D009F4E79 /* alphabet.spyTones2.xml */; };
 		33F8F67C135780B3009F4E79 /* alphabet.bopoDict.xml in Resources */ = {isa = PBXBuildFile; fileRef = 33F8F67B135780B3009F4E79 /* alphabet.bopoDict.xml */; };
 		33FC1D2B13ACE7E7007642CD /* ScreenGameModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33FC1D2913ACE7E7007642CD /* ScreenGameModule.cpp */; };
 		33FC1D2C13ACE7E7007642CD /* ScreenGameModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 33FC1D2A13ACE7E7007642CD /* ScreenGameModule.h */; };
@@ -393,6 +389,10 @@
 		33FC93430FEFA2FB00A9F08D /* FrameRate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33FC93420FEFA2FB00A9F08D /* FrameRate.cpp */; };
 		E7641875142A48AD0031FC91 /* Globber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7641874142A48AD0031FC91 /* Globber.cpp */; };
 		E7641878142A48C70031FC91 /* Globber.h in Headers */ = {isa = PBXBuildFile; fileRef = E7641877142A48C70031FC91 /* Globber.h */; };
+		E7B0BE2E1491E2D6003EFD33 /* alphabet.spyNew.xml in Resources */ = {isa = PBXBuildFile; fileRef = E7B0BE2A1491E2D6003EFD33 /* alphabet.spyNew.xml */; };
+		E7B0BE2F1491E2D6003EFD33 /* alphabet.spyTones2New.xml in Resources */ = {isa = PBXBuildFile; fileRef = E7B0BE2B1491E2D6003EFD33 /* alphabet.spyTones2New.xml */; };
+		E7B0BE301491E2D6003EFD33 /* alphabet.spyTonesNew.xml in Resources */ = {isa = PBXBuildFile; fileRef = E7B0BE2C1491E2D6003EFD33 /* alphabet.spyTonesNew.xml */; };
+		E7B0BE321491E305003EFD33 /* training_spyNew.txt in Resources */ = {isa = PBXBuildFile; fileRef = E7B0BE311491E305003EFD33 /* training_spyNew.txt */; };
 		E7C68E691430824D00440B5B /* Messages.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7C68E681430824D00440B5B /* Messages.cpp */; };
 /* End PBXBuildFile section */
 
@@ -573,7 +573,6 @@
 		19BEF2E30C228F7300275D06 /* alphabet.Bulgarian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.Bulgarian.xml; sourceTree = "<group>"; };
 		19BEF2E40C228F7300275D06 /* alphabet.catalan.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.catalan.xml; sourceTree = "<group>"; };
 		19BEF2E50C228F7300275D06 /* alphabet.cherokee.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.cherokee.xml; sourceTree = "<group>"; };
-		19BEF2E70C228F7300275D06 /* alphabet.chineseRuby.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.chineseRuby.xml; sourceTree = "<group>"; };
 		19BEF2E80C228F7300275D06 /* alphabet.corsican.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.corsican.xml; sourceTree = "<group>"; };
 		19BEF2E90C228F7300275D06 /* alphabet.croatian.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.croatian.xml; sourceTree = "<group>"; };
 		19BEF2EA0C228F7300275D06 /* alphabet.czech.xml */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xml; path = alphabet.czech.xml; sourceTree = "<group>"; };
@@ -737,8 +736,6 @@
 		334DE236135E3E68007C8D6D /* control.textlabels.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = control.textlabels.xml; sourceTree = "<group>"; };
 		334DE237135E3E68007C8D6D /* control.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = control.xml; sourceTree = "<group>"; };
 		334DE23A135E3F4B007C8D6D /* control.dtd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = control.dtd; sourceTree = "<group>"; };
-		335DB0FA100B332C006DB155 /* alphabet.spyDict.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.spyDict.xml; sourceTree = "<group>"; };
-		335DB100100B3358006DB155 /* training_spyDict.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_spyDict.txt; sourceTree = "<group>"; };
 		339055E61195FBD0001BE240 /* Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Queue.h; sourceTree = "<group>"; };
 		339055E71195FBD0001BE240 /* Queue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Queue.m; sourceTree = "<group>"; };
 		339794D2120F2A9600CEA168 /* AlphInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AlphInfo.cpp; sourceTree = "<group>"; };
@@ -788,10 +785,8 @@
 		33E756A31202D6180012A0E9 /* WordGeneratorBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordGeneratorBase.h; sourceTree = "<group>"; };
 		33E91A750F55E60B00B5F513 /* KeyboardHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KeyboardHelper.cpp; sourceTree = "<group>"; };
 		33E91A760F55E60B00B5F513 /* KeyboardHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardHelper.h; sourceTree = "<group>"; };
-		33F3E72D1354D65A008AE1F2 /* alphabet.spyToneMarks.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.spyToneMarks.xml; sourceTree = "<group>"; };
 		33F6C9E8133241A000745B06 /* AbstractXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractXMLParser.h; sourceTree = "<group>"; };
 		33F6C9E9133241A000745B06 /* AbstractXMLParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AbstractXMLParser.cpp; sourceTree = "<group>"; };
-		33F8F5CB1357704D009F4E79 /* alphabet.spyTones2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.spyTones2.xml; sourceTree = "<group>"; };
 		33F8F67B135780B3009F4E79 /* alphabet.bopoDict.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.bopoDict.xml; sourceTree = "<group>"; };
 		33FC1D2913ACE7E7007642CD /* ScreenGameModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScreenGameModule.cpp; sourceTree = "<group>"; };
 		33FC1D2A13ACE7E7007642CD /* ScreenGameModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenGameModule.h; sourceTree = "<group>"; };
@@ -801,6 +796,10 @@
 		33FC93420FEFA2FB00A9F08D /* FrameRate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameRate.cpp; sourceTree = "<group>"; };
 		E7641874142A48AD0031FC91 /* Globber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Globber.cpp; path = ../Common/Globber.cpp; sourceTree = "<group>"; };
 		E7641877142A48C70031FC91 /* Globber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Globber.h; path = ../Common/Globber.h; sourceTree = "<group>"; };
+		E7B0BE2A1491E2D6003EFD33 /* alphabet.spyNew.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.spyNew.xml; sourceTree = "<group>"; };
+		E7B0BE2B1491E2D6003EFD33 /* alphabet.spyTones2New.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.spyTones2New.xml; sourceTree = "<group>"; };
+		E7B0BE2C1491E2D6003EFD33 /* alphabet.spyTonesNew.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.spyTonesNew.xml; sourceTree = "<group>"; };
+		E7B0BE311491E305003EFD33 /* training_spyNew.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_spyNew.txt; sourceTree = "<group>"; };
 		E7C68E681430824D00440B5B /* Messages.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Messages.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1080,10 +1079,10 @@
 		19BEF2CD0C228F7300275D06 /* alphabets */ = {
 			isa = PBXGroup;
 			children = (
-				33F3E72D1354D65A008AE1F2 /* alphabet.spyToneMarks.xml */,
 				33F8F67B135780B3009F4E79 /* alphabet.bopoDict.xml */,
-				335DB0FA100B332C006DB155 /* alphabet.spyDict.xml */,
-				33F8F5CB1357704D009F4E79 /* alphabet.spyTones2.xml */,
+				E7B0BE2A1491E2D6003EFD33 /* alphabet.spyNew.xml */,
+				E7B0BE2B1491E2D6003EFD33 /* alphabet.spyTones2New.xml */,
+				E7B0BE2C1491E2D6003EFD33 /* alphabet.spyTonesNew.xml */,
 				19BEF2CF0C228F7300275D06 /* alphabet-nest.xsl */,
 				19BEF2D00C228F7300275D06 /* alphabet-nest2.xsl */,
 				19BEF2D10C228F7300275D06 /* alphabet.abc.xml */,
@@ -1107,7 +1106,6 @@
 				19BEF2E30C228F7300275D06 /* alphabet.Bulgarian.xml */,
 				19BEF2E40C228F7300275D06 /* alphabet.catalan.xml */,
 				19BEF2E50C228F7300275D06 /* alphabet.cherokee.xml */,
-				19BEF2E70C228F7300275D06 /* alphabet.chineseRuby.xml */,
 				19BEF2E80C228F7300275D06 /* alphabet.corsican.xml */,
 				19BEF2E90C228F7300275D06 /* alphabet.croatian.xml */,
 				19BEF2EA0C228F7300275D06 /* alphabet.czech.xml */,
@@ -1331,6 +1329,7 @@
 			isa = PBXGroup;
 			children = (
 				335DB100100B3358006DB155 /* training_spyDict.txt */,
+				E7B0BE311491E305003EFD33 /* training_spyNew.txt */,
 				33E173A70F3E0B6400D19B38 /* Makefile.am */,
 				33E173A80F3E0B6400D19B38 /* training_albanian_SQ.txt */,
 				33E173AB0F3E0B6400D19B38 /* training_bengali_BD.txt */,
@@ -1561,7 +1560,6 @@
 				19BEF3700C228F7300275D06 /* alphabet.Bulgarian.xml in Resources */,
 				19BEF3710C228F7300275D06 /* alphabet.catalan.xml in Resources */,
 				19BEF3720C228F7300275D06 /* alphabet.cherokee.xml in Resources */,
-				19BEF3740C228F7300275D06 /* alphabet.chineseRuby.xml in Resources */,
 				19BEF3750C228F7300275D06 /* alphabet.corsican.xml in Resources */,
 				19BEF3760C228F7300275D06 /* alphabet.croatian.xml in Resources */,
 				19BEF3770C228F7300275D06 /* alphabet.czech.xml in Resources */,
@@ -1715,14 +1713,15 @@
 				33E173E40F3E0B6400D19B38 /* training_swedish_SE.txt in Resources */,
 				33E173E50F3E0B6400D19B38 /* training_turkish_TR.txt in Resources */,
 				33E173E60F3E0B6400D19B38 /* training_welsh_GB.txt in Resources */,
-				335DB0FB100B332C006DB155 /* alphabet.spyDict.xml in Resources */,
 				335DB101100B3358006DB155 /* training_spyDict.txt in Resources */,
 				334DE238135E3E68007C8D6D /* control.textlabels.xml in Resources */,
 				334DE239135E3E68007C8D6D /* control.xml in Resources */,
 				334DE23B135E3F4B007C8D6D /* control.dtd in Resources */,
-				33F3E72E1354D65A008AE1F2 /* alphabet.spyToneMarks.xml in Resources */,
-				33F8F5CC1357704D009F4E79 /* alphabet.spyTones2.xml in Resources */,
 				33F8F67C135780B3009F4E79 /* alphabet.bopoDict.xml in Resources */,
+				E7B0BE2E1491E2D6003EFD33 /* alphabet.spyNew.xml in Resources */,
+				E7B0BE2F1491E2D6003EFD33 /* alphabet.spyTones2New.xml in Resources */,
+				E7B0BE301491E2D6003EFD33 /* alphabet.spyTonesNew.xml in Resources */,
+				E7B0BE321491E305003EFD33 /* training_spyNew.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

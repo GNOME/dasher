@@ -69,15 +69,8 @@ void CAlphIO::GetAlphabets(std::vector <std::string >*AlphabetList) const {
   typedef std::map < std::string, const CAlphInfo* >::const_iterator CI;
   CI End = Alphabets.end();
 
-  for(CI Cur = Alphabets.begin(); Cur != End; Cur++) {
-    //skip "hidden" alphabets
-    if (Cur->second->m_bHidden) continue;
-    //for Mandarin-converting alphabets, only display if the conversion target is available too.
-    if (Cur->second->m_iConversionID==2) {
-      if (Alphabets.count(Cur->second->m_strConversionTarget)==0) continue;
-    }
+  for(CI Cur = Alphabets.begin(); Cur != End; Cur++)
     AlphabetList->push_back(Cur->second->AlphID);
-  }
 }
 
 std::string CAlphIO::GetDefault() {
@@ -178,8 +171,6 @@ void CAlphIO::XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
     while(*atts != 0) {
       if(strcmp(*atts, "name") == 0) {
         InputInfo->AlphID = *(atts+1);
-      } else if (strcmp(*atts, "hidden") == 0) {
-        InputInfo->m_bHidden = (strcmp(*(atts+1), "yes")==0);
       } else if (strcmp(*atts, "escape") == 0) {
         InputInfo->m_strCtxChar = *(atts+1);
       }
@@ -250,14 +241,9 @@ void CAlphIO::XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
     pNewGroup->bVisible = (InputInfo->pChild!=NULL);
 
     while(*atts != 0) {
-      if(strcmp(*atts, "name") == 0) {
-	// TODO: Fix this, or remove if names aren't needed
-
-//         atts++;
-//         InputInfo->Groups.back().Description = *atts;
-//         atts--;
-      }
-      if(strcmp(*atts, "b") == 0) {
+      if(strcmp(*atts, "name") == 0)
+         pNewGroup->strName = *(atts+1);
+      else if(strcmp(*atts, "b") == 0) {
         pNewGroup->iColour = atoi(*(atts+1));
       } else if(strcmp(*atts, "visible") == 0) {
         atts++;
@@ -303,13 +289,12 @@ void CAlphIO::XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
     while(*atts != 0) {
       if(strcmp(*atts, "id") == 0) {
         InputInfo->m_iConversionID = atoi(*(atts+1));
-      } else if (strcmp(*atts, "target") == 0) {
-        InputInfo->m_strConversionTarget = *(atts+1);
-      } else if (strcmp(*atts, "delim") == 0) {
+      } else if (strcmp(*atts, "start") == 0) {
         //TODO, should check this is only a single unicode character;
         // no training will occur, if not...
-        InputInfo->m_strConversionTrainingDelimiter = *(atts+1);
-      }
+        InputInfo->m_strConversionTrainStart = *(atts+1);
+      } else if (strcmp(*atts, "stop") == 0) //similarly
+        InputInfo->m_strConversionTrainStop = *(atts+1);
       atts += 2;
     }
 

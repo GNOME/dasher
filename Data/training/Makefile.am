@@ -28,7 +28,7 @@ dist_pkgdata_DATA =			\
 	training_russian_RU.txt		\
 	training_spanishC_ES.txt	\
 	training_spanish_ES.txt		\
-	training_spyDict.txt		\
+	training_spyNew.txt		\
 	training_swahili_KE.txt		\
 	training_swedish_SE.txt		\
 	training_turkish_TR.txt		\

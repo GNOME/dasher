@@ -16,6 +16,10 @@ struct SGroupInfo {
   int iColour;
   bool bVisible;
   int iNumChildNodes;
+  //This is purely descriptive/for debugging, except for MandarinDasher,
+  // where it is used in training text to disambiguate which pinyin/pronunciation
+  // (i.e. group) was used to produce a given target(chinese)-alphabet symbol
+  std::string strName;
   void RecursiveDelete() {
     for(SGroupInfo *t=this; t; ) {
       SGroupInfo *next = t->pNext;

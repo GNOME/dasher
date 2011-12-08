@@ -64,7 +64,6 @@ dist_pkgdata_DATA = alphabet.dtd alphabet.xsl	\
 	alphabet.breton.xml		\
 	alphabet.catalan.xml		\
 	alphabet.cherokee.xml		\
-	alphabet.chineseRuby.xml	\
 	alphabet.corsican.xml		\
 	alphabet.croatian.xml		\
 	alphabet.czech.xml		\
@@ -123,9 +122,9 @@ dist_pkgdata_DATA = alphabet.dtd alphabet.xsl	\
 	alphabet.serbian.xml		\
 	alphabet.somali.xml		\
 	alphabet.spanish.xml		\
-	alphabet.spyDict.xml		\
-	alphabet.spyToneMarks.xml	\
-	alphabet.spyTones2.xml		\
+	alphabet.spyNew.xml		\
+	alphabet.spyTonesNew.xml	\
+	alphabet.spyTones2New.xml	\
 	alphabet.swahili.xml		\
 	alphabet.swedish.xml		\
 	alphabet.thaana.xml		\

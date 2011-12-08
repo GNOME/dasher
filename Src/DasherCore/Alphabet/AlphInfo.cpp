@@ -36,29 +36,6 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CAlphabetMap *CAlphInfo::MakeMap() const {
-  CAlphabetMap *map = new CAlphabetMap();
-  if (iParagraphCharacter!=0) map->AddParagraphSymbol(iParagraphCharacter);
-  int i;
-  for(i = 0; i < m_vCharacters.size(); i++) {
-    if (i+1!=iParagraphCharacter) map->Add(m_vCharacters[i].Text, i+1); //1-indexed
-  }
-  /*ACL I'm really not sure where conversion characters should/shouldn't be included.
-     They seemed to be included in the Alphabet Map, i.e. for reading training text via GetSymbols;
-     but a TODO comment suggested they should _not_ be included in GetNumberSymbols(),
-     and I couldn't find any code which would have called e.g. GetText on them.
-     Moreover, if these characters are put into the AlphabetMap, they'll be fed into the
-     LanguageModel just as any other "symbol", but with an out-of-bounds symbol number!
-     (So maybe the range of allowed symbol numbers is wrong?). Hence, not including them atm.
-     If they were needed, we could do something like the following:
-        if (StartConvertCharacter)
-          map->Add(StartConvertCharacter->Text, ++i);
-        if (EndConvertCharacter)
-          map->Add(EndConvertCharacter->Text, ++i);
-  */
-  return map;
-}
-
 CAlphInfo::CAlphInfo() {
   iSpaceCharacter=0;
   iParagraphCharacter = 0;
@@ -69,15 +46,18 @@ CAlphInfo::CAlphInfo() {
   pChild=pNext=NULL; iStart=iEnd=1; bVisible=true;
   iNumChildNodes = 0;
   
-  m_iConversionID = 0;
+  m_iConversionID = 0; m_strConversionTrainStart="<"; m_strConversionTrainStop=">";
   m_strDefaultContext = ". ";
   m_strCtxChar = "§";
-  m_bHidden=false;
 }
 
 CAlphInfo::~CAlphInfo() {
   pChild->RecursiveDelete();
   pNext->RecursiveDelete();
+}
+
+void CAlphInfo::copyCharacterFrom(const CAlphInfo *other, int idx) {
+  m_vCharacters.push_back(other->m_vCharacters[idx-1]);
 }
 
 CAlphInfo::character::character() {

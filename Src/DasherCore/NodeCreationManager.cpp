@@ -76,12 +76,12 @@ CNodeCreationManager::CNodeCreationManager(CSettingsUser *pCreateFrom,
     case 2:
       //Mandarin Dasher!
       //(ACL) Modify AlphabetManager for Mandarin Dasher
-      m_pAlphabetManager = new CMandarinAlphMgr(this, pInterface, this, pAlphInfo, pAlphIO);
+      m_pAlphabetManager = new CMandarinAlphMgr(this, pInterface, this, pAlphInfo);
       break;
   }
   //all other configuration changes, etc., that might be necessary for a particular conversion mode,
   // are implemented by AlphabetManager subclasses overriding the following two methods:
-  m_pAlphabetManager->CreateLanguageModel();
+  m_pAlphabetManager->Setup();
   m_pTrainer = m_pAlphabetManager->GetTrainer();
     
   if (!pAlphInfo->GetTrainingFile().empty()) {

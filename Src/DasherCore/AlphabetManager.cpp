@@ -53,21 +53,49 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 CAlphabetManager::CAlphabetManager(CSettingsUser *pCreateFrom, CDasherInterfaceBase *pInterface, CNodeCreationManager *pNCManager, const CAlphInfo *pAlphabet)
-  : CSettingsUser(pCreateFrom), m_pBaseGroup(NULL), m_pNCManager(pNCManager), m_pAlphabet(pAlphabet), m_pAlphabetMap(pAlphabet->MakeMap()), m_pInterface(pInterface), m_pLastOutput(NULL) {
-  //Look for a (single-octet) character not in the alphabet...
+  : CSettingsUser(pCreateFrom), m_pBaseGroup(NULL), m_pInterface(pInterface), m_pNCManager(pNCManager), m_pAlphabet(pAlphabet), m_pLastOutput(NULL) {
+}
+
+const string &CAlphabetManager::GetLabelText(symbol i) const {
+  return m_pAlphabet->GetDisplayText(i);
+}
+
+void CAlphabetManager::Setup() {
+  InitMap();
+
   for (char c=33; (c&0x80)==0; c++) {
     string s(&c,1);
-    if (m_pAlphabetMap->Get(s)==0) {
+    if (m_map.Get(s)==0) {
       m_sDelim = s;
       break;
     }
   }
   //else, if all single-octet chars are in alphabet - leave m_sDelim==""
   // (and we'll find a delimiter for each context)
+
+  CreateLanguageModel();
 }
 
-const string &CAlphabetManager::GetLabelText(symbol i) const {
-  return m_pAlphabet->GetDisplayText(i);
+void CAlphabetManager::InitMap() {
+  int iPara = m_pAlphabet->GetParagraphSymbol();
+  if (iPara) m_map.AddParagraphSymbol(iPara);
+  int i;
+  for(i = 1; i < m_pAlphabet->iEnd; i++) // 1-indexed
+    if (i!=iPara) m_map.Add(m_pAlphabet->GetText(i), i);
+  
+  /*ACL I'm really not sure where conversion characters should/shouldn't be included.
+   They seemed to be included in the Alphabet Map, i.e. for reading training text via GetSymbols;
+   but a TODO comment suggested they should _not_ be included in GetNumberSymbols(),
+   and I couldn't find any code which would have called e.g. GetText on them.
+   Moreover, if these characters are put into the AlphabetMap, they'll be fed into the
+   LanguageModel just as any other "symbol", but with an out-of-bounds symbol number!
+   (So maybe the range of allowed symbol numbers is wrong?). Hence, not including them atm.
+   If they were needed, we could do something like the following:
+   if (StartConvertCharacter)
+   map->Add(StartConvertCharacter->Text, ++i);
+   if (EndConvertCharacter)
+   map->Add(EndConvertCharacter->Text, ++i);
+   */
 }
 
 void CAlphabetManager::CreateLanguageModel() {
@@ -80,10 +108,10 @@ void CAlphabetManager::CreateLanguageModel() {
       m_pLanguageModel = new CPPMLanguageModel(this, m_pAlphabet->iEnd-1);
       break;
     case 2:
-      m_pLanguageModel = new CWordLanguageModel(this, m_pAlphabet, m_pAlphabetMap);
+      m_pLanguageModel = new CWordLanguageModel(this, m_pAlphabet, &m_map);
       break;
     case 3:
-      m_pLanguageModel = new CMixtureLanguageModel(this, m_pAlphabet, m_pAlphabetMap);
+      m_pLanguageModel = new CMixtureLanguageModel(this, m_pAlphabet, &m_map);
       break;
     case 4:
       m_pLanguageModel = new CCTWLanguageModel(m_pAlphabet->iEnd-1);
@@ -92,7 +120,7 @@ void CAlphabetManager::CreateLanguageModel() {
 }
 
 CTrainer *CAlphabetManager::GetTrainer() {
-  return new CTrainer(m_pInterface, m_pLanguageModel, m_pAlphabet, m_pAlphabetMap);
+  return new CTrainer(m_pInterface, m_pLanguageModel, m_pAlphabet, &m_map);
 }
 
 void CAlphabetManager::MakeLabels(CDasherScreen *pScreen) {
@@ -174,7 +202,7 @@ SGroupInfo *CAlphabetManager::copyGroups(const SGroupInfo *pBase, CDasherScreen 
 }
 
 CWordGeneratorBase *CAlphabetManager::GetGameWords() {
-  CFileWordGenerator *pGen = new CFileWordGenerator(m_pInterface, m_pAlphabet, m_pAlphabetMap);
+  CFileWordGenerator *pGen = new CFileWordGenerator(m_pInterface, m_pAlphabet, &m_map);
   pGen->setAcceptUser(true);
   if (!GetStringParameter(SP_GAME_TEXT_FILE).empty()) {
     const string &gtf(GetStringParameter(SP_GAME_TEXT_FILE));
@@ -202,8 +230,7 @@ const CAlphInfo *CAlphabetManager::GetAlphabet() const {
 }
 
 CAlphabetManager::~CAlphabetManager() {
-  //the alphabet belongs to the AlphIO, and may be reused later;
-  delete m_pAlphabetMap; //the map was created for this mgr.
+  //the alphabet belongs to the AlphIO, and may be reused later
   delete m_pLanguageModel;
 }
 
@@ -291,7 +318,7 @@ CAlphabetManager::CAlphNode *CAlphabetManager::GetRoot(CDasherNode *pParent, boo
   //pParent is not a parent, just for document/context.
   int iNewOffset(max(-1,iOffset-1));
 
-  pair<symbol, CLanguageModel::Context> p = GetContextSymbols(pParent, iNewOffset, m_pAlphabetMap);
+  pair<symbol, CLanguageModel::Context> p = GetContextSymbols(pParent, iNewOffset, &m_map);
 
   CAlphNode *pNewNode;
   if(p.first==0 || !bEnteredLast) {
@@ -301,13 +328,17 @@ CAlphabetManager::CAlphNode *CAlphabetManager::GetRoot(CDasherNode *pParent, boo
     //new node represents a symbol that's already happened - i.e. user has already steered through it;
     // so either we're rebuilding, or else creating a new root from existing text (in edit box)
     DASHER_ASSERT(!pParent);
-    pNewNode = new CSymbolNode(iNewOffset, m_vLabels[p.first], this, p.first);
+    pNewNode = CreateSymbolRoot(iNewOffset, p.first);
     pNewNode->SetFlag(NF_SEEN, true);
     pNewNode->CDasherNode::SetFlag(NF_COMMITTED, true); //do NOT commit!
   }
 
   pNewNode->iContext = p.second;
   return pNewNode;
+}
+
+CAlphabetManager::CAlphNode *CAlphabetManager::CreateSymbolRoot(int iOffset, symbol sym) {
+  return new CSymbolNode(iOffset, m_vLabels[sym], this, sym);
 }
 
 pair<symbol, CLanguageModel::Context> CAlphabetManager::GetContextSymbols(CDasherNode *pParent, int iRootOffset, const CAlphabetMap *pAlphMap) {
