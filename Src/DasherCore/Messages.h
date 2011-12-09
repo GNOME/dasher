@@ -47,6 +47,11 @@ public:
   ///Utility method for common case of displaying a modal message with a format
   /// string containing a single %s.
   void FormatMessageWithString(const char* fmt, const char* str);
+
+  ///Utility method for less-but-still-quite-common case of displaying a modal
+  /// message with a format string containing two %s
+  void FormatMessageWith2Strings(const char* fmt, const char* str1, const char* str2);
+
 };
 
 /// @}

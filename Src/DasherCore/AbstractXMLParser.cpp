@@ -59,14 +59,11 @@ bool AbstractXMLParser::Parse(const std::string &strDesc, istream &in, bool bUse
         const XML_LChar *xmle=XML_ErrorString(XML_GetErrorCode(Parser)); //think XML_LChar==char, depends on preprocessor variables...
         
         ///TRANSLATORS: the first string is the error message from the XML Parser;
-        /// the second is the URL of the file we're trying to read; the third
-        /// is a section excerpt from the file, containing the error.
-        const char *msg=_("XML Error %s in %s somewhere in block: %s");
-        //we can't use FormatMessage as we have too many substitutions...
-        char *buf(new char[strlen(msg) + strlen(xmle) + m_strDesc.length() + len]);
-        sprintf(buf, xmle, m_strDesc.c_str(), string(Buffer,len).c_str());
-        m_pMsgs->Message(buf, true);
-        delete buf;
+        /// the second is the URL of the file we're trying to read.
+        m_pMsgs->FormatMessageWith2Strings(_("XML Error %s in file %s "), xmle, m_strDesc.c_str());
+#ifdef DEBUG
+        std::cout << "Error in: " << string(Buffer,len) << std::endl;
+#endif
       }
       break;
     }
