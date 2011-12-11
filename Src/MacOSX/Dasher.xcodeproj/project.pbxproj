@@ -387,6 +387,7 @@
 		33FC93430FEFA2FB00A9F08D /* FrameRate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33FC93420FEFA2FB00A9F08D /* FrameRate.cpp */; };
 		E7641875142A48AD0031FC91 /* Globber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7641874142A48AD0031FC91 /* Globber.cpp */; };
 		E7641878142A48C70031FC91 /* Globber.h in Headers */ = {isa = PBXBuildFile; fileRef = E7641877142A48C70031FC91 /* Globber.h */; };
+		E792FAEA14965F7A00938344 /* alphabet.cangjie.xml in Resources */ = {isa = PBXBuildFile; fileRef = E792FAE914965F7A00938344 /* alphabet.cangjie.xml */; };
 		E7B0BE2D1491E2D6003EFD33 /* alphabet.bopoTrad.xml in Resources */ = {isa = PBXBuildFile; fileRef = E7B0BE291491E2D6003EFD33 /* alphabet.bopoTrad.xml */; };
 		E7B0BE2E1491E2D6003EFD33 /* alphabet.spyNew.xml in Resources */ = {isa = PBXBuildFile; fileRef = E7B0BE2A1491E2D6003EFD33 /* alphabet.spyNew.xml */; };
 		E7B0BE2F1491E2D6003EFD33 /* alphabet.spyTones2New.xml in Resources */ = {isa = PBXBuildFile; fileRef = E7B0BE2B1491E2D6003EFD33 /* alphabet.spyTones2New.xml */; };
@@ -794,6 +795,7 @@
 		33FC93420FEFA2FB00A9F08D /* FrameRate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FrameRate.cpp; sourceTree = "<group>"; };
 		E7641874142A48AD0031FC91 /* Globber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Globber.cpp; path = ../Common/Globber.cpp; sourceTree = "<group>"; };
 		E7641877142A48C70031FC91 /* Globber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Globber.h; path = ../Common/Globber.h; sourceTree = "<group>"; };
+		E792FAE914965F7A00938344 /* alphabet.cangjie.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.cangjie.xml; sourceTree = "<group>"; };
 		E7B0BE291491E2D6003EFD33 /* alphabet.bopoTrad.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.bopoTrad.xml; sourceTree = "<group>"; };
 		E7B0BE2A1491E2D6003EFD33 /* alphabet.spyNew.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.spyNew.xml; sourceTree = "<group>"; };
 		E7B0BE2B1491E2D6003EFD33 /* alphabet.spyTones2New.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.spyTones2New.xml; sourceTree = "<group>"; };
@@ -1078,6 +1080,7 @@
 		19BEF2CD0C228F7300275D06 /* alphabets */ = {
 			isa = PBXGroup;
 			children = (
+				E792FAE914965F7A00938344 /* alphabet.cangjie.xml */,
 				E7B0BE291491E2D6003EFD33 /* alphabet.bopoTrad.xml */,
 				E7B0BE2A1491E2D6003EFD33 /* alphabet.spyNew.xml */,
 				E7B0BE2B1491E2D6003EFD33 /* alphabet.spyTones2New.xml */,
@@ -1719,6 +1722,7 @@
 				E7B0BE2F1491E2D6003EFD33 /* alphabet.spyTones2New.xml in Resources */,
 				E7B0BE301491E2D6003EFD33 /* alphabet.spyTonesNew.xml in Resources */,
 				E7B0BE321491E305003EFD33 /* training_spyNew.txt in Resources */,
+				E792FAEA14965F7A00938344 /* alphabet.cangjie.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
