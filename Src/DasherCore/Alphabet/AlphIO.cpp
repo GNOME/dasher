@@ -264,9 +264,12 @@ void CAlphIO::XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
     if (pNewGroup->iColour==-1 && pNewGroup->bVisible) {
       //no colour specified. Try to colour cycle, but make sure we choose
       // a different colour from both its parent and any previous sibling
+      SGroupInfo *parent=NULL;
+      for (vector<SGroupInfo *>::reverse_iterator it = m_vGroups.rbegin(); it!=m_vGroups.rend(); it++)
+        if ((*it)->bVisible) {parent=*it; break;}
       for (;;) {
         pNewGroup->iColour=(iGroupIdx++ % 3) + 110;
-        if (!m_vGroups.empty() && m_vGroups.back()->iColour == pNewGroup->iColour)
+        if (parent && parent->iColour == pNewGroup->iColour)
           continue; //same colour as parent -> try again
         if (prevSibling && prevSibling->iColour == pNewGroup->iColour)
           continue; //same colour as previous sibling -> try again

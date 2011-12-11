@@ -59,7 +59,7 @@ dist_pkgdata_DATA = alphabet.dtd alphabet.xsl	\
 	alphabet.basque.xml		\
 	alphabet.bengali.xml		\
 	alphabet.bopomofo.xml		\
-	alphabet.bopoDict.xml		\
+	alphabet.bopoTrad.xml		\
 	alphabet.bosnian.xml		\
 	alphabet.breton.xml		\
 	alphabet.catalan.xml		\
