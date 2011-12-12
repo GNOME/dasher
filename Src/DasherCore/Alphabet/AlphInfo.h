@@ -71,7 +71,6 @@ private:
     std::string Display;
     std::string Text;
     int Colour;
-    std::string Foreground;
   };
 public:
   
@@ -104,11 +103,6 @@ public:
   int GetColour(symbol i) const {
     return m_vCharacters[i-1].Colour;
   };
-
-  /// Text foreground colour for i'th symbol; default 4 if unspecified
-  int GetTextColour(symbol i) const;
-  /// Text foreground colour for i'th symbol, as specified in XML
-  const std::string & GetForeground(symbol i) const {return m_vCharacters[i-1].Foreground;}
 
   const std::string &GetDefaultContext() const {return m_strDefaultContext;}
 

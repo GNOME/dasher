@@ -36,16 +36,6 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-int CAlphInfo::GetTextColour(symbol Symbol) const {
-  const std::string &TextColour(GetForeground(Symbol));
-  if(TextColour != std::string("")) {
-    return atoi(TextColour.c_str());
-  }
-  else {
-    return 4;
-  }
-}
-
 CAlphabetMap *CAlphInfo::MakeMap() const {
   CAlphabetMap *map = new CAlphabetMap();
   if (iParagraphCharacter!=0) map->AddParagraphSymbol(iParagraphCharacter);
@@ -94,5 +84,4 @@ CAlphInfo::character::character() {
   Display="";
   Text="";
   Colour=-1;
-  Foreground="";
 }

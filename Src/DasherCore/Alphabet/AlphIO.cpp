@@ -358,7 +358,6 @@ void CAlphIO::ReadCharAtts(const XML_Char **atts, CAlphInfo::character &ch) {
     if(strcmp(*atts, "t") == 0) ch.Text = *(atts+1);
     else if(strcmp(*atts, "d") == 0) ch.Display = *(atts+1);
     else if(strcmp(*atts, "b") == 0) ch.Colour = atoi(*(atts+1));
-    else if(strcmp(*atts, "f") == 0) ch.Foreground = *(atts+1);
     atts += 2;
   }
 }
