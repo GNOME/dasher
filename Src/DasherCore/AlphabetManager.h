@@ -259,7 +259,7 @@ namespace Dasher {
     ///Called to create a new symbol root, e.g. for going backwards
     /// \param iOffset index of symbol entered by the node
     /// \param sym symbol number as returned as first element of GetContextSymbols
-    virtual CAlphNode *CreateSymbolRoot(int iOffset, symbol sym);
+    virtual CAlphNode *CreateSymbolRoot(int iOffset, CLanguageModel::Context ctx, symbol sym);
     
     ///Called to compute colour for a symbol at a specified offset.
     /// Wraps CAlphabet::GetColour(sym), but (a) implements a default

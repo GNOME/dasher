@@ -322,16 +322,15 @@ CAlphabetManager::CAlphNode *CAlphabetManager::GetRoot(CDasherNode *pParent, boo
     //new node represents a symbol that's already happened - i.e. user has already steered through it;
     // so either we're rebuilding, or else creating a new root from existing text (in edit box)
     DASHER_ASSERT(!pParent);
-    pNewNode = CreateSymbolRoot(iNewOffset, p.first);
+    pNewNode = CreateSymbolRoot(iNewOffset, p.second, p.first);
     pNewNode->SetFlag(NF_SEEN, true);
     pNewNode->CDasherNode::SetFlag(NF_COMMITTED, true); //do NOT commit!
   }
-
   pNewNode->iContext = p.second;
   return pNewNode;
 }
 
-CAlphabetManager::CAlphNode *CAlphabetManager::CreateSymbolRoot(int iOffset, symbol sym) {
+CAlphabetManager::CAlphNode *CAlphabetManager::CreateSymbolRoot(int iOffset, CLanguageModel::Context ctx, symbol sym) {
   return new CSymbolNode(iOffset, m_vLabels[sym], this, sym);
 }
 

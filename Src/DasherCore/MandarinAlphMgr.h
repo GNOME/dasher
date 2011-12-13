@@ -94,10 +94,6 @@ namespace Dasher {
     ///ACL: returns a MandarinTrainer too.
     CTrainer *GetTrainer();
     
-    ///Override to create a CMandSym; context and sym both obtained from the
-    // ChineseAlphabet's (hashed) symbols stored in m_map.
-    CAlphNode *CreateSymbolRoot(int iOffset, symbol sym);
-    
     ///Disable game mode. The target sentence might appear in several places...!!
     CWordGeneratorBase *GetGameWords() {return NULL;}
 
@@ -129,6 +125,10 @@ namespace Dasher {
     // internally to identify a CH group, but for display purposes the symbol is
     // identified entirely by the PY groups around it.
     const std::string &GetLabelText(symbol i) const;
+
+    ///Override to create a CMandSym; context and sym both obtained from the
+    // ChineseAlphabet's (hashed) symbols stored in m_map.
+    CAlphNode *CreateSymbolRoot(int iOffset, CLanguageModel::Context ctx, symbol sym);
 
     class CConvRoot;
     ///Subclass of CSymbolNode for (converted) chinese-alphabet symbols:
