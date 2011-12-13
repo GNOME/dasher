@@ -539,14 +539,11 @@ string CMandarinAlphMgr::CMandSym::trainText() {
   //if there is only one possible PY that might have lead to this CH sym, no need
   // to record that in the training text
   set<symbol> &py(mgr()->m_vGroupsByConversion[iSymbol]);
-  if (py.size()==1) {
-    string s = outputText();
-    if (s==mgr()->m_pAlphabet->m_strConversionTrainStart)
-      return s+s;
+  string s = CSymbolNode::trainText();
+  if (py.size()==1)
     return s;
-  }
   //otherwise, ambiguous, record name
   if (!m_pyParent) return ""; //output nothing! TODO could reset context for what follows - but this really shouldn't ever happen?
   
-  return mgr()->m_pAlphabet->m_strConversionTrainStart + mgr()->m_vGroupNames[m_pyParent] + mgr()->m_pAlphabet->m_strConversionTrainStop + outputText();
+  return mgr()->m_pAlphabet->m_strConversionTrainStart + mgr()->m_vGroupNames[m_pyParent] + mgr()->m_pAlphabet->m_strConversionTrainStop + s;
 }

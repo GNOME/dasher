@@ -51,6 +51,13 @@ CAlphInfo::CAlphInfo() {
   m_strCtxChar = "§";
 }
 
+string CAlphInfo::escape(const string &ch) const {
+  if ((m_strConversionTrainStart.length() && ch==m_strConversionTrainStart)
+      || (m_strCtxChar.length() && ch==m_strCtxChar))
+    return ch+ch;
+  return ch;
+}
+
 CAlphInfo::~CAlphInfo() {
   pChild->RecursiveDelete();
   pNext->RecursiveDelete();

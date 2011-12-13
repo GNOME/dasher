@@ -191,8 +191,8 @@ namespace Dasher {
     protected:
       virtual const std::string &outputText() const;
       ///Text to write to user training file/buffer when this symbol output.
-      /// Default just returns (a new string constructed from) outputText()
-      virtual std::string trainText() {return outputText();}
+      /// Default just returns the output text escaped if necessary.
+      virtual std::string trainText();
       /// Number of unicode _characters_ (not octets) for this symbol.
       /// Uniquely, a paragraph symbol can enter two distinct unicode characters
       /// (i.e. '\r' and '\n'); every other symbol enters only a single

@@ -65,6 +65,9 @@ namespace Dasher {
 /// than the highest valid index.
 class Dasher::CAlphInfo : public SGroupInfo {
 public:
+  ///Format a character ready to write to a training file, by doubling
+  /// up any escape character (context-switch / conversion-start)
+  std::string escape(const std::string &ch) const;
   
   const std::string &GetID() const {return AlphID;}
 

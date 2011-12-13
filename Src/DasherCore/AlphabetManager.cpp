@@ -617,6 +617,10 @@ const std::string &CAlphabetManager::CSymbolNode::outputText() const {
   return mgr()->m_pAlphabet->GetText(iSymbol);
 }
 
+string CAlphabetManager::CSymbolNode::trainText() {
+  return m_pMgr->m_pAlphabet->escape(outputText());
+}
+
 int CAlphabetManager::CSymbolNode::numChars() {
   return (outputText()=="\r\n") ? 2 : 1;
 }
