@@ -101,9 +101,11 @@ Dasher::CTrainer::Parse(const string &strDesc, istream &in, bool bUser) {
     m_pMsgs->FormatMessageWithString(_("Unable to open file \"%s\" for reading"),strDesc.c_str());
     return false;
   }
-  
+  ///easy enough to be re-entrant, so might as well
+  string oldDesc=m_strDesc;
+  m_strDesc = strDesc;
   ProgressStream syms(in,m_pProg,m_pMsgs);
   Train(syms);
-  
+  m_strDesc=oldDesc;
   return true;
 }

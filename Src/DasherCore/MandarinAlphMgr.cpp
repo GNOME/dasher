@@ -187,29 +187,30 @@ symbol CMandarinAlphMgr::CMandarinTrainer::getPYsym(bool bHavePy, const string &
                                          strPy.c_str());
     return pySym;
   }
-  set<symbol> withName; static const string n("");
-  //if no py specified, silently accept a group with no name if there is just one
-  for (set<symbol>::iterator it = posPY.begin(); it!=posPY.end(); it++)
-    if (m_pMgr->m_vGroupNames[*it] == (bHavePy ? strPy : n))
-      withName.insert(*it);  
-  if (withName.size()==1) return *(withName.begin());
-  if (!bHavePy)
-    m_pMsgs->FormatMessageWithString(_("Warning: training file contains character '%s', which can be written in multiple ways, without specifying which. Dasher will not be able to learn how you want to write this character."),
-                                     m_pInfo->GetDisplayText(symCh).c_str());
-  else if (withName.size()==0)
-    m_pMsgs->FormatMessageWith2Strings(_("Warning: training file contains character '%s' as member of group '%s', but no group of that name contains the character. Dasher will not be able to learn how you want to write this character."),
-                                       m_pInfo->GetDisplayText(symCh).c_str(),
-                                       strPy.c_str());
-  else
-    m_pMsgs->FormatMessageWith2Strings(_("Warning: training file contains character '%s' as member of group '%s', but alphabet contains several such groups. Dasher will not be able to learn how you want to write this character."),
-                                       m_pInfo->GetDisplayText(symCh).c_str(),
-                                       strPy.c_str());
+  set<symbol> withName;
+  if (bHavePy) {
+    for (set<symbol>::iterator it = posPY.begin(); it!=posPY.end(); it++)
+      if (m_pMgr->m_vGroupNames[*it] == strPy)
+        withName.insert(*it);  
+    if (withName.size()==1) return *(withName.begin());
+    else
+      m_pMsgs->FormatMessageWith2Strings((withName.empty())
+                                         ? _("Warning: training file contains character '%s' as member of group '%s', but no group of that name contains the character. Dasher will not be able to learn how you want to write this character.")
+                                         : _("Warning: training file contains character '%s' as member of group '%s', but alphabet contains several such groups. Dasher will not be able to learn how you want to write this character."),
+                                         m_pInfo->GetDisplayText(symCh).c_str(),
+                                         strPy.c_str());
+  }
   return 0;
 }
 
 void CMandarinAlphMgr::CMandarinTrainer::Train(CAlphabetMap::SymbolStream &syms) {
   CLanguageModel::Context trainContext = m_pLanguageModel->CreateEmptyContext();
-
+  //store a set of CH symbols which need annotations but have appeared without them
+  // in this training file. We do this to cut down on the number of error messages
+  // that you get if you use an unannotated training file - this is suboptimal,
+  // so we want to warn the user, but we don't want to make Dasher unusable by
+  // flooding them with error messages.
+  set<symbol> unannotated;
   string strPy; bool bHavePy(false);
   for (symbol sym; (sym=syms.next(m_pAlphabet))!=-1;) {
     if (sym == m_iStartSym) {
@@ -230,9 +231,23 @@ void CMandarinAlphMgr::CMandarinTrainer::Train(CAlphabetMap::SymbolStream &syms)
     if (sym) {
       if (symbol pySym = getPYsym(bHavePy, strPy, sym))
           static_cast<CPPMPYLanguageModel*>(m_pLanguageModel)->LearnPYSymbol(trainContext, pySym);
+      else if (!bHavePy) unannotated.insert(sym); //no PY and unannotated -> warn user
       m_pLanguageModel->LearnSymbol(trainContext, sym);
     } //else, silently drop - as CTrainer - TODO could learn PY anyway???
     bHavePy=false; strPy.clear();
+  }
+  if (unannotated.size()) {
+    ///TRANSLATORS: first string will be the filename; after the end of the string,
+    /// some number of output (e.g. Chinese) characters will be appended,
+    /// the number of which is the integer here
+    const char* msg = _("In file %s, the following %i symbols appeared without annotations saying how they should be entered, but each can be entered in several ways. Dasher will not be able to learn how you want to enter these symbols:");
+    char *buf(new char[strlen(msg) + GetDesc().length() + 10]);
+    sprintf(buf, msg, GetDesc().c_str(), unannotated.size());
+    ostringstream withChars;
+    withChars << msg;
+    for (set<symbol>::iterator it = unannotated.begin(); it!=unannotated.end(); it++)
+      withChars << " " << m_pInfo->GetDisplayText(*it);
+    m_pMsgs->Message(withChars.str(), true);
   }
   m_pLanguageModel->ReleaseContext(trainContext);
 }

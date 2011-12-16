@@ -39,6 +39,9 @@ namespace Dasher {
     ///  (ready to continue reading as per normal)
     bool readEscape(CLanguageModel::Context &sContext, symbol sym, CAlphabetMap::SymbolStream &syms);
 
+    ///Returns the description of the file as passed to Parse()
+    /// (usually a filename)
+    const std::string &GetDesc() {return m_strDesc;}
     const CAlphabetMap * const m_pAlphabet;
     CLanguageModel * const m_pLanguageModel;
     const CAlphInfo * const m_pInfo;
@@ -46,6 +49,7 @@ namespace Dasher {
     int m_iCtxEsc;
   private:
     ProgressIndicator *m_pProg;
+    std::string m_strDesc;
   };
 
 }
