@@ -17819,5 +17819,34 @@
   </group>
  </group>
 </group>
+<group name="Punctuation" b="112" visible="yes">
+<group visible="no"><s d="&#x3002;" t="&#x3002;" b="17" visible="yes" note="Full stop"  /></group>
+ <group visible="no"><s d="&#xFF0C;" t="&#xFF0C;" b="20" visible="yes" note="Comma" /></group>
+ <group visible="no"><s d="&#x3001;" t="&#x3001;" b="17" visible="yes" note="Dun Hao (symbol of brief stop)"  /></group>
+ <group visible="no"><s d="&#xFF1B;" t="&#xFF1B;" b="20" visible="yes" note="Semicolon" /></group>
+ <group visible="no"><s d="&#xFF1A;"  t="&#xFF1A;"  b="17" visible="yes" note="Colon" /></group>
+ <group visible="no"><s d="&#xFF1F;" t="&#xFF1F;" b="20" visible="yes" note="Question mark"/></group>
+ <group visible="no"><s d="&#xFF01;" t="&#xFF01;" b="17" visible="yes" note="Exclamation mark"/></group>
+ <group visible="no"><s d="&#x201C;" t="&#x201C;"   b="20" visible="yes" note="Double quotation mark (left)"/></group>
+ <group visible="no"><s d="&#x201D;" t="&#x201D;"   b="17" visible="yes" note="Double quotation mark (right)"/></group>
+ <group visible="no"><s d="&#x2018;" t="&#x2018;" b="20" visible="yes" note="Single quotation mark (left)"/></group>
+ <group visible="no"><s d="&#x2019;" t="&#x2019;" b="17" visible="yes" note="Single quotation mark (right)"/></group>
+ <group visible="no"><s d="&#xFF08;" t="&#xFF08;" b="20" visible="yes" note="Left bracket"/></group>
+ <group visible="no"><s d="&#xFF09;" t="&#xFF09;" b="17" visible="yes" note="Right bracket" /></group>
+ <group visible="no"><s d="&#x2026;" t="&#x2026;" b="20" visible="yes" note="Elipses" /></group>
+<!--<s d="&#x2026;&#x2026;" t="&#x2026;&#x2026;" b="20" visible="yes" note="Double elipses, commented out as symbols must be single characters. Anything wrong with just writing two ellipses?" />-->
+ <group visible="no"><s d="&#x2014;" t="&#x2014;" b="17" visible="yes" note="Long dash" /></group>
+ <group visible="no"><s d="&#x300A;" t="&#x300A;" b="20" visible="yes" note="Double title (reference) brackets (left)" /></group>
+ <group visible="no"><s d="&#x300B;" t="&#x300B;" b="17" visible="yes" note="Double title (reference) brackets (right)" /></group>
+ <group visible="no"><s d="&#x3008;" t="&#x3008;" b="20" visible="yes" note="Single title (reference) brackets (left)" /></group>
+ <group visible="no"><s d="&#x3009;" t="&#x3009;" b="17" visible="yes" note="Single title (reference) brackets (right)" /></group>
+ <group visible="no"><s d="&#xFF0E;" t="&#xFF0E;" b="20" visible="yes" note="Separation dot" /></group>
+  <group visible="no"><s d="&#x300c;" t="&#x300c;"/></group>
+  <group visible="no"><s d="&#x300d;" t="&#x300d;"/></group>
+  <group visible="no"><s d="&#x300e;" t="&#x300e;"/></group>
+  <group visible="no"><s d="&#x300f;" t="&#x300f;"/></group>
+  <group visible="no"><s d="&#x3000;" t="&#x3000;"/></group>
+</group>
+
 </alphabet>
 </alphabets>
