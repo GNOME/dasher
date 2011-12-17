@@ -262,14 +262,8 @@ int CAlphabetManager::GetColour(symbol sym, int iOffset) const {
   // ideally make this log a warning (unrelated TODO: automate
   // validation of alphabet files, plus maintenance of repository
   // etc.)
-  if(iColour == -1) {
-    if(sym == m_pAlphabet->GetSpaceSymbol()) {
-      iColour = 9;
-    }
-    else {
+  if(iColour == -1)
       iColour = (sym % 3) + 10;
-    }
-  }
 
   // Loop on low colours for nodes (TODO: go back to colour namespaces?)
   if((iOffset&1) == 0 && iColour < 130)

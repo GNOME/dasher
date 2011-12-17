@@ -83,6 +83,10 @@ public:
 
   symbol GetParagraphSymbol() const {return iParagraphCharacter;}
 
+  ///Space symbol is special in three ways:
+  /// (1) defines word boundaries for speak-as-we-go, i.e. we speak when we see a space;
+  /// (2) Unknown characters in game mode text file are converted into spaces;
+  /// (3) Default colour is 9 if none specified
   symbol GetSpaceSymbol() const {return iSpaceCharacter;}
 
   //symbol GetStartConversionSymbol() const;

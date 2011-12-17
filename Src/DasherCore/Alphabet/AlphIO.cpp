@@ -213,6 +213,7 @@ void CAlphIO::XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
   if(strcmp(name, "space") == 0) {
     if (!SpaceCharacter) SpaceCharacter = new CAlphInfo::character();
     ReadCharAtts(atts,*SpaceCharacter);
+    if (SpaceCharacter->Colour==-1) SpaceCharacter->Colour = 9;
     return;
   }
   if(strcmp(name, "paragraph") == 0) {
