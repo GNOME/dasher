@@ -394,6 +394,10 @@
 		E7B0BE301491E2D6003EFD33 /* alphabet.spyTonesNew.xml in Resources */ = {isa = PBXBuildFile; fileRef = E7B0BE2C1491E2D6003EFD33 /* alphabet.spyTonesNew.xml */; };
 		E7B0BE321491E305003EFD33 /* training_spyNew.txt in Resources */ = {isa = PBXBuildFile; fileRef = E7B0BE311491E305003EFD33 /* training_spyNew.txt */; };
 		E7C68E691430824D00440B5B /* Messages.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7C68E681430824D00440B5B /* Messages.cpp */; };
+		E7DED58F1497599B005DE19D /* RoutingPPMLanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7DED58E1497599B005DE19D /* RoutingPPMLanguageModel.cpp */; };
+		E7DED592149759AF005DE19D /* RoutingPPMLanguageModel.h in Headers */ = {isa = PBXBuildFile; fileRef = E7DED591149759AE005DE19D /* RoutingPPMLanguageModel.h */; };
+		E7DED59414976BC0005DE19D /* RoutingAlphMgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7DED59314976BC0005DE19D /* RoutingAlphMgr.cpp */; };
+		E7DED59614976BD3005DE19D /* RoutingAlphMgr.h in Headers */ = {isa = PBXBuildFile; fileRef = E7DED59514976BD3005DE19D /* RoutingAlphMgr.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -802,6 +806,10 @@
 		E7B0BE2C1491E2D6003EFD33 /* alphabet.spyTonesNew.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.spyTonesNew.xml; sourceTree = "<group>"; };
 		E7B0BE311491E305003EFD33 /* training_spyNew.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_spyNew.txt; sourceTree = "<group>"; };
 		E7C68E681430824D00440B5B /* Messages.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Messages.cpp; sourceTree = "<group>"; };
+		E7DED58E1497599B005DE19D /* RoutingPPMLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RoutingPPMLanguageModel.cpp; sourceTree = "<group>"; };
+		E7DED591149759AE005DE19D /* RoutingPPMLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutingPPMLanguageModel.h; sourceTree = "<group>"; };
+		E7DED59314976BC0005DE19D /* RoutingAlphMgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RoutingAlphMgr.cpp; sourceTree = "<group>"; };
+		E7DED59514976BD3005DE19D /* RoutingAlphMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutingAlphMgr.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1030,6 +1038,8 @@
 				1948BE9B0C226CFD001DFA32 /* XMLUtil.h */,
 				3300835E120CB7F900C41FAA /* ConvertingAlphMgr.h */,
 				3300835F120CB7F900C41FAA /* ConvertingAlphMgr.cpp */,
+				E7DED59314976BC0005DE19D /* RoutingAlphMgr.cpp */,
+				E7DED59514976BD3005DE19D /* RoutingAlphMgr.h */,
 			);
 			name = DasherCore;
 			path = ../DasherCore;
@@ -1073,6 +1083,8 @@
 				1948BE630C226CFD001DFA32 /* PPMLanguageModel.h */,
 				1948BE650C226CFD001DFA32 /* WordLanguageModel.cpp */,
 				1948BE660C226CFD001DFA32 /* WordLanguageModel.h */,
+				E7DED58E1497599B005DE19D /* RoutingPPMLanguageModel.cpp */,
+				E7DED591149759AE005DE19D /* RoutingPPMLanguageModel.h */,
 			);
 			path = LanguageModelling;
 			sourceTree = "<group>";
@@ -1474,6 +1486,8 @@
 				33DDB9E113B8AF360001C52D /* DynamicButtons.h in Headers */,
 				333B409512088AFA00235721 /* DemoFilter.h in Headers */,
 				E7641878142A48C70031FC91 /* Globber.h in Headers */,
+				E7DED592149759AF005DE19D /* RoutingPPMLanguageModel.h in Headers */,
+				E7DED59614976BD3005DE19D /* RoutingAlphMgr.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1832,6 +1846,8 @@
 				333B409412088AFA00235721 /* DemoFilter.cpp in Sources */,
 				E7641875142A48AD0031FC91 /* Globber.cpp in Sources */,
 				E7C68E691430824D00440B5B /* Messages.cpp in Sources */,
+				E7DED58F1497599B005DE19D /* RoutingPPMLanguageModel.cpp in Sources */,
+				E7DED59414976BC0005DE19D /* RoutingAlphMgr.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

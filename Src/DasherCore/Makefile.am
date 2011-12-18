@@ -105,6 +105,8 @@ libdashercore_a_SOURCES = \
 		OneButtonFilter.h \
 		OneDimensionalFilter.cpp \
 		OneDimensionalFilter.h \
+		RoutingAlphMgr.cpp \
+		RoutingAlphMgr.h \
 		SCENode.cpp \
 		SCENode.h \
 		ScreenGameModule.cpp \

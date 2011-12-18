@@ -2,6 +2,7 @@
 #include "DasherInterfaceBase.h"
 #include "NodeCreationManager.h"
 #include "MandarinAlphMgr.h"
+#include "RoutingAlphMgr.h"
 #include "ConvertingAlphMgr.h"
 #include "ControlManager.h"
 #include "Observable.h"
@@ -78,6 +79,14 @@ CNodeCreationManager::CNodeCreationManager(CSettingsUser *pCreateFrom,
       //(ACL) Modify AlphabetManager for Mandarin Dasher
       m_pAlphabetManager = new CMandarinAlphMgr(this, pInterface, this, pAlphInfo);
       break;
+    case 3: //these differ only in that conversion id 3 assumes the route by which
+    case 4: //the user writes a symbol, is not dependent on context (e.g. just user preference),
+            //whereas 4 assumes it does depend on context (e.g. phonetic chinese)
+      m_pAlphabetManager = new CRoutingAlphMgr(this, pInterface, this, pAlphInfo);
+      break;
+      //TODO: we could even just switch from standard alphmgr, to case 3, automatically
+      // if the alphabet has repeated symbols; and thus do away with much of the "conversionid"
+      // tag (just a flag for context-sensitivity, and maybe the start/stop delimiters?)
   }
   //all other configuration changes, etc., that might be necessary for a particular conversion mode,
   // are implemented by AlphabetManager subclasses overriding the following two methods:

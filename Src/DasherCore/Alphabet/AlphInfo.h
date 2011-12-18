@@ -121,7 +121,7 @@ public:
   ///Single-unicode characters used in the training file to delimit the name of a group
   /// containing the next symbol, in order to disambiguate which group (=route, pronunciation)
   /// was used to produce the symbol in this case (see MandarinTrainer).
-  /// Only used if m_iConversionID==2. Default to "<" and ">"
+  /// Only used if m_iConversionID==2, 3 or 4. Default to "<" and ">"
   std::string m_strConversionTrainStart,m_strConversionTrainStop;
 
   ~CAlphInfo();
