@@ -98,6 +98,9 @@ namespace Dasher {
     // ChineseAlphabet's (hashed) symbols stored in m_map.
     CAlphNode *CreateSymbolRoot(int iOffset, symbol sym);
     
+    ///Disable game mode. The target sentence might appear in several places...!!
+    CWordGeneratorBase *GetGameWords() {return NULL;}
+
   protected:
     ///Initializes all our data:
     /// *Chinese alphabet symbols are rehashed into m_vCHtext, m_vCHdisplayText, and m_vCHcolours;
