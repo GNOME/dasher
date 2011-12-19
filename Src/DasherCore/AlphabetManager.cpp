@@ -418,7 +418,7 @@ void CAlphabetManager::GetProbs(vector<unsigned int> *pProbInfo, CLanguageModel:
   const unsigned long iNorm(m_pNCManager->GetAlphNodeNormalization());
   //the case for control mode on, generalizes to handle control mode off also,
   // as then iNorm - control_space == iNorm...
-  const unsigned int iUniformAdd = ((iNorm * GetLongParameter(LP_UNIFORM)) / 1000) / iSymbols;
+  const unsigned int iUniformAdd = max(1ul, ((iNorm * GetLongParameter(LP_UNIFORM)) / 1000) / iSymbols);
   const unsigned long iNonUniformNorm = iNorm - iSymbols * iUniformAdd;
   //  m_pLanguageModel->GetProbs(context, Probs, iNorm, ((iNorm * uniform) / 1000));
 

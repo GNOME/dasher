@@ -31,8 +31,8 @@ CRoutingPPMLanguageModel::CRoutingPPMLanguageModel(CSettingsUser *pCreator, cons
 void CRoutingPPMLanguageModel::GetProbs(Context context, std::vector<unsigned int> &probs, int norm, int iUniform) const {
   const CPPMContext *ppmcontext = (const CPPMContext *)(context);
 
-  const int iNumRoutes(m_pBaseSyms->size()); //i.e., the #routes - so loop from i=1 to <iNumSymbols
-  probs.resize(iNumRoutes);
+  const int iNumSymbols(m_pBaseSyms->size()); //i.e., the #routes - so loop from i=1 to <iNumSymbols
+  probs.resize(iNumSymbols);
   
   unsigned int iToSpend = norm;
   unsigned int iUniformLeft = iUniform;
@@ -40,12 +40,9 @@ void CRoutingPPMLanguageModel::GetProbs(Context context, std::vector<unsigned in
   // TODO: Sort out zero symbol case
   probs[0] = 0;
   
-  //Make sure each ROUTE gets at least one
-  for(int i = 1; i < iNumRoutes; i++) {
-    if (iUniformLeft >= iNumRoutes-i)
-      iUniformLeft -= probs[i] = iUniformLeft / (iNumRoutes-i);
-    else
-      probs[i]=1; //leave iUniformLeft
+  for(int i = 1; i < iNumSymbols; i++) {
+    probs[i] = iUniformLeft / (iNumSymbols - i);
+    iUniformLeft -= probs[i];
     iToSpend -= probs[i];
   }
   
@@ -112,7 +109,7 @@ void CRoutingPPMLanguageModel::GetProbs(Context context, std::vector<unsigned in
   //for each base, distribute any remaining probability mass
   // uniformly to all the routes to that base.
   for (int i=1; i<GetSize(); i++) {
-    if (!baseProbs[i]) continue; //none for that base (routes already have >=1), or already distributed
+    if (!baseProbs[i]) continue; //=already distributed
     
     //ok, so there's some probability mass assigned to the base symbol,
     // which we haven't assigned to any route
