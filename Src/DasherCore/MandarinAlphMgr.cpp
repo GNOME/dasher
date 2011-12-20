@@ -28,6 +28,7 @@
 #include "Observable.h"
 #include "NodeCreationManager.h"
 
+#include <string.h>
 
 #include <vector>
 #include <sstream>
