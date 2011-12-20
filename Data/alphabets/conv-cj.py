@@ -30,6 +30,12 @@ def xml_hex(s):
 
 #UTF32 codepoint = (lead << 10) + trail + SURROGATE_OFFSET;
 
+#rows on qwerty keyboard, with xml colour spec. We sort groups+radicals by this
+# (at each level), and group each row together in a group of that colour
+rows = [ ('!@#$%^&*()-_=+',"60"), ('qwertyuiop[{]}',"61"), ('asdfghjkl;:\'"\\|',"62"), (r'`~zxcvbnm,<.>/?',"63") ];
+#map from qwerty key, to cangjie radical
+keys = {}
+
 #tree structure. strokes = all the ciangxie symbols; keyname = all the keys (a-z0-9 etc.)
 class Group:
   def __init__(self,strokes="",keyname=""):
@@ -55,11 +61,16 @@ class Group:
     for sym in sorted(self.syms):      
       s=xml_hex(sym)
       print indent + '<s d="'+s+'" t="'+s+'"/>';
-    #then subgroups:
-    for sym in sorted(self.children.keys()):
-      n=xml_hex(sym) 
-      print indent + '<group label="'+n+'">'
-      self.children[sym].write(indent+" ")
+    #then subgroups, in row order:
+    for row,col in rows:
+      mine = [keys[k] for k in row if keys[k] in self.children.keys()];
+      if len(mine)==0: continue
+      print indent + '<group b="'+col+'">';
+      for sym in mine:
+        n=xml_hex(sym) 
+        print indent + ' <group label="'+n+'">'
+        self.children[sym].write(indent+"  ")
+        print indent + " </group>";
       print indent + "</group>";
 
   def addSym(self,sym):
@@ -69,7 +80,6 @@ class Group:
     return "group "+self.strokes.encode("utf-8")+" ("+self.keyname.encode("utf-8")+")"
 
 keypat = re.compile("([^ ]+) +([^ \r\n]+)",re.UNICODE);
-keys = {}
 
 with open(sys.argv[1]) as file:
   for line in file:
@@ -89,8 +99,7 @@ with open(sys.argv[1]) as file:
     if (re.match("%chardef +begin",line) is not None):
       break
     die("Expected chardef begin, got "+line)
-  routes={} #containing group for each output sym. Only used to set:
-  multikeys=set() #output syms appearing in multiple groups
+  punctuation=set() #symbols in range we think means punctuation, that exist
   root = Group()
   pattern=re.compile("([^ \s\t]+)[\s\t]+([^ \s\t]{0,2})$",re.UNICODE);
   for line in file:
@@ -104,24 +113,20 @@ with open(sys.argv[1]) as file:
     except IndexError as e:
       print '<!--WARNING: Skipping',e,'-->'
       continue
+    o=ord(sym[0])  
+    if (o>0x2000 and o<0x2036) or (o>0x3000 and o<0x301F) or (o>0xFE3C and o<0xFFFF):
+      punctuation.add(sym)
+      continue
     key = m.group(1)
-    if sym in routes:
-      multikeys.add(sym)
     r=root
     for ch in key:
       r = r.getChild(keys[ch],ch)
-    #  print "Warning",sym.encode("utf-8"),
-    #  if r==routes[sym]:
-    #    print "appears twice in ",r
-    #  else:
-    #    print "appears under",routes[sym],"as well as",r
-    routes[sym]=r
     r.addSym(sym)
 #don't create a space character (or put in punctuation), Dasher will add itself
-root.recursiveDelete(multikeys | set(" "))
+root.recursiveDelete(punctuation | set(" "))
 root.write("")
 print '<group name="Punctuation" b="112">'
-for sym in sorted(multikeys):
+for sym in sorted(punctuation):
   s = xml_hex(sym)
-  print '  <s t="'+s+'" d="'+s+'" />"'
+  print '  <s t="'+s+'" d="'+s+'" />'
 print "</group>"
