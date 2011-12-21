@@ -4,7 +4,8 @@
 <alphabets>
 <alphabet name="Mandarin (trad) via &#x3105;&#x3106;&#x3107;&#x3108; (Bopomofo)">
 <!--The nature of this alphabet is to represent every possible (syllable+tone) combination in a list, ordered and grouped by the representation of that sound in Bopomofo. The sounds are only indirectly represented, as groups containing (often-)multiple chinese symbols (which may even appear in more than one place); the complete sound/symbol dataset comes from the file bpmf-trad-mand.cin, converted into Dasher's group tree by bpmf-trad-mand.py-->
-<conversionmode id="2" start="&lt;" stop="&gt;"/>
+<!--Note use of the route-learning model: since we don't supply a training text, we are hoping the user will have one of their own; but this may well be unannotated, and this model works better on unannotated texts than PPMPY-->
+<conversionmode id="4" start="&lt;" stop="&gt;"/>
 <orientation type="LR"/>
 <encoding type="Western"/>
 <palette>European/Asian</palette>
