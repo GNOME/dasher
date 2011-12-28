@@ -4,6 +4,7 @@
 #
 # Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2004, 2005, 2006.
 # Jorge González <jorgegonz@svn.gnome.org>, 2007, 2008, 2009, 2010, 2011.
+# Nicolás Satragno <nsatragno@gmail.com>, 2011.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
 #
 msgid ""
@@ -11,8 +12,8 @@ msgstr ""
 "Project-Id-Version: dasher.master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-11-25 19:52+0000\n"
-"PO-Revision-Date: 2011-12-05 16:37+0100\n"
+"POT-Creation-Date: 2011-12-17 15:18+0000\n"
+"PO-Revision-Date: 2011-12-28 10:05+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -526,7 +527,6 @@ msgstr "_Importar texto de entrenamiento…"
 #. / is a section excerpt from the file, containing the error.
 #: ../Src/DasherCore/AbstractXMLParser.cpp:64
 #, c-format
-#| msgid "XML Error %s in file %s somewhere in block: %s"
 msgid "XML Error %s in %s somewhere in block: %s"
 msgstr "Error XML %s %s, en alguna parte del bloque: %s"
 
@@ -706,7 +706,7 @@ msgstr ""
 
 #: ../Src/DasherCore/DefaultFilter.cpp:19
 msgid "Hold right mouse button / key 1 to go 3/4 faster"
-msgstr ""
+msgstr "Mantenga pulsado el botón derecho o la tecla 1 para ir 3/4 más rápido"
 
 #: ../Src/DasherCore/DemoFilter.cpp:15
 msgid "Demo Mode (no input)"
@@ -719,14 +719,16 @@ msgstr "Nombre de archivo o sentencias que introducir"
 #: ../Src/DasherCore/GameModule.cpp:9
 msgid "Distance of sentence from center to decide user needs help"
 msgstr ""
+"Distancia de la sentencia desde el centro en la que decidir que el usuario "
+"necesita ayuda"
 
 #: ../Src/DasherCore/GameModule.cpp:10
 msgid "Time for which user must need help before help drawn"
-msgstr ""
+msgstr "Tiempo durante el cual el usuario necesitará ayuda antes de mostrarla"
 
 #: ../Src/DasherCore/GameModule.cpp:11
 msgid "When we give help, show the shortest path to the target sentence?"
-msgstr ""
+msgstr "Al ayudar, ¿mostrar el camino más corto a la sentencia objetivo?"
 
 #: ../Src/DasherCore/NodeCreationManager.cpp:32
 msgid "Training on User Text"
@@ -947,7 +949,6 @@ msgstr ""
 
 #: ../Src/DasherCore/Trainer.cpp:100
 #, c-format
-#| msgid "Unable to open file \"%f\" for reading"
 msgid "Unable to open file \"%s\" for reading"
 msgstr "No se pudo abrir el archivo «%s» para lectura"
 
@@ -1006,11 +1007,12 @@ msgstr "Desplazamiento para el botón secundario"
 #. step
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:31
 msgid "Distance between down markers (long gap)"
-msgstr ""
+msgstr "Distancia entre los marcadores inferiores (espacio grande)"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:32
 msgid "Distance between up markers, as percentage of long gap"
 msgstr ""
+"Distancia entre los marcadores superiores, como porcentaje del espacio grande"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:33
 msgid "Tolerance for inaccurate timing of button pushes (in ms)"
@@ -1021,6 +1023,8 @@ msgid ""
 "Use push and release times of single press rather than push times of two "
 "presses"
 msgstr ""
+"Usar el tiempo de apretar y liberar una pulsación en lugar del tiempo de una "
+"doble pulsación"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
 msgid "Slow startup time"
