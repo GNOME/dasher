@@ -82,6 +82,60 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   {BP_GAME_HELP_DRAW_PATH, T_BOOL, -1, -1, -1, -1, ""},
 };
 
+static NSString *EDIT_FONT_SIZE = @"iPhoneEditBoxFontSize";
+
+//MiscSettings is a normal ParametersController for the above, plus adds
+// a slider for the editbox font size. A quick hack not a general mechanism!!
+@interface MiscSettings : ParametersController {
+	TextView *tv;
+}
+-(id)initForTextView:(TextView *)tv;
+-(void)longUserDefChanged:(id)uislider;
+@end
+
+@implementation MiscSettings
+
+-(id)initForTextView:(TextView *)_tv {
+  if (self =[super initWithTitle:@"Misc" Settings:_miscSettings Count:sizeof(_miscSettings)/sizeof(_miscSettings[0])]) {
+    tv = _tv;
+    self.tabBarItem.image = [UIImage imageNamed:@"misc.png"];
+  }
+  return self;
+}
+
+-(int)layoutOptionsOn:(UIView *)view startingAtY:(int)y {
+  if (m_iCount)
+    y=[super layoutOptionsOn:view startingAtY:y];
+  NSUserDefaults *ud=[NSUserDefaults standardUserDefaults];
+  CGSize appSize = [UIScreen mainScreen].applicationFrame.size;
+  UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(10.0, y, appSize.width-20, 20.0)] autorelease];
+  label.textAlignment = UITextAlignmentCenter;
+  UISlider *slider = [[[UISlider alloc] initWithFrame:CGRectMake(10.0, y+20, appSize.width-20, 20.0)] autorelease];
+  slider.tag = (int)label; label.tag=(int)EDIT_FONT_SIZE;
+  slider.minimumValue = 5; slider.maximumValue = 40;
+  slider.value = [ud integerForKey:EDIT_FONT_SIZE];
+  [slider addTarget:self action:@selector(longUserDefChanged:) forControlEvents:UIControlEventValueChanged];
+  [self longUserDefChanged:slider];
+  [view addSubview:label]; [view addSubview:slider];
+  y += 70;
+  return y;
+}
+
+-(void)longUserDefChanged:(id)uislider {
+  NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+  UISlider *s=(UISlider *)uislider;
+  UILabel *lbl=(UILabel *)s.tag;
+  NSString *key = (NSString *)lbl.tag;
+  int sz = s.value;
+  if (!lbl.text || sz != [ud integerForKey:key]) {
+    [ud setInteger:sz forKey:key];
+    lbl.text = [key stringByAppendingFormat:@": %i",sz];
+    tv.font = [tv.font fontWithSize:sz];
+  }
+}
+
+@end
+
 using namespace Dasher;
 
 @implementation DasherAppDelegate
@@ -189,6 +243,11 @@ using namespace Dasher;
 	textView.delegate = self;
 	selectedText.location = selectedText.length = 0;
   textView.selectedRange=selectedText;
+  int sz = [[NSUserDefaults standardUserDefaults] integerForKey:EDIT_FONT_SIZE];
+  if (!sz)
+    [[NSUserDefaults standardUserDefaults] setInteger:sz=12 forKey:EDIT_FONT_SIZE];
+	
+  textView.font = [UIFont systemFontOfSize:sz];
 
   webView.dataDetectorTypes = UIDataDetectorTypeNone;
   webView.delegate = self;
@@ -330,8 +389,7 @@ using namespace Dasher;
   tabs.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(settingsDone)] autorelease];
   UINavigationController *settings = [[[UINavigationController alloc] initWithRootViewController:tabs] autorelease];
 
-  ParametersController *misc = [[[ParametersController alloc] initWithTitle:@"Misc" Settings:_miscSettings Count:sizeof(_miscSettings)/sizeof(_miscSettings[0])] autorelease];
-  misc.tabBarItem.image = [UIImage imageNamed:@"misc.png"];
+  ParametersController *misc = [[[MiscSettings alloc] initForTextView:textView] autorelease];
 
     tabs.viewControllers = [NSArray arrayWithObjects:
 							[[[InputMethodSelector alloc] init] autorelease],
@@ -406,6 +464,7 @@ using namespace Dasher;
 }
 
 -(void)applicationDidEnterBackground:(UIApplication *)application {
+  [[NSUserDefaults standardUserDefaults] synchronize];
   self.dasherInterface->WriteTrainFileFull();
 }
 
