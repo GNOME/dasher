@@ -273,6 +273,8 @@
 		33CBB4F2101FA33E00510BF9 /* alphabet.portuguese.xml in Resources */ = {isa = PBXBuildFile; fileRef = 33CBB4EA101FA33E00510BF9 /* alphabet.portuguese.xml */; };
 		33CBB4F3101FA33E00510BF9 /* alphabet.swedish.xml in Resources */ = {isa = PBXBuildFile; fileRef = 33CBB4EB101FA33E00510BF9 /* alphabet.swedish.xml */; };
 		33CBB4F5101FA35900510BF9 /* training_basque_ES.txt in Resources */ = {isa = PBXBuildFile; fileRef = 33CBB4F4101FA35900510BF9 /* training_basque_ES.txt */; };
+		33D0F2E414B1CC0E00D94B85 /* RoutingAlphMgr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33D0F2E214B1CC0E00D94B85 /* RoutingAlphMgr.cpp */; };
+		33D0F2E914B1CC2D00D94B85 /* RoutingPPMLanguageModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33D0F2E714B1CC2D00D94B85 /* RoutingPPMLanguageModel.cpp */; };
 		33DA5E2D11B70FA100011CD2 /* paste.png in Resources */ = {isa = PBXBuildFile; fileRef = 33DA5E2C11B70FA100011CD2 /* paste.png */; };
 		33DFE410137AA2FC00F86CDE /* FileWordGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33DFE40C137AA2FC00F86CDE /* FileWordGenerator.cpp */; };
 		33DFE411137AA2FC00F86CDE /* GameModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 33DFE40E137AA2FC00F86CDE /* GameModule.cpp */; };
@@ -727,6 +729,10 @@
 		33CBB4EA101FA33E00510BF9 /* alphabet.portuguese.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.portuguese.xml; sourceTree = "<group>"; };
 		33CBB4EB101FA33E00510BF9 /* alphabet.swedish.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = alphabet.swedish.xml; sourceTree = "<group>"; };
 		33CBB4F4101FA35900510BF9 /* training_basque_ES.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = training_basque_ES.txt; sourceTree = "<group>"; };
+		33D0F2E214B1CC0E00D94B85 /* RoutingAlphMgr.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RoutingAlphMgr.cpp; sourceTree = "<group>"; };
+		33D0F2E314B1CC0E00D94B85 /* RoutingAlphMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutingAlphMgr.h; sourceTree = "<group>"; };
+		33D0F2E714B1CC2D00D94B85 /* RoutingPPMLanguageModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RoutingPPMLanguageModel.cpp; sourceTree = "<group>"; };
+		33D0F2E814B1CC2D00D94B85 /* RoutingPPMLanguageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutingPPMLanguageModel.h; sourceTree = "<group>"; };
 		33DA5E2C11B70FA100011CD2 /* paste.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paste.png; sourceTree = "<group>"; };
 		33DFE40C137AA2FC00F86CDE /* FileWordGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileWordGenerator.cpp; sourceTree = "<group>"; };
 		33DFE40D137AA2FC00F86CDE /* FileWordGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileWordGenerator.h; sourceTree = "<group>"; };
@@ -1173,6 +1179,8 @@
 		3344FD670F71717C00506EAA /* DasherCore */ = {
 			isa = PBXGroup;
 			children = (
+				33D0F2E214B1CC0E00D94B85 /* RoutingAlphMgr.cpp */,
+				33D0F2E314B1CC0E00D94B85 /* RoutingAlphMgr.h */,
 				3360335613ABDF3700417DFE /* ScreenGameModule.h */,
 				3360335713ABDF3700417DFE /* ScreenGameModule.cpp */,
 				337ECC1910DD5E0700D0C6A5 /* ExpansionPolicy.cpp */,
@@ -1328,6 +1336,8 @@
 		3344FDC40F71717C00506EAA /* LanguageModelling */ = {
 			isa = PBXGroup;
 			children = (
+				33D0F2E714B1CC2D00D94B85 /* RoutingPPMLanguageModel.cpp */,
+				33D0F2E814B1CC2D00D94B85 /* RoutingPPMLanguageModel.h */,
 				33CBB395101F422200510BF9 /* PPMPYLanguageModel.cpp */,
 				33CBB396101F422200510BF9 /* PPMPYLanguageModel.h */,
 				3344FDC70F71717C00506EAA /* CTWLanguageModel.cpp */,
@@ -1739,6 +1749,8 @@
 				338B38FF1432071C0023A224 /* DemoFilter.cpp in Sources */,
 				33557FC4142B484E002C600E /* Globber.cpp in Sources */,
 				33558058142B7206002C600E /* Messages.cpp in Sources */,
+				33D0F2E414B1CC0E00D94B85 /* RoutingAlphMgr.cpp in Sources */,
+				33D0F2E914B1CC2D00D94B85 /* RoutingPPMLanguageModel.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
