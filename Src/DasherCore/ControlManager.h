@@ -59,7 +59,7 @@ namespace Dasher {
 
     class CContNode : public CDasherNode {
     public:
-      CControlBase *mgr() {return m_pMgr;}
+      CControlBase *mgr() const {return m_pMgr;}
       CContNode(int iOffset, int iColour, NodeTemplate *pTemplate, CControlBase *pMgr);
 
       bool bShove() {return false;}

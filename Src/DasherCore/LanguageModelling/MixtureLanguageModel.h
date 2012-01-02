@@ -29,7 +29,7 @@ namespace Dasher {
     /////////////////////////////////////////////////////////////////////////////
 
     CMixtureLanguageModel(CSettingsUser *pCreator, const CAlphInfo *pAlph, const CAlphabetMap *pAlphMap)
-    : CLanguageModel(pAlph->GetNumberTextSymbols()), CSettingsUser(pCreator) {
+    : CLanguageModel(pAlph->iEnd-1), CSettingsUser(pCreator) {
 
       //      std::cout << m_pAlphabet << std::endl;
 

@@ -55,7 +55,7 @@ protected:
   AbstractXMLParser(CMessageDisplay *pMsgs);
 
   ///Subclasses may call to get the description of the current file
-  const std::string &GetDesc();
+  const std::string &GetDesc() {return m_strDesc;}
   ///Subclasses may call to determine if the current file is from a user location
   bool isUser();
   

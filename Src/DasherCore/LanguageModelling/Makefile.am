@@ -13,5 +13,7 @@ libdasherlm_a_SOURCES = \
 		PPMLanguageModel.h \
 		PPMPYLanguageModel.cpp \
 		PPMPYLanguageModel.h \
+		RoutingPPMLanguageModel.cpp \
+		RoutingPPMLanguageModel.h \
 		WordLanguageModel.cpp \
 		WordLanguageModel.h

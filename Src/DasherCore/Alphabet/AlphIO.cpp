@@ -69,15 +69,8 @@ void CAlphIO::GetAlphabets(std::vector <std::string >*AlphabetList) const {
   typedef std::map < std::string, const CAlphInfo* >::const_iterator CI;
   CI End = Alphabets.end();
 
-  for(CI Cur = Alphabets.begin(); Cur != End; Cur++) {
-    //skip "hidden" alphabets
-    if (Cur->second->m_bHidden) continue;
-    //for Mandarin-converting alphabets, only display if the conversion target is available too.
-    if (Cur->second->m_iConversionID==2) {
-      if (Alphabets.count(Cur->second->m_strConversionTarget)==0) continue;
-    }
+  for(CI Cur = Alphabets.begin(); Cur != End; Cur++)
     AlphabetList->push_back(Cur->second->AlphID);
-  }
 }
 
 std::string CAlphIO::GetDefault() {
@@ -121,7 +114,7 @@ CAlphInfo *CAlphIO::CreateDefault() {
 //     Default.Groups[0].Characters[i].Colour = i + 10;
 //   }
   // ---
-  Default.m_pBaseGroup = 0;
+  Default.pChild = 0;
   Default.Orientation = Opts::LeftToRight;
 
   //The following creates Chars.size()+2 actual character structs in the vector,
@@ -155,6 +148,10 @@ CAlphInfo *CAlphIO::CreateDefault() {
   Default.ControlCharacter->Text = "";
   Default.ControlCharacter->Colour = 8;
 
+  Default.iStart=1; Default.iEnd=Default.m_vCharacters.size()+1;
+  Default.iNumChildNodes = Default.m_vCharacters.size();
+  Default.pNext=Default.pChild=NULL;
+  
   return &Default;
 }
 
@@ -174,8 +171,6 @@ void CAlphIO::XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
     while(*atts != 0) {
       if(strcmp(*atts, "name") == 0) {
         InputInfo->AlphID = *(atts+1);
-      } else if (strcmp(*atts, "hidden") == 0) {
-        InputInfo->m_bHidden = (strcmp(*(atts+1), "yes")==0);
       } else if (strcmp(*atts, "escape") == 0) {
         InputInfo->m_strCtxChar = *(atts+1);
       }
@@ -218,6 +213,7 @@ void CAlphIO::XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
   if(strcmp(name, "space") == 0) {
     if (!SpaceCharacter) SpaceCharacter = new CAlphInfo::character();
     ReadCharAtts(atts,*SpaceCharacter);
+    if (SpaceCharacter->Colour==-1) SpaceCharacter->Colour = 9;
     return;
   }
   if(strcmp(name, "paragraph") == 0) {
@@ -243,17 +239,12 @@ void CAlphIO::XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
     if (m_vGroups.empty()) InputInfo->iNumChildNodes++; else m_vGroups.back()->iNumChildNodes++;
 
     //by default, the first group in the alphabet is invisible
-    pNewGroup->bVisible = (InputInfo->m_pBaseGroup!=NULL);
+    pNewGroup->bVisible = (InputInfo->pChild!=NULL);
 
     while(*atts != 0) {
-      if(strcmp(*atts, "name") == 0) {
-	// TODO: Fix this, or remove if names aren't needed
-
-//         atts++;
-//         InputInfo->Groups.back().Description = *atts;
-//         atts--;
-      }
-      if(strcmp(*atts, "b") == 0) {
+      if(strcmp(*atts, "name") == 0)
+         pNewGroup->strName = *(atts+1);
+      else if(strcmp(*atts, "b") == 0) {
         pNewGroup->iColour = atoi(*(atts+1));
       } else if(strcmp(*atts, "visible") == 0) {
         atts++;
@@ -268,14 +259,17 @@ void CAlphIO::XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
       atts += 2;
     }
 
-    SGroupInfo *&prevSibling(m_vGroups.empty() ? InputInfo->m_pBaseGroup : m_vGroups.back()->pChild);
+    SGroupInfo *&prevSibling((m_vGroups.empty() ? InputInfo : m_vGroups.back())->pChild);
 
     if (pNewGroup->iColour==-1 && pNewGroup->bVisible) {
       //no colour specified. Try to colour cycle, but make sure we choose
       // a different colour from both its parent and any previous sibling
+      SGroupInfo *parent=NULL;
+      for (vector<SGroupInfo *>::reverse_iterator it = m_vGroups.rbegin(); it!=m_vGroups.rend(); it++)
+        if ((*it)->bVisible) {parent=*it; break;}
       for (;;) {
         pNewGroup->iColour=(iGroupIdx++ % 3) + 110;
-        if (!m_vGroups.empty() && m_vGroups.back()->iColour == pNewGroup->iColour)
+        if (parent && parent->iColour == pNewGroup->iColour)
           continue; //same colour as parent -> try again
         if (prevSibling && prevSibling->iColour == pNewGroup->iColour)
           continue; //same colour as previous sibling -> try again
@@ -299,13 +293,12 @@ void CAlphIO::XmlStartHandler(const XML_Char *name, const XML_Char **atts) {
     while(*atts != 0) {
       if(strcmp(*atts, "id") == 0) {
         InputInfo->m_iConversionID = atoi(*(atts+1));
-      } else if (strcmp(*atts, "target") == 0) {
-        InputInfo->m_strConversionTarget = *(atts+1);
-      } else if (strcmp(*atts, "delim") == 0) {
+      } else if (strcmp(*atts, "start") == 0) {
         //TODO, should check this is only a single unicode character;
         // no training will occur, if not...
-        InputInfo->m_strConversionTrainingDelimiter = *(atts+1);
-      }
+        InputInfo->m_strConversionTrainStart = *(atts+1);
+      } else if (strcmp(*atts, "stop") == 0) //similarly
+        InputInfo->m_strConversionTrainStop = *(atts+1);
       atts += 2;
     }
 
@@ -354,7 +347,6 @@ void CAlphIO::ReadCharAtts(const XML_Char **atts, CAlphInfo::character &ch) {
     if(strcmp(*atts, "t") == 0) ch.Text = *(atts+1);
     else if(strcmp(*atts, "d") == 0) ch.Display = *(atts+1);
     else if(strcmp(*atts, "b") == 0) ch.Colour = atoi(*(atts+1));
-    else if(strcmp(*atts, "f") == 0) ch.Foreground = *(atts+1);
     atts += 2;
   }
 }
@@ -374,7 +366,7 @@ void Reverse(SGroupInfo *&pList) {
 void CAlphIO::XmlEndHandler(const XML_Char *name) {
 
   if(strcmp(name, "alphabet") == 0) {
-    Reverse(InputInfo->m_pBaseGroup);
+    Reverse(InputInfo->pChild);
 
     if (ParagraphCharacter) {
       InputInfo->iParagraphCharacter = InputInfo->m_vCharacters.size()+1;
@@ -388,6 +380,8 @@ void CAlphIO::XmlEndHandler(const XML_Char *name) {
       InputInfo->iNumChildNodes++;
       delete SpaceCharacter;
     }
+
+    InputInfo->iEnd = InputInfo->m_vCharacters.size()+1;
 
     //if (InputInfo->StartConvertCharacter.Text != "") InputInfo->iNumChildNodes++;
     //if (InputInfo->EndConvertCharacter.Text != "") InputInfo->iNumChildNodes++;
@@ -416,7 +410,7 @@ void CAlphIO::XmlEndHandler(const XML_Char *name) {
     finished->iEnd = InputInfo->m_vCharacters.size()+1;
     if (finished->iEnd == finished->iStart) {
       //empty group. Delete it now, and elide from sibling chain
-      SGroupInfo *&ptr=(m_vGroups.empty() ? InputInfo->m_pBaseGroup : m_vGroups.back()->pChild);
+      SGroupInfo *&ptr=(m_vGroups.empty() ? InputInfo : m_vGroups.back())->pChild;
       DASHER_ASSERT(ptr == finished);
       ptr = finished->pNext;
       delete finished;

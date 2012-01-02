@@ -307,8 +307,8 @@ void CDasherInterfaceBase::EnterGameMode(CGameModule *pGameModule) {
   if (CWordGeneratorBase *pWords = m_pNCManager->GetAlphabetManager()->GetGameWords()) {
     if (!pGameModule) pGameModule=CreateGameModule();
     m_pGameModule=pGameModule;
-    m_pGameModule->SetWordGenerator(m_pNCManager->GetAlphabet(), pWords);
     m_pNCManager->updateControl();
+    m_pGameModule->SetWordGenerator(m_pNCManager->GetAlphabet(), pWords);
   } else {
     ///TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
     /// refers to a setting name in gsettings or equivalent, and should not be translated.

@@ -227,7 +227,7 @@ class Dasher::CDasherNode:private NoClones {
   /// Gets the node manager for this object. Meaning defined by subclasses,
   ///  which should override and refine the return type appropriately;
   ///  the main use is to provide runtime type info to check casting!
-  virtual CNodeManager *mgr() = 0;
+  virtual CNodeManager *mgr() const = 0;
   ///
   /// Provide children for the supplied node
   ///

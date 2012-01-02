@@ -37,35 +37,37 @@ CTrainer::CTrainer(CMessageDisplay *pMsgs, CLanguageModel *pLanguageModel, const
     }
 }
 
+CTrainer::~CTrainer() {
+}
+
 void CTrainer::Train(CAlphabetMap::SymbolStream &syms) {
   CLanguageModel::Context sContext = m_pLanguageModel->CreateEmptyContext();
 
   for(symbol sym; (sym=syms.next(m_pAlphabet))!=-1;) {
     //check for context-switch commands.
     // (Will only ever be triggered if m_strEscape is a single unicode character, hence warning in c'tor)
-    if (sym == m_iCtxEsc) {
-      //that was a quick check, to avoid calling slow peekBack() in most cases. Now make sure...
-      if (sym!=0 || syms.peekBack()==m_pInfo->GetContextEscapeChar()) {
-        //Yes, found escape character....
-        if (readEscape(sContext, syms)) continue;
-        //returns false, if there was a _double_ escape character - i.e. an actual
-        // occurrence of the character is wanted. In which case, fall through
-        // (sym is already set to the correct AlphabetMap symbol# for the first escape character)
-      }
-      else DASHER_ASSERT (sym==0); //symbol, and escape char, both out-of-alphabet. Fall through...
-      // (Or, TODO, should the Trainer be responsible for skipping unknown symbols, rather than the LM?)
-    }
-    //either a non-escapecharacter, or a double escapecharacter, was read
+    if (readEscape(sContext, sym, syms)) continue;
+    //either a non-escapecharacter, or a double escapecharacter, was read;
+    //either way, sym identifies the symbol.
     m_pLanguageModel->LearnSymbol(sContext, sym);
   }
   m_pLanguageModel->ReleaseContext(sContext);
 }
 
-bool CTrainer::readEscape(CLanguageModel::Context &sContext, CAlphabetMap::SymbolStream &syms) {
-  string delim=syms.peekAhead();
-  //A double escape character means an actual occurrence of the character is wanted...
-  if (delim == m_pInfo->GetContextEscapeChar()) return false;
+bool CTrainer::readEscape(CLanguageModel::Context &sContext, symbol sym, CAlphabetMap::SymbolStream &syms) {
+  if (sym != m_iCtxEsc) return false;
   
+  //that was a quick check, to avoid calling slow peekBack() in most cases. Now make sure...
+  if (sym==0 && syms.peekBack()!=m_pInfo->GetContextEscapeChar()) return false;
+  
+  //Yes, found escape character....
+  
+  string delim=syms.peekAhead(); syms.next(m_pAlphabet); //peekAhead doesn't read
+
+  //A double escape character means an actual occurrence of the character is wanted...
+  if (delim == m_pInfo->GetContextEscapeChar()) {
+    return false;
+  }
   //ok, so switch context. release the old, start a new...
   m_pLanguageModel->ReleaseContext(sContext);
   sContext = m_pLanguageModel->CreateEmptyContext();
@@ -74,7 +76,6 @@ bool CTrainer::readEscape(CLanguageModel::Context &sContext, CAlphabetMap::Symbo
   m_pAlphabet->GetSymbols(defCtx, m_pInfo->GetDefaultContext());
   for (vector<symbol>::iterator it=defCtx.begin(); it!=defCtx.end(); it++) m_pLanguageModel->EnterSymbol(sContext, *it);
   //and read the first delimiter; everything until the second occurrence of this, is _context_ only.
-  syms.next(m_pAlphabet); //skip it
   for (symbol sym; (sym=syms.next(m_pAlphabet))!=-1; ) {
     if (syms.peekBack()==delim) break;
     m_pLanguageModel->EnterSymbol(sContext, sym);
@@ -100,44 +101,11 @@ Dasher::CTrainer::Parse(const string &strDesc, istream &in, bool bUser) {
     m_pMsgs->FormatMessageWithString(_("Unable to open file \"%s\" for reading"),strDesc.c_str());
     return false;
   }
-  
+  ///easy enough to be re-entrant, so might as well
+  string oldDesc=m_strDesc;
+  m_strDesc = strDesc;
   ProgressStream syms(in,m_pProg,m_pMsgs);
   Train(syms);
-  
+  m_strDesc=oldDesc;
   return true;
-}
-
-CMandarinTrainer::CMandarinTrainer(CMessageDisplay *pMsgs, CPPMPYLanguageModel *pLanguageModel, const CAlphInfo *pInfo, const CAlphabetMap *pPYAlphabet, const CAlphabetMap *pCHAlphabet, const std::string &strDelim)
-: CTrainer(pMsgs, pLanguageModel, pInfo, pCHAlphabet), m_pPYAlphabet(pPYAlphabet), m_strDelim(strDelim) {
-}
-
-void CMandarinTrainer::Train(CAlphabetMap::SymbolStream &syms) {
-  unsigned numberofchar = 0;
-  CLanguageModel::Context trainContext = m_pLanguageModel->CreateEmptyContext();
-  
-  for (string s; (s=syms.peekAhead()).length();) {
-    syms.next(m_pPYAlphabet); //skip over character at which we just peeked (we don't need the symbol#)
-    
-    if (s == m_strDelim) { //found delimiter, so process next two characters
-      symbol Sympy = syms.next(m_pPYAlphabet);
-      if (Sympy==-1) break; //EOF
-      if (Sympy==0) {
-        m_pMsgs->FormatMessageWithString(_("Training file contains unknown source alphabet character %s"), syms.peekBack().c_str());
-      }
-      symbol Symchar = syms.next(m_pAlphabet);
-      if (Symchar==-1) break; //EOF...ignore final Pinyin?
-      if (Symchar==0) {
-        m_pMsgs->FormatMessageWithString(_("Training file contains unknown target alphabet character %s"), syms.peekBack().c_str());
-      }
-      static_cast<CPPMPYLanguageModel *>(m_pLanguageModel)->LearnPYSymbol(trainContext, Sympy);
-      m_pLanguageModel->LearnSymbol(trainContext, Symchar);
-      numberofchar++;    
-    } else if (s == m_pInfo->GetContextEscapeChar()) {
-      //we've already skipped over the (first) escape char
-      readEscape(trainContext, syms);
-      //a double escape-char will be ignored: it means "don't switch context,
-      // here's an (escape-char)", but we are only looking for m_strDelim.
-    } //else, keep looking for delimiter
-  }
-  m_pLanguageModel->ReleaseContext(trainContext);
 }

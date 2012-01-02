@@ -77,6 +77,9 @@ static SModuleSettings _miscSettings[] = { //note iStep and string description a
   {LP_OUTLINE_WIDTH, T_LONG, -5, 5, 1, -1, ""},
   {BP_AUTO_SPEEDCONTROL, T_BOOL, -1, -1, -1, -1, ""},
   {LP_NONLINEAR_X, T_LONG, 0, 10, 1, -1, ""},
+  {LP_GAME_HELP_DIST, T_LONG, 0, 8192, 1, 0, ""},
+  {LP_GAME_HELP_TIME, T_LONG, 0, 10000, 1000, 0, ""},
+  {BP_GAME_HELP_DRAW_PATH, T_BOOL, -1, -1, -1, -1, ""},
 };
 
 using namespace Dasher;

@@ -80,7 +80,7 @@ namespace Dasher {
     
     class CConvNode : public CDasherNode {
     public:
-      CConversionManager *mgr() {return m_pMgr;}
+      CConversionManager *mgr() const {return m_pMgr;}
       CConvNode(int iOffset, int iColour, CDasherScreen::Label *pLabel, CConversionManager *pMgr);
     ///
     /// Provide children for the supplied node

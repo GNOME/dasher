@@ -55,22 +55,21 @@ namespace Dasher {
 /// One CAlphInfo object is created per alphabet when the alphabet.*.xml
 /// files are read in by CAlphIO, and a CAlphabetMap object is created for
 /// the alphabet currently in use (and deleted when the alphabet is changed).
-class Dasher::CAlphInfo {
-private:
-  friend class CAlphIO;
-  struct character {
-    character();
-    std::string Display;
-    std::string Text;
-    int Colour;
-    std::string Foreground;
-  };
+///
+/// Note the group structure stored by inheriting from SGroupInfo; these are filled
+/// with iStart==1 (as symbol numbers are 1-indexed; 0 is reserved to indicate an
+/// "unknown symbol", and for element 0 of the prob. array to contain a 0, and
+/// symbol -1 indicates End-Of-Stream), and iEnd == one more than the number of
+/// "text" symbols (i.e. inc space and para, but no control/conversion start/end)
+/// - this is for consistency with SGroupInfo, preserving that iEnd is one more
+/// than the highest valid index.
+class Dasher::CAlphInfo : public SGroupInfo {
 public:
+  ///Format a character ready to write to a training file, by doubling
+  /// up any escape character (context-switch / conversion-start)
+  std::string escape(const std::string &ch) const;
+  
   const std::string &GetID() const {return AlphID;}
-  /// Return number of text symbols - inc space and para, but no control/conversion start/end
-  /// Note symbol numbers are 1-indexed; 0 is reserved to indicate an "unknown symbol" (-1 = End-Of-Stream),
-  /// and for element 0 of the probability array to contain a 0.
-  unsigned int GetNumberTextSymbols() const {return m_vCharacters.size();}
 
   Opts::ScreenOrientations GetOrientation() const {return Orientation;}
 
@@ -84,6 +83,10 @@ public:
 
   symbol GetParagraphSymbol() const {return iParagraphCharacter;}
 
+  ///Space symbol is special in three ways:
+  /// (1) defines word boundaries for speak-as-we-go, i.e. we speak when we see a space;
+  /// (2) Unknown characters in game mode text file are converted into spaces;
+  /// (3) Default colour is 9 if none specified
   symbol GetSpaceSymbol() const {return iSpaceCharacter;}
 
   //symbol GetStartConversionSymbol() const;
@@ -100,11 +103,6 @@ public:
     return m_vCharacters[i-1].Colour;
   };
 
-  /// Text foreground colour for i'th symbol; default 4 if unspecified
-  int GetTextColour(symbol i) const;
-  /// Text foreground colour for i'th symbol, as specified in XML
-  const std::string & GetForeground(symbol i) const {return m_vCharacters[i-1].Foreground;}
-
   const std::string &GetDefaultContext() const {return m_strDefaultContext;}
 
   ///A single unicode character to use as an escape sequence in training files
@@ -112,8 +110,6 @@ public:
   /// Defaults to § if not specified in alphabet.
   const std::string &GetContextEscapeChar() const {return m_strCtxChar;}
 
-  SGroupInfo *m_pBaseGroup;
-  int iNumChildNodes;
   ///0 = normal alphabet, contains symbols to output
   ///1 = Japanese (defunct)
   ///2 = Mandarin: symbols are merely phonemes, and match up (via displaytext)
@@ -122,19 +118,16 @@ public:
   /// all this handled by MandarinAlphMgr (+MandarinTrainer, PPMPYLanguageModel).
   int m_iConversionID;
 
-  ///The name of the alphabet containing the actual text symbols into which
-  /// this alphabet will be converted. Only used (atm) if m_iConversionID==2.
-  std::string m_strConversionTarget;
-
-  ///Single-unicode character used to indicate an upcoming PY-then-CH pair
-  /// in the training file (see MandarinTrainer). Only used if m_iConversionID==2.
-  std::string m_strConversionTrainingDelimiter;
-
-  CAlphabetMap *MakeMap() const;
+  ///Single-unicode characters used in the training file to delimit the name of a group
+  /// containing the next symbol, in order to disambiguate which group (=route, pronunciation)
+  /// was used to produce the symbol in this case (see MandarinTrainer).
+  /// Only used if m_iConversionID==2, 3 or 4. Default to "<" and ">"
+  std::string m_strConversionTrainStart,m_strConversionTrainStop;
 
   ~CAlphInfo();
 
 private:
+  friend class CAlphIO;
   CAlphInfo();
   // Basic information
   std::string AlphID;
@@ -148,11 +141,16 @@ private:
   Opts::AlphabetTypes Type;
   Opts::ScreenOrientations Orientation;
 
-  ///If true, alphabet should not be displayed in list of available alphabets;
-  /// it exists only for internal use, e.g. as a target for conversion from
-  /// another alphabet (a la MandarinDasher).
-  bool m_bHidden;
+  std::string m_strDefaultContext;
+  std::string m_strCtxChar;
 
+protected:
+  struct character {
+    character();
+    std::string Display;
+    std::string Text;
+    int Colour;
+  };
   std::vector<character> m_vCharacters;
 
   symbol iParagraphCharacter;       // symbol number (index into m_vCharacters +1) of paragraph char (for display and default edit-text), 0 for none.
@@ -161,8 +159,7 @@ private:
   character *StartConvertCharacter;
   character *EndConvertCharacter;
 
-  std::string m_strDefaultContext;
-  std::string m_strCtxChar;
+  void copyCharacterFrom(const CAlphInfo *other, int idx);
 };
 
 
