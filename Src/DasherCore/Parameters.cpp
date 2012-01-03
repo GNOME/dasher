@@ -144,7 +144,7 @@ const lp_table longparamtable[] = {
   {LP_MARGIN_WIDTH, "MarginWidth", 300, "Width of RHS margin (in Dasher co-ords)"},
 #endif
   {LP_TARGET_OFFSET, "TargetOffset", 0, "Vertical distance between mouse pointer and target (400=screen height)"},
-  {LP_X_LIMIT_SPEED, "XLimitSpeed", 800, "X Co-ordinate at which maximum speed is reached (<2048=xhair)"},
+  {LP_X_LIMIT_SPEED, "XLimitSpeed", 800, "X Co-ordinate at which maximum speed is reached (&lt;2048=xhair)"},
   {LP_GAME_HELP_DIST, "GameHelpDistance", 1920, "Distance of sentence from center to decide user needs help"},
   {LP_GAME_HELP_TIME, "GameHelpTime", 0, "Time for which user must need help before help drawn"},
 };
