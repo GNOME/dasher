@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the dasher package.
 #
 # Matic Žgur <mr.zgur@gmail.com>, 2006.
-# Matej Urbančič <mateju@svn.gnome.org>, 2005, 2007 - 2011.
+# Matej Urbančič <mateju@svn.gnome.org>, 2005, 2007 - 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-11-30 15:14+0000\n"
-"PO-Revision-Date: 2011-12-02 16:32+0100\n"
+"POT-Creation-Date: 2012-01-03 21:30+0000\n"
+"PO-Revision-Date: 2012-01-07 21:51+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: \n"
@@ -530,12 +530,11 @@ msgstr "_Uvozi besedilo za urjenje ..."
 
 #. think XML_LChar==char, depends on preprocessor variables...
 #. /TRANSLATORS: the first string is the error message from the XML Parser;
-#. / the second is the URL of the file we're trying to read; the third
-#. / is a section excerpt from the file, containing the error.
-#: ../Src/DasherCore/AbstractXMLParser.cpp:64
+#. / the second is the URL of the file we're trying to read.
+#: ../Src/DasherCore/AbstractXMLParser.cpp:63
 #, c-format
-msgid "XML Error %s in %s somewhere in block: %s"
-msgstr "Napaka XML %s v datoteki %s v bloku: %s"
+msgid "XML Error %s in file %s "
+msgstr "Napaka XML %s v datoteki %s"
 
 #: ../Src/DasherCore/Alphabet/AlphabetMap.cpp:116
 #, c-format
@@ -550,7 +549,7 @@ msgstr "Prebran je neveljaven znak UTF-8 0x%x"
 #. /TRANSLATORS: the string "GameTextFile" is the name of a setting in gsettings
 #. / (or equivalent), and should not be translated. The %s is the value of that
 #. / setting (this message displayed only if the user has provided a value)
-#: ../Src/DasherCore/AlphabetManager.cpp:163
+#: ../Src/DasherCore/AlphabetManager.cpp:213
 #, c-format
 msgid "Note: GameTextFile setting specifies game sentences file '%s' but this does not exist"
 msgstr "Opomba: nastavitev besedilne datoteke za igro urjenja določi datoteko stavkov '%s', ki pa ne obstaja"
@@ -559,8 +558,9 @@ msgstr "Opomba: nastavitev besedilne datoteke za igro urjenja določi datoteko s
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:28
 #: ../Src/DasherCore/ButtonMode.cpp:28
 #: ../Src/DasherCore/CompassMode.cpp:28
-msgid "Zoom steps"
-msgstr "Raven približanja"
+#: ../Src/DasherCore/StylusFilter.cpp:11
+msgid "Frames over which to perform zoom"
+msgstr "Okvirji na katerih se poveča približanje"
 
 #. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:30
@@ -589,8 +589,8 @@ msgid "Scan time in menu mode (0 to not scan)"
 msgstr "Čas preiskovanja v menijskem načinu (vrednost 0 onemogoči preiskovanje)"
 
 #: ../Src/DasherCore/ButtonMode.cpp:30
-msgid "Number of boxes"
-msgstr "Število predalov"
+msgid "Number of forward boxes"
+msgstr ""
 
 #: ../Src/DasherCore/ButtonMode.cpp:31
 msgid "Safety margin"
@@ -683,8 +683,16 @@ msgid "Shape type: 0=disjoint rects, 1=overlapping, 2=triangles, 3=trunc-tris, 4
 msgstr "Oblika: 0=razčlenjeni pravokotniki, 1=prekrivanje, 2=trikotniki, 3=trunc-tris, 4=kvadrati, 5=krogi"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:19
+msgid "Distance from right-hand-side Y-axis, at which maximum speed is reached. (2048=xhair)"
+msgstr ""
+
+#: ../Src/DasherCore/DefaultFilter.cpp:20
 msgid "Hold right mouse button / key 1 to go 3/4 faster"
 msgstr "S pritisnjeno tipko miške / 1 se hitrost gibanja poveča za 3/4"
+
+#: ../Src/DasherCore/DefaultFilter.cpp:21
+msgid "Use exact computation of per-frame movement (slower)"
+msgstr ""
 
 #: ../Src/DasherCore/DemoFilter.cpp:15
 msgid "Demo Mode (no input)"
@@ -706,26 +714,62 @@ msgstr "Čas, ko uporabnik potrebuje pomoč, preden se ta pokaže"
 msgid "When we give help, show the shortest path to the target sentence?"
 msgstr "ALi naj se pri pomoči, pokaži najkrajša pot do ciljnega stavka?"
 
-#: ../Src/DasherCore/NodeCreationManager.cpp:32
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:176
+#: ../Src/DasherCore/RoutingAlphMgr.cpp:128
+#, c-format
+msgid "Warning: faulty alphabet definition: training-start delimiter %s must be a single unicode character. May be unable to process training file."
+msgstr "Opozorilo: okvarjeno določilo abecede: ubežno zaporedje %s mora biti en znak v naboru unicode. Zaradi napake datoteke morda ne bo mogoče uporabiti."
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:186
+#, c-format
+msgid "Warning: training file contains character '%s' as member of group '%s', but no group of that name contains the character; ignoring group specifier"
+msgstr ""
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:199
+#, c-format
+msgid "Warning: training file contains character '%s' as member of group '%s', but no group of that name contains the character. Dasher will not be able to learn how you want to write this character."
+msgstr ""
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:200
+#: ../Src/DasherCore/RoutingAlphMgr.cpp:147
+#, c-format
+msgid "Warning: training file contains character '%s' as member of group '%s', but alphabet contains several such groups. Dasher will not be able to learn how you want to write this character."
+msgstr ""
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:220
+#: ../Src/DasherCore/RoutingAlphMgr.cpp:164
+#, c-format
+msgid "Warning: in training file, annotation '<%s>' is followed by another annotation and will be ignored"
+msgstr ""
+
+#. /TRANSLATORS: first string will be the filename; after the end of the string,
+#. / some number of output (e.g. Chinese) characters will be appended,
+#. / the number of which is the integer here
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:244
+#, c-format
+msgid "In file %s, the following %i symbols appeared without annotations saying how they should be entered, but each can be entered in several ways. Dasher will not be able to learn how you want to enter these symbols:"
+msgstr ""
+
+#: ../Src/DasherCore/NodeCreationManager.cpp:33
 msgid "Training on User Text"
 msgstr "Urjenje na besedilu uporabnika"
 
-#: ../Src/DasherCore/NodeCreationManager.cpp:32
+#: ../Src/DasherCore/NodeCreationManager.cpp:33
 msgid "Training on System Text"
 msgstr "Urjenje na sistemskem besedilu"
 
 #. /TRANSLATORS: These 3 messages will be displayed when the user has just chosen a new alphabet. The %s parameter will be the name of the alphabet.
-#: ../Src/DasherCore/NodeCreationManager.cpp:92
+#: ../Src/DasherCore/NodeCreationManager.cpp:101
 #, c-format
 msgid "No user training text found - if you have written in \"%s\" before, this means Dasher may not be learning from previous sessions"
 msgstr "Ni mogoče najti besedila za urjenje uporabnika - v kolikor je bila do sedaj uporabljena abeceda \"%s\", to pomeni, da program ni uspešno zapisoval podatkov prejšnjih sej."
 
-#: ../Src/DasherCore/NodeCreationManager.cpp:93
+#: ../Src/DasherCore/NodeCreationManager.cpp:102
 #, c-format
 msgid "No training text (user or system) found for \"%s\". Dasher will still work but entry will be slower. We suggest downloading a training text file from the Dasher website, or constructing your own."
 msgstr "Besedila za urjenje (sistemskega ali uporabniškega) ni mogoče najti za \"%s\". Program bo deloval, vendar pa bo vnos počasnejši. Poiščite datoteko za urejenje na spletišču programa ali pa sestavite svojo."
 
-#: ../Src/DasherCore/NodeCreationManager.cpp:99
+#: ../Src/DasherCore/NodeCreationManager.cpp:108
 #, c-format
 msgid "\"%s\" does not specify training file. Dasher will work but entry will be slower. Check you have the latest version of the alphabet definition."
 msgstr "Predmet \"%s\" ne določa datoteke z besedilom za urjenje. Program bo deloval, vendar pa bo vnos počasnejši. Preverite ali je nameščena najnovejša datoteka določil abecede."
@@ -797,6 +841,11 @@ msgstr "Zamik preden uporabnik zares pritisne gumb (ms)"
 #: ../Src/DasherCore/OneDimensionalFilter.h:12
 msgid "One Dimensional Mode"
 msgstr "eno-dimenzijski način"
+
+#: ../Src/DasherCore/RoutingAlphMgr.cpp:146
+#, c-format
+msgid "Warning: training file contains character '%s' as member of group '%s', but no group of that name contains the character. Ignoring group specifier."
+msgstr ""
 
 #: ../Src/DasherCore/SettingsStore.cpp:75
 #: ../Src/Gtk2/DasherAppSettings.cpp:540
@@ -890,6 +939,10 @@ msgstr "Napaka vhoda vtiča dasher: %s: %s"
 msgid "Dasher socket input: failed to launch reader thread."
 msgstr "Vhod vtiča Dasher: zagon bralčeve niti ni uspel."
 
+#: ../Src/DasherCore/StylusFilter.cpp:10
+msgid "Max time for a 'tap' (anything longer is held)"
+msgstr ""
+
 #: ../Src/DasherCore/StylusFilter.h:12
 msgid "Stylus Control"
 msgstr "Stylus nadzor"
@@ -900,20 +953,10 @@ msgstr "Stylus nadzor"
 msgid "Warning: faulty alphabet definition, escape sequence %s must be a single unicode character. This may worsen Dasher's text prediction."
 msgstr "Opozorilo: okvarjeno določilo abecede; ubežno zaporedje %s mora biti en znak v naboru unicode. Zaradi napake je lahko delovanje programa upočasnjeno."
 
-#: ../Src/DasherCore/Trainer.cpp:100
+#: ../Src/DasherCore/Trainer.cpp:101
 #, c-format
 msgid "Unable to open file \"%s\" for reading"
 msgstr "Ni mogoče odpreti datoteke \"%s\" za branje"
-
-#: ../Src/DasherCore/Trainer.cpp:125
-#, c-format
-msgid "Training file contains unknown source alphabet character %s"
-msgstr "Datoteka z besedilom za urjenje vsebuje neznan izvorni znak abecede %s"
-
-#: ../Src/DasherCore/Trainer.cpp:130
-#, c-format
-msgid "Training file contains unknown target alphabet character %s"
-msgstr "Datoteka z besedilom za urjenje vsebuje neznan ciljni znak abecede %s"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
 msgid "Button offset"
@@ -1143,6 +1186,17 @@ msgstr "Opis \"--možnosti\"."
 #: ../Src/main.cc:177
 msgid "- A text input application honouring accessibility"
 msgstr "- program za vnos besedila z uporabo dostopnih tehnologij"
+
+#~ msgid "Zoom steps"
+#~ msgstr "Raven približanja"
+
+#~ msgid "Training file contains unknown source alphabet character %s"
+#~ msgstr ""
+#~ "Datoteka z besedilom za urjenje vsebuje neznan izvorni znak abecede %s"
+
+#~ msgid "Training file contains unknown target alphabet character %s"
+#~ msgstr ""
+#~ "Datoteka z besedilom za urjenje vsebuje neznan ciljni znak abecede %s"
 
 #~ msgid "A_ppend to file"
 #~ msgstr "Pripni k d_atoteki"
