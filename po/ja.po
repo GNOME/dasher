@@ -10,10 +10,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=dasher&component=general\n"
-"POT-Creation-Date: 2010-09-15 10:21+0000\n"
-"PO-Revision-Date: 2010-09-18 00:45+0900\n"
-"Last-Translator: Takayuki KUSANO <AE5T-KSN@asahi-net.or.jp>\n"
+"product=dasher&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2012-01-03 21:30+0000\n"
+"PO-Revision-Date: 2012-01-01 19:55+0900\n"
+"Last-Translator: Jiro Matsuzawa <jmatsuzawa@src.gnome.org>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,11 +21,9 @@ msgstr ""
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
-#: ../Data/dasher.desktop.in.in.h:1 ../Data/GUI/dasher.compose.ui.h:6
-#: ../Data/GUI/dasher.direct.ui.h:2 ../Data/GUI/dasher.fullscreen.ui.h:1
-#: ../Data/GUI/dasher.gameWIP.ui.h:6 ../Data/GUI/dasher.traditional.ui.h:6
-#: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dashermaemofullscreen.ui.h:2
-#: ../Src/Gtk2/dasher_main.cpp:895
+#: ../Data/dasher.desktop.in.in.h:1 ../Data/GUI/dashermaemofullscreen.ui.h:2
+#: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dasher.traditional.ui.h:6
+#: ../Src/Gtk2/dasher_main.cpp:899
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -37,483 +35,10 @@ msgstr "キーボードを使わずに文字を入力します"
 msgid "Predictive text entry"
 msgstr "文字列の候補を予測しながら文字列を入力します"
 
-#: ../Data/GUI/dasher.compose.ui.h:1
-msgid "A_ppend to file"
-msgstr "ファイルへ追加(_P)"
-
-#: ../Data/GUI/dasher.compose.ui.h:2 ../Data/GUI/dasher.direct.ui.h:1
-#: ../Data/GUI/dasher.gameWIP.ui.h:2 ../Data/GUI/dasher.traditional.ui.h:2
-msgid "Alphabet:"
-msgstr "アルファベット:"
-
-#: ../Data/GUI/dasher.compose.ui.h:3 ../Data/GUI/dasher.gameWIP.ui.h:3
-#: ../Data/GUI/dasher.traditional.ui.h:3
-msgid "Copy"
-msgstr "選択範囲をコピーします"
-
-#: ../Data/GUI/dasher.compose.ui.h:4 ../Data/GUI/dasher.gameWIP.ui.h:4
-#: ../Data/GUI/dasher.traditional.ui.h:4
 #: ../Data/GUI/dashermaemofullscreen.ui.h:1
+#: ../Data/GUI/dasher.traditional.ui.h:4
 msgid "Copy _All"
 msgstr "すべてコピー(_A)"
-
-#: ../Data/GUI/dasher.compose.ui.h:5 ../Data/GUI/dasher.gameWIP.ui.h:5
-#: ../Data/GUI/dasher.traditional.ui.h:5
-msgid "Cut"
-msgstr "選択範囲を切り取ります"
-
-#: ../Data/GUI/dasher.compose.ui.h:7
-msgid "Dasher _Tutorial"
-msgstr "チュートリアル(_T)"
-
-#: ../Data/GUI/dasher.compose.ui.h:8 ../Data/GUI/dasher.gameWIP.ui.h:12
-#: ../Data/GUI/dasher.traditional.ui.h:8
-msgid "New file"
-msgstr "新しいファイルを開きます"
-
-#: ../Data/GUI/dasher.compose.ui.h:9 ../Data/GUI/dasher.gameWIP.ui.h:14
-#: ../Data/GUI/dasher.traditional.ui.h:9
-msgid "Open file"
-msgstr "既存のファイルを開きます"
-
-#: ../Data/GUI/dasher.compose.ui.h:10 ../Data/GUI/dasher.gameWIP.ui.h:15
-#: ../Data/GUI/dasher.traditional.ui.h:10
-msgid "Paste"
-msgstr "貼り付けます"
-
-#: ../Data/GUI/dasher.compose.ui.h:11 ../Data/GUI/dasher.direct.ui.h:3
-#: ../Data/GUI/dasher.fullscreen.ui.h:2 ../Data/GUI/dasher.gameWIP.ui.h:16
-#: ../Data/GUI/dasher.traditional.ui.h:11 ../Data/GUI/dashermaemo.ui.h:4
-msgid "Please Wait…"
-msgstr "しばらくお待ちください…"
-
-#: ../Data/GUI/dasher.compose.ui.h:12
-msgid "Pr_eferences"
-msgstr "設定(_E)"
-
-#: ../Data/GUI/dasher.compose.ui.h:13 ../Data/GUI/dasher.gameWIP.ui.h:20
-#: ../Data/GUI/dasher.traditional.ui.h:15
-msgid "Save file"
-msgstr "ファイルを保存します"
-
-#: ../Data/GUI/dasher.compose.ui.h:14 ../Data/GUI/dasher.gameWIP.ui.h:21
-#: ../Data/GUI/dasher.traditional.ui.h:16
-msgid "Save file as"
-msgstr "別名で保存します"
-
-#: ../Data/GUI/dasher.compose.ui.h:15 ../Data/GUI/dasher.fullscreen.ui.h:3
-#: ../Data/GUI/dasher.gameWIP.ui.h:23 ../Data/GUI/dashermaemo.ui.h:5
-#: ../Data/GUI/dashermaemofullscreen.ui.h:5
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1286
-#: ../Src/Gtk2/dasher_editor_internal.cpp:1320 ../Src/Gtk2/dasher_main.cpp:910
-msgid "Select File"
-msgstr "ファイルの選択"
-
-#: ../Data/GUI/dasher.compose.ui.h:16 ../Data/GUI/dasher.fullscreen.ui.h:4
-#: ../Data/GUI/dashermaemo.ui.h:6 ../Data/GUI/dashermaemofullscreen.ui.h:6
-msgid "Select Font"
-msgstr "フォントの選択"
-
-#: ../Data/GUI/dasher.compose.ui.h:17 ../Data/GUI/dasher.direct.ui.h:4
-#: ../Data/GUI/dasher.gameWIP.ui.h:24 ../Data/GUI/dasher.traditional.ui.h:17
-msgid "Speed:"
-msgstr "速度:"
-
-#: ../Data/GUI/dasher.compose.ui.h:18 ../Data/GUI/dashermaemofullscreen.ui.h:8
-msgid "_About"
-msgstr "情報(_A)"
-
-#: ../Data/GUI/dasher.compose.ui.h:19
-msgid "_Contents"
-msgstr "目次(_C)"
-
-#: ../Data/GUI/dasher.compose.ui.h:20 ../Data/GUI/dasher.gameWIP.ui.h:27
-#: ../Data/GUI/dasher.traditional.ui.h:20
-#: ../Data/GUI/dashermaemofullscreen.ui.h:11
-msgid "_Edit"
-msgstr "編集(_E)"
-
-#: ../Data/GUI/dasher.compose.ui.h:21 ../Data/GUI/dasher.gameWIP.ui.h:28
-#: ../Data/GUI/dasher.traditional.ui.h:21
-#: ../Data/GUI/dashermaemofullscreen.ui.h:13
-msgid "_File"
-msgstr "ファイル(_F)"
-
-#: ../Data/GUI/dasher.compose.ui.h:22 ../Data/GUI/dasher.gameWIP.ui.h:29
-#: ../Data/GUI/dasher.traditional.ui.h:22
-#: ../Data/GUI/dashermaemofullscreen.ui.h:14
-msgid "_Help"
-msgstr "ヘルプ(_H)"
-
-#: ../Data/GUI/dasher.compose.ui.h:23
-msgid "_Import Training Text"
-msgstr "学習テキストのインポート(_I)"
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:1 ../Data/GUI/dasher.traditional.ui.h:1
-msgid "A_ppend to file…"
-msgstr "ファイルへ追加(_P)…"
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:7
-msgid "Demo!"
-msgstr "デモ!"
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:8
-msgid "Full Demo"
-msgstr "フル・デモ"
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:9 ../Data/GUI/dasher.traditional.ui.h:7
-msgid "Help"
-msgstr "ヘルプを表示します"
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:10
-msgid "Launch Dasher Game & Demo mode!"
-msgstr "Dasher のゲーム、デモ・モードを起動します"
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:11
-msgid "Level:"
-msgstr "レベル:"
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:13
-msgid "New sentence"
-msgstr "新しい文言"
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:17 ../Data/GUI/dasher.traditional.ui.h:12
-msgid "Pr_eferences…"
-msgstr "設定(_E)…"
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:18 ../Data/GUI/dasher.traditional.ui.h:13
-msgid "Preferences"
-msgstr "設定を変更します"
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:19 ../Data/GUI/dasher.traditional.ui.h:14
-#: ../Src/Gtk2/dasher_main.cpp:988
-msgid "Quit"
-msgstr "終了します"
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:22
-msgid "Score:"
-msgstr "得点:"
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:25 ../Data/GUI/dasher.traditional.ui.h:18
-msgid "_About…"
-msgstr "情報(_A)…"
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:26 ../Data/GUI/dasher.traditional.ui.h:19
-msgid "_Contents…"
-msgstr "目次(_C)…"
-
-#: ../Data/GUI/dasher.gameWIP.ui.h:30 ../Data/GUI/dasher.traditional.ui.h:23
-msgid "_Import Training Text…"
-msgstr "学習テキストのインポート(_I)…"
-
-#: ../Data/GUI/dasher.preferences.ui.h:1
-msgid "<b>Actions</b>"
-msgstr "<b>アクション</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:2
-#: ../Data/GUI/dashermaemo.preferences.ui.h:1
-msgid "<b>Adaptation</b>"
-msgstr "<b>適応性</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:3
-#: ../Data/GUI/dashermaemo.preferences.ui.h:2
-msgid "<b>Alphabet Selection</b>"
-msgstr "<b>アルファベットの選択</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:4
-msgid "<b>Appearance Options</b>"
-msgstr "<b>外観のオプション</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:5
-msgid "<b>Application Options</b>"
-msgstr "<b>アプリのオプション</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:6
-msgid "<b>Application Style</b>"
-msgstr "<b>アプリのスタイル</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:7
-msgid "<b>Colour Scheme</b>"
-msgstr "<b>色のスキーム</b>"
-
-#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
-#: ../Data/GUI/dasher.preferences.ui.h:9
-msgid "<b>Control Style</b>"
-msgstr "<b>制御モード</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:10
-msgid "<b>Dasher Font</b>"
-msgstr "<b>表示用のフォント</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:11
-msgid "<b>Direction</b>"
-msgstr "<b>向き</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:12
-msgid "<b>Editor Font</b>"
-msgstr "<b>エディタのフォント</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:13
-msgid "<b>Input Device</b>"
-msgstr "<b>入力デバイス</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:14
-#: ../Data/GUI/dashermaemo.preferences.ui.h:5
-msgid "<b>Language Model</b>"
-msgstr "<b>言語モデル</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:15
-#: ../Data/GUI/dashermaemo.preferences.ui.h:7
-msgid "<b>Smoothing</b>"
-msgstr "<b>スムージング</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:16
-#: ../Data/GUI/dashermaemo.preferences.ui.h:8
-msgid "<b>Speed</b>"
-msgstr "<b>速度</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:17
-msgid "<b>Starting and Stopping</b>"
-msgstr "<b>開始と停止</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:18
-msgid "A_pplication"
-msgstr "アプリケーション(_P)"
-
-#: ../Data/GUI/dasher.preferences.ui.h:19
-#: ../Data/GUI/dashermaemo.preferences.ui.h:9
-msgid "Adapt speed automatically"
-msgstr "自動的に速度を調節する"
-
-#. The default display orientation for the selected alphabet, i.e., left to right for English, right to left for Arabic, etc.
-#: ../Data/GUI/dasher.preferences.ui.h:21
-#: ../Data/GUI/dashermaemo.preferences.ui.h:11
-msgid "Alphabet Default"
-msgstr "アルファベットの向き"
-
-#: ../Data/GUI/dasher.preferences.ui.h:22
-#: ../Data/GUI/dashermaemo.preferences.ui.h:12
-msgid "Bottom to Top"
-msgstr "下から上へ"
-
-#. Abbreviation for Control Style
-#: ../Data/GUI/dasher.preferences.ui.h:24
-msgid "C_ontrol"
-msgstr "コントロール(_O)"
-
-#: ../Data/GUI/dasher.preferences.ui.h:25
-msgid "Centre circle"
-msgstr "中央の円"
-
-#: ../Data/GUI/dasher.preferences.ui.h:26
-msgid "Composition"
-msgstr "合成型"
-
-#: ../Data/GUI/dasher.preferences.ui.h:27
-msgid "Control mode"
-msgstr "制御モード"
-
-#: ../Data/GUI/dasher.preferences.ui.h:28
-#: ../Data/GUI/dashermaemo.preferences.ui.h:15
-msgid "Custom"
-msgstr "その他"
-
-#: ../Data/GUI/dasher.preferences.ui.h:29
-#: ../Data/GUI/dashermaemo.preferences.ui.h:16
-msgid "Custom colour scheme:"
-msgstr "色のスキームをカスタマイズする:"
-
-#: ../Data/GUI/dasher.preferences.ui.h:30
-#: ../Data/GUI/dashermaemo.preferences.ui.h:17
-msgid "Dasher Preferences"
-msgstr "Dasher の設定"
-
-#: ../Data/GUI/dasher.preferences.ui.h:31
-msgid "Direct entry"
-msgstr "直接入力型"
-
-#: ../Data/GUI/dasher.preferences.ui.h:32
-msgid "Dock application window"
-msgstr "ウィンドウをドックに格納する"
-
-#: ../Data/GUI/dasher.preferences.ui.h:33
-msgid "Draw box outlines"
-msgstr "描画ボックスの外枠を描画する"
-
-#: ../Data/GUI/dasher.preferences.ui.h:34
-msgid "Draw line between crosshairs and mouse"
-msgstr "マウスと中央ラインの間に線を描画する"
-
-#: ../Data/GUI/dasher.preferences.ui.h:35
-msgid "Full Screen"
-msgstr "フルスクリーン型"
-
-#: ../Data/GUI/dasher.preferences.ui.h:36
-msgid "Increase line thickness"
-msgstr "線を太くする"
-
-#: ../Data/GUI/dasher.preferences.ui.h:37
-#: ../Data/GUI/dashermaemo.preferences.ui.h:19
-msgid "Japanese"
-msgstr "日本語"
-
-#: ../Data/GUI/dasher.preferences.ui.h:38
-#: ../Data/GUI/dashermaemo.preferences.ui.h:20
-msgid "Language model adapts as you write."
-msgstr "言語モデルを記述するモデルに合わせる"
-
-#: ../Data/GUI/dasher.preferences.ui.h:39
-msgid "Large font "
-msgstr "大きいフォント"
-
-#: ../Data/GUI/dasher.preferences.ui.h:40
-#: ../Data/GUI/dashermaemo.preferences.ui.h:21
-msgid "Left to Right"
-msgstr "左から右へ"
-
-#. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/GUI/dasher.preferences.ui.h:42
-#: ../Data/GUI/dashermaemo.preferences.ui.h:22
-msgid "Mixture model (PPM/dictionary)"
-msgstr "混合型モデル (PPM/辞書)"
-
-#: ../Data/GUI/dasher.preferences.ui.h:43
-msgid "Options"
-msgstr "オプション"
-
-#: ../Data/GUI/dasher.preferences.ui.h:44
-msgid "Pause outside of canvas"
-msgstr "キャンバスの外に出たら一時停止する"
-
-#: ../Data/GUI/dasher.preferences.ui.h:45
-#: ../Data/GUI/dashermaemo.preferences.ui.h:24
-msgid "Right to Left"
-msgstr "右から左へ"
-
-#: ../Data/GUI/dasher.preferences.ui.h:46
-msgid "Select Dasher Font"
-msgstr "フォントの選択"
-
-#: ../Data/GUI/dasher.preferences.ui.h:47
-msgid "Select Editor Font"
-msgstr "エディタで使用するフォントの選択"
-
-#: ../Data/GUI/dasher.preferences.ui.h:48
-msgid "Show mouse position"
-msgstr "マウスの位置を表示する"
-
-#: ../Data/GUI/dasher.preferences.ui.h:49
-msgid "Show speed slider"
-msgstr "速度スライダを表示する"
-
-#: ../Data/GUI/dasher.preferences.ui.h:50
-msgid "Show toolbar"
-msgstr "ツールバーを表示する"
-
-#: ../Data/GUI/dasher.preferences.ui.h:51
-msgid "Small font"
-msgstr "小さいフォント"
-
-#: ../Data/GUI/dasher.preferences.ui.h:52
-msgid "Stand-alone"
-msgstr "スタンドアロン型"
-
-#. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/GUI/dasher.preferences.ui.h:54
-#: ../Data/GUI/dashermaemo.preferences.ui.h:25
-msgid "Standard letter-based PPM"
-msgstr "標準的なレターベースの PPM"
-
-#: ../Data/GUI/dasher.preferences.ui.h:55
-msgid "Start on left mouse button"
-msgstr "マウスの左ボタンで開始する"
-
-#: ../Data/GUI/dasher.preferences.ui.h:56
-msgid "Start on space bar"
-msgstr "[スペース] ボタンで開始する"
-
-#: ../Data/GUI/dasher.preferences.ui.h:57
-msgid "Start with mouse position:"
-msgstr "カーソルの始点を変更する:"
-
-#: ../Data/GUI/dasher.preferences.ui.h:58
-msgid "Timestamp new files"
-msgstr "新しいファイルにタイムスタンプを付与する"
-
-#: ../Data/GUI/dasher.preferences.ui.h:59
-#: ../Data/GUI/dashermaemo.preferences.ui.h:26
-msgid "Top to Bottom"
-msgstr "上から下へ"
-
-#: ../Data/GUI/dasher.preferences.ui.h:60
-msgid "Two box"
-msgstr ""
-
-#. Line wrapping not necessary, but looks better for English
-#: ../Data/GUI/dasher.preferences.ui.h:62
-msgid ""
-"Use this control to adjust the relative sizes of the\n"
-"letter boxes. Note that selecting high values will slow\n"
-"your writing speed."
-msgstr ""
-"このコントロールを使うと、\n"
-"文字ボックスの相対サイズを調整できます。\n"
-"値を高くすると記述する速度が遅くなります。"
-
-#: ../Data/GUI/dasher.preferences.ui.h:65
-msgid "Very large font"
-msgstr "とても大きいフォント"
-
-#: ../Data/GUI/dasher.preferences.ui.h:66
-#: ../Data/GUI/dashermaemo.preferences.ui.h:28
-msgid "Word-based model"
-msgstr "ワード・ベースのモデル"
-
-#: ../Data/GUI/dasher.preferences.ui.h:67
-msgid "_Appearance"
-msgstr "外観(_A)"
-
-#: ../Data/GUI/dasher.preferences.ui.h:68
-msgid "_Language"
-msgstr "言語(_L)"
-
-#. Abbreviation for Preferences
-#: ../Data/GUI/dashermaemo.ui.h:3
-msgid "P"
-msgstr "P"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>色のスキーム</b>"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>ディスプレイの大きさ</b>"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>向き</b>"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:10
-msgid "Alphabet"
-msgstr "アルファベット"
-
-#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
-#: ../Data/GUI/dashermaemo.preferences.ui.h:14
-msgid "Control"
-msgstr "コントロール"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:18
-msgid "Enlarge input window"
-msgstr "入力ウィンドウを大きくする"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:23
-msgid "Prediction"
-msgstr "予測"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:27
-msgid "View"
-msgstr "表示"
 
 #: ../Data/GUI/dashermaemofullscreen.ui.h:3
 msgid "Large"
@@ -523,9 +48,23 @@ msgstr "大きい"
 msgid "Normal"
 msgstr "標準"
 
+#: ../Data/GUI/dashermaemofullscreen.ui.h:5 ../Data/GUI/dashermaemo.ui.h:5
+#: ../Src/Gtk2/dasher_editor_internal.cpp:813
+#: ../Src/Gtk2/dasher_editor_internal.cpp:847 ../Src/Gtk2/dasher_main.cpp:914
+msgid "Select File"
+msgstr "ファイルの選択"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:6 ../Data/GUI/dashermaemo.ui.h:6
+msgid "Select Font"
+msgstr "フォントの選択"
+
 #: ../Data/GUI/dashermaemofullscreen.ui.h:7
 msgid "Very Large"
 msgstr "とても大きい"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:8
+msgid "_About"
+msgstr "情報(_A)"
 
 #: ../Data/GUI/dashermaemofullscreen.ui.h:9
 msgid "_Dasher Font"
@@ -535,9 +74,24 @@ msgstr "フォント(_D)"
 msgid "_Dasher Font Size"
 msgstr "フォントのサイズ(_D)"
 
+#: ../Data/GUI/dashermaemofullscreen.ui.h:11
+#: ../Data/GUI/dasher.traditional.ui.h:20
+msgid "_Edit"
+msgstr "編集(_E)"
+
 #: ../Data/GUI/dashermaemofullscreen.ui.h:12
 msgid "_Edit Font"
 msgstr "フォントの編集(_E)"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:13
+#: ../Data/GUI/dasher.traditional.ui.h:21
+msgid "_File"
+msgstr "ファイル(_F)"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:14
+#: ../Data/GUI/dasher.traditional.ui.h:23
+msgid "_Help"
+msgstr "ヘルプ(_H)"
 
 #: ../Data/GUI/dashermaemofullscreen.ui.h:15
 msgid "_Options"
@@ -547,11 +101,473 @@ msgstr "オプション(_O)"
 msgid "_Reset fonts"
 msgstr "フォントのリセット(_R)"
 
+#: ../Data/GUI/dashermaemo.preferences.ui.h:1
+#: ../Data/GUI/dasher.preferences.ui.h:1
+msgid "<b>Adaptation</b>"
+msgstr "<b>適応性</b>"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:2
+#: ../Data/GUI/dasher.preferences.ui.h:2
+msgid "<b>Alphabet Selection</b>"
+msgstr "<b>アルファベットの選択</b>"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:3
+msgid "<b>Color Scheme</b>"
+msgstr "<b>色のスキーム</b>"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:4
+msgid "<b>Display Size</b>"
+msgstr "<b>ディスプレイの大きさ</b>"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:5
+#: ../Data/GUI/dasher.preferences.ui.h:13
+msgid "<b>Language Model</b>"
+msgstr "<b>言語モデル</b>"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:6
+msgid "<b>Orientation</b>"
+msgstr "<b>向き</b>"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:7
+#: ../Data/GUI/dasher.preferences.ui.h:14
+msgid "<b>Smoothing</b>"
+msgstr "<b>スムージング</b>"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:8
+#: ../Data/GUI/dasher.preferences.ui.h:15
+msgid "<b>Speed</b>"
+msgstr "<b>速度</b>"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:9
+#: ../Data/GUI/dasher.preferences.ui.h:18
+msgid "Adapt speed automatically"
+msgstr "自動的に速度を調節する"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:10
+msgid "Alphabet"
+msgstr "アルファベット"
+
+#. The default display orientation for the selected alphabet, i.e., left to right for English, right to left for Arabic, etc.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:11
+#: ../Data/GUI/dasher.preferences.ui.h:20
+msgid "Alphabet Default"
+msgstr "アルファベットの向き"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:12
+msgid "Bottom to Top"
+msgstr "下から上へ"
+
+#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:14
+msgid "Control"
+msgstr "コントロール"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:15
+msgid "Custom"
+msgstr "その他"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:16
+#: ../Data/GUI/dasher.preferences.ui.h:32
+msgid "Custom colour scheme:"
+msgstr "色のスキームをカスタマイズする:"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:17
+#: ../Data/GUI/dasher.preferences.ui.h:33
+msgid "Dasher Preferences"
+msgstr "Dasher の設定"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:18
+msgid "Enlarge input window"
+msgstr "入力ウィンドウを大きくする"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:19
+#: ../Data/GUI/dasher.preferences.ui.h:43
+msgid "Japanese"
+msgstr "日本語"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:20
+#: ../Data/GUI/dasher.preferences.ui.h:44
+msgid "Language model adapts as you write."
+msgstr "言語モデルを記述するモデルに合わせる"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:21
+msgid "Left to Right"
+msgstr "左から右へ"
+
+#. PPM = Prediction by Partial Match, a statistical language model.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:22
+#: ../Data/GUI/dasher.preferences.ui.h:47
+msgid "Mixture model (PPM/dictionary)"
+msgstr "混合型モデル (PPM/辞書)"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:23
+msgid "Prediction"
+msgstr "予測"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:24
+msgid "Right to Left"
+msgstr "右から左へ"
+
+#. PPM = Prediction by Partial Match, a statistical language model.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:25
+#: ../Data/GUI/dasher.preferences.ui.h:60
+msgid "Standard letter-based PPM"
+msgstr "標準的なレターベースの PPM"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:26
+msgid "Top to Bottom"
+msgstr "上から下へ"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:27
+msgid "View"
+msgstr "表示"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:28
+#: ../Data/GUI/dasher.preferences.ui.h:71
+msgid "Word-based model"
+msgstr "ワード・ベースのモデル"
+
+#. Abbreviation for Preferences
+#: ../Data/GUI/dashermaemo.ui.h:3
+msgid "P"
+msgstr "P"
+
+#: ../Data/GUI/dashermaemo.ui.h:4 ../Data/GUI/dasher.traditional.ui.h:11
+msgid "Please Wait…"
+msgstr "しばらくお待ちください…"
+
+#: ../Data/GUI/dasher.preferences.ui.h:3
+msgid "<b>Appearance Options</b>"
+msgstr "<b>外観のオプション</b>"
+
+#: ../Data/GUI/dasher.preferences.ui.h:4
+msgid "<b>Application Options</b>"
+msgstr "<b>アプリのオプション</b>"
+
+#: ../Data/GUI/dasher.preferences.ui.h:5
+msgid "<b>Application Style</b>"
+msgstr "<b>アプリのスタイル</b>"
+
+#: ../Data/GUI/dasher.preferences.ui.h:6
+msgid "<b>Colour Scheme</b>"
+msgstr "<b>色のスキーム</b>"
+
+#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
+#: ../Data/GUI/dasher.preferences.ui.h:8
+msgid "<b>Control Style</b>"
+msgstr "<b>制御モード</b>"
+
+#: ../Data/GUI/dasher.preferences.ui.h:9
+msgid "<b>Dasher Font</b>"
+msgstr "<b>表示用のフォント</b>"
+
+#: ../Data/GUI/dasher.preferences.ui.h:10
+msgid "<b>Direction</b>"
+msgstr "<b>向き</b>"
+
+#: ../Data/GUI/dasher.preferences.ui.h:11
+msgid "<b>Editor Font</b>"
+msgstr "<b>エディターのフォント</b>"
+
+#: ../Data/GUI/dasher.preferences.ui.h:12
+msgid "<b>Input Device</b>"
+msgstr "<b>入力デバイス</b>"
+
+#: ../Data/GUI/dasher.preferences.ui.h:16
+msgid "<b>Starting and Stopping</b>"
+msgstr "<b>開始と停止</b>"
+
+#: ../Data/GUI/dasher.preferences.ui.h:17
+msgid "A_pplication"
+msgstr "アプリケーション(_P)"
+
+#: ../Data/GUI/dasher.preferences.ui.h:21
+#, fuzzy
+#| msgid "Bottom to Top"
+msgid "Always Bottom-to-Top"
+msgstr "下から上へ"
+
+#. This means that you always want to write left-to-right regardless of the normal direction for the alphabet you are using
+#: ../Data/GUI/dasher.preferences.ui.h:23
+#, fuzzy
+#| msgid "Left to Right"
+msgid "Always Left-to-Right"
+msgstr "左から右へ"
+
+#: ../Data/GUI/dasher.preferences.ui.h:24
+#, fuzzy
+#| msgid "Right to Left"
+msgid "Always Right-to-Left"
+msgstr "右から左へ"
+
+#: ../Data/GUI/dasher.preferences.ui.h:25
+#, fuzzy
+#| msgid "Top to Bottom"
+msgid "Always Top-to-Bottom"
+msgstr "上から下へ"
+
+#. Abbreviation for Control Style
+#: ../Data/GUI/dasher.preferences.ui.h:27
+msgid "C_ontrol"
+msgstr "コントロール(_O)"
+
+#: ../Data/GUI/dasher.preferences.ui.h:28
+msgid "Centre circle"
+msgstr "中央の円"
+
+#: ../Data/GUI/dasher.preferences.ui.h:29
+msgid "Composition"
+msgstr "合成型"
+
+#: ../Data/GUI/dasher.preferences.ui.h:30
+msgid "Control mode"
+msgstr "制御モード"
+
+#: ../Data/GUI/dasher.preferences.ui.h:31
+#, fuzzy
+#| msgid "Copy _All"
+msgid "Copy All on stop"
+msgstr "すべてコピー(_A)"
+
+#: ../Data/GUI/dasher.preferences.ui.h:34
+msgid "Direct entry"
+msgstr "直接入力型"
+
+#: ../Data/GUI/dasher.preferences.ui.h:35
+msgid "Draw box outlines"
+msgstr "描画ボックスの外枠を描画する"
+
+#: ../Data/GUI/dasher.preferences.ui.h:36
+msgid "Draw line between crosshairs and mouse"
+msgstr "マウスと中央ラインの間に線を描画する"
+
+#: ../Data/GUI/dasher.preferences.ui.h:37
+msgid "Force to have Halt command"
+msgstr ""
+
+#: ../Data/GUI/dasher.preferences.ui.h:38
+msgid "Full Screen"
+msgstr "フルスクリーン型"
+
+#: ../Data/GUI/dasher.preferences.ui.h:39
+msgid "Include Clipboard commands"
+msgstr ""
+
+#: ../Data/GUI/dasher.preferences.ui.h:40
+msgid "Include Editing commands"
+msgstr ""
+
+#: ../Data/GUI/dasher.preferences.ui.h:41
+msgid "Include Speech commands"
+msgstr ""
+
+#: ../Data/GUI/dasher.preferences.ui.h:42
+msgid "Increase line thickness"
+msgstr "線を太くする"
+
+#: ../Data/GUI/dasher.preferences.ui.h:45
+msgid "Large font "
+msgstr "大きいフォント"
+
+#: ../Data/GUI/dasher.preferences.ui.h:48
+msgid "Options"
+msgstr "オプション"
+
+#: ../Data/GUI/dasher.preferences.ui.h:49
+msgid "Pause outside of canvas"
+msgstr "キャンバスの外に出たら一時停止する"
+
+#: ../Data/GUI/dasher.preferences.ui.h:50
+msgid "Select Dasher Font"
+msgstr "フォントの選択"
+
+#: ../Data/GUI/dasher.preferences.ui.h:51
+msgid "Select Editor Font"
+msgstr "エディターで使用するフォントの選択"
+
+#: ../Data/GUI/dasher.preferences.ui.h:52
+msgid "Show mouse position"
+msgstr "マウスの位置を表示する"
+
+#: ../Data/GUI/dasher.preferences.ui.h:53
+msgid "Show speed slider"
+msgstr "速度スライダーを表示する"
+
+#: ../Data/GUI/dasher.preferences.ui.h:54
+msgid "Show toolbar"
+msgstr "ツールバーを表示する"
+
+#: ../Data/GUI/dasher.preferences.ui.h:55
+msgid "Small font"
+msgstr "小さいフォント"
+
+#: ../Data/GUI/dasher.preferences.ui.h:56
+msgid "Speak All on stop"
+msgstr ""
+
+#: ../Data/GUI/dasher.preferences.ui.h:57
+#, fuzzy
+#| msgid "Language model adapts as you write."
+msgid "Speak words as you write"
+msgstr "言語モデルを記述するモデルに合わせる"
+
+#: ../Data/GUI/dasher.preferences.ui.h:58
+msgid "Stand-alone"
+msgstr "スタンドアロン型"
+
+#: ../Data/GUI/dasher.preferences.ui.h:61
+msgid "Start on left mouse button"
+msgstr "マウスの左ボタンで開始する"
+
+#: ../Data/GUI/dasher.preferences.ui.h:62
+msgid "Start on space bar"
+msgstr "[スペース] ボタンで開始する"
+
+#: ../Data/GUI/dasher.preferences.ui.h:63
+msgid "Start with mouse position:"
+msgstr "カーソルの始点を変更する:"
+
+#: ../Data/GUI/dasher.preferences.ui.h:64
+msgid "Timestamp new files"
+msgstr "新しいファイルにタイムスタンプを付与する"
+
+#: ../Data/GUI/dasher.preferences.ui.h:65
+msgid "Two box"
+msgstr ""
+
+#. Line wrapping not necessary, but looks better for English
+#: ../Data/GUI/dasher.preferences.ui.h:67
+msgid ""
+"Use this control to adjust the relative sizes of the\n"
+"letter boxes. Note that selecting high values will slow\n"
+"your writing speed."
+msgstr ""
+"このコントロールを使うと、\n"
+"文字ボックスの相対サイズを調整できます。\n"
+"値を高くすると記述する速度が遅くなります。"
+
+#: ../Data/GUI/dasher.preferences.ui.h:70
+msgid "Very large font"
+msgstr "とても大きいフォント"
+
+#: ../Data/GUI/dasher.preferences.ui.h:72
+msgid "_Appearance"
+msgstr "外観(_A)"
+
+#: ../Data/GUI/dasher.preferences.ui.h:73
+msgid "_Language"
+msgstr "言語(_L)"
+
+#: ../Data/GUI/dasher.traditional.ui.h:1
+msgid "A_ppend to file…"
+msgstr "ファイルへ追加(_P)…"
+
+#: ../Data/GUI/dasher.traditional.ui.h:2
+msgid "Alphabet:"
+msgstr "アルファベット:"
+
+#: ../Data/GUI/dasher.traditional.ui.h:3
+msgid "Copy"
+msgstr "選択範囲をコピーします"
+
+#: ../Data/GUI/dasher.traditional.ui.h:5
+msgid "Cut"
+msgstr "選択範囲を切り取ります"
+
+#: ../Data/GUI/dasher.traditional.ui.h:7
+msgid "Help"
+msgstr "ヘルプを表示します"
+
+#: ../Data/GUI/dasher.traditional.ui.h:8
+msgid "New file"
+msgstr "新しいファイルを開きます"
+
+#: ../Data/GUI/dasher.traditional.ui.h:9
+msgid "Open file"
+msgstr "既存のファイルを開きます"
+
+#: ../Data/GUI/dasher.traditional.ui.h:10
+msgid "Paste"
+msgstr "貼り付けます"
+
+#: ../Data/GUI/dasher.traditional.ui.h:12
+msgid "Pr_eferences…"
+msgstr "設定(_E)…"
+
+#: ../Data/GUI/dasher.traditional.ui.h:13
+msgid "Preferences"
+msgstr "設定を変更します"
+
+#: ../Data/GUI/dasher.traditional.ui.h:14 ../Src/Gtk2/dasher_main.cpp:992
+msgid "Quit"
+msgstr "終了します"
+
+#: ../Data/GUI/dasher.traditional.ui.h:15
+msgid "Save file"
+msgstr "ファイルを保存します"
+
+#: ../Data/GUI/dasher.traditional.ui.h:16
+msgid "Save file as"
+msgstr "別名で保存します"
+
+#: ../Data/GUI/dasher.traditional.ui.h:17
+msgid "Speed:"
+msgstr "速度:"
+
+#: ../Data/GUI/dasher.traditional.ui.h:18
+msgid "_About…"
+msgstr "情報(_A)…"
+
+#: ../Data/GUI/dasher.traditional.ui.h:19
+msgid "_Contents…"
+msgstr "目次(_C)…"
+
+#: ../Data/GUI/dasher.traditional.ui.h:22
+#, fuzzy
+#| msgid "Menu Mode"
+msgid "_Game Mode"
+msgstr "メニュー・モード"
+
+#: ../Data/GUI/dasher.traditional.ui.h:24
+msgid "_Import Training Text…"
+msgstr "学習テキストのインポート(_I)…"
+
+#. think XML_LChar==char, depends on preprocessor variables...
+#. /TRANSLATORS: the first string is the error message from the XML Parser;
+#. / the second is the URL of the file we're trying to read.
+#: ../Src/DasherCore/AbstractXMLParser.cpp:63
+#, c-format
+msgid "XML Error %s in file %s "
+msgstr ""
+
+#: ../Src/DasherCore/Alphabet/AlphabetMap.cpp:116
+#, c-format
+msgid ""
+"File ends with incomplete UTF-8 character beginning 0x%x (expecting %i bytes "
+"but only %i)"
+msgstr ""
+
+#: ../Src/DasherCore/Alphabet/AlphabetMap.cpp:127
+#, c-format
+msgid "Read invalid UTF-8 character 0x%x"
+msgstr ""
+
+#. /TRANSLATORS: the string "GameTextFile" is the name of a setting in gsettings
+#. / (or equivalent), and should not be translated. The %s is the value of that
+#. / setting (this message displayed only if the user has provided a value)
+#: ../Src/DasherCore/AlphabetManager.cpp:213
+#, c-format
+msgid ""
+"Note: GameTextFile setting specifies game sentences file '%s' but this does "
+"not exist"
+msgstr ""
+
 #. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:28
 #: ../Src/DasherCore/ButtonMode.cpp:28 ../Src/DasherCore/CompassMode.cpp:28
-msgid "Zoom steps"
-msgstr "ズームのステップ数"
+#: ../Src/DasherCore/StylusFilter.cpp:11
+msgid "Frames over which to perform zoom"
+msgstr ""
 
 #. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:30
@@ -564,12 +580,24 @@ msgstr "キーボードをグローバルに捕捉する"
 msgid "Alternating Direct Mode"
 msgstr "もう一つ別の直接入力モード"
 
+#: ../Src/DasherCore/AutoSpeedControl.cpp:213
+#, c-format
+msgid "Auto-increasing speed to %0.2f"
+msgstr ""
+
+#: ../Src/DasherCore/AutoSpeedControl.cpp:213
+#, c-format
+msgid "Auto-decreasing speed to %0.2f"
+msgstr ""
+
 #: ../Src/DasherCore/ButtonMode.cpp:29
 msgid "Scan time in menu mode (0 to not scan)"
 msgstr "メニューモードでのスキャン時間 (0 でスキャンしない)"
 
 #: ../Src/DasherCore/ButtonMode.cpp:30
-msgid "Number of boxes"
+#, fuzzy
+#| msgid "Number of boxes"
+msgid "Number of forward boxes"
 msgstr "ボックスの数"
 
 #: ../Src/DasherCore/ButtonMode.cpp:31
@@ -589,15 +617,22 @@ msgstr "ボックスの大きさ"
 msgid "Maximum Zoom"
 msgstr "最大ズーム"
 
-#: ../Src/DasherCore/ClickFilter.cpp:10
+#. TRANSLATORS: In click mode, when you click with the mouse, you select
+#. a piece of y-axis to be zoomed to, based on the mouse coordinates. The
+#. "guides" are lines from the mouse position to the edges of the piece of
+#. y-axis.
+#: ../Src/DasherCore/ClickFilter.cpp:15
 msgid "Draw guides on screen to show area into which a click will zoom"
 msgstr ""
 
-#: ../Src/DasherCore/ClickFilter.cpp:11
+#. TRANSLATORS: As dasher's on-screen coordinate space is not flat,
+#. the straight guide lines should in fact really be curved. This option
+#. draws the guides as correct, though possibly more confusing, curves.
+#: ../Src/DasherCore/ClickFilter.cpp:19
 msgid "Curve lines to follow the non-linearity of the view transform"
 msgstr ""
 
-#: ../Src/DasherCore/ClickFilter.h:12
+#: ../Src/DasherCore/ClickFilter.h:23
 msgid "Click Mode"
 msgstr "クリック・モード"
 
@@ -611,39 +646,179 @@ msgstr "右ズームの倍率"
 msgid "Compass Mode"
 msgstr "コンパス・モード"
 
-#: ../Src/DasherCore/DasherGameMode.cpp:637
-msgid "Well done!"
-msgstr "お見事!"
+#: ../Src/DasherCore/ControlManager.cpp:249
+msgid "Done"
+msgstr ""
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:911
+#. /TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
+#. / refers to a setting name in gsettings or equivalent, and should not be translated.
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:315
+#, c-format
+msgid ""
+"Could not find game sentences file for %s - check alphabet definition, or "
+"override with GameTextFile setting"
+msgstr ""
+
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:790
 msgid "Normal Control"
 msgstr "標準のコントロール"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:927
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:806
 msgid "Menu Mode"
 msgstr "メニュー・モード"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:928
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:807
 msgid "Direct Mode"
 msgstr "直接入力モード"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:932
-msgid "Stylus Control"
-msgstr "スタイルのコントロール"
+#: ../Src/DasherCore/DefaultFilter.cpp:14
+msgid "Vertical distance from mouse/gaze to target (400=screen height)"
+msgstr ""
 
-#: ../Src/DasherCore/EyetrackerFilter.cpp:9
-msgid "Automatic calibration"
-msgstr "自動的に調節する"
+#: ../Src/DasherCore/DefaultFilter.cpp:15
+msgid "Learn offset (previous) automatically, e.g. gazetrackers"
+msgstr ""
 
-#: ../Src/DasherCore/EyetrackerFilter.cpp:13
-msgid "Eyetracker Mode"
-msgstr "Eyetracker モード"
+#: ../Src/DasherCore/DefaultFilter.cpp:16
+msgid ""
+"At top and bottom, scroll more and translate less (makes error-correcting "
+"easier)"
+msgstr ""
+
+#: ../Src/DasherCore/DefaultFilter.cpp:17
+msgid ""
+"Screen geometry (mostly for tall thin screens) - 0=old-style, 1=square no-"
+"xhair, 2=squish, 3=squish+log"
+msgstr ""
+
+#: ../Src/DasherCore/DefaultFilter.cpp:18
+msgid ""
+"Shape type: 0=disjoint rects, 1=overlapping, 2=triangles, 3=trunc-tris, "
+"4=quadrics, 5=circles"
+msgstr ""
+
+#: ../Src/DasherCore/DefaultFilter.cpp:19
+msgid ""
+"Distance from right-hand-side Y-axis, at which maximum speed is reached. "
+"(2048=xhair)"
+msgstr ""
+
+#: ../Src/DasherCore/DefaultFilter.cpp:20
+msgid "Hold right mouse button / key 1 to go 3/4 faster"
+msgstr ""
+
+#: ../Src/DasherCore/DefaultFilter.cpp:21
+msgid "Use exact computation of per-frame movement (slower)"
+msgstr ""
+
+#: ../Src/DasherCore/DemoFilter.cpp:15
+msgid "Demo Mode (no input)"
+msgstr ""
+
+#: ../Src/DasherCore/GameModule.cpp:8
+msgid "Filename of sentences to enter"
+msgstr ""
+
+#: ../Src/DasherCore/GameModule.cpp:9
+msgid "Distance of sentence from center to decide user needs help"
+msgstr ""
+
+#: ../Src/DasherCore/GameModule.cpp:10
+msgid "Time for which user must need help before help drawn"
+msgstr ""
+
+#: ../Src/DasherCore/GameModule.cpp:11
+msgid "When we give help, show the shortest path to the target sentence?"
+msgstr ""
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:176
+#: ../Src/DasherCore/RoutingAlphMgr.cpp:128
+#, c-format
+msgid ""
+"Warning: faulty alphabet definition: training-start delimiter %s must be a "
+"single unicode character. May be unable to process training file."
+msgstr ""
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:186
+#, c-format
+msgid ""
+"Warning: training file contains character '%s' as member of group '%s', but "
+"no group of that name contains the character; ignoring group specifier"
+msgstr ""
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:199
+#, c-format
+msgid ""
+"Warning: training file contains character '%s' as member of group '%s', but "
+"no group of that name contains the character. Dasher will not be able to "
+"learn how you want to write this character."
+msgstr ""
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:200
+#: ../Src/DasherCore/RoutingAlphMgr.cpp:147
+#, c-format
+msgid ""
+"Warning: training file contains character '%s' as member of group '%s', but "
+"alphabet contains several such groups. Dasher will not be able to learn how "
+"you want to write this character."
+msgstr ""
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:220
+#: ../Src/DasherCore/RoutingAlphMgr.cpp:164
+#, c-format
+msgid ""
+"Warning: in training file, annotation '<%s>' is followed by another "
+"annotation and will be ignored"
+msgstr ""
+
+#. /TRANSLATORS: first string will be the filename; after the end of the string,
+#. / some number of output (e.g. Chinese) characters will be appended,
+#. / the number of which is the integer here
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:244
+#, c-format
+msgid ""
+"In file %s, the following %i symbols appeared without annotations saying how "
+"they should be entered, but each can be entered in several ways. Dasher will "
+"not be able to learn how you want to enter these symbols:"
+msgstr ""
+
+#: ../Src/DasherCore/NodeCreationManager.cpp:33
+#, fuzzy
+#| msgid "_Import Training Text"
+msgid "Training on User Text"
+msgstr "学習テキストのインポート(_I)"
+
+#: ../Src/DasherCore/NodeCreationManager.cpp:33
+msgid "Training on System Text"
+msgstr ""
+
+#. /TRANSLATORS: These 3 messages will be displayed when the user has just chosen a new alphabet. The %s parameter will be the name of the alphabet.
+#: ../Src/DasherCore/NodeCreationManager.cpp:101
+#, c-format
+msgid ""
+"No user training text found - if you have written in \"%s\" before, this "
+"means Dasher may not be learning from previous sessions"
+msgstr ""
+
+#: ../Src/DasherCore/NodeCreationManager.cpp:102
+#, c-format
+msgid ""
+"No training text (user or system) found for \"%s\". Dasher will still work "
+"but entry will be slower. We suggest downloading a training text file from "
+"the Dasher website, or constructing your own."
+msgstr ""
+
+#: ../Src/DasherCore/NodeCreationManager.cpp:108
+#, c-format
+msgid ""
+"\"%s\" does not specify training file. Dasher will work but entry will be "
+"slower. Check you have the latest version of the alphabet definition."
+msgstr ""
 
 #. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:35
 msgid "Long press time"
 msgstr "長く押下する時間"
 
@@ -659,7 +834,7 @@ msgstr "バックオフ・ボタンを有効にする"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:36
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:37
 msgid "Slow startup"
 msgstr "ゆっくりと開始する"
 
@@ -670,19 +845,19 @@ msgstr "開始時間"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:38
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:46
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
 msgid "Percentage by which to automatically increase speed"
 msgstr "自動的に速度を速くする割合"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:47
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:41
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
 msgid "Time after which to automatically increase speed (secs)"
 msgstr "自動的に速度を速くする時間 (秒)"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:40
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:48
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:41
 msgid "Percentage by which to decrease speed upon reverse"
 msgstr "逆向きの時に速度を遅くする割合"
 
@@ -690,56 +865,58 @@ msgstr "逆向きの時に速度を遅くする割合"
 msgid "One Button Dynamic Mode"
 msgstr "1つボタンの直接入力モード"
 
-#: ../Src/DasherCore/OneButtonFilter.cpp:11
+#: ../Src/DasherCore/OneButtonFilter.cpp:12
 msgid "Scan time (each direction), in ms"
 msgstr "ミリ秒単位でのスキャン時間 (各方向)"
 
-#: ../Src/DasherCore/OneButtonFilter.cpp:12
+#: ../Src/DasherCore/OneButtonFilter.cpp:13
 msgid "Factor by which to zoom in"
 msgstr ""
 
-#: ../Src/DasherCore/OneButtonFilter.cpp:13
+#: ../Src/DasherCore/OneButtonFilter.cpp:14
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:43
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
 msgid "Lag before user actually pushes button (ms)"
 msgstr "ユーザーが実際にボタンを押すまでのタイムラグ (ミリセカンド)"
 
-#. COneDimensionalFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel);
+#. COneDimensionalFilter(CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel);
 #: ../Src/DasherCore/OneDimensionalFilter.h:12
 msgid "One Dimensional Mode"
 msgstr "一次元モード"
 
-#: ../Src/DasherCore/SettingsStore.cpp:76
-#: ../Src/Gtk2/DasherAppSettings.cpp:523 ../Src/Gtk2/DasherAppSettings.cpp:557
-#: ../Src/Gtk2/DasherAppSettings.cpp:561
+#: ../Src/DasherCore/RoutingAlphMgr.cpp:146
+#, c-format
+msgid ""
+"Warning: training file contains character '%s' as member of group '%s', but "
+"no group of that name contains the character. Ignoring group specifier."
+msgstr ""
+
+#: ../Src/DasherCore/SettingsStore.cpp:75
+#: ../Src/Gtk2/DasherAppSettings.cpp:540 ../Src/Gtk2/DasherAppSettings.cpp:574
+#: ../Src/Gtk2/DasherAppSettings.cpp:578
 msgid "true"
 msgstr "true"
 
-#: ../Src/DasherCore/SettingsStore.cpp:78
-#: ../Src/Gtk2/DasherAppSettings.cpp:525 ../Src/Gtk2/DasherAppSettings.cpp:557
-#: ../Src/Gtk2/DasherAppSettings.cpp:561
+#: ../Src/DasherCore/SettingsStore.cpp:77
+#: ../Src/Gtk2/DasherAppSettings.cpp:542 ../Src/Gtk2/DasherAppSettings.cpp:574
+#: ../Src/Gtk2/DasherAppSettings.cpp:578
 msgid "false"
 msgstr "false"
 
 #. Note to translators: This message will be output for a command line
 #. with "--options foo=VAL" and foo is a boolean valued parameter, but
 #. "VAL" is not true or false.
-#: ../Src/DasherCore/SettingsStore.cpp:84
-#: ../Src/Gtk2/DasherAppSettings.cpp:528
+#: ../Src/DasherCore/SettingsStore.cpp:83
+#: ../Src/Gtk2/DasherAppSettings.cpp:545
 msgid "boolean value must be specified as 'true' or 'false'."
 msgstr "論理型の値は 'true' (真) または 'false' (偽) で指定してください"
 
 #. Note to translators: This is output when command line "--options" doesn't
 #. specify a known option.
-#: ../Src/DasherCore/SettingsStore.cpp:104
+#: ../Src/DasherCore/SettingsStore.cpp:103
 msgid "unknown option, use \"--help-options\" for more information."
 msgstr ""
 "無効なオプションです (\"--help-options\" でオプションの詳細をご覧ください)"
-
-#. TODO should probably pop up a Gtk error message and think about how to do i18n:
-#: ../Src/DasherCore/SocketInput.cpp:34
-msgid "Dasher socket input: failed to launch reader thread."
-msgstr "Dasher のソケット入力: リーダ・スレッドの起動に失敗しました"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:27
 msgid "Port:"
@@ -777,6 +954,56 @@ msgstr "ソケットに関連するデバッグ情報を端末に表示する"
 msgid "Socket Input"
 msgstr "ソケット入力"
 
+#. TODO This is not a very good error message even in English...???
+#: ../Src/DasherCore/SocketInputBase.cpp:108
+msgid "Error creating socket"
+msgstr ""
+
+#: ../Src/DasherCore/SocketInputBase.cpp:116
+msgid "Error binding to socket - already in use?"
+msgstr ""
+
+#: ../Src/DasherCore/SocketInputBase.cpp:169
+#, c-format
+msgid "Warning truncating socket input label '%s' to %i characters."
+msgstr ""
+
+#: ../Src/DasherCore/SocketInputBase.cpp:195
+msgid "Socket input: Error reading from socket"
+msgstr ""
+
+#: ../Src/DasherCore/SocketInputBase.cpp:297
+#, c-format
+msgid "Dasher Socket Input error: %s: %s"
+msgstr ""
+
+#. TODO should probably pop up a Gtk error message and think about how to do i18n:
+#: ../Src/DasherCore/SocketInput.cpp:34
+msgid "Dasher socket input: failed to launch reader thread."
+msgstr "Dasher のソケット入力: リーダ・スレッドの起動に失敗しました"
+
+#: ../Src/DasherCore/StylusFilter.cpp:10
+msgid "Max time for a 'tap' (anything longer is held)"
+msgstr ""
+
+#: ../Src/DasherCore/StylusFilter.h:12
+msgid "Stylus Control"
+msgstr "スタイルのコントロール"
+
+#. no context switch commands will be executed!
+#: ../Src/DasherCore/Trainer.cpp:34
+#, c-format
+msgid ""
+"Warning: faulty alphabet definition, escape sequence %s must be a single "
+"unicode character. This may worsen Dasher's text prediction."
+msgstr ""
+
+#: ../Src/DasherCore/Trainer.cpp:101
+#, fuzzy, c-format
+#| msgid "Unable to open help file"
+msgid "Unable to open file \"%s\" for reading"
+msgstr "ヘルプファイルを開けません"
+
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
 msgid "Button offset"
 msgstr "ボタンのオフセット"
@@ -789,7 +1016,7 @@ msgstr "複数押下する間隔"
 
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:37
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:37
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:36
 msgid "Enable backoff and start/stop buttons"
 msgstr "バックオフと開始/停止ボタンを有効にする"
 
@@ -817,98 +1044,90 @@ msgstr "外側 (2番目) のボタンのオフセット"
 #. divisor
 #. step
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:31
-msgid "Distance for 1st button UP"
-msgstr "最初のボタンを放すまでの時間"
+msgid "Distance between down markers (long gap)"
+msgstr ""
 
-# 1st? 2nd ではない?
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:32
-msgid "Distance for 1st button DOWN"
-msgstr "最初のボタンを押すまでの時間"
+msgid "Distance between up markers, as percentage of long gap"
+msgstr ""
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:33
 msgid "Tolerance for inaccurate timing of button pushes (in ms)"
 msgstr "ボタンを押すタイミングの許容誤差 (ミリセカンド)"
 
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:34
+msgid ""
+"Use push and release times of single press rather than push times of two "
+"presses"
+msgstr ""
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
 msgid "Slow startup time"
 msgstr "ゆっくりと開始する"
 
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:47
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:46
 msgid "Two-push Dynamic Mode (New One Button)"
 msgstr ""
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:554
+#: ../Src/Gtk2/DasherAppSettings.cpp:571
 msgid "Boolean parameters"
 msgstr "論理型のオプション"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:554 ../Src/Gtk2/DasherAppSettings.cpp:565
-#: ../Src/Gtk2/DasherAppSettings.cpp:576
+#: ../Src/Gtk2/DasherAppSettings.cpp:571 ../Src/Gtk2/DasherAppSettings.cpp:582
+#: ../Src/Gtk2/DasherAppSettings.cpp:593
 msgid "Default"
 msgstr "デフォルト値"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:554 ../Src/Gtk2/DasherAppSettings.cpp:565
-#: ../Src/Gtk2/DasherAppSettings.cpp:576
+#: ../Src/Gtk2/DasherAppSettings.cpp:571 ../Src/Gtk2/DasherAppSettings.cpp:582
+#: ../Src/Gtk2/DasherAppSettings.cpp:593
 msgid "Description"
 msgstr "説明"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:565
+#: ../Src/Gtk2/DasherAppSettings.cpp:582
 msgid "Integer parameters"
 msgstr "整数型のオプション"
 
-#: ../Src/Gtk2/DasherAppSettings.cpp:576
+#: ../Src/Gtk2/DasherAppSettings.cpp:593
 msgid "String parameters"
 msgstr "文字列型のオプション"
 
-#: ../Src/Gtk2/Preferences.cpp:440 ../Src/Gtk2/Preferences.cpp:1011
-msgid "Action"
-msgstr "アクション"
-
-#. TRANSLATORS: Show a button for the selected action in the Dasher window.
-#: ../Src/Gtk2/Preferences.cpp:1018
-msgid "Show Button"
-msgstr "ボタンの表示"
-
-#: ../Src/Gtk2/Preferences.cpp:1023
-msgid "Control Mode"
-msgstr "モードを制御する"
-
-#. TRANSLATORS: Automatically perform the selected action when Dasher is stopped.
-#: ../Src/Gtk2/Preferences.cpp:1029
-msgid "Auto On Stop"
-msgstr "自動停止"
-
-#: ../Src/Gtk2/Speech.cpp:27
-msgid "Unable to initialize speech support\n"
-msgstr "gnome-speech を初期化できません\n"
-
-#: ../Src/Gtk2/Speech.cpp:58
-msgid "Warning: unable to set speech parameters\n"
-msgstr "警告: 会話パラメータをセットできません\n"
-
-#: ../Src/Gtk2/Speech.cpp:69
-msgid "Unable to initialize voices\n"
-msgstr "音声を初期化できません\n"
-
-#: ../Src/Gtk2/dasher_action_keyboard.cpp:62
-#: ../Src/Gtk2/dasher_action_keyboard_maemo.cpp:96
-msgid "Enter Text"
-msgstr "文字列を入力してください"
-
-#: ../Src/Gtk2/dasher_action_script.cpp:91
-msgid "Script"
-msgstr "スクリプト"
-
 #. Note to translators: This message will be output for command line errors when the "=" in --options=foo is missing.
-#: ../Src/Gtk2/dasher_main.cpp:265
+#: ../Src/Gtk2/dasher_main.cpp:248
 msgid "option setting is missing \"=\"."
 msgstr "オプションの設定で \"=\" が抜けているようです"
 
 #. Note to translators: This string will be output when --options= specifies an unknown option.
-#: ../Src/Gtk2/dasher_main.cpp:281
+#: ../Src/Gtk2/dasher_main.cpp:264
 msgid "Invalid option string specified"
 msgstr "無効なオプション名です"
 
-#: ../Src/Gtk2/dasher_main.cpp:950
+#: ../Src/Gtk2/dasher_main.cpp:620
+msgid ""
+"Welcome to Dasher Game Mode! Game Mode is a fun way to practice entering "
+"text in Dasher. Please select a training text to play with:"
+msgstr ""
+
+#: ../Src/Gtk2/dasher_main.cpp:622
+#, fuzzy
+#| msgid "Default"
+msgid "Use Default"
+msgstr "デフォルト値"
+
+#: ../Src/Gtk2/dasher_main.cpp:623
+msgid "Choose File..."
+msgstr ""
+
+#: ../Src/Gtk2/dasher_main.cpp:624
+msgid "Cancel"
+msgstr ""
+
+#: ../Src/Gtk2/dasher_main.cpp:647
+msgid ""
+"Are you sure you wish to turn off game mode? All unsaved changes will be "
+"lost."
+msgstr ""
+
+#: ../Src/Gtk2/dasher_main.cpp:954
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -919,7 +1138,7 @@ msgstr ""
 "\n"
 "保存しないと変更点を失うことになります。"
 
-#: ../Src/Gtk2/dasher_main.cpp:957
+#: ../Src/Gtk2/dasher_main.cpp:961
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -929,31 +1148,31 @@ msgstr ""
 "\n"
 "保存しないと変更点を失うことになります。"
 
-#: ../Src/Gtk2/dasher_main.cpp:963
+#: ../Src/Gtk2/dasher_main.cpp:967
 msgid "Don't save"
 msgstr "保存しない"
 
-#: ../Src/Gtk2/dasher_main.cpp:964 ../Src/Gtk2/dasher_main.cpp:987
+#: ../Src/Gtk2/dasher_main.cpp:968 ../Src/Gtk2/dasher_main.cpp:991
 msgid "Don't quit"
 msgstr "終了しない"
 
-#: ../Src/Gtk2/dasher_main.cpp:965
+#: ../Src/Gtk2/dasher_main.cpp:969
 msgid "Save and quit"
 msgstr "保存して終了する"
 
-#: ../Src/Gtk2/dasher_main.cpp:984
+#: ../Src/Gtk2/dasher_main.cpp:988
 msgid "Are you sure you wish to quit?"
 msgstr "本当に終了してもよろしいですか?"
 
-#: ../Src/Gtk2/dasher_main.cpp:1031
+#: ../Src/Gtk2/dasher_main.cpp:1030
 msgid "Unable to open help file"
 msgstr "ヘルプファイルを開けません"
 
-#: ../Src/Gtk2/dasher_main.cpp:1083
+#: ../Src/Gtk2/dasher_main.cpp:1082
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher は文字列の候補を予想しながら入力するアプリケーションです。"
 
-#: ../Src/Gtk2/dasher_main.cpp:1088
+#: ../Src/Gtk2/dasher_main.cpp:1087
 msgid "translator-credits"
 msgstr ""
 "相花 毅 <takeshi.aihana@gmail.com>\n"
@@ -962,6 +1181,18 @@ msgstr ""
 "やまねひでき <henrich@debian.or.jp>\n"
 "OKANO Takayoshi <kano@na.rim.or.jp>\n"
 "日本GNOMEユーザー会 http://www.gnome.gr.jp/"
+
+#: ../Src/Gtk2/GnomeSpeech.cpp:28
+msgid "Unable to initialize speech support\n"
+msgstr "gnome-speech を初期化できません\n"
+
+#: ../Src/Gtk2/GnomeSpeech.cpp:59
+msgid "Warning: unable to set speech parameters\n"
+msgstr "警告: 会話パラメーターをセットできません\n"
+
+#: ../Src/Gtk2/GnomeSpeech.cpp:70
+msgid "Unable to initialize voices\n"
+msgstr "音声を初期化できません\n"
 
 #: ../Src/Gtk2/module_settings_window.cpp:88
 msgid "Dasher Module Options"
@@ -972,42 +1203,116 @@ msgstr "Dasher のモジュール・オプション"
 msgid "%s Options:"
 msgstr "%sのオプション"
 
-#: ../Src/Gtk2/mouse_input.h:15
+#: ../Src/Gtk2/mouse_input.h:14
 msgid "Mouse Input"
 msgstr "マウス入力"
 
-#: ../Src/Gtk2/mouse_input.h:51
+#: ../Src/Gtk2/mouse_input.h:44
 msgid "Pixels covering Y range"
 msgstr "Y方向の適用範囲 (ピクセル数)"
 
 #. TRANSLATORS: Only use the vertical mouse coordinate - this is prefered for some disabled users.
-#: ../Src/Gtk2/mouse_input.h:58
+#: ../Src/Gtk2/mouse_input.h:51
 msgid "One Dimensional Mouse Input"
 msgstr "一次元のマウス入力"
+
+#: ../Src/Gtk2/Preferences.cpp:440
+msgid "Action"
+msgstr "アクション"
 
 #. {"timedata", 'w', 0, G_OPTION_ARG_NONE, &timedata, "Write basic timing information to stdout", NULL},
 #. {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences window only", NULL},
 #. {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
 #. {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
 #. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
-#: ../Src/main.cc:171
+#: ../Src/main.cc:166
 msgid "Application style (traditional, direct, compose or fullscreen)"
 msgstr "アプリの外観を指定する (traditional、direct、compose、fullscreen)"
 
 #. Note to translators: This is the help string for "--options"
-#: ../Src/main.cc:173
+#: ../Src/main.cc:168
 msgid "Override stored options"
 msgstr "オプションを上書きする"
 
 #. Note to translators: This is the help string for "--help-options"
-#: ../Src/main.cc:175
+#: ../Src/main.cc:170
 msgid "Describe \"--options\"."
 msgstr "\"--options\" の説明を表示する"
 
 #. Note to translators: This is the "--help" description of dasher.
-#: ../Src/main.cc:182
+#: ../Src/main.cc:177
 msgid "- A text input application honouring accessibility"
 msgstr "- アクセシビリティに対応した文字入力のアプリケーション"
+
+#~ msgid "Zoom steps"
+#~ msgstr "ズームのステップ数"
+
+#~ msgid "A_ppend to file"
+#~ msgstr "ファイルへ追加(_P)"
+
+#~ msgid "Dasher _Tutorial"
+#~ msgstr "チュートリアル(_T)"
+
+#~ msgid "Pr_eferences"
+#~ msgstr "設定(_E)"
+
+#~ msgid "_Contents"
+#~ msgstr "目次(_C)"
+
+#~ msgid "Demo!"
+#~ msgstr "デモ!"
+
+#~ msgid "Full Demo"
+#~ msgstr "フル・デモ"
+
+#~ msgid "Launch Dasher Game & Demo mode!"
+#~ msgstr "Dasher のゲーム、デモ・モードを起動します"
+
+#~ msgid "Level:"
+#~ msgstr "レベル:"
+
+#~ msgid "New sentence"
+#~ msgstr "新しい文言"
+
+#~ msgid "Score:"
+#~ msgstr "得点:"
+
+#~ msgid "<b>Actions</b>"
+#~ msgstr "<b>アクション</b>"
+
+#~ msgid "Dock application window"
+#~ msgstr "ウィンドウをドックに格納する"
+
+#~ msgid "Well done!"
+#~ msgstr "お見事!"
+
+#~ msgid "Automatic calibration"
+#~ msgstr "自動的に調節する"
+
+#~ msgid "Eyetracker Mode"
+#~ msgstr "Eyetracker モード"
+
+#~ msgid "Distance for 1st button UP"
+#~ msgstr "最初のボタンを放すまでの時間"
+
+# 1st? 2nd ではない?
+#~ msgid "Distance for 1st button DOWN"
+#~ msgstr "最初のボタンを押すまでの時間"
+
+#~ msgid "Show Button"
+#~ msgstr "ボタンの表示"
+
+#~ msgid "Control Mode"
+#~ msgstr "モードを制御する"
+
+#~ msgid "Auto On Stop"
+#~ msgstr "自動停止"
+
+#~ msgid "Enter Text"
+#~ msgstr "文字列を入力してください"
+
+#~ msgid "Script"
+#~ msgstr "スクリプト"
 
 #~ msgid "Speak"
 #~ msgstr "声を出す"
