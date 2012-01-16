@@ -8,15 +8,15 @@
 # Lukas Novotny <lukasnov@cvs.gnome.org>, 2006.
 # Jakub Friedl <jfriedl@suse.cz>, 2006.
 # Lucas Lommer <llommer@svn.gnome.org>, 2008, 2009.
-# Marek Černocký <marek@manet.cz>, 2009, 2010, 2011.
+# Marek Černocký <marek@manet.cz>, 2009, 2010, 2011, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher gnome-master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-11-25 19:52+0000\n"
-"PO-Revision-Date: 2011-11-25 21:35+0100\n"
+"POT-Creation-Date: 2012-01-03 21:30+0000\n"
+"PO-Revision-Date: 2012-01-16 11:56+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -526,12 +526,12 @@ msgstr "_Importovat učící text…"
 
 #. think XML_LChar==char, depends on preprocessor variables...
 #. /TRANSLATORS: the first string is the error message from the XML Parser;
-#. / the second is the URL of the file we're trying to read; the third
-#. / is a section excerpt from the file, containing the error.
-#: ../Src/DasherCore/AbstractXMLParser.cpp:64
+#. / the second is the URL of the file we're trying to read.
+#: ../Src/DasherCore/AbstractXMLParser.cpp:63
 #, c-format
-msgid "XML Error %s in %s somewhere in block: %s"
-msgstr "Chyba XML %s v souboru %s někde v bloku: %s"
+#| msgid "XML Error %s in %s somewhere in block: %s"
+msgid "XML Error %s in file %s "
+msgstr "Chyba XML %s v souboru %s "
 
 #: ../Src/DasherCore/Alphabet/AlphabetMap.cpp:116
 #, c-format
@@ -550,7 +550,7 @@ msgstr "Načten neplatný znak UTF-8 0x%x"
 #. /TRANSLATORS: the string "GameTextFile" is the name of a setting in gsettings
 #. / (or equivalent), and should not be translated. The %s is the value of that
 #. / setting (this message displayed only if the user has provided a value)
-#: ../Src/DasherCore/AlphabetManager.cpp:163
+#: ../Src/DasherCore/AlphabetManager.cpp:213
 #, c-format
 msgid ""
 "Note: GameTextFile setting specifies game sentences file '%s' but this does "
@@ -562,8 +562,10 @@ msgstr ""
 #. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:28
 #: ../Src/DasherCore/ButtonMode.cpp:28 ../Src/DasherCore/CompassMode.cpp:28
-msgid "Zoom steps"
-msgstr "Kroky zvětšení"
+#: ../Src/DasherCore/StylusFilter.cpp:11
+#| msgid "Factor by which to zoom in"
+msgid "Frames over which to perform zoom"
+msgstr "Počet snímků, po kterém se přibližuje"
 
 #. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:30
@@ -591,8 +593,9 @@ msgid "Scan time in menu mode (0 to not scan)"
 msgstr "Interval skenování v režimu nabídky (0 vypne skenování)"
 
 #: ../Src/DasherCore/ButtonMode.cpp:30
-msgid "Number of boxes"
-msgstr "Počet boxů"
+#| msgid "Number of boxes"
+msgid "Number of forward boxes"
+msgstr "Počet následujících boxů"
 
 # Nejak me nenapada ten presnej vyraz...
 #: ../Src/DasherCore/ButtonMode.cpp:31
@@ -704,8 +707,20 @@ msgstr ""
 "trojúhelníky, 4=čtyřúhelníky, 5=kruhy"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:19
+msgid ""
+"Distance from right-hand-side Y-axis, at which maximum speed is reached. "
+"(2048=xhair)"
+msgstr ""
+"Vzdálenost od osy Y po pravé ruce, ve které je dosaženo maximální rychlosti. "
+"(2048=nitkový kříž)"
+
+#: ../Src/DasherCore/DefaultFilter.cpp:20
 msgid "Hold right mouse button / key 1 to go 3/4 faster"
 msgstr "Přidržením pravého tlačítka myši / klávesy 1 zrychlíte o ¾"
+
+#: ../Src/DasherCore/DefaultFilter.cpp:21
+msgid "Use exact computation of per-frame movement (slower)"
+msgstr "Použít přesný výpočet pohybu po jednotlivých snímcích (pomalejší)"
 
 #: ../Src/DasherCore/DemoFilter.cpp:15
 msgid "Demo Mode (no input)"
@@ -730,16 +745,85 @@ msgstr ""
 msgid "When we give help, show the shortest path to the target sentence?"
 msgstr "Když dostaneme nápovědu, má se zobrazit nejkratší cesta k cílové větě?"
 
-#: ../Src/DasherCore/NodeCreationManager.cpp:32
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:176
+#: ../Src/DasherCore/RoutingAlphMgr.cpp:128
+#, c-format
+#| msgid ""
+#| "Warning: faulty alphabet definition, escape sequence %s must be a single "
+#| "unicode character. This may worsen Dasher's text prediction."
+msgid ""
+"Warning: faulty alphabet definition: training-start delimiter %s must be a "
+"single unicode character. May be unable to process training file."
+msgstr ""
+"Varování: chybná definice abecedy, oddělovač začátku tréninku %s musí být "
+"jediný znak v unikódu. Možná nebude možné tréninkový soubor zpracovat."
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:186
+#, c-format
+msgid ""
+"Warning: training file contains character '%s' as member of group '%s', but "
+"no group of that name contains the character; ignoring group specifier"
+msgstr ""
+"Varování: trénovací soubor obsahuje znak „%s“ jako člena skupiny „%s“, ale "
+"žádná skupina s tímto názvem znak neobsahuje; uvedená skupina bude ignorována"
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:199
+#, c-format
+msgid ""
+"Warning: training file contains character '%s' as member of group '%s', but "
+"no group of that name contains the character. Dasher will not be able to "
+"learn how you want to write this character."
+msgstr ""
+"Varování: trénovací soubor obsahuje znak „%s“ jako člena skupiny „%s“, ale "
+"žádná skupina s tímto názvem znak neobsahuje. Dasher se nebude moci naučit, "
+"jak chcete tento znak psát."
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:200
+#: ../Src/DasherCore/RoutingAlphMgr.cpp:147
+#, c-format
+msgid ""
+"Warning: training file contains character '%s' as member of group '%s', but "
+"alphabet contains several such groups. Dasher will not be able to learn how "
+"you want to write this character."
+msgstr ""
+"Varování: trénovací soubor obsahuje znak „%s“ jako člena skupiny „%s“, ale "
+"abeceda obsahuje několik takovýchto skupin. Dasher se nebude moci naučit, "
+"jak chcete tento znak psát."
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:220
+#: ../Src/DasherCore/RoutingAlphMgr.cpp:164
+#, c-format
+msgid ""
+"Warning: in training file, annotation '<%s>' is followed by another "
+"annotation and will be ignored"
+msgstr ""
+"Varování: v tréninkovém souboru je vysvětlivka „<%s>“ následována jinou "
+"vysvětlivkou a bude ignorována"
+
+#. /TRANSLATORS: first string will be the filename; after the end of the string,
+#. / some number of output (e.g. Chinese) characters will be appended,
+#. / the number of which is the integer here
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:244
+#, c-format
+msgid ""
+"In file %s, the following %i symbols appeared without annotations saying how "
+"they should be entered, but each can be entered in several ways. Dasher will "
+"not be able to learn how you want to enter these symbols:"
+msgstr ""
+"V souboru %s se následujících %i symbolů vyskytuje bez vysvětlivky, která by "
+"řekla, jak mají být zadány, ale každý z nich může být zadán několika "
+"způsoby. Dasher se nebude moci naučit, jak chcete tyto symboly zadávat:"
+
+#: ../Src/DasherCore/NodeCreationManager.cpp:33
 msgid "Training on User Text"
 msgstr "Trénování na uživatelském textu"
 
-#: ../Src/DasherCore/NodeCreationManager.cpp:32
+#: ../Src/DasherCore/NodeCreationManager.cpp:33
 msgid "Training on System Text"
 msgstr "Trénování na systémovém textu"
 
 #. /TRANSLATORS: These 3 messages will be displayed when the user has just chosen a new alphabet. The %s parameter will be the name of the alphabet.
-#: ../Src/DasherCore/NodeCreationManager.cpp:92
+#: ../Src/DasherCore/NodeCreationManager.cpp:101
 #, c-format
 msgid ""
 "No user training text found - if you have written in \"%s\" before, this "
@@ -748,7 +832,7 @@ msgstr ""
 "Nebyl nalezen žádný uživatelský trénovací text – pokud jste jej napsali "
 "dříve v „%s“, znamená to, že Dasher nelze učit podle předchozích sezení"
 
-#: ../Src/DasherCore/NodeCreationManager.cpp:93
+#: ../Src/DasherCore/NodeCreationManager.cpp:102
 #, c-format
 msgid ""
 "No training text (user or system) found for \"%s\". Dasher will still work "
@@ -760,7 +844,7 @@ msgstr ""
 "stáhnout soubor s trénovacím textem z webových stránek Dasher nebo si "
 "sestavit svůj vlastní."
 
-#: ../Src/DasherCore/NodeCreationManager.cpp:99
+#: ../Src/DasherCore/NodeCreationManager.cpp:108
 #, c-format
 msgid ""
 "\"%s\" does not specify training file. Dasher will work but entry will be "
@@ -836,6 +920,15 @@ msgstr "Prodleva v milisekundách před stisknutím tlačítka uživatelem"
 #: ../Src/DasherCore/OneDimensionalFilter.h:12
 msgid "One Dimensional Mode"
 msgstr "Režim jednoho rozměru"
+
+#: ../Src/DasherCore/RoutingAlphMgr.cpp:146
+#, c-format
+msgid ""
+"Warning: training file contains character '%s' as member of group '%s', but "
+"no group of that name contains the character. Ignoring group specifier."
+msgstr ""
+"Varování: trénovací soubor obsahuje znak „%s“ jako člena skupiny „%s“, ale "
+"žádná skupina s tímto názvem znak neobsahuje. Uvedená skupina bude ignorována."
 
 #: ../Src/DasherCore/SettingsStore.cpp:75
 #: ../Src/Gtk2/DasherAppSettings.cpp:540 ../Src/Gtk2/DasherAppSettings.cpp:574
@@ -927,6 +1020,10 @@ msgstr "Vstupní chyba soketu aplikace Dasher: %s. %s"
 msgid "Dasher socket input: failed to launch reader thread."
 msgstr "Vstup soketu Dasheru: selhalo spuštění vlákna čtečky."
 
+#: ../Src/DasherCore/StylusFilter.cpp:10
+msgid "Max time for a 'tap' (anything longer is held)"
+msgstr "Maximální čas pro „ťuknutí“ (cokoliv delšího je držení)"
+
 #: ../Src/DasherCore/StylusFilter.h:12
 msgid "Stylus Control"
 msgstr "Ovládání pomocí pera"
@@ -941,20 +1038,10 @@ msgstr ""
 "Varování: chybná definice abecedy, sekvencí escape %s musí být jediný znak "
 "unikódu. Toto může v aplikaci Dasher zhoršit předvídání textu."
 
-#: ../Src/DasherCore/Trainer.cpp:100
+#: ../Src/DasherCore/Trainer.cpp:101
 #, c-format
 msgid "Unable to open file \"%s\" for reading"
 msgstr "Nelze otevřít soubor „%s“ pro čtení"
-
-#: ../Src/DasherCore/Trainer.cpp:125
-#, c-format
-msgid "Training file contains unknown source alphabet character %s"
-msgstr "Trénovací soubor obsahuje neznámý znak %s ve zdrojové abecedě"
-
-#: ../Src/DasherCore/Trainer.cpp:130
-#, c-format
-msgid "Training file contains unknown target alphabet character %s"
-msgstr "Trénovací soubor obsahuje neznámý znak %s v cílové abecedě"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
 msgid "Button offset"
