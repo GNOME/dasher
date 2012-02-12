@@ -1,17 +1,18 @@
 # French translation of dasher documentation.
-# Copyright (C) 2006 Free Software Foundation, Inc.
+# Copyright (C) 2006-2012 Free Software Foundation, Inc.
 # This file is distributed under the same license as the dasher
 # documentation package.
 #
 # Claude Paroz <claude@2xlibre.net>, 2006.
-#
+# Robert-André Mauchin <zebob.m@pengzone.org, 2008
+# Bruno Brouard <annoa.b@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher doc fr\n"
-"POT-Creation-Date: 2010-05-01 06:45+0000\n"
-"PO-Revision-Date: 2008-09-20 00:11+0200\n"
-"Last-Translator: Robert-André Mauchin <zebob.m@pengzone.org>\n"
-"Language-Team: French <gnomefr@traduc.org>\n"
+"POT-Creation-Date: 2011-09-29 14:32+0000\n"
+"PO-Revision-Date: 2012-02-12 16:33+0100\n"
+"Last-Translator: Bruno Brouard <annoa.b@gmail.com>\n"
+"Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2141,14 +2142,14 @@ msgid ""
 "<application>Dasher</application> was written by the members of The Dasher "
 "Project (<email>dasher@inf.phy.cam.ac.uk</email>). To find more information "
 "about it, please visit <application>Dasher's</application><ulink url="
-"\"http://www.inference.phy.cam.ac.uk/dasher/\" type=\"http\"> Web page</"
+"\"http://www.inference.phy.cam.ac.uk/dasher/\" type=\"http\">Web page</"
 "ulink>. Please send all comments, suggestions, and bug reports to the <ulink "
 "url=\"http://bugzilla.gnome.org/enter_bug.cgi?product=dasher\" type=\"http"
 "\">GNOME bug tracking database</ulink>. Instructions for submitting bug "
-"reports can be found on-line at <ulink url=\"http://bugs.gnome.org/Reporting."
-"html\" type=\"http\"> http://bugs.gnome.org/Reporting.html</ulink>. If you "
-"are using GNOME 1.1 or later, you can also use command <command>bug-buddy</"
-"command> for submitting bug reports."
+"reports can be found on-line at <ulink url=\"http://bugzilla.gnome.org/page."
+"cgi?id=bug-writing.html\" type=\"http\"> http://bugzilla.gnome.org/page.cgi?"
+"id=bug-writing.html</ulink>. If you are using GNOME 1.1 or later, you can "
+"also use command <command>bug-buddy</command> for submitting bug reports."
 msgstr ""
 "<application>Dasher</application> a été écrit par les membres du projet "
 "Dasher (<email>dasher@inf.phy.cam.ac.uk</email>). Pour plus d'informations à "
@@ -2157,24 +2158,29 @@ msgstr ""
 "application>. Faites part de tout commentaire, suggestion ou rapport "
 "d'anomalie à la <ulink url=\"http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=dasher\" type=\"http\">base de données du suivi des anomalies de "
-"GNOME</ulink>. Vous pouvez également utiliser la commande <command>bug-"
+"GNOME</ulink>. Des instructions pour la soumission de rapport d'anomalie "
+"peuvent être trouvées à l'adresse <ulink url=\"http://bugzilla.gnome.org/page."
+"cgi?id=bug-writing.html\" type=\"http\">http://bugzilla.gnome.org/page.cgi?"
+"id=bug-writing.html</ulink>. Si vous utilisez GNOME 1.1 ou une version plus ancienne, "
+"vous pouvez également utiliser la commande <command>bug-"
 "buddy</command> pour soumettre des rapports d'anomalie."
 
 #: C/dasher.xml:1305(para)
 msgid ""
 "This manual was written by The Dasher Project (<email>dasher@inf.phy.cam.ac."
 "uk</email>). Please send all comments and suggestions regarding the manual "
-"to the GNOME Documentation Project at <email>docs@gnome.org</email>. You can "
-"also add your comments online by using <ulink type=\"http\" url=\"http://www."
-"gnome.org/gdp/doctable/\">GNOME Documentation Status Table</ulink>."
+"to the GNOME Documentation Project at <email>gnome-doc-list@gnome.org</"
+"email>."
 msgstr ""
 "Ce manuel a été écrit par le projet Dasher (<email>dasher@inf.phy.cam.ac.uk</"
 "email>). Veuillez envoyer tout commentaire ou suggestion concernant ce "
-"manuel au projet de documentation GNOME à l'adresse <email>docs@gnome.org</"
+"manuel au projet de documentation GNOME à l'adresse <email>gnome-doc-list@gnome.org</"
 "email>."
 
 #. Put one translator per line, in the form of NAME <EMAIL>, YEAR1, YEAR2
 #: C/dasher.xml:0(None)
 msgid "translator-credits"
-msgstr "Claude Paroz <claude@2xlibre.net>, 2006."
+msgstr "Claude Paroz <claude@2xlibre.net>, 2006\n"
+"Robert-André Mauchin <zebob.m@pengzone.org>, 2008\n"
+"Bruno Brouard <annoa.b@gmail.com>, 2012"
 
