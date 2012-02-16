@@ -87,3 +87,4 @@ text t to the edit box -->
 <!ATTLIST s t CDATA #REQUIRED>
 <!ATTLIST s f CDATA #IMPLIED>
 <!ATTLIST s b CDATA #IMPLIED>
+<!ATTLIST s note CDATA #IMPLIED>
