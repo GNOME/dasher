@@ -266,7 +266,8 @@ int CAlphabetManager::GetColour(symbol sym, int iOffset) const {
       iColour = (sym % 3) + 10;
 
   // Loop on low colours for nodes (TODO: go back to colour namespaces?)
-  if((iOffset&1) == 0 && iColour < 130)
+  // letters 10-109, alternate colours 140-239
+  if((iOffset&1) == 0 && iColour < 110)
     iColour += 130;
 
   return iColour;
