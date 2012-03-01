@@ -4,30 +4,29 @@
 # Maintainer: Данило Шеган <dsegan@gmx.net>
 # Reviewed on 2005-07-15 by: Игор Несторовић <igor@prevod.org>
 # Слободан Д. Средојевић <slobo@akrep.be>, 2010.
-# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2011.
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2011-08-23 14:32+0000\n"
-"PO-Revision-Date: 2011-07-21 14:54+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher"
+"&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2012-01-03 21:30+0000\n"
+"PO-Revision-Date: 2012-03-01 12:06+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
-"Language-Team: gnom@prevod.org\n"
+"Language-Team: Serbian <gnom@prevod.org>\n"
+"Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sr\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Virtaal 0.7.0\n"
+"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
+"n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Project-Style: gnome\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
-#: ../Data/dasher.desktop.in.in.h:1 ../Data/GUI/dasher.traditional.ui.h:6
-#: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dashermaemofullscreen.ui.h:2
-#: ../Src/Gtk2/dasher_main.cpp:900
+#: ../Data/dasher.desktop.in.in.h:1 ../Data/GUI/dashermaemofullscreen.ui.h:2
+#: ../Data/GUI/dashermaemo.ui.h:1 ../Data/GUI/dasher.traditional.ui.h:6
+#: ../Src/Gtk2/dasher_main.cpp:899
 msgid "Dasher"
 msgstr "Јуришник"
 
@@ -37,17 +36,208 @@ msgstr "Уносите текст без употребе тастатуре"
 
 #: ../Data/dasher.desktop.in.in.h:3
 msgid "Predictive text entry"
-msgstr "Предвиђање уноса текста"
+msgstr "Унос предвидивог текста"
 
-#: ../Data/GUI/dasher.preferences.ui.h:1
+#: ../Data/GUI/dashermaemofullscreen.ui.h:1
+#: ../Data/GUI/dasher.traditional.ui.h:4
+msgid "Copy _All"
+msgstr "Умножи _све"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:3
+msgid "Large"
+msgstr "Велико"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:4
+msgid "Normal"
+msgstr "Обично"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:5 ../Data/GUI/dashermaemo.ui.h:5
+#: ../Src/Gtk2/dasher_editor_internal.cpp:813
+#: ../Src/Gtk2/dasher_editor_internal.cpp:847 ../Src/Gtk2/dasher_main.cpp:914
+msgid "Select File"
+msgstr "Изабери датотеку"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:6 ../Data/GUI/dashermaemo.ui.h:6
+msgid "Select Font"
+msgstr "Изабери словни лик"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:7
+msgid "Very Large"
+msgstr "Веома велика"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:8
+msgid "_About"
+msgstr "_О програму"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:9
+msgid "_Dasher Font"
+msgstr "_Словни лик Јуришника"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:10
+msgid "_Dasher Font Size"
+msgstr "Величина словног лика _Јуришника"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:11
+#: ../Data/GUI/dasher.traditional.ui.h:20
+msgid "_Edit"
+msgstr "_Уређивање"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:12
+msgid "_Edit Font"
+msgstr "У_реди словни лик"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:13
+#: ../Data/GUI/dasher.traditional.ui.h:21
+msgid "_File"
+msgstr "_Датотека"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:14
+#: ../Data/GUI/dasher.traditional.ui.h:23
+msgid "_Help"
+msgstr "_Помоћ"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:15
+msgid "_Options"
+msgstr "_Могућности"
+
+#: ../Data/GUI/dashermaemofullscreen.ui.h:16
+msgid "_Reset fonts"
+msgstr "_Врати словне ликове"
+
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
+#: ../Data/GUI/dasher.preferences.ui.h:1
 msgid "<b>Adaptation</b>"
 msgstr "<b>Прилагођавање</b>"
 
-#: ../Data/GUI/dasher.preferences.ui.h:2
 #: ../Data/GUI/dashermaemo.preferences.ui.h:2
+#: ../Data/GUI/dasher.preferences.ui.h:2
 msgid "<b>Alphabet Selection</b>"
 msgstr "<b>Избор писма</b>"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:3
+msgid "<b>Color Scheme</b>"
+msgstr "<b>Боје</b>"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:4
+msgid "<b>Display Size</b>"
+msgstr "<b>Величина приказа</b>"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:5
+#: ../Data/GUI/dasher.preferences.ui.h:13
+msgid "<b>Language Model</b>"
+msgstr "<b>Модел језика</b>"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:6
+msgid "<b>Orientation</b>"
+msgstr "<b>Усмерење</b>"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:7
+#: ../Data/GUI/dasher.preferences.ui.h:14
+msgid "<b>Smoothing</b>"
+msgstr "<b>Умекшавање</b>"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:8
+#: ../Data/GUI/dasher.preferences.ui.h:15
+msgid "<b>Speed</b>"
+msgstr "<b>Брзина</b>"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:9
+#: ../Data/GUI/dasher.preferences.ui.h:18
+msgid "Adapt speed automatically"
+msgstr "Самостално прилагоди брзину"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:10
+msgid "Alphabet"
+msgstr "Писмо"
+
+#. The default display orientation for the selected alphabet, i.e., left to right for English, right to left for Arabic, etc.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:11
+#: ../Data/GUI/dasher.preferences.ui.h:20
+msgid "Alphabet Default"
+msgstr "Подразумевано писмо"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:12
+msgid "Bottom to Top"
+msgstr "Одоздо на горе"
+
+#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:14
+msgid "Control"
+msgstr "Управљање"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:15
+msgid "Custom"
+msgstr "Произвољно"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:16
+#: ../Data/GUI/dasher.preferences.ui.h:32
+msgid "Custom colour scheme:"
+msgstr "Произвољне боје:"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:17
+#: ../Data/GUI/dasher.preferences.ui.h:33
+msgid "Dasher Preferences"
+msgstr "Поставке Јуришника"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:18
+msgid "Enlarge input window"
+msgstr "Повећај прозор за унос"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:19
+#: ../Data/GUI/dasher.preferences.ui.h:43
+msgid "Japanese"
+msgstr "Јапански"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:20
+#: ../Data/GUI/dasher.preferences.ui.h:44
+msgid "Language model adapts as you write."
+msgstr "Језички модел се прилагођава како пишете."
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:21
+msgid "Left to Right"
+msgstr "Слева на десно"
+
+#. PPM = Prediction by Partial Match, a statistical language model.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:22
+#: ../Data/GUI/dasher.preferences.ui.h:47
+msgid "Mixture model (PPM/dictionary)"
+msgstr "Мешани модел (ППМ/речник)"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:23
+msgid "Prediction"
+msgstr "Предвиђање"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:24
+msgid "Right to Left"
+msgstr "Са десна на лево"
+
+#. PPM = Prediction by Partial Match, a statistical language model.
+#: ../Data/GUI/dashermaemo.preferences.ui.h:25
+#: ../Data/GUI/dasher.preferences.ui.h:60
+msgid "Standard letter-based PPM"
+msgstr "Стандардни ППМ заснован на писму"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:26
+msgid "Top to Bottom"
+msgstr "Одозго на доле"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:27
+msgid "View"
+msgstr "Преглед"
+
+#: ../Data/GUI/dashermaemo.preferences.ui.h:28
+#: ../Data/GUI/dasher.preferences.ui.h:71
+msgid "Word-based model"
+msgstr "Модел заснован на речима"
+
+#. Abbreviation for Preferences
+#: ../Data/GUI/dashermaemo.ui.h:3
+msgid "P"
+msgstr "П"
+
+#: ../Data/GUI/dashermaemo.ui.h:4 ../Data/GUI/dasher.traditional.ui.h:11
+msgid "Please Wait…"
+msgstr "Сачекајте..."
 
 # bug: View the Options or Options of the View
 #: ../Data/GUI/dasher.preferences.ui.h:3
@@ -73,7 +263,7 @@ msgstr "<b>Стил управљања</b>"
 
 #: ../Data/GUI/dasher.preferences.ui.h:9
 msgid "<b>Dasher Font</b>"
-msgstr "<b>Јуришников фонт</b>"
+msgstr "<b>Писмо Јуришника</b>"
 
 #: ../Data/GUI/dasher.preferences.ui.h:10
 msgid "<b>Direction</b>"
@@ -81,26 +271,11 @@ msgstr "<b>Усмерење</b>"
 
 #: ../Data/GUI/dasher.preferences.ui.h:11
 msgid "<b>Editor Font</b>"
-msgstr "<b>Фонт уређивача</b>"
+msgstr "<b>Писмо уређивача</b>"
 
 #: ../Data/GUI/dasher.preferences.ui.h:12
 msgid "<b>Input Device</b>"
 msgstr "<b>Улазни уређај</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:13
-#: ../Data/GUI/dashermaemo.preferences.ui.h:5
-msgid "<b>Language Model</b>"
-msgstr "<b>Модел језика</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:14
-#: ../Data/GUI/dashermaemo.preferences.ui.h:7
-msgid "<b>Smoothing</b>"
-msgstr "<b>Умекшавање</b>"
-
-#: ../Data/GUI/dasher.preferences.ui.h:15
-#: ../Data/GUI/dashermaemo.preferences.ui.h:8
-msgid "<b>Speed</b>"
-msgstr "<b>Брзина</b>"
 
 #: ../Data/GUI/dasher.preferences.ui.h:16
 msgid "<b>Starting and Stopping</b>"
@@ -109,17 +284,6 @@ msgstr "<b>Покретање и заустављање</b>"
 #: ../Data/GUI/dasher.preferences.ui.h:17
 msgid "A_pplication"
 msgstr "_Програм"
-
-#: ../Data/GUI/dasher.preferences.ui.h:18
-#: ../Data/GUI/dashermaemo.preferences.ui.h:9
-msgid "Adapt speed automatically"
-msgstr "Самостално прилагоди брзину"
-
-#. The default display orientation for the selected alphabet, i.e., left to right for English, right to left for Arabic, etc.
-#: ../Data/GUI/dasher.preferences.ui.h:20
-#: ../Data/GUI/dashermaemo.preferences.ui.h:11
-msgid "Alphabet Default"
-msgstr "Подразумевано писмо"
 
 #: ../Data/GUI/dasher.preferences.ui.h:21
 msgid "Always Bottom-to-Top"
@@ -159,16 +323,6 @@ msgstr "Режим управљања"
 msgid "Copy All on stop"
 msgstr "Умножи све при заустављању"
 
-#: ../Data/GUI/dasher.preferences.ui.h:32
-#: ../Data/GUI/dashermaemo.preferences.ui.h:16
-msgid "Custom colour scheme:"
-msgstr "Произвољне боје:"
-
-#: ../Data/GUI/dasher.preferences.ui.h:33
-#: ../Data/GUI/dashermaemo.preferences.ui.h:17
-msgid "Dasher Preferences"
-msgstr "Поставке Јуришника"
-
 #: ../Data/GUI/dasher.preferences.ui.h:34
 msgid "Direct entry"
 msgstr "Директан унос"
@@ -205,25 +359,9 @@ msgstr "Укључи наредбе говора"
 msgid "Increase line thickness"
 msgstr "Повећај дебљину линије"
 
-#: ../Data/GUI/dasher.preferences.ui.h:43
-#: ../Data/GUI/dashermaemo.preferences.ui.h:19
-msgid "Japanese"
-msgstr "Јапански"
-
-#: ../Data/GUI/dasher.preferences.ui.h:44
-#: ../Data/GUI/dashermaemo.preferences.ui.h:20
-msgid "Language model adapts as you write."
-msgstr "Језички модел се прилагођава како пишете."
-
 #: ../Data/GUI/dasher.preferences.ui.h:45
 msgid "Large font "
-msgstr "Велики фонт "
-
-#. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/GUI/dasher.preferences.ui.h:47
-#: ../Data/GUI/dashermaemo.preferences.ui.h:22
-msgid "Mixture model (PPM/dictionary)"
-msgstr "Мешани модел (ППМ/речник)"
+msgstr "Велико писмо "
 
 #: ../Data/GUI/dasher.preferences.ui.h:48
 msgid "Options"
@@ -269,12 +407,6 @@ msgstr "Изговара речи чим их напишете"
 msgid "Stand-alone"
 msgstr "Самостално"
 
-#. PPM = Prediction by Partial Match, a statistical language model.
-#: ../Data/GUI/dasher.preferences.ui.h:60
-#: ../Data/GUI/dashermaemo.preferences.ui.h:25
-msgid "Standard letter-based PPM"
-msgstr "Стандардни ППМ заснован на писму"
-
 #: ../Data/GUI/dasher.preferences.ui.h:61
 msgid "Start on left mouse button"
 msgstr "Почни на притисак левог дугмета миша"
@@ -310,11 +442,6 @@ msgstr ""
 msgid "Very large font"
 msgstr "Веома велики фонт"
 
-#: ../Data/GUI/dasher.preferences.ui.h:71
-#: ../Data/GUI/dashermaemo.preferences.ui.h:28
-msgid "Word-based model"
-msgstr "Модел заснован на речима"
-
 #: ../Data/GUI/dasher.preferences.ui.h:72
 msgid "_Appearance"
 msgstr "_Изглед"
@@ -334,11 +461,6 @@ msgstr "Писмо:"
 #: ../Data/GUI/dasher.traditional.ui.h:3
 msgid "Copy"
 msgstr "Умножи"
-
-#: ../Data/GUI/dasher.traditional.ui.h:4
-#: ../Data/GUI/dashermaemofullscreen.ui.h:1
-msgid "Copy _All"
-msgstr "Умножи _све"
 
 #: ../Data/GUI/dasher.traditional.ui.h:5
 msgid "Cut"
@@ -360,10 +482,6 @@ msgstr "Отвори датотеку"
 msgid "Paste"
 msgstr "Убаци"
 
-#: ../Data/GUI/dasher.traditional.ui.h:11 ../Data/GUI/dashermaemo.ui.h:4
-msgid "Please Wait…"
-msgstr "Сачекајте..."
-
 #: ../Data/GUI/dasher.traditional.ui.h:12
 msgid "Pr_eferences…"
 msgstr "_Поставке..."
@@ -372,7 +490,7 @@ msgstr "_Поставке..."
 msgid "Preferences"
 msgstr "Поставке"
 
-#: ../Data/GUI/dasher.traditional.ui.h:14 ../Src/Gtk2/dasher_main.cpp:993
+#: ../Data/GUI/dasher.traditional.ui.h:14 ../Src/Gtk2/dasher_main.cpp:992
 msgid "Quit"
 msgstr "Изађи"
 
@@ -396,137 +514,22 @@ msgstr "_О програму…"
 msgid "_Contents…"
 msgstr "_Садржај…"
 
-#: ../Data/GUI/dasher.traditional.ui.h:20
-#: ../Data/GUI/dashermaemofullscreen.ui.h:11
-msgid "_Edit"
-msgstr "_Уређивање"
-
-#: ../Data/GUI/dasher.traditional.ui.h:21
-#: ../Data/GUI/dashermaemofullscreen.ui.h:13
-msgid "_File"
-msgstr "_Датотека"
-
 #: ../Data/GUI/dasher.traditional.ui.h:22
 msgid "_Game Mode"
 msgstr "Режим _игре"
-
-#: ../Data/GUI/dasher.traditional.ui.h:23
-#: ../Data/GUI/dashermaemofullscreen.ui.h:14
-msgid "_Help"
-msgstr "_Помоћ"
 
 #: ../Data/GUI/dasher.traditional.ui.h:24
 msgid "_Import Training Text…"
 msgstr "_Увези текст за увежбавање…"
 
-#. Abbreviation for Preferences
-#: ../Data/GUI/dashermaemo.ui.h:3
-msgid "P"
-msgstr "П"
-
-#: ../Data/GUI/dashermaemo.ui.h:5 ../Data/GUI/dashermaemofullscreen.ui.h:5
-#: ../Src/Gtk2/dasher_editor_internal.cpp:812
-#: ../Src/Gtk2/dasher_editor_internal.cpp:846 ../Src/Gtk2/dasher_main.cpp:915
-msgid "Select File"
-msgstr "Изабери датотеку"
-
-#: ../Data/GUI/dashermaemo.ui.h:6 ../Data/GUI/dashermaemofullscreen.ui.h:6
-msgid "Select Font"
-msgstr "Изабери словни лик"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:3
-msgid "<b>Color Scheme</b>"
-msgstr "<b>Боје</b>"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:4
-msgid "<b>Display Size</b>"
-msgstr "<b>Величина приказа</b>"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:6
-msgid "<b>Orientation</b>"
-msgstr "<b>Усмерење</b>"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:10
-msgid "Alphabet"
-msgstr "Писмо"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:12
-msgid "Bottom to Top"
-msgstr "Одоздо на горе"
-
-#. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
-#: ../Data/GUI/dashermaemo.preferences.ui.h:14
-msgid "Control"
-msgstr "Управљање"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:15
-msgid "Custom"
-msgstr "Произвољно"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:18
-msgid "Enlarge input window"
-msgstr "Повећај прозор за унос"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:21
-msgid "Left to Right"
-msgstr "Слева на десно"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:23
-msgid "Prediction"
-msgstr "Предвиђање"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:24
-msgid "Right to Left"
-msgstr "Са десна на лево"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:26
-msgid "Top to Bottom"
-msgstr "Одозго на доле"
-
-#: ../Data/GUI/dashermaemo.preferences.ui.h:27
-msgid "View"
-msgstr "Преглед"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:3
-msgid "Large"
-msgstr "Велико"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:4
-msgid "Normal"
-msgstr "Обично"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:7
-msgid "Very Large"
-msgstr "Веома велика"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:8
-msgid "_About"
-msgstr "_О програму"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:9
-msgid "_Dasher Font"
-msgstr "_Словни лик за Јуришника"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:10
-msgid "_Dasher Font Size"
-msgstr "Величина словног лика _Јуришника"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:12
-msgid "_Edit Font"
-msgstr "У_реди словни лик"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:15
-msgid "_Options"
-msgstr "_Могућности"
-
-#: ../Data/GUI/dashermaemofullscreen.ui.h:16
-msgid "_Reset fonts"
-msgstr "_Врати словне ликове"
-
-#: ../Src/DasherCore/AbstractXMLParser.cpp:40
+#. think XML_LChar==char, depends on preprocessor variables...
+#. /TRANSLATORS: the first string is the error message from the XML Parser;
+#. / the second is the URL of the file we're trying to read.
+#: ../Src/DasherCore/AbstractXMLParser.cpp:63
 #, c-format
-msgid "XML Error %s in file %s somewhere in block: %s"
-msgstr "ХМЛ грешка „%s“ у датотеци „%s“ тамо негде у блоку: %s"
+#| msgid "XML Error %s in file %s somewhere in block: %s"
+msgid "XML Error %s in file %s "
+msgstr "иКсМЛ грешка „%s“ у датотеци „%s“"
 
 #: ../Src/DasherCore/Alphabet/AlphabetMap.cpp:116
 #, c-format
@@ -545,7 +548,7 @@ msgstr "Читам неисправан УТФ-8 знак „0x%x“"
 #. /TRANSLATORS: the string "GameTextFile" is the name of a setting in gsettings
 #. / (or equivalent), and should not be translated. The %s is the value of that
 #. / setting (this message displayed only if the user has provided a value)
-#: ../Src/DasherCore/AlphabetManager.cpp:162
+#: ../Src/DasherCore/AlphabetManager.cpp:213
 #, c-format
 msgid ""
 "Note: GameTextFile setting specifies game sentences file '%s' but this does "
@@ -557,14 +560,16 @@ msgstr ""
 #. TRANSLATORS: The number of time steps over which to perform the zooming motion in button mode.
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:28
 #: ../Src/DasherCore/ButtonMode.cpp:28 ../Src/DasherCore/CompassMode.cpp:28
-msgid "Zoom steps"
-msgstr "Кораци увећања"
+#: ../Src/DasherCore/StylusFilter.cpp:11
+#| msgid "Factor by which to zoom in"
+msgid "Frames over which to perform zoom"
+msgstr "Број кадрова преко којих се увећава"
 
 #. TRANSLATORS: Intercept keyboard events for 'special' keys even when the Dasher window doesn't have keyboard focus.
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:30
 #: ../Src/DasherCore/ButtonMode.cpp:39 ../Src/DasherCore/CompassMode.cpp:32
 msgid "Global keyboard grab"
-msgstr "Хватај са тастатуре"
+msgstr "Хватање са тастатуре"
 
 #. menu
 #: ../Src/DasherCore/AlternatingDirectMode.cpp:34
@@ -586,8 +591,9 @@ msgid "Scan time in menu mode (0 to not scan)"
 msgstr "Време скенирања у режиму изборника (0 — искључује)"
 
 #: ../Src/DasherCore/ButtonMode.cpp:30
-msgid "Number of boxes"
-msgstr "Број кућица"
+#| msgid "Number of boxes"
+msgid "Number of forward boxes"
+msgstr "Број кућица за напред"
 
 #: ../Src/DasherCore/ButtonMode.cpp:31
 msgid "Safety margin"
@@ -636,9 +642,13 @@ msgstr "Десно увећање"
 msgid "Compass Mode"
 msgstr "Режим бусоле"
 
+#: ../Src/DasherCore/ControlManager.cpp:249
+msgid "Done"
+msgstr "Урађено"
+
 #. /TRANSLATORS: %s is the name of the alphabet; the string "GameTextFile"
 #. / refers to a setting name in gsettings or equivalent, and should not be translated.
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:306
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:315
 #, c-format
 msgid ""
 "Could not find game sentences file for %s - check alphabet definition, or "
@@ -647,16 +657,16 @@ msgstr ""
 "Не могу да пронађем датотеку исказа игре за „%s“ — проверите дефиницију "
 "алфабета, или препишите пдешавањима из датотеке текста игре"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:785
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:790
 msgid "Normal Control"
 msgstr "Уобичајене контроле"
 
 #. TODO: specialist factory for button mode
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:801
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:806
 msgid "Menu Mode"
 msgstr "Режим изборника"
 
-#: ../Src/DasherCore/DasherInterfaceBase.cpp:802
+#: ../Src/DasherCore/DasherInterfaceBase.cpp:807
 msgid "Direct Mode"
 msgstr "Директан режим"
 
@@ -680,25 +690,136 @@ msgid ""
 "Screen geometry (mostly for tall thin screens) - 0=old-style, 1=square no-"
 "xhair, 2=squish, 3=squish+log"
 msgstr ""
+"Облик екрана (најчешће за високе танке екране) — 0=стари стил, 1=квадрат без "
+"х-власи, 2=, 3=+дневник"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:18
 msgid ""
 "Shape type: 0=disjoint rects, 1=overlapping, 2=triangles, 3=trunc-tris, "
 "4=quadrics, 5=circles"
 msgstr ""
+"Врста фигуре: 0=раздвојени правоугаоници, 1=преклапање, 2=троуглови, "
+"3=зарубљени-троуглови, 4=квадратни, 5=кругови"
 
-#. 1. Look for system training text...
-#: ../Src/DasherCore/NodeCreationManager.cpp:81
-msgid "Training on System Text"
-msgstr "Увежбавање на тексту система"
+#: ../Src/DasherCore/DefaultFilter.cpp:19
+msgid ""
+"Distance from right-hand-side Y-axis, at which maximum speed is reached. "
+"(2048=xhair)"
+msgstr ""
+"Одстојање од Y-осе са стране десне руке, на којој је достигнута највећа "
+"брзина. (2048=х-власи)"
 
-#. 2. Now add in any user-provided individual training text...
-#: ../Src/DasherCore/NodeCreationManager.cpp:83
+#: ../Src/DasherCore/DefaultFilter.cpp:20
+msgid "Hold right mouse button / key 1 to go 3/4 faster"
+msgstr "Држи десно дугме миша / тастер 1 да би ишао 3/4 брже"
+
+#: ../Src/DasherCore/DefaultFilter.cpp:21
+msgid "Use exact computation of per-frame movement (slower)"
+msgstr "Користи тачно израчунавање покрета по-кадар (спорије)"
+
+#: ../Src/DasherCore/DemoFilter.cpp:15
+msgid "Demo Mode (no input)"
+msgstr "Режим пробе (без уноса)"
+
+#: ../Src/DasherCore/GameModule.cpp:8
+msgid "Filename of sentences to enter"
+msgstr "Назив датотеке реченица за унос"
+
+#: ../Src/DasherCore/GameModule.cpp:9
+msgid "Distance of sentence from center to decide user needs help"
+msgstr ""
+"Одстојање реченице од центра да би одлучио да је кориснику потребна помоћ"
+
+#: ../Src/DasherCore/GameModule.cpp:10
+msgid "Time for which user must need help before help drawn"
+msgstr "Време за које кориснику мора затребати помоћ пре помагања у цртању"
+
+#: ../Src/DasherCore/GameModule.cpp:11
+msgid "When we give help, show the shortest path to the target sentence?"
+msgstr ""
+"Када пружамо помоћ, да ли да прикажемо најкраћу помоћ до циљне реченице?"
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:176
+#: ../Src/DasherCore/RoutingAlphMgr.cpp:128
+#, c-format
+#| msgid ""
+#| "Warning: faulty alphabet definition, escape sequence %s must be a single "
+#| "unicode character. This may worsen Dasher's text prediction."
+msgid ""
+"Warning: faulty alphabet definition: training-start delimiter %s must be a "
+"single unicode character. May be unable to process training file."
+msgstr ""
+"Упозорење: неисправна одредница алфабета, граничник покретања увежбавања „%"
+"s“ мора бити самостални знак уникода. Може бити у неприлици да обради "
+"датотеку увежбавања."
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:186
+#, c-format
+msgid ""
+"Warning: training file contains character '%s' as member of group '%s', but "
+"no group of that name contains the character; ignoring group specifier"
+msgstr ""
+"Упозорење: датотека увежбавања садржи знак „%s“ као члана групе „%s“, али "
+"ниједна група таквог назива не садржи знак; занемарујем одредника групе"
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:199
+#, c-format
+msgid ""
+"Warning: training file contains character '%s' as member of group '%s', but "
+"no group of that name contains the character. Dasher will not be able to "
+"learn how you want to write this character."
+msgstr ""
+"Упозорење: датотека увежбавања садржи знак „%s“ као члана групе „%s“, али "
+"ниједна група таквог назива не садржи знак. Јуришник неће бити у могућности "
+"да научи како желите да испишете тај знак."
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:200
+#: ../Src/DasherCore/RoutingAlphMgr.cpp:147
+#, c-format
+msgid ""
+"Warning: training file contains character '%s' as member of group '%s', but "
+"alphabet contains several such groups. Dasher will not be able to learn how "
+"you want to write this character."
+msgstr ""
+"Упозорење: датотека увежбавања садржи знак „%s“ као члана групе „%s“, али "
+"алфабет садржи неколико таквих група. Јуришник неће бити у могућности да "
+"научи како желите да испишете тај знак."
+
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:220
+#: ../Src/DasherCore/RoutingAlphMgr.cpp:164
+#, c-format
+msgid ""
+"Warning: in training file, annotation '<%s>' is followed by another "
+"annotation and will be ignored"
+msgstr ""
+"Упозорење: у датотеци увежбавања, за прибелешком „<%s>“ следи друга "
+"прибелешка и зато ће бити занемарена"
+
+#. /TRANSLATORS: first string will be the filename; after the end of the string,
+#. / some number of output (e.g. Chinese) characters will be appended,
+#. / the number of which is the integer here
+#: ../Src/DasherCore/MandarinAlphMgr.cpp:244
+#, c-format
+msgid ""
+"In file %s, the following %i symbols appeared without annotations saying how "
+"they should be entered, but each can be entered in several ways. Dasher will "
+"not be able to learn how you want to enter these symbols:"
+msgstr ""
+"У датотеци „%s“, пратећих %i симбола се појавило без прибелешки говорећи "
+"како би требали да буду унешени, али сваки може бити унешен на неколико "
+"начина. Јуришник неће бити у могућности да научи како желите да унесете те "
+"симболе:"
+
+#: ../Src/DasherCore/NodeCreationManager.cpp:33
 msgid "Training on User Text"
 msgstr "Увежбавање на тексту корисника"
 
+#: ../Src/DasherCore/NodeCreationManager.cpp:33
+msgid "Training on System Text"
+msgstr "Увежбавање на тексту система"
+
 #. /TRANSLATORS: These 3 messages will be displayed when the user has just chosen a new alphabet. The %s parameter will be the name of the alphabet.
-#: ../Src/DasherCore/NodeCreationManager.cpp:85
+#: ../Src/DasherCore/NodeCreationManager.cpp:101
 #, c-format
 msgid ""
 "No user training text found - if you have written in \"%s\" before, this "
@@ -707,7 +828,7 @@ msgstr ""
 "Нема корисничког текста за увежбавање — ако сте раније писали на „%s“, то "
 "значи да Јуришник можда не учи из претходних сесија."
 
-#: ../Src/DasherCore/NodeCreationManager.cpp:86
+#: ../Src/DasherCore/NodeCreationManager.cpp:102
 #, c-format
 msgid ""
 "No training text (user or system) found for \"%s\". Dasher will still work "
@@ -719,7 +840,7 @@ msgstr ""
 "преузмете датотеку текста за увежбавање са Јуришниковог веб сајта, или да "
 "сами изградите један."
 
-#: ../Src/DasherCore/NodeCreationManager.cpp:97
+#: ../Src/DasherCore/NodeCreationManager.cpp:108
 #, c-format
 msgid ""
 "\"%s\" does not specify training file. Dasher will work but entry will be "
@@ -731,7 +852,6 @@ msgstr ""
 #. TRANSLATORS: The time for which a button must be held before it counts as a 'long' (rather than short) press.
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:31
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:32
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:35
 msgid "Long press time"
 msgstr "Време дугог притиска"
 
@@ -747,7 +867,7 @@ msgstr "Омогући повратно дугме исправки"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:36
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:43
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:37
 msgid "Slow startup"
 msgstr "Споро покретање"
 
@@ -758,19 +878,19 @@ msgstr "Време покретања"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:38
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:46
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
 msgid "Percentage by which to automatically increase speed"
 msgstr "Проценат до кога се аутоматски повећава брзина"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:39
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:47
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:41
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:40
 msgid "Time after which to automatically increase speed (secs)"
 msgstr "Време након кога се аутоматски повећава брзина (у секундама)"
 
 #: ../Src/DasherCore/OneButtonDynamicFilter.cpp:40
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:48
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:41
 msgid "Percentage by which to decrease speed upon reverse"
 msgstr "Проценат за који се смањује брзина након враћања"
 
@@ -778,17 +898,17 @@ msgstr "Проценат за који се смањује брзина нако
 msgid "One Button Dynamic Mode"
 msgstr "Динамички режим једног дугмета"
 
-#: ../Src/DasherCore/OneButtonFilter.cpp:11
+#: ../Src/DasherCore/OneButtonFilter.cpp:12
 msgid "Scan time (each direction), in ms"
 msgstr "Време тражења (за сваки смер), у милисекундама"
 
-#: ../Src/DasherCore/OneButtonFilter.cpp:12
+#: ../Src/DasherCore/OneButtonFilter.cpp:13
 msgid "Factor by which to zoom in"
 msgstr "Фактор за који се увећава"
 
-#: ../Src/DasherCore/OneButtonFilter.cpp:13
+#: ../Src/DasherCore/OneButtonFilter.cpp:14
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:45
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:43
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:42
 msgid "Lag before user actually pushes button (ms)"
 msgstr "Пауза пре него што корисник заиста притисне дугме (ms)"
 
@@ -797,13 +917,22 @@ msgstr "Пауза пре него што корисник заиста прит
 msgid "One Dimensional Mode"
 msgstr "Једнодимензиони режим"
 
-#: ../Src/DasherCore/SettingsStore.cpp:82
+#: ../Src/DasherCore/RoutingAlphMgr.cpp:146
+#, c-format
+msgid ""
+"Warning: training file contains character '%s' as member of group '%s', but "
+"no group of that name contains the character. Ignoring group specifier."
+msgstr ""
+"Упозорење: датотека увежбавања садржи знак „%s“ као члана групе „%s“, али "
+"ниједна група таквог назива не садржи знак. Занемарујем одредника групе."
+
+#: ../Src/DasherCore/SettingsStore.cpp:75
 #: ../Src/Gtk2/DasherAppSettings.cpp:540 ../Src/Gtk2/DasherAppSettings.cpp:574
 #: ../Src/Gtk2/DasherAppSettings.cpp:578
 msgid "true"
 msgstr "тачно"
 
-#: ../Src/DasherCore/SettingsStore.cpp:84
+#: ../Src/DasherCore/SettingsStore.cpp:77
 #: ../Src/Gtk2/DasherAppSettings.cpp:542 ../Src/Gtk2/DasherAppSettings.cpp:574
 #: ../Src/Gtk2/DasherAppSettings.cpp:578
 msgid "false"
@@ -812,14 +941,14 @@ msgstr "нетачно"
 #. Note to translators: This message will be output for a command line
 #. with "--options foo=VAL" and foo is a boolean valued parameter, but
 #. "VAL" is not true or false.
-#: ../Src/DasherCore/SettingsStore.cpp:90
+#: ../Src/DasherCore/SettingsStore.cpp:83
 #: ../Src/Gtk2/DasherAppSettings.cpp:545
 msgid "boolean value must be specified as 'true' or 'false'."
 msgstr "истинитосне вредности се задају као „тачно“ и „нетачно“."
 
 #. Note to translators: This is output when command line "--options" doesn't
 #. specify a known option.
-#: ../Src/DasherCore/SettingsStore.cpp:110
+#: ../Src/DasherCore/SettingsStore.cpp:103
 msgid "unknown option, use \"--help-options\" for more information."
 msgstr "непозната опција, пробајте „--help-options“ за више података."
 
@@ -887,12 +1016,16 @@ msgstr "Грешка уноса утичнице Јуришника: „%s“: %
 msgid "Dasher socket input: failed to launch reader thread."
 msgstr "Унос утичнице Јуришника : нисам успео да покренем нит читача."
 
+#: ../Src/DasherCore/StylusFilter.cpp:10
+msgid "Max time for a 'tap' (anything longer is held)"
+msgstr "Највеће време за „лупни“ (све дуже биће задржано)"
+
 #: ../Src/DasherCore/StylusFilter.h:12
 msgid "Stylus Control"
 msgstr "Игласте контроле"
 
 #. no context switch commands will be executed!
-#: ../Src/DasherCore/Trainer.cpp:32
+#: ../Src/DasherCore/Trainer.cpp:34
 #, c-format
 msgid ""
 "Warning: faulty alphabet definition, escape sequence %s must be a single "
@@ -901,20 +1034,11 @@ msgstr ""
 "Упозорење: неисправна дефиниција алфабета, бежећи израз „%s“ мора бити "
 "самостални знак уникода. Што може погоршати Јуришниково предвиђање текста."
 
-#: ../Src/DasherCore/Trainer.cpp:122
+#: ../Src/DasherCore/Trainer.cpp:101
 #, c-format
-msgid "Unable to open file \"%f\" for reading"
-msgstr "Не могу да отворим датотеку „%f“ за читање"
-
-#: ../Src/DasherCore/Trainer.cpp:173
-#, c-format
-msgid "Training file contains unknown source alphabet character %s"
-msgstr "Датотека за увежбавање садржи непознати изворни знак алфабета „%s“"
-
-#: ../Src/DasherCore/Trainer.cpp:183
-#, c-format
-msgid "Training file contains unknown target alphabet character %s"
-msgstr "Датотека за увежбавање садржи непознати циљни знак алфабета „%s“"
+#| msgid "Unable to open file \"%f\" for reading"
+msgid "Unable to open file \"%s\" for reading"
+msgstr "Не могу да отворим датотеку „%s“ за читање"
 
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:30
 msgid "Button offset"
@@ -928,7 +1052,7 @@ msgstr "Време вишеструких притиска"
 
 #. TRANSLATORS: Backoff = reversing in Dasher to correct mistakes. This allows a single button to be dedicated to activating backoff, rather than using multiple presses of other buttons, and another to be dedicated to starting and stopping. 'Button' in this context is a physical hardware device, not a UI element.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:37
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:37
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:36
 msgid "Enable backoff and start/stop buttons"
 msgstr "Омогући дугмад реверзне исправке и почни/заустави"
 
@@ -954,22 +1078,30 @@ msgstr "Померај спољног (другог) дугмета"
 #. divisor
 #. step
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:31
-msgid "Distance for 1st button UP"
-msgstr "Удаљеност за прво дугме ГОРЕ"
+msgid "Distance between down markers (long gap)"
+msgstr "Растојање између доњих обележивача (дуги раскорак)"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:32
-msgid "Distance for 1st button DOWN"
-msgstr "Удаљеност за прво дугме ДОЛЕ"
+msgid "Distance between up markers, as percentage of long gap"
+msgstr "Растојање између горњих обележивача, као проценат дугог раскорака"
 
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:33
 msgid "Tolerance for inaccurate timing of button pushes (in ms)"
 msgstr "Разумевање непрецизног времена притиска дугмади (у ms)"
 
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:39
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:34
+msgid ""
+"Use push and release times of single press rather than push times of two "
+"presses"
+msgstr ""
+"Користи времена гурања и отпуштања једног притиска уместо времена гурања два "
+"притиска"
+
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:38
 msgid "Slow startup time"
 msgstr "Време за споро покретање"
 
-#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:47
+#: ../Src/DasherCore/TwoPushDynamicFilter.cpp:46
 msgid "Two-push Dynamic Mode (New One Button)"
 msgstr "Динамички режим два клика (ново дугме)"
 
@@ -1005,7 +1137,7 @@ msgstr "подешавању опција недостаје „=“."
 msgid "Invalid option string specified"
 msgstr "Дат је неисправна ниска опције"
 
-#: ../Src/Gtk2/dasher_main.cpp:621
+#: ../Src/Gtk2/dasher_main.cpp:620
 msgid ""
 "Welcome to Dasher Game Mode! Game Mode is a fun way to practice entering "
 "text in Dasher. Please select a training text to play with:"
@@ -1014,19 +1146,19 @@ msgstr ""
 "уношење текста у Јуришнику. Изаберите текст за увежбавање који ћете "
 "користити за игру:"
 
-#: ../Src/Gtk2/dasher_main.cpp:623
+#: ../Src/Gtk2/dasher_main.cpp:622
 msgid "Use Default"
 msgstr "Користи основно"
 
-#: ../Src/Gtk2/dasher_main.cpp:624
+#: ../Src/Gtk2/dasher_main.cpp:623
 msgid "Choose File..."
 msgstr "Изабери датотеку..."
 
-#: ../Src/Gtk2/dasher_main.cpp:625
+#: ../Src/Gtk2/dasher_main.cpp:624
 msgid "Cancel"
 msgstr "Поништи"
 
-#: ../Src/Gtk2/dasher_main.cpp:648
+#: ../Src/Gtk2/dasher_main.cpp:647
 msgid ""
 "Are you sure you wish to turn off game mode? All unsaved changes will be "
 "lost."
@@ -1034,7 +1166,7 @@ msgstr ""
 "Да ли сте сигурни да желите да искључите режим игре? Све несачуване измене "
 "ће бити изгубљене."
 
-#: ../Src/Gtk2/dasher_main.cpp:955
+#: ../Src/Gtk2/dasher_main.cpp:954
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -1045,7 +1177,7 @@ msgstr ""
 "\n"
 "Уколико их не сачувате, оне ће бити изгубљене."
 
-#: ../Src/Gtk2/dasher_main.cpp:962
+#: ../Src/Gtk2/dasher_main.cpp:961
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -1055,31 +1187,31 @@ msgstr ""
 "\n"
 "Уколико их не сачувате, оне ће бити изгубљене."
 
-#: ../Src/Gtk2/dasher_main.cpp:968
+#: ../Src/Gtk2/dasher_main.cpp:967
 msgid "Don't save"
 msgstr "Не чувај"
 
-#: ../Src/Gtk2/dasher_main.cpp:969 ../Src/Gtk2/dasher_main.cpp:992
+#: ../Src/Gtk2/dasher_main.cpp:968 ../Src/Gtk2/dasher_main.cpp:991
 msgid "Don't quit"
 msgstr "Не излази"
 
-#: ../Src/Gtk2/dasher_main.cpp:970
+#: ../Src/Gtk2/dasher_main.cpp:969
 msgid "Save and quit"
 msgstr "Сачувај и изађи"
 
-#: ../Src/Gtk2/dasher_main.cpp:989
+#: ../Src/Gtk2/dasher_main.cpp:988
 msgid "Are you sure you wish to quit?"
 msgstr "Да ли сигурно желите да изађете?"
 
-#: ../Src/Gtk2/dasher_main.cpp:1031
+#: ../Src/Gtk2/dasher_main.cpp:1030
 msgid "Unable to open help file"
 msgstr "Не могу да отворим датотеку за помоћ"
 
-#: ../Src/Gtk2/dasher_main.cpp:1083
+#: ../Src/Gtk2/dasher_main.cpp:1082
 msgid "Dasher is a predictive text entry application"
 msgstr "Јуришник служи за предвидиво уношење текста"
 
-#: ../Src/Gtk2/dasher_main.cpp:1088
+#: ../Src/Gtk2/dasher_main.cpp:1087
 msgid "translator-credits"
 msgstr ""
 "Данило Шеган <danilo@gnome.org>\n"
@@ -1149,6 +1281,21 @@ msgstr "Опис за „--options“."
 #: ../Src/main.cc:177
 msgid "- A text input application honouring accessibility"
 msgstr "— Програм за приступачнији унос текста"
+
+#~ msgid "Zoom steps"
+#~ msgstr "Кораци увећања"
+
+#~ msgid "Training file contains unknown source alphabet character %s"
+#~ msgstr "Датотека за увежбавање садржи непознати изворни знак алфабета „%s“"
+
+#~ msgid "Training file contains unknown target alphabet character %s"
+#~ msgstr "Датотека за увежбавање садржи непознати циљни знак алфабета „%s“"
+
+#~ msgid "Distance for 1st button UP"
+#~ msgstr "Удаљеност за прво дугме ГОРЕ"
+
+#~ msgid "Distance for 1st button DOWN"
+#~ msgstr "Удаљеност за прво дугме ДОЛЕ"
 
 #~ msgid "A_ppend to file"
 #~ msgstr "_Додај у датотеку"
@@ -1376,9 +1523,6 @@ msgstr "— Програм за приступачнији унос текста
 
 #~ msgid "Distance from centerline for start on mouse position:"
 #~ msgstr "Растојање од средишње линије за почетак код положаја миша:"
-
-#~ msgid "Done"
-#~ msgstr "Урађено"
 
 #~ msgid "Down/3:"
 #~ msgstr "Доле/3:"
