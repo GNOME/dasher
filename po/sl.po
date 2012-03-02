@@ -9,14 +9,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2012-01-18 15:39+0000\n"
-"PO-Revision-Date: 2012-03-02 13:21+0100\n"
+"POT-Creation-Date: 2012-02-02 19:37+0000\n"
+"PO-Revision-Date: 2012-03-02 16:01+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
 "X-Poedit-Language: Slovenian\n"
 "X-Poedit-Country: SLOVENIA\n"
@@ -34,7 +34,7 @@ msgstr "Dasher"
 
 #: ../Data/dasher.desktop.in.in.h:2
 msgid "Enter text without a keyboard"
-msgstr "Vnos besedila brez tipkovnice"
+msgstr "Vnesite besedilo brez tipkovnice"
 
 #: ../Data/dasher.desktop.in.in.h:3
 msgid "Predictive text entry"
@@ -76,11 +76,11 @@ msgstr "_O Programu"
 
 #: ../Data/GUI/dashermaemofullscreen.ui.h:9
 msgid "_Dasher Font"
-msgstr "_Dasher pisava"
+msgstr "Pisava _Dasher"
 
 #: ../Data/GUI/dashermaemofullscreen.ui.h:10
 msgid "_Dasher Font Size"
-msgstr "_Dasher velikost pisave"
+msgstr "Velikost pisave _Dasher"
 
 #: ../Data/GUI/dashermaemofullscreen.ui.h:11
 #: ../Data/GUI/dasher.traditional.ui.h:20
@@ -107,7 +107,7 @@ msgstr "_Možnosti"
 
 #: ../Data/GUI/dashermaemofullscreen.ui.h:16
 msgid "_Reset fonts"
-msgstr "_Počisti pisavo"
+msgstr "_Ponastavi pisavo"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:1
 #: ../Data/GUI/dasher.preferences.ui.h:1
@@ -163,7 +163,7 @@ msgstr "Privzeta abeceda"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:12
 msgid "Bottom to Top"
-msgstr "Z dna proti vrhu."
+msgstr "Z dna proti vrhu"
 
 #. The way in which you would like to control dasher, e.g., using buttons for up/down, buttons for select, etc.
 #: ../Data/GUI/dashermaemo.preferences.ui.h:14
@@ -177,7 +177,7 @@ msgstr "Po meri"
 #: ../Data/GUI/dashermaemo.preferences.ui.h:16
 #: ../Data/GUI/dasher.preferences.ui.h:32
 msgid "Custom colour scheme:"
-msgstr "Poljubna barvna shema:"
+msgstr "Barvna shema po meri:"
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:17
 #: ../Data/GUI/dasher.preferences.ui.h:33
@@ -196,7 +196,7 @@ msgstr "japonščina"
 #: ../Data/GUI/dashermaemo.preferences.ui.h:20
 #: ../Data/GUI/dasher.preferences.ui.h:44
 msgid "Language model adapts as you write."
-msgstr "Med pisanjem se jezikovni način se prilagaja."
+msgstr "Med pisanjem se jezikovni model prilagaja."
 
 #: ../Data/GUI/dashermaemo.preferences.ui.h:21
 msgid "Left to Right"
@@ -292,7 +292,7 @@ msgstr "_Program"
 
 #: ../Data/GUI/dasher.preferences.ui.h:21
 msgid "Always Bottom-to-Top"
-msgstr "Vedno z dna proti vrhu."
+msgstr "Vedno z dna proti vrhu"
 
 #. This means that you always want to write left-to-right regardless of the normal direction for the alphabet you are using
 #: ../Data/GUI/dasher.preferences.ui.h:23
@@ -418,11 +418,11 @@ msgstr "Začni z levim klikom miške"
 
 #: ../Data/GUI/dasher.preferences.ui.h:62
 msgid "Start on space bar"
-msgstr "Začni ob pritisku na preslednico"
+msgstr "Začni s pritiskom na preslednico"
 
 #: ../Data/GUI/dasher.preferences.ui.h:63
 msgid "Start with mouse position:"
-msgstr "Začni, ko bo miška v položaju:"
+msgstr "Začni z miško v položaju:"
 
 #: ../Data/GUI/dasher.preferences.ui.h:64
 msgid "Timestamp new files"
@@ -489,7 +489,7 @@ msgstr "Prilepi"
 
 #: ../Data/GUI/dasher.traditional.ui.h:12
 msgid "Pr_eferences…"
-msgstr "Mo_žnosti"
+msgstr "Mo_žnosti ..."
 
 #: ../Data/GUI/dasher.traditional.ui.h:13
 msgid "Preferences"
@@ -514,7 +514,7 @@ msgstr "Hitrost:"
 
 #: ../Data/GUI/dasher.traditional.ui.h:18
 msgid "_About…"
-msgstr "_O Programu ..."
+msgstr "_O programu ..."
 
 #: ../Data/GUI/dasher.traditional.ui.h:19
 msgid "_Contents…"
@@ -539,7 +539,7 @@ msgstr "Napaka XML %s v datoteki %s"
 #: ../Src/DasherCore/Alphabet/AlphabetMap.cpp:116
 #, c-format
 msgid "File ends with incomplete UTF-8 character beginning 0x%x (expecting %i bytes but only %i)"
-msgstr "Datoteka se konča z nepopolnim znakom UTF-8 0x%x (pričakovano je %i, zaznanih pa le %i)"
+msgstr "Datoteka se konča z nepopolnim znakom UTF-8 0x%x (pričakovano je %i bajtov, zaznanih pa le %i)"
 
 #: ../Src/DasherCore/Alphabet/AlphabetMap.cpp:127
 #, c-format
@@ -577,12 +577,12 @@ msgstr "Izmenjujoči način"
 #: ../Src/DasherCore/AutoSpeedControl.cpp:213
 #, c-format
 msgid "Auto-increasing speed to %0.2f"
-msgstr "Samodejno povečevanje hitrosti na %0.2f"
+msgstr "Samodejno pospeševanje na %0.2f"
 
 #: ../Src/DasherCore/AutoSpeedControl.cpp:213
 #, c-format
 msgid "Auto-decreasing speed to %0.2f"
-msgstr "Samodejno zmanjševanje hitrosti na %0.2f"
+msgstr "Samodejno upočasnjevanje na %0.2f"
 
 #: ../Src/DasherCore/ButtonMode.cpp:29
 msgid "Scan time in menu mode (0 to not scan)"
@@ -626,7 +626,7 @@ msgstr "Krivulje, ki sledijo nelinearnosti pogleda pretvorbe"
 
 #: ../Src/DasherCore/ClickFilter.h:23
 msgid "Click Mode"
-msgstr "Način s klikom"
+msgstr "Klikni način"
 
 #. TRANSLATORS: The zoom factor per press when moving to the right in compass mode.
 #: ../Src/DasherCore/CompassMode.cpp:30
@@ -636,7 +636,7 @@ msgstr "Desno približanje"
 #. bMenu
 #: ../Src/DasherCore/CompassMode.cpp:38
 msgid "Compass Mode"
-msgstr "Kompas način"
+msgstr "Kompasni način"
 
 #: ../Src/DasherCore/ControlManager.cpp:249
 msgid "Done"
@@ -684,7 +684,7 @@ msgstr "Oblika: 0=razčlenjeni pravokotniki, 1=prekrivanje, 2=trikotniki, 3=trun
 
 #: ../Src/DasherCore/DefaultFilter.cpp:19
 msgid "Distance from right-hand-side Y-axis, at which maximum speed is reached. (2048=xhair)"
-msgstr "Razdalja od osi X z desne strani pri kateri je dosežena največja hitrost. (2048=xhair)"
+msgstr "Oddaljenost od osi Y na desni strani, pri kateri je dosežena največja hitrost (2048=xhair)."
 
 #: ../Src/DasherCore/DefaultFilter.cpp:20
 msgid "Hold right mouse button / key 1 to go 3/4 faster"
@@ -692,7 +692,7 @@ msgstr "S pritisnjeno tipko miške / 1 se hitrost gibanja poveča za 3/4"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:21
 msgid "Use exact computation of per-frame movement (slower)"
-msgstr "Uporabi natančno preračunavanja gibanja za vsako točko (počasneje)"
+msgstr "Uporabi natančno preračunavanje gibanja po sličicah (počasneje)"
 
 #: ../Src/DasherCore/DemoFilter.cpp:15
 msgid "Demo Mode (no input)"
@@ -723,18 +723,18 @@ msgstr "Opozorilo: okvarjeno določilo abecede: ubežno zaporedje %s mora biti e
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:186
 #, c-format
 msgid "Warning: training file contains character '%s' as member of group '%s', but no group of that name contains the character; ignoring group specifier"
-msgstr "Opozorilo: datoteka z besedilom za urjenje vsebuje znak '%s' kot del skupine '%s', vendar pa ni skupine, ki vsebuje tak znak. Določilo skupine bo prezrto."
+msgstr "Opozorilo: datoteka z besedilom za urjenje vsebuje znak '%s' kot del skupine '%s', vendar skupina s tem imenom ne vsebuje tega znaka. Določilnik skupine bo prezrt."
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:199
 #, c-format
 msgid "Warning: training file contains character '%s' as member of group '%s', but no group of that name contains the character. Dasher will not be able to learn how you want to write this character."
-msgstr "Opozorilo: datoteka z besedilom za urjenje vsebuje znak '%s' kot del skupine '%s', vendar pa ni skupine, ki vsebuje tak znak. Program ne more predvideti načina zapisovanja za znak:"
+msgstr "Opozorilo: datoteka z besedilom za urjenje vsebuje znak '%s' kot del skupine '%s', vendar skupina s tem imenom ne vsebuje tega znaka. Program ne more predvideti načina zapisovanja za ta znak."
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:200
 #: ../Src/DasherCore/RoutingAlphMgr.cpp:147
 #, c-format
 msgid "Warning: training file contains character '%s' as member of group '%s', but alphabet contains several such groups. Dasher will not be able to learn how you want to write this character."
-msgstr "Opozorilo: datoteka z besedilom za urjenje vsebuje znak '%s' kot del skupine '%s', vendar pa vsebuje abeceda več takih skupin. Program ne more predvideti načina zapisovanja za znak:"
+msgstr "Opozorilo: datoteka z besedilom za urjenje vsebuje znak '%s' kot del skupine '%s', vendar pa vsebuje abeceda več takih skupin. Program ne more predvideti načina zapisovanja za ta znak."
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:220
 #: ../Src/DasherCore/RoutingAlphMgr.cpp:164
@@ -748,7 +748,7 @@ msgstr "Opozorilo: v datoteki z besedilom za urjenje zabeležki <%s> sledi druga
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:244
 #, c-format
 msgid "In file %s, the following %i symbols appeared without annotations saying how they should be entered, but each can be entered in several ways. Dasher will not be able to learn how you want to enter these symbols:"
-msgstr "V datoteki %s navedeni simboli (%i) ne vsebujejo opomb o predlaganem načinu vnosa, vsak znak pa je mogoče vnesti na več načinov. Program ne more predvideti prednostnega oziroma predlaganega načina za simbole:"
+msgstr "V datoteki %s navedeni simboli (%i) ne vsebujejo zabeležk o predlaganem načinu vnosa, vsak znak pa je mogoče vnesti na več načinov. Program ne more predvideti prednostnega oziroma predlaganega načina za vnos simbolov:"
 
 #: ../Src/DasherCore/NodeCreationManager.cpp:33
 msgid "Training on User Text"
@@ -845,7 +845,7 @@ msgstr "eno-dimenzijski način"
 #: ../Src/DasherCore/RoutingAlphMgr.cpp:146
 #, c-format
 msgid "Warning: training file contains character '%s' as member of group '%s', but no group of that name contains the character. Ignoring group specifier."
-msgstr "Opozorilo: datoteka z besedilom za urjenje vsebuje znak '%s' kot del skupine '%s', vendar pa skupina s tem imenom tega znaka nima. Določilo skupine bo prezrto."
+msgstr "Opozorilo: datoteka z besedilom za urjenje vsebuje znak '%s' kot del skupine '%s', vendar pa skupina s tem imenom tega znaka nima. Določilnik skupine bo prezrt."
 
 #: ../Src/DasherCore/SettingsStore.cpp:75
 #: ../Src/Gtk2/DasherAppSettings.cpp:540
@@ -893,7 +893,7 @@ msgstr "Največja vrednost X:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:31
 msgid "Y label:"
-msgstr "Ime Y osi:"
+msgstr "Ime osi Y:"
 
 #: ../Src/DasherCore/SocketInputBase.cpp:32
 msgid "Y minimum:"
@@ -923,7 +923,7 @@ msgstr "Napaka vezave na vtič. Ali je vtič morda v uporabi?"
 #: ../Src/DasherCore/SocketInputBase.cpp:169
 #, c-format
 msgid "Warning truncating socket input label '%s' to %i characters."
-msgstr "Opozorilo prirezanje vtiča vnosne oznake '%s' za %i znakov."
+msgstr "Opozorilo: prirezanje vnosne oznake vtiča '%s' na %i znakov."
 
 #: ../Src/DasherCore/SocketInputBase.cpp:195
 msgid "Socket input: Error reading from socket"
@@ -932,7 +932,7 @@ msgstr "Napaka vtiča: napaka branja preko vtiča"
 #: ../Src/DasherCore/SocketInputBase.cpp:297
 #, c-format
 msgid "Dasher Socket Input error: %s: %s"
-msgstr "Napaka vhoda vtiča dasher: %s: %s"
+msgstr "Napaka vhoda vtiča Dasher: %s: %s"
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
@@ -941,11 +941,11 @@ msgstr "Vhod vtiča Dasher: zagon bralčeve niti ni uspel."
 
 #: ../Src/DasherCore/StylusFilter.cpp:10
 msgid "Max time for a 'tap' (anything longer is held)"
-msgstr "Največji čas za 'udarjanje' (daljši časi bodo zadržani)"
+msgstr "Najdaljši čas za 'udarjanje' (daljši časi bodo obravnavani kot klik ali pritisk)"
 
 #: ../Src/DasherCore/StylusFilter.h:12
 msgid "Stylus Control"
-msgstr "Stylus nadzor"
+msgstr "Nadzor pisala"
 
 #. no context switch commands will be executed!
 #: ../Src/DasherCore/Trainer.cpp:34
@@ -972,7 +972,7 @@ msgstr "Časovni razmik večkratnega klika"
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:37
 #: ../Src/DasherCore/TwoPushDynamicFilter.cpp:36
 msgid "Enable backoff and start/stop buttons"
-msgstr "Omogoči gumbe start/stop"
+msgstr "Omogoči gumbe začni/zaustavi"
 
 #. TRANSLATORS: What is normally the up button becomes the down button etc.
 #: ../Src/DasherCore/TwoButtonDynamicFilter.cpp:39
@@ -1021,7 +1021,7 @@ msgstr "Način dejavnega dvojnega pritiska (nov gumb)"
 
 #: ../Src/Gtk2/DasherAppSettings.cpp:571
 msgid "Boolean parameters"
-msgstr "Logični Boolean parametri"
+msgstr "Logični parametri"
 
 #: ../Src/Gtk2/DasherAppSettings.cpp:571
 #: ../Src/Gtk2/DasherAppSettings.cpp:582
@@ -1117,7 +1117,7 @@ msgstr "Ni mogoče odpreti datoteke pomoči"
 
 #: ../Src/Gtk2/dasher_main.cpp:1082
 msgid "Dasher is a predictive text entry application"
-msgstr "Dasher je program za vnosa besedila brez tipkovnice"
+msgstr "Dasher je program za vnos besedila brez tipkovnice"
 
 #: ../Src/Gtk2/dasher_main.cpp:1087
 msgid "translator-credits"
@@ -1127,24 +1127,24 @@ msgstr ""
 
 #: ../Src/Gtk2/GnomeSpeech.cpp:28
 msgid "Unable to initialize speech support\n"
-msgstr "Ni mogoče zagnati podpore za govor\n"
+msgstr "Podpore za govor ni mogoče začeti\n"
 
 #: ../Src/Gtk2/GnomeSpeech.cpp:59
 msgid "Warning: unable to set speech parameters\n"
-msgstr "Opozorilo: ni mogoče nastaviti govora\n"
+msgstr "Opozorilo: govora ni mogoče nastaviti\n"
 
 #: ../Src/Gtk2/GnomeSpeech.cpp:70
 msgid "Unable to initialize voices\n"
-msgstr "Ni mogoče zagnati glasov\n"
+msgstr "Glasov ni mogoče zagnati\n"
 
 #: ../Src/Gtk2/module_settings_window.cpp:88
 msgid "Dasher Module Options"
-msgstr "Možnosti Dasher enot"
+msgstr "Možnosti modulov programa Dasher"
 
 #: ../Src/Gtk2/module_settings_window.cpp:94
 #, c-format
 msgid "%s Options:"
-msgstr "%s Nastavitve:"
+msgstr "Nastavitve %s:"
 
 #: ../Src/Gtk2/mouse_input.h:14
 msgid "Mouse Input"
@@ -1152,12 +1152,12 @@ msgstr "Vnos z miško"
 
 #: ../Src/Gtk2/mouse_input.h:44
 msgid "Pixels covering Y range"
-msgstr "Točke, ki pokrivajo Y območje"
+msgstr "Točke, ki pokrivajo obseg Y"
 
 #. TRANSLATORS: Only use the vertical mouse coordinate - this is prefered for some disabled users.
 #: ../Src/Gtk2/mouse_input.h:51
 msgid "One Dimensional Mouse Input"
-msgstr "Eno-dimenzijski vnos z miško"
+msgstr "Eno-razsežni vnos z miško"
 
 #: ../Src/Gtk2/Preferences.cpp:440
 msgid "Action"
@@ -1170,7 +1170,7 @@ msgstr "Dejanje"
 #. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
 #: ../Src/main.cc:166
 msgid "Application style (traditional, direct, compose or fullscreen)"
-msgstr "Slog programa (traditional (običajni), direct (neposredni), compose (združeni) ali fullscreen (celozaslonski))"
+msgstr "Slog programa ('traditional' - običajni, 'direct' - neposredni, 'compose' - sestavljeni ali 'fullscreen' - celozaslonski)"
 
 #. Note to translators: This is the help string for "--options"
 #: ../Src/main.cc:168
@@ -1185,129 +1185,4 @@ msgstr "Opis \"--možnosti\"."
 #. Note to translators: This is the "--help" description of dasher.
 #: ../Src/main.cc:177
 msgid "- A text input application honouring accessibility"
-msgstr "- program za vnos besedila z uporabo dostopnih tehnologij"
-
-#~ msgid "Zoom steps"
-#~ msgstr "Raven približanja"
-
-#~ msgid "Training file contains unknown source alphabet character %s"
-#~ msgstr ""
-#~ "Datoteka z besedilom za urjenje vsebuje neznan izvorni znak abecede %s"
-
-#~ msgid "Training file contains unknown target alphabet character %s"
-#~ msgstr ""
-#~ "Datoteka z besedilom za urjenje vsebuje neznan ciljni znak abecede %s"
-
-#~ msgid "A_ppend to file"
-#~ msgstr "Pripni k d_atoteki"
-
-#~ msgid "Dasher _Tutorial"
-#~ msgstr "_Navodila uporabe programa Dasher"
-
-#~ msgid "Pr_eferences"
-#~ msgstr "Mo_žnosti"
-
-#~ msgid "_Contents"
-#~ msgstr "_Vsebina"
-
-#~ msgid "_Import Training Text"
-#~ msgstr "_Uvozi besedilo za urjenje"
-
-#~ msgid "Demo!"
-#~ msgstr "Demo!"
-
-#~ msgid "Full Demo"
-#~ msgstr "Polni demo"
-
-#~ msgid "Launch Dasher Game & Demo mode!"
-#~ msgstr "Zagon igre Dasher in demo načina!"
-
-#~ msgid "Level:"
-#~ msgstr "Raven:"
-
-#~ msgid "New sentence"
-#~ msgstr "Nov stavek"
-
-#~ msgid "Score:"
-#~ msgstr "Rezultat:"
-
-#~ msgid "Distance for 1st button UP"
-#~ msgstr "Razdalja za prvi gumb GOR"
-
-#~ msgid "Distance for 1st button DOWN"
-#~ msgstr "Razdalja za prvi gumb DOL"
-
-#~ msgid "Enter Text"
-#~ msgstr "Vnos besedila"
-
-#~ msgid "Script"
-#~ msgstr "Skripta"
-
-#~ msgid "Well done!"
-#~ msgstr "Zelo dobro!"
-
-#~ msgid "Dock application window"
-#~ msgstr "Zasidraj okno programa"
-
-#~ msgid "<b>Actions</b>"
-#~ msgstr "<b>Dejanja</b>"
-
-#~ msgid "Automatic calibration"
-#~ msgstr "Samodejno umerjanje"
-
-#~ msgid "Eyetracker Mode"
-#~ msgstr "Način sledenja z očmi"
-
-#~ msgid "Show Button"
-#~ msgstr "Pokaži gumb"
-
-#~ msgid "Control Mode"
-#~ msgstr "Nadzorni način"
-
-#~ msgid "Auto On Stop"
-#~ msgstr "Samodejno ob zaustavitvi"
-
-#~ msgid "Speak"
-#~ msgstr "Izgovori"
-
-#~ msgid "All"
-#~ msgstr "Vse"
-
-#~ msgid "Last"
-#~ msgstr "Zadnje"
-
-#~ msgid "Repeat"
-#~ msgstr "Ponavljanje"
-
-#~ msgid "abcdefghijk ABCDEFGHIJK"
-#~ msgstr "AaBbCcČčDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsŠšTtUuVvWwXxYyZzŽž"
-
-#~ msgid "A_ppend to file..."
-#~ msgstr "Pripni d_atoteki ..."
-
-#~ msgid "Pr_eferences..."
-#~ msgstr "_Lastnosti ..."
-
-#~ msgid "_About..."
-#~ msgstr "_O programu ..."
-
-#~ msgid "_Contents..."
-#~ msgstr "_Vsebina ..."
-
-#~ msgid "_Import Training Text..."
-#~ msgstr "_Uvozi besedilo za urjenje ..."
-
-#~ msgid "\n"
-#~ msgstr "\n"
-
-#~ msgid "Multiple press count"
-#~ msgstr "Števec večkratnega klikanja"
-
-#~ msgid "Auto speed control"
-#~ msgstr "Samodejni nadzor hitrosti"
-
-#~ msgid "Auto speed threshold"
-#~ msgstr "Prag samodejne hitrosti"
-
-#~ msgid "Dasher - %s"
-#~ msgstr "Dasher - %s"
+msgstr "- Program za vnos besedila z uporabo tehnologij dostopnosti."
