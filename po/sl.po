@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: dasher master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&keywords=I18N+L10N&component=general\n"
 "POT-Creation-Date: 2012-01-18 15:39+0000\n"
-"PO-Revision-Date: 2012-02-02 20:36+0100\n"
+"PO-Revision-Date: 2012-03-02 13:21+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: \n"
@@ -590,7 +590,7 @@ msgstr "Čas preiskovanja v menijskem načinu (vrednost 0 onemogoči preiskovanj
 
 #: ../Src/DasherCore/ButtonMode.cpp:30
 msgid "Number of forward boxes"
-msgstr ""
+msgstr "Število vnaprejšnjih polj"
 
 #: ../Src/DasherCore/ButtonMode.cpp:31
 msgid "Safety margin"
@@ -684,7 +684,7 @@ msgstr "Oblika: 0=razčlenjeni pravokotniki, 1=prekrivanje, 2=trikotniki, 3=trun
 
 #: ../Src/DasherCore/DefaultFilter.cpp:19
 msgid "Distance from right-hand-side Y-axis, at which maximum speed is reached. (2048=xhair)"
-msgstr ""
+msgstr "Razdalja od osi X z desne strani pri kateri je dosežena največja hitrost. (2048=xhair)"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:20
 msgid "Hold right mouse button / key 1 to go 3/4 faster"
@@ -692,7 +692,7 @@ msgstr "S pritisnjeno tipko miške / 1 se hitrost gibanja poveča za 3/4"
 
 #: ../Src/DasherCore/DefaultFilter.cpp:21
 msgid "Use exact computation of per-frame movement (slower)"
-msgstr ""
+msgstr "Uporabi natančno preračunavanja gibanja za vsako točko (počasneje)"
 
 #: ../Src/DasherCore/DemoFilter.cpp:15
 msgid "Demo Mode (no input)"
@@ -723,24 +723,24 @@ msgstr "Opozorilo: okvarjeno določilo abecede: ubežno zaporedje %s mora biti e
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:186
 #, c-format
 msgid "Warning: training file contains character '%s' as member of group '%s', but no group of that name contains the character; ignoring group specifier"
-msgstr ""
+msgstr "Opozorilo: datoteka z besedilom za urjenje vsebuje znak '%s' kot del skupine '%s', vendar pa ni skupine, ki vsebuje tak znak. Določilo skupine bo prezrto."
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:199
 #, c-format
 msgid "Warning: training file contains character '%s' as member of group '%s', but no group of that name contains the character. Dasher will not be able to learn how you want to write this character."
-msgstr ""
+msgstr "Opozorilo: datoteka z besedilom za urjenje vsebuje znak '%s' kot del skupine '%s', vendar pa ni skupine, ki vsebuje tak znak. Program ne more predvideti načina zapisovanja za znak:"
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:200
 #: ../Src/DasherCore/RoutingAlphMgr.cpp:147
 #, c-format
 msgid "Warning: training file contains character '%s' as member of group '%s', but alphabet contains several such groups. Dasher will not be able to learn how you want to write this character."
-msgstr ""
+msgstr "Opozorilo: datoteka z besedilom za urjenje vsebuje znak '%s' kot del skupine '%s', vendar pa vsebuje abeceda več takih skupin. Program ne more predvideti načina zapisovanja za znak:"
 
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:220
 #: ../Src/DasherCore/RoutingAlphMgr.cpp:164
 #, c-format
 msgid "Warning: in training file, annotation '<%s>' is followed by another annotation and will be ignored"
-msgstr ""
+msgstr "Opozorilo: v datoteki z besedilom za urjenje zabeležki <%s> sledi druga zabeležka, ki bo prezrta"
 
 #. /TRANSLATORS: first string will be the filename; after the end of the string,
 #. / some number of output (e.g. Chinese) characters will be appended,
@@ -748,7 +748,7 @@ msgstr ""
 #: ../Src/DasherCore/MandarinAlphMgr.cpp:244
 #, c-format
 msgid "In file %s, the following %i symbols appeared without annotations saying how they should be entered, but each can be entered in several ways. Dasher will not be able to learn how you want to enter these symbols:"
-msgstr ""
+msgstr "V datoteki %s navedeni simboli (%i) ne vsebujejo opomb o predlaganem načinu vnosa, vsak znak pa je mogoče vnesti na več načinov. Program ne more predvideti prednostnega oziroma predlaganega načina za simbole:"
 
 #: ../Src/DasherCore/NodeCreationManager.cpp:33
 msgid "Training on User Text"
@@ -845,7 +845,7 @@ msgstr "eno-dimenzijski način"
 #: ../Src/DasherCore/RoutingAlphMgr.cpp:146
 #, c-format
 msgid "Warning: training file contains character '%s' as member of group '%s', but no group of that name contains the character. Ignoring group specifier."
-msgstr ""
+msgstr "Opozorilo: datoteka z besedilom za urjenje vsebuje znak '%s' kot del skupine '%s', vendar pa skupina s tem imenom tega znaka nima. Določilo skupine bo prezrto."
 
 #: ../Src/DasherCore/SettingsStore.cpp:75
 #: ../Src/Gtk2/DasherAppSettings.cpp:540
@@ -941,7 +941,7 @@ msgstr "Vhod vtiča Dasher: zagon bralčeve niti ni uspel."
 
 #: ../Src/DasherCore/StylusFilter.cpp:10
 msgid "Max time for a 'tap' (anything longer is held)"
-msgstr ""
+msgstr "Največji čas za 'udarjanje' (daljši časi bodo zadržani)"
 
 #: ../Src/DasherCore/StylusFilter.h:12
 msgid "Stylus Control"
