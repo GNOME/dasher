@@ -2,20 +2,22 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Shankar Prasad <svenkate@redhat.com>, 2008, 2009.
+# Shankar Prasad <svenkate@redhat.com>, 2008, 2009, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher.master.kn\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=dasher&component=general\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
+"cgi?product=dasher&component=general\n"
 "POT-Creation-Date: 2009-08-25 17:49+0000\n"
-"PO-Revision-Date: 2009-08-27 16:51+0530\n"
-"Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
+"PO-Revision-Date: 2012-03-22 15:07+0530\n"
+"Last-Translator: s\n"
 "Language-Team: Kannada <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.2\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+"Language: kn\n"
 
 #. Note to translators: This is the name of the dasher program as it appears
 #. in a window title.
@@ -727,7 +729,8 @@ msgstr "ಗೊತ್ತಿರದ ಆಯ್ಕೆಗಳು, ಹೆಚ್ಚಿನ
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
 msgid "Dasher socket input: failed to launch reader thread."
-msgstr "Dasher ಸಾಕೆಟ್ ಇನ್‌ಪುಟ್: ಓದುಗ (ರೀಡರ್) ತ್ರೆಡ್ ಅನ್ನು ಆರಂಭಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ."
+msgstr ""
+"Dasher ಸಾಕೆಟ್ ಇನ್‌ಪುಟ್: ಓದುಗ (ರೀಡರ್) ತ್ರೆಡ್ ಅನ್ನು ಆರಂಭಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ."
 
 #: ../Src/DasherCore/SocketInputBase.cpp:27
 msgid "Port:"
@@ -993,7 +996,7 @@ msgstr "ಒಂದು ಆಯಾಮದ ಮೌಸ್ ಪ್ರದಾನ"
 #. Note to translators: This is the help string for "--appstyle". The four options in brackets MUST either NOT be translated or at least it MUST be clear that they must be used in english. Otherwise a user running a non-english system will receive an error message when using the translated one instead of the english one and has no chance to find out the correct option.
 #: ../Src/main.cc:171
 msgid "Application style (traditional, direct, compose or fullscreen)"
-msgstr "ಅನ್ವಯ ಶೈಲಿ (ಸಾಂಪ್ರದಾಯಿಕ, ನೇರ, ಕಂಪೂಸ್ ಅಥವ ಸಂಪೂರ್ಣತೆರೆ)"
+msgstr "ಅನ್ವಯ ಶೈಲಿ (traditional, direct, compose or fullscreen)"
 
 #. Note to translators: This is the help string for "--options"
 #: ../Src/main.cc:173
@@ -1009,4 +1012,5 @@ msgstr "\"--options\" ಅನ್ನು ವಿವರಿಸು."
 #: ../Src/main.cc:182
 msgid "- A text input application honouring accessibility"
 msgstr "- ನಿಲುಕಣೆಯನ್ನು ಅನುಮೋದಿಸುವ ಒಂದು ಪಠ್ಯ ಪ್ರದಾನ(ಇನ್‌ಪುಟ್) ಅನ್ವಯ"
+
 
