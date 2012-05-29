@@ -233,7 +233,7 @@
             <property name="position">0</property>
             <signal handler="test_focus_handler" name="focus-in-event"/>
             <child>
-              <object class="DasherEditorInternal" id="DasherEditor">
+              <object class="DasherEditor" id="DasherEditor">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <signal handler="dasher_main_cb_filename_changed" name="filename_changed"/>

@@ -73,11 +73,10 @@ libdashergtk_la_SOURCES = \
 		dasher.h \
 		DasherSpi.h \
 		DasherSpi.cpp \
+		dasher_editor_external.h \
+		dasher_editor_external.cpp \
 		dasher_editor.cpp \
 		dasher_editor.h \
-		dasher_editor_external.h \
-		dasher_editor_internal.cpp \
-		dasher_editor_internal.h \
 		dasher_lock_dialogue.cpp \
 		dasher_lock_dialogue.h \
 		dasher_main.cpp \

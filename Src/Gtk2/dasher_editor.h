@@ -13,10 +13,19 @@ struct _DasherAppSettings;
 typedef struct _GtkDasherControl GtkDasherControl;
 struct _GtkDasherControl;
 
+typedef enum {
+  CLIPBOARD_CUT,
+  CLIPBOARD_COPY,
+  CLIPBOARD_PASTE,
+  CLIPBOARD_COPYALL,
+  CLIPBOARD_SELECTALL,
+  CLIPBOARD_CLEAR
+} clipboard_action;
+
 G_BEGIN_DECLS
 #define DASHER_TYPE_EDITOR            (dasher_editor_get_type())
-#define DASHER_EDITOR(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), DASHER_TYPE_EDITOR, DasherEditor ))
-#define DASHER_EDITOR_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), DASHER_TYPE_EDITOR, DasherEditorClass ))
+#define DASHER_EDITOR(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), DASHER_TYPE_EDITOR, DasherEditor))
+#define DASHER_EDITOR_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), DASHER_TYPE_EDITOR, DasherEditor))
 #define DASHER_IS_EDITOR(obj)	      (G_TYPE_CHECK_INSTANCE_TYPE((obj), DASHER_TYPE_EDITOR))
 #define DASHER_IS_EDITOR_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), DASHER_TYPE_EDITOR))
 #define DASHER_EDITOR_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), DASHER_TYPE_EDITOR, DasherEditorClass))
@@ -31,42 +40,18 @@ struct _DasherEditor {
 struct _DasherEditorClass {
   GtkVBoxClass parent_class;
 
-  /* VTable */
-  void (*initialise)(DasherEditor *, DasherAppSettings *, GtkDasherControl *, GtkBuilder *, const gchar *);
-  gboolean (*command)(DasherEditor *, const gchar *);
-  void (*clear)(DasherEditor *);
-  const gchar *(*get_all_text)(DasherEditor *);
-  const gchar *(*get_new_text)(DasherEditor *);
   void (*output)(DasherEditor *, const gchar *, int);
   void (*delete_text)(DasherEditor *, int, int);
   const gchar *(*get_context)(DasherEditor *, int, int);
   gint (*get_offset)(DasherEditor *);
-  void (*handle_parameter_change)(DasherEditor *, gint);
-  void (*handle_start)(DasherEditor *);
-  void (*handle_stop)(DasherEditor *);
-  void (*grab_focus)(DasherEditor *);
-  gboolean (*file_changed)(DasherEditor *);
-  const gchar *(*get_filename)(DasherEditor *);
-  ///Get a buffer to display formatted text for game mode, if we have one
-  GtkTextBuffer *(*game_text_buffer)(DasherEditor *);
 
-  /* Signal handlers */
-  void (*filename_changed)(DasherEditor *);
-  void (*buffer_changed)(DasherEditor *);
-  void (*context_changed)(DasherEditor *);
-
-  /* These moved from dasher_buffer_set */
-  //void (*insert_text)(DasherEditor *pSelf, const gchar *szText, int iOffset);// = output
-  //void (*delete_text)(DasherEditor *pSelf, gint iLength, int iOffset);//duplicate
-  //gchar *(*get_context)(DasherEditor *pSelf, gint iOffset, gint iLength);//duplicate
-  gint (*ctrl_move)(DasherEditor *pSelf, bool bForwards, Dasher::CControlManager::EditDistance iDist);
-  gint (*ctrl_delete)(DasherEditor *pSelf, bool bForwards, Dasher::CControlManager::EditDistance iDist);
-  void (*edit_convert)(DasherEditor *pSelf);
-  void (*edit_protect)(DasherEditor *pSelf);
-  //gint (*get_offset)(DasherEditor *pSelf);//duplicate
+  void (*filename_changed)(DasherEditor *pDasherEditor);
+  void (*buffer_changed)(DasherEditor *pDasherEditor);
+  void (*context_changed)(DasherEditor *pDasherEditor);
 };
 
-/* Boilerplate code */
+DasherEditor *dasher_editor_new();
+
 GType dasher_editor_get_type();
 
 /* Functions for initialisation and takedown */

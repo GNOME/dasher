@@ -21,8 +21,6 @@
 #include "dasher_main.h"
 
 #include "dasher_editor.h"
-#include "dasher_editor_internal.h"
-#include "dasher_editor_external.h"
 #include "math.h"
 
 struct _DasherMainPrivate {
@@ -356,7 +354,7 @@ dasher_main_cb_##item(GtkAction *obj, DasherMain *p)\
 
 /*
  * Editor passes on the action strings to dasher_editor_command which
- * land in dasher_editor_internal.
+ * land in dasher_editor.
  */
 WRAP_CPP_CB(import)
 WRAP_CPP_CB(quit)
@@ -532,21 +530,7 @@ dasher_main_load_interface(DasherMain *pSelf) {
 #endif
   
   // Hide any widgets which aren't appropriate for this mode
-  // XXX PRLW: chances are these aren't defined in direct.ui anyway => we are
-  // hiding non-existent widgets.
-  
   if(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE) == APP_STYLE_DIRECT) {
-    gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "dasher_menu_bar")));
-      
-    gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "tb_command_new")));
-    gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "tb_command_open")));
-    gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "tb_command_save")));
-    gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "tb_command_saveas")));
-    gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "separatortoolitem1")));
-    gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "tb_command_cut")));
-    gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "tb_command_copy")));
-    gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "tb_command_paste")));
-    gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "separatortoolitem2")));
     gtk_widget_hide(GTK_WIDGET(gtk_builder_get_object(pPrivate->pXML, "DasherEditor")));
   }
     
@@ -713,6 +697,7 @@ dasher_main_handle_parameter_change(DasherMain *pSelf, int iParameter) {
 #endif
   }
 
+// XXX got here with pPrivate == NULL from response_cb response_id=-5 gtkfontbutton.c 1100
   if(pPrivate->pPreferencesDialogue)
     dasher_preferences_dialogue_handle_parameter_change(pPrivate->pPreferencesDialogue, iParameter);
 

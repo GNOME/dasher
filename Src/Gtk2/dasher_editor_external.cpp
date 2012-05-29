@@ -18,14 +18,15 @@
 #include <algorithm>
 
 #include "dasher_editor_external.h"
+#include "dasher_editor_private.h"
 #include "dasher_lock_dialogue.h"
 #include "dasher_main.h"
 #include "../DasherCore/ControlManager.h"
 #include "DasherSpi.h"
 
 #ifdef GNOME_A11Y
-void dasher_editor_external_handle_focus(DasherEditorInternal *pSelf, const AccessibleEvent *pEvent);
-void dasher_editor_external_handle_caret(DasherEditorInternal *pSelf, const AccessibleEvent *pEvent);
+void dasher_editor_external_handle_focus(DasherEditor *pSelf, const AccessibleEvent *pEvent);
+void dasher_editor_external_handle_caret(DasherEditor *pSelf, const AccessibleEvent *pEvent);
 
 void focus_listener(const AccessibleEvent *pEvent, void *pUserData);
 void caret_listener(const AccessibleEvent *pEvent, void *pUserData);
@@ -33,7 +34,7 @@ void caret_listener(const AccessibleEvent *pEvent, void *pUserData);
 
 void
 dasher_editor_external_create_buffer(DasherEditor *pSelf) {
-  DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
+  DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
 
 #ifdef GNOME_A11Y
 
@@ -84,7 +85,7 @@ dasher_editor_external_delete(DasherEditor *pSelf, int iLength, int iOffset) {
 const gchar *
 dasher_editor_external_get_context(DasherEditor *pSelf, int iOffset, int iLength) {
 #ifdef GNOME_A11Y
-  DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
+  DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
   if(pPrivate->pAccessibleText)
     return AccessibleText_getText(pPrivate->pAccessibleText, iOffset, iOffset + iLength);
   else
@@ -97,7 +98,7 @@ dasher_editor_external_get_context(DasherEditor *pSelf, int iOffset, int iLength
 gint
 dasher_editor_external_get_offset(DasherEditor *pSelf) {
 #ifdef GNOME_A11Y
-  DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
+  DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
   
   if(!pPrivate->pAccessibleText)
     return 0;
@@ -112,8 +113,8 @@ dasher_editor_external_get_offset(DasherEditor *pSelf) {
 }
 
 #ifdef GNOME_A11Y
-void dasher_editor_external_handle_focus(DasherEditorInternal *pSelf, const AccessibleEvent *pEvent) {
-  DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
+void dasher_editor_external_handle_focus(DasherEditor *pSelf, const AccessibleEvent *pEvent) {
+  DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
 
   //  g_message("Focus");
   
@@ -150,9 +151,9 @@ void dasher_editor_external_handle_focus(DasherEditorInternal *pSelf, const Acce
   Accessible_unref(accessible);
 }
 
-void dasher_editor_external_handle_caret(DasherEditorInternal *pSelf, const AccessibleEvent *pEvent) {
+void dasher_editor_external_handle_caret(DasherEditor *pSelf, const AccessibleEvent *pEvent) {
   //  g_message("Caret");
- DasherEditorInternalPrivate *pPrivate = DASHER_EDITOR_INTERNAL_GET_PRIVATE(pSelf);
+ DasherEditorPrivate *pPrivate = DASHER_EDITOR_GET_PRIVATE(pSelf);
 
  //  g_message("Focus");
   
@@ -210,11 +211,11 @@ void dasher_editor_external_handle_caret(DasherEditorInternal *pSelf, const Acce
 }
 
 void focus_listener(const AccessibleEvent *pEvent, void *pUserData) {
-  dasher_editor_external_handle_focus((DasherEditorInternal *)pUserData, pEvent);
+  dasher_editor_external_handle_focus((DasherEditor *)pUserData, pEvent);
 }
 
 void caret_listener(const AccessibleEvent *pEvent, void *pUserData) {
-  dasher_editor_external_handle_caret((DasherEditorInternal *)pUserData, pEvent);
+  dasher_editor_external_handle_caret((DasherEditor *)pUserData, pEvent);
 }
 
 #endif
